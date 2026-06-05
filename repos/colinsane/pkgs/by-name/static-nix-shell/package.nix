@@ -2,8 +2,9 @@
   bash,
   lib,
   makeBinaryWrapper,
+  newScope,
   oils-for-unix,
-  pkgs,
+  pkgsMusl,
   pkgsStatic,
   python3,
   stdenvNoCC,
@@ -30,25 +31,12 @@ let
     else
       into ++ [ ins ]
     ;
-  pkgs' = pkgs;
-  # create an attrset of
-  #   <name> = expected string in the nix-shell invocation
-  #   <value> = package to provide
-  pkgsToAttrs = prefix: pkgSet: expr: {
-    # branch based on the type of `expr`
-    "lambda" = expr: pkgsToAttrs prefix pkgSet (expr pkgSet);
-    "list" = expr: builtins.foldl' (acc: pname: acc // {
-      "${prefix + pname}" = lib.getAttrFromPath (lib.splitString "." pname) pkgSet;
-    }) {} expr;
-    "set" = expr: expr;
-  }."${builtins.typeOf expr}" expr;
-in rec {
+in lib.makeScope newScope (self: {
   # transform a file which uses `#!/usr/bin/env nix-shell` shebang
   # into a derivation that can be built statically.
   #
   # pkgs may take the following form:
-  # - [ "pkgNameA" "pkgNameB" ... ]
-  # - { pkgNameA = pkgValueA; pkgNameB = pkgValueB; ... }
+  # - { pkgNameA = pkgValueA; "pkg.name.b" = pkg.value.b; ... }
   # - ps: <evaluate to one of the above exprs>
   mkShell = {
     pname,
@@ -56,23 +44,35 @@ in rec {
     interpreterName ? lib.last (builtins.split "/" interpreter),
     pkgsEnv,
     pkgExprs,
-    srcPath ? pname,
+    merge ? "append",  #< "append" new {PATH,XDG_DATA_DIRS} entries to existing {PATH,XDG_DATA_DIRS}? or "prepend"?
+    srcPath ? pname, #< N.B.: should not contain `/`'s
     srcRoot ? null,
+    src ? null,
     ...
   }@attrs:
   let
+    repoRoot = ../../..;
+    getPathToRoot = ascended: at:
+      if at == repoRoot then
+        ascended
+      else
+        getPathToRoot "../${ascended}" (dirOf at)
+    ;
+    pathToRepoRoot = getPathToRoot "" (if srcRoot != null then srcRoot else src);
+
     extraDerivArgs = lib.optionalAttrs (srcRoot != null) {
-      # use can use `srcRoot` instead of `src` in most scenarios, to avoid include the entire directory containing their
+      # user can use `srcRoot` instead of `src` in most scenarios, to avoid including the entire directory containing their
       # source file in the closure, but *just* the source file itself.
       # `lib.fileset` docs: <https://ryantm.github.io/nixpkgs/functions/library/fileset/>
       src = lib.fileset.toSource {
         root = srcRoot; fileset = lib.path.append srcRoot srcPath;
       };
     };
-    pkgsStr = builtins.concatStringsSep "" (builtins.map
-      (pname: " -p ${pname}")
-      pkgExprs
+    pkgStrs = map (pname: "ps.${pname}") pkgExprs;
+    argStr = builtins.concatStringsSep " " (
+      [ "ps:" "[" ] ++ pkgStrs ++ [ "]" ]
     );
+    nixShellImport = "${pathToRepoRoot}integrations/nix-shell";
     # allow any package to be a list of packages, to support things like
     # -p python3.pkgs.foo.propagatedBuildInputs
     pkgsEnv' = lib.flatten pkgsEnv;
@@ -118,12 +118,14 @@ in rec {
         }
         crawlPackages $runtimePrefixes
         append_PATH=
+        prepend_PATH=
         append_XDG_DATA_DIRS=
+        prepend_XDG_DATA_DIRS=
         for p in "''${runtimePrefixesList[@]}"; do
           echo "considering if dependency needs to be added to runtime environment(s): $p"
           # `addToSearchPath` behaves as no-op if the provided path doesn't exist
-          addToSearchPath append_PATH "$p/bin"
-          addToSearchPath append_XDG_DATA_DIRS "$p/share"
+          addToSearchPath ${merge}_PATH "$p/bin"
+          addToSearchPath ${merge}_XDG_DATA_DIRS "$p/share"
         done
 
         runHook postConfigure
@@ -145,9 +147,9 @@ in rec {
         "
         fi
         substituteInPlace ${srcPath} \
-          --replace-fail '#!/usr/bin/env nix-shell' '#!${interpreter}' \
+          --replace-fail '#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell' '#!${interpreter}' \
           --replace-fail \
-            $'#!nix-shell -i ${interpreterName}${pkgsStr}\n' \
+            '#!nix-shell -i ${interpreterName} ${nixShellImport} --arg f '"'"'${argStr}'"'"$'\n' \
             $'# nix deps evaluated statically\n'"''${shellPreamble:-}"
 
         # if no specialized `shellPreamble` was populated, then inject dependencies via wrapper
@@ -155,15 +157,27 @@ in rec {
           if [[ -n "$append_PATH" ]]; then
             makeWrapperArgs+=("--suffix" "PATH" ":" "$append_PATH")
           fi
+          if [[ -n "$prepend_PATH" ]]; then
+            makeWrapperArgs+=("--prefix" "PATH" ":" "$prepend_PATH")
+          fi
           if [[ -n "$append_XDG_DATA_DIRS" ]]; then
             makeWrapperArgs+=("--suffix" "XDG_DATA_DIRS" ":" "$append_XDG_DATA_DIRS")
+          fi
+          if [[ -n "$prepend_XDG_DATA_DIRS" ]]; then
+            makeWrapperArgs+=("--prefix" "XDG_DATA_DIRS" ":" "$prepend_XDG_DATA_DIRS")
           fi
         else
           if [[ -n "$append_PATH" ]]; then
             die "shellPreamble failed to clear 'append_PATH' variable: $append_PATH"
           fi
+          if [[ -n "$prepend_PATH" ]]; then
+            die "shellPreamble failed to clear 'prepend_PATH' variable: $prepend_PATH"
+          fi
           if [[ -n "$append_XDG_DATA_DIRS" ]]; then
             die "shellPreamble failed to clear 'append_XDG_DATA_DIRS' variable: $append_XDG_DATA_DIRS"
+          fi
+          if [[ -n "$prepend_XDG_DATA_DIRS" ]]; then
+            die "shellPreamble failed to clear 'prepend_XDG_DATA_DIRS' variable: $prepend_XDG_DATA_DIRS"
           fi
         fi
 
@@ -224,25 +238,39 @@ in rec {
       # - 835.0 µs
       # `nix-build -A pkgsStatic.bash && hyperfine './result/bin/sh --version'`
       # - 262.8 µs
-      bash' = pkgsStatic.bash;
-      pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = [ bash' ] ++ (builtins.attrValues pkgsAsAttrs);
-      pkgExprs = insertTopo "bash" (builtins.attrNames pkgsAsAttrs);
-    in mkShell ({
+      # bash' = pkgsStatic.bash;
+      # XXX(2026-01-20): `pkgsMusl.pkgsStatic.stdenv` doesn't build (but `pkgsMusl.pkgsMusl.bash` _does_ build.
+      bash' = pkgsMusl.bash;
+      pkgsEnv = [ bash' ] ++ (builtins.attrValues pkgs);
+      pkgExprs = insertTopo "bash" (builtins.attrNames pkgs);
+    in self.mkShell ({
       inherit pkgsEnv pkgExprs;
       interpreter = lib.getExe bash';
       postConfigure = ''
-      if [[ -n "$append_PATH" ]]; then
-        shellPreamble="$shellPreamble"'
-      export PATH=''${PATH:+$PATH:}'"$append_PATH"
-        unset append_PATH
-      fi
+        DOLLAR='$'
+        if [[ -n "$append_PATH" ]]; then
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble"'export PATH=''${PATH:+$PATH:}'"$append_PATH"
+          unset append_PATH
+        fi
 
-      if [[ -n "$append_XDG_DATA_DIRS" ]]; then
-        shellPreamble="$shellPreamble"'
-      export XDG_DATA_DIRS=''${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}'"$append_XDG_DATA_DIRS"
-        unset append_XDG_DATA_DIRS
-      fi
+        if [[ -n "$prepend_PATH" ]]; then
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble""export PATH=$prepend_PATH""$DOLLAR"'{PATH:+:$PATH}'
+          unset prepend_PATH
+        fi
+
+        if [[ -n "$append_XDG_DATA_DIRS" ]]; then
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble"'export XDG_DATA_DIRS=''${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}'"$append_XDG_DATA_DIRS"
+          unset append_XDG_DATA_DIRS
+        fi
+
+        if [[ -n "$prepend_XDG_DATA_DIRS" ]]; then
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble""export XDG_DATA_DIRS=$prepend_XDG_DATA_DIRS""$DOLLAR"'{XDG_DATA_DIRS:+:$XDG_DATA_DIRS}'
+          unset prepend_XDG_DATA_DIRS
+        fi
       '';
     } // (removeAttrs attrs [ "bash" "pkgs" ])
   );
@@ -250,28 +278,38 @@ in rec {
   # `mkShell` specialization for `nix-shell -i ysh` (oil) scripts.
   mkYsh = { pkgs ? {}, ...}@attrs:
     let
-      pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = [ oils-for-unix ] ++ (builtins.attrValues pkgsAsAttrs);
-      pkgExprs = insertTopo "oils-for-unix" (builtins.attrNames pkgsAsAttrs);
-    in mkShell ({
+      pkgsEnv = [ oils-for-unix ] ++ (builtins.attrValues pkgs);
+      pkgExprs = insertTopo "oils-for-unix" (builtins.attrNames pkgs);
+    in self.mkShell ({
       inherit pkgsEnv pkgExprs;
       interpreter = lib.getExe' oils-for-unix "ysh";
       postConfigure = ''
         shellPreambleBody=
         if [[ -n "$append_PATH" ]]; then
-          shellPreambleBody="$shellPreambleBody"'
-          addToSearchPath "PATH" "'"$append_PATH"'"'
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'appendToSearchPath "PATH" "'"$append_PATH"'"'
           unset append_PATH
         fi
+        if [[ -n "$prepend_PATH" ]]; then
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'prependToSearchPath "PATH" "'"$prepend_PATH"'"'
+          unset prepend_PATH
+        fi
         if [[ -n "$append_XDG_DATA_DIRS" ]]; then
-          shellPreambleBody="$shellPreambleBody"'
-          addToSearchPath "XDG_DATA_DIRS" "'"$append_XDG_DATA_DIRS"'"'
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'appendToSearchPath "XDG_DATA_DIRS" "'"$append_XDG_DATA_DIRS"'"'
           unset append_XDG_DATA_DIRS
         fi
+        if [[ -n "$prepend_XDG_DATA_DIRS" ]]; then
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'prependToSearchPath "XDG_DATA_DIRS" "'"$prepend_XDG_DATA_DIRS"'"'
+          unset prepend_XDG_DATA_DIRS
+        fi
+
         if [[ -n "$shellPreambleBody" ]]; then
         shellPreamble='
         {
-          proc addToSearchPath(envName, appendValue) {
+          proc appendToSearchPath(envName, appendValue) {
             var value = get(ENV, envName)
             if (value === null) {
               setglobal ENV[envName] = "$appendValue"
@@ -279,9 +317,18 @@ in rec {
               setglobal ENV[envName] = "$value:$appendValue"
             }
           }
+          proc prependToSearchPath(envName, prependValue) {
+            var value = get(ENV, envName)
+            if (value === null) {
+              setglobal ENV[envName] = "$prependValue"
+            } else {
+              setglobal ENV[envName] = "$prependValue:$value"
+            }
+          }
         '"$shellPreambleBody"'
 
-          unset addToSearchPath
+          unset appendToSearchPath
+          unset prependToSearchPath
         }
         '
         fi
@@ -292,23 +339,35 @@ in rec {
   # `mkShell` specialization for `nix-shell -i zsh` scripts.
   mkZsh = { pkgs ? {}, ...}@attrs:
     let
-      pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = [ zsh ] ++ (builtins.attrValues pkgsAsAttrs);
-      pkgExprs = insertTopo "zsh" (builtins.attrNames pkgsAsAttrs);
-    in mkShell ({
+      pkgsEnv = [ zsh ] ++ (builtins.attrValues pkgs);
+      pkgExprs = insertTopo "zsh" (builtins.attrNames pkgs);
+    in self.mkShell ({
       inherit pkgsEnv pkgExprs;
       interpreter = lib.getExe zsh;
       postConfigure = ''
+        DOLLAR='$'
         if [[ -n "$append_PATH" ]]; then
-          shellPreamble="$shellPreamble"'
-        export PATH=''${PATH:+$PATH:}'"$append_PATH"
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble"'export PATH=''${PATH:+$PATH:}'"$append_PATH"
           unset append_PATH
         fi
 
+        if [[ -n "$prepend_PATH" ]]; then
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble""export PATH=$prepend_PATH""$DOLLAR"'{PATH:+:$PATH}'
+          unset prepend_PATH
+        fi
+
         if [[ -n "$append_XDG_DATA_DIRS" ]]; then
-          shellPreamble="$shellPreamble"'
-        export XDG_DATA_DIRS=''${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}'"$append_XDG_DATA_DIRS"
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble"'export XDG_DATA_DIRS=''${XDG_DATA_DIRS:+$XDG_DATA_DIRS:}'"$append_XDG_DATA_DIRS"
           unset append_XDG_DATA_DIRS
+        fi
+
+        if [[ -n "$prepend_XDG_DATA_DIRS" ]]; then
+          shellPreamble="$shellPreamble"$'\n'
+          shellPreamble="$shellPreamble""export XDG_DATA_DIRS=$prepend_XDG_DATA_DIRS""$DOLLAR"'{XDG_DATA_DIRS:+:$XDG_DATA_DIRS}'
+          unset prepend_XDG_DATA_DIRS
         fi
       '';
     } // (removeAttrs attrs [ "pkgs" "zsh" ])
@@ -317,10 +376,9 @@ in rec {
   # `mkShell` specialization for invocations of `nix-shell -i python3 -p python3 ...`
   mkPython3 = { pkgs ? {}, ... }@attrs:
     let
-      pkgsAsAttrs = pkgsToAttrs "" pkgs' pkgs;
-      pkgsEnv = builtins.attrValues pkgsAsAttrs;
-      pkgExprs = insertTopo "python3" (builtins.attrNames pkgsAsAttrs);
-    in mkShell ({
+      pkgsEnv = builtins.attrValues pkgs;
+      pkgExprs = insertTopo "python3" (builtins.attrNames pkgs);
+    in self.mkShell ({
       inherit pkgsEnv pkgExprs;
       interpreter = lib.getExe python3;
       interpreterName = "python3";
@@ -329,25 +387,36 @@ in rec {
       # and <repo:nixos/nixpkgs:pkgs/development/interpreters/python/wrap-python.nix>
       postConfigure = ''
         for p in "''${runtimePrefixesList[@]}"; do
-          addToSearchPath append_PYTHONPATH "$p/${python3.sitePackages}"
+          # XXX: python site dirs appear to be unordered?
+          addToSearchPath add_PYTHONPATH "$p/${python3.sitePackages}"
         done
 
         shellPreambleBody=
         if [[ -n "$append_PATH" ]]; then
-          shellPreambleBody="$shellPreambleBody"'
-        addToSearchPath("PATH", "'"$append_PATH"'")'
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'appendToSearchPath("PATH", "'"$append_PATH"'")'
           unset append_PATH
         fi
+        if [[ -n "$prepend_PATH" ]]; then
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'prependToSearchPath("PATH", "'"$prepend_PATH"'")'
+          unset prepend_PATH
+        fi
         if [[ -n "$append_XDG_DATA_DIRS" ]]; then
-          shellPreambleBody="$shellPreambleBody"'
-        addToSearchPath("XDG_DATA_DIRS", "'"$append_XDG_DATA_DIRS"'")'
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'appendToSearchPath("XDG_DATA_DIRS", "'"$append_XDG_DATA_DIRS"'")'
           unset append_XDG_DATA_DIRS
         fi
+        if [[ -n "$prepend_XDG_DATA_DIRS" ]]; then
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'prependToSearchPath("XDG_DATA_DIRS", "'"$prepend_XDG_DATA_DIRS"'")'
+          unset prepend_XDG_DATA_DIRS
+        fi
 
-        if [[ -n "$append_PYTHONPATH" ]]; then
-          shellPreambleBody="$shellPreambleBody"'
-        addSiteDirs("'"$append_PYTHONPATH"'")'
-          unset append_PYTHONPATH
+        if [[ -n "$add_PYTHONPATH" ]]; then
+          shellPreambleBody="$shellPreambleBody"$'\n'
+          shellPreambleBody="$shellPreambleBody"'addSiteDirs("'"$add_PYTHONPATH"'")'
+          unset add_PYTHONPATH
         fi
 
         if [[ -n "$shellPreambleBody" ]]; then
@@ -356,13 +425,21 @@ in rec {
         # so wrap it in a big `exec` to avoid conflicting tab styles
         # (and to avoid polluting the globals)
         exec("""
-        def addToSearchPath(envName, appendValue):
+        def appendToSearchPath(envName, appendValue):
           import os
           value = os.environ.get(envName)
           if value is None:
             os.environ[envName] = appendValue
           else:
             os.environ[envName] = value + ":" + appendValue
+
+        def prependToSearchPath(envName, prependValue):
+          import os
+          value = os.environ.get(envName)
+          if value is None:
+            os.environ[envName] = prependValue
+          else:
+            os.environ[envName] = prependValue + ":" + value
 
         def addSiteDirs(joinedDirs):
           import site
@@ -377,4 +454,4 @@ in rec {
       '';
     } // (removeAttrs attrs [ "pkgs" "python3" ])
   );
-}
+})

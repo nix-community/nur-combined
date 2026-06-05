@@ -14,15 +14,15 @@
 }:
 let
   # optional deps: avahi, python-keyring
-  pythonEnv = python3.withPackages (ps: with ps; [ dateutil pygobject3 ]);
+  pythonEnv = python3.withPackages (ps: with ps; [ python-dateutil pygobject3 ]);
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "mcg";
   version = "3.2.1";
   src = fetchFromGitLab {
     owner = "coderkun";
     repo = "mcg";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-awPMXGruCB/2nwfDqYlc0Uu9E6VV1AleEZAw9Xdsbt8=";
   };
 
@@ -46,11 +46,11 @@ stdenv.mkDerivation rec {
     gtk3
   ];
 
-  meta = with lib; {
+  meta = {
     description = "CoverGrid (mcg) is a client for the Music Player Daemon (MPD), focusing on albums instead of single tracks.";
     homepage = "https://www.suruatoel.xyz/codes/mcg";
-    platforms = platforms.linux;
+    platforms = lib.platforms.linux;
     # license = TODO
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

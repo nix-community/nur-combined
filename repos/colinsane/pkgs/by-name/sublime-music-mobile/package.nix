@@ -66,7 +66,7 @@
 let
   python = python3.override {
     packageOverrides = self: super: {
-      semver = super.semver.overridePythonAttrs (oldAttrs: rec {
+      semver = super.semver.overridePythonAttrs rec {
         version = "2.13.0";
         src = fetchFromGitHub {
           owner = "python-semver";
@@ -74,11 +74,11 @@ let
           rev = "refs/tags/${version}";
           hash = "sha256-IWTo/P9JRxBQlhtcH3JMJZZrwAA8EALF4dtHajWUc4w=";
         };
-      });
+      };
     };
   };
 in
-python.pkgs.buildPythonApplication rec {
+python.pkgs.buildPythonApplication {
   pname = "sublime-music-mobile";
   version = "0.11.16";
   format = "pyproject";
@@ -199,11 +199,11 @@ python.pkgs.buildPythonApplication rec {
     done
   '';
 
-  meta = with lib; {
+  meta = {
     description = "GTK3 Subsonic/Airsonic client";
     homepage = "https://sublimemusic.app/";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [
       albakham
       sumnerevans
     ];

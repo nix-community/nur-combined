@@ -3,12 +3,14 @@ let
   cfg = config.sane.services.rsync-net;
   sane-backup-rsync-net = pkgs.static-nix-shell.mkBash {
     pname = "sane-backup-rsync-net";
-    pkgs = [
-      "nettools"
-      "openssh"
-      "rsync"
-      "sane-scripts.vpn"
-    ];
+    pkgs = {
+      inherit (pkgs)
+        nettools
+        openssh
+        rsync
+      ;
+      "sane-scripts.vpn" = pkgs.sane-scripts.vpn;
+    };
     srcRoot = ./.;
   };
 in
@@ -96,5 +98,8 @@ in
         OnCalendar = "11,23:00:00";
       };
     };
+
+    sops.secrets."rsync-net-env".owner = "colin";
+    sops.secrets."rsync-net-id_ed25519".owner = "colin";
   };
 }

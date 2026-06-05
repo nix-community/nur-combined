@@ -8,7 +8,6 @@
 
 stdenvNoCC.mkDerivation {
   pname = "pyln-proto";
-  format = "pyproject";
 
   inherit (clightning) src version;
 
@@ -21,12 +20,12 @@ stdenvNoCC.mkDerivation {
     unzip  # used by `unpackPhase`
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    bitstring
-    cryptography
-    coincurve
-    base58
-    pysocks
+  propagatedBuildInputs = [
+    python3.pkgs.bitstring
+    python3.pkgs.cryptography
+    python3.pkgs.coincurve
+    python3.pkgs.base58
+    python3.pkgs.pysocks
   ];
 
   nativeCheckInputs = [

@@ -13,7 +13,8 @@
 #
 # USAGE:
 # - 'auth' group = any user who has registered a cert with the server.
-{ ... }:
+{ lib, ... }:
+lib.optionalAttrs false  #< XXX(2026-01-01): build failure; i haven't used the service in a year so disable.
 {
   sane.persist.sys.byStore.private = [
     { user = "murmur"; group = "murmur"; mode = "0700"; path = "/var/lib/murmur"; method = "bind"; }

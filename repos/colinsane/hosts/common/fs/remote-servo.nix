@@ -1,6 +1,6 @@
 { config, lib, utils, ... }:
 let
-  fsOpts = import ./fs-opts.nix;
+  fsOpts = import ./fs-opts.nix { inherit lib; };
   mountpoint = "/mnt/.servo_ftp";
   systemdName = utils.escapeSystemdPath mountpoint;
 
@@ -8,10 +8,20 @@ let
     enable = false;  #< XXX(2025-11-16): curlftpfs no longer even mounts successfully, against latest sftpgo.
     device = "curlftpfs#ftp://servo-hn:/";
     fsType = "fuse3";
-    options = fsOpts.ftp ++ fsOpts.noauto ++ [
+    options = fsOpts.curlftpfs ++ fsOpts.noauto ++ [
       # systemd (or maybe fuse?) swallows stderr of mount units with no obvious fix.
       # instead, use this flag to log the mount output to disk
       "stderr_path=/var/log/curlftpfs/servo-hn.stderr"
+    ];
+  };
+  fuseftp = {
+    enable = false;
+    # device = "servo-hn";  #< TODO: mount the /var/export/ subdirectory of servo-hn
+    # fsType = "fuse.ftp-daemon";  #< `systemctl start mnt-.servo_ftp.mount` hangs unless the mount is daemonized
+    fsType = "fuse3.sane";  #< not sure why this works with `fuse3.sane` but not plain `fuse3`. related to `fusermount3` and PATH?
+    device = "mount.fuse.ftp-daemon#servo-hn";
+    options = fsOpts.fuseftp ++ fsOpts.noauto ++ [
+      # "verbose"  #< N.B.: incompatible with `-daemon` wrapper, unless i pipe the output somewhere (maybe `setsid --ctty` fixes that?)
     ];
   };
   sshfs = {
@@ -104,6 +114,37 @@ lib.mkMerge [
       mountConfig.DevicePolicy = "closed";  # only allow /dev/{null,zero,full,random,urandom}
       mountConfig.DeviceAllow = "/dev/fuse";
       # mountConfig.RestrictNamespaces = true;
+    }];
+  })
+
+  (lib.mkIf fuseftp.enable {
+    sane.programs.fuseftp.enableFor.system = true;
+    system.fsPackages = [
+      config.sane.programs.fuseftp.package
+    ];
+
+    fileSystems."/mnt/.servo_ftp" = {
+      inherit (fuseftp) device fsType options;
+    };
+
+    systemd.mounts = [{
+      where = mountpoint;
+      what = fuseftp.device;
+      type = fuseftp.fsType;
+      options = lib.concatStringsSep "," fuseftp.options;
+      # wantedBy = [ "default.target" ];  #< TODO(2026-02-13): enable if failed mounts don't hang the whole system
+      after = [ "network-online.target" ];
+      requires = [ "network-online.target" ];
+
+      # mountConfig.LazyUnmount = true;
+      unitConfig.OnFailure = [ "${systemdName}.timer" ];
+      unitConfig.OnSuccess = [ "${systemdName}-restart-timer.target" ];
+
+      mountConfig.TimeoutSec = "10s";
+      mountConfig.ExecSearchPath = [ "/run/current-system/sw/bin" ];
+      # mountConfig.User = "colin";  #< TODO
+      mountConfig.AmbientCapabilities = "CAP_SETPCAP CAP_SYS_ADMIN";
+      # TODO: systemd hardening
     }];
   })
 

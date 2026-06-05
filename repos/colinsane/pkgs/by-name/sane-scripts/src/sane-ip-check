@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p miniupnpc -p python3 -p python3.pkgs.requests -p sane-scripts.lib.ssdp
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.miniupnpc ps.python3 ps.python3.pkgs.requests ps.sane-scripts.lib.ssdp ]'
 # vim: set filetype=python :
 """
 sane-ip-check: query the IP address of this machine as seen by an external Internet host.

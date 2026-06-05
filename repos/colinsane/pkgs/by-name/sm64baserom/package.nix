@@ -1,5 +1,9 @@
-# "baseRom" (previously) / "sm64baserom" (in the future) is used by `sm64coopdx`, `sm64ex-coop`: braindead packages which use `requireFile` instead of fetching their sources.
-{ fetchurl, region ? "us", showRegionMessage ? false }:
+# sm64baserom is used by `sm64coopdx`, `sm64ex-coop`: braindead packages which use `requireFile` instead of fetching their sources.
+{
+  fetchurl,
+  region ? "us",
+  showRegionMessage ? false,  #< nixpkgs might invoke us with this; i don't use it
+}:
 let
   baserom.us = fetchurl {
     url = "https://github.com/jb1361/Super-Mario-64-AI/raw/development/Super%20Mario%2064%20(USA).z64";
@@ -7,4 +11,5 @@ let
   };
 in {
   romPath = "${baserom.${region}}";
+  shadowNixpkgs = true;
 }

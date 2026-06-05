@@ -6,14 +6,14 @@
   rustfmt,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zecwallet-light-cli";
   version = "1.7.7";
 
   src = fetchFromGitHub {
     owner = "adityapk00";
     repo = "zecwallet-light-cli";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-8qr6GIldJcybQwXbdZxFVGvFPJErLpqCEIuGJw1z0qQ=";
   };
 
@@ -30,10 +30,10 @@ rustPlatform.buildRustPackage rec {
 
   env.PROTOC = lib.getExe buildPackages.protobuf;
 
-  meta = with lib; {
+  meta = {
     description = "Zecwallet-Lite is z-Addr first lightwallet for Zcash";
     homepage = "https://github.com/adityapk00/zecwallet-light-cli";
-    license = licenses.mit;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

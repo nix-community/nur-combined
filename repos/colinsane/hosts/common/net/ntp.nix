@@ -15,7 +15,7 @@
 # - `systemctl start systemd-timesyncd`
 #
 # XXX(2024-12-03): i fixed the NTP-DNS circularity by exempting `pool.ntp.org` from DNSSEC validation in unbound conf
-{ config, ... }:
+{ ... }:
 {
   # services.timesyncd.servers = config.networking.timeServers;
   # services.timesyncd.fallbackServers = [

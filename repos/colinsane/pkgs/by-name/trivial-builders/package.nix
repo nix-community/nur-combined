@@ -4,82 +4,57 @@
   linkIntoOwnPackage,
   rmDbusServicesInPlace,
   runCommandLocalOverridable,
+  runCommandLocalOverridable',
   stdenvNoCC,
   symlinkJoin,
+  writeSymlinkFile,
 }:
 {
+  writeSymlinkFile = {
+    contents,
+    path ? "",  # relative to $out
+    # name ? "${pname}-${version}",
+    # pname, version
+    ...
+  }@args: runCommandLocalOverridable' (args // {
+    inherit contents;
+    command = if path == "" then ''
+      ln -s $contents $out
+    '' else ''
+      outPath=$out/$path
+      mkdir -p $(dirname $outPath)
+      ln -s $contents $outPath
+    '';
+  } // lib.optionalAttrs (!(args ? name || args ? pname || args ? version)) {
+    name = if path != "" then path else contents;
+  });
+
+  # create a symlink from /nix/store/<hash>-${contents} -> ${contents}
+  writeSymlink = contents: writeSymlinkFile {
+    inherit contents;
+  };
+
   # like `runCommandLocal`, but can be `.overrideAttrs` and supports standard phases/hooks like `postBuild`, etc.
-  runCommandLocalOverridable = name: env: buildPhase: stdenvNoCC.mkDerivation ({
-    inherit name;
+  runCommandLocalOverridable' = {
+    command,
+    # name ? "${pname}-${version}",
+    # pname, version
+    ...
+  }@args: stdenvNoCC.mkDerivation (finalAttrs: args // {
+    inherit command;
     preferLocalBuild = true;
     dontUnpack = true;
 
     buildPhase = lib.concatStringsSep "\n" [
       "runHook preBuild"
-      buildPhase
+      finalAttrs.command
       "runHook postBuild"
     ];
+  });
+
+  runCommandLocalOverridable = name: env: command: runCommandLocalOverridable' ({
+    inherit command name;
   } // env);
-
-  writeSymlink = { buildInputs ? [], escapeContents ? true, doCheck ? null }: contents: file: stdenvNoCC.mkDerivation {
-    name = "symlink-${file}";
-    env = {
-      inherit contents file;
-      escapeContents = if escapeContents then "1" else "";
-    };
-
-    dontUnpack = true;
-
-    buildPhase = ''
-      betterContents=
-      tryContents() {
-        local try="$1"
-        if [[ -n "$betterContents" ]]; then
-          return
-        fi
-
-        if [[ -e "$try" ]]; then
-          betterContents="$try"
-        fi
-      }
-
-      set -x
-      if [[ "''${contents:0:1}" != "/" ]]; then
-        for p in $buildInputs; do
-          if [[ -z "$escapeContents" ]]; then
-            tryContents $p/$contents
-          else
-            tryContents "$p/$contents"
-          fi
-        done
-      elif [[ -z "$escapeContents" ]]; then
-        tryContents $contents
-      fi
-
-      if [[ -n "$betterContents" ]]; then
-        contents="$betterContents"
-      fi
-    '';
-
-    checkPhase = ''
-      (
-        set -x
-        test -e "$contents"
-      )
-    '';
-
-    installPhase = ''
-      (
-        set -x
-        mkdir -p $(dirname "$out/$file")
-        ln -s "$contents" "$out/$file"
-      )
-    '';
-
-    inherit buildInputs;
-
-    doCheck = if doCheck != null then doCheck else buildInputs != [];
-  };
 
   # given some package and a path, extract the item at `${package}/${path}` into
   # its own package, but otherwise keeping the same path.
@@ -218,7 +193,7 @@
 
   deepLinkIntoOwnPackage = pkg: { outputs ? [ "out" ] }: symlinkJoin {
     name = pkg.pname or pkg.name;
-    paths = builtins.map (output: pkg."${output}") outputs;
+    paths = map (output: pkg."${output}") outputs;
     meta = pkg.meta or {};
     postBuild = ''
       runHook postBuild

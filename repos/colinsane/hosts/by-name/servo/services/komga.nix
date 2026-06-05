@@ -16,7 +16,7 @@ lib.mkIf false  #< 2024/09/30: disabled because i haven't used this for several 
     forceSSL = true;
     enableACME = true;
     locations."/" = {
-      proxyPass = "http://127.0.0.1:${builtins.toString port}";
+      proxyPass = "http://127.0.0.1:${toString port}";
       recommendedProxySettings = true;
     };
     locations."= /robots.txt".extraConfig = ''

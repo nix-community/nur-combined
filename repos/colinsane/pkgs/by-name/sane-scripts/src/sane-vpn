@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p bunpen -p iproute2 -p networkmanager-split.nmcli -p python3 -p sane-scripts.ip-check -p systemd
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.bunpen ps.iproute2 ps.networkmanager-split.nmcli ps.python3 ps.sane-scripts.ip-check ps.systemd ]'
 # vim: set filetype=python :
 """
 sane-vpn: tool to route all system internet traffic through some VPN, or just one application's
@@ -37,8 +37,9 @@ idioms:
   - run the command in a default networking environment except for custom DNS
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
+from typing import Optional
 
 import argparse
 import json
@@ -64,13 +65,13 @@ class ToggleDir(Enum):
 
 @dataclass
 class VpnConfig:
-    addr_v4: str|None = None
-    dev: str|None = None
-    dns: list[str] = ()
-    fwmark: int|None = None
-    id_: int|None = None
-    priority_fwmark: int|None = None
-    priority_main: int|None = None
+    addr_v4: Optional[str] = None
+    dev: Optional[str] = None
+    dns: list[str] = field(default_factory=list)
+    fwmark: Optional[int] = None
+    id_: Optional[int] = None
+    priority_fwmark: Optional[int] = None
+    priority_main: Optional[int] = None
 
 def load_vpns() -> dict[str, VpnConfig]:
     """
@@ -101,7 +102,7 @@ def load_vpns() -> dict[str, VpnConfig]:
             elif fieldname == "fwmark":
                 config.fwmark = int(value)
             elif fieldname == "id":
-                config.id_ = value
+                config.id_ = int(value)
             elif fieldname == "name":
                 config.dev = value
             elif fieldname == "priorityFwMark":
@@ -114,7 +115,7 @@ def load_vpns() -> dict[str, VpnConfig]:
 
     return vpns
 
-def get_default_dev() -> str:
+def get_default_dev() -> Optional[str]:
     """
     return the device name over which packets are sent by default
     """
@@ -177,7 +178,7 @@ def get_dns_resolvers_for_dev(dev: str) -> list[str]:
 
     return nameservers
 
-def get_addr_v4_for_dev(dev: str) -> str | None:
+def get_addr_v4_for_dev(dev: str) -> Optional[str]:
     # output looks like IP4.ADDRESS[1]:192.168.1.72
     nmcli_stdout = subprocess.check_output([
         "nmcli", "-t", "-f", "IP4.ADDRESS", "device", "show", dev
@@ -237,8 +238,8 @@ def get_vpn(vpn_name: str) -> VpnConfig:
         return load_vpns()[vpn_name]
     elif vpn_name == "none":
         dev = get_default_dev()
-        addr_v4 = get_addr_v4_for_dev(dev)
-        dns = get_dns_resolvers_for_dev(dev)
+        addr_v4 = get_addr_v4_for_dev(dev) if dev is not None else None
+        dns = get_dns_resolvers_for_dev(dev) if dev is not None else []
         return VpnConfig(dev=dev or "all", addr_v4=addr_v4, dns=dns)
     elif vpn_name == "unmetered":
         for dev in get_connected_networks():
@@ -331,7 +332,7 @@ zone . {{
 
     with open("/run/named/dhcp-configs/210-sane-vpn.conf", "w") as f:
         f.write(text)
-    subprocess.check_call([ "systemctl", "restart", "bind" ])
+    subprocess.check_call([ "systemctl", "restart", "bind.service" ])
 
 def dns_toggle_hickory(dns: list[str], dir_: ToggleDir) -> None:
     if dir_ == ToggleDir.Up:
@@ -356,11 +357,26 @@ stores = {{ type = "forward", name_servers = [
 
     with open("/var/lib/hickory-dns/dhcp-configs/sane-vpn.toml", "w") as f:
         f.write(text)
-    subprocess.check_call([ "systemctl", "restart", "hickory-dns-localhost" ])
+    subprocess.check_call([ "systemctl", "restart", "hickory-dns-localhost.service" ])
+
+def dns_toggle_knot_resolver(dns: list[str], dir_: ToggleDir) -> None:
+    if dir_ == ToggleDir.Up:
+        assert len(dns) == 0, f"DNS forwarding not yet implemented for knot-resolver (TODO). in the meantime, manually edit /etc/resolv.conf for nameserver={dns}"
+    subprocess.check_call([ "systemctl", "restart", "knot-resolver.service" ])
+
+def is_service_enabled(s: str) -> bool:
+    return subprocess.call([ "systemctl", "is-enabled", s ], stdout=subprocess.PIPE, stderr=subprocess.PIPE) == 0
 
 def dns_toggle(dns: list[str], dir_: ToggleDir) -> None:
-    dns_toggle_bind(dns, dir_)
-    dns_toggle_hickory(dns, dir_)
+    if is_service_enabled("bind.service"):
+        dns_toggle_bind(dns, dir_)
+    elif is_service_enabled("hickory-dns-localhost.service"):
+        dns_toggle_hickory(dns, dir_)
+    elif is_service_enabled("knot-resolver.service"):
+        dns_toggle_knot_resolver(dns, dir_)
+    else:
+        logger.warning("no active DNS service recognized: consider manually restarting your DNS resolver")
+
 
 def main():
     logging.basicConfig()
@@ -372,6 +388,7 @@ def main():
     parser.add_argument("--addr-v4", nargs="?", type=str, help="ip address to use within the VPN")
     parser.add_argument("--dev", nargs="?", type=str, help="ip device over which to route traffic")
     parser.add_argument("--dns", nargs="?", type=str, help="DNS server(s) to use")  #< TODO: should allow multiple DNS
+    parser.add_argument("--no-check-ip", action="store_true", help="Don't query the device's externally-visible IP address before/after")
     subparsers = parser.add_subparsers(help="what to do")
 
     up_parser = subparsers.add_parser("up")
@@ -398,6 +415,8 @@ def main():
     logger.debug(f"sane-vpn {subcommand} region={region} ...")
 
     do_ip_check = region != "none"
+    if getattr(args, "no_check_ip", False):
+        do_ip_check = False
     vpn_config = get_vpn(region)
 
     if args.no_proxy_dns:

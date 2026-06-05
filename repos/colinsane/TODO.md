@@ -1,12 +1,13 @@
 ## BUGS
 - alacritty Ctrl+N frequently fails to `cd` to the previous directory
 - bunpen dbus sandboxing can't be *nested* (likely a problem in xdg-dbus-proxy)
-- dissent has a memory leak (3G+ after 24hr)
-  - set a max memory use in the systemd service, to force it to restart as it leaks?
+  - can solve this by just pinning an older version of xdg-dbus-proxy?
 - `rmDbusServices` may break sandboxing
   - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
   - `rmDbusServicesInPlace` is not affected
 - mpv: audiocast has mpv sending its output to the builtin speakers unless manually changed
+- mpv/bunpen: sandbox drops you into `realpath $(pwd)` instead of plain `pwd`
+  - maybe this explains alacritty's "Invalid working directory", too?
 - syshud (volume overlay): when casting with `blast`, syshud doesn't react to volume changes
 - dissent: if i launch it without net connectivity, it gets stuck at the login, and never tries again
 - newsflash on moby can't play videos
@@ -24,6 +25,10 @@
   - not great because things like `bitmagnet` expose unprotected admin APIs by default!
 
 ## REFACTORING:
+- hoist `updateTargets`/etc out of `default.nix`
+  - this can be an "ordinary" package which crawls the `sane` packageset.
+- implement some easy way to check that all `sane` packages build.
+  - generalize `scripts/check-*` into some `./scripts/check $attrPath`, ala `scripts/update $attrPath`?
 - fold hosts/modules/ into toplevel modules/
 - consolidate ~/dev and ~/ref
   - ~/dev becomes a link to ~/ref/cat/mine
@@ -33,6 +38,10 @@
   - then change the ExecStartPre check to not ping `ipinfo.net` or whatever.
     either port all of `sane-ip-check` to use a self-hosted reflector,
     or settle for something like `test -eq "$(ip route get ...)" "$expectedGateway"`
+- port my custom activationScripts to be systemd services
+- port my networkmanager secrets to one of:
+  - <repo:NixOS/nixpkgs:nixos/modules/services/networking/nm-file-secret-agent.nix>
+  - nixos options: networking.networkmanager.ensureProfiles.profiles
 
 ### sops/secrets
 - user secrets could just use `gocryptfs`, like with ~/private?
@@ -53,8 +62,16 @@
 - nwg-panel: configurable media controls
 - nwg-panel / playerctl hang fix (i think nwg-panel is what should be patched here)
 
+#### easy/granular nixpkgs improvements
+- set `strictDeps = true` on every package (one-by-one): <https://github.com/NixOS/nixpkgs/issues/178468>
+
 
 ## IMPROVEMENTS:
+- adopt `treefmt` for this repo (formats nix, markdown, etc)
+- nix: auto-gc roots _based on age_
+  - <https://github.com/linyinfeng/angrr>
+  - or: add a `post-build-hook` (`man nix.conf`) to add *every* built derivation as a gc root (or profile);
+    - then i can gc based on build date
 - sane-deadlines: show day of the week for upcoming items
   - and only show on "first" terminal opened; not on Ctrl+N terminals
 - curlftpfs: replace with something better
@@ -65,11 +82,18 @@
   - matrix room links *just work*.
   - `network.protocol-handler.external.https = true` in about:config *seems* to do this,
     but breaks some webpages (e.g. Pleroma)
-- associate http(s)://*.pdf with my pdf handler
+- migrate firefox -> epiphany, *everywhere*
+- associate `http(s)://*.pdf` with my pdf handler
   - can't do that because lots of applications don't handle URIs
   - could workaround using a wrapper that downloads the file and then passes it to the program
 - geary: replace with envelope
 - gnome calls: implement dialpad for SIP accounts (DTMF): <https://gitlab.gnome.org/GNOME/calls/-/issues/715>
+- port diff activationScript to dix
+  - <https://github.com/faukah/dix>
+- replace `templates/` dir with `nix-init`
+  - <https://github.com/nix-community/nix-init>
+- enable `optnix` as a better `man configuration.nix`
+  - <https://git.sr.ht/~watersucks/optnix>
 - use `pkgsStatic` or `pkgsCross.musl64` where applicable, for much improved perf?
 
 ### security/resilience
@@ -86,6 +110,7 @@
   - servo: `dedupe-media.service`
   - remove SGID /run/wrappers/bin/sendmail, and just add senders to `postdrop` group
 - port all sane.programs to be sandboxed
+  - port sandboxing to apparmor (ditch bunpen)
   - sandbox `nix`
   - enforce that all `environment.packages` has a sandbox profile (or explicitly opts out)
   - enforce granular dbus sandboxing (bunpen-dbus-*)
@@ -98,9 +123,10 @@
   - flatpak/spectrum has some stuff to proxy dconf per-app
 - rework `programs` API to be just an overlay which wraps each binary in an env with XDG_DATA_DIRS etc set & the config/state links placed in /nix/store instead of $HOME.
   - see: <https://github.com/Lassulus/wrappers>
+- remove remaining users of `sudo`
 
 ### user experience
-- setup a real calendar system, for recurring events
+- setup a real calendar system, for recurring events and specific events
 - rofi: enable mouse mode?
 - mpv: add media looping controls (e.g. loop song, loop playlist)
 - mpv: add/implement an extension to search youtube
@@ -126,6 +152,8 @@
     - Gradia: <https://flathub.org/en/apps/be.alexandervanhee.gradia>. nixpkgs: yes
   - note-taking app: <https://linuxphoneapps.org/categories/note-taking/>
     - Folio is nice, uses standard markdown, though it only supports flat repos
+  - youtube client
+    - maybe host Invidious?
   - OSK overlay specifically for mobile gaming
     - i.e. mock joysticks, for use with SuperTux and SuperTuxKart
 - install mobile-friendly games:
@@ -144,7 +172,12 @@
   - starship-sf64 (i.e. starfox 64), via <https://github.com/NixOS/nixpkgs/pull/395865> and <https://github.com/PIBSAS/Nintendo64/blob/master/Star%20Fox%2064%20(USA)%20(Rev%201).z64>
 - sane-sync-music: remove empty dirs
 - soulseek: install a CLI app usable over ssh
+  - e.g. `slsk-batchdl`
 - moby: replace `spot` with its replacement, `riff` (<https://github.com/Diegovsky/riff>)
+- port wg-home -> TCP connection
+  - then reactivate moby WoWLAN?
+- try Niri desktop shell
+- Sonarr / radarr for auto-DL of TV torrents
 
 #### moby
 - moby: port battery support to something upstreamable
@@ -152,13 +185,12 @@
   - see: <https://github.com/NixOS/nixpkgs/pull/335613>
 - moby: consider honeybee instead of gnome-calls for calling? <https://git.sr.ht/~anjan/honeybee>
   - uses XMPP, so more NAT/WoWLAN-friendly
-- fix cpuidle (gets better power consumption): <https://xnux.eu/log/077.html>
-- fix cpupower for better power/perf
-  - `journalctl -u cpupower --boot` (problem is present on lappy, at least)
 - use dynamic DRAM clocking to reduce power by 0.5W: <https://xnux.eu/log/083.html>
   - coreboot implements DRAM training for rk3399: <https://gitlab.com/vicencb/kevinboot/-/blob/master/cb/sdram.c>
 - moby: tune keyboard layout
+  - try squeekboard?
 - SwayNC/nwg-panel: add option to change audio output
+  - add a mic volume slider
 - Newsflash: sync OPML on start, same way i do with gpodder
 - better podcasting client?
 - hardware upgrade (OnePlus)?
@@ -169,7 +201,8 @@
 - RSS: have podcasts get downloaded straight into ~/Videos/...
   - and strip the ads out using Whisper transcription + asking a LLM where the ad breaks are
 - neovim: integrate ollama
-- neovim: better docsets (e.g. c++, glib)
+- neovim: better docsets (e.g. c++, glib, bash)
+- checkout LM-studio / image generation
 - firefox: persist history
   - just not cookies or tabs
 - have xdg-open parse `<repo:...> URIs (or adjust them so that it _can_ parse)
@@ -185,8 +218,9 @@
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
   - add an auto-reply address (e.g. `reply-test@uninsane.org`) which reflects all incoming mail; use this (or a friend running this) for liveness checks
+- email: auto-sync to desktop for offline searching (maildir + rsync?)
 
 ## NEW FEATURES:
-- migrate MAME cabinet to nix
+- migrate MAME cabinet to nix (cadey)
 - dedicated nix itgmania machine
 - enable IPv6

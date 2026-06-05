@@ -22,7 +22,7 @@
 # - <https://github.com/jluttine/rofi-power-menu>
 # - <https://github.com/ceuk/rofi-screenshot>
 # - <https://gitlab.com/DamienCassou/rofi-pulse-select>
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   rofi-unwrapped = pkgs.rofi-unwrapped.overrideAttrs (upstream: {
     patches = (upstream.patches or []) ++ [
@@ -41,9 +41,10 @@ let
         name = "filebrowser: include entries of d_type DT_UNKNOWN";
         hash = "sha256-gz3N4uo7IWzzqaPHHVhby/e9NbtzcFJRQwgdNYxO/Yw=";
       })
-      (pkgs.fetchpatch {
-        # out for PR upstream: <https://github.com/davatorium/rofi/pull/2201>
-        url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
+      (lib.warnIf (lib.versionOlder "2.0.0" upstream.version) "rofi updated: remove natural ordering patch?" pkgs.fetchpatch {
+        # merged upstream: <https://github.com/davatorium/rofi/pull/2201>
+        url = "https://github.com/davatorium/rofi/pull/2201.patch?full_index=1";
+        # url = "https://git.uninsane.org/colin/rofi/commit/375e54332b9e269e3367c9724f8828534ffeb414.patch";
         name = "filebrowser: sort based on natural ordering";
         hash = "sha256-BzVAMBz4XSYLFN6Gz7HW+2ACrszvjCDK7RBt4rXxnOk=";
       })
@@ -96,7 +97,7 @@ in
         # but rofi-file-browser doesn't compile against my patched rofi (oops)
         # rofi-file-browser
 
-        # rofi-emoji: "insert" mode doesn't work; use a wrapper like `splatmoji` instead.
+        # rofi-emoji: "insert" mode doesn't work
         # rofi-emoji
       ];
     };
@@ -113,6 +114,7 @@ in
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
       ".local/share/applications"  #< to locate .desktop files
+      "Books/Articles"
       "Books/Audiobooks"
       "Books/Books"
       "Books/Visual"
@@ -153,7 +155,9 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "rofi-run-command";
       srcRoot = ./.;
-      pkgs = [ "sane-open" ];
+      pkgs = {
+        inherit (pkgs) sane-open;
+      };
     };
     # sandboxing options cribbed from sane-open
     sandbox.autodetectCliPaths = "existing";  # for when opening a file
@@ -167,7 +171,6 @@ in
 
     suggestedPrograms = [
       "sane-open"
-      "xdg-utils"
     ];
   };
 

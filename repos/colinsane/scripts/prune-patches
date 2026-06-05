@@ -1,0 +1,105 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.gitMinimal ps.gnugrep ]'
+set -uo pipefail
+
+PATCHES_DIR="pkgs/by-name/nixpkgs-bootstrap/patches"
+NIXPKGS_DIR="$HOME/dev/3rd/nixpkgs"
+
+usage() {
+  echo "USAGE: prune-patches [options]"
+  echo ""
+  echo "options"
+  echo "- --commit"
+  echo ""
+  echo "check for vendored patches that we no longer need to carry."
+  echo "assumes that $NIXPKGS_DIR is checked out to the same commit as this nixos repo."
+
+  exit "$@"
+}
+
+doCommit=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case "$arg" in
+      (--help)
+        usage 0
+        ;;
+      (--commit)
+        doCommit=1
+        ;;
+      (*)
+        echo "unrecognized argument: $arg" >&2
+        echo
+        usage 1
+        ;;
+    esac
+  done
+}
+
+die() {
+  echo "FATAL: $@" >&2
+  false
+}
+
+parseArgs "$@"
+
+if [[ ! -d "$PATCHES_DIR" ]]; then
+  die "patches directory $PATCHES_DIR not found."
+fi
+
+if [[ ! -d "$NIXPKGS_DIR" ]]; then
+  die "nixpkgs checkout $NIXPKGS_DIR not found."
+fi
+
+echo "Checking for upstreamed patches in $NIXPKGS_DIR..."
+
+upstreamed=()
+
+for patch_path in "$PATCHES_DIR"/*.patch; do
+  filename=$(basename "$patch_path" .patch)
+  is_upstreamed=
+
+  # if numeric, check for (#PR_NUMBER)
+  if [[ "$filename" =~ ^[0-9]+$ ]]; then
+    if git -C "$NIXPKGS_DIR" log --grep="\#$filename" --oneline | grep -q .; then
+      is_upstreamed=1
+    fi
+  fi
+
+  # check by subject line if not yet found
+  if [[ -z "$is_upstreamed" ]]; then
+    subject=$(grep "Subject: \[PATCH\] " "$patch_path" | head -n 1 | sed 's/Subject: \[PATCH\] //')
+    if [[ -n "$subject" ]]; then
+      if git -C "$NIXPKGS_DIR" log --grep="$subject" --oneline | grep -q .; then
+        is_upstreamed=1
+      fi
+    fi
+  fi
+
+  if [[ -n "$is_upstreamed" ]]; then
+    upstreamed+=("$patch_path")
+    echo "- $filename: upstreamed"
+  else
+    echo "- $filename: still required"
+  fi
+done
+
+echo
+echo "the following patches are no longer required:"
+for p in "${upstreamed[@]}"; do
+  echo "- $p"
+done
+echo
+
+if [[ -n "$doCommit" ]]; then
+  echo "removing..."
+  # TODO: assert that the working tree is clean, first
+  set -x
+  git rm "${upstreamed[@]}" && git commit -m"nixpkgs: remove upstreamed patches"
+  set +x
+else
+  echo "to remove them, run:"
+  echo "git rm ${upstreamed[*]}"
+fi

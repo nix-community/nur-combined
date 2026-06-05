@@ -136,12 +136,12 @@ in
       script = let
         tcpArgs = { destPort, sourcePort }:
           [ "tcp" ]
-          ++ lib.optionals (destPort != null) [ "--dest-port" (builtins.toString destPort) ]
-          ++ lib.optionals (sourcePort != null) [ "--source-port" (builtins.toString sourcePort) ]
+          ++ lib.optionals (destPort != null) [ "--dest-port" (toString destPort) ]
+          ++ lib.optionals (sourcePort != null) [ "--source-port" (toString sourcePort) ]
         ;
         arpArgs = { destIp }:
           [ "arp" ]
-          ++ lib.optionals (destIp != null) [ "--dest-ip" (builtins.toString destIp) ]
+          ++ lib.optionals (destIp != null) [ "--dest-ip" (toString destIp) ]
         ;
         maybeCallHelper = maybe: args:
           lib.optionalString
@@ -155,7 +155,7 @@ in
         ;
         appliedPatterns = lib.concatStringsSep
           ""
-          (builtins.map applyPattern cfg.patterns);
+          (map applyPattern cfg.patterns);
       in ''
         rtl8723cs-wowlan enable-clean
         ${appliedPatterns}

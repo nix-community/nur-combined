@@ -29,14 +29,23 @@ rustPlatform.buildRustPackage {
     udev
   ];
 
+  postPatch = ''
+    # this fixes `pgksMusl.gps-share`.
+    cat >> "$cargoDepsCopy/source-registry-0/serial-0.3.4/Cargo.toml" <<'EOF'
+      [target.'cfg(all(target_os = "linux", target_env = "musl"))'.dependencies]
+      termios = "0.2.2"
+      ioctl-rs = "0.1.5"
+    EOF
+  '';
+
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch" ];
   };
 
-  meta = with lib; {
+  meta = {
     description = "utility to share your GPS device on local network";
     homepage = "https://github.com/zeenix/gps-share";
-    license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

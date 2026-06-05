@@ -18,7 +18,7 @@
 #   - `-nochunked`: FAILS
 #   - `-format "ogg" -mime 'audio/x-opus+ogg'`: FAILS
 #   - `-mime audio/ac3 -format ac3`: FAILS
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 let
   cfg = config.sane.programs.sblast;
 in
@@ -29,18 +29,12 @@ in
   };
 
   sane.programs.blast-to-default = {
-    # helper to deal with blast's interactive CLI
-    packageUnwrapped = pkgs.static-nix-shell.mkPython3 {
-      pname = "blast-to-default";
-      pkgs = [ "sblast" ];
-      srcRoot = ./.;
-    };
     sandbox.whitelistAudio = true;
     sandbox.net = "clearnet";
     #v  else it fails to reap its children (or, maybe, it fails to hook its parent's death signal?)
     #v  might be possible to remove this, but kinda hard to see a clean way.
     sandbox.keepPidsAndProc = true;
-    suggestedPrograms = [ "sane-die-with-parent" "sblast" ];
+    suggestedPrograms = [ "sblast" ];
   };
 
   networking.firewall.allowedTCPPorts = lib.mkIf cfg.enabled [ 9000 ];

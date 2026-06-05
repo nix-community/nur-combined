@@ -11,9 +11,9 @@
   util-linux,
   which,
   xdg-dbus-proxy,
-}: stdenv.mkDerivation {
+}: stdenv.mkDerivation (finalAttrs: {
   pname = "bunpen";
-  version = "0.1.0";
+  version = "0.2.0";
   src = ./.;
 
   nativeBuildInputs = [
@@ -22,7 +22,7 @@
   ];
 
   makeFlags = [
-    "PREFIX=${builtins.placeholder "out"}"
+    "PREFIX=${placeholder "out"}"
     "IP=${lib.getExe' iproute2 "ip"}"
     "IPTABLES=${lib.getExe' iptables "iptables"}"
     "PASTA=${lib.getExe' passt "pasta"}"
@@ -44,6 +44,12 @@
     patchShebangs --build integration_test
   '';
 
+  passthru = {
+    unchecked = finalAttrs.finalPackage.overrideAttrs {
+      doCheck = false;
+    };
+  };
+
   meta = {
     description = "userspace sandbox helper";
     longDescription = ''
@@ -52,4 +58,4 @@
     '';
     mainProgram = "bunpen";
   };
-}
+})

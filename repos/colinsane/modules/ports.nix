@@ -51,9 +51,9 @@ let
           ExecStart =
           let
             portFwd = lib.getExe pkgs.sane-scripts.ip-port-forward;
-            forwards = builtins.map (proto: "${proto}:${port}:${portCfg.description}") portCfg.protocol;
+            forwards = map (proto: "${proto}:${port}:${portCfg.description}") portCfg.protocol;
           in ''
-            ${portFwd} -v -d ${builtins.toString cfg.upnpLeaseDuration} \
+            ${portFwd} -v -d ${toString cfg.upnpLeaseDuration} \
               ${lib.escapeShellArgs forwards}
           '';
         };

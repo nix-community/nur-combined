@@ -1,1 +1,9 @@
-../pkgs/by-name/nixpkgs-bootstrap/vendor-patch-updater/vendor-patch-updater
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.nixpkgs-bootstrap.vendor-patch-updater ]'
+#
+# XXX(2025-12-31): `nix-shell` scripts don't work well with symlinks.
+# specifically file imports are relative to non-dereferenced path, instead of the underlying executable.
+# therefore, while it would be more sensible to just have `scripts/vendor-path -> ../../../../pkgs/.../vendor-patch-updater`,
+# we have to wrap + exec it like this instead.
+
+exec vendor-patch-updater "$@"

@@ -59,9 +59,9 @@ tree-sitter.buildGrammar {
     nvimPlugin = neovimUtils.grammarToPlugin tree-sitter-nix-shell;
   };
 
-  meta = with lib; {
+  meta = {
     description = "parse `#!/usr/bin/env nix-shell` scripts with tree-sitter";
     homepage = "https://git.uninsane.org/colin/tree-sitter-nix-shell";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

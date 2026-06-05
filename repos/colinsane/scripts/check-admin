@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p coreutils -p gnugrep -p gnused -p openssh
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.coreutils ps.gnugrep ps.gnused ps.openssh ]'
 
 # checks regular admin tasks
 # - gitea: did any users request to register?

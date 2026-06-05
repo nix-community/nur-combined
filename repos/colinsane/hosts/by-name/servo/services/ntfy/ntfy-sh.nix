@@ -84,7 +84,7 @@ lib.mkIf false  #< 2024/09/30: disabled because i haven't used it in several mon
   };
   sane.dns.zones."uninsane.org".inet.CNAME."ntfy" = "native";
 
-  sane.ports.ports."${builtins.toString altPort}" = {
+  sane.ports.ports."${toString altPort}" = {
     protocol = [ "tcp" ];
     visibleTo.lan = true;
     visibleTo.doof = true;

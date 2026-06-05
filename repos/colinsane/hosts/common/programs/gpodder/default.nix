@@ -1,9 +1,9 @@
 # help:
 # - #gpodder on irc.libera.chat
-{ config, pkgs, sane-lib, ... }:
+{ config, pkgs, ... }:
 
 let
-  feeds = sane-lib.feeds;
+  feeds = pkgs.sane-lib.feeds;
   all-feeds = config.sane.feeds;
   wanted-feeds = feeds.filterByFormat [ "podcast" "video" ] all-feeds;
 in {
@@ -25,6 +25,9 @@ in {
         # "--run" "export GPODDER_DOWNLOAD_DIR=~/Videos/gPodder"
       ];
     });
+    suggestedPrograms = [
+      "xdg-open"
+    ];
 
     sandbox.whitelistDbus.user.own = [ "org.gpodder" "org.gpodder.gpodder" ];
     sandbox.whitelistDri = true;  #< makes the UI way more responsive

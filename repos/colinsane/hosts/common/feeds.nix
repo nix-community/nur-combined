@@ -10,9 +10,9 @@
 #   - old thread: <https://lemmy.ml/post/1565858>
 #
 # - paywall bypass / bootlegs: <https://jumble.top/>
-{ lib, sane-data, ... }:
+{ lib, pkgs, ... }:
 let
-  hourly = { freq = "hourly"; };
+  # hourly = { freq = "hourly"; };
   daily = { freq = "daily"; };
   weekly = { freq = "weekly"; };
   infrequent = { freq = "infrequent"; };
@@ -30,7 +30,7 @@ let
   mkRss = format: url: { inherit url format; } // uncat // infrequent;
   # format-specific helpers
   mkText = mkRss "text";
-  mkImg = mkRss "image";
+  # mkImg = mkRss "image";
   mkPod = mkRss "podcast";
 
   # host-specific helpers
@@ -38,7 +38,7 @@ let
 
   fromDb = name:
     let
-      raw = sane-data.feeds."${name}";
+      raw = pkgs.sane-feeds."${name}";
     in {
       url = raw.url;
       # not sure the exact mapping with velocity here: entries per day?
@@ -69,7 +69,6 @@ let
     (fromDb "anchor.fm/s/34c7232c/podcast/rss" // tech)  # Civboot -- https://anchor.fm/civboot
     (fromDb "anchor.fm/s/2da69154/podcast/rss" // tech)  # POD OF JAKE -- https://podofjake.com/
     (fromDb "bluecityblues.org.podcastpage.io" // pol)  # hosts overlap with Seattle Nice
-    (fromDb "buzzsprout.com/2126417" // tech)  # Mystery AI Hype Theater 3000
     (fromDb "cast.postmarketos.org" // tech)
     (fromDb "congressionaldish.libsyn.com" // pol)  # Jennifer Briney
     (fromDb "craphound.com" // pol)  # Cory Doctorow -- both podcast & text entries
@@ -82,7 +81,6 @@ let
     (fromDb "feeds.feedburner.com/80000HoursPodcast" // rat)
     (fromDb "feeds.feedburner.com/dancarlin/history" // rat)
     (fromDb "feeds.feedburner.com/radiolab" // pol)  # Radiolab -- also available here, but ONLY OVER HTTP: <http://feeds.wnyc.org/radiolab>
-    (fromDb "feeds.megaphone.fm/CHTAL4990341033" // pol)  # ChinaTalk: https://www.chinatalk.media/podcast
     (fromDb "feeds.megaphone.fm/GLT1412515089" // pol)  # JRE: Joe Rogan Experience
     (fromDb "feeds.megaphone.fm/behindthebastards" // pol)  # also Maggie Killjoy
     (fromDb "feeds.megaphone.fm/cspantheweekly" // pol)
@@ -110,16 +108,18 @@ let
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow
     (fromDb "omny.fm/shows/money-stuff-the-podcast")  # Matt Levine
-    (fromDb "omny.fm/shows/stuff-you-should-know-1")
     (fromDb "omny.fm/shows/weird-little-guys")  # Cool Zone Media
     (fromDb "originstories.libsyn.com" // uncat)
+    (fromDb "pinecast.com/feed/live-like-the-world-is-dying" // pol)  # Maggie Killjoy
     (fromDb "podcast.ergaster.org/@flintandsilicon" // tech)  # Thib's podcast: public interest tech, gnome, etc: <https://fed.uninsane.org/users/$ALLO9MZ5g5CsQTCBH6>
     (fromDb "pods.media/api/rss/feed/channel/unchained" // tech)  # cryptocurrency happenings; rec via patio11
     (fromDb "politicalorphanage.libsyn.com" // pol)
     (fromDb "reverseengineering.libsyn.com/rss" // tech)  # UnNamed Reverse Engineering Podcast
+    (fromDb "ripcorp.biz" // pol)
     (fromDb "rss.acast.com/ft-tech-tonic" // tech)  # Financial Time's: Tech Tonic
     (fromDb "rss.art19.com/the-portal" // rat)  # Eric Weinstein
     (fromDb "seattlenice.buzzsprout.com" // pol)  # Seattle Nice
+    (fromDb "shellgame.co/podcast")
     (fromDb "speedboatdope.com" // pol)  # Chapo Trap House (premium feed)
     (fromDb "sharkbytes.transistor.fm" // tech)  # Wireshark Podcast o_0
     (fromDb "sharptech.fm/feed/podcast" // tech)  # Ben Thompson
@@ -135,8 +135,10 @@ let
     (fromDb "whycast.podcast.audio/@whycast" // tech)  # What Hackers Yearn [for]: <https://why2025.org/>
     (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
 
+    # (fromDb "buzzsprout.com/2126417" // tech)  # Mystery AI Hype Theater 3000
     # (fromDb "feed.podbean.com/matrixlive/feed.xml" // tech)  # Matrix (chat) Live
     # (fromDb "feeds.libsyn.com/421877" // rat)  # Less Wrong Curated
+    # (fromDb "feeds.megaphone.fm/CHTAL4990341033" // pol)  # ChinaTalk: https://www.chinatalk.media/podcast
     # (fromDb "feeds.megaphone.fm/hubermanlab" // uncat)  # Daniel Huberman on sleep
     # (fromDb "feeds.simplecast.com/54nAGcIl" // pol)  # The Daily
     # (fromDb "feeds.simplecast.com/82FI35Px" // pol)  # Ezra Klein Show
@@ -148,6 +150,7 @@ let
     # (fromDb "lastweekinai.com" // tech)  # Last Week in AI
     # (fromDb "mintcast.org" // tech)
     # (fromDb "omny.fm/shows/sad-oligarch")
+    # (fromDb "omny.fm/shows/stuff-you-should-know-1")
     # (fromDb "omny.fm/shows/the-dollop-with-dave-anthony-and-gareth-reynolds")  # The Dollop history/comedy
     # (fromDb "podcast.posttv.com/itunes/post-reports.xml" // pol)
     # (fromDb "podcast.sustainoss.org" // tech)  # "Sustainable tech", only... it somehow manages to avoid any tech which is actually sustainable, and most of the time doesn't even talk about Open Source Software (!). normie/surface-level/"feel good"
@@ -279,24 +282,29 @@ let
   ];
 
   videos = [
+    (fromDb "youtube.com/@AdamNeely")
     (fromDb "youtube.com/@Channel5YouTube" // pol)
     (fromDb "youtube.com/@ContraPoints" // pol)
     (fromDb "youtube.com/@Exurb1a")
+    (fromDb "youtube.com/@exurb2a114")  # Exurb1a's alt
     (fromDb "youtube.com/@hbomberguy")
     (fromDb "youtube.com/@JackStauber")
     (fromDb "youtube.com/@jaketran")
     (fromDb "youtube.com/@kurzgesagt")
-    (fromDb "youtube.com/@mii_beta" // tech)  # Baby Wogue / gnome reviewer
     (fromDb "youtube.com/@Matrixdotorg" // tech)  # Matrix Live
+    (fromDb "youtube.com/@mii_beta" // tech)  # Baby Wogue / gnome reviewer
+    (fromDb "youtube.com/@moon-channel")
     (fromDb "youtube.com/@NativLang")
     (fromDb "youtube.com/@PolyMatter")
     (fromDb "youtube.com/@scenesbyben" // pol)  # video essays
     (fromDb "youtube.com/@TechnologyConnections" // tech)
     (fromDb "youtube.com/@theodd1sout")
+    (fromDb "youtube.com/@thisisironclad" // pol)
     (fromDb "youtube.com/@TomScottGo")
     (fromDb "youtube.com/@TVW_Washington" // pol)  # interviews with WA public officials
     (fromDb "youtube.com/@veritasium")
     (fromDb "youtube.com/@Vihart")
+    (fromDb "youtube.com/@businessreform" // tech)  # anti-surveillance tech
     (fromDb "youtube.com/@InnuendoStudios" // pol)  # breaks down the nastier political strategies, from a "politics is power" angle
 
     # (fromDb "youtube.com/@CasuallyExplained" // pol)
@@ -323,7 +331,7 @@ in
 {
   sane.feeds = texts ++ images ++ podcasts ++ videos;
 
-  assertions = builtins.map
+  assertions = map
     (p: {
       assertion = p.format or "unknown" == "podcast";
       message = ''${p.url} is not a podcast: ${p.format or "unknown"}'';

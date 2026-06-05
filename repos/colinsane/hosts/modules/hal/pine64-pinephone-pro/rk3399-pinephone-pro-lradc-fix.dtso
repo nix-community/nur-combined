@@ -1,7 +1,8 @@
 // pinephone-pro uses an ADC for the volume button controls.
-// mainline pinephone-pro dts file declares the threshold for vol-down as 0.6V,
+// OG pinephone-pro dts file declares the threshold for vol-down as 0.6V,
 // which is too high and causes most vol-down presses to be misread as vol-up presses.
 // u-boot and megi both change this to 0.4 V.
+// mainline linux change this to 0.3 V starting in linux 6.19 (5497ffe305; also lowers the vol-up threshold)
 
 /dts-v1/;
 /plugin/;

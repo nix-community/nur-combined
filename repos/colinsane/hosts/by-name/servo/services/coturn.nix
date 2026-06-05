@@ -70,7 +70,7 @@ in
   #   }
   # ] ++ (builtins.map
   #   (port: {
-  #     "${builtins.toString port}" = let
+  #     "${toString port}" = let
   #       count = port - turnPortLow + 1;
   #       numPorts = turnPortHigh - turnPortLow + 1;
   #     in {
@@ -78,7 +78,7 @@ in
   #       # visibleTo.lan = true;
   #       # visibleTo.wan = true;
   #       visibleTo.ovpns = true;
-  #       description = "colin-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
+  #       description = "colin-turn-${toString count}-of-${toString numPorts}";
   #     };
   #   })
   #   turnPortRange

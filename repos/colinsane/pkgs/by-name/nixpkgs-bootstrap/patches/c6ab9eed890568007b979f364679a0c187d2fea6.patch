@@ -1,0 +1,50 @@
+From c6ab9eed890568007b979f364679a0c187d2fea6 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 25 May 2026 07:34:02 +0000
+Subject: [PATCH] gobject-introspection: don't pollute LD_LIBRARY_PATH of
+ emulator
+
+fixes cross compilation on non-gnu systems, e.g.
+```
+nix-build -A pkgsMusl.pkgsCross.aarch64-multiplatform-musl.gobject-introspection
+```
+
+the behavior was already iffy on gnu -> gnu cross; musl ld is just more strict.
+
+g-ir-scanner invokes host binaries, and by default populates LD_LIBRARY_PATH
+with other host libraries that binary may need to load. when cross compiling,
+we don't invoke host binaries directly, but use a qemu wrapper
+(g-ir-scanner-qemuwrapper.sh). the default wiring for this causes
+g-ir-scanner to populate LD_LIBRARY_PATH with host libraries before
+invoking qemu; musl ld doesn't handle that well and fails to load qemu.
+
+to solve this, instruct g-ir-scanner to keep LD_LIBRARY_PATH unchanged
+and write the host library list to `GIR_EXTRA_LIBS_PATH` instead; our
+qemu wrapper appends that onto `LD_LIBRARY_PATH` only for the emulated
+binary, and not for qemu itself.
+
+this patch only touches `g-ir-scanner.sh`; the other side of that
+interface was already implemented via `./g-ir-scanner-qemuwrapper.sh`
+
+> exec @emulator@ ${GIR_EXTRA_OPTIONS:-} \
+>     ${GIR_EXTRA_LIBS_PATH:+-E LD_LIBRARY_PATH="${GIR_EXTRA_LIBS_PATH}"} \
+>     "$@"
+
+that file references OpenEmbedded, where we can see them using this
+`--lib-dirs-envvar` flag in the same manner:
+
+<https://github.com/openembedded/openembedded-core/blob/c5a14f39a6717a99b510cb97aa2fb403d4b98d99/meta/recipes-gnome/gobject-introspection/gobject-introspection_1.72.0.bb#L90>
+---
+ .../libraries/gobject-introspection/wrappers/g-ir-scanner.sh     | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh b/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh
+index 7843bb91db97..f30b6deaf6e5 100644
+--- a/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh
++++ b/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh
+@@ -4,4 +4,5 @@
+ exec @dev@/bin/.g-ir-scanner-wrapped \
+     --use-binary-wrapper=@emulatorwrapper@ \
+     --use-ldd-wrapper=@dev@/bin/g-ir-scanner-lddwrapper \
++    --lib-dirs-envvar=GIR_EXTRA_LIBS_PATH \
+     "$@"

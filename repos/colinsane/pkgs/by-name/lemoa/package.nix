@@ -16,20 +16,19 @@
   wrapGAppsHook4,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lemoa";
   version = "0.5.1";
 
   src = fetchFromGitHub {
     owner = "lemmy-gtk";
     repo = "lemoa";
-    rev = "v${version}";
+    rev = "v${finalAttrs.version}";
     hash = "sha256-XyVl0vreium83d6NqiMkdER3U0Ra0GeAgTq4pyrZyZE=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit src;
-    name = "${pname}-${version}";
+    inherit (finalAttrs) src;
     hash = "sha256-ALoxT+RLL4omJ7quWDJVdXgevaO8i8q/29FFFudIRV4=";
   };
 
@@ -61,10 +60,10 @@ stdenv.mkDerivation rec {
     rev-prefix = "v";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Native Gtk client for Lemmy";
     homepage = "https://github.com/lemmy-gtk/lemoa";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

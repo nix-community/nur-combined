@@ -57,9 +57,9 @@ export fn restrict(what: *resources::resources) void = {
   // let outer_pid = what.pid;
   let outer_paths: []path::buffer = [];
   for (let p .. what.paths)
-    append(outer_paths, p);
+    append(outer_paths, p)!;
   if (outer_pid)
-    append(outer_paths, path::init("/proc")!);
+    append(outer_paths, path::init("/proc")!)!;
   let outer_ns_resources = ns::ns_resources {
     paths = outer_paths,
     ipc = what.ipc,
@@ -91,8 +91,8 @@ export fn restrict(what: *resources::resources) void = {
           dbus_restrict(details.resources, details.outer_parent_fd, &details.session_path);
           // the bus at this path is now proxied, so grant access to the user.
           // safe to unwrap parent because we only allow absolute bus paths.
-          // append(what.paths, path::init(path::parent(&details.session_path)!)!);
-          append(what.paths, details.session_path);
+          // append(what.paths, path::init(path::parent(&details.session_path)!)!)!;
+          append(what.paths, details.session_path)!;
       };
   };
 

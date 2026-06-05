@@ -1,6 +1,5 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
-  config' = config;
   logBase = "$HOME/.local/share/s6/logs";
   maybe = cond: value: if cond then value else null;
 

@@ -34,7 +34,7 @@ set list
 set listchars=tab:▷\·,trail:·,extends:◣,precedes:◢,nbsp:○
 
 " use tab completion to see all colorscheme options:
-" :set colorscheme <tab>
+" :colorscheme <tab>
 " colors can be more finely set by editing ~/.config/nvim/colors/$colorscheme
 " see: <https://neovim.io/doc/user/usr_06.html>
 "

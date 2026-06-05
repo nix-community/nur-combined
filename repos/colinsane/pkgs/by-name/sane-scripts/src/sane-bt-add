@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3.pkgs.requests -p sane-scripts.lib.bt
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.requests ps.sane-scripts.lib.bt ]'
 # vim: set filetype=python :
 """
 sane-bt-add: instruct servo to download or rename some torrent.

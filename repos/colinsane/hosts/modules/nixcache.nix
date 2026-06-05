@@ -1,6 +1,6 @@
 # speed up builds from e.g. moby or lappy by having them query desko and servo first.
 # if one of these hosts is offline, instead manually specify just cachix:
-# - `nixos-rebuild --option substituters https://cache.nixos.org/`
+# - `nixos-rebuild --option substituters https://cache.nixos.org/ --option builders ""`
 #
 # additionally, sends build jobs to servo/desko (splits the jobs across all that are enabled).
 # to verify one particular remote builder:

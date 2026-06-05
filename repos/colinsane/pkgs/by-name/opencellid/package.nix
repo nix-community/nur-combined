@@ -10,7 +10,7 @@
   writeShellApplication,
 }:
 
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencellid";
   version = "0-unstable-2025-08-06";
 
@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru = rec {
+  passthru = {
     updateFromMirror = nix-update-script {
       extraArgs = [ "--version" "branch" ];
     };
@@ -56,16 +56,16 @@ stdenvNoCC.mkDerivation {
         popd
       '';
     };
-    updateFromOpenCellId = lib.getExe opencellid-update-script;
+    updateFromOpenCellId = lib.getExe finalAttrs.passthru.opencellid-update-script;
     updateScript = _experimental-update-script-combinators.sequence [
-      updateFromOpenCellId
-      updateFromMirror
+      finalAttrs.passthru.updateFromOpenCellId
+      finalAttrs.passthru.updateFromMirror
     ];
   };
 
-  meta = with lib; {
+  meta = {
     description = "100M-ish csv database of known celltower positions";
     homepage = "https://opencellid.org";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

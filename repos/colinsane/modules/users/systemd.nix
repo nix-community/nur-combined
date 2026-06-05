@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   toUnitName = s:
     # TODO: i could query `services."${s}".command` to figure out here if it's
@@ -151,7 +151,7 @@ in
       systemd.targets = f.systemd.targets;
     };
   in lib.mkMerge [
-    (take (sane-lib.mkTypedMerge take configs))
+    (take (pkgs.sane-lib.mkTypedMerge take configs))
   ];
   # systemd.services = lib.mkMerge (lib.mapAttrsToList servicesForUser config.sane.users);
 }

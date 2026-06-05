@@ -43,20 +43,24 @@
   stdenv ? null,
   vendorPatch ? null,
 #VVV config
-  localSystem ? if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem,  #< not available in pure mode
-  system ? if stdenv != null then stdenv.hostPlatform.system else localSystem,
+  localSystem ? {
+    system = if stdenv != null then stdenv.buildPlatform.system else builtins.currentSystem;  #< not available in pure mode
+  },
 }:
 let
+  # inlined from <repo:nixos/nixpkgs:lib/attrsets.nix>
+  filterAttrs = pred: set: removeAttrs set (builtins.filter (name: !pred name set.${name}) (builtins.attrNames set));
   optionalAttrs = cond: attrs: if cond then attrs else {};
+
   # nixpkgs' update-source-version (updateScript) calculates the new hash for a `src` by specifying this hardcoded bogus hash and then attempting to realize it.
   sentinelSha256 = "sha256-AzH1rZFqEH8sovZZfJykvsEmCedEZWigQFHWHl6/PdE=";
   fetchBootstrap = { url, pname, version, ... }@args: {
     # N.B. `outPath` is a special attr name which nix consults when coercing an attrset to a string.
-    outPath = builtins.fetchTarball ({
+    outPath = fetchTarball ({
       inherit url;
       name = if version != "" then "${pname}-${version}" else pname;
     } // (
-      builtins.removeAttrs args [ "url" "pname" "version" ]
+      removeAttrs args [ "url" "pname" "version" ]
     ));
     inherit pname version;
   };
@@ -100,7 +104,7 @@ let
 
     applyPatches' = if applyPatches != null then applyPatches else unpatchedNixpkgs.applyPatches;
     stdenv' = if stdenv != null then stdenv else unpatchedNixpkgs.stdenv;
-    vendorPatch' = if vendorPatch != null then vendorPatch else import ./vendorPatch { stdenv = stdenv'; vendor-patch-updater = null; };
+    vendorPatch' = if vendorPatch != null then vendorPatch else import ./vendorPatch/package.nix { stdenv = stdenv'; vendor-patch-updater = null; };
 
     srcMeta = (src'.meta or {}) // {
       position = let
@@ -109,7 +113,8 @@ let
         "${position.file}:${toString position.line}";
     };
 
-    patches = import ./patches { vendorPatch = vendorPatch'; };
+    patchesScope = import ./patches/package.nix { vendorPatch = vendorPatch'; };
+    patches = filterAttrs (name: value: value.type or null == "derivation") patchesScope;
 
     patchedSrc = applyPatches' {
       name = "nixpkgs-${branch}-sane";
@@ -126,7 +131,8 @@ let
           # N.B.: declare `meta` in passthru instead of toplevel, so that it takes precedence over the default calculated by `mkDerivation`/`applyPatches`
           meta = srcMeta;
           # for convenience:
-          pkgs = nixpkgs;
+          pkgs = import patchedSrc commonNixpkgsArgs;
+          inherit unpatchedNixpkgs;
           unpatchedSrc = src';
           patches = patches;
         } // optionalAttrs (nixpkgs-bootstrap-updater != null) {
@@ -145,43 +151,6 @@ let
         }
       '';
     };
-
-    elaborate = unpatchedNixpkgs.lib.systems.elaborate;
-    isCross = !(unpatchedNixpkgs.lib.systems.equals (elaborate system) (elaborate localSystem));
-
-    nativeNixpkgsArgs = commonNixpkgsArgs // {
-      config = {
-        allowUnfree = true;  # NIXPKGS_ALLOW_UNFREE=1
-        allowBroken = true;  # NIXPKGS_ALLOW_BROKEN=1
-        allowUnsupportedSystem = true;  # NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1
-      };
-    };
-    nixpkgsArgs = nativeNixpkgsArgs // optionalAttrs isCross {
-      # XXX(2023/12/11): cache.nixos.org uses `system = ...` instead of `hostPlatform.system`, and that choice impacts the closure of every package.
-      # so avoid specifying hostPlatform.system on non-cross builds, so i can use upstream caches.
-      crossSystem = system;
-      # config = nativeNixpkgsArgs.config // optionalAttrs (system.isStatic && system.hasSharedLibraries) {
-      #   # default nixpkgs' behavior when `isStatic` is to _never_ build shared objects.
-      #   replaceCrossStdenv = { buildPackages, baseStdenv }: baseStdenv.override (old: {
-      #     # mkDerivationFromStdenv = _stdenv: args: baseStdenv.mkDerivation (args // {
-      #     #   dontAddStaticConfigureFlags = args.dontAddStaticConfigureFlags or true;
-      #     # });
-      #     # mkDerivationFromStdenv = _stdenv: args: (baseStdenv.mkDerivation args).overrideAttrs (prev: {
-      #     #   dontAddStaticConfigureFlags = prev.dontAddStaticConfigureFlags or true;
-      #     #     # dontAddStaticConfigureFlags = args.dontAddStaticConfigureFlags or true;
-      #     # });
-      #     mkDerivationFromStdenv = _stdenv: args: (baseStdenv.mkDerivation args).overrideAttrs (prev: {
-      #       # this is not wholly correct; goal is to undo some effects of pkgs/stdenv/adapters.nix' makeStatic
-      #       # to build BOTH .a and .so files (but default to static)
-      #       configureFlags = buildPackages.lib.remove "--disable-shared" (prev.configureFlags or args.configureFlags or []);
-      #       # cmakeFlags = buildPackages.lib.remove "-DBUILD_SHARED_LIBS:BOOL=OFF" (
-      #       #   buildPackages.lib.remove "-DCMAKE_SKIP_INSTALL_RPATH=On" (prev.cmakeFlags or args.cmakeFlags or [])
-      #       # );
-      #     });
-      #   });
-      # };
-    };
-    nixpkgs = import patchedSrc nixpkgsArgs;
   in
     patchedSrc
   ;

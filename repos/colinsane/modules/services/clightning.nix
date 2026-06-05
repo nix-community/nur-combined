@@ -193,7 +193,7 @@ in
         {
           cat ${configFile} ${lib.concatStringsSep " " cfg.extraConfigFiles}
           ${lib.optionalString (cfg.getPublicAddressCmd != null) ''
-            echo "announce-addr=$(${cfg.getPublicAddressCmd}):${builtins.toString cfg.port}"
+            echo "announce-addr=$(${cfg.getPublicAddressCmd}):${toString cfg.port}"
           ''}
         } > ${cfg.dataDir}/config
       '';

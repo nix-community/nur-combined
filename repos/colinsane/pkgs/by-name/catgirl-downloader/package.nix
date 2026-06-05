@@ -13,7 +13,6 @@
   python3,
   stdenv,
   testers,
-  unstableGitUpdater,
   wrapGAppsHook4,
 }:
 let
@@ -24,15 +23,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "catgirl-downloader";
-  # unstable until release > 0.3.0, specifically until after this patch lands:
-  # <https://github.com/NyarchLinux/CatgirlDownloader/pull/10>
-  version = "0.3.0-unstable-2025-10-13";
+  version = "0.5";
 
   src = fetchFromGitHub {
     owner = "NyarchLinux";
     repo = "CatgirlDownloader";
-    rev = "c7e3e82999b5b51609eb9cff0a193b466ff3ae93";
-    hash = "sha256-jXQxFMQtjgTBwsl5Ekzea/CY+vRnHRsHloGUDyXWRNs=";
+    rev = finalAttrs.version;
+    hash = "sha256-+RyQOgqPZN3AnVdd5mtgppQ/z51VIEeEsiW2RFTnVbk=";
   };
 
   # fix meson to use the host python when cross compiling.
@@ -64,8 +61,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru = {
     inherit pythonEnv;
-    # updateScript = gitUpdater { };
-    updateScript = unstableGitUpdater { };
+    updateScript = gitUpdater { };
     # TODO: `catgirldownloader` doesn't implement `--version` flag (only `--help`, which doesn't show version)
     # tests.version = testers.testVersion {
     #   package = finalAttrs.finalPackage;

@@ -107,11 +107,11 @@ fn dbus_restrict(dbus: resources::dbus_subset, upstream_parent_fd: io::file, dow
       // io::close(pipe_parent_rd)!;
 
       let ns_paths: []path::buffer = [];
-      append(ns_paths, path::init("/nix/store")!);
+      append(ns_paths, path::init("/nix/store")!)!;
       // TODO: pre-eval the path to `xdg-dbus-proxy` here and remove this /run directory?
-      append(ns_paths, path::init("/run/current-system/sw/bin")!);
+      append(ns_paths, path::init("/run/current-system/sw/bin")!)!;
       match (path::parent(downstream_path)) {
-        case let p: str => append(ns_paths, path::init(p)!);
+        case let p: str => append(ns_paths, path::init(p)!)!;
         case let e: path::error => errors::ext::swallow("[dbus] path::parent($DBUS_SESSION_BUS_ADDRESS)", e);
       };
       let ns_resources = ns::ns_resources {
@@ -126,21 +126,21 @@ fn dbus_restrict(dbus: resources::dbus_subset, upstream_parent_fd: io::file, dow
         "unix:path=/proc/self/fd/{}/{}",
         upstream_parent_fd_nocloexec: int,
         path::basename(path::string(downstream_path)),
-      );
+      )!;
       let notify_fd_nocloexec = rt::dup(pipe_child_wr)!;
 
       let proxy_args: []str = [];
-      append(proxy_args, "xdg-dbus-proxy");
-      append(proxy_args, upstream_fd_path);
-      append(proxy_args, path::string(downstream_path));
-      append(proxy_args, "--filter");
-      append(proxy_args, fmt::asprintf("--fd={}", notify_fd_nocloexec: int));
-      // append(proxy_args, "--log");
+      append(proxy_args, "xdg-dbus-proxy")!;
+      append(proxy_args, upstream_fd_path)!;
+      append(proxy_args, path::string(downstream_path))!;
+      append(proxy_args, "--filter")!;
+      append(proxy_args, fmt::asprintf("--fd={}", notify_fd_nocloexec: int)!)!;
+      // append(proxy_args, "--log")!;
       for (let spec .. dbus.call) {
-        append(proxy_args, fmt::asprintf("--call={}", spec));
+        append(proxy_args, fmt::asprintf("--call={}", spec)!)!;
       };
       for (let spec .. dbus.own) {
-        append(proxy_args, fmt::asprintf("--own={}", spec));
+        append(proxy_args, fmt::asprintf("--own={}", spec)!)!;
       };
       errors::ext::check(
         "dbus_restrict: invoke xdg-dbus-proxy",

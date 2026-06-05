@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p gocryptfs
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.gocryptfs ]'
 
 pass_file=/run/gocryptfs/private.key
 pass_str=$(cat "$pass_file")

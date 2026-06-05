@@ -12,7 +12,7 @@ for result in $(fd --follow result) $(fd -uuu result); do
     # not a build artifact
     continue
   fi
-  if [[ "$result" == build/* ]] || [[ "$result" == .working/* ]]; then
+  if [[ "$result" == build/* ]] || [[ "$result" == .work/* ]]; then
     # intentionally preserved build artifact
     continue
   fi

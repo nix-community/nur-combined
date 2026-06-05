@@ -3,14 +3,14 @@
 # this file, as viewed by NUR consumers:
 # - <https://nur.nix-community.org/repos/colinsane/>
 #
-# this file is not reachable from the top-level of my nixos configs (i.e. toplevel flake.nix)
+# this file is not reachable from the top-level of my nixos configs (i.e. toplevel default.nix)
 # nor is it intended for anyone who wants to reference my config directly
-#   (consider the toplevel flake.nix outputs instead).
+#   (consider the toplevels: /default.nix, /pkgs/default.nix, /overlays/*.nix, or /modules/default.nix instead).
 #
 # rather, this is the entrypoint through which NUR finds my packages, modules, overlays.
 # it's reachable only from those using this repo via NUR.
 #
-# to manually query available packages, modules, etc, try:
+# to manually query available packages, modules, etc:
 # - nix eval --impure --expr 'builtins.attrNames (import ./. {})'
 #
 # to validate this before a push that would propagate to NUR:
@@ -32,28 +32,43 @@
 #   - but running it this way seems to not setup the right environment
 # - run from <repo:nix-community/NUR>: `./ci/update-nur.sh`
 #   - after removing all but my repo from `repos.json`
-#   - and afte removing excess code (e.g. the setup-git.sh call) in `ci/update-nur.sh`
+#   - and after removing excess code (e.g. the setup-git.sh call) in `ci/update-nur.sh`
+# - from this repo, import the NUR with `repoOverrides.colinsane` pointed back here
+#   - see: <https://nur.nix-community.org/documentation/#overriding-repositories>
 
 { pkgs ? import <nixpkgs> {} }:
 let
-  sanePkgs = builtins.removeAttrs (import ../../pkgs { inherit pkgs; }).sane [
+  sane = import ../../pkgs/packages.nix pkgs;
+  sane' = removeAttrs sane [
     # XXX(2024-07-14): these packages fail NUR check, due to weird Import-From-Derivation things (bugs?).
     # see: <https://github.com/NixOS/nix/issues/9052>
     "linux-exynos5-mainline"
-    "linux-megous"
     "linux-postmarketos-allwinner"
     "linux-postmarketos-exynos5"
     "linux-postmarketos-pinephonepro"
+    # TODO(2026-05-18): mpvScripts.sane_cast takes sane-cast as callarg; that doesn't exist when packages are placed in a `sane` scope!
+    "mpvScripts"
+    "pkgsSpliced"  #< error: path ... did not exist in the store during evaluation
+    "pkgsStrictDeps"  #< error: path ... did not exist in the store during evaluation
+    "sane-nix-files"
+    # these use IFD by design
     "nixpkgs-bootstrap"
     "nixpkgs-wayland"
+    "nur" # redundant
     "sops-nix"
     "uninsane-dot-org"
   ];
 in
-({
-  overlays.pkgs = import ../../overlays/pkgs.nix;
-  pkgs = sanePkgs;
-
-  modules = import ../../modules { inherit (pkgs) lib; };
-  lib = import ../../modules/lib { inherit (pkgs) lib; };
-} // sanePkgs)
+  # NUR expects the following schema, as per <https://nur.nix-community.org/documentation/#nixos-modules-overlays-and-library-function-support>:
+  # - toplevel is a package set
+  # - optionally: `lib` is an arbitrary collection of nix expressions (similar to nixpkgs' lib)
+  # - optionally: `modules` is an attrset from String -> Path
+  # - optionally: `overlays` is an attrset from String -> (Attrs -> Attrs)
+  sane' // {
+    # too lazy to expose overlays/modules individually right now; let me know if you want that.
+    overlays = {
+      all = import ../../overlays/all.nix;
+      pkgs = import ../../overlays/pkgs.nix;
+    };
+    modules.all = ../../modules;
+  }

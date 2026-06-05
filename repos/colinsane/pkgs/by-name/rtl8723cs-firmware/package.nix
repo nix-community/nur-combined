@@ -1,5 +1,8 @@
-{ lib, stdenv, fetchFromGitHub }:
-with lib;
+{
+  fetchFromGitHub,
+  lib,
+  stdenv,
+}:
 stdenv.mkDerivation {
   pname = "rtl8723cs-firmware";
   version = "2020-07-05";
@@ -18,7 +21,7 @@ stdenv.mkDerivation {
     cp -R rtl_bt "$out/lib/firmware"
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Firmware for rtl8723bs and rtl8723cs";
     # there are many sources for this, none of them authoritative.
     # the original binaries likely come from some Realtek SDK, hardcoded into a C array
@@ -31,9 +34,9 @@ stdenv.mkDerivation {
     # mobile-nixos used this source until switching to megi's on 2021/07/26:
     # - <https://github.com/NixOS/mobile-nixos/pull/391/files>
     homepage = "https://github.com/anarsoul/rtl8723bt-firmware";
-    license = licenses.unfreeRedistributableFirmware;
-    maintainers = with maintainers; [ colinsane ];
-    platforms = with platforms; linux;
+    license = lib.licenses.unfreeRedistributableFirmware;
+    maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 }
 

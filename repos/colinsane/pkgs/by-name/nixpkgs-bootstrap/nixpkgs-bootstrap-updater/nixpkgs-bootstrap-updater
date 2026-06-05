@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p common-updater-scripts -p curl -p jq -p nix-prefetch-github
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.curl ps.jq ps.nix-prefetch-git ps.nix-prefetch-github ps.update-source-version ]'
 
 set -eu
 
@@ -47,11 +47,15 @@ main() {
   local nixHash=$(jsonGetField "$prefetchData" src.hash)
   local commitDate=$(jsonGetField "$prefetchData" meta.commitDate)
 
+  test -n "$rev" -a -n "$nixHash" -a -n "$commitDate"
   update-source-version "sane.nixpkgs-bootstrap.$branch" "unstable-$commitDate" "$nixHash" \
     --rev="$rev" \
+    --ignore-same-version \
     --print-changes
 }
 
-parseArgs "$@"
+args=("$@")
+parseArgs "${args[@]}"
+echo "nixpkgs-bootstrap-updater" "${args[@]}"
 set -x
 main "$branch"

@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p nettools -p openssh -p rsync -p sane-scripts.vpn
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.nettools ps.openssh ps.rsync ps.sane-scripts.vpn ]'
 
 # secret should include RN_USER
 source /run/secrets/rsync-net-env

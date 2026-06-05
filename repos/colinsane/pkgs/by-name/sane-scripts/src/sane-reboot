@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p nettools -p systemd
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.nettools ps.systemd ]'
 
 # TODO: merge with sane-shutdown
 

@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3.pkgs.passlib
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.passlib ]'
 # vim: set filetype=python :
 #
 # available environment variables:
@@ -71,6 +71,7 @@ TRUSTED_CREDS = [
   # $<method>$<salt>$<hash>
   "$6$Zq3c2u4ghUH4S6EP$pOuRt13sEKfX31OqPbbd1LuhS21C9MICMc94iRdTAgdAcJ9h95gQH/6Jf6Ie4Obb0oxQtojRJ1Pd/9QHOlFMW.",  #< m. rocket boy
   "$6$B0NLGNdCL51PNse1$46G.aA1ATWIv5v.jUsKf4F3NS7emV2jB2gkZ3MytZtMvw2pjniHmRl0fywRjKW9TuXTeK9T50v.H0f2BaQ4PT1",  #< v. telephony
+  "$6$e53ViUrSO3B7r78O$L/1HR/27UF6O1zYSrQf54fJdPGtrLMAGP8zjavsgsLS4vt1rPLbguTdWWg0RZE9b8ANYb8EgdsTFJSywFK6I20",  #< n. selection
 ]
 TRUSTED_VIEWING_OR_PLAYGROUND_CREDS = [
   # "$6$iikDajz5b.YH1.on$tfSzzBEtX8IeDiJJXCasOTxRTd7cFDKXU6dhlWYVhK6xDeJhV2fh6bmm1WIHItjIth9Eh9zNgUB8xibMIWCm/."  # fedi (2024-08-27); music appreciation

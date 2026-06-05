@@ -1,10 +1,4 @@
 { lib, pkgs, ... }:
-
-let
-  GiB = n: MiB 1024*n;
-  MiB = n: KiB 1024*n;
-  KiB = n: 1024*n;
-in
 {
   sane.persist.sys.byStore.private = [
     { user = "postgres"; group = "postgres"; mode = "0750"; path = "/var/lib/postgresql"; method = "bind"; }

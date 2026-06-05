@@ -3,18 +3,15 @@
 # - <https://github.com/nixosbrasil/nix-docgen>
 # - <https://kapeli.com/docsets#dashDocset>
 {
-  buildPackages,
-  docsets,
   lib,
-  # nixpkgs-manual,
+  make-docset-index,
+  nixpkgs-manual,
   stdenvNoCC,
 }:
 let
   # nixpkgs has logic to build an attrset of all the items which make it into nixpkgs-manual.
   # this is a json dictionary with each entry like:
   # - `"lib.asserts.assertEachOneOf": "[lib/asserts.nix:135](https://github.com/NixOS/nixpkgs/blob/master/lib/asserts.nix#L135) in `<nixpkgs>`"`
-  # TODO: upstream nixpkgs `lib-docs` package could probably be fixed to cross-compile instead of grabbing it from `buildPackages`
-  nixpkgs-manual = buildPackages.nixpkgs-manual;
   lib-locations = nixpkgs-manual.lib-docs.overrideAttrs (base: {
     installPhase = base.installPhase + ''
       cp locations.json $out/locations.json
@@ -25,7 +22,7 @@ in stdenvNoCC.mkDerivation {
   pname = "nixpkgs-lib";
   version = lib.version;
 
-  nativeBuildInputs = [ docsets.make-docset-index ];
+  nativeBuildInputs = [ make-docset-index ];
 
   unpackPhase = ''
     cp ${./Info.plist} Info.plist

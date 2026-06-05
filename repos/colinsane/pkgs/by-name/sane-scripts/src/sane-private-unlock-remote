@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p openssh -p sane-scripts.secrets-dump
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.openssh ps.sane-scripts.secrets-dump ]'
 
 # unlock a remote private store by dropping the password in a discoverable place.
 # this only works if our own private store has been unlocked and this machine has access to the relevant secret.

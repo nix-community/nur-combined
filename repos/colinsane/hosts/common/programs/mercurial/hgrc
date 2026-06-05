@@ -8,14 +8,17 @@ q = qseries -s -v
 # `hg qpath`: print the path to the current queue
 qpath = !$HG noop ; echo ".hg/patches-$($HG qqueue --active)" | sed 's:hg/patches-patches:hg/patches:'
 #
-# `hg qcat PATCH_NAME`: view the diff of a mq patch in the current queue.
-qcat = !$HG noop ; cat $($HG qpath)/$1 | colordiff --nobanner | $PAGER
+# `hg qcat [PATCH_NAME]`: view the diff of a mq patch in the current queue.
+qcat = !$HG noop ; cat $($HG qpath)/$(test -n "$1" && echo "$1" || $HG qtop) | colordiff --nobanner | $PAGER
 #
 # `hg qcref`: like `git add -p`; select which changes should be in this patch, interactively
 qcref = !$HG qrefresh --exclude . && $HG qrefresh --config ui.interface.chunkselector=curses --interactive
 #
 # `hg qdup NEW_QUEUE_NAME`: copy all patches in the current queue into a new queue
 qdup = !$HG qpop -a ; cp -R $($HG qpath) .hg/patches-$1 ; echo $1 >> .hg/patches.queues ; $HG qqueue $1
+#
+# `hg qhead [PATCH_NAME]`: view the commit message of a patch in the current queue.
+qhead = !$HG noop ; cat $($HG qpath)/$(test -n "$1" && echo "$1" || $HG qtop) | sed '/^diff --git/,$d'
 qstat = qdiff --stat
 sblame = blame -undq
 #

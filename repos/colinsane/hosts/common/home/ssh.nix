@@ -8,7 +8,7 @@ let
   host-keys = lib.filter (k: k.user == "root") (lib.attrValues config.sane.ssh.pubkeys);
   known-hosts-text = lib.concatStringsSep
     "\n"
-    (builtins.map (k: k.asHostKey) host-keys)
+    (map (k: k.asHostKey) host-keys)
   ;
 in
 {
@@ -25,5 +25,5 @@ in
   let
     user-keys = lib.filter (k: k.user == "colin") (lib.attrValues config.sane.ssh.pubkeys);
   in
-    builtins.map (k: k.asUserKey) user-keys;
+    map (k: k.asUserKey) user-keys;
 }

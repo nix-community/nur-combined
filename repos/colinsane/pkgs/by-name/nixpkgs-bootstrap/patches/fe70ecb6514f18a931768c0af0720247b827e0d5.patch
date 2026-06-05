@@ -1,0 +1,26 @@
+From fe70ecb6514f18a931768c0af0720247b827e0d5 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Tue, 26 May 2026 01:55:27 +0000
+Subject: [PATCH] capnproto: fix static/cross compilation
+
+fixes `nix-build -A pkgsCross.aarch64-multiplatform.pkgsStatic.capnproto`
+
+`${binutils}/bin/ar` is an executable for the host platform;
+we can't execute it during a build. use the stdenv's `ar` instead.
+---
+ pkgs/by-name/ca/capnproto/package.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/ca/capnproto/package.nix b/pkgs/by-name/ca/capnproto/package.nix
+index 04a8c602610b..68e327209047 100644
+--- a/pkgs/by-name/ca/capnproto/package.nix
++++ b/pkgs/by-name/ca/capnproto/package.nix
+@@ -21,7 +21,7 @@ let
+     dontUnpack = true;
+     installPhase = ''
+       mkdir -p "$out"/lib
+-      "${binutils}"/bin/ar r "$out"/lib/libgcc_eh.a
++      ${clangStdenv.cc.targetPrefix}ar r "$out"/lib/libgcc_eh.a
+     '';
+   };
+ in

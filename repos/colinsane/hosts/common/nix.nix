@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
+  nix.checkConfig = false;  #< don't error the build if we specify unknown settings; nix/lix handles those gracefully at runtime.
   nix.settings = {
     # see: `man nix.conf`
 
@@ -12,13 +13,19 @@
     # maximum seconds to wait when connecting to binary substituter
     connect-timeout = 3;  # default: 0
 
-    # download-attempts = 5;  # default: 5
+    download-attempts = 2;  # default: 5
 
     # allow `nix flake ...` command
     experimental-features = [ "nix-command" "flakes "];
 
     # whether to build from source when binary substitution fails
     fallback = true;  # default: false
+
+    # give me `nix-build` style output in the repl, please (lix 2.95+)
+    # log-format: `raw-with-logs` = nix-build default style.
+    # log-format: `bar` = `nix repl` default style.
+    # log-format: `multiline-with-logs` is like `bar-with-logs`, but splits the status across multiple lines (`[A/B/C built]` / `Building ${pname} ${phase}`)
+    log-format = "bar-with-logs";
 
     # whether to keep building dependencies if any other one fails
     keep-going = true;  # default: false
@@ -28,6 +35,8 @@
 
     # how many lines to show from failed build
     log-lines = 30;  # default: 10
+
+    # max-connect-timeout = 20;  # default 300; in seconds.
 
     # how many substitution downloads to perform in parallel.
     # i wonder if parallelism is causing moby's substitutions to fail?
@@ -46,31 +55,24 @@
     warn-dirty = false;  # default: true
 
     # hardlinks identical files in the nix store to save 25-35% disk space.
+    # - in practice, that's 700GB saved (allegedly) on a 2150GB (allegedly) nix store (living on a 8TB SSD)
+    #   as reported by `nix path-info --json --all | jq 'map(.narSize) | add'`
+    # manually optimize by invoking: `nix-store --optimise`.
+    # view space savings by invoking: `nix-store --gc --max-freed 1 | grep "currently hard linking saves"`
+    #
     # unclear _when_ this occurs. it's not a service.
     # does the daemon continually scan the nix store?
     # does the builder use some content-addressed db to efficiently dedupe?
-    auto-optimise-store = true;
+    #
+    # N.B.: hardlinks are an impurity; see e.g.: <https://github.com/NixOS/infra/issues/438>
+    # `tar` preserves hardlinks found in the store by default, which is almost *never* what you want.
+    #
+    # auto-optimise-store = true;  # default: false
 
     # allow #!nix-shell scripts to locate my patched nixpkgs & custom packages.
     # this line might become unnecessary: see <https://github.com/NixOS/nixpkgs/pull/273170>
-    nix-path = config.nix.nixPath;
+    # nix-path = config.nix.nixPath;
   };
-
-  # allow `nix-shell` (and probably nix-index?) to locate our patched and custom packages.
-  # this setting alone doesn't have effect; rather it influences `nix.settings.nix-path` (above), which has the actual effect.
-  nix.nixPath = (lib.optionals (config.sane.maxBuildCost >= 2) [
-    "nixpkgs=${pkgs.path}"
-  ]) ++ [
-    # note the import starts at repo root: this allows `./overlay/default.nix` to access the stuff at the root
-    # "nixpkgs-overlays=${../../..}/hosts/common/nix-path/overlay"
-    # as long as my system itself doesn't rely on NIXPKGS at runtime, we can point the overlays to git
-    # to avoid `switch`ing so much during development.
-    # TODO: it would be nice to remove this someday!
-    # it's an impurity that touches way more than i need and tends to cause hard-to-debug eval issues
-    # when it goes wrong. should i port my `nix-shell` scripts to something more tailored to my uses
-    # and then delete `nixpkgs-overlays`?
-    "nixpkgs-overlays=/home/colin/dev/nixos/integrations/nixpkgs/nixpkgs-overlays.nix"
-  ];
 
   # ensure new deployments have a source of this repo with which they can bootstrap.
   # this however changes on every commit and can be slow to copy for e.g. `moby`.

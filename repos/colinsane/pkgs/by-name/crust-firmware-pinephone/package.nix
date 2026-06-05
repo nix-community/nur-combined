@@ -55,11 +55,11 @@ stdenv.mkDerivation (finalAttrs: {
     cp -v build/scp/scp.bin $out
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Libre SCP firmware for Allwinner sunxi SoCs";
     homepage = "https://github.com/crust-firmware/crust";
-    license = with licenses; [ bsd3 gpl2Only mit ];
-    maintainers = with maintainers; [ colinsane ];
-    platforms = platforms.all;
+    license = with lib.licenses; [ bsd3 gpl2Only mit ];
+    maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.all;
   };
 })

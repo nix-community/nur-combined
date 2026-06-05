@@ -1,9 +1,9 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   persist-base = "/nix/persist";
   origin = config.sane.persist.stores."private".origin;
-  backing = sane-lib.path.concat [ persist-base "private" ];
+  backing = pkgs.sane-lib.path.concat [ persist-base "private" ];
 
   # fileSystems.* options
   device = "gocryptfs-private#${backing}";
@@ -32,11 +32,13 @@ lib.mkIf config.sane.persist.enable
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "provision-private-key";
       srcRoot = ./.;
-      pkgs = [
-        "coreutils-full"
-        "gocryptfs"
-        "inotify-tools"
-      ];
+      pkgs = {
+        inherit (pkgs)
+          coreutils-full
+          gocryptfs
+          inotify-tools
+        ;
+      };
     };
     sandbox.autodetectCliPaths = "parent";
     # this is required if provision-private-key runs as a different user than the user who wrote `private.key` to disk.
@@ -48,7 +50,9 @@ lib.mkIf config.sane.persist.enable
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "gocryptfs-private";
       srcRoot = ./.;
-      pkgs = [ "gocryptfs" ];
+      pkgs = {
+        inherit (pkgs) gocryptfs;
+      };
     };
     sandbox.autodetectCliPaths = "existing";
     sandbox.capabilities = [

@@ -30,8 +30,8 @@ class MediaMeta:
     freeleech: bool
     archive: bool
 
-    @classmethod
-    def add_arguments(self, parser: ArgumentParser) -> None:
+    @staticmethod
+    def add_arguments(parser: ArgumentParser) -> None:
         parser.add_argument("--audiobook", help="Audiobook.Title")
         parser.add_argument("--book", help="Book.Title")
         parser.add_argument("--film", help="Film.Title-year")
@@ -45,8 +45,8 @@ class MediaMeta:
         parser.add_argument("--freeleech", action="store_true", help="not interested in the data, only in seeding")
         parser.add_argument("--prefix", help="additional path component before anything implied by the other options (but after the base media dir)")
 
-    @classmethod
-    def from_arguments(self, args: Namespace) -> Self:
+    @staticmethod
+    def from_arguments(args: Namespace) -> 'MediaMeta':
         title = None
         type_ = None
         if args.audiobook != None:
@@ -89,7 +89,7 @@ class MediaMeta:
             MediaType.VisualNovel: "Books/Visual/",
         }[self.type_]
 
-    def fs_path(self, base: str=TORRENT_DIR) -> None:
+    def fs_path(self, base: str=TORRENT_DIR) -> str:
         return os.path.join(
             base,
             self.prefix or "",
@@ -117,7 +117,7 @@ class TransmissionApi:
         parser.add_argument("--dry-run", action="store_true", help="only show what would be done; don't invoke transmission")
 
     @staticmethod
-    def from_arguments(args: Namespace) -> Self:
+    def from_arguments(args: Namespace) -> 'TransmissionApi':
         return TransmissionApi(check_output = dry_check_output if args.dry_run else subprocess.check_output)
 
     @property
@@ -152,7 +152,7 @@ class TransmissionApi:
         else:
             self.add_torrent(meta, torrent)
 
-    def rm_torrent(self, torrent: str | int) -> None:
+    def rm_torrent(self, torrent: str) -> None:
         self.call_transmission(
             description=f"deleting {torrent}",
             args=[

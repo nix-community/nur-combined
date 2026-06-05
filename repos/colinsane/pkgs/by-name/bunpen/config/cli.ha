@@ -153,14 +153,14 @@ export fn parse_args(args: []str) (cli_opts | errors::invalid) = {
 
   match (os::getenv("BUNPEN_APPEND")) {
     case let a: str =>
-      let append_args_raw = strings::split(a, " ");
+      let append_args_raw = strings::split(a, " ")!;
       defer free(append_args_raw);
       // handle `BUNPEN_APPEND="  arg1 arg2   arg3 "` leading/mid/trailing whitespace:
       let append_args: []str = [];
       defer free(append_args);
       for (let a .. append_args_raw) {
         if (a != "")
-          append(append_args, a);
+          append(append_args, a)!;
       };
       parse_args_into(&parsed, append_args)?;
     case void => void;
@@ -181,8 +181,8 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
       switch (arg) {
         case "--bunpen-autodetect"      =>  idx += 1; parsed.autodetect = autodetect_fromstr(expect_arg("--bunpen-autodetect", next)?)?;
         case "--bunpen-cap"             =>  idx += 1; parse_caparg(parsed, expect_arg("--bunpen-cap", next)?)?;
-        case "--bunpen-dbus-call"       =>  idx += 1; append(parsed.dbus_call, expect_arg("--bunpen-dbus-call", next)?);
-        case "--bunpen-dbus-own"        =>  idx += 1; append(parsed.dbus_own, expect_arg("--bunpen-dbus-own", next)?);
+        case "--bunpen-dbus-call"       =>  idx += 1; append(parsed.dbus_call, expect_arg("--bunpen-dbus-call", next)?)!;
+        case "--bunpen-dbus-own"        =>  idx += 1; append(parsed.dbus_own, expect_arg("--bunpen-dbus-own", next)?)!;
         case "--bunpen-debug"           =>  parsed.debug = 2;
         case "--bunpen-debug=0"         =>  parsed.debug = 0;
         case "--bunpen-debug=1"         =>  parsed.debug = 1;
@@ -191,20 +191,20 @@ fn parse_args_into(parsed: *cli_opts, args: []str) (void | errors::invalid) = {
         case "--bunpen-debug=4"         =>  parsed.debug = 4;
         case "--bunpen-dns"             =>  idx += 1; parsed.dns = expect_arg("--bunpen-dns", next)?;
         case "--bunpen-drop-shell"      =>  parsed.drop_shell = "1";
-        case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?);
+        case "--bunpen-env"             =>  idx += 1; append(parsed.env, expect_arg("--bunpen-env", next)?)!;
         case "--bunpen-help"            =>  parsed.help = true;
         case "--bunpen-keep-ipc"        =>  parsed.keep_ipc = true;
         case "--bunpen-keep-net"        =>  parsed.keep_net = true;
         case "--bunpen-keep-pid"        =>  parsed.keep_pid = true;
         case "--bunpen-net-dev"         =>  idx += 1; parsed.net_dev = expect_arg("--bunpen-net-dev", next)?;
         case "--bunpen-net-gateway"     =>  idx += 1; parsed.net_gateway = expect_arg("--bunpen-net-gateway", next)?;
-        case "--bunpen-path"            =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?);
+        case "--bunpen-path"            =>  idx += 1; append(parsed.paths, expect_arg("--bunpen-path", next)?)!;
         case "--bunpen-seal"            =>  parsing_bunpen = false;  // remaining arguments are not to be interpreted by us
         case "--bunpen-try-keep-users"  =>  parsed.try_keep_users = true;
-        case                            =>  append(parsed.cmd, arg);
+        case                            =>  append(parsed.cmd, arg)!;
       };
     } else {
-      append(parsed.cmd, arg);
+      append(parsed.cmd, arg)!;
     };
   };
 };
@@ -220,6 +220,6 @@ fn parse_caparg(into: *cli_opts, arg: str) (void | errors::invalid) = {
   if (arg == "all") {
     into.keep_all_caps = true;
   } else {
-    append(into.keep_caps, rt::ext::cap_fromstr(arg)?);
+    append(into.keep_caps, rt::ext::cap_fromstr(arg)?)!;
   };
 };

@@ -118,7 +118,7 @@ export fn namespace_restrict(what: *ns_resources) void = {
   // and then mounting just /proc here, but that's complicated particularly by
   // the many circumstances in which we might want to mount *portions* of the
   // outside /proc over the new /proc.
-  let pwd = strings::dup(os::getcwd());  // dup because API uses a static buffer
+  let pwd = errors::ext::check_str("[namespace] strings::dup", strings::dup(os::getcwd()));  // dup because API uses a static buffer
   defer(free(pwd));
   isolate_paths(what);
   // try to change to the old working directory;
@@ -182,7 +182,7 @@ fn write_id_maps(uid: unix::uid, gid: unix::gid) void = {
 fn write_id_map(which: str, id: uint) (void | rt::errno | io::error) = {
   let id_fd = rt::open(which, rt::O_RDWR | rt::O_CLOEXEC, 0)?;
   let id_buf: [4096]u8 = [0...];
-  let id_str = fmt::bsprintf(id_buf, "{0} {0} 1\n", id);
+  let id_str = fmt::bsprintf(id_buf, "{0} {0} 1\n", id)?;
   io::write(id_fd, strings::toutf8(id_str))?;
 };
 

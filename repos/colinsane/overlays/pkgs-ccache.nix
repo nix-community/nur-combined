@@ -34,7 +34,7 @@ let
     pkg';
 
   replaceCcFlags = pkgs: pkg: pkg.overrideAttrs (base: {
-    makeFlags = builtins.map (final.lib.replaceStrings [ "${pkgs.stdenv.cc}" ] [ "${(mkCCacheStdenv pkgs).cc}" ]) base.makeFlags;
+    makeFlags = map (final.lib.replaceStrings [ "${pkgs.stdenv.cc}" ] [ "${(mkCCacheStdenv pkgs).cc}" ]) base.makeFlags;
   });
 
   tryEnableCCache = pkg: let

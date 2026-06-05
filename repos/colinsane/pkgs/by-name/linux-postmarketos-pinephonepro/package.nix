@@ -55,8 +55,6 @@ let
 
 in (linuxManualConfig {
   inherit src version modDirVersion randstructSeed;
-  # inherit (linux-megous) extraMakeFlags modDirVersion src version;
-  # inherit (linux-megous) kernelPatches;
 
   configfile = writeTextFile {
     name = "config-pine64-pinephonepro.aarch64";

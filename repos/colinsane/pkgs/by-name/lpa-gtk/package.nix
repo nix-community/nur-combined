@@ -28,7 +28,7 @@ let
     ]
   );
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lpa-gtk";
   version = "0.3";
 
@@ -36,7 +36,7 @@ stdenv.mkDerivation rec {
     domain = "codeberg.org";
     owner = "lucaweiss";
     repo = "lpa-gtk";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-pbvPfGBHTHGnKAE69TSVo/hvAbI8eY/HbS7aX8sTVuE=";
   };
 
@@ -87,4 +87,4 @@ stdenv.mkDerivation rec {
     description = "Download and manage eSIM profiles";
     maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

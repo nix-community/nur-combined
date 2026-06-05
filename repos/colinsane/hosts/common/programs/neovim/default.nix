@@ -1,12 +1,14 @@
 # useful vim config references:
 # - <repo:nix-community/nur-combined:repos/ambroisie/modules/home/vim>
+# - <https://nix-community.github.io/nixvim/user-guide/config-examples.html>
+# - <https://matrix.to/#/#nixvim:matrix.org>
 moduleArgs@{ config, lib, pkgs, ... }:
 
 let
   cfg = config.sane.programs.neovim.config;
   plugins = import ./plugins.nix moduleArgs;
   plugin-packages = builtins.filter (x: x != null) (
-    builtins.map (p: p.plugin or null) plugins
+    lib.concatMap (p: (p.plugins or []) ++ (if p ? plugin then [ p.plugin ] else [])) plugins
   );
   plugin-configs = lib.concatMapStrings (p:
     lib.optionalString
@@ -47,23 +49,60 @@ in
     };
 
     suggestedPrograms = [
+      # find language servers...
+      # - in nixpkgs:
+      #   `rg -i 'language server'`
+      # - <https://github.com/neovim/nvim-lspconfig>
+      # - <https://langserver.org/>
       "bash-language-server"
+      # "ccls"  # for c/c++. can't get it to actually load. <https://github.com/MaskRay/ccls>
       # "clang-tools"  # for c/c++. fails to follow #includes; "Too many errors emitted"
+      "ctags-lsp"  # for TAGS (ctags)
       "dasht"  # for vim-dasht; docset queries
       "lua-language-server"
       # "ltex-ls"  # LaTeX, html, markdown spellchecker (but it's over-eager, and resource-heavy)
       "marksman"  # markdown
+      "mesonlsp"  # meson
       "nixd"  # Nix
       "openscad-lsp"  # OpenSCAD (limited)
       "pyright"  # python
       "rust-analyzer"  # Rust (limited)
+      # "sourcekit-lsp"  # Swift/C/C++. "Too many errors" if unconfigured.  <https://github.com/swiftlang/sourcekit-lsp>
+      "systemd-lsp"  # .unit files
       "typescript-language-server"
 
       # these could be cool, i just haven't bothered to integrate them:
-      # "css_variables"  # CSS. 2025-10-23: not packaged for nix. <https://github.com/vunguyentuan/vscode-css-variables/tree/master/packages/css-variables-language-server>
-      # "lemminx"  # XML language server, in nixpkgs <https://github.com/eclipse/lemminx>
-      # "superhtml"  # HTML, in nixpkgs <https://github.com/kristoff-it/superhtml>
+      # "asm-lsp"
+      # "autotools-language-server"
+      # "awk-language-server"
+      # "crates-lsp"  # Cargo.toml
+      # "css_variables"  # CSS. 2025-10-23: not packaged for nix  <https://github.com/vunguyentuan/vscode-css-variables/tree/master/packages/css-variables-language-server>
+      # "dts-lsp"  # Device Tree
+      # "ginko"  # Device Tree
+      # "gopls"  # Go
+      # "java-language-server"
+      # "javascript-typescript-langserver"
+      # "jdt-language-server"  # Java
+      # "jinja-lsp"  # .jinja2
+      # "jq-lsp"  # jq
+      # "lemminx"  # XML language server  <https://github.com/eclipse/lemminx>
+      # "md-lsp"  # Markdown
+      # "mpls"  # Markdown ("live preview", so, a Markdown renderer?)
+      # "nginx-language-server"
+      # "nil"  # nix
+      # "pylyzer"  # Python
+      # "sqls"  # SQL
+      # "superhtml"  # HTML  <https://github.com/kristoff-it/superhtml>
+      # "svlsp"  # SystemVerilog
+      # "systemd-language-server"  # .unit files
+      # "texlab"  # Tex
+      # "textlsp"  # spellchecker
+      # "ty"  # Python
+      # "typescript-language-server"  # Typescript
       # "vala-language-server"  #< 2024-08-26: fails to recognize any imported types, complains they're all `null`
+      # "vim-language-server"  # vimscript
+      # "yaml-language-server"
+      # "zuban"  # Python ("mypy compatible")
     ];
 
     sandbox.autodetectCliPaths = "existingOrParent";
@@ -85,23 +124,11 @@ in
     sandbox.capabilities = [ "dac_override" ];
 
     packageUnwrapped = let
-      configArgs = {
-        withRuby = false;  #< doesn't cross-compile w/o binfmt
-        viAlias = true;
-        vimAlias = true;
-        plugins = plugin-packages;
-        # customRC = ''
-        #   ${builtins.readFile ./vimrc}
-
-        #   """"" PLUGIN CONFIG
-        #   ${plugin-configs}
-        # '';
-      };
       neovim-unwrapped' = with pkgs; neovim-unwrapped.overrideAttrs (upstream: {
         # allow for more scrollback, especially required when neovim is used inside `PAGER=page`
         postPatch = (upstream.postPatch or "") + ''
           substituteInPlace src/nvim/option_vars.h \
-            --replace-fail '#define SB_MAX ' '#define SB_MAX ${builtins.toString cfg.scrollbackMax} //'
+            --replace-fail '#define SB_MAX ' '#define SB_MAX ${toString cfg.scrollbackMax} //'
         ''
         # fix cross compilation:
         # - neovim vendors lua `mpack` library,
@@ -139,18 +166,23 @@ in
           # --replace-fail '  FILES ''${GENERATED_HELP_TAGS} ' '  FILES ' \
         '';
       });
-    in (pkgs.wrapNeovimUnstable
-      neovim-unwrapped'
-      # XXX(2024/05/13): manifestRc must be null for cross-compilation to work.
-      #   wrapper invokes `neovim` with all plugins enabled at build time i guess to generate caches and stuff?
-      #   alternative is to emulate `nvim-wrapper` during build.
-      ((pkgs.neovimUtils.makeNeovimConfig configArgs) // { manifestRc = null; })
-    ).overrideAttrs(base: {
-      # XXX(2024/10/13): the manifestRc and withRuby knobs from earlier are no longer effective,
-      # due to <https://github.com/NixOS/nixpkgs/pull/344541>
-      # rubyEnv = null;
-      # withRuby = false;
-      wrapRc = false;  #< don't force VIMINIT env var
+    in (pkgs.wrapNeovimUnstable neovim-unwrapped' {
+      plugins = plugin-packages;
+      viAlias = true;
+      vimAlias = true;
+      wrapRc = false;  #< don't force VIMINIT env var; let nvim load config from ~/.config/nvim/init.vim instead
+      # withRuby = false;  #< doesn't cross-compile w/o binfmt
+      # customRC = ''
+      #   ${builtins.readFile ./vimrc}
+      #   """"" PLUGIN CONFIG
+      #   ${plugin-configs}
+      # '';
+    }).overrideAttrs(base: {
+      # XXX(2026-04-18): neovim wrapper wants to invoke nvim at build time to generate "rplugin" manifests, but that errors when cross compiling.
+      # my rplugin manifest is always empty, so disabling that step loses nothing.
+      # N.B. if this wrapper continues to cause problems, i could just ship `neovim-unwrapped` and instead
+      # link the plugins into the fs (e.g. ~/.config/nvim/pack/myPlugin/start/myPlugin -> ${pkgs.myPlugin}), for each `myPlugin`.
+      # see: <https://neovim.io/doc/user/pack/>
       postBuild = lib.replaceStrings [ "if ! $out/bin/nvim-wrapper " ] [ "if false " ] base.postBuild;
     });
 
@@ -161,8 +193,10 @@ in
       ${plugin-configs}
     '';
 
+    # ~/.local/state/nvim/lsp.log can grow to 1 GB+
+    persist.byStore.ephemeral = [ ".local/state/nvim" ];
     # private because there could be sensitive things in the swap
-    persist.byStore.private = [ ".cache/vim-swap" ];
+    persist.byStore.private = [ ".cache/vim-swap" ];  #< TODO: does this live in ~/.local/state/nvim/swap, now?
     env.EDITOR = "vim";
     # git falls back to EDITOR if GIT_EDITOR is unspecified
     # env.GIT_EDITOR = "vim";

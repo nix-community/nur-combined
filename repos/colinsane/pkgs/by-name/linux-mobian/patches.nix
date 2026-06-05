@@ -23,7 +23,7 @@ lib.makeScope newScope (self: with self; {
     byName = lib.genAttrs patchNames getByName;
 
     # ordered patches
-    series = builtins.map getByName patchNames;
+    series = map getByName patchNames;
     patchNames = [
       "0132-regulator-axp20x-Turn-N_VBUSEN-to-input-on-x-powers-"
       "0133-arm64-dts-sun50i-a64-pinephone-Add-front-back-camera"

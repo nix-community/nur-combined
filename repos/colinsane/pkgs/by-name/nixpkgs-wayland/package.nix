@@ -1,27 +1,17 @@
 {
   fetchFromGitHub,
-  lib,
   nix-update-script,
   pkgs,
 }:
 let
-  version = "0-unstable-2025-12-12";
+  version = "0-unstable-2026-06-01";
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "nixpkgs-wayland";
-    rev = "35acd2ec44c814a9d6f89d87ae54c27b8050fabd";
-    hash = "sha256-dIMNSczQM3a8CsHOtcYeieht6HZGenfIXzJsTw6NzzE=";
+    rev = "dc2f99e859576e5bf5d865ccc3db298128b03cb5";
+    hash = "sha256-IhbaMM8Q4e29VSZ+ALrSxm+/rdf/KymxlGbRJpR/hZg=";
   };
-  flake = import "${src}/flake.nix";
-  evaluated = flake.outputs {
-    self = evaluated;
-    lib-aggregate.lib = lib // {
-      # mock out flake-utils, which it uses to construct flavored package sets.
-      # we only need the overlay (unflavored)
-      flake-utils.eachSystem = sys: fn: {};
-    };
-  };
-  overlay = evaluated.overlay;
+  overlay = import "${src}/overlay.nix";
 
   final = pkgs.extend overlay;
 in src.overrideAttrs (base: {
@@ -31,7 +21,9 @@ in src.overrideAttrs (base: {
   version = version;
 
   # passthru only nixpkgs-wayland's own packages -- not the whole nixpkgs-with-nixpkgs-wayland-as-overlay:
-  passthru = base.passthru // (overlay final pkgs) // {
+  passthru = base.passthru // {
+    inherit overlay;
+    pkgs = overlay final pkgs;
     updateScript = nix-update-script {
       extraArgs = [ "--version" "branch" ];
     };

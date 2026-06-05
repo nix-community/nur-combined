@@ -4,6 +4,7 @@
   cairo,
   copyDesktopItems,
   fetchFromGitHub,
+  fetchFromGitea,
   gdk-pixbuf,
   libsodium,
   libxkbcommon,
@@ -22,12 +23,22 @@
 # - "SENSITIVE" (vaguely, 4x slower to decrypt than "moderate")
   pwhashDifficulty ? "INTERACTIVE",
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "schlock";
   version = "unstable-2022-02-02";
 
-  src = fetchFromGitHub {
-    owner = "telent";
+  # src = fetchFromGitHub {
+  #   owner = "telent";
+  #   repo = "schlock";
+  #   rev = "f3dde16f074fd5b7482a253b9d26b4ead66dea82";
+  #   hash = "sha256-Ot86vALt1kkzbBocwh9drCycbRIw2jMKJU4ODe9PYQM=";
+  # };
+
+  src = fetchFromGitea {
+    # XXX(2025-12-30): GitHub repo was deleted
+    # author can be found <https://axillae.telent.net/@dan>
+    domain = "git.uninsane.org";
+    owner = "colin";
     repo = "schlock";
     rev = "f3dde16f074fd5b7482a253b9d26b4ead66dea82";
     hash = "sha256-Ot86vALt1kkzbBocwh9drCycbRIw2jMKJU4ODe9PYQM=";
@@ -152,14 +163,14 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Touchscreen locker for Wayland";
     longDescription = ''
       schlock is a fork of Swaylock adapted for touchscreen devices.
     '';
-    inherit (src.meta) homepage;
-    license = licenses.mit;
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ colinsane ];
+    homepage = "https://github.com/telent/schlock";
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

@@ -1,5 +1,5 @@
 # quirks: temporary patches with the goal of eventually removing them
-{ ... }:
+{ lib, ... }:
 {
   # powertop will default to putting USB devices -- including HID -- to sleep after TWO SECONDS
   powerManagement.powertop.enable = false;
@@ -16,5 +16,5 @@
   #   - AMD (acpi-cpufreq) appears to manage scaling via the OS *or* HW. but the ondemand defaults never put it to max hardware frequency.
   #   - qualcomm (cpufreq-dt) appears to manage scaling *only* via the OS. ondemand governor exercises the full range.
   # - query details with `sudo cpupower frequency-info`
-  powerManagement.cpuFreqGovernor = "ondemand";
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 }

@@ -96,16 +96,28 @@
   # create a self-signed SSL certificate for use with literally any domain.
   # browsers will reject this, but proxies and local testing tools can be configured
   # to accept it.
-  system.activationScripts.generate-x509-self-signed.text = ''
-    mkdir -p /var/www/certs/wildcard
-    test -f /var/www/certs/wildcard/key.pem || ${lib.getExe pkgs.openssl} \
-      req -x509 -newkey rsa:4096 \
-      -keyout /var/www/certs/wildcard/key.pem \
-      -out /var/www/certs/wildcard/cert.pem \
-      -sha256 -nodes -days 3650 \
-      -addext 'subjectAltName=DNS:*' \
-      -subj '/CN=self-signed'
-    chmod 640 /var/www/certs/wildcard/{key,cert}.pem
-    chown root:nginx /var/www/certs/wildcard /var/www/certs/wildcard/{key,cert}.pem
-  '';
+  sane.fs."/var/www/certs/wildcard".dir.acl = {
+    user = "nginx";
+    group = "nginx";
+    mode = "0775";
+  };
+  systemd.services.var-www-certs-wildcard = {
+    serviceConfig.Type = "oneshot";
+    serviceConfig.ExecStart = ''
+      ${lib.getExe pkgs.openssl} \
+        req -x509 -newkey rsa:4096 \
+        -keyout /var/www/certs/wildcard/key.pem \
+        -out /var/www/certs/wildcard/cert.pem \
+        -sha256 -nodes -days 3650 \
+        -addext 'subjectAltName=DNS:*' \
+        -subj '/CN=self-signed'
+    '';
+
+    unitConfig.ConditionPathExists = "!/var/www/certs/wildcard/key.pem";
+    serviceConfig.User = "nginx";
+    serviceConfig.Group = "nginx";
+    serviceConfig.UMask = "0027"; # umask 0027 => cert becomes 0640, i.e. RW/R/-.
+    wantedBy = [ "nginx.service" ];
+    before = [ "nginx.service" ];
+  };
 }

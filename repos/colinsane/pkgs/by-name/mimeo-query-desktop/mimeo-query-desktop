@@ -1,0 +1,47 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.mimeo ps.python3 ]'
+
+from Mimeo import Mimeo
+
+import argparse
+import os.path
+
+parser = argparse.ArgumentParser(description="print the name of the .desktop file associated with the given file path")
+parser.add_argument("file", help="path to file")
+
+args = parser.parse_args()
+
+mimeo = Mimeo(
+  include_deprecated=True,  #< to parse ~/.local/share/applications/
+)
+
+# manual/verbose way to map:
+# mimetypes = mimeo.arg_to_mimetypes(
+#   args.file,
+#   at_least_one=True,
+#   first_only=True,
+# )
+# mimetype = next(mimetypes)
+# print(f"mimetype: {mimetype!r}")
+# 
+# desktop_paths = mimeo.mimetype_to_desktop_filepaths(
+#   mimetype,
+#   at_least_one=True,
+#   first_only=True,
+#   only_existing=True,
+# )
+# desktop_path = next(desktop_paths)
+# print(f"desktop_path: {desktop_path!r}")
+
+desktop_paths = mimeo.args_to_desktop_paths(
+  [ args.file ],
+  at_least_one=True,
+  first_only=True,
+  only_existing=True,
+)
+file_path, desktop_path = next(desktop_paths)
+# print(f"desktop_path: {desktop_path!r}")
+
+if desktop_path is not None:
+  # XXX(2026-01-15): on failure print nothing & exit 0, for compat with `xdg-mime query default $file`
+  print(os.path.basename(desktop_path))

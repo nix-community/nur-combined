@@ -1,12 +1,22 @@
 # docs: <https://github.com/Alexays/Waybar/wiki/Configuration>
 # - custom modules: <https://github.com/Alexays/Waybar/wiki/Module:-Custom>
 # - format specifiers: <https://fmt.dev/latest/syntax.html#syntax>
-{ lib, static-nix-shell }:
+{
+  jq,
+  lib,
+  playerctl,
+  static-nix-shell,
+}:
 let
   waybar-media = static-nix-shell.mkBash {
     pname = "waybar-media";
     srcRoot = ./.;
-    pkgs = [ "jq" "playerctl" ];
+    pkgs = {
+      inherit
+        jq
+        playerctl
+        ;
+    };
   };
 in
 { height, modules, persistWorkspaces }:

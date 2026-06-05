@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3.pkgs.mutagen -p python3.pkgs.pyexiftool -p python3.pkgs.pykakasi -p python3.pkgs.unidecode
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.mutagen ps.python3.pkgs.pyexiftool ps.python3.pkgs.pykakasi ps.python3.pkgs.unidecode ]'
 # vim: set filetype=python :
 """
 tool which runs over a complete music library (or audiobooks, videos, ebooks (limited)) or a subset of it and:
@@ -323,7 +323,7 @@ class Tags:
         self.tracknumber = tracknumber or []
 
     def __repr__(self) -> str:
-        return f"artist:{self.producer}/{self.albumartist}/{self.artist}, album:{self.album}, title:{self.title}, trackno:{self.tracknumber}"
+        return f"artist=({self.producer},{self.albumartist},{self.artist}), album={self.album}, title={self.title}, trackno={self.tracknumber}"
 
     def clone(self) -> 'Tags':
         return Tags(
@@ -449,7 +449,7 @@ class Tags:
                 # it's mostly just noise to have producer when not actually needed
                 continue
             if any(soft.lower() in p.lower() for soft in KNOWN_SOFTWARE_PRODUCERS):
-                # software like Adobe usee the "producer" field for itself
+                # software like Adobe uses the "producer" field for itself
                 continue
             producers.append(p)
         self.producer = producers
@@ -882,8 +882,8 @@ class Tagger:
 
     def show(self, file_: MediaFile) -> None:
         tags = self.tags_for(file_)
-        logger.info(f"tags for {file_.path_}:")
-        logger.info(f"  {tags}")
+        print(f"tags for {file_.path_}:")
+        print(f"  {tags}")
 
     def is_sufficiently_tagged(self, file_: MediaFile) -> bool:
         tags = self.tags_for(file_)

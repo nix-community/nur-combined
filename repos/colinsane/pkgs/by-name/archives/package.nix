@@ -19,7 +19,7 @@
   wrapGAppsHook4,
 }:
 let
-  vendored-raw = {
+  vendored-sources = {
     # these are specified in build-aux/dev.geopjr.Archives.Devel.json
     "offline/ruffle" = fetchzip {
       url = "https://github.com/ruffle-rs/ruffle/releases/download/nightly-2025-07-01/ruffle-nightly-2025_07_01-web-selfhosted.zip";
@@ -59,13 +59,7 @@ let
       hash = "sha256-6iG/RfgpCbHybA5p6smr60KlwtqbF5U3xnzDH0wA4Ac=";
     };
   };
-  vendored = linkFarm "archives-vendored" (lib.mapAttrsToList
-    (name: deriv: {
-      inherit name;
-      path = deriv;
-    })
-    vendored-raw
-  );
+  vendored = linkFarm "archives-vendored" vendored-sources;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "archives";
@@ -110,7 +104,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   passthru = {
-    inherit vendored vendored-raw;
+    inherit vendored vendored-sources;
     # TODO: write an updateScript that supports Archives' method of vendoring
     # updateScript = gitUpdater {
     #   rev-prefix = "v";

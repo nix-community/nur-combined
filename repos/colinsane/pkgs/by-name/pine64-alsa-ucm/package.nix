@@ -48,6 +48,9 @@ stdenvNoCC.mkDerivation {
     # - pipewire / pulseaudio card profiles?
     # - particularly, expose the card on the kernel side in such a way that the generic pipewire profiles can configure it.
     ln -s PinePhonePro.conf $out/share/alsa/ucm2/conf.d/simple-card/pine64-Pine64PinePhonePro-.conf
+    # XXX(2026-03-28): Linux >= 6.19.9 strips the trailing `-`;
+    # see 39b5d1798a <https://lore.kernel.org/all/20260306174707.283071-2-casey.connolly@linaro.org/>
+    ln -s PinePhonePro.conf $out/share/alsa/ucm2/conf.d/simple-card/pine64-Pine64PinePhonePro.conf
 
     runHook postInstall
   '';

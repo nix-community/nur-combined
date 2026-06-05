@@ -20,8 +20,8 @@
     python3.pkgs.wrapPython
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    setuptools  #< needs `pkg_resources` at runtime
+  propagatedBuildInputs = [
+    python3.pkgs.setuptools  #< needs `pkg_resources` at runtime
   ];
 
   nativeCheckInputs = [
@@ -39,9 +39,9 @@
   doCheck = true;
   strictDeps = true;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/alpernebbi/depthcharge-tools";
     description = "Tools to manage the Chrome OS bootloader";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

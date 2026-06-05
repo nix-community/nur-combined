@@ -76,12 +76,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "a mobile-first email client for the GNOME ecosystem";
     homepage = "https://gitlab.gnome.org/felinira/envelope/";
-    license = licenses.gpl3Plus;
-    maintainers = [ maintainers.colinsane ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.colinsane ];
+    platforms = lib.platforms.linux;
     mainProgram = "envelope";
   };
 })

@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p curl -p nix -p patchutils
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.curl ps.gitMinimal ps.nix ps.patchutils ]'
 
 set -eu
 
@@ -64,8 +64,9 @@ parseIdent() {
 }
 
 tryPatchesDir() {
+  echo "tryPatchesDir: have='${PATCHES_DIR:-}' .. considering='$1'"
   if [ -z "${PATCHES_DIR:-}" ] && [ -d "$1" ]; then
-    PATCHES_DIR=$1
+    export PATCHES_DIR=$1
   fi
 }
 
@@ -73,12 +74,18 @@ getPatchesDir() {
   # invoked from update script
   if [ -n "${UPDATE_NIX_ATTR_PATH:-}" ]; then
     local attrPos=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH.meta.position")
-    tryPatchesDir "$(dirname $(dirname $attrPos))/patches"
+    if [ -n "$attrPos" ]; then
+      tryPatchesDir "$(dirname $(dirname $attrPos))/patches"
+    fi
   fi
-  # invoked from update script, but the attr path fails to eval (it's a quoting issue, for patches which aren't valid identifiers)
-  tryPatchesDir "$PWD/../../pkgs/by-name/nixpkgs-bootstrap/patches"
-  # invoked from repo root
-  tryPatchesDir "$PWD/pkgs/by-name/nixpkgs-bootstrap/patches"
+  # invoked from update script, but the attr path fails to eval (it's a quoting issue, for patches which aren't valid identifiers).
+  # or invoked from root
+  local gitTop=$(git rev-parse --show-toplevel || true)
+  if [ -n "$gitTop" ]; then
+    tryPatchesDir "$gitTop/pkgs/by-name/nixpkgs-bootstrap/patches"
+  fi
+  # fail if unable to locate
+  test -n "${PATCHES_DIR:-}"
 }
 
 tryUri() {
@@ -92,9 +99,11 @@ main() {
   local ident=$1
   local scratch=$(mktemp)
   local output=$PATCHES_DIR/$revert$ident.patch
+  # N.B.: github's commit endpoint replies to short hashes; a PR number may also be a value short hash,
+  # so try the GH commit endpoint *last*. Gitea does not have this problem.
   tryUri "$scratch" "https://git.uninsane.org/colin/nixpkgs/commit/$ident.patch?full_index=1" || \
-    tryUri "$scratch" "https://github.com/uninsane/nixpkgs/commit/$ident.patch?full_index=1" || \
-    tryUri "$scratch" "https://github.com/NixOS/nixpkgs/pull/$ident.patch?full_index=1"
+    tryUri "$scratch" "https://github.com/NixOS/nixpkgs/pull/$ident.patch?full_index=1" || \
+    tryUri "$scratch" "https://github.com/uninsane/nixpkgs/commit/$ident.patch?full_index=1"
 
   if [ -n "$revert" ]; then
     interdiff "$scratch" /dev/null > "$output"

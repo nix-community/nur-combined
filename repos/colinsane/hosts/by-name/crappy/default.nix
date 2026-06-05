@@ -1,10 +1,14 @@
 # Samsung chromebook XE303C12
 # - <https://wiki.postmarketos.org/wiki/Samsung_Chromebook_(google-snow)>
-{ ... }:
+{ lib, ... }:
 {
   imports = [
+    ../../common
     ./fs.nix
   ];
+
+  networking.hostName = "crappy";
+  sane.cpu = lib.mkDefault "armv7l";
 
   sane.hal.samsung.enable = true;
   sane.roles.client = true;

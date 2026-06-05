@@ -12,6 +12,7 @@
 //    on each fork, by piping the fork'd PID from parent into child.
 //    by using the parent's view, siblings are no longer aliased.
 
+use errors::ext;
 use fmt;
 use log;
 use rt;
@@ -41,14 +42,14 @@ export fn set_forward(me: *logger, forward: *log::logger) void = {
 fn log_println(base: *log::logger, fields: fmt::formattable...) void = {
   // no way to nest `printf("[pid={}]: {}", getpid(), print(fields...))`
   // except by evaluating the inner printf:
-  let entry = fmt::asprint(fields...);
+  let entry = errors::ext::check_str("[log] println fmt::asprint", fmt::asprint(fields...));
   defer free(entry);
   log_println1(base, entry);
 };
 fn log_printfln(base: *log::logger, fmt: str, fields: fmt::field...) void = {
   // no way to nest `printf("[pid={}]: {}", getpid(), printf(fmt, fields...))`
   // except by evaluating the inner printf:
-  let entry = fmt::asprintf(fmt, fields...);
+  let entry = errors::ext::check_str("[log] printfln fmt::asprintf", fmt::asprintf(fmt, fields...));
   defer free(entry);
   log_println1(base, entry);
 };

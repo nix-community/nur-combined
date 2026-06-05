@@ -7,7 +7,6 @@
 }: stdenvNoCC.mkDerivation {
   pname = "ols";
   version = "0.1.0-unstable-2024-06-30";
-  format = "pyproject";
 
   src = fetchFromGitea {
     # my dev branch has a few changes:
@@ -28,14 +27,14 @@
   # };
   # src = /home/colin/ref/repos/tpikonen/ols;
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiohttp
+  propagatedBuildInputs = [
+    python3.pkgs.aiohttp
     fastcluster
-    fastjsonschema
-    mercantile
-    numpy
-    scipy
-    typing-extensions
+    python3.pkgs.fastjsonschema
+    python3.pkgs.mercantile
+    python3.pkgs.numpy
+    python3.pkgs.scipy
+    python3.pkgs.typing-extensions
   ];
 
   nativeBuildInputs = [
@@ -64,9 +63,9 @@
   doInstallCheck = true;
   strictDeps = true;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://codeberg.org/tpikonen/ols";
     description = "HTTP location service with Mozilla Location Service (MLS) compatible API";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

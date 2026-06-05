@@ -1,6 +1,6 @@
 # config options:
 # - <https://github.com/mautrix/signal/blob/master/mautrix_signal/example-config.yaml>
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 lib.mkIf false  # disabled 2024/01/11: i don't use it, and pkgs.mautrix-signal had some API changes
 {

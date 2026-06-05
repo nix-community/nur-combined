@@ -109,14 +109,15 @@ def get_any_wan(cached: bool = False) -> tuple[str, str, str] | None:
             if lan and wan:
                 return location, lan, wan
 
-def forward_port(root_device: str, proto: str, port: int, lan_ip: str, reason: str = "", duration: int = 86400) -> None:
+def forward_port(root_device: str, proto: str, port: int, external_port: int, lan_ip: str, reason: str = "", duration: int = 86400) -> None:
     args = [
         "upnpc",
         "-u", root_device,
         "-e", reason,
+        # format is `-a ip port external_port protocol [duration] [remote host]`
         "-a", lan_ip,
         str(port),
-        str(port),
+        str(external_port),
         proto,
         str(duration),
     ]

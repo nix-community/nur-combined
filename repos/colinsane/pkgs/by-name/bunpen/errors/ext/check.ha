@@ -9,7 +9,7 @@ use os::exec;
 use path;
 use rt;
 
-export type error = (errors::error | fs::error | io::error | os::exec::error | path::error | rt::errno);
+export type error = (errors::error | fs::error | io::error | os::exec::error | path::error | rt::errno | nomem);
 
 // stringify an error. return value is statically allocated, no need to free.
 export fn maybe_strerror(what: (void | ...error)) (void | str) = {
@@ -21,8 +21,10 @@ export fn maybe_strerror(what: (void | ...error)) (void | str) = {
     case let e: os::exec::error => yield os::exec::strerror(e);
     case let e: path::error => yield path::strerror(e);
     case let e: rt::errno =>
-      // N.B.: this panics if the buffer is too small.
-      yield fmt::bsprintf(errorbuf[..], "{}: {}", rt::errname(e), rt::strerror(e));
+      yield match (fmt::bsprintf(errorbuf[..], "{}: {}", rt::errname(e), rt::strerror(e))) {
+        case let s: str => yield s;
+        case nomem => yield rt::errname(e);
+      };
     case void => yield void;
   };
 };
@@ -36,19 +38,33 @@ export fn strerror(what: error) str = {
 
 fn print_error_with_context(user_context: str, add_context: str, e: error, fmt_args: fmt::field...) void = {
   let context_buf: [4096]u8 = [0...];
-  log::println(
-    fmt::bsprintf(context_buf[..], user_context, fmt_args...),
-    ":",
-    strerror(e),
-    add_context,
-  );
+  match (fmt::bsprintf(context_buf[..], user_context, fmt_args...)) {
+    case let s: str => log::println(
+      s,
+      ":",
+      strerror(e),
+      add_context,
+    );
+    case nomem => {
+      // print the message with less formatting
+      log::println(
+        "print_error_with_context: nomem (FATAL)",
+        "error:",
+        strerror(e),
+        "user message (truncated):",
+        user_context,
+        add_context,
+      );
+      os::exit(255);
+    };
+  };
 };
 
-fn nonfatal(context: str, e: error, fmt_args: fmt::field...) void = {
+export fn nonfatal(context: str, e: error, fmt_args: fmt::field...) void = {
   print_error_with_context(context, "(nonfatal)", e, fmt_args...);
 };
 
-fn fatal(context: str, e: error, fmt_args: fmt::field...) never = {
+export fn fatal(context: str, e: error, fmt_args: fmt::field...) never = {
   print_error_with_context(context, "(FATAL)", e, fmt_args...);
   os::exit(255);
 };
@@ -60,6 +76,13 @@ export fn check(context: str, what: (void | ...error), fmt_args: fmt::field...) 
   };
 };
 
+export fn check_int(context: str, what: (int | ...error), fmt_args: fmt::field...) int = {
+  return match (what) {
+    case let v: int => yield v;
+    case let e: error => fatal(context, e, fmt_args...);
+  };
+};
+
 export fn check_u64(context: str, what: (u64 | ...error), fmt_args: fmt::field...) u64 = {
   return match (what) {
     case let v: u64 => yield v;
@@ -67,9 +90,16 @@ export fn check_u64(context: str, what: (u64 | ...error), fmt_args: fmt::field..
   };
 };
 
-export fn check_int(context: str, what: (int | ...error), fmt_args: fmt::field...) int = {
+export fn check_str(context: str, what: (str | ...error), fmt_args: fmt::field...) str = {
   return match (what) {
-    case let v: int => yield v;
+    case let v: str => yield v;
+    case let e: error => fatal(context, e, fmt_args...);
+  };
+};
+
+export fn check_str_arr(context: str, what: ([]str | ...error), fmt_args: fmt::field...) []str = {
+  return match (what) {
+    case let v: []str => yield v;
     case let e: error => fatal(context, e, fmt_args...);
   };
 };

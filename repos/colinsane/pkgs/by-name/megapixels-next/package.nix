@@ -2,18 +2,19 @@
   stdenv,
   feedbackd,
   fetchFromGitLab,
+  gperf,
   gtk4,
   lib,
   libdng,
   libepoxy,
   libmegapixels,
   libpulseaudio,
+  libXrandr,
   meson,
   ninja,
   pkg-config,
   unstableGitUpdater,
   wrapGAppsHook4,
-  xorg,
   zbar,
 # optional runtime dependencies, used for post-processing .dng -> .jpg
   exiftool,
@@ -25,16 +26,17 @@ let
 in
 stdenv.mkDerivation {
   pname = "megapixels-next";
-  version = "2.0.0-unstable-2025-11-10";
+  version = "2.1.0-unstable-2026-02-24";
 
   src = fetchFromGitLab {
     owner = "megapixels-org";
     repo = "Megapixels";
-    rev = "3ed974a3b510ca40630a4e545852414a5ff2ce10";
-    hash = "sha256-tuAMp92166WZJfGIEzEWal9BExzQJoYodd2uZHhqEuQ=";
+    rev = "51d0b970bffb3b4abcbeb8cad3c21e6b311aff26";
+    hash = "sha256-3dBHw5B4pvFdkn1S8GjWEsCXqer93UlVPQtGNj8VDOw=";
   };
 
   nativeBuildInputs = [
+    gperf
     meson
     ninja
     pkg-config
@@ -48,7 +50,7 @@ stdenv.mkDerivation {
     libepoxy
     libmegapixels
     libpulseaudio
-    xorg.libXrandr
+    libXrandr
     zbar
   ];
 
@@ -66,12 +68,12 @@ stdenv.mkDerivation {
 
   passthru.updateScript = unstableGitUpdater { };
 
-  meta = with lib; {
+  meta = {
     description = "The Linux-phone camera application";
     homepage = "https://gitlab.com/megapixels-org/Megapixels";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ colinsane ];
-    platforms = platforms.linux;
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
     mainProgram = "megapixels";
   };
 }

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.netns;
   nsIpv4 = builtins.head (builtins.filter
@@ -165,7 +165,7 @@ let
             -j DNAT --to-destination ${veth.initns.ipv4}
         '';
         bridgeStatements = lib.foldlAttrs
-          (acc: port: portCfg: acc ++ (builtins.map (bridgePort port) portCfg.protocol))
+          (acc: port: portCfg: acc ++ (map (bridgePort port) portCfg.protocol))
           []
           portsToBridge
         ;
@@ -211,7 +211,7 @@ let
         ${lib.optionalString (wg.port != null) ''
           # listen on a public port. the other end of the tunnel doesn't send keepalives
           # so i *hope* setting to a fixed port, which is opened in `sane.ports.ports`, makes the tunnel more robust
-          ${wg'} set wg-${name} listen-port ${builtins.toString wg.port}
+          ${wg'} set wg-${name} listen-port ${toString wg.port}
         ''}
 
         # resolve the endpoint *now*, from a namespace which can do DNS lookups, before moving it into its destination netns
@@ -250,7 +250,7 @@ let
     };
 
     sane.ports.ports = lib.optionalAttrs (wg.port != null) {
-      "${builtins.toString wg.port}" = {
+      "${toString wg.port}" = {
         protocol = [ "udp" ];
         visibleTo.lan = true;
         visibleTo.wan = true;
@@ -278,7 +278,7 @@ let
     #
     # each routing table has a numeric ID associated with it. i think the number doesn't impact anything, it just needs to be unique.
     networking.iproute2.rttablesExtraConfig = ''
-      ${builtins.toString routeTable} ${name}
+      ${toString routeTable} ${name}
     '';
     networking.iproute2.enable = true;
   };
@@ -322,5 +322,5 @@ in
       systemd.services = f.systemd.services;
       systemd.targets = f.systemd.targets;
     };
-  in take (sane-lib.mkTypedMerge take configs);
+  in take (pkgs.sane-lib.mkTypedMerge take configs);
 }

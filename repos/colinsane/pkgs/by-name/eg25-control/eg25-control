@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p curl -p modemmanager-split.mmcli -p python3 -p python3.pkgs.libgpiod
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.curl ps.modemmanager-split.mmcli ps.python3 ps.python3.pkgs.libgpiod ]'
 # vim: set filetype=python :
 
 # this script should run after ModemManager.service is started.

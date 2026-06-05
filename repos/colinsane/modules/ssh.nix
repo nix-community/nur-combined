@@ -86,7 +86,7 @@ in
     services.openssh.knownHosts = let
       host-keys = filter (k: k.user == "root") (attrValues config.sane.ssh.pubkeys);
     in
-      lib.mkMerge (builtins.map
+      lib.mkMerge (map
         (key: {
           "${key.host}".publicKey = key.typedPubkey;
         })

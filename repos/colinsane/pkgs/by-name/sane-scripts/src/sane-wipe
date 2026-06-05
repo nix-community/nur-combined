@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p dconf -p libsecret -p procps -p systemdMinimal
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.dconf ps.libsecret ps.procps ps.systemdMinimal ]'
 
 set -eu
 
@@ -8,6 +8,7 @@ usage() {
   echo "RESOURCE:"
   echo "  browser: kill and remove cache for firefox, epiphany, chromium, brave, etc"
   echo "  dino:    remove auth and data for Dino XMPP messenger"
+  echo "  discord: remove auth and data for official Discord messenger"
   echo "  flare:   remove auth and data for flare-signal messenger"
   echo "  fractal: remove auth and data for fractal matrix messenger"
   echo "  rofi:    remove rofi .desktop entry cache and force it to recompute entries"
@@ -20,7 +21,7 @@ parseArgs() {
     local arg=$1
     shift
     case "$arg" in
-      (browser|dino|flare|fractal|rofi)
+      (browser|dino|discord|flare|fractal|rofi)
         resources+=("$arg")
         ;;
       (--help)
@@ -40,6 +41,18 @@ parseArgs() {
   if [[ ${#resources[@]} -eq 0 ]]; then
     usage
     exit 1
+  fi
+}
+
+del_secret_if_exists() {
+  local secret=$1
+  # first, ensure the secret is unlocked
+  searchRes=$(secret-tool search --all --unlock 'xdg:schema' "$secret")
+  if [[ -n "$searchRes" ]]; then
+    printf "found secrets for %s: clearing %s" "$secret" "$searchRes"
+    secret-tool clear 'xdg:schema' "$secret"
+  else
+    printf "not clearing secret %s: not found" "$secret"
   fi
 }
 
@@ -71,9 +84,14 @@ wipe_dino() {
   echo "- discuss@conference.soprani.ca"
 }
 
+wipe_discord() {
+  rm -rf ~/.config/discord/*
+  rm -rf ~/.cache/discord/mesa/*
+  echo "Discord is wiped"
+}
+
 wipe_flare() {
-  secret-tool search --all --unlock 'xdg:schema' 'de.schmidhuberj.Flare'
-  secret-tool clear 'xdg:schema' 'de.schmidhuberj.Flare'
+  del_secret_if_exists 'de.schmidhuberj.Flare'
 
   dconf reset -f /de/schmidhuberj/Flare/
 
@@ -85,13 +103,8 @@ wipe_flare() {
 wipe_fractal() {
   systemctl stop fractal
 
-  # first, ensure the relevant secrets are unlocked
-  secret-tool search --all --unlock 'xdg:schema' 'org.gnome.Fractal'
-  secret-tool search --all --unlock 'xdg:schema' 'org.gnome.Fractal.Hack'
-
-  # then, delete them
-  secret-tool clear 'xdg:schema' 'org.gnome.Fractal'
-  secret-tool clear 'xdg:schema' 'org.gnome.Fractal.Hack'
+  del_secret_if_exists 'org.gnome.Fractal'
+  del_secret_if_exists 'org.gnome.Fractal.Hack'
 
   echo "Fractal is wiped: you may now restart it and login."
   echo "The initial sync may take up to an hour, after which you will be prompted to verify the session with another device."

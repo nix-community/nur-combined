@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p gnused -p rofi -p wtype
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.gnused ps.rofi ps.wtype ]'
 
 # "bookmarking"/snippets inspired by Luke Smith:
 # - <https://www.youtube.com/watch?v=d_11QaTlf1I>

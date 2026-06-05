@@ -107,7 +107,7 @@ in
     sane.image.extraGPTPadding = 16 * 1024 * 1024 - 34 * 512;
     sane.image.firstPartGap = 0;
     sane.image.installBootloader = ''
-      dd if=${pkgs.u-boot-pinephone}/u-boot-sunxi-with-spl.bin of=$out bs=1024 seek=8 conv=notrunc
+      dd if=${pkgs.ubootPinephone}/u-boot-sunxi-with-spl.bin of=$out bs=1024 seek=8 conv=notrunc
     '';
 
     sane.programs.alsa-ucm-conf.suggestedPrograms = [

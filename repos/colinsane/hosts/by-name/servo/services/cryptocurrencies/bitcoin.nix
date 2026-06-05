@@ -15,7 +15,7 @@
 #   - add "rpcuser=colin" and "rpcpassword=<output>" to secrets/servo/bitcoin.conf  (i.e. ~/.bitcoin/bitcoin.conf)
 #     - bitcoin.conf docs: <https://github.com/bitcoin/bitcoin/blob/master/doc/bitcoin-conf.md>
 # - validate with `bitcoin-cli -netinfo`
-{ config, lib, pkgs, sane-lib, ... }:
+{ lib, pkgs, ... }:
 let
   # bitcoind = config.sane.programs.bitcoind.packageUnwrapped;
   bitcoind = pkgs.bitcoind;

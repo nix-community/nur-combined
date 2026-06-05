@@ -47,6 +47,8 @@
       LANDING_PAGE = "explore";
       DOMAIN = "git.uninsane.org";
       ROOT_URL = "https://git.uninsane.org/";
+      LFS_START_SERVER = true;
+      LFS_MAX_FILE_SIZE = 1 * 1000 * 1000 * 1000 * 1000; # 1 TB
     };
     service = {
       # timeout for email approval. 5760 = 4 days. 10080 = 7 days

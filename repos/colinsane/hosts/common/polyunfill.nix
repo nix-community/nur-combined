@@ -2,21 +2,134 @@
 
 { config, lib, pkgs, ... }:
 let
+  # openpam = pkgs.openpam.overrideAttrs (upstream: {
+  #   configureFlags = (upstream.configureFlags or []) ++ [
+  #     "--with-pam-unix"
+  #   ];
+  #   # postFixup = (upstream.postFixup or "") + ''
+  #   #   # nixpkgs `security.pam` module expects modules to be at $out/lib/security/pam_*.so
+  #   #   ln -s . $out/lib/security
+  #   # '';
+  # });
+
+  # tcb = pkgs.tcb.overrideAttrs (upstream: {
+  #   # in order for pam_tcb to be a drop-in replacement for pam_unix,
+  #   # it needs to behave as if it'd been given the `shadow` setting.
+  #   postPatch = (upstream.postPatch or "") + ''
+  #     substituteInPlace pam_tcb/support.c \
+  #       --replace-fail 'if (on(UNIX_SHADOW))' 'if (true)'
+  #   '';
+  # });
+
   suidlessPam = pkgs.pam.overrideAttrs (upstream: {
-    # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
-    # but i don't want the wrapper, so undo that.
-    # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
-    # see: <repo:nixos/nixpkgs:pkgs/by-name/li/linux-pam/package.nix>
-    postPatch = (upstream.postPatch or "") + ''
+    postPatch = let
+      # nixpkgs' pam hardcodes unix_chkpwd path to the /run/wrappers one,
+      # but i don't want the wrapper, so undo that.
+      # ideally i would patch this via an overlay, but pam is in the bootstrap so that forces a full rebuild.
+      # see: <repo:nixos/nixpkgs:pkgs/by-name/li/linux-pam/package.nix>
+      chkpwd = "$out/bin/unix_chkpwd";
+      #
+      # or, use tcb-style password checking: i.e. passwords for each user are in /etc/tcb/$user/shadow.
+      # but this seems to not actually work.
+      # chkpwd = "${pkgs.tcb}/libexec/chkpwd/tcb_chkpwd";
+    in (upstream.postPatch or "") + ''
       substituteInPlace modules/module-meson.build --replace-fail \
-        "/run/wrappers/bin/unix_chkpwd" "$out/bin/unix_chkpwd"
+        "/run/wrappers/bin/unix_chkpwd" "${chkpwd}"
     '';
+
+    # linux-pam is a mess; honestly `openpam` would be better to use system-wide.
+    # but applications are linked against `linux-pam`, so we can't.
+    # instead, swap just `pam_unix.so` for the `openpam` implementation;
+    # it uses bog-standard `getpwnam` under-the-hood, which is enough to get what i need: tcb (via nss).
+    # postInstall = (upstream.postInstall or "") + ''
+    #   rm $out/lib/security/pam_unix.so*
+    #   cp ${openpam}/lib/pam_unix.so* $out/lib/security
+    # '';
+
+    # i could update all /etc/shadow-based PAM consumers to use `pam_tcb.so`, so they get /etc/tcb/$user/shadow
+    # -- or i could be lazy and swap it out here.
+    # postInstall = (upstream.postInstall or "") + ''
+    #   rm $out/lib/security/pam_unix.so*
+    #   ln -s ${tcb}/lib/security/pam_tcb.so $out/lib/security/pam_unix.so
+    # '';
+
+    # XXX(2026-01-01): `getspnam` is the libc function which queries /etc/shadow, etc, directly,
+    # rather than (or before falling back to) the SUID unix_chkpwd.
+    # for glibc, it obeys /etc/nsswitch.conf rather than *just* consulting /etc/shadow.
+    # for musl, it consults /etc/shadow and /etc/tcb/$user/shadow.
+    # this flag isn't present in pam 1.7.1, but once released i could likely drop pam_tcb by enabling it.
+    # mesonFlags = (upstream.mesonFlags or []) ++ [
+    #   (lib.mesonEnable "pam_unix-try-getspnam" true)
+    # ];
   });
   # `mkDefault` is `mkOverride 1000`.
   # `mkOverrideDefault` will override `mkDefault` values, but not ordinary values.
   mkOverrideDefault = lib.mkOverride 900;
 in
 {
+  # patch systemd module to not populate /etc/nsswitch.conf
+  # (i.e. system.{nssDatabases,nssModules}, processed by <repo:nixos/nixpkgs:nixos/modules/config/nsswitch.nix>).
+  # nsswitch.conf is a glibc-only thing, and i'd like to preserve compatibilty with musl, go, etc.
+  disabledModules = [
+    "system/boot/systemd.nix"
+  ];
+  imports = [
+    ({ config, lib, pkgs, utils, ... }@moduleArgs:
+      let
+        # base = lib.modules.importApply "${pkgs.path}/nixos/modules/system/boot/systemd.nix" moduleArgs;
+        base = import "${pkgs.path}/nixos/modules/system/boot/systemd.nix" moduleArgs;
+      in {
+        options.systemd = {
+          inherit (base.options.systemd)
+            additionalUpstreamSystemUnits
+            automounts
+            ctrlAltDelUnit
+            defaultUnit
+            enableStrictShellChecks
+            generators
+            generatorEnvironment
+            generatorPath
+            globalEnvironment
+            managerEnvironment
+            mounts
+            package
+            packages
+            paths
+            services
+            settings
+            shutdown
+            sleep
+            slices
+            sockets
+            suppressedSystemUnits
+            targets
+            timers
+            units
+            ;
+        };
+        # inherit (base.systemd) config;
+        config = {
+          # TODO: port to `mkTypedMerge`
+          inherit (base.config)
+            boot
+            environment
+            security
+            services
+            system
+            systemd
+            users
+            warnings
+          ;
+        } // {
+          system = base.config.system // {
+            nssDatabases = {};
+            nssModules = [];
+          };
+        };
+      }
+    )
+  ];
+
   # remove a few items from /run/wrappers we don't need.
   options.security.wrappers = lib.mkOption {
     apply = lib.filterAttrs (name: _: !(builtins.elem name [
@@ -67,14 +180,19 @@ in
     ]));
   };
 
-  options.environment.systemPackages = lib.mkOption {
-    # see: <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
-    # it's 31 "requiredPackages", with no explanation of why they're "required"...
-    # most of these can be safely removed without breaking the *boot*,
-    # but some core system services DO implicitly depend on them.
+  options.environment.corePackages = lib.mkOption {
+    # defined:  <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
+    # - it's 31 "corePackages", with no explanation of why they're "required"...
+    # - most of these can be safely removed without breaking the *boot*,
+    # - but some core system services DO implicitly depend on them.
     # TODO: see which more of these i can remove (or shadow/sandbox)
     apply = let
-      requiredPackages = builtins.map (pkg: lib.setPrio ((pkg.meta.priority or 5) + 3) pkg) [
+      pkgsToRemove = [
+        pkgs.wirelesstools  #< assigned: <repo:nixos/nixpkgs:nixos/modules/tasks/network-interfaces.nix>
+        # pkgs.stdenv.cc.libc #< assigned: <repo:nixos/nixpkgs:nixos/modules/config/system-path.nix>
+        # config.programs.ssh.package  #< assigned: <repo:nixos/nixpkgs:nixos/modules/programs/ssh.nix>
+      ];
+      lowPrioPkgsToRemove = map (pkg: lib.setPrio ((pkg.meta.priority or lib.meta.defaultPriority) + 3) pkg) [
         # pkgs.acl
         # pkgs.attr
         # pkgs.bashInteractive
@@ -85,7 +203,6 @@ in
         # pkgs.diffutils
         # pkgs.findutils
         # pkgs.gawk
-        # pkgs.stdenv.cc.libc
         # pkgs.getent
         # pkgs.getconf
         # pkgs.gnugrep
@@ -98,7 +215,6 @@ in
         # pkgs.libcap  #< implicitly required by NetworkManager/wpa_supplicant!
         # pkgs.ncurses
         pkgs.netcat
-        # config.programs.ssh.package
         # pkgs.mkpasswd
         pkgs.procps
         # pkgs.su
@@ -107,12 +223,18 @@ in
         # pkgs.which
         # pkgs.zstd
       ];
-      conveniencePackages = [
+    in
+      lib.filter (p: !(lib.elem p (pkgsToRemove ++ lowPrioPkgsToRemove)));
+  };
+
+  options.environment.systemPackages = lib.mkOption {
+    apply = let
+      conveniencePackagesToRemove = [
         config.boot.kernelPackages.cpupower  # <repo:nixos/nixpkgs:nixos/modules/tasks/cpu-freq.nix> places it on PATH for convenience if powerManagement.cpuFreqGovernor is set
         pkgs.kbd  # <repo:nixos/nixpkgs:nixos/modules/config/console.nix>  places it on PATH as part of console/virtual TTYs, but probably not needed unless you want to set console fonts
         pkgs.nixos-firewall-tool  # <repo:nixos/nixpkgs:nixos/modules/services/networking/firewall.nix>  for end-user management of the firewall? cool but doesn't cross-compile
       ];
-    in lib.filter (p: ! builtins.elem p (requiredPackages ++ conveniencePackages));
+    in lib.filter (p: ! lib.elem p (conveniencePackagesToRemove));
   };
 
   options.system.fsPackages = lib.mkOption {
@@ -234,5 +356,7 @@ in
     # environment.systemPackages = [ pkgs.lvm2 ];
 
     security.pam.package = suidlessPam;
+
+    system.tools.nixos-generate-config.enable = false;
   };
 }

@@ -121,8 +121,8 @@ lib.mkIf false  #< TODO: remove nfs altogether! it's not exactly the most secure
         "mountpoint"
         "all_squash"
         "rw"
-        "anonuid=${builtins.toString config.users.users.nfsuser.uid}"
-        "anongid=${builtins.toString config.users.groups.export.gid}"
+        "anonuid=${toString config.users.users.nfsuser.uid}"
+        "anongid=${toString config.users.groups.export.gid}"
       ];
     })
   ];

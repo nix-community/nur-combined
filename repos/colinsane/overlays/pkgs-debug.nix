@@ -139,7 +139,7 @@ in
       pkg;
   tryEnableDebugging = final.tryEnableDebugging' final.enableDebugging;
   enableDebuggingInclDependencies = pkg: (final.enableDebugging pkg).overrideAttrs (args: args // {
-    buildInputs = builtins.map final.tryEnableDebuggingInclDependencies (args.buildInputs or []);
+    buildInputs = map final.tryEnableDebuggingInclDependencies (args.buildInputs or []);
   });
   tryEnableDebuggingInclDependencies = final.tryEnableDebugging' final.enableDebuggingInclDependencies;
   pkgsDebug = prev.lib.mapAttrs (_pname: final.tryEnableDebuggingInclDependencies) final;

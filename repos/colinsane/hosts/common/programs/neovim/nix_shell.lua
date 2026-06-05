@@ -62,6 +62,9 @@ vim.filetype.add {
           if string.match(i, "^python") then
             -- python3, python2.7, etc
             return "python"
+          elseif i == "wpexec" then
+            -- wpexec, from wireplumber, interprets Lua scripts
+            return "lua"
           elseif i == "ysh" then
             -- XXX(2025-05-16): neovim has no `ysh`/oil-shell filetype.
             -- consider one of these filetypes:

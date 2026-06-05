@@ -1,9 +1,8 @@
 {
+  fetchFromGitHub,
   lib,
   rustPlatform,
-  fetchFromGitHub,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "elfcat";
   version = "0.1.8";
@@ -17,10 +16,13 @@ rustPlatform.buildRustPackage rec {
 
   cargoHash = "sha256-Dc+SuLwbLFcNSr9RiNSc7dgisBOvOUEIDR8dFAkC/O0=";
 
-  meta = with lib; {
+  meta = {
     description = "TODO: FILLME";
+    longDescription = ''
+      TODO: FILLME
+    '';
     homepage = "https://github.com/ruslashev/elfcat";
-    license = licenses.zlib;
-    maintainers = with maintainers; [ colinsane ];
+    # license = lib.licenses.zlib;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

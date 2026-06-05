@@ -9,7 +9,7 @@
 # $ sudo -u freshrss -g freshrss FRESHRSS_DATA_PATH=/var/lib/freshrss ./result/cli/export-opml-for-user.php --user admin
 # ```
 
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 lib.mkIf false  #< 2024/07/04: i haven't actively used this for months
 {
   sops.secrets."freshrss_passwd" = {
@@ -27,7 +27,7 @@ lib.mkIf false  #< 2024/07/04: i haven't actively used this for months
 
   systemd.services.freshrss-import-feeds =
   let
-    feeds = sane-lib.feeds;
+    feeds = pkgs.sane-lib.feeds;
     fresh = config.systemd.services.freshrss-config;
     all-feeds = config.sane.feeds;
     wanted-feeds = feeds.filterByFormat ["text" "image"] all-feeds;

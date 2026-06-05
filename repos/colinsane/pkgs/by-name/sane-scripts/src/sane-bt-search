@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p python3 -p python3.pkgs.natsort -p python3.pkgs.requests
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.requests ]'
 # vim: set filetype=python :
 """
 usage: sane-bt-search [options] <query_string>
@@ -27,10 +27,11 @@ returns select results and magnet links.
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum, IntEnum
+from typing import Iterable, Optional
+
 import argparse
 import logging
 import json
-import natsort
 import requests
 import sys
 import time
@@ -74,7 +75,7 @@ class BadCliArgs(Exception):
             super().__init__(helpstr)
 
 
-def try_parse_time(t: str) -> datetime:
+def try_parse_time(t: str) -> datetime | None:
     try:
         return datetime.fromisoformat(t)
     except ValueError: pass
@@ -85,7 +86,8 @@ def try_parse_time(t: str) -> datetime:
         return try_parse_time(t[:-1])
 
 def parse_time(t: str) -> datetime:
-    return try_parse_time(t).astimezone() or epoch
+    dt = try_parse_time(t)
+    return dt.astimezone() if dt is not None else epoch
 
 @dataclass(eq=True, order=True, unsafe_hash=True)
 class Tracker:
@@ -102,7 +104,7 @@ class Tracker:
         if id_ in KNOWN_TRACKERS:
             return KNOWN_TRACKERS[id_]
         logger.warning(f"unknown tracker: {id_!r}")
-        return Tracker(id_, TrackerQuality.Unknown, len(KNOWN_TRACKERS))
+        return Tracker(id_=id_, name=id_, quality=TrackerQuality.Unknown, order=len(KNOWN_TRACKERS))
 
     def __repr__(self) -> str:
         return self.id_
@@ -113,7 +115,7 @@ def _KNOWN_TRACKERS() -> dict[str, Tracker]:
     order = 0
     def add_tracker(*args):
         nonlocal order
-        t = Tracker(*args, order)
+        t = Tracker(*args, order=order)
         order += 1
         trackers[t.id_] = t
 
@@ -156,7 +158,7 @@ def clean_cat(c: str) -> str | None:
     if c in DROP_CATS: return None
     return c
 
-def is_cat(cats: list[str], wanted_cats: list[str], default: bool = False) -> bool:
+def is_cat(cats: Iterable[str], wanted_cats: Iterable[str], default: bool = False) -> bool:
     """
     return True if any of the `cats` is in `wanted_cats`.
     in the event there no category is recognized, assume `default`
@@ -240,7 +242,7 @@ class Torrent:
         return int(round(self.size / 1024 / 1024))
 
     @staticmethod
-    def from_dict(d: dict) -> 'Torrent':
+    def from_dict(d: dict) -> Optional['Torrent']:
         logger.debug(f"Torrent.from_dict: fields: { ' '.join(d.keys()) }")
         for k, v in d.items():
             if k not in (
@@ -261,7 +263,18 @@ class Torrent:
         seeders = d.get("Seeders")
         pub_date = d.get("PublishDate")
         size = d.get("Size")
+        try:
+            assert size is not None
+            size = int(size)
+        except Exception as e:
+            logger.error(f"failed to extract torrent size from: {d}\n  {e}")
+            return None
+
         tracker_id = d.get("TrackerId")
+        if tracker_id is None:
+            logger.error(f"failed to extract tracker_id from: {d}")
+            return None
+
         title = d.get("Title")
         info_hash = d.get("InfoHash")
         magnet = d.get("MagnetUri") or d.get("Guid")
@@ -269,7 +282,8 @@ class Torrent:
         tracker_uri = d.get("Details")
         categories = d.get("CategoryDesc", "").replace("/", ",").split(",")
         categories = (c.strip().lower() for c in categories)
-        categories = frozenset(clean_cat(c) for c in categories if clean_cat(c))
+        categories = (clean_cat(c) for c in categories)
+        categories = frozenset(c for c in categories if c is not None)
 
         if magnet and not magnet.startswith("magnet:"):
             logger.info(f"invalid magnet: {magnet}")
@@ -306,7 +320,7 @@ class Torrent:
                 categories=categories,
             )
 
-    def to_dict(self) -> dict:
+    def to_dict(self) -> dict[str, object]:
         # N.B.: not all fields: needs to be kept in sync with consumers like mx-sanebot
         return dict(
             seeders=self.seeders,
@@ -362,8 +376,8 @@ def sort_results(torrents: list[Torrent], by: SortMethod) -> list[Torrent]:
         }[by]
     return sorted(torrents, key=key)
 
-def format_results(all_results: list[Torrent], filtered_results: list[Torrent], json: bool):
-    if json:
+def format_results(all_results: list[Torrent], filtered_results: list[Torrent], as_json: bool):
+    if as_json:
         dumpable = [t.to_dict() for t in filtered_results]
         print(json.dumps(dumpable))
     else:
@@ -373,7 +387,7 @@ def format_results(all_results: list[Torrent], filtered_results: list[Torrent], 
         for r in filtered_results:
             print(r)
 
-def main(args: list[str]):
+def main(argv: list[str]):
     logging.basicConfig()
     logging.getLogger().setLevel(logging.WARNING)
 
@@ -390,7 +404,7 @@ def main(args: list[str]):
     parser.add_argument('--video', action='store_true', help='show only video (tv or film)')
     parser.add_argument("query", help="text to search for in torrent titles/descriptions")
 
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     if args.verbose:
         logging.getLogger().setLevel(logging.DEBUG)

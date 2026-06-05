@@ -1,0 +1,48 @@
+From ecd23ba5d27a12780d8eae858566039835bf4255 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 27 Apr 2026 20:52:06 +0000
+Subject: [PATCH] buildRustPackage: fix `overrideAttrs` behavior for
+ `cargoHash`
+
+enables patterns like
+```
+tree-sitter.overrideAttrs (prevAttrs: {
+  version = "0.25.10";
+  src = prevAttrs.src.overrideAttrs {
+    hash = "sha256-aHszbvLCLqCwAS4F4UmM3wbSb81QuG9FM7BDHTu1ZvM=";
+  };
+  cargoHash = "sha256-4R5Y9yancbg/w3PhACtsWq0+gieUd2j8YnmEj/5eqkg=";
+  patches = [];
+})
+```
+
+whereas previously this would not behave as expected, e.g. `cargoDeps`
+would be built against the un-overriden `cargoHash`, and then the outer
+derivation would fail when checking the vendored cargo deps against its
+override `cargoHash`.
+---
+ pkgs/build-support/rust/build-rust-package/default.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/build-support/rust/build-rust-package/default.nix b/pkgs/build-support/rust/build-rust-package/default.nix
+index ab0fec1a2a95c10b83e467129e6da1f6075d4266..150faad47443e635405f7cddd9556fce7230f788 100644
+--- a/pkgs/build-support/rust/build-rust-package/default.nix
++++ b/pkgs/build-support/rust/build-rust-package/default.nix
+@@ -107,7 +107,7 @@ lib.extendMkDerivation {
+           cargoDeps
+         else if cargoLock != null then
+           importCargoLock cargoLock
+-        else if args.cargoHash or null == null then
++        else if finalAttrs.cargoHash == null then
+           throw "cargoHash, cargoVendorDir, cargoDeps, or cargoLock must be set"
+         else
+           fetchCargoVendor (
+@@ -126,7 +126,7 @@ lib.extendMkDerivation {
+             // {
+               ${if cargoDepsName != null then "name" else null} = cargoDepsName;
+               patches = cargoPatches;
+-              hash = args.cargoHash;
++              hash = finalAttrs.cargoHash;
+             }
+             // depsExtraArgs
+           );

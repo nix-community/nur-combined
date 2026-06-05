@@ -1,10 +1,7 @@
-{ config, lib, options, pkgs, sane-lib, ... }:
+{ config, lib, options, pkgs, ... }:
 let
   saneCfg = config.sane;
   cfg = config.sane.programs;
-
-  makeSandboxArgs = pkgs.callPackage ./make-sandbox-args.nix { };
-  makeSandboxed = pkgs.callPackage ./make-sandboxed.nix { };
 
   # create a map:
   # {
@@ -57,6 +54,8 @@ let
           ++ lib.optionals (gsettingsPersist != [] && config.sane.programs.gsettings.enabled) [
             # the actual persistence happens in sane.programs.gsettings
             ".config/glib-2.0/settings"
+          ] ++ lib.optionals ((sandbox.whitelistWayland || sandbox.whitelistX) && config.sane.programs.sane-theme.enabled) [
+            ".config/gtk-4.0/settings.ini"
           ];
           # XXX: don't support dconf persisting until/unless i want to, since the dbus integration is icky
           # ++ lib.optionals (gsettingsPersist != [] && config.sane.programs.dconf.enabled) [
@@ -71,8 +70,8 @@ let
           "/run/current-system"  #< for basics like `ls`, and all this program's `suggestedPrograms` (/run/current-system/sw/bin)
           # "/run/wrappers"  #< SUID wrappers. they don't mean much inside a namespace.
           # /run/opengl-driver is a symlink into /nix/store; needed by e.g. mpv
-          "/run/opengl-driver"
-          "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
+          # "/run/opengl-driver"
+          # "/run/opengl-driver-32"  #< XXX: doesn't exist on aarch64?
           "/usr/bin/env"
         ] ++ lib.optionals (sandbox.net == "all" && config.services.resolved.enable) [
           "/run/systemd/resolve"  #< to allow reading /etc/resolv.conf, which ultimately symlinks here (if using systemd-resolved)
@@ -82,18 +81,21 @@ let
           "/var/run/dbus/system_bus_socket"  #< XXX: use /var/run/..., for the rare program which requires that (i.e. avahi users)
         ] ++ sandbox.extraPaths
         ;
-
-        sandboxArgs = makeSandboxArgs {
+      in
+        pkgs.makeSandboxed {
+          inherit pkgName package;
           inherit (sandbox)
             autodetectCliPaths
             capabilities
+            embedSandboxer
             extraConfig
             extraEnv
             keepIpc
             keepPids
-            tryKeepUsers
             method
+            tryKeepUsers
             whitelistPwd
+            wrapperType
           ;
           netDev = if vpn != null then
             vpn.name
@@ -117,15 +119,6 @@ let
           allowedPaths = lib.unique allowedPaths;
           allowedHomePaths = lib.unique allowedHomePaths;
           allowedRunPaths = lib.unique allowedRunPaths;
-        };
-      in
-        makeSandboxed {
-          inherit pkgName package;
-          inherit (sandbox)
-            embedSandboxer
-            wrapperType
-          ;
-          extraSandboxerArgs = sandboxArgs;
         }
   );
   pkgSpec = with lib; types.submodule ({ config, name, ... }: {
@@ -250,7 +243,7 @@ let
         default = {};
         description = ''
           map of regex -> command.
-          e.g. "^https?://(www.)?youtube.com/watch\?.*v=" = "mpv %U"
+          e.g. "^https?://(www.)?youtube.com/watch\\?.*v=" = "mpv %U"
         '';
       };
       persist = mkOption {
@@ -552,12 +545,12 @@ let
           # "Inhibit" # XXX(2025-01-08): inaccessible due to missing org.freedesktop.impl.portal.Inhibit
           "Location"
           # "MemoryMonitor"
-          "NetworkMonitor"  # bleh!
+          # "NetworkMonitor"  # consider `GIO_USE_NETWORK_MONITOR=netlink` instead
           "Notification"
           "OpenURI"
           # "PowerProfileMonitor"
           "Print"
-          "ProxyResolver"
+          # "ProxyResolver"  # consider `GIO_USE_PROXY_RESOLVER=dummy` instead
           # "Realtime"
           "ScreenCast"
           "Screenshot"
@@ -666,7 +659,11 @@ let
           - `$HOME`
           - `$XDG_RUNTIME_DIR`
           escape expansion with `$$`
+
+          to indicate that an environment variable should be _preserved_, set it to itself:
+          - `sandbox.extraEnv.DISPLAY = "$DISPLAY"`
         '';
+        apply = lib.filterAttrs (k: v: v != "\$${k}");
       };
       sandbox.matplotlibCacheDir = mkOption {
         type = types.nullOr types.str;
@@ -731,7 +728,7 @@ let
     in {
       enableFor.system = mkWeakDefault defaultEnables."${name}".system;
       enableFor.user = mkWeakDefault defaultEnables."${name}".user;
-      enabled = (config.enableFor.system || enabledForUser) && passesSlowTest;
+      enabled = passesSlowTest && (config.enableFor.system || enabledForUser);
       package = if config.packageUnwrapped == null then
         null
       else
@@ -809,12 +806,12 @@ let
         # #22 0x00007ffff49a48e2 in gsk_renderer_new_for_surface_full () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
         # #23 0x00007ffff470e475 in gtk_window_realize () from /nix/store/6p5rji9bpkrqlskw88cajh4bc2bhz840-gtk4-4.20.3/lib/libgtk-4.so.1
         # #24 0x00007ffff451a7f1 in gtk_application_window_real_realize ()
-        DISPLAY = lib.mkIf (!config.sandbox.whitelistX) "";
-        MESA_SHADER_CACHE_DIR = lib.mkIf (config.sandbox.mesaCacheDir != null) "$HOME/${config.sandbox.mesaCacheDir}";
-        MPLCONFIGDIR = lib.mkIf (config.sandbox.matplotlibCacheDir != null) "$HOME/${config.sandbox.matplotlibCacheDir}";
-        TMPDIR = lib.mkIf (config.sandbox.tmpDir != null) "$HOME/${config.sandbox.tmpDir}";
+        DISPLAY = lib.mkIf (!config.sandbox.whitelistX) (lib.mkDefault "");
+        MESA_SHADER_CACHE_DIR = lib.mkIf (config.sandbox.mesaCacheDir != null) (lib.mkDefault "$HOME/${config.sandbox.mesaCacheDir}");
+        MPLCONFIGDIR = lib.mkIf (config.sandbox.matplotlibCacheDir != null) (lib.mkDefault "$HOME/${config.sandbox.matplotlibCacheDir}");
+        TMPDIR = lib.mkIf (config.sandbox.tmpDir != null) (lib.mkDefault "$HOME/${config.sandbox.tmpDir}");
         # as with clearing DISPLAY for apps w/o X access, clear WAYLAND_DISPLAY even though no bugs witnessed yet.
-        WAYLAND_DISPLAY = lib.mkIf (!config.sandbox.whitelistWayland) "";
+        WAYLAND_DISPLAY = lib.mkIf (!config.sandbox.whitelistWayland) (lib.mkDefault "");
       };
 
       sandbox.extraPaths =
@@ -972,9 +969,9 @@ let
       }
       {
         assertion = p.sandbox.net == "all" || p.sandbox.method != null || !p.enabled || p.package == null || config.sane.sandbox.strict != "assert";
-        message = ''program "${name}" requests net "${builtins.toString p.sandbox.net}", which requires sandboxing, but sandboxing wasn't configured'';
+        message = ''program "${name}" requests net "${toString p.sandbox.net}", which requires sandboxing, but sandboxing wasn't configured'';
       }
-    ] ++ builtins.map (sug: {
+    ] ++ map (sug: {
       assertion = cfg ? "${sug}";
       message = ''program "${sug}" referenced by "${name}", but not defined'';
     }) p.suggestedPrograms;
@@ -995,12 +992,12 @@ let
     };
 
     # conditionally add to user(s) PATH
-    users.users = lib.mapAttrs (userName: en: {
-      packages = lib.mkIf (p.package != null && en && p.enabled) [ p.package ];
+    users.users = lib.mapAttrs (userName: enableForUser: {
+      packages = lib.mkIf (p.enabled && enableForUser && p.package != null) [ p.package ];
     }) p.enableFor.user;
 
     # conditionally persist relevant user dirs and create files
-    sane.users = lib.mapAttrs (user: en: lib.mkIf (en && p.enabled) {
+    sane.users = lib.mapAttrs (user: enableForUser: lib.mkIf (p.enabled && enableForUser) {
       inherit (p) services;
       environment = lib.mapAttrs (k: v: lib.mkOverride p.mime.priority v) p.env;
       fs = lib.mkMerge [
@@ -1017,13 +1014,13 @@ let
         # whereas /run/secrets/* is unreadable *except* for the leafs, ~/.config/secrets is readable and traversable by $USER.
         # (lib.mapAttrs
         #   # TODO: use the user's *actual* home directory, don't guess.
-        #   (homePath: _src: sane-lib.fs.wantedSymlinkTo "/home/${user}/.config/secrets/${homePath}")
+        #   (homePath: _src: pkgs.sane-lib.fs.wantedSymlinkTo "/home/${user}/.config/secrets/${homePath}")
         #   p.secrets
         # )
         # (lib.mapAttrs'
         #   (homePath: _src: {
         #     name = ".config/secrets/${homePath}";
-        #     value = sane-lib.fs.wantedSymlinkTo "/run/secrets/home/${user}/${homePath}";
+        #     value = pkgs.sane-lib.fs.wantedSymlinkTo "/run/secrets/home/${user}/${homePath}";
         #   })
         #   p.secrets
         # )
@@ -1048,7 +1045,7 @@ let
 
     # make secrets available for each user
     sops.secrets = lib.concatMapAttrs
-      (user: en: lib.mkIf (en && p.enabled) (
+      (user: enableForUser: lib.mkIf (p.enabled && enableForUser) (
         lib.mapAttrs'
           (homePath: src: {
             # TODO: use the user's *actual* home directory, don't guess.
@@ -1111,7 +1108,7 @@ in
         warnings = f.warnings;
       };
     in lib.mkMerge [
-      (take (sane-lib.mkTypedMerge take configs))
+      (take (pkgs.sane-lib.mkTypedMerge take configs))
       {
         # expose the pkgs -- as available to the system -- as a build target.
         system.build.pkgs = pkgs;

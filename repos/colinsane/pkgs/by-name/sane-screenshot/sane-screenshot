@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p grim -p jq -p libnotify -p slurp -p swappy -p sway -p util-linux -p wl-clipboard
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.grim ps.jq ps.libnotify ps.slurp ps.swappy ps.sway ps.util-linux ps.wl-clipboard-rs ]'
 
 # loosely inspired by reddit user u/dragobich
 # - <https://www.reddit.com/r/hyprland/comments/12tal0f/comment/jh8j4sy/>

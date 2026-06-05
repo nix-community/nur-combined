@@ -1,6 +1,7 @@
 {
-  docsets,
+  buildPackages,
   jq,
+  make-docset-index,
   nix,
   runCommand,
   stdenvNoCC,
@@ -22,12 +23,12 @@ let
     pname = "nix-builtins";
     version = nix.version;
 
-    nativeBuildInputs = [ docsets.make-docset-index ];
+    nativeBuildInputs = [ make-docset-index ];
 
     unpackPhase = ''
       cp ${./Info.plist} Info.plist
       cp ${builtins-locations}/locations.json locations.json
-      cp -R ${nix.doc}/share/doc/nix/manual nix-manual
+      cp -R ${nix.doc or buildPackages.nix.doc}/share/doc/nix/manual nix-manual
     '';
 
     buildPhase = ''

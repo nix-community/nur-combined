@@ -6,8 +6,23 @@
 # logs:
 # - postfix logs directly to *syslog*,
 #   so check e.g. ~/.local/share/rsyslog
+#
+# test mail mappings by:
+# 1. running `sendmail -bv $ADDRESS`
+#    e.g. `sendmail -bv virtual@uninsane.org`
+#    (this does not actually send the mail, just exercises same code paths).
+# 2. tailing `journalctl -u postfix -f` while doing the above.
+#    ignore the stdout of `sendmail`: it's misleading.
+#
+# TODO:
+# - [ ] disable `$myorigin`-suffixing when using sendmail
+#       e.g. `sendmail -bv postmaster` should *not* attempt delivery to `postmaster@mx.uninsane.org`.
+#       maybe this isn't actually a problem; i can just disable sendmail ?
+# - [ ] remove unused matrix bits
+# - [ ] remove the setuid portions of dovecot and postfix
+# - [ ] remove all the unused "services" from postfix
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
   submissionOptions = {
@@ -19,12 +34,16 @@ let
     smtpd_sasl_local_domain = "uninsane.org";
     smtpd_client_restrictions = "permit_sasl_authenticated,reject";
     # reuse the virtual map so that sender mapping matches recipient mapping
-    smtpd_sender_login_maps = "hash:/var/lib/postfix/conf/virtual";
+    smtpd_sender_login_maps = "hash:/etc/postfix/virtual";
     smtpd_sender_restrictions = "reject_sender_login_mismatch";
     smtpd_recipient_restrictions = "reject_non_fqdn_recipient,permit_sasl_authenticated,reject";
   };
 in
 {
+  nixpkgs.config.permittedInsecurePackages = lib.warn "opendkim is unmaintained: upgrade to rspamd" [
+    "opendkim-2.11.0-Beta2"
+  ];
+
   sane.persist.sys.byStore.private = [
     # TODO: mode? could be more granular
     { user = "opendkim"; group = "opendkim"; path = "/var/lib/opendkim"; method = "bind"; }  #< TODO: migrate to secrets
@@ -98,15 +117,34 @@ in
   services.postfix.enable = true;
 
   # see: `man 5 virtual`
-  services.postfix.virtual = ''
+  # services.postfix.virtual = ''
+  #   notify.matrix@uninsane.org matrix-synapse
+  #   @uninsane.org colin
+  # '';
+
+  services.postfix.mapFiles.virtual = pkgs.writeText "postfix-virtual" ''
+    # see: `man 5 virtual`
+    # N.B.: this file applies to *all* recipients (local, virtual and remote).
+    #
+    # see secrets/servo/matrix_synapse_secrets.yaml.bin:
+    # Matrix sends registration mail by:
+    # - populating the header `From: <notify.matrix@uninsane.org>`
+    # - submitting the mail to SMTPS mx.uninsane.org as user `matrix-synapse`.
+    # TODO: it shouldn't need an alias here, nor an account in dovecot.
     notify.matrix@uninsane.org matrix-synapse
-    @uninsane.org colin
+    @uninsane.org colin@uninsane.org
+    # docs said a no-op mapping would be needed to indicate termination, but seems not the case
+    # colin@uninsane.org colin@uninsane.org
+    # test addresses:
+    # indirect@uninsane.org direct@uninsane.org
+    # direct@uninsane.org colin@uninsane.org
   '';
 
   services.postfix.settings.main = {
     myhostname = "mx.uninsane.org";
-    myorigin = "uninsane.org";
-    mydestination = [ "localhost" "uninsane.org" ];
+    myorigin = "uninsane.org";  #< not nullable :(
+    # mydestination = [ "localhost" "uninsane.org" ];
+    mydestination = [ "uninsane.org" ];
     smtpd_tls_chain_files = [
       "/var/lib/acme/mx.uninsane.org/key.pem"
       "/var/lib/acme/mx.uninsane.org/fullchain.pem"
@@ -127,17 +165,45 @@ in
     inet_protocols = "ipv4";
     smtp_tls_security_level = "may";
 
-    # hand received mail over to dovecot so that it can run sieves & such
-    mailbox_command = ''${pkgs.dovecot}/libexec/dovecot/dovecot-lda -f "$SENDER" -a "$RECIPIENT"'';
+    address_verify_sender = "postmaster@uninsane.org";
+    # <https://www.postfix.org/postconf.5.html#append_at_myorigin>
+    append_at_myorigin = false;
+    append_dot_mydomain = false;
+    local_header_rewrite_clients = [ ];  # don't implicitly add domain name to submitted mail
 
-    # hand received mail over to dovecot
-    # virtual_alias_maps = [
+    # authorized_submit_users = [];
+    # dont_remove = true;  # move delivered mail to "saved" mail queue instead of deleting
+    # forward_path = "";  # disable user-specific `.forward` file parsing
+    # local_login_sender_maps = ...  # TODO: don't allow all unix users to send mail anywhere
+    # smtp_enforce_tls = true;  #< TODO
+    # smtp_requiretls_policy = "enforce";  #< TODO
+    # smtpd_enforce_tls = true;  #< TODO
+    # smtpd_hide_client_session = true;  #< TODO: enable, for 587/submission only
+
+    # hand received mail over to dovecot so that it can run sieves & such
+    # mailbox_command = ''${config.services.dovecot2.package}/libexec/dovecot/dovecot-lda -f "$SENDER" -a "$RECIPIENT"'';
+    # mailbox_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+    local_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+    local_recipient_maps = [];  #< prevent postfix from delivering based on /etc/passwd contents
+    # local_recipient_maps = [
     #   "hash:/etc/postfix/virtual"
     # ];
-    # mydestination = "";
+
+    # hand received mail over to dovecot
+    # virtual_alias_domains = [ "uninsane.org" ];
+    virtual_alias_maps = [
+      "hash:/etc/postfix/virtual"
+    ];
+    # # virtual_alias_domains = [ "localhost" "uninsane.org" ];
+    # # virtual_alias_maps = [
+    # #   "hash:/etc/postfix/virtual"
+    # # ];
+    # mydestination = [ ];
+    # myorigin = "";
     # virtual_mailbox_domains = [ "localhost" "uninsane.org" ];
-    # # virtual_mailbox_maps = "hash:/etc/postfix/virtual";
-    # virtual_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+    # virtual_mailbox_maps = "hash:/etc/postfix/virtual";
+    virtual_transport = "lmtp:unix:/run/dovecot2/dovecot-lmtp";
+    # # virtual_transport = "lmtp:unix:private/dovecot-lmtp";
 
     # anti-spam options: <https://www.postfix.org/SMTPD_ACCESS_README.html>
     # reject_unknown_sender_domain: causes postfix to `dig <sender> MX` and make sure that exists.
@@ -160,7 +226,7 @@ in
   #   "submissions".privileged = true;
   # };
 
-  services.postfix.enableSubmission = true;
+  services.postfix.enableSubmission = true;  #< TODO: disable; only allow port 587
   services.postfix.submissionOptions = submissionOptions;
   services.postfix.enableSubmissions = true;
   services.postfix.submissionsOptions = submissionOptions;

@@ -9,7 +9,6 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "pyln-client";
-  format = "pyproject";
 
   inherit (clightning) src version;
   sourceRoot = "clightning-v${clightning.version}/contrib/pyln-client";

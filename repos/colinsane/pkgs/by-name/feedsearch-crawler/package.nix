@@ -8,7 +8,6 @@
 stdenvNoCC.mkDerivation {
   pname = "feedsearch-crawler";
   version = "0.2.7-unstable-2022-05-28";
-  format = "pyproject";
 
   src = fetchFromGitHub {
     owner = "DBeath";
@@ -36,18 +35,18 @@ stdenvNoCC.mkDerivation {
     python3.pkgs.pypaInstallHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    aiodns
-    aiohttp
-    beautifulsoup4
-    brotlipy
-    faust-cchardet
-    feedparser
-    python-dateutil
-    standard-cgi  # alternately: `legacy-cgi`
-    uvloop
-    w3lib
-    yarl
+  propagatedBuildInputs = [
+    python3.pkgs.aiodns
+    python3.pkgs.aiohttp
+    python3.pkgs.beautifulsoup4
+    python3.pkgs.brotlipy
+    python3.pkgs.faust-cchardet
+    python3.pkgs.feedparser
+    python3.pkgs.python-dateutil
+    python3.pkgs.standard-cgi  # alternately: `legacy-cgi`
+    python3.pkgs.uvloop
+    python3.pkgs.w3lib
+    python3.pkgs.yarl
   ];
 
   nativeCheckInputs = [

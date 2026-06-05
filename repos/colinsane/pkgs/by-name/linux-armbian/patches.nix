@@ -27,7 +27,7 @@ lib.makeScope newScope (self: with self; {
     byName = lib.genAttrs patchNames getByName;
 
     # ordered patches
-    series = builtins.map getByName patchNames;
+    series = map getByName patchNames;
     patchNames = [
       "Doc-dt-bindings-usb-add-binding-for-DWC3-controller-on-Allwinne"
       "drv-pinctrl-pinctrl-sun50i-a64-disable_strict_mode"
@@ -212,7 +212,7 @@ lib.makeScope newScope (self: with self; {
     byName = lib.genAttrs patchNames getByName;
 
     # ordered patches
-    series = builtins.map getByName patchNames;
+    series = map getByName patchNames;
 
     patchNames = [
       # ordered patches, from <https://github.com/armbian/build/blob/main/patch/kernel/archive/sunxi-6.10/series.megous>

@@ -123,7 +123,7 @@ fn pasta_restrict(net: resources::net_subset) void = {
 };
 
 // spawn pasta as a separate process, and have it attach to the netns of the given pid.
-fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::file) (void | os::exec::error | rt::errno) = {
+fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::file) (void | rt::errno) = {
   // move the fd's to be one of the special fd's which *don't*
   // get closed on exec (e.g. /proc/self/fd/0, stdin).
   // notify_fd is opened O_NOCLOEXEC (netns_fd is O_CLOEXEC), but still this seems to be required,
@@ -165,7 +165,7 @@ fn attach_pasta(net: resources::net_subset, netns_fd: io::file, notify_fd: io::f
     "--foreground",
   ];
 
-  log::printfln("[namespace/pasta]: invoking pasta: {}", strings::join(" ", pasta_args...));
+  log::printfln("[namespace/pasta]: invoking pasta: {}", strings::join(" ", pasta_args...)!);
   return rt::ext::execvpe_or_default(
     config::PASTA,
     "pasta",
@@ -182,7 +182,7 @@ fn config_routing_in_ns(net: resources::net_subset) (void | os::exec::error | rt
   errors::ext::swallow("[namespace/pasta] raise CAP_NET_ADMIN to configure interface", rt::ext::cap_ambient_raise(rt::ext::cap::NET_ADMIN));
 
   // forward dns to the desired endpoint
-  let dnsdest = fmt::asprintf("{}:53", net.dns);
+  let dnsdest = fmt::asprintf("{}:53", net.dns)!;
   defer free(dnsdest);
   let rc = ps::shellvpe_or_default(
     config::IPTABLES,

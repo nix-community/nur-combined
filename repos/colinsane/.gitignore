@@ -1,5 +1,5 @@
 /build
-/.working
+/.work
 result
 result-*
 /secrets/local.nix

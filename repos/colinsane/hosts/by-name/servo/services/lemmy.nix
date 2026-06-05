@@ -59,6 +59,11 @@ in {
       group = "lemmy";
       isSystemUser = true;
     };
+    users.groups.lemmy-ui = {};
+    users.users.lemmy-ui = {
+      group = "lemmy-ui";
+      isSystemUser = true;
+    };
 
     services.nginx.virtualHosts."lemmy.uninsane.org" = {
       forceSSL = true;
@@ -69,8 +74,6 @@ in {
 
     systemd.services.lemmy = {
       # fix to use a normal user so we can configure perms correctly
-      # XXX(2024-07-28): this hasn't been rigorously tested:
-      # possible that i've set something too strict and won't notice right away
       serviceConfig.DynamicUser = lib.mkForce false;
       serviceConfig.User = "lemmy";
       serviceConfig.Group = "lemmy";
@@ -109,6 +112,13 @@ in {
     };
 
     systemd.services.lemmy-ui = {
+      # fix to use a normal user so we can configure perms correctly
+      # XXX(2026-01-12): this hasn't been rigorously tested:
+      # possible that i've set something too strict and won't notice right away
+      serviceConfig.DynamicUser = lib.mkForce false;
+      serviceConfig.User = "lemmy-ui";
+      serviceConfig.Group = "lemmy-ui";
+
       # hardening (systemd-analyze security lemmy-ui)
       # TODO: upstream into nixpkgs
       serviceConfig.LockPersonality = true;

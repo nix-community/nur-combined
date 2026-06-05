@@ -3,9 +3,9 @@ let
   hickory-dns-nmhook = pkgs.static-nix-shell.mkPython3 {
     pname = "hickory-dns-nmhook";
     srcRoot = ./.;
-    pkgs = [
-      "systemd"
-    ];
+    pkgs = {
+      inherit (pkgs) systemd;
+    };
   };
   cfg = config.sane.services.hickory-dns;
   dns = config.sane.dns;
@@ -99,7 +99,6 @@ let
   });
 
   mkSystemdService = flavor: { includes, listenAddrsIpv4, listenAddrsIpv6, port, substitutions, extraConfig, ... }: let
-    sed = lib.getExe pkgs.gnused;
     baseConfig = (
       lib.filterAttrsRecursive (_: v: v != null) config.services.hickory-dns.settings
     ) // {

@@ -20,7 +20,7 @@
   wayland-protocols,
   wayland-scanner,
 }:
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "sxmo_swaylock";
   version = "1.6.11-unstable-2023-04-26";  #< from meson.build
 
@@ -58,16 +58,16 @@ stdenv.mkDerivation rec {
   # env.NIX_CFLAGS_COMPILE = "-Wno-error=int-conversion -Wno-error=implicit-function-declaration";
   env.NIX_CFLAGS_COMPILE = "-Wno-error";
 
-  meta = with lib; {
+  meta = {
     description = "sxmo lockscreen with swaylock";
     longDescription = ''
       sxmo_swaylock is a fork of swaylock-effects with the touchscreen keypad
       from swaylock-mobile. This is intended to be used with sxmo on mobile
       devices, as sxmo currently does not have a proper password protected lockscreen
     '';
-    inherit (src.meta) homepage;
+    homepage = "https://github.com/KaffeinatedKat/sxmo_swaylock";
     mainProgram = "swaylock";
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

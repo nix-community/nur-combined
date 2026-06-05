@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i ysh -p flamegraph -p oils-for-unix -p perf
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i ysh ../../../../integrations/nix-shell --arg f 'ps: [ ps.flamegraph ps.oils-for-unix ps.perf ]'
 
 # use like `sane-profile some-command --which-takes-a flag`.
 # will render a .html file showing the hot-path functions inside the command.

@@ -2,7 +2,7 @@
 
 {
   # give each host a shortname that all the other hosts know, to allow easy comms.
-  networking.hosts = lib.mkMerge (builtins.map
+  networking.hosts = lib.mkMerge (map
     (host: let
       cfg = config.sane.hosts.by-name."${host}";
     in {

@@ -78,15 +78,14 @@
     version=v$version
   '';
 
-  versionCheckProgram = "${placeholder "out"}/bin/compass";
-
   doCheck = true;
   doInstallCheck = true;
   strictDeps = true;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://gitlab.com/lgtrombetta/compass";
     description = "a simple GTK3 compass app for Mobile Linux";
-    maintainers = with maintainers; [ colinsane ];
+    mainProgram = "compass";
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

@@ -1,12 +1,16 @@
-{ ... }:
+{ lib, ... }:
 
 {
   imports = [
+    ../../common
     ./fs.nix
     ./net
     ./services
     ./users
   ];
+
+  networking.hostName = "servo";
+  sane.cpu = lib.mkDefault "x86_64";
 
   # for administering services
   sane.programs.clightning-sane.enableFor.user.colin = true;
@@ -34,10 +38,10 @@
   # XXX(2024-07-27): this is incompatible if using s6, which needs to auto-login as `colin` to start its user services.
   services.getty.autologinUser = "root";
 
-  # both transmission and ipfs try to set different net defaults.
-  # we just use the most aggressive of the two here:
-  boot.kernel.sysctl = {
-    "net.core.rmem_max" = 4194304;  # 4MB
-  };
+  # both transmission and ipfs try to set different net defaults => eval error.
+  # we just use the most aggressive of the two (i.e. transmission) here to resolve that:
+  # boot.kernel.sysctl = {
+  #   "net.core.rmem_max" = 4194304;  # 4MB
+  # };
 }
 

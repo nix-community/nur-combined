@@ -25,7 +25,7 @@ let
     patch = null;
   };
 in
-linux.override {
+(linux.override {
   # inherit (linux_latest) src version modDirVersion;
   # inherit features randstructSeed structuredExtraConfig;
 
@@ -608,7 +608,7 @@ linux.override {
     {
       name = "postmarketos-config";
       patch = null;
-      structuredExtraConfig = builtins.removeAttrs
+      structuredExtraConfig = removeAttrs
         (sane-kernel-tools.parseDefconfigStructuredNonempty linux-postmarketos-allwinner.defconfigStr)
         ([
           # remove attrs which nixpkgs wants to set for itself, only because the kernel config options are so fucked that i can't figure out how to override things without breaking eval
@@ -907,4 +907,8 @@ linux.override {
   passthru = {
     inherit patches;
   };
-}
+}).overrideAttrs (base: {
+  meta = base.meta // {
+    broken = true;  # XXX(2026-02-26): patches are based on 6.10; needs updating to a kernel version still shipped in nixpkgs.
+  };
+})

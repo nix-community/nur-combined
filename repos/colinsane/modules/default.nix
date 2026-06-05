@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ ... }:
 
 {
   imports = [
@@ -13,16 +13,10 @@
     ./ports.nix
     ./root-on-tmpfs.nix
     ./services
-    ./sops.nix
     ./ssh.nix
     ./users
     ./vpn.nix
     ./warnings.nix
     ./wowlan.nix
   ];
-
-  _module.args =  rec {
-    sane-lib = import ./lib { inherit lib; };
-    sane-data = import ./data { inherit lib sane-lib; };
-  };
 }

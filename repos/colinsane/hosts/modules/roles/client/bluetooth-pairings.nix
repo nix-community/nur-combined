@@ -4,7 +4,9 @@ let
   install-bluetooth = pkgs.static-nix-shell.mkBash {
     pname = "install-bluetooth";
     srcRoot = ./.;
-    pkgs = [ "gnused" ];
+    pkgs = {
+      inherit (pkgs) gnused;
+    };
   };
 in
 lib.optionalAttrs false  #< disabled 2024-09-27 while i rework sane.fs

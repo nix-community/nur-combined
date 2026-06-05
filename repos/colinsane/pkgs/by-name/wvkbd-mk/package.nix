@@ -12,7 +12,7 @@
   wayland-scanner,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "wvkbd-mk";
   version = "unstable-2024-01-01";
 
@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
   ];
   installFlags = [ "PREFIX=$(out)" ];
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/federvieh/wvkbd";
     description = "On-screen keyboard for wlroots optimized for one finger input";
     longDescription = ''
@@ -54,9 +54,9 @@ stdenv.mkDerivation rec {
       N.B.: invoke as `wvkbd-anihortes --motion-keys` or else it behaves like
       stock `wvkbd` with a funny layout.
     '';
-    maintainers = [ maintainers.colinsane ];
-    platforms = platforms.linux;
-    license = licenses.gpl3Plus;
+    maintainers = [ lib.maintainers.colinsane ];
+    platforms = lib.platforms.linux;
+    license = lib.licenses.gpl3Plus;
     mainProgram = "wvkbd-anihortes";
   };
 }

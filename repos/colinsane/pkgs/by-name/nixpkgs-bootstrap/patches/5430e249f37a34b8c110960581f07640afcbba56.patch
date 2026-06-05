@@ -1,0 +1,31 @@
+From 5430e249f37a34b8c110960581f07640afcbba56 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 16 Jan 2026 09:00:49 +0000
+Subject: [PATCH] NOT FOR COMMIT: nixos/cups: don't ship xdg-utils
+
+in fact `${cups.out}/share/applications/cups.desktop` contains
+`Exec=xdg-open http://localhost:631/`. nixpkgs .desktop files "need" to
+use relative paths like that as DE's cache this.
+
+possibly the right solution here is "propagatedBuildInputs" or
+"runtimeDependencies".
+---
+ nixos/modules/services/printing/cupsd.nix | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/nixos/modules/services/printing/cupsd.nix b/nixos/modules/services/printing/cupsd.nix
+index 0b08ce76c9ec..3e80f4dbed0d 100644
+--- a/nixos/modules/services/printing/cupsd.nix
++++ b/nixos/modules/services/printing/cupsd.nix
+@@ -373,11 +373,8 @@ in
+       groups.lpadmin = { };
+     };
+ 
+-    # We need xdg-open (part of xdg-utils) for the desktop-file to proper open the users default-browser when opening "Manage Printing"
+-    # https://github.com/NixOS/nixpkgs/pull/237994#issuecomment-1597510969
+     environment.systemPackages = [
+       cups.out
+-      xdg-utils
+     ]
+     ++ optional polkitEnabled cups-pk-helper;
+     environment.etc.cups.source = "/var/lib/cups";

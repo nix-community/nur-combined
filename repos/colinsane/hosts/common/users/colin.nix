@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 
 {
   # docs: https://nixpkgs-manual-sphinx-markedown-example.netlify.app/generated/options-db.xml.html#users-users
@@ -41,10 +41,13 @@
     #       the login password is dictated by gocryptfs credentials;
     #       both are necessary for a well-functioning system.
     #       (in the future, pam-mount *could* be used to unify those passwords)
-    initialPassword = lib.mkDefault "";
-    hashedPasswordFile = lib.mkIf (config.sops.secrets ? "colin-passwd") config.sops.secrets.colin-passwd.path;
+    # initialPassword = lib.mkDefault "";
+    # hashedPasswordFile = lib.mkIf (config.sops.secrets ? "colin-passwd") config.sops.secrets.colin-passwd.path;
 
-    shell = pkgs.zsh;
+    shell = lib.mkIf
+      config.sane.programs.zsh.enableFor.user.colin
+      config.sane.programs.zsh.package
+      ;
 
     # mount encrypted stuff at login
     # some other nix pam users:
@@ -61,59 +64,38 @@
     # };
   };
 
-  # i explicitly set both `initialPassword` and `hashedPasswordFile`, so ignore the warning against this.
-  # see: <https://github.com/NixOS/nixpkgs/pull/287506>
-  sane.silencedWarnings = [
-    ''
-      The user 'colin' has multiple of the options
-      `initialHashedPassword`, `hashedPassword`, `initialPassword`, `password`
-      & `hashedPasswordFile` set to a non-null value.
+  # environment.etc."/security/capability.conf".text = ''
+  #   # The pam_cap.so module accepts the following arguments:
+  #   #
+  #   #   debug         - be more verbose logging things (unused by pam_cap for now)
+  #   #   config=<file> - override the default config for the module with file
+  #   #   keepcaps      - workaround for applications that setuid without this
+  #   #   autoauth      - if you want pam_cap.so to always succeed for the auth phase
+  #   #   default=<iab> - provide a fallback IAB value if there is no '*' rule
+  #   #
+  #   # format:
+  #   # <CAP>[,<CAP>...] USER|@GROUP|*
+  #   #
+  #   # the part of each line before the delimiter (" \t\n") is parsed with `cap_iab_from_text`.
+  #   # so each CAP can be prefixed to indicate which set it applies to:
+  #   # [!][^][%]<CAP>
+  #   # where ! adds to the NB set (bounding)
+  #   #       ^ for AI (ambient + inherited)
+  #   #       % (or empty) for I (inherited)
+  #   #
+  #   # special capabilities "all" and "none" enable all/none of the caps known to the system.
 
-      If multiple of these password options are set at the same time then a
-      specific order of precedence is followed, which can lead to surprising
-      results. The order of precedence differs depending on whether the
-      {option}`users.mutableUsers` option is set.
+  #   # cap_ipc_lock: required by gnome-keyring (for `mlock`)
+  #   # cap_sys_nice: allow realtime scheduling for e.g. audio applications, games
+  #   ^cap_ipc_lock,^cap_net_admin,^cap_net_raw,^cap_sys_nice colin
 
-      If the option {option}`users.mutableUsers` is
-      `false`, then the order of precedence is as shown
-      below, where values on the left are overridden by values on the right:
-      {option}`initialHashedPassword` -> {option}`hashedPassword` -> {option}`initialPassword` -> {option}`password` -> {option}`hashedPasswordFile`
+  #   # include this `none *` line otherwise non-matching users get maximum inheritable capabilities
+  #   none *
+  # '';
 
-      The values of these options are:
-      * users.users."colin".hashedPassword: ${lib.generators.toPretty {} config.users.users.colin.hashedPassword}
-      * users.users."colin".hashedPasswordFile: ${lib.generators.toPretty {} config.users.users.colin.hashedPasswordFile}
-      * users.users."colin".password: ${lib.generators.toPretty {} config.users.users.colin.password}
-    ''
-  ];
-
-  environment.etc."/security/capability.conf".text = ''
-    # The pam_cap.so module accepts the following arguments:
-    #
-    #   debug         - be more verbose logging things (unused by pam_cap for now)
-    #   config=<file> - override the default config for the module with file
-    #   keepcaps      - workaround for applications that setuid without this
-    #   autoauth      - if you want pam_cap.so to always succeed for the auth phase
-    #   default=<iab> - provide a fallback IAB value if there is no '*' rule
-    #
-    # format:
-    # <CAP>[,<CAP>...] USER|@GROUP|*
-    #
-    # the part of each line before the delimiter (" \t\n") is parsed with `cap_iab_from_text`.
-    # so each CAP can be prefixed to indicate which set it applies to:
-    # [!][^][%]<CAP>
-    # where ! adds to the NB set (bounding)
-    #       ^ for AI (ambient + inherited)
-    #       % (or empty) for I (inherited)
-    #
-    # special capabilities "all" and "none" enable all/none of the caps known to the system.
-
-    # cap_ipc_lock: required by gnome-keyring (for `mlock`)
-    # cap_sys_nice: allow realtime scheduling for e.g. audio applications, games
-    ^cap_ipc_lock,^cap_net_admin,^cap_net_raw,^cap_sys_nice colin
-
-    # include this `none *` line otherwise non-matching users get maximum inheritable capabilities
-    none *
-  '';
+  environment.etc."tcb/colin" = lib.mkIf (config.sops.secrets ? "etc/tcb/colin/shadow") {
+    source = "/run/secrets/etc/tcb/colin";
+  };
 
   # grant myself extra capabilities for systemd sessions so that i can e.g.:
   # - run wireshark without root/setuid
@@ -134,7 +116,7 @@
   # environment.etc."userdb/colin.user".text = ''
   #   {
   #     "userName" : "colin",
-  #     "uid": ${builtins.toString config.users.users.colin.uid},
+  #     "uid": ${toString config.users.users.colin.uid},
   #     "capabilityAmbientSet": [
   #       "cap_net_admin",
   #       "cap_net_raw"
@@ -149,8 +131,10 @@
   # disable the `systemd --user` instance for colin.
   # systemd still starts a user.slice  when logging in via PAM (e.g. `ssh`, `login`),
   # but there's no user service manager which can start .service files or field `systemd --run` requests.
-  systemd.services."user@${builtins.toString config.users.users.colin.uid}".enable = false;
+  systemd.services."user@${toString config.users.users.colin.uid}".enable = false;
 
   # systemd-user-sessions depends on remote-fs, causing login to take stupidly long
   # systemd.services."systemd-user-sessions".enable = false;
+
+  sane.programs.zsh.enableFor.user.colin = lib.mkDefault true;
 }

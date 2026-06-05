@@ -24,17 +24,17 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.swaynotificationcenter;
-  buttons = import ./buttons.nix { inherit pkgs; };
-  scripts = import ./scripts.nix { inherit pkgs; };
+  buttons = import ./buttons.nix;
+  scripts = import ./scripts.nix;
 in
 {
   sane.programs.swaync-service-dispatcher = {
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "swaync-service-dispatcher";
       srcRoot = ./.;
-      pkgs = [
-        "systemdMinimal"
-      ];
+      pkgs = {
+        inherit (pkgs) systemdMinimal;
+      };
     };
     sandbox.whitelistSystemctl = true;
     sandbox.keepPidsAndProc = true;  #< XXX: not sure why, but swaync segfaults under load without this!
@@ -48,12 +48,14 @@ in
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "swaync-fbcli";
       srcRoot = ./.;
-      pkgs = [
-        "feedbackd"
-        "procps"
-        "swaynotificationcenter"
-        "util-linux"
-      ];
+      pkgs = {
+        inherit (pkgs)
+          feedbackd
+          procps
+          swaynotificationcenter
+          util-linux
+        ;
+      };
     };
     sandbox.whitelistDbus.user = true;  #< TODO: reduce
     # sandbox.whitelistDbus.user.call."org.sigxcpu.Feedback" = "*";
@@ -198,6 +200,9 @@ in
           #   buttons.abaddon
           ] ++ lib.optionals config.sane.programs.dissent.enabled [
             buttons.dissent
+          ] ++ lib.optionals (config.sane.programs.discord.enabled && !config.sane.programs.dissent.enabled) [
+            # only enable button for official client if an alternate client isn't installed.
+            buttons.discord
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
             buttons.signal-desktop
           ] ++ lib.optionals config.sane.programs.geary.enabled [

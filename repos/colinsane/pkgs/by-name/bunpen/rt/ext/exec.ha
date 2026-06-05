@@ -1,28 +1,35 @@
 // vim: set shiftwidth=2 :
 
-use errors;
 use errors::ext;
 use fmt;
 use log;
 use os;
-use os::exec;
 use path;
 use rt;
 use strings;
 use types::c;
 
+fn log_pre_exec(path: str, argv: []str, envp: []str = []) (void | nomem) = {
+  let logv: []fmt::formattable = [];
+  defer free(logv);
+  append(logv, "[exec] execve:")?;
+
+  if (len(argv) != 0 && argv[0] != path)
+    append(logv, fmt::asprintf("--argv0={}", argv[0])?)?;
+
+  for (let env .. envp)
+    append(logv, env)?;
+
+  append(logv, path)?;
+  for (let i = 1z; i < len(argv); i += 1)
+    append(logv, argv[i])?;
+  log::println(logv...);
+};
+
 export fn execve(path: str, argv: []str, envp: []str = []) rt::errno = {
   let path_buf: [path::MAX]c::char = [0...];
 
-  {
-    let logv: []fmt::formattable = [];
-    defer free(logv);
-    append(logv, "[exec] execve:");
-    append(logv, path);
-    for (let arg .. argv)
-      append(logv, arg);
-    log::println(logv...);
-  };
+  errors::ext::check("[exec] log_pre_exec", log_pre_exec(path, argv, envp));
 
   syscall(
     rt::SYS_execve,
@@ -60,13 +67,20 @@ export fn execvpe_or_default(default: str, name: str, argv: []str, envp: []str =
 
 // allocate and return a NULL-terminated array of pointers to c strings.
 // caller is responsible for free'ing the resulting array AND its strings.
-fn to_cstr_array(strs: []str) []nullable *const c::char = {
-  let cstrs: []nullable *const c::char = alloc([], len(strs) + 1z);
+fn try_to_cstr_array(strs: []str) ([]nullable *const c::char | nomem) = {
+  let cstrs: []nullable *const c::char = alloc([], len(strs) + 1z)?;
   for (let s .. strs) {
-    append(cstrs, c::fromstr(s));
+    append(cstrs, c::fromstr(s)?)?;
   };
-  append(cstrs, null);
+  append(cstrs, null)?;
   return cstrs;
+};
+
+fn to_cstr_array(strs: []str) []nullable *const c::char = {
+  return match (try_to_cstr_array(strs)) {
+    case let a: []nullable *const c::char => yield a;
+    case nomem => errors::ext::fatal("[exec] to_cstr_array", nomem);
+  };
 };
 
 // split `path` on `:`, crawl it, and try executing until we succeed.
@@ -75,10 +89,10 @@ fn to_cstr_array(strs: []str) []nullable *const c::char = {
 // returns ENOENT if unable to locate the command on PATH
 fn _execvpe(path: str, name: str, argv: []str, envp: []str = []) rt::errno = {
   let status = rt::ENOENT;
-  let pieces = strings::split(path, ":");
+  let pieces = errors::ext::check_str_arr("[exec] strings::split", strings::split(path, ":"));
   defer free(pieces);
   for (let p .. pieces) {
-    let this_path = strings::join("/", p, name);
+    let this_path = errors::ext::check_str("[exec] strings::join", strings::join("/", p, name));
     defer free(this_path);
     status = execve(this_path, argv, envp);
     // try the next item, or return the status if this is the last one.

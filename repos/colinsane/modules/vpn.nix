@@ -24,7 +24,7 @@
 #   3b. attach the VPN device to a bridge device, then connect that to a network namespace by using a veth pair.
 #   3c. just use `bunpen`, which abstracts the above options.
 
-{ config, lib, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.vpn;
   vpnOpts = with lib; types.submodule ({ name, config, ... }: {
@@ -247,7 +247,7 @@ let
     #   # that may protect against actors trying to probe us: actors we connect to via wireguard who send their response packets (speculatively) to our plaintext IP to see if we accept them.
     #   # but that's fairly low concern, and firewalling by the gateway/NAT helps protect against that already.
     #   ${iptables}/bin/iptables -t mangle -I PREROUTING 1 -i ${name} -m mark --mark 0 -j CONNMARK --restore-mark
-    #   ${iptables}/bin/iptables -t mangle -A POSTROUTING  -o ${name} -m mark --mark ${builtins.toString id} -j CONNMARK --save-mark
+    #   ${iptables}/bin/iptables -t mangle -A POSTROUTING  -o ${name} -m mark --mark ${toString id} -j CONNMARK --save-mark
     # '';
   };
 in
@@ -268,5 +268,5 @@ in
       systemd.network = f.systemd.network;
       systemd.services = f.systemd.services;
     };
-  in take (sane-lib.mkTypedMerge take configs);
+  in take (pkgs.sane-lib.mkTypedMerge take configs);
 }

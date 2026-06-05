@@ -1,0 +1,35 @@
+From 35d8ba76e9d4f06db359c6a735669097484ab3b6 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 1 May 2026 22:48:46 +0000
+Subject: [PATCH] libtirpc: enable rpcdb feature
+
+this causes `libtirpc` to export fallback implementations for
+`getrpcbynumber`, `getrpcbyname` and `getrpcent` in the event that
+these functions aren't found in the libc's `netdb.h`. some libc's
+(glibc, freebsd.libc) define these functions, others (musl, uclibc-ng)
+do not.
+
+a primary beneficiary of this is `pkgsMusl.nfs-utils`, previously
+erroring like:
+
+> configure: error: Neither getrpcbynumber_r nor getrpcbynumber are available
+---
+ pkgs/by-name/li/libtirpc/package.nix | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/pkgs/by-name/li/libtirpc/package.nix b/pkgs/by-name/li/libtirpc/package.nix
+index 560039ab72290a6204b5c532c00ecdd07e6b9a8a..a6ee6e955fe8385efd13477a6ca6a138b924c848 100644
+--- a/pkgs/by-name/li/libtirpc/package.nix
++++ b/pkgs/by-name/li/libtirpc/package.nix
+@@ -33,7 +33,10 @@ stdenv.mkDerivation (finalAttrs: {
+     sed -es"|/etc/netconfig|$out/etc/netconfig|g" -i doc/Makefile.in tirpc/netconfig.h
+   '';
+ 
+-  configureFlags = lib.optional (
++  configureFlags = [
++    "--enable-rpcdb"
++  ]
++  ++ lib.optional (
+     stdenv.cc.bintools.isLLVM && lib.versionAtLeast stdenv.cc.bintools.version "17"
+   ) "LDFLAGS=-Wl,--undefined-version";
+ 

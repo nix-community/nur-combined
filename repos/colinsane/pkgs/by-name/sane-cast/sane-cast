@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p go2tv -p python3 -p sblast
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.go2tv ps.python3 ps.sblast ]'
 # vim: set filetype=python :
 """
 cast media (local video or audio files) to a device on the same network
@@ -9,12 +9,14 @@ and a menu to select a device if there's more than one online
 
 from dataclasses import dataclass
 from enum import Enum
+from typing import NoReturn, Optional
 
 import argparse
 import logging
 import os
 import socket
 import subprocess
+import sys
 import tempfile
 
 logger = logging.getLogger(__name__)
@@ -30,9 +32,9 @@ class Compat(Enum):
 class Device:
     # "model", or device name. e.g. "Theater TV".
     model: str
-    compat: Compat | None = None
+    compat: Optional[Compat] = None
     # URL: endpoint at which the device can be controlled. e.g. http://1.2.3.4:567/MediaRenderer.xml
-    url: str | None = None
+    url: Optional[str] = None
 
     def augmented(self, other: "Device") -> "Device":
         return Device(
@@ -52,56 +54,130 @@ KNOWN_DEVICES = [
     Device("Cuddlevision", Compat.Default),
 ]
 
+class MorselParser:
+    def __init__(self, morsel: str) -> None:
+        self.morsel = morsel
+        self.unparsed = morsel
+
+    def sanitize(self) -> None:
+        MARKUP = [
+            # observed pre-2026-04-23:
+            "\x1b[0m",
+            "\x1b[1m",
+            # observed 2026-04-23:
+            "\x1b[?25l",
+            "\x1b[?2004h",
+            "\x1b[2A",
+            "\x1b[J",
+            "\x1b[3A",
+            "\x1b[2K",
+            "\x1b[?2004l",
+            "\x1b[?25h",
+            "\x1b[?1002l",
+            "\x1b[?1003l",
+            "\x1b[?1006l",
+        ]
+        for m in MARKUP:
+            self.unparsed = self.unparsed.replace(m, "")
+        self.unparsed = self.unparsed.strip()
+
+    def take(self, token: str) -> Optional[str]:
+        advanced = self.unparsed.removeprefix(token)
+        if advanced != self.unparsed:
+            self.unparsed = advanced
+            return token
+
+    def chomp(self) -> Optional[str]:
+        if self.unparsed == '':
+            return None
+        char = self.unparsed[0]
+        self.unparsed = self.unparsed[1:]
+        return char
+
+    def expect_chomp(self) -> str:
+        char = self.chomp()
+        assert char is not None, f'unexpected EOF when parsing morsel {self.morsel!r}'
+        return char
+
+    def eof(self) -> bool:
+        return self.unparsed == ""
+
+    def expect_eof(self) -> None:
+        assert self.eof(), f'trailing tokens when parsing morsel {self.morsel!r}: {self.unparsed!r}'
+
 class Go2TvParser:
     def __init__(self) -> None:
         self.parsed_devices = []
-        self.partial_model = None
-        self.partial_url = None
 
     def into_devices(self) -> list[Device]:
-        self.close_device()
         return self.parsed_devices[:]
 
     def feed_line(self, line: str) -> None:
-        sanitized = line \
-            .replace("\x1b[0m", "") \
-            .replace("\x1b[1m", "") \
-            .strip()
+        mparser = MorselParser(line)
+        mparser.sanitize()
+        logger.debug(repr(mparser.unparsed))
 
-        logger.debug(repr(sanitized))
-        if sanitized and all(c == "-" for c in sanitized):
-            self.close_device()
-        elif sanitized.startswith("Model:"):
-            self.partial_model = sanitized[len("Model:"):].strip()
-        elif sanitized.startswith("URL:"):
-            self.partial_url = sanitized[len("URL:"):].strip()
+        if mparser.take('Scanning devices... (q to quit)'):
+            pass
+        elif mparser.take('• '):
+            # examples:
+            # `• Cuddlevision [http://10.78.78.27:1328/]`
+            # `• Theater TV [http://10.78.78.10:52323/MediaRenderer.xml]`
+            partial_model = ''
+            partial_url = ''
+            while not mparser.take(' ['):
+                partial_model += mparser.expect_chomp()
+            while not mparser.take(']'):
+                partial_url += mparser.expect_chomp()
 
-    def close_device(self) -> None:
-        """
-        if there's any device data parsed, move it into `parsed_devices`
-        """
-        if self.partial_model is not None and self.partial_url:
             self.parsed_devices.append(Device(
-                model=self.partial_model,
-                url=self.partial_url,
+                model=partial_model,
+                url=partial_url,
             ))
 
-        self.partial_model = None
-        self.partial_url = None
+        mparser.expect_eof()
+
+class Executor:
+    def __init__(self, dry_run: bool) -> None:
+        self.dry_run = dry_run
+
+    def exec(self, argv: list[str]) -> NoReturn:
+        cmdstr = " ".join(argv)
+        if self.dry_run:
+            logger.info(f"# exec {cmdstr}")
+            logger.info("dry-run: exiting 0")
+            sys.exit(0)
+        else:
+            logger.info(f"exec {cmdstr}")
+            os.execvp(argv[0], argv)
 
 class Go2TvDriver:
+    def __init__(self, executor: Executor, timeout: int) -> None:
+        self.executor = executor
+        self.timeout = timeout
+
     def scan_devices(self) -> list[Device]:
-        go2tv = subprocess.Popen(
-            [ "go2tv", "-l" ],
-            stdout=subprocess.PIPE,
-        )
+        args = [
+            # XXX(2026-04-23): go2tv -l now *always* hangs until it receives `q` input (on flowy);
+            # solve by forcibly killing it after `self.timeout` seconds...
+            "timeout",
+            "--foreground",
+            "--preserve-status",
+            str(self.timeout),
+            "go2tv",
+            "-l"
+        ]
+        logger.debug(" ".join(args))
+        go2tv = subprocess.Popen(args, stdout=subprocess.PIPE)
+
         parser = Go2TvParser()
+        assert go2tv.stdout is not None  # else type check for `go2tv.stdout.readline` fails
         for line in iter(go2tv.stdout.readline, b''):
             parser.feed_line(line.decode("utf-8"))
 
         return parser.into_devices()
 
-    def cast_to(self, dev: Device, media: str) -> None:
+    def cast_to(self, dev: Device, media: str) -> NoReturn:
         logger.info(f"casting to {dev.model} at {dev.url} with compat {dev.compat}")
 
         if dev.compat == Compat.RenameToMp4:
@@ -121,34 +197,36 @@ class Go2TvDriver:
         else:
             media_args = [ "-v", media ]
 
-        cli_args = [ "go2tv", "-t", dev.url ] + media_args
-        logger.info(" ".join(cli_args))
-
-        os.execvp("go2tv", cli_args)
+        self.executor.exec([ "go2tv", "-t", dev.url ] + media_args)
 
 class BlastDriver:
-    def cast_to(self, dev: Device) -> None:
-        blast_args = [
+    def __init__(self, executor: Executor) -> None:
+        self.executor = executor
+
+    def cast_to(self, dev: Device) -> NoReturn:
+        logger.info(f"casting audio to {dev.model} at {dev.url} with compat {dev.compat}")
+
+        cli_args = [
             "sblast",
             # "blast.monitor" source will create a new output, or we can do that in pipewire config for better predictability.
-            "-source", "effect_input.virtual.monitor",
+            "-source", "effect_input.virtual_sink.monitor",
             "-device", dev.model,
             "-ip", get_ranked_ip_addrs()[0],
         ]
         if dev.compat != Compat.RenameToMp4:
-            blast_args += [ "-usewav" ];
+            cli_args += [ "-usewav" ];
 
-        os.execvp("sblast", blast_args)
+        self.executor.exec(cli_args)
 
 def get_ranked_ip_addrs():
     """
     return the IP addresses most likely to be LAN addresses
     based on: <https://stackoverflow.com/a/1267524>
     """
-    _name, _aliases, static_addrs = socket.gethostbyname_ex(socket.gethostname())
+    __unused_name__, __unused_aliases__, static_addrs = socket.gethostbyname_ex(socket.gethostname())
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.connect(("1", 53))
-    con_addr, _port = s.getsockname()
+    con_addr, __unused_port__ = s.getsockname()
     return sorted(set(static_addrs + [ con_addr ]), key=lambda a: (a.startswith("127"), a))
 
 def filter_devices(devices: list[Device], filter: str) -> list[Device]:
@@ -169,7 +247,7 @@ def rank_devices(devices: list[Device]) -> list[Device]:
     return ranked
 
 
-def ask_device(devices: list[Device]) -> Device | None:
+def ask_device(devices: list[Device]) -> Optional[Device]:
     dev = None
     while dev is None:
         # TODO: use a GUI menu like zenity?
@@ -190,7 +268,7 @@ def ask_device(devices: list[Device]) -> Device | None:
 
     return dev
 
-def get_default_device(devices: list[Device]) -> Device | None:
+def get_default_device(devices: list[Device]) -> Optional[Device]:
     if not devices:
         logger.info("no devices found!")
 
@@ -205,6 +283,8 @@ def main():
     parser.add_argument("--verbose", action="store_true", help="more logging")
     parser.add_argument("--always-ask", action="store_true", help="always ask which device to cast to, regardless how many are available")
     parser.add_argument("--device", help="filter devices based on if this string is contained in their name (case-insensitive)")
+    parser.add_argument("--dry-run", action="store_true", help="always ask which device to cast to, regardless how many are available")
+    parser.add_argument("--scan-timeout", type=int, default=10, help="how many seconds to spend scanning for devices")
     parser.add_argument("media", nargs="?", help="file or URL to send to the DLNA device. empty to cast just an audio stream")
 
     args = parser.parse_args()
@@ -212,8 +292,10 @@ def main():
     if args.verbose:
         logger.setLevel(logging.DEBUG)
 
-    blast = BlastDriver()
-    go2tv = Go2TvDriver()
+    executor = Executor(dry_run=args.dry_run)
+
+    blast = BlastDriver(executor)
+    go2tv = Go2TvDriver(executor, timeout=args.scan_timeout)
     devices = go2tv.scan_devices()
 
     if args.device:

@@ -15,7 +15,7 @@
   config = lib.mkIf config.sane.roles.work {
     sane.programs.guiApps.suggestedPrograms = [
       "slack"
-      "zoom-us"
+      # "zoom-us" # nah, web-browser zoom is way less buggy
     ];
   };
 }

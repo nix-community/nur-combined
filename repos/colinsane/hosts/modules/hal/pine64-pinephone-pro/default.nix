@@ -9,18 +9,18 @@ let
   # 5. `eval "$buildPhase" && eval "$installPhase"`
   # 6. `./scripts/deploy ...` to deploy the built kernel
   # 7. repeat steps 5/6, tweaking the kernel src in between
-  myCustomKernel = pkgs.linux-sane-pinephonepro.overrideAttrs (prev: {
-    dontUnpack = true;
-    dontPatch = true;
-    dontConfigure = true;
-    dontBuild = true;
-    patchPhase = "";
-    configurePhase = "";
-    installPhase = ''
-      cp -R ${../../../wip-linux/v03/out} $out
-      cp -R ${../../../wip-linux/v03/dev} $dev
-    '';
-  });
+  # myCustomKernel = pkgs.linux-sane-pinephonepro.overrideAttrs (prev: {
+  #   dontUnpack = true;
+  #   dontPatch = true;
+  #   dontConfigure = true;
+  #   dontBuild = true;
+  #   patchPhase = "";
+  #   configurePhase = "";
+  #   installPhase = ''
+  #     cp -R ${../../../wip-linux/v03/out} $out
+  #     cp -R ${../../../wip-linux/v03/dev} $dev
+  #   '';
+  # });
 in
 {
   options = {
@@ -53,19 +53,19 @@ in
     # sane.image.extraGPTPadding = 16 * 1024 * 1024 - 34 * 512;
     # sane.image.firstPartGap = 0;
     sane.image.installBootloader = ''
-      uboot_itb_bytes=$(stat --printf="%s" ${pkgs.u-boot-pinephone-pro}/u-boot.itb)
+      uboot_itb_bytes=$(stat --printf="%s" ${pkgs.ubootPinephonePro}/u-boot.itb)
       uboot_ends=$(( $uboot_itb_bytes + 16384 * 512))
-      gap_ends=${builtins.toString config.sane.image.firstPartGap}
+      gap_ends=${toString config.sane.image.firstPartGap}
       if ! (( $uboot_ends <= $gap_ends )); then
         echo 'firstPartGap is too small to fit all of u-boot!'
         false
       fi
-      dd if=${pkgs.u-boot-pinephone-pro}/idbloader.img of=$out bs=512 seek=64 conv=notrunc
-      dd if=${pkgs.u-boot-pinephone-pro}/u-boot.itb of=$out bs=512 seek=16384 conv=notrunc
+      dd if=${pkgs.ubootPinephonePro}/idbloader.img of=$out bs=512 seek=64 conv=notrunc
+      dd if=${pkgs.ubootPinephonePro}/u-boot.itb of=$out bs=512 seek=16384 conv=notrunc
     '';
 
     sane.programs.sysadminUtils.suggestedPrograms = [
-      "u-boot-pinephone-pro"
+      "ubootPinephonePro"
     ];
 
     sane.programs.alsa-ucm-conf.suggestedPrograms = [
@@ -92,7 +92,41 @@ in
       SUBSYSTEM=="leds", DEVPATH=="*/*", RUN+="${chmod} g+w /sys%p/brightness /sys%p/flash_strobe", RUN+="${chown} :video /sys%p/brightness"
     '';
 
+    boot.extraModulePackages = [
+      config.boot.kernelPackages.rk818-charger  #< rk818 battery/charger isn't mainline as of 2024-10-01
+      #v XXX(???? - 2025-07-18): mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
+      #v XXX(2025-07-18): megi's imx258 breaks mainline audio, though
+      # config.boot.kernelPackages.megi-imx258
+      #v optionally use megi's rt5640 sound driver;
+      #v XXX(2025-07-18): when using megi's imx258, the mainline rt5640 driver errors: `rt5640: 1-001c: ASoC error (-22): at snd_soc_dai_set_sysclk() on rt5640-aif1`
+      #v                  prior to this mainline driver was working fine, alongside camera/imx258, for half a year.
+      #v                  although this fixes the dmesg errors, it causes pipewire/wireplumber to crash-loop.
+      # config.boot.kernelPackages.megi-rt5640
+    ];
+
     boot.kernelPatches = [
+      # uncomment for an alternative to patching `ignoreCollisions = true;` in `system.modulesTree`
+      # {
+      #   name = "disable-in-tree-modules-if-shadowed-by-out-of-tree-builds";
+      #   patch = null;
+      #   structuredExtraConfig = let
+      #     modules = lib.concatMap (p: p.moduleNames) config.boot.extraModulePackages;
+      #     moduleToConfig = {
+      #       rk818_battery = {};  # module doesn't exist in-tree
+      #       rk818_charger = {};  # module doesn't exist in-tree
+      #       rk8xx-core = {
+      #         # MFD_RK8XX = lib.kernel.no;
+      #         MFD_RK8XX_SPI = lib.kernel.no;  # auto-selects MFD_RK8XX, and i don't need rk8xx-spi.ko
+      #         # MFD_RK8XX_I2C = lib.kernel.no;  # auto-selects MFD_RK8XX, but i do need rk8xx-i2c.ko
+      #       };
+      #       rk8xx-i2c = {
+      #         MFD_RK8XX_I2C = lib.kernel.no;
+      #       };
+      #     };
+      #     configs = lib.map (m: moduleToConfig.${m}) modules;
+      #   in
+      #     lib.foldl' lib.attrsets.unionOfDisjoint {} configs;
+      # }
       {
         name = "enable-libcamera-requirements";
         patch = null;
@@ -128,6 +162,23 @@ in
       # }
     ];
 
+    # default nixos behavior is to error if a kernel module is provided by more than one package.
+    # in fact, i'm _intentionally_ overwriting the in-tree modules, so inline this buildEnv logic
+    # from <repo:nixos/nixpkgs:nixos/modules/system/boot/kernel.nix> AKA pkgs.aggregateModules
+    # but configured to **ignore collisions**
+    system.modulesTree = lib.mkForce [(
+      (pkgs.aggregateModules (
+        config.boot.extraModulePackages ++ [
+          (lib.getOutput "modules" config.boot.kernelPackages.kernel)
+        ]
+      )).overrideAttrs {
+        name = "kernel-modules-merged-sane";
+        # earlier items override the contents of later items
+        ignoreCollisions = true;
+        # checkCollisionContents = false;
+      }
+    )];
+
     #v N.B.: deviceTree.name is plumbed through /boot/loader/entries/.
     #v if removed, systemd-boot will still (likely) boot, but DTB items known to the kernel
     #v and not to the platform firmware (u-boot) will be missing (e.g. rk818/battery monitoring).
@@ -145,10 +196,11 @@ in
         name = "rk3399-pinephone-pro-flash-led";
         dtsFile = ./rk3399-pinephone-pro-flash-led.dtso;
       }
-      {
-        name = "rk3399-pinephone-pro-lradc-fix";
-        dtsFile = ./rk3399-pinephone-pro-lradc-fix.dtso;
-      }
+      # {
+      #   # XXX(2026-03-28): upstreamed; no longer needed
+      #   name = "rk3399-pinephone-pro-lradc-fix";
+      #   dtsFile = ./rk3399-pinephone-pro-lradc-fix.dtso;
+      # }
       {
         name = "rk3399-pinephone-pro-modem";
         dtsFile = ./rk3399-pinephone-pro-modem.dtso;
@@ -246,41 +298,13 @@ in
     #   "rt5640"  #< doesn't seem to actually prevent rt5640 from being loaded?..
     # ];
 
-    boot.extraModulePackages = [
-      config.boot.kernelPackages.rk818-charger  #< rk818 battery/charger isn't mainline as of 2024-10-01
-      #v XXX(???? - 2025-07-18): mainline imx258 camera driver has some power-on issues on PPP  (imx258 1-001a: Error reading reg 0x0016: -6)
-      #v XXX(2025-07-18): megi's imx258 breaks mainline audio, though
-      # config.boot.kernelPackages.megi-imx258
-      #v optionally use megi's rt5640 sound driver;
-      #v XXX(2025-07-18): when using megi's imx258, the mainline rt5640 driver errors: `rt5640: 1-001c: ASoC error (-22): at snd_soc_dai_set_sysclk() on rt5640-aif1`
-      #v                  prior to this mainline driver was working fine, alongside camera/imx258, for half a year.
-      #v                  although this fixes the dmesg errors, it causes pipewire/wireplumber to crash-loop.
-      # config.boot.kernelPackages.megi-rt5640
-    ];
-
-    # default nixos behavior is to error if a kernel module is provided by more than one package.
-    # in fact, i'm _intentionally_ overwriting the in-tree modules, so inline this buildEnv logic
-    # from <repo:nixos/nixpkgs:nixos/modules/system/boot/kernel.nix> AKA pkgs.aggregateModules
-    # but configured to **ignore collisions**
-    system.modulesTree = lib.mkForce [(
-      (pkgs.aggregateModules (
-        config.boot.extraModulePackages ++ [
-          (lib.getOutput "modules" config.boot.kernelPackages.kernel)
-        ]
-      )).overrideAttrs {
-        name = "kernel-modules-merged-sane";
-        # earlier items override the contents of later items
-        ignoreCollisions = true;
-        # checkCollisionContents = false;
-      }
-    )];
-
-    boot.kernelModules = [
-      # these don't get probed automatically, not sure why (shouldn't the device tree cause it to be auto-loaded?)
-      # but are needed for battery capacity/charging info
-      "rk818_battery"
-      "rk818_charger"
-    ];
+    # boot.kernelModules = [
+    #   # these used to not be probed automatically, but after editing megi's .c drivers and checking `modules.alias`,
+    #   # they do load so long as modules.alias knows about the right `compatible` dts property.
+    #   # these are needed for battery capacity/charging info
+    #   "rk818_battery"
+    #   "rk818_charger"
+    # ];
 
     boot.initrd.availableKernelModules = [
       # see <repo:postmarketOS/pmaports:device/community/device-pine64-pinephonepro/modules-initfs>

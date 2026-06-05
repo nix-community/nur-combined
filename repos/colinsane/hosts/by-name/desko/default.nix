@@ -1,8 +1,12 @@
 { config, lib, ... }:
 {
   imports = [
+    ../../common
     ./fs.nix
   ];
+
+  networking.hostName = "desko";
+  sane.cpu = lib.mkDefault "x86_64";
 
   # firewall has to be open to allow clients to use services hosted on this device,
   # like `ollama`
@@ -21,13 +25,12 @@
   # see: <https://networkmanager.dev/docs/api/latest/NetworkManager.conf.html#device-spec>
   networking.networkmanager.unmanaged = [ "type:wifi" ];
 
-  sops.secrets.colin-passwd.neededForUsers = true;
-
   sane.roles.build-machine.enable = true;
   sane.roles.client = true;
   sane.roles.pc = true;
   sane.roles.work = true;
-  sane.services.ollama.enable = lib.mkIf (config.sane.maxBuildCost >= 3) true;
+  # sane.services.ollama.enable = lib.mkIf (config.sane.maxBuildCost >= 3) true;
+  sane.services.llama-cpp.enable = lib.mkIf (config.sane.maxBuildCost >= 2) true;
   sane.services.wg-home.enable = true;
   sane.ovpn.addrV4 = "172.26.55.21";
   # sane.ovpn.addrV6 = "fd00:0000:1337:cafe:1111:1111:20c1:a73c";
@@ -35,15 +38,15 @@
 
   sane.nixcache.remote-builders.desko = false;
 
-  sane.programs.claude-code.enableFor.user.colin = true;
-
   sane.programs.firefox.config.formFactor = "desktop";
 
   sane.programs.sane-private-unlock-remote.enableFor.user.colin = true;
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
 
   sane.programs.sway.enableFor.user.colin = true;
-  sane.programs.steam.enableFor.user.colin = true;
+  sane.programs.pcGameApps.suggestedPrograms = [
+    "steam"
+  ];
 
   sane.programs.nwg-panel.config = {
     battery = false;
@@ -55,5 +58,5 @@
   # needed to use libimobiledevice/ifuse, for iphone sync
   services.usbmuxd.enable = true;
 
-  hardware.amdgpu.opencl.enable = true;  # desktop (AMD's opencl implementation AKA "ROCM"); probably required for ollama
+  # hardware.amdgpu.opencl.enable = lib.mkDefault (config.sane.maxBuildCost >= 2);  # desktop (AMD's opencl implementation AKA "ROCM"); probably required for ollama
 }

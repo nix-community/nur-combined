@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p nix
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.nix ]'
 
 # script to reclaim some hard drive space
 # some of this is documented here:
@@ -10,10 +10,14 @@ set -eu
 usage() {
   echo "sane-reclaim-disk-space"
   echo "  equivalent to:"
-  echo '  $ nix-env --profile /nix/var/nix/profiles/system --delete-generations 30d'
-  echo '  $ nix-collect-garbage --delete-older-than 30d'
+  echo '  $ nix-env --profile /nix/var/nix/profiles/system --delete-generations 14d'
+  echo '  $ nix-collect-garbage --delete-older-than 14d'
+  echo ""
+  echo 'flags:'
+  echo '--max-freed NUM_BYTES  [default: 500000000000]'
 }
 
+maxFreed=500000000000  # 500 GB
 parseArgs() {
   while [ "$#" -ne 0 ]; do
     local arg=$1
@@ -22,6 +26,10 @@ parseArgs() {
       (--help)
         usage
         exit 0
+        ;;
+      (--max-freed)
+        maxFreed=$1
+        shift
         ;;
       (*)
         usage
@@ -40,8 +48,8 @@ main() {
   # nix-store --optimise
   (
     set -x;
-    nix-env --profile /nix/var/nix/profiles/system --delete-generations 30d;
-    nix-collect-garbage --delete-older-than 30d;
+    nix-env --profile /nix/var/nix/profiles/system --delete-generations 14d;
+    nix-collect-garbage --delete-older-than 14d --max-freed "$maxFreed";
   )
 
   echo 'to free more space (e.g. boot space), manually manage the profiles'

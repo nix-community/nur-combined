@@ -1,8 +1,21 @@
-{ static-nix-shell, copyDesktopItems, makeDesktopItem }:
+{
+  copyDesktopItems,
+  gnugrep,
+  makeDesktopItem,
+  static-nix-shell,
+  wl-clipboard-rs,
+  zenity,
+}:
 static-nix-shell.mkBash {
   pname = "sane-color-picker";
   srcRoot = ./.;
-  pkgs = [ "gnugrep" "wl-clipboard" "zenity" ];
+  pkgs = {
+    inherit
+      gnugrep
+      wl-clipboard-rs
+      zenity
+    ;
+  };
   nativeBuildInputs = [
     copyDesktopItems
   ];

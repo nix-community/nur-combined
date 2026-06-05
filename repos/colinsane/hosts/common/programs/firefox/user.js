@@ -18,6 +18,16 @@
 // COMMON SETTINGS TO TOGGLE (at runtime, in about:config)
 // defaultPref("security.ssl.require_safe_negotiation", false);
 
+// TODO(2026-02-18): REMOVE THIS ONCE FIREFOX SUPPORT FOR MUSL IMPROVES.
+// this fixes CPU pegging and log spam like the following:
+// > Sandbox: seccomp sandbox violation: pid 88, tid 113, syscall 23, args 20 140041528812544 140041528812672 140041528812800 0 0.
+// it seems triggered by graphics-intensive webpages, e.g. Zoom?
+//
+// alternatively: launch with `MOZ_DISABLE_SOCKET_PROCESS_SANDBOX=1` env var set.
+//
+// see 9b1a106c5c for more details.
+defaultPref("security.sandbox.socket.process.level", 0);
+
 ///// RESET UNWANTED ARKENFOX CHANGES
 // browser.sessionstore.privacy_level: 0, 1, 2
 // 0: persist partially-filled forms to disk, across browser restarts
@@ -78,6 +88,7 @@ defaultPref("widget.use-xdg-desktop-portal.mime-handler", 1);
 defaultPref("widget.use-xdg-desktop-portal.open-uri", 1);
 
 defaultPref("browser.toolbars.bookmarks.visibility", "never");
+defaultPref("findbar.highlightAll", true);
 
 // enable vertical tab view, like Sidebery (but loses the top-window horizontal tabs)
 // defaultPref("browser.toolbarbuttons.introduced.sidebar-button", true);
@@ -86,6 +97,7 @@ defaultPref("sidebar.backupState", `{"width":"","command":"","expanded":true,"hi
 defaultPref("sidebar.main.tools", "history");
 defaultPref("sidebar.revamp", true);
 defaultPref("sidebar.verticalTabs", true);
+defaultPref("sidebar.verticalTabs.dragToPinPromo.dismissed", true);
 // vvv default is for tabs button to toggle tab icons v.s. tab icons + description.
 //    "hide-sidebar"  => toggle between tab icons + description and NO visibility at all.
 defaultPref("sidebar.visibility", "hide-sidebar");
@@ -122,6 +134,7 @@ defaultPref("network.protocol-handler.external.element", true); // for Element m
 defaultPref("network.protocol-handler.external.matrix", true); // for Nheko matrix client
 defaultPref("network.protocol-handler.external.slack", true); // for official Slack desktop app
 defaultPref("network.protocol-handler.external.zoommtg", true); // for official zoom desktop app
+defaultPref("network.protocol-handler.warn-external-default", false); // experimental; will this get it to launch Fractal for matrix: URIs without prompting?
 
 // statically configure bookmarks.
 // notably, these bookmarks have "shortcut url" fields:

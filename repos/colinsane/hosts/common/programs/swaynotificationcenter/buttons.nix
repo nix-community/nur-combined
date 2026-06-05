@@ -6,7 +6,6 @@
 # - nerd-fonts: <https://github.com/ryanoasis/nerd-fonts>
 #   - grep `glyphnames.json` for the icon you want. about half of them are labeled usefully?
 
-{ pkgs }:
 let
   serviceButton = name: label: {
     inherit label;
@@ -53,6 +52,7 @@ in
   geary = serviceButton "geary" "";
   abaddon = serviceButton "abaddon" " ";
   dissent = serviceButton "dissent" " ";
+  discord = serviceButton "discord" " ";
   signal-desktop = serviceButton "signal-desktop" "󰭻";
   dino = serviceButton "dino" "󰟿";
   fractal = serviceButton "fractal" "[m]";

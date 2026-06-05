@@ -1,0 +1,124 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.numpy ps.python3.pkgs.scipy ]'
+# vim: set filetype=python :
+"""
+generate files for any of 16 DTMF tones 0-9, #, *, A, B, C, D,
+as per <https://en.wikipedia.org/wiki/DTMF_signaling#Keypad>
+"""
+
+import argparse
+import logging
+import numpy as np
+import scipy
+
+from dataclasses import dataclass
+from enum import Enum
+
+logger = logging.getLogger(__name__)
+
+class LowTone(Enum):
+    '''
+    frequency (in Hertz) of the low tone within a DTMF
+    '''
+    T0 = 697
+    T1 = 770
+    T2 = 852
+    T3 = 941
+
+class HighTone(Enum):
+    '''
+    frequency (in Hertz) of the high tone within a DTMF
+    '''
+    T0 = 1209
+    T1 = 1336
+    T2 = 1477
+    T3 = 1633
+
+@dataclass
+class DTMF:
+    low: LowTone
+    high: HighTone
+
+keypad = [
+    [ '1', '2', '3', 'A' ],
+    [ '4', '5', '6', 'B' ],
+    [ '7', '8', '9', 'C' ],
+    [ '*', '0', '#', 'D' ],
+]
+
+dtmf_symbols: dict[str, DTMF] = {}
+for y, row in enumerate(keypad):
+    for x, symbol in enumerate(row):
+        dtmf_symbols[symbol] = DTMF(list(LowTone)[y], list(HighTone)[x])
+
+# spot check the mapping
+assert dtmf_symbols['8'].low.value == 852 and dtmf_symbols['8'].high.value == 1336, dtmf_symbols['8']
+
+@dataclass
+class Generator:
+    duration: float
+    sample_rate: float
+    # signal: np.array
+
+    def __post_init__(self) -> None:
+        self.signal = np.array([0.0] * self.len_samples())
+
+    def len_samples(self) -> int:
+        return int(round(self.duration * self.sample_rate))
+
+    def accumulate_sine(self, freq: float) -> None:
+        # adjust the frequency so as to produce start and end at a zero point.
+        # that way we don't have to perform any windowing.
+        num_cycles = round(freq * self.duration)
+        adjusted_freq = num_cycles / self.duration
+        logger.debug(f"adjusted frequency {freq} -> {adjusted_freq}")
+        wave = np.sin(np.array(range(self.len_samples())) / self.sample_rate * (adjusted_freq * 2.0 * np.pi))
+        logger.debug('generated tone:')
+        logger.debug(wave[:4])
+        logger.debug('...')
+        logger.debug(wave[-4:])
+        self.signal += wave
+
+    def normalize(self, to_ampl: float = 0.95) -> None:
+        cur_max = np.abs(self.signal).max()
+        logger.debug(f"normalizing peak from {cur_max} -> {to_ampl}")
+        if cur_max == 0:
+            return  # avoid division by zero
+        self.signal *= to_ampl / cur_max
+
+    def write_to_wave(self, file: str) -> None:
+        scipy.io.wavfile.write(file, self.sample_rate, self.signal)
+
+def generate_dtmf(dtmf: DTMF, out: str, duration: float, sample_rate: int) -> None:
+    gen = Generator(duration=duration, sample_rate=sample_rate)
+    for freq in dtmf.low.value, dtmf.high.value:
+        gen.accumulate_sine(freq)
+    gen.normalize()
+    logger.debug('generated DTMF:')
+    logger.debug(gen.signal[:4])
+    logger.debug('...')
+    logger.debug(gen.signal[-4:])
+    gen.write_to_wave(out)
+
+def main():
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
+
+    parser = argparse.ArgumentParser(usage=__doc__)
+    parser.add_argument("--verbose", action="store_true")
+    parser.add_argument("--duration", type=float, default=0.5)
+    parser.add_argument("--sample-rate", type=int, default=44100)
+    parser.add_argument("name", type=str, choices=dtmf_symbols.keys())
+    parser.add_argument("--out", type=str, help="path to .wav file at which to write the tone")
+
+    args = parser.parse_args()
+
+    if args.verbose:
+          logging.getLogger().setLevel(logging.DEBUG)
+
+    logger.info("generating tone for '%s' -> '%s'", args.name, args.out)
+    generate_dtmf(dtmf_symbols[args.name.upper()], out=args.out, duration=args.duration, sample_rate=args.sample_rate)
+
+
+if __name__ == '__main__':
+    main()

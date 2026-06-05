@@ -1,0 +1,28 @@
+From 36c69f82369fc5c3ecc0edcfc2805cb6ab5c4ff8 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Thu, 29 Jan 2026 01:30:34 +0000
+Subject: [PATCH] gst_all_1.gst-plugins-rs: passthru `selectedPlugins`
+
+this allows one to more easily blacklist specific plugins, e.g.
+
+```
+gst_all_1.gst-plugins-rs.override {
+  plugins = lib.remove "ffv1" gst_all_1.gst-plugins-rs.selectedPlugins;
+}
+```
+---
+ pkgs/development/libraries/gstreamer/rs/default.nix | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/pkgs/development/libraries/gstreamer/rs/default.nix b/pkgs/development/libraries/gstreamer/rs/default.nix
+index e3bc29fec2949065b25a1a828a3d5b2ac9a9a3d7..026b95c05dd53062804accfafd85bd2813772dce 100644
+--- a/pkgs/development/libraries/gstreamer/rs/default.nix
++++ b/pkgs/development/libraries/gstreamer/rs/default.nix
+@@ -240,6 +240,7 @@ stdenv.mkDerivation (finalAttrs: {
+   '';
+ 
+   passthru = {
++    inherit selectedPlugins;
+     updateScript = nix-update-script {
+       # use numbered releases rather than gstreamer-* releases
+       # this matches upstream's recommendation: https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/issues/470#note_2202772

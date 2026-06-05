@@ -103,6 +103,9 @@
         return 200 '${builtins.toJSON client}';
       '';
 
+    # legacy URLs
+    locations."= /bounties".extraConfig = "return 301 /grants;";
+
     # static URLs might not be aware of .well-known (e.g. registration confirmation URLs),
     # so hack around that.
     locations."/_matrix".extraConfig = "return 301 https://matrix.uninsane.org$request_uri;";

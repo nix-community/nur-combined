@@ -6,11 +6,15 @@
 # - Mobian wiki: <https://wiki.mobian-project.org/doku.php?id=start>
 #   - recommended apps, chatrooms
 
-{ ... }:
+{ lib, ... }:
 {
   imports = [
+    ../../common
     ./fs.nix
   ];
+
+  networking.hostName = "moby";
+  sane.cpu = lib.mkDefault "aarch64";
 
   sane.hal.pine64-pinephone-pro.enable = true;
   sane.roles.client = true;
@@ -21,9 +25,7 @@
 
   # XXX colin: phosh doesn't work well with passwordless login,
   # so set this more reliable default password should anything go wrong
-  users.users.colin.initialPassword = "147147";
-
-  sops.secrets.colin-passwd.neededForUsers = true;
+  # users.users.colin.initialPassword = "147147";
 
   sane.services.rsync-net.enable = true;
 

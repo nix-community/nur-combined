@@ -1,2 +1,2 @@
-- colin-passwd.bin:
+- etc/tcb/colin/shadow.bin:
   - generate with `mkpasswd -m sha512crypt`

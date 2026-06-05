@@ -9,7 +9,7 @@
 # after 30 days of operation:
 # - 12m torrents discovered
 # - 77GB database size  => 6500B per torrent
-{ config, ... }:
+{ config, lib, ... }:
 {
   services.bitmagnet.enable = true;
   sane.netns.ovpns.services = [ "bitmagnet" ];
@@ -69,6 +69,11 @@
   };
 
   sane.dns.zones."uninsane.org".inet.CNAME."bitmagnet" = "native";
+
+  # XXX(2026-01-18): nixpkgs defines the mode as 0440, but it doesn't actually contain any sensitive data.
+  # there seems to be a race between /etc/passwd and other /etc files such that nixpkgs can't reliably
+  # assign `bitmagnet` as the onwer to this file. so, hack it to be 0444 in the meantime.
+  environment.etc."xdg/bitmagnet/config.yml".mode = lib.mkForce "0444";
 
   systemd.services.bitmagnet = {
     # hardening (systemd-analyze security bitmagnet). base nixos service is already partially hardened.

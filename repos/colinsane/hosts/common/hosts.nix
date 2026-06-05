@@ -8,13 +8,13 @@
     lan-ip = "10.78.79.70";
   };
 
-  sane.hosts.by-name."crappy" = {
-    ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIvSQAGKqmymXIL4La9B00LPxBIqWAr5AsJxk3UQeY5";
-    ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMN0cpRAloCBOE5/2wuzgik35iNDv5KLceWMCVaa7DIQ";
-    # wg-home.pubkey = "TODO";
-    # wg-home.ip = "10.0.10.55";
-    lan-ip = "10.78.79.55";
-  };
+  # sane.hosts.by-name."crappy" = {
+  #   ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIvSQAGKqmymXIL4La9B00LPxBIqWAr5AsJxk3UQeY5";
+  #   ssh.host_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMN0cpRAloCBOE5/2wuzgik35iNDv5KLceWMCVaa7DIQ";
+  #   # wg-home.pubkey = "TODO";
+  #   # wg-home.ip = "10.0.10.55";
+  #   lan-ip = "10.78.79.55";
+  # };
 
   sane.hosts.by-name."desko" = {
     ssh.user_pubkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPU5GlsSfbaarMvDA20bxpSZGWviEzXGD8gtrIowc1pX";

@@ -40,22 +40,22 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    v0_6 = finalAttrs.finalPackage.overrideAttrs (_: rec {
+    v0_6 = finalAttrs.finalPackage.overrideAttrs (final': _prev: {
       version = "0.6";
       src = fetchgit {
         url = "git://git.codemadness.org/frontends";
-        rev = version;
+        rev = final'.version;
         hash = "sha256-VDHUY9xb6WyVQ/PcEJuo1HQTW1oox9yvVq0Xd7OGAt0=";
       };
     });
   };
 
-  meta = with lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
     description = "A less resource-heavy Youtube interface";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
     homepage = "https://codemadness.org/idiotbox.html";
-    license = licenses.isc;
+    license = lib.licenses.isc;
   };
 })
 

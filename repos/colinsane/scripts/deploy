@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i ysh -p nettools -p oils-for-unix
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i ysh ../integrations/nix-shell --arg f 'ps: [ ps.nettools ps.oils-for-unix ]'
 
 # TODO: simplify variant handling by defining `desko-full = desko`, etc, in nix config.
 
@@ -25,11 +25,12 @@ proc usage (;; status=1) {
   echo "- --test: switch to the new configuration, but do not make it bootable"
   echo "- --dry-run: show what would be done without actually doing it"
   echo "- --pre: alias for --action copy ..."
-  echo '         if otherwise unspecified, implies `--variant all`'
-  echo "         if no host is specified, copies to all known hosts"
+  echo '    - if otherwise unspecified, implies `--variant all`'
+  echo '    - if otherwise unspecified, implies `--wireguard never`'
+  echo "    - if no host is specified, copies to all known hosts"
   echo "- --reboot: reboot the target machine after deploying (if deployed with no errors)"
   echo "- --reboot-force: reboot the target machine after deploying (even on error)"
-  echo "- --variant light|min|''|all  (default: '')"
+  echo "- --variant light|min|smoke|''|all  (default: '')"
   echo "- --wireguard always|never|opportunistic: deploy over wireguard"
   echo "- --ip <address>: deploy to the specific IP address"
   echo "- --deriv /nix/store/...: prebuilt store path (or .drv to realize) to deploy instead of (re-)building the default target"
@@ -38,6 +39,7 @@ proc usage (;; status=1) {
   echo "- deploy all: deploy all hosts, sequentially"
   echo "- deploy --pre: build and copy all hosts"
   echo "- deploy desko lappy: build and deploy just those hosts"
+  echo "- deploy --copy moby-light moby: build/copy just the light and full variants of moby"
   echo "- deploy: deploy the local host"
   exit "$status"
 }
@@ -53,6 +55,7 @@ var CliArgs = Object(null, {
   action: null,  # str, e.g. build, copy, switch, test
   deriv: null,  # str, e.g. /nix/store/...
   dryRun: false,  # bool
+  flavoredHosts: [],  # list of `FlavoredHost`
   hosts: [],  # list of str, e.g. [ "desko", "moby" ]
   help: false,
   ip: null,
@@ -60,8 +63,13 @@ var CliArgs = Object(null, {
   reboot: false,
   rebootForce: false,
   variants: [],  # list of str, e.g. [ "-min" ] or [ "-light", "" ]
-  wireguard: "opportunistic",  # str: e.g. "opportunistic", "never", "always"
+  wireguard: null,  # str: e.g. "opportunistic", "never", "always"
   unhandled: [],  # unhandled arguments; forward them to nix?
+})
+
+var FlavoredHost = Object(null, {
+  host: null,  # str, e.g. "desko"
+  variant: "",  # str, e.g. "-min", "-light"
 })
 
 # each NixConfig instance represents _one_ nix build target + host-specific deployment strategy,
@@ -156,6 +164,13 @@ func _parseArgs(p,cur=null, next=null, ...rest) {
         call p.hosts->append(cur)
         return (_parseArgs (p, next, ...rest))
       }
+      /^ <capture ('crappy'|'desko'|'flowy'|'lappy'|'moby'|'servo') as host> <capture ('-smoke'|'-min'|'-light'|'-next-min'|'-next-light'|'-next') as variant> $/ {
+        call p.flavoredHosts->append(Object(FlavoredHost, {
+          host: _group('host'),
+          variant: _group('variant'),
+        }))
+        return (_parseArgs (p, next, ...rest))
+      }
       (else) {
         call p.unhandled->append(cur)
         return (_parseArgs (p, next, ...rest))
@@ -233,7 +248,7 @@ func timeoutFor (variant) {
     -min | -light | -next {
       return (3600)
     }
-    -next-min | -next-light {
+    -smoke | -next-min | -next-light {
       return (1800)
     }
     (else) {
@@ -334,11 +349,15 @@ proc deployOneHost (; nixcfg) {
         destructive runOnTarget "$netHost" sudo nix-env -p /nix/var/nix/profiles/system --set "$myStorePath" (translate_error=FAILED_SET_PROFILE)
       }
 
+      # XXX(2026-03-28): the below is false! setting the profile seems to only effect garbage collection and such;
+      # `NIXOS_INSTALL_BOOTLOADER=1 switch-to-configuration` updates /run/current-system *and* adds the bootloader entry.
+      #
       # at this point, the new profile will be booted into on next boot.
       # try to switch to that profile _now_, but allow this to be fallible
       # so as to support `--force-reboot` CLI option:
       try {
-        destructive runOnTarget "$netHost" sudo NIXOS_INSTALL_BOOTLOADER=1 "$myStorePath/bin/switch-to-configuration" "$[nixcfg.action]"
+        # `NIXOS_NO_CHECK=1` says to ignore "switch inhibitors"; i.e. changes to dbus or systemd that leave the system broken until reboot.
+        destructive runOnTarget "$netHost" sudo NIXOS_INSTALL_BOOTLOADER=1 NIXOS_NO_CHECK=1 "$myStorePath/bin/switch-to-configuration" "$[nixcfg.action]"
       }
       var failed_activate = false
       if failed { setvar failed_activate = true }  # XXX: `failed` special variable is only readable via `if failed`
@@ -371,10 +390,15 @@ proc main (...args) {
   var defaultAction = "switch"
   var defaultHosts = [ SELF ]
   var defaultVariants = [ "" ]
+  var defaultWireguard = "opportunistic"
   if (cli.pre) {
     setvar defaultAction = "copy"
     setvar defaultHosts = [ "all" ]
     setvar defaultVariants = [ "all" ]
+    setvar defaultWireguard = "never";
+  }
+  if (cli.flavoredHosts) {
+    setvar defaultHosts = [ ]
   }
 
   # expand hosts and handle default
@@ -388,35 +412,43 @@ proc main (...args) {
     call variants->extend(expandVariantAlias(v))
   }
 
-  # compute a plan
-  var cfgs = []
+  var flavoredHosts = cli.flavoredHosts
   for variant in (variants) {
     for host in (hosts) {
-      var cfg = Object(NixConfig, {
-        host: host,
-        variant: variant,
-        # drvPath: (set below),
-        # storePath: (set below),
-        action: cli.action or defaultAction,
-        ip: cli.ip,
-        wireguard: cli.wireguard,
-        # reboot: (set below),
-      })
-      if (cli.reboot) {
-        setvar cfg.reboot = true
-      }
-      if (cli.rebootForce) {
-        setvar cfg.reboot = "force"
-      }
-      if (cli.deriv) {
-        if (cli.deriv => endsWith(".drv")) {
-          setvar cfg.drvPath = cli.deriv
-        } else {
-          setvar cfg.storePath = cli.deriv
-        }
-      }
-      call cfgs->append(cfg)
+      call flavoredHosts->append(Object(FlavoredHost, {
+        host,
+        variant,
+      }))
     }
+  }
+
+  # compute a plan
+  var cfgs = []
+  for fh in (flavoredHosts) {
+    var cfg = Object(NixConfig, {
+      host: fh.host,
+      variant: fh.variant,
+      # drvPath: (set below),
+      # storePath: (set below),
+      action: cli.action or defaultAction,
+      ip: cli.ip,
+      wireguard: cli.wireguard or defaultWireguard,
+      # reboot: (set below),
+    })
+    if (cli.reboot) {
+      setvar cfg.reboot = true
+    }
+    if (cli.rebootForce) {
+      setvar cfg.reboot = "force"
+    }
+    if (cli.deriv) {
+      if (cli.deriv => endsWith(".drv")) {
+        setvar cfg.drvPath = cli.deriv
+      } else {
+        setvar cfg.storePath = cli.deriv
+      }
+    }
+    call cfgs->append(cfg)
   }
 
   info "----- deployment plan -----"

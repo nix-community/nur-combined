@@ -1,0 +1,25 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.mimeo ps.python3 ]'
+
+from Mimeo import Mimeo
+
+import argparse
+import subprocess
+
+parser = argparse.ArgumentParser(description="open some file or URL with a specific .desktop handler")
+parser.add_argument("desktop", help="name of .desktop file")
+parser.add_argument("opener_args", nargs="+")
+
+args = parser.parse_args()
+
+mimeo = Mimeo(
+  include_deprecated=True,  #< to parse ~/.local/share/applications/
+)
+
+desktop_cmds = mimeo.desktop_paths_to_cmds(desktops=[args.desktop], args=args.opener_args)
+desktop_path, desktop_cmd_argv = next(desktop_cmds)
+
+# print(f"desktop_path: {desktop_path!r}")
+# print(f"desktop_cmd_argv: {desktop_cmd_argv!r}")
+
+print(subprocess.check_output(desktop_cmd_argv).decode())

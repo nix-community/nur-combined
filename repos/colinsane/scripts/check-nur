@@ -1,16 +1,23 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p git
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.git ]'
 
 SELF_PATH=$PWD/$0
 REPO_ROOT=$(git -C "$(dirname SELF_PATH)" rev-parse --show-toplevel)
 
-nixpkgs=$(nix-store --realize $(nix-instantiate -A nixpkgs-bootstrap.master.src))
+nixpkgs=$(nix-store --realize $(nix-instantiate -A nixpkgs-bootstrap.master.unpatchedSrc))
 
 cd $REPO_ROOT/integrations/nur
 
 # tee is to prevent interactive mode
-timeout -v 15 sh -c \
-  "NIX_PATH= NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 nix-env -f . -qa \* --meta --xml \
+# `env -i` is to reset any impurities that nixpkgs inherits.
+# i'm not sure about NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1: an earlier me claimed nur CI set that
+# but i can't find that it *ever* did.
+#
+# TODO: disable import-from-derivation (and build `sane-nix-files` + evaluate inside there):
+# although nur allows IFD, it operates within an immutable store and gives errors like
+# "path '/nix/store/....' is not valid" if the thing-to-be-imported doesn't already exist in-store.
+timeout -v 15 /bin/sh -c \
+  "env -i NIXPKGS_ALLOW_UNSUPPORTED_SYSTEM=1 $(which nix-env) -f . -qa \* --meta --xml \
   --allowed-uris https://static.rust-lang.org \
   --option restrict-eval true \
   --option allow-import-from-derivation true \

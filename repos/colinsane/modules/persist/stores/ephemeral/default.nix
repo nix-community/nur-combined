@@ -1,9 +1,9 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   persist-base = "/nix/persist";
   origin = config.sane.persist.stores."ephemeral".origin;
-  backing = sane-lib.path.concat [ persist-base "ephemeral" ];
+  backing = pkgs.sane-lib.path.concat [ persist-base "ephemeral" ];
 
   # fileSystems.* options
   device = "gocryptfs-ephemeral#${backing}";
@@ -23,10 +23,12 @@ lib.mkIf config.sane.persist.enable
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "gocryptfs-ephemeral";
       srcRoot = ./.;
-      pkgs = [
-        "coreutils-full"
-        "gocryptfs"
-      ];
+      pkgs = {
+        inherit (pkgs)
+          coreutils-full
+          gocryptfs
+        ;
+      };
     };
     suggestedPrograms = [ "gocryptfs" ];
 

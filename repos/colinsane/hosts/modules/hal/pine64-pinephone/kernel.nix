@@ -27,13 +27,6 @@ in
     #   # withPmosPatches = false;
     # });
     #
-    # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-megous;
-    # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux-megous.override {
-    #   withFullConfig = false;
-    # });
-    # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux-megous.override {
-    #   withMegiPinephoneConfig = true;  #< N.B.: does not boot as of 2024/05/22!
-    # });
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_latest;
     # boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux_testing;
     boot.kernelPackages = pkgs.linuxPackagesFor pkgs.linux-armbian;
@@ -50,11 +43,11 @@ in
     #   # defaults:
     #   name = "aarch64-multiplatform";
     #   # baseConfig: defaults to "defconfig";
-    #   # baseConfig = "pinephone_defconfig";  #< N.B.: ignored by `pkgs.linux-megous`
+    #   # baseConfig = "pinephone_defconfig";
     #   DTB = true;  #< DTB: compile device tree blobs
     #   # autoModules (default: true): for config options not manually specified, answer `m` to anything which supports it.
     #   # - this effectively builds EVERY MODULE SUPPORTED.
-    #   autoModules = true;  #< N.B.: ignored by `pkgs.linux-megous`
+    #   autoModules = true;
     #   # preferBuiltin (default: false; true for rpi): for config options which default to `Y` upstream, build them as `Y` (overriding `autoModules`)
     #   # preferBuiltin = false;
 

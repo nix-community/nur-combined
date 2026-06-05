@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash curl jq moreutils nix-prefetch
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.curl ps.jq ps.moreutils ps.nix-prefetch ]'
 # shellcheck shell=bash
 #
 # inspired by <repo:nixos/nixpkgs:pkgs/development/libraries/duckdb/update.sh>

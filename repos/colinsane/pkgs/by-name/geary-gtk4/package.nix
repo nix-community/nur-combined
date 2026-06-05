@@ -1,12 +1,18 @@
-# STATUS
-# - DOES NOT BUILD
-# - gets to 412/703, then fails when compiling all the src/client/ vala files
-#   basic stuff like `Gtk.BindingSet` could not be found; `Gtk.Container`, `Gtk.EventButton`, `Gtk.Menu`...
-# - seems i have been mislead by the commit messages/discussion and this port is only halfway to buildable.
+# STATUS as of 2026-03-29:
+# - builds
+# - seems able to read and receive mail
+# - adaptive to mobile widths
+# - can NOT send emails: no "send" button is visible in the editor
+# - does NOT render notifications for incoming mail
+#
+# see draft nixpkgs pr: <https://github.com/NixOS/nixpkgs/pull/431981/changes>
+# see draft geary pr: <https://gitlab.gnome.org/GNOME/geary/-/merge_requests/892>
+# see Nettika's port/"audit": <https://gitlab.gnome.org/nettika-cat/geary/-/tree/gtk-migration-audit>
 {
   appstream-glib,
+  cmake,
   desktop-file-utils,
-  enchant2,
+  enchant_2,
   fetchFromGitLab,
   folks,
   gcr_4,
@@ -22,8 +28,9 @@
   json-glib,
   lib,
   libadwaita,
-  libpeas,
+  libpeas2,
   libsecret,
+  libspelling,
   libstemmer,
   libunwind,
   libxml2,
@@ -40,29 +47,44 @@
 }:
 stdenv.mkDerivation {
   pname = "geary-gtk4";
-  version = "44.1-unstable-2023-10-17";
 
+  # use `git log --format=fuller` to see commit date
+  version = "46.0-unstable-2026-03-07";
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
-    owner = "GNOME";
+    owner = "onny";
     repo = "geary";
-    rev = "gnumdk/gtk4";
-    hash = "sha256-gs9ZdNZL+Elm71OPg+Uk1+EGM9g5ac1HvHwlMGaLJv0=";
+    # rev = "onny/gtk4-port";
+    rev = "c0887334cf45612ba41f758f2eb2494e065c8b61";
+    hash = "sha256-41OEU8u6jkORutTFGEK33agwWEzNjTWaDDTIr7pu93s=";
   };
 
-  # --replace-fail "'client/web-process/web-process-extension.vala'" "# 'client/web-process/web-process-extension.vala'"
+  # build fails:
+  # > src/client/meson.build:13:22: ERROR: File accounts/accounts-mailbox-editor-dialog.vala does not exist.
+  # version = "46.0-unstable-2026-03-25";
+  # src = fetchFromGitLab {
+  #   domain = "gitlab.gnome.org";
+  #   owner = "nettika-cat";
+  #   repo = "geary";
+  #   # rev = "gtk-migration-audit";  <https://gitlab.gnome.org/nettika-cat/geary/-/tree/gtk-migration-audit>
+  #   rev = "533fd74a944060a9df1100076631072f962c2f16";
+  #   hash = "sha256-oSkcd/0+OgHW7uv1GYJU6xrMzZWLl+CpEFmblhsq71w=";
+  # };
+
   postPatch = ''
-    substituteInPlace src/console/main.vala \
-      --replace-fail 'Gtk.ScrolledWindow(null, null);' 'Gtk.ScrolledWindow();' \
-      --replace-fail 'scrolled_console.add' 'scrolled_console.set_child'
-    substituteInPlace meson.build \
-      --replace-fail 'webkitgtk_web_extension = dependency' '# webkitgtk_web_extension = dependency'
-    substituteInPlace src/meson.build \
-      --replace-fail 'web_process_sources,' "" \
-      --replace-fail 'webkitgtk_web_extension,' ""
+    # `locale` command is part of glibc; silence musl complaints
+    substituteInPlace meson.build --replace-fail \
+      "c_utf8_check = run_command('locale', '-a', check: true).stdout()" \
+      "c_utf8_check = 'C.utf8'"
 
     chmod +x build-aux/git_version.py
+    chmod +x desktop/geary-attach
     patchShebangs build-aux/git_version.py
+  '';
+
+  preFixup = ''
+    # Add geary to path for geary-attach
+    gappsWrapperArgs+=(--prefix PATH : "$out/bin")
   '';
 
   nativeBuildInputs = [
@@ -76,11 +98,12 @@ stdenv.mkDerivation {
     python3
     vala
     wrapGAppsHook4
+    cmake
   ];
 
   buildInputs = [
     appstream-glib
-    enchant2
+    enchant_2
     folks
     gcr_4
     gmime3
@@ -92,8 +115,9 @@ stdenv.mkDerivation {
     isocodes
     json-glib
     libadwaita
-    libpeas
+    libpeas2
     libsecret
+    libspelling
     libstemmer
     libunwind
     libxml2
@@ -106,12 +130,13 @@ stdenv.mkDerivation {
     "-Dprofile=release"
   ];
 
-  meta = with lib; {
-    broken = true;
+  strictDeps = true;
+
+  meta = {
     homepage = "https://wiki.gnome.org/Apps/Geary";
     description = "GNOME mail client, patched for gtk4";
-    maintainers = with maintainers; [ colinsane ];
-    license = licenses.lgpl21Plus;
-    platforms = platforms.linux;
+    maintainers = with lib.maintainers; [ colinsane ];
+    license = lib.licenses.lgpl21Plus;
+    platforms = lib.platforms.linux;
   };
 }

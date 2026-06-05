@@ -1,7 +1,6 @@
 {
   bash,
   fetchFromGitLab,
-  fetchpatch,
   gcr,
   gitUpdater,
   glib,
@@ -30,26 +29,18 @@
   wrapGAppsHook3,
 }:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation (finalAttrs: {
   pname = "phog";
   version = "0.1.7";
 
   src = fetchFromGitLab {
     owner = "mobian1";
     repo = "phog";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-7kw/X7gtSrq6XUqtPPO8ahkIqxPUrU4JSJhLMG8iIS8=";
   };
 
   patches = [
-    # (fetchpatch {
-    #   # merged post 0.1.4
-    #   # https://gitlab.com/mobian1/phog/-/merge_requests/4
-    #   # fixes "json_node_unref: assertion 'JSON_NODE_IS_VALID (node)' failed"
-    #   name = "greetd: Don't free reply_root";
-    #   url = "https://gitlab.com/mobian1/phog/-/commit/ad1a2b876a1205f0927c7c02e0471364d557e3fe.patch";
-    #   hash = "sha256-gYQLDCKNIc4xPtgKRMzH4fmayx5w2oED2FjkD7fKswA=";
-    # })
     ./sway-compat.patch
   ];
 
@@ -63,13 +54,13 @@ stdenv.mkDerivation rec {
     substituteInPlace data/phog.in \
       --replace-fail " & squeekboard" ""
   '';
+
   preFixup = ''
     gappsWrapperArgs+=(
       --prefix PATH : ${lib.makeBinPath [ bash squeekboard ]}
       --prefix XDG_DATA_DIRS : "${gnome-shell}/share/gsettings-schemas/${gnome-shell.name}"
     )
   '';
-
 
   mesonFlags = [ "-Dcompositor=${lib.getExe phoc}" ];
 
@@ -106,10 +97,10 @@ stdenv.mkDerivation rec {
 
   passthru.updateScript = gitUpdater {};
 
-  meta = with lib; {
+  meta = {
     description = "Greetd-compatible greeter for mobile phones";
     homepage = "https://gitlab.com/mobian1/phog/";
-    license = licenses.gpl3Only;
-    maintainers = with maintainers; [ matthewcroughan ];
+    license = lib.licenses.gpl3Only;
+    maintainers = with lib.maintainers; [ matthewcroughan ];
   };
-}
+})

@@ -48,11 +48,11 @@ stdenv.mkDerivation {
     wayland-protocols
   ];
 
-  meta = with lib; {
+  meta = {
     description = "Fork of swaylock for use on Linux Phones";
     homepage = "https://slatecave.net/creations/swaylock-mobile/";
     mainProgram = "swaylock";
-    platforms = platforms.linux;
-    maintainers = with maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 }

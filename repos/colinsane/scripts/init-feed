@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p feeds.update-feed -p gnused
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.feeds.update-feed ps.gnused ]'
 
 source=
 passthruArgs=()
@@ -17,7 +17,7 @@ for arg in "$@"; do
   esac
 done
 
-sources_dir=modules/data/feeds/sources
+sources_dir=pkgs/by-name/sane-feeds/sources
 # prettify the URL, by default
 name=$( \
   echo "$source" \

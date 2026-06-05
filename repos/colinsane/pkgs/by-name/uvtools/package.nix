@@ -4,21 +4,22 @@
   emgucv,
   fetchFromGitHub,
   lib,
+  nix-update-script,
 }:
-buildDotnetModule rec {
+buildDotnetModule (finalAttrs: {
   pname = "UVtools";
-  version = "5.2.1";
+  version = "6.0.3";
   src = fetchFromGitHub {
     owner = "sn4k3";
     repo = "UVtools";
-    rev = "v${version}";
-    hash = "sha256-59cW3aR7UuYKACd0WIubxBqQQIFQiX4eNR3cPIg3vVk=";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-XAi0CnBsSZPmlQCLciAPue3G8JN8WYd8BkBo44Xan94=";
   };
 
   nugetDeps = ./deps.json;
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.runtime_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.runtime_10_0;
 
   runtimeDeps = [
     emgucv
@@ -34,10 +35,11 @@ buildDotnetModule rec {
   # TODO: install the UI, and maybe AvaloniaControls too
   projectFile = "UVtools.Cmd/UVtools.Cmd.csproj";
 
-  passthru.updateScript = ./update.sh;
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "MSLA/DLP, file analysis, calibration, repair, conversion and manipulation";
     maintainers = with lib.maintainers; [ colinsane ];
+    mainProgram = "UVtoolsCmd";
   };
-}
+})

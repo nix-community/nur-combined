@@ -1,5 +1,5 @@
 {
-  docsets,
+  cargoDocsetHook,
   rustc,
   rustPlatform,
 }:
@@ -14,5 +14,5 @@ rustPlatform.buildRustPackage {
       --replace-fail 'version = "0.1.0"' 'version = "'"$version"'"'
   '';
 
-  nativeBuildInputs = [ docsets.cargoDocsetHook ];
+  nativeBuildInputs = [ cargoDocsetHook ];
 }

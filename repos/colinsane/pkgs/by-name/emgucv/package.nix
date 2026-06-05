@@ -27,13 +27,13 @@
   stdenv,
   vtk,
 }:
-buildDotnetModule rec {
+buildDotnetModule (finalAttrs: {
   pname = "emgucv";
   version = "4.10.0";
   src = fetchFromGitHub {
     owner = "emgucv";
     repo = "emgucv";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-0WGXVIJCVnmqtyTzAjHnr8s0oQB9O1DUBFuhym9q+0E=";
     # TODO: use nixpkgs' eigen, harfbuzz, hdf5, opencv, vtk?
     fetchSubmodules = true;
@@ -114,4 +114,4 @@ buildDotnetModule rec {
     description = "A cross platform .Net wrapper to the OpenCV image processing library";
     maintainers = with lib.maintainers; [ colinsane ];
   };
-}
+})

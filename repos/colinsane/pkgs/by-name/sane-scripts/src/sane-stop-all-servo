@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i ysh -p oils-for-unix -p systemd
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i ysh ../../../../integrations/nix-shell --arg f 'ps: [ ps.oils-for-unix ps.systemd ]'
 
 proc usage {
   echo "sane-stop-all-servo:"

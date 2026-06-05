@@ -19,13 +19,13 @@
 #   - edit keys in ~/.config/koreader/settings.reader.lua
 #     - default font size: `["copt_font_size"] = 30,`
 #     - home dir: `["home_dir"] = "/home/colin/Books",`
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
-  feeds = sane-lib.feeds;
+  feeds = pkgs.sane-lib.feeds;
   allFeeds = config.sane.feeds;
   wantedFeeds = feeds.filterByFormat [ "text" ] allFeeds;
-  koreaderRssEntries = builtins.map (feed:
+  koreaderRssEntries = map (feed:
     # format:
     # { "<rss/atom url>", limit = <int>, download_full_article=<bool>, include_images=<bool>, enable_filter=<bool>, filter_element = "<css selector>"},
     # limit = 0                    => download and keep *all* articles
@@ -50,6 +50,7 @@ in {
     sandbox.whitelistDri = true;  # reduces startup time and subjective page flip time
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
+      "Books/Articles"
       "Books/Books"
       "Books/local"
       "Books/servo"

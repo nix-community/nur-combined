@@ -6,6 +6,7 @@
     "dev"
     "ref"
     "use"
+    "Books/Articles"
     "Books/Audiobooks"
     "Books/Books"
     "Books/Visual"
@@ -17,6 +18,7 @@
     # this is persisted simply to save on RAM. mesa_shader_cache_db is < 10 MB per boot.
     # TODO: see about removing this. the programs which benefit from shader caches should be configured to persist their _own_ dbs.
     ".cache/mesa_shader_cache_db"
+    ".cache/radv_builtin_shaders"
   ];
 
   sane.user.persist.byStore.private = [

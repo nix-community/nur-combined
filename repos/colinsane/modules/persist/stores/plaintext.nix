@@ -1,10 +1,10 @@
-{ config, lib, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
   # TODO: parameterize!
   persist-base = "/nix/persist";
   origin = config.sane.persist.stores."plaintext".origin;
-  backing = sane-lib.path.concat [ persist-base "plaintext" ];
+  backing = pkgs.sane-lib.path.concat [ persist-base "plaintext" ];
 in {
   sane.persist.stores."plaintext" = {
     origin = lib.mkDefault "/mnt/persist/plaintext";

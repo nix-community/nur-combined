@@ -61,47 +61,6 @@ let
     "100.64.0.0/10"
     "192.168.0.0/16"
   ];
-  tailscale = let
-    iproute2' = pkgs.callPackage ./tailscale-iproute2 { };
-    # tailscale package wraps binaries with `--prefix PATH ${iproute2}/bin`.
-    # tailscale takes 1m to compile, 5m to run tests => slow to iterate.
-    # instead, remove iproute2 from tailscale,
-    # then re-wrap the binaries with my custom iproute2, separately.
-    tailscaleNoIproute2 = pkgs.tailscale.override {
-      iproute2 = null;
-      makeWrapper = pkgs.makeBinaryWrapper;  #< only BinaryWrapper handles `--inherit-argv0` correctly
-    };
-  in pkgs.stdenvNoCC.mkDerivation {
-    inherit (tailscaleNoIproute2) pname version;
-    nativeBuildInputs = [
-      pkgs.makeBinaryWrapper  #< only BinaryWrapper handles `--inherit-argv0` correctly
-    ];
-    dontUnpack = true;
-    dontBuild = true;
-    installPhase = ''
-      mkdir -p $out
-
-      mkdir -p $out/lib/systemd/system
-      substitute ${tailscaleNoIproute2}/lib/systemd/system/tailscaled.service $out/lib/systemd/system/tailscaled.service \
-        --replace-fail ${tailscaleNoIproute2} $out
-      ln -s ${tailscaleNoIproute2}/share $out/share
-
-      mkdir -p $out/bin
-      ln -s ${tailscaleNoIproute2}/bin/get-authkey $out/bin/get-authkey
-      ln -s tailscaled $out/bin/tailscale
-      ln -s ${tailscaleNoIproute2}/bin/tailscaled $out/bin/tailscaled
-      ln -s ${tailscaleNoIproute2}/bin/tsidp $out/bin/tsidp
-
-      wrapProgram $out/bin/tailscaled \
-        --inherit-argv0 \
-        --prefix PATH : ${lib.makeBinPath [ iproute2' ]}
-    '';
-
-    inherit (tailscaleNoIproute2) meta;
-    passthru = tailscaleNoIproute2.passthru // {
-      iproute2 = iproute2';
-    };
-  };
 in
 {
   config = lib.mkIf config.sane.roles.work (lib.mkMerge [
@@ -111,7 +70,7 @@ in
       ];
       services.tailscale.enable = true;
 
-      services.tailscale.package = tailscale;
+      services.tailscale.package = pkgs.sane-tailscale;
       systemd.services.tailscaled.environment.TS_DEBUG_USE_IP_COMMAND = "1";
 
       # "statically" configure the routes to tailscale.
@@ -123,7 +82,7 @@ in
       # in order to configure routes, we have to script it.
       systemd.services.tailscaled.serviceConfig.ExecStartPost = [
         (pkgs.writeShellScript "tailscaled-add-routes" ''
-          while ! ${lib.getExe' tailscale "tailscale"} status ; do
+          while ! ${lib.getExe config.services.tailscale.package} status ; do
             echo "tailscale not ready"
             sleep 2
           done
@@ -244,7 +203,8 @@ in
     })
 
     (lib.mkIf config.services.kresd.enable {
-      # make DNS resolvable, if using kresd
+      # make DNS resolvable, if using kresd.
+      # TODO: don't overwrite the other config, but merge these!
       sops.secrets."tailscale-work-zones-kresd.conf".owner = "knot-resolver";
 
       systemd.services."kresd@".serviceConfig = let
@@ -262,6 +222,12 @@ in
           )
         ];
       };
+    })
+
+    (lib.mkIf config.services.knot-resolver.enable {
+      # make DNS resolvable, if using knot-resolver
+      sops.secrets."tailscale-work-zones-knot-resolver.yaml".owner = "knot-resolver";
+      environment.etc."knot-resolver/config.yaml".source = lib.mkForce config.sops.secrets."tailscale-work-zones-knot-resolver.yaml".path;
     })
   ]);
 }

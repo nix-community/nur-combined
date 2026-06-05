@@ -43,16 +43,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pikeru";
-  version = "1.11";
+  version = "1.16";
 
   src = fetchFromGitHub {
     owner = "dvhar";
     repo = "pikeru";
     rev = finalAttrs.version;
-    hash = "sha256-kQr6U8RpjcPPO8KqLA+DlpJoul6dw9OBPBbvUFjS+U4=";
+    hash = "sha256-tUqDOOQnNZCJhTYJc/bt1SOn8+gyp5Nqw3Yv0BvyJy0=";
   };
 
-  cargoHash = "sha256-mVbPwNMSs2oNgPkMyoQU1qT+t8yuLhzydqJKaUb47X4=";
+  cargoHash = "sha256-WecoTne1TwhWFLx9tLq5zRkrnyq358Kd2aMMx1FlGr4=";
 
   # this is nasty; should work with upstream to find a better solution.
   # pikeru as portal reads a ~/.config file, then execs a helper referenced from that file.
@@ -135,10 +135,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "File picker with semantic search and image viewer";
     homepage = "https://github.com/dvhar/pikeru";
-    license = licenses.mit;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

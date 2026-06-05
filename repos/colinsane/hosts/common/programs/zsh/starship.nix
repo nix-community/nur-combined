@@ -21,7 +21,7 @@ in {
       eval "$(${lib.getExe pkgs.starship} init zsh)"
     '';
     ".config/starship.toml".symlink.target = let
-      x1b = builtins.fromJSON '' "\u001b" '';  # i.e `^[`
+      x1b = builtins.fromJSON ''"\u001b"'';  # i.e `^[`
       set = opt: "${x1b}\\[?${opt}h";
       clear = opt: "${x1b}\\[?${opt}l";
     in toml.generate "starship.toml" {

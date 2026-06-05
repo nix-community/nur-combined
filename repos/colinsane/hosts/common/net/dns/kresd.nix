@@ -4,6 +4,7 @@
 let
   hostCfg = config.sane.hosts.by-name."${config.networking.hostName}" or null;
 in
+lib.optionalAttrs false  #< XXX(2025-12-27): using knot-resolver (successor to kresd) now
 {
   config = lib.mkIf (!config.sane.services.hickory-dns.asSystemResolver) {
     services.resolved.enable = lib.mkForce false;

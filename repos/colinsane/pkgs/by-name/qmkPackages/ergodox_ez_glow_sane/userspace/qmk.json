@@ -1,0 +1,6 @@
+{
+    "userspace_version": "1.0",
+    "build_targets": [
+        ["ergodox_ez/glow", "sane"]
+    ]
+}

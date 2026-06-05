@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i ysh -p coreutils-full -p gnused -p oils-for-unix
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i ysh ../../../../integrations/nix-shell --arg f 'ps: [ ps.coreutils-full ps.gnused ps.oils-for-unix ]'
 
 # processes a tab-separated "deadlines" file and alerts for any upcoming events.
 #
@@ -68,7 +68,13 @@ proc main {
     # 11520 = 24*60*8 = # of seconds between UTC and UTC-8
     if (now >= birthtime) {
       var days_until = int((deadline - now + 86399) / 86400)
-      echo "in $days_until day(s): $description_field"
+      var context = "in $days_until days"
+      if (days_until === 1) {
+        setvar context = "in 1 day"
+      } elif (days_until <= 0) {
+        setvar context = "now"
+      }
+      echo "$context: $description_field"
     }
   }
 }

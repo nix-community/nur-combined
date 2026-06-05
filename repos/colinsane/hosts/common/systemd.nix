@@ -12,14 +12,14 @@ in
   # ];
 
   # systemd.coredump.enable = false;  #< disable because when system is unstable, coredumpctl can bring it to its knees (saturates I/O)
-  systemd.coredump.extraConfig = ''
+  systemd.coredump.settings.Coredump = {
     # man 5 coredump.conf
     # Storage = none  => don't persist coredumps to disk; but still log their stack trace.
     # note that they may be written to /var/lib/systemd/coredump (and are typically ~1M) -- but only _temporarily_
-    Storage=none
-    # Compress=no because the underlying fs is compressed (is it??)
-    # Compress=no
-  '';
+    Storage = "none";
+    # Compress = "no" because the underlying fs is compressed (is it??)
+    # Compress = "no";
+  };
 
   security.polkit.extraConfig = ''
     // allow ordinary users to:
@@ -127,7 +127,7 @@ in
 
   systemd.settings.Manager = {
     # DefaultTimeoutStopSec defaults to 90s, and frequently blocks overall system shutdown.
-    DefaultTimeoutStopSec = "${builtins.toString haltTimeoutSec}s";
+    DefaultTimeoutStopSec = "${toString haltTimeoutSec}s";
   };
 
   # fixes "Cannot open access to console, the root account is locked" on systemd init failure.

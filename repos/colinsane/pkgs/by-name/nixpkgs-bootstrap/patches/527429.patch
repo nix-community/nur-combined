@@ -1,0 +1,31 @@
+From ee186e74e4f7b79716e29823c983b07b894eecf4 Mon Sep 17 00:00:00 2001
+From: "R. Ryantm" <ryantm-bot@ryantm.com>
+Date: Wed, 3 Jun 2026 05:37:08 +0000
+Subject: [PATCH] llama-cpp: 9309 -> 9484
+
+---
+ pkgs/by-name/ll/llama-cpp/package.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/ll/llama-cpp/package.nix b/pkgs/by-name/ll/llama-cpp/package.nix
+index 8cb1106496190be32a449f1d15a847a9862de185..ae72f38c5064336272064f0ac9e4880264dfba3e 100644
+--- a/pkgs/by-name/ll/llama-cpp/package.nix
++++ b/pkgs/by-name/ll/llama-cpp/package.nix
+@@ -81,7 +81,7 @@ let
+ in
+ effectiveStdenv.mkDerivation (finalAttrs: {
+   pname = "llama-cpp";
+-  version = "9309";
++  version = "9484";
+ 
+   outputs = [
+     "out"
+@@ -92,7 +92,7 @@ effectiveStdenv.mkDerivation (finalAttrs: {
+     owner = "ggml-org";
+     repo = "llama.cpp";
+     tag = "b${finalAttrs.version}";
+-    hash = "sha256-RzxQjVRn6G8M+6N9ulWKIfkfFkD1gTee0L/JWTcOXY0=";
++    hash = "sha256-YPf563WfSLlV4qc9eQRjW1YPxCbqsRs9yN/x30C/IGA=";
+     leaveDotGit = true;
+     postFetch = ''
+       git -C "$out" rev-parse --short HEAD > $out/COMMIT

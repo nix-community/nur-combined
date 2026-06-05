@@ -14,7 +14,7 @@
 #
 # N.B.: default install DOES NOT SUPPORT DLNA out of the box.
 #       one must install it as a "plugin", which can be done through the UI.
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 # lib.mkIf false  #< XXX(2024-11-17): disabled because it hasn't been working for months; web UI hangs on load, TVs see no files
 {
@@ -51,13 +51,30 @@
       { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/root"; method = "bind"; }
     ];
     sane.persist.sys.byStore.ephemeral = [
+      { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/cache/jellyfin/transcodes"; method = "bind"; }
       { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/log"; method = "bind"; }
-      { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/transcodes"; method = "bind"; }
+      { user = "jellyfin"; group = "jellyfin"; mode = "0700"; path = "/var/lib/jellyfin/transcodes"; method = "bind"; }  #< XXX(2025-12-28): is this an old directory (moved to /var/cache)?
     ];
 
     services.jellyfin.enable = true;
+    services.jellyfin.package = pkgs.jellyfin.overrideAttrs (base: {
+      # XXX(2025-12-28): otherwise it fails on startup:
+      # > System.InvalidOperationException: The path `/var/lib/jellyfin` has insufficient free space. Available: 977.2MiB, Required: 2GiB.
+      # which is bogus, because i have the _subdirs_ selectively persisted.
+      postPatch = (base.postPatch or "") + ''
+        substituteInPlace Jellyfin.Server/Program.cs \
+          --replace-fail \
+            'StorageHelper.TestCommonPathsForStorageCapacity' \
+            '// StorageHelper.TestCommonPathsForStorageCapacity'
+      '';
+    });
     users.users.jellyfin.extraGroups = [ "media" ];
 
+    sane.fs."/var/cache/jellyfin".dir.acl = {
+      user = "jellyfin";
+      group = "jellyfin";
+      mode = "0700";
+    };
     sane.fs."/var/lib/jellyfin".dir.acl = {
       user = "jellyfin";
       group = "jellyfin";

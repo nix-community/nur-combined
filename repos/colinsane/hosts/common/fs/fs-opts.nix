@@ -1,6 +1,7 @@
 # docs
 # - x-systemd options: <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
 # - fuse options: `man mount.fuse`
+{ ... }:
 rec {
   common = [
     "_netdev"
@@ -67,10 +68,34 @@ rec {
 
   # manually perform a ftp mount via e.g.
   #   curlftpfs -o ftpfs_debug=2,user=anonymous:anonymous,connect_timeout=10 -f -s ftp://servo-hn /mnt/my-ftp
-  ftp = common ++ fuseColin ++ [
+  curlftpfs = common ++ fuseColin ++ [
     # "ftpfs_debug=2"
     "user=colin:ipauth"
     # connect_timeout=10: casting shows to T.V. fails partway through about half the time
     "connect_timeout=20"
   ];
+
+  # XXX(2026-02-13): fuseftp doesn't recognize:
+  # - _netdev
+  # - uid
+  # - gid
+  # - drop_privileges
+  # - user (rather, fuseftp's own `-o user=...` conflicts with mount's no-arg `-o user` option)
+  fuseftp = builtins.filter
+    (o: builtins.all (b: b) [
+      # (o != "_netdev")
+      (o != "uid=1000")
+      (o != "gid=100")
+      (o != "drop_privileges")
+      # (o != "user")
+      # (o != "auto_unmount")  #< `fuser` then trampolines through `fusermount3`, breaks shit
+    ])
+    (
+      common ++ fuseColin ++ [
+        # "username=colin:ipauth"  #< TODO: specify user option with a password from file
+        "rw"  #< not default
+        "security=plain"
+        "pass_fuse_fd"  # instead of drop_privileges
+      ]
+    );
 }

@@ -4,13 +4,13 @@
   lib,
   libhandy,
   lightdm,
-  linkFarm,
   pkg-config,
   pkgs,
   rustPlatform,
+  writeSymlinkFile,
 }:
 
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "lightdm-mobile-greeter";
   version = "2022-10-30";
 
@@ -60,16 +60,16 @@ rustPlatform.buildRustPackage rec {
       --replace-fail lightdm-mobile-greeter $out/bin/lightdm-mobile-greeter
   '';
 
-  passthru.xgreeters = linkFarm "lightdm-mobile-greeter-xgreeters" [{
-    path = "${pkgs.lightdm-mobile-greeter}/share/applications/lightdm-mobile-greeter.desktop";
-    name = "lightdm-mobile-greeter.desktop";
-  }];
+  passthru.xgreeters = writeSymlinkFile {
+    contents = "${pkgs.lightdm-mobile-greeter}/share/applications/lightdm-mobile-greeter.desktop";
+    path = "lightdm-mobile-greeter.desktop";
+  };
 
-  meta = with lib; {
+  meta = {
     description = "A simple log in screen for use on touch screens.";
     homepage = "https://git.raatty.club/raatty/lightdm-mobile-greeter";
-    maintainers = with maintainers; [ colinsane ];
-    platforms = platforms.linux;
-    license = licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
+    license = lib.licenses.mit;
   };
 }

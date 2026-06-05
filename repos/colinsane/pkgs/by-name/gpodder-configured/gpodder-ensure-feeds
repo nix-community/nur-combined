@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p gpodder -p listparser -p python3
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.gpodder ps.listparser ps.python3 ]'
 
 from dataclasses import dataclass, field
 from typing import Optional

@@ -1,8 +1,11 @@
 { ... }:
 {
   imports = [
+    ../../common
     ./fs.nix
   ];
+
+  networking.hostName = "rescue";
 
   sane.persist.enable = false;  # what we mean here is that the image is immutable; `/` is still tmpfs.
   sane.nixcache.enable = false;  # don't want to be calling out to dead machines that we're *trying* to rescue

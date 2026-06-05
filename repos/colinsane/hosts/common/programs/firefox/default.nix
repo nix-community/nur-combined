@@ -38,13 +38,18 @@ let
 
     extraPrefsFiles = [
       "${pkgs.arkenfox-userjs}/user.cfg"
-      (pkgs.writeText "mozilla.cfg" ''
-        // load additional preferences from user directory; inspired by librewolf
-        let home_dir;
-        if (home_dir = getenv('HOME')) {
-          defaultPref('autoadmin.global_config_url', `file://''${home_dir}/.mozilla/firefox/user.js`);
-        }
-      '')
+      (pkgs.writeText "user.cfg" (builtins.readFile ./user.js))
+      # old way to ship my own user.js: read from ~/.mozilla/firefox/user.js
+      # XXX(2026-02-04): the below breaks sandboxing for pkgsMusl.firefox, for unknown reasons.
+      # it _works_, but logspam/pegged cores:
+      # > Sandbox: seccomp sandbox violation: pid 88, tid 113, syscall 23, args 20 140041528812544 140041528812672 140041528812800 0 0.
+      # (pkgs.writeText "mozilla.cfg" ''
+      #   // load additional preferences from user directory; inspired by librewolf
+      #   let home_dir;
+      #   if (home_dir = getenv('HOME')) {
+      #     defaultPref('autoadmin.global_config_url', `file://''${home_dir}/.mozilla/firefox/user.js`);
+      #   }
+      # '')
     ]; # ++ pkgs.librewolf-pmos-mobile.extraPrefsFiles
 
     extraPolicies = {
@@ -225,7 +230,9 @@ in
 
     inherit packageUnwrapped;
 
-    suggestedPrograms = nativeMessagingHostNames ++ addonSuggestedProgramNames;
+    suggestedPrograms = nativeMessagingHostNames ++ addonSuggestedProgramNames ++ [
+      # "xdg-settings"
+    ];
 
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
@@ -288,7 +295,7 @@ in
       StartWithLastProfile=1
     '';
 
-    fs.".mozilla/firefox/user.js".symlink.target = ./user.js;
+    # fs.".mozilla/firefox/user.js".symlink.target = ./user.js;
     fs.".mozilla/firefox/default/search.json.mozlz4".symlink.target = let
       drv = pkgs.stdenvNoCC.mkDerivation {
         # Mozilla uses a custom compression scheme for `search.json` because they're ASSHOLES.

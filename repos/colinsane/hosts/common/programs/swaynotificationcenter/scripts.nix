@@ -1,7 +1,6 @@
 # this file defines the `scripts` entry within ~/.config/swaync/config.json.
 # it describes special things to do in response to specific notifications,
 # e.g. sound a ringer when we get a call, ...
-{ pkgs }:
 {
   # a script can match regex on these fields. only fired if all listed fields match:
   # - app-name

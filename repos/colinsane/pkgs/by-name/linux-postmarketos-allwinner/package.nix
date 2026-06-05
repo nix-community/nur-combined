@@ -1,9 +1,7 @@
 {
   lib,
-  fetchurl,
   fetchFromGitea,
   fetchFromGitLab,
-  linux-megous,
   linuxManualConfig,
   sane-kernel-tools,
   writeTextFile,
@@ -67,8 +65,6 @@ let
 
 in (linuxManualConfig {
   inherit src version modDirVersion randstructSeed;
-  # inherit (linux-megous) extraMakeFlags modDirVersion src version;
-  # inherit (linux-megous) kernelPatches;
 
   configfile = writeTextFile {
     name = "config-postmarketos-allwinner.aarch64";
@@ -95,11 +91,6 @@ in (linuxManualConfig {
     (pmPatch "0010-eMMC-workaround")
     (pmPatch "0011-arm64-dts-allwinner-orangepi-3-fix-ethernet")
     (pmPatch "0012-ARM-dts-allwinner-sun5i-a13-pocketbook-614-plus-Add-")
-  ] ++ [
-    {
-      name = "pinephone-1.2b-add-af8133j-magnetometer";
-      patch = linux-megous.patches.af8133j;
-    }
   ];
 }).overrideAttrs (base: {
   passthru = (base.passthru or {}) // {

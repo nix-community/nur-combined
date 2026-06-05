@@ -41,7 +41,7 @@
 
 let
   cfg = config.sane.programs.mpv;
-  uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: rec {
+  uosc = pkgs.mpvScripts.uosc.overrideAttrs (upstream: {
     # version = "5.2.0-unstable-2024-05-07";
     # src = lib.warnIf (lib.versionOlder "5.2.0" upstream.version) "uosc outdated; remove patch?" pkgs.fetchFromGitHub {
     #   owner = "tomasklaen";
@@ -140,6 +140,60 @@ let
       #     '"cycle fullscreen",'
     '';
   });
+  mpv-gallery-view = pkgs.mpvScripts.mpv-gallery-view.overrideAttrs (upstream: {
+    patches = (upstream.patches or []) ++ [
+      # default behavior is like double-click thumbnail to navigate (1 click to select, 2nd click to navigate).
+      # patch to be single-click.
+      # TODO: send this upstream (as a script option)
+      (builtins.toFile "single-click-to-navigate.diff" ''
+        diff --git a/scripts/contact-sheet.lua b/scripts/contact-sheet.lua
+        index ad85932..999f4e9 100644
+        --- a/scripts/contact-sheet.lua
+        +++ b/scripts/contact-sheet.lua
+        @@ -279,16 +279,17 @@ function reload_bindings()
+                 seek_to_selection()
+                 if opts.close_on_seek then stop() end
+             end
+             bindings[opts.CANCEL] = function() stop() end
+             if opts.mouse_support then
+                 bindings["MBTN_LEFT"]  = function()
+                     local index = gallery:index_at(mp.get_mouse_pos())
+                     if not index then return end
+        +            gallery:set_selection(index)
+                     if index == gallery.selection then
+                         seek_to_selection()
+                         if opts.close_on_seek then stop() end
+                     else
+                         pending_selection = index
+                     end
+                 end
+                 bindings["WHEEL_UP"]   = function() increment_func(- gallery.geometry.columns, false) end
+        diff --git a/scripts/playlist-view.lua b/scripts/playlist-view.lua
+        index e230b30..61dca37 100644
+        --- a/scripts/playlist-view.lua
+        +++ b/scripts/playlist-view.lua
+        @@ -276,16 +276,17 @@ function reload_bindings()
+                     flags[name] = nil
+                 end
+                 gallery:ass_refresh(true, false, false, false)
+             end
+             if opts.mouse_support then
+                 bindings["MBTN_LEFT"]  = function()
+                     local index = gallery:index_at(mp.get_mouse_pos())
+                     if not index then return end
+        +            gallery:set_selection(index)
+                     if index == gallery.selection then
+                         load_selection()
+                         if opts.close_on_load_file then stop() end
+                     else
+                         pending_selection= index
+                     end
+                 end
+                 bindings["WHEEL_UP"]   = function() increment_func(- gallery.geometry.columns, false) end
+        ''
+      )
+    ];
+  });
   # visualizer = pkgs.mpvScripts.visualizer.overrideAttrs (upstream: {
   #   postPatch = (upstream.postPatch or "") + ''
   #     # don't have the script register its own keybinding: i'll do it manually via input.conf.
@@ -169,8 +223,8 @@ in
         };
       };
     };
-    packageUnwrapped = pkgs.mpv-unwrapped.wrapper {
-      mpv = pkgs.mpv-unwrapped.override rec {
+    packageUnwrapped = pkgs.mpv.override {
+      mpv-unwrapped = pkgs.mpv-unwrapped.override rec {
         # ffmpeg = pkgs.ffmpeg.override {
         #   # to enable spatial audio, i.e. downmixing 7.1 -> 2.0.
         #   # but nowadays i route surround staright out of mpv and do the downmixing in pipewire instead.
@@ -181,9 +235,9 @@ in
         # i think using `luajit` here instead of `lua` is optional, just i get better perf with it :)
         lua = pkgs.luajit.override { enable52Compat = true; self = lua; };
       };
-      scripts = with pkgs.mpv-unwrapped; [
-        scripts.mpris
-        (scripts.mpv-gallery-view.override {
+      scripts = let inherit (pkgs) mpvScripts; in [
+        mpvScripts.mpris
+        (mpv-gallery-view.override {
           # mpv-gallery-view: press `g` for grid view of the playlist, with thumbnails.
           # extraThumbgens = how many images to generate thumbnails for in parallel (+1 implied)
           extraThumbgens = {
@@ -192,12 +246,12 @@ in
             high-quality = 15;
           }.${cfg.config.defaultProfile};
         })
-        scripts.mpv-image-viewer.image-positioning
-        scripts.mpv-playlistmanager
-        scripts.mpv-webm
-        scripts.sane_cast
-        scripts.sane_sysvol
-        scripts.sponsorblock
+        mpvScripts.mpv-image-viewer.image-positioning
+        mpvScripts.mpv-playlistmanager
+        mpvScripts.mpv-webm
+        mpvScripts.sane_cast
+        mpvScripts.sane_sysvol
+        mpvScripts.sponsorblock
         uosc
         # visualizer  #< XXX(2024-07-23): `visualizer` breaks auto-play-next-track (only when visualizations are disabled)
         # pkgs.mpv-uosc-latest
@@ -211,7 +265,7 @@ in
       "yt-dlp"
     ];
 
-    sandbox.autodetectCliPaths = "parent";  #< especially for subtitle downloader; also nice for viewing albums
+    sandbox.autodetectCliPaths = "existingDirOrParent";  #< especially for subtitle downloader; also nice for viewing albums
     sandbox.net = "all";
     sandbox.whitelistAudio = true;
     sandbox.whitelistDbus.user.own = [ "org.mpris.MediaPlayer2.mpv" "org.mpris.MediaPlayer2.mpv.*" ];
@@ -270,21 +324,21 @@ in
     mime.associations."video/x-flv" = "mpv.desktop";
     mime.associations."video/x-matroska" = "mpv.desktop";
     #v be the opener for YouTube videos
-    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtu.be/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/embed/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/playlist\?.*list=.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/shorts/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/v/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?(music\.)?youtube.com/watch\?.*v=.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://(m\.)?(www\.)?facebook.com/reel/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtu.be/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/embed/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/playlist\\?.*list=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/shorts/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/v/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?(music\\.)?youtube.com/watch\\?.*v=.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(m\\.)?(www\\.)?facebook.com/reel/.+$" = "mpv.desktop";
     #v be the opener for Tiktok
-    mime.urlAssociations."^https?://(www\.)?tiktok.com/@.*/video/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://(www\\.)?tiktok.com/@.*/video/.+$" = "mpv.desktop";
     #v be the opener for A/V, generally. useful for e.g. feed readers like News Flash which open content through the portal
     #  also allows right-click -> xdg-open to open embedded videos
-    mime.urlAssociations."^https?://.*\.(mp3|mp4|ogg|ogv|opus|webm)(\\?.*)?$" = "mpv.desktop";
+    mime.urlAssociations."^https?://.*\\.(mp3|mp4|ogg|ogv|opus|webm)(\\?.*)?$" = "mpv.desktop";
     #v Loupe image viewer can't open URIs, so use mpv instead
-    mime.urlAssociations."^https?://i\.imgur.com/.+$" = "mpv.desktop";
-    mime.urlAssociations."^https?://.*\.(gif|heif|jpeg|jpg|png|svg|webp)(\\?.*)?$" = "mpv.desktop";
+    mime.urlAssociations."^https?://i\\.imgur.com/.+$" = "mpv.desktop";
+    mime.urlAssociations."^https?://.*\\.(gif|heif|jpeg|jpg|png|svg|webp)(\\?.*)?$" = "mpv.desktop";
   };
 
   sane.programs.yt-dlp.config = lib.mkIf cfg.enabled {

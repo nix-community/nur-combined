@@ -1,4 +1,4 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p wally-cli
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.wally-cli ]'
 fw=$(nix-build -A qmkPackages.ergodox_ez_glow_sane)
 wally-cli "$fw/share/qmk/ergodox_ez_glow_sane.hex"

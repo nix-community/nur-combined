@@ -25,12 +25,17 @@
 # to read a secret:
 #   $ cat /run/secrets/example_key
 
-{ config, lib, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 let
+  inherit (pkgs) sane-lib;
   secretsForHost = host: let
-    extraAttrsForPath = path: lib.optionalAttrs (sane-lib.path.isChild "guest" path && builtins.hasAttr "guest" config.users.users) {
+    extraAttrsForPath = path: let
+      comps = sane-lib.path.split path;
+    in lib.optionalAttrs (lib.elem "guest" comps && config.users.users ? "guest") {
       owner = "guest";
+    } // lib.optionalAttrs (lib.elem "colin" comps && config.users.users ? "colin") {
+      owner = "colin";
     };
     secretsInSrc = (
       if builtins.pathExists ../../secrets/${host} then
@@ -51,7 +56,6 @@ let
   );
 in
 {
-
   # sops.age.sshKeyPaths = [ "/home/colin/.ssh/id_ed25519_dec" ];
   sops.gnupg.sshKeyPaths = [];  # disable RSA key import
   # This is using an age key that is expected to already be in the filesystem
@@ -69,10 +73,9 @@ in
     (secretsForHost "common")
     (secretsForHost config.networking.hostName)
     {
+      # "etc/tcb/colin/shadow".owner = config.users.users.colin.name;
       "jackett_apikey".owner = config.users.users.colin.name;
-      "mx-sanebot-env".owner = config.users.users.colin.name;
-      "rsync-net-env".owner = config.users.users.colin.name;
-      "rsync-net-id_ed25519".owner = config.users.users.colin.name;
+      # "mx-sanebot-env".owner = config.users.users.colin.name;
       "transmission_passwd".owner = config.users.users.colin.name;
     }
   ];

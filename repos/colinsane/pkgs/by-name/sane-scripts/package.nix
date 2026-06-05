@@ -1,10 +1,42 @@
 {
+  bunpen,
+  coreutils,
+  coreutils-full,
+  dconf,
+  ffmpeg,
+  file,
+  findutils,
+  flamegraph,
+  gnugrep,
+  gnused,
+  ifuse,
+  inetutils,
+  inotify-tools,
+  iproute2,
   lib,
+  libsecret,
+  miniupnpc,
+  ncurses,
+  nettools,
+  networkmanager-split,
+  nix,
+  oath-toolkit,
+  openssh,
+  perf,
+  procps,
   python3,
+  rsync,
+  sane-scripts,
+  sops,
+  sox,
+  ssh-to-age,
   static-nix-shell,
   stdenvNoCC,
   symlinkJoin,
+  systemd,
+  systemdMinimal,
   transmission_4,
+  util-linux,
 }:
 
 let
@@ -60,87 +92,140 @@ let
     bt-add = static-nix-shell.mkPython3 {
       pname = "sane-bt-add";
       srcRoot = ./src;
-      pkgs = [ "python3.pkgs.requests" "sane-scripts.lib.bt" ];
+      pkgs = {
+        "python3.pkgs.requests" = python3.pkgs.requests;
+        "sane-scripts.lib.bt" = sane-scripts.lib.bt;
+      };
     };
     bt-rm = static-nix-shell.mkPython3 {
       pname = "sane-bt-rm";
       srcRoot = ./src;
-      pkgs = [ "sane-scripts.lib.bt" ];
+      pkgs = {
+        "sane-scripts.lib.bt" = sane-scripts.lib.bt;
+      };
     };
     bt-search = static-nix-shell.mkPython3 {
       pname = "sane-bt-search";
       srcRoot = ./src;
-      pkgs = [ "python3.pkgs.natsort" "python3.pkgs.requests" ];
+      pkgs = {
+        "python3.pkgs.requests" = python3.pkgs.requests;
+      };
     };
     bt-show = static-nix-shell.mkPython3 {
       pname = "sane-bt-show";
       srcRoot = ./src;
-      pkgs = [ "sane-scripts.lib.bt" ];
+      pkgs = {
+        "sane-scripts.lib.bt" = sane-scripts.lib.bt;
+      };
     };
     clone = static-nix-shell.mkBash {
       pname = "sane-clone";
       srcRoot = ./src;
-      pkgs = [ "nix" ];
+      pkgs = { inherit nix; };
     };
     date-set = static-nix-shell.mkBash {
       pname = "sane-date-set";
       srcRoot = ./src;
-      pkgs = [ "systemd" ];
+      pkgs = { inherit systemd; };
     };
     deadlines = static-nix-shell.mkYsh {
       pname = "sane-deadlines";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "gnused" ];
+      pkgs = {
+        inherit
+          coreutils-full
+          gnused
+          ;
+      };
     };
     dev-cargo-loop = static-nix-shell.mkBash {
       pname = "sane-dev-cargo-loop";
       srcRoot = ./src;
-      pkgs = [ "inotify-tools" "ncurses" ];
+      pkgs = {
+        inherit
+          inotify-tools
+          ncurses
+          ;
+      };
     };
     find-dotfiles = static-nix-shell.mkBash {
       pname = "sane-find-dotfiles";
       srcRoot = ./src;
-      pkgs = [ "findutils" ];
+      pkgs = {
+        inherit findutils;
+      };
     };
     ip-check = static-nix-shell.mkPython3 {
       pname = "sane-ip-check";
       srcRoot = ./src;
-      pkgs = [ "miniupnpc" "python3.pkgs.requests" "sane-scripts.lib.ssdp" ];
+      pkgs = {
+        inherit miniupnpc;
+        "python3.pkgs.requests" = python3.pkgs.requests;
+        "sane-scripts.lib.ssdp" = sane-scripts.lib.ssdp;
+      };
     };
     ip-port-forward = static-nix-shell.mkPython3 {
       pname = "sane-ip-port-forward";
       srcRoot = ./src;
-      pkgs = [ "inetutils" "miniupnpc" "sane-scripts.lib.ssdp"];
+      pkgs = {
+        inherit
+          inetutils
+          miniupnpc
+          ;
+        "sane-scripts.lib.ssdp" = sane-scripts.lib.ssdp;
+      };
     };
     private-do = static-nix-shell.mkBash {
       pname = "sane-private-do";
       srcRoot = ./src;
-      pkgs = [ "util-linux" ];
+      pkgs = {
+        inherit util-linux;
+      };
     };
     private-unlock = static-nix-shell.mkBash {
       pname = "sane-private-unlock";
       srcRoot = ./src;
-      pkgs = [ "coreutils" "systemdMinimal" ];
+      pkgs = {
+        inherit
+          coreutils
+          systemdMinimal
+          ;
+        };
     };
     private-unlock-remote = static-nix-shell.mkBash {
       pname = "sane-private-unlock-remote";
       srcRoot = ./src;
-      pkgs = [ "openssh" "sane-scripts.secrets-dump" ];
+      pkgs = {
+        inherit openssh;
+        "sane-scripts.secrets-dump" = sane-scripts.secrets-dump;
+      };
     };
     profile = static-nix-shell.mkYsh {
       pname = "sane-profile";
       srcRoot = ./src;
-      pkgs = [ "flamegraph" "perf" ];
+      pkgs = {
+        inherit
+          flamegraph
+          perf
+          ;
+      };
     };
     rcp = static-nix-shell.mkBash {
       pname = "sane-rcp";
       srcRoot = ./src;
-      pkgs = [ "rsync" ];
+      pkgs = {
+        inherit rsync;
+      };
     };
     reboot = static-nix-shell.mkBash {
       pname = "sane-reboot";
       srcRoot = ./src;
-      pkgs = [ "nettools" "systemd" ];
+      pkgs = {
+        inherit
+          nettools
+          systemd
+          ;
+      };
     };
     reclaim-boot-space = static-nix-shell.mkPython3 {
       pname = "sane-reclaim-boot-space";
@@ -149,73 +234,132 @@ let
     reclaim-disk-space = static-nix-shell.mkBash {
       pname = "sane-reclaim-disk-space";
       srcRoot = ./src;
-      pkgs = [ "nix" ];
+      pkgs = { inherit nix; };
     };
     secrets-dump = static-nix-shell.mkBash {
       pname = "sane-secrets-dump";
       srcRoot = ./src;
-      pkgs = [ "gnugrep" "sops" "oath-toolkit" ];
+      pkgs = {
+        inherit
+          gnugrep
+          sops
+          oath-toolkit
+          ;
+      };
     };
     secrets-unlock = static-nix-shell.mkBash {
       pname = "sane-secrets-unlock";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "openssh" "ssh-to-age" ];
+      pkgs = {
+        inherit
+          coreutils-full
+          openssh
+          ssh-to-age
+          ;
+      };
     };
     secrets-update-keys = static-nix-shell.mkBash {
       pname = "sane-secrets-update-keys";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "findutils" "sops" ];
+      pkgs = {
+        inherit
+          coreutils-full
+          findutils
+          sops
+          ;
+      };
     };
     shutdown = static-nix-shell.mkBash {
       pname = "sane-shutdown";
       srcRoot = ./src;
-      pkgs = [ "nettools" "systemd" ];
+      pkgs = {
+        inherit
+          nettools
+          systemd
+          ;
+      };
     };
     stop-all-servo = static-nix-shell.mkYsh {
       pname = "sane-stop-all-servo";
       srcRoot = ./src;
-      pkgs = [ "systemd" ];
+      pkgs = {
+        inherit systemd;
+      };
     };
     sudo-redirect = static-nix-shell.mkBash {
       pname = "sane-sudo-redirect";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" ];
+      pkgs = {
+        inherit coreutils-full;
+      };
     };
     sync-from-iphone = static-nix-shell.mkZsh {
       pname = "sane-sync-from-iphone";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "ifuse" "rsync" ];
+      pkgs = {
+        inherit
+          coreutils-full
+          ifuse
+          rsync
+          ;
+      };
     };
     sync-music = static-nix-shell.mkPython3 {
       pname = "sane-sync-music";
       srcRoot = ./src;
-      pkgs = [ "ffmpeg" "python3.pkgs.unidecode" "sox" ];
+      pkgs = {
+        inherit
+          ffmpeg
+          sox
+          ;
+        "python3.pkgs.unidecode" = python3.pkgs.unidecode;
+      };
     };
     tag-media = static-nix-shell.mkPython3 {
       pname = "sane-tag-media";
       srcRoot = ./src;
-      pkgs = [ "python3.pkgs.mutagen" "python3.pkgs.pyexiftool" "python3.pkgs.pykakasi" "python3.pkgs.unidecode" ];
+      pkgs = {
+        "python3.pkgs.mutagen" = python3.pkgs.mutagen;
+        "python3.pkgs.pyexiftool" = python3.pkgs.pyexiftool;
+        "python3.pkgs.pykakasi" = python3.pkgs.pykakasi;
+        "python3.pkgs.unidecode" = python3.pkgs.unidecode;
+      };
     };
     vpn = static-nix-shell.mkPython3 {
       pname = "sane-vpn";
       srcRoot = ./src;
-      pkgs = [
-        "bunpen"
-        "iproute2"
-        "networkmanager-split.nmcli"
-        "sane-scripts.ip-check"
-        "systemd"
-      ];
+      pkgs = {
+        inherit
+          bunpen
+          iproute2
+          systemd
+          ;
+        "networkmanager-split.nmcli" = networkmanager-split.nmcli;
+        "sane-scripts.ip-check" = sane-scripts.ip-check;
+      };
     };
     which = static-nix-shell.mkBash {
       pname = "sane-which";
       srcRoot = ./src;
-      pkgs = [ "coreutils-full" "file" "gnugrep" ];
+      pkgs = {
+        inherit
+          coreutils-full
+          file
+          gnugrep
+          ;
+      };
     };
     wipe = static-nix-shell.mkBash {
       pname = "sane-wipe";
       srcRoot = ./src;
-      pkgs = [ "dconf" "libsecret" "procps" "systemdMinimal" ];
+      pkgs = {
+        inherit
+          dconf
+          libsecret
+          procps
+          systemdMinimal
+          ;
+      };
     };
   };
 in lib.recurseIntoAttrs (sane-bin // {

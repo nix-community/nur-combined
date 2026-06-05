@@ -168,66 +168,9 @@ in
       };
     });
 
-    system.build.u-boot = pkgs.buildUBoot {
-      defconfig = "snow_defconfig";
-      extraMeta.platforms = [ "armv7l-linux" ];
-      filesToInstall = [
-        "u-boot"  #< ELF file
-        "u-boot.bin"  #< raw binary, load it into RAM and jump toit
-        "u-boot.cfg"  #< copy of Kconfig which this u-boot was compiled with
-        "u-boot.dtb"
-        "u-boot.map"
-        "u-boot-nodtb.bin"
-        "u-boot.sym"
-      ];
-      # CONFIG_BOOTCOMMAND: autoboot from usb, and fix the ordering so that it happens before the internal memory (mmc0)
-      extraConfig = ''
-        CONFIG_BOOTCOMMAND="env set bootcmd_usb0 \"devnum=0; run usb_boot\"; env set boot_targets \"usb0 mmc2 mmc1 mmc0\"; run distro_bootcmd"
-      '';
-    };
+    system.build.u-boot = pkgs.ubootSamsungChromebook;
 
-    system.build.platformPartition = pkgs.runCommand "kernel-partition" {
-      preferLocalBuild = true;
-      nativeBuildInputs = with pkgs; [
-        vboot_reference
-        dtc
-        ubootTools
-      ];
-    } ''
-      # according to depthcharge-tools, bootloader.bin is legacy, was used by the earliest
-      # chromebooks (H2C) *only*.
-      dd if=/dev/zero of=dummy_bootloader.bin bs=512 count=1
-      echo auto > dummy_config.txt
-
-      # from uboot snow_defconfig, also == CONFIG_SYS_LOAD_ADDR
-      CONFIG_TEXT_BASE=0x43e00000
-
-      cp ${config.system.build.u-boot}/u-boot.bin .
-      ubootFlags=(
-        -A arm         # architecture
-        -O linux       # operating system
-        -T kernel      # image type
-        -C none        # compression
-        -a $CONFIG_TEXT_BASE  # load address (CONFIG_TEXT_BASE)
-        -e $CONFIG_TEXT_BASE  # entry point (CONFIG_SYS_LOAD_ADDR), i.e. where u-boot `bootm` should jump to to execute the kernel
-        -n nixos-uboot # image name
-        -d u-boot.bin  # image data
-        u-boot.fit     # output
-      )
-      mkimage "''${ubootFlags[@]}"
-
-      futility \
-        --debug \
-      vbutil_kernel \
-        --version 1 \
-        --bootloader ./dummy_bootloader.bin \
-        --vmlinuz u-boot.fit \
-        --arch arm \
-        --keyblock ${pkgs.buildPackages.vboot_reference}/share/vboot/devkeys/kernel.keyblock \
-        --signprivate ${pkgs.buildPackages.vboot_reference}/share/vboot/devkeys/kernel_data_key.vbprivk \
-        --config ./dummy_config.txt \
-        --pack $out
-    '';
+    system.build.platformPartition = pkgs.platformpart-samsung-chromebook;
 
     # the platform partition presently only holds u-boot,
     # and it seems possibly a limitation of depthcharge that it can't launch anything > 8 MiB (?)

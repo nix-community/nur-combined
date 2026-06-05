@@ -1,4 +1,4 @@
-{ config, ... }:
+{ ... }:
 {
   imports = [
     ./nfs.nix
@@ -11,6 +11,7 @@
     # everything in here could be considered publicly readable (based on the viewer's legal jurisdiction)
     device = "/var/media";
     options = [ "rbind" "nofail" ];
+    fsType = "auto";
   };
   # fileSystems."/var/export/playground" = {
   #   device = config.fileSystems."/mnt/persist/ext".device;

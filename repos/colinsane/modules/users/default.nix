@@ -1,9 +1,9 @@
-{ config, lib, options, pkgs, sane-lib, ... }:
+{ config, lib, options, pkgs, ... }:
 
 let
   sane-user-cfg = config.sane.user;
   cfg = config.sane.users;
-  path-lib = sane-lib.path;
+  path-lib = pkgs.sane-lib.path;
   serviceType = with lib; types.submodule ({ config, ... }: {
     options = {
       description = mkOption {
@@ -471,7 +471,7 @@ in
         sane.defaultUser = f.sane.defaultUser;
       };
     in lib.mkMerge [
-      (take (sane-lib.mkTypedMerge take configs))
+      (take (pkgs.sane-lib.mkTypedMerge take configs))
       {
         assertions = [
           {

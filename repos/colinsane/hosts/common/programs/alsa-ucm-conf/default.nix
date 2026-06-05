@@ -7,19 +7,19 @@ let
         priority = ((base.meta or {}).priority or 10) + 20;
       };
   });
-  alsa-ucm-latest = pkgs.alsa-ucm-conf.overrideAttrs (upstream: rec {
-    # XXX(2025-07-18): see <https://github.com/NixOS/nixpkgs/pull/414818>
-    version = "1.2.14";
-    src = lib.warnIf (lib.versionAtLeast upstream.version "1.2.14") "upstream alsa-ucm-conf is up to date with my own: remove override?" pkgs.fetchurl {
-      url = "mirror://alsa/lib/alsa-ucm-conf-${version}.tar.bz2";
-      hash = "sha256-MumAn1ktkrl4qhAy41KTwzuNDx7Edfk3Aiw+6aMGnCE=";
-    };
-    installPhase = lib.replaceStrings
-      [ ''for file in "''${files[@]}"'' ]
-      [ ''for file in ucm2/common/ctl/led.conf'' ]
-      upstream.installPhase
-    ;
-  });
+  # alsa-ucm-latest = pkgs.alsa-ucm-conf.overrideAttrs (upstream: rec {
+  #   # XXX(2025-07-18): see <https://github.com/NixOS/nixpkgs/pull/414818>
+  #   version = "1.2.14";
+  #   src = lib.warnIf (lib.versionAtLeast upstream.version "1.2.14") "upstream alsa-ucm-conf is up to date with my own: remove override?" pkgs.fetchurl {
+  #     url = "mirror://alsa/lib/alsa-ucm-conf-${version}.tar.bz2";
+  #     hash = "sha256-MumAn1ktkrl4qhAy41KTwzuNDx7Edfk3Aiw+6aMGnCE=";
+  #   };
+  #   installPhase = lib.replaceStrings
+  #     [ ''for file in "''${files[@]}"'' ]
+  #     [ ''for file in ucm2/common/ctl/led.conf'' ]
+  #     upstream.installPhase
+  #   ;
+  # });
 in
 {
   sane.programs.alsa-ucm-conf = {

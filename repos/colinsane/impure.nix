@@ -1,125 +1,141 @@
-# this entry-point exposes all packages, hosts, etc, but with no purity guarnatees.
+# this entry-point exposes all packages, hosts, etc, but with no purity guarantees.
 # the intended way to use this is to first copy every .nix file and dependency in this repo to the nix store, then enter this file.
 # entering this file *before* copying anything into the nix store can cause interesting
 # race conditions or eval failures.
 #
 # see default.nix for a wrapper around this with better purity guarantees.
 {
-  localSystem ? builtins.currentSystem,
+  localSystem ? {
+    system = builtins.currentSystem;
+  },
 }:
 let
-  mkPkgs = branch: config: let
-    mkNixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/mkNixpkgs.nix config;
-  in (
-    import ./pkgs/by-name/nixpkgs-bootstrap/${branch}.nix { inherit mkNixpkgs; }
-  ).pkgs.extend (import ./overlays/all.nix);
-  pkgs = mkPkgs "master" { inherit localSystem; };
-  inherit (pkgs) lib;
+  overlays = import ./overlays/all.nix;
+  mkNixpkgs = { branch, localSystem }: let
+    mkNixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/mkNixpkgs.nix { inherit localSystem; };
+    nixpkgs = import ./pkgs/by-name/nixpkgs-bootstrap/${branch}.nix { inherit mkNixpkgs; };
+  in nixpkgs // {
+    lib = import "${nixpkgs}/lib";
+    pkgs = import "${nixpkgs}/pkgs/top-level" { inherit localSystem overlays; };
+  };
+  nixpkgs = mkNixpkgs { branch = "master"; inherit localSystem; };
+  inherit (nixpkgs) lib pkgs;
 
-  evalHost = { name, localSystem, system, branch ? "master", variant ? null }:
+  evalHost = { name, buildPlatform, config ? {}, branch ? "master", variant ? null, libc ? null, buildLibc ? null, cpu ? null }:
   let
-    pkgs = mkPkgs branch { inherit localSystem system; };
-  in pkgs.nixos [
-    (import ./hosts/instantiate.nix { hostName = name; inherit variant; })
-    (import ./modules)
-    pkgs.sops-nix.nixosModules.sops
-  ];
-  mkFlavoredHost = args: let
-    plainHost = evalHost args;
-    # expose the toplevel nixos system as the toplevel attribute itself,
-    # with nested aliases for other common build targets
-    addPassthru = host: host.config.system.build.toplevel.overrideAttrs (base: {
-      passthru = (base.passthru or {}) // {
-        inherit (host) config;
-        inherit (host.config.sane) fs;
-        inherit (host.config.system.build) img pkgs;
-        programs = builtins.mapAttrs (_: p: p.package) host.config.sane.programs;
-        toplevel = host.config.system.build.toplevel;  #< self
-        extendModules = arg: addPassthru (host.extendModules arg);
+    nixpkgs = mkNixpkgs { inherit branch; localSystem = buildPlatform; };
+    # ${nixpkgs}/nixos/lib/eval-config.nix is like `pkgs.nixos`, but doesn't set `config.nixpkgs.{pkgs,localSystem}`.
+    # that allows me to set `nixpkgs.config.*` (e.g. `strictDepsByDefault`) via the module system,
+    # instead of forcing them to be fixed at import-time.
+    #
+    # ${nixpkgs}/nixos is an abstraction around the above with an evern more minimal interface
+  in import "${nixpkgs}/nixos" {
+    configuration = {
+      imports = [
+        ./hosts/by-name/${name}
+        nixpkgs.pkgs.sops-nix.nixosModules.sops  #< XXX should be `pkgs` from module arg, not `nixpkgs`.
+      ];
+
+      sane.hostVariant = lib.mkIf (variant != null) variant;
+      sane.buildLibc = lib.mkIf (buildLibc != null) buildLibc;
+      sane.libc = lib.mkIf (libc != null) libc;
+      sane.cpu = lib.mkIf (cpu != null) cpu;
+
+      nixpkgs = {
+        inherit config overlays;
+        # XXX(2026-01-02): this is fragile.
+        # we care about `nixpkgs.buildPlatform` and `nixpkgs.hostPlatform`; `nixpkgs.system` is an unused legacy option.
+        # however the option merging of `nixpkgs.buildPlatform` is bad enough that when i needed to query `nixpkgs.buildPlatform.system`
+        # in my own code, i couldn't w/o infinite recursion.
+        # so i'm just setting `nixpkgs.system` to shuttle `nixpkgs.buildPlatform.system` into places it can't otherwise be read.
+        system = buildPlatform.system;
       };
-    });
-  in addPassthru plainHost;
-  mkHost = args: {
-    "${args.name}" = mkFlavoredHost args;
-    "${args.name}-light" = mkFlavoredHost (args // { variant = "light"; });
-    "${args.name}-min" = mkFlavoredHost (args // { variant = "min"; });
-    "${args.name}-staging" = mkFlavoredHost (args // { branch = "staging"; });
-    "${args.name}-staging-light" = mkFlavoredHost (args // { branch = "staging"; variant = "light"; });
-    "${args.name}-staging-min" = mkFlavoredHost (args // { branch = "staging"; variant = "min"; });
-    "${args.name}-next" = mkFlavoredHost (args // { branch = "staging-next"; });
-    "${args.name}-next-light" = mkFlavoredHost (args // { branch = "staging-next"; variant = "light"; });
-    "${args.name}-next-min" = mkFlavoredHost (args // { branch = "staging-next"; variant = "min"; });
+    };
+    system = null;  # else it defaults to `builtins.currentSystem`
   };
 
-  # this exists to unify my kernel configs across different platforms.
-  # ordinarily, certain kernel config options are derived by nixpkgs using the `system` parameter,
-  # via <repo:nixos/nixpkgs:lib/systems/platforms.nix>.
-  # but i want these a little more normalized, which is possible either here, or
-  # by assigning `boot.kernelPackages`.
-  # elaborate = system: system;
-  elaborate = system: { static ? false }: let
-    abi = if static then "musl" else "gnu";
-    e = lib.systems.elaborate {
-      # N.B.: "static" can mean a few things:
-      # 1. binaries should be linked statically (stdenv.hostPlatform.isStatic == true).
-      # 2. host libc doesn't support dlopen (stdenv.hostPlatform.hasSharedLibraries == false).
-      #
-      # nixpkgs' `pkgsStatic` is the stricter meaning of "static": no `.so` files, period.
-      # this means plugin-heavy frameworks like `gobject-introspection` probably just cannot ever work (?).
-      # TODO: i'd _prefer_ to use the weaker kind of "static", and support all the traditional packages,
-      # but for now that actually results in fewer working packages (e.g. `xdg-dbus-proxy`).
-      system = "${system}-${abi}";
-      isStatic = static;
-      # hasSharedLibraries = true;
-    };
-  in
-    e // {
-      extensions = e.extensions // {
-        # when `hasSharedLibraries` == false, need to explicitly set this here to fix eval of many packages. this is not a long-term fix.
-        sharedLibrary = ".so";
-      };
-      linux-kernel = {
-        inherit (e.linux-kernel) name baseConfig target;
-      } // (lib.optionalAttrs (e.linux-kernel ? DTB) { inherit (e.linux-kernel) DTB; }) // {
-        # explicitly ignore nixpkgs' extraConfig and preferBuiltin options
-        autoModules = true;
-        # build all features as modules where possible, especially because
-        # 1. some bootloaders fail on large payloads and this allows the kernel/initrd to be smaller.
-        # 2. building as module means i can override that module very cheaply as i develop.
-        preferBuiltin = false;
-        # `target` support matrix:
-        # Image:     aarch64:yes (nixpkgs default)       x86_64:no
-        # Image.gz:  aarch64:yes, if capable bootloader  x86_64:no
-        # zImage     aarch64:no                          x86_64:yes
-        # bzImage    aarch64:no                          x86_64:yes (nixpkgs default)
-        # vmlinux    aarch64:?                           x86_64:no?
-        # vmlinuz    aarch64:?                           x86_64:?
-        # uImage     aarch64:bootloader?                 x86_64:probably not
-        # # target = if system == "x86_64-linux" then "bzImage" else "Image";
-      };
-    };
+  mkHost = args: let
+    expandArch = lib.concatMapAttrs (hostName: args': {
+      "${hostName}" = args';
+      "${hostName}-aarch64" = lib.recursiveUpdate args' { cpu = "aarch64"; };
+      "${hostName}-x86_64" = lib.recursiveUpdate args' { cpu = "x86_64"; };
+    });
+    expandLibc = lib.concatMapAttrs (hostName: args': {
+      "${hostName}" = args';
+      "${hostName}-musl" = lib.recursiveUpdate args' { libc = "musl"; };
+      "${hostName}-glibc" = lib.recursiveUpdate args' { libc = "glibc"; };
+      "${hostName}-musl-from-glibc" = lib.recursiveUpdate args' { libc = "musl"; buildLibc = "glibc"; };
+      # "${hostName}-musl-cross" = lib.recursiveUpdate args' { hostPlatform.abi = abis.musl; };
+      # "${hostName}-glibc-cross" = lib.recursiveUpdate args' { hostPlatform.abi = abis.gnu; };
+    });
+    # aspirational targets. these aren't expected to work _yet_, but getting them to build further achieves more broad benefits.
+    # ordered by feasibility.
+    expandNovelties = lib.concatMapAttrs (hostName: args': {
+      "${hostName}" = args';
+      "${hostName}-strict" = lib.recursiveUpdate args' { config.strictDepsByDefault = true; };
+      # N.B.: `_crossMarker` isn't a well-known/used stdenv attribute. it's set simply to force `hostPlatform != buildPlatform`
+      # and hence force a "cross-compile-by-default" workflow.
+      # "${hostName}-forcecross" = lib.recursiveUpdate args' { hostPlatform._crossMarker = true; };
+      # "${hostName}-static" = lib.recursiveUpdate args' { hostPlatform.isStatic = true; };
+    });
+    expandBranches = lib.concatMapAttrs (hostName: args': {
+      "${hostName}" = args';
+      "${hostName}-staging" = args' // { branch = "staging"; };
+      "${hostName}-next" = args' // { branch = "staging-next"; };
+    });
+    expandVariants = lib.concatMapAttrs (hostName: args': {
+      "${hostName}" = args';
+      "${hostName}-light" = args' // { variant = "light"; };
+      "${hostName}-min" = args' // { variant = "min"; };
+      "${hostName}-smoke" = args' // { variant = "smoke"; };
+    });
+    defineOutputs = lib.mapAttrs (_hostName: args': let
+      plainHost = evalHost args';
+    in {
+      inherit (plainHost) config options pkgs;
+      inherit (plainHost.system) drvPath name outputName outPath type;  #< support `nix-build -A hosts.FOO`
+      inherit (plainHost.config.sane) fs;
+      inherit (plainHost.config.system.build) img;
+      programs = builtins.mapAttrs (_: p: p.package) plainHost.config.sane.programs;
+      toplevel = plainHost.system;
+    });
+  in 
+    lib.pipe {
+      "${args.name}" = lib.recursiveUpdate {
+        buildPlatform = localSystem;
+      } args;
+    }
+    [
+      expandArch
+      expandLibc
+      expandNovelties
+      expandBranches
+      expandVariants
+      defineOutputs
+    ];
 
   hosts = builtins.foldl'
-    # XXX: i `elaborate` localSystem the same as i do `system` because otherwise nixpkgs
-    # sees they're (slightly) different and forces everything down the (expensive) cross-compilation path.
-    (acc: host: acc // mkHost ({ localSystem = elaborate localSystem {}; } // host))
+    (acc: host: acc // mkHost host)
     {}
     [
       # real hosts:
-      # { name = "crappy"; system = "armv7l-linux";  }
-      { name = "cadey";  system = elaborate "x86_64-linux" {};  }
-      { name = "desko";  system = elaborate "x86_64-linux" {};  }
-      { name = "flowy";  system = elaborate "x86_64-linux" {};  }
-      { name = "lappy";  system = elaborate "x86_64-linux" {};  }
-      { name = "moby";   system = elaborate "aarch64-linux" {}; }
-      { name = "servo";  system = elaborate "x86_64-linux" {};  }
+      # { name = "crappy"; }
+      { name = "cadey"; }
+      { name = "desko"; }
+      { name = "flowy"; }
+      { name = "lappy"; }
+      { name = "moby";  }
+      { name = "servo"; }
 
-      { name = "rescue"; system = elaborate "x86_64-linux" {};  }
-      # pseudo hosts used for debugging
-      { name = "baseline-x86_64";  system = elaborate "x86_64-linux" {};  }
-      { name = "baseline-aarch64";  system = elaborate "aarch64-linux" {};  }
-      { name = "static-x86_64";  system = elaborate "x86_64-linux" { static = true; }; }
-      { name = "static-aarch64";  system = elaborate "aarch64-linux" { static = true; };  }
+      { name = "rescue"; cpu = (lib.systems.elaborate localSystem).parsed.cpu.name; }
+
+      # pseudo hosts used for debugging and packaging/nixpkgs development
+      { name = "baseline"; cpu = (lib.systems.elaborate localSystem).parsed.cpu.name; }
+      # interesting pseudo hosts:
+      # - baseline-strict{,-min}
+      # - baseline-musl{,-min}
+      # - baseline-cross{,-min}
+      # - baseline-static{,-min}
     ];
 
   # subAttrNames :: AttrSet -> [ String ]
@@ -131,9 +147,9 @@ let
       let
         # many attributes in the `pkgs` set do not evaluate (even `pkgs.sane`, thanks to e.g. linuxPackages).
         # wrap in `tryEval` to deal with that, and not descend into such attributes.
-        isAttrs = builtins.tryEval (builtins.isAttrs value);
+        isAttrs' = builtins.tryEval (builtins.isAttrs value);
       in
-        isAttrs.success && isAttrs.value
+        isAttrs'.success && isAttrs'.value
     )
     attrs;
 
@@ -148,46 +164,51 @@ let
   # update any package possible, and just rely on good namespacing:
   shouldUpdate = pkg: pkg ? updateScript;
 
+  shouldRecurse = attrs: attrs.recurseForDerivations or false;
+  # shouldRecurse = attrs: attrs ? callPackage;
+  # shouldRecurse = _attrs: true;
+
   # given the path to a package, and that package, returns a list of all attr-paths (stringified)
   # which should be updated as part of that package (including the package in question).
   mkUpdateList = prefix: pkg: (lib.optionals (shouldUpdate pkg) [ prefix ]) ++
     lib.concatMap
       (nestedName: mkUpdateListIfAuto "${prefix}.${nestedName}" pkg."${nestedName}")
-      (lib.optionals (pkg.recurseForDerivations or false) (subAttrNames pkg))
+      (lib.optionals (shouldRecurse pkg) (subAttrNames pkg))
   ;
   # a package can set `passthru.updateWithSuper = false;` if it doesn't want to be auto-updated.
   mkUpdateListIfAuto = prefix: pkg: lib.optionals (pkg.updateWithSuper or true) (mkUpdateList prefix pkg);
 
   mkUpdateInfo = prefix: pkg: let
     # the actual shell command which can update the package, after an environment has been configured for the updater:
-    updateArgv = lib.optionals (pkg ? updateScript) (
-      if builtins.isList pkg.updateScript then pkg.updateScript
-      else if pkg.updateScript ? command then builtins.map builtins.toString pkg.updateScript.command
-      else if (pkg.updateScript.meta or {}) ? mainProgram then
-        # raw derivation like `writeShellScriptBin`
-        [ "${lib.getExe pkg.updateScript}" ]
-      else if builtins.isPath pkg.updateScript then
-        # in-tree update script like `updateScript = ./update.sh`
-        [ pkg.updateScript ]
-      else
-        []
-    );
+    updateArgv = pkgs.updater-tools.updateArgvForPkg pkg;
   in {
     "${prefix}" = {
       subPackages = mkUpdateList prefix pkg;
       updateScript = let
         pname = lib.escapeURL (pkg.pname or (pkg.name or "unknown"));
         script = pkgs.writeShellScriptBin "update-${pname}" ''
-          # update script assumes $PWD is an entry point to a writable copy of my nix config,
-          # so provide that:
-          SELF_PATH=$PWD/$0
-          REPO_ROOT=$(${lib.getExe pkgs.git} -C "$(dirname SELF_PATH)" rev-parse --show-toplevel)
-          pushd $REPO_ROOT/integrations/nix-update
+          # give each update script a unique $PWD and $TMPDIR because:
+          # 1. updaters often assume $PWD is an entry point into a _mutable_ copy of the nix config.
+          # 2. updaters often write artifacts (e.g. `git-commits.txt`) to the working directory.
+          # 3. tmp artifacts can be _large_ for things involving `git clone`, and scripts don't often do cleanup.
+          REPO_ROOT=$(${lib.getExe pkgs.git} -C "$PWD" rev-parse --show-toplevel)
+          UNIQUE_TO_UPDATER=$REPO_ROOT/.work/update/${prefix}
+          rm -rf "$UNIQUE_TO_UPDATER"
+          mkdir -p "$UNIQUE_TO_UPDATER"
+
+          echo "working out of: $UNIQUE_TO_UPDATER"
+
+          pushd "$UNIQUE_TO_UPDATER"
+          # because nix-update needs to update source attributes, it can't go through the hermetic
+          # toplevel `default.nix`, but rather needs the in-place `impure.nix`.
+          echo "import $REPO_ROOT/impure.nix" > default.nix
+
+          TMPDIR=$UNIQUE_TO_UPDATER \
           UPDATE_NIX_NAME=${pkg.name or ""} \
           UPDATE_NIX_PNAME=${pkg.pname or ""} \
           UPDATE_NIX_OLD_VERSION=${pkg.version or ""} \
           UPDATE_NIX_ATTR_PATH=${prefix} \
-          ${lib.escapeShellArgs updateArgv}
+          ${lib.escapeShellArgs updateArgv}  > >(tee update.log)  2> >(tee update.stderr >&2)
           popd
         '';
       in lib.optionalString (shouldUpdate pkg && updateArgv != []) (lib.getExe script);
@@ -195,15 +216,17 @@ let
   } // builtins.foldl'
     (acc: subPkgName: acc // mkUpdateInfo "${prefix}.${subPkgName}" pkg."${subPkgName}")
     {}
-    (if pkg.recurseForDerivations or false then subAttrNames pkg else [])
+    (lib.optionals (shouldRecurse pkg) (subAttrNames pkg))
   ;
 
-  updateInfo = mkUpdateInfo "sane" pkgs.sane;
-in {
+  sane = import ./pkgs/packages.nix pkgs;
+  updateInfo = mkUpdateInfo "sane" sane;
+in pkgs // {
   inherit hosts;
   inherit updateInfo;
+  inherit sane;
   # AttrSet mapping attrpath to a list of attrpaths representing all updatable packages beneath it
   updateTargets = builtins.mapAttrs (_: v: v.subPackages) (lib.filterAttrs (_: v: v.subPackages != []) updateInfo);
   # AttrSet mapping attrpath to the path of a shell script which can be used to update the package at that attrpath
   updateScripts = builtins.mapAttrs (_: v: v.updateScript) (lib.filterAttrs (_: v: v.updateScript != "") updateInfo);
-} // pkgs
+}

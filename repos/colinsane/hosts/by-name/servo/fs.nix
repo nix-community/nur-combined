@@ -77,6 +77,7 @@
     treat it like a system trash can.
   '';
   sane.fs."/var/media/Books".dir = {};
+  sane.fs."/var/media/Books/Articles".dir = {};
   sane.fs."/var/media/Books/Audiobooks".dir = {};
   sane.fs."/var/media/Books/Books".dir = {};
   sane.fs."/var/media/Books/Visual".dir = {};

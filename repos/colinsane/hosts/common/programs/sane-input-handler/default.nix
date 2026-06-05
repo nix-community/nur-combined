@@ -22,10 +22,10 @@ let
   };
   friendlyToBonsai = { trigger ? null, terminal ? false, timeout ? {}, power_pressed ? {}, power_released ? {}, voldown_pressed ? {}, voldown_released ? {}, volup_pressed ? {}, volup_released ? {} }@args:
   if trigger != null then [
-    (doExec trigger (friendlyToBonsai (builtins.removeAttrs args ["trigger"])))
+    (doExec trigger (friendlyToBonsai (removeAttrs args ["trigger"])))
   ] else let
     events = [ ]
-      ++ (lib.optional (timeout != {})          (onDelay (timeout.ms or 400) (friendlyToBonsai (builtins.removeAttrs timeout ["ms"]))))
+      ++ (lib.optional (timeout != {})          (onDelay (timeout.ms or 400) (friendlyToBonsai (removeAttrs timeout ["ms"]))))
       ++ (lib.optional (power_pressed != {})    (onEvent "power_pressed" (friendlyToBonsai power_pressed)))
       ++ (lib.optional (power_released != {})   (onEvent "power_released" (friendlyToBonsai power_released)))
       ++ (lib.optional (voldown_pressed != {})  (onEvent "voldown_pressed" (friendlyToBonsai voldown_pressed)))
@@ -39,7 +39,7 @@ let
   # ${holdTimes[N]}: how long to wait after the N'th event before firing the event again.
   #   if the holdTimes list has fewer items than `maxHolds`, then the list is extended by duplicating its last item.
   recurseHold = button: { count ? 1, maxHolds ? 8, holdTimes ? [ 500 2500 ] }@opts: {
-    trigger = "${button}_hold_${builtins.toString count}";
+    trigger = "${button}_hold_${toString count}";
     ms = builtins.elemAt holdTimes (count - 1);
   } // lib.optionalAttrs (count < maxHolds) {
     timeout = recurseHold button (opts // { count = count+1; holdTimes = holdTimes ++ [(lib.last holdTimes)]; });
@@ -124,7 +124,7 @@ in
 
   # TODO: duplicated sandboxing here is just ugly
   sane.programs.bonsai.sandbox = lib.mkIf cfg.enabled (
-    builtins.removeAttrs cfg.sandbox [ "method" ]  #< else infinite recursion
+    removeAttrs cfg.sandbox [ "method" ]  #< else infinite recursion
   );
   sane.programs.bonsai.config.transitions = lib.mkIf cfg.enabled (friendlyToBonsai {
     # map sequences of "events" to an argument to pass to sane-input-handler

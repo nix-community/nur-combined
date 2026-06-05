@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p inetutils -p miniupnpc -p python3 -p sane-scripts.lib.ssdp
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../../integrations/nix-shell --arg f 'ps: [ ps.inetutils ps.miniupnpc ps.python3 ps.sane-scripts.lib.ssdp ]'
 # vim: set filetype=python :
 
 USAGE = '''
@@ -23,7 +23,12 @@ import logging
 import subprocess
 import sys
 
+from dataclasses import dataclass
+from typing import List, Optional, Tuple
+
 from sane_ssdp import get_any_wan, forward_port
+
+logger = logging.getLogger(__name__)
 
 class Usage(Exception):
     def __init__(self, msg: str = None):
@@ -35,14 +40,24 @@ class Usage(Exception):
             super().__init__(helpstr)
             self.exit_ = 0
 
-def try_parse_port(s: str):
+@dataclass
+class PortForward:
+    proto: str  # udp or tcp
+    port: int
+    external_port: int  # usually same as `port`
+    description: str
+
+def try_parse_port(s: str) -> Optional[PortForward]:
     """
-    `udp:53` -> ["udp", 53, ""]
-    `tcp:65535:my description` -> ["tcp", 65535, "my description"]
+    `udp:53` -> ["udp", 53, 53, ""]
+    `tcp:65535:my description` -> ["tcp", 65535, 65535, "my description"]
+    `tcp:65535:1234:my description` -> ["tcp", 65535, 1234, "my description"]
+
+    try to be tolerant of the description field including colons.
     """
     s = s.strip()
 
-    def split_at_colon(s_: str):
+    def split_at_colon(s_: str) -> Tuple[str, str]:
         next_colon = s_.find(":")
         return s_[:next_colon], s_[next_colon+1:]
 
@@ -50,20 +65,27 @@ def try_parse_port(s: str):
     proto, rest = split_at_colon(s)
 
     if ":" in rest:
-        portstr, desc = split_at_colon(rest)
+        portstr, rest = split_at_colon(rest)
     else:
         portstr = rest
-        desc = ""
+        rest = ""
+
+    if ":" in rest and all(c in "0123456789" for c in rest[:rest.find(":")]):
+        external_portstr, rest = split_at_colon(rest)
+    else:
+        external_portstr = ""
+
+    desc = rest
 
     try:
-        proto, port = proto.lower(), int(portstr)
+        proto, port, external_port = proto.lower(), int(portstr), int(external_portstr or portstr)
         assert proto in ["tcp", "udp"]
         assert 0 < port < 65536
-        return proto, port, desc
+        return PortForward(proto=proto, port=port, external_port=external_port, description=desc)
     except Exception:
         pass
 
-def parse_args(argv: "List[str]") -> "List[('udp'|'tcp', port: int, description: str)]":
+def parse_args(argv: List[str]) -> List[PortForward]:
     """
     returns (list of forwards, lease duration)
     where:
@@ -102,6 +124,8 @@ if __name__ == '__main__':
         print(e)
         sys.exit(e.exit_)
 
+    logger.debug("ports to forward: %r", forwards)
+
     root_device, lan, _wan = get_any_wan(cached=True)
-    for (proto, port, reason) in forwards:
-        forward_port(root_device, proto, port, lan_ip=lan, reason=reason, duration=duration)
+    for f in forwards:
+        forward_port(root_device, f.proto, f.port, f.external_port, lan_ip=lan, reason=f.description, duration=duration)

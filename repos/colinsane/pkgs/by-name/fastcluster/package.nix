@@ -21,8 +21,8 @@
     python3.pkgs.setuptoolsBuildHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    numpy
+  propagatedBuildInputs = [
+    python3.pkgs.numpy
   ];
 
   nativeCheckInputs = [
@@ -36,9 +36,9 @@
   doCheck = true;
   strictDeps = true;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://danifold.net/fastcluster.html";
     description = "fast hierarchical clustering routines for R and Python";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

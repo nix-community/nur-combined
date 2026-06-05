@@ -22,9 +22,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     python3.pkgs.pypaInstallHook
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    requests
-    lxml
+  propagatedBuildInputs = [
+    python3.pkgs.requests
+    python3.pkgs.lxml
   ];
 
   nativeCheckInputs = [

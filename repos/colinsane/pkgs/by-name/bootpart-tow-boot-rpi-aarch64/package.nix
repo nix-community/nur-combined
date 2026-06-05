@@ -1,6 +1,11 @@
-{ stdenv, tow-boot-rpi4, raspberrypifw, raspberrypi-armstubs }:
+{
+  raspberrypi-armstubs,
+  raspberrypifw,
+  stdenv,
+  tow-boot-rpi4,
+}:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "bootpart-tow-boot-rpi-aarch64";
   version = "1";
 
@@ -24,7 +29,7 @@ stdenv.mkDerivation rec {
     cp -R ${raspberrypifw}/share/raspberrypi/boot/*.elf "$out"/
     cp -R ${raspberrypifw}/share/raspberrypi/boot/overlays "$out"/
     cp ${raspberrypi-armstubs}/* "$out"/
-    cp ${src} "$out"/config.txt
+    cp $src "$out"/config.txt
   '';
 
 

@@ -1,7 +1,7 @@
 # based on linyinfeng's package
 {
   buildGoModule,
-  euicc-manual,
+  # euicc-manual,
   fetchFromGitHub,
   glfw,
   gtk3,
@@ -14,23 +14,25 @@
   xorg,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "easylpac";
-  version = "0.7.8.4";
+  version = "0.8.0.3";
 
   src = fetchFromGitHub {
     owner = "creamlike1024";
     repo = "EasyLPAC";
-    rev = version;
-    sha256 = "sha256-vNXeDm2LH5b/upZR1KX326+PMeXzT0fE1VNmPPNpSZU=";
+    rev = finalAttrs.version;
+    sha256 = "sha256-q76p0BqrG8opuTClYKLfmM5hdziJIrZCwQmg2NkzW/E=";
   };
   proxyVendor = true;  #< ??
-  vendorHash = "sha256-tX7abWGn1f4p+7vx2gDa5/NKg5SbWqMfHT8kbPwHK14=";
+  vendorHash = "sha256-Oo6RfltmWBBmLFWxt99VzNhO+QzmF62KtGblScEKoKc=";
 
-  postConfigure = ''
-    cp ${euicc-manual.eum_manifest} eum-registry.json
-    cp ${euicc-manual.ci_manifest} ci-registry.json
-  '';
+  # XXX: starting with 21c4a125 (2026-02-27) easylpac vendors eum-registry.json and ci-registry.json.
+  # this is likely in response to the euicc-manual changing its registry formats?
+  # postConfigure = ''
+  #   cp ${euicc-manual.eum_manifest} eum-registry.json
+  #   cp ${euicc-manual.ci_manifest} ci-registry.json
+  # '';
 
   nativeBuildInputs = [
     pkg-config
@@ -48,11 +50,11 @@ buildGoModule rec {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "lpac GUI Frontend";
     homepage = "https://github.com/creamlike1024/EasyLPAC";
     mainProgram = "EasyLPAC";
-    license = licenses.mit;
-    maintainers = with maintainers; [ colinsane yinfeng ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane yinfeng ];
   };
-}
+})

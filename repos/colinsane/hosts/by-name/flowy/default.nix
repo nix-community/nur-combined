@@ -1,9 +1,16 @@
 { lib, pkgs, ... }:
 {
   imports = [
+    ../../common
     ./fs.nix
   ];
 
+  networking.hostName = "flowy";
+  sane.cpu = lib.mkDefault "x86_64";
+
+  sane.libc = "musl";
+
+  sane.hal.intel.enable = true;
   sane.roles.client = true;
   sane.roles.pc = true;
   sane.roles.work = true;
@@ -17,10 +24,8 @@
   sane.programs.sane-private-unlock-remote.config.hosts = [ "servo" ];
 
   sane.programs.firefox.config.formFactor = "laptop";
-  sane.programs.itgmania.enableFor.user.colin = true;
+  sane.programs.itgmania.enableFor.user.colin = lib.mkDefault true;
   sane.programs.sway.enableFor.user.colin = true;
-
-  sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.services.rsync-net.enable = true;
 

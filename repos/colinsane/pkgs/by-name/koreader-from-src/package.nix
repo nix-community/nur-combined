@@ -547,7 +547,7 @@ in {
     #       i should either only overwrite the binaries which DO exist at this point,
     #       or find some other way to inject them (i can maybe just put them on KOreader's PATH?).
     ${symlinkThirdpartyBins "$out/lib/koreader"}
-    ${lib.concatStringsSep "\n" (builtins.map (dep: ''
+    ${lib.concatStringsSep "\n" (map (dep: ''
         if [ -e "${lib.getLib dep}/lib" ]; then
           addAutoPatchelfSearchPath "${lib.getLib dep}/lib"
         fi
@@ -567,13 +567,13 @@ in {
     updateWithSuper = false;  # XXX: `update` doesn't update everything -- just the toplevel version/hash -- so disable unless i start using the package more
   };
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/koreader/koreader";
     description =
       "An ebook reader application supporting PDF, DjVu, EPUB, FB2 and many more formats, running on Cervantes, Kindle, Kobo, PocketBook and Android devices";
-    sourceProvenance = with sourceTypes; [ fromSource ];
-    platforms = platforms.linux;
-    license = licenses.agpl3Only;
-    maintainers = with maintainers; [ colinsane ];
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    platforms = lib.platforms.linux;
+    license = [ lib.licenses.agpl3Only ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

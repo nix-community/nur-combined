@@ -1,13 +1,8 @@
 final: prev:
-with final;
 let
-  inherit (stdenv.hostPlatform) hasSharedLibraries;
+  inherit (final.stdenv.hostPlatform) hasSharedLibraries;
 in
 {
-  # glibcLocales is null on musl, but some packages still refer to it.
-  # is this sensible? idk.
-  glibcLocales = final.pkgsCross.gnu64.glibcLocales;
-
   # nixpkgs' gobject-introspection has all `isStatic` platforms as badPlatforms,
   # but hopefully it's just `hasSharedLibraries == false` that's broken (untested)
   # gobject-introspection = prev.gobject-introspection.overrideAttrs (upstream: {

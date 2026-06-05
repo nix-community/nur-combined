@@ -10,7 +10,6 @@
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "pa-dlna";
   version = "0.7";
-  format = "pyproject";
 
   src = fetchFromGitLab {
     owner = "xdegaye";
@@ -32,8 +31,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     python3.pkgs.wrapPython
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
-    psutil
+  propagatedBuildInputs = [
+    python3.pkgs.psutil
     # `pa-dlna` shells out to `pa-rec` at runtime.
     pulseaudio
     # optional runtime binaries in case the DLNA renderer does not support PCM L16:
@@ -55,11 +54,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   doCheck = true;
   strictDeps = true;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://pa-dlna.readthedocs.io/en/stable/";
     description = "An UPnP control point forwarding PulseAudio streams to DLNA devices";
     mainProgram = "pa-dlna";
-    license = licenses.mit;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

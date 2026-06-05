@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i python3 -p hostname-debian -p iw -p python3 -p wirelesstools
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.hostname-debian ps.iw ps.python3 ps.wirelesstools ]'
 # vim: set filetype=python :
 
 # common operations:

@@ -1,6 +1,9 @@
-{ lib, stdenv, fetchurl }:
+{
+  fetchurl,
+  stdenv,
+}:
 
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "tow-boot-rpi4";
   version = "2021.10-004";
 
@@ -11,7 +14,7 @@ stdenv.mkDerivation rec {
 
   unpackPhase = ''
     mkdir -p src
-    tar -xf ${src} -C src
+    tar -xf $src -C src
   '';
 
   installPhase = ''
@@ -21,10 +24,9 @@ stdenv.mkDerivation rec {
   '';
 
 
-  meta = with lib; {
+  meta = {
     description = "An opinionated distribution of U-Boot";
     homepage = "https://tow-boot.org/";
     platforms = [ "aarch64-linux" ];
   };
 }
-

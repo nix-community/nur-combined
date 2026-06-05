@@ -52,9 +52,9 @@
 
   passthru.updateScript = gitUpdater { };
 
-  meta = with lib; {
+  meta = {
     homepage = "https://doc2dash.hynek.me/";
     description = "Create docsets for Dash.app-compatible API browsers";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

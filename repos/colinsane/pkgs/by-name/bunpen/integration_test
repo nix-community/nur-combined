@@ -10,6 +10,7 @@ SELF=$(realpath $0)
 # we can't rely on /usr/bin/env existing in the nix build environment
 bunpen=$(which bunpen)
 env=$(which env)
+ls=$(which ls)
 test=$(which test)
 
 die() {
@@ -105,29 +106,45 @@ test_05_keep_02_path_no_extra_in_sandbox() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store "$test" ! -f test_file0
 }
 
-test_05_keep_03_path_added_to_sandbox() {
+test_05_keep_03_path_added_to_sandbox_abs() {
+  touch test_file0
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path "$PWD/test_file0" "$test" -f "$PWD/test_file0"
+}
+
+test_05_keep_04_path_added_to_sandbox_rel_access() {
+  touch test_file0
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path "$PWD/test_file0" "$test" -f ./test_file0
+}
+
+test_05_keep_05_path_added_to_sandbox_rel() {
+  touch test_file0
+  bunpen --bunpen-path "$ls" --bunpen-path /nix/store --bunpen-path . "$ls"
+  bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path ./test_file0 "$test" -f ./test_file0
+}
+
+test_05_keep_06_path_added_to_sandbox_implicitly_relative() {
   touch test_file0
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_file0 "$test" -f test_file0
 }
 
-test_06_keep_04_path_handles_non_existent() {
+test_06_keep_07_path_handles_non_existent() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_file0 "$test" ! -f test_file0
 }
 
-test_06_keep_05_path_absolute() {
+test_06_keep_08_path_absolute() {
   touch test_file0
   local p=$(realpath test_file0)
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path "$p" "$test" -f "$p"
 }
 
-test_06_keep_06_path_home() {
+test_06_keep_09_path_home() {
   mkdir test_dir0
   touch test_dir0/test_file0
   export HOME=$PWD/test_dir0
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path '$HOME/test_file0' "$test" -f "$HOME/test_file0"
 }
 
-test_06_keep_07_path_xdg_runtime_dir() {
+test_06_keep_10_path_xdg_runtime_dir() {
   mkdir test_dir0
   touch test_dir0/test_file0
   mkdir test_dir1
@@ -137,14 +154,14 @@ test_06_keep_07_path_xdg_runtime_dir() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path '$XDG_RUNTIME_DIR/test_file1' "$test" -f "$XDG_RUNTIME_DIR/test_file1"
 }
 
-test_06_keep_08_path_symlink_1_layer() {
+test_06_keep_11_path_symlink_1_layer() {
   touch test_file0
   ln -s test_file0 test_symlink0
   touch test_file1
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_symlink0 "$test" -f test_file0 -a -f test_symlink0 -a ! -f test_file1
 }
 
-test_06_keep_09_path_symlink_2_layers() {
+test_06_keep_12_path_symlink_2_layers() {
   touch test_file0
   ln -s test_file0 test_symlink0
   ln -s test_symlink0 test_symlink1
@@ -152,7 +169,7 @@ test_06_keep_09_path_symlink_2_layers() {
   bunpen --bunpen-path "$test" --bunpen-path /nix/store --bunpen-path test_symlink1 "$test" -f test_file0 -a -f test_symlink1 -a -f test_symlink0 -a ! -f test_file1
 }
 
-test_06_keep_10_net() {
+test_06_keep_13_net() {
   # new namespaces get a loopback device, however bunpen doesn't auto-up the loopback.
   # most containers (e.g. nix build environment) do up the lo.
   # it wouldn't necessarily be _bad_ if bunpen changed behavior here,
@@ -162,7 +179,7 @@ test_06_keep_10_net() {
   test -z "$(bunpen --bunpen-path / ip link show lo up)"
 }
 
-test_06_keep_11_pid() {
+test_06_keep_14_pid() {
   set -x
   local me=$$
   # /proc should be auto-mounted if not keeping PIDs; exterior PID is invisible
@@ -182,7 +199,7 @@ test_06_keep_11_pid() {
   ! bunpen --bunpen-path /nix/store --bunpen-path /proc "$test" -e /proc/$me
 }
 
-test_06_keep_12_pid_nested() {
+test_06_keep_15_pid_nested() {
   set -x
   bunpen --bunpen-path /nix/store --bunpen-path "$bunpen" --bunpen-seal \
     "$bunpen" --bunpen-path /nix/store "$test" -e /proc/self
@@ -290,7 +307,26 @@ dbus_daemon_setup() {
   dbus-daemon --address="$DBUS_SESSION_BUS_ADDRESS" --config-file $PWD/test/dbus-session.conf --fork
 }
 
-test_11_dbus_01_whitelisted_by_path() {
+test_11_dbus_01_test_setup_sanity() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo &
+  sleep 1 # wait for readiness
+
+  # smoke test our dbus environment & make sure busctl is behaving the way subsequent tests expect
+  busctl --user list
+  busctl --user list | egrep '^com\.example\.Echo '
+
+  # make sure the service is visible
+  busctl --user status com.example.Echo
+  ! busctl --user status com.example.NoExist
+
+  # try calling a method
+  busctl --user call com.example.Echo / com.example.Echo echo s "hello"
+  # call a non-existent service
+  ! busctl --user call com.example.NoExist / com.example.Echo echo s "hello"
+}
+
+test_11_dbus_02_whitelisted_by_path() {
   dbus_daemon_setup
 
   # busctl exits clean if it can reach the bus
@@ -300,7 +336,7 @@ test_11_dbus_01_whitelisted_by_path() {
     bunpen --bunpen-path /nix/store --bunpen-path $PWD busctl --user list
 }
 
-test_11_dbus_02_doesnt_bridge_bus_by_default() {
+test_11_dbus_03_doesnt_bridge_bus_by_default() {
   dbus_daemon_setup
 
   ! bunpen --bunpen-path /nix/store busctl --user list
@@ -308,12 +344,12 @@ test_11_dbus_02_doesnt_bridge_bus_by_default() {
   busctl --user list
 }
 
-test_11_dbus_03_doesnt_spawn_bus() {
+test_11_dbus_04_doesnt_spawn_bus() {
   export DBUS_SESSION_BUS_ADDRESS=unix:path=$PWD/dbus/bus
   ! bunpen --bunpen-path /nix/store --bunpen-path $PWD busctl --user list
 }
 
-test_11_dbus_04_proxy_nonexistent() {
+test_11_dbus_05_proxy_nonexistent() {
   dbus_daemon_setup
 
   # parameters *have* to be "valid" dbus names, i.e. a-z with dot separators, at least multiple components.
@@ -323,7 +359,7 @@ test_11_dbus_04_proxy_nonexistent() {
   bunpen --bunpen-path /nix/store --bunpen-dbus-call 'does.not.exist=*' --bunpen-dbus-own 'also.not.exist' busctl --user list
 }
 
-test_11_dbus_05_proxy_bypass() {
+test_11_dbus_06_proxy_bypass() {
   dbus_daemon_setup
   dbus-test-tool echo --name=com.example.Echo &
   sleep 1 # wait for readiness
@@ -332,21 +368,57 @@ test_11_dbus_05_proxy_bypass() {
   bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-call 'does.not.exist=*' busctl --user list
   bunpen --bunpen-path /nix/store --bunpen-path $PWD --bunpen-dbus-call 'does.not.exist=*' busctl --user list
 
+  bunpen --bunpen-path /nix/store --bunpen-path $PWD --bunpen-dbus-call 'does.not.exist=*' busctl --user list | egrep '^com\.example\.Echo '
+
+  # make sure the service is visible. XXX(2026-02-27): `busctl status` requires `--bunpen-keep-pid`.
+  bunpen --bunpen-keep-pid --bunpen-path /nix/store --bunpen-path $PWD/dbus/bus --bunpen-dbus-call 'does.not.exist=*' busctl --user status com.example.Echo
+
   # try calling a method
   bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-call 'does.not.exist=*' busctl --user call com.example.Echo / com.example.Echo echo s "hello"
   # call a non-existent service
   ! bunpen --bunpen-path /nix/store --bunpen-path $PWD/dbus --bunpen-dbus-call 'does.not.exist=*' busctl --user call com.example.NoExist / com.example.Echo echo s "hello"
 }
 
-test_11_dbus_06_proxy_call() {
+test_11_dbus_07_proxy_status_trivial() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo &
+  sleep 1 # wait for readiness
+
+  # make sure the service is visible. XXX(2026-02-27): `busctl status` requires `--bunpen-keep-pid`.
+  bunpen --bunpen-keep-pid --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo=*' busctl --user status com.example.Echo
+
+  # the service shouldn't be visible if we aren't proxying it
+  ! bunpen --bunpen-keep-pid --bunpen-path /nix/store --bunpen-dbus-call 'does.not.exist=*' busctl --user status com.example.Echo
+}
+
+test_11_dbus_08_proxy_list_trivial() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo &
+  sleep 1 # wait for readiness
+
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'does.not.exist=*' busctl --user list | egrep --invert-match '^com.example.Echo '
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo=*' busctl --user list | egrep '^com.example.Echo '
+}
+
+
+test_11_dbus_09_proxy_call_trivial() {
+  dbus_daemon_setup
+  dbus-test-tool echo --name=com.example.Echo &
+  sleep 1 # wait for readiness
+
+  # call a real method
+  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo=*' busctl --user call com.example.Echo / com.example.Echo echo s "hello"
+  # call a non-existent service
+  ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo=*' busctl --user call com.example.NoExist / com.example.Echo echo s "hello"
+}
+
+test_11_dbus_10_proxy_call() {
   dbus_daemon_setup
   dbus-test-tool echo --name=com.example.Echo1 &
   dbus-test-tool echo --name=com.example.Echo2 &
   dbus-test-tool echo --name=com.example.Echo3 &
   sleep 1 # wait for readiness
 
-  # make sure the service is visible
-  bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user status com.example.Echo1
   # call a method on the service. the echo service will reply, but with an empty message
   bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
   bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.Echo2 / com.example.Echo2 echo s "hello"
@@ -358,7 +430,7 @@ test_11_dbus_06_proxy_call() {
   ! bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=*' --bunpen-dbus-call 'com.example.Echo2=*' busctl --user call com.example.NoExist / com.example.Echo1 echo s "hello"
 }
 
-test_11_dbus_07_proxy_call_detail() {
+test_11_dbus_11_proxy_call_detail() {
   dbus_daemon_setup
   dbus-test-tool echo --name=com.example.Echo1 &
   sleep 1 # wait for readiness
@@ -375,14 +447,14 @@ test_11_dbus_07_proxy_call_detail() {
   bunpen --bunpen-path /nix/store --bunpen-dbus-call 'com.example.Echo1=example.Interface.echo@/object/*' busctl --user call com.example.Echo1 /object/path example.Interface echo s "hello"
 }
 
-test_11_dbus_08_proxy_own() {
+test_11_dbus_12_proxy_own() {
   dbus_daemon_setup
 
   bunpen --bunpen-path /nix/store --bunpen-dbus-own 'com.example.Echo1' --bunpen-dbus-own 'com.example.Echo2' dbus-test-tool echo --name="com.example.Echo1" &
   sleep 1  # wait for readiness
 
-  busctl --user list | grep com.example.Echo1
-  # busctl --user status com.example.Echo1  # TODO: fails for some reason... maybe because it can't figure out the PID/username to show?
+  busctl --user list | egrep '^com\.example\.Echo1 '
+  busctl --user status com.example.Echo1
   busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
 
   # not allowed to own call-only addresses
@@ -393,7 +465,7 @@ test_11_dbus_08_proxy_own() {
   ! bunpen --bunpen-path /nix/store dbus-test-tool echo --name="com.example.Echo1"
 }
 
-test_11_dbus_09_proxy_partial_sandbox() {
+test_11_dbus_13_proxy_partial_sandbox() {
   dbus_daemon_setup
   dbus-test-tool echo --name=com.example.Echo1 &
   sleep 1 # wait for readiness
@@ -409,7 +481,7 @@ test_11_dbus_09_proxy_partial_sandbox() {
   bunpen --bunpen-path /nix/store --bunpen-path /proc --bunpen-dbus-call 'com.example.Echo1=*' busctl --user call com.example.Echo1 / com.example.Echo1 echo s "hello"
 }
 
-TODO_DISABLED_test_11_dbus_10_proxy_nested_call() {
+TODO_DISABLED_test_11_dbus_14_proxy_nested_call() {
   dbus_daemon_setup
   dbus-test-tool echo --name=com.example.Echo1 &
   sleep 1 # wait for readiness

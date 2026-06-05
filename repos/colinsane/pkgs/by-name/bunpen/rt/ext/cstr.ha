@@ -1,4 +1,5 @@
 // vim: set shiftwidth=2 :
+use errors::ext;
 use strings;
 use types;
 use types::c;
@@ -20,8 +21,10 @@ fn make_cstr(scratch: []c::char, s: str) *c::char = {
         return data: *c::char;
     };
   };
-  // XXX: will `abort` if the string is larger than the buffer!
-  return c::fromstr_buf(s, scratch);
+  return match (c::fromstr_buf(s, scratch)) {
+    case let b: *c::char => yield b;
+    case nomem => errors::ext::fatal("make_cstr", nomem, "{}", s);
+  };
 };
 
 @test fn make_cstr_empty() void = {
@@ -39,7 +42,7 @@ fn make_cstr(scratch: []c::char, s: str) *c::char = {
 };
 
 @test fn make_cstr_dynamic_no_room() void = {
-  let my_str = strings::dup("abcdefgh");  //< `dup` returns a string with `length` == `capacity`
+  let my_str = errors::ext::check_str("[cstr/tests]", strings::dup("abcdefgh"));  //< `dup` returns a string with `length` == `capacity`
   defer free(my_str);
   let buf: [4095]c::char = [0...];
   let ptr = make_cstr(&buf, my_str): *[*]c::char;
@@ -49,7 +52,7 @@ fn make_cstr(scratch: []c::char, s: str) *c::char = {
 };
 
 @test fn make_cstr_dynamic_has_room() void = {
-  let my_str = strings::dup("abcdefghi");
+  let my_str = errors::ext::check_str("[cstr/tests]", strings::dup("abcdefghi"));
   defer free(my_str);
   let buf: [4095]c::char = [0...];
   let ptr = make_cstr(&buf, strings::sub(my_str, 0, 8)): *[*]c::char;

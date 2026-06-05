@@ -270,8 +270,9 @@ fn bind_component(ctx: *ns_ctx, strpath: str, remaining: str) (void | fs::error 
     };
 
     // TODO: tune options (optional parameter; default is fs::flag::TRUNC)
-    log::printfln("[namespace/bind] touch new/{}", strpath);
-    fs::create(ctx.new_fs, strpath, st.mode)?;
+    let mode = fs::mode_perm(st.mode);
+    log::printfln("[namespace/bind] touch new/{} mode={}", strpath, mode: u64);
+    fs::create(ctx.new_fs, strpath, mode)?;
   };
 
   if (remaining != "")

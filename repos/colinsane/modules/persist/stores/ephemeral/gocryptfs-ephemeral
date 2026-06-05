@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p coreutils-full -p gocryptfs
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.coreutils-full ps.gocryptfs ]'
 
 # mount invokes us like this. not sure if that's a guarantee or not:
 # <exe> <device> <mountpt> -o <flags>

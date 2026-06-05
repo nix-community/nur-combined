@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i ysh -p oils-for-unix -p rsync -p sane-scripts.sync-from-iphone -p sane-scripts.sync-music
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i ysh ../integrations/nix-shell --arg f 'ps: [ ps.oils-for-unix ps.rsync ps.sane-scripts.sync-from-iphone ps.sane-scripts.sync-music ]'
 
 # mutated by `main`
 var DRY_RUN = false
@@ -145,6 +145,8 @@ proc sync_books (; host, passthruArgs) {
       ifExists /mnt/servo/media/Books/Audiobooks \
         effect rsync @verb -ar --delete /mnt/servo/media/Books/Audiobooks/ "$mobyHome/Books/Audiobooks/"
       # copy books from servo to moby; delete old/untracked ones, but keep KOreader state files (sdr)
+      ifExists /mnt/servo/media/Books/Articles \
+        effect rsync @verb -ar --delete --exclude '*.sdr' /mnt/servo/media/Books/Articles/ "$mobyHome/Books/Articles/"
       ifExists /mnt/servo/media/Books/Books \
         effect rsync @verb -ar --delete --exclude '*.sdr' /mnt/servo/media/Books/Books/ "$mobyHome/Books/Books/"
       ifExists /mnt/servo/media/Books/Visual \

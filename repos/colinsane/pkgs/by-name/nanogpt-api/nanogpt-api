@@ -1,0 +1,393 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.pydantic ps.python3.pkgs.pygobject3 ps.python3.pkgs.requests ]'
+
+# API docs: <https://docs.nano-gpt.com/api-reference>
+
+import argparse
+import json
+import logging
+import os
+import requests
+
+from gi.repository import GLib
+from pydantic import BaseModel
+
+from enum import Enum
+from typing import Any, Optional
+
+logger = logging.getLogger(__name__)
+
+class ModelArchitecture(BaseModel):
+  input_modalities: list[str]  # audio/image/text/video
+  # modality: str  # e.g. "text->text"
+  # output_modalities: list[str]  # audio/image/text/video
+
+class ModelCapabilities(BaseModel):
+  reasoning: bool
+  # audio_input: bool
+  # parallel_tool_calls: bool
+  # pdf_upload: bool
+  # structured_output: bool
+  # tool_calling: bool
+  # video_input: bool
+  # vision: bool
+
+class ModelPricing(BaseModel):
+  cacheReadInputPer1kTokens: Optional[float] = None
+  completion: Optional[float] = None
+  currency: str  # e.g. `USD`
+  prompt: Optional[float] = None
+  unit: str  # e.g. `per_million_tokens`
+
+class Model(BaseModel):
+  id: str
+  name: str
+  pricing: Optional[ModelPricing] = None
+  context_length: Optional[int] = None
+  max_output_tokens: Optional[int] = None
+  capabilities: Optional[ModelCapabilities] = None
+  architecture: Optional[ModelArchitecture] = None
+  # api
+  # compat
+  # cost_estimate
+  # created
+  # description
+  # icon_url
+  # owned_by
+  # providers
+  # subscription
+  # thinkingLevelMap
+
+class Ticker(Enum):
+  BTC = "BTC" # Bitcoin  BTCPay
+  BTC_LN = "BTC-LN" # Bitcoin Lightning  BTCPay
+  LTC = "LTC" # Litecoin  BTCPay
+  LTC_MWEB = "LTC-MWEB" # Litecoin MWEB  BTCPay
+  XMR = "XMR" # Monero  BTCPay
+  DOGE = "DOGE" # Dogecoin  BTCPay
+  DASH = "DASH" # Dash  BTCPay
+  ZEC = "ZEC" # Zcash  BTCPay
+  BCH = "BCH" # Bitcoin Cash  Prompt.Cash
+  BAN = "BAN" # Banano  Nanswap (legacy)
+  KAS = "KAS" # Kaspa  Nanswap
+  TON = "TON" # Toncoin  Nanswap
+  NEAR = "NEAR" # NEAR Protocol  Nanswap
+  EGLD = "EGLD" # MultiversX  Nanswap
+  VVV = "VVV" # VVV  Nanswap
+  ZANO = "ZANO" # Zano  Zano proxy
+  FUSD = "FUSD" # Freedom Dollar  Zano proxy
+
+class TransactionCreateResponse(BaseModel):
+  txId: str
+  amount: float
+  status: str  # e.g. "New"
+  createdAt: str  # e.g. "2026-05-15T01:00:00.000Z"
+  paidAmountCrypto: int  # or float?
+  address: str
+  remainingTime: int
+  expiration: int
+  paymentLink: str  # e.g. "lightning:lnbc1..."
+
+
+class ApiClient:
+  API_BASE = "https://nano-gpt.com/api/"
+
+  def __init__(self) -> None:
+    self.api_key = None
+    if api_key := os.environ.get("NANOGPT_API_KEY"):
+      self.api_key = api_key
+    else:
+      try:
+        f = open(os.path.join(GLib.get_user_config_dir(), "nanogpt/nanogpt_api_key"))
+      except FileNotFoundError:
+        pass
+      else:
+        with f:
+          self.api_key = f.read().strip()
+
+  @property
+  def auth_headers(self) -> dict[str, str]:
+    if api_key := self.api_key:
+      return {"Authorization": f"Bearer {api_key}"}
+    else:
+      return {}
+
+  def handle_response(self, resp: requests.Response) -> Any:
+    resp_json = resp.json()
+    logger.debug(f'-> {resp_json}')
+    resp.raise_for_status()
+    return resp_json
+
+  def get(self, endpoint: str) -> Any:
+    resp = requests.get(f"{self.API_BASE}{endpoint}")
+    return self.handle_response(resp)
+
+  def post(self, endpoint: str, json: Any = None) -> Any:
+    logger.debug(f'HTTP payload: {json}')
+    resp = requests.post(f"{self.API_BASE}{endpoint}", headers=self.auth_headers, json=json)
+    return self.handle_response(resp)
+
+  def models(self) -> Any:
+    # <https://docs.nano-gpt.com/api-reference/endpoint/models>
+    return self.get('v1/models?detailed=true')
+
+  def check_balance(self) -> Any:
+    # <https://docs.nano-gpt.com/api-reference/endpoint/check-balance>
+    return self.post('check-balance')
+
+  def search(self, query: str) -> Any:
+    # <https://docs.nano-gpt.com/api-reference/endpoint/web-search>
+    # TODO: more arguments are supported
+    return self.post('web', json={"query": query})
+
+  def create_transaction(self, ticker: Ticker, amount: float) -> Any:
+    # <https://docs.nano-gpt.com/api-reference/endpoint/crypto-deposits>
+    return self.post(f'transaction/create/{ticker.value}', json={"amount": amount})
+
+
+class FsStore:
+  def __init__(self, base_dir: str) -> None:
+    self.base_dir = base_dir
+
+  def path_for(self, key: str) -> str:
+    return os.path.join(self.base_dir, key)
+
+  def get(self, key: str) -> Optional[Any]:
+    try:
+      f = open(self.path_for(key))
+    except FileNotFoundError:
+      pass
+    else:
+      with f:
+        return json.load(f)
+
+  # def put(self, key: str, value: object) -> None:
+  #   path = self.path_for(key)
+  #   os.makedirs(os.path.dirname(path), exist_ok=True)
+  #   with open(path, "w") as f:
+  #     json.dump(value, f, indent=2)
+
+class Client:
+  """
+  Wraps an ApiClient into a strongly-typed interface,
+  and fulfills requests via fs reads where possible.
+  """
+  def __init__(self, fs_store: Optional[str] = None) -> None:
+    self.client = ApiClient()
+    self.fs_store = FsStore(fs_store) if fs_store is not None else None
+
+  def _models(self) -> list[dict]:
+    if self.fs_store:
+      if obj := self.fs_store.get("models.json"):
+        return obj
+
+    return self.client.models()['data']
+
+  def balance(self) -> dict[str, object]:
+    # TODO: type this strongly
+    return dict(**self.client.check_balance())
+
+  def fund(self, amount: float, ticker: Ticker) -> TransactionCreateResponse:
+    return TransactionCreateResponse(**self.client.create_transaction(
+      ticker=ticker,
+      amount=amount,
+    ))
+
+  def models(self) -> list[Model]:
+    return [Model(**m) for m in self._models()]
+
+  def search(self, query: str) -> dict[str, str]:
+    # TODO: type this strongly
+    return self.client.search(query)["data"]
+
+
+def generate_crush(nanogpt_models: list[Model]) -> dict[str, object]:
+  models = []
+  for nm in nanogpt_models:
+    model: dict[str, object] = {
+      "id": nm.id,
+      "name": nm.name,
+    }
+
+    if pricing := nm.pricing:
+      if pricing.unit == "per_million_tokens":
+        if prompt := pricing.prompt:
+          model["cost_per_1m_in"] = round(prompt, 5)
+        if completion := pricing.completion:
+          model["cost_per_1m_out"] = round(completion, 5)
+        if cache_read := pricing.cacheReadInputPer1kTokens:
+          model["cost_per_1m_in_cached"] = round(cache_read * 1000, 5)
+
+    # model["cost_per_1m_out_cached"] = no way to map
+
+    if context := nm.context_length:
+      # not all models have context, e.g. `brave` (augmented web search)
+      model["context_window"] = context
+
+    if max_out := nm.max_output_tokens:
+      # i'm only guessing that these fields are equivalent
+      model["default_max_tokens"] = max_out
+
+    if caps := nm.capabilities:
+      model["can_reason"] = caps.reasoning
+
+    # model["reasoning_levels"] = no way to map
+    # model["default_reasoning_effort"] = no way to map
+    # model["supports_attachments"] = no way to map (or maybe `capabilities.pdf_upload`?)
+
+    models.append(model)
+
+  return {
+    "nano-gpt": {
+      "name": "NanoGPT",
+      "id": "nano-gpt",
+      "api_key": "$NANOGPT_API_KEY",
+      "base_url": "https://nano-gpt.com/v1",
+      "type": "openai",
+      "models": models,
+    }
+  }
+
+def generate_pi(nanogpt_models: list[Model]) -> dict[str, object]:
+  # schema: <https://pi.dev/docs/latest/models#model-configuration>
+  models = []
+  for nm in nanogpt_models:
+    model: dict[str, object] = {
+      "id": nm.id,
+      "name": nm.name,
+    }
+
+    if pricing := nm.pricing:
+      if pricing.unit == "per_million_tokens":
+        model["cost"] = {
+          # if `cost` is set, then pi needs *all* costs to be set
+          "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0
+        }
+        if prompt := pricing.prompt:
+          model["cost"]["input"] = round(prompt, 5)
+        if completion := pricing.completion:
+          model["cost"]["output"] = round(completion, 5)
+        if cache_read := pricing.cacheReadInputPer1kTokens:
+          model["cost"]["cacheRead"] = round(cache_read * 1000, 5)
+
+    # model["cost"]["cacheWrite"] = no way to map
+
+    if context := nm.context_length:
+      model["contextWindow"] = context
+
+    if max_out := nm.max_output_tokens:
+      model["maxTokens"] = max_out
+
+    if caps := nm.capabilities:
+      model["reasoning"] = caps.reasoning
+
+    if nm_arch := nm.architecture:
+      nm_modes = nm_arch.input_modalities
+      model["input"] = []
+      if "text" in nm_modes:
+        model["input"].append("text")
+      if "image" in nm_modes:
+        model["input"].append("image")
+      # pi supports only image/text
+      # nanogpt is seen to return audio/image/text/video
+
+    # model["thinkingLevelMap"] = no way to map
+    # model["api"] = intentionally omitted
+    # model["compat"] = intentionally omitted
+
+    models.append(model)
+
+  return {
+    "providers": {
+      "nano-gpt": {
+        "baseUrl": "https://nano-gpt.com/v1",
+        "api": "openai-completions",
+        "apiKey": "$NANOGPT_API_KEY",
+        "models": models,
+      }
+    }
+  }
+
+def show_balance(client: Client) -> None:
+  print(json.dumps(client.balance(), indent=2))
+
+def show_crush_providers(client: Client) -> None:
+  print(json.dumps(generate_crush(client.models()), indent=2))
+
+def show_models(client: Client) -> None:
+  print(json.dumps([m.model_dump() for m in client.models()], indent=2))
+
+def show_pi_models(client: Client) -> None:
+  print(json.dumps(generate_pi(client.models()), indent=2))
+
+def do_fund(client: Client, amount: float, lightning: bool) -> None:
+  if lightning:
+    resp = client.fund(amount, Ticker.BTC_LN)
+    print(f"pay {resp.amount} btc to {resp.address}")
+    # TODO: automate (with y/n)
+    print(f"  lightning-cli pay {resp.paymentLink}")
+  else:
+    resp = client.fund(amount, Ticker.BTC)
+    print(f"pay {resp.amount} btc to {resp.address}")
+    # TODO: automate (with y/n)
+    print(f"  lightning-cli withdraw {resp.address} {resp.amount}btc")
+    print(f"  # or: lightning-cli withdraw {resp.address} {resp.amount}btc urgent")
+
+def do_search(client: Client, query: str) -> None:
+  print(json.dumps(client.search(query), indent=2))
+
+def main():
+  logging.basicConfig()
+  logging.getLogger().setLevel(logging.INFO)
+
+  parser = argparse.ArgumentParser(description="Query nano-gpt.com for up-to-date model pricing data")
+  parser.add_argument("--offline-store", default=None, help="Optional directory containing models.json previously fetched from the API")
+  parser.add_argument('--verbose', action='store_true')
+
+  subparsers = parser.add_subparsers(help="what to query")
+
+  balance_parser = subparsers.add_parser("balance")
+  balance_parser.set_defaults(subcommand="balance")
+
+  crush_providers_parser = subparsers.add_parser("crush-providers")
+  crush_providers_parser.set_defaults(subcommand="crush-providers")
+
+  fund_parser = subparsers.add_parser("fund")
+  fund_parser.set_defaults(subcommand="fund")
+  fund_parser.add_argument("amount", type=float, help="Amount to deposit (in BTC)")
+  fund_parser.add_argument('--lightning', action='store_true', help="Use lightning network instead of main net")
+
+  models_parser = subparsers.add_parser("models")
+  models_parser.set_defaults(subcommand="models")
+
+  search_parser = subparsers.add_parser("search")
+  search_parser.set_defaults(subcommand="search")
+  search_parser.add_argument("query", help="Search query")
+
+  pi_models_parser = subparsers.add_parser("pi-models")
+  pi_models_parser.set_defaults(subcommand="pi-models")
+
+  args = parser.parse_args()
+
+  if args.verbose:
+      logging.getLogger().setLevel(logging.DEBUG)
+
+  client = Client(args.offline_store)
+
+  if args.subcommand == "balance":
+    show_balance(client)
+  elif args.subcommand == "crush-providers":
+    show_crush_providers(client)
+  elif args.subcommand == "fund":
+    do_fund(client, args.amount, args.lightning)
+  elif args.subcommand == "models":
+    show_models(client)
+  elif args.subcommand == "search":
+    do_search(client, args.query)
+  elif args.subcommand == "pi-models":
+    show_pi_models(client)
+  else:
+    raise ValueError(f"unknown command: {args.subcommand}")
+
+if __name__ == "__main__":
+  main()

@@ -3,7 +3,12 @@ let
   sops-gpg-adapter = pkgs.static-nix-shell.mkBash {
     pname = "sops-gpg-adapter";
     srcRoot = ./.;
-    pkgs = [ "gnused" "sops" ];
+    pkgs = {
+      inherit (pkgs)
+        gnused
+        sops
+        ;
+    };
     postInstall = ''
       ln -s sops-gpg-adapter $out/bin/gpg
       ln -s sops-gpg-adapter $out/bin/gpg2

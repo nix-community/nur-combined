@@ -1,16 +1,21 @@
 { config, lib, pkgs, ... }:
 {
   boot.initrd.supportedFilesystems = [ "ext4" "btrfs" "ext2" "ext3" "vfat" ];
-  # useful emergency utils
-  boot.initrd.extraUtilsCommands = ''
-    copy_bin_and_libs ${lib.getExe' pkgs.btrfs-progs "btrfstune"}
-    copy_bin_and_libs ${lib.getExe' pkgs.e2fsprogs "resize2fs"}
-    copy_bin_and_libs ${lib.getExe' pkgs.gptfdisk "{cgdisk,gdisk}"}
-    copy_bin_and_libs ${lib.getExe' pkgs.mtools "mlabel"}
-    copy_bin_and_libs ${lib.getExe pkgs.nvme-cli}
-    copy_bin_and_libs ${lib.getExe' pkgs.smartmontools "smartctl"}
-    copy_bin_and_libs ${lib.getExe' pkgs.util-linux "{cfdisk,lsblk,lscpu}"}
-  '';
+
+  boot.initrd.systemd.emergencyAccess = true;
+  boot.initrd.systemd.extraBin = {
+    # useful emergency utils
+    btrfstune = lib.getExe' pkgs.btrfs-progs "btrfstune";
+    cfdisk = lib.getExe' pkgs.util-linux "cfdisk";
+    cgdisk = lib.getExe' pkgs.gptfdisk "cgdisk";
+    gdisk = lib.getExe' pkgs.gptfdisk "cgdisk";
+    lsblk = lib.getExe' pkgs.util-linux "lsblk";
+    lscpu = lib.getExe' pkgs.util-linux "lscpu";
+    mlable = lib.getExe' pkgs.mtools "mlabel";
+    nvme = lib.getExe pkgs.nvme-cli;
+    resize2fs = lib.getExe' pkgs.e2fsprogs "resize2fs";
+    smartctl = lib.getExe' pkgs.smartmontools "smartctl";
+  };
 
   boot.initrd.availableKernelModules = [
     # "dm_mod"
@@ -46,11 +51,48 @@
   # - as of 2024/08/xx, my boot fails on 6.6, but works on 6.9 and (probably; recently) 6.8.
   # simpler to keep near the latest kernel on all devices,
   # and also makes certain that any weird system-level bugs i see aren't likely to be stale kernel bugs.
-  boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-  # boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_testing;
+  boot.kernelPackages = let
+    base = pkgs.linux_latest;
+    # base = pkgs.linux_testing;
+    kernel =
+      # `linux.override { ... }` accepts any argument names and silently ignores unrecognized options:
+      # assert that we're naming options that are actually processed by `buildLinux`.
+      assert base.override { autoModules = true; } != base.override { autoModules = false; };
+      assert base.override { preferBuiltin = true; } != base.override { preferBuiltin = false; };
+      base.override {
+        autoModules = true;
+        preferBuiltin = false;
+      };
+  in
+    lib.mkDefault (pkgs.linuxPackagesFor kernel);
+
+  # nixpkgs.hostPlatform.linux-kernel = (lib.systems.elaborate config.nixpkgs.hostPlatform.system).linux-kernel // {
+  #   # explicitly ignore nixpkgs' extraConfig and preferBuiltin options
+  #   autoModules = true;
+  #   # build all features as modules where possible, especially because
+  #   # 1. some bootloaders fail on large payloads and this allows the kernel/initrd to be smaller.
+  #   # 2. building as module means i can override that module very cheaply as i develop.
+  #   preferBuiltin = false;
+  #   # `target` support matrix:
+  #   # Image:     aarch64:yes (nixpkgs default)       x86_64:no
+  #   # Image.gz:  aarch64:yes, if capable bootloader  x86_64:no
+  #   # zImage     aarch64:no                          x86_64:yes
+  #   # bzImage    aarch64:no                          x86_64:yes (nixpkgs default)
+  #   # vmlinux    aarch64:?                           x86_64:no?
+  #   # vmlinuz    aarch64:?                           x86_64:?
+  #   # uImage     aarch64:bootloader?                 x86_64:probably not
+  #   # # target = if system == "x86_64-linux" then "bzImage" else "Image";
+  # };
+  # # patch `buildPlatform.linux-kernel` in the same manner:
+  # # even though i don't use the buildPlatform's kernel, if nixpkgs were to see they're different
+  # # it would force everything down the (expensive) cross-compilation path.
+  # nixpkgs.buildPlatform.linux-kernel = (lib.systems.elaborate config.nixpkgs.system).linux-kernel // {
+  #   autoModules = true;
+  #   preferBuiltin = false;
+  # };
 
   # hack in the `boot.shell_on_fail` arg since that doesn't always seem to work.
-  boot.initrd.preFailCommands = "allowShell=1";
+  # boot.initrd.preFailCommands = "allowShell=1";
 
   # default: 4 (warn). 7 is debug
   boot.consoleLogLevel = 7;
@@ -67,7 +109,7 @@
     "system will boot against the platform firmware's .dtb instead of the kernel's more up-to-date dtb")
   ];
 
-  hardware.enableAllFirmware = true;  # firmware with licenses that don't allow for redistribution. fuck lawyers, fuck IP, give me the goddamn firmware.
+  hardware.enableAllFirmware = lib.mkDefault true;  # firmware with licenses that don't allow for redistribution. fuck lawyers, fuck IP, give me the goddamn firmware.
   # hardware.enableRedistributableFirmware = true;  # proprietary but free-to-distribute firmware (extraneous to `enableAllFirmware` option)
 
   # default is 252274, which is too low particularly for servo.

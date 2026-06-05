@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p coreutils-full -p file -p gnugrep
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.coreutils-full ps.file ps.gnugrep ]'
 # traces a PATH lookup by printing the source, resolution, and any symlinks traversed
 # finally, prints the content of the file
 

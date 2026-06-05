@@ -15,16 +15,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "pwsp";
-  version = "1.1.3";
+  version = "1.7.2";
 
   src = fetchFromGitHub {
     owner = "arabianq";
     repo = "pipewire-soundpad";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-sxd8SxAGPsAIoEMHLSfOSy8sLFN9qby+6cgqTU/zZXQ=";
+    hash = "sha256-iJYSM2bgdBMn4uQ9NQR8K41xVKD8zR15PksrQk2P/pY=";
   };
 
-  cargoHash = "sha256-SWEvQjqmGlt9IuY6KKT3En453fOsneNvNfJtMTdwWmc=";
+  cargoHash = "sha256-8Lwj1uxtLh86uv0i7h6NpcK1DUSSiof312OV7mrs8r4=";
 
   nativeBuildInputs = [
     pkg-config
@@ -66,11 +66,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { };
+  passthru.updateWithSuper = false;  #< 2026-05-11: i don't actively use this
 
-  meta = with lib; {
+  meta = {
     description = "Soundpad for linux that works via pipewire";
     homepage = "https://github.com/arabianq/pipewire-soundpad";
-    license = licenses.mit;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

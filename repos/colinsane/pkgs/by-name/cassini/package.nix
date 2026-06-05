@@ -88,9 +88,9 @@
   # TODO: this isn't a "proper" Python package, because even though i've been writing Python for 15 years i still don't have a fucking clue how to navigate its packaging system.
   doCheck = false;
 
-  meta = with lib; {
+  meta = {
     homepage = "https://github.com/vvuk/cassini";
     description = "ELEGOO 3D printer network protocol client";
-    maintainers = with maintainers; [ colinsane ];
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p gocryptfs
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.gocryptfs ]'
 
 # configure persistent, encrypted storage that is auto-mounted on login.
 # this is a one-time setup and user should log out/back in after running it.

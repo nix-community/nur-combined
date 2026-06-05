@@ -1,8 +1,31 @@
-{ static-nix-shell, copyDesktopItems, makeDesktopItem }:
+{
+  copyDesktopItems,
+  grim,
+  jq,
+  libnotify,
+  makeDesktopItem,
+  slurp,
+  static-nix-shell,
+  swappy,
+  sway,
+  util-linux,
+  wl-clipboard-rs,
+}:
 static-nix-shell.mkBash {
   pname = "sane-screenshot";
   srcRoot = ./.;
-  pkgs = [ "grim" "jq" "libnotify" "slurp" "swappy" "sway" "util-linux" "wl-clipboard" ];
+  pkgs = {
+    inherit
+      grim
+      jq
+      libnotify
+      slurp
+      swappy
+      sway
+      util-linux
+      wl-clipboard-rs
+      ;
+  };
   nativeBuildInputs = [
     copyDesktopItems
   ];

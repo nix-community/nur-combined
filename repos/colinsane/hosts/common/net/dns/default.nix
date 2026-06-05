@@ -25,6 +25,7 @@
   imports = [
     ./bind.nix
     ./hickory-dns.nix
+    ./knot-resolver.nix
     ./kresd.nix
     ./unbound.nix
   ];
@@ -38,8 +39,8 @@
   # in the netns and we query upstream DNS more often than needed. hm.
   # services.nscd.enableNsncd = true;
 
-  # disabling nscd LOSES US SOME FUNCTIONALITY. in particular, only the glibc-builtin modules are accessible via /etc/resolv.conf (er, did i mean /etc/nsswitch.conf?).
-  # - dns: glibc-bultin
+  # disabling nscd LOSES US SOME FUNCTIONALITY. in particular, only the glibc-builtin modules are accessible via /etc/nsswitch.conf.
+  # - dns: glibc-builtin
   # - files: glibc-builtin
   # - myhostname: systemd
   # - mymachines: systemd
@@ -61,7 +62,9 @@
     paths = config.system.nssModules.list;
     postBuild = ''
       mkdir nss
-      mv $out/lib/libnss_* nss
+      for file in $out/lib/libnss_*; do
+        mv $file nss
+      done
       rm -rf $out
       mkdir -p $out/lib
       mv nss $out/lib

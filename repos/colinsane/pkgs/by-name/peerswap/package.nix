@@ -5,7 +5,7 @@
   lib,
 }:
 
-buildGoModule rec {
+buildGoModule (finalAttrs: {
   pname = "peerswap";
   # the don't do releases yet
   version = "unstable-20240111";
@@ -31,11 +31,11 @@ buildGoModule rec {
     # GOFLAGS or CGO_LDFLAGS could both sort of do this, but they struggle with the spaces/quoting of the above,
     # so instead i manually patch in the values
     substituteInPlace cmd/peerswap-plugin/main.go \
-      --replace-fail 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
+      --replace-fail 'var GitCommit string' 'var GitCommit string = "${finalAttrs.src.rev}"'
     substituteInPlace cmd/peerswaplnd/peerswapd/main.go \
-      --replace-fail 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
+      --replace-fail 'var GitCommit string' 'var GitCommit string = "${finalAttrs.src.rev}"'
     substituteInPlace cmd/peerswaplnd/pscli/main.go \
-      --replace-fail 'var GitCommit string' 'var GitCommit string = "${src.rev}"'
+      --replace-fail 'var GitCommit string' 'var GitCommit string = "${finalAttrs.src.rev}"'
   '';
 
   postInstall = ''
@@ -44,11 +44,11 @@ buildGoModule rec {
     mv $out/bin/peerswap-plugin $out/bin/peerswap
   '';
 
-  meta = with lib; {
+  meta = {
     description = "PeerSwap enables Lightning Network nodes to balance their channels by facilitating atomic swaps with direct peers.";
     homepage = "https://peerswap.dev";
-    maintainers = with maintainers; [ colinsane ];
-    license = licenses.mit;
-    platforms = platforms.linux;
+    maintainers = with lib.maintainers; [ colinsane ];
+    license = lib.licenses.mit;
+    platforms = lib.platforms.linux;
   };
-}
+})

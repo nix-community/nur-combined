@@ -1,0 +1,73 @@
+From a04b5a89e62e1dd287fd446379afa09d6a1cfd36 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Fri, 2 Jan 2026 11:15:23 +0000
+Subject: [PATCH] remove undesired features: 'godotenv', send-to-kindle
+
+---
+ main.go | 23 -----------------------
+ 1 file changed, 23 deletions(-)
+
+diff --git a/main.go b/main.go
+index 93e8852..8a8109d 100644
+--- a/main.go
++++ b/main.go
+@@ -1,34 +1,24 @@
+ package main
+
+ import (
+ 	"flag"
+ 	"fmt"
+ 	"log"
+ 	"net/url"
+-	"os"
+ 	"path/filepath"
+ 	"strings"
+
+ 	"substack-to-kindle/pkg/converter"
+ 	"substack-to-kindle/pkg/pdfconverter"
+ 	"substack-to-kindle/pkg/scraper"
+-	"substack-to-kindle/pkg/sender"
+-
+-	"github.com/joho/godotenv"
+ )
+
+ func main() {
+-	// Load environment variables from .env file
+-	err := godotenv.Load()
+-	if err != nil {
+-		log.Fatalf("Error loading .env file: %v", err)
+-	}
+-
+ 	// Parse command line arguments
+ 	urlFlag := flag.String("url", "", "URL of the article to convert")
+ 	pdfFlag := flag.String("pdf", "", "Path to a local PDF file to convert")
+ 	format := flag.String("format", "epub", "Output format: epub, azw3, or mobi")
+ 	skipCalibre := flag.Bool("skip-calibre", true, "Skip using Calibre even if it's available (default: true)")
+ 	titleFlag := flag.String("title", "", "Custom title for the document")
+ 	authorFlag := flag.String("author", "", "Custom author for the document")
+ 	includePDF := flag.Bool("include-pdf", false, "Include the original PDF in the output file (default: false)")
+@@ -132,22 +122,9 @@ func main() {
+ 		}
+
+ 		if err != nil {
+ 			log.Fatalf("Failed to convert article: %v", err)
+ 		}
+
+ 		fmt.Printf("Conversion successful: %s\n", result.FilePath)
+ 	}
+-
+-	// Step 3: Send to Kindle
+-	fmt.Println("Sending to Kindle...")
+-	config := sender.LoadEmailConfigFromEnv()
+-	err = sender.SendToKindle(result, config)
+-	if err != nil {
+-		log.Fatalf("Failed to send to Kindle: %v", err)
+-	}
+-	fmt.Println("Successfully sent to Kindle!")
+-
+-	// Clean up temporary files
+-	os.Remove(result.FilePath)
+-	fmt.Println("Temporary files cleaned up.")
+ }
+--
+2.52.0

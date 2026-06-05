@@ -1,5 +1,5 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p bash -p glib -p jq -p procps -p sway -p util-linux -p xdg-utils
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.glib ps.jq ps.mimeo-query-desktop ps.procps ps.sway ps.util-linux ]'
 
 set -e
 
@@ -74,8 +74,7 @@ configureKeyboardFor_application() {
 
 configureKeyboardFor_file() {
   log "configureKeyboardFor_file: $1"
-  local mime=$(xdg-mime query filetype "$1")
-  local application=$(xdg-mime query default "$mime")
+  local application=$(mimeo-query-desktop "$1")
   configureKeyboardFor_application "$application"
 }
 
@@ -101,6 +100,7 @@ configureKeyboard() {
 
 open_application() {
   log "open_application: '$1'"
+  gdbus wait --session --timeout 5 org.freedesktop.portal.Desktop
   gdbus call --session --timeout 10 \
     --dest org.freedesktop.portal.Desktop \
     --object-path /org/freedesktop/portal/desktop \
@@ -124,6 +124,7 @@ open_file() {
   # open the file, and then pass the fd to dbus
   log "open_file: '$1'"
   exec 3< "$1"
+  gdbus wait --session --timeout 5 org.freedesktop.portal.Desktop
   gdbus call --session --timeout 10 \
     --dest org.freedesktop.portal.Desktop \
     --object-path /org/freedesktop/portal/desktop \
@@ -132,6 +133,7 @@ open_file() {
 }
 open_uri() {
   log "open_uri: '$1'"
+  gdbus wait --session --timeout 5 org.freedesktop.portal.Desktop
   gdbus call --session --timeout 10 \
     --dest org.freedesktop.portal.Desktop \
     --object-path /org/freedesktop/portal/desktop \
@@ -180,6 +182,26 @@ tryAsDesktopFile() {
   else
     log "tryAsDesktopFile: '$path' does not deref to anything in ~/.local/share/applications"
   fi
+}
+
+coerceToUri() {
+  # coerces:
+  # - http://example.com -> http://example.com
+  # - example.com -> https://example.com
+  local uri=$1
+  local scheme=${uri%%://*}
+  # local notScheme=${uri/$scheme:\/\//}
+  if [[ "$uri" == /* ]]; then
+    log "$uri looks file-like: defaulting to file://"
+    uri="file://$uri"
+  elif [ -n "$scheme" ] && (( ${#scheme} < 20 )); then
+    # valid scheme -> no-op
+    :
+  else
+    log "$uri has no scheme: defaulting to https://"
+    uri="https://$uri"
+  fi
+  echo "$uri"
 }
 
 
@@ -285,17 +307,26 @@ if [ -z "$resourceType" ]; then
     log "detected resourceType=application (warning: '$resource' is not visible on disk)"
     resourceType=application
   else
-    log "unknown resource; treating as URI: $resource"
+    asUri=$(coerceToUri "$resource")
+    log "unknown resource; treating as URI: $resource (i.e. $asUri)"
     resourceType=uri
+    resource=$asUri
   fi
 fi
 
 
 ## TOPLEVEL LOGIC
 
+keyboardTask=
 if [ -n "$autoKeyboard" ]; then
   # do in parallel to avoid delaying app launch
   (configureKeyboard "$resourceType" "$resource") &
+  keyboardTask=$!
 fi
 
 open "$resourceType" "$resource"
+if [ -n "$keyboardTask" ]; then
+  # maybe not strictly required, but wait until the whole operation is done in case the parent would
+  # reap our children or cleanup our env upon exit.
+  wait "$keyboardTask"
+fi

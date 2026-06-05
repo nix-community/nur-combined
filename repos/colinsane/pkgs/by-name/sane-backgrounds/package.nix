@@ -5,7 +5,7 @@
 # - <https://itsfoss.com/content/images/2023/04/nixos-tutorials.png>
 {
   stdenvNoCC,
-  inkscape,
+  imagemagick,
 }:
 stdenvNoCC.mkDerivation {
   pname = "sane-backgrounds";
@@ -13,10 +13,13 @@ stdenvNoCC.mkDerivation {
 
   src = ./.;
 
-  nativeBuildInputs = [ inkscape ];
+  nativeBuildInputs = [ imagemagick ];
 
+  # or:
+  #   inkscape sane-nixos-bg.svg -o sane-nixos-bg.png
+  # but imagemagick usually (cross) compiles more reliably than inkscape
   buildPhase = ''
-    inkscape sane-nixos-bg.svg -o sane-nixos-bg.png
+    magick convert sane-nixos-bg.svg sane-nixos-bg.png
   '';
 
   installPhase = ''

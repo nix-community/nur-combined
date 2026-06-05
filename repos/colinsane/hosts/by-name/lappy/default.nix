@@ -1,8 +1,12 @@
 { lib, ... }:
 {
   imports = [
+    ../../common
     ./fs.nix
   ];
+
+  networking.hostName = "lappy";
+  sane.cpu = lib.mkDefault "x86_64";
 
   sane.roles.client = true;
   sane.roles.pc = true;
@@ -18,8 +22,6 @@
   sane.programs.firefox.config.formFactor = "laptop";
   sane.programs.itgmania.enableFor.user.colin = true;
   sane.programs.sway.enableFor.user.colin = true;
-
-  sops.secrets.colin-passwd.neededForUsers = true;
 
   sane.services.rsync-net.enable = true;
 

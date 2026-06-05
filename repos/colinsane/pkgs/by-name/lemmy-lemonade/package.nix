@@ -25,14 +25,14 @@ let
     requests
   ]);
 in
-stdenv.mkDerivation (final: with final; {
+stdenv.mkDerivation (finalAttrs: {
   pname = "lemmy-lemonade";
   version = "2024.04.22";
 
   src = fetchFromGitHub {
     owner = "mdwalters";
     repo = "lemonade";
-    rev = version;
+    rev = finalAttrs.version;
     hash = "sha256-Y8mU57ty7PXhCmPKByAf/nBH41NgfW97wfOfE5rWKZ0=";
   };
 
@@ -62,10 +62,10 @@ stdenv.mkDerivation (final: with final; {
 
   passthru.updateScript = gitUpdater { };
 
-  meta = with lib; {
+  meta = {
     description = "🍋 Follow discussions on Lemmy";
     homepage = "https://github.com/mdwalters/lemonade";
-    license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ colinsane ];
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ colinsane ];
   };
 })

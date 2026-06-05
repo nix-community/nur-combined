@@ -12,6 +12,8 @@
       "/sys/devices"
       "/sys/block"  # for zram usage
     ];
+    sandbox.tryKeepUsers = true;
+    sandbox.capabilities = [ "cap_dac_read_search" ];  #< to show GPU stats (requires `sudo`)
     sandbox.whitelistDbus.system = true;  #< to show systemd job status
     fs.".config/htop/htoprc".symlink.target = ./htoprc;
   };

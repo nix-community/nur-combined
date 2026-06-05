@@ -104,14 +104,14 @@ lib.mkIf false
     }
   ] ++ (builtins.map
     (port: {
-      "${builtins.toString port}" = let
+      "${toString port}" = let
         count = port - turnPortLow + 1;
         numPorts = turnPortHigh - turnPortLow + 1;
       in {
         protocol = [ "tcp" "udp" ];
         visibleTo.doof = true;
         visibleTo.lan = true;
-        description = "colin-xmpp-turn-${builtins.toString count}-of-${builtins.toString numPorts}";
+        description = "colin-xmpp-turn-${toString count}-of-${toString numPorts}";
       };
     })
     turnPortRange

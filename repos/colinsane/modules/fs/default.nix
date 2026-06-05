@@ -1,6 +1,7 @@
-{ config, lib, pkgs, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib;
 let
+  inherit (pkgs) sane-lib;
   path-lib = sane-lib.path;
   sane-types = sane-lib.types;
   cfg = config.sane.fs;
@@ -151,6 +152,10 @@ let
         # - <https://www.freedesktop.org/software/systemd/man/systemd.mount.html>
         # "x-systemd.before=local-fs.target"
       ];
+      # TODO: fsType = auto may be incompatible with systemd initrd, but it's unclear what to do.
+      # see: <https://github.com/NixOS/nixpkgs/pull/444829>
+      # see: <https://github.com/NixOS/nixpkgs/pull/441682>
+      fsType = "auto";
       noCheck = true;
     };
     # specify `systemd.mounts` because otherwise systemd doesn't seem to pick up my `x-systemd` fs options?

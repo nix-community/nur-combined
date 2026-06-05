@@ -2,10 +2,11 @@
 #   https://xeiaso.net/blog/paranoid-nixos-2021-07-18
 #   https://elis.nu/blog/2020/05/nixos-tmpfs-as-root/
 #   https://github.com/nix-community/impermanence
-{ config, lib, sane-lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let
+  inherit (pkgs) sane-lib;
   path = sane-lib.path;
   sane-types = sane-lib.types;
   cfg = config.sane.persist;

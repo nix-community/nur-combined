@@ -31,7 +31,9 @@ in
   sane.programs.torch-toggle = {
     packageUnwrapped = pkgs.static-nix-shell.mkBash {
       pname = "torch-toggle";
-      pkgs = [ "brightnessctl" ];
+      pkgs = {
+        inherit (pkgs) brightnessctl;
+      };
       srcRoot = ./.;
     };
 
@@ -197,7 +199,7 @@ in
     sandbox.whitelistSystemctl = true;
     sandbox.whitelistWayland = true;
     sandbox.whitelistMpris.controlPlayers = true;
-    sandbox.whitelistDbus.user.call."org.erikreider.swaync.cc" = "*";
+    sandbox.whitelistSendNotifications = true;
     sandbox.extraPaths = [
       "/sys/class/backlight"
       "/sys/class/leds"  #< for torch/flashlight on moby

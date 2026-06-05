@@ -11,7 +11,7 @@ let
   enabledProgramsWithPackage = builtins.filter (p: p.package != null) enabledPrograms;
 
   # [ { "<mime-type>" = { prority, desktop } ]
-  enabledWeightedMimes = builtins.map weightedMimes enabledPrograms;
+  enabledWeightedMimes = map weightedMimes enabledPrograms;
 
   # ProgramConfig -> { "<mime-type>" = { priority, desktop }; }
   weightedMimes = prog: builtins.mapAttrs
@@ -27,14 +27,14 @@ let
   sortOneMimeType = associations: builtins.sort
     (l: r: lib.throwIf
       (l.priority == r.priority)
-      "${l.desktop} and ${r.desktop} share a preferred mime type with identical priority ${builtins.toString l.priority} (and so the desired association is ambiguous)"
+      "${l.desktop} and ${r.desktop} share a preferred mime type with identical priority ${toString l.priority} (and so the desired association is ambiguous)"
       (l.priority < r.priority)
     )
     associations;
   sortMimes = mimes: builtins.mapAttrs (_k: sortOneMimeType) mimes;
   # { "<mime-type>"} = [ { priority, desktop } ... ]; } -> { "<mime-type>" = [ "<desktop>" ... ]; }
   removePriorities = mimes: builtins.mapAttrs
-    (_k: associations: builtins.map (a: a.desktop) associations)
+    (_k: associations: map (a: a.desktop) associations)
     mimes;
   # { "<mime-type>" = [ "<desktop>" ... ]; } -> { "<mime-type>" = "<desktop1>;<desktop2>;..."; }
   formatDesktopLists = mimes: builtins.mapAttrs
@@ -49,8 +49,8 @@ let
 
   localShareApplicationsPkg = (pkgs.symlinkJoin {
     name = "user-local-share-applications";
-    paths = builtins.map
-      (p: builtins.toString p.package)
+    paths = map
+      (p: toString p.package)
       (enabledProgramsWithPackage ++ [ { package=mimeappsListPkg; } ]);
   }).overrideAttrs (orig: {
     # like normal symlinkJoin, but don't error if the path doesn't exist.
@@ -78,14 +78,20 @@ in
 {
   # the xdg mime type for a file can be found with:
   # - `xdg-mime query filetype path/to/thing.ext`
+  # - `mimeo --mimetype path/to/thing.ext`
+  # - `gio info --attributes=standard::content-type path/to/thing.ext`  (not quite machine readable)
+  # - `file -b --mime-type`
   # the default handler for a mime type can be found with:
   # - `xdg-mime query default <mimetype>`  (e.g. x-scheme-handler/http)
-  # the nix-configured handler can be found `nix-repl > :lf . > hostConfigs.desko.xdg.mime.defaultApplications`
+  # - `gio mime <mimetype>`  (not quite machine readable)
+  # - `mimeo --deprecated --mime2desk <mimetype>`
+  #   - `mimeo --deprecated --swap --mime2desk <mimetype> | head -n1`
+  # - the nix-configured handler can be found `nix-repl > :lf . > hostConfigs.desko.xdg.mime.defaultApplications`
+  # files can be opened with:
+  # - `gio open <path_or_url>`
+  # - `gio launch </path/to/app.desktop> [<path_or_url>]`
   #
   # glib/gio is queried via glib.bin output:
-  # - `gio mime x-scheme-handler/https`
-  # - `gio open <path_or_url>`
-  # - `gio launch </path/to/app.desktop>`
   #
   # we can have single associations or a list of associations.
   # there's also options to *remove* [non-default] associations from specific apps

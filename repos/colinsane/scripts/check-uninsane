@@ -1,11 +1,11 @@
-#!/usr/bin/env nix-shell
-#!nix-shell -i bash -p curl -p dig -p iputils -p openssh
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../integrations/nix-shell --arg f 'ps: [ ps.bash ps.curl ps.dig ps.iputils ps.openssh ]'
 
 echo "this script will check that uninsane.org is baseline operational"
 echo "it doesn't check all services, just the most critical ones"
 echo ""
 
-OVPNS_IPV4=156.146.51.235
+OVPNS_IPV4=146.70.100.165
 DOOF_IPV4=205.201.63.12
 
 usage() {

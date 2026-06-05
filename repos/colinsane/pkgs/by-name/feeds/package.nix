@@ -1,7 +1,9 @@
 {
+  feedsearch-crawler,
   lib,
   newScope,
-  sane-data,
+  podcastindex-db,
+  sane-feeds,
   static-nix-shell,
 }:
 
@@ -14,16 +16,21 @@ lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
     byName = lib.mapAttrs
       (name: feed-details: mkFeed {
         feedName = name;
-        jsonPath = "modules/data/feeds/sources/${name}/default.json";
+        jsonPath = "pkgs/by-name/sane-feeds/sources/${name}/default.json";
         inherit (feed-details) url;
       })
-      sane-data.feeds
+      (lib.filterAttrs (_: lib.isDerivation) sane-feeds)
     ;
   in lib.recurseIntoAttrs byName;
 
   update-feed = static-nix-shell.mkPython3 {
     pname = "update-feed";
     srcRoot = ./.;
-    pkgs = [ "feedsearch-crawler" "podcastindex-db" ];
+    pkgs = {
+      inherit
+        feedsearch-crawler
+        podcastindex-db
+        ;
+    };
   };
 }))

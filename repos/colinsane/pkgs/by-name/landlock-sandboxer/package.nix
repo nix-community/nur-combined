@@ -12,7 +12,7 @@ let
     inherit (linux_latest) src version;
   };
 in
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "landlock-sandboxer";
   version = linux_latest.version;
   src = linux_latest.src;

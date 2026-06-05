@@ -55,7 +55,10 @@ in
     ];
   };
 
-  services.hickory-dns.settings.zones = builtins.attrNames config.sane.dns.zones;
+  services.hickory-dns.settings.zones = lib.mapAttrsToList (zone: _: {
+    inherit zone;
+    axfr_policy = "AllowAll";
+  }) config.sane.dns.zones;
 
   networking.nat.enable = true;  #< TODO: try removing this?
   # networking.nat.extraCommands = ''

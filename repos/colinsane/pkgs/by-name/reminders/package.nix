@@ -81,13 +81,12 @@
     tagPrefix = "v";
   };
 
-  meta = with lib; {
+  meta = {
     description = "Open source reminder app";
     homepage = "https://github.com/remindersdevs/Reminders";
     license = with lib.licenses; [ gpl3Plus ];
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ colinsane pluiedev ];
     mainProgram = "reminders";
-
   };
 })

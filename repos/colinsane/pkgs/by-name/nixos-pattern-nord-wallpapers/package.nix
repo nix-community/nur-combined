@@ -1,6 +1,6 @@
 {
   fetchFromGitea,
-  inkscape,
+  imagemagick,
   lib,
   stdenv,
   unstableGitUpdater,
@@ -18,11 +18,14 @@ stdenv.mkDerivation {
     hash = "sha256-Nng5qMzOv3ov4CdieRG30Xt5g+6T/zk2AOqtJNZThgI=";
   };
 
-  nativeBuildInputs = [ inkscape ];
+  nativeBuildInputs = [ imagemagick ];
 
+  # or:
+  #   inkscape svgs/$background -o ''${background/.svg/.png}
+  # but imagemagick usually (cross) compiles more reliably than inkscape
   buildPhase = ''
     for background in $(ls svgs); do
-      inkscape svgs/$background -o ''${background/.svg/.png}
+      magick convert svgs/$background ''${background/.svg/.png}
     done
   '';
 
@@ -33,9 +36,9 @@ stdenv.mkDerivation {
 
   passthru.updateScript = unstableGitUpdater { };
 
-  meta = with lib; {
+  meta = {
     homepage = "https://codeberg.org/abmurrow/nixos-pattern-nord-wallpapers";
-    maintainers = with maintainers; [ colinsane ];
-    platforms = platforms.linux;
+    maintainers = with lib.maintainers; [ colinsane ];
+    platforms = lib.platforms.linux;
   };
 }

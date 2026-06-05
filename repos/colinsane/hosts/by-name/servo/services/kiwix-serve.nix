@@ -1,27 +1,29 @@
 { config, lib, pkgs, ... }:
 {
   config = lib.mkIf (config.sane.maxBuildCost >= 3) {
-    sane.services.kiwix-serve = {
+    services.kiwix-serve = {
       enable = true;
       port = 8013;
-      zimPaths = with pkgs.zimPackages; [
-        alpinelinux_en_all_maxi.zimPath
-        archlinux_en_all_maxi.zimPath
-        bitcoin_en_all_maxi.zimPath
-        devdocs_en_nix.zimPath
-        gentoo_en_all_maxi.zimPath
-        # khanacademy_en_all.zimPath  #< TODO: enable
-        openstreetmap-wiki_en_all_maxi.zimPath
-        psychonautwiki_en_all_maxi.zimPath
-        rationalwiki_en_all_maxi.zimPath
-        # wikipedia_en_100.zimPath
-        wikipedia_en_all_maxi.zimPath
-        # wikipedia_en_all_mini.zimPath
-        zimgit-food-preparation_en.zimPath
-        zimgit-medicine_en.zimPath
-        zimgit-post-disaster_en.zimPath
-        zimgit-water_en.zimPath
-      ];
+      library = lib.mapAttrs (k: v: v.zimPath) {
+        inherit (pkgs.zimPackages)
+          alpinelinux_en_all_maxi
+          archlinux_en_all_maxi
+          bitcoin_en_all_maxi
+          devdocs_en_nix
+          gentoo_en_all_maxi
+          khanacademy_en_all
+          openstreetmap-wiki_en_all_maxi
+          psychonautwiki_en_all_maxi
+          rationalwiki_en_all_maxi
+          # wikipedia_en_100
+          wikipedia_en_all_maxi
+          # wikipedia_en_all_mini
+          zimgit-food-preparation_en
+          zimgit-medicine_en
+          zimgit-post-disaster_en
+          zimgit-water_en
+        ;
+      };
     };
 
     services.nginx.virtualHosts."w.uninsane.org" = {
