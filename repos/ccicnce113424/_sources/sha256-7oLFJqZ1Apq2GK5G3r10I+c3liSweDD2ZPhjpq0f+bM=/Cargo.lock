@@ -1872,6 +1872,8 @@ dependencies = [
  "napi-sys",
  "nohash-hasher",
  "rustc-hash",
+ "serde",
+ "serde_json",
  "tokio",
 ]
 
@@ -3403,10 +3405,6 @@ dependencies = [
  "napi-build",
  "napi-derive",
  "serial_test",
- "time",
- "tracing",
- "tracing-appender",
- "tracing-subscriber",
  "windows",
  "windows-core",
  "winreg",

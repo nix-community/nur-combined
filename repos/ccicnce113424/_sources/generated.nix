@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.3-beta.5";
+    version = "v3.9.4-beta.2";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.3-beta.5";
+      rev = "v3.9.4-beta.2";
       fetchSubmodules = false;
-      sha256 = "sha256-NsDHStk+WIVjhqnbpCRRjBB2VaV2nWYwthhom/Zd5Cg=";
+      sha256 = "sha256-JZzZj8f3b4favxRbbX05Qyu4qcpMe9IryyDQmV6ZVZ0=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-NsDHStk+WIVjhqnbpCRRjBB2VaV2nWYwthhom_Zd5Cg=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-JZzZj8f3b4favxRbbX05Qyu4qcpMe9IryyDQmV6ZVZ0=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -221,16 +221,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.7.2";
+    version = "2.0.8";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.7.2";
+      rev = "2.0.8";
       fetchSubmodules = false;
-      sha256 = "sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID/JxgHng=";
+      sha256 = "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK/W1M8GroHVEhNM=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID_JxgHng=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK_W1M8GroHVEhNM=/pubspec.lock";
     };
   };
   pixes = {
@@ -275,21 +275,21 @@
   };
   splayer-git = {
     pname = "splayer-git";
-    version = "78b9ccf3b247c5f495876f9b1ace8b52bc4ae3a1";
+    version = "28b76bad9eb800e0c90dac8475d4769acfe2450b";
     src = fetchFromGitHub {
       owner = "imsyy";
       repo = "SPlayer";
-      rev = "78b9ccf3b247c5f495876f9b1ace8b52bc4ae3a1";
+      rev = "28b76bad9eb800e0c90dac8475d4769acfe2450b";
       fetchSubmodules = false;
-      sha256 = "sha256-Te0JeIYudLZTFhcRKRIa+kzAkMMRGYmipCLRWFjbYY0=";
+      sha256 = "sha256-7oLFJqZ1Apq2GK5G3r10I+c3liSweDD2ZPhjpq0f+bM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Te0JeIYudLZTFhcRKRIa+kzAkMMRGYmipCLRWFjbYY0=/Cargo.lock";
+      lockFile = ./. + "/sha256-7oLFJqZ1Apq2GK5G3r10I+c3liSweDD2ZPhjpq0f+bM=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-06-02";
+    date = "2026-06-05";
   };
   splayer-kde-bar-lyc = {
     pname = "splayer-kde-bar-lyc";
@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "f396e11371515f73b07e97b760fff21a2a947ad4";
+    version = "035c76a896c886ca002f66696c74614d11b81d36";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "f396e11371515f73b07e97b760fff21a2a947ad4";
+      rev = "035c76a896c886ca002f66696c74614d11b81d36";
       fetchSubmodules = false;
-      sha256 = "sha256-zAd71lD8G6b/MCOWM1HxFakI3VnQ4SlSHLgAhP8eJnI=";
+      sha256 = "sha256-CEQZ3AJgYNvSxpP+hX1jmFu4Qe04m8WSeeiP9pFvHkM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-zAd71lD8G6b_MCOWM1HxFakI3VnQ4SlSHLgAhP8eJnI=/Cargo.lock";
+      lockFile = ./. + "/sha256-CEQZ3AJgYNvSxpP+hX1jmFu4Qe04m8WSeeiP9pFvHkM=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I=";
       };
     };
-    date = "2026-05-31";
+    date = "2026-06-04";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -364,27 +364,27 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "cbf930ffdd7cbcf201fe2a40a75200c8b896291d";
+    version = "ee8bbb9df9db29a2bd85effbbdd774f80a3d1f26";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "cbf930ffdd7cbcf201fe2a40a75200c8b896291d";
+      rev = "ee8bbb9df9db29a2bd85effbbdd774f80a3d1f26";
       fetchSubmodules = false;
-      sha256 = "sha256-abWfXYgA67VDELprKri7uS9cChr2gKwNBuwPv+Psd7w=";
+      sha256 = "sha256-+oDyO8EcPY44yiTQ2wmuajD7vHPMphloVPEi93Xaniw=";
     };
-    date = "2026-05-30";
+    date = "2026-06-03";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.1.6";
+    version = "0.1.8";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.1.6/waywallen-0.1.6-x86_64.AppImage";
-      sha256 = "sha256-pyX+50+2joBuXKu8XLvTpsbkTfDskf+7dYjMn534/yk=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.1.8/waywallen-0.1.8-x86_64.AppImage";
+      sha256 = "sha256-OLEJyXTDyWzyyscU8GpwVRlEzhM3zI52ZZL53Unfoew=";
     };
   };
   waywallen-display-bin = {

@@ -94,5 +94,6 @@ flutter341.buildFlutterApplication {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "piliplus";
+    broken = true; # Waiting for flutter 3.44
   };
 }

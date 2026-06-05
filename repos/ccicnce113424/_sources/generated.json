@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-NsDHStk+WIVjhqnbpCRRjBB2VaV2nWYwthhom_Zd5Cg=/src-tauri/Cargo.lock",
+                "sha256-JZzZj8f3b4favxRbbX05Qyu4qcpMe9IryyDQmV6ZVZ0=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.3-beta.5",
-            "sha256": "sha256-NsDHStk+WIVjhqnbpCRRjBB2VaV2nWYwthhom/Zd5Cg=",
+            "rev": "v3.9.4-beta.2",
+            "sha256": "sha256-JZzZj8f3b4favxRbbX05Qyu4qcpMe9IryyDQmV6ZVZ0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.3-beta.5"
+        "version": "v3.9.4-beta.2"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -356,7 +356,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID_JxgHng=/pubspec.lock"
+            "pubspec.lock": "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK_W1M8GroHVEhNM=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -368,12 +368,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.0.7.2",
-            "sha256": "sha256-yLbivIJHYtRfmlAeR78GY6+9vKZtLePc0uID/JxgHng=",
+            "rev": "2.0.8",
+            "sha256": "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK/W1M8GroHVEhNM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.0.7.2"
+        "version": "2.0.8"
     },
     "pixes": {
         "cargoLock": null,
@@ -445,11 +445,11 @@
     "splayer-git": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Te0JeIYudLZTFhcRKRIa+kzAkMMRGYmipCLRWFjbYY0=/Cargo.lock",
+                "sha256-7oLFJqZ1Apq2GK5G3r10I+c3liSweDD2ZPhjpq0f+bM=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-06-02",
+        "date": "2026-06-05",
         "extract": null,
         "name": "splayer-git",
         "passthru": null,
@@ -461,12 +461,12 @@
             "name": null,
             "owner": "imsyy",
             "repo": "SPlayer",
-            "rev": "78b9ccf3b247c5f495876f9b1ace8b52bc4ae3a1",
-            "sha256": "sha256-Te0JeIYudLZTFhcRKRIa+kzAkMMRGYmipCLRWFjbYY0=",
+            "rev": "28b76bad9eb800e0c90dac8475d4769acfe2450b",
+            "sha256": "sha256-7oLFJqZ1Apq2GK5G3r10I+c3liSweDD2ZPhjpq0f+bM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "78b9ccf3b247c5f495876f9b1ace8b52bc4ae3a1"
+        "version": "28b76bad9eb800e0c90dac8475d4769acfe2450b"
     },
     "splayer-kde-bar-lyc": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-zAd71lD8G6b_MCOWM1HxFakI3VnQ4SlSHLgAhP8eJnI=/Cargo.lock",
+                "sha256-CEQZ3AJgYNvSxpP+hX1jmFu4Qe04m8WSeeiP9pFvHkM=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I="
                 }
             ]
         },
-        "date": "2026-05-31",
+        "date": "2026-06-04",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "f396e11371515f73b07e97b760fff21a2a947ad4",
-            "sha256": "sha256-zAd71lD8G6b/MCOWM1HxFakI3VnQ4SlSHLgAhP8eJnI=",
+            "rev": "035c76a896c886ca002f66696c74614d11b81d36",
+            "sha256": "sha256-CEQZ3AJgYNvSxpP+hX1jmFu4Qe04m8WSeeiP9pFvHkM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f396e11371515f73b07e97b760fff21a2a947ad4"
+        "version": "035c76a896c886ca002f66696c74614d11b81d36"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -597,7 +597,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -605,7 +605,7 @@
     },
     "uosc-danmaku-git": {
         "cargoLock": null,
-        "date": "2026-05-30",
+        "date": "2026-06-03",
         "extract": null,
         "name": "uosc-danmaku-git",
         "passthru": null,
@@ -617,12 +617,12 @@
             "name": null,
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
-            "rev": "cbf930ffdd7cbcf201fe2a40a75200c8b896291d",
-            "sha256": "sha256-abWfXYgA67VDELprKri7uS9cChr2gKwNBuwPv+Psd7w=",
+            "rev": "ee8bbb9df9db29a2bd85effbbdd774f80a3d1f26",
+            "sha256": "sha256-+oDyO8EcPY44yiTQ2wmuajD7vHPMphloVPEi93Xaniw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "cbf930ffdd7cbcf201fe2a40a75200c8b896291d"
+        "version": "ee8bbb9df9db29a2bd85effbbdd774f80a3d1f26"
     },
     "waywallen-bin": {
         "cargoLock": null,
@@ -633,11 +633,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-pyX+50+2joBuXKu8XLvTpsbkTfDskf+7dYjMn534/yk=",
+            "sha256": "sha256-OLEJyXTDyWzyyscU8GpwVRlEzhM3zI52ZZL53Unfoew=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.1.6/waywallen-0.1.6-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.1.8/waywallen-0.1.8-x86_64.AppImage"
         },
-        "version": "0.1.6"
+        "version": "0.1.8"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
