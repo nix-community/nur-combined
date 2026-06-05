@@ -19,16 +19,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "doukutsu-rs";
-  version = "0.102.0-beta7";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "doukutsu-rs";
     repo = "doukutsu-rs";
     rev = version;
-    hash = "sha256-Gi58pGNs5u+tPIiPbprUxgj16vkOU73v19bG6/eR200=";
+    hash = "sha256-iVW7IvUhz+3wXmRsC75Jlo2g4fvoIlAoGavPMQ78f3Q=";
   };
 
-  cargoHash = "sha256-++rb+jzeQORYrX1vXFb6RQH30ccVoNQD/znZmZOqn5U=";
+  cargoHash = "sha256-PXK4FN2nGLT0scUWIZlV374qBOZ0/QQVXHqzim+GOXU=";
 
   nativeBuildInputs = [
     pkg-config
