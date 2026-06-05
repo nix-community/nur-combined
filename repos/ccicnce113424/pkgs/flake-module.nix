@@ -21,7 +21,7 @@
         "packages"
         "nixosModules"
       ];
-      overlayAttrs = lib.filterAttrsRecursive (_: p: !(p.meta.broken or false)) config.packages;
+      overlayAttrs = lib.filterAttrs (_: p: !(p.meta.broken or false)) config.packages;
     };
 
   flake = {
