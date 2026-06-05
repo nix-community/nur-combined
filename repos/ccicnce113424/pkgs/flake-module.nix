@@ -14,19 +14,15 @@
       packageSet = import ./. { inherit pkgs; };
     in
     {
-      packages = lib.filterAttrsRecursive (
-        n: p:
-        !(
-          builtins.any (x: x == n) [
-            "callPackage"
-            "newScope"
-            "overrideScope"
-            "packages"
-            "nixosModules"
-          ]
-          || p.meta.broken or false
-        )
-      ) packageSet;
+      packages = lib.filterAttrsRecursive (_: p: lib.isDerivation p && !(p.meta.broken or false)) (
+        removeAttrs packageSet [
+          "callPackage"
+          "newScope"
+          "overrideScope"
+          "packages"
+          "nixosModules"
+        ]
+      );
       overlayAttrs = config.packages;
     };
 
