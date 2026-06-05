@@ -13539,10 +13539,10 @@
     };
     "session-sync" = buildMozillaXpiAddon {
       pname = "session-sync";
-      version = "3.1.12";
+      version = "3.3.0";
       addonId = "session-sync@gabrielivanica.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3352792/session_sync-3.1.12.xpi";
-      sha256 = "08d32133a87cf91cd8cc17af21093a5abc8605c1c03efb01e2eafa8368b56d13";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4836887/session_sync-3.3.0.xpi";
+      sha256 = "2c79be2dd0db5d6263825a910931c7734ec0d8f16b71e052b187f761bb298e48";
       meta = with lib;
       {
         homepage = "https://github.com/ReDEnergy/SessionSync";
@@ -13554,6 +13554,9 @@
           "tabs"
           "clipboardWrite"
           "unlimitedStorage"
+          "cookies"
+          "contextualIdentities"
+          "tabGroups"
         ];
         platforms = platforms.all;
       };
