@@ -3,7 +3,7 @@
   version,
   srcInfo,
   lib,
-  flutter341,
+  flutter,
   makeDesktopItem,
   copyDesktopItems,
   alsa-lib,
@@ -12,12 +12,18 @@
   libappindicator,
   webkitgtk_4_1,
 }:
-
 let
   description = "Third-party Bilibili client developed in Flutter";
   majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (builtins.splitVersion v));
+  flutter344 = flutter.mkFlutter (
+    (lib.importJSON ./data.json)
+    // {
+      patches = [ ];
+      enginePatches = [ ];
+    }
+  );
 in
-flutter341.buildFlutterApplication {
+flutter344.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version;
   inherit (srcInfo) pubspecLock gitHashes;
@@ -94,6 +100,5 @@ flutter341.buildFlutterApplication {
     ];
     platforms = lib.platforms.linux;
     mainProgram = "piliplus";
-    broken = true; # Waiting for flutter 3.44
   };
 }
