@@ -16,6 +16,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   classin = pkgs.callPackage ./pkgs/classin { };
+  hhsh = pkgs.callPackage ./pkgs/hhsh { };
   linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { };
   mefrpc = pkgs.callPackage ./pkgs/mefrpc { };
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { };
