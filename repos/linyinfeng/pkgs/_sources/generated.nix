@@ -19,18 +19,18 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.20.0";
+    version = "v1.21.1";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.20.0";
+      rev = "v1.21.1";
       fetchSubmodules = false;
-      sha256 = "sha256-UDV6n/1FGazVsHw3dbCayPhn+bq1OKuk36ye+Z9UBtk=";
+      sha256 = "sha256-IUyfF62T7g+tHE8X4vV40cT/P19pMM4zW5529riGLz8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-UDV6n_1FGazVsHw3dbCayPhn+bq1OKuk36ye+Z9UBtk=/Cargo.lock";
+      lockFile = ./. + "/sha256-IUyfF62T7g+tHE8X4vV40cT_P19pMM4zW5529riGLz8=/Cargo.lock";
       outputHashes = {
-        "anthropic-0.0.8" = "sha256-q21o2GB8nN0jGcRPgW/cujC+3gdgQg5mFJUJy2tipCA=";
+        "anthropic-0.0.8" = "sha256-I7mpWrolVy1SkLa2ovy2TXAHFnVFABXnxaA8uKzRGuw=";
       };
     };
   };
@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.4";
+    version = "v1.6.5";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.4/MoeKoe.Music-x86_64.AppImage";
-      sha256 = "sha256-5dijbRwnfEMhj5uwEDZO1Av2o4peSkCsaAwrSCEtKUg=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.5/MoeKoe_Music-x86_64.AppImage";
+      sha256 = "sha256-lqiD+unKAvmkCQdEA2NPGwkoADoKryx4zvzZrABM4So=";
     };
   };
   mstickereditor = {
