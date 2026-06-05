@@ -8,6 +8,5 @@
   modules = import ./modules;
   overlays = import ./overlays;
 
-  hihi = pkgs.callPackage ./pkgs/hihi { };
-  aider-chat = pkgs.callPackage ./pkgs/aider-chat { };
+  yashiki = pkgs.callPackage ./pkgs/yashiki { };
 }
