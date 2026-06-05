@@ -32,13 +32,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.1.1";
+    version = "v0.1.2";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.1.1";
+      rev = "v0.1.2";
       fetchSubmodules = false;
-      sha256 = "sha256-MB36CHrCvtQa5SX/HKw5rYCmPZ4LPXoaNcGUeE/rrAg=";
+      sha256 = "sha256-3WMeACEOrlZcZywNNRTc6fqBAS0F3JzGEULMFal/uBs=";
     };
   };
   fxz = {
@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.4-beta.2";
+    version = "v3.9.4-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.4-beta.2";
+      rev = "v3.9.4-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-JZzZj8f3b4favxRbbX05Qyu4qcpMe9IryyDQmV6ZVZ0=";
+      sha256 = "sha256-8F4+bB5EqWPRQLnFYMsEiJOlodNj7FZqnFv05Q0ykZA=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-JZzZj8f3b4favxRbbX05Qyu4qcpMe9IryyDQmV6ZVZ0=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-8F4+bB5EqWPRQLnFYMsEiJOlodNj7FZqnFv05Q0ykZA=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "035c76a896c886ca002f66696c74614d11b81d36";
+    version = "f73dedc594cae02c53fc3510571acaf84412485c";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "035c76a896c886ca002f66696c74614d11b81d36";
+      rev = "f73dedc594cae02c53fc3510571acaf84412485c";
       fetchSubmodules = false;
-      sha256 = "sha256-CEQZ3AJgYNvSxpP+hX1jmFu4Qe04m8WSeeiP9pFvHkM=";
+      sha256 = "sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-CEQZ3AJgYNvSxpP+hX1jmFu4Qe04m8WSeeiP9pFvHkM=/Cargo.lock";
+      lockFile = ./. + "/sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I=";
       };
     };
-    date = "2026-06-04";
+    date = "2026-06-05";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
