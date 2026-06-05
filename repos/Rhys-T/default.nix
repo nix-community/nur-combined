@@ -6,7 +6,7 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> {} }:
+{ pkgs ? import <nixpkgs> {}, _disableWarnings ? false }:
 
 # Backported updates from <https://github.com/NixOS/nixpkgs/pull/404228>
 # See <https://github.com/NixOS/nixpkgs/issues/402811>
@@ -73,7 +73,7 @@ let result = pkgs.lib.makeScope pkgs.newScope (self: let
 in {
     # The `lib`, `modules`, and `overlays` names are special
     # Renamed here to avoid shadowing their builtin nixpkgs counterparts in callPackage
-    myLib = import ./lib { inherit pkgs; }; # functions
+    myLib = import ./lib { inherit pkgs _disableWarnings; }; # functions
     myModules = import ./modules; # NixOS modules
     myOverlays = import ./overlays; # nixpkgs overlays
     

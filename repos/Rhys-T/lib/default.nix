@@ -1,4 +1,4 @@
-{ pkgs }:
+{ pkgs, _disableWarnings ? false }:
 
 with pkgs.lib; rec {
   # Add your library functions here
@@ -50,6 +50,7 @@ with pkgs.lib; rec {
         newDesc = myPkg.meta.description + pkgs.lib.optionalString (!(pkgs.lib.hasInfix "[DEPRECATED]" myPkg.meta.description)) " [DEPRECATED]";
       in if myPkg?meta.description then addMetaAttrsDeep { description = newDesc; } pkg else pkg;
     in if isDepd then
+      if _disableWarnings then tagDesc pkg else
       warnOnInstantiate "Rhys-T's `${attr}` ${noun} is deprecated. Please use ${
         if attr == "hbmame-metal" then
           "Rhys-T's main `hbmame` package"
