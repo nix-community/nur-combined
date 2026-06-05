@@ -25,14 +25,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer";
-  version = "3.1.0";
+  version = "3.1.1";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = false;
-    hash = "sha256-rYcWVpqbpTHopQ7ZTpinwaH7u7/8mtbR+rhnWGcQdPY=";
+    hash = "sha256-7oLFJqZ1Apq2GK5G3r10I+c3liSweDD2ZPhjpq0f+bM=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -43,7 +43,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "sha256-U8tK6qCqs8+dmZhlylMkhr/3QSl5I6qAMGlJoZ6059E=";
+    hash = "sha256-zmLc+ExrZg/y2PEI5rH+no9WenE6I+2bLkdXcA/nOic=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-9RQ9TThgDlm8NWjIHg83yJFtVILPBTp2KeC3XUlHCy8=";
+    hash = "sha256-dv8WqT6ei0dMwXcTQmUVHO9u1nGZ8iGhP2S8DpL+Hxk=";
   };
 
   nativeBuildInputs = [
