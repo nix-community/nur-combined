@@ -18,6 +18,12 @@ let
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   hasKnownVulns = p: p.meta ? knownVulnerabilities && (length p.meta.knownVulnerabilities != 0);
   strikeIfKnownVulns = p: text: if hasKnownVulns p then "~~${text}~~" else text;
+  getDescription =
+    p:
+    let
+      nope = pkgs.lib.warn "no description set for ${p.pname}" "*I did not set a description for this!*";
+    in
+    if p ? meta then if p.meta ? description then p.meta.description else nope else nope;
 
   nameValuePair = n: v: {
     name = n;
@@ -45,7 +51,7 @@ let
           strikeIfKnownVulns v name
         } | ${
           strikeIfKnownVulns v (replaceStrings [ "_" ] [ "\\_" ] "${realpfx}${k}")
-        } | ${strikeIfKnownVulns v v.meta.description} |"
+        } | ${strikeIfKnownVulns v (getDescription v)} |"
       ) attrs
     );
   makeTableFilterAttrs = prefix: attrs: makeTable prefix (filterAttrs attrs);

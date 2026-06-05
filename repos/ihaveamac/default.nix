@@ -77,6 +77,28 @@ rec {
   linux-devmgmt = qt6.callPackage ./pkgs/linux-devmgmt/package.nix { };
   rsync_341 = callPackage ./pkgs/rsync-3.4.1/default.nix { };
   rrsync_341 = callPackage ./pkgs/rsync-3.4.1/rrsync.nix { rsync = rsync_341; };
+  #aeroshell-libplasma = qt6.callPackage ./pkgs/aeroshell-libplasma/package.nix { };
+  #aeroshell-kwin-components = qt6.callPackage ./pkgs/aeroshell-kwin-components/package.nix {
+  #  inherit aeroshell-libplasma;
+  #};
+  #aeroshell-smod = qt6.callPackage ./pkgs/aeroshell-smod/package.nix { };
+  #aeroshell-smodglow = qt6.callPackage ./pkgs/aeroshell-smod/smodglow.nix { inherit aeroshell-smod; };
+  #aeroshell-workspace = qt6.callPackage ./pkgs/aeroshell-workspace/package.nix {
+  #  inherit aeroshell-libplasma;
+  #};
+  #aerothemeplasma-icons = callPackage ./pkgs/aerothemeplasma-icons/package.nix { };
+  #aerothemeplasma-sounds = callPackage ./pkgs/aerothemeplasma-sounds/package.nix { };
+  #aerothemeplasma = qt6.callPackage ./pkgs/aerothemeplasma/package.nix {
+  #  inherit
+  #    aeroshell-libplasma
+  #    aeroshell-workspace
+  #    aeroshell-kwin-components
+  #    aerothemeplasma-sounds
+  #    aerothemeplasma-icons
+  #    aeroshell-smod
+  #    aeroshell-smodglow # not sure if this is necessary
+  #    ;
+  #};
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 

@@ -9,19 +9,6 @@
   libepoxy,
 }:
 
-let
-  wxwidgets-newer = wxwidgets_3_3.overrideAttrs (
-    final: prev: {
-      src = fetchFromGitHub {
-        owner = "wxWidgets";
-        repo = "wxWidgets";
-        rev = "9720f1fdce0e11313d383a6ceb92275e7910e540";
-        fetchSubmodules = true;
-        hash = "sha256-vtb716bhRjsoE/rIxlzmwwXCg2Aw4Prqepd3Skbiuh0=";
-      };
-    }
-  );
-in
 stdenv.mkDerivation rec {
   pname = "3beans";
   version = "release-unstable-2026-06-04";
@@ -29,12 +16,12 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "Hydr8gon";
     repo = "3Beans";
-    rev = "b201fbb173510d3daf5e105e1c39fec9fcfbad25";
-    hash = "sha256-yF96ZMz2ytIfJcCK1v+Sr7I44QhN1A7Gd7Pr/HZ/5Qc=";
+    rev = "6991f69bab66011a386a1d5ff6e9d53175e3864d";
+    hash = "sha256-F7ZqcDf6xIsrBaFc2+A80O7yupSkTTuNQmNU+bNAOB0=";
   };
 
   buildInputs = [
-    wxwidgets-newer
+    wxwidgets_3_3
     portaudio
     libGL
     libepoxy
