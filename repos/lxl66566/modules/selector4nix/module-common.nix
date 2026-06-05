@@ -86,6 +86,20 @@ in
       };
     };
 
+    credentialFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.path;
+      description = "The credential file that will be read by selector4nix";
+      default = null;
+      example = "/path/to/your/credentials.toml";
+    };
+
+    enablePersistentCaching = lib.mkOption {
+      type = lib.types.bool;
+      description = "Whether to enable persistent caching";
+      default = false;
+      example = true;
+    };
+
     configureSubstituter = lib.mkOption {
       type = lib.types.enum [
         "keep"

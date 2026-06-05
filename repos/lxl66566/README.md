@@ -52,6 +52,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
      };
    }
    ```
+   Currently only contains nixosModules. If you want to use darwin/home-manager module, please open an issue for that.
 
 ## packages
 
