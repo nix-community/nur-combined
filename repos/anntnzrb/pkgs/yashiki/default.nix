@@ -3,7 +3,7 @@
   rustPlatform,
   fetchFromGitHub,
   installShellFiles,
-  apple-sdk,
+  apple-sdk_15,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -24,9 +24,8 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [
-    apple-sdk
+    apple-sdk_15
   ];
-
 
   postInstall = ''
     app="$out/Applications/Yashiki.app"
@@ -45,14 +44,12 @@ rustPlatform.buildRustPackage rec {
     installShellCompletion --cmd yashiki --zsh completions/zsh/_yashiki
   '';
 
-  doCheck = false;
-
-
   meta = {
     description = "macOS tiling window manager";
     homepage = "https://github.com/typester/yashiki";
     changelog = "https://github.com/typester/yashiki/releases/tag/yashiki-v${version}";
     license = lib.licenses.mit;
+    sourceProvenance = [ lib.sourceTypes.fromSource ];
     maintainers = [
       {
         name = "anntnzrb";

@@ -11,13 +11,16 @@ jobs:
   tests:
     strategy:
       matrix:
+        os:
+          - ubuntu-latest
+          - macos-15
         nurRepo:
           - anntnzrb
         cachixName:
           - anntnzrb
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v6
@@ -53,4 +56,5 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 
     - name: Trigger NUR update
+      if: matrix.os == 'ubuntu-latest'
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
