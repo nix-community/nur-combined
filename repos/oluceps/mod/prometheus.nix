@@ -24,14 +24,14 @@
       fqdn_instance_relabel = [
         {
           source_labels = [ "__address__" ];
-          regex = "(.+)\\\\.nyaw\\\\.xyz(:\\\\d+)?";
+          regex = "(.+)\\.nyaw\\.xyz(:\\d+)?";
           target_label = "instance";
           replacement = "$1";
         }
       ];
       fdcc_instance_relabel = map (name: {
         source_labels = [ "__address__" ];
-        regex = "\\\\[fdcc::${toString (config.data.node.${name}.id + 1)}\\\\]:\\\\d+";
+        regex = "\\[fdcc::${toString (config.data.node.${name}.id + 1)}\\]:\\d+";
         target_label = "instance";
         replacement = name;
       }) (builtins.attrNames config.data.node);
