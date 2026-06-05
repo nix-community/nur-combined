@@ -134,7 +134,7 @@ moeKoeMusic =
       `sourceGitHub` ("iAJue", "MoeKoeMusic")
       `fetchUrl` url
   where
-    url (Version v) = "https://github.com/iAJue/MoeKoeMusic/releases/download/" <> v <> "/MoeKoe.Music-x86_64.AppImage"
+    url (Version v) = "https://github.com/iAJue/MoeKoeMusic/releases/download/" <> v <> "/MoeKoe_Music-x86_64.AppImage"
 
 zeronsd :: PackageSet ()
 zeronsd =
