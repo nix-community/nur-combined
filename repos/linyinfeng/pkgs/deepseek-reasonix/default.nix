@@ -3,11 +3,10 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
-  wails,
 }:
 
 buildGoModule rec {
-  pname = "reasonix";
+  pname = "deepseek-reasonix";
   version = "1.1.0";
   src = fetchFromGitHub {
     owner = "esengine";
