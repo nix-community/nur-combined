@@ -95,19 +95,22 @@ python3Packages.buildPythonApplication (finalAttrs: {
       comment = "Crimson Desert Ultimate Mods Manager";
       icon = "cdumm";
       exec = "cdumm";
-      terminal = false;
       categories = [ "Utility" ];
-      startupNotify = true;
-      startupWMClass = "cdumm";
     })
   ];
 
-  preBuild = ''
+  prePatch = ''
     cat >> pyproject.toml << EOL
 
     [project.scripts]
     cdumm = "cdumm.main:main"
     EOL
+
+    substituteInPlace src/cdumm/engine/nxm_handler.py \
+        --replace-fail "{exe} -m" \
+        "env PYTHONPATH=@out@/${python3Packages.python.sitePackages}:@PYTHONPATH@ {exe} -m" \
+            --subst-var out \
+            --subst-var PYTHONPATH
   '';
 
   postInstall = ''
