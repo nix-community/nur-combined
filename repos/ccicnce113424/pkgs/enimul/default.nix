@@ -12,9 +12,9 @@ buildGoModule {
 
   meta = {
     description = "Lightweight local proxy server that protects TLS connections over TCP";
-    homepage = "https://github.com/moi-si/lumine";
+    homepage = "https://github.com/lzpls/enimul";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
-    mainProgram = "lumine";
+    mainProgram = "enimul";
   };
 }

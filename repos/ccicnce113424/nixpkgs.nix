@@ -7,12 +7,7 @@
       nixpkgs = {
         hostPlatform = system;
         overlays = [ ]; # put overlay here
-        config = {
-          allowUnfree = true;
-          problems.handlers = {
-            piliplus.broken = "warn"; # or "ignore"
-          };
-        };
+        config.allowUnfree = true;
       };
     };
 }
