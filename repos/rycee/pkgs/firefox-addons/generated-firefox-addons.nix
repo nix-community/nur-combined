@@ -14700,18 +14700,18 @@
         platforms = platforms.all;
       };
     };
-    "tabliss" = buildMozillaXpiAddon {
-      pname = "tabliss";
-      version = "2.6.0";
-      addonId = "extension@tabliss.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3940751/tabliss-2.6.0.xpi";
-      sha256 = "de766810f234b1c13ffdb7047ae6cbf06ed79c3d08b51a07e4766fadff089c0f";
+    "tablissng" = buildMozillaXpiAddon {
+      pname = "tablissng";
+      version = "1.7.1";
+      addonId = "extension@tabliss-maintained";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4836699/tablissng-1.7.1.xpi";
+      sha256 = "6c4d6f0972ebe29d598e34f461f4d79a1fb2842dfde8047f54d3f0195292f3e4";
       meta = with lib;
       {
-        homepage = "https://tabliss.io";
-        description = "A beautiful New Tab page with many customisable backgrounds and widgets that does not require any permissions.";
+        homepage = "https://github.com/BookCatKid/TablissNG";
+        description = "A beautiful, customizable New Tab page with various backgrounds and widgets. This is an actively maintained fork of the original Tabliss, with merged community contributions and ongoing updates.";
         license = licenses.gpl3;
-        mozPermissions = [ "storage" ];
+        mozPermissions = [ "storage" "search" "identity" ];
         platforms = platforms.all;
       };
     };
