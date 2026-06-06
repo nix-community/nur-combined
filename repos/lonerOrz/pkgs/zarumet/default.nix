@@ -10,17 +10,17 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "zarumet";
-  version = "0-unstable-2026-05-25";
+  version = "0-unstable-2026-06-06";
 
   # https://github.com/Immelancholy/Zarumet
   src = fetchFromGitHub {
     owner = "Immelancholy";
     repo = "Zarumet";
-    rev = "1993210abf4af96a8e4da0d7d715fa46ec5cfeb6";
-    hash = "sha256-y2ToDjAVOuQfgtMUrRKJicQzlGdfIVQu6u0RD9Eszr8=";
+    rev = "60cd477278c670c31d80fafeadff140a9d59024c";
+    hash = "sha256-7VXXY4paHt4/bdpZXpZWutClqurWg54tDVT9VHJsmgk=";
   };
 
-  cargoHash = "sha256-ZE4pYfSM9YlJwfGw8RkxeOK669pPf2ZZYjCyvtM66Dk=";
+  cargoHash = "sha256-26GQTJG0qlorWSfNCwcWFB6zL+NsV15fItkUuE5/24s=";
 
   nativeBuildInputs = [
     pkg-config
