@@ -1,7 +1,7 @@
 {
-  "1.5.3": {
-    "aarch64-linux": "sha256-Yt+o3PyA7+97R1ea2EFfb6Z90GQiXSYilgeA+XrOZbc=",
-    "x86_64-linux": "sha256-/T7Da0SDo24cX9gaBDVPd868LI56DKQXCKIPlXmNpZQ="
+  "1.5.4": {
+    "aarch64-linux": "sha256-MD3y7HMlUXAOnTZ6V4Ueoi5kGtC/AK/8hU+41JvwRb0=",
+    "x86_64-linux": "sha256-zbfmeCtc693FVgxs2XbCvDjjSucdm5sXAzxJNU+3wxs="
   },
   "1.6.1-pre": {
     "aarch64-linux": "sha256-rICEvOHYMQXm02vIoAVwIEDzWlBSb+fFPSX4AYD7aiw=",
