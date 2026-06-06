@@ -66,8 +66,8 @@ pkgs.mkShell {
 Then both commands use the generated config:
 
 ```bash
-ast-grep -l zig -p 'fn _NAME' src
-sg run -l zig -p 'fn _NAME' src
+ast-grep -l zig -p 'fn $NAME' src
+sg run -l zig -p 'fn $NAME' src
 ```
 
 For grammars that do not live at `$grammar/parser`, pass `libraryPath` directly. `ruleDirs` and `extraConfig` are also supported:
