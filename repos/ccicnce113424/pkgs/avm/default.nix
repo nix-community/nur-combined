@@ -7,7 +7,7 @@
 }:
 let
   adapters = lib.optionals (!stdenv.targetPlatform.isDarwin) [
-    stdenvAdapters.useMoldLinker
+    stdenvAdapters.useWildLinker
   ];
   customStdenv = lib.pipe clangStdenv adapters;
 in
