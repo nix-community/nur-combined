@@ -27,7 +27,7 @@ jobs:
       - name: Update package version
         uses: definfo/nix-update-action@94f7c65342dd5fe1bfea392d46f3e51b01beb34a # v1.1.1
         with:
-          blacklist: "nsub" # nsub: archived
+          blacklist: "nsub,wemeet" # nsub: archived; wemeet: fragile
           pr-labels: |
             auto merge
             package-update

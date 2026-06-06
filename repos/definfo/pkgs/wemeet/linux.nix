@@ -1,0 +1,314 @@
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  makeWrapper,
+  nss,
+  libxtst,
+  libxrandr,
+  libxext,
+  libxdamage,
+  libx11,
+  libsm,
+  libice,
+  desktop-file-utils,
+  libpulseaudio,
+  libgcrypt,
+  dbus,
+  systemd,
+  udev,
+  libGL,
+  libglvnd,
+  fontconfig,
+  freetype,
+  openssl,
+  wayland,
+  libdrm,
+  harfbuzz,
+  openldap,
+  curl,
+  nghttp2,
+  libunwind,
+  alsa-lib,
+  libidn2,
+  rtmpdump,
+  libpsl,
+  libkrb5,
+  xkeyboard_config,
+  libsForQt5,
+  pkg-config,
+  fetchFromGitHub,
+  cmake,
+  ninja,
+  wireplumber,
+  libportal,
+  xdg-desktop-portal,
+  opencv4,
+  pipewire,
+  fetchgit,
+}:
+
+# Fork 自 nixpkgs/pkgs/by-name/we/wemeet/package.nix (3.26.10.401)
+# 改动：
+#   1. 新增 wemeet-camera-fix LD_PRELOAD shim，修 wayland session 下打开摄像头
+#      时 libxcast 走 wayland EGL 平台导致的 SIGSEGV
+#   2. 只生成单一 `wemeet` binary，走 wayland 原生模式
+#      (QT_QPA_PLATFORM=wayland) + camera hook
+#   3. 恢复 nixpkgs 的 wemeet-wayland-screenshare libhook.so，供 Wayland 屏幕共享使用
+let
+  wemeet-wayland-screenshare = stdenv.mkDerivation {
+    pname = "wemeet-wayland-screenshare";
+    version = "0-unstable-2025-05-31";
+
+    src = fetchFromGitHub {
+      owner = "xuwd1";
+      repo = "wemeet-wayland-screenshare";
+      rev = "7f338966e162612b09d838512b11af5901414d05";
+      hash = "sha256-UtPcgEa+9KrF4CblC8D4oClvVJs+a5DWtwH/fD7puVs=";
+      fetchSubmodules = true;
+    };
+
+    nativeBuildInputs = [
+      cmake
+      ninja
+      pkg-config
+    ];
+
+    buildInputs = [
+      wireplumber
+      libportal
+      xdg-desktop-portal
+      libsForQt5.qtwayland
+      opencv4
+      pipewire
+      libxdamage
+      libxrandr
+      libx11
+    ];
+
+    dontWrapQtApps = true;
+
+    meta = {
+      description = "Hooked WeMeet that enables screenshare on Wayland";
+      homepage = "https://github.com/xuwd1/wemeet-wayland-screenshare";
+      license = lib.licenses.mit;
+    };
+  };
+
+  libwemeetwrap = stdenv.mkDerivation {
+    pname = "libwemeetwrap";
+    version = "0-unstable-2023-12-14";
+
+    src = fetchgit {
+      url = "https://aur.archlinux.org/wemeet-bin.git";
+      rev = "8f03fbc4d5ae263ed7e670473886cfa1c146aecc";
+      hash = "sha256-ExzLCIoLu4KxaoeWNhMXixdlDTIwuPiYZkO+XVK8X10=";
+    };
+
+    dontWrapQtApps = true;
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [
+      openssl
+      libpulseaudio
+      libx11
+    ];
+
+    buildPhase = ''
+      runHook preBuild
+      read -ra openssl_args < <(pkg-config --libs openssl)
+      read -ra libpulse_args < <(pkg-config --cflags --libs libpulse)
+      $CC $CFLAGS -Wall -Wextra -fPIC -shared \
+        "''${openssl_args[@]}" "''${libpulse_args[@]}" \
+        -o libwemeetwrap.so wrap.c -D WRAP_FORCE_SINK_HARDWARE
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      install -Dm755 ./libwemeetwrap.so $out/lib/libwemeetwrap.so
+      runHook postInstall
+    '';
+
+  };
+
+  wemeet-x11-fix = stdenv.mkDerivation {
+    pname = "wemeet-x11-fix";
+    version = "0-unstable-2025-11-07";
+
+    src = ./wemeet-x11-fix.c;
+    dontUnpack = true;
+    dontWrapQtApps = true;
+    nativeBuildInputs = [ pkg-config ];
+    buildInputs = [ libx11 ];
+
+    buildPhase = ''
+      runHook preBuild
+      $CC $CFLAGS -Wall -Wextra -fPIC -shared \
+        -o libwemeet-x11-fix.so $src \
+        -ldl -lX11
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      install -Dm755 ./libwemeet-x11-fix.so $out/lib/libwemeet-x11-fix.so
+      runHook postInstall
+    '';
+
+    meta = {
+      description = "Fix for wemeet Wayland XSetInputFocus crash";
+      license = lib.licenses.mit;
+    };
+  };
+
+  wemeet-camera-fix = stdenv.mkDerivation {
+    pname = "wemeet-camera-fix";
+    version = "0-unstable-2026-05-19";
+
+    src = ./wemeet-camera-fix.c;
+    dontUnpack = true;
+    dontWrapQtApps = true;
+    buildInputs = [
+      libglvnd
+      libx11
+    ];
+
+    buildPhase = ''
+      runHook preBuild
+      $CC -O2 -fPIC -Wall -Wextra -shared \
+        -o libwemeet-camera-fix.so $src \
+        -ldl -lEGL -lX11
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      install -Dm755 ./libwemeet-camera-fix.so $out/lib/libwemeet-camera-fix.so
+      runHook postInstall
+    '';
+
+    meta = {
+      description = "LD_PRELOAD shim: force libxcast EGL call on X11";
+      license = lib.licenses.mit;
+    };
+  };
+
+  selectSystem =
+    attrs:
+    attrs.${stdenv.hostPlatform.system}
+      or (throw "wemeet: ${stdenv.hostPlatform.system} is not supported");
+in
+stdenv.mkDerivation {
+  pname = "wemeet";
+  version = "3.26.10.401";
+
+  src = selectSystem {
+    x86_64-linux = fetchurl {
+      url = "https://updatecdn.meeting.qq.com/cos/72e0e0023e1d1e6d4123fba28821aea1/TencentMeeting_0300000000_3.26.10.401_x86_64_default.publish.officialwebsite.deb";
+      hash = "sha256-cPN7ApIJwO+RvpgT7r9mUMbLmgD3xxhJAVh3Pi/mrK8=";
+    };
+    aarch64-linux = fetchurl {
+      url = "https://updatecdn.meeting.qq.com/cos/c06d6bc4a3370dbfb2f43bbc6ff8969e/TencentMeeting_0300000000_3.26.10.401_arm64_default.publish.officialwebsite.deb";
+      hash = "sha256-W50E1bmqJLPDU7FY0qNKPlh1z8A9Ez1Gc+NrHQhBwgI=";
+    };
+  };
+
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+    makeWrapper
+  ];
+
+  buildInputs = [
+    nss
+    libx11
+    libsm
+    libice
+    libxtst
+    desktop-file-utils
+    libpulseaudio
+    libgcrypt
+    dbus
+    systemd
+    udev
+    libGL
+    fontconfig
+    freetype
+    openssl
+    wayland
+    libdrm
+    harfbuzz
+    openldap
+    curl
+    nghttp2
+    libunwind
+    alsa-lib
+    libidn2
+    rtmpdump
+    libpsl
+    libkrb5
+    xkeyboard_config
+  ];
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/app
+    cp -r opt/wemeet $out/app/wemeet
+    cp -r usr/share $out/share
+    rm -f $out/app/wemeet/lib/libcurl.so
+    substituteInPlace $out/share/applications/wemeetapp.desktop \
+      --replace-fail "/opt/wemeet/wemeetapp.sh" "wemeet" \
+      --replace-fail "/opt/wemeet/wemeet.svg" "wemeet"
+    substituteInPlace $out/app/wemeet/bin/qt.conf \
+      --replace-fail "Prefix = ../" "Prefix = $out/app/wemeet/lib"
+    cp -r $out/app/wemeet/icons $out/share/icons || true
+    install -Dm0644 $out/app/wemeet/wemeet.svg $out/share/icons/hicolor/scalable/apps/wemeet.svg
+    ln -s $out/app/wemeet/bin/raw/xcast.conf $out/app/wemeet/bin/xcast.conf
+    ln -s $out/app/wemeet/plugins $out/app/wemeet/lib/plugins
+    ln -s $out/app/wemeet/resources $out/app/wemeet/lib/resources
+    ln -s $out/app/wemeet/translations $out/app/wemeet/lib/translations
+
+    runHook postInstall
+  '';
+
+  postInstall = selectSystem {
+    x86_64-linux = ''
+      echo -ne '\x49\x83\xfc\x00' | dd of=$out/app/wemeet/lib/libwemeet_base.so bs=1 seek=$((0x94c833)) conv=notrunc
+    '';
+    aarch64-linux = "";
+  };
+
+  preFixup = ''
+    makeWrapper $out/app/wemeet/bin/wemeetapp $out/bin/wemeet \
+      --set LP_NUM_THREADS 2 \
+      --set QT_STYLE_OVERRIDE fusion \
+      --set IBUS_USE_PORTAL 1 \
+      --set QT_QPA_PLATFORM wayland \
+      --set XKB_CONFIG_ROOT ${xkeyboard_config}/share/X11/xkb \
+      --prefix LD_LIBRARY_PATH : $out/app/wemeet/lib:${
+        lib.makeLibraryPath [
+          libxext
+          libxdamage
+          opencv4
+          libxrandr
+        ]
+      } \
+      --prefix PATH : $out/app/wemeet/bin \
+      --prefix QT_PLUGIN_PATH : $out/app/wemeet/plugins \
+      --prefix LD_PRELOAD : ${wemeet-wayland-screenshare}/lib/wemeet/libhook.so:${libwemeetwrap}/lib/libwemeetwrap.so:${wemeet-x11-fix}/lib/libwemeet-x11-fix.so:${wemeet-camera-fix}/lib/libwemeet-camera-fix.so
+  '';
+
+  meta = {
+    description = "Tencent Video Conferencing (NUR fork: wayland-native + camera hook + screenshare hook)";
+    homepage = "https://wemeet.qq.com";
+    mainProgram = "wemeet";
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+  };
+}

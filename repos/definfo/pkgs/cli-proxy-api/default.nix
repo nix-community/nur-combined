@@ -2,6 +2,7 @@
   lib,
   buildGo126Module,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 buildGo126Module (finalAttrs: {
@@ -45,6 +46,8 @@ buildGo126Module (finalAttrs: {
     mv $out/bin/server $out/bin/${finalAttrs.pname}
     install -Dm644 config.example.yaml $out/share/${finalAttrs.pname}/config.example.yaml
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Go proxy server providing OpenAI/Gemini/Claude/Codex compatible APIs with OAuth and round-robin load balancing";
