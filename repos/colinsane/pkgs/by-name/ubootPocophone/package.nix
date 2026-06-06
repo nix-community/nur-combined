@@ -25,6 +25,11 @@ buildUBoot {
   extraMakeFlags = [
     "DEVICE_TREE=qcom/sdm845-xiaomi-beryllium-tianma"
   ];
+  # default BOOTDELAY is 1; raise temporarily for debugging
+  extraConfig = ''
+    CONFIG_BOOTDELAY=5
+    CONFIG_WATCHDOG=n
+  '';
   # trying to trim down the deps and especially openssl stuff, but didn't seem to take effect
   # extraConfig = ''
   #   CONFIG_BOOTMETH_EXTLINUX_PXE=n

@@ -4,6 +4,7 @@ set -uo pipefail
 
 PATCHES_DIR="pkgs/by-name/nixpkgs-bootstrap/patches"
 NIXPKGS_DIR="$HOME/dev/3rd/nixpkgs"
+NIXPKGS_REV=$(nix-instantiate --eval --raw -A nixpkgs-bootstrap.master.rev)
 
 usage() {
   echo "USAGE: prune-patches [options]"
@@ -53,6 +54,8 @@ if [[ ! -d "$NIXPKGS_DIR" ]]; then
   die "nixpkgs checkout $NIXPKGS_DIR not found."
 fi
 
+git -C "$NIXPKGS_DIR" fetch upstream "$NIXPKGS_REV"
+
 echo "Checking for upstreamed patches in $NIXPKGS_DIR..."
 
 upstreamed=()
@@ -63,7 +66,7 @@ for patch_path in "$PATCHES_DIR"/*.patch; do
 
   # if numeric, check for (#PR_NUMBER)
   if [[ "$filename" =~ ^[0-9]+$ ]]; then
-    if git -C "$NIXPKGS_DIR" log --grep="\#$filename" --oneline | grep -q .; then
+    if git -C "$NIXPKGS_DIR" log "$NIXPKGS_REV" --grep="\#$filename" --oneline | grep -q .; then
       is_upstreamed=1
     fi
   fi
@@ -72,7 +75,7 @@ for patch_path in "$PATCHES_DIR"/*.patch; do
   if [[ -z "$is_upstreamed" ]]; then
     subject=$(grep "Subject: \[PATCH\] " "$patch_path" | head -n 1 | sed 's/Subject: \[PATCH\] //')
     if [[ -n "$subject" ]]; then
-      if git -C "$NIXPKGS_DIR" log --grep="$subject" --oneline | grep -q .; then
+      if git -C "$NIXPKGS_DIR" log "$NIXPKGS_REV" --grep="$subject" --oneline | grep -q .; then
         is_upstreamed=1
       fi
     fi

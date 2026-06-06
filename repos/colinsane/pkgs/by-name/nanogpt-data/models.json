@@ -555,6 +555,90 @@
     }
   },
   {
+    "id": "linkup-research-low",
+    "name": "Linkup Research Low",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 131.25,
+      "currency": "USD",
+      "prompt": 131.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": null,
+    "max_output_tokens": 16384,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "linkup-research-medium",
+    "name": "Linkup Research Medium",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 262.5,
+      "currency": "USD",
+      "prompt": 262.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": null,
+    "max_output_tokens": 16384,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "linkup-research-high",
+    "name": "Linkup Research High",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 787.5,
+      "currency": "USD",
+      "prompt": 787.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": null,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "linkup-research-xhigh",
+    "name": "Linkup Research XHigh",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 1312.5,
+      "currency": "USD",
+      "prompt": 1312.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": null,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "brave",
     "name": "Brave (Answers)",
     "pricing": {
@@ -5019,7 +5103,7 @@
     "id": "zai-org/glm-5.1",
     "name": "GLM 5.1",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015000000000000001,
+      "cacheReadInputPer1kTokens": 0.00015,
       "completion": 2.6,
       "currency": "USD",
       "prompt": 0.75,
@@ -5040,7 +5124,7 @@
     "id": "zai-org/glm-latest",
     "name": "GLM Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015000000000000001,
+      "cacheReadInputPer1kTokens": 0.00015,
       "completion": 2.6,
       "currency": "USD",
       "prompt": 0.75,
@@ -5061,7 +5145,7 @@
     "id": "zai-org/glm-5.1:thinking",
     "name": "GLM 5.1 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015000000000000001,
+      "cacheReadInputPer1kTokens": 0.00015,
       "completion": 2.6,
       "currency": "USD",
       "prompt": 0.75,
@@ -12332,7 +12416,7 @@
     "id": "TEE/glm-5.1",
     "name": "GLM 5.1 TEE",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "cacheReadInputPer1kTokens": 0.0003,
       "completion": 5.25,
       "currency": "USD",
       "prompt": 1.5,
@@ -12353,7 +12437,7 @@
     "id": "TEE/glm-5.1-thinking",
     "name": "GLM 5.1 Thinking TEE",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "cacheReadInputPer1kTokens": 0.0003,
       "completion": 5.25,
       "currency": "USD",
       "prompt": 1.5,
