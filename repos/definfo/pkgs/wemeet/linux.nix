@@ -48,6 +48,7 @@
   opencv4,
   pipewire,
   fetchgit,
+  fetchpatch2,
 }:
 
 # Fork 自 nixpkgs/pkgs/by-name/we/wemeet/package.nix (3.26.10.401)
@@ -69,6 +70,13 @@ let
       hash = "sha256-UtPcgEa+9KrF4CblC8D4oClvVJs+a5DWtwH/fD7puVs=";
       fetchSubmodules = true;
     };
+
+    patches = [
+      (fetchpatch2 {
+        url = "https://github.com/xuwd1/wemeet-wayland-screenshare/commit/71e788983a28f62914ebd5d95af59536658c238c.patch";
+        hash = "sha256-zCdjLpdcnEeA9hBxFZB8mRMDdh4rgmiJOxOscCMTcTE=";
+      })
+    ];
 
     nativeBuildInputs = [
       cmake
