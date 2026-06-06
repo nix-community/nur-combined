@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.4-beta.3";
+    version = "v3.9.4-beta.4";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.4-beta.3";
+      rev = "v3.9.4-beta.4";
       fetchSubmodules = false;
-      sha256 = "sha256-8F4+bB5EqWPRQLnFYMsEiJOlodNj7FZqnFv05Q0ykZA=";
+      sha256 = "sha256-Nzk3p5hVPDbg7OLw8rDcyrG9K+qMQB2cfdUXRDufRvA=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-8F4+bB5EqWPRQLnFYMsEiJOlodNj7FZqnFv05Q0ykZA=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-Nzk3p5hVPDbg7OLw8rDcyrG9K+qMQB2cfdUXRDufRvA=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -221,16 +221,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.8";
+    version = "2.0.8.1";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.8";
+      rev = "2.0.8.1";
       fetchSubmodules = false;
-      sha256 = "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK/W1M8GroHVEhNM=";
+      sha256 = "sha256-K7YEG0RRBMWVu7jX1rCWf32V/JsvkEo0ZFhN9/AEJmw=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK_W1M8GroHVEhNM=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-K7YEG0RRBMWVu7jX1rCWf32V_JsvkEo0ZFhN9_AEJmw=/pubspec.lock";
     };
   };
   pixes = {
@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "f73dedc594cae02c53fc3510571acaf84412485c";
+    version = "a0776d1a1788875f9f5fc67f9552500691907fee";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "f73dedc594cae02c53fc3510571acaf84412485c";
+      rev = "a0776d1a1788875f9f5fc67f9552500691907fee";
       fetchSubmodules = false;
-      sha256 = "sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=";
+      sha256 = "sha256-yvAe4Ea4X517GFbNNUQN9ieCEKZCnUg9Ugf5Ff/o4lU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=/Cargo.lock";
+      lockFile = ./. + "/sha256-yvAe4Ea4X517GFbNNUQN9ieCEKZCnUg9Ugf5Ff_o4lU=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I=";
       };
     };
-    date = "2026-06-05";
+    date = "2026-06-06";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";

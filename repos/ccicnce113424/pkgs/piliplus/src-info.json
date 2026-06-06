@@ -1,9 +1,9 @@
 {
-  "version": "2.0.8",
-  "sourceSha256": "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK/W1M8GroHVEhNM=",
-  "rev": "cd367a8649ed1f2bed7000d5e4bcb7096a811bc5",
-  "time": 1780553966,
-  "revCount": 5014,
+  "version": "2.0.8.1",
+  "sourceSha256": "sha256-K7YEG0RRBMWVu7jX1rCWf32V/JsvkEo0ZFhN9/AEJmw=",
+  "rev": "3b9403a3291a3bde724416a780d8a1c31c2462c6",
+  "time": 1780718592,
+  "revCount": 5024,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {
@@ -295,7 +295,7 @@
         "description": {
           "path": ".",
           "ref": "main",
-          "resolved-ref": "b442c6c8309a17d8b9d395d08eadc401b42f4f8f",
+          "resolved-ref": "697d4516df2fc3ba7417c7ce9aba079d34ba13e5",
           "url": "https://github.com/bggRGjQaUbCoE/canvas_danmaku.git"
         },
         "source": "git",
@@ -2498,7 +2498,7 @@
     },
     "sdks": {
       "dart": ">=3.12.0 <4.0.0",
-      "flutter": "3.44.0"
+      "flutter": "3.44.1"
     }
   },
   "gitHashes": {
@@ -2506,7 +2506,7 @@
     "cached_network_image_ce": "sha256-0ImhGVVZdGJsW/WDgOMK7lwdDuNBnqP/4zpKiS9f8vU=",
     "cached_network_image_platform_interface_ce": "sha256-F6Bry0BFmm8xsXSVWWHQZE63V18VTtcY+LaMTnw0B7A=",
     "cached_network_image_web_ce": "sha256-F6Bry0BFmm8xsXSVWWHQZE63V18VTtcY+LaMTnw0B7A=",
-    "canvas_danmaku": "sha256-oHj2/+GP9gyi/EBSYLr46+nuyLq/F8jX/N8+Ol6ali0=",
+    "canvas_danmaku": "sha256-JGbWwe/uR+QMvSVlEZ3k1W7FFkiFJK3sV3+1Lyubmcw=",
     "catcher_2": "sha256-feYZPwU9T8aWrFi+s4/JX8Ng3xsuAXdyX3YaSw02zcw=",
     "chat_bottom_container": "sha256-ZF8sk0zavedI7RF+blff1S+0vmBBQJVY0ws7y3k1Fqs=",
     "desktop_webview_window": "sha256-KWON5aTPlVVrLidmnfpV+syWPYEngChOvkN7miIFjvE=",

@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-8F4+bB5EqWPRQLnFYMsEiJOlodNj7FZqnFv05Q0ykZA=/src-tauri/Cargo.lock",
+                "sha256-Nzk3p5hVPDbg7OLw8rDcyrG9K+qMQB2cfdUXRDufRvA=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.4-beta.3",
-            "sha256": "sha256-8F4+bB5EqWPRQLnFYMsEiJOlodNj7FZqnFv05Q0ykZA=",
+            "rev": "v3.9.4-beta.4",
+            "sha256": "sha256-Nzk3p5hVPDbg7OLw8rDcyrG9K+qMQB2cfdUXRDufRvA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.4-beta.3"
+        "version": "v3.9.4-beta.4"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -356,7 +356,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK_W1M8GroHVEhNM=/pubspec.lock"
+            "pubspec.lock": "sha256-K7YEG0RRBMWVu7jX1rCWf32V_JsvkEo0ZFhN9_AEJmw=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -368,12 +368,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.0.8",
-            "sha256": "sha256-cCMz6VPim6Nhvi3yNYkguhuNdLOqK/W1M8GroHVEhNM=",
+            "rev": "2.0.8.1",
+            "sha256": "sha256-K7YEG0RRBMWVu7jX1rCWf32V/JsvkEo0ZFhN9/AEJmw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.0.8"
+        "version": "2.0.8.1"
     },
     "pixes": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=/Cargo.lock",
+                "sha256-yvAe4Ea4X517GFbNNUQN9ieCEKZCnUg9Ugf5Ff_o4lU=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I="
                 }
             ]
         },
-        "date": "2026-06-05",
+        "date": "2026-06-06",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "f73dedc594cae02c53fc3510571acaf84412485c",
-            "sha256": "sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=",
+            "rev": "a0776d1a1788875f9f5fc67f9552500691907fee",
+            "sha256": "sha256-yvAe4Ea4X517GFbNNUQN9ieCEKZCnUg9Ugf5Ff/o4lU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f73dedc594cae02c53fc3510571acaf84412485c"
+        "version": "a0776d1a1788875f9f5fc67f9552500691907fee"
     },
     "svt-av1-essential": {
         "cargoLock": null,

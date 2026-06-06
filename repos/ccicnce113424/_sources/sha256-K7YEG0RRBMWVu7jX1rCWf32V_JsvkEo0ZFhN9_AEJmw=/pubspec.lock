@@ -234,7 +234,7 @@ packages:
     description:
       path: "."
       ref: main
-      resolved-ref: b442c6c8309a17d8b9d395d08eadc401b42f4f8f
+      resolved-ref: "697d4516df2fc3ba7417c7ce9aba079d34ba13e5"
       url: "https://github.com/bggRGjQaUbCoE/canvas_danmaku.git"
     source: git
     version: "0.2.6"
@@ -2001,4 +2001,4 @@ packages:
     version: "3.1.3"
 sdks:
   dart: ">=3.12.0 <4.0.0"
-  flutter: "3.44.0"
+  flutter: "3.44.1"
