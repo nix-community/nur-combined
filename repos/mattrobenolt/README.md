@@ -44,7 +44,6 @@ pkgs.ast-grep {
   languages.zig = {
     grammar = pkgs.tree-sitter-grammars.tree-sitter-zig;
     extensions = [ "zig" ];
-    expandoChar = "_";
   };
 }
 ```
@@ -58,7 +57,6 @@ pkgs.mkShell {
       languages.zig = {
         grammar = pkgs.tree-sitter-grammars.tree-sitter-zig;
         extensions = [ "zig" ];
-        expandoChar = "_";
       };
     })
   ];
@@ -82,7 +80,6 @@ pkgs.ast-grep {
   languages.zig = {
     libraryPath = "${pkgs.tree-sitter-grammars.tree-sitter-zig}/parser";
     extensions = [ "zig" ];
-    expandoChar = "_";
     languageSymbol = "tree_sitter_zig";
   };
 }
