@@ -6,6 +6,7 @@ let
         in "minivmac" + lib.optionalString (model != "Plus") "-${lib.toLower model}",
         version,
         src,
+        isCE ? false,
         applyMacDataPathPatch ? false,
         targetCode ? null,
         buildPackages,
@@ -97,9 +98,12 @@ let
                 runHook postInstall
             '';
             meta = {
-                description = "Miniature early Macintosh emulator (Macintosh ${args.macModel or args.macType or "Plus"})";
+                description = "Miniature early Macintosh emulator (Macintosh ${args.macModel or args.macType or "Plus"}${lib.optionalString isCE "; community-maintained fork"})";
                 longDescription = ''
                     The Mini vMac emulator collection allows modern computers to run software made for early Macintosh computers, the computers that Apple sold from 1984 to 1996 based upon Motorola's 680x0 microprocessors. Mini vMac is part of the [Gryphel Project](https://www.gryphel.com/).
+                '' + lib.optionalString isCE ''
+                    
+                    This is the community-maintained fork from <https://github.com/minivmac/minivmac>.
                 '';
                 homepage = "https://www.gryphel.com/c/minivmac/";
                 changelog = "https://www.gryphel.com/c/minivmac/change/v${lib.versions.major version}.html";
@@ -120,6 +124,9 @@ let
                     binaryBytecode
                 ];
                 mainProgram = pname;
+            } // lib.optionalAttrs isCE {
+                homepage = "https://github.com/minivmac/minivmac";
+                changelog = "https://github.com/minivmac/minivmac/commits/${finalAttrs.src.rev}/";
             };
             pos = builtins.unsafeGetAttrPos "version" args;
             passthru = lib.optionalAttrs (updateScript != null) { inherit updateScript; };

@@ -4,6 +4,7 @@
     options = callPackage ./options.nix {};
     minivmac = callPackage ./generic.nix (args // {
         inherit minivmac version options;
+        isCE = true;
         src = fetchFromGitHub {
             owner = "minivmac";
             repo = "minivmac";
