@@ -14,18 +14,18 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "qaac-unwrapped";
-  version = "2.85";
+  version = "2.88";
 
   src = fetchurl {
     url = "https://github.com/nu774/qaac/releases/download/v${version}/qaac_${version}.zip";
-    hash = "sha256-Tkod2BRdZLdg/XPbYvFVquBA+9YYmg1AtmTqkFOEc6c=";
+    hash = "sha256-EmCrCWQl8sSQQlYsfOFzVDXmgdtg8USX34HnttiPoRg=";
   };
 
   src-itunes = fetchurl {
     name = "iTunes64Setup.exe";
     # curl -s -I https://www.apple.com/itunes/download/win64 | grep ^location
-    url = "https://secure-appldnld.apple.com/itunes12/082-11723-20250331-b31ec27c-f9dd-42b1-9af3-2e2590232c09/iTunes64Setup.exe";
-    hash = "sha256-L1p/SoXiSBApfLPvY/1tdD3xxi7fxeTKNnfHsIO8L/A=";
+    url = "https://secure-appldnld.apple.com/itunes12/047-76416-20260302-fefe4356-211d-4da1-8bc4-058eb36ea803/iTunes64Setup.exe";
+    hash = "sha256-zqKnTK4/Bh6twRNY7qrptAz96p7B7gN7R9pUpkIZ4YI=";
   };
 
   # use cache to build faster: 30 seconds versus 150 seconds

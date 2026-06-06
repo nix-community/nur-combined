@@ -200,7 +200,16 @@ if [[ "$rc" == "0" ]]; then
   echo eval ok
   echo
   echo your packages:
-  echo "$packages_json" | jq -r 'to_entries[] | "\(.key)\n  \(.value.name)\n  \(.value.meta.position)\n  \(.value.meta.description)\n  \(.value.meta.homepage)"'
+  echo "$packages_json" | jq -r '
+    to_entries[] | (
+      .key + "\n" +
+      "  " + .value.name + "\n" +
+      "  " + .value.meta.position + "\n" +
+      "  " + .value.meta.description + "\n" +
+      "  " + .value.meta.homepage +
+      ""
+    )
+  '
 
   echo writing $tempdir/packages.html
   (
@@ -335,8 +344,10 @@ if [[ "$rc" == "0" ]]; then
     echo '</html>'
   ) >$tempdir/packages.html
 
-  echo "writing $source_repo_path/readme.md"
-  cp $tempdir/packages.html "$source_repo_path/readme.md"
+  if false; then
+    echo "writing $source_repo_path/readme.md"
+    cp $tempdir/packages.html "$source_repo_path/readme.md"
+  fi
 
   echo writing $tempdir/packages.json
   echo "$packages_json" >$tempdir/packages.json

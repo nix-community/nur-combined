@@ -1518,6 +1518,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   pnpm-better-sqlite3 = callPackage ./pkgs/by-name/pn/pnpm-better-sqlite3/package.nix { };
 
+  keyviz = callPackage ./pkgs/by-name/ke/keyviz/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
