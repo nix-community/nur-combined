@@ -36,6 +36,7 @@ customStdenv.mkDerivation (finalAttrs: {
         LIBDOVI_FOUND = true;
         LIBHDR10PLUS_RS_FOUND = true;
         SVT_AV1_LTO = true;
+        CMAKE_INTERPROCEDURAL_OPTIMIZATION = true;
       };
 
   nativeBuildInputs = [
