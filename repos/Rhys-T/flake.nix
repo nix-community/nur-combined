@@ -51,6 +51,7 @@
             pkgs = import nixpkgs {
               inherit system;
               config.allowAliases = false;
+              config.allowDeprecatedx86_64Darwin = true;
             };
             inherit subsetName cachedBuildFailures;
           };
