@@ -101,8 +101,8 @@
         "cargoLock": null,
         "date": "2026-06-05",
         "extract": {
-            "web/package-lock.json": "sha256-acvfV6OTOnv5BongX0Dq2JsqrwYukZtRYdTEbAemtaI=/web/package-lock.json",
-            "web/package.json": "sha256-acvfV6OTOnv5BongX0Dq2JsqrwYukZtRYdTEbAemtaI=/web/package.json"
+            "web/package-lock.json": "sha256-px6LU93d2B3Cvllg3eHFSGFIeh83vHoWaUxaLalmLRo=/web/package-lock.json",
+            "web/package.json": "sha256-px6LU93d2B3Cvllg3eHFSGFIeh83vHoWaUxaLalmLRo=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -114,12 +114,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "613ca43699c22f6254067adb6ab67645e859f5d0",
-            "sha256": "sha256-acvfV6OTOnv5BongX0Dq2JsqrwYukZtRYdTEbAemtaI=",
+            "rev": "9c8806220d344de59a0922b56a2889296d077a9c",
+            "sha256": "sha256-px6LU93d2B3Cvllg3eHFSGFIeh83vHoWaUxaLalmLRo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "613ca43699c22f6254067adb6ab67645e859f5d0"
+        "version": "9c8806220d344de59a0922b56a2889296d077a9c"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -134,7 +134,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v1.10.3"
+        "version": "v1.10.4"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -859,7 +859,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-06-04",
+        "date": "2026-06-05",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -871,11 +871,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "94d5f0d5bf9660fdd8586e51b93c1a3ccdf6fa85",
-            "sha256": "sha256-xyT/XE4J7HCjm/ttPfUjsV5h3ZfjzsCQCbUUe2bYfkw=",
+            "rev": "da7dead65f715b69c19319244b1c1104a0642dfa",
+            "sha256": "sha256-85/Z3SuO9DVesYgpOS1tTRYQuJPKWEg9BBhNzWoST7k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "94d5f0d5bf9660fdd8586e51b93c1a3ccdf6fa85"
+        "version": "da7dead65f715b69c19319244b1c1104a0642dfa"
     }
 }
