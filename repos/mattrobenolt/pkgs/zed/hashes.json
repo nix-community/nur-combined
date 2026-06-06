@@ -3,8 +3,8 @@
     "aarch64-linux": "sha256-Yt+o3PyA7+97R1ea2EFfb6Z90GQiXSYilgeA+XrOZbc=",
     "x86_64-linux": "sha256-/T7Da0SDo24cX9gaBDVPd868LI56DKQXCKIPlXmNpZQ="
   },
-  "1.6.0-pre": {
-    "aarch64-linux": "sha256-K4u1Q83HKoNLbXlQs/AY86mQaD0rfGIyGPpZiTQ+TQ4=",
-    "x86_64-linux": "sha256-lydAIo3LMB93ZTsuJYw75JR0imp+LZY3F5uv1rg8Ov4="
+  "1.6.1-pre": {
+    "aarch64-linux": "sha256-rICEvOHYMQXm02vIoAVwIEDzWlBSb+fFPSX4AYD7aiw=",
+    "x86_64-linux": "sha256-tAduYc2qbCVlws/QaLMKZwQPW99EetC9EMVDhkOA7yc="
   }
 }
