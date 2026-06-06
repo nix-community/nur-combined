@@ -49,6 +49,9 @@ let
     _final: prev:
     goPackages prev
     // {
+      ast-grep = prev.callPackage ../pkgs/ast-grep/package.nix {
+        inherit (prev) ast-grep;
+      };
       uvShellHook = prev.callPackage ../pkgs/uv/venv-shell-hook.nix { };
       hunk = prev.callPackage ../pkgs/hunk/package.nix { };
       inbox = prev.callPackage ../pkgs/inbox/package.nix { };

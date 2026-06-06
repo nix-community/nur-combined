@@ -33,6 +33,60 @@ See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for implementation detail
 - `ziglint` - An opinionated linter for Zig
 - `tracy` - Tracy profiler
 - `uvShellHook` - Python virtualenv shell hook helper
+- `ast-grep` - Function for wrapping ast-grep with custom Tree-sitter languages
+
+## ast-grep custom languages
+
+`ast-grep` builds a wrapper package that exposes both `ast-grep` and `sg`, generates `sgconfig.yml` in the Nix store, and points custom languages at Tree-sitter parser libraries.
+
+```nix
+pkgs.ast-grep {
+  languages.zig = {
+    grammar = pkgs.tree-sitter-grammars.tree-sitter-zig;
+    extensions = [ "zig" ];
+    expandoChar = "_";
+  };
+}
+```
+
+Use it in a devshell like any other package:
+
+```nix
+pkgs.mkShell {
+  packages = [
+    (pkgs.ast-grep {
+      languages.zig = {
+        grammar = pkgs.tree-sitter-grammars.tree-sitter-zig;
+        extensions = [ "zig" ];
+        expandoChar = "_";
+      };
+    })
+  ];
+}
+```
+
+Then both commands use the generated config:
+
+```bash
+ast-grep -l zig -p 'fn _NAME' src
+sg run -l zig -p 'fn _NAME' src
+```
+
+For grammars that do not live at `$grammar/parser`, pass `libraryPath` directly. `ruleDirs` and `extraConfig` are also supported:
+
+```nix
+pkgs.ast-grep {
+  ruleDirs = [ ./rules ];
+  extraConfig.utilDirs = [ ./utils ];
+
+  languages.zig = {
+    libraryPath = "${pkgs.tree-sitter-grammars.tree-sitter-zig}/parser";
+    extensions = [ "zig" ];
+    expandoChar = "_";
+    languageSymbol = "tree_sitter_zig";
+  };
+}
+```
 
 ## Usage
 
@@ -42,18 +96,18 @@ Add this repo as a flake input and apply the overlay:
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    mattrobenolt-nixpkgs = {
+    mattware = {
       url = "github:mattrobenolt/nixpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, mattrobenolt-nixpkgs, ... }:
+  outputs = { nixpkgs, mattware, ... }:
     let
       system = "aarch64-darwin";
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ mattrobenolt-nixpkgs.overlays.default ];
+        overlays = [ mattware.overlays.default ];
       };
     in {
       devShells.${system}.default = pkgs.mkShell {
