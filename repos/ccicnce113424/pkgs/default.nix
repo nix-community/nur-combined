@@ -157,6 +157,27 @@ lib.makeScope pkgs.newScope (
       }
     );
 
+    scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (
+      final: _prev: {
+        pname = "scx_pandemonium";
+        version = "5.12.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "wllclngn";
+          repo = "scx";
+          rev = "f61f50644f59a845f2cf6b7bb5cfd4358494d121";
+          hash = "sha256-29MNX/0M9Opzi2EBeyudGWJBOo6seCc30tHKwQ9bMN8=";
+        };
+        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+          inherit (final)
+            pname
+            version
+            src
+            ;
+          hash = "sha256-O7oT3miXo9+H8Rb3+OtwdvD3QUOVsDitabRdNnyW884=";
+        };
+      }
+    );
+
     shijima-qt = self.callPackage ./shijima-qt { };
 
     splayer-git = self.callPackage ./splayer-git {
