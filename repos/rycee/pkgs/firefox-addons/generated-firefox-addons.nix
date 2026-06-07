@@ -4687,10 +4687,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.19.8";
+      version = "1.19.10";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4823910/geo_spoof-1.19.8.xpi";
-      sha256 = "079b53832fa1620fdf1984c0315c15735be2ec7783827da95ac7a82452c43ca6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4839613/geo_spoof-1.19.10.xpi";
+      sha256 = "9d5aab81e5dd97e7ea4fc9b64e1ae24ec591807b2d5cb8ee4f423b148f9b0850";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -4699,8 +4699,10 @@
         mozPermissions = [
           "storage"
           "privacy"
+          "proxy"
           "scripting"
           "alarms"
+          "idle"
           "webRequest"
           "webRequestBlocking"
           "webRequestFilterResponse"
