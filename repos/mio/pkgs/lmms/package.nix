@@ -59,8 +59,8 @@ stdenv.mkDerivation {
 
   buildInputs = [
     fftwFloat
-    libsForQt5.qt5.qtbase
-    libsForQt5.qt5.qtx11extras
+    qt5.qtbase
+    qt5.qtx11extras
     libsamplerate
     libsndfile
   ]
