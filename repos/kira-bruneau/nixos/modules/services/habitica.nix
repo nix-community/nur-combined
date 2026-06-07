@@ -46,15 +46,6 @@ in
         };
       };
 
-      apidoc = {
-        package = lib.mkOption {
-          type = lib.types.package;
-          default = cfg.package.apidoc;
-          defaultText = lib.literalExpression "config.services.habitica.package.apidoc";
-          description = "The apidoc package to use.";
-        };
-      };
-
       nginx = {
         enable = (lib.mkEnableOption "serving Habitica through nginx") // {
           default = true;
@@ -128,9 +119,6 @@ in
               proxyPass = backendUrl;
               recommendedProxySettings = true;
             };
-
-          "= /apidoc".return = "301 /apidoc/";
-          "^~ /apidoc/".alias = "${cfg.apidoc.package}/";
         };
       };
     };

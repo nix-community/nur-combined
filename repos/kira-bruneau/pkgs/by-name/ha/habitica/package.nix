@@ -31,11 +31,10 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "habitica";
-  version = "5.48.0";
+  version = "5.48.2";
 
   outputs = [
     "out"
-    "apidoc"
     "migrations"
   ];
 
@@ -43,10 +42,10 @@ buildNpmPackage (finalAttrs: {
     owner = "HabitRPG";
     repo = "habitica";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-e9+f1X63aMfQoMr7f3OpZdMp5xQF/S1vm+AU0cniMhE=";
+    hash = "sha256-2JQGsZoqFDTmgCmWhc+73XBfUA8H0h3xyfCoby89V+A=";
   };
 
-  npmDepsHash = "sha256-YWlrVzWysXPCgD4NIB6vO+48p6KQIPQTzrMPfl8luNs=";
+  npmDepsHash = "sha256-SCOJJ/7QTjSCm6BDohVimCJxNYyV1gmH7et3Vjovjdo=";
 
   postPatch = ''
     sed -i /postinstall/d package.json
@@ -104,7 +103,6 @@ buildNpmPackage (finalAttrs: {
       --chdir "$out/lib/node_modules/habitica" \
       --add-flags website/transpiled-babel/index.js
 
-    cp -r apidoc/html "$apidoc"
     cp -r migrations "$migrations"
 
     runHook postInstall
