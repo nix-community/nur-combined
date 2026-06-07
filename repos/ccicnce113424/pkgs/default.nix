@@ -139,12 +139,12 @@ lib.makeScope pkgs.newScope (
     scx_flow = pkgs.scx.rustscheds.overrideAttrs (
       final: _prev: {
         pname = "scx_flow";
-        version = "3.0.3";
+        version = "3.1.0";
         src = pkgs.fetchFromGitHub {
           owner = "galpt";
           repo = "scx";
-          rev = "c3541bc9400bdd83495755bdb9fdd06b4af0fe2e";
-          hash = "sha256-qp85l/2s8U/bZrjSfX0gXDCq5KrYQIJ+opEARPpKKGk=";
+          rev = "2d3a6800e3bf6d44ecd260625ee55377435adda7";
+          hash = "sha256-rPmnFfG7XSZNrs8Wr/6dh+cu+gCvUtZcwpJ5qRQHTTs=";
         };
         cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
           inherit (final)
