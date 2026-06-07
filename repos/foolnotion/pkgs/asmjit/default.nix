@@ -14,8 +14,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     repo   = "asmjit";
     owner  = "asmjit";
-    rev    = "d82e478fb8d3a5a36fbd8090e7abafebbcbc2447";
-    sha256 = "sha256-nv92gAZdTsndQtoBq+goDNHTOVMu3tGCFANPTzAIK0E=";
+    rev    = "0bd5787b54b575ed94bf32ac452153b34385c514";
+    sha256 = "sha256-mBnpoTG2c6RrTjOYSIeIANQKE6Uvd3/dnBGDnw3AfSA=";
   };
 
   passthru.updateScript = nix-update-script { };
