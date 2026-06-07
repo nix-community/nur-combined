@@ -166,7 +166,6 @@ in
             paths = with self; [
               rain
               wireguird
-              systemd258
             ];
           }
         );
