@@ -5,7 +5,7 @@
   ...
 }:
 
-klipper.overrideAttrs (finalAttrs: {
+klipper.overrideAttrs (attrs: {
   pname = "ender3-v3-se-klipper-with-display";
   version = "1.0.0-unstable-2026-01-20";
 
@@ -18,7 +18,11 @@ klipper.overrideAttrs (finalAttrs: {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
-  meta = finalAttrs.meta // {
+  installPhase =
+    builtins.replaceStrings [ "cp $src/lib/katapult/flashtool.py $out/lib/scripts/flash_can.py" ] [ "" ]
+      attrs.installPhase;
+
+  meta = attrs.meta // {
     description = "Fork of klipper with auto Z-offset calibration & display support for the Ender3 V3 SE";
   };
 })

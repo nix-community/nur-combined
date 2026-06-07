@@ -13,7 +13,7 @@ let
     }
     // (builtins.foldl' (
       acc: name:
-      if builtins.match "python[0-9]+Packages" name != null then
+      if builtins.match "python3[0-9]+Packages" name != null then
         acc
         // {
           ${name} = prev.${name}.overrideScope pythonModulesOverlay;
@@ -57,7 +57,7 @@ in
 # Automatically reflect upstream supported python package sets
 // (builtins.foldl' (
   acc: name:
-  if builtins.match "python[0-9]+Packages" name != null then
+  if builtins.match "python3[0-9]+Packages" name != null then
     acc
     // {
       ${name} = (lib.fix (self: pythonModulesOverlay (prev.${name} // self) prev.${name})) // {
