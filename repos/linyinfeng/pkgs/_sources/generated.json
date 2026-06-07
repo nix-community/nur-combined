@@ -549,7 +549,7 @@
     },
     "rime-essay": {
         "cargoLock": null,
-        "date": "2026-05-02",
+        "date": "2026-06-07",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -559,17 +559,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "425cc5d152a84389b6fde0ed85929abbfdea401d",
-            "sha256": "sha256-6SBhb7wwNq7NCPWhTJrf4n8X2HAZjS+doz93G0e1WYc=",
+            "rev": "48c7538f0b760fcc8c9d6bf08711f82cfbd2e9ed",
+            "sha256": "sha256-kETP1XGAoamapKHlNdPCKb6eDNZ5E6j0HFdLy5zy3sw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "425cc5d152a84389b6fde0ed85929abbfdea401d"
+        "version": "48c7538f0b760fcc8c9d6bf08711f82cfbd2e9ed"
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-06-03",
+        "date": "2026-06-07",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -579,13 +579,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "476bb816a0b2289e65a357085e36c501682f17b1",
-            "sha256": "sha256-x+YTjwllDy96qmmzhW55XPqvfKev9ruQ/1bfq8xjeqM=",
+            "rev": "f75919b69a06b2f81b84a991028acdf05dc5ec75",
+            "sha256": "sha256-/EQMUkmTZAG0t7sLA3/GrnrS3RE6ouwjMsyOf/h0yuc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "476bb816a0b2289e65a357085e36c501682f17b1"
+        "version": "f75919b69a06b2f81b84a991028acdf05dc5ec75"
     },
     "rime-loengfan": {
         "cargoLock": null,
@@ -770,7 +770,7 @@
     "rlt": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=/Cargo.lock",
+                "sha256-ZKsS1ad5GPUITk8TDSxAMSH5juZJke31Z2Zpb6vn13o=/Cargo.lock",
                 {}
             ]
         },
@@ -786,12 +786,12 @@
             "name": null,
             "owner": "kaichaosun",
             "repo": "rlt",
-            "rev": "v0.1.6",
-            "sha256": "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=",
+            "rev": "v0.1.7",
+            "sha256": "sha256-ZKsS1ad5GPUITk8TDSxAMSH5juZJke31Z2Zpb6vn13o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.6"
+        "version": "v0.1.7"
     },
     "secureboot_objects": {
         "cargoLock": null,
@@ -861,7 +861,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-05-19",
+        "date": "2026-06-06",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -871,13 +871,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e37189a4ad6ce4138e7168508f07553d0d3b6b3f",
-            "sha256": "sha256-wi1TuY3YJh/7HiXx+7/COn1vuhgvUE1JX1bddDAXGz4=",
+            "rev": "3e72c9bdd26c2450e107fa45412c639a18f1d320",
+            "sha256": "sha256-0GCbY7ZogQ2R/WYSk5g0Q7bEAvKmpsfItUp/P+P5V/M=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "e37189a4ad6ce4138e7168508f07553d0d3b6b3f"
+        "version": "3e72c9bdd26c2450e107fa45412c639a18f1d320"
     },
     "vlmcsd": {
         "cargoLock": null,

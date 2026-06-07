@@ -357,31 +357,31 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "425cc5d152a84389b6fde0ed85929abbfdea401d";
+    version = "48c7538f0b760fcc8c9d6bf08711f82cfbd2e9ed";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "425cc5d152a84389b6fde0ed85929abbfdea401d";
+      rev = "48c7538f0b760fcc8c9d6bf08711f82cfbd2e9ed";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-6SBhb7wwNq7NCPWhTJrf4n8X2HAZjS+doz93G0e1WYc=";
+      sha256 = "sha256-kETP1XGAoamapKHlNdPCKb6eDNZ5E6j0HFdLy5zy3sw=";
     };
-    date = "2026-05-02";
+    date = "2026-06-07";
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "476bb816a0b2289e65a357085e36c501682f17b1";
+    version = "f75919b69a06b2f81b84a991028acdf05dc5ec75";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "476bb816a0b2289e65a357085e36c501682f17b1";
+      rev = "f75919b69a06b2f81b84a991028acdf05dc5ec75";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-x+YTjwllDy96qmmzhW55XPqvfKev9ruQ/1bfq8xjeqM=";
+      sha256 = "sha256-/EQMUkmTZAG0t7sLA3/GrnrS3RE6ouwjMsyOf/h0yuc=";
     };
-    date = "2026-06-03";
+    date = "2026-06-07";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -511,16 +511,16 @@
   };
   rlt = {
     pname = "rlt";
-    version = "v0.1.6";
+    version = "v0.1.7";
     src = fetchFromGitHub {
       owner = "kaichaosun";
       repo = "rlt";
-      rev = "v0.1.6";
+      rev = "v0.1.7";
       fetchSubmodules = false;
-      sha256 = "sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=";
+      sha256 = "sha256-ZKsS1ad5GPUITk8TDSxAMSH5juZJke31Z2Zpb6vn13o=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Ibzax4AZCMEj10rJ8A47qek2Kd8U+idwTDvbHB8A1xo=/Cargo.lock";
+      lockFile = ./. + "/sha256-ZKsS1ad5GPUITk8TDSxAMSH5juZJke31Z2Zpb6vn13o=/Cargo.lock";
       outputHashes = {
 
       };
@@ -573,17 +573,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "e37189a4ad6ce4138e7168508f07553d0d3b6b3f";
+    version = "3e72c9bdd26c2450e107fa45412c639a18f1d320";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "e37189a4ad6ce4138e7168508f07553d0d3b6b3f";
+      rev = "3e72c9bdd26c2450e107fa45412c639a18f1d320";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-wi1TuY3YJh/7HiXx+7/COn1vuhgvUE1JX1bddDAXGz4=";
+      sha256 = "sha256-0GCbY7ZogQ2R/WYSk5g0Q7bEAvKmpsfItUp/P+P5V/M=";
     };
-    date = "2026-05-19";
+    date = "2026-06-06";
   };
   vlmcsd = {
     pname = "vlmcsd";

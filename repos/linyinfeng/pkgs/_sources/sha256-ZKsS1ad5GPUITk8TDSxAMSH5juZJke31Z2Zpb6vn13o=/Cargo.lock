@@ -1035,7 +1035,7 @@ checksum = "4d873d7c67ce09b42110d801813efbc9364414e356be9935700d368351657487"
 
 [[package]]
 name = "localtunnel"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "anyhow",
  "clap",
@@ -1048,7 +1048,7 @@ dependencies = [
 
 [[package]]
 name = "localtunnel-client"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "anyhow",
  "log",
@@ -1060,7 +1060,7 @@ dependencies = [
 
 [[package]]
 name = "localtunnel-server"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "actix-web",
  "anyhow",
