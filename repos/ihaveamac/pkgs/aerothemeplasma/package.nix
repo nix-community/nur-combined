@@ -100,7 +100,7 @@ stdenv.mkDerivation rec {
     (lib.cmakeFeature "CMAKE_INSTALL_LIBEXECDIR" "lib")
   ];
 
-  env.NIX_CXXFLAGS_COMPILE = "${aeroshell-libplasma}/include/Plasma";
+  env.NIX_CXXFLAGS_COMPILE = "-I${aeroshell-libplasma}/include/Plasma";
 
   postPatch = ''
     substituteInPlace plasma/plasmoids/src/sevenstart_src/CMakeLists.txt \
