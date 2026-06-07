@@ -22,10 +22,10 @@
 }:
 let
   pname = "decode-orc";
-  version = "1.1.13";
+  version = "1.1.14";
 
   rev = "v${version}";
-  hash = "sha256-v8m3lhAHVKt6ftaPBLTdO3sh6PSVkm7IPRlsQClZy2c=";
+  hash = "sha256-iZxRMV4IAziyEOXpfYKyCTC9JfnRkxGX3YCzkqwDOKY=";
 in
 stdenv.mkDerivation {
   inherit pname version;

@@ -1,7 +1,6 @@
 let
   modules = {
     cxadc = ./cxadc;
-    decode = ./decode;
   };
 
   default =

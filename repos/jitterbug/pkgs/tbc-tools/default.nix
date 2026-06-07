@@ -17,10 +17,10 @@
 }:
 let
   pname = "tbc-tools";
-  version = "3.1.0";
+  version = "3.2.0";
 
   rev = "v${version}";
-  hash = "sha256-sd+xaG63bWdW1XLsl1LXQ+E31qSEGOahLhdm3Z2xTAo=";
+  hash = "sha256-hUb/TMOqXS0s8ov4XbJfUnOSdz91sfwbLnl1ljKNE9A=";
 in
 stdenv.mkDerivation {
   inherit pname version;

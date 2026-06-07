@@ -5,10 +5,10 @@
 }:
 let
   pname = "ld-decode-unstable";
-  version = "7.2.1-unstable-2025-05-03";
+  version = "7.2.1-unstable-2026-05-31";
 
-  rev = "44f2528dda10bacc292ab0c7386a3203e3071a07";
-  hash = "sha256-4J+fv0OSHWS/sLpwUXTSkLss4GdLXF0XKDoEIjOoLf4=";
+  rev = "1bfe5230df110510c7fbc4334a6c3a969b296e46";
+  hash = "sha256-kYqHNRJcxphDdW7yQ0K6CAVaZ2r3D00kEImjwB+d8a8=";
 in
 (ld-decode.overrideAttrs (
   finalAttrs: prevAttrs: {

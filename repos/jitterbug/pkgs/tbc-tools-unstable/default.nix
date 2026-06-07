@@ -5,10 +5,10 @@
 }:
 let
   pname = "tbc-tools-unstable";
-  version = "3.1.0-unstable-2026-05-20";
+  version = "3.2.0-unstable-2026-06-06";
 
-  rev = "d92b50ab55731c54e6a92bc0c157e3747273aa80";
-  hash = "sha256-hUb/TMOqXS0s8ov4XbJfUnOSdz91sfwbLnl1ljKNE9A=";
+  rev = "04c48de75b4f84b0d528186cd57e02a1fb100c1b";
+  hash = "sha256-dxAv05TdwnJY52FVq/o+yl+I+QPHrn2bI6Yn+4sQs2o=";
 in
 (tbc-tools.overrideAttrs (
   finalAttrs: prevAttrs: {

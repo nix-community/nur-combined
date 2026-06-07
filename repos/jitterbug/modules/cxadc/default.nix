@@ -6,7 +6,7 @@
 }:
 let
   cfg = config.hardware.cxadc;
-  cxadc = config.boot.kernelPackages.callPackage (import ../../pkgs/decode-hardware/cxadc) {
+  cxadc = config.boot.kernelPackages.callPackage (import ../../pkgs/cxadc) {
     inherit maintainers;
   };
 

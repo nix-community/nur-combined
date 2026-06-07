@@ -15,6 +15,7 @@ This repo contains packages for RF decoding on NixOS.
 ### Decoders
 - [vhs-decode[-unstable|-legacy]](https://github.com/oyvindln/vhs-decode) [^1]
 - [ld-decode[-unstable]](https://github.com/happycube/ld-decode) [^1]
+- [tape-decode-rs](https://github.com/namazso/tape-decode-rs)
 
 ### Tools
 - [cc-decoder](https://github.com/eshaz/cc_decoder)
@@ -51,6 +52,5 @@ This repo contains packages for RF decoding on NixOS.
 
 ## Modules
 - [cxadc](modules/cxadc/README.md)
-- [decode](modules/decode/README.md)
 
 [^1]: Upstream project provides flake

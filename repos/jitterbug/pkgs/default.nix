@@ -35,6 +35,7 @@ let
   qwt-qt5 = callPackage ./qwt { qt = pkgs.qt5; };
   qwt-qt6 = callPackage ./qwt { qt = pkgs.qt6; };
   stfs = callPackage ./stfs { };
+  tape-decode-rs = callPackage ./tape-decode-rs { };
   tbc-raw-stack = callPackage ./tbc-raw-stack { };
   tbc-tools = callPackage ./tbc-tools {
     inherit ezpwd-reed-solomon;
@@ -80,6 +81,7 @@ in
     qwt-qt5
     qwt-qt6
     stfs
+    tape-decode-rs
     tbc-raw-stack
     tbc-tools
     tbc-tools-unstable

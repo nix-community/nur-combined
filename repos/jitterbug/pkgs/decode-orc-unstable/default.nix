@@ -5,10 +5,10 @@
 }:
 let
   pname = "decode-orc-unstable";
-  version = "1.1.13-unstable-2026-05-16";
+  version = "1.1.14-unstable-2026-05-30";
 
-  rev = "3f1293fc6d78028f577921d5831d153a3f457723";
-  hash = "sha256-7bqi7Cdc3KkgHrmsIefFEY5AeOiEHG6MEEYGHqxBQXE=";
+  rev = "8f536842422c6b337993c59de62d5afe94a510c5";
+  hash = "sha256-m1oF0y6frI7WbRmF+I9fL/3XFx5SQYMu855G5SYiL/4=";
 in
 (decode-orc.overrideAttrs (
   finalAttrs: prevAttrs: {
