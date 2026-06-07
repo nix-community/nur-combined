@@ -859,7 +859,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-06-05",
+        "date": "2026-06-06",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -871,11 +871,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "da7dead65f715b69c19319244b1c1104a0642dfa",
-            "sha256": "sha256-85/Z3SuO9DVesYgpOS1tTRYQuJPKWEg9BBhNzWoST7k=",
+            "rev": "85b00a1756c1462c12a3358fc6e6e873b8b765d1",
+            "sha256": "sha256-On/oSqpdKngnI7mvs+QOw6X6EQfy0XuRQEiL4WrSplY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "da7dead65f715b69c19319244b1c1104a0642dfa"
+        "version": "85b00a1756c1462c12a3358fc6e6e873b8b765d1"
     }
 }
