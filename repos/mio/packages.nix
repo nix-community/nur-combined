@@ -69,25 +69,26 @@ lib.filesystem.packagesFromDirectoryRecursive {
     withTouchSupport = true;
   };
   minetest580server = minetest580.override { buildClient = false; };
-  /*
-    # https://github.com/musescore/MuseScore/pull/21874
-    # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
-    # broken on nixpkgs between a98f368960a921d4fdc048e3a2401d12739bc1f9 and 7fd9583d8c174ecc7ac0094bed29bde80135c876
-    # broken by qt 6.10.0 -> 6.10.1 update
-    # https://github.com/NixOS/nixpkgs/compare/a98f368960a921d4fdc048e3a2401d12739bc1f9%E2%80%A67fd9583d8c174ecc7ac0094bed29bde80135c876
-    musescore-adazem009 = v3override (
-      pkgs.musescore.overrideAttrs (old: {
-        version = "4.4.0-piano_keyboard_playing_notes";
-        src = pkgs.fetchFromGitHub {
-          owner = "adazem009";
-          repo = "MuseScore";
-          rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
-          hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
-        };
-        patches = [ ./patches/piano_keyboard_playing_notes.patch ];
-      })
-    );
-  */
+  # https://github.com/musescore/MuseScore/pull/21874
+  # https://github.com/adazem009/MuseScore/tree/piano_keyboard_playing_notes
+  # broken on nixpkgs between a98f368960a921d4fdc048e3a2401d12739bc1f9 and 7fd9583d8c174ecc7ac0094bed29bde80135c876
+  # broken by qt 6.10.0 -> 6.10.1 update
+  # https://github.com/NixOS/nixpkgs/compare/a98f368960a921d4fdc048e3a2401d12739bc1f9%E2%80%A67fd9583d8c174ecc7ac0094bed29bde80135c876
+  musescore-adazem009 = v3override (
+    pkgs.musescore.overrideAttrs (old: {
+      version = "4.4.0-piano_keyboard_playing_notes";
+      src = pkgs.fetchFromGitHub {
+        owner = "adazem009";
+        repo = "MuseScore";
+        rev = "e3de9347f6078f170ddbfa6dcb922f72bb7fef88";
+        hash = "sha256-1HvwkolmKa317ozprLEpo6v/aNX75sEdaXHlt5Cj6NA=";
+      };
+      patches = [
+        ./patches/piano_keyboard_playing_notes.patch
+        ./patches/musescore-qt610.patch
+      ];
+    })
+  );
   # https://github.com/musescore/MuseScore/pull/28073
   # https://github.com/githubwbp1988/MuseScore/tree/alex
   # https://github.com/githubwbp1988/MuseScore/tree/develop

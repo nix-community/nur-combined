@@ -1,0 +1,9 @@
+--- a/buildscripts/cmake/FindQt6.cmake
++++ b/buildscripts/cmake/FindQt6.cmake
+@@ -50,5 +50,5 @@ foreach(_component ${_components})
+     find_package(Qt6${_component} REQUIRED)
+     list(APPEND QT_LIBRARIES ${Qt6${_component}_LIBRARIES})
+     list(APPEND QT_INCLUDES ${Qt6${_component}_INCLUDE_DIRS})
+-    add_definitions(${Qt6${_component}_DEFINITIONS})
++    add_compile_options(${Qt6${_component}_DEFINITIONS})
+ endforeach()
