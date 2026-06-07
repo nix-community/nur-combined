@@ -52,7 +52,7 @@ python3Packages.buildPythonPackage {
     qt6.qtbase
     qt6.wrapQtAppsHook
   ]
-  ++ lib.optional stdenv.isLinux [
+  ++ lib.optionals stdenv.isLinux [
     qt6.qtwayland
   ];
 

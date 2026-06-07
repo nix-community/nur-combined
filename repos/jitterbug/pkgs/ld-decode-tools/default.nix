@@ -42,7 +42,7 @@ stdenv.mkDerivation {
     qt6.wrapQtAppsHook
     ezpwd-reed-solomon
   ]
-  ++ lib.optional stdenv.isLinux [
+  ++ lib.optionals stdenv.isLinux [
     qt6.qtwayland
   ];
 

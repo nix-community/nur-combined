@@ -40,7 +40,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     qt.qmake
   ]
-  ++ lib.optional stdenv.isDarwin [
+  ++ lib.optionals stdenv.isDarwin [
     fixDarwinDylibNames
   ];
 

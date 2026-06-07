@@ -41,7 +41,7 @@ stdenv.mkDerivation {
     ninja
     pkg-config
   ]
-  ++ lib.optional cudaSupport [
+  ++ lib.optionals cudaSupport [
     cudaPackages.cuda_nvcc
   ];
 
@@ -57,10 +57,10 @@ stdenv.mkDerivation {
       inherit cudaSupport cudaPackages;
     }))
   ]
-  ++ lib.optional stdenv.isLinux [
+  ++ lib.optionals stdenv.isLinux [
     qt6.qtwayland
   ]
-  ++ lib.optional cudaSupport [
+  ++ lib.optionals cudaSupport [
     cudaPackages.cudatoolkit
   ];
 
