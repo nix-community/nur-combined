@@ -35,24 +35,24 @@ let
 
   sources = {
     aarch64-darwin = {
-      version = "9.38.2";
+      version = "9.39.0";
       src = fetchurl {
-        url = "https://web.archive.org/web/20260512024846if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
-        hash = "sha256-UDJ3LBR1VVvh14N2OjapUh7y3I+6j9P8uhdx0Ks6nK4=";
+        url = "https://web.archive.org/web/20260607035904if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
+        hash = "sha256-rdIO8ce73tN2GSZDoRq7yvh6c6U8GH67YfZnnBMyQBY=";
       };
     };
     x86_64-darwin = {
-      version = "9.38.2";
+      version = "9.39.0";
       src = fetchurl {
-        url = "https://web.archive.org/web/20260512024930if_/https://autoupdate.termius.com/mac/Termius.zip";
-        hash = "sha256-2f29BgNDuDkvv41Qorppuxs5gc6y5e//p7p8G8OzsKU=";
+        url = "https://web.archive.org/web/20260607035958if_/https://autoupdate.termius.com/mac/Termius.zip";
+        hash = "sha256-KUGaHxKahMDuK7DyrlEHi3hLnwoFWphRbS41bWdnZNM=";
       };
     };
     x86_64-linux = {
-      version = "9.38.2";
+      version = "9.39.0";
       src = fetchurl {
-        url = "https://web.archive.org/web/20260512025125if_/https://deb.termius.com/pool/main/t/termius-app/termius-app_9.38.2_amd64.deb";
-        hash = "sha256-pXmUtkBhMd54J2vrYvm75Q1up82N9TPunmd9X2VuUpU=";
+        url = "https://web.archive.org/web/20260607035727if_/https://deb.termius.com/pool/main/t/termius-app/termius-app_9.39.0_amd64.deb";
+        hash = "sha256-k2/Fo6vXvlXIbMpyi8/lXEk8z5gVWpsik+mY6xH4uZo=";
       };
     };
   };

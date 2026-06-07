@@ -1,0 +1,58 @@
+--- a/hextobdf.c
++++ b/hextobdf.c
+@@ -37,7 +37,7 @@
+ void    usage(int aStatus);
+ void    errx(const char *aFormat, ...);
+ void    parse_font_dimensions(FILE *aFile);
+-void    parse_font_line(const char *aLine, struct glyph *aGlyph);
++int     parse_font_line(const char *aLine, struct glyph *aGlyph);
+ void    output_bdf_preamble(void);
+ void    output_bdf_char(int aChar);
+ void   *xmalloc(size_t aSize);
+@@ -61,8 +61,7 @@
+     char    buf[MAX_LINE];
+     while (fgets(buf, MAX_LINE, stdin)) {
+         ++gLineNr;
+-        parse_font_line(buf, &gGlyph[gGlyphs]);
+-        ++gGlyphs;
++        gGlyphs += parse_font_line(buf, &gGlyph[gGlyphs]);
+     }
+     fprintf(stderr, "found %d glyphs\n", gGlyphs);
+     output_bdf_preamble();
+@@ -131,25 +130,31 @@
+ 
+ // Parse one line of font hex data and store result in glyph.
+ //
+-void parse_font_line(const char *aLine, struct glyph *aGlyph) {
++int parse_font_line(const char *aLine, struct glyph *aGlyph) {
+     char    c;
+     if (sscanf(aLine, "%" SCNx32 "%c", &aGlyph->codepoint, &c) == 2 && c == ':') {
+         const char *colon = strchr(aLine, ':');
+         const size_t hexlen = strlen(colon + 1) - 1;    // Minus newline.
+ 
+         if (wcwidth(aGlyph->codepoint) == 2) {
+-            if (hexlen != gHeight * gDblBytes * 2)
+-                errx("line %d: expected %zu hexdigits for double width glyph, got %zu\n", gLineNr, gHeight * gDblBytes * 2, hexlen);
++            if (hexlen != gHeight * gDblBytes * 2) {
++                fprintf(stderr, "line %zd: expected %zu hexdigits for double width glyph, got %zu\n", gLineNr, gHeight * gDblBytes * 2, hexlen);
++                return 0;
++            }
+         }
+         else {
+-            if (hexlen != gHeight * gBytes * 2)
+-                errx("line %d: expected %zu hexdigits for normal width glyph, got %zu\n", gLineNr, gHeight * gBytes * 2, hexlen);
++            if (hexlen != gHeight * gBytes * 2) {
++                fprintf(stderr, "line %zd: expected %zu hexdigits for normal width glyph, got %zu\n", gLineNr, gHeight * gBytes * 2, hexlen);
++                return 0;
++            }
+         }
+         aGlyph->bitmap = xmalloc(hexlen);
+         memcpy(aGlyph->bitmap, colon + 1, hexlen);
++        return 1;
+     }
+     else
+         errx("expected codepoint:hexdata in line %d\n", gLineNr);
++    return 0;
+ }
+ 
+ // Parse the command line options.

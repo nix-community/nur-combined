@@ -7,16 +7,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aidoku-cli";
-  version = "0-unstable-2026-05-08";
+  version = "0-unstable-2026-05-31";
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "Aidoku";
     repo = "aidoku-rs";
-    rev = "4c2e2585d1557fc1f9c4c96298446d024f308ee6";
-    hash = "sha256-ZudsgI8Weqygsu9S1e1+xXHCoaGGdSHdBkTlQ7FLdNY=";
+    rev = "a0624d4b899fbec54a6ad99400a18ec9202ea9d3";
+    hash = "sha256-BlCbc57yqFM9br54BPFibKlk3w0MTaIWiXoH4HEuSFI=";
   };
 
-  cargoHash = "sha256-6I/P/GJzttOHEOYrtkRUf7Mcuoj3fBr6ES1ZVByN7ZU=";
+  cargoHash = "sha256-zA9UgryFsJhuTZfquDj7sIC1Omjuy8WWdc5uwWIx2UY=";
 
   buildAndTestSubdir = "crates/cli";
 

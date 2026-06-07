@@ -10,17 +10,19 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (anytype) pname;
-  version = "0.55.4";
+  version = "0.55.5";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src =
     {
       aarch64-darwin = fetchurl {
         url = "https://github.com/anyproto/anytype-ts/releases/download/v${finalAttrs.version}/Anytype-${finalAttrs.version}-mac-arm64.zip";
-        hash = "sha256-YN2J4+V+lNcKjA63YbLBp26kTql1hdxEHDTkBae5NfI=";
+        hash = "sha256-ZuqgxheBUECjNPbkhHlxWAQT0JDg36DT79jhFZeNgOQ=";
       };
       x86_64-darwin = fetchurl {
         url = "https://github.com/anyproto/anytype-ts/releases/download/v${finalAttrs.version}/Anytype-${finalAttrs.version}-mac-x64.zip";
-        hash = "sha256-SvbeBUcSkpFwU80tx23dG3KrMw/G/zsvrMqJxKfPhwo=";
+        hash = "sha256-xGyoF4Y0Z/ovLrslY2icKAObIwiGJk+DHpGHDxOP6t4=";
       };
     }
     .${stdenvNoCC.hostPlatform.system} or throwSystem;

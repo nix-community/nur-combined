@@ -1,15 +1,21 @@
 {
-  fetchFromGitHub,
-  fontforge,
   lib,
+  fetchFromGitHub,
+  stdenv,
+
+  # nativeBuildInputs
+  fontforge,
+
+  # buildInputs
   libuninameslist,
   libunistring,
-  stdenv,
 }:
 
 stdenv.mkDerivation {
   pname = "gallant";
   version = "0-unstable-2025-12-06";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "NanoBillion";
@@ -18,10 +24,27 @@ stdenv.mkDerivation {
     hash = "sha256-UL6pcjRZbVh+dknAXQBuYw1NWFKDeXAShCFtHtHFoMU=";
   };
 
+  patches = [
+    ./GNUmakefile.patch
+    ./parse_font_line.patch
+  ];
+
+  postPatch = ''
+    touch gallant.hex
+  '';
+
   nativeBuildInputs = [
     fontforge
+  ];
+
+  buildInputs = [
     libuninameslist
     libunistring
+  ];
+
+  env.NIX_CFLAGS_COMPILE = lib.concatStringsSep " " [
+    "-D_XOPEN_SOURCE"
+    "-Wno-error=sign-conversion"
   ];
 
   buildFlags = [
@@ -42,6 +65,6 @@ stdenv.mkDerivation {
     homepage = "https://github.com/NanoBillion/gallant";
     license = lib.licenses.bsd2;
     maintainers = with lib.maintainers; [ prince213 ];
-    broken = true;
+    # broken = true;
   };
 }

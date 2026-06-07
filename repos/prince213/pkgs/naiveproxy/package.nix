@@ -28,13 +28,15 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "148.0.7778.96-5";
+  version = "148.0.7778.96-6";
+  __structuredAttrs = true;
+  strictDeps = true;
 
   src = fetchFromGitHub {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-HkiLrCOC1bK6AgyRVk3DzXV6tp5f/qFJpfHep00jPzc=";
+    hash = "sha256-HO1epPI9n/SH0NyA6UsN8YYoSBQOhq208XStf+rXCYU=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -82,7 +84,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     "is_official_build=true"
     "is_chrome_branded=true"
-    "dcheck_always_on=true"
     "exclude_unwind_tables=true"
     "enable_resource_allowlist_generation=false"
     "symbol_level=0"

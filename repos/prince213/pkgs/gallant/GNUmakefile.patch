@@ -1,0 +1,12 @@
+--- a/GNUmakefile
++++ b/GNUmakefile
+@@ -37,9 +37,6 @@
+ gallant.bdf: gallant.hex hextobdf
+ 	./hextobdf < $< > $@
+ 
+-gallant.hex: gallant.src srctohex
+-	./srctohex < $< > $@
+-
+ gallant.fnt: gallant.hex
+ 	vtfontcvt -v -o $@ $^
+ 
