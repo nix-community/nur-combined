@@ -45,6 +45,9 @@ jobs:
       - name: Build other packages
         run: |
           echo "🏗️ Building other packages..."
+          nix build .#benchstat --no-link
+          echo "✓ benchstat builds successfully"
+
           nix build .#inbox --no-link
           echo "✓ inbox builds successfully"
 
@@ -63,6 +66,9 @@ jobs:
       - name: Test binaries
         run: |
           echo "🧪 Testing binaries..."
+          nix run .#benchstat -- -h
+          echo "✓ benchstat works"
+
           nix run .#go-bin -- version
           echo "✓ go-bin works"
 
@@ -82,5 +88,5 @@ jobs:
           echo "**Validated:**" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All Go packages build successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ inbox, zigdoc, ziglint, zed, and zed-preview build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ benchstat, inbox, zigdoc, ziglint, zed, and zed-preview build successfully" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY

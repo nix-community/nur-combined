@@ -24,6 +24,11 @@ build package:
 update package:
     ./pkgs/{{ package }}/update.py
 
+[doc("Update benchstat package")]
+[group("updates")]
+update-benchstat:
+    @just update benchstat
+
 [doc("Update Go versions and hashes")]
 [group("updates")]
 update-go:
@@ -66,4 +71,4 @@ update-zed:
 
 [doc("Update all packages")]
 [group("updates")]
-update-all: update-go update-hunk update-inbox update-prismacat update-txtar update-zigdoc update-ziglint update-zed
+update-all: update-benchstat update-go update-hunk update-inbox update-prismacat update-txtar update-zigdoc update-ziglint update-zed

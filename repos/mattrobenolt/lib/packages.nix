@@ -52,6 +52,7 @@ let
       ast-grep = prev.callPackage ../pkgs/ast-grep/package.nix {
         inherit (prev) ast-grep;
       };
+      benchstat = prev.callPackage ../pkgs/benchstat/package.nix { };
       uvShellHook = prev.callPackage ../pkgs/uv/venv-shell-hook.nix { };
       hunk = prev.callPackage ../pkgs/hunk/package.nix { };
       inbox = prev.callPackage ../pkgs/inbox/package.nix { };
@@ -79,6 +80,7 @@ in
     // {
       inherit (pkgs)
         go-bin
+        benchstat
         uvShellHook
         hunk
         inbox
