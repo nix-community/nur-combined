@@ -10,18 +10,18 @@
 
 buildNpmPackage rec {
   pname = "apple-music-desktop";
-  version = "2.2.0-unstable-20250505";
+  version = "2.2.0-unstable-20260306";
 
   src = fetchFromGitHub {
     owner = "Alex313031";
     repo = "apple-music-desktop";
-    rev = "bd4dd2f44690ca8ed206f08070e25f02f989dfe5";
-    hash = "sha256-tzEKg2/41vLK2m47Z4ySCaAeg1HvwT2OgvhhVWswmXE=";
+    rev = "60be23ca85577765d02cfcbf7c668b3a20319981";
+    hash = "sha256-SINvlS4br02G2s62jA7nsyNsBJhHHT6OOAOXCgE1/30=";
   };
 
   sourceRoot = "${src.name}/src";
 
-  npmDepsHash = "sha256-2xkaB+LdDfdSlGZ5NR7SBRhW3t7QbEFKB6NB5yDoh2Y=";
+  npmDepsHash = "sha256-N/nJcHajV06K9febJtuFBptl/x56066KnraR6lWISgQ=";
   forceGitDeps = true;
   makeCacheWritable = true;
   dontNpmBuild = true;
