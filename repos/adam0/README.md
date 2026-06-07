@@ -15,12 +15,12 @@
   [Overview](#overview) - [Development](#development) - [Automation](#automation) - [Layout](#layout) - [Notes](#notes)
 </div>
 
-This repository exports a small personal package collection with a few clear focus areas: OpenCode tooling, Yazi plugins, Spicetify extensions, Fish plugins, cursor and icon themes, and a handful of standalone CLI packages.
+This repository exports a small personal package collection with a few clear focus areas: OpenCode tooling, Yazi plugins, Spicetify extensions, cursor and icon themes, and a handful of standalone CLI packages.
 
 ## Overview
 
 - Flake-based NUR repository built with `flake-parts` and auto-discovered package trees.
-- Currently contains 40+ package definitions, including OpenCode plugins, Yazi plugins, Spicetify extensions, and a Fish plugin set.
+- Contains personal package definitions, including OpenCode plugins, Yazi plugins, Spicetify extensions, and theme assets.
 - And Home Manager module for enabling packaged OpenCode plugins declaratively.
 - CI evaluates and builds the repository across multiple nixpkgs channels and pushes cacheable outputs to Cachix.
 
