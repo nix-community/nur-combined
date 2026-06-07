@@ -52,7 +52,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     cmake
-    libsForQt5.qt5.qttools
+    qt5.qttools
     pkg-config
     qt5.wrapQtAppsHook
   ];
