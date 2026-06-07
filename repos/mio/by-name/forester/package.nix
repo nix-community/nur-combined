@@ -1,5 +1,7 @@
 {
   lib,
+  stdenv,
+  pkgs,
   fetchurl,
   cid,
   datalog,
@@ -22,10 +24,13 @@ ocamlPackages.buildDunePackage rec {
     ./cmdliner-env-shadow.patch
   ];
 
-  nativeBuildInputs = with ocamlPackages; [
-    js_of_ocaml-compiler
-    menhir
-  ];
+  nativeBuildInputs =
+    with ocamlPackages;
+    [
+      js_of_ocaml-compiler
+      menhir
+    ]
+    ++ lib.optional stdenv.hostPlatform.isDarwin pkgs.darwin.sigtool;
 
   propagatedBuildInputs = with ocamlPackages; [
     alcotest

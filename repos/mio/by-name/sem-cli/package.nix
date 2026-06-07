@@ -5,7 +5,7 @@
   pkg-config,
   openssl,
   stdenv,
-  darwin,
+  apple-sdk,
 }:
 
 rustPlatform.buildRustPackage rec {
@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage rec {
     openssl
   ]
   ++ lib.optionals stdenv.isDarwin [
-    darwin.apple_sdk.frameworks.Security
-    darwin.apple_sdk.frameworks.CoreFoundation
+    apple-sdk
   ];
 
   cargoBuildFlags = [
