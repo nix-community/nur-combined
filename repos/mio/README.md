@@ -101,7 +101,7 @@ files are copied from following locations. some are modified in this repo and so
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
 + widevine-firefox <https://github.com/ToborWinner/teanyth/blob/263decae003ec1b7ed0f7cde30b57c6f2f320c0e/pkgs/firefox-widevine.nix#L4>
 + systemd258 nixpkgs commit 3ca49aa290e92b6a885e8c0045033fe2538a4977
-+ zen-browser <https://github.com/NixOS/nixpkgs/pull/363992/changes/753a48b91c124ae01063b70221a160c6f3cc4b81>
+
 + antigravity-cli <https://github.com/numtide/llm-agents.nix/tree/main/packages/antigravity-cli> commit 04df876de28f0684a0d7110444d7f64da5c14d17
 + versionCheckHomeHook <https://github.com/numtide/llm-agents.nix/tree/main/packages/versionCheckHomeHook> commit 04df876de28f0684a0d7110444d7f64da5c14d17
 

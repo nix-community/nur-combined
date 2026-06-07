@@ -16,10 +16,10 @@ index 92a760d..9339d03 100644
 +++ b/gradle/libs.versions.toml
 @@ -1,5 +1,5 @@
  [versions]
--android-gradle = "9.1.0"
+-android-gradle = "9.2.1"
 +android-gradle = "8.13.2"
- androidx-activity-compose = "1.12.4"
- androidx-core = "1.17.0"
+ androidx-activity-compose = "1.13.0"
+ androidx-core = "1.18.0"
  androidx-documentfile = "1.1.0"
 diff --git a/settings.gradle.kts b/settings.gradle.kts
 index 1a4ee8c..88c8334 100644

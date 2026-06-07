@@ -36,13 +36,13 @@
 let
   bifrost-unwrapped = stdenv.mkDerivation (finalAttrs: {
     pname = "bifrost-unwrapped";
-    version = "2.1.0";
+    version = "2.1.2";
 
     src = fetchFromGitHub {
       owner = "zacharee";
       repo = "SamloaderKotlin";
       tag = finalAttrs.version;
-      hash = "sha256-8rXatuJoUIvHhE5W0BTcJhDAQ/YudVe22Y35auxUBJ4=";
+      hash = "sha256-zK42e70h3eYcMapmegFhsHIcE7AKAcq2aKQ/7ZFQcbA=";
     };
 
     patches = [
