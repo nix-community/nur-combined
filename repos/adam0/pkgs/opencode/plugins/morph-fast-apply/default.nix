@@ -7,16 +7,16 @@
 }:
 mkOpencodePlugin rec {
   pname = "morph-fast-apply";
-  version = "1.9.0";
+  version = "1.10.0";
 
   src = fetchFromGitHub {
     owner = "JRedeker";
     repo = "opencode-${pname}";
     rev = "v${version}";
-    hash = "sha256-XjZDwSPidAgNZHyIh6VjOiuDrjOeTFdC5fmTK0UZVm8=";
+    hash = "sha256-tz4T03Zw5HJUwLeRf58qjsVr+LKXauY1C8QWJFm9+rI=";
   };
 
-  dependencyHash = "sha256-G4g5vBV8/4LRU+8aa4h2vzvuV17e+Dole07poz6r0Hc=";
+  dependencyHash = "sha256-JdWixTkCZqmpAvmrIOw2ABD0WImYGJgP/0MJuvCtMfs=";
 
   buildCommand = "bun build index.ts --outdir dist --target node";
 

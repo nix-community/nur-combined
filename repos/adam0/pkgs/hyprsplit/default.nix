@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "hyprsplit";
-  version = "0-unstable-2026-05-22";
+  version = "0.54.3-unstable-2026-06-06";
 
   src = fetchFromGitHub {
     owner = "shezdy";
     repo = "hyprsplit";
-    rev = "0fc01e7930625ecb3e069f5dc8e1d61eab929f3b";
-    hash = "sha256-XpwuFhwnfwPbzImZeUWWns///UEpoKNkpl1hN90C3Ag=";
+    rev = "8f0627b3f0380ce730d8d89f25680f4f601ecd33";
+    hash = "sha256-n7jG8wF0lhiky3/jJr8lCFyUtqZEInYA0J0K9W6Bq3I=";
   };
 
   installPhase = ''
