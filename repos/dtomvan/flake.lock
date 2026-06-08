@@ -20,11 +20,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1780243769,
-        "narHash": "sha256-2fYATYjjbsF2ri3reTWXgBkrmwK5Hpj23CsTEdLA2fo=",
-        "rev": "331800de5053fcebacf6813adb5db9c9dca22a0c",
+        "lastModified": 1780749050,
+        "narHash": "sha256-G5B1h4sOH4DN/RZ85xYi6zPm2MHdOrNMeUmMslZ28Qs=",
+        "rev": "a799d3e3886da994fa307f817a6bc705ae538eeb",
         "type": "tarball",
-        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1008282.331800de5053/nixexprs.tar.xz?lastModified=1780243769&rev=331800de5053fcebacf6813adb5db9c9dca22a0c"
+        "url": "https://releases.nixos.org/nixos/unstable/nixos-26.11pre1011622.a799d3e3886d/nixexprs.tar.xz?lastModified=1780749050&rev=a799d3e3886da994fa307f817a6bc705ae538eeb"
       },
       "original": {
         "type": "tarball",
@@ -73,7 +73,6 @@
         "flake-parts": [],
         "home-manager": [],
         "lazy-apps": [],
-        "mwg": [],
         "ncro": [],
         "nix-cache-beacon": [],
         "nix-index-database": [],
@@ -81,7 +80,6 @@
         "nixpkgs": "nixpkgs",
         "nixvim": [],
         "noctalia": [],
-        "noctalia-shell": [],
         "nur": [],
         "plasma-manager": [],
         "sops": [],
@@ -90,11 +88,11 @@
         "treefmt-nix": []
       },
       "locked": {
-        "lastModified": 1780353949,
-        "narHash": "sha256-/gg7aXSO9fs7lRVfyZFGv+87zSPGq7M2WIPisp+WMZQ=",
+        "lastModified": 1780945762,
+        "narHash": "sha256-HMsfRPVzCcWTavOL1OjdrcQDH3l+LZ15aYkjaGWSS+M=",
         "owner": "dtomvan",
         "repo": "puntbestanden",
-        "rev": "62cbcfbc800d9d6501892078cf7b1d2f6a1fc0ca",
+        "rev": "5d450051211a942fed6290e70c732f764fdd18d3",
         "type": "github"
       },
       "original": {
