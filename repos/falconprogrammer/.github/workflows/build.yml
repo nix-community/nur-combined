@@ -35,9 +35,7 @@ jobs:
         cachixName:
           - jonboylecodingnur
         nixPath:
-          - nixpkgs=channel:nixos-unstable
           - nixpkgs=channel:nixpkgs-unstable
-          - nixpkgs=channel:nixos-25.11
           - nixpkgs=channel:nixos-26.05
       fail-fast: false
     runs-on: ubuntu-latest
