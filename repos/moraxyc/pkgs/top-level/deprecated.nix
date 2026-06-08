@@ -6,6 +6,7 @@ let
     # Upstreamed
     sub-store = "upstreamed";
     sub-store-frontend = "upstreamed";
+    flapalerted = "upstreamed";
 
     # Unmaintained
     exloli-next = "unmaintained";
