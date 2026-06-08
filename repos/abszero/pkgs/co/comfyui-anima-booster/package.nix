@@ -17,9 +17,7 @@ stdenvNoCC.mkDerivation (final: {
     hash = "sha256-E2zGQh5iIGeae9rkzUvu7HiX3n+DqPk9XW2L2TDY5po=";
   };
 
-  propagatedBuildInputs = lib.optional (sageattention != null) [
-    sageattention
-  ];
+  propagatedBuildInputs = lib.optional (sageattention != null) sageattention;
 
   dontBuild = true;
 

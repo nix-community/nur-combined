@@ -42,7 +42,12 @@ in
       };
 
       spawn-at-startup = [
-        { command = [ "vicinae" "server" ]; }
+        {
+          command = [
+            "vicinae"
+            "server"
+          ];
+        }
       ];
     };
   };

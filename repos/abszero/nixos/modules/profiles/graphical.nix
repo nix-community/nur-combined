@@ -66,17 +66,16 @@ in
       automatic-timezoned.enable = true;
       kmscon = {
         enable = true;
-        hwRender = true;
-        extraConfig = ''
+        config = {
           # Input
-          xkb-repeat-rate=40
-          xkb-repeat-delay=160
-          # mouse TODO: enable mouse support when it lands
+          xkb-repeat-rate = 40;
+          xkb-repeat-delay = 160;
 
           # Appearance
-          font-size=18
-          palette=base16-light
-        '';
+          font-size = 24;
+          palette = "base16-light";
+          hwaccel = true;
+        };
       };
       libinput = {
         enable = true;

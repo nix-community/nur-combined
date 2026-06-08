@@ -62,7 +62,7 @@ in
     nixpkgs.config.allowUnfree = true;
 
     system = {
-      stateVersion = "26.05";
+      stateVersion = "26.11";
       nixos-init.enable = true; # Initialise system with a Rust program
       etc.overlay.enable = true; # Mount /etc as overlay; required for nixos-init
     };
@@ -129,7 +129,6 @@ in
     };
 
     services = {
-      dbus.implementation = "broker";
       journald.console = "/dev/tty10";
       userborn.enable = true; # Manage users with userborn; required for nixos-init
     };

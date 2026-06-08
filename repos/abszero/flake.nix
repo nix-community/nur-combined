@@ -17,7 +17,7 @@
       };
     };
     nixified-ai = {
-      url = "github:nixified-ai/flake";
+      url = "github:Weathercold/flake/feat/cudaless-kitchen";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -78,7 +78,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     lanzaboote = {
       # # Fork that adds an UKI mode
       # url = "github:linyinfeng/lanzaboote/uki";
@@ -136,7 +139,6 @@
 
         systems = [
           "x86_64-linux"
-          "x86_64-darwin"
           "aarch64-darwin"
           "aarch64-linux"
         ];

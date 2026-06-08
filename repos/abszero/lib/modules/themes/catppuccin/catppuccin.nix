@@ -69,8 +69,8 @@ in
 
   config = mkIf cfg.enable {
     catppuccin = {
-      # Enable all modules by default
-      enable = mkDefault true;
+      enable = true;
+      autoEnable = true; # Enable all modules by default
       flavor = cfg."${cfg.polarity}Flavor";
     };
 

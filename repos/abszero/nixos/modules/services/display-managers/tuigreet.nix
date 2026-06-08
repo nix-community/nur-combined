@@ -16,12 +16,7 @@ in
   config.services.greetd = mkIf cfg.enable {
     enable = true;
     useTextGreeter = true;
-    settings.default_session.command = ''
-      ${getExe pkgs.tuigreet} \
-        -rt --asterisks \
-        --window-padding 1 \
-        --power-shutdown 'systemctl poweroff' \
-        --power-reboot 'systemctl reboot'
-    '';
+    # Multiline command is bugged
+    settings.default_session.command = "${getExe pkgs.tuigreet} -rt --asterisks --window-padding 1 --power-shutdown 'systemctl poweroff' --power-reboot 'systemctl reboot'";
   };
 }
