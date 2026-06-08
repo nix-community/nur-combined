@@ -3,7 +3,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pnpm_10,
+  pnpm_10_29_2,
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
@@ -24,18 +24,18 @@
 }:
 let
   electron = electron_41;
-  pnpm = pnpm_10;
+  pnpm = pnpm_10_29_2;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260606";
+  version = "1.0.0-20260608";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "f73dedc594cae02c53fc3510571acaf84412485c"; # No releases yet
+    rev = "289d6f39e9ad3cef2328e15556ad800c11e882dd"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-dYWjHKc2MfpZw5DD+qtO3n5laMQ5ci530MxgdmaHlD4=";
+    hash = "sha256-xS7Ku1oG18eVwiSAHi90WPvBnHvA1GNgp6J1aUtW2WE=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-DTZVRcO/yWGqWA/sqbYdQjwMNJkKSaBFsXooi+sKO1A=";
+    hash = "sha256-EqOeAWklanzSLMUlwoK5FiGD+hPsQxwydGnuYWyisHM=";
   };
 
   nativeBuildInputs = [
@@ -75,7 +75,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     alsa-lib
+    stdenv.cc.cc.lib
   ];
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
