@@ -57,6 +57,7 @@
           ];
           extra-substituters = [
             # "https://cache.lix.systems"
+            "http://cache.nyaw.xyz:8501"
           ]
           ++ (map (n: "https://${n}.cachix.org") [
             # "nix-community"
@@ -66,7 +67,6 @@
           ]);
           substituters = [
             # "https://cache.garnix.io"
-            "http://cache.nyaw.xyz:8501"
           ];
           auto-optimise-store = true;
           experimental-features = [

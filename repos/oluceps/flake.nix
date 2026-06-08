@@ -43,7 +43,8 @@
       url = "github:nix-community/browser-previews";
     };
     # vaultix.url = "github:milieuim/vaultix";
-    vaultix.url = "/home/riro/Src/vaultix";
+    # vaultix.url = "/home/riro/Src/vaultix";
+    vaultix.url = "github:milieuim/vaultix?rev=92323d03be0de6e6c24f4ec83b4e39ada9b5cece";
     nixos-cosmic = {
       url = "github:lilyinstarlight/nixos-cosmic";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,7 +75,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix";
     atuin = {
       url = "github:atuinsh/atuin";
     };

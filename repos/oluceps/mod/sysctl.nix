@@ -69,6 +69,7 @@
       "kernel.yama.ptrace_scope" = 2;
       "vm.mmap_rnd_bits" = 32;
       "vm.mmap_rnd_compat_bits" = 16;
+      "vm.vfs_cache_pressure" = 200;
 
       "fs.protected_symlinks" = 1;
       "fs.protected_hardlinks" = 1;
@@ -77,7 +78,20 @@
       "fs.protected_regular" = 2;
 
       "net.ipv4.tcp_slow_start_after_idle" = 0;
-      "vm.swappiness" = 70;
+
+      # Balance Zswap compression and application responsiveness under heavy memory pressure
+      "vm.swappiness" = 30;
+
+      # Prevent kswapd0 CPU spikes by disabling aggressive watermark boosting
+      "vm.watermark_boost_factor" = 0;
+
+      # Optimize Zswap single-page access by disabling swap read-ahead
+      "vm.page-cluster" = 0;
+
+      # Trigger background disk writeback earlier to prevent I/O stalls on nearly full Btrfs disk
+      "vm.dirty_background_ratio" = 5;
+      "vm.dirty_ratio" = 10;
+
       "vm.max_map_count" = 2147483642;
       "net.ipv4.tcp_ecn" = 1;
       "net.ipv6.tcp_ecn" = 1;

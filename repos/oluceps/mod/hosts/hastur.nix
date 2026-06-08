@@ -49,6 +49,7 @@
             prometheus
             # xray
             june
+            # scx
           ])
         )
         ++ [
@@ -165,7 +166,7 @@
           "zswap.enabled=1"
           "zswap.compressor=zstd"
           "zswap.zpool=zsmalloc"
-          "zswap.max_pool_percent=40"
+          "zswap.max_pool_percent=25"
           "zswap.shrinker_enabled=1"
         ];
 

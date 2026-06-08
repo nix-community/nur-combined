@@ -8,6 +8,7 @@ in
     {
       vaultix = {
         settings.hostPubkey = self.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
         secrets = {
           id = {
             mode = "400";

@@ -28,7 +28,7 @@
           # bind explicitly to the device
           BindToDevice = "vm2";
           # optional: allow binding even if the interface is not fully up yet
-          FreeBind = true;
+          # FreeBind = true;
         };
       };
 
@@ -74,6 +74,7 @@
               imports = [
                 # ../../nixosModules/hysteria.nix
                 inputs.hermes-agent.nixosModules.default
+                self.modules.nixos.bub
               ];
               networking.hostName = "june";
               networking.useNetworkd = true;
@@ -87,6 +88,13 @@
               networking.nftables.enable = true;
               networking.enableIPv6 = true;
               # forbid end
+              networking.firewall.interfaces =
+                let
+                  matchAll = if !config.networking.nftables.enable then "podman+" else "podman*";
+                in
+                {
+                  "${matchAll}".allowedUDPPorts = [ 53 ];
+                };
 
               virtualisation = {
                 vmVariant = {
@@ -126,17 +134,17 @@
                 uid = 1000;
                 initialHashedPassword = lib.mkDefault config.data.keys.hashedPasswd;
               };
-              services.hermes-agent = {
-                enable = true;
-                package = inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.full;
-                container = {
-                  enable = true;
-                  hostUsers = [ "agent" ];
-                  backend = "podman";
-                };
-                addToSystemPackages = true;
-                environmentFiles = [ "/var/lib/hermes/env" ];
-              };
+              # services.hermes-agent = {
+              #   enable = true;
+              #   package = inputs.hermes-agent.packages.${pkgs.stdenv.hostPlatform.system}.full;
+              #   container = {
+              #     enable = true;
+              #     hostUsers = [ "agent" ];
+              #     backend = "podman";
+              #   };
+              #   addToSystemPackages = true;
+              #   environmentFiles = [ "/var/lib/hermes/env" ];
+              # };
               security.sudo.extraRules = [
                 {
                   users = [ "agent" ];
@@ -173,6 +181,7 @@
                 "net.core.rmem_max" = 16777216;
                 "net.core.wmem_max" = 16777216;
                 "net.ipv4.conf.all.forwarding" = 1;
+                "net.ipv6.conf.all.forwarding" = 1;
               };
               systemd.network = {
 
@@ -277,7 +286,7 @@
                 '';
               microvm = {
                 vcpu = 4;
-                mem = 4096;
+                mem = 1536;
                 interfaces = [
                   {
                     id = "vm${toString index}";
@@ -301,6 +310,14 @@
                     # squashfs/erofs will be built for it.
                     source = "/nix/store";
                     mountPoint = "/nix/.ro-store";
+                  }
+                  {
+                    proto = "virtiofs";
+                    tag = "bub";
+                    # Source path can be absolute or relative
+                    # to /var/lib/microvms/$hostName
+                    source = "/home/riro/Src/bub";
+                    mountPoint = "/home/agent/bub";
                   }
                 ];
 

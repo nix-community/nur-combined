@@ -28,10 +28,10 @@
     cache = "./sec/.cache";
   };
   flake.modules.nixos.vaultix =
-    { pkgs, ... }@args:
+    { pkgs, ... }:
     {
       imports = [
-        (import (inputs.vaultix.outPath + "/module") (args // { inherit self; }))
+        (import (inputs.vaultix.outPath + "/module"))
       ];
 
       vaultix.package = withSystem pkgs.stdenv.hostPlatform.system (

@@ -11,7 +11,6 @@
         )
         [
           "run0-sudo-shim"
-          "catppuccin"
           "nix-topology"
           "self"
           "hjem"
