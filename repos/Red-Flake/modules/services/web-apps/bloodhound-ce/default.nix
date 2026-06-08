@@ -190,6 +190,16 @@ in
         example = "/run/secrets/bh-neo4j.env"; # contains: bhe_neo4j_secret=...
         description = "Environment file with bhe_neo4j_secret=... (preferred).";
       };
+      waitForService = mkOption {
+        type = types.bool;
+        default = true;
+        description = "Wait for Neo4j's Bolt socket to accept connections before starting BloodHound CE.";
+      };
+      waitTimeout = mkOption {
+        type = types.ints.positive;
+        default = 120;
+        description = "Maximum number of seconds to wait for Neo4j's Bolt socket.";
+      };
     };
 
     # Which graph driver to use (BloodHound supports neo4j; keep default)
@@ -294,6 +304,27 @@ in
                   ];
                 in
                 utils.escapeSystemdExecArgs args;
+
+              ExecStartPre = lib.mkIf cfg.neo4j.waitForService (
+                let
+                  host = if lib.hasInfix ":" cfg.neo4j.host then lib.head (lib.splitString ":" cfg.neo4j.host) else cfg.neo4j.host;
+                  port =
+                    if lib.hasInfix ":" cfg.neo4j.host
+                    then lib.last (lib.splitString ":" cfg.neo4j.host)
+                    else toString cfg.neo4j.port;
+                in
+                "${pkgs.writeShellScript "bloodhound-ce-wait-for-neo4j" ''
+                  for _ in $(${pkgs.coreutils}/bin/seq 1 ${toString cfg.neo4j.waitTimeout}); do
+                    if ${pkgs.bash}/bin/bash -c 'exec 3<>/dev/tcp/${host}/${port}' 2>/dev/null; then
+                      exit 0
+                    fi
+                    ${pkgs.coreutils}/bin/sleep 1
+                  done
+
+                  echo "Timed out waiting for Neo4j Bolt on ${host}:${port}" >&2
+                  exit 1
+                ''}"
+              );
 
               Environment = [
                 "bhe_work_dir=/var/lib/bloodhound-ce/work"
