@@ -3,6 +3,7 @@
   fetchurl,
   appimageTools,
   makeWrapper,
+  asar,
   writeShellApplication,
   curl,
   common-updater-scripts,
@@ -19,15 +20,23 @@ let
     inherit pname version src;
 
     postExtract = ''
+      appRoot="$out/resources/app"
+      ${lib.getExe asar} extract "$out/resources/app.asar" "$appRoot"
+      rm "$out/resources/app.asar"
+
       # disable creating a desktop file and icon in the home folder during runtime
-      linuxConfigFilename=$out/resources/app/build/main/linux-*.mjs
+      linuxConfigFilename=$appRoot/build/main/linux-*.mjs
       echo "export function registerLinuxConfig() {}" > $linuxConfigFilename
 
       # disable auto update
-      sed -i 's/AUTO_UPDATE_DISABLED=.*auto_update_disabled,/AUTO_UPDATE_DISABLED=true,/' $out/resources/app/build/main/main-entry-*.mjs
+      sed -i 's/c=d??{},p=c.hw_acceleration??!0/c={...(d??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' $appRoot/build/main/index-*.mjs
 
       # prevent updates
-      sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' $out/resources/app/build/main/main-entry-*.mjs
+      sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' $appRoot/build/main/main-entry-*.mjs
+
+      # hide version status element on about page otherwise an error message is shown
+      sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' $appRoot/build-browser/*.css
+
     '';
   };
 in
@@ -47,7 +56,8 @@ appimageTools.wrapAppImage {
     . ${makeWrapper}/nix-support/setup-hook
     wrapProgram $out/bin/beeper \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}} --no-update" \
-      --set APPIMAGE beeper
+      --set APPIMAGE beeper \
+      --run 'exec >/dev/null'
   '';
 
   passthru = {
