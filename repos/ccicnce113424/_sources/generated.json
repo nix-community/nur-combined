@@ -58,12 +58,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.1.2",
-            "sha256": "sha256-3WMeACEOrlZcZywNNRTc6fqBAS0F3JzGEULMFal/uBs=",
+            "rev": "v0.2.0",
+            "sha256": "sha256-CiT5B+7unaMJ2coNS9HvvHBsdqTMXISVW525eEWSz7M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.1.2"
+        "version": "v0.2.0"
     },
     "fxz": {
         "cargoLock": null,
@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-iubiVegDnOOczeYqMIU65RX43te91TbSdw2UdN_p6qQ=/src-tauri/Cargo.lock",
+                "sha256-r06tppGbmdT0FNaN9BLKz0KvMklewbCoilOsyYHcho8=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.4",
-            "sha256": "sha256-iubiVegDnOOczeYqMIU65RX43te91TbSdw2UdN/p6qQ=",
+            "rev": "v3.9.5-beta.1",
+            "sha256": "sha256-r06tppGbmdT0FNaN9BLKz0KvMklewbCoilOsyYHcho8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.4"
+        "version": "v3.9.5-beta.1"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-om7bJobrA+iW3ZrQxTioRZMBTHnDB+7cDdSdr0rVu9E=/Cargo.lock",
+                "sha256-gknUXdXDXlg9PNmsmLiY_wnTbDpxpUyY7UveyRetg54=/Cargo.lock",
                 {
-                    "ffmpeg_audio-0.1.0": "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I="
+                    "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
             ]
         },
-        "date": "2026-06-07",
+        "date": "2026-06-08",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "f307b95be98ff6be2c5b8fbc1a919e0908bf454e",
-            "sha256": "sha256-om7bJobrA+iW3ZrQxTioRZMBTHnDB+7cDdSdr0rVu9E=",
+            "rev": "324997c34495a01c016f1526031693f98b5779b7",
+            "sha256": "sha256-gknUXdXDXlg9PNmsmLiY/wnTbDpxpUyY7UveyRetg54=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f307b95be98ff6be2c5b8fbc1a919e0908bf454e"
+        "version": "324997c34495a01c016f1526031693f98b5779b7"
     },
     "svt-av1-essential": {
         "cargoLock": null,

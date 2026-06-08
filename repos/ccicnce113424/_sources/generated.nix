@@ -32,13 +32,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.1.2";
+    version = "v0.2.0";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.1.2";
+      rev = "v0.2.0";
       fetchSubmodules = false;
-      sha256 = "sha256-3WMeACEOrlZcZywNNRTc6fqBAS0F3JzGEULMFal/uBs=";
+      sha256 = "sha256-CiT5B+7unaMJ2coNS9HvvHBsdqTMXISVW525eEWSz7M=";
     };
   };
   fxz = {
@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.4";
+    version = "v3.9.5-beta.1";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.4";
+      rev = "v3.9.5-beta.1";
       fetchSubmodules = false;
-      sha256 = "sha256-iubiVegDnOOczeYqMIU65RX43te91TbSdw2UdN/p6qQ=";
+      sha256 = "sha256-r06tppGbmdT0FNaN9BLKz0KvMklewbCoilOsyYHcho8=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-iubiVegDnOOczeYqMIU65RX43te91TbSdw2UdN_p6qQ=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-r06tppGbmdT0FNaN9BLKz0KvMklewbCoilOsyYHcho8=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "f307b95be98ff6be2c5b8fbc1a919e0908bf454e";
+    version = "324997c34495a01c016f1526031693f98b5779b7";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "f307b95be98ff6be2c5b8fbc1a919e0908bf454e";
+      rev = "324997c34495a01c016f1526031693f98b5779b7";
       fetchSubmodules = false;
-      sha256 = "sha256-om7bJobrA+iW3ZrQxTioRZMBTHnDB+7cDdSdr0rVu9E=";
+      sha256 = "sha256-gknUXdXDXlg9PNmsmLiY/wnTbDpxpUyY7UveyRetg54=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-om7bJobrA+iW3ZrQxTioRZMBTHnDB+7cDdSdr0rVu9E=/Cargo.lock";
+      lockFile = ./. + "/sha256-gknUXdXDXlg9PNmsmLiY_wnTbDpxpUyY7UveyRetg54=/Cargo.lock";
       outputHashes = {
-        "ffmpeg_audio-0.1.0" = "sha256-EA7x3EGb2FzLqp3GklgeP9ZSalyPm7ohZDPrqbSRX0I=";
+        "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
     };
-    date = "2026-06-07";
+    date = "2026-06-08";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
