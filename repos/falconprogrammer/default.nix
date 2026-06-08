@@ -26,14 +26,14 @@ in
 	alvr = pkgs.callPackage pkgs/alvr {};
 	cco = pkgs.callPackage pkgs/cco {};
 	g13d = pkgs.callPackage pkgs/g13d {};
-	gitignore-template = p_312.callPackage pkgs/gitignore-template {};
+	gitignore-template = p_313.callPackage pkgs/gitignore-template {};
+	hyuga = p_312.callPackage pkgs/hyuga {};
 	opencode = pkgs.callPackage pkgs/opencode {};
 	opencode-sst = pkgs.callPackage pkgs/opencode-sst {};
-	python-jwt_311 = p_311.callPackage pkgs/python-jwt {python-ver = 311;};
 	python-jwt_312 = p_312.callPackage pkgs/python-jwt {python-ver = 312;};
 	python-jwt_313 = p_313.callPackage pkgs/python-jwt {python-ver = 313;};
-	spec-kit = p_312.callPackage pkgs/spec-kit {};
-	timew-sync-client = p_312.callPackage pkgs/timew-sync-client {};
+	spec-kit = p_313.callPackage pkgs/spec-kit {};
+	timew-sync-client = p_313.callPackage pkgs/timew-sync-client {};
 	vpuppr-gd3 = pkgs.callPackage pkgs/vpuppr-gd3 {};
 	xgen = pkgs.callPackage pkgs/xgen {};
 

@@ -1,0 +1,51 @@
+diff --git a/hyuga/sym/loader.hy b/hyuga/sym/loader.hy
+index 9180012..19d3804 100644
+--- a/hyuga/sym/loader.hy
++++ b/hyuga/sym/loader.hy
+@@ -1,7 +1,7 @@
+ (require hyrule * :readers *)
+ (require hyrule.argmove [-> ->>])
+ (import hyrule.collections [assoc])
+-(import hyrule.collections [walk])
++(import hyuga.walk [walk])
+ 
+ (import hy.models [Expression])
+ (import hy.compiler [HyASTCompiler])
+diff --git a/hyuga/sym/summary.hy b/hyuga/sym/summary.hy
+index 1e38595..c42a3af 100644
+--- a/hyuga/sym/summary.hy
++++ b/hyuga/sym/summary.hy
+@@ -1,6 +1,6 @@
+ (require hyrule * :readers *)
+ (require hyrule.argmove [-> ->>])
+-(import hyrule.collections [walk])
++(import hyuga.walk [walk])
+ 
+ (import hy.models [Expression List String])
+ (import toolz.itertoolz *)
+diff --git a/hyuga/walk.hy b/hyuga/walk.hy
+new file mode 100644
+index 0000000..f98d6c9
+--- /dev/null
++++ b/hyuga/walk.hy
+@@ -0,0 +1,20 @@
++;; Vendored from hyrule 0.7's `hyrule.collections`. `walk` (with `prewalk` /
++;; `postwalk`) was removed in hyrule 1.0 in favour of `map-model` / `map-hyseq`,
++;; which recurse with a different (None-means-recurse) protocol. hyuga's
++;; traversal relies on walk's single-level inner/outer semantics, so keep the
++;; original here rather than re-architect the walkers.
++
++(import hyrule.iterables [coll?])
++
++(defn walk [inner outer form]
++  "Traverse ``form``, applying ``inner`` to each element and ``outer`` to the
++  result, preserving the structure type."
++  (cond
++    (isinstance form hy.models.Expression)
++      (outer (hy.models.Expression (map inner form)))
++    (or (isinstance form #(hy.models.Sequence list)))
++      ((type form) (outer (hy.models.Expression (map inner form))))
++    (coll? form)
++      (walk inner outer (list form))
++    True
++      (outer form)))

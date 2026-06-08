@@ -7,7 +7,7 @@ let_tag = "<<TEMPLATE_LET>>"
 package_tag = "<<TEMPLATE_PACKAGES>>"
 
 python_versions = ["311", "312", "313"]
-python_app_version = "312"
+python_app_version = "313"
 
 
 def main():
@@ -35,6 +35,12 @@ def main():
 	limit_python_versions = {
 		"llama-cpp-python": ["310", "311"],
 		"cursebreaker": ["311"],
+		"python-jwt": ["312", "313"],
+	}
+
+	# Override the python version for specific applications
+	limit_python_app_versions = {
+		"hyuga": "312",
 	}
 
 	######
@@ -82,7 +88,8 @@ def main():
 				output_packages.append(f"{pkg.name}_{p_ver}")
 		elif python_application:
 			print(f"Package {pkg.name} is a python application")
-			package_string += f"{indent}{pkg.name} = p_{python_app_version}.callPackage {str(pkg)} {{}};\n"
+			app_ver = limit_python_app_versions.get(pkg.name, python_app_version)
+			package_string += f"{indent}{pkg.name} = p_{app_ver}.callPackage {str(pkg)} {{}};\n"
 		else:
 			print(f"Package {pkg.name} is not a python package")
 			package_string += f"{indent}{pkg.name} = pkgs.callPackage {str(pkg)} {{}};\n"

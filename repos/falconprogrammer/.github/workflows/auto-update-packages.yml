@@ -22,10 +22,12 @@ jobs:
       fail-fast: false  # Continue updating other packages even if one fails
       matrix:
         package:
-          - name: opencode-sst
-            owner: sst
+          - name: opencode
+            owner: anomalyco
             repo: opencode
-            type: release
+            type: binary
+            asset: opencode-linux-x64.tar.gz
+            hash_key: x86_64-linux
           - name: spec-kit
             owner: github
             repo: spec-kit
@@ -36,8 +38,10 @@ jobs:
             type: commit
             branch: master
           # Add more packages here as they get auto-update support
-          # type: release - uses GitHub releases API
+          # type: release - uses GitHub releases API (source tarball, hash = "...")
           # type: commit - tracks latest commit on specified branch
+          # type: binary - prebuilt release asset; needs `asset` (filename) and
+          #                `hash_key` (per-arch key in `hashes = { ... }`)
 
     steps:
       - name: Check if should run
@@ -166,7 +170,7 @@ jobs:
         run: |
           LATEST_VERSION="${{ steps.check_version.outputs.latest_version }}"
           PACKAGE_FILE="pkgs/${{ matrix.package.name }}/default.nix"
-          UPDATE_TYPE="${{ steps.check_version.outputs.update_type }}"
+          MATRIX_TYPE="${{ matrix.package.type }}"
 
           if [ -z "$LATEST_VERSION" ] || [ "$LATEST_VERSION" = "null" ]; then
             echo "❌ Invalid version received: '$LATEST_VERSION'"
@@ -175,21 +179,45 @@ jobs:
 
           echo "Updating ${{ matrix.package.name }} to version $LATEST_VERSION..."
 
-          # Get the correct hash using nix-prefetch-url
-          if [ "$UPDATE_TYPE" = "commit" ]; then
+          # Resolve the new source hash (method depends on package type)
+          if [ "$MATRIX_TYPE" = "commit" ]; then
             LATEST_REV="${{ steps.check_version.outputs.latest_rev }}"
             echo "Fetching hash for commit $LATEST_REV..."
             ARCHIVE_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/archive/$LATEST_REV.tar.gz"
+            BASE32_HASH=$(nix-prefetch-url --unpack "$ARCHIVE_URL" 2>/dev/null)
+            NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$BASE32_HASH")
+          elif [ "$MATRIX_TYPE" = "binary" ]; then
+            ASSET="${{ matrix.package.asset }}"
+            ASSET_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/releases/download/v$LATEST_VERSION/$ASSET"
+            echo "Fetching release asset $ASSET (v$LATEST_VERSION)..."
+            # fetchzip stores the NAR of the unpacked tree (flattening a lone root
+            # directory). nix-prefetch-url --unpack would hash a lone file instead,
+            # so unpack and hash the tree the same way fetchzip does.
+            WORKDIR=$(mktemp -d)
+            curl -fsSL "$ASSET_URL" -o "$WORKDIR/asset"
+            mkdir "$WORKDIR/unpacked"
+            case "$ASSET" in
+              *.zip) unzip -q "$WORKDIR/asset" -d "$WORKDIR/unpacked" ;;
+              *)     tar -C "$WORKDIR/unpacked" -xf "$WORKDIR/asset" ;;
+            esac
+            shopt -s dotglob nullglob
+            entries=("$WORKDIR/unpacked"/*)
+            shopt -u dotglob nullglob
+            if [ ${#entries[@]} -eq 1 ] && [ -d "${entries[0]}" ]; then
+              NEW_HASH=$(nix hash path --sri "${entries[0]}")
+            else
+              NEW_HASH=$(nix hash path --sri "$WORKDIR/unpacked")
+            fi
+            rm -rf "$WORKDIR"
           else
             echo "Fetching hash for version v$LATEST_VERSION..."
             ARCHIVE_URL="https://github.com/${{ matrix.package.owner }}/${{ matrix.package.repo }}/archive/v$LATEST_VERSION.tar.gz"
+            BASE32_HASH=$(nix-prefetch-url --unpack "$ARCHIVE_URL" 2>/dev/null)
+            NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$BASE32_HASH")
           fi
 
-          BASE32_HASH=$(nix-prefetch-url --unpack "$ARCHIVE_URL" 2>/dev/null)
-          NEW_HASH=$(nix hash convert --hash-algo sha256 --to sri "$BASE32_HASH")
-
           if [ -z "$NEW_HASH" ]; then
-            echo "❌ Failed to get hash from nix-prefetch-url"
+            echo "❌ Failed to get hash"
             exit 1
           fi
 
@@ -198,14 +226,18 @@ jobs:
           # Update version
           sed -i "s|version = \"[^\"]*\"|version = \"$LATEST_VERSION\"|" "$PACKAGE_FILE"
 
-          # For commit-based packages, also update the rev
-          if [ "$UPDATE_TYPE" = "commit" ]; then
+          # Update rev (commit) and hash; binary packages patch the per-arch hash key
+          if [ "$MATRIX_TYPE" = "commit" ]; then
             echo "Updating rev to $LATEST_REV..."
             sed -i "s|rev = \"[^\"]*\"|rev = \"$LATEST_REV\"|" "$PACKAGE_FILE"
+            sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
+          elif [ "$MATRIX_TYPE" = "binary" ]; then
+            HASH_KEY="${{ matrix.package.hash_key }}"
+            echo "Updating hash for platform $HASH_KEY..."
+            sed -i "s|\"$HASH_KEY\" = \"[^\"]*\"|\"$HASH_KEY\" = \"$NEW_HASH\"|" "$PACKAGE_FILE"
+          else
+            sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
           fi
-
-          # Update hash
-          sed -i "s|hash = \"[^\"]*\"|hash = \"$NEW_HASH\"|" "$PACKAGE_FILE"
 
           echo "Updated to version: $LATEST_VERSION"
 
