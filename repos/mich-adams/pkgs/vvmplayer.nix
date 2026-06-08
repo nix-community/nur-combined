@@ -62,5 +62,6 @@ stdenv.mkDerivation rec {
     maintainers = [];
     mainProgram = "vvmplayer";
     platforms = lib.platforms.linux;
+    broken = true;
   };
 }

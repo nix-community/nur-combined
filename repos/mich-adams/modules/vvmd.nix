@@ -17,7 +17,7 @@ let
     Exec=${pkgs.coreutils}/bin/false vvmd
   '';
   vvmd-pkg = pkgs.callPackage ../pkgs/vvmd.nix { };
-  vvmplayer-pkg = pkgs.callPackage ../pkgs/vvmplayer.nix { };
+  #vvmplayer-pkg = pkgs.callPackage ../pkgs/vvmplayer.nix { };
 in
 {
   #meta.maintainers = [ maintainers.mich-adams ];
@@ -30,7 +30,7 @@ in
 
     environment.systemPackages = [
       vvmd-pkg
-      vvmplayer-pkg
+      #vvmplayer-pkg
     ];
 
     services.dbus.packages = [ dbusServiceFile ];
