@@ -2,14 +2,6 @@
 src.git = "https://github.com/lolishinshi/exloli-next"
 fetch.github = "lolishinshi/exloli-next"
 
-[flapalerted]
-src.git = "https://github.com/Kioubit/FlapAlerted"
-fetch.github = "Kioubit/FlapAlerted"
-
-[flapalerted-stable]
-src.github = "Kioubit/FlapAlerted"
-fetch.url = "file:///dev/null"
-
 [pixy2]
 src.git = "https://github.com/charmedlabs/pixy2"
 fetch.github = "charmedlabs/pixy2"
@@ -169,6 +161,11 @@ fetch.github = "metacubex/geo"
 src.git = "https://github.com/MetaCubeX/meta-rules-converter"
 fetch.github = "MetaCubeX/meta-rules-converter"
 
+[meta-rules-dat]
+src.git = "https://github.com/MetaCubeX/meta-rules-dat.git"
+fetch.github = "MetaCubeX/meta-rules-dat"
+src.branch = "release"
+
 [headscale-ui]
 src.git = "https://github.com/gurucomputing/headscale-ui"
 fetch.github = "gurucomputing/headscale-ui"
@@ -234,3 +231,21 @@ git.fetchSubmodules = true
 src.httpheader = "https://api.nrd.nie.163.com/api/v1/release/dl/4?channel=gwqd"
 src.regex = 'uuyc[._-]v?(\d+(?:\.\d+)+)\.pkg'
 fetch.url = "https://a56.gdl.netease.com/uuyc_$ver.pkg"
+
+[clash-nyanpasu-stable]
+src.github = "libnyanpasu/clash-nyanpasu"
+fetch.github = "libnyanpasu/clash-nyanpasu"
+
+[clash-nyanpasu]
+src.git = "https://github.com/libnyanpasu/clash-nyanpasu"
+fetch.github = "libnyanpasu/clash-nyanpasu"
+cargo_lock = ['backend/Cargo.lock']
+
+[nyanpasu-service-stable]
+src.github = "libnyanpasu/nyanpasu-service"
+fetch.github = "libnyanpasu/nyanpasu-service"
+
+[nyanpasu-service]
+src.git = "https://github.com/libnyanpasu/nyanpasu-service.git"
+fetch.github = "libnyanpasu/nyanpasu-service"
+cargo_lock = ['Cargo.lock']

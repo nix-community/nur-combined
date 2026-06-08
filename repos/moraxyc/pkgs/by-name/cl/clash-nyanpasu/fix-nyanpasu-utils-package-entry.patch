@@ -1,0 +1,34 @@
+diff --git a/frontend/nyanpasu/vite.config.ts b/frontend/nyanpasu/vite.config.ts
+index 9e6e374..c571bec 100644
+--- a/frontend/nyanpasu/vite.config.ts
++++ b/frontend/nyanpasu/vite.config.ts
+@@ -114,7 +114,7 @@ export default defineConfig(({ command, mode }) => {
+           find: '@nyanpasu/interface',
+           replacement: path.resolve('../interface/src'),
+         },
+-        { find: '@nyanpasu/utils', replacement: path.resolve('../utils/src') },
++        { find: '@nyanpasu/utils', replacement: path.resolve('../utils/dist/src/index.js') },
+         { find: '~', replacement: path.resolve('.') },
+       ],
+       dedupe: ['react', 'react-dom'],
+diff --git a/frontend/utils/package.json b/frontend/utils/package.json
+index c4addc7..f4b976e 100644
+--- a/frontend/utils/package.json
++++ b/frontend/utils/package.json
+@@ -2,13 +2,13 @@
+   "name": "@nyanpasu/utils",
+   "version": "2.0.0",
+   "type": "module",
+-  "main": "src/index.ts",
+-  "types": "src/index.ts",
++  "main": "./dist/src/index.js",
++  "types": "./dist/src/index.d.ts",
+   "scripts": {
+     "build": "tsc"
+   },
+   "exports": {
+-    ".": "./src/index.ts"
++    ".": "./dist/src/index.js"
+   },
+   "dependencies": {
+     "@tauri-apps/api": "2.11.0",
