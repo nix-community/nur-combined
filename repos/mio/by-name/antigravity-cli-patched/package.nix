@@ -12,31 +12,26 @@ antigravity-cli.overrideAttrs (oldAttrs: {
 
   postInstall = (oldAttrs.postInstall or "") + ''
     python3 -c '
-    from pwn import ELF, context
     import sys
-
-    # Set architecture context for pwntools
-    context.arch = "amd64"
-
     path = "'$out'/bin/agy"
-    elf = ELF(path, checksec=False)
+    with open(path, "rb") as f:
+        data = bytearray(f.read())
 
-    def patch(name, pattern, new):
-        matches = list(elf.search(pattern))
-        if len(matches) != 1:
-            print(f"Error: {name} found {len(matches)} times, expected 1", file=sys.stderr)
-            sys.exit(1)
-        elf.write(matches[0], new)
-        print(f"Successfully patched {name} at {hex(matches[0])}")
+    # Patch: replace problematic jump instruction with NOPs
+    # Pattern: 0f 84 fa 05 00 00 (je ...), followed by a mov instruction
+    # Using hex pattern is safer than pwntools for static binary patches of this type.
+    pattern = b"\x0f\x84\xfa\x05\x00\x00\x4c\x89\x94\x24\xe0\xb8\x00\x00"
+    new = b"\x90\x90\x90\x90\x90\x90\x4c\x89\x94\x24\xe0\xb8\x00\x00"
 
-    # Patch 1: "\n  %s\n\n" -> "\n%s\n\n\n\n"
-    patch("Pattern 1", b"\x0a  %s\x0a\x0a", b"\x0a%s\x0a\x0a\x0a\x0a")
+    c = data.count(pattern)
+    if c != 1:
+        print(f"Error: Unique pattern found {c} times, expected 1", file=sys.stderr)
+        sys.exit(1)
 
-    # Patch 2: "  %s  " -> "%s    "
-    patch("Pattern 2", b"  %s  ", b"%s    ")
+    data = data.replace(pattern, new, 1)
 
-    elf.save(path)
+    with open(path, "wb") as f:
+        f.write(data)
     '
   '';
-
 })
