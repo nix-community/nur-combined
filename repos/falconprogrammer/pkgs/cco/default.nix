@@ -13,8 +13,14 @@
   file,
   procps,
   docker,
+  docker_29 ? docker,
 }:
 
+let
+  # The default `docker` is the insecure docker_28 on nixos-25.11; fall back to
+  # docker_29 there, but keep tracking the default where it is already current.
+  dockerPkg = if lib.versionAtLeast docker.version "29" then docker else docker_29;
+in
 stdenv.mkDerivation rec {
   pname = "cco";
   version = "0-unstable-2026-04-30";
@@ -58,7 +64,7 @@ stdenv.mkDerivation rec {
         gawk
         file
         procps
-        docker
+        dockerPkg
       ]} \
       --set CCO_INSTALLATION_DIR $out/share/cco
 
