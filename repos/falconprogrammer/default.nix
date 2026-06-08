@@ -35,6 +35,7 @@ in
 	spec-kit = p_313.callPackage pkgs/spec-kit {};
 	timew-sync-client = p_313.callPackage pkgs/timew-sync-client {};
 	vpuppr-gd3 = pkgs.callPackage pkgs/vpuppr-gd3 {};
+	wine-fusion = pkgs.callPackage pkgs/wine-fusion {};
 	xgen = pkgs.callPackage pkgs/xgen {};
 
 

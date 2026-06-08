@@ -1,0 +1,13 @@
+diff --git a/dlls/winex11.drv/window.c b/dlls/winex11.drv/window.c
+index 33d8ceee..d07adcd5 100644
+--- a/dlls/winex11.drv/window.c
++++ b/dlls/winex11.drv/window.c
+@@ -444,6 +444,8 @@ static BOOL is_window_managed( HWND hwnd, UINT swp_flags, BOOL fullscreen )
+     /* child windows are not managed */
+     style = NtUserGetWindowLongW( hwnd, GWL_STYLE );
+     if ((style & (WS_CHILD|WS_POPUP)) == WS_CHILD) return FALSE;
++    /* captionless popups are not managed */
++    if ((style & (WS_POPUP|WS_CAPTION)) == WS_POPUP) return FALSE;
+     /* activated windows are managed */
+     if (!(swp_flags & (SWP_NOACTIVATE|SWP_HIDEWINDOW))) return TRUE;
+     if (hwnd == get_active_window()) return TRUE;
