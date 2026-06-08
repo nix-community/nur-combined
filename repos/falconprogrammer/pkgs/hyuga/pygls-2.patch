@@ -1,0 +1,24 @@
+diff -ruN a/hyuga/server.hy b/hyuga/server.hy
+--- a/hyuga/server.hy	2026-06-08 11:08:42.193228557 +0100
++++ b/hyuga/server.hy	2026-06-08 11:08:42.195902358 +0100
+@@ -8,7 +8,7 @@
+                           TEXT_DOCUMENT_DID_CLOSE
+                           TEXT_DOCUMENT_DID_OPEN
+                           CompletionOptions])
+-(import pygls.server [LanguageServer])
++(import pygls.lsp.server [LanguageServer])
+ 
+ (import hyuga.api *)
+ (import hyuga.version [get-version])
+diff -ruN a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	2026-06-08 11:08:42.193821554 +0100
++++ b/pyproject.toml	2026-06-08 11:08:42.196567648 +0100
+@@ -12,7 +12,7 @@
+ hy = "^1.0.0"
+ hyrule = "^0.7"
+ toolz = "^0.12.0"
+-pygls = "^1.2.1"
++pygls = ">=1.2.1"
+ setuptools = "^75.2.0"
+ 
+ [tool.poetry.group.dev.dependencies]

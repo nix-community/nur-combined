@@ -22,10 +22,11 @@ buildPythonApplication rec {
     hash = "sha256-s1ysZ9UudCvQed9CxpAKxDtjAWqBkSjj8Qr5Uae1/0I=";
   };
 
-  # hyuga imports `walk` from hyrule.collections, removed in hyrule 1.0. Vendor
-  # the original so hyuga runs on the same hyrule (1.0+) as everything else,
-  # rather than pinning it to the dead 0.7 line (which would clash on sys.path).
-  patches = [ ./vendor-walk.patch ];
+  # Two patches:
+  # - vendor-walk: hyrule 1.0 dropped `walk` from hyrule.collections; vendor it.
+  # - pygls-2: pygls 2.0 moved LanguageServer to pygls.lsp.server; apply only on >= 2.0.
+  patches = [ ./vendor-walk.patch ]
+    ++ lib.optionals (lib.versionAtLeast pygls.version "2.0.0") [ ./pygls-2.patch ];
 
   nativeBuildInputs = [
     poetry-core

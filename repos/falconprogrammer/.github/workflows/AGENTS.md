@@ -8,7 +8,7 @@ Two-workflow CI/CD suite for a NUR (Nix User Repository): one builds and caches 
 
 ### CI & Cache
 
-- [build.yml](./build.yml) — Evaluates NUR package set, builds via `nix-build-uncached` against `ci.nix#cacheOutputs`, pushes to Cachix, and POSTs to `nur-update.nix-community.org` for registry sync. Matrix over `nixos-unstable`, `nixpkgs-unstable`, `nixos-25.05`.
+- [build.yml](./build.yml) — Evaluates NUR package set, builds via `nix-build-uncached` against `ci.nix#cacheOutputs`, pushes to Cachix, and POSTs to `nur-update.nix-community.org` for registry sync. Matrix over `nixos-unstable`, `nixpkgs-unstable`, `nixos-25.11`, `nixos-26.05`.
 
 ### Automation
 
@@ -30,7 +30,7 @@ auto-update-packages (matrix: opencode, spec-kit, cco)
   └─ trigger-nur-sync → gh workflow run build.yml
         │
         ▼
-build.yml (matrix: 3 nixpkgs channels)
+build.yml (matrix: 4 nixpkgs channels)
   ├─ nix-env eval check (restrict-eval)
   ├─ nix-build-uncached ci.nix#cacheOutputs
   ├─ cachix push (conditional on cachixName sentinel)

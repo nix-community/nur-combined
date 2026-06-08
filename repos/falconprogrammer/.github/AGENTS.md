@@ -10,7 +10,7 @@ GitHub automation config root: Dependabot keeps workflow action pins current; `w
 
 ## Subdirectories
 
-- [workflows/](./workflows/) — Two-workflow CI/CD suite: `build.yml` builds NUR packages against 3 nixpkgs channels and pushes to Cachix; `auto-update-packages.yml` fetches upstream releases/commits daily, patches `pkgs/*/default.nix`, and opens auto-squash PRs.
+- [workflows/](./workflows/) — Two-workflow CI/CD suite: `build.yml` builds NUR packages against 4 nixpkgs channels and pushes to Cachix; `auto-update-packages.yml` fetches upstream releases/commits daily, patches `pkgs/*/default.nix`, and opens auto-squash PRs.
 
 ## Configuration
 
