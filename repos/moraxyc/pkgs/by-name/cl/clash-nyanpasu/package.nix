@@ -175,6 +175,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
     }' > backend/tauri/tmp/git-info.json
   '';
 
+  postInstall = ''
+    ICON_SIZES=("32x32" "128x128" "256x256@2")
+    for size in "''${ICON_SIZES[@]}"; do
+      mv $out/share/icons/hicolor/$size/apps/{"Clash Nyanpasu",clash_nyanpasu}.png
+    done
+    substituteInPlace $out/share/applications/"Clash Nyanpasu".desktop \
+      --replace-fail "Icon=Clash Nyanpasu" "Icon=clash_nyanpasu"
+  '';
+
   postFixup = ''
     ln -s ${lib.getExe mihomo} $out/bin/mihomo
     ln -s ${lib.getExe clash-rs} $out/bin/clash-rs
