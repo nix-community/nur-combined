@@ -1,6 +1,18 @@
+diff -ruN a/hyuga/cursor.hy b/hyuga/cursor.hy
+--- a/hyuga/cursor.hy	2025-01-26 06:29:05.000000000 +0000
++++ b/hyuga/cursor.hy	2026-06-08 12:16:03.678962308 +0100
+@@ -6,7 +6,7 @@
+ (defn cursor-line
+   [$SERVER uri ln]
+   "TODO: doc"
+-  (let [doc ($SERVER.workspace.get_document uri)
++  (let [doc ($SERVER.workspace.get_text_document uri)
+         content doc.source
+         lines (content.split "\n")]
+     (get lines ln)))
 diff -ruN a/hyuga/server.hy b/hyuga/server.hy
---- a/hyuga/server.hy	2026-06-08 11:08:42.193228557 +0100
-+++ b/hyuga/server.hy	2026-06-08 11:08:42.195902358 +0100
+--- a/hyuga/server.hy	2025-01-26 06:29:05.000000000 +0000
++++ b/hyuga/server.hy	2026-06-08 12:16:03.675926484 +0100
 @@ -8,7 +8,7 @@
                            TEXT_DOCUMENT_DID_CLOSE
                            TEXT_DOCUMENT_DID_OPEN
@@ -11,8 +23,8 @@ diff -ruN a/hyuga/server.hy b/hyuga/server.hy
  (import hyuga.api *)
  (import hyuga.version [get-version])
 diff -ruN a/pyproject.toml b/pyproject.toml
---- a/pyproject.toml	2026-06-08 11:08:42.193821554 +0100
-+++ b/pyproject.toml	2026-06-08 11:08:42.196567648 +0100
+--- a/pyproject.toml	2025-01-26 06:29:05.000000000 +0000
++++ b/pyproject.toml	2026-06-08 12:16:03.677441913 +0100
 @@ -12,7 +12,7 @@
  hy = "^1.0.0"
  hyrule = "^0.7"
