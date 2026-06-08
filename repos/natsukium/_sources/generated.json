@@ -1,7 +1,7 @@
 {
     "claudecode-nvim": {
         "cargoLock": null,
-        "date": "2026-06-03",
+        "date": "2026-06-08",
         "extract": null,
         "name": "claudecode-nvim",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "coder",
             "repo": "claudecode.nvim",
-            "rev": "8ec321279d3d9eddb0ce5f52d4b0d051dafb5743",
-            "sha256": "sha256-l/PcQlCSQKr0aSfnPUwRf7rY6QAx9u5twYsSX72B4xI=",
+            "rev": "0a24f8ba609c99e73a383bc16485a44a6f1e2dfe",
+            "sha256": "sha256-fFUpF67HFBYZXiJcnc123r8Po4uxm6vlZMfPK35sHHY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8ec321279d3d9eddb0ce5f52d4b0d051dafb5743"
+        "version": "0a24f8ba609c99e73a383bc16485a44a6f1e2dfe"
     },
     "copyq-darwin": {
         "cargoLock": null,
