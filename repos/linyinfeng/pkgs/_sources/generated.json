@@ -62,12 +62,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v3.0.1",
-            "sha256": "sha256-+cfaBGYA2E8WcdEpDZasKW0Oya71vf8/mk3PycgvHl0=",
+            "rev": "v3.0.2",
+            "sha256": "sha256-9eJtGfUvbD0JDhAewRKq4F5m/xJvbn/RP3xeI8yQPrg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.1"
+        "version": "v3.0.2"
     },
     "dot-tar": {
         "cargoLock": {
@@ -169,12 +169,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.33-linux-260525T005258Z",
-            "sha256": "sha256-14z0m6o2yoUJNN2ExmMBOtptAWVKuEK3DyTRVfpWtis=",
+            "rev": "lts-v6.18.33-linux-260602T114322Z",
+            "sha256": "sha256-KHqTTDt44LlB1hIUX6RkeXQLa+CZjUQdVZErUvs2qVI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.33-linux-260525T005258Z"
+        "version": "lts-v6.18.33-linux-260602T114322Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -861,7 +861,7 @@
     },
     "v86": {
         "cargoLock": null,
-        "date": "2026-06-06",
+        "date": "2026-06-08",
         "extract": null,
         "name": "v86",
         "passthru": null,
@@ -871,13 +871,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3e72c9bdd26c2450e107fa45412c639a18f1d320",
-            "sha256": "sha256-0GCbY7ZogQ2R/WYSk5g0Q7bEAvKmpsfItUp/P+P5V/M=",
+            "rev": "3f8f9ea63cecf6503c684f219968ff5dfd0b6c49",
+            "sha256": "sha256-skzWtrwtXsFM/+wZ7sjT4UEgxz+C7fmGSA1pZksZBu8=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/copy/v86.git"
         },
-        "version": "3e72c9bdd26c2450e107fa45412c639a18f1d320"
+        "version": "3f8f9ea63cecf6503c684f219968ff5dfd0b6c49"
     },
     "vlmcsd": {
         "cargoLock": null,

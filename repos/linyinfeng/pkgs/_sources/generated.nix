@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.0.1";
+    version = "v3.0.2";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.0.1";
+      rev = "v3.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-+cfaBGYA2E8WcdEpDZasKW0Oya71vf8/mk3PycgvHl0=";
+      sha256 = "sha256-9eJtGfUvbD0JDhAewRKq4F5m/xJvbn/RP3xeI8yQPrg=";
     };
   };
   dot-tar = {
@@ -106,13 +106,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.33-linux-260525T005258Z";
+    version = "lts-v6.18.33-linux-260602T114322Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.33-linux-260525T005258Z";
+      rev = "lts-v6.18.33-linux-260602T114322Z";
       fetchSubmodules = false;
-      sha256 = "sha256-14z0m6o2yoUJNN2ExmMBOtptAWVKuEK3DyTRVfpWtis=";
+      sha256 = "sha256-KHqTTDt44LlB1hIUX6RkeXQLa+CZjUQdVZErUvs2qVI=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -573,17 +573,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "3e72c9bdd26c2450e107fa45412c639a18f1d320";
+    version = "3f8f9ea63cecf6503c684f219968ff5dfd0b6c49";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "3e72c9bdd26c2450e107fa45412c639a18f1d320";
+      rev = "3f8f9ea63cecf6503c684f219968ff5dfd0b6c49";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-0GCbY7ZogQ2R/WYSk5g0Q7bEAvKmpsfItUp/P+P5V/M=";
+      sha256 = "sha256-skzWtrwtXsFM/+wZ7sjT4UEgxz+C7fmGSA1pZksZBu8=";
     };
-    date = "2026-06-06";
+    date = "2026-06-08";
   };
   vlmcsd = {
     pname = "vlmcsd";
