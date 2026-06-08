@@ -1,5 +1,6 @@
 [
   # keep-sorted start case=no numeric=yes
+  ./programs/clash-nyanpasu.nix
   ./security/ensure-pcr.nix
   ./services/misc/hentai-at-home.nix
   ./services/misc/mautrix-telegram.nix
