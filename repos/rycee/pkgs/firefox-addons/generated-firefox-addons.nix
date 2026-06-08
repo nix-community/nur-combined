@@ -947,10 +947,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "1.5.0";
+      version = "2.0.0";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4504980/batchcamp-1.5.0.xpi";
-      sha256 = "cea2fe84df3733bd78de0369dce18da4f0ae71d808b1af9ed40653eaf85955eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4840566/batchcamp-2.0.0.xpi";
+      sha256 = "a96e24a671972d08aed4e635e7b5c90c17cb1263ea9c8be69f6b856ca6dc4773";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -962,6 +962,7 @@
           "cookies"
           "https://bandcamp.com/*"
           "https://*.bandcamp.com/*"
+          "https://*.bcbits.com/*"
         ];
         platforms = platforms.all;
       };
@@ -4687,10 +4688,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.19.10";
+      version = "1.20.0";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4839613/geo_spoof-1.19.10.xpi";
-      sha256 = "9d5aab81e5dd97e7ea4fc9b64e1ae24ec591807b2d5cb8ee4f423b148f9b0850";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4839807/geo_spoof-1.20.0.xpi";
+      sha256 = "828d839be0548509791cd5307fcfb4a7a71cdf13284e9f8bb669fb6cbaadf9a6";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7592,10 +7593,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.22";
+      version = "2.0.23";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4836376/kiss_translator-2.0.22.xpi";
-      sha256 = "1e8e6748f3ad07aadba8ef876f4f11997787e302186473e69d74a52df316949f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4840420/kiss_translator-2.0.23.xpi";
+      sha256 = "74727b60677d7edf11cfebf68b7cf478af1ba5bc072c196d5499e4b52863e338";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -13096,10 +13097,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.6.1";
+      version = "26.6.7";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831946/refined_github-26.6.1.xpi";
-      sha256 = "a15a9ffa2ae9cf62aa3f7237edbc7524a5e43e972e539b15729ad4a01cdc9437";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4840557/refined_github-26.6.7.xpi";
+      sha256 = "7274247b34b4bab57e73c8058ddd1a459e323bea717d9ec16d1ccc8385791bd0";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
