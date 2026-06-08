@@ -7,11 +7,11 @@
 
 stdenv.mkDerivation rec {
   pname = "peerbanhelper";
-  version = "9.3.10";
+  version = "9.3.14";
 
   src = pkgs.fetchzip {
     url = "https://github.com/PBH-BTN/PeerBanHelper/releases/download/v${version}/PeerBanHelper_${version}.zip";
-    hash = "sha256-H/F1O+SJud6buCYIDVKtwyDmH1MMIZMjx5UsuDYn0FY=";
+    hash = "sha256-AkBPhpXIiuTpBGqqUgXt5UcM/2w0arjwSpSpJ1BFakw=";
   };
 
   installPhase = ''

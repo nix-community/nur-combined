@@ -90,6 +90,7 @@
 
                       catppuccin.nixosModules.catppuccin
                       {
+                        catppuccin.autoEnable = true;
                         catppuccin.cache.enable = true;
                       }
                     ]

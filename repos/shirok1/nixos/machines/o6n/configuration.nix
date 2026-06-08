@@ -506,14 +506,11 @@
       listen = "0.0.0.0:13831";
       ipv6 = true;
     };
-    pskFile = "/run/credentials/snell-server.service/psk";
+    sops.psk = "snell/psk";
   };
   sops.secrets."snell/psk" = {
     restartUnits = [ "snell-server.service" ];
   };
-  systemd.services.snell-server.serviceConfig.LoadCredential = [
-    "psk:${config.sops.secrets."snell/psk".path}"
-  ];
 
   services.peerbanhelper = {
     enable = true;
