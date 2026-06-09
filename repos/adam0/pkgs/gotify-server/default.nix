@@ -86,4 +86,8 @@ in
       platforms = lib.platforms.linux;
       # keep-sorted end
     };
+
+    passthru = {
+      inherit rev;
+    };
   }

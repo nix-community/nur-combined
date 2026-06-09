@@ -51,6 +51,7 @@ in
     # keep-sorted end
 
     # keep-sorted start
+    gotifyPlugins = recurseIntoAttrs (callPackage ./pkgs/gotify-server/plugins {inherit (allPackages) gotify-server;});
     opencodePlugins = recurseCallPackage ./pkgs/opencode/plugins;
     spicetifyExtensions = recurseCallPackage ./pkgs/spicetify-extensions;
     yaziPlugins = recurseCallPackage ./pkgs/yazi-plugins;
