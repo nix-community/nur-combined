@@ -3,6 +3,10 @@
 {
   lib = import ./lib { inherit pkgs; }; # functions
 
+  nixosModules = {
+    udpxy = ./modules/udpxy.nix; # NixOS module exposing services.udpxy
+  };
+
   claude-code = pkgs.callPackage ./pkgs/claude-code { };
 
   ibkr-gateway = pkgs.callPackage ./pkgs/ibkr-gateway { };
@@ -12,6 +16,8 @@
   proton-meet = pkgs.callPackage ./pkgs/proton-meet { };
 
   trackaudio = pkgs.callPackage ./pkgs/trackaudio { };
+
+  udpxy = pkgs.callPackage ./pkgs/udpxy { };
 
   vatis = pkgs.callPackage ./pkgs/vatis { };
 }
