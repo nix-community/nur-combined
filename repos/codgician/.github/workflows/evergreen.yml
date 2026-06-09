@@ -91,6 +91,70 @@ jobs:
             echo "update.nix execution failed"
             exit 1
           fi
+      - name: Check build
+        id: check_build
+        if: steps.run_update_script.outputs.pr_title != ''
+        run: |
+          # Capture the result instead of hard-failing: the OpenCode review step
+          # runs on both outcomes (reviewer when it passed, fixer when it failed).
+          if nix build .#${{ matrix.package }} 2>&1 | tee /tmp/build.log; then
+            echo "build_ok=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "build_ok=0" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Review and fix bump with OpenCode
+        id: opencode_review
+        # Runs after every successful bump. The agent reconciles the package's
+        # dependencies with upstream and enforces nixpkgs best practices: as a
+        # reviewer when the build passed, as a fixer when it failed. It runs
+        # inside the flake dev shell (`nix develop`) so every update-script tool
+        # (nix-prefetch-git, prefetch-npm-deps, nurl, ...) is on PATH for it to
+        # recompute hashes and re-run `nix build` while iterating.
+        if: steps.run_update_script.outputs.pr_title != ''
+        timeout-minutes: 30
+        env:
+          DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
+          OPENCODE_CONFIG: ${{ github.workspace }}/.github/opencode.json
+          OPENCODE_DISABLE_CLAUDE_CODE: '1'
+          OPENCODE_DISABLE_AUTOUPDATE: '1'
+        run: |
+          if [ -z "$DENDRO_API_KEY" ]; then
+            echo "DENDRO_API_KEY secret is not set; skipping review." >&2
+            exit 0
+          fi
+
+          if [ "${{ steps.check_build.outputs.build_ok }}" = "1" ]; then
+            STATE="The initial 'nix build .#${{ matrix.package }}' SUCCEEDED. Act as a reviewer: confirm the dependencies still match upstream for the new version and that nixpkgs best practices are followed, and fix anything that is wrong. If nothing needs changing, make no edits."
+          else
+            STATE="The initial 'nix build .#${{ matrix.package }}' FAILED; the log is at /tmp/build.log. Act as a fixer: diagnose and repair the failure (commonly a stale dependency hash or a dependency set that drifted from upstream)."
+          fi
+
+          MSG="Read the file .github/evergreen-review-prompt.md in this repository; it is your full instructions. Then review the package '${{ matrix.package }}' accordingly. ${STATE}"
+
+          nix develop ".#" -c opencode run \
+            --pure \
+            --dangerously-skip-permissions \
+            --model dendro/gpt-5.5 \
+            "$MSG"
+      - name: Verify and commit OpenCode changes
+        id: verify_fix
+        if: steps.run_update_script.outputs.pr_title != ''
+        run: |
+          # Only keep the agent's edits if they are real and the package still
+          # builds. This is the hard gate against a hacked or broken result.
+          if [ -z "$(git status --porcelain "pkgs/${{ matrix.package }}")" ]; then
+            echo "OpenCode made no changes."
+            exit 0
+          fi
+
+          if nix build .#${{ matrix.package }}; then
+            git add "pkgs/${{ matrix.package }}"
+            git commit -m "${{ matrix.package }}: reconcile packaging after bump (opencode)"
+            echo "Committed OpenCode changes."
+          else
+            echo "OpenCode changes do not build; discarding so the PR reflects only the bump." >&2
+            git checkout -- "pkgs/${{ matrix.package }}" 2>/dev/null || true
+          fi
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         if: steps.run_update_script.outputs.pr_title != ''
@@ -103,7 +167,3 @@ jobs:
           body: "This pull request is created automatically by the evergreen action which runs periodically to bump packages."
           labels: "bot"
           reviewers: "codgician"
-      - name: Check build
-        if: steps.run_update_script.outputs.pr_title != ''
-        run: |-
-          nix build .#${{ matrix.package }}

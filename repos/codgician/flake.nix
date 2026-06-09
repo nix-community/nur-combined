@@ -48,11 +48,42 @@
         }
       );
 
-      devShell = forAllSystems (
+      # Tooling shell for running package `updateScript`s and the OpenCode
+      # build-failure auto-fix agent used by the evergreen workflow. Anything
+      # the agent might shell out to while diagnosing a failed bump lives here,
+      # so `nix develop -c opencode ...` (and humans) get them all on PATH.
+      devShells = forAllSystems (
         system:
-        with nixpkgs.legacyPackages.${system};
-        mkShell {
-          buildInputs = [ ];
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+        in
+        {
+          default = pkgs.mkShell {
+            packages = with pkgs; [
+              # Core
+              git
+              cacert
+              coreutils
+              # Update-script utilities (union of all pkgs/*/update.sh deps)
+              curl
+              jq
+              gnused
+              gnugrep
+              nodejs
+              # Nix source/hash prefetchers for recomputing fixed-output hashes
+              nix-update
+              nix-prefetch-git
+              prefetch-npm-deps
+              nurl
+              # OpenCode agent (evergreen build-failure auto-fix)
+              opencode
+            ];
+
+            # Make sure update scripts can find the repository root.
+            shellHook = ''
+              export NIX_PATH="nixpkgs=${pkgs.path}"
+            '';
+          };
         }
       );
 
