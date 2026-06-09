@@ -17,7 +17,10 @@ let _pkgs = pkgs; in
 
 let
   pkgs =
-  if true then builtins.trace "nur.repos.milahu: using system nixpkgs ${<nixpkgs>}" _pkgs else
+  # use system nixpkgs
+  if true then _pkgs else
+  # if true then builtins.trace "nur.repos.milahu: using system nixpkgs" _pkgs else # debug
+  # if true then builtins.trace "nur.repos.milahu: using system nixpkgs ${<nixpkgs>}" _pkgs else # debug impure
   # pin nixpkgs
   # fixme: this breaks unfree packages
   # error: Refusing to evaluate package 'brother-hll5100dn-lpr-3.5.1-1' in /nix/store/8ax444vhz7dyrqqf4v641x451w6a97r0-source/pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix:139 because it has an unfree license (‘unfree’)
