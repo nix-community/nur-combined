@@ -19,7 +19,7 @@ while read -r line; do
       debug "suggestions[$scope] = “${suggestions["$scope"]}”"
     fi
 
-    if [[ "$line" =~ ^JJ:\ {5}([-+]) ]]; then
+    if [[ -n "$scope" && "$line" =~ ^JJ:\ {5}([-+]) ]]; then
       sign="${BASH_REMATCH[1]}"
 
       if [[ "$line" =~ [^[:alnum:]]([[:digit:]]+(\.[[:digit:]]+)*(-unstable[-[:digit:]]*)?)[^[:alnum:]] ]]; then
