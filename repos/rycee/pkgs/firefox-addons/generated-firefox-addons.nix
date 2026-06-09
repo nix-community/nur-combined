@@ -95,10 +95,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "3.3.2";
+      version = "4.0";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4704834/adaptive_tab_bar_colour-3.3.2.xpi";
-      sha256 = "67db752133d58c36ceb9bf9a115d0dd572fa8f65d2a1b0774f52536b65f5293b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4830350/adaptive_tab_bar_colour-4.0.xpi";
+      sha256 = "eff59b8e17865f26a49305c42ac2ac3da9e131440854151eb13d49a5b903a174";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -947,10 +947,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.0";
+      version = "2.0.1";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840566/batchcamp-2.0.0.xpi";
-      sha256 = "a96e24a671972d08aed4e635e7b5c90c17cb1263ea9c8be69f6b856ca6dc4773";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842471/batchcamp-2.0.1.xpi";
+      sha256 = "860bdae98ef22619321e9efff8f2797cb2b0b0af568128de90dfd56a2de343a2";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -2907,10 +2907,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260605.90530";
+      version = "151.0.20260608.154138";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837720/dansk_da_language_pack-152.0.20260605.90530.xpi";
-      sha256 = "2a7b74da86a637a8511e1fe0550b3e55f42981c9c94d84366fafa7def70b3efa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842285/dansk_da_language_pack-151.0.20260608.154138.xpi";
+      sha256 = "a20672f9d27cb06d0bf6008a964cea8dccc092426522cb70a31a3a80b4fc6730";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3024,10 +3024,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2622.1";
+      version = "6.2623.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821642/dashlane-6.2622.1.xpi";
-      sha256 = "ec687318cdc094fe7c2592255d0a3d344c10ae978f60b8fb553b8cc7de8e65dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4831032/dashlane-6.2623.0.xpi";
+      sha256 = "3fd9976ee5ad48d64597ac7565104b12e188328aa0945e865fbb0cf5f99775f4";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3123,10 +3123,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260605.90530";
+      version = "151.0.20260608.154138";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837719/deutsch_de_language_pack-152.0.20260605.90530.xpi";
-      sha256 = "b22482fa3fe3419fdd6926a562d20d81134cd9a8dcf53092f289e343217c7726";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842283/deutsch_de_language_pack-151.0.20260608.154138.xpi";
+      sha256 = "5e02e2ca56ceeaa211d1c28d8d2d62b08dbf19faa8f6aac17ee0720d87d356f1";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4607,10 +4607,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260605.90530";
+      version = "151.0.20260608.154138";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837611/francais_language_pack-152.0.20260605.90530.xpi";
-      sha256 = "5a537b046665cdd25f13f30cd08a92ee72db1bb892f8f42b01d4a62b4ea66059";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842273/francais_language_pack-151.0.20260608.154138.xpi";
+      sha256 = "1b7f4ef039145b15152f456e8344342604e1f54abb6b2fa52b6a7bef01e2a7db";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4644,10 +4644,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260605.90530";
+      version = "151.0.20260608.154138";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837625/gaidhlig_language_pack-152.0.20260605.90530.xpi";
-      sha256 = "f2a035f3f5922e7f24a4f2a2da6c0a274feb7de16623926c506a7899cf103974";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842228/gaidhlig_language_pack-151.0.20260608.154138.xpi";
+      sha256 = "04fb670afb9c9653faa1e8db2afbe1dac7ed9e5f10b7915dc1e122808afa2b35";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4688,10 +4688,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.20.0";
+      version = "1.20.8";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4839807/geo_spoof-1.20.0.xpi";
-      sha256 = "828d839be0548509791cd5307fcfb4a7a71cdf13284e9f8bb669fb6cbaadf9a6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842670/geo_spoof-1.20.8.xpi";
+      sha256 = "344d99a8123b0fe98145ed3602b4dd45f8611fb0f040c11f185e4bf3e9467f76";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -5184,10 +5184,10 @@
     };
     "greasemonkey" = buildMozillaXpiAddon {
       pname = "greasemonkey";
-      version = "4.13";
+      version = "4.14";
       addonId = "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4332091/greasemonkey-4.13.xpi";
-      sha256 = "31b9e9521eac579114ed20616851f4f984229fbe6d8ebd4dc4799eb48c59578c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4833089/greasemonkey-4.14.xpi";
+      sha256 = "87aa409675ad622588f17102b75c19405b9d628183e827881d72060d25e4ed5a";
       meta = with lib;
       {
         homepage = "http://www.greasespot.net/";
@@ -10626,10 +10626,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.19";
+      version = "13.6.23";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4794904/noscript-13.6.19.xpi";
-      sha256 = "81b5c21eb18dde2ca0b82f5a8664149417a567ba99ebc67959774fb1dc0bf10e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4841405/noscript-13.6.23.xpi";
+      sha256 = "d8d9b19edcf7356f819af17ace880dbe59b8dd898c1cb8b5b06a01e6f19840bd";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -12222,33 +12222,6 @@
         platforms = platforms.all;
       };
     };
-    "proton-vpn" = buildMozillaXpiAddon {
-      pname = "proton-vpn";
-      version = "1.3.0";
-      addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4773777/proton_vpn_firefox_extension-1.3.0.xpi";
-      sha256 = "f50f60178d77bfbaa6c9e4a2d7ec77b4cfa5ae984df9514f6f94c9a3dd4ca703";
-      meta = with lib;
-      {
-        homepage = "https://protonvpn.com/";
-        description = "Secure your internet and protect your online privacy in one click.";
-        license = licenses.gpl3;
-        mozPermissions = [
-          "idle"
-          "notifications"
-          "privacy"
-          "scripting"
-          "storage"
-          "tabs"
-          "webRequest"
-          "activeTab"
-          "webRequestBlocking"
-          "https://account.protonvpn.com/*"
-          "https://account.proton.me/*"
-        ];
-        platforms = platforms.all;
-      };
-    };
     "protondb-for-steam" = buildMozillaXpiAddon {
       pname = "protondb-for-steam";
       version = "2.3.0";
@@ -12471,22 +12444,22 @@
     };
     "rabattcorner" = buildMozillaXpiAddon {
       pname = "rabattcorner";
-      version = "2.1.9";
+      version = "3.0.10";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4675785/rabattcorner-2.1.9.xpi";
-      sha256 = "2afa2b646e5da2c0ad763a2d5f36c234dbb7791070fdadbfc681c052592ac589";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4841394/rabattcorner-3.0.10.xpi";
+      sha256 = "c64668dc1dcc596ef1524c6022454d1108716bf470bc0a2e4d38413d4407536a";
       meta = with lib;
       {
-        homepage = "https://www.rabattcorner.ch";
-        description = "Mit der Rabattcorner Cashback-Erinnerung kannst du beim Online-Shoppen bei über 825 Partnern Geld zurück bekommen.";
+        homepage = "https://www.rabattcorner.ch/fr/";
+        description = "Rappel cashback + comparaison automatique des prix dans 825+ boutiques – 1 clic, gratuit &amp; respectueux de la vie privée.";
         license = licenses.mpl20;
         mozPermissions = [
-          "cookies"
-          "storage"
-          "alarms"
           "tabs"
-          "*://*.rabattcorner.ch/*"
-          "<all_urls>"
+          "storage"
+          "webNavigation"
+          "cookies"
+          "alarms"
+          "https://*/*"
         ];
         platforms = platforms.all;
       };
@@ -13417,10 +13390,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260605.90530";
+      version = "151.0.20260608.154138";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837603/scots_language_pack-152.0.20260605.90530.xpi";
-      sha256 = "3eaffad75227b74ee035aac88f099656a0dddfd9aa225e913405977a1af61706";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842220/scots_language_pack-151.0.20260608.154138.xpi";
+      sha256 = "12ff0c78b806c7a10d0d6e23590999c2adfc975b1c3f13f6f292e5b292855e7a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -16809,10 +16782,10 @@
     };
     "web-scrobbler" = buildMozillaXpiAddon {
       pname = "web-scrobbler";
-      version = "3.21.0";
+      version = "3.22.0";
       addonId = "{799c0914-748b-41df-a25c-22d008f9e83f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4757852/web_scrobbler-3.21.0.xpi";
-      sha256 = "91e3618a17139304695eae9f0109fa761dc988208e7f0c4716eb025c785cc188";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4832008/web_scrobbler-3.22.0.xpi";
+      sha256 = "f3c6b8859ef73ed2772979429719642bb378144dbe881902a9e81a00475714aa";
       meta = with lib;
       {
         homepage = "https://webscrobbler.com";
