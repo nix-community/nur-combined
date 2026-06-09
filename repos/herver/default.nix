@@ -3,7 +3,7 @@
 {
   lib = import ./lib { inherit pkgs; }; # functions
 
-  nixosModules = {
+  modules = {
     udpxy = ./modules/udpxy.nix; # NixOS module exposing services.udpxy
   };
 
