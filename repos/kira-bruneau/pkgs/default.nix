@@ -82,10 +82,6 @@ in
     linuxModulesOverlay (prev.linuxPackages_latest // linuxPackages) prev.linuxPackages_latest
   );
 
-  vkbasalt = callPackage ./tools/graphics/vkbasalt rec {
-    vkbasalt32 = pkgsi686Linux.callPackage ./tools/graphics/vkbasalt { inherit vkbasalt32; };
-  };
-
   zynaddsubfx-fltk = zynaddsubfx.override { guiModule = "fltk"; };
 
   zynaddsubfx-ntk = zynaddsubfx.override { guiModule = "ntk"; };

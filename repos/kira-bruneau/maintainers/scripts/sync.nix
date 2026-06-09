@@ -38,7 +38,6 @@ let
       "pkgs/development/python-modules/pytest-datadir"
       "pkgs/development/python-modules/vdf"
       "pkgs/os-specific/linux/xpadneo"
-      "pkgs/tools/graphics/vkbasalt"
 
       "pkgs/by-name/cc/ccache"
       "pkgs/by-name/cl/clonehero"
