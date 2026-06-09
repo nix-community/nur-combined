@@ -2623,6 +2623,27 @@
         },
         "version": "6.2.4"
     },
+    "mlat-client": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "mlat-client",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "adsb-related-code",
+            "repo": "mlat-client",
+            "rev": "v0.4.2",
+            "sha256": "sha256-V//LpYmBXtT8haX1aZ4XldzzyUY2YN7x3lTpQ2csTmw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.4.2"
+    },
     "modelscope": {
         "cargoLock": null,
         "date": null,

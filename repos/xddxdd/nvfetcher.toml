@@ -591,6 +591,10 @@ src.github = "mautrix/gmessages"
 fetch.github = "intel/metee"
 src.github = "intel/metee"
 
+[mlat-client]
+fetch.github = "adsb-related-code/mlat-client"
+src.github_tag = "adsb-related-code/mlat-client"
+
 [modelscope]
 fetch.github = "modelscope/modelscope"
 src.github = "modelscope/modelscope"

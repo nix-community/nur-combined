@@ -1350,6 +1350,16 @@
       hash = "sha256-7B4NCFl9vSCzL6IOa0J9T53XLuf/SHsZTiLMsRR4C6k=";
     };
   };
+  mlat-client = {
+    pname = "mlat-client";
+    version = "v0.4.2";
+    src = fetchFromGitHub {
+      owner = "adsb-related-code";
+      repo = "mlat-client";
+      tag = "v0.4.2";
+      hash = "sha256-V//LpYmBXtT8haX1aZ4XldzzyUY2YN7x3lTpQ2csTmw=";
+    };
+  };
   modelscope = {
     pname = "modelscope";
     version = "v1.37.1";

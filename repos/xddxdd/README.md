@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (209 packages)</summary>
+<summary>Package set: (Uncategorized) (210 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -163,6 +163,7 @@ Or, use variables from this repository in case I change them:
 |  | `magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 30.7 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2605.0 | Matrix-Google Messages puppeting bridge |
 |  | `metee` | [metee](https://github.com/intel/metee) | 6.2.4 | C library to access CSE/CSME/GSC firmware via a MEI interface |
+|  | `mlat-client` | [mlat-client](https://github.com/adsb-related-code/mlat-client) | 0.4.2 | Client that selectively forwards Mode S messages to a server that resolves the transmitter position by multilateration |
 |  | `modelscope` | [modelscope](https://www.modelscope.cn/) | 1.37.1 | Bring the notion of Model-as-a-Service to life |
 |  | `mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 0-unstable-2026-05-27 | MTK reverse engineering and flash tool |
 | `x86_64-linux` | `mtranservercore-rs` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
@@ -1308,7 +1309,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (156 packages)</summary>
+<summary>Package set: uncategorized (157 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1392,6 +1393,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 30.7 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `uncategorized.mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2605.0 | Matrix-Google Messages puppeting bridge |
 |  | `uncategorized.metee` | [metee](https://github.com/intel/metee) | 6.2.4 | C library to access CSE/CSME/GSC firmware via a MEI interface |
+|  | `uncategorized.mlat-client` | [mlat-client](https://github.com/adsb-related-code/mlat-client) | 0.4.2 | Client that selectively forwards Mode S messages to a server that resolves the transmitter position by multilateration |
 | `x86_64-linux` | `uncategorized.mtranservercore-rs` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.n8n-openai-bridge` | [n8n-openai-bridge](https://github.com/sveneisenschmidt/n8n-openai-bridge) | 0.0.17 | OpenAI-compatible API middleware for n8n workflows |
 |  | `uncategorized.ncmdump-rs` | [ncmdump-rs](https://github.com/iqiziqi/ncmdump.rs) | 0.8.0 | NetEase Cloud Music copyright protection file dump by rust |
