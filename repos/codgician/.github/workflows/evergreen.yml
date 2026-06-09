@@ -111,7 +111,7 @@ jobs:
         # (nix-prefetch-git, prefetch-npm-deps, nurl, ...) is on PATH for it to
         # recompute hashes and re-run `nix build` while iterating.
         if: steps.run_update_script.outputs.pr_title != ''
-        timeout-minutes: 30
+        timeout-minutes: 120
         env:
           DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
           OPENCODE_CONFIG: ${{ github.workspace }}/.github/opencode.json
