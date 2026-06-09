@@ -1,87 +1,36 @@
-name: "build"
+name: build
+
 on:
-  pull_request:
   push:
     branches: [main]
     paths-ignore:
       - '**.md'
       - '.gitignore'
+  pull_request:
+  workflow_dispatch:
   repository_dispatch:
     types: [build]
+
+permissions:
+  contents: read
+  checks: write
+  # atelier's nested build workflow unconditionally declares id-token: write
+  # (for niks3 OIDC cache push). A caller must grant it or GitHub fails the
+  # reusable-workflow graph at startup, even when no cache push is configured.
+  id-token: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  tests:
-    strategy:
-      matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - codgician
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
-        cachixName:
-          - <YOUR_CACHIX_NAME>
-        # litellm tracks BerriAI's dev branch and depends on bleeding-edge
-        # python deps (e.g. fastuuid) that have not yet landed in stable
-        # release channels. Pin CI to unstable so package builds match what
-        # flake.nix consumers actually see.
-        nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+  atelier:
+    uses: stepbrobd/atelier/.github/workflows/discover.yaml@2026.601.0
+
+  nur:
+    needs: atelier
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
-    env:
-      # litellm-enterprise is unfreeRedistributable. ci.nix's `isBuildable`
-      # filter would skip it, but nixpkgs throws on meta evaluation for
-      # unfree packages before that filter runs unless this env var is set.
-      NIXPKGS_ALLOW_UNFREE: "1"
     steps:
-      - uses: thiagokokada/free-disk-space@main
-        continue-on-error: true
-        with:
-          python: false
-          tool-cache: true
-          usrlocal: true
-          usrmisc: true
-          opt: true
-          varcache: true
-      - name: Checkout repository
-        uses: actions/checkout@v6
-      - name: Install nix
-        uses: cachix/install-nix-action@v31
-        with:
-          nix_path: "${{ matrix.nixPath }}"
-          extra_nix_config: |
-            accept-flake-config = true
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Setup cachix
-        uses: cachix/cachix-action@v17
-        # Don't replace <YOUR_CACHIX_NAME> here!
-        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-        with:
-          name: ${{ matrix.cachixName }}
-          signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
-      - name: Check evaluation
-        run: |
-          nix-env -f . -qa \* --meta --xml \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace
-      - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
       - name: Trigger NUR update
-        # Don't replace <YOUR_REPO_NAME> here!
-        if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=codgician"

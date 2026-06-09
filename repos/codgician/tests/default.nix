@@ -28,19 +28,16 @@
 #   2. Register it below.
 #   3. Wire it back from the package via `passthru.tests`.
 
-{ pkgs }:
+# No NixOS VM tests are currently registered, so this set is empty and the
+# `{ inherit pkgs; }` argument from callers is ignored. To add a test, drop
+# `tests/<package>.nix` next to this file, switch the signature back to
+# `{ pkgs }:`, and register it as:
+#
+#   let nurPkgs = import ../pkgs { inherit pkgs; };
+#   in { <name> = pkgs.callPackage ./<name>.nix { inherit (nurPkgs) <name>; }; }
+#
+# Each test then surfaces under flake `checks` and is built by CI.
 
-let
-  # NUR packages and their internal helpers, made available to tests via
-  # `pkgs.callPackage`. We use `nurPkgs` (the result of `pkgs/default.nix`)
-  # rather than re-`callPackage`-ing each derivation here, so each test
-  # sees the exact same closure the user-facing `pkgs.<name>` uses.
-  nurPkgs = import ../pkgs { inherit pkgs; };
-in
+{ ... }:
 
-{
-  litellm = pkgs.callPackage ./litellm.nix {
-    inherit (nurPkgs) litellm;
-    inherit (nurPkgs.litellm.passthru) prisma-engines;
-  };
-}
+{ }

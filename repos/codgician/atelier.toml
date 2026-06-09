@@ -1,0 +1,29 @@
+# Atelier CI rules (https://github.com/stepbrobd/atelier), replacing garnix.yaml.
+# Globs match the full flake attribute path, dot-segmented with fnmatch per
+# segment, so a bare `*` spans exactly one segment.
+
+systems = ["x86_64-linux", "aarch64-linux", "aarch64-darwin"]
+
+# packages.*.* mirrors garnix's old packages.<system>.* builds. checks.*.* adds
+# the flake `checks` (NixOS VM tests, Linux-only) that garnix never built; its
+# aarch64-darwin expansion matches nothing. Unsupported-platform attributes are
+# reported as skipped checks, so no per-system excludes are needed. (garnix
+# excluded aiursoft-tracer on aarch64-darwin because it lacked relaxed-sandbox
+# support; atelier sets `sandbox = relaxed` on macOS runners, so it builds here.)
+include = [
+  "packages.*.*",
+  "checks.*.*",
+]
+
+# agent-browser's dashboard pnpm-deps OOM-kill (exit 137) on the ~7 GB
+# macos-latest runner during the pnpm store write; it builds fine on real Macs
+# and on both Linux runners. Excluding only the aarch64-darwin CI build keeps
+# darwin support in the package while keeping CI green. Revisit once a binary
+# cache is configured (the deps can then be built once and substituted).
+exclude = [
+  "packages.aarch64-darwin.agent-browser",
+]
+
+# No binary cache configured yet: every run rebuilds and pushes nothing. List
+# your own cache endpoint(s) here once wired up to skip already-cached attrs.
+substituters = []
