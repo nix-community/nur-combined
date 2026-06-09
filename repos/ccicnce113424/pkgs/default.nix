@@ -143,8 +143,8 @@ lib.makeScope pkgs.newScope (
         src = pkgs.fetchFromGitHub {
           owner = "galpt";
           repo = "scx";
-          rev = "4a73a9908e326b7752cc445e32e52bb7ddf1378c";
-          hash = "sha256-1Ssa8ukpIokKyscK+L4rkIgL/kNFarzb8oLuPXXfXCo=";
+          rev = "407605cf28e2466620b7faf29950cffcd23a646e";
+          hash = "sha256-VQHmlMnmJU7wpcMh5jNJ3o3q+rjxFC+QIoqlMW1g9Ik=";
         };
         cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
           inherit (final)
