@@ -12,13 +12,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "nur";
-  version = "0-unstable-2026-06-06";
+  version = "0-unstable-2026-06-09";
 
   src = fetchFromGitHub {
     owner = "nix-community";
     repo = "NUR";
-    rev = "cb5ab707948fb679ce52f7f03c857912e847d763";
-    hash = "sha256-JpRPPggHTg9qqs4Ir4Yqd+bGw09rpY/nlKDQbb/9Kvw=";
+    rev = "1c22b665d0508fa31ebeba80e50fd7b673dd123a";
+    hash = "sha256-r4szdHt7TyTagmHTI7g3l/4NKmZijOZ2oyevvRx2wPA=";
   };
 
   passthru = let

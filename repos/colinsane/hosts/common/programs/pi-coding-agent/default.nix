@@ -15,43 +15,14 @@
 { config, lib, pkgs, ... }:
 let
   deskoHostname = config.sane.hosts.by-name.desko.wg-home.ip;
-  defaultLlamaCppModel = lib.removeSuffix ".gguf" pkgs.mlModels.gemma-4-12b-it-ud-q4_k_xl;
-  llamaCppModels = map (p: lib.removeSuffix ".gguf" p.name) [
-    # keep synchronized with modules/services/llama-cpp.nix
-    # pkgs.mlModels.glm-4_7-flash
-    pkgs.mlModels.gemma-4-12b-it-iq4_nl
-    pkgs.mlModels.gemma-4-12b-it-iq4_xs
-    pkgs.mlModels.gemma-4-12b-it-q3_k_m
-    pkgs.mlModels.gemma-4-12b-it-q3_k_s
-    pkgs.mlModels.gemma-4-12b-it-q4_k_m
-    pkgs.mlModels.gemma-4-12b-it-q4_k_s
-    pkgs.mlModels.gemma-4-12b-it-ud-iq3_xxs
-    pkgs.mlModels.gemma-4-12b-it-ud-q3_k_xl
-    pkgs.mlModels.gemma-4-12b-it-ud-q4_k_xl
-    pkgs.mlModels.gemma-4-26b-a4b-it-ud-q4_k_m
-    pkgs.mlModels.gemma-4-26b-a4b-it-mxfp4_moe
-    pkgs.mlModels.gemma-4-31b-it-q4_k_m
-    pkgs.mlModels.gemma-4-31b-it-q8_0
-    pkgs.mlModels.gemma-4-31b-it-bf16
-    pkgs.mlModels.gpt-oss-20b
-    # pkgs.mlModels.minimax-m2_5
-    pkgs.mlModels.nemotron-3-nano-4b
-    # pkgs.mlModels.nemotron-3-nano-30b-a3b
-    # pkgs.mlModels.omnicoder-9b
-    # pkgs.mlModels.qwen3_5-35b-a3b
-    # pkgs.mlModels.qwen3_5-9b
-    # pkgs.mlModels.qwen3_5-4b-claude-4_6-opus-reasoning-distilled-v2
-    # pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-v2-q4_k_m
-    pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q3_k_m
-    # pkgs.mlModels.qwen3_5-27b-claude-4_6-opus-reasoning-distilled-v2
-    pkgs.mlModels.qwen3_6-27b-mtp-q4_k_m
-  ];
+  llamaCppModels = pkgs.llama-cpp-models.models;
+  llamaCppModelList = builtins.attrValues llamaCppModels;
   llamaCppModelsJson = (pkgs.formats.json {}).generate "llama-cpp-models.json" {
     providers.llama-cpp = {
       baseUrl = "http://${deskoHostname}:11435";
       api = "openai-completions";
       apiKey = "none";
-      models = lib.map (p: { id = p; name = p; }) llamaCppModels;
+      models = lib.map (p: { id = p.id; name = p.id; }) llamaCppModelList;
     };
   };
 in
@@ -113,10 +84,10 @@ in
         > $out
     '';
     fs.".config/pi/settings.json".symlink.target = (pkgs.formats.json {}).generate "pi-settings.json" {
-      defaultModel = "google/gemma-4-31b-it";
-      defaultProvider = "nano-gpt";
-      # defaultModel = defaultLlamaCppModel;
-      # defaultProvider = "llama-cpp";
+      # defaultModel = "google/gemma-4-31b-it";
+      # defaultProvider = "nano-gpt";
+      defaultModel = llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id;
+      defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       enableInstallTelemetry = false;
       terminal.showTerminalProgress = true;
@@ -130,9 +101,28 @@ in
         pkgs.pi-simplify
         # makes the input textarea behave like vim
         pkgs.pi-vim
+        #  adds `/caveman` slash command
+        pkgs.pi-caveman
       ];
-      # enabledModels = [ "google/gemma-4-31b-it" "auto-model-basic" ... ];
+      enabledModels = [
+        # default set for Ctrl+P cycling
+        # "llama-cpp/${llamaCppModels.gemma-4-12b-it-qat-ud-q4_k_xl.id}"
+        "llama-cpp/${llamaCppModels.gemma-4-e4b-it-qat-ud-q4_k_xl.id}"
+        "llama-cpp/${llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id}"
+        "llama-cpp/${llamaCppModels.gemma-4-31b-it-qat-ud-q4_k_xl.id}"
+        "google/gemma-4-31b-it"
+        "x-ai/grok-latest"
+        "openai/gpt-chat-latest"
+        "google/gemini-pro-latest"
+        "anthropic/claude-opus-latest"
+        "mercury-2"
+        # "google/gemini-flash-latest"
+        # "moonshotai/kimi-latest"
+        # "openai/gpt-oss-120b"
+        # "auto-model-basic" 
+      ];
       treeFilterMode = "user-only";
+      branchSummary.skipPrompt = true;
     };
 
     # SYSTEM.md or APPEND_SYSTEM.md for prompt customization.

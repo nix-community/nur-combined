@@ -1,0 +1,306 @@
+From ff951ec23a3019f369a3d9d9949f083b3765806b Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 8 Jun 2026 01:38:45 +0000
+Subject: [PATCH 1/5] dtrx: sort inputs
+
+---
+ pkgs/by-name/dt/dtrx/package.nix | 36 ++++++++++++++++----------------
+ 1 file changed, 18 insertions(+), 18 deletions(-)
+
+diff --git a/pkgs/by-name/dt/dtrx/package.nix b/pkgs/by-name/dt/dtrx/package.nix
+index 711fc0c01282de991aba6d2e77c773618be29acf..a5417141e99a8b082526a21338e0e6ae11e44883 100644
+--- a/pkgs/by-name/dt/dtrx/package.nix
++++ b/pkgs/by-name/dt/dtrx/package.nix
+@@ -1,24 +1,24 @@
+ {
+-  lib,
++  binutils,
++  bzip2,
++  cabextract,
++  cpio,
+   fetchFromGitHub,
+   gitUpdater,
+-  python3Packages,
+   gnutar,
+-  unzip,
+-  lhasa,
+-  rpm,
+-  binutils,
+-  cpio,
+   gzip,
++  lhasa,
++  lib,
++  lzip,
+   p7zip,
+-  cabextract,
++  python3Packages,
++  rpm,
+   unrar,
+   unshield,
+-  bzip2,
++  unzip,
+   xz,
+-  lzip,
+-  unzipSupport ? false,
+   unrarSupport ? false,
++  unzipSupport ? false,
+ }:
+ 
+ python3Packages.buildPythonApplication (finalAttrs: {
+@@ -37,21 +37,21 @@ python3Packages.buildPythonApplication (finalAttrs: {
+     let
+       archivers = lib.makeBinPath (
+         [
+-          gnutar
+-          lhasa
+-          rpm
+           binutils
++          bzip2
++          cabextract
+           cpio
++          gnutar
+           gzip
++          lhasa
++          lzip
+           p7zip
+-          cabextract
++          rpm
+           unshield
+-          bzip2
+           xz
+-          lzip
+         ]
+-        ++ lib.optional unzipSupport unzip
+         ++ lib.optional unrarSupport unrar
++        ++ lib.optional unzipSupport unzip
+       );
+     in
+     [
+
+From 09f6b1b74e01349f3b8f5ad00724a52b6a2fcc4f Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 8 Jun 2026 01:39:59 +0000
+Subject: [PATCH 2/5] dtrx: extract `archivers` to toplevel
+
+---
+ pkgs/by-name/dt/dtrx/package.nix | 46 +++++++++++++++-----------------
+ 1 file changed, 21 insertions(+), 25 deletions(-)
+
+diff --git a/pkgs/by-name/dt/dtrx/package.nix b/pkgs/by-name/dt/dtrx/package.nix
+index a5417141e99a8b082526a21338e0e6ae11e44883..d0e2c1e10f1dd1dd63d6707aa05238ac6bdf201d 100644
+--- a/pkgs/by-name/dt/dtrx/package.nix
++++ b/pkgs/by-name/dt/dtrx/package.nix
+@@ -20,7 +20,24 @@
+   unrarSupport ? false,
+   unzipSupport ? false,
+ }:
+-
++let
++  archivers = [
++    binutils
++    bzip2
++    cabextract
++    cpio
++    gnutar
++    gzip
++    lhasa
++    lzip
++    p7zip
++    rpm
++    unshield
++    xz
++  ]
++  ++ lib.optional unrarSupport unrar
++  ++ lib.optional unzipSupport unzip;
++in
+ python3Packages.buildPythonApplication (finalAttrs: {
+   pname = "dtrx";
+   version = "8.7.1";
+@@ -33,30 +50,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
+     sha256 = "sha256-FNSFEGIK0vDNlvqc8BKDCB/0hoxrITfeh59JcyzX3jY=";
+   };
+ 
+-  makeWrapperArgs =
+-    let
+-      archivers = lib.makeBinPath (
+-        [
+-          binutils
+-          bzip2
+-          cabextract
+-          cpio
+-          gnutar
+-          gzip
+-          lhasa
+-          lzip
+-          p7zip
+-          rpm
+-          unshield
+-          xz
+-        ]
+-        ++ lib.optional unrarSupport unrar
+-        ++ lib.optional unzipSupport unzip
+-      );
+-    in
+-    [
+-      ''--prefix PATH : "${archivers}"''
+-    ];
++  makeWrapperArgs = [
++    ''--prefix PATH : "${lib.makeBinPath archivers}"''
++  ];
+ 
+   build-system = with python3Packages; [
+     setuptools
+
+From 2a41b5985f0ac0fede492d5f9eca8d6856737f78 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 8 Jun 2026 01:43:59 +0000
+Subject: [PATCH 3/5] dtrx: enable tests + more archivers
+
+defaulting `arjSupport` to false simply because it's not supported
+on so many platforms right now (e.g.
+`pkgsCross.aarch64-multiplatform.arj` fails).
+---
+ pkgs/by-name/dt/dtrx/package.nix | 31 +++++++++++++++++++++++++++++++
+ 1 file changed, 31 insertions(+)
+
+diff --git a/pkgs/by-name/dt/dtrx/package.nix b/pkgs/by-name/dt/dtrx/package.nix
+index d0e2c1e10f1dd1dd63d6707aa05238ac6bdf201d..49949f116e0be20a09d787d34ba01b3afeaa1b5f 100644
+--- a/pkgs/by-name/dt/dtrx/package.nix
++++ b/pkgs/by-name/dt/dtrx/package.nix
+@@ -1,14 +1,18 @@
+ {
++  arj,
+   binutils,
++  brotli,
+   bzip2,
+   cabextract,
+   cpio,
++  dtrx,
+   fetchFromGitHub,
+   gitUpdater,
+   gnutar,
+   gzip,
+   lhasa,
+   lib,
++  lrzip,
+   lzip,
+   p7zip,
+   python3Packages,
+@@ -17,24 +21,30 @@
+   unshield,
+   unzip,
+   xz,
++  zstd,
++  arjSupport ? false,
+   unrarSupport ? false,
+   unzipSupport ? false,
+ }:
+ let
+   archivers = [
+     binutils
++    brotli
+     bzip2
+     cabextract
+     cpio
+     gnutar
+     gzip
+     lhasa
++    lrzip
+     lzip
+     p7zip
+     rpm
+     unshield
+     xz
++    zstd
+   ]
++  ++ lib.optional arjSupport arj
+   ++ lib.optional unrarSupport unrar
+   ++ lib.optional unzipSupport unzip;
+ in
+@@ -58,7 +68,28 @@ python3Packages.buildPythonApplication (finalAttrs: {
+     setuptools
+   ];
+ 
++  nativeCheckInputs = archivers ++ [
++    python3Packages.pyaml
++  ];
++
++  postPatch = ''
++    patchShebangs --build tests/compare.py
++  '';
++
++  checkPhase = ''
++    runHook preCheck
++    tests/compare.py '^(?!download and extract$)(?!password zip noninteractive$).*'
++    runHook postCheck
++  '';
++
++  doCheck = arjSupport && unrarSupport && unzipSupport;
++
+   passthru.updateScript = gitUpdater { };
++  passthru.tests.dtrx-full = dtrx.override {
++    arjSupport = true;
++    unrarSupport = true;
++    unzipSupport = true;
++  };
+ 
+   meta = {
+     description = "Do The Right Extraction: A tool for taking the hassle out of extracting archives";
+
+From 592d5a1f3cdf9fdf6b4e0ac0e1fca937bc7e43c4 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 8 Jun 2026 01:48:38 +0000
+Subject: [PATCH 4/5] dtrx: use unwrapped binutils
+
+this is for runtime use -- we don't need the stdenv/cc integration
+which wrapped `binutils` provides.
+---
+ pkgs/by-name/dt/dtrx/package.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/dt/dtrx/package.nix b/pkgs/by-name/dt/dtrx/package.nix
+index 49949f116e0be20a09d787d34ba01b3afeaa1b5f..afa0e11fa0353b0c3577cf9eb19b06ca8f4c92a9 100644
+--- a/pkgs/by-name/dt/dtrx/package.nix
++++ b/pkgs/by-name/dt/dtrx/package.nix
+@@ -1,6 +1,6 @@
+ {
+   arj,
+-  binutils,
++  binutils-unwrapped,
+   brotli,
+   bzip2,
+   cabextract,
+@@ -28,7 +28,7 @@
+ }:
+ let
+   archivers = [
+-    binutils
++    binutils-unwrapped
+     brotli
+     bzip2
+     cabextract
+
+From eca56b5a7d857175f6615310fd06e11065f13a06 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 8 Jun 2026 01:57:37 +0000
+Subject: [PATCH 5/5] dtrx: remove a usage of `with`
+
+---
+ pkgs/by-name/dt/dtrx/package.nix | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/dt/dtrx/package.nix b/pkgs/by-name/dt/dtrx/package.nix
+index afa0e11fa0353b0c3577cf9eb19b06ca8f4c92a9..71d9e13a080fcb0acc6b0bb33c28c7c7f05b099d 100644
+--- a/pkgs/by-name/dt/dtrx/package.nix
++++ b/pkgs/by-name/dt/dtrx/package.nix
+@@ -64,8 +64,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
+     ''--prefix PATH : "${lib.makeBinPath archivers}"''
+   ];
+ 
+-  build-system = with python3Packages; [
+-    setuptools
++  build-system = [
++    python3Packages.setuptools
+   ];
+ 
+   nativeCheckInputs = archivers ++ [

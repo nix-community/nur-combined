@@ -6,7 +6,7 @@
   fetchFromGitHub,
   gitUpdater,
   libpulseaudio,
-  libsForQt5,
+  qt5,
   pkg-config,
   stdenv,
 }:
@@ -21,15 +21,15 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    libsForQt5.qmake
-    libsForQt5.qt5.wrapQtAppsHook
+    qt5.qmake
+    qt5.wrapQtAppsHook
     pkg-config
   ];
 
-  buildInputs = with libsForQt5; [
+  buildInputs = [
     alsa-lib
     libpulseaudio
-    qtwayland
+    qt5.qtwayland
   ];
 
   postPatch = ''

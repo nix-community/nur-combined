@@ -370,53 +370,6 @@
 { config, lib, pkgs, ... }:
 let
   cfg = config.sane.services.llama-cpp;
-  models = pkgs.linkFarm "llama-cpp-models" (lib.mapAttrs' (k: value: {
-    inherit value;
-    inherit (value) name;
-  }) {
-    inherit (pkgs.mlModels)
-      # gemma-4-e2b-it-bf16
-      gemma-4-e2b-it-q4_k_s
-      # gemma-4-e2b-it-q6_k
-      gemma-4-e2b-it-q8_0
-      gemma-4-e4b-it-q3_k_s
-      gemma-4-e4b-it-q4_k_m
-      gemma-4-e4b-it-q4_k_s
-      # gemma-4-e4b-it-q5_k_m
-      # gemma-4-e4b-it-q5_k_s
-      # gemma-4-e4b-it-q6_k
-      gemma-4-12b-it-iq4_nl
-      gemma-4-12b-it-iq4_xs
-      gemma-4-12b-it-q3_k_m
-      gemma-4-12b-it-q3_k_s
-      gemma-4-12b-it-q4_k_m
-      gemma-4-12b-it-q4_k_s
-      gemma-4-12b-it-ud-iq3_xxs
-      gemma-4-12b-it-ud-q3_k_xl
-      gemma-4-12b-it-ud-q4_k_xl
-      gemma-4-26b-a4b-it-mxfp4_moe
-      gemma-4-26b-a4b-it-ud-q4_k_m
-      gemma-4-31b-it-q4_k_m
-      gemma-4-31b-it-q8_0
-      gemma-4-31b-it-bf16
-      # glm-4_7-flash
-      gpt-oss-20b
-      # minimax-m2_5
-      nemotron-3-nano-4b
-      # nemotron-3-nano-30b-a3b
-      # omnicoder-9b
-      # qwen3_5-35b-a3b
-      # qwen3_5-9b
-      # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_s
-      # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_m
-      # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-v2
-      # qwen3_5-9b-claude-4_6-opus-reasoning-distilled-v2-q4_k_m
-      # qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q2_k
-      qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q3_k_m
-      # qwen3_5-27b-claude-4_6-opus-reasoning-distilled-v2
-      qwen3_6-27b-mtp-q4_k_m
-    ;
-  });
 in
 {
   options.sane.services.llama-cpp = {
@@ -438,7 +391,7 @@ in
     # port: default is 8080, conflict-prone.
     # ollama default is 11434. hence 11435, as the successor.
     services.llama-cpp.port = 11435;
-    services.llama-cpp.modelsDir = models;
+    services.llama-cpp.modelsDir = pkgs.llama-cpp-models;
     services.llama-cpp.extraFlags = [
       "--verbose"
       # XXX(2026-04-01): if omitted, llama-cpp will attempt the model's native context, and decrease until it fits into RAM.
@@ -447,7 +400,8 @@ in
       # fit-target: how many MiB to leave free, for unexpected allocations (default 1024 MiB)
       "--fit-target" "128"
       # fit-ctx: never reduce context below this level when fitting to ram
-      "--fit-ctx" "32768"
+      # "--fit-ctx" "32768"
+      "--fit-ctx" "131072"
       # swa-full seems to allow much faster prompt evals after the first system prompt is cached,
       # but not always supported by model -- check logs:
       # > srv    load_model: swa_full is not supported by this model, it will be disabled

@@ -12,7 +12,7 @@ we can't execute it during a build. use the stdenv's `ar` instead.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/pkgs/by-name/ca/capnproto/package.nix b/pkgs/by-name/ca/capnproto/package.nix
-index 04a8c602610b..68e327209047 100644
+index 04a8c602610b0293f5bb4d597c14929cb9dc0cdb..68e327209047ec374fa3073bba77caf25ec259ef 100644
 --- a/pkgs/by-name/ca/capnproto/package.nix
 +++ b/pkgs/by-name/ca/capnproto/package.nix
 @@ -21,7 +21,7 @@ let

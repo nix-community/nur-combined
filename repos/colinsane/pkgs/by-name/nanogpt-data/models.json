@@ -1501,7 +1501,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -1567,7 +1568,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -1930,7 +1932,8 @@
     },
     "architecture": {
       "input_modalities": [
-        "text"
+        "text",
+        "audio"
       ]
     }
   },
@@ -1973,7 +1976,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -1995,7 +1999,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2017,7 +2022,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2039,7 +2045,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2061,7 +2068,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2083,7 +2091,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2105,7 +2114,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2127,7 +2137,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2149,7 +2160,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2171,7 +2183,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2179,10 +2192,10 @@
     "id": "gemini-2.5-pro",
     "name": "Gemini 2.5 Pro",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00025,
+      "cacheReadInputPer1kTokens": 0.000125,
       "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.5,
+      "prompt": 1.25,
       "unit": "per_million_tokens"
     },
     "context_length": 1048756,
@@ -2193,7 +2206,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2215,7 +2229,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2237,7 +2252,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2259,7 +2275,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2281,7 +2298,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2303,7 +2321,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2325,7 +2344,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2369,7 +2389,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2391,7 +2412,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2436,7 +2458,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2546,7 +2569,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2589,7 +2613,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2654,7 +2679,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -7417,7 +7443,8 @@
     },
     "architecture": {
       "input_modalities": [
-        "text"
+        "text",
+        "audio"
       ]
     }
   },
@@ -12983,8 +13010,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "audio"
+        "image"
       ]
     }
   },

@@ -1,0 +1,141 @@
+From 54ca30a648f00cd92f059596f2004456d11e7de1 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sat, 6 Jun 2026 16:16:32 +0000
+Subject: [PATCH] HACK: fix
+ pkgsCross.aarch64-multiplatform.signal-desktop.passthru.webrtc
+
+---
+ pkgs/by-name/si/signal-desktop/package.nix | 52 ++++++++++++++++++++--
+ pkgs/by-name/si/signal-desktop/webrtc.nix  | 15 +++++++
+ 2 files changed, 63 insertions(+), 4 deletions(-)
+
+diff --git a/pkgs/by-name/si/signal-desktop/package.nix b/pkgs/by-name/si/signal-desktop/package.nix
+index d84055a39297..497bff52e47d 100644
+--- a/pkgs/by-name/si/signal-desktop/package.nix
++++ b/pkgs/by-name/si/signal-desktop/package.nix
+@@ -10,6 +10,7 @@
+   python3,
+   makeWrapper,
+   callPackage,
++  buildPackages,
+   fetchFromGitHub,
+   fetchpatch,
+   fetchurl,
+@@ -35,10 +36,17 @@ let
+   electron = electron_41;
+ 
+   libsignal-node = callPackage ./libsignal-node.nix { inherit nodejs; };
++  libsignal-node-build = buildPackages.callPackage ./libsignal-node.nix { inherit nodejs; };
+   signal-sqlcipher = callPackage ./signal-sqlcipher.nix { inherit pnpm nodejs; };
++  signal-sqlcipher-build = buildPackages.callPackage ./signal-sqlcipher.nix {
++    inherit pnpm;
++    inherit nodejs;
++  };
+ 
+   webrtc = callPackage ./webrtc.nix { };
+   ringrtc = callPackage ./ringrtc.nix { inherit webrtc; };
++  webrtc-build = buildPackages.callPackage ./webrtc.nix { };
++  ringrtc-build = buildPackages.callPackage ./ringrtc.nix { webrtc = webrtc-build; };
+ 
+   version = "8.13.0";
+ 
+@@ -213,7 +221,12 @@ stdenv.mkDerivation (finalAttrs: {
+       die "ringrtc version mismatch"
+     fi
+ 
+-    install -D ${ringrtc}/lib/libringrtc${stdenv.hostPlatform.extensions.library} \
++    install -D ${
++      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
++        ringrtc
++      else
++        ringrtc-build
++    }/lib/libringrtc${stdenv.buildPlatform.extensions.library} \
+       node_modules/@signalapp/ringrtc/build/libringrtc.node
+ 
+     substituteInPlace package.json \
+@@ -225,10 +238,20 @@ stdenv.mkDerivation (finalAttrs: {
+                      'exports.default = require(`../../build/libringrtc.node`);'
+ 
+     rm -r node_modules/@signalapp/libsignal-client/prebuilds
+-    cp -r ${libsignal-node}/lib node_modules/@signalapp/libsignal-client/prebuilds
++    cp -r ${
++      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
++        libsignal-node
++      else
++        libsignal-node-build
++    }/lib node_modules/@signalapp/libsignal-client/prebuilds
+ 
+     rm -r node_modules/@signalapp/sqlcipher
+-    cp -r ${signal-sqlcipher} node_modules/@signalapp/sqlcipher
++    cp -r ${
++      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
++        signal-sqlcipher
++      else
++        signal-sqlcipher-build
++    } node_modules/@signalapp/sqlcipher
+ 
+     # fs-xattr is required at runtime by preload.wrapper.js,
+     # but with npmRebuild disabled its native binding is missing.
+@@ -248,7 +271,28 @@ stdenv.mkDerivation (finalAttrs: {
+     chmod -R u+w electron-dist
+     cp -r ${sticker-creator} sticker-creator/dist
+ 
+-    pnpm run generate
++    ${
++      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
++        "pnpm run generate"
++      else
++        ''
++          npm_config_arch=${stdenv.buildPlatform.node.arch} \
++          npm_config_platform=${stdenv.buildPlatform.node.platform} \
++            pnpm run generate
++        ''
++    }
++
++    install -D ${ringrtc}/lib/libringrtc${stdenv.hostPlatform.extensions.library} \
++      node_modules/@signalapp/ringrtc/build/libringrtc.node
++
++    chmod -R u+w node_modules/@signalapp/libsignal-client/prebuilds
++    rm -r node_modules/@signalapp/libsignal-client/prebuilds
++    cp -r ${libsignal-node}/lib node_modules/@signalapp/libsignal-client/prebuilds
++
++    chmod -R u+w node_modules/@signalapp/sqlcipher
++    rm -r node_modules/@signalapp/sqlcipher
++    cp -r ${signal-sqlcipher} node_modules/@signalapp/sqlcipher
++
+     pnpm exec electron-builder \
+       ${
+         if stdenv.hostPlatform.isDarwin then "--mac" else "--linux"
+diff --git a/pkgs/by-name/si/signal-desktop/webrtc.nix b/pkgs/by-name/si/signal-desktop/webrtc.nix
+index 4bec7936bc87..45c1d5e3bacb 100644
+--- a/pkgs/by-name/si/signal-desktop/webrtc.nix
++++ b/pkgs/by-name/si/signal-desktop/webrtc.nix
+@@ -103,6 +103,15 @@ stdenv.mkDerivation (finalAttrs: {
+     substituteInPlace build/toolchain/linux/BUILD.gn \
+       --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
+ 
++    substituteInPlace build/toolchain/linux/unbundle/BUILD.gn \
++      --replace-fail '  nm = getenv("NM")' '  nm = getenv("NM")
++  readelf = getenv("READELF")' \
++      --replace-fail '  nm = getenv("BUILD_NM")' '  nm = getenv("BUILD_NM")
++  readelf = getenv("BUILD_READELF")' \
++      --replace-fail '    current_cpu = current_cpu' '    current_cpu = host_cpu' \
++      --replace-fail '    current_os = current_os' '    current_os = host_os
++    v8_current_cpu = target_cpu'
++
+     substituteInPlace modules/audio_device/linux/pulseaudiosymboltable_linux.cc \
+       --replace-fail "libpulse.so.0" "${pulseaudio}/lib/libpulse.so.0"
+   ''
+@@ -129,6 +138,12 @@ stdenv.mkDerivation (finalAttrs: {
+     echo "generate_location_tags = true" >> build/config/gclient_args.gni
+   '';
+ 
++  env.BUILD_CC = "${buildPackages.llvmPackages.stdenv.cc}/bin/cc";
++  env.BUILD_CXX = "${buildPackages.llvmPackages.stdenv.cc}/bin/c++";
++  env.BUILD_AR = "${buildPackages.llvmPackages.llvm}/bin/llvm-ar";
++  env.BUILD_NM = "${buildPackages.llvmPackages.llvm}/bin/llvm-nm";
++  env.BUILD_READELF = "${buildPackages.llvmPackages.llvm}/bin/llvm-readelf";
++
+   gnFlags =
+     lib.optionals stdenv.hostPlatform.isLinux [
+       # webrtc uses chromium's `src/build/BUILDCONFIG.gn`. many of these flags

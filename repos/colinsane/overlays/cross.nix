@@ -220,17 +220,6 @@ in with final; {
   #   ];
   # });
 
-  # 2026/05/22: upstreaming is unblocked, but i can only enable rust support by giving it a linker for the *build* platform;
-  # that seems wrong.
-  # env."CARGO_TARGET_${stdenv.buildPlatform.rust.cargoEnvVarTarget}_LINKER" = "${buildPackages.stdenv.cc}/bin/cc";
-  git = prev.git.override {
-    # fixes:
-    # > git-aarch64-unknown-linux-gnu> cargo build --release
-    # > git-aarch64-unknown-linux-gnu>    Compiling gitcore v0.1.0 (/build/git-2.54.0)
-    # > git-aarch64-unknown-linux-gnu> error: linker `cc` not found
-    rustSupport = false;
-  };
-
   # 2026-05-24: upstreaming is unblocked
   gnome-2048 = prev.gnome-2048.override {
     cargo = crossCargo;

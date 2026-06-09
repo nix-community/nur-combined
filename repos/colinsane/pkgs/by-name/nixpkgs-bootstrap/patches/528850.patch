@@ -9,7 +9,7 @@ fixes `nix-build -A pkgsCross.musl64.diffutils`
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/pkgs/tools/text/diffutils/default.nix b/pkgs/tools/text/diffutils/default.nix
-index ecbd00ec0094..c05db9a89b5a 100644
+index ecbd00ec009432963f687f354c76c75695967e8b..c05db9a89b5ab1dff187784d5426e6948e54b6c1 100644
 --- a/pkgs/tools/text/diffutils/default.nix
 +++ b/pkgs/tools/text/diffutils/default.nix
 @@ -70,8 +70,10 @@ stdenv.mkDerivation rec {

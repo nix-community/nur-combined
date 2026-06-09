@@ -244,7 +244,7 @@ super.lib.composeManyExtensions [
       };
     };
 
-    # 2026-05-23: still required
+    # 2026-06-07: still required
     # 2026-02-14: upstream nixpkgs disables a few tests on aarch64, and a few more for any platform with S3 enabled.
     # alpine disables all python tests, and a few c++ tests:
     # > ctest -j2 --test-dir build-cpp -E "arrow-compute-scalar-temporal-test|arrow-orc-adapter-test|arrow-dataset-dataset-writer-test"
@@ -282,7 +282,7 @@ super.lib.composeManyExtensions [
       };
     });
 
-    # 2026-05-23: still required
+    # 2026-06-07: still required
     audacity = prev.audacity.overrideAttrs (upstream: {
       # 2026-02-16: fixes "/build/source/libraries/lib-sqlite-helpers/sqlite/Statement.h:55:4: error: ‘int64_t’ does not name a type"
       patches = (upstream.patches or []) ++ [
@@ -368,7 +368,7 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
-    # 2026-05-23: still required
+    # 2026-06-07: still required
     # 2026-01-28: disable malcontent to unblock flatpak: it's some "parental controls" thing?
     # flatpak -> malcontent -> accountsservice (broken).
     flatpak = prev.flatpak.override {
@@ -389,11 +389,13 @@ super.lib.composeManyExtensions [
         # })
         (fetchAports {
           # 2026-02-03: fixes "/build/firefox-147.0.2/objdir/dist/system_wrappers/sys/single_threaded.h:3:15: fatal error: 'sys/single_threaded.h' file not found"
+          # 2026-06-07: still required
           path = "community/firefox/bmo-1988166-no-single_threaded-h.patch";
           hash = "sha256-oD/UdVfvOtY+HR5mLExf7ARQfvjpaMd2rOf0EBQ5TyM=";
         })
         (fetchAports {
           # 2026-02-03: fixes "/nix/store/hsvrmvp1i7k326fpvdrg99gmka863fwi-musl-1.2.5-dev/include/sys/prctl.h:88:8: error: redefinition of 'prctl_mm_map'"
+          # 2026-06-07: still required
           path = "community/firefox/musl-no-linux-prctl.patch";
           hash = "sha256-Mwyvdqc//WvSn7HqbkCILipl2C9Qo0T3ZQWbYPtGK8A=";
         })

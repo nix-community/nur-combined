@@ -217,7 +217,7 @@ in
       "strings"
       "sudo"
       # "tageditor"  # music tagging
-      # "unar"
+      # "unar"  # for literal .ar files (apparently not supported by dtrx?)
       "unzip"
       "wireguard-tools"  # for `wg`
       "xdg-open"

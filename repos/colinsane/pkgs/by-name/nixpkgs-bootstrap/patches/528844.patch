@@ -39,7 +39,7 @@ that file references OpenEmbedded, where we can see them using this
  1 file changed, 1 insertion(+)
 
 diff --git a/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh b/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh
-index 7843bb91db97..f30b6deaf6e5 100644
+index 7843bb91db9704369f68c5a08004e980bb8a5e96..f30b6deaf6e554e99d7cdd8f797b970a1648278f 100644
 --- a/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh
 +++ b/pkgs/development/libraries/gobject-introspection/wrappers/g-ir-scanner.sh
 @@ -4,4 +4,5 @@
