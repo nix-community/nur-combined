@@ -18,6 +18,7 @@
   freetype,
   fontconfig,
   libpng,
+  dbus,
 
   # Graphics
   glew,
@@ -76,13 +77,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "linux-wallpaperengine";
-  version = "0-unstable-2026-06-08";
+  version = "0-unstable-2026-06-09";
 
   src = fetchFromGitHub {
     owner = "Almamu";
     repo = "linux-wallpaperengine";
-    rev = "ce06c02c9c8733632c2715160e7e4e3ce3bea657";
-    hash = "sha256-pd+CQVneYCjXsD9hT1ljRAw75r88gy3Vkn7+1D5rwkc=";
+    rev = "b016d7d1fdcf4e5fd2f9c9fa420a8aaa07fee02d";
+    hash = "sha256-ExWAYdSFW5plPuS3/jxTPMXIly6zVb5GojE3e37imZM=";
     fetchSubmodules = true;
   };
 
@@ -138,6 +139,8 @@ stdenv.mkDerivation (finalAttrs: {
     libffi
     fftw
     gmp
+
+    dbus
   ];
 
   cmakeFlags = [
