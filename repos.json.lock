@@ -1954,8 +1954,8 @@
             "url": "https://github.com/pborzenkov/nur-packages"
         },
         "peacock0803sz": {
-            "rev": "42901808fd8282c717a51f4e0bb97cfca1cf2fc9",
-            "sha256": "047rjhyvff63lvqhwpcbirwnj9a511587bl189x4a1dn014x8g7s",
+            "rev": "63c7c40d55bb930f138f53e80bbd7c0e6cde97cf",
+            "sha256": "1b18wfjwrjj2i1qaslzs8i6dh71n53r6bli7ggffsm5v2i3hdljf",
             "url": "https://github.com/peacock0803sz/nur-packages"
         },
         "peel": {
@@ -2707,8 +2707,8 @@
             "url": "https://github.com/ZerataX/nur-packages"
         },
         "zerozawa": {
-            "rev": "f98678f7c70d0d76e64f378887d2e1f15b9f959a",
-            "sha256": "149yiwjh2ankcmn2ijlnbh4cql2y8ixyw9vkivwbczv65271wac4",
+            "rev": "a1951ec57fc2d5f7362e9ab6b3b444d696c36f6d",
+            "sha256": "127mx0y67adpy5yn1bbwk7529kri8ff5a3qn87p7j3bkr182035n",
             "url": "https://github.com/lz37/nur"
         },
         "zimeg": {
