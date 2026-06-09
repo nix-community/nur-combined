@@ -14,7 +14,6 @@
     # keep-sorted start
     mapAttrs
     readDir
-    
     # keep-sorted end
     ;
   inherit

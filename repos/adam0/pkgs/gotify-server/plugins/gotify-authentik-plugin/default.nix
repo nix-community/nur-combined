@@ -5,7 +5,7 @@
   mkGotifyPlugin,
   # keep-sorted end
 }:
-mkGotifyPlugin  {
+mkGotifyPlugin {
   pname = "authentik-plugin";
   version = "2.9.1-unstable-2026-06-09";
 
