@@ -210,7 +210,8 @@ in let
         };
         pos = _pos;
         passthru.updateScript = let
-            fixUpdater = u: u.override (old: {
+            fixUpdater = u: u.override (old: builtins.intersectAttrs old rec {
+                genericUpdater = old.genericUpdater.override { inherit common-updater-scripts; };
                 common-updater-scripts = symlinkJoin {
                     name = "tuxemon-updater-scripts-wrapper";
                     paths = [

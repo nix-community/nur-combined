@@ -52,6 +52,6 @@
         inherit (game-unwrapped.meta) mainProgram platforms;
     };
     passthru = {
-        inherit (game-unwrapped) pkgs;
+        inherit (game-unwrapped) pkgs src updateScript;
     };
 }

@@ -76,6 +76,7 @@
         };
         passthru = {
             pkgs = lix-game-packages;
+            inherit (common) updateScript;
         };
     };
 in lix-game

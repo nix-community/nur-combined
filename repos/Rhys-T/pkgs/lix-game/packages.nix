@@ -18,4 +18,10 @@ in lib.makeScope newScope (self: let inherit (self) callPackage; in {
     disableNativeImageLoader = allegro5HasNativeMacOSImageLoader && !self.convertImagesToTrueColor;
     useHighResTitleScreen = false;
     includeMusic = true;
+    
+    _toUpdate = {
+        assets = self.assets.override { convertImagesToTrueColor = false; };
+        assets-PNG32 = self.assets.override { convertImagesToTrueColor = true; };
+        music-bin = self.music.override { forceUseBinaryRelease = true; };
+    };
 })
