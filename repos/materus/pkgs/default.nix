@@ -12,7 +12,6 @@ rec {
   ffmpeg_7-amf-full = (pkgs.ffmpeg_7-full.overrideAttrs (finalAttrs: previousAttrs: { configureFlags = previousAttrs.configureFlags ++ [ "--enable-amf" ]; buildInputs = previousAttrs.buildInputs ++ [ pkgs.amf-headers ]; }));
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc { };
-  polymc-qt5 = pkgs.libsForQt5.callPackage ./apps/games/polymc { };
 
   alvr = pkgs.callPackage ./apps/games/alvr { };
 
