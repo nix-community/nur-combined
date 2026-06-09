@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitLab,
-  libsForQt5,
+  qt5,
   kdePackages,
   overrideTheme ? {},
   ...
@@ -73,7 +73,7 @@ in
       sha256 = "sha256-wq6V3UOHteT6CsHyc7+KqclRMgyDXjajcQrX/y+rkA0=";
     };
     propagatedUserEnvPkgs = [
-      libsForQt5.qt5.qtgraphicaleffects
+      qt5.qtgraphicaleffects
       kdePackages.qtsvg
       kdePackages.qtbase
     ];
