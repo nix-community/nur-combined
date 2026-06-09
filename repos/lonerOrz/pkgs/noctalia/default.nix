@@ -42,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   src = fetchFromGitHub {
     owner = "noctalia-dev";
-    repo = "noctalia-shell";
+    repo = "noctalia";
     rev = current.rev;
     hash = current.hash;
   };
@@ -104,14 +104,13 @@ stdenv.mkDerivation (finalAttrs: {
     versionFile = "pkgs/noctalia/version.json";
     fetchMetaCommand = "${(callPackage ../../utils/fetcher.nix { }).githubGit {
       owner = "noctalia-dev";
-      repo = "noctalia-shell";
-      ref = "v5";
+      repo = "noctalia";
     }}";
   };
 
   meta = {
     description = "Lightweight Wayland shell and bar built directly on Wayland + OpenGL ES";
-    homepage = "https://github.com/noctalia-dev/noctalia-shell";
+    homepage = "https://github.com/noctalia-dev/noctalia";
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "noctalia";
