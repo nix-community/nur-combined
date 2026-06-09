@@ -62,7 +62,6 @@ in
       none-ls-nvim # LSP integration for linters and formatters
       nvim-treesitter.withAllGrammars # Better highlighting
       nvim-treesitter-textobjects # More textobjects
-      plenary-nvim # 'null-ls', 'telescope' dependency
 
       # Completion
       luasnip # Snippet manager compatible with LSP

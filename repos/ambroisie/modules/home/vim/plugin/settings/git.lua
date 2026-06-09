@@ -61,7 +61,7 @@ local objects = {
     mode = "o",
     { "ih", gitsigns.select_hunk, desc = "git hunk" },
 }
--- Visual
+
 local visual = {
     mode = { "x" },
     { "ih", gitsigns.select_hunk, desc = "git hunk" },
