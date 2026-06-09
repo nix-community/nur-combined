@@ -59,11 +59,11 @@
     "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = 5;
   };
 
-  services.timesyncd.extraConfig = ''
-    PollIntervalMinSec=16
-    PollIntervalMaxSec=180
-    ConnectionRetrySec=3
-  '';
+  services.timesyncd.settings.Time = {
+    PollIntervalMinSec = 16;
+    PollIntervalMaxSec = 180;
+    ConnectionRetrySec = 3;
+  };
   systemd.additionalUpstreamSystemUnits = [
     "systemd-time-wait-sync.service"
   ];
