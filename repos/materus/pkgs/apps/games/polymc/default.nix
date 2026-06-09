@@ -9,7 +9,7 @@
   ghc_filesystem,
   zlib,
   file,
-  wrapQtAppsHook,
+  kdePackages,
   xorg,
   libpulseaudio,
   openal,
@@ -27,7 +27,6 @@
   addDriverRunpath,
   vulkan-loader,
   msaClientID ? null,
-  extra-cmake-modules,
   qtcharts,
   makeWrapper,
   gamemode,
@@ -65,7 +64,7 @@ let
       gameLibraryPath = libpath + ":${addDriverRunpath.driverLink}/lib";
     in
     stdenv.mkDerivation rec {
-      pname = "polymc" + (lib.optionalString ((lib.versions.major qtbase.version) == "5") "-qt5");
+      pname = "polymc";
       version = "7.0";
       patches = [
         # Fix for Qt >= 6.9.0
@@ -95,10 +94,10 @@ let
       dontWrapQtApps = true;
       nativeBuildInputs = [
         cmake
-        extra-cmake-modules
         ninja
         jdk
-        wrapQtAppsHook
+        kdePackages.extra-cmake-modules
+        kdePackages.wrapQtAppsHook
         file
         ghc_filesystem
       ];
