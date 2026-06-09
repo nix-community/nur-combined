@@ -25,7 +25,7 @@ in
       };
     };
 
-    caddy.settings.apps.http.servers.srv0.routes = [
+    caddy.settings.apps.http.servers.srv0.routes = lib.mkIf (config.caddy ? settings) [
       {
 
         handle = [

@@ -71,6 +71,7 @@ let
         hastur = sum;
         eihort = sum;
         uubboo = sum;
+        azasos = sum;
       }
     )
       { lib = lib; };

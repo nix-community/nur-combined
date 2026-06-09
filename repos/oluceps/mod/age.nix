@@ -46,6 +46,7 @@ in
     {
       vaultix = {
         settings.hostPubkey = self.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
         secrets = {
           nuan = { };
           cfd = { };
@@ -102,6 +103,7 @@ in
       ];
       vaultix = {
         settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
 
         secrets = {
           # postfix-sasl = { };
@@ -122,6 +124,7 @@ in
       ];
       vaultix = {
         settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
 
         secrets = {
           # postfix-sasl = { };
@@ -159,6 +162,7 @@ in
       ];
       vaultix = {
         settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
 
         secrets = {
           # postfix-sasl = { };
@@ -197,9 +201,27 @@ in
       ];
       vaultix = {
         settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
 
         secrets = {
           sing = { };
+        };
+      };
+    };
+  flake.modules.nixos."age/azasos" =
+    { config, ... }:
+    {
+      services.openssh.hostKeys = [
+        {
+          path = hostPrivKey;
+          type = "ed25519";
+        }
+      ];
+      vaultix = {
+        settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
+        settings.flake = self;
+        secrets = {
+          xray = { };
         };
       };
     };

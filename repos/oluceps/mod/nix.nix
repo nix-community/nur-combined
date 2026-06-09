@@ -57,7 +57,7 @@
           ];
           extra-substituters = [
             # "https://cache.lix.systems"
-            "http://cache.nyaw.xyz:8501"
+            # "http://cache.nyaw.xyz:8501"
           ]
           ++ (map (n: "https://${n}.cachix.org") [
             # "nix-community"

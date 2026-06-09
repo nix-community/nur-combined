@@ -88,6 +88,18 @@ wg_key = "ruJyKXSXmXg1zxFmFp/i9RYzZf6iwKN1ImcV1BdgaS4="
 ygg_pubkey = "2557a79ba3bf20908e9bc69f1502aeb36c0acc9890c022a0a09cfac5f16cc78b"
 mac = "c4:09:38:f2:3e:cb"
 
+[node.azasos]
+id = 6
+addrs = ["2401:b60:e0fe:3e::2"]
+censor = false
+nat = false
+user = "riro"
+ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDkqNdrR49Id2NjA01qx6E5dff5Bn6uqkmMnSZX9i1e"
+link_local_addr = "fe80::edb2:20d1:6e7e:5aae/64"
+wg_key = "IOGATjHkW7rui+jYjCVOHzV7TdrFYekX1BXjEFQKhlk="
+mac = "bc:24:11:21:c7:2c"
+ygg_pubkey = ""
+
 
 # [extra.edgeone]
 # type = "ygg"

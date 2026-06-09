@@ -4831,17 +4831,16 @@
         "rust-overlay": "rust-overlay_11"
       },
       "locked": {
-        "lastModified": 1780764074,
+        "lastModified": 1780862871,
         "narHash": "sha256-pvTQC9SZz9ORQC9zKZV8HUBNw/Ig4GxEofnaMHEpRYc=",
         "owner": "milieuim",
         "repo": "vaultix",
-        "rev": "92323d03be0de6e6c24f4ec83b4e39ada9b5cece",
+        "rev": "992b1f65ef1ddf05aa5972d17ad77bd82840fd86",
         "type": "github"
       },
       "original": {
         "owner": "milieuim",
         "repo": "vaultix",
-        "rev": "92323d03be0de6e6c24f4ec83b4e39ada9b5cece",
         "type": "github"
       }
     },

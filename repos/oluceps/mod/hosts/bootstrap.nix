@@ -18,26 +18,26 @@
     }:
     {
       imports = [
-        # (inputs.nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
+        (inputs.nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
         # (inputs.nixpkgs + "/nixos/modules/installer/scan/not-detected.nix")
-        {
-          options.fw-iface = lib.mkOption {
-            type = lib.types.enum [
-              "UEFI"
-              "BIOS"
-            ];
-          };
-          config.fw-iface = "UEFI";
-        }
+        # {
+        #   options.fw-iface = lib.mkOption {
+        #     type = lib.types.enum [
+        #       "UEFI"
+        #       "BIOS"
+        #     ];
+        #   };
+        #   config.fw-iface = "UEFI";
+        # }
         {
           time.timeZone = "Asia/Hong_Kong";
           networking = {
             nameservers = [ "8.8.8.8" ];
-            usePredictableInterfaceNames = false;
-
+            usePredictableInterfaceNames = true;
             firewall.enable = false;
 
             useNetworkd = true;
+            useDHCP = false;
 
             hostName = "bootstrap";
           };
@@ -49,6 +49,7 @@
             openssh.authorizedKeys.keys = [
               self.data.keys.sshPubKey2
               self.data.keys.skSshPubKey
+              "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMlk4fFt1HfVenQFTyGgxHfxqPB8spVtZqzBC5R2gYNg ed-login-250928"
             ];
           };
 
@@ -64,7 +65,7 @@
             };
           };
 
-          system.stateVersion = "24.05";
+          system.stateVersion = "25.11";
         }
 
         # {
@@ -201,11 +202,18 @@
           boot = {
             loader = {
               # timeout = 3;
-              limine = {
+              # limine = {
+              #   enable = true;
+              #   efiSupport = true;
+              #   biosSupport = true;
+              # biosDevice = "/dev/sda";
+              # };
+              grub = {
                 enable = true;
-                efiSupport = true;
-                biosSupport = true;
-                biosDevice = "/dev/sda";
+                # efiSupport = true;
+                # biosSupport = true;
+                # biosDevice = "/dev/sda";
+                device = "/dev/sda";
               };
             };
             kernelParams = [
@@ -321,14 +329,14 @@
             enable = true;
 
             links."10-eno1" = {
-              matchConfig.MACAddress = "c4:09:38:f2:3e:cb";
+              matchConfig.MACAddress = "bc:24:11:21:c7:2c";
               linkConfig.Name = "eno1";
             };
 
             networks."8-eno1" = {
               matchConfig.Name = "eno1";
               networkConfig = {
-                DHCP = "yes";
+                DHCP = "no";
                 IPv4Forwarding = true;
                 IPv6Forwarding = true;
                 IPv6AcceptRA = true;
@@ -338,19 +346,18 @@
                 DHCPv6Client = false;
                 # UseDNS = false;
               };
+              domains = [ "PVE" ];
 
-              # address = [
-              # "205.198.76.6/24"
-              # "2404:c140:2000:2::32:1d9f/64/48"
-              # ];
+              address = [
+                "2401:b60:e0fe:3e::2/64"
+              ];
               linkConfig.RequiredForOnline = "routable";
-              # routes = [
-              #   { Gateway = "205.198.76.1"; }
-              #   {
-              #     Gateway = "2404:c140:2000:2::1";
-              #     GatewayOnLink = true;
-              #   }
-              # ];
+              routes = [
+                {
+                  Gateway = "2401:b60:e0fe:3e::1";
+                  # GatewayOnLink = true;
+                }
+              ];
             };
           };
         }
