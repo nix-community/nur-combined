@@ -110,7 +110,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.5.0";
+  version = "4.6.0";
 
   pyproject = true;
 
@@ -118,7 +118,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-3nsNxlZYUoNxk3qy03enVxqWBI3jctrdEamHvDf1Nt4=";
+    hash = "sha256-4MtJnhajNAt4Ku341e+s/x6X7fpY0kgtgcusGmGNsdU=";
   };
 
   build-system = with python3Packages; [
@@ -174,6 +174,8 @@ python3Packages.buildPythonApplication rec {
   ];
 
   pythonImportsCheck = [ "lncrawl" ];
+
+  pythonRemoveDeps = [ "nodriver" ];
 
   doCheck = false;
 
