@@ -43,7 +43,7 @@ in
         ]
         ++ lib.optionals (stdenv.system == "x86_64-linux") [
           proton-pass
-          protonvpn-gui
+          proton-vpn
           protonmail-desktop
         ]
         # ++

@@ -275,6 +275,37 @@ if inputs ? "nvf" then
                 };
               };
             };
+            assistant.avante-nvim = {
+              enable = true;
+              setupOpts = {
+                provider = "opencode";
+                auto_suggestions_provider = "opencode";
+                providers = {
+                  opencode = {
+                    __inherited_from = "openai";
+                    api_key_name = "OPENCODE_API_KEY";
+                    endpoint = "https://opencode.ai/zen/v1";
+                    model = "deepseek-v4-flash-free";
+                    timeout = 10000;
+                  };
+                };
+                behaviour = {
+                  auto_suggestions = true;
+                  auto_apply_diff_after_generation = false;
+                  enable_cursor_planning_mode = false;
+                  enable_claude_text_editor_tool_mode = false;
+                };
+                suggestion = {
+                  debounce = 300;
+                  throttle = 600;
+                };
+                windows = {
+                  position = "right";
+                  width = 40;
+                };
+                hints.enabled = true;
+              };
+            };
             binds.whichKey.enable = true;
             git.enable = true;
           };
