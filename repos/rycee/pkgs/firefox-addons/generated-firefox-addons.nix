@@ -947,10 +947,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.1";
+      version = "2.0.3";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4842471/batchcamp-2.0.1.xpi";
-      sha256 = "860bdae98ef22619321e9efff8f2797cb2b0b0af568128de90dfd56a2de343a2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4844145/batchcamp-2.0.3.xpi";
+      sha256 = "26287ecff950fa7412f8bd963cab9cb659326bc20c0e6007ed07e87505c5514b";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -2136,10 +2136,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.5.0";
+      version = "4.5.1";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4810607/click_and_read-4.5.0.xpi";
-      sha256 = "ecc5183f63cbc25ee924971f8e2e5e70b29ea89e3797d271e3df4177ebc1468f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4843358/click_and_read-4.5.1.xpi";
+      sha256 = "47279f1f656bb1f81a5ce6a0740092c31b0d498728436526f02912f1ed9137b0";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -4688,10 +4688,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.20.8";
+      version = "1.20.10";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4842670/geo_spoof-1.20.8.xpi";
-      sha256 = "344d99a8123b0fe98145ed3602b4dd45f8611fb0f040c11f185e4bf3e9467f76";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4843529/geo_spoof-1.20.10.xpi";
+      sha256 = "486d5bababae8af4b418ce6791579bb908d391983a25ced2c3bc243b25a97810";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7250,10 +7250,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.23";
+      version = "0.23.1";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831079/javascript_restrictor-0.23.xpi";
-      sha256 = "7fae0d9f22535dac324352fe426e7fb4378c8f503a81dd2de265cade1d410fa2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842911/javascript_restrictor-0.23.1.xpi";
+      sha256 = "9f0a33d33e3670619c1363235cdfca2ffa8f9cef035bc6d052ca99cb3e151439";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -9905,10 +9905,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.3.0";
+      version = "1.4.1";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837320/mergify-1.3.0.xpi";
-      sha256 = "e922b8375d9b67f883070b7e9ec5b557be5a3ec1e9a85db0a8df7f3f5636bb28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4843066/mergify-1.4.1.xpi";
+      sha256 = "67475b28a903da874b9a627f986489635241cf3c60dad8894b117c91280440fc";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
