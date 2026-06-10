@@ -74,6 +74,29 @@
         platforms = platforms.all;
       };
     };
+    "external-editor-revived" = buildMozillaXpiAddon {
+      pname = "external-editor-revived";
+      version = "1.2.0";
+      addonId = "external-editor-revived@tsundere.moe";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1036386/external_editor_revived-1.2.0-tb.xpi?src=";
+      sha256 = "415dad41ede63969a10c04e223d80b9e438c58adfb24a5a0c9811778f5be5a76";
+      meta = with lib;
+      {
+        homepage = "https://github.com/Frederick888/external-editor-revived";
+        description = "Edit emails in external editors such as Vim, Neovim, Emacs, etc.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "compose"
+          "compose.send"
+          "accountsRead"
+          "messagesRead"
+          "storage"
+          "notifications"
+          "nativeMessaging"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "filtaquilla" = buildMozillaXpiAddon {
       pname = "filtaquilla";
       version = "6.1";
@@ -283,10 +306,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "152.0.20260602.172614";
+      version = "152.0.20260610.134509";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1047434/deutsch_de_language_pack-152.0.20260602.172614-tb.xpi?src=";
-      sha256 = "95062239933b07042507cd4800844842d2ec5219cb0d041a30f170eaf55c8b36";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1047627/deutsch_de_language_pack-152.0.20260610.134509-tb.xpi?src=";
+      sha256 = "3fe3372a02bef2aebb5b8f9eb8dee8282ac75f86f1e1206abea3d8827e015050";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
