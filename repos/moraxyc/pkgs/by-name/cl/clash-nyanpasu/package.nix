@@ -75,6 +75,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     in
     patchedCargoDeps;
 
+  # nix-update auto
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
       pname
@@ -84,7 +85,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-4JO0wO7GWpuqrXnR7/5aPInAyhSXUfTaSg56WPBgQA4=";
+    hash = "sha256-/zN9x2ILS08MmB60bWjOero6XEwIsFzkX39wMtFHFZo=";
   };
 
   nativeBuildInputs = [
@@ -100,6 +101,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    zstd
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     atk
     cairo
     dbus
@@ -111,9 +115,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     librsvg
     pango
     webkitgtk_4_1
-    zstd
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
     xdotool
   ];
 
@@ -148,11 +149,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     '') vendorSources.boa-utils}
     substituteInPlace backend/boa_utils/src/module/builtin.rs "''${replace_args[@]}"
 
-    # cargo deps
-    substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
-      --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
     substituteInPlace backend/Cargo.toml \
       --replace-fail 'tray-icon = { git = "https://github.com/tauri-apps/tray-icon.git", rev = "34a3442" }' ""
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
+    substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
+      --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
   '';
 
   preBuild = ''
