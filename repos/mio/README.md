@@ -99,6 +99,7 @@ files are copied from following locations. some are modified in this repo and so
 + polkit nixpkgs 88d3861acdd3d2f0e361767018218e51810df8a1
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
 + widevine-firefox <https://github.com/ToborWinner/teanyth/blob/263decae003ec1b7ed0f7cde30b57c6f2f320c0e/pkgs/firefox-widevine.nix#L4>
++ fdroidcl_git - copied from nixpkgs and updated to <https://github.com/Hoverth/fdroidcl/commit/d870160f16a22836d13f59acdabcd70709c68db6>
 
 
 + antigravity-cli <https://github.com/numtide/llm-agents.nix/tree/main/packages/antigravity-cli> commit 04df876de28f0684a0d7110444d7f64da5c14d17
