@@ -1,0 +1,51 @@
+--- a/src/main/managers/menuManager.ts
++++ b/src/main/managers/menuManager.ts
+@@ -120,5 +120,6 @@
+                 role: 'cut',
++                label: '剪切',
+                 accelerator: 'CmdOrCtrl+X',
+             },
+             {
+                 id: 'copy',
+                 role: 'copy',
++                label: '复制',
+                 accelerator: 'CmdOrCtrl+C',
+             },
+             {
+                 id: 'paste',
+                 role: 'paste',
++                label: '粘贴',
+                 accelerator: 'CmdOrCtrl+V',
+             },
+             {
+                 id: 'delete',
+                 role: 'delete',
++                label: '删除',
+             },
+             { type: 'separator' },
+             {
+                 id: 'selectAll',
+                 role: 'selectAll',
++                label: '全选',
+                 accelerator: 'CmdOrCtrl+A',
+             },
+@@ -279,1 +285,1 @@
+-            label: 'File',
++            label: '文件',
+@@ -356,1 +362,1 @@
+-            label: 'View',
++            label: '视图',
+@@ -402,1 +408,1 @@
+-            label: 'Help',
++            label: '帮助',
+--- a/src/renderer/components/titlebar/useMenuDefinitions.ts
++++ b/src/renderer/components/titlebar/useMenuDefinitions.ts
+@@ -118,1 +118,1 @@
+-            label: 'File',
++            label: '文件',
+@@ -173,1 +173,1 @@
+-            label: 'View',
++            label: '视图',
+@@ -214,1 +214,1 @@
+-            label: 'Help',
++            label: '帮助',
