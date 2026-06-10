@@ -8,9 +8,11 @@
   buildPythonPackage,
   hatchling,
   setuptools,
+  fastmcp,
   kagiapi ? callPackage ./kagiapi.nix { },
   mcp,
   pydantic,
+  python-dateutil,
 }:
 
 buildPythonPackage (final: {
@@ -22,7 +24,7 @@ buildPythonPackage (final: {
     owner = "kagisearch";
     repo = "kagimcp";
     rev = "7261eac2d3bfa41ce23928628ab84435da091acb";
-    hash = "sha256-I+lyGlw4/mH38DzuHRhKYyZz7I2bWKWJbIAT3sebm4g=";
+    hash = "sha256-Pnx4riqIFLzJJY2P0VAEl6GBYjJo6gGWbt7gbLmOqmo=";
   };
 
   build-system = [
@@ -32,9 +34,11 @@ buildPythonPackage (final: {
 
   pythonRelaxDeps = true;
   dependencies = [
+    fastmcp
     kagiapi
     mcp
     pydantic
+    python-dateutil
   ];
 
   passthru.updateScript = nix-update-script {
