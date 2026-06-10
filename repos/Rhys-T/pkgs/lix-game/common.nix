@@ -1,4 +1,4 @@
-{ fetchFromGitHub, lib, enet, stdenvNoCC, gitUpdater, symlinkJoin, writeShellApplication, maintainers }: rec {
+{ fetchFromGitHub, lib, enet, stdenvNoCC, gitUpdater, dub-to-nix, symlinkJoin, writeShellApplication, maintainers }: rec {
     pname = "lix-game";
     version = "0.10.33";
     src = fetchFromGitHub {
@@ -37,8 +37,9 @@
                 paths = [
                     (writeShellApplication {
                         name = "update-source-version";
-                        runtimeInputs = [old.common-updater-scripts];
+                        runtimeInputs = [old.common-updater-scripts dub-to-nix];
                         text = ''
+                            set -x
                             args=()
                             for arg in "$@"; do
                                 case "$arg" in
@@ -57,7 +58,9 @@
                                 fi
                                 exit 0
                             fi
-                            args=()
+                            eval "$(jq -r '.[0].files[0] | @sh "file=\(.)"' <<< "$changes")"
+                            # shellcheck disable=SC2154
+                            args=("--file=$file")
                             for arg in "$@"; do
                                 case "$arg" in
                                     --rev=*)
@@ -69,6 +72,16 @@
                             set -- "''${args[@]}"
                             update-source-version "$@" --ignore-same-version --source-key=pkgs._toUpdate.assets
                             update-source-version "$@" --ignore-same-version --source-key=pkgs._toUpdate.assets-PNG32
+                            
+                            dubLock="''${file%/*}/dub-lock.json"
+                            pushd "$(nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".src)"
+                            dub-to-nix > "$dubLock.cmp"
+                            popd
+                            if ! cmp -s "$dubLock.cmp" "$dubLock"; then
+                                mv -f "$dubLock.cmp" "$dubLock"
+                                changes="$(jq -c --arg dubLock "$dubLock" '.[0].files += [$dubLock]' <<< "$changes")"
+                            fi
+                            rm -f "$dubLock.cmp"
                             
                             # Until I figure out how to auto-update the music, at least check it and fail if it's changed:
                             nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".pkgs._toUpdate.music-bin > /dev/null
