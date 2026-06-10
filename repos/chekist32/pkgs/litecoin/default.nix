@@ -19,7 +19,7 @@ let
   };
 
   litecoinQt5Config = {
-    inherit (pkgs.libsForQt5.qt5) qtbase qttools wrapQtAppsHook;
+    inherit (pkgs.qt5) qtbase qttools wrapQtAppsHook;
   };
 in
 {
