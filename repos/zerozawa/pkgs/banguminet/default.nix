@@ -5,6 +5,7 @@
   dotnetCorePackages,
   copyDesktopItems,
   makeDesktopItem,
+  imagemagick,
   libx11,
   fontconfig,
   libGL,
@@ -37,6 +38,7 @@ buildDotnetModule rec {
 
   nativeBuildInputs = [
     copyDesktopItems
+    imagemagick
   ];
 
   desktopItems = [
@@ -56,8 +58,15 @@ buildDotnetModule rec {
     mkdir -p "$out/bin"
     ln -s "$out/bin/BangumiNet" "$out/bin/banguminet"
 
-    install -Dm644 "$src/BangumiNet/Assets/BangumiNet.ico" \
-      "$out/share/pixmaps/banguminet.ico"
+    # Convert multi-frame .ico → .png, picking the largest frame by pixel area
+    tmpdir=$(mktemp -d)
+    magick "$src/BangumiNet/Assets/BangumiNet.ico" "$tmpdir/frame.png"
+    largest=$(
+      magick identify -format "%w %h %f\n" "$tmpdir"/frame-*.png \
+        | sort -t' ' -k1,1nr -k2,2nr | head -1 | awk '{print $3}'
+    )
+    install -Dm644 "$tmpdir/$largest" "$out/share/pixmaps/banguminet.png"
+    rm -r "$tmpdir"
   '';
 
   meta = with lib; {
