@@ -1,4 +1,9 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   home.sessionVariables = {
     EDITOR = "code -w";
@@ -10,7 +15,9 @@
     mesonlsp
     muon
     ninja
+    nixd
     pkg-config
+    rust-analyzer
   ];
   programs.vscode = {
     enable = true;
@@ -20,6 +27,7 @@
       eamodio.gitlens
       file-icons.file-icons
       jnoortheen.nix-ide
+      kilocode.kilo-code
       llvm-vs-code-extensions.vscode-clangd
       mesonbuild.mesonbuild
       mkhl.direnv
@@ -122,6 +130,12 @@
         );
         "claudeCode.disableLoginPrompt" = true;
         "claudeCode.preferredLocation" = "sidebar";
+        "kilo-code.new.autocomplete.enableAutoTrigger" = false;
+        "terminal.integrated.commandsToSkipShell" = [
+          "kilo-code.new.agentManagerOpen"
+          "kilo-code.new.agentManager.showTerminal"
+        ];
+
         "direnv.restart.automatic" = true;
         "markdown-preview-enhanced.previewTheme" = "monokai.css";
         "mesonbuild.buildFolder" = "build";
@@ -147,5 +161,84 @@
     password-store = "gnome-libsecret";
     enable-crash-reporter = false;
     crash-reporter-id = "ed2b3d47-3938-47db-a79b-19c13fe3bc1f";
+  };
+  sops.secrets.gw_api_base = { };
+  sops.secrets.gw_api_key = { };
+  xdg.configFile."kilo/config.json".text = builtins.toJSON {
+    model = "mimo/mimo-v2.5-pro";
+    small_model = "mimo/mimo-v2.5";
+    provider = {
+      mimo = {
+        env = [ "MIMO_API_KEY" ];
+        models = {
+          "mimo-v2.5-pro" = {
+            name = "mimo-v2.5-pro";
+            limit = {
+              context = 1048576;
+              output = 131072;
+            };
+          };
+          "mimo-v2.5" = {
+            name = "mimo-v2.5";
+            limit = {
+              context = 1048576;
+              output = 131072;
+            };
+          };
+        };
+        options = {
+          apiKey = "{file:${config.sops.secrets.anthropic_auth_token.path}}";
+          baseURL = "https://token-plan-cn.xiaomimimo.com/v1";
+        };
+      };
+      llamacpp = {
+        models = {
+          "preset/Qwen3.6-35B-A3B-MTP" = {
+            name = "Qwen3.6-35B-A3B";
+            limit = {
+              context = 262144;
+              output = 131072;
+            };
+          };
+          "preset/Qwen3.5-4B-MTP" = {
+            name = "Qwen3.5-4B";
+            limit = {
+              context = 131072;
+              output = 131072;
+            };
+          };
+        };
+        options = {
+          apiKey = "none";
+          baseURL = "http://127.0.0.1:8080/v1";
+        };
+      };
+      gw = {
+        models = {
+          "gemini/gemini-mux" = {
+            name = "Gemini Mux";
+            limit = {
+              context = 1048576;
+              output = 131072;
+            };
+          };
+        };
+        options = {
+          apiKey = "{file:${config.sops.secrets.gw_api_key.path}}";
+          baseURL = "{file:${config.sops.secrets.gw_api_base.path}}";
+        };
+      };
+    };
+    permission = {
+      bash = "ask";
+      edit = "ask";
+      read = {
+        "*" = "allow";
+        "secrets/**" = "deny";
+      };
+    };
+    instructions = [
+      "${pkgs.rtk.src}/hooks/kilocode/rules.md"
+    ];
   };
 }

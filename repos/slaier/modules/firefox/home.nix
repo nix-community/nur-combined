@@ -133,8 +133,17 @@ with lib;
                 ];
               }
               {
-                name = "Dns Lookup";
-                url = "https://dnslookup.online/";
+                name = "Misc";
+                bookmarks = [
+                  {
+                    name = "Dns Lookup";
+                    url = "https://dnslookup.online/";
+                  }
+                  {
+                    name = "Second Hand Silicon";
+                    url = "https://secondhandsilicon.com";
+                  }
+                ];
               }
             ];
           }

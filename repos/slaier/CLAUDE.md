@@ -1,67 +1,57 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+NixOS single-host config (x86_64-linux) using Nix flakes with auto-discovered modules.
 
 ## Commands
 
-### Build and development
-- `just` - Test current NixOS configuration (`sudo nixos-rebuild test`)
-- `just local switch` - Build and switch to current NixOS configuration
-- `just local <goal>` - Run any nixos-rebuild goal (e.g., `just local boot`, `just local test`)
-- `just rollback` - Test rollback to previous generation
-- `just iso` - Build installer ISO image
-- `just update` - Update all flake inputs and specific packages via `nix-update`
-- `nix build .#nixosConfigurations.local.config.system.build.toplevel` - Build the full system
-- `nix fmt` - Format all Nix files (uses `nixfmt-tree`)
+- `just` — test config (`sudo nixos-rebuild test --flake .#local`)
+- `just local switch` — build and activate config
+- `just local boot` — set as next boot default
+- `just rollback` — roll back to previous generation
+- `just iso` — build installer ISO
+- `just update` — update flake inputs + `nix-update CloudflareSpeedTest --flake`
+- `nix fmt` — format all Nix files (nixfmt-tree). Run before committing.
+- `nix build .#modules/<name>.package` — build a specific package
+- `sops --decrypt secrets/<file>` — decrypt a secret
 
-### Package management
-- `nix-env -f . -qa` - List all buildable packages
-- `nix build .#modules/<package-name>.package` - Build a specific package from modules
+The dev shell (`.envrc` via direnv) provides `just`, `nixos-rebuild`, `sops`, `nix-update`.
 
-### Secrets
-- `sops --decrypt secrets/<filename>` - Decrypt a secret file
+## Module auto-discovery
 
-### Dev shell
-- `.envrc` is configured for direnv — entering the repo auto-loads the dev shell with `just`, `nixos-rebuild`, `sops`, and `nix-update`.
+`lib.fromDirectoryRecursive` in `lib/default.nix` walks `modules/` and collects files by exact name:
+
+| Filename       | Role                                    | Wired into                       |
+| -------------- | --------------------------------------- | -------------------------------- |
+| `default.nix`  | NixOS module                            | `nixosModules`                   |
+| `home.nix`     | Home Manager module                     | `home-manager.users.nixos.imports` |
+| `package.nix`  | Package definition                      | `packages` output + auto-overlay |
+| `packages.nix` | Package set (via `makePackageSet`)      | NUR-style `default.nix`          |
+| `overlay.nix`  | NixOS overlay                           | `overlays` output                |
+
+**Critical**: directories prefixed with `_` are skipped. Only the filenames above are recognized — any other filename is ignored. To add a new module, create a directory under `modules/` with the correct file name.
 
 ## Architecture
 
-NixOS dotfiles/configuration repository using Nix flakes. Single host (`local`) targeting `x86_64-linux`.
+- `flake.nix` — entry point; builds all outputs from the `modules/` tree
+- `default.nix` — NUR-compatible non-flake entry point (walks `modules/` for `package.nix`/`packages.nix`)
+- `ci.nix` — filters packages for CI (excludes broken, unfree, `preferLocalBuild`)
+- `lib/default.nix` — core helpers: `fromDirectoryRecursive`, `recursiveValuesToList`, `flattenAttrset`
+- `hosts/local/` — hardware config (AMD, btrfs, proxy at `http://local.lan:7890`)
+- `hosts/installer/` — minimal ISO definition
+- `secrets/` — sops-nix encrypted files (age key in `.sops.yaml`)
 
-### Module auto-discovery
+Package `package.nix` files are auto-wrapped as overlays using the parent directory name as the attribute name (asserts no collisions with existing pkgs attrs).
 
-The core mechanism is `lib.fromDirectoryRecursive` (`lib/default.nix`), which recursively walks `modules/` and collects files by name:
+## CI
 
-- `default.nix` → NixOS system modules
-- `home.nix` → Home Manager modules (imported into `users.nixos`)
-- `package.nix` → Buildable packages (also auto-converted to overlays)
-- `overlay.nix` → Additional NixOS overlays
+GitHub Actions (`.github/workflows/test.yml`): triggers on push to `develop` and PRs. Builds the full NixOS system and evaluates packages. Uses Cachix (`slaier` + `nix-community`). The default branch is `develop`.
 
-Directories prefixed with `_` are skipped during traversal.
+An automated workflow (`.github/workflows/update_inputs.yml`) runs weekly to update flake inputs and push to `wip-update-inputs`.
 
-`packages.nix` (distinct from `package.nix`) defines a package set via `lib.makePackageSet`, used by the root `default.nix` for NUR-style package collection.
+## Gotchas
 
-### Key patterns
-
-- **flake.nix** is the entry point: it builds `nixosModules`, `homeModules`, `packages`, and `overlays` from the same `modules/` tree using `fromDirectoryRecursive` with different filenames.
-- **Home-manager** is integrated as a NixOS module; all `home.nix` files are collected and passed via `users.nixos.imports`.
-- **Overlays**: `package.nix` files are automatically wrapped as overlays (asserting no name collisions). `overlay.nix` files provide custom overlays.
-- **ci.nix**: Filters packages for CI — excludes broken, unfree, and `preferLocalBuild` packages.
-- **Secrets**: sops-nix with age key defined in `.sops.yaml`. Secret files live in `secrets/` and are decrypted at build time.
-
-### Hosts
-
-`hosts/local/` contains hardware-specific configuration (AMD CPU/GPU, btrfs with subvolumes, Logitech peripherals, networking with proxy). `hosts/installer/` defines a minimal ISO image.
-
-### CI
-
-GitHub Actions (`.github/workflows/test.yml`) builds the full NixOS system module and checks packages. Uses Cachix for binary caching. Triggers on push to `develop` and pull requests.
-
-### Non-flake entry point
-
-`default.nix` provides NUR compatibility by walking `modules/` for `package.nix`/`packages.nix` files. `ci.nix` filters these into `buildPkgs` and `cachePkgs` (excluding broken, unfree, and `preferLocalBuild` packages).
-
-### Inputs
-- `nixpkgs/nixos-unstable`, `home-manager/master`, `NUR`, `sops-nix`
-- `niri` (tiling Wayland compositor), `bluetooth-player`
-- `darkmatter-grub-theme`, `nix-index-database`
+- npm registry is overridden to Tencent mirror in both `flake.nix` and `modules/nix/default.nix`
+- aarch64-linux is emulated via binfmt on the host
+- ccache is enabled (`/nix/var/cache/ccache`) — CI setup also configures this
+- `nix.settings.experimental-features` includes `cgroups` (not just `nix-command flakes`)
+- `system.stateVersion` is `"26.05"`
