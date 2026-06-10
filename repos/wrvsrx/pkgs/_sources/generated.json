@@ -346,12 +346,12 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "rime-ice-modular",
-            "rev": "2026.06.03-02",
-            "sha256": "sha256-O3FKMLTCottJh4OiHga705tUvrN8A7+6ljP2H0Pwqfg=",
+            "rev": "2026.06.03-03",
+            "sha256": "sha256-Nk9DtwhSiBYmexHuWeE3F5U6QdpeuX4Cx7zhtZqDAMk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2026.06.03-02"
+        "version": "2026.06.03-03"
     },
     "rime-prelude": {
         "cargoLock": null,
