@@ -61,7 +61,12 @@ jobs:
       - name: Update ${{ matrix.package }}
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         run: |
-          nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
+          if [ "${{ matrix.package }}" = "llmster" ]; then
+            # nix-update cannot detect versions for llmster.lmstudio.ai
+            ./pkgs/llmster/update.sh --commit
+          else
+            nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
+          fi
           # Rewrite nix-update's "pkg: old -> new" to conventional commit style
           if ! git diff --quiet origin/master HEAD; then
             commit_msg=$(git log -1 --format=%s)

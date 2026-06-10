@@ -43,7 +43,12 @@ jobs:
           - nixpkgs=channel:nixos-unstable
           # - nixpkgs=channel:nixos-unstable
           # - nixpkgs=channel:nixos-21.11
-    runs-on: ubuntu-latest
+        # macos-latest is Apple Silicon (aarch64-darwin); free for public
+        # repos and covers darwin-only packages like rapid-mlx
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v6
@@ -79,5 +84,6 @@ jobs:
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
+      # Only notify once per run, not once per OS
+      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' && matrix.os == 'ubuntu-latest' }}
       run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
