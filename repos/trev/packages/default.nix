@@ -5,13 +5,12 @@
 let
   libs = import ../libs { inherit system pkgs; };
 in
-rec {
-  bobgen = pkgs.callPackage ./bobgen { };
-  bobgen-unstable = pkgs.callPackage ./bobgen/unstable.nix { inherit bobgen; };
+{
   bumper = pkgs.callPackage ./bumper { };
   bwrap-apprun = pkgs.pkgsStatic.callPackage ./bwrap-apprun { };
   catppuccin-gtk = pkgs.callPackage ./catppuccin-gtk { };
   catppuccin-zen-browser = pkgs.callPackage ./catppuccin-zen-browser { };
+  chrome-devtools-mcp = pkgs.callPackage ./chrome-devtools-mcp { };
   codex-commit = pkgs.callPackage ./codex-commit { };
   fetch-hash = pkgs.callPackage ./fetch-hash { };
   fix-hash = pkgs.callPackage ./fix-hash { };

@@ -10,16 +10,6 @@ Extra [packages](#packages), [bundlers](#bundlers), [images](#images) and [libs]
 
 Packages are [cached](#cache) and kept up-to-date automatically. Available here or the [Nix User Repository](https://nur.nix-community.org/repos/trev/).
 
-### [bob](https://github.com/stephenafamo/bob)
-
-SQL query builder and ORM/Factory generator for Go
-
-- pending nixpkgs [NixOS#420450](https://github.com/NixOS/nixpkgs/pull/420450)
-
-```elm
-nix run github:spotdemo4/trevpkgs#bobgen
-```
-
 ### [bumper](https://github.com/spotdemo4/bumper)
 
 Version bumper for projects using git and semantic versioning
@@ -459,7 +449,7 @@ import nixpkgs {
 
 ### trev
 
-An overlay that adds all of the overlays but with the prefix `trev` (e.g. `pkgs.trev.bobgen`)
+An overlay that adds all of the overlays but with the prefix `trev` (e.g. `pkgs.trev.bumper`)
 
 ```nix
 import nixpkgs {
@@ -480,7 +470,7 @@ nixosConfigurations = {
       trev.nixosModules.overlay
       ({ pkgs, ... }: {
         environment.systemPackages = with pkgs; [
-          trev.bobgen
+          trev.bumper
         ];
       })
     ];
@@ -631,7 +621,7 @@ A flake for NixOS utilizing the [Nix User Repository](https://github.com/nix-com
           nur.modules.nixos.default # Add the NUR overlay
 
           ({ pkgs, ... }: {
-            environment.systemPackages = [pkgs.nur.repos.trev.bobgen]; # Use the NUR overlay
+            environment.systemPackages = [pkgs.nur.repos.trev.bumper]; # Use the NUR overlay
           })
         ];
       };
