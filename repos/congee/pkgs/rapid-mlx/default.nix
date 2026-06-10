@@ -1,10 +1,21 @@
 {
   lib,
-  python3Packages,
+  python3,
   fetchFromGitHub,
   versionCheckHook,
 }:
 
+let
+  # Swap nixpkgs' CPU-only mlx (built with MLX_BUILD_METAL=OFF) for the
+  # official PyPI wheels with prebuilt Metal kernels; mlx-lm picks up the
+  # override through the package-set fixpoint.
+  python3Packages =
+    (python3.override {
+      packageOverrides = self: _super: {
+        mlx = self.callPackage ../mlx-bin { };
+      };
+    }).pkgs;
+in
 python3Packages.buildPythonApplication rec {
   pname = "rapid-mlx";
   version = "0.7.0";
