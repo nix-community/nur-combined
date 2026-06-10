@@ -243,8 +243,38 @@ if inputs ? "nvf" then
             utility.sleuth.enable = true;
             statusline.lualine.enable = true;
             telescope.enable = true;
-            autocomplete.blink-cmp.enable = true;
-            autocomplete.blink-cmp.setupOpts.signature.enabled = true;
+            autocomplete.blink-cmp = {
+              enable = true;
+              setupOpts = {
+                signature.enabled = true;
+
+                completion = {
+                  list.selection = {
+                    preselect = false;
+                    auto_insert = false;
+                  };
+                  list.cycle = {
+                    from_bottom = true;
+                    from_top = true;
+                  };
+                  ghost_text = {
+                    enabled = true;
+                    show_with_selection = true;
+                    show_without_selection = false;
+                    show_with_menu = true;
+                    show_without_menu = false;
+                  };
+                };
+
+                keymap = {
+                  preset = "super-tab";
+                  "<CR>" = [
+                    "accept"
+                    "fallback"
+                  ];
+                };
+              };
+            };
             binds.whichKey.enable = true;
             git.enable = true;
           };

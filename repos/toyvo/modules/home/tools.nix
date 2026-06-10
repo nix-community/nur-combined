@@ -12,7 +12,6 @@ in
 
   config = lib.mkIf cfg.enable {
     programs = {
-      nvim.enable = true;
       nix-index-database.comma.enable = true;
       man.package = pkgs.man;
     };

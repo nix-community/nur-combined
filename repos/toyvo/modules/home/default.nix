@@ -11,7 +11,6 @@
     ./programs/bat.nix
     ./programs/editors/helix.nix
     ./programs/editors/ideavim.nix
-    ./programs/editors/neovim.nix
     ./programs/editors/opencode.nix
     ./programs/editors/zed.nix
     ./programs/eza.nix

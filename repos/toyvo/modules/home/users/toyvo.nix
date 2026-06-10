@@ -2,7 +2,8 @@
   config,
   lib,
   pkgs,
-  stablePkgs,
+  system,
+  inputs,
   ...
 }:
 let
@@ -17,6 +18,7 @@ in
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
 
   config = lib.mkIf cfg.users.toyvo.enable {
+    home.packages = [ inputs.nixcfg.packages.${system}.toyvo-neovim ];
     home.sessionVariables.EDITOR = "nvim";
     programs = {
       alacritty.enable = cfg.gui.enable;
