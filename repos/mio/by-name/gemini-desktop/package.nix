@@ -52,6 +52,12 @@ buildNpmPackage rec {
   buildPhase = ''
     runHook preBuild
 
+    # Ensure the new icon is used in the app as well
+    ${lib.optionalString useNewIcon ''
+      cp ${newIcon} build/icon.png
+      cp ${newIcon} public/icon.png
+    ''}
+
     npm run build
     npm run build:electron
 
@@ -68,6 +74,10 @@ buildNpmPackage rec {
 
     mkdir -p $out/share/gemini-desktop
     asar pack . $out/share/gemini-desktop/app.asar
+
+    install -Dm644 ${
+      if useNewIcon then newIcon else "build/icon.png"
+    } $out/share/gemini-desktop/icon.png
 
     install -Dm644 ${
       if useNewIcon then newIcon else "build/icon.png"
