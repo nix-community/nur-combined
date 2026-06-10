@@ -2,12 +2,20 @@
   lib,
   buildNpmPackage,
   fetchFromGitHub,
+  fetchurl,
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
   electron,
+  useNewIcon ? true,
 }:
 
+let
+  newIcon = fetchurl {
+    url = "https://web.archive.org/web/20260607211200if_/https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Google_Gemini_icon_2025.svg/250px-Google_Gemini_icon_2025.svg.png";
+    hash = "sha256-Jwd/thLtaGdcUuT7G+dfQrGFbht9MaZOm/7tyMBvJ40=";
+  };
+in
 buildNpmPackage rec {
   pname = "gemini-desktop";
   version = "0.11.2";
@@ -56,7 +64,9 @@ buildNpmPackage rec {
     mkdir -p $out/lib/gemini-desktop
     cp -r dist dist-electron package.json node_modules $out/lib/gemini-desktop/
 
-    install -Dm644 build/icon.png $out/share/pixmaps/gemini-desktop.png
+    install -Dm644 ${
+      if useNewIcon then newIcon else "build/icon.png"
+    } $out/share/pixmaps/gemini-desktop.png
 
     makeWrapper ${lib.getExe electron} $out/bin/gemini-desktop \
       --add-flags $out/lib/gemini-desktop/dist-electron/main/main.cjs \
