@@ -61,6 +61,16 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Compute unfree push filter
+      id: unfree
+      # Evaluation only — unfree packages are never built here. ci.nix derives
+      # the filter from meta.license, the single source of truth, so unfree
+      # store paths can never reach the public cache even if a future step
+      # builds them.
+      env:
+        NIXPKGS_ALLOW_UNFREE: 1
+      run: |
+        echo "filter=$(nix-instantiate --eval --strict --json ci.nix -A unfreePushFilter | jq -r .)" >> "$GITHUB_OUTPUT"
     - name: Setup cachix
       uses: cachix/cachix-action@v17
       # Don't replace <YOUR_CACHIX_NAME> here!
@@ -69,6 +79,7 @@ jobs:
         name: ${{ matrix.cachixName }}
         signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+        pushFilter: '${{ steps.unfree.outputs.filter }}'
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \

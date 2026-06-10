@@ -15,10 +15,11 @@ with builtins;
 let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p:
+  isFree = p: p.meta.license.free or true;
+  isAvailable = p:
     !(p.meta.broken or false)
-    && p.meta.license.free or true
     && pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform p;
+  isBuildable = p: isFree p && isAvailable p;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
@@ -53,4 +54,17 @@ rec {
 
   buildOutputs = concatMap outputsOf buildPkgs;
   cacheOutputs = concatMap outputsOf cachePkgs;
+
+  unfreePkgs = filter (p: isAvailable p && !isFree p) nurPkgs;
+
+  # cachix pushFilter regex derived from meta.license, so the workflow has no
+  # second list of unfree packages to keep in sync. Evaluating it requires
+  # NIXPKGS_ALLOW_UNFREE=1. "^$" never matches a store path, so an empty
+  # result filters nothing.
+  unfreePushFilter =
+    let
+      escapeRegex = pkgs.lib.replaceStrings [ "." "+" "?" ] [ "\\." "\\+" "\\?" ];
+      paths = map (o: o.outPath) (concatMap outputsOf unfreePkgs);
+    in
+    if paths == [ ] then "^$" else concatStringsSep "|" (map escapeRegex paths);
 }
