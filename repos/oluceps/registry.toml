@@ -93,12 +93,14 @@ id = 6
 addrs = ["2401:b60:e0fe:3e::2"]
 censor = false
 nat = false
-user = "riro"
+user = "elen"
 ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJDkqNdrR49Id2NjA01qx6E5dff5Bn6uqkmMnSZX9i1e"
 link_local_addr = "fe80::edb2:20d1:6e7e:5aae/64"
 wg_key = "IOGATjHkW7rui+jYjCVOHzV7TdrFYekX1BXjEFQKhlk="
+iata = "HKG"
+city = "Hongkong"
 mac = "bc:24:11:21:c7:2c"
-ygg_pubkey = ""
+ygg_pubkey = "1271764f912480d928ff1d1c002393b71b171f142575a2e05539678df1b8c2b1"
 
 
 # [extra.edgeone]

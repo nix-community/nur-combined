@@ -29,7 +29,6 @@
             users
             sudo
             base
-            dev
             vxlan-mesh
             yggdrasil
             chrony
