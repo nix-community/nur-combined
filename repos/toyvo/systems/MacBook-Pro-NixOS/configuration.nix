@@ -54,6 +54,10 @@
     gui.enable = true;
     dev.enable = true;
   };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   userPresets.toyvo.enable = true;
   fileSystemPresets = {
     boot.enable = true;

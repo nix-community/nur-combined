@@ -58,6 +58,10 @@
     nix-ld.enable = true;
     gui.enable = true;
   };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   userPresets.toyvo.enable = true;
   fileSystemPresets.boot.enable = true;
   fileSystemPresets.btrfs.enable = true;

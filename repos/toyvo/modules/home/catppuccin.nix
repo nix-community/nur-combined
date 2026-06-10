@@ -15,6 +15,7 @@ in
       autoEnable = true;
       flavor = lib.mkDefault "frappe";
       accent = lib.mkDefault "red";
+      starship.enable = false;
     };
   };
 }

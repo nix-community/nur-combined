@@ -44,7 +44,7 @@ in
       source ${config.sops.templates."shell-secrets.env".path}
       export OPENCODE_API_KEY
     '';
-    programs.zsh.initExtra = lib.mkIf config.nixcfg.users.toyvo.enable ''
+    programs.zsh.initContent = lib.mkIf config.nixcfg.users.toyvo.enable ''
       source ${config.sops.templates."shell-secrets.env".path}
       export OPENCODE_API_KEY
     '';

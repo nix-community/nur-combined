@@ -76,6 +76,10 @@ in
     inputs.nur.modules.nixos.default
     inputs.sops-nix.nixosModules.sops
   ];
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   home-manager = {
     extraSpecialArgs = {
       inherit

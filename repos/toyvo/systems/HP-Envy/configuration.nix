@@ -61,6 +61,10 @@
     gui.enable = true;
     gaming.enable = true;
   };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   userPresets.toyvo.enable = true;
   userPresets.chloe.enable = true;
   fileSystemPresets.boot.enable = true;

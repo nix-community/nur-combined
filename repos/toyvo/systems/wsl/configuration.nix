@@ -33,6 +33,10 @@
     sharedModules = [ ./home.nix ];
   };
   networking.hostName = "wsl";
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   nixcfg = {
     nix.enable = true;
     security.enable = true;
@@ -44,4 +48,5 @@
   userPresets.toyvo.enable = true;
   wsl.enable = true;
   wsl.defaultUser = "toyvo";
+  wsl.interop.register = true;
 }

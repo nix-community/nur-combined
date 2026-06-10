@@ -238,6 +238,10 @@ in
       };
     };
   };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   nixcfg.containers = {
     open-webui = {
       enable = true;

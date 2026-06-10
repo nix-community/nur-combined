@@ -20,7 +20,12 @@
     inputs.nixos-unstable.nixosModules.notDetected
     inputs.nur.modules.nixos.default
     inputs.sops-nix.nixosModules.sops
+    inputs.nixos-hardware.nixosModules.raspberry-pi-4
   ];
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   home-manager = {
     extraSpecialArgs = {
       inherit
@@ -36,7 +41,6 @@
   powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   networking.hostName = "rpi4b8a";
   boot = {
-    kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
     loader.grub.enable = false;
     loader.generic-extlinux-compatible = {
       enable = true;

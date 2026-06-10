@@ -52,6 +52,10 @@
     };
     sharedModules = [ ./home.nix ];
   };
+  catppuccin = {
+    enable = true;
+    autoEnable = true;
+  };
   hardware.cpu.intel.updateMicrocode = true;
   networking = {
     hostName = "Protectli";

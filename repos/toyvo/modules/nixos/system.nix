@@ -71,6 +71,7 @@ in
     xdg.portal = lib.mkIf config.nixcfg.gui.enable {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+      config.common.default = "*";
     };
 
     system = {
