@@ -78,6 +78,10 @@
       "test"
       "--release"
     ];
+    Cd = [
+      "cargo"
+      "doc"
+    ];
     Cx = [
       "cargo"
       "clean"

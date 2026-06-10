@@ -56,11 +56,13 @@ let
             nur.repos.nagy.modules.javascript
             nur.repos.nagy.modules.keyboard_layout
             nur.repos.nagy.modules.kubernetes
+            nur.repos.nagy.modules.llama-cpp
             # nur.repos.nagy.modules.lua
             nur.repos.nagy.modules.ncdu
             nur.repos.nagy.modules.nix
             nur.repos.nagy.modules.openstack
             nur.repos.nagy.modules.opentofu
+            nur.repos.nagy.modules.pi-coding-agent
             nur.repos.nagy.modules.python
             nur.repos.nagy.modules.pytr
             nur.repos.nagy.modules.restic
@@ -92,6 +94,8 @@ let
             self.nanoid-cli
             pkgs.imagemagickBig
             pkgs.ocrmypdf
+
+            pkgs.curl # to get newer versions
           ];
 
           services.xserver.enable = true;

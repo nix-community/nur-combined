@@ -33,6 +33,8 @@
     pkgs.dive
 
     pkgs.clusterctl
+
+    pkgs.cmctl # https://github.com/cert-manager/cmctl
   ]
   ++ (lib.optionals (!config.services.k3s.enable) [
     pkgs.kubectl # this otherwise conflicts with the k3s provided binary
