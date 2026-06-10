@@ -11,8 +11,19 @@ let
   # override through the package-set fixpoint.
   python3Packages =
     (python3.override {
-      packageOverrides = self: _super: {
+      packageOverrides = self: super: {
         mlx = self.callPackage ../mlx-bin { };
+        # With Metal compiled in, mlx-lm's pytest suite executes ops on the
+        # default (gpu) device and SIGABRTs on GitHub's virtualized macOS
+        # runners, which expose no usable Metal device. nixpkgs already runs
+        # this suite against its CPU-only mlx.
+        mlx-lm = super.mlx-lm.overridePythonAttrs (prev: {
+          doCheck = false;
+          # sentencepiece is in the wheel's Requires-Dist, but nixpkgs only
+          # supplies it via nativeCheckInputs; without the test env it has
+          # to be a real dependency to pass the runtime-deps check.
+          dependencies = (prev.dependencies or [ ]) ++ [ self.sentencepiece ];
+        });
       };
     }).pkgs;
 in
