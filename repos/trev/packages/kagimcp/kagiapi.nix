@@ -12,7 +12,7 @@
 
 buildPythonPackage (final: {
   pname = "kagiapi";
-  version = "unstable-2025-04-18";
+  version = "0-unstable-2025-04-18";
   pyproject = true;
 
   src = fetchFromGitHub {
