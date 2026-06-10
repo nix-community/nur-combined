@@ -2,6 +2,8 @@
   pythonPackages,
 }:
 rec {
+  kagiapi = pythonPackages.callPackage ./kagimcp/kagiapi.nix { };
+  kagimcp = pythonPackages.callPackage ./kagimcp { };
   modal = pythonPackages.callPackage ./modal { inherit synchronicity; };
   nvtop-exporter = pythonPackages.callPackage ./nvtop-exporter { inherit uv-build-latest; };
   opengrep = pythonPackages.callPackage ./opengrep { };
