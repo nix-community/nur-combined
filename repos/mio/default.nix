@@ -188,7 +188,6 @@ in
               minetest591client
               minetest580client
               musescore-alex
-              musescore-evolution
               downkyicore
             ];
           }

@@ -95,7 +95,6 @@ files are copied from following locations. some are modified in this repo and so
 + rclone-ui nixpkgs commit df70bd515ec9175798339adf2ae6a22052d86577
 + pkgs/games/stuntrally/ nixpkgs commit 249e5cbb33fb2ba40ba49cf4ef4bd4c240503516
 + a9ac63c96516b5c14658a14a04fdb1248529d01b nix-output-monitor
-+ pkgs/by-name/mu/musescore-evolution/ <https://github.com/NixOS/nixpkgs/pull/478650>
 + ladybird nixpkgs commit a36b8c6d6e07764f64f3d3016cdb7a557897a435
 + polkit nixpkgs 88d3861acdd3d2f0e361767018218e51810df8a1
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
