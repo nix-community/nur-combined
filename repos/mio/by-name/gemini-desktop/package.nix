@@ -3,7 +3,8 @@
   buildNpmPackage,
   fetchFromGitHub,
   fetchurl,
-  makeWrapper,
+  asar,
+  makeBinaryWrapper,
   makeDesktopItem,
   copyDesktopItems,
   electron,
@@ -18,21 +19,22 @@ let
 in
 buildNpmPackage rec {
   pname = "gemini-desktop";
-  version = "0.11.2";
+  version = "0.12.1";
 
   src = fetchFromGitHub {
     owner = "bwendell";
     repo = "gemini-desktop";
     rev = "v${version}";
-    hash = "sha256-m2kPb3rEAtgN4zpNrilVUjBWGhVLgc8bXW8eAxsDcXU=";
+    hash = "sha256-/JY6ylqf2jvsDAZjnZRmV1/nlA28YlVGzD24xdgSMs8=";
   };
 
-  npmDepsHash = "sha256-CZ6ThtIRfJix1F/LcgGd37nxNJBmmmQuyCcuSODvh8E=";
+  npmDepsHash = "sha256-dOgkqID35J6wznqgb86AE7RzPRgRfDxFFFUoLvNXakw=";
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
   nativeBuildInputs = [
-    makeWrapper
+    asar
+    makeBinaryWrapper
     copyDesktopItems
   ];
 
@@ -61,16 +63,21 @@ buildNpmPackage rec {
 
     npm prune --omit=dev --no-save
 
-    mkdir -p $out/lib/gemini-desktop
-    cp -r dist dist-electron package.json node_modules $out/lib/gemini-desktop/
+    # Remove unused native binaries for other platforms to save space
+    find node_modules/@node-llama-cpp -mindepth 1 -maxdepth 1 ! -name "linux-x64*" -exec rm -rf {} +
+
+    mkdir -p $out/share/gemini-desktop
+    asar pack . $out/share/gemini-desktop/app.asar
 
     install -Dm644 ${
       if useNewIcon then newIcon else "build/icon.png"
     } $out/share/pixmaps/gemini-desktop.png
 
-    makeWrapper ${lib.getExe electron} $out/bin/gemini-desktop \
-      --add-flags $out/lib/gemini-desktop/dist-electron/main/main.cjs \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}"
+    makeBinaryWrapper ${lib.getExe electron} $out/bin/gemini-desktop \
+      --add-flags $out/share/gemini-desktop/app.asar \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+      --inherit-argv0
 
     runHook postInstall
   '';
