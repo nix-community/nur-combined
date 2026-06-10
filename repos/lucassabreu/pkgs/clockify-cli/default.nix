@@ -9,24 +9,24 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "1m9w7xsvwa5xd2rsxq3wa0kcanrgqii3smp51szd2hkccmbbf4m1";
-    x86_64-linux = "0n4xabv8wbb5ri5bfyvf8f3w1n48l5pcc2pxqpf19fy0si0qx99a";
-    aarch64-linux = "0mzfqdplc2ffr33jlgc7p3qi8fkkcnsc7palzmi4zygfl020m5yc";
-    x86_64-darwin = "0v9s0b37lfmhc4wjyn465crqxyaf0w7jhv94v9d9503bbnm12v9b";
-    aarch64-darwin = "0766pfip6mvwg3djpv2qx5i6mvi6xhy5zvjhha00ksvcw145nnnx";
+    i686-linux = "09lz7bn5jf1c1bl2c4g1lilh2cb0qmfcxpzsgda3626lx3jvs6dl";
+    x86_64-linux = "1a3lxjmx7pmbaw1mcic1yrm9p82vm57rm9l3l6njas2sm3ahwdhr";
+    aarch64-linux = "0530x5hqbs9n6ig6acwraqrpsbq7cz9g1wyb929hld0rcpcfc3lb";
+    x86_64-darwin = "1f761l3q3v4ph4fy1kvw0k01m9bgg3ly6y2gpgr8psb2qzcphi79";
+    aarch64-darwin = "1rkxlbgpqqhkgwmj6lp77i5l0f8qdprlpmvhhr2i2ahi7nmm5503";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.0/clockify-cli_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.0/clockify-cli_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.0/clockify-cli_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.0/clockify-cli_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.0/clockify-cli_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.1/clockify-cli_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.1/clockify-cli_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.1/clockify-cli_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.1/clockify-cli_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/lucassabreu/clockify-cli/releases/download/v0.64.1/clockify-cli_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "clockify-cli";
-  version = "0.64.0";
+  version = "0.64.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
