@@ -29,8 +29,8 @@
       "sha256": "1qm3ba7xgml570ajbdz72bvrgmq9yhw2ird5pr54c4zz0cywl2r4"
     },
     "taggedalgebraic": {
-      "version": "0.11.23",
-      "sha256": "1bialmbdwjpqhgs95inkwzin7xbhx7sngjf7viq90vzma497l59k"
+      "version": "0.11.24",
+      "sha256": "03gxqa8faj4nb87pf5irqrzfmc1q5ag73gqapcqr4g9j0b7drigj"
     },
     "unit-threaded": {
       "version": "0.7.55",
