@@ -17,7 +17,5 @@
   avocado-framework = pkgs.callPackage ./pkgs/avocado-framework { };
   git-blame-someone-else = pkgs.callPackage ./pkgs/git-blame-someone-else { };
   pingfs = pkgs.callPackage ./pkgs/pingfs { };
-  warp = pkgs.callPackage ./pkgs/warp { };
-  ratty = pkgs.callPackage ./pkgs/ratty { };
   runmat = pkgs.callPackage ./pkgs/runmat { };
 }
