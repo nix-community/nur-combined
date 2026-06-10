@@ -12,6 +12,7 @@
         ssh
         git
         dev-pkgs
+        git-absorb
       ];
       programs = {
         bash.interactiveShellInit = ''

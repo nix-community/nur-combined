@@ -30,6 +30,7 @@ Contains standalone NixOS modules (e.g., `metrics.nix`, `sing-box.nix`, `factori
 1. **Missing `caddy` attribute:** If a shared module references `config.caddy`, the build will fail on hosts without a `caddy/<hostname>` module unless conditionally checked.
 2. **Duplicate Disko/Net definitions:** As stated in Auto-Wiring, do not `(import ../disko/hostname.nix)` inside the host file. Let `os.nix` handle it.
 3. **Missing `inputs` error:** Make sure flake inputs are passed correctly if adding new top-level evaluators. Use existing patterns for overrides.
+4. **UID Conflict (Userborn):** If changing users on an existing disk, `userborn` may fail due to UID 1000 being occupied. See `docs/troubleshooting/2026-06-11-uid-conflict-userborn.md` for the fix.
 
 # Start from bootstrap
 

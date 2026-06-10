@@ -37,7 +37,7 @@
           ++ [ (inputs.nixpkgs + "/nixos/modules/profiles/qemu-guest.nix") ]
         );
 
-      identity.user = "riro";
+      identity.user = "elen";
       system = {
         stateVersion = "25.11";
       };
