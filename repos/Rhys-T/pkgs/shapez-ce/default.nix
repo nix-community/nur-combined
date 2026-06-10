@@ -156,7 +156,24 @@
                         name = "update-source-version";
                         runtimeInputs = [old.common-updater-scripts];
                         text = ''
-                            update-source-version "$@"
+                            args=()
+                            for arg in "$@"; do
+                                case "$arg" in
+                                    --print-changes)
+                                        printChanges=true
+                                        continue
+                                        ;;
+                                esac
+                                args+=("$arg")
+                            done
+                            set -- "''${args[@]}"
+                            changes="$(update-source-version "$@" --print-changes)"
+                            if [[ "$changes" == '[]' ]]; then
+                                if [[ -n "$printChanges" ]]; then
+                                    echo '[]'
+                                fi
+                                exit 0
+                            fi
                             args=()
                             for arg in "$@"; do
                                 case "$arg" in
@@ -166,8 +183,13 @@
                                 esac
                                 args+=("$arg")
                             done
-                            update-source-version "''${args[@]}" --ignore-same-version --source-key=npmDeps
-                            update-source-version "''${args[@]}" --ignore-same-version --source-key=electronNpmDeps
+                            set -- "''${args[@]}"
+                            update-source-version "@" --ignore-same-version --source-key=npmDeps
+                            update-source-version "@" --ignore-same-version --source-key=electronNpmDeps
+                            
+                            if [[ -n "$printChanges" ]]; then
+                                echo -E "$changes"
+                            fi
                         '';
                     })
                     old.common-updater-scripts

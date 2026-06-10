@@ -1,14 +1,14 @@
 { fetchFromGitHub, lib, enet, stdenvNoCC, gitUpdater, symlinkJoin, writeShellApplication, maintainers }: rec {
     pname = "lix-game";
-    version = "0.10.32";
+    version = "0.10.33";
     src = fetchFromGitHub {
         owner = "SimonN";
         repo = "LixD";
         tag = "v${version}";
-        hash = "sha256-UUiJIe+SRmmAVnZ7qBG7BEoP0D6YYmpVfu19DCSWTXg=";
+        hash = "sha256-0ZFog7B+6ixKdobL/4OH41A3rK4PuQGlK/3HQKx1FAI=";
     };
-    assetsHash = "sha256-Vc4rpXlXWFrTXJ7xbivzWQsqRmLJc6qvMiPZ05OUriU=";
-    assetsPNG32Hash = "sha256-P4S/rjj5b9TwfrW8Hn7XLg0czmiQxAItsnBsVfSpFd0=";
+    assetsHash = "sha256-HKkyiPYXrx+qMHvLT3LSDG+x6fiQBwnD5uK/McCifL4=";
+    assetsPNG32Hash = "sha256-tper2vrddJtienyxXIHKDWgH4W62WOCJ5GBfEu0Lk9M=";
     meta = {
         description = "Lemmings-like game with puzzles, editor, multiplayer";
         longDescription = ''
@@ -39,7 +39,24 @@
                         name = "update-source-version";
                         runtimeInputs = [old.common-updater-scripts];
                         text = ''
-                            update-source-version "$@"
+                            args=()
+                            for arg in "$@"; do
+                                case "$arg" in
+                                    --print-changes)
+                                        printChanges=true
+                                        continue
+                                        ;;
+                                esac
+                                args+=("$arg")
+                            done
+                            set -- "''${args[@]}"
+                            changes="$(update-source-version "$@" --print-changes)"
+                            if [[ "$changes" == '[]' ]]; then
+                                if [[ -n "$printChanges" ]]; then
+                                    echo '[]'
+                                fi
+                                exit 0
+                            fi
                             args=()
                             for arg in "$@"; do
                                 case "$arg" in
@@ -49,12 +66,17 @@
                                 esac
                                 args+=("$arg")
                             done
-                            update-source-version "''${args[@]}" --ignore-same-version --source-key=pkgs._toUpdate.assets
-                            update-source-version "''${args[@]}" --ignore-same-version --source-key=pkgs._toUpdate.assets-PNG32
+                            set -- "''${args[@]}"
+                            update-source-version "$@" --ignore-same-version --source-key=pkgs._toUpdate.assets
+                            update-source-version "$@" --ignore-same-version --source-key=pkgs._toUpdate.assets-PNG32
                             
                             # Until I figure out how to auto-update the music, at least check it and fail if it's changed:
-                            nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".pkgs._toUpdate.music-bin
-                            nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".pkgs._toUpdate.music-bin --check
+                            nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".pkgs._toUpdate.music-bin > /dev/null
+                            nix-build --no-out-link -A "$UPDATE_NIX_ATTR_PATH".pkgs._toUpdate.music-bin --check > /dev/null
+                            
+                            if [[ -n "$printChanges" ]]; then
+                                echo -E "$changes"
+                            fi
                         '';
                     })
                     old.common-updater-scripts
