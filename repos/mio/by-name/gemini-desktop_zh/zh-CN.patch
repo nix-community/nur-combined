@@ -1,6 +1,8 @@
---- a/src/main/managers/menuManager.ts
-+++ b/src/main/managers/menuManager.ts
-@@ -120,5 +120,6 @@
+--- a/src/main/managers/menuManager.ts	2026-06-10 22:09:05.451555338 +1000
++++ b/src/main/managers/menuManager.ts	2026-06-10 22:11:22.038975794 +1000
+@@ -117,26 +117,31 @@
+             {
+                 id: 'cut',
                  role: 'cut',
 +                label: '剪切',
                  accelerator: 'CmdOrCtrl+X',
@@ -29,23 +31,290 @@
 +                label: '全选',
                  accelerator: 'CmdOrCtrl+A',
              },
-@@ -279,1 +285,1 @@
+         ];
+@@ -218,10 +223,10 @@
+ 
+     private buildDebugMenu(): MenuItemConstructorOptions {
+         return {
+-            label: 'Debug',
++            label: '调试',
+             submenu: [
+                 {
+-                    label: 'Crash Renderer',
++                    label: '崩溃渲染进程',
+                     accelerator: 'CmdOrCtrl+Alt+Shift+C',
+                     click: () => {
+                         const win = this.windowManager.getMainWindow();
+@@ -231,7 +236,7 @@
+                     },
+                 },
+                 {
+-                    label: 'Trigger React Error',
++                    label: '触发 React 错误',
+                     accelerator: 'CmdOrCtrl+Alt+Shift+E',
+                     click: () => {
+                         const win = this.windowManager.getMainWindow();
+@@ -249,13 +254,13 @@
+             label: 'Gemini Desktop',
+             submenu: [
+                 {
+-                    label: 'About Gemini Desktop',
++                    label: '关于 Gemini Desktop',
+                     id: 'menu-app-about',
+                     click: () => this.windowManager.createOptionsWindow('about'),
+                 },
+                 { type: 'separator' },
+                 {
+-                    label: 'Settings...',
++                    label: '设置...',
+                     id: 'menu-app-settings',
+                     accelerator: 'CmdOrCtrl+,',
+                     click: () => this.windowManager.createOptionsWindow(),
+@@ -276,15 +281,15 @@
+         // IMPORTANT: When adding items here, also update src/renderer/components/titlebar/useMenuDefinitions.ts
+         // to ensure the custom titlebar menu (Windows/Linux) remains in sync.
+         const menu: MenuItemConstructorOptions = {
 -            label: 'File',
 +            label: '文件',
-@@ -356,1 +362,1 @@
+             submenu: [
+                 {
+-                    label: 'New Window',
++                    label: '新建窗口',
+                     accelerator: 'CmdOrCtrl+Shift+N',
+                     visible: false, // Hidden until functionality is implemented
+                 },
+                 {
+-                    label: 'Export as PDF',
++                    label: '导出为 PDF',
+                     id: 'menu-view-export-pdf',
+                     accelerator: this.getApplicationHotkeyAccelerator('printToPdf'),
+                     click: () => {
+@@ -295,7 +300,7 @@
+                     },
+                 },
+                 {
+-                    label: 'Export as Markdown',
++                    label: '导出为 Markdown',
+                     id: 'menu-view-export-markdown',
+                     click: async () => {
+                         const win = this.windowManager.getMainWindow();
+@@ -310,7 +315,7 @@
+                 },
+                 { type: 'separator' },
+                 {
+-                    label: 'Sign in to Google',
++                    label: '登录 Google',
+                     id: 'menu-file-signin',
+                     click: async () => {
+                         await this.windowManager.createAuthWindow(GOOGLE_SIGNIN_URL);
+@@ -334,7 +339,7 @@
+ 
+     private buildEditMenu(): MenuItemConstructorOptions {
+         return {
+-            label: 'Edit',
++            label: '编辑',
+             submenu: [
+                 { role: 'undo' },
+                 { role: 'redo' },
+@@ -353,10 +358,10 @@
+         const zoomLabel = `(${zoomLevel}%)`;
+ 
+         return {
 -            label: 'View',
 +            label: '视图',
-@@ -402,1 +408,1 @@
+             submenu: [
+                 {
+-                    label: 'Reload',
++                    label: '重新加载',
+                     id: 'menu-view-reload',
+                     accelerator: 'CmdOrCtrl+R',
+                     click: () => {
+@@ -366,7 +371,7 @@
+                 { role: 'toggleDevTools', id: 'menu-view-devtools' },
+                 { type: 'separator' },
+                 {
+-                    label: `Zoom In ${zoomLabel}`,
++                    label: `放大 ${zoomLabel}`,
+                     id: 'menu-view-zoom-in',
+                     accelerator: 'CmdOrCtrl+=',
+                     click: () => {
+@@ -374,7 +379,7 @@
+                     },
+                 },
+                 {
+-                    label: `Zoom Out ${zoomLabel}`,
++                    label: `缩小 ${zoomLabel}`,
+                     id: 'menu-view-zoom-out',
+                     accelerator: 'CmdOrCtrl+-',
+                     click: () => {
+@@ -383,7 +388,7 @@
+                 },
+                 { type: 'separator' },
+                 {
+-                    label: 'Always On Top',
++                    label: '置顶显示',
+                     id: 'menu-view-always-on-top',
+                     type: 'checkbox',
+                     checked: this.windowManager.isAlwaysOnTop(),
+@@ -399,20 +404,20 @@
+ 
+     private buildHelpMenu(): MenuItemConstructorOptions {
+         return {
 -            label: 'Help',
 +            label: '帮助',
---- a/src/renderer/components/titlebar/useMenuDefinitions.ts
-+++ b/src/renderer/components/titlebar/useMenuDefinitions.ts
-@@ -118,1 +118,1 @@
+             submenu: [
+                 {
+-                    label: 'About Gemini Desktop',
++                    label: '关于 Gemini Desktop',
+                     id: 'menu-help-about',
+                     click: () => this.windowManager.createOptionsWindow('about'),
+                 },
+                 {
+-                    label: 'Release Notes',
++                    label: '发行说明',
+                     id: 'menu-help-release-notes',
+                     click: () => shell.openExternal(getReleaseNotesUrl(app.getVersion())),
+                 },
+                 {
+-                    label: 'Report an Issue',
++                    label: '报告问题',
+                     click: () => shell.openExternal(GITHUB_ISSUES_URL),
+                 },
+             ],
+--- a/src/renderer/components/titlebar/useMenuDefinitions.ts	2026-06-10 22:09:05.453555329 +1000
++++ b/src/renderer/components/titlebar/useMenuDefinitions.ts	2026-06-10 22:12:10.402770586 +1000
+@@ -115,18 +115,18 @@
+ 
+     return [
+         {
 -            label: 'File',
 +            label: '文件',
-@@ -173,1 +173,1 @@
+             items: [
+                 {
+                     id: 'menu-file-newwindow',
+-                    label: 'New Window',
++                    label: '新建窗口',
+                     shortcut: 'Ctrl+Shift+N',
+                     disabled: true, // Placeholder for future
+                 },
+                 { separator: true },
+                 {
+                     id: 'menu-view-export-pdf',
+-                    label: 'Export as PDF',
++                    label: '导出为 PDF',
+                     shortcut: formattedPrintToPdfAccelerator || 'Ctrl+Shift+P',
+                     action: () => {
+                         window.electronAPI?.exportChatToPdf();
+@@ -134,7 +134,7 @@
+                 },
+                 {
+                     id: 'menu-view-export-markdown',
+-                    label: 'Export as Markdown',
++                    label: '导出为 Markdown',
+                     action: () => {
+                         window.electronAPI?.exportChatToMarkdown();
+                     },
+@@ -142,7 +142,7 @@
+                 { separator: true },
+                 {
+                     id: 'menu-file-signin',
+-                    label: 'Sign in to Google',
++                    label: '登录 Google',
+                     action: async () => {
+                         await window.electronAPI?.openGoogleSignIn();
+                         // Reload the page to pick up the new auth cookies
+@@ -151,7 +151,7 @@
+                 },
+                 {
+                     id: 'menu-file-options',
+-                    label: 'Options',
++                    label: '选项',
+                     shortcut: 'Ctrl+,',
+                     disabled: false,
+                     action: () => {
+@@ -161,7 +161,7 @@
+                 { separator: true },
+                 {
+                     id: 'menu-file-exit',
+-                    label: 'Exit',
++                    label: '退出',
+                     shortcut: 'Ctrl+Q',
+                     action: () => {
+                         window.electronAPI?.quitApp();
+@@ -170,31 +170,31 @@
+             ],
+         },
+         {
 -            label: 'View',
 +            label: '视图',
-@@ -214,1 +214,1 @@
+             items: [
+                 {
+                     id: 'menu-view-reload',
+-                    label: 'Reload',
++                    label: '重新加载',
+                     shortcut: 'Ctrl+R',
+                     action: () => window.electronAPI?.reloadTabs(),
+                 },
+                 { separator: true },
+                 {
+                     id: 'menu-view-zoom-in',
+-                    label: `Zoom In (${zoomLevel}%)`,
++                    label: `放大 (${zoomLevel}%)`,
+                     shortcut: 'Ctrl+=',
+                     action: handleZoomIn,
+                 },
+                 {
+                     id: 'menu-view-zoom-out',
+-                    label: `Zoom Out (${zoomLevel}%)`,
++                    label: `缩小 (${zoomLevel}%)`,
+                     shortcut: 'Ctrl+-',
+                     action: handleZoomOut,
+                 },
+                 { separator: true },
+                 {
+                     id: 'menu-view-always-on-top',
+-                    label: 'Always On Top',
++                    label: '置顶显示',
+                     shortcut: 'Ctrl+Shift+T',
+                     checked: alwaysOnTop,
+                     action: toggleAlwaysOnTop,
+@@ -202,7 +202,7 @@
+                 { separator: true },
+                 {
+                     id: 'menu-view-fullscreen',
+-                    label: 'Toggle Fullscreen',
++                    label: '切换全屏',
+                     shortcut: 'F11',
+                     action: () => {
+                         window.electronAPI?.toggleFullscreen();
+@@ -211,18 +211,18 @@
+             ],
+         },
+         {
 -            label: 'Help',
 +            label: '帮助',
+             items: [
+                 {
+                     id: 'menu-help-check-updates',
+-                    label: 'Check for Updates',
++                    label: '检查更新',
+                     action: () => {
+                         window.electronAPI?.checkForUpdates();
+                     },
+                 },
+                 {
+                     id: 'menu-help-release-notes',
+-                    label: 'Release Notes',
++                    label: '发行说明',
+                     action: () => {
+                         window.open(getReleaseNotesUrl(__APP_VERSION__));
+                     },
+@@ -230,7 +230,7 @@
+                 { separator: true },
+                 {
+                     id: 'menu-help-about',
+-                    label: 'About Gemini Desktop',
++                    label: '关于 Gemini Desktop',
+                     action: () => {
+                         window.electronAPI?.openOptions('about');
+                     },
