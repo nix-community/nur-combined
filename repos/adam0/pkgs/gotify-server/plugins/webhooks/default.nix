@@ -6,7 +6,7 @@
   # keep-sorted end
 }:
 mkGotifyPlugin {
-  pname = "webhooks-plugin";
+  pname = "webhooks";
   version = "1.1.3";
 
   src = fetchgit {

@@ -6,7 +6,7 @@
   # keep-sorted end
 }:
 mkGotifyPlugin {
-  pname = "authentik-plugin";
+  pname = "authentik";
   version = "2.9.1-unstable-2026-06-09";
 
   src = fetchFromGitHub {

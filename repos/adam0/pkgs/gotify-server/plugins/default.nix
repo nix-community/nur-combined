@@ -47,7 +47,9 @@
     patchedSrc = stdenvNoCC.mkDerivation {
       name = "${pname}-patched-src";
       inherit src;
+
       nativeBuildInputs = [go];
+
       outputHashAlgo = "sha256";
       outputHashMode = "recursive";
       outputHash = patchedSourceHash;
@@ -84,7 +86,7 @@
         # keep-sorted end
       ])
       // {
-        pname = "gotify-${pname}";
+        inherit pname;
         src = patchedSrc;
         inherit vendorHash version;
 
