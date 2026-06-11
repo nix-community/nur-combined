@@ -22,4 +22,5 @@
   engram = pkgs.callPackage ./pkgs/engram { };
   rapid-mlx = pkgs.callPackage ./pkgs/rapid-mlx { };
   llmster = pkgs.callPackage ./pkgs/llmster { };
+  whatcable = pkgs.callPackage ./pkgs/whatcable { };
 }
