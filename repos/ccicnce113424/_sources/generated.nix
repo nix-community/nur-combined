@@ -55,16 +55,16 @@
   };
   jaq = {
     pname = "jaq";
-    version = "v3.0.0";
+    version = "v3.1.0";
     src = fetchFromGitHub {
       owner = "01mf02";
       repo = "jaq";
-      rev = "v3.0.0";
+      rev = "v3.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-FhmnJm/MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=";
+      sha256 = "sha256-cwHYsLp9uBb3/etH0bGYzNLOJJypeE4qED7jTBESHiE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-FhmnJm_MV4WfvhF7DWW6t2D876SIzzq7ODlY2Wmo9mM=/Cargo.lock";
+      lockFile = ./. + "/sha256-cwHYsLp9uBb3_etH0bGYzNLOJJypeE4qED7jTBESHiE=/Cargo.lock";
       outputHashes = {
         
       };
@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.5-beta.2";
+    version = "v3.9.5-beta.3";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.5-beta.2";
+      rev = "v3.9.5-beta.3";
       fetchSubmodules = false;
-      sha256 = "sha256-jX4tC12R3QXwwHLM9L0hlZbVwmASyth6D5ZlSg3HvHs=";
+      sha256 = "sha256-vEdajLX/rIoHumX6LU8A162fUVZQfWP/h7hG7h+hhOs=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-jX4tC12R3QXwwHLM9L0hlZbVwmASyth6D5ZlSg3HvHs=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-vEdajLX_rIoHumX6LU8A162fUVZQfWP_h7hG7h+hhOs=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -249,17 +249,17 @@
   };
   pixes-git = {
     pname = "pixes-git";
-    version = "abf249b941dd5e4e9bd03ac2add8573bd669917b";
+    version = "b66cbb9b387aeaafcc99fa04d4fe66d07de54eaf";
     src = fetchFromGitHub {
       owner = "wgh136";
       repo = "pixes";
-      rev = "abf249b941dd5e4e9bd03ac2add8573bd669917b";
+      rev = "b66cbb9b387aeaafcc99fa04d4fe66d07de54eaf";
       fetchSubmodules = false;
-      sha256 = "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt/OJn6ia6CmIc4=";
+      sha256 = "sha256-0xIvSky8bwcYxCgOvion7yJ92dZCL/4cPhI48qtblaU=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt_OJn6ia6CmIc4=/pubspec.lock";
-    };date = "2026-04-07";
+      "pubspec.lock" = ./. + "/sha256-0xIvSky8bwcYxCgOvion7yJ92dZCL_4cPhI48qtblaU=/pubspec.lock";
+    };date = "2026-06-11";
   };
   pwasio = {
     pname = "pwasio";
