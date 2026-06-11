@@ -17,11 +17,11 @@ mkWindowsAppNoCC rec {
   inherit wine;
 
   pname = "adobe-acrobat-reader";
-  version = "26.001.21662";
+  version = "2025.1.20997";
 
   src = fetchurl {
-    url = "https://ardownload2.adobe.com/pub/adobe/reader/win/AcrobatDC/2600121662/AcroRdrDC2600121662_en_US.exe";
-    hash = "sha256-12IDfDn4/554b69WWilogKeqpCNAGoYoXUTiRyFd+Ck=";
+    url = "https://ardownload2.adobe.com/pub/adobe/reader/win/AcrobatDC/2500120997/AcroRdrDC2500120997_en_US.exe";
+    hash = "sha256-gznoj4yY9Fktz8LVWhjBwArUqSlQOUX9/r6ukojATG8=";
   };
 
   dontUnpack = true;
