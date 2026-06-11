@@ -76,12 +76,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ]);
 
   disabledTestPaths = [
-    "tests/test_pamt_cache_honors_cdmods_path.py::test_pamt_cache_uses_parent_when_called_with_vanilla"
-    "tests/test_pamt_cache_honors_cdmods_path.py::test_pamt_cache_uses_pointer_for_real_game_dir"
-    "tests/test_platform.py::TestOpenPathErrorLogging::test_oserror_logs_path_and_reason"
-    "tests/test_transactional_io_absolute_path_guard.py::test_stage_file_rejects_absolute_path"
+    # Fail
     "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
-    # Slow tests
+    # Slow
     "tests/test_f3_whole_table_growth.py"
     "tests/test_f3_whole_table_rebuild.py"
     "tests/test_iteminfo_cd110_layout.py"
@@ -108,6 +105,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
   prePatch = ''
     echo -e "#!/usr/bin/env python\n\n" > cdumm
     cat src/cdumm/main.py >> cdumm
+    substituteInPlace cdumm \
+        --replace-fail "Path(__file__).resolve().parents[2]" \
+        "Path('$out/${python3Packages.python.sitePackages}').resolve()"
 
     substituteInPlace src/cdumm/engine/nxm_handler.py \
         --replace-fail "{exe} -m cdumm.main" "cdumm"
