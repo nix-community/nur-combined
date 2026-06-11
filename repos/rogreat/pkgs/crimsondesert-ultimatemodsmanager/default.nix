@@ -106,27 +106,23 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   prePatch = ''
-    cat >> pyproject.toml << EOL
-
-    [project.scripts]
-    cdumm = "cdumm.main:main"
-    EOL
+    echo -e "#!/usr/bin/env python\n\n" > cdumm
+    cat src/cdumm/main.py >> cdumm
 
     substituteInPlace src/cdumm/engine/nxm_handler.py \
-        --replace-fail "{exe} -m" \
-        "env PYTHONPATH=@out@/${python3Packages.python.sitePackages}:@PYTHONPATH@ {exe} -m" \
-            --subst-var out \
-            --subst-var PYTHONPATH
+        --replace-fail "{exe} -m cdumm.main" "cdumm"
   '';
 
   postInstall = ''
+    install -Dt $out/bin cdumm
     cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm
     cp -a schemas $out/${python3Packages.python.sitePackages}
     cp -a field_schema $out/${python3Packages.python.sitePackages}
+
     for i in 16 24 48 64 96 128 256 512 1024; do
-      mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
-      magick assets/cdumm-logo.png -resize ''${i}x''${i}  \
-        $out/share/icons/hicolor/''${i}x''${i}/apps/cdumm.png
+        mkdir -p $out/share/icons/hicolor/''${i}x''${i}/apps
+        magick assets/cdumm-logo.png -resize ''${i}x''${i}  \
+            $out/share/icons/hicolor/''${i}x''${i}/apps/cdumm.png
     done
     cp -a assets $out/${python3Packages.python.sitePackages}
   '';
