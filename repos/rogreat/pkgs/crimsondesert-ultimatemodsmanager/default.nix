@@ -11,12 +11,12 @@
   xvfb,
 }:
 let
-  version = "3.3.20";
+  version = "3.3.21";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-0OLHpWd00vVYoL5AegHcE9VCeqYE0wr9Zcvirb0+tjQ=";
+    hash = "sha256-uloma6dSkompW0xDIKGbOT7hkYbN4TFFh2jJUhgT79E=";
   };
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
     inherit src version;
@@ -80,6 +80,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "tests/test_pamt_cache_honors_cdmods_path.py::test_pamt_cache_uses_pointer_for_real_game_dir"
     "tests/test_platform.py::TestOpenPathErrorLogging::test_oserror_logs_path_and_reason"
     "tests/test_transactional_io_absolute_path_guard.py::test_stage_file_rejects_absolute_path"
+    "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
+    # Slow tests
+    "tests/test_f3_whole_table_growth.py"
+    "tests/test_f3_whole_table_rebuild.py"
+    "tests/test_iteminfo_cd110_layout.py"
+    "tests/test_iteminfo_pabgh_companion.py"
   ];
 
   nativeBuildInputs = [
