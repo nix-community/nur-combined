@@ -344,11 +344,11 @@
     "otf2psf": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-OZSZoBo_Waoix2gB9FFnlY3Tqw3U+sTsaqIBOXtW2Dk=/Cargo.lock",
+                "sha256-+C8uhPC+O4H8O2CHERYbM5Qxu6B5eCEHtMwBYdNRTZI=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-05-27",
+        "date": "2026-06-10",
         "extract": null,
         "name": "otf2psf",
         "passthru": null,
@@ -358,13 +358,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "e40b09e574ef178f2ef4d065746b1de11677784d",
-            "sha256": "sha256-OZSZoBo/Waoix2gB9FFnlY3Tqw3U+sTsaqIBOXtW2Dk=",
+            "rev": "9b4dd578ad8f0cceb1ed3085c6447be98e087842",
+            "sha256": "sha256-+C8uhPC+O4H8O2CHERYbM5Qxu6B5eCEHtMwBYdNRTZI=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/pcarrin2/otf2psf.git"
         },
-        "version": "e40b09e574ef178f2ef4d065746b1de11677784d"
+        "version": "9b4dd578ad8f0cceb1ed3085c6447be98e087842"
     },
     "plugin-bang-bang": {
         "cargoLock": null,

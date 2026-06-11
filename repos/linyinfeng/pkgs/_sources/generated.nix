@@ -214,23 +214,23 @@
   };
   otf2psf = {
     pname = "otf2psf";
-    version = "e40b09e574ef178f2ef4d065746b1de11677784d";
+    version = "9b4dd578ad8f0cceb1ed3085c6447be98e087842";
     src = fetchgit {
       url = "https://github.com/pcarrin2/otf2psf.git";
-      rev = "e40b09e574ef178f2ef4d065746b1de11677784d";
+      rev = "9b4dd578ad8f0cceb1ed3085c6447be98e087842";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-OZSZoBo/Waoix2gB9FFnlY3Tqw3U+sTsaqIBOXtW2Dk=";
+      sha256 = "sha256-+C8uhPC+O4H8O2CHERYbM5Qxu6B5eCEHtMwBYdNRTZI=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-OZSZoBo_Waoix2gB9FFnlY3Tqw3U+sTsaqIBOXtW2Dk=/Cargo.lock";
+      lockFile = ./. + "/sha256-+C8uhPC+O4H8O2CHERYbM5Qxu6B5eCEHtMwBYdNRTZI=/Cargo.lock";
       outputHashes = {
 
       };
     };
-    date = "2026-05-27";
+    date = "2026-06-10";
   };
   plugin-bang-bang = {
     pname = "plugin-bang-bang";
