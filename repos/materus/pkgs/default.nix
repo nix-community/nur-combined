@@ -1,5 +1,5 @@
 { pkgs, callPackage }:
-rec {
+{
   amdgpu-pro-libs = pkgs.lib.recurseIntoAttrs {
     vulkan = callPackage ./libs/amdgpu-pro-libs { };
     amf = callPackage ./libs/amdgpu-pro-libs/amf.nix { };
@@ -9,7 +9,14 @@ rec {
   };
   svt-av1-psyex = callPackage ./libs/svt-av1-psyex.nix { };
 
-  ffmpeg_7-amf-full = (pkgs.ffmpeg_7-full.overrideAttrs (finalAttrs: previousAttrs: { configureFlags = previousAttrs.configureFlags ++ [ "--enable-amf" ]; buildInputs = previousAttrs.buildInputs ++ [ pkgs.amf-headers ]; }));
+  ffmpeg_7-amf-full = (
+    pkgs.ffmpeg_7-full.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        configureFlags = previousAttrs.configureFlags ++ [ "--enable-amf" ];
+        buildInputs = previousAttrs.buildInputs ++ [ pkgs.amf-headers ];
+      }
+    )
+  );
 
   polymc = pkgs.qt6Packages.callPackage ./apps/games/polymc { };
 
@@ -20,4 +27,6 @@ rec {
   fbset = callPackage ./apps/fbset.nix { };
 
   lh2ctrl = callPackage ./apps/lh2ctrl.nix { };
+
+  idea-oss-bin = callPackage ./apps/idea-community.nix { };
 }

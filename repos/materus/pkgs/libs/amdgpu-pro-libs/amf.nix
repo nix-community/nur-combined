@@ -1,4 +1,12 @@
-{ pkgs, lib, stdenv, libdrm, dpkg, vulkan-loader, patchelf, fetchurl }:
+{
+  lib,
+  stdenv,
+  libdrm,
+  dpkg,
+  vulkan-loader,
+  patchelf,
+  fetchurl,
+}:
 
 let
   sources = import ./amdgpu-src.nix { inherit fetchurl; };
@@ -7,13 +15,10 @@ stdenv.mkDerivation rec {
   pname = "amf-amdgpu-pro";
   version = sources.version;
 
-
-
   src = [
     sources.bit64.libamdenc-amdgpu-pro
     sources.bit64.amf-amdgpu-pro
   ];
-
 
   dontPatchELF = true;
   sourceRoot = ".";

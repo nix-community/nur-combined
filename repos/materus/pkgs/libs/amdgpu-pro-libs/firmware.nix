@@ -1,4 +1,9 @@
-{ pkgs, lib, stdenv, libdrm, dpkg, vulkan-loader, patchelf, fetchurl }:
+{
+  lib,
+  stdenv,
+  dpkg,
+  fetchurl,
+}:
 
 let
   sources = import ./amdgpu-src.nix { inherit fetchurl; };
@@ -10,7 +15,7 @@ stdenv.mkDerivation rec {
   src = sources.bit64.amdgpu-dkms-firmware;
 
   passthru = {
-    vcn = stdenv.mkDerivation rec {
+    vcn = stdenv.mkDerivation {
       pname = "amdgpu-firmware-vcn";
       inherit src;
       inherit version;
@@ -22,7 +27,6 @@ stdenv.mkDerivation rec {
       inherit nativeBuildInputs;
       inherit sourceRoot;
 
-
       installPhase = ''
         mkdir -p $out/lib/firmware/amdgpu
         mv lib/firmware/updates/amdgpu/vcn* $out/lib/firmware/amdgpu
@@ -30,7 +34,6 @@ stdenv.mkDerivation rec {
 
     };
   };
-
 
   dontFixup = true;
   dontBuild = true;

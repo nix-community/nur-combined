@@ -1,7 +1,12 @@
-{ pkgs, lib, stdenv, fetchFromGitHub, fuse, pkg-config }:
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  fuse,
+  pkg-config,
+}:
 
-
-stdenv.mkDerivation rec {
+stdenv.mkDerivation {
   pname = "vpk_fuse";
   version = "15042023";
   src = fetchFromGitHub {
@@ -11,12 +16,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-HoENTIHM4Nmocoh2bxxuk1ZLsq4bSUGzeKgEufsPUJA=";
   };
 
-
-  buildInputs = [ fuse pkg-config];
+  buildInputs = [
+    fuse
+    pkg-config
+  ];
 
   installPhase = ''
-  mkdir -p $out/bin
-  install -m 755 -D vpk_fuse $out/bin/vpk_fuse
+    mkdir -p $out/bin
+    install -m 755 -D vpk_fuse $out/bin/vpk_fuse
   '';
 
   meta = with lib; {

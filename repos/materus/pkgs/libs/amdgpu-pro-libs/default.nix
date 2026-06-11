@@ -1,4 +1,17 @@
-{ pkgs, lib, xorg, stdenv, openssl, libdrm, zlib, dpkg, patchelf, fetchurl }:
+{
+  pkgs,
+  lib,
+  stdenv,
+  openssl,
+  libdrm,
+  zlib,
+  dpkg,
+  patchelf,
+  fetchurl,
+  libX11,
+  libxcb,
+  libxshmfence,
+}:
 
 let
   sources = import ./amdgpu-src.nix { inherit fetchurl; };
@@ -9,9 +22,11 @@ stdenv.mkDerivation rec {
   pname = "amdgpu-pro-vulkan-${suffix}";
   version = sources.version;
 
-
-
-  src = if stdenv.system == "x86_64-linux" then sources.bit64.vulkan-amdgpu-pro else sources.bit32.vulkan-amdgpu-pro;
+  src =
+    if stdenv.system == "x86_64-linux" then
+      sources.bit64.vulkan-amdgpu-pro
+    else
+      sources.bit32.vulkan-amdgpu-pro;
 
   dontPatchELF = true;
   sourceRoot = ".";
@@ -23,9 +38,9 @@ stdenv.mkDerivation rec {
     libdrm
     openssl
     stdenv.cc.cc.lib
-    xorg.libX11
-    xorg.libxcb
-    xorg.libxshmfence
+    libX11
+    libxcb
+    libxshmfence
     zlib
   ];
   rpath = lib.makeLibraryPath buildInputs;
@@ -47,6 +62,9 @@ stdenv.mkDerivation rec {
     description = "AMD Proprietary Driver For Vulkan";
     homepage = "https://www.amd.com";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

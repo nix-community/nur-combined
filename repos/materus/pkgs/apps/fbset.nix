@@ -1,5 +1,11 @@
-{ pkgs, lib, stdenv, fetchurl, dpkg, autoPatchelfHook, perl }:
-
+{
+  lib,
+  stdenv,
+  fetchurl,
+  dpkg,
+  autoPatchelfHook,
+  perl,
+}:
 
 stdenv.mkDerivation rec {
   pname = "fbset";
@@ -13,23 +19,26 @@ stdenv.mkDerivation rec {
   dontBuild = true;
 
   buildInputs = [ perl ];
-  nativeBuildInputs = [dpkg autoPatchelfHook];
+  nativeBuildInputs = [
+    dpkg
+    autoPatchelfHook
+  ];
 
   unpackPhase = ''
-  dpkg -x $src .
+    dpkg -x $src .
   '';
 
   installPhase = ''
-  mkdir -p $out
-  mv usr/bin $out
-  mv etc $out
-  mv usr/share $out
-  patchShebangs $out/bin/modeline2fb
-  ls -la $out
+    mkdir -p $out
+    mv usr/bin $out
+    mv etc $out
+    mv usr/share $out
+    patchShebangs $out/bin/modeline2fb
+    ls -la $out
   '';
 
   preferLocalBuild = true;
-  
+
   meta = with lib; {
     description = "Program to modify settings for the framebuffer devices (/dev/fb[0-9]* or /dev/fb/[0-9]*) on Linux, like depth, virtual resolution, timing parameters etc.";
     homepage = "https://sources.debian.org/src/fbset/";

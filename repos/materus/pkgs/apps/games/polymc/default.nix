@@ -10,7 +10,6 @@
   zlib,
   file,
   kdePackages,
-  xorg,
   libpulseaudio,
   openal,
   qtbase,
@@ -21,6 +20,12 @@
   udev,
   mesa-demos,
   quazip,
+  libX11,
+  libXext,
+  libXcursor,
+  libXrandr,
+  libXxf86vm,
+  xrandr,
   libGL,
   flite,
   tomlplusplus,
@@ -38,29 +43,27 @@ let
   polymc =
     let
       binpath = lib.makeBinPath [
-        xorg.xrandr
+        xrandr
         mesa-demos
         pciutils
       ];
-      libpath =
-        with xorg;
-        lib.makeLibraryPath [
-          glfw3-minecraft
-          libX11
-          libXext
-          libXcursor
-          libXrandr
-          libXxf86vm
-          
-          libGL
-          vulkan-loader
-          
-          openal
-          libpulseaudio
-          udev
-          flite
-          stdenv.cc.cc.lib
-        ];
+      libpath = lib.makeLibraryPath [
+        glfw3-minecraft
+        libX11
+        libXext
+        libXcursor
+        libXrandr
+        libXxf86vm
+
+        libGL
+        vulkan-loader
+
+        openal
+        libpulseaudio
+        udev
+        flite
+        stdenv.cc.cc.lib
+      ];
       gameLibraryPath = libpath + ":${addDriverRunpath.driverLink}/lib";
     in
     stdenv.mkDerivation rec {
@@ -73,14 +76,14 @@ let
           hash = "sha256-ACrS7JAcLq46f8puQlfvPlRb6vk/+wuv+y1yqGQjp/I=";
         })
       ];
-      
+
       libnbtplusplus = fetchFromGitHub {
         owner = "PolyMC";
         repo = "libnbtplusplus";
         rev = "2203af7eeb48c45398139b583615134efd8d407f";
         hash = "sha256-TvVOjkUobYJD9itQYueELJX3wmecvEdCbJ0FinW2mL4=";
       };
-      
+
       src = fetchFromGitHub {
         owner = "PolyMC";
         repo = "PolyMC";
@@ -116,7 +119,8 @@ let
         (lib.cmakeFeature "Launcher_BUILD_PLATFORM" "nixerus")
         (lib.cmakeFeature "Launcher_QT_VERSION_MAJOR" (lib.versions.major qtbase.version))
         (lib.cmakeBool "Launcher_STRICT_DRM" strictDrm)
-      ] ++ lib.optionals (msaClientID != null) [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ];
+      ]
+      ++ lib.optionals (msaClientID != null) [ "-DLauncher_MSA_CLIENT_ID=${msaClientID}" ];
 
       postPatch = ''
         substituteInPlace launcher/java/JavaUtils.cpp \

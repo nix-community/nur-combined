@@ -31,16 +31,14 @@ stdenv.mkDerivation (finalAttrs: {
     cpuinfo
     libdovi
   ]
-  ++ 
-  (lib.optionals (hdr10plus!=null) [hdr10plus]);
+  ++ (lib.optionals (hdr10plus != null) [ hdr10plus ]);
 
   cmakeFlags = [
     "-DSVT_AV1_LTO=ON"
     "-DUSE_EXTERNAL_CPUINFO=ON"
     "-DLIBDOVI_FOUND=ON"
   ]
-  ++
-  (lib.optionals (hdr10plus!=null) ["-DLIBHDR10PLUS_RS_FOUND=ON"]);
+  ++ (lib.optionals (hdr10plus != null) [ "-DLIBHDR10PLUS_RS_FOUND=ON" ]);
 
   meta = with lib; {
     homepage = "https://github.com/gianni-rosato/svt-av1-psy";

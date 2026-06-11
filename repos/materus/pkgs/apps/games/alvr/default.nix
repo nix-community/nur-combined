@@ -1,13 +1,33 @@
-{ stdenv, fetchzip, fetchurl, glib, lib, alsa-lib, gtk3, libunwind, x264, vulkan-loader, xorg, libva, libdrm, libvdpau, libbsd, libmd, xz }:
+{
+  stdenv,
+  fetchzip,
+  glib,
+  lib,
+  alsa-lib,
+  gtk3,
+  libunwind,
+  x264,
+  vulkan-loader,
+  libX11,
+  libXau,
+  libva,
+  libdrm,
+  libXdmcp,
+  libXfixes,
+  libXext,
+  libbsd,
+  libmd,
+  xz,
+}:
 stdenv.mkDerivation rec {
   pname = "alvr";
   version = "v20.5.0";
 
   src = fetchzip {
-      url = "https://github.com/alvr-org/ALVR/releases/download/${version}/alvr_streamer_linux.tar.gz";
-      name = "${pname}-${version}";
-      sha256 ="sha256-RkUVWk+6V+5MLwsvT7/d8JVps2MLnZfUMcWi8144E0I=";
-    };
+    url = "https://github.com/alvr-org/ALVR/releases/download/${version}/alvr_streamer_linux.tar.gz";
+    name = "${pname}-${version}";
+    sha256 = "sha256-RkUVWk+6V+5MLwsvT7/d8JVps2MLnZfUMcWi8144E0I=";
+  };
 
   sourceRoot = ".";
 
@@ -18,11 +38,11 @@ stdenv.mkDerivation rec {
     glib
     x264.lib
     vulkan-loader
-    xorg.libX11
-    xorg.libXau
-    xorg.libXdmcp
-    xorg.libXext
-    xorg.libXfixes
+    libX11
+    libXau
+    libXdmcp
+    libXext
+    libXfixes
     libva
     libdrm
     libunwind
@@ -57,14 +77,14 @@ stdenv.mkDerivation rec {
     patchelf --set-rpath "${rpath}" $out/opt/ALVR/lib64/alvr/bin/linux64/driver_alvr_server.so
 
     sed -i "s#../../../lib64/libalvr_vulkan_layer.so#$out/opt/ALVR/lib64/libalvr_vulkan_layer.so#" $out/opt/ALVR/share/vulkan/explicit_layer.d/alvr_x86_64.json
-    
+
     runHook postFixup
   '';
 
   meta = with lib; {
     description = "ALVR - Stream VR games from your PC to your headset via Wi-Fi.";
     homepage = "https://github.com/alvr-org/ALVR";
-    maintainers = with maintainers; [];
+    maintainers = [ ];
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];
   };

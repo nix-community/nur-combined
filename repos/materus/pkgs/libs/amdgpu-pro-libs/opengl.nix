@@ -1,4 +1,24 @@
-{ pkgs, lib, systemd, xorg, mesa, stdenv, expat, openssl, libdrm, zlib, wayland, dpkg, patchelf, fetchurl }:
+{
+  pkgs,
+  lib,
+  systemd,
+  mesa,
+  stdenv,
+  expat,
+  openssl,
+  libX11,
+  libxcb,
+  libXext,
+  libXfixes,
+  libXxf86vm,
+  libxshmfence,
+  libdrm,
+  zlib,
+  wayland,
+  dpkg,
+  patchelf,
+  fetchurl,
+}:
 
 let
   sources = import ./amdgpu-src.nix { inherit fetchurl; };
@@ -9,7 +29,6 @@ stdenv.mkDerivation rec {
   pname = "amdgpu-pro-opengl-${suffix}";
   version = sources.version;
 
-
   src64 = [
     sources.bit64.libgl1-amdgpu-pro-oglp-dri
     sources.bit64.libgl1-amdgpu-pro-oglp-glx
@@ -17,7 +36,6 @@ stdenv.mkDerivation rec {
     sources.bit64.libgles1-amdgpu-pro-oglp
     sources.bit64.libgles2-amdgpu-pro-oglp
   ];
-
 
   src32 = [
     sources.bit32.libgl1-amdgpu-pro-oglp-dri
@@ -40,12 +58,12 @@ stdenv.mkDerivation rec {
     openssl
     expat
     stdenv.cc.cc.lib
-    xorg.libX11
-    xorg.libxcb
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXxf86vm
-    xorg.libxshmfence
+    libX11
+    libxcb
+    libXext
+    libXfixes
+    libXxf86vm
+    libxshmfence
     zlib
     wayland
     systemd
@@ -69,6 +87,9 @@ stdenv.mkDerivation rec {
     description = "AMD Proprietary Driver For OpenGL";
     homepage = "https://www.amd.com";
     license = licenses.unfree;
-    platforms = [ "x86_64-linux" "i686-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "i686-linux"
+    ];
   };
 }

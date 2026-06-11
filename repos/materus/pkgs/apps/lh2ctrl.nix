@@ -1,13 +1,19 @@
-{ stdenv, python3, fetchFromGitHub, lib}:
-stdenv.mkDerivation
- rec {
+{
+  stdenv,
+  python3,
+  fetchFromGitHub,
+  lib,
+}:
+stdenv.mkDerivation rec {
   pname = "lh2ctrl";
   version = "1.1.0";
 
   propagatedBuildInputs = [
-    (python3.withPackages (pythonPackages: with pythonPackages; [
-      bluepy
-    ]))
+    (python3.withPackages (
+      pythonPackages: with pythonPackages; [
+        bluepy
+      ]
+    ))
   ];
 
   src = fetchFromGitHub {
@@ -26,4 +32,3 @@ stdenv.mkDerivation
     platforms = platforms.linux;
   };
 }
-
