@@ -23,13 +23,13 @@ specify {
   ansible-vault-pass-client = any;
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate
-  bobby.search = pr 530420 "sha256-pNfLhAK7MyQ9KzI+zHZtP8XSjyImUF5ymPYVsQ9JPAQ=";
   blocky-ui = any;
+  bobby.search = pr 530420 "sha256-V2VPyYxCrVkBM04SDybbignZ6y8+xXiDHUWLO9uiWew=";
   busyserve = any;
   caddy-with-cache-route53 = any;
   ch57x-keyboard-tool = any;
-  chunker.dontEval = true /* FIXME: infinite recursion */;
   chromium.commandLineArgs = "--enable-features=WaylandTextInputV3"; # Pending https://crbug.com/40272818, NixOS/nixpkgs#394395
+  chunker.dontEval = true /* FIXME: infinite recursion */;
   co2monitor = any;
   dawarich.patch = ./library/assets/dawarich_viridis.patch;
   decompiler-mc = any;
