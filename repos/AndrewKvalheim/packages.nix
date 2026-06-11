@@ -36,6 +36,7 @@ specify {
   dmarc-report-converter = any;
   dmarc-report-notifier = any;
   easy-timeline = any;
+  efficient-compression-tool.broken = e: e.version == "0.9.5" && ! e ? patches; # Pending NixOS/nixpkgs#517041
   email-hash = any;
   emote.overlay = e: { postInstall = e.postInstall or "" + "\nsubstituteInPlace $out/share/applications/com.tomjwatson.Emote.desktop --replace-fail 'Exec=emote' \"Exec=$out/bin/emote\""; }; # Allow desktop entry as entrypoint
   espressif-serial = any;

@@ -3,13 +3,13 @@
 let
   inherit (builtins) readFile;
   inherit (lib) getExe getExe';
-  inherit (pkgs) bash efficient-compression-tool resholve uutils-coreutils uutils-findutils;
+  inherit (pkgs) bash efficient-compression-tool findutils resholve uutils-coreutils;
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
   handler = resholve.writeScriptBin "organize-downloads" {
     interpreter = getExe bash;
-    inputs = [ efficient-compression-tool uutils-coreutils' uutils-findutils ];
+    inputs = [ efficient-compression-tool findutils uutils-coreutils' ];
     execer = [
       "cannot:${getExe' uutils-coreutils' "mkdir"}"
       "cannot:${getExe' uutils-coreutils' "mv"}"

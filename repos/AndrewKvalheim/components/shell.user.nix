@@ -331,7 +331,7 @@ in
         mv = "mv --no-clobber --verbose";
         nixos-rebuild = "nom-nixos-rebuild";
         p = "gopass";
-        path = "nom-build --pure '<nixpkgs>' --attr";
+        path = "nom-build --no-out-link --pure '<nixpkgs>' --attr";
         pt = "gopass-ydotool";
         remove-known-host = "ssh-keygen -R";
         rm = "rm --one-file-system --verbose";
