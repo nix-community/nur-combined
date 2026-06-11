@@ -51,8 +51,14 @@ final: prev: {
 
   xdg-dbus-proxy = prev.xdg-dbus-proxy.overrideAttrs (prevAttrs: {
     patches = prevAttrs.patches or [] ++ [
+      (final.fetchurl {
+        name = "Remap-message-serials-to-monotonically-increasing-value";
+        # https://github.com/flatpak/xdg-dbus-proxy/pull/81
+        url = "https://github.com/flatpak/xdg-dbus-proxy/pull/81/commits/300c7c612eb961c233a4d076836804ed5a298c16.patch?full_index=1";
+        hash = "sha256-7PK+x7lnJxwTn04MYTEnj0iae2ChE4yAi9+gMOusxrs=";
+      })
       # 2026-04-22: from checkraisefold to fix <https://github.com/flatpak/xdg-dbus-proxy/issues/67>
-      ./patches/xdg-dbus-proxy/monotonic-serial.patch
+      # ./patches/xdg-dbus-proxy/monotonic-serial.patch
     ];
   });
 }

@@ -387,30 +387,31 @@ in
     #   };
     #   postPatch = "";
     # });
-    services.llama-cpp.host = config.sane.hosts.by-name."${config.networking.hostName}".wg-home.ip;
-    # port: default is 8080, conflict-prone.
-    # ollama default is 11434. hence 11435, as the successor.
-    services.llama-cpp.port = 11435;
-    services.llama-cpp.modelsDir = pkgs.llama-cpp-models;
-    services.llama-cpp.extraFlags = [
-      "--verbose"
+    services.llama-cpp.settings = {
+      verbose = true;
+      host = config.sane.hosts.by-name."${config.networking.hostName}".wg-home.ip;
+      # port: default is 8080, conflict-prone.
+      # ollama default is 11434. hence 11435, as the successor.
+      port = 11435;
+      models-dir = toString pkgs.llama-cpp-models;
+
       # XXX(2026-04-01): if omitted, llama-cpp will attempt the model's native context, and decrease until it fits into RAM.
-      # "--ctx-size" "131072"
-      # "--ctx-size" "65536"
+      # ctx-size = 131072;
+      # ctx-size = 65536;
       # fit-target: how many MiB to leave free, for unexpected allocations (default 1024 MiB)
-      "--fit-target" "128"
+      fit-target = 128;
       # fit-ctx: never reduce context below this level when fitting to ram
-      # "--fit-ctx" "32768"
-      "--fit-ctx" "131072"
+      # fit-ctx = 32768;
+      fit-ctx = 131072;
       # swa-full seems to allow much faster prompt evals after the first system prompt is cached,
       # but not always supported by model -- check logs:
       # > srv    load_model: swa_full is not supported by this model, it will be disabled
-      # "--swa-full"
-      "--cache-ram" "32768"  #< prompt cache (applies iff swa-full not supported by model?). default is 8192 (MiB)
-      # "--ctx-checkpoints" "128"  #< experimental. each checkpoint is 50 MiB. defaults to 32 checkpoints.
+      # swa-full = true;
+      cache-ram = 32768;  #< prompt cache (applies iff swa-full not supported by model?). default is 8192 (MiB)
+      # ctx-checkpoints = 128;  #< experimental. each checkpoint is 50 MiB. defaults to 32 checkpoints.
       # ubatch-size is how many tokens to process simultaneously?
       # default: 512. higher values generally increase throughput, but also increase memory use.
-      "--ubatch-size" "128"
+      ubatch-size = 128;
       # cache-type-{k,v}: f32, f16, bf16, q8_0, q4_0, q4_1, iq4_nl (unsupported), q5_0, q5_1 (default: f16)
       # this refers to quantization of the k -> v (attention) cache.
       # quantizing k would seem to have larger effect than quantizing v.
@@ -421,11 +422,11 @@ in
       # cache-k,v = q8_0,q8_0: no data.
       # cache-k,v = q8_0,q5_1: used for 1 session. started looping after 5~8k tokens.
       # cache-k,v = q5_1,q5_1: maybe a slight bias toward looping?
-      # "--cache-type-k" "f16"
-      # "--cache-type-v" "q8_0"
-      "--no-warmup"  #< faster load -> eval, by not feeding it a dummy prompt on load
-      "--no-mmproj"  #< don't load vision weights
-      # "--parallel" "1"
+      # cache-type-k = "f16";
+      # cache-type-v = "q8_0";
+      no-warmup = true;  #< faster load -> eval, by not feeding it a dummy prompt on load
+      no-mmproj = true;  #< don't load vision weights
+      # parallel = 1;
 
       # coherence (keep the model from becoming pathological)
       # in actuality, tweaking DRY settings seems to induce typos in non-quantized models!
@@ -445,7 +446,7 @@ in
       # "--spec-default"  # speculative decoding
       # "--no-host"
       # "--no-repack"
-    ];
+    };
 
     users.groups.llama-cpp = {};
 

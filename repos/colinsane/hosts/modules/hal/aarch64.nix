@@ -12,6 +12,7 @@ in
     # disable the following non-essential programs which fail to cross compile
     sane.programs.bash-language-server.enableFor = { system = false; user.colin = false; };  # bash neovim LSP: doesn't cross compile (2025-11-01 - 2026-05-01; blocked by ShellCheck, fgl)
     sane.programs.cargo.enableFor = { system = false; user.colin = false; };  #< does not cross compile (2025-11-01 - 2026-02-02)
+    sane.programs.git-cinnabar.enableFor = { system = false; user.colin = false; };  #< does not cross compile (2026-06-10)
     sane.programs.rustc.enableFor = { system = false; user.colin = false; };  #< does not cross compile (2026-05-31)
     sane.programs.ctags-lsp.enableFor = { system = false; user.colin = false; };  #< universal-ctags does not cross compile (2026-02-26)
     sane.programs.firefox.config.addons.browserpass-extension.enable = false;  #< does not cross compile

@@ -388,9 +388,9 @@
     "name": "Claw Medium",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 1.2,
+      "completion": 1.26,
       "currency": "USD",
-      "prompt": 0.3,
+      "prompt": 0.315,
       "unit": "per_million_tokens"
     },
     "context_length": 204800,
@@ -453,9 +453,9 @@
     "name": "Hermes Medium",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 1.2,
+      "completion": 1.26,
       "currency": "USD",
-      "prompt": 0.3,
+      "prompt": 0.315,
       "unit": "per_million_tokens"
     },
     "context_length": 204800,
@@ -4743,6 +4743,27 @@
     }
   },
   {
+    "id": "xiaomi/mimo-v2.5-pro-ultraspeed",
+    "name": "MiMo V2.5 Pro UltraSpeed",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 3.0,
+      "currency": "USD",
+      "prompt": 1.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "minimax/minimax-m2.1",
     "name": "MiniMax M2.1",
     "pricing": {
@@ -7809,10 +7830,10 @@
     "id": "deepseek-v3-0324",
     "name": "DeepSeek Chat 0324",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.9e-05,
-      "completion": 0.425,
+      "cacheReadInputPer1kTokens": 0.000135,
+      "completion": 0.7699999999999999,
       "currency": "USD",
-      "prompt": 0.1,
+      "prompt": 0.2,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -8059,6 +8080,27 @@
     }
   },
   {
+    "id": "TEE/deepseek-v4-flash",
+    "name": "DeepSeek V4 Flash TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 4e-05,
+      "completion": 0.4,
+      "currency": "USD",
+      "prompt": 0.2,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 1048576,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "TEE/deepseek-v3.2",
     "name": "DeepSeek V3.2 TEE",
     "pricing": {
@@ -8091,6 +8133,27 @@
     },
     "context_length": 262000,
     "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/qwen3.6-35b-a3b",
+    "name": "Qwen3.6 35B A3B TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 1.27,
+      "currency": "USD",
+      "prompt": 0.2,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 262144,
     "capabilities": {
       "reasoning": false
     },
@@ -8389,6 +8452,27 @@
     },
     "context_length": 128000,
     "max_output_tokens": 16384,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "zai-org/GLM-5-NVFP4-TEE",
+    "name": "GLM 5 NVFP4 TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00024455,
+      "completion": 1.9565,
+      "currency": "USD",
+      "prompt": 0.48910000000000003,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 202752,
+    "max_output_tokens": 65535,
     "capabilities": {
       "reasoning": false
     },
@@ -9441,6 +9525,50 @@
       "completion": 25.007,
       "currency": "USD",
       "prompt": 4.998,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "anthropic/claude-fable-5",
+    "name": "Claude Fable 5",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 50.0,
+      "currency": "USD",
+      "prompt": 10.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "anthropic/claude-fable-latest",
+    "name": "Claude Fable Latest",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 50.0,
+      "currency": "USD",
+      "prompt": 10.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,

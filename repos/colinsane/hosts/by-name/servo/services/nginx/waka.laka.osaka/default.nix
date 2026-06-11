@@ -21,8 +21,16 @@ in
   services.nginx.virtualHosts."waka.laka.osaka" = {
     addSSL = true;
     enableACME = true;
-    locations."/" = {
-      root = wakaLakaOsaka;
+    root = wakaLakaOsaka;
+
+    locations."= /" = {
+      # serving the file directly causes it to auto-play in both Firefox/Linux and Safari/iOS,
+      # but maybe not in Android.
+      tryFiles = "/waka.laka.for.osaka.mp4 =404";
+      # `Content-Disposition: inline` otherwise iOS will want to download instead of playing.
+      extraConfig = ''
+        add_header Content-Disposition inline;
+      '';
     };
   };
 

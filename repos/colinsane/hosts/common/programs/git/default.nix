@@ -18,6 +18,7 @@ in
     });
     suggestedPrograms = [
       "difftastic"
+      "git-cinnabar"
       # "git-lfs"
       "ssh"
     ];
@@ -75,6 +76,8 @@ in
       log.date = "iso";  #< render dates as YYYY-MM-DD HH:MM:SS +TZ
       log.follow = true;  #< make `git log PATH` behave like `git log --follow PATH`
       log.showSignature = false;
+
+      push.default = "current";  #< `git push origin` will push the current branch to origin
 
       rebase.autoStash = true;  #< make `git rebase FOO` behave as `git stash && git rebase FOO && git stash apply`
 
