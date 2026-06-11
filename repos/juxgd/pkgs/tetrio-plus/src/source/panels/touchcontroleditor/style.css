@@ -1,0 +1,131 @@
+.form-control {
+  display: flex;
+}
+
+/* Key configurator */
+.key-configurator-container {
+  margin: auto;
+  width: min-content;
+}
+.key-configurator {
+  width: calc(100vw - 64px);
+  height: calc(100vh - 64px);
+  border: 2px solid red;
+  position: relative;
+}
+.key-configurator:fullscreen {
+  border: none;
+  background-color: white;
+}
+
+.key-configurator-container:fullscreen {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+.key-configurator-container:fullscreen .key-configurator {
+  width: auto;
+  height: auto;
+  flex-grow: 1;
+}
+
+.key-layer {
+  transform: translate(var(--x), var(--y));
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+
+  --x: 0px;
+  --y: 0px;
+  --width: 100px;
+  --height: 100px;
+
+  touch-action: none;
+  user-select: none;
+  box-sizing: border-box;
+
+  padding: 4px;
+  overflow: hidden;
+
+  white-space: nowrap;
+  font-family: monospace;
+}
+.key-layer:not(.key) {
+  pointer-events: none;
+}
+
+.key {
+  border: 20px solid #555;
+  background-color: black;
+  color: white;
+}
+.key.selected {
+  border-color: #00AA00;
+}
+.key-ghost-text {
+  border: 20px solid transparent;
+  color: #FFFFFF33;
+}
+.key-border {
+  border: 2px dashed #55555588;
+}
+.key-border-2 {
+  border: 20px solid #55555533;
+}
+
+/* Touch preview */
+:root {
+  --deadzone: 100px;
+  --padding: 20px;
+}
+
+.touch-zone {
+  display: inline-block;
+  margin: 20px;
+  width: calc(var(--deadzone) * 2);
+  height: calc(var(--deadzone) * 2);
+  background: #BFBFBF;
+  border: var(--padding) solid #5FDF5F;
+}
+
+.key-configurator > .touch-zone {
+  pointer-events: none;
+  position: absolute;
+  bottom: 0px;
+}
+.key-configurator > .touch-zone.right {
+  right: 0px;
+}
+
+.touch-bind-select:not(.none) {
+  position: absolute;
+}
+
+.touch-bind-select.top {
+  transform:
+    translateX(var(--deadzone))
+    translate(-50%, -100%);
+}
+
+.touch-bind-select.left {
+  transform:
+    translateX(calc(-50% - var(--padding)/2))
+    translateY(calc(var(--deadzone) - 50%))
+    rotate(-90deg)
+    ;
+}
+
+.touch-bind-select.right {
+  transform:
+    translateX(calc(-50% + var(--padding)/2 + var(--deadzone)*2))
+    translateY(calc(var(--deadzone) - 50%))
+    rotate(-90deg)
+    ;
+}
+
+.touch-bind-select.bottom {
+  transform:
+    translateX(var(--deadzone))
+    translateY(calc(var(--deadzone)*2))
+    translate(-50%, 0%);
+}

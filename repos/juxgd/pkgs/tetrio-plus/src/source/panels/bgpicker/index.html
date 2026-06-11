@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>TETR.IO PLUS: Background picker</title>
+  </head>
+  <body>
+    <b>Reload TETR.IO after adding new backgrounds!</b><br>
+    Be sure to disable backgrounds configured in the game.<br>
+    <fieldset>
+      <legend>Regular custom background</legend>
+      <input type="file" id="regular" multiple accept="image/*">
+      <br>Supported formats: Any image (animated formats won't play unless set by the music graph).
+    </fieldset>
+    <fieldset>
+      <legend>Video backgrounds</legend>
+      <input type="file" id="video" multiple accept="video/mp4, video/webm">
+      <br>These backgrounds can only be used through the music graph.
+      <br><code>Main window -> Templates -> video background setup</code> for automatic setup
+      <br>Supported formats: mp4, webm.
+    </fieldset>
+    <fieldset>
+      <legend>Animated custom background (DEPRECATED)</legend>
+      <input type="file" id="animated" accept="image/*,.apng">
+      <br>You can only have one animated background at a time.
+      <br>Supported formats: GIF, animated PNG, animated WebP.
+      <br>Animated backgrounds will be marked as <em>animated</em>.
+      <br><b>DEPRECATED: Normal backgrounds will animate when used with the music graph.</b>
+    </fieldset>
+    <script src="app.js" type="module"></script>
+  </body>
+</html>

@@ -1,0 +1,167 @@
+body {
+  --background: #EEE;
+  --layer-1: #CCC;
+  --text: #222;
+
+  font-family: sans-serif;
+
+  background-color: var(--background);
+  color: var(--text);
+}
+
+h1 {
+  font-size: 1.2rem;
+  margin: 0px;
+}
+
+h1 .version {
+  font-size: 0.8rem;
+  font-family: monospace;
+}
+
+.tagline {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 0.75rem;
+  font-family: monospace;
+}
+
+.section {
+  border: none;
+  border-top: 2px solid var(--text);
+  padding: 4px;
+  margin-top: 4px;
+
+  background-color: var(--layer-1);
+}
+
+.section.legendless {
+  margin-top: 8px;
+}
+
+.section legend {
+  margin-left: 12px;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: 1rem;
+  background-color: var(--background);
+  border: 2px solid var(--text);
+  border-radius: 4px;
+}
+
+.subsection {
+  margin-left: -4px;
+  margin-right: -4px;
+  margin-top: 4px;
+}
+
+.no-skin {
+  display: inline-block;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+img.skin, .no-skin {
+  margin-top: 2px;
+  border: 2px solid var(--text);
+
+  line-height: 30px;
+  width: calc(100% - 4px);
+
+  background-size: calc(100%/6) 100%;
+  background-image: linear-gradient(
+    to right,
+    var(--layer-1) 0%,
+    var(--layer-1) 50%,
+    var(--background) 50%,
+    var(--background) 100%
+  );
+}
+
+.info-icon {
+  color: blue;
+  font-weight: bold;
+  font-size: 1.5rem;
+  position: absolute;
+  transform: translateY(-25%);
+  user-select: none;
+  padding-left: 2px;
+}
+
+.song-name {
+  font-family: monospace;
+}
+
+.option-pairs-group {
+  display: grid;
+  padding: 3px 0px;
+  grid-column-gap: 20px;
+  grid-row-gap: 5px;
+  grid-template-columns: max-content min-content;
+  grid-template-rows: repeat(auto-fit, 20px);
+}
+.option-pairs-group > .option-pair {
+  display: contents;
+}
+
+.audioeditor .option-pairs-group > .option-pair > input {
+/*   border-radius: 3px; */
+  padding: 3px;
+  text-align: right;
+}
+.audioeditor  .option-pairs-group > .option-pair > select,
+.audioeditor  .option-pairs-group > .option-pair > option {
+  direction: rtl;
+}
+
+.audioeditor input[type=number]::-webkit-outer-spin-button,
+.audioeditor input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.audioeditor input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.custom-background {
+  max-width: 100%;
+  max-height: 25vh;
+}
+
+.longLink {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 360px;
+}
+
+.skin-load-indicators {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.skin-load-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 10px;
+}
+
+.skin-load-indicator::before {
+  display: inline-block;
+  content: ' ';
+  border-radius: 50%;
+  width: 5px;
+  height: 5px;
+  background-color: #FFFF0088;
+  margin-right: 4px;
+  margin-left: 2px;
+}
+.skin-load-indicator.set::before {
+  background-color: #00FF00;
+}
+.skin-load-indicator.unset::before {
+  background-color: #FF000088;
+}

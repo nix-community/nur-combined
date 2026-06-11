@@ -1,0 +1,33 @@
+/* Stylesheet for applying custom themes */
+
+body.themed {
+  --border: black;
+  --text: #333;
+  --bg: #EEE;
+  --accent: #222;
+
+  --background: var(--border);
+  --layer-1: var(--bg);
+  --text: var(--text);
+
+  background-color: var(--border);
+  color: var(--text);
+}
+.themed hr {
+  border-bottom: 2px solid var(--seperator);
+}
+.themed fieldset {
+  border-color: var(--text);
+}
+.themed button, .themed input, .themed select {
+  background-color: var(--border);
+  border: 2px solid var(--text);
+  color: var(--text);
+}
+.themed button:active {
+  background-color: var(--text);
+  color: var(--border);
+}
+.themed a {
+  color: var(--accent);
+}

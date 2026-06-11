@@ -1,0 +1,4 @@
+# This file is filled in automatically by ./scripts/build.sh
+# If it differs from `release-commit`, `ci-commit`'s text is
+# shown next to the version number to indicate a nightly/dev release
+development

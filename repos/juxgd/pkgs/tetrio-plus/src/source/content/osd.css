@@ -1,0 +1,62 @@
+.tetrio-plus-osd {
+  position: fixed;
+  z-index: 9999999999999999;
+  user-select: none;
+
+  display: grid;
+  grid-template:
+    "-1   softdrop -2    spin-cw   spin-ccw spin-180"
+    "left harddrop right hold      -3       resizer";
+
+  opacity: 1;
+  transition: 1s opacity;
+}
+.tetrio-plus-osd.disabled {
+  opacity: 0.2;
+}
+
+.tetrio-plus-osd-handle-container {
+  color: white;
+  grid-area: resizer;
+  font-size: 16px;
+}
+
+.tetrio-plus-osd-drag-handle {
+  right: 0px;
+  bottom: 0px;
+  position: absolute;
+  padding-right: 20px;
+  display: inline-block;
+}
+.tetrio-plus-osd-resize-handle {
+  background-repeat: no-repeat;
+  background-size: contain;
+
+  position: absolute;
+  display: inline-block;
+  padding-right: 4px;
+
+  width: 10px;
+  height: 10px;
+  right: 0px;
+  bottom: 0px;
+}
+
+.tetrio-plus-osd-key {
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-origin: content-box;
+  margin: 1px;
+}
+
+.icon-set-old .tetrio-plus-osd-key {
+  border: 1px solid white;
+  background-size: contain;
+  padding: 10%;
+}
+
+.tetrio-plus-osd-key.active {
+  filter: invert();
+  background-color: black;
+}

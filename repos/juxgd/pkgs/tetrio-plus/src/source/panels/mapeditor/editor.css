@@ -1,0 +1,84 @@
+h3 {
+  margin: 0px;
+}
+
+.app {
+  display: flex;
+  user-select: none;
+  font-family: sans-serif;
+}
+
+.app > * {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+.map-output {
+  flex-basis: min-content;
+}
+
+.map-string {
+  width: 350px;
+  height: 200px;
+}
+
+.row {
+  display: flex;
+}
+
+.mino {
+  background-color: white;
+  border-left: 1px solid black;
+  border-top: 1px solid black;
+  width: 10px;
+  height: 10px;
+}
+.row:last-child .mino:not(.tool) {
+  border-bottom: 1px solid black;
+}
+.mino:not(.tool):last-child {
+  border-right: 1px solid black;
+}
+
+.row.upper .mino-empty { background-color: #CCC; }
+.mino-i { background-color: cyan; }
+.mino-o { background-color: yellow; }
+.mino-l { background-color: orange; }
+.mino-j { background-color: blue; }
+.mino-z { background-color: red; }
+.mino-s { background-color: lime; }
+.mino-t { background-color: magenta; }
+.mino-garbage { background-color: gray; }
+.mino-darkgarbage { background-color: #444; }
+
+.tool-container {
+  font-family: monospace;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.tool.mino-empty {
+  background-color: #FF000077;
+}
+
+.tools .mino {
+  display: inline-block;
+}
+
+.tool {
+  width: 20px;
+  height: 20px;
+  box-sizing: border-box;
+  border: 2px solid white;
+  margin-right: 4px;
+}
+.tool.disabled {
+  border-color: #CCC;
+}
+.tool.not(:disabled):hover {
+  border-color: gray;
+}
+.tool.active-tool {
+  border-color: black;
+}

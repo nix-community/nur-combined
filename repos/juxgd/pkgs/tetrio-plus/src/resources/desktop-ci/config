@@ -1,0 +1,9 @@
+# The 'short' version of TETR.IO Desktop, currently only used to name the CI app.asar
+export DESKTOP_VERSION_SHORT="v10"
+# The URL to download the latest version of TETR.IO Desktop
+export DESKTOP_DOWNLOAD_URL="https://tetr.io/about/desktop/builds/10/TETR.IO%20Setup.tar.gz"
+
+# Other things to update for each release:
+# - version in `manifest.json` and `package.json`
+# - release hash in `resources/release-commit`
+# - vanilla_hash and show_uninstaller_button in `desktop-manifest.js`

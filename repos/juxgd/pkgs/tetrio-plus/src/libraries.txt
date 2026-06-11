@@ -1,0 +1,15 @@
+List of third party library download links (for AMO release requirements):
+
+OggVorbisEncoder
+Contains calls to eval in its source, but functions without CSP modification.
+https://raw.githubusercontent.com/higuma/ogg-vorbis-encoder-js/7a872423f416e330e925f5266d2eb66cff63c1b6/lib/OggVorbisEncoder.js
+
+Vue runtime
+Note that the build tool renames `vue.runtime.js` to `vue.js`
+https://raw.githubusercontent.com/vuejs/vue/a59e05c2ffe7d10dc55782baa41cb2c1cd605862/dist/vue.runtime.js
+
+InteractJS
+https://cdn.jsdelivr.net/npm/interactjs@1.9.20/dist/interact.min.js (https://github.com/taye/interact.js)
+
+GIFGroover
+https://raw.githubusercontent.com/blindman67/GIFGroover/0ca0c1f8706c0dfa4c1e138dfe6e2c09ac07fb84/GIFGroover.js

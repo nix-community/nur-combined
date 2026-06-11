@@ -1,0 +1,136 @@
+{
+  "manifest_version": 2,
+  "name": "Tetr.io+",
+  "version": "0.28.1",
+  "description": "Tetr.io client enhancer",
+  "icons": { "256": "icons/tetrio-256.png" },
+  
+  "permissions": [
+    "webRequest",
+    "webRequestBlocking",
+    "unlimitedStorage",
+    "storage",
+    "*://*.tetr.io/*"
+  ],
+  "optional_permissions": [
+    "downloads"
+  ],
+  
+  "page_action": {
+    "default_icon": "icons/tetrio-256.png",
+    "default_title": "TETR.IO PLUS",
+    "default_popup": "source/popup/index.html",
+    "show_matches": ["*://*.tetr.io/*"]
+  },
+
+  "background": {
+    "scripts": [
+      "source/shared/migrate.js",
+      "source/shared/tpse-sanitizer.js",
+      "source/bootstrap/browser/migration.js",
+
+      "source/lib/base64-recoder.js",
+      "source/bootstrap/domain-specific-storage-fetcher.js",
+      "source/bootstrap/browser/createRewriteFilter.js",
+      "source/bootstrap/browser/icon-updater.js",
+
+      "source/filters/bootstrap-filter.js",
+      "source/filters/music-graph-hooks.js",
+      "source/filters/music/music-tetriojs-filter.js",
+      "source/filters/music/music-request-filter.js",
+      "source/filters/skin/skin-tetriojs-filter.js",
+      "source/filters/skin/skin-request-filter.js",
+      "source/filters/sfx/sfx-request-filter.js",
+      "source/filters/bg/animated-bg-tetriojs-filter.js",
+      "source/filters/bg/bg-tetriojs-filter.js",
+      "source/filters/bg/bg-request-filter.js",
+      "source/filters/generic-texture-request-filter.js",
+      "source/filters/winter-compat-filter.js",
+
+      "source/bootstrap/content-script-communicator.js",
+      "source/filters/touch-controls-tetriojs-filter.js",
+      "source/filters/emote-tab-tetriojs-filter.js",
+      "source/filters/osd-request-filter.js",
+      "source/filters/debug-tetriojs-filter.js"
+    ]
+  },
+
+  "content_scripts": [{
+    "matches": ["https://tetr.io/*"],
+    "include_globs": ["https://tetr.io/", "https://tetr.io/?*"],
+    "css": [
+      "source/content/touch-controls.css",
+      "source/content/emote-tab.css",
+      "source/content/osd.css"
+    ],
+    "js": [
+      "source/shared/migrate.js",
+      "source/shared/tpse-sanitizer.js",
+      "source/content/domain-specific-storage-content.js",
+      "source/content/content-script.js",
+      "source/content/emote-tab.js",
+      "source/content/touch-controls.js",
+      "source/content/animated-bg.js",
+      "source/content/osd.js",
+      "source/content/replay-saver.js",
+
+      "source/content/connected-skins.js",
+
+      "source/content/music-graph/01-init.js",
+      "source/shared/expval.js",
+      "source/content/music-graph/02-debugger-event-stream.js",
+      "source/content/music-graph/03-node.js",
+      "source/content/music-graph/04-dispatch-event.js",
+      "source/content/music-graph/05-game-event-handlers.js",
+      "source/content/music-graph/06-api.js",
+
+      "source/content/custom-maps.js",
+      "source/content/bgmtweak-enhancer.js",
+      
+      "source/content/watermark.js"
+    ],
+    "run_at": "document_idle"
+  }],
+
+  "web_accessible_resources": [
+    "resources/template.svg",
+
+    "resources/osd/new/icon-moveLeft.png",
+    "resources/osd/new/icon-moveRight.png",
+    "resources/osd/new/icon-softDrop.png",
+    "resources/osd/new/icon-hardDrop.png",
+    "resources/osd/new/icon-rotateCW.png",
+    "resources/osd/new/icon-rotateCCW.png",
+    "resources/osd/new/icon-rotate180.png",
+    "resources/osd/new/icon-hold.png",
+    "resources/osd/new/icon-moveLeft-pressed.png",
+    "resources/osd/new/icon-moveRight-pressed.png",
+    "resources/osd/new/icon-softDrop-pressed.png",
+    "resources/osd/new/icon-hardDrop-pressed.png",
+    "resources/osd/new/icon-rotateCW-pressed.png",
+    "resources/osd/new/icon-rotateCCW-pressed.png",
+    "resources/osd/new/icon-rotate180-pressed.png",
+    "resources/osd/new/icon-hold-pressed.png",
+    "resources/osd/new/resize.png",
+
+    "resources/osd/old/icon-moveLeft.png",
+    "resources/osd/old/icon-moveRight.png",
+    "resources/osd/old/icon-softDrop.png",
+    "resources/osd/old/icon-hardDrop.png",
+    "resources/osd/old/icon-rotateCW.png",
+    "resources/osd/old/icon-rotateCCW.png",
+    "resources/osd/old/icon-rotate180.png",
+    "resources/osd/old/icon-hold.png",
+
+    "source/injected/osd.js",
+    "source/injected/emote-tab.js",
+    "source/injected/touch-controls.js",
+    "source/injected/music-graph-api.js"
+  ],
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tetrio-plus@example.com"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+
+body {
+  max-width: 600px;
+  font-family: sans-serif;
+}
+
+h1, h2 {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+h2 button {
+  vertical-align: middle;
+}
+
+.preview {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+}
+.preview .image-container {
+  border: 2px solid black;
+  width: 200px;
+  height: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  display: grid;
+  grid-template: 'area' auto / auto;
+
+  --bg-1: #333;
+  --bg-2: #444;
+  background-image:
+    linear-gradient(45deg, var(--bg-1) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--bg-1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--bg-1) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--bg-1) 75%),
+    linear-gradient(to right, var(--bg-2), var(--bg-2));
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+.preview img {
+  image-rendering: crisp-edges;
+  width: 100%;
+  border: 2px dashed red;
+}

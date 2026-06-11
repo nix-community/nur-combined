@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<!--
+  This isn't a template for creating skins!
+  You can find those at https://you.have.fail/ed/at/tetrioplus
+
+  This file is a template used for inserting a base64 encoded
+  png image, to "convert" it to an svg.
+-->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   version="1.1"
+   width="372"
+   height="30"
+   viewBox="0 0 372 30">
+  <metadata>
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <image
+     y="0"
+     x="0"
+     xlink:href="<!--custom-image-embed-->"
+     style="image-rendering:optimizeSpeed"
+     preserveAspectRatio="none"
+     height="30"
+     width="372" />
+</svg>

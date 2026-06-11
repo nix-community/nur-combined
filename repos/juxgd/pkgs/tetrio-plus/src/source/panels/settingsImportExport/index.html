@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>TETR.IO PLUS: Data Management</title>
+    <style>
+      body {
+        max-width: 600px;
+        font-family: sans-serif;
+      }
+      h1 {
+        font-size: 1.5rem;
+        margin: 0px;
+      }
+      p {
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+    </style>
+    <script src="./preinit.js" defer></script>
+    <script src="../../shared/migrate.js" defer></script>
+    <script src="../../shared/tpse-sanitizer.js" defer></script>
+    <script src="../../lib/OggVorbisEncoder.js" defer></script>
+    <script src="../../lib/GIFGroover.js" defer></script>
+    <script src="../../lib/jszip.min.js" defer></script>
+    <script src="./app.js" type="module" defer></script>
+  </head>
+  <body>
+    <h1>TETR.IO PLUS data management</h1>
+    <p>
+      This is <b>only your TETR.IO PLUS data</b> and <em>does not include your
+      TETR.IO settings</em> (e.g. DAS, ARR, graphical settings)
+    </p>
+
+    <fieldset id="url-importer" style="display: none;">
+      <legend>Import settings from URL</legend>
+      <a id="url-anchor"></a><br>
+      <button id="import-from-url">Import</button>
+    </fieldset>
+    <fieldset>
+      <legend>Import anything</legend>
+      Attempts to automatically determine import type for any kind of content.
+      <div>
+        See the
+        <a id="open-auto-import-wiki" href="#">
+          automatic imports wiki page<!--
+        --></a>
+        for details.
+      </div>
+      <div>
+        <input type="checkbox" id="use-experimental"> Use tpsecore importer (beta)
+      </div>
+      <input type="file" id="import-anything" multiple>
+      <div id="import-anything-status"></div>
+    </fieldset>
+    <fieldset>
+      <legend>Import settings from a file</legend>
+      Warning: Outdated or malformed content packs can have weird results!
+      Notably, older <code>.tpse</code> packs are often missing sound effects
+      added to the game after they were created. Only use up-to-date content
+      packs from trusted sources. <br>
+      <input type="file" id="import" multiple accept=".tpse, .tpsez">
+    </fieldset>
+    <fieldset>
+      <legend>Export settings to a file</legend>
+
+      <input
+        type="checkbox"
+        data-export="version"
+        class="export-toggle"
+        style="display: none"
+        checked
+        disabled
+      >
+
+      <input
+        type="checkbox"
+        data-export="skin,ghost,skinAnim,ghostAnim,skinAnimMeta,ghostAnimMeta,advancedSkinLoading"
+        class="export-toggle"
+        checked
+      >Export block skin<br>
+
+      <input
+        type="checkbox"
+        data-export="winterCompatEnabled,board,queue,grid,frosty2023board,frosty2023queue,frosty2023grid,frosty2023snowcaps,particle_beam,particle_beams_beam,particle_bigbox,particle_box,particle_chip,particle_chirp,particle_dust,particle_fbox,particle_fire,particle_particle,particle_smoke,particle_star,particle_flake,rank_d,rank_dplus,rank_cminus,rank_c,rank_cplus,rank_bminus,rank_b,rank_bplus,rank_aminus,rank_a,rank_aplus,rank_sminus,rank_s,rank_splus,rank_ss,rank_u,rank_x,rank_xplus,rank_z,font_hun_png,font_hun_fnt,achievements,winter2022board,winter2022queue,zenith,zenith_2x,zenith_rank,zenith_expert,zenith_expert_2x,zenith_duoleft,zenith_duoleft_2x,zenith_duoright,zenith_duoright_2x,zenith_expert_duoleft,zenith_expert_duoleft_2x,zenith_expert_duoright,zenith_expert_duoright_2x"
+        class="export-toggle"
+        checked
+      >Export board, particle, rank, and other miscellaneous skins<br>
+
+      <input
+        type="checkbox"
+        data-export="sfxEnabled,customSounds,customSoundAtlas"
+        class="export-toggle"
+        checked
+      >Export sound effects<br>
+
+      <input
+        type="checkbox"
+        data-export="musicEnabled,musicGraphEnabled,musicGraph,disableVanillaMusic,enableMissingMusicPatch,music"
+        class="export-toggle"
+        checked
+      >Export music-related settings<br>
+
+      <input
+        type="checkbox"
+        data-export="bgEnabled,backgrounds,animatedBgEnabled,animatedBackground,transparentBgEnabled,opaqueTransparentBackground,musicGraphBackground"
+        class="export-toggle"
+        checked
+      >Export background-related settings<br>
+
+      <input
+        type="checkbox"
+        data-export="enableTouchControls,touchControlConfig"
+        class="export-toggle"
+        checked
+      >Export touch control settings<br>
+
+      <input
+        type="checkbox"
+        data-export="enableOSD,enableAllSongTweaker,showLegacyOptions,bypassBootstrapper,enableCustomMaps,enableEmoteTab,windowTitleStatus,enableReplaySaver,watermarkEnabled"
+        class="export-toggle"
+        checked
+      >Export other misc. settings<br>
+
+      <div>
+        <button id="export">Download TPSE</button>
+        A <em>TPSE</em> file is a json-based export of TETR.IO PLUS's settings.
+        TPSE files are typically limited to 1-2GB in size depending on if you're using Firefox or TETR.IO Desktop.
+      </div>
+      <div>
+        <button id="export-zip">Download TPSEZ (experimental)</button>
+        A <em>TPSEZ</em> file is an <em>experimental</em> zip-based export of TETR.IO PLUS's settings.
+        TPSEZ files are limited only by how much memory you have. TPSEZ files are not currently supported
+        by the automatic importer and must be imported using the <code>Import settings from a file</code>
+        tool.
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>Clear TETR.IO PLUS data</legend>
+      This is <b>irreversible</b>!<br>
+      <button id="clearData" style="font-weight: bold">CLEAR ALL DATA</button>
+    </fieldset>
+    <fieldset>
+      <legend>Decompile sound effects</legend>
+      This is not recommended because of re-encode quality loss issues.
+      By the time you've exported these, they've been encoded as lossy
+      <code>.ogg</code> at least twice.
+      Only use this option if you don't have access to the original sfx files.
+      Once compiled, it's impossible to tell if a sound effect is modded or not,
+      so this will include unmodified base game sounds.
+      <br>
+      <button id="decompileSfx">Decompile sound effects</button>
+    </fieldset>
+  </body>
+</html>

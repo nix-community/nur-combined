@@ -1,0 +1,47 @@
+.image-containers {
+  display: flex;
+  gap: 10px;
+}
+.image-containers > .image-container {
+  display: flex;
+  flex-direction: column;
+
+}
+.image-containers > .image-container > .image-box {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+
+  display: grid;
+  grid-template: 'area' auto / auto;
+  justify-content: center;
+  align-content: center;
+
+  --bg-1: #333;
+  --bg-2: #444;
+  background-image:
+    linear-gradient(45deg, var(--bg-1) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--bg-1) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--bg-1) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--bg-1) 75%),
+    linear-gradient(to right, var(--bg-2), var(--bg-2));
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.image-containers > .image-container > .image-box > img {
+  image-rendering: crisp-edges;
+  width: 100%;
+  border: 2px dashed red;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+h1 { margin: 0px; }
+
+ul {
+  padding-left: 10px;
+  margin: 0px;
+}

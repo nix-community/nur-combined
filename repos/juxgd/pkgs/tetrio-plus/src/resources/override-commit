@@ -1,0 +1,3 @@
+# When this file is not empty (not including comments), it completely overrides
+# and replaces the text that would otherwise be shown by `ci-commit`,
+# `ci-commit-previous`, and `release-commit`

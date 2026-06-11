@@ -1,0 +1,60 @@
+.tetrioplus-emote-picker {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  bottom: 40px;
+  right: 5px;
+  left: 0px;
+}
+.tetrioplus-emote-picker.list {
+  flex-direction: column;
+  line-height: 1.3em;
+}
+#ingame_chat {
+  overflow-y: scroll;
+}
+#ingame_chat > .tetrioplus-emote-picker {
+  position: fixed;
+  overflow: visible;
+  z-index: 9999999999;
+  pointer-events: all;
+  left: 40px;
+}
+
+.tetrioplus-emote-picker > .emote {
+  height: calc(1.3em + 2px);
+  filter: saturate(0%) brightness(75%);
+  border: 2px solid transparent;
+}
+.tetrioplus-emote-picker > .emote img {
+  width: 1.3em;
+  height: 1.3em;
+  object-fit: contain;
+}
+.tetrioplus-emote-picker > .emote.match {
+  filter: none;
+}
+.tetrioplus-emote-picker > .emote.disallowed {
+  filter: saturate(0%) brightness(50%);
+  cursor: not-allowed;
+}
+.tetrioplus-emote-picker.list > .emote:not(.match) {
+  display: none;
+}
+
+.tetrioplus-emote-picker > .emote > .label {
+  color: white;
+  font-family: monospace;
+  vertical-align: top;
+}
+.tetrioplus-emote-picker:not(.list) > .emote > .label {
+  display: none;
+}
+
+.tetrioplus-emote-picker .emote:hover, .tetrioplus-emote-picker .emote.active {
+  background-color: #333;
+  border: 2px solid white;
+}
+.tetrioplus-emote-picker .emote:not(.disallowed):active {
+  transform: scale(0.9);
+}

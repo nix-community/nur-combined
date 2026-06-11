@@ -1,0 +1,14 @@
+diff --git a/package.json b/package.json
+index 75bbd79..c8d8242 100644
+--- a/package.json
++++ b/package.json
+@@ -14,6 +14,7 @@
+     "electron-store": "^8.1.0",
+     "openpgp": "^6.2.0",
+     "systeminformation": "^5.22.0",
+-    "rev-utils": "https://r2.reviq.app/rev-utils-v1.0.3.tgz"
++    "rev-utils": "https://r2.reviq.app/rev-utils-v1.0.3.tgz",
++    "image-size": "^1.1.1"
+   }
+ }
+\ No newline at end of file

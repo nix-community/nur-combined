@@ -1,0 +1,13 @@
+# Update this commit manually when packaging a new release
+# If it differs from `ci-commit-previous`, the ci commit is
+# shown next to the version number to indicate a nightly release.
+#
+# Inserting the hash of the current commit would be... difficult,
+# and so this is compared against `HEAD~1`'s hash instead. Then,
+# `HEAD`'s commit is actually shown when these differ.
+#
+# To get the short hash, run `git rev-parse --short HEAD`.
+# Update this file and then commit. The CI output from that commit
+# is then the official release for that version and won't show
+# the commit hash in the TETR.IO PLUS window.
+65943ec

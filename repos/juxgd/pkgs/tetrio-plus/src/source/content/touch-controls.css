@@ -1,0 +1,64 @@
+.touch-indicator {
+  position: fixed;
+  user-select: none;
+  pointer-events: none;
+  z-index: 9999999999;
+  display: inline-block;
+}
+
+.touch-origin {
+  --deadzone: 100px;
+  width: calc(var(--deadzone)*2);
+  height: calc(var(--deadzone)*2);
+  transform: translate(
+    calc(var(--deadzone)*-1),
+    calc(var(--deadzone)*-1)
+  );
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.touch-position {
+  width: 20px;
+  height: 20px;
+  transform: translate(-10px, -10px);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 9999px;
+}
+
+.touch-button {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  --x: 0vw;
+  --y: 0vh;
+  --width: 0vw;
+  --height: 0vh;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.25);
+  width: var(--width);
+  height: var(--height);
+  transform: translate(
+    calc(var(--x) - var(--width)/2),
+    calc(var(--y) - var(--height)/2)
+  );
+  z-index: 9999999999;
+
+  user-select: none;
+  -moz-user-select: none;
+
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: sans-serif;
+}
+
+.touch-button.active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.tetrio-plus-hide-touch-controls .touch-button:not(.touch-bind-hide) {
+  display: none;
+}

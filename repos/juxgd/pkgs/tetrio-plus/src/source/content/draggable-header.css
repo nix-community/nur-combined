@@ -1,0 +1,13 @@
+.draggable-header-overlay {
+  height: calc(4.2em - 4px);
+  position: fixed;
+
+  left: 4px;
+  top: 4px;
+  right: calc(15em + 1em + 4px);
+
+  box-sizing: border-box;
+  -webkit-app-region: drag;
+  /* border: 1px dotted #FF000055; */
+  z-index: 9999999999999999;
+}

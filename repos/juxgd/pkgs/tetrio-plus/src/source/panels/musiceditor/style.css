@@ -1,0 +1,211 @@
+body {
+  background-color: #222;
+  color: #dcddde;
+  font-size: 12pt;
+}
+
+button {
+  border: none;
+  margin: 2px;
+}
+
+.splittable-pane {
+  display: flex;
+  margin: auto;
+  width: max-content;
+}
+
+.tab {
+  float: right;
+}
+
+.tiny {
+  font-size: 0.8rem;
+  font-family: sans-serif;
+}
+
+/* List editor */
+.listeditor {
+  font-family: monospace;
+  font-weight: bold;
+}
+
+.listeditor:not(:only-child) {
+  margin-right: 8px;
+}
+
+.listeditor > .listelement {
+  background-color: #444;
+  padding: 8px;
+  width: 400px;
+  border: 2px solid #555;
+  max-width: calc(100vw - 36px);
+}
+.listeditor > .listelement.fileuploader {
+  height: 70px;
+}
+.listeditor > .listelement:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.listeditor > .song {
+  display: grid;
+  grid-template:
+    "  gap1    gap1    gap1" 1fr
+    "handle    name   genre" max-content
+    "handle  artist  artist" max-content
+    "handle actions actions" max-content
+    "  gap2    gap2     gap" 1fr /
+    20px 1fr min-content;
+  grid-row-gap: 4px;
+}
+.listeditor > .song > .handle {
+  grid-area: handle;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  user-select: none;
+}
+.listeditor > .song > .name {
+  grid-area: name;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.listeditor > .song > .genre {
+  grid-area: genre;
+  cursor: pointer;
+}
+.genre.CALM { color: #28ead8; }
+.genre.BATTLE { color: #f00606; }
+.genre.INTERFACE { color: #e1e14e; }
+.genre.DISABLED { color: gray; }
+.genre.OVERRIDE { color: #2ddf2d; }
+
+.listeditor > .song > .artist {
+  grid-area: artist;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.listeditor > .song > .actions {
+  grid-area: actions;
+}
+
+.editor-container > .editor {
+  position: sticky;
+  top: 8px;
+}
+
+/* File uploader */
+.fileuploader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 16pt;
+  transition: 0.2s background-color;
+}
+.fileuploader:hover {
+  background-color: #222;
+}
+.fileuploader:active {
+  filter: invert();
+}
+.fileuploader.draghover {
+  background-color: white;
+}
+/* prevents spurious dragleave events when hovering over children */
+.fileuploader * {
+  pointer-events: none;
+}
+
+/* Audio Editor */
+.editor {
+  background-color: #444;
+  font-family: sans-serif;
+
+  padding: 8px;
+  border: 2px solid #555;
+  width: 375px;
+  min-height: 505px;
+}
+.editor.inline {
+  width: auto;
+  margin-bottom: 8px;
+}
+.editor .option-pairs-group {
+  width: max-content;
+  margin: auto;
+}
+.editor audio {
+  margin: auto;
+  display: block;
+}
+.editor .control-group, .editor .timer {
+  text-align: center;
+}
+
+.audioeditor {
+  position: relative;
+}
+.option-pairs-group {
+  display: grid;
+  padding: 3px 0px;
+  grid-column-gap: 20px;
+  grid-row-gap: 5px;
+  grid-template-columns: max-content min-content;
+  grid-template-rows: repeat(auto-fit, 20px);
+}
+.option-pairs-group > .option-pair {
+  display: contents;
+}
+
+.audioeditor .option-pairs-group > .option-pair > input {
+/*   border-radius: 3px; */
+  padding: 3px;
+  text-align: right;
+}
+.audioeditor  .option-pairs-group > .option-pair > select,
+.audioeditor  .option-pairs-group > .option-pair > option {
+  direction: rtl;
+}
+
+.audioeditor input[type=number]::-webkit-outer-spin-button,
+.audioeditor input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.audioeditor input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.audioeditor .finish {
+  border: none;
+  background-color: transparent;
+  color: inherit;
+  font-family: monospace;
+  font-size: 40px;
+  font-weight: bolder;
+  position: absolute;
+  padding: 0px;
+  margin: 0px;
+  right: 0px;
+  top: 0px;
+  display: inline-block;
+  outline: 0 !important;
+  transform: translateY(-20%);
+}
+.audioeditor .finish:hover {
+  color: #C55;
+}
+.audioeditor .finish:active {
+  color: red;
+}
+
+/* misc */
+.dragsongover {
+  border-top: 2px solid cyan !important;
+}

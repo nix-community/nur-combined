@@ -1,0 +1,5 @@
+resources/osd/*.png - © Deer / Cakeeh (MIT license)
+source/content/emote-tab.js - © Jabster28 (MIT license)
+source/injected/emote-tab.js - © Jabster28 (MIT license)
+Rank icon customization (09dc4c62) - © Derpy#6137 (MIT license)
+Replay saver concept and code - © Zudo (MIT license, https://zudo.space/multistream)
