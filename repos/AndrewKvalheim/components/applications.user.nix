@@ -38,6 +38,7 @@ in
         "fstlapp-fstl.desktop" = [ "model/stl" ];
         "org.gnome.Loupe.desktop" = [ "image/heif" ];
         "org.gnome.Papers.desktop" = [ "image/x-eps" ];
+        "studio.planetpeanut.Bobby.desktop" = [ "application/vnd.sqlite3" ];
         "writer.desktop" = [ "application/vnd.oasis.opendocument.text" "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ];
       };
     };
@@ -92,6 +93,7 @@ in
       add-words
       bacon
       binsider
+      bobby
       bubblewrap # Required by nixpkgs-review --sandbox
       bustle
       cavif
@@ -171,6 +173,7 @@ in
       s-tui
       snitch
       smartmontools
+      sort-domains
       sqlitebrowser
       step-cli
       svgo

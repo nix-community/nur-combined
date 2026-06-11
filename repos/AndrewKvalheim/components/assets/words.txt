@@ -109,6 +109,7 @@ basenames
 BCC
 BDFL
 Bellingcat
+Belltown
 bento
 bikeshedding
 bilayer
@@ -169,6 +170,7 @@ buildpack
 buildpacks
 bullshittery
 Bundix
+Burien
 burstable
 bursty
 busway
@@ -402,6 +404,7 @@ DSL
 DSLR
 DSN
 durations
+Duvall
 Duwamish
 eBPF
 Edmonds
@@ -825,6 +828,7 @@ maki
 malform
 Manarola
 manpages
+mapathon
 Mapbox
 MapCSS
 markdownify

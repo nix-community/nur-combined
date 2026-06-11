@@ -112,6 +112,7 @@ rec {
     }).pkgs;
   };
   pngquant-interactive = callPackage ./library/pngquant-interactive.pkg.nix { };
+  sort-domains = callPackage ./library/sort-domains.pkg.nix { };
   spf-check = callPackage ./library/spf-check.pkg.nix { };
   spf-tree = callPackage ./library/spf-tree.pkg.nix { };
   stretch-break = callPackage ./library/stretch-break.pkg.nix { };

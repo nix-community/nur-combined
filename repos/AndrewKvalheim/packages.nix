@@ -23,6 +23,7 @@ specify {
   ansible-vault-pass-client = any;
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate
+  bobby.search = pr 530420 "sha256-pNfLhAK7MyQ9KzI+zHZtP8XSjyImUF5ymPYVsQ9JPAQ=";
   blocky-ui = any;
   busyserve = any;
   caddy-with-cache-route53 = any;
@@ -85,6 +86,7 @@ specify {
   pythonPackages.busylight-core.patch = ./library/assets/busylight-core_led-mask.patch;
   qgis.env.GSETTINGS_SCHEMA_DIR = "${resolved.gtk3}/share/gsettings-schemas/${resolved.gtk3.name}/glib-2.0/schemas"; # Workaround for NixOS/nixpkgs#528925
   signal-desktop.args = [ "--use-tray-icon" ];
+  sort-domains = any;
   spf-check = any;
   spf-tree = any;
   stretch-break = any;
