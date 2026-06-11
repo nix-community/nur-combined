@@ -343,7 +343,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
       p7zip
       gawk
       ;
-    wine = pkgs.wine64Packages.full;
+    wine = pkgs.winePackages.full;
   };
   adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
     virtualDesktop = true;
