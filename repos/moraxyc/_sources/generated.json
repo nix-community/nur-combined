@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-+8_TAnQlF9VunHNwSfPt06f+BB6rN5X19pXI_RCXFWU=/backend/Cargo.lock",
+                "sha256-dn0jNyJrH5AM7FvNqMEmnI+he3DzZyXJq54RX3YDii8=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -116,7 +116,7 @@
                 }
             ]
         },
-        "date": "2026-06-10",
+        "date": "2026-06-11",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -128,12 +128,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "d75279088f698365b67b8d71f3ad0de72de5876c",
-            "sha256": "sha256-+8/TAnQlF9VunHNwSfPt06f+BB6rN5X19pXI/RCXFWU=",
+            "rev": "57fd65e4d8ef568b702bab902a429f9bd9e1a852",
+            "sha256": "sha256-dn0jNyJrH5AM7FvNqMEmnI+he3DzZyXJq54RX3YDii8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d75279088f698365b67b8d71f3ad0de72de5876c"
+        "version": "57fd65e4d8ef568b702bab902a429f9bd9e1a852"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -401,11 +401,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0jbVMggUBys7AA10aHBN46nUuIFwc0HaCbYjyE+VTfc=",
+            "sha256": "sha256-ULTdNMM5Cwji6kI8qmkdfbpUVUYhFm58jxvfZzay9uQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.07/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.06.07"
+        "version": "2026.06.10"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -416,11 +416,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+8wIK6QE0cmXYOYNPvr3IFrgWfsQ27Pr+Hf0aYMvx78=",
+            "sha256": "sha256-kR9Y6XxCbUSqOoKTlV75850J353qqx/gJiX51/7HT+c=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.07/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.06.07"
+        "version": "2026.06.10"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -431,11 +431,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-KRyLNRdxtX1wPJt30mV5DI/15igd5vb12owkmqq/k7g=",
+            "sha256": "sha256-lZTVsRNiF+CrJzeu/l1g58NgAEtPNOffha5JX2ZStag=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.07/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-Country.mmdb"
         },
-        "version": "2026.06.07"
+        "version": "2026.06.10"
     },
     "git-mcp-server": {
         "cargoLock": null,
@@ -586,7 +586,7 @@
     },
     "loyalsoldier-geoip": {
         "cargoLock": null,
-        "date": "2026-06-07",
+        "date": "2026-06-11",
         "extract": null,
         "name": "loyalsoldier-geoip",
         "passthru": null,
@@ -598,12 +598,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "geoip",
-            "rev": "98c33e8950aff3012be7054424755d709fac8322",
-            "sha256": "sha256-ebu9q1ssXd0qd5WRQtsvNZD+Nt9hWXN0lOLHpYyXQFg=",
+            "rev": "52ffe5bdcdffccef86ce162f4ae950b2ccca4673",
+            "sha256": "sha256-1odj8TepiuzoC9zWfzcWcSPTh9xf0X/rB4LtXPr/Clc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "98c33e8950aff3012be7054424755d709fac8322"
+        "version": "52ffe5bdcdffccef86ce162f4ae950b2ccca4673"
     },
     "manpage-zh": {
         "cargoLock": null,
@@ -670,7 +670,7 @@
     },
     "meta-rules-dat": {
         "cargoLock": null,
-        "date": "2026-06-09",
+        "date": "2026-06-10",
         "extract": null,
         "name": "meta-rules-dat",
         "passthru": null,
@@ -682,12 +682,12 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "meta-rules-dat",
-            "rev": "5f2e6703a7d64d6af2f23287bc516f1415514054",
-            "sha256": "sha256-Gqfg3/DtJZO7ymPh3sVMjmSfehYfOuop3VU7RvKFZ3g=",
+            "rev": "fea27c8aaff6b0f12f544c158b71b2c513cce15f",
+            "sha256": "sha256-qIktZHTVAD24fs8uR22zKWbv9xfCkaI0/AMQDUOjPhI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5f2e6703a7d64d6af2f23287bc516f1415514054"
+        "version": "fea27c8aaff6b0f12f544c158b71b2c513cce15f"
     },
     "metacubex-geo": {
         "cargoLock": null,
@@ -781,11 +781,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-q8mtcbX2Cme68Ho8d0aon9DeU7o8wZOv4EFJ6KzXSmA=",
+            "sha256": "sha256-tPm9D3rJVObyBSdouNImuXlTSp1QRpCfdqUrXtwsRHw=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.8/NipaPlay_1.10.8_macOS_Universal.dmg"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.9/NipaPlay_1.10.9_macOS_Universal.dmg"
         },
-        "version": "1.10.8"
+        "version": "1.10.9"
     },
     "nipaplay-reload-x86_64-linux": {
         "cargoLock": null,
@@ -796,11 +796,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2R2ZvUIallMMcppnMPSneBmVZoFbNsjlgMXh4rERLtA=",
+            "sha256": "sha256-fRekrVlFsavpHcTnC/5NLhSnnA9hPw9BZRRjIxwGeYU=",
             "type": "url",
-            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.8/NipaPlay-1.10.8-Linux-amd64.AppImage"
+            "url": "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.10.9/NipaPlay-1.10.9-Linux-amd64.AppImage"
         },
-        "version": "1.10.8"
+        "version": "1.10.9"
     },
     "nyanpasu-service": {
         "cargoLock": {
@@ -952,7 +952,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-06-09",
+        "date": "2026-06-10",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -964,11 +964,11 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "ace975026afbb991e667b1ad14787576bffd26f7",
-            "sha256": "sha256-c4/jQMbjme8CGo17cI5vi9FWdU+apflNaJJNNear4C4=",
+            "rev": "4caa39c133e4ed238b3a5e1fa95c35c30181d67e",
+            "sha256": "sha256-d0syg20f52lMwcsQN+cPEixb0/4bbSlHTGI0y1y87Kw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ace975026afbb991e667b1ad14787576bffd26f7"
+        "version": "4caa39c133e4ed238b3a5e1fa95c35c30181d67e"
     }
 }
