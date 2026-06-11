@@ -6,7 +6,7 @@
 
 ## jux how do i use the tetrio plus
 
-Uhh go to the place where the TETR.IO package is and do `tetrio-desktop.override = { tetrio-plus = nur.repos.JuxGD.tetrio-plus; }` instead of just `tetrio-desktop`.
+Uhh go to the place where the TETR.IO package is and do `(tetrio-desktop.override = { tetrio-plus = nur.repos.juxgd.tetrio-plus; withTetrioPlus = true; })` instead of just `tetrio-desktop`.
 
 BTW I git cloned the thing and included it here because yarn was doing some weird stuff and doing that somehow fixed it. No changes were made to TETR.IO PLUS other than deleting the git files so i could include it in the repo
 
