@@ -3,6 +3,7 @@
   stdenvNoCC,
   gleam,
   toml-sort,
+  cacert,
 }:
 
 let
@@ -44,6 +45,7 @@ lib.makeOverridable (
         nativeBuildInputs = [
           gleam
           toml-sort
+          cacert
         ];
 
         installPhase = ''
@@ -54,7 +56,7 @@ lib.makeOverridable (
 
           gleam deps download
 
-          toml-sort --in-place --all build/packages/packages.toml 
+          toml-sort --in-place --all build/packages/packages.toml
 
           cp -Tr build $out
 
