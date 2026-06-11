@@ -21,6 +21,5 @@ let
   };
 in
 rec {
-  noriskclient-launcher-unwrapped = pkgs.callPackage ./pkgs/noriskclient-launcher-unwrapped { inherit maintainers-list; };
-  noriskclient-launcher = pkgs.callPackage ./pkgs/noriskclient-launcher { noriskclient-launcher-unwrapped = noriskclient-launcher-unwrapped; inherit maintainers-list; };
+  tetrio-plus = pkgs.callPackage ./pkgs/tetrio-plus { inherit maintainers-list; };
 }
