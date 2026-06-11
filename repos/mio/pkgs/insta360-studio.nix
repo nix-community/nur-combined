@@ -12,11 +12,12 @@ in
 mkWindowsAppNoCC rec {
   inherit wine;
   pname = "insta360-studio";
-  version = "5.8.8";
+  version = "5.9.9";
+  # https://www.insta360.com/download
   src = fetchurl {
-    url = "https://web.archive.org/web/20260114041411if_/https://wassets.insta360.com/common/788bedf7621f4bcd9c128fe9c4cc21ba/Insta360_Studio_5.8.8_release_insta360(RC_build53)_20260109_152003_1767943428406.exe";
-    sha256 = "11x1c06kygqm6x2plxbqpkicadyrmffvrrqrg4l8qfcga3cmimxz";
-    name = "insta360-studio.exe";
+    url = "https://wassets.insta360.com/common/c78709860ff945ff9a2a0b16839bacb4/Insta360_Studio_5.9.9_release_insta360(RC_build1)_20260609_221201_1781014557100.exe";
+    hash = "sha256-KPQknqIRK7e0ttj67dxkxmgkQBjBIHdINLiHX7ej2jg=";
+    name = "insta360-studio-5.9.9.exe";
   };
 
   dontUnpack = true;
