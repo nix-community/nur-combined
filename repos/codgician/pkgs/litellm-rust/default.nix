@@ -7,16 +7,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "litellm-rust";
-  version = "0-unstable-2026-06-02";
+  version = "0-unstable-2026-06-04";
 
   src = fetchFromGitHub {
     owner = "LiteLLM-Labs";
     repo = "litellm-rust";
-    rev = "265cb16f6bb324af91c68416e068735260af6ad3";
-    hash = "sha256-fUibxBb1hhfue/HKnrUZZIWzJzfdmEwOgJyNXSJbsdk=";
+    rev = "25683a2a718e7f64c0d04dec02f00eedf73b94c0";
+    hash = "sha256-Jy6y7LqFUEu1C5lTKHXwrMkDoysF5gv2kYe8btKKuQM=";
   };
 
-  cargoHash = "sha256-Au4L0yr0Ukv/t19tIwogeODKMS/410xLl4MlHQktKAo=";
+  cargoHash = "sha256-xYKuy3L+58xVGuJCDyP2Qc33DLO7tokg2Gh+HaLp2D8=";
 
   # The integration tests under `tests/` spin up `wiremock::MockServer`
   # instances and exercise the managed-agents flows against a live Postgres
