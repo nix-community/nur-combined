@@ -1,6 +1,7 @@
 {
   copyDesktopItems,
   fetchFromGitHub,
+  fetchpatch2,
   imagemagick,
   lib,
   makeDesktopItem,
@@ -42,6 +43,19 @@ python3Packages.buildPythonApplication (finalAttrs: {
   inherit src version;
   pname = "crimsondesert-ultimatemodsmanager";
   pyproject = true;
+
+  patches = [
+    (fetchpatch2 {
+      name = "unix-culprit-revert.patch";
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/207453cd33bd5c185bbec278c3d4f9c2bca0776f.patch?full_index=1";
+      hash = "sha256-fktQiZXLLlZvONnZaddlm/ss+l4Sb3umEaesyMr5Ofc=";
+    })
+    (fetchpatch2 {
+      name = "unix-culprit-feat.patch";
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/a17bc7ea0b22cbc33251156ca9f8edbee807e3ac.patch?full_index=1";
+      hash = "sha256-9SRTklVwS6ysLQcPs/00FgoOt85RCYpQ2Y41trFG5ms=";
+    })
+  ];
 
   build-system = with python3Packages; [
     setuptools
@@ -102,8 +116,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     })
   ];
 
-  prePatch = ''
-    echo -e "#!/usr/bin/env python\n\n" > cdumm
+  postPatch = ''
+    echo "#!/usr/bin/env python" > cdumm
     cat src/cdumm/main.py >> cdumm
     substituteInPlace cdumm \
         --replace-fail "Path(__file__).resolve().parents[2]" \
