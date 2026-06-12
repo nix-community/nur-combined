@@ -831,10 +831,10 @@
     "id": "anthropic/claude-sonnet-latest",
     "name": "Claude Sonnet Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -853,10 +853,10 @@
     "id": "claude-sonnet-4-5-20250929",
     "name": "Claude Sonnet 4.5",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -875,10 +875,10 @@
     "id": "claude-sonnet-4-5-20250929-thinking",
     "name": "Claude Sonnet 4.5 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -3658,10 +3658,10 @@
     "id": "claude-sonnet-4-20250514",
     "name": "Claude 4 Sonnet",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -3680,10 +3680,10 @@
     "id": "claude-opus-4-20250514",
     "name": "Claude 4 Opus",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -3702,10 +3702,10 @@
     "id": "claude-sonnet-4-thinking",
     "name": "Claude 4 Sonnet Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -3724,10 +3724,10 @@
     "id": "claude-opus-4-thinking",
     "name": "Claude 4 Opus Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -8483,6 +8483,27 @@
     }
   },
   {
+    "id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-TEE",
+    "name": "Nvidia Nemotron 3 Ultra 550B TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00075,
+      "completion": 4.0,
+      "currency": "USD",
+      "prompt": 1.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "TEE/deepseek-v4-pro",
     "name": "DeepSeek V4 Pro TEE",
     "pricing": {
@@ -9499,10 +9520,10 @@
     "id": "anthropic/claude-opus-4.8",
     "name": "Claude Opus 4.8",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -9521,10 +9542,10 @@
     "id": "anthropic/claude-opus-4.8:thinking",
     "name": "Claude Opus 4.8 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -9713,10 +9734,10 @@
     "id": "azure-o1",
     "name": "Azure o1",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.007496999999999999,
-      "completion": 59.993,
+      "cacheReadInputPer1kTokens": 0.0075,
+      "completion": 60.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -9735,10 +9756,10 @@
     "id": "azure-o3-mini",
     "name": "Azure o3-mini",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000544,
-      "completion": 4.3996,
+      "cacheReadInputPer1kTokens": 0.00055,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 1.088,
+      "prompt": 1.1,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -9756,10 +9777,10 @@
     "id": "azure-gpt-4o",
     "name": "Azure gpt-4o",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0012495,
-      "completion": 9.996,
+      "cacheReadInputPer1kTokens": 0.00125,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.499,
+      "prompt": 2.5,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -9778,10 +9799,10 @@
     "id": "azure-gpt-4o-mini",
     "name": "Azure gpt-4o-mini",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.48e-05,
-      "completion": 0.595,
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.6,
       "currency": "USD",
-      "prompt": 0.1496,
+      "prompt": 0.15,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -9801,9 +9822,9 @@
     "name": "Azure gpt-4-turbo",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 30.004999999999995,
+      "completion": 30.0,
       "currency": "USD",
-      "prompt": 9.996,
+      "prompt": 10.0,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -10031,10 +10052,10 @@
     "id": "claude-sonnet-4-thinking:1024",
     "name": "Claude 4 Sonnet Thinking (1K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10053,10 +10074,10 @@
     "id": "claude-sonnet-4-thinking:8192",
     "name": "Claude 4 Sonnet Thinking (8K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10075,10 +10096,10 @@
     "id": "claude-sonnet-4-thinking:32768",
     "name": "Claude 4 Sonnet Thinking (32K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10097,10 +10118,10 @@
     "id": "claude-sonnet-4-thinking:64000",
     "name": "Claude 4 Sonnet Thinking (64K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10119,10 +10140,10 @@
     "id": "claude-opus-4-thinking:1024",
     "name": "Claude 4 Opus Thinking (1K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10141,10 +10162,10 @@
     "id": "claude-opus-4-thinking:8192",
     "name": "Claude 4 Opus Thinking (8K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10163,10 +10184,10 @@
     "id": "claude-opus-4-thinking:32768",
     "name": "Claude 4 Opus Thinking (32K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10185,10 +10206,10 @@
     "id": "claude-opus-4-thinking:32000",
     "name": "Claude 4 Opus Thinking (32K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10207,10 +10228,10 @@
     "id": "anthropic/claude-opus-4.6",
     "name": "Claude 4.6 Opus",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10229,10 +10250,10 @@
     "id": "anthropic/claude-opus-4.6:thinking",
     "name": "Claude 4.6 Opus Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10251,10 +10272,10 @@
     "id": "anthropic/claude-opus-latest",
     "name": "Claude Opus Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10273,10 +10294,10 @@
     "id": "anthropic/claude-opus-4.6:thinking:max",
     "name": "Claude 4.6 Opus Thinking Max",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10295,10 +10316,10 @@
     "id": "anthropic/claude-opus-4.6:thinking:medium",
     "name": "Claude 4.6 Opus Thinking Medium",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10317,10 +10338,10 @@
     "id": "anthropic/claude-opus-4.6:thinking:low",
     "name": "Claude 4.6 Opus Thinking Low",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10339,10 +10360,10 @@
     "id": "anthropic/claude-opus-4.7",
     "name": "Claude 4.7 Opus",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10361,10 +10382,10 @@
     "id": "anthropic/claude-opus-4.7:thinking",
     "name": "Claude 4.7 Opus Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10383,10 +10404,10 @@
     "id": "anthropic/claude-sonnet-4.6",
     "name": "Claude Sonnet 4.6",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10405,10 +10426,10 @@
     "id": "anthropic/claude-sonnet-4.6:thinking",
     "name": "Claude Sonnet 4.6 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002992,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.00030000000000000003,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -10427,10 +10448,10 @@
     "id": "claude-opus-4-5-20251101",
     "name": "Claude 4.5 Opus",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10449,10 +10470,10 @@
     "id": "claude-opus-4-5-20251101:thinking",
     "name": "Claude 4.5 Opus Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004998,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10471,10 +10492,10 @@
     "id": "claude-opus-4-1-20250805",
     "name": "Claude 4.1 Opus",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10493,10 +10514,10 @@
     "id": "claude-opus-4-1-thinking",
     "name": "Claude 4.1 Opus Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10515,10 +10536,10 @@
     "id": "claude-opus-4-1-thinking:1024",
     "name": "Claude 4.1 Opus Thinking (1K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10537,10 +10558,10 @@
     "id": "claude-opus-4-1-thinking:8192",
     "name": "Claude 4.1 Opus Thinking (8K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10559,10 +10580,10 @@
     "id": "claude-opus-4-1-thinking:32768",
     "name": "Claude 4.1 Opus Thinking (32K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -10581,10 +10602,10 @@
     "id": "claude-opus-4-1-thinking:32000",
     "name": "Claude 4.1 Opus Thinking (32K)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0014994,
-      "completion": 75.004,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 75.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -13124,10 +13145,10 @@
     "id": "openai/gpt-4o",
     "name": "GPT-4o",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0012495,
-      "completion": 9.996,
+      "cacheReadInputPer1kTokens": 0.00125,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.499,
+      "prompt": 2.5,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -13146,10 +13167,10 @@
     "id": "openai/gpt-4o-mini",
     "name": "GPT-4o mini",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.48e-05,
-      "completion": 0.595,
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.6,
       "currency": "USD",
-      "prompt": 0.1496,
+      "prompt": 0.15,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -13168,10 +13189,10 @@
     "id": "openai/gpt-4o-2024-08-06",
     "name": "GPT-4o (2024-08-06)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0012495,
-      "completion": 9.996,
+      "cacheReadInputPer1kTokens": 0.00125,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.499,
+      "prompt": 2.5,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -13213,9 +13234,9 @@
     "name": "GPT-4 Turbo Preview",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 30.004999999999995,
+      "completion": 30.0,
       "currency": "USD",
-      "prompt": 9.996,
+      "prompt": 10.0,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -13276,10 +13297,10 @@
     "id": "openai/o1-preview",
     "name": "OpenAI o1-preview",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.007496999999999999,
-      "completion": 59.993,
+      "cacheReadInputPer1kTokens": 0.0075,
+      "completion": 60.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -13298,10 +13319,10 @@
     "id": "openai/o1",
     "name": "OpenAI o1",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.007496999999999999,
-      "completion": 59.993,
+      "cacheReadInputPer1kTokens": 0.0075,
+      "completion": 60.0,
       "currency": "USD",
-      "prompt": 14.993999999999998,
+      "prompt": 15.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -13341,10 +13362,10 @@
     "id": "openai/o3-mini-high",
     "name": "OpenAI o3-mini (High)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00032,
-      "completion": 2.588,
+      "cacheReadInputPer1kTokens": 0.00055,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 0.64,
+      "prompt": 1.1,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -13362,10 +13383,10 @@
     "id": "openai/o3-mini-low",
     "name": "OpenAI o3-mini (Low)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000544,
-      "completion": 4.3996,
+      "cacheReadInputPer1kTokens": 0.00055,
+      "completion": 4.4,
       "currency": "USD",
-      "prompt": 1.088,
+      "prompt": 1.1,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -13492,10 +13513,10 @@
     "id": "openai/gpt-4o-mini-search-preview",
     "name": "GPT-4o mini Search Preview",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.48e-05,
-      "completion": 0.595,
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 0.6,
       "currency": "USD",
-      "prompt": 0.1496,
+      "prompt": 0.15,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -13513,10 +13534,10 @@
     "id": "openai/gpt-4o-search-preview",
     "name": "GPT-4o Search Preview",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0012495,
-      "completion": 9.996,
+      "cacheReadInputPer1kTokens": 0.00125,
+      "completion": 10.0,
       "currency": "USD",
-      "prompt": 2.499,
+      "prompt": 2.5,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
