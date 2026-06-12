@@ -19,11 +19,14 @@ let
     tag = "v${version}";
     hash = "sha256-uloma6dSkompW0xDIKGbOT7hkYbN4TFFh2jJUhgT79E=";
   };
+
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
     inherit src version;
     pname = "cdumm-native";
     pyproject = true;
+
     sourceRoot = "${src.name}/native";
+
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit (finalAttrs)
         pname
@@ -33,6 +36,7 @@ let
         ;
       hash = "sha256-TVLNTlC2gKigeyyj09iH0MKOlmBIs6rCeeUHP+Nm3Ds=";
     };
+
     nativeBuildInputs = with rustPlatform; [
       cargoSetupHook
       maturinBuildHook
@@ -65,20 +69,22 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "pyside6-essentials"
   ];
 
-  dependencies = with python3Packages; [
-    bsdiff4
+  dependencies = [
     cdumm-native
+    privatebin
+    pyside6-fluent-widgets
+  ]
+  ++ (with python3Packages; [
+    bsdiff4
     cryptography
     lxml
     lz4
-    privatebin
     psutil
     py7zr
     pyside6
-    pyside6-fluent-widgets
     websocket-client
     xxhash
-  ];
+  ]);
 
   nativeCheckInputs = [
     xvfb
