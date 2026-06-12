@@ -28,6 +28,8 @@ buildNpmPackage rec {
     hash = "sha256-/JY6ylqf2jvsDAZjnZRmV1/nlA28YlVGzD24xdgSMs8=";
   };
 
+  patches = [ ./disable-updates.patch ];
+
   npmDepsHash = "sha256-dOgkqID35J6wznqgb86AE7RzPRgRfDxFFFUoLvNXakw=";
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -75,6 +77,8 @@ buildNpmPackage rec {
     install -Dm644 ${
       if useNewIcon then newIcon else "build/icon.png"
     } $out/share/pixmaps/gemini-desktop.png
+
+    cp ${if useNewIcon then newIcon else "build/icon.png"} $out/share/gemini-desktop/icon.png
 
     makeBinaryWrapper ${lib.getExe electron} $out/bin/gemini-desktop \
       --add-flags $out/share/gemini-desktop/app.asar \

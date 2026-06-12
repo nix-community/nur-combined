@@ -1,0 +1,41 @@
+diff --git a/src/main/managers/updateManager.ts b/src/main/managers/updateManager.ts
+index 7f9739b..a08d669 100644
+--- a/src/main/managers/updateManager.ts
++++ b/src/main/managers/updateManager.ts
+@@ -195,35 +195,7 @@ export default class UpdateManager {
+      * @returns true if updates should be disabled
+      */
+     private shouldDisableUpdates(): boolean {
+-        const currentPlatform = this.mockPlatform || process.platform;
+-        const currentEnv = this.mockEnv || process.env;
+-
+-        // Allow updates in test environment (Vitest, Integration Tests, or E2E with --test-auto-update flag)
+-        if (currentEnv.VITEST || currentEnv.TEST_AUTO_UPDATE || process.argv.includes('--test-auto-update')) {
+-            return false;
+-        }
+-
+-        const platformAdapter = this.getAdapterForUpdateChecks(currentPlatform);
+-
+-        if (platformAdapter.shouldDisableUpdates(currentEnv)) {
+-            if (currentPlatform === 'linux') {
+-                logger.log('Linux non-AppImage detected (or simulated) - updates disabled');
+-                return true;
+-            }
+-
+-            if (currentPlatform === 'win32') {
+-                logger.log('Windows Portable detected - updates disabled');
+-                return true;
+-            }
+-        }
+-
+-        // Development mode - skip updates (unless testing)
+-        if (!app.isPackaged && !process.argv.includes('--test-auto-update') && !currentEnv.TEST_AUTO_UPDATE) {
+-            logger.log('Development mode detected - updates disabled');
+-            return true;
+-        }
+-
+-        return false;
++        return true;
+     }
+ 
+     private getAdapterForUpdateChecks(currentPlatform: NodeJS.Platform): PlatformAdapter {
