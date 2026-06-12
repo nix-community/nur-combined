@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-lora-manager";
-  version = "1.0.11";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "willmiao";
     repo = "ComfyUI-Lora-Manager";
     tag = "v${final.version}";
-    hash = "sha256-0cF5J3n2rXT7VQUw5OB4UZ74Z26XTxeups4LhQpDKYo=";
+    hash = "sha256-sEo+dFC3V2yVezqSvLJTgItzDb7uztke/MahhZzN/Rw=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
