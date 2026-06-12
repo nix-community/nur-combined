@@ -947,10 +947,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.3";
+      version = "2.0.4";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4844145/batchcamp-2.0.3.xpi";
-      sha256 = "26287ecff950fa7412f8bd963cab9cb659326bc20c0e6007ed07e87505c5514b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4847758/batchcamp-2.0.4.xpi";
+      sha256 = "e93be927d62b2a50c17e3a2374664e121edc7f1eb2472a9acf701269686f1c6d";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -8872,10 +8872,10 @@
     };
     "localcdn" = buildMozillaXpiAddon {
       pname = "localcdn";
-      version = "2.6.84";
+      version = "2.6.85";
       addonId = "{b86e4813-687a-43e6-ab65-0bde4ab75758}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4709745/localcdn_fork_of_decentraleyes-2.6.84.xpi";
-      sha256 = "ec52022d8bf0e78e873d2cd554889cdab14fe45d22781a8181e4c461227d6665";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4838011/localcdn_fork_of_decentraleyes-2.6.85.xpi";
+      sha256 = "628fcad19950ca5a3005e3e9b54de73842cf9bf87a5c3b543452b10c1647fa60";
       meta = with lib;
       {
         homepage = "https://www.localcdn.org";
@@ -12198,6 +12198,33 @@
         platforms = platforms.all;
       };
     };
+    "proton-vpn" = buildMozillaXpiAddon {
+      pname = "proton-vpn";
+      version = "1.3.4";
+      addonId = "vpn@proton.ch";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4841998/proton_vpn_firefox_extension-1.3.4.xpi";
+      sha256 = "bcfa6a63b297e6266f4a74edc1761cc123bb3f9f73f328b974af5bf2f440554b";
+      meta = with lib;
+      {
+        homepage = "https://protonvpn.com/";
+        description = "Secure your internet and protect your online privacy in one click.";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "idle"
+          "notifications"
+          "privacy"
+          "scripting"
+          "storage"
+          "tabs"
+          "webRequest"
+          "activeTab"
+          "webRequestBlocking"
+          "https://account.protonvpn.com/*"
+          "https://account.proton.me/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "protondb-for-steam" = buildMozillaXpiAddon {
       pname = "protondb-for-steam";
       version = "2.3.0";
@@ -13426,10 +13453,10 @@
     };
     "search-by-image" = buildMozillaXpiAddon {
       pname = "search-by-image";
-      version = "8.5.2";
+      version = "8.5.3";
       addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775193/search_by_image-8.5.2.xpi";
-      sha256 = "7e5cab1c46db6d59769b59dc481d1d17b0533f231341dd670ff718792d0b6605";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4840197/search_by_image-8.5.3.xpi";
+      sha256 = "ba604478b50f5c46e13011ea7e3e2906abc7b1b72cb7e87b02c4fbdefa64ae37";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/search-by-image#readme";
@@ -15139,10 +15166,10 @@
     };
     "tournesol" = buildMozillaXpiAddon {
       pname = "tournesol";
-      version = "3.11.2";
+      version = "3.13.0";
       addonId = "{e8e831e8-8a2b-4fd8-b9f0-cd11155b476d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4795478/tournesol_extension-3.11.2.xpi";
-      sha256 = "536f68fe17346613be414b202542613de4f4b8b11168a14a913ff039f7241f72";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4847854/tournesol_extension-3.13.0.xpi";
+      sha256 = "279c0a97c22efc806e75510ad5e723a2eeb8804e50bfbb6c3f662d0ffd37d022";
       meta = with lib;
       {
         homepage = "https://tournesol.app/";
@@ -15557,10 +15584,10 @@
     };
     "ublacklist" = buildMozillaXpiAddon {
       pname = "ublacklist";
-      version = "9.7.0";
+      version = "9.8.0";
       addonId = "@ublacklist";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4804419/ublacklist-9.7.0.xpi";
-      sha256 = "6120545103fc15ef6751e8fe6a9e56c627d3dd346efa443f892bec5fe114531c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4839838/ublacklist-9.8.0.xpi";
+      sha256 = "6dfc537224ba09a75e2b483ff4208ee77c8b63a3268845bdfef559f1adebdee0";
       meta = with lib;
       {
         homepage = "https://ublacklist.github.io/";
@@ -17271,10 +17298,10 @@
     };
     "xkit-rewritten" = buildMozillaXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.3.3";
+      version = "1.3.4";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4822607/xkit_rewritten-1.3.3.xpi";
-      sha256 = "e69ab18275bc31fc399508b5d842dcc870e46fdbef934f659b5499c3dfa7f058";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4841209/xkit_rewritten-1.3.4.xpi";
+      sha256 = "3106313e3c153c1c9eca3de1f1659762da260e0c6e252af559cecdf7cf36c221";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
@@ -17594,10 +17621,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.5.17";
+      version = "18.6.2";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4824934/youtube_subscription_groups-18.5.17.xpi";
-      sha256 = "418ad36a0bdaa914a64fb285d4250d9a22367e5ee782bb2c51755d3d5856c033";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4839494/youtube_subscription_groups-18.6.2.xpi";
+      sha256 = "d8de71fef080a42fc761b00a1722384f3b4e7117032173c3e29a9096f2fae449";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
