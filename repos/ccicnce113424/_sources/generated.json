@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-vEdajLX_rIoHumX6LU8A162fUVZQfWP_h7hG7h+hhOs=/src-tauri/Cargo.lock",
+                "sha256-hzyOavOhzkYc4S2qwv+rpKi4LSA8bK3ONK2JO+H5SEQ=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.5-beta.3",
-            "sha256": "sha256-vEdajLX/rIoHumX6LU8A162fUVZQfWP/h7hG7h+hhOs=",
+            "rev": "v3.9.5-beta.4",
+            "sha256": "sha256-hzyOavOhzkYc4S2qwv+rpKi4LSA8bK3ONK2JO+H5SEQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.5-beta.3"
+        "version": "v3.9.5-beta.4"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
