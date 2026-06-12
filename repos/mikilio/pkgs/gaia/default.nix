@@ -6,7 +6,7 @@
   eigen,
   libyaml,
   swig,
-  libsForQt5,
+  qt5,
 }:
 stdenv.mkDerivation {
   pname = "gaia";
@@ -31,8 +31,8 @@ stdenv.mkDerivation {
   ];
 
   buildInputs = [
-    libsForQt5.qt5.qtbase
-    libsForQt5.qt5.qttools
+    qt5.qtbase
+    qt5.qttools
     eigen
     libyaml
     swig

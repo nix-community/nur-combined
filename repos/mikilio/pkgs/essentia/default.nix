@@ -12,7 +12,7 @@
   taglib,
   chromaprint,
   gaia,
-  libsForQt5,
+  qt5,
   zlib,
 }: let
   py3 = python3.withPackages (
@@ -63,8 +63,8 @@ in
       chromaprint
       gaia
       #for examples
-      libsForQt5.qt5.qtbase
-      libsForQt5.qt5.qttools
+      qt5.qtbase
+      qt5.qttools
       zlib
     ];
 

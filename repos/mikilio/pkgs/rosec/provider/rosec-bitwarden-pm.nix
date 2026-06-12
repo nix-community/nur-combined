@@ -1,24 +1,18 @@
 {
   lib,
-  fetchFromGitHub,
   rustPlatform,
   rustc,
+  rosec,
   lld,
 }:
 rustPlatform.buildRustPackage (finalAttrs: rec {
-  pname = "rosec_bitwarden_pm";
+  pname = "rosec-bitwarden-pm";
 
   version = "0.1.0";
 
-  src = fetchFromGitHub {
-    owner = "jmylchreest";
-    repo = "rosec";
-    # tag = "v${version}";
-    rev = "d4649c1a41b0a297f1577b376ca46364e059e51f";
-    hash = "sha256-fiwh9mV+t1x0mwHXI5aUmBxXzSFRg/k39ho4qzgzLD0=";
-  };
+  inherit (rosec) src;
 
-  sourceRoot = "${src.name}/rosec-bitwarden-pm";
+  sourceRoot = "${src.name}/${pname}";
 
   cargoHash = "sha256-hNeCZPclwz2WMKnHsECBL0TduqkWsYhadEfsw54lGBg=";
 
@@ -31,10 +25,10 @@ rustPlatform.buildRustPackage (finalAttrs: rec {
   nativeBuildInputs = [lld];
 
   meta = {
-    description = "A secrets daemon implementing the freedesktop.org Secret Service API with modular backend providers ";
+    description = "A Bitwarden (Personal) provider for rosec";
     homepage = "https://github.com/jmylchreest/rosec";
     license = lib.licenses.mit;
-    broken = true;
+    platforms = lib.platforms.wasi;
     maintainers = [];
   };
 })

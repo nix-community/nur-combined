@@ -17,9 +17,8 @@ symlinkJoin (finalAttrs: let
   src = fetchFromGitHub {
     owner = "jmylchreest";
     repo = "rosec";
-    # tag = "v${version}";
-    rev = "d4649c1a41b0a297f1577b376ca46364e059e51f";
-    hash = "sha256-fiwh9mV+t1x0mwHXI5aUmBxXzSFRg/k39ho4qzgzLD0=";
+    tag = "v${version}";
+    hash = "sha256-xo9JKSpr+RRqvM8JIypdUcPo3AmDLZ7u1LwH1+rCrOI=";
   };
 
   rosec_pam = stdenv.mkDerivation {
@@ -45,7 +44,7 @@ symlinkJoin (finalAttrs: let
     pname = "rosec-unwrapped";
     inherit version src;
 
-    cargoHash = "sha256-Vuzz+pnoph5BJ/usOegcGGC4kFqFhdN5LZjBHJzMbgA=";
+    cargoHash = "sha256-xybN+JOIhtAUtlraILfDJfpfOjmxdtzX4oFVZAloeHQ=";
 
     nativeBuildInputs = [
       autoPatchelfHook
@@ -84,15 +83,20 @@ symlinkJoin (finalAttrs: let
   };
 in {
   pname = "rosec";
-  version = "0.0.23";
+  version = "0.0.25";
 
   paths = [rosec rosec_pam] ++ provider;
+
+  passthru = {
+    inherit (rosec) src;
+  };
 
   meta = {
     description = "A secrets daemon implementing the freedesktop.org Secret Service API with modular backend providers";
     homepage = "https://github.com/jmylchreest/rosec";
     license = lib.licenses.mit;
     maintainers = [];
+    platforms = lib.platforms.linux;
     mainProgram = "rosec";
   };
 })
