@@ -1,0 +1,55 @@
+diff --git a/extension/extension_build_tools.cmake b/extension/extension_build_tools.cmake
+index 6a0507098a..12e2d6e4af 100644
+--- a/extension/extension_build_tools.cmake
++++ b/extension/extension_build_tools.cmake
+@@ -105,6 +105,13 @@ function(build_loadable_extension_directory NAME ABI_TYPE OUTPUT_DIRECTORY EXTENS
+     set(FILES "${ARGV}")
+     # remove name, abi_type, output_directory, extension_version, capi_version, parameters
+     list(REMOVE_AT FILES 0 1 2 3 4 5)
++
++    if(NIX_STATIC_BUILD)
++        # pkgsStatic uses a fully static toolchain and cannot link shared loadable extensions.
++        # Keep a target around for extension CMakeLists that call target_link_libraries on it.
++        add_library(${TARGET_NAME} STATIC EXCLUDE_FROM_ALL ${FILES})
++        return()
++    endif()
+ 
+     # parse parameters
+     string(FIND "${PARAMETERS}" "-no-warnings" IGNORE_WARNINGS)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 54839de4e9..6e0b251e56 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -104,6 +104,7 @@ link_threads(duckdb_static PUBLIC)
+ # ${CMAKE_CURRENT_BINARY_DIR}/libduckdb_static.a)
+ #
+ 
++if(NOT NIX_STATIC_BUILD)
+ add_library(duckdb SHARED ${ALL_OBJECT_FILES} ${LINK_OBJECTS})
+ target_link_libraries(duckdb PUBLIC ${DUCKDB_SYSTEM_LIBS})
+ link_extension_libraries(duckdb PRIVATE)
+@@ -136,6 +137,7 @@ if(WIN32 AND NOT MINGW)
+ 
+   target_sources(duckdb PRIVATE version.rc)
+ endif()
++endif()
+ 
+ install(
+   DIRECTORY "${PROJECT_SOURCE_DIR}/src/include/duckdb"
+@@ -147,9 +149,16 @@ install(FILES "${PROJECT_SOURCE_DIR}/src/include/duckdb.hpp"
+               "${PROJECT_SOURCE_DIR}/src/include/duckdb.h"
+         DESTINATION "${INSTALL_INCLUDE_DIR}")
+ 
++if(NIX_STATIC_BUILD)
++install(
++  TARGETS duckdb_static
++  EXPORT "${DUCKDB_EXPORT_SET}"
++  ARCHIVE DESTINATION "${INSTALL_LIB_DIR}")
++else()
+ install(
+   TARGETS duckdb duckdb_static
+   EXPORT "${DUCKDB_EXPORT_SET}"
+   LIBRARY DESTINATION "${INSTALL_LIB_DIR}"
+   ARCHIVE DESTINATION "${INSTALL_LIB_DIR}"
+   RUNTIME DESTINATION "${INSTALL_BIN_DIR}")
++endif()
