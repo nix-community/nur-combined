@@ -1,18 +1,18 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 7139179b..160c46e1 100644
+index 06ac7d09..507a7a02 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
-@@ -53,6 +53,8 @@
+@@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.484",
-+    "@inlang/plugin-m-function-matcher": "^2.2.6",
+     "@iconify/json": "2.2.485",
++    "@inlang/plugin-m-function-matcher": "^2.2.7",
 +    "@inlang/plugin-message-format": "^4.4.0",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.0",
      "@tanstack/react-query": "5.101.0",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
-index 05965578..66c083a8 100644
+index 05965578..71e1a55b 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
 +++ b/frontend/nyanpasu/project.inlang/settings.json
 @@ -3,8 +3,8 @@
@@ -21,34 +21,34 @@ index 05965578..66c083a8 100644
    "modules": [
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4/dist/index.js",
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@2/dist/index.js"
-+    "./node_modules/@inlang/plugin-message-format/dist/index.js",
-+    "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
++     "./node_modules/@inlang/plugin-message-format/dist/index.js",
++     "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
    ],
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index d8738653..7ddd9d18 100644
+index fc7847b4..960187e8 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -275,6 +275,12 @@ importers:
+@@ -239,6 +239,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.484
-         version: 2.2.484
+         specifier: 2.2.485
+         version: 2.2.485
 +      '@inlang/plugin-m-function-matcher':
-+        specifier: ^2.2.6
-+        version: 2.2.6
++        specifier: ^2.2.7
++        version: 2.2.7
 +      '@inlang/plugin-message-format':
 +        specifier: ^4.4.0
 +        version: 4.4.0
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-@@ -1187,6 +1193,12 @@ packages:
+@@ -1130,6 +1136,12 @@ packages:
        typescript:
          optional: true
  
-+  '@inlang/plugin-m-function-matcher@2.2.6':
-+    resolution: {integrity: sha512-sEDVWjY8WgDq0mkEy117IZwYuzZHUZsnCV0IiRfheAW03mbnWAK/eOlECjxncKxWdQOpT0QI7rebvZRZFu4t8w==}
++  '@inlang/plugin-m-function-matcher@2.2.7':
++    resolution: {integrity: sha512-86K5PctUNuer9rs5nhQMEUJOGbNdC3p431RGhLfMnKJtAG67FR1dejHBqVdEVp4dy1T3dXNgqLhTzM7erLr/kw==}
 +
 +  '@inlang/plugin-message-format@4.4.0':
 +    resolution: {integrity: sha512-n4aXt6XVg5kxhKoLAhi9nMgZtCA9iS0QOaXte56VqxWHcfj9O4c4gOkyVQZH7H9D8h7OZufCrO1sZGYOypPwEA==}
@@ -56,7 +56,7 @@ index d8738653..7ddd9d18 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -4354,6 +4366,11 @@ packages:
+@@ -4265,6 +4277,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -68,13 +68,13 @@ index d8738653..7ddd9d18 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7320,6 +7337,16 @@ snapshots:
+@@ -7186,6 +7203,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
-+  '@inlang/plugin-m-function-matcher@2.2.6':
++  '@inlang/plugin-m-function-matcher@2.2.7':
 +    dependencies:
-+      '@inlang/sdk': 2.9.3
++      '@inlang/sdk': 2.10.0
 +    transitivePeerDependencies:
 +      - babel-plugin-macros
 +
@@ -85,7 +85,7 @@ index d8738653..7ddd9d18 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -10220,6 +10247,8 @@ snapshots:
+@@ -10063,6 +10090,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
