@@ -136,15 +136,15 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources 0;
     };
 
-    scx_flow = pkgs.scx.rustscheds.overrideAttrs (
+    scx-git = pkgs.scx.rustscheds.overrideAttrs (
       final: _prev: {
-        pname = "scx_flow";
-        version = "3.0.3";
+        pname = "scx-git";
+        version = "1.1.1-unstable-2026-06-12";
         src = pkgs.fetchFromGitHub {
-          owner = "galpt";
+          owner = "sched-ext";
           repo = "scx";
-          rev = "407605cf28e2466620b7faf29950cffcd23a646e";
-          hash = "sha256-VQHmlMnmJU7wpcMh5jNJ3o3q+rjxFC+QIoqlMW1g9Ik=";
+          rev = "5300a126b071b96dc3db5ef9216ce9820c193523";
+          hash = "sha256-o9enOQmFPyxVJBtU+H9wRsS7VDWR1anofszQk05N7dA=";
         };
         cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
           inherit (final)
@@ -152,28 +152,7 @@ lib.makeScope pkgs.newScope (
             version
             src
             ;
-          hash = "sha256-OKcHEaWNYtyoMWiNUGTyq8c/9SsPglw/GYRwkKIzduc=";
-        };
-      }
-    );
-
-    scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (
-      final: _prev: {
-        pname = "scx_pandemonium";
-        version = "5.12.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "wllclngn";
-          repo = "scx";
-          rev = "f61f50644f59a845f2cf6b7bb5cfd4358494d121";
-          hash = "sha256-29MNX/0M9Opzi2EBeyudGWJBOo6seCc30tHKwQ9bMN8=";
-        };
-        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
-          inherit (final)
-            pname
-            version
-            src
-            ;
-          hash = "sha256-O7oT3miXo9+H8Rb3+OtwdvD3QUOVsDitabRdNnyW884=";
+          hash = "sha256-8K26W2c5M9fIeRH/457dKaKAaH8ALfBoQW8JzcSJpgo=";
         };
       }
     );
