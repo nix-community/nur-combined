@@ -11,7 +11,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "michel-kraemer";
     repo = "zsh-patina";
-    rev = "efe6e7593b9b21959996f0eee03b12db988b3e13";
+    tag = finalAttrs.version;
     hash = "sha256-hE7PFVE7CmLUALHwSfNWhwwXcy9ORiXYd4aP2Mg+c80=";
   };
 
