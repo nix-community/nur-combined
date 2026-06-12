@@ -61,6 +61,8 @@ in
       alias.st      = "status";
       alias.stat    = "status";
 
+      cinnabar.check = "no-version-check";  #< git-cinnabar: don't check for new release every invocation :(
+
       commit.verbose = true;  #< have `git commit` populate both status *and* diff to the editor
 
       diff.context = 8;  #< default 3 lines of context

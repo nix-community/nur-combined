@@ -14,9 +14,11 @@ usage() {
   echo '  $ nix-collect-garbage --delete-older-than 14d'
   echo ""
   echo 'flags:'
+  echo '--keep-days NUM_DAYS   [default: 14]'
   echo '--max-freed NUM_BYTES  [default: 500000000000]'
 }
 
+keepDays=14
 maxFreed=500000000000  # 500 GB
 parseArgs() {
   while [ "$#" -ne 0 ]; do
@@ -26,6 +28,10 @@ parseArgs() {
       (--help)
         usage
         exit 0
+        ;;
+      (--keep-days)
+        keepDays=$1
+        shift
         ;;
       (--max-freed)
         maxFreed=$1
@@ -48,8 +54,8 @@ main() {
   # nix-store --optimise
   (
     set -x;
-    nix-env --profile /nix/var/nix/profiles/system --delete-generations 14d;
-    nix-collect-garbage --delete-older-than 14d --max-freed "$maxFreed";
+    nix-env --profile /nix/var/nix/profiles/system --delete-generations "$keepDays"d;
+    nix-collect-garbage --delete-older-than "$keepDays"d --max-freed "$maxFreed";
   )
 
   echo 'to free more space (e.g. boot space), manually manage the profiles'
