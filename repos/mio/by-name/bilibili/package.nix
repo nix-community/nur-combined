@@ -62,16 +62,21 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   postPatch = ''
+    patchShebangs tools/
+
     # Keep builds hermetic; pnpm otherwise tries to self-manage the configured version.
     substituteInPlace package.json \
       --replace-fail '"packageManager": "pnpm@10.2.1+sha512.398035c7bd696d0ba0b10a688ed558285329d27ea994804a52bad9167d8e3a72bcb993f9699585d3ca25779ac64949ef422757a6c31102c12ab932e5cbe5cc92"' '"_packageManager": "pnpm@10.2.1"'
+
+    substituteInPlace tools/fix-other.sh \
+      --replace-warn 'wget -c https://github.com/msojocs/bilibili-linux/releases/download/tools/cursor-tool -Ocursor-tool' "" \
+      --replace-warn 'chmod +x cursor-tool' ""
+
+    substituteInPlace tools/extension.sh \
+      --replace-warn 'pnpm install' "" \
+      --replace-warn 'pnpm run build' ""
   '';
 
-  # Upstream build flow reference:
-  # https://github.com/msojocs/bilibili-linux/tree/master/tools
-  # We mirror the logic from setup-bilibili + update-bilibili + fix-other.sh + extension.sh
-  # here instead of invoking them directly.
-  # Reason: those scripts call `wget` at build time
   buildPhase = ''
     runHook preBuild
 
@@ -82,50 +87,12 @@ stdenv.mkDerivation (finalAttrs: {
 
     pnpm run build
 
-    mkdir -p tmp/bili
+    mkdir cache
+    cp "${finalAttrs.bilibiliInstaller}" cache/bili_win-install.exe
 
-    BILIBILI_VERSION="$(exiftool -S -ProductVersionNumber "${finalAttrs.bilibiliInstaller}" | sed 's/.*: //')"
-    CONF_VERSION="$(cat conf/bilibili_version)"
-    if [ "$BILIBILI_VERSION" != "$CONF_VERSION" ]; then
-      echo "bilibili installer version mismatch: $BILIBILI_VERSION != $CONF_VERSION" >&2
-      exit 1
-    fi
-
-    7z x -y "${finalAttrs.bilibiliInstaller}" -otmp/bili '$PLUGINSDIR/app-64.7z'
-    7z x -y tmp/bili/\$PLUGINSDIR/app-64.7z -otmp/bili resources
-
-    res_dir="$PWD/tmp/bili/resources"
-
-    asar extract "$res_dir/app.asar" "$res_dir/app"
-
-    node tools/app-decrypt.js "$res_dir/app/main/.biliapp" "$res_dir/app/main/app.orgi.js"
-    node tools/js-decode.js "$res_dir/app/main/app.orgi.js" "$res_dir/app/main/app.js"
-    node tools/bridge-decode.js "$res_dir/app/main/assets/bili-bridge.js" "$res_dir/app/main/assets/bili-bridge.js"
-
-    sed -i 's#if (!jy)#if(false\&\&!jy)#' "$res_dir/app/main/app.js"
-    sed -i 's#// noinspection SuspiciousTypeOfGuard#runtimeOptions.platform="win32";// noinspection SuspiciousTypeOfGuard#' "$res_dir/app/node_modules/electron-updater/out/providerFactory.js"
-    sed -i 's#process.resourcesPath#path.dirname(this.app.getAppPath())#' "$res_dir/app/node_modules/electron-updater/out/ElectronAppAdapter.js"
-
-    cat res/scripts/inject-bridge.js "$res_dir/app/main/assets/bili-inject.js" > "$res_dir/app/main/assets/temp.js"
-    mv "$res_dir/app/main/assets/temp.js" "$res_dir/app/main/assets/bili-inject.js"
-
-    cat res/scripts/inject-core.js "$res_dir/app/render/assets/lib/core.js" > "$res_dir/app/render/assets/lib/temp.js"
-    mv "$res_dir/app/render/assets/lib/temp.js" "$res_dir/app/render/assets/lib/core.js"
-
-    cat res/scripts/inject-bridge.js "$res_dir/app/main/assets/bili-preload.js" > "$res_dir/app/main/assets/temp.js"
-    mv "$res_dir/app/main/assets/temp.js" "$res_dir/app/main/assets/bili-preload.js"
-
-    asar pack "$res_dir/app" "$res_dir/app.asar"
-    rm -rf "$res_dir/app"
-
-    mkdir -p app/extensions
-    cp -r dist/extension app/extensions/bilibili
-    cp res/scripts/transcribe.py app/transcribe.py
-
-    asar extract "$res_dir/app.asar" "$res_dir/app"
-    cp dist/inject/index.js "$res_dir/app/index.js"
-    asar pack "$res_dir/app" "$res_dir/app.asar"
-    rm -rf "$res_dir/app"
+    bash tools/update-bilibili.sh
+    bash tools/fix-other.sh
+    bash tools/extension.sh
 
     runHook postBuild
   '';
