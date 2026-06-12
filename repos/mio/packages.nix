@@ -87,6 +87,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
         ./patches/piano_keyboard_playing_notes.patch
         ./patches/musescore-qt610.patch
       ];
+      preConfigure = "";
     })
   );
   # https://github.com/musescore/MuseScore/pull/28073
@@ -103,6 +104,7 @@ lib.filesystem.packagesFromDirectoryRecursive {
         hash = "sha256-VMysCO9LlNX8aiqBZtsseF6224RY20AXJMq8xrjnaR4=";
       };
       patches = [ ];
+      preConfigure = "";
     })
   );
   mioplays = pkgs.tuxguitar.overrideAttrs (old: {
