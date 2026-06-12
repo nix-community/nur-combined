@@ -28,34 +28,34 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.173";
+    version = "2.1.175";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.173/darwin-x64/claude";
-      sha256 = "sha256-WjXB3isTJF6bO9csTfTwaK3OFPbUF6P2i/C7Q3InFoc=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.175/darwin-x64/claude";
+      sha256 = "sha256-N3Dyy0LT93bmKlmqFiMIQ9x7hCKza+mxUy4Cpukuf6g=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.173";
+    version = "2.1.175";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.173/linux-x64/claude";
-      sha256 = "sha256-z36hlOF0iTL6MPGA6qn1b5pwOdzjcDApiMKSZimyohk=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.175/linux-x64/claude";
+      sha256 = "sha256-T8cvpgkMmgPxhQ4bHMs9aAa/gCtn48udxfLO1LftXKE=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.173";
+    version = "2.1.175";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.173/darwin-arm64/claude";
-      sha256 = "sha256-I1wbrNzH+djZI2jJWgxmwm/KyY+HjyGxDHOvNAvDMas=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.175/darwin-arm64/claude";
+      sha256 = "sha256-a3W/EyyGbtQJv5E8MYyjIBHnP/sS081n7MN7xO6exl0=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.173";
+    version = "2.1.175";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.173/linux-arm64/claude";
-      sha256 = "sha256-zFk9/CY/cH7SIuM0/1wSqa3cJKvCBnaJYvnQY7L9esk=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.175/linux-arm64/claude";
+      sha256 = "sha256-Ng8fb0PsJtm7biDkh79Et1PZuEB+iedL/ut5cHOZ9DU=";
     };
   };
   codex = {
