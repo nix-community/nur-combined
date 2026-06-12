@@ -19,11 +19,11 @@
     round-corners
     ;
 
-  cohomcalg = self.callPackage ./pkgs/math/cohomcalg { };
-
   dev-manager-desktop = self.callPackage ./pkgs/webos/dev-manager-desktop { };
 
   frobby = self.callPackage ./pkgs/math/frobby { };
+
+  gfan_0_8beta = self.callPackage ./pkgs/math/gfan/0_8beta.nix { };
 
   knotjob = self.callPackage ./pkgs/math/knotjob { };
 
@@ -44,7 +44,5 @@
   snappy-topology = self.callPackage ./pkgs/math/snappy-topology { __snappy-topology = pkgs.snappy-topology; };
 
   snarkjs = self.callPackage ./pkgs/zk/snarkjs { };
-
-  topcom = self.callPackage ./pkgs/math/topcom { };
 
 })

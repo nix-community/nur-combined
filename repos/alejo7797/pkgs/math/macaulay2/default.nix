@@ -48,7 +48,7 @@
   _4ti2,
   cohomcalg,
   csdp,
-  gfan,
+  gfan_0_8beta,
   lrs,
   rWrapper,
   R,
@@ -56,6 +56,8 @@
 }:
 
 let
+  gfan = gfan_0_8beta;
+
   m2ProgramPath = lib.makeBinPath [
     _4ti2
     cohomcalg
@@ -91,13 +93,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "macaulay2";
-  version = "1.26.05";
+  version = "1.26.06";
 
   src = fetchFromGitHub {
     owner = "Macaulay2";
     repo = "M2";
     rev = "release-${finalAttrs.version}";
-    hash = "sha256-UiPLownaFtuYFUlZhBl+Nl/sRZRhG9OUwepZtFTkTqc=";
+    hash = "sha256-2e39qzBO63Ft+yw+tJChLsupeinalTkDwXp3WBF2wms=";
     fetchSubmodules = true;
   };
 
@@ -106,14 +108,6 @@ stdenv.mkDerivation (finalAttrs: {
   patches = [
     # Set `$PATH` and `$LD_LIBRARY_PATH` appropriately.
     ./runtime-deps.patch
-
-    # FIXME: This should ideally get upstreamed.
-    (fetchpatch2 {
-      name = "gbtrace-default.patch";
-      url = "https://github.com/Macaulay2/M2/commit/c9cdf395e0d9eddbc604ba5d668c9b80e3a7254f.patch?full_index=1";
-      stripLen = 1;
-      hash = "sha256-1TnnAH0bj1j5ciFP12OjFJ8lfmBpYtm0PuP/e3s4VPY=";
-    })
 
     # FIXME: This should ideally get upstreamed.
     (fetchpatch2 {
@@ -253,6 +247,9 @@ stdenv.mkDerivation (finalAttrs: {
 
     # FIXME: https://github.com/Macaulay2/M2/pull/4040
     "normal/RRi.m2"
+
+    # FIXME: https://github.com/Macaulay2/M2/pull/3942
+    "normal/gb-hilbert.m2"
   ];
 
   desktopItems = [
