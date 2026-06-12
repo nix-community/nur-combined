@@ -58,6 +58,14 @@ EOF
             guard let self else { return }
             Task { @MainActor in'
 
+    # The SwiftUI Settings scene is only present so the app can install menu
+    # commands, but macOS can still open/restore that scene. If it stays as
+    # EmptyView the user gets a blank "WhatCable Settings" window.
+    substituteInPlace Sources/WhatCable/App/App.swift \
+      --replace-fail \
+        '        Settings { EmptyView() }' \
+        '        Settings { SettingsView().environmentObject(AppDelegate.refreshSignal) }'
+
     substituteInPlace Package.swift \
       --replace-fail \
         'name: "WhatCableCore",
@@ -98,16 +106,32 @@ EOF
     binPath=$(swift build -c release --disable-sandbox --show-bin-path)
 
     appDir="$out/Applications/WhatCable.app"
-    mkdir -p "$appDir/Contents/MacOS" "$appDir/Contents/Helpers" "$out/bin"
+    mkdir -p "$appDir/Contents/MacOS" "$appDir/Contents/Helpers" "$appDir/Contents/Resources" "$out/bin"
 
     cp "$binPath/WhatCable" "$appDir/Contents/MacOS/WhatCable"
     cp "$binPath/whatcable-cli" "$appDir/Contents/Helpers/whatcable"
 
-    # SwiftPM-generated resource accessors look next to Bundle.main.bundleURL.
-    # Put resources beside the .app for GUI launches and beside the helper for
-    # the CLI symlink resolved through Contents/Helpers/whatcable.
+    # Match upstream's .app layout: SwiftPM-generated Bundle.module accessors
+    # first look under Bundle.main.resourceURL, which is Contents/Resources for
+    # both the GUI binary and the helper CLI when launched from inside the app.
+    cp -R "$binPath"/WhatCable_*.bundle "$appDir/Contents/Resources"/
+
+    # Nixpkgs' SwiftPM resource accessor still probes Bundle.main.bundleURL
+    # directly. Keep compatibility copies beside the app bundle and helper
+    # executable so GUI and in-bundle CLI launches can find .module resources.
     cp -R "$binPath"/WhatCable_*.bundle "$appDir"/
     cp -R "$binPath"/WhatCable_*.bundle "$appDir/Contents/Helpers"/
+
+    # macOS uses root-level .lproj markers to identify supported localizations;
+    # the actual strings remain inside the SwiftPM resource bundles.
+    for lproj in Sources/WhatCable/Resources/*.lproj; do
+      test -d "$lproj" || continue
+      mkdir -p "$appDir/Contents/Resources/$(basename "$lproj")"
+    done
+
+    if test -f scripts/AppIcon.icns; then
+      cp scripts/AppIcon.icns "$appDir/Contents/Resources/AppIcon.icns"
+    fi
 
     cat > "$appDir/Contents/Info.plist" <<PLIST
     <?xml version="1.0" encoding="UTF-8"?>
@@ -115,7 +139,30 @@ EOF
     <plist version="1.0">
     <dict>
       <key>CFBundleDevelopmentRegion</key><string>en</string>
+      <key>CFBundleLocalizations</key>
+      <array>
+        <string>en</string>
+        <string>de</string>
+        <string>es</string>
+        <string>fr</string>
+        <string>hi</string>
+        <string>hy</string>
+        <string>it</string>
+        <string>ja</string>
+        <string>ko</string>
+        <string>lv</string>
+        <string>nb</string>
+        <string>nl</string>
+        <string>pl</string>
+        <string>pt-BR</string>
+        <string>ru</string>
+        <string>tr</string>
+        <string>uk</string>
+        <string>zh-Hans</string>
+        <string>zh-Hant</string>
+      </array>
       <key>CFBundleExecutable</key><string>WhatCable</string>
+      <key>CFBundleIconFile</key><string>AppIcon</string>
       <key>CFBundleIdentifier</key><string>uk.whatcable.whatcable</string>
       <key>CFBundleInfoDictionaryVersion</key><string>6.0</string>
       <key>CFBundleName</key><string>WhatCable</string>
@@ -133,6 +180,7 @@ PLIST
     printf 'APPL????' > "$appDir/Contents/PkgInfo"
 
     ln -s "../Applications/WhatCable.app/Contents/Helpers/whatcable" "$out/bin/whatcable"
+    cp -R "$binPath"/WhatCable_WhatCableCore.bundle "$out/bin"/
 
     if command -v codesign >/dev/null; then
       codesign --force --deep --sign - "$appDir" || true
@@ -150,6 +198,7 @@ PLIST
     test -x "$out/Applications/WhatCable.app/Contents/MacOS/WhatCable"
     test -x "$out/Applications/WhatCable.app/Contents/Helpers/whatcable"
     "$out/bin/whatcable" --version | grep -F "${version}"
+    "$out/bin/whatcable" --json >/dev/null
     runHook postInstallCheck
   '';
 
