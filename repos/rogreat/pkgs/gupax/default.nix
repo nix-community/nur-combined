@@ -75,10 +75,14 @@ rustPlatform.buildRustPackage (finalAttrs: {
     (makeDesktopItem {
       name = "gupax";
       desktopName = "Gupax";
+      genericName = "Miner";
+      comment = "GUI Uniting P2Pool And XMRig";
       icon = "gupax";
       exec = "gupax";
-      comment = "P2Pool and XMRig";
-      categories = [ "Utility" ];
+      categories = [
+        "Network"
+        "Utility"
+      ];
     })
   ];
 
