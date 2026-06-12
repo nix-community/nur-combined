@@ -10,7 +10,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cuprate";
-  version = "0.0.9";
+  version = "cuprated-0.0.9";
 
   src = fetchFromGitHub {
     owner = "Cuprate";

@@ -1,12 +1,17 @@
 {
   base58,
   buildPythonPackage,
+  coverage,
   cryptography,
   fetchFromGitHub,
   hatchling,
   httpx,
   lib,
   msgspec,
+  pytest-httpx,
+  pytest-socket,
+  pytestCheckHook,
+  tomli,
 }:
 
 buildPythonPackage (finalAttrs: {
@@ -30,9 +35,13 @@ buildPythonPackage (finalAttrs: {
     msgspec
   ];
 
-  doCheck = false;
-
-  pythonImportsCheck = [ "privatebin" ];
+  nativeCheckInputs = [
+    coverage
+    pytest-httpx
+    pytest-socket
+    pytestCheckHook
+    tomli
+  ];
 
   meta = {
     description = "Python library for interacting with PrivateBin's v2 API";
