@@ -79,6 +79,7 @@
               sing-box-app
               sing-box-app-beta
               sing-box-beta
+              sing-box-dashboard
               termius-app
               wubi98-fonts
               ;
