@@ -3,6 +3,6 @@
 (callPackage ./generic.nix { }) {
   name = "iceberg";
   repo = "duckdb-iceberg";
-  rev = "4008894c57168e0e9dff00e87cd725c5168fd81e";
-  hash = "sha256-wjdQa/SnU2fkSlPKSPygx9EnH0pBolMDAEcw8x5oB5A=";
+  rev = "22990d741ec19f9f3c5370b1ee570d78b0aec1d7";
+  hash = "sha256-t7qrTAkoVjM9chclFZXznYsbjnzKqU15FqpOavDyZ/Q=";
 }

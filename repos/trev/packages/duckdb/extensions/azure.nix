@@ -3,6 +3,6 @@
 (callPackage ./generic.nix { }) {
   name = "azure";
   repo = "duckdb-azure";
-  rev = "2ad247d4ca090cd2110f2e35531ab6fcdb80c186";
-  hash = "sha256-EcEaWa3+Q5OdbasrXqKJMNwKTw9QIYk8PiRq+sYh8ao=";
+  rev = "a0e1ff30a074e2d8c17d7c861d4df07461029b27";
+  hash = "sha256-+Zsi2yiAcAvXrkyjDlcCWmzqCBlt+AO4StWjSUiRbyk=";
 }
