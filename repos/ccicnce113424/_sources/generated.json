@@ -356,7 +356,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-bKQURb9b+5GUPPGnYeJMmF+SJ8so9fBoghCVyklXnKc=/pubspec.lock"
+            "pubspec.lock": "sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5_rDcS0lNHaoM=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -368,12 +368,12 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.0.9.1",
-            "sha256": "sha256-bKQURb9b+5GUPPGnYeJMmF+SJ8so9fBoghCVyklXnKc=",
+            "rev": "2.0.9.2",
+            "sha256": "sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5/rDcS0lNHaoM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.0.9.1"
+        "version": "2.0.9.2"
     },
     "pixes": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-hy6JChv5Ey0RUPkw+WyVq5BA6hXaY0KQosKTHd+47oI=/Cargo.lock",
+                "sha256-3GCIKiL6XP+hyd+j5+l6BrFAZyVYDOFDud8HUECEbGE=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
             ]
         },
-        "date": "2026-06-12",
+        "date": "2026-06-13",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "bec70d64b59b566b3576eae1578baa37eb6fc6e9",
-            "sha256": "sha256-hy6JChv5Ey0RUPkw+WyVq5BA6hXaY0KQosKTHd+47oI=",
+            "rev": "1ebe6b4e32e6e2229c17a2126892caf7453d39fd",
+            "sha256": "sha256-3GCIKiL6XP+hyd+j5+l6BrFAZyVYDOFDud8HUECEbGE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bec70d64b59b566b3576eae1578baa37eb6fc6e9"
+        "version": "1ebe6b4e32e6e2229c17a2126892caf7453d39fd"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -597,7 +597,7 @@
             "owner": "Tony15246",
             "repo": "uosc_danmaku",
             "rev": "v2.1.0",
-            "sha256": "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=",
+            "sha256": "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=",
             "sparseCheckout": [],
             "type": "github"
         },

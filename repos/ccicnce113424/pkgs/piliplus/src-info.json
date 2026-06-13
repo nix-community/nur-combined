@@ -1,9 +1,9 @@
 {
-  "version": "2.0.9.1",
-  "sourceSha256": "sha256-bKQURb9b+5GUPPGnYeJMmF+SJ8so9fBoghCVyklXnKc=",
-  "rev": "1c19925b58c62ee131051c2eb5ac8f1f2660e582",
-  "time": 1781237807,
-  "revCount": 5047,
+  "version": "2.0.9.2",
+  "sourceSha256": "sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5/rDcS0lNHaoM=",
+  "rev": "2536350ccfc87b9d5d23c564e3d4c8adbd175820",
+  "time": 1781325010,
+  "revCount": 5051,
   "pubspecLock": {
     "packages": {
       "_fe_analyzer_shared": {

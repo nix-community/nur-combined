@@ -221,16 +221,16 @@
   };
   piliplus = {
     pname = "piliplus";
-    version = "2.0.9.1";
+    version = "2.0.9.2";
     src = fetchFromGitHub {
       owner = "bggRGjQaUbCoE";
       repo = "PiliPlus";
-      rev = "2.0.9.1";
+      rev = "2.0.9.2";
       fetchSubmodules = false;
-      sha256 = "sha256-bKQURb9b+5GUPPGnYeJMmF+SJ8so9fBoghCVyklXnKc=";
+      sha256 = "sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5/rDcS0lNHaoM=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-bKQURb9b+5GUPPGnYeJMmF+SJ8so9fBoghCVyklXnKc=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5_rDcS0lNHaoM=/pubspec.lock";
     };
   };
   pixes = {
@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "bec70d64b59b566b3576eae1578baa37eb6fc6e9";
+    version = "1ebe6b4e32e6e2229c17a2126892caf7453d39fd";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "bec70d64b59b566b3576eae1578baa37eb6fc6e9";
+      rev = "1ebe6b4e32e6e2229c17a2126892caf7453d39fd";
       fetchSubmodules = false;
-      sha256 = "sha256-hy6JChv5Ey0RUPkw+WyVq5BA6hXaY0KQosKTHd+47oI=";
+      sha256 = "sha256-3GCIKiL6XP+hyd+j5+l6BrFAZyVYDOFDud8HUECEbGE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-hy6JChv5Ey0RUPkw+WyVq5BA6hXaY0KQosKTHd+47oI=/Cargo.lock";
+      lockFile = ./. + "/sha256-3GCIKiL6XP+hyd+j5+l6BrFAZyVYDOFDud8HUECEbGE=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
     };
-    date = "2026-06-12";
+    date = "2026-06-13";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -364,7 +364,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
+      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
     };
   };
   uosc-danmaku-git = {
