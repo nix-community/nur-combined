@@ -3,15 +3,11 @@
   version,
   srcInfo,
   lib,
-  flutter332,
-  flutter335,
+  flutter344,
   makeDesktopItem,
   copyDesktopItems,
 }:
-let
-  flutter = if version == "1.2.0" then flutter332 else flutter335;
-in
-flutter.buildFlutterApplication {
+flutter344.buildFlutterApplication {
   inherit (sources) pname src;
   inherit version;
   inherit (srcInfo) pubspecLock;

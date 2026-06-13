@@ -3,7 +3,7 @@
   version,
   srcInfo,
   lib,
-  flutter,
+  flutter344,
   makeDesktopItem,
   copyDesktopItems,
   alsa-lib,
@@ -15,13 +15,6 @@
 let
   description = "Third-party Bilibili client developed in Flutter";
   majorMinorPatch = v: builtins.concatStringsSep "." (lib.take 3 (builtins.splitVersion v));
-  flutter344 = flutter.mkFlutter (
-    (lib.importJSON ./data.json)
-    // {
-      patches = [ ];
-      enginePatches = [ ];
-    }
-  );
 in
 flutter344.buildFlutterApplication {
   inherit (sources) pname src;
