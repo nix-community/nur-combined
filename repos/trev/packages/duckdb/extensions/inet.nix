@@ -3,7 +3,7 @@
 (callPackage ./generic.nix { }) {
   name = "inet";
   repo = "duckdb-inet";
-  rev = "fe7f60bb60245197680fb07ecd1629a1dc3d91c8";
-  hash = "sha256-8YeYuowhFz4XctNiAU7SG+QjnuQ416erAPjKpexk7Rw=";
+  rev = "bf675673d9ed8c08522863db4e40ccaa18c797e0";
+  hash = "sha256-yGNlgeedX2oBpL6I93okqCauKp1qQTQXeq/Fn5tz0vc=";
   loadOptions = [ "INCLUDE_DIR src/include" ];
 }
