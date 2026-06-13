@@ -42,14 +42,14 @@ let
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
-  version = "1.2.1";
+  version = "1.2.2";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "radxa-pkg";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    hash = "sha256-Kg3v9LOtnkejPeMxZEvic69E59SCHM+hbMKvZO2mF1A=";
+    hash = "sha256-h3EfTsDfAX4YkbB/1KPFERqTNbIa7HpIFilo2LwNRho=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
