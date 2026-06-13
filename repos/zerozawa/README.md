@@ -5,7 +5,7 @@
 ![Build and populate cache](https://github.com/lz37/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-zerozawa-blue.svg)](https://zerozawa.cachix.org)
 
-This repository currently exports **22 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
+This repository currently exports **23 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
 
 ## Current Exports
 
@@ -31,6 +31,7 @@ This repository currently exports **22 packages**, **1 library helper**, and pla
 | `hyprland-mcp-server` | MCP server for Hyprland automation |
 | `oh-my-pi` | AI coding agent CLI/TUI with sub-agent orchestration |
 | `mcp-cli` | Lightweight CLI for interacting with MCP servers |
+| `context-mode` | MCP server for context window optimization — sandboxed code execution, FTS5 knowledge base |
 
 #### Desktop customization and utilities
 
@@ -136,6 +137,9 @@ repo.lib.fetchPixiv {
 ```bash
 # Build a package exported from default.nix
 nix-build -A JMComic-qt
+
+# Build context-mode (requires NIXPKGS_ALLOW_UNFREE=1 for Elastic-2.0 license)
+NIXPKGS_ALLOW_UNFREE=1 nix-build -A context-mode
 nix-build -A hyprland-mcp-server
 
 # Build through flake outputs

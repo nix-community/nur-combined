@@ -23,7 +23,7 @@ nur/
 ├── default.nix              # main export surface
 ├── flake.nix                # flake outputs and cache config
 ├── ci.nix                   # CI package/output filtering
-├── pkgs/                    # 22 exported package definitions
+├── pkgs/                    # 23 exported package definitions
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
 ├── overlays/                # placeholder overlays namespace
@@ -51,12 +51,12 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 22 packages from `default.nix`, grouped roughly as:
+The repo currently exports 23 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Qt/Python readers: `JMComic-qt`, `picacg-qt`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `hyprland-mcp-server`, `mcp-cli`, `wechat-web-devtools-linux`
+- MCP and developer tools: `agentic-contract`, `context-mode`, `hyprland-mcp-server`, `mcp-cli`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.
@@ -74,7 +74,7 @@ This repo is not limited to one packaging style. Examples worth following:
 - `buildNpmPackage`
   - Example: `pkgs/hyprland-mcp-server.nix`
 - `bun` + `stdenvNoCC.mkDerivation`
-  - Example: `pkgs/mcp-cli.nix`
+  - Examples: `pkgs/mcp-cli.nix`, `pkgs/context-mode.nix`
 - `stdenv.mkDerivation` / `stdenvNoCC.mkDerivation`
   - Example: `pkgs/grub-theme-yorha.nix`
 
@@ -107,6 +107,7 @@ Filtering behavior:
 
 - `JMComic-qt` and `picacg-qt` rely on `sr-vulkan-with-models`, not plain `sr-vulkan`
 - `hyprland-mcp-server` is a wrapped npm package with runtime PATH injection for Hyprland tooling
+- `context-mode` is a `bun` + `stdenvNoCC.mkDerivation` package with pre-built bundles; it uses `makeBinaryWrapper` and the built-in `node:sqlite` (Node.js >= 22.5) so `better-sqlite3` is not loaded at runtime
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
 
 ## Quick Commands

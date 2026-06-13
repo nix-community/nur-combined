@@ -8,25 +8,42 @@
   calibre,
 }:
 let
-  # Helper for missing packages not in nixpkgs
-  js2py = python3Packages.buildPythonPackage rec {
-    pname = "js2py";
-    version = "0.74";
-    pyproject = true;
-    src = fetchPypi {
-      pname = "Js2Py";
-      inherit version;
-      hash = "sha256-OfOmqoRpGA77o8hncnHfJ8MTMv0bRx3xryr1i4e4ly8=";
+  # exejs — JS execution engine, replaces PyExecJS
+  exejs = python3Packages.buildPythonPackage rec {
+    pname = "exejs";
+    version = "0.0.7";
+    format = "wheel";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/b4/2f/a9786ef0130b2de80ed2273a43e0ca7c86333ac61de6b6c9b4307b8fd66b/exejs-0.0.7-py3-none-any.whl";
+      hash = "sha256-upLNcuzFBweJvSQYV49p/i6h3plCwKkBhUSehV8oMgE=";
     };
-    build-system = with python3Packages; [ setuptools ];
-    propagatedBuildInputs = with python3Packages; [
-      pyjsparser
-      tzlocal
-      six
-    ];
     doCheck = false;
   };
 
+  # lncrawl-scraper — HTTP scraper with Cloudflare bypass (extracted from bundled cloudscraper)
+  lncrawl-scraper = python3Packages.buildPythonPackage rec {
+    pname = "lncrawl-scraper";
+    version = "0.1.2";
+    pyproject = true;
+    src = fetchPypi {
+      pname = "lncrawl_scraper";
+      inherit version;
+      hash = "sha256-mYrilNrcdVQ9bIpHNu8E1IcaMAQIyyfgEUfRlF4GyTc=";
+    };
+    build-system = with python3Packages; [ hatchling ];
+    propagatedBuildInputs = with python3Packages; [
+      beautifulsoup4
+      brotli
+      lxml
+      requests
+      exejs
+    ];
+    # curl-cffi is an optional C/Rust extension used by [all] extra
+    pythonRemoveDeps = [ "curl-cffi" ];
+    doCheck = false;
+  };
+
+  # Helper for missing packages not in nixpkgs
   python-box = python3Packages.buildPythonPackage rec {
     pname = "python-box";
     version = "7.3.2";
@@ -75,22 +92,6 @@ let
     doCheck = false;
   };
 
-  pyexecjs = python3Packages.buildPythonPackage rec {
-    pname = "pyexecjs";
-    version = "1.5.1";
-    pyproject = true;
-    src = fetchPypi {
-      pname = "PyExecJS";
-      inherit version;
-      hash = "sha256-NMwdBwl2kYGD/3vcCtcfgVeokcknCMAMX7v/enafUFw=";
-    };
-    build-system = with python3Packages; [ setuptools ];
-    propagatedBuildInputs = with python3Packages; [
-      six
-    ];
-    doCheck = false;
-  };
-
   pyease-grpc = python3Packages.buildPythonPackage rec {
     pname = "pyease-grpc";
     version = "1.8.0";
@@ -110,7 +111,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.6.0";
+  version = "4.7.0";
 
   pyproject = true;
 
@@ -118,7 +119,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-4MtJnhajNAt4Ku341e+s/x6X7fpY0kgtgcusGmGNsdU=";
+    hash = "sha256-zf8wrHfFxqfVoVzz6Nj3EIqni5qXSYxJ/R/8+8o/5h0=";
   };
 
   build-system = with python3Packages; [
@@ -165,11 +166,11 @@ python3Packages.buildPythonApplication rec {
     pyyaml
     pywebview
     # Local helper packages for missing deps
-    js2py
+    exejs
+    lncrawl-scraper
     python-box
     readability-lxml
     questionary
-    pyexecjs
     pyease-grpc
   ];
 

@@ -68,5 +68,6 @@ in
   lightnovel-crawler = pkgs.callPackage ./pkgs/lightnovel-crawler.nix { };
   hyprland-mcp-server = pkgs.callPackage ./pkgs/hyprland-mcp-server.nix { };
   oh-my-pi = pkgs.callPackage ./pkgs/oh-my-pi.nix { };
+  context-mode = pkgs.callPackage ./pkgs/context-mode.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };
 }

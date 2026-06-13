@@ -1,15 +1,15 @@
 { lib, stdenvNoCC, fetchurl }:
 
 let
-  version = "15.12.3";
+  version = "15.12.4";
   asset = {
     "x86_64-linux" = {
       name = "omp-linux-x64";
-      hash = "sha256-UJS7H7fkBtiRNuSUSN6Yrp6cBf6xBmo5si00BgLTF90=";
+      hash = "sha256-tt5Mw371Q+VAZgsRSscM+uIIU2xwVmI0RlpcqcvDPqE=";
     };
     "aarch64-linux" = {
       name = "omp-linux-arm64";
-      hash = "sha256-1kxs0m9zb4f86fhabnwwkyl79zw2zc0d6g2i2wmvxv2grn6dcd86=";
+      hash = "sha256-cCKa0hseHLjEk/isfBTvZzJFUobr8AGwC4y8uS93m+M=";
     };
   }.${stdenvNoCC.hostPlatform.system} or (throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}");
 in
