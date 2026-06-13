@@ -25,9 +25,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ./Cargo.lock.patch
   ];
 
-  cargoHash = "sha256-crrbWkoNJ4LcV6Z/AZFsp9Qwb4yAXWIHlzXGuJzXSKw=";
-
-  doCheck = false;
+  cargoHash = "sha256-fKUbXGJ5P8SsybirVKdLMEpdRXLUtvWuYgSVZxkPZPA=";
 
   postInstall = ''
     mkdir -p $out/share/zsh-patina
