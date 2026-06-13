@@ -131,8 +131,8 @@
             "url": "https://github.com/LuisChDev/nur-packages"
         },
         "MH0386": {
-            "rev": "a843575e96b6ecc93bd77d2ed1ed49c6acee48d8",
-            "sha256": "0y010pg2jcn6c1hi0gkwlzayakw0jaygsh0p0grdsycy93qc6zxy",
+            "rev": "c2e02d3aef28d46679457fb44b646a7136962621",
+            "sha256": "16mmv0506l18lzahjz7k9hvcfg7prpvm5j56ynacblq1rvbjkis2",
             "url": "https://github.com/MH0386/nurpkgs"
         },
         "MiyakoMeow": {
