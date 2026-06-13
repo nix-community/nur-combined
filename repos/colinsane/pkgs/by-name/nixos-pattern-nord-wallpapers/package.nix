@@ -8,14 +8,14 @@
 
 stdenv.mkDerivation {
   pname = "nixos-pattern-nord-wallpapers";
-  version = "0-unstable-2023-11-30";
+  version = "0-unstable-2026-06-13";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "abmurrow";
     repo = "nixos-pattern-nord-wallpapers";
-    rev = "006024c8844a6f7c86bfd91bb26774a1860e970e";
-    hash = "sha256-Nng5qMzOv3ov4CdieRG30Xt5g+6T/zk2AOqtJNZThgI=";
+    rev = "967f7431d5241d641a9519cd2041f321e050c83e";
+    hash = "sha256-gppPbLooWOnJ1/W0rG/2WXLcwpSyjG8/S2hNoxPwpEA=";
   };
 
   nativeBuildInputs = [ imagemagick ];

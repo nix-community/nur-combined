@@ -704,19 +704,19 @@ super.lib.composeManyExtensions [
     # > ninja: build stopped: subcommand failed.
     # For full logs, run:
     #         nix log /nix/store/6a9l2n5kv5sbrafar1jljh4qs5xkq5xg-fractal-13.drv
-    fractal = prev.fractal.overrideAttrs (upstream: rec {
-      patches = (upstream.patches or []) ++ [
-        (fetchAports {
-          path = "community/fractal/cargo-update-glycin.patch";
-          hash = "sha256-qLPsV5lIJHK2BfUhajWB5sNbAXbQ8NVHKgKxx1cqDLc=";
-        })
-      ];
-      cargoDeps = final.rustPlatform.fetchCargoVendor {
-        inherit (upstream) src;
-        inherit patches;
-        hash = "sha256-W3fN4j408cPYfkn6oIPwD8E92CQ/GL2lZ9ygjg7tKJY=";
-      };
-    });
+    # fractal = prev.fractal.overrideAttrs (upstream: rec {
+    #   patches = (upstream.patches or []) ++ [
+    #     (fetchAports {
+    #       path = "community/fractal/cargo-update-glycin.patch";
+    #       hash = "sha256-qLPsV5lIJHK2BfUhajWB5sNbAXbQ8NVHKgKxx1cqDLc=";
+    #     })
+    #   ];
+    #   cargoDeps = final.rustPlatform.fetchCargoVendor {
+    #     inherit (upstream) src;
+    #     inherit patches;
+    #     hash = "sha256-W3fN4j408cPYfkn6oIPwD8E92CQ/GL2lZ9ygjg7tKJY=";
+    #   };
+    # });
 
     # 2026-05-23: still required
     # XXX(2026-01-29): taken from aports build flags; gcr probably has some conditional forward declaration of getpass?

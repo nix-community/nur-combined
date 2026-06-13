@@ -460,7 +460,7 @@ in
       # "keymapp"
       # "kid3"  # audio tagging
       "krita"
-      "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
+      # "libreoffice"  # TODO: replace with an office suite that uses saner packaging?
       "losslesscut"
       # "makemkv"  # x86-only
       # "monero-gui"  # x86-only

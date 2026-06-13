@@ -73,7 +73,7 @@
       "prompt": 0.2,
       "unit": "per_million_tokens"
     },
-    "context_length": 256000,
+    "context_length": 262144,
     "max_output_tokens": 256000,
     "capabilities": {
       "reasoning": true
@@ -1045,28 +1045,6 @@
     }
   },
   {
-    "id": "openai/gpt-5.4-pro",
-    "name": "GPT 5.4 Pro",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.003,
-      "completion": 180.0,
-      "currency": "USD",
-      "prompt": 30.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 922000,
-    "max_output_tokens": 128000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "openai/gpt-latest",
     "name": "GPT Latest",
     "pricing": {
@@ -1162,28 +1140,6 @@
       "completion": 14.0,
       "currency": "USD",
       "prompt": 1.75,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 400000,
-    "max_output_tokens": 128000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "openai/gpt-5.2-pro",
-    "name": "GPT 5.2 Pro",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0021000000000000003,
-      "completion": 168.0,
-      "currency": "USD",
-      "prompt": 21.0,
       "unit": "per_million_tokens"
     },
     "context_length": 400000,
@@ -2575,27 +2531,6 @@
     }
   },
   {
-    "id": "nex-agi/deepseek-v3.1-nex-n1",
-    "name": "DeepSeek V3.1 Nex N1",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.42000000000000004,
-      "currency": "USD",
-      "prompt": 0.27999999999999997,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 128000,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "gemini-2.0-flash-thinking-exp-01-21",
     "name": "Gemini 2.0 Flash Thinking 0121",
     "pricing": {
@@ -3216,6 +3151,28 @@
       "unit": "per_million_tokens"
     },
     "context_length": 256000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2.7-code",
+    "name": "Kimi K2.7 Code",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00019,
+      "completion": 4.0,
+      "currency": "USD",
+      "prompt": 0.95,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
     "max_output_tokens": 65536,
     "capabilities": {
       "reasoning": true
@@ -6471,27 +6428,6 @@
     }
   },
   {
-    "id": "deepseek/deepseek-v3.2-speciale",
-    "name": "DeepSeek V3.2 Speciale",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.42000000000000004,
-      "currency": "USD",
-      "prompt": 0.27999999999999997,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 163000,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "deepseek/deepseek-v3.2",
     "name": "DeepSeek V3.2",
     "pricing": {
@@ -7444,28 +7380,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "google/gemini-flash-1.5",
-    "name": "Gemini 1.5 Flash",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.0748,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 2000000,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "audio"
       ]
     }
   },
@@ -8452,27 +8366,6 @@
     },
     "context_length": 128000,
     "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "zai-org/GLM-5-NVFP4-TEE",
-    "name": "GLM 5 NVFP4 TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00024455,
-      "completion": 1.9565,
-      "currency": "USD",
-      "prompt": 0.48910000000000003,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 202752,
-    "max_output_tokens": 65535,
     "capabilities": {
       "reasoning": false
     },
@@ -9546,50 +9439,6 @@
       "completion": 25.0,
       "currency": "USD",
       "prompt": 5.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1000000,
-    "max_output_tokens": 128000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "anthropic/claude-fable-5",
-    "name": "Claude Fable 5",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.001,
-      "completion": 50.0,
-      "currency": "USD",
-      "prompt": 10.0,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1000000,
-    "max_output_tokens": 128000,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "anthropic/claude-fable-latest",
-    "name": "Claude Fable Latest",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.001,
-      "completion": 50.0,
-      "currency": "USD",
-      "prompt": 10.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
