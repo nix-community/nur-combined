@@ -116,6 +116,8 @@
   # manifests as spurious "No space left on device" when trying to install watches,
   # e.g. in dyn-dns by `systemctl start dyn-dns-watcher.path`.
   # see: <https://askubuntu.com/questions/828779/failed-to-add-run-systemd-ask-password-to-directory-watch-no-space-left-on-dev>
-  boot.kernel.sysctl."fs.inotify.max_user_watches" = 4194304;
-  boot.kernel.sysctl."fs.inotify.max_user_instances" = 4194304;
+  # 4194304 worked until 2026-06-12: then i began exhausting that after using _lots_ of git worktrees
+  # there should be little-to-no cost in increasing the _limit_. but when registered, each watch consumes ~1 KiB RAM (allegedly).
+  boot.kernel.sysctl."fs.inotify.max_user_watches" = 16777216;
+  boot.kernel.sysctl."fs.inotify.max_user_instances" = 16777216;
 }
