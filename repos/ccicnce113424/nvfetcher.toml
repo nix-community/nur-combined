@@ -83,13 +83,13 @@ src.github = "bggRGjQaUbCoE/PiliPlus"
 
 [pixes]
 extract = ["pubspec.lock"]
-fetch.github = "wgh136/pixes"
-src.github = "wgh136/pixes"
+fetch.github = "pixes-app/pixes"
+src.github = "pixes-app/pixes"
 
 [pixes-git]
 extract = ["pubspec.lock"]
-fetch.github = "wgh136/pixes"
-src.git = "https://github.com/wgh136/pixes"
+fetch.github = "pixes-app/pixes"
+src.git = "https://github.com/pixes-app/pixes"
 
 [pwasio]
 fetch.github = "golfiros/pwasio"

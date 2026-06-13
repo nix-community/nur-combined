@@ -237,7 +237,7 @@
     pname = "pixes";
     version = "v1.2.1";
     src = fetchFromGitHub {
-      owner = "wgh136";
+      owner = "pixes-app";
       repo = "pixes";
       rev = "v1.2.1";
       fetchSubmodules = false;
@@ -251,7 +251,7 @@
     pname = "pixes-git";
     version = "59542156f332af1af89fa45ea239a58fa69fda17";
     src = fetchFromGitHub {
-      owner = "wgh136";
+      owner = "pixes-app";
       repo = "pixes";
       rev = "59542156f332af1af89fa45ea239a58fa69fda17";
       fetchSubmodules = false;
@@ -364,7 +364,7 @@
       repo = "uosc_danmaku";
       rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-07J+kNj8wkoLn0bWbER1/xoiT1+60sAziKGivy1/X04=";
+      sha256 = "sha256-a+FXngRimggYGGMt/GMHVaX9wjgXJr1dbra83L3qbq0=";
     };
   };
   uosc-danmaku-git = {

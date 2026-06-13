@@ -43,7 +43,7 @@ flutter344.buildFlutterApplication {
 
   meta = {
     description = "Unofficial pixiv app";
-    homepage = "https://github.com/wgh136/pixes";
+    homepage = "https://github.com/pixes-app/pixes";
     mainProgram = "pixes";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ccicnce113424 ];
