@@ -17,6 +17,8 @@ pkgs.buildNpmPackage rec {
 
   npmDepsHash = "sha256-AvFXdZfdFhxpzMuQkoOGy6aztrz+AX4vyNVXR1lUI60=";
 
+  npmFlags = ["--ignore-scripts"];
+
   npmBuildScript = "fn-build";
 
   installPhase =
