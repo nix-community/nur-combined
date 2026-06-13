@@ -7,13 +7,13 @@
 }:
 mkOpencodePlugin rec {
   pname = "cc-safety-net";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "kenryu42";
     repo = "claude-code-safety-net";
     rev = "v${version}";
-    hash = "sha256-Crlr4b1TzYdzIZH5wVeY6pgUeyAEwR28QS3H1wUpL+E=";
+    hash = "sha256-PpRJpxrQoupDIOaw7ASc39aXPDg4rAimBVB2TP+kNR4=";
   };
 
   dependencyHash = null;
