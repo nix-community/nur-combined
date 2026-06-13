@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchurl, makeWrapper, nodejs }:
+{ lib, stdenvNoCC, fetchurl, makeWrapper, nodejs, python3 }:
 
 let
   version = "15.12.3";
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
   dontStrip = true;
 
   nativeBuildInputs = [ makeWrapper ];
-  buildInputs = [ nodejs ];
+  buildInputs = [ nodejs python3 ];
 
   installPhase = ''
     runHook preInstall
@@ -36,7 +36,7 @@ stdenvNoCC.mkDerivation {
 
   postInstall = ''
     wrapProgram $out/bin/omp \
-      --prefix PATH : ${lib.makeBinPath [ nodejs ]} \
+      --prefix PATH : ${lib.makeBinPath [ nodejs python3 ]} \
       --set npm_config_nodedir "${nodejs}"
   '';
 
