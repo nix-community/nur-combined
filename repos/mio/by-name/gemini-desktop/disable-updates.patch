@@ -1,5 +1,5 @@
 diff --git a/src/main/managers/updateManager.ts b/src/main/managers/updateManager.ts
-index 7f9739b..a08d669 100644
+index 7f9739b..52a2ffd 100644
 --- a/src/main/managers/updateManager.ts
 +++ b/src/main/managers/updateManager.ts
 @@ -195,35 +195,7 @@ export default class UpdateManager {
@@ -39,3 +39,23 @@ index 7f9739b..a08d669 100644
      }
  
      private getAdapterForUpdateChecks(currentPlatform: NodeJS.Platform): PlatformAdapter {
+@@ -298,9 +270,7 @@ export default class UpdateManager {
+                 } else {
+                     logger.log('No update available (GitHub API)');
+                     if (this.isFirstCheck || this.isManualCheck) {
+-                        this.broadcastToWindows(IPC_CHANNELS.AUTO_UPDATE_NOT_AVAILABLE, {
+-                            version: app.getVersion(),
+-                        });
++                        // no-op
+                     }
+                 }
+             } catch (error) {
+@@ -502,7 +472,7 @@ export default class UpdateManager {
+         updater.on('update-not-available', (info: UpdateInfo) => {
+             logger.log(`No update available (current: ${info.version})`);
+             if (this.isFirstCheck || this.isManualCheck) {
+-                this.broadcastToWindows(IPC_CHANNELS.AUTO_UPDATE_NOT_AVAILABLE, info);
++                // no-op
+             } else {
+                 logger.log('Suppressing "up to date" notification (periodic background check)');
+             }
