@@ -92,3 +92,4 @@ jobs:
                   git add _sources pkgs/by-name
                   git diff --staged --quiet || git commit -m "chore: update nvfetcher & vendor hashes"
                   git push
+                  curl -XPOST https://nur-update.nix-community.org/update?repo=moraxyc
