@@ -3,7 +3,7 @@
 (callPackage ./generic.nix { }) {
   name = "fts";
   repo = "duckdb-fts";
-  rev = "6814ec9a7d5fd63500176507262b0dbf7cea0095";
-  hash = "sha256-Cm9RWizvxNwhMKyWWPrkr5SG9kU9NaUWTvWhlLbg1sg=";
+  rev = "50ba657efa1fb8e3daf7eab95eb1896db6d64efb";
+  hash = "sha256-Uv5QlCxaZk5e/6u7awr00G6zGO1Vo+l2YlcXGEk35fU=";
   loadOptions = [ "DONT_LINK" ];
 }

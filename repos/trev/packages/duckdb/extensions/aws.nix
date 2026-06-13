@@ -3,6 +3,6 @@
 (callPackage ./generic.nix { }) {
   name = "aws";
   repo = "duckdb-aws";
-  rev = "38d4ed30b7f5855168f4b494bf9be611c868c69a";
-  hash = "sha256-48LuIbzjPE5bG7RTvVYpoonUg0JS8MGyfxh0R/b1NNQ=";
+  rev = "0fca260b1dd2864a942c83635048cfae8f23c8aa";
+  hash = "sha256-ut7+a6PiR5LWyrITEJaC8MLDrtdqtWyjOaP1hqerllA=";
 }
