@@ -29,6 +29,7 @@ This repository currently exports **22 packages**, **1 library helper**, and pla
 | `wechat-web-devtools-linux` | Linux build of the WeChat Mini Program DevTools |
 | `agentic-contract` | Policy engine CLI for AI agents |
 | `hyprland-mcp-server` | MCP server for Hyprland automation |
+| `oh-my-pi` | AI coding agent CLI/TUI with sub-agent orchestration |
 | `mcp-cli` | Lightweight CLI for interacting with MCP servers |
 
 #### Desktop customization and utilities
@@ -167,13 +168,15 @@ nix.settings.trusted-public-keys = [
 ];
 ```
 
-## Developer Tooling
+## omp (Oh My Pi) Tooling
 
-This repository also carries local OpenCode metadata in `.opencode/`:
+This repository is designed to work with [oh-my-pi](https://github.com/can1357/oh-my-pi), an AI coding agent CLI/TUI.
+Local commands and skills are auto-discovered from `.agents/` when omp is run in this directory:
 
-- `.opencode/command/` contains repo-specific command docs for build, check, commit, and update workflows.
-- `.opencode/skill/nix-packaging/` contains the local Nix packaging skill used for this repo.
-- `.opencode/opencode.jsonc` configures the OpenCode provider and a remote `context7` MCP server.
+- `.agents/command/` — repo-specific commands for build, check, commit, and update workflows.
+  Usage: in omp session, refer to them via their path or name.
+- `.agents/skill/nix-packaging/` — reusable Nix packaging skill this agent follows when writing packages.
+  Usage: in omp session, reference via `skill://nix-packaging`.
 
 ## License
 

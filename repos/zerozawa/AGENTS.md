@@ -1,6 +1,6 @@
 # AGENTS.md - Zerozawa's NUR Repository
 
-This repository is a **Nix User Repository (NUR)** with package definitions, a small library surface, CI filtering logic, and local `.opencode` command/skill metadata.
+This repository is a **Nix User Repository (NUR)** with package definitions, a small library surface, CI filtering logic, and local `.agents` command/skill metadata.
 
 ## Source of Truth
 
@@ -12,8 +12,8 @@ When updating code or documentation, treat these files as authoritative:
 - `ci.nix` - CI build/cache filtering rules
 - `modules/default.nix` - current modules namespace (placeholder)
 - `overlays/default.nix` - current overlays namespace (placeholder)
-- `.opencode/command/*.md` - repo-local OpenCode command docs
-- `.opencode/skill/nix-packaging/SKILL.md` - repo-local Nix packaging skill
+- `.agents/command/*.md` - repo-local omp command docs
+- `.agents/skill/nix-packaging/SKILL.md` - repo-local omp nix-packaging skill
 - `.opencode/opencode.jsonc` - OpenCode config and remote `context7` MCP setup
 
 ## Current Repository Shape
@@ -27,7 +27,7 @@ nur/
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
 ├── overlays/                # placeholder overlays namespace
-└── .opencode/               # local command/skill/config metadata
+└── .agents/                # local omp command/skill metadata
 ```
 
 ## Current Exports
@@ -128,25 +128,25 @@ nix flake show
 nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 ```
 
-## `.opencode` Inventory
+## `.agents` Inventory
 
 ### Commands
 
-- `.opencode/command/build.md`
-- `.opencode/command/check.md`
-- `.opencode/command/commit.md`
-- `.opencode/command/update.md`
-- `.opencode/command/update-all.md`
+- `.agents/command/build.md`
+- `.agents/command/check.md`
+- `.agents/command/commit.md`
+- `.agents/command/update.md`
+- `.agents/command/update-all.md`
 
 These should stay aligned with real attr names from `default.nix` and real workflows from `ci.nix`, `flake.nix`, and package definitions.
 
 ### Skills
 
-- `.opencode/skill/nix-packaging/SKILL.md`
+- `.agents/skill/nix-packaging/SKILL.md`
 
 This skill should stay grounded in the packaging styles actually present in this repo, not only generic nixpkgs examples.
 
-### Config
+### Legacy `.opencode` Config
 
 - `.opencode/opencode.jsonc` configures the provider and a remote `context7` MCP server.
 - `.opencode/package.json` currently depends on `@opencode-ai/plugin`.
@@ -160,19 +160,19 @@ Update docs when any of the following changes:
 - library exports in `lib/default.nix`
 - CI behavior in `ci.nix` or `.github/workflows/build.yml`
 - flake outputs or cache settings in `flake.nix`
-- local OpenCode commands, skills, or config under `.opencode/`
+- local omp commands, skills, or config under `.agents/`
 
 Specific expectations:
 
 - `README.md` should describe the current export surface and user-facing usage.
 - `AGENTS.md` should describe contributor/agent workflow and source-of-truth files.
-- `.opencode/command/*.md` should describe current commands using actual attr names and workflows.
-- `.opencode/skill/nix-packaging/SKILL.md` should reflect current repo packaging patterns.
+- `.agents/command/*.md` should describe current commands using actual attr names and workflows.
+- `.agents/skill/nix-packaging/SKILL.md` should reflect current repo packaging patterns.
 
 ## Common Pitfalls
 
 1. **Documenting from memory instead of code**
-   - Re-read `default.nix`, `lib/default.nix`, and `.opencode/` before editing docs.
+   - Re-read `default.nix`, `lib/default.nix`, and `.agents/` before editing docs.
 
 2. **Treating placeholders as implemented features**
    - `modules` and `overlays` are currently empty placeholders.
