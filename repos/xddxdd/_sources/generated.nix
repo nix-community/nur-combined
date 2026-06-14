@@ -315,12 +315,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.1.75";
+    version = "v7.2.2";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.1.75";
-      hash = "sha256-GQTu7uPlG5ygvezuXOZ2KqEUmdESrOpzuG2rUZnQI5I=";
+      tag = "v7.2.2";
+      hash = "sha256-RSNLXmsri8IUE+OWI7KednqijKx2tBTFw0dMA99WCFQ=";
     };
   };
   cockpy = {
@@ -1294,12 +1294,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9627";
+    version = "b9637";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9627";
-      hash = "sha256-ZCKWZUE2NNWF9G/E22aWxv5B0JdsNZ+wH+JKn4wM7hw=";
+      tag = "b9637";
+      hash = "sha256-jWJf9RRd3J6v3ac4uWDPJQ99cZg/60ofcVN48E7Z4oY=";
     };
   };
   loralib = {
@@ -2363,13 +2363,13 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "b5ec8459c59c71f5e552a5eb62584ee8b2ac0c98";
+    version = "4694efd817fb4f63b33e21d3addc1cd754e57b15";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "b5ec8459c59c71f5e552a5eb62584ee8b2ac0c98";
+      rev = "4694efd817fb4f63b33e21d3addc1cd754e57b15";
       fetchSubmodules = true;
-      hash = "sha256-xyrobMiezQmVx3qLnRUX/uWrf0JLjIRzgUPTPZrKOTc=";
+      hash = "sha256-Y0QdQLaoEvi+UZUW9GRbfPHr1A1zWLRIQwKsUARzXBU=";
     };
     date = "2026-06-14";
   };
