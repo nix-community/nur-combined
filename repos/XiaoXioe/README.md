@@ -139,7 +139,9 @@ Setelah melakukan `home-manager switch`, kamu akan mendapatkan akses ke tiga per
 
 * `freqtrade-setup` — Menjalankan inisialisasi awal. Secara otomatis melakukan *clone*, membuat `.venv`, dan menyinkronkan *branch* jika ada perubahan di `home.nix`.
 * `freqtrade-update` — Membersihkan *cache*, menghapus instalasi lama, dan membangun ulang lingkungan Freqtrade dari nol.
+* `freqtrade-venv` — Shortcut untuk langsung masuk (activate) ke Virtual Environment Freqtrade dengan library C (`ta-lib` dll) yang sudah ter-inject secara dinamis ke shell saat ini.
 * `freqtrade` — *Wrapper* pintar. Memungkinkan kamu mengeksekusi biner Freqtrade secara langsung dari *folder* mana saja tanpa perlu melakukan aktivasi `.venv` manual.
+
 
 ---
 

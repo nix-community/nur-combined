@@ -68,7 +68,7 @@ let
 
     if [ ! -d ".venv" ]; then
       echo "🐍 Membangun Virtual Environment..."
-      ${pkgs.python313}/bin/python -m venv .venv
+      ${cfg.pythonPackage}/bin/python -m venv .venv
     fi
 
     source .venv/bin/activate
@@ -160,6 +160,13 @@ in
       default = [ ];
     };
 
+    pythonPackage = mkOption {
+      type = types.package;
+      default = pkgs.python313;
+      description = "Paket Python yang digunakan untuk membuat virtual environment Freqtrade.";
+    };
+
+
     service = {
       enable = mkEnableOption "Aktifkan otomatisasi background service (Systemd)";
 
@@ -200,6 +207,11 @@ in
       updateScript
       globalWrapper
     ];
+
+    home.shellAliases = {
+      freqtrade-venv = "export LD_LIBRARY_PATH=\"${cLibs}\${LD_LIBRARY_PATH:+:}\$LD_LIBRARY_PATH\" && export PYTHONWARNINGS=\"ignore:The HMAC key is\" && source ${cfg.configDir}/.venv/bin/activate";
+    };
+
 
     # GENERATOR SYSTEMD USER SERVICES
     systemd.user.services = mkIf cfg.service.enable (

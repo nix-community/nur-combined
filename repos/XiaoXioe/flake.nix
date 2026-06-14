@@ -8,23 +8,31 @@
   outputs =
     { self, nixpkgs }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
+      supportedSystems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "x86_64-darwin"
+        "aarch64-darwin"
+      ];
+
+      forEachSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f (import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-      };
-      lib = nixpkgs.lib;
-
-      pkgsPath = ./pkgs;
-
-      packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
-
-      packageNames = builtins.attrNames packageDirs;
+      }));
     in
     {
-      packages.${system} = lib.genAttrs packageNames (
-        name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }
+      packages = forEachSystem (pkgs:
+        let
+          lib = pkgs.lib;
+          pkgsPath = ./pkgs;
+          packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
+          packageNames = builtins.attrNames packageDirs;
+        in
+        lib.genAttrs packageNames (
+          name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }
+        )
       );
+
       homeModules.freqtrade-setup = import ./modules/freqtrade-setup.nix;
     };
 }

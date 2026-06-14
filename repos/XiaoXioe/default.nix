@@ -8,6 +8,14 @@ let
   packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
   packageNames = builtins.attrNames packageDirs;
 in
-lib.genAttrs packageNames (
+(lib.genAttrs packageNames (
   name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }
-)
+)) // {
+  modules = {
+    freqtrade-setup = import ./modules/freqtrade-setup.nix;
+  };
+  homeModules = {
+    freqtrade-setup = import ./modules/freqtrade-setup.nix;
+  };
+}
+
