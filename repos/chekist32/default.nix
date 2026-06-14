@@ -21,4 +21,5 @@ in
   # pkgs
   inherit (import ./pkgs/litecoin { inherit pkgs; }) litecoin litecoin-cli;
   obsidian-plugins = pkgs.lib.recurseIntoAttrs obsidianPkgs.plugins;
+  inherit (import ./pkgs/datamodeler { inherit pkgs; }) datamodeler;
 }
