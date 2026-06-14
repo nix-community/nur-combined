@@ -14,4 +14,5 @@
   overlays = import ./overlays;
 
   tempesta = pkgs.callPackage ./pkgs/tempesta { };
+  dogma = pkgs.callPackage ./pkgs/dogma { };
 }
