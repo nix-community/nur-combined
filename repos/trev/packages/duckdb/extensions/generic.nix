@@ -11,7 +11,7 @@
   rev,
   hash,
   attrName ? lib.replaceStrings [ "_" ] [ "-" ] name,
-  branch ? "main",
+  branch,
   owner ? "duckdb",
   fetchSubmodules ? false,
   loadOptions ? [ ],
