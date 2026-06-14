@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper "$out/share/datamodeler/datamodeler.sh" "$out/bin/datamodeler" \
       --set JAVA_HOME "${jdk17}" \
       --set JDK_HOME  "${jdk17}" \
-      --set _JAVA_OPTIONS "-Djava.library.path=${openjfx17}/modules_libs/javafx.graphics -Dpolyglot.engine.WarnInterpreterOnly=false"
+      --set _JAVA_OPTIONS "-Djava.library.path=${openjfx17}/modules_libs/javafx.graphics:${openjfx17}/modules_libs/javafx.media --add-opens=java.desktop/com.sun.java.swing.plaf.gtk=ALL-UNNAMED -Dpolyglot.engine.WarnInterpreterOnly=false"
   '';
 
   meta = with lib; {
