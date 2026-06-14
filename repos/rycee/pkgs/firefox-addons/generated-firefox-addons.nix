@@ -947,10 +947,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.5";
+      version = "2.0.6";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4848110/batchcamp-2.0.5.xpi";
-      sha256 = "bfc06afd80a0eca770ca974b7e9b9cd538b2203dcbc50a61c0f95315f76456d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4849222/batchcamp-2.0.6.xpi";
+      sha256 = "e79948d04a5bc7f617b17409720903342da90d1ab13754664740288032215520";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -7593,10 +7593,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.23";
+      version = "2.0.24";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840420/kiss_translator-2.0.23.xpi";
-      sha256 = "74727b60677d7edf11cfebf68b7cf478af1ba5bc072c196d5499e4b52863e338";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4849437/kiss_translator-2.0.24.xpi";
+      sha256 = "01d6de13a2ba37ad500fe987c938134baa74f7af984bfb4b18b7b33517446d55";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -13518,10 +13518,10 @@
     };
     "session-sync" = buildMozillaXpiAddon {
       pname = "session-sync";
-      version = "3.3.0";
+      version = "3.3.1";
       addonId = "session-sync@gabrielivanica.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4836887/session_sync-3.3.0.xpi";
-      sha256 = "2c79be2dd0db5d6263825a910931c7734ec0d8f16b71e052b187f761bb298e48";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4849522/session_sync-3.3.1.xpi";
+      sha256 = "ddf2eb2f7b9f04614bd98cde3c84405bf18045252e1f984d0ab30d558fb232a7";
       meta = with lib;
       {
         homepage = "https://github.com/ReDEnergy/SessionSync";
