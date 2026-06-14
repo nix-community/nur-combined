@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  nur,
   ...
 }:
 
@@ -12,6 +11,7 @@
 # https://github.com/rrthomas/pointless-xcompose/blob/master/xcompose
 
 let
+  self = import ../. { inherit pkgs; };
   cfg = config.nagy.xcompose;
   mkXComposeLine = key: lst: ''
     (
@@ -23,7 +23,7 @@ let
                | ${pkgs.perl}/bin/perl -ne 'print uc')
     unumber=$(sed -r 's/^U/0x/' <<< $ucode)
     list=${lib.escapeShellArg lst}
-    name=$(${nur.repos.nagy.unum}/bin/unum $unumber|sed 1d|awk '{$1="";$2="";$3="";$4="";$5=""}1'|xargs)
+    name=$(${self.unum}/bin/unum $unumber|sed 1d|awk '{$1="";$2="";$3="";$4="";$5=""}1'|xargs)
     printf "%-50s : \"%s\" %9s # %s\n" "$list" ${
       lib.escapeShellArg key
     } $ucode "$name"
@@ -141,6 +141,7 @@ let
     "⎎" = [ "<Multi_key>" "<h>" "<y>" "<s>" ];
     # "⎎" = [ "<Multi_key>" "<asciitilde>" "<slash>" ];
     "⑁" = [ "<Multi_key>" "<bar>" "<h>" ];
+    # <dead_breve> == AltGr + Shift + right ctrl
     "🞋" = [ "<dead_breve>" "<t>" ];
     "🞖" = [ "<dead_breve>" "<T>" ];
     "🞜" = [ "<dead_breve>" "<R>" ];
@@ -164,6 +165,7 @@ let
     "∑" = [ "<Multi_key>" "<s>" "<u>" "<m>" ];
     "󱗼" = [ "<Multi_key>" "<oslash>" ];
 
+    # <dead_belowdot> == AltGr + j
     "🔳" = [ "<dead_belowdot>" "<oslash>" ];
     "🔲" = [ "<dead_belowdot>" "<Oslash>" ];
     "🌊" = [ "<dead_belowdot>" "<EuroSign>" ];
@@ -176,6 +178,7 @@ let
     "💢" = [ "<dead_belowdot>" "<ae>" ];
     "💧" = [ "<dead_belowdot>" "<eth>" ];
 
+    # <dead_diaeresis> == AltGr + ü
     "↞" = [ "<dead_diaeresis>" "<f>" ];
     "↠" = [ "<dead_diaeresis>" "<g>" ];
     # alt gr
