@@ -208,9 +208,16 @@ in
       globalWrapper
     ];
 
-    home.shellAliases = {
+    programs.bash.shellAliases = {
       freqtrade-venv = "export LD_LIBRARY_PATH=\"${cLibs}\${LD_LIBRARY_PATH:+:}\$LD_LIBRARY_PATH\" && export PYTHONWARNINGS=\"ignore:The HMAC key is\" && source ${cfg.configDir}/.venv/bin/activate";
     };
+    programs.zsh.shellAliases = {
+      freqtrade-venv = "export LD_LIBRARY_PATH=\"${cLibs}\${LD_LIBRARY_PATH:+:}\$LD_LIBRARY_PATH\" && export PYTHONWARNINGS=\"ignore:The HMAC key is\" && source ${cfg.configDir}/.venv/bin/activate";
+    };
+    programs.fish.shellAliases = {
+      freqtrade-venv = "set -gx LD_LIBRARY_PATH \"${cLibs}\" \$LD_LIBRARY_PATH; set -gx PYTHONWARNINGS \"ignore:The HMAC key is\"; source ${cfg.configDir}/.venv/bin/activate.fish";
+    };
+
 
 
     # GENERATOR SYSTEMD USER SERVICES
