@@ -4,7 +4,7 @@
   name = "vss";
   repo = "duckdb-vss";
   branch = "v1.5-variegata";
-  rev = "1ef3ea6acbc22869c679d35ab430e92eb7248f39";
-  hash = "sha256-8KjUqpFdcq2m/DmTybxKL/auB0lKIeGjgwD4UgAItj0=";
+  rev = "b833341c8737fd3f3558c7720cc575ae8fc82598";
+  hash = "sha256-txtsTm3OGNDGI5jeMvy9JA7R6pzb22gy5ArxTVc2Usw=";
   loadOptions = [ "DONT_LINK" ];
 }

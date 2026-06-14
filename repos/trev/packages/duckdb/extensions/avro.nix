@@ -4,6 +4,6 @@
   name = "avro";
   repo = "duckdb-avro";
   branch = "v1.5-variegata";
-  rev = "0e499606ab97f96f83d017c1720f1149d510b337";
-  hash = "sha256-HniFvjRnRnqJ34Vxh8I4pu4y4KZEzpMaHCfFZsntyCw=";
+  rev = "f9d590297485f0318f480372c70bdd852826e258";
+  hash = "sha256-1JiLOHgnqd7Oao3S8W2/erlqi8fgvpbHXSURhigBQSM=";
 }
