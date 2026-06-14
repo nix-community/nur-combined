@@ -11,14 +11,14 @@
   yarnConfigHook,
   # keep-sorted end
 }: let
-  version = "2.9.1-unstable-2026-06-09";
-  rev = "0e32e56f6736bf6640120429827eb64f76fe97fb";
+  version = "2.9.1-unstable-2026-06-13";
+  rev = "1b42270f6d46dcb5cae30be89c7725c63756dc1f";
 
   src = fetchFromGitHub {
     owner = "gotify";
     repo = "server";
     inherit rev;
-    hash = "sha256-omFRx8K4acny51muuY8c8TrC6PTQs9k5egzMpnp6wAY=";
+    hash = "sha256-1z29zgsimrMooblpgaWrfwFvPxs4yBCP0Z+Wod6hyG4=";
   };
 
   ui = stdenvNoCC.mkDerivation {
