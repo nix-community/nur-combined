@@ -29,7 +29,7 @@
 
     yarnOfflineCache = fetchYarnDeps {
       yarnLock = "${src}/ui/yarn.lock";
-      hash = "sha256-Oxhg0fDwdHrUwLkrkH0s6oiLUkHG6gH8FUmZM/Wcecc=";
+      hash = "sha256-NzAGtVTd7PXsD9vLJmHC9CPF98ewwAS0PvsQT+fWcAo=";
     };
 
     nativeBuildInputs = [

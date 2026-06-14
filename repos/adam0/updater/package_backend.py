@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import logging
 import re
+import subprocess
 from pathlib import Path
 
 from .manifest import latest_release_prefix_for_url, package_has_manifest_updater
@@ -58,7 +59,7 @@ def update_package(
 
         if validation.dependency_hash_refresh_allowed:
             try:
-                _refresh_dependency_hash(ref, timeout=timeout)
+                _refresh_dependency_hashes(ref, timeout=timeout)
             except CommandError as error:
                 transaction.restore()
                 logger.info(
@@ -160,18 +161,53 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
     run(command, timeout=timeout)
 
 
-def _refresh_dependency_hash(ref: PackageRef, *, timeout: str | None) -> None:
-    text = ref.file_path.read_text()
-    if not re.search(r'dependencyHash = "sha256-[^"]+";', text):
-        return
-    ref.file_path.write_text(
-        re.sub(
+def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> None:
+    replacements = [
+        (
             r'dependencyHash = "sha256-[^"]+";',
             "dependencyHash = lib.fakeHash;",
-            text,
+            r"dependencyHash = lib\.fakeHash;",
+            'dependencyHash = "{hash}";',
+        ),
+        (
+            r'(fetchYarnDeps\s*\{[^}]*?hash\s*=\s*)"sha256-[^"]+";',
+            r"\1lib.fakeHash;",
+            r"(fetchYarnDeps\s*\{[^}]*?hash\s*=\s*)lib\.fakeHash;",
+            '{prefix}"{hash}";',
+        ),
+    ]
+
+    for pattern, replacement, fake_pattern, final_template in replacements:
+        text, count = re.subn(pattern, replacement, ref.file_path.read_text(), count=1, flags=re.S)
+        if not count:
+            continue
+        ref.file_path.write_text(text)
+        refreshed = ref.file_path.read_text()
+        got_hash = _last_got_hash(ref, timeout=timeout)
+        updated, count = re.subn(
+            fake_pattern,
+            lambda found: final_template.format(
+                prefix=found.group(1) if found.groups() else "", hash=got_hash
+            ),
+            refreshed,
             count=1,
+            flags=re.S,
         )
-    )
+        if count:
+            ref.file_path.write_text(updated)
+
+
+def _last_got_hash(ref: PackageRef, *, timeout: str | None) -> str:
+    result = _build_with_fake_hash(ref, timeout=timeout)
+    match = re.search(r"^\s*got:\s*(sha256-[A-Za-z0-9+/=]+)$", result.stderr + result.stdout, re.M)
+    if not match:
+        raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
+    return match.group(1)
+
+
+def _build_with_fake_hash(
+    ref: PackageRef, *, timeout: str | None
+) -> subprocess.CompletedProcess[str]:
     if ref.source_kind == "flake":
         result = run(
             ["nix", "build", f".#{ref.attr_path}", "--no-link"],
@@ -184,16 +220,4 @@ def _refresh_dependency_hash(ref: PackageRef, *, timeout: str | None) -> None:
             timeout=timeout,
             check=False,
         )
-    if result.returncode == 0:
-        return
-    match = re.search(r"^\s*got:\s*(sha256-[A-Za-z0-9+/=]+)$", result.stderr + result.stdout, re.M)
-    if not match:
-        raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
-    ref.file_path.write_text(
-        re.sub(
-            r"dependencyHash = lib\.fakeHash;",
-            f'dependencyHash = "{match.group(1)}";',
-            ref.file_path.read_text(),
-            count=1,
-        )
-    )
+    return result
