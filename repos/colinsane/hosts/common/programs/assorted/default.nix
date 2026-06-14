@@ -174,6 +174,7 @@ in
       "htop"  # needed as a user package, for ~/.config/htop
       "hyperfine"  # benchmarking tool
       # "kagi"
+      "kagi-ken-cli"
       "lddtree"
       # "libsecret"  # for managing user keyrings (secret-tool)
       # "lm_sensors"  # for sensors-detect

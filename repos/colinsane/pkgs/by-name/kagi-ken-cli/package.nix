@@ -43,15 +43,18 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace pnpm-lock.yaml \
       --replace-fail 'kagi-ken#1.0.0' 'kagi-ken#1.3.0'
+
+    substituteInPlace src/utils/auth.js \
+      --replace-fail 'path.join(os.homedir(), ".kagi_session_token")' \
+                     'path.join(os.homedir(), ".config/kagi/kagi_session_token")'
   '';
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname postPatch src version;
     inherit pnpm;
     # <https://nixos.org/manual/nixpkgs/stable/#javascript-pnpm-fetcherVersion-versionHistory>
-    # latest version at time of writing is `3`, however anything past `1` fails fixupPhase.
-    fetcherVersion = 1;
-    hash = "sha256-gCQQw99D0nLOtflsEkag/9MJLKtYCWBboPdRGpmBK2Q=";
+    fetcherVersion = 3;
+    hash = "sha256-+Oy6xjjUuTU83xw5FidvgjXDPu/0xufeUyoCqvkR2xY=";
   };
 
 

@@ -52,9 +52,12 @@ in
       alias.co      = "checkout";
       alias.com     = "commit";
       alias.cp      = "cherry-pick";
-      alias.d       = "difftool";
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
+      # use `GIT_EXTERNAL_DIFF=difft git log --patch --ext-diff`
+      # alias.pdiff   = "difftool";
+      alias.plog    = "!git log --patch --ext-diff";  # TODO: also needs -c diff.external=difft ?
+      alias.pshow   = "!git show --ext-diff";  # TODO: also needs -c diff.external=difft ?
       alias.pul     = "pull";  # common typo
       alias.rb      = "rebase";
       alias.reset-head = "reset --hard HEAD";
@@ -79,6 +82,13 @@ in
       log.follow = true;  #< make `git log PATH` behave like `git log --follow PATH`
       log.showSignature = false;
 
+      merge.autoStash = true;
+      merge.conflictStyle = "zdiff3";
+
+      pull.autoStash = true;  # `git pull` on a dirty tree will stash, pull, then `stash apply`
+      pull.rebase = true;  # make `git pull` behave like `git pull --rebase`.
+
+      push.autoSetupRemote = true;
       push.default = "current";  #< `git push origin` will push the current branch to origin
 
       rebase.autoStash = true;  #< make `git rebase FOO` behave as `git stash && git rebase FOO && git stash apply`

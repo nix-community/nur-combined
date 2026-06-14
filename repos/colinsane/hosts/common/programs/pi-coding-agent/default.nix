@@ -56,6 +56,7 @@ in
     });
 
     suggestedPrograms = [
+      "kagi-ken-cli"
       # "nanogpt-mcp"
       "nanogpt-api"
       "nix-prefetch-git"  # agents make use of this
@@ -64,6 +65,7 @@ in
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
+      ".config/kagi/kagi_session_token"
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
       ".pi"  #< default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
@@ -74,6 +76,9 @@ in
     sandbox.extraPaths = [
       "/nix/var/nix/daemon-socket"
     ];
+
+    # sandbox.whitelistWayland = true;  # for pi-md-export -> wl-copy
+    # sandbox.keepPidsAndProc = true;  #< likely required for wl-copy to work
 
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];
@@ -97,12 +102,16 @@ in
         pkgs.edb-context-viewer
         # adds `/diff-files` slash command
         pkgs.edb-diff-files
+        # adds `/md` slash command
+        pkgs.pi-md-export
         # adds `/simplify` slash command
         pkgs.pi-simplify
         # makes the input textarea behave like vim
         pkgs.pi-vim
         #  adds `/caveman` slash command
         pkgs.pi-caveman
+        #  adds `/move-session` slash command
+        pkgs.pi-move-session
       ];
       enabledModels = [
         # default set for Ctrl+P cycling
@@ -111,6 +120,9 @@ in
         "llama-cpp/${llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id}"
         "llama-cpp/${llamaCppModels.gemma-4-31b-it-qat-ud-q4_k_xl.id}"
         "google/gemma-4-31b-it"
+        "moonshotai/kimi-latest"
+        "deepseek/deepseek-latest"
+        "zai-org/glm-latest"
         "x-ai/grok-latest"
         "openai/gpt-chat-latest"
         "google/gemini-pro-latest"
@@ -213,13 +225,16 @@ in
       Guidelines:
       - Use bash for file operations like ls, rg, find
       - Prefer rg over grep as it honors files such as .gitignore
-      - Use `nanogpt-api search` for web searches
-      - ~/ref/repos contains several hundred git checkouts organized by $owner/$repo: consult these first when looking for third-party sources
+      - Use `kagi-ken-cli search` (from bash) for web searches
+      - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
       - Prefer minimal changes
       - Always verify your work by building relevant targets, invoking tests, or invoking the actual code in a non-destructive manner (e.g. dry-run)
       - Be concise in your responses and comments
 
-      N.B.: Future instructions may make reference to hg (mercurial), but the remote may be hg even as the checkout is git (via e.g. git-cinnabar): use whichever frontend matches the local checkout.
+      Things to know about this environment:
+      - ~/ref/repos contains several hundred git checkouts organized by $owner/$repo: consult these first when looking for third-party sources. When cloning public repos, place them in this directory rather than a temporary directory, and follow existing name conventions. Always perform full clones -- disk space is cheap.
+      - This is a git-focused environment. Projects or instructions may reference mercurial: fall back to `git` (cinnabar) operations at the earliest sign that `hg` is inoperational.
+      - Although a nix-based environment, `NIX_PATH` may not be set. This is intentional: invoke nix commands (`nix-build`, `nix-env`, etc) exactly as the user has specified.
     '';
 
     # for consideration:
@@ -227,5 +242,7 @@ in
     # - Use `nix-build ~/dev/3rd/nixpkgs -A PACKAGE` to access binaries for any other package
     # - Also consider `nix-build ~/dev/3rd/nixpkgs -A PACKAGE.src` to access sources
     # - Show file paths clearly when working with files
+    # - N.B.: Future instructions may make reference to hg (mercurial), but the remote may be hg even as the checkout is git (via e.g. git-cinnabar): use whichever frontend matches the local checkout.
+    # - Use `nanogpt-api search` (from bash) for web searches
   };
 }
