@@ -4,18 +4,18 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dogma";
-  version = "0.1.0"; # without "v"
+  version = "0.2.2"; # without "v"
 
   # Pin the source to an immutable tag/commit
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "dogma";
     rev = "v${version}";
-    hash = "sha256-N0ge3j1BuiGR0zxaXv+5Ya/h8sR+kZEoKgzmqf+pZzk=";
+    hash = "sha256-0IhLBGtqjOvXXrcJhYoAEZ5YbuNnU2u7WcTJ0ET92VE=";
   };
 
   # Cargo dependency vendor hash (computed by Nix)
-  cargoHash = "sha256-TQHmxI4kzGVkkIzBLiDZarN+ErWYH2oSJFLYVuVqLLs=";
+  cargoHash = "sha256-E3FgqSoRYS0PiZfw1dYvRS8S7vo3xBsLTPp38FwgWdw=";
 
   nativeBuildInputs = lib.optional completion.enable installShellFiles;
 
