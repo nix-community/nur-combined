@@ -4,6 +4,6 @@
   name = "ducklake";
   repo = "ducklake";
   branch = "v1.5-variegata";
-  rev = "478761c19aa1a8d198f313d7edddc4a440631c33";
-  hash = "sha256-6ATPykbSTvSya9U4WcJmfSV1DdedxJ31q97CTqxuxx0=";
+  rev = "d318a545571d7d46eb751fa2aa5f6f4389285d3c";
+  hash = "sha256-qq+U3+X2cGtw91/WnhJJG2WyWQflkJMuBvGjQ0si2DY=";
 }

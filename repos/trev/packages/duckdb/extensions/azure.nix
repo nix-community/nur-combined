@@ -4,6 +4,6 @@
   name = "azure";
   repo = "duckdb-azure";
   branch = "v1.5-variegata";
-  rev = "a0e1ff30a074e2d8c17d7c861d4df07461029b27";
-  hash = "sha256-+Zsi2yiAcAvXrkyjDlcCWmzqCBlt+AO4StWjSUiRbyk=";
+  rev = "563589b2f24290a4dcdd4247eaedf2b544f9dbcd";
+  hash = "sha256-4gnj1OCdyhFosaCPVmiyFx9nSCSemNRxIC+nmVwtHjs=";
 }
