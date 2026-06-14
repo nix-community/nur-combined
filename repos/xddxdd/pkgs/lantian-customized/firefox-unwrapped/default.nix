@@ -4,8 +4,7 @@
   sources,
 }:
 firefox-unwrapped.overrideAttrs (old: {
-  version = lib.removePrefix "v" (lib.last (lib.splitString "/" sources.invisible-firefox.version));
-  inherit (sources.invisible-firefox) src;
+  inherit (sources.invisible-firefox) version src;
 
   # Skip macOS specific patches
   prePatch = (old.prePatch or "") + ''

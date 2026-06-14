@@ -3,9 +3,9 @@ fetch.github = "musikid/acpi_ec"
 src.github = "musikid/acpi_ec"
 
 [adspower]
-fetch.url = "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-$ver-x64.deb"
+fetch.url = "https://version.adspower.net/software/linux-x64-global/$ver/AdsPower-Global-$ver-x64.deb"
 src.webpage = "https://www.adspower.com/download"
-src.regex = "\"https://version.adspower.net/software/linux-x64-global/AdsPower-Global-([^\"]+)-x64.deb\""
+src.regex = "\"https://version.adspower.net/software/linux-x64-global/[^\"]+/AdsPower-Global-([^\"]+)-x64.deb\""
 
 [amule-dlp]
 fetch.github = "persmule/amule-dlp"
@@ -466,8 +466,8 @@ src.github = "share121/inter-knot"
 
 [invisible-firefox]
 fetch.github = "feder-cr/invisible-firefox"
-src.github_tag = "feder-cr/invisible-firefox"
-src.include_regex = "^stealth.*$"
+src.git = "https://github.com/feder-cr/invisible-firefox.git"
+src.branch = "stealth/150"
 
 [ja4-nginx-module]
 fetch.github = "FoxIO-LLC/ja4-nginx-module"

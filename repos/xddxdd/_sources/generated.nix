@@ -18,10 +18,10 @@
   };
   adspower = {
     pname = "adspower";
-    version = "7.3.26";
+    version = "8.6.3";
     src = fetchurl {
-      url = "https://version.adspower.net/software/linux-x64-global/AdsPower-Global-7.3.26-x64.deb";
-      hash = "sha256-odERZUvdne2dGlPgeVo7vX1oOHeDfcmAdhsK95uTqHA=";
+      url = "https://version.adspower.net/software/linux-x64-global/8.6.3/AdsPower-Global-8.6.3-x64.deb";
+      hash = "sha256-GtT/tXILyh+cycYAI733VML7CBLObxg09Yl+OQe+nGM=";
     };
   };
   amule-dlp = {
@@ -1050,13 +1050,14 @@
   };
   invisible-firefox = {
     pname = "invisible-firefox";
-    version = "stealth-head/v150.0.1";
+    version = "acbb6973d0a629aa1044a1b432653072188a251e";
     src = fetchFromGitHub {
       owner = "feder-cr";
       repo = "invisible-firefox";
-      tag = "stealth-head/v150.0.1";
-      hash = "sha256-BGbDsM+2awDptg1jqPz9cLxCHKsB4fcgSv8FAlbzedc=";
+      rev = "acbb6973d0a629aa1044a1b432653072188a251e";
+      hash = "sha256-Qysf9mFUS5Vy9gbHyYh9B0FueegbDMTOw/s7zGvepA8=";
     };
+    date = "2026-06-11";
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
