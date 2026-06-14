@@ -30,7 +30,7 @@ in {
     "farbfeld screenshot utility"
     {
       version = "1.0.0";
-      buildInputs = with pkgs.xorg; [libxcb xcbutilimage];
+      buildInputs = with pkgs; [libxcb libxcb-image];
     }
     {
       repo = "ffshot";
