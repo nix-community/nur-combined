@@ -9,8 +9,8 @@
     hash = "sha256-VNeTjX2JL8c4iQmGt0EVz07RHX50usaIjpEuzXg9uDc=";
   };
 
-  pname = "idea-community";
-
+  pname = "idea-oss";
+  dontBuild = true;
   wmClass = "jetbrains-idea-community";
   product = "IntelliJ IDEA Community";
   productShort = "IDEA";
