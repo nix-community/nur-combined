@@ -37,6 +37,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     ];
 
     dontConfigure = true;
+    dontFixup = true;
 
     buildPhase = ''
       runHook preBuild
