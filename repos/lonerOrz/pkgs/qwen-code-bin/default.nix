@@ -1,6 +1,5 @@
 {
   lib,
-  nodejs_20,
   buildNpmPackage,
   fetchurl,
   fetchNpmDeps,
@@ -33,8 +32,6 @@ buildNpmPackage (finalAttrs: {
 
   # The package from npm is already built
   dontNpmBuild = true;
-
-  nodejs = nodejs_20;
 
   npmFlags = [ "--ignore-scripts" ];
 
