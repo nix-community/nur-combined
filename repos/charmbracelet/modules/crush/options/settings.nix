@@ -342,6 +342,12 @@ lib.mkOption {
               description = "List of built-in tools to disable and hide from the agent";
             };
 
+            global_context_paths = lib.mkOption {
+              type = lib.types.nullOr (lib.types.listOf lib.types.str);
+              default = [ ];
+              description = "Paths to files containing global context information for the AI";
+            };
+
             initialize_as = lib.mkOption {
               type = lib.types.nullOr lib.types.str;
               default = "AGENTS.md";
