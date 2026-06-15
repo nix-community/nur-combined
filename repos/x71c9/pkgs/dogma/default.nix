@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
       
       generateCompletions = shell: ''
         mkdir -p $out/${shellCompletionDir.${shell}}
-        $out/bin/dogma completion ${shell} > $out/${shellCompletionDir.${shell}}/${shellCompletionFile.${shell}}
+        $out/bin/dogma completions ${shell} > $out/${shellCompletionDir.${shell}}/${shellCompletionFile.${shell}}
       '';
     in
       lib.concatMapStringsSep "\n" generateCompletions completion.shells
