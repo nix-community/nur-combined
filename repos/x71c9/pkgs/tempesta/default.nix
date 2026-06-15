@@ -14,8 +14,10 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-sOtZWTpXjGwWITErIiQqUq7zVOUFHJ8FnF4sx2qyhik=";
   };
 
-  # Cargo dependency vendor hash (computed by Nix)
-  cargoHash = "sha256-vGiNQ330d40OFKGMGIow8mGnYKfvSDHqbXaS4/24RhQ=";
+  # Vendor Cargo dependencies from the committed lockfile.
+  # Avoids the crates.io download API (HTTP 403) used by fetch-cargo-vendor;
+  # registry crates are fetched from static.crates.io instead.
+  cargoLock.lockFile = ./Cargo.lock;
 
   nativeBuildInputs = lib.optional completion.enable installShellFiles;
 
