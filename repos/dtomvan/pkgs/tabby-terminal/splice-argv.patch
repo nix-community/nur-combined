@@ -1,0 +1,13 @@
+diff --git i/app/lib/cli.ts w/app/lib/cli.ts
+index 6666d02e..3a5c7bd3 100644
+--- i/app/lib/cli.ts
++++ w/app/lib/cli.ts
+@@ -126,7 +126,7 @@ function createParserFromConfig (config: ParserConfig) {
+ }
+
+ export function parseArgs (argv: string[], cwd: string): any {
+-    const args = argv[0].includes('node') ? argv.slice(2) : argv.slice(1)
++    const args = argv.slice(2)
+     const config = createParserConfig(cwd)
+     const parser = createParserFromConfig(config)
+     return parser.parse(args)

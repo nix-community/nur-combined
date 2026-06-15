@@ -13,14 +13,12 @@
       inputs.flake-parts.follows = "";
       inputs.home-manager.follows = "";
       inputs.lazy-apps.follows = "";
-      inputs.mwg.follows = "";
       inputs.ncro.follows = "";
       inputs.nix-cache-beacon.follows = "";
       inputs.nix-index-database.follows = "";
       inputs.nixos-small.follows = "";
       inputs.nixvim.follows = "";
       inputs.noctalia.follows = "";
-      inputs.noctalia-shell.follows = "";
       inputs.nur.follows = "";
       inputs.plasma-manager.follows = "";
       inputs.sops.follows = "";

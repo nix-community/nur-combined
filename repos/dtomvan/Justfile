@@ -20,9 +20,12 @@ build:
     nom-build ci.nix -A buildPkgs --keep-going -j 2
 
 push +WHAT='updates':
+    #!/usr/bin/env bash
     jj config set --repo templates.git_push_bookmark '"\"updates-\" ++ author.timestamp().format(\"%F\")"'
     jj git push -c @-
+    head="$(jj show -r 'closest_bookmark(@)' -T 'bookmarks.map(|b| b.name())' --no-patch | tr ' ' '\n' | sort | head -n1)"
     fj --host git.toostveen.nl pr create \
-        --head "$(jj show -r 'closest_bookmark(@)' -T 'bookmarks.map(|b| b.name())' --no-patch | tr ' ' '\n' | sort | head -n1)" \
+        --head "$head" \
         --base master \
         --autofill
+    gh workflow run build.yml --ref "$head"
