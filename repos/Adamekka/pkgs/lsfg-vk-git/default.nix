@@ -38,6 +38,28 @@ llvmPackages.stdenv.mkDerivation {
     "-DLSFGVK_LAYER_LIBRARY_PATH=${builtins.placeholder "out"}/lib/liblsfg-vk-layer.so"
   ];
 
+  # The Qt Quick UI does not inherit the system dark theme consistently.
+  postPatch = ''
+    substituteInPlace lsfg-vk-ui/rsc/UI.qml \
+      --replace-fail '    visible: true' '    visible: true
+
+    color: palette.window
+    palette.alternateBase: "#242424"
+    palette.base: "#1b1b1b"
+    palette.brightText: "#ffffff"
+    palette.button: "#303030"
+    palette.buttonText: "#eeeeee"
+    palette.dark: "#181818"
+    palette.highlight: "#3584e4"
+    palette.highlightedText: "#ffffff"
+    palette.light: "#4a4a4a"
+    palette.mid: "#343434"
+    palette.placeholderText: "#9a9a9a"
+    palette.text: "#eeeeee"
+    palette.window: "#1e1e1e"
+    palette.windowText: "#eeeeee"'
+  '';
+
   passthru.updateScript = unstableGitUpdater {
     branch = "develop";
     # Upstream's stable tags are still 1.x; this package follows 2.0 development.
