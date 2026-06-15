@@ -424,6 +424,10 @@ src.to_pattern = "\\1"
 fetch.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 src.git = "https://gitlab.com/YuukiPS/GC-Resources.git"
 
+[grok-search-rs]
+fetch.github = "Episkey-G/GrokSearch-rs"
+src.github = "Episkey-G/GrokSearch-rs"
+
 [gwmp-mux]
 fetch.github = "helium/gwmp-mux"
 src.github = "helium/gwmp-mux"

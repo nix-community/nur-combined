@@ -950,6 +950,16 @@
     };
     date = "2024-12-22";
   };
+  grok-search-rs = {
+    pname = "grok-search-rs";
+    version = "v0.1.17";
+    src = fetchFromGitHub {
+      owner = "Episkey-G";
+      repo = "GrokSearch-rs";
+      tag = "v0.1.17";
+      hash = "sha256-wvoUNoQfFFkxIgJlyXmHwBQ38U5KPkpAGX/GMw6KyLo=";
+    };
+  };
   gwmp-mux = {
     pname = "gwmp-mux";
     version = "v0.11.0";

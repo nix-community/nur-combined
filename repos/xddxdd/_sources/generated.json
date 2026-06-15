@@ -1837,6 +1837,27 @@
         },
         "version": "6e83bd13ba95d07e017ebaf4037dbd76ac76fda7"
     },
+    "grok-search-rs": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "grok-search-rs",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Episkey-G",
+            "repo": "GrokSearch-rs",
+            "rev": "v0.1.17",
+            "sha256": "sha256-wvoUNoQfFFkxIgJlyXmHwBQ38U5KPkpAGX/GMw6KyLo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.17"
+    },
     "gwmp-mux": {
         "cargoLock": null,
         "date": null,
