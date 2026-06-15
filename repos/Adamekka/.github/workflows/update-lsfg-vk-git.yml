@@ -1,0 +1,38 @@
+name: Update lsfg-vk-git
+
+on:
+  schedule:
+    - cron: "30 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update lsfg-vk-git
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Update package
+        run: nix run nixpkgs#nix-update -- --flake --use-update-script lsfg-vk-git
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: pkgs/lsfg-vk-git/default.nix
+          branch: update/lsfg-vk-git
+          commit-message: Update lsfg-vk-git
+          delete-branch: true
+          title: Update lsfg-vk-git
+          body: |
+            Automated update for `lsfg-vk-git` from the upstream `develop` branch.
