@@ -104,22 +104,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "997495c09ab601f0314639898aab063bea4a8769";
+    version = "1016ee6a6333f678aa4d497230f8facba9ddf60e";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "997495c09ab601f0314639898aab063bea4a8769";
+      rev = "1016ee6a6333f678aa4d497230f8facba9ddf60e";
       fetchSubmodules = false;
-      sha256 = "sha256-Fgdot5eBtz0j4D6h2Mi60mBxMjss/jg79tRxjF9UCAE=";
+      sha256 = "sha256-Po/CAZyU3Hfhqv1t/R4IpjYhJQp7uW9tF9/tc7zXcPY=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-Fgdot5eBtz0j4D6h2Mi60mBxMjss_jg79tRxjF9UCAE=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-Fgdot5eBtz0j4D6h2Mi60mBxMjss_jg79tRxjF9UCAE=/web/package-lock.json";
-    };date = "2026-06-13";
+      "web/package.json" = ./. + "/sha256-Po_CAZyU3Hfhqv1t_R4IpjYhJQp7uW9tF9_tc7zXcPY=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-Po_CAZyU3Hfhqv1t_R4IpjYhJQp7uW9tF9_tc7zXcPY=/web/package-lock.json";
+    };date = "2026-06-16";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.10.7";
+    version = "v1.10.8";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -430,6 +430,24 @@
       fetchSubmodules = false;
       sha256 = "sha256-lwFBevf3iP90LgnfUqweCjPBJPr2vMFtRqQXXUC+cRA=";
     };
+  };
+  microfetch = {
+    pname = "microfetch";
+    version = "b43d88c749048b87e7d39a0a8ae45782ae597f76";
+    src = fetchFromGitHub {
+      owner = "NotAShelf";
+      repo = "microfetch";
+      rev = "b43d88c749048b87e7d39a0a8ae45782ae597f76";
+      fetchSubmodules = false;
+      sha256 = "sha256-9w1SCAnjVUyP4zeHBd1i9f3oLSi1oKmenELjLiWG/3k=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-9w1SCAnjVUyP4zeHBd1i9f3oLSi1oKmenELjLiWG_3k=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-06-15";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";

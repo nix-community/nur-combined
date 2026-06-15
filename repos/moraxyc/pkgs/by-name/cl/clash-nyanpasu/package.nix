@@ -217,6 +217,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     mainProgram = "Clash Nyanpasu";
     maintainers = with lib.maintainers; [ moraxyc ];
-    broken = stdenv.hostPlatform.isDarwin; # Abort trap: 6 pnpm install
+    broken = with stdenv.hostPlatform; isDarwin || (isAarch64 && isLinux);
   };
 })

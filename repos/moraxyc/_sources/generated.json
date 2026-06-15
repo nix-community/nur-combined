@@ -158,10 +158,10 @@
     },
     "cpa-usage-keeper": {
         "cargoLock": null,
-        "date": "2026-06-13",
+        "date": "2026-06-16",
         "extract": {
-            "web/package-lock.json": "sha256-Fgdot5eBtz0j4D6h2Mi60mBxMjss_jg79tRxjF9UCAE=/web/package-lock.json",
-            "web/package.json": "sha256-Fgdot5eBtz0j4D6h2Mi60mBxMjss_jg79tRxjF9UCAE=/web/package.json"
+            "web/package-lock.json": "sha256-Po_CAZyU3Hfhqv1t_R4IpjYhJQp7uW9tF9_tc7zXcPY=/web/package-lock.json",
+            "web/package.json": "sha256-Po_CAZyU3Hfhqv1t_R4IpjYhJQp7uW9tF9_tc7zXcPY=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -173,12 +173,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "997495c09ab601f0314639898aab063bea4a8769",
-            "sha256": "sha256-Fgdot5eBtz0j4D6h2Mi60mBxMjss/jg79tRxjF9UCAE=",
+            "rev": "1016ee6a6333f678aa4d497230f8facba9ddf60e",
+            "sha256": "sha256-Po/CAZyU3Hfhqv1t/R4IpjYhJQp7uW9tF9/tc7zXcPY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "997495c09ab601f0314639898aab063bea4a8769"
+        "version": "1016ee6a6333f678aa4d497230f8facba9ddf60e"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -193,7 +193,7 @@
             "type": "url",
             "url": "file:///dev/null"
         },
-        "version": "v1.10.7"
+        "version": "v1.10.8"
     },
     "cronet-go": {
         "cargoLock": null,
@@ -735,6 +735,32 @@
             "type": "github"
         },
         "version": "v1.1"
+    },
+    "microfetch": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-9w1SCAnjVUyP4zeHBd1i9f3oLSi1oKmenELjLiWG_3k=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-06-15",
+        "extract": null,
+        "name": "microfetch",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "NotAShelf",
+            "repo": "microfetch",
+            "rev": "b43d88c749048b87e7d39a0a8ae45782ae597f76",
+            "sha256": "sha256-9w1SCAnjVUyP4zeHBd1i9f3oLSi1oKmenELjLiWG/3k=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b43d88c749048b87e7d39a0a8ae45782ae597f76"
     },
     "mm-geofeed-verifier": {
         "cargoLock": null,

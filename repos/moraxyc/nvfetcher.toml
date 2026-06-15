@@ -68,14 +68,14 @@ src.sort_version_key = "parse_version"
 src.prefix = "v"
 fetch.url = "file:///dev/null"
 
-[english_words]
-src.git = "https://github.com/dwyl/english-words.git"
-fetch.github = "dwyl/english-words"
-
 [elio]
 src.github = "elio-fm/elio"
 fetch.github = "elio-fm/elio"
 cargo_lock = ["Cargo.lock"]
+
+[english_words]
+src.git = "https://github.com/dwyl/english-words.git"
+fetch.github = "dwyl/english-words"
 
 [exloli-next]
 src.git = "https://github.com/lolishinshi/exloli-next"
@@ -163,6 +163,11 @@ src.branch = "release"
 [metacubex-geo]
 src.github = "metacubex/geo"
 fetch.github = "metacubex/geo"
+
+[microfetch]
+src.git = "https://github.com/NotAShelf/microfetch"
+fetch.github = "NotAShelf/microfetch"
+cargo_lock = ["Cargo.lock"]
 
 [mm-geofeed-verifier]
 src.github = "maxmind/mm-geofeed-verifier"
