@@ -29,7 +29,10 @@
   webkitgtk_4_1,
   wrapGAppsHook4,
   xdotool,
+  yq-go,
   zstd,
+
+  enableLTO ? false,
 
   sources,
   source ? sources.clash-nyanpasu,
@@ -98,6 +101,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     pnpm
     pnpmConfigHook
     wrapGAppsHook4
+    yq-go
   ];
 
   buildInputs = [
@@ -126,6 +130,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   postPatch = ''
+    yq -i -p toml -o toml '.profile.release.lto = ${lib.boolToString enableLTO}' backend/Cargo.toml
+
     # Tauri
     jq '
       .bundle.createUpdaterArtifacts = false |
