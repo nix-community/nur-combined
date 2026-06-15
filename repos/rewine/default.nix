@@ -3,7 +3,6 @@ with pkgs; rec {
   cmd-markdown = pkgs.callPackage ./pkgs/cmd-markdown { };
   electron-netease-cloud-music = pkgs.callPackage ./pkgs/electron-netease-cloud-music { };
   graphbuilder = pkgs.callPackage ./pkgs/graphbuilder { };
-  landrop = pkgs.callPackage ./pkgs/landrop { };
   nextssh = pkgs.callPackage ./pkgs/nextssh { };
   ttf-ms-win10 = pkgs.callPackage ./pkgs/ttf-ms-win10 { };
   ttf-wps-fonts = pkgs.callPackage ./pkgs/ttf-wps-fonts { };
@@ -12,7 +11,6 @@ with pkgs; rec {
   wayland-debug = pkgs.callPackage ./pkgs/wayland-debug {
     wayland = pkgs.callPackage ./pkgs/wayland-debug/wayland.nix { };
   };
-  #mogan = pkgs.libsForQt5.callPackage ./pkgs/mogan {  };
   nowide = pkgs.callPackage ./pkgs/nowide {  };
   /*kylin-wlroots = pkgs.wlroots_0_17.overrideAttrs (
     old: {
@@ -30,5 +28,4 @@ with pkgs; rec {
   deepin-translation-utils = pkgs.callPackage ./pkgs/deepin-translation-utils { };
   wlanalyze = pkgs.callPackage ./pkgs/wlanalyze { };
   lazycat-terminal = pkgs.callPackage ./pkgs/lazycat-terminal { };
-  #aish = pkgs.callPackage ./pkgs/aish { };
 }
