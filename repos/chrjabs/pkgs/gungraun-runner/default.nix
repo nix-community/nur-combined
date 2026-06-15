@@ -7,16 +7,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "gungraun-runner";
-  version = "0.19.1";
+  version = "0.19.2";
 
   src = fetchFromGitHub {
     owner = "gungraun";
     repo = "gungraun";
     tag = "v${version}";
-    hash = "sha256-dCA5cb1BooyPTl/qqW7JGbKDj5/yKOf2jy31j/q2U1c=";
+    hash = "sha256-irDfxyW/yrTGmQH0r4tKc6lvDUQNkPBnvuW/nlh8uko=";
   };
 
-  cargoHash = "sha256-QQhfZdbmZEXC5jv1g3nvJvvMYbnCuL7uyV6PBs1JWC0=";
+  cargoHash = "sha256-IiNaSXOxEv9fcONz5vjuJeDEvlDBFfY+Cm8hT9C/GLk=";
 
   buildAndTestSubdir = "gungraun-runner";
 
