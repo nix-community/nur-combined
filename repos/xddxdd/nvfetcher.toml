@@ -45,6 +45,10 @@ src.github = "ArcaneNibble/awawausb"
 fetch.github = "axiomhq/axiom-syslog-proxy"
 src.github = "axiomhq/axiom-syslog-proxy"
 
+[axonhub]
+fetch.github = "looplj/axonhub"
+src.github = "looplj/axonhub"
+
 [baidunetdisk]
 fetch.url = "http://wppkg.baidupcs.com/issue/netdisk/Linuxguanjia/$ver/baidunetdisk_$ver_amd64.deb"
 src.aur = "baidunetdisk-electron"
@@ -586,6 +590,10 @@ src.github = "topjohnwu/Magisk"
 [mautrix-gmessages]
 fetch.github = "mautrix/gmessages"
 src.github = "mautrix/gmessages"
+
+[metapi]
+fetch.github = "cita-777/metapi"
+src.github = "cita-777/metapi"
 
 [metee]
 fetch.github = "intel/metee"

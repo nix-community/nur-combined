@@ -139,3 +139,22 @@ appimageTools.wrapType2 {
 - 使用 `nix build .#package-name` 构建包
 - 只需指定包名本身，无需中间路径
 - 示例：`pkgs/uncategorized/package-name` 应构建为 `nix build .#package-name`
+
+## pnpm 前端构建
+
+### fetchPnpmDeps 配置
+
+- **必须设置 `fetcherVersion`**：`fetchPnpmDeps` 要求显式设置 `fetcherVersion`，推荐使用 `fetcherVersion = 3`
+- **使用 `sourceRoot = "source/<子目录>"`**：当 `src` 来自 `fetchFromGitHub` 而项目在子目录中时，`sourceRoot` 需加 `source/` 前缀（如 `source/frontend`）
+- **锁定 pnpm 版本**：当上游 lockfile 与最新 pnpm 版本不兼容时，通过 `pnpm = pnpm_10` 指定兼容的 pnpm 版本
+- **`pnpmConfigHook` 自动安装依赖**：该钩子在 `postConfigure` 阶段自动运行 `pnpm install --offline --frozen-lockfile`，无需手动安装
+
+### 多组件 pname 命名
+
+- **每个派生使用不同的 pname**：对于包含多个派生（如前端依赖、前端构建产物、主程序）的包，每个派生的 `pname` 应添加不同的后缀加以区分
+- **不要全局 inherit**：不要在 `let` 顶层写 `inherit (sources.xxx) version src;`，各派生应分别在自身作用域内通过 `inherit (sources.xxx) version src;` 获取所需字段
+
+### Go + 前端项目
+
+- **分开构建前端和 Go**：将前端构建为独立派生，在 `buildGoModule` 的 `preBuild` 中将构建产物复制到 Go embed 目录
+- **复制到 embed 路径**：如果 Go 使用 `//go:embed` 嵌入前端产物，构建产物必须先放置到对应目录再执行 Go 编译

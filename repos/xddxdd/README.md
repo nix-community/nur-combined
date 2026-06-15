@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (210 packages)</summary>
+<summary>Package set: (Uncategorized) (212 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -72,6 +72,7 @@ Or, use variables from this repository in case I change them:
 |  | `asterisk-g72x` | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 0-unstable-2025-12-13 | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | `awawausb-native-stub` | [awawausb-native-stub](https://github.com/ArcaneNibble/awawausb) | 0.2 | Native messaging stub for the awawausb WebUSB Firefox extension |
 |  | `axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
+|  | `axonhub` | [axonhub](https://github.com/looplj/axonhub) | 1.0.0-beta3 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
 | `x86_64-linux` | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.8 | Baidu Netdisk |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-03-26 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
@@ -162,6 +163,7 @@ Or, use variables from this repository in case I change them:
 |  | `lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 30.7 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2605.0 | Matrix-Google Messages puppeting bridge |
+|  | `metapi` | [metapi](https://github.com/cita-777/metapi) | 1.3.0 | Meta-layer management and unified proxy for AI API aggregation platforms |
 |  | `metee` | [metee](https://github.com/intel/metee) | 6.2.4 | C library to access CSE/CSME/GSC firmware via a MEI interface |
 |  | `mlat-client` | [mlat-client](https://github.com/adsb-related-code/mlat-client) | 0.4.2 | Client that selectively forwards Mode S messages to a server that resolves the transmitter position by multilateration |
 |  | `modelscope` | [modelscope](https://www.modelscope.cn/) | 1.37.1 | Bring the notion of Model-as-a-Service to life |
@@ -1309,7 +1311,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (157 packages)</summary>
+<summary>Package set: uncategorized (159 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1318,6 +1320,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.asterisk-g72x` | [asterisk-g72x](https://github.com/arkadijs/asterisk-g72x) | 0-unstable-2025-12-13 | G.729 and G.723.1 codecs for Asterisk (Only G.729 is enabled) |
 |  | `uncategorized.awawausb-native-stub` | [awawausb-native-stub](https://github.com/ArcaneNibble/awawausb) | 0.2 | Native messaging stub for the awawausb WebUSB Firefox extension |
 |  | `uncategorized.axiom-syslog-proxy` | [axiom-syslog-proxy](https://github.com/axiomhq/axiom-syslog-proxy) | 0.8.0 | Syslog push interface to Axiom |
+|  | `uncategorized.axonhub` | [axonhub](https://github.com/looplj/axonhub) | 1.0.0-beta3 | Open-source AI gateway with built-in failover, load balancing, cost control and end-to-end tracing |
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.8 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-03-26 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
@@ -1392,6 +1395,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.lyrica-plasmoid` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration (Plasmoid component) |
 |  | `uncategorized.magiskboot` | [magiskboot](https://topjohnwu.github.io/Magisk/tools.html) | 30.7 | Tool to unpack / repack boot images, parse / patch / extract cpio, patch dtb, hex patch binaries, and compress / decompress files with multiple algorithms |
 |  | `uncategorized.mautrix-gmessages` | [mautrix-gmessages](https://github.com/mautrix/gmessages) | 0.2605.0 | Matrix-Google Messages puppeting bridge |
+|  | `uncategorized.metapi` | [metapi](https://github.com/cita-777/metapi) | 1.3.0 | Meta-layer management and unified proxy for AI API aggregation platforms |
 |  | `uncategorized.metee` | [metee](https://github.com/intel/metee) | 6.2.4 | C library to access CSE/CSME/GSC firmware via a MEI interface |
 |  | `uncategorized.mlat-client` | [mlat-client](https://github.com/adsb-related-code/mlat-client) | 0.4.2 | Client that selectively forwards Mode S messages to a server that resolves the transmitter position by multilateration |
 | `x86_64-linux` | `uncategorized.mtranservercore-rs` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |

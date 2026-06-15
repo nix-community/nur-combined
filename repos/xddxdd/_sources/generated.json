@@ -218,6 +218,27 @@
         },
         "version": "v0.8.0"
     },
+    "axonhub": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "axonhub",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "looplj",
+            "repo": "axonhub",
+            "rev": "v1.0.0-beta3",
+            "sha256": "sha256-YfSsukQo9j5AcR87k9bjHoX85ySl9G0lUdZ18ib4xhA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.0-beta3"
+    },
     "baidunetdisk": {
         "cargoLock": null,
         "date": null,
@@ -2601,6 +2622,27 @@
             "type": "github"
         },
         "version": "v0.2605.0"
+    },
+    "metapi": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "metapi",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "cita-777",
+            "repo": "metapi",
+            "rev": "v1.3.0",
+            "sha256": "sha256-OfS8iAjP1yU40RNlJeFEvih4jn9Ab4joTgLfRD6e1pQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.0"
     },
     "metee": {
         "cargoLock": null,

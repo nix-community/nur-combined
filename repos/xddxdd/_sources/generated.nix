@@ -118,6 +118,16 @@
       hash = "sha256-Dh0G3mFdUmbmPZc2qKPE8MnHOPN+k24CpSDeFb6cx7k=";
     };
   };
+  axonhub = {
+    pname = "axonhub";
+    version = "v1.0.0-beta3";
+    src = fetchFromGitHub {
+      owner = "looplj";
+      repo = "axonhub";
+      tag = "v1.0.0-beta3";
+      hash = "sha256-YfSsukQo9j5AcR87k9bjHoX85ySl9G0lUdZ18ib4xhA=";
+    };
+  };
   baidunetdisk = {
     pname = "baidunetdisk";
     version = "4.17.8";
@@ -1339,6 +1349,16 @@
       repo = "gmessages";
       tag = "v0.2605.0";
       hash = "sha256-ScsjUmQZsB86hT+EqIoI4V3KX3T1sV9C4/3ytcLV8O0=";
+    };
+  };
+  metapi = {
+    pname = "metapi";
+    version = "v1.3.0";
+    src = fetchFromGitHub {
+      owner = "cita-777";
+      repo = "metapi";
+      tag = "v1.3.0";
+      hash = "sha256-OfS8iAjP1yU40RNlJeFEvih4jn9Ab4joTgLfRD6e1pQ=";
     };
   };
   metee = {
