@@ -1,7 +1,6 @@
 {
   lib,
   ripgrep,
-  nodejs_20,
   fetchurl,
   buildNpmPackage,
   fetchNpmDeps,
@@ -37,8 +36,6 @@ buildNpmPackage (finallAttrs: {
   dontNpmBuild = true;
 
   npmFlags = [ "--ignore-scripts" ];
-
-  nodejs = nodejs_20;
 
   postInstall = ''
     mkdir -p $out/lib/node_modules/${pname}/node_modules/@lvce-editor/ripgrep/bin
