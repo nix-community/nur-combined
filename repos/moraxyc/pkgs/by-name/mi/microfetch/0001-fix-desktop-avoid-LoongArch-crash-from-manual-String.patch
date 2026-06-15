@@ -1,0 +1,54 @@
+From 8569801fb78859cf49ad66a4302bca735ab1206b Mon Sep 17 00:00:00 2001
+From: Moraxyc <i@qaq.li>
+Date: Tue, 16 Jun 2026 04:11:43 +0800
+Subject: fix(desktop): avoid LoongArch crash from manual String construction
+
+---
+ crates/lib/src/desktop.rs | 26 +++++++-------------------
+ 1 file changed, 7 insertions(+), 19 deletions(-)
+
+diff --git a/crates/lib/src/desktop.rs b/crates/lib/src/desktop.rs
+index b9aa362..0791bb5 100644
+--- a/crates/lib/src/desktop.rs
++++ b/crates/lib/src/desktop.rs
+@@ -1,4 +1,4 @@
+-use alloc::string::String;
++use alloc::{format, string::String};
+ 
+ use crate::getenv_str;
+ 
+@@ -16,25 +16,13 @@ pub fn get_desktop_info() -> String {
+     session_raw
+   };
+ 
+-  // Pre-calculate capacity: desktop_len + " (" + backend_len + ")"
+-  // Capitalize first char needs temporary allocation only if backend exists
+-  let mut result =
+-    String::with_capacity(desktop_str.len() + backend_str.len() + 3);
+-  result.push_str(desktop_str);
+-  result.push_str(" (");
++  let mut backend = String::from(backend_str);
+ 
+-  // Capitalize first character of backend
+-  if let Some(first_byte) = backend_str.as_bytes().first() {
+-    // Convert first byte to uppercase if it's ASCII lowercase
+-    let upper = if first_byte.is_ascii_lowercase() {
+-      (first_byte - b'a' + b'A') as char
+-    } else {
+-      *first_byte as char
+-    };
+-    result.push(upper);
+-    result.push_str(&backend_str[1..]);
++  if let Some(first) = backend.as_bytes().first().copied() {
++      if first.is_ascii_lowercase() {
++          unsafe { backend.as_bytes_mut()[0] = first - b'a' + b'A'; }
++      }
+   }
+ 
+-  result.push(')');
+-  result
++  format!("{desktop_str} ({backend})")
+ }
+-- 
+2.54.0
+
