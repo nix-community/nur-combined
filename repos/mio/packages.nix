@@ -119,7 +119,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
       ./pkgs/tuxguitar/fix-include.patch
     ];
   });
-  nss_git = callOverride ./pkgs/nss-git { };
   #aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
   #  ${pkgs.aria2}/bin/aria2c -s65536 -j65536 -x16 -k1M "$@"
   #'';
