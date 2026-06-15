@@ -111,7 +111,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.7.0";
+  version = "4.8.0";
 
   pyproject = true;
 
@@ -119,7 +119,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-zf8wrHfFxqfVoVzz6Nj3EIqni5qXSYxJ/R/8+8o/5h0=";
+    hash = "sha256-Ti1i/g1YQ8/Y65iYTmM75tGKxlfM5ew3waWB/PqFFYM=";
   };
 
   build-system = with python3Packages; [
@@ -157,14 +157,12 @@ python3Packages.buildPythonApplication rec {
     regex
     requests
     requests-toolbelt
-    selenium
     sqlmodel
     tqdm
     typer
     uvicorn
     zstd
     pyyaml
-    pywebview
     # Local helper packages for missing deps
     exejs
     lncrawl-scraper
@@ -192,7 +190,6 @@ python3Packages.buildPythonApplication rec {
   meta = with lib; {
     description = "Download lightnovels from various online sources and generate e-books";
     homepage = "https://github.com/lncrawl/lightnovel-crawler";
-    broken = versionOlder python3Packages.pywebview.version "6.1";
     license = with licenses; [ gpl3Only ];
     platforms = platforms.linux;
     sourceProvenance = with sourceTypes; [ fromSource ];
