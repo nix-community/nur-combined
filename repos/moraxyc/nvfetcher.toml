@@ -249,3 +249,8 @@ fetch.github = "libnyanpasu/nyanpasu-service"
 src.git = "https://github.com/libnyanpasu/nyanpasu-service.git"
 fetch.github = "libnyanpasu/nyanpasu-service"
 cargo_lock = ['Cargo.lock']
+
+[zsh-patina]
+src.github = "michel-kraemer/zsh-patina"
+fetch.github = "michel-kraemer/zsh-patina"
+cargo_lock = ['Cargo.lock']

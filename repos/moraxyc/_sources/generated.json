@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-swLbzHN0_6V1kd_lATsYVycW_Ifirq_RIIdfsdWJvqw=/backend/Cargo.lock",
+                "sha256-pznDlvJZx2tT8_jbO6SSfyh6AcPNJWp7rbww1eVjcZc=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -116,7 +116,7 @@
                 }
             ]
         },
-        "date": "2026-06-13",
+        "date": "2026-06-15",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -128,12 +128,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "ef4b270ba6a5bc14caae9ff2e6137df5f7b1cc62",
-            "sha256": "sha256-swLbzHN0/6V1kd/lATsYVycW/Ifirq/RIIdfsdWJvqw=",
+            "rev": "b563fbbe2d5c5781feee7c2f27929be385efeb3f",
+            "sha256": "sha256-pznDlvJZx2tT8/jbO6SSfyh6AcPNJWp7rbww1eVjcZc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ef4b270ba6a5bc14caae9ff2e6137df5f7b1cc62"
+        "version": "b563fbbe2d5c5781feee7c2f27929be385efeb3f"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -734,11 +734,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-Pujq+Fi3rWpLVjBhTYdgKzbJpPuWKs0zWDbE9q_64qA=/Cargo.lock",
+                "sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-06-08",
+        "date": "2026-06-15",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -750,12 +750,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "091389c299c06ffbee3c31702cba3756d5bb15dc",
-            "sha256": "sha256-Pujq+Fi3rWpLVjBhTYdgKzbJpPuWKs0zWDbE9q/64qA=",
+            "rev": "a42c656f2c83cd658b5d950573179766aa194bd3",
+            "sha256": "sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "091389c299c06ffbee3c31702cba3756d5bb15dc"
+        "version": "a42c656f2c83cd658b5d950573179766aa194bd3"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -970,5 +970,31 @@
             "type": "github"
         },
         "version": "f7a5f48060c953c884cc9dcc052fbeea98d67710"
+    },
+    "zsh-patina": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-M14IeK+Nsst+6RK6ayhq37YSoFPVptNqE9blVHDI1YM=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "zsh-patina",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "michel-kraemer",
+            "repo": "zsh-patina",
+            "rev": "1.8.0",
+            "sha256": "sha256-M14IeK+Nsst+6RK6ayhq37YSoFPVptNqE9blVHDI1YM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.8.0"
     }
 }

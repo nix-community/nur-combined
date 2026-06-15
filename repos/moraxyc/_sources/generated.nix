@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "ef4b270ba6a5bc14caae9ff2e6137df5f7b1cc62";
+    version = "b563fbbe2d5c5781feee7c2f27929be385efeb3f";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "ef4b270ba6a5bc14caae9ff2e6137df5f7b1cc62";
+      rev = "b563fbbe2d5c5781feee7c2f27929be385efeb3f";
       fetchSubmodules = false;
-      sha256 = "sha256-swLbzHN0/6V1kd/lATsYVycW/Ifirq/RIIdfsdWJvqw=";
+      sha256 = "sha256-pznDlvJZx2tT8/jbO6SSfyh6AcPNJWp7rbww1eVjcZc=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-swLbzHN0_6V1kd_lATsYVycW_Ifirq_RIIdfsdWJvqw=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-pznDlvJZx2tT8_jbO6SSfyh6AcPNJWp7rbww1eVjcZc=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-06-13";
+    date = "2026-06-15";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -427,21 +427,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "091389c299c06ffbee3c31702cba3756d5bb15dc";
+    version = "a42c656f2c83cd658b5d950573179766aa194bd3";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "091389c299c06ffbee3c31702cba3756d5bb15dc";
+      rev = "a42c656f2c83cd658b5d950573179766aa194bd3";
       fetchSubmodules = false;
-      sha256 = "sha256-Pujq+Fi3rWpLVjBhTYdgKzbJpPuWKs0zWDbE9q/64qA=";
+      sha256 = "sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Pujq+Fi3rWpLVjBhTYdgKzbJpPuWKs0zWDbE9q_64qA=/Cargo.lock";
+      lockFile = ./. + "/sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-06-08";
+    date = "2026-06-15";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -562,5 +562,22 @@
       sha256 = "sha256-dVMKFEXPt0dNtBSB31iJsmd8VaKLS18HeFjCtcaxRkI=";
     };
     date = "2026-06-14";
+  };
+  zsh-patina = {
+    pname = "zsh-patina";
+    version = "1.8.0";
+    src = fetchFromGitHub {
+      owner = "michel-kraemer";
+      repo = "zsh-patina";
+      rev = "1.8.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-M14IeK+Nsst+6RK6ayhq37YSoFPVptNqE9blVHDI1YM=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-M14IeK+Nsst+6RK6ayhq37YSoFPVptNqE9blVHDI1YM=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
   };
 }
