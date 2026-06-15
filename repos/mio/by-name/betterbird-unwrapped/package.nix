@@ -29,8 +29,8 @@ let
   comm-source = fetchhg {
     name = "comm-source";
     url = "https://hg.mozilla.org/releases/comm-esr${majVer}";
-    rev = "81aede69c16b80937e10ff623edd6ad327239d65";
-    hash = "sha256-ow+jv6eeRecB+hCyNSfL99irZYrEBHq7EqHdOQnFn5k=";
+    rev = "0cf57d71a2710903976e503a5e4d7fdae8913cf3";
+    hash = "sha256-2eH6J4mPzD/3iQ/D3qD+uKItVv7/FjW0uMpsvU2SOfc=";
   };
 
   updatePackage = writers.writePython3 "update-betterbird" {
@@ -70,7 +70,7 @@ in
     src = fetchhg {
       name = "mozilla-source";
       url = "https://hg.mozilla.org/releases/mozilla-esr140";
-      rev = "2e36c464a92f1942683abbed6ceb442308db5eb0";
+      rev = "7df86525c2c876c7c92320e49c3e0771f7a605c0";
       hash = "sha256-J04RUZCYTT5ICFPYDH5Tk+6ZrqQLN9a6uG0+7pQrlBI=";
     };
 
