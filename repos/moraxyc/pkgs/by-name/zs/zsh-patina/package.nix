@@ -17,7 +17,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [ installShellFiles ];
 
   postInstall = ''
-    install -Dm644 /dev/stdin $out/share/zsh-patina/zsh-patina.plugin.zsh <<EOF
+    mkdir -p $out/share/zsh-patina
+    cat > $out/share/zsh-patina/zsh-patina.plugin.zsh <<EOF
     eval "\$($out/bin/zsh-patina activate)"
     EOF
   ''
