@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "ttl-v"
   },
-  "version": "2.2.1",
+  "version": "2.3.0",
   "platforms": {
     "aarch64-linux": {
       "file": "twintaillauncher_{version}_arm64.deb",
-      "hash": "sha256-eT7x5v/90r25FhEY1U74V924TQnlUi4fwqLTndtSQ3E="
+      "hash": "sha256-CPVQp6p2YCE3LLXbjLwvMrtvBcL9OV2ZHBjopFrelPw="
     },
     "x86_64-linux": {
       "file": "twintaillauncher_{version}_amd64.deb",
-      "hash": "sha256-ouJpZn201r0Iq1zuFD3T4g2UShp4+cj8WTPNbdB/Gqo="
+      "hash": "sha256-gsEO1dBsSBtsL0ROd5XwiK+4pxRpAyo4DxhZPMpCiFg="
     }
   }
 }
