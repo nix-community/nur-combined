@@ -1,7 +1,7 @@
 {
     "claudecode-nvim": {
         "cargoLock": null,
-        "date": "2026-06-12",
+        "date": "2026-06-15",
         "extract": null,
         "name": "claudecode-nvim",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "coder",
             "repo": "claudecode.nvim",
-            "rev": "7c7d47e75d1c8597a676ca20b36a8b85a776ac61",
-            "sha256": "sha256-INQAg5q5eSzZkC/RJPwd4R9fNKrwUYcsN/AaVT6saNE=",
+            "rev": "e6c9dd4d4f144910b0066489100ad94b7133821f",
+            "sha256": "sha256-pJtrh/3pGvALhQheB3LMB01IahTSYvxfCUNdiMvq8L0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7c7d47e75d1c8597a676ca20b36a8b85a776ac61"
+        "version": "e6c9dd4d4f144910b0066489100ad94b7133821f"
     },
     "copyq-darwin": {
         "cargoLock": null,
@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-06-14",
+        "date": "2026-06-15",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "5d2cbd1e9d7e0cb5812d6923e4230d6d5723679d",
-            "sha256": "sha256-oDTXM9dfqRFYq4pFtWatvYCYg6mCFt7hIQ5El5W3cf8=",
+            "rev": "14f24895674be98f5f96104c92edf86a272a5b34",
+            "sha256": "sha256-bDOoC/psZogT1AIR44+H+ueaXrDFr4H5gOhNLcwMlXE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5d2cbd1e9d7e0cb5812d6923e4230d6d5723679d"
+        "version": "14f24895674be98f5f96104c92edf86a272a5b34"
     },
     "hammerspoon": {
         "cargoLock": null,
@@ -194,11 +194,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ZoxoYWp/O4h+pg6b8ADKc7clJ3tM7cGjue4fz3M6Zek=",
+            "sha256": "sha256-9JJ9m3JnUqoCoyHqFCOW/UoWYfT6E3SX2tKkDs7lvrU=",
             "type": "url",
-            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.46.universal.dmg"
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.48.universal.dmg"
         },
-        "version": "8.0.4033.46"
+        "version": "8.0.4033.48"
     },
     "zen-browser": {
         "cargoLock": null,

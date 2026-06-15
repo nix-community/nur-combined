@@ -8,15 +8,15 @@
 {
   claudecode-nvim = {
     pname = "claudecode-nvim";
-    version = "7c7d47e75d1c8597a676ca20b36a8b85a776ac61";
+    version = "e6c9dd4d4f144910b0066489100ad94b7133821f";
     src = fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "7c7d47e75d1c8597a676ca20b36a8b85a776ac61";
+      rev = "e6c9dd4d4f144910b0066489100ad94b7133821f";
       fetchSubmodules = false;
-      sha256 = "sha256-INQAg5q5eSzZkC/RJPwd4R9fNKrwUYcsN/AaVT6saNE=";
+      sha256 = "sha256-pJtrh/3pGvALhQheB3LMB01IahTSYvxfCUNdiMvq8L0=";
     };
-    date = "2026-06-12";
+    date = "2026-06-15";
   };
   copyq-darwin = {
     pname = "copyq-darwin";
@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "5d2cbd1e9d7e0cb5812d6923e4230d6d5723679d";
+    version = "14f24895674be98f5f96104c92edf86a272a5b34";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "5d2cbd1e9d7e0cb5812d6923e4230d6d5723679d";
+      rev = "14f24895674be98f5f96104c92edf86a272a5b34";
       fetchSubmodules = false;
-      sha256 = "sha256-oDTXM9dfqRFYq4pFtWatvYCYg6mCFt7hIQ5El5W3cf8=";
+      sha256 = "sha256-bDOoC/psZogT1AIR44+H+ueaXrDFr4H5gOhNLcwMlXE=";
     };
-    date = "2026-06-14";
+    date = "2026-06-15";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -112,10 +112,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.0.4033.46";
+    version = "8.0.4033.48";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.46.universal.dmg";
-      sha256 = "sha256-ZoxoYWp/O4h+pg6b8ADKc7clJ3tM7cGjue4fz3M6Zek=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.48.universal.dmg";
+      sha256 = "sha256-9JJ9m3JnUqoCoyHqFCOW/UoWYfT6E3SX2tKkDs7lvrU=";
     };
   };
   zen-browser = {
