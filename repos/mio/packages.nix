@@ -182,11 +182,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     angelscript = angelscript_2_35_1;
   };
 
-  betterbird-unwrapped = v3overrideAttrs (pkgs.callPackage ./by-name/be/betterbird-unwrapped/package.nix { });
-  betterbird = pkgs.callPackage ./by-name/be/betterbird/package.nix {
-    betterbird-unwrapped = betterbird-unwrapped;
-  };
-
   eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
 
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
