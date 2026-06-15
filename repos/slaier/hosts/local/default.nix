@@ -70,6 +70,7 @@
     axel
     bottom
     cachix
+    chezmoi
     cloudflared
     curl
     doggo

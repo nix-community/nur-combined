@@ -11,6 +11,9 @@
 
   programs.git = {
     enable = true;
+    lfs = {
+      enable = true;
+    };
     settings = {
       user = {
         name = "slaier";
@@ -41,4 +44,6 @@
   };
 
   programs.diff-so-fancy.enable = true;
+
+  programs.gh.enable = true;
 }
