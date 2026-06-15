@@ -4,7 +4,7 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   rustPlatform,
-  nodejs,
+  nodejs_22,
   pnpm_11,
   pnpmConfigHook,
   geist-font,
@@ -19,7 +19,15 @@ let
   # attribute. The upstream lockfile is `lockfileVersion: '9.0'`, which is
   # produced by pnpm 9/10/11; pinning to 11 keeps us aligned with what
   # contributors run locally.
-  pnpm = pnpm_11;
+  #
+  # Pin Node.js 22 for the JS toolchain. Node.js 24 crashes on macOS with
+  # `EXC_GUARD` (`GUARD_TYPE_FD`) during `pnpm install`/`pnpm build`: pnpm's
+  # reflink worker (APFS clonefile) closes a file descriptor that Node 24's
+  # new BSD file-descriptor guard treats as managed, so the kernel kills the
+  # process. This only affects the build-time dashboard tooling, not the
+  # runtime CLI, and the FOD `pnpmDeps.hash` is unaffected by the Node major.
+  nodejs = nodejs_22;
+  pnpm = pnpm_11.override { inherit nodejs; };
 
   version = "0.27.3";
 

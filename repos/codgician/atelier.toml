@@ -15,15 +15,6 @@ include = [
   "checks.*.*",
 ]
 
-# agent-browser's dashboard pnpm-deps OOM-kill (exit 137) on the ~7 GB
-# macos-latest runner during the pnpm store write; it builds fine on real Macs
-# and on both Linux runners. Excluding only the aarch64-darwin CI build keeps
-# darwin support in the package while keeping CI green. Revisit once a binary
-# cache is configured (the deps can then be built once and substituted).
-exclude = [
-  "packages.aarch64-darwin.agent-browser",
-]
-
 # No binary cache configured yet: every run rebuilds and pushes nothing. List
 # your own cache endpoint(s) here once wired up to skip already-cached attrs.
 substituters = []
