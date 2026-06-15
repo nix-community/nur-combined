@@ -1,19 +1,19 @@
-{
+_: {
   perSystem =
     {
       lib,
       pkgs,
       config,
+      inputs',
       ...
     }:
     let
       updater = pkgs.writeShellScriptBin "update-packages" ''
         set -euo pipefail
 
-        # Nvfetcher
         KEY_FLAG=""
         [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
-        ${lib.getExe config.packages.nvfetcher} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
+        ${lib.getExe inputs'.nvfetcher.packages.default} $KEY_FLAG --keep-going -c nvfetcher.toml -o _sources "$@"
       '';
     in
     {

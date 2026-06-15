@@ -23,7 +23,6 @@
             upstream = prev;
             nixosTests = prev.nixosTests // config.nixosTests;
           })
-          inputs.nvfetcher.overlays.default
         ];
       };
     in

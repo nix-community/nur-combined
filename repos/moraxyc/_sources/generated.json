@@ -303,6 +303,32 @@
         },
         "version": "1.27.0"
     },
+    "elio": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-r7_LT0wGs8G9UN7H89WBBYGdKhCU6FXJx+UXNWfIZDc=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "elio",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "elio-fm",
+            "repo": "elio",
+            "rev": "v1.8.0",
+            "sha256": "sha256-r7/LT0wGs8G9UN7H89WBBYGdKhCU6FXJx+UXNWfIZDc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.8.0"
+    },
     "english_words": {
         "cargoLock": null,
         "date": "2025-01-06",

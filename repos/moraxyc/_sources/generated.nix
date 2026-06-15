@@ -185,6 +185,23 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
+  elio = {
+    pname = "elio";
+    version = "v1.8.0";
+    src = fetchFromGitHub {
+      owner = "elio-fm";
+      repo = "elio";
+      rev = "v1.8.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-r7/LT0wGs8G9UN7H89WBBYGdKhCU6FXJx+UXNWfIZDc=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-r7_LT0wGs8G9UN7H89WBBYGdKhCU6FXJx+UXNWfIZDc=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+  };
   english_words = {
     pname = "english_words";
     version = "20f5cc9b3f0ccc8ce45d814c532b7c2031bba31c";

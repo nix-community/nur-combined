@@ -1,10 +1,94 @@
+# keep-sorted start group_start_regex=["^\\[[^\\]]+\\]"] by_regex=["^\\[([^\\]]+)\\]"] newline_separated=yes case=no
+[aliyundrive-webdav]
+src.git = "https://github.com/messense/aliyundrive-webdav.git"
+fetch.github = "messense/aliyundrive-webdav"
+cargo_lock = ['Cargo.lock']
+
+[aliyundrive-webdav-stable]
+src.github = "messense/aliyundrive-webdav"
+fetch.url = "file:///dev/null"
+
+[bark-server]
+src.git = "https://github.com/Finb/bark-server.git"
+fetch.github = "Finb/bark-server"
+
+[bark-server-stable]
+src.github = "Finb/bark-server"
+fetch.url = "file:///dev/null"
+
+[boringssl-oqs]
+fetch.github = "open-quantum-safe/boringssl"
+src.github = "open-quantum-safe/boringssl"
+
+[clash-nyanpasu]
+src.git = "https://github.com/libnyanpasu/clash-nyanpasu"
+fetch.github = "libnyanpasu/clash-nyanpasu"
+cargo_lock = ['backend/Cargo.lock']
+
+[clash-nyanpasu-stable]
+src.github = "libnyanpasu/clash-nyanpasu"
+fetch.github = "libnyanpasu/clash-nyanpasu"
+
+[cpa-usage-keeper]
+src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
+fetch.github = "Willxup/cpa-usage-keeper"
+extract = ["web/package-lock.json", "web/package.json"]
+
+[cpa-usage-keeper-stable]
+src.github = "Willxup/cpa-usage-keeper"
+fetch.url = "file:///dev/null"
+
+[cronet-go]
+src.git = "https://github.com/SagerNet/cronet-go"
+fetch.github = "SagerNet/cronet-go"
+git.fetchSubmodules = true
+
+[cronet-go-stable]
+src.github = "SagerNet/cronet-go"
+fetch.url = "file:///dev/null"
+
+[dae]
+src.git = "https://github.com/daeuniverse/dae.git"
+fetch.github = "daeuniverse/dae"
+git.fetchSubmodules = true
+
+[dae-stable]
+src.github = "daeuniverse/dae"
+fetch.url = "file:///dev/null"
+
+[daed]
+src.git = "https://github.com/daeuniverse/daed.git"
+fetch.github = "daeuniverse/daed"
+git.fetchSubmodules = true
+
+[daed-stable]
+src.github_tag = "daeuniverse/daed"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+src.prefix = "v"
+fetch.url = "file:///dev/null"
+
+[english_words]
+src.git = "https://github.com/dwyl/english-words.git"
+fetch.github = "dwyl/english-words"
+
+[elio]
+src.github = "elio-fm/elio"
+fetch.github = "elio-fm/elio"
+cargo_lock = ["Cargo.lock"]
+
 [exloli-next]
 src.git = "https://github.com/lolishinshi/exloli-next"
 fetch.github = "lolishinshi/exloli-next"
 
-[pixy2]
-src.git = "https://github.com/charmedlabs/pixy2"
-fetch.github = "charmedlabs/pixy2"
+[fcitx5-themes-candlelight]
+src.git = "https://github.com/thep0y/fcitx5-themes-candlelight.git"
+fetch.github = "thep0y/fcitx5-themes-candlelight"
+
+[ferstar-gestures]
+src.github = "ferstar/gestures"
+fetch.github = "ferstar/gestures"
+cargo_lock = ["Cargo.lock"]
 
 [geolite2-asn]
 src.github = "P3TERX/GeoLite.mmdb"
@@ -18,144 +102,54 @@ fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLi
 src.github = "P3TERX/GeoLite.mmdb"
 fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-Country.mmdb"
 
-[v2ray-rules-dat]
-src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
-fetch.github = "Loyalsoldier/v2ray-rules-dat"
-src.branch = "release"
-
-[loyalsoldier-geoip]
-src.git = "https://github.com/Loyalsoldier/geoip.git"
-fetch.github = "Loyalsoldier/geoip"
-src.branch = "release"
-
-[libinput-three-finger-drag]
-src.git = "https://github.com/marsqing/libinput-three-finger-drag"
-fetch.github = "marsqing/libinput-three-finger-drag"
-
-[english_words]
-src.git = "https://github.com/dwyl/english-words.git"
-fetch.github = "dwyl/english-words"
-
-[fcitx5-themes-candlelight]
-src.git = "https://github.com/thep0y/fcitx5-themes-candlelight.git"
-fetch.github = "thep0y/fcitx5-themes-candlelight"
-
-[mm-geofeed-verifier]
-src.github = "maxmind/mm-geofeed-verifier"
-fetch.github = "maxmind/mm-geofeed-verifier"
-
-[bark-server-stable]
-src.github = "Finb/bark-server"
-fetch.url = "file:///dev/null"
-
-[bark-server]
-src.git = "https://github.com/Finb/bark-server.git"
-fetch.github = "Finb/bark-server"
-
-# [watt-toolkit-x86_64-linux]
-# src.github = "BeyondDimension/SteamTools"
-# fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_x64.tgz"
-#
-# [watt-toolkit-aarch64-linux]
-# src.github = "BeyondDimension/SteamTools"
-# fetch.url = "https://github.com/BeyondDimension/SteamTools/releases/download/$ver/Steam++_v$ver_linux_arm64.tgz"
-
-# [gzctf-contributors]
-# src.manual = "0.0.0"
-# fetch.url = "https://api.github.com/repos/GZTimeWalker/GZCTF/contributors"
-#
-# [gzctf]
-# src.github = "GZTimeWalker/GZCTF"
-# fetch.github = "GZTimeWalker/GZCTF"
-
-[mautrix-telegram]
-src.github = "mautrix/telegram"
-fetch.github = "mautrix/telegram"
-
-# [new-api]
-# src.github = "QuantumNous/new-api"
-# fetch.github = "QuantumNous/new-api"
-
-[aliyundrive-webdav-stable]
-src.github = "messense/aliyundrive-webdav"
-fetch.url = "file:///dev/null"
-
-[aliyundrive-webdav]
-src.git = "https://github.com/messense/aliyundrive-webdav.git"
-fetch.github = "messense/aliyundrive-webdav"
-cargo_lock = ['Cargo.lock']
-
-[mpv-danmaku-stable]
-src.github = "moraxyc/mpv-danmaku"
-fetch.url = "file:///dev/null"
-
-[mpv-danmaku]
-src.git = "https://github.com/moraxyc/mpv-danmaku.git"
-fetch.github = "moraxyc/mpv-danmaku"
-cargo_lock = ["Cargo.lock"]
-
-# [opencode]
-# src.github = "anomalyco/opencode"
-# fetch.github = "anomalyco/opencode"
-
 [git-mcp-server]
 src.github_tag = "cyanheads/git-mcp-server"
 fetch.github = "cyanheads/git-mcp-server"
-
-[boringssl-oqs]
-fetch.github = "open-quantum-safe/boringssl"
-src.github = "open-quantum-safe/boringssl"
-
-# [niri]
-# src.cmd = "nix build .#self-niri.src --no-link --print-out-paths"
-# fetch.url = "file://$ver"
-# cargo_lock = ["Cargo.lock"]
-
-[nipaplay-reload-x86_64-linux]
-src.github = "MCDFsteve/NipaPlay-Reload"
-src.prefix = "v"
-fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay-$ver-Linux-amd64.AppImage"
-
-[nipaplay-reload-darwin]
-src.github = "MCDFsteve/NipaPlay-Reload"
-src.prefix = "v"
-fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay_$ver_macOS_Universal.dmg"
 
 [happydeliver]
 src.github = "happyDomain/happydeliver"
 fetch.github = "happyDomain/happydeliver"
 extract = ["web/package-lock.json", "web/package.json"]
 
-# [yass]
-# src.github = "hukeyue/yass"
-# fetch.github = "hukeyue/yass"
-# git.fetchSubmodules = true
+[headscale-ui]
+src.git = "https://github.com/gurucomputing/headscale-ui"
+fetch.github = "gurucomputing/headscale-ui"
+extract = ["package-lock.json", "package.json"]
 
-[superpowers-skills]
-src.git = "https://github.com/obra/superpowers.git"
-fetch.github = "obra/superpowers"
+[hmcl-dev-bin]
+src.github_tag = "HMCL-dev/HMCL"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+src.prefix = "v"
+fetch.url = "https://github.com/HMCL-dev/HMCL/releases/download/v$ver/HMCL-$ver.jar"
 
-[subconverter]
-src.git = "https://github.com/tindy2013/subconverter"
-fetch.github = "tindy2013/subconverter"
+[hmcl-dev-src]
+src.github_tag = "HMCL-dev/HMCL"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
+src.sort_version_key = "parse_version"
+fetch.github = "HMCL-dev/HMCL"
 
-[udpxy]
-src.github_tag = "pcherenkov/udpxy"
-fetch.github = "pcherenkov/udpxy"
+[hysteria-realm-server]
+src.github = "apernet/hysteria-realm-server"
+fetch.github = "apernet/hysteria-realm-server"
+
+[libinput-three-finger-drag]
+src.git = "https://github.com/marsqing/libinput-three-finger-drag"
+fetch.github = "marsqing/libinput-three-finger-drag"
+
+[loyalsoldier-geoip]
+src.git = "https://github.com/Loyalsoldier/geoip.git"
+fetch.github = "Loyalsoldier/geoip"
+src.branch = "release"
 
 [manpage-zh]
 src.github_tag = "man-pages-zh/manpages-zh"
 fetch.github = "man-pages-zh/manpages-zh"
 git.fetchSubmodules = true
 
-[ferstar-gestures]
-src.github = "ferstar/gestures"
-fetch.github = "ferstar/gestures"
-cargo_lock = ["Cargo.lock"]
-
-[metacubex-geo]
-src.github = "metacubex/geo"
-fetch.github = "metacubex/geo"
+[mautrix-telegram]
+src.github = "mautrix/telegram"
+fetch.github = "mautrix/telegram"
 
 [meta-rules-converter]
 src.git = "https://github.com/MetaCubeX/meta-rules-converter"
@@ -166,91 +160,71 @@ src.git = "https://github.com/MetaCubeX/meta-rules-dat.git"
 fetch.github = "MetaCubeX/meta-rules-dat"
 src.branch = "release"
 
-[headscale-ui]
-src.git = "https://github.com/gurucomputing/headscale-ui"
-fetch.github = "gurucomputing/headscale-ui"
-extract = ["package-lock.json", "package.json"]
+[metacubex-geo]
+src.github = "metacubex/geo"
+fetch.github = "metacubex/geo"
 
-[cpa-usage-keeper-stable]
-src.github = "Willxup/cpa-usage-keeper"
+[mm-geofeed-verifier]
+src.github = "maxmind/mm-geofeed-verifier"
+fetch.github = "maxmind/mm-geofeed-verifier"
+
+[mpv-danmaku]
+src.git = "https://github.com/moraxyc/mpv-danmaku.git"
+fetch.github = "moraxyc/mpv-danmaku"
+cargo_lock = ["Cargo.lock"]
+
+[mpv-danmaku-stable]
+src.github = "moraxyc/mpv-danmaku"
 fetch.url = "file:///dev/null"
 
-[cpa-usage-keeper]
-src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
-fetch.github = "Willxup/cpa-usage-keeper"
-extract = ["web/package-lock.json", "web/package.json"]
-
-[hmcl-dev-src]
-src.github_tag = "HMCL-dev/HMCL"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
-src.sort_version_key = "parse_version"
-fetch.github = "HMCL-dev/HMCL"
-
-[hmcl-dev-bin]
-src.github_tag = "HMCL-dev/HMCL"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+$"
-src.sort_version_key = "parse_version"
+[nipaplay-reload-darwin]
+src.github = "MCDFsteve/NipaPlay-Reload"
 src.prefix = "v"
-fetch.url = "https://github.com/HMCL-dev/HMCL/releases/download/v$ver/HMCL-$ver.jar"
+fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay_$ver_macOS_Universal.dmg"
 
-[cronet-go]
-src.git = "https://github.com/SagerNet/cronet-go"
-fetch.github = "SagerNet/cronet-go"
-git.fetchSubmodules = true
-
-[cronet-go-stable]
-src.github = "SagerNet/cronet-go"
-fetch.url = "file:///dev/null"
-
-[hysteria-realm-server]
-src.github = "apernet/hysteria-realm-server"
-fetch.github = "apernet/hysteria-realm-server"
-
-[dae-stable]
-src.github = "daeuniverse/dae"
-fetch.url = "file:///dev/null"
-
-[dae]
-src.git = "https://github.com/daeuniverse/dae.git"
-fetch.github = "daeuniverse/dae"
-git.fetchSubmodules = true
-
-[daed-stable]
-src.github_tag = "daeuniverse/daed"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
-src.sort_version_key = "parse_version"
+[nipaplay-reload-x86_64-linux]
+src.github = "MCDFsteve/NipaPlay-Reload"
 src.prefix = "v"
-fetch.url = "file:///dev/null"
-
-[daed]
-src.git = "https://github.com/daeuniverse/daed.git"
-fetch.github = "daeuniverse/daed"
-git.fetchSubmodules = true
-
-[uuremote]
-src.httpheader = "https://api.nrd.nie.163.com/api/v1/release/dl/4?channel=gwqd"
-src.regex = 'uuyc[._-]v?(\d+(?:\.\d+)+)\.pkg'
-fetch.url = "https://a56.gdl.netease.com/uuyc_$ver.pkg"
-
-[clash-nyanpasu-stable]
-src.github = "libnyanpasu/clash-nyanpasu"
-fetch.github = "libnyanpasu/clash-nyanpasu"
-
-[clash-nyanpasu]
-src.git = "https://github.com/libnyanpasu/clash-nyanpasu"
-fetch.github = "libnyanpasu/clash-nyanpasu"
-cargo_lock = ['backend/Cargo.lock']
-
-[nyanpasu-service-stable]
-src.github = "libnyanpasu/nyanpasu-service"
-fetch.github = "libnyanpasu/nyanpasu-service"
+fetch.url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v$ver/NipaPlay-$ver-Linux-amd64.AppImage"
 
 [nyanpasu-service]
 src.git = "https://github.com/libnyanpasu/nyanpasu-service.git"
 fetch.github = "libnyanpasu/nyanpasu-service"
 cargo_lock = ['Cargo.lock']
 
+[nyanpasu-service-stable]
+src.github = "libnyanpasu/nyanpasu-service"
+fetch.github = "libnyanpasu/nyanpasu-service"
+
+[pixy2]
+src.git = "https://github.com/charmedlabs/pixy2"
+fetch.github = "charmedlabs/pixy2"
+
+[subconverter]
+src.git = "https://github.com/tindy2013/subconverter"
+fetch.github = "tindy2013/subconverter"
+
+[superpowers-skills]
+src.git = "https://github.com/obra/superpowers.git"
+fetch.github = "obra/superpowers"
+
+[udpxy]
+src.github_tag = "pcherenkov/udpxy"
+fetch.github = "pcherenkov/udpxy"
+
+[uuremote]
+src.httpheader = "https://api.nrd.nie.163.com/api/v1/release/dl/4?channel=gwqd"
+src.regex = 'uuyc[._-]v?(\d+(?:\.\d+)+)\.pkg'
+fetch.url = "https://a56.gdl.netease.com/uuyc_$ver.pkg"
+
+[v2ray-rules-dat]
+src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
+fetch.github = "Loyalsoldier/v2ray-rules-dat"
+src.branch = "release"
+
 [zsh-patina]
 src.github = "michel-kraemer/zsh-patina"
 fetch.github = "michel-kraemer/zsh-patina"
 cargo_lock = ['Cargo.lock']
+
+# keep-sorted end

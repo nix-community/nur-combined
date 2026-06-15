@@ -34,6 +34,9 @@ jobs:
                   git config user.name "github-actions[bot]"
                   git config user.email "github-actions[bot]@users.noreply.github.com"
                   nix flake update --commit-lock-file
+                  pushd flake-modules/dev
+                  nix flake update --commit-lock-file
+                  popd
 
             - name: Fetch new versions
               run: |

@@ -7,9 +7,7 @@
       check.enable = true;
       settings.hooks = {
         # formatter
-        treefmt = {
-          enable = true;
-        };
+        treefmt.enable = true;
         # security
         trufflehog.enable = true;
         # nix
