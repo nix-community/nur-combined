@@ -48,7 +48,7 @@ jobs:
     steps:
     - name: Maximize build space
       if: runner.os == 'Linux'
-      uses: mio-19/maximize-build-space@patch-1
+      uses: mio-19/maximize-build-space@fc881a613ad2a34aca9c9624518214ebc21dfc0c # v10
       with:
         root-reserve-mb: 512
         swap-size-mb: 40000
@@ -60,7 +60,7 @@ jobs:
         remove-docker-images: 'true'
         build-mount-path: /nix
     - name: Checkout repository
-      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      uses: actions/checkout@9f698171ed81b15d1823a05fc7211befd50c8ae0 # v6.0.3
     - run: sudo sysctl kernel.apparmor_restrict_unprivileged_userns=0
       if: runner.os == 'Linux'
     - run: sudo sysctl kernel.apparmor_restrict_unprivileged_unconfined=0
@@ -68,7 +68,7 @@ jobs:
     - run: sudo sysctl kernel.unprivileged_userns_clone=1
       if: runner.os == 'Linux'
     - name: Install nix
-      uses: cachix/install-nix-action@616559265b40713947b9c190a8ff4b507b5df49b
+      uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
       with:
         nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
@@ -79,7 +79,7 @@ jobs:
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Setup cachix
-      uses: cachix/cachix-action@v16
+      uses: cachix/cachix-action@02b16339eddcf6ea27126a830c7f1992855cae13 # v17
       # Don't replace <YOUR_CACHIX_NAME> here!
       if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
       with:
