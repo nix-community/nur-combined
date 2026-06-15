@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (212 packages)</summary>
+<summary>Package set: (Uncategorized) (213 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -133,6 +133,7 @@ Or, use variables from this repository in case I change them:
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
 |  | `grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
+|  | `grok-search-rs` | [grok-search-rs](https://github.com/Episkey-G/GrokSearch-rs) | 0.1.17 | Rust MCP server for Grok web search and Tavily-backed source retrieval |
 | `x86_64-linux` | `gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
 |  | `hack3ric-flow` | [hack3ric-flow](https://github.com/hack3ric/flow) | 0.2.0-unstable-2026-04-06 | BGP flowspec executor |
@@ -1311,7 +1312,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (159 packages)</summary>
+<summary>Package set: uncategorized (160 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1368,6 +1369,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
 |  | `uncategorized.grasscutter` | [grasscutter](https://github.com/Grasscutters/Grasscutter) | 1.7.4 | Server software reimplementation for a certain anime game |
+|  | `uncategorized.grok-search-rs` | [grok-search-rs](https://github.com/Episkey-G/GrokSearch-rs) | 0.1.17 | Rust MCP server for Grok web search and Tavily-backed source retrieval |
 | `x86_64-linux` | `uncategorized.gst-plugin-crystalhd` | [gst-plugin-crystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2020-03-22 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) GStreamer plugin |
 |  | `uncategorized.gwmp-mux` | [gwmp-mux](https://github.com/helium/gwmp-mux) | 0.11.0 | Multiplexer for Semtech's GWMP over UDP |
 |  | `uncategorized.hack3ric-flow` | [hack3ric-flow](https://github.com/hack3ric/flow) | 0.2.0-unstable-2026-04-06 | BGP flowspec executor |

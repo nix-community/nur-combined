@@ -640,6 +640,10 @@ fetch.github = "pekman/netns-exec"
 git.fetchSubmodules = true
 src.git = "https://github.com/pekman/netns-exec.git"
 
+[new-api]
+fetch.github = "QuantumNous/new-api"
+src.github = "QuantumNous/new-api"
+
 [nft-fullcone]
 fetch.github = "fullcone-nat-nftables/nft-fullcone"
 src.git = "https://github.com/fullcone-nat-nftables/nft-fullcone.git"

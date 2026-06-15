@@ -1471,6 +1471,16 @@
     };
     date = "2016-07-30";
   };
+  new-api = {
+    pname = "new-api";
+    version = "v1.0.0-rc.11";
+    src = fetchFromGitHub {
+      owner = "QuantumNous";
+      repo = "new-api";
+      tag = "v1.0.0-rc.11";
+      hash = "sha256-NEtty8tzFO+SKKgMCK+/rGqj5WJzYY19GOTCJ2dTAHc=";
+    };
+  };
   nft-fullcone = {
     pname = "nft-fullcone";
     version = "07d93b626ce5ea885cd16f9ab07fac3213c355d9";

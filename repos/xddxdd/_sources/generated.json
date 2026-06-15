@@ -2863,6 +2863,27 @@
         },
         "version": "aa346fd058d47b238ae1b86250f414bcab2e7927"
     },
+    "new-api": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "new-api",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "QuantumNous",
+            "repo": "new-api",
+            "rev": "v1.0.0-rc.11",
+            "sha256": "sha256-NEtty8tzFO+SKKgMCK+/rGqj5WJzYY19GOTCJ2dTAHc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.0-rc.11"
+    },
     "nft-fullcone": {
         "cargoLock": null,
         "date": "2023-05-17",
