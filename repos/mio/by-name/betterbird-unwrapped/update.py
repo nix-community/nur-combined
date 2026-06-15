@@ -45,7 +45,9 @@ def convert_hash_to_sri(base32: str) -> str:
 
 def main() -> int:
     self_path = Path(sys.argv[1]).absolute()
-    nixpkgs_path = self_path.parent.parent.parent.parent
+    if self_path.is_file():
+        self_path = self_path.parent
+    nixpkgs_path = self_path.parent.parent
 
     print(f"{self_path=} {nixpkgs_path=}", file=sys.stderr)
 
@@ -58,6 +60,7 @@ def main() -> int:
     print(f"{tags=} {valid_tags=}", file=sys.stderr)
 
     old_rev = nix_eval("betterbird-unwrapped.betterbird-patches.rev")
+
     if old_rev not in valid_tags:
         raise RuntimeError(f"Don't know how to update, current rev {old_rev!r} not in {valid_tags!r}")
 
@@ -82,7 +85,7 @@ def main() -> int:
     with tempfile.TemporaryDirectory() as tempdir_str:
         tempdir = Path(tempdir_str)
         result = tempdir / "result"
-        run("nix-build", "--expr", "let pkgs = import <nixpkgs> { }; in pkgs.srcOnly { inherit (pkgs.betterbird-unwrapped) name version stdenv; src = pkgs.betterbird-unwrapped.betterbird-patches; }", "--out-link", result, env={**os.environ, "NIX_PATH": f"nixpkgs={nixpkgs_path}"})
+        run("nix-build", "--expr", f"let pkgs = import <nixpkgs> {{ }}; nur = import {nixpkgs_path} {{ inherit pkgs; }}; in pkgs.srcOnly {{ inherit (nur.betterbird-unwrapped) name version stdenv; src = nur.betterbird-unwrapped.betterbird-patches; }}", "--out-link", result)
 
         conf_fn = result / f"{MAJOR_VERSION}/{MAJOR_VERSION}.sh"
         conf = {}
