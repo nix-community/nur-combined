@@ -42,4 +42,4 @@ jobs:
       - name: Build all nix packages
         continue-on-error: true
         run: |
-          nix run nixpkgs#nix-fast-build -- --no-nom --option keep-going true -f .#packages.${{ matrix.system }}
+          nix run nixpkgs#nix-fast-build -- --no-nom --max-jobs 4 --systems ${{ matrix.system }} --option keep-going true -f .#packages.${{ matrix.system }}
