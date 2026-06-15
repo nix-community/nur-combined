@@ -61,6 +61,7 @@ in
     # The betterbird patches change the BINARY variable to "betterbird" while keeping MOZ_APP_NAME=thunderbird
     applicationName = "Betterbird";
     binaryName = "thunderbird";
+    finalBinaryName = "betterbird";
     application = "comm/mail";
     branding = "comm/mail/branding/betterbird";
     requireSigning = false;
@@ -142,7 +143,13 @@ in
       libdbusmenu-gtk3
     ];
 
-    # Removed extraPreConfigure and withWasiSysroot
+    # Environment variables from official build
+    extraPreConfigure = ''
+      export MOZ_APP_REMOTINGNAME=eu.betterbird.Betterbird
+      export MOZ_REQUIRE_ADDON_SIGNING=0
+    '';
+
+    withWasiSysroot = false;
 
     # Additional mozconfig options from official Betterbird build
     extraConfigureFlags = [
@@ -182,35 +189,4 @@ in
 
     pgoSupport = false; # console.warn: feeds: "downloadFee d: network connection unavailable"
   }
-).overrideAttrs (oldAttrs: {
-  configureFlags = lib.filter (
-    flag: !lib.hasPrefix "--with-wasi-sysroot=" flag
-  ) oldAttrs.configureFlags;
-
-  preConfigure = (oldAttrs.preConfigure or "") + ''
-    export MOZ_APP_REMOTINGNAME=eu.betterbird.Betterbird
-    export MOZ_REQUIRE_ADDON_SIGNING=0
-  '';
-
-  installTargets = lib.optionalString stdenv.hostPlatform.isDarwin "stage-package";
-
-  postInstall =
-    lib.optionalString stdenv.hostPlatform.isDarwin ''
-      mkdir -p $out/Applications
-      cp -rL dist/Betterbird.app "$out/Applications/"
-      mkdir -p $out/bin
-      ln -sf $out/Applications/Betterbird.app/Contents/MacOS/betterbird $out/bin/betterbird
-    ''
-    + lib.optionalString (!stdenv.hostPlatform.isDarwin) (
-      (oldAttrs.postInstall or "")
-      + ''
-        mkdir -p $out/lib/betterbird
-        mv $out/lib/thunderbird/* $out/lib/betterbird/
-        rmdir $out/lib/thunderbird
-        rm $out/bin/thunderbird
-        ln -srf $out/lib/betterbird/betterbird $out/bin/betterbird
-      ''
-    );
-
-  doInstallCheck = false;
-})
+)
