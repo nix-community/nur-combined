@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.2";
+    version = "v7.2.6";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.2";
-      hash = "sha256-RSNLXmsri8IUE+OWI7KednqijKx2tBTFw0dMA99WCFQ=";
+      tag = "v7.2.6";
+      hash = "sha256-nSEXq6Oi54GGaloliY1JCSEfGGqkloQpcSaj/axmZWw=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.37.2";
+    version = "0.38.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.37.2.tgz";
-      hash = "sha256-FZkzqdCaX48qWjodYW5KPhVVM+hueZQ4qPTI/l3e+iw=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.38.1.tgz";
+      hash = "sha256-ezjP+4txHZOLEAtVbIw4wNJ00HSCQk++Vzje/njtElk=";
     };
   };
   comp128 = {
@@ -687,14 +687,14 @@
   };
   ela-widget-tools = {
     pname = "ela-widget-tools";
-    version = "790d6b71e007edbc79ead1e1a3127aa52c0c98cd";
+    version = "aa1856b8f8589ba0a82e50c0ac01e289eb3ff2c4";
     src = fetchFromGitHub {
       owner = "Liniyous";
       repo = "ElaWidgetTools";
-      rev = "790d6b71e007edbc79ead1e1a3127aa52c0c98cd";
-      hash = "sha256-hJtWTuTHY8mVeVM+lEaRkKy0Ii6AHX0FtRG/PDVra0k=";
+      rev = "aa1856b8f8589ba0a82e50c0ac01e289eb3ff2c4";
+      hash = "sha256-/ofxLDczD42MxFC9IFjvH6S64Y0g2Y/Pnya2MxXjk2A=";
     };
-    date = "2026-06-13";
+    date = "2026-06-15";
   };
   email-oauth2-proxy = {
     pname = "email-oauth2-proxy";
@@ -861,14 +861,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "5a37a31462bda91fa86d38a04ce4a715841d3cad";
+    version = "b7b952d3aa7f29a5ae93e5e94420e4d70a23a00f";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "5a37a31462bda91fa86d38a04ce4a715841d3cad";
-      hash = "sha256-0Fstb97VeH9CB89oIG90O+puynVrHDV1nXTBxTPCIAc=";
+      rev = "b7b952d3aa7f29a5ae93e5e94420e4d70a23a00f";
+      hash = "sha256-6hch/YpnnqY/bgfEt3CbCcSgRZtEV0Jk6S2Z3vPCRoM=";
     };
-    date = "2026-06-11";
+    date = "2026-06-15";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1314,12 +1314,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9637";
+    version = "b9660";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9637";
-      hash = "sha256-jWJf9RRd3J6v3ac4uWDPJQ99cZg/60ofcVN48E7Z4oY=";
+      tag = "b9660";
+      hash = "sha256-htbe/NLa7SfYomkWrfbsGCCdQp4YEmZHT3rrIlTQhy4=";
     };
   };
   loralib = {
@@ -1494,13 +1494,13 @@
   };
   nginx-auth-jwt = {
     pname = "nginx-auth-jwt";
-    version = "0.14.0";
+    version = "0.14.1";
     src = fetchFromGitHub {
       owner = "kjdev";
       repo = "nginx-auth-jwt";
-      tag = "0.14.0";
+      tag = "0.14.1";
       fetchSubmodules = true;
-      hash = "sha256-hxaWQtIOPMPoqZhQieelM+gfC3l+4IscVhIHIXeHKFo=";
+      hash = "sha256-ooCBJur/PMSvPXF4/q6ezSr7g3nR7mwIe13Xk02nGeQ=";
     };
   };
   nginx-module-geoip2 = {
@@ -1828,23 +1828,23 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "5f71f65711b6b9e6f913bec94a7b36d9a5eaae49";
+    version = "6a7fc51a2361d83cad994f659a0fa6c458a33bd5";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "5f71f65711b6b9e6f913bec94a7b36d9a5eaae49";
-      hash = "sha256-JEE+pegSVv8vgsY43qpncMoznKdRT5Zi5ce5kwCIApA=";
+      rev = "6a7fc51a2361d83cad994f659a0fa6c458a33bd5";
+      hash = "sha256-xGDJ4nXekh6AwjAb44kkedEh0aLTcWNzv4IyGQGnDRg=";
     };
-    date = "2026-06-04";
+    date = "2026-06-14";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
-    version = "v1.12.3";
+    version = "v1.13.0";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      tag = "v1.12.3";
-      hash = "sha256-+iEKAliBJlM/Af5uBGzv4B/zkcXSF9sBvSswMwhu5/w=";
+      tag = "v1.13.0";
+      hash = "sha256-xGDJ4nXekh6AwjAb44kkedEh0aLTcWNzv4IyGQGnDRg=";
     };
   };
   py-rcon = {
@@ -2154,14 +2154,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "5d6796857546dcc4183fafe7b5dc1f709a410129";
+    version = "531237706919c2be443ec33d84994386b8fb1dac";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "5d6796857546dcc4183fafe7b5dc1f709a410129";
-      hash = "sha256-9rGV0Wd2HhOZw1Talp28rwU/N4yd+MTKlkIGuqvysc4=";
+      rev = "531237706919c2be443ec33d84994386b8fb1dac";
+      hash = "sha256-tg/6PE8F9vaw7tKHgcWwv5mPuhHk5+YDaeRFEN/HLsU=";
     };
-    date = "2026-06-09";
+    date = "2026-06-15";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2403,15 +2403,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "4694efd817fb4f63b33e21d3addc1cd754e57b15";
+    version = "8f02e43a560c592ca224e93b005ddba28c62ec08";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "4694efd817fb4f63b33e21d3addc1cd754e57b15";
+      rev = "8f02e43a560c592ca224e93b005ddba28c62ec08";
       fetchSubmodules = true;
-      hash = "sha256-Y0QdQLaoEvi+UZUW9GRbfPHr1A1zWLRIQwKsUARzXBU=";
+      hash = "sha256-Aj3KZY2U/VxK33Cb2pt0/JPvgzSCUwSIkyyvmmaeCOs=";
     };
-    date = "2026-06-14";
+    date = "2026-06-15";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
