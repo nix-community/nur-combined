@@ -141,7 +141,7 @@ in
       fixBinary = cfg.fixBinary;
 
       # 我们自己生成了一个可执行脚本作为 interpreter，因此不需要内置模块再包一层 shell
-      wrapInterpreterInShell = true;
+      wrapInterpreterInShell = false;
 
       # 给内置模块用于 nix sandbox 的可选路径暴露（它只在 emulatedSystems 分支里用到）。
       # 这里仍填一个合理默认，不会有副作用。

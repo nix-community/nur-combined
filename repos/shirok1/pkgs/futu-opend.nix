@@ -1,22 +1,25 @@
 {
   lib,
-  stdenv,
-  pkgs,
+  stdenvNoCC,
+  fetchzip,
   autoPatchelfHook,
   libgcc,
+  curl,
+  zlib,
+  ignoreCurl ? false, # workaround for box64
   ...
 }:
 let
-  name = "futu-opend";
-  version = "9.6.5618";
+  pname = "futu-opend";
+  version = "10.7.6718";
   variant = "Ubuntu18.04";
 in
-stdenv.mkDerivation {
-  inherit name version;
+stdenvNoCC.mkDerivation {
+  inherit pname version;
 
-  src = pkgs.fetchzip {
+  src = fetchzip {
     url = "https://softwaredownload.futunn.com/Futu_OpenD_${version}_${variant}.tar.gz";
-    sha256 = "sha256-WdG92yqOytl6QWDTLvwKh6fLzZnq829+yATVnSBehu8=";
+    sha256 = "sha256-NRFGDO3zojiRl/ZoH0ZDFN4ho24rJuD6LFrhKMwsmNA=";
   };
 
   nativeBuildInputs = [
@@ -24,12 +27,31 @@ stdenv.mkDerivation {
   ];
   buildInputs = [
     libgcc.lib
+    zlib
+  ]
+  ++ lib.optionals (!ignoreCurl) [
+    curl
+  ];
+
+  autoPatchelfIgnoreMissingDeps = lib.optionals ignoreCurl [
+    "libcurl.so.4"
+    "libssl.so.3"
+    "libcrypto.so.3"
   ];
 
   installPhase = ''
-    mkdir -p $out/opt/futu-opend
+    mkdir -p "$out/bin"
+    mkdir -p "$out/share"
 
-    cp -r $src/Futu_OpenD_${version}_${variant}/* $out/opt/futu-opend/
+    cp -r $src/Futu_OpenD_${version}_${variant}/* "$out/"
+
+    rm "$out/libcrypto.so.3" "$out/libcurl.so.4" "$out/libssl.so.3"
+
+    rm "$out/FTUpdate"
+    ln -s "$out/FTWebSocket" "$out/bin/"
+    ln -s "$out/FutuOpenD" "$out/bin/"
+
+    mv "$out/FutuOpenD.xml" "$out/share/"
   '';
 
   meta = with lib; {

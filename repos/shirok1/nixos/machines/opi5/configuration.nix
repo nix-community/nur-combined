@@ -17,6 +17,7 @@
     ../../fragments/lix.nix
     ../../fragments/nh.nix
     ../../fragments/nix-settings.nix
+    ../../fragments/tfo.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

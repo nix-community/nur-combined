@@ -142,6 +142,7 @@ in
         Restart = "on-failure";
         DynamicUser = true;
         LimitNOFILE = 32768;
+        AmbientCapabilities = "CAP_NET_BIND_SERVICE";
       };
     };
 

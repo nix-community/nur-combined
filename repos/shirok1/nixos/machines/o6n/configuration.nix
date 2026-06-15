@@ -15,9 +15,12 @@
     ./hardware-configuration.nix
 
     ../../fragments/bbr.nix
+    ../../fragments/box64.nix
+    ../../fragments/fex.nix
     ../../fragments/lix.nix
     ../../fragments/nh.nix
     ../../fragments/nix-settings.nix
+    ../../fragments/tfo.nix
   ];
 
   sops.defaultSopsFile = ./secrets.yaml;
@@ -124,6 +127,9 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.libinput.enable = true;
 
+  boot.binfmt.box64 = {
+    enable = true;
+  };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.shiroki = {
     isNormalUser = true;
@@ -142,11 +148,16 @@
       nurl
       nix-init
       gh
-      (fastfetch.override {
-        brightnessSupport = false;
-        waylandSupport = false;
-        x11Support = false;
-        xfceSupport = false;
+      (fastfetch.minimal.override {
+        audioSupport = true;
+        dbusSupport = true;
+        flashfetchSupport = true;
+        imageSupport = true;
+        openclSupport = true;
+        openglSupport = true;
+        sqliteSupport = true;
+        terminalSupport = true;
+        vulkanSupport = true;
       })
       dua
       dust
@@ -159,6 +170,29 @@
       gitui
       dive
 
+      (writeShellScriptBin "FutuOpenD" ''
+        export LD_LIBRARY_PATH="${
+          lib.makeLibraryPath [
+            # libgcc.lib
+            zlib
+            curl
+            openssl
+          ]
+        }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+        ${box64}/bin/box64 ${shirok1-x86_64.futu-opend.override { ignoreCurl = true; }}/bin/FutuOpenD "$@"
+      '')
+      (writeShellScriptBin "stata-mp" ''
+        export LD_LIBRARY_PATH="${
+          lib.makeLibraryPath [
+            zlib
+            curl
+            ncurses
+          ]
+        }''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+        ${box64}/bin/box64 ${shirok1-x86_64.stata.override { ignoreCurl = true; }}/stata-mp "$@"
+      '')
       llm-agents.codex
     ];
   };
@@ -504,7 +538,7 @@
     enable = true;
     settings = {
       listen = "0.0.0.0:13831";
-      ipv6 = true;
+      dns-ip-preference = "default";
     };
     sops.psk = "snell/psk";
   };
@@ -543,14 +577,17 @@
     5970
     8080
     8234
+    9898 # PeerBanHelper
     9000
-    13831
+    13831 # Snell
     21064 # Home Assistant HomeKit Bridge
     1400 # Home Assistant Sonos
     1443 # Home Assistant Sonos
+    17650 # mihomo
+  ];
   networking.firewall.allowedUDPPorts = [
     5970
-    13831
+    13831 # Snell
   ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

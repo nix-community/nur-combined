@@ -1,12 +1,13 @@
 {
   lib,
-  stdenv,
-  pkgs,
+  stdenvNoCC,
+  requireFile,
   autoPatchelfHook,
   libgcc,
   curl,
   zlib,
   ncurses,
+  ignoreCurl ? false, # workaround for box64
   withX11 ? false,
   gtk2,
   glib,
@@ -26,11 +27,11 @@ let
 
   isstataSuffix = builtins.replaceStrings [ "." ] [ "" ] majorVersion;
 in
-stdenv.mkDerivation {
+stdenvNoCC.mkDerivation {
   inherit pname;
   version = "${majorVersion}+${buildDate}";
 
-  src = pkgs.requireFile {
+  src = requireFile {
     name = "StataNow19Linux64.tar.gz";
     url = "https://www.stata.com/";
     sha256 = "sha256-X1aRoxJSgVLJEDAuBff7BbLY+DEHgOQ1sQXNAe3XY6M=";
@@ -42,11 +43,12 @@ stdenv.mkDerivation {
   buildInputs = [
     libgcc.lib
     zlib
-    curl
-
     ncurses # for TUI
   ]
-  ++ lib.optional withX11 [
+  ++ lib.optionals (!ignoreCurl) [
+    curl
+  ]
+  ++ lib.optionals withX11 [
     gtk2
     glib
     pango
@@ -60,35 +62,32 @@ stdenv.mkDerivation {
     xorg.libXrender
   ];
 
+  autoPatchelfIgnoreMissingDeps = lib.optionals ignoreCurl [ "libcurl.so.4" ];
+
   installPhase = ''
-    mkdir -p $out
+    runHook preInstall
+
+    mkdir -p "$out"
     cd ..
 
-    tar xzf unix/linux64/base.taz --directory=$out
-    ${
-      if withX11 then
-        "tar xzf unix/linux64/bins.taz --directory=$out --exclude=utilities/java"
-      else
-        "tar xzf unix/linux64/bins.taz --directory=$out --exclude=utilities/java --exclude=xstata --exclude=xstata-se --exclude=xstata-mp"
-    }
-    tar xzf unix/linux64/ado.taz --directory=$out
-    tar xzf unix/linux64/docs.taz --directory=$out
+    tar xzf unix/linux64/base.taz --directory="$out"
+
+    tar xzf unix/linux64/bins.taz --directory="$out" \
+      --exclude=utilities/java \
+      ${lib.optionalString (!withX11) "--exclude=xstata --exclude=xstata-se --exclude=xstata-mp"}
+
+    tar xzf unix/linux64/ado.taz --directory="$out"
+    tar xzf unix/linux64/docs.taz --directory="$out"
 
     if [ ! -f "$out/isstata.${isstataSuffix}" ]; then
       echo "ERROR: expected marker file isstata.${isstataSuffix} not found"
-      echo "  (derived from majorVersion=${majorVersion})"
-      echo "  available isstata.* files:"
-      ls -1 isstata.* 2>/dev/null || true
-      exit 1
-    fi
-
-    if [ ! -f $out/utilities/update ]; then
-      echo "ERROR: utilities/update not found"
+      echo "available isstata.* files:"
+      ls -1 "$out"/isstata.* 2>/dev/null || true
       exit 1
     fi
 
     expected="$(date -u -d "${buildDate}" '+%d %b %Y')"
-    actual="$(sed -n '1p' $out/utilities/update)"
+    actual="$(sed -n '1p' "$out/utilities/update")"
 
     if [ "$actual" != "$expected" ]; then
       echo "ERROR: Stata build date mismatch"
@@ -97,7 +96,9 @@ stdenv.mkDerivation {
       exit 1
     fi
 
-    ln -s /etc/stata.lic $out/stata.lic
+    ln -s /etc/stata.lic "$out/stata.lic"
+
+    runHook postInstall
   '';
 
   meta = with lib; {

@@ -42,9 +42,17 @@
           # Put your original flake attributes here.
           let
             inherit (inputs.flake-parts.lib) importApply;
+            pkgs64 = import nixpkgs {
+              system = "x86_64-linux";
+              config.allowUnfree = true;
+            };
             pkgsOverlays = {
               nixpkgs.overlays = [
                 self.overlays.default
+                (final: prev: {
+                  x86_64 = pkgs64;
+                  shirok1-x86_64 = import ./default.nix { pkgs = pkgs64; };
+                })
                 inputs.llm-agents.overlays.default
                 inputs.rules.overlays.default
               ];
