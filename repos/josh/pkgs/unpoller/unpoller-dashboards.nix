@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "unpoller-dashboards";
-  version = "0-unstable-2026-01-25";
+  version = "0-unstable-2026-06-15";
 
   src = fetchFromGitHub {
     owner = "unpoller";
     repo = "dashboards";
-    rev = "0fe7c05d1bf4326b217688316601324d0890493b";
-    hash = "sha256-XLhmOoeTBhKxYs8tLeWy3ng7rLzaCjt0Dhn7pAuL0Vk=";
+    rev = "d79ef7ef30129a2ba9a60141e339a93d4bcc1bec";
+    hash = "sha256-O3xAHqHiqqiQQyIkV+XK89T6Sk4GhaRpzb46SSA0ZI4=";
   };
 
   outputs = [
