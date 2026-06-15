@@ -210,7 +210,6 @@ in
               #pake # started failing recently
               cider
               rocksmith2tab
-              superTux
               #nix-output-monitor
               darling
               supertuxkart-evolution
