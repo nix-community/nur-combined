@@ -1,85 +1,44 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 52bf7bc6..7705f0da 100644
+index b931c72d..b504d0db 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
-@@ -52,6 +52,8 @@
-   "devDependencies": {
-     "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.485",
+@@ -54,0 +55,2 @@
 +    "@inlang/plugin-m-function-matcher": "^2.2.7",
 +    "@inlang/plugin-message-format": "^4.4.0",
-     "@monaco-editor/react": "4.7.0",
-     "@tailwindcss/vite": "4.3.1",
-     "@tanstack/react-query": "5.101.0",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
-index 05965578..932378b3 100644
+index 05965578..71e1a55b 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
 +++ b/frontend/nyanpasu/project.inlang/settings.json
-@@ -1,10 +1,15 @@
- {
-   "$schema": "https://inlang.com/schema/project-settings",
-   "baseLocale": "en",
--  "locales": ["en", "zh-cn", "zh-tw", "ru"],
-+  "locales": [
-+    "en",
-+    "zh-cn",
-+    "zh-tw",
-+    "ru"
-+  ],
-   "modules": [
+@@ -6,2 +6,2 @@
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4/dist/index.js",
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@2/dist/index.js"
-+    "./node_modules/@inlang/plugin-message-format/dist/index.js",
-+    "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
-   ],
-   "plugin.inlang.messageFormat": {
-     "pathPattern": "./messages/{locale}.json"
++     "./node_modules/@inlang/plugin-message-format/dist/index.js",
++     "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 8572d046..8d15d6ad 100644
+index ee53a301..5a70d230 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -239,6 +239,12 @@ importers:
-       '@iconify/json':
-         specifier: 2.2.485
-         version: 2.2.485
+@@ -241,0 +242,6 @@ importers:
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.7
 +        version: 2.2.7
 +      '@inlang/plugin-message-format':
 +        specifier: ^4.4.0
 +        version: 4.4.0
-       '@monaco-editor/react':
-         specifier: 4.7.0
-         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-@@ -1130,6 +1136,12 @@ packages:
-       typescript:
-         optional: true
- 
+@@ -1132,0 +1139,6 @@ packages:
 +  '@inlang/plugin-m-function-matcher@2.2.7':
 +    resolution: {integrity: sha512-86K5PctUNuer9rs5nhQMEUJOGbNdC3p431RGhLfMnKJtAG67FR1dejHBqVdEVp4dy1T3dXNgqLhTzM7erLr/kw==}
 +
 +  '@inlang/plugin-message-format@4.4.0':
 +    resolution: {integrity: sha512-n4aXt6XVg5kxhKoLAhi9nMgZtCA9iS0QOaXte56VqxWHcfj9O4c4gOkyVQZH7H9D8h7OZufCrO1sZGYOypPwEA==}
 +
-   '@inlang/recommend-sherlock@0.2.1':
-     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
- 
-@@ -4265,6 +4277,11 @@ packages:
-   flat-cache@6.1.22:
-     resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
- 
+@@ -4267,0 +4280,5 @@ packages:
 +  flat@6.0.1:
 +    resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
 +    engines: {node: '>=18'}
 +    hasBin: true
 +
-   flatted@3.4.2:
-     resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
- 
-@@ -7187,6 +7204,16 @@ snapshots:
-     transitivePeerDependencies:
-       - babel-plugin-macros
- 
+@@ -7189,0 +7207,10 @@ snapshots:
 +  '@inlang/plugin-m-function-matcher@2.2.7':
 +    dependencies:
 +      '@inlang/sdk': 2.10.0
@@ -90,15 +49,6 @@ index 8572d046..8d15d6ad 100644
 +    dependencies:
 +      flat: 6.0.1
 +
-   '@inlang/recommend-sherlock@0.2.1':
-     dependencies:
-       comment-json: 4.5.0
-@@ -10064,6 +10091,8 @@ snapshots:
-       flatted: 3.4.2
-       hookified: 1.15.1
- 
+@@ -10066,0 +10094,2 @@ snapshots:
 +  flat@6.0.1: {}
 +
-   flatted@3.4.2: {}
- 
-   formatly@0.3.0:
