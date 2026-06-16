@@ -49,5 +49,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/geoflow3d/gfp-gdal";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = stdenv.isDarwin;
   };
 })
