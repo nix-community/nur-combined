@@ -77,7 +77,7 @@ Or, use variables from this repository in case I change them:
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-03-26 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
 |  | `bepasty` | [bepasty](https://bepasty-server.readthedocs.org/) | 1.2.2 | Universal pastebin server |
-|  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.5.13 | High-performance AI gateway with unified OpenAI-compatible API |
+|  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.5.14 | High-performance AI gateway with unified OpenAI-compatible API |
 |  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.9-1 | Desktop client for Bilibili |
 |  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.8 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.5 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
@@ -90,9 +90,9 @@ Or, use variables from this repository in case I change them:
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.5 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.6 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.12 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
-|  | `command-code` | [command-code](https://github.com/CommandCodeAI/command-code) | 0.38.1 | Coding agent that continuously learns your coding taste |
+|  | `command-code` | [command-code](https://github.com/CommandCodeAI/command-code) | 0.38.4 | Coding agent that continuously learns your coding taste |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
 | `x86_64-linux` | `crystalhd` | [crystalhd](https://github.com/dbason/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver |
@@ -126,8 +126,8 @@ Or, use variables from this repository in case I change them:
 |  | `flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.57-1 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-06-15 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.06.13 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-06-16 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.06.16 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `glauth` | [glauth](https://github.com/glauth/glauth) | GLAuth-v2.5.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -156,7 +156,7 @@ Or, use variables from this repository in case I change them:
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.15.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-06-12 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.1 | Headless browser designed for AI and automation |
+|  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.2 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -225,7 +225,7 @@ Or, use variables from this repository in case I change them:
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
 |  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.16-unstable-2026-06-15 | Sipwise media proxy for Kamailio |
 |  | `runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.9.1 | Python library for RunPod API and serverless worker SDK |
-|  | `runpodctl` | [runpodctl](https://www.runpod.io) | 2.3.0 | RunPod CLI for pod management |
+|  | `runpodctl` | [runpodctl](https://www.runpod.io) | 2.4.0 | RunPod CLI for pod management |
 |  | `sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 9.07 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
 |  | `sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2026-05-21 | Allow SideStore to work across all iOS devices on your local network |
@@ -249,7 +249,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-tropics` | [unigine-tropics](https://benchmark.unigine.com/tropics) | 1.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-valley` | [unigine-valley](https://benchmark.unigine.com/valley) | 1.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
-|  | `usque` | [usque](https://github.com/Diniboy1123/usque) | 3.0.1 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
+|  | `usque` | [usque](https://github.com/Diniboy1123/usque) | 4.0.0 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
 |  | `vbmeta-disable-verification` | [vbmeta-disable-verification](https://github.com/libxzr/vbmeta-disable-verification) | 1.0 | Patch Android vbmeta image and disable verification flags inside |
 |  | `vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-03-25 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
@@ -410,9 +410,9 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.14.3 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.1 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
-|  | `lantianCustomized.firefox-unwrapped` | [firefox-unwrapped](http://www.mozilla.com/en-US/firefox/) | 151.0.4 | Firefox with anti fingerprinting modifications |
+|  | `lantianCustomized.firefox-unwrapped` | [firefox-unwrapped](http://www.mozilla.com/en-US/firefox/) | 152.0 | Firefox with anti fingerprinting modifications |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.17.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 9660 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
+|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 9672 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.7.7.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1287,7 +1287,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.4 | Python based web automation tool |
 |  | `python3Packages.drission-record` | [drission-record](https://gitcode.com/g1879/DrissionRecord) | 2.0.1 | Python data recording toolkit |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.8 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-06-15 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-06-16 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
 |  | `python3Packages.modelscope` | [modelscope](https://www.modelscope.cn/) | 1.37.1 | Bring the notion of Model-as-a-Service to life |
@@ -1326,7 +1326,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 4.17.8 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-03-26 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
-|  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.5.13 | High-performance AI gateway with unified OpenAI-compatible API |
+|  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.5.14 | High-performance AI gateway with unified OpenAI-compatible API |
 |  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.9-1 | Desktop client for Bilibili |
 |  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.8 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.5 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
@@ -1338,9 +1338,9 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.buname` | [buname](https://github.com/dramforever/buname) | 0-unstable-2025-09-18 | Uname wrapper that renumbers Linux versions as if 2.6 never ended |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.3.5 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.6 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.12 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
-|  | `uncategorized.command-code` | [command-code](https://github.com/CommandCodeAI/command-code) | 0.38.1 | Coding agent that continuously learns your coding taste |
+|  | `uncategorized.command-code` | [command-code](https://github.com/CommandCodeAI/command-code) | 0.38.4 | Coding agent that continuously learns your coding taste |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-06 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.2.2 | Powerful Free DeepL API, No Token Required |
@@ -1364,7 +1364,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.57-1 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.06.13 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.06.16 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
 |  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | GLAuth-v2.5.0 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
@@ -1391,7 +1391,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.15.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-06-12 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.1 | Headless browser designed for AI and automation |
+|  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.2 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration |
@@ -1445,7 +1445,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
 |  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr13.5.1.16-unstable-2026-06-15 | Sipwise media proxy for Kamailio |
-|  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 2.3.0 | RunPod CLI for pod management |
+|  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 2.4.0 | RunPod CLI for pod management |
 |  | `uncategorized.sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 9.07 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `uncategorized.sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
 |  | `uncategorized.sidestore-vpn` | [sidestore-vpn](https://github.com/xddxdd/sidestore-vpn) | 0-unstable-2026-05-21 | Allow SideStore to work across all iOS devices on your local network |
@@ -1464,7 +1464,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-tropics` | [unigine-tropics](https://benchmark.unigine.com/tropics) | 1.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-valley` | [unigine-valley](https://benchmark.unigine.com/valley) | 1.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
-|  | `uncategorized.usque` | [usque](https://github.com/Diniboy1123/usque) | 3.0.1 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
+|  | `uncategorized.usque` | [usque](https://github.com/Diniboy1123/usque) | 4.0.0 | Open-source reimplementation of the Cloudflare WARP client's MASQUE protocol |
 |  | `uncategorized.vbmeta-disable-verification` | [vbmeta-disable-verification](https://github.com/libxzr/vbmeta-disable-verification) | 1.0 | Patch Android vbmeta image and disable verification flags inside |
 |  | `uncategorized.vgpu-unlock-rs` | [vgpu-unlock-rs](https://github.com/mbilker/vgpu_unlock-rs) | 2.5.0 | Unlock vGPU functionality for consumer grade GPUs |
 |  | `uncategorized.vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-03-25 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |

@@ -185,10 +185,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.5.13";
+    version = "1.5.14";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.13.tar.gz";
-      hash = "sha256-9bFV2k4E0ItcaS5BdWFG7mdddFVanrt+BMFaiL7Fpzo=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.14.tar.gz";
+      hash = "sha256-ZYQiDbt/7QcHaWPnnCX3W9PGPuvr7K65AOQV95Ydu6c=";
     };
   };
   bilibili = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.6";
+    version = "v7.2.12";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.6";
-      hash = "sha256-nSEXq6Oi54GGaloliY1JCSEfGGqkloQpcSaj/axmZWw=";
+      tag = "v7.2.12";
+      hash = "sha256-Q5eG7KLfOLoK0KggT/HOuvn+eazHgprIUsJ2yDyfx2I=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.38.1";
+    version = "0.38.4";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.38.1.tgz";
-      hash = "sha256-ezjP+4txHZOLEAtVbIw4wNJ00HSCQk++Vzje/njtElk=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.38.4.tgz";
+      hash = "sha256-Vupf5v+pf3lu3G/ZCzXVwEgUyyXOcRElkNVY+q+ZnJo=";
     };
   };
   comp128 = {
@@ -861,37 +861,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "b7b952d3aa7f29a5ae93e5e94420e4d70a23a00f";
+    version = "faffb45a331edafd8fe4d0bb741835954bb49d1f";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "b7b952d3aa7f29a5ae93e5e94420e4d70a23a00f";
-      hash = "sha256-6hch/YpnnqY/bgfEt3CbCcSgRZtEV0Jk6S2Z3vPCRoM=";
+      rev = "faffb45a331edafd8fe4d0bb741835954bb49d1f";
+      hash = "sha256-Tx+pK8TeObHMXtgTRePbWPy5HTH+SPGH0N2pFp+MhOA=";
     };
-    date = "2026-06-15";
+    date = "2026-06-16";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.06.13";
+    version = "2026.06.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.13/GeoLite2-ASN.mmdb";
-      hash = "sha256-jdCvFkZuw/buxgGKOKtzghSeiMJM9ZIY2oidiK9KRNM=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.16/GeoLite2-ASN.mmdb";
+      hash = "sha256-V6JGl93VEV8Di0d4wJ+25HBaH14BO6RuUUw5u3o61Yc=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.06.13";
+    version = "2026.06.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.13/GeoLite2-City.mmdb";
-      hash = "sha256-bfG53FSnKj5b6Nwn0P5e0KScgBJ5TxwDzoU78FyXJjU=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.16/GeoLite2-City.mmdb";
+      hash = "sha256-p0iooEuEU2ZzW9Ov/7Ff3+ZFMGtbuvx3tlsm9tZoags=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.06.13";
+    version = "2026.06.16";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.13/GeoLite2-Country.mmdb";
-      hash = "sha256-EbiFldAmlTkgZo2R9tUxBXs5fwUXAjf8mKE6iwUauGE=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.16/GeoLite2-Country.mmdb";
+      hash = "sha256-SDvwKQZU2/8Gh5m6KUfYCFYyLx2lu1cLJWEl8EQh0fA=";
     };
   };
   glauth = {
@@ -1070,14 +1070,14 @@
   };
   invisible-firefox = {
     pname = "invisible-firefox";
-    version = "acbb6973d0a629aa1044a1b432653072188a251e";
+    version = "096f67ff5871631dfc6258e95fdca27f4ff85baa";
     src = fetchFromGitHub {
       owner = "feder-cr";
       repo = "invisible-firefox";
-      rev = "acbb6973d0a629aa1044a1b432653072188a251e";
-      hash = "sha256-Qysf9mFUS5Vy9gbHyYh9B0FueegbDMTOw/s7zGvepA8=";
+      rev = "096f67ff5871631dfc6258e95fdca27f4ff85baa";
+      hash = "sha256-s1/D2iQcOI8LqTQNoUMvcQWrbsS59dvQySeWG0psdEI=";
     };
-    date = "2026-06-11";
+    date = "2026-06-16";
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";
@@ -1274,18 +1274,18 @@
   };
   lightpanda-amd64 = {
     pname = "lightpanda-amd64";
-    version = "0.3.1";
+    version = "0.3.2";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.1/lightpanda-x86_64-linux";
-      hash = "sha256-75Fgb0PFCxchzJIOvReSVnqwJ+xVq8o2UZDmF5jOhc4=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.2/lightpanda-x86_64-linux";
+      hash = "sha256-jszImbAKKz/vMa+Jg2oF4evxd8BX/zHdW2mZ+YKaYPY=";
     };
   };
   lightpanda-arm64 = {
     pname = "lightpanda-arm64";
-    version = "0.3.1";
+    version = "0.3.2";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.1/lightpanda-aarch64-linux";
-      hash = "sha256-08r1gOUJ8YCxpOTAlNsRKIkO2pSPaTXVOlGPbjqSIj0=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.2/lightpanda-aarch64-linux";
+      hash = "sha256-kFmdEt5NzmZxwZzX/ljRB4C9mUEZZFA1ifNk2SNyTME=";
     };
   };
   linguaspark-core = {
@@ -1314,12 +1314,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9660";
+    version = "b9672";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9660";
-      hash = "sha256-htbe/NLa7SfYomkWrfbsGCCdQp4YEmZHT3rrIlTQhy4=";
+      tag = "b9672";
+      hash = "sha256-/0qfu4QT1CFt1zBmaMvWGiOiRLqHp2ovhdpiirmvMOU=";
     };
   };
   loralib = {
@@ -2185,12 +2185,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.3.0";
+    version = "v2.4.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.3.0";
-      hash = "sha256-Lqmo/AZyxTIJjCePIagZosWnQxRZXLC228TaQDSz8Pk=";
+      tag = "v2.4.0";
+      hash = "sha256-TLAhhozdMCc0nklVZQ3VZZFPIFsE7mV8hmAv6AFxcoI=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2455,12 +2455,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v3.0.1";
+    version = "v4.0.0";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v3.0.1";
-      hash = "sha256-4vFlHJINMDlaOC+R5Q+vUhmyrXlv1r8UiNVRx8juxZ4=";
+      tag = "v4.0.0";
+      hash = "sha256-OjHXgZCxzCsnnUIpVTobGxlfrnYOxOeuOoi17TdpjcQ=";
     };
   };
   vbmeta-disable-verification = {

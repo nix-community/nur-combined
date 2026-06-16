@@ -11,7 +11,7 @@ buildNpmPackage (finalAttrs: {
 
   sourceRoot = "package";
 
-  npmDepsHash = "sha256-KKs3JvndNC1M9kR7K1VqlmlI3HU5HuDM3jDw6MCGzPg=";
+  npmDepsHash = "sha256-bWBH6fIQI3Z81W2H8/Xd6ctg8XZxsx1VEX5OhYslSUA=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
