@@ -22,8 +22,16 @@ let
     pname = "${pname}-wwwroot";
     src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
-    npmDepsHash = "sha256-wLrgYSVyHpxAAa2wJCxjXtFp3QaaiH4SxdslGZANhDE=";
+    npmDepsHash = "sha256-Gf53euGKcC0LQ6I1pCo+t6tXnuqv9bfFPYhz0lcNBSM=";
     dontNpmBuild = true;
+
+    # The upstream lockfile pins some packages to Aiursoft's private npm
+    # registry, which is unreliable (Cloudflare 525 errors). Fetch them from
+    # the official registry instead; the tarballs are byte-identical.
+    postPatch = ''
+      substituteInPlace package-lock.json \
+        --replace-fail "https://npm.aiursoft.com/" "https://registry.npmjs.org/"
+    '';
 
     installPhase = ''
       mkdir -p $out

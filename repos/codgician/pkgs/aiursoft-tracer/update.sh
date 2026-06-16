@@ -26,6 +26,9 @@ tmpdir=$(mktemp -d)
 curl -O --output-dir $tmpdir "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/Aiursoft.Tracer/wwwroot/package-lock.json"
 curl -O --output-dir $tmpdir "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/Aiursoft.Tracer/wwwroot/package.json"
 pushd $tmpdir
+# Keep in sync with the postPatch rewrite in default.nix: Aiursoft's private
+# npm registry is unreliable, so deps are fetched from the official registry.
+sed -i 's#https://npm.aiursoft.com/#https://registry.npmjs.org/#g' package-lock.json
 npm_hash=$(prefetch-npm-deps package-lock.json)
 sed -i 's#npmDepsHash = "[^"]*"#npmDepsHash = "'"$npm_hash"'"#' $path
 popd
