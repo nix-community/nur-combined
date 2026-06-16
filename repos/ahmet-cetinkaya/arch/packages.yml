@@ -1,0 +1,101 @@
+# System
+"@microsoft/inshellisense": npm
+appimagelauncher: yay
+bat: pacman
+com.github.qarmin.czkawka: flatpak # Duplicate file finder
+com.github.robertsanseries.ciano: flatpak # Format converter
+com.github.tchx84.Flatseal: flatpak # Flatpak permissions manager
+com.github.wwmm.easyeffects: flatpak # Audio effects and equalizer
+com.github.zocker_160.SyncThingy: flatpak # Sync tool
+com.nextcloud.desktopclient.nextcloud: flatpak # Nextcloud client
+easyeffects: pacman # Audio effects and equalizer
+eza: pacman
+fastfetch: pacman
+fzf: pacman
+gparted: pacman # Partition Manager
+io.github.vemonet.EmojiMart: flatpak # Emoji picker
+less: pacman
+org.bleachbit.BleachBit: flatpak # System cleaner
+org.gnome.Loupe: flatpak # Image Viewer
+org.gnome.baobab: flatpak # Disk usage analyzer
+rg: pacman
+starship: pacman
+unzip: pacman
+yayfzf: yay # AUR Fuzzy Finder
+zoxide: pacman
+zsh: pacman
+
+# Productivity
+anytype-bin: yay
+io.anytype.anytype: flatpak # Anytype note-taking
+md.obsidian.Obsidian: flatpak # Obsidian notes
+org.kde.okular: flatpak # PDF Viewer
+
+# 3D and Modelling
+com.ultimaker.cura: flatpak # 3D printing slicer
+io.github.guillaumechereau.Goxel: flatpak # Voxel editor
+io.github.nokse22.Exhibit: flatpak # 3D model viewer
+org.blender.Blender: flatpak # 3D modeling and animation
+org.inkscape.Inkscape: flatpak # Vector graphics editor
+
+# Developer Tools
+"@angular/cli": npm
+aspnet-runtime: pacman
+bun-bin: yay
+cmake: pacman
+# openfortigui: yay  # Forti VPN Client
+# openldap: pacman
+docker-compose: pacman
+dotnet-sdk: pacman
+dotnet-sdk-6.0: pacman
+firefox-developer-edition: yay # Dev Browser
+flutter: yay
+fr.romainvigier.MetadataCleaner: flatpak # Metadata cleaner
+git: pacman
+git-open: npm # Open git remote repository in browser
+godot-mono: pacman # Godot Engine (C# support)
+io.dbeaver.DBeaverCommunity: flatpak # Database manager
+io.github.giantpinkrobots.flatsweep: flatpak # Flatpak cache cleaner
+io.missioncenter.MissionCenter: flatpak # System monitor
+io.podman_desktop.PodmanDesktop: flatpak # Docker container management
+jdk-openjdk: pacman
+neovim: pacman
+nvm: yay # NodeJS Version Manager
+org.apache.directory.studio: flatpak # LDAP directory management
+org.filezillaproject.Filezilla: flatpak # FTP client
+pgadmin4-desktop: yay
+rest.insomnia.Insomnia: flatpak # API testing tool
+typescript: npm
+vscodium-bin: yay # VS Code Fork
+
+# Multimedia
+com.github.KRTirtho.Spotube: flatpak # Music player
+com.obsproject.Studio: flatpak # OBS Studio (live streaming and recording)
+com.stremio.Service: flatpak # Stremio service
+com.stremio.Stremio: flatpak # Media center
+fr.handbrake.ghb: flatpak # Video transcoder
+io.mpv.Mpv: flatpak # Media player
+kdeconnect: pacman # Connect your phone to your computer
+no.mifi.losslesscut: flatpak # Lossless video editor
+org.audacityteam.Audacity: flatpak # Audio editor
+org.gimp.GIMP: flatpak # Image editor
+org.kde.kdenlive: flatpak # Video editor
+org.qbittorrent.qBittorrent: flatpak # Torrent client
+org.upscayl.Upscayl: flatpak # Image upscaler
+peek: pacman # Screen Gif Recorder
+
+# Web Browsers
+com.brave.Browser: flatpak # Brave web browser
+io.github.zen_browser.zen: flatpak # Zen web browser
+
+# Communication
+com.ulduzsoft.Birdtray: flatpak # System tray application for Thunderbird
+dev.vencord.Vesktop: flatpak # Discord client
+eu.betterbird.Betterbird: flatpak # Betterbird email client
+org.localsend.localsend_app: flatpak # LocalSend file transfer
+org.mozilla.Thunderbird: flatpak # Email client
+
+# Extras
+com.anydesk.Anydesk: flatpak # Remote desktop tool
+openrgb: pacman # RGB lighting control
+prismatik-psieg: yay # Ambilight software

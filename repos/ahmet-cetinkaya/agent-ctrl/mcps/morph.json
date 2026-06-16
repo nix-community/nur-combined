@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "morph": {
+      "command": "bunx",
+      "args": ["-y", "@morphllm/morphmcp"],
+      "env": {
+        "MORPH_API_KEY": "${MORPH_KEY}"
+      }
+    }
+  }
+}

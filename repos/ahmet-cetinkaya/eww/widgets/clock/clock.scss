@@ -1,0 +1,12 @@
+// Clock widget styles
+.clock {
+    padding: 0 10px;
+}
+
+.clock-time,
+.clock-date {
+    color: $text_color;
+    font-weight: 600; // Maximum boldness
+    font-size: 14px;
+    font-family: "Symbols Nerd Font", sans-serif;
+}

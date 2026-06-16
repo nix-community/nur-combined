@@ -1,0 +1,42 @@
+.power-menu {
+    padding: 10px; /* Reduced padding */
+    min-width: 180px; /* Smaller width */
+    min-height: 120px; /* Smaller height */
+}
+
+.power-menu-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.power-option {
+    background-color: $button_bg_color;
+    color: $text_color;
+    border-radius: $border_radius_button;
+    border: $border_width solid $border_color;
+    box-shadow: $spacing_sm $spacing_sm 0px $primary_shadow_color;
+    padding: 8px 12px; /* Smaller padding */
+    min-width: 80px; /* Smaller width */
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+        background-color: $button_hover_bg_color;
+        box-shadow: $spacing_sm $spacing_sm 0px $button_hover_shadow_color;
+    }
+
+    &:active {
+        background-color: $button_active_bg_color;
+        box-shadow: 1px 1px 0px $button_active_shadow_color;
+    }
+}
+
+.power-option-icon {
+    font-size: 18px; /* Smaller icon */
+    margin-bottom: 3px;
+}
+
+.power-option-label {
+    font-size: 12px; /* Smaller text */
+    font-weight: bold;
+}

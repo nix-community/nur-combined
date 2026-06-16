@@ -1,0 +1,164 @@
+{
+  "agent": {
+    "default_model": {
+      "enable_thinking": false,
+      "model": "qwen2.5-coder:14b",
+      "provider": "ollama"
+    },
+    "dock": "right",
+    "tool_permissions": {
+      "tools": {
+        "terminal": {
+          "always_allow": [
+            {
+              "pattern": "^cat\\b"
+            },
+            {
+              "pattern": "^ls\\b"
+            },
+            {
+              "pattern": "^pwd\\b"
+            },
+            {
+              "pattern": "^rg\\b"
+            },
+            {
+              "pattern": "^find\\b"
+            },
+            {
+              "pattern": "^head\\b"
+            },
+            {
+              "pattern": "^tail\\b"
+            },
+            {
+              "pattern": "^wc\\b"
+            },
+            {
+              "pattern": "^stat\\b"
+            },
+            {
+              "pattern": "^file\\b"
+            },
+            {
+              "pattern": "^sed\\s+-n\\b"
+            },
+            {
+              "pattern": "^awk\\b"
+            },
+            {
+              "pattern": "^git\\s+(status|diff|show|log|fetch|ls-files|branch|remote\\s+-v|grep|rev-parse|describe)\\b"
+            },
+            {
+              "pattern": "^gh\\s+(version|auth\\s+status|repo\\s+view|pr\\s+(status|view|list)|issue\\s+(list|view)|alias\\s+list)\\b"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "autosave": "off",
+  "base_keymap": "VSCode",
+  "buffer_font_fallbacks": [
+    "JetBrains Mono Nerd Font",
+    "Cascadia Code Nerd Font",
+    "Victor Mono Nerd Font",
+    "Noto Sans Mono CJK JP",
+    "Noto Sans Mono CJK SC",
+    "Noto Sans Mono CJK KR",
+    "Noto Naskh Arabic",
+    "Noto Sans Thai",
+    "Noto Sans Devanagari",
+    "Noto Color Emoji",
+    "Noto Sans Symbols 2",
+    "Noto Sans Symbols",
+    "DejaVu Sans Mono",
+    "Nerd Font"
+  ],
+  "buffer_font_family": "FiraCode Nerd Font Mono",
+  "buffer_font_size": 16,
+  "collaboration_panel": {
+    "button": false
+  },
+  "colorize_brackets": true,
+  "context_servers": {
+    "mcp-server-context7": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
+    }
+  },
+  "cursor_blink": false,
+  "git": {
+    "git_gutter": "tracked_files"
+  },
+  "git_panel": {
+    "dock": "left",
+    "sort_by_path": true,
+    "tree_view": true
+  },
+  "icon_theme": "Material Icon Theme",
+  "lsp": {
+    "rust-analyzer": {
+      "initialization_options": {
+        "inlayHints": {
+          "closureReturnTypeHints": {
+            "enable": "always"
+          },
+          "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true
+          },
+          "maxLength": null
+        },
+        "rust": {
+          "analyzerTargetDir": true
+        }
+      }
+    }
+  },
+  "outline_panel": {
+    "dock": "left"
+  },
+  "project_panel": {
+    "dock": "left"
+  },
+  "relative_line_numbers": "enabled",
+  "scroll_beyond_last_line": "off",
+  "scrollbar": {
+    "show": "never"
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "terminal": {
+    "button": false,
+    "dock": "right",
+    "font_fallbacks": [
+      "JetBrains Mono Nerd Font Mono",
+      "Cascadia Code Nerd Font Mono",
+      "Victor Mono Nerd Font Mono",
+      "Noto Sans Mono CJK JP",
+      "Noto Sans Mono CJK SC",
+      "Noto Sans Mono CJK KR",
+      "Noto Naskh Arabic",
+      "Noto Sans Thai",
+      "Noto Sans Devanagari",
+      "Noto Color Emoji",
+      "Noto Sans Symbols 2",
+      "Noto Sans Symbols",
+      "DejaVu Sans Mono",
+      "Nerd Font Mono"
+    ],
+    "font_family": "FiraCode Nerd Font Mono",
+    "font_size": 14,
+    "line_height": "standard",
+    "shell": "system",
+    "working_directory": "current_project_directory"
+  },
+  "theme": "VSCode Dark Modern",
+  "ui_font_size": 16,
+  "vertical_scroll_margin": 0,
+  "vim_mode": true
+}

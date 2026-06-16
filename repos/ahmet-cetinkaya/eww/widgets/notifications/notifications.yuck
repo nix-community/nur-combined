@@ -1,0 +1,17 @@
+(defpoll notification_count :interval "2s"
+  "swaync-client -c 2>/dev/null || echo '0' | awk '{print int($1)}'")
+
+(defwidget notifications []
+  (box :orientation "h"
+       :valign "center"
+    :spacing 4
+    (button :class "fixed-button" :tooltip "Notifications"
+            :onclick "swaync-client -t"
+      (box :orientation "h" :spacing 10
+        (label :text "󰂚")
+        (label :text "${notification_count > 0 ? notification_count : ''}"
+               :visible "${notification_count != '' && notification_count > 0}")
+      )
+    )
+  )
+)

@@ -1,0 +1,504 @@
+[
+  /*  NEOVIM
+        -------
+        Navigation:
+        h,j,k,l: Move cursor (left, down, up, right)
+        w/b: Move forward/backward by word
+        0/$: Start/end of line
+        gg/G: Start/end of file
+        ^u/^d: Page up/down
+        %: Jump to matching bracket
+
+        Modes & Actions:
+        i/a: Insert mode (before/after cursor)
+        v/V: Visual mode (char/line)
+        o/O: New line below/above
+        dd: Delete line
+        yy: Yank (copy) line
+        p/P: Paste after/before
+        u/^r: Undo/redo
+        x: Delete character
+
+        NAVIGATION
+        ----------
+        Basic:
+        ctrl+p: Quick open file
+        ctrl+shift+p: Command palette
+        ctrl+tab: Switch between editors
+        ctrl+k ctrl+s: Open keyboard shortcuts
+        super+escape: Quit VSCode
+
+        Panels & Views:
+        ctrl+b: Toggle sidebar
+        ctrl+j: Toggle panel
+        ctrl+`: Toggle terminal
+        ctrl+shift+e: Show explorer
+        ctrl+shift+f: Show search
+        ctrl+shift+g: Show source control
+        ctrl+shift+x: Show extensions
+        ctrl+shift+d: Show run/debug
+        ctrl+shift+y: Toggle debug console
+        ctrl+shift+u: Toggle output panel
+
+        Window Management:
+        alt+h/l: Focus left/right group
+        alt+j/k: Focus up/down group
+        alt+shift+h/l: Move editor left/right
+        alt+shift+j/k: Move editor up/down
+        alt+1/2/3: Switch to specific tab
+        ctrl+\: Split editor
+        ctrl+w: Close editor
+        ctrl+k w: Close all editors
+        ctrl+k ctrl+w: Close all editors in group
+
+        EDITING
+        -------
+        Basic:
+        ctrl+x/c/v: Cut/copy/paste
+        ctrl+z: Undo
+        ctrl+shift+z: Redo
+        ctrl+f: Find
+        ctrl+h: Replace
+        ctrl+g: Go to line
+        ctrl+/: Toggle line comment
+        ctrl+]: Indent line
+        ctrl+[: Outdent line
+
+        Advanced:
+        ctrl+k f: Format document
+        ctrl+k s: Save all files
+        alt+↑/↓: Move line up/down
+        ctrl+backspace: Delete word left
+        ctrl+delete: Delete word right
+
+        TERMINAL
+        --------
+        ctrl+`: Toggle terminal
+        ctrl+shift+t: New terminal
+        ctrl+shift+t: Kill terminal
+        alt+pageup: Previous terminal
+        alt+pagedown: Next terminal
+
+        AI & CHAT
+        ---------
+        ctrl+i: Inline/Terminal chat
+        ctrl+shift+a: Chat edit session
+        ctrl+alt+a: Open chat panel
+    */
+
+  // Open new terminal
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.terminal.new"
+  },
+  // Quit VSCode
+  {
+    "key": "super+escape",
+    "command": "workbench.action.quit"
+  },
+  // Close current editor
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor"
+  },
+  // Toggle sidebar visibility
+  {
+    "key": "ctrl+b",
+    "command": "workbench.action.toggleSidebarVisibility"
+  },
+  // Toggle terminal
+  {
+    "key": "ctrl+`",
+    "command": "workbench.action.terminal.toggleTerminal"
+  },
+  // Quick open file
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpen"
+  },
+  // Switch between editors
+  {
+    "key": "ctrl+tab",
+    "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup"
+  },
+  // Open command palette
+  {
+    "key": "ctrl+shift+p",
+    "command": "workbench.action.showCommands"
+  },
+  // Focus explorer
+  {
+    "key": "ctrl+shift+e",
+    "command": "workbench.view.explorer"
+  },
+  // Focus search
+  {
+    "key": "ctrl+shift+g",
+    "command": "workbench.view.scm",
+    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+  {
+    "key": "ctrl+shift+g g",
+    "command": "-workbench.view.scm",
+    "when": "workbench.scm.active && !gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+  // Quick open and command
+  /*
+        ctrl+p: workbench.action.quickOpen
+        ctrl+shift+p: workbench.action.showCommands
+    */
+  {
+    "key": "ctrl+shift+e",
+    "command": "-workbench.action.quickOpenNavigatePreviousInFilePicker",
+    "when": "inFilesPicker && inQuickOpen"
+  },
+  // ----------------------------------------
+  // Editor Actions
+  // ----------------------------------------
+  /*
+        Default Editor Shortcuts:
+        ctrl+x: Cut line (empty selection)
+        ctrl+c: Copy line (empty selection)
+        ctrl+v: Paste
+        ctrl+z: Undo
+        ctrl+shift+z: Redo
+        ctrl+f: Find
+        ctrl+h: Replace
+        ctrl+g: Go to line
+        ctrl+/: Toggle line comment
+        ctrl+]: Indent line
+        ctrl+[: Outdent line
+        alt+↑ or alt+↓: Move line up/down
+        shift+alt+↑ or shift+alt+↓: Copy line up/down
+        ctrl+enter: Insert line below
+        ctrl+shift+enter: Insert line above
+        ctrl+shift+k: Delete line
+        ctrl+backspace: Delete word left
+        ctrl+delete: Delete word right
+        ctrl+shift+\: Jump to matching bracket
+    */
+  // Format document
+  {
+    "key": "ctrl+k f",
+    "command": "editor.action.formatDocument",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+  },
+  // Save all files
+  {
+    "key": "ctrl+k s",
+    "command": "workbench.action.files.saveAll"
+  },
+  // Switch to specific editor tabs
+  {
+    "key": "alt+1",
+    "command": "workbench.action.openEditorAtIndex1"
+  },
+  {
+    "key": "alt+2",
+    "command": "workbench.action.openEditorAtIndex2"
+  },
+  {
+    "key": "alt+3",
+    "command": "workbench.action.openEditorAtIndex3"
+  },
+  // Window management
+  {
+    "key": "alt+h",
+    "command": "workbench.action.focusPreviousGroup"
+  },
+  {
+    "key": "alt+l",
+    "command": "workbench.action.focusNextGroup"
+  },
+  {
+    "key": "alt+j",
+    "command": "workbench.action.focusBelowGroup"
+  },
+  {
+    "key": "alt+k",
+    "command": "workbench.action.focusAboveGroup"
+  },
+  {
+    "key": "alt+shift+h",
+    "command": "workbench.action.moveEditorToLeftGroup"
+  },
+  {
+    "key": "alt+shift+l",
+    "command": "workbench.action.moveEditorToRightGroup"
+  },
+  {
+    "key": "alt+shift+j",
+    "command": "workbench.action.moveEditorToBelowGroup"
+  },
+  {
+    "key": "alt+shift+k",
+    "command": "workbench.action.moveEditorToAboveGroup"
+  },
+  // ----------------------------------------
+  // Neovim Integration Overrides
+  // ----------------------------------------
+  /*
+        Default Neovim Shortcuts:
+        
+        Normal Mode Navigation:
+        h,j,k,l: Left, down, up, right
+        w: Move forward by word
+        b: Move backward by word
+        0: Start of line
+        $: End of line
+        gg: Start of file
+        G: End of file
+        ^u: Page up
+        ^d: Page down
+        %: Jump to matching bracket
+        
+        Text Editing:
+        i: Insert mode before cursor
+        a: Insert mode after cursor
+        o: Insert new line below
+        O: Insert new line above
+        x: Delete character
+        dd: Delete line
+        yy: Yank (copy) line
+        p: Paste after cursor
+        P: Paste before cursor
+        u: Undo
+        ^r: Redo
+        
+        Visual Mode:
+        v: Enter visual mode
+        V: Enter visual line mode
+        // ^v: Enter visual block mode
+    */
+
+  // Disable Neovim's Ctrl+A in normal mode
+  {
+    "key": "ctrl+a",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.ctrlKeysNormal.a && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+A in insert mode
+  {
+    "key": "ctrl+a",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.ctrlKeysInsert.a && neovim.init && neovim.mode == 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+C escape in insert mode
+  {
+    "key": "ctrl+c",
+    "command": "-vscode-neovim.escape",
+    "when": "editorTextFocus && neovim.ctrlKeysInsert.c && neovim.init && neovim.mode != 'normal' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+C escape in normal mode
+  {
+    "key": "ctrl+c",
+    "command": "-vscode-neovim.escape",
+    "when": "editorTextFocus && neovim.ctrlKeysNormal.c && neovim.init && !dirtyDiffVisible && !findWidgetVisible && !inReferenceSearchEditor && !markersNavigationVisible && !notebookCellFocused && !notificationCenterVisible && !parameterHintsVisible && !referenceSearchVisible && neovim.mode == 'normal' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+X in normal mode
+  {
+    "key": "ctrl+x",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.ctrlKeysNormal.x && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+X in insert mode
+  {
+    "key": "ctrl+x",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.ctrlKeysInsert.x && neovim.init && neovim.mode == 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+Z in normal mode
+  {
+    "key": "ctrl+z",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.ctrlKeysNormal.z && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // Disable Neovim's Ctrl+Z in insert mode
+  {
+    "key": "ctrl+z",
+    "command": "-vscode-neovim.send",
+    "when": "editorTextFocus && neovim.ctrlKeysInsert.z && neovim.init && neovim.mode == 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+  },
+  // ----------------------------------------
+  // Chat and AI Features
+  // ----------------------------------------
+  // Inline chat start
+  {
+    "key": "ctrl+i",
+    "command": "inlineChat.start",
+    "when": "editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly"
+  },
+  // Terminal chat start
+  {
+    "key": "ctrl+i",
+    "command": "workbench.action.terminal.chat.start",
+    "when": "terminalChatAgentRegistered && terminalFocusInAny && terminalHasBeenCreated || terminalChatAgentRegistered && terminalFocusInAny && terminalProcessSupported"
+  },
+  // Chat edit session
+  {
+    "key": "ctrl+shift+a",
+    "command": "workbench.action.chat.open",
+    "when": "chatPanelParticipantRegistered || chatSetupInstalled"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-workbench.action.chat.open",
+    "when": "chatPanelParticipantRegistered || chatSetupInstalled"
+  },
+  {
+    "key": "ctrl+alt+i",
+    "command": "-workbench.panel.chat",
+    "when": "workbench.panel.chat.view.copilot.active"
+  },
+  {
+    "key": "ctrl+shift+alt+i",
+    "command": "-workbench.panel.chatEditing",
+    "when": "workbench.panel.chat.view.edits.active"
+  },
+  {
+    "key": "ctrl+shift+alt+i",
+    "command": "-workbench.action.chat.openEditSession",
+    "when": "chatEditingParticipantRegistered && chatIsEnabled && view != 'workbench.panel.chat.view.edits'"
+  },
+  // Disable voice chat features
+  {
+    "key": "ctrl+i",
+    "command": "-workbench.action.chat.startVoiceChat"
+  },
+  {
+    "key": "ctrl+i",
+    "command": "-workbench.action.chat.stopListeningAndSubmit"
+  },
+  {
+    "key": "escape",
+    "command": "-workbench.action.chat.stopListening",
+    "when": "voiceChatInProgress && scopedVoiceChatInProgress == 'editor' || voiceChatInProgress && scopedVoiceChatInProgress == 'inline' || voiceChatInProgress && scopedVoiceChatInProgress == 'quick' || voiceChatInProgress && scopedVoiceChatInProgress == 'view'"
+  },
+  {
+    "key": "ctrl+i",
+    "command": "-workbench.action.chat.holdToVoiceChatInChatView",
+    "when": "chatIsEnabled && hasSpeechProvider && !chatSessionRequestInProgress && !editorFocus && !inChatInput && !inlineChatFocused && !notebookEditorFocused"
+  },
+  // Disable completion suggestions panel
+  {
+    "key": "ctrl+enter",
+    "command": "-github.copilot.generate",
+    "when": "editorTextFocus && github.copilot.activated && !commentEditorFocused && !inInteractiveInput && !interactiveEditorFocused"
+  },
+  // Kill terminal
+  {
+    "key": "ctrl+shift+t",
+    "command": "workbench.action.terminal.kill"
+  },
+  // Terminal navigation
+  {
+    "key": "alt+pageup",
+    "command": "workbench.action.terminal.focusPrevious",
+    "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus"
+  },
+  {
+    "key": "alt+pagedown",
+    "command": "workbench.action.terminal.focusNext",
+    "when": "terminalFocus && terminalHasBeenCreated && !terminalEditorFocus"
+  },
+  {
+    "key": "ctrl+k f",
+    "command": "-workbench.action.closeFolder",
+    "when": "emptyWorkspaceSupport && workbenchState != 'empty'"
+  },
+  {
+    "key": "ctrl+alt+n",
+    "command": "vscode-neovim.restart"
+  },
+  {
+    "key": "ctrl+; ctrl+shift+f",
+    "command": "-testing.coverageCurrentFile",
+    "when": "editorTextFocus"
+  },
+  {
+    "key": "ctrl+shift+f",
+    "command": "-workbench.view.search",
+    "when": "workbench.view.search.active && neverMatch =~ /doesNotMatch/"
+  },
+  {
+    "key": "ctrl+shift+g shift+h",
+    "command": "-gitlens.showQuickRepoHistory",
+    "when": "!gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+  {
+    "key": "ctrl+shift+g h",
+    "command": "-gitlens.showQuickFileHistory",
+    "when": "!gitlens:disabled && config.gitlens.keymap == 'chorded'"
+  },
+  {
+    "key": "ctrl+shift+alt+h",
+    "command": "-jsonToDart.fromSelectionToCodeGen"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-workbench.action.chat.toggleAgentMode",
+    "when": "chatIsEnabled && inChatInput && !chatSessionRequestInProgress && chatLocation == 'panel'"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-notebook.cell.openFailureActions",
+    "when": "notebookCellFocused && notebookCellHasErrorDiagnostics && !notebookCellEditorFocused"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-editor.action.quickFix",
+    "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-workbench.action.terminal.showQuickFixes",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-acceptSelectedCodeAction",
+    "when": "codeActionMenuVisible"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-editor.changeDropType",
+    "when": "dropWidgetVisible"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-editor.changePasteType",
+    "when": "pasteWidgetVisible"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "-problems.action.showQuickFixes",
+    "when": "problemFocus"
+  },
+  {
+    "key": "ctrl+[Period]",
+    "command": "editor.action.quickFix"
+  },
+  {
+    "key": "ctrl+shift+a",
+    "command": "-editor.action.blockComment",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+[Slash]",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+shift+7",
+    "command": "-editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "key": "ctrl+[Backquote]",
+    "command": "workbench.action.togglePanel"
+  },
+  {
+    "key": "ctrl+j",
+    "command": "-workbench.action.togglePanel"
+  }
+]

@@ -1,0 +1,27 @@
+(defpoll cpu_usage :interval "2s" "grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$3+$4+$5)} END {print int(usage)}'")
+(defpoll cpu_temp :interval "3s" "sensors | grep 'Tctl' | awk '{print int($2)}' 2>/dev/null || echo '0'")
+(defpoll cpu_freq :interval "2s" "cat /proc/cpuinfo | grep 'cpu MHz' | head -1 | awk '{printf \"%.1f\", $4/1000}' 2>/dev/null || echo '0.0'")
+(defpoll memory_usage :interval "2s" "free | awk '/Mem/ {printf \"%.0f\", $3/$2 * 100.0}'")
+(defpoll memory_used_gb :interval "2s" "free -m | grep Mem | awk '{printf \"%.1f\", $3/1024}'")
+(defpoll memory_freq :interval "10s" "echo '3.2'")
+(defpoll disk_usage :interval "10s" "df -h / | awk 'NR==2{print int($5)}'")
+(defpoll gpu_usage :interval "3s" "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null || echo '0'")
+(defpoll gpu_temp :interval "3s" "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits 2>/dev/null || echo '0'")
+(defpoll gpu_freq :interval "3s" "nvidia-smi --query-gpu=clocks.sm --format=csv,noheader,nounits 2>/dev/null | awk '{printf \"%.1f\", $1/1000}' || echo '0.0'")
+
+(defwidget system []
+  (box :class "system-monitor" :orientation "h" :space-evenly false :spacing 4
+    (box :class "system-item" :tooltip "CPU Usage: ${cpu_usage}% | CPU Temperature: ${cpu_temp}°C | CPU Frequency: ${cpu_freq}GHz"
+      (circular-progress :class "circular-progress-bar" :value cpu_usage :size 150 :thickness 10 :min 0)
+    )
+    (box :class "system-item" :tooltip "Memory Usage: ${memory_usage}% | Used: ${memory_used_gb}GB | Frequency: ${memory_freq}GHz"
+      (circular-progress :class "circular-progress-bar" :value memory_usage :size 150 :thickness 10 :min 0)
+    )
+    (box :class "system-item" :tooltip "GPU Usage: ${gpu_usage}% | GPU Temperature: ${gpu_temp}°C | GPU Frequency: ${gpu_freq}GHz"
+      (circular-progress :class "circular-progress-bar" :value gpu_usage :size 150 :thickness 10 :min 0)
+    )
+    (box :class "system-item" :tooltip "Disk Usage: ${disk_usage}%"
+      (circular-progress :class "circular-progress-bar" :value disk_usage :size 150 :thickness 10 :min 0)
+    )
+  )
+)

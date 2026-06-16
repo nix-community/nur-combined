@@ -1,0 +1,98 @@
+{
+  "id": "aca6241a-4041-4243-bfaf-948a6be03a03",
+  "version": "1.0",
+  "name": "My Visual Studio extensions",
+  "description": "A collection of my Visual Studio extensions",
+  "extensions": [
+    {
+      "vsixId": "SonarLint.0DE19254-1DCA-4479-8EAF-58E5D677FF4D",
+      "name": "SonarLint for Visual Studio 2022",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=SonarSource.SonarLintforVisualStudio2022",
+      "downloadUrl": "https://sonarsource.gallery.vsassets.io:443/_apis/public/gallery/publisher/SonarSource/extension/SonarLintforVisualStudio2022/8.1.0.95039/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "FormatXAML2022.31203c8d-aba6-4bd4-8945-96042e76712d",
+      "name": "Format XAML 2022",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=Lixfeld.FormatXAML",
+      "downloadUrl": "https://lixfeld.gallery.vsassets.io:443/_apis/public/gallery/publisher/Lixfeld/extension/FormatXAML/1.2.0/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "Microsoft.VisualStudio.LiveShare.2022",
+      "name": "Live Share 2022",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=MS-vsliveshare.vsls-vs-2022",
+      "downloadUrl": "https://ms-vsliveshare.gallery.vsassets.io:443/_apis/public/gallery/publisher/MS-vsliveshare/extension/vsls-vs-2022/1.0.5933.0/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "VSOutputEnhancer.Nikolay Balakin.a06be4c3-f97e-425c-8a0d-bdef08ac2abb",
+      "name": "Output enhancer",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=NikolayBalakin.Outputenhancer",
+      "downloadUrl": "https://nikolaybalakin.gallery.vsassets.io:443/_apis/public/gallery/publisher/NikolayBalakin/extension/Outputenhancer/1.8/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "Highlighter.5a31f97e-be3b-454f-a5b7-fa58b3f9a594",
+      "name": "Highlighter",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=AndriesDK.Highlighter",
+      "downloadUrl": "https://andriesdk.gallery.vsassets.io:443/_apis/public/gallery/publisher/AndriesDK/extension/Highlighter/1.0.2/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "66985471-b701-4851-a2d7-5a8bdce1e694",
+      "name": "Code Cleanup On Save",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=MadsKristensen.CodeCleanupOnSave",
+      "downloadUrl": "https://madskristensen.gallery.vsassets.io:443/_apis/public/gallery/publisher/MadsKristensen/extension/CodeCleanupOnSave/1.0.12/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "3a7b4930-a5fb-46ec-a9b8-9610c8f953b8",
+      "name": "File Icons",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=MadsKristensen.FileIcons",
+      "downloadUrl": "https://madskristensen.gallery.vsassets.io:443/_apis/public/gallery/publisher/MadsKristensen/extension/FileIcons/2.8.239/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "9079e73d-3fbb-4e07-8dab-f44fa5d8e8b5",
+      "name": "CodeMaid VS2022",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaidVS2022",
+      "downloadUrl": "https://stevecadwallader.gallery.vsassets.io:443/_apis/public/gallery/publisher/SteveCadwallader/extension/CodeMaidVS2022/12.0.300/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "83d6b6a0-9e25-4034-80f3-38445d8a8837",
+      "name": "CSharpier",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=csharpier.CSharpier",
+      "downloadUrl": "https://csharpier.gallery.vsassets.io:443/_apis/public/gallery/publisher/csharpier/extension/CSharpier/1.7.4/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "Microsoft.NET.UpgradeAssistant",
+      "name": ".NET Upgrade Assistant",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.upgradeassistant",
+      "downloadUrl": "https://ms-dotnettools.gallery.vsassets.io:443/_apis/public/gallery/publisher/ms-dotnettools/extension/upgradeassistant/0.5.678.21462/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "E1019027-EE37-4B1A-AD4C-25CAA92CA2D5",
+      "name": "Visual Studio Spell Checker (VS2022 and Later)",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=EWoodruff.VisualStudioSpellCheckerVS2022andLater",
+      "downloadUrl": "https://ewoodruff.gallery.vsassets.io:443/_apis/public/gallery/publisher/EWoodruff/extension/VisualStudioSpellCheckerVS2022andLater/2024.6.17.0/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "f326ee1b-81a6-4577-b251-1f29d391cef3",
+      "name": "Roslynator 2022",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=josefpihrt.Roslynator2022",
+      "downloadUrl": "https://josefpihrt.gallery.vsassets.io:443/_apis/public/gallery/publisher/josefpihrt/extension/Roslynator2022/4.12.4/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "e99dde0e-e023-410d-bc5d-3f76db71e3f0",
+      "name": "Open in Visual Studio Code",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=MadsKristensen.OpeninVisualStudioCode",
+      "downloadUrl": "https://madskristensen.gallery.vsassets.io:443/_apis/public/gallery/publisher/MadsKristensen/extension/OpeninVisualStudioCode/1.4.58/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "Winterdom.Viasfora.f7a33795-2b40-4125-856c-89b0bd8cd5ab",
+      "name": "Viasfora",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=TomasRestrepo.Viasfora",
+      "downloadUrl": "https://tomasrestrepo.gallery.vsassets.io:443/_apis/public/gallery/publisher/TomasRestrepo/extension/Viasfora/4.5.220/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    },
+    {
+      "vsixId": "VsVim.Microsoft.e97cd707-324b-4e35-a669-eef8dae4b8cf",
+      "name": "VsVim 2022",
+      "moreInfoUrl": "https://marketplace.visualstudio.com/items?itemName=JaredParMSFT.VsVim2022Preview",
+      "downloadUrl": "https://jaredparmsft.gallery.vsassets.io:443/_apis/public/gallery/publisher/JaredParMSFT/extension/VsVim2022Preview/2.10.0.6/assetbyname/Microsoft.VisualStudio.Ide.Payload?redirect=true\u0026update=true"
+    }
+  ]
+}

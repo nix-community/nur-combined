@@ -1,0 +1,29 @@
+{
+  "extras": [
+    "lazyvim.plugins.extras.coding.mini-comment",
+    "lazyvim.plugins.extras.dap.core",
+    "lazyvim.plugins.extras.editor.outline",
+    "lazyvim.plugins.extras.editor.refactoring",
+    "lazyvim.plugins.extras.formatting.prettier",
+    "lazyvim.plugins.extras.lang.angular",
+    "lazyvim.plugins.extras.lang.astro",
+    "lazyvim.plugins.extras.lang.java",
+    "lazyvim.plugins.extras.lang.json",
+    "lazyvim.plugins.extras.lang.markdown",
+    "lazyvim.plugins.extras.lang.tailwind",
+    "lazyvim.plugins.extras.lang.toml",
+    "lazyvim.plugins.extras.lang.typescript",
+    "lazyvim.plugins.extras.lang.vue",
+    "lazyvim.plugins.extras.lang.yaml",
+    "lazyvim.plugins.extras.linting.eslint",
+    "lazyvim.plugins.extras.lsp.neoconf",
+    "lazyvim.plugins.extras.ui.dashboard-nvim",
+    "lazyvim.plugins.extras.util.dot",
+    "lazyvim.plugins.extras.vscode"
+  ],
+  "install_version": 7,
+  "news": {
+    "NEWS.md": "11866"
+  },
+  "version": 8
+}

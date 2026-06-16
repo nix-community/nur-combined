@@ -1,0 +1,5 @@
+(defwidget launcher []
+    (button :class "button-primary" :tooltip "Apps" :onclick "/home/ac/Configs/rofi/launch_rofi.sh"
+      (image :path "widgets/launcher/logo.png" :image-height 18)
+    )
+)

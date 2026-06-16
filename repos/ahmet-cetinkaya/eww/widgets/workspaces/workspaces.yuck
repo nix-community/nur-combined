@@ -1,0 +1,12 @@
+(defpoll workspaces_data :interval "10ms" "~/Configs/eww/widgets/workspaces/get_workspaces.sh")
+
+(defwidget workspaces []
+  (box :class "workspaces"
+    :space-evenly false
+    :halign "start"
+    :spacing 8
+    (for workspace in workspaces_data
+      (button :class "${workspace.focused ? "button-primary" : ""}"
+        :onclick "~/Configs/eww/widgets/workspaces/switch_workspace.sh ${workspace.id}"
+        (label :text "${workspace.id}")
+))))

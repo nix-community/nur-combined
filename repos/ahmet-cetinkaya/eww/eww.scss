@@ -1,0 +1,106 @@
+// ==========================================
+// Eww Configuration - Main Styles
+// ==========================================
+
+// ==========================================
+// Color Variables
+// ==========================================
+$text_color: #ffffff;
+$background_color: rgba(32, 31, 32, 0.9);
+$border_color: rgba(32, 31, 32, 0.98);
+$primary_color: #f4d03f;
+$primary_shadow_color: #826f28;
+$secondary_shadow_color: #56517f;
+$button_bg_color: #282728;
+$button_hover_bg_color: #585758;
+$button_hover_shadow_color: #a08d32;
+$button_active_bg_color: #403f40;
+$button_active_shadow_color: #6b5c21;
+
+// ==========================================
+// Spacing Variables
+// ==========================================
+$spacing_sm: 3px;
+$spacing_md: 6px;
+$spacing_lg: 12px;
+
+// ==========================================
+// Dimension Variables
+// ==========================================
+$border_radius_container: 12px;
+$border_radius_button: 8px;
+$border_width: 2px;
+
+// ==========================================
+// Import Widget-Specific Styles
+// ==========================================
+@import "widgets/tray/tray.scss";
+@import "widgets/volume/volume.scss";
+@import "widgets/weather/weather.scss";
+@import "widgets/calendar/calendar.scss";
+@import "widgets/clock/clock.scss";
+@import "widgets/power/power.scss";
+@import "widgets/power/power-menu.scss";
+@import "widgets/closer/closer.scss";
+
+// ==========================================
+// Global Styles
+// ==========================================
+* {
+  all: unset; // Unsets everything so you can style everything from scratch
+  font-family: "Symbols Nerd Font";
+}
+
+window {
+  background-color: transparent;
+}
+
+// ==========================================
+// Common Widget Styles
+// ==========================================
+
+// Container with shadow effect
+.container {
+  padding: $spacing_sm $spacing_md;
+  background-color: $background_color;
+  color: $text_color;
+  border-radius: $border_radius_container;
+  border: $border_width solid $border_color;
+}
+
+// Primary shadow effect
+.shadow-primary {
+  box-shadow: $spacing_sm $spacing_sm 0px $primary_shadow_color;
+  margin-right: $spacing_sm;
+  margin-bottom: $spacing_sm;
+}
+
+// Secondary shadow effect
+.shadow-secondary {
+  box-shadow: $spacing_sm $spacing_sm 0px $secondary_shadow_color;
+  margin-right: $spacing_sm;
+  margin-bottom: $spacing_sm;
+}
+
+// Primary button style
+.button-primary {
+  padding: $spacing_sm $spacing_md;
+  background-color: $button_bg_color;
+  color: $text_color;
+  border-radius: $border_radius_button;
+  border: $border_width solid $border_color;
+  box-shadow: $spacing_sm $spacing_sm 0px $primary_shadow_color;
+  margin-right: $spacing_sm;
+  margin-bottom: $spacing_sm;
+  transition: all 0.1s ease-in-out;
+
+  &:hover {
+    background-color: $button_hover_bg_color;
+    box-shadow: $spacing_sm $spacing_sm 0px $button_hover_shadow_color;
+  }
+
+  &:active {
+    background-color: $button_active_bg_color;
+    box-shadow: 1px 1px 0px $button_active_shadow_color;
+  }
+}

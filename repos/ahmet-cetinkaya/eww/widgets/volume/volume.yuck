@@ -1,0 +1,62 @@
+(defpoll audio_output_icon :interval "1s" "~/Configs/eww/widgets/volume/polls/get_audio_output_icon.sh" )
+(defpoll volume_value :interval "200ms" "~/Configs/eww/widgets/volume/polls/get_volume_value.sh")
+(defpoll volume_class_data :interval "1s" "~/Configs/eww/widgets/volume/polls/get_volume_mute_status.sh")
+(defpoll mic_status :interval "1s" "~/Configs/eww/widgets/volume/polls/get_mic_status.sh")
+(defpoll mic_mute_status :interval "1s" "~/Configs/eww/widgets/volume/polls/get_mic_mute_status.sh")
+(defpoll volume_icon :interval "1s" "~/Configs/eww/widgets/volume/polls/get_volume_icon.sh")
+(defpoll mic_icon :interval "1s" "~/Configs/eww/widgets/volume/polls/get_mic_icon.sh")
+
+; Poll to determine the volume label class (faster update)
+(defpoll volume_label_class :interval "200ms" "~/Configs/eww/widgets/volume/polls/get_volume_label_class.sh")
+
+(defvar volume_popup_revealed false)
+
+(defwidget volume []
+  (eventbox
+    :valign "center"
+    :onscroll "~/Configs/eww/widgets/volume/handle_volume_scroll.sh {}"
+    :tooltip "${volume_value}%"
+     (button :class "fixed-button"
+        :onclick "eww update volume_popup_revealed=$(if [ \"$(eww get volume_popup_revealed)\" = \"true\" ]; then echo \"false\"; else echo \"true\"; fi) && if [ \"$(eww get volume_popup_revealed)\" = \"true\" ]; then eww open-many closer volume-popup; else eww close volume-popup 2>/dev/null && eww close closer 2>/dev/null; fi"
+       (box :orientation "h" :spacing 1
+        (label :text "${volume_icon}")
+        (label :class volume_label_class
+              :text "${volume_value}%")
+      )
+    )
+  )
+)
+
+(defwindow volume-popup
+   :monitor "LG ULTRAGEAR"
+   :stacking "fg"
+  :geometry (geometry :x "12px" :y "4px" :width "220px" :height "120px" :anchor "top right")
+  (eventbox :onclick "~/Configs/eww/widgets/closer/close_popups.sh"
+    (revealer :transition "slidedown"
+              :duration "300ms"
+              :reveal volume_popup_revealed
+      (eventbox :onclick ""
+        (box :class "container shadow-secondary" :orientation "v" :spacing 15 :space-evenly false
+          (box :orientation "v" :spacing 10 :halign "center"
+            (box :orientation "h" :spacing 10 :halign "center"
+              (button :onclick "~/Configs/eww/widgets/volume/toggle_audio_output.sh"  :class "button-primary volume-button" :tooltip "Ses Çıkışını Değiştir"
+                (label :text "${audio_output_icon}")
+              )
+              (button :onclick "pavucontrol &" :class "button-primary volume-button" :tooltip "Sound Settings"
+                (label :text "")
+              )
+            )
+            (box :orientation "h" :spacing 10 :halign "center"
+              (button :onclick "~/Configs/eww/widgets/volume/toggle_sink_mute.sh" :class "button-primary volume-button" :tooltip "Mute/Unmute"
+                (label :text "${volume_icon}")
+              )
+              (button :onclick "~/Configs/eww/widgets/volume/toggle_source_mute.sh"  :class "button-primary volume-button" :tooltip "Mikrofonu Aç/Kapat"
+                (label :text "${mic_icon}")
+              )
+            )
+          )
+        )
+      )
+    )
+ )
+)

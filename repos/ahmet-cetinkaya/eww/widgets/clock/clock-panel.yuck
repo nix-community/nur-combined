@@ -1,0 +1,16 @@
+;; Combined widget
+(defwidget clock-panel-content []
+  (box :class "container shadow-primary" :orientation "v" :space-evenly false :spacing 16
+    (weather-widget)
+    (calendar-widget)
+  )
+)
+
+(defwindow clock-panel-popup
+  :monitor "LG ULTRAGEAR"
+  :stacking "fg"
+  :geometry (geometry :x "200px" :y "10px" :width "320px" :height "180px" :anchor "top center")
+  :windowtype "dialog"
+  (eventbox :onclick "~/Configs/eww/widgets/closer/close_popups.sh"
+    (clock-panel-content))
+)

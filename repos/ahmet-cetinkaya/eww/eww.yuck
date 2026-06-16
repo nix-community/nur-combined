@@ -1,0 +1,40 @@
+; Eww Configuration - Main Configuration File
+
+; Widget Inclusions
+(include "./widgets/bar/bar.yuck")
+(include "./widgets/desktop/model.yuck")
+(include "./widgets/weather/weather.yuck")
+(include "./widgets/calendar/calendar.yuck")
+(include "./widgets/clock/clock-panel.yuck")
+(include "./widgets/closer/closer.yuck")
+(include "./widgets/power/power.yuck")
+(include "./widgets/power/power-menu.yuck")
+
+; Main Bar Window
+(defwindow bar
+  :monitor     "LG ULTRAGEAR"
+  :windowtype  "dock"
+  :geometry    (geometry
+    :x      "0"
+    :y      "0.5%"
+    :width  "99.1%"
+    :height "8px"
+  :anchor "top center")
+  :reserve     (struts :side "top" :distance "3%")
+  :stacking    "fg"
+  :exclusive   true
+  (bar))
+
+; Desktop Window (Model)
+(defwindow desktop
+  :monitor    "LG ULTRAGEAR"
+  :windowtype "desktop"
+  :geometry   (geometry
+    :x      "5%"
+    :y      "5%"
+    :width  "10%"
+  :height "10%")
+  :stacking   "bg"
+  (model))
+
+

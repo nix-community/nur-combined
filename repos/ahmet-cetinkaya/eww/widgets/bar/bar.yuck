@@ -1,0 +1,61 @@
+; ==========================================
+; Bar Widget Definitions
+; ==========================================
+
+; Include required widget definitions
+(include "widgets/workspaces/workspaces.yuck")
+(include "widgets/keyboard/keyboard.yuck")
+
+(include "widgets/clock/clock.yuck")
+(include "widgets/tray/tray.yuck")
+(include "widgets/system/system.yuck")
+(include "widgets/volume/volume.yuck")
+(include "widgets/color_picker/color_picker.yuck")
+(include "widgets/network/network.yuck")
+(include "widgets/launcher/launcher.yuck")
+(include "widgets/notifications/notifications.yuck")
+(include "widgets/power/power.yuck")
+
+; ==========================================
+; Main Bar Widget
+; ==========================================
+(defwidget bar []
+  (centerbox :class "container shadow-secondary"
+    :orientation "h"
+    (left-widgets)
+    (center-widgets)
+    (right-widgets)))
+
+; ==========================================
+; Bar Sections
+; ==========================================
+
+; Left section: launcher and workspaces
+(defwidget left-widgets []
+  (box :orientation "h"
+    :space-evenly false
+    :halign "start"
+    :spacing 16
+    (launcher)
+    (workspaces)))
+; Center section: clock
+(defwidget center-widgets []
+  (box :orientation "h"
+    :space-evenly false
+    :halign "center"
+    (clock)))
+
+; Right section: various system widgets
+(defwidget right-widgets []
+  (box :orientation "h"
+    :space-evenly false
+    :halign "end"
+    :spacing 16
+    (color_picker)
+    (keyboard)
+    (network)
+    (system)
+    (tray)
+    (volume)
+    (notifications)
+    (power)))

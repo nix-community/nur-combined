@@ -1,0 +1,7 @@
+(defpoll network_usage :interval "2s" "widgets/network/get_network_speed.sh")
+
+(defwidget network []
+  (box :class "network"
+    (label :text network_usage)
+  )
+)

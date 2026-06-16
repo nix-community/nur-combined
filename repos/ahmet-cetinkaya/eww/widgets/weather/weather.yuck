@@ -1,0 +1,47 @@
+(defpoll location_data :interval "600s" "~/Configs/eww/widgets/weather/scripts/get_location.sh")
+(defpoll weather_icon :interval "600s" "~/Configs/eww/widgets/weather/scripts/get_weather_icon.sh")
+(defpoll weather_condition :interval "600s" "~/Configs/eww/widgets/weather/scripts/get_condition.sh")
+(defpoll weather_temp :interval "600s" "~/Configs/eww/widgets/weather/scripts/get_temperature.sh")
+(defpoll weather_humidity :interval "600s" "~/Configs/eww/widgets/weather/scripts/get_humidity.sh")
+(defpoll weather_wind :interval "600s" "~/Configs/eww/widgets/weather/scripts/get_wind.sh")
+(defpoll forecast_day1_name :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day1_name.sh")
+(defpoll forecast_day1_icon :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day1_icon.sh")
+(defpoll forecast_day1_temp :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day1_temp.sh")
+(defpoll forecast_day2_name :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day2_name.sh")
+(defpoll forecast_day2_icon :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day2_icon.sh")
+(defpoll forecast_day2_temp :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day2_temp.sh")
+(defpoll forecast_day3_name :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day3_name.sh")
+(defpoll forecast_day3_icon :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day3_icon.sh")
+(defpoll forecast_day3_temp :interval "3600s" "~/Configs/eww/widgets/weather/scripts/get_forecast_day3_temp.sh")
+
+(defwidget weather-widget []
+  (box :orientation "v" :space-evenly false :spacing 8
+    (label :text location_data :class "weather-header" :halign "center")
+    (box :orientation "h" :halign "center"
+      (box :orientation "v" :halign "start"
+        (label :text weather_icon :class "weather-icon-large")
+        (label :text weather_temp :class "weather-temp"))
+      (box :orientation "v" :halign "start"
+        (label :text weather_condition :class "weather-condition")
+        (label :text weather_humidity :class "weather-details")
+        (label :text weather_wind :class "weather-wind")
+      )
+    )
+    (label :text "3-Day Forecast" :class "weather-header" :halign "center")
+    (box :orientation "h" :halign "center"
+      (box :orientation "v" :halign "center" :class "forecast-day"
+        (label :text forecast_day1_name :class "forecast-day-name")
+        (label :text forecast_day1_icon :class "weather-icon")
+        (label :text forecast_day1_temp :class "forecast-temp"))
+      (box :orientation "v" :halign "center" :class "forecast-day"
+        (label :text forecast_day2_name :class "forecast-day-name")
+        (label :text forecast_day2_icon :class "weather-icon")
+        (label :text forecast_day2_temp :class "forecast-temp"))
+      (box :orientation "v" :halign "center" :class "forecast-day"
+        (label :text forecast_day3_name :class "forecast-day-name")
+        (label :text forecast_day3_icon :class "weather-icon")
+        (label :text forecast_day3_temp :class "forecast-temp")
+      )
+    )
+  )
+)

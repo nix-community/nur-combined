@@ -1,0 +1,15 @@
+[submodule "nixos/nix-flatpak"]
+	path = nixos/nix-flatpak
+	url = https://github.com/gmodena/nix-flatpak
+[submodule "zsh/zaw"]
+	path = zsh/zaw
+	url = https://github.com/zsh-users/zaw.git
+[submodule "zsh/zsh-autosuggestions"]
+	path = zsh/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/zsh-syntax-highlighting"]
+	path = zsh/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "quickshell/noctalia-shell"]
+	path = quickshell/noctalia-shell
+	url = https://github.com/ahmet-cetinkaya/dotfiles-noctalia-shell

@@ -1,0 +1,9 @@
+(defwidget color_picker []
+  (box :orientation "h"
+    :spacing 4
+    (button :tooltip "Renk Seçici"
+            :onclick "~/Configs/eww/widgets/color_picker/color_picker_script.sh"
+      (label :text "󰌁")
+    )
+  )
+)

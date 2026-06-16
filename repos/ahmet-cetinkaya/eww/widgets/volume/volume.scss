@@ -1,0 +1,10 @@
+.volume-button {
+    padding: $spacing_sm $spacing_md;
+    font-size: 18px;
+    min-width: 28px;
+    min-height: 28px;
+}
+
+.volume-label.volume-high {
+    color: #ff4444;  /* Red color for high volume */
+}

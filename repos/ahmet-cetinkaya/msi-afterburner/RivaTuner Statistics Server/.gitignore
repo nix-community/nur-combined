@@ -1,0 +1,15 @@
+/
+
+!Plugins/
+Plugins/*
+!gitignore
+!Profiles/
+Profiles/*
+!Plugins/Client/
+Plugins/Client/*
+!Profiles/Config
+!Profiles/Global
+!Plugins/Client/Overlays/
+Plugins/Client/Overlays/*
+!Plugins/Client/Overlays/ahmetcetinkaya.ovl
+!Plugins/Client/Overlays/Custom Overlay.png

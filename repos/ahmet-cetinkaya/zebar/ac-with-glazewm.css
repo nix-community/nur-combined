@@ -1,0 +1,120 @@
+/**
+ * Import the Nerdfonts icon font.
+ * Ref https://www.nerdfonts.com/cheat-sheet for a cheatsheet of available Nerdfonts icons.
+ */
+@import "https://www.nerdfonts.com/assets/css/webfont.css";
+
+body {
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+#root {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  height: 32px;
+  background-color: #20242cc4;
+  color: #ffffff;
+  padding: 0 1rem;
+  font-family: "Segoe UI";
+  border-radius: 1rem;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  height: 100%;
+}
+
+.left,
+.center,
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.center {
+  justify-self: center;
+}
+
+.right {
+  justify-self: end;
+}
+
+.workspaces,
+.weather,
+.memory,
+.cpu,
+.network {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.workspace {
+  padding: 0.3rem 0.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  background: transparent;
+}
+
+.workspace.displayed {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.workspace.focused,
+.workspace:hover {
+  background: rgba(244, 208, 62, 0.5);
+}
+
+.binding-mode,
+.tiling-direction {
+  color: #ffffff;
+  background: transparent;
+  border-radius: 50%;
+  line-height: 1;
+  padding: 6px;
+  border: 0;
+  cursor: pointer;
+}
+
+.tiling-direction:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.cpu .high-usage {
+  color: #900029;
+}
+
+.battery {
+  position: relative;
+}
+
+.battery .charging-icon {
+  position: absolute;
+  font-size: 7px;
+  left: -8px;
+  top: 3px;
+}
+
+.received-traffic,
+.transmitted-traffic {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+i,
+.received-traffic i,
+.transmitted-traffic i {
+  color: #f4d03e;
+}

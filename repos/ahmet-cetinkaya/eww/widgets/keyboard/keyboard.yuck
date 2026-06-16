@@ -1,0 +1,9 @@
+(defpoll keyboard_layout :interval "500ms" "~/Configs/eww/widgets/keyboard/keyboard_layout.sh")
+
+(defwidget keyboard []
+  (button :class "keyboard"
+          :onclick "~/Configs/eww/widgets/keyboard/toggle_keyboard_layout.sh"
+          :space-evenly false
+          :halign "center"
+          :valign "center"
+    (label :text {keyboard_layout})))

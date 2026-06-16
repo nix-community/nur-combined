@@ -1,0 +1,17 @@
+(defwidget tray []
+  (eventbox
+    :onclick "~/Configs/eww/scripts/toggle_popup.sh tray-popup"
+    (box :class "tray-icon" " ")))
+
+
+(defwidget tray-popup-content []
+  (box :class "container shadow-secondary" (systray)))
+
+(defwindow tray-popup
+   :monitor "LG ULTRAGEAR"
+   :stacking "fg"
+ :geometry (geometry :x "70px" :y "10px" :width "220px" :height "120px" :anchor "top right")
+ :windowtype "dialog"
+ (eventbox :onclick "~/Configs/eww/widgets/closer/close_popups.sh"
+  (eventbox :onclick ""
+   (tray-popup-content))))

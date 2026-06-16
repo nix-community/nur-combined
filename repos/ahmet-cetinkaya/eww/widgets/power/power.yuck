@@ -1,0 +1,6 @@
+;; Power menu widget
+(defwidget power []
+  (button
+    :class "power-btn"
+    :onclick "~/Configs/eww/scripts/toggle_popup.sh power-menu"
+    (label :text "⏻")))

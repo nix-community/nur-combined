@@ -1,0 +1,3 @@
+# Local secrets for agent-ctrl catalog integrations
+.env
+.catalog

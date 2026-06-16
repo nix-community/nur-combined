@@ -1,0 +1,6 @@
+(defwidget calendar-widget []
+  (calendar :class "calendar-widget"
+    :show-heading true
+    :show-day-names true
+  :show-week-numbers false)
+)

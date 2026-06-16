@@ -1,0 +1,21 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Editor && !menu",
+    "bindings": {
+      "ctrl-c": "editor::Copy", // vim default: return to normal mode
+      "ctrl-x": "editor::Cut", // vim default: decrement
+      "ctrl-v": "editor::Paste", // vim default: visual block mode
+      "ctrl-y": "editor::Undo", // vim default: line up
+      "ctrl-f": "buffer_search::Deploy", // vim default: page down
+      "ctrl-o": "workspace::Open", // vim default: go back
+      "ctrl-a": "editor::SelectAll" // vim default: increment
+    }
+  }
+]

@@ -1,0 +1,164 @@
+{
+  "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
+  "blocks": [
+    {
+      "alignment": "right",
+      "segments": [
+        {
+          "type": "git",
+          "style": "plain",
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#FFE082{{ end }}",
+            "{{ if and (gt .Ahead 0) (gt .Behind 0) }}#FFCC80{{ end }}",
+            "{{ if gt .Ahead 0 }}#B388FF{{ end }}",
+            "{{ if gt .Behind 0 }}#B388FB{{ end }}"
+          ],
+          "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }} <#757575,>|</> ",
+          "properties": {
+            "fetch_status": true,
+            "fetch_stash_count": true,
+            "fetch_upstream_icon": true,
+            "untracked_modes": {
+              "/Users/user/Projects/oh-my-posh/": "no"
+            }
+          }
+        },
+        {
+          "type": "dotnet",
+          "style": "plain",
+          "foreground": "#00ffff",
+          "template": "\uE77F {{ .Full }} <#757575,>|</> "
+        },
+        {
+          "type": "node",
+          "style": "plain",
+          "foreground": "#6CA35E",
+          "template": "\uE718 {{ .Full }} <#757575,>|</> "
+        },
+        {
+          "type": "angular",
+          "style": "plain",
+          "foreground": "#c3002f",
+          "template": "\uE753 {{ .Full }} <#757575,>|</> "
+        },
+        {
+          "foreground": "#FFE082",
+          "properties": {
+            "display_host": false,
+            "foreground": "#757575"
+          },
+          "style": "plain",
+          "template": "{{ if .SSHSession }}\uf817 {{ end }}{{ .UserName }} <#757575,>|</>",
+          "type": "session"
+        },
+        {
+          "foreground": "#007acc",
+          "style": "plain",
+          "template": " {{ .Name }} ",
+          "type": "shell"
+        },
+        {
+          "foreground": "#ff8080",
+          "properties": {
+            "root_icon": "root"
+          },
+          "style": "plain",
+          "template": "<#757575,>as</> \uf0e7 ",
+          "type": "root"
+        },
+        {
+          "foreground": "#FFE082",
+          "properties": {
+            "time_format": "15:04:05"
+          },
+          "style": "plain",
+          "template": "<#757575,>|</> {{ .CurrentDate | date .Format }}",
+          "type": "time"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "properties": {
+            "display_host": false,
+            "foreground": "#757575"
+          },
+          "style": "plain",
+          "template": "\u250c ",
+          "type": "session"
+        },
+        {
+          "background": "#372A6C",
+          "foreground": "#ffffff",
+          "powerline_symbol": "\ue0b0",
+          "properties": {
+            "style": "full",
+            "mapped_locations": {
+              "C:\\Code": "\ueac4 ",
+              "C:\\Code\\github.com": "\ueb00 "
+            }
+          },
+          "style": "diamond",
+          "template": " {{ .Path }} ",
+          "type": "path"
+        },
+        {
+          "type": "executiontime",
+          "template": " {{ .FormattedMs }} ",
+          "properties": {
+            "threshold": 500,
+            "style": "austin"
+          },
+          "style": "powerline",
+          "background": "#FFE082",
+          "foreground": "#0c0c0c",
+          "powerline_symbol": "\ue0b0"
+        },
+        {
+          "background": "#ff8080",
+          "foreground": "#0c0c0c",
+          "powerline_symbol": "\ue0b0",
+          "style": "powerline",
+          "template": "{{ if gt .Code 0 }} error {{ end }}",
+          "type": "exit"
+        },
+        {
+          "background": "#8fff80",
+          "foreground": "#0c0c0c",
+          "powerline_symbol": "\ue0b0",
+          "style": "powerline",
+          "template": "{{ if lt .Code 1 }} \uf42e {{ end }}",
+          "type": "exit"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": "\u2514",
+          "type": "text"
+        },
+        {
+          "foreground": "#ffffff",
+          "style": "plain",
+          "template": ">",
+          "type": "text"
+        }
+      ],
+      "type": "prompt"
+    }
+  ],
+  "final_space": true,
+  "osc99": true,
+  "version": 2
+}

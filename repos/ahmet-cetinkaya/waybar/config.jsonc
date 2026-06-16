@@ -1,0 +1,227 @@
+[
+  //#region Primary Monitor
+  {
+    "output": "DP-1",
+
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "margin-left": 300,
+    "margin-right": 300,
+    "margin-top": 6,
+    "margin-bottom": 4,
+    "spacing": 18,
+
+    // Left Modules
+    "modules-left": ["group/desktop"],
+
+    "group/desktop": {
+      "orientation": "inherit",
+      "modules": ["image#launcher", "hyprland/workspaces"]
+    },
+
+    "image#launcher": {
+      "path": "/home/ac/.config/hypr/logo.png",
+      "size": 16,
+      "on-click": "albert toggle"
+    },
+
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "persistent-workspaces": {
+        "DP-1": [1]
+      },
+      "sort-by-number": true
+    },
+
+    // Center Modules
+    "modules-center": ["group/general"],
+    "group/general": {
+      "orientation": "inherit",
+      "modules": ["clock", "custom/weather"]
+    },
+
+    "clock": {
+      "format": "    {:%H:%M        %a %m.%d}  ",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "custom/weather": {
+      "format": "{}",
+      "interval": 3600,
+      "exec": "curl -s 'https://wttr.in/Antalya?format=1' | awk '{gsub(/\\+/,\"\",$2); print $1, $2}'",
+      "exec-if": "ping wttr.in -c1",
+      "on-click": "flatpak run io.github.amit9838.mousam",
+      "tooltip": false
+    },
+
+    // Right Modules
+    "modules-right": ["tray", "group/system"],
+
+    "tray": {
+      "icon-size": 18,
+      "spacing": 8
+    },
+
+    "group/system": {
+      "orientation": "inherit",
+      "modules": ["custom/notification", "pulseaudio", "custom/power"]
+    },
+
+    "custom/notification": {
+      "format": "      ",
+      "tooltip": false,
+      "on-click": "swaync-client -t"
+    },
+
+    "pulseaudio": {
+      "format": "{icon}",
+      "format-muted": "",
+      "format-icons": {
+        "default": ["      ", "      ", "    "]
+      },
+      "on-click": "flatpak run com.saivert.pwvucontrol",
+      "tooltip-format": "{volume}%"
+    },
+
+    "custom/power": {
+      "format": "      ",
+      "tooltip": false,
+      "on-click": "wlogout"
+    }
+  },
+  //#endregion
+
+  //#region Secondary Monitor
+
+  {
+    "output": "DP-2",
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "margin-left": 300,
+    "margin-right": 300,
+    "margin-top": 6,
+    "margin-bottom": 4,
+    "spacing": 8,
+
+    // Left Modules
+    "modules-left": ["group/desktop"],
+
+    "group/desktop": {
+      "orientation": "inherit",
+      "modules": ["image#launcher", "hyprland/workspaces"]
+    },
+
+    "image#launcher": {
+      "path": "/home/ac/.config/hypr/logo.png",
+      "size": 16,
+      "on-click": "albert toggle"
+    },
+
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "on-click": "activate",
+      "persistent-workspaces": {
+        "DP-2": [6]
+      },
+      "sort-by-number": true
+    },
+
+    // Center Modules
+    "modules-center": ["group/music"],
+
+    "group/music": {
+      "orientation": "inherit",
+      "modules": ["image#music", "custom/mediaplayer"]
+    },
+
+    "image#music": {
+      "path": "/tmp/waybar-mediaplayer-art",
+      "size": 32,
+      "signal": 4,
+      "on-click": "feh --auto-zoom --borderless --title 'feh-float' /tmp/waybar-mediaplayer-art"
+    },
+
+    "custom/mediaplayer": {
+      "exec": "~/.config/waybar/waybar-mediaplayer/src/mediaplayer monitor",
+      "return-type": "json",
+      "format": "{}",
+      "on-click": "~/.config/waybar/waybar-mediaplayer/src/mediaplayer play-pause",
+      "on-scroll-up": "~/.config/waybar/waybar-mediaplayer/src/mediaplayer next",
+      "on-scroll-down": "~/.config/waybar/waybar-mediaplayer/src/mediaplayer previous",
+      "min-length": 20,
+      "max-length": 20
+    },
+
+    // Right Modules
+    "modules-right": [
+      "group/hardware-cpu",
+      "group/hardware-gpu",
+      "memory",
+      "network"
+    ],
+
+    "group/hardware-cpu": {
+      "orientation": "inherit",
+      "modules": ["custom/group-hardware-cpu-icon", "cpu", "temperature#cpu"]
+    },
+
+    "cpu": {
+      "interval": 1,
+      "format": "    {avg_frequency}GHz   {usage}%",
+      "on-click": "flatpak run io.missioncenter.MissionCenter",
+      "min-length": 15,
+      "max-length": 15
+    },
+
+    "temperature#cpu": {
+      "interval": 4,
+      "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+      "critical-threshold": 80,
+      "format": "   {temperatureC}°C",
+      "on-click": "flatpak run io.missioncenter.MissionCenter"
+    },
+
+    "group/hardware-gpu": {
+      "orientation": "inherit",
+      "modules": ["custom/gpu", "custom/gpu-temperature"]
+    },
+
+    "custom/gpu": {
+      "exec": "nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits",
+      "format": " 󱟱   {}%",
+      "return-type": "",
+      "interval": 1,
+      "on-click": "flatpak run io.missioncenter.MissionCenter"
+    },
+
+    "custom/gpu-temperature": {
+      "interval": 4,
+      "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader",
+      "critical-threshold": 80,
+      "format": "   {}°C",
+      "on-click": "flatpak run io.missioncenter.MissionCenter"
+    },
+
+    "memory": {
+      "interval": 10,
+      "format": "     {used:0.2f} / {total:0.0f} GB",
+      "on-click": "flatpak run io.missioncenter.MissionCenter"
+    },
+
+    "network": {
+      "format-ethernet": "   {bandwidthDownBytes}     {bandwidthUpBytes}",
+      "interval": 1,
+      "format-linked": "{ifname} (No IP) ",
+      "format": "",
+      "format-disconnected": "",
+      "format-alt": "{ifname}: {ipaddr}/{cidr}",
+      "on-click": "wl-copy $(ip address show up scope global | grep inet | head -n1 | cut -d/ -f 1 | tr -d [:space:] | cut -c5-)",
+      "tooltip-format": " {bandwidthUpBits}  {bandwidthDownBits}\n{ifname}\n{ipaddr}/{cidr}\n",
+      "tooltip-format-wifi": " {essid} {frequency}MHz\nStrength: {signaldBm}dBm ({signalStrength}%)\nIP: {ipaddr}/{cidr}\n {bandwidthUpBits}  {bandwidthDownBits}"
+    }
+  }
+  //#endregion
+]

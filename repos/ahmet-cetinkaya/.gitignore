@@ -1,0 +1,150 @@
+# Logs
+*.log
+*.directory
+
+# OS-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*~
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+tmp/
+temp/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+*.old
+
+# Neovim
+*.swp
+*.swo
+Session.vim
+.netrwhist
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Rust
+target/
+Cargo.lock
+
+# Go
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# C/C++
+*.o
+*.obj
+*.lib
+*.a
+*.la
+*.lo
+*.dll
+*.so.*
+*.dylib
+*.exe
+*.out
+*.app
+
+# Package managers
+.yarn/
+.pnpm-debug.log*
+.npm/
+.yarn-integrity
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# AI Agent files
+.ai/
+.claude/
+.gemini/
+.opencode/
+.qwen/
+.serena/
+.specify/
+*AGENTS.md
+*CLAUDE.md
+*GEMINI.md
+*QWEN.md
+graphify-out/
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip

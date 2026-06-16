@@ -1,0 +1,56 @@
+;; Power menu popup
+(defwidget power-menu []
+  (box :class "container shadow-primary power-menu"
+    :orientation "v"
+    :spacing 10
+    :halign "center"
+    :valign "center"
+    (revealer :transition "slideleft"
+              :duration "400ms"
+              :reveal true
+      (box :orientation "v"
+        :spacing 10
+        (box :orientation "h"
+          :spacing 10
+          (eventbox
+            :onclick "~/Configs/eww/widgets/power/scripts/poweroff.sh"
+            (button :class "power-option power-shutdown"
+              (box :orientation "v"
+                (label :text "⏻" :class "power-option-icon")
+                (label :text "Shutdown" :class "power-option-label"))))
+          (eventbox
+            :onclick "~/Configs/eww/widgets/power/scripts/reboot.sh"
+            (button :class "power-option power-reboot"
+              (box :orientation "v"
+                (label :text "↻" :class "power-option-icon")
+                (label :text "Reboot" :class "power-option-label"))))
+)
+        (box :orientation "h"
+          :spacing 10
+          (eventbox
+            :onclick "~/Configs/eww/widgets/power/scripts/logout.sh"
+            (button :class "power-option power-logout"
+              (box :orientation "v"
+                (label :text "⮐" :class "power-option-icon")
+                (label :text "Logout" :class "power-option-label"))))
+          (eventbox
+            :onclick "~/Configs/eww/widgets/power/scripts/sleep.sh"
+            (button :class "power-option power-sleep"
+              (box :orientation "v"
+                (label :text "⏾" :class "power-option-icon")
+                (label :text "Sleep" :class "power-option-label")))))))))
+
+; Power Menu Window
+(defwindow power-menu
+   :monitor    "LG ULTRAGEAR"
+   :windowtype "normal"
+   :geometry   (geometry
+                :x      "90%"
+                :y      "-10px"
+                :width "250px"
+                :height "200px")
+   :stacking   "fg"
+  :exclusive  false
+  (eventbox :onclick "~/Configs/eww/widgets/closer/close_popups.sh"
+   (eventbox :onclick ""
+    (power-menu))))

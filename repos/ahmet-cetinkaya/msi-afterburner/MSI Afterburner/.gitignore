@@ -1,0 +1,6 @@
+/
+
+!Profiles/
+Profiles/*
+!Profiles/MSIAfterburner.cfg
+!gitignore

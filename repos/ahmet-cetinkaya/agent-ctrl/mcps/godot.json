@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "godot": {
+      "command": "bunx",
+      "args": ["@coding-solo/godot-mcp"],
+      "env": {
+        "DEBUG": "true",
+        "GODOT_PATH": "${GODOT_PATH}"
+      },
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,19 @@
+(include "widgets/clock/clock-panel.yuck")
+
+(defwidget clock []
+  (eventbox
+    :onclick "~/Configs/eww/scripts/toggle_popup.sh clock-panel-popup"
+    :tooltip "Click to view calendar and weather"
+    (box :class "clock"
+      :orientation "h"
+      :space-evenly false
+      :halign "center"
+      :spacing 8
+      (label :class "clock-time" :text current_time)
+      (label :class "clock-date" :text current_date)
+    )
+  )
+)
+
+(defpoll current_time :interval "1s" "date +'%H:%M'")
+(defpoll current_date :interval "60s" "LC_TIME=en_US.UTF-8 date +'%a, %d.%m'")

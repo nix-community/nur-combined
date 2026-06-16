@@ -1,0 +1,23 @@
+;; ==========================================
+;; Closer Widget
+;; ==========================================
+
+;; Transparent overlay that closes popups when clicked
+(defwidget closer-widget []
+  (eventbox :class "closer"
+            :onclick "~/Configs/eww/widgets/closer/close_popups.sh"
+            :hexpand true
+            :vexpand true))
+
+;; Closer window definition
+(defwindow closer
+   :monitor    "LG ULTRAGEAR"
+   :stacking   "fg"
+  :exclusive  false
+ :geometry   (geometry
+               :x      "0"
+               :y      "0"
+               :width  "100%"
+               :height "100%"
+               :anchor "top left")
+  (closer-widget))
