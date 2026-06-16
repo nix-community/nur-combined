@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation {
   pname = "fabric-glace";
-  version = "0-unstable-2025-08-03";
+  version = "0-unstable-2026-06-16";
 
   src = fetchFromGitHub {
     owner = "Fabric-Development";
     repo = "glace";
-    rev = "8c2cc2a46a3856121bec701e7c468b35416b2428";
-    hash = "sha256-T5zelHwpVkQstBILujqLJimW74Mhuj5H6/kAV6IkyJQ=";
+    rev = "363715931c6895b241e298d0e4a6b46635dff370";
+    hash = "sha256-w03k77DbCjKOC2EJEAm8kXV1KID5t9G88a6Co8OLFxc=";
   };
 
   nativeBuildInputs = [
