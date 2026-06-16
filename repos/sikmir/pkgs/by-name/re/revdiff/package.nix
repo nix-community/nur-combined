@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "revdiff";
-  version = "1.3.0";
+  version = "1.7.0";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildGoModule (finalAttrs: {
     owner = "umputun";
     repo = "revdiff";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lcqkvQ5jLP3sA9WeFcp1PRPIvtq7vWjl7M+9juBYXL0=";
+    hash = "sha256-N0y5glaNuAs36/veLJaVjH8MIP+lsnKc/156KijtIHA=";
   };
 
   vendorHash = null;
@@ -25,6 +25,10 @@ buildGoModule (finalAttrs: {
   ];
 
   doCheck = false;
+
+  postInstall = ''
+    mv $out/bin/{app,revdiff}
+  '';
 
   meta = {
     description = "TUI for reviewing git diffs with inline annotations";

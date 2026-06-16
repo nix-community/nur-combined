@@ -3,47 +3,46 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  xorg,
+  libx11,
+  libxcursor,
+  libxext,
+  libxfixes,
+  libxi,
   libglvnd,
+  xorgproto,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qoiview";
-  version = "0-unstable-2024-05-10";
+  version = "0-unstable-2025-12-02";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "floooh";
     repo = "qoiview";
-    rev = "7a371020708b71d414c85977ea233d721f91d937";
-    hash = "sha256-V4NdhTzTGd62pNkKhk1vo1vZa/z24r+zKbojI0ziG/E=";
+    rev = "2b7194959f0b17e7d5f10e796ebd11dc08a25285";
+    hash = "sha256-4seyxaeBjljdeecKCtOE1cUj0a2zeRG444LwgTsXsvA=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  NIX_CFLAGS_COMPILE = lib.optionals stdenv.isLinux (
-    with xorg;
-    [
-      "-I${libX11.dev}/include"
-      "-I${xorgproto}/include"
-      "-I${libXi.dev}/include"
-      "-I${libXext.dev}/include"
-      "-I${libXfixes.dev}/include"
-      "-I${libXcursor.dev}/include"
-      "-I${libglvnd.dev}/include"
-    ]
-  );
+  env.NIX_CFLAGS_COMPILE = lib.optionalString stdenv.isLinux (toString [
+    "-I${libx11.dev}/include"
+    "-I${xorgproto}/include"
+    "-I${libxi.dev}/include"
+    "-I${libxext.dev}/include"
+    "-I${libxfixes.dev}/include"
+    "-I${libxcursor.dev}/include"
+    "-I${libglvnd.dev}/include"
+  ]);
 
-  NIX_LDFLAGS = lib.optionals stdenv.isLinux (
-    with xorg;
-    [
-      "-L${libX11}/lib"
-      "-L${libXi}/lib"
-      "-L${libXcursor}/lib"
-      "-L${libglvnd}/lib"
-    ]
-  );
+  env.NIX_LDFLAGS = lib.optionalString stdenv.isLinux (toString [
+    "-L${libx11}/lib"
+    "-L${libxi}/lib"
+    "-L${libxcursor}/lib"
+    "-L${libglvnd}/lib"
+  ]);
 
   installPhase = ''
     install -Dm755 qoiview -t $out/bin

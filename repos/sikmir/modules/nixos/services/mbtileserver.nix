@@ -30,6 +30,11 @@ in
       default = "/srv/tilesets";
       description = "The path where *.mbtiles files stored.";
     };
+    tilesOnly = mkOption {
+      type = types.bool;
+      default = true;
+      description = "Only enable tile endpoints.";
+    };
     nginx = mkOption {
       default = { };
       description = ''
@@ -65,7 +70,7 @@ in
         serviceConfig = {
           DynamicUser = true;
           LogsDirectory = "mbtileserver";
-          ExecStart = "${getExe cfg.package} --enable-fs-watch --tiles-only --host ${cfg.address} --port ${toString cfg.port}";
+          ExecStart = "${getExe cfg.package} --enable-fs-watch ${lib.optionalString cfg.tilesOnly "--tiles-only"} --host ${cfg.address} --port ${toString cfg.port}";
           Restart = "always";
         };
       };

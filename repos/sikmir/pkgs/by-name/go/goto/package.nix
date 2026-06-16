@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "goto";
-  version = "1.5.1";
+  version = "1.6.1";
 
   __structuredAttrs = true;
 
@@ -14,10 +14,10 @@ buildGoModule (finalAttrs: {
     owner = "grafviktor";
     repo = "goto";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-UxOxOdT5HZM8u3gSXKt5OygSJz8set5qTJnXdGTpPo8=";
+    hash = "sha256-SG9WhTKlnROwLCa63c2TYm4rnhCpr0hEkl1jJNDqxWk=";
   };
 
-  vendorHash = "sha256-ngtjhDzZFOcq7bE6JtA7/xfinfRX2qB0ncE+MCgJTTQ=";
+  vendorHash = "sha256-vED3QySeVRtk0ZeFSXpnQuCThsiNkVW6sNpJbrE8JV4=";
 
   ldflags = [
     "-s"

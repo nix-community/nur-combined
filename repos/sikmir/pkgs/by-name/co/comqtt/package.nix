@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "comqtt";
-  version = "2.6.2";
+  version = "2.6.4";
 
   __structuredAttrs = true;
 
@@ -14,19 +14,17 @@ buildGoModule (finalAttrs: {
     owner = "wind-c";
     repo = "comqtt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-aknPBbe9bSp33s58SBg/SFhLK1VOuCwOmnHBwCPfwWU=";
+    hash = "sha256-VdqvnQvn8zucKjaDdU3kXUauBySIi9Y4dy+i64PAF2Y=";
   };
 
   vendorHash = "sha256-dK5o3BOskSAb1FU1rndzJTlJJF5l76tBjwPqysh8GwI=";
 
   subPackages = [
     "cmd/single"
-    "cmd/cluster"
   ];
 
   postInstall = ''
     mv $out/bin/{single,comqtt}
-    mv $out/bin/{cluster,comqtt-cluster}
   '';
 
   __darwinAllowLocalNetworking = true;
