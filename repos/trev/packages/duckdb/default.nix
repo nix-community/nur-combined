@@ -33,7 +33,7 @@
   withMysqlScanner ? false,
   withOdbcScanner ? false,
   withPostgresScanner ? false,
-  withQuack ? true,
+  withQuack ? false,
   withSpatial ? false,
   withSqliteScanner ? false,
   withSqlsmith ? false,

@@ -51,16 +51,19 @@
         };
 
       libs =
-        import ./libs/pure.nix {
-          inherit nixpkgs;
-          systems = import systems;
-        }
-        // forEachSystem (
+        forEachSystem (
           system: pkgs:
           import ./libs {
             inherit system pkgs;
           }
-        );
+        )
+        // {
+          mkFlake = import ./libs/mkFlake {
+            inherit nixpkgs;
+            systems = import systems;
+            schemas = schema.schemas // import ./schemas { inherit nixpkgs; };
+          };
+        };
 
       packages = forEachSystem (
         system: pkgs:

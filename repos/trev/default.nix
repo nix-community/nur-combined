@@ -4,14 +4,9 @@
   pkgs ? import nixpkgs { inherit system; },
 }:
 {
-  libs =
-    import ./libs {
-      inherit system pkgs;
-    }
-    // import ./libs/pure.nix {
-      inherit nixpkgs;
-      systems = [ system ];
-    };
+  libs = import ./libs {
+    inherit system pkgs;
+  };
 
   bundlers = import ./bundlers {
     inherit system pkgs;

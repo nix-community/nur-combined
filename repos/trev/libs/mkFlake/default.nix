@@ -5,8 +5,15 @@
     "aarch64-darwin"
     "x86_64-linux"
   ],
-  lib ? nixpkgs.lib,
+  overlays ? import ../../overlays {
+    inherit nixpkgs;
+  },
+  schemas ? import ../../schemas {
+    inherit nixpkgs;
+  },
 }:
+
+with nixpkgs.lib;
 
 let
   # Flake output attributes that are not per-system
@@ -73,14 +80,6 @@ let
     }
   ];
 
-  overlays = import ../../overlays {
-    inherit nixpkgs;
-  };
-
-  schemas = import ../../schemas {
-    inherit nixpkgs lib;
-  };
-
   mkPackages =
     localSystem:
     import nixpkgs {
@@ -105,6 +104,7 @@ let
         overlays.packages
         overlays.images
         overlays.libs
+        overlays.trev
       ];
       config = {
         allowUnfree = true;
@@ -191,7 +191,7 @@ eachSystemOp (
     // (f system packages);
 
     crosses = map (platform: {
-      platform = lib.systems.elaborate platform;
+      platform = systems.elaborate platform;
       flake = f system (mkCrossPackages system platform);
     }) platforms;
   in
@@ -224,7 +224,7 @@ eachSystemOp (
                           map (cross: {
                             name = cross.platform.config;
                             value =
-                              if (lib.meta.availableOn cross.platform package) then
+                              if (meta.availableOn cross.platform package) then
                                 tryEval (fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name}))))
                               else
                                 null;
@@ -235,13 +235,13 @@ eachSystemOp (
                 )
               )
               (
-                lib.filterAttrs (
+                filterAttrs (
                   name: package:
                   let
                     res = builtins.tryEval package;
                   in
                   if res.success then
-                    lib.meta.availableOn { inherit system; } package
+                    meta.availableOn { inherit system; } package
                   else
                     builtins.warn "Failed to evaluate ${key}.${name} for system ${system}" false
                 ) flake.${key}
