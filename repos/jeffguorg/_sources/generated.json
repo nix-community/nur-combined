@@ -33,11 +33,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/NxsZnnU4eOgo4EvJOiwircxVnMgcsLKXuYki+6DE70=",
+            "sha256": "sha256-5sX17sK00Y9iNMO6UA4oXwei5f+0xn1LoElMKMcN/nk=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/darwin-x64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/darwin-x64/claude"
         },
-        "version": "2.1.177"
+        "version": "2.1.178"
     },
     "claude-code-bin-amd64-linux": {
         "cargoLock": null,
@@ -48,11 +48,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/0F1NjSyDIae9qMqIIY1IbM9QYasDWpJN5q0ikg5Xuc=",
+            "sha256": "sha256-F+0amDpJQExGc94oZBmo/WYXySRAouD3ibzEE6OxTeE=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/linux-x64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/linux-x64/claude"
         },
-        "version": "2.1.177"
+        "version": "2.1.178"
     },
     "claude-code-bin-arm64-darwin": {
         "cargoLock": null,
@@ -63,11 +63,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6wcwNRvi8CtIKxhVhw9Yd0iQharIawxMHbTkWNnkDtk=",
+            "sha256": "sha256-RzSV0MFdZhbNCHBIDbXriqBAL+T46tMnehtSHpQRAwk=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/darwin-arm64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/darwin-arm64/claude"
         },
-        "version": "2.1.177"
+        "version": "2.1.178"
     },
     "claude-code-bin-arm64-linux": {
         "cargoLock": null,
@@ -78,16 +78,16 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-uvOSbcFmIVdy+VnjZ9qXhP9MdRV6qv5FJP3Hnr/5hLE=",
+            "sha256": "sha256-jldIT1wICTEXz+YiVSn4l3h37qBLs0Y/TiKKp0ODSbM=",
             "type": "url",
-            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.177/linux-arm64/claude"
+            "url": "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.178/linux-arm64/claude"
         },
-        "version": "2.1.177"
+        "version": "2.1.178"
     },
     "codex": {
         "cargoLock": {
             "codex-rs/Cargo.lock": [
-                "sha256-XjzlkBUkBey+P3tFLDYB3ae5oseUfW5tmzhLzqlqj2E=/codex-rs/Cargo.lock",
+                "sha256-VuvNXgyftiQke8qLA7HEySkP4S2TvMR++rrVJAfVc4Y=/codex-rs/Cargo.lock",
                 {
                     "crossterm-0.28.1": "sha256-6qCtfSMuXACKFb9ATID39XyFDIEMFDmbx6SSmNe+728=",
                     "libwebrtc-0.3.26": "sha256-0HPuwaGcqpuG+Pp6z79bCuDu/DyE858VZSYr3DKZD9o=",
@@ -111,12 +111,12 @@
             "name": null,
             "owner": "openai",
             "repo": "codex",
-            "rev": "rust-v0.139.0",
-            "sha256": "sha256-XjzlkBUkBey+P3tFLDYB3ae5oseUfW5tmzhLzqlqj2E=",
+            "rev": "rust-v0.140.0",
+            "sha256": "sha256-VuvNXgyftiQke8qLA7HEySkP4S2TvMR++rrVJAfVc4Y=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "rust-v0.139.0"
+        "version": "rust-v0.140.0"
     },
     "codex-bin-amd64-darwin": {
         "cargoLock": null,
@@ -127,11 +127,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-GO8KH8ItGcDpzqZ9msOzkFoOjMgUDNFLj/ShhjfFjxE=",
+            "sha256": "sha256-snNp204wffxsvxp7kEz5v7AZnhO+BiztgH+CE5FWY/g=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.139.0/codex-x86_64-apple-darwin.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-x86_64-apple-darwin.zst"
         },
-        "version": "0.139.0"
+        "version": "0.140.0"
     },
     "codex-bin-amd64-linux": {
         "cargoLock": null,
@@ -142,11 +142,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9566wYW23MgmQB72YFFhkKjbVMXJY/FxfkAmGmK+HHw=",
+            "sha256": "sha256-o8Hsy3Hg+PbAk8Mdq2wi+SZzUEAbnxvs/NMu0Qm5W+w=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.139.0/codex-x86_64-unknown-linux-musl.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-x86_64-unknown-linux-musl.zst"
         },
-        "version": "0.139.0"
+        "version": "0.140.0"
     },
     "codex-bin-arm64-darwin": {
         "cargoLock": null,
@@ -157,11 +157,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-uwEQwNUfRdNay92zjS6wGU980D6vLks0ltY5M9DSadA=",
+            "sha256": "sha256-XjgRPyE9C6GYKgS6LU8Z+i8ZceNJNjmyxhkF12S3VI4=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.139.0/codex-aarch64-apple-darwin.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-aarch64-apple-darwin.zst"
         },
-        "version": "0.139.0"
+        "version": "0.140.0"
     },
     "codex-bin-arm64-linux": {
         "cargoLock": null,
@@ -172,11 +172,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-L6ocjYn1/jm3BMc4svgjZPANR6jbRigh2Nc3LwcC1vQ=",
+            "sha256": "sha256-sndAmAYKnQxLmtpskBwvpQ8gjNKhw/E2h6leZN8ogiA=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.139.0/codex-aarch64-unknown-linux-musl.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-aarch64-unknown-linux-musl.zst"
         },
-        "version": "0.139.0"
+        "version": "0.140.0"
     },
     "create-tauri-app": {
         "cargoLock": {
