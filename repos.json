@@ -25,6 +25,9 @@
         "Adamekka": {
             "url": "https://github.com/Adamekka/nur-packages"
         },
+        "Alxandr": {
+            "url": "https://github.com/Alxandr/nur"
+        },
         "AndrewKvalheim": {
             "file": "nur.nix",
             "url": "https://codeberg.org/AndrewKvalheim/configuration"
@@ -80,6 +83,9 @@
         },
         "LuisChDev": {
             "url": "https://github.com/LuisChDev/nur-packages"
+        },
+        "MCSeekeri": {
+            "url": "https://github.com/MCSeekeri/NUR"
         },
         "MH0386": {
             "url": "https://github.com/MH0386/nurpkgs"
@@ -174,6 +180,10 @@
         "ahi6": {
             "url": "https://github.com/ahi6/nurpkgs"
         },
+        "ahmet-cetinkaya": {
+            "file": "nixos/pkgs/nur.nix",
+            "url": "https://github.com/ahmet-cetinkaya/dotfiles"
+        },
         "akinokaede": {
             "url": "https://github.com/AkinoKaede/nur-packages"
         },
@@ -211,6 +221,9 @@
         },
         "anntnzrb": {
             "url": "https://github.com/anntnzrb/nurpkgs"
+        },
+        "anotherhadi": {
+            "url": "https://github.com/anotherhadi/nur-packages"
         },
         "anthonyroussel": {
             "url": "https://github.com/anthonyroussel/nur-packages"
@@ -1070,6 +1083,9 @@
         "mweinelt": {
             "url": "https://github.com/mweinelt/nur-packages"
         },
+        "mzntori": {
+            "url": "https://github.com/mzntori/nur-packages"
+        },
         "n1kolasM": {
             "url": "https://github.com/n1kolasM/nur-packages"
         },
@@ -1578,6 +1594,9 @@
         },
         "wamserma": {
             "url": "https://github.com/wamserma/nur-packages"
+        },
+        "wariuccio": {
+            "url": "https://github.com/wariuccio/nur-packages"
         },
         "weirdpkgs": {
             "url": "https://github.com/weirdrock/weirdpkgs"
