@@ -4,8 +4,8 @@
   buildGoModule,
 }:
 let
-  version = "v1.0.0";
-  hash = "sha256-08vjNNjY9U5fWjs9s4MJQN+uYZWu45z17K4dLbor6l4=";
+  version = "v1.0.1";
+  hash = "sha256-YxuFz6rTNjylFW50uQ3jvwWa3eciAGE0zGLMBVJpcjM=";
   vendorHash = "sha256-2UCwsvlpIDldOBH0FreZdBE4D1NBdG43SQIzfwgORUo=";
 in
 buildGoModule {

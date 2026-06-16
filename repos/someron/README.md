@@ -100,7 +100,7 @@ The build for this package is really hacky. Use the version included in nixpkgs.
 #### simple-llm-router
 - Source: https://codeberg.org/someron/simple-llm-router
 - Description: A simple LLM-proxy that uses OpenRouter-Style model ids to address models from multiple providers.
-- Current Version: v1.0.0 *(2026-06-03)*
+- Current Version: v1.0.1 *(2026-06-26)*
 - License: MIT
 - Attribute: `nur.repos.someron.pkgs.simple-llm-router`
 
