@@ -11,13 +11,6 @@ in
 lib.makeScope pkgs.newScope (
   self:
   {
-    flutter344 = pkgs.flutter.mkFlutter (
-      (lib.importJSON ./flutter-data.json)
-      // {
-        patches = [ ];
-        enginePatches = [ ];
-      }
-    );
     algermusicplayer = self.callPackage ./algermusicplayer { inherit fetchedSrc; };
 
     avm = self.callPackage ./avm { };

@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-gcQtdk0wLmNFh0Sst4zzCORYq8Age_eMCYftxliyxPI=/src-tauri/Cargo.lock",
+                "sha256-ys9QdAGsZ+hc5q+SOWzMtMVU7zrBleBBgKl31_e984o=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.5",
-            "sha256": "sha256-gcQtdk0wLmNFh0Sst4zzCORYq8Age/eMCYftxliyxPI=",
+            "rev": "v3.9.6-beta.2",
+            "sha256": "sha256-ys9QdAGsZ+hc5q+SOWzMtMVU7zrBleBBgKl31/e984o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.5"
+        "version": "v3.9.6-beta.2"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-3GCIKiL6XP+hyd+j5+l6BrFAZyVYDOFDud8HUECEbGE=/Cargo.lock",
+                "sha256-Zeo4VmI3GuuDc3YlXN2q4nc7vhwloG7tw5IkU7vCyh0=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
             ]
         },
-        "date": "2026-06-13",
+        "date": "2026-06-16",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "1ebe6b4e32e6e2229c17a2126892caf7453d39fd",
-            "sha256": "sha256-3GCIKiL6XP+hyd+j5+l6BrFAZyVYDOFDud8HUECEbGE=",
+            "rev": "35f95b105c12936e87a0a20c9d81edace8f2b9ac",
+            "sha256": "sha256-Zeo4VmI3GuuDc3YlXN2q4nc7vhwloG7tw5IkU7vCyh0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1ebe6b4e32e6e2229c17a2126892caf7453d39fd"
+        "version": "35f95b105c12936e87a0a20c9d81edace8f2b9ac"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -633,11 +633,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-BJu8zMCrLV65OuIDvHLaiOc6VmJV0ae5pYUJ42lObwM=",
+            "sha256": "sha256-lB9M6V1rP6Qv5lJQQdR6fL9JJvaA/+mxgXFhAJ2cWWc=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.0/waywallen-0.2.0-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.1/waywallen-0.2.1-x86_64.AppImage"
         },
-        "version": "0.2.0"
+        "version": "0.2.1"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
@@ -648,11 +648,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-1OKiYrMjNwRG2kpu1NDaKcNtDGuCbIaICQqT5qCFP1c=",
+            "sha256": "sha256-2BwMa1fplfpNTjlP1qZv3/I6EXxxqslYfHAbQjki0kU=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.2.5/waywallen-kde-0.2.5-x86_64-embed.zip"
+            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.2.6/waywallen-kde-0.2.6-x86_64-embed.zip"
         },
-        "version": "0.2.5"
+        "version": "0.2.6"
     },
     "wild": {
         "cargoLock": {
