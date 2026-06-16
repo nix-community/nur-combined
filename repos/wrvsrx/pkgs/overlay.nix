@@ -39,6 +39,7 @@ let
     };
     niri = callPackage ./niri { inherit (prev) niri; };
     iwe = callPackage ./iwe { };
+    djot-tools = callPackage ./djot-tools { };
   };
   python-overlay = import ./python-overlay { inherit sources; };
   haskell-overlay = import ./haskell-overlay {
