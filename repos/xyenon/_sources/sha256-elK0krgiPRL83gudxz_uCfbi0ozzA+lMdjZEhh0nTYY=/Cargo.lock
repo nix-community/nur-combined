@@ -1335,6 +1335,7 @@ dependencies = [
  "color-eyre",
  "dix",
  "inquire",
+ "nh-installable",
  "nix",
  "proptest",
  "regex",
@@ -1360,6 +1361,7 @@ dependencies = [
  "color-eyre",
  "inquire",
  "nh-core",
+ "nh-installable",
  "nh-remote",
  "nix",
  "tempfile",
@@ -1374,9 +1376,21 @@ dependencies = [
  "color-eyre",
  "inquire",
  "nh-core",
+ "nh-installable",
  "nh-remote",
  "tempfile",
  "tracing",
+]
+
+[[package]]
+name = "nh-installable"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "color-eyre",
+ "serial_test",
+ "tracing",
+ "yansi",
 ]
 
 [[package]]
@@ -1388,6 +1402,7 @@ dependencies = [
  "color-eyre",
  "inquire",
  "nh-core",
+ "nh-installable",
  "nh-remote",
  "nix",
  "serde_json",
@@ -1403,6 +1418,7 @@ dependencies = [
  "indicatif",
  "inquire",
  "nh-core",
+ "nh-installable",
  "proptest",
  "secrecy",
  "serial_test",
@@ -1445,6 +1461,7 @@ dependencies = [
  "color-eyre",
  "inquire",
  "nh-core",
+ "nh-installable",
  "nix",
  "tempfile",
  "tracing",
