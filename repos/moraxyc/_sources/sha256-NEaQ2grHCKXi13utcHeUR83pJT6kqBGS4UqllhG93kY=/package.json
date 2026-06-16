@@ -1,0 +1,81 @@
+{
+  "name": "@grinev/opencode-telegram-bot",
+  "version": "0.21.2",
+  "description": "Telegram bot client for OpenCode to run and monitor coding tasks from chat.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "opencode-telegram": "dist/cli.js"
+  },
+  "exports": {
+    ".": "./dist/index.js",
+    "./cli": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    ".env.example"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "npm run build && npm start",
+    "release:prepare": "node scripts/release-prepare.mjs",
+    "release:rc": "node scripts/release-prepare.mjs rc",
+    "release:notes:preview": "node scripts/release-notes-preview.mjs",
+    "lint": "eslint src --ext .ts --max-warnings=0",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grinev/opencode-telegram-bot.git"
+  },
+  "keywords": [
+    "opencode",
+    "telegram",
+    "telegram-bot",
+    "grammy",
+    "developer-tools",
+    "cli"
+  ],
+  "author": "grinev",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grinev/opencode-telegram-bot/issues"
+  },
+  "homepage": "https://github.com/grinev/opencode-telegram-bot#readme",
+  "dependencies": {
+    "@google-cloud/text-to-speech": "^6.4.0",
+    "@grammyjs/menu": "^1.3.1",
+    "@opencode-ai/sdk": "^1.1.21",
+    "better-sqlite3": "^12.6.2",
+    "dotenv": "^17.2.3",
+    "grammy": "^1.39.2",
+    "https-proxy-agent": "^7.0.6",
+    "mdast-util-to-string": "^4.0.0",
+    "node-fetch": "^2.7.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "socks-proxy-agent": "^8.0.5",
+    "unified": "^11.0.5"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.0.8",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.0",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

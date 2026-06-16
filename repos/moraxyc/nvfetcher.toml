@@ -201,6 +201,11 @@ cargo_lock = ['Cargo.lock']
 src.github = "libnyanpasu/nyanpasu-service"
 fetch.github = "libnyanpasu/nyanpasu-service"
 
+[opencode-telegram-bot]
+src.github = "grinev/opencode-telegram-bot"
+fetch.github = "grinev/opencode-telegram-bot"
+extract = ["package.json", "package-lock.json"]
+
 [pixy2]
 src.git = "https://github.com/charmedlabs/pixy2"
 fetch.github = "charmedlabs/pixy2"

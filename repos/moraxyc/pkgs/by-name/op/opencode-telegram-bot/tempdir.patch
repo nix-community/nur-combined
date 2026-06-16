@@ -1,0 +1,33 @@
+diff --git a/src/bot/services/event-subscription-service.ts b/src/bot/services/event-subscription-service.ts
+index 3d481c3..d73e263 100644
+--- a/src/bot/services/event-subscription-service.ts
++++ b/src/bot/services/event-subscription-service.ts
+@@ -1,4 +1,5 @@
+-import { promises as fs } from "fs";
++import { promises as fs, rmSync } from "fs";
++import { tmpdir } from "os";
+ import * as path from "path";
+ import { fileURLToPath } from "url";
+ import { Bot, Context, InputFile } from "grammy";
+@@ -69,7 +70,11 @@ const SESSION_RETRY_PREFIX = "🔁";
+ const SUBAGENT_STREAM_PREFIX = "🧩";
+ const __filename = fileURLToPath(import.meta.url);
+ const __dirname = path.dirname(__filename);
+-const TEMP_DIR = path.join(__dirname, "..", "..", ".tmp");
++const TEMP_DIR = path.join(tmpdir(), `opencode-telegram-bot-${process.pid}`);
++
++process.on("exit", () => {
++  rmSync(TEMP_DIR, { recursive: true, force: true });
++});
+ 
+ type EventStreamItem = {
+   type: string;
+@@ -125,7 +130,7 @@ class EventSubscriptionService implements BotEventSubscriptionService {
+           return;
+         }
+ 
+-        const tempFilePath = path.join(TEMP_DIR, fileData.filename);
++        const tempFilePath = path.join(TEMP_DIR, path.basename(fileData.filename));
+ 
+         try {
+           logger.debug(
