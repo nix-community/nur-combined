@@ -156,8 +156,8 @@
     if (!e.shiftKey) return;
     switch (e.key) {
       case 'A': e.preventDefault(); acceptAndNext(); break;        // accept + next
-      case 'N': e.preventDefault(); navigateRelative(+1); break;   // skip forward
-      // case 'K': e.preventDefault(); navigateRelative(-1); break;   // back
+      case 'N': e.preventDefault(); navigateRelative(+1); break;   // next rev
+      // case 'P': e.preventDefault(); navigateRelative(-1); break;   // previous rev
       // case 'T': e.preventDefault(); promptForToken(); break;       // set token
       default: break;
     }
