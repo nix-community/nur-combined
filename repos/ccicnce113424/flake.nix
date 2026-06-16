@@ -7,7 +7,10 @@ rec {
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
     flake-compat.url = "github:lix-project/flake-compat";
     nvfetcher = {
       url = "github:berberman/nvfetcher/0.8.0";
