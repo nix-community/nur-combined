@@ -17,7 +17,7 @@ let
   lib = nixpkgs.lib;
 
   # Flake output attributes that are not per-system
-  ignoredAttrs = [
+  globalAttrs = [
     "hydraJobs"
     "libs"
     "nixosConfigurations"
@@ -35,7 +35,7 @@ let
   ];
 
   # https://github.com/NixOS/nixpkgs/blob/master/lib/systems/examples.nix
-  platforms = [
+  platforms = map lib.systems.elaborate [
     {
       config = "x86_64-unknown-linux-gnu";
     }
@@ -69,6 +69,10 @@ let
       libc = "ucrt";
     }
     {
+      config = "aarch64-w64-mingw32";
+      libc = "ucrt";
+    }
+    {
       config = "x86_64-apple-darwin";
       xcodePlatform = "MacOSX";
       platform = { };
@@ -80,36 +84,32 @@ let
     }
   ];
 
+  nixpkgsOverlays = [
+    overlays.packages
+    overlays.images
+    overlays.libs
+    overlays.trev
+  ];
+
+  nixpkgsConfig = {
+    allowUnfree = true;
+    allowDeprecatedx86_64Darwin = true;
+  };
+
   mkPackages =
     localSystem:
     import nixpkgs {
       inherit localSystem;
-      overlays = [
-        overlays.packages
-        overlays.images
-        overlays.libs
-        overlays.trev
-      ];
-      config = {
-        allowUnfree = true;
-        allowDeprecatedx86_64Darwin = true;
-      };
+      overlays = nixpkgsOverlays;
+      config = nixpkgsConfig;
     };
 
   mkCrossPackages =
     localSystem: crossSystem:
     import nixpkgs {
       inherit localSystem crossSystem;
-      overlays = [
-        overlays.packages
-        overlays.images
-        overlays.libs
-        overlays.trev
-      ];
-      config = {
-        allowUnfree = true;
-        allowDeprecatedx86_64Darwin = true;
-      };
+      overlays = nixpkgsOverlays;
+      config = nixpkgsConfig;
     };
 
   # fixes the mainProgram attribute for windows packages
@@ -119,9 +119,14 @@ let
       null
     else if package.stdenv.hostPlatform.isWindows then
       package.overrideAttrs (
-        _: prev: {
-          meta = prev.meta // {
-            mainProgram = "${prev.meta.mainProgram or prev.pname or prev.name}.exe";
+        _: prev:
+        let
+          meta = prev.meta or { };
+          mainProgram = meta.mainProgram or prev.pname or prev.name;
+        in
+        {
+          meta = meta // {
+            mainProgram = if lib.hasSuffix ".exe" mainProgram then mainProgram else "${mainProgram}.exe";
           };
         }
       )
@@ -130,14 +135,8 @@ let
 
   # cross-compilation from linux to darwin doesn't work yet
   # https://nixos.org/manual/nixpkgs/stable/#sec-platform-breakdown
-  fixDarwin =
-    package:
-    if package == null then
-      null
-    else if package.stdenv.hostPlatform.isDarwin && package.stdenv.buildPlatform.isLinux then
-      null
-    else
-      package;
+  isUnsupportedDarwinCross =
+    buildPlatform: hostPlatform: hostPlatform.isDarwin && buildPlatform.isLinux;
 
   # add dev otherwise the result will have the entire buildInputs closure
   # https://github.com/NixOS/nixpkgs/issues/83667
@@ -191,7 +190,7 @@ eachSystemOp (
     // (f system packages);
 
     crosses = map (platform: {
-      platform = lib.systems.elaborate platform;
+      inherit platform;
       flake = f system (mkCrossPackages system platform);
     }) platforms;
   in
@@ -200,7 +199,7 @@ eachSystemOp (
     attrs: key:
 
     # Set as <attr>.value
-    if builtins.elem key ignoredAttrs then
+    if builtins.elem key globalAttrs then
       attrs
       // {
         ${key} = (attrs.${key} or { }) // flake.${key};
@@ -224,8 +223,18 @@ eachSystemOp (
                           map (cross: {
                             name = cross.platform.config;
                             value =
-                              if (lib.meta.availableOn cross.platform package) then
-                                tryEval (fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name}))))
+                              if isUnsupportedDarwinCross packages.stdenv.buildPlatform cross.platform then
+                                null
+                              else if
+                                let
+                                  res = builtins.tryEval (lib.meta.availableOn cross.platform package);
+                                in
+                                if res.success then
+                                  res.value
+                                else
+                                  builtins.warn "Failed to evaluate availability of ${key}.${name} for ${cross.platform.config}" false
+                              then
+                                tryEval (fixWindows (fixStatic (cross.flake.${key}.${name})))
                               else
                                 null;
                           }) crosses
@@ -241,7 +250,13 @@ eachSystemOp (
                     res = builtins.tryEval package;
                   in
                   if res.success then
-                    lib.meta.availableOn { inherit system; } package
+                    let
+                      available = builtins.tryEval (lib.meta.availableOn packages.stdenv.hostPlatform package);
+                    in
+                    if available.success then
+                      available.value
+                    else
+                      builtins.warn "Failed to evaluate availability of ${key}.${name} for system ${system}" false
                   else
                     builtins.warn "Failed to evaluate ${key}.${name} for system ${system}" false
                 ) flake.${key}
