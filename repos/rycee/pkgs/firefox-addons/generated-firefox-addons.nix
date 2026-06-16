@@ -947,10 +947,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.6";
+      version = "2.0.7";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4849222/batchcamp-2.0.6.xpi";
-      sha256 = "e79948d04a5bc7f617b17409720903342da90d1ab13754664740288032215520";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852837/batchcamp-2.0.7.xpi";
+      sha256 = "d9b931513e76280e4ed4c289e3e1db5028374fc6223d153d2f68258268276615";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -2907,10 +2907,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260610.172436";
+      version = "153.0.20260615.115325";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845847/dansk_da_language_pack-152.0.20260610.172436.xpi";
-      sha256 = "f27fdcf4361caac5b3c5ec6fbafbf5814cb49d72691f90124990d953ee0bea3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852359/dansk_da_language_pack-153.0.20260615.115325.xpi";
+      sha256 = "eab314071df4c2491ad86027b7f34ce23498792a9fac7473e7160a443cf7af32";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3123,10 +3123,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260610.172436";
+      version = "153.0.20260615.115325";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845843/deutsch_de_language_pack-152.0.20260610.172436.xpi";
-      sha256 = "634af00fbdf44dc631456ead2a307c1dd7776a7b13c7d74131d9f18214e30685";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852349/deutsch_de_language_pack-153.0.20260615.115325.xpi";
+      sha256 = "d98b534a66ac2711d758ea84cdbf2d94f526847d7c72e186d1b4e97e194b72e8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4607,10 +4607,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260610.172436";
+      version = "153.0.20260615.115325";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845852/francais_language_pack-152.0.20260610.172436.xpi";
-      sha256 = "4e702dab69bbc9ec15b8294563afb7143a227d583e733ba08603f48c23945ba9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852355/francais_language_pack-153.0.20260615.115325.xpi";
+      sha256 = "8e80a3768d2a3a625c3782f5883374443cab142ab384dff8f8c492f4317eca08";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4644,10 +4644,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260610.172436";
+      version = "153.0.20260615.115325";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845780/gaidhlig_language_pack-152.0.20260610.172436.xpi";
-      sha256 = "5f05e96c64584d0ab623d592b307bae20631e1235667e0e66ba0f97b1980b9c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852409/gaidhlig_language_pack-153.0.20260615.115325.xpi";
+      sha256 = "83d11e0a7bbdd6177e862fde08844e134379ec24753bd6d63dcd679e8c488192";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4688,10 +4688,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.20.12";
+      version = "1.21.1";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4846382/geo_spoof-1.20.12.xpi";
-      sha256 = "f17b5201e9d9a581bdec4812f982d57b612fa750d09aefdc0569c5b47df88aa0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4853099/geo_spoof-1.21.1.xpi";
+      sha256 = "9eef8b836086f4bd6b91acfd78f92cd41a70da97c0e2a847a5c95d24b78032b6";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -8434,7 +8434,7 @@
       sha256 = "1c91739ae52c6eb8522f0efb38397c3d5e85d961b3999f3c5d60f89db447877d";
       meta = with lib;
       {
-        homepage = "https://libredirect.github.io";
+        homepage = "https://libredirect.manerakai.com/";
         description = "Redirects YouTube, Twitter, TikTok... requests to alternative privacy friendly frontends.";
         license = licenses.gpl3;
         mozPermissions = [
@@ -10099,10 +10099,10 @@
     };
     "monochromate" = buildMozillaXpiAddon {
       pname = "monochromate";
-      version = "1.5.2";
+      version = "1.5.3";
       addonId = "{cdf4f419-70fa-491b-abcb-14bc1ad3d36f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4748236/monochromate-1.5.2.xpi";
-      sha256 = "723a8f971c19964dd16d9a04b123d436aa02a9b67caf02d753e1407cc633c63a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852753/monochromate-1.5.3.xpi";
+      sha256 = "cf1073985492ccdfd3518601cecb6e2786c2c81ac2c2f357666be82c2015ef8e";
       meta = with lib;
       {
         homepage = "https://monochromate.lirena.in/";
@@ -11171,10 +11171,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.118";
+      version = "1.0.120";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4831005/paperpile_addon-1.0.118.xpi";
-      sha256 = "f8cb5e1b988b2186f27fada416635247c829c8c64198451408da6a6c4f93c446";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4851850/paperpile_addon-1.0.120.xpi";
+      sha256 = "06928786c4efac161a9f53fd76ca2555ec59b4a3e682cd2bc9c13852f0d81e7d";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -13393,10 +13393,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260610.172436";
+      version = "153.0.20260615.115325";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845810/scots_language_pack-152.0.20260610.172436.xpi";
-      sha256 = "08a9cab63ed58b573ccca2f54dd08761f5c71d20005320caa2b929e2479ef1df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4852407/scots_language_pack-153.0.20260615.115325.xpi";
+      sha256 = "7a62557792b8513b0215196f6c4d5ec26f37fb7ff34068a86a3b4eaeb33fbeee";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15514,10 +15514,10 @@
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.89.0";
+      version = "3.90.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4807843/tweaks_for_youtube-3.89.0.xpi";
-      sha256 = "16b8f73230342e70f035566d2c24b19d07d19f5eee0cdc79a6a2c7e4c5842fb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4853011/tweaks_for_youtube-3.90.0.xpi";
+      sha256 = "7448af286dd38d4e70c27724aac0c7bd1c4ed769e84e2ec889b0a566cbf07e74";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
