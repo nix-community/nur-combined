@@ -1,0 +1,103 @@
+name: "Build and populate cache"
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+  schedule:
+    # rebuild everyday at 05:28
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron: "28 5 * * *"
+
+  workflow_dispatch:
+
+env:
+  # Set this to notify the global NUR package registry that changes are
+  # available.
+  #
+  # The repo name as used in
+  # https://github.com/nix-community/NUR/blob/master/repos.json
+  nurRepo: alxandr
+
+  # Set these to cache your build results in Attic for faster builds in CI and
+  # for everyone who uses your cache.
+  #
+  # For this to work, you also need to set the ATTIC_TOKEN secret in your
+  # repository secrets settings in GitHub, found at
+  # https://github.com/<your_githubname>/nur-packages/settings/secrets
+  atticServer: https://attic.alxandr.me/attic/
+  atticCacheName: alxandr
+
+jobs:
+  tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        nixpkgs:
+          - nixpkgs-unstable
+          - nixos-unstable
+          - nixos-stable
+          - detnix-weekly
+        include:
+          - nixpkgs: nixpkgs-unstable
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          - nixpkgs: nixos-unstable
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+          - nixpkgs: nixos-stable
+            nixPath: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+          - nixpkgs: detnix-weekly
+            nixPath: nixpkgs=https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/%2A.tar.gz
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+
+      - name: Install nix
+        uses: DeterminateSystems/determinate-nix-action@9adf02b41cfdac2632e1c16f0480ff5bf3b05dd6 # v3.21.1
+        with:
+          # use-flakehub: false
+          extra-conf: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            nix-path = ${{ matrix.nixPath }}
+
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
+      - name: Setup attic cache
+        uses: YoloDev/actions-attic@96d2553f0175f02f07dc86dc7fe67eba05c7470d # v0.1.1
+        id: attic
+        with:
+          server: ${{ env.atticServer }}
+          cacheName: ${{ env.atticCacheName }}
+          token: ${{ secrets.ATTIC_TOKEN }}
+
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }' \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+
+      - name: Build nix packages
+        run: |
+          nix shell -f '<nixpkgs>' nix-fast-build -c nix-fast-build \
+            --file ./ci.nix \
+            -A cacheOutputs \
+            --skip-cached \
+            --no-nom
+
+          # --attic-cache '${{ env.atticCacheName }}' \ # not yet supported on 26.05
+          # --attic-push-build-closure \
+
+      # - name: Trigger NUR update
+      #   # Don't replace <YOUR_REPO_NAME> here!
+      #   if: ${{ env.nurRepo != '<YOUR_REPO_NAME>' }}
+      #   run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ env.nurRepo }}"

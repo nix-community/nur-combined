@@ -1,0 +1,59 @@
+# .kodiak.toml
+
+# version is the only required setting in a kodiak config.
+# `1` is the only valid setting for this field.
+version = 1
+
+[merge]
+
+# Require that the automerge label (`merge.automerge_label`) be set for Kodiak
+# to merge a PR.
+#
+# When disabled, Kodiak will immediately attempt to merge any PR that passes all
+# GitHub branch protection requirements.
+require_automerge_label = true
+
+# Choose merge method for Kodiak to use.
+#
+# Kodiak will report a configuration error if the selected merge method is
+# disabled for a repository.
+#
+# If you're using the "Require signed commits" GitHub Branch Protection setting
+# to require commit signatures, "merge" or "squash" are the only compatible options. "rebase" will cause Kodiak to raise a configuration error.
+method = "squash" # default: first valid merge method in list "merge", "squash", "rebase", options: "merge", "squash", "rebase"
+
+# Once a PR is merged, delete the branch. This option behaves like the GitHub
+# repository setting "Automatically delete head branches", which automatically
+# deletes head branches after pull requests are merged.
+delete_branch_on_merge = true
+
+[merge.message]
+title = "pull_request_title"
+
+[update]
+
+# Update a PR whenever out of date with the base branch. The PR will be updated
+# regardless of merge requirements (e.g. failing status checks, missing reviews,
+# blacklist labels).
+#
+# Kodiak will only update PRs with the `merge.automerge_label` label or if
+# `update.require_automerge_label = false`.
+#
+# When enabled, _Kodiak will not be able to efficiently update PRs._ If you have
+# multiple PRs against a target like `master`, any time a commit is added to
+# `master` _all_ of those PRs against `master` will update. For `N` PRs against
+# a target you will see at least `N(N-1)/2` updates. If this configuration
+# option was disabled you would only see at least `N-1` updates.
+always = false # default: false
+
+# When enabled, Kodiak will only update PRs that have an automerge label
+# (configured via `merge.automerge_label`). When disable, Kodiak will update any
+# PR. This option only applies when `update.always = true`.
+require_automerge_label = true # default: true
+
+ignored_usernames = ["renovate", "dependabot", "Alxandr"]
+
+[approve]
+# note: remove the "[bot]" suffix from GitHub Bot usernames.
+# Instead of "dependabot[bot]" use "dependabot".
+auto_approve_usernames = ["renovate", "dependabot", "deps-updater", "Alxandr"]
