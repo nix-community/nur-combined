@@ -13,9 +13,9 @@
   },
 }:
 
-with nixpkgs.lib;
-
 let
+  lib = nixpkgs.lib;
+
   # Flake output attributes that are not per-system
   ignoredAttrs = [
     "hydraJobs"
@@ -191,7 +191,7 @@ eachSystemOp (
     // (f system packages);
 
     crosses = map (platform: {
-      platform = systems.elaborate platform;
+      platform = lib.systems.elaborate platform;
       flake = f system (mkCrossPackages system platform);
     }) platforms;
   in
@@ -224,7 +224,7 @@ eachSystemOp (
                           map (cross: {
                             name = cross.platform.config;
                             value =
-                              if (meta.availableOn cross.platform package) then
+                              if (lib.meta.availableOn cross.platform package) then
                                 tryEval (fixWindows (fixDarwin (fixStatic (cross.flake.${key}.${name}))))
                               else
                                 null;
@@ -235,13 +235,13 @@ eachSystemOp (
                 )
               )
               (
-                filterAttrs (
+                lib.filterAttrs (
                   name: package:
                   let
                     res = builtins.tryEval package;
                   in
                   if res.success then
-                    meta.availableOn { inherit system; } package
+                    lib.meta.availableOn { inherit system; } package
                   else
                     builtins.warn "Failed to evaluate ${key}.${name} for system ${system}" false
                 ) flake.${key}
