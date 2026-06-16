@@ -16,13 +16,13 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "linuxqq-clipsync";
-  version = "0.1.0";
+  version = "git-d139e54";
 
   src = fetchFromGitHub {
     owner = "SHORiN-KiWATA";
     repo = "linuxqq-clipsync";
-    rev = "ef51b206ff91376a121d4dbcb0d999579291c294";
-    hash = "sha256-1i+P//j9tFwnvQwS/XUU5cuEfXS4cSEdttOjgsOOP50=";
+    rev = "d139e5455ec0578c722b8ed312e7d73e952bb093";
+    hash = "sha256-lh1stFaRD88gVo7rtYtEgBtHz824ySsCHBlhkYH/Ymg=";
   };
 
   cargoLock = {
