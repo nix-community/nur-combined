@@ -3,7 +3,7 @@
 #   - `man 5 alacritty`
 #   - defaults: <https://github.com/alacritty/alacritty/releases>  -> alacritty.yml
 # - irc: #alacritty on libera.chat
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.sane.programs.alacritty;
 in
@@ -18,6 +18,10 @@ in
         };
       };
     };
+
+    # alacritty-graphics = alacritty.override { withGraphics = true; } = sixel support (i.e. renders inline images).
+    # maintained in this fork: <https://github.com/ayosec/alacritty>
+    packageUnwrapped = pkgs.alacritty-graphics;
 
     suggestedPrograms = [
       "xdg-open"

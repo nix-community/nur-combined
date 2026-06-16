@@ -1,8 +1,15 @@
 # docs: <https://pi.dev/docs/latest>
 # docs: `pi --help`
 #
-### integrations
-#### tools
+## nix operation
+# - config: <repo:nix-community/home-manager:modules/programs/pi-coding-agent.nix>
+# - extensions: <repo:nur-combined:repos/wenjinnn/pkgs/pi-packages>
+#
+## extensions
+# - <https://pi.dev/packages>
+# - see `nix operation` above for building/shipping in nix
+#
+## built-in tools
 # from `pi --help`, built-in tools:
 # - read   - Read file contents
 # - bash   - Execute bash commands
@@ -60,6 +67,7 @@ in
       # "nanogpt-mcp"
       "nanogpt-api"
       "nix-prefetch-git"  # agents make use of this
+      # "pandoc"  # for pi-markdown-preview
     ];
 
     sandbox.net = "clearnet";
@@ -80,6 +88,12 @@ in
     # sandbox.whitelistWayland = true;  # for pi-md-export -> wl-copy
     # sandbox.keepPidsAndProc = true;  #< likely required for wl-copy to work
 
+    persist.byStore.private = [
+      ".config/pi/sessions"
+      ".config/pi/trust"
+    ];
+    fs.".config/pi/trust.json".symlink.target = "trust/trust.json";
+
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];
     } ''
@@ -98,20 +112,14 @@ in
       terminal.showTerminalProgress = true;
       theme = "light";
       packages = [
-        # adds `/context` slash command
-        pkgs.edb-context-viewer
-        # adds `/diff-files` slash command
-        pkgs.edb-diff-files
-        # adds `/md` slash command
-        pkgs.pi-md-export
-        # adds `/simplify` slash command
-        pkgs.pi-simplify
-        # makes the input textarea behave like vim
-        pkgs.pi-vim
-        #  adds `/caveman` slash command
-        pkgs.pi-caveman
-        #  adds `/move-session` slash command
-        pkgs.pi-move-session
+        pkgs.edb-context-viewer  #< adds `/context` slash command
+        pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        pkgs.pi-caveman  #< adds `/caveman` slash command
+        pkgs.pi-md-export  #< adds `/md` slash command
+        pkgs.pi-move-session  #< adds `/move-session` slash command
+        pkgs.pi-simplify  #< adds `/simplify` slash command
+        pkgs.pi-vim  #< makes the input textarea behave like vim
+        # pkgs.pi-markdown-preview  #< renders $LaTeX$, etc, but needs more deps (puppeteer?)
       ];
       enabledModels = [
         # default set for Ctrl+P cycling
@@ -222,19 +230,24 @@ in
       - edit: Make surgical edits
       - write: Create or overwrite files
 
+      Programs available through bash:
+      - `curl`
+      - `kagi-ken-cli "my search phrase"` -> search the web (json response)
+      - `rg` -> use instead of grep; it honors .gitignore
+      - everything else you'd expect in a typical dev environment
+
       Guidelines:
       - Use bash for file operations like ls, rg, find
-      - Prefer rg over grep as it honors files such as .gitignore
-      - Use `kagi-ken-cli search` (from bash) for web searches
       - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
       - Prefer minimal changes
       - Always verify your work by building relevant targets, invoking tests, or invoking the actual code in a non-destructive manner (e.g. dry-run)
       - Be concise in your responses and comments
+      - NEVER modify system or user config files without explicit consent (e.g. no `git config set`)
 
       Things to know about this environment:
       - ~/ref/repos contains several hundred git checkouts organized by $owner/$repo: consult these first when looking for third-party sources. When cloning public repos, place them in this directory rather than a temporary directory, and follow existing name conventions. Always perform full clones -- disk space is cheap.
       - This is a git-focused environment. Projects or instructions may reference mercurial: fall back to `git` (cinnabar) operations at the earliest sign that `hg` is inoperational.
-      - Although a nix-based environment, `NIX_PATH` may not be set. This is intentional: invoke nix commands (`nix-build`, `nix-env`, etc) exactly as the user has specified.
+      - Although a nix-based environment, `NIX_PATH` might not be set. This is intentional: invoke nix commands (`nix-build`, `nix-env`, etc) exactly as the user has specified.
     '';
 
     # for consideration:
@@ -244,5 +257,7 @@ in
     # - Show file paths clearly when working with files
     # - N.B.: Future instructions may make reference to hg (mercurial), but the remote may be hg even as the checkout is git (via e.g. git-cinnabar): use whichever frontend matches the local checkout.
     # - Use `nanogpt-api search` (from bash) for web searches
+    # - Prefer rg over grep as it honors files such as .gitignore
+    # - Use `kagi-ken-cli search` (from bash) for web searches
   };
 }

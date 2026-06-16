@@ -1,4 +1,4 @@
-# alpaca: ollama llm client
+# alpaca: llama-cpp llm client
 # - super simple, easy UI
 #
 # shortcomings (as of 6.1.7, 2025-07-23):
@@ -15,26 +15,7 @@ let
   #   config.sane.hosts.by-name.desko.wg-home.ip
   # ;
   deskoHostname = config.sane.hosts.by-name.desko.wg-home.ip;
-  ollamaHost = "http://${deskoHostname}:11434";
   llamaCppHost = "http://${deskoHostname}:11435";
-
-  ollamaInstanceId = "20250727030639850585cfd40bab6b83425885caa00a198c9983";
-  ollamaType = "ollama";
-  ollamaProperties = {
-    api = "ollama";
-    default_model = "gemma3:27b";
-    keep_alive = 300;
-    name = "deskoOllama";
-    num_ctx = 16384.0;
-    override_parameters = true;
-    seed = 0.0;
-    share_name = 0;
-    show_response_metadata = false;
-    temperature = 0.7;
-    think = false;
-    title_model = null;
-    url = ollamaHost;
-  };
   llamaCppInstanceId = "20260227100437991096899573eb7ac545abaf08e318fb45e5c9";
   llamaCppType = "openai:generic";
   llamaCppModels = map (p: lib.removeSuffix ".gguf" p.name) [
@@ -91,15 +72,6 @@ let
       id TEXT NOT NULL PRIMARY KEY,
       list TEXT NOT NULL
     );
-    ${lib.optionalString false ''
-    INSERT INTO instance (id, pinned, type, properties) VALUES (
-      '${ollamaInstanceId}',
-      0,
-      '${ollamaType}',
-      '${builtins.toJSON ollamaProperties}'
-    );
-    ''}
-    ${lib.optionalString true ''
     INSERT INTO instance (id, pinned, type, properties) VALUES (
       '${llamaCppInstanceId}',
       0,
@@ -110,7 +82,6 @@ let
       '${llamaCppInstanceId}',
       '${builtins.toJSON llamaCppModels}'
     );
-    ''}
     EOF
     sqlite3 alpaca.db "$(cat create.sql)"
 

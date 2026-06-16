@@ -328,7 +328,7 @@ in
     guiBaseApps = declPackageSet [
       # "abaddon"  # discord client
       "alacritty"  # terminal emulator
-      "alpaca"  # ollama/LLM client
+      "alpaca"  # LLM client
       "blanket"  # ambient noise generator
       "calls"  # gnome calls (dialer/handler)
       "catgirl-downloader"
@@ -379,7 +379,7 @@ in
       "mpv"
       "networkmanagerapplet"
       # "ntfy-sh"  # notification service
-      # "newelle"  # ollama/LLM client
+      # "newelle"  # LLM client
       "newsflash"  # RSS viewer
       "papers"  # PDF viewer
       "pavucontrol"
@@ -401,6 +401,7 @@ in
       "video-trimmer"
       "vulkan-tools"  # vulkaninfo
       # "waifu-downloader"
+      "wezterm"  # terminal emulator
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
       "wiremix"  # wireplumber TUI
       "xdg-terminal-exec"
@@ -882,7 +883,7 @@ in
 
     meson = {};
 
-    mesonlsp.sandbox.method = null;  #< TODO: sandbox
+    mesonlsp.sandbox.whitelistPwd = true;  #< TODO: does mesonlsp benefit from this?
 
     # millipixels.packageUnwrapped = pkgs.millipixels.override {
     #   v4l-utils = config.sane.programs.v4l-utils.packageUnwrapped;  # necessary for cross compilation
@@ -1159,10 +1160,11 @@ in
       '';
     });
 
-    swaybg.sandbox.method = null;  #< TODO: sandbox
-
     swappy.sandbox.autodetectCliPaths = "existingFileOrParent";
     swappy.sandbox.whitelistWayland = true;
+
+    swaybg.sandbox.whitelistWayland = true;
+    swaybg.sandbox.autodetectCliPaths = "existing";  #< for wallpaper path
 
     systemctl.packageUnwrapped = pkgs.linkBinIntoOwnPackage pkgs.systemdMinimal "systemctl";
     systemctl.sandbox.whitelistSystemctl = true;
@@ -1170,7 +1172,7 @@ in
     systemctl.sandbox.capabilities = [ "cap_dac_override" "cap_sys_admin" ];
     systemctl.sandbox.keepPidsAndProc = true;
 
-    systemd-lsp.sandbox.method = null;  #< TODO: sandbox
+    systemd-lsp = {};
 
     tdesktop.persist.byStore.private = [ ".local/share/TelegramDesktop" ];
 

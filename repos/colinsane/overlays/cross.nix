@@ -225,6 +225,14 @@ in with final; {
     cargo = crossCargo;
   };
 
+  # 2026-06-13: upstreaming is blocked by openblas.
+  # rebase `pr-frog-zbar` and send for review once openblas is fixed.
+  gnome-frog = prev.gnome-frog.override {
+    # upstream's own build files configure zbar this way:
+    # <https://github.com/TenderOwl/Frog/blob/40ea293327fc574e9a5be9e6010c5fa7e9d842a6/flatpak/zbar.json#L10>
+    zbar = zbar.override { enableVideo = false; };
+  };
+
   # 2025/07/27: upstreaming is blocked on gnome-shell
   # fixes: "gdbus-codegen not found or executable"
   # gnome-session = mvToNativeInputs [ glib ] super.gnome-session;
@@ -537,6 +545,7 @@ in with final; {
     ];
   });
 
+  # alternatively, remove all mention of `ARMV9SME` from cmake/arch.cmake
   # openblas = prev.openblas.overrideAttrs (prevAttrs: {
   #   # <https://github.com/NixOS/nixpkgs/pull/513589>
   #   # this fixes `pkgsCross.aarch64-multiplatform.openblas`.
@@ -826,6 +835,16 @@ in with final; {
   #   };
   # });
 
+  # implemented on my 2026-06-14-wezterm-cross-2 nixpkgs branch
+  # wezterm = prev.wezterm.overrideAttrs (prevAttrs: {
+  #   depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
+  #     pkgsBuildBuild.pkg-config
+  #   ];
+  #   nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+  #     buildPackages.openssl
+  #   ];
+  # });
+
   # 2025/12/07: upstreaming is unblocked
   # fixes `hostPrograms.moby.neovim` (but breaks eval of `hostPkgs.moby.neovim` :o)
   # wrapNeovimUnstable = neovim: config: (prev.wrapNeovimUnstable neovim config).overrideAttrs (upstream: {
@@ -986,6 +1005,10 @@ in with final; {
   # 2023/12/10: zbar barcode scanner: used by megapixels, frog.
   # the video component does not cross compile (qt deps), but i don't need that.
   # N.B.: if desired, the "video" portion (zbarcam-gtk, zbarcam-qt) can be built for only gtk, by configuring with `--without-qt`.
+  # N.B.: pyzbar uses `zbar.override { enableVideo = false; }` in nixpkgs;
+  #       i could submit a PR to do the same for nixpkgs.
+  #       prior art is that <repo:megapixels:develop.sh> uses `apt add ... zbar-devel`,
+  #       and the aports for zbar-devel builds with `--disable-video`.
   # 2026/01/27: still broken upstream
-  zbar = prev.zbar.override { enableVideo = false; };
+  # zbar = prev.zbar.override { enableVideo = false; };
 }

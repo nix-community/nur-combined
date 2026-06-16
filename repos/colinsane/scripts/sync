@@ -59,8 +59,19 @@ proc die (...msg) {
   exit 1
 }
 
+var TRIED_MOUNT_SERVO = false
+proc tryMountServoMedia () {
+  if (not TRIED_MOUNT_SERVO) {
+    setglobal TRIED_MOUNT_SERVO = true
+    systemctl start mnt-.servo_ftp.mount || echo "failed to mount servo"
+  }
+}
+
 proc ifExists (path, ...cmd) {
   verbose "ifExists $path ..."
+  if (path => startsWith("/mnt/servo/media")) {
+    tryMountServoMedia
+  }
   if test -d "$path" {
     debug @cmd
     @cmd

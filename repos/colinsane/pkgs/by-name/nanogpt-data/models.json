@@ -2437,7 +2437,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2459,7 +2460,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2481,7 +2483,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2503,7 +2506,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "audio"
       ]
     }
   },
@@ -2940,8 +2944,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -2962,8 +2965,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -2984,8 +2986,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -6811,8 +6812,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -9596,8 +9596,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -10617,7 +10616,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "audio"
       ]
     }
   },
@@ -13159,8 +13158,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -13181,8 +13179,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -13266,8 +13263,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -13288,8 +13284,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -13331,8 +13326,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },
@@ -13353,8 +13347,7 @@
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image"
+        "text"
       ]
     }
   },

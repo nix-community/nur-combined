@@ -200,7 +200,7 @@
   - e.g. self-hosted [ladder](https://github.com/everywall/ladder) (like 12ft.io)
 - RSS: have podcasts get downloaded straight into ~/Videos/...
   - and strip the ads out using Whisper transcription + asking a LLM where the ad breaks are
-- neovim: integrate ollama
+- neovim: integrate llama-cpp
 - neovim: better docsets (e.g. c++, glib, bash)
 - checkout LM-studio / image generation
 - firefox: persist history

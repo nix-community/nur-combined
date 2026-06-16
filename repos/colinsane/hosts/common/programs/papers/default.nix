@@ -1,4 +1,5 @@
 # TODO: get printing to work under papers. until then, use evince if you need to print!
+# TODO: confirm that embedded media can render; previously this required disabling the sandbox
 { ... }:
 {
   sane.programs.papers = {
@@ -13,7 +14,6 @@
     # });
 
     buildCost = 2;  #< webkitgtk
-    sandbox.method = null;  #< TODO: enable, after fixing embedded media playback
     sandbox.whitelistDri = true;  #< speedier
     sandbox.whitelistWayland = true;
     sandbox.autodetectCliPaths = "existingFile";

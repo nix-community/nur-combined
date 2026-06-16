@@ -184,8 +184,8 @@ in
       "sops"
     ];
     # sane-secrets-update-keys is a thin wrapper around sops + some utilities.
-    # really i should sandbox just the utilities
-    "sane-scripts.secrets-update-keys".sandbox.method = null;
+    # a bit excessive sandboxing the whole thing even when the utils are sandboxed, eh.
+    "sane-scripts.secrets-update-keys".sandbox.autodetectCliPaths = "existing";
     "sane-scripts.secrets-update-keys".suggestedPrograms = [
       "sops"
     ];

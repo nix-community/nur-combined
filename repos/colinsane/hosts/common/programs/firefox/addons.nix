@@ -60,6 +60,10 @@ in
         nativeMessagingHosts = [ "passff-host" ];
         enable = lib.mkDefault false;
       };
+      phorgicator-pro = {
+        # Shift+A accept current revision + jump to next; Shift+J/K skip fwd/back; Shift+T set API token.
+        enable = lib.mkDefault true;
+      };
       sidebery = {
         enable = lib.mkDefault false; # firefox 133+ has native vertical tabs (about:config `sidebar.*`)
       };

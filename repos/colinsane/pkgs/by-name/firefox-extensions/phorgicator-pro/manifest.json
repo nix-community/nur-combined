@@ -1,0 +1,26 @@
+{
+  "manifest_version": 2,
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "@phorgicator-pro"
+    }
+  },
+  "name": "Phorgicator Pro",
+  "description": "Opinionated UI changes for Phorge, e.g. Shift+A hotkey for 'accept and next'",
+  "version": "1.0.0",
+  "permissions": [
+    "storage",
+    "https://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

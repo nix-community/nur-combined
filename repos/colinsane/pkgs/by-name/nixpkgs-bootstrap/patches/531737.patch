@@ -1,0 +1,52 @@
+From 5a9fb8993d63607cc87ef32ccbd8c9df75fb6f9e Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 14 Jun 2026 17:46:19 +0000
+Subject: [PATCH] python3Packages.curl-cffi: add missing `rich` dependency
+
+otherwise `$out/bin/curl-cffi` fails:
+> Traceback (most recent call last):
+>   File "/nix/store/jdi22r7swyiml492lms3ril9b45phmf9-python3.13-curl-cffi-0.15.0/bin/.curl-cffi-wrapped", line 6, in <module>
+>     from curl_cffi.cli import main
+>   File "/nix/store/jdi22r7swyiml492lms3ril9b45phmf9-python3.13-curl-cffi-0.15.0/lib/python3.13/site-packages/curl_cffi/cli/__init__.py", line 6, in <module>
+>     from .run import handle_run, parse_http_file  # noqa: F401
+>     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+>   File "/nix/store/jdi22r7swyiml492lms3ril9b45phmf9-python3.13-curl-cffi-0.15.0/lib/python3.13/site-packages/curl_cffi/cli/run.py", line 11, in <module>
+>     from .request import _execute_request
+>   File "/nix/store/jdi22r7swyiml492lms3ril9b45phmf9-python3.13-curl-cffi-0.15.0/lib/python3.13/site-packages/curl_cffi/cli/request.py", line 12, in <module>
+>     from .output import determine_print_spec, handle_download, print_output
+>   File "/nix/store/jdi22r7swyiml492lms3ril9b45phmf9-python3.13-curl-cffi-0.15.0/lib/python3.13/site-packages/curl_cffi/cli/output.py", line 12, in <module>
+>     from rich.console import Console
+> ModuleNotFoundError: No module named 'rich'
+
+`rich` was being propagated by `litestar` -- added to
+`nativeCheckInputs` in 4985af20df0a. build with `doCheck = false` and
+it's clear that upstream wants `rich` at runtime:
+
+> Running phase: pythonRuntimeDepsCheckHook
+> Executing pythonRuntimeDepsCheck
+> Checking runtime dependencies for curl_cffi-0.15.0-cp310-abi3-linux_aarch64.whl
+>   - rich not installed
+---
+ pkgs/development/python-modules/curl-cffi/default.nix | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/pkgs/development/python-modules/curl-cffi/default.nix b/pkgs/development/python-modules/curl-cffi/default.nix
+index 228e8037b2030367acb24f1b708f6beca99acafa..1d328148d6e79ced0077f1f1d5f0ecc5b6601ff5 100644
+--- a/pkgs/development/python-modules/curl-cffi/default.nix
++++ b/pkgs/development/python-modules/curl-cffi/default.nix
+@@ -17,6 +17,7 @@
+   pytest-trio,
+   pytestCheckHook,
+   python-multipart,
++  rich,
+   trustme,
+   uvicorn,
+   websockets,
+@@ -46,6 +47,7 @@ buildPythonPackage rec {
+   dependencies = [
+     cffi
+     certifi
++    rich
+   ];
+ 
+   pythonImportsCheck = [ "curl_cffi" ];

@@ -3,6 +3,10 @@ self: super: {
     xdg-utils = self.xdg-open;  #< it only uses xdg-open
   };
 
+  alacritty-graphics = super.alacritty-graphics.override {
+    xdg-utils = self.xdg-open;  #< it only uses xdg-open
+  };
+
   alpaca = super.alpaca.override {
     xdg-utils = self.emptyDirectory;  #< not actually used
   };

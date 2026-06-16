@@ -1,4 +1,4 @@
-# newelle: ollama llm client
+# newelle: llama-cpp llm client
 # - does some extra prompt tuning beyond ollama's defaults,
 #   to decrease pathologies
 # - intelligent formatting of model output (e.g. latex, markdown)
@@ -10,7 +10,7 @@
 #   - presumably it's sitting in the background, waiting to be dbus-activated
 # - launch is delayed quite a while on moby:
 #   > Matplotlib is building the font cache; this may take a moment.
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   sane.programs.newelle = {
     packageUnwrapped = (pkgs.newelle.override {
@@ -41,7 +41,7 @@
     sandbox.matplotlibCacheDir = ".cache/Newelle/matplotlib";
     sandbox.mesaCacheDir = ".cache/Newelle/mesa";
 
-    gsettings."io/github/qwersyk/Newelle" = {
+    gsettings."io/github/qwersyk/Newelle" = lib.warn "TODO: PORT NEWELLE CONFIG TO LLAMA-CPP, NOT OLLAMA" {
       language-model = "ollama";
       # the actual gsettings is HUGE (see ~/.config/glib-2.0/settings/keyfile).
       # this is sliced down, and i'll let Newelle re-populate the omitted data on launch.

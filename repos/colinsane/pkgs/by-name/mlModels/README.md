@@ -4,6 +4,31 @@ source from:
 - <https://huggingface.co/models?library=gguf&sort=trending>
 - <https://unsloth.ai/docs>
 
+## social/ecosystem
+- <https://www.reddit.com/r/LocalLLaMA/>
+
+### leaderboards
+- <https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard>
+  - specifically for locally-hosted models
+- <https://lmarena.ai/leaderboard>
+  - general purpose
+  - user ranked
+  - lacks details like model size, eval time, etc
+- <https://eqbench.com/>
+  - for code writing
+- <https://evalplus.github.io/leaderboard.html>
+  - for code writing
+- <https://huggingface.co/spaces/mike-ravkine/can-ai-code-results>
+  - for code writing
+- <https://huggingface.co/spaces/DontPlanToEnd/UGI-Leaderboard>
+  - for uncensored models
+
+### for sensitive/illicit things ("Uncensored General Intelligence"):
+- <https://www.reddit.com/r/LocalLLaMA/comments/1hk0ldo/december_2024_uncensored_llm_test_results/>
+- search "abliterated" or "abliterate"
+- search "uncensored"
+- search "Eric Hartford" <https://erichartford.com/uncensored-models>
+
 
 ## tooling
 - `hf` CLI tool
@@ -11,6 +36,9 @@ source from:
 - `fetchgit { fetchLFS = true; rootDir = ...; }`
   - nixpkgs has a few fetchgit `url = "https://huggingface.co/...";` callers
   - it's likely that split gguf files "just work"?
+
+### huggingface API
+- <https://huggingface.co/.well-known/openapi.json>
 
 
 ## formats
