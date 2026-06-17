@@ -5,10 +5,10 @@ updates:
     schedule:
       interval: "weekly"
     labels:
-      - "autorelease"
+      - "automerge"
   - package-ecosystem: "nix"
     directory: "/"
     schedule:
       interval: "weekly"
     labels:
-      - "autorelease"
+      - "automerge"
