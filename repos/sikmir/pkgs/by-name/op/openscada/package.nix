@@ -28,18 +28,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "openscada";
-  version = "0.9.8";
+  version = "0.9.9";
 
   __structuredAttrs = true;
 
   main_src = fetchurl {
     url = "http://oscada.org/oscadaArch/0.9/openscada-${finalAttrs.version}.tar.xz";
-    hash = "sha256-UuDdURwu/hL/b3sykumLbHZXMzLh8/qmKqEsBRcaZew=";
+    hash = "sha256-niKvdR5LgYXe9MeAVSsOfdK2rfu/dO8L3oEJ0RfcqWE=";
   };
 
   res_src = fetchurl {
     url = "http://oscada.org/oscadaArch/0.9/openscada-res-${finalAttrs.version}.tar.xz";
-    hash = "sha256-qVCmklGt9UKGFC1iiSy9+4kqfScfNIoiJeXX60bjJr0=";
+    hash = "sha256-pAQbrq1j1CQrBIvtbCe0H5EJMQwE6UK3vkNMedMiMdI=";
   };
 
   srcs = [
