@@ -104,22 +104,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "8b21f9f2fae6e451d1c28f9a1e415c606531c5ad";
+    version = "018db26f8b2f67f3b7b645f84cdb5f03c9ae3294";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "8b21f9f2fae6e451d1c28f9a1e415c606531c5ad";
+      rev = "018db26f8b2f67f3b7b645f84cdb5f03c9ae3294";
       fetchSubmodules = false;
-      sha256 = "sha256-Bdra526fGU77IGKsC5mrBpnP3y330U14iiLdPA4EsXU=";
+      sha256 = "sha256-fWBVLtqy6TXNxLVJsyxz8zb7NdGmjXDiZd4PArsI8a4=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-Bdra526fGU77IGKsC5mrBpnP3y330U14iiLdPA4EsXU=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-Bdra526fGU77IGKsC5mrBpnP3y330U14iiLdPA4EsXU=/web/package-lock.json";
-    };date = "2026-06-16";
+      "web/package.json" = ./. + "/sha256-fWBVLtqy6TXNxLVJsyxz8zb7NdGmjXDiZd4PArsI8a4=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-fWBVLtqy6TXNxLVJsyxz8zb7NdGmjXDiZd4PArsI8a4=/web/package-lock.json";
+    };date = "2026-06-17";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
-    version = "v1.10.8";
+    version = "v1.11.0";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -410,13 +410,13 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "0d6f480b0ffc2aa19146b738f5def975dd2d235a";
+    version = "e2e73608852b604a1c147b13ca343309e20751f3";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "0d6f480b0ffc2aa19146b738f5def975dd2d235a";
+      rev = "e2e73608852b604a1c147b13ca343309e20751f3";
       fetchSubmodules = false;
-      sha256 = "sha256-Vm+vN/Sv+rHhHM33DF4p+/X8/wU58WRVFEpzcmG/V8g=";
+      sha256 = "sha256-K7M6CBlLtH63AZ8zsT3J6MCg9MK6fxZqcZtSWZYGZIQ=";
     };
     date = "2026-06-16";
   };
@@ -572,15 +572,15 @@
   };
   superpowers-skills = {
     pname = "superpowers-skills";
-    version = "8cf39006140a743dce31ba4046fceab90cc214e6";
+    version = "a21956e48c1324737257c0d9562e5397d1fbed6c";
     src = fetchFromGitHub {
       owner = "obra";
       repo = "superpowers";
-      rev = "8cf39006140a743dce31ba4046fceab90cc214e6";
+      rev = "a21956e48c1324737257c0d9562e5397d1fbed6c";
       fetchSubmodules = false;
-      sha256 = "sha256-sKww11UOOHzZWxcHCprnF2+0pnuuGWIJpDoU7pxzRC4=";
+      sha256 = "sha256-mav9QRbxUT80tfp7JL04+ig91lIX8TGPd1r+1iwBxqQ=";
     };
-    date = "2026-06-15";
+    date = "2026-06-16";
   };
   udpxy = {
     pname = "udpxy";
@@ -603,15 +603,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "b04749fb8d6d2968750f45714c864c9698355a6f";
+    version = "1fdd72aa4e9e912d09823623ff7cd452bb099961";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "b04749fb8d6d2968750f45714c864c9698355a6f";
+      rev = "1fdd72aa4e9e912d09823623ff7cd452bb099961";
       fetchSubmodules = false;
-      sha256 = "sha256-LACuwBFUx2gTJiNV8N1QG3U5Cilj4eFKWO/7K+O/6ho=";
+      sha256 = "sha256-UYldMzwlahGhIfvat4VanPVlvuIyccHHhZz2tVQm5fo=";
     };
-    date = "2026-06-15";
+    date = "2026-06-16";
   };
   zsh-patina = {
     pname = "zsh-patina";
