@@ -4,15 +4,13 @@
   fetchFromGitHub,
   bash,
   dash,
-  help2man,
   ncurses,
-  withDoc ? false,
   scdoc,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libshell";
-  version = "0.4.13";
+  version = "0.5.0";
 
   __structuredAttrs = true;
 
@@ -20,10 +18,10 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "legionus";
     repo = "libshell";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-jolr55qNG3224IWRE9PueeRbO5RIhFmFiPe0g0wO9c4=";
+    hash = "sha256-Jl0JyC4StD0SBlDM2Ubjj42I7J55fIj15GMRhNxttwg=";
   };
 
-  nativeBuildInputs = [ help2man ];
+  nativeBuildInputs = [ scdoc ];
 
   postPatch = ''
     substituteInPlace Makefile --replace-fail "/usr" ""
@@ -35,11 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
   '';
 
-  makeFlags = with lib; [
-    "DESTDIR=$(out)"
-    (optional withDoc "SCDOC=${scdoc}/bin/scdoc")
-    (optional (!withDoc) "SCDOC=")
-  ];
+  makeFlags = [ "DESTDIR=$(out)" ];
 
   doCheck = false;
 
