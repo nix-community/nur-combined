@@ -26,5 +26,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
+    broken = stdenv.isDarwin;
   };
 })
