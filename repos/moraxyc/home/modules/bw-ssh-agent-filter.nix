@@ -17,7 +17,9 @@ let
     "-listen=${cfg.listen}"
     "-upstream=${cfg.upstream}"
     "-keys=${keysFile}"
-  ];
+  ]
+  ++ lib.optional cfg.auth "-auth"
+  ++ cfg.extraArgs;
   keysFile =
     if cfg.configFile != null then
       cfg.configFile
@@ -53,6 +55,14 @@ in
       defaultText = lib.literalExpression "\${config.home.homeDirectory}/.ssh/bw-agent-proxy.sock";
       description = "The socket path where bw-ssh-agent-filter will listen for SSH agent connections.";
     };
+
+    auth = lib.mkEnableOption "native system authentication before SSH signing";
+
+    extraArgs = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Additional command line arguments to pass to bw-ssh-agent-filter.";
+    };
   };
   config = lib.mkMerge [
     (lib.mkIf (isLinux && cfg.enable) {
@@ -61,6 +71,29 @@ in
           ExecStartPre = "${lib.getExe' pkgs.coreutils "rm"} -f ${lib.escapeShellArg cfg.listen}";
           ExecStart = lib.escapeShellArgs ([ bin ] ++ args);
           Restart = "on-failure";
+
+          NoNewPrivileges = true;
+          PrivateTmp = true;
+          PrivateDevices = true;
+          ProtectSystem = "strict";
+          ProtectProc = "invisible";
+          ProcSubset = "pid";
+          RestrictAddressFamilies = [ "AF_UNIX" ];
+          RestrictNamespaces = true;
+          RestrictRealtime = true;
+          LockPersonality = true;
+          MemoryDenyWriteExecute = true;
+          CapabilityBoundingSet = "";
+          SystemCallArchitectures = "native";
+          SystemCallFilter = [
+            "@system-service"
+            "~@privileged"
+            "~@resources"
+          ];
+          ReadWritePaths = [
+            (dirOf cfg.listen)
+            cfg.upstream
+          ];
         };
 
         Install.WantedBy = [ "default.target" ];

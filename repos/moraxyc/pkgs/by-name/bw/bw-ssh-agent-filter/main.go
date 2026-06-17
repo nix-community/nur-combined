@@ -29,6 +29,7 @@ type filterAgent struct {
 	upstream agent.ExtendedAgent
 	ordered  []allowKey
 	allowed  map[string]struct{}
+	auth     authorizer
 }
 
 func main() {
@@ -36,6 +37,7 @@ func main() {
 		listenPath   = flag.String("listen", "", "proxy ssh-agent socket path")
 		upstreamPath = flag.String("upstream", os.Getenv("BITWARDEN_SSH_AUTH_SOCK"), "upstream ssh-agent socket path")
 		keysPath     = flag.String("keys", "", "allowed public keys file, same format as ssh-add -L")
+		authEnabled  = flag.Bool("auth", false, "require platform authentication before signing")
 		showVersion  = flag.Bool("version", false, "Show version")
 	)
 	flag.Parse()
@@ -82,6 +84,12 @@ func main() {
 	log.Printf("listening: %s", *listenPath)
 	log.Printf("upstream:  %s", *upstreamPath)
 	log.Printf("keys:      %s", *keysPath)
+	log.Printf("auth:      %t", *authEnabled)
+
+	auth := authorizer(noopAuthorizer{})
+	if *authEnabled {
+		auth = newPlatformAuthorizer()
+	}
 
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
@@ -117,6 +125,7 @@ func main() {
 				upstream: agent.NewClient(up),
 				ordered:  ordered,
 				allowed:  allowed,
+				auth:     auth,
 			}
 
 			if err := agent.ServeAgent(fa, client); err != nil && !errors.Is(err, io.EOF) {
@@ -206,6 +215,9 @@ func (a *filterAgent) Sign(key ssh.PublicKey, data []byte) (*ssh.Signature, erro
 	if !a.isAllowed(key) {
 		return nil, errors.New("key not allowed")
 	}
+	if err := a.auth.Authorize(key, a.commentFor(key), 0); err != nil {
+		return nil, err
+	}
 
 	return a.upstream.Sign(key, data)
 }
@@ -214,6 +226,9 @@ func (a *filterAgent) SignWithFlags(key ssh.PublicKey, data []byte, flags agent.
 	if !a.isAllowed(key) {
 		return nil, errors.New("key not allowed")
 	}
+	if err := a.auth.Authorize(key, a.commentFor(key), flags); err != nil {
+		return nil, err
+	}
 
 	return a.upstream.SignWithFlags(key, data, flags)
 }
@@ -221,6 +236,16 @@ func (a *filterAgent) SignWithFlags(key ssh.PublicKey, data []byte, flags agent.
 func (a *filterAgent) isAllowed(key ssh.PublicKey) bool {
 	_, ok := a.allowed[string(key.Marshal())]
 	return ok
+}
+
+func (a *filterAgent) commentFor(key ssh.PublicKey) string {
+	blob := string(key.Marshal())
+	for _, k := range a.ordered {
+		if k.blob == blob {
+			return k.comment
+		}
+	}
+	return ssh.FingerprintSHA256(key)
 }
 
 func (a *filterAgent) Add(key agent.AddedKey) error {
