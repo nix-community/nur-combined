@@ -38,13 +38,14 @@ let
       else
         minipkgs0.prismlauncher-unwrapped;
   };
+  # https://github.com/nix-community/nur-combined/blob/af619b147352e88b4105fbfab03f9395e68e5ee5/repos/dtomvan/default.nix#L6
+  byName = lib.filesystem.packagesFromDirectoryRecursive {
+    inherit (pkgs) callPackage newScope;
+    directory = ./by-name;
+  };
 in
-# https://github.com/nix-community/nur-combined/blob/af619b147352e88b4105fbfab03f9395e68e5ee5/repos/dtomvan/default.nix#L6
-lib.filesystem.packagesFromDirectoryRecursive {
-  inherit (pkgs) callPackage newScope;
-  directory = ./by-name;
-}
-// rec {
+byName
+// (with byName; rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
     withOptionals = true;
@@ -123,17 +124,12 @@ lib.filesystem.packagesFromDirectoryRecursive {
   #  ${pkgs.aria2}/bin/aria2c -s65536 -j65536 -x16 -k1M "$@"
   #'';
   # audacity4 = nodarwin (pkgs.qt6Packages.callPackage ./pkgs/audacity4/package.nix { });
-  electron_castlabs_38 = pkgs.callPackage ./pkgs/electron-castlabs-38 { };
   cider = pkgs.callPackage ./pkgs/cider {
     electron = electron_castlabs_38;
   };
-  local-ai = pkgs.callPackage ./pkgs/local-ai/package.nix { };
   local-ai-cuda = local-ai.override { with_cublas = true; };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
-  browser-115-bin = pkgs.callPackage ./pkgs/115-browser-bin { };
-  youku-bin = pkgs.callPackage ./pkgs/youku-bin/package.nix { };
-  dtv = pkgs.callPackage ./pkgs/dtv/package.nix { };
   # currently no changes so just use nixpkgs version of bionic-translation and art-standalone
   bionic-translation = pkgs.bionic-translation; # pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
   art-standalone = pkgs.art-standalone;
@@ -146,11 +142,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     art-standalone = art-standalone;
     bionic-translation = bionic-translation;
   };
-  beammp-launcher = pkgs.callPackage ./pkgs/beammp-launcher/package.nix {
-    cacert_3108 = pkgs.callPackage ./pkgs/cacert_3108 { };
-  };
-  beammp-server = pkgs.callPackage ./pkgs/beammp-server/package.nix { };
-  chatall = pkgs.callPackage ./pkgs/chatall/package.nix { };
   ogre-1_11 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-1_11/package.nix { });
   angelscript_2_35_1 = v3overrideAttrs (
     pkgs.angelscript.overrideAttrs (
@@ -187,8 +178,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   zw3d = pkgs.callPackage ./pkgs/zw3d {
     notoFontsCjk = pkgs.noto-fonts-cjk-sans;
   };
-  ultimate-vocal-remover = pkgs.callPackage ./pkgs/ultimate-vocal-remover { };
-  pake = pkgs.callPackage ./pkgs/pake { };
   makePakeApp = pkgs.callPackage ./pkgs/makePakeApp {
     inherit pake;
   };
@@ -201,8 +190,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
   apple-music-desktop = pkgs.callPackage ./pkgs/apple-music-desktop/package.nix {
     electron = electron_castlabs_38;
   };
-
-  #systemd257 = (pkgs.callPackage ./pkgs/systemd257 { });
 
   proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
     toolTitle = "Proton-CachyOS";
@@ -273,8 +260,6 @@ lib.filesystem.packagesFromDirectoryRecursive {
     doCheck = false; # something wrong with check pharse after last staging-next merge. checking not terminate. 20260225
   });
 
-  firejail-profiles = pkgs.callPackage ./pkgs/firejail-profiles { };
-
   prismlauncher-diegiwg =
     let
       # https://github.com/NixOS/nixpkgs/blob/ab0821a8289da5bd2cde49ae89cbf6db1e5931ae/pkgs/by-name/pr/prismlauncher/package.nix#L41
@@ -304,134 +289,144 @@ lib.filesystem.packagesFromDirectoryRecursive {
       ];
     });
 
-  stuntrally2 = pkgs.callPackage ./pkgs/stuntrally { };
-
-  rocksmith-custom-song-toolkit = pkgs.callPackage ./pkgs/rocksmith-custom-song-toolkit { };
-
   rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
   };
-}
-// (lib.optionalAttrs (!nurbot) rec {
 
-  supertuxkart-evolution = v3override (
-    pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
-  );
-
-  mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
-
-  line = callPackage ./pkgs/line.nix {
-    inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
-    wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
-  };
-  adobe-acrobat-reader = callPackage ./pkgs/adobe-acrobat-reader.nix {
-    inherit (lib) mkWindowsAppNoCC makeDesktopIcon copyDesktopIcons;
-    inherit (pkgs)
-      copyDesktopItems
-      makeDesktopItem
-      p7zip
-      gawk
-      ;
-    wine = pkgs.winePackages.full;
-  };
-  adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
-    virtualDesktop = true;
+  # copied from nixpkgs; librewolf-bin-unwrapped lives in by-name and is wrapped here
+  librewolf-bin = pkgs.wrapFirefox librewolf-bin-unwrapped {
+    pname = "librewolf-bin";
+    extraPrefsFiles = [
+      "${librewolf-bin-unwrapped}/lib/librewolf-bin-${librewolf-bin-unwrapped.version}/librewolf.cfg"
+    ];
+    extraPoliciesFiles = [
+      "${librewolf-bin-unwrapped}/lib/librewolf-bin-${librewolf-bin-unwrapped.version}/distribution/extra-policies.json"
+    ];
   };
 
-  affinity-v3 = callPackage ./pkgs/affinity-v3 {
-    inherit pkgs;
-    build = lib;
-    wine = pkgs.wineWow64Packages.full;
+  # copied from nixpkgs; librewolf-unwrapped (built from source) lives in by-name
+  librewolf = pkgs.wrapFirefox librewolf-unwrapped {
+    inherit (librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
+    libName = "librewolf";
   };
-
-  wineshell-wine64 = callPackage ./pkgs/wineshell/default.nix {
-    inherit (lib) mkWindowsApp;
-    wine = pkgs.wine64Packages.stableFull;
-    wineArch = "win64";
-    wineFlavor = "wine64";
-  };
-
-  wineshell-wineWow64 = callPackage ./pkgs/wineshell/default.nix {
-    inherit (lib) mkWindowsApp;
-    wine = pkgs.wineWow64Packages.stableFull;
-    wineArch = "win64";
-    wineFlavor = "wineWow64";
-  };
-
-  wineshell-wine = callPackage ./pkgs/wineshell/default.nix {
-    inherit (lib) mkWindowsApp;
-    wine = pkgs.winePackages.stableFull;
-    wineArch = "win32";
-    wineFlavor = "wine";
-  };
-
-  wineshell-wine64-base = callPackage ./pkgs/wineshell/default.nix {
-    inherit (lib) mkWindowsApp;
-    wine = pkgs.wine64Packages.base;
-    wineArch = "win64";
-    wineFlavor = "wine64";
-    enableMonoBootPrompt = false;
-  };
-
-  wineshell-wineWow64-base = callPackage ./pkgs/wineshell/default.nix {
-    inherit (lib) mkWindowsApp;
-    wine = pkgs.wineWow64Packages.base;
-    wineArch = "win64";
-    wineFlavor = "wineWow64";
-    enableMonoBootPrompt = false;
-  };
-
-  wineshell-wine-base = callPackage ./pkgs/wineshell/default.nix {
-    inherit (lib) mkWindowsApp;
-    wine = pkgs.winePackages.base;
-    wineArch = "win32";
-    wineFlavor = "wine";
-    enableMonoBootPrompt = false;
-  };
-
-  wineshell-wine64-vulkan = wineshell-wine64.override {
-    enableVulkan = true;
-  };
-
-  wineshell-wineWow64-vulkan = wineshell-wineWow64.override {
-    enableVulkan = true;
-  };
-
-  wineshell-wine-vulkan = wineshell-wine.override {
-    enableVulkan = true;
-  };
-
-  wineshell-wine64-base-vulkan = wineshell-wine64-base.override {
-    enableVulkan = true;
-  };
-
-  wineshell-wineWow64-base-vulkan = wineshell-wineWow64-base.override {
-    enableVulkan = true;
-  };
-
-  wineshell-wine-base-vulkan = wineshell-wine-base.override {
-    enableVulkan = true;
-  };
-
-  # https://github.com/NixOS/nixpkgs/issues/10165
-  # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
-  notepad-plus-plus = callPackage ./pkgs/notepad++.nix {
-    inherit pkgs;
-    build = lib;
-    wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
-  };
-
-  insta360-studio = callPackage ./pkgs/insta360-studio.nix {
-    inherit pkgs;
-    build = lib;
-    wine = pkgs.wineWow64Packages.full;
-  };
-
-  chatgpt-desktop-client = pkgs.callPackage ./pkgs/chatgpt-desktop-client/default.nix { };
-
-  prospect-mail = pkgs.callPackage ./pkgs/prospect-mail/package.nix { };
-
-  rclone-browser = pkgs.callPackage ./pkgs/rclone-browser/package.nix { };
-
-  forku-chatgpt = v3overrideAttrs (pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { });
 })
+// (lib.optionalAttrs (!nurbot) (
+  with byName;
+  rec {
+
+    supertuxkart-evolution = v3override (
+      pkgs.callPackage ./pkgs/supertuxkart-evolution/default.nix { }
+    );
+
+    mkwindowsapp-tools = callPackage ./pkgs/mkwindowsapp-tools { wrapProgram = pkgs.wrapProgram; };
+
+    line = callPackage ./pkgs/line.nix {
+      inherit (lib) mkWindowsAppNoCC copyDesktopIcons makeDesktopIcon;
+      wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
+    };
+    adobe-acrobat-reader = callPackage ./pkgs/adobe-acrobat-reader.nix {
+      inherit (lib) mkWindowsAppNoCC makeDesktopIcon copyDesktopIcons;
+      inherit (pkgs)
+        copyDesktopItems
+        makeDesktopItem
+        p7zip
+        gawk
+        ;
+      wine = pkgs.winePackages.full;
+    };
+    adobe-acrobat-reader_virtualDesktop = adobe-acrobat-reader.override {
+      virtualDesktop = true;
+    };
+
+    affinity-v3 = callPackage ./pkgs/affinity-v3 {
+      inherit pkgs;
+      build = lib;
+      wine = pkgs.wineWow64Packages.full;
+    };
+
+    wineshell-wine64 = callPackage ./pkgs/wineshell/default.nix {
+      inherit (lib) mkWindowsApp;
+      wine = pkgs.wine64Packages.stableFull;
+      wineArch = "win64";
+      wineFlavor = "wine64";
+    };
+
+    wineshell-wineWow64 = callPackage ./pkgs/wineshell/default.nix {
+      inherit (lib) mkWindowsApp;
+      wine = pkgs.wineWow64Packages.stableFull;
+      wineArch = "win64";
+      wineFlavor = "wineWow64";
+    };
+
+    wineshell-wine = callPackage ./pkgs/wineshell/default.nix {
+      inherit (lib) mkWindowsApp;
+      wine = pkgs.winePackages.stableFull;
+      wineArch = "win32";
+      wineFlavor = "wine";
+    };
+
+    wineshell-wine64-base = callPackage ./pkgs/wineshell/default.nix {
+      inherit (lib) mkWindowsApp;
+      wine = pkgs.wine64Packages.base;
+      wineArch = "win64";
+      wineFlavor = "wine64";
+      enableMonoBootPrompt = false;
+    };
+
+    wineshell-wineWow64-base = callPackage ./pkgs/wineshell/default.nix {
+      inherit (lib) mkWindowsApp;
+      wine = pkgs.wineWow64Packages.base;
+      wineArch = "win64";
+      wineFlavor = "wineWow64";
+      enableMonoBootPrompt = false;
+    };
+
+    wineshell-wine-base = callPackage ./pkgs/wineshell/default.nix {
+      inherit (lib) mkWindowsApp;
+      wine = pkgs.winePackages.base;
+      wineArch = "win32";
+      wineFlavor = "wine";
+      enableMonoBootPrompt = false;
+    };
+
+    wineshell-wine64-vulkan = wineshell-wine64.override {
+      enableVulkan = true;
+    };
+
+    wineshell-wineWow64-vulkan = wineshell-wineWow64.override {
+      enableVulkan = true;
+    };
+
+    wineshell-wine-vulkan = wineshell-wine.override {
+      enableVulkan = true;
+    };
+
+    wineshell-wine64-base-vulkan = wineshell-wine64-base.override {
+      enableVulkan = true;
+    };
+
+    wineshell-wineWow64-base-vulkan = wineshell-wineWow64-base.override {
+      enableVulkan = true;
+    };
+
+    wineshell-wine-base-vulkan = wineshell-wine-base.override {
+      enableVulkan = true;
+    };
+
+    # https://github.com/NixOS/nixpkgs/issues/10165
+    # https://discourse.nixos.org/t/what-is-your-approach-to-packaging-wine-applications-with-nix-derivations/12799/1
+    notepad-plus-plus = callPackage ./pkgs/notepad++.nix {
+      inherit pkgs;
+      build = lib;
+      wine = pkgs.wineWow64Packages.full; # enableMonoBootPrompt is broken rightnow. use full to avoid boot prompt
+    };
+
+    insta360-studio = callPackage ./pkgs/insta360-studio.nix {
+      inherit pkgs;
+      build = lib;
+      wine = pkgs.wineWow64Packages.full;
+    };
+
+    forku-chatgpt = v3overrideAttrs (pkgs.callPackage ./pkgs/forku-chatgpt/package.nix { });
+  }
+))

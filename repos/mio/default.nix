@@ -148,7 +148,6 @@ in
         EOF
       '';
   });
-  nix-output-monitor = callPackage ./pkgs/nix-output-monitor/package.nix { };
 
   cached-set =
     let

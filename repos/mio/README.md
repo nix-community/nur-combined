@@ -83,7 +83,6 @@ files are copied from following locations. some are modified in this repo and so
 + icu nixpkgs commit 588c72d6229385ef2bab17ec4fc21db014790e4e
 + pkgs/os-specific/linux/kernel/common-flags.nix pkgs/os-specific/linux/zfs/generic.nix nixpkgs commit 154743920299
 + eden <https://github.com/kira-bruneau/nur-packages.git> <https://github.com/kira-bruneau/nur-packages/commit/83867279d2499dd38b944964a829e5c5df93bddc>
-+ systemd257 <https://github.com/NixOS/nixpkgs/commit/70ca21d3c4982d7f95e48688d02cd9ef6b1347f5>  70ca21d3c4982d7f95e48688d02cd9ef6b1347f5^ <https://github.com/NixOS/nixpkgs/commit/38b523e9e8e607bcd8f638d8a53608bb1658a0e4>
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib pkgs/wineshell
 + unmodified - prismlauncher-unwrapped prismlauncher materialgram telegram-desktop - should sync with nixpkgs
 + android-translation-layer nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
@@ -99,6 +98,8 @@ files are copied from following locations. some are modified in this repo and so
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
 + widevine-firefox <https://github.com/ToborWinner/teanyth/blob/263decae003ec1b7ed0f7cde30b57c6f2f320c0e/pkgs/firefox-widevine.nix#L4>
 + fdroidcl_git - copied from nixpkgs and updated to <https://github.com/Hoverth/fdroidcl/commit/d870160f16a22836d13f59acdabcd70709c68db6>
++ librewolf-bin (and librewolf-bin-unwrapped) - copied from nixpkgs <https://github.com/NixOS/nixpkgs/tree/c530e744f6ac771f7930998f9f70efa82fada903/pkgs/by-name/li/librewolf-bin-unwrapped> and updated to latest (152.0-1); the `knownVulnerabilities` nixpkgs-maintenance note was dropped since it is maintained here
++ librewolf (and librewolf-unwrapped, built from source) - copied from nixpkgs <https://github.com/NixOS/nixpkgs/tree/c530e744f6ac771f7930998f9f70efa82fada903/pkgs/by-name/li/librewolf-unwrapped> and updated to 151.0.4-1 (latest buildable with the pinned nixpkgs `buildMozillaMach`/firefox 151.0.4; 152.0-1 needs a newer toolchain); the `knownVulnerabilities` nixpkgs-maintenance note was dropped since it is maintained here
 
 
 + antigravity-cli <https://github.com/numtide/llm-agents.nix/tree/main/packages/antigravity-cli> commit 04df876de28f0684a0d7110444d7f64da5c14d17
