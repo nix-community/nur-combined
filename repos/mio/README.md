@@ -110,3 +110,7 @@ files are copied from following locations. some are modified in this repo and so
 ## todo - reading
 
 + <https://github.com/NixOS/nixpkgs/issues/171182#issuecomment-2467081726>
+
+## llm policy
+
+headache. use LLM for boring no brain task
