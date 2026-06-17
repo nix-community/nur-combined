@@ -1,0 +1,37 @@
+From 1807ed2d90c15788a46fd22f5c15a1cecb6c79a9 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Tue, 16 Jun 2026 18:15:13 +0000
+Subject: [PATCH] pi-coding-agent: 0.79.1 -> 0.79.5
+
+changelog: https://github.com/earendil-works/pi/blob/v0.79.5/packages/coding-agent/CHANGELOG.md#0795---2026-06-16
+
+this includes a lot of bugfixes, e.g. wezterm image rendering is
+un-broken.
+---
+ pkgs/by-name/pi/pi-coding-agent/package.nix | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pkgs/by-name/pi/pi-coding-agent/package.nix b/pkgs/by-name/pi/pi-coding-agent/package.nix
+index ea3429bc6213d30dbb8ec2472a13e0fe6ae2174d..f083110734b5f6f769e0d28cc1764ffc2b430fae 100644
+--- a/pkgs/by-name/pi/pi-coding-agent/package.nix
++++ b/pkgs/by-name/pi/pi-coding-agent/package.nix
+@@ -12,16 +12,16 @@
+ }:
+ buildNpmPackage (finalAttrs: {
+   pname = "pi-coding-agent";
+-  version = "0.79.1";
++  version = "0.79.5";
+ 
+   src = fetchFromGitHub {
+     owner = "earendil-works";
+     repo = "pi";
+     tag = "v${finalAttrs.version}";
+-    hash = "sha256-MvH8e21GVfzRQ9vsxFNC1GHJfB9GZpqY1Z2t8GCUaiQ=";
++    hash = "sha256-6d3SsypTziQQxQOrz9ElgVZRk+BTzS4a0axLI7LStR0=";
+   };
+ 
+-  npmDepsHash = "sha256-ZWdfDDs+Hv+GWTmsNmpWNlUDBOMALw7H4lwo7CJHVCM=";
++  npmDepsHash = "sha256-sbgHuu+t2cMbsD4u/F7bfeZ9rGePmqe6bcOeX6JCR2g=";
+ 
+   npmWorkspace = "packages/coding-agent";
+ 

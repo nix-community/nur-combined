@@ -4,6 +4,8 @@
   nix-update-script,
   nixpkgs-bootstrap,
   stdenv,
+  update-guard,
+  updater-tools,
 }:
 let
   # TODO: this should actually just be nur's `nixpkgs` flake lock.
@@ -30,9 +32,12 @@ stdenv.mkDerivation (finalAttrs: {
     unlocked = callPackage ./unlocked.nix {
       nur = finalAttrs.finalPackage;
     };
-    updateScript = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
-    };
+    updateScript = updater-tools.requireAll [
+      update-guard.weekly
+      (nix-update-script {
+        extraArgs = [ "--version" "branch" ];
+      })
+    ];
   };
 
   meta = {

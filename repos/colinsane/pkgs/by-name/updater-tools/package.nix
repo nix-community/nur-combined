@@ -32,13 +32,25 @@ lib.makeScope newScope (self: {
 
   # try the first updateScript, if that one fails then try the next, and so on.
   # exits once the first updateScript succeeds.
-  tryInSequence = updateScripts:
+  requireAny = updateScripts:
   let
     shellCode = lib.concatMapStringsSep " || " self.updateScriptToShellcode updateScripts;
   in
   {
     command = [(
       lib.getExe (writeScriptBin "try-in-sequence" shellCode)
+    )];
+  };
+
+  # execute all updateScripts in sequence, aborting on the first failure.
+  # TODO: i think there's an _experimentalUpdateCombinators in nixpkgs specifically for this?
+  requireAll = updateScripts:
+  let
+    shellCode = lib.concatMapStringsSep " && " self.updateScriptToShellcode updateScripts;
+  in
+  {
+    command = [(
+      lib.getExe (writeScriptBin "requireAll" shellCode)
     )];
   };
 

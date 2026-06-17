@@ -3,15 +3,17 @@
   lib,
   fetchFromGitHub,
   nix-update-script,
+  update-guard,
+  updater-tools,
 }:
 stdenvNoCC.mkDerivation {
   pname = "uassets";
-  version = "0-unstable-2026-06-14";
+  version = "0-unstable-2026-06-16";
   src = fetchFromGitHub {
     owner = "uBlockOrigin";
     repo = "uAssets";
-    rev = "02d77c9b5741111c27de30079e1bdb8bf66b6736";
-    hash = "sha256-6a4FeUSZr1JY+bU31c3PcDxAYuvtjqvyBlLQSj8JLO8=";
+    rev = "433ebfa93e135520a470a6051f24269b2cbbe90f";
+    hash = "sha256-PZYc/QtdnkNNLWuutPvnK/f64PPPgtpdx3T4nVTVDv0=";
   };
 
   dontBuild = true;
@@ -26,10 +28,13 @@ stdenvNoCC.mkDerivation {
     cp thirdparties/urlhaus-filter/*.txt $out/share/filters
   '';
 
-  passthru.updateScript = nix-update-script {
-    # XXX(2024/05/26): why does `--version unstable` not work, but `--version branch` *does*??
-    extraArgs = [ "--version" "branch" ];
-  };
+  passthru.updateScript = updater-tools.requireAll [
+    update-guard.weekly
+    (nix-update-script {
+      # XXX(2024/05/26): why does `--version unstable` not work, but `--version branch` *does*??
+      extraArgs = [ "--version" "branch" ];
+    })
+  ];
 
   meta = {
     homepage = "https://github.com/uBlockOrigin/uAssets";

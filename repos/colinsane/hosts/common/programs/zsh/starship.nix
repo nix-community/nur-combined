@@ -39,24 +39,25 @@ in {
         # e.g. `printf '\033[?7$p'` returns `^[[?7;1$y` with the `1` indicating it's **set**,
         #      `printf '\033[?1000$p'` returns `^[[?1000;2$y` with the `2` indicating it's **unset**.
         #
+        # XXX(2026-06-16): these set/clears interfere with wezterm's rendering
         # TODO: unset Line mode and Insert mode?
-        (clear "1")      # Cursor Keys
-        # (clear "3")    # Column Mode (i.e. clear screen/history)
-        (clear "6")      # Origin
-        (set "7")        # Line Wrap
-        (clear "12")     # Blinking Cursor
-        (set "25")       # Show Cursor
-        (clear "1000")   # Report Mouse Clicks
-        (clear "1002")   # Report Cell Mouse Motion
-        (clear "1003")   # Report All Mouse Motion
-        (clear "1004")   # Report Focus In/Out
-        (clear "1005")   # UTF8 Mouse
-        (clear "1006")   # Sgr Mouse
-        (set "1007")     # Alternate Scroll
-        (set "1042")     # Urgency Hints
-        # (clear "1049") # Swap Screen And Set Restore Cursor
-        (clear "2004")   # Bracketed Paste
-        (clear "2026")   # Sync Update
+        # (clear "1")      # Cursor Keys
+        # # (clear "3")    # Column Mode (i.e. clear screen/history)
+        # (clear "6")      # Origin
+        # (set "7")        # Line Wrap
+        # (clear "12")     # Blinking Cursor
+        # (set "25")       # Show Cursor
+        # (clear "1000")   # Report Mouse Clicks
+        # (clear "1002")   # Report Cell Mouse Motion
+        # (clear "1003")   # Report All Mouse Motion
+        # (clear "1004")   # Report Focus In/Out
+        # (clear "1005")   # UTF8 Mouse
+        # (clear "1006")   # Sgr Mouse
+        # (set "1007")     # Alternate Scroll
+        # (set "1042")     # Urgency Hints
+        # # (clear "1049") # Swap Screen And Set Restore Cursor
+        # (clear "2004")   # Bracketed Paste
+        # (clear "2026")   # Sync Update
 
         # prompt
         "[](${colors._01_purple})"

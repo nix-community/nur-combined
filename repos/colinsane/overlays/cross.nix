@@ -835,15 +835,36 @@ in with final; {
   #   };
   # });
 
-  # implemented on my 2026-06-14-wezterm-cross-2 nixpkgs branch
-  # wezterm = prev.wezterm.overrideAttrs (prevAttrs: {
-  #   depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
-  #     pkgsBuildBuild.pkg-config
-  #   ];
-  #   nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
-  #     buildPackages.openssl
-  #   ];
-  # });
+  # implemented on my 2026-06-14-wezterm-cross-2 and 2026-06-15-wezterm-cross nixpkgs branches
+  wezterm = prev.wezterm.overrideAttrs (prevAttrs: {
+    # env = let
+    #   prefix = stdenv.buildPlatform.rust.cargoEnvVarTarget;
+    # in {
+    #   "${prefix}_OPENSSL_LIB_DIR" = "${lib.getLib pkgsBuildBuild.openssl}/lib";
+    #   "${prefix}_OPENSSL_INCLUDE_DIR" = "${lib.getDev pkgsBuildBuild.openssl}/include";
+    # };
+    env = {
+      HOST_PKG_CONFIG = lib.getExe pkgsBuildBuild.pkg-config;
+      HOST_PKG_CONFIG_PATH = "${lib.getDev buildPackages.openssl}/lib/pkgconfig";
+    };
+    # depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
+    #   pkgsBuildBuild.pkg-config
+    # ];
+    # nativeBuildInputs = (prevAttrs.nativeBuildInputs or []) ++ [
+    #   buildPackages.openssl
+    # ];
+    # preConfigure = (prevAttrs.preConfigure or "") + ''
+    #   export HOST_PKG_CONFIG=$(PKG_CONFIG_FOR_BUILD)
+    #   export HOST_PKG_CONFIG_PATH=$(PKG_CONFIG_PATH_FOR_BUILD)
+    # '';
+    # env.PKG_CONFIG_PATH = "${buildPackages.openssl.dev}/lib/pkgconfig";
+    # depsBuildBuild = (prevAttrs.depsBuildBuild or []) ++ [
+    #   pkgsBuildBuild.pkg-config
+    # ];
+    # nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+    #   buildPackages.openssl
+    # ];
+  });
 
   # 2025/12/07: upstreaming is unblocked
   # fixes `hostPrograms.moby.neovim` (but breaks eval of `hostPkgs.moby.neovim` :o)

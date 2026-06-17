@@ -748,9 +748,9 @@
     "name": "GPT OSS 120B",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 0.25,
+      "completion": 0.75,
       "currency": "USD",
-      "prompt": 0.05,
+      "prompt": 0.35,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -811,9 +811,9 @@
     "name": "GPT OSS 20B",
     "pricing": {
       "cacheReadInputPer1kTokens": null,
-      "completion": 0.15,
+      "completion": 0.3,
       "currency": "USD",
-      "prompt": 0.04,
+      "prompt": 0.2,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -3171,6 +3171,28 @@
       "completion": 4.0,
       "currency": "USD",
       "prompt": 0.95,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 262144,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k2.7-code-highspeed",
+    "name": "Kimi K2.7 Code High-Speed",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00032,
+      "completion": 8.0,
+      "currency": "USD",
+      "prompt": 1.9,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,

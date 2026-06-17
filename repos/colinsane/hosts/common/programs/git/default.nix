@@ -51,6 +51,7 @@ in
       alias.br      = "branch";
       alias.co      = "checkout";
       alias.com     = "commit";
+      alias.comit   = "commit";  # common typo
       alias.cp      = "cherry-pick";
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents

@@ -132,6 +132,7 @@ in
         "deepseek/deepseek-latest"
         "zai-org/glm-latest"
         "x-ai/grok-latest"
+        "openai/gpt-5.5"
         "openai/gpt-chat-latest"
         "google/gemini-pro-latest"
         "anthropic/claude-opus-latest"
