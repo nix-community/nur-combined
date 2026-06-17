@@ -1,24 +1,30 @@
 {
   copyDesktopItems,
   cuprate,
+  dbus,
   fetchFromGitHub,
   lib,
-  libGL,
+  libglvnd,
   libx11,
   libxcursor,
   libxi,
   libxkbcommon,
-  libxrandr,
+  libxrender,
   makeDesktopItem,
+  monero-cli,
   openssl,
+  p2pool,
   pkg-config,
   rustPlatform,
+  vulkan-loader,
   wayland,
+  xmrig,
+  xmrig-proxy,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gupax";
-  version = "2.0.1";
+  version = "2.0.2";
 
   src = fetchFromGitHub {
     owner = "gupax-io";
@@ -40,7 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   preBuild = ''
-    rm -f build.rs
+    rm build.rs
   '';
 
   nativeBuildInputs = [
@@ -53,6 +59,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postInstall = ''
+    mkdir $out/bin/{node,p2pool,xmrig,xmrig-proxy}
+    ln -s ${lib.getExe' monero-cli "monerod"} $out/bin/node
+    ln -s ${lib.getExe p2pool} $out/bin/p2pool
+    ln -s ${lib.getExe xmrig} $out/bin/xmrig
+    ln -s ${lib.getExe xmrig-proxy} $out/bin/xmrig-proxy
+
     install -D assets/images/icons/icon.png $out/share/icons/hicolor/256x256/apps/gupax.png
     install -D assets/images/icons/icon@2x.png $out/share/icons/hicolor/1024x1024/apps/gupax.png
   '';
@@ -60,13 +72,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   postFixup = ''
     patchelf $out/bin/gupax --set-rpath ${
       lib.makeLibraryPath [
-        libGL
-        libx11
-        libxcursor
-        libxi
-        libxkbcommon
-        libxrandr
-        wayland
+        dbus # libdbus-1.so
+        libglvnd # libGL.so libEGL.so
+        libx11 # libX11.so libX11-xcb.so
+        libxcursor # libXcursor.so
+        libxi # libXi.so
+        libxkbcommon # libxkbcommon.so libxkbcommon-x11.so
+        libxrender # libXrender.so
+        vulkan-loader # libvulkan.so
+        wayland # libwayland-egl.so libwayland-client.so
       ]
     };
   '';
