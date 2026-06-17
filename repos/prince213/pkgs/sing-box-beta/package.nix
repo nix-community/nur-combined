@@ -14,14 +14,14 @@ assert lib.assertMsg (
 ) "Dynamic linking to cronet-go is only available on Linux.";
 sing-box.overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-alpha.31";
+  version = "1.14.0-alpha.32";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-nwkMuL9f6DYw7vVwq1KbflenArzctfxEnVUL6wJAISw=";
+    hash = "sha256-40Q1pOu3xyOZQcl6AMsy087+xQG42KF2/1/JpBTi0wc=";
   };
 
-  vendorHash = "sha256-CuZS+9dwGTkoE9aL1Ua9IGm0wQFfA/5U5nms4TchVvI=";
+  vendorHash = "sha256-XwmTZppw3WZoIlrK27GwyJMp86dUFdNNhX/q631xTUg=";
 
   postConfigure =
     (previousAttrs.postConfigure or "")
