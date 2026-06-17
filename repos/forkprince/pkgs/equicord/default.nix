@@ -1,3 +1,5 @@
+# NOTE: Applied a dirty patch while either nixpkgs or equicord fixes the pnpm lock issue
+# Hopefully we can remove this patch once the issue is resolved (il check everyday)
 {
   nix-update-script,
   fetchFromGitHub,
@@ -20,11 +22,23 @@
     inherit version src;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-RwppRWrEzIKZDb3QLVAMd1bHXyFwiatYNiNccVgrcWA=";
+    hash = "sha256-A7oOh0mqmvzG6+7ifOdKpLp8eOBX8fzXmuBdEQwYX9M=";
+    prePnpmInstall = ''
+      yq -yi '.patchedDependencies = {"@types/less@3.0.8": {"hash": "641e6c93bb737bac7fc283416857bd095cd85bcbcba63becb7a8bbcc78f73076", "path": "patches/@types__less@3.0.8.patch"}}' pnpm-lock.yaml
+    '';
   };
 in
   equicord.overrideAttrs (old: {
     inherit version src pnpmDeps;
+
+    patchPhase = ''
+      sed \
+        -e "/@types\\/less@3\\.0\\.8[^:]*: [a-f0-9]/s/': .*/':/" \
+        -e "/@types\\/less@3\\.0\\.8[^:]*':\$/a\\    hash: 641e6c93bb737bac7fc283416857bd095cd85bcbcba63becb7a8bbcc78f73076" \
+        -e "/@types\\/less@3\\.0\\.8[^:]*':\$/a\\    path: patches/@types__less@3.0.8.patch" \
+        pnpm-lock.yaml > pnpm-lock.yaml.tmp
+      mv pnpm-lock.yaml.tmp pnpm-lock.yaml
+    '';
 
     env =
       old.env
