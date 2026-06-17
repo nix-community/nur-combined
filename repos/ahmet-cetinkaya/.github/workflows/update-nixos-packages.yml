@@ -11,11 +11,13 @@ permissions:
 jobs:
   update-nixos-packages:
     runs-on: ubuntu-latest
-    container: nixos/nix
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
 
       - name: Run update scripts
         run: |
