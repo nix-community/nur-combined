@@ -95,10 +95,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.0";
+      version = "4.0.1";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4830350/adaptive_tab_bar_colour-4.0.xpi";
-      sha256 = "eff59b8e17865f26a49305c42ac2ac3da9e131440854151eb13d49a5b903a174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4847017/adaptive_tab_bar_colour-4.0.1.xpi";
+      sha256 = "79a2ddc373a142cf9ea7bb3876eb30646e0d4efa6a9f314ddfc889c1cd9c0e6c";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -1561,10 +1561,10 @@
     };
     "buster-captcha-solver" = buildMozillaXpiAddon {
       pname = "buster-captcha-solver";
-      version = "3.1.0";
+      version = "3.2.0";
       addonId = "{e58d3966-3d76-4cd9-8552-1582fbc800c1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4297951/buster_captcha_solver-3.1.0.xpi";
-      sha256 = "6892c4e1777b6e5480bb4224c2503b62d1cb92b49996ee9948cb746110a351d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4841979/buster_captcha_solver-3.2.0.xpi";
+      sha256 = "170112ad357a298c48273117ae007a5433dea1244e472eed0e64475b8624516d";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/buster#readme";
@@ -1578,6 +1578,7 @@
           "webNavigation"
           "nativeMessaging"
           "<all_urls>"
+          "scripting"
           "https://google.com/recaptcha/api2/bframe*"
           "https://www.google.com/recaptcha/api2/bframe*"
           "https://google.com/recaptcha/enterprise/bframe*"
@@ -1682,10 +1683,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.3.0";
+      version = "7.3.3";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4838545/cardpointers_x-7.3.0.xpi";
-      sha256 = "931008bf3e86d7c2ae445b236a551bb812de22af43c36a45d2be7518cb70fd67";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854406/cardpointers_x-7.3.3.xpi";
+      sha256 = "6fc285d27d05e04d2a2da1ef3350b5f993f508dcd46b4db168a9f3588ba36439";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -3557,10 +3558,10 @@
     };
     "downthemall" = buildMozillaXpiAddon {
       pname = "downthemall";
-      version = "4.14.2";
+      version = "4.15.1";
       addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4628327/downthemall-4.14.2.xpi";
-      sha256 = "7bb83f729934fb2a58f2c65248060830bca337e1e8a7c2729b5608340dc29df3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4825019/downthemall-4.15.1.xpi";
+      sha256 = "a6f53822b708b4cb595195f25818fb0eeb690e1244ca2d7fc0d0b645c4dc5de9";
       meta = with lib;
       {
         homepage = "https://www.downthemall.org/";
@@ -4688,10 +4689,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.21.1";
+      version = "1.21.5";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4853099/geo_spoof-1.21.1.xpi";
-      sha256 = "9eef8b836086f4bd6b91acfd78f92cd41a70da97c0e2a847a5c95d24b78032b6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854294/geo_spoof-1.21.5.xpi";
+      sha256 = "07550e1a1a19e27010c7886e411880ba3a1e3d292a44801976ce911d73eb82ef";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -4750,10 +4751,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.5.46";
+      version = "10.5.47";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4843401/ghostery-10.5.46.xpi";
-      sha256 = "c085560e52a04c9fc9301053162d95b7e5570fa6d6fe2b4055238ae326d0ea3d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4851917/ghostery-10.5.47.xpi";
+      sha256 = "7a163512c8b426c0c197eeae5aea82f670a8f529b33c6879260f09ed0f5745ba";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6770,10 +6771,10 @@
     };
     "improved-tube" = buildMozillaXpiAddon {
       pname = "improved-tube";
-      version = "4.2027";
+      version = "4.2028";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4828211/youtube_addon-4.2027.xpi";
-      sha256 = "2012c7af0ce0f261c90189ee261c802e6a9307e5d5ce0fe8bc9eefbbd5d486dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4840171/youtube_addon-4.2028.xpi";
+      sha256 = "42128804e02c3472150099504aa62952805a06715b62fbb702dad6c79a699678";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -7593,10 +7594,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.24";
+      version = "2.0.25";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4849437/kiss_translator-2.0.24.xpi";
-      sha256 = "01d6de13a2ba37ad500fe987c938134baa74f7af984bfb4b18b7b33517446d55";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4853827/kiss_translator-2.0.25.xpi";
+      sha256 = "5e7d7f6e0f7c67b026b2eb847cacfa934bf23f7048f00589e86c84ed20ac3877";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -8400,10 +8401,10 @@
     };
     "libkey-nomad" = buildMozillaXpiAddon {
       pname = "libkey-nomad";
-      version = "1.57.0";
+      version = "1.57.2";
       addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4833107/libkey_nomad-1.57.0.xpi";
-      sha256 = "5c3eb4c66cc745c4c2c3edd5c8316d28216feca8d7fd94552e4576333b4bf7de";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4850844/libkey_nomad-1.57.2.xpi";
+      sha256 = "dea3e357b75ddfb60b4c08b6fcdee34165230f3b62e2897ef6b651027727264a";
       meta = with lib;
       {
         homepage = "https://thirdiron.com/libkey-nomad/";
@@ -12200,10 +12201,10 @@
     };
     "proton-vpn" = buildMozillaXpiAddon {
       pname = "proton-vpn";
-      version = "1.3.4";
+      version = "1.3.5";
       addonId = "vpn@proton.ch";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4841998/proton_vpn_firefox_extension-1.3.4.xpi";
-      sha256 = "bcfa6a63b297e6266f4a74edc1761cc123bb3f9f73f328b974af5bf2f440554b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4851750/proton_vpn_firefox_extension-1.3.5.xpi";
+      sha256 = "91eca389f57fba18a8d12d2a24f610f3602eedbf8468ccaa5f7fc280409a64ab";
       meta = with lib;
       {
         homepage = "https://protonvpn.com/";
@@ -13210,10 +13211,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.3.0.26156";
+      version = "0.3.0.26163";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4836916/ruffle_rs-0.3.0.26156.xpi";
-      sha256 = "3eaaabf5db27fd5dc12218097eda6d3ac8e4f978657d37b324fa926d994ac9ab";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4847266/ruffle_rs-0.3.0.26163.xpi";
+      sha256 = "06de9770e3a14f219a971c70520f9f346027e6ca8141ef93ff02237b395ba62c";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -13999,10 +14000,10 @@
     };
     "snowflake" = buildMozillaXpiAddon {
       pname = "snowflake";
-      version = "0.9.8";
+      version = "0.10.0";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4644338/torproject_snowflake-0.9.8.xpi";
-      sha256 = "f8a15413574c7653109b6bff24001bf803b785024409a4ee1bc8cffe875f173d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4843658/torproject_snowflake-0.10.0.xpi";
+      sha256 = "b444c01e50d3832ca98f3cf0d17220dfebd2664e7fd5a7d5e683630a19b2e84b";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -14349,10 +14350,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.3.30";
+      version = "2.3.34";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4827922/styl_us-2.3.30.xpi";
-      sha256 = "f7dfd9fc245c7c452d665dfb1640585d5015b08faed4114f0b28ef90b6575dbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4845329/styl_us-2.3.34.xpi";
+      sha256 = "7530002c56a106c38a4703d6f5bf476e0059c78ed3c9fa3fbea2d9ce84e02ed4";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -17313,10 +17314,10 @@
     };
     "yang" = buildMozillaXpiAddon {
       pname = "yang";
-      version = "2.0.8";
+      version = "2.0.9";
       addonId = "{0a3250b1-58e0-48cb-9383-428f5adc3dc1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4787145/yang_addon-2.0.8.xpi";
-      sha256 = "a268e39fdceeed9b97f6677d3ecc1c8086fdb1f4dec4bea0a9434b88fe96eefc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4853991/yang_addon-2.0.9.xpi";
+      sha256 = "0a8332ac52b2c3b155838e397faf05648d10bd332d75b7d92415bb4b5b15ecd9";
       meta = with lib;
       {
         homepage = "https://github.com/dmlls/yang";
@@ -17468,10 +17469,10 @@
     };
     "youtube-enhancer-vc" = buildMozillaXpiAddon {
       pname = "youtube-enhancer-vc";
-      version = "1.32.0";
+      version = "1.33.0";
       addonId = "{c49b13b1-5dee-4345-925e-0c793377e3fa}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4688121/youtube_enhancer_vc-1.32.0.xpi";
-      sha256 = "ab64a98474058678c64a6516e233ea24ea3067c6b07cd7b19cc023fb6745a65b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4842469/youtube_enhancer_vc-1.33.0.xpi";
+      sha256 = "41544e0e74369b85540609dc17980265b9310e3457906a374844b926bdf9d37d";
       meta = with lib;
       {
         homepage = "https://github.com/YouTube-Enhancer/extension";
@@ -17621,10 +17622,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.6.2";
+      version = "18.6.3";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4839494/youtube_subscription_groups-18.6.2.xpi";
-      sha256 = "d8de71fef080a42fc761b00a1722384f3b4e7117032173c3e29a9096f2fae449";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4849229/youtube_subscription_groups-18.6.3.xpi";
+      sha256 = "f637ad98beaffa7b135f488238e0353755246b77be612551e3500db8507e5b36";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
