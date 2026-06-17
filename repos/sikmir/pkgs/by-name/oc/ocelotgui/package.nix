@@ -44,5 +44,6 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = [ lib.maintainers.sikmir ];
     platforms = lib.platforms.unix;
     mainProgram = "ocelotgui";
+    broken = stdenv.isDarwin;
   };
 })
