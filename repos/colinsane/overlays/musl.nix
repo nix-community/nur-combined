@@ -1761,6 +1761,27 @@ super.lib.composeManyExtensions [
     # });
 
 
+    # XXX(2026-06-17): nixpkgs adds absolute libEGL/libvulkan DT_NEEDED entries to
+    # wezterm-gui in preFixup. that makes the dynamic linker load them at program
+    # start, but wezterm later dlopen()s libEGL.so.1 by soname. glibc returns the
+    # already-loaded object; musl still needs a RUNPATH entry, and the default
+    # patchelf --shrink-rpath drops that entry unless libEGL is needed by soname.
+    wezterm = prev.wezterm.overrideAttrs (upstream: {
+      preFixup = lib.replaceStrings
+        [
+          ''--add-needed "${final.libGL}/lib/libEGL.so.1"''
+          ''--add-needed "${final.vulkan-loader}/lib/libvulkan.so.1"''
+        ]
+        [
+          ''--remove-needed "${final.libGL}/lib/libEGL.so.1" --add-needed libEGL.so.1''
+          ''--remove-needed "${final.vulkan-loader}/lib/libvulkan.so.1" --add-needed libvulkan.so.1''
+        ]
+        upstream.preFixup
+      + ''
+        patchelf --set-rpath "$(patchelf --print-rpath $out/bin/wezterm-gui):${final.libGL}/lib:${final.vulkan-loader}/lib" $out/bin/wezterm-gui
+      '';
+    });
+
     # 2026-03-29: still required
     # 2026-01-28: disable failing tests:
     # > cd /build/source/build/test && ./test_xsimd
