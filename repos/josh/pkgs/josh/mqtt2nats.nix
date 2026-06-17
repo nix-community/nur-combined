@@ -6,13 +6,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "mqtt2nats";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "mqtt2nats";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vgufueWpERU09bAXaxPj199gIZe86uPhOnXbs/9P/tw=";
+    hash = "sha256-da5yTihCYgjeBVOUXPoybPY0LEbA+EtytxFB+XVSnzw=";
   };
 
   vendorHash = "sha256-R5ogsNHxVv/siwimAi5jA1iEMGuLpuLXG2Ni/2ZUrQE=";
