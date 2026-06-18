@@ -29,7 +29,7 @@ runs:
           build-dir = /nix/build
           extra-sandbox-paths = /nix/var/cache/ccache
 
-    - uses: cachix/cachix-action@v15
+    - uses: cachix/cachix-action@v17
       with:
         name: slaier
         authToken: ${{ inputs.cachix_token }}

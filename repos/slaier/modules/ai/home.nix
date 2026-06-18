@@ -48,7 +48,6 @@ in
       sonnet = "preset/Qwen3.5-4B-MTP";
     })
   ];
-  sops.secrets.anthropic_auth_token = { };
   programs.claude-code = {
     enable = true;
 

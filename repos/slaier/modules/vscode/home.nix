@@ -166,7 +166,7 @@
   sops.secrets.gw_api_base = { };
   sops.secrets.gw_api_key = { };
   xdg.configFile."kilo/config.json".text = builtins.toJSON {
-    model = "gemini/gemini-mux";
+    model = "google/gemma-4-31b-it";
     provider = {
       llamacpp = {
         models = {
@@ -190,16 +190,7 @@
           baseURL = "http://127.0.0.1:8080/v1";
         };
       };
-      gw = {
-        models = {
-          "gemini/gemini-mux" = {
-            name = "Gemini Mux";
-            limit = {
-              context = 1048576;
-              output = 131072;
-            };
-          };
-        };
+      google = {
         options = {
           apiKey = "{file:${config.sops.secrets.gw_api_key.path}}";
           baseURL = "{file:${config.sops.secrets.gw_api_base.path}}";
