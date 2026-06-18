@@ -27,11 +27,9 @@ lib.mkIf false  #< 2024/07/04: i haven't actively used this for months
 
   systemd.services.freshrss-import-feeds =
   let
-    feeds = pkgs.sane-lib.feeds;
     fresh = config.systemd.services.freshrss-config;
     all-feeds = config.sane.feeds;
-    wanted-feeds = feeds.filterByFormat ["text" "image"] all-feeds;
-    opml = pkgs.writeText "sane-freshrss.opml" (feeds.feedsToOpml wanted-feeds);
+    opml = pkgs.feedsToOpml { feeds = all-feeds; formats = [ "text" "image" ]; };
   in {
     inherit (fresh) wantedBy environment;
     serviceConfig = {

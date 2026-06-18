@@ -7,6 +7,15 @@ local config = wezterm.config_builder()
 
 config.font_size = 14 -- TODO: plumb the same way i do alacritty
 config.adjust_window_size_when_changing_font_size = false
+-- <https://wezterm.org/config/lua/config/window_padding.html>
+config.window_padding = {
+  left = 3,
+  right = 3,
+  -- top is flush with desktop bar and that's OK.
+  top = 0,
+  -- in practice the bottom already has padding: unless we force an integer number of cells, programs will avoid writing the bottom partial cell.
+  bottom = 0,
+}
 
 -- required for Pi to receive Ctrl+Shift+P event.
 -- allegedly xterm uses an escape sequence to send this event, which not all TUIs handle.

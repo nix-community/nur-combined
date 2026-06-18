@@ -327,7 +327,7 @@ in
 
     guiBaseApps = declPackageSet [
       # "abaddon"  # discord client
-      "alacritty"  # terminal emulator
+      # "alacritty"  # terminal emulator
       "alpaca"  # LLM client
       "blanket"  # ambient noise generator
       "calls"  # gnome calls (dialer/handler)
@@ -401,7 +401,7 @@ in
       "video-trimmer"
       "vulkan-tools"  # vulkaninfo
       # "waifu-downloader"
-      "wezterm"  # terminal emulator
+      # "wezterm"  # terminal emulator
       # "whalebird"  # pleroma client (Electron). input is broken on phosh.
       "wiremix"  # wireplumber TUI
       "xdg-terminal-exec"

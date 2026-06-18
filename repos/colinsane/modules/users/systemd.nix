@@ -22,6 +22,7 @@ let
     after = toUnitNames depends;
     wantedBy = (toUnitNames dependencyOf) ++ (toUnitNames partOf);
     before = (toUnitNames dependencyOf) ++ (toUnitNames partOf);
+    unitConfig.X-OnlyManualStart = lib.mkDefault true;  #< NixOS attribute, so we don't start the service or target on deploy if it wasn't previously running
   };
   mkSystemdService = userName: userConfig: _serviceName: {
     # description,

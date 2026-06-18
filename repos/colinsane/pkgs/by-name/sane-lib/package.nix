@@ -3,7 +3,6 @@
   newScope,
 }:
 lib.makeScope newScope (self: {
-  feeds = self.callPackage ./feeds.nix { };
   merge = self.callPackage ./merge.nix { };
   path = self.callPackage ./path.nix { };
   types = self.callPackage ./types.nix { };

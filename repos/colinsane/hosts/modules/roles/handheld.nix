@@ -21,6 +21,8 @@
     ];
 
     sane.programs.alacritty.config.fontSize = 9;
+    # XXX(2026-06-17): wezterm doesn't support touch scrolling; alacritty does
+    sane.programs.xdg-terminal-exec.config.terminal = "alacritty";
 
     sane.programs.firefox.config = {
       # compromise impermanence for the sake of usability

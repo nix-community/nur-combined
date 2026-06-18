@@ -8,11 +8,7 @@
 { config, pkgs, ... }:
 
 let
-  feeds = pkgs.sane-lib.feeds;
   all-feeds = config.sane.feeds;
-  # text/image: newsflash renders these natively
-  # podcast/video: newsflash dispatches these to xdg-open
-  wanted-feeds = feeds.filterByFormat [ "text" "image" "podcast" "video" ] all-feeds;
 in {
   sane.programs.newsflash = {
     buildCost = 2;  # mainly for desktop: webkitgtk-6.0
@@ -41,8 +37,12 @@ in {
       ".cache/news_flash"  #< WebKit cache
     ];
     #v for *manual* use:
-    fs.".config/newsflashFeeds.opml".symlink.text =
-      feeds.feedsToOpml wanted-feeds
-    ;
+    # text/image: newsflash renders these natively
+    # podcast/video: newsflash dispatches these to xdg-open
+    fs.".config/newsflashFeeds.opml".symlink.target = pkgs.feedsToOpml {
+      name = "newsflashFeeds.opml";
+      feeds = all-feeds;
+      formats = [ "text" "image" "podcast" "video" ];
+    };
   };
 }

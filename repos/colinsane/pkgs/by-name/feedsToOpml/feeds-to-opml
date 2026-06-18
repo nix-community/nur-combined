@@ -1,0 +1,63 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ]'
+
+import argparse
+import json
+import sys
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+
+VALID_FORMATS = {"image", "podcast", "text", "video"}
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Generate an OPML file from feed JSON")
+    parser.add_argument(
+        "--format",
+        action="append",
+        choices=sorted(VALID_FORMATS | {"any"}),
+        default=[],
+        help="feed format to include; may be provided multiple times; 'any' includes all formats",
+    )
+    parser.add_argument("feeds_json", help="path to JSON list of feeds")
+    return parser.parse_args()
+
+
+def main():
+    args = parse_args()
+
+    with open(args.feeds_json) as f:
+        feeds = json.load(f)
+
+    formats = set(args.format)
+    if "any" in formats or not formats:
+        formats = VALID_FORMATS
+
+    feeds_by_cat = defaultdict(list)
+    for feed in feeds:
+        feed_format = feed["format"]
+        if feed_format not in VALID_FORMATS:
+            raise ValueError(f"unrecognized feed format: {feed_format!r}")
+        if feed_format in formats:
+            feeds_by_cat[feed["cat"]].append(feed)
+
+    opml = ET.Element("opml", version="2.0")
+    body = ET.SubElement(opml, "body")
+
+    for cat in sorted(feeds_by_cat):
+        group = ET.SubElement(body, "outline", text=cat, title=cat)
+        for feed in feeds_by_cat[cat]:
+            attrs = {}
+            if feed["title"] is not None:
+                attrs["title"] = feed["title"]
+            attrs["type"] = "rss"
+            attrs["xmlUrl"] = feed["url"]
+            ET.SubElement(group, "outline", attrs)
+
+    tree = ET.ElementTree(opml)
+    ET.indent(tree, space="  ")
+    tree.write(sys.stdout.buffer, encoding="utf-8", xml_declaration=True)
+
+
+if __name__ == "__main__":
+    main()

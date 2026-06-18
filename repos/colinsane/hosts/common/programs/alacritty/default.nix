@@ -28,7 +28,6 @@ in
     ];
 
     sandbox.enable = false;
-    env.TERMINAL = lib.mkDefault "alacritty";
 
     fs.".config/alacritty/alacritty.toml".symlink.text = ''
       [font]

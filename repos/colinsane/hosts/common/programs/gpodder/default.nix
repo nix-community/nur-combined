@@ -3,9 +3,7 @@
 { config, pkgs, ... }:
 
 let
-  feeds = pkgs.sane-lib.feeds;
   all-feeds = config.sane.feeds;
-  wanted-feeds = feeds.filterByFormat [ "podcast" "video" ] all-feeds;
 in {
   sane.programs.gpodder = {
     packageUnwrapped = (pkgs.gpodder-configured.override {
@@ -37,7 +35,11 @@ in {
     sandbox.whitelistWayland = true;
     sandbox.net = "clearnet";
 
-    fs.".config/gpodderFeeds.opml".symlink.text = feeds.feedsToOpml wanted-feeds;
+    fs.".config/gpodderFeeds.opml".symlink.target = pkgs.feedsToOpml {
+      name = "gpodderFeeds.opml";
+      feeds = all-feeds;
+      formats = [ "podcast" "video" ];
+    };
     fs.".local/share/gPodder/Settings.json".symlink.text = builtins.toJSON (import ./settings.nix);
     # if you don't persist its database, you get untracked (and hence non-gc'd) downloads, plus slooow startup.
     # but i *don't* want to persist all the things in this directory, so dedicate a subdir to the persisted data.

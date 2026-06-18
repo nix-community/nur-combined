@@ -1,6 +1,20 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.sane.programs.xdg-terminal-exec;
+in
 {
   sane.programs.xdg-terminal-exec = {
+    configOption = with lib; mkOption {
+      type = types.submodule {
+        options = {
+          terminal = mkOption {
+            type = types.str;
+            default = "wezterm";
+          };
+        };
+      };
+    };
+
     # TODO: don't `overrideAttrs`, but `symlinkJoin` with the new .desktop item
     packageUnwrapped = pkgs.xdg-terminal-exec.overrideAttrs (upstream: {
       # give the package a .desktop item.
@@ -18,5 +32,11 @@
       ];
     });
     sandbox.enable = false;  # xdg-terminal-exec is a launcher for $TERM
+
+    suggestedPrograms = [
+      cfg.config.terminal
+    ];
+
+    env.TERMINAL = lib.mkDefault cfg.config.terminal;
   };
 }
