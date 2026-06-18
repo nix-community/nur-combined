@@ -191,6 +191,11 @@ in
                 type = types.listOf types.str;
                 default = [ ];
               };
+              extra = mkOption {
+                type = types.listOf types.str;
+                default = [ ];
+                description = "Command ekstra yang dijalankan bersama bot (misal uvicorn)";
+              };
             };
           }
         );
@@ -222,40 +227,70 @@ in
 
     # GENERATOR SYSTEMD USER SERVICES
     systemd.user.services = mkIf cfg.service.enable (
-      mapAttrs' (
-        botName: botCfg:
-        nameValuePair "freqtrade-${botName}" {
-          Unit = {
-            Description = "Freqtrade Daemon - ${botName}";
-            After = [ "network.target" ];
-          };
-          Install = {
-            WantedBy = [ "default.target" ];
-          };
-          Service = {
-            Type = "simple";
-            WorkingDirectory = botCfg.strategiesDir;
+      mkMerge (
+        mapAttrsToList (botName: botCfg: 
+          let
+            mainService = {
+              "freqtrade-${botName}" = {
+                Unit = {
+                  Description = "Freqtrade Daemon - ${botName}";
+                  After = [ "network.target" ];
+                  Wants = imap0 (i: _: "freqtrade-${botName}-extra-${toString i}.service") botCfg.extra;
+                };
+                Install = {
+                  WantedBy = [ "default.target" ];
+                };
+                Service = {
+                  Type = "simple";
+                  WorkingDirectory = botCfg.strategiesDir;
 
-            Environment = [
-              "LD_LIBRARY_PATH=${cLibs}"
-              "PYTHONWARNINGS=ignore:The HMAC key is"
-            ];
+                  Environment = [
+                    "LD_LIBRARY_PATH=${cLibs}"
+                    "PYTHONWARNINGS=ignore:The HMAC key is"
+                  ];
 
-            ExecCondition = "${pkgs.coreutils}/bin/test -x ${cfg.configDir}/.venv/bin/freqtrade";
+                  ExecCondition = "${pkgs.coreutils}/bin/test -x ${cfg.configDir}/.venv/bin/freqtrade";
 
-            ExecStart = ''
-              ${cfg.configDir}/.venv/bin/freqtrade trade \
-                --config ${botCfg.strategiesDir}/${botCfg.configFile} \
-                --userdir ${botCfg.strategiesDir}/user_data \
-                --strategy ${botCfg.strategyRun} \
-                ${escapeShellArgs botCfg.extraOpts}
-            '';
+                  ExecStart = ''
+                    ${cfg.configDir}/.venv/bin/freqtrade trade \
+                      --config ${botCfg.strategiesDir}/${botCfg.configFile} \
+                      --userdir ${botCfg.strategiesDir}/user_data \
+                      --strategy ${botCfg.strategyRun} \
+                      ${escapeShellArgs botCfg.extraOpts}
+                  '';
 
-            Restart = "always";
-            RestartSec = "10s";
-          };
-        }
-      ) enabledBots
+                  Restart = "always";
+                  RestartSec = "10s";
+                };
+              };
+            };
+            extraServices = listToAttrs (imap0 (i: cmd: 
+              nameValuePair "freqtrade-${botName}-extra-${toString i}" {
+                Unit = {
+                  Description = "Freqtrade Extra ${toString i} - ${botName}";
+                  PartOf = [ "freqtrade-${botName}.service" ];
+                  After = [ "network.target" ];
+                };
+                Install = {
+                  WantedBy = [ "freqtrade-${botName}.service" ];
+                };
+                Service = {
+                  Type = "simple";
+                  WorkingDirectory = botCfg.strategiesDir;
+                  Environment = [
+                    "LD_LIBRARY_PATH=${cLibs}"
+                    "PYTHONWARNINGS=ignore:The HMAC key is"
+                  ];
+                  ExecStart = "${pkgs.bash}/bin/bash -c 'source ${cfg.configDir}/.venv/bin/activate && exec ${cmd}'";
+                  Restart = "always";
+                  RestartSec = "10s";
+                };
+              }
+            ) botCfg.extra);
+          in
+          mainService // extraServices
+        ) enabledBots
+      )
     );
   };
 }
