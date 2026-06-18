@@ -10,6 +10,7 @@
 
 let
     maintainers = import ./maintainers.nix;
+    hasZig_0_16 = pkgs ? zig_0_16;
 in {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -59,10 +60,10 @@ in {
   pywellen-mcp = pkgs.callPackage ./pkgs/pywellen-mcp {
       inherit maintainers;
   };
+  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  # ...
+} // pkgs.lib.optionalAttrs hasZig_0_16 {
   kwm = pkgs.callPackage ./pkgs/kwm {
       inherit maintainers;
   };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
-
