@@ -29,4 +29,6 @@
   lh2ctrl = callPackage ./apps/lh2ctrl.nix { };
 
   idea-oss-bin = callPackage ./apps/idea-community.nix { };
+
+  sunshine = callPackage ./apps/sunshine/sunshine.nix { };
 }
