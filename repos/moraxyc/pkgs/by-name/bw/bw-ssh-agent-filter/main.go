@@ -26,19 +26,25 @@ type allowKey struct {
 }
 
 type filterAgent struct {
-	upstream agent.ExtendedAgent
-	ordered  []allowKey
-	allowed  map[string]struct{}
-	auth     authorizer
+	upstream        agent.ExtendedAgent
+	ordered         []allowKey
+	allowed         map[string]struct{}
+	auth            authorizer
+	hideSessionBind bool
 }
 
 func main() {
 	var (
-		listenPath   = flag.String("listen", "", "proxy ssh-agent socket path")
-		upstreamPath = flag.String("upstream", os.Getenv("BITWARDEN_SSH_AUTH_SOCK"), "upstream ssh-agent socket path")
-		keysPath     = flag.String("keys", "", "allowed public keys file, same format as ssh-add -L")
-		authEnabled  = flag.Bool("auth", false, "require platform authentication before signing")
-		showVersion  = flag.Bool("version", false, "Show version")
+		listenPath      = flag.String("listen", "", "proxy ssh-agent socket path")
+		upstreamPath    = flag.String("upstream", os.Getenv("BITWARDEN_SSH_AUTH_SOCK"), "upstream ssh-agent socket path")
+		keysPath        = flag.String("keys", "", "allowed public keys file, same format as ssh-add -L")
+		authEnabled     = flag.Bool("auth", false, "require platform authentication before signing")
+		hideSessionBind = flag.Bool(
+			"hide-session-bind",
+			false,
+			"do not forward OpenSSH session-bind extension to upstream agent",
+		)
+		showVersion = flag.Bool("version", false, "Show version")
 	)
 	flag.Parse()
 
@@ -81,10 +87,11 @@ func main() {
 		log.Fatal(err)
 	}
 
-	log.Printf("listening: %s", *listenPath)
-	log.Printf("upstream:  %s", *upstreamPath)
-	log.Printf("keys:      %s", *keysPath)
-	log.Printf("auth:      %t", *authEnabled)
+	log.Printf("listening:       %s", *listenPath)
+	log.Printf("upstream:        %s", *upstreamPath)
+	log.Printf("keys:            %s", *keysPath)
+	log.Printf("auth:            %t", *authEnabled)
+	log.Printf("hideSessionBind: %t", *hideSessionBind)
 
 	auth := authorizer(noopAuthorizer{})
 	if *authEnabled {
@@ -122,10 +129,11 @@ func main() {
 			defer up.Close()
 
 			fa := &filterAgent{
-				upstream: agent.NewClient(up),
-				ordered:  ordered,
-				allowed:  allowed,
-				auth:     auth,
+				upstream:        agent.NewClient(up),
+				ordered:         ordered,
+				allowed:         allowed,
+				auth:            auth,
+				hideSessionBind: *hideSessionBind,
 			}
 
 			if err := agent.ServeAgent(fa, client); err != nil && !errors.Is(err, io.EOF) {
@@ -272,6 +280,16 @@ func (a *filterAgent) Signers() ([]ssh.Signer, error) {
 	return a.upstream.Signers()
 }
 
+const (
+	sshAgentSuccess       = 6
+	opensshSessionBindExt = "session-bind@openssh.com"
+)
+
 func (a *filterAgent) Extension(extensionType string, contents []byte) ([]byte, error) {
+	if a.hideSessionBind && extensionType == opensshSessionBindExt {
+		log.Printf("dropped extension: %s", extensionType)
+		return []byte{sshAgentSuccess}, nil
+	}
+
 	return a.upstream.Extension(extensionType, contents)
 }

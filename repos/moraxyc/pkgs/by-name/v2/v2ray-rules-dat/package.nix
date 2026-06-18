@@ -14,8 +14,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "lists"
   ];
 
-  phases = [ "installPhase" ];
-
   installPhase = ''
     runHook preInstall
 
