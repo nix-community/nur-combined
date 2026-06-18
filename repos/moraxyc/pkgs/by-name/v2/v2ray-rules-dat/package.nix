@@ -14,8 +14,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "lists"
   ];
 
-  dontConfigure = true;
-  dontBuild = true;
+  phases = [ "installPhase" ];
 
   installPhase = ''
     runHook preInstall
@@ -30,6 +29,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru._ignoreOverride = true;
 
   meta = {
     description = "Enhanced edition of V2Ray rules dat files";

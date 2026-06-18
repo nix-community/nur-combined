@@ -1,9 +1,9 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index b931c72d..b504d0db 100644
+index 04f9d8f2..8f890a8d 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -54,0 +55,2 @@
-+    "@inlang/plugin-m-function-matcher": "^2.2.7",
++    "@inlang/plugin-m-function-matcher": "^2.2.9",
 +    "@inlang/plugin-message-format": "^4.4.0",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
 index 05965578..71e1a55b 100644
@@ -15,33 +15,38 @@ index 05965578..71e1a55b 100644
 +     "./node_modules/@inlang/plugin-message-format/dist/index.js",
 +     "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index ee53a301..5a70d230 100644
+index c1915cfc..2de154ec 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -241,0 +242,6 @@ importers:
 +      '@inlang/plugin-m-function-matcher':
-+        specifier: ^2.2.7
-+        version: 2.2.7
++        specifier: ^2.2.9
++        version: 2.2.9
 +      '@inlang/plugin-message-format':
 +        specifier: ^4.4.0
 +        version: 4.4.0
 @@ -1132,0 +1139,6 @@ packages:
-+  '@inlang/plugin-m-function-matcher@2.2.7':
-+    resolution: {integrity: sha512-86K5PctUNuer9rs5nhQMEUJOGbNdC3p431RGhLfMnKJtAG67FR1dejHBqVdEVp4dy1T3dXNgqLhTzM7erLr/kw==}
++  '@inlang/plugin-m-function-matcher@2.2.9':
++    resolution: {integrity: sha512-FqrEw6p5UKn0fVLedILx5vjEAPAl01Uuv1xlF6pQ9XMxpDsTUSOAPrjWuus1jiPBnYEdbK8cP43Ni0e3IPz9aQ==}
 +
 +  '@inlang/plugin-message-format@4.4.0':
 +    resolution: {integrity: sha512-n4aXt6XVg5kxhKoLAhi9nMgZtCA9iS0QOaXte56VqxWHcfj9O4c4gOkyVQZH7H9D8h7OZufCrO1sZGYOypPwEA==}
 +
-@@ -4267,0 +4280,5 @@ packages:
+@@ -1139,0 +1152,4 @@ packages:
++  '@inlang/sdk@2.10.2':
++    resolution: {integrity: sha512-O1ki72SNK6LPagaGrvlioBb1mWKvump7cO7P85hfGZjdFTmDdn3icI0A6MvaBsB3P9KQHAjzyubnN1OslGufTw==}
++    engines: {node: '>=20.0.0'}
++
+@@ -4273,0 +4290,5 @@ packages:
 +  flat@6.0.1:
 +    resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
 +    engines: {node: '>=18'}
 +    hasBin: true
 +
-@@ -7189,0 +7207,10 @@ snapshots:
-+  '@inlang/plugin-m-function-matcher@2.2.7':
+@@ -7187,0 +7209,10 @@ snapshots:
++  '@inlang/plugin-m-function-matcher@2.2.9':
 +    dependencies:
-+      '@inlang/sdk': 2.10.0
++      '@inlang/sdk': 2.10.2
 +    transitivePeerDependencies:
 +      - babel-plugin-macros
 +
@@ -49,6 +54,17 @@ index ee53a301..5a70d230 100644
 +    dependencies:
 +      flat: 6.0.1
 +
-@@ -10066,0 +10094,2 @@ snapshots:
+@@ -7201,0 +7233,10 @@ snapshots:
++  '@inlang/sdk@2.10.2':
++    dependencies:
++      '@lix-js/sdk': 0.4.10
++      '@sinclair/typebox': 0.31.28
++      kysely: 0.28.14
++      sqlite-wasm-kysely: 0.3.0(kysely@0.28.14)
++      uuid: 14.0.0
++    transitivePeerDependencies:
++      - babel-plugin-macros
++
+@@ -10067,0 +10109,2 @@ snapshots:
 +  flat@6.0.1: {}
 +
