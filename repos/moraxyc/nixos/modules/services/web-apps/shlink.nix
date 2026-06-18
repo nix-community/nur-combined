@@ -31,6 +31,8 @@ let
 
   shlinkRoot = "${shlinkPackage}/share/php/shlink";
 
+  bindPrivileged = cfg.settings.PORT < 1024;
+
   toEnvValue = value: if lib.isBool value then boolToString value else toString value;
 in
 {
@@ -59,13 +61,13 @@ in
 
     settings = mkOption {
       type = types.submodule {
-        freeformType = types.attrsOf (
-          types.oneOf [
-            types.str
-            types.int
-            types.bool
-          ]
-        );
+        freeformType =
+          with types;
+          attrsOf (oneOf [
+            str
+            int
+            bool
+          ]);
         options = {
           PORT = mkOption {
             type = types.port;
@@ -281,7 +283,7 @@ in
       '';
 
       serviceConfig = {
-        Type = "simple";
+        Type = "notify";
         User = "shlink";
         Group = "shlink";
         DynamicUser = true;
@@ -303,29 +305,41 @@ in
         RuntimeDirectoryMode = "0700";
         LogsDirectoryMode = "0700";
 
-        Restart = "on-failure";
+        KillMode = "mixed";
+        Restart = "always";
         RestartSec = 5;
-        UMask = "0077";
+        TimeoutStopSec = 30;
 
+        AmbientCapabilities = if bindPrivileged then "CAP_NET_BIND_SERVICE" else "";
+        CapabilityBoundingSet = if bindPrivileged then "CAP_NET_BIND_SERVICE" else "";
+        LockPersonality = true;
         NoNewPrivileges = true;
-        PrivateTmp = true;
         PrivateDevices = true;
-        ProtectHome = true;
-        ProtectSystem = "strict";
+        PrivateTmp = true;
+        PrivateUsers = !bindPrivileged;
+        ProcSubset = "pid";
+        ProtectClock = true;
         ProtectControlGroups = true;
+        ProtectHome = true;
+        ProtectHostname = true;
+        ProtectKernelLogs = true;
         ProtectKernelModules = true;
         ProtectKernelTunables = true;
-        RestrictSUIDSGID = true;
+        ProtectProc = "invisible";
+        ProtectSystem = "strict";
         RestrictRealtime = true;
-        LockPersonality = true;
-        CapabilityBoundingSet = "";
+        RestrictSUIDSGID = true;
         SystemCallArchitectures = "native";
-
+        SystemCallFilter = [
+          "@system-service"
+          "~@privileged @resources"
+        ];
         RestrictAddressFamilies = [
           "AF_UNIX"
           "AF_INET"
           "AF_INET6"
         ];
+        UMask = "0077";
       };
     };
   };
