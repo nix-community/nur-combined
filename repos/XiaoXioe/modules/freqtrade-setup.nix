@@ -170,6 +170,13 @@ in
     service = {
       enable = mkEnableOption "Aktifkan otomatisasi background service (Systemd)";
 
+      startupDelay = mkOption {
+        type = types.str;
+        default = "";
+        example = "2m";
+        description = "Waktu tunda sebelum service dimulai secara otomatis setelah login (menggunakan systemd timer). Kosongkan jika tidak ingin ada jeda.";
+      };
+
       bots = mkOption {
         description = "Definisi instance bot Freqtrade";
         default = { };
@@ -236,10 +243,9 @@ in
                   Description = "Freqtrade Daemon - ${botName}";
                   After = [ "network.target" ];
                   Wants = imap0 (i: _: "freqtrade-${botName}-extra-${toString i}.service") botCfg.extra;
-                };
-                Install = {
-                  WantedBy = [ "default.target" ];
-                };
+                } // (if cfg.service.startupDelay != "" then {
+                  # Kosongkan WantedBy jika menggunakan timer
+                } else {});
                 Service = {
                   Type = "simple";
                   WorkingDirectory = botCfg.strategiesDir;
@@ -287,10 +293,37 @@ in
                 };
               }
             ) botCfg.extra);
+            
+            # Tambahkan Install.WantedBy ke mainService jika tidak ada startupDelay
+            mainServiceWithInstall = if cfg.service.startupDelay == "" then
+              {
+                "freqtrade-${botName}" = mainService."freqtrade-${botName}" // {
+                  Install = { WantedBy = [ "default.target" ]; };
+                };
+              }
+            else
+              mainService;
           in
-          mainService // extraServices
+          mainServiceWithInstall // extraServices
         ) enabledBots
       )
+    );
+
+    # GENERATOR SYSTEMD USER TIMERS (DELAYED STARTUP)
+    systemd.user.timers = mkIf (cfg.service.enable && cfg.service.startupDelay != "") (
+      listToAttrs (mapAttrsToList (botName: botCfg: 
+        nameValuePair "freqtrade-${botName}" {
+          Unit = {
+            Description = "Delayed Startup Timer for Freqtrade - ${botName}";
+          };
+          Timer = {
+            OnStartupSec = cfg.service.startupDelay;
+          };
+          Install = {
+            WantedBy = [ "timers.target" ];
+          };
+        }
+      ) enabledBots)
     );
   };
 }
