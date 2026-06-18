@@ -104,17 +104,17 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "ea90ca4f6e1f8ef4873ee79491c0fb202738ff61";
+    version = "daa49c4a8897471df9504e7d3fd341ac420b0b56";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "ea90ca4f6e1f8ef4873ee79491c0fb202738ff61";
+      rev = "daa49c4a8897471df9504e7d3fd341ac420b0b56";
       fetchSubmodules = false;
-      sha256 = "sha256-LYcaDlZq/UsRZ8mgQhv1dHaHsBywT0PxAQTIhk72rns=";
+      sha256 = "sha256-RBNQBl3DLAP2B/bwYuPCOaZddtAA/jrBJBAFAMqkVfg=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-LYcaDlZq_UsRZ8mgQhv1dHaHsBywT0PxAQTIhk72rns=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-LYcaDlZq_UsRZ8mgQhv1dHaHsBywT0PxAQTIhk72rns=/web/package-lock.json";
+      "web/package.json" = ./. + "/sha256-RBNQBl3DLAP2B_bwYuPCOaZddtAA_jrBJBAFAMqkVfg=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-RBNQBl3DLAP2B_bwYuPCOaZddtAA_jrBJBAFAMqkVfg=/web/package-lock.json";
     };date = "2026-06-18";
   };
   cpa-usage-keeper-stable = {
@@ -557,6 +557,17 @@
       sha256 = "sha256-w0t7KqV8OS3PJBdZtLn86zknQYo70rBv7fuK/UFx9zQ=";
     };
     date = "2024-07-17";
+  };
+  shlink = {
+    pname = "shlink";
+    version = "v5.1.3";
+    src = fetchFromGitHub {
+      owner = "shlinkio";
+      repo = "shlink";
+      rev = "v5.1.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-Mfqkhd7kCjD679vC6t+64+LJ8xlvGqa3qIpTo/ybNUQ=";
+    };
   };
   subconverter = {
     pname = "subconverter";

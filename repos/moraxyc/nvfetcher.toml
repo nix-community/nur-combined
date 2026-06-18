@@ -210,6 +210,10 @@ extract = ["package.json", "package-lock.json"]
 src.git = "https://github.com/charmedlabs/pixy2"
 fetch.github = "charmedlabs/pixy2"
 
+[shlink]
+src.github = "shlinkio/shlink"
+fetch.github = "shlinkio/shlink"
+
 [subconverter]
 src.git = "https://github.com/tindy2013/subconverter"
 fetch.github = "tindy2013/subconverter"

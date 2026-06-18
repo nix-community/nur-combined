@@ -15,6 +15,7 @@
   ./services/web-apps/gzctf.nix
   ./services/web-apps/mcsmanager.nix
   ./services/web-apps/nezha.nix
+  ./services/web-apps/shlink.nix
   ./services/web-servers/bark-server.nix
   # keep-sorted end
 ]
