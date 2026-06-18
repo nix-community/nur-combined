@@ -66,7 +66,7 @@ let
 
   linuxdeployPluginAppimage = fetchurl {
     url = "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage";
-    hash = "sha256-Egjmp7HiZG4/sAbeqQC3K9hI7IYyS5l5t8lD8hHGacg=";
+    hash = "sha256-4BKbgHDgx7NxUQJ+Run6RP6X6injaScFosXP83cdMSE=";
   };
 
   appimageTools =
@@ -99,13 +99,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.11.5";
+  version = "3.11.10";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-xnfhmneTQ/0DzCmg/qCllDzXWI8Y40VmOEL+8Ie6MVU=";
+    hash = "sha256-b8d+6YpVnZIvM0z3Rv6OrSJOgImcYdR9qXfNOK92r+4=";
   };
 
   patches = [
@@ -147,8 +147,6 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   postPatch = ''
-    # Avoid pnpm trying to self-manage the version (network access) in the build.
-    sed -i '/"packageManager":/d' package.json
     # pnpm 11 no longer treats package.json's pnpm.overrides as lockfile
     # overrides, so the old lockfile metadata trips frozen installs even though
     # the locked graph itself is usable.
@@ -160,6 +158,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     export npm_config_nodedir=${nodejs_22}
     pnpm install --offline --frozen-lockfile
+
+    # pnpmConfigHook renames packageManager for install; restore for cli build.
+    substituteInPlace package.json \
+      --replace-warn '"_packageManager"' '"packageManager"'
+
     pnpm run cli:build
 
     runHook postBuild

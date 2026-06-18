@@ -14,13 +14,13 @@
 
 flutter.buildFlutterApplication rec {
   pname = "rain";
-  version = "1.3.10";
+  version = "1.3.18";
 
   src = fetchFromGitHub {
     owner = "darkmoonight";
     repo = "Rain";
     tag = "v${version}";
-    hash = "sha256-j7b7LzNpEmXBuMP5VqGN+ltzpFi8DTVsAij4aDTJA5Y=";
+    hash = "sha256-WbujcCwhnEYEWfZ/f7SO34WK5bJaSuYoeKZKIiz/cCE=";
   };
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;

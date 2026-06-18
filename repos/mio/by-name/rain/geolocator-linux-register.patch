@@ -1,22 +1,21 @@
-diff --git a/lib/main.dart b/lib/main.dart
-index d3fd2c1..c5a6a88 100644
---- a/lib/main.dart
-+++ b/lib/main.dart
-@@ -7,6 +7,7 @@ import 'package:dynamic_color/dynamic_color.dart';
- import 'package:flutter/material.dart';
- import 'package:flutter/services.dart';
- import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+diff --git a/lib/core/bootstrap/app_initializer.dart b/lib/core/bootstrap/app_initializer.dart
+--- a/lib/core/bootstrap/app_initializer.dart
++++ b/lib/core/bootstrap/app_initializer.dart
+@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
+ import 'package:display_mode/display_mode.dart';
+ import 'package:rain/core/bootstrap/background_bootstrap.dart';
+ import 'package:rain/core/bootstrap/timezone_bootstrap.dart';
 +import 'package:geolocator_linux/geolocator_linux.dart';
- import 'package:flutter_localizations/flutter_localizations.dart';
- import 'package:flutter_timezone/flutter_timezone.dart';
- import 'package:get/get.dart';
-@@ -77,6 +78,9 @@ void main() async {
- }
- 
- Future<void> initializeApp() async {
-+  if (Platform.isLinux) {
-+    await GeolocatorLinux.registerWith();
-+  }
-   setupConnectivityListener();
-   await initializeTimeZone();
-   await initializeIsar();
+ import 'package:home_widget/home_widget.dart';
+ import 'package:isar_community/isar.dart';
+ import 'package:rain/core/bootstrap/app_bootstrap.dart';
+@@ -26,6 +27,9 @@ class AppInitializer {
+   /// Runs all bootstrap steps and returns the loaded [AppBootstrap].
+   static Future<AppBootstrap> initialize() async {
+     ConnectivityService.setup();
++    if (Platform.isLinux) {
++      await GeolocatorLinux.registerWith();
++    }
+     await initializeAppTimeZone();
+     final bootstrap = await _initializeIsar();
+     await initializeNotificationsPlugin();
