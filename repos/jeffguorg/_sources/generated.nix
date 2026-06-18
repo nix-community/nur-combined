@@ -28,48 +28,48 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.179";
+    version = "2.1.181";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.179/darwin-x64/claude";
-      sha256 = "sha256-oK1gdhKUvSCO2myw/Y6JbGQ5fI0xdUamlsXmJ3guyMs=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/darwin-x64/claude";
+      sha256 = "sha256-NTeYvNxJpSpmZkU3DhxIqE/oN9k7+dlUwZM43KcmDd0=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.179";
+    version = "2.1.181";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.179/linux-x64/claude";
-      sha256 = "sha256-bYQi3lrIrCB3sg4qYwcIP4Vgmq9F+MeD7C99ceh4HnA=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/linux-x64/claude";
+      sha256 = "sha256-Nf/U6dmoY5XQuk4F+LI78Ji/6rlel96s1lN5CdEyTpw=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.179";
+    version = "2.1.181";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.179/darwin-arm64/claude";
-      sha256 = "sha256-ryotDLmbDosJS8Xb4RTtLVstJ7pECYfvby8gnamVQlM=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/darwin-arm64/claude";
+      sha256 = "sha256-xNgzsEYGzvm26rOtJV7S4USPh96ivAD/Ws93tX326U0=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.179";
+    version = "2.1.181";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.179/linux-arm64/claude";
-      sha256 = "sha256-JdLrojUd8VP4cqjhkon1BComtDDNRGVkvZKg3sXWgc0=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.181/linux-arm64/claude";
+      sha256 = "sha256-E5P5k1M+CNXJYkVQR1Cn/P43SQpfRO7DWwvqw9cJ2rk=";
     };
   };
   codex = {
     pname = "codex";
-    version = "rust-v0.140.0";
+    version = "rust-v0.141.0";
     src = fetchFromGitHub {
       owner = "openai";
       repo = "codex";
-      rev = "rust-v0.140.0";
+      rev = "rust-v0.141.0";
       fetchSubmodules = false;
-      sha256 = "sha256-VuvNXgyftiQke8qLA7HEySkP4S2TvMR++rrVJAfVc4Y=";
+      sha256 = "sha256-1ZOaZlwAkH6DJpxlInfbXpaqmsbOIOGrFoj2dYehBMA=";
     };
     cargoLock."codex-rs/Cargo.lock" = {
-      lockFile = ./. + "/sha256-VuvNXgyftiQke8qLA7HEySkP4S2TvMR++rrVJAfVc4Y=/codex-rs/Cargo.lock";
+      lockFile = ./. + "/sha256-1ZOaZlwAkH6DJpxlInfbXpaqmsbOIOGrFoj2dYehBMA=/codex-rs/Cargo.lock";
       outputHashes = {
         "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
         "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
@@ -83,48 +83,48 @@
   };
   codex-bin-amd64-darwin = {
     pname = "codex-bin-amd64-darwin";
-    version = "0.140.0";
+    version = "0.141.0";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-x86_64-apple-darwin.zst";
-      sha256 = "sha256-snNp204wffxsvxp7kEz5v7AZnhO+BiztgH+CE5FWY/g=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.141.0/codex-x86_64-apple-darwin.zst";
+      sha256 = "sha256-XltJiMfVQeWcQJH3jV/9FLbhdpNtP7jmZgk3IP9DuBM=";
     };
   };
   codex-bin-amd64-linux = {
     pname = "codex-bin-amd64-linux";
-    version = "0.140.0";
+    version = "0.141.0";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-x86_64-unknown-linux-musl.zst";
-      sha256 = "sha256-o8Hsy3Hg+PbAk8Mdq2wi+SZzUEAbnxvs/NMu0Qm5W+w=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.141.0/codex-x86_64-unknown-linux-musl.zst";
+      sha256 = "sha256-vmTfG5n56o6sw7CeU/uY4Ly5OeR5x/y/KGKSnqR7DFM=";
     };
   };
   codex-bin-arm64-darwin = {
     pname = "codex-bin-arm64-darwin";
-    version = "0.140.0";
+    version = "0.141.0";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-aarch64-apple-darwin.zst";
-      sha256 = "sha256-XjgRPyE9C6GYKgS6LU8Z+i8ZceNJNjmyxhkF12S3VI4=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.141.0/codex-aarch64-apple-darwin.zst";
+      sha256 = "sha256-Lt4lI9UPyvf+cWsZhx4clsJx9+gFHrxuUdk8e+AvoDs=";
     };
   };
   codex-bin-arm64-linux = {
     pname = "codex-bin-arm64-linux";
-    version = "0.140.0";
+    version = "0.141.0";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.140.0/codex-aarch64-unknown-linux-musl.zst";
-      sha256 = "sha256-sndAmAYKnQxLmtpskBwvpQ8gjNKhw/E2h6leZN8ogiA=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.141.0/codex-aarch64-unknown-linux-musl.zst";
+      sha256 = "sha256-E6S4BtpdKhtLpja6CCFJ6eh47MFBy1gvLe6DIdrlB4k=";
     };
   };
   create-tauri-app = {
     pname = "create-tauri-app";
-    version = "create-tauri-app-v4.7.0";
+    version = "create-tauri-app-v4.7.1";
     src = fetchFromGitHub {
       owner = "tauri-apps";
       repo = "create-tauri-app";
-      rev = "create-tauri-app-v4.7.0";
+      rev = "create-tauri-app-v4.7.1";
       fetchSubmodules = false;
-      sha256 = "sha256-NBMOB/CQiJkm67oBO2CVYYMSHZw/iTjzzYWNj0Hk1jE=";
+      sha256 = "sha256-eT6R5hPcKP87GdxZD4mSYunmtR44otSX/gg0dNXxVl4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-NBMOB_CQiJkm67oBO2CVYYMSHZw_iTjzzYWNj0Hk1jE=/Cargo.lock";
+      lockFile = ./. + "/sha256-eT6R5hPcKP87GdxZD4mSYunmtR44otSX_gg0dNXxVl4=/Cargo.lock";
       outputHashes = {
         
       };
