@@ -749,7 +749,7 @@
     },
     "rime-wugniu": {
         "cargoLock": null,
-        "date": "2019-01-20",
+        "date": "2026-06-18",
         "extract": null,
         "name": "rime-wugniu",
         "passthru": null,
@@ -759,13 +759,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "abd1ee98efbf170258fcf43875c21a4259e00b61",
-            "sha256": "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=",
+            "rev": "2818f4812af3b6f11fc0248fa8918966a3312d2c",
+            "sha256": "sha256-yt3d5kYusF5l8rwl0S6BMCYaSZKl4nbRpW04jO00wBs=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-wugniu.git"
         },
-        "version": "abd1ee98efbf170258fcf43875c21a4259e00b61"
+        "version": "2818f4812af3b6f11fc0248fa8918966a3312d2c"
     },
     "rlt": {
         "cargoLock": {

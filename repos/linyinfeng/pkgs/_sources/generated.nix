@@ -497,17 +497,17 @@
   };
   rime-wugniu = {
     pname = "rime-wugniu";
-    version = "abd1ee98efbf170258fcf43875c21a4259e00b61";
+    version = "2818f4812af3b6f11fc0248fa8918966a3312d2c";
     src = fetchgit {
       url = "https://github.com/rime/rime-wugniu.git";
-      rev = "abd1ee98efbf170258fcf43875c21a4259e00b61";
+      rev = "2818f4812af3b6f11fc0248fa8918966a3312d2c";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-mNqUJ9iXSDCHqvnBoJ0TxXJjS0aAtx4NCN5SxkYjxWI=";
+      sha256 = "sha256-yt3d5kYusF5l8rwl0S6BMCYaSZKl4nbRpW04jO00wBs=";
     };
-    date = "2019-01-20";
+    date = "2026-06-18";
   };
   rlt = {
     pname = "rlt";
