@@ -8,15 +8,15 @@
 {
   claudecode-nvim = {
     pname = "claudecode-nvim";
-    version = "e6c9dd4d4f144910b0066489100ad94b7133821f";
+    version = "bcb3fe205efe88771e8801d0a99b6fcb0a982bbb";
     src = fetchFromGitHub {
       owner = "coder";
       repo = "claudecode.nvim";
-      rev = "e6c9dd4d4f144910b0066489100ad94b7133821f";
+      rev = "bcb3fe205efe88771e8801d0a99b6fcb0a982bbb";
       fetchSubmodules = false;
       sha256 = "sha256-pJtrh/3pGvALhQheB3LMB01IahTSYvxfCUNdiMvq8L0=";
     };
-    date = "2026-06-15";
+    date = "2026-06-18";
   };
   copyq-darwin = {
     pname = "copyq-darwin";
@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "df3c93cb16f9770e0747adc424a477fb68f026b8";
+    version = "0807bbb050051316aa65f2a730976ec6366ee145";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "df3c93cb16f9770e0747adc424a477fb68f026b8";
+      rev = "0807bbb050051316aa65f2a730976ec6366ee145";
       fetchSubmodules = false;
-      sha256 = "sha256-OAbS5/rv9dNmtFy/oQVLL4jToYN20YvULk4ox8fvQ5Q=";
+      sha256 = "sha256-ANYZD6GK0AXQ/fGoicXrWwDAHWcoExviBC/fSBKp7VU=";
     };
-    date = "2026-06-17";
+    date = "2026-06-18";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -120,10 +120,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.21.1b";
+    version = "1.21.2b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.21.1b/zen.macos-universal.dmg";
-      sha256 = "sha256-XTYtIaaFzz/6WRcFgT753bCRJFTHLC7AcatGJ7rIPVA=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.21.2b/zen.macos-universal.dmg";
+      sha256 = "sha256-sZAWRngIkVuS9ONNIsiKsxnozYDd5CfkmwxRTw7I86Y=";
     };
   };
 }
