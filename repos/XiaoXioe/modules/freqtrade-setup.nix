@@ -137,6 +137,40 @@ let
     exec "$VENV_BIN" "$@"
   '';
 
+  logRotateScript = pkgs.writeShellScriptBin "freqtrade-log-rotate" ''
+    LOG_FILE="$1"
+    MAX_SIZE_STR="$2"
+    
+    if [ -z "$LOG_FILE" ] || [ -z "$MAX_SIZE_STR" ]; then
+      exit 0
+    fi
+    
+    if [ ! -f "$LOG_FILE" ]; then
+      exit 0
+    fi
+    
+    # Parse max size
+    MAX_SIZE_BYTES=$(${pkgs.coreutils}/bin/numfmt --from=iec "$MAX_SIZE_STR" 2>/dev/null || echo "10485760")
+    CURRENT_SIZE=$(${pkgs.coreutils}/bin/stat -c %s "$LOG_FILE")
+    
+    if [ "$CURRENT_SIZE" -ge "$MAX_SIZE_BYTES" ]; then
+      TIMESTAMP=$(${pkgs.coreutils}/bin/date +"%Y%m%d-%H%M%S")
+      BACKUP_FILE="''${LOG_FILE%.log}-$TIMESTAMP.log"
+      
+      ${pkgs.coreutils}/bin/mv "$LOG_FILE" "$BACKUP_FILE"
+      
+      # Keep only 5 newest backups
+      BACKUPS=($(${pkgs.coreutils}/bin/ls -1t ''${LOG_FILE%.log}-*.log 2>/dev/null))
+      COUNT=0
+      for f in "''${BACKUPS[@]}"; do
+        COUNT=$((COUNT+1))
+        if [ "$COUNT" -gt 5 ]; then
+          ${pkgs.coreutils}/bin/rm -f "$f"
+        fi
+      done
+    fi
+  '';
+
 in
 {
   # ==========================================
@@ -203,6 +237,28 @@ in
                 default = [ ];
                 description = "Command ekstra yang dijalankan bersama bot (misal uvicorn)";
               };
+              disableLogs = mkOption {
+                type = types.bool;
+                default = false;
+                description = "Matikan output log ke journalctl (mencegah log penuh)";
+              };
+              logToFile = mkOption {
+                type = types.bool;
+                default = false;
+                description = "Simpan log langsung ke file di user_data/logs/ daripada ke journalctl.";
+              };
+              logMaxSize = mkOption {
+                type = types.str;
+                default = "10M";
+                example = "50M";
+                description = "Batas maksimal ukuran file log sebelum dirotasi. Jika melebihi, rotasi dilakukan saat restart.";
+              };
+              memoryLimit = mkOption {
+                type = types.str;
+                default = "";
+                example = "4G";
+                description = "Batas maksimal RAM (mencegah OOM freeze). Kosongkan jika tanpa batas.";
+              };
             };
           }
         );
@@ -241,14 +297,20 @@ in
               "freqtrade-${botName}" = {
                 Unit = {
                   Description = "Freqtrade Daemon - ${botName}";
-                  After = [ "network.target" ];
-                  Wants = imap0 (i: _: "freqtrade-${botName}-extra-${toString i}.service") botCfg.extra;
+                  After = [ "network-online.target" "time-sync.target" ];
+                  Wants = [ "network-online.target" ] ++ imap0 (i: _: "freqtrade-${botName}-extra-${toString i}.service") botCfg.extra;
                 } // (if cfg.service.startupDelay != "" then {
                   # Kosongkan WantedBy jika menggunakan timer
                 } else {});
                 Service = {
                   Type = "simple";
                   WorkingDirectory = botCfg.strategiesDir;
+                  StandardOutput = if botCfg.disableLogs then "null" 
+                                   else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log" 
+                                   else null;
+                  StandardError = if botCfg.disableLogs then "null" 
+                                  else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log" 
+                                  else null;
 
                   Environment = [
                     "LD_LIBRARY_PATH=${cLibs}"
@@ -267,7 +329,14 @@ in
 
                   Restart = "always";
                   RestartSec = "10s";
-                };
+                } // (if botCfg.logToFile then {
+                  ExecStartPre = [
+                    "${pkgs.coreutils}/bin/mkdir -p ${botCfg.strategiesDir}/user_data/logs"
+                    "${logRotateScript}/bin/freqtrade-log-rotate ${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log ${botCfg.logMaxSize}"
+                  ];
+                } else {}) // (if botCfg.memoryLimit != "" then {
+                  MemoryMax = botCfg.memoryLimit;
+                } else {});
               };
             };
             extraServices = listToAttrs (imap0 (i: cmd: 
@@ -275,7 +344,8 @@ in
                 Unit = {
                   Description = "Freqtrade Extra ${toString i} - ${botName}";
                   PartOf = [ "freqtrade-${botName}.service" ];
-                  After = [ "network.target" ];
+                  After = [ "network-online.target" "time-sync.target" ];
+                  Wants = [ "network-online.target" ];
                 };
                 Install = {
                   WantedBy = [ "freqtrade-${botName}.service" ];
@@ -283,6 +353,12 @@ in
                 Service = {
                   Type = "simple";
                   WorkingDirectory = botCfg.strategiesDir;
+                  StandardOutput = if botCfg.disableLogs then "null" 
+                                   else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log" 
+                                   else null;
+                  StandardError = if botCfg.disableLogs then "null" 
+                                  else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log" 
+                                  else null;
                   Environment = [
                     "LD_LIBRARY_PATH=${cLibs}"
                     "PYTHONWARNINGS=ignore:The HMAC key is"
@@ -290,7 +366,14 @@ in
                   ExecStart = "${pkgs.bash}/bin/bash -c 'source ${cfg.configDir}/.venv/bin/activate && exec ${cmd}'";
                   Restart = "always";
                   RestartSec = "10s";
-                };
+                } // (if botCfg.logToFile then {
+                  ExecStartPre = [
+                    "${pkgs.coreutils}/bin/mkdir -p ${botCfg.strategiesDir}/user_data/logs"
+                    "${logRotateScript}/bin/freqtrade-log-rotate ${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log ${botCfg.logMaxSize}"
+                  ];
+                } else {}) // (if botCfg.memoryLimit != "" then {
+                  MemoryMax = botCfg.memoryLimit;
+                } else {});
               }
             ) botCfg.extra);
             

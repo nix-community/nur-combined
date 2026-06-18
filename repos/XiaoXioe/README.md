@@ -110,6 +110,9 @@ Tambahkan *import* dan opsi berikut ke dalam `home.nix` kamu:
     service = {
       enable = true;
       
+      # (Opsional) Menunda bot menyala beberapa saat setelah booting (contoh: 1m, 30s)
+      startupDelay = "1m";
+      
       bots = {
         # Kamu bisa mendefinisikan banyak bot sekaligus (bot1, bot2, dst)
         bot-utama = {
@@ -126,6 +129,20 @@ Tambahkan *import* dan opsi berikut ke dalam `home.nix` kamu:
           
           # (Opsional) Argumen CLI tambahan saat bot dieksekusi
           extraOpts = [ "--dry-run" ]; 
+
+          # (Opsional) Jalankan perintah ekstra (bersamaan dengan bot), misal API Uvicorn
+          extra = [
+            "uvicorn timesfm_api:app --host 127.0.0.1 --port 8000"
+          ];
+
+          # (Opsional) Batasi penggunaan RAM bot & perintah ekstra agar OS tidak freeze (OOM)
+          memoryLimit = "4G";
+
+          # (Opsional) Simpan output log ke file `user_data/logs/freqtrade-[nama].log`
+          logToFile = true;
+
+          # (Opsional) Batas rotasi log jika menggunakan `logToFile` (maksimal 5 backup lama disimpan)
+          logMaxSize = "10M";
         };
       };
     };
