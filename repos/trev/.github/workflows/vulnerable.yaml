@@ -15,7 +15,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: spotdemo4/nix-init@0ed51e7d18520fd8adba3839acc6ded28fcb4db3 # v1.51.0
+        uses: spotdemo4/nix-init@1fdd7d95bd30822380ce472de2bd4e40bc7e648b # v1.52.0
         with:
           shell: vulnerable
 
@@ -28,7 +28,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: spotdemo4/nix-init@0ed51e7d18520fd8adba3839acc6ded28fcb4db3 # v1.51.0
+        uses: spotdemo4/nix-init@1fdd7d95bd30822380ce472de2bd4e40bc7e648b # v1.52.0
         with:
           shell: vulnerable
 
