@@ -1,62 +1,94 @@
 {
   lib,
-  buildNpmPackage,
   fetchFromGitHub,
   stdenv,
-  ffmpeg,
+  yarn-berry_4,
+  nodejs_24,
+  electron_42,
   makeWrapper,
-  jq,
-  electron,
+  ffmpeg-headless,
 }:
-
-buildNpmPackage rec {
+let
+  yarn-berry = yarn-berry_4;
+  nodejs = nodejs_24;
+  electron = electron_42;
+in
+stdenv.mkDerivation (finalAttrs: {
   pname = "losslesscut";
-  version = "3.68.1";
+  version = "3.69.0";
 
-  src = stdenv.mkDerivation {
-    name = "losslesscut-src";
-    src = fetchFromGitHub {
-      owner = "mifi";
-      repo = "lossless-cut";
-      rev = "v3.68.1";
-      sha256 = "0yixkh94560r93qxpzdyyshabx6rj8279swx9lc7f3yhj229zv7m";
-    };
-    nativeBuildInputs = [ jq ];
-    installPhase = ''
-      cp -r $src $out
-      chmod -R +w $out
-      cp ${./package-lock.json} $out/package-lock.json
-      # delete postinstall and replace yarn
-      jq 'del(.scripts.postinstall) | .scripts.build = "npm run generate-icon && electron-vite build"' $out/package.json > $out/package2.json
-      mv $out/package2.json $out/package.json
-    '';
+  src = fetchFromGitHub {
+    owner = "mifi";
+    repo = "lossless-cut";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-VNG23I5o9FjoFbiF6FyOG/g72XrF4FloIyd08zIKQRU=";
   };
 
-  npmDepsHash = "sha256-Shq1xaO/XYsRshg9dh4R2ZsxPxv7XovI90ktDDTEqs8=";
+  patches = [
+    ./undev.patch
+    ./yarn-4.14-support.patch
+    ./stub-load-mifi.patch
+  ];
 
-  npmFlags = [ "--legacy-peer-deps" ];
+  postPatch = ''
+    for f in src/main/ffmpeg.ts src/main/i18nCommon.ts; do
+      substituteInPlace "$f" \
+        --subst-var-by losslesscut_resources_path $out/share/losslesscut
+    done
+  '';
 
-  ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    ELECTRON_OVERRIDE_DIST_PATH = electron.dist;
+    NODE_ENV = "production";
+  };
 
-  # No need for nativeBuildInputs since buildNpmPackage already handles npm install
+  strictDeps = true;
+
   nativeBuildInputs = [
+    nodejs
+    yarn-berry.yarnBerryConfigHook
+    yarn-berry
     makeWrapper
   ];
 
-  npmBuildScript = "build";
+  missingHashes = ./missing-hashes.json;
+  offlineCache = yarn-berry.fetchYarnBerryDeps {
+    inherit (finalAttrs) src missingHashes patches;
+    hash = "sha256-ioTQKZrT0lFnlmjVJL/kS5yP+oCw1GUZx0LWK2BqBq0=";
+  };
 
-  # installPhase handles copying the built app and wrapping
+  postConfigure = ''
+    cp -r ${electron.dist} electron-dist
+    chmod u+w -R electron-dist
+  '';
+
+  buildPhase = ''
+    runHook preBuild
+
+    yarn build
+
+    yarn electron-builder \
+      --dir \
+      -c.electronDist=electron-dist \
+      -c.electronVersion=${electron.version}
+
+    runHook postBuild
+  '';
+
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/lib/losslesscut
-    cp -r out $out/lib/losslesscut/out
-    cp package.json $out/lib/losslesscut/
+    mkdir -p $out/bin $out/share/losslesscut
 
-    mkdir -p $out/bin
-    makeWrapper ${electron}/bin/electron $out/bin/losslesscut \
-      --add-flags $out/lib/losslesscut \
-      --prefix PATH : ${lib.makeBinPath [ ffmpeg ]}
+    cp -a dist/*-unpacked/resources $out/share/losslesscut
+
+    ln -s -t $out/share/losslesscut/ ${lib.getExe' ffmpeg-headless "ffmpeg"} ${lib.getExe' ffmpeg-headless "ffprobe"}
+
+    makeWrapper ${lib.getExe electron} $out/bin/losslesscut \
+      --set-default ELECTRON_IS_DEV 0 \
+      --add-flags $out/share/losslesscut/app.asar \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true}}"
 
     runHook postInstall
   '';
@@ -65,8 +97,7 @@ buildNpmPackage rec {
     description = "The swiss army knife of lossless video/audio editing";
     homepage = "https://mifi.no/losslesscut/";
     license = lib.licenses.gpl2Only;
-    maintainers = [ ];
     mainProgram = "losslesscut";
-    platforms = lib.platforms.all;
+    platforms = lib.platforms.linux;
   };
-}
+})
