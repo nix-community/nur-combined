@@ -45,5 +45,8 @@
 
   programs.diff-so-fancy.enable = true;
 
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+    gitCredentialHelper.enable = false;
+  };
 }

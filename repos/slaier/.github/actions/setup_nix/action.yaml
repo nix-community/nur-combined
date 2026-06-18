@@ -12,18 +12,21 @@ runs:
   using: "composite"
   steps:
     - name: Reclaim space
-      uses: wimpysworld/nothing-but-nix@v6
+      uses: wimpysworld/nothing-but-nix@v10
       with:
         hatchet-protocol: rampage
+        nix-permission-edict: true
 
     - shell: bash
       run: |
         sudo mkdir -m0770 -p /nix/var/cache/ccache
 
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: cachix/install-nix-action@v31.10.6
       with:
-        extra-conf: |
+        nix_path: nixpkgs=channel:nixos-unstable
+        extra_nix_config: |
+          build-dir = /nix/build
           extra-sandbox-paths = /nix/var/cache/ccache
 
     - uses: cachix/cachix-action@v15
