@@ -95,10 +95,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.0.1";
+      version = "4.0.3";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4847017/adaptive_tab_bar_colour-4.0.1.xpi";
-      sha256 = "79a2ddc373a142cf9ea7bb3876eb30646e0d4efa6a9f314ddfc889c1cd9c0e6c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4855860/adaptive_tab_bar_colour-4.0.3.xpi";
+      sha256 = "f66b4645bc0cd345c28024c24aa1f6b9ab713880d55e26bd32d064af0dbe22d8";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -260,10 +260,10 @@
     };
     "alby" = buildMozillaXpiAddon {
       pname = "alby";
-      version = "3.14.2";
+      version = "3.14.4";
       addonId = "extension@getalby.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4730930/alby-3.14.2.xpi";
-      sha256 = "53c7dc0c93d1ddd41cbe8f6c8f29982c9941d4c59d15fa4990f57473db916522";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4855584/alby-3.14.4.xpi";
+      sha256 = "589a246768385459f399e8bd475e1919c241dd6b884f94f2b7689d67f886eda2";
       meta = with lib;
       {
         homepage = "https://getAlby.com/";
@@ -1417,10 +1417,10 @@
     };
     "bookmarkhub" = buildMozillaXpiAddon {
       pname = "bookmarkhub";
-      version = "1.0.2";
+      version = "1.0.3";
       addonId = "{9c37f9a3-ea04-4a2b-9fcc-c7a814c14311}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4754295/bookmarkhub-1.0.2.xpi";
-      sha256 = "3c86ed5643f47bb63396087e1bbe721ae0efd440e00e8ea3b3b9eb0661284a86";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4855532/bookmarkhub-1.0.3.xpi";
+      sha256 = "f4ea031f8163cb1f64312f69c5aa07ffe56108e3f6255fc83b3c0fe7ccb1ce51";
       meta = with lib;
       {
         homepage = "https://www.github.com/dudor/BookmarkHub";
@@ -2908,10 +2908,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "153.0.20260615.115325";
+      version = "152.0.20260617.213557";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852359/dansk_da_language_pack-153.0.20260615.115325.xpi";
-      sha256 = "eab314071df4c2491ad86027b7f34ce23498792a9fac7473e7160a443cf7af32";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856332/dansk_da_language_pack-152.0.20260617.213557.xpi";
+      sha256 = "5ca1e6864b5a4cc342831aca8b7eb765aa428d4d1fa9677322a530c696f1b676";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3124,10 +3124,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "153.0.20260615.115325";
+      version = "152.0.20260617.213557";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852349/deutsch_de_language_pack-153.0.20260615.115325.xpi";
-      sha256 = "d98b534a66ac2711d758ea84cdbf2d94f526847d7c72e186d1b4e97e194b72e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856350/deutsch_de_language_pack-152.0.20260617.213557.xpi";
+      sha256 = "74326edc254ffe170b899fded2b7a39bee10340cfb4700fc019ad9caaaf405ab";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4608,10 +4608,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "153.0.20260615.115325";
+      version = "152.0.20260617.213557";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852355/francais_language_pack-153.0.20260615.115325.xpi";
-      sha256 = "8e80a3768d2a3a625c3782f5883374443cab142ab384dff8f8c492f4317eca08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856368/francais_language_pack-152.0.20260617.213557.xpi";
+      sha256 = "24cde5f646f5b129553218b6af9a20d87429098448c978b8341e507d4b33569a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4645,10 +4645,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "153.0.20260615.115325";
+      version = "152.0.20260617.213557";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852409/gaidhlig_language_pack-153.0.20260615.115325.xpi";
-      sha256 = "83d11e0a7bbdd6177e862fde08844e134379ec24753bd6d63dcd679e8c488192";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856355/gaidhlig_language_pack-152.0.20260617.213557.xpi";
+      sha256 = "481f709449711ec7464c658f3277a8591320b556f824a2bda4f00cbee769f748";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10158,10 +10158,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.4";
+      version = "1.12.5";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4779978/mtab-1.12.4.xpi";
-      sha256 = "3efe30f037debcb0a1cf05e3323427d7956a9e5de1deb15b3ad4f1acc2ff2b5c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4855979/mtab-1.12.5.xpi";
+      sha256 = "6a7e5063dddf29d17307617738c254f81f90a902a86f0e8abcc37804d9fabad2";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -11119,10 +11119,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.69";
+      version = "1.5.70";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840387/page_assist-1.5.69.xpi";
-      sha256 = "67f55b55f5180e88bdfca70df31a5739550dbd9236836af19bb79cb4b853d320";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4850736/page_assist-1.5.70.xpi";
+      sha256 = "ad37a7dccca6e892abb3d45417312acc7761347973f9ae8ed1d33727ca2a65b7";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -13394,10 +13394,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "153.0.20260615.115325";
+      version = "152.0.20260617.213557";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852407/scots_language_pack-153.0.20260615.115325.xpi";
-      sha256 = "7a62557792b8513b0215196f6c4d5ec26f37fb7ff34068a86a3b4eaeb33fbeee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856381/scots_language_pack-152.0.20260617.213557.xpi";
+      sha256 = "bea89ac5f457d75e9137acaad621b7dbf2f42b9cdc84189b05c841deca356fe3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13861,10 +13861,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.2";
+      version = "3.4.3";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4724262/simplifygmail-3.4.2.xpi";
-      sha256 = "6dbfd8c8a5ef9ae39790cbbf55365b1730dfcffc00092b0837755e093f6ec126";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856030/simplifygmail-3.4.3.xpi";
+      sha256 = "151fbdcdefd1532048e53313b5a550f50a64e3d9c3d552c03197a485bd47a413";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -14350,10 +14350,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.3.34";
+      version = "2.3.34.30";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4845329/styl_us-2.3.34.xpi";
-      sha256 = "7530002c56a106c38a4703d6f5bf476e0059c78ed3c9fa3fbea2d9ce84e02ed4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854763/styl_us-2.3.34.30.xpi";
+      sha256 = "74040f0eb43327acc58a78604262768f46425a85d23c1a194a9815986ea38a4e";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -15312,10 +15312,10 @@
     };
     "tridactyl" = buildMozillaXpiAddon {
       pname = "tridactyl";
-      version = "1.24.5";
+      version = "1.24.6";
       addonId = "tridactyl.vim@cmcaine.co.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4704384/tridactyl_vim-1.24.5.xpi";
-      sha256 = "0bf18c2a3a8edbcbf46c991548988ec510734b19b95f325beb76f4484079fb07";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854935/tridactyl_vim-1.24.6.xpi";
+      sha256 = "13abd6fef2b5d13a2eca70addb5485a4fba0800436f6a12c57abb03f3cf99205";
       meta = with lib;
       {
         homepage = "https://tridactyl.xyz";
@@ -17701,10 +17701,10 @@
     };
     "zen-internet" = buildMozillaXpiAddon {
       pname = "zen-internet";
-      version = "3.1.2";
+      version = "3.2.0";
       addonId = "{91aa3897-2634-4a8a-9092-279db23a7689}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4741120/zen_internet-3.1.2.xpi";
-      sha256 = "79291e0da3ce9fea332a39993c62b1f71106cc5a062f82297bbd3f2d0c873a68";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854703/zen_internet-3.2.0.xpi";
+      sha256 = "78410e877277913f19bdcdf8ca138e08dff758fd8b9ed99d67c52681e581fd19";
       meta = with lib;
       {
         homepage = "https://www.sameerasw.com";
@@ -17714,10 +17714,9 @@
           "activeTab"
           "storage"
           "tabs"
-          "<all_urls>"
           "webNavigation"
-          "webRequest"
-          "webRequestBlocking"
+          "alarms"
+          "<all_urls>"
         ];
         platforms = platforms.all;
       };
