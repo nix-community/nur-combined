@@ -8,13 +8,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "xcompose";
-  version = "unstable-2025-06-05";
+  version = "unstable-2026-06-17";
 
   src = fetchFromGitHub {
     owner = "kragen";
     repo = "xcompose";
-    rev = "4d8eab4d05a19537ce79294ae0459fdae78ffb20";
-    sha256 = "sha256-vKY4u5Z2IL111orLLkkF4AoVzqluKG/VQhNUUCqO/k8=";
+    rev = "2131a4712910a0df23be46bdfae5ff812dd295a9";
+    sha256 = "sha256-xFprIrOgvniglZpjCOYPwo693G8fpFQ2eHvPeFeOocM=";
   };
 
   nativeBuildInputs = [
