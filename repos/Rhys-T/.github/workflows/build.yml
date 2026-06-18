@@ -216,7 +216,7 @@ jobs:
           pushd nar
           curl -LO "https://cache.nixos.org/$(grep -E '^URL:' ../"$brokenID.narinfo" | cut -d' ' -f2)"
           NIX_CONF_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/nix/nix.conf"
-          echo "extra-substituters = file:///tmp/openapvCache" >> "$NIX_CONF_FILE"
+          nix-build --no-out-link '<nixpkgs>' -A openapv --extra-substituters file:///tmp/openapvCache
         fi
     - name: Setup cachix
       uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
