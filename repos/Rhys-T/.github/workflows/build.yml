@@ -92,7 +92,8 @@ jobs:
               ("\($displayRunner)-\($displayNixpkgs)-\($subset)" | gsub(" "; "-")) as $cacheName |
               (if $qemuSystem then "TODO make qemu builds work again" | error else . end) |
               ($subset == "lix-game-darwin") as $flaky |
-              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName, $flaky}
+              ($runner | startswith("ubuntu") and endswith("arm")) as $needsOpenapvWorkaround |
+              {$displayRunner, $runner, $qemuSystem, $qemuSystemForAction, $displayNixpkgs, $nixpkgs, $nixpkgsPath, $subset, $nurRepo, $cachixName, $cacheName, $flaky, $needsOpenapvWorkaround}
             ]}
             
           EOF
@@ -200,6 +201,23 @@ jobs:
         echo -E 'NIX_PATH=nixpkgs=flake:myNixpkgs' >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+    - name: Manually grab openapv from cache.nixos.org
+      # See <https://github.com/NixOS/nixpkgs/issues/533028>
+      if: ${{ matrix.needsOpenapvWorkaround }}
+      run: |
+        set -x
+        brokenID='0mg3mag909yg8pk14cjsppxs2px7iqfv'
+        if [[ "$(nix-instantiate --eval --raw '<nixpkgs>' -A openapv.outPath)" == *"$brokenID"* ]]; then
+          mkdir -p /tmp/openapvCache/nar
+          pushd /tmp/openapvCache
+          curl -LO "https://cache.nixos.org/$brokenID.narinfo"
+          hash="$(grep -E '^NarHash:' "$brokenID.narinfo" | cut -d: -f3)"
+          sed -E -i.bak "/URL: / { s@nar/[^.]+@nar/$hash@; }" "$brokenID.narinfo"
+          pushd nar
+          curl -LO "https://cache.nixos.org/$(grep -E '^URL:' ../"$brokenID.narinfo" | cut -d' ' -f2)"
+          NIX_CONF_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/nix/nix.conf"
+          echo "extra-substituters = file:///tmp/openapvCache" >> "$NIX_CONF_FILE"
+        fi
     - name: Setup cachix
       uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
       # Don't replace <YOUR_CACHIX_NAME> here!
