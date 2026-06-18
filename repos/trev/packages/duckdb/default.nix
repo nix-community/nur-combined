@@ -124,6 +124,13 @@ let
 
   enabledExtensions = inTreeExtensions ++ externalExtensions;
 
+  externalExtensionBuildInputs = lib.concatMap (
+    extension: extension.duckdbBuildInputs
+  ) externalExtensions;
+  externalExtensionPostPatchCommands = lib.concatMapStringsSep "\n" (
+    extension: extension.duckdbPostPatch
+  ) externalExtensions;
+
   formatExtensionLoad =
     extension:
     if extension.loadOptions == [ ] then
@@ -175,6 +182,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     openssl
   ]
+  ++ externalExtensionBuildInputs
   ++ lib.optionals withJdbc [ openjdk11 ]
   ++ lib.optionals withOdbc [ unixodbc ];
 
@@ -187,6 +195,8 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p extension_external
       ${externalExtensionCopyCommands}
     ''}
+
+    ${externalExtensionPostPatchCommands}
 
     cat >> extension/extension_config.cmake <<'EOF'
 
@@ -257,6 +267,7 @@ stdenv.mkDerivation (finalAttrs: {
           "test/sql/copy/csv/test_mixed_lines.test"
           "test/parquet/parquet_long_string_stats.test"
           "test/sql/attach/attach_remote.test"
+          "test/sql/attach/remote_file_concurrently.test"
           "test/sql/copy/csv/test_sniff_httpfs.test"
           "test/sql/httpfs/internal_issue_2490.test"
           # fails with incorrect result

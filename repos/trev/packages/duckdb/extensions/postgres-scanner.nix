@@ -1,4 +1,7 @@
-{ callPackage }:
+{
+  callPackage,
+  libpq,
+}:
 
 (callPackage ./generic.nix { }) {
   name = "postgres_scanner";
@@ -8,4 +11,5 @@
   hash = "sha256-BICWevTyfE0N6vBirGIwa6EgPnyDkKHnMD+igv4XzZ0=";
   fetchSubmodules = true;
   loadOptions = [ "DONT_LINK" ];
+  duckdbBuildInputs = [ libpq ];
 }

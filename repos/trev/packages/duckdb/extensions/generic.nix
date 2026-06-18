@@ -15,6 +15,8 @@
   owner ? "duckdb",
   fetchSubmodules ? false,
   loadOptions ? [ ],
+  duckdbBuildInputs ? [ ],
+  duckdbPostPatch ? "",
 }:
 
 stdenvNoCC.mkDerivation {
@@ -51,7 +53,12 @@ stdenvNoCC.mkDerivation {
 
   passthru = {
     duckdbExtension = {
-      inherit name loadOptions;
+      inherit
+        name
+        loadOptions
+        duckdbBuildInputs
+        duckdbPostPatch
+        ;
     };
 
     updateScript = nix-update-script {
