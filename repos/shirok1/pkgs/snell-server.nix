@@ -9,7 +9,7 @@
 
 let
   pname = "snell-server";
-  version = "6.0.0b2";
+  version = "6.0.0b3";
 
   platformMap = {
     "x86_64-linux" = "linux-amd64";
@@ -27,9 +27,9 @@ let
   # pkgs = import <nixpkgs> {}
   # builtins.readDir (pkgs.fetchzip { url = "https://dl.nssurge.com/snell/snell-server-v${version}-${platform}.zip"; })
   sha256s = {
-    "x86_64-linux" = "sha256-nNAxiQEqEIQGiRI5VWQkmZXwfYvAHD0eWwxTMzVQ+QY=";
-    "i686-linux" = "sha256-xTQOFTjsxA0XEWccyzUFlnA1e5sPrnB1w5RX/dfSAr0=";
-    "aarch64-linux" = "sha256-jWprkM4u3u4GLb+ftmutDfynmBzSRTagEQ48EEvYo04=";
+    "x86_64-linux" = "";
+    "i686-linux" = "";
+    "aarch64-linux" = "sha256-xiIiEkuAS7k8lhzngaCAYeQClTKZRt/6RIVI0j+MrAE=";
   };
 
   sha256 = sha256s.${system};
