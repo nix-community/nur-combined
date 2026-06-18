@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
   zigDeps = zig_0_16.fetchDeps {
     inherit (finalAttrs) src pname version;
     fetchAll = true;
-    hash = "sha256-blvs8CCAGWzcQvnNxPU7LENf5QI8MvDPmasa46rtEsY=";
+    hash = "sha256-Lz/Wcy40rxN81n/mBj4YJVbyGOolHzSFZMs93T1h0oQ=";
   };
 
   postConfigure = ''
