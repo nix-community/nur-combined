@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "litestream-restic-backup-chart";
-  version = "0.2.0";
+  version = "0.2.1";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "litestream-restic-backup";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-G7PNvg0elqEK/QSrI7X6WfjMZLxn0y0lW/1wHsEaTiM=";
+    hash = "sha256-jSFQ65OHA7jnrkULhdfFADZj8CIUGCNtHaTkMFV51lI=";
   };
 
   buildCommand = ''
