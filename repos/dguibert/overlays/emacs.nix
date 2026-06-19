@@ -66,7 +66,6 @@ with prev; let
       #epkgs.ox-icalendar
 
       pkgs.notmuch # From main packages set
-      pkgs.ripgrep
 
       pkgs.xclip
       pkgs.dtach # for dtache
