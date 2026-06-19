@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "f903be837ae5c49bd7b22ea2da937cce03e9c4a6";
+    version = "3109cae6940ec418c557e0583d460d2e81ca5095";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "f903be837ae5c49bd7b22ea2da937cce03e9c4a6";
+      rev = "3109cae6940ec418c557e0583d460d2e81ca5095";
       fetchSubmodules = false;
-      sha256 = "sha256-7w5Snzr333+j2mFpaOUkK07kCd1hk51BA6M4eo2KoVU=";
+      sha256 = "sha256-X5g8Vq+LuDrIRnMTESIgRhY4t61bXMyCdL99gTPonck=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-7w5Snzr333+j2mFpaOUkK07kCd1hk51BA6M4eo2KoVU=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-X5g8Vq+LuDrIRnMTESIgRhY4t61bXMyCdL99gTPonck=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-06-20";
+    date = "2026-06-19";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -626,16 +626,16 @@
   };
   whois42d-ng = {
     pname = "whois42d-ng";
-    version = "v1.0.1";
+    version = "v1.1.0";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "whois42d-ng";
-      rev = "v1.0.1";
+      rev = "v1.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-X5A9YnsdC32pqFzHRL/7Cla05aY8QVVC2y24Yk2cCpM=";
+      sha256 = "sha256-fYGkJhmlEr9UD2NWNOjY5Dh2opnvWHFWUoxnvfmv+9M=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-X5A9YnsdC32pqFzHRL_7Cla05aY8QVVC2y24Yk2cCpM=/Cargo.lock";
+      lockFile = ./. + "/sha256-fYGkJhmlEr9UD2NWNOjY5Dh2opnvWHFWUoxnvfmv+9M=/Cargo.lock";
       outputHashes = {
         
       };

@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-7w5Snzr333+j2mFpaOUkK07kCd1hk51BA6M4eo2KoVU=/backend/Cargo.lock",
+                "sha256-X5g8Vq+LuDrIRnMTESIgRhY4t61bXMyCdL99gTPonck=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -116,7 +116,7 @@
                 }
             ]
         },
-        "date": "2026-06-20",
+        "date": "2026-06-19",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -128,12 +128,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "f903be837ae5c49bd7b22ea2da937cce03e9c4a6",
-            "sha256": "sha256-7w5Snzr333+j2mFpaOUkK07kCd1hk51BA6M4eo2KoVU=",
+            "rev": "3109cae6940ec418c557e0583d460d2e81ca5095",
+            "sha256": "sha256-X5g8Vq+LuDrIRnMTESIgRhY4t61bXMyCdL99gTPonck=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f903be837ae5c49bd7b22ea2da937cce03e9c4a6"
+        "version": "3109cae6940ec418c557e0583d460d2e81ca5095"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -1071,7 +1071,7 @@
     "whois42d-ng": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-X5A9YnsdC32pqFzHRL_7Cla05aY8QVVC2y24Yk2cCpM=/Cargo.lock",
+                "sha256-fYGkJhmlEr9UD2NWNOjY5Dh2opnvWHFWUoxnvfmv+9M=/Cargo.lock",
                 {}
             ]
         },
@@ -1087,12 +1087,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "whois42d-ng",
-            "rev": "v1.0.1",
-            "sha256": "sha256-X5A9YnsdC32pqFzHRL/7Cla05aY8QVVC2y24Yk2cCpM=",
+            "rev": "v1.1.0",
+            "sha256": "sha256-fYGkJhmlEr9UD2NWNOjY5Dh2opnvWHFWUoxnvfmv+9M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.1"
+        "version": "v1.1.0"
     },
     "zsh-patina": {
         "cargoLock": {
