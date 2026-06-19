@@ -129,32 +129,11 @@ stdenv.mkDerivation (finalAttrs: {
     callPackage ../../utils/update.nix {
       inherit versionFile;
       pname = "folia-major";
-      updateMethod = "none";
-      fetchMetaCommand = "${lib.getExe (
-        callPackage ../../utils/json.nix {
-          preScript = ''
-            VERSION=$(curl -sS https://api.github.com/repos/chthollyphile/folia-major/releases/latest | jq -r '.tag_name | ltrimstr("v")')
-            CURRENT_VERSION=$(jq -r '.version' "${versionFile}" 2>/dev/null || echo "0.0.0")
-
-            if [ "$(echo -e "$CURRENT_VERSION\n$VERSION" | sort -V | head -n1)" = "$CURRENT_VERSION" ] && [ "$CURRENT_VERSION" != "$VERSION" ]; then
-              echo "[*] New version available: $VERSION → Updating..." >&2
-            else
-              echo "[*] Already up to date ($CURRENT_VERSION)" >&2
-              cat "${versionFile}"
-              exit 0
-            fi
-
-            URL="https://github.com/chthollyphile/folia-major/releases/download/v''${VERSION}/folia-major-''${VERSION}-linux-x64.tar.gz"
-
-            echo "[*] Prefetching x86_64 hash..." >&2
-            HASH=$(nix-prefetch-url --unpack "$URL" --type sha256 | xargs nix-hash --to-sri --type sha256)
-          '';
-          commands = {
-            version = "echo $VERSION";
-            "x86_64-linux-hash" = "echo $HASH";
-          };
-        }
-      )}";
+      updateMethod = "auto";
+      fetchMetaCommand = "${(callPackage ../../utils/fetcher.nix { }).githubRelease {
+        owner = "chthollyphile";
+        repo = "folia-major";
+      }}";
     };
 
   meta = {
