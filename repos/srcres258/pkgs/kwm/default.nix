@@ -7,6 +7,8 @@
 , wayland-protocols
 , wayland-scanner
 , libxkbcommon
+, fcft
+, pixman
 , maintainers
 , ...
 }:
@@ -32,6 +34,8 @@ stdenv.mkDerivation (finalAttrs: {
     wayland
     wayland-protocols
     libxkbcommon
+    pixman
+    fcft
   ];
 
   zigDeps = zig_0_16.fetchDeps {
