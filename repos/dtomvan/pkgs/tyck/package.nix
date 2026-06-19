@@ -54,9 +54,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   passthru = {
     updateScript = nix-update-script { };
-    migrations = runCommand "${finalAttrs.pname}-${finalAttrs.version}-migrations" { } ''
-      cp -r ${finalAttrs.src}/migrations $out
-    '';
   };
 
   meta = {
