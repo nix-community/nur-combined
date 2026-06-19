@@ -4,6 +4,7 @@
   inputs = {
     puntbestanden = {
       url = "github:dtomvan/puntbestanden";
+      inputs.bart.follows = "";
       inputs.catppuccin.follows = "";
       inputs.copyparty.follows = "";
       inputs.deploy-rs.follows = "";
@@ -18,9 +19,10 @@
       inputs.nix-index-database.follows = "";
       inputs.nixos-small.follows = "";
       inputs.nixvim.follows = "";
+      inputs.nix-maid.follows = "";
       inputs.noctalia.follows = "";
+      inputs.noctalia-greeter.follows = "";
       inputs.nur.follows = "";
-      inputs.plasma-manager.follows = "";
       inputs.sops.follows = "";
       inputs.srvos.follows = "";
       inputs.tasks.follows = "";
