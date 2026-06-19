@@ -236,6 +236,11 @@ src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
 fetch.github = "Loyalsoldier/v2ray-rules-dat"
 src.branch = "release"
 
+[whois42d-ng]
+src.github = "moraxyc/whois42d-ng"
+fetch.github = "moraxyc/whois42d-ng"
+cargo_lock = ['Cargo.lock']
+
 [zsh-patina]
 src.github = "michel-kraemer/zsh-patina"
 fetch.github = "michel-kraemer/zsh-patina"
