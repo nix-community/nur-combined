@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   zigBuildFlags = [
     "-Doptimize=ReleaseSafe"
-    "-Dbar=false"
+    "-Dbar=true"
     "-Dkwim=false"
   ];
 
