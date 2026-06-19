@@ -15,6 +15,7 @@ When updating code or documentation, treat these files as authoritative:
 - `.agents/command/*.md` - repo-local omp command docs
 - `.agents/skill/nix-packaging/SKILL.md` - repo-local omp nix-packaging skill
 - `.opencode/opencode.jsonc` - OpenCode config and remote `context7` MCP setup
+- `pkgs/*/AGENTS.md` - package-level packaging guides (currently `pkgs/oh-my-pi/AGENTS.md`)
 
 ## Current Repository Shape
 
@@ -77,6 +78,7 @@ This repo is not limited to one packaging style. Examples worth following:
   - Examples: `pkgs/mcp-cli.nix`, `pkgs/context-mode.nix`
 - `stdenv.mkDerivation` / `stdenvNoCC.mkDerivation`
   - Example: `pkgs/grub-theme-yorha.nix`
+- `three-phase bun + rustPlatform.buildRustPackage` — read `pkgs/oh-my-pi/AGENTS.md` first
 
 ## Repo-Specific Packaging Notes
 
@@ -109,6 +111,7 @@ Filtering behavior:
 - `hyprland-mcp-server` is a wrapped npm package with runtime PATH injection for Hyprland tooling
 - `context-mode` is a `bun` + `stdenvNoCC.mkDerivation` package with pre-built bundles; it uses `makeBinaryWrapper` and the built-in `node:sqlite` (Node.js >= 22.5) so `better-sqlite3` is not loaded at runtime
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
+- `oh-my-pi` is a three-phase build: Bun FOD + Rust cdylib + final source tree install; read `pkgs/oh-my-pi/AGENTS.md` before updating or debugging
 - `codegraph` is a `buildNpmPackage` that uses `tree-sitter-wasms` (pre-built WASM grammars) and the built-in `node:sqlite` (Node.js >= 22.5) — no native dependencies to compile
 
 ## Quick Commands
