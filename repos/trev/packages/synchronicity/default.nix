@@ -11,14 +11,14 @@
 
 buildPythonPackage rec {
   pname = "synchronicity";
-  version = "0.12.4";
+  version = "0.12.5";
 
   pyproject = true;
   pythonRelaxDeps = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-+eONDDfY5WtdyyLMAINZGlNaQhh9PZfqmu9uhL0SJkA=";
+    sha256 = "sha256-lNlrHYVpjjBWuWp5O4wJSa9lhOSn2Hf6vetThe/iMKo=";
   };
 
   build-system = [
