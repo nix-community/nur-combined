@@ -44,7 +44,7 @@ let
 in
 buildGoModule (finalAttrs: {
   inherit (sources.new-api) pname version src;
-  vendorHash = "sha256-B5tkrIu4btLCdxH+xiI748zZ2TK7QHhCWLX33h9wRzI=";
+  vendorHash = "sha256-CJJyxarddydhtZ4u/ADV2JYg6Rmfe0YADmIOocybcHE=";
 
   doCheck = false;
 
