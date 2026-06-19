@@ -27,7 +27,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@1fdd7d95bd30822380ce472de2bd4e40bc7e648b # v1.52.0
+        uses: spotdemo4/nix-init@c2709c977467ea3c9a12f82fe48922ce49947a2d # v1.53.0
 
       - name: Check flake
         run: nix flake check
@@ -58,7 +58,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@1fdd7d95bd30822380ce472de2bd4e40bc7e648b # v1.52.0
+        uses: spotdemo4/nix-init@c2709c977467ea3c9a12f82fe48922ce49947a2d # v1.53.0
         with:
           shell: check
 
