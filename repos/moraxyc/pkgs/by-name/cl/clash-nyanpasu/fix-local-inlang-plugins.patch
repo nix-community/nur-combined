@@ -1,49 +1,88 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 04f9d8f2..8f890a8d 100644
+index 42da7fe..da88a02 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
-@@ -54,0 +55,2 @@
+@@ -52,6 +52,8 @@
+   "devDependencies": {
+     "@csstools/normalize.css": "12.1.1",
+     "@iconify/json": "2.2.487",
 +    "@inlang/plugin-m-function-matcher": "^2.2.9",
 +    "@inlang/plugin-message-format": "^4.4.0",
+     "@monaco-editor/react": "4.7.0",
+     "@tailwindcss/vite": "4.3.1",
+     "@tanstack/react-query": "5.101.0",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
-index 05965578..71e1a55b 100644
+index 0596557..66c083a 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
 +++ b/frontend/nyanpasu/project.inlang/settings.json
-@@ -6,2 +6,2 @@
+@@ -3,8 +3,8 @@
+   "baseLocale": "en",
+   "locales": ["en", "zh-cn", "zh-tw", "ru"],
+   "modules": [
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4/dist/index.js",
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@2/dist/index.js"
-+     "./node_modules/@inlang/plugin-message-format/dist/index.js",
-+     "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
++    "./node_modules/@inlang/plugin-message-format/dist/index.js",
++    "./node_modules/@inlang/plugin-m-function-matcher/dist/index.js"
+   ],
+   "plugin.inlang.messageFormat": {
+     "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index c1915cfc..2de154ec 100644
+index 94d0709..4524db0 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
-@@ -241,0 +242,6 @@ importers:
+@@ -239,6 +239,12 @@ importers:
+       '@iconify/json':
+         specifier: 2.2.487
+         version: 2.2.487
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.9
 +        version: 2.2.9
 +      '@inlang/plugin-message-format':
 +        specifier: ^4.4.0
 +        version: 4.4.0
-@@ -1132,0 +1139,6 @@ packages:
+       '@monaco-editor/react':
+         specifier: 4.7.0
+         version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
+@@ -1130,6 +1136,12 @@ packages:
+       typescript:
+         optional: true
+ 
 +  '@inlang/plugin-m-function-matcher@2.2.9':
 +    resolution: {integrity: sha512-FqrEw6p5UKn0fVLedILx5vjEAPAl01Uuv1xlF6pQ9XMxpDsTUSOAPrjWuus1jiPBnYEdbK8cP43Ni0e3IPz9aQ==}
 +
 +  '@inlang/plugin-message-format@4.4.0':
 +    resolution: {integrity: sha512-n4aXt6XVg5kxhKoLAhi9nMgZtCA9iS0QOaXte56VqxWHcfj9O4c4gOkyVQZH7H9D8h7OZufCrO1sZGYOypPwEA==}
 +
-@@ -1139,0 +1152,4 @@ packages:
+   '@inlang/recommend-sherlock@0.2.1':
+     resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
+ 
+@@ -1137,6 +1149,10 @@ packages:
+     resolution: {integrity: sha512-xLVRHAI9Jw6L/NrlK6s1mXCvbFwzk5INEL4i3By4jW9yjIMchJ+JGSw4WgFpiLlcoBuR/qIMmSn6te/Jozuybg==}
+     engines: {node: '>=20.0.0'}
+ 
 +  '@inlang/sdk@2.10.2':
 +    resolution: {integrity: sha512-O1ki72SNK6LPagaGrvlioBb1mWKvump7cO7P85hfGZjdFTmDdn3icI0A6MvaBsB3P9KQHAjzyubnN1OslGufTw==}
 +    engines: {node: '>=20.0.0'}
 +
-@@ -4273,0 +4290,5 @@ packages:
+   '@jridgewell/gen-mapping@0.3.12':
+     resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
+ 
+@@ -4271,6 +4287,11 @@ packages:
+   flat-cache@6.1.22:
+     resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
+ 
 +  flat@6.0.1:
 +    resolution: {integrity: sha512-/3FfIa8mbrg3xE7+wAhWeV+bd7L2Mof+xtZb5dRDKZ+wDvYJK4WDYeIOuOhre5Yv5aQObZrlbRmk3RTSiuQBtw==}
 +    engines: {node: '>=18'}
 +    hasBin: true
 +
-@@ -7187,0 +7209,10 @@ snapshots:
+   flatted@3.4.2:
+     resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
+ 
+@@ -7180,6 +7201,16 @@ snapshots:
+     transitivePeerDependencies:
+       - babel-plugin-macros
+ 
 +  '@inlang/plugin-m-function-matcher@2.2.9':
 +    dependencies:
 +      '@inlang/sdk': 2.10.2
@@ -54,7 +93,13 @@ index c1915cfc..2de154ec 100644
 +    dependencies:
 +      flat: 6.0.1
 +
-@@ -7201,0 +7233,10 @@ snapshots:
+   '@inlang/recommend-sherlock@0.2.1':
+     dependencies:
+       comment-json: 4.5.0
+@@ -7194,6 +7225,16 @@ snapshots:
+     transitivePeerDependencies:
+       - babel-plugin-macros
+ 
 +  '@inlang/sdk@2.10.2':
 +    dependencies:
 +      '@lix-js/sdk': 0.4.10
@@ -65,6 +110,15 @@ index c1915cfc..2de154ec 100644
 +    transitivePeerDependencies:
 +      - babel-plugin-macros
 +
-@@ -10067,0 +10109,2 @@ snapshots:
+   '@jridgewell/gen-mapping@0.3.12':
+     dependencies:
+       '@jridgewell/sourcemap-codec': 1.5.5
+@@ -10060,6 +10101,8 @@ snapshots:
+       flatted: 3.4.2
+       hookified: 1.15.1
+ 
 +  flat@6.0.1: {}
 +
+   flatted@3.4.2: {}
+ 
+   formatly@0.3.0:

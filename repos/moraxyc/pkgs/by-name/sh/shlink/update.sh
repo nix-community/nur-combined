@@ -7,7 +7,8 @@ set -eou pipefail
 TMPDIR=$(mktemp -d)
 trap 'rm -rf -- "${TMPDIR}"' EXIT
 
-git clone --depth 1 --branch "${GIT_VERSION}" https://github.com/shlinkio/shlink.git "${TMPDIR}/shlink"
+cp -r "$(nix-build -A shlink.src --no-out-link)" "${TMPDIR}/shlink"
+chmod -R u+w "${TMPDIR}/shlink"
 composer -d "${TMPDIR}/shlink" install
 cp "${TMPDIR}/shlink/composer.lock" "pkgs/by-name/sh/shlink/composer.lock"
 
