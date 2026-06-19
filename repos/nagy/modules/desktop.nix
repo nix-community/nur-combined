@@ -24,6 +24,7 @@ in
 
   boot.kernelParams = [
     # https://github.com/lamikr/rocm_sdk_builder/issues/257#issuecomment-3355223605
+    # this has worked; but maybe not needed after all
     "amdgpu.cwsr_enable=0"
   ];
 
@@ -71,6 +72,8 @@ in
     pkgs.hunspellDicts.de-de
     pkgs.gh
 
+    pkgs.radicle-node
+
     (pkgs.redshift.override { withGeolocation = false; })
 
     (pkgs.rclone.overrideAttrs {
@@ -106,13 +109,12 @@ in
 
   environment.sessionVariables = {
     # Zwingt ROCm die gfx1103 wie eine unterstützte gfx1100 RDNA3 Karte zu behandeln
+    # Maybe no longer needed since https://github.com/NixOS/nixpkgs/pull/514731 has been merged.
     HSA_OVERRIDE_GFX_VERSION = "11.0.0";
-    # https://github.com/ggml-org/llama.cpp/pull/12934/changes
-    GGML_CUDA_ENABLE_UNIFIED_MEMORY = "1";
-  };
 
-  # for wayland compositors
-  environment.sessionVariables.XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
+    # for wayland compositors
+    XKB_DEFAULT_LAYOUT = config.services.xserver.xkb.layout;
+  };
 
   services.pulseaudio = {
     enable = lib.mkDefault true;

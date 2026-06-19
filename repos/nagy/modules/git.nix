@@ -145,6 +145,9 @@ in
           #   clean = "ruff format -";
           # };
         };
+        maintenance = {
+          auto = false;
+        };
         diff = {
           pdf = {
             textconv = pkgs.writeShellScript "pdftostdout" ''

@@ -34,8 +34,8 @@ in
 
   # Simpler version of starship init script until
   # https://github.com/starship/starship/issues/896 is fixed
-  programs.bash.interactiveShellInit = ''
-    if [[ $TERM != "dumb" && (-z $INSIDE_EMACS || $INSIDE_EMACS =~ ,eat) ]]; then
+  programs.bash.promptInit = ''
+    if [[ $TERM != "dumb" ]]; then
       if [[ -w /run/user/$UID ]] ; then
         export STARSHIP_CACHE=/run/user/$UID/starship-cache
       fi
