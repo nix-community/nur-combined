@@ -95,10 +95,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.0.3";
+      version = "4.0.4";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4855860/adaptive_tab_bar_colour-4.0.3.xpi";
-      sha256 = "f66b4645bc0cd345c28024c24aa1f6b9ab713880d55e26bd32d064af0dbe22d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857790/adaptive_tab_bar_colour-4.0.4.xpi";
+      sha256 = "4459f53b27ffd150be2800f71be87207f4b6a2731895af249fffdce901b4a26d";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -1683,10 +1683,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.3.3";
+      version = "7.3.5";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4854406/cardpointers_x-7.3.3.xpi";
-      sha256 = "6fc285d27d05e04d2a2da1ef3350b5f993f508dcd46b4db168a9f3588ba36439";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857781/cardpointers_x-7.3.5.xpi";
+      sha256 = "c7be621005fc151c99b637248944a72b7a0f778353f650f0f285576feedc21e6";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -3687,10 +3687,10 @@
     };
     "ebates" = buildMozillaXpiAddon {
       pname = "ebates";
-      version = "5.67.3";
+      version = "26.10.1";
       addonId = "{35d6291e-1d4b-f9b4-c52f-77e6410d1326}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4546027/ebates-5.67.3.xpi";
-      sha256 = "7745045e1508730a06d790c870717c8544165976fde1a0f725fc8e482a014b1c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4845688/ebates-26.10.1.xpi";
+      sha256 = "508e899402937f4a94285a47ff0fb32a0087e9f1937191e4f2bb0a9a188dd77c";
       meta = with lib;
       {
         homepage = "https://www.rakuten.com";
@@ -4689,10 +4689,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.21.5";
+      version = "1.21.9";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4854294/geo_spoof-1.21.5.xpi";
-      sha256 = "07550e1a1a19e27010c7886e411880ba3a1e3d292a44801976ce911d73eb82ef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857809/geo_spoof-1.21.9.xpi";
+      sha256 = "f86bb1eeec601f6197dae72b5605d4cf0e3690b1325fdb8a543e48637d91cc94";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -9908,10 +9908,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.4.1";
+      version = "1.4.2";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4843066/mergify-1.4.1.xpi";
-      sha256 = "67475b28a903da874b9a627f986489635241cf3c60dad8894b117c91280440fc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857084/mergify-1.4.2.xpi";
+      sha256 = "f24df3a6bd02bfb72723bf9b3363eedea473f3e0979b817921b109b504b1a807";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -10884,10 +10884,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.22.17";
+      version = "8.12.24.34";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4833104/1password_x_password_manager-8.12.22.17.xpi";
-      sha256 = "48e326c7cd966b3737a5ffd97111bf9066becb109efedd057da4a50377ce2a7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4853670/1password_x_password_manager-8.12.24.34.xpi";
+      sha256 = "46ab38c13ce6d472794bdb86ee1e10ec27eb64ee31757ab8a61fe78b826b3bdb";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -14189,10 +14189,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.6";
+      version = "3.3.7";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4803701/statshunters-3.3.6.xpi";
-      sha256 = "6661c9bcb8216b8de704f5d78eda9fd60514a730fa2fd50d1e3b1e3371b75bef";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857267/statshunters-3.3.7.xpi";
+      sha256 = "b19ae8f2949747f137e85b681032967ef9e0a6cd003d82c140851a489ad286c7";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -14929,10 +14929,10 @@
     };
     "theater-mode-for-youtube" = buildMozillaXpiAddon {
       pname = "theater-mode-for-youtube";
-      version = "0.2.5";
+      version = "0.2.7";
       addonId = "{b8326f03-322f-4112-96bd-e7996548d99f}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4537602/theater_mode_for_youtube-0.2.5.xpi";
-      sha256 = "d2524ae3b1ac9e149ccd477616e37c6f95067c0e2f3f45e2016e5179b6ad04fb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856559/theater_mode_for_youtube-0.2.7.xpi";
+      sha256 = "109de0e85c52eac391067606839b61d6b18fecc1786c2851be8ec24d8523128a";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/youtube-tools.html?theater";
@@ -15117,14 +15117,14 @@
     };
     "topcashback-cashback-coupons" = buildMozillaXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.7.1.0";
+      version = "7.8.1.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4800256/topcashback_cashback_coupons-7.7.1.0.xpi";
-      sha256 = "e54f279a0e77f6e875aa810e910daa8972a33b228fa853d09ac8fa9728a33110";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4856959/topcashback_cashback_coupons-7.8.1.0.xpi";
+      sha256 = "850261b3c0538b19115a6eecf5ba5d485bcf5786f4af41063dc54ea72fddf77d";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";
-        description = "Join over 25m members worldwide and earn cashback when you shop online at over 4,000 online stores with the highest cashback rates.";
+        description = "Join over 25 million members worldwide and get money back every time you shop online.";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -16570,10 +16570,10 @@
     };
     "wallabagger" = buildMozillaXpiAddon {
       pname = "wallabagger";
-      version = "1.23.3";
+      version = "1.23.4";
       addonId = "{7a7b1d36-d7a4-481b-92c6-9f5427cb9eb1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4777287/wallabagger-1.23.3.xpi";
-      sha256 = "2a697653c1d1646d64bf25cd5737bd4c9a2c25f19cc0a74cf51e5bcede503799";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857583/wallabagger-1.23.4.xpi";
+      sha256 = "420f4b14873482a4f630779bac419b69edbf275e787b8b55f21d0c407b501a94";
       meta = with lib;
       {
         homepage = "https://github.com/wallabag/wallabagger";
@@ -17299,10 +17299,10 @@
     };
     "xkit-rewritten" = buildMozillaXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.3.4";
+      version = "1.3.5";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4841209/xkit_rewritten-1.3.4.xpi";
-      sha256 = "3106313e3c153c1c9eca3de1f1659762da260e0c6e252af559cecdf7cf36c221";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4853530/xkit_rewritten-1.3.5.xpi";
+      sha256 = "a9ce20a5de8e5805e498aa72adb16ee489b0abdcdff0be767c2d445ac619c4e8";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
