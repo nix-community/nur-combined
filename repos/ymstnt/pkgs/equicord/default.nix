@@ -3,7 +3,7 @@
   git,
   lib,
   nodejs,
-  pnpm_10,
+  pnpm_11,
   fetchPnpmDeps,
   pnpmConfigHook,
   stdenv,
@@ -27,16 +27,16 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    pnpm = pnpm_10;
-    fetcherVersion = 3;
-    hash = "sha256-RwppRWrEzIKZDb3QLVAMd1bHXyFwiatYNiNccVgrcWA=";
+    pnpm = pnpm_11;
+    fetcherVersion = 4;
+    hash = "sha256-QCloQHGwEdYN4hr0ElaEE5WX44F8D8CcD+q9n0yBPzo=";
   };
 
   nativeBuildInputs = [
     git
     nodejs
     pnpmConfigHook
-    pnpm_10
+    pnpm_11
   ];
 
   env = {
