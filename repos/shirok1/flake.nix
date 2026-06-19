@@ -122,6 +122,14 @@
                 ];
 
                 nixopi5 = mkSystem "opi5" [
+                  sops-nix.nixosModules.sops
+                  {
+                    sops = {
+                      environment = {
+                        SOPS_AGE_SSH_PRIVATE_KEY_FILE = "/etc/ssh/ssh_host_ed25519_key";
+                      };
+                    };
+                  }
                   self.nixosModules.msd-lite
                   self.nixosModules.qbittorrent-clientblocker
                   self.nixosModules.snell-server

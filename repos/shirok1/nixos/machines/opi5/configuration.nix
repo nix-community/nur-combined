@@ -274,6 +274,7 @@
       "script ui" = "!include scripts.yaml";
     };
     customComponents = with pkgs.home-assistant-custom-components; [
+      pkgs.shirok1.tasmota-irhvac
       xiaomi_home
     ];
   };
@@ -314,7 +315,7 @@
   };
 
   services.snell-server = {
-    enable = true;
+    enable = false;
     settings = {
       listen = "0.0.0.0:13831";
       psk = "this_is_fake";
@@ -323,7 +324,7 @@
   };
 
   services.suwayomi-server = {
-    enable = true;
+    enable = false;
     openFirewall = true;
 
     settings = {
@@ -339,13 +340,13 @@
   };
 
   services.komga = {
-    enable = true;
+    enable = false;
     settings.server.port = 4568;
     openFirewall = true;
   };
 
   services.msd-lite = {
-    enable = true;
+    enable = false;
     http.bind = [
       {
         address = "0.0.0.0:7088";
