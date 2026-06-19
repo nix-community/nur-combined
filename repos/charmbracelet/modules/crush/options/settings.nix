@@ -476,6 +476,12 @@ lib.mkOption {
                 description = "Whether this provider is disabled";
               };
 
+              discover_models = lib.mkOption {
+                type = lib.types.nullOr lib.types.bool;
+                default = true;
+                description = "Auto-discover models from /v1/models endpoint. When true with existing models they are merged (yours win)";
+              };
+
               extra_body = lib.mkOption {
                 type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
                 default = null;
