@@ -1,0 +1,14 @@
+{
+  "name": "pi-kagi",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "Pi extension exposing Kagi search and summarization via kagi-ken-cli",
+  "extensions": [
+    "index.js"
+  ],
+  "peerDependencies": {
+    "typebox": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}

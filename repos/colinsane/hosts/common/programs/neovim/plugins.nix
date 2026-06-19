@@ -340,6 +340,15 @@ in
     # trigger with `:GitMessenger` or `<Leader>gm` (i.e. `\gm`)
     plugin = vimPlugins.git-messenger-vim;
   }
+  # TODO: enable pi-nvim once i figure out sandboxing...
+  # i don't want to give all of neovim net access!
+  # {
+  #   # docs: <https://github.com/pablopunk/pi.nvim>
+  #   plugin = vimPlugins.pi-nvim;
+  #   config = ''
+  #     require("pi").setup()
+  #   '';
+  # }
   {
     # docs: tex-conceal-vim: https://github.com/KeitaNakamura/tex-conceal.vim/
     plugin = vimPlugins.tex-conceal-vim;

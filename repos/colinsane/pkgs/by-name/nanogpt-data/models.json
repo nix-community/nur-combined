@@ -5151,13 +5151,13 @@
     "id": "zai-org/glm-latest",
     "name": "GLM Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015,
-      "completion": 2.6,
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 3.3,
       "currency": "USD",
-      "prompt": 0.75,
+      "prompt": 1.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 200000,
+    "context_length": 1048576,
     "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
@@ -5179,6 +5179,48 @@
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "zai-org/glm-5.2",
+    "name": "GLM 5.2",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 3.3,
+      "currency": "USD",
+      "prompt": 1.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "zai-org/glm-5.2:thinking",
+    "name": "GLM 5.2 Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0002,
+      "completion": 3.3,
+      "currency": "USD",
+      "prompt": 1.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
     "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
@@ -8625,94 +8667,6 @@
     "architecture": {
       "input_modalities": [
         "text"
-      ]
-    }
-  },
-  {
-    "id": "xiaomi/mimo-v2-flash",
-    "name": "MiMo V2 Flash",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.102,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "xiaomi/mimo-v2-flash-thinking",
-    "name": "MiMo V2 Flash (Thinking)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.102,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "xiaomi/mimo-v2-flash-original",
-    "name": "MiMo V2 Flash Original",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.102,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
-    "id": "xiaomi/mimo-v2-flash-thinking-original",
-    "name": "MiMo V2 Flash (Thinking) Original",
-    "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.102,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 256000,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
       ]
     }
   },
@@ -12491,6 +12445,27 @@
     },
     "context_length": 202752,
     "max_output_tokens": 65535,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "TEE/glm-5.2",
+    "name": "GLM 5.2 TEE",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 4.6,
+      "currency": "USD",
+      "prompt": 1.4,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 131072,
     "capabilities": {
       "reasoning": true
     },

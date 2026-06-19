@@ -367,6 +367,7 @@ in
       "gst-device-monitor"  # for debugging audio/video
       "gst-launch"  # for debugging audio/video
       # "gthumb"
+      "kagi-epiphany"
       # "lemoa"  # lemmy app
       "libcamera"  # for `cam` binary (useful for debugging cameras)
       "libnotify"  # for notify-send; debugging

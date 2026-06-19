@@ -1,28 +1,30 @@
-From 54ca30a648f00cd92f059596f2004456d11e7de1 Mon Sep 17 00:00:00 2001
+From 21f2ae17067afc1abccbf02d9102387676b5b249 Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Sat, 6 Jun 2026 16:16:32 +0000
 Subject: [PATCH] HACK: fix
  pkgsCross.aarch64-multiplatform.signal-desktop.passthru.webrtc
 
+# Conflicts:
+#	pkgs/by-name/si/signal-desktop/package.nix
 ---
- pkgs/by-name/si/signal-desktop/package.nix | 52 ++++++++++++++++++++--
- pkgs/by-name/si/signal-desktop/webrtc.nix  | 15 +++++++
- 2 files changed, 63 insertions(+), 4 deletions(-)
+ pkgs/by-name/si/signal-desktop/package.nix | 59 ++++++++++++++++++++--
+ pkgs/by-name/si/signal-desktop/webrtc.nix  | 15 ++++++
+ 2 files changed, 70 insertions(+), 4 deletions(-)
 
 diff --git a/pkgs/by-name/si/signal-desktop/package.nix b/pkgs/by-name/si/signal-desktop/package.nix
-index d84055a39297..497bff52e47d 100644
+index 85db438a0183..785ee8d1d669 100644
 --- a/pkgs/by-name/si/signal-desktop/package.nix
 +++ b/pkgs/by-name/si/signal-desktop/package.nix
-@@ -10,6 +10,7 @@
+@@ -11,6 +11,7 @@
    python3,
    makeWrapper,
    callPackage,
 +  buildPackages,
    fetchFromGitHub,
-   fetchpatch,
    fetchurl,
+   jq,
 @@ -35,10 +36,17 @@ let
-   electron = electron_41;
+   electron = electron_42;
  
    libsignal-node = callPackage ./libsignal-node.nix { inherit nodejs; };
 +  libsignal-node-build = buildPackages.callPackage ./libsignal-node.nix { inherit nodejs; };
@@ -37,9 +39,9 @@ index d84055a39297..497bff52e47d 100644
 +  webrtc-build = buildPackages.callPackage ./webrtc.nix { };
 +  ringrtc-build = buildPackages.callPackage ./ringrtc.nix { webrtc = webrtc-build; };
  
-   version = "8.13.0";
+   version = "8.14.0";
  
-@@ -213,7 +221,12 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -205,7 +213,12 @@ stdenv.mkDerivation (finalAttrs: {
        die "ringrtc version mismatch"
      fi
  
@@ -53,7 +55,7 @@ index d84055a39297..497bff52e47d 100644
        node_modules/@signalapp/ringrtc/build/libringrtc.node
  
      substituteInPlace package.json \
-@@ -225,10 +238,20 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -217,10 +230,20 @@ stdenv.mkDerivation (finalAttrs: {
                       'exports.default = require(`../../build/libringrtc.node`);'
  
      rm -r node_modules/@signalapp/libsignal-client/prebuilds
@@ -76,11 +78,16 @@ index d84055a39297..497bff52e47d 100644
  
      # fs-xattr is required at runtime by preload.wrapper.js,
      # but with npmRebuild disabled its native binding is missing.
-@@ -248,7 +271,28 @@ stdenv.mkDerivation (finalAttrs: {
-     chmod -R u+w electron-dist
+@@ -236,9 +259,37 @@ stdenv.mkDerivation (finalAttrs: {
      cp -r ${sticker-creator} sticker-creator/dist
+   '';
  
--    pnpm run generate
+-  pnpmBuildScript = "generate";
++  dontPnpmBuild = true;
++
++  buildPhase = ''
++    runHook preBuild
++
 +    ${
 +      if stdenv.buildPlatform.canExecute stdenv.hostPlatform then
 +        "pnpm run generate"
@@ -92,6 +99,10 @@ index d84055a39297..497bff52e47d 100644
 +        ''
 +    }
 +
++    runHook postBuild
++  '';
+ 
+   postBuild = ''
 +    install -D ${ringrtc}/lib/libringrtc${stdenv.hostPlatform.extensions.library} \
 +      node_modules/@signalapp/ringrtc/build/libringrtc.node
 +
@@ -107,10 +118,10 @@ index d84055a39297..497bff52e47d 100644
        ${
          if stdenv.hostPlatform.isDarwin then "--mac" else "--linux"
 diff --git a/pkgs/by-name/si/signal-desktop/webrtc.nix b/pkgs/by-name/si/signal-desktop/webrtc.nix
-index 4bec7936bc87..45c1d5e3bacb 100644
+index 9f6465a4e84b..67a6c56abb67 100644
 --- a/pkgs/by-name/si/signal-desktop/webrtc.nix
 +++ b/pkgs/by-name/si/signal-desktop/webrtc.nix
-@@ -103,6 +103,15 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -129,6 +129,15 @@ stdenv.mkDerivation (finalAttrs: {
      substituteInPlace build/toolchain/linux/BUILD.gn \
        --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
  
@@ -126,7 +137,7 @@ index 4bec7936bc87..45c1d5e3bacb 100644
      substituteInPlace modules/audio_device/linux/pulseaudiosymboltable_linux.cc \
        --replace-fail "libpulse.so.0" "${pulseaudio}/lib/libpulse.so.0"
    ''
-@@ -129,6 +138,12 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -155,6 +164,12 @@ stdenv.mkDerivation (finalAttrs: {
      echo "generate_location_tags = true" >> build/config/gclient_args.gni
    '';
  

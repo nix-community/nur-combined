@@ -7,6 +7,9 @@ local config = wezterm.config_builder()
 
 config.font_size = 14 -- TODO: plumb the same way i do alacritty
 config.adjust_window_size_when_changing_font_size = false
+config.window_close_confirmation = 'NeverPrompt'
+config.alternate_buffer_wheel_scroll_speed = 1  -- reduce scroll speed in neovim. default is 3.
+config.selection_word_boundary = ",│`|:\"' ()[]{}<>\t\n‘’“”«»"
 -- <https://wezterm.org/config/lua/config/window_padding.html>
 config.window_padding = {
   left = 3,
@@ -237,5 +240,38 @@ config.keys = {
 --     { key = 'DownArrow', mods = 'NONE', action = act.CopyMode 'NextMatch' },
 --   },
 -- }
+
+-- when clicking a file:// hyperlink, cd into directories in the shell
+-- instead of opening them in the OS file manager.
+-- adapted from: <https://wezterm.org/recipes/hyperlinks.html#configuration>
+wezterm.on('open-uri', function(window, pane, uri)
+  if not uri:match('^file://') then
+    -- not a file:// URI -> let the default handler open it
+    return
+  end
+
+  -- don't inject commands when the terminal is in an alt screen (vim, less, etc.)
+  if pane:is_alt_screen_active() then
+    return
+  end
+
+  local url = wezterm.url.parse(uri)
+  local file_path = url.file_path
+  if not file_path then
+    return
+  end
+
+  local success, stdout = wezterm.run_child_process {
+    'file', '--brief', '--mime-type', file_path,
+  }
+
+  if success and stdout:match('^inode/directory') then
+    -- directory: cd into it and re-list via eza
+    pane:send_text('c ' .. wezterm.shell_join_args { file_path } .. '\r')
+    return false -- suppress default (OS file opener) behavior
+  end
+
+  -- not a directory; let the default handler take over
+end)
 
 return config

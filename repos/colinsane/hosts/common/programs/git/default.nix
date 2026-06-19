@@ -55,10 +55,9 @@ in
       alias.cp      = "cherry-pick";
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
-      # use `GIT_EXTERNAL_DIFF=difft git log --patch --ext-diff`
-      # alias.pdiff   = "difftool";
-      alias.plog    = "!git log --patch --ext-diff";  # TODO: also needs -c diff.external=difft ?
-      alias.pshow   = "!git show --ext-diff";  # TODO: also needs -c diff.external=difft ?
+      alias.pdiff   = "difftool";  # equivalent to `GIT_EXTERNAL_DIFF=difft git diff`
+      alias.plog    = "!GIT_EXTERNAL_DIFF=difft git log --patch --ext-diff";
+      alias.pshow   = "!GIT_EXTERNAL_DIFF=difft git show --ext-diff";
       alias.pul     = "pull";  # common typo
       alias.rb      = "rebase";
       alias.reset-head = "reset --hard HEAD";

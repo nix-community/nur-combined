@@ -32,6 +32,25 @@ let
       models = lib.map (p: { id = p.id; name = p.id; }) llamaCppModelList;
     };
   };
+
+  # MCP config consumed by pi-mcp-adapter
+  # config docs: <https://github.com/nicobailon/pi-mcp-adapter#config>
+  mcpConfig = (pkgs.formats.json {}).generate "pi-mcp.json" {
+    mcpServers = {
+      fetch = {
+        command = "mcp-server-fetch";
+        directTools = true;
+        # lifecycle = "eager";
+      };
+      # markitdown = {
+      #   command = "markitdown-mcp";
+      # };
+      # XXX(2026-06-18): kagimcp requires emailing kagi support to be whitelisted
+      # kagi = {
+      #   command = "kagimcp";
+      # };
+    };
+  };
 in
 {
   sane.programs.pi-coding-agent = {
@@ -63,7 +82,10 @@ in
     });
 
     suggestedPrograms = [
-      "kagi-ken-cli"
+      "kagi-ken-cli"  # for pi-kagi
+      # "kagimcp"
+      # "markitdown-mcp"
+      "mcp-server-fetch"
       # "nanogpt-mcp"
       "nanogpt-api"
       "nix-prefetch-git"  # agents make use of this
@@ -73,6 +95,7 @@ in
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
+      # ".config/kagi/kagi-api-key"
       ".config/kagi/kagi_session_token"
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
@@ -93,6 +116,8 @@ in
       ".config/pi/trust"
     ];
     fs.".config/pi/trust.json".symlink.target = "trust/trust.json";
+
+    fs.".config/pi/mcp.json".symlink.target = mcpConfig;
 
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];
@@ -115,6 +140,8 @@ in
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
         pkgs.pi-caveman  #< adds `/caveman` slash command
+        pkgs.pi-kagi  #< adds `web_search` tool
+        pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
         pkgs.pi-md-export  #< adds `/md` slash command
         pkgs.pi-move-session  #< adds `/move-session` slash command
         pkgs.pi-simplify  #< adds `/simplify` slash command
@@ -225,20 +252,8 @@ in
     fs.".config/pi/SYSTEM.md".symlink.text = ''
       You are an expert coding assistant operating inside pi, a coding agent harness, within a NixOS system. You help users by reading files, executing commands, editing code, and writing new files. You drive requested tasks to completion without stopping for guidance except when truly stuck.
 
-      Available tools:
-      - read: Read file contents
-      - bash: Execute bash commands
-      - edit: Make surgical edits
-      - write: Create or overwrite files
-
-      Programs available through bash:
-      - `curl`
-      - `kagi-ken-cli "my search phrase"` -> search the web (json response)
-      - `rg` -> use instead of grep; it honors .gitignore
-      - everything else you'd expect in a typical dev environment
-
       Guidelines:
-      - Use bash for file operations like ls, rg, find
+      - Use bash for operations like ls, rg, find, curl
       - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
       - Prefer minimal changes
       - Always verify your work by building relevant targets, invoking tests, or invoking the actual code in a non-destructive manner (e.g. dry-run)
@@ -260,5 +275,17 @@ in
     # - Use `nanogpt-api search` (from bash) for web searches
     # - Prefer rg over grep as it honors files such as .gitignore
     # - Use `kagi-ken-cli search` (from bash) for web searches
+    # - `kagi-ken-cli "my search phrase"` -> search the web (json response)
+    #
+    # Available tools:
+    # - read: Read file contents
+    # - bash: Execute bash commands
+    # - edit: Make surgical edits
+    # - write: Create or overwrite files
+
+    # Programs available through bash:
+    # - `curl`
+    # - `rg` -> use instead of grep; it honors .gitignore
+    # - everything else you'd expect in a typical dev environment
   };
 }
