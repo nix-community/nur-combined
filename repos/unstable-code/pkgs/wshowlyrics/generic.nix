@@ -41,9 +41,13 @@ stdenv.mkDerivation {
       --replace-fail '"/etc/"' '"'$out/etc/'"' \
       --replace-fail '"/usr/share/"' '"'$out/share/'"'
 
+    # lang_detect.c resolves the data dir from pkg-config (pkgdatadir) since
+    # the 2026-06 fix, so these patches are no-ops on newer revisions. Kept as
+    # --replace-warn (not --replace-fail) so the still-hardcoded stable tag
+    # keeps working while newer/unstable revisions build without erroring.
     substituteInPlace src/utils/lang_detect/lang_detect.c \
-      --replace-fail "/usr/share/libexttextcat/fpdb.conf" "${libexttextcat}/share/libexttextcat/fpdb.conf" \
-      --replace-fail "/usr/share/libexttextcat/" "${libexttextcat}/share/libexttextcat/"
+      --replace-warn "/usr/share/libexttextcat/fpdb.conf" "${libexttextcat}/share/libexttextcat/fpdb.conf" \
+      --replace-warn "/usr/share/libexttextcat/" "${libexttextcat}/share/libexttextcat/"
   '';
 
   nativeBuildInputs = [
