@@ -58,12 +58,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.2.2",
-            "sha256": "sha256-PBKNe43k8+F0rCeZc97gj284hWH7BdNuUET+1CUDzlI=",
+            "rev": "v0.2.3",
+            "sha256": "sha256-TIm2NED6pA3+Y1SKx6518gDuh4jSrzVIZAfqp1Y21aY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.2"
+        "version": "v0.2.3"
     },
     "fxz": {
         "cargoLock": null,
@@ -142,7 +142,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=/pubspec.lock"
+            "pubspec.lock": "sha256-WivvnT2Pq_SxUEZdcjsnEsJ+2B0c1lbTcmBh0HyI9K0=/pubspec.lock"
         },
         "name": "kikoflu",
         "passthru": null,
@@ -154,12 +154,12 @@
             "name": null,
             "owner": "pa-jesusf",
             "repo": "KikoFlu",
-            "rev": "v3.1.1",
-            "sha256": "sha256-I2i3NYv2TzqKvkDG8MFFefDcp8E4blxJ0M05wDKSj5Y=",
+            "rev": "v3.5.0",
+            "sha256": "sha256-WivvnT2Pq/SxUEZdcjsnEsJ+2B0c1lbTcmBh0HyI9K0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.1.1"
+        "version": "v3.5.0"
     },
     "krunner-fd-plugin": {
         "cargoLock": null,
@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-pFsExUfJIq639dAGU8uVQdtT1t0bay0U1zbdK2ll_YY=/src-tauri/Cargo.lock",
+                "sha256-PuaPDMP1rZRKhJhVb4jkxEiU7uWS0HofdE7yF_6cwUs=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.6-beta.4",
-            "sha256": "sha256-pFsExUfJIq639dAGU8uVQdtT1t0bay0U1zbdK2ll/YY=",
+            "rev": "v3.9.6-beta.5",
+            "sha256": "sha256-PuaPDMP1rZRKhJhVb4jkxEiU7uWS0HofdE7yF/6cwUs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.6-beta.4"
+        "version": "v3.9.6-beta.5"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-YoqEK83Z+l+7pJv0ISGt61ZprrrVcokEMzSA+Och8HA=/Cargo.lock",
+                "sha256-5vFOfBRkOi2nuxhiVmMvQuSsb76tm0pfC_UaL8WljaQ=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
             ]
         },
-        "date": "2026-06-17",
+        "date": "2026-06-19",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "69b6880565de83694b08c78fc0689ee1ffd06008",
-            "sha256": "sha256-YoqEK83Z+l+7pJv0ISGt61ZprrrVcokEMzSA+Och8HA=",
+            "rev": "79189e6e95b299fac3bf1ec086db3cfde5c0c074",
+            "sha256": "sha256-5vFOfBRkOi2nuxhiVmMvQuSsb76tm0pfC/UaL8WljaQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "69b6880565de83694b08c78fc0689ee1ffd06008"
+        "version": "79189e6e95b299fac3bf1ec086db3cfde5c0c074"
     },
     "svt-av1-essential": {
         "cargoLock": null,
