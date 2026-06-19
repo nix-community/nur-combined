@@ -4,8 +4,39 @@ lib.mkOption {
   type = lib.types.submodule {
     options = {
       hooks = lib.mkOption {
-        type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
-        default = null;
+        type = lib.types.attrsOf (
+          lib.types.listOf (
+            lib.types.submodule {
+              options = {
+                command = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                  description = "Shell command to execute when the hook fires";
+                };
+
+                matcher = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                  description = "Regex pattern tested against the tool name. Empty means match all tools.";
+                };
+
+                name = lib.mkOption {
+                  type = lib.types.nullOr lib.types.str;
+                  default = null;
+                  description = "Friendly display name shown in the TUI for this hook";
+                };
+
+                timeout = lib.mkOption {
+                  type = lib.types.nullOr lib.types.int;
+                  default = 30;
+                  description = "Timeout in seconds for the hook command";
+                };
+
+              };
+            }
+          )
+        );
+        default = { };
         description = "User-defined shell commands that fire on hook events (e.g. PreToolUse)";
       };
 
@@ -32,7 +63,7 @@ lib.mkOption {
               };
 
               env = lib.mkOption {
-                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.str);
                 default = null;
                 description = "Environment variables to set to the LSP server command";
               };
@@ -109,13 +140,13 @@ lib.mkOption {
               };
 
               env = lib.mkOption {
-                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.str);
                 default = null;
                 description = "Environment variables to set for the MCP server";
               };
 
               headers = lib.mkOption {
-                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.str);
                 default = null;
                 description = "HTTP headers for HTTP/SSE MCP servers";
               };
@@ -489,7 +520,7 @@ lib.mkOption {
               };
 
               extra_headers = lib.mkOption {
-                type = lib.types.nullOr (lib.types.attrsOf lib.types.anything);
+                type = lib.types.nullOr (lib.types.attrsOf lib.types.str);
                 default = null;
                 description = "Additional HTTP headers to send with requests";
               };

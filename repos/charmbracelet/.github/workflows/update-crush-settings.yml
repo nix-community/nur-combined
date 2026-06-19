@@ -32,7 +32,7 @@ jobs:
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --quiet modules/crush/options.nix; then
+          if git diff --quiet modules/crush/options/settings.nix; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT

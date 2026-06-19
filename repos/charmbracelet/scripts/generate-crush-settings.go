@@ -35,6 +35,7 @@ type Property struct {
 type OptionData struct {
 	Name        string
 	Type        string
+	TypeClose   string
 	Default     string
 	Description string
 	EnumValues  []string
@@ -102,7 +103,7 @@ lib.mkOption {
 {{template "option" .}}
 {{- end}}
 {{.Indent}}    };
-{{.Indent}}  });
+{{.Indent}}  }{{.TypeClose}};
 {{- end}}
 {{.Indent}}  default = {{if .Default}}{{.Default}}{{else}}{ }{{end}};
 {{.Indent}}  description = "{{.Description}}";
@@ -305,12 +306,19 @@ func nixType(jsonType string) string {
 	}
 }
 
-// tryNestedSubmodule checks if a property is a nested object with properties
-// and returns the corresponding Nix type along with the generated children.
-// Returns ok=true if the property was successfully resolved as a submodule.
-func tryNestedSubmodule(inner *Property, schema *Schema, indent, wrapperType string) (nixType string, children []OptionData, ok bool) {
+// tryNestedSubmodule resolves an inner property (the target of `items` or
+// `additionalProperties`) into a Nix wrapper type plus its children. It handles
+// two shapes:
+//
+//   - object-with-properties      -> <wrapper> (lib.types.submodule { ... })
+//   - array-of-object-properties  -> <wrapper> (lib.types.listOf (lib.types.submodule { ... }))
+//
+// close is the parenthesis suffix the template appends after the rendered
+// `{ options = {...}; }` block so the wrapper parens balance. Returns ok=true
+// only when the inner shape carries named properties worth modelling.
+func tryNestedSubmodule(inner *Property, schema *Schema, indent, wrapperType string) (nixType string, children []OptionData, close string, ok bool) {
 	if inner == nil {
-		return "", nil, false
+		return "", nil, "", false
 	}
 	if inner.Ref != "" {
 		inner = resolveRef(inner.Ref, schema)
@@ -318,9 +326,27 @@ func tryNestedSubmodule(inner *Property, schema *Schema, indent, wrapperType str
 	if inner.Type == "object" && len(inner.Properties) > 0 {
 		return wrapperType + " (lib.types.submodule",
 			generateOptions(inner.Properties, schema, indent+"      "),
+			")",
 			true
 	}
-	return "", nil, false
+	if inner.Type == "array" && inner.Items != nil {
+		if elem := resolveProperty(inner.Items, schema); elem.Type == "object" && len(elem.Properties) > 0 {
+			return wrapperType + " (lib.types.listOf (lib.types.submodule",
+				generateOptions(elem.Properties, schema, indent+"      "),
+				"))",
+				true
+		}
+	}
+	return "", nil, "", false
+}
+
+// resolveProperty follows a single $ref so callers can inspect the concrete
+// shape. Non-ref properties pass through unchanged.
+func resolveProperty(p *Property, schema *Schema) *Property {
+	if p != nil && p.Ref != "" {
+		return resolveRef(p.Ref, schema)
+	}
+	return p
 }
 
 func generateOptions(props map[string]*Property, schema *Schema, indent string) []OptionData {
@@ -392,8 +418,9 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 
 		// Arrays of objects
 		if prop.Type == "array" && prop.Items != nil {
-			if nixType, children, ok := tryNestedSubmodule(prop.Items, schema, indent, "lib.types.listOf"); ok {
+			if nixType, children, close, ok := tryNestedSubmodule(prop.Items, schema, indent, "lib.types.listOf"); ok {
 				opt.Type = nixType
+				opt.TypeClose = close
 				opt.Children = children
 				if defaultVal != nil {
 					opt.Default = "[ ]"
@@ -410,10 +437,11 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 			continue
 		}
 
-		// AdditionalProperties (attrs of objects)
+		// AdditionalProperties (attrs keyed by an arbitrary name)
 		if prop.Type == "object" && prop.AdditionalProperties != nil {
-			if nixType, children, ok := tryNestedSubmodule(prop.AdditionalProperties, schema, indent, "lib.types.attrsOf"); ok {
+			if nixType, children, close, ok := tryNestedSubmodule(prop.AdditionalProperties, schema, indent, "lib.types.attrsOf"); ok {
 				opt.Type = nixType
+				opt.TypeClose = close
 				opt.Children = children
 				if defaultVal != nil {
 					opt.Default = "{ }"
@@ -422,7 +450,10 @@ func generateOptions(props map[string]*Property, schema *Schema, indent string) 
 				continue
 			}
 
-			opt.Type = "(lib.types.attrsOf lib.types.anything)"
+			// Scalar-valued maps (e.g. env: { additionalProperties: { type: "string" } })
+			// keep their element type instead of collapsing to `anything`.
+			inner := resolveProperty(prop.AdditionalProperties, schema)
+			opt.Type = fmt.Sprintf("(lib.types.attrsOf %s)", nixType(inner.Type))
 			if defaultVal != nil {
 				opt.Default = "{ }"
 			}
