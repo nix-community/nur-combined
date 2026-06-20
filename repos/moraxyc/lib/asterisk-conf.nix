@@ -5,8 +5,10 @@ let
     concatStringsSep
     optional
     optionalString
+    boolToYesNo
     mapAttrsToList
     elem
+    concatMap
     ;
 
   die = msg: throw "asterisk-conf generator: ${msg}";
@@ -26,9 +28,9 @@ let
     if v == null then
       null
     else if builtins.isBool v then
-      (if v then "yes" else "no")
+      boolToYesNo v
     else if builtins.isList v then
-      concatStringsSep "," (map renderValue v)
+      concatStringsSep "," (builtins.filter (x: x != null) (map renderValue v))
     else
       noNL "value" v;
 
@@ -82,34 +84,103 @@ let
       else
         die "unknown entry type: ${type}";
 
-  renderEntries = entries: lib.concatMap renderEntry entries;
+  attrsToEntries =
+    attrs:
+    mapAttrsToList (key: value: {
+      type = "kv";
+      sep = "=";
+      inherit key value;
+    }) attrs;
 
-  headerOptions =
-    section:
-    if section ? options then
-      section.options
+  normalizeEntries =
+    what: x:
+    if x == null then
+      [ ]
+    else if builtins.isList x then
+      x
+    else if builtins.isAttrs x then
+      attrsToEntries x
     else
-      optional (section.template or false) "!"
-      ++ (section.inherits or [ ])
-      ++ optional (section.append or false) "+";
+      die "${what} must be a list or attrset";
 
-  renderSection =
+  renderEntries = entries: concatMap renderEntry entries;
+
+  reservedSectionKeys = [
+    "_options"
+    "_template"
+    "_inherits"
+    "_append"
+    "_entries"
+    "_pre"
+    "_post"
+  ];
+
+  sectionOptions =
+    section:
+    if section ? _options then
+      section._options
+    else
+      optional (section._template or false) "!"
+      ++ (section._inherits or [ ])
+      ++ optional (section._append or false) "+";
+
+  sectionEntries =
     section:
     let
-      name = noNL "section name" section.name;
-      opts = headerOptions section;
+      directAttrs = removeAttrs section reservedSectionKeys;
+
+      pre = normalizeEntries "_pre" (section._pre or [ ]);
+      direct = attrsToEntries directAttrs;
+      extra = normalizeEntries "_entries" (section._entries or [ ]);
+      post = normalizeEntries "_post" (section._post or [ ]);
+    in
+    pre ++ direct ++ extra ++ post;
+
+  renderNamedSection =
+    name: section:
+    let
+      sectionName = noNL "section name" name;
+      opts = sectionOptions section;
       renderedOpts = optionalString (
         opts != [ ]
       ) "(${concatStringsSep "," (map (noNL "section option") opts)})";
-      entries = renderEntries (section.entries or [ ]);
+      entries = renderEntries (sectionEntries section);
     in
-    concatStringsSep "\n" ([ "[${name}]${renderedOpts}" ] ++ entries);
+    concatStringsSep "\n" ([ "[${sectionName}]${renderedOpts}" ] ++ entries);
+
+  renderOldSection =
+    section:
+    let
+      opts =
+        if section ? options then
+          section.options
+        else
+          optional (section.template or false) "!"
+          ++ (section.inherits or [ ])
+          ++ optional (section.append or false) "+";
+    in
+    renderNamedSection section.name {
+      _options = opts;
+      _entries = section.entries or [ ];
+    };
+
+  renderSections =
+    sections:
+    if sections == null then
+      [ ]
+    else if builtins.isList sections then
+      map renderOldSection sections
+    else if builtins.isAttrs sections then
+      mapAttrsToList renderNamedSection sections
+    else
+      die "`sections` must be a list or attrset";
 
   render =
     cfg:
     let
-      top = renderEntries (cfg.body or [ ]);
-      sections = map renderSection (cfg.sections or [ ]);
+      top = renderEntries (normalizeEntries "body" (cfg.body or [ ]));
+      sections = renderSections (cfg.sections or { });
+
       blocks = optional (top != [ ]) (concatStringsSep "\n" top) ++ sections;
     in
     concatStringsSep "\n\n" blocks + "\n";
@@ -159,29 +230,40 @@ in
     value = command;
   };
 
+  # attrset-style helpers
+  template =
+    entries:
+    if builtins.isAttrs entries then
+      entries // { _template = true; }
+    else
+      {
+        _template = true;
+        _entries = entries;
+      };
+
+  use =
+    inherits: entries:
+    if builtins.isAttrs entries then
+      entries // { _inherits = inherits; }
+    else
+      {
+        _inherits = inherits;
+        _entries = entries;
+      };
+
+  append =
+    entries:
+    if builtins.isAttrs entries then
+      entries // { _append = true; }
+    else
+      {
+        _append = true;
+        _entries = entries;
+      };
+
+  attrs = attrsToEntries;
+
   section = name: entries: {
-    inherit name entries;
+    ${name} = if builtins.isAttrs entries then entries else { _entries = entries; };
   };
-
-  template = name: entries: {
-    inherit name entries;
-    template = true;
-  };
-
-  use = name: inherits: entries: {
-    inherit name inherits entries;
-  };
-
-  append = name: entries: {
-    inherit name entries;
-    append = true;
-  };
-
-  attrs =
-    attrs:
-    mapAttrsToList (key: value: {
-      type = "kv";
-      sep = "=";
-      inherit key value;
-    }) attrs;
 }
