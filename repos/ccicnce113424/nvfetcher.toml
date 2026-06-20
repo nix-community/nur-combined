@@ -16,7 +16,7 @@ src.prefix = "DXVK-GPLALL-"
 
 [enimul]
 fetch.github = "lzpls/enimul"
-src.github = "lzpls/enimul"
+src.github_tag = "lzpls/enimul"
 
 [fxz]
 fetch.github = "conor42/fxz"
