@@ -48,9 +48,9 @@ on-unmatched = "debug"
 
 [formatter.nix]
 # Command to execute
-command = "nix"
+command = "nixfmt"
 # Command-line arguments for the command
-options = ["fmt"]
+options = []
 # Glob pattern of files to include
 includes = ["*.nix"]
 # Glob patterns of files to exclude
