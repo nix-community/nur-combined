@@ -32,13 +32,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.2.3";
+    version = "v0.3.0-alpha.4";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.2.3";
+      rev = "v0.3.0-alpha.4";
       fetchSubmodules = false;
-      sha256 = "sha256-TIm2NED6pA3+Y1SKx6518gDuh4jSrzVIZAfqp1Y21aY=";
+      sha256 = "sha256-6NAXRK/HfFd+Kv2JZPZfPER6frpmJHe0PPp4Dz91ypE=";
     };
   };
   fxz = {
@@ -192,16 +192,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.6-beta.5";
+    version = "v3.9.6-beta.6";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.6-beta.5";
+      rev = "v3.9.6-beta.6";
       fetchSubmodules = false;
-      sha256 = "sha256-PuaPDMP1rZRKhJhVb4jkxEiU7uWS0HofdE7yF/6cwUs=";
+      sha256 = "sha256-vvnTOjNSTBgBdTjlJ9+CT1quXGbT8OFHOrAMD5vud6U=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-PuaPDMP1rZRKhJhVb4jkxEiU7uWS0HofdE7yF_6cwUs=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-vvnTOjNSTBgBdTjlJ9+CT1quXGbT8OFHOrAMD5vud6U=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -249,17 +249,17 @@
   };
   pixes-git = {
     pname = "pixes-git";
-    version = "59542156f332af1af89fa45ea239a58fa69fda17";
+    version = "4d84f6799fcb1c0217a1f3f23aed747e45eea26d";
     src = fetchFromGitHub {
       owner = "pixes-app";
       repo = "pixes";
-      rev = "59542156f332af1af89fa45ea239a58fa69fda17";
+      rev = "4d84f6799fcb1c0217a1f3f23aed747e45eea26d";
       fetchSubmodules = false;
-      sha256 = "sha256-ywVI7ewu61xUvNGd7gTFr3mBFV1/+EayAJL+puld3vU=";
+      sha256 = "sha256-r1znPs+SO8OHA71xgpgxWmpBlVPxNfJqPeFW/gP6Md4=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-ywVI7ewu61xUvNGd7gTFr3mBFV1_+EayAJL+puld3vU=/pubspec.lock";
-    };date = "2026-06-12";
+      "pubspec.lock" = ./. + "/sha256-r1znPs+SO8OHA71xgpgxWmpBlVPxNfJqPeFW_gP6Md4=/pubspec.lock";
+    };date = "2026-06-20";
   };
   pwasio = {
     pname = "pwasio";

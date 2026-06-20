@@ -58,12 +58,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.2.3",
-            "sha256": "sha256-TIm2NED6pA3+Y1SKx6518gDuh4jSrzVIZAfqp1Y21aY=",
+            "rev": "v0.3.0-alpha.4",
+            "sha256": "sha256-6NAXRK/HfFd+Kv2JZPZfPER6frpmJHe0PPp4Dz91ypE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.3"
+        "version": "v0.3.0-alpha.4"
     },
     "fxz": {
         "cargoLock": null,
@@ -308,7 +308,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-PuaPDMP1rZRKhJhVb4jkxEiU7uWS0HofdE7yF_6cwUs=/src-tauri/Cargo.lock",
+                "sha256-vvnTOjNSTBgBdTjlJ9+CT1quXGbT8OFHOrAMD5vud6U=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -324,12 +324,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.6-beta.5",
-            "sha256": "sha256-PuaPDMP1rZRKhJhVb4jkxEiU7uWS0HofdE7yF/6cwUs=",
+            "rev": "v3.9.6-beta.6",
+            "sha256": "sha256-vvnTOjNSTBgBdTjlJ9+CT1quXGbT8OFHOrAMD5vud6U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.6-beta.5"
+        "version": "v3.9.6-beta.6"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,
@@ -400,9 +400,9 @@
     },
     "pixes-git": {
         "cargoLock": null,
-        "date": "2026-06-12",
+        "date": "2026-06-20",
         "extract": {
-            "pubspec.lock": "sha256-ywVI7ewu61xUvNGd7gTFr3mBFV1_+EayAJL+puld3vU=/pubspec.lock"
+            "pubspec.lock": "sha256-r1znPs+SO8OHA71xgpgxWmpBlVPxNfJqPeFW_gP6Md4=/pubspec.lock"
         },
         "name": "pixes-git",
         "passthru": null,
@@ -414,12 +414,12 @@
             "name": null,
             "owner": "pixes-app",
             "repo": "pixes",
-            "rev": "59542156f332af1af89fa45ea239a58fa69fda17",
-            "sha256": "sha256-ywVI7ewu61xUvNGd7gTFr3mBFV1/+EayAJL+puld3vU=",
+            "rev": "4d84f6799fcb1c0217a1f3f23aed747e45eea26d",
+            "sha256": "sha256-r1znPs+SO8OHA71xgpgxWmpBlVPxNfJqPeFW/gP6Md4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "59542156f332af1af89fa45ea239a58fa69fda17"
+        "version": "4d84f6799fcb1c0217a1f3f23aed747e45eea26d"
     },
     "pwasio": {
         "cargoLock": null,
