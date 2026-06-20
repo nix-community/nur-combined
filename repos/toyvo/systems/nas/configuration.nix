@@ -221,12 +221,6 @@ in
         host  authentik  authentik  10.200.0.0/16  scram-sha-256
       '';
     };
-    # Set authentik user password from sops secret at activation time
-    systemd.services.postgresql.postStart = ''
-      $PSQL -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
-        config.sops.secrets."authentik-db-password".path
-      })';"
-    '';
     protonmail-bridge.enable = true;
     samba.enable = true;
     spice-vdagentd.enable = true;
@@ -245,6 +239,14 @@ in
       };
     };
   };
+
+  # Set authentik user password from sops secret at activation time
+  systemd.services.postgresql.postStart = ''
+    ${pkgs.postgresql_16}/bin/psql -tAc "ALTER ROLE authentik PASSWORD '$(cat ${
+      config.sops.secrets."authentik-db-password".path
+    })';"
+  '';
+
   catppuccin = {
     enable = true;
     autoEnable = true;
@@ -507,7 +509,10 @@ in
   sops.secrets."grafana-secret-key".mode = "0444";
   sops.secrets."authentik-secret-key".mode = "0444";
   sops.secrets."authentik-bootstrap-password".mode = "0444";
-  sops.secrets."authentik-db-password".mode = "0444";
+  sops.secrets."authentik-db-password" = {
+    owner = "postgres";
+    mode = "0444";
+  };
   # The ProtonVPN private key is decrypted here on the host by sops-nix so that
   # it can be bind-mounted read-only into the starr container, where the WireGuard
   # interface and network namespace are actually configured.
