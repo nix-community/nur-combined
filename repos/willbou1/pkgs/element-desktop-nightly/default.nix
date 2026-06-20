@@ -1,12 +1,11 @@
 { stdenv, fetchurl, dpkg, lib, makeWrapper, symlinkJoin,
-alsa-lib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome, gnome-keyring, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook3, xdg-utils, xorg, at-spi2-atk, libuuid, at-spi2-core, libgbm }:
-
+alsa-lib, atk, cairo, cups, curl, dbus, expat, fontconfig, freetype, gdk-pixbuf, glib, glibc, gnome2, gnome-keyring, gtk3, libappindicator-gtk3, libdrm, libGL, libnotify, libpulseaudio, libsecret, libv4l, libxkbcommon, mesa, nspr, nss, pango, sqlcipher, systemd, wrapGAppsHook3, xdg-utils, at-spi2-atk, libuuid, at-spi2-core, libgbm, libxkbfile, libx11, libxcomposite, libxcursor, libxdamage, libxext, libxfixes, libxi, libxrandr, libxrender, libxtst, libxscrnsaver, libxcb }:
 ################################################################################
 # Based on element-desktop-nightly package from AUR:
 # https://aur.archlinux.org/packages/element-desktop-nightly-bin
 ################################################################################
 let
-    version = "2026010401";
+    version = "2026060501";
 
     rpath = lib.makeLibraryPath [
         alsa-lib
@@ -48,30 +47,30 @@ let
         xdg-utils
 
         libxkbcommon
-        xorg.libxkbfile
-        xorg.libX11
-        xorg.libXcomposite
-        xorg.libXcursor
-        xorg.libXdamage
-        xorg.libXext
-        xorg.libXfixes
-        xorg.libXi
-        xorg.libXrandr
-        xorg.libXrender
-        xorg.libXtst
-        xorg.libXScrnSaver
-        xorg.libxcb
+        libxkbfile
+        libx11
+        libxcomposite
+        libxcursor
+        libxdamage
+        libxext
+        libxfixes
+        libxi
+        libxrandr
+        libxrender
+        libxtst
+        libxscrnsaver
+        libxcb
     ] + ":${stdenv.cc.cc.lib}/lib64";
 
     src = if stdenv.hostPlatform.system == "x86_64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_amd64.deb";
-           sha256 = "1791af10e1a9a7ea2b9b8456c39a89e52be010118e776e17e7ee5e05d3e252bc"; 
+           sha256 = "2fa39a94043fd1131cceddbb93eb9a8119b1d333e138d9b9e14c80902b41d021"; 
         }
     else if stdenv.hostPlatform.system == "aarch64-linux" then
         fetchurl {
             url = "https://packages.element.io/debian/pool/main/e/element-nightly/element-nightly_${version}_arm64.deb";
-           sha256 = "3e31f7bbebc690151665a9b1baf6e3f9f5940077d7f2cfdb6e20433ac59c4250"; 
+           sha256 = "b5f15bed7f4b506a4e83b56e951cf9b16ab8897d41a0dae5d15c7ac5e13259cd"; 
         }
     else
         throw "element-desktop-nightly is not supported on ${stdenv.hostPlatform.system}";
