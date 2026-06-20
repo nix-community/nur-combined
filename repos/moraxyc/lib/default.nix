@@ -1,8 +1,3 @@
-{ pkgs }:
-
-with pkgs.lib;
-{
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
+lib: {
+  asterisk-conf = import ./asterisk-conf.nix lib;
 }
