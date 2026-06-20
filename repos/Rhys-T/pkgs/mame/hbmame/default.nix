@@ -3,7 +3,7 @@
     writeShellScript,
     common-updater-scripts,
     coreutils,
-    curl,
+    gitMinimal,
     jq,
     nix-prefetch-git,
     maintainers,
@@ -90,21 +90,21 @@
             updateScript = writeShellScript "update-hbmame" ''
                 PATH=${lib.makeBinPath [
                     common-updater-scripts
-                    curl
+                    gitMinimal
                     jq
                 ]}
                 set -euo pipefail
                 latestVersion="$(
-                    curl ''${GITHUB_TOKEN:+-H "Authorization: bearer $GITHUB_TOKEN"} https://api.github.com/repos/${src.owner}/${src.repo}/tags | \
-                    jq -r '
+                    git ls-remote -t --refs https://github.com/Robbbert/hbmame | \
+                    jq -Rrn '
                         [
-                            .[].name |
-                            match("tag(?<minor>[0-9]{3})(?<patch>[0-9]*)") |
-                            .captures |
-                            .[] |= {key: .name, value: .string} |
-                            from_entries |
-                            "0." + .minor + (if .patch == "" then "" else "."+.patch end)
-                        ][0]
+                            inputs |
+                            match("tag(?<minor>[0-9]{3})(?<patch>[0-9]*)$")
+                        ] | max_by(.string) |
+                        .captures |
+                        .[] |= {key: .name, value: .string} |
+                        from_entries |
+                        "0." + .minor + (if .patch == "" then "" else "."+.patch end)
                     '
                 )"
                 update-source-version ''${UPDATE_NIX_ATTR_PATH:-hbmame} "$latestVersion"
