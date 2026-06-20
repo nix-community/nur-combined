@@ -14,12 +14,12 @@
     } else mame;
     hbmame' = mame'.overrideAttrs (old: rec {
         pname = "hbmame";
-        version = "0.245.32";
+        version = "0.288";
         src = fetchFromGitHub {
             owner = "Robbbert";
             repo = "hbmame";
             tag = "tag${builtins.replaceStrings [ "." ] [ "" ] (lib.removePrefix "0." version)}";
-            hash = "sha256-gu6tT4rWPr2GgTnaK6BHN/Lxw33mQpJa/aNapPg6xl8=";
+            hash = "sha256-v4s9VAdBTBhstaB2R4QwIRlpweYXwIb+M8nHqhEqRGY=";
             forceFetchGit = true; # Avoids unstable hash issues - see:
             # https://github.com/NixOS/nixpkgs/issues/84312
             # https://github.com/NixOS/nixpkgs/issues/259488
@@ -41,9 +41,6 @@
         outputs = lib.lists.remove "tools" (old.outputs or ["out"]);
         patches = lib.pipe old.patches [
             (builtins.filter (patch: !(lib.hasSuffix "13890.patch" (""+patch))))
-            (map (patch: if lib.hasInfix "001-use-absolute-paths" (""+patch) then
-                ./patches/001-use-absolute-paths.diff
-            else patch))
         ];
         postPatch = builtins.replaceStrings [''
             substituteInPlace src/emu/emuopts.cpp \
