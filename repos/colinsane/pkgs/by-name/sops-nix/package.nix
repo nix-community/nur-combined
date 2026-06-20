@@ -4,12 +4,12 @@
   nix-update-script,
 }:
 let
-  version = "assets-unstable-2026-06-04";
+  version = "assets-unstable-2026-06-20";
   src = fetchFromGitHub {
     owner = "Mic92";
     repo = "sops-nix";
-    rev = "9ed65852b6257fbeae4355bc24ecfea307ca759a";
-    hash = "sha256-Gq8KNx5A7hBB3uGJaj6eQfLDIz5YdLu92gqBcvHvoUo=";
+    rev = "420f8d2e9882911f65cfac15cc706f639ba96cca";
+    hash = "sha256-NFHmA7H47adqiyp+0iEOyZOQhmigDqA/NBAlf4imB6U=";
   };
   flake = flake-inputs.import-flake {
     inherit src;
