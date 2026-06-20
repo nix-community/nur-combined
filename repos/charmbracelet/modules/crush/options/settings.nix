@@ -721,10 +721,18 @@ lib.mkOption {
                   lib.types.enum [
                     "openai"
                     "openai-compat"
+                    "openrouter"
+                    "vercel"
                     "anthropic"
-                    "gemini"
+                    "google"
                     "azure"
-                    "vertexai"
+                    "bedrock"
+                    "google-vertex"
+                    "hyper"
+                    "litellm"
+                    "lmstudio"
+                    "ollama"
+                    "omlx"
                   ]
                 );
                 default = "openai";
