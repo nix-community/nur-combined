@@ -85,6 +85,7 @@
         port = 5000;
         subdomain = "cache";
         domain = "toyvo.dev";
+        protected = false;
         displayName = "Nix Cache";
         description = "Binary Cache";
         category = "Nas";
@@ -216,6 +217,17 @@
         category = "Monitoring";
         icon = "sh-grafana";
       };
+    };
+  };
+  authentik = {
+    ip = "10.200.0.16";
+    services.authentik = {
+      port = 9000;
+      subdomain = "auth";
+      displayName = "Authentik";
+      description = "Identity Provider";
+      category = "Infrastructure";
+      icon = "si:authentik";
     };
   };
   starr = {

@@ -353,6 +353,13 @@ in
         };
       };
     };
+    authentik = {
+      enable = true;
+      natInterface = "eno1";
+      db.passwordFile = config.sops.secrets."authentik-db-password".path;
+      secretKeyFile = config.sops.secrets."authentik-secret-key".path;
+      bootstrapPasswordFile = config.sops.secrets."authentik-bootstrap-password".path;
+    };
   };
   # Relay the bridge's localhost-only SMTP port to the nextcloud container's veth address.
   # The bridge listens on 127.0.0.1:1025; socat forwards connections from the container.
@@ -491,6 +498,9 @@ in
   sops.secrets."protonmail-bridge-smtp-password".mode = "0444";
   sops.secrets."grafana-admin-password".mode = "0444";
   sops.secrets."grafana-secret-key".mode = "0444";
+  sops.secrets."authentik-secret-key".mode = "0444";
+  sops.secrets."authentik-bootstrap-password".mode = "0444";
+  sops.secrets."authentik-db-password".mode = "0444";
   # The ProtonVPN private key is decrypted here on the host by sops-nix so that
   # it can be bind-mounted read-only into the starr container, where the WireGuard
   # interface and network namespace are actually configured.
@@ -577,6 +587,14 @@ in
     ];
     "/mnt/POOL/open-webui" = with config.ids.uids; [
       open-webui
+      toyvo
+    ];
+    "/mnt/POOL/authentik" = with config.ids.uids; [
+      authentik
+      toyvo
+    ];
+    "/mnt/POOL/authentik-redis" = with config.ids.uids; [
+      authentik
       toyvo
     ];
   };

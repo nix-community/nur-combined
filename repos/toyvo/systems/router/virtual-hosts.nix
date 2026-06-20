@@ -26,6 +26,7 @@
                 domain ? "diekvoss.net",
                 selfSigned ? false,
                 public ? domain != "diekvoss.net",
+                protected ? true,
                 ...
               }:
               {
@@ -45,20 +46,33 @@
                         homelab.router.ip
                       ];
                   extraConfig =
-                    if selfSigned then
-                      ''
-                        header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-                        reverse_proxy https://${ip}:${toString port} {
-                          transport http {
-                            tls_insecure_skip_verify
-                          }
+                    let
+                      forwardAuthBlock = lib.optionalString (protected && !selfSigned) ''
+                        forward_auth http://${homelab.router.ip}:9000 {
+                          uri /outpost.goauthentik.io/auth/caddy
+                          copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Jwt X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Session-Issuer
                         }
-                      ''
-                    else
-                      ''
-                        header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-                        reverse_proxy http://${ip}:${toString port}
                       '';
+                    in
+                    forwardAuthBlock
+                    + (
+                      if selfSigned then
+                        ''
+                          header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+                          header_down -Server
+                          reverse_proxy https://${ip}:${toString port} {
+                            transport http {
+                              tls_insecure_skip_verify
+                            }
+                          }
+                        ''
+                      else
+                        ''
+                          header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
+                          header_down -Server
+                          reverse_proxy http://${ip}:${toString port}
+                        ''
+                    );
                 };
               }
             ) services)

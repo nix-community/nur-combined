@@ -2,6 +2,7 @@
 {
   imports = [
     ../os
+    ./containers/authentik.nix
     ./containers/home-assistant.nix
     ./containers/immich.nix
     ./containers/jellyfin.nix
