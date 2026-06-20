@@ -232,12 +232,12 @@
             "name": null,
             "owner": "looplj",
             "repo": "axonhub",
-            "rev": "v1.0.0-beta3",
-            "sha256": "sha256-YfSsukQo9j5AcR87k9bjHoX85ySl9G0lUdZ18ib4xhA=",
+            "rev": "v1.0.0-beta4",
+            "sha256": "sha256-slx8GopUu5B65yu6FxZ09rh5OUqBKFhM8XBI+b5Kxyg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.0-beta3"
+        "version": "v1.0.0-beta4"
     },
     "baidunetdisk": {
         "cargoLock": null,
@@ -634,12 +634,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.21",
-            "sha256": "sha256-RdP7D+yswLKtJkjZEHO23XAI/BrwQwYQ0wrrI9zKPNI=",
+            "rev": "v7.2.22",
+            "sha256": "sha256-iabSRs+qIsnz1r/rg3AnD8pqnzDwyKdFvpfKWyZ0+DU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.21"
+        "version": "v7.2.22"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1666,7 +1666,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-06-19",
+        "date": "2026-06-21",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1678,12 +1678,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "a83e1d9c381154480a958e655093cfc1cf86fa10",
-            "sha256": "sha256-uaGqxQ4cBvtjav3vTG0sz4i/J03RqbX/bDuVymLR5Rc=",
+            "rev": "ce7788c104c94d5e6d7057e8f2ce45ddf3af5968",
+            "sha256": "sha256-jMuGYLRmWTbT7tEhxDEqGPyGvc7Ga6ZxKmohJNzmHjo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a83e1d9c381154480a958e655093cfc1cf86fa10"
+        "version": "ce7788c104c94d5e6d7057e8f2ce45ddf3af5968"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2559,12 +2559,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9730",
-            "sha256": "sha256-NjlhnC2MxWDOal86kKSHu4mfoKYRSpW+sP/cn+s+Kg0=",
+            "rev": "b9741",
+            "sha256": "sha256-GWzwJDi1wjPc1YgZGzim4oIAbEDKa2aU8zK+qiKyR/w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9730"
+        "version": "b9741"
     },
     "loralib": {
         "cargoLock": null,
@@ -2877,12 +2877,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v1.0.0-rc.13",
-            "sha256": "sha256-DfBFPMlwPBUIO0X1F8YMCbrEw/LOnZ/TgJTdbycScF4=",
+            "rev": "v1.0.0-rc.14",
+            "sha256": "sha256-e0hcZfV456bLG5VS2Emyia59o/o+t4WCV5RsenGh3Uw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.0-rc.13"
+        "version": "v1.0.0-rc.14"
     },
     "nft-fullcone": {
         "cargoLock": null,
@@ -4088,7 +4088,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-20",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -4100,12 +4100,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "4e3e23212dbd5d5ee5fb87fccb35b48072a7ad13",
-            "sha256": "sha256-PKGdD/E+Pi4eiD26MwHG8aFS+u7OlmR2B8YEyoEW11I=",
+            "rev": "3ec476e9ca7f236d405481b6db6bb613754bc72d",
+            "sha256": "sha256-YftR6KfbWZ4zpXLvO7V4Mo6GXeSJzTRioPf1sUxm6Lk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4e3e23212dbd5d5ee5fb87fccb35b48072a7ad13"
+        "version": "3ec476e9ca7f236d405481b6db6bb613754bc72d"
     },
     "rime-moegirl": {
         "cargoLock": null,
@@ -4697,7 +4697,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-20",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4709,12 +4709,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "4d3a515c8136a55e196c285bde79a4419f967dcc",
-            "sha256": "sha256-1Wzkw0neA8S7kOlL8ZdGfB4WZcRHuMO/A2t5TdXGtyI=",
+            "rev": "01ef98fa3836bc8af49d33b9cc3dcc3ebf549d3e",
+            "sha256": "sha256-x3LsXXYoRirGDsSKwCbihlks0iMtuZiuKOOalVgoKsM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "4d3a515c8136a55e196c285bde79a4419f967dcc"
+        "version": "01ef98fa3836bc8af49d33b9cc3dcc3ebf549d3e"
     },
     "unigine-heaven": {
         "cargoLock": null,
