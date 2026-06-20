@@ -14,13 +14,12 @@
           buildInputs = [ pkgs.nodejs ];
           env = {
             NPM_CONFIG_CACHE = "/tmp";
-            NPM_CONFIG_PREFIX = placeholder "out";
           };
         }
         // args
       )
       ''
-        npm install --global $pname@$version
-        patchShebangs $out
+        npm install --global --prefix "$out" $pname@$version
+        patchShebangs "$out"
       '';
 }

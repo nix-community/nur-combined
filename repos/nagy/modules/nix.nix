@@ -10,7 +10,7 @@
 
   config = {
     environment.systemPackages = [
-      pkgs.nixfmt
+      pkgs.nixfmt-rs
       pkgs.nil
 
       pkgs.nix-prefetch
@@ -38,8 +38,6 @@
           "flakes"
           "recursive-nix"
           "impure-derivations"
-          "ca-derivations"
-          # "pipe-operators"
         ];
         sandbox = true;
         auto-optimise-store = true;

@@ -1,4 +1,4 @@
-{ lib, ... }:
+# { lib, ... }:
 
 {
 
@@ -15,7 +15,7 @@
     };
   };
 
-  networking.firewall.trustedInterfaces = lib.mkAfter [ "docker0" ];
+  # networking.firewall.trustedInterfaces = lib.mkAfter [ "docker0" ];
 
   users.users.user = {
     extraGroups = [ "docker" ];

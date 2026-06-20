@@ -7,8 +7,8 @@ rec {
   cargoCratesIoRegistryGit = pkgs.fetchFromGitHub {
     owner = "rust-lang";
     repo = "crates.io-index";
-    rev = "1e74387f63c971c67e10747362e765e8c5517837";
-    hash = "sha256-maHZl2oEf7HAIOoU2jgZu4WMHGSkyOf5qDo1PX6Bj14=";
+    rev = "779d0dd221a29d6403e64d24100713f86914ab94";
+    hash = "sha256-swskTT0M4MBZhHLzzVCKpykpDYBRdNYIqD9H8oiSm2U=";
   };
 
   cargoConfigWithLocalRegistry = pkgs.linkFarm "cargo-home" {
@@ -123,6 +123,33 @@ rec {
         rust-script --pkg-path . -p script.rs
         sed -i -e 's,/build/script.rs,${file},' Cargo.toml
         cp -- Cargo.toml $out
+      '';
+
+  mkCratesIoStaticDumpJson =
+    {
+      /*
+        This should point to a local copy of https://static.crates.io/db-dump.tar.gz .
+        e.g.
+        `toString /path/to/static.crates.io/db-dump.tar.gz`
+      */
+      file,
+    }:
+    pkgs.runCommandLocal "static-crates-io.json.zst"
+      {
+        nativeBuildInputs = [
+          pkgs.jq
+          pkgs.zstd
+          pkgs.csvkit
+        ];
+      }
+      ''
+        tar -O --occurrence=1 --wildcards \
+            -xf "${file}" \
+            '*/data/crates.csv' \
+          | csvcut -C readme --maxfieldsize $((5*1024*1024)) \
+          | csvjson \
+          | jq --sort-keys '. | map(select( .name != null)) | map ( {(.name): .} ) | add' \
+          | zstd -19 > $out
       '';
 
   importRust = {

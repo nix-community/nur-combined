@@ -3,7 +3,7 @@
   lib ? pkgs.lib,
 }:
 
-{
+rec {
   mkPdfEncrypted =
     {
       file,
@@ -46,5 +46,34 @@
       shift
       exec pdftoppm -singlefile -png "$FILENAME" "$FILENAME"
     '';
+  };
+
+  convertPdfToJson = pkgs.writeShellApplication {
+    name = "convert-pdf-to-json";
+    passthru = {
+      fromSuffix = ".pdf";
+      toSuffix = ".json";
+    };
+    runtimeInputs = [ pkgs.exiftool ];
+    text = ''
+      exec exiftool -json "$1"
+    '';
+  };
+
+  importPDF = {
+    check = lib.hasSuffix ".pdf";
+    __functor =
+      _self: filename:
+      let
+        json =
+          pkgs.runCommandLocal "pdf-metadata.json"
+            {
+              nativeBuildInputs = [ convertPdfToJson ];
+            }
+            ''
+              convert-pdf-to-json ${filename} > $out
+            '';
+      in
+      lib.importJSON json;
   };
 }
