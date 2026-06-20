@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "3109cae6940ec418c557e0583d460d2e81ca5095";
+    version = "69cb44b54d9498f5d0fb0b43563f0ea9ae3fc7fb";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "3109cae6940ec418c557e0583d460d2e81ca5095";
+      rev = "69cb44b54d9498f5d0fb0b43563f0ea9ae3fc7fb";
       fetchSubmodules = false;
-      sha256 = "sha256-X5g8Vq+LuDrIRnMTESIgRhY4t61bXMyCdL99gTPonck=";
+      sha256 = "sha256-I+b85N7eASFY9YNjuU9YxLb1/9yzi/ugnVDettWxti4=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-X5g8Vq+LuDrIRnMTESIgRhY4t61bXMyCdL99gTPonck=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-I+b85N7eASFY9YNjuU9YxLb1_9yzi_ugnVDettWxti4=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-06-19";
+    date = "2026-06-20";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -410,13 +410,13 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "8b5b212b5eae7ec30c29cbfd0b11a879da3054e8";
+    version = "b1690670392c44546c397fdd7958a817295391c0";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "8b5b212b5eae7ec30c29cbfd0b11a879da3054e8";
+      rev = "b1690670392c44546c397fdd7958a817295391c0";
       fetchSubmodules = false;
-      sha256 = "sha256-kaRcuIbYQmO8RZy2HOmO9Pfe7wLphirSIgT48eSgI/U=";
+      sha256 = "sha256-Md8C+x2BXWxIwyUK+iLf7fIW8T12MAeGm5ihXrZ0H00=";
     };
     date = "2026-06-19";
   };
@@ -614,13 +614,13 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "4052d88f32a33da73620e42043df23aae9903e0e";
+    version = "0ccf1de03aaba0ce02004720e6eaba88fce85512";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "4052d88f32a33da73620e42043df23aae9903e0e";
+      rev = "0ccf1de03aaba0ce02004720e6eaba88fce85512";
       fetchSubmodules = false;
-      sha256 = "sha256-Ez/ypLvtpNUxz+66ci4VxLMVzjRwhiH4GIgAEmsUrJc=";
+      sha256 = "sha256-/5MTd1dkGbiX0V/gYNR21FWBvpePMMCuWFb6q49DmQY=";
     };
     date = "2026-06-19";
   };
