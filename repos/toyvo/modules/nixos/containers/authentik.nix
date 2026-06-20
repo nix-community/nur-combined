@@ -242,6 +242,15 @@ in
           "d /etc/authentik 0755 authentik authentik -"
         ];
 
+        # Keep container alive even if authentik-server fails
+        systemd.services.keep-alive = {
+          wantedBy = [ "multi-user.target" ];
+          serviceConfig = {
+            ExecStart = "${pkgs.coreutils}/bin/sleep infinity";
+            Restart = "always";
+          };
+        };
+
         networking.nameservers = [
           "1.1.1.1"
           "8.8.8.8"
