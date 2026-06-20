@@ -44,6 +44,17 @@ in
           modules.media = mkEnableOption' true "display current track on right";
           modules.perf = mkEnableOption' true "display RAM, CPU on right";
           modules.network = mkEnableOption' true "display IP traffic on right";
+          modules.battery = mkEnableOption' true "display battery status on right";
+
+          torch = mkOption {
+            type = types.nullOr types.str;
+            default = null;
+            description = ''
+              device name for the torch (flashlight), if any.
+              find with `brightnessctl -l`
+            '';
+            example = "white:flash";
+          };
 
           top = mkOption {
             type = types.submodule {
@@ -72,14 +83,18 @@ in
 
     # default waybar
     config.top = pkgs.callPackage ./waybar-top.nix { } {
-      inherit (cfg.config) height modules persistWorkspaces;
+      inherit (cfg.config) height modules persistWorkspaces torch;
     };
 
-    packageUnwrapped = pkgs.waybar.override {
-      # not *required*, however this does cut down on some cross-compilation issues
-      # and also avoids building entirely unused dependencies
-      sway = config.sane.programs.sway.package;
-    };
+    # packageUnwrapped = pkgs.waybar.override {
+    #   # not *required*, however this does cut down on some cross-compilation issues
+    #   # and also avoids building entirely unused dependencies
+    #   sway = config.sane.programs.sway.package;
+    # };
+
+    suggestedPrograms = [
+      "brightnessctl"
+    ];
 
     sandbox.net = "all";  #< to show net connection status and BW
     sandbox.whitelistDbus.user = true;  #< for playerctl/media (TODO: reduce)
@@ -93,6 +108,7 @@ in
       # "/dev/rfkill"
       # for the battery indicator
       "/sys/class/power_supply"
+      "/sys/class/leds"  #< for torch/flashlight on moby
       "/sys/devices"
     ];
 

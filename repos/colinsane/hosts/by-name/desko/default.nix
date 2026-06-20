@@ -51,6 +51,9 @@
     battery = false;
     brightness = false;
   };
+  sane.programs.waybar.config = {
+    modules.battery = false;
+  };
 
   sane.programs.mpv.config.defaultProfile = "high-quality";
 

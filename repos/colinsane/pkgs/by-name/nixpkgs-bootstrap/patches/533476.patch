@@ -1,0 +1,52 @@
+From a96391e09ccd265e5e98384db1c20372e910ef70 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sat, 20 Jun 2026 01:55:47 +0000
+Subject: [PATCH] python3Packages.sse-starlette: add missing dependency, fix
+ cross
+
+fixes `nix-build -A pkgsCross.aarch64-multiplatform.python3Packages.sse-starlette`,
+which would previously fail:
+
+> Checking runtime dependencies for sse_starlette-3.2.0-py3-none-any.whl
+>   - starlette not installed
+
+In fact, non-cross builds would fail at runtime:
+
+```
+$ nix-build --expr 'with import ./. {}; python3.withPackages (ps: [ ps.sse-starlette])'
+/nix/store/6v6l4jwpgy2zgd1cwnrgcm2mxlaxiyka-python3-3.13.13-env
+$ ./result/bin/python
+>>> import sse_starlette
+Traceback (most recent call last):
+  File "<python-input-0>", line 1, in <module>
+    import sse_starlette
+  File "/nix/store/6v6l4jwpgy2zgd1cwnrgcm2mxlaxiyka-python3-3.13.13-env/lib/python3.13/site-packages/sse_starlette/__init__.py", line 2, in <module>
+    from sse_starlette.sse import EventSourceResponse
+  File "/nix/store/6v6l4jwpgy2zgd1cwnrgcm2mxlaxiyka-python3-3.13.13-env/lib/python3.13/site-packages/sse_starlette/sse.py", line 21, in <module>
+    from starlette.background import BackgroundTask
+ModuleNotFoundError: No module named 'starlette'
+```
+---
+ pkgs/development/python-modules/sse-starlette/default.nix | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/pkgs/development/python-modules/sse-starlette/default.nix b/pkgs/development/python-modules/sse-starlette/default.nix
+index 745ec3a2ce79f38c798ee5382f706c4703a23f2d..20c79274d67f14fb48945f55ad7925dab9b8cbcf 100644
+--- a/pkgs/development/python-modules/sse-starlette/default.nix
++++ b/pkgs/development/python-modules/sse-starlette/default.nix
+@@ -38,6 +38,7 @@ buildPythonPackage rec {
+ 
+   dependencies = [
+     anyio
++    starlette
+   ];
+ 
+   optional-dependencies = {
+@@ -46,7 +47,6 @@ buildPythonPackage rec {
+       aiosqlite
+       fastapi
+       sqlalchemy
+-      starlette
+       uvicorn
+     ]
+     ++ sqlalchemy.optional-dependencies.asyncio;

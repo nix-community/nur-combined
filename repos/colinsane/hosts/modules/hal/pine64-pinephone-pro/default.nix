@@ -73,6 +73,7 @@ in
     ];
 
     sane.programs.nwg-panel.config.torch = "white:flash";
+    sane.programs.waybar.config.torch = "white:flash";
     sane.programs.swaynotificationcenter.config = {
       backlight = "backlight";  # /sys/class/backlight/*backlight*/brightness
     };

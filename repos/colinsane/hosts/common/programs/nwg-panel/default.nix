@@ -121,6 +121,11 @@ in
           name = "playerctl: add settings to control which elements are displayed";
           hash = "sha256-OofS46wAI3EDE3JbYs/Nn+Vkw9TP1mwSFvk+vBERg2s=";
         })
+        (pkgs.fetchpatch {
+          url = "https://git.uninsane.org/colin/nwg-panel/commit/17bdd5dc01da630781ed6ca93854f419558347bf.patch";
+          name = "notifications: subscribe to swaync-client, don't poll";
+          hash = "sha256-mjuIt+q67kJPtSa9H9C40SJ0a3jWSTSRPhhlZLVc164=";
+        })
       ];
 
       # - disable the drop-down chevron by the controls.

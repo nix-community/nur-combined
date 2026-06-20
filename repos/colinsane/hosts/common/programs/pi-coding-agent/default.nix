@@ -43,12 +43,29 @@ let
         # lifecycle = "eager";
       };
       # markitdown = {
+      #   # provides one "markitdown_convert_to_markdown" tool.
+      #   # 67 tokens.. LLMs reach for it naturally, but takes 1-2 seconds to initialize.
       #   command = "markitdown-mcp";
+      #   directTools = true;
       # };
       # XXX(2026-06-18): kagimcp requires emailing kagi support to be whitelisted
       # kagi = {
       #   command = "kagimcp";
       # };
+      kagi = {
+        command = "kagi";
+        args = [ "mcp" ];
+        directTools = [
+          "kagi_search" # Search Kagi
+          "kagi_quick" # Get a Kagi Quick Answer
+          # "kagi_news" # Fetch Kagi News stories for a category
+          # "kagi_news_search" # Search the News tab of kagi.com
+        ];
+        excludeTools = [
+          "kagi_extract" # Extract a page's full content as markdown (requires KAGI_API_KEY)
+          "kagi_summarize" # Summarize a URL or text (requires KAGI_API_KEY)
+        ];
+      };
     };
   };
 in
@@ -82,7 +99,8 @@ in
     });
 
     suggestedPrograms = [
-      "kagi-ken-cli"  # for pi-kagi
+      "kagi-cli"
+      # "kagi-ken-cli"  # for pi-kagi
       # "kagimcp"
       # "markitdown-mcp"
       "mcp-server-fetch"
@@ -96,7 +114,8 @@ in
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
       # ".config/kagi/kagi-api-key"
-      ".config/kagi/kagi_session_token"
+      # ".config/kagi/kagi_session_token"
+      ".config/kagi-cli/config.toml"
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
       ".pi"  #< default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
@@ -140,7 +159,7 @@ in
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
         pkgs.pi-caveman  #< adds `/caveman` slash command
-        pkgs.pi-kagi  #< adds `web_search` tool
+        # pkgs.pi-kagi  #< adds `web_search` tool
         pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
         pkgs.pi-md-export  #< adds `/md` slash command
         pkgs.pi-move-session  #< adds `/move-session` slash command

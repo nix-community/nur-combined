@@ -8735,6 +8735,27 @@
     }
   },
   {
+    "id": "cohere/north-mini-code",
+    "name": "Cohere North Mini Code 1.0",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.8,
+      "currency": "USD",
+      "prompt": 0.2,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 256000,
+    "max_output_tokens": 64000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "command-a-reasoning-08-2025",
     "name": "Cohere Command A (08/2025)",
     "pricing": {
@@ -9666,13 +9687,13 @@
     "id": "poolside/laguna-m.1",
     "name": "Laguna M.1",
     "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.3,
+      "cacheReadInputPer1kTokens": 0.0001,
+      "completion": 0.4,
       "currency": "USD",
-      "prompt": 0.1,
+      "prompt": 0.2,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false
@@ -9687,13 +9708,13 @@
     "id": "poolside/laguna-xs.2",
     "name": "Laguna XS.2",
     "pricing": {
-      "cacheReadInputPer1kTokens": null,
-      "completion": 0.3,
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.2,
       "currency": "USD",
       "prompt": 0.1,
       "unit": "per_million_tokens"
     },
-    "context_length": 128000,
+    "context_length": 262144,
     "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false

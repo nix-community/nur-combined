@@ -4,6 +4,7 @@
 {
   jq,
   lib,
+  pkgs,
   playerctl,
   static-nix-shell,
 }:
@@ -19,16 +20,32 @@ let
     };
   };
 in
-{ height, modules, persistWorkspaces }:
+{ height, modules, persistWorkspaces, torch }:
+let
+  torchToggle = pkgs.writeShellApplication {
+    name = "torch-toggle";
+    runtimeInputs = with pkgs; [ brightnessctl ];
+    text = ''
+      dev="''${1:-white:flash}"
+      if [ "$(brightnessctl -d "$dev" get)" -gt 0 ]; then
+        brightnessctl -q -d "$dev" set "0%"
+      else
+        brightnessctl -q -d "$dev" set "100%"
+      fi
+    '';
+  };
+in
 {
   inherit height;
   modules-left = [ "sway/workspaces" ];
   modules-center = lib.mkIf modules.windowTitle [ "sway/window" ];
   modules-right = lib.flatten [  # XXX can't use lib.mkMerge here without error ??
     (lib.optionals modules.media [ "custom/media" ])
-    [ "custom/swaync" "clock" "battery" ]
+    [ "custom/swaync" "clock" ]
     (lib.optionals modules.perf [ "memory" "cpu" ])
     (lib.optionals modules.network [ "network" ])
+    (lib.optionals (torch != null) [ "custom/torch" ])
+    (lib.optionals modules.battery [ "battery" ])
   ];
 
   "sway/window" = {
@@ -84,6 +101,16 @@ in
     tooltip = false;
     on-click = "swaync-client -t -sw";
     on-click-right = "swaync-client -d -sw";
+  };
+  "custom/torch" = lib.mkIf (torch != null) {
+    format = "";
+    tooltip = false;
+    return-type = "json";
+    on-click = lib.getExe torchToggle;
+    # `custom` modules need a minimal `exec` so waybar keeps running the module;
+    # without one the module shows no icon.
+    exec = ''${pkgs.coreutils}/bin/printf '{"text":""}\n'';
+    interval = 3600;
   };
   network = {
     # docs: <https://github.com/Alexays/Waybar/blob/master/man/waybar-network.5.scd>

@@ -1605,6 +1605,12 @@ super.lib.composeManyExtensions [
     # guix might be the *only* distro that _appears_ to do a from-source build.
     tor-browser = final._pkgsGnu.tor-browser;
 
+    # 2026-06-19: fixes "could not find libSDL3.so" during installCheckPhase.
+    # possibly addressed by <https://github.com/NixOS/nixpkgs/pull/500935>
+    waybar = prev.waybar.override {
+      cavaSupport = false;
+    };
+
     # 2026-05-23: still required
     # 2026-01-29: build failure due to missing include
     # > ifrename.c: In function ‘mapping_getsysfs’:

@@ -291,6 +291,7 @@ let
     (fromDb "youtube.com/@JackStauber")
     (fromDb "youtube.com/@jaketran")
     (fromDb "youtube.com/@kurzgesagt")
+    (fromDb "youtube.com/@Level1Techs" // tech)
     (fromDb "youtube.com/@Matrixdotorg" // tech)  # Matrix Live
     (fromDb "youtube.com/@mii_beta" // tech)  # Baby Wogue / gnome reviewer
     (fromDb "youtube.com/@moon-channel")
