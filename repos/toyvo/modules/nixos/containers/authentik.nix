@@ -238,6 +238,10 @@ in
           '';
         };
 
+        systemd.tmpfiles.rules = [
+          "d /etc/authentik 0755 authentik authentik -"
+        ];
+
         networking.nameservers = [
           "1.1.1.1"
           "8.8.8.8"
@@ -351,6 +355,10 @@ in
             EOF
           '';
         };
+
+        systemd.tmpfiles.rules = [
+          "d /etc/authentik 0755 authentik authentik -"
+        ];
 
         networking.nameservers = [
           "1.1.1.1"
