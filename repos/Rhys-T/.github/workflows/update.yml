@@ -37,7 +37,7 @@ jobs:
         id: app-token
         with:
           # required
-          app-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
+          client-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
           private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
       - name: Get GitHub App User ID
         id: get-user-id

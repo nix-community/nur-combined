@@ -19,7 +19,7 @@ jobs:
         with:
           # required
           # TODO use a separate app?
-          app-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
+          client-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
           private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
       - name: Checking if fast forwarding is possible
         uses: sequoia-pgp/fast-forward@e2c6fb52f977408912b000ad4577a669f1c4f5fe
