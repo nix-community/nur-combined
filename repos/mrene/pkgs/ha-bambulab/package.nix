@@ -20,7 +20,7 @@ buildHomeAssistantComponent rec {
     hash = "sha256-JRJ+tfllDuMrtz+5VQL2l5nkhJQXRoNvsvFnrReSZHE=";
   };
 
-  dependencies = with home-assistant.python.pkgs; [
+  dependencies = with home-assistant.python3Packages; [
     beautifulsoup4
     cloudscraper
   ];

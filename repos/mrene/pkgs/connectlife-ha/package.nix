@@ -18,7 +18,7 @@ let
     hash = "sha256-GSlh0oSB+ZKWScQVkBZZoAGcZcIXQIiU0JvXpPzQWrc=";
   };
 
-  connectlife = home-assistant.python.pkgs.callPackage ./connectlife.nix { };
+  connectlife = home-assistant.python3Packages.callPackage ./connectlife.nix { };
 in
 
 buildHomeAssistantComponent rec {

@@ -29,7 +29,7 @@ buildHomeAssistantComponent rec {
   # openrgb-python==0.3.1 expected, but got 0.3.2
   dontCheckManifest = true;
 
-  dependencies = with home-assistant.python.pkgs; [
+  dependencies = with home-assistant.python3Packages; [
     openrgb-python
   ];
 
