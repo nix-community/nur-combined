@@ -1,7 +1,7 @@
 # FIXME: This still needs a disabled sandbox to build
 # upstream issue: https://github.com/espressif/idf-component-manager/issues/54
 {
-  fetchpatch,
+  # fetchpatch,
   micropython,
   # You need to setup nixpkgs-esp-dev as an overlay for this attribute
   # https://github.com/mirrexagon/nixpkgs-esp-dev/
@@ -12,7 +12,7 @@
 micropython.overrideAttrs (
   {
     nativeBuildInputs ? [ ],
-    patches ? [ ],
+    # patches ? [ ],
     ...
   }:
   {

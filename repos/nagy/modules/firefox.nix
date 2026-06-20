@@ -43,6 +43,35 @@
         Locked = false;
       };
       SearchSuggestEnabled = false;
+      Extensions =
+        let
+          makeXpiPath =
+            addon:
+            "${addon}/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/${addon.addonId}.xpi";
+        in
+        {
+          Install = [
+            # "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+            (makeXpiPath nur.repos.rycee.firefox-addons.ublock-origin)
+            # "https://addons.mozilla.org/firefox/downloads/latest/vimium-ff/latest.xpi"
+            (makeXpiPath nur.repos.rycee.firefox-addons.vimium)
+            # "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi"
+            (makeXpiPath nur.repos.rycee.firefox-addons.darkreader)
+            # "https://addons.mozilla.org/firefox/downloads/latest/old-reddit-redirect/latest.xpi"
+            (makeXpiPath nur.repos.rycee.firefox-addons.old-reddit-redirect)
+            # # "https://addons.mozilla.org/firefox/downloads/latest/toggley/latest.xpi"
+            # (makeXpiPath nur.repos.rycee.firefox-addons.toggley)
+
+            # absolute file paths work here as well
+            # https://github.com/mozilla/policy-templates#policiesjson-47
+          ];
+          Uninstall = [
+            "amazon@search.mozilla.org"
+            "bing@search.mozilla.org"
+            "google@search.mozilla.org"
+            "wikipedia@search.mozilla.org"
+          ];
+        };
       SearchEngines = {
         Remove = [
           "Amazon"
@@ -64,6 +93,7 @@
       "pdfjs.defaultZoomValue" = "page-fit";
       "pdfjs.sidebarViewOnLoad" = 2; # -1 is the default, 1 means thumbnail bar, 2 means outline
       # "browser.urlbar.dnsResolveSingleWordsAfterSearch" = 0;
+      "browser.display.foreground_color.dark" = "#FFFFFF";
       "browser.display.background_color.dark" = "#000000";
 
       # https://support.mozilla.org/en-US/questions/1287625
@@ -152,6 +182,8 @@
 
       # https://superuser.com/questions/1568072/hide-navigation-bar-in-firefox
       "full-screen-api.ignore-widgets" = true;
+
+      # "browser.altClickSave" = true;
     };
   };
 
@@ -170,5 +202,9 @@
   # variable. This improves touchscreen support and enables additional touchpad
   # gestures. It also enables smooth scrolling as opposed to the stepped
   # scrolling that Firefox has by default.
-  environment.sessionVariables = lib.mkIf config.services.xserver.enable { MOZ_USE_XINPUT2 = "1"; };
+  environment.sessionVariables = lib.mkIf config.services.xserver.enable {
+    MOZ_USE_XINPUT2 = "1";
+    MOZ_CRASHREPORTER_DISABLE = "1";
+  };
+
 }

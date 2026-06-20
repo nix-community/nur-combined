@@ -5,6 +5,27 @@
   ...
 }:
 
+let
+  mkNixCmds = short: subcommand: extraFlags:
+    let
+      base = [ "nix" subcommand ] ++ extraFlags;
+      withFile = file: base ++ [ "--file" file ];
+      hasJson = lib.elem subcommand [ "build" "eval" ];
+      jsonFlags =
+        if subcommand == "build" then [ "--json" "--no-link" ]
+        else [ "--json" ];
+    in
+    {
+      "${short}" = base;
+      "${short}." = withFile ".";
+      "${short}:" = withFile "<nixpkgs>";
+    }
+    // lib.optionalAttrs hasJson {
+      "${short}.j" = (withFile ".") ++ jsonFlags;
+      "${short}:j" = (withFile "<nixpkgs>") ++ jsonFlags;
+    };
+in
+
 {
   imports = [ ./shortcommands.nix ];
 
@@ -96,229 +117,49 @@
               search path:${pkgs.path} --json "" | jq --sort-keys > $out
           '';
     };
-    nagy.shortcommands.commands = {
-      b = [ "nix-build" ];
-      i = [ "nix-instantiate" ];
-      b0 = [
-        "nix-build"
-        "--no-out-link"
-      ];
-      "b." = [
-        "nix-build"
-        "<nixpkgs>"
-      ];
-      "i." = [
-        "nix-instantiate"
-        "<nixpkgs>"
-      ];
-      "b.0" = [
-        "nix-build"
-        "<nixpkgs>"
-        "--no-out-link"
-      ];
-      "i.j" = [
-        "nix-instantiate"
-        "<nixpkgs>"
-        "--json"
-        "--strict"
-        "--eval"
-      ];
-      "b.." = [
-        "nix-build"
-        "<nixpkgs/nixos>"
-      ];
-      "i.." = [
-        "nix-instantiate"
-        "<nixpkgs/nixos>"
-      ];
-      "b+" = [ "nix-build-package" ];
-      "i+" = [ "nix-instantiate-package" ];
-      s = [ "nix-shell" ];
-      sp = [
-        "nix-shell"
-        "-p"
-      ];
-      sE = [
-        "nix-shell"
-        "-E"
-      ];
-      R = [
-        "nix"
-        "run"
-      ];
-      SE = [
-        "nix"
-        "search"
-      ];
-      B = [
-        "nix"
-        "build"
-        # until https://github.com/NixOS/nix/pull/8323 is merged
-        "--print-build-logs"
-      ];
-      E = [
-        "nix"
-        "eval"
-        # until https://github.com/NixOS/nix/pull/8323 is merged
-        "--print-build-logs"
-      ];
-      S = [
-        "nix"
-        "shell"
-        # until https://github.com/NixOS/nix/pull/8323 is merged
-        "--print-build-logs"
-      ];
-      Ej = [
-        "nix"
-        "eval"
-        "--json"
-      ];
-      Er = [
-        "nix"
-        "eval"
-        "--raw"
-      ];
-      Bj = [
-        "nix"
-        "build"
-        "--json"
-        "--no-link"
-      ];
-      I = [
-        "nix"
-        "path-info"
-      ];
-      Is = [
-        "nix"
-        "path-info"
-        "--size"
-        "--human-readable"
-      ];
-      IS = [
-        "nix"
-        "path-info"
-        "--closure-size"
-        "--human-readable"
-      ];
-      Ij = [
-        "nix"
-        "path-info"
-        "--json"
-      ];
-      IJ = [
-        "nix"
-        "path-info"
-        "--closure-size"
-        "--json"
-      ];
-      Ia = [
-        "nix"
-        "path-info"
-        "-rsSh"
-      ];
-      SEj = [
-        "nix"
-        "search"
-        "--json"
-      ];
+    nagy.shortcommands.commands =
+      {
+        # legacy nix-* commands
+        b = [ "nix-build" ];
+        i = [ "nix-instantiate" ];
+        b0 = [ "nix-build" "--no-out-link" ];
+        "b." = [ "nix-build" "<nixpkgs>" ];
+        "i." = [ "nix-instantiate" "<nixpkgs>" ];
+        "b.0" = [ "nix-build" "<nixpkgs>" "--no-out-link" ];
+        "i.j" = [ "nix-instantiate" "<nixpkgs>" "--json" "--strict" "--eval" ];
+        "b.." = [ "nix-build" "<nixpkgs/nixos>" ];
+        "i.." = [ "nix-instantiate" "<nixpkgs/nixos>" ];
+        "b+" = [ "nix-build-package" ];
+        "i+" = [ "nix-instantiate-package" ];
 
-      "B." = [
-        "nix"
-        "build"
-        "--file"
-        "."
-      ];
-      "B.j" = [
-        "nix"
-        "build"
-        "--file"
-        "."
-        "--json"
-        "--no-link"
-      ];
-      "R." = [
-        "nix"
-        "run"
-        "--file"
-        "."
-      ];
-      "S." = [
-        "nix"
-        "shell"
-        "--file"
-        "."
-      ];
-      "E." = [
-        "nix"
-        "eval"
-        "--file"
-        "."
-      ];
-      "E.j" = [
-        "nix"
-        "eval"
-        "--file"
-        "."
-        "--json"
-      ];
-      "SE." = [
-        "nix"
-        "search"
-        "--file"
-        "."
-      ];
+        s  = [ "nix-shell" ];
+        sp = [ "nix-shell" "-p" ];
+        sE = [ "nix-shell" "-E" ];
 
-      "B:" = [
-        "nix"
-        "build"
-        "--file"
-        "<nixpkgs>"
-        # until https://github.com/NixOS/nix/pull/8323 is merged
-        "--print-build-logs"
-      ];
-      "B:j" = [
-        "nix"
-        "build"
-        "--file"
-        "<nixpkgs>"
-        "--json"
-        "--no-link"
-      ];
-      "R:" = [
-        "nix"
-        "run"
-        "--file"
-        "<nixpkgs>"
-        # until https://github.com/NixOS/nix/pull/8323 is merged
-        "--print-build-logs"
-      ];
-      "D:" = [
-        "nix"
-        "develop"
-        "--file"
-        "<nixpkgs>"
-      ];
-      "S:" = [
-        "nix"
-        "shell"
-        "--file"
-        "<nixpkgs>"
-        # until https://github.com/NixOS/nix/pull/8323 is merged
-        "--print-build-logs"
-      ];
-      "E:" = [
-        "nix"
-        "eval"
-        "--file"
-        "<nixpkgs>"
-      ];
-      "E:j" = [
-        "nix"
-        "eval"
-        "--file"
-        "<nixpkgs>"
-        "--json"
-      ];
-    };
+        # nix search
+        SE   = [ "nix" "search" ];
+        SEj  = [ "nix" "search" "--json" ];
+        "SE." = [ "nix" "search" "--file" "." ];
+
+        # nix eval extras
+        Ej = [ "nix" "eval" "--json" ];
+        Er = [ "nix" "eval" "--raw" ];
+
+        # nix build extras
+        Bj = [ "nix" "build" "--json" "--no-link" ];
+
+        # nix path-info
+        I   = [ "nix" "path-info" ];
+        Is  = [ "nix" "path-info" "--size" "--human-readable" ];
+        IS  = [ "nix" "path-info" "--closure-size" "--human-readable" ];
+        Ij  = [ "nix" "path-info" "--json" ];
+        IJ  = [ "nix" "path-info" "--closure-size" "--json" ];
+        Ia  = [ "nix" "path-info" "-rsSh" ];
+      }
+      // mkNixCmds "B" "build" [ "--print-build-logs" ]
+      // mkNixCmds "E" "eval" [ "--print-build-logs" ]
+      // mkNixCmds "R" "run" [ "--print-build-logs" ]
+      // mkNixCmds "S" "shell" [ "--print-build-logs" ]
+      // mkNixCmds "D" "develop" [];
   };
 }

@@ -1,3 +1,31 @@
+let
+  mkSystemctlCmds = prefix: base:
+    let
+      list = sub: base ++ [ "list-${sub}" ];
+      listJson = sub: list sub ++ [ "--output=json" ];
+    in
+    {
+      "${prefix}" = base;
+      "${prefix}c" = base ++ [ "cat" ];
+      "${prefix}s" = base ++ [ "status" ];
+      "${prefix}w" =
+        [ "watch" "--color" "SYSTEMD_URLIFY=0" "SYSTEMD_COLORS=1" ] ++ base ++ [ "status" ];
+      "${prefix}a" = base ++ [ "start" ];
+      "${prefix}o" = base ++ [ "stop" ];
+      "${prefix}r" = base ++ [ "restart" ];
+      "${prefix}lt" = list "timers";
+      "${prefix}ls" = list "sockets";
+      "${prefix}lm" = list "machines";
+      "${prefix}lu" = list "units";
+      "${prefix}lf" = list "unit-files";
+      "${prefix}ltj" = listJson "timers";
+      "${prefix}lsj" = listJson "sockets";
+      "${prefix}lmj" = listJson "machines";
+      "${prefix}luj" = listJson "units";
+      "${prefix}lfj" = listJson "unit-files";
+    };
+in
+
 {
 
   imports = [ ./shortcommands.nix ];
@@ -11,41 +39,7 @@
     qh = [ "sqlite3" "-html" ];
     qc = [ "sqlite3" "-csv" ];
 
-    # systemctl
-    sc = [ "systemctl" ];
-    scc = [ "systemctl" "cat" ];
-    scs = [ "systemctl" "status" ];
-    scw = [ "watch" "--color" "SYSTEMD_URLIFY=0" "SYSTEMD_COLORS=1" "systemctl" "status" ];
-    sca = [ "systemctl" "start" ];
-    sco = [ "systemctl" "stop" ];
-    scr = [ "systemctl" "restart" ];
-    sclt = [ "systemctl" "list-timers" ];
-    scls = [ "systemctl" "list-sockets" ];
-    sclm = [ "systemctl" "list-machines" ];
-    sclu = [ "systemctl" "list-units" ];
-    sclf = [ "systemctl" "list-unit-files" ];
-    scltj = [ "systemctl" "list-timers" "--output=json" ];
-    sclsj = [ "systemctl" "list-sockets" "--output=json" ];
-    sclmj = [ "systemctl" "list-machines" "--output=json" ];
-    scluj = [ "systemctl" "list-units" "--output=json" ];
-    sclfj = [ "systemctl" "list-unit-files" "--output=json" ];
-    scU = [ "systemctl" "--user" ];
-    scUc = [ "systemctl" "--user" "cat" ];
-    scUs = [ "systemctl" "--user" "status" ];
-    scUw = [ "watch" "--color" "SYSTEMD_URLIFY=0" "SYSTEMD_COLORS=1" "systemctl" "--user" "status" ];
-    scUa = [ "systemctl" "--user" "start" ];
-    scUo = [ "systemctl" "--user" "stop" ];
-    scUr = [ "systemctl" "--user" "restart" ];
-    scUlt = [ "systemctl" "--user" "list-timers" ];
-    scUls = [ "systemctl" "--user" "list-sockets" ];
-    scUlm = [ "systemctl" "--user" "list-machines" ];
-    scUlu = [ "systemctl" "--user" "list-units" ];
-    scUlf = [ "systemctl" "--user" "list-unit-files" ];
-    scUltj = [ "systemctl" "--user" "list-timers" "--output=json" ];
-    scUlsj = [ "systemctl" "--user" "list-sockets" "--output=json" ];
-    scUlmj = [ "systemctl" "--user" "list-machines" "--output=json" ];
-    scUluj = [ "systemctl" "--user" "list-units" "--output=json" ];
-    scUlfj = [ "systemctl" "--user" "list-unit-files" "--output=json" ];
+  } // mkSystemctlCmds "sc" [ "systemctl" ] // mkSystemctlCmds "scU" [ "systemctl" "--user" ] // {
     juf = [ "journalctl" "--follow" ];
     jufu = [ "journalctl" "--follow" "--unit" ];
     juUf = [ "journalctl" "--user" "--follow" ];

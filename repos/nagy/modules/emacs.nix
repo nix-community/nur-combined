@@ -129,14 +129,25 @@ in
     environment.systemPackages = [
       (customEmacsPackages.emacs.pkgs.withPackages (
         epkgs:
-        [ epkgs.treesit-grammars.with-all-grammars ]
+        [
+          epkgs.treesit-grammars.with-all-grammars
+          epkgs.elisp-autofmt
+          epkgs.indent-bars
+        ]
         ++ (mkDirectoryPackagesValues cfg.packageDirectories epkgs)
       ))
       # perl # needed for magit cherry spinout
     ];
 
-    # to allow "malloc-trim" to trim memory of emacs.
-    # somehow it seems to work without this now.
+    # # # to allow "malloc-trim" to trim memory of emacs.
+    # # # somehow it seems to work without this now.
+    # (malloc-trim 0) returns nil without this. It should ratheer return t.
     # boot.kernel.sysctl."kernel.yama.ptrace_scope" = lib.mkForce 0;
+    # at runtime: sudo sysctl -w kernel.yama.ptrace_scope=0
+
+    # maybe only needed for remote systems
+    environment.sessionVariables.TERMINFO_DIRS = [
+      "${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo"
+    ];
   };
 }
