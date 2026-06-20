@@ -15,22 +15,22 @@
 let
   commonx = python3Packages.buildPythonPackage rec {
     pname = "commonx";
-    version = "0.6.39";
+    version = "0.6.40";
     format = "setuptools";
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-Lo/kHgeMkhUvlZO1qOeUoLdINU4rhz7mFjAGnXRad9U=";
+      hash = "sha256-0CjN+1IZovMy3SsujDqR40z0ZRl0MLpnaFfmU/f05Bw=";
     };
     doCheck = false;
   };
 
   jmcomic = python3Packages.buildPythonPackage rec {
     pname = "jmcomic";
-    version = "2.6.9";
+    version = "2.7.0";
     pyproject = true;
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-Pfrtc6IQ3Ha7jZ1edwHgeTblEgBiSRrSeqShqskPcNc=";
+      hash = "sha256-E8KSJ8GGIeJ/MpgCYHik1Kxn2Yjwm+u0pgbspxzCLV4=";
     };
     build-system = with python3Packages; [ setuptools ];
     dependencies = with python3Packages; [
@@ -42,13 +42,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "JMComic-qt";
-  version = "1.3.0";
+  version = "1.3.1";
 
   src = fetchFromGitHub {
     owner = "tonquer";
     repo = "JMComic-qt";
     rev = "v${version}";
-    hash = "sha256-ZeyJcCc2OdCeimOudDUaw1d/Bs5Q+5kE15W89G5SHGU=";
+    hash = "sha256-TLXYdNNDI3EODuPPO1LPnv4ITh8TE+f9f9mhJTQishE=";
   };
 
   format = "other";
