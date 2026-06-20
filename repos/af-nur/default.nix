@@ -6,8 +6,11 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }, bun2nix ? null, ... }:
 
+let
+  pkgsLib = pkgs.lib;
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -22,4 +25,6 @@
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
+} // pkgsLib.optionalAttrs (bun2nix != null) {
+  rikkahub-desktop = pkgs.callPackage ./pkgs/rikkahub-desktop { inherit bun2nix; };
 }
