@@ -116,11 +116,12 @@ rec {
     in
     parseReqList requires;
 
-  convertOrgToJson = pkgs.writeShellApplication {
+  convertOrgToJson = { backend ? "org" }:
+  pkgs.writeShellApplication {
     name = "convert-org-to-json";
     runtimeInputs = [ pkgs.emacs-nox ];
     runtimeEnv = {
-      emacsOrgExportJsonCleanup = pkgs.writeText "emacsOrgExportJsonCleanup.org" ''
+      emacsOrgExportJsonCleanup = pkgs.writeText "emacsOrgExportJsonCleanup.el" ''
         (defun my/org-export-sanitize-value (val)
           (cond
            ((bufferp val) (buffer-name val))
@@ -144,10 +145,11 @@ rec {
     };
     text = ''
       exec emacs -Q -nw -f package-initialize --batch "$@" \
+        --load ox \
         --load "$emacsOrgExportJsonCleanup" \
         --eval "(setq json-encoding-pretty-print t)" \
         --eval "(setq json-encoding-object-sort-predicate #'string<)" \
-        --eval "(princ (json-encode (my/org-export-clean-plist (org-export-get-environment))))" \
+        --eval "(princ (json-encode (my/org-export-clean-plist (org-export-get-environment '${backend}))))" \
         --eval "(princ \"\\n\")"
     '';
   };
@@ -159,7 +161,7 @@ rec {
       lib.pipe filename [
         (
           it:
-          pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ convertOrgToJson ]; } ''
+          pkgs.runCommandLocal "output.json" { nativeBuildInputs = [ (convertOrgToJson {}) ]; } ''
             convert-org-to-json ${it} > $out
           ''
         )
