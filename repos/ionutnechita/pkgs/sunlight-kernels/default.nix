@@ -10,9 +10,9 @@
 let
   variants = {
     stable = {
-      version = "7.0.12";
+      version = "7.0.13";
       suffix = "lowlatency-sunlight1";
-      hash = "sha256-veQg7G+4GkJR0fyCgJSIk2mcYJT98TA6JPLeuvnF6GM=";
+      hash = "";
     };
     mainline = {
       version = "7.0.0-rc6";
