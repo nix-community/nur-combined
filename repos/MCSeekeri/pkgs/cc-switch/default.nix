@@ -1,6 +1,7 @@
 {
   lib,
   rustPlatform,
+  nix-update-script,
   fetchFromGitHub,
   fetchPnpmDeps,
   pnpmConfigHook,
@@ -75,6 +76,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     )
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "All-in-One assistant tool for Claude Code, Codex, OpenCode, openclaw and Gemini CLI";
     homepage = "https://github.com/farion1231/cc-switch";
@@ -82,5 +85,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "cc-switch";
     platforms = lib.platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
   };
 })

@@ -1,0 +1,20 @@
+--- a/xmcl-electron-app/build.ts	2026-06-21 14:17:48.037284418 +0800
++++ b/xmcl-electron-app/build.ts	2026-06-21 14:17:48.058128378 +0800
+@@ -66,8 +66,6 @@
+     config,
+     ...(dir ? {
+       dir: true,
+-      x64: true,
+-      arm64: process.platform !== 'win32'
+     } : {}),
+   } as Parameters<typeof electronBuilder>[0])
+ 
+@@ -103,6 +101,8 @@
+   await ensureFile(resolve(__dirname, 'node_modules', 'node_datachannel', 'binding.gyp'))
+   const config: Configuration = {
+     ...electronBuilderConfig,
++    electronDist: process.env.ELECTRON_DIST || undefined,
++    electronVersion: process.env.ELECTRON_VERSION || undefined,
+     async beforeBuild(context) {
+       const rebuildProcess = rebuild({
+         buildPath: context.appDir,

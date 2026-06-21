@@ -1,6 +1,7 @@
 {
   lib,
   buildNpmPackage,
+  nix-update-script,
   fetchFromGitHub,
   git,
   makeWrapper,
@@ -46,8 +47,8 @@ buildNpmPackage (finalAttrs: {
   '';
 
   postInstall = ''
-    mkdir -p $out/lib/node_modules/luker/backups
-    mkdir -p $out/lib/node_modules/luker/public/scripts/extensions/third-party
+    mkdir -p "$out/lib/node_modules/luker/backups"
+    mkdir -p "$out/lib/node_modules/luker/public/scripts/extensions/third-party"
 
     wrapProgram "$out/bin/luker" \
       --set NODE_ENV production \
@@ -58,6 +59,8 @@ buildNpmPackage (finalAttrs: {
       --add-flags '--globalExtensionsPath "''${XDG_DATA_HOME:-$HOME/.local/share}/SillyTavern/public/scripts/extensions/third-party"'
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "SillyTavern fork focused on customizable AI chat interfaces";
     homepage = "https://github.com/funnycups/Luker";
@@ -65,5 +68,6 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.agpl3Only;
     mainProgram = "luker";
     platforms = lib.platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
   };
 })

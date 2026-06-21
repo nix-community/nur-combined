@@ -2,6 +2,7 @@
   lib,
   stdenv,
   rustPlatform,
+  nix-update-script,
   cacert,
   fetchFromGitHub,
   fetchPnpmDeps,
@@ -118,6 +119,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     )
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = {
     description = "SillyTavern backend rebuilt with Tauri and Rust";
     homepage = "https://github.com/Darkatse/TauriTavern";
@@ -125,5 +128,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.agpl3Only;
     mainProgram = "tauritavern";
     platforms = lib.platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
   };
 })
