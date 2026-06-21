@@ -29,12 +29,12 @@ let
     hash = "sha256-otZtis4vf7DQL7nNyHKApTgCHx0vhz6fj9+1wKt9Kbo=";
   };
   sol2_3_3_1 = (sol2.override { lua = lua5_3; }).overrideAttrs (_old: {
-    version = "3.3.1";
+    version = "3.5.0";
     src = fetchFromGitHub {
       owner = "ThePhD";
       repo = "sol2";
-      rev = "v3.3.1";
-      hash = "sha256-7QHZRudxq3hdsfEAYKKJydc4rv6lyN6UIt/2Zmaejx8=";
+      rev = "v3.5.0";
+      hash = "";
     };
   });
 in

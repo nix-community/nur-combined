@@ -76,13 +76,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "github-store";
-  version = "1.9.0";
+  version = "1.9.1";
 
   src = fetchFromGitHub {
     owner = "OpenHub-Store";
     repo = "GitHub-Store";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-wZSkpjjkcca4p0+IUFUJMOVYIwhaDE+vbojJpzReX2c=";
+    hash = "sha256-UARwtSM2rKR6OybxxsiMirI7f0AAIhx6TVfxZVRm5SQ=";
   };
 
   patches = [ ];

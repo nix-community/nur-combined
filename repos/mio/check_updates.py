@@ -193,7 +193,7 @@ def main():
             if not os.path.isdir(pkg_path) or pkg.startswith('_'):
                 continue
                 
-            if pkg in ['polkit', 'minetest580', 'minetest591'] or 'plugin' in pkg:
+            if pkg in ['polkit', 'minetest580', 'minetest591', 'beammp-server'] or 'plugin' in pkg:
                 continue
                 
             pkg_nix = os.path.join(pkg_path, 'package.nix')

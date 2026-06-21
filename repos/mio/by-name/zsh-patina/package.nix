@@ -7,25 +7,18 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zsh-patina";
-  version = "1.7.0";
+  version = "1.8.0";
 
   src = fetchFromGitHub {
     owner = "michel-kraemer";
     repo = "zsh-patina";
     tag = finalAttrs.version;
-    hash = "sha256-sPlIT3UHtq+5+bpfrSPPfVXTdmqjEq+6k9tPShhG7h0=";
+    hash = "sha256-M14IeK+Nsst+6RK6ayhq37YSoFPVptNqE9blVHDI1YM=";
   };
 
-  cargoPatches = [
-    (fetchpatch {
-      url = "https://github.com/michel-kraemer/zsh-patina/pull/61.patch";
-      hash = "sha256-ofe8vmGmDSQlF8KpDi/1pRkI262EnQszCcgyYL1SLFg=";
-      excludes = [ "Cargo.lock" ];
-    })
-    ./Cargo.lock.patch
-  ];
 
-  cargoHash = "sha256-fKUbXGJ5P8SsybirVKdLMEpdRXLUtvWuYgSVZxkPZPA=";
+
+  cargoHash = "sha256-4Meb4BDV/Um8/YMA5DkeNDcgCMS5cA8olKhOIq9coIU=";
 
   postInstall = ''
     mkdir -p $out/share/zsh-patina
