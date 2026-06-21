@@ -117,5 +117,18 @@ in symlinkJoin {
         ln -s $out/bin/rikkahub-pc $out/bin/rikkahub-desktop
     '';
 
-    meta.mainProgram = "rikkahub-pc";
+    meta = {
+        description = "RikkaHub desktop built from source";
+        homepage = "https://github.com/yuh-G/rikkahub-desktop";
+        mainProgram = "rikkahub-pc";
+        broken = true;
+        license = {
+            shortName = "rikkahub-segmented-dual";
+            fullName = "RikkaHub Segmented Dual License";
+            url = "https://github.com/yuh-G/rikkahub-desktop/blob/645f6f8439321941fed21ba7f53008bbc8b1853c/LICENSE";
+            free = false;
+            redistributable = true;
+        };
+        platforms = pkgs.lib.platforms.linux;
+    };
 }

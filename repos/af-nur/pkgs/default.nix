@@ -11,8 +11,8 @@ let
 
         buildPhase = ''
           cat >&2 <<'EOF'
-          rikkahub-desktop requires the flake-provided bun2nix input.
-          Build it with `nix build .#rikkahub-desktop`.
+          rikkahub-desktop is currently marked broken.
+          Use rikkahub-desktop-bin for the upstream prebuilt release.
           EOF
           exit 1
         '';
@@ -22,8 +22,16 @@ let
         '';
 
         meta = {
-          description = "RikkaHub desktop package; requires flake-provided bun2nix to build";
+          description = "RikkaHub desktop built from source";
           mainProgram = "rikkahub-pc";
+          broken = true;
+          license = {
+            shortName = "rikkahub-segmented-dual";
+            fullName = "RikkaHub Segmented Dual License";
+            url = "https://github.com/yuh-G/rikkahub-desktop/blob/645f6f8439321941fed21ba7f53008bbc8b1853c/LICENSE";
+            free = false;
+            redistributable = true;
+          };
           platforms = pkgs.lib.platforms.linux;
         };
       };
@@ -35,4 +43,5 @@ in
   mefrpc = pkgs.callPackage ./mefrpc { };
   xwaylandvideobridge = pkgs.callPackage ./xwaylandvideobridge { };
   rikkahub-desktop = rikkahubDesktop;
+  rikkahub-desktop-bin = pkgs.callPackage ./rikkahub-desktop-bin { };
 }
