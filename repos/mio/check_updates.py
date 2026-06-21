@@ -193,7 +193,7 @@ def main():
             if not os.path.isdir(pkg_path) or pkg.startswith('_'):
                 continue
                 
-            if pkg in [] or 'plugin' in pkg:
+            if pkg in ['polkit', 'minetest580', 'minetest591'] or 'plugin' in pkg:
                 continue
                 
             pkg_nix = os.path.join(pkg_path, 'package.nix')
@@ -259,7 +259,12 @@ def main():
                         repo = gh_m.group(2)
                     
             if url and current_rev:
-                is_commit = bool(re.match(r'^([0-9a-f]{7,8}|[0-9a-f]{40})$', current_rev)) and not current_rev.isdigit()
+                if current_rev.startswith('refs/tags/'):
+                    current_rev = current_rev[len('refs/tags/'):]
+                
+                is_commit = bool(re.match(r'^([0-9a-f]{7,8}|[0-9a-f]{40})$', current_rev))
+                if is_commit and len(current_rev) == 8 and current_rev.isdigit() and current_rev.startswith(('19', '20')):
+                    is_commit = False
                 
                 if is_commit:
                     latest = get_latest_git_commit_url(url)
