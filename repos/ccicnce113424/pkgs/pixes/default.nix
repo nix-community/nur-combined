@@ -4,6 +4,7 @@
   srcInfo,
   lib,
   flutter344,
+  webkitgtk_4_1,
   makeDesktopItem,
   copyDesktopItems,
 }:
@@ -12,6 +13,8 @@ flutter344.buildFlutterApplication {
   inherit version;
   inherit (srcInfo) pubspecLock;
   inherit (srcInfo) gitHashes;
+
+  buildInputs = [ webkitgtk_4_1 ];
 
   desktopItems = [
     (makeDesktopItem {
