@@ -2,7 +2,7 @@
 	description = "My personal NUR repository";
 
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+		nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 	};
 
 	outputs = { self, nixpkgs }:
@@ -11,7 +11,7 @@
 		in
 		{
 			legacyPackages = forAllSystems (system: import ./default.nix {
-				pkgs = import nixpkgs { inherit system; };
+				pkgs = nixpkgs.legacyPackages.${system};
 			});
 
 			packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});

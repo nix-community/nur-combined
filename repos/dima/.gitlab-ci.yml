@@ -2,7 +2,7 @@ stages:
   - build
 
 variables:
-  NIX_PATH: nixpkgs=channel:nixos-25.11
+  NIX_PATH: nixpkgs=channel:nixos-26.05
 
 .build_flake_template:
   stage: build
