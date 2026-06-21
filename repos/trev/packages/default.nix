@@ -20,6 +20,7 @@ in
   go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
+  libwtf = pkgs.callPackage ./libwtf { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
   pysentry = pkgs.callPackage ./pysentry { };
