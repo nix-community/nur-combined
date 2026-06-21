@@ -4,14 +4,14 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "djot-tools";
-  version = "0.9.0";
+  version = "0.12.1";
 
   src = fetchFromGitHub {
     owner = "wrvsrx";
     repo = "djot-language-server";
     tag = finalAttrs.version;
-    hash = "sha256-8DXVCALedwQ2/351fERYfvg/z9WtsL6EqifqOIkMnpc=";
+    hash = "sha256-eiEoST1gTrVnWJvieSfn+cl0FeWBDYyws9mmi21hdas=";
   };
 
-  cargoHash = "sha256-9pC+9hUs2e8cjpn3DX/THmWVrjewD7MQrEG6oJaUkDA=";
+  cargoHash = "sha256-LWpkG81X/RRlI+BwA8hDyKdk9s8CjDotvGaSmB7F9FI=";
 })
