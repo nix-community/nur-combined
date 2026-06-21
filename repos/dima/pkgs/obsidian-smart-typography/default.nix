@@ -29,7 +29,6 @@ in
 			nodejs
 			yarnConfigHook
 			yarnBuildHook
-			yarnInstallHook
 		];
 
 		yarnOfflineCache = pkgs.fetchYarnDeps {
