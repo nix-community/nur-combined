@@ -104,6 +104,8 @@ in symlinkJoin {
     name = "rikkahub-desktop";
     paths = [ rikkahub-webui rikkahub-pcs ];
     nativeBuildInputs = [ makeWrapper ];
+    preferLocalBuild = false;
+
     postBuild = ''
         rm $out/lib/rikkahub/rikkahub-pc
         install -Dm755 ${rikkahub-pcs}/lib/rikkahub/rikkahub-pc $out/lib/rikkahub/rikkahub-pc

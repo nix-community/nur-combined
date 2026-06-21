@@ -9,7 +9,33 @@
 { pkgs ? import <nixpkgs> { }, bun2nix ? null, ... }:
 
 let
-  pkgsLib = pkgs.lib;
+  rikkahubDesktop =
+    if bun2nix != null then
+      pkgs.callPackage ./pkgs/rikkahub-desktop { inherit bun2nix; }
+    else
+      pkgs.stdenvNoCC.mkDerivation {
+        pname = "rikkahub-desktop";
+        version = "git";
+        dontUnpack = true;
+
+        buildPhase = ''
+          cat >&2 <<'EOF'
+          rikkahub-desktop requires the flake-provided bun2nix input.
+          Build it with `nix build .#rikkahub-desktop`.
+          EOF
+          exit 1
+        '';
+
+        installPhase = ''
+          mkdir -p $out
+        '';
+
+        meta = {
+          description = "RikkaHub desktop package; requires flake-provided bun2nix to build";
+          mainProgram = "rikkahub-pc";
+          platforms = pkgs.lib.platforms.linux;
+        };
+      };
 in
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -23,8 +49,7 @@ in
   linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { };
   mefrpc = pkgs.callPackage ./pkgs/mefrpc { };
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { };
+  rikkahub-desktop = rikkahubDesktop;
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
-} // pkgsLib.optionalAttrs (bun2nix != null) {
-  rikkahub-desktop = pkgs.callPackage ./pkgs/rikkahub-desktop { inherit bun2nix; };
 }

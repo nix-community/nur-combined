@@ -37,7 +37,10 @@ let
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix { inherit pkgs; };
+  flake = builtins.getFlake (toString ./.);
+  system = pkgs.stdenv.hostPlatform.system;
+  bun2nix = flake.inputs.bun2nix.packages.${system}.default;
+  nurAttrs = import ./default.nix { inherit pkgs bun2nix; };
 
   nurPkgs =
     flattenPkgs
