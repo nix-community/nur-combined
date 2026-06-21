@@ -4689,10 +4689,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.21.9";
+      version = "1.22.0";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4857809/geo_spoof-1.21.9.xpi";
-      sha256 = "f86bb1eeec601f6197dae72b5605d4cf0e3690b1325fdb8a543e48637d91cc94";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4860754/geo_spoof-1.22.0.xpi";
+      sha256 = "44f87630659d94d30a7f6049d2becd4fd0ce46f67b3e68f48b922fd672622377";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -8551,10 +8551,10 @@
     };
     "linkding-extension" = buildMozillaXpiAddon {
       pname = "linkding-extension";
-      version = "1.15.0";
+      version = "1.15.1";
       addonId = "{61a05c39-ad45-4086-946f-32adb0a40a9d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4591150/linkding_extension-1.15.0.xpi";
-      sha256 = "e862a55951621d74cdf26cb6b70bad63e4391855c98b78bf3dca2c45899492b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4860177/linkding_extension-1.15.1.xpi";
+      sha256 = "e32bfc2e21c8d4035212fac3cc2eadcd78fe7016352353df0d3400342953671d";
       meta = with lib;
       {
         homepage = "https://github.com/sissbruecker/linkding-extension/";
