@@ -1,7 +1,7 @@
 { stdenv, lib, bash, coreutils, writeScript, gnutar, gzip, requireFile, patchelf
 , xorg, gtk3, graphviz, unzip, nettools, procps, makeWrapper, ncurses, zlib
 , libX11, libXrender, libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype
-, gtk2, buildFHSUserEnv, gcc, ncurses5, glibc, gperftools, fontconfig
+, gtk2, buildFHSEnv, gcc, ncurses5, glibc, gperftools, fontconfig
 , liberation_ttf, libuuid, writeTextFile,autoPatchelfHook }:
 # uses the already existing 2017.4 config and hinf from these sources:
 # https://blog.kotatsu.dev/posts/2021-09-14-vivado-on-nixos/
@@ -143,7 +143,7 @@ let
     };
   };
 
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "vivado2017.4.1";
   targetPkgs = _pkgs: [
     vivadoPackage

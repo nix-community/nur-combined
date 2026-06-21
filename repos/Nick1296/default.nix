@@ -6,7 +6,10 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }: rec {
+{
+  pkgs ? import <nixpkgs> { },
+}:
+{
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
@@ -17,15 +20,9 @@
   vivado-2019-2-1 = pkgs.callPackage ./pkgs/vivado/2019.2.1.nix { };
   vivado-2019-2-1-fhs = pkgs.callPackage ./pkgs/vivado/2019.2.1-fhs.nix { };
   vivado-2019-2 = pkgs.callPackage ./pkgs/vivado/2019.2.nix { };
-  sweet-theme = pkgs.callPackage ./pkgs/sweet-theme { };
-  nordic = pkgs.callPackage ./pkgs/nordic { };
   doomemacs-icons = pkgs.callPackage ./pkgs/doomemacs-icons { };
-  utterly-round-plasma-style =
-    pkgs.callPackage ./pkgs/utterly-round-plasma-style { };
-  utterly-sweet-plasma-theme =
-    pkgs.callPackage ./pkgs/utterly-sweet-plasma-theme { };
-  utterly-nord-plasma-theme =
-    pkgs.callPackage ./pkgs/utterly-nord-plasma-theme { };
+  pixel-flasher = pkgs.callPackage ./pkgs/pixel-flasher { };
+  tangent = pkgs.callPackage ./pkgs/tangent { };
 
   #example-package = pkgs.callPackage ./pkgs/example-package { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

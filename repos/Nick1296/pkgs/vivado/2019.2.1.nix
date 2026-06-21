@@ -1,35 +1,36 @@
-{ stdenv
-, lib
-, bash
-, coreutils
-, writeScript
-, gnutar
-, gzip
-, requireFile
-, patchelf
-, procps
-, makeWrapper
-, ncurses
-, zlib
-, libX11
-, libXrender
-, libxcb
-, libXext
-, libXtst
-, libXi
-, libxcrypt
-, glib
-, freetype
-, gtk2
-, buildFHSUserEnv
-, gcc
-, ncurses5
-, glibc
-, gperftools
-, fontconfig
-, liberation_ttf
-,writeTextFile
-, nettools
+{
+  stdenv,
+  lib,
+  bash,
+  coreutils,
+  writeScript,
+  gnutar,
+  gzip,
+  requireFile,
+  patchelf,
+  procps,
+  makeWrapper,
+  ncurses,
+  zlib,
+  libX11,
+  libXrender,
+  libxcb,
+  libXext,
+  libXtst,
+  libXi,
+  libxcrypt,
+  glib,
+  freetype,
+  gtk2,
+  buildFHSEnv,
+  gcc,
+  ncurses5,
+  glibc,
+  gperftools,
+  fontconfig,
+  liberation_ttf,
+  writeTextFile,
+  nettools,
 }:
 
 let
@@ -53,65 +54,75 @@ let
     buildInputs = [ patchelf ];
 
     builder = writeScript "${name}-builder" ''
-      #! ${bash}/bin/bash
-      source $stdenv/setup
-
-      mkdir -p $out/
-      tar -xvf $src --strip-components=1 -C $out/ Xilinx_Vivado_2019.2_1106_2127/
-
-      patchShebangs $out/
-      patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
-        $out/tps/lnx64/jre9.0.4/bin/java
-
-      for f in $(find $out -executable -type f)
-      do
-        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || true
-     done
-    '';
-  };
-
-   extractedUpdate = stdenv.mkDerivation rec {
-     name = "vivado-2019.2.1_extracted_update";
-
-     src = requireFile rec {
-       name = "Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
-       url =
-         "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
-       sha256 = "1wn3inbi0nlyg8pskhsi0y6492rymi94shgcxghymxwgj574df3b";
-       message = ''
-         Unfortunately, we cannot download file ${name} automatically.
-         Please go to ${url} to download it yourself, and add it to the Nix store.
-
-         Notice: given that this is a large (9GB) file, the usual methods of addings files
-         to the Nix store (nix-store --add-fixed / nix-prefetch-url file:///) will likely not work.
-         Use the method described here: https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
-       '';
-     };
-
-     buildInputs = [ patchelf procps ncurses makeWrapper nettools ];
-
-     builder = writeScript "${name}-builder" ''
        #! ${bash}/bin/bash
        source $stdenv/setup
 
        mkdir -p $out/
-       tar -xvf $src --strip-components=1 -C $out/ Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436/
+       tar -xvf $src --strip-components=1 -C $out/ Xilinx_Vivado_2019.2_1106_2127/
 
        patchShebangs $out/
        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
          $out/tps/lnx64/jre9.0.4/bin/java
-     for f in $(find $out -executable -type f)
+
+       for f in $(find $out -executable -type f)
        do
          patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || true
       done
-     '';
-   };
+    '';
+  };
+
+  extractedUpdate = stdenv.mkDerivation rec {
+    name = "vivado-2019.2.1_extracted_update";
+
+    src = requireFile rec {
+      name = "Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
+      url = "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436.tar.gz";
+      sha256 = "1wn3inbi0nlyg8pskhsi0y6492rymi94shgcxghymxwgj574df3b";
+      message = ''
+        Unfortunately, we cannot download file ${name} automatically.
+        Please go to ${url} to download it yourself, and add it to the Nix store.
+
+        Notice: given that this is a large (9GB) file, the usual methods of addings files
+        to the Nix store (nix-store --add-fixed / nix-prefetch-url file:///) will likely not work.
+        Use the method described here: https://nixos.wiki/wiki/Cheatsheet#Adding_files_to_the_store
+      '';
+    };
+
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+      nettools
+    ];
+
+    builder = writeScript "${name}-builder" ''
+        #! ${bash}/bin/bash
+        source $stdenv/setup
+
+        mkdir -p $out/
+        tar -xvf $src --strip-components=1 -C $out/ Xilinx_Vivado_Vitis_Update_2019.2.1_1205_0436/
+
+        patchShebangs $out/
+        patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" \
+          $out/tps/lnx64/jre9.0.4/bin/java
+      for f in $(find $out -executable -type f)
+        do
+          patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $f || true
+       done
+    '';
+  };
 
   vivadoPackage = stdenv.mkDerivation rec {
     name = "vivado-2019.2.1";
 
     nativeBuildInputs = [ zlib ];
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     extracted = "${extractedSource}";
     update = "${extractedUpdate}";
@@ -146,11 +157,11 @@ let
   };
 
 in
-  buildFHSUserEnv {
-    name = "vivado2019.2.1";
-    targetPkgs = _pkgs: [
-      vivadoPackage
-      #add cable drivers udev rules
+buildFHSEnv {
+  name = "vivado2019.2.1";
+  targetPkgs = _pkgs: [
+    vivadoPackage
+    #add cable drivers udev rules
     (writeTextFile {
       name = "xilinx-diligent-usb-udev";
       destination = "/etc/udev/rules.d/52-xilinx-digilent-usb.rules";
@@ -179,8 +190,9 @@ in
         ACTION=="add", ATTR{idVendor}=="0403", ATTR{manufacturer}=="Xilinx", MODE:="666"
       '';
     })
-    ];
-    multiPkgs = pkgs: with pkgs; [
+  ];
+  multiPkgs =
+    pkgs: with pkgs; [
       coreutils
       gcc
       ncurses5
@@ -188,5 +200,5 @@ in
       glibc.dev
       libxcrypt-legacy
     ];
-    runScript = "vivado";
-  }
+  runScript = "vivado";
+}

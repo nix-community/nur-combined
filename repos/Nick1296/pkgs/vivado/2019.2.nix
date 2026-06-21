@@ -1,7 +1,7 @@
 { stdenv, lib, bash, bashInteractive, coreutils, writeScript, gnutar, gzip
 , requireFile, patchelf, procps, makeWrapper, ncurses, zlib, libX11, libXrender
 , libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype, gtk2
-, buildFHSUserEnv, gcc, ncurses5, glibc, gperftools, fontconfig, liberation_ttf
+, buildFHSEnv, gcc, ncurses5, glibc, gperftools, fontconfig, liberation_ttf
 , writeTextFile, nettools }:
 
 let
@@ -80,7 +80,7 @@ let
     };
   };
 
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "vivado2019.2";
   targetPkgs = _pkgs: [
     vivadoPackage
