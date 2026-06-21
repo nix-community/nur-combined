@@ -78,6 +78,9 @@ rec {
   linux-devmgmt = qt6.callPackage ./pkgs/linux-devmgmt/package.nix { };
   rsync_341 = callPackage ./pkgs/rsync-3.4.1/default.nix { };
   rrsync_341 = callPackage ./pkgs/rsync-3.4.1/rrsync.nix { rsync = rsync_341; };
+  thextech = callPackage ./pkgs/thextech/package.nix { };
+  thextech-smbx = callPackage ./pkgs/thextech/smbx.nix { inherit thextech; };
+  thextech-aod = callPackage ./pkgs/thextech/aod.nix { inherit thextech; };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 

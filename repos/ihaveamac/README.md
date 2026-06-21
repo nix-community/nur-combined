@@ -12,7 +12,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 
 | Name | Attr | Description |
 | --- | --- | --- |
-| [3beans-release-unstable-2026-06-08](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
+| [3beans-release-unstable-2026-06-12](https://github.com/Hydr8gon/3Beans) | \_3beans | A low-level 3DS emulator (maybe) |
 | [3dslink-0.6.3](https://github.com/devkitPro/3dslink) | \_3dslink | Send 3DSX files to the Homebrew Launcher on 3DS |
 | [3dstool-1.2.6](https://github.com/dnasdw/3dstool) | \_3dstool | An all-in-one tool for extracting/creating 3ds roms. |
 | [3dstools-1.3.1](https://github.com/devkitpro/3dstools) | \_3dstools | Tools for 3DS homebrew |
@@ -63,6 +63,9 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [switch-tools-1.13.1](https://github.com/switchbrew/switch-tools) | switch-tools | Various Nintendo Switch homebrew tools |
 | [tex3ds-2.3.0](https://github.com/devkitPro/tex3ds) | tex3ds | 3DS Texture Conversion |
 | [themethod3-0-unstable-2025-05-26](https://github.com/DarkRTA/themethod3) | themethod3 | Tool for decrypting all mogg files used by the Rock Band series |
+| [thextech-1.3.7.3](https://wohlsoft.ru/projects/TheXTech/) | thextech | The full port of the SMBX engine from VB6 into C++ and SDL2, FreeImage and MixerX |
+| [thextech-aod-1.3.7.3](https://wohlsoft.ru/projects/TheXTech/) | thextech-aod | Adventures of Demo, on TheXTech engine |
+| [thextech-smbx-1.3.7.3](https://wohlsoft.ru/projects/TheXTech/) | thextech-smbx | Super Mario Bros. X, on TheXTech engine |
 | [twlnandtool-1.0.1](https://github.com/TuxSH/twlnandtool) | twlnandtool | Modern drop-in replacement for twltool: fast decryption of DSi NAND dumps and system files. Written in C++14 |
 | [twltool-1.7-unstable-2024-01-21](https://github.com/WinterMute/twltool) | twltool | Nintendo DSi multitool |
 | [vacuumtube-1.7.2](https://github.com/shy1132/VacuumTube) | vacuumtube | YouTube Leanback on the desktop, with enhancements |
