@@ -2,7 +2,7 @@
   lib,
   fetchFromGitHub,
   rustPlatform,
-  cargo-tauri_1,
+  cargo-tauri,
   nodejs,
   pnpm_9,
   fetchPnpmDeps,
@@ -62,7 +62,7 @@ let
     installPhase = "cp pnpm-lock.yaml $out";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-BKFtW/HzEpo4xl7W4MyDyBJ2mlknx0o8DlfAW/CvTMM=";
+    outputHash = "sha256-srsP2aaKEoV22dR0sjxp4CZpvfVfZyoqa9IWALuCokQ=";
   };
 
   # Patched source for dependencies fetching
@@ -82,14 +82,13 @@ rustPlatform.buildRustPackage (finalAttrs: {
     inherit (finalAttrs) pname version;
     src = pnpmDepsSrc;
     pnpm = pnpmWrapper;
-    fetcherVersion = 1;
-    hash = "sha256-QMRT44RR8Y3yz7Rq9UCqi7KKjG8CC4dFhuJJ1JX/2u4=";
+    fetcherVersion = 3;
+    hash = "sha256-H/IvZtb3oCvh/q4+8QAGEf9lfSlBp/7vSZVTuMTOPuo=";
   };
 
   cargoHash = "sha256-OQDh1FQSFnu9rOIkpfotV2VYK444wvodZ7AIcy8859E=";
 
   nativeBuildInputs = [
-    cargo-tauri_1.hook
     nodejs
     pnpmConfigHook
     pnpmWrapper
@@ -141,8 +140,20 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Use the generated lockfile
     cp ${pnpmLock} pnpm-lock.yaml
 
-    substituteInPlace $cargoDepsCopy/libappindicator-sys-*/src/lib.rs \
-      --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1"
+    for f in $cargoDepsCopy/libappindicator-sys-*/src/lib.rs; do
+      if [ -f "$f" ]; then
+        substituteInPlace "$f" \
+          --replace-fail "libayatana-appindicator3.so.1" "${libayatana-appindicator}/lib/libayatana-appindicator3.so.1" || true
+      fi
+    done
+
+    # Fix wry webkitgtk 4.1 compatibility by importing SettingsExt where needed
+    for f in $(find $cargoDepsCopy -path "*/wry-*/src/webview/webkitgtk/*.rs"); do
+      if [ -f "$f" ]; then
+        chmod +w "$f"
+        echo "use webkit2gtk::SettingsExt;" >> "$f" || true
+      fi
+    done
 
     substituteInPlace package.json \
       --replace-fail '"version": "0.0.0"' '"version": "${finalAttrs.version}"' \
@@ -159,6 +170,33 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   doCheck = false;
+
+  buildPhase = ''
+    runHook preBuild
+    pnpm run build:fe || pnpm run build
+    cd src-tauri
+    cargo build --release
+    cd ..
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/bin
+    if [ -f "target/$CARGO_BUILD_TARGET/release/chatgpt" ]; then
+      cp "target/$CARGO_BUILD_TARGET/release/chatgpt" $out/bin/chat-gpt
+    elif [ -f "target/release/chatgpt" ]; then
+      cp "target/release/chatgpt" $out/bin/chat-gpt
+    elif [ -f "src-tauri/target/$CARGO_BUILD_TARGET/release/chatgpt" ]; then
+      cp "src-tauri/target/$CARGO_BUILD_TARGET/release/chatgpt" $out/bin/chat-gpt
+    elif [ -f "src-tauri/target/release/chatgpt" ]; then
+      cp "src-tauri/target/release/chatgpt" $out/bin/chat-gpt
+    else
+      echo "Could not find chatgpt binary!"
+      exit 1
+    fi
+    runHook postInstall
+  '';
 
   postInstall = ''
     # __NV_DISABLE_EXPLICIT_SYNC -> https://github.com/tauri-apps/tauri/issues/10702
