@@ -1,140 +1,179 @@
 {
   lib,
   stdenv,
+  callPackage,
   fetchFromGitHub,
-  gradle,
+  gradle-packages,
+  jdk25,
   autoPatchelfHook,
-  makeDesktopItem,
+  binutils,
   copyDesktopItems,
-  libXrender,
-  libXtst,
+  git,
+  makeDesktopItem,
+  makeWrapper,
+  alsa-lib,
+  at-spi2-core,
+  cairo,
+  cups,
+  dbus,
+  file,
   fontconfig,
-  harfbuzz,
+  freetype,
+  gdk-pixbuf,
+  glib,
   gtk3,
-  libappindicator,
+  libGL,
+  libxkbcommon,
+  pango,
+  wayland,
+  libx11,
+  libxcomposite,
+  libxcursor,
+  libxdamage,
+  libxext,
+  libxi,
+  libxinerama,
+  libxrandr,
+  libxrender,
+  libxtst,
 }:
 
+let
+  gradleUnwrapped = gradle-packages.mkGradle {
+    version = "9.3.1";
+    hash = "sha256-smbV/2uQ6tptw7IMsJDjcxMC5VOifF0+TfHw12vq/wY=";
+    defaultJava = jdk25;
+  };
+
+  gradle = callPackage gradle-packages.wrapGradle {
+    gradle-unwrapped = gradleUnwrapped;
+  };
+
+  appName = "ABDownloadManager";
+  runtimeLibs = [
+    alsa-lib
+    at-spi2-core
+    cairo
+    cups
+    dbus
+    file
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    gtk3
+    libGL
+    libxkbcommon
+    pango
+    wayland
+    libx11
+    libxcomposite
+    libxcursor
+    libxdamage
+    libxext
+    libxi
+    libxinerama
+    libxrandr
+    libxrender
+    libxtst
+  ];
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
-  version = "1.8.8";
+  version = "1.9.2";
 
   src = fetchFromGitHub {
     owner = "amir1376";
     repo = "ab-download-manager";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-kEgv0XuOA9FKhBeDccc6x+iKCevInjQ6abP1pWhEs3U=";
+    hash = "sha256-4Nb6nRIWmiQqvPTCf4sGUtbWr4NqQX5PTy3oSVgu+aE=";
   };
 
   nativeBuildInputs = [
-    gradle
     autoPatchelfHook
+    binutils
     copyDesktopItems
+    git
+    gradle
+    jdk25
+    makeWrapper
   ];
 
-  buildInputs = [
-    libXrender
-    libXtst
-    fontconfig
-    harfbuzz
-    gtk3
-    libappindicator
-  ];
+  buildInputs = runtimeLibs;
+  runtimeDependencies = runtimeLibs;
 
-  postPatch = ''
-    sed -i '/useFileSystemPermissions()/d' desktop/app/build.gradle.kts
+  dontUseGradleCheck = true;
 
-    sed -i 's/from(tasks.named("createReleaseDistributable"))/dependsOn("createReleaseDistributable");from(project.layout.buildDirectory.dir("compose\/binaries\/main-release\/app"))/g' desktop/app/build.gradle.kts
-
-    substituteInPlace build.gradle.kts \
-        --replace-fail 'version = (gitVersion.getVersion() ?: fallBackVersion).toVersion()' \
-        'version = "${finalAttrs.version}".toVersion()'
-
-    cat >> build.gradle.kts <<'EOF'
-    allprojects {
-        repositories {
-            maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
-            maven { url = uri("https://www.jetbrains.com/intellij-repository/releases") }
-            mavenCentral()
-            google()
-        }
-    }
-    EOF
-
-    cat >> desktop/app/build.gradle.kts <<'EOF'
-    tasks.register("nixFetchDependencies") {
-        dependsOn("createReleaseDistributable")
-        if (tasks.findByName("checkRuntime") != null) {
-            dependsOn("checkRuntime")
-        }
-    }
-    EOF
-
-    cat > nix-kotlin-patch.gradle <<'EOF'
-    allprojects {
-        tasks.configureEach { task ->
-            if (task.hasProperty("kotlinOptions")) {
-                task.kotlinOptions.freeCompilerArgs += ["-Xskip-metadata-version-check"]
-            }
-        }
-    }
-    EOF
-  '';
-
-  # nix build .#ab-download-manager.mitmCache.updateScript && ./result
   mitmCache = gradle.fetchDeps {
     pkg = finalAttrs.finalPackage;
+    inherit (finalAttrs) pname;
     data = ./deps.json;
   };
 
-  gradleFlags = [
-    "-Dfile.encoding=utf-8"
-    "--init-script=nix-kotlin-patch.gradle"
-  ];
-
   gradleBuildTask = ":desktop:app:createReleaseDistributable";
-  gradleUpdateTask = ":desktop:app:nixFetchDependencies";
+  gradleUpdateTask = ":desktop:app:createReleaseDistributable";
 
-  doCheck = false;
+  postPatch = ''
+    substituteInPlace desktop/app/build.gradle.kts \
+      --replace-fail 'from(tasks.named("createReleaseDistributable"))' 'dependsOn("createReleaseDistributable")
+    from(layout.buildDirectory.dir("compose/binaries/main-release/app/$appPackageNameByComposePlugin"))'
+  '';
+
+  preConfigure = ''
+    export JAVA_HOME="${jdk25.home}"
+    export GITHUB_CI=true
+    export GITHUB_REF="refs/tags/v${finalAttrs.version}"
+    export GITHUB_SHA="0000000000000000000000000000000000000000"
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    appDir="$out/opt/${appName}"
+    mkdir -p "$out/bin" "$appDir" "$out/share/pixmaps"
+    cp -r "desktop/app/build/compose/binaries/main-release/app/${appName}/." "$appDir/"
+
+    install -Dm644 "desktop/app/icons/icon.png" "$out/share/icons/hicolor/512x512/apps/${finalAttrs.pname}.png"
+    ln -s "$out/share/icons/hicolor/512x512/apps/${finalAttrs.pname}.png" "$out/share/pixmaps/${finalAttrs.pname}.png"
+
+    makeWrapper "$appDir/bin/${appName}" "$out/bin/${appName}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}:$appDir/lib/runtime/lib:$appDir/lib/runtime/lib/server:$appDir/lib" \
+      --set-default _JAVA_AWT_WM_NONREPARENTING 1
+
+    runHook postInstall
+  '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "abdownloadmanager";
-      exec = "ABDownloadManager";
-      icon = "abdownloadmanager";
+      name = finalAttrs.pname;
       desktopName = "AB Download Manager";
-      comment = "Manage and organize your download files better than before";
+      exec = appName;
+      icon = finalAttrs.pname;
+      comment = "Download manager";
       categories = [
-        "Utility"
         "Network"
+        "FileTransfer"
       ];
       startupWMClass = "com-abdownloadmanager-desktop-AppKt";
     })
   ];
 
-  installPhase = ''
-    runHook preInstall
+  # nix eval --raw .#ab-download-manager.passthru.fetch-deps.passthru.updateScript
+  passthru.fetch-deps = gradle.fetchDeps {
+    pkg = finalAttrs.finalPackage;
+    inherit (finalAttrs) pname;
+    data = ./deps.json;
+  };
 
-    mkdir -p $out/opt/abdownloadmanager
-    cp -r desktop/app/build/compose/binaries/main-release/app/ABDownloadManager/* $out/opt/abdownloadmanager/
-
-    mkdir -p $out/bin
-    ln -s $out/opt/abdownloadmanager/bin/ABDownloadManager $out/bin/ABDownloadManager
-
-    install -Dm644 desktop/app/icons/icon.png "$out/share/icons/hicolor/512x512/apps/abdownloadmanager.png"
-
-    runHook postInstall
-  '';
-
-  meta = with lib; {
-    description = "A Download Manager that speeds up your downloads";
+  meta = {
+    description = "Desktop download manager";
     homepage = "https://github.com/amir1376/ab-download-manager";
     license = lib.licenses.asl20;
-    platforms = [ "x86_64-linux" ];
+    mainProgram = appName;
+    platforms = lib.platforms.linux;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode
     ];
-    mainProgram = "ABDownloadManager";
-    broken = false;
   };
 })
