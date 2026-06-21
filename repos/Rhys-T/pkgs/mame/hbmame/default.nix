@@ -3,15 +3,22 @@
     writeShellScript,
     common-updater-scripts,
     coreutils,
+    qt6,
     gitMinimal,
     jq,
     nix-prefetch-git,
     maintainers,
     myLib,
 }: let
-    mame' = if (lib.functionArgs mame.override)?papirus-icon-theme then mame.override {
-        papirus-icon-theme = "DUMMY";
-    } else mame;
+    mameArgs = lib.functionArgs mame.override;
+    mame' = mame.override (
+        lib.optionalAttrs (mameArgs?papirus-icon-theme) {
+            papirus-icon-theme = "DUMMY";
+        } //
+        lib.optionalAttrs (mameArgs?libsForQt5) {
+            libsForQt5 = qt6; # Upstream MAME and HBMAME have both been updated to use Qt6 instead
+        }
+    );
     hbmame' = mame'.overrideAttrs (old: rec {
         pname = "hbmame";
         version = "0.288";
