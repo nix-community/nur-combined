@@ -44,6 +44,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = sing-box.meta // {
-    platform = lib.platforms.darwin;
+    platforms = lib.platforms.darwin;
   };
 })
