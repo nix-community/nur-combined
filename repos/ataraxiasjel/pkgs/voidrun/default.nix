@@ -11,11 +11,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
   src = fetchFromGitHub {
     owner = "AtaraxiaSjel";
     repo = "voidrun-rs";
-    rev = finalAttrs.version;
-    hash = lib.fakeHash;
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-nvdR0QgcpyIcF3PaLXwhGAUIwOAMGbboBP1ukpTMyuo=";
   };
 
-  cargoHash = lib.fakeHash;
+  cargoHash = "sha256-L16NEvMGGgFOf/3wUUPzM+uwMgizX6B+ENIzYX0mv8w=";
 
   passthru.updateScript = nix-update-script { };
 
