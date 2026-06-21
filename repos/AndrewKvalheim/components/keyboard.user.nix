@@ -93,13 +93,18 @@ in
     # Letters and letterlike symbols
     "æ" = "ae"; # ae ligature
     "à" = "a`"; # a with grave
+    "🅯" = "by"; # circled human figure
     "¢" = "c|"; # cent sign
     "ↄ" = "c<"; # reversed c
+    "🅮" = "c0"; # circled zero with slash
+    "🅭" = "cc"; # circled cc
     "©" = "cop"; # copyright sign
     "µ" = "mu"; # micro sign
     "ñ" = "n~"; # n with tilde
+    "🄏" = "nc"; # circled dollar sign with overlaid backslash
     "ø" = "o/"; # o with stroke
     "¶" = "pp"; # pilcrow sign
+    "🄎" = "sa"; # circled anticlockwise arrow
     "§" = "ss"; # section sign
     "™" = "tm"; # trade mark sign
     "ü" = "u:"; # u with diaeresis
