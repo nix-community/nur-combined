@@ -185,10 +185,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.5.15";
+    version = "1.5.16";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.15.tar.gz";
-      hash = "sha256-s/h1n/eWZWeEJRXMkEgVuTZb5G8QYEjoqIIxm/dpJAk=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.5.16.tar.gz";
+      hash = "sha256-8jKSEe3HLUo3PzqOPgweJ7sGk7WX/DSZEP9EujuI7sM=";
     };
   };
   bilibili = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.22";
+    version = "v7.2.27";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.22";
-      hash = "sha256-iabSRs+qIsnz1r/rg3AnD8pqnzDwyKdFvpfKWyZ0+DU=";
+      tag = "v7.2.27";
+      hash = "sha256-lPmAri8sSjlMpLSLNc83fBAQRqb9vfQwVZ5poNFcdvk=";
     };
   };
   cockpy = {
@@ -861,14 +861,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "ce7788c104c94d5e6d7057e8f2ce45ddf3af5968";
+    version = "9f1d2204324b444567dae9ebed31ac67649da86c";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "ce7788c104c94d5e6d7057e8f2ce45ddf3af5968";
-      hash = "sha256-jMuGYLRmWTbT7tEhxDEqGPyGvc7Ga6ZxKmohJNzmHjo=";
+      rev = "9f1d2204324b444567dae9ebed31ac67649da86c";
+      hash = "sha256-xZst5btFV83UX1pUbqT31O1d4Z+gmpMuZUyyrax2Zp8=";
     };
-    date = "2026-06-21";
+    date = "2026-06-22";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1314,12 +1314,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9741";
+    version = "b9753";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9741";
-      hash = "sha256-GWzwJDi1wjPc1YgZGzim4oIAbEDKa2aU8zK+qiKyR/w=";
+      tag = "b9753";
+      hash = "sha256-rUrG7fnuF8Pd03TXQR90swGmA9L3OuOuUkbJdaPTUek=";
     };
   };
   loralib = {
@@ -2403,15 +2403,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "01ef98fa3836bc8af49d33b9cc3dcc3ebf549d3e";
+    version = "0dc23f7d7719e41d70e5d7fedc199b7a8235191f";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "01ef98fa3836bc8af49d33b9cc3dcc3ebf549d3e";
+      rev = "0dc23f7d7719e41d70e5d7fedc199b7a8235191f";
       fetchSubmodules = true;
-      hash = "sha256-x3LsXXYoRirGDsSKwCbihlks0iMtuZiuKOOalVgoKsM=";
+      hash = "sha256-d0ZvaGi/REIp+AOPcvsm6aW7PJU0QYF+V78y9m7PPqw=";
     };
-    date = "2026-06-20";
+    date = "2026-06-21";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2455,12 +2455,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v4.1.0";
+    version = "v4.2.0";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v4.1.0";
-      hash = "sha256-hlDnCVnC3YaGRwUjRovxc1+E4z23lX9KinVaTuMp0vk=";
+      tag = "v4.2.0";
+      hash = "sha256-qP7OsjuaSlEjQm1t/EiRcOGdffgc8opdwlQ6xuIslYA=";
     };
   };
   vbmeta-disable-verification = {
