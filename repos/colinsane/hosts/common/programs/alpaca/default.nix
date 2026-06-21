@@ -35,8 +35,8 @@ let
     pkgs.mlModels.nemotron-3-nano-4b
     # pkgs.mlModels.nemotron-3-nano-30b-a3b
     # pkgs.mlModels.omnicoder-9b
-    # pkgs.mlModels.qwen3_5-35b-a3b
-    # pkgs.mlModels.qwen3_5-9b
+    # pkgs.mlModels.qwen3_5-35b-a3b-q4_k_m
+    # pkgs.mlModels.qwen3_5-9b-q4_k_m
     # pkgs.mlModels.qwen3_5-4b-claude-4_6-opus-reasoning-distilled-v2
     # pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-v2-q4_k_m
     pkgs.mlModels.qwen3_5-9b-claude-4_6-opus-reasoning-distilled-q3_k_m

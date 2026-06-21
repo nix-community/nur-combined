@@ -42,6 +42,10 @@ let
         directTools = true;
         # lifecycle = "eager";
       };
+      home_assistant = {
+        command = "ha-mcp";
+        directTools = false;
+      };
       # markitdown = {
       #   # provides one "markitdown_convert_to_markdown" tool.
       #   # 67 tokens.. LLMs reach for it naturally, but takes 1-2 seconds to initialize.
@@ -52,7 +56,7 @@ let
       # kagi = {
       #   command = "kagimcp";
       # };
-      kagi = {
+      search = {
         command = "kagi";
         args = [ "mcp" ];
         directTools = [
@@ -99,6 +103,7 @@ in
     });
 
     suggestedPrograms = [
+      "ha-mcp"
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
       # "kagimcp"
@@ -113,6 +118,7 @@ in
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
+      ".config/ha-mcp/ha-mcp.env"
       # ".config/kagi/kagi-api-key"
       # ".config/kagi/kagi_session_token"
       ".config/kagi-cli/config.toml"
@@ -149,7 +155,8 @@ in
     fs.".config/pi/settings.json".symlink.target = (pkgs.formats.json {}).generate "pi-settings.json" {
       # defaultModel = "google/gemma-4-31b-it";
       # defaultProvider = "nano-gpt";
-      defaultModel = llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id;
+      # defaultModel = llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id;
+      defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id;
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       enableInstallTelemetry = false;
@@ -170,9 +177,13 @@ in
       enabledModels = [
         # default set for Ctrl+P cycling
         # "llama-cpp/${llamaCppModels.gemma-4-12b-it-qat-ud-q4_k_xl.id}"
-        "llama-cpp/${llamaCppModels.gemma-4-e4b-it-qat-ud-q4_k_xl.id}"
+        # "llama-cpp/${llamaCppModels.gemma-4-e4b-it-qat-ud-q4_k_xl.id}"
         "llama-cpp/${llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id}"
         "llama-cpp/${llamaCppModels.gemma-4-31b-it-qat-ud-q4_k_xl.id}"
+        "llama-cpp/${llamaCppModels.qwen3_6-35b-a3b-mtp-ud-q4_k_m.id}"
+        "llama-cpp/${llamaCppModels.qwen3_6-27b-mtp-q4_k_m.id}"
+        "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id}"
+        "llama-cpp/${llamaCppModels.qwen3_5-9b-q4_k_m.id}"
         "google/gemma-4-31b-it"
         "moonshotai/kimi-latest"
         "deepseek/deepseek-latest"
