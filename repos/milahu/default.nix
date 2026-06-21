@@ -1527,6 +1527,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ffmpeg-malicious = callPackage ./pkgs/by-name/ff/ffmpeg-malicious/package.nix { };
 
+  kobo-book-downloader = python3.pkgs.callPackage ./pkgs/by-name/ko/kobo-book-downloader/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
