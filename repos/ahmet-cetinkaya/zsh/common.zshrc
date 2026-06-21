@@ -24,6 +24,9 @@ SAVEHIST=10000
 ## Preferences
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 export DOTNET_SVCUTIL_TELEMETRY_OPTOUT=1
+if command -v dotnet >/dev/null 2>&1; then
+  export DOTNET_ROOT="$(dirname "$(readlink -f "$(command -v dotnet)")")"
+fi
 
 ## Keybindings
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then

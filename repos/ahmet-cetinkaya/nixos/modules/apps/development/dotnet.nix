@@ -3,21 +3,27 @@
   lib,
   ...
 }: let
+  dotnetSdk = pkgs.dotnetCorePackages.combinePackages [
+    pkgs.dotnetCorePackages.sdk_8_0-bin
+    pkgs.dotnetCorePackages.sdk_9_0-bin
+    pkgs.dotnetCorePackages.sdk_10_0-bin
+    pkgs.dotnetCorePackages.sdk_11_0-bin
+  ];
   dotnetTools = [
     "csharpier"
   ];
 in {
   environment.systemPackages = with pkgs; [
-    (dotnetCorePackages.combinePackages [
-      dotnetCorePackages.sdk_8_0-bin
-      dotnetCorePackages.sdk_9_0-bin
-      dotnetCorePackages.sdk_10_0-bin
-      dotnetCorePackages.sdk_11_0-bin
-    ])
+    dotnetSdk
   ];
+
+  home-manager.users.ac.home.sessionVariables = {
+    DOTNET_ROOT = "${dotnetSdk}/share/dotnet";
+  };
 
   home-manager.users.ac.home.activation.dotnetGlobalTools = lib.mkAfter ''
         export PATH="/run/current-system/sw/bin:$PATH"
+        export DOTNET_ROOT="$(dirname "$(readlink -f "$(command -v dotnet)")")"
 
         if ! command -v dotnet >/dev/null 2>&1; then
           echo "dotnet not found, skipping dotnet global tools installation."

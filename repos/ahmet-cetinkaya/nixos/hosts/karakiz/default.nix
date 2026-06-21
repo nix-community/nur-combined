@@ -34,11 +34,13 @@
     ../../modules/apps/productivity.nix
     # Utilities
     ../../modules/apps/utilities/default.nix
+    # Virtualization
+    ../../modules/apps/utilities/qemu.nix
   ];
 
   networking.hostName = "karakiz";
 
-  # Allow unfree packages (VirtualBox Extension Pack, NVIDIA drivers, etc.)
+  # Allow unfree packages (NVIDIA drivers, etc.)
   nixpkgs.config.allowUnfree = true;
 
   # CachyOS kernel (custom module) + upstream system optimizations.

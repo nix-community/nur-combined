@@ -1,4 +1,4 @@
-{...}: {
+{pkgs, ...}: {
   imports = [
     ./../../modules/configs/agent-ctrl.nix
     ./../../modules/configs/fastfetch.nix
@@ -27,8 +27,23 @@
       init.defaultBranch = "main";
       user = {
         name = "ahmet-cetinkaya";
-        email = "ahmetcetinkaya@tutamail.com";
+        email = "ahmetcetinkaya.me@proton.me";
+        signingKey = "E52DA6A2FA3247526E01B7010E4139BDC3163C05";
       };
+      commit.gpgSign = true;
+      tag.gpgSign = true;
+      gpg.program = "gpg2";
     };
+  };
+
+  home.packages = with pkgs; [
+    gnupg
+    pinentry-tty
+  ];
+
+  services.gpg-agent = {
+    enable = true;
+    pinentry.package = pkgs.pinentry-tty;
+    enableSshSupport = true;
   };
 }

@@ -5,5 +5,6 @@
 { pkgs }:
 {
   antigravity-tools-bin = pkgs.callPackage ./antigravity-tools-bin {};
+  prince-bin = pkgs.callPackage ./prince-bin {};
   zed-preview-bin = pkgs.callPackage ./zed-preview-bin {};
 }

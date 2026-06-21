@@ -1,12 +1,12 @@
 {
   "[astro]": {
-    "editor.defaultFormatter": "astro-build.astro-vscode"
+    "editor.defaultFormatter": "astro-build.astro-vscode",
   },
   "[csharp]": {
-    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+    "editor.defaultFormatter": "csharpier.csharpier-vscode",
   },
   "[css]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[dart]": {
     "editor.formatOnSave": true,
@@ -15,51 +15,52 @@
     "editor.selectionHighlight": false,
     "editor.suggestSelection": "first",
     "editor.tabCompletion": "onlySnippets",
-    "editor.wordBasedSuggestions": "off"
+    "editor.wordBasedSuggestions": "off",
   },
   "[github-actions-workflow]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[html]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[json]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[markdown]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.wordWrap": "on",
-    "files.autoSave": "afterDelay"
+    "files.autoSave": "afterDelay",
+    "diffEditor.ignoreTrimWhitespace": false,
   },
   "[nix]": {
-    "editor.defaultFormatter": "kamadorueda.alejandra"
+    "editor.defaultFormatter": "kamadorueda.alejandra",
   },
   "[scss]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[svg]": {
-    "editor.defaultFormatter": "jock.svg"
+    "editor.defaultFormatter": "jock.svg",
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
   },
   "[xml]": {
-    "editor.defaultFormatter": "csharpier.csharpier-vscode"
+    "editor.defaultFormatter": "csharpier.csharpier-vscode",
   },
   "[yaml]": {
-    "editor.defaultFormatter": "redhat.vscode-yaml"
+    "editor.defaultFormatter": "redhat.vscode-yaml",
   },
   "better-comments.multilineComments": true,
   "better-comments.tags": [
@@ -67,16 +68,16 @@
       "bold": true,
       "color": "#FFB86C",
       "strikethrough": false,
-      "tag": "TODO"
+      "tag": "TODO",
     },
     {
       "color": "#13522f",
-      "tag": "//"
+      "tag": "//",
     },
     {
       "color": "#2A79AE",
-      "tag": "#"
-    }
+      "tag": "#",
+    },
   ],
   "csharpier.enableDiagnostics": false,
   "cSpell.diagnosticLevel": "Hint",
@@ -90,14 +91,14 @@
     "**/settings.json",
     "node_modules",
     "package-lock.json",
-    "vscode-extension"
+    "vscode-extension",
   ],
   "cSpell.language": "en,tr",
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": "always",
-    "source.removeUnusedImports": "explicit"
+    "source.removeUnusedImports": "explicit",
   },
   "editor.cursorBlinking": "off",
   "editor.fontFamily": "'FiraCode Nerd Font Mono', 'JetBrains Mono Nerd Font', 'Cascadia Code Nerd Font', 'Victor Mono Nerd Font', 'Noto Sans Mono CJK JP', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR', 'Noto Naskh Arabic', 'Noto Sans Thai', 'Noto Sans Devanagari', 'Noto Color Emoji', 'Noto Sans Symbols 2', 'Noto Sans Symbols', 'DejaVu Sans Mono', monospace",
@@ -126,10 +127,10 @@
     "README.md": "LICENSE, CONTRIBUTING.md, CHANGELOG.md, SECURITY.md",
     "tailwind.config.*": "tailwind.config.js, postcss.config.js",
     "tsconfig.json": "tsconfig.*.json",
-    "vite.config.*": "vitest.config.*, playwright.config.*"
+    "vite.config.*": "vitest.config.*, playwright.config.*",
   },
   "extensions.experimental.affinity": {
-    "asvetliakov.vscode-neovim": 1
+    "asvetliakov.vscode-neovim": 1,
   },
   "extensionSync": [
     "aaron-bond.better-comments",
@@ -235,19 +236,19 @@
     "YoavBls.pretty-ts-errors",
     "yoshinorin.image-metadata-viewer",
     "yzhang.markdown-all-in-one",
-    "ZhangYue.rust-mod-generator"
+    "ZhangYue.rust-mod-generator",
   ],
   "files.eol": "\n",
   "files.exclude": {
     "**/bin": true,
-    "**/obj": true
+    "**/obj": true,
   },
   "files.watcherExclude": {
     "**/.git/objects/**": true,
     "**/.git/subtree-cache/**": true,
     "**/.hg/store/**": true,
     "**/fdroid/**/**": true,
-    "**/node_modules/*/**": true
+    "**/node_modules/*/**": true,
   },
   "git.autofetch": true,
   "git.confirmSync": false,
@@ -257,7 +258,7 @@
   "gitlens.telemetry.enabled": false,
   "indentRainbow.indicatorStyle": "light",
   "inlineChat.enableV2": true,
-  "kilo-code.new.autocomplete.enableAutoTrigger": false,
+  "kilo-code.new.autocomplete.enableAutoTrigger": true,
   "kilo-code.new.autocomplete.enableChatAutocomplete": false,
   "kilo-code.new.autocomplete.enableSmartInlineTaskKeybinding": false,
   "kilo-code.new.browserAutomation.enabled": true,
@@ -299,14 +300,14 @@
     "(?:add|remove)Class\\(([^)]*)\\)(?:'|\"|`)([^\"'`]*)(?:'|\"|`)",
     "classList.(?:add|remove)\\(([^)]*)\\)(?:'|\"|`)([^\"'`]*)(?:'|\"|`)",
     "@tw\\s\\*\\/\\s+[\"'`]([^\"'`]*)",
-    "data-.*-class=['\"]([^'\"]*)"
+    "data-.*-class=['\"]([^'\"]*)",
   ],
   "tailwindCSS.includeLanguages": {
-    "ts": "ts"
+    "ts": "ts",
   },
   "terminal.integrated.commandsToSkipShell": [
     "kilo-code.new.agentManagerOpen",
-    "kilo-code.new.agentManager.showTerminal"
+    "kilo-code.new.agentManager.showTerminal",
   ],
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.defaultProfile.linux": "zsh",
@@ -337,7 +338,7 @@
     "up",
     "down",
     "backspace",
-    "delete"
+    "delete",
   ],
   "window.commandCenter": false,
   "window.customTitleBarVisibility": "never",
@@ -377,7 +378,7 @@
     "tab.unfocusedActiveForeground": "#f4d03e",
     "tab.unfocusedInactiveBackground": "#181818",
     "tab.unfocusedInactiveForeground": "#f4d03e",
-    "titleBar.border": "#181818"
+    "titleBar.border": "#181818",
   },
   "workbench.colorTheme": "Dark Modern",
   "workbench.editor.wrapTabs": true,
@@ -455,9 +456,14 @@
     "workbench.statusBar.visible",
     "workbench.tree.renderIndentGuides",
     "editor.formatOnSave",
-    "editor.formatOnSaveMode"
+    "editor.formatOnSaveMode",
   ],
   "workbench.startupEditor": "none",
   "workbench.statusBar.visible": false,
-  "workbench.tree.renderIndentGuides": "always"
+  "workbench.tree.renderIndentGuides": "always",
+  "kilo-code.new.agentWorkStyle": "skipped",
+  "errorLens.gutterIconSet": "defaultOutline",
+  "errorLens.gutterIconsEnabled": true,
+  "errorLens.border": ["1px dashed", "1px dashed", "1px dashed", "1px dashed"],
+  "errorLens.borderRadius": "0.4em",
 }

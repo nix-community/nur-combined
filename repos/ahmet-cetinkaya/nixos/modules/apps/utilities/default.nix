@@ -66,6 +66,7 @@
     ffmpeg
     imagemagick
     tesseract
+    prince-bin
 
     # Sandbox & Networking
     bubblewrap
