@@ -7,7 +7,6 @@
   cmake,
   ninja,
   git,
-  _7zz,
   SDL2,
   libpng,
   libjpeg,
@@ -82,8 +81,8 @@ let
       let
         executable = "thextech-${packId}";
         desktopItem = makeDesktopItem {
-          name = gameName;
-          desktopName = executable;
+          name = executable;
+          desktopName = gameName;
           exec = "${executable} @F";
           icon = gameDir;
           comment = desktopComment;
@@ -104,30 +103,7 @@ let
         # TODO: make this support directories
         src = gameSrc;
 
-        nativeBuildInputs = [ _7zz ] ++ (lib.optional stdenvNoCC.isDarwin makeWrapper);
-
-        # should probably consolidate these
-        unpackPhase =
-          if stdenvNoCC.isDarwin then
-            ''
-              if test -d $src; then
-                gameDir=$src
-              else
-                mkdir -p $TMP/
-                gameDir=$TMP/
-                7zz x $src -o$gameDir
-              fi
-            ''
-          else
-            ''
-              if test -d $src; then
-                gameDir=$src
-              else
-                gameDir=$out/games/TheXTech/${gameDir}
-                mkdir -p ${gameDir}
-                7zz x $src -o$gameDir
-              fi
-            '';
+        nativeBuildInputs = lib.optional stdenvNoCC.isDarwin makeWrapper;
 
         # TODO: update Info.plist (probably with PlistBuddy)
         # TODO; figure out why it's not loading assets from this location
@@ -140,7 +116,7 @@ let
               cp -r ${thextech}/Applications/TheXTech.app "$appDir"
               # work around permission issue
               chmod -R +w "$appDir"
-              cp -r $gameDir "$appDir/Contents/Resources/assets"
+              cp -r $src "$appDir/Contents/Resources/assets"
               wrapProgram "$appDir/Contents/MacOS/TheXTech" \
                 --add-flags "-c \"$appDir/Contents/Resources/assets\""
             ''
@@ -150,7 +126,7 @@ let
               cp ${desktopItem}/share/applications/*.desktop $out/share/applications
 
               for f in 16 32 48 128 256; do
-                i=$gameDir/graphics/ui/icon/thextech_$f.png
+                i=$src/graphics/ui/icon/thextech_$f.png
                 if test -e $i; then
                   d=$out/share/icons/hicolor/''${f}x''${f}/apps
                   mkdir -p $d
@@ -162,7 +138,7 @@ let
               substituteInPlace $out/bin/${executable} \
                 --replace-fail NIXBASH ${bashInteractive}/bin/bash \
                 --replace-fail NIXPACKID ${packId} \
-                --replace-fail NIXGAMEDIR $gameDir \
+                --replace-fail NIXGAMEDIR $src \
                 --replace-fail NIXGAMENAME "${gameName}" \
                 --replace-fail NIXBINARYPATH "${thextech}/bin/thextech"
               chmod +x $out/bin/${executable}

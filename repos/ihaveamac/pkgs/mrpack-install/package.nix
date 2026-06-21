@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "mrpack-install";
-  version = "0.16.10-unstable-2024-11-24";
+  version = "0.21.0-beta-unstable-2026-03-11";
 
   src = fetchFromGitHub {
     owner = "nothub";
     repo = pname;
-    rev = "3363dcb5671fca3433119775ba2ab467c1675804";
-    hash = "sha256-CvPLECLrizXfZWbC98ZSfldA1QA3OSwMicH4fOodzOo=";
+    rev = "480907b4ede34b6ecfa4cc1a6e5956083b40e0e6";
+    hash = "sha256-eG2hXFUkY3Up3ikRo8JXQwsCruLj207tgFMkDv0/MOg=";
   };
 
-  vendorHash = "sha256-4FKt/IcmI1ev/eHzQpicWkYWAh8axUgDL7QxXRioTnc=";
+  vendorHash = "sha256-SBlBkStfVAqfyDDs6subgBtH7M0BKg8mNSWQm8Cb9Qw=";
 
   # has a test that fails related to paths or something
   # don't know why, but it seems to be not very important

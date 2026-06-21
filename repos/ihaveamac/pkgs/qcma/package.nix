@@ -8,11 +8,10 @@
   wrapQtAppsHook,
   pkg-config,
   libnotify,
-  qtbase,
-  qttools,
+  qt6,
 
   withFFmpeg ? true,
-  ffmpeg_4,
+  ffmpeg,
 }:
 
 let
@@ -20,28 +19,30 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "qcma";
-  version = "0.4.2";
+  version = "0.4.1-unstable-2025-07-14";
 
   src = fetchFromGitHub {
     owner = "codestation";
     repo = pname;
-    rev = "65f0eab8ca0640447d2e84cdc5fadc66d2c07efb";
-    hash = "sha256-AxbWZlziQdL3HnCf9kqylqBnWXVmC0I9pqoFXQAnD8U=";
+    rev = "26ad896537288712fe1cdda23e310d461a0d95af";
+    hash = "sha256-OFP7ZpTjiJYzz7uVyscemNsBHYnQOu5hGdi7xfLPYnM=";
   };
+
+  passthru = { inherit vitamtp; };
 
   buildInputs = [
     vitamtp
     libnotify
-    qtbase
+    qt6.qtbase
   ]
-  ++ (lib.optional withFFmpeg ffmpeg_4);
+  ++ (lib.optional withFFmpeg ffmpeg);
 
   nativeBuildInputs = [
     git
     qmake
     wrapQtAppsHook
     pkg-config
-    qttools
+    qt6.qttools
   ];
 
   qmakeFlags = lib.optional (!withFFmpeg) "CONFIG+=DISABLE_FFMPEG";

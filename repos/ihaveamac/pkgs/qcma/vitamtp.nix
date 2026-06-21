@@ -16,13 +16,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "vitamtp";
-  version = "2.5.9";
+  version = "2.5.10";
 
   src = fetchFromGitHub {
     owner = "codestation";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-yKlfy+beEd0uxfWvMCA0kUGhj8lkuQztdSz6i99xiSU=";
+    hash = "sha256-GM3pHzFQ4M2jGDm3slNOCK7wjApFLZeqI3soxMwG5lo=";
   };
 
   preConfigure = ''

@@ -14,14 +14,14 @@ let
 in
 buildPythonApplication rec {
   pname = "cleaninty";
-  version = "0.1.3";
+  version = "0.1.3-unstable-2026-02-03";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "luigoalma";
     repo = pname;
-    rev = "v${version}";
-    sha256 = "sha256-QVttOy3WPFZXvbNaJUhFSsEWwPDZgkGuDBR7zxlS+w8=";
+    rev = "6171591ace81e3029faa32132fd2a5da09d11597";
+    sha256 = "sha256-TFRrRI+VZcF86XOhAglkB6tN/Lh/rrQG1lvUm4Uk8/w=";
   };
 
   build-system = [ setuptools ];

@@ -20,7 +20,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [azahar-2126.0-alpha2-unstable-2026-06-19](https://github.com/azahar-emu/azahar) | azahar-master | Open-source 3DS emulator project based on Citra (master branch) |
 | [bannertool-2024-11-30](https://github.com/ihaveamac/3ds-bannertool) | bannertool | A tool for creating 3DS banners. (Mix of Windows unicode fix and CMake build system) |
 | [caesar-0.4.2-unstable-2022-08-16](https://github.com/kr3nshaw/caesar) | caesar | A tool that extracts the contents of Citrus Sound Archives |
-| [cleaninty-0.1.3](https://github.com/luigoalma/cleaninty) | cleaninty | Perform some Nintendo console client to server operations |
+| [cleaninty-0.1.3-unstable-2026-02-03](https://github.com/luigoalma/cleaninty) | cleaninty | Perform some Nintendo console client to server operations |
 | [Corgi3DS-2020-07-15](https://github.com/PSI-Rockin/Corgi3DS) | corgi3ds | An LLE dog-themed 3DS emulator |
 | [ctr-gputextool-0-unstable-2015-11-25](https://github.com/yellows8/ctr-gputextool) | ctr-gputextool | 3DS GPU texture conversion tool. |
 | [ctr-logobuilder-0-unstable-2015-11-25](https://github.com/yellows8/ctr-logobuilder) | ctr-logobuilder | Build 3DS logo files |
@@ -28,27 +28,26 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [cxitool-unstable-2019-04-10](https://github.com/devkitpro/3dstools) | cxitool | Convert 3dsx to CXI |
 | [darctool-1.2.0](https://github.com/dnasdw/darctool) | darctool | A tool for extracting/creating darc file. |
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
-| [DiscordWikiBot-0-unstable-2025-08-04](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
+| [DiscordWikiBot-0-unstable-2026-06-18](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
 | [kame-tools-1.3.8-unstable-2024-11-01](https://gitlab.com/beelzy/kame-tools) | kame-tools | Fork of bannertools that includes tools for making 3DS themes. |
 | [kwin-move-window-1.1.1](https://github.com/Merrit/kwin-move-window) | kwin-move-window | KWin script that adds shortcuts to move the active window with the keyboard |
-| [linux-devmgmt-1.0-beta-8](https://github.com/actuallyaridan/linux-devmgmt) | linux-devmgmt | A faithful recreation of the Windows Device Manager built with Qt6 and real hardware backends via sysfs/procfs |
+| [linux-devmgmt-2.0.4.1](https://github.com/actuallyaridan/linux-devmgmt) | linux-devmgmt | A faithful recreation of the Windows Device Manager built with Qt6 and real hardware backends via sysfs/procfs |
 | [lnshot-0.1.3-unstable-2026-01-01](https://github.com/ticky/lnshot) | lnshot | Symlink your Steam screenshots to a sensible place |
-| [local-gpss-1.0.3](https://github.com/FlagBrew/local-gpss) | local-gpss | A C# API server that can be used to locally host GPSS |
 | [makebax-2019-01-22](https://gitlab.com/Wolfvak/BAX) | makebax | BAX Animation creator |
 | [makerom-0.19.0](https://github.com/3DSGuy/Project_CTR) | makerom | make 3ds roms |
 | ~~[mediawiki-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39~~ | ~~The collaborative editing software that runs Wikipedia~~ |
 | ~~[mediawiki-core-1.39.17](https://www.mediawiki.org/)~~ | ~~mediawiki\_1\_39\_core~~ | ~~The collaborative editing software that runs Wikipedia (without bundled extensions)~~ |
 | [mediawiki-1.43.8](https://www.mediawiki.org/) | mediawiki\_1\_43 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-core-1.43.8](https://www.mediawiki.org/) | mediawiki\_1\_43\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
-| [mediawiki-1.44.3](https://www.mediawiki.org/) | mediawiki\_1\_44 | The collaborative editing software that runs Wikipedia |
-| [mediawiki-core-1.44.3](https://www.mediawiki.org/) | mediawiki\_1\_44\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
+| [mediawiki-1.44.5](https://www.mediawiki.org/) | mediawiki\_1\_44 | The collaborative editing software that runs Wikipedia |
+| [mediawiki-core-1.44.5](https://www.mediawiki.org/) | mediawiki\_1\_44\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
 | [mediawiki-1.45.3](https://www.mediawiki.org/) | mediawiki\_1\_45 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-core-1.45.3](https://www.mediawiki.org/) | mediawiki\_1\_45\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
-| [mrpack-install-0.16.10-unstable-2024-11-24](https://github.com/nothub/mrpack-install) | mrpack-install | Modrinth Modpack server deployment |
+| [mrpack-install-0.21.0-beta-unstable-2026-03-11](https://github.com/nothub/mrpack-install) | mrpack-install | Modrinth Modpack server deployment |
 | [otptool-1.0](https://github.com/SciresM/otptool) | otptool | view and extract data from a 3DS OTP |
-| [qcma-0.4.2](https://codestation.github.io/qcma/) | qcma | Cross-platform content manager assistant for the PS Vita |
+| [qcma-0.4.1-unstable-2025-07-14](https://codestation.github.io/qcma/) | qcma | Cross-platform content manager assistant for the PS Vita |
 | [retro-aim-server-0.24.0](https://github.com/mk6i/retro-aim-server) | retro-aim-server | Self-hostable instant messaging server compatible with classic AIM and ICQ clients |
 | [roadgeek-fonts-3.1](https://github.com/sammdot/roadgeek-fonts) | roadgeek-fonts | A set of fonts replicating various road sign typefaces. |
 | [rofs-dumper-1.0](https://github.com/PabloMK7/rofs_dumper) | rofs-dumper | Dumps 3DS ROFS containers (early format of romfs) |

@@ -18,13 +18,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "linux-devmgmt";
-  version = "1.0-beta-8";
+  version = "2.0.4.1";
 
   src = fetchFromGitHub {
     owner = "actuallyaridan";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-6qH+KJ9M4yit1ZVpbpS0mSOxuKYMOJ/zdg5r9jssmpA=";
+    hash = "sha256-VK36vrJec7FyDpyW2yEMRWpqODyxS+YFN2Nvvxfpbrg=";
   };
 
   buildInputs = [

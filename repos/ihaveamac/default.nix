@@ -55,8 +55,8 @@ rec {
   cxitool = callPackage ./pkgs/cxitool/package.nix { };
   rofs-dumper = callPackage ./pkgs/rofs-dumper/package.nix { };
   _3beans = callPackage ./pkgs/3beans/package.nix { };
-  local-gpss = callPackage ./pkgs/local-gpss/package.nix { };
-  qcma = libsForQt5.callPackage ./pkgs/qcma/package.nix { };
+  #local-gpss = callPackage ./pkgs/local-gpss/package.nix { };
+  qcma = qt6.callPackage ./pkgs/qcma/package.nix { };
   xenonrecomp = callPackage ./pkgs/xenonrecomp/package.nix { };
   darctool-yls8 = callPackage ./pkgs/darctool-yls8/package.nix { };
   ctr-gputextool = callPackage ./pkgs/ctr-gputextool/package.nix { };
@@ -94,12 +94,12 @@ rec {
     core = true;
   };
   mediawiki_1_44 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.44.3";
-    hash = "sha256-WBzB9+2fjjAuOOrOp0zGP/ny7V2EEvOSDn1xGDUYMv8=";
+    version = "1.44.5";
+    hash = "sha256-PidNTU3WS+W6hsgfjaKsR+SZxTfQ+xftlsLQ98XaBGQ=";
   };
   mediawiki_1_44_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.44.3";
-    hash = "sha256-nsZ483+i/oznhUnktyF7GMFil6XmLVQJzjp3llT0TWo=";
+    version = "1.44.5";
+    hash = "sha256-H6GbwPBky1hJuwlJw0CD9vgGF3Gjjh18trVwrbrLboU=";
     core = true;
   };
   mediawiki_1_45 = callPackage ./pkgs/mediawiki/package.nix {
