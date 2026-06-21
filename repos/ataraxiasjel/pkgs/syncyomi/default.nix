@@ -3,21 +3,25 @@
   stdenvNoCC,
   fetchFromGitHub,
   buildGoModule,
+  fetchPnpmDeps,
   nodejs,
-  pnpm_9,
+  pnpm_11,
+  pnpmConfigHook,
   esbuild,
   nix-update-script,
 }:
-
+let
+  pnpm = pnpm_11;
+in
 buildGoModule rec {
   pname = "syncyomi";
-  version = "1.1.7";
+  version = "1.1.8";
 
   src = fetchFromGitHub {
     owner = "SyncYomi";
     repo = "SyncYomi";
     tag = "v${version}";
-    hash = "sha256-ot8c7+a/YLhjt9HkcI8QZ2ICgtBj3VGJhxtnhWC0f+0=";
+    hash = "sha256-Dk6s5NXa9NY33/d4F9GDB5T1nKu8/OSEOY5cpIXz7ZA=";
   };
 
   vendorHash = "sha256-7AySGQBQHaTp2M1uj5581ZqcpzgexI1KvanWMOc6rx0=";
@@ -27,20 +31,22 @@ buildGoModule rec {
     inherit src version;
     sourceRoot = "${finalAttrs.src.name}/web";
 
-    pnpmDeps = pnpm_9.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs)
         pname
         version
         src
         sourceRoot
         ;
-      fetcherVersion = 1;
-      hash = "sha256-NHPOTDbaDORmiqFSrPPTAQ/3MlL08/HJHp23o+3Wp9A=";
+      inherit pnpm;
+      fetcherVersion = 3;
+      hash = "sha256-o+zfqXkgHE9/3VPrJ0llb6ZRBe2R8J0ROM7xtvCVrv4=";
     };
 
     nativeBuildInputs = [
       nodejs
-      pnpm_9.configHook
+      pnpm
+      pnpmConfigHook
     ];
 
     env.ESBUILD_BINARY_PATH = lib.getExe (

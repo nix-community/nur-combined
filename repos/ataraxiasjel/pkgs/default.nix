@@ -42,6 +42,7 @@ let
       stalker-gamma-cli = final.callPackage ./stalker-gamma-cli { };
       syncyomi = final.callPackage ./syncyomi { };
       telemt = final.callPackage ./telemt { };
+      voidrun = final.callPackage ./voidrun { };
       waydroid-script = final.python3Packages.callPackage ./waydroid-script { };
       whoogle-search = final.python3Packages.callPackage ./whoogle-search { };
       wopiserver = final.python3Packages.callPackage ./wopiserver { };

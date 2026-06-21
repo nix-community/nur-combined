@@ -19,7 +19,7 @@ buildGoModule (finalAttrs: {
     hash = "sha256-OCmJ4w9P+E5ArrluBJMFDTTH+K7cNO+Od+oNAFdBYoM=";
   };
 
-  vendorHash = "sha256-Hind+h1rj9yGgtxPCLgYwNXBGlPC19nLepN06kAl1yE=";
+  vendorHash = "sha256-Wt/8HM4YF9lhwDwSrsTWXOYRS2Q87tCkvT2GH3K+/A8=";
 
   tags = [
     "with_quic"
@@ -38,6 +38,11 @@ buildGoModule (finalAttrs: {
   subPackages = [
     "cmd/sing-box"
   ];
+
+  # TODO: remove after nixpkgs updates its go version
+  postPatch = ''
+    substituteInPlace go.mod --replace-fail "go 1.26.4" "go 1.26.3"
+  '';
 
   nativeBuildInputs = [ installShellFiles ];
 
