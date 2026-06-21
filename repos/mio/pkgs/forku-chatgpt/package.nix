@@ -40,8 +40,8 @@ let
     src = fetchFromGitHub {
       owner = "canstralian";
       repo = "ForkU-ChatGPT";
-      rev = "c828fa01c04c885f75780e89a0a10082979b10b5";
-      hash = "sha256-drJnKup0oWEdFeC3W8iYjZbzEIEI+G4si0/StVwFfGU=";
+      rev = "aa11e67";
+      hash = "sha256-1SD4b+jI6s32+wCksYTin+6IAB+mhqSqJADDH2tDkoY=";
     };
     buildInputs = [
       pnpmWrapper
