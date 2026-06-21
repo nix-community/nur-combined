@@ -18,27 +18,24 @@ let
 			cp -r . $out
 		'';
 	};
-
-	nodeModules = pkgs.mkYarnPackage {
-		pname = "node-modules";
-		src = patchedSrc;
-	};
 in
-	pkgs.stdenv.mkDerivation {
+	pkgs.stdenv.mkDerivation rec {
 		pname = "obsidian-smart-typography";
 		version = "1.0.18";
 
 		src = patchedSrc;
 
-		nativeBuildInputs = [
-			pkgs.yarn
-			nodeModules
+		nativeBuildInputs = with pkgs; [
+			nodejs
+			yarnConfigHook
+			yarnBuildHook
+			yarnInstallHook
 		];
 
-		buildPhase = ''
-			ln -s ${nodeModules}/libexec/obsidian-sample-plugin/node_modules node_modules
-			${pkgs.yarn}/bin/yarn build
-		'';
+		yarnOfflineCache = pkgs.fetchYarnDeps {
+			yarnLock = "${src}/yarn.lock";
+			hash = "sha256-p0xqCXFsyRb5CVYd1axqW/6fd0S8+7spch3afVIrem0=";
+		};
 
 		installPhase = ''
 			mkdir -p $out
