@@ -1,29 +1,37 @@
-{ lib
-, stdenv
-, callPackage
-, fetchFromGitHub
-, fetchPnpmDeps
-, pnpmConfigHook
-, nodejs_22
-, pnpm_10
-, cmake
-, pkg-config
-, darwin
-, python3
-, electron
-, nix-update-script
-, symlinkJoin
-, commandLineArgs ? [ ]
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchFromGitHub,
+  fetchPnpmDeps,
+  pnpmConfigHook,
+  nodejs_22,
+  pnpm_10,
+  cmake,
+  pkg-config,
+  darwin,
+  python3,
+  electron,
+  nix-update-script,
+  symlinkJoin,
+  commandLineArgs ? [ ],
 }:
 let
   pname = "xmcl";
 
   common = callPackage ./common.nix { };
-  inherit (common) version srcArgs desktopItem mkLauncher installIcons meta;
+  inherit (common)
+    version
+    srcArgs
+    desktopItem
+    mkLauncher
+    installIcons
+    meta
+    ;
 
-  src = fetchFromGitHub (srcArgs // {
-    hash = "sha256-CKbT+44iRQbR6Wqe67WY2tw7vyg7sUO4+KVHbWb5yS8=";
-  });
+  src = fetchFromGitHub (
+    srcArgs // { hash = "sha256-CKbT+44iRQbR6Wqe67WY2tw7vyg7sUO4+KVHbWb5yS8="; }
+  );
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;

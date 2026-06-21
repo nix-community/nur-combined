@@ -1,27 +1,28 @@
-{ lib
-, stdenv
-, writeShellApplication
-, makeDesktopItem
-, addDriverRunpath
-, glfw3-minecraft
-, openal
-, alsa-lib
-, libpulseaudio
-, libGL
-, glib
-, libglvnd
-, vulkan-loader
-, glfw3
-, libX11
-, libXcursor
-, libXext
-, libXrandr
-, libXxf86vm
-, libxkbcommon
-, libxtst
-, wayland
-, gtk3
-, electron
+{
+  lib,
+  stdenv,
+  writeShellApplication,
+  makeDesktopItem,
+  addDriverRunpath,
+  glfw3-minecraft,
+  openal,
+  alsa-lib,
+  libpulseaudio,
+  libGL,
+  glib,
+  libglvnd,
+  vulkan-loader,
+  glfw3,
+  libX11,
+  libXcursor,
+  libXext,
+  libXrandr,
+  libXxf86vm,
+  libxkbcommon,
+  libxtst,
+  wayland,
+  gtk3,
+  electron,
 }:
 
 let
@@ -68,7 +69,11 @@ let
     icon = "xmcl";
   };
 
-  mkLauncher = { resources, commandLineArgs ? [ ] }:
+  mkLauncher =
+    {
+      resources,
+      commandLineArgs ? [ ],
+    }:
     writeShellApplication {
       name = "xmcl";
       text = ''
@@ -94,7 +99,7 @@ let
       '';
     };
 
-  installIcons = iconDir: ''
+  installIcons = _iconDir: ''
     install -Dm644 "''${iconDir}/dark@256x256.png" \
       "$out/share/icons/hicolor/256x256/apps/xmcl.png"
 
@@ -118,5 +123,13 @@ let
   };
 in
 {
-  inherit version srcArgs runtimeLibs desktopItem mkLauncher installIcons meta;
+  inherit
+    version
+    srcArgs
+    runtimeLibs
+    desktopItem
+    mkLauncher
+    installIcons
+    meta
+    ;
 }

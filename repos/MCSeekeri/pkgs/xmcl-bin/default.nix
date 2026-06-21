@@ -1,18 +1,26 @@
-{ lib
-, stdenv
-, callPackage
-, fetchurl
-, fetchFromGitHub
-, runCommand
-, nix-update-script
-, symlinkJoin
-, commandLineArgs ? [ ]
+{
+  lib,
+  stdenv,
+  callPackage,
+  fetchurl,
+  fetchFromGitHub,
+  runCommand,
+  nix-update-script,
+  symlinkJoin,
+  commandLineArgs ? [ ],
 }:
 let
   pname = "xmcl-bin";
 
   common = callPackage ../xmcl/common.nix { };
-  inherit (common) version srcArgs desktopItem mkLauncher installIcons meta;
+  inherit (common)
+    version
+    srcArgs
+    desktopItem
+    mkLauncher
+    installIcons
+    meta
+    ;
 
   asarSuffix = if stdenv.isDarwin then "mac" else "linux";
 
@@ -27,10 +35,13 @@ let
     # 等 Nix 终于支持 Windows 的时候再说……
   };
 
-  icons = fetchFromGitHub (srcArgs // {
-    sparseCheckout = [ "xmcl-electron-app/icons" ];
-    hash = "sha256-eCQQSmU23CJtECjoI/pTtiTrO2PbK3h+cgMjO3x+YlI=";
-  });
+  icons = fetchFromGitHub (
+    srcArgs
+    // {
+      sparseCheckout = [ "xmcl-electron-app/icons" ];
+      hash = "sha256-eCQQSmU23CJtECjoI/pTtiTrO2PbK3h+cgMjO3x+YlI=";
+    }
+  );
 
   resources = runCommand "xmcl-bin-resources-${version}" { } ''
     install -Dm644 ${asar} "$out/share/xmcl/app.asar"

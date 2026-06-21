@@ -67,7 +67,12 @@ let
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
-  inherit pname version src pnpmDeps;
+  inherit
+    pname
+    version
+    src
+    pnpmDeps
+    ;
 
   cargoRoot = "src-tauri";
   cargoHash = "sha256-n2PZ+fHv8qiT4GmACU11VFSrWx5DVB6Q00QV93DFIaE=";

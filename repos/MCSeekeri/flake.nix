@@ -1,5 +1,11 @@
 {
   description = "My personal NUR repository";
+
+  nixConfig = {
+    extra-substituters = [ "https://nix.mcseekeri.com" ];
+    extra-trusted-public-keys = [ "nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=" ];
+  };
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   inputs.treefmt-nix.url = "github:numtide/treefmt-nix";
   inputs.treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";

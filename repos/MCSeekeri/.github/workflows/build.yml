@@ -33,6 +33,7 @@ jobs:
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
+            accept-flake-config = true
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
             extra-substituters = https://nix.mcseekeri.com?priority=51
