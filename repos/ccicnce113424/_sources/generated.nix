@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "471f57d1cbf48c23418f1e1fe501655bdcd0859e";
+    version = "62a818cd26a127ce978555c8a6fdfca1e41e293a";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "471f57d1cbf48c23418f1e1fe501655bdcd0859e";
+      rev = "62a818cd26a127ce978555c8a6fdfca1e41e293a";
       fetchSubmodules = false;
-      sha256 = "sha256-Tez1HyOj/iy5Y8NIM8ZhweG2Gvpwv9tcHHvVeDwOEhY=";
+      sha256 = "sha256-kQUEDTqaBfKt3gpz4kDtvlqp0Z7J/y2ZXkYvr6ERXBg=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Tez1HyOj_iy5Y8NIM8ZhweG2Gvpwv9tcHHvVeDwOEhY=/Cargo.lock";
+      lockFile = ./. + "/sha256-kQUEDTqaBfKt3gpz4kDtvlqp0Z7J_y2ZXkYvr6ERXBg=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
     };
-    date = "2026-06-21";
+    date = "2026-06-22";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -381,18 +381,18 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.2.1";
+    version = "0.2.2";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.2.1/waywallen-0.2.1-x86_64.AppImage";
-      sha256 = "sha256-lB9M6V1rP6Qv5lJQQdR6fL9JJvaA/+mxgXFhAJ2cWWc=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.2.2/waywallen-0.2.2-x86_64.AppImage";
+      sha256 = "sha256-HvpTNvPU5Ijn3xls8xWJ09issTdOJlG5sva93qXoAK4=";
     };
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.2.6";
+    version = "0.2.7";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.6/waywallen-kde-0.2.6-x86_64-embed.zip";
-      sha256 = "sha256-2BwMa1fplfpNTjlP1qZv3/I6EXxxqslYfHAbQjki0kU=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.7/waywallen-kde-0.2.7-x86_64-embed.zip";
+      sha256 = "sha256-AzoSFf4qXWP7+H+IvNVC4LR+sSLk57GiQ+sat8U3dEU=";
     };
   };
   wild = {
