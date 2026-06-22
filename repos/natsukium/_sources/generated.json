@@ -1,7 +1,7 @@
 {
     "claudecode-nvim": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-22",
         "extract": null,
         "name": "claudecode-nvim",
         "passthru": null,
@@ -13,12 +13,12 @@
             "name": null,
             "owner": "coder",
             "repo": "claudecode.nvim",
-            "rev": "bcb3fe205efe88771e8801d0a99b6fcb0a982bbb",
-            "sha256": "sha256-pJtrh/3pGvALhQheB3LMB01IahTSYvxfCUNdiMvq8L0=",
+            "rev": "298a3e6cbe784ed9c0cc5ff85aab6be6d704d2cd",
+            "sha256": "sha256-zWIdeSn0t+bJfCLHQz4JCg7T5Tam70uWoqGvYl/yPqQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "bcb3fe205efe88771e8801d0a99b6fcb0a982bbb"
+        "version": "298a3e6cbe784ed9c0cc5ff85aab6be6d704d2cd"
     },
     "copyq-darwin": {
         "cargoLock": null,
@@ -37,7 +37,7 @@
     },
     "emacs-plus": {
         "cargoLock": null,
-        "date": "2026-06-21",
+        "date": "2026-06-22",
         "extract": null,
         "name": "emacs-plus",
         "passthru": null,
@@ -49,12 +49,12 @@
             "name": null,
             "owner": "d12frosted",
             "repo": "homebrew-emacs-plus",
-            "rev": "343bf9d50af9027f15dbd2c89396b09f192cf00b",
-            "sha256": "sha256-uf0nYWYh1PuWFTIth7beCho3SH/dIf4nUIY/5ZXSK6c=",
+            "rev": "dbc974ef02d76f19ce0aadea8ea6416fe41eef2b",
+            "sha256": "sha256-fbjz/1QtGQMNUslwjDii2edhH5JAm4n5vGOeuHXtLmM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "343bf9d50af9027f15dbd2c89396b09f192cf00b"
+        "version": "dbc974ef02d76f19ce0aadea8ea6416fe41eef2b"
     },
     "hammerspoon": {
         "cargoLock": null,
