@@ -146,18 +146,9 @@ stdenv.mkDerivation (finalAttrs: {
   postPatch = ''
             mkdir -p src/private
             
-            # Disable populate() fetching since we provide all dependencies through Nix
-            python3 -c '
-    import os, re
-    for root, _, files in os.walk("."):
-        for f in files:
-            if f.endswith(".cmake") or f == "CMakeLists.txt":
-                p = os.path.join(root, f)
-                with open(p, "r") as fp: d = fp.read()
-                d = re.sub(r"cmake_language\s*\(\s*CALL\s+[a-zA-Z0-9_]+_Populate[^)]*\)", "", d)
-                d = re.sub(r"(?m)^\s*populate\s*\([^)]*\)", "", d)
-                with open(p, "w") as fp: fp.write(d)
-    '
+            find . -type f \( -name "*.cmake" -o -name "CMakeLists.txt" \) -exec sed -i \
+              -e 's/cmake_language[[:space:]]*(CALL[[:space:]]\+[^)]*_Populate[^)]*)/# &/' \
+              -e 's/^[[:space:]]*populate[[:space:]]*(/# &/' {} +
 
             # Add system library setup to SetupDependencies.cmake
             cat >> buildscripts/cmake/SetupDependencies.cmake << 'EOF'
