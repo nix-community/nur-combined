@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
 
   preConfigure = ''
     mkdir cmake/cpm
-    cp ${cpm-cmake}/share/cpm/CPM.cmake cmake/cpm/CPM_0.40.2.cmake
+    cp ${cpm-cmake}/share/cpm/CPM.cmake cmake/cpm/CPM_0.40.8.cmake
   '';
 
   cmakeFlags = [

@@ -3,13 +3,13 @@
 }:
 stdenv.mkDerivation rec {
   name = "copacabana";
-  version = "0.0~git20241110.f699088";
+  version = "0.0~git20260406.da2a51f";
 
   src = fetchFromGitHub {
     owner = "jfalcou";
     repo = "copacabana";
-    rev = "f699088e193b79c38395a61bec32b3bb53650d8a";
-    hash = "sha256-UM4qPGMmtbCi4NEeNYQNaBB/l1UmZTf+KQw7TZlgvz8=";
+    rev = "da2a51f4ab30e76c2cc7d8601e85f7eaed8832b4";
+    hash = "sha256-EuMBkFOIFEJUwRVWnopIe95wCmHO3i3Qy8gMd1r8bWY=";
   };
 
   installPhase = ''
