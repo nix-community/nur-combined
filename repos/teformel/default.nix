@@ -36,5 +36,5 @@ rec {
   lingmo-kwin-plugins = pkgs.callPackage ./pkgs/lingmo-kwin-plugins { inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-screenlocker = pkgs.libsForQt5.callPackage ./pkgs/lingmo-screenlocker { };
   lingmo-polkit-agent = pkgs.callPackage ./pkgs/lingmo-polkit-agent { inherit lingmoui lingmo-core lib_lingmo; };
-  lingmo-sddm-theme = pkgs.callPackage ./pkgs/lingmo-sddm-theme { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-sddm-theme = pkgs.callPackage ./pkgs/lingmo-sddm-theme { };
 }

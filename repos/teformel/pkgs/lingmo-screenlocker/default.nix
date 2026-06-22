@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libsForQt5, xorg, pam }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libsForQt5, qt5, xorg, pam }:
 
 stdenv.mkDerivation rec {
   pname = "lingmo-screenlocker";
@@ -27,10 +27,10 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    libsForQt5.qtbase
-    libsForQt5.qtx11extras
-    libsForQt5.qtdeclarative
-    libsForQt5.qttools
+    qt5.qtbase
+    qt5.qtx11extras
+    qt5.qtdeclarative
+    qt5.qttools
     xorg.libX11
     pam
   ];
