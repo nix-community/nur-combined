@@ -251,18 +251,18 @@
   };
   browser360-amd64 = {
     pname = "browser360-amd64";
-    version = "13.4.1130.70";
+    version = "13.4.1130.80";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.70-1_amd64.deb";
-      hash = "sha256-jlT5mpXH0POYDT/8oO48eMkxNmodlqROnIvrSJK23wM=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.80-1_amd64.deb";
+      hash = "sha256-l5s20PYkQuImC+1iHeN6gaupXXCbmADFqeYjq3ZfhNs=";
     };
   };
   browser360-arm64 = {
     pname = "browser360-arm64";
-    version = "13.4.1130.70";
+    version = "13.4.1130.80";
     src = fetchurl {
-      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.70-1_arm64.deb";
-      hash = "sha256-VbE1CktTH6fc/Y2/HOaeAVkyQJcQllJclFrMGqUfvJI=";
+      url = "https://gedown.360safe.com/gc/signed_com.360.browser-stable_13.4.1130.80-1_arm64.deb";
+      hash = "sha256-8oXBnCguUSXxcFtgRtr1kmWA4bVeMvrPLb1Hnp3Buyw=";
     };
   };
   browseros = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.27";
+    version = "v7.2.28";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.27";
-      hash = "sha256-lPmAri8sSjlMpLSLNc83fBAQRqb9vfQwVZ5poNFcdvk=";
+      tag = "v7.2.28";
+      hash = "sha256-ru7vgnTy3YJtOzkhb7yVUN4K1tnXf5WaDpXJieLPges=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.40.0";
+    version = "0.40.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.40.0.tgz";
-      hash = "sha256-WOV/kKun6GJCdYYjQXo8aFxjDr/h6pkILXCzuEQLAGY=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.40.1.tgz";
+      hash = "sha256-MJjKeQr3GXB8bvi1XNsmEwPbu2ZZQMmnwvojCN94SG4=";
     };
   };
   comp128 = {
@@ -861,37 +861,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "9f1d2204324b444567dae9ebed31ac67649da86c";
+    version = "2ad0514430c8d644a11583f2de81a970dbce264c";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "9f1d2204324b444567dae9ebed31ac67649da86c";
-      hash = "sha256-xZst5btFV83UX1pUbqT31O1d4Z+gmpMuZUyyrax2Zp8=";
+      rev = "2ad0514430c8d644a11583f2de81a970dbce264c";
+      hash = "sha256-VHUwVUaKoa8ztzC2/LP36opVCd84p8Ej6mV4QBLbOZM=";
     };
     date = "2026-06-22";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.06.19";
+    version = "2026.06.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.19/GeoLite2-ASN.mmdb";
-      hash = "sha256-3KStp/hYcIBbYDP5KCVhvjdbt60Cp5WPswYco7LuIAo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.22/GeoLite2-ASN.mmdb";
+      hash = "sha256-VJ0d6QcJmJVHumP8Cq/Is57FqnWYJgjKTOKg/KNAAbg=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.06.19";
+    version = "2026.06.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.19/GeoLite2-City.mmdb";
-      hash = "sha256-w0k6GVVsV0PSXBfuPNS9LXZoQe18fWJC/rHKro9inPs=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.22/GeoLite2-City.mmdb";
+      hash = "sha256-k5TK1Q63q5IE3RjWStZ2qTcchtHf00bZ2Pidvj6+9Yw=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.06.19";
+    version = "2026.06.22";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.19/GeoLite2-Country.mmdb";
-      hash = "sha256-bpIS8j0yeaJFRATTsqesMBWf3buYcLozdjAUh3KWRVw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.22/GeoLite2-Country.mmdb";
+      hash = "sha256-zIce5Iuz6F6bzpkdUk14ISlZ3P4TLEKskDl78Qnbgcs=";
     };
   };
   glauth = {
@@ -1110,20 +1110,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.31.0";
+    version = "3.32.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.31.0";
-      hash = "sha256-LSwmeNO5mEWZ2NCrC1o3JXPeZJed0eljIUak/J2fkv0=";
+      tag = "3.32.0";
+      hash = "sha256-dnbzjYDKeAp0wFQcO5VK71vkf7ubVK5Lh9R9jjuro28=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.31.0";
+    version = "3.32.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.31.0/kata-static-3.31.0-amd64.tar.zst";
-      hash = "sha256-aMJ4aguXAj9i8+ygLchot4p5TlRp1N3WzJ4L1KchKws=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/3.32.0/kata-static-3.32.0-amd64.tar.zst";
+      hash = "sha256-FEns6lC9kfpzqUZI2xldGJUP6Gm6Sx8S0F9V8fp8GwE=";
     };
   };
   kikoplay = {
@@ -1314,12 +1314,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9753";
+    version = "b9763";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9753";
-      hash = "sha256-rUrG7fnuF8Pd03TXQR90swGmA9L3OuOuUkbJdaPTUek=";
+      tag = "b9763";
+      hash = "sha256-m1DekuTx/EfpxTOORNBYweoBoCYOVZCjAvLfJuFW5Ec=";
     };
   };
   loralib = {
@@ -1828,14 +1828,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "6a7fc51a2361d83cad994f659a0fa6c458a33bd5";
+    version = "43689f7efee80a5009634258d292ded4dbb88b73";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "6a7fc51a2361d83cad994f659a0fa6c458a33bd5";
-      hash = "sha256-xGDJ4nXekh6AwjAb44kkedEh0aLTcWNzv4IyGQGnDRg=";
+      rev = "43689f7efee80a5009634258d292ded4dbb88b73";
+      hash = "sha256-pUrifWIT21RrGYgA+MYcYJtScZs9hVi8VbhP/lCfa38=";
     };
-    date = "2026-06-14";
+    date = "2026-06-22";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2154,14 +2154,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "531237706919c2be443ec33d84994386b8fb1dac";
+    version = "71cceeed5a25a8cc15872c86e76245d323b06a61";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "531237706919c2be443ec33d84994386b8fb1dac";
-      hash = "sha256-tg/6PE8F9vaw7tKHgcWwv5mPuhHk5+YDaeRFEN/HLsU=";
+      rev = "71cceeed5a25a8cc15872c86e76245d323b06a61";
+      hash = "sha256-rM1scDpTOayhNVnJxMOs1j6jvPLmAF3lAkm+9X4d0Ws=";
     };
-    date = "2026-06-15";
+    date = "2026-06-22";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2185,12 +2185,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.5.0";
+    version = "v2.6.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.5.0";
-      hash = "sha256-hkcD1kqbFgXOfv44Bqi44LsArxwHsuw9gCGlLPAm9eA=";
+      tag = "v2.6.0";
+      hash = "sha256-KOXjfUqQ7D/vnZzGGG0FTPoCDWq3PCvlg6OgHLCaWnE=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2403,15 +2403,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "0dc23f7d7719e41d70e5d7fedc199b7a8235191f";
+    version = "1465cbad8c6b6b956c225840344847393a085870";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "0dc23f7d7719e41d70e5d7fedc199b7a8235191f";
+      rev = "1465cbad8c6b6b956c225840344847393a085870";
       fetchSubmodules = true;
-      hash = "sha256-d0ZvaGi/REIp+AOPcvsm6aW7PJU0QYF+V78y9m7PPqw=";
+      hash = "sha256-bVCadrLJBSnRLX2E6I4wnSzmtn97BOk/wfn9AF2cEss=";
     };
-    date = "2026-06-21";
+    date = "2026-06-22";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
