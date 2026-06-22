@@ -25,9 +25,9 @@ stdenv.mkDerivation rec {
     if [ -f "thirdparty/QHotkey/CMakeLists.txt" ]; then
       sed -i '1i find_package(KF6GlobalAccel REQUIRED)' thirdparty/QHotkey/CMakeLists.txt
     fi
-    # 修复 Compatible 模块缺少 Qt6::GuiPrivate 声明的问题
+    # 修复 Compatible 模块缺少 Qt6::Gui 声明的问题（GuiPrivate 会随 Gui 自动导入，单独 find 会报错找不到 Config）
     if [ -f "Compatible/CMakeLists.txt" ]; then
-      sed -i '1i find_package(Qt6 COMPONENTS Gui GuiPrivate REQUIRED)' Compatible/CMakeLists.txt
+      sed -i '1i find_package(Qt6 COMPONENTS Gui REQUIRED)' Compatible/CMakeLists.txt
     fi
   '';
 
@@ -51,5 +51,7 @@ stdenv.mkDerivation rec {
   cmakeFlags = [
     "-DQT_QML_GENERATE_QMLLS_INI=OFF"
     "-DBUILD_TESTING=OFF"
+    "-DQT_INSTALL_QML=${placeholder "out"}/lib/qt-6/qml"
+    "-DINSTALL_QMLDIR=lib/qt-6/qml"
   ];
 }
