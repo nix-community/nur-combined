@@ -6,13 +6,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "rose-pine-tmtheme";
-  version = "0-unstable-2026-03-07";
+  version = "0-unstable-2026-06-22";
 
   src = fetchFromGitHub {
     owner = "rose-pine";
     repo = "tm-theme";
-    rev = "23bb25b9c421cdc9ea89ff3ad3825840cd19d65d";
-    hash = "sha256-GUFdv5V5OZ2PG+gfsbiohMT23LWsrZda34ReHBr2Xy0=";
+    rev = "6d556734541ccb04172e81fd58de4a35fff72d19";
+    hash = "sha256-5+fG21KbB7bdPvszkz9Ftl6fCDGs17fJNTAXFRFWZGo=";
   };
 
   installPhase = ''
