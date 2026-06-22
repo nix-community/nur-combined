@@ -11,6 +11,8 @@ nixpkgs.picoclaw.overrideAttrs (
     # nix-update auto
     vendorHash = "sha256-dVXjMzn2ClQJRTuhdpDNHvbzKuHThtfjZ4xiBz56I8E=";
 
+    __darwinAllowLocalNetworking = true;
+
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
     };
