@@ -16,23 +16,29 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
 
+  buildNoDefaultFeatures = true;
+  buildFeatures = lib.optionals stdenv.hostPlatform.isLinux [ "systemd" ];
+
   nativeBuildInputs = [
     installShellFiles
     pkg-config
   ];
-  buildInputs = [ systemd ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ systemd ];
 
-  postInstall = ''
-    substituteInPlace resources/whois42d-ng.service \
-      --replace-fail '/usr/local/bin' "$out/bin"
-    install -Dm644 resources/whois42d-ng.{service,socket} -t $out/lib/systemd/system
-  ''
-  + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
-    installShellCompletion --cmd whois42d-ng \
-      --zsh <($out/bin/whois42d-ng completions zsh) \
-      --bash <($out/bin/whois42d-ng completions bash) \
-      --fish <($out/bin/whois42d-ng completions fish)
-  '';
+  postInstall =
+    lib.optionalString stdenv.hostPlatform.isLinux ''
+      substituteInPlace resources/whois42d-ng.service \
+        --replace-fail '/usr/local/bin' "$out/bin"
+      install -Dm644 resources/whois42d-ng.{service,socket} -t $out/lib/systemd/system
+    ''
+    + lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+      installShellCompletion --cmd whois42d-ng \
+        --zsh <($out/bin/whois42d-ng completions zsh) \
+        --bash <($out/bin/whois42d-ng completions bash) \
+        --fish <($out/bin/whois42d-ng completions fish)
+    '';
+
+  __darwinAllowLocalNetworking = true;
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];
