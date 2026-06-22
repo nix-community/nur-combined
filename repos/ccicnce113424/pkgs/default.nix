@@ -136,15 +136,15 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources 0;
     };
 
-    scx-git = pkgs.scx.rustscheds.overrideAttrs (
-      final: _prev: {
-        pname = "scx-git";
-        version = "1.1.1-unstable-2026-06-12";
+    scx-flow = pkgs.scx.rustscheds.overrideAttrs (
+      final: prev: {
+        pname = "scx-flow";
+        version = "3.1.0";
         src = pkgs.fetchFromGitHub {
-          owner = "sched-ext";
+          owner = "galpt";
           repo = "scx";
-          rev = "5300a126b071b96dc3db5ef9216ce9820c193523";
-          hash = "sha256-o9enOQmFPyxVJBtU+H9wRsS7VDWR1anofszQk05N7dA=";
+          rev = "41fe3c68b39bdf5cb563251f82529505945be6db";
+          hash = "sha256-hhiTlKRfrEPMDS7i0CNhj5y4UR1gzBMt3kHhUt33psA=";
         };
         cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
           inherit (final)
@@ -152,7 +152,52 @@ lib.makeScope pkgs.newScope (
             version
             src
             ;
-          hash = "sha256-8K26W2c5M9fIeRH/457dKaKAaH8ALfBoQW8JzcSJpgo=";
+          hash = "sha256-sVhnKCc6sV37A76EWUt3QyW8XPqmM0qOMSCOPn1yxg8=";
+        };
+        cargoBuildFlags = [
+          "--package"
+          "scx_flow"
+        ];
+        cargoInstallFlags = [
+          "--package"
+          "scx_flow"
+        ];
+        postInstall = "";
+        passthru = lib.recursiveUpdate prev.passthru {
+          schedulers = [ "scx_flow" ];
+        };
+      }
+    );
+
+    scx-pandemonium = pkgs.scx.rustscheds.overrideAttrs (
+      final: prev: {
+        pname = "scx-pandemonium";
+        version = "5.14.0";
+        src = pkgs.fetchFromGitHub {
+          owner = "wllclngn";
+          repo = "scx";
+          rev = "02ebec35fa8975eb8176d03aba459cae0b0e8491";
+          hash = "sha256-hOM/3Bht8acUhlwB+OHkRszhvq9X8YVmHW5d5y1iK2o=";
+        };
+        cargoDeps = pkgs.rustPlatform.fetchCargoVendor {
+          inherit (final)
+            pname
+            version
+            src
+            ;
+          hash = "sha256-wzH/KMpVd8k9jRaugLHpQTNkKnjPgXXOAEbXmJmlZH8=";
+        };
+        cargoBuildFlags = [
+          "--package"
+          "scx_pandemonium"
+        ];
+        cargoInstallFlags = [
+          "--package"
+          "scx_pandemonium"
+        ];
+        postInstall = "";
+        passthru = lib.recursiveUpdate prev.passthru {
+          schedulers = [ "scx_pandemonium" ];
         };
       }
     );
