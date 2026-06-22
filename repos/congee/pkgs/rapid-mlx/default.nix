@@ -29,14 +29,14 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "rapid-mlx";
-  version = "0.7.41";
+  version = "0.8.9";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "raullenchai";
     repo = "Rapid-MLX";
     rev = "v${version}";
-    hash = "sha256-GXcjfdhk9SWE3379XLfvylN7GNKURc4XqEKwLIBSme0=";
+    hash = "sha256-3bNgMgqfdHKwmGv/qKxkUvDq3p3sqrlUWXnM9WLnozA=";
   };
 
   build-system = with python3Packages; [
