@@ -22,6 +22,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-oDIIe/Wcbs8ZP3ayo9SaM8WBfTZ5vAmvvuuFcYn8YvY=";
   };
 
+  passthru.providedSessions = [ "lingmo-xsession" ];
+
   postPatch = ''
     # Fix absolute installation paths
     sed -i 's|DESTINATION /usr/|DESTINATION |g' notificationd/CMakeLists.txt
