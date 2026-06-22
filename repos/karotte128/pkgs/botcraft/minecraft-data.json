@@ -299,7 +299,13 @@
                 "url": "https://piston-data.mojang.com/v1/objects/4e618f09a0c649dde3fdf829df443ce0b8831e65/client.jar",
                 "hash": "sha256-sbMVhXJmZEXv8B6C+tjH3i5JU9ttNU8xFzDXeoNZ0LA="
             }
+        },
+        "26.2": {
+            "client": {
+                "url": "https://piston-data.mojang.com/v1/objects/2dc72797acbc1b63fc16a11c4ac393605f453754/client.jar",
+                "hash": "sha256-QIlu6fHivsPJNNqsfpPUHp49nC+K4Mo2bVL/v9GvopA="
+            }
         }
     },
-    "latest": "26.1.2"
+    "latest": "26.2"
 }

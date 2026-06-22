@@ -37,8 +37,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "adepierre";
     repo = "Botcraft";
-    rev = "926e4dddd48f99af7f18c4cfed06f982be63c4c0";
-    hash = "sha256-nbGFIpRzhhbVWx2TSY4CnkEOS5xjHY5vUXCIFBo0NzU=";
+    rev = "3eafaf57a57660f8699943abf41d3c7bb08ecabf";
+    hash = "sha256-ePhcmp2NLTOSCtq/f9GJYzTDQbmsSE8YrJ/2H5f/wkA=";
     fetchSubmodules = true;
   };
 
