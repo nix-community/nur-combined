@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, kdePackages, qt6, lingmoui, lingmo-core, lib_lingmo }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libsForQt5, xorg, pam }:
 
 stdenv.mkDerivation rec {
   pname = "lingmo-screenlocker";
@@ -8,39 +8,30 @@ stdenv.mkDerivation rec {
     owner = "LingmoOS";
     repo = "lingmo-screenlocker";
     rev = "d16aa1d2b2cb39489da4f2bbda06422cac09ec16";
-    # TODO: 首次构建将报错，请将报错提供的 Hash 填入此处
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-6GjkyC5BhXAuO7lqMcw+eXtKHLkfnQx6AUTRclVulu8=";
   };
 
-    postPatch = ''
+  postPatch = ''
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION "/usr/|DESTINATION "|g' {} +
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION "/etc/|DESTINATION "etc/|g' {} +
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /usr/|DESTINATION |g' {} +
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /etc/|DESTINATION etc/|g' {} +
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /etc|DESTINATION etc|g' {} +
+    find . -name "CMakeLists.txt" -exec sed -i 's|''${QT_PLUGINS_DIR}|lib/qt-5/plugins|g' {} +
   '';
 
   nativeBuildInputs = [
     cmake
     pkg-config
-    kdePackages.extra-cmake-modules
-    kdePackages.wrapQtAppsHook
-    qt6.qttools
+    libsForQt5.wrapQtAppsHook
   ];
 
   buildInputs = [
-    qt6.qtbase
-    qt6.qtdeclarative
-    qt6.qtsvg
-    qt6.qtwayland
-    kdePackages.kcoreaddons
-    kdePackages.kwindowsystem
-    lingmoui
-    lingmo-core
-    lib_lingmo
+    libsForQt5.qtbase
+    libsForQt5.qtx11extras
+    libsForQt5.qtdeclarative
+    libsForQt5.qttools
+    xorg.libX11
+    pam
   ];
 }
-
-
-
-
