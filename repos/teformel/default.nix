@@ -28,4 +28,13 @@ rec {
   lingmoui = pkgs.callPackage ./pkgs/lingmoui { };
   lingmo-core = pkgs.callPackage ./pkgs/lingmo-core { inherit lingmoui; };
   lingmo-settings = pkgs.callPackage ./pkgs/lingmo-settings { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-dock = pkgs.callPackage ./pkgs/lingmo-dock { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-launcher = pkgs.callPackage ./pkgs/lingmo-launcher { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-desktop = pkgs.callPackage ./pkgs/lingmo-desktop { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-daemon = pkgs.callPackage ./pkgs/lingmo-daemon { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-filemanager = pkgs.callPackage ./pkgs/lingmo-filemanager { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-kwin-plugins = pkgs.callPackage ./pkgs/lingmo-kwin-plugins { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-screenlocker = pkgs.callPackage ./pkgs/lingmo-screenlocker { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-polkit-agent = pkgs.callPackage ./pkgs/lingmo-polkit-agent { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-sddm-theme = pkgs.callPackage ./pkgs/lingmo-sddm-theme { inherit lingmoui lingmo-core lib_lingmo; };
 }

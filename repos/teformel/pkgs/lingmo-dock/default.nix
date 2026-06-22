@@ -1,28 +1,15 @@
-{ stdenv
-, lib
-, fetchFromGitHub
-, cmake
-, pkg-config
-, kdePackages
-, qt6
-, xorg
-, freetype
-, libxcrypt
-, lingmoui
-, lingmo-core
-, lib_lingmo
-}:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, kdePackages, qt6, lingmoui, lingmo-core, lib_lingmo }:
 
 stdenv.mkDerivation rec {
-  pname = "lingmo-settings";
+  pname = "lingmo-dock";
   version = "main";
 
   src = fetchFromGitHub {
     owner = "LingmoOS";
-    repo = "lingmo-settings";
-    rev = "78c6f1483594285dc01ea59591f761a570ecea80";
+    repo = "lingmo-dock";
+    rev = "4f0f30a06515bb45c011eca8c98c278e497ffe0f";
     # TODO: 首次构建将报错，请将报错提供的 Hash 填入此处
-    hash = "sha256-2R/luQQvjRseK0sXOmBh4tni2uT24QEZih/DFTYOnPM=";
+    hash = "sha256-Y8f7daoseLr4EJAYhlD+rQVMvnkG0PPEmsk6MD4eFhM=";
   };
 
   nativeBuildInputs = [
@@ -36,17 +23,10 @@ stdenv.mkDerivation rec {
   buildInputs = [
     qt6.qtbase
     qt6.qtdeclarative
+    qt6.qtsvg
     qt6.qtwayland
     kdePackages.kcoreaddons
     kdePackages.kwindowsystem
-    kdePackages.kconfig
-    kdePackages.networkmanager-qt
-    kdePackages.modemmanager-qt
-    xorg.libX11
-    xorg.libXcursor
-    xorg.libSM
-    freetype
-    libxcrypt
     lingmoui
     lingmo-core
     lib_lingmo
