@@ -12,6 +12,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   };
 
+    postPatch = ''
+    find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /usr/|DESTINATION |g' {} +
+    find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /etc/|DESTINATION etc/|g' {} +
+    find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /etc|DESTINATION etc|g' {} +
+  '';
+
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -32,3 +38,7 @@ stdenv.mkDerivation rec {
     lib_lingmo
   ];
 }
+
+
+
+
