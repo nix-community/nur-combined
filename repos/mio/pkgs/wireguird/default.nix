@@ -44,8 +44,8 @@ let
       owner = "nvlbg";
       repo = "wireguird";
       # https://github.com/UnnoTed/wireguird/pull/61#issuecomment-2449554201 and https://github.com/nvlbg/wireguird/tree/tray_tunnels_submenu
-      rev = "ce395e50f2ca3cf1a2bd92870b7c11623129dfc1";
-      sha256 = "sha256-vmVwve7YynlE59zSjQg6zxzSC3R8NTaZcQn80A6oays=";
+      rev = "6dac3cd8784118f4fe7ea6d544a583c26d589572";
+      sha256 = "sha256-iv0/HSu/6IOVmRZcyCazLdJyyBsu5PyTajLubk0speI=";
     };
     proxyVendor = true;
 
