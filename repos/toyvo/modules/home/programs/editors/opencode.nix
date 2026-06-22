@@ -31,6 +31,14 @@
             command = [ (lib.getExe stablePkgs.mcp-nixos) ];
             enabled = true;
           };
+          chrome-devtools = {
+            type = "local";
+            command = [
+              "npx"
+              "-y"
+              "chrome-devtools-mcp@latest"
+            ];
+          };
         };
       };
     };
