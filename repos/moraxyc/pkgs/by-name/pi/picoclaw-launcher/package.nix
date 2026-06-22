@@ -33,6 +33,7 @@ buildGoModule (finalAttrs: {
   ];
 
   preConfigure = ''
+    rm -rf web/backend/dist
     cp -r ${finalAttrs.passthru.frontend} web/backend/dist
   '';
 
