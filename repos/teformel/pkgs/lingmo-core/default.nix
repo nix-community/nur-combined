@@ -26,6 +26,7 @@ stdenv.mkDerivation rec {
     # Fix absolute installation paths
     sed -i 's|DESTINATION /usr/|DESTINATION |g' notificationd/CMakeLists.txt
     sed -i 's|DESTINATION /etc|DESTINATION etc|g' CMakeLists.txt
+    sed -i 's|DESTINATION "/usr/bin/"|DESTINATION "bin"|g' CMakeLists.txt
   '';
 
   nativeBuildInputs = [
