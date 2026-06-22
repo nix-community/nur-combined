@@ -24,18 +24,19 @@ rec {
   ww-manager = pkgs.callPackage ./pkgs/ww-manager { };
   
   # Lingmo OS 桌面套件
-  lib_lingmo = pkgs.callPackage ./pkgs/lib_lingmo { };
-  lingmoui = pkgs.callPackage ./pkgs/lingmoui { };
-  lingmo-core = pkgs.callPackage ./pkgs/lingmo-core { inherit lingmoui; };
-  lingmo-settings = pkgs.callPackage ./pkgs/lingmo-settings { inherit lingmoui lingmo-core lib_lingmo; };
-  lingmo-dock = pkgs.callPackage ./pkgs/lingmo-dock { inherit lingmoui lingmo-core lib_lingmo; };
-  lingmo-launcher = pkgs.callPackage ./pkgs/lingmo-launcher { inherit lingmoui lingmo-core lib_lingmo; };
+  # 使用 pkgs.kdePackages 统一 Qt 版本，防止与 SDDM 产生版本冲突 (Qt 6.6 vs Qt 6.11)
+  lib_lingmo = pkgs.callPackage ./pkgs/lib_lingmo { qt6 = pkgs.kdePackages; };
+  lingmoui = pkgs.callPackage ./pkgs/lingmoui { qt6 = pkgs.kdePackages; };
+  lingmo-core = pkgs.callPackage ./pkgs/lingmo-core { qt6 = pkgs.kdePackages; inherit lingmoui; };
+  lingmo-settings = pkgs.callPackage ./pkgs/lingmo-settings { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-dock = pkgs.callPackage ./pkgs/lingmo-dock { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-launcher = pkgs.callPackage ./pkgs/lingmo-launcher { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-desktop = pkgs.libsForQt5.callPackage ./pkgs/lingmo-desktop { };
   lingmo-daemon = pkgs.libsForQt5.callPackage ./pkgs/lingmo-daemon { };
-  lingmo-filemanager = pkgs.callPackage ./pkgs/lingmo-filemanager { inherit lingmoui lingmo-core lib_lingmo; };
-  lingmo-kwin-plugins = pkgs.callPackage ./pkgs/lingmo-kwin-plugins { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-filemanager = pkgs.callPackage ./pkgs/lingmo-filemanager { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-kwin-plugins = pkgs.callPackage ./pkgs/lingmo-kwin-plugins { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-screenlocker = pkgs.libsForQt5.callPackage ./pkgs/lingmo-screenlocker { };
-  lingmo-polkit-agent = pkgs.callPackage ./pkgs/lingmo-polkit-agent { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-polkit-agent = pkgs.callPackage ./pkgs/lingmo-polkit-agent { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-sddm-theme = pkgs.callPackage ./pkgs/lingmo-sddm-theme { };
-  lingmo-statusbar = pkgs.callPackage ./pkgs/lingmo-statusbar { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-statusbar = pkgs.callPackage ./pkgs/lingmo-statusbar { qt6 = pkgs.kdePackages; inherit lingmoui lingmo-core lib_lingmo; };
 }

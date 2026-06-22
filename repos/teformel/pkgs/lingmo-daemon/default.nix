@@ -34,6 +34,11 @@ stdenv.mkDerivation rec {
     sed -i '/QApt::/d' src/appmanager.h
   '';
 
+  postInstall = ''
+    # Add executable permissions to surveillance daemon since upstream used FILES in CMake
+    chmod +x $out/bin/lingmo-permission-surveillance
+  '';
+
   nativeBuildInputs = [
     cmake
     pkg-config
