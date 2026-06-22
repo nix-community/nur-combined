@@ -156,8 +156,7 @@ def get_latest_git_commit_url(url):
 def resolve_version(rev, content):
     vars = {}
     for k, v in re.findall(r'([a-zA-Z0-9_-]+)\s*=\s*"([^"]+)"', content):
-        if k not in vars:
-            vars[k] = v
+        vars[k] = v
     
     if rev in vars:
         rev = vars[rev]
@@ -193,7 +192,7 @@ def main():
             if not os.path.isdir(pkg_path) or pkg.startswith('_'):
                 continue
                 
-            if pkg in ['polkit', 'minetest580', 'minetest591', 'beammp-server', 'irrlichtmt', 'ogre-1_11', 'local-ai', 'pixelle-video'] or 'plugin' in pkg:
+            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11'] or 'plugin' in pkg:
                 continue
                 
             pkg_nix = os.path.join(pkg_path, 'package.nix')
@@ -208,8 +207,10 @@ def main():
             if re.search(r'src\s*=\s*sources\.', content) and 'fetchFromGitHub' not in content and 'fetchFromGitLab' not in content and 'fetchgit' not in content:
                 continue
                 
-            git_match = re.search(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL)
-            fetchgit_match = re.search(r'\bsrc\s*=\s*(?:pkgs\.)?fetchgit\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL)
+            git_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
+            git_match = git_matches[-1] if git_matches else None
+            fetchgit_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchgit\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
+            fetchgit_match = fetchgit_matches[-1] if fetchgit_matches else None
             
             url = None
             current_rev = None
