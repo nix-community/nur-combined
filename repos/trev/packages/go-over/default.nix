@@ -9,18 +9,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "go-over";
-  version = "3.3.0";
+  version = "3.3.1";
 
   src = fetchFromGitHub {
     owner = "bwireman";
     repo = "go-over";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-eCu64t/iCxNhIdHFUJZ2zS5GZ8JTQx+v4TjNTmyzDP8=";
+    hash = "sha256-egVXAoo3J0yMyCJrfGKOp0V3bmOkMfAiCSoEwo9Lbo4=";
   };
 
   gleamDeps = gleamFetchDeps {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-uxtaVQwL17yQPcK8KggkG/ndeJfjab9W3nF/S7LO/NA=";
+    hash = "sha256-0LS5e9PpbXmRBksgxv7XJ23MEXCOxtVj3tZ0tVjPWas=";
   };
 
   nativeBuildInputs = [
