@@ -22,16 +22,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "gitbutler-cli";
-  version = "0.20.0";
+  version = "0.20.3";
 
   src = fetchFromGitHub {
     owner = "gitbutlerapp";
     repo = "gitbutler";
     tag = "release/${finalAttrs.version}";
-    hash = "sha256-S9lBnd3zhWi+0oLutujud5GyI0W+AHKvZpNvRWD2WXU=";
+    hash = "sha256-E6/NuXxxBH/DY3jfyshxPj57gh6fWwz25LpT6+qTwGw=";
   };
 
-  cargoHash = "sha256-faG1Y+5dd3BrLWIWF5ZUxXSAzd5wqbyj7/vxEHUAfjs=";
+  cargoHash = "sha256-/clB+6h2R3nmZ/7FCqWpIqSycwVGJ1BX/dKqr5GjN4E=";
 
   nativeBuildInputs = [
     cmake # Required by `zlib-sys` crate
