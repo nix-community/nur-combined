@@ -13,13 +13,13 @@
 
 buildDotnetModule rec {
   pname = "banguminet";
-  version = "1.0.16";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "ajtn123";
     repo = "BangumiNet";
     rev = "v${version}";
-    hash = "sha256-dE9ZKPdukYPLNj1H+zEAOOhXBb9EuKG4HtXIvyO/qT8=";
+    hash = "sha256-zUBhJVLKlLJFY/hGG9NtXmKYgYKBEb2CbbBTnJPzR/A=";
   };
 
   projectFile = "BangumiNet/BangumiNet.csproj";
