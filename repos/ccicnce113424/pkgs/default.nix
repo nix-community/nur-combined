@@ -136,9 +136,9 @@ lib.makeScope pkgs.newScope (
       version = unstableVersion sources 0;
     };
 
-    scx-flow = pkgs.scx.rustscheds.overrideAttrs (
+    scx_flow = pkgs.scx.rustscheds.overrideAttrs (
       final: prev: {
-        pname = "scx-flow";
+        pname = "scx_flow";
         version = "3.1.0";
         src = pkgs.fetchFromGitHub {
           owner = "galpt";
@@ -169,9 +169,9 @@ lib.makeScope pkgs.newScope (
       }
     );
 
-    scx-pandemonium = pkgs.scx.rustscheds.overrideAttrs (
+    scx_pandemonium = pkgs.scx.rustscheds.overrideAttrs (
       final: prev: {
-        pname = "scx-pandemonium";
+        pname = "scx_pandemonium";
         version = "5.14.0";
         src = pkgs.fetchFromGitHub {
           owner = "wllclngn";
