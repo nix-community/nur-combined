@@ -30,8 +30,8 @@ rec {
   lingmo-settings = pkgs.callPackage ./pkgs/lingmo-settings { inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-dock = pkgs.callPackage ./pkgs/lingmo-dock { inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-launcher = pkgs.callPackage ./pkgs/lingmo-launcher { inherit lingmoui lingmo-core lib_lingmo; };
-  lingmo-desktop = pkgs.callPackage ./pkgs/lingmo-desktop { inherit lingmoui lingmo-core lib_lingmo; };
-  lingmo-daemon = pkgs.callPackage ./pkgs/lingmo-daemon { inherit lingmoui lingmo-core lib_lingmo; };
+  lingmo-desktop = pkgs.libsForQt5.callPackage ./pkgs/lingmo-desktop { };
+  lingmo-daemon = pkgs.libsForQt5.callPackage ./pkgs/lingmo-daemon { };
   lingmo-filemanager = pkgs.callPackage ./pkgs/lingmo-filemanager { inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-kwin-plugins = pkgs.callPackage ./pkgs/lingmo-kwin-plugins { inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-screenlocker = pkgs.callPackage ./pkgs/lingmo-screenlocker { inherit lingmoui lingmo-core lib_lingmo; };

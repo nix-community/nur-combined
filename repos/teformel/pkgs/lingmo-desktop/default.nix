@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, kdePackages, qt6, lingmoui, lingmo-core, lib_lingmo }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libsForQt5, qt5 }:
 
 stdenv.mkDerivation rec {
   pname = "lingmo-desktop";
@@ -12,35 +12,28 @@ stdenv.mkDerivation rec {
     hash = "sha256-613S8ofX4vbD6+8FyddxTp6sfd3JshVyI92NVtLOavs=";
   };
 
-    postPatch = ''
+  postPatch = ''
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /usr/|DESTINATION |g' {} +
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /etc/|DESTINATION etc/|g' {} +
     find . -name "CMakeLists.txt" -exec sed -i 's|DESTINATION /etc|DESTINATION etc|g' {} +
-    find . -name "CMakeLists.txt" -exec sed -i 's/Qt5/Qt6/g' {} +
-    find . -name "CMakeLists.txt" -exec sed -i 's/qt5_create_translation/qt6_create_translation/g' {} +
   '';
 
   nativeBuildInputs = [
     cmake
     pkg-config
-    kdePackages.extra-cmake-modules
-    kdePackages.wrapQtAppsHook
-    qt6.qttools
+    libsForQt5.extra-cmake-modules
+    libsForQt5.wrapQtAppsHook
+    qt5.qttools
   ];
 
   buildInputs = [
-    qt6.qtbase
-    qt6.qtdeclarative
-    qt6.qtsvg
-    qt6.qtwayland
-    kdePackages.kcoreaddons
-    kdePackages.kwindowsystem
-    lingmoui
-    lingmo-core
-    lib_lingmo
+    qt5.qtbase
+    qt5.qtdeclarative
+    qt5.qtsvg
+    qt5.qtwayland
+    qt5.qtx11extras
+    libsForQt5.kcoreaddons
+    libsForQt5.kwindowsystem
+    libsForQt5.kio
   ];
 }
-
-
-
-
