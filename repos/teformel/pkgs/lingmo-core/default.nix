@@ -22,6 +22,12 @@ stdenv.mkDerivation rec {
     hash = "sha256-oDIIe/Wcbs8ZP3ayo9SaM8WBfTZ5vAmvvuuFcYn8YvY=";
   };
 
+  postPatch = ''
+    # Fix absolute installation paths
+    sed -i 's|DESTINATION /usr/|DESTINATION |g' notificationd/CMakeLists.txt
+    sed -i 's|DESTINATION /etc|DESTINATION etc|g' CMakeLists.txt
+  '';
+
   nativeBuildInputs = [
     cmake
     pkg-config
@@ -39,8 +45,14 @@ stdenv.mkDerivation rec {
     kdePackages.kcoreaddons
     kdePackages.kconfig
     kdePackages.polkit-qt-1
+    kdePackages.kidletime
     polkit
     xorg.libSM
+    xorg.libXcursor
+    xorg.libX11
+    xorg.xorgserver
+    xorg.xf86inputlibinput
+    xorg.xf86inputsynaptics
     lingmoui
   ];
 }
