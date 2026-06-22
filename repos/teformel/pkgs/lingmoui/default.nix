@@ -25,6 +25,10 @@ stdenv.mkDerivation rec {
     if [ -f "thirdparty/QHotkey/CMakeLists.txt" ]; then
       sed -i '1i find_package(KF6GlobalAccel REQUIRED)' thirdparty/QHotkey/CMakeLists.txt
     fi
+    # 修复 Compatible 模块缺少 Qt6::GuiPrivate 声明的问题
+    if [ -f "Compatible/CMakeLists.txt" ]; then
+      sed -i '1i find_package(Qt6 COMPONENTS Gui GuiPrivate REQUIRED)' Compatible/CMakeLists.txt
+    fi
   '';
 
   nativeBuildInputs = [

@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     repo = "lingmo-core";
     rev = "50f42d6c6531ce34852446278f27be8238a3a8f4";
     # TODO: 首次构建将报错，请将报错提供的 Hash 填入此处
-    hash = lib.fakeHash;
+    hash = "sha256-oDIIe/Wcbs8ZP3ayo9SaM8WBfTZ5vAmvvuuFcYn8YvY=";
   };
 
   nativeBuildInputs = [
