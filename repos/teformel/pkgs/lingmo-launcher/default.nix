@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     repo = "lingmo-launcher";
     rev = "eac296ecccf47c9d25eb989e06a7cc6e953129fb";
     # TODO: 首次构建将报错，请将报错提供的 Hash 填入此处
-    hash = "sha256-s4TvyLX0RW6jqDm0tijU49LdHhyvEf4wzVr+gKgdn5Q=";
+    hash = "sha256-s4TvyLXORW6jqDm0tijU49LdHhyvEf4wzVr+gKgdn5Q=";
   };
 
     postPatch = ''
