@@ -37,4 +37,5 @@ rec {
   lingmo-screenlocker = pkgs.libsForQt5.callPackage ./pkgs/lingmo-screenlocker { };
   lingmo-polkit-agent = pkgs.callPackage ./pkgs/lingmo-polkit-agent { inherit lingmoui lingmo-core lib_lingmo; };
   lingmo-sddm-theme = pkgs.callPackage ./pkgs/lingmo-sddm-theme { };
+  lingmo-statusbar = pkgs.callPackage ./pkgs/lingmo-statusbar { inherit lingmoui lingmo-core lib_lingmo; };
 }

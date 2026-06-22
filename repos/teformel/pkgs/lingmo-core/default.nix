@@ -8,6 +8,7 @@
 , polkit
 , xorg
 , lingmoui
+, python3
 }:
 
 stdenv.mkDerivation rec {
@@ -57,5 +58,6 @@ stdenv.mkDerivation rec {
     xorg.xf86inputlibinput
     xorg.xf86inputsynaptics
     lingmoui
+    python3
   ];
 }
