@@ -5,6 +5,8 @@
 , pkg-config
 , kdePackages
 , qt6
+, polkit
+, xorg
 , lingmoui
 }:
 
@@ -25,6 +27,7 @@ stdenv.mkDerivation rec {
     pkg-config
     kdePackages.extra-cmake-modules
     kdePackages.wrapQtAppsHook
+    qt6.qttools
   ];
 
   buildInputs = [
@@ -35,6 +38,9 @@ stdenv.mkDerivation rec {
     kdePackages.kwindowsystem
     kdePackages.kcoreaddons
     kdePackages.kconfig
+    kdePackages.polkit-qt-1
+    polkit
+    xorg.libSM
     lingmoui
   ];
 }
