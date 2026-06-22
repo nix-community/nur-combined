@@ -1,4 +1,4 @@
-{ lib, python3Packages, fetchFromGitHub }:
+{ lib, python3Packages, fetchurl, fetchgit, fetchFromGitHub, dockerTools }:
 
 python3Packages.buildPythonApplication rec {
   pname = "ww-manager"; # 根据 pyproject.toml 的 name 修正
@@ -7,11 +7,7 @@ python3Packages.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "timetetng";
     repo = "wutheringwaves-cli-manager";
-    # 注意：通常 GitHub 的 Tag 会带个 'v'，比如 v2.1.10。
-    # 如果拉取失败提示找不到 revision，可以改为 rev = version; 或去仓库确认 Tag 名称。
     rev = "v${version}"; 
-    
-    # 第一次构建依然会报错，提示哈希不匹配，请将终端里正确的 sha256 填入这里
     hash = "sha256-44nX20ZiGYwZMOiNRDyzLlP18QvZyX6lIMb4UQC9itQ="; 
   };
 
@@ -35,6 +31,7 @@ python3Packages.buildPythonApplication rec {
     certifi
     rich
     typing-extensions
+    requests
   ];
 
   # 禁用测试以加快构建速度（如果项目中包含 pytest 等测试，且你想跑的话可以改为 true）

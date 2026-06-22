@@ -1,6 +1,9 @@
 { lib
 , stdenv
 , fetchurl
+, fetchgit
+, fetchFromGitHub
+, dockerTools
 , dpkg
 , autoPatchelfHook
 , alsa-lib
