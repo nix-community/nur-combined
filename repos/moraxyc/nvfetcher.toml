@@ -223,6 +223,10 @@ src.github = "grinev/opencode-telegram-bot"
 fetch.github = "grinev/opencode-telegram-bot"
 extract = ["package.json", "package-lock.json"]
 
+[picoclaw]
+src.github_tag = "sipeed/picoclaw"
+fetch.github = "sipeed/picoclaw"
+
 [pixy2]
 src.git = "https://github.com/charmedlabs/pixy2"
 fetch.github = "charmedlabs/pixy2"

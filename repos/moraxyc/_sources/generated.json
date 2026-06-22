@@ -786,11 +786,11 @@
     "mpv-danmaku": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=/Cargo.lock",
+                "sha256-bYxbnk+bR0ttM1S3YltvhvSJME1Yv63Wu5fkdkAJnt0=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-06-15",
+        "date": "2026-06-22",
         "extract": null,
         "name": "mpv-danmaku",
         "passthru": null,
@@ -802,12 +802,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "mpv-danmaku",
-            "rev": "a42c656f2c83cd658b5d950573179766aa194bd3",
-            "sha256": "sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=",
+            "rev": "7233ef455e55006a328bd1c58f5d05cdc73a3f65",
+            "sha256": "sha256-bYxbnk+bR0ttM1S3YltvhvSJME1Yv63Wu5fkdkAJnt0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a42c656f2c83cd658b5d950573179766aa194bd3"
+        "version": "7233ef455e55006a328bd1c58f5d05cdc73a3f65"
     },
     "mpv-danmaku-stable": {
         "cargoLock": null,
@@ -1013,6 +1013,27 @@
             "type": "github"
         },
         "version": "v0.21.2"
+    },
+    "picoclaw": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "picoclaw",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sipeed",
+            "repo": "picoclaw",
+            "rev": "v0.3.0",
+            "sha256": "sha256-7LluC+9c+veaWdeaWEsDVRaAQRWCq+KMbDCGL2qYw7M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.3.0"
     },
     "pixy2": {
         "cargoLock": null,

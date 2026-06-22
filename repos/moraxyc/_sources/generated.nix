@@ -462,21 +462,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "a42c656f2c83cd658b5d950573179766aa194bd3";
+    version = "7233ef455e55006a328bd1c58f5d05cdc73a3f65";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "a42c656f2c83cd658b5d950573179766aa194bd3";
+      rev = "7233ef455e55006a328bd1c58f5d05cdc73a3f65";
       fetchSubmodules = false;
-      sha256 = "sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=";
+      sha256 = "sha256-bYxbnk+bR0ttM1S3YltvhvSJME1Yv63Wu5fkdkAJnt0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-NbTzBH9CU9St3N1NXXClKFFM9uBXrZYUGzZxU2FG57s=/Cargo.lock";
+      lockFile = ./. + "/sha256-bYxbnk+bR0ttM1S3YltvhvSJME1Yv63Wu5fkdkAJnt0=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-06-15";
+    date = "2026-06-22";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -592,6 +592,17 @@
     extract = {
       "package-lock.json" = ./. + "/sha256-NEaQ2grHCKXi13utcHeUR83pJT6kqBGS4UqllhG93kY=/package-lock.json";
       "package.json" = ./. + "/sha256-NEaQ2grHCKXi13utcHeUR83pJT6kqBGS4UqllhG93kY=/package.json";
+    };
+  };
+  picoclaw = {
+    pname = "picoclaw";
+    version = "v0.3.0";
+    src = fetchFromGitHub {
+      owner = "sipeed";
+      repo = "picoclaw";
+      rev = "v0.3.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-7LluC+9c+veaWdeaWEsDVRaAQRWCq+KMbDCGL2qYw7M=";
     };
   };
   pixy2 = {
