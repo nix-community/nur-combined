@@ -370,15 +370,15 @@
       "source": "hosted",
       "version": "0.0.2"
     },
-    "dynamic_color": {
+    "dynamic_system_colors": {
       "dependency": "direct main",
       "description": {
-        "name": "dynamic_color",
-        "sha256": "43a5a6679649a7731ab860334a5812f2067c2d9ce6452cf069c5e0c25336c17c",
+        "name": "dynamic_system_colors",
+        "sha256": "6cda994363fe362e3c433e068af83feffc2c9a26ba0be7ecdb2b96f676d2dfd8",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "1.8.1"
+      "version": "1.9.0"
     },
     "equatable": {
       "dependency": "transitive",
@@ -928,11 +928,11 @@
       "dependency": "direct main",
       "description": {
         "name": "internet_connection_checker_plus",
-        "sha256": "4bdcb9b447ece1847c52661ca04a3981ec8b73c4f2fbf457396adeffdf48dd7a",
+        "sha256": "262e3dfdf95af02c0e76e31dc9a7a6653ccaf3b4e0a4754a6ce1c33e8b971e8b",
         "url": "https://pub.dev"
       },
       "source": "hosted",
-      "version": "3.0.1"
+      "version": "3.1.0"
     },
     "intl": {
       "dependency": "direct main",
@@ -1125,7 +1125,7 @@
       "version": "0.12.19"
     },
     "material_color_utilities": {
-      "dependency": "transitive",
+      "dependency": "direct main",
       "description": {
         "name": "material_color_utilities",
         "sha256": "9c337007e82b1889149c82ed242ed1cb24a66044e30979c44912381e9be4c48b",
