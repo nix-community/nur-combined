@@ -24,7 +24,8 @@ rec {
   ww-manager = pkgs.callPackage ./pkgs/ww-manager { };
   
   # Lingmo OS 桌面套件
+  lib_lingmo = pkgs.callPackage ./pkgs/lib_lingmo { };
   lingmoui = pkgs.callPackage ./pkgs/lingmoui { };
   lingmo-core = pkgs.callPackage ./pkgs/lingmo-core { inherit lingmoui; };
-  lingmo-settings = pkgs.callPackage ./pkgs/lingmo-settings { inherit lingmoui lingmo-core; };
+  lingmo-settings = pkgs.callPackage ./pkgs/lingmo-settings { inherit lingmoui lingmo-core lib_lingmo; };
 }
