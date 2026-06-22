@@ -6,26 +6,26 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.9.1",
+  "version": "1.9.2",
   "platforms": {
     "x86_64-linux": {
       "file": "ABDownloadManager_{version}_linux_x64.tar.gz",
-      "hash": "sha256-eqtUfAdBVliNb1Q7PSXNwTaM05+s/4M4mVChh1KWsx4=",
+      "hash": "sha256-+Au7DbLjRkm7zLIP0fl2fDld6OynDLEfMPFoNQV36Ig=",
       "unpack": false
     },
     "aarch64-linux": {
       "file": "ABDownloadManager_{version}_linux_arm64.tar.gz",
-      "hash": "sha256-0DcUIgDudproGbBetEfX3a+aFtuieLpQ2jic7T+wfTA=",
+      "hash": "sha256-t6/P4CmM3C48OYzJ52YdEzjCRpLQOIJRbQviX26dTgA=",
       "unpack": false
     },
     "x86_64-darwin": {
       "file": "ABDownloadManager_{version}_mac_x64.tar.gz",
-      "hash": "sha256-AckkP35IDcUrzG5nZ/71bNMeG28cb4cl1G17RXlYoao=",
+      "hash": "sha256-KSAA3jAzDhfZvmye2jTwQTcqAoWfmc3mhYGWQqhN3zY=",
       "unpack": false
     },
     "aarch64-darwin": {
       "file": "ABDownloadManager_{version}_mac_arm64.tar.gz",
-      "hash": "sha256-/2nLXUcGAbFJVY6xDXVJnC5/3t6VGeR+KIDHV1kR/c4=",
+      "hash": "sha256-JP1kkVvc33BZENdJ8w47HlSiTitzzGPH6L7zoEYUYTU=",
       "unpack": false
     }
   }
