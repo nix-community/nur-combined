@@ -1,7 +1,7 @@
 {
   description = "Moraxyc's NUR repository";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     systems.url = "github:nix-systems/triplet";
     flake-parts.url = "github:hercules-ci/flake-parts";
   };

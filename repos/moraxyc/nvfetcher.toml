@@ -182,6 +182,23 @@ cargo_lock = ["Cargo.lock"]
 src.github = "moraxyc/mpv-danmaku"
 fetch.url = "file:///dev/null"
 
+[nezha]
+src.github = "nezhahq/nezha"
+fetch.github = "nezhahq/nezha"
+
+[nezha-agent]
+src.github = "nezhahq/agent"
+fetch.github = "nezhahq/agent"
+
+[nezha-theme-admin]
+src.github = "nezhahq/admin-frontend"
+fetch.github = "nezhahq/admin-frontend"
+extract = ["package-lock.json", "package.json"]
+
+[nezha-theme-user]
+src.github = "hamster1963/nezha-dash-v2"
+fetch.github = "hamster1963/nezha-dash-v2"
+
 [nipaplay-reload-darwin]
 src.github = "MCDFsteve/NipaPlay-Reload"
 src.prefix = "v"
