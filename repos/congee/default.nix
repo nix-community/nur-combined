@@ -17,7 +17,6 @@
   some-sass-language-server = pkgs.callPackage ./pkgs/some-sass-language-server { };
   gh-image = pkgs.callPackage ./pkgs/gh-image { };
   rsql = pkgs.callPackage ./pkgs/rsql { };
-  skills = pkgs.callPackage ./pkgs/skills { };
   sentry = pkgs.callPackage ./pkgs/sentry { };
   engram = pkgs.callPackage ./pkgs/engram { };
   rapid-mlx = pkgs.callPackage ./pkgs/rapid-mlx { };
