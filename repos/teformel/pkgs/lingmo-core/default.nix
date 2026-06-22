@@ -30,6 +30,14 @@ stdenv.mkDerivation rec {
     sed -i 's|DESTINATION /usr/|DESTINATION |g' notificationd/CMakeLists.txt
     sed -i 's|DESTINATION /etc|DESTINATION etc|g' CMakeLists.txt
     sed -i 's|DESTINATION "/usr/bin/"|DESTINATION "bin"|g' CMakeLists.txt
+    
+    # Fix hardcoded path in thememanager
+    sed -i 's|/usr/bin/lingmo-wallpaper-color-pick|lingmo-wallpaper-color-pick|g' settings-daemon/theme/thememanager.cpp
+  '';
+
+  postInstall = ''
+    # Upstream installed this as a normal file, preventing execution and patchShebangs
+    chmod +x $out/bin/lingmo-wallpaper-color-pick
   '';
 
   nativeBuildInputs = [
