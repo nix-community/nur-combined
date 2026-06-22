@@ -10,7 +10,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "context-mode";
-  version = "1.0.162";
+  version = "1.0.163";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "mksglu";
     repo = "context-mode";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-yDr8N2mGwg+ejzeeMSHybaQFki6ny11Dqj6Cy+QGsdc=";
+    hash = "sha256-ukuT2hZkNbAwYyFILBO+b9U70RJms9aNVxJZtS22SWU=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {

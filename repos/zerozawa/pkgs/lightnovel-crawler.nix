@@ -23,12 +23,12 @@ let
   # lncrawl-scraper — HTTP scraper with Cloudflare bypass (extracted from bundled cloudscraper)
   lncrawl-scraper = python3Packages.buildPythonPackage rec {
     pname = "lncrawl-scraper";
-    version = "0.1.2";
+    version = "0.2.3";
     pyproject = true;
     src = fetchPypi {
       pname = "lncrawl_scraper";
       inherit version;
-      hash = "sha256-mYrilNrcdVQ9bIpHNu8E1IcaMAQIyyfgEUfRlF4GyTc=";
+      hash = "sha256-DQrODYwiAjBqNYrdBuo32iFFbiT+v/medgd9BYyJFNg=";
     };
     build-system = with python3Packages; [ hatchling ];
     propagatedBuildInputs = with python3Packages; [
@@ -111,7 +111,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.8.1";
+  version = "4.9.0";
 
   pyproject = true;
 
@@ -119,7 +119,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-LUvhUcjkBWBuOPfVbzyqqKA6HFc4XssI18ZkTWO62wA=";
+    hash = "sha256-dyamwGooMljKIl3X1Gx942uCnINIws28X86k1xrV2N0=";
   };
 
   build-system = with python3Packages; [
@@ -141,6 +141,7 @@ python3Packages.buildPythonApplication rec {
     ebooklib
     fastapi
     html5lib
+    imap-tools
     httpx
     humanize
     lxml
