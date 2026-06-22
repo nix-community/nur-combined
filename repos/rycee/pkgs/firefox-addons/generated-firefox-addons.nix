@@ -1683,10 +1683,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.3.5";
+      version = "7.3.6";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4857781/cardpointers_x-7.3.5.xpi";
-      sha256 = "c7be621005fc151c99b637248944a72b7a0f778353f650f0f285576feedc21e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4861541/cardpointers_x-7.3.6.xpi";
+      sha256 = "a9f0a0a1e43d3b342cf236806a4da3d058fe59b9f67875f41131bc71c6510401";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -2908,10 +2908,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "153.0.20260619.90309";
+      version = "152.0.20260621.191700";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4858599/dansk_da_language_pack-153.0.20260619.90309.xpi";
-      sha256 = "5ac564ca8345fc9a0f2caea81fc9ab639d37f3130064eca1a8cd1ba1c0feb5e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4861982/dansk_da_language_pack-152.0.20260621.191700.xpi";
+      sha256 = "f92ca553e011b2753d1a5f9b17c6ee1fd3e662f87318ee90ebf499031149fe35";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3124,10 +3124,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "153.0.20260619.90309";
+      version = "152.0.20260621.191700";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4858635/deutsch_de_language_pack-153.0.20260619.90309.xpi";
-      sha256 = "250a4d280e30adef2197cf8ed621eacc637a78fc0a3c3e304bf6141d038b61ff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4861980/deutsch_de_language_pack-152.0.20260621.191700.xpi";
+      sha256 = "668c0d169775532c9d985b73d363bda187cc46673ee1b649e501bd9495288747";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4608,10 +4608,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "153.0.20260619.90309";
+      version = "152.0.20260621.191700";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4858598/francais_language_pack-153.0.20260619.90309.xpi";
-      sha256 = "1250c9ca29298a8243e10da9f65049302dd64d300bfdd9ebba46ca4c40f519c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4861984/francais_language_pack-152.0.20260621.191700.xpi";
+      sha256 = "7cd89273b3ce0da269d9e6adf6f37c0fe1ba3af8236d809b073ed5a911bb85fa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4645,10 +4645,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "153.0.20260619.90309";
+      version = "152.0.20260621.191700";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4858640/gaidhlig_language_pack-153.0.20260619.90309.xpi";
-      sha256 = "df7fadd780500ac5fe07f9a25d15db1887b17e0a145c04ff396422325cb3724d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4861938/gaidhlig_language_pack-152.0.20260621.191700.xpi";
+      sha256 = "5cf26113824762afb5bb0a8a10f574942dca524e54fe7446ffcabb3788367502";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4689,14 +4689,14 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.0";
+      version = "1.22.2";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4860754/geo_spoof-1.22.0.xpi";
-      sha256 = "44f87630659d94d30a7f6049d2becd4fd0ce46f67b3e68f48b922fd672622377";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862081/geo_spoof-1.22.2.xpi";
+      sha256 = "1401f775d22b127b658d3f59875cbbc3f85945afd24b9a2e6bf2ce288d48c968";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
-        description = "Spoof your browser's geolocation, timezone, and WebRTC to match your VPN — or any location you choose.";
+        description = "Spoof your browser's geolocation, timezone, and automatically sync your identity to match your VPN — or any location you choose.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -13394,10 +13394,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "153.0.20260619.90309";
+      version = "152.0.20260621.191700";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4858600/scots_language_pack-153.0.20260619.90309.xpi";
-      sha256 = "3ef45490fbad0ba2619e5bc840801ca109e2a2c5d190db839140a08adb363746";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4861955/scots_language_pack-152.0.20260621.191700.xpi";
+      sha256 = "de797abda24c03a940f48d4fd200f7e9a78e70df1413dad8f5025e7cdc508d6b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13861,10 +13861,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.4";
+      version = "3.4.5";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4859341/simplifygmail-3.4.4.xpi";
-      sha256 = "f31c6984b5c5bd44f7bb794c6ca5ea65a22eb00f19174fef1009337c7138d297";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862114/simplifygmail-3.4.5.xpi";
+      sha256 = "9985acc4cb075c5ac6ff2aa2155ec980d896a5ce469bf01ada86b6d001955215";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
