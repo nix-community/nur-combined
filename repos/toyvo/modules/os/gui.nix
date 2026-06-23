@@ -50,7 +50,6 @@ in
         #   lib.optionals
         #     (builtins.elem system [
         #       "aarch64-darwin"
-        #       "x86_64-darwin"
         #       "x86_64-linux"
         #     ])
         #     [
