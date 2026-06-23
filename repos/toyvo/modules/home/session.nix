@@ -17,7 +17,7 @@ in
     programs.home-manager.enable = true;
 
     home = {
-      stateVersion = "26.05";
+      stateVersion = "26.11";
       enableNixpkgsReleaseCheck = false;
       sessionPath =
         lib.optionals config.programs.volta.enable [

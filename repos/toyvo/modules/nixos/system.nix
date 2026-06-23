@@ -75,7 +75,7 @@ in
     };
 
     system = {
-      stateVersion = "26.05";
+      stateVersion = "26.11";
       autoUpgrade = {
         enable = true;
         flake = "github:ToyVoDev/nixcfg";

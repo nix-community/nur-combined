@@ -200,7 +200,7 @@ in
           ];
           networking.firewall.allowedUDPPorts = [ cfg.port ];
 
-          system.stateVersion = "26.05";
+          system.stateVersion = "26.11";
         };
     };
   };

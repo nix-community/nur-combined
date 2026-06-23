@@ -64,7 +64,7 @@
     nixos-hardware.url = "github:nixos/nixos-hardware";
     nixos-wsl.url = "github:nix-community/nixos-wsl";
     nixpkgs-esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
-    nixos-stable.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixos-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     nur.url = "github:nix-community/nur";

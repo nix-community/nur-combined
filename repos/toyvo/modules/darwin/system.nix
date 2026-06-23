@@ -8,7 +8,7 @@
 
   config = {
     system = {
-      stateVersion = 6;
+      stateVersion = 7;
       primaryUser = config.userPresets.toyvo.name;
     };
   };

@@ -259,7 +259,7 @@ in
 
         networking.firewall.allowedTCPPorts = [ cfg.port ];
 
-        system.stateVersion = "26.05";
+        system.stateVersion = "26.11";
       };
     };
 
@@ -377,7 +377,7 @@ in
 
         networking.firewall.allowedTCPPorts = [ ];
 
-        system.stateVersion = "26.05";
+        system.stateVersion = "26.11";
       };
     };
 
@@ -410,7 +410,7 @@ in
 
         networking.firewall.allowedTCPPorts = [ cfg.redis.port ];
 
-        system.stateVersion = "26.05";
+        system.stateVersion = "26.11";
       };
     };
   };
