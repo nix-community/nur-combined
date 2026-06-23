@@ -25,7 +25,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-ANtji4r1e2bcV5nfxttnpVKHSy6q0c0cHwt5VfJPICY=";
+  npmDepsHash = "sha256-oH/8PjUmtWUfoSN67MjWQhoG84EE9AEtXjuhXFfZ4Aw=";
 
   # lockfile generated in a pi-mcp-adapter checkout using
   # `npm install --package-lock-only`.
@@ -33,8 +33,6 @@ buildNpmPackage (finalAttrs: {
     cp ${./package-lock.json} package-lock.json
   '';
 
-  # this is a pi extension consisting of TypeScript sources loaded at runtime;
-  # there is nothing to compile.
   dontNpmBuild = true;
 
   installPhase = ''

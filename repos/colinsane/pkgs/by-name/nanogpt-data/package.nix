@@ -3,11 +3,13 @@
   lib,
   nanogpt-api,
   stdenvNoCC,
+  update-guard,
+  updater-tools,
   writeShellApplication,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nanogpt-data";
-  version = "0-unstable-2026-06-22";
+  version = "0-unstable-2026-06-23";
 
   src = lib.fileset.toSource {
     root = ./.; fileset = ./models.json;
@@ -31,21 +33,24 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    updateScript = [(lib.getExe (writeShellApplication {
-      name = "nanogpt-data-update";
-      runtimeInputs = [
-        gnused
-        nanogpt-api
-      ];
-      runtimeEnv.PACKAGE_DIR = "/home/colin/nixos/pkgs/by-name/nanogpt-data";
-      text = ''
-        nanogpt-api models > $PACKAGE_DIR/models.json
-        now=$(date +'%Y-%m-%d')
-        slug=0-unstable-
-        sed 's/version = "'"$slug"'.*";/version = "'"$slug$now"'";/' \
-          -i $PACKAGE_DIR/package.nix
-      '';
-    }))];
+    updateScript = updater-tools.requireAll [
+      (update-guard.days 2)
+      [(lib.getExe (writeShellApplication {
+        name = "nanogpt-data-update";
+        runtimeInputs = [
+          gnused
+          nanogpt-api
+        ];
+        runtimeEnv.PACKAGE_DIR = "/home/colin/nixos/pkgs/by-name/nanogpt-data";
+        text = ''
+          nanogpt-api models > $PACKAGE_DIR/models.json
+          now=$(date +'%Y-%m-%d')
+          slug=0-unstable-
+          sed 's/version = "'"$slug"'.*";/version = "'"$slug$now"'";/' \
+            -i $PACKAGE_DIR/package.nix
+        '';
+      }))]
+    ];
   };
 
   meta.description = "Model pricing data specific to nano-gpt.com, for use by agent harnesses like Crush or Pi";

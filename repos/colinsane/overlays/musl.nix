@@ -1255,6 +1255,10 @@ super.lib.composeManyExtensions [
     #   hardeningDisable = [ "fortify" ];
     # };
 
+    # 2026-06-22: playwright-driver.passthru.browsers would appear to be **vendored** browsers, hence glibc-only.
+    playwright-driver = final._pkgsGnu.playwright-driver;
+    playwright-test = final._pkgsGnu.playwright-test;
+
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (pyself: pysuper: {
         # XXX(2026-06-22): "Expected 12 exit code, got 14 on test/fixtures/templates/quickstart/openshift.yaml"

@@ -176,12 +176,14 @@ in
       packages = [
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
-        pkgs.pi-caveman  #< adds `/caveman` slash command
+        # pkgs.pi-caveman  #< adds `/caveman` slash command
         # pkgs.pi-kagi  #< adds `web_search` tool
         pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
-        pkgs.pi-md-export  #< adds `/md` slash command
-        pkgs.pi-move-session  #< adds `/move-session` slash command
-        pkgs.pi-simplify  #< adds `/simplify` slash command
+        # pkgs.pi-md-export  #< adds `/md` slash command
+        # pkgs.pi-move-session  #< adds `/move-session` slash command
+        pkgs.pi-subagents
+        pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
+        # pkgs.pi-simplify  #< adds `/simplify` slash command
         pkgs.pi-vim  #< makes the input textarea behave like vim
         # pkgs.pi-markdown-preview  #< renders $LaTeX$, etc, but needs more deps (puppeteer?)
       ];

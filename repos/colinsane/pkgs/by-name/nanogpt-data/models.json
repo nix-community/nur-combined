@@ -152,6 +152,28 @@
     }
   },
   {
+    "id": "sakana/fugu-ultra",
+    "name": "Fugu Ultra",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.000525,
+      "completion": 31.5,
+      "currency": "USD",
+      "prompt": 5.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 16384,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "owl",
     "name": "OWL",
     "pricing": {
