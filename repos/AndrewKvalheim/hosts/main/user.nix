@@ -3,7 +3,7 @@
 let
   inherit (config.home) homeDirectory;
   inherit (lib) escapeShellArg getExe getExe';
-  inherit (pkgs) substitute writeShellScript;
+  inherit (pkgs) makeAutostartItem writeShellScript;
 
   system = import <nixpkgs/nixos> { };
 in
@@ -47,6 +47,7 @@ in
     decompiler-mc
     digikam
     dino
+    (makeAutostartItem { name = "im.dino.Dino"; package = dino; appendExtraArgs = [ "--gapplication-service" ]; }) # Workaround for dino/dino#299
     email-hash
     fastnbt-tools
     filter-imf
@@ -112,12 +113,6 @@ in
         | CLICOLOR_FORCE='✓' ${getExe filter-imf} \
         | ${getExe' wl-clipboard "wl-copy"} --type 'TEXT'
       '')}";
-  };
-
-  # Workaround for dino/dino#299
-  xdg.configFile."autostart/im.dino.Dino.desktop".source = substitute {
-    src = "${pkgs.dino}/share/applications/im.dino.Dino.desktop";
-    substitutions = [ "--replace-fail" "Exec=dino %U" "Exec=dino --gapplication-service" ];
   };
 
   # Unison

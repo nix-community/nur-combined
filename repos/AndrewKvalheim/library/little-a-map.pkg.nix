@@ -1,4 +1,4 @@
-{ fetchFromGitea
+{ fetchFromCodeberg
 , lib
 , nix-update-script
 , rustPlatform
@@ -23,8 +23,7 @@ rustPlatform.buildRustPackage (little-a-map: {
 
   passthru.updateScript = nix-update-script { };
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "AndrewKvalheim";
     repo = "little-a-map";
     rev = "refs/tags/v${little-a-map.version}";

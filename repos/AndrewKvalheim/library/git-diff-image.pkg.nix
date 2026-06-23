@@ -1,4 +1,5 @@
-{ fetchFromGitHub
+{ addBinToPathHook
+, fetchFromGitHub
 , lib
 , makeWrapper
 , stdenv
@@ -18,7 +19,7 @@
 }:
 
 let
-  inherit (lib) licenses makeBinPath;
+  inherit (lib) escapeShellArg licenses makeBinPath;
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
@@ -44,7 +45,7 @@ let
     ];
   };
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (git-diff-image: {
   pname = "git-diff-image";
   version = "0-unstable-2023-09-04";
   meta = {
@@ -76,8 +77,8 @@ stdenv.mkDerivation {
   '';
 
   doInstallCheck = true;
+  installCheckInputs = [ addBinToPathHook ];
   installCheckPhase = ''
-    export PATH=$PATH:$out/bin
-    diff-image $src/example-comparison.png $src/example-comparison.png
+    ${escapeShellArg git-diff-image.meta.mainProgram} "$src/example-comparison.png" "$src/example-comparison.png"
   '';
-}
+})

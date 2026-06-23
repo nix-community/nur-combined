@@ -1,4 +1,5 @@
-{ fetchgit
+{ addBinToPathHook
+, fetchgit
 , lib
 , makeWrapper
 , stdenv
@@ -11,7 +12,7 @@
 let
   inherit (lib) escapeShellArg licenses makeBinPath;
 in
-stdenv.mkDerivation {
+stdenv.mkDerivation (easy-timeline: {
   pname = "easy-timeline";
   version = "1.90-unstable-2024-08-02";
   meta = {
@@ -40,6 +41,7 @@ stdenv.mkDerivation {
   '';
 
   doInstallCheck = true;
+  installCheckInputs = [ addBinToPathHook ];
   installCheckPhase =
     let
       test-timeline = ''
@@ -61,9 +63,9 @@ stdenv.mkDerivation {
     in
     ''
       echo ${escapeShellArg test-timeline} > 'test-timeline.txt'
-      $out/bin/easy-timeline -i 'test-timeline.txt'
+      ${escapeShellArg easy-timeline.meta.mainProgram} -i 'test-timeline.txt'
       [[ ! -e 'test-timeline.err' ]]
       [[ -f 'test-timeline.png' ]]
       [[ -f 'test-timeline.svg' ]]
     '';
-}
+})

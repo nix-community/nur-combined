@@ -7,7 +7,7 @@ let
   inherit (lib) foldlAttrs getExe getExe' imap0 mkOption nameValuePair throwIfNot;
   inherit (lib.generators) toINI toKeyValue toYAML;
   inherit (lib.hm.gvariant) mkTuple mkUint32;
-  inherit (pkgs) formats onlyBin;
+  inherit (pkgs) formats makeAutostartItem onlyBin;
   inherit (pkgs.writers) writeTOML;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
@@ -108,6 +108,7 @@ in
       dua
       duperemove
       efficient-compression-tool
+      (makeAutostartItem { name = "com.tomjwatson.Emote"; package = emote; })
       exiftool
       eyedropper
       (ffmpeg.override { withUnfree = true; withFdkAac = true; })
@@ -246,7 +247,6 @@ in
       PYTHON_KEYRING_BACKEND = "keyring.backends.fail.Keyring"; # Workaround for python-poetry/poetry#8761
       UV_PYTHON_DOWNLOADS = "never";
     };
-    xdg.configFile."autostart/com.tomjwatson.Emote.desktop".source = "${pkgs.emote}/share/applications/com.tomjwatson.Emote.desktop";
     xdg.configFile."cargo-release/release.toml".source = writeTOML "release.toml" {
       push = false;
       publish = false;

@@ -27,6 +27,7 @@ specify {
   bobby.search = pr 530420 "sha256-egFzlhA01swEhtHoTH5yET0O4SJFDykraOuDCSvOiS4=";
   busyserve = any;
   caddy-with-cache-route53 = any;
+  cc-icons-unicode = any;
   ch57x-keyboard-tool = any;
   chromium.commandLineArgs = "--enable-features=WaylandTextInputV3"; # Pending https://crbug.com/40272818, NixOS/nixpkgs#394395
   chunker.dontEval = true /* FIXME: infinite recursion */;

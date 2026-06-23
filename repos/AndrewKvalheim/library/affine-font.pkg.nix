@@ -1,4 +1,4 @@
-{ fetchFromGitea
+{ fetchFromCodeberg
 , lib
 , stdenv
 , unstableGitUpdater
@@ -20,8 +20,7 @@ stdenv.mkDerivation {
 
   passthru.updateScript = unstableGitUpdater { };
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "AndrewKvalheim";
     repo = "affine";
     rev = "ffc686a95586213079e4bd0ffb45f2e171aeb613";

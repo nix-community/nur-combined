@@ -1,4 +1,5 @@
-{ copyDesktopItems
+{ addBinToPathHook
+, copyDesktopItems
 , fetchFromGitHub
 , lib
 , nix-update-script
@@ -86,8 +87,9 @@ rustPlatform.buildRustPackage (stretch-break: {
 
   doInstallCheck = true;
   # Pending compatibility with versionCheckHook
+  installCheckInputs = [ addBinToPathHook ];
   installCheckPhase = ''
-    help="$($out/bin/${escapeShellArg stretch-break.meta.mainProgram} --help)"
+    help="$(${escapeShellArg stretch-break.meta.mainProgram} --help)"
     echo "$help"
     [[ "$help" == *'Usage: stretch-break'* ]]
     [[ "$help" != *'version'* ]]

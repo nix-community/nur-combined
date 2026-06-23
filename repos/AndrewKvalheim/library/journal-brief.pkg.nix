@@ -1,4 +1,5 @@
-{ fetchPypi
+{ addBinToPathHook
+, fetchPypi
 , lib
 , nix-update-script
 , python3Packages
@@ -35,8 +36,9 @@ python3Packages.buildPythonApplication (journal-brief: {
 
   doInstallCheck = true;
   # Pending compatibility with versionCheckHook
+  installCheckInputs = [ addBinToPathHook ];
   installCheckPhase = ''
-    help="$($out/bin/${escapeShellArg journal-brief.meta.mainProgram} --help)"
+    help="$(${escapeShellArg journal-brief.meta.mainProgram} --help)"
     echo "$help"
     [[ "$help" == *'usage: journal-brief'* ]]
     [[ "$help" != *'version'* ]]

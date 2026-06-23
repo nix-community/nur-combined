@@ -1,5 +1,5 @@
 { buildJosmPlugin
-, fetchFromGitea
+, fetchFromCodeberg
 , gitUpdater
 , lib
 }:
@@ -18,8 +18,7 @@ buildJosmPlugin (josm-imagery-used: {
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "AndrewKvalheim";
     repo = "imagery_used";
     rev = "refs/tags/v${josm-imagery-used.version}";

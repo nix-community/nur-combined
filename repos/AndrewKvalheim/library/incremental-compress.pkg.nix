@@ -1,11 +1,12 @@
-{ buildGoModule
+{ addBinToPathHook
+, buildGoModule
 , fetchFromGitHub
 , lib
 , unstableGitUpdater
 }:
 
 let
-  inherit (lib) licenses;
+  inherit (lib) escapeShellArg licenses;
 in
 buildGoModule (incremental-compress: {
   pname = "incremental-compress";
@@ -29,7 +30,8 @@ buildGoModule (incremental-compress: {
   vendorHash = "sha256-yh6dXS0TCcafqFe9PUokyWqg6lWEMIy6ddI4YgUtxDE=";
 
   doInstallCheck = true;
+  installCheckInputs = [ addBinToPathHook ];
   postInstallCheck = ''
-    "$out/bin/${incremental-compress.meta.mainProgram}" --help
+    ${escapeShellArg incremental-compress.meta.mainProgram} --help
   '';
 })

@@ -39,10 +39,11 @@ rec {
       "github.com/caddyserver/cache-handler@v0.16.0"
     ];
     hash = {
-      "2.11.3@1.26.3" = "sha256-K6x1EveX4relEXykwRkJzmm7/uhABZnf3DdyTjiprTU=";
       "2.11.4@1.26.3" = "sha256-VgZy8BB1DOZa2xJebQHEdrLYXNBIRixe4MjeolQ0IOk=";
+      "2.11.4@1.26.4" = "sha256-JuJhKemHwx5geqA0Y0Vkaccmuf29ulUfWgXu2tOcsHk=";
     }."${pkgs.caddy.version}@${pkgs.caddy.go.version}";
   };
+  cc-icons-unicode = callPackage ./library/cc-icons-unicode.pkg.nix { };
   ch57x-keyboard-tool = callPackage ./library/ch57x-keyboard-tool.pkg.nix { };
   chunker = callPackage ./library/chunker.pkg.nix { };
   co2monitor = callPackage ./library/co2monitor.pkg.nix { };

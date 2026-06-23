@@ -1,4 +1,4 @@
-{ fetchFromGitea
+{ fetchFromCodeberg
 , gitUpdater
 , lib
 , python313Packages
@@ -23,8 +23,7 @@ python313Packages.buildPythonApplication (dmarc-report-notifier: {
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "AndrewKvalheim";
     repo = "dmarc-report-notifier";
     rev = "refs/tags/v${dmarc-report-notifier.version}";

@@ -1,4 +1,4 @@
-{ fetchFromGitea
+{ fetchFromCodeberg
 , gitUpdater
 , lib
 , rustPlatform
@@ -31,8 +31,7 @@ rustPlatform.buildRustPackage (pngquant-interactive: {
 
   passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
-  src = fetchFromGitea {
-    domain = "codeberg.org";
+  src = fetchFromCodeberg {
     owner = "AndrewKvalheim";
     repo = "pngquant-interactive";
     rev = "refs/tags/v${pngquant-interactive.version}";

@@ -353,6 +353,12 @@ in
       rd = "${getExe' diffutils "diff"} --recursive --unified \"$@\" | ${getExe delta.finalPackage}";
       rdw = "${getExe' diffutils "diff"} --ignore-all-space --ignore-blank-lines --recursive --unified \"$@\" | ${getExe delta.finalPackage}";
       rmdir-all = "${getExe' uutils-findutils "find"} \"$@\" -type 'd' -empty -delete";
+      which-font = ''
+        local c="$(printf '%x' "'$1")"
+        _m() { printf '  %s: %s\n' "$1" "$(fc-match --format '%{family}, ' --sort "$1 :charset=$c" | sed 's/, $//')"; }
+        echo "Font stack for $1 (U+$c):"; _m 'sans-serif'; _m 'serif'; _m 'monospace'
+        echo "All fonts covering U+$c:"; fc-list --format '%{family}\n' ":charset=$c" | sort --unique | sed 's/^/  /'
+      '';
     };
   };
 
