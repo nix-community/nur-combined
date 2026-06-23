@@ -27,15 +27,15 @@ let
   # process. This only affects the build-time dashboard tooling, not the
   # runtime CLI, and the FOD `pnpmDeps.hash` is unaffected by the Node major.
   nodejs = nodejs_22;
-  pnpm = pnpm_11.override { inherit nodejs; };
+  pnpm = pnpm_11.override { nodejs-slim = nodejs; };
 
-  version = "0.28.0";
+  version = "0.29.0";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     tag = "v${version}";
-    hash = "sha256-teb32q+MI9x83PdpHijjCiUHiObbbc/dNz8fyd2+TOQ=";
+    hash = "sha256-mZx/MRBs86cNh6b9TVMAwMDcOSZAC+6Ito/p8r2Yuvs=";
   };
 
   # The Rust CLI embeds the dashboard UI via RustEmbed at compile time.
@@ -57,7 +57,7 @@ let
       inherit version src pnpm;
       pnpmWorkspaces = [ "dashboard" ];
       fetcherVersion = 3;
-      hash = "sha256-e7KlsuqS1YRcdQbKJwH9Dd6N28tYM3nPinJB5ZzSbp4=";
+      hash = "sha256-+e7GKjgSn2nlXNGQVSZdsmfJ7FboCgkkW2t5g4TghaM=";
     };
 
     pnpmWorkspaces = [ "dashboard" ];
@@ -96,7 +96,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/cli";
 
-  cargoHash = "sha256-k7Y4KFSO4SYeKIjUPqxzAfCSIj4zJo0qMXb5lO/C5ck=";
+  cargoHash = "sha256-VAav0+CUsyMh/3Lx/JyxRkCMSWEbOswGqMriU7NfiaA=";
 
   # Place the pre-built dashboard where RustEmbed expects it
   postUnpack = ''
