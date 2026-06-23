@@ -8,16 +8,16 @@
 
 buildRustPackage (finalAttrs: {
   pname = "fix-hash";
-  version = "0.3.1";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "nix-fix-hash";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-u/oPIy8Cgbq0wIBkHKjXdfVZXKELxgAp9LnmqPUjmCE=";
+    hash = "sha256-ApmrZyTTwoOPhYbDfH4JxnQKyhnHVtU+b/HfasCEf6s=";
   };
 
-  cargoHash = "sha256-t3XvJvjeYw+i/V5zDd3FgZ92pyZw8u4lbeZ6I0vH2/I=";
+  cargoHash = "sha256-9yVKJeo2uDA7ej0v8Q/IKykibbOBRbzSguC/ygRs24k=";
 
   passthru.updateScript = nix-update-script {
     extraArgs = [
