@@ -11,13 +11,13 @@
 
 let
   pname = "meru";
-  version = "3.50.0";
+  version = "3.51.0";
 
   src = fetchFromGitHub {
     owner = "zoidsh";
     repo = "meru";
     rev = "v${version}";
-    sha256 = "11hO0R586K3XCrO8PUDsv45vyflpTAGtociYCPETfa0=";
+    sha256 = "sha256-hWt0Hpx28Drf+08JpYpbJFwkW77/4PCSObq/tFI8AOQ=";
   };
 
   # Fixed-output derivation to fetch all node_modules using bun

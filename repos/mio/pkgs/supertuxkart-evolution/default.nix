@@ -50,14 +50,14 @@ in
 stdenv.mkDerivation {
 
   pname = "supertuxkart-evolution";
-  version = "1.5-evolution-2026-06-15";
+  version = "1.5-evolution-2026-06-22";
 
   src = fetchFromGitHub {
     owner = "supertuxkart";
     repo = "stk-code";
     # BalanceSTK2 branch commit
-    rev = "8243204";
-    hash = "sha256-Egp94mDAF+rQ7PeQtdiMO5dutw8CYe2QhTReDPDwbK4=";
+    rev = "6241ddd362037eda5ce39d0b1d1bb8c2c0c4ce63";
+    hash = "sha256-pnM0zCP+8oW0PhDv7o3er6O7GhJBBSOY5g8WgCvWhQY=";
   };
 
   postPatch = ''
