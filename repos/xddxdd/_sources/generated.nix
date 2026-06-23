@@ -286,10 +286,10 @@
   };
   calibre-cops = {
     pname = "calibre-cops";
-    version = "4.3.5";
+    version = "4.5.2";
     src = fetchurl {
-      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.3.5/cops-4.3.5-php84.zip";
-      hash = "sha256-ab5beN/Us+PNHwRgP6NfbC1UzCy8dl3rWfmoSNLxfmU=";
+      url = "https://github.com/mikespub-org/seblucas-cops/releases/download/4.5.2/cops-4.5.2-php84.zip";
+      hash = "sha256-Z0uOwMXA/C8uvsM2xc3lYR840Qos41SOFMIPp4FJSSY=";
     };
   };
   cardpointers-cli = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.28";
+    version = "v7.2.33";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.28";
-      hash = "sha256-ru7vgnTy3YJtOzkhb7yVUN4K1tnXf5WaDpXJieLPges=";
+      tag = "v7.2.33";
+      hash = "sha256-nVj0EcduY1yz8tOsMTOCtZDuHW0WiS6r2v8zg6eqbb0=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.40.1";
+    version = "0.40.3";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.40.1.tgz";
-      hash = "sha256-MJjKeQr3GXB8bvi1XNsmEwPbu2ZZQMmnwvojCN94SG4=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.40.3.tgz";
+      hash = "sha256-PvBC/kp9PbiZith1aD7mvbBeV26ko+LgnX5vRfVlKvk=";
     };
   };
   comp128 = {
@@ -861,14 +861,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "2ad0514430c8d644a11583f2de81a970dbce264c";
+    version = "7776d303618f2abb52643a6b7da67931393dbf83";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "2ad0514430c8d644a11583f2de81a970dbce264c";
-      hash = "sha256-VHUwVUaKoa8ztzC2/LP36opVCd84p8Ej6mV4QBLbOZM=";
+      rev = "7776d303618f2abb52643a6b7da67931393dbf83";
+      hash = "sha256-kmMuY449u931aVkd05e9UaLfvLIKyi8MR/7Uzeqme14=";
     };
-    date = "2026-06-22";
+    date = "2026-06-23";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1230,14 +1230,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "d95fc734f5de9bdfc80c8c65d8166b30e9cff5cd";
+    version = "3d4cd98dc73f9a498dd7e9818f3feb26db7885ef";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "d95fc734f5de9bdfc80c8c65d8166b30e9cff5cd";
-      hash = "sha256-aeO7Oc1XtFhrBW9hjBmVT8iDSCUxk3q1vlIN9Kuy4Ls=";
+      rev = "3d4cd98dc73f9a498dd7e9818f3feb26db7885ef";
+      hash = "sha256-B8c19KPjyUUbVobj/FM3Yebwpwgrs3RGVQ6vvkSyfi8=";
     };
-    date = "2026-06-18";
+    date = "2026-06-23";
   };
   libqcef = {
     pname = "libqcef";
@@ -1274,18 +1274,18 @@
   };
   lightpanda-amd64 = {
     pname = "lightpanda-amd64";
-    version = "0.3.2";
+    version = "0.3.3";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.2/lightpanda-x86_64-linux";
-      hash = "sha256-jszImbAKKz/vMa+Jg2oF4evxd8BX/zHdW2mZ+YKaYPY=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.3/lightpanda-x86_64-linux";
+      hash = "sha256-tqthOEb1KRzGuv1/RP+5cY31G/AOuDlU4fxdf1LHuIY=";
     };
   };
   lightpanda-arm64 = {
     pname = "lightpanda-arm64";
-    version = "0.3.2";
+    version = "0.3.3";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.2/lightpanda-aarch64-linux";
-      hash = "sha256-kFmdEt5NzmZxwZzX/ljRB4C9mUEZZFA1ifNk2SNyTME=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.3/lightpanda-aarch64-linux";
+      hash = "sha256-2zXAbuB0p5wuA5llxATleHSMHSLLKW6FNGGXDqDClF8=";
     };
   };
   linguaspark-core = {
@@ -1314,12 +1314,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9763";
+    version = "b9775";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9763";
-      hash = "sha256-m1DekuTx/EfpxTOORNBYweoBoCYOVZCjAvLfJuFW5Ec=";
+      tag = "b9775";
+      hash = "sha256-y//hC8lpHjyFA3UK6hmcwkzb99xCZyZRMRILo+Y7Ap4=";
     };
   };
   loralib = {
@@ -1549,12 +1549,12 @@
   };
   nginx-njs = {
     pname = "nginx-njs";
-    version = "0.9.9";
+    version = "1.0.0";
     src = fetchFromGitHub {
       owner = "nginx";
       repo = "njs";
-      tag = "0.9.9";
-      hash = "sha256-YYHLUofqgqNrRe/fp+N1K2GJiZ0W+phOWWpzLPlZkfc=";
+      tag = "1.0.0";
+      hash = "sha256-svZvAVcIm13SVf4O5rgZOigJ8IKuaPQrnZenkZaDluQ=";
     };
   };
   nginx-oidc = {

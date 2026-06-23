@@ -551,11 +551,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ab5beN/Us+PNHwRgP6NfbC1UzCy8dl3rWfmoSNLxfmU=",
+            "sha256": "sha256-Z0uOwMXA/C8uvsM2xc3lYR840Qos41SOFMIPp4FJSSY=",
             "type": "url",
-            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.3.5/cops-4.3.5-php84.zip"
+            "url": "https://github.com/mikespub-org/seblucas-cops/releases/download/4.5.2/cops-4.5.2-php84.zip"
         },
-        "version": "4.3.5"
+        "version": "4.5.2"
     },
     "cardpointers-cli": {
         "cargoLock": null,
@@ -634,12 +634,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.28",
-            "sha256": "sha256-ru7vgnTy3YJtOzkhb7yVUN4K1tnXf5WaDpXJieLPges=",
+            "rev": "v7.2.33",
+            "sha256": "sha256-nVj0EcduY1yz8tOsMTOCtZDuHW0WiS6r2v8zg6eqbb0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.28"
+        "version": "v7.2.33"
     },
     "cockpy": {
         "cargoLock": null,
@@ -692,11 +692,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-MJjKeQr3GXB8bvi1XNsmEwPbu2ZZQMmnwvojCN94SG4=",
+            "sha256": "sha256-PvBC/kp9PbiZith1aD7mvbBeV26ko+LgnX5vRfVlKvk=",
             "type": "url",
-            "url": "https://registry.npmjs.org/command-code/-/command-code-0.40.1.tgz"
+            "url": "https://registry.npmjs.org/command-code/-/command-code-0.40.3.tgz"
         },
-        "version": "0.40.1"
+        "version": "0.40.3"
     },
     "comp128": {
         "cargoLock": null,
@@ -1666,7 +1666,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-06-22",
+        "date": "2026-06-23",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1678,12 +1678,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "2ad0514430c8d644a11583f2de81a970dbce264c",
-            "sha256": "sha256-VHUwVUaKoa8ztzC2/LP36opVCd84p8Ej6mV4QBLbOZM=",
+            "rev": "7776d303618f2abb52643a6b7da67931393dbf83",
+            "sha256": "sha256-kmMuY449u931aVkd05e9UaLfvLIKyi8MR/7Uzeqme14=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2ad0514430c8d644a11583f2de81a970dbce264c"
+        "version": "7776d303618f2abb52643a6b7da67931393dbf83"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2391,7 +2391,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-06-18",
+        "date": "2026-06-23",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2403,12 +2403,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "d95fc734f5de9bdfc80c8c65d8166b30e9cff5cd",
-            "sha256": "sha256-aeO7Oc1XtFhrBW9hjBmVT8iDSCUxk3q1vlIN9Kuy4Ls=",
+            "rev": "3d4cd98dc73f9a498dd7e9818f3feb26db7885ef",
+            "sha256": "sha256-B8c19KPjyUUbVobj/FM3Yebwpwgrs3RGVQ6vvkSyfi8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d95fc734f5de9bdfc80c8c65d8166b30e9cff5cd"
+        "version": "3d4cd98dc73f9a498dd7e9818f3feb26db7885ef"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2482,11 +2482,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-jszImbAKKz/vMa+Jg2oF4evxd8BX/zHdW2mZ+YKaYPY=",
+            "sha256": "sha256-tqthOEb1KRzGuv1/RP+5cY31G/AOuDlU4fxdf1LHuIY=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.2/lightpanda-x86_64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.3/lightpanda-x86_64-linux"
         },
-        "version": "0.3.2"
+        "version": "0.3.3"
     },
     "lightpanda-arm64": {
         "cargoLock": null,
@@ -2497,11 +2497,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kFmdEt5NzmZxwZzX/ljRB4C9mUEZZFA1ifNk2SNyTME=",
+            "sha256": "sha256-2zXAbuB0p5wuA5llxATleHSMHSLLKW6FNGGXDqDClF8=",
             "type": "url",
-            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.2/lightpanda-aarch64-linux"
+            "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.3/lightpanda-aarch64-linux"
         },
-        "version": "0.3.2"
+        "version": "0.3.3"
     },
     "linguaspark-core": {
         "cargoLock": null,
@@ -2559,12 +2559,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9763",
-            "sha256": "sha256-m1DekuTx/EfpxTOORNBYweoBoCYOVZCjAvLfJuFW5Ec=",
+            "rev": "b9775",
+            "sha256": "sha256-y//hC8lpHjyFA3UK6hmcwkzb99xCZyZRMRILo+Y7Ap4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9763"
+        "version": "b9775"
     },
     "loralib": {
         "cargoLock": null,
@@ -3024,12 +3024,12 @@
             "name": null,
             "owner": "nginx",
             "repo": "njs",
-            "rev": "0.9.9",
-            "sha256": "sha256-YYHLUofqgqNrRe/fp+N1K2GJiZ0W+phOWWpzLPlZkfc=",
+            "rev": "1.0.0",
+            "sha256": "sha256-svZvAVcIm13SVf4O5rgZOigJ8IKuaPQrnZenkZaDluQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.9.9"
+        "version": "1.0.0"
     },
     "nginx-oidc": {
         "cargoLock": null,
