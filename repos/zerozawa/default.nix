@@ -70,5 +70,6 @@ in
   oh-my-pi = pkgs.callPackage ./pkgs/oh-my-pi { };
   context-mode = pkgs.callPackage ./pkgs/context-mode.nix { };
   codegraph = pkgs.callPackage ./pkgs/codegraph.nix { };
+  spec-kit = pkgs.callPackage ./pkgs/spec-kit.nix { };
   banguminet = pkgs.callPackage ./pkgs/banguminet { };
 }
