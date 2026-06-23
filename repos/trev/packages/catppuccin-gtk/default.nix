@@ -66,13 +66,13 @@ lib.checkListOfEnum "catppuccin-gtk-theme: theme variants"
   stdenvNoCC.mkDerivation
   (finalAttrs: {
     pname = "catppuccin-gtk";
-    version = "1.0.0-unstable-2026-06-17";
+    version = "1.0.1-unstable-2026-06-22";
 
     src = fetchFromGitHub {
       owner = "Fausto-Korpsvart";
       repo = "Catppuccin-GTK-Theme";
-      rev = "35695ce73854ec59342a34abe7ef0684be1138dd";
-      hash = "sha256-WV9uMOd88GR8i77PEr1UyJFacIP1tXu1p9uDVxfYy6M=";
+      rev = "0a0bf27831e2a7e941cd77ad2948b31bf7556edd";
+      hash = "sha256-wS5Pt/Ao4iFY9Nc5ceDUHTVB5pZLyIoaPUSavja3pHw=";
     };
 
     sourceRoot = "${finalAttrs.src.name}/themes";
