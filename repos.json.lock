@@ -46,8 +46,8 @@
             "url": "https://github.com/Alxandr/nur"
         },
         "AndrewKvalheim": {
-            "rev": "20fdce12c26d203cbc9a7a7bcb7f81b684daa7b3",
-            "sha256": "03i3730n0c7rn9qnh0awg7gs30cza1d25mdxprp0qqnfcpbiypky",
+            "rev": "5a7b2dffa11870a96abf35b164f825c0441bf51b",
+            "sha256": "0h83ii1ima90jpz3b1za3rq517xvrjizzh6dlnb447rx07v0p5r3",
             "url": "https://codeberg.org/AndrewKvalheim/configuration"
         },
         "AsterisMono": {
@@ -269,11 +269,6 @@
             "rev": "51f6e91ef093c1c04a92e35bf8f9e70f0e91db7d",
             "sha256": "1swd6vjldlbbg9i98hn76q2fg76n969vhibwmzay1a9s4i6gqz8p",
             "url": "https://github.com/adam01110/nur"
-        },
-        "af-nur": {
-            "rev": "a4638c1d307742ab9c24bcd7fc867d0b47ca80ce",
-            "sha256": "003iymv7rrvv2378rzs0658wzi7msj3126p0qla6ak86qwgin9ll",
-            "url": "https://github.com/AstralFlare-owo/nur-packages"
         },
         "afreakk": {
             "rev": "7d5f4ec7271abb7d0a7cc4ed53d2fb14859fe924",
