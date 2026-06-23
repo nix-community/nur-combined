@@ -3,6 +3,7 @@
   fetchurl,
   beeper,
   unzip,
+  asar,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
@@ -36,28 +37,21 @@ in
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
 
-      nativeBuildInputs = [unzip];
+      nativeBuildInputs = [unzip asar];
 
       postFixup = ''
-        # FIXME: These are broken
+        appRoot="$out/Applications/Beeper Nightly.app/Contents/Resources/app"
+        ${lib.getExe asar} extract "$out/Applications/Beeper Nightly.app/Contents/Resources/app.asar" "$appRoot"
+        rm "$out/Applications/Beeper Nightly.app/Contents/Resources/app.asar"
 
         # disable auto update
-        for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs; do
-          [ -f "$f" ] || continue
-          sed -i 's/auto_update_disabled:[^,}]*/auto_update_disabled:true/g' "$f"
-        done
+        sed -i 's/c=d??{},p=c.hw_acceleration??!0/c={...(d??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' $appRoot/build/main/index-*.mjs
 
         # prevent updates
-        for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/main/main-entry-"*.mjs; do
-          [ -f "$f" ] || continue
-          sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$f"
-        done
+        sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' $appRoot/build/main/main-entry-*.mjs
 
         # hide version status element on about page otherwise a error message is shown
-        for f in "$out/Applications/Beeper Nightly.app/Contents/Resources/app/build/renderer/"*.css; do
-          [ -f "$f" ] || continue
-          sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$f"
-        done
+        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' $appRoot/build-browser/*.css
       '';
     })
   else

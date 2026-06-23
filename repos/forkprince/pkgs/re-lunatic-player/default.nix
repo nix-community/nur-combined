@@ -129,8 +129,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       lib.optionalString stdenvNoCC.hostPlatform.isLinux
       ''
         mkdir -p $out/share
-        appdir=$(find out -mindepth 1 -maxdepth 1 -type d | head -n1)
-        cp -r "$appdir/resources" "$out/share/"
+        cp -r out/*/resources{,.pak} "$out/share"
 
         makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
           --add-flags $out/share/resources/app.asar \
