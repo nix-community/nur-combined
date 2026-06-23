@@ -1,6 +1,6 @@
 {
-  "version": "v1.2.1",
-  "sourceSha256": "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt/OJn6ia6CmIc4=",
+  "version": "v1.2.2",
+  "sourceSha256": "sha256-u1eeJZ/9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=",
   "pubspecLock": {
     "packages": {
       "app_links": {
@@ -47,11 +47,11 @@
         "dependency": "direct main",
         "description": {
           "name": "archive",
-          "sha256": "a96e8b390886ee8abb49b7bd3ac8df6f451c621619f52a26e815fdcf568959ff",
+          "sha256": "2fde1607386ab523f7a36bb3e7edb43bd58e6edaf2ffb29d8a6d578b297fdbbd",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "4.0.9"
+        "version": "4.0.7"
       },
       "args": {
         "dependency": "transitive",
@@ -97,11 +97,11 @@
         "dependency": "transitive",
         "description": {
           "name": "cli_util",
-          "sha256": "ff6785f7e9e3c38ac98b2fb035701789de90154024a75b6cb926445e83197d1c",
+          "sha256": "53f32da4e0c381951938e2229e217f3568699e3113463daa382261e0c6fead9e",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "0.4.2"
+        "version": "0.5.0"
       },
       "clock": {
         "dependency": "transitive",
@@ -327,11 +327,11 @@
         "dependency": "direct main",
         "description": {
           "name": "fluent_ui",
-          "sha256": "64223237a1d873b426d578d4d8b2703b8f7d9731608a5beb7b9745194568d484",
+          "sha256": "ccddccb8256f2d7c93838be8e01021cfe337070bb6b880d0f005c137d3e29224",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "4.13.0"
+        "version": "4.15.1"
       },
       "flutter": {
         "dependency": "direct main",
@@ -551,21 +551,21 @@
         "dependency": "transitive",
         "description": {
           "name": "math_expressions",
-          "sha256": "218dc65bed4726562bb31c53d8daa3cc824664b26fb72d77bc592757edf74ba0",
+          "sha256": "2e1ceb974c2b1893c809a68c7005f1b63f7324db0add800a0e792b1ac8ff9f03",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "2.7.0"
+        "version": "3.1.0"
       },
       "meta": {
         "dependency": "transitive",
         "description": {
           "name": "meta",
-          "sha256": "23f08335362185a5ea2ad3a4e597f1375e78bce8a040df5c600c8d3552ef2394",
+          "sha256": "1741988757a65eb6b36abe716829688cf01910bbf91c34354ff7ec1c3de2b349",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "1.17.0"
+        "version": "1.18.0"
       },
       "mime": {
         "dependency": "transitive",
@@ -581,21 +581,21 @@
         "dependency": "direct dev",
         "description": {
           "name": "msix",
-          "sha256": "b6b08e7a7b5d1845f2b1d31216d5b1fb558e98251efefe54eb79ed00d27bc2ac",
+          "sha256": "bed33b53662c7eac66dc4f9b4176d03140307e6a892ab21ce529be6f74393db0",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "3.16.13"
+        "version": "3.17.0"
       },
       "package_config": {
         "dependency": "transitive",
         "description": {
           "name": "package_config",
-          "sha256": "f096c55ebb7deb7e384101542bfba8c52696c1b56fca2eb62827989ef2353bbc",
+          "sha256": "ffcf4cf3d6c0b74ac43708d9f56625506e8a68aa935abe9d267a7330f320eb5d",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "2.2.0"
+        "version": "3.0.0"
       },
       "path": {
         "dependency": "transitive",
@@ -671,11 +671,11 @@
         "dependency": "transitive",
         "description": {
           "name": "petitparser",
-          "sha256": "07c8f0b1913bcde1ff0d26e57ace2f3012ccbf2b204e070290dad3bb22797646",
+          "sha256": "91bd59303e9f769f108f8df05e371341b15d59e995e6806aefab827b58336675",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "6.1.0"
+        "version": "7.0.2"
       },
       "photo_view": {
         "dependency": "direct main",
@@ -712,11 +712,11 @@
         "dependency": "transitive",
         "description": {
           "name": "posix",
-          "sha256": "185ef7606574f789b40f289c233efa52e96dead518aed988e040a10737febb07",
+          "sha256": "6323a5b0fa688b6a010df4905a56b00181479e6d10534cecfecede2aa55add61",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "6.5.0"
+        "version": "6.0.3"
       },
       "pub_semver": {
         "dependency": "transitive",
@@ -908,11 +908,11 @@
         "dependency": "transitive",
         "description": {
           "name": "test_api",
-          "sha256": "8161c84903fd860b26bfdefb7963b3f0b68fee7adea0f59ef805ecca346f0c7a",
+          "sha256": "949a932224383300f01be9221c39180316445ecb8e7547f70a41a35bf421fb9e",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "0.7.10"
+        "version": "0.7.11"
       },
       "typed_data": {
         "dependency": "transitive",
@@ -1044,45 +1044,15 @@
         "source": "hosted",
         "version": "1.1.1"
       },
-      "webview_flutter": {
-        "dependency": "direct main",
-        "description": {
-          "name": "webview_flutter",
-          "sha256": "c3e4fe614b1c814950ad07186007eff2f2e5dd2935eba7b9a9a1af8e5885f1ba",
-          "url": "https://pub.dev"
-        },
-        "source": "hosted",
-        "version": "4.13.0"
-      },
-      "webview_flutter_android": {
+      "webview_windows": {
         "dependency": "transitive",
         "description": {
-          "name": "webview_flutter_android",
-          "sha256": "f6e6afef6e234801da77170f7a1847ded8450778caf2fe13979d140484be3678",
+          "name": "webview_windows",
+          "sha256": "47fcad5875a45db29dbb5c9e6709bf5c88dcc429049872701343f91ed7255730",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "4.7.0"
-      },
-      "webview_flutter_platform_interface": {
-        "dependency": "transitive",
-        "description": {
-          "name": "webview_flutter_platform_interface",
-          "sha256": "f0dc2dc3a2b1e3a6abdd6801b9355ebfeb3b8f6cde6b9dc7c9235909c4a1f147",
-          "url": "https://pub.dev"
-        },
-        "source": "hosted",
-        "version": "2.13.1"
-      },
-      "webview_flutter_wkwebview": {
-        "dependency": "transitive",
-        "description": {
-          "name": "webview_flutter_wkwebview",
-          "sha256": "a3d461fe3467014e05f3ac4962e5fdde2a4bf44c561cb53e9ae5c586600fdbc3",
-          "url": "https://pub.dev"
-        },
-        "source": "hosted",
-        "version": "3.22.0"
+        "version": "0.4.0"
       },
       "win32": {
         "dependency": "transitive",
@@ -1128,11 +1098,11 @@
         "dependency": "transitive",
         "description": {
           "name": "xml",
-          "sha256": "b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226",
+          "sha256": "971043b3a0d3da28727e40ed3e0b5d18b742fa5a68665cca88e74b7876d5e025",
           "url": "https://pub.dev"
         },
         "source": "hosted",
-        "version": "6.5.0"
+        "version": "6.6.1"
       },
       "yaml": {
         "dependency": "transitive",
@@ -1143,11 +1113,101 @@
         },
         "source": "hosted",
         "version": "3.1.3"
+      },
+      "zikzak_inappwebview": {
+        "dependency": "direct main",
+        "description": {
+          "name": "zikzak_inappwebview",
+          "sha256": "7bb9cde0cb140bdcd0b7abda1db9b64854b1c681afde036c0b291a501fd03756",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_android": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_android",
+          "sha256": "b4c4595cd6d9ddd4063940ae4662e462661f1dc1c9222021aea3cf662889cf9b",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_internal_annotations": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_internal_annotations",
+          "sha256": "804a0ab44283c5fe017ff8ee56e0f8f483a6280e0651ac1f18c9aeaea4be458a",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_ios": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_ios",
+          "sha256": "22bb03160b1f74b8c783c8d38860ae00fa2489b080bf4171c3031d5d1485fa42",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_linux": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_linux",
+          "sha256": "31af6f7f280efef6aa24d3b1b54c2aa3f8d1de697081444ea3123716e29ca00b",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_macos": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_macos",
+          "sha256": "23eacfe8c74e51a8d33fc41705bec82da030daff7ae45c29c5a1610584470c12",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_platform_interface": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_platform_interface",
+          "sha256": "f1ae4e93dac0b1fd978293c0385c3e8d6f0bfde0d1dc0d618d1816d64de35a9f",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_web": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_web",
+          "sha256": "c49eb6ef34155d2e57249b7c2dffdcf4ce57ff485291ad69ad4c024377b01b4e",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
+      },
+      "zikzak_inappwebview_windows": {
+        "dependency": "transitive",
+        "description": {
+          "name": "zikzak_inappwebview_windows",
+          "sha256": "b914c25e73c962ffaf366be3405c2722a5dc3ff8868e3667f0c1940932d63efb",
+          "url": "https://pub.dev"
+        },
+        "source": "hosted",
+        "version": "4.4.2"
       }
     },
     "sdks": {
-      "dart": ">=3.9.0-0 <4.0.0",
-      "flutter": ">=3.41.6"
+      "dart": ">=3.11.0 <4.0.0",
+      "flutter": ">=3.44.1"
     }
   },
   "gitHashes": {

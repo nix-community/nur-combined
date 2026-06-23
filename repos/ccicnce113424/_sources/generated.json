@@ -379,7 +379,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt_OJn6ia6CmIc4=/pubspec.lock"
+            "pubspec.lock": "sha256-u1eeJZ_9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=/pubspec.lock"
         },
         "name": "pixes",
         "passthru": null,
@@ -391,18 +391,18 @@
             "name": null,
             "owner": "pixes-app",
             "repo": "pixes",
-            "rev": "v1.2.1",
-            "sha256": "sha256-eSAIDgKJ0Yg1F3S5Y1ljqlAEwFDuGt/OJn6ia6CmIc4=",
+            "rev": "v1.2.2",
+            "sha256": "sha256-u1eeJZ/9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.2.1"
+        "version": "v1.2.2"
     },
     "pixes-git": {
         "cargoLock": null,
-        "date": "2026-06-21",
+        "date": "2026-06-23",
         "extract": {
-            "pubspec.lock": "sha256-qmbJLsuUM7RHcLmzvk0aGPqu7CQzcE7TjEGtyb2msLQ=/pubspec.lock"
+            "pubspec.lock": "sha256-u1eeJZ_9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=/pubspec.lock"
         },
         "name": "pixes-git",
         "passthru": null,
@@ -414,12 +414,12 @@
             "name": null,
             "owner": "pixes-app",
             "repo": "pixes",
-            "rev": "9190fe92f1e81298021596229d9be8b6d9704541",
-            "sha256": "sha256-qmbJLsuUM7RHcLmzvk0aGPqu7CQzcE7TjEGtyb2msLQ=",
+            "rev": "8f147e3b1df13a4ef26f8e0c923a7c9c76293231",
+            "sha256": "sha256-u1eeJZ/9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9190fe92f1e81298021596229d9be8b6d9704541"
+        "version": "8f147e3b1df13a4ef26f8e0c923a7c9c76293231"
     },
     "pwasio": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-kQUEDTqaBfKt3gpz4kDtvlqp0Z7J_y2ZXkYvr6ERXBg=/Cargo.lock",
+                "sha256-P+ak7RJsWZbFRO8SR5JkURespJz3apI+ndHDMFZw+9U=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
             ]
         },
-        "date": "2026-06-22",
+        "date": "2026-06-23",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "62a818cd26a127ce978555c8a6fdfca1e41e293a",
-            "sha256": "sha256-kQUEDTqaBfKt3gpz4kDtvlqp0Z7J/y2ZXkYvr6ERXBg=",
+            "rev": "cb2a362922b2dd4b4c6db81de5cfe3e10467d851",
+            "sha256": "sha256-P+ak7RJsWZbFRO8SR5JkURespJz3apI+ndHDMFZw+9U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "62a818cd26a127ce978555c8a6fdfca1e41e293a"
+        "version": "cb2a362922b2dd4b4c6db81de5cfe3e10467d851"
     },
     "svt-av1-essential": {
         "cargoLock": null,
