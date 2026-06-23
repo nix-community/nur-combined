@@ -46,7 +46,7 @@ buildNpmPackage (finalAttrs: {
 
   passthru.updateScript = nix-update-script { };
 
-  meta = with lib; {
+  meta = {
     description = "Meta-layer management and unified proxy for AI API aggregation platforms";
     longDescription = ''
       Metapi is a meta-aggregation layer that unifies multiple AI API gateway
@@ -57,9 +57,10 @@ buildNpmPackage (finalAttrs: {
     '';
     homepage = "https://github.com/cita-777/metapi";
     changelog = "https://github.com/cita-777/metapi/releases/tag/v${finalAttrs.version}";
-    license = licenses.mit;
+    license = lib.licenses.mit;
     mainProgram = "metapi";
-    platforms = platforms.linux;
+    platforms = lib.platforms.unix;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })

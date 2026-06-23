@@ -128,11 +128,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "SillyTavern backend rebuilt with Tauri and Rust";
+    longDescription = ''
+      TauriTavern is a cross-platform rewrite of SillyTavern using Tauri (Rust)
+      for the backend, featuring agent orchestration, multi-device sync, and a
+      modern Vue 3 frontend.
+    '';
     homepage = "https://github.com/Darkatse/TauriTavern";
     changelog = "https://github.com/Darkatse/TauriTavern/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
     mainProgram = "tauritavern";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })

@@ -27,8 +27,13 @@ stdenvNoCC.mkDerivation {
 
   meta = {
     description = "Lain themed KDE Plasma splash screen";
+    longDescription = ''
+      A KDE Plasma splash screen featuring Lain (Serial Experiments Lain) themed
+      artwork. Packaged as a Plasma look-and-feel package.
+    '';
     homepage = "https://github.com/dgudim/themes";
     license = lib.licenses.unfree;
     platforms = lib.platforms.linux;
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 }

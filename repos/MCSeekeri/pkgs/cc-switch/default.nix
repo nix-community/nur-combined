@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   rustPlatform,
   nix-update-script,
   fetchFromGitHub,
@@ -53,12 +54,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cargo-tauri.hook
     nodejs
     pkg-config
-    pnpm_10
     pnpmConfigHook
-    wrapGAppsHook4
-  ];
+    pnpm_10
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     glib-networking
     gtk3
     gst_all_1.gstreamer
@@ -70,7 +71,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     webkitgtk_4_1
   ];
 
-  preFixup = ''
+  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}"
     )
@@ -80,11 +81,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "All-in-One assistant tool for Claude Code, Codex, OpenCode, openclaw and Gemini CLI";
+    longDescription = ''
+      CC-Switch is a cross-platform desktop application that provides a unified
+      interface for multiple AI coding assistants including Claude Code, Codex,
+      OpenCode, openclaw and Gemini CLI.
+    '';
     homepage = "https://github.com/farion1231/cc-switch";
     changelog = "https://github.com/farion1231/cc-switch/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     mainProgram = "cc-switch";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })

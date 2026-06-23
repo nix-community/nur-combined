@@ -99,11 +99,16 @@ buildGoModule.override { inherit go; } (_finalAttrs: {
 
   meta = {
     description = "AI API Gateway Platform for Subscription Quota Distribution";
+    longDescription = ''
+      Sub2API is an AI API gateway platform that manages subscription quota distribution
+      across multiple upstream providers with user management, API key control, and usage tracking.
+    '';
     homepage = "https://github.com/Wei-Shaw/sub2api";
     changelog = "https://github.com/Wei-Shaw/sub2api/releases/tag/v${version}";
     license = lib.licenses.lgpl3Plus;
     mainProgram = "server";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.unix;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })
