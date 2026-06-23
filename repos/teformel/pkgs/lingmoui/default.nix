@@ -29,6 +29,11 @@ stdenv.mkDerivation rec {
     if [ -f "Compatible/CMakeLists.txt" ]; then
       sed -i '1i find_package(Qt6 COMPONENTS Gui REQUIRED)' Compatible/CMakeLists.txt
     fi
+    # 不全局替换 ::GuiPrivate→::Gui（会损坏 Qt6::GuiPrivate 的私有头文件包含路径）
+    # 只在有问题的 CMakeLists.txt 中解决 find_package(Qt6 COMPONENTS GuiPrivate) 的问题
+    if [ -f "thirdparty/QHotkey/CMakeLists.txt" ]; then
+      sed -i '/find_package(Qt6 COMPONENTS GuiPrivate)/d' thirdparty/QHotkey/CMakeLists.txt 2>/dev/null || true
+    fi
     # 彻底拦截 ecm_query_qt 覆盖安装路径的行为，强行绑定到独立沙盒
     sed -i 's/ecm_query_qt(INSTALL_QMLDIR QT_INSTALL_QML)/set(INSTALL_QMLDIR "\$\{CMAKE_INSTALL_PREFIX\}\/lib\/qt-6\/qml")/g' CMakeLists.txt
     sed -i 's/query_qmake(INSTALL_QMLDIR QT_INSTALL_QML)/set(INSTALL_QMLDIR "\$\{CMAKE_INSTALL_PREFIX\}\/lib\/qt-6\/qml")/g' CMakeLists.txt

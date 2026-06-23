@@ -1,4 +1,4 @@
-{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libsForQt5, qt5 }:
+{ stdenv, lib, fetchFromGitHub, cmake, pkg-config, libsForQt5, qt5, python3 }:
 
 stdenv.mkDerivation rec {
   pname = "lingmo-daemon";
@@ -37,6 +37,8 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # Add executable permissions to surveillance daemon since upstream used FILES in CMake
     chmod +x $out/bin/lingmo-permission-surveillance
+    # Fix python shebang to include dependencies
+    sed -i "s|#!/usr/bin/python3|#!${python3.withPackages(ps: with ps; [ dbus-python pyinotify ])}/bin/python3|g" $out/bin/lingmo-permission-surveillance
   '';
 
   nativeBuildInputs = [

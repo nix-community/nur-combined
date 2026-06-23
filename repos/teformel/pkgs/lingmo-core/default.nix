@@ -38,6 +38,8 @@ stdenv.mkDerivation rec {
   postInstall = ''
     # Upstream installed this as a normal file, preventing execution and patchShebangs
     chmod +x $out/bin/lingmo-wallpaper-color-pick
+    # Fix python shebang to include dependencies
+    sed -i "s|#!/usr/bin/env python3|#!${python3.withPackages(ps: with ps; [ dbus-python pillow opencv4 scipy numpy ])}/bin/python3|g" $out/bin/lingmo-wallpaper-color-pick
   '';
 
   nativeBuildInputs = [

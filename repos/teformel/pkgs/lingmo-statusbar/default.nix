@@ -7,7 +7,7 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "LingmoOS";
     repo = "lingmo-statusbar";
-    rev = "main";
+    rev = "ee5d766075b145fd46fdcdebd87121208251a8ae";
     hash = "sha256-+nV+adCcjEElQuOXU1idUHCUf7qkSY4LF0B/MrpII2E=";
   };
 

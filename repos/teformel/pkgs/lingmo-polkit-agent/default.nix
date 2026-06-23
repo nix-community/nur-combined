@@ -8,8 +8,7 @@ stdenv.mkDerivation rec {
     owner = "LingmoOS";
     repo = "lingmo-polkit-agent";
     rev = "93b81233a4f2816aec0d8d97345f285835906cd5";
-    # TODO: 首次构建将报错，请将报错提供的 Hash 填入此处
-    hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+    hash = "sha256-CJsq9/koNCtGcsuk6IgtAbOf5VS3dDb7GoMqLLNHs80=";
   };
 
     postPatch = ''
