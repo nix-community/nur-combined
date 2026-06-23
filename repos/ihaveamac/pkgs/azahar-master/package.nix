@@ -1,4 +1,4 @@
-{ stdenv, azahar, fetchFromGitHub }:
+{ lib, stdenv, azahar, fetchFromGitHub }:
 
 azahar.overrideAttrs (final: prev: {
   pname = "azahar";
@@ -17,6 +17,7 @@ azahar.overrideAttrs (final: prev: {
 
   meta = prev.meta // {
     description = prev.meta.description + " (master branch)";
+    platforms = lib.platforms.aarch64 ++ lib.platforms.x86_64;
     # empty output
     broken = stdenv.isDarwin;
   };

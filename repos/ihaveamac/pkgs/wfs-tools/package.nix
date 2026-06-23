@@ -22,6 +22,10 @@ let
             substituteInPlace GNUmakefile \
               --replace _WIN32_WINNT=0x0501 _WIN32_WINNT=0x0601
           '';
+
+          preFixup = (prev.preFixup or "") + ''
+            mv $out/lib/libcryptopp.so $out/lib/libcryptopp.dll
+          '';
         }
       ))
     else
@@ -51,6 +55,8 @@ stdenv.mkDerivation rec {
     };
   };
 
+  passthru.cryptopp = realCryptopp;
+
   patches = [
     ./wfslib-use-pkg-config-for-cryptopp.patch
     ./remove-fuse-check.patch
@@ -62,6 +68,12 @@ stdenv.mkDerivation rec {
     rmdir wfslib
     cp -r ${passthru.wfslib} wfslib
     chmod -R u+w ./wfslib
+  '';
+
+  postPatch = lib.optionalString stdenv.hostPlatform.isWindows ''
+    # this is kinda hacky
+    # it also does not work
+    echo 'set(CMAKE_EXE_LINKER_FLAGS "''${CMAKE_EXE_LINKER_FLAGS} -lstdc++exp")' >> CMakeLists.txt
   '';
 
   cmakeFlags = lib.optionals withFUSE (

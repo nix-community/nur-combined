@@ -92,7 +92,7 @@ buildNpmPackage rec {
     description = "YouTube Leanback on the desktop, with enhancements";
     homepage = "https://github.com/shy1132/VacuumTube";
     license = licenses.mit;
-    platforms = platforms.unix;
+    platforms = platforms.aarch64 ++ platforms.x86_64;
     broken = stdenv.hostPlatform.isDarwin;
   };
 }

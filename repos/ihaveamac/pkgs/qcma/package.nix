@@ -47,6 +47,12 @@ stdenv.mkDerivation rec {
 
   qmakeFlags = lib.optional (!withFFmpeg) "CONFIG+=DISABLE_FFMPEG";
 
+  # postInstall is used to avoid conflicting with the non-macOS phase
+  postInstall = lib.optionalString stdenv.isDarwin ''
+    mkdir -p $out/Applications
+    cp -prv gui/qcma.app $out/Applications/qcma.app
+  '';
+
   # https://discourse.nixos.org/t/building-derivation-fails-with-generic-makefile-error-manually-building-in-arch-seems-to-work-fine/55168/6
   preBuild = ''
     lrelease-pro qcma.pro
@@ -57,8 +63,6 @@ stdenv.mkDerivation rec {
     homepage = "https://codestation.github.io/qcma/";
     license = licenses.gpl3;
     platforms = platforms.unix;
-    # currently results in empty derivation
-    broken = stdenv.isDarwin;
     mainProgram = "qcma";
   };
 }
