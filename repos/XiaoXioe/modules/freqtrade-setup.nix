@@ -157,7 +157,8 @@ let
       TIMESTAMP=$(${pkgs.coreutils}/bin/date +"%Y%m%d-%H%M%S")
       BACKUP_FILE="''${LOG_FILE%.log}-$TIMESTAMP.log"
       
-      ${pkgs.coreutils}/bin/mv "$LOG_FILE" "$BACKUP_FILE"
+      ${pkgs.coreutils}/bin/cp "$LOG_FILE" "$BACKUP_FILE"
+      ${pkgs.coreutils}/bin/truncate -s 0 "$LOG_FILE"
       
       # Keep only 5 newest backups
       BACKUPS=($(${pkgs.coreutils}/bin/ls -1t ''${LOG_FILE%.log}-*.log 2>/dev/null))
@@ -389,24 +390,69 @@ in
           in
           mainServiceWithInstall // extraServices
         ) enabledBots
+        ++ [
+          {
+            freqtrade-logrotate = {
+              Unit = {
+                Description = "Rotate Freqtrade log files";
+              };
+              Service = {
+                Type = "oneshot";
+                ExecStart = pkgs.writeShellScript "freqtrade-logrotate-run" ''
+                  ${concatStringsSep "\n" (
+                    mapAttrsToList (botName: botCfg:
+                      optionalString botCfg.logToFile (
+                        ''
+                          ${logRotateScript}/bin/freqtrade-log-rotate "${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log" "${botCfg.logMaxSize}"
+                        '' + concatStringsSep "\n" (
+                          imap0 (i: _: ''
+                            ${logRotateScript}/bin/freqtrade-log-rotate "${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log" "${botCfg.logMaxSize}"
+                          '') botCfg.extra
+                        )
+                      )
+                    ) enabledBots
+                  )}
+                '';
+              };
+            };
+          }
+        ]
       )
     );
 
-    # GENERATOR SYSTEMD USER TIMERS (DELAYED STARTUP)
-    systemd.user.timers = mkIf (cfg.service.enable && cfg.service.startupDelay != "") (
-      listToAttrs (mapAttrsToList (botName: botCfg: 
-        nameValuePair "freqtrade-${botName}" {
-          Unit = {
-            Description = "Delayed Startup Timer for Freqtrade - ${botName}";
-          };
-          Timer = {
-            OnStartupSec = cfg.service.startupDelay;
-          };
-          Install = {
-            WantedBy = [ "timers.target" ];
+    # GENERATOR SYSTEMD USER TIMERS (DELAYED STARTUP & LOG ROTATION)
+    systemd.user.timers = mkIf cfg.service.enable (
+      mkMerge [
+        (mkIf (cfg.service.startupDelay != "") (
+          listToAttrs (mapAttrsToList (botName: botCfg: 
+            nameValuePair "freqtrade-${botName}" {
+              Unit = {
+                Description = "Delayed Startup Timer for Freqtrade - ${botName}";
+              };
+              Timer = {
+                OnStartupSec = cfg.service.startupDelay;
+              };
+              Install = {
+                WantedBy = [ "timers.target" ];
+              };
+            }
+          ) enabledBots)
+        ))
+        {
+          freqtrade-logrotate = {
+            Unit = {
+              Description = "Run Freqtrade log rotation hourly";
+            };
+            Timer = {
+              OnCalendar = "hourly";
+              Persistent = true;
+            };
+            Install = {
+              WantedBy = [ "timers.target" ];
+            };
           };
         }
-      ) enabledBots)
+      ]
     );
   };
 }
