@@ -12,6 +12,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (ltspice) pname;
   version = "17.2.4";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchurl {
     url = "https://web.archive.org/web/20260404114809if_/https://ltspice.analog.com/software/LTspice.pkg";
     hash = "sha256-GHmV6Sll2xWV/9sbcS2QwVe57PAdErJMS1JZ+S+UJY0=";

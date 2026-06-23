@@ -1,23 +1,33 @@
 {
-  apple-sdk_15,
+  lib,
   buildPackages,
   darwin,
   fetchFromGitHub,
-  fetchurl,
-  gn,
-  lib,
-  ninja,
-  nix-update-script,
-  python3,
   replaceVars,
   stdenvNoCC,
   symlinkJoin,
+
+  # nativeBuildInputs
+  gn,
+  ninja,
+  python3,
   xcbuild,
+
+  # buildInputs
+  apple-sdk_15,
+
+  # passthru
+  fetchurl,
+  nix-update-script,
 
   withPgo ? true,
 }:
 let
-  llvmPackages = if withPgo then buildPackages.llvmPackages_22 else buildPackages.rustc.llvmPackages;
+  llvmPackages =
+    if withPgo && (lib.versionOlder buildPackages.rustc.llvmPackages.release_version "22.1") then
+      buildPackages.llvmPackages_22
+    else
+      buildPackages.rustc.llvmPackages;
   llvmCcAndBintools = symlinkJoin {
     name = "llvmCcAndBintools";
     paths = [
@@ -28,7 +38,8 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "148.0.7778.96-6";
+  version = "149.0.7827.114-1";
+
   __structuredAttrs = true;
   strictDeps = true;
 
@@ -36,7 +47,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-HO1epPI9n/SH0NyA6UsN8YYoSBQOhq208XStf+rXCYU=";
+    hash = "sha256-LfBEEshD+/TCstSbF8lkpOi95c2tshBca7wo07XFs7g=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -51,7 +62,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     }
   );
 
-  postPatch =
+  postPatch = ''
+    # ERROR at //.gn:174:30: Assignment had no effect.
+    sed -i '/^expand_directory_allowlist =/d' .gn
+
+    patchShebangs --build build/toolchain/apple/linker_driver.py
+  ''
+  + (
     let
       pgoProfile =
         finalAttrs.passthru.pgoProfiles.${
@@ -66,7 +83,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     lib.optionalString withPgo ''
       mkdir -p chrome/build/pgo_profiles
       cp ${pgoProfile} chrome/build/pgo_profiles/${pgoProfile.name}
-    '';
+    ''
+  );
 
   nativeBuildInputs = [
     llvmPackages.bintools
@@ -140,16 +158,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     updateScript = nix-update-script { };
     pgoProfiles = {
       aarch64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7778-1777396490-28f3bd2de3e5897faaeffb39ece6068b821b4568-01697e67ebd6a170e23bf1503bbc0c3723275c1b.profdata";
-        hash = "sha256-gsM4lTXXmAop3n+LGFW2pRwVtIkgp/LOLmaho1Lahhc=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7827-1780682012-34f5ad56d61af22a024ee7f6eb8bb6bf6d23a2ce-4185813e9f60e6a1ea3ac12cbce62f4e511cb234.profdata";
+        hash = "sha256-f/1dX2gJVo4TTS/Bwbo4zjUazXaze3C5vVUuvb15rVY=";
       };
       x86_64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7778-1777374771-bf7aebabe8057c6700aa75240777f8557acfd474-d8efa9b284bd43eccbaf67df2d4a1deaa3c39b89.profdata";
-        hash = "sha256-gXmewWdgIDMfb8ujTQAoWaK4t3nabp4hXfPXsCxZi4M=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7827-1780637531-cc899399c30693429cfd4db2f8b466b9a49952e3-d46fada91c2229327a16ccfd0600864674d6e191.profdata";
+        hash = "sha256-C7x79QV3a8PWC/9UzXxOSqQKeZ8GZ7stJ+e/loyk6Lw=";
       };
       any-linux = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7778-1777374771-45dd5813b3332165d1d1cd33a478e0a7b948195e-d8efa9b284bd43eccbaf67df2d4a1deaa3c39b89.profdata";
-        hash = "sha256-qRbwmZivUpte1ILYnFBusAbRBnv/YDaEoXd46LYeaCw=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7827-1780682012-f62c73d731b52a07fffe1a178a38103191b0fddd-4185813e9f60e6a1ea3ac12cbce62f4e511cb234.profdata";
+        hash = "sha256-J4jRjfmMpSQKXLLNvbb7lOoVS+HOe1H5qeuR6Ak/clo=";
       };
     };
   };

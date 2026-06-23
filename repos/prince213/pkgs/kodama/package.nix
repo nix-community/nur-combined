@@ -9,6 +9,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
   version = "1.0.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "kokic";
     repo = "kodama";

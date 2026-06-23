@@ -16,6 +16,9 @@ stdenvNoCC.mkDerivation {
     meta
     ;
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [ unzip ];
   sourceRoot = ".";
 

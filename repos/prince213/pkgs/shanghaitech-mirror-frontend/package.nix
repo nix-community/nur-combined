@@ -45,6 +45,9 @@ stdenvNoCC.mkDerivation (
     pname = "shanghaitech-mirror-frontend";
     version = "0-unstable-2026-01-06";
 
+    __structuredAttrs = true;
+    strictDeps = true;
+
     src = fetchFromGitHub {
       owner = "ShanghaitechGeekPie";
       repo = "shanghaitech-mirror-frontend";

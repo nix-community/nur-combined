@@ -9,6 +9,9 @@ stdenvNoCC.mkDerivation {
   pname = "wubi98-fonts";
   version = "2024-01-31";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchFromGitHub {
     owner = "yanhuacuo";
     repo = "fcitx5-wubi98";

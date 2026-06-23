@@ -8,6 +8,9 @@ stdenvNoCC.mkDerivation {
   pname = "rime-wubi98";
   version = "0-unstable-2025-07-10";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchFromGitHub {
     owner = "yanhuacuo";
     repo = "98wubi";

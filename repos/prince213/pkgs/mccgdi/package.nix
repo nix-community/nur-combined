@@ -13,6 +13,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "mccgdi";
   version = "2.0.10";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchzip {
     url = "https://www.psn-web.net/cs/support/fax/common/file/Linux_PrnDriver/Driver_Install_files/mccgdi-${finalAttrs.version}-x86_64.tar.gz";
     hash = "sha256-cDXkQwzom4RmLQ9m9EegoRNRdGUUaUk3C4Qfn11V7qw=";

@@ -12,6 +12,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "ngbe";
   version = "1.2.7";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchzip {
     name = "source";
     url = "https://www.net-swift.com/uploads/20250716/%E7%BD%91%E8%BF%851G%E7%BD%91%E5%8D%A1Linux%20%E9%A9%B1%E5%8A%A8%E6%BA%90%E7%A0%81.zip";

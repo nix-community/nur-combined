@@ -26,6 +26,9 @@ stdenvNoCC.mkDerivation {
     src
     ;
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   nativeBuildInputs = [
     autoPatchelfHook
     dpkg

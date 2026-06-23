@@ -11,6 +11,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "imunes";
   version = "3.0.0b";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchFromGitHub {
     owner = "imunes";
     repo = "imunes";

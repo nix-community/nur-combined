@@ -26,6 +26,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cronet-go";
   version = "148.0.7778.96-1-unstable-2026-06-20";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "cronet-go";

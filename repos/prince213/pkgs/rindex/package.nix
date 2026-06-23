@@ -9,6 +9,8 @@ rustPlatform.buildRustPackage {
   pname = "rindex";
   version = "0-unstable-2025-11-11";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "wenxuanjun";
     repo = "rindex";

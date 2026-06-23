@@ -9,6 +9,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustledger";
   version = "0.15.0";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "rustledger";
     repo = "rustledger";

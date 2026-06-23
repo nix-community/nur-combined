@@ -10,6 +10,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cloudnet";
   version = "4.0.0-RC16";
 
+  __structuredAttrs = true;
+  strictDeps = true;
+
   src = fetchzip {
     url = "https://github.com/CloudNetService/CloudNet/releases/download/${finalAttrs.version}/CloudNet.zip";
     stripRoot = false;
