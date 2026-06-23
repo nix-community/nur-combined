@@ -2137,10 +2137,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.5.1";
+      version = "4.5.2";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4843358/click_and_read-4.5.1.xpi";
-      sha256 = "47279f1f656bb1f81a5ce6a0740092c31b0d498728436526f02912f1ed9137b0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862336/click_and_read-4.5.2.xpi";
+      sha256 = "759a2994495bff72c1baefe38692579ac42404ab5bac12c54991186430453250";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -2908,10 +2908,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260621.191700";
+      version = "153.0.20260622.101312";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861982/dansk_da_language_pack-152.0.20260621.191700.xpi";
-      sha256 = "f92ca553e011b2753d1a5f9b17c6ee1fd3e662f87318ee90ebf499031149fe35";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862951/dansk_da_language_pack-153.0.20260622.101312.xpi";
+      sha256 = "2a905cadc2d22ee4459444b27423d241a569f4f83b68dcde6a38e5987a7a4fb8";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3025,10 +3025,10 @@
     };
     "dashlane" = buildMozillaXpiAddon {
       pname = "dashlane";
-      version = "6.2624.1";
+      version = "6.2625.0";
       addonId = "jetpack-extension@dashlane.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4844573/dashlane-6.2624.1.xpi";
-      sha256 = "ac5212fad7f5dfac013cb85309eab7fae5bcd5f081200b125c23a325013741f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4851838/dashlane-6.2625.0.xpi";
+      sha256 = "7dad4f1d6184d3f2d9486e7f7c965a39d820b7bf062b164251aa8ee40debab1c";
       meta = with lib;
       {
         homepage = "https://www.dashlane.com";
@@ -3124,10 +3124,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260621.191700";
+      version = "153.0.20260622.101312";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861980/deutsch_de_language_pack-152.0.20260621.191700.xpi";
-      sha256 = "668c0d169775532c9d985b73d363bda187cc46673ee1b649e501bd9495288747";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862957/deutsch_de_language_pack-153.0.20260622.101312.xpi";
+      sha256 = "6b783b6f28564b00661cfd18f3acd73cb882547000a67d9ebf9087443fb239fc";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4608,10 +4608,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260621.191700";
+      version = "153.0.20260622.101312";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861984/francais_language_pack-152.0.20260621.191700.xpi";
-      sha256 = "7cd89273b3ce0da269d9e6adf6f37c0fe1ba3af8236d809b073ed5a911bb85fa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862923/francais_language_pack-153.0.20260622.101312.xpi";
+      sha256 = "dfe2cdd43562e82b4f818e0f6541a2edf19e8092561f77b4012c177ce07cfc73";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4645,10 +4645,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260621.191700";
+      version = "153.0.20260622.101312";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861938/gaidhlig_language_pack-152.0.20260621.191700.xpi";
-      sha256 = "5cf26113824762afb5bb0a8a10f574942dca524e54fe7446ffcabb3788367502";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4863001/gaidhlig_language_pack-153.0.20260622.101312.xpi";
+      sha256 = "08a4d0ab8e9b4bafa48176422bf7ea81f4076a712ec5e695c576a0e12972a0f0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4689,10 +4689,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.2";
+      version = "1.22.4";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4862081/geo_spoof-1.22.2.xpi";
-      sha256 = "1401f775d22b127b658d3f59875cbbc3f85945afd24b9a2e6bf2ce288d48c968";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4864097/geo_spoof-1.22.4.xpi";
+      sha256 = "dcf07f03eca452c64a21a42871a4db114b7447d79c721142a6965feacb80935f";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -6530,10 +6530,10 @@
     };
     "hyperchat" = buildMozillaXpiAddon {
       pname = "hyperchat";
-      version = "3.3.0";
+      version = "3.3.1";
       addonId = "{14a15c41-13f4-498e-986c-7f00435c4d00}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4828891/hyperchat-3.3.0.xpi";
-      sha256 = "7d68cc54865abb43b94bcd6b5d522370d0e504035d6e041eaddee5302999813a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4864227/hyperchat-3.3.1.xpi";
+      sha256 = "1744414bff71dfac0bb5c54b6e58f23628e0523f331b9d6c54345d034e089a34";
       meta = with lib;
       {
         homepage = "https://livetl.app/hyperchat/";
@@ -7594,10 +7594,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.25";
+      version = "2.0.26";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4853827/kiss_translator-2.0.25.xpi";
-      sha256 = "5e7d7f6e0f7c67b026b2eb847cacfa934bf23f7048f00589e86c84ed20ac3877";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4863175/kiss_translator-2.0.26.xpi";
+      sha256 = "377a6f606200ea4deb88568c3eb0c5aabdc3f661248270633bbcad02f9b99b12";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -8821,10 +8821,10 @@
     };
     "livetl" = buildMozillaXpiAddon {
       pname = "livetl";
-      version = "9.2.0";
+      version = "9.2.1";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4828893/livetl-9.2.0.xpi";
-      sha256 = "6493e3f72914c11abc93efb4f8a6c3ba62c5a6af80d537c6b6ba8717ee95d9e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4864226/livetl-9.2.1.xpi";
+      sha256 = "360a1040d4aff535a763ce449130b19c221238ca7571fd9fbb674d7a15f7d380";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
@@ -8917,10 +8917,10 @@
     };
     "lovely-forks" = buildMozillaXpiAddon {
       pname = "lovely-forks";
-      version = "3.7.3";
+      version = "3.7.4";
       addonId = "github-forks-addon@musicallyut.in";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4257592/lovely_forks-3.7.3.xpi";
-      sha256 = "ab9a444acbaa2bebf1bea88a1d41edd9f35208b05510522ab574fdf4cae3058d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4863232/lovely_forks-3.7.4.xpi";
+      sha256 = "16e8139fc8429c8ce30660f94ed573d9c0fd94763dc4953f6144468602d29fca";
       meta = with lib;
       {
         homepage = "https://github.com/musically-ut/lovely-forks";
@@ -8932,10 +8932,10 @@
     };
     "mailvelope" = buildMozillaXpiAddon {
       pname = "mailvelope";
-      version = "6.2.0";
+      version = "6.3.0";
       addonId = "jid1-AQqSMBYb0a8ADg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4600809/mailvelope-6.2.0.xpi";
-      sha256 = "3ca29990e1f191977d420d9661c3516f05159b5b4341c7066686b9f71f799080";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4846833/mailvelope-6.3.0.xpi";
+      sha256 = "314014dcecc448958713dce4bb2972321f3fe27c63ef6e6ead20e8b8503926ec";
       meta = with lib;
       {
         homepage = "https://www.mailvelope.com/";
@@ -9908,10 +9908,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.4.2";
+      version = "1.4.3";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4857084/mergify-1.4.2.xpi";
-      sha256 = "f24df3a6bd02bfb72723bf9b3363eedea473f3e0979b817921b109b504b1a807";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4863322/mergify-1.4.3.xpi";
+      sha256 = "ea27e0e3b06eb93499ec7d13716218f416ef6f7111a216db2b8bee5e58cdfbae";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -11542,10 +11542,10 @@
     };
     "privacy-badger" = buildMozillaXpiAddon {
       pname = "privacy-badger";
-      version = "2026.2.20";
+      version = "2026.6.16";
       addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4700632/privacy_badger17-2026.2.20.xpi";
-      sha256 = "eea49f1461de5eb00eb17b22b2864b55b54acb577b0360687460fe982633fbd6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854040/privacy_badger17-2026.6.16.xpi";
+      sha256 = "060860a601993fd7c505de9873c5f47adb3e568af1894dc2460b071aa5a32308";
       meta = with lib;
       {
         homepage = "https://privacybadger.org/";
@@ -13394,10 +13394,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260621.191700";
+      version = "153.0.20260622.101312";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861955/scots_language_pack-152.0.20260621.191700.xpi";
-      sha256 = "de797abda24c03a940f48d4fd200f7e9a78e70df1413dad8f5025e7cdc508d6b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4862928/scots_language_pack-153.0.20260622.101312.xpi";
+      sha256 = "a68150c76e655fb9ea21d51752382175203f3f500e930493a4386cc2259b73c9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15096,10 +15096,10 @@
     };
     "toolkit-for-ynab" = buildMozillaXpiAddon {
       pname = "toolkit-for-ynab";
-      version = "3.20.0";
+      version = "3.22.3";
       addonId = "{4F1FB113-D7D8-40AE-A5BA-9300EAEA0F51}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4657976/toolkit_for_ynab-3.20.0.xpi";
-      sha256 = "baf230403207e1981780e48458ce525b0bbc0c7588b9f350f01dcf419d26cae7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4863258/toolkit_for_ynab-3.22.3.xpi";
+      sha256 = "c7c92594fbcb4ed54ed8da1f88100259e3ea43fb0df54e8aecc84a09a1b03dfb";
       meta = with lib;
       {
         homepage = "https://github.com/toolkit-for-ynab/toolkit-for-ynab";
@@ -16585,10 +16585,10 @@
     };
     "wappalyzer" = buildMozillaXpiAddon {
       pname = "wappalyzer";
-      version = "6.12.2";
+      version = "6.12.3";
       addonId = "wappalyzer@crunchlabz.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4785515/wappalyzer-6.12.2.xpi";
-      sha256 = "c69523d29d20ea46faeac32ea5eb9db52d6a455b28e907675a6754da187d8464";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854417/wappalyzer-6.12.3.xpi";
+      sha256 = "7410560df05272ec013deab903c02aad2755e2ebad944b7ba805c3288f04454a";
       meta = with lib;
       {
         homepage = "https://www.wappalyzer.com";
@@ -17664,10 +17664,10 @@
     };
     "ytcfilter" = buildMozillaXpiAddon {
       pname = "ytcfilter";
-      version = "3.1.1";
+      version = "3.1.2";
       addonId = "{20f2dcdf-6f8d-4aeb-862b-b13174475d9c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4770354/ytcfilter-3.1.1.xpi";
-      sha256 = "6f632a3f998cbd08db5f7b5de81040b8bff2aba536bb0a398aa3b9803c497ee2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4864228/ytcfilter-3.1.2.xpi";
+      sha256 = "dde5914895878e0ea421abe9d3d347d37fa31637035a7085584f2e4a0196bb07";
       meta = with lib;
       {
         description = "The most powerful and intuitive YouTube chat filter extension.";
