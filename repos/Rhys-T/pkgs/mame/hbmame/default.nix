@@ -23,16 +23,16 @@
             SDL2_ttf = sdl3-ttf;
     });
     # <https://github.com/NixOS/nixpkgs/pull/495586>
-    needsSDL3Patch = !(mame?sdl3);
+    needsSDL3Patch = !(mameArgs?sdl3);
     mame'' = mame'.overrideAttrs (old: lib.optionalAttrs needsSDL3Patch {
         makeFlags = (old.makeFlags or []) ++ ["OSD=sdl3"];
-        postPatch = (old.postPatch or "") + ''
+        postPatch = (old.postPatch or "") + lib.optionalString stdenv.hostPlatform.isDarwin ''
             substituteInPlace scripts/src/osd/sdl3.lua --replace-fail \
               'backtick("sw_vers -productVersion")' \
               "os.getenv('MACOSX_DEPLOYMENT_TARGET') or '$darwinMinVersion'"
         '';
     });
-    hbmame' = mame'.overrideAttrs (old: rec {
+    hbmame' = mame''.overrideAttrs (old: rec {
         pname = "hbmame";
         version = "0.288";
         src = fetchFromGitHub {
