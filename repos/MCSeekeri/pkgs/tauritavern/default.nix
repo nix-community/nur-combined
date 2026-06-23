@@ -7,7 +7,7 @@
   fetchFromGitHub,
   fetchPnpmDeps,
   pnpmConfigHook,
-  nodejs_22,
+  nodejs,
   pnpm_10,
   cargo-tauri,
   pkg-config,
@@ -23,20 +23,20 @@
 
 let
   pname = "tauritavern";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "Darkatse";
     repo = "TauriTavern";
     tag = "v${version}";
-    hash = "sha256-jLvW3PWv0zu8cJXXw0fnJt5WaxfcTasiYhTxRDsChzA=";
+    hash = "sha256-3M+hHciouiET8RcA1NAud9cB8TXnAMOPLnvPx3nfcEU=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-qD/iQmG9YZ0byrnXHXuPNCxL5MLnqAJNfu2mA1OR/w4=";
+    hash = "sha256-Ka+RJi2+buqWwGTZLN8apA+ClUYrgaQS/1VLi2/6+90=";
   };
 
   tauritavern-web = stdenv.mkDerivation {
@@ -46,7 +46,7 @@ let
     nativeBuildInputs = [
       pnpmConfigHook
       pnpm_10
-      nodejs_22
+      nodejs
     ];
 
     buildPhase = ''
@@ -75,7 +75,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     ;
 
   cargoRoot = "src-tauri";
-  cargoHash = "sha256-n2PZ+fHv8qiT4GmACU11VFSrWx5DVB6Q00QV93DFIaE=";
+  cargoHash = "sha256-hyxn9TVlEfWXYXqph1rHkkx10QldKjAUu2JAFOUk+yU=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   preBuild = ''
@@ -99,14 +99,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     cacert
     cargo-tauri.hook
-    nodejs_22
+    nodejs
     pkg-config
     pnpm_10
     pnpmConfigHook
-    wrapGAppsHook4
-  ];
 
-  buildInputs = [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [ wrapGAppsHook4 ];
+
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     glib-networking
     gtk3
     gst_all_1.gstreamer
@@ -118,7 +119,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     webkitgtk_4_1
   ];
 
-  preFixup = ''
+  preFixup = lib.optionalString stdenv.hostPlatform.isLinux ''
     gappsWrapperArgs+=(
       --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}"
     )

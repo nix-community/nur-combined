@@ -99,7 +99,7 @@ let
       '';
     };
 
-  installIcons = _iconDir: ''
+  installIcons = iconDir: ''
     install -Dm644 "''${iconDir}/dark@256x256.png" \
       "$out/share/icons/hicolor/256x256/apps/xmcl.png"
 

@@ -3,7 +3,8 @@
   buildNpmPackage,
   nix-update-script,
   fetchFromGitHub,
-  nodejs_22,
+  makeWrapper,
+  nodejs_26,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -19,12 +20,20 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsHash = "sha256-6C4SIoP0+HdIoODkWq6uEJppOOfzFiNf/5FEtTG/Eo0=";
 
-  nodejs = nodejs_22;
+  nodejs = nodejs_26;
+
+  nativeBuildInputs = [ makeWrapper ];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
+  npmFlags = [ "--ignore-scripts" ];
+
   postPatch = ''
     touch .npmignore
+  '';
+
+  preBuild = ''
+    npm rebuild esbuild sharp better-sqlite3
   '';
 
   npmBuildScript = "build:web";
@@ -33,15 +42,23 @@ buildNpmPackage (finalAttrs: {
     npm run build:server
   '';
 
-  postInstall = ''
-    makeWrapper ${lib.getExe nodejs_22} "$out/bin/metapi-migrate" \
-      --add-flags "$out/lib/node_modules/metapi/dist/server/db/migrate.js" \
-      --set-default NODE_ENV production
+  installPhase = ''
+    runHook preInstall
 
-    makeWrapper ${lib.getExe nodejs_22} "$out/bin/metapi" \
+    npm prune --omit=dev --no-audit --no-fund
+    mkdir -p "$out/lib/node_modules/metapi"
+    cp -r dist node_modules package.json drizzle "$out/lib/node_modules/metapi/"
+
+    makeWrapper ${lib.getExe nodejs_26} "$out/bin/metapi" \
       --add-flags "$out/lib/node_modules/metapi/dist/server/index.js" \
       --set-default NODE_ENV production \
       --set-default PORT 4000
+
+    makeWrapper ${lib.getExe nodejs_26} "$out/bin/metapi-migrate" \
+      --add-flags "$out/lib/node_modules/metapi/dist/server/db/migrate.js" \
+      --set-default NODE_ENV production
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script { };

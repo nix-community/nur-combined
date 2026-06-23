@@ -5,19 +5,19 @@
   go_1_26,
   fetchFromGitHub,
   fetchPnpmDeps,
-  nix-update-script,
-  pnpm_9,
   pnpmConfigHook,
+  nix-update-script,
+  pnpm_10,
   nodejs,
   stdenvNoCC,
 }:
 let
-  version = "0.1.137";
+  version = "0.1.138";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-yzEHmf8JcN42tfZDkwBb1A7MQ66K6JQZwisiv2hH1WE=";
+    hash = "sha256-JGk98y/BJoMByL9EEYREx0k5sfiN5N8BaEZ4+ufajUY=";
   };
 
   go = go_1_26.overrideAttrs (_: rec {
@@ -31,10 +31,10 @@ let
   frontendPnpmDeps = fetchPnpmDeps {
     pname = "sub2api-frontend";
     inherit version src;
-    pnpm = pnpm_9;
+    pnpm = pnpm_10;
     fetcherVersion = 3;
     sourceRoot = "source/frontend";
-    hash = "sha256-r/v/se0eyK3gNYuMiJ0pCijOdhAcaSYHD80DzSzR9sw=";
+    hash = "sha256-Kvh/ROIvKxLrJSz9EyP5IemJnPY9KqW71MGiG6t6F8c=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
@@ -52,8 +52,8 @@ let
 
     nativeBuildInputs = [
       nodejs
-      pnpm_9
       pnpmConfigHook
+      pnpm_10
     ];
 
     buildPhase = ''
@@ -70,7 +70,7 @@ let
     '';
   };
 in
-buildGoModule.override { inherit go; } (_finalAttrs: {
+buildGoModule.override { inherit go; } {
   pname = "sub2api";
   inherit version src;
 
@@ -111,4 +111,4 @@ buildGoModule.override { inherit go; } (_finalAttrs: {
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     maintainers = with lib.maintainers; [ MCSeekeri ];
   };
-})
+}
