@@ -37,9 +37,6 @@ nix develop
 
 # Format the repository
 nix fmt
-
-# Build a package
-nix build .#modular-mcp
 ```
 
 Formatting is configured through `treefmt-nix`.
