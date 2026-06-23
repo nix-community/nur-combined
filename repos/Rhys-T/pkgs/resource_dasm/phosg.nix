@@ -3,12 +3,12 @@
     needsFmt = fuzziqersoftwareFmtPatchHook.isNeeded;
 in stdenv.mkDerivation rec {
     pname = "phosg";
-    version = "0-unstable-2026-06-13";
+    version = "0-unstable-2026-06-22";
     src = fetchFromGitHub {
         owner = "fuzziqersoftware";
         repo = "phosg";
-        rev = "6e289805b1ea6ca32e55a16319aff7c3684b1672";
-        hash = "sha256-51UvDrqprNaX9zcGbrcwbSW2fSIPFfZAgOq+2nT+CAM=";
+        rev = "00e5469cc52eda1fe601ef0a322553c5ad596849";
+        hash = "sha256-fnExuD+FGs7Qes7Zmo23QuMgSSz6ul/rL6qywl9bgC8=";
     };
     postPatch = ''
         substituteInPlace CMakeLists.txt \

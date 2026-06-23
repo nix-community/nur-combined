@@ -112,7 +112,7 @@ jobs:
           key: nixCache-${{ steps.matrix.outputs.cacheKey }}
           restore-keys: nixCache-${{ steps.matrix.outputs.cachePrefix }}
       - name: Install nix
-        uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
       - name: Pre-cache Nixpkgs tarballs
         id: fetch
         run: |
@@ -183,7 +183,7 @@ jobs:
       with:
         platforms: ${{ matrix.qemuSystemForAction }}
     - name: Install nix
-      uses: nixbuild/nix-quick-install-action@2c9db80fb984ceb1bcaa77cdda3fdf8cfba92035 # v34
+      uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
       with:
         nix_conf: |
           ${{ matrix.qemuSystem && format('extra-platforms = {0}', matrix.qemuSystem) || '' }}
