@@ -1257,6 +1257,31 @@ super.lib.composeManyExtensions [
 
     pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
       (pyself: pysuper: {
+        # XXX(2026-06-22): "Expected 12 exit code, got 14 on test/fixtures/templates/quickstart/openshift.yaml"
+        cfn-lint = pysuper.cfn-lint.overridePythonAttrs (prevAttrs: {
+          disabledTests = prevAttrs.disabledTests ++ [
+            "test_templates" # test_quickstart_templates and test_quickstart_templates_non_strict
+            "test_module_integration" # test_quickstart_templates_non_strict
+          ];
+        });
+
+        cyclopts = pysuper.cyclopts.override {
+          # XXX(2026-06-22): nativeCheckInputs; optional dep.
+          fish = null;
+        };
+
+        # XXX(2026-06-22): timezone tests fail
+        django = pysuper.django.overridePythonAttrs {
+          doCheck = false;
+        };
+
+        fastmcp = pysuper.fastmcp.overridePythonAttrs (prevAttrs: {
+          # XXX(2026-06-22): "TestSupabaseProviderIntegration::test_unauthorized_access - RuntimeError: Server failed to start after 30 attempts"
+          disabledTests = prevAttrs.disabledTests ++ [
+            "test_unauthorized_access"
+          ];
+        });
+
         # 2026-05-23: still required
         # XXX(2026-01-29): test_ellipse_arc fails, looks like a legitimate failure (numerical).
         # i use inkscape mostly at build time (for wallpapers), so just disable tests.

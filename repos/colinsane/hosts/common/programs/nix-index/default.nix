@@ -10,6 +10,7 @@
     sandbox.extraPaths = [
       "/nix"
     ];
+    sandbox.autodetectCliPaths = "existing";  # `nix-index -f /path/to/nixpkgs`
 
     persist.byStore.plaintext = [ ".cache/nix-index" ];
   };

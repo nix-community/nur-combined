@@ -53,6 +53,7 @@ let
       qwen3_6-27b-mtp-q4_k_m
       # qwen3_6-35b-a3b-ud-q4_k_m
       qwen3_6-35b-a3b-mtp-ud-q4_k_m
+      step3_7-flash-iq4_xs
     ;
   };
 in

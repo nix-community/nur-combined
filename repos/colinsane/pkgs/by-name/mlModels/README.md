@@ -1,11 +1,15 @@
 ## machine learning models
 source from:
 - <https://huggingface.co/ggml-org>
+- <https://huggingface.co/unsloth/models>
+- <https://huggingface.co/bartowski/models>
 - <https://huggingface.co/models?library=gguf&sort=trending>
 - <https://unsloth.ai/docs>
 
 ## social/ecosystem
 - <https://www.reddit.com/r/LocalLLaMA/>
+- <https://www.servethehome.com/category/ai-deep-learning/>
+- <https://forum.level1techs.com/>
 
 ### leaderboards
 - <https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard>

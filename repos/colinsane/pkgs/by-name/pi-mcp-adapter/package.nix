@@ -12,21 +12,23 @@ buildNpmPackage (finalAttrs: {
     owner = "nicobailon";
     repo = "pi-mcp-adapter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MrorLzxbn3O81B47Nd0d0xnd0xhXgMdobnXgD0axldE=";
+    hash = "sha256-I3FIvHlGCNUZhZlr3sOOSE7SJ78XTQyAvlzGk84Klf0=";
+    # upstream omits the integrity hashes for pi-* dependencies, expecting pi to already be present.
+    # patch out the deps onto pi *here*, so that nix-update-script can generate a correct lockfile.
+    postFetch = ''
+      sed -i $out/package.json \
+        -e '/"@earendil-works\/pi-ai": /d' \
+        -e '/"@earendil-works\/pi-tui": /d' \
+        -e '/"@earendil-works\/pi-coding-agent": /d'
+    '';
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-5X2TqtdEfJuHdJGwZN9gAFsZwIKzajFEGOKipkuKSFo=";
+  npmDepsHash = "sha256-ANtji4r1e2bcV5nfxttnpVKHSy6q0c0cHwt5VfJPICY=";
 
-  # upstream ships no lockfile; provide one we generated ourselves (via
-  # `npm install --package-lock-only`), otherwise buildNpmPackage fails with:
-  # > non-git dependencies should have associated integrity
-  #
-  # note: npm omits `integrity` for a few nested @earendil-works/* dev deps in
-  # the generated lockfile. those `integrity` fields were filled in by hand
-  # (from the npm registry's `dist.integrity`); re-running the updateScript will
-  # drop them again and the npm-deps fetch will fail until they're restored.
+  # lockfile generated in a pi-mcp-adapter checkout using
+  # `npm install --package-lock-only`.
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';

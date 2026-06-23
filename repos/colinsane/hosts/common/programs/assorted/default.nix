@@ -128,6 +128,7 @@ in
       "smartmontools"  # smartctl
       "snitch"  # a better lsof
       "socat"
+      "sponge"
       "sshpass"
       "strace"
       "subversion"

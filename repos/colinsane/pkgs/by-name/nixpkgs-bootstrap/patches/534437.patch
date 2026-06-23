@@ -1,0 +1,91 @@
+From 82f97e122af9d825d109daedf76b1462c5b8a12e Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 22 Jun 2026 22:00:33 +0000
+Subject: [PATCH 1/2] rdma-core: populate passthru.updateScript
+
+---
+ pkgs/by-name/rd/rdma-core/package.nix | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/pkgs/by-name/rd/rdma-core/package.nix b/pkgs/by-name/rd/rdma-core/package.nix
+index fa6d99f4039a958d4688dc7a5d5a3a159eb09fb8..feb773beb76ab533a5d0b9aeda298f518d7d2867 100644
+--- a/pkgs/by-name/rd/rdma-core/package.nix
++++ b/pkgs/by-name/rd/rdma-core/package.nix
+@@ -2,6 +2,7 @@
+   lib,
+   stdenv,
+   fetchFromGitHub,
++  gitUpdater,
+   cmake,
+   pkg-config,
+   docutils,
+@@ -73,6 +74,10 @@ stdenv.mkDerivation (finalAttrs: {
+ 
+   doInstallCheck = true;
+ 
++  passthru.updateScript = gitUpdater {
++    rev-prefix = "v";
++  };
++
+   meta = {
+     description = "RDMA Core Userspace Libraries and Daemons";
+     homepage = "https://github.com/linux-rdma/rdma-core";
+
+From 0e1f4fd8d9e95f9f6e35f56ccbc882879d264db4 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Mon, 22 Jun 2026 22:16:13 +0000
+Subject: [PATCH 2/2] rdma-core: 62.0 -> 63.0
+
+---
+ pkgs/by-name/rd/rdma-core/package.nix | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/rd/rdma-core/package.nix b/pkgs/by-name/rd/rdma-core/package.nix
+index feb773beb76ab533a5d0b9aeda298f518d7d2867..e1504a0a9bbee8cf72cb8f63b7943e198642a622 100644
+--- a/pkgs/by-name/rd/rdma-core/package.nix
++++ b/pkgs/by-name/rd/rdma-core/package.nix
+@@ -2,6 +2,7 @@
+   lib,
+   stdenv,
+   fetchFromGitHub,
++  fetchurl,
+   gitUpdater,
+   cmake,
+   pkg-config,
+@@ -16,13 +17,13 @@
+ 
+ stdenv.mkDerivation (finalAttrs: {
+   pname = "rdma-core";
+-  version = "62.0";
++  version = "63.0";
+ 
+   src = fetchFromGitHub {
+     owner = "linux-rdma";
+     repo = "rdma-core";
+     rev = "v${finalAttrs.version}";
+-    hash = "sha256-1n33KH8HTyZ0jHtDanopxwABiLjAvt+V7lgaeabJs8s=";
++    hash = "sha256-YW6BJS6acj9S8wFXUhC1vrJSm9YowGGuwWEBzQRVyPM=";
+   };
+ 
+   strictDeps = true;
+@@ -48,9 +49,20 @@ stdenv.mkDerivation (finalAttrs: {
+     udev
+   ];
+ 
++  patches = [
++    (fetchurl {
++      # remove when rdma-core 64.0 is released
++      # https://github.com/linux-rdma/rdma-core/pull/1737
++      name = "cmake-allow-overriding-sysusers.d-install-directory";
++      url = "https://github.com/linux-rdma/rdma-core/commit/8b186b5d932701e94bbced83d2f3899ee53f041a.patch?full_index=1";
++      hash = "sha256-Rjknu7mmJL2Sx+Ypq9SRXU4LUiHERs9j5/qMIZaiRTI=";
++    })
++  ];
++
+   cmakeFlags = [
+     "-DCMAKE_INSTALL_RUNDIR=/run"
+     "-DCMAKE_INSTALL_SHAREDSTATEDIR=/var/lib"
++    "-DSYSUSERS_DIR=${placeholder "out"}/lib/sysusers.d"
+   ];
+ 
+   postPatch = ''

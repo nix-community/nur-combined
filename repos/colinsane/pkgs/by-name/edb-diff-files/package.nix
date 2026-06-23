@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "edb-diff-files";
-  version = "0.15.1";
+  version = "0.16.0";
 
   src = fetchFromGitHub {
     owner = "agnishcc";
     repo = "pi-extention-monorepo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-f/LbiZPqdzLWrVIIO9TEXiQMcpKQ9V3D3Pu5Y+23tl8=";
+    hash = "sha256-FCXE3qhgoaQgLC4NgTd5+0Vko85AnLYNCA/nv7MPpwc=";
   };
 
   # it has no external dependencies, so we actually only need src.
