@@ -19,7 +19,7 @@
   security.rtkit.enable = true;
   systemd.services.rtkit-daemon.serviceConfig.LogLevelMax = "notice";
   services.pipewire = {
-    alsa = { enable = true; support32Bit = true; };
+    alsa.enable = true;
     pulse.enable = true;
   };
 }
