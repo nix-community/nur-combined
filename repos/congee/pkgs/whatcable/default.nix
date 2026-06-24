@@ -7,13 +7,13 @@
 
 swiftPackages.stdenv.mkDerivation rec {
   pname = "whatcable";
-  version = "1.1.1";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "darrylmorley";
     repo = "whatcable";
     rev = "v${version}";
-    hash = "sha256-I78nchj2LouyeLL+dq7xmKda4oFGXrVshKXe9epz3xk=";
+    hash = "sha256-uRqjHreOr+HAUnx6GFrj41bojPlxAVhKDy8I6zYNNW8=";
   };
 
   nativeBuildInputs = with swiftPackages; [
