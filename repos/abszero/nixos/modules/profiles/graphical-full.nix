@@ -58,6 +58,7 @@ in
     environment = {
       defaultPackages = [ ];
       systemPackages = with pkgs; [
+        _7zip-zstd-rar
         anki-wayland
         aseprite
         ayugram-desktop
@@ -73,7 +74,7 @@ in
         jq
         kooha
         libreoffice-qt
-        # lutris
+        lutris
         minefair
         nautilus
         nudoku
@@ -82,7 +83,6 @@ in
         proton-vpn
         taisei
         tenacity
-        unzip
         vial
         ventoy-full
         vesktop
@@ -93,7 +93,6 @@ in
         wget
         xeyes
         ytmdesktop
-        zip
         zotero
       ];
     };

@@ -1,8 +1,13 @@
 # https://starship.rs/config
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf;
+  inherit (lib) mkEnableOption mkIf getExe;
   cfg = config.abszero.themes.base.starship;
 in
 
@@ -27,15 +32,18 @@ in
       before_repo_root_style = "";
       repo_root_style = "bold yellow";
     };
-    git_branch = {
-      format = "[[$symbol $branch]($style inverted)]($style)";
+    custom.jj = {
+      format = "[[$symbol $output]($style inverted)]($style)";
+      when = "${getExe pkgs.jj-starship} detect";
+      shell = [
+        (getExe pkgs.jj-starship)
+        "--no-jj-prefix"
+        "--no-jj-id"
+        "--no-git-prefix"
+        "--no-git-id"
+      ];
       symbol = "󰘬";
       style = "bold red";
-      ignore_branches = [
-        "HEAD"
-        "master"
-        "main"
-      ];
     };
     jobs = {
       format = "[[$symbol $number]($style inverted)]($style)";

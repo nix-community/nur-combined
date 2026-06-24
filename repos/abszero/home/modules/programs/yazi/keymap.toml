@@ -1,14 +1,20 @@
-"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+#:schema https://yazi-rs.github.io/schemas/keymap.json
 
 [mgr]
-
 prepend_keymap = [
+  { on = "s",               run = "search --via rg",                        desc = "Search via rg" },
   { on = [ "l", "a" ],      run = "link",                                   desc = "Abs link" },
   { on = [ "l", "r" ],      run = "link --relative",                        desc = "Rel link" },
   { on = [ "l", "h" ],      run = "hardlink",                               desc = "Hard link" },
   { on = [ "L", "a" ],      run = "link --force",                           desc = "Abs link" },
   { on = [ "L", "r" ],      run = "link --relative --force",                desc = "Rel link" },
   { on = [ "L", "h" ],      run = "hardlink --force",                       desc = "Hard link" },
+
+  { on = "J",               run = "plugin jjui",                            desc = "Run jjui" },
+
+  { on = "S",               run = "plugin kdeconnect-send",                 desc = "Send selected files via KDE Connect" },
+
+  { on = "T",               run = "plugin recycle-bin",                     desc = "Open recycle bin menu" },
 
   { on = [ "R", "a" ],      run = "plugin sudo -- create",                  desc = "sudo create" },
   { on = [ "R", "r" ],      run = "plugin sudo -- rename",                  desc = "sudo rename" },
@@ -21,5 +27,5 @@ prepend_keymap = [
   { on = [ "R", "l", "h" ], run = "plugin sudo -- hardlink",                desc = "sudo hard link" },
   { on = [ "R", "L", "a" ], run = "plugin sudo -- link --force",            desc = "sudo abs link with overwrite" },
   { on = [ "R", "L", "r" ], run = "plugin sudo -- link --relative --force", desc = "sudo rel link with overwrite" },
-  { on = [ "R", "L", "h" ], run = "plugin sudo -- hardlink --force",        desc = "sudo hard link with overwrite" },
+  { on = [ "R", "L", "h" ], run = "plugin sudo -- hardlink --force",        desc = "sudo hard link with overwrite" }
 ]

@@ -6,14 +6,13 @@
 }:
 
 let
-  inherit (builtins) concatStringsSep length;
+  inherit (builtins) concatStringsSep;
   inherit (lib)
     types
     mkEnableOption
     mkPackageOption
     mkOption
     mkIf
-    singleton
     getExe
     ;
   cfg = config.abszero.services.hardware.framework_rgbafan;
@@ -26,37 +25,37 @@ in
     package = mkPackageOption pkgs "framework_rgbafan" { };
     mode = mkOption {
       type = types.enum [
-        "solid"
-        "blink"
+        "static"
+        "sequence"
+        "random"
+        "randominput"
+        "quadspin"
+        "fullspin"
         "smoothspin"
+        "rainbowspin"
         "mpd"
       ];
-      default = "solid";
-    };
-    colors = mkOption {
-      type = with types; listOf singleLineStr;
+      default = "static";
     };
     nLeds = mkOption {
-      type = lib.types.int;
+      type = types.int;
       default = 8;
+    };
+    extraFlags = mkOption {
+      type = with types; listOf singleLineStr;
+      default = [ ];
     };
   };
 
-  config = mkIf cfg.enable {
-    assertions = singleton {
-      assertion = length cfg.colors <= cfg.nLeds;
-      message = "number of colors must be smaller or equal to number of leds";
-    };
-    systemd.services.framework_rgbafan = {
-      description = "Run the Framework RGBA fan tool";
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart = "${getExe package} ${cfg.mode} ${concatStringsSep " " cfg.colors}";
-        Restart = "on-failure";
-        RestartSec = 5;
-        RemainAfterExit = true;
-      };
+  config.systemd.services.framework_rgbafan = mkIf cfg.enable {
+    description = "Run the Framework RGBA fan tool";
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = "${getExe package} ${cfg.mode} ${concatStringsSep " " cfg.extraFlags}";
+      Restart = "on-failure";
+      RestartSec = 5;
+      RemainAfterExit = true;
     };
   };
 }

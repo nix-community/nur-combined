@@ -13,28 +13,32 @@ in
 
   config = mkIf cfg.enable {
     abszero.programs.git.enable = true;
-    programs.jujutsu = {
-      enable = true;
-      settings = {
-        user = {
-          name = mkDefault primaryEmail.realName;
-          email = mkDefault primaryEmail.address;
-        };
-        signing = {
-          behavior = "own";
-          backend = mkIf config.programs.gpg.enable "gpg";
-        };
-        ui = {
-          default-command = "log";
-          diff-formatter = "difft";
-        };
+    programs = {
+      jujutsu = {
+        enable = true;
+        settings = {
+          user = {
+            name = mkDefault primaryEmail.realName;
+            email = mkDefault primaryEmail.address;
+          };
+          signing = {
+            behavior = "own";
+            backend = mkIf config.programs.gpg.enable "gpg";
+          };
+          ui = {
+            default-command = "log";
+            diff-formatter = "difft";
+          };
 
-        merge-tools.difft.diff-args = [
-          "--color=always" # Doesn't show color otherwise
-          "$left"
-          "$right"
-        ];
+          merge-tools.difft.diff-args = [
+            "--color=always" # Doesn't show color otherwise
+            "$left"
+            "$right"
+          ];
+        };
       };
+
+      jjui.enable = true;
     };
   };
 }

@@ -30,46 +30,16 @@ let
         hardware.framework_rgbafan = {
           enable = true;
           mode = "smoothspin";
-          # Blue-white gradient
-          colors = [
-            "eef3fb"
-            "dee6f7"
-            "cddaf3"
-            "bdceef"
-            "acc1ec"
-            "9cb5e8"
-            "8ba9e4"
-            "7b9de0"
-            "6a90dc"
-            "5a84d8"
-            "4978d4"
-            "396bd0"
-            "2f61c6"
-            "234995"
-            "1f4184"
-            "173163"
-            "132853"
-            "102042"
-            "0a152b"
-            "102042"
-            "132853"
-            "173163"
-            "1f4184"
-            "234995"
-            "2f61c6"
-            "396bd0"
-            "4978d4"
-            "5a84d8"
-            "6a90dc"
-            "7b9de0"
-            "8ba9e4"
-            "9cb5e8"
-            "acc1ec"
-            "bdceef"
-            "cddaf3"
-            "dee6f7"
-          ];
           nLeds = 36;
+          extraFlags = [
+            "--speed-from-fan" # Scale animation speed with fan speed
+            # The colors appear lighter than they are
+            "--colors"
+            "e067c8" # Orchid
+            "5b6cf9" # Sapphire
+            "5b6cf9"
+            "e067c8"
+           ];
         };
         openssh.enable = true;
         xray = recursiveUpdate proxySettings {

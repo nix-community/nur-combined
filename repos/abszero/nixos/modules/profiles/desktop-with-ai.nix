@@ -20,7 +20,7 @@ in
   config = mkIf cfg.enable {
     abszero = {
       profiles.desktop.enable = true;
-      services.ollama.enable = true;
+      services.llama-cpp.enable = true;
       programs.crush.enable = true;
     };
 

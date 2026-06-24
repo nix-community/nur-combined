@@ -33,7 +33,10 @@ rustPlatform.buildRustPackage {
   buildInputs = [ systemdLibs.dev ]; # For libudev.pc
 
   patchPhase = ''
-    substituteInPlace src/consts.rs --replace-fail "N_LEDS: u8 = 8" "N_LEDS: u8 = ${toString nLeds}"
+    substituteInPlace src/consts.rs \
+      --replace-fail "N_LEDS: usize = 8" "N_LEDS: usize = ${toString nLeds}" \
+      --replace-fail "RAINBOW: [RgbS; N_LEDS]" "RAINBOW: [RgbS; 8]"
+    substituteInPlace src/effects.rs --replace-fail "SPINFADE_SCALES: [f32; N_LEDS]"  "SPINFADE_SCALES: [f32; 8]"
   '';
 
   meta = {
@@ -41,6 +44,6 @@ rustPlatform.buildRustPackage {
     homepage = "https://github.com/jazz-g/framework_rgbafan";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ weathercold ];
-    mainProgram = "framework_rgbafan";
+    mainProgram = "framework_rgbafan_daemon";
   };
 }

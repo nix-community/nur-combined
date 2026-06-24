@@ -13,19 +13,28 @@ in
 {
   options.abszero.programs.yazi.enable = mkEnableOption "blazing fast terminal file manager";
 
-  config.programs.yazi = mkIf cfg.enable {
-    enable = true;
-    shellWrapperName = "y";
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      ripgrep
+      trash-cli
+    ];
+    programs.yazi = {
+      enable = true;
 
-    plugins = with pkgs.yaziPlugins; {
-      inherit git sudo;
+      plugins = with pkgs.yaziPlugins; {
+        inherit jjui kdeconnect-send sudo;
+        git = {
+          package = git;
+          setup = true;
+        };
+        recycle-bin = {
+          package = recycle-bin;
+          setup = true;
+        };
+      };
+
+      settings = importTOML ./yazi.toml;
+      keymap = importTOML ./keymap.toml;
     };
-
-    settings = importTOML ./yazi.toml;
-    keymap = importTOML ./keymap.toml;
-
-    initLua = ''
-      require("git"):setup()
-    '';
   };
 }
