@@ -24,7 +24,7 @@
 }:
 buildPythonApplication (finalAttrs: {
   pname = "ghunt";
-  version = "2.3.4";
+  version = "2.2.0";
   pyproject = true;
 
   src = fetchFromGitHub {

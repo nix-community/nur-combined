@@ -5,13 +5,13 @@
 }:
 buildGoModule rec {
   pname = "gravatar-recon";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "anotherhadi";
     repo = "gravatar-recon";
     rev = "v${version}";
-    hash = "sha256-5Qq0SN77DKCU6YJrKhXpCVJLQsfQBFQQvxxkS2uMQik=";
+    hash = "sha256-pM9IvpzZVaQcX62r/oI6+LNT7cYP7WfnAcGGi27SY9w=";
   };
 
   vendorHash = "sha256-hjaIXZMK9+b+tlWD55OU3mS0CLUA/Oonn/RBHQdgs2g=";
