@@ -41,19 +41,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       copyDesktopItems
     ];
 
-  buildInputs = lib.optionals stdenvNoCC.hostPlatform.isLinux [
-    electron
+  buildInputs =
+    [electron]
+    ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
+      alsa-lib
+      gtk3
+      mesa
+      nss
 
-    alsa-lib
-    gtk3
-    mesa
-    nss
+      libpulseaudio
+      libxslt
 
-    libpulseaudio
-    libxslt
-
-    libx11
-  ];
+      libx11
+    ];
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = 1;
@@ -103,36 +103,56 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --unpack-dir "{node_modules/**/*.node,node_modules/**/*.dll}"
   '';
 
-  installPhase = builtins.concatStringsSep "\n" [
-    (
-      lib.optionalString stdenvNoCC.hostPlatform.isLinux
-      ''
-        mkdir -p $out/share
-        cp -r out/*/resources "$out/share/"
+  installPhase =
+    if stdenvNoCC.hostPlatform.isLinux
+    then ''
+      mkdir -p $out/share
+      cp -r out/*/resources "$out/share/"
 
-        makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
-          --add-flags $out/share/resources/app.asar \
-          --set ELECTRON_FORCE_IS_PACKAGED 1 \
-          --inherit-argv0
+      makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
+        --add-flags $out/share/resources/app.asar \
+        --set ELECTRON_FORCE_IS_PACKAGED 1 \
+        --inherit-argv0
 
-        install -Dm644 src/img/logo.png $out/share/icons/hicolor/256x256/apps/re-lunatic-player.png
-      ''
-    )
-    (
-      lib.optionalString stdenvNoCC.hostPlatform.isDarwin
-      ''
-        mkdir -p $out/Applications
-        cp -r out/*/Re-Lunatic\ Player.app $out/Applications
+      install -Dm644 src/img/logo.png $out/share/icons/hicolor/256x256/apps/re-lunatic-player.png
 
-        makeWrapper "$out/Applications/Re-Lunatic Player.app/Contents/MacOS/re-lunatic-player" "$out/bin/re-lunatic-player" \
-          --set ELECTRON_FORCE_IS_PACKAGED 1 \
-          --inherit-argv0
-      ''
-    )
-    ''
       runHook postInstall
     ''
-  ];
+    else ''
+      APP="$out/Applications/Re-Lunatic-Player.app"
+      mkdir -p "$out/Applications"
+
+      cp -pr "${electron}/Applications/Electron.app" "$APP"
+      chmod -R u+w "$APP"
+
+      cp src/img/logo.icns "$APP/Contents/Resources/electron.icns"
+      rm -f "$APP/Contents/Resources/default_app.asar"
+      cp -r out/*/resources/. "$APP/Contents/Resources/"
+
+      cat > "$APP/Contents/Info.plist" <<EOF
+      <?xml version="1.0" encoding="UTF-8"?>
+      <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+      <plist version="1.0">
+      <dict>
+        <key>CFBundleName</key>
+        <string>Re:Lunatic Player</string>
+        <key>CFBundleDisplayName</key>
+        <string>Re:Lunatic Player</string>
+        <key>CFBundleExecutable</key>
+        <string>Electron</string>
+        <key>CFBundleIdentifier</key>
+        <string>com.${finalAttrs.pname}</string>
+        <key>CFBundleIconFile</key>
+        <string>electron.icns</string>
+      </dict>
+      </plist>
+      EOF
+
+      mkdir -p $out/bin
+      ln -s "$APP/Contents/MacOS/Electron" $out/bin/${finalAttrs.pname}
+
+      runHook postInstall
+    '';
 
   meta = {
     description = "Music player for Gensokyo Radio";
