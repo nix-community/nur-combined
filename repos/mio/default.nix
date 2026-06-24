@@ -53,6 +53,7 @@ in
         "26.11pre-git:2.11.3:1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
         "26.11pre-git:2.11.4:1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
         "26.05pre-git:2.11.4:1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
+        "26.05pre-git:2.11.4:1.26.4" = "";
       };
       srcHash = pkgs.caddy.src.outputHash;
       goVersion = pkgs.caddy.passthru.go.version;
