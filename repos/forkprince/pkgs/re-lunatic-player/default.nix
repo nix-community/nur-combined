@@ -2,7 +2,6 @@
   electron,
   nodejs,
   pnpm_10_29_2,
-  zip,
   stdenvNoCC,
   autoPatchelfHook,
   copyDesktopItems,
@@ -36,7 +35,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       pnpmConfigHook
       pnpm_10_29_2
       nodejs
-      zip
     ]
     ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [
       autoPatchelfHook
@@ -98,30 +96,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildPhase = ''
     export npm_config_nodedir=${electron.headers}
 
-    # disabling this fixes darwin builds
-    substituteInPlace node_modules/@electron-forge/plugin-fuses/dist/FusesPlugin.js \
-      --replace-fail "resetAdHocDarwinSignature: !hasOSXSignConfig &&" \
-                     "resetAdHocDarwinSignature: false &&"
-
-    # override the detected electron version
-    substituteInPlace node_modules/@electron-forge/core-utils/dist/electron-version.js \
-      --replace-fail "return version" "return '${electron.version}'"
-
-    # create the electron archive to be used by electron-packager
-    cp -r ${electron.dist} electron-dist
-    chmod -R u+w electron-dist
-
-    pushd electron-dist
-    zip -0Xqr ../electron.zip .
-    popd
-
-    rm -r electron-dist
-
-    # force @electron/packager to use our electron instead of downloading it
-    substituteInPlace node_modules/@electron/packager/dist/packager.js \
-      --replace-fail "await this.getElectronZipPath(downloadOpts)" "'$(pwd)/electron.zip'"
-
-    pnpm package
+    mkdir -p out/Re-Lunatic-Player-linux-x64/resources
+    node node_modules/@electron/asar/bin/asar.js pack . \
+      out/Re-Lunatic-Player-linux-x64/resources/app.asar \
+      --unpack "*.{node,dll}" \
+      --unpack-dir "{node_modules/**/*.node,node_modules/**/*.dll}"
   '';
 
   installPhase = builtins.concatStringsSep "\n" [
@@ -129,7 +108,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       lib.optionalString stdenvNoCC.hostPlatform.isLinux
       ''
         mkdir -p $out/share
-        cp -r out/*/resources{,.pak} "$out/share"
+        cp -r out/*/resources "$out/share/"
 
         makeWrapper ${lib.getExe electron} $out/bin/re-lunatic-player \
           --add-flags $out/share/resources/app.asar \

@@ -1,6 +1,8 @@
 {
-  description = "My personal NUR repository";
+  description = "NUR Packages";
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+
   outputs = {
     self,
     nixpkgs,
