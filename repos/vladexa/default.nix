@@ -31,6 +31,7 @@
   };
   SteamTokenDumper = pkgs.callPackage ./pkgs/SteamTokenDumper/package.nix { };
   h3get = pkgs.callPackage ./pkgs/h3get/package.nix { };
+  mapillary-tools = pkgs.callPackage ./pkgs/mapillary-tools/package.nix { };
   bgutil-ytdlp-pot-provider = import ./pkgs/bgutil-ytdlp-pot-provider { inherit pkgs; };
   proton-cachyos = pkgs.callPackage ./pkgs/proton-cachyos/package.nix { };
   proton-cachyos-v3 = pkgs.callPackage ./pkgs/proton-cachyos/package.nix {
