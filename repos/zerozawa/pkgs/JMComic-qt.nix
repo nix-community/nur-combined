@@ -42,7 +42,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "JMComic-qt";
-  version = "1.3.2";
+  version = "1.3.2.1";
 
   src = fetchFromGitHub {
     owner = "tonquer";
