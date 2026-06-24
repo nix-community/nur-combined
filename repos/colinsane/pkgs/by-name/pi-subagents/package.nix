@@ -6,30 +6,18 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-subagents";
-  version = "0.30.0";
+  version = "0.31.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-subagents";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-a9jE5abF54ZDTUN6GajiNEPu4qVqjCJ7MRTTAA8nNiE=";
-    # upstream omits the version pin for pi-* dependencies, expecting pi to already be present.
-    # patch out the deps onto pi *here*, so that nix-update-script can generate a correct lockfile.
-    postFetch = ''
-      sed -i $out/package.json \
-        -e '/"@earendil-works\/pi-agent-core": "/d' \
-        -e '/"@earendil-works\/pi-ai": "/d' \
-        -e '/"@earendil-works\/pi-coding-agent": "/d'
-    '';
+    hash = "sha256-lvcf6VC6xfZ3j8oHpKoYPNQi8hKFLLhcQq5FxcjJaKk=";
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-8k4+YRIRp0oYXsSI9TccrJZiwK8fyZWDvUawgqeXB8c=";
-
-  postPatch = ''
-    cp ${./package-lock.json} package-lock.json
-  '';
+  npmDepsHash = "sha256-abMge56kLNoisdrayAWTPffXBuxcN6kP4yQLCzuInRA=";
 
   dontNpmBuild = true;
 
@@ -44,11 +32,7 @@ buildNpmPackage (finalAttrs: {
     rmdir $out/bin
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--generate-lockfile"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Pi extension for delegating tasks to subagents with chains, parallel execution, and TUI clarification";
