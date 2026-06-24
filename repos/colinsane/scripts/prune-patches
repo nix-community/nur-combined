@@ -3,7 +3,7 @@
 set -uo pipefail
 
 PATCHES_DIR="pkgs/by-name/nixpkgs-bootstrap/patches"
-NIXPKGS_DIR="$HOME/dev/3rd/nixpkgs"
+NIXPKGS_DIR="$HOME/ref/repos/NixOS/nixpkgs"
 if [[ -z "${NIXPKGS_REV:-}" ]]; then
   # allow manual specification of NIXPKGS_REV, to make recovery easier
   NIXPKGS_REV=$(nix-instantiate --eval --raw -A nixpkgs-bootstrap.master.rev)
