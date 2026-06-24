@@ -8,6 +8,7 @@ and are noted with a `!` in the message.
 
 ## Changes
 
+- feat(pkgs/recon): find wrapped claude programs from our own forking 2026-06-24
 - fix(pkgs/recon): use a forked development branch to finding session 2026-06-24
 - feat(pkgs/recon): package agentic session viewers across tmux panes 2026-06-24
 - feat(pkgs/changsets): write entries for updates with a kind program 2026-01-31

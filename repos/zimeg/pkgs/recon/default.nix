@@ -6,13 +6,13 @@
 
 rustPlatform.buildRustPackage {
   pname = "recon";
-  version = "0.6.1-unstable-2026-06-24"; # https://github.com/mwbrooks/recon/tree/fix-discover-wrapped-claude
+  version = "0.6.1-unstable-2026-06-24"; # https://github.com/zimeg/recon/tree/feat/detect-claude-wrapped
 
   src = fetchFromGitHub {
-    owner = "mwbrooks";
+    owner = "zimeg";
     repo = "recon";
-    rev = "5a39fd8367334d410bcef9992988e92e579fbb18";
-    hash = "sha256-SOgYB8PSR4uwYY5sWU4gpxUTaKYeJZkBEwRf24GBvNw=";
+    rev = "f332e4ab350ca5371d0ae2703f9cb6b37f72d5aa";
+    hash = "sha256-r21Wzh14lE/W5ezQoy7zKcoAX+M7tch7+6sOxNVlIZs=";
   };
 
   cargoLock = {
