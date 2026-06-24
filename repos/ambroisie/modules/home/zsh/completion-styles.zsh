@@ -15,6 +15,8 @@ zstyle ':completion:*' list-dirs-first true
 zstyle ':completion:*' squeeze-slashes true
 # Add colors to processes for kill completion
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+# Separate man sections
+zstyle ':completion:*:manuals' separate-sections true
 
 # match uppercase from lowercase
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
@@ -26,6 +28,9 @@ zstyle ':completion:*:*:(^rm):*:*files' ignored-patterns '*?.o' '*?.c~' '*?.old'
 # on processes completion complete all user processes
 # shellcheck disable=2016
 zstyle ':completion:*:processes' command 'ps -au$USER'
+# Make kill completion more verbose
+# shellcheck disable=2016
+zstyle ':completion:*:*:kill:*:processes' command 'ps -u$USER -o pid,time,args -w -w'
 
 # Completion formatting and messages
 zstyle ':completion:*' verbose yes
