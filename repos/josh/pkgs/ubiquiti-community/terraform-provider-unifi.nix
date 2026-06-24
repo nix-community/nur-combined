@@ -3,9 +3,9 @@ let
   pkg = terraform-providers.mkProvider {
     owner = "ubiquiti-community";
     repo = "terraform-provider-unifi";
-    rev = "v0.52.4";
-    hash = "sha256-6VEnhqu+q16dNUO4OR0P6x0hS9wIHahr9wI/EPW0vBg=";
-    vendorHash = "sha256-wGcF0Bwm3zMbxa9gD44QOJV74pTmv6jprDmxBDA6vos=";
+    rev = "v0.53.0";
+    hash = "sha256-7lmT0ZCRfu3nL1FXAdxMxvQURtNcZiz9GY+0d7HI2N0=";
+    vendorHash = "sha256-XPEH1zya7e/3N/HxBPN/vZxFU5GOOXfBPTrnZEUzdpw=";
     provider-source-address = "registry.terraform.io/ubiquiti-community/unifi";
     homepage = "https://github.com/ubiquiti-community/terraform-provider-unifi";
     spdx = "MPL-2.0";
