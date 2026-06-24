@@ -14,13 +14,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cocoa-way";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "J-x-Z";
     repo = "cocoa-way";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-z2HNfq5AmLGvwciLUCSVkCKhI6goZ6oLuF5qxydNX9Q=";
+    hash = "sha256-JXswHaF81Hw6ymTnLVJczvmje72qUPQl3YrMAWJv6Ys=";
   };
 
   cargoHash = "sha256-llveKDuGKSoQyAoIlHfVh/z0FD1zvwdLLifa057xydk=";
