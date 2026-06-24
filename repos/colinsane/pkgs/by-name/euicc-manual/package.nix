@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   doInstallCheck = true;
 
   passthru = rec {
-    updateWithSuper = false;  #< XXX(2026-03-15): no future version passes installCheck, but also this package is now an unused leaf node.
+    skipBulkUpdate = true;  #< XXX(2026-03-15): no future version passes installCheck, but also this package is now an unused leaf node.
     updateScript = unstableGitUpdater { };
     ci_manifest_path = "share/doc/euicc-manual/docs/pki/ci/manifest.json";
     ci_manifest = "${finalAttrs.finalPackage}/${ci_manifest_path}";

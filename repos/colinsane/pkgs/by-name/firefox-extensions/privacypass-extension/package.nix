@@ -97,7 +97,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   meta.broken = true;  # XXX(2026-02-23): blind-rsa-signatures dependency fails build. this is why you use lockfiles.
 
   passthru = {
-    updateWithSuper = false;  # no way to validate any update, since the deps are broken (no lockfile).
+    skipBulkUpdate = true;  # no way to validate any update, since the deps are broken (no lockfile).
     updateScript = nix-update-script {
       extraArgs = [
         "--generate-lockfile"

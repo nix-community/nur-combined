@@ -1,0 +1,44 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.rofi ps.sane-open ]'
+
+set -e
+
+usage() {
+  echo "usage: rofi-kagi [options]"
+  echo "prompt for a query with rofi, then run \`kagi search <query>\` in the terminal"
+  echo
+  echo "options:"
+  echo "--help, -h: show this help"
+  exit "$1"
+}
+
+main() {
+  while [ "$#" -gt 0 ]; do
+    case "$1" in
+      (-h|--help)
+        usage 0
+        ;;
+      (*)
+        echo "unknown argument: $1" >&2
+        usage 1
+        ;;
+    esac
+  done
+
+  local query
+  query=$(\
+    rofi -dmenu \
+    -p ' [query]' \
+    -theme-str 'prompt { text-color: var(fg0); } textbox-prompt-colon { text-color: var(accent0); }' \
+    </dev/null \
+  ) || true
+  if [ -z "${query:-}" ]; then
+    exit 0
+  fi
+
+  local url=https://kagi.com/search?q=$query
+
+  exec sane-open --uri "$url"
+}
+
+main "$@"

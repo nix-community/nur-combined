@@ -8,7 +8,7 @@
 }:
 
 lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
-  updateWithSuper = false;  #< don't update feeds unless explicitly asked to by the user
+  skipBulkUpdate = true;  #< don't update feeds unless explicitly asked to by the user
 
   mkFeed = callPackage ./template.nix {};
 

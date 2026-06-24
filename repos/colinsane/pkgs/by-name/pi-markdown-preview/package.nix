@@ -43,7 +43,7 @@ buildNpmPackage (finalAttrs: {
       "--generate-lockfile"
     ];
   };
-  passthru.updateWithSuper = false;  #< patched lockfile generation is not automated, breaks
+  passthru.skipBulkUpdate = true;  #< patched lockfile generation is not automated, breaks
 
   meta = {
     description = "Rendered markdown + LaTeX preview for pi, with terminal, browser, and PDF output";

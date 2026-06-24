@@ -66,7 +66,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { };
-  passthru.updateWithSuper = false;  #< 2026-05-11: i don't actively use this
+  passthru.skipBulkUpdate = true;  #< 2026-05-11: i don't actively use this
 
   meta = {
     description = "Soundpad for linux that works via pipewire";

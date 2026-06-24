@@ -8,7 +8,7 @@
   symlinkJoin,
 }:
 lib.recurseIntoAttrs (lib.makeScope newScope (self: with self; {
-  updateWithSuper = false;  #< don't update datasets unless user explicitly asks for that, because there are *so many*, and unchanging
+  skipBulkUpdate = true;  #< don't update datasets unless user explicitly asks for that, because there are *so many*, and unchanging
 
   downloadSofacoustics = prefix: database: name: hash: stdenvNoCC.mkDerivation (finalAttrs: {
     name = "${database}-${name}";

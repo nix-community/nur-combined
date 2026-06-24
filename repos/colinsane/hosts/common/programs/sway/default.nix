@@ -190,6 +190,7 @@ in
       "pipewire"
       "playerctl"  # for waybar & particularly to have playerctld running
       "rofi"  # menu/launcher
+      "rofi-kagi"
       "rofi-snippets"
       "sane-screenshot"
       "sane-open"

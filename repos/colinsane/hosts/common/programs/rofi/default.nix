@@ -198,7 +198,7 @@ in
     };
     sandbox.whitelistWayland = true;
     sandbox.extraHomePaths = [
-      ".cache/rofi"
+      # ".cache/rofi"
       ".config/rofi/config.rasi"
     ];
 

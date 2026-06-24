@@ -564,7 +564,7 @@ in {
       lua-spore
     ;
     updateScript = [ ./update ];
-    updateWithSuper = false;  # XXX: `update` doesn't update everything -- just the toplevel version/hash -- so disable unless i start using the package more
+    skipBulkUpdate = true;  # XXX: `update` doesn't update everything -- just the toplevel version/hash -- so disable unless i start using the package more
   };
 
   meta = {

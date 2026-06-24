@@ -89,6 +89,7 @@ bindsym Print exec sane-open --application sane-screenshot.desktop
 bindsym $mod+Print exec sane-open --application sane-screenshot.desktop
 bindsym $mod+p exec sane-open --application sane-screenshot.desktop
 bindsym $mod+l exec systemctl start $locker
+bindsym $mod+k exec sane-open --application rofi-kagi.desktop
 bindsym $mod+s exec sane-open --application rofi-snippets.desktop
 bindsym $mod+d exec sane-open --application rofi.desktop
 bindsym $mod+Return exec sane-open --application xdg-terminal-exec.desktop

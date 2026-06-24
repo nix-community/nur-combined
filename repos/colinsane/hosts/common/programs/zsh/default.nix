@@ -178,7 +178,15 @@ in
       };
 
       function switch() {
-        ( cd ~/nixos && ./scripts/deploy "$@" )
+        local dir="$PWD"
+        while [[ "$dir" != $(dirname "$dir") ]] && ! [[ -x "$dir/scripts/deploy" ]]; do
+          dir=$(dirname "$dir")
+        done
+        if ! [[ -x "$dir/scripts/deploy" ]]; then
+          dir=~/nixos/master
+        fi
+
+        ( cd "$dir" && ./scripts/deploy "$@" )
       }
     '';
 

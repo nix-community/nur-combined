@@ -49,7 +49,7 @@
        symlink.target = "${config.sane.persist.stores.ephemeral.origin}/home/${config.sane.defaultUser}";
     };
 
-    "nixos".symlink.target = "dev/nixos";
+    "nixos".symlink.target = "ref/repos/colin/nix-files";
 
     "Books/servo".symlink.target = "/mnt/servo/media/Books";
     "Videos/servo".symlink.target = "/mnt/servo/media/Videos";

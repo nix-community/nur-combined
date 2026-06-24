@@ -175,8 +175,8 @@ let
       (nestedName: mkUpdateListIfAuto "${prefix}.${nestedName}" pkg."${nestedName}")
       (lib.optionals (shouldRecurse pkg) (subAttrNames pkg))
   ;
-  # a package can set `passthru.updateWithSuper = false;` if it doesn't want to be auto-updated.
-  mkUpdateListIfAuto = prefix: pkg: lib.optionals (pkg.updateWithSuper or true) (mkUpdateList prefix pkg);
+  # a package can set `passthru.skipBulkUpdate = true;` if it doesn't want to be auto-updated.
+  mkUpdateListIfAuto = prefix: pkg: lib.optionals (!(pkg.skipBulkUpdate or false)) (mkUpdateList prefix pkg);
 
   mkUpdateInfo = prefix: pkg: let
     # the actual shell command which can update the package, after an environment has been configured for the updater:

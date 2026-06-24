@@ -54,6 +54,9 @@ configureKeyboardFor_application() {
     (rofi-filebrowser.desktop)
       setKeyboard showIfRoom
       ;;
+    (rofi-kagi.desktop)
+      setKeyboard show
+      ;;
     (rofi-snippets.desktop)
       setKeyboard showIfRoom
       ;;
