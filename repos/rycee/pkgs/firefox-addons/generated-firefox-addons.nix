@@ -1683,10 +1683,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.3.6";
+      version = "7.3.7";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861541/cardpointers_x-7.3.6.xpi";
-      sha256 = "a9f0a0a1e43d3b342cf236806a4da3d058fe59b9f67875f41131bc71c6510401";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4865291/cardpointers_x-7.3.7.xpi";
+      sha256 = "82d89e0680f4fff780b93b36f41a884ec40bdb3d48eae67a4aa10f3f31c3191e";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -4689,10 +4689,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.4";
+      version = "1.22.5";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4864097/geo_spoof-1.22.4.xpi";
-      sha256 = "dcf07f03eca452c64a21a42871a4db114b7447d79c721142a6965feacb80935f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4864253/geo_spoof-1.22.5.xpi";
+      sha256 = "216c1a595bbcdbc22edc8814450591a53b7588d316d6ba45dc6a996bba45e871";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -9908,10 +9908,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.4.3";
+      version = "1.4.4";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4863322/mergify-1.4.3.xpi";
-      sha256 = "ea27e0e3b06eb93499ec7d13716218f416ef6f7111a216db2b8bee5e58cdfbae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4864696/mergify-1.4.4.xpi";
+      sha256 = "be70850fb5e677fbd411cbdb5b7705bfbae5e86c2a2bb7f9413658fd6fc6b19c";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -11202,10 +11202,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.12.0";
+      version = "5.13.0";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4802286/passbolt-5.12.0.xpi";
-      sha256 = "2fea32334f2015aa12119906dc789557ad38d4f511864c9ced2b42f66deaec40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4847807/passbolt-5.13.0.xpi";
+      sha256 = "7f8b70010e9d0fbc1ae53a926a88a7045a0a7c360d33b1ea6820890d8062c548";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -16722,10 +16722,10 @@
     };
     "web-clipper-obsidian" = buildMozillaXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "1.6.1";
+      version = "1.7.0";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4774852/web_clipper_obsidian-1.6.1.xpi";
-      sha256 = "2ad95787cd364d9fd179db3b2b43832ab3a70a92628a881b2a08e3f7474ada43";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4854020/web_clipper_obsidian-1.7.0.xpi";
+      sha256 = "f9670e4ba4c01072dd1689b267ec32074eb1cb9636d8a429a32000646190008e";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";

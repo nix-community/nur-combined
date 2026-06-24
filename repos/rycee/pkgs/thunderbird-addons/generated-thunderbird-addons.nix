@@ -231,10 +231,10 @@
     };
     "provider-for-google-calendar" = buildMozillaXpiAddon {
       pname = "provider-for-google-calendar";
-      version = "128.5.11";
+      version = "128.5.12";
       addonId = "{a62ef8ec-5fdc-40c2-873c-223b8a6925cc}";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1045009/provider_for_google_calendar-128.5.11-tb.xpi?src=";
-      sha256 = "519cac1cf0ad2fcdecb301ad47ad50ecad635742feb8a01f746c2de951a12455";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1048156/provider_for_google_calendar-128.5.12-tb.xpi?src=";
+      sha256 = "81c3c2531d82033518c9f68f747adf99ef259e6ff0de9426751eae87d6023372";
       meta = with lib;
       {
         homepage = "https://github.com/kewisch/gdata-provider/wiki/FAQ";
