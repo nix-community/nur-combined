@@ -9,11 +9,6 @@
       "arguments": ["fmt", "--", "--stdin", "--", "{buffer_path}"]
     }
   },
-  "languages": {
-    "Nix": {
-      "language_servers": ["nixd", "jj_lsp", "!nil"]
-    }
-  },
   "lsp": {
     "nixd": {
       "settings": {
