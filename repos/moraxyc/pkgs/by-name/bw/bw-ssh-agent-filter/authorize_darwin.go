@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"time"
 
 	touchid "github.com/noamcohen97/touchid-go"
@@ -31,10 +32,9 @@ func (a *touchIDAuthorizer) Authorize(key ssh.PublicKey, comment string, flags a
 
 	reason := fmt.Sprintf("Allow SSH signature using %s\n%s", comment, ssh.FingerprintSHA256(key))
 
-	if err := touchid.CanAuthenticate(a.policy); err != nil {
-		return fmt.Errorf("local authentication unavailable: %w", err)
-	}
+	started := time.Now()
 	if err := touchid.Authenticate(ctx, a.policy, reason); err != nil {
+		log.Printf("auth failed after %s: %s", time.Since(started).Round(time.Millisecond), ssh.FingerprintSHA256(key))
 		if errors.Is(err, context.DeadlineExceeded) {
 			return errors.New("local authentication timed out")
 		}
@@ -46,6 +46,7 @@ func (a *touchIDAuthorizer) Authorize(key ssh.PublicKey, comment string, flags a
 		}
 		return fmt.Errorf("local authentication denied: %w", err)
 	}
+	log.Printf("auth ok after %s: %s", time.Since(started).Round(time.Millisecond), ssh.FingerprintSHA256(key))
 
 	return nil
 }

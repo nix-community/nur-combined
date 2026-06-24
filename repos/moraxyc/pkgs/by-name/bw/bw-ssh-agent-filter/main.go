@@ -13,6 +13,7 @@ import (
 	"path/filepath"
 	"strings"
 	"syscall"
+	"time"
 
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
@@ -223,22 +224,32 @@ func (a *filterAgent) Sign(key ssh.PublicKey, data []byte) (*ssh.Signature, erro
 	if !a.isAllowed(key) {
 		return nil, errors.New("key not allowed")
 	}
+	started := time.Now()
 	if err := a.auth.Authorize(key, a.commentFor(key), 0); err != nil {
 		return nil, err
 	}
+	log.Printf("authorize finished after %s: %s", time.Since(started).Round(time.Millisecond), ssh.FingerprintSHA256(key))
 
-	return a.upstream.Sign(key, data)
+	started = time.Now()
+	sig, err := a.upstream.Sign(key, data)
+	log.Printf("upstream sign finished after %s: %s", time.Since(started).Round(time.Millisecond), ssh.FingerprintSHA256(key))
+	return sig, err
 }
 
 func (a *filterAgent) SignWithFlags(key ssh.PublicKey, data []byte, flags agent.SignatureFlags) (*ssh.Signature, error) {
 	if !a.isAllowed(key) {
 		return nil, errors.New("key not allowed")
 	}
+	started := time.Now()
 	if err := a.auth.Authorize(key, a.commentFor(key), flags); err != nil {
 		return nil, err
 	}
+	log.Printf("authorize finished after %s flags=%d: %s", time.Since(started).Round(time.Millisecond), flags, ssh.FingerprintSHA256(key))
 
-	return a.upstream.SignWithFlags(key, data, flags)
+	started = time.Now()
+	sig, err := a.upstream.SignWithFlags(key, data, flags)
+	log.Printf("upstream sign finished after %s flags=%d: %s", time.Since(started).Round(time.Millisecond), flags, ssh.FingerprintSHA256(key))
+	return sig, err
 }
 
 func (a *filterAgent) isAllowed(key ssh.PublicKey) bool {
