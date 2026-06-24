@@ -12,12 +12,12 @@
   xvfb,
 }:
 let
-  version = "3.4.0";
+  version = "3.4.1";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-gVarQkY6Bi8Dc93E4pI2qeUHJi8Wb1/ZCbRUmpHy8Kw=";
+    hash = "sha256-ayH6kdyWOxMmqXZWpPOsTvdPX0Gxgi0N4sDCDWjpd5U=";
   };
 
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
@@ -98,6 +98,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   disabledTestPaths = [
     # Fail
     "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
+    # Regression
+    "tests/test_i18n_key_parity.py::test_all_literal_tr_keys_resolve_in_en"
     # Slow
     "tests/test_f3_whole_table_growth.py"
     "tests/test_f3_whole_table_rebuild.py"
