@@ -40,18 +40,27 @@ in
       nativeBuildInputs = [unzip asar];
 
       postFixup = ''
-        appRoot="$out/Applications/Beeper Nightly.app/Contents/Resources/app"
-        ${lib.getExe asar} extract "$out/Applications/Beeper Nightly.app/Contents/Resources/app.asar" "$appRoot"
-        rm "$out/Applications/Beeper Nightly.app/Contents/Resources/app.asar"
+        asarDir="$out/Applications/Beeper Nightly.app/Contents/Resources"
+        appRoot="$asarDir/app"
+        frameworksDir="$out/Applications/Beeper Nightly.app/Contents/Frameworks"
+
+        # asar expects NodeAPI.framework under build/_darwin-arm64/ but zip puts it in Frameworks/
+        if [ -d "$frameworksDir/NodeAPI.framework" ] && [ ! -e "$asarDir/app.asar.unpacked/build/_darwin-arm64/NodeAPI.framework" ]; then
+          mkdir -p "$asarDir/app.asar.unpacked/build/_darwin-arm64"
+          ln -s "$frameworksDir/NodeAPI.framework" "$asarDir/app.asar.unpacked/build/_darwin-arm64/NodeAPI.framework"
+        fi
+
+        ${lib.getExe asar} extract "$asarDir/app.asar" "$appRoot"
+        rm "$asarDir/app.asar"
 
         # disable auto update
-        sed -i 's/c=d??{},p=c.hw_acceleration??!0/c={...(d??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' $appRoot/build/main/index-*.mjs
+        sed -i 's/c=d??{},p=c.hw_acceleration??!0/c={...(d??{}),auto_update_disabled:true},p=c.hw_acceleration??!0/g' "$appRoot"/build/main/index-*.mjs
 
         # prevent updates
-        sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' $appRoot/build/main/main-entry-*.mjs
+        sed -i -E 's/executeDownload\([^)]+\)\{/executeDownload(){return;/g' "$appRoot"/build/main/main-entry-*.mjs
 
         # hide version status element on about page otherwise a error message is shown
-        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' $appRoot/build-browser/*.css
+        sed -i '$ a\.subview-prefs-about > div:nth-child(2) {display: none;}' "$appRoot"/build-browser/*.css
       '';
     })
   else
