@@ -3,10 +3,10 @@
 {
   cockpit-podman = {
     pname = "cockpit-podman";
-    version = "127";
+    version = "128";
     src = fetchurl {
-      url = "https://github.com/cockpit-project/cockpit-podman/releases/download/127/cockpit-podman-127.tar.xz";
-      sha256 = "sha256-P4jhyWrKE+69J/mjKvPYaidRRCK0WseI0BcjaQDGd9w=";
+      url = "https://github.com/cockpit-project/cockpit-podman/releases/download/128/cockpit-podman-128.tar.xz";
+      sha256 = "sha256-uuTsg2PO9+p+kYTzcQt9uhuYDhMK1m2HV+KD0DFRWBE=";
     };
   };
 }
