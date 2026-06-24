@@ -76,10 +76,10 @@
     "nixpkgs-patched": {
       "locked": {
         "lastModified": 1780941541,
-        "narHash": "sha256-qFzT+IHjci1oq5zmq+bz8QPfp5uuJFIRijDlBWYm6LY=",
+        "narHash": "sha256-K6ydi0bixi5PFtvK0zWZ7moZdmHeM/MU8LU7XDebU+A=",
         "owner": "dtomvan",
         "repo": "nixpkgs",
-        "rev": "78276302cb12e25918b8c84c8aa31dd0834ede87",
+        "rev": "58f43c54fae4f98b587e2d95f095020853abffe2",
         "type": "github"
       },
       "original": {
@@ -108,11 +108,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781635127,
-        "narHash": "sha256-aPzioetoWjZP/d8FGvvDESIZfUcWKBL/DNByXApVMNc=",
+        "lastModified": 1781970354,
+        "narHash": "sha256-HIq71epiAXOd2KQmzOfssiqvR9HtZg02hH9sZYRGtNQ=",
         "owner": "dtomvan",
         "repo": "nixpkgs-patcher",
-        "rev": "00468e9290edf2030d0fafe2ac7bff6035b45b6d",
+        "rev": "26f9b90bbd948891a9ce7f7738f8eeb1c3515991",
         "type": "github"
       },
       "original": {
@@ -154,11 +154,11 @@
         "treefmt-nix": []
       },
       "locked": {
-        "lastModified": 1781813624,
-        "narHash": "sha256-0kttE1ilszxl/CvnrXx9ZMVABjgcs/oTWxyySxspSMU=",
+        "lastModified": 1782248811,
+        "narHash": "sha256-GYSDH73Wz4X/gZusf1fFZM1rj2GFAudDsKYyfHQqWx4=",
         "owner": "dtomvan",
         "repo": "puntbestanden",
-        "rev": "9b9968f362afae56d1503f9c47fb77de19046ef8",
+        "rev": "8e03614f31739554a478fbf0f5f2702f87713e11",
         "type": "github"
       },
       "original": {
