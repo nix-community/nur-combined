@@ -13,14 +13,14 @@
 
 let
   name = "chronicler";
-  version = "0.52.0";
+  version = "0.54.1";
 
   chronicler-unwrapped = appimageTools.wrapType2 {
     pname = name;
     version = "${version}-alpha";
     src = fetchurl {
       url = "https://github.com/mak-kirkland/chronicler/releases/download/v${version}-alpha/Chronicler_${version}_amd64.AppImage";
-      sha256 = "sha256-K61dooU3+hdm4T0/msp8UsstQUKogpLmC+KGDGid07E=";
+      sha256 = "sha256-1fcj8CzVkBzAalGHPAYyIoTYSJEKs+VR19mVrA5wUZ4=";
     };
   };
 
@@ -57,7 +57,7 @@ stdenv.mkDerivation {
     license = {
       fullName = "PolyForm Shield License 1.0.0";
       url = "https://polyformproject.org";
-      free = false;
+      free = true;
       redistributable = true;
     };
     mainProgram = "chronicler";
