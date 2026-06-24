@@ -1,4 +1,5 @@
 {
+  pkgs,
   lib,
   buildGoModule,
   fetchFromGitLab,
@@ -34,7 +35,14 @@ buildGoModule (finalAttrs: {
   # I have not installed the systemd unit and the /etc/default file here.
   # That's intentional, since they are useless on NixOS and rely on FHS
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+
+    services.default = {
+      imports = lib.singleton (lib.modules.importApply ./service.nix { inherit pkgs; });
+      alertmanager-matrix.package = finalAttrs.finalPackage;
+    };
+  };
 
   meta = {
     description = "Service for managing and receiving Alertmanager alerts on Matrix";
