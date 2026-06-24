@@ -119,7 +119,7 @@ stdenv.mkDerivation (finalAttrs: {
       $out/bin/folia-major \
       --prefix LD_LIBRARY_PATH : "${libraryPath}" \
       --set ELECTRON_OZONE_PLATFORM_HINT "auto" \
-      --add-flags "--enable-features=WaylandWindowDecorations"
+      --add-flags "--enable-features=UseOzonePlatform --ozone-platform=x11 --enable-wayland-ime --disable-gpu"
   '';
 
   passthru.updateScript =
