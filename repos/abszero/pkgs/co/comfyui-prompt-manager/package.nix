@@ -12,7 +12,7 @@ stdenvNoCC.mkDerivation (final: {
     owner = "ComfyAssets";
     repo = "ComfyUI_PromptManager";
     rev = "c01d8e3c123175a5c5e2521d9fc6b5dda5c0b257";
-    hash = "sha256-cv49ajisvmCI8EurgkpfFo9YUrn9k6WjJiQctcxEAXI=";
+    hash = "sha256-uhXHEIVcaA7zy20xe+wE1dtEg3YpUEEIKnDxHjv1bu4=";
   };
 
   propagatedBuildInputs = with python3.pkgs; [
@@ -27,6 +27,8 @@ stdenvNoCC.mkDerivation (final: {
              s|self.log_dir.mkdir(exist_ok=True)|self.log_dir.mkdir(parents=True, exist_ok=True)|' \
              utils/logging_config.py
   '';
+
+  dontBuild = true;
 
   installPhase = ''
     runHook preInstall

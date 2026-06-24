@@ -16,7 +16,7 @@ in
 
   config.programs.starship.settings = mkIf cfg.enable {
     format = ''
-      ($directory)( $git_branch)( $jobs)( $cmd_duration)( $status)$fill( $git_state)( $nodejs)( $rust)( $nix_shell)
+      ($directory)( ''${custom.jj})( $jobs)( $cmd_duration)( $status)$fill( $git_state)( $nodejs)( $rust)( $nix_shell)
       ($username$hostname )($shell )$character
     '';
 
@@ -34,16 +34,12 @@ in
     };
     custom.jj = {
       format = "[[$symbol $output]($style inverted)]($style)";
-      when = "${getExe pkgs.jj-starship} detect";
-      shell = [
-        (getExe pkgs.jj-starship)
-        "--no-jj-prefix"
-        "--no-jj-id"
-        "--no-git-prefix"
-        "--no-git-id"
-      ];
+      # when = "${getExe pkgs.jj-starship} detect";
+      when = true;
+      require_repo = true;
+      command = "${getExe pkgs.jj-starship} --no-color --no-jj-prefix --no-jj-id --no-git-prefix --no-git-id";
       symbol = "󰘬";
-      style = "bold red";
+      style = "bold green";
     };
     jobs = {
       format = "[[$symbol $number]($style inverted)]($style)";
