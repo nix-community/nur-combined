@@ -243,7 +243,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p $out/bin
     makeBinaryWrapper ${bun}/bin/bun $out/bin/omp \
       --argv0 omp \
-      --set BUN_INSTALL_CACHE_DIR "\$HOME/.cache/bun" \
       --add-flags "$out/lib/oh-my-pi/packages/coding-agent/dist/cli.js"
 
     # ── omp-stats wrapper ──
