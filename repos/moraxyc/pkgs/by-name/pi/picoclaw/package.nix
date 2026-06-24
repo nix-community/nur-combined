@@ -1,5 +1,4 @@
 {
-  callPackage,
   nixpkgs,
 
   sources,
@@ -14,21 +13,14 @@ nixpkgs.picoclaw.overrideAttrs (
 
     __darwinAllowLocalNetworking = true;
 
-    preConfigure = ''
-      rm -rf web/backend/dist
-      cp -r ${finalAttrs.passthru.frontend} web/backend/dist
-    '';
-
-    postInstall = ''
-      ln -sf $out/bin/{backend,picoclaw-launcher}
-      install -Dm644 web/picoclaw-launcher.png -t $out/share/icons/hicolor/256x256/apps
-      install -Dm444 web/picoclaw-launcher.desktop -t $out/share/applications
-    '';
-
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
       # nix-update auto -sfrontend
-      frontend = callPackage ./frontend.nix { picoclaw = finalAttrs; };
+      frontend = prevAttrs.passthru.frontend.overrideAttrs (old: {
+        pnpmDeps = old.pnpmDeps.overrideAttrs {
+          hash = "sha256-ECZBq/miLE9dkEOx8e8WI68tI0HBb+iFVeztwMVeeKw=";
+        };
+      });
     };
   }
 )
