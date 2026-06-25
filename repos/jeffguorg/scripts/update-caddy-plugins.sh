@@ -87,11 +87,7 @@ if [ "$DRY_RUN" -eq 1 ]; then
   exit 0
 fi
 
-if [ "$changed" -eq 0 ]; then
-  echo "所有插件已是最新，无需刷新 hash"
-  exit 0
-fi
-
+# 无条件刷新：caddy 自身版本随 nixpkgs（`nix flake update`）变化，与插件是否更新无关。
 echo
 echo "刷新 vendor hash via scripts/update-caddy-hash.sh"
 "$HASH_SCRIPT"
