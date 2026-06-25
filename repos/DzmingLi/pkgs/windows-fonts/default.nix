@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, ... }:
+{ lib, stdenvNoCC, fetchzip, ... }:
 let
   inherit (lib)
     maintainers
@@ -14,7 +14,10 @@ let
     redistributable = false;
   };
 
-  src = ./files;
+  src = fetchzip {
+    url = "https://github.com/DzmingLi/nur-packages/releases/download/windows-fonts-${version}/windows-fonts-${version}.tar.gz";
+    hash = "sha256-gOkhXIyFefeGQZ8PJNINVtkE2gcvX4pHmQPTErNc9uM=";
+  };
 
   meta = {
     inherit
@@ -23,19 +26,11 @@ let
 
     description = "Windows fonts distributed by Microsoft Microsoft Corporation Inc.";
     homepage = "https://learn.microsoft.com/en-us/typography/fonts/font-faq";
-
-    longDescription = ''
-      Windows fonts are proprietary software distributed by Microsoft Corporation Inc.
-
-      This package does not give you any rights to any of its included
-      fonts.
-    '';
-
     maintainers = with maintainers; [ brsvh ];
     redistributable = false;
   };
 in
-stdenvNoCC.mkDerivation rec {
+stdenvNoCC.mkDerivation {
   inherit
     meta
     src
@@ -52,7 +47,8 @@ stdenvNoCC.mkDerivation rec {
     runHook preInstall
 
     mkdir -p $out/share/fonts/truetype
-    cp -a ${src}/truetype/. $out/share/fonts/truetype/
+    cp -a ${src}/*.ttf $out/share/fonts/truetype/
+    cp -a ${src}/*.ttc $out/share/fonts/truetype/
 
     runHook postInstall
   '';

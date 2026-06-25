@@ -3,6 +3,7 @@
   python3Packages,
   fetchFromGitHub,
   makeWrapper,
+  nix-update-script,
   playwright-driver,
 }:
 
@@ -40,24 +41,21 @@ python3Packages.buildPythonApplication rec {
     mkdir -p $out/bin
     makeWrapper ${python3Packages.python.interpreter} $out/bin/quarkpantool \
       --add-flags "$out/lib/quarkpantool/quark.py" \
+      --prefix PYTHONPATH : "${python3Packages.makePythonPath propagatedBuildInputs}" \
       --set PLAYWRIGHT_BROWSERS_PATH "${playwright-driver.browsers}"
 
     makeWrapper ${python3Packages.python.interpreter} $out/bin/quarkpantool-login \
       --add-flags "$out/lib/quarkpantool/quark_login.py" \
+      --prefix PYTHONPATH : "${python3Packages.makePythonPath propagatedBuildInputs}" \
       --set PLAYWRIGHT_BROWSERS_PATH "${playwright-driver.browsers}"
 
     runHook postInstall
   '';
 
+  passthru.updateScript = nix-update-script { };
+
   meta = with lib; {
-    description = "A command-line tool for managing Quark cloud storage";
-    longDescription = ''
-      QuarkPanTool is a utility for Quark cloud storage that enables:
-      - Batch transfer of shared files to personal storage
-      - Batch generation of share links
-      - Batch downloading of files
-      - Web-based authentication using Playwright
-    '';
+    description = "一个批量转存、分享和下载夸克网盘文件的命令行工具";
     homepage = "https://github.com/ihmily/QuarkPanTool";
     license = licenses.asl20;
     platforms = platforms.linux;

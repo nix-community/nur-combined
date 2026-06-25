@@ -8,28 +8,16 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
-let
-  lib = pkgs.lib;
-in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-  _115browser = pkgs.callPackage ./pkgs/115br { };
-  baidupcs-go = pkgs.callPackage ./pkgs/baidupcs-go { };
-  blueprint-mcp = pkgs.callPackage ./pkgs/blueprint-mcp { };
-  context7-mcp = pkgs.callPackage ./pkgs/context7-mcp { };
-  genryumin-tc = pkgs.callPackage ./pkgs/genryumin { };
-  gotham-fonts = pkgs.callPackage ./pkgs/gotham-fonts { };
-  hust-network-login = pkgs.callPackage ./pkgs/hust-network-login { };
-  huiwen-mincho = pkgs.callPackage ./pkgs/huiwen-mincho { };
-  moonbit = pkgs.callPackage ./pkgs/moonbit { };
-  nix-plugin-pijul = pkgs.callPackage ./pkgs/nix-plugin-pijul { };
-  quarkpantool = pkgs.callPackage ./pkgs/quarkpantool { };
-  TRWUDMincho = pkgs.callPackage ./pkgs/TRWUDMincho { };
-  waydroid-script = pkgs.callPackage ./pkgs/waydroid-script { };
-  wechat = pkgs.callPackage ./pkgs/wechat { };
-  windows-fonts = pkgs.callPackage ./pkgs/windows-fonts { };
-  zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
 }
+# Load every package under ./pkgs via callPackage. This is done with plain
+# builtins (no external loader) so the package set evaluates under NUR's
+# restricted mode, which only allows fetching from https://static.rust-lang.org
+# and would otherwise reject pulling a loader from github.com at eval time.
+// builtins.mapAttrs
+  (name: _: pkgs.callPackage (./pkgs + "/${name}") { })
+  (pkgs.lib.filterAttrs (_: type: type == "directory") (builtins.readDir ./pkgs))

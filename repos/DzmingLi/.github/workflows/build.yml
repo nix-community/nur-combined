@@ -32,7 +32,7 @@ jobs:
         # Github found at
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - dzmingli
         nixPath:
           - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
     runs-on: ubuntu-latest
@@ -59,7 +59,7 @@ jobs:
     - name: Check evaluation
       run: |
         nix-env -f . -qa \* --meta --xml \
-          --allowed-uris https://static.rust-lang.org \
+          --allowed-uris 'https://static.rust-lang.org https://github.com' \
           --option restrict-eval true \
           --option allow-import-from-derivation true \
           --drv-path --show-trace \

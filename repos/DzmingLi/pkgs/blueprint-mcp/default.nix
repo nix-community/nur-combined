@@ -2,6 +2,7 @@
   lib,
   fetchFromGitHub,
   buildNpmPackage,
+  nix-update-script,
 }:
 
 let
@@ -62,6 +63,8 @@ const fs = require('fs');" \
 
   # The postinstall script is just a console.log message
   npmFlags = [ "--ignore-scripts" ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = with lib; {
     description = "MCP server for browser automation using real browser profiles";

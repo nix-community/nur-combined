@@ -1,17 +1,21 @@
-# This is a GitHub Actions workflow to automatically update packages.
+# GitHub Actions workflow to automatically update packages.
 name: Update Packages
 
 on:
-  # Allows you to trigger this workflow manually from the Actions tab on GitHub.
   workflow_dispatch:
-  # Defines a schedule. This example runs at 08:00 UTC every day.
-  # You can customize the cron schedule to your liking.
   schedule:
     - cron: '0 8 * * *'
 
 jobs:
   update-packages:
     runs-on: ubuntu-latest
+    # Authenticate GitHub API calls (nix-update's release lookups) to avoid
+    # unauthenticated rate limits.
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    defaults:
+      run:
+        shell: nu {0}
     steps:
       - name: Check out repository
         uses: actions/checkout@v6
@@ -21,44 +25,57 @@ jobs:
         with:
           nix_path: nixpkgs=channel:nixos-unstable
 
-      - name: Install ripgrep
+      - name: Install nushell + nix-update
+        # Bootstrapping step — bash because nu is what we're installing.
+        shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ripgrep
+          nix profile install nixpkgs#nushell nixpkgs#nix-update
+          echo "$HOME/.nix-profile/bin" >> "$GITHUB_PATH"
 
-      - name: Run update scripts
-        run: |
-          chmod +x ./update-baidupcs-go.sh
-          chmod +x ./update-moonbit.sh
-          chmod +x ./update-quarkpantool.sh
-          chmod +x ./update-wechat.sh
-          chmod +x ./update-blueprint-mcp.sh
-          chmod +x ./update-context7-mcp.sh
-
-          ./update-baidupcs-go.sh
-          ./update-moonbit.sh
-          ./update-quarkpantool.sh
-          ./update-wechat.sh
-          ./update-blueprint-mcp.sh
-          ./update-context7-mcp.sh
-
-      - name: Commit and push changes
+      - name: Configure git
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
 
-          if git diff --quiet; then
-            echo "No changes to commit."
-            exit 0
-          fi
+      - name: Update flake inputs
+        run: |
+          nix flake update
+          if not (git status --porcelain flake.lock | str trim | is-empty) {
+            git add flake.lock
+            git commit -m "flake: update inputs"
+          }
 
-          echo "Committing updated hashes..."
-          git add pkgs/baidupcs-go/default.nix \
-            pkgs/moonbit/default.nix \
-            pkgs/quarkpantool/default.nix \
-            pkgs/wechat/default.nix \
-            pkgs/blueprint-mcp/default.nix \
-            pkgs/context7-mcp/default.nix \
-            pkgs/context7-mcp/package-lock.json
-          git commit -m "packages: update to latest"
-          git push
+      - name: Update packages via nix-update
+        run: |
+          nix-update --flake baidupcs-go --commit
+          nix-update --flake quarkpantool --commit
+          nix-update --flake blueprint-mcp --commit
+          nix-update --flake zju-connect --version=branch --commit
+
+      - name: Update special packages via nu scripts
+        run: |
+          nu scripts/update-wechat.nu
+
+          if not (git status --porcelain pkgs/wechat/linux.nix | str trim | is-empty) {
+            git add pkgs/wechat/linux.nix
+            git commit -m "wechat: update"
+          }
+
+      - name: Update wxwork (macOS native .app; Linux bottle is pinned by hand)
+        run: |
+          nu scripts/update-wxwork.nu
+
+          if not (git status --porcelain pkgs/wxwork/darwin.nix | str trim | is-empty) {
+            let ver = (open pkgs/wxwork/darwin.nix --raw | parse -r 'version = "(?<v>[^"]+)";' | first | get v)
+            git add pkgs/wxwork/darwin.nix
+            git commit -m $"wxwork: ($ver) \(darwin\)"
+          }
+
+      - name: Push changes
+        run: |
+          let ahead = (git rev-list HEAD ^origin/main --count | str trim | into int)
+          if $ahead > 0 {
+            git push
+          } else {
+            print "Nothing to push."
+          }
