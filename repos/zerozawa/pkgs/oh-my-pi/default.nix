@@ -13,14 +13,14 @@
 }:
 
 let
-  version = "16.1.16";
+  version = "16.1.19";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-ljuQCYEN0m1UkP130gqPoipCwyHWeR3a0r9ekkOw+u4=";
+    hash = "sha256-erynSsK6psYRnqlvji2e8bhPjpJHO8wY+y59bZ47EOk=";
   };
 
   # Platform mapping
@@ -69,7 +69,7 @@ let
       runHook postInstall
     '';
 
-    outputHash = "sha256-pkx5LFZ66oU7MTbZQeo5CWIrUZr7aSePrAamgiRVWNk=";
+    outputHash = "sha256-k/TZih1R/RJdzj73QrFeOY3wt0MHe5oD1OLihQe6sHs=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -81,7 +81,7 @@ let
     pname = "${pname}-pi-natives";
     inherit version src;
 
-    cargoHash = "sha256-mJD9o4i5qWd2FnhYN0pjfyZ6QuSMB++oI+Dy2LLEnRE=";
+    cargoHash = "sha256-PGHDxPNXvg/KblSsNUGyrZ8ywaymHw0G5gbPengjo6M=";
 
     nativeBuildInputs = [
       bun
@@ -95,18 +95,24 @@ let
     ];
 
     RUSTC_BOOTSTRAP = "1";
-    
+
     # Use gcc.arch if user configured it (nix.conf gccarch-* → nixpkgs.config.gccArch)
     # Otherwise let upstream auto-detect: avx2 → modern/v3, else baseline/v2
     TARGET_PLATFORM = "linux";
     TARGET_ARCH = rustArch;
     TARGET_VARIANT = null;
-    RUSTFLAGS = let arch = stdenvNoCC.hostPlatform.gcc.arch or null;
-    in lib.optionalString (isX86 && arch != null) "-C target-cpu=${arch}";
+    RUSTFLAGS =
+      let
+        arch = stdenvNoCC.hostPlatform.gcc.arch or null;
+      in
+      lib.optionalString (isX86 && arch != null) "-C target-cpu=${arch}";
     buildType = "ci";
     doCheck = false;
 
-    cargoBuildFlags = [ "-p" "pi-natives" ];
+    cargoBuildFlags = [
+      "-p"
+      "pi-natives"
+    ];
 
     preBuild = ''
       chmod -R u+w .
@@ -138,7 +144,10 @@ let
 
     meta = {
       description = "Native Rust addon for oh-my-pi";
-      platforms = [ "x86_64-linux" "aarch64-linux" ];
+      platforms = [
+        "x86_64-linux"
+        "aarch64-linux"
+      ];
     };
   };
 
@@ -263,7 +272,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "AI coding agent CLI/TUI with 32 built-in tools, 40+ LLM providers, and sub-agent orchestration";
     homepage = "https://github.com/can1357/oh-my-pi";
     license = lib.licenses.mit;
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "omp";
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
   };

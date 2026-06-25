@@ -6,7 +6,7 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "spec-kit";
-  version = "0.11.6";
+  version = "0.11.8";
 
   pyproject = true;
 
@@ -14,7 +14,7 @@ python3Packages.buildPythonApplication rec {
     owner = "github";
     repo = "spec-kit";
     rev = "v${version}";
-    hash = "sha256-aHPmKwEaUAi5od3/hUnf1zikSXkTEowIctbR6Ye0faY=";
+    hash = "sha256-6qtnmQYcIEMsWSggYeGfH7ydHLyM4GMSUTXqWUv/yUk=";
   };
 
   build-system = with python3Packages; [
