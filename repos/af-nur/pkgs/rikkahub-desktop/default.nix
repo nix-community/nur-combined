@@ -121,7 +121,6 @@ in symlinkJoin {
         description = "RikkaHub desktop built from source";
         homepage = "https://github.com/yuh-G/rikkahub-desktop";
         mainProgram = "rikkahub-pc";
-        broken = true;
         license = {
             shortName = "rikkahub-segmented-dual";
             fullName = "RikkaHub Segmented Dual License";
