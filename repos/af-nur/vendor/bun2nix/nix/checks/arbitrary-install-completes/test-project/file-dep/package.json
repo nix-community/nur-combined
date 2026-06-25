@@ -1,0 +1,5 @@
+{
+  "name": "test-project-file-dep",
+  "type": "module",
+  "private": true
+}

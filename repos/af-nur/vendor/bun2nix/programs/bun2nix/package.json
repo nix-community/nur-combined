@@ -1,0 +1,28 @@
+{
+  "name": "bun2nix",
+  "version": "2.1.0",
+  "module": "index.ts",
+  "bin": {
+    "bun2nix": "index.ts"
+  },
+  "scripts": {
+    "postinstall": "bun2nix -o bun.nix",
+    "build:wasm": "RUSTFLAGS=\"\" wasm-pack build --target nodejs --out-dir ./dist --out-name bun2nix-wasm --no-pack",
+    "build": "bun run build:wasm && cp package.json index.ts ./dist",
+    "start": "bun run build && bun run dist/index.ts"
+  },
+  "keywords": [
+    "bun",
+    "nix",
+    "build",
+    "deterministic"
+  ],
+  "type": "module",
+  "dependencies": {
+    "sade": "^1.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nix-community/bun2nix"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "@workspace/app",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "bun build --compile --minify-whitespace --minify-syntax --targetbun --outfile dist/app ./index.js"
+  },
+  "dependencies": {
+    "@workspace/lib": "workspace:*"
+  }
+}

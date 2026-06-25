@@ -1,0 +1,2 @@
+# Ignore flake.lock files in templates to force an update of template flakes on download
+flake.lock

@@ -1,0 +1,6 @@
+fetchFromGitHub {
+    owner = "{{ owner }}";
+    repo = "{{ repo }}";
+    rev = "{{ rev }}";
+    hash = "{{ hash }}";
+  }

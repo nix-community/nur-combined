@@ -1,0 +1,23 @@
+{
+  "name": "test-catalog-workspace",
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "catalog": {
+      "@workspace/lib": "workspace:*",
+      "is-odd": "^3.0.1"
+    },
+    "catalogs": {
+      "tooling": {
+        "bun2nix": "^2.0.0"
+      }
+    }
+  },
+  "scripts": {
+    "postinstall": "bun2nix -o bun.nix"
+  },
+  "devDependencies": {
+    "bun2nix": "catalog:tooling"
+  }
+}

@@ -1,0 +1,4 @@
+builtins.fetchTarball {
+    url = "{{ url }}";
+    sha256 = "{{ hash }}";
+  }

@@ -1,0 +1,25 @@
+{
+  "name": "assets",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "postinstall": "bun2nix -o bun.nix"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.0",
+    "bun2nix": "^2.0.3",
+    "daisyui": "^5.5.5",
+    "phoenix": "^1.8.2",
+    "phoenix_html": "^4.3.0",
+    "phoenix_live_view": "^1.1.18",
+    "tailwindcss": "^4.1.0",
+    "topbar": "^3.0.0"
+  }
+}
