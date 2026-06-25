@@ -7,13 +7,13 @@
 
 swiftPackages.stdenv.mkDerivation rec {
   pname = "whatcable";
-  version = "1.1.2";
+  version = "1.1.6";
 
   src = fetchFromGitHub {
     owner = "darrylmorley";
     repo = "whatcable";
     rev = "v${version}";
-    hash = "sha256-uRqjHreOr+HAUnx6GFrj41bojPlxAVhKDy8I6zYNNW8=";
+    hash = "sha256-/JN6RlsN+CXbtmMsNzvw1dPDWKiXSKTOBBza80EPKq0=";
   };
 
   nativeBuildInputs = with swiftPackages; [
@@ -64,15 +64,7 @@ EOF
     substituteInPlace Sources/WhatCable/App/App.swift \
       --replace-fail \
         '        Settings { EmptyView() }' \
-        '        Settings { SettingsView().environmentObject(AppDelegate.refreshSignal) }' \
-      --replace-fail \
-        '        wattsTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            Task { @MainActor in self?.updateMenuBarWatts() }
-        }' \
-        '        wattsTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
-            guard let self else { return }
-            Task { @MainActor in self.updateMenuBarWatts() }
-        }'
+        '        Settings { SettingsView().environmentObject(AppDelegate.refreshSignal) }'
 
     substituteInPlace Package.swift \
       --replace-fail \
