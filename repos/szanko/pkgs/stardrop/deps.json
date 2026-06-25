@@ -346,8 +346,8 @@
   },
   {
     "pname": "SharpCompress",
-    "version": "0.32.1",
-    "hash": "sha256-hjq5yD7D8A8Pt4Ia1vx9dqgIN5298d17xu+/c6fZ8Vg="
+    "version": "0.48.1",
+    "hash": "sha256-Y1lH1TrxBua3Ux6trRUQGeSfYjE3qld6TQDz/ABy6Ws="
   },
   {
     "pname": "SkiaSharp",

@@ -14,13 +14,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "stardrop";
-  version = "1.8.4";
+  version = "1.9.0";
 
   src = fetchFromGitHub {
     owner = "Floogen";
     repo = "Stardrop";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-nAdL6WqOzETH7/y9McSIns3oDjsnykNjFPYz5DI8WCM=";
+    hash = "sha256-47HSccA8z+bftQzBseRN3NfnsVynnE1rgvZpV6wPlGM=";
   };
 
   projectFile = "Stardrop/Stardrop.sln";

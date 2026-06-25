@@ -12,6 +12,7 @@ pkgs ? import <nixpkgs> { }
 , pkgs2411 ? pkgs
 , pkgs2505 ? pkgs
 , pkgs2511 ? pkgs
+, pkgs2605 ? pkgs
 , pkgsUnstable ? pkgs
 , cljNix ? null
 }:
