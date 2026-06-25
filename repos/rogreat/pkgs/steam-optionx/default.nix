@@ -1,19 +1,20 @@
 {
-  autoPatchelfHook,
   copyDesktopItems,
   fetchFromGitHub,
   lib,
-  libGL,
+  libglvnd,
   libx11,
+  libxcb,
   libxcursor,
   libxi,
+  libxinerama,
   libxkbcommon,
-  libxrandr,
+  libxrender,
+  libxt,
   makeDesktopItem,
   openssl,
-  pkg-config,
   rustPlatform,
-  stdenv,
+  vulkan-loader,
   wayland,
 }:
 
@@ -31,28 +32,33 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-krbNYkoYT9ZqdYXWyBk/Yc1jcBOh9G5Td/YgwoJm/io=";
 
   nativeBuildInputs = [
-    autoPatchelfHook
     copyDesktopItems
-    pkg-config
   ];
 
   buildInputs = [
     openssl
-    stdenv.cc.cc.libgcc or null
-  ];
-
-  runtimeDependencies = [
-    libGL
-    libx11
-    libxcursor
-    libxi
-    libxkbcommon
-    libxrandr
-    wayland
   ];
 
   postInstall = ''
     install -Dm444 assets/icon.svg $out/share/icons/hicolor/scalable/apps/steam_optionx.svg
+  '';
+
+  postFixup = ''
+    patchelf $out/bin/steam-optionx --set-rpath ${
+      lib.makeLibraryPath [
+        libglvnd # libGL.so libEGL.so
+        libx11 # libX11.so libX11-xcb.so
+        libxcb # libxcb
+        libxcursor # libXcursor.so
+        libxi # libXi.so
+        libxinerama # libXinerama.so
+        libxkbcommon # libxkbcommon.so libxkbcommon-x11.so
+        libxrender # libXrender.so
+        libxt # libXt.so
+        vulkan-loader # libvulkan.so
+        wayland # libwayland-egl.so libwayland-client.so
+      ]
+    };
   '';
 
   desktopItems = [
@@ -62,7 +68,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       icon = "steam_optionx";
       exec = "steam-optionx";
       comment = "Modify Steam launch options";
-      categories = [ "Game" ];
+      categories = [ "Utility" ];
     })
   ];
 

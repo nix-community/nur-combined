@@ -14,7 +14,6 @@
   monero-cli,
   openssl,
   p2pool,
-  pkg-config,
   rustPlatform,
   vulkan-loader,
   wayland,
@@ -51,7 +50,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     copyDesktopItems
-    pkg-config
   ];
 
   buildInputs = [
@@ -101,9 +99,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   env = {
-    # Needed to get openssl-sys to use pkg-config.
-    OPENSSL_NO_VENDOR = 1;
-    # Use Rust nightly.
+    # https://doc.rust-lang.org/beta/unstable-book/compiler-environment-variables/RUSTC_BOOTSTRAP.html
     RUSTC_BOOTSTRAP = 1;
     # https://github.com/gupax-io/gupax/blob/main/build.rs
     COMMIT = finalAttrs.src.rev;
