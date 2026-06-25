@@ -7,17 +7,17 @@
 
 buildGoModule (finalAttrs: {
   pname = "phantom";
-  version = "0-unstable-2026-02-07";
+  version = "0-unstable-2026-04-17";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "phantom-org";
     repo = "phantom";
-    rev = "31304fbbc66ea48cce6f30be282230ad51ef9ad4";
-    hash = "sha256-B9rOD6kLcttG6ltEqY8tX2jBOA62vlwBLlJ7FEFZ4Ek=";
+    rev = "37c3ffe408319ca2a36ba7de93ec2df87fe939ac";
+    hash = "sha256-h18Bp0wZBGKTCP7HZnlYyOsN6XRCubHcueqpQmgQ8uo=";
   };
 
-  vendorHash = "sha256-KweclllQ+X4pZgHmbqMnnjmr+ve34jykAC84RxP+lAQ=";
+  vendorHash = "sha256-0Khknendus50ysBiwfiJyfvVI9t123PHq9+qe9y8exI=";
 
   #ldflags = [ "-s" ];
   ldflags = [
@@ -28,7 +28,10 @@ buildGoModule (finalAttrs: {
   subPackages = [ "cmd/phantom" ];
 
 
-  nativeBuildInputs = [ templ esbuild ];
+  nativeBuildInputs = [ 
+    templ 
+    esbuild 
+  ];
 
   preBuild = ''
     templ generate

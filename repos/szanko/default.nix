@@ -72,5 +72,5 @@ pkgs ? import <nixpkgs> { }
   stardrop = pkgs.callPackage ./pkgs/stardrop { };
   redlib = pkgs.callPackage ./pkgs/redlib { };
 
-  phantom = pkgs.callPackage ./pkgs/phantom { };
+  phantom = pkgs.callPackage ./pkgs/phantom { templ = pkgs2511.templ; };
 }
