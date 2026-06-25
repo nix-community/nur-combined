@@ -15,11 +15,11 @@
 # 仅出 aarch64-darwin（Intel mac 用不到，不打包）。
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wxwork";
-  version = "5.0.8.99856";
+  version = "5.0.9.99905";
 
   src = fetchurl {
     url = "https://dldir1.qq.com/foxmail/wecom-mac/updatebzl/WeCom_${finalAttrs.version}_Apple.dmg";
-    hash = "sha256-kTt9K5da353EK4DSH23cJUpOZMWzwB/lW8WNc2h1By8=";
+    hash = "sha256-aUIAKH6uD63266tfwLm2mHXVpXOVEjooULBlv8Fj2A8=";
   };
 
   sourceRoot = ".";
