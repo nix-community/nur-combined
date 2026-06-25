@@ -1007,9 +1007,9 @@ super.lib.composeManyExtensions [
 
     # 2026-05-23: still required
     # 2026-04-13: fish fails checkPhase on musl, but neovim-unwrapped doesn't seem to actually need it?
-    neovim-unwrapped = prev.neovim-unwrapped.override {
-      fish = null;
-    };
+    # neovim-unwrapped = prev.neovim-unwrapped.override {
+    #   fish = null;
+    # };
 
     # 2026-05-23: still required
     nfs-utils = (prev.nfs-utils.override {

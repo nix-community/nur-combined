@@ -25,7 +25,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-oH/8PjUmtWUfoSN67MjWQhoG84EE9AEtXjuhXFfZ4Aw=";
+  npmDepsHash = "sha256-4OuR0DgkegLgzDe/b/SvOq5x3vGz1subYit04fAs6fg=";
 
   # lockfile generated in a pi-mcp-adapter checkout using
   # `npm install --package-lock-only`.
