@@ -5,12 +5,18 @@
   hatch-vcs,
   hatchling,
   nodejs,
+  nodejs-slim_latest,
   fetchPnpmDeps,
   pnpmConfigHook,
   pnpm,
   nix-update-script,
 }:
 
+let
+  pnpm' = pnpm.override {
+    nodejs-slim = nodejs-slim_latest;
+  };
+in
 buildPythonPackage rec {
   pname = "yt-dlp-ejs";
   version = "0.8.0-unstable-2026-06-20";
@@ -33,6 +39,7 @@ buildPythonPackage rec {
       src
       ;
     fetcherVersion = 3;
+    pnpm = pnpm';
     hash = "sha256-LVDuSjSR/gN3tKLCkntHAk81yEVA/ffqiqUVvdke3zo=";
   };
 
@@ -44,7 +51,7 @@ buildPythonPackage rec {
   nativeBuildInputs = [
     nodejs
     pnpmConfigHook
-    pnpm
+    pnpm'
   ];
 
   pythonImportsCheck = [ "yt_dlp_ejs" ];
