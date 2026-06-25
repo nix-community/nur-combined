@@ -78,14 +78,15 @@ in
   boot.initrd = {
     includeDefaultModules = false;
     availableKernelModules = [
-      "g_serial"
-      "u_serial"
-      "libcomposite"
-      "usb_f_acm"
+      # "g_serial"
+      # "u_serial"
+      # "libcomposite"
+      # "usb_f_acm"
     ];
     kernelModules = [
       "mmc_block"
-      "g_serial"
+      # will make systemd-vconsole-setup hang if loaded and ttyGS0 is not connected 
+      # "g_serial"
     ];
   };
 
@@ -95,16 +96,16 @@ in
     "vm.swappiness" = 20;
   };
 
-  systemd.services."serial-getty@ttyGS0" = {
-    serviceConfig = {
-      ExecStart = [
-        ""
-        "${pkgs.util-linux}/bin/agetty --login-program ${pkgs.shadow}/bin/login %I --keep-baud $TERM"
-      ];
-    };
-    wantedBy = [ "getty.target" ];
-    overrideStrategy = "asDropin";
-  };
+  # systemd.services."serial-getty@ttyGS0" = {
+  #   serviceConfig = {
+  #     ExecStart = [
+  #       ""
+  #       "${pkgs.util-linux}/bin/agetty --login-program ${pkgs.shadow}/bin/login %I --keep-baud $TERM"
+  #     ];
+  #   };
+  #   wantedBy = [ "getty.target" ];
+  #   overrideStrategy = "asDropin";
+  # };
 
   powerManagement.cpuFreqGovernor = "schedutil";
 

@@ -151,36 +151,36 @@ in
         "header_checks=pcre:${submissionHeaderCleanupRules}"
       ];
     };
-    "10025" = {
-      type = "inet";
-      private = false;
-      chroot = false;
-      command = "smtpd";
-      args = [
-        "-o"
-        "smtpd_upstream_proxy_protocol=haproxy"
-      ];
-    };
-    "10587" = {
-      type = "inet";
-      private = false;
-      chroot = false;
-      command = "smtpd";
-      args = [
-        "-o"
-        "smtpd_upstream_proxy_protocol=haproxy"
-      ] ++ postfixCfg.settings.master.submission.args;
-    };
-    "10465" = {
-      type = "inet";
-      private = false;
-      chroot = false;
-      command = "smtpd";
-      args = [
-        "-o"
-        "smtpd_upstream_proxy_protocol=haproxy"
-      ] ++ postfixCfg.settings.master.submissions.args;
-    };
+    # "10025" = {
+    #   type = "inet";
+    #   private = false;
+    #   chroot = false;
+    #   command = "smtpd";
+    #   args = [
+    #     "-o"
+    #     "smtpd_upstream_proxy_protocol=haproxy"
+    #   ];
+    # };
+    # "10587" = {
+    #   type = "inet";
+    #   private = false;
+    #   chroot = false;
+    #   command = "smtpd";
+    #   args = [
+    #     "-o"
+    #     "smtpd_upstream_proxy_protocol=haproxy"
+    #   ] ++ postfixCfg.settings.master.submission.args;
+    # };
+    # "10465" = {
+    #   type = "inet";
+    #   private = false;
+    #   chroot = false;
+    #   command = "smtpd";
+    #   args = [
+    #     "-o"
+    #     "smtpd_upstream_proxy_protocol=haproxy"
+    #   ] ++ postfixCfg.settings.master.submissions.args;
+    # };
   };
 
   systemd.services.postfix = {

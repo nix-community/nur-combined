@@ -8,10 +8,12 @@
   sops = {
     defaultSopsFormat = "yaml";
     defaultSopsFile = ./secrets/secrets.sops.yaml;
+    useSystemdActivation = true;
     secrets = {
       # "sb-config.json" = {
       #   owner = "sing-box";
       # };
+      "config.dae" = { };
       "mosdns.yaml" = { };
       "tproxy.nft" = { };
       "v2ray.v5.json" = { };
@@ -40,6 +42,8 @@
   networking.hostName = "nixos-r2s";
 
   time.timeZone = "Asia/Shanghai";
+  
+  systemd.sysusers.enable = true;
 
   documentation.man.enable = true;
   documentation.dev.enable = false;

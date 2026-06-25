@@ -107,7 +107,7 @@ in
       login = true;
     };
 
-    haproxy_trusted_networks = "<${secrets.trustedNetworks.path}";
+    # haproxy_trusted_networks = "<${secrets.trustedNetworks.path}";
 
     ldap_uris = "ldap://localhost";
     ldap_auth_dn = "cn=admin,dc=eh5,dc=me";
@@ -152,15 +152,15 @@ in
         port = 993;
         ssl = true;
       };
-      "inet_listener imap_haproxy" = {
-        port = 10143;
-        haproxy = true;
-      };
-      "inet_listener imaps_haproxy" = {
-        port = 10993;
-        ssl = true;
-        haproxy = true;
-      };
+      # "inet_listener imap_haproxy" = {
+      #   port = 10143;
+      #   haproxy = true;
+      # };
+      # "inet_listener imaps_haproxy" = {
+      #   port = 10993;
+      #   ssl = true;
+      #   haproxy = true;
+      # };
     };
 
     "protocol lmtp" = {

@@ -15,6 +15,7 @@ in
   sops = {
     defaultSopsFormat = "yaml";
     defaultSopsFile = ./secrets/secrets.sops.yaml;
+    useSystemdActivation = true;
     secrets = {
       acmeEnv = { };
       postScript = {
@@ -74,6 +75,8 @@ in
   };
 
   time.timeZone = "Asia/Shanghai";
+  
+  systemd.sysusers.enable = true;
 
   documentation.man.enable = true;
   documentation.dev.enable = false;
@@ -124,6 +127,7 @@ in
       lm_sensors
       lsof
       nftables
+      rsync
       screen
     ]
     ++ (with config.boot.kernelPackages; [

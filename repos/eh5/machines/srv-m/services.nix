@@ -63,6 +63,44 @@ in
     '';
   };
   services.caddy.virtualHosts = {
+    "eh5.me" = {
+      useACMEHost = certName;
+      extraConfig = ''
+        root * /var/www/eh5.me
+        @prefer_tw {
+          path /
+          header_regexp Accept-Language ^zh-(TW|HK).*
+        }
+        @prefer_zh {
+          path /
+          header_regexp Accept-Language ^zh.*
+        }
+        redir @prefer_tw /zh-cn/
+        redir @prefer_zh /zh-cn/
+        redir / /en/
+        file_server {
+          browse
+          precompressed br gzip
+        }
+        header /rss.xml Content-Type "application/rss+xml; charset=utf-8"
+        header /atom.xml Content-Type "application/atom+xml; charset=utf-8"
+        header /feed.json Content-Type "application/feed+json; charset=utf-8"
+
+        handle_errors {
+          rewrite /{err.status_code}.html
+          file_server
+        }
+      '';
+    };
+    "www.eh5.me" = {
+      serverAliases = [
+        "blog.eh5.me"
+      ];
+      useACMEHost = certName;
+      extraConfig = ''
+        redir https://eh5.me{uri}
+      '';
+    };
     "mail.eh5.me" = {
       serverAliases = [
         "mx.eh5.me"
@@ -110,6 +148,7 @@ in
   };
   systemd.services.caddy.serviceConfig.ReadOnlyPaths = [
     "/nix/store"
+    "/var/www"
     secrets.webConfig.path
   ];
 
