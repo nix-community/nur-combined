@@ -4,6 +4,6 @@
   name = "iceberg";
   repo = "duckdb-iceberg";
   branch = "v1.5-variegata";
-  rev = "fa4d3d521cb05b42abbc33bd63a8efa5e736c5d8";
-  hash = "sha256-J+yRPar9u59QsvOTpHzrr6Mju7vZqCuxkMPLq2VaFTk=";
+  rev = "066c308642590ea69304356832cf8b44853120cc";
+  hash = "sha256-RyP20QqrcUsq/IjlqXfwbCGeck7ZR6yP/k3RZUz/JlM=";
 }
