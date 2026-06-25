@@ -1,7 +1,5 @@
 ## BUGS
 - alacritty Ctrl+N frequently fails to `cd` to the previous directory
-- bunpen dbus sandboxing can't be *nested* (likely a problem in xdg-dbus-proxy)
-  - can solve this by just pinning an older version of xdg-dbus-proxy?
 - `rmDbusServices` may break sandboxing
   - e.g. if the package ships a systemd unit which references $out, then make-sandboxed won't properly update that unit.
   - `rmDbusServicesInPlace` is not affected
@@ -30,8 +28,6 @@
 - implement some easy way to check that all `sane` packages build.
   - generalize `scripts/check-*` into some `./scripts/check $attrPath`, ala `scripts/update $attrPath`?
 - fold hosts/modules/ into toplevel modules/
-- consolidate ~/dev and ~/ref
-  - ~/dev becomes a link to ~/ref/cat/mine
 - fold hosts/common/home/ssh.nix -> hosts/common/users/colin.nix
 - don't hardcode IP addresses so much in servo
 - modules/netns: migrate `sane.netns.$NS.services = [ FOO ]` option to be `systemd.services.$FOO.sane.netns = NS`
@@ -133,8 +129,7 @@
   - apparently `yt-dlp` does searching!
 - replace starship prompt with something more efficient
   - watch `forkstat`: it does way too much
-- cleanup nwg-panel so that it's not invoking swaync every second
-  - nwg-panel: doesn't know that virtual-desktop 10/TV exists
+- nwg-panel: doesn't know that virtual-desktop 10/TV exists
 - install apps:
   - display QR codes for WiFi endpoints: <https://linuxphoneapps.org/apps/noappid.wisperwind.wifi2qr/>
   - shopping list (not in nixpkgs): <https://linuxphoneapps.org/apps/ro.hume.cosmin.shoppinglist/>
@@ -213,7 +208,6 @@
   - many .mkv files do appear to be tagged: i'd just need to add support in my own tooling
   - more aggressively cleanup non-media files after DL (ripper logos, info txts)
 - uninsane.org: make URLs relative to allow local use (and as offline homepage)
-- waka.laka.osaka: overlay a "muted" icon when muted
 - email: fix so that local mail doesn't go to junk
   - git sendmail flow adds the DKIM signatures, but gets delivered locally w/o having the sig checked, so goes into Junk
   - could change junk filter from "no DKIM success" to explicit "DKIM failed"
