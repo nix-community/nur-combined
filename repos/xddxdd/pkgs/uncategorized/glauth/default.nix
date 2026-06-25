@@ -6,7 +6,7 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (sources.glauth) pname version src;
-  vendorHash = "sha256-Lijy0LFy0PgWogdzYRNPFOkLym6Gf9qG4R+Bm91eYJg=";
+  vendorHash = "sha256-vfXYebGSeN0AdWeDAaTVe0fwDZOmIapYvBP2ETbUSig=";
 
   postPatch = ''
     substituteInPlace v2/internal/version/const.go \
