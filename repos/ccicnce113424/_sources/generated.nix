@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "ac7b6e758faa081204b5c0699a4e568d12d0d109";
+    version = "a1e214f2b48798e4d7cf9129bbcfa9c0949775ce";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "ac7b6e758faa081204b5c0699a4e568d12d0d109";
+      rev = "a1e214f2b48798e4d7cf9129bbcfa9c0949775ce";
       fetchSubmodules = false;
-      sha256 = "sha256-Rr7+34CvRy7wo2ubbo4XD/EvqBz8y9utJ7hUKResZTY=";
+      sha256 = "sha256-0KCe0DiWrcCK1dkVKMMvqfZaTC3MKZ+eFyRA/zrOyJs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Rr7+34CvRy7wo2ubbo4XD_EvqBz8y9utJ7hUKResZTY=/Cargo.lock";
+      lockFile = ./. + "/sha256-0KCe0DiWrcCK1dkVKMMvqfZaTC3MKZ+eFyRA_zrOyJs=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
     };
-    date = "2026-06-24";
+    date = "2026-06-25";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -369,15 +369,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "ee8bbb9df9db29a2bd85effbbdd774f80a3d1f26";
+    version = "e88bb8751f654b30f7b0c7ca2455a7015d2db927";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "ee8bbb9df9db29a2bd85effbbdd774f80a3d1f26";
+      rev = "e88bb8751f654b30f7b0c7ca2455a7015d2db927";
       fetchSubmodules = false;
-      sha256 = "sha256-+oDyO8EcPY44yiTQ2wmuajD7vHPMphloVPEi93Xaniw=";
+      sha256 = "sha256-BpuT0sFR/4nmgka4A7gG9NSc+g4HevU/GtdcY4+Ap80=";
     };
-    date = "2026-06-03";
+    date = "2026-06-25";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
