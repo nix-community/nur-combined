@@ -1,10 +1,15 @@
 {
+  bash,
+  desktop-file-utils,
   fetchFromGitHub,
+  glib,
   gobject-introspection,
   lib,
   libloot-python,
+  protontricks,
   python3Packages,
-  wrapGAppsHook4,
+  wrapGAppsHook3,
+  xdg-utils,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
@@ -20,7 +25,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   nativeBuildInputs = [
     gobject-introspection
-    wrapGAppsHook4
+    wrapGAppsHook3
   ];
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
@@ -38,6 +43,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     pillow
     py7zr
     pycairo
+    pygobject3
     rarfile
     requests
     tkinter
@@ -46,7 +52,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ]);
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
-  preInstall = ''
+  installPhase = ''
+    runHook preInstall
+
     pushd src > /dev/null
     find . -path "./appimage" -prune -o \
         -not -name "requirements*.txt" \
@@ -72,17 +80,24 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
     install -Dm644 LICENSE "$out/share/licenses/amethyst-mod-manager/LICENSE"
     install -Dm644 README.md "$out/share/doc/amethyst-mod-manager/README.md"
+
+    runHook postInstall
   '';
 
-  dontWrapGApps = true;
-
   preFixup = ''
-    makeWrapperArgs+=(
-        "''${gappsWrapperArgs[@]}"
+    gappsWrapperArgs+=(
         --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+        --suffix PATH : "${
+          lib.makeBinPath [
+            bash
+            desktop-file-utils # update-desktop-database
+            glib # gio, gdbus
+            protontricks
+            python3Packages.python
+            xdg-utils # xdg-open, xdg-mime, xdg-settings
+          ]
+        }"
     )
-    wrapProgram $out/bin/amethyst-mod-manager ''${makeWrapperArgs[@]}
-    wrapProgram $out/bin/amethyst-mod-manager-cli ''${makeWrapperArgs[@]}
   '';
 
   meta = {
