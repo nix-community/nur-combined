@@ -16,6 +16,9 @@ rec {
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  amethyst-mod-manager = pkgs.callPackage ./pkgs/amethyst-mod-manager {
+    inherit libloot-python;
+  };
   crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager {
     inherit privatebin pyside6-fluent-widgets;
   };
@@ -23,6 +26,7 @@ rec {
   gupax = pkgs.callPackage ./pkgs/gupax {
     inherit cuprate;
   };
+  libloot-python = pkgs.python3Packages.callPackage ./pkgs/libloot-python { };
   privatebin = pkgs.python3Packages.callPackage ./pkgs/privatebin { };
   pyside6-fluent-widgets = pkgs.python3Packages.callPackage ./pkgs/pyside6-fluent-widgets {
     inherit pysidesix-frameless-window;
