@@ -14,11 +14,11 @@ let
   # N.B.: KEEP IN SYNC WITH ./kagi-epiphany
   # appId = "org.gnome.Epiphany.WebApp_424cfc679f24e45b65660e152e6ba961a21645ce";
 in
-static-nix-shell.mkBash {
+static-nix-shell.mkBash rec {
   pname = "kagi-epiphany";
   srcRoot = ./.;
   pkgs = {
-    inherit epiphany;
+    "kagi-epiphany.epiphany" = passthru.epiphany;
   };
 
   nativeBuildInputs = [
@@ -46,6 +46,15 @@ static-nix-shell.mkBash {
 
   passthru = {
     inherit appId;
+    epiphany = epiphany.overrideAttrs (upstream: {
+      # 2026-06-25: when an Epiphany webapp is invoked a second time with a URL,
+      # it normally just presents the existing window and discards the URL.
+      # allow the remote instance to pass its URL through to the running app.
+      patches = (upstream.patches or []) ++ [ ./epiphany-appmode-remote-url.patch ];
+      postInstall = (upstream.postInstall or "") + ''
+        mv $out/bin/epiphany $out/bin/_kagi-epiphany
+      '';
+    });
   };
 
   meta = {

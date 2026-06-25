@@ -300,6 +300,7 @@ in
       - Use bash for operations like ls, rg, find, curl
       - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
       - Prefer minimal changes
+      - When working with 3rd-party repositories check a project's pull requests and issue tracker before making code-level changes
       - Always verify your work by building relevant targets, invoking tests, or invoking the actual code in a non-destructive manner (e.g. dry-run)
       - Be concise in your responses and comments
       - NEVER modify system or user config files without explicit consent (e.g. no `git config set`)

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.epiphany ]'
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.kagi-epiphany.epiphany ]'
 
 url="https://kagi.com/"
 parseArgs() {
@@ -9,9 +9,11 @@ parseArgs() {
   done
 }
 
+parseArgs "$@"
+
 # appId=org.gnome.Epiphany.WebApp_424cfc679f24e45b65660e152e6ba961a21645ce
 appId=org.gnome.Epiphany.WebApp_Kagi
 profile=${XDG_DATA_HOME:-$HOME/.local/share}/${appId}
 mkdir -p "$profile" && touch "$profile/.app"
 
-exec epiphany --application-mode --profile "$profile" "$url"
+exec _kagi-epiphany --application-mode --profile "$profile" "$url"

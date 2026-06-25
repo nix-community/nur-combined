@@ -1,0 +1,13 @@
+diff --git a/src/ephy-shell.c b/src/ephy-shell.c
+--- a/src/ephy-shell.c
++++ b/src/ephy-shell.c
+@@ -154,7 +154,8 @@ ephy_shell_startup_continue (EphyShell               *shell,
+
+     ephy_shell_open_uris (shell, uris, ctx->startup_mode);
+     g_free (homepage_url);
+-  } else if (active_window && (!ctx->arguments || mode == EPHY_EMBED_SHELL_MODE_APPLICATION)) {
++  } else if (active_window && (!ctx->arguments || mode == EPHY_EMBED_SHELL_MODE_APPLICATION) &&
++             !shell->remote_startup_context) {
+     /* If the application already has an active window and: */
+     /*   Option 1: the --new-window option was not passed */
+     /*   Option 2: mode is application */
