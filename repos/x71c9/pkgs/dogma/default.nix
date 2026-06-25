@@ -4,14 +4,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dogma";
-  version = "1.8.0"; # without "v"
+  version = "1.9.0"; # without "v"
 
   # Pin the source to an immutable tag/commit
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "dogma";
     rev = "v${version}";
-    hash = "sha256-vTQqzRGR8L5Ez3Y66B3a6Ob9FLJ0OiaurV+cstUQWEg=";
+    hash = "sha256-qErIKcmQxK2xiOz05KOdtZ3thBriH3cDnyX8A0WtHLE=";
   };
 
   # Vendor Cargo dependencies from the committed lockfile.
