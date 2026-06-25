@@ -27,6 +27,7 @@ rec {
     inherit cuprate;
   };
   libloot-python = pkgs.python3Packages.callPackage ./pkgs/libloot-python { };
+  native-open-mod-manager = pkgs.callPackage ./pkgs/native-open-mod-manager { };
   privatebin = pkgs.python3Packages.callPackage ./pkgs/privatebin { };
   pyside6-fluent-widgets = pkgs.python3Packages.callPackage ./pkgs/pyside6-fluent-widgets {
     inherit pysidesix-frameless-window;

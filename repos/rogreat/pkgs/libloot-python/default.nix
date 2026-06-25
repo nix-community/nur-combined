@@ -1,6 +1,7 @@
 {
-  fetchFromGitHub,
   buildPythonPackage,
+  fetchFromGitHub,
+  lib,
   rustPlatform,
 }:
 buildPythonPackage (finalAttrs: {
@@ -32,4 +33,12 @@ buildPythonPackage (finalAttrs: {
     cargoSetupHook
     maturinBuildHook
   ];
+
+  meta = {
+    description = "Experimental Python wrapper around libloot";
+    homepage = "https://github.com/loot/libloot/tree/master/python";
+    license = lib.licenses.gpl3Plus;
+    maintainers = with lib.maintainers; [ RoGreat ];
+    platforms = lib.platforms.all;
+  };
 })
