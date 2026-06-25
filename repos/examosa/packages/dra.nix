@@ -33,12 +33,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     xz
   ];
 
-  # tests require docker
-  checkFlags = [
-    "--skip=installed_successfully"
-    "--skip=upgrade_successfully"
-    "--skip=wrong_privileges"
-  ];
+  # all tests either use docker or make network requests
+  doCheck = false;
 
   postInstall = ''
     installShellCompletion --cmd dra \
