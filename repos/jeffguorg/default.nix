@@ -36,4 +36,6 @@ in
   dingtalk = callPackage ./pkgs/dingtalk {};
   kwok = callPackage ./pkgs/kwok/default.nix {};
   vagrant-vmware-utility = callPackage ./pkgs/vagrant-vmware-utility.nix {};
+
+  caddy-with-plugins = callPackage ./pkgs/caddy-with-plugins {};
 }

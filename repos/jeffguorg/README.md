@@ -93,11 +93,12 @@ nix-build -A agent-run
 | `dingtalk` | 钉钉 Linux 桌面端打包。 |
 | `kwok` | Kubernetes SIGs 的 KWOK / `kwokctl` 工具。 |
 | `vagrant-vmware-utility` | Vagrant VMware Utility，适配 NixOS 上的 VMware Workstation 路径和 systemd 服务。 |
+| `caddy-with-plugins` | 通过 `pkgs.caddy.withPlugins` 构建的自定义 Caddy，附带 tencentcloud DNS、cache-handler、caddy-tailscale 插件。 |
 | `lib` | NUR 保留属性，目前没有自定义函数。 |
 | `modules` | NUR 保留属性，目前没有自定义 NixOS module。 |
 | `overlays` | NUR 保留属性，目前没有额外 overlay。 |
 
-源码版本由 `nvfetcher.toml` 管理，生成结果位于 `_sources/`。Go 包的 vendor hash 更新由 `scripts/update-go-vendorHash.sh` 处理。
+源码版本由 `nvfetcher.toml` 管理，生成结果位于 `_sources/`。Go 包的 vendor hash 更新由 `scripts/update-go-vendorHash.sh` 处理。Caddy（`withPlugins`）的插件版本同步由 `scripts/update-caddy-plugins.sh` 处理，vendor hash 更新由 `scripts/update-caddy-hash.sh` 处理（前者会自动调用后者）。
 
 ## 自动更新与 CI
 

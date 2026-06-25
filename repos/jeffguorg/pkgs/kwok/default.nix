@@ -19,7 +19,7 @@ in
 buildGoModule {
   inherit (src) pname version;
 
-  vendorHash = "sha256-UNso+e/zYah0jApHZgWnQ3cUSV44HsMqPy4q4JMCyiA=";
+  vendorHash = "sha256-Y+tQKkuLPA4gGtlhQlG8rrvNB+n0whRKUpaqIf1WxX8=";
   #goPackagePath = "sigs.k8s.io/kwok";
 
   subPackages = [
