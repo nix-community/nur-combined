@@ -39,6 +39,7 @@ let
     };
     niri = callPackage ./niri { inherit (prev) niri; };
     iwe = callPackage ./iwe { };
+    wl-uinput-proxy = callPackage ./wl-uinput-proxy { };
     djot-tools = callPackage ./djot-tools { };
     pandoc-to-anki = callPackage ./pandoc-to-anki { };
   };
