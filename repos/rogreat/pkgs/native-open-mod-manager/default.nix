@@ -1,12 +1,16 @@
 {
   fetchFromGitHub,
+  gettext,
+  glib,
   gobject-introspection,
   lib,
   libadwaita,
   libnotify,
+  p7zip,
   python3Packages,
   wrapGAppsHook4,
 }:
+
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "native-open-mod-manager";
   version = "0.10.1";
@@ -20,50 +24,74 @@ python3Packages.buildPythonApplication (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    gobject-introspection
     wrapGAppsHook4
+    gobject-introspection
+    gettext
   ];
 
-  # https://github.com/Allexio/nomm/blob/main/build/flatpak/build-flatpak.sh
-  dependencies = [
+  buildInputs = [
     libadwaita
     libnotify
-  ]
-  ++ (with python3Packages; [
+  ];
+
+  # https://github.com/Allexio/nomm/blob/main/build/aur/PKGBUILD
+  dependencies = with python3Packages; [
     pygobject3
     pyyaml
     rarfile
     requests
     vdf
-  ]);
+  ];
+
+  postPatch = ''
+    substituteInPlace src/gui/application.py \
+        --replace-fail 'copy2' 'copyfile' \
+        --replace-fail 'gresource_path = "resources.gresource"' \
+           'gresource_path = os.path.join(os.path.join(GLib.get_user_data_dir(), "nomm"), "resources.gresource")'
+  '';
 
   # https://github.com/Allexio/nomm/blob/main/build/flatpak/com.nomm.Nomm.yaml
-  postInstall = ''
-    install src/main.py -Dm544 $out/bin/nomm
-    install build/flatpak/com.nomm.Nomm.desktop -D $out/share/applications/com.nomm.Nomm.desktop
-    install assets/nomm.png -D $out/share/icons/hicolor/64x64/apps/com.nomm.Nomm.png
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p "$out/bin"
+    echo "#!/bin/sh" > $out/bin/nomm
+    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/main.py \"\$@\"" >> "$out/bin/nomm"
+    chmod +x "$out/bin/nomm"
+
+    install -D build/flatpak/com.nomm.Nomm.desktop $out/share/applications/com.nomm.Nomm.desktop
+    install -D build/flatpak/com.nomm.Nomm.metainfo.xml $out/share/metainfo/com.nomm.Nomm.metainfo.xml
+    install -D assets/nomm.png $out/share/icons/hicolor/64x64/apps/com.nomm.Nomm.png
+
     mkdir -p $out/${python3Packages.python.sitePackages}
     cp -r src -T $out/${python3Packages.python.sitePackages}
     cp -r assets $out/${python3Packages.python.sitePackages}
     cp -r default_game_configs $out/${python3Packages.python.sitePackages}
+
+    mkdir -p $out/share/locale/fr/LC_MESSAGES
+    msgfmt locale/fr.po -o $out/share/locale/fr/LC_MESSAGES/com.nomm.Nomm.mo
+
+    runHook postInstall
   '';
 
-  dontWrapGApps = true;
-
   preFixup = ''
-    makeWrapperArgs+=(
-        "''${gappsWrapperArgs[@]}"
+    gappsWrapperArgs+=(
         --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+        --suffix PATH : "${
+          lib.makeBinPath [
+            glib.dev # glib-compile-resources
+            p7zip # 7z
+          ]
+        }"
     )
   '';
 
   meta = {
     description = "Native Open Mod Manager ";
-    homepage = "https://github.com/Allexio/nomm";
+    homepage = "https://nomm.moe";
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "nomm";
     platforms = lib.platforms.linux;
-    broken = true;
   };
 })
