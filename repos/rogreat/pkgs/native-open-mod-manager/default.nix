@@ -2,12 +2,14 @@
   fetchFromGitHub,
   gettext,
   glib,
+  gnome,
   gobject-introspection,
   lib,
   libadwaita,
   libnotify,
   p7zip,
   python3Packages,
+  webp-pixbuf-loader,
   wrapGAppsHook4,
 }:
 
@@ -70,6 +72,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
     mkdir -p $out/share/locale/fr/LC_MESSAGES
     msgfmt locale/fr.po -o $out/share/locale/fr/LC_MESSAGES/com.nomm.Nomm.mo
+
+    export GDK_PIXBUF_MODULE_FILE="${
+      gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+        extraLoaders = [
+          webp-pixbuf-loader
+        ];
+      }
+    }"
 
     runHook postInstall
   '';
