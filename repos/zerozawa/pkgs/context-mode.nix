@@ -10,7 +10,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "context-mode";
-  version = "1.0.166";
+  version = "1.0.168";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -19,7 +19,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "mksglu";
     repo = "context-mode";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-8wZ3Cu4XFO2iz6BCj2NvRnt14nPMPqKHOWFAc+YNi7g=";
+    hash = "sha256-M0FC1r3J3EF8XSNT6+IuaG7l69pnyQB80dYh5a+cSLk=";
   };
 
   node_modules = stdenvNoCC.mkDerivation {
@@ -59,9 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       runHook postInstall
     '';
-
     outputHash = "sha256-R0iREbU/o4tf6OojvDzBkEVWQAXb5IwHFYX4g50CZ/8=";
-
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
