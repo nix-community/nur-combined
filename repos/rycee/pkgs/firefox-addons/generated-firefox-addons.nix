@@ -4689,14 +4689,14 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.7";
+      version = "1.22.9";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4866401/geo_spoof-1.22.7.xpi";
-      sha256 = "23ce4a81d13df5340e527d305262ce71b0b146e85a816f46c3c6dc833fc9a632";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4869104/geo_spoof-1.22.9.xpi";
+      sha256 = "fe5434dfae67f442509b1b7413f4284331cdea4cf116435881bac9b133248a52";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
-        description = "Spoof your browser's geolocation, timezone, and automatically sync your identity to match your VPN — or any location you choose.";
+        description = "Spoof geolocation, fake your GPS location and timezone — change your location to any city or sync it to your VPN. No account.";
         license = licenses.mit;
         mozPermissions = [
           "storage"
@@ -17510,10 +17510,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.24.1";
+      version = "2.24.3";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4822978/youtube_no_translation-2.24.1.xpi";
-      sha256 = "7e1af255596eb67d38b9df1e360b32641c200730d40a4f9ceb0042152eea9f54";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4859010/youtube_no_translation-2.24.3.xpi";
+      sha256 = "23ca380b13533fb3cea3ca9de8f69eb6fefd54608c85df0005d368cd1d90fd85";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
