@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation (final: {
   pname = "comfyui-anima-booster";
-  version = "1.3.1";
+  version = "1.3.2";
 
   src = fetchFromGitHub {
     owner = "BlackSnowSkill";
     repo = "ANIMA_BOOSTER";
     tag = "v${final.version}";
-    hash = "sha256-E2zGQh5iIGeae9rkzUvu7HiX3n+DqPk9XW2L2TDY5po=";
+    hash = "sha256-Amxr71fO+BpU8UlgjwfrXrhGkTIBbslDbrTCLnBsOeU=";
   };
 
   propagatedBuildInputs = lib.optional (sageattention != null) sageattention;
