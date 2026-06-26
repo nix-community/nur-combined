@@ -10,6 +10,6 @@
     "unpack": true
   },
   "force": true,
-  "version": "GE-Proton10-33-rtsp23-4",
-  "hash": "sha256-sP+xNPbeI1jbs081QvFmj48A/yG6IC9ZPZRvGkFZnX0="
+  "version": "proton-rtsp-11.0-20260609-1",
+  "hash": "sha256-/YrUjR/Ynb0clNpXSaSlfpnqJ76ZfTYP9LR/WHHCMgk="
 }
