@@ -152,7 +152,7 @@ jobs:
         id: restore-daily-aic-cache
         if: ${{ env.GH_AW_MAX_DAILY_AI_CREDITS != '' }}
         continue-on-error: true
-        uses: actions/cache/restore@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           key: agentic-workflow-usage-cidoctor-${{ github.run_id }}
           restore-keys: agentic-workflow-usage-cidoctor-
@@ -503,7 +503,7 @@ jobs:
         run: bash "${RUNNER_TEMP}/gh-aw/actions/create_cache_memory_dir.sh"
       - name: Restore cache-memory file share data
         id: restore_cache_memory_0
-        uses: actions/cache/restore@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           key: memory-none-nopolicy-${{ env.GH_AW_WORKFLOW_ID_SANITIZED }}-${{ github.run_id }}
           path: /tmp/gh-aw/cache-memory
@@ -1232,7 +1232,7 @@ jobs:
         id: restore-daily-aic-cache-conclusion
         if: always()
         continue-on-error: true
-        uses: actions/cache/restore@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           key: agentic-workflow-usage-cidoctor-${{ github.run_id }}
           restore-keys: agentic-workflow-usage-cidoctor-
@@ -1253,7 +1253,7 @@ jobs:
         id: save-daily-aic-cache
         if: always()
         continue-on-error: true
-        uses: actions/cache/save@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           key: agentic-workflow-usage-cidoctor-${{ github.run_id }}
           path: /tmp/gh-aw/agentic-workflow-usage-cache.jsonl
@@ -1887,7 +1887,7 @@ jobs:
           fi
       - name: Save cache-memory to cache (default)
         if: steps.check_cache_default.outputs.has_content == 'true'
-        uses: actions/cache/save@2c8a9bd7457de244a408f35966fab2fb45fda9c8 # v6.0.0
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
         with:
           key: memory-none-nopolicy-${{ env.GH_AW_WORKFLOW_ID_SANITIZED }}-${{ github.run_id }}
           path: /tmp/gh-aw/cache-memory
