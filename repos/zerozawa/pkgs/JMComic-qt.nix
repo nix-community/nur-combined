@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication rec {
     owner = "tonquer";
     repo = "JMComic-qt";
     rev = "v${version}";
-    hash = "sha256-yeZJZIxhvk65z023K5+ghpsCLyiRLacaZ6L3VB7KYcE=";
+    hash = "sha256-RqDseXmEqVILXdEXQSiw4Cyo6Wxw9n70UF6AypwnBQ8=";
   };
 
   format = "other";
