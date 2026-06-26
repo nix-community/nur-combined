@@ -51,7 +51,6 @@ specify {
   git-remote = any;
   gnome-shell = { patch = [ ./library/assets/gnome-shell_accent-color.patch ./library/assets/gnome-shell_screenshot-location.patch ]; ccache = true; }; # Pending GNOME/gnome-shell#5370
   gnomeExtensions.launcher.patch = [ ./library/assets/gnome-extension-launcher_icon.patch ./library/assets/gnome-extension-launcher_hide-settings.patch ./library/assets/gnome-extension-launcher_gnome-50.patch /* Pending hedgieinsocks/gnome-extension-launcher#14 */ ];
-  gnomeExtensions.whatcable.patch = ./library/assets/gnome-extension-whatcable_gnome-50.patch; # Pending bjuergens/whatcable-gnome#12
   gopass-await = any;
   gopass-env = any;
   gopass-ydotool = any;
