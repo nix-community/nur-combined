@@ -22,8 +22,14 @@ in
       hash = "sha256-ASddTw/b6w29FxI+N66FwZCqJphQrprQPITHkYKMEtU=";
     };
 
-    nativeBuildInputs = [ pkgs.cmake pkgs.pkg-config ];
-    buildInputs = [ pkgs.systemd pkgs.udev ];
+    nativeBuildInputs = with pkgs; [
+      cmake
+      pkg-config
+    ];
+    buildInputs = with pkgs; [
+      systemd
+      udev
+    ];
 
     postPatch = ''
       substituteInPlace CMakeLists.txt \
@@ -47,7 +53,12 @@ in
     src = "${yogabook-src}/yogabook-support";
 
     buildInputs = [
-      (pkgs.python3.withPackages (ps: [ ps.evdev ps.pyudev ]))
+      (pkgs.python3.withPackages (
+        ps: with ps; [
+          evdev
+          pyudev
+        ]
+      ))
     ];
 
     dontBuild = true;
@@ -70,8 +81,18 @@ in
 
     src = "${yogabook-src}/iio-sensor-proxy";
 
-    nativeBuildInputs = [ pkgs.meson pkgs.ninja pkgs.pkg-config pkgs.gobject-introspection ];
-    buildInputs = [ pkgs.glib pkgs.systemd pkgs.libgudev pkgs.polkit ];
+    nativeBuildInputs = with pkgs; [
+      meson
+      ninja
+      pkg-config
+      gobject-introspection
+    ];
+    buildInputs = with pkgs; [
+      glib
+      systemd
+      libgudev
+      polkit
+    ];
 
     PKG_CONFIG_SYSTEMD_SYSTEMDSYSTEMUNITDIR = "${placeholder "out"}/lib/systemd/system";
     PKG_CONFIG_UDEV_UDEVDIR = "${placeholder "out"}/lib/udev";
@@ -88,7 +109,10 @@ in
     inherit (pkgs) stdenv;
     src = "${yogabook-src}/yogabook-linux-kernel";
     configfile = "${yogabook-src}/yogabook-linux-kernel/arch/x86/configs/yogabook_defconfig";
-    version = "6.1.74-yogabook";
-    modDirVersion = "6.1.74-yogabook";
+    version = "6.17.4-yogabook";
+    modDirVersion = "6.17.4";
+    config = {
+      CONFIG_MODULES = "y";
+    };
   };
 }
