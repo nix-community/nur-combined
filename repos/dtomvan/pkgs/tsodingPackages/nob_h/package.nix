@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation {
   pname = "nob.h";
-  version = "0-unstable-2025-08-21";
+  version = "3.8.2-unstable-2026-04-01";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "nob.h";
-    rev = "8ddbc72d7ece4ac638c3df0ddf636e54b35e099f";
-    hash = "sha256-hwyg1fJxGcRafF7bISkAdLYeetaee6Y9pXArsMtDSqI=";
+    rev = "0a08926d8094fc4ae678155c5d73ae21d1f96f3f";
+    hash = "sha256-EIINLsuHpNCUO8mQs2TJB2Bcm3imUCzV5FLkg2C83fw=";
   };
 
   doBuild = false;

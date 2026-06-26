@@ -16,13 +16,13 @@
 }:
 stdenv.mkDerivation {
   pname = "sowon";
-  version = "0-unstable-2025-10-18";
+  version = "0-unstable-2025-12-03";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "sowon";
-    rev = "31097e24bfea6f69c40fedfb8434d30c503a2e61";
-    hash = "sha256-jrnyAHh8lNA7irXWXOavClRGUplmJP+nGddQN6N4zGA=";
+    rev = "79b0f4fa3a3f3a6a702e9d25e69d9d7b1f011a06";
+    hash = "sha256-bqedCIdxYON5UEJx6jimdeC5Fh90ElQ8ZeSIfq22U1s=";
   };
 
   nativeBuildInputs = [ pkg-config ];

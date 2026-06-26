@@ -6,13 +6,13 @@
 }:
 buildGoModule {
   pname = "gatekeeper";
-  version = "0-unstable-2025-05-10";
+  version = "0-unstable-2026-06-25";
 
   src = fetchFromGitHub {
     owner = "tsoding";
     repo = "Gatekeeper";
-    rev = "faf43d28278b575b58c6e3cb5bdc20f32de461e6";
-    hash = "sha256-JdVPLudy0F6fPi8QvqNKTWOatAuEC99dreuiwXAT9uM=";
+    rev = "773d4800dcd406f10d7cb23ff770830e53c01dd8";
+    hash = "sha256-C5reCItArywe06dCGH651kkRcOjdjLF2TSxP9hz1GDo=";
   };
 
   vendorHash = "sha256-IEvrGVaYcnR+PxaIc00sw0+TJgoJIi14vihgCkUu8zc=";

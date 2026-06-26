@@ -30,7 +30,7 @@ stdenv.mkDerivation {
   installPhase = "mkdir -p $out/bin; cp ./сборка/хуяк $out/bin";
   fixupPhase = "wrapProgram $out/bin/хуяк --prefix PATH : ${lib.makeBinPath [ fasm ]}";
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   meta = {
     description = "Хороший Учебный Язык";

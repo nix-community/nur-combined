@@ -41,13 +41,13 @@ in
 clangStdenv.mkDerivation {
   # TODO: when Tsoding starts building with nob, use buildNobPackage
   pname = "b";
-  version = "0-unstable-2025-08-22";
+  version = "0-unstable-2025-10-29";
 
   src = fetchFromGitHub {
     owner = "bext-lang";
     repo = "b";
-    rev = "5d23941d6c41a3fc8fc8c1589780ab086a86c414";
-    hash = "sha256-eOsCcEaIYR83gE5wRVkvveRtMxdbs/9/c1yaWXM+uxU=";
+    rev = "078429a578202d8f6c4c667c780fc48f3711567f";
+    hash = "sha256-lU+f2fBKmBf00ahGurcsAq1+2rR3u6Yp2G1IPxD3HAU=";
   };
 
   nativeBuildInputs = [

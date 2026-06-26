@@ -7,14 +7,14 @@
 
 buildGoModule (finalAttrs: {
   pname = "panix";
-  version = "0.7.1";
+  version = "0.8.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "mihakrumpestar";
     repo = "panix";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-SWnagD8xfQP2p23mpJvCtOGyviiU9z2Vv7K06kQqSZ8=";
+    hash = "sha256-KaorWj7drWzLhrk4l3lw60VxA9v9kGm3wNC4WcKX2kg=";
   };
 
   subPackages = [ "cmd/panix" ];
@@ -27,7 +27,7 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 0;
 
-  vendorHash = "sha256-S1lLVTo03NH3beLeduyyHBdPZohntCAD05E6myHIwj0=";
+  vendorHash = "sha256-Ltftb6r6w/F1eXu3KZd0rMHwdKl5wzMPlLd0bg72Pds=";
 
   passthru.updateScript = nix-update-script { };
 

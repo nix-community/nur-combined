@@ -10,13 +10,13 @@
 }:
 stdenv.mkDerivation {
   pname = "porth";
-  version = "0-unstable-2022-02-14";
+  version = "0-unstable-2025-10-11";
 
   src = fetchFromGitLab {
     owner = "tsoding";
     repo = "porth";
-    rev = "d4095557cca4e76c9031e64537f5ee3a125de975";
-    hash = "sha256-kN3czOR/84VCECLQHHTeko+z26QHnezWZGOKgva647E=";
+    rev = "45262c1c17c06cc30028cb24212c691bdf3af2b2";
+    hash = "sha256-TGOfh+isB5cambQ0yxLk2Ztnhr47rB6b2GTUKeuhGpM=";
   };
 
   nativeBuildInputs = [
