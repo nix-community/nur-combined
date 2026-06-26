@@ -94,8 +94,21 @@ snapshot_task_field() {
 
 run_nvfetcher() {
   local filter="$1"
+  local log
+  log=$(mktemp)
 
-  nix run nixpkgs#nvfetcher -- --keep-going --filter "$filter" "${NVFETCHER_ARGS[@]}"
+  # 捕获 nvfetcher 输出：成功时不打印（本脚本自身的 Updating / ::warning:: / ::error::
+  # 已覆盖关心的部分）；失败时用 GitHub Actions 折叠分组打印完整日志，便于排错。
+  if nix run nixpkgs#nvfetcher -- --keep-going --filter "$filter" "${NVFETCHER_ARGS[@]}" >"$log" 2>&1; then
+    rm -f "$log"
+    return 0
+  fi
+
+  echo "::group::nvfetcher 输出 (filter: $filter)"
+  cat "$log"
+  echo "::endgroup::"
+  rm -f "$log"
+  return 1
 }
 
 run_nvfetcher_filter() {
