@@ -28,12 +28,7 @@ let
     sourceRoot = "${src.name}/native";
 
     cargoDeps = rustPlatform.fetchCargoVendor {
-      inherit (finalAttrs)
-        pname
-        version
-        src
-        sourceRoot
-        ;
+      inherit (finalAttrs) src sourceRoot;
       hash = "sha256-TVLNTlC2gKigeyyj09iH0MKOlmBIs6rCeeUHP+Nm3Ds=";
     };
 
@@ -67,6 +62,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   pythonRemoveDeps = [
     "pyside6-essentials"
+  ];
+
+  nativeBuildInputs = [
+    copyDesktopItems
+    imagemagick
   ];
 
   dependencies = [
@@ -107,11 +107,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     "tests/test_iteminfo_pabgh_companion.py"
   ];
 
-  nativeBuildInputs = [
-    copyDesktopItems
-    imagemagick
-  ];
-
   desktopItems = [
     (makeDesktopItem {
       name = "cdumm";
@@ -125,10 +120,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ];
 
   postPatch = ''
-    echo "#!/bin/sh" > cdumm
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cdumm/main.py \"\$@\"" >> cdumm
-    chmod +x cdumm
-
     substituteInPlace src/cdumm/main.py \
         --replace-fail "Path(__file__).resolve().parents[2]" "Path(__file__).resolve().parents[1]"
     substituteInPlace src/cdumm/engine/nxm_handler.py \
@@ -136,7 +127,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   postInstall = ''
-    install -Dt $out/bin cdumm
+    mkdir -p $out/bin
+    echo "#!/bin/sh" > $out/bin/cdumm
+    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cdumm/main.py \"\$@\"" >> $out/bin/cdumm
+    chmod +x $out/bin/cdumm
+
     cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm
     cp -a schemas $out/${python3Packages.python.sitePackages}
     cp -a field_schema $out/${python3Packages.python.sitePackages}

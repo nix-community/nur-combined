@@ -1,9 +1,11 @@
 {
   buildPythonPackage,
   fetchFromGitHub,
+  git,
   lib,
   rustPlatform,
 }:
+
 buildPythonPackage (finalAttrs: {
   pname = "libloot-python";
   version = "0.29.5";
@@ -16,23 +18,23 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-faqsT3Y8rxEyilZ5V1c3n/Q5ozyOqVa7IrNHRx3ZJi0=";
   };
 
-  postPatch = ''
-    cd python
-  '';
-
+  sourceRoot = "${finalAttrs.src.name}/python";
   cargoRoot = "..";
-
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    inherit (finalAttrs)
-      src
-      ;
-    hash = "sha256-i1Y+4d2ri9+mMpFNKUqHi+K4R6ScXqxPucywZeP+YKE=";
-  };
 
   nativeBuildInputs = with rustPlatform; [
     cargoSetupHook
+    git
     maturinBuildHook
   ];
+
+  cargoDeps = rustPlatform.fetchCargoVendor {
+    inherit (finalAttrs) src;
+    hash = "sha256-i1Y+4d2ri9+mMpFNKUqHi+K4R6ScXqxPucywZeP+YKE=";
+  };
+
+  env = {
+    CARGO_TARGET_DIR = "./target";
+  };
 
   meta = {
     description = "Experimental Python wrapper around libloot";

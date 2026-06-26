@@ -11,6 +11,7 @@
   wrapGAppsHook3,
   xdg-utils,
 }:
+
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
   version = "1.3.11";
