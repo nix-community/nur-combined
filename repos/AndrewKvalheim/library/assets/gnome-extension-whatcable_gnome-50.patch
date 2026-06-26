@@ -1,0 +1,9 @@
+Declare compatible with GNOME 49–50
+
+--- a/metadata.json
++++ b/metadata.json
+@@ -10 +10,3 @@
+-    "48"
++    "48",
++    "49",
++    "50"

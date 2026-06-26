@@ -39,6 +39,7 @@ in
         run-or-raise
         stretch-break-companion
         system-monitor-next
+        whatcable
       ]);
     };
 
