@@ -24,7 +24,7 @@ specify {
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate
   blocky-ui = any;
-  bobby.search = pr 535015 "sha256-YfR6/FvFtywHikFHAh1FyLONUOR4rkzRqwlFPtNqyQQ=";
+  bobby = any;
   busyserve = any;
   caddy-with-cache-route53 = any;
   cc-icons-unicode = any;
