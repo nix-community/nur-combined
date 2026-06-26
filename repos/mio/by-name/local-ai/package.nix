@@ -400,12 +400,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.4.3";
+  version = "4.5.0";
   src = fetchFromGitHub {
     owner = "go-skynet";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-/0YE3VZThSokPflepgvtZeuMCzJIsm8EaGI8i6SBbFc=";
+    hash = "sha256-t6cgJb7Sc2M13O7jwfPolwtI1zHRAKHnHQHqhusxPqs=";
   };
 
   prepare-sources =
@@ -424,7 +424,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-EgnlsyUbIYZLzyOHzXAMJ/AzGeJ/vYQnqvpsiFv+jiw=";
+    vendorHash = "sha256-SWgeqZ8X0t9pl3LRt8OKVQsREFXJZtwVgyPmyEdiL+8=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 

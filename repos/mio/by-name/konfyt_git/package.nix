@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "konfyt";
-  version = "0-unstable-2026-06-03";
+  version = "38c87ef";
 
   src = fetchFromGitHub {
     owner = "noedigcode";
