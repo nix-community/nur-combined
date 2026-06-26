@@ -20,5 +20,4 @@
       default_session.command = "${lib.getExe pkgs.tuigreet} --cmd niri-session";
     };
   };
-  services.gvfs.enable = true;
 }

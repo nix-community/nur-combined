@@ -53,6 +53,7 @@
   environment.systemPackages = with pkgs; [
     # gui
     abiword
+    foliate
     freerdp
     gnumeric
     kodi-wayland

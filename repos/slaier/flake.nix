@@ -138,6 +138,7 @@
             just
             nix-update
             nixos-rebuild
+            nodejs
             sops
           ];
         };

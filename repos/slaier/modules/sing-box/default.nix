@@ -22,4 +22,17 @@
     restartUnits = [ "sing-box.service" ];
     owner = config.systemd.services.sing-box.serviceConfig.User;
   };
+  programs.proxychains = {
+    enable = true;
+    package = pkgs.proxychains-ng;
+    proxies = {
+      sing-box = {
+        enable = true;
+        host = "127.0.0.1";
+        port = 7890;
+        type = "http";
+      };
+    };
+    proxyDNS = false;
+  };
 }

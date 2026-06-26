@@ -10,48 +10,137 @@ let
     cp "${pkgs.rtk.src}/hooks/claude/rtk-awareness.md" $out/CLAUDE.md
   '';
 
-  mkCluade =
-    name:
+  mkShellApp =
     {
-      key,
-      base,
-      model,
-      haiku ? model,
-      sonnet ? model,
-      opus ? model,
+      package,
+      name ? package.meta.mainProgram,
+      runtimeEnv ? null,
+      runtimeEnvFile ? null,
+      flags ? "",
     }:
     pkgs.writeShellApplication {
-      name = "claude-${name}";
-      runtimeInputs = [ pkgs.claude-code ];
-      text = ''
-        ANTHROPIC_AUTH_TOKEN=$(cat ${key})
-        export ANTHROPIC_AUTH_TOKEN
-        export ANTHROPIC_BASE_URL=${base};
-        export ANTHROPIC_MODEL="${model}";
-        export ANTHROPIC_DEFAULT_HAIKU_MODEL="${haiku}";
-        export ANTHROPIC_DEFAULT_SONNET_MODEL="${sonnet}";
-        export ANTHROPIC_DEFAULT_OPUS_MODEL="${opus}";
-
-        export CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1
-        exec claude --add-dir "${rtkMD}" "$@"
-      '';
+      inherit name runtimeEnv;
+      text =
+        lib.optionalString (runtimeEnvFile != null) (
+          lib.concatMapAttrsStringSep "" (name: value: ''
+            ${name}="$(cat ${value})"
+            export ${name}
+          '') runtimeEnvFile
+        )
+        + ''
+          exec ${lib.getExe package} ${flags} "$@"
+        '';
     };
 in
 {
   home.packages = with pkgs; [
     rtk
-    (mkCluade "qwen" {
-      key = writeText "dummy" "dummy";
-      base = "http://127.0.0.1:8080";
-      model = "preset/Qwen3.5-4B-MTP";
-      haiku = "preset/Qwen3.5-4B-MTP";
-      sonnet = "preset/Qwen3.5-4B-MTP";
+    (mkShellApp {
+      name = "summarize";
+      package = pkgs.proxychains-ng;
+      flags = "-q ${lib.getExe pkgs.summarize}";
+      runtimeEnv = {
+        SUMMARIZE_MODEL = "google/gemini-3.1-flash-lite";
+      };
+      runtimeEnvFile = {
+        GEMINI_API_KEY = config.sops.secrets.summarize.path;
+      };
     })
   ];
+  sops.secrets = {
+    summarize = { };
+    tavily = { };
+    context7 = { };
+    github = { };
+  };
+  programs.mcp = {
+    enable = true;
+    servers =
+      let
+        mcp-remote =
+          flags:
+          "${lib.getExe (
+            pkgs.writeShellApplication {
+              name = "mcp-remote";
+              runtimeInputs = [ pkgs.nodejs ];
+              text = ''
+                npx -y mcp-remote ${flags}
+              '';
+            }
+          )}";
+      in
+      {
+        tavily = {
+          enabled = true;
+          env.TAVILY_API_KEY.file = config.sops.secrets.tavily.path;
+          command = mcp-remote ''"https://mcp.tavily.com/mcp/?tavilyApiKey=$TAVILY_API_KEY"'';
+        };
+        context7 = {
+          enabled = true;
+          env.CONTEXT7_API_KEY.file = config.sops.secrets.context7.path;
+          command = mcp-remote ''https://mcp.context7.com/mcp --header "CONTEXT7_API_KEY: $CONTEXT7_API_KEY"'';
+        };
+        github = {
+          enable = true;
+          env.GITHUB_PERSONAL_ACCESS_TOKEN.file = config.sops.secrets.github.path;
+          command = "${lib.getExe pkgs.github-mcp-server}";
+          args = [
+            "stdio"
+            "--tools"
+            (lib.concatStringsSep "," [
+              "get_file_contents"
+              "get_latest_release"
+              "get_repository_tree"
+              "get_tag"
+              "issue_read"
+              "pull_request_read"
+              "list_branches"
+              "list_commits"
+              "list_releases"
+              "list_tags"
+              "search_code"
+              "search_issues"
+              "search_pull_requests"
+              "search_repositories"
+            ])
+          ];
+        };
+      };
+  };
   programs.claude-code = {
     enable = true;
 
+    package = mkShellApp {
+      package = pkgs.claude-code;
+      flags = "--add-dir ${rtkMD}";
+      runtimeEnv =
+        let
+          ANTHROPIC_MODEL = "minimaxai/minimax-m3";
+        in
+        {
+          ANTHROPIC_BASE_URL = "http://127.0.0.1:3456";
+          ANTHROPIC_AUTH_TOKEN = "dummy";
+          inherit ANTHROPIC_MODEL;
+          ANTHROPIC_DEFAULT_HAIKU_MODEL = ANTHROPIC_MODEL;
+          ANTHROPIC_DEFAULT_SONNET_MODEL = ANTHROPIC_MODEL;
+          ANTHROPIC_DEFAULT_OPUS_MODEL = ANTHROPIC_MODEL;
+          CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD = "1";
+        };
+    };
+
     configDir = "${config.xdg.configHome}/claude";
+
+    enableMcpIntegration = true;
+
+    skills = {
+      summarize = pkgs.fetchurl {
+        url = "https://raw.githubusercontent.com/openclaw/openclaw/refs/tags/v2026.6.8/skills/summarize/SKILL.md";
+        hash = "sha256-ttm+D/R+ZGKAoP9AIDgj18o2kTqxvqJVdbLeSvs8wN8=";
+      };
+      playwright-cli = "${pkgs.playwright-cli}/lib/node_modules/@playwright/cli/skills/playwright-cli";
+      grilling = "${pkgs.mattpocock-skills}/share/skills/grilling";
+      tdd = "${pkgs.mattpocock-skills}/share/skills/tdd";
+    };
 
     settings = {
       statusLine = {
@@ -91,6 +180,7 @@ in
           "Write"
         ];
         deny = [
+          "WebSearch"
           "Read(./.env)"
           "Read(./secrets/**)"
           "Read(**/*.pem)"
