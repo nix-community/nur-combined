@@ -369,6 +369,10 @@ direnv
 discardable
 discoverability
 disempower
+disenshittified
+disenshittifies
+disenshittify
+disenshittifying
 disincentivize
 disincentivizes
 dismissable
@@ -429,7 +433,9 @@ enquire
 enquired
 enshittification
 enshittified
+enshittifies
 enshittify
+enshittifying
 entomophagy
 entrypoint
 entrypoints
