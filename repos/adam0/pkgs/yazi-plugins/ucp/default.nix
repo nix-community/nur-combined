@@ -7,13 +7,13 @@
 }:
 mkYaziPlugin rec {
   pname = "ucp.yazi";
-  version = "0-unstable-2026-05-18";
+  version = "0-unstable-2026-06-25";
 
   src = fetchFromGitHub {
     owner = "simla33";
     repo = pname;
-    rev = "a4b5ce1a2b8a5d77b3d00abd36e3259bff785c38";
-    hash = "sha256-jIvooR00smQb8bmS3slj87k4yM9aTeruvhu/1krigZ8=";
+    rev = "79043fbbfd39b7b9ae0142d11b315272dd90d33b";
+    hash = "sha256-oL3fss8/U6IH2y5B/YdK17h4LvN4XsPypmC+yzJBMnE=";
   };
 
   meta = {

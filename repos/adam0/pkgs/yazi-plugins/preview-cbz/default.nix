@@ -7,13 +7,13 @@
 }:
 mkYaziPlugin rec {
   pname = "preview-cbz.yazi";
-  version = "0-unstable-2026-06-21";
+  version = "0-unstable-2026-06-25";
 
   src = fetchFromGitHub {
     owner = "AminurAlam";
     repo = "yazi-plugins";
-    rev = "4949660fad5bf2e34688677dda89a04242869861";
-    hash = "sha256-elCSaxL76a1XrgwEgesKqsVqQy7u15vdLtGVr1j6cMA=";
+    rev = "dc36177ae7b6413bf0d05bc4cfb641d5418d52f0";
+    hash = "sha256-S2rwHtEcWDyIfMunvdm8rc5hXXeu4PCLj2qEcHEgr4E=";
   };
 
   installPhase = ''
