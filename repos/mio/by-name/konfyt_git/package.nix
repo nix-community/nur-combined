@@ -17,8 +17,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "noedigcode";
     repo = "konfyt";
-    rev = "0b74c02c371dee082465aa7cbcddef653b78dab1";
-    hash = "sha256-9Gg1R2vK8RTrahg7j4Z17QpXs3wUzgtPMU0hUEONbRQ=";
+    rev = "38c87ef";
+    hash = "sha256-0o+AeobChDAdDKHD+jGRKiRy3E0vHWX1T035JsCh0WM=";
   };
 
   nativeBuildInputs = [
