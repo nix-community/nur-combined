@@ -730,6 +730,7 @@ lib.mkOption {
                     "google-vertex"
                     "hyper"
                     "litellm"
+                    "llamacpp"
                     "lmstudio"
                     "ollama"
                     "omlx"
@@ -749,6 +750,21 @@ lib.mkOption {
       tools = lib.mkOption {
         type = lib.types.submodule {
           options = {
+            glob = lib.mkOption {
+              type = lib.types.submodule {
+                options = {
+                  timeout = lib.mkOption {
+                    type = lib.types.nullOr lib.types.int;
+                    default = null;
+                    description = "Timeout for the glob tool call";
+                  };
+
+                };
+              };
+              default = { };
+              description = "Glob";
+            };
+
             grep = lib.mkOption {
               type = lib.types.submodule {
                 options = {
