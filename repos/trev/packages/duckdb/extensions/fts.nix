@@ -4,8 +4,8 @@
   name = "fts";
   repo = "duckdb-fts";
   branch = "main";
-  rev = "08ea9086c4c28275270f9c5bb5bbbac7604c8b78";
-  hash = "sha256-wFzaycY+t48ZR6I/eFSeiN9V1EDv7e5+qqP0DqoDY6s=";
+  rev = "a11fd82a024fd56ba10776802f57da87887d1a05";
+  hash = "sha256-Ukqa+nlCc6Cl4me1kyOEVkuNFNu3xXMBKjoPCmS64Bg=";
   loadOptions = [ "DONT_LINK" ];
   duckdbPostPatch = ''
     substituteInPlace extension_external/fts/src/fts_indexing.cpp \
