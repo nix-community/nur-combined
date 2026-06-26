@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "4474ff9d482ea37dc153553f7d076e266b73c7c0";
+    version = "b3781fb89aa946060222c894b9d2fc8a27566d0e";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "4474ff9d482ea37dc153553f7d076e266b73c7c0";
+      rev = "b3781fb89aa946060222c894b9d2fc8a27566d0e";
       fetchSubmodules = false;
-      sha256 = "sha256-IAoPmBwJlDYfw4HU6ALYaqCFjdD5Y0Ekql4KTHjjKOw=";
+      sha256 = "sha256-iHK3+Eqm4gRHNRRiuKqj/9vXFOJ3mf2UX8rTsXbC8dI=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-IAoPmBwJlDYfw4HU6ALYaqCFjdD5Y0Ekql4KTHjjKOw=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-iHK3+Eqm4gRHNRRiuKqj_9vXFOJ3mf2UX8rTsXbC8dI=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-06-25";
+    date = "2026-06-26";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -257,26 +257,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.06.22";
+    version = "2026.06.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.22/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-VJ0d6QcJmJVHumP8Cq/Is57FqnWYJgjKTOKg/KNAAbg=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.25/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-vVN9WE23C1BR9NlI5qWI1WLMxBG/YplGKHYBIy4QtA4=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.06.22";
+    version = "2026.06.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.22/GeoLite2-City.mmdb";
-      sha256 = "sha256-k5TK1Q63q5IE3RjWStZ2qTcchtHf00bZ2Pidvj6+9Yw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.25/GeoLite2-City.mmdb";
+      sha256 = "sha256-eZNHdpqeOs+gIsUwx3M9xcYOru2hqvVyHPHcOqsNiVo=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.06.22";
+    version = "2026.06.25";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.22/GeoLite2-Country.mmdb";
-      sha256 = "sha256-zIce5Iuz6F6bzpkdUk14ISlZ3P4TLEKskDl78Qnbgcs=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.25/GeoLite2-Country.mmdb";
+      sha256 = "sha256-FSL697X2qWw6ASi8qBO9SwriTc446dN6zf8O+qdfzdk=";
     };
   };
   git-mcp-server = {
@@ -410,15 +410,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "dae62409bd2b5ea465fa8b420950cfdbe685d27a";
+    version = "b843b96ee4f341367a25e59d4396fe541920d601";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "dae62409bd2b5ea465fa8b420950cfdbe685d27a";
+      rev = "b843b96ee4f341367a25e59d4396fe541920d601";
       fetchSubmodules = false;
-      sha256 = "sha256-vPTT1epB5MspWw48AaNRaf+Wz2Oa1FGfqxuaQ61Y6Lg=";
+      sha256 = "sha256-LwGfYW4oaGxE80IM9+on+MfT9RYSOfstaJUgTzJbs0s=";
     };
-    date = "2026-06-24";
+    date = "2026-06-25";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -673,15 +673,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "d77d6687d4f45d7ad166105721cb81139ec79ceb";
+    version = "ab3aa525f9b8c174fa728375a79b6b50b7986439";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "d77d6687d4f45d7ad166105721cb81139ec79ceb";
+      rev = "ab3aa525f9b8c174fa728375a79b6b50b7986439";
       fetchSubmodules = false;
-      sha256 = "sha256-pKR6m966rnMgmpI5ZUO10mjs83jAqsrHPv+dJnMpapU=";
+      sha256 = "sha256-bvq74GsMS0MqzdSEGKGtpaHjkv7k52elok9JAkLnU3U=";
     };
-    date = "2026-06-24";
+    date = "2026-06-25";
   };
   whois42d-ng = {
     pname = "whois42d-ng";
