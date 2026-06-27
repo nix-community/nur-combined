@@ -41,11 +41,15 @@
 
 stdenv.mkDerivation rec {
   pname = "binance";
-  version = "latest";
+  # Binance tidak menyediakan URL download per versi secara terpisah untuk Linux,
+  # melainkan selalu menimpa berkas binance-amd64-linux.deb di URL statis berikut.
+  # Jika terjadi error hash mismatch, jalankan `nix-prefetch-url` pada URL di bawah,
+  # lalu perbarui versi (cek via `dpkg-deb -I` di environment ber-dpkg) dan sha256.
+  version = "2.3.1";
 
   src = fetchurl {
     url = "https://download.binance.com/electron-desktop/linux/production/binance-amd64-linux.deb";
-    sha256 = "024snny1i34zg1r0qgyakkm8s1vlwr22igvrjj3vyv55fs5lrkr5";
+    sha256 = "1acndri50r302rdjqhsgj3mwd78qlyrg6i6pp72h7qp37ibs20rq";
   };
 
   nativeBuildInputs = [

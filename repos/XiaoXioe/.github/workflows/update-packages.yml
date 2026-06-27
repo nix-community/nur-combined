@@ -1,0 +1,39 @@
+name: "Auto-Update Packages"
+
+on:
+  schedule:
+    # Run everyday at 00:00 UTC
+    - cron: '0 0 * * *'
+  workflow_dispatch: # Allows manual trigger
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update-packages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run Update Script
+        run: ./maintain/update.py
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update package versions and hashes"
+          title: "chore: auto-update package versions and hashes"
+          body: |
+            This is an automated pull request to update the versions and source hashes of custom packages in the repository.
+            
+            It was triggered by the daily update schedule or a manual run.
+          branch: "auto-update-packages"
+          delete-branch: true

@@ -33,6 +33,19 @@
         )
       );
 
+      overlays.default = final: prev:
+        let
+          lib = final.lib;
+          pkgsPath = ./pkgs;
+          packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
+          packageNames = builtins.attrNames packageDirs;
+        in
+        lib.genAttrs packageNames (
+          name: final.callPackage (pkgsPath + "/${name}/default.nix") { }
+        );
+
       homeModules.freqtrade-setup = import ./modules/freqtrade-setup.nix;
+
+      formatter = forEachSystem (pkgs: pkgs.nixfmt-rfc-style);
     };
 }

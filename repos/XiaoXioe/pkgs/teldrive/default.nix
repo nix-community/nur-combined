@@ -28,6 +28,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     description = "Telegram Drive - Telegram as a cloud storage";
     homepage = "https://github.com/tgdrive/teldrive";
+    license = licenses.mit;
     platforms = [ "x86_64-linux" ];
   };
 }

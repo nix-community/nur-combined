@@ -48,5 +48,6 @@ python3.pkgs.buildPythonApplication {
     homepage = "https://github.com/devvratmiglani/Vimmdl";
     license = lib.licenses.mit;
     mainProgram = "vm";
+    platforms = lib.platforms.all;
   };
 }
