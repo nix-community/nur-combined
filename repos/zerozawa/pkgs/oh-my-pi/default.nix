@@ -215,11 +215,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     # 2. Docs index (for omp:// protocol)
     bun --bun --cwd=packages/coding-agent scripts/generate-docs-index.ts --generate || true
 
-    # 3. Tool views (for HTML export)
-    bun --bun --cwd=packages/collab-web run build:tool-views 2>/dev/null || true
+    # 3. Tool views (for HTML export) — needed by bundle-dist.ts step 4
+    bun --bun --cwd=packages/collab-web run gen:tool-views || true
 
-    # 4. Bundle dist/cli.js for the omp CLI entry
-    bun --bun --cwd=packages/coding-agent scripts/bundle-dist.ts 2>/dev/null || true
+    # 4. Bundle dist/cli.js for the omp CLI entry (required for omp wrapper)
+    bun --bun --cwd=packages/coding-agent scripts/bundle-dist.ts
 
     runHook postBuild
   '';

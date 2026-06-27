@@ -173,7 +173,7 @@ $out/
 | 4 | configure | `cp ${piNatives}/native/*` | Native addon in place | Wrong filename |
 | 5 | build | `generate-client-bundle.ts --generate` | `embedded-client.generated.txt` | Stats dashboard empty |
 | 6 | build | `generate-docs-index.ts --generate` | `docs-index.generated.txt` | omp:// docs missing |
-| 7 | build | `build:tool-views` | `tool-views.generated.js` | HTML export broken |
+| 7 | build | `gen:tool-views` | `tool-views.generated.js` | HTML export broken |
 | 8 | build | `bundle-dist.ts` | `dist/cli.js` | `omp` command fails |
 | 9 | install | Tree copy + overlays | Full install tree | — |
 
@@ -206,7 +206,7 @@ Both `bin/omp` and `bin/omp-stats` are `makeBinaryWrapper` wrappers over
 
 | Wrapper | Target | Reason |
 |---------|--------|--------|
-| `omp` | `dist/cli.js` | Pre-compiled JS bundle (9.91MB) |
+| `omp` | `dist/cli.js` | Bundled CLI entrypoint (size varies per version) |
 | `omp-stats` | `src/index.ts` | TypeScript source (Bun transpiles on the fly) |
 
 Not using `bun build --compile` (standalone binary) was a deliberate
