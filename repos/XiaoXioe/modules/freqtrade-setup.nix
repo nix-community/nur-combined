@@ -140,19 +140,19 @@ let
   logRotateScript = pkgs.writeShellScriptBin "freqtrade-log-rotate" ''
     LOG_FILE="$1"
     MAX_SIZE_STR="$2"
-    
+
     if [ -z "$LOG_FILE" ] || [ -z "$MAX_SIZE_STR" ]; then
       exit 0
     fi
-    
+
     if [ ! -f "$LOG_FILE" ]; then
       exit 0
     fi
-    
+
     # Parse max size
     MAX_SIZE_BYTES=$(${pkgs.coreutils}/bin/numfmt --from=iec "$MAX_SIZE_STR" 2>/dev/null || echo "10485760")
     CURRENT_SIZE=$(${pkgs.coreutils}/bin/stat -c %s "$LOG_FILE")
-    
+
     if [ "$CURRENT_SIZE" -ge "$MAX_SIZE_BYTES" ]; then
       TIMESTAMP=$(${pkgs.coreutils}/bin/date +"%Y%m%d-%H%M%S")
       BACKUP_FILE="''${LOG_FILE%.log}-$TIMESTAMP.log"
@@ -200,7 +200,6 @@ in
       default = pkgs.python313;
       description = "Paket Python yang digunakan untuk membuat virtual environment Freqtrade.";
     };
-
 
     service = {
       enable = mkEnableOption "Aktifkan otomatisasi background service (Systemd)";
@@ -287,31 +286,50 @@ in
       freqtrade-venv = "set -gx LD_LIBRARY_PATH \"${cLibs}\" \$LD_LIBRARY_PATH; set -gx PYTHONWARNINGS \"ignore:The HMAC key is\"; source ${cfg.configDir}/.venv/bin/activate.fish";
     };
 
-
-
     # GENERATOR SYSTEMD USER SERVICES
     systemd.user.services = mkIf cfg.service.enable (
       mkMerge (
-        mapAttrsToList (botName: botCfg: 
+        mapAttrsToList (
+          botName: botCfg:
           let
             mainService = {
               "freqtrade-${botName}" = {
                 Unit = {
                   Description = "Freqtrade Daemon - ${botName}";
-                  After = [ "network-online.target" "time-sync.target" ];
-                  Wants = [ "network-online.target" ] ++ imap0 (i: _: "freqtrade-${botName}-extra-${toString i}.service") botCfg.extra;
-                } // (if cfg.service.startupDelay != "" then {
-                  # Kosongkan WantedBy jika menggunakan timer
-                } else {});
+                  After = [
+                    "network-online.target"
+                    "time-sync.target"
+                  ];
+                  Wants = [
+                    "network-online.target"
+                  ]
+                  ++ imap0 (i: _: "freqtrade-${botName}-extra-${toString i}.service") botCfg.extra;
+                }
+                // (
+                  if cfg.service.startupDelay != "" then
+                    {
+                      # Kosongkan WantedBy jika menggunakan timer
+                    }
+                  else
+                    { }
+                );
                 Service = {
                   Type = "simple";
                   WorkingDirectory = botCfg.strategiesDir;
-                  StandardOutput = if botCfg.disableLogs then "null" 
-                                   else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log" 
-                                   else null;
-                  StandardError = if botCfg.disableLogs then "null" 
-                                  else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log" 
-                                  else null;
+                  StandardOutput =
+                    if botCfg.disableLogs then
+                      "null"
+                    else if botCfg.logToFile then
+                      "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log"
+                    else
+                      null;
+                  StandardError =
+                    if botCfg.disableLogs then
+                      "null"
+                    else if botCfg.logToFile then
+                      "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log"
+                    else
+                      null;
 
                   Environment = [
                     "LD_LIBRARY_PATH=${cLibs}"
@@ -330,63 +348,104 @@ in
 
                   Restart = "always";
                   RestartSec = "10s";
-                } // (if botCfg.logToFile then {
-                  ExecStartPre = [
-                    "${pkgs.coreutils}/bin/mkdir -p ${botCfg.strategiesDir}/user_data/logs"
-                    "${logRotateScript}/bin/freqtrade-log-rotate ${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log ${botCfg.logMaxSize}"
-                  ];
-                } else {}) // (if botCfg.memoryLimit != "" then {
-                  MemoryMax = botCfg.memoryLimit;
-                } else {});
+                }
+                // (
+                  if botCfg.logToFile then
+                    {
+                      ExecStartPre = [
+                        "${pkgs.coreutils}/bin/mkdir -p ${botCfg.strategiesDir}/user_data/logs"
+                        "${logRotateScript}/bin/freqtrade-log-rotate ${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log ${botCfg.logMaxSize}"
+                      ];
+                    }
+                  else
+                    { }
+                )
+                // (
+                  if botCfg.memoryLimit != "" then
+                    {
+                      MemoryMax = botCfg.memoryLimit;
+                    }
+                  else
+                    { }
+                );
               };
             };
-            extraServices = listToAttrs (imap0 (i: cmd: 
-              nameValuePair "freqtrade-${botName}-extra-${toString i}" {
-                Unit = {
-                  Description = "Freqtrade Extra ${toString i} - ${botName}";
-                  PartOf = [ "freqtrade-${botName}.service" ];
-                  After = [ "network-online.target" "time-sync.target" ];
-                  Wants = [ "network-online.target" ];
-                };
-                Install = {
-                  WantedBy = [ "freqtrade-${botName}.service" ];
-                };
-                Service = {
-                  Type = "simple";
-                  WorkingDirectory = botCfg.strategiesDir;
-                  StandardOutput = if botCfg.disableLogs then "null" 
-                                   else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log" 
-                                   else null;
-                  StandardError = if botCfg.disableLogs then "null" 
-                                  else if botCfg.logToFile then "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log" 
-                                  else null;
-                  Environment = [
-                    "LD_LIBRARY_PATH=${cLibs}"
-                    "PYTHONWARNINGS=ignore:The HMAC key is"
-                  ];
-                  ExecStart = "${pkgs.bash}/bin/bash -c 'source ${cfg.configDir}/.venv/bin/activate && exec ${cmd}'";
-                  Restart = "always";
-                  RestartSec = "10s";
-                } // (if botCfg.logToFile then {
-                  ExecStartPre = [
-                    "${pkgs.coreutils}/bin/mkdir -p ${botCfg.strategiesDir}/user_data/logs"
-                    "${logRotateScript}/bin/freqtrade-log-rotate ${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log ${botCfg.logMaxSize}"
-                  ];
-                } else {}) // (if botCfg.memoryLimit != "" then {
-                  MemoryMax = botCfg.memoryLimit;
-                } else {});
-              }
-            ) botCfg.extra);
-            
+            extraServices = listToAttrs (
+              imap0 (
+                i: cmd:
+                nameValuePair "freqtrade-${botName}-extra-${toString i}" {
+                  Unit = {
+                    Description = "Freqtrade Extra ${toString i} - ${botName}";
+                    PartOf = [ "freqtrade-${botName}.service" ];
+                    After = [
+                      "network-online.target"
+                      "time-sync.target"
+                    ];
+                    Wants = [ "network-online.target" ];
+                  };
+                  Install = {
+                    WantedBy = [ "freqtrade-${botName}.service" ];
+                  };
+                  Service = {
+                    Type = "simple";
+                    WorkingDirectory = botCfg.strategiesDir;
+                    StandardOutput =
+                      if botCfg.disableLogs then
+                        "null"
+                      else if botCfg.logToFile then
+                        "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log"
+                      else
+                        null;
+                    StandardError =
+                      if botCfg.disableLogs then
+                        "null"
+                      else if botCfg.logToFile then
+                        "append:${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log"
+                      else
+                        null;
+                    Environment = [
+                      "LD_LIBRARY_PATH=${cLibs}"
+                      "PYTHONWARNINGS=ignore:The HMAC key is"
+                    ];
+                    ExecStart = "${pkgs.bash}/bin/bash -c 'source ${cfg.configDir}/.venv/bin/activate && exec ${cmd}'";
+                    Restart = "always";
+                    RestartSec = "10s";
+                  }
+                  // (
+                    if botCfg.logToFile then
+                      {
+                        ExecStartPre = [
+                          "${pkgs.coreutils}/bin/mkdir -p ${botCfg.strategiesDir}/user_data/logs"
+                          "${logRotateScript}/bin/freqtrade-log-rotate ${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log ${botCfg.logMaxSize}"
+                        ];
+                      }
+                    else
+                      { }
+                  )
+                  // (
+                    if botCfg.memoryLimit != "" then
+                      {
+                        MemoryMax = botCfg.memoryLimit;
+                      }
+                    else
+                      { }
+                  );
+                }
+              ) botCfg.extra
+            );
+
             # Tambahkan Install.WantedBy ke mainService jika tidak ada startupDelay
-            mainServiceWithInstall = if cfg.service.startupDelay == "" then
-              {
-                "freqtrade-${botName}" = mainService."freqtrade-${botName}" // {
-                  Install = { WantedBy = [ "default.target" ]; };
-                };
-              }
-            else
-              mainService;
+            mainServiceWithInstall =
+              if cfg.service.startupDelay == "" then
+                {
+                  "freqtrade-${botName}" = mainService."freqtrade-${botName}" // {
+                    Install = {
+                      WantedBy = [ "default.target" ];
+                    };
+                  };
+                }
+              else
+                mainService;
           in
           mainServiceWithInstall // extraServices
         ) enabledBots
@@ -400,11 +459,13 @@ in
                 Type = "oneshot";
                 ExecStart = pkgs.writeShellScript "freqtrade-logrotate-run" ''
                   ${concatStringsSep "\n" (
-                    mapAttrsToList (botName: botCfg:
+                    mapAttrsToList (
+                      botName: botCfg:
                       optionalString botCfg.logToFile (
                         ''
                           ${logRotateScript}/bin/freqtrade-log-rotate "${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}.log" "${botCfg.logMaxSize}"
-                        '' + concatStringsSep "\n" (
+                        ''
+                        + concatStringsSep "\n" (
                           imap0 (i: _: ''
                             ${logRotateScript}/bin/freqtrade-log-rotate "${botCfg.strategiesDir}/user_data/logs/freqtrade-${botName}-extra-${toString i}.log" "${botCfg.logMaxSize}"
                           '') botCfg.extra
@@ -421,10 +482,11 @@ in
     );
 
     # GENERATOR SYSTEMD USER TIMERS (DELAYED STARTUP & LOG ROTATION)
-    systemd.user.timers = mkIf cfg.service.enable (
-      mkMerge [
-        (mkIf (cfg.service.startupDelay != "") (
-          listToAttrs (mapAttrsToList (botName: botCfg: 
+    systemd.user.timers = mkIf cfg.service.enable (mkMerge [
+      (mkIf (cfg.service.startupDelay != "") (
+        listToAttrs (
+          mapAttrsToList (
+            botName: botCfg:
             nameValuePair "freqtrade-${botName}" {
               Unit = {
                 Description = "Delayed Startup Timer for Freqtrade - ${botName}";
@@ -436,23 +498,23 @@ in
                 WantedBy = [ "timers.target" ];
               };
             }
-          ) enabledBots)
-        ))
-        {
-          freqtrade-logrotate = {
-            Unit = {
-              Description = "Run Freqtrade log rotation hourly";
-            };
-            Timer = {
-              OnCalendar = "hourly";
-              Persistent = true;
-            };
-            Install = {
-              WantedBy = [ "timers.target" ];
-            };
+          ) enabledBots
+        )
+      ))
+      {
+        freqtrade-logrotate = {
+          Unit = {
+            Description = "Run Freqtrade log rotation hourly";
           };
-        }
-      ]
-    );
+          Timer = {
+            OnCalendar = "hourly";
+            Persistent = true;
+          };
+          Install = {
+            WantedBy = [ "timers.target" ];
+          };
+        };
+      }
+    ]);
   };
 }

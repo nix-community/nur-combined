@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> {} }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 let
   lib = pkgs.lib;
@@ -8,17 +10,15 @@ let
   packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
   packageNames = builtins.attrNames packageDirs;
 in
-(lib.genAttrs packageNames (
-  name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }
-)) // {
-  overlays.default = final: prev:
+(lib.genAttrs packageNames (name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }))
+// {
+  overlays.default =
+    final: prev:
     let
       packageDirs = final.lib.filterAttrs (name: type: type == "directory") (builtins.readDir ./pkgs);
       packageNames = final.lib.attrNames packageDirs;
     in
-    final.lib.genAttrs packageNames (
-      name: final.callPackage (./pkgs + "/${name}/default.nix") { }
-    );
+    final.lib.genAttrs packageNames (name: final.callPackage (./pkgs + "/${name}/default.nix") { });
 
   modules = {
     freqtrade-setup = import ./modules/freqtrade-setup.nix;
@@ -27,4 +27,3 @@ in
     freqtrade-setup = import ./modules/freqtrade-setup.nix;
   };
 }
-

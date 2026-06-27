@@ -15,34 +15,39 @@
         "aarch64-darwin"
       ];
 
-      forEachSystem = f: nixpkgs.lib.genAttrs supportedSystems (system: f (import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      }));
+      forEachSystem =
+        f:
+        nixpkgs.lib.genAttrs supportedSystems (
+          system:
+          f (
+            import nixpkgs {
+              inherit system;
+              config.allowUnfree = true;
+            }
+          )
+        );
     in
     {
-      packages = forEachSystem (pkgs:
+      packages = forEachSystem (
+        pkgs:
         let
           lib = pkgs.lib;
           pkgsPath = ./pkgs;
           packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
           packageNames = builtins.attrNames packageDirs;
         in
-        lib.genAttrs packageNames (
-          name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }
-        )
+        lib.genAttrs packageNames (name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { })
       );
 
-      overlays.default = final: prev:
+      overlays.default =
+        final: prev:
         let
           lib = final.lib;
           pkgsPath = ./pkgs;
           packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
           packageNames = builtins.attrNames packageDirs;
         in
-        lib.genAttrs packageNames (
-          name: final.callPackage (pkgsPath + "/${name}/default.nix") { }
-        );
+        lib.genAttrs packageNames (name: final.callPackage (pkgsPath + "/${name}/default.nix") { });
 
       homeModules.freqtrade-setup = import ./modules/freqtrade-setup.nix;
 
