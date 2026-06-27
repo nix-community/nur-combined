@@ -18,7 +18,7 @@ This repository currently exports **24 packages**, **1 library helper**, and pla
 | `JMComic-qt` | Qt-based 禁漫天堂 / 18comic desktop client with Vulkan upscaling support |
 | `picacg-qt` | Qt-based PicACG desktop client with Vulkan upscaling support |
 | `lightnovel-crawler` | Download light novels and generate e-books |
-
+| `banguminet` | Third-party Bangumi (番組计划) desktop client built with .NET 10 |
 #### Streaming, networking, and developer tools
 
 | Package | Description |
@@ -33,7 +33,7 @@ This repository currently exports **24 packages**, **1 library helper**, and pla
 | `mcp-cli` | Lightweight CLI for interacting with MCP servers |
 | `context-mode` | MCP server for context window optimization — sandboxed code execution, FTS5 knowledge base |
 | `codegraph` | Pre-indexed code knowledge graph with MCP support — semantic code intelligence |
-
+| `spec-kit` | GitHub's official Spec-Driven Development CLI toolkit |
 #### Desktop customization and utilities
 
 | Package | Description |
