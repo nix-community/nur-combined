@@ -54,5 +54,6 @@ buildPythonPackage rec {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ ivyfanchiang ];
     mainProgram = "decompyle3";
+    broken = true;
   };
 }

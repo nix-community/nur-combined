@@ -14,7 +14,7 @@ in
 (rec {
   davey = pyfinal.callPackage ./pkgs/davey/default.nix { };
   dearpygui = pyfinal.callPackage ./pkgs/dearpygui/default.nix { };
-  decompyle3 = pyfinal.callPackage ./pkgs/decompyle3/default.nix { inherit xdis; };
+  # decompyle3 = pyfinal.callPackage ./pkgs/decompyle3/default.nix { inherit xdis; };
   django-colorfield = pyfinal.callPackage ./pkgs/django-colorfield/default.nix { };
   doc2dash = pyfinal.callPackage ./pkgs/doc2dash/default.nix { };
   flask-apscheduler = pyfinal.callPackage ./pkgs/flask-apscheduler/default.nix { };
@@ -23,9 +23,9 @@ in
   protobuf-inspector = pyfinal.callPackage ./pkgs/protobuf-inspector/default.nix { };
   # pyghidra = pyfinal.callPackage ./pkgs/pyghidra/default.nix { };
   pyinstxtractor-ng = pyfinal.callPackage ./pkgs/pyinstxtractor-ng/default.nix { inherit xdis; };
-  xasm = pyfinal.callPackage ./pkgs/xasm/default.nix { inherit xdis x-python; };
+  # xasm = pyfinal.callPackage ./pkgs/xasm/default.nix { inherit xdis x-python; };
   inherit xdis;
-  x-python = pyfinal.callPackage ./pkgs/x-python/default.nix { inherit xdis; };
+  # x-python = pyfinal.callPackage ./pkgs/x-python/default.nix { inherit xdis; };
 } //
 (if ((version == null) || ((lib.toInt (lib.versions.minor version)) < 13)) then {
   imgui = pyfinal.callPackage ./pkgs/pyimgui/default.nix { };

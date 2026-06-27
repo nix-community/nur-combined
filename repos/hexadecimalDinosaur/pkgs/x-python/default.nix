@@ -40,5 +40,6 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ivyfanchiang ];
     mainProgram = "xpython";
+    broken = true;
   };
 }
