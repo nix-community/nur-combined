@@ -1,7 +1,30 @@
 { lib, pkgs, ... }:
 
 let
+  inherit (lib) concatStringsSep;
+
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
+
+  # https://sw.kovidgoyal.net/kitty/faq/#kitty-is-not-able-to-use-my-favorite-font
+  nerdFontsRange = concatStringsSep "," [
+    "U+0e000-U+0e00a"
+    "U+0e0a0-U+0e0a2"
+    "U+0e0a3"
+    "U+0e0b0-U+0e0b3"
+    "U+0e0b4-U+0e0c8"
+    "U+0e0ca"
+    "U+0e0cc-U+0e0d7"
+    "U+0e200-U+0e2a9"
+    "U+0e300-U+0e3e3"
+    "U+0e5fa-U+0e6b7"
+    "U+0e700-U+0e8ef"
+    "U+0ea60-U+0ec1e"
+    "U+0ed00-U+0efce"
+    "U+0f000-U+0f2ff"
+    "U+0f300-U+0f381"
+    "U+0f400-U+0f533"
+    "U+f0001-U+f1af0"
+  ];
 in
 {
   programs.kitty = {
@@ -89,6 +112,7 @@ in
       enable_audio_bell = "no";
 
       # Font
+      symbol_map = "${nerdFontsRange} Symbols Nerd Font Mono"; # Prefer bundled Nerd Font
       bold_font = "Iosevka Custom Term Bold";
       italic_font = "Iosevka Custom Term Italic";
       bold_italic_font = "Iosevka Custom Term Bold Italic";

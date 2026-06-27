@@ -26,6 +26,7 @@ in
     iosevka-custom.proportional
     iosevka-custom.term
     last-resort
+    nerd-fonts.symbols-only
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-cjk-serif
@@ -46,9 +47,9 @@ in
     enable = true;
     defaultFonts = {
       emoji = [ "Noto Color Emoji" fallback ];
-      monospace = [ "Iosevka Custom Mono" ] ++ notoMono ++ [ "Unifont" fallback ];
-      sansSerif = [ "Roboto" ] ++ notoSans ++ [ "CCIconsUnicode" fallback ];
-      serif = [ "Source Serif Pro" ] ++ notoSerif ++ [ "CCIconsUnicode" fallback ];
+      monospace = [ "Iosevka Custom Mono" ] ++ notoMono ++ [ "Symbols Nerd Font Mono" "Unifont" fallback ];
+      sansSerif = [ "Roboto" ] ++ notoSans ++ [ "CCIconsUnicode" "Symbols Nerd Font" fallback ];
+      serif = [ "Source Serif Pro" ] ++ notoSerif ++ [ "CCIconsUnicode" "Symbols Nerd Font" fallback ];
     };
   };
 }

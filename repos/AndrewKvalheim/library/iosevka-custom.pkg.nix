@@ -98,6 +98,7 @@ makeScope newScope (_: {
       family = "Iosevka Custom Term";
       spacing = "term";
       noLigation = true;
+      exportGlyphNames = true;
     };
   };
 })

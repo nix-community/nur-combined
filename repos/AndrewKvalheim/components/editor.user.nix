@@ -1,8 +1,9 @@
 { config, lib, pkgs, ... }:
 
 let
-  inherit (builtins) listToAttrs;
-  inherit (lib) escapeShellArg getExe getExe' hm makeBinPath nameValuePair range;
+  inherit (builtins) listToAttrs tail;
+  inherit (config.fonts) fontconfig;
+  inherit (lib) concatMapStringsSep escapeShellArg getExe getExe' hm makeBinPath nameValuePair range;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
 
@@ -18,7 +19,7 @@ let
     "editor.autoSurround" = "never";
   };
   monospace = {
-    "editor.fontFamily" = "'Iosevka Custom Mono', 'Noto Sans CJK JP', 'Last Resort High-Efficiency'";
+    "editor.fontFamily" = concatMapStringsSep ", " (f: "'${f}'") fontconfig.defaultFonts.monospace;
     "editor.wrappingStrategy" = "simple";
   };
   prettier = {
@@ -166,7 +167,7 @@ in
         "editor.copyWithSyntaxHighlighting" = false;
         "editor.cursorSurroundingLines" = 10;
         "editor.dragAndDrop" = false;
-        "editor.fontFamily" = "'Iosevka Custom Proportional'";
+        "editor.fontFamily" = concatMapStringsSep ", " (f: "'${f}'") ([ "Iosevka Custom Proportional" ] ++ tail fontconfig.defaultFonts.sansSerif);
         "editor.fontLigatures" = true;
         "editor.fontSize" = 15;
         "editor.inlayHints.enabled" = "off";
