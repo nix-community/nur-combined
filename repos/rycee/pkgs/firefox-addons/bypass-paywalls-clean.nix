@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.8.1";
+  version = "4.3.8.7";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.8.1.xpi";
-  sha256 = "a43f91edddcc8dfb8fa23264978a469175e419aec9bca47a169dba1c580cd506";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.8.7.xpi";
+  sha256 = "d2d0925388eaf16cb35a1ab5dc4eb9c6b6d65e65794049c9c43dc4c6cea5eb91";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -219,7 +219,6 @@ buildFirefoxXpiAddon {
       "*://*.diariovasco.com/*"
       "*://*.diepresse.com/*"
       "*://*.digiday.com/*"
-      "*://*.digitimes.com/*"
       "*://*.diplomatique.org.br/*"
       "*://*.discovermagazine.com/*"
       "*://*.dispatch.com/*"
@@ -274,7 +273,6 @@ buildFirefoxXpiAddon {
       "*://*.esquire.com/*"
       "*://*.estadao.com.br/*"
       "*://*.estrepublicain.fr/*"
-      "*://*.etc.se/*"
       "*://*.euobserver.com/*"
       "*://*.european-rubber-journal.com/*"
       "*://*.europower.no/*"
@@ -287,7 +285,6 @@ buildFirefoxXpiAddon {
       "*://*.farodevigo.es/*"
       "*://*.fastcompany.com/*"
       "*://*.faz.net/*"
-      "*://*.fd.nl/*"
       "*://*.femmesdaujourdhui.be/*"
       "*://*.fieldandstream.com/*"
       "*://*.financialexpress.com/*"
@@ -528,7 +525,6 @@ buildFirefoxXpiAddon {
       "*://*.manoramaonline.com/*"
       "*://*.marca.com/*"
       "*://*.margriet.nl/*"
-      "*://*.marianne.net/*"
       "*://*.marketwatch.com/*"
       "*://*.masslive.com/*"
       "*://*.maz-online.de/*"
