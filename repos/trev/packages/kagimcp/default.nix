@@ -17,14 +17,14 @@
 
 buildPythonPackage (final: {
   pname = "kagimcp";
-  version = "0.1.5-unstable-2026-05-27";
+  version = "0.1.5-unstable-2026-06-26";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "kagisearch";
     repo = "kagimcp";
-    rev = "7261eac2d3bfa41ce23928628ab84435da091acb";
-    hash = "sha256-Pnx4riqIFLzJJY2P0VAEl6GBYjJo6gGWbt7gbLmOqmo=";
+    rev = "d51dd997fdd12601888b824e4befb7965f22bac2";
+    hash = "sha256-XU8Xm5Mdfj/DX2D5vcyr/v1cJJofKSGPDDeO8suMRkg=";
   };
 
   build-system = [
