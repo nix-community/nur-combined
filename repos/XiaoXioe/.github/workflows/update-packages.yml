@@ -27,6 +27,7 @@ jobs:
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
+        id: cpr
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "chore: update package versions and hashes"
@@ -37,3 +38,9 @@ jobs:
             It was triggered by the daily update schedule or a manual run.
           branch: "auto-update-packages"
           delete-branch: true
+
+      - name: Enable Pull Request Automerge
+        if: steps.cpr.outputs.pull-request-number != ''
+        run: gh pr merge --merge --auto "${{ steps.cpr.outputs.pull-request-number }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
