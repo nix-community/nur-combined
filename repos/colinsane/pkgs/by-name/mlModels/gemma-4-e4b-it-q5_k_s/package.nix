@@ -2,11 +2,10 @@
 # "small" models are 128k context, "medium" are 256k context.
 # <https://deepmind.google/models/gemma/gemma-4/>
 # <https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF>
-{ fetchgit }: fetchgit {
-  url = "https://huggingface.co/unsloth/gemma-4-E4B-it-GGUF";
-  rootDir = "gemma-4-E4B-it-Q5_K_S.gguf";
-  name = "gemma-4-E4B-it-Q5_K_S.gguf";
-  fetchLFS = true;
+{ fetchFromHuggingFace }: fetchFromHuggingFace {
+  owner = "unsloth";
+  repo = "gemma-4-E4B-it-GGUF";
+  path = "gemma-4-E4B-it-Q5_K_S.gguf";
   rev = "b822b48c259e5dc07b6e8cac20bac0695ba9b549";
   hash = "sha256-j0KRNkThfuxD73jEjbH1UbIVpvenZt+7SUusxKZsYWU=";
 }

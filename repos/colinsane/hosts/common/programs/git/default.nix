@@ -19,7 +19,7 @@ in
     suggestedPrograms = [
       "difftastic"
       "git-cinnabar"
-      # "git-lfs"
+      "git-lfs"  # LLMs like to use it
       "ssh"
     ];
     sandbox.net = "clearnet";
@@ -61,8 +61,11 @@ in
       alias.pul     = "pull";  # common typo
       alias.rb      = "rebase";
       alias.reset-head = "reset --hard HEAD";
+      alias.shoe    = "show";  # common typo
       alias.st      = "status";
       alias.stat    = "status";
+      alias.unstage = "reset HEAD^";
+      alias.work    = "!git worktree add $1 && cd";
 
       cinnabar.check = "no-version-check";  #< git-cinnabar: don't check for new release every invocation :(
 

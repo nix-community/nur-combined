@@ -34,6 +34,7 @@ in
     ];
 
     coreShellUtils = declPackageSet [
+      "btop"
       "curl"
       "dig"
       "file"
