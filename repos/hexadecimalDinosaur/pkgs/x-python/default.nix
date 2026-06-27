@@ -29,6 +29,8 @@ buildPythonPackage rec {
     six
   ];
 
+  pythonRelaxDeps = [ "xdis" ];
+
   pythonImportsCheck = [ "xpython" ];
 
   meta = {

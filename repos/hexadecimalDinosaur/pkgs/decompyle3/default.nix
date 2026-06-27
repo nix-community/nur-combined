@@ -41,6 +41,7 @@ buildPythonPackage rec {
 
   pythonRelaxDeps = [
     "spark-parser"
+    "xdis"
   ];
 
   pythonImportsCheck = [ "decompyle3" ];
