@@ -11,13 +11,13 @@
 
 llvmPackages.stdenv.mkDerivation {
   pname = "lsfg-vk-git";
-  version = "0-unstable-2026-04-25";
+  version = "0-unstable-2026-06-27";
 
   src = fetchFromGitHub {
-    hash = "sha256-Qb3vufCzNpM1r+vgo8M9nnA7CENgGTithWG0oXqLKbI=";
+    hash = "sha256-meXXl1hHvmOaVjeGglsYSmVJiaxuijfPesjs8wuKrfs=";
     owner = "PancakeTAS";
     repo = "lsfg-vk";
-    rev = "218820e8dc2d69c21a7a0775b5c47f2c447ed31a";
+    rev = "e282e243ad79f438c82ba4310eff7a1ea1732db3";
   };
 
   nativeBuildInputs = [
