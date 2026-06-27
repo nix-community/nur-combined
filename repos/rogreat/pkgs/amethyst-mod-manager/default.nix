@@ -1,5 +1,6 @@
 {
   bash,
+  customtkinter,
   desktop-file-utils,
   fetchFromGitHub,
   glib,
@@ -31,12 +32,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   dependencies = [
+    customtkinter
     libloot-python
   ]
   ++ (with python3Packages; [
     bsdiff4
     cryptography
-    customtkinter
     jeepney
     keyring
     lz4

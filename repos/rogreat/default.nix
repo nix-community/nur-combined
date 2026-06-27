@@ -17,12 +17,13 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   amethyst-mod-manager = pkgs.callPackage ./pkgs/amethyst-mod-manager {
-    inherit libloot-python;
+    inherit libloot-python customtkinter;
   };
   crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager {
     inherit privatebin pyside6-fluent-widgets;
   };
   cuprate = pkgs.callPackage ./pkgs/cuprate { };
+  customtkinter = pkgs.python3Packages.callPackage ./pkgs/customtkinter { };
   gupax = pkgs.callPackage ./pkgs/gupax {
     inherit cuprate;
   };

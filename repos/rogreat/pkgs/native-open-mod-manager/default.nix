@@ -48,7 +48,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   postPatch = ''
     substituteInPlace src/gui/application.py \
-        --replace-fail 'copy2' 'copyfile' \
+        --replace-fail 'shutil.copy2' 'shutil.copyfile' \
         --replace-fail 'gresource_path = "resources.gresource"' \
            'gresource_path = os.path.join(os.path.join(GLib.get_user_data_dir(), "nomm"), "resources.gresource")'
 
