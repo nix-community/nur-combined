@@ -2,7 +2,7 @@ name: Update lsfg-vk-git
 
 on:
   schedule:
-    - cron: "30 5 * * *"
+    - cron: "00 9 * * *"
   workflow_dispatch:
 
 permissions:
@@ -24,6 +24,11 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Update package
+        env:
+          # nix-update starts nested Nix commands, so this must be inherited rather
+          # than passed only to the outer `nix run`.
+          NIX_CONFIG: |
+            fallback = true
         run: nix run nixpkgs#nix-update -- --flake --use-update-script lsfg-vk-git
 
       - name: Create pull request
