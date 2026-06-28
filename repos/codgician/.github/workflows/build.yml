@@ -25,7 +25,7 @@ concurrency:
 
 jobs:
   atelier:
-    uses: stepbrobd/atelier/.github/workflows/discover.yaml@2026.614.1
+    uses: stepbrobd/atelier/.github/workflows/discover.yaml@2026.621.0
 
   nur:
     needs: atelier
