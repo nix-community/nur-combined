@@ -23,4 +23,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   chronicler = pkgs.callPackage ./pkgs/chronicler { };
+  pince = pkgs.callPackage ./pkgs/pince { };
 }
