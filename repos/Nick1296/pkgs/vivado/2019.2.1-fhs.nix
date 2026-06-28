@@ -244,4 +244,10 @@ in buildFHSEnvChroot {
         fi
   '';
   runScript = "bash";
+    meta = {
+      description = "Xilinx Vivado 2019.2.1 HLx Edition in FHS enviroment";
+      homepage = "https://www.xilinx.com/products/design-tools/vivado.html";
+      license = lib.licenses.unfree;
+      platforms = lib.platforms.linux;
+    };
 }

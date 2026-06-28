@@ -1,8 +1,43 @@
-{ stdenv, lib, bash, coreutils, writeScript, gnutar, gzip, requireFile, patchelf
-, xorg, gtk3, graphviz, unzip, nettools, procps, makeWrapper, ncurses, zlib
-, libX11, libXrender, libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype
-, gtk2, buildFHSEnv, gcc, ncurses5, glibc, gperftools, fontconfig
-, liberation_ttf, libuuid, writeTextFile,autoPatchelfHook }:
+{
+  stdenv,
+  lib,
+  bash,
+  coreutils,
+  writeScript,
+  gnutar,
+  gzip,
+  requireFile,
+  patchelf,
+  xorg,
+  gtk3,
+  graphviz,
+  unzip,
+  nettools,
+  procps,
+  makeWrapper,
+  ncurses,
+  zlib,
+  libX11,
+  libXrender,
+  libxcb,
+  libXext,
+  libXtst,
+  libXi,
+  libxcrypt,
+  glib,
+  freetype,
+  gtk2,
+  buildFHSEnv,
+  gcc,
+  ncurses5,
+  glibc,
+  gperftools,
+  fontconfig,
+  liberation_ttf,
+  libuuid,
+  writeTextFile,
+  autoPatchelfHook,
+}:
 # uses the already existing 2017.4 config and hinf from these sources:
 # https://blog.kotatsu.dev/posts/2021-09-14-vivado-on-nixos/
 # https://discourse.nixos.org/t/fhs-env-for-installing-xilinx/13150
@@ -14,8 +49,7 @@ let
 
     src = requireFile rec {
       name = "Xilinx_Vivado_SDK_2017.4_1216_1.tar.gz";
-      url =
-        "https://www.xilinx.com/member/forms/download/xef-vivado.html?filename=Xilinx_Vivado_SDK_2017.4_1216_1.tar.gz";
+      url = "https://www.xilinx.com/member/forms/download/xef-vivado.html?filename=Xilinx_Vivado_SDK_2017.4_1216_1.tar.gz";
       sha256 = "0p7bafc5jdmawcw6vvs7wniar5z6pvcbzjqwniwa2dzyz04pqama";
       message = ''
         Unfortunately, we cannot download file ${name} automatically.
@@ -27,7 +61,12 @@ let
       '';
     };
 
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     builder = writeScript "${name}-builder" ''
       #! ${bash}/bin/bash
@@ -47,8 +86,7 @@ let
 
     src = requireFile rec {
       name = "Xilinx_Vivado_SDx_Update_2017.4.1_0131_1.tar.gz";
-      url =
-        "https://www.xilinx.com/member/forms/download/xef-vivado.html?filename=Xilinx_Vivado_SDx_Update_2017.4.1_0131_1.tar.gz";
+      url = "https://www.xilinx.com/member/forms/download/xef-vivado.html?filename=Xilinx_Vivado_SDx_Update_2017.4.1_0131_1.tar.gz";
       sha256 = "0a9flayhbyamsj4n1b772bvlyl8jm4khypb53xd8hsdl3zgvkc45";
       message = ''
         Unfortunately, we cannot download file ${name} automatically.
@@ -60,7 +98,12 @@ let
       '';
     };
 
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     builder = writeScript "${name}-builder" ''
       #! ${bash}/bin/bash
@@ -79,17 +122,25 @@ let
   vivadoPackage = stdenv.mkDerivation rec {
     name = "vivado-2017.4.1";
 
-    nativeBuildInputs = [ zlib autoPatchelfHook ];
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    nativeBuildInputs = [
+      zlib
+      autoPatchelfHook
+    ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     source = "${extractedSource}";
     update = "${extractedUpdate}";
 
     builder = ./builder-2017.4.1.sh;
-		installPhase = ''
-		 runHook preInstall
-		 runHook postInstall
-		'';
+    installPhase = ''
+      		 runHook preInstall
+      		 runHook postInstall
+      		'';
     inherit ncurses;
 
     libPath = lib.makeLibraryPath [
@@ -140,10 +191,12 @@ let
       license = lib.licenses.unfree;
       mainProgram = "vivado2017.4.1";
       sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+      platforms = lib.platforms.linux;
     };
   };
 
-in buildFHSEnv {
+in
+buildFHSEnv {
   name = "vivado2017.4.1";
   targetPkgs = _pkgs: [
     vivadoPackage
@@ -177,6 +230,12 @@ in buildFHSEnv {
       '';
     })
   ];
-  multiPkgs = pkgs: [ coreutils gcc ncurses5 zlib glibc.dev ];
+  multiPkgs = pkgs: [
+    coreutils
+    gcc
+    ncurses5
+    zlib
+    glibc.dev
+  ];
   runScript = "vivado";
 }

@@ -75,6 +75,7 @@ let
       license = lib.licenses.unfree;
       mainProgram = "vivado";
       sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
+      platforms = lib.platforms.linux;
     };
   };
 

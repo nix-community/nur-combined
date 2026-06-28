@@ -1,8 +1,38 @@
-{ stdenv, lib, bash, bashInteractive, coreutils, writeScript, gnutar, gzip
-, requireFile, patchelf, procps, makeWrapper, ncurses, zlib, libX11, libXrender
-, libxcb, libXext, libXtst, libXi, libxcrypt, glib, freetype, gtk2
-, buildFHSEnv, gcc, ncurses5, glibc, gperftools, fontconfig, liberation_ttf
-, writeTextFile, nettools }:
+{
+  stdenv,
+  lib,
+  bash,
+  bashInteractive,
+  coreutils,
+  writeScript,
+  gnutar,
+  gzip,
+  requireFile,
+  patchelf,
+  procps,
+  makeWrapper,
+  ncurses,
+  zlib,
+  libX11,
+  libXrender,
+  libxcb,
+  libXext,
+  libXtst,
+  libXi,
+  libxcrypt,
+  glib,
+  freetype,
+  gtk2,
+  buildFHSEnv,
+  gcc,
+  ncurses5,
+  glibc,
+  gperftools,
+  fontconfig,
+  liberation_ttf,
+  writeTextFile,
+  nettools,
+}:
 
 let
   extractedSource = stdenv.mkDerivation rec {
@@ -10,8 +40,7 @@ let
 
     src = requireFile rec {
       name = "Xilinx_Vivado_2019.2_1106_2127.tar.gz";
-      url =
-        "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_2019.2_1106_2127.tar.gz";
+      url = "https://www.xilinx.com/member/forms/download/xef.html?filename=Xilinx_Vivado_2019.2_1106_2127.tar.gz";
       sha256 = "15hfkb51axczqmkjfmknwwmn8v36ss39wdaay14ajnwlnb7q2rxh";
       message = ''
         Unfortunately, we cannot download file ${name} automatically.
@@ -47,7 +76,12 @@ let
     name = "vivado-2019.2";
 
     nativeBuildInputs = [ zlib ];
-    buildInputs = [ patchelf procps ncurses makeWrapper ];
+    buildInputs = [
+      patchelf
+      procps
+      ncurses
+      makeWrapper
+    ];
 
     extracted = "${extractedSource}";
     builder = ./builder-2019.2.sh;
@@ -77,10 +111,12 @@ let
       description = "Xilinx Vivado 2019.2 HLx Edition";
       homepage = "https://www.xilinx.com/products/design-tools/vivado.html";
       license = lib.licenses.unfree;
+      platforms = lib.platforms.linux;
     };
   };
 
-in buildFHSEnv {
+in
+buildFHSEnv {
   name = "vivado2019.2";
   targetPkgs = _pkgs: [
     vivadoPackage
@@ -114,8 +150,8 @@ in buildFHSEnv {
       '';
     })
   ];
-  multiPkgs = pkgs:
-    with pkgs; [
+  multiPkgs =
+    pkgs: with pkgs; [
       coreutils
       gcc
       ncurses5

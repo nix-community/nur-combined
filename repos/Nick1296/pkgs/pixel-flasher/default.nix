@@ -83,4 +83,10 @@ python3Packages.buildPythonApplication rec {
      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath dependencies}
     runHook postInstall
   '';
+  meta = {
+    description = "Pixel™ phone flashing GUI utility with features. ";
+    homepage = "https://github.com/badabing2005/PixelFlasher/tree/main";
+    license = lib.licenses.gpl3;
+    platforms = lib.platforms.unix;
+  };
 }
