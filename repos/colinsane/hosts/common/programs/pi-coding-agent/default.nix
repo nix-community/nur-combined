@@ -37,6 +37,37 @@ let
   # config docs: <https://github.com/nicobailon/pi-mcp-adapter#config>
   mcpConfig = (pkgs.formats.json {}).generate "pi-mcp.json" {
     mcpServers = {
+      # agent-lsp = {
+      #   command = "agent-lsp";
+      #   args = [
+      #    "nix:nixd"
+      #    "rust:rust-analyzer"
+      #    "python:pyright-langserver,--stdio"
+      #    "typescript:typescript-language-server,--stdio"
+      #    "javascript:typescript-language-server,--stdio"
+      #    "lua:lua-language-server"
+      #   ];
+      #   # directTools = true;
+      # };
+      ck = {
+        command = "ck";
+        args = [ "--serve" ];
+        # directTools = [
+        #   "hybrid_search"
+        #   "lexical_search"
+        #   "semantic_search"
+        #   "regex_search"
+        # ];
+      };
+      coderag = {
+        command = "coderag";
+        args = [ "mcp" ];
+        directTools = [
+          "search_code"
+          "search_files"
+          # "get_file"
+        ];
+      };
       fetch = {
         command = "mcp-server-fetch";
         directTools = true;
@@ -54,6 +85,10 @@ let
       #   # provides one "markitdown_convert_to_markdown" tool.
       #   # 67 tokens.. LLMs reach for it naturally, but takes 1-2 seconds to initialize.
       #   command = "markitdown-mcp";
+      #   directTools = true;
+      # };
+      # mcpls = {
+      #   command = "mcpls";
       #   directTools = true;
       # };
       playwright = {
@@ -80,10 +115,11 @@ let
           "kagi_summarize" # Summarize a URL or text (requires KAGI_API_KEY)
         ];
       };
-      serena = {
-        command = "serena";
-        args = [ "start-mcp-server" ];
-      };
+      # serena = {
+      #   # memory system, code search, but in practice not that helpful
+      #   command = "serena";
+      #   args = [ "start-mcp-server" ];
+      # };
     };
   };
 in
@@ -117,30 +153,39 @@ in
     });
 
     suggestedPrograms = [
+      # "agent-lsp"
+      "ck"
+      "coderag"
       "ha-mcp"
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
       # "kagimcp"
       # "markitdown-mcp"
+      # "mcpls"
       "mcp-server-fetch"
-      # "nanogpt-mcp"
       "nanogpt-api"
+      # "nanogpt-mcp"
       "nix-prefetch-git"  # agents make use of this
       # "pandoc"  # for pi-markdown-preview
+      "pi-lens"
       "playwright-mcp"
-      "serena"
+      # "serena"
     ];
 
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
+      ".cache/ck"
+      ".cache/coderag"
       ".config/ha-mcp/ha-mcp.env"
       # ".config/kagi/kagi-api-key"
       # ".config/kagi/kagi_session_token"
       ".config/kagi-cli/config.toml"
+      # ".config/mcpls"
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
-      ".pi"  #< default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
+      ".pi-lens"
+      # ".pi"  #< default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
       # for convenience
       "dev"
       "ref"
@@ -180,13 +225,16 @@ in
       terminal.showTerminalProgress = true;
       theme = "light";
       packages = [
+        # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
-        # pkgs.pi-caveman  #< adds `/caveman` slash command
+        pkgs.pi-goal  #< adds `/goal` slash command
         # pkgs.pi-kagi  #< adds `web_search` tool
+        pkgs.pi-lens
         pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
         # pkgs.pi-md-export  #< adds `/md` slash command
         # pkgs.pi-move-session  #< adds `/move-session` slash command
+        pkgs.pi-speeed
         # pkgs.pi-subagents
         pkgs.pi-tool-repair  #< repairs "Error: Upstream emitted malformed tool call data that could not be repaired"
         # pkgs.pi-simplify  #< adds `/simplify` slash command

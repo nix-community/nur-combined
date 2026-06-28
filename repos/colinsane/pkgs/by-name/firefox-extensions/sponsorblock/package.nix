@@ -8,10 +8,10 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sponsorblock";
-  version = "6.1.5";
+  version = "6.1.6";
   src = fetchurl {
     url = "https://github.com/ajayyy/SponsorBlock/releases/download/${finalAttrs.version}/FirefoxSignedInstaller.xpi";
-    hash = "sha256-QI+bOeUpKkY1zDsfRB16yjIO7j+Ta7V4OnTtMZobLzw=";
+    hash = "sha256-wdIbe9aZYMKafga4GkOkWg5Gh6/lqjzizPgLzaQiluw=";
     name = "FirefoxSignedInstaller.zip";
   };
   # .zip file has everything in the top-level; stdenv needs it to be extracted into a subdir:
