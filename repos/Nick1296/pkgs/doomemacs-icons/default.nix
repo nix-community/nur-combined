@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchFromGitHub,
   variant ? "emacs",
+  imagemagick,
 }:
 let
   folder-name = if variant == "emacs-brown" then "emacs-doom" else "${variant}-doom";
@@ -29,9 +30,16 @@ stdenvNoCC.mkDerivation {
     else
       null;
   dontUnpack = true;
+  nativeBuildInputs = [
+    imagemagick
+  ];
   installPhase = ''
-    mkdir -p $out/share/icons/hicolor/apps/
-    cp $src/${folder-name}/${icon-name} $out/share/icons/hicolor/apps/doomemacs.png
+    mkdir -p $out/share/icons/hicolor/
+    for size in 16 24 36 48 72; do
+      mkdir -p $out/share/icons/hicolor/''${size}x''${size}/apps
+      magick $src/${folder-name}/${icon-name} -resize ''${size}x''${size} \
+        $out/share/icons/hicolor/''${size}x''${size}/apps/doomemacs.png
+    done
   '';
   meta = with lib; {
     description = "A proposed doom Emacs icon";
