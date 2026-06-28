@@ -1,0 +1,18 @@
+--- a/src/global/Utils.cpp
++++ b/src/global/Utils.cpp
+@@ -182,7 +182,7 @@ QList<QString> QListInt2QListString(const QList<int> &list) {
+ 
+ QByteArray ReadFile(const QString &path) {
+     QFile file(path);
+-    file.open(QFile::ReadOnly);
++    if (!file.open(QFile::ReadOnly)) return {};
+     return file.readAll();
+ }
+ 
+@@ -190,7 +190,7 @@ QString ReadFileText(const QString &path) {
+     QFile file(path);
+-    file.open(QFile::ReadOnly | QFile::Text);
++    if (!file.open(QFile::ReadOnly | QFile::Text)) return {};
+     QTextStream stream(&file);
+     return stream.readAll();
+ }

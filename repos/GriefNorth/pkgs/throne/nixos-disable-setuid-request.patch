@@ -1,0 +1,81 @@
+--- a/src/global/Configs.cpp	2026-06-20 20:18:57.483705900 +0300
++++ b/src/global/Configs.cpp	2026-06-20 20:55:57.549065039 +0300
+@@ -45,6 +45,16 @@
+     }
+ 
+     QString FindCoreRealPath() {
++        // check NixOS security wrapper first
++        QString nixos_wrapper = QStandardPaths::findExecutable("ThroneCore");
++        if (!nixos_wrapper.isEmpty()) {
++            return nixos_wrapper;
++        }
++        auto nixos_fixed = QStringLiteral("/run/wrappers/bin/ThroneCore");
++        if (QFileInfo::exists(nixos_fixed)) {
++            return nixos_fixed;
++        }
++
+         auto fn = QApplication::applicationDirPath() + "/ThroneCore";
+ #ifdef Q_OS_WIN
+         fn += ".exe";
+@@ -89,9 +99,14 @@
+         Configs::dataManager->settingsRepo->windows_set_admin = admin;
+ #else
+         bool ok;
+-        auto isPrivileged = API::defaultClient->IsPrivileged(&ok);
++        auto isPrivileged = false;
++        ok = false;
++        if (API::defaultClient != nullptr) {
++            isPrivileged = API::defaultClient->IsPrivileged(&ok);
++        }
+         admin = ok && isPrivileged;
+ #endif
++        if (!admin && !ok) return false;
+         isAdminCache = admin;
+         return admin;
+     }
+--- a/src/ui/mainwindow.cpp	2026-06-20 20:18:57.484705875 +0300
++++ b/src/ui/mainwindow.cpp	2026-06-20 20:38:21.629149675 +0300
+@@ -210,8 +210,7 @@
+     runOnNewThread([=, this] {GetDeviceDetails(); });
+ 
+     // Prepare core
+-    auto core_path = QApplication::applicationDirPath() + "/";
+-    core_path += "ThroneCore";
++    auto core_path = Configs::FindCoreRealPath();
+ 
+     bool coreDebugMode = (Configs::dataManager->settingsRepo->log_level == "debug");
+ 
+@@ -1568,6 +1567,11 @@
+         return true;
+     }
+     if (Configs::IsAdmin()) return true;
++    qWarning() << "NixOS: cannot set suid for ThroneCore due to read-only Nix store."
++               << "If you need Tun mode, enable it via the NixOS module:"
++               << "programs.throne.tunMode.enable = true;";
++    // The following code isn't effective, preserve to avoid merge conflict
++
+ #ifdef Q_OS_LINUX
+     if (!Linux_HavePkexec()) {
+         MessageBoxWarning(software_name, "Please install \"pkexec\" first.");
+--- a/src/sys/linux/AutoRun.cpp	2026-06-20 20:18:57.485705850 +0300
++++ b/src/sys/linux/AutoRun.cpp	2026-06-20 20:38:21.629280252 +0300
+@@ -31,18 +31,9 @@
+     QString desktopFileLocation = userAutoStartPath + appName + QLatin1String(".desktop");
+     QStringList appCmdList;
+ 
+-    if (QProcessEnvironment::systemEnvironment().contains("APPIMAGE")) {
+-        appCmdList << QProcessEnvironment::systemEnvironment().value("APPIMAGE");
+-    } else {
+-        appCmdList << QApplication::applicationFilePath();
+-    }
+-
++    appCmdList << "Throne";
+     appCmdList << "-tray";
+ 
+-    if (Configs::dataManager->settingsRepo->flag_use_appdata) {
+-        appCmdList << "-appdata";
+-    }
+-
+     if (enable) {
+         if (!QDir().exists(userAutoStartPath) && !QDir().mkpath(userAutoStartPath)) {
+             // qCWarning(lcUtility) << "Could not create autostart folder"

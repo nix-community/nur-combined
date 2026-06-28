@@ -1,0 +1,14 @@
+diff --git a/parentcheck/parentcheck.go b/parentcheck/parentcheck.go
+index 87de602..52f0237 100644
+--- a/parentcheck/parentcheck.go
++++ b/parentcheck/parentcheck.go
+@@ -32,8 +32,8 @@ func CheckParentProcess() {
+ 		return
+ 	}
+
+-	if parentDir != selfDir || parentBase != "Throne" {
+-		log.Fatalf("parent check failed: unexpected parent %q, selfPath is %q", parentPath, selfPath)
++	if parentBase != "Throne" {
++		log.Fatalf("parent check failed: unexpected parent %q, selfPath is %q", parentPath, selfPath)
+ 	}
+ }
