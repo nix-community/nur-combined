@@ -1,1 +1,1 @@
-{ mkShell }: mkShell { nativeBuildInputs = [ ]; }
+{ mkShell }: mkShell { packages = [ ]; }
