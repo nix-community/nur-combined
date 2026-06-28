@@ -7,13 +7,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "litellm-rust";
-  version = "0-unstable-2026-06-04";
+  version = "0-unstable-2026-06-25";
 
   src = fetchFromGitHub {
     owner = "LiteLLM-Labs";
     repo = "litellm-rust";
-    rev = "25683a2a718e7f64c0d04dec02f00eedf73b94c0";
-    hash = "sha256-Jy6y7LqFUEu1C5lTKHXwrMkDoysF5gv2kYe8btKKuQM=";
+    rev = "76f83257fce4dcc3d76e7e760934bbd725b624d9";
+    hash = "sha256-ZiVHTUPVYSyR8w3OBxle8GBuJ2/QzB7Xqe9Zwj/NfKA=";
   };
 
   cargoHash = "sha256-xYKuy3L+58xVGuJCDyP2Qc33DLO7tokg2Gh+HaLp2D8=";
