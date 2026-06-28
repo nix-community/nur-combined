@@ -83,6 +83,8 @@ rec {
 
   copacabana = pkgs.callPackage ./pkgs/copacabana { };
 
+  core-math = pkgs.callPackage ./pkgs/core-math { };
+
   cpp-flux = pkgs.callPackage ./pkgs/cpp-flux { };
 
   cpp-lazy = pkgs.callPackage ./pkgs/cpp-lazy { };
