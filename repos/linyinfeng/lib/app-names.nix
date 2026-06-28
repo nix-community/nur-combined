@@ -17,6 +17,7 @@ let
   appNamesDict = merge [
     # keep-sorted start block=yes
     (empty "canokey-udev-rules")
+    (empty "codestable")
     (empty "fishPlugins/bang-bang")
     (empty "fishPlugins/git")
     (empty "fishPlugins/replay")
