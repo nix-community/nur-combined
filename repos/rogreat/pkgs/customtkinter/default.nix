@@ -1,65 +1,33 @@
 {
-  lib,
   buildPythonPackage,
+  customtkinter,
   fetchFromGitHub,
-  setuptools,
-  tkinter,
-  darkdetect,
-  packaging,
-  typing-extensions,
+  fetchpatch2,
 }:
-let
-  pname = "customtkinter";
+
+buildPythonPackage (finalAttrs: {
+  inherit (customtkinter)
+    pname
+    pyproject
+    build-system
+    dependencies
+    pythonImportsCheck
+    meta
+    ;
+
   version = "6.0.0";
-in
-buildPythonPackage {
-  inherit pname version;
-  pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "TomSchimansky";
-    repo = "CustomTkinter";
-    tag = "v${version}";
+    inherit (customtkinter.src) owner repo;
+    tag = "v${finalAttrs.version}";
     hash = "sha256-rRkqyyWxWmJqXS9dT/T5K99+AGY6xDjtrKLRG/Yo7tc=";
   };
 
-  build-system = [
-    setuptools
-    tkinter
+  patches = customtkinter.patches ++ [
+    (fetchpatch2 {
+      name = "fonts-fix.patch";
+      url = "https://github.com/RoGreat/CustomTkinter/commit/067f6067366c5b86a8019ed463873ebece8f6163.patch?full_index=1";
+      hash = "sha256-WPwm4pG0mi3nLPgPu4awcrJwa2AMCbfNVWBQ+3vAKwE=";
+    })
   ];
-
-  dependencies = [
-    darkdetect
-    packaging
-    typing-extensions
-  ];
-
-  patches = [ ./0001-Add-Missing-Cfg-Packages.patch ];
-
-  postPatch = ''
-    substituteInPlace customtkinter/windows/widgets/font/font_manager.py \
-        --replace-fail \
-            'shutil.copy(font_path, os.path.expanduser(cls.linux_font_path))' \
-            'shutil.copyfile(font_path, os.path.expanduser(cls.linux_font_path) + os.path.basename(font_path))'
-  '';
-
-  pythonImportsCheck = [ "customtkinter" ];
-
-  meta = {
-    description = "Modern and customizable python UI-library based on Tkinter";
-    homepage = "https://github.com/TomSchimansky/CustomTkinter";
-    license = lib.licenses.mit;
-    longDescription = ''
-      CustomTkinter is a python UI-library based on Tkinter, which provides
-      new, modern and fully customizable widgets. They are created and
-      used like normal Tkinter widgets and can also be used in combination
-      with normal Tkinter elements. The widgets and the window colors
-      either adapt to the system appearance or the manually set mode
-      ('light', 'dark'), and all CustomTkinter widgets and windows support
-      HighDPI scaling (Windows, macOS). With CustomTkinter you'll get
-      a consistent and modern look across all desktop platforms
-      (Windows, macOS, Linux).
-    '';
-    maintainers = with lib.maintainers; [ FlameFlag ];
-  };
-}
+})
