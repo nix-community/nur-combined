@@ -6,6 +6,7 @@
   pkg-config,
   openssl,
   sqlite,
+  cacert,
 }:
 rustPlatform.buildRustPackage {
   inherit (sources.baibot) pname version src;
@@ -16,6 +17,8 @@ rustPlatform.buildRustPackage {
     openssl
     sqlite
   ];
+
+  nativeCheckInputs = [ cacert ];
 
   meta = with lib; {
     homepage = "https://github.com/etkecc/baibot";

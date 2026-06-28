@@ -19,16 +19,16 @@
   };
   baibot = {
     pname = "baibot";
-    version = "v1.22.0";
+    version = "v1.24.0";
     src = fetchFromGitHub {
       owner = "etkecc";
       repo = "baibot";
-      rev = "v1.22.0";
+      rev = "v1.24.0";
       fetchSubmodules = false;
-      sha256 = "sha256-nq736tKYL/QNRGlbcHJrJ5C6qD5Kl/i6HBsfgZhYkR4=";
+      sha256 = "sha256-kveiWAvHrYuB8oZEIb6907LutZA/kFsh111PmJuQ5x0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-nq736tKYL_QNRGlbcHJrJ5C6qD5Kl_i6HBsfgZhYkR4=/Cargo.lock";
+      lockFile = ./. + "/sha256-kveiWAvHrYuB8oZEIb6907LutZA_kFsh111PmJuQ5x0=/Cargo.lock";
       outputHashes = {
         "anthropic-0.0.8" = "sha256-I7mpWrolVy1SkLa2ovy2TXAHFnVFABXnxaA8uKzRGuw=";
       };
@@ -36,13 +36,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.0.3";
+    version = "v3.0.4";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.0.3";
+      rev = "v3.0.4";
       fetchSubmodules = false;
-      sha256 = "sha256-AcfVCQBWG2Kb3AccT6ZxuOUoRkmpP5vB50ttugdllJo=";
+      sha256 = "sha256-JpnLmay+EBjAmgUgE3ihHABATsFMqeYp91HQhSFCF2k=";
     };
   };
   dot-tar = {
@@ -106,13 +106,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.33-linux-260610T011406Z";
+    version = "lts-v6.18.33-linux-260623T022223Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.33-linux-260610T011406Z";
+      rev = "lts-v6.18.33-linux-260623T022223Z";
       fetchSubmodules = false;
-      sha256 = "sha256-+AqfRXRRtaFwLQkqq4wsxxLjFIOkIvxGjHHPePUzcbU=";
+      sha256 = "sha256-aqpBxvrCYg2qz9W1h1bBJZHcpdaWXDo7gw3ZW0nlIGM=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -158,10 +158,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.5";
+    version = "v1.6.6";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.5/MoeKoe_Music-x86_64.AppImage";
-      sha256 = "sha256-lqiD+unKAvmkCQdEA2NPGwkoADoKryx4zvzZrABM4So=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.6/MoeKoe_Music_v1.6.6-x86_64.AppImage";
+      sha256 = "sha256-iwHaAWqh/+BxBgPU6mVAYSVG8pGQxAAlK2Fw6UC6Vyg=";
     };
   };
   mstickereditor = {
@@ -357,31 +357,31 @@
   };
   rime-essay = {
     pname = "rime-essay";
-    version = "48c7538f0b760fcc8c9d6bf08711f82cfbd2e9ed";
+    version = "b1a952d9aa73df4889a3f399a071d8dac377f504";
     src = fetchgit {
       url = "https://github.com/rime/rime-essay.git";
-      rev = "48c7538f0b760fcc8c9d6bf08711f82cfbd2e9ed";
+      rev = "b1a952d9aa73df4889a3f399a071d8dac377f504";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-kETP1XGAoamapKHlNdPCKb6eDNZ5E6j0HFdLy5zy3sw=";
+      sha256 = "sha256-yQwqC3U+zxTfo33EDsksbHv0b9HwPF5EPUX5sUmiWMY=";
     };
-    date = "2026-06-07";
+    date = "2026-06-27";
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "3ec476e9ca7f236d405481b6db6bb613754bc72d";
+    version = "6810e8916d160498620a16fef2135956fecbd485";
     src = fetchgit {
       url = "https://github.com/iDvel/rime-ice.git";
-      rev = "3ec476e9ca7f236d405481b6db6bb613754bc72d";
+      rev = "6810e8916d160498620a16fef2135956fecbd485";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-YftR6KfbWZ4zpXLvO7V4Mo6GXeSJzTRioPf1sUxm6Lk=";
+      sha256 = "sha256-HReBFYih39ohqZ2UAX6wPjjh0KuIauJPSOjk6ZXidss=";
     };
-    date = "2026-06-20";
+    date = "2026-06-27";
   };
   rime-loengfan = {
     pname = "rime-loengfan";
@@ -573,17 +573,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "679ecd2e72e526aece064dfdb5efba0e56fe401b";
+    version = "d116cf208169f845c9119bc53bfd822f0974f568";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "679ecd2e72e526aece064dfdb5efba0e56fe401b";
+      rev = "d116cf208169f845c9119bc53bfd822f0974f568";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-KaIBbUebqrO0VAtUib5gerwjI+Nkg9E6NkoNTcImmHM=";
+      sha256 = "sha256-zKHbmn8VSXVPj3acqvO5hcM1w3HJLSm9FWfnBb3tuhs=";
     };
-    date = "2026-06-19";
+    date = "2026-06-26";
   };
   vlmcsd = {
     pname = "vlmcsd";
