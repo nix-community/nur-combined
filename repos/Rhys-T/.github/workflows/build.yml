@@ -285,7 +285,7 @@ jobs:
             tee >(ansifilter > /tmp/build-uncached.log)
         '
     - name: Upload build logs
-      if: '!cancelled()'
+      if: 'always()'
       uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: Rhys-T-nur-packages-build-logs-${{ matrix.runner }}${{ matrix.qemuSystem && format('+qemu-{0}', matrix.qemuSystem) || '' }}-${{ matrix.nixpkgs }}-${{ matrix.subset }}
