@@ -8,18 +8,18 @@
 
 buildGoModule (finalAttrs: {
   pname = "jenkins-cli";
-  version = "0.0.34-unstable-2026-05-29";
+  version = "0.0.35";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "avivsinai";
     repo = "jenkins-cli";
-    rev = "d4d521a573c4d04fc049599fac3d23441e2442ab";
-    hash = "sha256-AegjRFnE6kX9rGS9DyXvAoO2BCr//itRYHvljXzz0iM=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-PY1VC/fEnodXGHyrhbJqMOmfB8muhbpA6qfzJ4ld2Gk=";
   };
 
-  vendorHash = "sha256-XKKCUeLVsz2uKlfo+ctGBsbIaIIbU0eDC2K4NfFfKlI=";
+  vendorHash = "sha256-nVHIZbbVoy2PWD2liRrXaQ7tIISmz8pE+nCzos9F6K8=";
 
   subPackages = [ "cmd/jk" ];
 
