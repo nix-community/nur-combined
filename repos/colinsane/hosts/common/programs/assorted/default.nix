@@ -71,7 +71,8 @@ in
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
       "captree"
-      "cocoindex-code"
+      "ck"  # semantic code search (`ck --sem "where is X defined"`)
+      # "cocoindex-code"
       "cryptsetup"
       "ddrescue"
       "dmidecode"  # to query low-level hardware details like RAM modules

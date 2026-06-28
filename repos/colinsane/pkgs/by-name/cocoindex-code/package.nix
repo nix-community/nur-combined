@@ -20,6 +20,8 @@ python3.pkgs.buildPythonApplication rec {
     hash = "sha256-uMwhXF/1//eU5REaJvuGqv0jDQ1vFm3lpOsRFohcC1E=";
   };
 
+  patches = [ ./find-ccc-from-path.patch ];
+
   pyproject = true;
 
   # upstream uses hatch-vcs to derive the version from git tags, but this repo

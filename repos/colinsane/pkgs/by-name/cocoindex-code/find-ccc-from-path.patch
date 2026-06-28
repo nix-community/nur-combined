@@ -1,0 +1,12 @@
+--- a/src/cocoindex_code/client.py
++++ b/src/cocoindex_code/client.py
+@@ -449,6 +449,10 @@ def start_daemon() -> subprocess.Popen[bytes]:
+ def _find_ccc_executable() -> str | None:
+     """Find the ccc executable in PATH or the same directory as python."""
++    import shutil
++    ccc = shutil.which("ccc")
++    if ccc is not None:
++        return ccc
+     python_dir = Path(sys.executable).parent
+     names = ["ccc.exe", "ccc"] if sys.platform == "win32" else ["ccc"]
+     for name in names:

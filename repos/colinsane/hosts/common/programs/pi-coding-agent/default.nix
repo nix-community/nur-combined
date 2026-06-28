@@ -49,16 +49,22 @@ let
       #   ];
       #   # directTools = true;
       # };
-      ck = {
-        command = "ck";
-        args = [ "--serve" ];
-        # directTools = [
-        #   "hybrid_search"
-        #   "lexical_search"
-        #   "semantic_search"
-        #   "regex_search"
-        # ];
-      };
+      # ccc = {
+      #   command = "ccc";
+      #   args = [ "mcp" ];
+      #   # just a single `search` tool.
+      #   directTools = true;
+      # };
+      # ck = {
+      #   command = "ck";
+      #   args = [ "--serve" ];
+      #   directTools = [
+      #     "hybrid_search"
+      #     "lexical_search"
+      #     "semantic_search"
+      #     "regex_search"
+      #   ];
+      # };
       coderag = {
         command = "coderag";
         args = [ "mcp" ];
@@ -154,7 +160,8 @@ in
 
     suggestedPrograms = [
       # "agent-lsp"
-      "ck"
+      # "ck"
+      # "cocoindex-code"
       "coderag"
       "ha-mcp"
       "kagi-cli"
@@ -175,8 +182,8 @@ in
     sandbox.net = "clearnet";
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
-      ".cache/ck"
-      ".cache/coderag"
+      # ".cache/ck"
+      # ".cocoindex_code"
       ".config/ha-mcp/ha-mcp.env"
       # ".config/kagi/kagi-api-key"
       # ".config/kagi/kagi_session_token"
