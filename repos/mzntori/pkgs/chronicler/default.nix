@@ -9,6 +9,7 @@
 
   fixWebkit ? false,
   fixWayland ? false,
+  allowUnfreeLicense ? false,
 }:
 
 let
@@ -57,7 +58,7 @@ stdenv.mkDerivation {
     license = {
       fullName = "PolyForm Shield License 1.0.0";
       url = "https://polyformproject.org";
-      free = true;
+      free = allowUnfreeLicense;
       redistributable = true;
     };
     mainProgram = "chronicler";
