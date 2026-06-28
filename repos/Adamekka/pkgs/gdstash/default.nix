@@ -45,6 +45,7 @@ stdenvNoCC.mkDerivation rec {
     fi
 
     makeWrapper ${jre}/bin/java "$out/bin/gdstash" \
+      --chdir "$out/share/gdstash" \
       --add-flags "-jar" \
       --add-flags "$jarFile"
 
