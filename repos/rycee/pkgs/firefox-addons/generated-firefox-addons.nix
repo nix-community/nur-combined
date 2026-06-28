@@ -3602,10 +3602,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.70.0";
+      version = "2.71.0";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4789846/dualsub-2.70.0.xpi";
-      sha256 = "2fd42eaed5e0a23f28add21ad23905b12710ddfc06a0662ce0721f157ead07ba";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4871675/dualsub-2.71.0.xpi";
+      sha256 = "3fbd36c3549056017d939b6bb234423c6b8311077b1dcd6189899aace2d67900";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3624,7 +3624,6 @@
           "https://www.iq.com/*"
           "https://www.viki.com/*"
           "https://www.youku.tv/*"
-          "https://www.zdf.de/*"
           "https://wetv.vip/*"
         ];
         platforms = platforms.all;
@@ -4690,10 +4689,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.10";
+      version = "1.22.11";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4869248/geo_spoof-1.22.10.xpi";
-      sha256 = "91126dec6e787268b3ead4b7d4ee6feab7352606248538039f5392956aa7fbd9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4871281/geo_spoof-1.22.11.xpi";
+      sha256 = "4cdc20fd321af69deac7b1dee089e97183c270adfa006111e90f259b6c660639";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
