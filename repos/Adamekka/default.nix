@@ -10,7 +10,11 @@
 
 {
   lib = import ./lib { inherit pkgs; };
-  lsfg-vk-git = pkgs.callPackage ./pkgs/lsfg-vk-git { };
   modules = import ./modules;
   overlays = import ./overlays;
+
+  # MARK: Packages
+
+  gdstash = pkgs.callPackage ./pkgs/gdstash { };
+  lsfg-vk-git = pkgs.callPackage ./pkgs/lsfg-vk-git { };
 }

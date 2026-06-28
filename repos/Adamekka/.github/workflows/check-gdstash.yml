@@ -1,0 +1,93 @@
+name: Check GD Stash
+
+on:
+  schedule:
+    - cron: "00 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Check GD Stash
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Check upstream metadata
+        run: |
+          upstream_page="$(mktemp)"
+          curl \
+            --fail \
+            --location \
+            --output "$upstream_page" \
+            --silent \
+            --show-error \
+            --user-agent "Adamekka/nur-packages GD Stash update check" \
+            "https://www.nexusmods.com/grimdawn/mods/2?tab=files"
+
+          python - "$upstream_page" <<'PY'
+          import base64
+          import hashlib
+          import re
+          import sys
+          from pathlib import Path
+
+          archive_path = Path("pkgs/gdstash/GDStash.zip")
+          package_path = Path("pkgs/gdstash/default.nix")
+          package_text = package_path.read_text(encoding="utf-8")
+          upstream_text = Path(sys.argv[1]).read_text(encoding="utf-8", errors="replace")
+
+          def require_match(pattern, text, description):
+              match = re.search(pattern, text, re.MULTILINE)
+              if match is None:
+                  print(f"::error title=GD Stash check failed::Could not find {description}.")
+                  sys.exit(1)
+              return match.group(1)
+
+          packaged_version = require_match(r'^\s*version = "([^"]+)";', package_text, "packaged version")
+          packaged_file_id = require_match(r'^\s*nexusFileId = "([^"]+)";', package_text, "packaged Nexus file id")
+          packaged_hash_sri = require_match(r'^\s*nexusFileHash = "sha256-([^"]+)";', package_text, "packaged Nexus file hash")
+          packaged_hash_hex = base64.b64decode(packaged_hash_sri).hex()
+          local_hash_hex = hashlib.sha256(archive_path.read_bytes()).hexdigest()
+
+          upstream_version = require_match(
+              r'<meta[^>]+property="twitter:data1"[^>]+content="([^"]+)"',
+              upstream_text,
+              "upstream version",
+          )
+          upstream_file_id = require_match(
+              r'file(?:%5F|_)id=(\d+)',
+              upstream_text,
+              "upstream Nexus file id",
+          )
+          upstream_hash_hex = require_match(
+              r'https://www\.virustotal\.com/gui/file/([0-9a-f]{64})',
+              upstream_text,
+              "upstream file hash",
+          )
+
+          print(f"Packaged GD Stash: version {packaged_version}, file id {packaged_file_id}, sha256 {packaged_hash_hex}")
+          print(f"Committed GD Stash archive: sha256 {local_hash_hex}")
+          print(f"Upstream GD Stash: version {upstream_version}, file id {upstream_file_id}, sha256 {upstream_hash_hex}")
+
+          differences = []
+          if packaged_version != upstream_version:
+              differences.append(f"version {packaged_version} -> {upstream_version}")
+          if packaged_file_id != upstream_file_id:
+              differences.append(f"file id {packaged_file_id} -> {upstream_file_id}")
+          if packaged_hash_hex != local_hash_hex:
+              differences.append(f"metadata sha256 {packaged_hash_hex} does not match pkgs/gdstash/GDStash.zip {local_hash_hex}")
+          if local_hash_hex != upstream_hash_hex:
+              differences.append(f"archive sha256 {local_hash_hex} -> {upstream_hash_hex}")
+
+          if differences:
+              print("::error title=GD Stash manual update required::" + "; ".join(differences))
+              print("Download the updated archive from NexusMods, replace pkgs/gdstash/GDStash.zip, then update pkgs/gdstash/default.nix and README.md if needed.")
+              sys.exit(1)
+
+          print("GD Stash is current.")
+          PY
