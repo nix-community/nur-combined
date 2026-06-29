@@ -15,4 +15,5 @@
 
   tempesta = pkgs.callPackage ./pkgs/tempesta { };
   dogma = pkgs.callPackage ./pkgs/dogma { };
+  augenblick = pkgs.callPackage ./pkgs/augenblick { };
 }
