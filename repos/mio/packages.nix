@@ -325,6 +325,12 @@ byName
       (old.nativeBuildInputs or [ ])
       ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
   });
+
+  evince = pkgs.evince.overrideAttrs (old: {
+    nativeBuildInputs =
+      (old.nativeBuildInputs or [ ])
+      ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
+  });
 })
 // (lib.optionalAttrs (!nurbot) (
   with byName;
