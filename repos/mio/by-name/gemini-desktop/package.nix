@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildNpmPackage,
   fetchFromGitHub,
   fetchurl,
@@ -7,6 +8,7 @@
   makeBinaryWrapper,
   makeDesktopItem,
   copyDesktopItems,
+  desktopToDarwinBundle,
   electron,
   useNewIcon ? true,
 }:
@@ -47,7 +49,8 @@ buildNpmPackage rec {
     asar
     makeBinaryWrapper
     copyDesktopItems
-  ];
+  ]
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   desktopItems = [
     (makeDesktopItem {
@@ -82,7 +85,7 @@ buildNpmPackage rec {
 
     install -Dm644 ${
       if useNewIcon then newIcon else "build/icon.png"
-    } $out/share/pixmaps/gemini-desktop.png
+    } $out/share/icons/hicolor/256x256/apps/gemini-desktop.png
 
     cp ${if useNewIcon then newIcon else "build/icon.png"} $out/share/gemini-desktop/icon.png
 
