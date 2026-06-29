@@ -203,6 +203,7 @@
             '';
           };
         }
+        // import ./packages/duckdb/checks.nix { inherit (pkgs) lib callPackage; }
         // pkgs.lib.mapAttrs' (
           name: value: pkgs.lib.nameValuePair ("package_" + name) value
         ) self.packages."${system}"
