@@ -309,6 +309,12 @@ byName
     inherit (librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
     libName = "librewolf";
   };
+
+  ryubing = pkgs.ryubing.overrideAttrs (old: {
+    nativeBuildInputs =
+      (old.nativeBuildInputs or [ ])
+      ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
+  });
 })
 // (lib.optionalAttrs (!nurbot) (
   with byName;
