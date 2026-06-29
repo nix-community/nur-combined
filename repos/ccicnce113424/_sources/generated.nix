@@ -249,17 +249,17 @@
   };
   pixes-git = {
     pname = "pixes-git";
-    version = "8f147e3b1df13a4ef26f8e0c923a7c9c76293231";
+    version = "9e475dad25d52a2db4350725e1748f009d318da4";
     src = fetchFromGitHub {
       owner = "pixes-app";
       repo = "pixes";
-      rev = "8f147e3b1df13a4ef26f8e0c923a7c9c76293231";
+      rev = "9e475dad25d52a2db4350725e1748f009d318da4";
       fetchSubmodules = false;
-      sha256 = "sha256-u1eeJZ/9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=";
+      sha256 = "sha256-fX5z0tWIBgjNhxD4zWWlXq1cYTgAkNXXqyUZZ1kn1lg=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-u1eeJZ_9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=/pubspec.lock";
-    };date = "2026-06-23";
+      "pubspec.lock" = ./. + "/sha256-fX5z0tWIBgjNhxD4zWWlXq1cYTgAkNXXqyUZZ1kn1lg=/pubspec.lock";
+    };date = "2026-06-29";
   };
   pwasio = {
     pname = "pwasio";
@@ -307,16 +307,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "d8187831a087d028e88813599f760975627ed843";
+    version = "167931b826e82d759dad1f0743619a09bdfb85e7";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "d8187831a087d028e88813599f760975627ed843";
+      rev = "167931b826e82d759dad1f0743619a09bdfb85e7";
       fetchSubmodules = false;
-      sha256 = "sha256-Ba86OcBTgKBvNufQJZAaeBcwGYvof//uaSmOjP6e1Dk=";
+      sha256 = "sha256-WBRoYQDKxhruVxlyTh7tkDlCvYNCd/rM8SUvkbDv/zE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Ba86OcBTgKBvNufQJZAaeBcwGYvof__uaSmOjP6e1Dk=/Cargo.lock";
+      lockFile = ./. + "/sha256-WBRoYQDKxhruVxlyTh7tkDlCvYNCd_rM8SUvkbDv_zE=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
