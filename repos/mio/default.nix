@@ -44,27 +44,23 @@ in
   '';
   caddy =
     let
-      # Table mapping caddy source hash + Go version to plugins hash
-      # Key format: "<srcHash>:<goVersion>"
-      # To check current key: nix eval --impure --expr 'let pkgs = import <nixpkgs> {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
-      # From local nixpkgs repo: nix eval --impure --expr 'let pkgs = import ./. {}; in "${pkgs.caddy.src.outputHash}:${pkgs.caddy.passthru.go.version}"' --raw
+      # Table mapping NixOS version + Caddy version + Go version to plugins hash
+      # Key format: "<nixosVersion>:<caddyVersion>:<goVersion>"
       caddyPluginsHashTable = {
-        "26.05pre-git:2.11.3:1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
-        "26.11pre-git:2.11.3:1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
-        "26.11pre-git:2.11.4:1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
-        "26.05pre-git:2.11.4:1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
-        "26.05pre-git:2.11.4:1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
-        "26.11pre1022855.e73de5be04e0:2.11.4:1.26.4" =
-          "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
-        "26.05.3250.4062d36ebeae:2.11.4:1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
+        "26.05:2.11.3:go1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
+        "26.11:2.11.3:go1.26.3" = "sha256-0TRYdgQthch/FWqRIcbISHLUQK9UH9VUpEzN3vMeUo0=";
+        "26.11:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
+        "26.05:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
+        "26.05:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
+        "26.11:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
       };
-      srcHash = pkgs.caddy.src.outputHash;
+      nixosVersion = pkgs.lib.versions.majorMinor pkgs.lib.version;
+      caddyVersion = pkgs.caddy.version;
       goVersion = pkgs.caddy.passthru.go.version;
-      lookupKey = "${srcHash}:${goVersion}";
-      lookupKeyNew = "${pkgs.lib.version}:${pkgs.caddy.version}:${goVersion}";
+      lookupKey = "${nixosVersion}:${caddyVersion}:go${goVersion}";
       pluginsHash =
-        caddyPluginsHashTable.${lookupKeyNew} or caddyPluginsHashTable.${lookupKey}
-          or (throw "Unknown caddy source hash + Go version: ${lookupKeyNew} or ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
+        caddyPluginsHashTable.${lookupKey}
+          or (throw "Unknown caddy version combination: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
     in
     (goV3OverrideAttrs pkgs.caddy).withPlugins {
       # https://github.com/crowdsecurity/example-docker-compose/blob/main/caddy/Dockerfile
