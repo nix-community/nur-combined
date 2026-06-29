@@ -83,9 +83,21 @@ buildNpmPackage rec {
     mkdir -p $out/share/gemini-desktop
     asar pack . $out/share/gemini-desktop/app.asar
 
-    install -Dm644 ${
-      if useNewIcon then newIcon else "build/icon.png"
-    } $out/share/icons/hicolor/256x256/apps/gemini-desktop.png
+    mkdir -p $out/share/icons/hicolor/256x256/apps
+    ${
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          magick convert ${
+            if useNewIcon then newIcon else "build/icon.png"
+          } -resize 256x256 $out/share/icons/hicolor/256x256/apps/gemini-desktop.png
+        ''
+      else
+        ''
+          install -m644 ${
+            if useNewIcon then newIcon else "build/icon.png"
+          } $out/share/icons/hicolor/256x256/apps/gemini-desktop.png
+        ''
+    }
 
     cp ${if useNewIcon then newIcon else "build/icon.png"} $out/share/gemini-desktop/icon.png
 
