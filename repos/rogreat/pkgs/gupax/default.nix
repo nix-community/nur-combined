@@ -12,7 +12,6 @@
   libxrender,
   makeDesktopItem,
   monero-cli,
-  openssl,
   p2pool,
   rustPlatform,
   vulkan-loader,
@@ -50,10 +49,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     copyDesktopItems
-  ];
-
-  buildInputs = [
-    openssl
   ];
 
   postInstall = ''
