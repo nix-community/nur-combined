@@ -315,6 +315,12 @@ byName
       (old.nativeBuildInputs or [ ])
       ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
   });
+
+  baobab = pkgs.baobab.overrideAttrs (old: {
+    nativeBuildInputs =
+      (old.nativeBuildInputs or [ ])
+      ++ pkgs.lib.optional pkgs.stdenv.hostPlatform.isDarwin pkgs.desktopToDarwinBundle;
+  });
 })
 // (lib.optionalAttrs (!nurbot) (
   with byName;
