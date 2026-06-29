@@ -17,7 +17,8 @@ Batch-check exported packages for new upstream versions.
 3. Produce a table of current version, latest version, and update status.
 4. Ask for confirmation before editing many packages.
 5. Update packages one by one with build verification.
-6. Refresh docs if package inventory or behavior changed.
+6. **Test runtime dependencies**: for each updated package, run the built binary (`result/bin/<name> --help` or equivalent) to catch missing shared library errors. If it crashes on a missing `lib*.so`, add it to `runtimeDeps` / `buildInputs` / `propagatedBuildInputs`, rebuild, and re-test.
+7. Refresh docs if package inventory or behavior changed.
 
 ## Repo-specific notes
 

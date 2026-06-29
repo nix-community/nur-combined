@@ -10,7 +10,8 @@ Update a single package exported from `default.nix`.
 2. Open the corresponding file under `pkgs/`.
 3. Update version / rev / hash inputs.
 4. Rebuild the package with `nix-build -A <package-name>`.
-5. If needed, update repo docs when package inventory, naming, or behavior changed.
+5. **Test runtime dependencies**: run the built binary (`result/bin/<name> --help` or equivalent) to catch missing shared library errors (e.g. `libICE.so.6`). If it crashes on a missing `lib*.so`, add it to `runtimeDeps` / `buildInputs` / `propagatedBuildInputs`, rebuild, and re-test.
+6. If needed, update repo docs when package inventory, naming, or behavior changed.
 
 ## Hash update methods
 

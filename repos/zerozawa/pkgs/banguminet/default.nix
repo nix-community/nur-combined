@@ -7,19 +7,21 @@
   makeDesktopItem,
   imagemagick,
   libx11,
+  libSM,
   fontconfig,
+  libICE,
   libGL,
 }:
 
 buildDotnetModule rec {
   pname = "banguminet";
-  version = "1.1.2";
+  version = "1.1.3";
 
   src = fetchFromGitHub {
     owner = "ajtn123";
     repo = "BangumiNet";
     rev = "v${version}";
-    hash = "sha256-zUBhJVLKlLJFY/hGG9NtXmKYgYKBEb2CbbBTnJPzR/A=";
+    hash = "sha256-xJS99VVaYFUr2wYqG9lYwDpvUiNqb/xy7CJGW2iLAcM=";
   };
 
   projectFile = "BangumiNet/BangumiNet.csproj";
@@ -32,6 +34,8 @@ buildDotnetModule rec {
 
   runtimeDeps = [
     libx11
+    libSM
+    libICE
     fontconfig.lib
     libGL
   ];
