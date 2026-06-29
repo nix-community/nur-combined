@@ -8,14 +8,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "libloot-python";
-  version = "0.29.5";
+  version = "0.29.6";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "loot";
     repo = "libloot";
     tag = finalAttrs.version;
-    hash = "sha256-faqsT3Y8rxEyilZ5V1c3n/Q5ozyOqVa7IrNHRx3ZJi0=";
+    hash = "sha256-Pz13z0uQfTeo47NJORfZ8n8ucqZdoLVGNIsrf2+OOGA=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/python";
@@ -29,7 +29,7 @@ buildPythonPackage (finalAttrs: {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-i1Y+4d2ri9+mMpFNKUqHi+K4R6ScXqxPucywZeP+YKE=";
+    hash = "sha256-IQowGdrol/JFoh+hGfhwoJ2FumkvbuZsp8Xx/V2hFdw=";
   };
 
   env = {
