@@ -139,39 +139,13 @@ stdenv.mkDerivation {
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
-    makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/libexec/wireguird-wrapped" \
+    makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/bin/wireguird" \
       --prefix PATH : ${
         lib.makeBinPath [
           wireguard-tools
           systemd
         ]
       }
-    cat > "$out/bin/wireguird" <<EOF
-    #!/bin/sh
-    if [ "\$(id -u)" -ne 0 ]; then
-      if [ -t 0 ] && command -v sudo >/dev/null 2>&1; then
-        exec sudo -p "wireguird must be run as root. Password for %u: " "$out/bin/wireguird" "\$@"
-      fi
-      if command -v pkexec >/dev/null 2>&1; then
-        # pkexec sanitizes env; explicitly forward GUI vars
-        exec pkexec --disable-internal-agent env \
-          DISPLAY="\$DISPLAY" \
-          XAUTHORITY="\$XAUTHORITY" \
-          WAYLAND_DISPLAY="\$WAYLAND_DISPLAY" \
-          XDG_RUNTIME_DIR="\$XDG_RUNTIME_DIR" \
-          XDG_DATA_DIRS="\$XDG_DATA_DIRS" \
-          XDG_CONFIG_DIRS="\$XDG_CONFIG_DIRS" \
-          XDG_CURRENT_DESKTOP="\$XDG_CURRENT_DESKTOP" \
-          DBUS_SESSION_BUS_ADDRESS="\$DBUS_SESSION_BUS_ADDRESS" \
-          "$out/bin/wireguird" "\$@"
-      fi
-      echo "wireguird: pkexec not found in PATH (need a setuid pkexec, e.g. /run/wrappers/bin/pkexec on NixOS)" >&2
-      exit 1
-    fi
-    mkdir -p /etc/wireguard 2>/dev/null || true
-    exec $out/libexec/wireguird-wrapped "\$@"
-    EOF
-    chmod +x "$out/bin/wireguird"
 
     # Desktop entry
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
@@ -179,31 +153,10 @@ stdenv.mkDerivation {
       Type=Application
       Name=Wireguird
       Comment=WireGuard GUI
-      Exec=$out/bin/wireguird
+      Exec=wireguird
       Terminal=false
       Icon=wireguird
       Categories=Network;Security;
-    EOF
-
-    # Polkit policy (pkexec target must match)
-    install -Dm644 /dev/stdin "$out/share/polkit-1/actions/wireguird.policy" <<EOF
-      <?xml version="1.0" encoding="UTF-8"?>
-      <!DOCTYPE policyconfig PUBLIC
-       "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
-       "http://www.freedesktop.org/standards/PolicyKit/1/policyconfig.dtd">
-      <policyconfig>
-        <action id="org.freedesktop.policykit.pkexec.wireguird">
-          <description>Wireguard GUI</description>
-          <message>Authentication is required to run wireguird</message>
-          <defaults>
-            <allow_any>auth_admin</allow_any>
-            <allow_inactive>auth_admin</allow_inactive>
-            <allow_active>auth_admin</allow_active>
-          </defaults>
-          <annotate key="org.freedesktop.policykit.exec.path">$out/bin/wireguird</annotate>
-          <annotate key="org.freedesktop.policykit.exec.allow_gui">true</annotate>
-        </action>
-      </policyconfig>
     EOF
   '';
 

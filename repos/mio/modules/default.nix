@@ -13,9 +13,11 @@ rec {
       imports = [
         zfs-impermanence-on-shutdown
         darling
+        wireguird
       ];
     }
   );
   zfs-impermanence-on-shutdown = ./zfs-impermanence-on-shutdown.nix;
   darling = ./darling.nix;
+  wireguird = ./wireguird.nix;
 }
