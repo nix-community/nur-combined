@@ -10,7 +10,7 @@
     inherit (source) version src;
 
     # nix-update auto
-    vendorHash = "sha256-rYzkaJqk5r31Uagn1FRFDeICUeK392o1fyP6IBk9zgk=";
+    vendorHash = "sha256-U2rZVluYM+XcI8e9TBXAlb9sKz4IL+FMEj1CTDcH6qM=";
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
