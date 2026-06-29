@@ -22,7 +22,7 @@
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [Prinky];
     mainProgram = "moonplayer";
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 in
   if stdenv.isDarwin

@@ -27,7 +27,7 @@ in
       homepage = "https://github.com/SocketDev/sfw-free";
       license = lib.licenses.unfree;
       maintainers = with lib.maintainers; [Prinky];
-      platforms = lib.platforms.unix;
+      platforms = lib.platforms.linux ++ lib.platforms.darwin;
       mainProgram = "sfw";
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };

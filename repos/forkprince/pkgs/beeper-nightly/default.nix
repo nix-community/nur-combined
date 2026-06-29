@@ -29,7 +29,7 @@
       zh4ngx
       Prinky
     ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 in
   if stdenvNoCC.isDarwin

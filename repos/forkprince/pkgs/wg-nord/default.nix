@@ -34,7 +34,7 @@ in
       homepage = "https://github.com/n-thumann/wg-nord";
       license = lib.licenses.mit;
       maintainers = with lib.maintainers; [Prinky];
-      platforms = lib.platforms.unix;
+      platforms = lib.platforms.linux ++ lib.platforms.darwin;
       mainProgram = "wg-nord";
       sourceProvenance = [lib.sourceTypes.binaryNativeCode];
     };
