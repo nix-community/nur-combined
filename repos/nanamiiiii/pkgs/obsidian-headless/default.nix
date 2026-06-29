@@ -5,7 +5,7 @@
   nodejs_22,
   srcOnly,
   node-gyp,
-  pnpm_9,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   makeWrapper,
@@ -18,7 +18,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "obsidian-headless";
-  version = "0.0.10";
+  version = "0.0.11";
 
   strictDeps = true;
   __structuredAttrs = true;
@@ -27,7 +27,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "obsidianmd";
     repo = "obsidian-headless";
     tag = "${finalAttrs.version}";
-    hash = "sha256-4MPPxHgrhZ6AOt65a/yI3ECQDv9UHuChUemSHPf+SH0=";
+    hash = "sha256-zjMdOCuOMMvBZhrXf7nkz8sYAQ0vU+TzyHhlwIbEfHU=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -37,16 +37,16 @@ stdenv.mkDerivation (finalAttrs: {
       src
       postPatch
       ;
-    pnpm = pnpm_9;
+    pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-Y/atHIJQzrt6ctpI2ks7Mj0bnTCQx4d5mDtY/YIEcow=";
+    hash = "sha256-9XbLTX0ZM7GzRkNQ0IIKjuU7dIzzz3WvqfbBOFdIdmY=";
   };
 
   nativeBuildInputs = [
     nodejs_22
     node-gyp
     pnpmConfigHook
-    pnpm_9
+    pnpm_10
     makeWrapper
     python3
   ]
