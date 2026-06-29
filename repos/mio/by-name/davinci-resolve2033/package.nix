@@ -56,7 +56,7 @@
 let
   davinci = (
     stdenv.mkDerivation rec {
-      pname = "davinci-resolve2033${lib.optionalString studioVariant "-studio"}";
+      pname = "davinci-resolve${lib.optionalString studioVariant "-studio"}";
       version = "20.3.3";
 
       nativeBuildInputs = [
