@@ -30,6 +30,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [darctool-yls8-0-unstable-2015-11-21](https://github.com/yellows8/darctool) | darctool-yls8 | Tool for extracting and building 3DS darc archive files. |
 | [DiscordWikiBot-0-unstable-2026-06-18](https://github.com/stjohann/DiscordWikiBot) | discordwikibot | Discord bot for Wikimedia projects and MediaWiki wiki sites |
 | [ftpd-3.2.1](https://github.com/mtheall/ftpd) | ftpd | FTP Server for 3DS/Switch (and Linux) |
+| [gmodpatchtool-20260623](https://github.com/ticky/lnshot) | gmodpatchtool | Patches for Garry's Mod. Updates/Improves CEF and Fixes common launch/performance issues (esp. on Linux/Proton/macOS) |
 | [kame-editor-1.4.1-unstable-2025-06-04](https://beelzy.gitlab.io/kame-editor/) | kame-editor | GUI frontend for kame-tools; makes custom 3DS themes. |
 | [kame-tools-1.3.8-unstable-2024-11-01](https://gitlab.com/beelzy/kame-tools) | kame-tools | Fork of bannertools that includes tools for making 3DS themes. |
 | [kwin-move-window-1.1.1](https://github.com/Merrit/kwin-move-window) | kwin-move-window | KWin script that adds shortcuts to move the active window with the keyboard |
@@ -62,9 +63,9 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [switch-tools-1.13.1](https://github.com/switchbrew/switch-tools) | switch-tools | Various Nintendo Switch homebrew tools |
 | [tex3ds-2.3.0](https://github.com/devkitPro/tex3ds) | tex3ds | 3DS Texture Conversion |
 | [themethod3-0-unstable-2025-05-26](https://github.com/DarkRTA/themethod3) | themethod3 | Tool for decrypting all mogg files used by the Rock Band series |
-| [thextech-1.3.7.3](https://wohlsoft.ru/projects/TheXTech/) | thextech | The full port of the SMBX engine from VB6 into C++ and SDL2, FreeImage and MixerX |
-| [thextech-aod-1.3.7.3](https://wohlsoft.ru/projects/TheXTech/) | thextech-aod | Adventures of Demo, on TheXTech engine |
-| [thextech-smbx-1.3.7.3](https://wohlsoft.ru/projects/TheXTech/) | thextech-smbx | Super Mario Bros. X, on TheXTech engine |
+| [thextech-1.3.7.3-1](https://wohlsoft.ru/projects/TheXTech/) | thextech | The full port of the SMBX engine from VB6 into C++ and SDL2, FreeImage and MixerX |
+| [thextech-aod-1.3.7.3-1](https://wohlsoft.ru/projects/TheXTech/) | thextech-aod | Adventures of Demo, on TheXTech engine |
+| [thextech-smbx-1.3.7.3-1](https://wohlsoft.ru/projects/TheXTech/) | thextech-smbx | Super Mario Bros. X, on TheXTech engine |
 | [twlnandtool-1.0.1](https://github.com/TuxSH/twlnandtool) | twlnandtool | Modern drop-in replacement for twltool: fast decryption of DSi NAND dumps and system files. Written in C++14 |
 | [twltool-1.7-unstable-2024-01-21](https://github.com/WinterMute/twltool) | twltool | Nintendo DSi multitool |
 | [vacuumtube-1.7.3](https://github.com/shy1132/VacuumTube) | vacuumtube | YouTube Leanback on the desktop, with enhancements |
@@ -72,6 +73,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [wfs-tools-1.2.3-unstable-2025-03-19](https://github.com/koolkdev/wfs-tools) | wfs-tools | WFS (WiiU File System) Tools |
 | [wifiboot-host-unstable-2023-07-02](https://github.com/danny8376/wifiboot-host) | wifiboot-host | command line version uploader for https://problemkaputt.de/wifiboot.htm |
 | [xenonrecomp-0-unstable-2025-08-04](https://github.com/hedge-dev/XenonRecomp) | xenonrecomp | A tool for recompiling Xbox 360 games to native executables. |
+| [yt-dlp-2026.06.09-unstable-2026-06-28](https://github.com/yt-dlp/yt-dlp/) | yt-dlp-master | Feature-rich command-line audio/video downloader (master branch) |
 
 ## Overlay
 

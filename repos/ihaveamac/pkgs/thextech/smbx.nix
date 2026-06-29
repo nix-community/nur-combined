@@ -10,7 +10,7 @@ thextech.wrapGame {
   gameName = "Super Mario Bros. X";
   gameDir = "smbx13";
   gameSrc = fetchzip {
-    url = "https://github.com/TheXTech/TheXTech/releases/download/v${thextech.version}/thextech-smbx13-assets-full-v${thextech.version}.7z";
+    url = "https://github.com/TheXTech/TheXTech/releases/download/v${thextech.versionNoHotfix}/thextech-smbx13-assets-full-v${thextech.versionNoHotfix}.7z";
     hash = "sha256-btaZ28xuh/Rd9epuwck4ton4ctmEpYQi3+EFaQ2bqgQ=";
     nativeBuildInputs = [ p7zip ];
     stripRoot = false;

@@ -10,7 +10,7 @@ thextech.wrapGame {
   gameName = "Adventures of Demo";
   gameDir = "aod";
   gameSrc = fetchzip {
-    url = "https://github.com/TheXTech/TheXTech/releases/download/v${thextech.version}/thextech-adventure-of-demo-assets-full-v${thextech.version}.7z";
+    url = "https://github.com/TheXTech/TheXTech/releases/download/v${thextech.versionNoHotfix}/thextech-adventure-of-demo-assets-full-v${thextech.versionNoHotfix}.7z";
     hash = "sha256-x2Se2k21cumAsQ7BS3gt4GU56McK9CC1YHLWzS1zBxw=";
     nativeBuildInputs = [ p7zip ];
     stripRoot = false;

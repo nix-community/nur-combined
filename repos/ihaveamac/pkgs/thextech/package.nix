@@ -17,12 +17,14 @@
 }:
 
 let
+  fullVersion = "1.3.7.3-1";
+  versionNoHotfix = builtins.concatStringsSep "." (lib.take 4 (lib.splitVersion fullVersion));
   thextech = stdenv.mkDerivation rec {
     pname = "thextech";
-    version = "1.3.7.3";
+    version = fullVersion;
 
     src = fetchzip {
-      url = "https://github.com/TheXTech/TheXTech/releases/download/v${version}/thextech-full-src-v${version}.tar.bz2";
+      url = "https://github.com/TheXTech/TheXTech/releases/download/v${versionNoHotfix}/thextech-full-src-v${versionNoHotfix}.tar.bz2";
       hash = "sha256-8w2H9g3QDRgsRRcMqQjB72tMKQ52J8MMvmqc1Up5G8w=";
     };
     #src = fetchFromGitHub {
@@ -33,6 +35,8 @@ let
     #  fetchSubmodules = true;
     #  leaveDotGit = true;
     #};
+
+    passthru.versionNoHotfix = versionNoHotfix;
 
     buildInputs = [
       SDL2
