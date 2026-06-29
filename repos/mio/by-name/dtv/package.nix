@@ -88,7 +88,7 @@ rustPlatform.buildRustPackage rec {
     inherit pname version;
     src = pnpmDepsSrc;
     pnpm = pnpmWrapper;
-    hash = "sha256-Kp1muVGm9ipL9CkQZs5yTRRXVqb1BPntfz+Kh3yW5Ac=";
+    hash = "sha256-YFfOo0ugYKEhjt3ZMpOmCDcByoUMqIK43jmbkBj/TPI=";
     fetcherVersion = 3;
   };
 
