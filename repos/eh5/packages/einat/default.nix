@@ -12,20 +12,21 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "einat";
-  version = "0.1.10";
+  version = "0.1.11";
 
   src = fetchFromGitHub {
     owner = "EHfive";
     repo = "einat-ebpf";
     rev = "v${version}";
-    hash = "sha256-P0Q8DdeEns5xcALj5vIyubc1AE073nozbNoTzRso37w=";
+    hash = "sha256-dyjDzg6kpqjcne1Zke2f7KxAJMp2vAbfeyFGXoH+siE=";
   };
 
-  cargoHash = "sha256-dK2S1fhBlblaNWsTkVHOMFbtp+SqdlFb6IvP/0+b6RA=";
+  cargoHash = "sha256-27Ia3+QPVC4+1TVW31S+cI3edDq+gBRnznPniBnbe44=";
 
   nativeBuildInputs = [
     pkg-config
     llvmPackages.clang-unwrapped
+    llvmPackages.bintools-unwrapped
     bpftools
     rustPlatform.bindgenHook
   ];
