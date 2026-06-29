@@ -53,6 +53,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
     zstandard
   ]);
 
+  postPatch = ''
+    substituteInPlace src/Nexus/nxm_handler.py \
+        --replace-fail \
+            "f'{cls._quote_if_needed(exe)} {cls._quote_if_needed(script)} --nxm %u'" \
+            "'amethyst-mod-manager --nxm %u'"
+  '';
+
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   installPhase = ''
     runHook preInstall
