@@ -11,6 +11,7 @@ permissions:
 jobs:
   check:
     name: Check GD Stash
+    environment: Check GD Stash
     runs-on: ubuntu-latest
     env:
       NEXUSMODS_API_KEY: ${{ secrets.NEXUSMODS_API_KEY }}
