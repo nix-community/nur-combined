@@ -52,16 +52,14 @@ buildNpmPackage rec {
   ]
   ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
-  desktopItems = [
-    (makeDesktopItem {
-      name = "gemini-desktop";
-      exec = "gemini-desktop %U";
-      icon = "gemini-desktop";
-      desktopName = "Gemini Desktop";
-      comment = "A desktop wrapper for Google Gemini with enhanced features";
-      categories = [ "Utility" ];
-    })
-  ];
+  desktopItems = lib.optional (!stdenv.hostPlatform.isDarwin) (makeDesktopItem {
+    name = "gemini-desktop";
+    exec = "gemini-desktop %U";
+    icon = "gemini-desktop";
+    desktopName = "Gemini Desktop";
+    comment = "A desktop wrapper for Google Gemini with enhanced features";
+    categories = [ "Utility" ];
+  });
 
   buildPhase = ''
     runHook preBuild
@@ -101,11 +99,59 @@ buildNpmPackage rec {
 
     cp ${if useNewIcon then newIcon else "build/icon.png"} $out/share/gemini-desktop/icon.png
 
-    makeBinaryWrapper ${lib.getExe electron} $out/bin/gemini-desktop \
-      --add-flags $out/share/gemini-desktop/app.asar \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
-      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-      --inherit-argv0
+    ${
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          # Build a proper, self-contained macOS app bundle
+          mkdir -p "$out/Applications/Gemini Desktop.app/Contents/MacOS"
+          mkdir -p "$out/Applications/Gemini Desktop.app/Contents/Resources"
+
+          # Copy binary and plist from Electron.app
+          cp "${electron}/Applications/Electron.app/Contents/MacOS/Electron" \
+            "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop"
+          cp "${electron}/Applications/Electron.app/Contents/Info.plist" \
+            "$out/Applications/Gemini Desktop.app/Contents/Info.plist"
+
+          # Symlink Frameworks to save space
+          ln -s "${electron}/Applications/Electron.app/Contents/Frameworks" \
+            "$out/Applications/Gemini Desktop.app/Contents/Frameworks"
+
+          # Place resources
+          cp $out/share/gemini-desktop/app.asar \
+            "$out/Applications/Gemini Desktop.app/Contents/Resources/app.asar"
+
+          # Compile the icon
+          mkdir -p tmpicons
+          magick convert $out/share/icons/hicolor/256x256/apps/gemini-desktop.png -resize 16x16 tmpicons/16x16.png
+          magick convert $out/share/icons/hicolor/256x256/apps/gemini-desktop.png -resize 32x32 tmpicons/32x32.png
+          magick convert $out/share/icons/hicolor/256x256/apps/gemini-desktop.png -resize 128x128 tmpicons/128x128.png
+          magick convert $out/share/icons/hicolor/256x256/apps/gemini-desktop.png -resize 256x256 tmpicons/256x256.png
+          magick convert $out/share/icons/hicolor/256x256/apps/gemini-desktop.png -resize 512x512 tmpicons/512x512.png
+          icnsutil convert tmpicons/16x16.argb tmpicons/16x16.png
+          icnsutil convert tmpicons/32x32.argb tmpicons/32x32.png
+          rm tmpicons/16x16.png tmpicons/32x32.png
+          icnsutil compose --toc "$out/Applications/Gemini Desktop.app/Contents/Resources/gemini-desktop.icns" tmpicons/*
+
+          # Update Info.plist
+          chmod +w "$out/Applications/Gemini Desktop.app/Contents/Info.plist"
+          substituteInPlace "$out/Applications/Gemini Desktop.app/Contents/Info.plist" \
+            --replace-fail "<string>Electron</string>" "<string>Gemini Desktop</string>" \
+            --replace-fail "<string>com.github.Electron</string>" "<string>org.nixos.gemini-desktop</string>" \
+            --replace-fail "<string>electron.icns</string>" "<string>gemini-desktop.icns</string>"
+
+          # Create a binary wrapper or symlink in bin/
+          mkdir -p $out/bin
+          makeBinaryWrapper "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop" "$out/bin/gemini-desktop"
+        ''
+      else
+        ''
+          makeBinaryWrapper ${lib.getExe electron} $out/bin/gemini-desktop \
+            --add-flags $out/share/gemini-desktop/app.asar \
+            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations}}" \
+            --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+            --inherit-argv0
+        ''
+    }
 
     runHook postInstall
   '';
