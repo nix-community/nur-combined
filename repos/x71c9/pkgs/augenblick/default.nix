@@ -24,6 +24,6 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://github.com/x71c9/augenblick";
     license = licenses.mit;
     maintainers = [];
-    platforms = platforms.linux;
+    platforms = platforms.linux ++ platforms.darwin;
   };
 }
