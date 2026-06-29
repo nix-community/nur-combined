@@ -8,16 +8,16 @@
 {
   gitpane = {
     pname = "gitpane";
-    version = "v0.7.15";
+    version = "v0.8.0";
     src = fetchFromGitHub {
       owner = "affromero";
       repo = "gitpane";
-      rev = "v0.7.15";
+      rev = "v0.8.0";
       fetchSubmodules = false;
-      sha256 = "sha256-h61drmvCRePidtU1ieZXNQpLmPJ8olotIuvZthcmtCE=";
+      sha256 = "sha256-YO4PQaK+Fi2LrPceq1G5VOni7Hqy7iA0K4HKMpYSLgM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-h61drmvCRePidtU1ieZXNQpLmPJ8olotIuvZthcmtCE=/Cargo.lock";
+      lockFile = ./. + "/sha256-YO4PQaK+Fi2LrPceq1G5VOni7Hqy7iA0K4HKMpYSLgM=/Cargo.lock";
       outputHashes = {
         
       };
