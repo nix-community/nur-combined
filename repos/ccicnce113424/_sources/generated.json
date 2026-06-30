@@ -494,7 +494,7 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-_aMNuqF4wbnbwUY6EDT_58Vqy4RmUVsYrCR64+cWI_o=/Cargo.lock",
+                "sha256-IIoYPvK1TYhFSNgxXgOGC1Ld2LopUtuuuzWNjVN43rc=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "607b40abf66b9887056122cee87139ec74391bc0",
-            "sha256": "sha256-/aMNuqF4wbnbwUY6EDT/58Vqy4RmUVsYrCR64+cWI/o=",
+            "rev": "e0593bbe50fc276d5111f1743ddd27b1a6c425df",
+            "sha256": "sha256-IIoYPvK1TYhFSNgxXgOGC1Ld2LopUtuuuzWNjVN43rc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "607b40abf66b9887056122cee87139ec74391bc0"
+        "version": "e0593bbe50fc276d5111f1743ddd27b1a6c425df"
     },
     "svt-av1-essential": {
         "cargoLock": null,
