@@ -6,12 +6,12 @@
   _7zz,
 }:
 let
-  version = "2.67.0.614";
+  version = "2.74.0.623";
 
   # https://yuanbao.tencent.com/api/info/public/general
   source = {
-    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/a79118d3e2c8cf7e1216dcfa6bc35e34/yuanbao_2.67.0.614_universal.dmg";
-    hash = "sha256-JZuINOT/FvhZn+lmAiQLpbT+qClSfI2ORnvsMT1uc8c=";
+    url = "https://cdn-hybrid-prod.hunyuan.tencent.com/Desktop/official/f1fbfe63f8864afe036926111699dbfe/yuanbao_2.74.0.623_universal.dmg";
+    hash = "sha256-YPtgXrYS+szQWmXv9m/1wViFttDoyuc/ksDb5knZco8=";
   };
   pkgName = "元宝";
 in
