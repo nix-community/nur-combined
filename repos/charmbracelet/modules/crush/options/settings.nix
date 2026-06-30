@@ -452,6 +452,18 @@ lib.mkOption {
                     description = "Diff mode for the TUI interface";
                   };
 
+                  scrollbar = lib.mkOption {
+                    type = lib.types.nullOr (
+                      lib.types.enum [
+                        "default"
+                        "always"
+                        "never"
+                      ]
+                    );
+                    default = "default";
+                    description = "Chat scrollbar visibility";
+                  };
+
                   transparent = lib.mkOption {
                     type = lib.types.nullOr lib.types.bool;
                     default = false;
