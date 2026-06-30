@@ -39,6 +39,7 @@ lib.makeScope newScope (
     );
     hexecute = callPackage ./hexecute { };
     libva-v4l2 = callPackage ./libva-v4l2 { };
+    llm-wiki-compiler = callPackage ./llm-wiki-compiler { };
     lpac = callPackage ./lpac { };
     ly2video = callPackage ./ly2video { };
     matrix-media-repo = callPackage ./matrix-media-repo { };

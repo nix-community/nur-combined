@@ -55,6 +55,7 @@ let
     (trivial "dot-tar")
     (trivial "emacsPackages/pyim-greatdict")
     (trivial "hexecute")
+    (trivial "llm-wiki-compiler")
     (trivial "lpac")
     (trivial "matrix-qq")
     (trivial "matrix-wechat")
