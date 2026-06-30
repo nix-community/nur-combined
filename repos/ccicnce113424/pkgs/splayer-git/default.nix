@@ -21,6 +21,7 @@ splayer.overrideAttrs (
       fetcherVersion = 3;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
+    patches = [ ];
 
     env.VITE_BUILD_TYPE = "dev";
   }
