@@ -35,8 +35,9 @@ jobs:
           NIXPKGS_PATH=$(nix eval --raw .#nixpkgs)
           export NIX_PATH="nixpkgs=$NIXPKGS_PATH"
           nix run .#nvfetcher-bin
-          git add .
           cp "$NIXPKGS_PATH/pkgs/by-name/mo/motrix-next/package.nix" ./pkgs/motrix-next
+          cp $NIXPKGS_PATH/pkgs/by-name/sp/splayer/* ./pkgs/splayer-git
+          git add .
           pkgs/daed/update.sh
           pkgs/dav2d/update.sh
           pkgs/kanzi-cpp/update.sh
