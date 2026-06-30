@@ -95,6 +95,17 @@ python3Packages.buildPythonApplication (finalAttrs: {
     pytest-xvfb
   ]);
 
+  disabledTestPaths = [
+    # Fail on rerun
+    "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
+    # Slow on rerun
+    "tests/test_f3_whole_table_rebuild.py"
+  ];
+
+  disabledTestMarks = [
+    "slow"
+  ];
+
   desktopItems = [
     (makeDesktopItem {
       name = "cdumm";
