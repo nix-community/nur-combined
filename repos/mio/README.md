@@ -105,6 +105,8 @@ files are copied from following locations. some are modified in this repo and so
 + antigravity-cli-wrapped: same as above, but with NO_COLOR=1 enforced.
 + antigravity-cli-patched: same as above, but with a binary patch to force simple output.
 + versionCheckHomeHook <https://github.com/numtide/llm-agents.nix/tree/main/packages/versionCheckHomeHook> commit 04df876de28f0684a0d7110444d7f64da5c14d17
++ ryubing - copied from nixpkgs commit [9b50d450945903abb6fb7933c6cfd8f483f0dc2d](https://github.com/NixOS/nixpkgs/tree/9b50d450945903abb6fb7933c6cfd8f483f0dc2d) and modified to copy the desktop/icon files on Darwin to allow `desktopToDarwinBundle` to generate a macOS application bundle.
+
 
 ## todo - reading
 
