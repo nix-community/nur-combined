@@ -32,6 +32,8 @@
   ];
   duckdbPostPatch = ''
     substituteInPlace extension_external/spatial/CMakeLists.txt \
+      --replace-fail "set(ZLIB_USE_STATIC_LIBS ON)" "set(ZLIB_USE_STATIC_LIBS OFF)" \
+      --replace-fail "set(OPENSSL_USE_STATIC_LIBS ON)" "set(OPENSSL_USE_STATIC_LIBS OFF)" \
       --replace-fail "find_package(unofficial-sqlite3 CONFIG REQUIRED)" "find_package(SQLite3 REQUIRED)" \
       --replace-fail "unofficial::sqlite3::sqlite3" "SQLite::SQLite3"
 
