@@ -20,8 +20,9 @@
     cargoHash = "sha256-gxGetdqaoJa/ZF1VnW6UXJyJfLBGZxZnyKpT/Qk/8Og=";
 
     patchPhase = ''
-      substituteInPlace src/lib.rs \
-        --replace 'config.toml' $out/etc/spotify-adblock/config.toml
+      substituteInPlace src/config.rs \
+        --replace-fail 'const GLOBAL_CONFIG_DIR: &str = "/etc";' \
+                  "const GLOBAL_CONFIG_DIR: &str = \"$out/etc\";"
     '';
 
     buildPhase = ''
