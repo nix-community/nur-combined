@@ -641,7 +641,7 @@ buildStdenv.mkDerivation {
     # Firefox relies on nonstandard behavior of the glibc dynamic linker. It re-uses
     # previously loaded libraries even though they are not in the rpath of the newly loaded binary.
     # On musl we have to explicitly set the rpath to include these libraries.
-    LDFLAGS = "-Wl,-rpath,${placeholder "out"}/lib/${binaryName}";
+    LDFLAGS = "-Wl,-rpath,${placeholder "out"}/lib/${finalBinaryName}";
   };
 
   # tests were disabled in configureFlags
@@ -665,16 +665,16 @@ buildStdenv.mkDerivation {
   postInstall =
     lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p $out/Applications
-      cp -r dist/${binaryName}/*.app "$out/Applications/${applicationName}.app"
+      cp -r dist/${finalBinaryName}/*.app "$out/Applications/${applicationName}.app"
 
       resourceDir="$out/Applications/${applicationName}.app/Contents/Resources"
 
     ''
     + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
       # Remove SDK cruft. FIXME: move to a separate output?
-      rm -rf $out/share/idl $out/include $out/lib/${binaryName}-devel-*
+      rm -rf $out/share/idl $out/include $out/lib/${finalBinaryName}-devel-*
 
-      resourceDir=$out/lib/${binaryName}
+      resourceDir=$out/lib/${finalBinaryName}
     ''
     + ''
       # Install distribution customizations
@@ -685,7 +685,7 @@ buildStdenv.mkDerivation {
     '';
 
   postFixup = lib.optionalString (crashreporterSupport && buildStdenv.hostPlatform.isLinux) ''
-    patchelf --add-rpath "${lib.makeLibraryPath [ curl ]}" $out/lib/${binaryName}/crashreporter
+    patchelf --add-rpath "${lib.makeLibraryPath [ curl ]}" $out/lib/${finalBinaryName}/crashreporter
   '';
 
   # Some basic testing
