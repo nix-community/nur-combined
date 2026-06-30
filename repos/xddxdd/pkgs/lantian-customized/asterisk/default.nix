@@ -2,7 +2,7 @@
   lib,
   sources,
   callPackage,
-  asterisk_20,
+  asterisk,
   asteriskDigiumCodecs,
   asterisk-g72x,
   opencore-amr,
@@ -12,9 +12,8 @@
   vo-amrwbenc,
 }:
 let
-  asterisk-actual = asterisk_20;
-  codecs-actual = asteriskDigiumCodecs."20";
-  asterisk-g72x-actual = asterisk-g72x.override { asterisk = asterisk-actual; };
+  codecs-actual = asteriskDigiumCodecs."${lib.versions.major asterisk.version}";
+  asterisk-g72x-actual = asterisk-g72x.override { inherit asterisk; };
   _3gpp-evs = callPackage ./3gpp-evs.nix { };
 
   # Patches that use patch -p0
@@ -34,7 +33,7 @@ let
     sources.asterisk-gsm-efr.src
   ];
 in
-(asterisk-actual.override { withOpus = false; }).overrideAttrs (old: {
+(asterisk.override { withOpus = false; }).overrideAttrs (old: {
   prePatch =
     (lib.concatStrings (builtins.map (p: "cp -r ${p}/* ./\n") myExtraFiles)) + (old.prePatch or "");
 
