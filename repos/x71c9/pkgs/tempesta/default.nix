@@ -4,14 +4,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "tempesta";
-  version = "0.1.37"; # without "v"
+  version = "0.1.38"; # without "v"
 
   # Pin the source to an immutable tag/commit
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "tempesta";
     rev = "v${version}";
-    hash = "sha256-bCXF8We8y+Qe3a2/vfQAFr0Z5HVfHcSw5+22fRRNe8w=";
+    hash = "sha256-bsGiZ8Yq6M29ehkBSaJMuRO1IoAI44OMuUYPxLelA4c=";
   };
 
   # Vendor Cargo dependencies from the committed lockfile.
