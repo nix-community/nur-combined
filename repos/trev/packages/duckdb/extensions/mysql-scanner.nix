@@ -1,8 +1,16 @@
 {
   callPackage,
   mariadb-connector-c,
+  stdenv,
 }:
 
+let
+  mariadbLibrary =
+    if stdenv.hostPlatform.isDarwin then
+      "${mariadb-connector-c}/lib/mariadb/libmariadb.3.dylib"
+    else
+      "${mariadb-connector-c}/lib/mariadb/libmariadb.so.3";
+in
 (callPackage ./generic.nix { }) {
   name = "mysql_scanner";
   repo = "duckdb-mysql";
@@ -18,7 +26,7 @@
   duckdbPostPatch = ''
     substituteInPlace extension_external/mysql_scanner/CMakeLists.txt \
       --replace-fail "find_package(libmariadb REQUIRED)" \
-        "set(MYSQL_LIBRARIES ${mariadb-connector-c}/lib/mariadb/libmariadb.so.3)"
+        "set(MYSQL_LIBRARIES ${mariadbLibrary})"
 
     python3 - <<'PY'
     from pathlib import Path
