@@ -1,55 +1,13 @@
 {
   lib,
-  stdenv,
-  fetchzip,
+  stdenvNoCC,
   fetchFromGitHub,
   buildFHSEnv,
   writeShellScript,
-}:
-
-let
-  pname = "asphyxia";
-  version = "1.50d";
-
-  platformMap = {
-    "x86_64-linux" = "linux-x64";
-    "aarch64-linux" = "arm64";
-    "armv7l-linux" = "armv7";
-  };
-
-  system = stdenv.hostPlatform.system;
-
-  platform = platformMap.${system} or (throw "Unsupported platform: ${system}");
-
-  url = "https://github.com/asphyxia-core/asphyxia-core.github.io/releases/download/v${version}/asphyxia-core-${platform}.zip";
-
-  binaryName = if system == "x86_64-linux" then "asphyxia-core" else "asphyxia-core-${platform}";
-
-  # to get the hash, open nix repl
-  # pkgs = import <nixpkgs> {}
-  # builtins.readDir (pkgs.fetchzip { url = "https://github.com/asphyxia-core/asphyxia-core.github.io/releases/download/v1.50d/asphyxia-core-arm64.zip"; })
-  sha256s = {
-    "x86_64-linux" = "sha256-w6Ft8zyuTXU8eW7w1QrzO+O7vaTVe3iqtfKF4uThmlY=";
-    "aarch64-linux" = "sha256-DmAxiDYEvv/3k1IxIfnLutENOHHKSk9lz1TkK2cwlSo=";
-    "armv7l-linux" = "sha256-GW2EMmGR/xKJhbQ6gFcyyZYj/9WUu2CAZI3FQarlW0M=";
-  };
-
-  sha256 = sha256s.${system};
-
-  src = fetchzip {
-    inherit url sha256;
-    stripRoot = false;
-  };
-
-  pluginSrc = fetchFromGitHub {
-    owner = "asphyxia-core";
-    repo = "plugins";
-    # tracing "stable" branch
-    rev = "997d141b3ba2ca7eb6806490ab2926cce48863c5";
-    sha256 = "sha256-xxhnwIC8Ik0Wq3ccKtxXvYXSNfx5zoianoFDOGfGo1c=";
-  };
-
-  enabledPlugins = [
+  buildNpmPackage,
+  nodejs,
+  makeWrapper,
+  enabledPlugins ? [
     "bst"
     "ddr"
     "gitadora"
@@ -61,37 +19,113 @@ let
     "popn"
     "popn-hello"
     "sdvx"
-  ];
+  ],
+}:
 
-  plugins = stdenv.mkDerivation {
-    inherit src pluginSrc;
-    name = "asphyxia-plugins";
-
-    installPhase = ''
-      mkdir -p $out
-
-      cp $src/plugins/asphyxia-core.d.ts $out/
-      cp $src/plugins/package.json $out/
-      cp $src/plugins/tsconfig.json $out/
-    ''
-    + lib.concatMapStringsSep "\n" (p: "cp -r ${pluginSrc}/${p}@asphyxia $out/") enabledPlugins;
-  };
+let
+  pname = "asphyxia";
+  version = "v1.60b";
 
   meta = with lib; {
     description = "This is a “e-amuse emulator”";
     homepage = "https://asphyxia-core.github.io/";
-    # license = licenses.unfreeRedistributable;
-    sourceProvenance = [ sourceTypes.binaryNativeCode ];
-    platforms = builtins.attrNames platformMap;
+    license = licenses.gpl3Only;
     mainProgram = pname;
   };
+
+  coreSrc = fetchFromGitHub {
+    owner = "asphyxia-core";
+    repo = "core";
+    rev = version;
+    sha256 = "sha256-bRgMLvyPF5fIr2NaruwB+oY2ItZ7Ulo0muFj9BH3j38=";
+  };
+
+  pluginSrc = fetchFromGitHub {
+    owner = "asphyxia-core";
+    repo = "plugins";
+    # tracing "stable" branch
+    rev = "997d141b3ba2ca7eb6806490ab2926cce48863c5";
+    sha256 = "sha256-xxhnwIC8Ik0Wq3ccKtxXvYXSNfx5zoianoFDOGfGo1c=";
+  };
+
+  core = buildNpmPackage rec {
+    inherit version meta;
+
+    pname = "asphyxia-core";
+
+    src = coreSrc;
+
+    npmDepsHash = "sha256-/wFg4fZL2CBO/XKHbsat28Bk1IzlPtFta2sJlShw89U=";
+
+    nativeBuildInputs = [ makeWrapper ];
+
+    postPatch = ''
+      substituteInPlace src/utils/EamuseIO.ts \
+        --replace-fail \
+        "export const ASSETS_PATH = path.join(pkg ? __dirname : \`../build-env\`, 'assets');" \
+        "export const ASSETS_PATH = '$out/share/asphyxia/assets';"
+
+      substituteInPlace src/utils/EamuseIO.ts \
+        --replace-fail \
+        "export const PLUGIN_PATH = path.join(EXEC_PATH, 'plugins');" \
+        "export const PLUGIN_PATH = process.env.ASPHYXIA_PLUGIN_PATH;"
+    '';
+
+    dontNpmBuild = true;
+
+    buildPhase = ''
+      runHook preBuild
+
+      npx --no-install tsc
+
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out/lib/asphyxia
+      mkdir -p $out/share/asphyxia
+
+      cp -r dist package.json node_modules plugins $out/lib/asphyxia/
+      cp -r build-env/assets $out/share/asphyxia/
+
+      makeWrapper ${nodejs}/bin/node $out/bin/asphyxia \
+        --add-flags "$out/lib/asphyxia/dist/AsphyxiaCore.js"
+
+      runHook postInstall
+    '';
+  };
 in
-buildFHSEnv {
+stdenvNoCC.mkDerivation {
   inherit pname version meta;
 
-  runScript = writeShellScript "${pname}-bwrap" ''
-    ln --symbolic --force ${src}/${binaryName} ./asphyxia
-    ln --symbolic --force --no-target-directory ${plugins} ./plugins
-    exec ./asphyxia "$@"
+  src = pluginSrc;
+
+  nativeBuildInputs = [ makeWrapper ];
+
+  buildPhase = ''
+    runHook preBuild
+
+    mkdir -p $out/lib/asphyxia/plugins/
+
+    cp ${coreSrc}/plugins/asphyxia-core.d.ts $out/lib/asphyxia/plugins/
+    cp ${coreSrc}/plugins/package.json $out/lib/asphyxia/plugins/
+    cp ${coreSrc}/plugins/tsconfig.json $out/lib/asphyxia/plugins/
+
+    ${lib.concatMapStringsSep "\n" (
+      p: "cp -r $src/${p}@asphyxia $out/lib/asphyxia/plugins/"
+    ) enabledPlugins}
+
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+
+    makeWrapper ${core}/bin/asphyxia $out/bin/asphyxia \
+      --set-default ASPHYXIA_PLUGIN_PATH $out/lib/asphyxia/plugins/
+
+    runHook postInstall
   '';
 }

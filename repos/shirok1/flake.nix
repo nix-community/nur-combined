@@ -3,6 +3,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     daeuniverse.url = "github:daeuniverse/flake.nix";
+    determinate.url = "https://flakehub.com/f/DeterminateSystems/determinate/*";
     llm-agents.url = "github:numtide/llm-agents.nix";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,6 +19,7 @@
       self,
       nixpkgs,
       daeuniverse,
+      determinate,
       llm-agents,
       home-manager,
       catppuccin,
@@ -74,6 +76,8 @@
                       pkgsOverlays
 
                       (./. + "/nixos/machines/${machine}/configuration.nix")
+
+                      determinate.nixosModules.default
 
                       home-manager.nixosModules.home-manager
                       {

@@ -17,7 +17,6 @@
     ../../fragments/bbr.nix
     ../../fragments/box64.nix
     ../../fragments/fex.nix
-    ../../fragments/lix.nix
     ../../fragments/nh.nix
     ../../fragments/nix-settings.nix
     ../../fragments/tfo.nix
@@ -53,6 +52,13 @@
           TransmitHashPolicy = "layer3+4";
         };
       };
+      "20-vm0" = {
+        netdevConfig = {
+          Kind = "macvtap";
+          Name = "vm0";
+          MACAddress = "00:48:54:20:b7:ff";
+        };
+      };
     };
     networks = {
       "30-r8169" = {
@@ -66,6 +72,7 @@
           IPv6AcceptRA = true;
         };
         linkConfig.RequiredForOnline = "routable";
+        macvtap = [ "vm0" ];
       };
     };
   };
@@ -217,8 +224,10 @@
     tmux
     zellij
     compose2nix
-    nixfmt
-    nixfmt-tree
+    nixfmt-rs
+    (nixfmt-tree.override {
+      runtimeInputs = [ nixfmt-rs ];
+    })
     binutils
     patchelf
     libtree
@@ -497,6 +506,7 @@
       };
     };
     customComponents = with pkgs.home-assistant-custom-components; [
+      pkgs.shirok1.hasscc-tianqi
       (xiaomi_home.overrideAttrs (oldAttrs: {
         # src = inputs.ha-xiaomi-home;
         src = pkgs.fetchFromGitHub {
@@ -506,6 +516,17 @@
           hash = "sha256-DSPNI/o9P2fu7UgbVvEtv7Uj77p5g5xCgAlFTolh/0o=";
         };
       }))
+    ];
+  };
+
+  services.mosquitto = {
+    enable = true;
+    listeners = [
+      {
+        acl = [ "pattern readwrite #" ];
+        omitPasswordAuth = true;
+        settings.allow_anonymous = true;
+      }
     ];
   };
 
@@ -574,6 +595,7 @@
   networking.firewall.allowedTCPPorts = [
     80
     443
+    1883 # MQTT
     5970
     8080
     8234

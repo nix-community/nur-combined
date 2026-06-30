@@ -4,12 +4,11 @@
   fetchzip,
   autoPatchelfHook,
   libgcc,
-  upx,
 }:
 
 let
   pname = "snell-server";
-  version = "6.0.0b3";
+  version = "6.0.0b4";
 
   platformMap = {
     "x86_64-linux" = "linux-amd64";
@@ -26,16 +25,15 @@ let
   # to get the hash, open nix repl
   # pkgs = import <nixpkgs> {}
   # builtins.readDir (pkgs.fetchzip { url = "https://dl.nssurge.com/snell/snell-server-v${version}-${platform}.zip"; })
-  sha256s = {
-    "x86_64-linux" = "";
-    "i686-linux" = "";
-    "aarch64-linux" = "sha256-xiIiEkuAS7k8lhzngaCAYeQClTKZRt/6RIVI0j+MrAE=";
+  hashes = {
+    "x86_64-linux" = "sha256-EHtJUmFmYYSJPc4D0DOaNEhvAQL2nJHzjuAIUtlRkos=";
+    "i686-linux" = "sha256-/G5rqvWGp+gg3M7EFkaVzwpgJnApFRIrb3+QSmnA5es=";
+    "aarch64-linux" = "sha256-C+W69jh08mSjRKWsN3Og+sl3iTnFs02+IjlGr6ByuKs=";
   };
 
-  sha256 = sha256s.${system};
-
   src = fetchzip {
-    inherit url sha256;
+    inherit url;
+    hash = hashes.${system};
   };
 
 in
@@ -44,16 +42,18 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     autoPatchelfHook
-    upx
   ];
   buildInputs = [
     libgcc.lib
   ];
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/bin
     install -Dm755 $src/$pname $out/bin/$pname
-    upx -d $out/bin/$pname
+
+    runHook postInstall
   '';
 
   meta = with lib; {
