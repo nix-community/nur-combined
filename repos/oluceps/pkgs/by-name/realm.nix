@@ -1,15 +1,27 @@
 {
   lib,
-  fetchFromGitHub,
-  fenix,
   makeRustPlatform,
+  fenix,
+  fetchurl,
+  fetchgit,
+  fetchFromGitHub,
+  dockerTools,
   pkg-config,
   enableJemalloc ? true,
-  rust-jemalloc-sys,
+  jemalloc,
   cmake,
 }:
+
 let
   inherit (fenix.minimal) toolchain;
+  sources = import ../../_sources/generated.nix {
+    inherit
+      fetchurl
+      fetchgit
+      fetchFromGitHub
+      dockerTools
+      ;
+  };
   rustPlatform = (
     makeRustPlatform {
       cargo = toolchain;
@@ -17,21 +29,14 @@ let
     }
   );
 in
-rustPlatform.buildRustPackage rec {
-  pname = "realm";
-  version = "2.9.2-2";
-  src = fetchFromGitHub {
-    owner = "zhboner";
-    repo = "realm";
-    rev = "v${version}";
-    hash = "sha256-TWtLwGjL0nOK6NYxG+Q22hS9PGq9igokNPjUxRLiPl8=";
-  };
+rustPlatform.buildRustPackage {
+  inherit (sources.realm) pname version src;
+
+  cargoLock = sources.realm.cargoLock."Cargo.lock";
 
   CFLAGS = "-Wno-error=stringop-overflow";
 
-  builtInputs = [
-  ]
-  ++ lib.optional enableJemalloc rust-jemalloc-sys;
+  buildInputs = lib.optional enableJemalloc jemalloc;
 
   buildFeatures = lib.optional enableJemalloc "jemalloc";
 
@@ -40,7 +45,12 @@ rustPlatform.buildRustPackage rec {
     rustPlatform.bindgenHook
     cmake
   ];
-  cargoHash = "sha256-RRqOfKbZ6tATYW55EJd1r2zQA0Vt463eGn1fuNO8k5M=";
 
-  meta.mainProgram = "realm";
+  meta = {
+    description = "A simple, high performance relay, supporting both TCP and UDP";
+    homepage = "https://github.com/zhboner/realm";
+    license = lib.licenses.mit;
+    maintainers = with lib.maintainers; [ oluceps ];
+    mainProgram = "realm";
+  };
 }

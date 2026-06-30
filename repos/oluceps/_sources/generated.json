@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-gV2WHyQkoJeS/d87m/rcAArUFrJt5RI7jOUVqJwikjo=",
+            "sha256": "sha256-ULTdNMM5Cwji6kI8qmkdfbpUVUYhFm58jxvfZzay9uQ=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.04/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.06.04"
+        "version": "2026.06.10"
     },
     "GeoLite2-City": {
         "cargoLock": null,
@@ -23,11 +23,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LNlsqjAuxBb2nzwphJfVIQizgvQYUi1mrZftC53eD4A=",
+            "sha256": "sha256-kR9Y6XxCbUSqOoKTlV75850J353qqx/gJiX51/7HT+c=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.04/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.06.04"
+        "version": "2026.06.10"
     },
     "alist": {
         "cargoLock": null,
@@ -95,11 +95,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-XEMxJukQFdH110jQoBf9ObB+kvh6doxVZ947PNJpyW8=",
+            "sha256": "sha256-OFYWYwHVrMM0049J0+jSXwr36zOKTanO6+PQnqoZA/I=",
             "type": "url",
-            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.251.1/compressed-dist.tgz"
+            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.251.3/compressed-dist.tgz"
         },
-        "version": "v1.251.1"
+        "version": "v1.251.3"
     },
     "mosdns": {
         "cargoLock": null,
@@ -147,6 +147,32 @@
             "type": "github"
         },
         "version": "v0.8.1"
+    },
+    "realm": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-gnsFqWhJOMKUaSWfRmHBksw3uWFP0smRhEbPLriEmlk=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "realm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "zhboner",
+            "repo": "realm",
+            "rev": "v2.9.4",
+            "sha256": "sha256-gnsFqWhJOMKUaSWfRmHBksw3uWFP0smRhEbPLriEmlk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.9.4"
     },
     "restls": {
         "cargoLock": {

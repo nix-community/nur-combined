@@ -79,6 +79,7 @@
              }
 
              routing {
+                 sip(192.168.0.70) -> all
                  pname(bird, systemd-networkd, smartdns,
                        dnsproxy, coredns, mosdns, naive,
                        hysteria, tuic-client, sing-box,

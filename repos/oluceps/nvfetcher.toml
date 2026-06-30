@@ -26,6 +26,11 @@ src.github = "3andne/restls"
 fetch.github = "3andne/restls"
 cargo_lock = ["Cargo.lock"]
 
+[realm]
+src.github = "zhboner/realm"
+fetch.github = "zhboner/realm"
+cargo_lock = ["Cargo.lock"]
+
 [phantun]
 src.github = "dndx/phantun"
 fetch.github = "dndx/phantun"

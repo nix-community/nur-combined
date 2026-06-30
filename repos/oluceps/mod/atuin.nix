@@ -13,7 +13,7 @@
         database.uri = "postgresql:///atuin?host=/run/postgresql";
 
       };
-      systemd.services.atuin.serviceConfig.ExecStart =
-        lib.mkForce "${(lib.getExe pkgs.atuin)} server start";
+      # systemd.services.atuin.serviceConfig.ExecStart =
+      #   lib.mkForce "${(lib.getExe pkgs.atuin)} server start";
     };
 }

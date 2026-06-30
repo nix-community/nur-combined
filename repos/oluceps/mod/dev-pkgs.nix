@@ -1,3 +1,4 @@
+{ inputs, ... }:
 {
   flake.modules.nixos.dev-pkgs =
     { pkgs, lib, ... }:
@@ -129,8 +130,9 @@
             ];
             ai = [
               antigravity
+              inputs.antigravity-nix.packages.x86_64-linux.google-antigravity-cli
               codex
-              gemini-cli
+
               opencode
               claude-code
             ];

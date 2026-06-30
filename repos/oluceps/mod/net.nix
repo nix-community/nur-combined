@@ -459,11 +459,14 @@ in
       }
     ];
   flake.modules.nixos."net/azasos" =
-    { ... }:
+    { config, ... }:
     lib.mkMerge [
       common
       {
         networking = {
+          hosts = config.data.hosts.${config.networking.hostName} // {
+            "localhost" = [ "alert.nyaw.xyz" ];
+          };
           hostName = "azasos";
         };
         systemd.network = {

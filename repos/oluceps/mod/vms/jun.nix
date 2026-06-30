@@ -26,7 +26,7 @@
         socketConfig = {
           ListenStream = "10.255.0.0:9222";
           # bind explicitly to the device
-          BindToDevice = "vm2";
+          # BindToDevice = "vm2";
           # optional: allow binding even if the interface is not fully up yet
           # FreeBind = true;
         };

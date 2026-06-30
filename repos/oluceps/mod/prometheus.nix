@@ -2,6 +2,7 @@
   flake.modules.nixos.prometheus =
     {
       config,
+      lib,
       pkgs,
       ...
     }:
@@ -119,23 +120,6 @@
                 };
                 static_configs = [ { inherit targets; } ];
                 relabel_configs = fqdn_instance_relabel;
-              }
-              {
-                job_name = "metrics-sept";
-                scheme = "http";
-                static_configs = [ { targets = [ "[fec0::1]:9100" ]; } ];
-                relabel_configs = [
-                  {
-                    target_label = "job";
-                    replacement = "metrics";
-                  }
-                  {
-                    source_labels = [ "__address__" ];
-                    regex = "\\[fec0::1\\]:9100";
-                    target_label = "instance";
-                    replacement = "sept";
-                  }
-                ];
               }
               {
                 job_name = "tg-online";
@@ -267,24 +251,7 @@
                   with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
                 );
               }
-              {
-                job_name = "bridge_alive";
-                scheme = "http";
-                metrics_path = "/probe";
-                params = {
-                  module = [ "http_with_proxy_to_ext" ];
-                };
-                static_configs = [
-                  {
-                    targets = [
-                      "http://connectivitycheck.gstatic.com/generate_204"
-                    ];
-                  }
-                ];
-                relabel_configs = gen_relabel_configs (
-                  with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
-                );
-              }
+
               {
                 job_name = "tcp";
                 scheme = "http";
@@ -339,6 +306,43 @@
                   }
                 ]
                 ++ config.fn.targetsFromNodes;
+                relabel_configs = gen_relabel_configs (
+                  with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
+                );
+              }
+            ]
+            ++ lib.optionals (config.networking.hostName == "eihort") [
+              {
+                job_name = "metrics-sept";
+                scheme = "http";
+                static_configs = [ { targets = [ "[fec0::1]:9100" ]; } ];
+                relabel_configs = [
+                  {
+                    target_label = "job";
+                    replacement = "metrics";
+                  }
+                  {
+                    source_labels = [ "__address__" ];
+                    regex = "\\[fec0::1\\]:9100";
+                    target_label = "instance";
+                    replacement = "sept";
+                  }
+                ];
+              }
+              {
+                job_name = "bridge_alive";
+                scheme = "http";
+                metrics_path = "/probe";
+                params = {
+                  module = [ "http_with_proxy_to_ext" ];
+                };
+                static_configs = [
+                  {
+                    targets = [
+                      "http://connectivitycheck.gstatic.com/generate_204"
+                    ];
+                  }
+                ];
                 relabel_configs = gen_relabel_configs (
                   with config.services.prometheus.exporters.blackbox; "${listenAddress}:${toString port}"
                 );

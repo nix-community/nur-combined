@@ -36,7 +36,7 @@
         registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
         settings = {
           flake-registry = "";
-          nix-path = [ "nixpkgs=${pkgs.path}" ];
+          nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
           # fsync-store-paths = true;
           keep-outputs = true;
           keep-derivations = true;

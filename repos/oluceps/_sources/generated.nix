@@ -8,18 +8,18 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.06.04";
+    version = "2026.06.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.04/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-gV2WHyQkoJeS/d87m/rcAArUFrJt5RI7jOUVqJwikjo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-ULTdNMM5Cwji6kI8qmkdfbpUVUYhFm58jxvfZzay9uQ=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.06.04";
+    version = "2026.06.10";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.04/GeoLite2-City.mmdb";
-      sha256 = "sha256-LNlsqjAuxBb2nzwphJfVIQizgvQYUi1mrZftC53eD4A=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-City.mmdb";
+      sha256 = "sha256-kR9Y6XxCbUSqOoKTlV75850J353qqx/gJiX51/7HT+c=";
     };
   };
   alist = {
@@ -54,10 +54,10 @@
   };
   metacubexd = {
     pname = "metacubexd";
-    version = "v1.251.1";
+    version = "v1.251.3";
     src = fetchurl {
-      url = "https://github.com/MetaCubeX/metacubexd/releases/download/v1.251.1/compressed-dist.tgz";
-      sha256 = "sha256-XEMxJukQFdH110jQoBf9ObB+kvh6doxVZ947PNJpyW8=";
+      url = "https://github.com/MetaCubeX/metacubexd/releases/download/v1.251.3/compressed-dist.tgz";
+      sha256 = "sha256-OFYWYwHVrMM0049J0+jSXwr36zOKTanO6+PQnqoZA/I=";
     };
   };
   mosdns = {
@@ -83,6 +83,23 @@
     };
     cargoLock."Cargo.lock" = {
       lockFile = ./. + "/sha256-Syz2W0IYm9nzu2Ph09uJxeo_odznDC9aMe+TEMhWurc=/Cargo.lock";
+      outputHashes = {
+
+      };
+    };
+  };
+  realm = {
+    pname = "realm";
+    version = "v2.9.4";
+    src = fetchFromGitHub {
+      owner = "zhboner";
+      repo = "realm";
+      rev = "v2.9.4";
+      fetchSubmodules = false;
+      sha256 = "sha256-gnsFqWhJOMKUaSWfRmHBksw3uWFP0smRhEbPLriEmlk=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-gnsFqWhJOMKUaSWfRmHBksw3uWFP0smRhEbPLriEmlk=/Cargo.lock";
       outputHashes = {
 
       };

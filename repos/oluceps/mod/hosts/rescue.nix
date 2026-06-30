@@ -59,7 +59,7 @@
           ]
           ++ [ "gccarch-znver3" ];
           flake-registry = "";
-          nix-path = [ "nixpkgs=${pkgs.path}" ];
+          nix-path = [ "nixpkgs=${inputs.nixpkgs}" ];
           keep-outputs = true;
           keep-derivations = true;
           trusted-public-keys = [

@@ -61,6 +61,7 @@ in
         Group = "rqbit";
         # --socks-url socks5://127.0.0.1:1091
         ExecStart = "${lib.getExe' cfg.package "rqbit"} --http-api-listen-addr [::]:3031 server start ${cfg.location}";
+        Environment = [ "RUST_LOG=warn" ];
         Restart = "on-failure";
       };
     };

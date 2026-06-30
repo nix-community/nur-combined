@@ -33,7 +33,7 @@
             vxlan-mesh
             yggdrasil
             chrony
-            dae
+            # dae
             prometheus
           ])
         )
@@ -119,9 +119,29 @@
             "/persist"
           ];
         };
-        sing-box.enable = true;
+        # sing-box.enable = true;
         alloy.enable = true;
+        # hysteria.instances.main = {
+        #   enable = true;
+        #   configFile = "/home/elen/hy.yml";
+        # };
       };
+      # systemd.services.hysteria-main.serviceConfig = {
+      #   DynamicUser = lib.mkForce false;
+      #   User = "hysteria";
+      #   Group = "hysteria";
+      # };
+      # users = {
+      #   groups.hysteria = { };
+
+      #   users = {
+      #     hysteria = {
+      #       isSystemUser = true;
+      #       group = "hysteria";
+      #     };
+
+      #   };
+      # };
 
       nixpkgs = {
         hostPlatform = "x86_64-linux";
