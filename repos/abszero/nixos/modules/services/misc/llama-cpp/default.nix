@@ -6,6 +6,7 @@
 }:
 
 let
+  inherit (builtins) readFile;
   inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.services.llama-cpp;
 in
@@ -19,7 +20,7 @@ in
     settings = {
       port = 11434;
       no-ui = true;
-      models-preset = toString ./models.ini;
+      models-preset = pkgs.writeText "models.ini" (readFile ./models.ini);
     };
   };
 }
