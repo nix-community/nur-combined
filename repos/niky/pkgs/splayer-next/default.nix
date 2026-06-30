@@ -3,7 +3,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pnpm_10_29_2,
+  pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
@@ -24,18 +24,18 @@
 }:
 let
   electron = electron_41;
-  pnpm = pnpm_10_29_2;
+  pnpm = pnpm_10; # pnpm_10_29_2 is insecure and Nix refuses to build it
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260628";
+  version = "1.0.0-20260630";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "cd3a7b39df4b693251909bea4c49fd166d6a506e"; # No releases yet
+    rev = "607b40abf66b9887056122cee87139ec74391bc0"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-n4XyEhmCPMHFBI1oL8jD4DKq6Spi/syjo1vF7jWL2k0=";
+    hash = "sha256-/aMNuqF4wbnbwUY6EDT/58Vqy4RmUVsYrCR64+cWI/o=";
   };
 
   pnpmDeps = fetchPnpmDeps {
