@@ -30,7 +30,7 @@ jobs:
         uses: spotdemo4/nix-init@ad4fbc194e8cf93371aafa0aa8062b4074e22c42 # v1.54.0
 
       - name: Check flake
-        run: nix flake check
+        run: nix flake check --max-jobs 1
 
       - name: Check evaluation
         run: |
