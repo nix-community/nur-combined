@@ -68,4 +68,3 @@ qrx --help
 ## License
 
 MIT
-
