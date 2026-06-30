@@ -20,6 +20,10 @@ def update_package(
     ref: PackageRef, *, dry_run: bool = False, timeout: str | None = None
 ) -> UpdateResult:
     logger.info("updating %s from %s", ref.attr_path, ref.file_path)
+    if package_update_disabled(ref.file_path):
+        logger.info("skipping %s: package disables updater", ref.attr_path)
+        return UpdateResult(ref.attr_path, "skipped", "package disables updater")
+
     manifest = package_has_manifest_updater(ref.file_path)
     if manifest:
         logger.info("skipping %s: manifest updater owns %s", ref.attr_path, manifest)
@@ -96,6 +100,10 @@ def package_owned_roots(file_path: Path) -> list[Path]:
         roots.append(file_path.parent)
     roots.extend(sorted(file_path.parent.glob("*.json")))
     return roots
+
+
+def package_update_disabled(file_path: Path) -> bool:
+    return bool(re.search(r"\bupdateScript\s*=\s*null\s*;", file_path.read_text()))
 
 
 def _preserve_unproven_branch_prefix(
