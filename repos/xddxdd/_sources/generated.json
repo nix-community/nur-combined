@@ -515,7 +515,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=",
+            "sha256": "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=",
             "type": "url",
             "url": "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage"
         },
@@ -1384,6 +1384,27 @@
             "type": "github"
         },
         "version": "9df9f75c47bef6957245b0bf6f32720a67dad3a0"
+    },
+    "epub-to-xtc-converter": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "epub-to-xtc-converter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bigbag",
+            "repo": "epub-to-xtc-converter",
+            "rev": "v0.8.0",
+            "sha256": "sha256-ox921Uk0YaKmCRL66ksbKj7YnCC0i1E3BMEChyZpS4U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.8.0"
     },
     "etherguard": {
         "cargoLock": null,

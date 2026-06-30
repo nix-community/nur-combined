@@ -313,6 +313,10 @@ src.github = "simonrob/email-oauth2-proxy"
 fetch.github = "alexjp/env-dedup"
 src.git = "https://github.com/alexjp/env-dedup.git"
 
+[epub-to-xtc-converter]
+fetch.github = "bigbag/epub-to-xtc-converter"
+src.github_tag = "bigbag/epub-to-xtc-converter"
+
 [etherguard]
 fetch.github = "KusakabeShi/EtherGuard-VPN"
 src.github = "KusakabeShi/EtherGuard-VPN"

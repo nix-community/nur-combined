@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
+      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
     };
   };
   buname = {
@@ -716,6 +716,16 @@
       hash = "sha256-aOkhHOz84H0Sxsx2Rl7s0ZLMVio5BV9Ko7W0b3xVpxU=";
     };
     date = "2025-09-06";
+  };
+  epub-to-xtc-converter = {
+    pname = "epub-to-xtc-converter";
+    version = "v0.8.0";
+    src = fetchFromGitHub {
+      owner = "bigbag";
+      repo = "epub-to-xtc-converter";
+      tag = "v0.8.0";
+      hash = "sha256-ox921Uk0YaKmCRL66ksbKj7YnCC0i1E3BMEChyZpS4U=";
+    };
   };
   etherguard = {
     pname = "etherguard";
