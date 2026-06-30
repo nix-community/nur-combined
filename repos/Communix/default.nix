@@ -19,4 +19,5 @@
   # ...
   noctalia = pkgs.callPackage ./pkgs/noctalia { };
   psysonic = pkgs.callPackage ./pkgs/psysonic { };
+  glide = pkgs.callPackage ./pkgs/glide { };
 }
