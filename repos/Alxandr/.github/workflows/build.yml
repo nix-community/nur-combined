@@ -75,11 +75,33 @@ jobs:
           cacheName: ${{ env.atticCacheName }}
           token: ${{ secrets.ATTIC_TOKEN }}
 
+      - name: Realize crate2nix source
+        run: |
+          drv=$(
+            nix-instantiate --expr '
+              let
+                pkgs = import <nixpkgs> { config.allowUnfree = true; };
+              in
+              pkgs.fetchFromGitHub {
+                owner = "nix-community";
+                repo = "crate2nix";
+                rev = "5e1ecfd2d15b34ec90c2e51fdffbe8116595a767";
+                hash = "sha256-2577vxyoBa8+ZRiXr3CuPtOuEtPRYsFPSZuEc/KI/80=";
+              }
+            ' \
+              --allowed-uris https://static.rust-lang.org,https://github.com,https://api.github.com \
+              --option restrict-eval true \
+              --option allow-import-from-derivation true \
+              -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+              -I $PWD
+          )
+          nix-store -r "$drv"
+
       - name: Check evaluation
         run: |
           nix-env -f . -qa \* --meta --xml \
             --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }' \
-            --allowed-uris https://static.rust-lang.org \
+            --allowed-uris https://static.rust-lang.org,https://github.com,https://api.github.com \
             --option restrict-eval true \
             --option allow-import-from-derivation true \
             --drv-path --show-trace \

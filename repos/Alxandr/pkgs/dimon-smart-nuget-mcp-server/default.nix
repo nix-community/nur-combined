@@ -8,17 +8,17 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "NugetMcpServer";
-  version = "1.1.5";
+  version = "1.1.9";
 
   src = fetchFromGitHub {
     owner = "DimonSmart";
     repo = "NugetMcpServer";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1PU+EiE1c94zp5Kp8ehX7RTtJTAajQl9m6pv+BaA0Tg=";
+    hash = "sha256-DAUVjET1LsxriYNByD2M9IUwSh3/wGNAgQCOuTo5WwA=";
   };
 
-  dotnet-sdk = dotnetCorePackages.sdk_9_0;
-  dotnet-runtime = dotnetCorePackages.runtime_9_0;
+  dotnet-sdk = dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = dotnetCorePackages.runtime_10_0;
   projectFile = [ "NugetMcpServer/NugetMcpServer.csproj" ];
   testProjectFile = [ "NugetMcpServer.Tests/NugetMcpServer.Tests.csproj" ];
   nugetDeps = ./deps.json;
