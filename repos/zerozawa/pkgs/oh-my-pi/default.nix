@@ -13,14 +13,14 @@
 }:
 
 let
-  version = "16.2.5";
+  version = "16.2.8";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-dI1bEvIcwNyBGbqldUdAVW6ZZa0WC2l/HmlE7QFdL5Q=";
+    hash = "sha256-oQprR4ya3OA0CJQZz4+kJ2UsniYHdvw++7rt8iLpRks=";
   };
 
   # Platform mapping
@@ -69,7 +69,7 @@ let
       runHook postInstall
     '';
 
-    outputHash = "sha256-WyMOyDf9CnCrAYko6wFRdupEa0qTlpLXjlPRxSK3OmI=";
+    outputHash = "sha256-zpcHqPincr4Tap0LT0MnJS7nRXI0n9CcylVWaaOfuC0=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -81,7 +81,7 @@ let
     pname = "${pname}-pi-natives";
     inherit version src;
 
-    cargoHash = "sha256-jV3Ybmu8RRTbA7l80NTUTofK615uub9ViQPLWoJWduE=";
+    cargoHash = "sha256-Wl5+rPpDeByDkcM4s7y0dhazjIqSMp8+dOBomHTKi1M=";
 
     nativeBuildInputs = [
       bun

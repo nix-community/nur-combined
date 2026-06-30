@@ -6,15 +6,15 @@
 
 buildNpmPackage rec {
   pname = "codegraph";
-  version = "1.1.3";
+  version = "1.1.6";
 
   src = fetchFromGitHub {
     owner = "colbymchenry";
     repo = "codegraph";
     rev = "v${version}";
-    hash = "sha256-ZNsGNmHQ5O8KTwenO5X0kRJPqJleJdY3jj8phlzQV8Q=";
+    hash = "sha256-lg3hmgKV65llqOKMIEdf6gcjpKOvpI2zBJEkDmHq8Y0=";
   };
-  npmDepsHash = "sha256-exj88zJO+HinWDwSXY7NdVMMTcxNzV+zsHTaJiXg5oY=";
+  npmDepsHash = "sha256-oIdZ7JrUKnBMj3Pora2TT/LkDJa+/ihVd8ZypTrG1Q0=";
   # copy-assets copies vendored .wasm files and schema.sql to dist/
   npmBuildScript = "build";
 
