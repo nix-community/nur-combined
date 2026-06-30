@@ -50,7 +50,7 @@
     },
     "codestable": {
         "cargoLock": null,
-        "date": "2026-06-29",
+        "date": "2026-06-30",
         "extract": null,
         "name": "codestable",
         "passthru": null,
@@ -60,13 +60,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "2001285a64bc842418b013487ab1f24f25c1c382",
-            "sha256": "sha256-JKGDpejsQSRDJUEk3JDy5Efla1QvhMkVt7L59le6L2g=",
+            "rev": "baa2eb2e4d5cb52fec64fda106ad2ee5f2f03b36",
+            "sha256": "sha256-SuAQpRwdP5PcVxT3oZShTIDWae95dZprs/OhfUpKJV0=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/liuzhengdongfortest/CodeStable"
         },
-        "version": "2001285a64bc842418b013487ab1f24f25c1c382"
+        "version": "baa2eb2e4d5cb52fec64fda106ad2ee5f2f03b36"
     },
     "cowrie": {
         "cargoLock": null,
