@@ -1,0 +1,48 @@
+diff --git a/src/gui/sniffer.rs b/src/gui/sniffer.rs
+index 5b0696ec..f01ad2c8 100644
+--- a/src/gui/sniffer.rs
++++ b/src/gui/sniffer.rs
+@@ -159,7 +159,7 @@ pub fn new(conf: Conf) -> Self {
+             .collect();
+         Self {
+             conf,
+-            welcome: Some((true, 0)),
++            welcome: None,
+             current_capture_rx: (0, None),
+             preview_captures_rx: None,
+             info_traffic: InfoTraffic::default(),
+@@ -1267,31 +1267,12 @@ fn reset_button_pressed(&mut self) -> Task<Message> {
+     }
+ 
+     fn quit_wrapper(&mut self) -> Task<Message> {
+-        let tot_packets = self.info_traffic.tot_data_info.tot_data(DataRepr::Packets);
+-        if self.running_page.is_none() || tot_packets == 0 {
+-            self.quit()
+-        } else if self.thumbnail {
+-            self.toggle_thumbnail(false)
+-                .chain(Task::done(Message::ShowModal(MyModal::Quit)))
+-        } else {
+-            self.hide_modal();
+-            self.close_settings();
+-            self.show_modal(MyModal::Quit);
+-            Task::none()
+-        }
++        self.quit()
+     }
+ 
+     fn quit(&mut self) -> Task<Message> {
+-        if self.welcome.is_none() {
+-            self.welcome = Some((false, 13));
+-        } else if let Some((false, x)) = self.welcome {
+-            if x <= 2 {
+-                let _ = self.conf.store();
+-                return window::close(self.id.unwrap_or_else(Id::unique));
+-            }
+-            self.welcome = Some((false, x.saturating_sub(1)));
+-        }
+-        Task::none()
++        let _ = self.conf.store();
++        window::close(self.id.unwrap_or_else(Id::unique))
+     }
+ 
+     fn welcome(&mut self) {
