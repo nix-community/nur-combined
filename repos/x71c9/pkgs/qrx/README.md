@@ -62,8 +62,34 @@ Download the latest release for your platform from the
 ## Usage
 
 ```bash
-qrx --help
+qrx                        # crop screen region, copy to clipboard
+qrx -p                     # crop screen region, print + copy to clipboard
+qrx -pn                    # crop screen region, print only
+qrx file.png               # decode image file, copy to clipboard
+qrx -p file.png            # decode image file, print + copy to clipboard
+qrx -pn file.png           # decode image file, print only
 ```
+
+### Flags
+
+| Flag | Long | Description |
+|------|------|-------------|
+| `-p` | `--print` | Print the decoded text to stdout |
+| `-n` | `--no-clipboard` | Do not copy to clipboard |
+
+Flags can be combined separately (`-p -n`) or together (`-pn` / `-np`).
+
+### Clipboard
+
+On Linux, the result is copied to both the system clipboard (Ctrl+V) and the primary selection (middle-click).
+
+### Dependencies
+
+| Platform | Required |
+|----------|----------|
+| X11 | `xclip` |
+| Wayland | `slurp`, `grim`, `wl-copy` |
+| macOS | — |
 
 ## License
 
