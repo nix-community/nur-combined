@@ -6,12 +6,12 @@
 }:
 
 let
-  version = "0.7.0";
+  version = "0.7.1";
 
   sources = {
     "x86_64-linux" = {
       asset = "herdr-linux-x86_64";
-      hash = "sha256-rSpdSApOBGCandMKGewHhUV432tfDqkpkkaWO69ANjs=";
+      hash = "sha256-uWWsr/wsIvVLbmxkr3z46Yo/SsJiJjCgWZxnpLnYplQ=";
     };
     "aarch64-linux" = {
       asset = "herdr-linux-aarch64";
