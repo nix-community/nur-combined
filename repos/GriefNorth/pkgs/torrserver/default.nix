@@ -10,12 +10,12 @@
 
 pkgs.stdenv.mkDerivation rec {
   pname = "torrserver";
-  version = "MatriX.141.9";
+  version = "MatriX.141.10";
 
   src = pkgs.fetchgit {
     url = "https://github.com/YouROK/TorrServer.git";
     rev = "${version}";
-    hash = "sha256-wgchuTLcTHCS8ab5zRTtEIxuLVSCQddgCcuWJ0WOg6s=";
+    hash = "sha256-/FvFfH0xC8NRR3IHY8Lea14YTwPhoPA9RlpiJxByHoI=";
   };
 
   yarnOfflineCache = pkgs.fetchYarnDeps {
