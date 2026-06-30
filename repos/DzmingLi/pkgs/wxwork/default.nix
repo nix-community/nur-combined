@@ -1,7 +1,4 @@
-{ stdenv, callPackage }:
+{ callPackage }:
 
-# darwin（仅 Apple Silicon）走官方 mac .app（darwin.nix）；
-# linux 走 deepin-wine10 bottle 版（linux.nix）。
-if stdenv.hostPlatform.isDarwin
-then callPackage ./darwin.nix { }
-else callPackage ./linux.nix { }
+# 企业微信 (WeCom / WeChat Work) packaged via Spark Store 的 deepin-wine10 bottle。
+callPackage ./linux.nix { }

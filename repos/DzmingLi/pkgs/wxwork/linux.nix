@@ -21,6 +21,8 @@ let
   wineVersion = "10.14deepin8";
   helperVersion = "5.10.14-5.3.15";
   version = "5.0.0.6008";
+  glibcLocaleArchiveEnv =
+    "LOCALE_ARCHIVE_${lib.replaceStrings [ "." ] [ "_" ] (lib.versions.majorMinor stdenv.cc.libc.version)}";
 
   unpackDeb =
     {
@@ -97,16 +99,17 @@ let
   launcher = writeShellScript "wxwork-launch" ''
     set -u
     # buildFHSEnv injects the default glibcLocales (C + en_US only) and exports
-    # LOCALE_ARCHIVE_2_27 pointing at *that* archive. nixpkgs' glibc reads the
-    # version-suffixed LOCALE_ARCHIVE_2_27 in preference to LOCALE_ARCHIVE and
-    # ignores the latter once the former is set — so exporting only
-    # LOCALE_ARCHIVE leaves glibc on the C+en_US archive and setlocale rejects
-    # zh_CN.UTF-8. That silently breaks fcitx: wine's winex11 IME init calls
+    # a version-suffixed LOCALE_ARCHIVE_* pointing at *that* archive. nixpkgs'
+    # glibc reads that in preference to LOCALE_ARCHIVE and ignores the latter
+    # once the former is set, so exporting only LOCALE_ARCHIVE leaves glibc on
+    # the C+en_US archive and setlocale rejects zh_CN.UTF-8. That silently
+    # breaks fcitx: wine's winex11 IME init calls
     # setlocale()/XSupportsLocale(), and when the locale is unsupported it
     # disables XIM entirely, so XMODIFIERS=@im=fcitx never takes effect. Point
-    # *both* names at the wxworkLocales archive that includes zh_CN.
+    # both the current and legacy variable names at the archive with zh_CN.
+    export ${glibcLocaleArchiveEnv}="${wxworkLocales}/lib/locale/locale-archive"
     export LOCALE_ARCHIVE_2_27="${wxworkLocales}/lib/locale/locale-archive"
-    export LOCALE_ARCHIVE="$LOCALE_ARCHIVE_2_27"
+    export LOCALE_ARCHIVE="${wxworkLocales}/lib/locale/locale-archive"
     export LANG="''${LANG:-zh_CN.UTF-8}"
     export LC_ALL="''${LC_ALL:-zh_CN.UTF-8}"
     # IME plumbing — let callers override if they don't use fcitx
@@ -248,6 +251,26 @@ buildFHSEnv {
     cp -r --no-preserve=ownership \
       ${sparkDwineHelper}/opt/spark-dwine-helper \
       "$out/opt/"
+
+    # Spark helper assumes Deepin/DDE and older grep behavior. On NixOS this
+    # otherwise produces noisy DBus tracebacks, GNU grep warnings, and /proc
+    # permission errors before the app starts.
+    substituteInPlace "$out/opt/spark-dwine-helper/spark_run_v4.sh" \
+      --replace-fail 'grep -m 1 "^Name\[$LANGUAGE\]\="' \
+                     'grep -m 1 "^Name\[$LANGUAGE\]="'
+    substituteInPlace "$out/opt/spark-dwine-helper/spark_kill.sh" \
+      --replace-fail 'grep -E "\/wine$|\/wine64$|\/wine |\/wine64 "' \
+                     'grep -E "/wine$|/wine64$|/wine |/wine64 "' \
+      --replace-fail 'grep -E "\/wineserver$"' \
+                     'grep -E "/wineserver$"' \
+      --replace-fail 'cat /proc/$1/maps |' \
+                     'cat /proc/$1/maps 2>/dev/null |' \
+      --replace-fail 'cat /proc/$1/cmdline|' \
+                     'cat /proc/$1/cmdline 2>/dev/null |' \
+      --replace-fail 'xargs -0 -L1 -I{} echo {}' \
+                     'xargs -0 -I{} echo {}' \
+      --replace-fail "\$SHELL_DIR/spark_get_tray_window | awk -F: '{print \$2}'" \
+                     "\$SHELL_DIR/spark_get_tray_window 2>/dev/null | awk -F: '{print \$2}'"
 
     # Re-create the symlinks that spark-dwine-helper's postinst would normally
     # place under /opt/deepinwine/tools/.

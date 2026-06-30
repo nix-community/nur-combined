@@ -61,16 +61,6 @@ jobs:
             git commit -m "wechat: update"
           }
 
-      - name: Update wxwork (macOS native .app; Linux bottle is pinned by hand)
-        run: |
-          nu scripts/update-wxwork.nu
-
-          if not (git status --porcelain pkgs/wxwork/darwin.nix | str trim | is-empty) {
-            let ver = (open pkgs/wxwork/darwin.nix --raw | parse -r 'version = "(?<v>[^"]+)";' | first | get v)
-            git add pkgs/wxwork/darwin.nix
-            git commit -m $"wxwork: ($ver) \(darwin\)"
-          }
-
       - name: Push changes
         run: |
           let ahead = (git rev-list HEAD ^origin/main --count | str trim | into int)
