@@ -42,14 +42,14 @@ let
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
-  version = "1.2.3";
+  version = "1.2.4";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "radxa-pkg";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    hash = "sha256-uyqw2hLyJQN2FpYztou46OzWFN5ZvuPlmCZeJ5FvWks=";
+    hash = "sha256-WF9FkIefMTR9uKtglAT6yaOlYdvFKtOUv2FCQ2jvZcA=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -156,10 +156,19 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "EDK2 for CIX platforms";
     homepage = finalAttrs.src.url;
+    license = with lib.licenses; [
+      bsd2Patent
+      gpl3Plus
+      unfreeRedistributableFirmware
+    ];
     maintainers = with lib.maintainers; [ codgician ];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"
+    ];
+    sourceProvenance = with lib.sourceTypes; [
+      binaryFirmware
+      fromSource
     ];
   };
 })
