@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage {
     src = fetchFromGitHub {
         owner = "sinelaw";
         repo = "fresh";
-        rev = "6dd0879cdd37e5d3b09fcd00e02e8dd17a9680e0";
-        hash = "sha256-LGxbrrPWbNHzHgth8TdUv3IA6lcYnczcXkATkoiIWZQ=";
+        rev = "8172787928b7486673f2c4d96ff62ece4d711f4e";
+        hash = "sha256-6HBtD4r19zuJfOieciLglTwOF7pkIlH50usoMZ26CbY=";
     };
 
     cargoLock.lockFile = ./Cargo.lock;
