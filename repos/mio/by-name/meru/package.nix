@@ -11,13 +11,13 @@
 
 let
   pname = "meru";
-  version = "3.52.0";
+  version = "3.53.0";
 
   src = fetchFromGitHub {
     owner = "zoidsh";
     repo = "meru";
     rev = "v${version}";
-    sha256 = "sha256-01Mx3PEKGgP+c3xxvvQdG+faQRhfkh+R5fHpTf21dFQ=";
+    sha256 = "sha256-qEtzIIWGP4tZC9b8tthXkJDfX9wk1gezdukxsaphby0=";
   };
 
   # Fixed-output derivation to fetch all node_modules using bun
@@ -42,7 +42,7 @@ let
     installPhase = "true";
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-6RIMirEJq0QeXfTYheJlZeBmDmut2H/UzQmT43W81Xo=";
+    outputHash = "sha256-nUjL1MUTL6U+81yV35nR9oPdU1XtAtK30S9Ml3SQZGk=";
   };
 
 in
