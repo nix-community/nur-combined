@@ -1,6 +1,6 @@
 {
   lib,
-  buildGo125Module,
+  buildGoModule,
   # fetchFromGitHub,
   stdenv,
   nix-update-script,
@@ -9,9 +9,9 @@
   installShellFiles,
   versionCheckHook,
 }:
-buildGo125Module (finalAttrs: {
+buildGoModule (finalAttrs: {
   inherit (sources.usque) pname version src;
-  vendorHash = "sha256-/SYyIWRr+uwF5Jr5Ql08a+WwrZMXmKEa+Q7Nxzt2wKw=";
+  vendorHash = "sha256-XvbH6w0po2piUwuHTRxGbqwoKEOl2nLp0VnXONOvA14=";
 
   ldflags = [
     "-s"

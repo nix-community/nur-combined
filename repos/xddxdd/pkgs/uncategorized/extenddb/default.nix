@@ -9,6 +9,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-QRLKwuTSKnOmTXmP00y3rmxKqqT80UIUNRXCDSDjK24=";
 
+  postPatch = ''
+    substituteInPlace Cargo.toml \
+      --replace-fail 'version = "0.1.0"' 'version = "${finalAttrs.version}"'
+  '';
+
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;
   versionCheckProgramArg = "--version";

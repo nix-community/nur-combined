@@ -21,15 +21,15 @@ let
     ];
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
-    outputHash = "sha256-1M5V1vnFX4BoXr+h0Or+nPQePdnI4meXPrgwfrr35Ss=";
+    outputHash = "sha256-RLcCXPJKXoE7aT9LctuClhM5MIYkAlzyICTyC4RF+ks=";
     dontFixup = true;
 
     buildPhase = ''
       runHook preBuild
       bun install --frozen-lockfile
       export VITE_REACT_APP_VERSION=${sources.new-api.version}
-      (cd default && DISABLE_ESLINT_PLUGIN='true' bun node_modules/@rsbuild/core/bin/rsbuild.js build)
-      (cd classic && bun node_modules/@rsbuild/core/bin/rsbuild.js build)
+      (cd default && DISABLE_ESLINT_PLUGIN='true' bun ../node_modules/@rsbuild/core/bin/rsbuild.js build)
+      (cd classic && bun ../node_modules/@rsbuild/core/bin/rsbuild.js build)
       runHook postBuild
     '';
 
@@ -44,7 +44,7 @@ let
 in
 buildGoModule (finalAttrs: {
   inherit (sources.new-api) pname version src;
-  vendorHash = "sha256-vV5ALqG/e4GxXM5gDBbpH6e5GMZhtESXugjfTu4oUPE=";
+  vendorHash = "sha256-e9rhU2xl02uMoWtyDd67son2cFCt0heau0EMFHBpP1M=";
 
   doCheck = false;
 

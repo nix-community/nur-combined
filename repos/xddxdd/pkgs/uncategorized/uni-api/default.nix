@@ -41,7 +41,7 @@ stdenv.mkDerivation {
 
     mkdir -p $out/bin $out/opt
     cp -r * $out/opt/
-    substituteInPlace $out/opt/main.py \
+    substituteInPlace $out/opt/uni_api/runtime.py \
       --replace-fail '"./static"' "\"$out/opt/static\""
 
     makeWrapper ${python}/bin/python $out/bin/uni-api \

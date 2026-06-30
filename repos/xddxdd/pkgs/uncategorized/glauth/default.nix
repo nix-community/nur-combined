@@ -6,11 +6,12 @@
 }:
 buildGoModule (finalAttrs: {
   inherit (sources.glauth) pname version src;
-  vendorHash = "sha256-vfXYebGSeN0AdWeDAaTVe0fwDZOmIapYvBP2ETbUSig=";
+  vendorHash = "sha256-Lijy0LFy0PgWogdzYRNPFOkLym6Gf9qG4R+Bm91eYJg=";
 
   postPatch = ''
     substituteInPlace v2/internal/version/const.go \
       --replace-fail '"v2.5.0"' '"v${finalAttrs.version}"'
+    rm -f v2/pkg/server/embed_sqlite.go
   '';
 
   overrideModAttrs = _: {

@@ -16,7 +16,7 @@ let
     sourceRoot = "source/frontend";
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-B5ubvWSLvHy0JgrcBTXtazeFrIT7QoZCU/cIHxP5jeg=";
+    hash = "sha256-upGbYP9oRsGaMjgWsVnoWxdm2EO4pqZEr5cFyE+MYSg=";
   };
 
   frontendDist = stdenv.mkDerivation {
@@ -46,7 +46,7 @@ let
 in
 buildGoModule (finalAttrs: {
   inherit (sources.axonhub) pname version src;
-  vendorHash = "sha256-upGbYP9oRsGaMjgWsVnoWxdm2EO4pqZEr5cFyE+MYSg=";
+  vendorHash = "sha256-qkAqgddRcBc+tjOgAY+DuYaRMDMhR6v58TQpm0Ao9f4=";
 
   tags = [ "nomsgpack" ];
 
