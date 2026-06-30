@@ -63,6 +63,7 @@ Only tested on x86_64-linux. Packages may work on aarch64 systems, but I'm not s
 | [fungi](https://github.com/enbop/fungi) | null | p2p tool cross platform |
 | [git-simple-encrypt](https://github.com/lxl66566/git-simple-encrypt) | null, musl | Encrypt/decrypt files in git repo using one password |
 | [git-sync-backup](https://github.com/lxl66566/git-sync-backup) | null, musl | Synchronize and backup files/folders using Git, cross-device & configurable |
+| [git-touchfish-commit](https://github.com/lxl66566/git-touchfish-commit) | null, musl | make your commit time safe |
 | [openppp2](https://github.com/liulilittle/openppp2) | null, tc | Next-generation security network access technology, providing high-performance Virtual Ethernet tunneling service. |
 | [selector4nix](https://github.com/StarryReverie/selector4nix) | null, musl | Nix substituter proxy with parallel cache queries and latency-aware selection |
 | [system76-scheduler-niri](https://github.com/lxl66566/system76-scheduler-niri) | null, musl | Niri integration for system76-scheduler |
