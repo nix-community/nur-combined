@@ -5,14 +5,14 @@
   runCommand,
 }: let
   pname = "lctl";
-  version = "2026-06-21";
+  version = "2026-06-28";
 in
   runCommand "${pname}-${version}" {
     src = fetchFromGitHub {
       owner = "newtonne";
       repo = "lctl";
-      rev = "58a5de5422a57c213876d7414f053ea283de1dde";
-      hash = "sha256-4BQKf8GCrjjjMnGTnlEWphpCPWTy5HQfB4T38Fkjv6A=";
+      rev = "a82c09a5868fa547cec6f5c199d838e8298e118f";
+      hash = "sha256-2L4pBBYeJV2OhKaY2lRDEUpbZtql1M40Kn44neHCY6o=";
     };
 
     nativeBuildInputs = [installShellFiles];
@@ -28,7 +28,7 @@ in
     ln -sv $src/lctl.sh lctl
     installBin lctl
 
-    installShellCompletion --cmd lctl \
-      $src/completions/lctl.bash \
+    installShellCompletion \
+      $src/completions/lctl.{ba,fi}sh \
       --zsh $src/completions/_lctl
   ''
