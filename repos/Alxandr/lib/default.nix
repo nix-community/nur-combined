@@ -37,9 +37,13 @@ rec {
       pkg = cargoNix.workspaceMembers.${pname}.build;
     in
     pkg.overrideAttrs (
-      finalAttrs: previousAttrs: {
-        inherit pname;
-        version = lib.strings.removePrefix "rust_${pname}-" pkg.name;
+      finalAttrs: previousAttrs:
+      let
+        version = lib.strings.removePrefix "rust_${pname}-" previousAttrs.name;
+      in
+      {
+        inherit pname version;
+        name = "${pname}-${version}";
         meta = (previousAttrs.meta or { }) // meta;
 
         passthru = (previousAttrs.passthru or { }) // {
