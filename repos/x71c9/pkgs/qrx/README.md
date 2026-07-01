@@ -2,6 +2,8 @@
 
 Selects a region of your screen, reads any QR code found in it, and copies the result to your clipboard.
 
+https://github.com/user-attachments/assets/b42862af-7095-444c-9584-d5c2298862a0
+
 ## Installation
 
 ### NixOS / Nix — NUR
