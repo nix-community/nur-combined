@@ -94,3 +94,4 @@ On Linux, the result is copied to both the system clipboard (Ctrl+V) and the pri
 ## License
 
 MIT
+
