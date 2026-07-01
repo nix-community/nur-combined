@@ -1,4 +1,4 @@
-name: "Auto-update packages"
+name: "Auto-update Nixpkgs releases"
 on:
   push:
     branches:
