@@ -63,7 +63,6 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ```
 $ dogma shell prod
-dogma: resolving TF_VAR_hcloud_token...
 dogma: entering prod shell (exit to return)
 [dogma-prod 14:23:01] ~/myproject $
 ```
@@ -145,10 +144,20 @@ dogma output dev hetzner server_ip      # raw value
 
 ### `dogma shell <env>`
 
-Spawns a new shell with `infra.credentials` loaded. Prompt shows `[dogma-<env> HH:MM:SS]`. Exit to return.
+Spawns a new shell with all secrets loaded as environment variables (same as `dogma env`). Prompt shows `[dogma-<env> HH:MM:SS]`. Exit to return.
 
 ```bash
 dogma shell dev
+```
+
+---
+
+### `dogma infra auth <env>`
+
+Spawns a shell with `infra.credentials` loaded. Prompt shows `[dogma-<env> HH:MM:SS]`. Exit to return.
+
+```bash
+dogma infra auth dev
 ```
 
 ---
