@@ -579,7 +579,7 @@ dependencies = [
 
 [[package]]
 name = "tempesta"
-version = "0.1.39"
+version = "0.1.40"
 dependencies = [
  "assert_cmd",
  "dirs",

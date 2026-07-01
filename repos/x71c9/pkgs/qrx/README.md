@@ -1,6 +1,6 @@
 # qrx
 
-CLI tool to capture a screen region, decode any QR code found, and copy the result to clipboard.
+Selects a region of your screen, reads any QR code found in it, and copies the result to your clipboard.
 
 ## Installation
 
@@ -30,11 +30,18 @@ nix-env -f '<nixpkgs>' -iA nur.repos.x71c9.qrx
 
 ### Linux — AUR (Arch Linux)
 
+Build from source:
+
+```bash
+yay -S qrx
+```
+
+Or prebuilt binary:
+
 ```bash
 yay -S qrx-bin
-# or
-paru -S qrx-bin
 ```
+
 
 ### crates.io — Cargo
 

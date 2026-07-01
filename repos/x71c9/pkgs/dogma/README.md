@@ -1,6 +1,6 @@
 # dogma
 
-Bridges secrets from vault backends and infrastructure outputs into sops-encrypted files, then deploys them to NixOS machines. Also spawns pre-credentialed shells and exports all secrets as environment variables.
+Dogma bridges secrets from vault backends and infrastructure outputs into sops-encrypted files, then deploys them to your machines. It also comes with a set of tools — pre-credentialed shells, environment variable exports, and more — to make the whole workflow seamless.
 
 > Crate: `dogma-rust` — Binary: `dogma`
 

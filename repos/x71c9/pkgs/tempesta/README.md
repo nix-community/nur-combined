@@ -363,4 +363,3 @@ If you are using `rofi` you can pipe the result of `tempesta list` to it:
 tempesta list | rofi -dmenu -i -p "tempesta" | xargs tempesta open
 ```
 
-
