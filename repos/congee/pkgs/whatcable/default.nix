@@ -7,13 +7,13 @@
 
 swiftPackages.stdenv.mkDerivation rec {
   pname = "whatcable";
-  version = "1.1.6";
+  version = "1.1.7";
 
   src = fetchFromGitHub {
     owner = "darrylmorley";
     repo = "whatcable";
     rev = "v${version}";
-    hash = "sha256-/JN6RlsN+CXbtmMsNzvw1dPDWKiXSKTOBBza80EPKq0=";
+    hash = "sha256-aqYo8RhF8lW9dxvbLIWA3zqcApbYIvq+r5fI9X2IVV8=";
   };
 
   nativeBuildInputs = with swiftPackages; [
@@ -51,10 +51,10 @@ EOF
             Task { @MainActor in self.check(silent: true) }
         }' \
       --replace-fail \
-        '        URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+        '        URLSession.shared.dataTask(with: Self.makeReleaseRequest()) { [weak self] data, _, error in
             Task { @MainActor in
                 guard let self else { return }' \
-        '        URLSession.shared.dataTask(with: request) { [weak self] data, _, error in
+        '        URLSession.shared.dataTask(with: Self.makeReleaseRequest()) { [weak self] data, _, error in
             guard let self else { return }
             Task { @MainActor in'
 
