@@ -12,11 +12,11 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "88d82b991b9598cf06a3c42b6bb11c581a8a1697";
-    hash = "sha256-EnMMj2wRsqX0i8tMgNiqHBhtJLYliVtb1VJ9PQshClc=";
+    rev = "8b0f284e8824b968483354cae3b202fc2648e360";
+    hash = "sha256-6rWyrtO+ZlAs8mQEdgKYC4BdbZq6pEFNjWQ0OG0ZhJc=";
   };
 
-  version = "0-unstable-2026-06-24";
+  version = "0-unstable-2026-06-30";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
@@ -74,6 +74,7 @@ buildDotnetModule {
     homepage = "https://tracer.aiursoft.cn";
     description = "Tracer is a simple network speed test app.";
     license = licenses.mit;
+    platforms = platforms.linux;
     mainProgram = "Aiursoft.Tracer";
   };
 }
