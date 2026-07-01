@@ -5,7 +5,7 @@
   rustPlatform,
   cargo-tauri,
   nodejs_22,
-  pnpm_9,
+  pnpm_10,
   pkg-config,
   wrapGAppsHook3,
   glib,
@@ -27,9 +27,9 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-G6PVrYtjVtjbhEGjz8XqX0UXTLIBoZ8BfDk2x7UpluA=";
   };
 
-  pnpmDeps = pnpm_9.fetchDeps {
+  pnpmDeps = pnpm_10.fetchDeps {
     inherit pname version src;
-    hash = "sha256-5igR4ZjUUORQastytdojRlrCs64GabkS+cfuuYAvdW8=";
+    hash = "sha256-O/gPRiK0q5jm0n7bPXDJGPxw8ThwGPBfRsN7U4jJxXM=";
     fetcherVersion = 4;
   };
 
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     cargo-tauri.hook
     nodejs_22
-    pnpm_9.configHook
+    pnpm_10.configHook
     wrapGAppsHook3
   ];
 
