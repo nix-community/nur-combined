@@ -6,6 +6,8 @@ env
 EPOCHREALTIME
 EPOCHSECONDS
 eza
+getent
+getopts
 killall
 lastpipe
 magick

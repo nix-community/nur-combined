@@ -15,7 +15,8 @@ cat > "$root/shell.nix" << NIX
 NIX
 
 # Run update scripts
-nixpkgs="$(nix-instantiate --eval --expr '<nixpkgs>')"
+# unstable pending resolution to “nix_update.errors.VersionError: Please specify the version.” on `fetchCrate`
+nixpkgs="$(nix-instantiate --eval --expr '<unstable>')"
 nix-shell "$nixpkgs/maintainers/scripts/update.nix" \
   --arg include-overlays "(import $root { }).overlays" \
   --arg keep-going 'true' \

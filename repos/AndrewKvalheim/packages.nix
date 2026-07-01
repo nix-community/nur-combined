@@ -32,6 +32,7 @@ specify {
   chromium.commandLineArgs = "--enable-features=WaylandTextInputV3"; # Pending https://crbug.com/40272818, NixOS/nixpkgs#394395
   chunker.dontEval = true /* FIXME: infinite recursion */;
   co2monitor = any;
+  darktable.version = "≥5.6"; # color harmonizer module
   dawarich.patch = ./library/assets/dawarich_viridis.patch;
   decompiler-mc = any;
   dmarc-report-converter = any;
