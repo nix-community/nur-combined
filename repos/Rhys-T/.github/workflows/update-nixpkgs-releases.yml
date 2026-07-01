@@ -1,0 +1,86 @@
+name: "Auto-update packages"
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - .github/workflows/update-nixpkgs-releases.yml
+  workflow_dispatch:
+  schedule:
+    # update every Monday at 1:30
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron:  '30 1 * * 1'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Install nix
+        uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+      - name: Set NIX_PATH
+        run: |
+          echo -E 'NIX_PATH=nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz' >> "$GITHUB_ENV"
+      - name: Show nixpkgs version
+        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      - uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        id: app-token
+        with:
+          # required
+          client-id: ${{ vars.RHYS_T_UPDATE_APP_ID }}
+          private-key: ${{ secrets.RHYS_T_UPDATE_APP_SECRET }}
+      - name: Get GitHub App User ID
+        id: get-user-id
+        run: echo "user-id=$(gh api "/users/${{ steps.app-token.outputs.app-slug }}[bot]" --jq .id)" >> "$GITHUB_OUTPUT"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Configure git
+        run: |
+          git config --global user.name '${{ steps.app-token.outputs.app-slug }}[bot]'
+          git config --global user.email '${{ steps.get-user-id.outputs.user-id }}+${{ steps.app-token.outputs.app-slug }}[bot]@users.noreply.github.com'
+      - name: Update Nixpkgs versions
+        id: update
+        run: |
+          set -euo pipefail
+          nix-instantiate --eval --raw -E \
+            'builtins.toJSON (import (builtins.fetchurl "https://github.com/NixOS/infra/raw/refs/heads/main/channels.nix")).channels' | \
+            jq -r \
+              --arg indent "$(sed -En '/as \$beta/ { s@[^[:space:]].*@@; p; }' .github/workflows/build.yml)" \
+              '
+                with_entries(
+                  select(.value.variant == "primary") |
+                  { key: .value.status, value: .key | scan("\\d+\\.\\d+") }
+                ) |
+                { beta, stable, oldStable: .deprecated } |
+                to_entries |
+                (map(.value | tojson | length) | max) as $maxLength |
+                def pad: if length < $maxLength then . + " "*($maxLength - length) else . end;
+                .[] | "\($indent)\(.value | tojson | pad) as $\(.key) |"
+              ' > /tmp/newVersionCode
+          sed -E -i.bak '
+            /as \$beta/ {
+              r/tmp/newVersionCode
+              d
+            }
+            /as \$(stable|oldStable)/ d
+          ' .github/workflows/build.yml
+          rm .github/workflows/build.yml.bak
+          if ! git diff --exit-code --quiet origin/${{ github.ref_name }}..; then
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      - name: Create pull request
+        if: ${{ !cancelled() && steps.update.outputs.changed == 'true' }}
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          title: 'Nixpkgs release auto-updates'
+          branch: 'nixpkgs-release-auto-updates'
+          labels: |
+            nixpkgs-updates
+            automated
+          delete-branch: true
+          token: ${{ steps.app-token.outputs.token }}
