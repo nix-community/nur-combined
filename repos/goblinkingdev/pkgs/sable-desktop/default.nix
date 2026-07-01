@@ -5,7 +5,7 @@
   fetchPnpmDeps,
   buildNpmPackage,
   nodejs_24,
-  pnpm,
+  pnpm_10,
   pnpmConfigHook,
   makeWrapper,
   electron,
@@ -43,6 +43,7 @@
   libxcb,
   libxshmfence,
   libxscrnsaver,
+  jq,
 }:
 
 let
@@ -84,8 +85,8 @@ let
   sableSrc = fetchFromGitHub {
     owner = "SableClient";
     repo = "Sable";
-    rev = "v1.17.0";
-    hash = "sha256-hWh/xfyuEQTjqf/k5HJ32wFdOHRWXWqAh6q1pdk4Ih4=";
+    rev = "v1.18.3";
+    hash = "sha256-yi70WBH0lDw1h4Oy6NNfi71kp32be3rtZDt3/C2e524=";
   };
 
   sableWebApp = stdenv.mkDerivation {
@@ -96,26 +97,55 @@ let
     postPatch = ''
       sed -i '/@cloudflare\/vite-plugin/d' vite.config.ts
       sed -i '/cloudflare({/,/}),/d' vite.config.ts
+      ${jq}/bin/jq 'del(.pnpm)' package.json > package.json.tmp
+      mv package.json.tmp package.json
+
+      cat > pnpm-workspace.yaml << 'YAMLEOF'
+allowBuilds:
+  '@sentry/cli': true
+  '@swc/core': true
+  cloudflared: true
+  esbuild: true
+  sharp: true
+  unrs-resolver: true
+  workerd: true
+engineStrict: true
+minimumReleaseAge: 1440
+minimumReleaseAgeExclude:
+  - '@sableclient/sable-call-embedded'
+  - '@sableclient/twemoji-font'
+overrides:
+  jsdom>undici: '^7.28.0'
+peerDependencyRules:
+  allowedVersions:
+    'folds>@vanilla-extract/css': '1.18.0'
+    'folds>@vanilla-extract/recipes': '0.5.7'
+    'folds>classnames': '2.5.1'
+    'folds>react': '18.3.1'
+    'folds>react-dom': '18.3.1'
+YAMLEOF
     '';
 
     nativeBuildInputs = [
       nodejs_24
-      pnpm
+      pnpm_10
       pnpmConfigHook
       git
+      jq
     ];
 
     pnpmDeps = fetchPnpmDeps {
+      pnpm = pnpm_10;
       pname = "sable-webapp";
       version = "dev";
       src = sableSrc;
       fetcherVersion = 3;
-      hash = "sha256-DlWFD0AJp/KD15SU8/1L0RAj7J+66zY8hwiu19AlO0I=";
+      hash = "sha256-y5Gv/IQ5qkxhj8QHtv7p16bj/f3eHWXGoeZ4CPwkxhY=";
     };
 
     buildPhase = ''
       runHook preBuild
-      pnpm build
+      NODE_OPTIONS='--max-old-space-size=8192' pnpm build
       runHook postBuild
     '';
 
@@ -142,16 +172,16 @@ let
 in
 buildNpmPackage {
   pname = "sable-desktop";
-  version = "1.0.5-1.17.0";
+  version = "1.0.6-1.18.3";
 
   src = fetchFromGitHub {
     owner = "goblinkingdev";
     repo = "sable-electron";
-    rev = "v1.0.5-1.17.0";
-    hash = "sha256-zjx07fMTu2yY+5lav9aQwRmmQCmSxEl9nGYLftYFiog=";
+    rev = "v1.0.6-1.18.3";
+    hash = "sha256-QjxAdb+fkwOqj/Hrs+pgRYhe8WhyE3Kzlgi+BkRueaA=";
   };
 
-  npmDepsHash = "sha256-x+QLU5byWDDO5ATyGlNRuRgnA07zF9SMrJn83DAqmW8=";
+  npmDepsHash = "sha256-cMLUCqpNbREXLJ0muuU6kgM5RdSnFk5cPhToXEUo+iQ=";
 
   nativeBuildInputs = [
     nodejs_24
@@ -177,17 +207,14 @@ buildNpmPackage {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/lib/sable-desktop $out/bin $out/share/applications
-
     cp -r dist-electron package.json $out/lib/sable-desktop/
     cp -r node_modules $out/lib/sable-desktop/node_modules
     cp -r ${sableWebApp} $out/lib/sable-desktop/dist
-
+    cp -r resources $out/lib/sable-desktop/resources
     makeWrapper ${electron}/bin/electron $out/bin/sable-desktop \
       --add-flags "$out/lib/sable-desktop" \
       --set LD_LIBRARY_PATH "${lib.makeLibraryPath electronLibs}:/run/opengl-driver/lib"
-
     cp ${desktopItem}/share/applications/sable-desktop.desktop $out/share/applications/
-
     runHook postInstall
   '';
 
