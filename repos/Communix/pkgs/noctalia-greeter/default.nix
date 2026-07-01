@@ -65,6 +65,10 @@ stdenv.mkDerivation {
     librsvg
   ];
 
+  postFixup = ''
+    substituteInPlace $out/bin/noctalia-greeter-print-greetd-config --replace-warn "/usr/share/noctalia-greeter/" "$out/share/noctalia-greeter/" 
+  '';
+
   mesonBuildType = "release";
 
   ninjaFlags = [ "-v" ];
