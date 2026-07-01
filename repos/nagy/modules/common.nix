@@ -102,6 +102,15 @@ in
     ];
   };
 
+  security.sudo = {
+    execWheelOnly = true;
+
+    # https://askubuntu.com/questions/493002/global-sudo-session-in-ubuntu
+    extraConfig = ''
+      Defaults:user !tty_tickets, timestamp_timeout=60
+    '';
+  };
+
   programs.fuse.userAllowOther = true;
 
   environment.shellAliases = {

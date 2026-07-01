@@ -98,6 +98,7 @@ let
             pkgs.curl # to get newer versions
             pkgs.websocat
             self.ggufmeta
+            pkgs.ron-lsp
           ];
 
           services.xserver.enable = true;

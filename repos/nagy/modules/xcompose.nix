@@ -50,7 +50,7 @@ let
     "🥚" = [ "<Multi_key>" "<e>" "<g>" "<g>" ];
     "⎈" = [ "<Multi_key>" "<h>" "<e>" "<l>" "<m>" ];
     "🍀" = [ "<Multi_key>" "<c>" "<l>" "<o>" "<v>" "<e>" "<r>" ];
-    "💡" = [ "<Multi_key>" "<b>" "<u>" "<l> <b>" ];
+    "💡" = [ "<Multi_key>" "<b>" "<u>" "<l>" "<b>" ];
     "⍼" = [ "<Multi_key>" "<r>" "<a>" "<z>" "<z>" ];
     "☆" = [ "<Multi_key>" "<s>" "<t>" "<a>" "<r>" ];
     "🔅" = [ "Ctrl" "<Multi_key>" "<o>" "<x>" ];

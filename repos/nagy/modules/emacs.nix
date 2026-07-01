@@ -9,7 +9,7 @@
 let
   inherit (lib.types) listOf path;
   cfg = config.nagy.emacs;
-  emacs = if config.services.xserver.enable then pkgs.emacs30-gtk3 else pkgs.emacs30-nox;
+  emacs = if config.services.xserver.enable then pkgs.emacs31-gtk3 else pkgs.emacs31-nox;
   emacsPackages = pkgs.emacsPackagesFor emacs;
   customEmacsPackages = emacsPackages.overrideScope (
     self: super:

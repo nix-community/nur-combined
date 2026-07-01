@@ -156,7 +156,6 @@ in
   environment.etc."X11/xinit/xinitrc".text = ''
     set -e
     xset r rate 260 40
-    xsetroot -cursor_name left_ptr # mostly used for Tauri applications
     [[ -f /etc/X11/Xresources ]] && xrdb /etc/X11/Xresources
     ${pkgs.unclutter-xfixes}/bin/unclutter &
     exec emacs
