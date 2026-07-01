@@ -132,13 +132,13 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "2026.06.03";
+    version = "2026.06.30";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "2026.06.03";
+      rev = "2026.06.30";
       fetchSubmodules = false;
-      sha256 = "sha256-MHPvFGdCnmHtgPqLkV+JJ3LHjcDeIs5yqexmHnWgRIc=";
+      sha256 = "sha256-HReBFYih39ohqZ2UAX6wPjjh0KuIauJPSOjk6ZXidss=";
     };
   };
   rime-ice-unstable = {
