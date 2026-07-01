@@ -4,7 +4,7 @@
   rustPlatform,
   cargo-tauri,
   nodejs,
-  pnpm_9,
+  pnpm,
   fetchPnpmDeps,
   pnpmConfigHook,
   pkg-config,
@@ -15,7 +15,6 @@
   libsoup_3,
   libayatana-appindicator,
   yq-go,
-  writeShellScriptBin,
   stdenv,
   runCommand,
   cacert,
@@ -24,16 +23,6 @@
 
 let
   version = "1.1.0-unstable-20250430";
-
-  pnpmWrapper =
-    (writeShellScriptBin "pnpm" ''
-      export NPM_CONFIG_ENGINE_STRICT=false
-      export NPM_CONFIG_FROZEN_LOCKFILE=false
-      exec ${pnpm_9}/bin/pnpm "$@"
-    '').overrideAttrs
-      (old: {
-        version = pnpm_9.version;
-      });
 
   pnpmLock = stdenv.mkDerivation {
     name = "pnpm-lock.yaml";
@@ -44,12 +33,13 @@ let
       hash = "sha256-1SD4b+jI6s32+wCksYTin+6IAB+mhqSqJADDH2tDkoY=";
     };
     buildInputs = [
-      pnpmWrapper
+      pnpm
       yq-go
       cacert
     ];
     buildPhase = ''
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
+      export NPM_CONFIG_ENGINE_STRICT=false
 
       # Patch package.json
       substituteInPlace package.json \
@@ -62,7 +52,7 @@ let
     installPhase = "cp pnpm-lock.yaml $out";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-srsP2aaKEoV22dR0sjxp4CZpvfVfZyoqa9IWALuCokQ=";
+    outputHash = "sha256-Lg0Vva50E6tcBEraJk9OU+sWOiarsUgOKtuncgmxIxU=";
   };
 
   # Patched source for dependencies fetching
@@ -81,9 +71,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version;
     src = pnpmDepsSrc;
-    pnpm = pnpmWrapper;
     fetcherVersion = 3;
-    hash = "sha256-H/IvZtb3oCvh/q4+8QAGEf9lfSlBp/7vSZVTuMTOPuo=";
+    hash = "sha256-QmkOHiHsVhVsiYzKpqJdqtjXJ5JL3gMWv7tUYJ0GSIU=";
   };
 
   cargoHash = "sha256-OQDh1FQSFnu9rOIkpfotV2VYK444wvodZ7AIcy8859E=";
@@ -91,7 +80,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeBuildInputs = [
     nodejs
     pnpmConfigHook
-    pnpmWrapper
+    pnpm
 
     pkg-config
     wrapGAppsHook4

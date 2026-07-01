@@ -5,7 +5,7 @@
   rustPlatform,
   cargo-tauri,
   nodejs,
-  pnpm_9,
+  pnpm,
   fetchPnpmDeps,
   pnpmConfigHook,
   pkg-config,
@@ -33,30 +33,11 @@ rustPlatform.buildRustPackage rec {
     sha256 = "0n3bmr3phpbnzib71llxgcw75b4vkliq9h7nidzpz19p0s9k3wgl";
   };
 
-  pnpmWrapper =
-    (stdenv.mkDerivation {
-      name = "pnpm-wrapper";
-      buildInputs = [ pnpm_9 ];
-      buildCommand = ''
-        mkdir -p $out/bin
-        cat <<'EOF' > $out/bin/pnpm
-        #!/bin/sh
-        export NPM_CONFIG_ENGINE_STRICT=false
-        export NPM_CONFIG_FROZEN_LOCKFILE=false
-        exec ${pnpm_9}/bin/pnpm "$@"
-        EOF
-        chmod +x $out/bin/pnpm
-      '';
-    }).overrideAttrs
-      (old: {
-        version = pnpm_9.version;
-      });
-
   pnpmLock = stdenv.mkDerivation {
     name = "pnpm-lock.yaml";
     inherit src;
     nativeBuildInputs = [
-      pnpmWrapper
+      pnpm
       cacert
     ];
 
@@ -66,12 +47,13 @@ rustPlatform.buildRustPackage rec {
       sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' web/package.json
       sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' web/package.json
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
+      export NPM_CONFIG_ENGINE_STRICT=false
       pnpm install --lockfile-only --ignore-scripts --no-frozen-lockfile
     '';
     installPhase = "cp pnpm-lock.yaml $out";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-cHPJb+cW7TUEeeUnUa838iOxpT/R3Mq4R88cMZwUyyE=";
+    outputHash = "sha256-pe0RXAuhPSGy1MyY658vyvlL1QZdRoAQMHmOXvBPb9s=";
   };
 
   pnpmDepsSrc = runCommand "pnpm-deps-src" { } ''
@@ -87,9 +69,8 @@ rustPlatform.buildRustPackage rec {
   pnpmDeps = fetchPnpmDeps {
     inherit pname version;
     src = pnpmDepsSrc;
-    pnpm = pnpmWrapper;
-    hash = "sha256-YFfOo0ugYKEhjt3ZMpOmCDcByoUMqIK43jmbkBj/TPI=";
     fetcherVersion = 3;
+    hash = "sha256-guqcYV9cAWQQy/BBYbSJRzTRORhMM5ggPMEq/3Id6MA=";
   };
 
   buildAndTestSubdir = "src-tauri";
@@ -124,7 +105,7 @@ rustPlatform.buildRustPackage rec {
     cargo-tauri.hook
     nodejs
     pnpmConfigHook
-    pnpmWrapper
+    pnpm
     pkg-config
     wrapGAppsHook4
     protobuf
