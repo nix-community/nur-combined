@@ -60,13 +60,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "912e4fcd276481ca92e3af81ebf24bc9b6480959",
-            "sha256": "sha256-ZBEwqLemccNtW8FE7/OFmKjBBRxdlvstQ2sc4OmDS+k=",
+            "rev": "f1862c7fe1989d45310b671533d827b8d59f54b4",
+            "sha256": "sha256-sYdTTFVJY7a7khtGe9Xq6b9P8aFOW4WPWrmcTTkr1qo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/liuzhengdongfortest/CodeStable"
         },
-        "version": "912e4fcd276481ca92e3af81ebf24bc9b6480959"
+        "version": "f1862c7fe1989d45310b671533d827b8d59f54b4"
     },
     "cowrie": {
         "cargoLock": null,

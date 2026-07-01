@@ -36,15 +36,15 @@
   };
   codestable = {
     pname = "codestable";
-    version = "912e4fcd276481ca92e3af81ebf24bc9b6480959";
+    version = "f1862c7fe1989d45310b671533d827b8d59f54b4";
     src = fetchgit {
       url = "https://github.com/liuzhengdongfortest/CodeStable";
-      rev = "912e4fcd276481ca92e3af81ebf24bc9b6480959";
+      rev = "f1862c7fe1989d45310b671533d827b8d59f54b4";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ZBEwqLemccNtW8FE7/OFmKjBBRxdlvstQ2sc4OmDS+k=";
+      sha256 = "sha256-sYdTTFVJY7a7khtGe9Xq6b9P8aFOW4WPWrmcTTkr1qo=";
     };
     date = "2026-07-01";
   };
