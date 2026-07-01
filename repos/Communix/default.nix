@@ -11,7 +11,7 @@
   pkgs ? import <nixpkgs> { },
 }:
 
-{
+rec {
 
   bibox = pkgs.callPackage ./pkgs/bibox { };
   # foldit = pkgs.callPackage ./pkgs/foldit { };
@@ -19,5 +19,6 @@
   # ...
   noctalia = pkgs.callPackage ./pkgs/noctalia { };
   psysonic = pkgs.callPackage ./pkgs/psysonic { };
-  glide = pkgs.callPackage ./pkgs/glide { };
+  glide-browser-unwrapped = pkgs.callPackage ./pkgs/glide { };
+  glide-browser = pkgs.wrapFirefox glide-browser-unwrapped { };
 }
