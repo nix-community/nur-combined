@@ -2,6 +2,8 @@
 
 Reminds you to blink. At regular intervals, it closes your screen like an eyelid — two black bars sweep in from the top and bottom and meet in the middle, then open again — so you rest your eyes.
 
+https://github.com/user-attachments/assets/5b0d6ae7-d471-4bfc-916b-0549f1a7d788
+
 ## Usage
 
 ```bash

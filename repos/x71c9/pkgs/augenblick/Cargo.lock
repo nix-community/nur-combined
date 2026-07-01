@@ -10,7 +10,7 @@ checksum = "175571dd1d178ced59193a6fc02dde1b972eb0bc56c892cde9beeceac5bf0f6b"
 
 [[package]]
 name = "augenblick"
-version = "0.2.11"
+version = "0.2.12"
 dependencies = [
  "serde",
  "smithay-client-toolkit",
