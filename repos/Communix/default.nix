@@ -18,6 +18,7 @@ rec {
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
   noctalia = pkgs.callPackage ./pkgs/noctalia { };
+  noctalia-greeter = pkgs.callPackage ./pkgs/noctalia-greeter { };
   psysonic = pkgs.callPackage ./pkgs/psysonic { };
   glide-browser-unwrapped = pkgs.callPackage ./pkgs/glide { };
   glide-browser = pkgs.wrapFirefox glide-browser-unwrapped { };

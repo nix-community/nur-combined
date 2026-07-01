@@ -1,15 +1,14 @@
-# adapted from upstream https://github.com/noctalia-dev/noctalia-shell/blob/main/nix/package.nix
+# # adapted from upstream https://github.com/noctalia-dev/noctalia-greeter/blob/main/nix/package.nix
 {
   lib,
-  config,
   stdenv,
-  fetchFromGitHub,
   meson,
   ninja,
   pkg-config,
   wayland-scanner,
   wayland,
   wayland-protocols,
+  wlroots_0_20,
   libGL,
   libglvnd,
   freetype,
@@ -18,33 +17,22 @@
   pango,
   harfbuzz,
   libxkbcommon,
-  sdbus-cpp_2,
-  systemd,
-  pipewire,
-  pam,
-  curl,
   libwebp,
   glib,
-  polkit,
   librsvg,
-  libqalculate,
-  libxml2,
   jemalloc,
-  autoAddDriverRunpath,
-  cudaSupport ? config.cudaSupport,
+  fetchFromGitHub,
 }:
-let
-  version = "4.7.7-unstable-2026-07-01";
-in
+
 stdenv.mkDerivation {
-  pname = "noctalia";
-  inherit version;
+  pname = "noctalia-greeter";
+  version = "0-unstable-2026-07-01";
 
   src = fetchFromGitHub {
     owner = "noctalia-dev";
-    repo = "noctalia";
-    rev = "5f636c6cbed0ee6858fa6b83a9981a455c6d4d2c";
-    hash = "sha256-3yP82Djjr//6Mn+Y0AYe/ywo7PpRCMpDqPxHrPqAWn0=";
+    repo = "noctalia-greeter";
+    rev = "c09a6b5067ab104d6a47fa404ab4ef1f423c3f4c";
+    hash = "sha256-1skV92jfsKq3eAJocomduPABTPcHcZHX8bDBNGm65VU=";
   };
 
   postPatch = ''
@@ -58,12 +46,12 @@ stdenv.mkDerivation {
     pkg-config
     wayland-scanner
     jemalloc
-  ]
-  ++ lib.optional cudaSupport autoAddDriverRunpath;
+  ];
 
   buildInputs = [
     wayland
     wayland-protocols
+    wlroots_0_20
     libGL
     libglvnd
     freetype
@@ -72,17 +60,9 @@ stdenv.mkDerivation {
     pango
     harfbuzz
     libxkbcommon
-    sdbus-cpp_2
-    systemd
-    pipewire
-    pam
-    curl
     libwebp
     glib
-    polkit
     librsvg
-    libqalculate
-    libxml2
   ];
 
   mesonBuildType = "release";
@@ -90,10 +70,10 @@ stdenv.mkDerivation {
   ninjaFlags = [ "-v" ];
 
   meta = with lib; {
-    description = "A lightweight Wayland shell and bar built directly on Wayland + OpenGL ES";
-    homepage = "https://github.com/noctalia-dev/noctalia-shell";
+    description = "Noctalia Greeter - A minimal login greeter for greetd that matches the look and feel of Noctalia Shell";
+    homepage = "https://github.com/noctalia-dev/noctalia-greeter";
     license = licenses.mit;
     platforms = platforms.linux;
-    mainProgram = "noctalia";
+    mainProgram = "noctalia-greeter";
   };
 }
