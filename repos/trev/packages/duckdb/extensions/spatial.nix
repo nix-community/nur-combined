@@ -38,6 +38,7 @@
       --replace-fail "unofficial::sqlite3::sqlite3" "SQLite::SQLite3"
 
     substituteInPlace extension_external/spatial/src/spatial/modules/gdal/gdal_module.cpp \
+      --replace-fail "OGRRegisterAllInternal();" "GDALAllRegister();" \
       --replace-fail "VSIVirtualHandle *Open(" "VSIVirtualHandleUniquePtr Open(" \
       --replace-fail "return new DuckDBFileHandle(std::move(file));" "return VSIVirtualHandleUniquePtr(new DuckDBFileHandle(std::move(file)));" \
       --replace-fail "bool IsLocal(const char *gdal_file_path) override" "bool IsLocal(const char *gdal_file_path) const override" \
@@ -50,5 +51,8 @@
       }
 
       size_t Write(const void *buffer, size_t size, size_t count) override {"
+
+    substituteInPlace extension_external/spatial/src/spatial/util/math.cpp \
+      --replace-fail "#if SPATIAL_USE_GEOS" "#if 0"
   '';
 }
