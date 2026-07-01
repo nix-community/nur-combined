@@ -6,13 +6,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "nats-static";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "nats-static";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-gUaLIbE7aBsLDpeSgTOJTzlz5RVuJ3LJPeFIa12dSc4=";
+    hash = "sha256-JDQUh2yEsiSvFyA0XDT4Wi7tdofD9AcUHqu4y/IZD8Q=";
   };
 
   vendorHash = "sha256-sgodlK/gsDWCyL6/f0ArqFr53cV2eig0tOLFbdzNcYk=";
