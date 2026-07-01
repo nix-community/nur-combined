@@ -33,7 +33,7 @@
   cudaSupport ? config.cudaSupport,
 }:
 let
-  version = "5.0.0";
+  version = "4.7.7-unstable-2026-07-01";
 in
 stdenv.mkDerivation {
   pname = "noctalia";
@@ -42,8 +42,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia";
-    rev = "d6e55dce0f8143dec17025bcc61f1aea33e10dfe";
-    hash = "sha256-AXSVg1/DNTl4vAKUSh8lgmupBLHP5vrCNW09WakOwTQ=";
+    rev = "5f636c6cbed0ee6858fa6b83a9981a455c6d4d2c";
+    hash = "sha256-3yP82Djjr//6Mn+Y0AYe/ywo7PpRCMpDqPxHrPqAWn0=";
   };
 
   postPatch = ''
