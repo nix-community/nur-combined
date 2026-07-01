@@ -14,7 +14,8 @@ nixpkgs.picoclaw.overrideAttrs (
 
     passthru = (prevAttrs.passthru or { }) // {
       _ignoreOverride = true;
-      # nix-update auto -sfrontend --override-filename pkgs/by-name/pi/picoclaw/package.nix
+      # nix-update auto -u
+      updateScript = ./update.sh;
       frontend = prevAttrs.passthru.frontend.overrideAttrs (old: {
         pnpmDeps = old.pnpmDeps.overrideAttrs {
           hash = "sha256-ECZBq/miLE9dkEOx8e8WI68tI0HBb+iFVeztwMVeeKw=";
