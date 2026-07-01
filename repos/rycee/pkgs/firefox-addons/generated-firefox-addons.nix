@@ -439,10 +439,10 @@
     };
     "are-na" = buildMozillaXpiAddon {
       pname = "are-na";
-      version = "2.12.1";
+      version = "2.13.4";
       addonId = "{4245110a-2f3e-4f78-8303-10cae12384cc}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4747739/are_na-2.12.1.xpi";
-      sha256 = "dc98a3698bea675de9256b8673ce64ed4ffee12d02869689673cca2bc3a87059";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4876135/are_na-2.13.4.xpi";
+      sha256 = "11884dccffb4553cdd2309919b7a7b1767199de357e2c8f228e295ecdfa9ec4a";
       meta = with lib;
       {
         homepage = "https://www.are.na";
@@ -1474,10 +1474,10 @@
     };
     "british-english-dictionary-2" = buildMozillaXpiAddon {
       pname = "british-english-dictionary-2";
-      version = "4.0.7";
+      version = "4.0.8";
       addonId = "marcoagpinto@mail.telepac.pt";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4786955/british_english_dictionary_2-4.0.7.xpi";
-      sha256 = "261071c4a5d9aef17e0b7d5a4f3bbe95a4a555d52b0b20a88a3cf60cec988e96";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4876537/british_english_dictionary_2-4.0.8.xpi";
+      sha256 = "7c242f214e961b228bed8ecb9b3903063842e7aaca734531d267394dc43d686d";
       meta = with lib;
       {
         homepage = "https://proofingtoolgui.org";
@@ -2645,10 +2645,10 @@
     };
     "copy-selected-tabs-to-clipboard" = buildMozillaXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.6.8";
+      version = "1.7.0";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4670715/copy_selected_tabs_to_clipboar-1.6.8.xpi";
-      sha256 = "de3d1bc8c7b2fac6ebce6b2189805f8df4abc926af25d8da0f1a988bb43f240c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875326/copy_selected_tabs_to_clipboar-1.7.0.xpi";
+      sha256 = "633eb6e01ee87ffe46fabe5da0b4a47d540b4e4fc0d5e014ad2289b7fe0895c5";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -2662,6 +2662,7 @@
           "notifications"
           "storage"
           "tabs"
+          "tabGroups"
         ];
         platforms = platforms.all;
       };
@@ -4690,10 +4691,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.11";
+      version = "1.22.13";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4871281/geo_spoof-1.22.11.xpi";
-      sha256 = "4cdc20fd321af69deac7b1dee089e97183c270adfa006111e90f259b6c660639";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875993/geo_spoof-1.22.13.xpi";
+      sha256 = "8f9583d0d6a0c7aea7bc3884162afc728024740e510c057beb224955f5293b44";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7694,10 +7695,10 @@
     };
     "lastpass-password-manager" = buildMozillaXpiAddon {
       pname = "lastpass-password-manager";
-      version = "4.154.1";
+      version = "4.154.2";
       addonId = "support@lastpass.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4854333/lastpass_password_manager-4.154.1.xpi";
-      sha256 = "87e8b98148755957bea74422faf217ab26b3c5a9e718e13a9fc9772131bb495f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4868824/lastpass_password_manager-4.154.2.xpi";
+      sha256 = "de9496ab4960134aff1914af66da4e043cf8b0eb64e2ab8c0f94d625323b82fd";
       meta = with lib;
       {
         homepage = "https://lastpass.com/";
@@ -10203,10 +10204,10 @@
     };
     "multiple-tab-handler" = buildMozillaXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.2.1";
+      version = "3.2.2";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4499918/multiple_tab_handler-3.2.1.xpi";
-      sha256 = "3dc3ea9cac0f036198e2dabceb2fab0d9811f5604b48e76219ac8748a0c96ba6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875391/multiple_tab_handler-3.2.2.xpi";
+      sha256 = "7393a9ed91913c4e4355276c655aa518fd3f5b9606c0dd7131641830b0a74641";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -10955,7 +10956,7 @@
       sha256 = "ba2e99b5e970cad7d9bbe42cf4468dccc3b1de555032bae367e9b1edc2b1ce9b";
       meta = with lib;
       {
-        homepage = "http://www.one-tab.com";
+        homepage = "https://www.one-tab.com";
         description = "Save up to 95% memory and reduce tab clutter";
         license = {
           shortName = "onetab";
@@ -12450,10 +12451,10 @@
     };
     "rabattcorner" = buildMozillaXpiAddon {
       pname = "rabattcorner";
-      version = "3.0.10";
+      version = "3.1.2";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4841394/rabattcorner-3.0.10.xpi";
-      sha256 = "c64668dc1dcc596ef1524c6022454d1108716bf470bc0a2e4d38413d4407536a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875732/rabattcorner-3.1.2.xpi";
+      sha256 = "b6d5cfa2c2556b54625a23277ba62a02f42170f87167c38995749ea2f2ddc862";
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch/fr/";
