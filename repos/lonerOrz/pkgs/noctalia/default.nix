@@ -20,6 +20,7 @@
   sdbus-cpp_2,
   systemd,
   pipewire,
+  wireplumber,
   pam,
   curl,
   libwebp,
@@ -79,6 +80,7 @@ stdenv.mkDerivation (finalAttrs: {
     sdbus-cpp_2
     systemd
     pipewire
+    wireplumber
     pam
     curl
     libwebp
