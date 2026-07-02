@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sst";
-  version = "3.0";
+  version = "3.1";
 
   src =
     let
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     in
     fetchurl {
       url = "https://sdmsdfwdriver.blob.core.windows.net/files/kba-gcc/drivers-downloads/ka-00085/sst--${ver}/sst-cli-linux-deb--${ver}.zip";
-      hash = "sha256-H5WmC8QdOX1y/fSdkm+BP9xnM1PY4a/sFabAcI0RWcM=";
+      hash = "sha256-9xLblzilEjesL3CKPlAFOaG8ONATT8lQ5pYhx0gwfOI=";
     };
 
   unpackCmd =
@@ -29,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
           "i386";
     in
     ''
-      unzip -o $curSrc "sst_${finalAttrs.version}*_${pkgArch}.deb"
+      unzip -oj $curSrc "*sst_${finalAttrs.version}*_${pkgArch}.deb"
       dpkg -x *.deb source
     '';
 
