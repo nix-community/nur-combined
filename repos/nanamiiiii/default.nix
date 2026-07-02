@@ -20,4 +20,5 @@
   npiperelay = pkgs.callPackage ./pkgs/npiperelay { };
   tcardgen = pkgs.callPackage ./pkgs/tcardgen { };
   proton-drive-cli = pkgs.callPackage ./pkgs/proton-drive-cli { };
+  proton-pass = pkgs.callPackage ./pkgs/proton-pass { };
 }
