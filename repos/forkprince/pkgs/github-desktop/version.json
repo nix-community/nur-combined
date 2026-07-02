@@ -1,19 +1,20 @@
 {
   "name": "Github Desktop",
   "source": {
-    "type": "github-release",
-    "repo": "desktop/desktop",
-    "skip_prerelease": true
+    "type": "redirect",
+    "version_regex": "releases\\/([^\\/]+)\\/"
   },
-  "version": "release-3.6.1",
+  "version": "3.6.2-57f0b637",
   "platforms": {
     "aarch64-darwin": {
-      "file": "GitHub.Desktop-arm64.zip",
-      "hash": "sha256-0Cozq2AWjkl4o/GPrf7yvfUd+IHlYTxVDMK5HI2slTk="
+      "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64",
+      "url": "https://desktop.githubusercontent.com/releases/3.6.2-57f0b637/GitHubDesktop-arm64.zip",
+      "hash": "sha256-0PDjDVGRhGWByJx3GdxJ8gWZGESI6Nq2TRX9ZtZEAHw="
     },
     "x86_64-darwin": {
-      "file": "GitHub.Desktop-x64.zip",
-      "hash": "sha256-SqbJn1XnH7UKJFbXb1ADzy+p86OsOBG0PZuLnq4qiMk="
+      "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin",
+      "url": "https://desktop.githubusercontent.com/releases/3.6.2-57f0b637/GitHubDesktop-x64.zip",
+      "hash": "sha256-RcbYq4dFw5jtVWRIdBNscclbLjVXfUlBwzRrCirVBuM="
     }
   }
 }

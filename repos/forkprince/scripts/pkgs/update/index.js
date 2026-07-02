@@ -4,5 +4,6 @@ module.exports = {
     release: require("./pkgs/github/release")
   },
   forgejo: require("./pkgs/forgejo"),
-  api: require("./pkgs/api")
+  api: require("./pkgs/api"),
+  redirect: require("./pkgs/redirect")
 }

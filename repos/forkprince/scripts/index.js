@@ -89,6 +89,16 @@ switch (config.source.type) {
     }
     break;
   }
+  case "redirect": {
+    if (config.platforms) {
+      console.log(`Updating platforms for ${file}...`);
+      await update.redirect.platforms(resolved, { config, force });
+    } else {
+      console.log(`Updating single version for ${file}...`);
+      await update.redirect.single(resolved, { config, force });
+    }
+    break;
+  }
   default: {
     console.error(`Error: unsupported source type: ${config.source.type}`);
     process.exit(1);
