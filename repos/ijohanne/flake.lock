@@ -589,11 +589,11 @@
         "rust-overlay": "rust-overlay_2"
       },
       "locked": {
-        "lastModified": 1775639459,
-        "narHash": "sha256-3Kbm4gsOY6lmQaqTBuhJIfymWaN8qA94Dux1d9/vJ2Q=",
+        "lastModified": 1782993319,
+        "narHash": "sha256-rH/F51JLH6wF4XjJUfMiN47wIfiT/1TspQyDWk/YNKY=",
         "owner": "ijohanne",
         "repo": "prometheus-gardena-exporter",
-        "rev": "212503089257d4bc4cbd8f870f4674848d7d51d7",
+        "rev": "771adf90e557a8d0b7cad07e6c869a258ba563a9",
         "type": "github"
       },
       "original": {
