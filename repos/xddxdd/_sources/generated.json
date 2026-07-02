@@ -515,7 +515,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=",
+            "sha256": "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=",
             "type": "url",
             "url": "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage"
         },
@@ -2833,6 +2833,27 @@
         },
         "version": "0.8.0"
     },
+    "ncmm": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ncmm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "3899",
+            "repo": "ncmm",
+            "rev": "v1.1.7",
+            "sha256": "sha256-o6OxxojfecT4MMv4xtpEYUJ1lTlRX7FK8Eaz+6mpMvs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.1.7"
+    },
     "netboot-xyz-efi": {
         "cargoLock": null,
         "date": null,
@@ -4574,6 +4595,27 @@
             "type": "github"
         },
         "version": "v1.1.4"
+    },
+    "tel42verifier": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "tel42verifier",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "strexp",
+            "repo": "tel42verifier",
+            "rev": "v0.0.3",
+            "sha256": "sha256-WfJxlE6Xg1MoLIQdhznuh96T0Yi3N/AuFWjrYAe3fQA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.3"
     },
     "telegram-desktop-patches": {
         "cargoLock": null,

@@ -631,6 +631,10 @@ src.git = "https://github.com/xddxdd/nbfc-linux.git"
 fetch.github = "iqiziqi/ncmdump.rs"
 src.github = "iqiziqi/ncmdump.rs"
 
+[ncmm]
+fetch.github = "3899/ncmm"
+src.github = "3899/ncmm"
+
 [netboot-xyz-efi]
 fetch.url = "https://github.com/netbootxyz/netboot.xyz/releases/download/$ver/netboot.xyz.efi"
 src.github = "netbootxyz/netboot.xyz"
@@ -1020,6 +1024,10 @@ src.to_pattern = "\\1"
 [tcpser]
 fetch.github = "go4retro/tcpser"
 src.github = "go4retro/tcpser"
+
+[tel42verifier]
+fetch.github = "strexp/tel42verifier"
+src.github_tag = "strexp/tel42verifier"
 
 [telegram-desktop-patches]
 fetch.github = "huakim/telegram-desktop-patches"

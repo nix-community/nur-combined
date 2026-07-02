@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
+      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
     };
   };
   buname = {
@@ -1453,6 +1453,16 @@
       hash = "sha256-do11HeySNtNCOt9mhlqPwdyjm+86ujfI7n0blSqYtvM=";
     };
   };
+  ncmm = {
+    pname = "ncmm";
+    version = "v1.1.7";
+    src = fetchFromGitHub {
+      owner = "3899";
+      repo = "ncmm";
+      tag = "v1.1.7";
+      hash = "sha256-o6OxxojfecT4MMv4xtpEYUJ1lTlRX7FK8Eaz+6mpMvs=";
+    };
+  };
   netboot-xyz-efi = {
     pname = "netboot-xyz-efi";
     version = "3.0.2";
@@ -2338,6 +2348,16 @@
       repo = "tcpser";
       tag = "v1.1.4";
       hash = "sha256-Ir/tQde7hfqlgOVXE2HqJSzEXdceCTywptN8PRqylMI=";
+    };
+  };
+  tel42verifier = {
+    pname = "tel42verifier";
+    version = "v0.0.3";
+    src = fetchFromGitHub {
+      owner = "strexp";
+      repo = "tel42verifier";
+      tag = "v0.0.3";
+      hash = "sha256-WfJxlE6Xg1MoLIQdhznuh96T0Yi3N/AuFWjrYAe3fQA=";
     };
   };
   telegram-desktop-patches = {
