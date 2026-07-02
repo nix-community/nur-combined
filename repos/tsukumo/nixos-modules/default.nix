@@ -70,38 +70,35 @@
         '';
 
         # HWDB Settings
-        services.udev.hwdb.settings = {
-          "sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.10.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*" = {
-            ACCEL_LOCATION = "display";
-          };
-          "sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.11.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*" = {
-            ACCEL_LOCATION = "base";
-            ACCEL_MOUNT_MATRIX = "0, 1, 0; -1, 0, 0; 0, 0, 1";
-          };
-          "sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.19.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*" = {
-            ACCEL_LOCATION = "display";
-          };
-          "sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.20.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*" = {
-            ACCEL_LOCATION = "base";
-            ACCEL_MOUNT_MATRIX = "0, 1, 0; -1, 0, 0; 0, 0, 1";
-          };
+        services.udev.extraHwdb = ''
+          sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.10.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*
+           ACCEL_LOCATION=display
 
-          "evdev:name:Goodix Capacitive TouchScreen:dmi:bvnLENOVO*pnLenovoYB1-X9*" = {
-            TOUCH_KEYBOARD = "1";
-            LIBINPUT_IGNORE_DEVICE = "1";
-          };
-          "evdev:name:Goodix Capacitive TouchScreen:dmi:*pnCHERRYVIEWD1PLATFORM*:pvrYETI-11*:*" = {
-            TOUCH_KEYBOARD = "1";
-            LIBINPUT_IGNORE_DEVICE = "1";
-          };
+          sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.11.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*
+           ACCEL_LOCATION=base
+           ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
 
-          "evdev:name:virtual-touchpad:dmi:bvnLENOVO*pnLenovoYB1-X9*" = {
-            ID_INPUT_TOUCHPAD_INTEGRATION = "internal";
-          };
-          "evdev:name:virtual-touchpad:dmi:*pnCHERRYVIEWD1PLATFORM*:pvrYETI-11*:*" = {
-            ID_INPUT_TOUCHPAD_INTEGRATION = "internal";
-          };
-        };
+          sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.19.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*
+           ACCEL_LOCATION=display
+
+          sensor:modalias:platform:HID-SENSOR-200073:id:HID-SENSOR-200073.20.auto:dmi:bvnLENOVO*pnLenovoYB1-X9*
+           ACCEL_LOCATION=base
+           ACCEL_MOUNT_MATRIX=0, 1, 0; -1, 0, 0; 0, 0, 1
+
+          evdev:name:Goodix Capacitive TouchScreen:dmi:bvnLENOVO*pnLenovoYB1-X9*
+           TOUCH_KEYBOARD=1
+           LIBINPUT_IGNORE_DEVICE=1
+
+          evdev:name:Goodix Capacitive TouchScreen:dmi:*pnCHERRYVIEWD1PLATFORM*:pvrYETI-11*:*
+           TOUCH_KEYBOARD=1
+           LIBINPUT_IGNORE_DEVICE=1
+
+          evdev:name:virtual-touchpad:dmi:bvnLENOVO*pnLenovoYB1-X9*
+           ID_INPUT_TOUCHPAD_INTEGRATION=internal
+
+          evdev:name:virtual-touchpad:dmi:*pnCHERRYVIEWD1PLATFORM*:pvrYETI-11*:*
+           ID_INPUT_TOUCHPAD_INTEGRATION=internal
+        '';
 
         # Systemd Daemons
         systemd.services = {
