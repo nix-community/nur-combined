@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "fb6bd80aa2bc8bfb36078d3165ba379568d46bbb";
+    version = "d21ba7ddc41417e19dfb543ed1dc6d4859d3ed02";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "fb6bd80aa2bc8bfb36078d3165ba379568d46bbb";
+      rev = "d21ba7ddc41417e19dfb543ed1dc6d4859d3ed02";
       fetchSubmodules = false;
-      sha256 = "sha256-SQvZfT49723eXH18RiQlJYLf9xtd9rZd63KU5OaRSR4=";
+      sha256 = "sha256-TrsqcZphKilusIifqeKZqiSRhb6P3BPJwUh3TCWo5Og=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-SQvZfT49723eXH18RiQlJYLf9xtd9rZd63KU5OaRSR4=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-TrsqcZphKilusIifqeKZqiSRhb6P3BPJwUh3TCWo5Og=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-07-01";
+    date = "2026-07-02";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -364,15 +364,15 @@
   };
   loyalsoldier-geoip = {
     pname = "loyalsoldier-geoip";
-    version = "feafc42b2781a8ffa8bf71d9b8e6499a17d4990f";
+    version = "ca2a8cfa0896c6d55bd5e829fc103c5c2837d059";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "geoip";
-      rev = "feafc42b2781a8ffa8bf71d9b8e6499a17d4990f";
+      rev = "ca2a8cfa0896c6d55bd5e829fc103c5c2837d059";
       fetchSubmodules = false;
-      sha256 = "sha256-uFWO0ZINubIEV+aJEGg8lbBCE3un9nGYeeMnfobj5Ec=";
+      sha256 = "sha256-KDPO0NUh7vM1GE7qOq2io8c3OhZ1i8ecyHqDxH43GcM=";
     };
-    date = "2026-07-01";
+    date = "2026-07-02";
   };
   manpage-zh = {
     pname = "manpage-zh";
@@ -665,10 +665,10 @@
   };
   uuremote = {
     pname = "uuremote";
-    version = "4.30.0";
+    version = "4.31.0";
     src = fetchurl {
-      url = "https://a56.gdl.netease.com/uuyc_4.30.0.pkg";
-      sha256 = "sha256-PBTbM1y8ya31rV2QwOR/k1oxc6zGh6YdZCwpoW/YSCQ=";
+      url = "https://a56.gdl.netease.com/uuyc_4.31.0.pkg";
+      sha256 = "sha256-b+1CMU6k/2oSZjTO0ZaX63q196pGuftmNh04CS4UGY0=";
     };
   };
   v2ray-rules-dat = {
