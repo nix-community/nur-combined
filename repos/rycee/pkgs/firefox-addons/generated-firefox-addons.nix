@@ -948,10 +948,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.7";
+      version = "2.0.8";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4852837/batchcamp-2.0.7.xpi";
-      sha256 = "d9b931513e76280e4ed4c289e3e1db5028374fc6223d153d2f68258268276615";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877879/batchcamp-2.0.8.xpi";
+      sha256 = "2eb1bdd134592d1177dd6caa2590248487b55a5421d510491644e69ba78b6ed2";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -2911,10 +2911,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260629.141727";
+      version = "153.0.20260701.90326";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4874452/dansk_da_language_pack-152.0.20260629.141727.xpi";
-      sha256 = "e57d6348a512a28ddeb3866bda8066599bebb078f78e1c9e6ba5ce7088fd6913";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877183/dansk_da_language_pack-153.0.20260701.90326.xpi";
+      sha256 = "8d348e5677f3cb07fc1366c76ddba46222b7a18dad2f4caddf236021efe2764d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3127,10 +3127,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260629.141727";
+      version = "153.0.20260701.90326";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4874461/deutsch_de_language_pack-152.0.20260629.141727.xpi";
-      sha256 = "076d73766e97429d913340cbec485923bb876f5557e7f165b49a76dc81b1e133";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877180/deutsch_de_language_pack-153.0.20260701.90326.xpi";
+      sha256 = "93d8d51eb074ad87d9b65d5fb329761adb4a2e5e6086ad79935a51268076b017";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4610,10 +4610,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260629.141727";
+      version = "153.0.20260701.90326";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4874424/francais_language_pack-152.0.20260629.141727.xpi";
-      sha256 = "55e20a23b28e7bd3fd0b7e470ceb3b4ff4aebd434059fc9afc932a6fb6526959";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877215/francais_language_pack-153.0.20260701.90326.xpi";
+      sha256 = "15dd02877c43994e9737c827f5eab0f4138fe3bffb86c2b9dd02f2a88c3e41a0";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4647,10 +4647,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260629.141727";
+      version = "153.0.20260701.90326";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4874437/gaidhlig_language_pack-152.0.20260629.141727.xpi";
-      sha256 = "028a73b34c0b0f0cd17086291056b167616d0a10c13a9c96475f2715f0e3d47a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877230/gaidhlig_language_pack-153.0.20260701.90326.xpi";
+      sha256 = "48cd0adf858b11f9c52df04183f1509b14fd791e5d6e16dffad8ab22851307df";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4691,10 +4691,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.13";
+      version = "1.22.14";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875993/geo_spoof-1.22.13.xpi";
-      sha256 = "8f9583d0d6a0c7aea7bc3884162afc728024740e510c057beb224955f5293b44";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4878252/geo_spoof-1.22.14.xpi";
+      sha256 = "ac3db73ffec884537690debea270f10cf081659d5f505aa8c55c71d0150124eb";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7253,10 +7253,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.23.1";
+      version = "0.24";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4842911/javascript_restrictor-0.23.1.xpi";
-      sha256 = "9f0a33d33e3670619c1363235cdfca2ffa8f9cef035bc6d052ca99cb3e151439";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877419/javascript_restrictor-0.24.xpi";
+      sha256 = "c28fcbb42301685873d1736436e9af82b4a54ee528f0298a1d5c4c80dcae9ef3";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -9964,10 +9964,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.36.0.0";
+      version = "13.37.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4862511/ether_metamask-13.36.0.0.xpi";
-      sha256 = "0ce57450b5eacb7f2d2c8a8e8f44ec84d212f4efe8631db8c76e2e2483aa6721";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4873682/ether_metamask-13.37.0.0.xpi";
+      sha256 = "e7f1a92dc16cccec6e90a0b08bfef316abc1d33aaf40a213ab83a0cabc4e7654";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -10175,10 +10175,10 @@
     };
     "multi-account-containers" = buildMozillaXpiAddon {
       pname = "multi-account-containers";
-      version = "8.3.7";
+      version = "8.3.8";
       addonId = "@testpilot-containers";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4733069/multi_account_containers-8.3.7.xpi";
-      sha256 = "7f6f5ef7b106d33d1b99d2c5e53a2065d07f784b1852fe9b9f78394e9b405165";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4867303/multi_account_containers-8.3.8.xpi";
+      sha256 = "306a294845363f15a7478e9620b43f91ea1761088727808e2327bfff16c14447";
       meta = with lib;
       {
         homepage = "https://github.com/mozilla/multi-account-containers/#readme";
@@ -11122,10 +11122,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.71";
+      version = "1.5.72";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861517/page_assist-1.5.71.xpi";
-      sha256 = "4cec7b6144ad70f0ba487ba376a01fcf08d308222f578b06109d1dd2e4a8fa93";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4872516/page_assist-1.5.72.xpi";
+      sha256 = "3678459e87dbd583e93be6085290821d2d7250a56f5e597145327da35edfcb8b";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -13077,10 +13077,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.6.7";
+      version = "26.7";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840557/refined_github-26.6.7.xpi";
-      sha256 = "7274247b34b4bab57e73c8058ddd1a459e323bea717d9ec16d1ccc8385791bd0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4876625/refined_github-26.7.xpi";
+      sha256 = "e3eeffcef15770b97042e2b6caf69b67984d2398b124b75778f176f3b9eff373";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
@@ -13397,10 +13397,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260629.141727";
+      version = "153.0.20260701.90326";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4874454/scots_language_pack-152.0.20260629.141727.xpi";
-      sha256 = "4946d0bc2b3bdf5454fd2d74b0db9c7010b3d78e99507c9457aceb84e210e840";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877118/scots_language_pack-153.0.20260701.90326.xpi";
+      sha256 = "d15aad43359303035ddd7d65d399aebe1d2ec63af389c9d70498f9604272f54a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14151,10 +14151,10 @@
     };
     "spoof-timezone" = buildMozillaXpiAddon {
       pname = "spoof-timezone";
-      version = "0.4.9";
+      version = "0.5.0";
       addonId = "{55f61747-c3d3-4425-97f9-dfc19a0be23c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4644624/spoof_timezone-0.4.9.xpi";
-      sha256 = "e7592040238e1cc8a02c50bb15ea6e7196005f75ec3955a0ab3ddb0f2b9988e6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4876646/spoof_timezone-0.5.0.xpi";
+      sha256 = "542422365981287388c243ab60c4ac3b62df6713a8c00761fdff9fc06f70ba6f";
       meta = with lib;
       {
         homepage = "https://add0n.com/spoof-timezone.html";
@@ -15962,10 +15962,10 @@
     };
     "untrap-for-youtube" = buildMozillaXpiAddon {
       pname = "untrap-for-youtube";
-      version = "8.3.1";
+      version = "9.9";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4403100/untrap_for_youtube-8.3.1.xpi";
-      sha256 = "9dab0042653747fb81cecf23c20e8b6f42d4d11a98181ac9c316e76e80c65575";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4859881/untrap_for_youtube-9.9.xpi";
+      sha256 = "0a67181f04ed6eb5d33d286728a0f52b8fb85f1d225f1c308df3671627a32c78";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -15979,7 +15979,7 @@
         mozPermissions = [
           "storage"
           "activeTab"
-          "*://*.youtube.com/*"
+          "management"
           "*://www.youtube.com/*"
           "*://m.youtube.com/*"
         ];
@@ -16696,10 +16696,10 @@
     };
     "web-archives" = buildMozillaXpiAddon {
       pname = "web-archives";
-      version = "7.3.1";
+      version = "7.3.3";
       addonId = "{d07ccf11-c0cd-4938-a265-2a4d6ad01189}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840220/view_page_archive-7.3.1.xpi";
-      sha256 = "7ee1d0cfd776009a36be67519cfc15e73dcea26d180fd4049d761aac8c7f6505";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4871262/view_page_archive-7.3.3.xpi";
+      sha256 = "81ca25bd41392cf4b03d4c1c4c39ebd5a4eaa840ef8a4d26f84b1dd396999a34";
       meta = with lib;
       {
         homepage = "https://github.com/dessant/web-archives#readme";
@@ -16716,6 +16716,7 @@
           "webRequest"
           "webRequestBlocking"
           "<all_urls>"
+          "scripting"
           "http://*/*"
           "https://*/*"
           "file:///*"
