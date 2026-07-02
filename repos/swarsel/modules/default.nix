@@ -5,4 +5,5 @@
   attic-client = ./home/attic-client.nix;
   pizauth = ./home/pizauth.nix;
   autotiling = ./home/autotiling.nix;
+  glide = ./home/glide.nix;
 }
