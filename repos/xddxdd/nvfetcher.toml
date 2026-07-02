@@ -117,8 +117,8 @@ src.aur = "browser360-bin"
 
 [browseros]
 fetch.url = "https://github.com/browseros-ai/BrowserOS/releases/download/v$ver/BrowserOS_v$ver_x64.AppImage"
-src.github = "browseros-ai/BrowserOS"
-src.include_regex = "^v[0-9]"
+src.github_tag = "browseros-ai/BrowserOS"
+src.include_regex = "^v[0-9].*"
 src.prefix = "v"
 
 [buname]
