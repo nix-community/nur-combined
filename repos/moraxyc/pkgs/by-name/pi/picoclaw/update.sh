@@ -4,5 +4,5 @@
 
 set -eou pipefail
 
-nix-update picoclaw.goModules --version=skip --override-filename pkgs/by-name/pi/picoclaw/package.nix
 nix-update picoclaw.frontend.pnpmDeps --version=skip --override-filename pkgs/by-name/pi/picoclaw/package.nix
+nix-update picoclaw.goModules --version=skip --override-filename pkgs/by-name/pi/picoclaw/package.nix
