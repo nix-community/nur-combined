@@ -1,5 +1,5 @@
 diff --git a/server/src/storage/s3.rs b/server/src/storage/s3.rs
-index 3af7507..fc6e6c0 100644
+index 0efa3dd..e20d100 100644
 --- a/server/src/storage/s3.rs
 +++ b/server/src/storage/s3.rs
 @@ -1,14 +1,11 @@
@@ -7,16 +7,16 @@ index 3af7507..fc6e6c0 100644
  
 -use std::time::Duration;
 -
- use async_trait::async_trait;
- use aws_config::BehaviorVersion;
+ use aws_config::{BehaviorVersion, retry::RetryConfig};
  use aws_sdk_s3::{
+     Client,
      config::Builder as S3ConfigBuilder,
      config::{Credentials, Region},
      operation::get_object::builders::GetObjectFluentBuilder,
 -    presigning::PresigningConfig,
      types::{CompletedMultipartUpload, CompletedPart},
-     Client,
  };
+ use bytes::BytesMut;
 @@ -150,16 +147,14 @@ impl S3Backend {
  
              Ok(Download::AsyncRead(Box::new(output.body.into_async_read())))
@@ -29,15 +29,14 @@ index 3af7507..fc6e6c0 100644
 -                .presigned(presign_config)
 -                .await
 -                .map_err(ServerError::storage_error)?;
--
--            Ok(Download::Url(presigned.uri().to_string()))
 +            let url = format!(
 +                "{}/{}/{}",
 +                self.config.endpoint.as_ref().expect("endpoint not set"),
 +                req.get_bucket().as_ref().expect("bucket not set"),
 +                req.get_key().as_ref().expect("key not set"),
 +            );
-+
+ 
+-            Ok(Download::Url(presigned.uri().to_string()))
 +            Ok(Download::Url(url.to_string()))
          }
      }
