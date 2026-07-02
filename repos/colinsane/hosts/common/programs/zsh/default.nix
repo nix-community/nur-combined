@@ -157,6 +157,11 @@ in
         cd "$@"
         ll
       }
+      function ct() {
+        # list a dir after entering it, based on time
+        cd "$@"
+        lrt
+      }
       function deref() {
         # convert a symlink into a plain file of the same content
         if [ -L "$1" ] && [ -f "$1" ]; then
@@ -165,6 +170,14 @@ in
         fi
         chmod u+w "$1"
       }
+
+      # edit a file, creating leading directories if necessary.
+      function edit() {
+        local file=$1
+        local dir=$(dirname $file)
+        [[ -n "$dir" ]] && mkdir -p "$dir"
+        [[ -n "$file" ]] && "''${EDITOR:-vim}" "$file"
+      };
 
       function nd() {
         # enter a directory, creating it if necessary
@@ -187,6 +200,28 @@ in
         fi
 
         ( cd "$dir" && ./scripts/deploy "$@" )
+      }
+
+      function tmp() {
+        local today=$(date '+%Y-%m-%d')
+        if [[ -d ~/tmp/$today ]]; then
+          c ~/tmp/$today
+        else
+          # TODO: if yesterday's directory exists, and the last-modified-time is within 6hrs of now,
+          #       we can assume it's the same "day" and cd into the existing directory.
+          ct ~/tmp
+        fi
+      }
+
+      # HACK to support `git work NEW_DIR`: in order for this to `cd` into NEW_DIR, it has to run
+      # as a shell function -- not a subprocess.
+      function git() {
+        if [[ "$1" == "work" ]]; then
+          local name="$2"
+          command git worktree add "$name" && cd "$name"
+        else
+          command git "$@"
+        fi
       }
     '';
 

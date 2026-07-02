@@ -9,7 +9,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nanogpt-data";
-  version = "0-unstable-2026-06-23";
+  version = "0-unstable-2026-07-01";
 
   src = lib.fileset.toSource {
     root = ./.; fileset = ./models.json;
@@ -41,13 +41,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           gnused
           nanogpt-api
         ];
-        runtimeEnv.PACKAGE_DIR = "/home/colin/nixos/pkgs/by-name/nanogpt-data";
         text = ''
-          nanogpt-api models > $PACKAGE_DIR/models.json
+          SELF_PATH=$(nix-instantiate --raw --eval -A "$UPDATE_NIX_ATTR_PATH".meta.position)
+          PACKAGE_DIR=$(dirname "$SELF_PATH")
+          nanogpt-api models > "$PACKAGE_DIR/models.json"
           now=$(date +'%Y-%m-%d')
           slug=0-unstable-
           sed 's/version = "'"$slug"'.*";/version = "'"$slug$now"'";/' \
-            -i $PACKAGE_DIR/package.nix
+            -i "$PACKAGE_DIR/package.nix"
         '';
       }))]
     ];

@@ -67,6 +67,7 @@ in
       #
       "ausyscall"
       "bandwhich"  # network/bandwidth monitor
+      "binwalk"
       "bridge-utils"  # for brctl; debug linux "bridge" inet devices
       "btrfs-progs"
       "cacert.unbundled"  # some services require unbundled /etc/ssl/certs
@@ -119,6 +120,7 @@ in
       "nvme-cli"  # nvme
       "openssl"
       "page"
+      "parallel"
       "parted"
       "pciutils"
       "picocom"  # serial TTY
@@ -1041,10 +1043,14 @@ in
     ]);
     python3-repl.sandbox.net = "clearnet";
     python3-repl.sandbox.autodetectCliPaths = "existing";  #< for invoking scripts like `python3 ./my-script.py`
-    python3-repl.sandbox.extraHomePaths = [
-      "/"  #< this is 'safe' because we don't expose .persist/private, so no .ssh/id_ed25519
-      ".persist/plaintext"
+    python3-repl.sandbox.whitelistPwd = true;  #< way more convenient
+    python3-repl.sandbox.extraPaths = [
+      "/tmp"  #< mostly just for pi-coding-agent... i can maybe find something better someday
     ];
+    # python3-repl.sandbox.extraHomePaths = [
+    #   "/"  #< this is 'safe' because we don't expose .persist/private, so no .ssh/id_ed25519
+    #   ".persist/plaintext"
+    # ];
 
     qemu.sandbox.enable = false;  #< it's a launcher
     qemu.buildCost = 2;

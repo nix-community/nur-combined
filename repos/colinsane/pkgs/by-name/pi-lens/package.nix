@@ -6,13 +6,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-lens";
-  version = "3.8.61";
+  version = "3.8.62";
 
   src = fetchFromGitHub {
     owner = "apmantza";
     repo = "pi-lens";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-++BOHPAR4oOP7BhpF2IlRdpE03p0YvZ6RyBl2wAVX+Y=";
+    hash = "sha256-LuCR2m6tqlEiylslGzd3Fcnis9Il4zFBSIM9hUmGB1k=";
     postFetch = ''
       substituteInPlace $out/package.json \
         --replace-fail '"tree-sitter-wasms": "npm:null@^0.11.0",'  "" \

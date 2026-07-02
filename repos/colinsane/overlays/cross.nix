@@ -617,6 +617,13 @@ in with final; {
   #   ;
   # });
 
+  opencv = prev.opencv.override {
+    # fails to link against reference blas implementation, only openblas (currently broken)
+    enableBlas = false;
+    # `pkgsCross.aarch64-multiplatform.openblas` fails, but the "reference" implementation does compile.
+    # blas = final.blas.override { blasProvider = final.lapack-reference; };
+  };
+
   # 2025/07/27: upstreaming is blocked on gnome-session (itself blocked on gnome-shell)
   # phosh = prev.phosh.overrideAttrs (upstream: {
   #   buildInputs = upstream.buildInputs ++ [

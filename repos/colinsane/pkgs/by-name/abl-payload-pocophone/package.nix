@@ -20,24 +20,19 @@ runCommand "ablPayloadPocophone" {
 } ''
   cp ${ubootPocophone}/{u-boot-nodtb.bin,u-boot.dtb} .
 
-  gzip u-boot-nodtb.bin
-  cat u-boot-nodtb.bin.gz u-boot.dtb > u-boot.bin.gz-dtb
+  gzip -9 u-boot-nodtb.bin
 
+  # Boot image header v2, as supported by ABL on SDM845 (Pocophone F1).
+  # See doc/board/qualcomm/board.rst in U-Boot.
   mkbootimg \
-    --kernel_offset 0x00008000 \
     --pagesize 4096 \
-    --kernel u-boot.bin.gz-dtb \
-    -o boot.img
-
-  # if ABL supports boot image version 2, then we don't need the `cat` parts above
-  # mkbootimg \
-  #   --pagesize 4096\
-  #   --header_version 2 \
-  #   --kernel_offset 0x00008000 \
-  #   --kernel u-boot-nodtb.bin.gz \
-  #   --dtb_offset 0x01f00000 \
-  #   --dtb u-boot.dtb \
-  #   --output boot.img
+    --header_version 2 \
+    --base 0x80000000 \
+    --kernel_offset 0x00008000 \
+    --kernel u-boot-nodtb.bin.gz \
+    --dtb_offset 0x01f00000 \
+    --dtb u-boot.dtb \
+    --output boot.img
 
   install boot.img $out
 ''

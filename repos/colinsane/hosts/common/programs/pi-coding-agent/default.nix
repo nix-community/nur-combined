@@ -21,6 +21,7 @@
 
 { config, lib, pkgs, ... }:
 let
+  cfg = config.sane.programs.pi-coding-agent.config;
   deskoHostname = config.sane.hosts.by-name.desko.wg-home.ip;
   llamaCppModels = pkgs.llama-cpp-models.models;
   llamaCppModelList = builtins.attrValues llamaCppModels;
@@ -65,7 +66,7 @@ let
       #     "regex_search"
       #   ];
       # };
-      coderag = {
+      coderag = lib.optionalAttrs cfg.coderag {
         command = "coderag";
         args = [ "mcp" ];
         directTools = [
@@ -99,12 +100,19 @@ let
       # };
       playwright = {
         command = "playwright-mcp";
-        # directTools = false;
         args = [
           # from <repo:NixOS/nixpkgs:pkgs/by-name/pl/playwright-mcp/package.nix>
           "--headless"
           "--isolated"
           "--output-dir"  "/tmp"
+        ];
+        directTools = [
+          # models don't know to load the playwright MCP unless aggressively prompted;
+          # after loading the MCP, they gravitate toward this sequence:
+          # 1. browser_navigate  to some page
+          # 2. browser_evaluate  to extract the desired content
+          "browser_navigate"
+          "browser_evaluate"
         ];
       };
       search = {
@@ -131,6 +139,18 @@ let
 in
 {
   sane.programs.pi-coding-agent = {
+    configOption = with lib; mkOption {
+      default = {};
+      type = types.submodule {
+        options = {
+          coderag = mkOption {
+            type = types.bool;
+            default = true;
+          };
+        };
+      };
+    };
+
     packageUnwrapped = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
       nativeBuildInputs = prevAttrs.nativeBuildInputs or [] ++ [
         pkgs.makeWrapper
@@ -162,7 +182,6 @@ in
       # "agent-lsp"
       # "ck"
       # "cocoindex-code"
-      "coderag"
       "ha-mcp"
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
@@ -174,9 +193,11 @@ in
       # "nanogpt-mcp"
       "nix-prefetch-git"  # agents make use of this
       # "pandoc"  # for pi-markdown-preview
-      "pi-lens"
+      # "pi-lens"
       "playwright-mcp"
       # "serena"
+    ] ++ lib.optionals cfg.coderag [
+      "coderag"
     ];
 
     sandbox.net = "clearnet";
@@ -191,7 +212,7 @@ in
       # ".config/mcpls"
       ".config/nanogpt/nanogpt_api_key"
       ".config/pi"
-      ".pi-lens"
+      # ".pi-lens"
       # ".pi"  #< default for if my `PI_CODING_AGENT_DIR` override doesn't take everywhere
       # for convenience
       "dev"
@@ -225,7 +246,8 @@ in
       # defaultProvider = "nano-gpt";
       # defaultModel = llamaCppModels.gemma-4-26b-a4b-it-qat-ud-q4_k_xl.id;
       # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id;
-      defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id;
+      # defaultModel = llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id;
+      defaultModel = llamaCppModels.qwen-agentworld-35b-a3b-ud-iq3_s.id;
       defaultProvider = "llama-cpp";
       defaultThinkingLevel = "medium";
       enableInstallTelemetry = false;
@@ -235,9 +257,10 @@ in
         # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        pkgs.pi-cwd
         pkgs.pi-goal  #< adds `/goal` slash command
         # pkgs.pi-kagi  #< adds `web_search` tool
-        pkgs.pi-lens
+        # pkgs.pi-lens  #< adds LSP support, but also a lot of tool noise
         pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
         # pkgs.pi-md-export  #< adds `/md` slash command
         # pkgs.pi-move-session  #< adds `/move-session` slash command
@@ -268,12 +291,12 @@ in
         "moonshotai/kimi-latest"
         "deepseek/deepseek-latest"
         "zai-org/glm-latest"
-        "x-ai/grok-latest"
+        # "x-ai/grok-latest"
         "openai/gpt-5.5"
         "openai/gpt-chat-latest"
         "google/gemini-pro-latest"
         "anthropic/claude-opus-latest"
-        "mercury-2"
+        # "mercury-2"
         # "google/gemini-flash-latest"
         # "moonshotai/kimi-latest"
         # "openai/gpt-oss-120b"
@@ -363,13 +386,14 @@ in
       You are an expert coding assistant operating inside pi, a coding agent harness, within a NixOS system. You help users by reading files, executing commands, editing code, and writing new files. You drive requested tasks to completion without stopping for guidance except when truly stuck.
 
       Guidelines:
-      - Use bash for operations like ls, rg, find, curl
       - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
       - Prefer minimal changes
+      - Before making a change, search the codebase for similar files to reference, and follow existing conventions
       - When working with 3rd-party repositories check a project's pull requests and issue tracker before making code-level changes
-      - Always verify your work by building relevant targets, invoking tests, or invoking the actual code in a non-destructive manner (e.g. dry-run)
+      - Always verify your work by building relevant targets, invoking tests, or executing the actual code in a non-destructive manner (e.g. dry-run)
       - Be concise in your responses and comments
-      - NEVER modify system or user config files without explicit consent (e.g. no `git config set`)
+      - Do NOT modify system or user config files without explicit consent (no `git config set`, etc)
+      - Do NOT remove files from the nix store without explicit consent (no `nix-collect-garbage`, `nix-store --delete`, etc)
 
       Things to know about this environment:
       - ~/ref/repos contains several hundred git checkouts organized by $owner/$repo: consult these first when looking for third-party sources. When cloning public repos, place them in this directory rather than a temporary directory, and follow existing name conventions. Always perform full clones -- disk space is cheap.
@@ -387,6 +411,7 @@ in
     # - Prefer rg over grep as it honors files such as .gitignore
     # - Use `kagi-ken-cli search` (from bash) for web searches
     # - `kagi-ken-cli "my search phrase"` -> search the web (json response)
+    # - Use bash for operations like ls, rg, find, curl
     #
     # Available tools:
     # - read: Read file contents

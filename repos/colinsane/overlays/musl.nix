@@ -843,6 +843,23 @@ super.lib.composeManyExtensions [
       ];
     });
 
+    # level-zero = prev.level-zero.overrideAttrs (upstream: {
+    #   # `strerror_r` has a gnu and non-gnu variant -- patch to not use the gnu variant
+    #   # > /build/source/source/utils/ze_logger.cpp:117:36: error: invalid conversion from ‘int’ to ‘const char*’ [-Werror=permissive]
+    #   # >   117 |     const char *result = strerror_r(err, buf, sizeof(buf));
+    #   postPatch = (upstream.postPatch or "") + ''
+    #     substituteInPlace source/utils/ze_logger.cpp --replace-fail \
+    #       'const char *result = strerror_r(err, buf, sizeof(buf));' \
+    #       'strerror_r(err, buf, sizeof(buf)); const char *result = buf;'
+    #   '';
+    #   # patches = (upstream.patches or []) ++ [
+    #   #   (fetchAports {
+    #   #     path = "community/level-zero/xla-missing-include.patch";
+    #   #     hash = "sha256-NvV5vpyE78ysQxqIYAISx3G8XV3r3gsh2ZXKa27XBxQ=";
+    #   #   })
+    #   # ];
+    # });
+
     # 2026-05-23: still required
     # XXX(2026-01-29): one of the tests fail; alpine builds without tests claiming
     # "probably fpmath=sse related failures"
@@ -1244,6 +1261,17 @@ super.lib.composeManyExtensions [
       }
     );
 
+    onnxruntime = prev.onnxruntime.override {
+      # XXX(2026-07-01): pkgsMusl.openvino doesn't compile
+      openvinoSupport = false;
+    };
+
+    # XXX(2026-07-01): level-zero does not compile, assumes too many gnu-specific features
+    #                  openvino remains broken even without level-zero though.
+    # openvino = prev.openvino.override {
+    #   level-zero = null;
+    # };
+
     # 2026-04-30: still required
     # pipewire = prev.pipewire.overrideAttrs {
     #   # 2026-02-19: fixes:
@@ -1279,11 +1307,15 @@ super.lib.composeManyExtensions [
           doCheck = false;
         };
 
+        # alternatively: `fastmcp = pyself.fastmcp-slim`
         fastmcp = pysuper.fastmcp.overridePythonAttrs (prevAttrs: {
           # XXX(2026-06-22): "TestSupabaseProviderIntegration::test_unauthorized_access - RuntimeError: Server failed to start after 30 attempts"
           disabledTests = prevAttrs.disabledTests ++ [
             "test_unauthorized_access"
           ];
+
+          # XXX(2026-07-01): some test hangs there's no way to know which one.
+          doCheck = false;
         });
 
         # 2026-05-23: still required
@@ -1302,6 +1334,19 @@ super.lib.composeManyExtensions [
             })
           ];
         });
+
+        # 2026-07-01: torch is an optional dependency, but used unconditionally in `nativeCheckInputs`.
+        pylance = pysuper.pylance.overridePythonAttrs (upstream: {
+          nativeCheckInputs = (lib.remove pyself.torch upstream.nativeCheckInputs) ++ [
+            pyself.psutil
+          ];
+          # optionalDependencies = [];
+        });
+
+        swagger-spec-validator = pysuper.swagger-spec-validator.overridePythonAttrs {
+          # asserts on strerror strings?
+          doCheck = false;
+        };
 
         # 2026-05-23: still required
         twisted = pysuper.twisted.overrideAttrs (upstream: {

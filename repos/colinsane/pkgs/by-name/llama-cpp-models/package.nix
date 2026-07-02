@@ -41,9 +41,10 @@ let
       # nemotron-3-nano-4b
       # nemotron-3-nano-30b-a3b
       # omnicoder-9b
+      ornith-1_0-35b-q4_k_m
       qwen-agentworld-35b-a3b-ud-iq2_m
-      qwen-agentworld-35b-a3b-ud-iq3_s
-      qwen-agentworld-35b-a3b-iq4_nl
+      qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
+      # qwen-agentworld-35b-a3b-iq4_nl
       # qwen3_5-35b-a3b-q4_k_m
       qwen3_5-9b-q4_k_m
       # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_s

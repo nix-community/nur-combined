@@ -64,8 +64,8 @@ in
       alias.shoe    = "show";  # common typo
       alias.st      = "status";
       alias.stat    = "status";
-      alias.unstage = "reset HEAD^";
-      alias.work    = "!git worktree add $1 && cd";
+      alias.unstage = "restore --staged :/";
+      alias.work    = "!f() { git worktree add \"$1\" && cd \"$1\"; }; f";
 
       cinnabar.check = "no-version-check";  #< git-cinnabar: don't check for new release every invocation :(
 

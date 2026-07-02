@@ -4,9 +4,9 @@ let
 in
 {
   sane.programs.nix = {
-    # packageUnwrapped = pkgs.lix;
+    packageUnwrapped = pkgs.lix;
     # pin lix 2.95.0 because of its awesome `log-format` option, but not *strictly* required.
-    packageUnwrapped = lib.warnIf (lib.versionOlder "2.95.0" pkgs.lix.version) "stable lix >= 2.95.0: remove `latest.lix` override?" pkgs.lixPackageSets.latest.lix;
+    # packageUnwrapped = lib.warnIf (lib.versionOlder "2.95.0" pkgs.lix.version) "stable lix >= 2.95.0: remove `latest.lix` override?" pkgs.lixPackageSets.latest.lix;
     # packageUnwrapped = pkgs.nixVersions.latest; #< XXX(2025-03-17): sometimes `nixVersions.latest` fails to eval T_T
     # packageUnwrapped = pkgs.nix.overrideAttrs (_: {
     #   # ship debug info, used by gdb (/run/current-system/sw/lib/debug)

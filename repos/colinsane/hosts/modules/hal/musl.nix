@@ -36,8 +36,10 @@ in
     # sane.programs.alsa-utils.enableFor = { system = false; user.colin = false; };  #< 2026-01-24: blocked on gtk4 -> ... -> gdb,netpbm,...
     # sane.programs.audacity.enableFor.user.colin = false;  #< 2026-02-03: "/build/source/libraries/lib-sqlite-helpers/sqlite/Statement.h:55:4: error: ‘int64_t’ does not name a type"
     sane.programs.avahi.enableFor.user.colin = false;  #< 2026-01-25: causes `nss-mdns` to be on nssModules; not supported. long-term: enable mdns via a dns proxy -- not nss
+    sane.programs.binwalk.enableFor = { system = false; user.colin = false; };  #< 2026-07-01: blocked on sleuthkit
     sane.programs.brave.enableFor.user.colin = false;  #< 2026-01-29: links against libgcc_s.so.1, etc: lots of undefined symbols during installCheckPhase
     sane.programs.celeste64.enableFor.user.colin = false;  #< 2026-01-26 - 2026-05-23: blocked on dotnet-sdk
+    # sane.programs.ck.enableFor = { system = false; user.colin = false; };  #< 2026-07-01: level-zero
     sane.programs.ctags-lsp.enableFor = { system = false; user.colin = false; };  #< 2026-02-26 - 2026-05-23: blocked on universal-ctags ("Failed tests ... sandbox*")
     # sane.programs.discord.enableFor.user.colin = false; #< 2026-01-29: links against libc.so.6, etc.
     sane.programs.docsets.enableFor = { system = false; user.colin = false; }; #< 2026-01-24: fails building `nix-expr`
