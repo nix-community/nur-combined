@@ -22,5 +22,12 @@ args@{
 
       terracottaBundleJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/TerracottaBundle.java";
       macOSProviderJava = "${source-src.src}/HMCL/src/main/java/org/jackhuang/hmcl/terracotta/provider/MacOSProvider.java";
+
+      patches = [
+        (nixpkgs.replaceVars ./0001-nix-use-terracotta-from-nix.patch {
+          TERRACOTTA_BIN = lib.getExe nixpkgs.terracotta;
+        })
+        ./0002-nix-skip-terracotta-existence-check-on-darwin.patch
+      ];
     }
   )
