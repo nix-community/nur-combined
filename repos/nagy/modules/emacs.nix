@@ -7,7 +7,14 @@
 }:
 
 let
-  inherit (lib.types) listOf path;
+  inherit (lib.types)
+    listOf
+    attrsOf
+    path
+    functionTo
+    anything
+    package
+    ;
   cfg = config.nagy.emacs;
   emacs = if config.services.xserver.enable then pkgs.emacs31-gtk3 else pkgs.emacs31-nox;
   emacsPackages = pkgs.emacsPackagesFor emacs;
@@ -93,16 +100,7 @@ let
           allowSubstitutes = false;
         };
       }
-      // (lib.optionalAttrs (lib.pathExists ~/emacs-map-extras) {
-        map-extras = import ~/emacs-map-extras {
-          emacsPackages = self;
-        };
-      })
-      // (lib.optionalAttrs (lib.pathExists ~/ox-typst) {
-        ox-typst = super.ox-typst.overrideAttrs ({
-          src = lib.cleanSource ~/ox-typst;
-        });
-      })
+      // (builtins.mapAttrs (_name: f: f self super) cfg.extraOverrides)
     )
   );
   mkDirectoryPackagesValues =
@@ -115,10 +113,46 @@ let
 in
 {
   options.nagy.emacs = {
+
     packageDirectories = lib.mkOption {
       type = listOf path;
       default = [ ];
     };
+
+    extraOverrides = lib.mkOption {
+      type = attrsOf anything;
+      default = { };
+      example = lib.literalExpression ''
+        {
+          magit = self: super: super.magit.overrideAttrs (old: {
+            src = pkgs.fetchFromGitHub { ... };
+          });
+          foo-package = self: super: import ~/foo-package {
+            emacsPackages = self;
+          };
+        }
+      '';
+      description = ''
+        Extra Emacs package overrides.  Each value is a function
+        `self: super: derivation`.  Merges across modules.
+      '';
+    };
+
+    extraPackages = lib.mkOption {
+      type = functionTo (listOf package);
+      default = epkgs: [ ];
+      example = lib.literalExpression ''
+        epkgs: [
+          epkgs.magit
+          (epkgs.callPackage ./my-local-pkg { })
+        ]
+      '';
+      description = ''
+        Extra Emacs packages.  Receives `epkgs`, returns a list of
+        derivations.  Lists from multiple modules are concatenated.
+      '';
+    };
+
   };
 
   config = {
@@ -131,9 +165,8 @@ in
         epkgs:
         [
           epkgs.treesit-grammars.with-all-grammars
-          epkgs.elisp-autofmt
-          epkgs.indent-bars
         ]
+        ++ (cfg.extraPackages epkgs)
         ++ (mkDirectoryPackagesValues cfg.packageDirectories epkgs)
       ))
       # perl # needed for magit cherry spinout
@@ -141,7 +174,7 @@ in
 
     # # # to allow "malloc-trim" to trim memory of emacs.
     # # # somehow it seems to work without this now.
-    # (malloc-trim 0) returns nil without this. It should ratheer return t.
+    # (malloc-trim 0) returns nil without this. It should rather return t.
     # boot.kernel.sysctl."kernel.yama.ptrace_scope" = lib.mkForce 0;
     # at runtime: sudo sysctl -w kernel.yama.ptrace_scope=0
 

@@ -5,6 +5,12 @@
 }:
 
 let
+  nixpaths = builtins.listToAttrs (
+    builtins.map (x: {
+      name = x.prefix;
+      value = x.path;
+    }) builtins.nixPath
+  );
   self = import ../.. { inherit pkgs; };
   specialArgs = {
     nur = import <nur> {
@@ -75,15 +81,16 @@ let
             # nur.repos.nagy.modules.wasm
             nur.repos.nagy.modules.xcompose
             nur.repos.nagy.modules.yggdrasil
-          ];
+          ]
+          ++ (lib.optionals (nixpaths ? "local-module") [
+            <local-module>
+          ]);
 
           environment.systemPackages = [
             pkgs.sqlite-interactive
             pkgs.duf
             pkgs.squashfsTools
             pkgs.qsv
-            pkgs.ytt
-            pkgs.yamllint
             pkgs.crane.out # whould not select the "crane" output
 
             pkgs.sops
