@@ -1,0 +1,3 @@
+{
+  torrserver = ./torrserver.nix;
+}

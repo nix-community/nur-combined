@@ -8,6 +8,6 @@
 
   torrserver = pkgs.callPackage ./pkgs/torrserver { };
 
-  nixosModules.torrserver = ./modules/torrserver/nixos.nix;
-  homeModules.torrserver = ./modules/torrserver/home-manager.nix;
+  nixosModules = import ./modules;
+  homeModules = import ./hm-modules;
 }

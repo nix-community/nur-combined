@@ -1,0 +1,42 @@
+name: Update srslist hash
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'
+  workflow_dispatch:
+
+jobs:
+  update-hash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cachix/install-nix-action@v30
+      - name: Update hash if changed
+        id: check
+        run: |
+          curl -sL "https://raw.githubusercontent.com/throneproj/routeprofiles/rule-set/srslist.h" -o /tmp/srslist.h
+          NEW_HASH=$(nix hash file --type sha256 --sri /tmp/srslist.h)
+          CURRENT_HASH=$(sed -n 's/.*hash = "\([^"]*\)".*/\1/p' pkgs/throne/default.nix | head -1)
+          if [ "$CURRENT_HASH" != "$NEW_HASH" ]; then
+            sed -i "s@hash = \"${CURRENT_HASH}\"@hash = \"${NEW_HASH}\"@" pkgs/throne/default.nix
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Create PR
+        id: pr
+        if: steps.check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "throne: update srslist.h hash"
+          title: "throne: update srslist.h hash"
+          body: "Automated hash update for srslist.h"
+          branch: "auto/update-srslist-hash"
+          delete-branch: true
+      - name: Auto merge PR
+        if: steps.pr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge --squash --delete-branch "${{ steps.pr.outputs.pull-request-number }}"
