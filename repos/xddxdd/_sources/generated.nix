@@ -185,10 +185,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.6.0";
+    version = "1.6.2";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.0.tar.gz";
-      hash = "sha256-Ie85gIPU8flu34k4Ys6OwsL7eFO+xwPp+Zxi0W/My04=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.2.tar.gz";
+      hash = "sha256-fpfTG3m5lV+nWDbN6zQS7aFMgpcd/NaKGWM6wR3Mrek=";
     };
   };
   bilibili = {
@@ -221,12 +221,12 @@
   };
   bird-lg-go = {
     pname = "bird-lg-go";
-    version = "v1.4.5";
+    version = "v1.4.7";
     src = fetchFromGitHub {
       owner = "xddxdd";
       repo = "bird-lg-go";
-      tag = "v1.4.5";
-      hash = "sha256-xKDpaGnMv8e2OKV3547d7Jsq3VFNwayhCL2dGKVYSZM=";
+      tag = "v1.4.7";
+      hash = "sha256-Ca+wMiIMcknqhn+p8Cb00ibvsrsFXyFxvGhqOWrzZcA=";
     };
   };
   boringssl-oqs = {
@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
+      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
     };
   };
   buname = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.41";
+    version = "v7.2.49";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.41";
-      hash = "sha256-gITOSR3GJjWtESl+OS+aLSUx7asqF76ntxzw9agZGQA=";
+      tag = "v7.2.49";
+      hash = "sha256-WYBDm0fCs2q08BFSRSnzhggSQj5lgc44GZAfILMY6WQ=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.40.8";
+    version = "0.40.17";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.40.8.tgz";
-      hash = "sha256-hcjwWPTX7mfvU0q18Vissblp10jv0KlaZH9xRxnzaxk=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.40.17.tgz";
+      hash = "sha256-7XP43YTXBWiaSF4oFVL0AGJJFDOrTR3ltUxjotLOYHw=";
     };
   };
   comp128 = {
@@ -488,26 +488,26 @@
   };
   dbip-asn-lite = {
     pname = "dbip-asn-lite";
-    version = "2026-06";
+    version = "2026-07";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-06.mmdb.gz";
-      hash = "sha256-0atjAs5hTACcd1UtTYJtx6FihJTtpfjFD6vYHvIl8VM=";
+      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-07.mmdb.gz";
+      hash = "sha256-n11OaNTXgmyErZLgOqiGqzoDVHb9tctRJUxpfstkAzo=";
     };
   };
   dbip-city-lite = {
     pname = "dbip-city-lite";
-    version = "2026-06";
+    version = "2026-07";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-city-lite-2026-06.mmdb.gz";
-      hash = "sha256-Z4XvHbbLDQl5vPQ3oGvqjxpHKeBQhF5TBgS9rFh4HMs=";
+      url = "https://download.db-ip.com/free/dbip-city-lite-2026-07.mmdb.gz";
+      hash = "sha256-CMPla7LzmULVvCPCgQbU5Os51L7AB3XAdpRwLDGC9t8=";
     };
   };
   dbip-country-lite = {
     pname = "dbip-country-lite";
-    version = "2026-06";
+    version = "2026-07";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-country-lite-2026-06.mmdb.gz";
-      hash = "sha256-JcpMtv9VTRLHVe6hj2KlbPsWRuVpKYMQ9zlXX7QxkWA=";
+      url = "https://download.db-ip.com/free/dbip-country-lite-2026-07.mmdb.gz";
+      hash = "sha256-mJxXqa0cHJMDLiisxkOv3wNZfqKEgFIPbxx26mQgUH8=";
     };
   };
   decluttarr = {
@@ -871,37 +871,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "2499159c62f65274ce958a449f538794a04c01f8";
+    version = "f9937385517cccaa8cd780b61c8b404c701c1d44";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "2499159c62f65274ce958a449f538794a04c01f8";
-      hash = "sha256-Hv9XQPwhPDzm5S4S8CwVdV+I6jUrfGPL3nV8jbaWJRA=";
+      rev = "f9937385517cccaa8cd780b61c8b404c701c1d44";
+      hash = "sha256-Kq6OR7TaSqNEHlQY6cSoIoShBsR+17BIijLgFIxJotE=";
     };
-    date = "2026-06-25";
+    date = "2026-06-30";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.06.25";
+    version = "2026.07.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.25/GeoLite2-ASN.mmdb";
-      hash = "sha256-vVN9WE23C1BR9NlI5qWI1WLMxBG/YplGKHYBIy4QtA4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-ASN.mmdb";
+      hash = "sha256-TDvMkr4YBLHaPhcGsECHfqHVmr91cY8myuRZGJnsU50=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.06.25";
+    version = "2026.07.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.25/GeoLite2-City.mmdb";
-      hash = "sha256-eZNHdpqeOs+gIsUwx3M9xcYOru2hqvVyHPHcOqsNiVo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-City.mmdb";
+      hash = "sha256-2IzQLS2Oti+7tJ2gxGpEQG6Bgpa13Fh7szk5ZNG70kY=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.06.25";
+    version = "2026.07.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.25/GeoLite2-Country.mmdb";
-      hash = "sha256-FSL697X2qWw6ASi8qBO9SwriTc446dN6zf8O+qdfzdk=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-Country.mmdb";
+      hash = "sha256-lA/GZ2wFONB4DVT/u02W2zNCMpBnBL37VE1SKJI/10s=";
     };
   };
   glauth = {
@@ -1062,12 +1062,12 @@
   };
   imewlconverter = {
     pname = "imewlconverter";
-    version = "v3.4.2";
+    version = "v3.4.3";
     src = fetchFromGitHub {
       owner = "studyzy";
       repo = "imewlconverter";
-      tag = "v3.4.2";
-      hash = "sha256-tL58ybJbGLoEjIQ4ETUqW5EPVvFliGwNig0fw1p+OS4=";
+      tag = "v3.4.3";
+      hash = "sha256-gnvq7yuevjL5vZLA4WdStWLE8kq5pBb4dvuWmqJ4+Lg=";
     };
   };
   inter-knot = {
@@ -1240,14 +1240,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "aa294f56bd3bb902c8986202ce37a42e9f0f18cf";
+    version = "b5df1810314b69ac6a2e59712701be73c5081f9d";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "aa294f56bd3bb902c8986202ce37a42e9f0f18cf";
-      hash = "sha256-87sBLMh420AnwdNcP7E0kXzYfGlY4GCuzFwKMgUgKhM=";
+      rev = "b5df1810314b69ac6a2e59712701be73c5081f9d";
+      hash = "sha256-F7VoKh6uaEi9HQW5tLaKUin7w/kyj/AnO0roWvcDGKo=";
     };
-    date = "2026-06-24";
+    date = "2026-06-30";
   };
   libqcef = {
     pname = "libqcef";
@@ -1284,18 +1284,18 @@
   };
   lightpanda-amd64 = {
     pname = "lightpanda-amd64";
-    version = "0.3.3";
+    version = "0.3.4";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.3/lightpanda-x86_64-linux";
-      hash = "sha256-tqthOEb1KRzGuv1/RP+5cY31G/AOuDlU4fxdf1LHuIY=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.4/lightpanda-x86_64-linux";
+      hash = "sha256-u88VtlHeRseNGz9WSJXnK+uNnYHFp/mwvQAEnCsxH24=";
     };
   };
   lightpanda-arm64 = {
     pname = "lightpanda-arm64";
-    version = "0.3.3";
+    version = "0.3.4";
     src = fetchurl {
-      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.3/lightpanda-aarch64-linux";
-      hash = "sha256-2zXAbuB0p5wuA5llxATleHSMHSLLKW6FNGGXDqDClF8=";
+      url = "https://github.com/lightpanda-io/browser/releases/download/0.3.4/lightpanda-aarch64-linux";
+      hash = "sha256-A0ng+VuME7mMDtOs4Xa7zsrs7EZ0qaLPrt1TeU9CYJQ=";
     };
   };
   linguaspark-core = {
@@ -1324,12 +1324,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9789";
+    version = "b9859";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9789";
-      hash = "sha256-wdlC0soVb3L+ooV7PlMt/MZhmWQbyxAVeUomkxufJck=";
+      tag = "b9859";
+      hash = "sha256-ecPtU/6kdUmJkzs1pVUV5hFLvQFnoLTTPlrm9NuoXzs=";
     };
   };
   loralib = {
@@ -1413,14 +1413,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "2c9f4d78601e2b223cacfed773a5c4cbb1808189";
+    version = "a6a7147e92907b2017027ae404b84101444ee502";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "2c9f4d78601e2b223cacfed773a5c4cbb1808189";
-      hash = "sha256-isQKurmKQavxGH/LnD2pXn+zbXUK+5KwMXwkT9TprPM=";
+      rev = "a6a7147e92907b2017027ae404b84101444ee502";
+      hash = "sha256-879YVJZ6jAoKfeLI/hX2BYEaCuRGVPWdBtA5edHvkS8=";
     };
-    date = "2026-06-09";
+    date = "2026-06-27";
   };
   n8n-openai-bridge = {
     pname = "n8n-openai-bridge";
@@ -1569,13 +1569,13 @@
   };
   nginx-oidc = {
     pname = "nginx-oidc";
-    version = "0.4.1";
+    version = "0.5.0";
     src = fetchFromGitHub {
       owner = "kjdev";
       repo = "nginx-oidc";
-      tag = "0.4.1";
+      tag = "0.5.0";
       fetchSubmodules = true;
-      hash = "sha256-Su9vRgORSSEGws/U6djqPqv73CrzqNAuemH++jKzCaM=";
+      hash = "sha256-NMLzaEjR5q1gx9DDa+yLY5NdOTaeoG94Yr8Kvk5BSEk=";
     };
   };
   ngx_brotli = {
@@ -1612,12 +1612,12 @@
   };
   nullfsvfs = {
     pname = "nullfsvfs";
-    version = "v0.26";
+    version = "v0.27";
     src = fetchFromGitHub {
       owner = "abbbi";
       repo = "nullfsvfs";
-      tag = "v0.26";
-      hash = "sha256-gEvkl8IKekuiQjY+TVaC72vJ310k2A/kXfR5mxdvPpc=";
+      tag = "v0.27";
+      hash = "sha256-BvixSZN9GqFS4llaiKHfkLb21+qG74YtyNb8bUP0jdU=";
     };
   };
   oci-arm-host-capacity = {
@@ -1752,10 +1752,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.14";
+    version = "9.3.15";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.14/PeerBanHelper_9.3.14.zip";
-      hash = "sha256-PvkhS+LsIykwJcrPORePm3yAQdOyqn0aFMDQvUHUK+w=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.15/PeerBanHelper_9.3.15.zip";
+      hash = "sha256-eM9fKizx5Jz222iGD3zsUR0gYPr0RO2mR0bCl5I14hQ=";
     };
   };
   phpmyadmin = {
@@ -1838,23 +1838,23 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "43689f7efee80a5009634258d292ded4dbb88b73";
+    version = "e771816d5e072b3f2a8b9383bfcaffaa8f569dfa";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "43689f7efee80a5009634258d292ded4dbb88b73";
-      hash = "sha256-pUrifWIT21RrGYgA+MYcYJtScZs9hVi8VbhP/lCfa38=";
+      rev = "e771816d5e072b3f2a8b9383bfcaffaa8f569dfa";
+      hash = "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=";
     };
-    date = "2026-06-22";
+    date = "2026-06-28";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
-    version = "v1.13.0";
+    version = "v1.13.1";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      tag = "v1.13.0";
-      hash = "sha256-xGDJ4nXekh6AwjAb44kkedEh0aLTcWNzv4IyGQGnDRg=";
+      tag = "v1.13.1";
+      hash = "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=";
     };
   };
   py-rcon = {
@@ -1921,20 +1921,20 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "11.0.1+ds-1";
+    version = "11.0.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.1+ds-1_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.2+ds-2_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-mph/ihgedZ9n0u6yeHaIoNu7VqR1WUsuS9H7QhJe2ws=";
+      hash = "sha256-IZM4xVU0+CiDhe8btsfOIIeqFLlI3cSpqNVuBAw/8ZM=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "11.0.1+ds-1";
+    version = "11.0.2+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.1+ds-1_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.2+ds-2_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-URa80vzKRA2fWldRFBh5LstCirKub97Iofkm22u9NmY=";
+      hash = "sha256-lmI3nbo4s2iYK3gMiTChlDCXEF8XcqVUVnOUhKxag/Y=";
     };
   };
   qemu-user-static-armhf = {
@@ -2106,14 +2106,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "08e559478d001a804ef64923526c1ffd2bbb25cb";
+    version = "6810e8916d160498620a16fef2135956fecbd485";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "08e559478d001a804ef64923526c1ffd2bbb25cb";
-      hash = "sha256-rhQ9c9cJ8rP8CM3eoZ+uZ03T6Fx75BZwhhDOLyg2acU=";
+      rev = "6810e8916d160498620a16fef2135956fecbd485";
+      hash = "sha256-HReBFYih39ohqZ2UAX6wPjjh0KuIauJPSOjk6ZXidss=";
     };
-    date = "2026-06-26";
+    date = "2026-06-27";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2164,23 +2164,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "a51332f675f9505cc7f3735017d0eb86386319a0";
+    version = "063efc60a778ac86c8728140710a5bddf32e8d34";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "a51332f675f9505cc7f3735017d0eb86386319a0";
-      hash = "sha256-n8dre8koytr9Vo/yxviwl8KGVAUqj4R/E2GQxCtaklI=";
+      rev = "063efc60a778ac86c8728140710a5bddf32e8d34";
+      hash = "sha256-rhZOUNfaNoUzDwA4sj6BVp04Jlwg0CVx/EkBKmf/gro=";
     };
-    date = "2026-06-24";
+    date = "2026-06-30";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr26.0.1.14";
+    version = "mr26.0.1.15";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr26.0.1.14";
-      hash = "sha256-5n/ypvnT1KG2ynFdVvplnnGmBAwlWqcTVKeqPlIAyi8=";
+      tag = "mr26.0.1.15";
+      hash = "sha256-Wf1RBsb3exYVAicIkX21ToAkuv9eZfIwRZrrjK4BeYQ=";
     };
   };
   runpod-python = {
@@ -2195,12 +2195,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.6.0";
+    version = "v2.6.1";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.6.0";
-      hash = "sha256-KOXjfUqQ7D/vnZzGGG0FTPoCDWq3PCvlg6OgHLCaWnE=";
+      tag = "v2.6.1";
+      hash = "sha256-hx0plQ5og4C6UY7r8RjYKo8LVk+WnWhtRErr0riNKbQ=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2297,10 +2297,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v2.2.2100";
+    version = "v2.3.2230";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.2.2100/Suwayomi-Server-v2.2.2100.jar";
-      hash = "sha256-PIEypDv6m5WbDI/b3PmqAb2AkEf/T7waSq4OtxMx8F4=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2230/Suwayomi-Server-v2.3.2230.jar";
+      hash = "sha256-eh8EM7T8YS+fXyqFssS7jUs1GkpKQmkJdJNg4hjquRg=";
     };
   };
   svp = {
@@ -2413,15 +2413,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "fee03afb7c9ab85a048342a70f75e7828907a0c3";
+    version = "eb5f3f9a925794175ed4f920e04ffa3802c9167d";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "fee03afb7c9ab85a048342a70f75e7828907a0c3";
+      rev = "eb5f3f9a925794175ed4f920e04ffa3802c9167d";
       fetchSubmodules = true;
-      hash = "sha256-mOG6qDdw53NE1UxuCA6KB5Iqn6644dTQisuNKZW74Cs=";
+      hash = "sha256-LN6b5yFXZd8tRfiEmTQxVzQIudLinidYXrEJA8yJ4Ro=";
     };
-    date = "2026-06-25";
+    date = "2026-07-01";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
