@@ -36,17 +36,17 @@
   };
   codestable = {
     pname = "codestable";
-    version = "f1862c7fe1989d45310b671533d827b8d59f54b4";
+    version = "cd7e1d33f0c754207fe7b575bcca8623abf479e2";
     src = fetchgit {
       url = "https://github.com/liuzhengdongfortest/CodeStable";
-      rev = "f1862c7fe1989d45310b671533d827b8d59f54b4";
+      rev = "cd7e1d33f0c754207fe7b575bcca8623abf479e2";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-sYdTTFVJY7a7khtGe9Xq6b9P8aFOW4WPWrmcTTkr1qo=";
+      sha256 = "sha256-M7NHQ3GfvJjp+/PmlquLw5wqrjD85w8YAE6PeppdOQk=";
     };
-    date = "2026-07-01";
+    date = "2026-07-02";
   };
   cowrie = {
     pname = "cowrie";
@@ -120,13 +120,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.33-linux-260623T022223Z";
+    version = "lts-v6.18.37-linux-260629T040856Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.33-linux-260623T022223Z";
+      rev = "lts-v6.18.37-linux-260629T040856Z";
       fetchSubmodules = false;
-      sha256 = "sha256-aqpBxvrCYg2qz9W1h1bBJZHcpdaWXDo7gw3ZW0nlIGM=";
+      sha256 = "sha256-vZNYWdy1Esn2pK5Uh/q99T7bjTlJ+Ut7QUkHhDBPopc=";
     };
   };
   linux-intel-mainline-tracking = {
