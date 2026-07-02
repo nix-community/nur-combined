@@ -672,6 +672,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       synctoolbox = callPackage ./pkgs/development/python-modules/synctoolbox { };
 
+      kobo-book-downloader = callPackage ./pkgs/development/python-modules/kobo-book-downloader { };
+
+      python-fontconfig = callPackage ./pkgs/development/python-modules/python-fontconfig { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -717,6 +721,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   reticulum-meshchatx = python3Packages.reticulum-meshchatx;
 
   binarize-pdf = python3Packages.binarize-pdf;
+
+  kobo-book-downloader = python3Packages.kobo-book-downloader;
 
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
@@ -1527,7 +1533,7 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   ffmpeg-malicious = callPackage ./pkgs/by-name/ff/ffmpeg-malicious/package.nix { };
 
-  kobo-book-downloader = python3.pkgs.callPackage ./pkgs/by-name/ko/kobo-book-downloader/package.nix { };
+  vobsub2srt = callPackage ./pkgs/by-name/vo/vobsub2srt/package.nix { };
 
 }
 

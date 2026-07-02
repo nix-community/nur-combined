@@ -9,11 +9,13 @@
 , python-fontconfig
 , tqdm
 , psutil
+, numpy
+, doxapy
 }:
 
 buildPythonApplication rec {
   pname = "archive-hocr-tools";
-  version = "1.1.67-4aaa85c";
+  version = "1.1.67-e2d3dc1";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -21,8 +23,8 @@ buildPythonApplication rec {
     repo = "archive-hocr-tools";
     # rev = version;
     # https://github.com/internetarchive/archive-hocr-tools/pull/23
-    rev = "4aaa85cb019563bfd29c2766a9130f5a79fa61b6";
-    hash = "sha256-CDNXYzTBVileqdtf1QSb5atrrKRRQpAjBfoT4cf/MHQ=";
+    rev = "e2d3dc1bb9aec92b72e6d7db8757af730626e009";
+    hash = "sha256-iFKtk+9wbLXO67pzowv5R87LZ3w8CuL95IwcscKY5Tc=";
   };
 
   nativeBuildInputs = [
@@ -36,6 +38,8 @@ buildPythonApplication rec {
     python-fontconfig
     tqdm
     psutil
+    numpy
+    doxapy
   ];
 
   pythonImportsCheck = [ "hocr" ];

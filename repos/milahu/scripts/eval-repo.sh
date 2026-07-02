@@ -188,10 +188,13 @@ echo "evaluating packages..."
 
 printf ">"; for x in "${a[@]}"; do printf " %q" "$x"; done; echo
 
+# dont use $HOME/.config/nixpkgs/config.nix
+empty_home=$(mktemp -d)
+
 # get eval time
 # NUR has eval timeout after 15 seconds
 time \
-packages_json=$("${a[@]}")
+packages_json=$(HOME=$empty_home "${a[@]}")
 
 rc=$?
 
