@@ -6,13 +6,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "md2";
-  version = "0.3.2";
+  version = "0.4.0";
 
   src = fetchFromGitHub {
     owner = "rapatao";
     repo = "md2";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-Lwa12VsVftujGslY03tSNvkKuYpD7/UYd2Mnaaqph24=";
+    hash = "sha256-BFhSoq/IDMEjeTj5+mR0Tn1cKMj3pfn19EjdGsx3rgo=";
   };
 
   vendorHash = "sha256-6ZFEs7zWAVFTJ08UPEt3cAw8VRiEOjbtEEByI7E4UaU=";
