@@ -28,14 +28,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260703";
+  version = "1.0.0-20260703-1";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "997ef95a2782babcf7de7235387f2957546070d9"; # No releases yet
+    rev = "ee4a07ce5b10518449bdf61e5178e24cd0032946"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-CHg87KUOTQg5y8ZBXmNC9mryQMzaVFUTCWW512SeWuk=";
+    hash = "sha256-GL1ZqU8CaIc3DF+BdR8oJsHL3G4q23HGoIl6YgkzQF4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
