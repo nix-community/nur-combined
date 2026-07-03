@@ -114,5 +114,10 @@ in
     config = {
       CONFIG_MODULES = "y";
     };
+    features = {
+      efiBootStub = true;
+      netfilterRPFilter = true;
+      ia32Emulation = true;
+    };
   };
 }
