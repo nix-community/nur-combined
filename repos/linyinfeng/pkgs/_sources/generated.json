@@ -629,7 +629,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2026-06-11",
+        "date": "2026-07-03",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -639,13 +639,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "18a80335c37522311f7cff02886cd81cec3b460a",
-            "sha256": "sha256-RDNE/zB4V4eGkGASk3lqAxhr4DceLkSKKirfgnb9OLg=",
+            "rev": "32f4a2cf3a3ab82d2a8a306eb843233de579b5c7",
+            "sha256": "sha256-sThCYmOwY9Ml+/+lwKZOmCPvdXCPfcHttTNUp0DzIrw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "18a80335c37522311f7cff02886cd81cec3b460a"
+        "version": "32f4a2cf3a3ab82d2a8a306eb843233de579b5c7"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
