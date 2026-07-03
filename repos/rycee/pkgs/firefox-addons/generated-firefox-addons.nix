@@ -1073,10 +1073,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.15";
+      version = "7.7.20";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4841898/betterttv-7.7.15.xpi";
-      sha256 = "d4515deb8a6d34299fd2ed581c82727e39ff949c49c4bcbd500f936528513cb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4877702/betterttv-7.7.20.xpi";
+      sha256 = "4ba8892101fb62482ec71727d7d081d7703200dd6acd38e99b55d30f370db359";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -1277,10 +1277,10 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.5.1";
+      version = "2026.6.1";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4842111/bitwarden_password_manager-2026.5.1.xpi";
-      sha256 = "d32f61f4fb95728ab450edabc88fe195400adfafab488ca949b5a355298f27b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875950/bitwarden_password_manager-2026.6.1.xpi";
+      sha256 = "7ba16c3d422ab287db17b014a4683bace36341e471e4d4fd58ac2b616c6ac17d";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -1684,10 +1684,10 @@
     };
     "cardpointers-x" = buildMozillaXpiAddon {
       pname = "cardpointers-x";
-      version = "7.3.8";
+      version = "7.3.9";
       addonId = "firefox@cardpointers.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4867391/cardpointers_x-7.3.8.xpi";
-      sha256 = "87ca15c27e3fabdc5015584f0431891e418dcc2629c44c7d9dae83cb20d3785a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4879753/cardpointers_x-7.3.9.xpi";
+      sha256 = "5cde5dc5f19444018cf5ddcb19518d37379aca2dd218f3c3b5d54ec3344b9a78";
       meta = with lib;
       {
         homepage = "https://cardpointers.com/";
@@ -2437,10 +2437,10 @@
     };
     "control-panel-for-youtube" = buildMozillaXpiAddon {
       pname = "control-panel-for-youtube";
-      version = "1.34.0";
+      version = "1.35.0";
       addonId = "control-panel-for-youtube@jbscript.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4816911/control_panel_for_youtube-1.34.0.xpi";
-      sha256 = "f603233ee49c20d6c6358ac33b00e3c0e5f807f001a3671e44527adda8524d3a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4872374/control_panel_for_youtube-1.35.0.xpi";
+      sha256 = "547bbee65c2ef22c3bf66e966a839d542528e9103d65d131dac5225155175452";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-youtube";
@@ -2645,10 +2645,10 @@
     };
     "copy-selected-tabs-to-clipboard" = buildMozillaXpiAddon {
       pname = "copy-selected-tabs-to-clipboard";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "copy-selected-tabs-to-clipboard@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875326/copy_selected_tabs_to_clipboar-1.7.0.xpi";
-      sha256 = "633eb6e01ee87ffe46fabe5da0b4a47d540b4e4fc0d5e014ad2289b7fe0895c5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4879176/copy_selected_tabs_to_clipboar-1.7.1.xpi";
+      sha256 = "581fc23ba003f9b2b22e4346e7b193168d57cd2ce6fbff05aecd6c55a5f73ab7";
       meta = with lib;
       {
         description = "Provides ability to copy title and URL of selected tabs to the clipboard.";
@@ -4292,10 +4292,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.1.99";
+      version = "6.2.0";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4829498/flagfox-6.1.99.xpi";
-      sha256 = "bf39e4c5e71cd7ee2afe02f069632964b5b8c4c08c31837e8c59a1013a5bca9c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4876559/flagfox-6.2.0.xpi";
+      sha256 = "eb2cb431f12a9c4c05c0167f3938197c4e30dc0aeb74bb6e2185a717bc58cb4e";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4753,10 +4753,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.5.49";
+      version = "10.5.50";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4864981/ghostery-10.5.49.xpi";
-      sha256 = "c0f7f06fc7ac73fd2013defe7a0f079d1ee6bac7c3100dfe9bb42e6607e7287a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875892/ghostery-10.5.50.xpi";
+      sha256 = "a0eee34792475f59869caa132d0e002b789187a9d603c6fe97e6d470d665bed1";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -6773,10 +6773,10 @@
     };
     "improved-tube" = buildMozillaXpiAddon {
       pname = "improved-tube";
-      version = "4.2028";
+      version = "4.2080";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4840171/youtube_addon-4.2028.xpi";
-      sha256 = "42128804e02c3472150099504aa62952805a06715b62fbb702dad6c79a699678";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875773/youtube_addon-4.2080.xpi";
+      sha256 = "9dad133bbd4dc220d5d883bb0689f6b5bc1804b4c4279adf728255b6b70497cf";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -8480,10 +8480,10 @@
     };
     "lingq-importer2" = buildMozillaXpiAddon {
       pname = "lingq-importer2";
-      version = "2.3.47";
+      version = "2.3.49";
       addonId = "{e84c7711-c738-409a-879d-3f20cb087563}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4836175/lingq_importer2-2.3.47.xpi";
-      sha256 = "c886a71b6ed5e5125d173384c81e8bf10884b8dfc129605b9a07ab354884d53b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4879202/lingq_importer2-2.3.49.xpi";
+      sha256 = "1a1498c1de8e6ade24abcfc2afd51ac1399cd36889071b26426fe6a540c5fb16";
       meta = with lib;
       {
         homepage = "https://www.lingq.com/";
@@ -9910,10 +9910,10 @@
     };
     "mergify" = buildMozillaXpiAddon {
       pname = "mergify";
-      version = "1.4.4";
+      version = "1.5.0";
       addonId = "d1b33d6a57c463f0daef4abfb625edddd1c2d5d9@mergify.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4864696/mergify-1.4.4.xpi";
-      sha256 = "be70850fb5e677fbd411cbdb5b7705bfbae5e86c2a2bb7f9413658fd6fc6b19c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4878490/mergify-1.5.0.xpi";
+      sha256 = "38ff30ea2962ba9cc98ae92d95a72f457c453db49439f3502710cbe3d33250ac";
       meta = with lib;
       {
         description = "Mergify extension for GitHub";
@@ -10204,10 +10204,10 @@
     };
     "multiple-tab-handler" = buildMozillaXpiAddon {
       pname = "multiple-tab-handler";
-      version = "3.2.2";
+      version = "3.2.3";
       addonId = "multipletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875391/multiple_tab_handler-3.2.2.xpi";
-      sha256 = "7393a9ed91913c4e4355276c655aa518fd3f5b9606c0dd7131641830b0a74641";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4879175/multiple_tab_handler-3.2.3.xpi";
+      sha256 = "7c5713b748cf5b13b93e1f36bd38290c43851e313a6eae40b527205ec40173ea";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_multipletab.html.en";
@@ -10632,10 +10632,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.25";
+      version = "13.6.26";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4863868/noscript-13.6.25.xpi";
-      sha256 = "ff48477f04f0c16249d3e68d2eab269d417667a3e6509a95142a3bb1c4726c03";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875290/noscript-13.6.26.xpi";
+      sha256 = "60ef601f87d9fa0745af5aa1d5132e96533afcbf89be9483b4803b4c82c707ee";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -10950,10 +10950,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.13";
+      version = "2.15";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4713960/onetab-2.13.xpi";
-      sha256 = "ba2e99b5e970cad7d9bbe42cf4468dccc3b1de555032bae367e9b1edc2b1ce9b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4876166/onetab-2.15.xpi";
+      sha256 = "2e4eb4227e04b686c909d68628753f56fe90fedd122b816e202c8de742c0be1b";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -12069,10 +12069,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.4.0";
+      version = "2.6.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4837922/private_grammar_checker_harper-2.4.0.xpi";
-      sha256 = "a30d7d5d5e538d9f3a6a82f9ffc5758366be7cd05e7c2e571774a0c28d174d38";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4879532/private_grammar_checker_harper-2.6.0.xpi";
+      sha256 = "52e145d9e018cb5e59de6e025fb413385ca4d3c04ee1ad315eb728032e101098";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
@@ -13318,10 +13318,10 @@
     };
     "save-all-images-webextension" = buildMozillaXpiAddon {
       pname = "save-all-images-webextension";
-      version = "0.8.5";
+      version = "0.8.6";
       addonId = "{32af1358-428a-446d-873e-5f8eb5f2a72e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4694656/save_all_images_webextension-0.8.5.xpi";
-      sha256 = "5df87c1884d4bb4dbd8bcdd73aef802c9dbb85d8feaf0e099744e7f7e657ba74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875074/save_all_images_webextension-0.8.6.xpi";
+      sha256 = "cf4f5b7ba628b32f37b35e7afd0621a674ea183bf0e292c3a02ec59e0bb2ab0d";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/save-images.html";
@@ -14129,10 +14129,10 @@
     };
     "sponsorblock" = buildMozillaXpiAddon {
       pname = "sponsorblock";
-      version = "6.1.5";
+      version = "6.1.6";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4773757/sponsorblock-6.1.5.xpi";
-      sha256 = "d8ec229aecb0b78e307a86d436496891b755f874c24c0f7324551c7ffd1b2e14";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4870235/sponsorblock-6.1.6.xpi";
+      sha256 = "ab8e4cc26e68070c3c6f379b253330b95677e2d25b52149580daa879cf9ba954";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -14353,10 +14353,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.3.34.30";
+      version = "2.4.2";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4854763/styl_us-2.3.34.30.xpi";
-      sha256 = "74040f0eb43327acc58a78604262768f46425a85d23c1a194a9815986ea38a4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4872003/styl_us-2.4.2.xpi";
+      sha256 = "becda1546a33346b457a5900b1ebc16a1da8902a47e8b2e92a9718b9c88a1d85";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -15282,10 +15282,10 @@
     };
     "tree-style-tab" = buildMozillaXpiAddon {
       pname = "tree-style-tab";
-      version = "4.3.4";
+      version = "4.3.5";
       addonId = "treestyletab@piro.sakura.ne.jp";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4781258/tree_style_tab-4.3.4.xpi";
-      sha256 = "c665f0bfdab104a3f28eba709f3437b8743667a2b3b67ba657f7403fe602d327";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4879897/tree_style_tab-4.3.5.xpi";
+      sha256 = "51aec7e3e0d8ed8a524006adde52d1f3c4dc1675d3e16b52b140218315a515be";
       meta = with lib;
       {
         homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
@@ -15804,10 +15804,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.71.0";
+      version = "1.72.0";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4814095/ublock_origin-1.71.0.xpi";
-      sha256 = "47f788a1fc2c014830b30bb0ef9588615701b98c5265fb19b8cf4ba779849feb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4872816/ublock_origin-1.72.0.xpi";
+      sha256 = "79cd426ab599801c59dfe9895cb4b8002faf3da059f7111c2721ac10168a3b64";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -16082,10 +16082,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.2.71.2";
+      version = "10.5.2.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4835863/video_downloadhelper-10.2.71.2.xpi";
-      sha256 = "fc9c82c9e861b557faa3d54b43e6ed7936bafb2704894083e4b75b2a6d53c7f4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875807/video_downloadhelper-10.5.2.2.xpi";
+      sha256 = "860b906d8b672bcda35d30752ca7274dd055372b254ebba0bcb313770a5d1935";
       meta = with lib;
       {
         homepage = "https://www.downloadhelper.net/";
