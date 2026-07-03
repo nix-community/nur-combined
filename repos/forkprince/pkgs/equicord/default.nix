@@ -8,13 +8,13 @@
   pnpm_10,
   ...
 }: let
-  version = "2026-07-02";
+  version = "2026-07-03";
 
   src = fetchFromGitHub {
     owner = "Equicord";
     repo = "Equicord";
     tag = version;
-    hash = "sha256-i1GiDWdSW+QdqAJchnAIh0mJOlApf5NXnX7wBf1j8cI=";
+    hash = "sha256-K6K3yWIWy797Amcw3tsumvbf/I8Bp4H7d0aEP0DNlok=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -22,7 +22,7 @@
     inherit version src;
     pnpm = pnpm_10;
     fetcherVersion = 3;
-    hash = "sha256-A7oOh0mqmvzG6+7ifOdKpLp8eOBX8fzXmuBdEQwYX9M=";
+    hash = "sha256-UiatcvcmMkegod1QGSyfKV3Gp/pP612pHEDmkgq6uS0=";
     prePnpmInstall = ''
       yq -yi '.patchedDependencies = {"@types/less@3.0.8": {"hash": "641e6c93bb737bac7fc283416857bd095cd85bcbcba63becb7a8bbcc78f73076", "path": "patches/@types__less@3.0.8.patch"}}' pnpm-lock.yaml
     '';
