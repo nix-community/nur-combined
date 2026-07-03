@@ -5,12 +5,12 @@
 }:
 stdenvNoCC.mkDerivation rec {
     pname = "super-sub-scripts";
-    version = "unstable-2025-06-25";
+    version = "unstable-2026-07-02";
 
     src = fetchFromGitHub {
         owner = "jpmvferreira";
         repo = "espanso-mega-pack";
-        rev = "abb8e9f8baaf3196e876f2c54b246e2fabe42947";
+        rev = "862cbeddfafa8b48a40f2c4d11e3a1bbae2c2e28";
         sparseCheckout = [ pname ];
         hash = "sha256-ltmRSm6U8emTIkh28JkoXGKRBwjrhNnJdOV52Xe4ars=";
     };
