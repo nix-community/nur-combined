@@ -5,7 +5,7 @@
 
   Personal Nix packages, modules, and plugin builds that I want available outside my main config.
 
-  [![CI](https://img.shields.io/github/actions/workflow/status/adam01110/nur/ci.yml?branch=main&style=flat-square&label=CI&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/ci.yml)
+  [![Checks](https://img.shields.io/github/actions/workflow/status/adam01110/nur/checks.yml?branch=main&style=flat-square&label=Checks&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/checks.yml)
   [![Build](https://img.shields.io/github/actions/workflow/status/adam01110/nur/build.yml?branch=main&style=flat-square&label=Build&labelColor=504945&color=cc241d)](https://github.com/adam01110/nur/actions/workflows/build.yml)
   [![Repo Size](https://img.shields.io/github/repo-size/adam01110/nur?style=flat-square&label=repo%20size&labelColor=504945&color=3c3836)](https://github.com/adam01110/nur)
   [![Cachix](https://img.shields.io/badge/cachix-adam01110--nur-689d6a?style=flat-square&labelColor=504945&color=689d6a)](https://adam01110-nur.cachix.org)
