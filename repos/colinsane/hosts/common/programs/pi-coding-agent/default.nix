@@ -34,6 +34,31 @@ let
     };
   };
 
+  pollinationsModelsJson = (pkgs.formats.json {}).generate "pollination-models.json" {
+    providers.poll = {
+      baseUrl = "https://text.pollinations.ai/v1";
+      api = "openai-completions";
+      apiKey = "none";
+      models = [
+        {
+          id = "gpt-oss-20b";
+          name = "gpt-oss-20b";
+          cost.input = 0;
+          cost.output = 0;
+          cost.cacheRead = 0;
+          cost.cacheWrite = 0;
+          # guesses, from nanogpt's oss-20b
+          contextWindow = 128000;
+          maxTokens = 16384;
+          reasoning = true;
+          input = [
+            "text"
+          ];
+        }
+      ];
+    };
+  };
+
   # MCP config consumed by pi-mcp-adapter
   # config docs: <https://github.com/nicobailon/pi-mcp-adapter#config>
   mcpConfig = (pkgs.formats.json {}).generate "pi-mcp.json" {
@@ -76,10 +101,23 @@ let
         ];
       };
       fetch = {
-        command = "mcp-server-fetch";
-        directTools = true;
-        # lifecycle = "eager";
+        # seemingly no command to fetch w/o applying any transformation
+        command = "mcp-fetch-server";
+        # directTools = true;
+        directTools = [
+          "fetch_html"
+          "fetch_markdown"
+          # "fetch_txt"
+          # "fetch_json"  # parses the result as json and then stringifies it as json
+          "fetch_readable"  # like Firefox's reader mode
+          "fetch_youtube_transcript"
+        ];
       };
+      # fetch = {
+      #   command = "mcp-server-fetch";
+      #   directTools = true;
+      #   # lifecycle = "eager";
+      # };
       home_assistant = {
         command = "ha-mcp";
         directTools = false;
@@ -119,10 +157,14 @@ let
         command = "kagi";
         args = [ "mcp" ];
         directTools = [
-          "kagi_search" # Search Kagi
+          # "kagi_ask_page"
+          "kagi_batch_search"
+          "kagi_fastgpt"
           "kagi_quick" # Get a Kagi Quick Answer
+          "kagi_search" # Search Kagi
+          "kagi_translate"
           # "kagi_news" # Fetch Kagi News stories for a category
-          # "kagi_news_search" # Search the News tab of kagi.com
+          "kagi_news_search" # Search the News tab of kagi.com
         ];
         excludeTools = [
           "kagi_extract" # Extract a page's full content as markdown (requires KAGI_API_KEY)
@@ -182,13 +224,14 @@ in
       # "agent-lsp"
       # "ck"
       # "cocoindex-code"
+      "fetch-mcp"
       "ha-mcp"
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
       # "kagimcp"
       # "markitdown-mcp"
       # "mcpls"
-      "mcp-server-fetch"
+      # "mcp-server-fetch"
       "nanogpt-api"
       # "nanogpt-mcp"
       "nix-prefetch-git"  # agents make use of this
@@ -236,9 +279,10 @@ in
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];
     } ''
-      jq --slurp '.[0] * .[1]' \
+      jq --slurp '.[0] * .[1] * .[2]' \
         ${pkgs.nanogpt-data}/share/pi/models-nanogpt.json \
         ${llamaCppModelsJson} \
+        ${pollinationsModelsJson} \
         > $out
     '';
     fs.".config/pi/settings.json".symlink.target = (pkgs.formats.json {}).generate "pi-settings.json" {
@@ -257,8 +301,9 @@ in
         # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        pkgs.pi-codex-goal
         pkgs.pi-cwd
-        pkgs.pi-goal  #< adds `/goal` slash command
+        # pkgs.pi-goal  #< adds `/goal` slash command
         # pkgs.pi-kagi  #< adds `web_search` tool
         # pkgs.pi-lens  #< adds LSP support, but also a lot of tool noise
         pkgs.pi-mcp-adapter  #< adds MCP (Model Context Protocol) support
@@ -287,6 +332,8 @@ in
         # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id}"
         # # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id}"
         # "llama-cpp/${llamaCppModels.step3_7-flash-iq4_xs.id}"
+        "poll/gpt-oss-20b"
+        "qwen3.5-122b-a10b"
         "google/gemma-4-31b-it"
         "moonshotai/kimi-latest"
         "deepseek/deepseek-latest"

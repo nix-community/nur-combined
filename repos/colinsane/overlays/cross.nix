@@ -545,6 +545,11 @@ in with final; {
     ];
   });
 
+  onnxruntime = prev.onnxruntime.override {
+    # openvino does not cross compile
+    openvinoSupport = false;
+  };
+
   # alternatively, remove all mention of `ARMV9SME` from cmake/arch.cmake
   # openblas = prev.openblas.overrideAttrs (prevAttrs: {
   #   # <https://github.com/NixOS/nixpkgs/pull/513589>
@@ -652,11 +657,15 @@ in with final; {
 
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pyself: pysuper: {
-      # 2026-04-27: `pkgsCross.aarch64-multiplatform.openblas` fails, but the "reference" implementation does compile.
       numpy = pysuper.numpy.override {
+        # 2026-04-27: `pkgsCross.aarch64-multiplatform.openblas` fails, but the "reference" implementation does compile.
         blas = final.blas.override { blasProvider = final.lapack-reference; };
         lapack = final.lapack.override { lapackProvider = final.lapack-reference; };
       };
+      pip = pysuper.pip.overridePythonAttrs (prevAttrs: {
+        # skip shell completions. could be re-enabled by using emulator.
+        postInstall = lib.replaceStrings [ "installShellCompletion" ] [ "true || installShellCompletion" ] prevAttrs.postInstall;
+      });
       scipy = pysuper.scipy.override {
         blas = final.blas.override { blasProvider = final.lapack-reference; };
         lapack = final.lapack.override { lapackProvider = final.lapack-reference; };
