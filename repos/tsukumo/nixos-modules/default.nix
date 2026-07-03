@@ -16,6 +16,14 @@
 
       # Expose src for alsa-ucm-conf overriding
       yogabook-src = yogabook-linux.src;
+
+      # Create custom alsa-ucm-conf with Yoga Book configs merged
+      alsa-ucm-conf-yogabook = pkgs.runCommand "alsa-ucm-conf-yogabook" {} ''
+        mkdir -p $out/share/alsa/ucm2
+        cp -r ${pkgs.alsa-ucm-conf}/share/alsa/ucm2/* $out/share/alsa/ucm2/
+        chmod -R +w $out/share/alsa/ucm2
+        cp -r ${yogabook-src}/alsa-ucm-conf-yogabook/ucm2/* $out/share/alsa/ucm2/
+      '';
     in {
       options.hardware.yogabook = {
         enable = lib.mkEnableOption "Lenovo Yoga Book YB1 hardware support";
@@ -41,18 +49,17 @@
         # Enable firmware
         hardware.enableRedistributableFirmware = true;
 
-        # Nixpkgs Overlay to replace iio-sensor-proxy and override alsa-ucm-conf
+        # Nixpkgs Overlay to replace iio-sensor-proxy
         nixpkgs.overlays = [
           (final: prev: {
             iio-sensor-proxy = iio-sensor-proxy-yogabook;
-
-            alsa-ucm-conf = prev.alsa-ucm-conf.overrideAttrs (oldAttrs: {
-              postInstall = (oldAttrs.postInstall or "") + ''
-                cp -r ${yogabook-src}/alsa-ucm-conf-yogabook/ucm2/* $out/share/alsa/ucm2/
-              '';
-            });
           })
         ];
+
+        # Override UCM2 directory via environment variable to avoid rebuilds of GUI apps
+        environment.sessionVariables = {
+          ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+        };
 
         # Udev Rules
         services.udev.extraRules = ''
