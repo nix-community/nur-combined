@@ -12,6 +12,12 @@ fmt:
 check:
     nix flake check
 
+[doc("Check GitHub Actions workflows with zizmor and pinact")]
+[group("checks")]
+check-ci-security:
+    zizmor .github/workflows
+    pinact run --check
+
 [arg("package", pattern="^[A-Za-z0-9._+-]+$")]
 [doc("Build a flake package")]
 [group("packages")]

@@ -2,7 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  zig_0_15,
+  zig_0_16,
 }:
 
 let
@@ -20,14 +20,7 @@ stdenvNoCC.mkDerivation {
     hash = versionData.sourceHash;
   };
 
-  nativeBuildInputs = [ zig_0_15 ];
-
-  patches = [ ./remove-ziglint.patch ];
-
-  postPatch = ''
-    substituteInPlace build.zig \
-      --replace-fail '"../README.md"' '"README.md"'
-  '';
+  nativeBuildInputs = [ zig_0_16 ];
 
   meta = with lib; {
     description = "Generate documentation from Zig source code";

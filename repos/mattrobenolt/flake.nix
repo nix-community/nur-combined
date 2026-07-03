@@ -75,6 +75,8 @@
               treefmtEval.config.build.wrapper
               pkgs.nix-tree
               pkgs.nix-diff
+              pkgs.pinact
+              pkgs.zizmor
             ];
           };
         };
