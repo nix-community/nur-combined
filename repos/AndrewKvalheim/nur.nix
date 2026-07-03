@@ -102,7 +102,6 @@ rec {
   }).overrideAttrs (o: recursiveUpdate o {
     meta.broken = pkgs.python3Packages.requests-ratelimiter.meta.broken; # NixOS/nixpkgs#497999
   });
-  oxvg = callPackage ./library/oxvg.pkg.nix { };
   pdfalyzer = callPackage ./library/pdfalyzer.pkg.nix {
     python3Packages = (pkgs.python3.override {
       packageOverrides = _: pythonPackages: with pythonPackages; {
