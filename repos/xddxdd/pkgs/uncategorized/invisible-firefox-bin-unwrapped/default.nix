@@ -44,7 +44,7 @@ let
 
   policiesJson = writeText "firefox-policies.json" (builtins.toJSON { inherit policies; });
 
-  pname = "firefox-bin-unwrapped";
+  pname = "invisible-firefox-bin-unwrapped";
 in
 stdenv.mkDerivation {
   inherit pname version src;
