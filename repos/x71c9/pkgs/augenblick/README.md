@@ -15,6 +15,7 @@ Blinks once at startup, then every 4 minutes.
 ```
 Options:
   -c <path>               config file (default: ~/.config/augenblick/augenblick.toml)
+  -n <n>                  number of blinks, then exit (default: run forever)
   --sleep_secs <n>        seconds between blinks (default: 240)
   --animation_frames <n>  frames per eyelid sweep (default: 20)
   --color <hex>           eyelid color, e.g. #ff0000 (default: #000000)
