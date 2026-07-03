@@ -178,7 +178,7 @@ buildNpmPackage {
     owner = "goblinkingdev";
     repo = "sable-electron";
     rev = "v1.0.6-1.18.3";
-    hash = "sha256-QjxAdb+fkwOqj/Hrs+pgRYhe8WhyE3Kzlgi+BkRueaA=";
+    hash = "sha256-V6EzXjFaUUBdANR2QLa5JRxUv9Dri1LUsNA3e5UpFZY=";
   };
 
   npmDepsHash = "sha256-cMLUCqpNbREXLJ0muuU6kgM5RdSnFk5cPhToXEUo+iQ=";
