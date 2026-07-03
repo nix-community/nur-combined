@@ -22,5 +22,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   mawtrix = pkgs.callPackage ./pkgs/mawtrix { };
+  pawtrix = pkgs.callPackage ./pkgs/pawtrix { };
   sable-desktop = pkgs.callPackage ./pkgs/sable-desktop { };
 }
