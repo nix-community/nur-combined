@@ -15,9 +15,9 @@
 ## treesit-extra-load-path，Emacs 的 treesit 即可找到
 ## libtree-sitter-moonbit{,_mbtp}.so。
 ##
-## Consumer pattern 同 mu4e-dashboard：
+## Consumer pattern:
 ##   programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages
-##     (epkgs: [ ... pkgs.nur.repos.dzmingli.moonbit-mode ... ]);
+##     (epkgs: [ ... epkgs.moonbit-mode ... ]);
 let
   tree-sitter-moonbit-src = fetchFromGitHub {
     owner = "moonbitlang";

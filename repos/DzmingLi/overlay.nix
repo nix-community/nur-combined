@@ -7,6 +7,7 @@ let
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   nameValuePair = n: v: { name = n; value = v; };
   nurAttrs = import ./default.nix { pkgs = super; };
+  emacsPackageOverrides = epkgs: nurAttrs.emacsPackages.for epkgs;
 
 in
 (builtins.listToAttrs
@@ -14,9 +15,10 @@ in
     (builtins.filter (n: !isReserved n)
       (builtins.attrNames nurAttrs))))
 // {
-  emacsPackages = super.emacsPackages // {
-    codex = nurAttrs.codex-el;
-    moonbit-mode = nurAttrs.moonbit-mode;
-    mu4e-dashboard = nurAttrs.mu4e-dashboard;
-  };
+  emacsPackagesFor = emacs:
+    (super.emacsPackagesFor emacs).overrideScope
+      (efinal: _eprev: emacsPackageOverrides efinal);
+  emacsPackages =
+    super.emacsPackages.overrideScope
+      (efinal: _eprev: emacsPackageOverrides efinal);
 }

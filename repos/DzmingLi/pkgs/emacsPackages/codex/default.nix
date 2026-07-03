@@ -7,8 +7,8 @@
 ## benthamite/codex: OpenAI Codex CLI 集成（在 Emacs 里跑 Codex，
 ## 发送命令/选区/文件、transient 菜单）。后端默认 eat。
 ##
-## Consumer（emacs-pgtk，trivialBuild artifact 同 major ABI 兼容，直接用即可）：
-##   emacsWithPackages (epkgs: [ ... pkgs.codex-el ... ])
+## Consumer:
+##   emacsWithPackages (epkgs: [ ... epkgs.codex ... ])
 emacsPackages.trivialBuild {
   pname = "codex";
   version = "0.4.0";

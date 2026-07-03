@@ -11,7 +11,7 @@
 ##
 ## Consumer pattern (NixOS / home-manager):
 ##   programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages
-##     (epkgs: [ ... pkgs.nur.repos.dzmingli.mu4e-dashboard ... ]);
+##     (epkgs: [ ... epkgs.mu4e-dashboard ... ]);
 ## To pair with a non-default emacs build, override emacsPackages:
 ##   pkgs.nur.repos.dzmingli.mu4e-dashboard.override {
 ##     emacsPackages = pkgs.emacsPackagesFor pkgs.emacs-pgtk;

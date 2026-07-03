@@ -10,8 +10,8 @@
 ## 不进 nixpkgs 的原因：nixpkgs 的 emacsPackages.claude-code 是 yuya373 的另一套
 ## 实现，配不了 stevemolitor 的 monet。
 ##
-## Consumer（emacs-pgtk，trivialBuild artifact 同 major ABI 兼容，直接用即可）：
-##   emacsWithPackages (epkgs: [ ... pkgs.claude-code-el pkgs.monet ... ])
+## Consumer:
+##   emacsWithPackages (epkgs: [ ... epkgs.claude-code epkgs.monet ... ])
 emacsPackages.trivialBuild {
   pname = "claude-code";
   version = "0-unstable-2026-04-30";
