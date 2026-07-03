@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "b5b168627534e1e8b147566bf03eb6858caa84a5";
+    version = "73a1fcf50663bb30d4451e9c2e7de95844ce640a";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "b5b168627534e1e8b147566bf03eb6858caa84a5";
+      rev = "73a1fcf50663bb30d4451e9c2e7de95844ce640a";
       fetchSubmodules = false;
-      sha256 = "sha256-aG4NeiIKInq9I7j8xnxOrjwrEmrfFGBWvLtINkE+VDI=";
+      sha256 = "sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji/K0=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-aG4NeiIKInq9I7j8xnxOrjwrEmrfFGBWvLtINkE+VDI=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji_K0=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -665,10 +665,10 @@
   };
   uuremote = {
     pname = "uuremote";
-    version = "4.31.0";
+    version = "4.31.1";
     src = fetchurl {
-      url = "https://a56.gdl.netease.com/uuyc_4.31.0.pkg";
-      sha256 = "sha256-b+1CMU6k/2oSZjTO0ZaX63q196pGuftmNh04CS4UGY0=";
+      url = "https://a56.gdl.netease.com/uuyc_4.31.1.pkg";
+      sha256 = "sha256-1sHHgApzC8cEIlvH222Nl4rgKDZx38mmsmcC7TMaNiI=";
     };
   };
   v2ray-rules-dat = {
@@ -685,16 +685,16 @@
   };
   whois42d-ng = {
     pname = "whois42d-ng";
-    version = "v2.0.0";
+    version = "v2.0.2";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "whois42d-ng";
-      rev = "v2.0.0";
+      rev = "v2.0.2";
       fetchSubmodules = false;
-      sha256 = "sha256-j5RIu/jC7O16bA5Ihc/6A1wP9myCiIGI9viNXsyKSWI=";
+      sha256 = "sha256-yS/JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-j5RIu_jC7O16bA5Ihc_6A1wP9myCiIGI9viNXsyKSWI=/Cargo.lock";
+      lockFile = ./. + "/sha256-yS_JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=/Cargo.lock";
       outputHashes = {
         
       };

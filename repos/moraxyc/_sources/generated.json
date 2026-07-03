@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-aG4NeiIKInq9I7j8xnxOrjwrEmrfFGBWvLtINkE+VDI=/backend/Cargo.lock",
+                "sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji_K0=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -128,12 +128,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "b5b168627534e1e8b147566bf03eb6858caa84a5",
-            "sha256": "sha256-aG4NeiIKInq9I7j8xnxOrjwrEmrfFGBWvLtINkE+VDI=",
+            "rev": "73a1fcf50663bb30d4451e9c2e7de95844ce640a",
+            "sha256": "sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji/K0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b5b168627534e1e8b147566bf03eb6858caa84a5"
+        "version": "73a1fcf50663bb30d4451e9c2e7de95844ce640a"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -1149,11 +1149,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-b+1CMU6k/2oSZjTO0ZaX63q196pGuftmNh04CS4UGY0=",
+            "sha256": "sha256-1sHHgApzC8cEIlvH222Nl4rgKDZx38mmsmcC7TMaNiI=",
             "type": "url",
-            "url": "https://a56.gdl.netease.com/uuyc_4.31.0.pkg"
+            "url": "https://a56.gdl.netease.com/uuyc_4.31.1.pkg"
         },
-        "version": "4.31.0"
+        "version": "4.31.1"
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
@@ -1179,7 +1179,7 @@
     "whois42d-ng": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-j5RIu_jC7O16bA5Ihc_6A1wP9myCiIGI9viNXsyKSWI=/Cargo.lock",
+                "sha256-yS_JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=/Cargo.lock",
                 {}
             ]
         },
@@ -1195,12 +1195,12 @@
             "name": null,
             "owner": "moraxyc",
             "repo": "whois42d-ng",
-            "rev": "v2.0.0",
-            "sha256": "sha256-j5RIu/jC7O16bA5Ihc/6A1wP9myCiIGI9viNXsyKSWI=",
+            "rev": "v2.0.2",
+            "sha256": "sha256-yS/JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.0.0"
+        "version": "v2.0.2"
     },
     "zsh-patina": {
         "cargoLock": {
