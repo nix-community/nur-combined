@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
+      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
     };
   };
   buname = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.49";
+    version = "v7.2.50";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.49";
-      hash = "sha256-WYBDm0fCs2q08BFSRSnzhggSQj5lgc44GZAfILMY6WQ=";
+      tag = "v7.2.50";
+      hash = "sha256-MSKLk+vAVOBSvZpxalgE7hL2vOzBb7IsR4Wqt1QPYGY=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.41.0";
+    version = "0.41.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.41.0.tgz";
-      hash = "sha256-RR70znaYWGwaCyE6PFy9j+hqyrJhuMx7y6REnkMf9j8=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.41.1.tgz";
+      hash = "sha256-qX4q0juQkb32zkWb3H42TN7C97rUpLDjS1lQ6XxBK1c=";
     };
   };
   comp128 = {
@@ -698,12 +698,12 @@
   };
   email-oauth2-proxy = {
     pname = "email-oauth2-proxy";
-    version = "2025-10-04";
+    version = "2026-07-03";
     src = fetchFromGitHub {
       owner = "simonrob";
       repo = "email-oauth2-proxy";
-      tag = "2025-10-04";
-      hash = "sha256-ZWacjTO+2xeZv8lwcU5tFYsF61p7hduPQB1iOCSdeS4=";
+      tag = "2026-07-03";
+      hash = "sha256-cvd7XgSn213aR4BqrdBoQed7i2m4MCkQBkLcO9uB+bo=";
     };
   };
   env-dedup = {
@@ -1356,12 +1356,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9860";
+    version = "b9867";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9860";
-      hash = "sha256-CY2zYLu2LB5zGQuIk9pOMkIQun7zPuYhvwNDhRj0IGM=";
+      tag = "b9867";
+      hash = "sha256-aH801R2FKP/mWbNrBpPd6aqqn53XMUGGkzTeUgETKaM=";
     };
   };
   loralib = {
@@ -1435,12 +1435,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.37.1";
+    version = "v1.38.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.37.1";
-      hash = "sha256-LNg2JtqqID6RKuFi+j29NfOWuNZhkkTIdKmL9bXzAvs=";
+      tag = "v1.38.0";
+      hash = "sha256-167+78u6l9Y7rBmQIlPvN+HqgrpDtqcyXug9JKjuiHA=";
     };
   };
   mtkclient = {
@@ -1525,12 +1525,12 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v1.0.0-rc.15";
+    version = "v1.0.0-rc.16";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      tag = "v1.0.0-rc.15";
-      hash = "sha256-ofRUcTMBOudll9gGmmEXGPLJj4B0dtezpXq4py49sMM=";
+      tag = "v1.0.0-rc.16";
+      hash = "sha256-oCLBlQpFUAeyPkfufCUhL+MnUsPCG+4Tt2UNXX6qAeo=";
     };
   };
   nft-fullcone = {

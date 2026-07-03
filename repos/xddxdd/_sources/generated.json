@@ -515,7 +515,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=",
+            "sha256": "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=",
             "type": "url",
             "url": "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage"
         },
@@ -634,12 +634,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.49",
-            "sha256": "sha256-WYBDm0fCs2q08BFSRSnzhggSQj5lgc44GZAfILMY6WQ=",
+            "rev": "v7.2.50",
+            "sha256": "sha256-MSKLk+vAVOBSvZpxalgE7hL2vOzBb7IsR4Wqt1QPYGY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.49"
+        "version": "v7.2.50"
     },
     "cockpy": {
         "cargoLock": null,
@@ -692,11 +692,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-RR70znaYWGwaCyE6PFy9j+hqyrJhuMx7y6REnkMf9j8=",
+            "sha256": "sha256-qX4q0juQkb32zkWb3H42TN7C97rUpLDjS1lQ6XxBK1c=",
             "type": "url",
-            "url": "https://registry.npmjs.org/command-code/-/command-code-0.41.0.tgz"
+            "url": "https://registry.npmjs.org/command-code/-/command-code-0.41.1.tgz"
         },
-        "version": "0.41.0"
+        "version": "0.41.1"
     },
     "comp128": {
         "cargoLock": null,
@@ -1357,12 +1357,12 @@
             "name": null,
             "owner": "simonrob",
             "repo": "email-oauth2-proxy",
-            "rev": "2025-10-04",
-            "sha256": "sha256-ZWacjTO+2xeZv8lwcU5tFYsF61p7hduPQB1iOCSdeS4=",
+            "rev": "2026-07-03",
+            "sha256": "sha256-cvd7XgSn213aR4BqrdBoQed7i2m4MCkQBkLcO9uB+bo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2025-10-04"
+        "version": "2026-07-03"
     },
     "env-dedup": {
         "cargoLock": null,
@@ -2640,12 +2640,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9860",
-            "sha256": "sha256-CY2zYLu2LB5zGQuIk9pOMkIQun7zPuYhvwNDhRj0IGM=",
+            "rev": "b9867",
+            "sha256": "sha256-aH801R2FKP/mWbNrBpPd6aqqn53XMUGGkzTeUgETKaM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9860"
+        "version": "b9867"
     },
     "loralib": {
         "cargoLock": null,
@@ -2802,12 +2802,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "modelscope",
-            "rev": "v1.37.1",
-            "sha256": "sha256-LNg2JtqqID6RKuFi+j29NfOWuNZhkkTIdKmL9bXzAvs=",
+            "rev": "v1.38.0",
+            "sha256": "sha256-167+78u6l9Y7rBmQIlPvN+HqgrpDtqcyXug9JKjuiHA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.37.1"
+        "version": "v1.38.0"
     },
     "mtkclient": {
         "cargoLock": null,
@@ -2979,12 +2979,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v1.0.0-rc.15",
-            "sha256": "sha256-ofRUcTMBOudll9gGmmEXGPLJj4B0dtezpXq4py49sMM=",
+            "rev": "v1.0.0-rc.16",
+            "sha256": "sha256-oCLBlQpFUAeyPkfufCUhL+MnUsPCG+4Tt2UNXX6qAeo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.0-rc.15"
+        "version": "v1.0.0-rc.16"
     },
     "nft-fullcone": {
         "cargoLock": null,
