@@ -12,10 +12,10 @@ in pkgs.rustPlatform.buildRustPackage {
     owner = "srcres258";
     repo = "waveql";
     rev = "v${version}";
-    hash = "sha256-zQth+TSif/ikj1748Kye7Pl86zLWAOZe1Z2S2UGHgrY=";
+    hash = "sha256-Dm7s+Wro72R2IX3DOoN17fhwOiSUIBEX4t6r5tp97k8=";
   };
 
-  cargoHash = "sha256-Tf28s+CW5YqN7kNVh3t7mMBzGLh5ETONxESjgdeINdE=";
+  cargoHash = "sha256-ro6jY/h2ZABh8RGyrYK+QEV8zLf8ChAvmrqAvcXqkRM=";
 
   meta = with pkgs.lib; {
     description = "A high-performance VCD/FST waveform query CLI for AI Agents and humans";
