@@ -2,12 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>loneros-nur</title>
+    <title>loneros-nur · Nix User Repository</title>
+
+    <meta name="description" content="loneros' personal Nix User Repository (NUR) — browse and install custom Nix packages." />
+    <meta property="og:title" content="loneros-nur" />
+    <meta property="og:description" content="Personal Nix User Repository package index." />
+    <meta name="theme-color" content="#080c14" />
 
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -16,34 +23,37 @@
     <canvas id="particles-canvas"></canvas>
 
     <div class="container">
+      <!-- ── Hero ── -->
       <div class="hero">
         <span class="hero-badge">Nix User Repository</span>
 
         <h1>loneros-nur</h1>
 
-        <p>loneros' personal Nix User Repository (NUR) package index.</p>
+        <p>loneros' personal Nix User Repository (NUR) package index.<br>Browse, search, and one-click copy install commands.</p>
       </div>
 
+      <!-- ── Toolbar ── -->
       <div class="toolbar">
         <div class="stats">
           <div class="stat-card">
             <div class="stat-label">📦 Total Packages</div>
-
-            <div class="stat-value" id="package-count">0</div>
+            <div class="stat-value" id="package-count">—</div>
           </div>
         </div>
 
         <div class="search-box">
-          <span class="search-icon"> ⌕ </span>
-
+          <span class="search-icon">⌕</span>
           <input
             id="search-input"
             type="text"
-            placeholder="Search packages..."
+            placeholder="Search packages, versions, descriptions…"
+            autocomplete="off"
+            spellcheck="false"
           />
         </div>
       </div>
 
+      <!-- ── Table ── -->
       <div class="table-container">
         <div class="table-scroll">
           <table id="packages-table">
@@ -82,10 +92,10 @@
         <div class="empty" id="empty-state">No matching packages found.</div>
       </div>
 
+      <!-- ── Footer ── -->
       <div class="footer">
         Generated from evaluated Nix metadata ·
-
-        <a href="https://github.com/lonerOrz/loneros-nur" target="_blank">
+        <a href="https://github.com/lonerOrz/loneros-nur" target="_blank" rel="noopener">
           GitHub
         </a>
       </div>
