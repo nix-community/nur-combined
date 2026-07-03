@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "73a1fcf50663bb30d4451e9c2e7de95844ce640a";
+    version = "b94d7caa4490d0b67aa4f3848e20641aed8af950";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "73a1fcf50663bb30d4451e9c2e7de95844ce640a";
+      rev = "b94d7caa4490d0b67aa4f3848e20641aed8af950";
       fetchSubmodules = false;
-      sha256 = "sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji/K0=";
+      sha256 = "sha256-iT+U/BAY0MkifUj7Wy+t1zTNoqer6IAoH8CJg4vZEJg=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji_K0=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-iT+U_BAY0MkifUj7Wy+t1zTNoqer6IAoH8CJg4vZEJg=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -685,6 +685,24 @@
   };
   whois42d-ng = {
     pname = "whois42d-ng";
+    version = "e7c701a244f5184efd7e29aad162ba1b43c7e838";
+    src = fetchFromGitHub {
+      owner = "moraxyc";
+      repo = "whois42d-ng";
+      rev = "e7c701a244f5184efd7e29aad162ba1b43c7e838";
+      fetchSubmodules = false;
+      sha256 = "sha256-WIpWwhLkThPKtagjIIsQop78q6dJHWVBkhcfuR1bI9k=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-WIpWwhLkThPKtagjIIsQop78q6dJHWVBkhcfuR1bI9k=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-07-04";
+  };
+  whois42d-ng-stable = {
+    pname = "whois42d-ng-stable";
     version = "v2.0.2";
     src = fetchFromGitHub {
       owner = "moraxyc";
@@ -692,12 +710,6 @@
       rev = "v2.0.2";
       fetchSubmodules = false;
       sha256 = "sha256-yS/JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-yS_JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=/Cargo.lock";
-      outputHashes = {
-        
-      };
     };
   };
   zsh-patina = {

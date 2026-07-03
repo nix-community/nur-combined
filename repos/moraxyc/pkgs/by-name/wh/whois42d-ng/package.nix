@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   __darwinAllowLocalNetworking = true;
 
-  doInstallCheck = true;
+  doInstallCheck = false;
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";
 

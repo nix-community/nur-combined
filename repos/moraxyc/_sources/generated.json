@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji_K0=/backend/Cargo.lock",
+                "sha256-iT+U_BAY0MkifUj7Wy+t1zTNoqer6IAoH8CJg4vZEJg=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -128,12 +128,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "73a1fcf50663bb30d4451e9c2e7de95844ce640a",
-            "sha256": "sha256-KDNKyqSfYg3JhoK15kWhP0uytYn3LCUN9HX9kyji/K0=",
+            "rev": "b94d7caa4490d0b67aa4f3848e20641aed8af950",
+            "sha256": "sha256-iT+U/BAY0MkifUj7Wy+t1zTNoqer6IAoH8CJg4vZEJg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "73a1fcf50663bb30d4451e9c2e7de95844ce640a"
+        "version": "b94d7caa4490d0b67aa4f3848e20641aed8af950"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -1179,13 +1179,34 @@
     "whois42d-ng": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-yS_JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=/Cargo.lock",
+                "sha256-WIpWwhLkThPKtagjIIsQop78q6dJHWVBkhcfuR1bI9k=/Cargo.lock",
                 {}
             ]
         },
-        "date": null,
+        "date": "2026-07-04",
         "extract": null,
         "name": "whois42d-ng",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "moraxyc",
+            "repo": "whois42d-ng",
+            "rev": "e7c701a244f5184efd7e29aad162ba1b43c7e838",
+            "sha256": "sha256-WIpWwhLkThPKtagjIIsQop78q6dJHWVBkhcfuR1bI9k=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e7c701a244f5184efd7e29aad162ba1b43c7e838"
+    },
+    "whois42d-ng-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "whois42d-ng-stable",
         "passthru": null,
         "pinned": false,
         "src": {
