@@ -9,7 +9,14 @@ let
   nurAttrs = import ./default.nix { pkgs = super; };
 
 in
-builtins.listToAttrs
+(builtins.listToAttrs
   (map (n: nameValuePair n nurAttrs.${n})
     (builtins.filter (n: !isReserved n)
-      (builtins.attrNames nurAttrs)))
+      (builtins.attrNames nurAttrs))))
+// {
+  emacsPackages = super.emacsPackages // {
+    codex = nurAttrs.codex-el;
+    moonbit-mode = nurAttrs.moonbit-mode;
+    mu4e-dashboard = nurAttrs.mu4e-dashboard;
+  };
+}
