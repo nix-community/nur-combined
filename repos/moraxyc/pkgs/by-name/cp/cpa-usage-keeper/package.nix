@@ -13,7 +13,10 @@ buildGoModule (finalAttrs: {
   # nix-update auto
   vendorHash = "sha256-XljXASi09nKdkXvCw3J2X0oX5vjC7s5IgVXr5x8SxUg=";
 
-  ldflags = [ "-s" ];
+  ldflags = [
+    "-s"
+    "-X cpa-usage-keeper/internal/version.Version=v${finalAttrs.version}"
+  ];
 
   preBuild = ''
     rm -rf web/dist
