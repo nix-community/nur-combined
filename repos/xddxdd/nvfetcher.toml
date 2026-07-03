@@ -481,6 +481,30 @@ fetch.github = "feder-cr/invisible-firefox"
 src.git = "https://github.com/feder-cr/invisible-firefox.git"
 src.branch = "stealth/150"
 
+[invisible-firefox-bin-linux-arm64]
+fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-linux-arm64.tar.gz"
+src.github = "feder-cr/invisible_playwright"
+src.from_pattern = "^firefox-(.*)$"
+src.to_pattern = "\\1"
+
+[invisible-firefox-bin-linux-x86_64]
+fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-linux-x86_64.tar.gz"
+src.github = "feder-cr/invisible_playwright"
+src.from_pattern = "^firefox-(.*)$"
+src.to_pattern = "\\1"
+
+[invisible-firefox-bin-macos-arm64]
+fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-macos-arm64.tar.gz"
+src.github = "feder-cr/invisible_playwright"
+src.from_pattern = "^firefox-(.*)$"
+src.to_pattern = "\\1"
+
+[invisible-firefox-bin-macos-x86_64]
+fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-macos-x86_64.tar.gz"
+src.github = "feder-cr/invisible_playwright"
+src.from_pattern = "^firefox-(.*)$"
+src.to_pattern = "\\1"
+
 [ja4-nginx-module]
 fetch.github = "FoxIO-LLC/ja4-nginx-module"
 src.git = "https://github.com/FoxIO-LLC/ja4-nginx-module.git"

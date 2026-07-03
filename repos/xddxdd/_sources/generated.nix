@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
+      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
     };
   };
   buname = {
@@ -1088,6 +1088,38 @@
       hash = "sha256-FSWC2GDtzemjoIO+vhCtrhnRNagDL4jQAsPnfUczbF4=";
     };
     date = "2026-06-24";
+  };
+  invisible-firefox-bin-linux-arm64 = {
+    pname = "invisible-firefox-bin-linux-arm64";
+    version = "13";
+    src = fetchurl {
+      url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-linux-arm64.tar.gz";
+      hash = "sha256-yCYpAt/OS3kXAkL49XgOtDW+vpzUYIb8FtwrQgjCXlY=";
+    };
+  };
+  invisible-firefox-bin-linux-x86_64 = {
+    pname = "invisible-firefox-bin-linux-x86_64";
+    version = "13";
+    src = fetchurl {
+      url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-linux-x86_64.tar.gz";
+      hash = "sha256-kCurtDFKtyBDdfDAFu2UrwfOZocQYjgOdw6WHUkIssc=";
+    };
+  };
+  invisible-firefox-bin-macos-arm64 = {
+    pname = "invisible-firefox-bin-macos-arm64";
+    version = "13";
+    src = fetchurl {
+      url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-macos-arm64.tar.gz";
+      hash = "sha256-uTRCDDiBTR/DywkQNxkDbHbzm3CikjBq6WMU+/cuVI4=";
+    };
+  };
+  invisible-firefox-bin-macos-x86_64 = {
+    pname = "invisible-firefox-bin-macos-x86_64";
+    version = "13";
+    src = fetchurl {
+      url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-macos-x86_64.tar.gz";
+      hash = "sha256-ZphVW7V5Ys5iOopwDwG/f2GwCkFc8IROCB0rsZAMhZk=";
+    };
   };
   ja4-nginx-module = {
     pname = "ja4-nginx-module";

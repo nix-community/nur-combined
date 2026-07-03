@@ -515,7 +515,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=",
+            "sha256": "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=",
             "type": "url",
             "url": "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage"
         },
@@ -2112,6 +2112,66 @@
             "type": "github"
         },
         "version": "6dce665b2fa2d5b6970209d1e995007a4be557ce"
+    },
+    "invisible-firefox-bin-linux-arm64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "invisible-firefox-bin-linux-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-yCYpAt/OS3kXAkL49XgOtDW+vpzUYIb8FtwrQgjCXlY=",
+            "type": "url",
+            "url": "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-linux-arm64.tar.gz"
+        },
+        "version": "13"
+    },
+    "invisible-firefox-bin-linux-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "invisible-firefox-bin-linux-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-kCurtDFKtyBDdfDAFu2UrwfOZocQYjgOdw6WHUkIssc=",
+            "type": "url",
+            "url": "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-linux-x86_64.tar.gz"
+        },
+        "version": "13"
+    },
+    "invisible-firefox-bin-macos-arm64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "invisible-firefox-bin-macos-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-uTRCDDiBTR/DywkQNxkDbHbzm3CikjBq6WMU+/cuVI4=",
+            "type": "url",
+            "url": "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-macos-arm64.tar.gz"
+        },
+        "version": "13"
+    },
+    "invisible-firefox-bin-macos-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "invisible-firefox-bin-macos-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ZphVW7V5Ys5iOopwDwG/f2GwCkFc8IROCB0rsZAMhZk=",
+            "type": "url",
+            "url": "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-13/firefox-150.0.1-stealth-macos-x86_64.tar.gz"
+        },
+        "version": "13"
     },
     "ja4-nginx-module": {
         "cargoLock": null,
