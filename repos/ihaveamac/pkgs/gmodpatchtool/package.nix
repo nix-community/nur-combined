@@ -11,8 +11,7 @@ rustPlatform.buildRustPackage rec {
   src = fetchFromGitHub {
     owner = "solsticegamestudios";
     repo = "GModPatchTool";
-    # due to LFS, i need to use this thing
-    rev = "refs/tags/${version}";
+    tag = version;
     hash = "sha256-3dlLgvhagLugT5s1jdtDbu46gVlTSbUySONvzMqiCEM=";
     fetchLFS = true;
   };
