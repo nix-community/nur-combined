@@ -4,7 +4,7 @@
   ...
 }: let
   pname = "waveql";
-  version = "0.2.0";
+  version = "0.3.0";
 in pkgs.rustPlatform.buildRustPackage {
   inherit pname version;
 
