@@ -1,4 +1,11 @@
-{ lib, system, ... }:
+{
+  lib,
+  stdenv,
+  ...
+}:
+let
+  system = stdenv.hostPlatform.system;
+in
 rec {
   isDerivation = p: builtins.isAttrs p && p ? type && p.type == "derivation";
   isHiddenName = n: lib.hasPrefix "_" n || n == "stdenv";

@@ -113,10 +113,10 @@
               };
             };
             inSubTree-pinnedNixpkgs = final: prev: {
-              nur-xddxdd = self.legacyPackages.${final.system};
+              nur-xddxdd = self.legacyPackages.${final.stdenv.hostPlatform.system};
             };
             inSubTree-pinnedNixpkgsWithCuda = final: prev: {
-              nur-xddxdd = self.legacyPackagesWithCuda.${final.system};
+              nur-xddxdd = self.legacyPackagesWithCuda.${final.stdenv.hostPlatform.system};
             };
           }
           // (builtins.listToAttrs (
