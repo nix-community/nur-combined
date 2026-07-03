@@ -61,6 +61,17 @@
           ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
         };
 
+        # Disable default initrd modules to prevent adding unavailable legacy storage modules (ahci, ata_piix, etc.)
+        boot.initrd.includeDefaultModules = false;
+        boot.initrd.availableKernelModules = [
+          "sdhci_acpi"
+          "xhci_pci"
+          "usbhid"
+          "hid_generic"
+          "usb_storage"
+          "sd_mod"
+        ];
+
         # Udev Rules
         services.udev.extraRules = ''
           # Symlink touchscreen digitizer for the keyboard driver

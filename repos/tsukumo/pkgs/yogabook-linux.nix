@@ -111,9 +111,6 @@ rec {
     cp -r ${yogabook-src}/yogabook-linux-kernel/* .
     chmod -R +w .
     make ARCH=x86 yogabook_defconfig
-    echo "CONFIG_ATA=y" >> .config
-    echo "CONFIG_SATA_AHCI=m" >> .config
-    make ARCH=x86 olddefconfig
     cp .config $out
   '';
 
