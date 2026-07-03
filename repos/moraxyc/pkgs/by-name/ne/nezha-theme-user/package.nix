@@ -13,7 +13,7 @@ nixpkgs.nezha-theme-user.overrideAttrs (
       inherit (finalAttrs) pname version src;
       fetcherVersion = 4;
       # nix-update auto
-      hash = "sha256-k/05ccqV72kC9E9MX+os8R0wmgIhnDYIwRNmIbedL1I=";
+      hash = "sha256-eM5EHuSQLrmo/bduvY9Z1j7lHkQz7wCPrHWkU759VXY=";
     };
 
     passthru = (prevAttrs.passthru or { }) // {
