@@ -25,13 +25,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "loko";
-  version = "0.12.2";
+  version = "0.13.0";
 
   src = fetchFromGitLab {
     owner = "weinholt";
     repo = "loko";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-ykGYdxtJIF4ZLSD3jJv9yoIzsNrqh5S46lFnIoAP1BU=";
+    hash = "sha256-8qmWWqW6nspxX3x+C8f4Pzvqqe9lVgZ5mBx5EamussI=";
   };
 
   postPatch = ''
