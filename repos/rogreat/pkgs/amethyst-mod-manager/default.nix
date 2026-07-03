@@ -1,4 +1,5 @@
 {
+  _7zip-zstd,
   bash,
   customtkinter,
   desktop-file-utils,
@@ -15,14 +16,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "1.3.12";
+  version = "1.3.13";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "ChrisDKN";
     repo = "Amethyst-Mod-Manager";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BaUXj95kY+jG8CsXIeSXGFZ9K67sI9Oyjs6xg4eUy1U=";
+    hash = "sha256-KZkVv6AuG1joItUKlDyVmpkcgt/3gnQiSFKDs7ZDz7E=";
   };
 
   nativeBuildInputs = [
@@ -98,6 +99,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
         --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
         --suffix PATH : "${
           lib.makeBinPath [
+            _7zip-zstd # 7z (fallback)
             bash
             desktop-file-utils # update-desktop-database
             glib # gio, gdbus
