@@ -10,26 +10,26 @@
 }:
 
 let
-  version = "16.3.0";
+  version = "16.3.4";
 
   baseUrl = "https://github.com/can1357/oh-my-pi/releases/download/v${version}";
 
   sources = {
     x86_64-linux = {
       url = "${baseUrl}/omp-linux-x64";
-      hash = "sha256-oqI1QDJINVN4Nj33U7GnL0nQsnlMnhonrPUvTOKG20c=";
+      hash = "sha256-axXfGYpTezJN1+fJOAH/EehAGSmCfaMEdr9jAheCBug=";
     };
     aarch64-linux = {
       url = "${baseUrl}/omp-linux-arm64";
-      hash = "sha256-gsYttvqIHWaG8JKeMolSA+/7la8i+BYSxovh3XiH9dQ=";
+      hash = "sha256-6c62RokhOv4b3LwX1N3/BoRLGreUA17VEsdwSLwEFq4=";
     };
     x86_64-darwin = {
       url = "${baseUrl}/omp-darwin-x64";
-      hash = "sha256-ObL0cZVotD+J5tfZ2jaJWuqcnrGtW5Ruhbbt3OCoo9E=";
+      hash = "sha256-W2ZQkfu4QyxvkY1LShb4GoTuetjw/gfFcJKyP0UIEZM=";
     };
     aarch64-darwin = {
       url = "${baseUrl}/omp-darwin-arm64";
-      hash = "sha256-Ebwkjps6Ig+FnrR1ivhgmsZgZLb//GzqhicdzYHhguQ=";
+      hash = "sha256-soPwaXaytyPIwh5L7nCcTFMpIlaoSDcfch7m+gVcr9Y=";
     };
   };
 in
