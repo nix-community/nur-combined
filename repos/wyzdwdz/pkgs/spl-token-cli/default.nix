@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "spl-token-cli";
-  version = "5.5.0";
+  version = "5.6.1";
 
   src = fetchFromGitHub {
     owner = "solana-program";
     repo = "token-2022";
     tag = "cli@v${finalAttrs.version}";
-    hash = "sha256-7zbMspIwfYBYurv8xROJUP22EcmkMyDi9LoOwpFHaW4=";
+    hash = "sha256-7gOP19SESZMnfLPZfOP588TUstc01SRedn7uO7zrd4U=";
   };
 
-  cargoHash = "sha256-mC033w6esSPOwZyFMyCcqIotWLaAMqznbaNci/dz3bU=";
+  cargoHash = "sha256-kbpIyV4GFhebrZzVodnAxiJhgHnwb06JzGcRZCjchq0=";
 
   cargoBuildFlags = [ "-p spl-token-cli" ];
 
