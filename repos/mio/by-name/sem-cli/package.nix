@@ -38,6 +38,9 @@ rustPlatform.buildRustPackage rec {
     apple-sdk
   ];
 
+  # Cargo's only default feature is `self-update` (GitHub download/replace +
+  # background "new version" checks). `--no-default-features` turns that off so
+  # Nix owns updates; it does not affect diff/blame/etc. or telemetry (patched).
   cargoBuildFlags = [
     "--package"
     "sem-cli"
