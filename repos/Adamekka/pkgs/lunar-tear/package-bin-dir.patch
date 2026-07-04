@@ -1,0 +1,80 @@
+diff --git a/server/cmd/dev/main.go b/server/cmd/dev/main.go
+index 1cbb3f5..40a61b1 100644
+--- a/server/cmd/dev/main.go
++++ b/server/cmd/dev/main.go
+@@ -120,7 +120,14 @@ func main() {
+ 		colorCyan = ""
+ 	}
+ 
+-	if _, err := os.Stat("go.mod"); err == nil {
++	binDir := os.Getenv("LUNAR_TEAR_BIN_DIR")
++	packagedBinDir := binDir != ""
++	if binDir == "" {
++		// Nix packages set LUNAR_TEAR_BIN_DIR because $out/bin is not an archive-local ./bin directory.
++		binDir = "bin"
++	}
++
++	if _, err := os.Stat("go.mod"); err == nil && !packagedBinDir {
+ 		log.Println("building services...")
+ 		buildAll()
+ 	} else {
+@@ -140,7 +147,7 @@ func main() {
+ 		{
+ 			label: "auth",
+ 			color: colorGreen,
+-			cmd: exec.CommandContext(ctx, filepath.Join("bin", "auth-server"+ext),
++			cmd: exec.CommandContext(ctx, filepath.Join(binDir, "auth-server"+ext),
+ 				"--listen", *authListen,
+ 				"--db", *authDB,
+ 				noreg_s,
+@@ -149,7 +156,7 @@ func main() {
+ 		{
+ 			label: "cdn",
+ 			color: colorCyan,
+-			cmd: exec.CommandContext(ctx, filepath.Join("bin", "octo-cdn"+ext),
++			cmd: exec.CommandContext(ctx, filepath.Join(binDir, "octo-cdn"+ext),
+ 				"--listen", *cdnListen,
+ 				"--public-addr", *cdnPublicAddr,
+ 			),
+@@ -157,7 +164,7 @@ func main() {
+ 		{
+ 			label: "grpc",
+ 			color: colorYellow,
+-			cmd: exec.CommandContext(ctx, filepath.Join("bin", "lunar-tear"+ext),
++			cmd: exec.CommandContext(ctx, filepath.Join(binDir, "lunar-tear"+ext),
+ 				grpcArgs(*grpcListen, *grpcPublicAddr, *grpcDB, *grpcOctoURL, *grpcAuthURL, *adminListen, *noRegister)...,
+ 			),
+ 		},
+diff --git a/server/cmd/wizard/main.go b/server/cmd/wizard/main.go
+index fe87820..63477b9 100644
+--- a/server/cmd/wizard/main.go
++++ b/server/cmd/wizard/main.go
+@@ -906,7 +906,12 @@ func launchDev(ip string, p ports) {
+ 	if runtime.GOOS == "windows" {
+ 		ext = ".exe"
+ 	}
+-	devBin := filepath.Join("bin", "dev"+ext)
++	binDir := os.Getenv("LUNAR_TEAR_BIN_DIR")
++	devBin := filepath.Join(binDir, "dev"+ext)
++	if binDir == "" {
++		// Nix packages set LUNAR_TEAR_BIN_DIR because $out/bin is not an archive-local ./bin directory.
++		devBin = filepath.Join("bin", "dev"+ext)
++	}
+ 
+ 	if sourceMode {
+ 		_ = spinner.New().Title("  Building services...").Action(func() {
+diff --git a/server/cmd/wizard/prebuilt.go b/server/cmd/wizard/prebuilt.go
+index 7c1302e..b7f72b2 100644
+--- a/server/cmd/wizard/prebuilt.go
++++ b/server/cmd/wizard/prebuilt.go
+@@ -12,6 +12,10 @@ import (
+ var sourceMode bool
+ 
+ func isSourceCheckout() bool {
++	if os.Getenv("LUNAR_TEAR_BIN_DIR") != "" {
++		// Nix packages set LUNAR_TEAR_BIN_DIR so the wrapper uses packaged binaries even inside source checkouts.
++		return false
++	}
+ 	if _, err := os.Stat("go.mod"); err != nil {
+ 		return false
+ 	}
