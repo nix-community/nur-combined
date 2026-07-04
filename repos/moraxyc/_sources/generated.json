@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-yQ5yxeWU4PEP9deJmEYCxC6CIib326ZpV07zeX_CYbo=/backend/Cargo.lock",
+                "sha256-o2eMiYpWZai8amSk4iPQVtPnPczX9vF+rPomALvNMao=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -128,12 +128,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "66f32ff4e173d5851c0b4765fa8366c3ced7d061",
-            "sha256": "sha256-yQ5yxeWU4PEP9deJmEYCxC6CIib326ZpV07zeX/CYbo=",
+            "rev": "0ebad0197acd5e91666df99534f0f919c9f8dbe2",
+            "sha256": "sha256-o2eMiYpWZai8amSk4iPQVtPnPczX9vF+rPomALvNMao=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "66f32ff4e173d5851c0b4765fa8366c3ced7d061"
+        "version": "0ebad0197acd5e91666df99534f0f919c9f8dbe2"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -427,11 +427,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-TDvMkr4YBLHaPhcGsECHfqHVmr91cY8myuRZGJnsU50=",
+            "sha256": "sha256-iZ51qUjjB7axkd1THno6OtEDM8gTFiJ5FOV6ggSCeL0=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.07.01"
+        "version": "2026.07.04"
     },
     "geolite2-city": {
         "cargoLock": null,
@@ -442,11 +442,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-2IzQLS2Oti+7tJ2gxGpEQG6Bgpa13Fh7szk5ZNG70kY=",
+            "sha256": "sha256-SYnbhFfzWAWn43S7TDX5pE3x0/CpazKOk23sriYMMNM=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-City.mmdb"
         },
-        "version": "2026.07.01"
+        "version": "2026.07.04"
     },
     "geolite2-country": {
         "cargoLock": null,
@@ -457,11 +457,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-lA/GZ2wFONB4DVT/u02W2zNCMpBnBL37VE1SKJI/10s=",
+            "sha256": "sha256-TLi0lZunfFPCvtdJgu4HzlFNNgr6nvXfDNkAADISU/Y=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-Country.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-Country.mmdb"
         },
-        "version": "2026.07.01"
+        "version": "2026.07.04"
     },
     "git-mcp-server": {
         "cargoLock": null,

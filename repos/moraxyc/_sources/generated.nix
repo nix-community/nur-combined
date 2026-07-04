@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "66f32ff4e173d5851c0b4765fa8366c3ced7d061";
+    version = "0ebad0197acd5e91666df99534f0f919c9f8dbe2";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "66f32ff4e173d5851c0b4765fa8366c3ced7d061";
+      rev = "0ebad0197acd5e91666df99534f0f919c9f8dbe2";
       fetchSubmodules = false;
-      sha256 = "sha256-yQ5yxeWU4PEP9deJmEYCxC6CIib326ZpV07zeX/CYbo=";
+      sha256 = "sha256-o2eMiYpWZai8amSk4iPQVtPnPczX9vF+rPomALvNMao=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-yQ5yxeWU4PEP9deJmEYCxC6CIib326ZpV07zeX_CYbo=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-o2eMiYpWZai8amSk4iPQVtPnPczX9vF+rPomALvNMao=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -257,26 +257,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.07.01";
+    version = "2026.07.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-TDvMkr4YBLHaPhcGsECHfqHVmr91cY8myuRZGJnsU50=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-iZ51qUjjB7axkd1THno6OtEDM8gTFiJ5FOV6ggSCeL0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.07.01";
+    version = "2026.07.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-City.mmdb";
-      sha256 = "sha256-2IzQLS2Oti+7tJ2gxGpEQG6Bgpa13Fh7szk5ZNG70kY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-City.mmdb";
+      sha256 = "sha256-SYnbhFfzWAWn43S7TDX5pE3x0/CpazKOk23sriYMMNM=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.07.01";
+    version = "2026.07.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-Country.mmdb";
-      sha256 = "sha256-lA/GZ2wFONB4DVT/u02W2zNCMpBnBL37VE1SKJI/10s=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-Country.mmdb";
+      sha256 = "sha256-TLi0lZunfFPCvtdJgu4HzlFNNgr6nvXfDNkAADISU/Y=";
     };
   };
   git-mcp-server = {
