@@ -515,7 +515,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=",
+            "sha256": "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=",
             "type": "url",
             "url": "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage"
         },
@@ -2688,6 +2688,27 @@
             "type": "github"
         },
         "version": "v0.24"
+    },
+    "lyrics-on-panel-backend": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lyrics-on-panel-backend",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "KangweiZhu",
+            "repo": "lyrics-on-panel",
+            "rev": "v2.0",
+            "sha256": "sha256-r7eoDm92k1ZjnBOtIt09a6P2MMLItqva6aXgLmqk3no=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.0"
     },
     "magiskboot": {
         "cargoLock": null,

@@ -615,6 +615,10 @@ src.git = "https://github.com/microsoft/LoRA.git"
 fetch.github = "chiyuki0325/lyrica"
 src.github = "chiyuki0325/lyrica"
 
+[lyrics-on-panel-backend]
+fetch.github = "KangweiZhu/lyrics-on-panel"
+src.github_tag = "KangweiZhu/lyrics-on-panel"
+
 [magiskboot]
 fetch.url = "https://github.com/topjohnwu/Magisk/releases/download/$ver/Magisk-$ver.apk"
 src.github = "topjohnwu/Magisk"
