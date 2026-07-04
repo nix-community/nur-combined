@@ -9,8 +9,8 @@ jobs:
   update-hash:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: cachix/install-nix-action@v30
+      - uses: actions/checkout@v6
+      - uses: cachix/install-nix-action@v31
       - name: Update hash if changed
         id: check
         run: |
@@ -26,9 +26,9 @@ jobs:
       - name: Create PR
         id: pr
         if: steps.check.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           commit-message: "throne: update srslist.h hash"
           title: "throne: update srslist.h hash"
           body: "Automated hash update for srslist.h"
@@ -37,6 +37,6 @@ jobs:
       - name: Auto merge PR
         if: steps.pr.outputs.pull-request-number != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.PAT }}
         run: |
           gh pr merge --squash --delete-branch "${{ steps.pr.outputs.pull-request-number }}"
