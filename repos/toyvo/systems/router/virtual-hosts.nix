@@ -59,8 +59,8 @@
                       if selfSigned then
                         ''
                           header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-                          header_down -Server
                           reverse_proxy https://${ip}:${toString port} {
+                            header_down -Server
                             transport http {
                               tls_insecure_skip_verify
                             }
@@ -69,8 +69,9 @@
                       else
                         ''
                           header Strict-Transport-Security "max-age=15552000; includeSubDomains; preload"
-                          header_down -Server
-                          reverse_proxy http://${ip}:${toString port}
+                          reverse_proxy http://${ip}:${toString port} {
+                            header_down -Server
+                          }
                         ''
                     );
                 };

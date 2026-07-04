@@ -218,7 +218,7 @@ in
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
           serviceConfig = {
-            Type = "notify";
+            Type = "simple";
             User = "authentik";
             Group = "authentik";
             WorkingDirectory = "/var/lib/authentik";
@@ -315,7 +315,7 @@ in
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
           serviceConfig = {
-            Type = "notify";
+            Type = "simple";
             User = "authentik";
             Group = "authentik";
             WorkingDirectory = "/var/lib/authentik";
@@ -347,7 +347,7 @@ in
             AUTHENTIK_REDIS__PORT = toString cfg.redis.port;
           };
           serviceConfig = {
-            Type = "notify";
+            Type = "simple";
             User = "authentik";
             Group = "authentik";
             WorkingDirectory = "/var/lib/authentik";
