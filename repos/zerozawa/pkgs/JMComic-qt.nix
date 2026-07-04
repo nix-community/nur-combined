@@ -34,7 +34,11 @@ let
     };
     build-system = with python3Packages; [ setuptools ];
     dependencies = with python3Packages; [
-      curl-cffi pillow pycryptodome pyyaml commonx
+      curl-cffi
+      pillow
+      pycryptodome
+      pyyaml
+      commonx
     ];
     doCheck = false;
     pythonImportsCheck = [ "jmcomic" ];
@@ -42,13 +46,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "JMComic-qt";
-  version = "1.3.2.1";
+  version = "1.3.3";
 
   src = fetchFromGitHub {
     owner = "tonquer";
     repo = "JMComic-qt";
     rev = "v${version}";
-    hash = "sha256-RqDseXmEqVILXdEXQSiw4Cyo6Wxw9n70UF6AypwnBQ8=";
+    hash = "sha256-YRU9gLmfROIXJ6Im/Uv1On+W9FIFKcJUMepE2t6eQj4=";
   };
 
   format = "other";
@@ -66,13 +70,23 @@ python3Packages.buildPythonApplication rec {
   ];
 
   propagatedBuildInputs = with python3Packages; [
-    pyside6 pillow lxml pycryptodomex pysocks natsort curl-cffi
-    webdavclient3 tqdm pysmb beautifulsoup4 setuptools
+    pyside6
+    pillow
+    lxml
+    pycryptodomex
+    pysocks
+    natsort
+    curl-cffi
+    webdavclient3
+    tqdm
+    pysmb
+    beautifulsoup4
+    setuptools
     (httpx.overridePythonAttrs (finalAttrs: {
       dependencies = finalAttrs.dependencies ++ (with finalAttrs.optional-dependencies; http2 ++ socks);
     }))
     jmcomic
-    sr-vulkan  # This now includes models
+    sr-vulkan # This now includes models
   ];
 
   dontBuild = true;
@@ -138,7 +152,10 @@ python3Packages.buildPythonApplication rec {
       icon = "JMComic";
       terminal = false;
       type = "Application";
-      categories = [ "Graphics" "Network" ];
+      categories = [
+        "Graphics"
+        "Network"
+      ];
     })
   ];
 
