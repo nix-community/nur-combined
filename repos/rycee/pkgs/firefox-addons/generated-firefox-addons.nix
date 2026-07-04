@@ -948,10 +948,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.8";
+      version = "2.0.10";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877879/batchcamp-2.0.8.xpi";
-      sha256 = "2eb1bdd134592d1177dd6caa2590248487b55a5421d510491644e69ba78b6ed2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880869/batchcamp-2.0.10.xpi";
+      sha256 = "41752597a04787ae8362b3e4d01d83c40c45c0af86ccada60f62ae41197bd31f";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -2911,10 +2911,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "153.0.20260701.90326";
+      version = "153.0.20260703.90323";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877183/dansk_da_language_pack-153.0.20260701.90326.xpi";
-      sha256 = "8d348e5677f3cb07fc1366c76ddba46222b7a18dad2f4caddf236021efe2764d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880631/dansk_da_language_pack-153.0.20260703.90323.xpi";
+      sha256 = "2582eead6b9410bc9e2c1bcbc132c135cf52b5fcc70514498d33ee41f62f3ac3";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3127,10 +3127,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "153.0.20260701.90326";
+      version = "153.0.20260703.90323";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877180/deutsch_de_language_pack-153.0.20260701.90326.xpi";
-      sha256 = "93d8d51eb074ad87d9b65d5fb329761adb4a2e5e6086ad79935a51268076b017";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880639/deutsch_de_language_pack-153.0.20260703.90323.xpi";
+      sha256 = "c4de6eccee551c839d13e306794b2f7165f3aae5ea3c62da2f849af8eccd20a9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3163,10 +3163,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "7.4.0";
+      version = "7.4.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4814859/dictionaries-7.4.0.xpi";
-      sha256 = "5021b462373c9e99428ae5e1a082e6a78e96e11a8410c49386664fb41d6fa92a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881181/dictionaries-7.4.1.xpi";
+      sha256 = "f334b20502a8993e07135ef445b719d325639a1e11c085c171e33503dd84c0a8";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4237,10 +4237,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "2.74";
+      version = "3.0";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4425870/firemonkey-2.74.xpi";
-      sha256 = "138cbf38ec97c13ed00ad4b3753739896ba102b07ee9fdd789ca5561235273d0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881654/firemonkey-3.0.xpi";
+      sha256 = "d2b0fc9160f87100e43efb7ccd34c5afa50ddb0a28e64f91345a5ec07be01da0";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -4610,10 +4610,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "153.0.20260701.90326";
+      version = "153.0.20260703.90323";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877215/francais_language_pack-153.0.20260701.90326.xpi";
-      sha256 = "15dd02877c43994e9737c827f5eab0f4138fe3bffb86c2b9dd02f2a88c3e41a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880563/francais_language_pack-153.0.20260703.90323.xpi";
+      sha256 = "4e5ebd5ab66994f3b57f13f511e8834493014e83e91102a304e243c6e9743f18";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4647,10 +4647,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "153.0.20260701.90326";
+      version = "153.0.20260703.90323";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877230/gaidhlig_language_pack-153.0.20260701.90326.xpi";
-      sha256 = "48cd0adf858b11f9c52df04183f1509b14fd791e5d6e16dffad8ab22851307df";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880576/gaidhlig_language_pack-153.0.20260703.90323.xpi";
+      sha256 = "5bfc589bd24103cea227c46aa97c8489f97a12a0be6efc44669dfafe69a1cc1e";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4691,10 +4691,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.14";
+      version = "1.22.16";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4878252/geo_spoof-1.22.14.xpi";
-      sha256 = "ac3db73ffec884537690debea270f10cf081659d5f505aa8c55c71d0150124eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881184/geo_spoof-1.22.16.xpi";
+      sha256 = "5318a27f7a9d76f5ba64be320bd9d62ff36250683e22e137e102c31affd771eb";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -6532,10 +6532,10 @@
     };
     "hyperchat" = buildMozillaXpiAddon {
       pname = "hyperchat";
-      version = "3.3.1";
+      version = "3.3.2";
       addonId = "{14a15c41-13f4-498e-986c-7f00435c4d00}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4864227/hyperchat-3.3.1.xpi";
-      sha256 = "1744414bff71dfac0bb5c54b6e58f23628e0523f331b9d6c54345d034e089a34";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881026/hyperchat-3.3.2.xpi";
+      sha256 = "1c6d33bc7f89f2ab7ebc3c801c07f23d693822b714d765793942f3851f6f0f0c";
       meta = with lib;
       {
         homepage = "https://livetl.app/hyperchat/";
@@ -7253,10 +7253,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24";
+      version = "0.24.1";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877419/javascript_restrictor-0.24.xpi";
-      sha256 = "c28fcbb42301685873d1736436e9af82b4a54ee528f0298a1d5c4c80dcae9ef3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880312/javascript_restrictor-0.24.1.xpi";
+      sha256 = "7e00025338343f643304784ac2781e187683ad677a367f86097ae02ccfac2c40";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -8403,10 +8403,10 @@
     };
     "libkey-nomad" = buildMozillaXpiAddon {
       pname = "libkey-nomad";
-      version = "1.57.2";
+      version = "1.58.0";
       addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4850844/libkey_nomad-1.57.2.xpi";
-      sha256 = "dea3e357b75ddfb60b4c08b6fcdee34165230f3b62e2897ef6b651027727264a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4874576/libkey_nomad-1.58.0.xpi";
+      sha256 = "13f1ed4c75d53929ef36ede22dc0cda2d46246d19cf9bc7871eea45a174c456a";
       meta = with lib;
       {
         homepage = "https://thirdiron.com/libkey-nomad/";
@@ -8823,10 +8823,10 @@
     };
     "livetl" = buildMozillaXpiAddon {
       pname = "livetl";
-      version = "9.2.1";
+      version = "9.2.2";
       addonId = "{ae865fed-3ca7-4701-bb86-f129e77deef5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4864226/livetl-9.2.1.xpi";
-      sha256 = "360a1040d4aff535a763ce449130b19c221238ca7571fd9fbb674d7a15f7d380";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881029/livetl-9.2.2.xpi";
+      sha256 = "c4134753a4032033e5c1ddea424697c654d0bbcab98d4409d9843cc6b4f7d84e";
       meta = with lib;
       {
         homepage = "https://livetl.app/";
@@ -10632,10 +10632,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.26";
+      version = "13.6.27";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875290/noscript-13.6.26.xpi";
-      sha256 = "60ef601f87d9fa0745af5aa1d5132e96533afcbf89be9483b4803b4c82c707ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880484/noscript-13.6.27.xpi";
+      sha256 = "459986adf3a6fe2b29aad09aa29b02683a23f2b70066802d74e600527949f8e0";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -10950,10 +10950,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.15";
+      version = "2.16";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4876166/onetab-2.15.xpi";
-      sha256 = "2e4eb4227e04b686c909d68628753f56fe90fedd122b816e202c8de742c0be1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880293/onetab-2.16.xpi";
+      sha256 = "e43606daabc03dab714f1c2a1425e832b7bba5be71138902d13e751f775b2231";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -13397,10 +13397,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "153.0.20260701.90326";
+      version = "153.0.20260703.90323";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877118/scots_language_pack-153.0.20260701.90326.xpi";
-      sha256 = "d15aad43359303035ddd7d65d399aebe1d2ec63af389c9d70498f9604272f54a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880612/scots_language_pack-153.0.20260703.90323.xpi";
+      sha256 = "040e80dd1d871c2fc6a3ce5438b3e147ecf41daeb9c954bfc8e26b6515965ca6";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14065,10 +14065,10 @@
     };
     "sonarr-radarr-lidarr-search" = buildMozillaXpiAddon {
       pname = "sonarr-radarr-lidarr-search";
-      version = "3.1.1.0";
+      version = "3.2.0.0";
       addonId = "sonarr-radarr-lidarr-autosearch@robgreen.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4829357/sonarr_radarr_lidarr_search-3.1.1.0.xpi";
-      sha256 = "cc7094c9b224bcd0a69d91eaff2ba184f032b2284f3e8a68672a34c2e5cc563b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4880981/sonarr_radarr_lidarr_search-3.2.0.0.xpi";
+      sha256 = "17523eb961a7ca513291638961c877d13214588aa7bc463c99b5c05afa491f12";
       meta = with lib;
       {
         homepage = "https://github.com/trossr32/sonarr-radarr-lidarr-autosearch-browser-extension";

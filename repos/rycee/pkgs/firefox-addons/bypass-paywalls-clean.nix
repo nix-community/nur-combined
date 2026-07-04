@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.9.0";
+  version = "4.3.9.2";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.9.0.xpi";
-  sha256 = "9204851f9dcc2f7a6bcf71a96396e599d7da9452785238354a33c8ae0b7accea";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.9.2.xpi";
+  sha256 = "5c9cffe04fd7729ba3f7303d4e78a7d264a9a313ebb3e1d477fed3bcf2b9762b";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -37,7 +37,6 @@ buildFirefoxXpiAddon {
       "*://*.aerokurier.de/*"
       "*://*.aerztezeitung.de/*"
       "*://*.afr.com/*"
-      "*://*.aftenposten.no/*"
       "*://*.aisnenouvelle.fr/*"
       "*://*.ajc.com/*"
       "*://*.al-monitor.com/*"
@@ -726,7 +725,6 @@ buildFirefoxXpiAddon {
       "*://*.slate.com/*"
       "*://*.slideshare.net/*"
       "*://*.sloanreview.mit.edu/*"
-      "*://*.sltrib.com/*"
       "*://*.smartcompany.com.au/*"
       "*://*.smh.com.au/*"
       "*://*.sofrep.com/*"
@@ -813,7 +811,6 @@ buildFirefoxXpiAddon {
       "*://*.thehill.com/*"
       "*://*.thehindu.com/*"
       "*://*.thehindubusinessline.com/*"
-      "*://*.theinformation.com/*"
       "*://*.theintercept.com/*"
       "*://*.thejuggernaut.com/*"
       "*://*.thelampmagazine.com/*"
