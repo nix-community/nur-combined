@@ -260,6 +260,10 @@ def main():
                         repo = gh_m.group(2)
                     
             if url and current_rev:
+                if '${' in current_rev:
+                    print(f"[WARN]   {name_display}: Could not resolve src rev {current_rev!r} in {pkg_nix}")
+                    continue
+
                 if current_rev.startswith('refs/tags/'):
                     current_rev = current_rev[len('refs/tags/'):]
                 
@@ -278,12 +282,11 @@ def main():
                 else:
                     allow_prerelease = not is_stable_tag(current_rev)
                     latest = None
-                    has_releases = False
                     if pkg != "tailscale" and domain == "github.com" and owner and repo:
-                        has_releases, latest = get_latest_github_release(owner, repo, allow_prerelease)
-                        if not has_releases and not latest:
+                        _, latest = get_latest_github_release(owner, repo, allow_prerelease)
+                        if not latest:
                             latest = get_latest_github_tag_by_date(owner, repo, current_rev, allow_prerelease)
-                    if not latest and not has_releases:
+                    if not latest:
                         latest = get_latest_git_tag_url(url, current_rev, allow_prerelease)
                     if latest:
                         if version_key(latest) > version_key(current_rev):
@@ -293,6 +296,10 @@ def main():
                             print(f"[DOWNGRADE] {name_display}: {current_rev} -> {latest}")
                     else:
                         print(f"[WARN]   {name_display}: Could not fetch latest version from {url}")
+            elif git_match or fetchgit_match:
+                print(f"[WARN]   {pkg}: Could not parse src owner/repo/rev from {pkg_nix}")
+            elif re.search(r'\bsrc\s*=\s*(?:pkgs\.)?fetch(?:FromGitHub|FromGitLab|git)\b', content):
+                print(f"[WARN]   {pkg}: Could not parse src block from {pkg_nix}")
 
     if not updates_found:
         print("No updates found.")
