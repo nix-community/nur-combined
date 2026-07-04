@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
+      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
     };
   };
   buname = {
@@ -882,26 +882,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.07.01";
+    version = "2026.07.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-ASN.mmdb";
-      hash = "sha256-TDvMkr4YBLHaPhcGsECHfqHVmr91cY8myuRZGJnsU50=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-ASN.mmdb";
+      hash = "sha256-iZ51qUjjB7axkd1THno6OtEDM8gTFiJ5FOV6ggSCeL0=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.07.01";
+    version = "2026.07.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-City.mmdb";
-      hash = "sha256-2IzQLS2Oti+7tJ2gxGpEQG6Bgpa13Fh7szk5ZNG70kY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-City.mmdb";
+      hash = "sha256-SYnbhFfzWAWn43S7TDX5pE3x0/CpazKOk23sriYMMNM=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.07.01";
+    version = "2026.07.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.01/GeoLite2-Country.mmdb";
-      hash = "sha256-lA/GZ2wFONB4DVT/u02W2zNCMpBnBL37VE1SKJI/10s=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.04/GeoLite2-Country.mmdb";
+      hash = "sha256-TLi0lZunfFPCvtdJgu4HzlFNNgr6nvXfDNkAADISU/Y=";
     };
   };
   glauth = {
@@ -1080,14 +1080,14 @@
   };
   invisible-firefox = {
     pname = "invisible-firefox";
-    version = "6dce665b2fa2d5b6970209d1e995007a4be557ce";
+    version = "f253ac268da4802f2547cf13d1925d66a0fc90db";
     src = fetchFromGitHub {
       owner = "feder-cr";
       repo = "invisible-firefox";
-      rev = "6dce665b2fa2d5b6970209d1e995007a4be557ce";
-      hash = "sha256-FSWC2GDtzemjoIO+vhCtrhnRNagDL4jQAsPnfUczbF4=";
+      rev = "f253ac268da4802f2547cf13d1925d66a0fc90db";
+      hash = "sha256-PdS5QjEN79c6STm+jfeR44z4k/fTGJI/XXqg2GJFjp8=";
     };
-    date = "2026-06-24";
+    date = "2026-07-04";
   };
   invisible-firefox-bin-linux-arm64 = {
     pname = "invisible-firefox-bin-linux-arm64";
@@ -1191,14 +1191,14 @@
   };
   kikoplay-script = {
     pname = "kikoplay-script";
-    version = "356c379794c862456f790345817d5d8ef6ab6d40";
+    version = "631c2b09aaf507c88823fffd2ce4371617243782";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayScript";
-      rev = "356c379794c862456f790345817d5d8ef6ab6d40";
-      hash = "sha256-hTP+beAPcBbQ6q0qc29vBIzMo2DEWFD7JkM6EamdU7I=";
+      rev = "631c2b09aaf507c88823fffd2ce4371617243782";
+      hash = "sha256-MzXaBpbFwZtNPQ3KK7ab66PCSND1LXXTZLsJOlwP4MI=";
     };
-    date = "2026-05-17";
+    date = "2026-07-04";
   };
   konnect = {
     pname = "konnect";
@@ -1356,12 +1356,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9867";
+    version = "b9873";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9867";
-      hash = "sha256-aH801R2FKP/mWbNrBpPd6aqqn53XMUGGkzTeUgETKaM=";
+      tag = "b9873";
+      hash = "sha256-IQo/6ix/+nA2lLJRteuVApsgXiisU2EqzPVF30UX4FE=";
     };
   };
   loralib = {
@@ -1804,10 +1804,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.15";
+    version = "9.3.16";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.15/PeerBanHelper_9.3.15.zip";
-      hash = "sha256-eM9fKizx5Jz222iGD3zsUR0gYPr0RO2mR0bCl5I14hQ=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.16/PeerBanHelper_9.3.16.zip";
+      hash = "sha256-jERAvp1aUDk8K0eiVGp2Jq9htTBJ8JvzpMgTpKZtHKI=";
     };
   };
   phpmyadmin = {
@@ -2349,10 +2349,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v2.3.2230";
+    version = "v2.3.2232";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2230/Suwayomi-Server-v2.3.2230.jar";
-      hash = "sha256-eh8EM7T8YS+fXyqFssS7jUs1GkpKQmkJdJNg4hjquRg=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2232/Suwayomi-Server-v2.3.2232.jar";
+      hash = "sha256-/4zYIpGMMcF3zISX5IbYMD75hQ+JjypItUb0IuIp8IQ=";
     };
   };
   svp = {
