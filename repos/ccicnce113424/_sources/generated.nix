@@ -249,17 +249,17 @@
   };
   pixes-git = {
     pname = "pixes-git";
-    version = "9e475dad25d52a2db4350725e1748f009d318da4";
+    version = "47004c2ce516f092f7dda65fcc917f4d56c5eeeb";
     src = fetchFromGitHub {
       owner = "pixes-app";
       repo = "pixes";
-      rev = "9e475dad25d52a2db4350725e1748f009d318da4";
+      rev = "47004c2ce516f092f7dda65fcc917f4d56c5eeeb";
       fetchSubmodules = false;
-      sha256 = "sha256-fX5z0tWIBgjNhxD4zWWlXq1cYTgAkNXXqyUZZ1kn1lg=";
+      sha256 = "sha256-072oVqDPZQNm1Aaboc57MYDNNGZ4+YyOz/MtLwUGMVg=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-fX5z0tWIBgjNhxD4zWWlXq1cYTgAkNXXqyUZZ1kn1lg=/pubspec.lock";
-    };date = "2026-06-29";
+      "pubspec.lock" = ./. + "/sha256-072oVqDPZQNm1Aaboc57MYDNNGZ4+YyOz_MtLwUGMVg=/pubspec.lock";
+    };date = "2026-07-04";
   };
   pwasio = {
     pname = "pwasio";
@@ -307,21 +307,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "ee4a07ce5b10518449bdf61e5178e24cd0032946";
+    version = "863ac4401421c5f879eea4d4803da5f94cf499bd";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "ee4a07ce5b10518449bdf61e5178e24cd0032946";
+      rev = "863ac4401421c5f879eea4d4803da5f94cf499bd";
       fetchSubmodules = false;
-      sha256 = "sha256-GL1ZqU8CaIc3DF+BdR8oJsHL3G4q23HGoIl6YgkzQF4=";
+      sha256 = "sha256-6FmaPfmnb2d7r/AIMKXOk6TyY6xQO/wYJGcA+l0emDk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-GL1ZqU8CaIc3DF+BdR8oJsHL3G4q23HGoIl6YgkzQF4=/Cargo.lock";
+      lockFile = ./. + "/sha256-6FmaPfmnb2d7r_AIMKXOk6TyY6xQO_wYJGcA+l0emDk=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
     };
-    date = "2026-07-03";
+    date = "2026-07-05";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
@@ -381,18 +381,18 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.2.2";
+    version = "0.2.3";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.2.2/waywallen-0.2.2-x86_64.AppImage";
-      sha256 = "sha256-HvpTNvPU5Ijn3xls8xWJ09issTdOJlG5sva93qXoAK4=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.2.3/waywallen-0.2.3-x86_64.AppImage";
+      sha256 = "sha256-q+IsQuuDb52wrLCqItTSBAiKSSvXA2SU/Qh0LBlY+xo=";
     };
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.2.7";
+    version = "0.2.8";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.7/waywallen-kde-0.2.7-x86_64-embed.zip";
-      sha256 = "sha256-AzoSFf4qXWP7+H+IvNVC4LR+sSLk57GiQ+sat8U3dEU=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.8/waywallen-kde-0.2.8-x86_64-embed.zip";
+      sha256 = "sha256-klssQ15a1Mp+IsRYoPtppKHsryz4HKrQZxiwEFI8Kl4=";
     };
   };
   wild = {

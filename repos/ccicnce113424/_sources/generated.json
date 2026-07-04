@@ -400,9 +400,9 @@
     },
     "pixes-git": {
         "cargoLock": null,
-        "date": "2026-06-29",
+        "date": "2026-07-04",
         "extract": {
-            "pubspec.lock": "sha256-fX5z0tWIBgjNhxD4zWWlXq1cYTgAkNXXqyUZZ1kn1lg=/pubspec.lock"
+            "pubspec.lock": "sha256-072oVqDPZQNm1Aaboc57MYDNNGZ4+YyOz_MtLwUGMVg=/pubspec.lock"
         },
         "name": "pixes-git",
         "passthru": null,
@@ -414,12 +414,12 @@
             "name": null,
             "owner": "pixes-app",
             "repo": "pixes",
-            "rev": "9e475dad25d52a2db4350725e1748f009d318da4",
-            "sha256": "sha256-fX5z0tWIBgjNhxD4zWWlXq1cYTgAkNXXqyUZZ1kn1lg=",
+            "rev": "47004c2ce516f092f7dda65fcc917f4d56c5eeeb",
+            "sha256": "sha256-072oVqDPZQNm1Aaboc57MYDNNGZ4+YyOz/MtLwUGMVg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9e475dad25d52a2db4350725e1748f009d318da4"
+        "version": "47004c2ce516f092f7dda65fcc917f4d56c5eeeb"
     },
     "pwasio": {
         "cargoLock": null,
@@ -494,13 +494,13 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-GL1ZqU8CaIc3DF+BdR8oJsHL3G4q23HGoIl6YgkzQF4=/Cargo.lock",
+                "sha256-6FmaPfmnb2d7r_AIMKXOk6TyY6xQO_wYJGcA+l0emDk=/Cargo.lock",
                 {
                     "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
                 }
             ]
         },
-        "date": "2026-07-03",
+        "date": "2026-07-05",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -512,12 +512,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "ee4a07ce5b10518449bdf61e5178e24cd0032946",
-            "sha256": "sha256-GL1ZqU8CaIc3DF+BdR8oJsHL3G4q23HGoIl6YgkzQF4=",
+            "rev": "863ac4401421c5f879eea4d4803da5f94cf499bd",
+            "sha256": "sha256-6FmaPfmnb2d7r/AIMKXOk6TyY6xQO/wYJGcA+l0emDk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ee4a07ce5b10518449bdf61e5178e24cd0032946"
+        "version": "863ac4401421c5f879eea4d4803da5f94cf499bd"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -633,11 +633,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-HvpTNvPU5Ijn3xls8xWJ09issTdOJlG5sva93qXoAK4=",
+            "sha256": "sha256-q+IsQuuDb52wrLCqItTSBAiKSSvXA2SU/Qh0LBlY+xo=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.2/waywallen-0.2.2-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.3/waywallen-0.2.3-x86_64.AppImage"
         },
-        "version": "0.2.2"
+        "version": "0.2.3"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
@@ -648,11 +648,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-AzoSFf4qXWP7+H+IvNVC4LR+sSLk57GiQ+sat8U3dEU=",
+            "sha256": "sha256-klssQ15a1Mp+IsRYoPtppKHsryz4HKrQZxiwEFI8Kl4=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.2.7/waywallen-kde-0.2.7-x86_64-embed.zip"
+            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.2.8/waywallen-kde-0.2.8-x86_64-embed.zip"
         },
-        "version": "0.2.7"
+        "version": "0.2.8"
     },
     "wild": {
         "cargoLock": {
