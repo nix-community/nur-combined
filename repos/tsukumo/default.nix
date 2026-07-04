@@ -31,5 +31,6 @@ in
   yogabook-touch-keyboard = yogabook-linux.touch-keyboard;
   yogabook-iio-sensor-proxy = yogabook-linux.iio-sensor-proxy-yogabook;
   yogabook-modes-handler = yogabook-linux.yogabook-modes-handler;
+  yogabook-config = yogabook-linux.yogabook-config;
   yogabook-kernel = yogabook-linux.yogabook-kernel;
 }

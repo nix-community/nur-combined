@@ -61,14 +61,26 @@
           ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
         };
 
-        # Disable default initrd modules to prevent adding unavailable legacy storage modules (ahci, ata_piix, etc.)
-        boot.initrd.includeDefaultModules = false;
+        # Disable default initrd modules when using the custom kernel to prevent
+        # errors from missing legacy storage modules (ahci, ata_piix, etc.) and
+        # keyboard modules (atkbd, i8042) which are not built in the custom kernel.
+        boot.initrd.includeDefaultModules = lib.mkDefault (!cfg.useCustomKernel);
         boot.initrd.availableKernelModules = [
+          # Storage / MMC
+          "sdhci"
           "sdhci_acpi"
+          "sdhci_pci"
+          "mmc_block"
+          # USB Host Controllers
           "xhci_pci"
+          "ehci_pci"
+          "ohci_pci"
+          "uhci_hcd"
+          # USB Input / Storage
           "usbhid"
           "hid_generic"
           "usb_storage"
+          "uas"
           "sd_mod"
         ];
 
