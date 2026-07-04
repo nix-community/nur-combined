@@ -1,0 +1,11 @@
+--- a/sem-cli/src/telemetry.rs
++++ b/sem-cli/src/telemetry.rs
+@@ -38,7 +38,7 @@ struct TelemetryState {
+ 
+ fn telemetry_disabled() -> bool {
+     let set = |var: &str| std::env::var(var).is_ok_and(|v| !v.is_empty() && v != "0");
+-    set("SEM_NO_TELEMETRY") || set("DO_NOT_TRACK") || is_development_build()
++    { let _ = &set; true }
+ }
+ 
+ /// True when this binary is a development build rather than a real install,

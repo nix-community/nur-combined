@@ -10,18 +10,22 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "sem-cli";
-  version = "0.14.1";
+  version = "0.18.0";
 
   src = fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "sem";
     rev = "v${version}";
-    hash = "sha256-erTyUSzK7Q9eW0NnhDZgnzLq+KdQGVpXB7ZHhpZ8yyU=";
+    hash = "sha256-53jMRJY5LF6NaXJPN4ZXSI9+dDc/7xTh6PlXBiH7QA4=";
   };
 
-  cargoHash = "sha256-iNlR24RGjBL4RsMlL10ymc8VjaZxb+vlRAdSwu04VcA=";
+  cargoHash = "sha256-43Ecif/3JHzuFDqhOxwcTeFGWEiHGygC9+D1WL++Bls=";
 
   sourceRoot = "${src.name}/crates";
+
+  patches = [
+    ./disable-telemetry.patch
+  ];
 
   nativeBuildInputs = [
     pkg-config
@@ -37,6 +41,7 @@ rustPlatform.buildRustPackage rec {
   cargoBuildFlags = [
     "--package"
     "sem-cli"
+    "--no-default-features"
   ];
 
   checkFlags = cargoBuildFlags;
