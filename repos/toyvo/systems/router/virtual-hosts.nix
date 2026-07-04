@@ -48,7 +48,7 @@
                   extraConfig =
                     let
                       forwardAuthBlock = lib.optionalString (protected && !selfSigned) ''
-                        forward_auth http://${homelab.router.ip}:9000 {
+                        forward_auth http://${homelab.authentik.ip}:9000 {
                           uri /outpost.goauthentik.io/auth/caddy
                           copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Jwt X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Session-Issuer
                         }
