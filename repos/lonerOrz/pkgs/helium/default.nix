@@ -4,11 +4,11 @@
   ...
 }:
 let
-  version = "0.14.2.1";
+  version = "0.14.3.1";
   sourceMap = {
     x86_64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64.AppImage";
-      hash = "sha256-JQQ5K+WUZ3ly5mklNPGZWDTlq+mJqqS02oJgC3in5U0=";
+      hash = "sha256-umRDXcHlDRDWpdP4wxr81q+cUXkjiIxyg2AcJRFQaMA=";
     };
     aarch64-linux = pkgs.fetchurl {
       url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-arm64.AppImage";
