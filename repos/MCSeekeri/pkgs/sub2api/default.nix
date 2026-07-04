@@ -1,8 +1,6 @@
 {
   lib,
-  fetchurl,
   buildGoModule,
-  go_1_26,
   fetchFromGitHub,
   fetchPnpmDeps,
   pnpmConfigHook,
@@ -12,29 +10,21 @@
   stdenvNoCC,
 }:
 let
-  version = "0.1.138";
+  version = "0.1.144";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-JGk98y/BJoMByL9EEYREx0k5sfiN5N8BaEZ4+ufajUY=";
+    hash = "sha256-LlZh0JX9Y7I8gZloIuIqfvgExaORWcy7pU3dgmn2ml4=";
   };
-
-  go = go_1_26.overrideAttrs (_: rec {
-    version = "1.26.4";
-    src = fetchurl {
-      url = "https://go.dev/dl/go${version}.src.tar.gz";
-      hash = "sha256-T2aKMvv8ETLmqIH7lowvHa2mMUkqM5IRc1+7JVpCYC0=";
-    };
-  });
 
   frontendPnpmDeps = fetchPnpmDeps {
     pname = "sub2api-frontend";
     inherit version src;
     pnpm = pnpm_10;
-    fetcherVersion = 3;
+    fetcherVersion = 4;
     sourceRoot = "source/frontend";
-    hash = "sha256-Kvh/ROIvKxLrJSz9EyP5IemJnPY9KqW71MGiG6t6F8c=";
+    hash = "sha256-eEfGu9Op9iupTeix+6g3SHc+nqVb3cFFKBG/dfjowXs=";
   };
 
   frontend = stdenvNoCC.mkDerivation {
@@ -70,12 +60,12 @@ let
     '';
   };
 in
-buildGoModule.override { inherit go; } {
+buildGoModule {
   pname = "sub2api";
   inherit version src;
 
   modRoot = "backend";
-  vendorHash = "sha256-rfv0MEUx2IXf3GsDVVZhEIyvKAW0L68tyzbrP5f4iqk=";
+  vendorHash = "sha256-Nl3yNle8T3ouk3TSti7ptYXbI6lB1wI29tf2IsWpCk0=";
 
   postPatch = ''
     rm -rf backend/internal/web/dist
@@ -95,7 +85,10 @@ buildGoModule.override { inherit go; } {
   tags = [ "embed" ];
   subPackages = [ "cmd/server" ];
 
-  passthru.updateScript = nix-update-script { };
+  passthru = {
+    updateScript = nix-update-script { };
+    inherit frontendPnpmDeps;
+  };
 
   meta = {
     description = "AI API Gateway Platform for Subscription Quota Distribution";

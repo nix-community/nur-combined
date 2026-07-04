@@ -29,4 +29,6 @@
   tauritavern = pkgs.callPackage ./pkgs/tauritavern { };
   xmcl = pkgs.callPackage ./pkgs/xmcl { };
   xmcl-bin = pkgs.callPackage ./pkgs/xmcl-bin { };
+  ai-toolbox = pkgs.callPackage ./pkgs/ai-toolbox { };
+  unreal-gold = pkgs.callPackage ./pkgs/unreal-gold { };
 }

@@ -8,7 +8,7 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
-  pnpm_10,
+  pnpm,
   cargo-tauri,
   pkg-config,
   wrapGAppsHook4,
@@ -34,9 +34,8 @@ let
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
-    pnpm = pnpm_10;
-    fetcherVersion = 3;
-    hash = "sha256-Ka+RJi2+buqWwGTZLN8apA+ClUYrgaQS/1VLi2/6+90=";
+    fetcherVersion = 4;
+    hash = "sha256-PQ4ofJbH4GiVmmRG1sRn0SHxL2BWxB7dAE3518mD9gw=";
   };
 
   tauritavern-web = stdenv.mkDerivation {
@@ -45,7 +44,7 @@ let
 
     nativeBuildInputs = [
       pnpmConfigHook
-      pnpm_10
+      pnpm
       nodejs
     ];
 
@@ -101,7 +100,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     cargo-tauri.hook
     nodejs
     pkg-config
-    pnpm_10
+    pnpm
     pnpmConfigHook
 
   ]

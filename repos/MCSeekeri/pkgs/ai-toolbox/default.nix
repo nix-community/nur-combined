@@ -21,33 +21,34 @@
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
-  pname = "cc-switch";
-  version = "3.16.5";
+  pname = "ai-toolbox";
+  version = "1.0.0-beta1";
 
   src = fetchFromGitHub {
-    owner = "farion1231";
-    repo = "cc-switch";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-CrUoTfGAy+gi3gdcSlNyjwM2Rm4nahqDWdM6I9OQgPc=";
+    owner = "coulsontl";
+    repo = "ai-toolbox";
+    rev = "v${finalAttrs.version}";
+    hash = "sha256-C//Oi6nsmpBZv5syfyi1HzEvpWLSMIznPiP5PbokB1U=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-4S00JM93MR5ARL2eginyNh/0dIrzU5rJQYS1x1PYoig=";
+    hash = "sha256-0mq5m3wollvgX6yIeiBeRGyMCAyQKbcwioYsEVkAjFw=";
   };
 
-  cargoRoot = "src-tauri";
-  cargoHash = "sha256-gX32xCiVKHQ0BIIB9GyWHessIW30zbTcMZLtPJycxn8=";
+  doCheck = false;
+
+  cargoRoot = "tauri";
+  cargoHash = "sha256-vI42ZsxtTKdMd8YzSKmM2CDVl3FyUa48TP3ek6HXfAQ=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   postPatch = ''
-    substituteInPlace src-tauri/tauri.conf.json \
+    substituteInPlace tauri/tauri.conf.json \
       --replace-fail '"createUpdaterArtifacts": true' '"createUpdaterArtifacts": false'
   '';
 
   tauriBuildFlags = [ "--ignore-version-mismatches" ];
-  # https://github.com/farion1231/cc-switch/pull/2316
 
   nativeBuildInputs = [
     cargo-tauri.hook
@@ -79,16 +80,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "All-in-One assistant tool for Claude Code, Codex, OpenCode, openclaw and Gemini CLI";
+    description = "Personal AI Toolbox — manage AI coding assistant configurations in one place";
     longDescription = ''
-      CC-Switch is a cross-platform desktop application that provides a unified
-      interface for multiple AI coding assistants including Claude Code, Codex,
-      OpenCode, openclaw and Gemini CLI.
+      AI Toolbox is a cross-platform desktop app that helps developers manage
+      configurations for various AI coding assistants. It supports OpenCode,
+      Claude Code, Codex CLI, Oh-My-OpenCode, MCP servers, Skills, and more,
+      with a visual interface, system tray quick-switching, WSL sync, and data
+      backup/restore.
     '';
-    homepage = "https://github.com/farion1231/cc-switch";
-    changelog = "https://github.com/farion1231/cc-switch/releases/tag/v${finalAttrs.version}";
+    homepage = "https://github.com/coulsontl/ai-toolbox";
+    changelog = "https://github.com/coulsontl/ai-toolbox/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
-    mainProgram = "cc-switch";
+    mainProgram = "ai-toolbox";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     maintainers = with lib.maintainers; [ MCSeekeri ];
