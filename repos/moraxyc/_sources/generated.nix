@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "33b1d9b2ae640ee015acd78a2fd46d670af68130";
+    version = "66f32ff4e173d5851c0b4765fa8366c3ced7d061";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "33b1d9b2ae640ee015acd78a2fd46d670af68130";
+      rev = "66f32ff4e173d5851c0b4765fa8366c3ced7d061";
       fetchSubmodules = false;
-      sha256 = "sha256-QmQZtjh/AtL10ikGA0SIDAgJKAxr/h4ceUeLe8ytNtM=";
+      sha256 = "sha256-yQ5yxeWU4PEP9deJmEYCxC6CIib326ZpV07zeX/CYbo=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-QmQZtjh_AtL10ikGA0SIDAgJKAxr_h4ceUeLe8ytNtM=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-yQ5yxeWU4PEP9deJmEYCxC6CIib326ZpV07zeX_CYbo=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-07-03";
+    date = "2026-07-04";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -702,16 +702,16 @@
   };
   whois42d-ng = {
     pname = "whois42d-ng";
-    version = "e7c701a244f5184efd7e29aad162ba1b43c7e838";
+    version = "474377bcc6ebb224fb4b382411891267e6decdd8";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "whois42d-ng";
-      rev = "e7c701a244f5184efd7e29aad162ba1b43c7e838";
+      rev = "474377bcc6ebb224fb4b382411891267e6decdd8";
       fetchSubmodules = false;
-      sha256 = "sha256-WIpWwhLkThPKtagjIIsQop78q6dJHWVBkhcfuR1bI9k=";
+      sha256 = "sha256-pWthewKswsJnXbZwCYSZki/CA9t/c8QH7umVikfobj0=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-WIpWwhLkThPKtagjIIsQop78q6dJHWVBkhcfuR1bI9k=/Cargo.lock";
+      lockFile = ./. + "/sha256-pWthewKswsJnXbZwCYSZki_CA9t_c8QH7umVikfobj0=/Cargo.lock";
       outputHashes = {
         
       };
@@ -720,13 +720,13 @@
   };
   whois42d-ng-stable = {
     pname = "whois42d-ng-stable";
-    version = "v2.0.2";
+    version = "v2.1.0";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "whois42d-ng";
-      rev = "v2.0.2";
+      rev = "v2.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-yS/JOMQtZM7BKKeZnkF4xYjiP3B1A2tOP2+AfjlT1IU=";
+      sha256 = "sha256-pWthewKswsJnXbZwCYSZki/CA9t/c8QH7umVikfobj0=";
     };
   };
   zsh-patina = {

@@ -910,7 +910,7 @@ checksum = "ccf3ec651a847eb01de73ccad15eb7d99f80485de043efb2f370cd654f4ea44b"
 
 [[package]]
 name = "whois42d-ng"
-version = "2.0.2"
+version = "2.1.0"
 dependencies = [
  "axum",
  "clap",
