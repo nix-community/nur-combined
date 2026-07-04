@@ -1659,6 +1659,9 @@
         "xfix": {
             "url": "https://github.com/xfix/nur-packages"
         },
+        "ximimoments": {
+            "url": "https://github.com/ximimoments/nur-packages"
+        },
         "xonsh-xontribs": {
             "url": "https://github.com/drmikecrowe/nur-packages"
         },
