@@ -115,10 +115,10 @@ in
       flags = "--add-dir ${rtkMD}";
       runtimeEnv =
         let
-          ANTHROPIC_MODEL = "minimaxai/minimax-m3";
+          ANTHROPIC_MODEL = "z-ai/glm-5.2";
         in
         {
-          ANTHROPIC_BASE_URL = "http://127.0.0.1:3456";
+          ANTHROPIC_BASE_URL = "http://127.0.0.1:4000";
           ANTHROPIC_AUTH_TOKEN = "dummy";
           inherit ANTHROPIC_MODEL;
           ANTHROPIC_DEFAULT_HAIKU_MODEL = ANTHROPIC_MODEL;

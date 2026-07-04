@@ -63,9 +63,37 @@ let
   '';
 in
 {
-  imports = [
-    ./claude-code-router
-  ];
+  services.litellm = {
+    enable = true;
+    package = pkgs.litellm.overrideAttrs (prev: {
+      propagatedBuildInputs = prev.propagatedBuildInputs ++ [
+        pkgs.python3Packages.diskcache
+      ];
+    });
+    port = 4000;
+    environmentFile = config.sops.secrets.litellm.path;
+    settings = {
+      model_list = [
+        {
+          model_name = "z-ai/glm-5.2";
+          litellm_params = {
+            model = "nvidia_nim/z-ai/glm-5.2";
+            api_key = "os.environ/NVIDIA_NIM_API_KEY";
+          };
+        }
+      ];
+      litellm_settings = {
+        cache = true;
+        cache_params = {
+          type = "disk";
+          disk_cache_dir = "/var/cache/litellm";
+        };
+        drop_params = true;
+      };
+    };
+  };
+  systemd.services.litellm.serviceConfig.CacheDirectory = "litellm";
+  sops.secrets.litellm = { };
   services.llama-cpp = {
     enable = true;
     package = llama-cpp;
@@ -78,71 +106,7 @@ in
     "HOME=/var/cache/llama-cpp"
     "HF_ENDPOINT=https://hf-mirror.com"
   ];
-  sops.secrets.ccr = { };
-  services.claude-code-router = {
-    enable = true;
-    package = pkgs.claude-code-router.overrideAttrs (oldAttrs: rec {
-      version = "2.0.1";
-      src = pkgs.fetchFromGitHub {
-        owner = "wbern";
-        repo = "claude-code-router";
-        rev = "b77593ba410b80a1d6642484c5ccbc8840a84e17";
-        hash = "sha256-swAjX47Ojs7QK4+WINZ6MlScHoDc0k6v5n5syCFjS4w=";
-      };
-
-      patches = (oldAttrs.patches or [ ]) ++ [
-        ./0001-feat-openai-add-reasoning-effort-support-to-request-.patch
-      ];
-
-      pnpmDeps = pkgs.fetchPnpmDeps {
-        pnpm = pkgs.pnpm_10;
-        inherit (oldAttrs) pname;
-        inherit src;
-        fetcherVersion = 3;
-        hash = "sha256-8184F3ShoC6j7nov35CSZWz2dzPFQC7Bty1iTNs1qzc=";
-      };
-    });
-    settings = {
-      NON_INTERACTIVE_MODE = true;
-      Providers = [
-        {
-          name = "gemini";
-          api_base_url = "$GEMINI_API_BASE";
-          api_key = "$GEMINI_API_KEY";
-          models = [
-            "gemini-3.1-flash-lite"
-            "gemma-4-31b-it"
-            "gemma-4-26b-a4b-it"
-          ];
-          transformer = {
-            use = [ "gemini" ];
-          };
-        }
-        {
-          name = "openai";
-          api_base_url = "$OPENAI_API_BASE";
-          api_key = "$OPENAI_API_KEY";
-          models = [
-            "minimaxai/minimax-m3"
-            "moonshotai/kimi-k2.6"
-            "deepseek-ai/deepseek-v4-pro"
-            "deepseek-ai/deepseek-v4-flash"
-            "z-ai/glm-5.1"
-          ];
-          transformer = {
-            use = [ "OpenAI" ];
-          };
-        }
-      ];
-      Router = {
-        default = "openai,minimaxai/minimax-m3";
-        background = "gemini,gemma-4-31b-it";
-      };
-    };
-    environmentFile = config.sops.secrets.ccr.path;
-  };
   environment.systemPackages = with pkgs; [
-    cherry-studio
     geminicommit
     llama-cpp
     stable-diffusion-cpp-vulkan
