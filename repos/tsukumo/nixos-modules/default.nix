@@ -73,7 +73,17 @@
           "mmc_block"
           "cqhci"
           # DMA Engine (required for sdhci DMA on Intel Cherry Trail)
-          "intel_idma64"
+          "idma64"
+          # Intel LPSS (Required for clock/power of SDHCI/eMMC controllers)
+          "intel-lpss"
+          "intel-lpss-acpi"
+          "intel-lpss-pci"
+          # USB OTG / Dual-Role Controller (Required for Cherry Trail USB ports)
+          "dwc3"
+          "dwc3_pci"
+          "extcon-intel-cht-wc"
+          "extcon-intel-int3496"
+          "nop-usb-xceiv"
           # USB Host Controllers
           "xhci_pci"
           "ehci_pci"
