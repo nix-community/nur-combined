@@ -702,16 +702,16 @@
   };
   whois42d-ng = {
     pname = "whois42d-ng";
-    version = "474377bcc6ebb224fb4b382411891267e6decdd8";
+    version = "e43357762811fa5ea46e9f1c167d3229c253f97b";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "whois42d-ng";
-      rev = "474377bcc6ebb224fb4b382411891267e6decdd8";
+      rev = "e43357762811fa5ea46e9f1c167d3229c253f97b";
       fetchSubmodules = false;
-      sha256 = "sha256-pWthewKswsJnXbZwCYSZki/CA9t/c8QH7umVikfobj0=";
+      sha256 = "sha256-wXRAyom1bLdP0eLKZrERk+mHL5WN/elqdufgTbTgRXc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-pWthewKswsJnXbZwCYSZki_CA9t_c8QH7umVikfobj0=/Cargo.lock";
+      lockFile = ./. + "/sha256-wXRAyom1bLdP0eLKZrERk+mHL5WN_elqdufgTbTgRXc=/Cargo.lock";
       outputHashes = {
         
       };
