@@ -1,18 +1,22 @@
 {
-  description = "My personal NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  outputs = { self, nixpkgs }:
-    let
-      forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
-    in
-    {
-      legacyPackages = forAllSystems (system: import ./default.nix {
-        pkgs = import nixpkgs { inherit system; };
-      });
-      packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-      nixosModules = import ./nixos-modules;
-      # homeModules = import ./home-modules;
-      # darwinModules = import ./darwin-modules;
-      # flakeModules = import ./flake-modules;
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Añade tu repositorio NUR aquí
+    nur.url = "github:nix-community/NUR";
+  };
+
+  outputs = { self, nixpkgs, nur, ... }: {
+    nixosConfigurations.tu-pc = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ({ pkgs, ... }: {
+          # Esto registra el NUR en tu sistema
+          nixpkgs.overlays = [ nur.overlay ];
+          
+          # Ahora esto ya funcionará porque cargamos el overlay
+          environment.systemPackages = [ pkgs.nur.repos.ximimoments.katifetch ];
+        })
+      ];
     };
+  };
 }
