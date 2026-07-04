@@ -1,31 +1,27 @@
 {
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    
-    # 1. Traemos el NUR base
-    nur.url = "github:nix-community/NUR";
-    
-    # 2. Traemos TU repositorio para que sea accesible
-    nur-ximimoments.url = "github:ximimoments/nur-packages";
-  };
-
-  outputs = { self, nixpkgs, nur, nur-ximimoments, ... }: {
-    nixosConfigurations.tu-pc = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-      modules = [
-        ({ pkgs, ... }: {
-          nixpkgs.overlays = [
-            nur.overlay
-            # 3. Añadimos TU repo como una capa extra
-            (final: prev: {
-              nur.repos.ximimoments = nur-ximimoments.legacyPackages.${pkgs.system};
-            })
-          ];
-          
-          # Ahora esto funcionará sin errores
-          environment.systemPackages = [ pkgs.nur.repos.ximimoments.katifetch ];
-        })
-      ];
-    };
-  };
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1782948114,
+        "narHash": "sha256-AXmz9ho4Lud5CsbrZsuSVwpQZ4o5FgZ1chxBn5cJ8+0=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9e92285f211dad236540fd617d7e30e0b99bc0e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
 }

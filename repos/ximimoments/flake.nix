@@ -1,19 +1,24 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    # Añade tu repositorio NUR aquí
+    
     nur.url = "github:nix-community/NUR";
+    
+    nur-ximimoments.url = "github:ximimoments/nur-packages";
   };
 
-  outputs = { self, nixpkgs, nur, ... }: {
+  outputs = { self, nixpkgs, nur, nur-ximimoments, ... }: {
     nixosConfigurations.tu-pc = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
         ({ pkgs, ... }: {
-          # Esto registra el NUR en tu sistema
-          nixpkgs.overlays = [ nur.overlay ];
+          nixpkgs.overlays = [
+            nur.overlay
+            (final: prev: {
+              nur.repos.ximimoments = nur-ximimoments.legacyPackages.${pkgs.system};
+            })
+          ];
           
-          # Ahora esto ya funcionará porque cargamos el overlay
           environment.systemPackages = [ pkgs.nur.repos.ximimoments.katifetch ];
         })
       ];
