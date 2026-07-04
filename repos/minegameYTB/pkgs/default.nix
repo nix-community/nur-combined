@@ -12,12 +12,6 @@ rec {
   gsettings-diff = callPackage ./tools/gsettings-diff { };
   kvm-archive = callPackage ./tools/kvm-archive { };
 
-  ### Editor set
-  editor = rec {
-    msedit-bin = callPackage ./editor/msedit-bin { };
-    msedit = callPackage ./editor/msedit { };
-  };
-
   ### dev set
   dev = rec {
     ### Without option (with clang variant)
@@ -75,15 +69,13 @@ rec {
   theme = rec {
     marble-shell-filled = callPackage ./theme/marble-shell-filled { };
 
-    ### marble-shell to marble-shell-filled with warning when this attribute is called
-    #marble-shell = let
-    #   buildPackage = callPackage ./theme/marble-shell-filled {};
-    # in
-    #   builtins.warn
-    #   "[2024/03/12] marble-shell has been renamed to marble-shell-filled, consider migrating to this new name before deleting this attribute in 1 month. (nur.repos.minegameYTB.theme.marble-shell -> nur.repos.minegameYTB.theme.marble-shell-filled)"
-    #   buildPackage;
   };
 
   # some-qt5-package = libsForQt5.callPackage ./some-qt5-package { };
   # ...
+  # Examples with extra options:
+  # fhsEnv-shell-custom = callPackage ./tools/fhsEnv-shell {
+  #   extraPkgs = pkgs: with pkgs; [ docker ripgrep jq ];
+  #   extraInitCommands = "alias ll='ls -la'";
+  # };
 }

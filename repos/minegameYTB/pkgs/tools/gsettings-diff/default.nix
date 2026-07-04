@@ -49,6 +49,7 @@ stdenvNoCC.mkDerivation rec {
     description = "GSettings from GUI to Command Line";
     homepage = "https://blog.lazy-evaluation.net/posts/linux/gsettings-diff.html";
     mainProgram = "gsettings-diff";
+    platforms = lib.platforms.linux;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }

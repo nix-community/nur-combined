@@ -76,6 +76,7 @@ stdenvNoCC.mkDerivation rec {
   meta = {
     description = "A tool for import and export libvirt vm";
     mainProgram = "kvm-archive";
+    platforms = lib.platforms.linux;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 }

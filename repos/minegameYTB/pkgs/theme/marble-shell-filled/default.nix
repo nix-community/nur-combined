@@ -40,5 +40,6 @@ stdenvNoCC.mkDerivation rec {
     description = "Shell theme for GNOME DE (filled variant)";
     homepage = "https://github.com/imarkoff/Marble-shell-theme";
     license = licenses.gpl3;
+    platforms = platforms.linux;
   };
 }

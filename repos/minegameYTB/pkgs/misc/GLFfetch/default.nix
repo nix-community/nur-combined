@@ -115,5 +115,6 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://framagit.org/gaming-linux-fr/glf-os";
     license = lib.licenses.mit;
     mainProgram = "GLFfetch";
+    platforms = lib.platforms.linux;
   };
 }
