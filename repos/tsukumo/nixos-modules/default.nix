@@ -71,6 +71,9 @@
           "sdhci_acpi"
           "sdhci_pci"
           "mmc_block"
+          "cqhci"
+          # DMA Engine (required for sdhci DMA on Intel Cherry Trail)
+          "intel_idma64"
           # USB Host Controllers
           "xhci_pci"
           "ehci_pci"
