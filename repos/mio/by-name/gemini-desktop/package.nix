@@ -75,15 +75,11 @@ buildNpmPackage rec {
 
     npm prune --omit=dev --no-save
 
-    # Optional local LLM inference is not used by the Gemini web wrapper
-    rm -rf node_modules/@node-llama-cpp node_modules/node-llama-cpp
-    find node_modules/.bin -xtype l -delete
-
-    appDir=$(mktemp -d)
-    cp -r dist-electron dist package.json node_modules "$appDir/"
+    # Remove unused native binaries for other platforms to save space
+    find node_modules/@node-llama-cpp -mindepth 1 -maxdepth 1 ! -name "linux-x64*" -exec rm -rf {} +
 
     mkdir -p $out/share/gemini-desktop
-    asar pack "$appDir" $out/share/gemini-desktop/app.asar
+    asar pack . $out/share/gemini-desktop/app.asar
 
     mkdir -p $out/share/icons/hicolor/256x256/apps
     ${
