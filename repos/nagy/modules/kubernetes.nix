@@ -18,6 +18,9 @@
     # pkgs.cri-tools
     pkgs.kind
     pkgs.kubeconform
+    pkgs.crane.out # whould not select the "crane" output
+    pkgs.sops
+    pkgs.imgpkg
 
     # carvel tools, useful for k8s development
     pkgs.ytt

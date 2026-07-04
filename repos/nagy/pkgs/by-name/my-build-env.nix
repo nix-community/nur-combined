@@ -1,7 +1,6 @@
 {
   pkgs ? import <nixpkgs> { },
   lib ? pkgs.lib,
-  nixosEval ? import <nixpkgs/nixos/lib/eval-config.nix>,
 }:
 
 let
@@ -12,26 +11,9 @@ let
     }) builtins.nixPath
   );
   self = import ../.. { inherit pkgs; };
-  specialArgs = {
-    nur = import <nur> {
-      nurpkgs = pkgs;
-      pkgs = pkgs;
-      repoOverrides = {
-        nagy = self;
-      };
-    };
-  };
-  sysEmpty = nixosEval {
-    inherit specialArgs;
-    modules = [
-      {
-        system.stateVersion = "26.05";
-      }
-    ];
-  };
-  sys = nixosEval {
-    inherit specialArgs;
-    modules = [
+  diffResult = self.lib.mkNixosBuildEnv {
+    name = "my-build-env";
+    targetModules = [
       (
         {
           # config,
@@ -91,17 +73,12 @@ let
             pkgs.duf
             pkgs.squashfsTools
             pkgs.qsv
-            pkgs.crane.out # whould not select the "crane" output
-
-            pkgs.sops
             pkgs.rbw
-            pkgs.imgpkg
 
             pkgs.playerctl
             self.nanoid-cli
             pkgs.imagemagickBig
             pkgs.ocrmypdf
-            pkgs.chromium
             pkgs.curl # to get newer versions
             pkgs.websocat
             self.ggufmeta
@@ -119,38 +96,27 @@ let
               <dot/emacs>
             ];
           };
-
-          system.stateVersion = "26.05";
         }
       )
     ];
   };
-  newpkgs = lib.lists.filter (
-    x: !(lib.elem x sysEmpty.config.environment.systemPackages)
-  ) sys.config.environment.systemPackages;
+  inherit (diffResult) sys buildEnv diffedSessionVariables diffedFontPackages;
 
-  myBuildEnv = pkgs.buildEnv {
-    name = "my-build-env";
-    paths = newpkgs;
-  };
+  sessionVarExports = lib.concatStringsSep "\n" (
+    lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") (
+      lib.filterAttrs (n: _: !(lib.elem n [ "TERMINFO_DIRS" "NIX_PATH" ])) diffedSessionVariables
+    )
+  );
 in
 pkgs.writeText "my-build-env-script" ''
-  export PATH="${myBuildEnv}/bin:$PATH"
-  export MANPATH="${myBuildEnv}/share/man:$MANPATH"
-  export INFOPATH="${myBuildEnv}/share/info:$INFOPATH"
+  export PATH="${buildEnv}/bin:$PATH"
+  export MANPATH="${buildEnv}/share/man:$MANPATH"
+  export INFOPATH="${buildEnv}/share/info:$INFOPATH"
   export NIX_PATH="nixpkgs=${lib.cleanSource pkgs.path}:$NIX_PATH"
-  export XAUTHORITY="${sys.config.environment.sessionVariables.XAUTHORITY}"
-  export OS_CLOUD="${sys.config.environment.sessionVariables.OS_CLOUD}"
-  export HTOPRC="${sys.config.environment.sessionVariables.HTOPRC}"
-  export GOTELEMETRY="${sys.config.environment.sessionVariables.GOTELEMETRY}"
-  export GOPLSCACHE="${sys.config.environment.sessionVariables.GOPLSCACHE}"
-  export GOMODCACHE="${sys.config.environment.sessionVariables.GOMODCACHE}"
-  export GOCACHE="${sys.config.environment.sessionVariables.GOCACHE}"
+  ${sessionVarExports}
+
+  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" diffedFontPackages}"
 
   # TODO make this dynamic
-  export TYPST_FONT_PATHS="${lib.makeSearchPath "share/fonts/opentype" sys.config.fonts.packages}"
-
-  # TODO make this dynamic
-  export TERMINFO_DIRS="${pkgs.emacs.pkgs.eat}/share/emacs/site-lisp/elpa/eat-${pkgs.emacs.pkgs.eat.version}/terminfo:$TERMINFO_DIRS"
   export TERMINFO_DIRS="${pkgs.emacs.pkgs.ghostel}/share/emacs/site-lisp/elpa/ghostel-${pkgs.emacs.pkgs.ghostel.version}/etc/terminfo:$TERMINFO_DIRS"
 ''

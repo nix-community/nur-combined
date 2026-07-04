@@ -20,8 +20,8 @@ in
     Host github.com gitlab.com git.sr.ht codeberg.org
       User git
       IdentitiesOnly yes
-      # IdentityFile ~/.ssh/id_nagy
-      IdentityFile /run/user/%i/ssh_id_nagy
+      IdentityFile ~/.ssh/id_nagy
+      # IdentityFile ''${XDG_RUNTIME_DIR}/ssh_id_nagy
   '';
 
   programs.git = {
