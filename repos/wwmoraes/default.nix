@@ -26,6 +26,7 @@ let
     overlays = import ./overlays;
 
     codecov-cli-bin = callPackage ./pkgs/codecov-cli-bin.nix { };
+    frizbee = callPackage ./pkgs/frizbee.nix { };
     git-credential-azure = callPackage ./pkgs/git-credential-azure.nix { };
     goutline = callPackage ./pkgs/goutline { };
     kroki = callPackage ./pkgs/kroki.nix { };

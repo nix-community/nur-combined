@@ -8,18 +8,24 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+## 4-width tab convention
+[Makefile]
+indent_size = tab
+indent_style = tab
+tab_width = 4
+
+## 2 spaces convention
+[*.{nix,toml,yaml,yaml,yml}]
+indent_size = 2
+indent_style = space
+tab_width = 2
+
 [{.direnv,.git}/**]
 indent_style = unset
 indent_size = unset
 end_of_line = unset
 trim_trailing_whitespace = unset
 insert_final_newline = unset
-
-[*.yaml]
-indent_style = space
-
-[.vscode/*.json]
-insert_final_newline = false
 
 [*.md]
 trim_trailing_whitespace = false
