@@ -41,9 +41,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    npmRegistryOverridesString = builtins.toJSON {
-      "registry.npmjs.org" = "https://mirrors.cloud.tencent.com/npm";
-    };
   };
 
   programs.ccache = {

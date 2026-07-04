@@ -54,6 +54,16 @@ in
         "WebBrowser"
       ];
     };
+    piliplus = {
+      name = "PiliPlus";
+      comment = "Third-party Bilibili client developed in Flutter";
+      exec = noproxy "piliplus";
+      icon = "piliplus";
+      categories = [
+        "Video"
+        "AudioVideo"
+      ];
+    };
     "scrcpy" = {
       name = "scrcpy";
       genericName = "Android Remote Control";

@@ -6,14 +6,14 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "summarize";
-  version = "0.20.0";
+  version = "0.21.2";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@steipete/summarize/-/summarize-${finalAttrs.version}.tgz";
-    hash = "sha256-obUZYElBurbCzZywyIC+CFeGPBPvl39vC/LDSlKUr54=";
+    hash = "sha256-6LPgbDADPk9cptWpU9pE1hlQ2/52DVr+mEXQQIFB76s=";
   };
 
-  npmDepsHash = "sha256-U2o+rUl3gEV7Tktbtp3PTuMA5RhWlAwY3VSgEylbnMU=";
+  npmDepsHash = "sha256-/QR4duLpuYpqMVe12MQVSZ7TtKwQ5ymHZCdzTCvYW1E=";
 
   postPatch = ''
     ln -s ${./package-lock.json} package-lock.json

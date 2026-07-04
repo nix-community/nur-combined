@@ -60,6 +60,7 @@
     localsend
     nomacs
     pavucontrol
+    piliplus
     qalculate-qt
     qbittorrent
     qpdfview
