@@ -151,10 +151,12 @@ in
       snd-soc-sst-cht-yogabook-y := cht_yogabook.o
       EOF
 
-      # Adapt cht_yogabook.c to newer kernel APIs (include soc-dapm.h, disable spi_register_board_info)
+      # Adapt cht_yogabook.c to newer kernel APIs (include soc-dapm.h, use encapsulating helpers, disable spi_register_board_info)
       substituteInPlace yogabook-linux-kernel/sound/soc/intel/boards/cht_yogabook.c \
         --replace-fail 'cht_codec_register_spidev();' '// cht_codec_register_spidev();' \
-        --replace-fail '#include <sound/soc-acpi.h>' $'#include <sound/soc-acpi.h>\n#include <sound/soc-dapm.h>'
+        --replace-fail '#include <sound/soc-acpi.h>' $'#include <sound/soc-acpi.h>\n#include <sound/soc-dapm.h>' \
+        --replace-fail 'dapm->card' 'snd_soc_dapm_to_card(dapm)' \
+        --replace-fail '&jack->card->dapm' 'snd_soc_card_to_dapm(jack->card)'
 
       # Prepare ACPI match module in its original directory
       cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/Makefile
