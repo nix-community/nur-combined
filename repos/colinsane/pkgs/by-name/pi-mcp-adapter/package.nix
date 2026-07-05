@@ -3,6 +3,8 @@
   fetchFromGitHub,
   lib,
   nix-update-script,
+  update-guard,
+  updater-tools,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-mcp-adapter";
@@ -25,7 +27,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-zj6gMHttfiLb43zWCWLA5HsKgKstTk3cMxmtKe6AVY0=";
+  npmDepsHash = "sha256-TSw09HPftkFkTKxkDrFetnAP4VgybEgIHicIWxAuggU=";
 
   # lockfile generated in a pi-mcp-adapter checkout using
   # `npm install --package-lock-only`.
@@ -41,11 +43,14 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--generate-lockfile"
-    ];
-  };
+  passthru.updateScript = updater-tools.requireAll [
+    (update-guard.days 3)
+    (nix-update-script {
+      extraArgs = [
+        "--generate-lockfile"
+      ];
+    })
+  ];
 
   meta = {
     description = "MCP (Model Context Protocol) adapter extension for the Pi coding agent";

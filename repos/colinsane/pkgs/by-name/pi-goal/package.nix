@@ -2,7 +2,9 @@
   buildNpmPackage,
   fetchFromGitHub,
   lib,
-  nix-update-script
+  nix-update-script,
+  update-guard,
+  updater-tools,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-goal";
@@ -22,7 +24,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-UjZuna/H9S2O6qWeFDAAoya6SIPtuzDGx9ekWKSyXb0=";
+  npmDepsHash = "sha256-AqiixEwu9Kr2pGzLcuhRnSdpJgc13yilO/+xbHC7G8M=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
@@ -38,11 +40,14 @@ buildNpmPackage (finalAttrs: {
     rmdir $out/lib
   '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--generate-lockfile"
-    ];
-  };
+  passthru.updateScript = updater-tools.requireAll [
+    (update-guard.days 3)
+    (nix-update-script {
+      extraArgs = [
+        "--generate-lockfile"
+      ];
+    })
+  ];
 
   meta = {
     description = "Pi extension that keeps working on a /goal until the agent marks it complete";

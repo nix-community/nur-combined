@@ -6,12 +6,12 @@
   pkgs,
 }:
 let
-  version = "0-unstable-2026-06-30";
+  version = "0-unstable-2026-07-02";
   src = fetchFromGitHub {
     owner = "natsukium";
     repo = "mcp-servers-nix";
-    rev = "e2e5ce54691fc6c851e7365da0cd67ad88962c4c";
-    hash = "sha256-jZ+N/sWZV7jbOQVDN8ZBqaQFe94CrUrhIIibvmFc9tM=";
+    rev = "727bd6e871558049ee490a99dbca905270f1670c";
+    hash = "sha256-J1JY7ao5KLleBM5w4hbT7PPz3B13D6lllawljtWkKhk=";
   };
   flake = flake-inputs.import-flake {
     inherit src;

@@ -32,10 +32,11 @@ let
       # gemma-4-31b-it-q8_0
       # gemma-4-e4b-it-qat-ud-q4_k_xl
       # gemma-4-12b-it-qat-ud-q4_k_xl
-      gemma-4-26b-a4b-it-qat-ud-q4_k_xl
-      gemma-4-31b-it-qat-ud-q4_k_xl
+      # gemma-4-26b-a4b-it-qat-ud-q4_k_xl
+      # gemma-4-31b-it-qat-ud-q4_k_xl
       # glm-4_7-flash
       gpt-oss-20b
+      # lfm2_5-230m-fable-5-q8_0
       lfm2_5-8b-a1b-ud-iq4_xs
       # minimax-m2_5
       # nemotron-3-nano-4b
@@ -46,7 +47,7 @@ let
       qwen-agentworld-35b-a3b-ud-iq3_s  # seems equally capable as iq4_nl
       # qwen-agentworld-35b-a3b-iq4_nl
       # qwen3_5-35b-a3b-q4_k_m
-      qwen3_5-9b-q4_k_m
+      # qwen3_5-9b-q4_k_m
       # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_s
       # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-q3_k_m
       # qwen3_5-4b-claude-4_6-opus-reasoning-distilled-v2
@@ -59,6 +60,8 @@ let
       qwen3_6-27b-mtp-q4_k_m
       # qwen3_6-35b-a3b-ud-q4_k_m
       qwen3_6-35b-a3b-mtp-ud-q4_k_m
+      qwopus3_6-35b-a3b-coder-mtp-q4_k_m
+      qwythos-9b-claude-mythos-5-1m-q4_k_m
       step3_7-flash-iq4_xs
     ;
   };

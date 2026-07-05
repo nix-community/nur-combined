@@ -6,13 +6,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-codex-goal";
-  version = "0.1.32";
+  version = "0.1.33";
 
   src = fetchFromGitHub {
     owner = "fitchmultz";
     repo = "pi-codex-goal";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-R46axxlSzY0AVZwEFtamUDiFZotABdpAWDeFnpc9LP8=";
+    hash = "sha256-Eavr1VdvdI8iDrcP1JodZYUv1hIjSYhoy3Mr65pnIGY=";
     postFetch = ''
       sed -i $out/package.json \
         -e '/"@earendil-works\/pi-ai": "*"/d' \
@@ -22,7 +22,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-pEvC74GfhUDIK8KTGWgQzPsGVCe6dCmn0lLTQ4ulIrA=";
+  npmDepsHash = "sha256-ZJK8bu5wQc8mpH1OBbLKZKirXa1LaOGqjUlPbVzN4xs=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json

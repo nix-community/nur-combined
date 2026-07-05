@@ -11521,7 +11521,7 @@
     }
   },
   {
-    "id": "gemma-4-31B-Fabled",
+    "id": "Gemma-4-31B-Fabled",
     "name": "Gemma 4 31B Fabled",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
@@ -11544,7 +11544,7 @@
     }
   },
   {
-    "id": "gemma-4-31B-Garnet",
+    "id": "Gemma-4-31B-Garnet",
     "name": "Gemma 4 31B Garnet",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
@@ -11636,7 +11636,7 @@
     }
   },
   {
-    "id": "gemma-4-31B-K1-v5",
+    "id": "Gemma-4-31B-K1-v5",
     "name": "Gemma 4 31B K1 v5",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
@@ -11659,7 +11659,7 @@
     }
   },
   {
-    "id": "gemma-4-31B-Larkspur-v0.5",
+    "id": "Gemma-4-31B-Larkspur-v0.5",
     "name": "Gemma 4 31B Larkspur v0.5",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
@@ -11682,7 +11682,7 @@
     }
   },
   {
-    "id": "gemma-4-31B-MeroMero",
+    "id": "Gemma-4-31B-MeroMero",
     "name": "Gemma 4 31B MeroMero",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.000153,
