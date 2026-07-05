@@ -22,11 +22,11 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rikkahub-desktop-bin";
-  version = "1.3.1";
+  version = "1.4.1";
 
   src = fetchurl {
     url = "https://github.com/yuh-G/rikkahub-desktop/releases/download/v${finalAttrs.version}/Rikkahub_${finalAttrs.version}_linux_x64.tar.gz";
-    hash = "sha256-QlTSD0f5eIInj4PRkd8nHrBQFo8WndOeCmQ7GyEtnQY=";
+    hash = "sha256-qcHyA/6QmPeoWDQLCLRiU+LGNYJm8rrqakcLY0JZQUs=";
   };
 
   nativeBuildInputs = [
