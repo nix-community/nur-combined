@@ -345,7 +345,10 @@ def get_package_info(package_path: str) -> Optional[dict]:
             return None
         else:
             raise RuntimeError(nix_output.stderr)
-    return list(json.loads(nix_output.stdout).items())[0][1]
+    data = json.loads(nix_output.stdout)
+    if isinstance(data, dict) and "derivations" in data:
+        data = data["derivations"]
+    return list(data.items())[0][1]
 
 
 def get_package_meta(package_path: str) -> dict:
