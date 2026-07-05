@@ -58,12 +58,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.3.0",
-            "sha256": "sha256-Kbk6ifIKyVYIf60o3ybk/J+FqVJZwHN/i16VplN7NRg=",
+            "rev": "v0.3.1",
+            "sha256": "sha256-7Jutd8WYe6WOEjFf4vHJnm3+4F9AevYprJfT2aqGIiI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.3.0"
+        "version": "v0.3.1"
     },
     "fxz": {
         "cargoLock": null,

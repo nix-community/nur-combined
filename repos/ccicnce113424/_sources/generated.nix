@@ -32,13 +32,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.3.0";
+    version = "v0.3.1";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.3.0";
+      rev = "v0.3.1";
       fetchSubmodules = false;
-      sha256 = "sha256-Kbk6ifIKyVYIf60o3ybk/J+FqVJZwHN/i16VplN7NRg=";
+      sha256 = "sha256-7Jutd8WYe6WOEjFf4vHJnm3+4F9AevYprJfT2aqGIiI=";
     };
   };
   fxz = {
