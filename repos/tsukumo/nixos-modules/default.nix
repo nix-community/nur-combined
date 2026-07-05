@@ -225,6 +225,7 @@
           touch-keyboard-handler = {
             description = "Touch keyboard handler";
             wantedBy = [ "multi-user.target" ];
+            restartTriggers = [ touch-keyboard-etc ];
             serviceConfig = {
               Type = "simple";
               WorkingDirectory = "/etc/touch_keyboard";
