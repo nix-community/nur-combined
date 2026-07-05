@@ -2,22 +2,20 @@ name: "Build and populate cache"
 on:
   workflow_dispatch: # allows manual triggering
   pull_request:
-    paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
-      - '.github/**'
-      - '!.github/workflows/build.yml'
-      - 'update.nix'
+    paths:
+      - '.github/workflows/build.yml'
+      - '**.nix'
+      - '!update.nix'
+      - 'pkgs/**'
   push:
     branches:
       - main
       - master
-    paths-ignore:
-      - 'README.md'
-      - 'LICENSE'
-      - '.github/**'
-      - '!.github/workflows/build.yml'
-      - 'update.nix'
+    paths:
+      - '.github/workflows/build.yml'
+      - '**.nix'
+      - '!update.nix'
+      - 'pkgs/**'
   schedule:
     # rebuild everyday at 3:30
     # TIP: Choose a random time here so not all repositories are build at once:
