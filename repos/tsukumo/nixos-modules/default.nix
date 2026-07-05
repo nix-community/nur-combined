@@ -123,7 +123,6 @@
         # Start touch-keyboard-handler in initrd (enables typing LUKS passphrase)
         boot.initrd.systemd.services.touch-keyboard-handler = {
           description = "Touch keyboard handler in initrd";
-          wantedBy = [ "initrd.target" ];
           after = [ "initrd-root-device.target" ];
           unitConfig = {
             DefaultDependencies = false;
@@ -132,6 +131,8 @@
             Type = "simple";
             WorkingDirectory = "/etc/touch_keyboard";
             ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
+            Restart = "on-failure";
+            RestartSec = "1s";
           };
         };
 
