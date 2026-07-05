@@ -149,16 +149,16 @@
   };
   loveiwara = {
     pname = "loveiwara";
-    version = "0.4.4";
+    version = "0.5.0";
     src = fetchFromGitHub {
       owner = "FoxSensei001";
       repo = "LoveIwara";
-      rev = "0.4.4";
+      rev = "0.5.0";
       fetchSubmodules = false;
-      sha256 = "sha256-Vdf3ERybsOXG8SlNmQ/QRtBu7RS0T9t0V22UTMjXTls=";
+      sha256 = "sha256-q+w0W7b8wmYmG80UJZo78s2+gQcYHABcF5Zc0aSiGAM=";
     };
     extract = {
-      "pubspec.lock" = ./. + "/sha256-Vdf3ERybsOXG8SlNmQ_QRtBu7RS0T9t0V22UTMjXTls=/pubspec.lock";
+      "pubspec.lock" = ./. + "/sha256-q+w0W7b8wmYmG80UJZo78s2+gQcYHABcF5Zc0aSiGAM=/pubspec.lock";
     };
   };
   lxgw-wenkai-gb = {

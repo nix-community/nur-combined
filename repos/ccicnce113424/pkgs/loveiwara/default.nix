@@ -10,6 +10,8 @@
   sqlite,
   alsa-lib,
   mpv-unwrapped,
+  libnotify,
+  fetchpatch2,
 }:
 let
   flutter = flutter341;
@@ -53,6 +55,16 @@ flutter.buildFlutterApplication {
     sqlite
     alsa-lib
     mpv-unwrapped
+    libnotify
+  ];
+
+  patches = [
+    (fetchpatch2 {
+      name = "revert-transform-timeout.patch";
+      url = "https://github.com/FoxSensei001/LoveIwara/commit/2634bc779de6a6de6ec6db10cceb28244d0cc8f9.patch?full_index=1";
+      hash = "sha256-IeAVaSHdgErH//5ZPviObDrzjVogGoN9MF+vC9zm1tY=";
+      revert = true;
+    })
   ];
 
   postPatch = ''
