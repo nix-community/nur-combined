@@ -177,6 +177,9 @@
 
           # Import sensor HWDB rules
           ACTION=="add|change", SUBSYSTEM=="iio", KERNEL=="iio*", SUBSYSTEMS=="usb|i2c|platform", IMPORT{builtin}="hwdb 'sensor:modalias:$attr{modalias}:id:$id:$attr{[dmi/id]modalias}'"
+
+          # Trigger Pump Express handshake when charger is plugged in
+          SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_NAME}=="cht_wcove_pwrsrc", ENV{POWER_SUPPLY_ONLINE}=="1", ENV{POWER_SUPPLY_USB_TYPE}=="*DCP*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="pe-handshake.service"
         '';
 
         # HWDB Settings
@@ -240,6 +243,62 @@
               Type = "simple";
               ExecStart = "${yogabook-modes-handler}/bin/yogabook-modes-handler";
               StandardOutput = "journal";
+            };
+          };
+
+          pe-handshake = {
+            description = "Yoga Book Pump Express High Voltage Charge Handshake";
+            serviceConfig = {
+              Type = "oneshot";
+              ExecStart = "${pkgs.writeShellScript "pe-handshake" ''
+                # Enable PUMPX_EN (Reg 4 -> 0xc2)
+                echo "Enabling PUMPX_EN..."
+                ${pkgs.i2c-tools}/bin/i2cset -f -y 7 0x6b 4 0xc2
+
+                prev_voltage_mv=0
+                for i in {1..8}; do
+                  echo "--- Try $i ---"
+                  # Read current VBUS
+                  vbus_raw=$(${pkgs.i2c-tools}/bin/i2cget -f -y 7 0x6b 17)
+                  vbus_dec=$((vbus_raw & 0x7f))
+                  # 2.6V + 0.1V * vbus_dec
+                  voltage_mv=$((2600 + vbus_dec * 100))
+                  echo "Current VBUS voltage: ''${voltage_mv} mV"
+
+                  # Stop if we reached 8V (9V charging) to prevent overshoot and fallback on 9V chargers
+                  if [ $voltage_mv -gt 8000 ]; then
+                    echo "Voltage is high! Handshake succeeded!"
+                    break
+                  fi
+
+                  if [ $i -gt 1 ] && [ $voltage_mv -le $prev_voltage_mv ]; then
+                    echo "Voltage did not increase. Stopping."
+                    break
+                  fi
+
+                  prev_voltage_mv=$voltage_mv
+
+                  echo "Sending PUMPX_UP pulse..."
+                  ${pkgs.i2c-tools}/bin/i2cset -f -y 7 0x6b 9 0x46
+
+                  # Wait for it to clear
+                  echo "Waiting for pulse to complete..."
+                  for w in {1..40}; do
+                    reg9=$(${pkgs.i2c-tools}/bin/i2cget -f -y 7 0x6b 9)
+                    if [ $((reg9 & 0x02)) -eq 0 ]; then
+                      echo "Pulse complete after $w iterations"
+                      break
+                    fi
+                    sleep 0.1
+                  done
+
+                  sleep 1.0
+                done
+
+                # Disable PUMPX_EN (Reg 4 -> 0x42)
+                echo "Disabling PUMPX_EN..."
+                ${pkgs.i2c-tools}/bin/i2cset -f -y 7 0x6b 4 0x42
+              ''}";
             };
           };
         };
