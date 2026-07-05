@@ -2,34 +2,17 @@
   description = "Packages from my personal dotfiles";
 
   inputs = {
-    puntbestanden = {
-      url = "github:dtomvan/puntbestanden";
-      inputs.bart.follows = "";
-      inputs.catppuccin.follows = "";
-      inputs.copyparty.follows = "";
-      inputs.deploy-rs.follows = "";
-      inputs.devshell.follows = "";
-      inputs.direnv-instant.follows = "";
-      inputs.disko.follows = "";
+    nixpkgs-patcher = {
+      url = "github:dtomvan/nixpkgs-patcher";
+
+      # disable all irrelevant inputs here since I only care about the
+      # "resulting" nixpkgs-patched output
+      inputs.nixpkgs.follows = "";
+      inputs.systems.follows = "";
       inputs.flake-parts.follows = "";
-      inputs.home-manager.follows = "";
-      inputs.lazy-apps.follows = "";
-      inputs.ncro.follows = "";
-      inputs.nix-cache-beacon.follows = "";
-      inputs.nix-index-database.follows = "";
-      inputs.nixos-small.follows = "";
-      inputs.nixvim.follows = "";
-      inputs.nixocaine.follows = "";
-      inputs.nix-maid.follows = "";
-      inputs.noctalia.follows = "";
-      inputs.noctalia-greeter.follows = "";
-      inputs.nur.follows = "";
-      inputs.sops.follows = "";
-      inputs.srvos.follows = "";
-      inputs.tasks.follows = "";
-      inputs.treefmt-nix.follows = "";
+      inputs.nix-patcher.follows = "";
     };
-    nixpkgs.follows = "puntbestanden/nixpkgs";
+    nixpkgs.follows = "nixpkgs-patcher/nixpkgs-patched";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     flake-parts.url = "github:hercules-ci/flake-parts";

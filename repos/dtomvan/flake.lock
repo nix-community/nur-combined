@@ -64,22 +64,22 @@
     "nixpkgs-patch-20": {
       "flake": false,
       "locked": {
-        "narHash": "sha256-EACM1CWog5LpmtvAElqRlMBjnAUD418NztNRvR+cfKY=",
+        "narHash": "sha256-Q9KB1EU41LduQZnncuvDjgRn6aHMMQWQzGO81WMosY0=",
         "type": "file",
-        "url": "https://github.com/dtomvan/nixpkgs/commit/65a8490260cc280441bf69aea538723bb3a05ec4.patch"
+        "url": "https://github.com/dtomvan/nixpkgs/commit/19815f326a6ef154e4b247abf6db29ed8582f2aa.patch"
       },
       "original": {
         "type": "file",
-        "url": "https://github.com/dtomvan/nixpkgs/commit/65a8490260cc280441bf69aea538723bb3a05ec4.patch"
+        "url": "https://github.com/dtomvan/nixpkgs/commit/19815f326a6ef154e4b247abf6db29ed8582f2aa.patch"
       }
     },
     "nixpkgs-patched": {
       "locked": {
         "lastModified": 1780941541,
-        "narHash": "sha256-p9qKWzxKgIe7A01Ydru+CiQCOdmutsDejAugkofp1XU=",
+        "narHash": "sha256-KssRWsPlWIB8UuN1rc19C23vkGDlV5Pi/xaPgngMVdg=",
         "owner": "dtomvan",
         "repo": "nixpkgs",
-        "rev": "c228f986de25b14aea3adbaa3c405eebe6470961",
+        "rev": "68857b99305695e752b97782473831237af64d8a",
         "type": "github"
       },
       "original": {
@@ -91,80 +91,25 @@
     },
     "nixpkgs-patcher": {
       "inputs": {
-        "flake-parts": [
-          "puntbestanden"
-        ],
-        "nix-patcher": [
-          "puntbestanden"
-        ],
-        "nixpkgs": [
-          "puntbestanden"
-        ],
+        "flake-parts": [],
+        "nix-patcher": [],
+        "nixpkgs": [],
         "nixpkgs-patch-10": "nixpkgs-patch-10",
         "nixpkgs-patch-20": "nixpkgs-patch-20",
         "nixpkgs-patched": "nixpkgs-patched",
-        "systems": [
-          "puntbestanden"
-        ]
+        "systems": []
       },
       "locked": {
-        "lastModified": 1782512679,
-        "narHash": "sha256-57vpyKkQCI0uAAAdbznc9C29WcRihg1kb3GFa3sYxho=",
+        "lastModified": 1783265154,
+        "narHash": "sha256-h6su7wkO1KT52zY+DPMrL/nZ5fFx1n5VKsgEZmLfWeM=",
         "owner": "dtomvan",
         "repo": "nixpkgs-patcher",
-        "rev": "8d109979484a2dfd03d71ef3ef9ed34661af00cf",
+        "rev": "7296a9a7e29e790dac33c35c356ea2ca2242639f",
         "type": "github"
       },
       "original": {
         "owner": "dtomvan",
         "repo": "nixpkgs-patcher",
-        "type": "github"
-      }
-    },
-    "puntbestanden": {
-      "inputs": {
-        "bart": [],
-        "catppuccin": [],
-        "copyparty": [],
-        "deploy-rs": [],
-        "devshell": [],
-        "direnv-instant": [],
-        "disko": [],
-        "flake-parts": [],
-        "home-manager": [],
-        "lazy-apps": [],
-        "ncro": [],
-        "nix-index-database": [],
-        "nix-maid": [],
-        "nixocaine": [],
-        "nixos-small": [],
-        "nixpkgs": [
-          "puntbestanden",
-          "nixpkgs-patcher",
-          "nixpkgs-patched"
-        ],
-        "nixpkgs-patcher": "nixpkgs-patcher",
-        "nixvim": [],
-        "noctalia": [],
-        "noctalia-greeter": [],
-        "nur": [],
-        "run0-sudo-shim": "run0-sudo-shim",
-        "sops": [],
-        "srvos": [],
-        "tasks": [],
-        "treefmt-nix": []
-      },
-      "locked": {
-        "lastModified": 1783026746,
-        "narHash": "sha256-5rAGmPd+DzAYue8qUJtLpRFFWKJ87wIi3aKZAeEv/7Y=",
-        "owner": "dtomvan",
-        "repo": "puntbestanden",
-        "rev": "3f6521681e1b6f0dbd7c7872562c9568915a8b5c",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dtomvan",
-        "repo": "puntbestanden",
         "type": "github"
       }
     },
@@ -172,39 +117,12 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": [
-          "puntbestanden",
-          "nixpkgs"
+          "nixpkgs-patcher",
+          "nixpkgs-patched"
         ],
-        "puntbestanden": "puntbestanden",
+        "nixpkgs-patcher": "nixpkgs-patcher",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
-      }
-    },
-    "run0-sudo-shim": {
-      "inputs": {
-        "nix-github-actions": [
-          "puntbestanden"
-        ],
-        "nixpkgs": [
-          "puntbestanden",
-          "nixpkgs"
-        ],
-        "treefmt-nix": [
-          "puntbestanden"
-        ]
-      },
-      "locked": {
-        "lastModified": 1781524338,
-        "narHash": "sha256-K+nghy9uAIJQ6Ox9hc3U+utiPJMwskwhPorJ7y7ZZow=",
-        "owner": "LordGrimmauld",
-        "repo": "run0-sudo-shim",
-        "rev": "6e397eebae4c7f3acb8eca080d1c56be5be19e44",
-        "type": "github"
-      },
-      "original": {
-        "owner": "LordGrimmauld",
-        "repo": "run0-sudo-shim",
-        "type": "github"
       }
     },
     "systems": {
