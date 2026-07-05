@@ -2416,10 +2416,10 @@
     };
     "control-panel-for-twitter" = buildMozillaXpiAddon {
       pname = "control-panel-for-twitter";
-      version = "4.22.5";
+      version = "4.23.0";
       addonId = "{5cce4ab5-3d47-41b9-af5e-8203eea05245}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4797665/control_panel_for_twitter-4.22.5.xpi";
-      sha256 = "2a138ecf9379de6a56e9f3c8b4ae25f640fca71e1bc3272f1066d635bfa003d2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4882870/control_panel_for_twitter-4.23.0.xpi";
+      sha256 = "e358db87f82c453d9e1a2eeff06dde9f7716e3c9441f6d1ee26e99672cf5b2f8";
       meta = with lib;
       {
         homepage = "https://soitis.dev/control-panel-for-twitter";
@@ -4691,10 +4691,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "1.22.16";
+      version = "1.22.17";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4881184/geo_spoof-1.22.16.xpi";
-      sha256 = "5318a27f7a9d76f5ba64be320bd9d62ff36250683e22e137e102c31affd771eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4882938/geo_spoof-1.22.17.xpi";
+      sha256 = "1d65445aa9624bef655a6924899a593c437b3bdabc03fd6460b6bbdd754fc4e2";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7253,10 +7253,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24.1";
+      version = "0.24.2";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4880312/javascript_restrictor-0.24.1.xpi";
-      sha256 = "7e00025338343f643304784ac2781e187683ad677a367f86097ae02ccfac2c40";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881712/javascript_restrictor-0.24.2.xpi";
+      sha256 = "967ca21afd87db75ec2b1f014c1419f9fee78c2246a3a8dd9ab91b43f28d8212";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -14353,10 +14353,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.2";
+      version = "2.4.3";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4872003/styl_us-2.4.2.xpi";
-      sha256 = "becda1546a33346b457a5900b1ebc16a1da8902a47e8b2e92a9718b9c88a1d85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4882702/styl_us-2.4.3.xpi";
+      sha256 = "16ea7ec442c605da0f57f88255c3ab2c8f3a2c90aa24e315c3474615c893ba5a";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
