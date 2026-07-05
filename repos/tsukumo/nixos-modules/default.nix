@@ -45,6 +45,9 @@
         "hideep"
         "uinput"
         "i2c-dev"
+        "goodix_ts"
+        "i2c-designware-platform"
+        "i2c-designware-core"
       ];
     in {
       options.hardware.yogabook = {

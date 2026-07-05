@@ -131,6 +131,8 @@ in
       cp -r yogabook-linux-kernel/drivers/platform/x86/x86-android-tablets/* build/
       cp yogabook-linux-kernel/drivers/input/misc/drv260x.c build/
       cp yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c build/
+      substituteInPlace build/lenovo.c \
+        --replace-fail 'PROPERTY_ENTRY_U32("mode", 0),' 'PROPERTY_ENTRY_U32("mode", 1),'
       cd build
 
       cat << 'EOF' > Makefile
