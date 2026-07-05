@@ -158,11 +158,8 @@ in
         --replace-fail 'dapm->card' 'snd_soc_dapm_to_card(dapm)' \
         --replace-fail '&jack->card->dapm' 'snd_soc_card_to_dapm(jack->card)'
 
-      # Prepare ACPI match module in its original directory
-      cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/Makefile
-      obj-m += snd-soc-acpi-intel-match.o
-      snd-soc-acpi-intel-match-y := soc-acpi-intel-cht-match.o
-      EOF
+      # Prepare ACPI match module in its original directory by modifying the existing Makefile
+      echo 'obj-m += snd-soc-acpi-intel-match.o' >> yogabook-linux-kernel/sound/soc/intel/common/Makefile
 
       echo 'MODULE_LICENSE("GPL");' >> yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-cht-match.c
       echo 'MODULE_DESCRIPTION("Intel Common ACPI Match module");' >> yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-cht-match.c

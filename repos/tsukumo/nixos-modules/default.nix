@@ -111,6 +111,10 @@
           ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", ENV{TOUCH_KEYBOARD}=="1", SYMLINK+="touch_keyboard", TAG+="systemd", ENV{SYSTEMD_WANTS}+="touch-keyboard-handler.service"
         '';
 
+        boot.initrd.systemd.storePaths = [
+          touch-keyboard
+        ];
+
         # Copy layout config into initrd
         boot.initrd.systemd.contents = {
           "/etc/touch_keyboard".source = touch-keyboard-etc;
@@ -121,11 +125,13 @@
           description = "Touch keyboard handler in initrd";
           wantedBy = [ "initrd.target" ];
           after = [ "initrd-root-device.target" ];
+          unitConfig = {
+            DefaultDependencies = false;
+          };
           serviceConfig = {
             Type = "simple";
             WorkingDirectory = "/etc/touch_keyboard";
             ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
-            DefaultDependencies = false;
           };
         };
 
