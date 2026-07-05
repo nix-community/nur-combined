@@ -22,6 +22,14 @@
         cp -r ${pkgs.alsa-ucm-conf}/share/alsa/ucm2/* $out/share/alsa/ucm2/
         chmod -R +w $out/share/alsa/ucm2
         cp -r ${yogabook-src}/alsa-ucm-conf-yogabook/ucm2/* $out/share/alsa/ucm2/
+
+        # Add PlaybackMixerElem to separate Speaker and Headphone volumes in UCM
+        substituteInPlace $out/share/alsa/ucm2/cht-yogabook/Speaker.conf \
+          --replace-fail 'PlaybackPCM "hw:''${CardId}"' 'PlaybackPCM "hw:''${CardId}"
+		PlaybackMixerElem "DAC1"'
+        substituteInPlace $out/share/alsa/ucm2/cht-yogabook/HeadsetPhones.conf \
+          --replace-fail 'PlaybackPCM "hw:''${CardId}"' 'PlaybackPCM "hw:''${CardId}"
+		PlaybackMixerElem "DAC2"'
       '';
 
       # Custom layout files shipped in this NUR repo (e.g. jp106)
