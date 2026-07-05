@@ -105,19 +105,22 @@ index 2a938e5bff..e7059fbb2d 100644
  }
  
  bool HistoryInner::hasCopyMediaRestriction(
-@@ -3219,14 +3210,6 @@ bool HistoryInner::showCopyMediaRestriction(not_null<HistoryItem*> item) {
+@@ -3745,15 +3736,5 @@ bool HistoryInner::showCopyMediaRestriction(not_null<HistoryItem*> item) {
  }
  
  bool HistoryInner::hasCopyRestrictionForSelected() const {
 -	if (hasCopyRestriction()) {
 -		return true;
 -	}
--	for (const auto &[item, selection] : _selected) {
+-	for (const auto &item : _selected) {
 -		if (item && item->forbidsForward()) {
 -			return true;
 -		}
 -	}
- 	return false;
+-	return hasSelectedText()
+-		&& _selectedTextItem
+-		&& _selectedTextItem->forbidsForward();
++	return false;
  }
  
 diff --git a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
@@ -137,4 +140,3 @@ index 2e69222b9a..b3e08fd66e 100644
  	~Domain();
 -- 
 2.51.0
-
