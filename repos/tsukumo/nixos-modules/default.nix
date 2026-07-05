@@ -44,6 +44,7 @@
         "drv260x"
         "hideep"
         "uinput"
+        "i2c-dev"
       ];
     in {
       options.hardware.yogabook = {
@@ -57,6 +58,11 @@
           type = lib.types.enum [ "pc104" "pc105" "jp106" ];
           default = "pc105";
           description = "The physical keyboard layout of the Yoga Book (pc104 for US, pc105 for EU/ISO, jp106 for Japanese JIS).";
+        };
+        chargeTargetVoltage = lib.mkOption {
+          type = lib.types.enum [ 9 12 ];
+          default = 9;
+          description = "Target charging voltage in Volts for Pump Express fast charging (9V or 12V).";
         };
       };
 
@@ -265,8 +271,8 @@
                   voltage_mv=$((2600 + vbus_dec * 100))
                   echo "Current VBUS voltage: ''${voltage_mv} mV"
 
-                  # Stop if we reached 8V (9V charging) to prevent overshoot and fallback on 9V chargers
-                  if [ $voltage_mv -gt 8000 ]; then
+                  # Stop if we reached target voltage
+                  if [ $voltage_mv -gt ${if cfg.chargeTargetVoltage == 12 then "10500" else "8000"} ]; then
                     echo "Voltage is high! Handshake succeeded!"
                     break
                   fi
