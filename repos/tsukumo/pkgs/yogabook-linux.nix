@@ -151,9 +151,10 @@ in
       snd-soc-sst-cht-yogabook-y := cht_yogabook.o
       EOF
 
-      # Disable spi_register_board_info call since it is not exported to loadable modules
+      # Adapt cht_yogabook.c to newer kernel APIs (include soc-dapm.h, disable spi_register_board_info)
       substituteInPlace yogabook-linux-kernel/sound/soc/intel/boards/cht_yogabook.c \
-        --replace-fail 'cht_codec_register_spidev();' '// cht_codec_register_spidev();'
+        --replace-fail 'cht_codec_register_spidev();' '// cht_codec_register_spidev();' \
+        --replace-fail '#include <sound/soc-acpi.h>' $'#include <sound/soc-acpi.h>\n#include <sound/soc-dapm.h>'
 
       # Prepare ACPI match module in its original directory
       cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/Makefile
