@@ -90,7 +90,7 @@
           120
         ];
         "extensions.autoCheckUpdates" = false;
-        "extensions.autoUpdate" = false;
+        "extensions.autoUpdate" = "off";
         "files.insertFinalNewline" = true;
         "files.trimFinalNewlines" = true;
         "files.trimTrailingWhitespace" = true;

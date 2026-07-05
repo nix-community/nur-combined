@@ -1,26 +1,57 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
 {
-  services.sing-box.enable = true;
-  systemd.services.sing-box.serviceConfig.ExecStartPre = lib.mkForce (
-    let
-      script = pkgs.writeShellScript "sing-box-pre-start" ''
-        cp ${config.sops.secrets.sing-box.path} /run/sing-box/config.json
-        chown --reference=/run/sing-box /run/sing-box/config.json
-      '';
-    in
-    "+${script}"
-  );
-  sops.secrets.sing-box = {
-    format = "json";
-    key = "";
-    sopsFile = ../../secrets/sing-box.json;
-    restartUnits = [ "sing-box.service" ];
-    owner = config.systemd.services.sing-box.serviceConfig.User;
+  sops.secrets = {
+    sing_box_server_ip = { };
+    sing_box_server_name = { };
+    sing_box_server_uuid = { };
+    sing_box_server_path = { };
+  };
+  services.sing-box = {
+    enable = true;
+    settings = {
+      dns = {
+        servers = [
+          {
+            type = "udp";
+            tag = "google";
+            server = "8.8.8.8";
+          }
+        ];
+        strategy = "ipv4_only";
+      };
+      certificate.store = "mozilla";
+      inbounds = [
+        {
+          type = "mixed";
+          tag = "mixed-in";
+          listen = "0.0.0.0";
+          listen_port = 7890;
+        }
+      ];
+      outbounds = [
+        {
+          type = "vless";
+          tag = "proxy";
+          server._secret = config.sops.secrets.sing_box_server_ip.path;
+          server_port = 443;
+          uuid._secret = config.sops.secrets.sing_box_server_uuid.path;
+          tls = {
+            enabled = true;
+            server_name._secret = config.sops.secrets.sing_box_server_name.path;
+          };
+          multiplex.enabled = true;
+          transport = {
+            type = "httpupgrade";
+            path._secret = config.sops.secrets.sing_box_server_path.path;
+            headers.Host._secret = config.sops.secrets.sing_box_server_name.path;
+          };
+        }
+      ];
+    };
   };
   programs.proxychains = {
     enable = true;

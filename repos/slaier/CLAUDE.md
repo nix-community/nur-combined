@@ -54,7 +54,6 @@ An automated workflow (`.github/workflows/update_inputs.yml`) runs weekly to upd
 ## Environment gotchas
 
 - npm registry is overridden to Tencent mirror in both `flake.nix` and `modules/nix/default.nix`
-- aarch64-linux is emulated via binfmt on the host
 - ccache is enabled (`/nix/var/cache/ccache`) — CI setup also configures this
 - `nix.settings.experimental-features` includes `cgroups` (not just `nix-command flakes`)
 - `system.stateVersion` is `"26.05"`
