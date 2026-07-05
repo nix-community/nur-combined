@@ -48,6 +48,8 @@
         "goodix_ts"
         "i2c-designware-platform"
         "i2c-designware-core"
+        "snd-soc-acpi-intel-match"
+        "snd-soc-sst-cht-yogabook"
       ];
     in {
       options.hardware.yogabook = {

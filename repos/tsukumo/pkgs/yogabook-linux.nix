@@ -126,16 +126,17 @@ in
 
     preConfigure = ''
       patch -p1 -i ${./yogabook-wmi-power.patch}
+      
+      # Prepare platform/input modules
       cp yogabook-linux-kernel/drivers/platform/x86/serdev_helpers.h .
-      mkdir build
-      cp -r yogabook-linux-kernel/drivers/platform/x86/x86-android-tablets/* build/
-      cp yogabook-linux-kernel/drivers/input/misc/drv260x.c build/
-      cp yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c build/
-      substituteInPlace build/lenovo.c \
+      mkdir build-platform
+      cp -r yogabook-linux-kernel/drivers/platform/x86/x86-android-tablets/* build-platform/
+      cp yogabook-linux-kernel/drivers/input/misc/drv260x.c build-platform/
+      cp yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c build-platform/
+      substituteInPlace build-platform/lenovo.c \
         --replace-fail 'PROPERTY_ENTRY_U32("mode", 0),' 'PROPERTY_ENTRY_U32("mode", ${if enableHapticCalibration then "0" else "1"}),'
-      cd build
-
-      cat << 'EOF' > Makefile
+      
+      cat << 'EOF' > build-platform/Makefile
       obj-m += vexia_atla10_ec.o
       obj-m += x86-android-tablets.o
       x86-android-tablets-y := core.o dmi.o shared-psy-info.o asus.o lenovo.o other.o
@@ -143,15 +144,40 @@ in
       obj-m += lenovo-yogabook.o
       lenovo-yogabook-y := yogabook.o
       EOF
+
+      # Prepare sound machine driver in its original directory
+      cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/boards/Makefile
+      obj-m += snd-soc-sst-cht-yogabook.o
+      snd-soc-sst-cht-yogabook-y := cht_yogabook.o
+      EOF
+
+      # Disable spi_register_board_info call since it is not exported to loadable modules
+      substituteInPlace yogabook-linux-kernel/sound/soc/intel/boards/cht_yogabook.c \
+        --replace-fail 'cht_codec_register_spidev();' '// cht_codec_register_spidev();'
+
+      # Prepare ACPI match module in its original directory
+      cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/Makefile
+      obj-m += snd-soc-acpi-intel-match.o
+      snd-soc-acpi-intel-match-y := soc-acpi-intel-cht-match.o
+      EOF
+
+      echo 'MODULE_LICENSE("GPL");' >> yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-cht-match.c
+      echo 'MODULE_DESCRIPTION("Intel Common ACPI Match module");' >> yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-cht-match.c
     '';
 
-    makeFlags = kernelModuleMakeFlags ++ [
-      "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
-      "modules"
-    ];
-
-    preBuild = ''
-      makeFlagsArray+=("M=$(pwd)")
+    buildPhase = ''
+      runHook preBuild
+      
+      echo "Building platform/input modules..."
+      make ${lib.escapeShellArgs kernelModuleMakeFlags} -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd)/build-platform modules
+      
+      echo "Building sound machine driver..."
+      make ${lib.escapeShellArgs kernelModuleMakeFlags} -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd)/yogabook-linux-kernel/sound/soc/intel/boards modules
+      
+      echo "Building ACPI match module..."
+      make ${lib.escapeShellArgs kernelModuleMakeFlags} -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd)/yogabook-linux-kernel/sound/soc/intel/common modules
+      
+      runHook postBuild
     '';
 
     installPhase = ''
