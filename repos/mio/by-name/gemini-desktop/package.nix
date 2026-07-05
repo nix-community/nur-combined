@@ -11,6 +11,16 @@
   desktopToDarwinBundle,
   electron,
   useNewIcon ? true,
+  # Work around the macOS APFS bug where cp of a Mach-O binary into the Nix
+  # store produces a dataless sparse file (0 bytes) once the output is made
+  # read-only.  When true, the bundle executable is a symlink to the Electron
+  # binary in its own store path instead of a copy.  Defaults to true on
+  # Darwin (where the bug occurs) and false everywhere else.
+  apfsWorkaround ? stdenv.hostPlatform.isDarwin,
+  # When true, drop node-llama-cpp and pack only runtime artifacts
+  # (dist-electron, dist, package.json, node_modules) into app.asar instead
+  # of the full source tree, cutting the package size from ~80 MB to ~18 MB.
+  trimAsar ? true,
 }:
 
 let
@@ -33,7 +43,6 @@ buildNpmPackage rec {
   patches = [
     ./disable-updates.patch
     ./disable-hotkey-notice.patch
-    ./fix-theme-update.patch
   ];
 
   postPatch = lib.optionalString useNewIcon ''
@@ -76,11 +85,28 @@ buildNpmPackage rec {
 
     npm prune --omit=dev --no-save
 
-    # Remove unused native binaries for other platforms to save space
-    find node_modules/@node-llama-cpp -mindepth 1 -maxdepth 1 ! -name "linux-x64*" -exec rm -rf {} +
+    ${
+      if trimAsar then
+        ''
+          # Optional local LLM inference is not used by the Gemini web wrapper
+          rm -rf node_modules/@node-llama-cpp node_modules/node-llama-cpp
+          find node_modules/.bin -xtype l -delete
 
-    mkdir -p $out/share/gemini-desktop
-    asar pack . $out/share/gemini-desktop/app.asar
+          appDir=$(mktemp -d)
+          cp -r dist-electron dist package.json node_modules "$appDir/"
+
+          mkdir -p $out/share/gemini-desktop
+          asar pack "$appDir" $out/share/gemini-desktop/app.asar
+        ''
+      else
+        ''
+          # Remove unused native binaries for other platforms to save space
+          find node_modules/@node-llama-cpp -mindepth 1 -maxdepth 1 ! -name "linux-x64*" -exec rm -rf {} +
+
+          mkdir -p $out/share/gemini-desktop
+          asar pack . $out/share/gemini-desktop/app.asar
+        ''
+    }
 
     mkdir -p $out/share/icons/hicolor/256x256/apps
     ${
@@ -107,9 +133,21 @@ buildNpmPackage rec {
           mkdir -p "$out/Applications/Gemini Desktop.app/Contents/MacOS"
           mkdir -p "$out/Applications/Gemini Desktop.app/Contents/Resources"
 
-          # Copy binary and plist from Electron.app
-          cp "${electron}/Applications/Electron.app/Contents/MacOS/Electron" \
-            "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop"
+          ${
+            if apfsWorkaround then
+              # Symlink the Electron binary to avoid the macOS APFS bug where
+              # cp of a Mach-O produces a dataless sparse file (0 bytes) once
+              # the Nix store makes the output path read-only.
+              ''
+                ln -s "${electron}/Applications/Electron.app/Contents/MacOS/Electron" \
+                  "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop"
+              ''
+            else
+              ''
+                cp "${electron}/Applications/Electron.app/Contents/MacOS/Electron" \
+                  "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop"
+              ''
+          }
           cp "${electron}/Applications/Electron.app/Contents/Info.plist" \
             "$out/Applications/Gemini Desktop.app/Contents/Info.plist"
 
@@ -140,9 +178,24 @@ buildNpmPackage rec {
             --replace-fail "<string>com.github.Electron</string>" "<string>org.nixos.gemini-desktop</string>" \
             --replace-fail "<string>electron.icns</string>" "<string>gemini-desktop.icns</string>"
 
-          # Create a binary wrapper or symlink in bin/
+          # Create a binary wrapper in bin/
           mkdir -p $out/bin
-          makeBinaryWrapper "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop" "$out/bin/gemini-desktop"
+          ${
+            if apfsWorkaround then
+              # The bundle executable is a symlink, so wrap the real Electron
+              # binary directly and pass app.asar via --add-flags.
+              ''
+                makeBinaryWrapper "${electron}/Applications/Electron.app/Contents/MacOS/Electron" \
+                  "$out/bin/gemini-desktop" \
+                  --add-flags "$out/Applications/Gemini Desktop.app/Contents/Resources/app.asar" \
+                  --set-default ELECTRON_FORCE_IS_PACKAGED 1
+              ''
+            else
+              ''
+                makeBinaryWrapper "$out/Applications/Gemini Desktop.app/Contents/MacOS/Gemini Desktop" \
+                  "$out/bin/gemini-desktop"
+              ''
+          }
         ''
       else
         ''
