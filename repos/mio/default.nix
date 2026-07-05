@@ -72,7 +72,7 @@ in
       ];
       hash = pluginsHash;
     };
-  telegram-desktop = pkgs.telegram-desktop.overrideAttrs (old: {
+  telegram-desktop_patched = pkgs.telegram-desktop.overrideAttrs (old: {
     unwrapped = v3overridegcc (
       old.unwrapped.overrideAttrs (old2: {
         # see https://github.com/Layerex/telegram-desktop-patches
@@ -82,7 +82,7 @@ in
       })
     );
   });
-  materialgram = pkgs.materialgram.overrideAttrs (old: {
+  materialgram_patched = pkgs.materialgram.overrideAttrs (old: {
     unwrapped = v3overridegcc (
       old.unwrapped.overrideAttrs (old2: {
         # see https://github.com/Layerex/telegram-desktop-patches
@@ -194,8 +194,8 @@ in
           pkgs.symlinkJoin {
             name = "pkgscache";
             paths = with self; [
-              self.materialgram
-              self.telegram-desktop
+              self.materialgram_patched
+              self.telegram-desktop_patched
               lmms
               cb
               beammp-launcher
