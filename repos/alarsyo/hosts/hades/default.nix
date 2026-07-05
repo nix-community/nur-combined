@@ -24,12 +24,7 @@ in {
     devices = ["/dev/sda" "/dev/sdb"];
   };
 
-  # TODO: I've setup the address to avoid a spurious failure of the `mdmonitor`
-  # systemd unit, but sending email is not actually setup on this server. Might
-  # need to setup Postfix or msmtp
-  boot.swraid.mdadmConf = ''
-    MAILADDR=antoine@alarsyo.net
-  '';
+  boot.swraid.enable = true;
 
   boot.tmp.useTmpfs = true;
 

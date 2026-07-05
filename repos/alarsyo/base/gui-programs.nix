@@ -70,6 +70,7 @@ in {
         obs-studio
         pavucontrol
         spotify
+        feishin
         telegram-desktop
         thunderbird
         virt-manager

@@ -67,7 +67,8 @@ in {
       in {
         "${fqdn}" = {
           dnsProvider = "ovh";
-          credentialsFile = config.age.secrets."ovh/credentials".path;
+          # TODO: switch to credentialFiles
+          environmentFile = config.age.secrets."ovh/credentials".path;
           group = "nginx";
         };
       };

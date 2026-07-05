@@ -5,7 +5,7 @@
       type = "github";
       owner = "NixOS";
       repo = "nixpkgs";
-      ref = "nixos-25.11";
+      ref = "nixos-26.05";
     };
 
     nixpkgs-unstable = {
@@ -25,7 +25,7 @@
       type = "github";
       owner = "nix-community";
       repo = "home-manager";
-      ref = "release-25.11";
+      ref = "release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

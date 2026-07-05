@@ -25,6 +25,9 @@ ll = ["log", "-T", "builtin_log_detailed"]
 l = ["log", "-T", "builtin_log_compact"]
 logstatus = ["util", "exec", "--", "sh", "-c", "jj status && jj log"]
 
+[revsets]
+'bookmark-advance-to' = "@-"
+
 [revset-aliases]
 'closest_bookmark(to)' = 'heads(::to & bookmarks())'
 

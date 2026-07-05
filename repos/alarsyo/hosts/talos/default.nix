@@ -61,7 +61,8 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   programs = {
-    light.enable = true;
+    # TODO: clean out light from the codebase, it was deprecated. brightnessctl is the way
+    # light.enable = true;
   };
   services = {
     fwupd.enable = true;
@@ -133,7 +134,7 @@
 
   hardware.bluetooth = {
     enable = true;
-    powerOnBoot = false;
+    powerOnBoot = true;
     settings.General.Experimental = true;
   };
 
@@ -161,14 +162,20 @@
 
   environment.systemPackages = [
     pkgs.foot
+    pkgs.xwayland-satellite
     # FIXME: is this needed?
     pkgs.darkman
+
+    pkgs.noctalia-shell
   ];
 
   #programs.hyprland.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
+  };
+  programs.niri = {
+    enable = true;
   };
 
   # TODO: These are overriden by files from
@@ -178,6 +185,11 @@
     "org.freedesktop.impl.portal.Settings" = "darkman";
     "org.freedesktop.impl.portal.Inhibit" = "none";
   };
+
+  hardware.uinput.enable = true;
+  services.kanata.enable = true;
+  # TODO: add this file to Nix config and store
+  services.kanata.keyboards.arsenik.configFile = "/etc/arsenik/kanata.kbd";
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

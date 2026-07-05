@@ -27,6 +27,9 @@ in {
       #configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     };
 
+    # TODO: investigate whether setting this to null is better
+    gtk4.theme = config.gtk.theme;
+
     iconTheme = {
       package = pkgs.gnome-themes-extra;
       name = "Adwaita";

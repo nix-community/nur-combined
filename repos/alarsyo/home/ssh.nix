@@ -20,10 +20,10 @@ in {
       enable = true;
       enableDefaultConfig = false;
 
-      matchBlocks = let
+      settings = let
         addGPGAgentForwarding = hostConf:
           {
-            remoteForwards = [
+            RemoteForward = [
               {
                 # shhhh this is a path but it works
                 bind.address = "/run/user/1000/gnupg/S.gpg-agent.ssh";
