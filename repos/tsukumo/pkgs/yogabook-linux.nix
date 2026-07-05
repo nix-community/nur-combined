@@ -158,8 +158,104 @@ in
         --replace-fail 'dapm->card' 'snd_soc_dapm_to_card(dapm)' \
         --replace-fail '&jack->card->dapm' 'snd_soc_card_to_dapm(jack->card)'
 
-      # Prepare ACPI match module in its original directory by modifying the existing Makefile
-      echo 'obj-m += snd-soc-acpi-intel-match.o' >> yogabook-linux-kernel/sound/soc/intel/common/Makefile
+      # Prepare ACPI match module in its original directory by overwriting the Makefile to only build CHT/BYT match files (prevents compile errors on new kernels)
+      cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/Makefile
+      obj-m += snd-soc-acpi-intel-match.o
+      snd-soc-acpi-intel-match-y := soc-acpi-intel-byt-match.o soc-acpi-intel-cht-match.o soc-acpi-intel-ssp-common.o stubs.o
+      EOF
+
+      # Write stubs.c for other platforms to resolve all symbol dependencies of snd_intel_sst_acpi
+      cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/stubs.c
+      #include <sound/soc-acpi.h>
+      #include <linux/module.h>
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_broadwell_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_broadwell_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_bxt_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_bxt_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_cml_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cml_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_cnl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_cnl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_ehl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_ehl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_glk_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_glk_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_hda_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_hda_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_icl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_icl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_jsl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_jsl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_kbl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_kbl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_lnl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_lnl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_mtl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_mtl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_mtl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_nvl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_nvl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_nvl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_nvl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_ptl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_ptl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_rpl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_rpl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_rpl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_skl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_skl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_tgl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_tgl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_adl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_adl_sdw_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_arl_machines);
+
+      struct snd_soc_acpi_mach snd_soc_acpi_intel_arl_sdw_machines[] = { {} };
+      EXPORT_SYMBOL_GPL(snd_soc_acpi_intel_arl_sdw_machines);
+      EOF
 
       echo 'MODULE_LICENSE("GPL");' >> yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-cht-match.c
       echo 'MODULE_DESCRIPTION("Intel Common ACPI Match module");' >> yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-cht-match.c
