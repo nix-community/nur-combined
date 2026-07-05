@@ -143,6 +143,11 @@
           ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
         };
 
+        # Ensure that audio services (which run as systemd user services) also see the custom UCM configurations
+        systemd.user.services.pipewire.environment.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+        systemd.user.services.wireplumber.environment.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+        systemd.user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+
         # Disable default initrd modules when using the custom kernel to prevent
         # errors from missing legacy storage modules (ahci, ata_piix, etc.) and
         # keyboard modules (atkbd, i8042) which are not built in the custom kernel.
