@@ -9,37 +9,37 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    i686-linux = "0r91gq9i52cdzkgm1l5wcm60i6y4gsa35vqrzj6fv5qlc9839m7d";
-    x86_64-linux = "134k9qwvi7hf9zsdnqz61y95ir0f06c9a1sj65qbwrhcz5b4gxvf";
-    armv6l-linux = "0zrcsqr5p632lj21vs0isj2lx4236y2cbrr5g0zb6nrz4wc2zff8";
-    armv7l-linux = "084bb9kmmnwmgxjj92ciidc6vgcgp5v00asbyf3r3kx678nwrrpi";
-    aarch64-linux = "1zbi0sr5r3lwq2q4cndnb5kl7qmblaqzwxmbrgm5k2ms61ks98sc";
-    x86_64-darwin = "0c9xydzdz43j272p4xn909vlkv8sxf1blqc0pj2k39dnk9kc0n0a";
-    aarch64-darwin = "1j1kbinl4s278cb0xp8051lbyvmgwh0m81r97ksbnk97i7hpl3cl";
+    i686-linux = "0j70prqpaaajidbbxk9ydsw29v8d5jxsiaq8dd5a8r5cc82vygcx";
+    x86_64-linux = "1anf7dzsfq24kpvcc2wzpm43xk00f20axryra623b0mpgcph9ccg";
+    armv6l-linux = "1y6s1qs61d97apd0l8l489y9gy7vlvj9r1h2ysn6bc92l22njr47";
+    armv7l-linux = "0djlh5q34d9y0z1ad3zv11645d752i4rp41sdf9zr2y0da52j4x2";
+    aarch64-linux = "099j1zh97jxjv7pialva5izxlp4k1vhfa7ig0yhk5pc22wjvlqr9";
+    x86_64-darwin = "00zhr5f66r31phja75yvpy1lrxvkcpmfbx149mkaz2bwr5sayq05";
+    aarch64-darwin = "1mk65n80jpxi5kn97x12hxli52g846yisap8qbb3rh5pxl1pw1qd";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Linux_x86_64.tar.gz";
-    armv6l-linux = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Linux_armv6.tar.gz";
-    armv7l-linux = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Linux_armv7.tar.gz";
-    aarch64-linux = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/charmbracelet/pop/releases/download/v0.2.2/pop_0.2.2_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Linux_x86_64.tar.gz";
+    armv6l-linux = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Linux_armv6.tar.gz";
+    armv7l-linux = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Linux_armv7.tar.gz";
+    aarch64-linux = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/charmbracelet/pop/releases/download/v0.3.0/pop_0.3.0_Darwin_arm64.tar.gz";
   };
   sourceRootMap = {
-    i686-linux = "pop_0.2.2_Linux_i386";
-    x86_64-linux = "pop_0.2.2_Linux_x86_64";
-    armv6l-linux = "pop_0.2.2_Linux_armv6";
-    armv7l-linux = "pop_0.2.2_Linux_armv7";
-    aarch64-linux = "pop_0.2.2_Linux_arm64";
-    x86_64-darwin = "pop_0.2.2_Darwin_x86_64";
-    aarch64-darwin = "pop_0.2.2_Darwin_arm64";
+    i686-linux = "pop_0.3.0_Linux_i386";
+    x86_64-linux = "pop_0.3.0_Linux_x86_64";
+    armv6l-linux = "pop_0.3.0_Linux_armv6";
+    armv7l-linux = "pop_0.3.0_Linux_armv7";
+    aarch64-linux = "pop_0.3.0_Linux_arm64";
+    x86_64-darwin = "pop_0.3.0_Darwin_x86_64";
+    aarch64-darwin = "pop_0.3.0_Darwin_arm64";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "pop";
-  version = "0.2.2";
+  version = "0.3.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
