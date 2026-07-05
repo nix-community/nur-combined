@@ -521,11 +521,10 @@ in
     wants = [ "network-online.target" ];
     environment = {
       AUTHENTIK_HOST = "http://10.200.0.16:9000";
+      AUTHENTIK_TOKEN = "YOUR_ADMIN_API_TOKEN_HERE";
     };
     serviceConfig = {
-      ExecStart = "${pkgs.bash}/bin/bash -c 'export AUTHENTIK_TOKEN=$(cat ${
-        config.sops.secrets."authentik-outpost-token".path
-      }); exec ${pkgs.authentik-outposts.proxy}/bin/proxy'";
+      ExecStart = "${pkgs.authentik-outposts.proxy}/bin/proxy";
       Restart = "on-failure";
       RestartSec = "30";
     };
