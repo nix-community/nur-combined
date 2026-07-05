@@ -1,0 +1,43 @@
+name: Update wondershaper
+
+on:
+  schedule:
+    - cron: "00 9 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update wondershaper
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Update package
+        env:
+          # nix-update starts nested Nix commands, so this must be inherited rather
+          # than passed only to the outer `nix run`.
+          NIX_CONFIG: |
+            fallback = true
+        run: nix run nixpkgs#nix-update -- --flake --use-update-script wondershaper
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: pkgs/wondershaper/default.nix
+          branch: update/wondershaper
+          commit-message: Update wondershaper
+          delete-branch: true
+          title: Update wondershaper
+          body: |
+            Automated update for `wondershaper` from upstream `master`.

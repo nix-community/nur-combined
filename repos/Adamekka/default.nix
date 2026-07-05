@@ -18,4 +18,5 @@
   gdstash = pkgs.callPackage ./pkgs/gdstash { };
   lsfg-vk-git = pkgs.callPackage ./pkgs/lsfg-vk-git { };
   lunar-tear = pkgs.callPackage ./pkgs/lunar-tear { };
+  wondershaper = pkgs.callPackage ./pkgs/wondershaper { };
 }
