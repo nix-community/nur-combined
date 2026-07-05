@@ -116,7 +116,7 @@ in
     cp .config $out
   '';
 
-  yogabook-modules = { kernel, kernelModuleMakeFlags, enableHapticCalibration ? false }: pkgs.stdenv.mkDerivation {
+  yogabook-modules = { kernel, kernelModuleMakeFlags, enableHapticCalibration ? false, enableAudio ? true }: pkgs.stdenv.mkDerivation {
     pname = "yogabook-modules";
     version = kernel.version;
 
@@ -144,7 +144,7 @@ in
       obj-m += lenovo-yogabook.o
       lenovo-yogabook-y := yogabook.o
       EOF
-
+    '' + lib.optionalString enableAudio ''
       # Prepare sound machine driver in its original directory
       cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/boards/Makefile
       obj-m += snd-soc-sst-cht-yogabook.o
@@ -171,13 +171,13 @@ in
       
       echo "Building platform/input modules..."
       make ${lib.escapeShellArgs kernelModuleMakeFlags} -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd)/build-platform modules
-      
+    '' + lib.optionalString enableAudio ''
       echo "Building sound machine driver..."
       make ${lib.escapeShellArgs kernelModuleMakeFlags} -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd)/yogabook-linux-kernel/sound/soc/intel/boards modules
       
       echo "Building ACPI match module..."
       make ${lib.escapeShellArgs kernelModuleMakeFlags} -C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build M=$(pwd)/yogabook-linux-kernel/sound/soc/intel/common modules
-      
+    '' + ''
       runHook postBuild
     '';
 

@@ -48,6 +48,7 @@
         "goodix_ts"
         "i2c-designware-platform"
         "i2c-designware-core"
+      ] ++ lib.optionals cfg.enableCustomAudio [
         "snd-soc-acpi-intel-match"
         "snd-soc-sst-cht-yogabook"
       ];
@@ -58,6 +59,11 @@
           type = lib.types.bool;
           default = false;
           description = "Whether to use the custom patched Yoga Book kernel. Disabling this will use the default NixOS kernel.";
+        };
+        enableCustomAudio = lib.mkOption {
+          type = lib.types.bool;
+          default = true;
+          description = "Whether to enable custom out-of-tree sound modules and UCM configuration for the Yoga Book. Disabling this will skip building/loading the audio modules, preventing compilation errors on newer kernels.";
         };
         keyboardLayout = lib.mkOption {
           type = lib.types.enum [ "pc104" "pc105" "jp106" ];
@@ -86,6 +92,7 @@
           (yogabook-linux.yogabook-modules {
             inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
             inherit (cfg) enableHapticCalibration;
+            enableAudio = cfg.enableCustomAudio;
           })
         ];
 
@@ -141,14 +148,14 @@
         ];
 
         # Override UCM2 directory via environment variable to avoid rebuilds of GUI apps
-        environment.sessionVariables = {
+        environment.sessionVariables = lib.mkIf cfg.enableCustomAudio {
           ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
         };
 
         # Ensure that audio services (which run as systemd user services) also see the custom UCM configurations
-        systemd.user.services.pipewire.environment.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
-        systemd.user.services.wireplumber.environment.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
-        systemd.user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+        systemd.user.services.pipewire.environment.ALSA_CONFIG_UCM2 = lib.mkIf cfg.enableCustomAudio "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+        systemd.user.services.wireplumber.environment.ALSA_CONFIG_UCM2 = lib.mkIf cfg.enableCustomAudio "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
+        systemd.user.services.pulseaudio.environment.ALSA_CONFIG_UCM2 = lib.mkIf cfg.enableCustomAudio "${alsa-ucm-conf-yogabook}/share/alsa/ucm2";
 
         # Disable default initrd modules when using the custom kernel to prevent
         # errors from missing legacy storage modules (ahci, ata_piix, etc.) and
