@@ -8,7 +8,7 @@ let
     fetchSubmodules = true;
   };
 in
-rec {
+{
   src = yogabook-src;
 
   touch-keyboard = pkgs.stdenv.mkDerivation {
@@ -114,19 +114,52 @@ rec {
     cp .config $out
   '';
 
-  yogabook-kernel = pkgs.linuxManualConfig {
-    inherit (pkgs) stdenv;
-    src = "${yogabook-src}/yogabook-linux-kernel";
-    configfile = yogabook-config;
-    version = "6.17.4-yogabook";
-    modDirVersion = "6.17.4";
-    config = {
-      CONFIG_MODULES = "y";
-    };
-    features = {
-      efiBootStub = true;
-      netfilterRPFilter = true;
-      ia32Emulation = true;
+  yogabook-modules = { kernel, kernelModuleMakeFlags }: pkgs.stdenv.mkDerivation {
+    pname = "yogabook-modules";
+    version = kernel.version;
+
+    src = yogabook-src;
+
+    nativeBuildInputs = kernel.moduleBuildDependencies;
+
+    preConfigure = ''
+      patch -p1 -i ${./yogabook-wmi-power.patch}
+      cp yogabook-linux-kernel/drivers/platform/x86/serdev_helpers.h .
+      mkdir build
+      cp -r yogabook-linux-kernel/drivers/platform/x86/x86-android-tablets/* build/
+      cp yogabook-linux-kernel/drivers/input/misc/drv260x.c build/
+      cp yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c build/
+      cd build
+
+      cat << 'EOF' > Makefile
+      obj-m += vexia_atla10_ec.o
+      obj-m += x86-android-tablets.o
+      x86-android-tablets-y := core.o dmi.o shared-psy-info.o asus.o lenovo.o other.o
+      obj-m += drv260x.o
+      obj-m += lenovo-yogabook.o
+      lenovo-yogabook-y := yogabook.o
+      EOF
+    '';
+
+    makeFlags = kernelModuleMakeFlags ++ [
+      "-C ${kernel.dev}/lib/modules/${kernel.modDirVersion}/build"
+      "modules"
+    ];
+
+    preBuild = ''
+      makeFlagsArray+=("M=$(pwd)")
+    '';
+
+    installPhase = ''
+      mkdir -p $out/lib/modules/${kernel.modDirVersion}/updates
+      find . -name '*.ko' -exec cp '{}' $out/lib/modules/${kernel.modDirVersion}/updates/ \;
+      find $out/lib/modules/${kernel.modDirVersion}/updates/ -name '*.ko' -exec xz -f '{}' \;
+    '';
+
+    meta = {
+      description = "Patched kernel modules for Lenovo Yoga Book (x86-android-tablets, drv260x)";
+      license = lib.licenses.gpl2Only;
+      platforms = lib.platforms.linux;
     };
   };
 }

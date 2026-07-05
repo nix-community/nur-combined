@@ -8,11 +8,10 @@
 
       yogabook-linux = pkgs.callPackage ../pkgs/yogabook-linux.nix {};
 
-      # Expose packages from consolidated set
-      touch-keyboard = yogabook-linux.touch-keyboard;
-      yogabook-modes-handler = yogabook-linux.yogabook-modes-handler;
-      iio-sensor-proxy-yogabook = yogabook-linux.iio-sensor-proxy-yogabook;
-      yogabook-kernel = yogabook-linux.yogabook-kernel;
+      inherit (yogabook-linux)
+        touch-keyboard
+        yogabook-modes-handler
+        iio-sensor-proxy-yogabook;
 
       # Expose src for alsa-ucm-conf overriding
       yogabook-src = yogabook-linux.src;
@@ -24,19 +23,87 @@
         chmod -R +w $out/share/alsa/ucm2
         cp -r ${yogabook-src}/alsa-ucm-conf-yogabook/ucm2/* $out/share/alsa/ucm2/
       '';
+
+      # Custom layout files shipped in this NUR repo (e.g. jp106)
+      customLayouts = ../pkgs/layouts;
+
+      # Create custom etc directory for touch-keyboard with layout.csv symlink
+      touch-keyboard-etc = pkgs.runCommand "touch-keyboard-etc" {} ''
+        mkdir -p $out
+        cp -r ${touch-keyboard}/etc/touch_keyboard/* $out/
+        chmod -R +w $out/layouts
+        # Overlay custom layouts from our repo (adds jp106 etc.)
+        cp ${customLayouts}/*.csv $out/layouts/ 2>/dev/null || true
+        ln -sf layouts/YB1-X9x-${cfg.keyboardLayout}.csv $out/layout.csv
+      '';
+
+      # Kernel modules required for Yoga Book hardware
+      yogabookKernelModules = [
+        "lenovo-yogabook"
+        "x86-android-tablets"
+        "drv260x"
+        "hideep"
+        "uinput"
+      ];
     in {
       options.hardware.yogabook = {
         enable = lib.mkEnableOption "Lenovo Yoga Book YB1 hardware support";
         useCustomKernel = lib.mkOption {
           type = lib.types.bool;
-          default = true;
+          default = false;
           description = "Whether to use the custom patched Yoga Book kernel. Disabling this will use the default NixOS kernel.";
+        };
+        keyboardLayout = lib.mkOption {
+          type = lib.types.enum [ "pc104" "pc105" "jp106" ];
+          default = "pc105";
+          description = "The physical keyboard layout of the Yoga Book (pc104 for US, pc105 for EU/ISO, jp106 for Japanese JIS).";
         };
       };
 
       config = lib.mkIf cfg.enable {
-        # Custom kernel setup
-        boot.kernelPackages = lib.mkIf cfg.useCustomKernel (pkgs.linuxPackagesFor yogabook-kernel);
+        # Custom kernel setup (mutually exclusive with out-of-tree modules below)
+        boot.kernelPackages = lib.mkIf cfg.useCustomKernel
+          (pkgs.linuxPackagesFor yogabook-linux.yogabook-config);
+
+        # Extra kernel modules compiled out-of-tree for the standard NixOS kernel
+        boot.extraModulePackages = lib.mkIf (!cfg.useCustomKernel) [
+          (yogabook-linux.yogabook-modules {
+            inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
+          })
+        ];
+
+        # Load necessary modules in order on boot
+        boot.kernelModules = yogabookKernelModules;
+
+        # Required for LUKS password entry via touch keyboard in initrd
+        boot.initrd.kernelModules = yogabookKernelModules;
+
+        # Udev rules in initrd (symlink touch keyboard device for the handler)
+        boot.initrd.services.udev.rules = ''
+          # Tag Goodix Capacitive TouchScreen with TOUCH_KEYBOARD=1 directly
+          ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Goodix Capacitive TouchScreen", ENV{TOUCH_KEYBOARD}="1"
+
+          # Symlink touchscreen digitizer for the keyboard driver
+          ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", ENV{TOUCH_KEYBOARD}=="1", SYMLINK+="touch_keyboard", TAG+="systemd", ENV{SYSTEMD_WANTS}+="touch-keyboard-handler.service"
+        '';
+
+        # Copy layout config into initrd
+        boot.initrd.systemd.contents = {
+          "/etc/touch_keyboard".source = touch-keyboard-etc;
+        };
+
+        # Start touch-keyboard-handler in initrd (enables typing LUKS passphrase)
+        boot.initrd.systemd.services.touch-keyboard-handler = {
+          description = "Touch keyboard handler in initrd";
+          wantedBy = [ "initrd.target" ];
+          after = [ "initrd-root-device.target" ];
+          serviceConfig = {
+            Type = "simple";
+            WorkingDirectory = "/etc/touch_keyboard";
+            ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
+            DefaultDependencies = false;
+          };
+        };
 
         # Kernel command-line parameters for screen rotation and power management
         boot.kernelParams = [
@@ -49,9 +116,9 @@
         # Enable firmware
         hardware.enableRedistributableFirmware = true;
 
-        # Nixpkgs Overlay to replace iio-sensor-proxy
+        # Replace iio-sensor-proxy with the patched Yoga Book version
         nixpkgs.overlays = [
-          (final: prev: {
+          (_final: _prev: {
             iio-sensor-proxy = iio-sensor-proxy-yogabook;
           })
         ];
@@ -65,7 +132,7 @@
         # errors from missing legacy storage modules (ahci, ata_piix, etc.) and
         # keyboard modules (atkbd, i8042) which are not built in the custom kernel.
         boot.initrd.includeDefaultModules = lib.mkDefault (!cfg.useCustomKernel);
-        boot.initrd.availableKernelModules = [
+        boot.initrd.availableKernelModules = lib.mkIf cfg.useCustomKernel [
           # Storage / MMC
           "sdhci"
           "sdhci_acpi"
@@ -177,7 +244,7 @@
         };
 
         # Configuration layout files placement
-        environment.etc."touch_keyboard".source = "${touch-keyboard}/etc/touch_keyboard";
+        environment.etc."touch_keyboard".source = touch-keyboard-etc;
       };
     };
 }

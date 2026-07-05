@@ -1,0 +1,68 @@
+diff --git a/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c b/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c
+index 31b298dc5046..96f9f61af871 100644
+--- a/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c
++++ b/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c
+@@ -60,6 +60,37 @@ struct yogabook_data {
+ 	uint8_t brightness;
+ };
+ 
++#define YB_WMBB_GUID	"742B0CA1-0B20-404B-9CAA-AEFCABF30CE0"
++
++static int yogabook_wmi_call_wmbb(struct yogabook_data *data, u32 method_id)
++{
++	struct acpi_buffer input = { 0, NULL };
++	struct acpi_buffer output = { ACPI_ALLOCATE_BUFFER, NULL };
++	acpi_status status;
++	unsigned long long pmid = 999;
++	unsigned long long gpo0_avbl = 999;
++	unsigned long long avbl = 999;
++	unsigned long long avbd = 999;
++	unsigned long long avbg = 999;
++	unsigned long long avbe = 999;
++
++	acpi_evaluate_integer(NULL, "\\PMID", NULL, &pmid);
++	acpi_evaluate_integer(NULL, "\\_SB.GPO0.AVBL", NULL, &gpo0_avbl);
++	acpi_evaluate_integer(NULL, "\\_SB.PCI0.I2C7.PMI5.AVBL", NULL, &avbl);
++	acpi_evaluate_integer(NULL, "\\_SB.PCI0.I2C7.PMI5.AVBD", NULL, &avbd);
++	acpi_evaluate_integer(NULL, "\\_SB.PCI0.I2C7.PMI5.AVBG", NULL, &avbg);
++	acpi_evaluate_integer(NULL, "\\_SB.PCI0.I2C7.PMI5.AVBE", NULL, &avbe);
++
++	dev_info(data->dev, "Yogabook WMBB debug: before call: PMID=%llu, GPO0.AVBL=%llu, PMIC.AVBL=%llu, PMIC.AVBD=%llu, PMIC.AVBG=%llu, PMIC.AVBE=%llu\n",
++		 pmid, gpo0_avbl, avbl, avbd, avbg, avbe);
++
++	status = wmi_evaluate_method(YB_WMBB_GUID, 0, method_id, &input, &output);
++	dev_info(data->dev, "Yogabook WMBB debug: wmi_evaluate_method(%u) returned status=0x%x\n", method_id, status);
++
++	kfree(output.pointer);
++	return ACPI_SUCCESS(status) ? 0 : -EIO;
++}
++
+ static void yogabook_work(struct work_struct *work)
+ {
+ 	struct yogabook_data *data = container_of(work, struct yogabook_data, work);
+@@ -93,6 +124,8 @@ static void yogabook_work(struct work_struct *work)
+ 	if (!digitizer_on && test_bit(YB_DIGITIZER_IS_ON, &data->flags)) {
+ 		led_set_brightness(data->pen_led, LED_OFF);
+ 		device_release_driver(data->dig_dev);
++		if (data->dig_adev)
++			yogabook_wmi_call_wmbb(data, 2);
+ 		clear_bit(YB_DIGITIZER_IS_ON, &data->flags);
+ 	}
+ 
+@@ -106,6 +139,8 @@ static void yogabook_work(struct work_struct *work)
+ 	}
+ 
+ 	if (digitizer_on && !test_bit(YB_DIGITIZER_IS_ON, &data->flags)) {
++		if (data->dig_adev)
++			yogabook_wmi_call_wmbb(data, 1);
+ 		r = device_reprobe(data->dig_dev);
+ 		if (r)
+ 			dev_warn(data->dev, "Reprobe of digitizer failed: %d\n", r);
+@@ -409,7 +444,6 @@ static struct wmi_driver yogabook_wmi_driver = {
+ 		.name = "yogabook-wmi",
+ 		.pm = pm_sleep_ptr(&yogabook_pm_ops),
+ 	},
+-	.no_notify_data = true,
+ 	.id_table = yogabook_wmi_id_table,
+ 	.probe = yogabook_wmi_probe,
+ 	.remove = yogabook_wmi_remove,
