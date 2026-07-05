@@ -513,27 +513,10 @@ in
         };
       };
     };
-  # Authentik proxy outpost for forward-auth
-  systemd.services.authentik-proxy-outpost = {
-    description = "Authentik Proxy Outpost";
-    wantedBy = [ "multi-user.target" ];
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-    environment = {
-      AUTHENTIK_HOST = "http://10.200.0.16:9000";
-      AUTHENTIK_TOKEN = "YOUR_ADMIN_API_TOKEN_HERE";
-    };
-    serviceConfig = {
-      ExecStart = "${pkgs.authentik-outposts.proxy}/bin/proxy";
-      Restart = "on-failure";
-      RestartSec = "30";
-    };
-  };
   sops.secrets = {
     cloudflare_w_dns_r_zone_token = { };
     "wireguard-router-private-key" = { };
     technitium_api_key = { };
     technitium_admin_password = { };
-    "authentik-outpost-token" = { };
   };
 }
