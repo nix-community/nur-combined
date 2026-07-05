@@ -67,6 +67,11 @@
           default = 9;
           description = "Target charging voltage in Volts for Pump Express fast charging (9V or 12V).";
         };
+        enableHapticCalibration = lib.mkOption {
+          type = lib.types.bool;
+          default = false;
+          description = "Whether to calibrate haptic motors on boot (causes vibration at startup).";
+        };
       };
 
       config = lib.mkIf cfg.enable {
@@ -78,6 +83,7 @@
         boot.extraModulePackages = lib.mkIf (!cfg.useCustomKernel) [
           (yogabook-linux.yogabook-modules {
             inherit (config.boot.kernelPackages) kernel kernelModuleMakeFlags;
+            inherit (cfg) enableHapticCalibration;
           })
         ];
 
