@@ -33,9 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "ee4a07ce5b10518449bdf61e5178e24cd0032946"; # No releases yet
+    rev = "863ac4401421c5f879eea4d4803da5f94cf499bd"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-GL1ZqU8CaIc3DF+BdR8oJsHL3G4q23HGoIl6YgkzQF4=";
+    hash = "sha256-6FmaPfmnb2d7r/AIMKXOk6TyY6xQO/wYJGcA+l0emDk=";
   };
 
   pnpmDeps = fetchPnpmDeps {
