@@ -102,21 +102,21 @@
   };
   nh = {
     pname = "nh";
-    version = "477df9805a457569a4962dc614e3a482135a8ab2";
+    version = "ee9868f97e74bf2815360a3a0a2d8ae52bd29edb";
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "477df9805a457569a4962dc614e3a482135a8ab2";
+      rev = "ee9868f97e74bf2815360a3a0a2d8ae52bd29edb";
       fetchSubmodules = false;
-      sha256 = "sha256-GTh4ek+SaZOLlBaLpsSzltkoaTQkluksDUK4Q43aqig=";
+      sha256 = "sha256-7H0JytC/3M4DZsaRKD1CRLNIBW5uBCbQMxfjvgMLWJc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-GTh4ek+SaZOLlBaLpsSzltkoaTQkluksDUK4Q43aqig=/Cargo.lock";
+      lockFile = ./. + "/sha256-7H0JytC_3M4DZsaRKD1CRLNIBW5uBCbQMxfjvgMLWJc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-07-01";
+    date = "2026-07-04";
   };
   nix-package-versions = {
     pname = "nix-package-versions";
@@ -163,13 +163,13 @@
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "cf2c6d8ef37f70824ad09eee0ee13e40a35dbdaa";
+    version = "5d461d85908338371b9433ab6c29707bee3a813b";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "cf2c6d8ef37f70824ad09eee0ee13e40a35dbdaa";
+      rev = "5d461d85908338371b9433ab6c29707bee3a813b";
       fetchSubmodules = false;
-      sha256 = "sha256-G7n+3SSRC2iASqDfOkm9kYUnFAgvpAGvxWr8+O7/Q6E=";
+      sha256 = "sha256-vRElXxEe2Am7p6SoxJ7g8GSaka7/4/yZ2zfiOOqUR2I=";
     };
     date = "2026-07-04";
   };
