@@ -1,6 +1,7 @@
 { buildGoModule
 , coreutils
 , fetchFromGitHub
+, gitUpdater
 , gnumake
 , goose
 , lib
@@ -106,6 +107,8 @@ buildGoModule rec {
     wrapProgram "$out/bin/wizard" \
       --set LUNAR_TEAR_BIN_DIR "$out/bin"
   '';
+
+  passthru.updateScript = gitUpdater { rev-prefix = "v"; };
 
   meta = {
     description = "Private server research project for a discontinued mobile game";
