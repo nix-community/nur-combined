@@ -22,6 +22,8 @@ in
       hash = "sha256-ASddTw/b6w29FxI+N66FwZCqJphQrprQPITHkYKMEtU=";
     };
 
+    patches = [ ./touchpad-fix.patch ];
+
     nativeBuildInputs = with pkgs; [
       cmake
       pkg-config

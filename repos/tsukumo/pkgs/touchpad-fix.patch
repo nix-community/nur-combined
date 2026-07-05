@@ -1,0 +1,156 @@
+diff --git a/faketouchpad.cc b/faketouchpad.cc
+index 32ad39a..efa7c04 100644
+--- a/faketouchpad.cc
++++ b/faketouchpad.cc
+@@ -13,6 +13,7 @@ namespace touch_keyboard {
+ 
+ FakeTouchpad::FakeTouchpad(struct hw_config &hw_config) :
+   hw_config_(hw_config) {
++  product_id_ = 0x00fe;
+ 
+   if (!LoadLayout("layout-touchpad.csv"))
+     throw "Failed to load touchpad geometry";
+@@ -107,6 +108,10 @@ void FakeTouchpad::Start(std::string const &source_device_path,
+   EnableKeyEvent(BTN_TOOL_TRIPLETAP);
+   EnableKeyEvent(BTN_TOOL_QUADTAP);
+ 
++  // Enable indirect pointer and buttonpad properties to prevent direct mapping
++  EnableProperty(INPUT_PROP_POINTER);
++  EnableProperty(INPUT_PROP_BUTTONPAD);
++
+   int w = 0, h = 0;
+   int xres, yres;
+ 
+@@ -183,7 +188,7 @@ bool FakeTouchpad::Contains(mtstatemachine::Slot const &slot) const {
+   return true;
+ }
+ 
+-bool FakeTouchpad::PassEventsThrough(mtstatemachine::Slot const &slot) const {
++bool FakeTouchpad::PassEventsThrough(mtstatemachine::Slot const &slot, int slot_idx) const {
+   // Go through the slot in question and send events setting each of the set
+   // values into this region.  Essentially this updates all of the values for
+   // this slot in the kernel to match our internal version.
+@@ -246,6 +251,15 @@ bool FakeTouchpad::PassEventsThrough(mtstatemachine::Slot const &slot) const {
+ 
+     // Push an event that sets this value into the region.
+     SendEvent(slot_event_key.type_, code, value);
++
++    // Emit legacy single-touch coordinates for slot 0 to satisfy libinput
++    if (slot_idx == 0) {
++      if (code == ABS_MT_POSITION_X) {
++        SendEvent(EV_ABS, ABS_X, value);
++      } else if (code == ABS_MT_POSITION_Y) {
++        SendEvent(EV_ABS, ABS_Y, value);
++      }
++    }
+   }
+ 
+   return is_valid;
+@@ -284,7 +298,7 @@ int FakeTouchpad::SyncTouchEvents() {
+     }
+ 
+     // Scan through the slot and update all the properties.
+-    bool valid_finger = PassEventsThrough(sm_.slots_[slot]);
++    bool valid_finger = PassEventsThrough(sm_.slots_[slot], slot);
+     if (valid_finger && slot_memberships_[slot]) {
+       touch_count++;
+     }
+diff --git a/faketouchpad.h b/faketouchpad.h
+index 10fb836..2a53ea4 100644
+--- a/faketouchpad.h
++++ b/faketouchpad.h
+@@ -56,7 +56,7 @@ class FakeTouchpad : public UinputDevice, public EvdevSource {
+ 
+   // Used by SyncTouchEvents, this function blindly duplicates the state stored
+   // in the slot for the fake touchpad by replicating events for each value.
+-  bool PassEventsThrough(mtstatemachine::Slot const &slot) const;
++  bool PassEventsThrough(mtstatemachine::Slot const &slot, int slot_idx) const;
+ 
+   // These member variables store the ranges of x/y coordinates that make up
+   // the "touchpad" area on the source input device.
+diff --git a/uinputdevice.cc b/uinputdevice.cc
+index 90fcbfe..980d061 100644
+--- a/uinputdevice.cc
++++ b/uinputdevice.cc
+@@ -9,8 +9,6 @@ namespace touch_keyboard {
+ // When creating a new uinput device, you must specify these parameters like
+ // with an actual, physical device.  These are sane, safe values that we use
+ // when creating a uinput device.
+-constexpr int kGoogleVendorID = 0x18d1;
+-constexpr int kDummyProductID = 0x00FF;
+ constexpr int kVersionNumber = 1;
+ 
+ // This is used when interpreting the results of ioctls that query the event
+@@ -88,6 +86,18 @@ bool UinputDevice::EnableAbsEvent(int ev_code) const {
+   return true;
+ }
+ 
++bool UinputDevice::EnableProperty(int prop) const {
++  // Tell the kernel that this device has a specific input property (eg: INPUT_PROP_POINTER).
++  int error = syscall_handler_->ioctl(uinput_fd_, UI_SET_PROPBIT, prop);
++  if (error) {
++    LOG(ERROR) << "Unable to enable property 0x" << std::hex << prop <<
++                  " (" << std::dec << error << ")\n";
++    return false;
++  }
++  LOG(DEBUG) << "Enabled property 0x" << std::hex << prop << "\n";
++  return true;
++}
++
+ bool UinputDevice::CopyABSOutputEvents(int source_evdev_fd,
+                                        int width, int height,
+ 				       int xres, int yres) const {
+@@ -170,7 +180,7 @@ bool UinputDevice::FinalizeUinputCreation(
+   snprintf(device_info.name, UINPUT_MAX_NAME_SIZE, "%s", device_name.c_str());
+   device_info.id.bustype = BUS_USB;
+   device_info.id.vendor  = kGoogleVendorID;
+-  device_info.id.product = kDummyProductID;
++  device_info.id.product = product_id_;
+   device_info.id.version = kVersionNumber;
+   error = syscall_handler_->ioctl(uinput_fd_, UI_DEV_SETUP, &device_info);
+   if (error) {
+diff --git a/uinputdevice.h b/uinputdevice.h
+index e0f611f..a76af4a 100644
+--- a/uinputdevice.h
++++ b/uinputdevice.h
+@@ -20,6 +20,9 @@
+ 
+ namespace touch_keyboard {
+ 
++constexpr int kGoogleVendorID = 0x18d1;
++constexpr int kDummyProductID = 0x00FF;
++
+ // This is the file handle on disk that you use to control the uinput module.
+ constexpr char kUinputControlFilename[] = "/dev/uinput";
+ 
+@@ -36,9 +39,9 @@ class UinputDevice {
+   */
+  public:
+   UinputDevice() : syscall_handler_(&default_syscall_handler),
+-                   uinput_fd_(-1) {}
++                   uinput_fd_(-1), product_id_(kDummyProductID) {}
+   explicit UinputDevice(SyscallHandler *syscall_handler) :
+-      syscall_handler_(syscall_handler), uinput_fd_(-1) {
++      syscall_handler_(syscall_handler), uinput_fd_(-1), product_id_(kDummyProductID) {
+     // This constructor allows you to pass in a SyscallHandler when unit
+     // testing this class.  For real use, allow it to use the default value
+     // by using the constructor with no arguments.
+@@ -62,6 +65,7 @@ class UinputDevice {
+   // event type specified in the function name. eg: KEY_ENTER or ABS_MT_SLOT
+   bool EnableKeyEvent(int ev_code) const;
+   bool EnableAbsEvent(int ev_code) const;
++  bool EnableProperty(int prop) const;
+ 
+   // Clone the EV_ABS event capability of a given evdev device.  The width and
+   // height are used to setup the ranges of X and Y coordinates.
+@@ -80,6 +84,10 @@ class UinputDevice {
+   SyscallHandler *syscall_handler_;
+   int uinput_fd_;
+ 
++ protected:
++  int product_id_;
++
++ private:
+   // A helper function that determines if an event is supported by a device
+   // when trying to clone its capabilities.
+   bool IsEventSupported(int event, int64_t *supported_event_types) const;
