@@ -2310,7 +2310,7 @@
     },
     "kikoplay-script": {
         "cargoLock": null,
-        "date": "2026-07-04",
+        "date": "2026-07-05",
         "extract": null,
         "name": "kikoplay-script",
         "passthru": null,
@@ -2322,12 +2322,12 @@
             "name": null,
             "owner": "KikoPlayProject",
             "repo": "KikoPlayScript",
-            "rev": "631c2b09aaf507c88823fffd2ce4371617243782",
-            "sha256": "sha256-MzXaBpbFwZtNPQ3KK7ab66PCSND1LXXTZLsJOlwP4MI=",
+            "rev": "1a95aad693a50be230c15ebbc6e3aeeb4c4d9fbe",
+            "sha256": "sha256-kHglBw/hN9R90yk2lw0fFykrb3moUxIMLccKbXRbEGQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "631c2b09aaf507c88823fffd2ce4371617243782"
+        "version": "1a95aad693a50be230c15ebbc6e3aeeb4c4d9fbe"
     },
     "konnect": {
         "cargoLock": null,
@@ -2640,12 +2640,12 @@
             "name": null,
             "owner": "ggerganov",
             "repo": "llama.cpp",
-            "rev": "b9873",
-            "sha256": "sha256-IQo/6ix/+nA2lLJRteuVApsgXiisU2EqzPVF30UX4FE=",
+            "rev": "b9878",
+            "sha256": "sha256-tUYrg0CGK5YQY3sEyPiKwqU486NJXOMrKn7Wy9sSqyE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b9873"
+        "version": "b9878"
     },
     "loralib": {
         "cargoLock": null,
@@ -3585,12 +3585,12 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic_Project",
-            "rev": "V2.9.5792",
-            "sha256": "sha256-Ftm5ut34Tinqs3NKiGTNvZdm/wjjnPf+AHVinT/qb/o=",
+            "rev": "V2.9.5795",
+            "sha256": "sha256-7Y18HcCvwWTX5CWguLuo6Z+l/tcTfKmblZ5st/TL6TI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V2.9.5792"
+        "version": "V2.9.5795"
     },
     "plasma-panel-transparency-toggle": {
         "cargoLock": null,
@@ -4599,11 +4599,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/4zYIpGMMcF3zISX5IbYMD75hQ+JjypItUb0IuIp8IQ=",
+            "sha256": "sha256-nuRcN9rGWaKE5KGIXc3exUpwGOrS8YYgvLH9KXUcl4Y=",
             "type": "url",
-            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2232/Suwayomi-Server-v2.3.2232.jar"
+            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2238/Suwayomi-Server-v2.3.2238.jar"
         },
-        "version": "v2.3.2232"
+        "version": "v2.3.2238"
     },
     "svp": {
         "cargoLock": null,
@@ -4841,7 +4841,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-07-02",
+        "date": "2026-07-05",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4853,12 +4853,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "d461242e469b90bf96e779256bd0fe50bcb2c2c6",
-            "sha256": "sha256-y6xGTWSLB5rXsA7zYKAOy2UGrkVqtp84joj76tYWU5I=",
+            "rev": "4ddb98042193ce3c46d2e1335445b67f548bf235",
+            "sha256": "sha256-TPFqGweZG+MdwYC1Ijmvkou+Pw6bDY/ISkc0qPEMHog=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d461242e469b90bf96e779256bd0fe50bcb2c2c6"
+        "version": "4ddb98042193ce3c46d2e1335445b67f548bf235"
     },
     "unigine-heaven": {
         "cargoLock": null,

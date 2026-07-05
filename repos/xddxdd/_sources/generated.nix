@@ -1191,14 +1191,14 @@
   };
   kikoplay-script = {
     pname = "kikoplay-script";
-    version = "631c2b09aaf507c88823fffd2ce4371617243782";
+    version = "1a95aad693a50be230c15ebbc6e3aeeb4c4d9fbe";
     src = fetchFromGitHub {
       owner = "KikoPlayProject";
       repo = "KikoPlayScript";
-      rev = "631c2b09aaf507c88823fffd2ce4371617243782";
-      hash = "sha256-MzXaBpbFwZtNPQ3KK7ab66PCSND1LXXTZLsJOlwP4MI=";
+      rev = "1a95aad693a50be230c15ebbc6e3aeeb4c4d9fbe";
+      hash = "sha256-kHglBw/hN9R90yk2lw0fFykrb3moUxIMLccKbXRbEGQ=";
     };
-    date = "2026-07-04";
+    date = "2026-07-05";
   };
   konnect = {
     pname = "konnect";
@@ -1356,12 +1356,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9873";
+    version = "b9878";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9873";
-      hash = "sha256-IQo/6ix/+nA2lLJRteuVApsgXiisU2EqzPVF30UX4FE=";
+      tag = "b9878";
+      hash = "sha256-tUYrg0CGK5YQY3sEyPiKwqU486NJXOMrKn7Wy9sSqyE=";
     };
   };
   loralib = {
@@ -1830,12 +1830,12 @@
   };
   plangothic-fonts = {
     pname = "plangothic-fonts";
-    version = "V2.9.5792";
+    version = "V2.9.5795";
     src = fetchFromGitHub {
       owner = "Fitzgerald-Porthmouth-Koenigsegg";
       repo = "Plangothic_Project";
-      tag = "V2.9.5792";
-      hash = "sha256-Ftm5ut34Tinqs3NKiGTNvZdm/wjjnPf+AHVinT/qb/o=";
+      tag = "V2.9.5795";
+      hash = "sha256-7Y18HcCvwWTX5CWguLuo6Z+l/tcTfKmblZ5st/TL6TI=";
     };
   };
   plasma-panel-transparency-toggle = {
@@ -2349,10 +2349,10 @@
   };
   suwayomi-server = {
     pname = "suwayomi-server";
-    version = "v2.3.2232";
+    version = "v2.3.2238";
     src = fetchurl {
-      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2232/Suwayomi-Server-v2.3.2232.jar";
-      hash = "sha256-/4zYIpGMMcF3zISX5IbYMD75hQ+JjypItUb0IuIp8IQ=";
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2238/Suwayomi-Server-v2.3.2238.jar";
+      hash = "sha256-nuRcN9rGWaKE5KGIXc3exUpwGOrS8YYgvLH9KXUcl4Y=";
     };
   };
   svp = {
@@ -2475,15 +2475,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "d461242e469b90bf96e779256bd0fe50bcb2c2c6";
+    version = "4ddb98042193ce3c46d2e1335445b67f548bf235";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "d461242e469b90bf96e779256bd0fe50bcb2c2c6";
+      rev = "4ddb98042193ce3c46d2e1335445b67f548bf235";
       fetchSubmodules = true;
-      hash = "sha256-y6xGTWSLB5rXsA7zYKAOy2UGrkVqtp84joj76tYWU5I=";
+      hash = "sha256-TPFqGweZG+MdwYC1Ijmvkou+Pw6bDY/ISkc0qPEMHog=";
     };
-    date = "2026-07-02";
+    date = "2026-07-05";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
