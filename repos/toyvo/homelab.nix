@@ -224,6 +224,7 @@
     services.authentik = {
       port = 9000;
       subdomain = "auth";
+      protected = false;
       displayName = "Authentik";
       description = "Identity Provider";
       category = "Infrastructure";
