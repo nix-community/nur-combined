@@ -19,6 +19,7 @@
       inputs.nix-index-database.follows = "";
       inputs.nixos-small.follows = "";
       inputs.nixvim.follows = "";
+      inputs.nixocaine.follows = "";
       inputs.nix-maid.follows = "";
       inputs.noctalia.follows = "";
       inputs.noctalia-greeter.follows = "";
@@ -28,8 +29,7 @@
       inputs.tasks.follows = "";
       inputs.treefmt-nix.follows = "";
     };
-    nixpkgs.url = "github:dtomvan/nixpkgs/c228f986de25b14aea3adbaa3c405eebe6470961";
-    # nixpkgs.follows = "puntbestanden/nixpkgs";
+    nixpkgs.follows = "puntbestanden/nixpkgs";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
     flake-parts.url = "github:hercules-ci/flake-parts";
