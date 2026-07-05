@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "0ebad0197acd5e91666df99534f0f919c9f8dbe2";
+    version = "85c3be708c93d7950d0667a347e82fbc4f328b9c";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "0ebad0197acd5e91666df99534f0f919c9f8dbe2";
+      rev = "85c3be708c93d7950d0667a347e82fbc4f328b9c";
       fetchSubmodules = false;
-      sha256 = "sha256-o2eMiYpWZai8amSk4iPQVtPnPczX9vF+rPomALvNMao=";
+      sha256 = "sha256-4Lla8X9C3J8nTUMlvb261d1xBRdrHyCDQBcSP6uHwnk=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-o2eMiYpWZai8amSk4iPQVtPnPczX9vF+rPomALvNMao=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-4Lla8X9C3J8nTUMlvb261d1xBRdrHyCDQBcSP6uHwnk=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,7 +89,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-07-04";
+    date = "2026-07-05";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -427,15 +427,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "3c8cdce55449d66ca521458f0b342383373e12ec";
+    version = "a21b5b0a815a1d1f74f01833fe7a5d468c2a4b26";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "3c8cdce55449d66ca521458f0b342383373e12ec";
+      rev = "a21b5b0a815a1d1f74f01833fe7a5d468c2a4b26";
       fetchSubmodules = false;
-      sha256 = "sha256-SgGmrMWRvZSYeycs8LcKgN9wnD1l9QYLY2aR4lVclGw=";
+      sha256 = "sha256-3d7n0RC6ig24c6iWeStwdR2SeoRToyNI6DjjgxA0+UI=";
     };
-    date = "2026-07-03";
+    date = "2026-07-04";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -505,13 +505,13 @@
   };
   nezha = {
     pname = "nezha";
-    version = "v2.2.8";
+    version = "v2.2.9";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "nezha";
-      rev = "v2.2.8";
+      rev = "v2.2.9";
       fetchSubmodules = false;
-      sha256 = "sha256-yFUNWtNp7Aw8flv3JFBUdcbNgkMsZ08Bsm6X9VTBVz4=";
+      sha256 = "sha256-5Mg44BTSL8J/i6fchb/8T9MOugZ0fetgsmiiEOwpLNs=";
     };
   };
   nezha-agent = {
@@ -527,28 +527,28 @@
   };
   nezha-theme-admin = {
     pname = "nezha-theme-admin";
-    version = "v2.2.4";
+    version = "v2.2.5";
     src = fetchFromGitHub {
       owner = "nezhahq";
       repo = "admin-frontend";
-      rev = "v2.2.4";
+      rev = "v2.2.5";
       fetchSubmodules = false;
-      sha256 = "sha256-1MS+ZOTeK3tZMCDvh0MEkF4K04cOlA+uAsYwXmasdhY=";
+      sha256 = "sha256-LNJgl615mXUxGIwNcvj+0hqyX7Gv6twBEb7aSUR3q2w=";
     };
     extract = {
-      "package-lock.json" = ./. + "/sha256-1MS+ZOTeK3tZMCDvh0MEkF4K04cOlA+uAsYwXmasdhY=/package-lock.json";
-      "package.json" = ./. + "/sha256-1MS+ZOTeK3tZMCDvh0MEkF4K04cOlA+uAsYwXmasdhY=/package.json";
+      "package-lock.json" = ./. + "/sha256-LNJgl615mXUxGIwNcvj+0hqyX7Gv6twBEb7aSUR3q2w=/package-lock.json";
+      "package.json" = ./. + "/sha256-LNJgl615mXUxGIwNcvj+0hqyX7Gv6twBEb7aSUR3q2w=/package.json";
     };
   };
   nezha-theme-user = {
     pname = "nezha-theme-user";
-    version = "v2.3.2";
+    version = "v2.4.0";
     src = fetchFromGitHub {
       owner = "hamster1963";
       repo = "nezha-dash-v2";
-      rev = "v2.3.2";
+      rev = "v2.4.0";
       fetchSubmodules = false;
-      sha256 = "sha256-eoE9+22Ea87096dWSQn0CBTAcMhjblcW7KS3tqfrypQ=";
+      sha256 = "sha256-ikrRkYrJnTRaBk3u6Ju0csRW9K3Udydh/JFTi/GxVOs=";
     };
   };
   nipaplay-reload-darwin = {
@@ -690,15 +690,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "af013c3abde1d8ebd7d2fd46837d9ea446e9c317";
+    version = "9b91c8adbe12216b9f8af7c3f1e0043451457430";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "af013c3abde1d8ebd7d2fd46837d9ea446e9c317";
+      rev = "9b91c8adbe12216b9f8af7c3f1e0043451457430";
       fetchSubmodules = false;
-      sha256 = "sha256-NDqlCQ3LXU+e49XQs/RM+R3qQ1W5LR8mWcTVFeYXvho=";
+      sha256 = "sha256-JAFAVkgcy7UBrHW9Wt7fC5o8hwlcMUDTPJIvV9lUB/8=";
     };
-    date = "2026-07-03";
+    date = "2026-07-04";
   };
   whois42d-ng = {
     pname = "whois42d-ng";

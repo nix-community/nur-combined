@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index b67b110..c76d130 100644
+index 18ce3b6..8fbd9d3 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -27,7 +27,7 @@ index 0596557..66c083a 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 447ffdb..1d0af0c 100644
+index dde391e..077a492 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -67,7 +67,7 @@ index 447ffdb..1d0af0c 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -4360,6 +4376,11 @@ packages:
+@@ -4354,6 +4370,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -79,7 +79,7 @@ index 447ffdb..1d0af0c 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7365,6 +7386,16 @@ snapshots:
+@@ -7359,6 +7380,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -96,7 +96,7 @@ index 447ffdb..1d0af0c 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7379,6 +7410,16 @@ snapshots:
+@@ -7373,6 +7404,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -113,7 +113,7 @@ index 447ffdb..1d0af0c 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10315,6 +10356,8 @@ snapshots:
+@@ -10302,6 +10343,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
