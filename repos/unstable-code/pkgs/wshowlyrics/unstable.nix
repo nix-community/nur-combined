@@ -48,11 +48,11 @@ let
 in
 generic {
   pname = "wshowlyrics-unstable";
-  version = "2026-07-02";
+  version = "2026-07-05";
   src = fetchFromGitLab {
     owner = "wshowlyrics";
     repo = "wshowlyrics";
-    rev = "be8040221366279d460bc2cdffb8cf614030a442";
-    hash = "sha256-yopgKOBL4JroD8Gt69U9tKM3CpK2nieaDuYXXcWf3TU=";
+    rev = "b89169028a3f1ba06086288e39a039bc24b7692e";
+    hash = "sha256-gwy4LgTqKsOnR05rhd4cDRgj7+R0IGzRStIzb+jrEcM=";
   };
 }
