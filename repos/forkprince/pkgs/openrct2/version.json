@@ -10,6 +10,6 @@
     "file": "OpenRCT2-v{version}-macos-universal.zip",
     "unpack": false
   },
-  "version": "0.5.2",
-  "hash": "sha256-uA/ZtDn7QtHE1YJF+5IVu+qJgTMm42FrculRgajQZ4c="
+  "version": "0.5.3",
+  "hash": "sha256-3Fl/XMYRWn5e/2HAmnel7etGhqafciMN2kJXxcT285U="
 }
