@@ -32,6 +32,11 @@ jobs:
       env:
         GO_VENDORHASH_TARGETS: ${{ steps.update_sources.outputs.go_vendorhash_targets }}
       run: ./scripts/update-go-vendorHash.sh
+    - name: Update npm deps (kimi-code)
+      if: steps.update_sources.outputs.npm_deps_targets != ''
+      env:
+        NPM_DEPS_TARGETS: ${{ steps.update_sources.outputs.npm_deps_targets }}
+      run: ./scripts/update-kimi-code-deps.sh
     - name: Update Caddy plugins
       run: ./scripts/update-caddy-plugins.sh
     - name: Commit back to repository

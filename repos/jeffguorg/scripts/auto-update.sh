@@ -8,6 +8,7 @@ declare -A PLANNED_TASKS=()
 declare -A EXECUTED_TASKS=()
 declare -A SKIPPED_TASKS=()
 GO_VENDORHASH_TARGETS=""
+NPM_DEPS_TARGETS=""
 
 init_nvfetcher_args() {
   local -a env_args=()
@@ -206,6 +207,38 @@ append_go_vendorhash_target() {
   fi
 }
 
+append_npm_deps_target() {
+  local target="$1"
+
+  if [[ -z "$NPM_DEPS_TARGETS" ]]; then
+    NPM_DEPS_TARGETS=":${target}:"
+    return 0
+  fi
+
+  if [[ "$NPM_DEPS_TARGETS" != *":${target}:"* ]]; then
+    NPM_DEPS_TARGETS="${NPM_DEPS_TARGETS}${target}:"
+  fi
+}
+
+run_npm_deps_gate() {
+  local name="$1"
+  local task="$2"
+  local filter="$3"
+  local status
+
+  run_nvfetcher_change_gate "$name" "$task" "$filter" '.src'
+  status="$?"
+
+  case "$status" in
+    0)
+      append_npm_deps_target "$task"
+      ;;
+    1)
+      echo "$name unchanged; npm deps refresh not needed from this task"
+      ;;
+  esac
+}
+
 run_go_vendorhash_gate() {
   local name="$1"
   local task="$2"
@@ -228,6 +261,7 @@ run_go_vendorhash_gate() {
 write_github_outputs() {
   if [[ -n "${GITHUB_OUTPUT:-}" ]]; then
     echo "go_vendorhash_targets=${GO_VENDORHASH_TARGETS}" >> "$GITHUB_OUTPUT"
+    echo "npm_deps_targets=${NPM_DEPS_TARGETS}" >> "$GITHUB_OUTPUT"
   fi
 }
 
@@ -239,7 +273,7 @@ main() {
   run_nvfetcher_filter "create-tauri-app" "create-tauri-app" '^(create-tauri-app)$'
   run_nvfetcher_filter "dingtalk" "dingtalk-bin-amd64, dingtalk-bin-arm64" '^(dingtalk-bin-amd64|dingtalk-bin-arm64)$'
   run_nvfetcher_filter "claude-code" "claude-code-bin-arm64-linux, claude-code-bin-amd64-linux, claude-code-bin-arm64-darwin, claude-code-bin-amd64-darwin" '^(claude-code-bin-arm64-linux|claude-code-bin-amd64-linux|claude-code-bin-arm64-darwin|claude-code-bin-amd64-darwin)$'
-  run_nvfetcher_filter "kimi-code" "kimi-code" '^(kimi-code)$'
+  run_npm_deps_gate "kimi-code" "kimi-code" '^(kimi-code)$'
   run_nvfetcher_filter "kagent" "kagent-bin-amd64-linux, kagent-bin-arm64-linux, kagent-bin-amd64-darwin, kagent-bin-arm64-darwin" '^(kagent-bin-amd64-linux|kagent-bin-arm64-linux|kagent-bin-amd64-darwin|kagent-bin-arm64-darwin)$'
 
   if run_nvfetcher_change_gate "codex" "codex" '^(codex)$' '.src'; then
