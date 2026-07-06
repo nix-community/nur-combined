@@ -185,10 +185,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.6.2";
+    version = "1.6.3";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.2.tar.gz";
-      hash = "sha256-fpfTG3m5lV+nWDbN6zQS7aFMgpcd/NaKGWM6wR3Mrek=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.3.tar.gz";
+      hash = "sha256-JfXABQTdmjwLNsQ4O0M+nkTAGQqToUARe2iuwQSbiyk=";
     };
   };
   bilibili = {
@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.50";
+    version = "v7.2.51";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.50";
-      hash = "sha256-MSKLk+vAVOBSvZpxalgE7hL2vOzBb7IsR4Wqt1QPYGY=";
+      tag = "v7.2.51";
+      hash = "sha256-pDNK8vz8CbLWOIZYXoEEXxlTFcmNKuRyRJlH4gDkceU=";
     };
   };
   cockpy = {
@@ -1080,14 +1080,14 @@
   };
   invisible-firefox = {
     pname = "invisible-firefox";
-    version = "f253ac268da4802f2547cf13d1925d66a0fc90db";
+    version = "6129d8391950913eab8463f05e97f33d7850e318";
     src = fetchFromGitHub {
       owner = "feder-cr";
       repo = "invisible-firefox";
-      rev = "f253ac268da4802f2547cf13d1925d66a0fc90db";
-      hash = "sha256-PdS5QjEN79c6STm+jfeR44z4k/fTGJI/XXqg2GJFjp8=";
+      rev = "6129d8391950913eab8463f05e97f33d7850e318";
+      hash = "sha256-OCbLaLwgA4S+FHj43fWgL2VgIKCxCGJzJtz96q7hVRw=";
     };
-    date = "2026-07-04";
+    date = "2026-07-06";
   };
   invisible-firefox-bin-linux-arm64 = {
     pname = "invisible-firefox-bin-linux-arm64";
@@ -1356,12 +1356,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9878";
+    version = "b9891";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9878";
-      hash = "sha256-tUYrg0CGK5YQY3sEyPiKwqU486NJXOMrKn7Wy9sSqyE=";
+      tag = "b9891";
+      hash = "sha256-nrbYJEfHjutlFd0k2nWfyLpdTP/ZXXtP4okmRr9kufQ=";
     };
   };
   loralib = {
@@ -1445,12 +1445,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.38.0";
+    version = "v1.38.1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.38.0";
-      hash = "sha256-167+78u6l9Y7rBmQIlPvN+HqgrpDtqcyXug9JKjuiHA=";
+      tag = "v1.38.1";
+      hash = "sha256-BTiK6rk9j5Wh6DZZ8eufzAyP8wWCEfIzQKeJ3fJzsjg=";
     };
   };
   mtkclient = {
@@ -1535,12 +1535,12 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v1.0.0-rc.16";
+    version = "v1.0.0-rc.18";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      tag = "v1.0.0-rc.16";
-      hash = "sha256-oCLBlQpFUAeyPkfufCUhL+MnUsPCG+4Tt2UNXX6qAeo=";
+      tag = "v1.0.0-rc.18";
+      hash = "sha256-b9H1mVAGMPvHlNQC9N06uZ0NhWEp8JpWdW+/POwxRxI=";
     };
   };
   nft-fullcone = {
@@ -2475,15 +2475,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "4ddb98042193ce3c46d2e1335445b67f548bf235";
+    version = "b956ad3b62a6a7496e0c4e914f4fa934daddd13d";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "4ddb98042193ce3c46d2e1335445b67f548bf235";
+      rev = "b956ad3b62a6a7496e0c4e914f4fa934daddd13d";
       fetchSubmodules = true;
-      hash = "sha256-TPFqGweZG+MdwYC1Ijmvkou+Pw6bDY/ISkc0qPEMHog=";
+      hash = "sha256-j4U+EhI8wWfalt4r7eBJiFCAXInahI4zsTSKTxLjI9c=";
     };
-    date = "2026-07-05";
+    date = "2026-07-06";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
