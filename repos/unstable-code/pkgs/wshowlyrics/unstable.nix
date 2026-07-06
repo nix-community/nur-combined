@@ -52,7 +52,7 @@ generic {
   src = fetchFromGitLab {
     owner = "wshowlyrics";
     repo = "wshowlyrics";
-    rev = "f6bdedb05e2885d79ec6b31cc83cb1c34e3a01ba";
-    hash = "sha256-4S2TMLu0aUZ/P1Umqls22AdnDvATGaYxCIhjajZ7/tQ=";
+    rev = "afa4a6a16cb29b2b480008ff56ed584d0b5f824c";
+    hash = "sha256-vEAE/v5H/9xHyuZ7hJOC8qsP/PsrGmq6rTDwJW8IH7k=";
   };
 }
