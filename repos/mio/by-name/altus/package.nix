@@ -74,24 +74,21 @@ stdenv.mkDerivation (finalAttrs: {
         cp -r "${electron.dist}/." "$ELECTRON_OVERRIDE_DIST_PATH/"
         chmod -R u+w "$ELECTRON_OVERRIDE_DIST_PATH"
 
-        # Mock @electron/get completely to prevent ANY network requests
+        # Mock @electron/get completely to prevent network requests
         # and return our locally built zip file.
         for dir in $(find node_modules -type d -name "@electron"); do
           if [ -d "$dir/get" ]; then
             rm -rf "$dir/get"
             mkdir -p "$dir/get"
             cat <<EOF > "$dir/get/index.js"
-    const fs = require('fs');
-    function log(msg) { fs.appendFileSync('/build/mock.log', msg + '\n'); }
     module.exports = new Proxy({
-      initializeProxy: () => { log("initializeProxy"); },
-      downloadArtifact: async (opts) => { log("downloadArtifact: " + JSON.stringify(opts)); return process.cwd() + "/$zip_name"; },
-      getHostArch: () => { log("getHostArch"); return "$arch"; }
+      initializeProxy: () => {},
+      downloadArtifact: async () => process.cwd() + "/$zip_name",
+      getHostArch: () => "$arch"
     }, {
       get: (target, prop) => {
-        log("get: " + String(prop));
         if (prop in target) return target[prop];
-        return (...args) => { log("called unknown prop: " + String(prop)); };
+        return () => {};
       }
     });
     EOF
@@ -108,14 +105,11 @@ stdenv.mkDerivation (finalAttrs: {
 
         cat <<EOF > node_modules/@electron/packager/dist/unzip.js
     import { execSync } from 'node:child_process';
-    import fs from 'node:fs';
     export async function extractElectronZip(zipPath, targetDir) {
-        fs.appendFileSync('/build/mock.log', 'extractElectronZip called\\n');
         execSync('cp -r ' + process.env.ELECTRON_OVERRIDE_DIST_PATH + '/. ' + targetDir);
     }
     EOF
 
-        ( sleep 40; echo "TIMEOUT! mock.log:"; cat /build/mock.log; kill $$ ) &
         yarn run package
 
         runHook postBuild
