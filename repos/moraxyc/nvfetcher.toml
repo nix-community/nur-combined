@@ -27,7 +27,7 @@ cargo_lock = ['backend/Cargo.lock']
 
 [clash-nyanpasu-stable]
 src.github = "libnyanpasu/clash-nyanpasu"
-fetch.github = "libnyanpasu/clash-nyanpasu"
+fetch.url = "file:///dev/null"
 
 [cpa-usage-keeper]
 src.git = "https://github.com/Willxup/cpa-usage-keeper.git"
@@ -54,18 +54,6 @@ git.fetchSubmodules = true
 
 [dae-stable]
 src.github = "daeuniverse/dae"
-fetch.url = "file:///dev/null"
-
-[daed]
-src.git = "https://github.com/daeuniverse/daed.git"
-fetch.github = "daeuniverse/daed"
-git.fetchSubmodules = true
-
-[daed-stable]
-src.github_tag = "daeuniverse/daed"
-src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
-src.sort_version_key = "parse_version"
-src.prefix = "v"
 fetch.url = "file:///dev/null"
 
 [elio]
@@ -221,7 +209,7 @@ cargo_lock = ['Cargo.lock']
 
 [nyanpasu-service-stable]
 src.github = "libnyanpasu/nyanpasu-service"
-fetch.github = "libnyanpasu/nyanpasu-service"
+fetch.url = "file:///dev/null"
 
 [opencode-telegram-bot]
 src.github = "grinev/opencode-telegram-bot"
@@ -269,7 +257,7 @@ cargo_lock = ['Cargo.lock']
 
 [whois42d-ng-stable]
 src.github = "moraxyc/whois42d-ng"
-fetch.github = "moraxyc/whois42d-ng"
+fetch.url = "file:///dev/null"
 
 [zsh-patina]
 src.github = "michel-kraemer/zsh-patina"
