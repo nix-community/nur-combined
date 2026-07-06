@@ -11,5 +11,13 @@ in
     home.packages = with pkgs; [
       ambroisie.comma
     ];
+
+    programs.zsh = {
+      fastSyntaxHighlighting = {
+        settings = {
+          "chroma-," = "→chroma/-precommand.ch";
+        };
+      };
+    };
   };
 }

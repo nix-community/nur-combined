@@ -71,11 +71,6 @@ in
 
         plugins = [
           {
-            name = "fast-syntax-highlighting";
-            file = "share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh";
-            src = pkgs.zsh-fast-syntax-highlighting;
-          }
-          {
             name = "agkozak-zsh-prompt";
             file = "share/zsh/site-functions/agkozak-zsh-prompt.plugin.zsh";
             src = pkgs.agkozak-zsh-prompt;
@@ -105,6 +100,13 @@ in
             fi
           '')
         ];
+
+        fastSyntaxHighlighting = {
+          enable = true;
+          settings = {
+            chroma-nix = "→chroma/-subcommand.ch";
+          };
+        };
 
         localVariables = {
           # I like having the full path
