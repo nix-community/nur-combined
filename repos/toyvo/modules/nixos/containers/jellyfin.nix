@@ -47,6 +47,12 @@ in
         description = "Jellyfin web UI listen port";
       };
     };
+
+    plugins = lib.mkOption {
+      type = lib.types.listOf lib.types.package;
+      default = [ ];
+      description = "List of Jellyfin plugin packages to install";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -61,7 +67,11 @@ in
 
     systemd.tmpfiles.rules = [
       "d /var/lib/nixos-containers/jellyfin/var/log/journal 0755 root systemd-journal -"
-    ];
+      "d /var/lib/nixos-containers/jellyfin/plugins 0755 jellyfin jellyfin -"
+    ]
+    ++ map (
+      plugin: "L+ /var/lib/nixos-containers/jellyfin/plugins/${plugin.pname} - - - ${plugin}"
+    ) cfg.plugins;
 
     containers.jellyfin = {
       autoStart = true;

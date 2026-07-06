@@ -275,6 +275,7 @@ in
       natInterface = "eno1";
       stateDir = "/mnt/POOL/jellyfin";
       mediaDir = "/mnt/POOL/Public";
+      plugins = [ inputs.nixcfg.packages.${system}.jellyfin-plugin-ldap-authentication ];
     };
     nextcloud = {
       enable = true;
