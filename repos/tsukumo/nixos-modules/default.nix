@@ -45,13 +45,13 @@
         ln -sf layouts/YB1-X9x-${cfg.keyboardLayout}.csv $out/layout.csv
       '';
 
-      # Kernel modules required for Yoga Book hardware
       yogabookKernelModules = [
         "lenovo-yogabook"
         "x86-android-tablets"
         "drv260x"
         "hideep"
         "uinput"
+        "evdev"
         "i2c-dev"
         "goodix_ts"
         "i2c-designware-platform"
@@ -130,7 +130,7 @@
         boot.initrd.systemd.services.touch-keyboard-handler = {
           description = "Touch keyboard handler in initrd";
           wantedBy = [ "initrd.target" ];
-          after = [ "systemd-udev-trigger.service" "systemd-udev-settle.service" ];
+          after = [ "systemd-udev-trigger.service" ];
           requires = [ "systemd-udevd.service" ];
           serviceConfig = {
             Type = "simple";
