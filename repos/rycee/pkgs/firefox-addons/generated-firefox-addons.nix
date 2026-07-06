@@ -900,10 +900,10 @@
     };
     "aws-extend-switch-roles3" = buildMozillaXpiAddon {
       pname = "aws-extend-switch-roles3";
-      version = "6.1.0";
+      version = "6.2.0";
       addonId = "aws-extend-switch-roles@toshi.tilfin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4643405/aws_extend_switch_roles3-6.1.0.xpi";
-      sha256 = "88de362e8425d8874a324e9cddbbbcb2b2a149516c0e1fa9f04df9cf9829a124";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4883001/aws_extend_switch_roles3-6.2.0.xpi";
+      sha256 = "d9a913201f6460dcad257e20a6f196b5cb6c5dda30b46e102180bb423f7369f8";
       meta = with lib;
       {
         homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
@@ -919,6 +919,8 @@
           "https://phd.amazonaws-us-gov.com/*"
           "https://*.console.amazonaws.cn/*"
           "https://health.amazonaws.cn/*"
+          "https://*.console.amazonaws-eusc.eu/*"
+          "https://health.amazonaws-eusc.eu/*"
         ];
         platforms = platforms.all;
       };
@@ -4237,10 +4239,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.0";
+      version = "3.1";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4881654/firemonkey-3.0.xpi";
-      sha256 = "d2b0fc9160f87100e43efb7ccd34c5afa50ddb0a28e64f91345a5ec07be01da0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4884378/firemonkey-3.1.xpi";
+      sha256 = "91dc40d126f7f96529364544a65fd6db13f801c293fd7e9e2a32780731c260ee";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -6773,10 +6775,10 @@
     };
     "improved-tube" = buildMozillaXpiAddon {
       pname = "improved-tube";
-      version = "4.2080";
+      version = "4.2081";
       addonId = "{3c6bf0cc-3ae2-42fb-9993-0d33104fdcaf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875773/youtube_addon-4.2080.xpi";
-      sha256 = "9dad133bbd4dc220d5d883bb0689f6b5bc1804b4c4279adf728255b6b70497cf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4884091/youtube_addon-4.2081.xpi";
+      sha256 = "18e34f9e811caaa94517f1746d41b34e72a4b2aa5d44b9eda6f6d952ca60d0b4";
       meta = with lib;
       {
         homepage = "https://github.com/code4charity/YouTube-Extension/";
@@ -10632,10 +10634,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.27";
+      version = "13.6.28";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4880484/noscript-13.6.27.xpi";
-      sha256 = "459986adf3a6fe2b29aad09aa29b02683a23f2b70066802d74e600527949f8e0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4884207/noscript-13.6.28.xpi";
+      sha256 = "f8c3c882a5c2c8631fc7e6168def24f6707560f3b2130203d9ffd19d2c1c90d8";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -10950,10 +10952,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.16";
+      version = "2.18";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4880293/onetab-2.16.xpi";
-      sha256 = "e43606daabc03dab714f1c2a1425e832b7bba5be71138902d13e751f775b2231";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4883428/onetab-2.18.xpi";
+      sha256 = "f5c6c81fb324608600f2a6b80af0bb813491b0419a0c28fad52f3c624b4b091c";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -15518,10 +15520,10 @@
     };
     "tweaks-for-youtube" = buildMozillaXpiAddon {
       pname = "tweaks-for-youtube";
-      version = "3.90.0";
+      version = "3.91.0";
       addonId = "{84c8edb0-65ca-43a5-bc53-0e80f41486e1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4853011/tweaks_for_youtube-3.90.0.xpi";
-      sha256 = "7448af286dd38d4e70c27724aac0c7bd1c4ed769e84e2ec889b0a566cbf07e74";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4884071/tweaks_for_youtube-3.91.0.xpi";
+      sha256 = "61d123ebb62a969f93f661b90f524500b7fad388334a131be69597020d4b1699";
       meta = with lib;
       {
         description = "Seek, navigate chapters, control volume, speed, and more with mouse and keyboard shortcuts. Adjust player controls, progress bar, subtitles, process audio, show playlist duration, take video snapshot, set initial volume, speed, resolution, and more.";
@@ -17626,10 +17628,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.6.3";
+      version = "18.7.1";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4849229/youtube_subscription_groups-18.6.3.xpi";
-      sha256 = "f637ad98beaffa7b135f488238e0353755246b77be612551e3500db8507e5b36";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4883339/youtube_subscription_groups-18.7.1.xpi";
+      sha256 = "1346506655bc54cc705bc6d0540615fe27b9003dfc8d31cafcf7390c8c2e2a15";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
