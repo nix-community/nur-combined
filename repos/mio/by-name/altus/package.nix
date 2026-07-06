@@ -2,10 +2,11 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  jq,
   makeDesktopItem,
   copyDesktopItems,
   makeBinaryWrapper,
-  electron_39,
+  electron_42,
   yarn-berry_4,
   nodejs,
   zip,
@@ -13,7 +14,7 @@
 }:
 
 let
-  electron = electron_39;
+  electron = electron_42;
   yarn-berry = yarn-berry_4;
 in
 stdenv.mkDerivation (finalAttrs: {
@@ -40,6 +41,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
+    jq
     makeBinaryWrapper
     copyDesktopItems
     yarn-berry
@@ -49,33 +51,74 @@ stdenv.mkDerivation (finalAttrs: {
     (nodejs.python.withPackages (ps: with ps; [ setuptools ]))
     zip
   ];
-
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
   };
 
   buildPhase = ''
-    runHook preBuild
+        runHook preBuild
 
-    cp -r "${electron.dist}" electron-dist
-    chmod -R u+w electron-dist
-    pushd electron-dist
-    zip -0Xqr ../electron.zip .
-    popd
-    rm -rf electron-dist
+        electron_ver=$(jq -r '.devDependencies.electron' package.json | tr -d '^~')
+        arch="${if stdenv.hostPlatform.isAarch64 then "arm64" else "x64"}"
+        zip_name="electron-v''${electron_ver}-linux-$arch.zip"
 
-    substituteInPlace node_modules/@electron/packager/dist/packager.js \
-      --replace-fail "await this.getElectronZipPath(downloadOpts)" "\"$(pwd)/electron.zip\""
+        cp -r "${electron.dist}" electron-dist
+        chmod -R u+w electron-dist
+        pushd electron-dist
+        zip -0Xqr "../$zip_name" .
+        popd
+        rm -rf electron-dist
 
-    mkdir -p "$HOME/.electron-dist"
-    cp -r "${electron.dist}/." "$HOME/.electron-dist/"
-    chmod -R u+w "$HOME/.electron-dist"
+        export ELECTRON_OVERRIDE_DIST_PATH="$HOME/.electron-dist"
+        mkdir -p "$ELECTRON_OVERRIDE_DIST_PATH"
+        cp -r "${electron.dist}/." "$ELECTRON_OVERRIDE_DIST_PATH/"
+        chmod -R u+w "$ELECTRON_OVERRIDE_DIST_PATH"
 
-    export ELECTRON_OVERRIDE_DIST_PATH="$HOME/.electron-dist"
+        # Mock @electron/get completely to prevent ANY network requests
+        # and return our locally built zip file.
+        for dir in $(find node_modules -type d -name "@electron"); do
+          if [ -d "$dir/get" ]; then
+            rm -rf "$dir/get"
+            mkdir -p "$dir/get"
+            cat <<EOF > "$dir/get/index.js"
+    const fs = require('fs');
+    function log(msg) { fs.appendFileSync('/build/mock.log', msg + '\n'); }
+    module.exports = new Proxy({
+      initializeProxy: () => { log("initializeProxy"); },
+      downloadArtifact: async (opts) => { log("downloadArtifact: " + JSON.stringify(opts)); return process.cwd() + "/$zip_name"; },
+      getHostArch: () => { log("getHostArch"); return "$arch"; }
+    }, {
+      get: (target, prop) => {
+        log("get: " + String(prop));
+        if (prop in target) return target[prop];
+        return (...args) => { log("called unknown prop: " + String(prop)); };
+      }
+    });
+    EOF
+            echo "{ \"name\": \"@electron/get\", \"version\": \"2.0.0\", \"main\": \"index.js\" }" > "$dir/get/package.json"
+          fi
+        done
 
-    yarn run package
+        # Remove old packager.js patches that are brittle
+        # and instead configure electronZipDir
 
-    runHook postBuild
+        substituteInPlace forge.config.ts \
+          --replace-warn "packagerConfig: {" "packagerConfig: { derefSymlinks: false, prune: false, ignore: (file) => { if (!file) return false; if (file.includes('node_modules') || file.includes('.yarn') || file.includes('.git') || file.includes('.cache')) return true; return false; }, " \
+          --replace-warn "rebuildConfig: {}," ""
+
+        cat <<EOF > node_modules/@electron/packager/dist/unzip.js
+    import { execSync } from 'node:child_process';
+    import fs from 'node:fs';
+    export async function extractElectronZip(zipPath, targetDir) {
+        fs.appendFileSync('/build/mock.log', 'extractElectronZip called\\n');
+        execSync('cp -r ' + process.env.ELECTRON_OVERRIDE_DIST_PATH + '/. ' + targetDir);
+    }
+    EOF
+
+        ( sleep 40; echo "TIMEOUT! mock.log:"; cat /build/mock.log; kill $$ ) &
+        yarn run package
+
+        runHook postBuild
   '';
 
   installPhase = ''
@@ -88,6 +131,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p "$out/opt/altus"
     cp -r "$app_dir/resources" "$out/opt/altus/"
+    rm -f "$out/opt/altus/resources/app"/*.zip
 
     install -Dm644 public/assets/icons/icon.png \
       "$out/share/icons/hicolor/256x256/apps/altus.png"
