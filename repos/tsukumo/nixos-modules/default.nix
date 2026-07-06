@@ -56,6 +56,11 @@
         "goodix_ts"
         "i2c-designware-platform"
         "i2c-designware-core"
+        "wacom"
+        "i2c-hid-acpi"
+        "i2c-hid"
+        "hid-multitouch"
+        "hid-generic"
       ] ++ lib.optionals cfg.enableCustomAudio [
         "snd-soc-acpi-intel-match"
         "snd-soc-sst-cht-yogabook"
@@ -130,8 +135,11 @@
         boot.initrd.systemd.services.touch-keyboard-handler = {
           description = "Touch keyboard handler in initrd";
           wantedBy = [ "initrd.target" ];
-          after = [ "systemd-udev-trigger.service" ];
+          after = [ "systemd-udevd.service" ];
           requires = [ "systemd-udevd.service" ];
+          unitConfig = {
+            DefaultDependencies = false;
+          };
           serviceConfig = {
             Type = "simple";
             WorkingDirectory = "/etc/touch_keyboard";
