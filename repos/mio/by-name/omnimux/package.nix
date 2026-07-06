@@ -14,6 +14,11 @@
 }:
 
 let
+  tauriProductionFeatures = [
+    "--features"
+    "tauri/custom-protocol"
+  ];
+
   frontend = buildNpmPackage {
     pname = "omnimux-ui";
     version = "0.1.0";
@@ -31,6 +36,9 @@ rustPlatform.buildRustPackage {
     lockFile = ./src/src-tauri/Cargo.lock;
     # allowBuiltinFetchGit = true;
   };
+
+  cargoBuildFlags = tauriProductionFeatures;
+  cargoTestFlags = tauriProductionFeatures;
 
   nativeBuildInputs = [
     pkg-config
