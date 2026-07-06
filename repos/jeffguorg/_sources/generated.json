@@ -213,11 +213,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-9MB+tFW+ZyvqRau/XVCjh1zms9kmyJzlzqDeMJ7Utos=",
+            "sha256": "sha256-T3fzfWMLYsxzi9B1qAjYoHoAPcYYal330uqexz96cCc=",
             "type": "url",
-            "url": "https://downloads.cursor.com/lab/2026.05.09-0afadcc/darwin/x64/agent-cli-package.tar.gz"
+            "url": "https://downloads.cursor.com/lab/2026.07.01-41b2de7/darwin/x64/agent-cli-package.tar.gz"
         },
-        "version": "2026.05.09-0afadcc"
+        "version": "2026.07.01-41b2de7"
     },
     "cursor-cli-bin-amd64-linux": {
         "cargoLock": null,
@@ -228,11 +228,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IN0HzbHi5rrvi7fgjKcM5tl1T4TJ8lYlYtQC52NE9Xw=",
+            "sha256": "sha256-ww358eUYvWJuxYqXUo5ZeLzqbiNyGTqH2w04uFfcwZM=",
             "type": "url",
-            "url": "https://downloads.cursor.com/lab/2026.05.09-0afadcc/linux/x64/agent-cli-package.tar.gz"
+            "url": "https://downloads.cursor.com/lab/2026.07.01-41b2de7/linux/x64/agent-cli-package.tar.gz"
         },
-        "version": "2026.05.09-0afadcc"
+        "version": "2026.07.01-41b2de7"
     },
     "cursor-cli-bin-arm64-darwin": {
         "cargoLock": null,
@@ -243,11 +243,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-htzK+PAkiH7L1tQjr7yK0Pk+8kAXkSSG7tPImYMi0oY=",
+            "sha256": "sha256-SMvykcLijYG3n6DcvxirUL9Kx3ctDpqwlI7L1fWikVg=",
             "type": "url",
-            "url": "https://downloads.cursor.com/lab/2026.05.09-0afadcc/darwin/arm64/agent-cli-package.tar.gz"
+            "url": "https://downloads.cursor.com/lab/2026.07.01-41b2de7/darwin/arm64/agent-cli-package.tar.gz"
         },
-        "version": "2026.05.09-0afadcc"
+        "version": "2026.07.01-41b2de7"
     },
     "cursor-cli-bin-arm64-linux": {
         "cargoLock": null,
@@ -258,11 +258,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-xoTyqP7Nyq+dt2OyRR5mb3B8FQw7lPZuvBb0BcVW+4c=",
+            "sha256": "sha256-VVZqv+h6nSg0bVDH3HHPzw3GE132GYtGYeTV3Wh5bRE=",
             "type": "url",
-            "url": "https://downloads.cursor.com/lab/2026.05.09-0afadcc/linux/arm64/agent-cli-package.tar.gz"
+            "url": "https://downloads.cursor.com/lab/2026.07.01-41b2de7/linux/arm64/agent-cli-package.tar.gz"
         },
-        "version": "2026.05.09-0afadcc"
+        "version": "2026.07.01-41b2de7"
     },
     "dingtalk-bin-amd64": {
         "cargoLock": null,
@@ -293,6 +293,81 @@
             "url": "https://dtapp-pub.dingtalk.com/dingtalk-desktop/xc_dingtalk_update/linux_deb/Release/com.alibabainc.dingtalk_8.1.0.6021101_arm64.deb"
         },
         "version": "8.1.0.6021101"
+    },
+    "kagent-bin-amd64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-R4Bt9az9EPiAvBLdtB9q05dimsQpERjLrZQvIRFbGr4=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v0.9.11/kagent-darwin-amd64"
+        },
+        "version": "v0.9.11"
+    },
+    "kagent-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-b6+zQNsHkcOlbUOpMlck8uOEDBA+tNbFdxf0qFdKIoI=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v0.9.11/kagent-linux-amd64"
+        },
+        "version": "v0.9.11"
+    },
+    "kagent-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-GeD5jtDgmiqZVjptembDekBecATdZlzXDGaHnPhesj4=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v0.9.11/kagent-darwin-arm64"
+        },
+        "version": "v0.9.11"
+    },
+    "kagent-bin-arm64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kagent-bin-arm64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-JohcQqylNiy0sH7GxjURNIXZBjq0Yv/h+mE+E+MN5L8=",
+            "type": "url",
+            "url": "https://github.com/kagent-dev/kagent/releases/download/v0.9.11/kagent-linux-arm64"
+        },
+        "version": "v0.9.11"
+    },
+    "kimi-code": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kimi-code",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1vvRfAzar1Fp2bzeTvqzb9r55yosmb3sqsx7Sv8TKVM=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.22.3.tgz"
+        },
+        "version": "0.22.3"
     },
     "kwok": {
         "cargoLock": null,
