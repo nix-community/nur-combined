@@ -110,13 +110,13 @@
         # Required for LUKS password entry via touch keyboard in initrd
         boot.initrd.kernelModules = yogabookKernelModules;
 
-        # Udev rules in initrd (symlink touch keyboard device for the handler)
+        # Udev rules in initrd: symlink Goodix touch digitizer as /dev/touch_keyboard
         boot.initrd.services.udev.rules = ''
           # Tag Goodix Capacitive TouchScreen with TOUCH_KEYBOARD=1 directly
           ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Goodix Capacitive TouchScreen", ENV{TOUCH_KEYBOARD}="1"
 
           # Symlink touchscreen digitizer for the keyboard driver
-          ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", ENV{TOUCH_KEYBOARD}=="1", SYMLINK+="touch_keyboard", TAG+="systemd", ENV{SYSTEMD_WANTS}+="touch-keyboard-handler.service"
+          ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", ENV{TOUCH_KEYBOARD}=="1", SYMLINK+="touch_keyboard"
         '';
 
         boot.initrd.systemd.storePaths = [
@@ -131,7 +131,8 @@
         # Start touch-keyboard-handler in initrd (enables typing LUKS passphrase)
         boot.initrd.systemd.services.touch-keyboard-handler = {
           description = "Touch keyboard handler in initrd";
-          after = [ "initrd-root-device.target" ];
+          wantedBy = [ "initrd.target" ];
+          after = [ "systemd-udev-settle.service" ];
           unitConfig = {
             DefaultDependencies = false;
           };
@@ -140,7 +141,7 @@
             WorkingDirectory = "/etc/touch_keyboard";
             ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
             Restart = "on-failure";
-            RestartSec = "1s";
+            RestartSec = "2s";
           };
         };
 
