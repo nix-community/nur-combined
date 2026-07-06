@@ -64,6 +64,27 @@
     }
   },
   {
+    "id": "longcat-2.0",
+    "name": "LongCat 2.0",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 3.0,
+      "currency": "USD",
+      "prompt": 0.75,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048756,
+    "max_output_tokens": 262144,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "stepfun/step-3.7-flash:thinking",
     "name": "Step 3.7 Flash Thinking",
     "pricing": {
@@ -170,27 +191,6 @@
       "input_modalities": [
         "text",
         "image"
-      ]
-    }
-  },
-  {
-    "id": "owl",
-    "name": "OWL",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.3,
-      "currency": "USD",
-      "prompt": 0.1,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 1048756,
-    "max_output_tokens": 262144,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
       ]
     }
   },
@@ -3583,48 +3583,6 @@
     "max_output_tokens": 8192,
     "capabilities": {
       "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "aion-labs/aion-1.0-mini",
-    "name": "Aion 1.0 mini (DeepSeek)",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00039949999999999995,
-      "completion": 1.394,
-      "currency": "USD",
-      "prompt": 0.7989999999999999,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 131072,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "aion-labs/aion-1.0",
-    "name": "Aion 1.0",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.0019975,
-      "completion": 7.99,
-      "currency": "USD",
-      "prompt": 3.995,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 65536,
-    "max_output_tokens": 8192,
-    "capabilities": {
-      "reasoning": false
     },
     "architecture": {
       "input_modalities": [

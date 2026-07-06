@@ -9,11 +9,13 @@ let
         name = baseNameOf path;
       in !(
         # mimic .gitignore
-        (path == toString ../../../build)
+           (path == toString ../../../.ck)
+        || (path == toString ../../../.coderag)
         || (path == toString ../../../.work)
+        || (path == toString ../../../build)
         || (name == "result")
-        || (builtins.match "^core\\.[0-9]+$" name != null)
         || (builtins.match "^result-.+$" name != null)
+        || (builtins.match "^core\\.[0-9]+$" name != null)
         # omit files known to be irrelevant to this specific eval
         || (path == toString ../../../.git)
         || (path == toString ../../../.gitignore)

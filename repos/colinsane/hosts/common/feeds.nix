@@ -104,6 +104,7 @@ let
     (fromDb "mapspodcast.libsyn.com" // uncat)  # Multidisciplinary Association for Psychedelic Studies
     (fromDb "motherearthnewsandfriends.libsyn.com" // uncat)  # off-grid living
     (fromDb "microarch.club" // tech)
+    (fromDb "nimashirazi.com/pod" // pol)
     (fromDb "nocturnepodcast.org")
     (fromDb "omegataupodcast.net" // tech)  # 3/4 German; 1/4 eps are English
     (fromDb "omny.fm/shows/cool-people-who-did-cool-stuff" // pol)  # Maggie Killjoy -- referenced by Cory Doctorow

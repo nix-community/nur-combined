@@ -1,5 +1,6 @@
-/build
+/.ck
+/.coderag
 /.work
+/build
 result
 result-*
-/secrets/local.nix

@@ -12,11 +12,11 @@ buildNpmPackage (finalAttrs: {
     owner = "apmantza";
     repo = "pi-lens";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LuCR2m6tqlEiylslGzd3Fcnis9Il4zFBSIM9hUmGB1k=";
+    hash = "sha256-mL2fS/BMkdTpSc9jKoc87GonY5QIDH6ik1xGCP6FKxU=";
     postFetch = ''
-      substituteInPlace $out/package.json \
-        --replace-fail '"tree-sitter-wasms": "npm:null@^0.11.0",'  "" \
-        --replace-fail '"web-tree-sitter": "0.25.10"'  ""
+      sed -E -i $out/package.json \
+        -e '/"tree-sitter-wasms": ".*",?/d' \
+        -e '/"web-tree-sitter": ".*",?/d'
     '';
   };
 

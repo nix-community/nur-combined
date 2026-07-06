@@ -331,7 +331,7 @@ def do_fund(client: Client, amount: float, lightning: bool) -> None:
     print(f"pay {resp.amount} btc to {resp.address}")
     # TODO: automate (with y/n)
     print(f"  lightning-cli withdraw {resp.address} {resp.amount}btc")
-    print(f"  # or: lightning-cli withdraw {resp.address} {resp.amount}btc urgent")
+    print(f"  # or: lightning-cli withdraw {resp.address} {resp.amount}btc 6blocks")
 
 def do_search(client: Client, query: str) -> None:
   print(json.dumps(client.search(query), indent=2))
