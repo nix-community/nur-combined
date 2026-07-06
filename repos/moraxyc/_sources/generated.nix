@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "85c3be708c93d7950d0667a347e82fbc4f328b9c";
+    version = "90b257a12e3d3ea5a6cbc634360f0af9b544acf7";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "85c3be708c93d7950d0667a347e82fbc4f328b9c";
+      rev = "90b257a12e3d3ea5a6cbc634360f0af9b544acf7";
       fetchSubmodules = false;
-      sha256 = "sha256-4Lla8X9C3J8nTUMlvb261d1xBRdrHyCDQBcSP6uHwnk=";
+      sha256 = "sha256-7mUHypLLjxjfgO+8f7+VVRIzjpCNESnvHhtwiZTF480=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-4Lla8X9C3J8nTUMlvb261d1xBRdrHyCDQBcSP6uHwnk=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-7mUHypLLjxjfgO+8f7+VVRIzjpCNESnvHhtwiZTF480=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -89,33 +89,30 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-07-05";
+    date = "2026-07-06";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
     version = "v1.6.1";
-    src = fetchFromGitHub {
-      owner = "libnyanpasu";
-      repo = "clash-nyanpasu";
-      rev = "v1.6.1";
-      fetchSubmodules = false;
-      sha256 = "sha256-swIRSwZxFMpqiiIlQzRFnwzS70/0DCvX1PFEWifPwUY=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "35850ade0d945f16c69b80901cdab2b06bfbf657";
+    version = "7c90420e388592a2063421070ae12339f36a115d";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "35850ade0d945f16c69b80901cdab2b06bfbf657";
+      rev = "7c90420e388592a2063421070ae12339f36a115d";
       fetchSubmodules = false;
-      sha256 = "sha256-Hto+0uIuOjqY00t/5soFkvBncMxBd3KCrbO5T/k555Y=";
+      sha256 = "sha256-n9SSTDMa7F7shhUkbsx/tZ2FC9TKPczMDDwiF1xJdSk=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-Hto+0uIuOjqY00t_5soFkvBncMxBd3KCrbO5T_k555Y=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-Hto+0uIuOjqY00t_5soFkvBncMxBd3KCrbO5T_k555Y=/web/package-lock.json";
-    };date = "2026-07-03";
+      "web/package.json" = ./. + "/sha256-n9SSTDMa7F7shhUkbsx_tZ2FC9TKPczMDDwiF1xJdSk=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-n9SSTDMa7F7shhUkbsx_tZ2FC9TKPczMDDwiF1xJdSk=/web/package-lock.json";
+    };date = "2026-07-06";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
@@ -165,26 +162,6 @@
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
-  daed = {
-    pname = "daed";
-    version = "4d6a43331f2f6e25961935b9e7ac09a7568bb2b4";
-    src = fetchFromGitHub {
-      owner = "daeuniverse";
-      repo = "daed";
-      rev = "4d6a43331f2f6e25961935b9e7ac09a7568bb2b4";
-      fetchSubmodules = true;
-      sha256 = "sha256-UjWjyzfRBeR+7lvtCgGcME3embik4oPQfPrRjUw/Smc=";
-    };
-    date = "2026-05-22";
-  };
-  daed-stable = {
-    pname = "daed-stable";
-    version = "1.27.0";
-    src = fetchurl {
-      url = "file:///dev/null";
-      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
-    };
-  };
   elio = {
     pname = "elio";
     version = "v1.10.0";
@@ -228,15 +205,15 @@
   };
   fcitx5-themes-candlelight = {
     pname = "fcitx5-themes-candlelight";
-    version = "653677b0454569f41c815b3d262a57e42c90ee05";
+    version = "60aeaddfb3ecdb6a132e8da7569a6c442e6bb217";
     src = fetchFromGitHub {
       owner = "thep0y";
       repo = "fcitx5-themes-candlelight";
-      rev = "653677b0454569f41c815b3d262a57e42c90ee05";
+      rev = "60aeaddfb3ecdb6a132e8da7569a6c442e6bb217";
       fetchSubmodules = false;
-      sha256 = "sha256-dN77aUt1qkN177BZOfrT6O72Qp0J2jlM2mGNxI0cBnA=";
+      sha256 = "sha256-YQ/2sveC57vQ36BjgnvPzObSAiAYmg1zK/TmEVqSvhY=";
     };
-    date = "2025-11-07";
+    date = "2026-07-06";
   };
   ferstar-gestures = {
     pname = "ferstar-gestures";
@@ -339,21 +316,21 @@
   };
   hmcl-dev-bin = {
     pname = "hmcl-dev-bin";
-    version = "3.16.0.347";
+    version = "3.16.0.348";
     src = fetchurl {
-      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.16.0.347/HMCL-3.16.0.347.jar";
-      sha256 = "sha256-XR8ll9p+A/xG8a8nKNcprRTT7BKJpHCAR8lhngX9ptM=";
+      url = "https://github.com/HMCL-dev/HMCL/releases/download/v3.16.0.348/HMCL-3.16.0.348.jar";
+      sha256 = "sha256-GJXlga8gfD34qebn+3guKuaeI4aZA77tlmHkbTQB8Gk=";
     };
   };
   hmcl-dev-src = {
     pname = "hmcl-dev-src";
-    version = "v3.16.0.347";
+    version = "v3.16.0.348";
     src = fetchFromGitHub {
       owner = "HMCL-dev";
       repo = "HMCL";
-      rev = "v3.16.0.347";
+      rev = "v3.16.0.348";
       fetchSubmodules = false;
-      sha256 = "sha256-tEyFHYK1U/ApfFQlZ9CNDKWniuryKebnFqE6Yfuxh6E=";
+      sha256 = "sha256-OVOO6MekZyub1sv5jQkfZf90HZaqSzDa2py0nOIhoKI=";
     };
   };
   hysteria-realm-server = {
@@ -427,15 +404,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "a21b5b0a815a1d1f74f01833fe7a5d468c2a4b26";
+    version = "87d4ee044da8686a204c835f2b78e33d32e7547b";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "a21b5b0a815a1d1f74f01833fe7a5d468c2a4b26";
+      rev = "87d4ee044da8686a204c835f2b78e33d32e7547b";
       fetchSubmodules = false;
-      sha256 = "sha256-3d7n0RC6ig24c6iWeStwdR2SeoRToyNI6DjjgxA0+UI=";
+      sha256 = "sha256-nc9/H4dzo0ILSWgTb3pPKDKtVzah2Yd0XE451kGj7+s=";
     };
-    date = "2026-07-04";
+    date = "2026-07-05";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -450,21 +427,21 @@
   };
   microfetch = {
     pname = "microfetch";
-    version = "2dd645b9ccf6b6582ee03a8bb69595d1eb885ae9";
+    version = "8a11a5133c785a5065baa1ff16222eddd85f5466";
     src = fetchFromGitHub {
       owner = "NotAShelf";
       repo = "microfetch";
-      rev = "2dd645b9ccf6b6582ee03a8bb69595d1eb885ae9";
+      rev = "8a11a5133c785a5065baa1ff16222eddd85f5466";
       fetchSubmodules = false;
-      sha256 = "sha256-DZ3qzIFzMtwA0mw1R9ddHTbhRwbDeUSnlUOQqx65lG8=";
+      sha256 = "sha256-vtIbIVzzfmR7rCKJxzHVTG19Nq58Z5dRc30RpwYEJZE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-DZ3qzIFzMtwA0mw1R9ddHTbhRwbDeUSnlUOQqx65lG8=/Cargo.lock";
+      lockFile = ./. + "/sha256-vtIbIVzzfmR7rCKJxzHVTG19Nq58Z5dRc30RpwYEJZE=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-06-29";
+    date = "2026-07-06";
   };
   mm-geofeed-verifier = {
     pname = "mm-geofeed-verifier";
@@ -479,21 +456,21 @@
   };
   mpv-danmaku = {
     pname = "mpv-danmaku";
-    version = "bae71e8dfaeaf2ed475704e2ea80199971a0cdc9";
+    version = "06bd502db9b4f1f5552903b6c85f545dfae2529e";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "mpv-danmaku";
-      rev = "bae71e8dfaeaf2ed475704e2ea80199971a0cdc9";
+      rev = "06bd502db9b4f1f5552903b6c85f545dfae2529e";
       fetchSubmodules = false;
-      sha256 = "sha256-Fxs3ZozoVwtLPcqFM+FRquddYwO7Rosl7RuSk1+Q2gE=";
+      sha256 = "sha256-K1zKUzjrPYyAJCLBqPQ384E492ygftNQ26cfAzB1GOc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-Fxs3ZozoVwtLPcqFM+FRquddYwO7Rosl7RuSk1+Q2gE=/Cargo.lock";
+      lockFile = ./. + "/sha256-K1zKUzjrPYyAJCLBqPQ384E492ygftNQ26cfAzB1GOc=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-06-29";
+    date = "2026-07-06";
   };
   mpv-danmaku-stable = {
     pname = "mpv-danmaku-stable";
@@ -588,12 +565,9 @@
   nyanpasu-service-stable = {
     pname = "nyanpasu-service-stable";
     version = "v1.4.2";
-    src = fetchFromGitHub {
-      owner = "libnyanpasu";
-      repo = "nyanpasu-service";
-      rev = "v1.4.2";
-      fetchSubmodules = false;
-      sha256 = "sha256-+ny70pw1t9gBHD1wAlCCIXVtu4rbJM86L3CJfCgWK4s=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   opencode-telegram-bot = {
@@ -690,43 +664,40 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "9b91c8adbe12216b9f8af7c3f1e0043451457430";
+    version = "b6d3f06c5c6d1a7f8b0b896f535a1c0b7e9db11f";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "9b91c8adbe12216b9f8af7c3f1e0043451457430";
+      rev = "b6d3f06c5c6d1a7f8b0b896f535a1c0b7e9db11f";
       fetchSubmodules = false;
-      sha256 = "sha256-JAFAVkgcy7UBrHW9Wt7fC5o8hwlcMUDTPJIvV9lUB/8=";
+      sha256 = "sha256-RLI9pr1GO0Lzr1vhDeSX7fl4f5kijhjloP4mYlEzCLc=";
     };
-    date = "2026-07-04";
+    date = "2026-07-05";
   };
   whois42d-ng = {
     pname = "whois42d-ng";
-    version = "e43357762811fa5ea46e9f1c167d3229c253f97b";
+    version = "9ea4ace4e728a683ef0396e145469299ee36089e";
     src = fetchFromGitHub {
       owner = "moraxyc";
       repo = "whois42d-ng";
-      rev = "e43357762811fa5ea46e9f1c167d3229c253f97b";
+      rev = "9ea4ace4e728a683ef0396e145469299ee36089e";
       fetchSubmodules = false;
-      sha256 = "sha256-wXRAyom1bLdP0eLKZrERk+mHL5WN/elqdufgTbTgRXc=";
+      sha256 = "sha256-whR0uSCOVqHcknYZInW2371drxFdIQIT0Tix6HZaAX8=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-wXRAyom1bLdP0eLKZrERk+mHL5WN_elqdufgTbTgRXc=/Cargo.lock";
+      lockFile = ./. + "/sha256-whR0uSCOVqHcknYZInW2371drxFdIQIT0Tix6HZaAX8=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-07-04";
+    date = "2026-07-06";
   };
   whois42d-ng-stable = {
     pname = "whois42d-ng-stable";
     version = "v2.1.0";
-    src = fetchFromGitHub {
-      owner = "moraxyc";
-      repo = "whois42d-ng";
-      rev = "v2.1.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-pWthewKswsJnXbZwCYSZki/CA9t/c8QH7umVikfobj0=";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
     };
   };
   zsh-patina = {
