@@ -42,5 +42,12 @@ in
         enter_accept = false;
       };
     };
+
+    # Explicitly disable fzf history
+    programs.fzf = {
+      historyWidget = {
+        command = "";
+      };
+    };
   };
 }
