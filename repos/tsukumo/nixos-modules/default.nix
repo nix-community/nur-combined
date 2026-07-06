@@ -156,6 +156,7 @@
           "fbcon=rotate:1"
           "random.trust_cpu=1"
           "systemd.restore_state=0"
+          "lenovo_yogabook.ignore_pen_led=1"
         ];
 
         # Enable firmware

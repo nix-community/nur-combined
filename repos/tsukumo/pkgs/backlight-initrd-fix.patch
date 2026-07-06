@@ -1,0 +1,47 @@
+diff --git a/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c b/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c
+index 96f9f61af871..a6f9f61af872 100644
+--- a/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c
++++ b/yogabook-linux-kernel/drivers/platform/x86/lenovo/yogabook.c
+@@ -60,6 +60,9 @@ struct yogabook_data {
+ 	uint8_t brightness;
+ };
+ 
++static bool ignore_pen_led = false;
++module_param(ignore_pen_led, bool, 0444);
++
+ #define YB_WMBB_GUID	"742B0CA1-0B20-404B-9CAA-AEFCABF30CE0"
+ 
+ static int yogabook_wmi_call_wmbb(struct yogabook_data *data, u32 method_id)
+@@ -124,7 +127,8 @@ static void yogabook_work(struct work_struct *work)
+ 
+ 	if (!digitizer_on && test_bit(YB_DIGITIZER_IS_ON, &data->flags)) {
+-		led_set_brightness(data->pen_led, LED_OFF);
++		if (data->pen_led)
++			led_set_brightness(data->pen_led, LED_OFF);
+ 		device_release_driver(data->dig_dev);
+ 		if (data->dig_adev)
+ 			yogabook_wmi_call_wmbb(data, 2);
+@@ -143,7 +147,8 @@ static void yogabook_work(struct work_struct *work)
+ 		if (r)
+ 			dev_warn(data->dev, "Reprobe of digitizer failed: %d\n", r);
+ 
+-		led_set_brightness(data->pen_led, LED_FULL);
++		if (data->pen_led)
++			led_set_brightness(data->pen_led, LED_FULL);
+ 		set_bit(YB_DIGITIZER_IS_ON, &data->flags);
+ 	}
+ }
+@@ -201,8 +206,12 @@ static int yogabook_probe(struct device *dev, struct yogabook_data *data,
+ 	yogabook_pen_led.dev_id = dev_name(dev);
+ 	led_add_lookup(&yogabook_pen_led);
+-	data->pen_led = devm_led_get(dev, "pen-icon-led");
++	if (ignore_pen_led) {
++		data->pen_led = NULL;
++	} else {
++		data->pen_led = devm_led_get(dev, "pen-icon-led");
++	}
+ 	led_remove_lookup(&yogabook_pen_led);
+ 
+-	if (IS_ERR(data->pen_led))
++	if (!ignore_pen_led && IS_ERR(data->pen_led))
+ 		return dev_err_probe(dev, PTR_ERR(data->pen_led), "Getting pen icon LED\n");

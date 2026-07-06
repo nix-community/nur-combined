@@ -126,6 +126,7 @@ in
 
     preConfigure = ''
       patch -p1 -i ${./yogabook-wmi-power.patch}
+      patch -p1 -i ${./backlight-initrd-fix.patch}
       
       # Prepare platform/input modules
       cp yogabook-linux-kernel/drivers/platform/x86/serdev_helpers.h .
