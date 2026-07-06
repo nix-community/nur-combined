@@ -132,13 +132,12 @@
         boot.initrd.systemd.services.touch-keyboard-handler = {
           description = "Touch keyboard handler in initrd";
           wantedBy = [ "initrd.target" ];
-          after = [ "systemd-udev-settle.service" ];
-          unitConfig = {
-            DefaultDependencies = false;
-          };
+          after = [ "systemd-udev-trigger.service" "systemd-udev-settle.service" ];
+          requires = [ "systemd-udevd.service" ];
           serviceConfig = {
             Type = "simple";
             WorkingDirectory = "/etc/touch_keyboard";
+            ExecStartPre = "${config.boot.initrd.systemd.package}/bin/udevadm wait --timeout=10 /dev/touch_keyboard";
             ExecStart = "${touch-keyboard}/bin/touch_keyboard_handler -m 1.0 -D 6";
             Restart = "on-failure";
             RestartSec = "2s";
