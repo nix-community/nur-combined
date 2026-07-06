@@ -18,9 +18,6 @@ in
         if test -e $HOME/.nix-profile/etc/profile.d/nix.fish
           source $HOME/.nix-profile/etc/profile.d/nix.fish
         end
-        if test -e $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh
-          ${lib.getExe pkgs.babelfish} < $HOME/.nix-profile/etc/profile.d/hm-session-vars.sh | source
-        end
 
         set nix_paths ${lib.concatStringsSep " " config.home.sessionPath}
         set paths_to_export

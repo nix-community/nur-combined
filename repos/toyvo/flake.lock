@@ -403,11 +403,11 @@
         "uv2nix": "uv2nix"
       },
       "locked": {
-        "lastModified": 1783337897,
-        "narHash": "sha256-EgMcVPaeibc45I2scQ2xKHei0HHYLVuY8q/gOdzO96I=",
+        "lastModified": 1783339122,
+        "narHash": "sha256-Cf7sz8l1/WlkkCFAipBneok9d7xvBnyn3tnLldGca/8=",
         "owner": "NousResearch",
         "repo": "hermes-agent",
-        "rev": "27f74b26c59ec06d9c72b5a9ed33633c1a7a9b24",
+        "rev": "7426c09beee73bdff94d916015bac71384f6bc92",
         "type": "github"
       },
       "original": {
@@ -1170,11 +1170,11 @@
         "nixpkgs": "nixpkgs_16"
       },
       "locked": {
-        "lastModified": 1783338350,
-        "narHash": "sha256-8/E9vLGUnnE3ZrijYe45k7rfvjNOp1h1az8aLCYZqb8=",
+        "lastModified": 1783352064,
+        "narHash": "sha256-Kk/s5ojzxRswea0x3QJUPKVNSYvQv1sRMrMXbDXyOGk=",
         "owner": "nix-community",
         "repo": "nur",
-        "rev": "1a51d85e00a54762a6e5f5c7aa56e7ede7d7c47f",
+        "rev": "584ae5f9caa0e42ba5b4bbf07fa2ad8bac8dfc03",
         "type": "github"
       },
       "original": {
@@ -1584,11 +1584,11 @@
         "rust-overlay": "rust-overlay_3"
       },
       "locked": {
-        "lastModified": 1783337863,
-        "narHash": "sha256-fIXbqAirfLtPSa24Ho9k06UXZMJcqthsMkA18o+VCrQ=",
+        "lastModified": 1783353774,
+        "narHash": "sha256-jsyDje3DeRqVay57NLVAg3pVexe2vDEEdSWnBqqDDxk=",
         "owner": "zed-industries",
         "repo": "zed",
-        "rev": "54bf918329ba3bf4ccebee8ea98e0acc0291e201",
+        "rev": "283d5054ec5663795e8f9d744260c6c57b85f9e3",
         "type": "github"
       },
       "original": {

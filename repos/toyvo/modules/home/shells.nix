@@ -34,22 +34,5 @@ in
       nushell.enable = true;
       powershell.enable = true;
     };
-
-    sops.templates."shell-secrets.env" = lib.mkIf config.nixcfg.users.toyvo.enable {
-      content = ''
-        OPENCODE_API_KEY=${config.sops.placeholder.opencode_api_key}
-      '';
-    };
-    programs.bash.initExtra = lib.mkIf config.nixcfg.users.toyvo.enable ''
-      source ${config.sops.templates."shell-secrets.env".path}
-      export OPENCODE_API_KEY
-    '';
-    programs.zsh.initContent = lib.mkIf config.nixcfg.users.toyvo.enable ''
-      source ${config.sops.templates."shell-secrets.env".path}
-      export OPENCODE_API_KEY
-    '';
-    programs.fish.interactiveShellInit = lib.mkIf config.nixcfg.users.toyvo.enable ''
-      sourceenv ${config.sops.templates."shell-secrets.env".path} > /dev/null 2>&1
-    '';
   };
 }

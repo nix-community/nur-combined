@@ -18,7 +18,10 @@ in
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
 
   config = lib.mkIf cfg.users.toyvo.enable {
-    home.packages = [ inputs.nixcfg.packages.${system}.toyvo-neovim ];
+    home.packages = [
+      inputs.nixcfg.packages.${system}.toyvo-neovim
+      pkgs.opencommit
+    ];
     home.sessionVariables.EDITOR = "nvim";
     programs = {
       alacritty.enable = cfg.gui.enable;
@@ -85,7 +88,14 @@ in
       };
       helix.enable = true;
       hyper.enable = cfg.gui.enable;
-      opencode.enable = true;
+      opencode = {
+        enable = true;
+        settings.mcp.github-toyvo = {
+          type = "http";
+          url = "https://api.githubcopilot.com/mcp";
+          headers.Authorization = "Bearer {file:${config.sops.secrets.github_toyvo_pat.path}}";
+        };
+      };
       ssh =
         let
           identityConfig = {
@@ -151,22 +161,72 @@ in
       };
       zellij.enable = true;
       ideavim.enable = true;
+      bash.initExtra = ''
+        source ${config.sops.templates."shell-secrets.env".path}
+        export OPENCODE_API_KEY
+      '';
+      zsh.initContent = ''
+        source ${config.sops.templates."shell-secrets.env".path}
+        export OPENCODE_API_KEY
+      '';
+      fish.interactiveShellInit = ''
+        sourceenv ${config.sops.templates."shell-secrets.env".path} > /dev/null 2>&1
+      '';
     };
     catppuccin = {
       flavor = "frappe";
       accent = "red";
     };
-    sops.secrets = {
-      "git_toyvo_sign_ed25519.pub".mode = "0644";
-      git_toyvo_sign_ed25519.mode = "0600";
-      "github_toyvo_auth_ed25519.pub".mode = "0644";
-      github_toyvo_auth_ed25519.mode = "0600";
-      "ssh_toyvo_auth_ed25519.pub".mode = "0644";
-      ssh_toyvo_auth_ed25519.mode = "0600";
-      "yubikey_usba_ed25519_sk.pub".mode = "0644";
-      yubikey_usba_ed25519_sk.mode = "0600";
-      "yubikey_usbc_ed25519_sk.pub".mode = "0644";
-      yubikey_usbc_ed25519_sk.mode = "0600";
+    sops = {
+      secrets = {
+        github_toyvo_pat = { };
+        "git_toyvo_sign_ed25519.pub".mode = "0644";
+        git_toyvo_sign_ed25519.mode = "0600";
+        "github_toyvo_auth_ed25519.pub".mode = "0644";
+        github_toyvo_auth_ed25519.mode = "0600";
+        "ssh_toyvo_auth_ed25519.pub".mode = "0644";
+        ssh_toyvo_auth_ed25519.mode = "0600";
+        "yubikey_usba_ed25519_sk.pub".mode = "0644";
+        yubikey_usba_ed25519_sk.mode = "0600";
+        "yubikey_usbc_ed25519_sk.pub".mode = "0644";
+        yubikey_usbc_ed25519_sk.mode = "0600";
+        opencode_api_key = { };
+      };
+      templates = {
+        # see https://models.dev/?search=opencode&sort=output-costper&order=asc if considering different models, same api key, but url is different https://opencode.ai/zen/v1 vs https://opencode.ai/zen/go/v1
+        opencommit.content = ''
+          OCO_MODEL=mimo-v2.5-free
+          OCO_API_URL=https://opencode.ai/zen/v1
+          OCO_PROXY=undefined
+          OCO_API_KEY=${config.sops.placeholder.opencode_api_key}
+          OCO_API_CUSTOM_HEADERS=undefined
+          OCO_AI_PROVIDER=openai
+          OCO_TOKENS_MAX_INPUT=8192
+          OCO_TOKENS_MAX_OUTPUT=500
+          OCO_DESCRIPTION=false
+          OCO_EMOJI=false
+          OCO_LANGUAGE=en
+          OCO_MESSAGE_TEMPLATE_PLACEHOLDER=$msg
+          OCO_PROMPT_MODULE=conventional-commit
+          OCO_ONE_LINE_COMMIT=false
+          OCO_TEST_MOCK_TYPE=commit-message
+          OCO_OMIT_SCOPE=false
+          OCO_GITPUSH=true
+          OCO_WHY=false
+          OCO_HOOK_AUTO_UNCOMMENT=false
+        '';
+        "shell-secrets.env".content = ''
+          OPENCODE_API_KEY=${config.sops.placeholder.opencode_api_key}
+        '';
+      };
     };
+    home.file.".opencommit".source =
+      config.lib.file.mkOutOfStoreSymlink config.sops.templates.opencommit.path;
+    # ~/.opencommit is a read-only sops symlink, so opencommit's startup
+    # migrations (which rewrite the global config) fail with EACCES. Our
+    # config is fully managed above, so mark all known migrations complete.
+    home.file.".opencommit_migrations".text = ''
+      ["00_use_single_api_key_and_url","01_remove_obsolete_config_keys_from_global_file","02_set_missing_default_values"]
+    '';
   };
 }
