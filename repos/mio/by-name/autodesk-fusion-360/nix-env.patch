@@ -1,0 +1,85 @@
+--- a/files/setup/autodesk_fusion_installer_x86-64.sh
++++ b/files/setup/autodesk_fusion_installer_x86-64.sh
+@@ -163,7 +163,7 @@
+ 
+     # If there are missing commands, install them
+     if [ ${#MISSING_COMMANDS[@]} -gt 0 ]; then
+-        install_required_packages
++        : # skipped install_required_packages
+     else
+         echo -e "${GREEN}All required commands are available!${NOCOLOR}"
+     fi
+@@ -372,12 +372,12 @@
+             check_gpu_vram
+             check_disk_space
+             download_files
+-            check_and_install_wine
++            : # skipped check_and_install_wine
+             wine_autodesk_fusion_install
+             autodesk_fusion_patch_qt6webenginecore
+             autodesk_fusion_patch_siappdll
+             wine_autodesk_fusion_install_extensions
+-            autodesk_fusion_shortcuts_load
++            : # skipped autodesk_fusion_shortcuts_load
+             autodesk_fusion_safe_logfile
+             reset_window_not_responding_dialog
+             xdg-open "https://cryinkfly.com/sponsors/"
+@@ -713,8 +713,8 @@
+     sleep 2
+     # Download the newest winetricks version:
+     echo -e "$(gettext "${YELLOW}Downloading the newest winetricks version ...${NOCOLOR}")"
+-    curl -L "$WINETRICKS_URL" -o "$SELECTED_DIRECTORY/bin/winetricks"
+-    chmod +x "$SELECTED_DIRECTORY/bin/winetricks"
++    : # skipped winetricks download
++    : # skipped winetricks chmod
+     # Search for an existing installer of Autodesk Fusion and download it if it doesn't exist or is older than 7 days
+     AUTODESK_FUSION_INSTALLER="$SELECTED_DIRECTORY/downloads/FusionClientInstaller.exe"
+     if [ -f "$AUTODESK_FUSION_INSTALLER" ]; then
+@@ -1119,7 +1119,7 @@
+ 
+ function dxvk_opengl_1 {
+     if [[ $GPU_DRIVER = "DXVK" ]]; then
+-        WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q dxvk
++        WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q dxvk
+         curl -L https://raw.githubusercontent.com/cryinkfly/Autodesk-Fusion-360-for-Linux/main/files/setup/resource/video_driver/dxvk/DXVK.reg -o "$SELECTED_DIRECTORY/wineprefixes/default/drive_c/users/$USER/Downloads/DXVK.reg"
+         # Add the "return"-option. Here you can read more about it -> https://github.com/koalaman/shellcheck/issues/592
+         cd "$SELECTED_DIRECTORY/wineprefixes/default/drive_c/users/$USER/Downloads" || return
+@@ -1209,20 +1209,20 @@
+ 
+     mkdir -p "$SELECTED_DIRECTORY/wineprefixes/default"
+     cd "$SELECTED_DIRECTORY/wineprefixes/default" || return
+-    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q sandbox
++    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q sandbox
+     sleep 5s
+     # If Mono or Gecko were not installed correctly in your Wine prefix:
+     WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" wine control.exe appwiz.cpl install_mono
+     WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" wine control.exe appwiz.cpl install_gecko
+     sleep 5s
+     # We must install some packages!
+-    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q atmlib gdiplus arial corefonts cjkfonts dotnet452 msxml4 msxml6 vcrun2017 fontsmooth=rgb winhttp win10
++    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q atmlib gdiplus arial corefonts cjkfonts dotnet452 msxml4 msxml6 vcrun2017 fontsmooth=rgb winhttp win10
+     # We must install cjkfonts again then sometimes it doesn't work in the first time!
+     sleep 5s
+-    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q cjkfonts
++    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q cjkfonts
+     # We must set to Windows 10 or 11 again because some other winetricks sometimes set it back to Windows XP!
+     sleep 5s
+-    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q win11
++    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q win11
+     # Remove tracking metrics/calling home
+     sleep 5s
+     WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" wine REG ADD "HKCU\Software\Wine\DllOverrides" /v "adpclientservice.exe" /t REG_SZ /d "" /f
+@@ -1236,11 +1236,11 @@
+     sleep 5s
+     # Install 7-Zip inside the Wine prefix via winetricks.
+     # This method does NOT require 7-Zip on the host system and is more stable/reliable than previous approaches.
+-    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q 7zip
++    WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q 7zip
+     cp "$SELECTED_DIRECTORY/downloads/Qt6WebEngineCore.dll.7z" "$SELECTED_DIRECTORY/wineprefixes/default/drive_c/users/$USER/Downloads/Qt6WebEngineCore.dll.7z"
+     WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" wine "$SELECTED_DIRECTORY/wineprefixes/default/drive_c/Program Files/7-Zip/7z.exe" x "C:\\users\\$USER\\Downloads\\Qt6WebEngineCore.dll.7z" -o"C:\\users\\$USER\\Downloads\\"
+     # Disabled by Default - Configure the correct virtual desktop resolution
+-    # WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" sh "$SELECTED_DIRECTORY/bin/winetricks" -q vd="$MONITOR_RESOLUTION"
++    # WINEPREFIX="$SELECTED_DIRECTORY/wineprefixes/default" winetricks -q vd="$MONITOR_RESOLUTION"
+     # Download and install WebView2 to handle Login attempts, required even though we redirect to your default browser
+     # sleep 5s
+     cp "$SELECTED_DIRECTORY/downloads/WebView2installer.exe" "$SELECTED_DIRECTORY/wineprefixes/default/drive_c/users/$USER/Downloads/WebView2installer.exe"
