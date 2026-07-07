@@ -15,20 +15,20 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "beam-studio";
-  version = "0-unstable-2026-07-07";
+  version = "2.6.8-stable";
 
   src = fetchFromGitHub {
     owner = "flux3dp";
     repo = "beam-studio";
-    rev = "98f20b1fa49c82aefd1e7e15c9ad92f0ea906219";
-    hash = "sha256-hSLp9g/4pPpmZfsYdO12UFYVo/WU6KKQxKifGBDjO8E=";
+    rev = "refs/tags/app-2.6.8-stable";
+    hash = "sha256-gfmIuw3aKDzAFGIDZTs1V/mDIkDWDvdbb+dJ9m0OOeQ=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     pnpm = pnpm_10;
     fetcherVersion = 4;
-    hash = "sha256-27e0VkqNcQFhKcLbRPQirCiK7K9qofwBNQt0HSafvXQ=";
+    hash = "sha256-4LZ37gYPpFQ/tR/T8R+bdvnp5tHllcdSPwjml9B1uHo=";
   };
 
   nativeBuildInputs = [

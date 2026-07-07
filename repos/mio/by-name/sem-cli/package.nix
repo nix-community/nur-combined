@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "sem-cli";
-  version = "0.18.0";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "Ataraxy-Labs";
     repo = "sem";
     rev = "v${version}";
-    hash = "sha256-53jMRJY5LF6NaXJPN4ZXSI9+dDc/7xTh6PlXBiH7QA4=";
+    hash = "sha256-91NPyzyC7cyB1Oivl3hJVJa78kKiyUgXcNPGo34W9TA=";
   };
 
-  cargoHash = "sha256-43Ecif/3JHzuFDqhOxwcTeFGWEiHGygC9+D1WL++Bls=";
+  cargoHash = "sha256-ctJsmTH55VDuofezBRbg8FLmr6c714FuBbyQY0jLlPs=";
 
   sourceRoot = "${src.name}/crates";
 

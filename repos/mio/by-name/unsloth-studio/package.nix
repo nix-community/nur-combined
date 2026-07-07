@@ -10,12 +10,12 @@
 
 let
   pname = "unsloth";
-  version = "unstable-2024-11-21";
+  version = "0.1.48-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
-    rev = "8efcc17f476c21dd6f5534ce719b014d7e6a1e4c";
+    rev = "v0.1.48-beta";
     hash = "sha256-NT1CRbLpt7fIbIhYv/Rm5FCIgK05RSf9CEh+EjC6WgA=";
   };
 
