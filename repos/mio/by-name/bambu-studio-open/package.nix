@@ -27,10 +27,6 @@ bambu-studio.overrideAttrs (oldAttrs: {
     substituteInPlace src/slic3r/Utils/NetworkAgent.cpp \
       --replace-fail "@obn_plugin_path@" "${obn}/lib/libbambu_networking.so" \
       --replace-fail "@obn_bambu_source_path@" "${obn}/lib/libBambuSource.so"
-
-    # Skip the plugin installation prompt in the setup wizard
-    substituteInPlace src/slic3r/GUI/WebGuideDialog.cpp \
-      --replace-fail 'wxGetApp().app_config->get("app","installed_networking")' '"1"'
   '';
 
   meta = oldAttrs.meta // {
