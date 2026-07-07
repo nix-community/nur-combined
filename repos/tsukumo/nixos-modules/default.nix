@@ -135,7 +135,7 @@
         boot.initrd.systemd.services.touch-keyboard-handler = {
           description = "Touch keyboard handler in initrd";
           wantedBy = [ "initrd.target" ];
-          after = [ "systemd-udevd.service" ];
+          after = [ "systemd-udevd.service" "systemd-udev-trigger.service" ];
           requires = [ "systemd-udevd.service" ];
           unitConfig = {
             DefaultDependencies = false;
