@@ -4,6 +4,8 @@
   flake-inputs,
   nix-update-script,
   pkgs,
+  update-guard,
+  updater-tools,
 }:
 let
   version = "0-unstable-2026-07-05";
@@ -30,8 +32,11 @@ in src.overrideAttrs (base: {
 
   passthru = base.passthru // {
     inherit flake overlay packages;
-    updateScript = nix-update-script {
-      extraArgs = [ "--version" "branch" ];
-    };
+    updateScript = updater-tools.requireAll [
+      (update-guard.days 2)
+      (nix-update-script {
+        extraArgs = [ "--version" "branch" ];
+      })
+    ];
   };
 })

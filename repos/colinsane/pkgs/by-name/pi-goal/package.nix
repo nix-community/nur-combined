@@ -24,7 +24,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-WnB4zTeKbWyy/vIs9i6bhMV397Zs+5lAAuYxDphXgfY=";
+  npmDepsHash = "sha256-iT/D+Syv8qHdnzXqi/IvOfHePr7xH3M/jfuNhNCsRFc=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json

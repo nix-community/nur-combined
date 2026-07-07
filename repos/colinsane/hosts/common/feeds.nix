@@ -128,7 +128,6 @@ let
     (fromDb "talesfromthebridge.buzzsprout.com" // tech)  # Sci-Fi? has Peter Watts; author of No Moods, Ads or Cutesy Fucking Icons (rifters.com)
     (fromDb "techtalesshow.com" // tech)  # Corbin Davenport
     (fromDb "theamphour.com" // tech)  # The Amp Hour
-    (fromDb "theboilingfrog.net" // pol)
     (fromDb "thefinalstrawradio.noblogs.org/podcasting" // pol)
     (fromDb "the-ben-marc-show.simplecast.com" // tech // pol)  # Ben Horowitz + Marc Andreessen; love to hate em
     (fromDb "timclicks.dev/compose-podcast" // tech)  # Rust-heavy dev interviews
@@ -166,6 +165,7 @@ let
     # (fromDb "sites.libsyn.com/438684" // humor)  # Quorators - digging up *weird* Quota questions
     # (fromDb "srslywrong.com" // pol)
     # (fromDb "techwontsave.us" // pol)  # rec by Cory Doctorow, but way too info-sparse
+    # (fromDb "theboilingfrog.net" // pol)
     # (fromDb "trashfuturepodcast.podbean.com" // pol)  # rec by Cory Doctorow, but way rambly
     # (fromDb "wakingup.libsyn.com" // pol)  # Sam Harris, but he just repeats himself now
     # (mkPod "https://anchor.fm/s/21bc734/podcast/rss" // pol // infrequent)  # Emerge: making sense of what's next -- <https://www.whatisemerging.com/emergepodcast>

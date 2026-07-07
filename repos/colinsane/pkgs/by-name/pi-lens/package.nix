@@ -6,13 +6,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-lens";
-  version = "3.8.62";
+  version = "3.8.65";
 
   src = fetchFromGitHub {
     owner = "apmantza";
     repo = "pi-lens";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-mL2fS/BMkdTpSc9jKoc87GonY5QIDH6ik1xGCP6FKxU=";
+    hash = "sha256-IW84UWDinqoT9/unqnMV5+/100tYYyffDy7L+O+bcA8=";
     postFetch = ''
       sed -E -i $out/package.json \
         -e '/"tree-sitter-wasms": ".*",?/d' \

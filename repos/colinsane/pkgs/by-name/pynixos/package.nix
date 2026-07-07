@@ -17,13 +17,13 @@
   nix-update-script,
 }:
 let
-  version = "0-unstable-2026-06-01";
+  version = "0-unstable-2026-07-06";
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "shelvacu";
     repo = "pynixos";
-    rev = "c86e60b94a54982ee410cdee4e788bedc4a6ee61";
-    hash = "sha256-ovCzNLPcrvaBwlqG/Fwyoajs7UyCQvw+GkU8LN4Nuro=";
+    rev = "0d0b2f515f3e48bb804c969b8f2529fa5ebd516b";
+    hash = "sha256-Bix1sBV/icWapcishxI0y18ee8j+CTkSZUFytz4MA9w=";
   };
   overlay = import "${src}/overlay.nix";
   finalPkgs = pkgs.extend overlay;
