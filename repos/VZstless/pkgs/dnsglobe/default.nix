@@ -18,7 +18,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-gUVGUkJW5KwJd7rFi6C/4hj2pjChGvKLQNQjQwX3zsg=";
 
   meta = {
-    description = "ELF visualizer, generates HTML files from ELF binaries";
+    description = "Global DNS propagation checker TUI";
     homepage = "https://github.com/514-labs/dnsglobe";
     license = lib.licenses.mit;
     mainProgram = "dnsglobe";
