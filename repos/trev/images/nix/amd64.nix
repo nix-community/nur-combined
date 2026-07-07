@@ -1,6 +1,6 @@
 { dockerTools }:
 let
-  image = "docker.io/nixos/nix:2.34.7@sha256:bf1d938835ab96312f098fa6c2e9cab367728e0aad0646ee3e02a787c80d8fb8";
+  image = "docker.io/nixos/nix:2.34.8@sha256:1a711b619c8a713eff32c3f8d8781b3b4d0130cb91c0a57f67e87abfeeb90b01";
   parts = builtins.match "(.+/)(.+):(.+)@(.+)" image;
 in
 # https://github.com/nixos/nixpkgs/issues/445481
@@ -9,7 +9,7 @@ in
   finalImageName = builtins.elemAt parts 1;
   finalImageTag = builtins.elemAt parts 2;
   imageDigest = builtins.elemAt parts 3;
-  hash = "sha256-9wIFigGxNufedpY3E3T8NmWNdN0IL+55vwIQ44J7STI=";
+  hash = "sha256-kJ1pNH1YnRGjO3R1GnTwz2tP7ldxAnJ0xLaofdubjH0=";
   os = "linux";
   arch = "amd64";
 }).overrideAttrs
