@@ -220,6 +220,9 @@
           # Symlink touchscreen digitizer for the keyboard driver
           ACTION=="add|change", SUBSYSTEM=="input", KERNEL=="event*", ENV{TOUCH_KEYBOARD}=="1", SYMLINK+="touch_keyboard", TAG+="systemd", ENV{SYSTEMD_WANTS}+="touch-keyboard-handler.service"
 
+          # Rotate Yoga Book Wacom pen digitizer coordinates by 90 degrees Clockwise to match landscape screen
+          ACTION=="add|change", SUBSYSTEM=="input", ATTRS{name}=="Wacom HID 169 Pen", ENV{LIBINPUT_CALIBRATION_MATRIX}="0 1 0 -1 0 1"
+
           # DRV2604 Haptic vibrators symlinks
           KERNEL=="event*", SUBSYSTEM=="input", KERNELS=="i2c-DRV2604:00", SYMLINK+="right_vibrator"
           KERNEL=="event*", SUBSYSTEM=="input", KERNELS=="i2c-DRV2604:01", SYMLINK+="left_vibrator"
