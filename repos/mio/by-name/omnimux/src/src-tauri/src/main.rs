@@ -64,8 +64,8 @@ fn start_session(
         command
     } else {
         let mut command = CommandBuilder::new("ssh");
-        command.arg(host.clone());
         command.arg("-t");
+        command.arg(host.clone());
         command.arg("tmux a || tmux new");
         command
     };

@@ -23,11 +23,11 @@ function App() {
   const termRef = useRef<Terminal | null>(null);
   const fitAddonRef = useRef<FitAddon | null>(null);
   const sessionIdRef = useRef<number | null>(null);
-  const [hosts, setHosts] = useState<string[]>([]);
+  const [hosts, setHosts] = useState<string[]>(["localhost"]);
   const [activeHost, setActiveHost] = useState("");
   const [newHost, setNewHost] = useState("");
-  const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
-  const [statusText, setStatusText] = useState("Starting session");
+  const [connectionState, setConnectionState] = useState<ConnectionState>("closed");
+  const [statusText, setStatusText] = useState("Select a host to connect");
   const [sessionNonce, setSessionNonce] = useState(0);
 
   const sortedHosts = useMemo(
@@ -37,7 +37,11 @@ function App() {
 
   useEffect(() => {
     invoke<string[]>("get_ssh_hosts")
-      .then((fetchedHosts) => setHosts(fetchedHosts))
+      .then((fetchedHosts) => {
+        // Ensure localhost is always present and first
+        const merged = ["localhost", ...fetchedHosts.filter((h) => h !== "localhost")];
+        setHosts(Array.from(new Set(merged)));
+      })
       .catch((err) => console.error("Failed to fetch SSH hosts:", err));
   }, []);
 
