@@ -48,15 +48,7 @@ rec {
   chunker = callPackage ./library/chunker.pkg.nix { };
   co2monitor = callPackage ./library/co2monitor.pkg.nix { };
   decompiler-mc = callPackage ./library/decompiler-mc.pkg.nix { };
-  dmarc-report-notifier = callPackage ./library/dmarc-report-notifier.pkg.nix {
-    python313Packages = (pkgs.python313.override {
-      packageOverrides = _: pythonPackages: {
-        # Pending NixOS/nixpkgs#337081
-        msgraph-core = warnIfNot pkgs.python3Packages.parsedmarc.meta.broken "python3Packages.parsedmarc is no longer broken"
-          (findFirst (p: p.pname == "msgraph-core") null pkgs.parsedmarc.requiredPythonModules);
-      };
-    }).pkgs;
-  };
+  dmarc-report-notifier = callPackage ./library/dmarc-report-notifier.pkg.nix { };
   easy-timeline = callPackage ./library/easy-timeline.pkg.nix { };
   fastnbt-tools = callPackage ./library/fastnbt-tools.pkg.nix { };
   fediblockhole = callPackage ./library/fediblockhole.pkg.nix { };
