@@ -26,6 +26,8 @@ stdenv.mkDerivation rec {
     hash = "sha256-f9BvoDKZePn0uRdUEppfzyuO+xW2EW1PLvHN9PAo3QI=";
   };
 
+  patches = [ ./nix-env.patch ];
+
   nativeBuildInputs = [ makeWrapper ];
 
   installPhase = ''

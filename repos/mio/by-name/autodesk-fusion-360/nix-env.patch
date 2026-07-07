@@ -1,0 +1,22 @@
+--- a/files/setup/autodesk_fusion_installer_x86-64.sh
++++ b/files/setup/autodesk_fusion_installer_x86-64.sh
+@@ -163,7 +163,7 @@
+ 
+     # If there are missing commands, install them
+     if [ ${#MISSING_COMMANDS[@]} -gt 0 ]; then
+-        install_required_packages
++        echo -e "${YELLOW}Skipping install_required_packages in Nix environment!${NOCOLOR}"
+     else
+         echo -e "${GREEN}All required commands are available!${NOCOLOR}"
+     fi
+@@ -371,8 +371,8 @@
+             check_gpu_driver
+             check_gpu_vram
+             check_disk_space
+-            download_files
+-            check_and_install_wine
++            echo -e "${YELLOW}Skipping download_files in Nix environment!${NOCOLOR}"
++            echo -e "${YELLOW}Skipping check_and_install_wine in Nix environment!${NOCOLOR}"
+             wine_autodesk_fusion_install
+             autodesk_fusion_patch_qt6webenginecore
+             autodesk_fusion_patch_siappdll
