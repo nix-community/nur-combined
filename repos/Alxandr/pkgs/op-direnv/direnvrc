@@ -71,15 +71,77 @@ _op_direnv_preflight() {
   fi
 }
 
+_op_direnv_duration_seconds() {
+  local duration=${1,,}
+  local amount unit
+
+  duration=${duration// /}
+
+  if [[ ! $duration =~ ^([0-9]+)(s|sec|secs|second|seconds|m|min|mins|minute|minutes|h|hr|hrs|hour|hours|d|day|days|w|week|weeks)?$ ]]; then
+    _op_direnv_error "invalid USE_OP_MAX_AGE: $1"
+    return 1
+  fi
+
+  amount=${BASH_REMATCH[1]}
+  unit=${BASH_REMATCH[2]:-s}
+
+  case $unit in
+    s | sec | secs | second | seconds) printf "%s\n" "$amount" ;;
+    m | min | mins | minute | minutes) printf "%s\n" "$((amount * 60))" ;;
+    h | hr | hrs | hour | hours) printf "%s\n" "$((amount * 60 * 60))" ;;
+    d | day | days) printf "%s\n" "$((amount * 24 * 60 * 60))" ;;
+    w | week | weeks) printf "%s\n" "$((amount * 7 * 24 * 60 * 60))" ;;
+    *)
+      _op_direnv_error "invalid USE_OP_MAX_AGE: $1"
+      return 1
+      ;;
+  esac
+}
+
+_op_direnv_op_env_stale() {
+  local op_env=.direnv/op.env
+  local max_age=${USE_OP_MAX_AGE:-7d}
+  local max_age_seconds now modified
+
+  [[ -f $op_env ]] || return 1
+
+  if ! max_age_seconds=$(_op_direnv_duration_seconds "$max_age"); then
+    return 2
+  fi
+
+  now=$(date +%s)
+  modified=$(stat -c %Y "$op_env")
+
+  ((now - modified > max_age_seconds))
+}
+
 use_op() {
+  local run_reason=""
+
   if ! _op_direnv_preflight; then
     return 1
   fi
 
   watch_file .env.op
-  if [[ -f .env.op && ( ! -f .direnv/op.env || .env.op -nt .direnv/op.env ) ]]; then
-    _op_direnv_info "Injecting secrets from op into .direnv/op.env"
-    "$_OP_DIRENV_OP" inject <.env.op >.direnv/op.env
+
+  if [[ -f .env.op ]]; then
+    if [[ ! -f .direnv/op.env ]]; then
+      run_reason=initial
+    elif [[ .env.op -nt .direnv/op.env ]]; then
+      run_reason=older
+    else
+      _op_direnv_op_env_stale
+      case $? in
+        0) run_reason=stale ;;
+        1) ;;
+        *) return 1 ;;
+      esac
+    fi
+  fi
+
+  if [[ -n $run_reason ]]; then
+    _op_direnv_info "Injecting secrets from op into .direnv/op.env (reason: $run_reason)"
+    "$_OP_DIRENV_OP" inject --in-file .env.op --out-file .direnv/op.env --force
   fi
 
   [[ -f .direnv/op.env ]] && dotenv .direnv/op.env
