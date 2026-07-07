@@ -1,0 +1,46 @@
+--- a/src/slic3r/Utils/NetworkAgent.cpp
++++ b/src/slic3r/Utils/NetworkAgent.cpp
+@@ -242,28 +242,9 @@
+         else
+             networking_module = LoadLibrary(lib_wstr);
+     }
+-#else
+-    #if defined(__WXMAC__)
+-    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_NETWORK_LIBRARY) + ".dylib";
+-    #else
+-    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_NETWORK_LIBRARY) + ".so";
+-    #endif
++    library = "@obn_plugin_path@";
+     BOOST_LOG_TRIVIAL(info) << __FUNCTION__ << boost::format(", line %1%, loading network module, using_backup %2%\n")%__LINE__ %using_backup;
+-    module_cert_summary = SummarizeModule(library);
+-    if (self_cert_summary) {
+-        module_cert_summary = SummarizeModule(library);
+-        if (module_cert_summary) {
+-            if (IsSamePublisher(*self_cert_summary, *module_cert_summary))
+-                networking_module = dlopen(library.c_str(), RTLD_LAZY);
+-            else
+-                BOOST_LOG_TRIVIAL(info) << "module is from another publisher:" << module_cert_summary->as_print();
+-        }
+-        else
+-            BOOST_LOG_TRIVIAL(info) << "module_cert is null";
+-    }
+-    else
+-        networking_module = dlopen( library.c_str(), RTLD_LAZY);
+-    if (!networking_module) {
++    networking_module = dlopen(library.c_str(), RTLD_LAZY);
+         char* dll_error = dlerror();
+         std::string err       = dll_error ? std::string(dll_error) : std::string("(null)");
+         BOOST_LOG_TRIVIAL(warning) << __FUNCTION__ << boost::format(", error, dlerror is %1%") % err;
+@@ -557,11 +538,7 @@
+         source_module = LoadLibrary(lib_wstr);
+     }
+ #else
+-#if defined(__WXMAC__)
+-    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_SOURCE_LIBRARY) + ".dylib";
+-#else
+-    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_SOURCE_LIBRARY) + ".so";
+-#endif
++    library = "@obn_bambu_source_path@";
+     source_module = dlopen( library.c_str(), RTLD_LAZY);
+     /*if (!source_module) {
+ #if defined(__WXMAC__)
