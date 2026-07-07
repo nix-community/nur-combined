@@ -23,8 +23,8 @@ let
         "${enableName}" = let
           super = acc'."${enableName}";
         in {
-          system = super.system || (pval.enableFor.system && pval.enableSuggested);
-          user = super.user // lib.filterAttrs (_u: en: en && pval.enableSuggested) pval.enableFor.user;
+          system = super.system || (pval.enabled && pval.enableFor.system && pval.enableSuggested);
+          user = super.user // lib.filterAttrs (_u: en: pval.enabled && en && pval.enableSuggested) pval.enableFor.user;
         };
       }) acc pval.suggestedPrograms
     )

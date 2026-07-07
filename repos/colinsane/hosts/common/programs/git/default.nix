@@ -64,6 +64,7 @@ in
       alias.shoe    = "show";  # common typo
       alias.st      = "status";
       alias.stat    = "status";
+      alias.uncommit = "reset HEAD~1";
       alias.unstage = "restore --staged :/";
       alias.work    = "!f() { git worktree add \"$1\" && cd \"$1\"; }; f";
 

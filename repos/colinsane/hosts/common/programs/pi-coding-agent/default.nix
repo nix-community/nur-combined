@@ -193,6 +193,8 @@ in
       };
     };
 
+    buildCost = 1;
+
     packageUnwrapped = pkgs.pi-coding-agent.overrideAttrs (prevAttrs: {
       nativeBuildInputs = prevAttrs.nativeBuildInputs or [] ++ [
         pkgs.makeWrapper
