@@ -13,7 +13,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aube";
-  version = "1.17.1";
+  version = "1.26.0";
 
   __structuredAttrs = true;
 
@@ -21,10 +21,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "endevco";
     repo = "aube";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-OClcTZCirRxfD20DeFo5HGKOKulJY+fDnsuwo/TkdnA=";
+    hash = "sha256-bQDDLgO5dG9kMF9VDnHGwuMZjWrbNT5Ia90rJrERDaE=";
   };
 
-  cargoHash = "sha256-NMAaQumpbP/BbTeBp+nCvZds527D8gfnOFXXzR1MVXo=";
+  cargoHash = "sha256-L9UiSO9UL8kBOebFXrZqbIJ/V4tobl1NYAdlktmX2lY=";
 
   nativeBuildInputs = [
     cmakeMinimal
@@ -52,7 +52,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   dontUseCargoParallelTests = true;
 
   postInstall = ''
-    rm -fv $out/bin/generate-settings-docs
+    rm -fv $out/bin/generate-{error-codes,settings}-docs
 
     completions=()
 

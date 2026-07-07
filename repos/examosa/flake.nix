@@ -2,11 +2,6 @@
   description = "My personal NUR repository";
 
   inputs = {
-    emacs-overlay = {
-      url = "github:nix-community/emacs-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     flake-compat.url = "github:NixOS/flake-compat";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixpkgs.url = "https://channels.nixos.org/nixpkgs-unstable/nixexprs.tar.xz";
@@ -47,9 +42,7 @@
         pkgs,
         ...
       }: let
-        legacyPackages = import self {
-          pkgs = pkgs.extend inputs.emacs-overlay.overlays.emacs;
-        };
+        legacyPackages = import self {inherit pkgs;};
       in {
         checks.format = config.treefmt.build.check self;
         inherit legacyPackages;
