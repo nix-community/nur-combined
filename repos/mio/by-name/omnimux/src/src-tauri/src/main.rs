@@ -185,6 +185,28 @@ fn stop_session(state: State<'_, AppState>, session_id: u64) -> Result<(), Strin
     Ok(())
 }
 
+#[tauri::command]
+fn get_ssh_hosts() -> Result<Vec<String>, String> {
+    let mut hosts = vec!["localhost".to_string()];
+    let home = std::env::var("HOME").map_err(|e| e.to_string())?;
+    let config_path = std::path::PathBuf::from(home).join(".ssh").join("config");
+    
+    if let Ok(content) = std::fs::read_to_string(config_path) {
+        for line in content.lines() {
+            let line = line.trim();
+            if line.to_lowercase().starts_with("host ") {
+                let host_part = line[5..].trim();
+                for host in host_part.split_whitespace() {
+                    if !host.contains('*') && !host.contains('?') {
+                        hosts.push(host.to_string());
+                    }
+                }
+            }
+        }
+    }
+    Ok(hosts)
+}
+
 fn main() {
     tauri::Builder::default()
         .manage(AppState {
@@ -196,7 +218,8 @@ fn main() {
             start_session,
             write_session,
             resize_session,
-            stop_session
+            stop_session,
+            get_ssh_hosts
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

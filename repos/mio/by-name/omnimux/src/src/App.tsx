@@ -23,8 +23,8 @@ function App() {
   const termRef = useRef<Terminal | null>(null);
   const fitAddonRef = useRef<FitAddon | null>(null);
   const sessionIdRef = useRef<number | null>(null);
-  const [hosts, setHosts] = useState(["localhost"]);
-  const [activeHost, setActiveHost] = useState("localhost");
+  const [hosts, setHosts] = useState<string[]>([]);
+  const [activeHost, setActiveHost] = useState("");
   const [newHost, setNewHost] = useState("");
   const [connectionState, setConnectionState] = useState<ConnectionState>("connecting");
   const [statusText, setStatusText] = useState("Starting session");
@@ -34,6 +34,12 @@ function App() {
     () => Array.from(new Set(hosts.map((host) => host.trim()).filter(Boolean))),
     [hosts],
   );
+
+  useEffect(() => {
+    invoke<string[]>("get_ssh_hosts")
+      .then((fetchedHosts) => setHosts(fetchedHosts))
+      .catch((err) => console.error("Failed to fetch SSH hosts:", err));
+  }, []);
 
   useEffect(() => {
     if (!terminalRef.current) return;
@@ -64,9 +70,16 @@ function App() {
     termRef.current = term;
     fitAddonRef.current = fitAddon;
     sessionIdRef.current = null;
-    setConnectionState("connecting");
-    setStatusText(`Connecting to ${activeHost}`);
-    term.writeln(`OmniMux: connecting to ${activeHost}`);
+    
+    if (activeHost) {
+      setConnectionState("connecting");
+      setStatusText(`Connecting to ${activeHost}`);
+      term.writeln(`OmniMux: connecting to ${activeHost}`);
+    } else {
+      setConnectionState("closed");
+      setStatusText("Idle");
+      term.writeln("OmniMux: select a host from the toolbar to connect");
+    }
 
     const resizeActiveSession = () => {
       fitAddon.fit();
@@ -131,7 +144,9 @@ function App() {
     const resizeObserver = new ResizeObserver(resizeActiveSession);
     resizeObserver.observe(terminalRef.current);
     window.addEventListener("resize", resizeActiveSession);
-    start();
+    if (activeHost) {
+      start();
+    }
 
     return () => {
       stopped = true;

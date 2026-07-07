@@ -4,21 +4,15 @@
   rustPlatform,
   buildNpmPackage,
   pkg-config,
-  cargo,
-  rustc,
   webkitgtk_4_1,
   glib,
   darwin,
   openssl,
-  apple-sdk,
+  cargo-tauri,
+  wrapGAppsHook3,
 }:
 
 let
-  tauriProductionFeatures = [
-    "--features"
-    "tauri/custom-protocol"
-  ];
-
   frontend = buildNpmPackage {
     pname = "omnimux-ui";
     version = "0.1.0";
@@ -34,16 +28,14 @@ rustPlatform.buildRustPackage {
 
   cargoLock = {
     lockFile = ./src/src-tauri/Cargo.lock;
-    # allowBuiltinFetchGit = true;
   };
-
-  cargoBuildFlags = tauriProductionFeatures;
-  cargoTestFlags = tauriProductionFeatures;
 
   nativeBuildInputs = [
     pkg-config
-    cargo
-    rustc
+    cargo-tauri.hook
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    wrapGAppsHook3
   ];
 
   buildInputs = [
@@ -54,8 +46,16 @@ rustPlatform.buildRustPackage {
     glib
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    apple-sdk
+    darwin.apple_sdk.frameworks.WebKit
+    darwin.apple_sdk.frameworks.AppKit
+    darwin.apple_sdk.frameworks.CoreServices
+    darwin.apple_sdk.frameworks.Security
   ];
+
+  # cargo-tauri.hook replaces the build and install phases, so we need to make sure they are used
+  # instead of cargoBuildHook / cargoInstallHook.
+  buildPhase = "tauriBuildHook";
+  installPhase = "tauriInstallHook";
 
   preBuild = ''
     # Tauri expects the frontend build output in distDir specified in tauri.conf.json.
@@ -73,5 +73,6 @@ rustPlatform.buildRustPackage {
     homepage = "";
     license = licenses.mit;
     platforms = platforms.all;
+    mainProgram = "omnimux";
   };
 }
