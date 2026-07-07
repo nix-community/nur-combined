@@ -15,15 +15,15 @@ let
     };
     "aarch64-linux" = {
       asset = "herdr-linux-aarch64";
-      hash = "sha256-ly1ips1U0BYtLegNuY2uQVt3L1WCL09fb4wy0BZLKbk=";
+      hash = "sha256-PXV6wwxjHnncRQOMPsxkI/4TqJ+c/6D0Fa7dLCfxV2w=";
     };
     "x86_64-darwin" = {
       asset = "herdr-macos-x86_64";
-      hash = "sha256-5yMqu9BWiHuv4Pa4Hlj1njPK/XrGCeO8w1S44A77Bjc=";
+      hash = "sha256-V4D6B9u5p4155S0guGphAT9sugJmfyC2z4lmMBUJCEY=";
     };
     "aarch64-darwin" = {
       asset = "herdr-macos-aarch64";
-      hash = "sha256-hKp/OMg1tOtao4wpZggTAjzyMXjkZUHEucJgcS/lLVE=";
+      hash = "sha256-FvRlPwSR6h59K0a1sCVC8Y4bguiNqvnikAVy5btjTfg=";
     };
   };
 
