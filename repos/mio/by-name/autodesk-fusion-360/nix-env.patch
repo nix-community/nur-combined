@@ -9,7 +9,7 @@
      else
          echo -e "${GREEN}All required commands are available!${NOCOLOR}"
      fi
-@@ -371,8 +371,8 @@
+@@ -371,11 +371,11 @@
              check_gpu_driver
              check_gpu_vram
              check_disk_space
@@ -20,3 +20,7 @@
              wine_autodesk_fusion_install
              autodesk_fusion_patch_qt6webenginecore
              autodesk_fusion_patch_siappdll
+             wine_autodesk_fusion_install_extensions
+-            autodesk_fusion_shortcuts_load
++            echo -e "${YELLOW}Skipping autodesk_fusion_shortcuts_load in Nix environment!${NOCOLOR}"
+             autodesk_fusion_safe_logfile
