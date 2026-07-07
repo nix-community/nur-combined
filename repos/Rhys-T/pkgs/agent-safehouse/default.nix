@@ -42,6 +42,7 @@
     meta = {
         description = "macOS sandbox wrapper for coding agents";
         homepage = "https://agent-safehouse.dev/";
+        license = lib.licenses.asl20;
         mainProgram = "safehouse";
         platforms = lib.platforms.darwin;
         maintainers = [maintainers.Rhys-T];
