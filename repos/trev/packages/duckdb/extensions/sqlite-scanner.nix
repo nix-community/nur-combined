@@ -4,6 +4,6 @@
   name = "sqlite_scanner";
   repo = "duckdb-sqlite";
   branch = "v1.5-variegata";
-  rev = "44f5dde2e840c9316b4bfb293c46d886c2df9ff2";
-  hash = "sha256-SewBGN9BpnxoH+eDpxx42nZn4ICXvdeI/TqSQjHGjBE=";
+  rev = "7fd725f82a5d88d9a1d350c1371de420f8843526";
+  hash = "sha256-ocOI5DJmqgUpSRU6jQ/aTs6/TrmNGUVFtkJ5McDa8Gs=";
 }

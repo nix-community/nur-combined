@@ -4,8 +4,8 @@
   name = "httpfs";
   repo = "duckdb-httpfs";
   branch = "main";
-  rev = "2a6481d0bfc2cbf1a1f15d8076fe09b9d326d8d4";
-  hash = "sha256-nhSjs2oYq84Nj1iZ1sLQJTnACpOHEnHqB1XJekPX4pE=";
+  rev = "1c3cc07aaf6c612547341a63ca19d584eb8497b4";
+  hash = "sha256-MDRpvRVxFrATiNKKxXCd3fan8bnYukmMvS+gt1q1osQ=";
   duckdbBuildInputs = [
     curl
   ];
