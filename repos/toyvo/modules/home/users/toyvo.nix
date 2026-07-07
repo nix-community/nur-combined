@@ -91,7 +91,8 @@ in
       opencode = {
         enable = true;
         settings.mcp.github-toyvo = {
-          type = "http";
+          type = "remote";
+          enabled = true;
           url = "https://api.githubcopilot.com/mcp";
           headers.Authorization = "Bearer {file:${config.sops.secrets.github_toyvo_pat.path}}";
         };

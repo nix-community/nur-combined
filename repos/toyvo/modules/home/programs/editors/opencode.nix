@@ -8,37 +8,36 @@
 
 {
   config = lib.mkIf config.programs.opencode.enable {
-    programs.opencode = {
-      settings = {
-        plugin = [ "superpowers@git+https://github.com/obra/superpowers.git" ];
+    programs.opencode.settings = {
+      plugin = [ "superpowers@git+https://github.com/obra/superpowers.git" ];
 
-        permission = {
-          external_directory = {
-            "${config.home.homeDirectory}/.config/opencode/**" = "allow";
-            "${config.home.homeDirectory}/.local/share/opencode/**" = "allow";
-            "${config.home.homeDirectory}/.cargo/**" = "allow";
-            "${config.home.homeDirectory}/Code/**" = "allow";
-            "${config.home.homeDirectory}/Clone/**" = "allow";
-            "${config.home.homeDirectory}/nixcfg/**" = "allow";
-            "/nix/**" = "allow";
-            "/tmp/**" = "allow";
-          };
+      permission = {
+        external_directory = {
+          "${config.home.homeDirectory}/.config/opencode/**" = "allow";
+          "${config.home.homeDirectory}/.local/share/opencode/**" = "allow";
+          "${config.home.homeDirectory}/.cargo/**" = "allow";
+          "${config.home.homeDirectory}/Code/**" = "allow";
+          "${config.home.homeDirectory}/Clone/**" = "allow";
+          "${config.home.homeDirectory}/nixcfg/**" = "allow";
+          "/nix/**" = "allow";
+          "/tmp/**" = "allow";
         };
+      };
 
-        mcp = {
-          nixos = {
-            type = "local";
-            command = [ (lib.getExe stablePkgs.mcp-nixos) ];
-            enabled = true;
-          };
-          chrome-devtools = {
-            type = "local";
-            command = [
-              "npx"
-              "-y"
-              "chrome-devtools-mcp@latest"
-            ];
-          };
+      mcp = {
+        nixos = {
+          type = "local";
+          command = [ (lib.getExe stablePkgs.mcp-nixos) ];
+          enabled = true;
+        };
+        chrome-devtools = {
+          type = "local";
+          enabled = true;
+          command = [
+            "npx"
+            "-y"
+            "chrome-devtools-mcp@latest"
+          ];
         };
       };
     };
