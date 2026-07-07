@@ -39,11 +39,13 @@ jobs:
             extra-substituters = https://nix.mcseekeri.com?priority=51
             extra-trusted-public-keys = nix.mcseekeri.com-1:3gd0/2u7IOF7YooxEiBbWTvRCYGC53S2UoqFdnCUYHc=
             build-dir = /nix/build
+            max-jobs = 2
+            max-substitution-jobs = 8
       - name: Setup niks3
         uses: Mic92/niks3-action@v1
         with:
           server-url: https://niks3.mcseekeri.com
-          drain-timeout: 3600
+          drain-timeout: 7200
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
       - name: Check evaluation
