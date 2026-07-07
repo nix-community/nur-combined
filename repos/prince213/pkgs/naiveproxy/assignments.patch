@@ -1,0 +1,21 @@
+--- a/build/toolchain/gcc_toolchain.gni
++++ b/build/toolchain/gcc_toolchain.gni
+@@ -407,8 +407,8 @@
+         command = "cmd /s /c \"\"$python_path\" $tool_wrapper_path delete-file {{output}} && $command\""
+       } else {
+         command = "rm -f {{output}} && $command"
+-        inputs =
+-            [ get_path_info(rebase_path(ar, ".", root_out_dir), "abspath") ]
++        # inputs =
++        #     [ get_path_info(rebase_path(ar, ".", root_out_dir), "abspath") ]
+       }
+
+       # Almost all targets build with //build/config/compiler:thin_archive which
+--- a/.gn
++++ b/.gn
+@@ -176,4 +176,4 @@
+       "//third_party/dawn/third_party/meson/meson_target.gni",
+     ]
+
+-expand_directory_allowlist = build_dotfile_settings.expand_directory_allowlist
++# expand_directory_allowlist = build_dotfile_settings.expand_directory_allowlist

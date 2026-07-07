@@ -12,7 +12,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
-    owner = "kokic";
+    owner = "kodama-community";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
     hash = "sha256-vATf+cgZWNIKA9Bai/wc2j2ntDmNalWdi91u4UTsiZE=";
@@ -24,7 +24,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Typst-friendly static Zettelkästen site generator";
-    homepage = "https://github.com/kokic/kodama";
+    homepage = "https://github.com/kodama-community/kodama";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ prince213 ];
   };

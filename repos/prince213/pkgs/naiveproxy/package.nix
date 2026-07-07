@@ -38,7 +38,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "naiveproxy";
-  version = "149.0.7827.114-1";
+  version = "150.0.7871.63-1";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -47,12 +47,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "klzgrad";
     repo = "naiveproxy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LfBEEshD+/TCstSbF8lkpOi95c2tshBca7wo07XFs7g=";
+    hash = "sha256-hZbSK5ifZLkxwR5kdUZioZdwcPMaBXUtj64Kh7l4x9s=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
 
   patches = [
+    # ERROR: Assignment had no effect.
+    ./assignments.patch
+
     ./cflags.patch
   ]
   ++ lib.optional stdenvNoCC.hostPlatform.isDarwin (
@@ -63,9 +66,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   );
 
   postPatch = ''
-    # ERROR at //.gn:174:30: Assignment had no effect.
-    sed -i '/^expand_directory_allowlist =/d' .gn
-
     patchShebangs --build build/toolchain/apple/linker_driver.py
   ''
   + (
@@ -158,16 +158,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     updateScript = nix-update-script { };
     pgoProfiles = {
       aarch64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7827-1780682012-34f5ad56d61af22a024ee7f6eb8bb6bf6d23a2ce-4185813e9f60e6a1ea3ac12cbce62f4e511cb234.profdata";
-        hash = "sha256-f/1dX2gJVo4TTS/Bwbo4zjUazXaze3C5vVUuvb15rVY=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-arm-7871-1782251783-42ea1f90e1c578b011b558a4f21eaadd0e6204d9-1ddcb220ca6fd7fd5dc7593547188c00e30166f8.profdata";
+        hash = "sha256-o1pV5ZS4rT1xvEQLXd9anricvMFPgeAA+QiEgICaSCo=";
       };
       x86_64-darwin = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7827-1780637531-cc899399c30693429cfd4db2f8b466b9a49952e3-d46fada91c2229327a16ccfd0600864674d6e191.profdata";
-        hash = "sha256-C7x79QV3a8PWC/9UzXxOSqQKeZ8GZ7stJ+e/loyk6Lw=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-mac-7871-1782236690-b2cfe6324d607a77036bbe97644bb237f4e223a1-3d4da56162112271e9a86f91f4696c964516a649.profdata";
+        hash = "sha256-xW08mdr8mL8bWLYfF5cAGozPZL0SKutOrTMuvMQgm4Q=";
       };
       any-linux = fetchurl {
-        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7827-1780682012-f62c73d731b52a07fffe1a178a38103191b0fddd-4185813e9f60e6a1ea3ac12cbce62f4e511cb234.profdata";
-        hash = "sha256-J4jRjfmMpSQKXLLNvbb7lOoVS+HOe1H5qeuR6Ak/clo=";
+        url = "https://storage.googleapis.com/chromium-optimization-profiles/pgo_profiles/chrome-linux-7871-1782236690-ee033e4bf26c147ed0557fd905d416dc66bc7545-3d4da56162112271e9a86f91f4696c964516a649.profdata";
+        hash = "sha256-YxGO9z49f+Az75TIs9F1EXRQTDLuj97MCB5KF0kZJto=";
       };
     };
   };
