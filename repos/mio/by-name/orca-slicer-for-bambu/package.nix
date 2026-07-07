@@ -13,11 +13,9 @@ orca-slicer.overrideAttrs (old: {
     hash = "sha256-pk4dtihDAK0FSYDcW+AftQbnEgPTfhVz9n02c+2K3Go=";
   };
 
-  prePatch = (old.prePatch or "") + ''
-    sed -i '/function(orcaslicer_copy_sos/,/endfunction()/d' CMakeLists.txt
-    sed -i '/orcaslicer_copy_sos/d' src/CMakeLists.txt
-    sed -i '/if (CMAKE_SYSTEM_NAME STREQUAL "Linux" AND NOT FLATPAK)/,/endif ()/d' CMakeLists.txt
-  '';
+  patches = (old.patches or [ ]) ++ [
+    ./patches/remove-avcodec-copy.patch
+  ];
 
   meta = old.meta // {
     description = "OrcaSlicer fork with full BambuNetwork support restored for Bambu Lab printers";
