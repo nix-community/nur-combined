@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "atlarator";
     repo = "git-blame-someone-else";
     rev = finalAttrs.version;
-    sha256 = "sha256-xraG1dR5Q8oDlUXARgh0ql8eRwH4bJWblJFjH1wJcys=";
+    hash = "sha256-xraG1dR5Q8oDlUXARgh0ql8eRwH4bJWblJFjH1wJcys=";
   };
 
   buildPhase = ''

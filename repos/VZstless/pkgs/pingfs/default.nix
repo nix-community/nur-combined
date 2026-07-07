@@ -13,7 +13,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "atlarator";
     repo = "pingfs";
     rev = finalAttrs.version;
-    sha256 = "sha256-G0j2vJ2cnmj9TgZ9WHAq/3a7ZD269rLbNtxgm2WHKMs=";
+    hash = "sha256-G0j2vJ2cnmj9TgZ9WHAq/3a7ZD269rLbNtxgm2WHKMs=";
   };
 
   nativeBuildInputs = [ 
