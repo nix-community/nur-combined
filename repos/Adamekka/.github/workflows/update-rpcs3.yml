@@ -1,0 +1,43 @@
+name: Update rpcs3
+
+on:
+  schedule:
+    - cron: "00 9 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Update rpcs3
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
+
+      - name: Update package
+        env:
+          # nix-update starts nested Nix commands, so this must be inherited rather
+          # than passed only to the outer `nix run`.
+          NIX_CONFIG: |
+            fallback = true
+        run: nix run nixpkgs#nix-update -- --flake --use-update-script rpcs3
+
+      - name: Create pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          add-paths: pkgs/rpcs3/default.nix
+          branch: update/rpcs3
+          commit-message: Update rpcs3
+          delete-branch: true
+          title: Update rpcs3
+          body: |
+            Automated update for `rpcs3` from upstream `master`.
