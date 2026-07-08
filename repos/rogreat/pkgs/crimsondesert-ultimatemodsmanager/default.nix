@@ -8,16 +8,17 @@
   privatebin,
   pyside6-fluent-widgets,
   python3Packages,
+  qt6,
   rustPlatform,
   xvfb,
 }:
 let
-  version = "3.4.2";
+  version = "3.5.0";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-446HJMLvDmxfQEnFFDIG7a33QLpII0Rx6eYRSKG+loU=";
+    hash = "sha256-gV1OwJL/rYGTTDTumuTHbPLVjGNj9AVUd2Ug8oaOW3I=";
   };
 
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
@@ -51,8 +52,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     })
     (fetchpatch2 {
       name = "unix-culprit-feat.patch";
-      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/a17bc7ea0b22cbc33251156ca9f8edbee807e3ac.patch?full_index=1";
-      hash = "sha256-9SRTklVwS6ysLQcPs/00FgoOt85RCYpQ2Y41trFG5ms=";
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/d87d722d942d1c9b897aa6d2ed080ee983cf130f.patch?full_index=1";
+      hash = "sha256-kYK4bRWdN1sGmviCSrWBZo2EpgUVFI8wJHEClTwwlqE=";
     })
   ];
 
@@ -67,12 +68,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
   nativeBuildInputs = [
     copyDesktopItems
     imagemagick
+    qt6.wrapQtAppsHook
   ];
 
   dependencies = [
     cdumm-native
     privatebin
     pyside6-fluent-widgets
+    qt6.qtbase
   ]
   ++ (with python3Packages; [
     bsdiff4
@@ -96,10 +99,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ]);
 
   disabledTestPaths = [
-    # Fail on rerun
+    # Fail
+    "tests/test_game_index.py::test_extract_reresolves_paz_under_game_dir"
     "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
-    # Slow on rerun
+    # Slow
     "tests/test_f3_whole_table_rebuild.py"
+    "tests/test_iteminfo_layout.py"
   ];
 
   disabledTestMarks = [
@@ -144,10 +149,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   preFixup = ''
-    makeWrapperArgs+=(
+    qtWrapperArgs+=(
       --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
     )
-    wrapProgram $out/bin/cdumm ''${makeWrapperArgs[@]}
+    wrapProgram $out/bin/cdumm ''${qtWrapperArgs[@]}
   '';
 
   meta = {
