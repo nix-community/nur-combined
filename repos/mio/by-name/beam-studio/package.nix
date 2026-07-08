@@ -12,7 +12,26 @@
   makeDesktopItem,
   copyDesktopItems,
   autoPatchelfHook,
+  pkg-config,
+  fontconfig,
+  freetype,
+  fetchurl,
+  appimageTools,
+  xorg,
+  cairo,
+  libGL,
 }:
+let
+  backendAppImage = fetchurl {
+    url = "https://beamstudio.s3.amazonaws.com/linux-22.04/Beam%20Studio-2.6.8.AppImage";
+    hash = "sha256-+NNeAThprCd+1WE7aVqlkCEk4rLmKN0aD5RykRkHOa8=";
+  };
+  backendContents = appimageTools.extractType2 {
+    pname = "beam-studio-backend";
+    version = "2.6.8-stable";
+    src = backendAppImage;
+  };
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "beam-studio";
   version = "2.6.8-stable";
@@ -39,18 +58,38 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm_10
     copyDesktopItems
     autoPatchelfHook
+    pkg-config
   ];
 
   buildInputs = [
     stdenv.cc.cc.lib
+    fontconfig
+    freetype
+    xorg.libxcb
+    xorg.libX11
+    cairo
+    libGL
   ];
 
-  env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-  env.PUBLISH_PATH = "";
-  env.PUBLISH_SUFFIX = "";
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    PUBLISH_PATH = "";
+    PUBLISH_SUFFIX = "";
+    npm_config_build_from_source = "true";
+  };
 
   buildPhase = ''
     runHook preBuild
+
+    # prevent node-gyp from downloading Electron headers
+    export ELECTRON_HEADERS_DIR="$PWD/.electron-headers"
+    mkdir -p "$ELECTRON_HEADERS_DIR"
+    cp -R ${electron.headers}/* "$ELECTRON_HEADERS_DIR/"
+    ln -s "$ELECTRON_HEADERS_DIR/include/node/common.gypi" "$ELECTRON_HEADERS_DIR/common.gypi"
+    ln -s "$ELECTRON_HEADERS_DIR/include/node/config.gypi" "$ELECTRON_HEADERS_DIR/config.gypi"
+    export npm_config_nodedir="$ELECTRON_HEADERS_DIR"
+
+    pnpm rebuild
 
     # Patch prebuilt binaries in node_modules
     autoPatchelf node_modules
@@ -83,6 +122,9 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r apps/app/dist/linux-unpacked/resources $out/share/beam-studio/
     cp apps/app/dist/linux-unpacked/*.pak $out/share/beam-studio/ || true
 
+    # Inject backend from official AppImage
+    cp -r ${backendContents}/resources/backend $out/share/beam-studio/resources/
+
     mkdir -p $out/bin
     makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
       --add-flags $out/share/beam-studio/resources/app.asar \
@@ -112,7 +154,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Beam Studio";
     homepage = "https://github.com/flux3dp/beam-studio";
-    license = lib.licenses.agpl3Only;
+    license = with lib.licenses; [
+      agpl3Only
+      unfree
+    ];
     maintainers = [ ];
     mainProgram = "beam-studio";
     platforms = lib.platforms.linux;
