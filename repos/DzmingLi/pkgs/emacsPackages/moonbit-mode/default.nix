@@ -5,7 +5,7 @@
   tree-sitter,
 }:
 
-## tonyfettes/moonbit-mode: MoonBit major mode，tree-sitter 高亮 + eglot
+## moonbit-community/moonbit-mode: MoonBit major mode，tree-sitter 高亮 + eglot
 ## (moonbit-lsp) 集成，含 semantic tokens 增强高亮和 moon build/check/test
 ## project 命令。
 ##
@@ -46,10 +46,10 @@ emacsPackages.trivialBuild {
   version = "0.1.0-unstable-2026-05-17";
 
   src = fetchFromGitHub {
-    owner = "tonyfettes";
+    owner = "moonbit-community";
     repo = "moonbit-mode";
-    rev = "b74d2bac952a4fe49ada431fe473df884dc99a65";
-    sha256 = "16q1kfmlxgb5k6506csqm0m16qhx30a8ya044zqn1qzxml3gxyaq";
+    rev = "bb917c11472fe2c8b1fed7eac2d2ffcd51ba1111";
+    sha256 = "14awraa7692s4bjvds3znr8gfij7f147lxwlavl401grpj3ns08a";
   };
 
   postInstall = ''
@@ -62,7 +62,7 @@ emacsPackages.trivialBuild {
 
   meta = with lib; {
     description = "MoonBit major mode for Emacs with tree-sitter highlighting and Eglot support";
-    homepage = "https://github.com/tonyfettes/moonbit-mode";
+    homepage = "https://github.com/moonbit-community/moonbit-mode";
     license = licenses.asl20;
     platforms = platforms.unix;
   };
