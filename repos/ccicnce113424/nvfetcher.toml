@@ -18,6 +18,15 @@ src.prefix = "DXVK-GPLALL-"
 fetch.github = "lzpls/enimul"
 src.github_tag = "lzpls/enimul"
 
+[fast-nix-gc]
+cargo_lock = ["Cargo.lock"]
+fetch.github = "Mic92/fast-nix-gc"
+src.git = "https://github.com/Mic92/fast-nix-gc"
+
+[flake-linter]
+fetch.github = "Mic92/flake-linter"
+src.git = "https://github.com/Mic92/flake-linter"
+
 [fxz]
 fetch.github = "conor42/fxz"
 src.git = "https://github.com/conor42/fxz"
@@ -71,6 +80,10 @@ src.git = "https://github.com/chiyuki0325/lyrica"
 cargo_lock = ["src-tauri/Cargo.lock"]
 fetch.github = "AnInsomniacy/motrix-next"
 src.github_tag = "AnInsomniacy/motrix-next"
+
+[nix-auth]
+fetch.github = "numtide/nix-auth"
+src.git = "https://github.com/numtide/nix-auth"
 
 [ntfsprogs-plus]
 fetch.github = "ntfsprogs-plus/ntfsprogs-plus"

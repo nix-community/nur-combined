@@ -65,6 +65,55 @@
         },
         "version": "v0.3.1"
     },
+    "fast-nix-gc": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-8bSrhuD0kGw0HlJqQsDDYidr9QG2aujOqS+46yNhW5Y=/Cargo.lock",
+                {
+                    "harmonia-file-core-3.1.0": "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4="
+                }
+            ]
+        },
+        "date": "2026-07-04",
+        "extract": null,
+        "name": "fast-nix-gc",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Mic92",
+            "repo": "fast-nix-gc",
+            "rev": "aba1902a691f538d7655a8cb1f6c88adc8ced241",
+            "sha256": "sha256-8bSrhuD0kGw0HlJqQsDDYidr9QG2aujOqS+46yNhW5Y=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "aba1902a691f538d7655a8cb1f6c88adc8ced241"
+    },
+    "flake-linter": {
+        "cargoLock": null,
+        "date": "2026-07-05",
+        "extract": null,
+        "name": "flake-linter",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Mic92",
+            "repo": "flake-linter",
+            "rev": "453ac8cef41094a4e26cd78b32638969b55561c8",
+            "sha256": "sha256-RzOE3knD5IDJyNysscd40WOh5XUWdms8pbObABNTfwI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "453ac8cef41094a4e26cd78b32638969b55561c8"
+    },
     "fxz": {
         "cargoLock": null,
         "date": "2022-01-09",
@@ -330,6 +379,27 @@
             "type": "github"
         },
         "version": "v3.9.7-beta.2"
+    },
+    "nix-auth": {
+        "cargoLock": null,
+        "date": "2026-07-02",
+        "extract": null,
+        "name": "nix-auth",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "numtide",
+            "repo": "nix-auth",
+            "rev": "606cf8a61467a1c2ca208e7c9698c05b0a4631e9",
+            "sha256": "sha256-3uQHlsljEgAqermVRTNSgk+YKnIxnIEMammX4jYfoTc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "606cf8a61467a1c2ca208e7c9698c05b0a4631e9"
     },
     "ntfsprogs-plus": {
         "cargoLock": null,

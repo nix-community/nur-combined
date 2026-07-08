@@ -37,6 +37,16 @@ lib.makeScope pkgs.newScope (
       version = stableVersion sources;
     };
 
+    fast-nix-gc = self.callPackage ./fast-nix-gc rec {
+      sources = fetchedSrc.fast-nix-gc;
+      version = unstableVersion sources 0;
+    };
+
+    flake-linter = self.callPackage ./flake-linter rec {
+      sources = fetchedSrc.flake-linter;
+      version = unstableVersion sources 0;
+    };
+
     fxz =
       let
         sources = fetchedSrc.fxz;
@@ -108,6 +118,12 @@ lib.makeScope pkgs.newScope (
       inherit (lib.importJSON ./motrix-next/src-info.json) hash;
       sources = fetchedSrc.motrix-next-beta;
       version = stableVersion sources;
+    };
+
+    nix-auth = self.callPackage ./nix-auth rec {
+      inherit (lib.importJSON ./nix-auth/src-info.json) hash;
+      sources = fetchedSrc.nix-auth;
+      version = unstableVersion sources 0;
     };
 
     ntfsprogs-plus = self.callPackage ./ntfsprogs-plus {
