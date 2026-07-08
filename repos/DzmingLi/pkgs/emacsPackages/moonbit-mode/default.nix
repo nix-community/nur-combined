@@ -43,13 +43,13 @@ let
 in
 emacsPackages.trivialBuild {
   pname = "moonbit-mode";
-  version = "0.1.0-unstable-2026-05-17";
+  version = "0.1.0-unstable-2026-07-08";
 
   src = fetchFromGitHub {
-    owner = "moonbit-community";
+    owner = "DzmingLi";
     repo = "moonbit-mode";
-    rev = "bb917c11472fe2c8b1fed7eac2d2ffcd51ba1111";
-    sha256 = "14awraa7692s4bjvds3znr8gfij7f147lxwlavl401grpj3ns08a";
+    rev = "1c2616c5b76d3220444238e39a3931cdd7c795f6";
+    sha256 = "1cnwqb6368h1szrypq9w7j7436p0is9kdd98f9aqnpxhrq8g3vlm";
   };
 
   postInstall = ''
