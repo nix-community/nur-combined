@@ -5,22 +5,22 @@
     "linux-amd64": "sha256-H8lLVxNNUWacchc61dSf1ir7Dx25vz95j9mO5CP41zA=",
     "linux-arm64": "sha256-dNl74cw6R0EpWQxn6/dIqW5y2fOitv7z7TJ13lkdSbM="
   },
-  "1.25.11": {
-    "darwin-amd64": "sha256-JtDuQHHeQrXDMjN9uf3SNAcod2l8VH5G6F77D1lQfGY=",
-    "darwin-arm64": "sha256-zY1JIOeTDVXaGlpXukOmSxMF9xzfLKPHbNjFSScrFoA=",
-    "linux-amd64": "sha256-NPFDBOhWiT9LowwsrP6TkG6d55FcX2qq86gc3M17ows=",
-    "linux-arm64": "sha256-wwv54ValTqTjH7u/MacSsyc0tYzJoiQm+l7mMtCIUSQ="
+  "1.25.12": {
+    "darwin-amd64": "sha256-AKLnQ7grzOwDxRxLD35G1f7FIYQHX9bFGDw7s5rp+wA=",
+    "darwin-arm64": "sha256-+iyIu89kvTsq7zVfAmz+xtOkoBwTL5mcj4yWTrdnFk8=",
+    "linux-amd64": "sha256-I0got6ieDjA9JVYxDuVJ+88lPSjek3usPaE9YpQmKsE=",
+    "linux-arm64": "sha256-i1iErviWAK71sLBR+5cfEfSbuZZSHpEfMPAqZohPe9I="
   },
-  "1.26.4": {
-    "darwin-amd64": "sha256-BdybX5mXdEUgquuz1d6qfHVTca67+3+XwlEanzNnU40=",
-    "darwin-arm64": "sha256-tirSttfSRk8Spbytf/R/GdCDJXc7Xv0hYQ5EWgWpv1M=",
-    "linux-amd64": "sha256-EVPT1Q4Kx2S0R63+BcK88I6InUKgLg/gJZvUf2czrX8=",
-    "linux-arm64": "sha256-73WK58bPkmfJwO8IC4ll9FPYmrLSXZ6yLeRAWSUjh2g="
+  "1.26.5": {
+    "darwin-amd64": "sha256-YjHY07j1VS7Gy/bWhb3VSC4ecDIUsSDomzvw178e9yU=",
+    "darwin-arm64": "sha256-77h/8or5oYjQU2711C5j3VK6gmPNc0Spk8xI3RHe22o=",
+    "linux-amd64": "sha256-XCw7FsrvodloqUwdrKBKfKMBpJbZsIbhetd7uBOT8FM=",
+    "linux-arm64": "sha256-/keJ6SsfMzWGgIZLvocEKJ57tfwgfYBiPDCJNb1pbUk="
   },
-  "1.27rc1": {
-    "darwin-amd64": "sha256-7Cq/pnWhiCoT/XIDW9xQY1tbSitCTB9pKlc3sKMzoyI=",
-    "darwin-arm64": "sha256-e3tNZvwKe8jlezYCNA3+9G1PX5X8XTDlxa9qZxgw3lQ=",
-    "linux-amd64": "sha256-ECpgVdaCsfIzvBdBEizG/drnp93tEwX7zDAHmYQYcUQ=",
-    "linux-arm64": "sha256-6TOLZXQwx8Mv/+xpbOfXsChvmbZfj5Ci9aZ4GjTzSSg="
+  "1.27rc2": {
+    "darwin-amd64": "sha256-EUV2bgtRDPLwGFuD3d+qfDpn8Day/UYB2Zb6whVxNbY=",
+    "darwin-arm64": "sha256-tUO/Q17SZtZrJ177pDPb5kkEvmB/42VJTPcvetTpG2M=",
+    "linux-amd64": "sha256-4t/fwrLUCSvyPV/7ChEiHC8+7S2Kz8UTRAZrnIOjaNs=",
+    "linux-arm64": "sha256-+Kt1RZPH6i9H4xggwOiDkQVjbEs4rhdLoQeWDqJenpI="
   }
 }
