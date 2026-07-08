@@ -226,7 +226,7 @@ dependencies = [
 
 [[package]]
 name = "dogma-rust"
-version = "2.1.4"
+version = "2.1.5"
 dependencies = [
  "anyhow",
  "chrono",
