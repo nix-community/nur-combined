@@ -14,8 +14,8 @@
   name = "spatial";
   repo = "duckdb-spatial";
   branch = "v1.5-variegata";
-  rev = "c9ef445070585a88a3d399d8916757dde15d606f";
-  hash = "sha256-bK87AetWxWitjX0ZT0aiPyQtUrlxJLBVkrgEbKKuaiM=";
+  rev = "2157857cd46927a03a37528cbd219a4e63d9648b";
+  hash = "sha256-VBaoUeiqoRTXWjh3DqOIh/2C6vVPQPDAGW71OBSI5Tg=";
   loadOptions = [
     "DONT_LINK"
     "INCLUDE_DIR src/spatial"
