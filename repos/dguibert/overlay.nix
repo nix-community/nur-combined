@@ -250,8 +250,6 @@ with final; {
   #  nemo_meto_go8_4_0_2
   #;
 
-  nss_sss = callPackage ./pkgs/sssd/nss-client.nix {};
-
   nvptx-newlib = final.callPackage ./pkgs/nvptx-newlib {};
   nvptx-tools = final.callPackage ./pkgs/nvptx-tools {};
 
