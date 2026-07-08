@@ -5,9 +5,11 @@
          m_ProfileJson["region"] = m_Region;
  
 -        m_ProfileJson["network_plugin_install"] = wxGetApp().app_config->get("app","installed_networking");
+-        m_ProfileJson["network_plugin_compability"] = wxGetApp().is_compatibility_version() ? "1" : "0";
+-        network_plugin_ready = wxGetApp().is_compatibility_version();
 +        m_ProfileJson["network_plugin_install"] = "1";
-         m_ProfileJson["network_plugin_compability"] = wxGetApp().is_compatibility_version() ? "1" : "0";
-         network_plugin_ready = wxGetApp().is_compatibility_version();
++        m_ProfileJson["network_plugin_compability"] = "1";
++        network_plugin_ready = true;
      }
 --- a/src/slic3r/Utils/NetworkAgent.cpp
 +++ b/src/slic3r/Utils/NetworkAgent.cpp

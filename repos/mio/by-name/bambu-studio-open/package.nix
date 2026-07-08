@@ -29,6 +29,10 @@ bambu-studio.overrideAttrs (oldAttrs: {
     substituteInPlace src/slic3r/Utils/NetworkAgent.cpp \
       --replace-fail "@obn_plugin_path@" "${obn}/lib/libbambu_networking.so" \
       --replace-fail "@obn_bambu_source_path@" "${obn}/lib/libBambuSource.so"
+
+    # Skip the data collection / privacy agreement page by simulating a "Skip" click
+    substituteInPlace resources/web/guide/3/3.js \
+      --replace-fail 'TranslatePage();' 'GotoSkipPage(); return;'
   '';
 
   meta = oldAttrs.meta // {
