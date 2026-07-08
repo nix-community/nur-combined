@@ -77,7 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    export HOME=$(mktemp -d)
+    export XDG_CACHE_HOME=$(mktemp -d)
     export FONTCONFIG_FILE=${pkgs.fontconfig.out}/etc/fonts/fonts.conf
 
     # prevent node-gyp from downloading Electron headers
