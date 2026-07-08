@@ -1,11 +1,11 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 52e69db..9fdc1e2 100644
+index 9f95beb..1d86c5e 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.496",
+     "@iconify/json": "2.2.497",
 +    "@inlang/plugin-m-function-matcher": "^2.2.9",
 +    "@inlang/plugin-message-format": "^4.4.0",
      "@monaco-editor/react": "4.7.0",
@@ -27,13 +27,13 @@ index 0596557..66c083a 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 5b53d80..cd921da 100644
+index 2a90604..9646091 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.496
-         version: 2.2.496
+         specifier: 2.2.497
+         version: 2.2.497
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.9
 +        version: 2.2.9
@@ -113,7 +113,7 @@ index 5b53d80..cd921da 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10302,6 +10343,8 @@ snapshots:
+@@ -10304,6 +10345,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
