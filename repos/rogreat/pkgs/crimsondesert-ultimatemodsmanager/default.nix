@@ -46,14 +46,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   patches = [
     (fetchpatch2 {
-      name = "unix-culprit-revert.patch";
-      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/207453cd33bd5c185bbec278c3d4f9c2bca0776f.patch?full_index=1";
-      hash = "sha256-fktQiZXLLlZvONnZaddlm/ss+l4Sb3umEaesyMr5Ofc=";
-    })
-    (fetchpatch2 {
       name = "unix-culprit-feat.patch";
-      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/d87d722d942d1c9b897aa6d2ed080ee983cf130f.patch?full_index=1";
-      hash = "sha256-kYK4bRWdN1sGmviCSrWBZo2EpgUVFI8wJHEClTwwlqE=";
+      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/1b1b239179eec0bcbf203f03629f8d9d398ab317.patch?full_index=1";
+      hash = "sha256-zk29eEJw2ZGr3NxHuLAphlxG3s9YEyLsfL2gpyJ/6IM=";
     })
   ];
 
