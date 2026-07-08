@@ -21,3 +21,9 @@ Guidelines:
 - If the failure cannot be fixed safely, explain the blocker and leave the working tree unchanged where possible.
 
 Finish with a pull request comment for the workflow to post on the failed pull request. The comment should explain what changed and what was verified.
+
+The final response must contain only this exact format, without a code fence or any other text:
+
+BEGIN_PR_COMMENT
+<pull request comment>
+END_PR_COMMENT

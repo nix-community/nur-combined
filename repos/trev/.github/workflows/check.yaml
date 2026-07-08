@@ -103,7 +103,7 @@ jobs:
           secret: ${{ secrets.RSYNC_SECRET }}
 
       - name: Fix
-        run: codex exec --sandbox workspace-write --output-last-message "$RUNNER_TEMP/codex-comment.md" - < .github/fix.md
+        run: codex exec --dangerously-bypass-approvals-and-sandbox --output-last-message "$RUNNER_TEMP/codex-comment.md" - < .github/fix.md
         env:
           GH_TOKEN: ${{ github.token }}
 
@@ -142,9 +142,11 @@ jobs:
           codex_comment="$RUNNER_TEMP/codex-comment.md"
 
           if [[ -s "$codex_comment" ]]; then
-            cp "$codex_comment" "$comment_file"
-          else
-            printf 'Codex finished without generating a comment.\n' > "$comment_file"
+            sed -n '/^BEGIN_PR_COMMENT$/,/^END_PR_COMMENT$/ { /^BEGIN_PR_COMMENT$/d; /^END_PR_COMMENT$/d; p; }' "$codex_comment" > "$comment_file"
+          fi
+
+          if [[ ! -s "$comment_file" ]]; then
+            printf 'Codex finished without generating a pull request comment.\n' > "$comment_file"
           fi
 
           gh pr comment "$PR_NUMBER" --body-file "$comment_file"
