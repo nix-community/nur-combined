@@ -70,6 +70,88 @@ jobs:
             --override-input nixpkgs "https://github.com/NixOS/nixpkgs/archive/refs/heads/${{ matrix.nix }}" \
             --flake ".#packages.$(nix eval --raw --impure --expr builtins.currentSystem)"
 
+  fix:
+    needs: check
+    if: >-
+      failure() &&
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+      id-token: write
+      pull-requests: write
+    steps:
+      - id: init
+        name: Initialize
+        uses: spotdemo4/nix-init@1443d93dfa3ca2f043b37f848631d6ac5563b0ec # v1.56.0
+        with:
+          app_id: ${{ vars.CLIENT_ID }}
+          app_key: ${{ secrets.PRIVATE_KEY }}
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch_depth: 0
+          shell: fix
+
+      - name: Authenticate
+        uses: spotdemo4/rsync-action@387847b604c04af49ddb7e7f0384dce0a79d3356 # v0.1.0
+        with:
+          server: trev.zip
+          module: codex
+          remote-path: auth.json
+          local-path: ~/.codex/auth.json
+          secret: ${{ secrets.RSYNC_SECRET }}
+
+      - name: Fix
+        run: codex exec --sandbox workspace-write --output-last-message "$RUNNER_TEMP/codex-comment.md" - < .github/fix.md
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - id: commit
+        name: Commit changes
+        run: |
+          if [[ -z "$(git status --porcelain)" ]]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git add --all
+          git commit -m "fix: repair check failures for PR #${PR_NUMBER}"
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
+      - name: Disable auto-merge
+        run: |
+          if [[ "$(gh pr view "$PR_NUMBER" --json autoMergeRequest --jq '.autoMergeRequest != null')" == "true" ]]; then
+            gh pr merge "$PR_NUMBER" --disable-auto
+          fi
+        env:
+          GH_TOKEN: ${{ steps.init.outputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
+      - name: Push changes
+        if: steps.commit.outputs.has_changes == 'true'
+        run: git push origin "HEAD:$SOURCE_BRANCH"
+        env:
+          SOURCE_BRANCH: ${{ github.event.pull_request.head.ref }}
+
+      - name: Comment
+        run: |
+          comment_file="$RUNNER_TEMP/pr-comment.md"
+          codex_comment="$RUNNER_TEMP/codex-comment.md"
+
+          if [[ -s "$codex_comment" ]]; then
+            cp "$codex_comment" "$comment_file"
+          else
+            printf 'Codex finished without generating a comment.\n' > "$comment_file"
+          fi
+
+          gh pr comment "$PR_NUMBER" --body-file "$comment_file"
+        env:
+          GH_TOKEN: ${{ steps.init.outputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+
   trigger:
     needs: [check, build]
     if: github.event_name == 'push'
