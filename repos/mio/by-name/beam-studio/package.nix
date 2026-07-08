@@ -77,6 +77,9 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
+    export HOME=$(mktemp -d)
+    export FONTCONFIG_FILE=${pkgs.fontconfig.out}/etc/fonts/fonts.conf
+
     # prevent node-gyp from downloading Electron headers
     export ELECTRON_HEADERS_DIR="$PWD/.electron-headers"
     mkdir -p "$ELECTRON_HEADERS_DIR"
@@ -87,20 +90,21 @@ stdenv.mkDerivation (finalAttrs: {
 
     pnpm rebuild
 
-    # font-scanner has a binding.gyp but no install script, so pnpm skips it.
-    for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
-      if [ -f "$dir/binding.gyp" ]; then
-        echo "Building $dir"
-        (cd "$dir" && node-gyp rebuild)
-      fi
-    done
-
     # Patch prebuilt binaries in node_modules
     autoPatchelf node_modules
 
     # Beam Studio build
     pnpm --filter @beam-studio/app run build
     pnpm --filter @beam-studio/app run build-node
+
+    # Build font-scanner AFTER webpack to prevent fontconfig hangs during webpack
+    for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
+      if [ -f "$dir/binding.gyp" ]; then
+        echo "Building $dir"
+        (cd "$dir" && node-gyp rebuild)
+        autoPatchelf "$dir"
+      fi
+    done
 
     # Run electron-builder
     cp -r ${electron.dist} electron-dist
