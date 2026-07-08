@@ -132,6 +132,8 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${customBackend}/bin/flux_api $out/share/beam-studio/resources/backend/flux_api/flux_api
 
     mkdir -p $out/bin
+    # The official AppImage explicitly hardcodes --no-sandbox in its desktop file to prevent
+    # Chromium sandbox crashes (like /dev/shm IPC failures) on various Linux distributions.
     makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
       --add-flags $out/share/beam-studio/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
