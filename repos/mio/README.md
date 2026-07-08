@@ -116,3 +116,7 @@ files are copied from following locations. some are modified in this repo and so
 ## llm policy
 
 headache. use LLM for boring no brain task
+
+## Python 3.8
+
+While Python 3.8 reached End-Of-Life in October 2024 and is removed from modern NixOS releases, we dynamically fetch the `nixos-23.05` legacy channel inside `beam-studio`'s backend build (`by-name/beam-studio/backend.nix`). This provides a complete Python 3.8 environment and old `opencv-python` wheels necessary to correctly execute the proprietary, decompiled PyInstaller `.pyc` bytecode blobs (`beamify`, `fluxclient`, `fluxsvg`) that `beam-studio` relies on without needing to maintain the outdated Python version globally.
