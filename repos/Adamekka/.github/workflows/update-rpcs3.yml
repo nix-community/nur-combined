@@ -29,6 +29,7 @@ jobs:
           # than passed only to the outer `nix run`.
           NIX_CONFIG: |
             fallback = true
+          NIXPKGS_ALLOW_UNFREE: "1"
         run: nix run nixpkgs#nix-update -- --flake --use-update-script rpcs3
 
       - name: Create pull request
