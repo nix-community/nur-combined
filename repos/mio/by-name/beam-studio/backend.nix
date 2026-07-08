@@ -18,7 +18,7 @@ let
         hash = "sha256-LWvKHp7kGxk/GEtlrGYV68qIvPHkU9iToomNFGagixU=";
       })
       {
-        inherit (pkgs) system;
+        system = pkgs.stdenv.hostPlatform.system;
         config.allowUnfree = true;
       };
 

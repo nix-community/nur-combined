@@ -18,7 +18,8 @@
   freetype,
   fetchurl,
   appimageTools,
-  xorg,
+  libxcb,
+  libx11,
   cairo,
   libGL,
 }:
@@ -58,8 +59,8 @@ stdenv.mkDerivation (finalAttrs: {
     stdenv.cc.cc.lib
     fontconfig
     freetype
-    xorg.libxcb
-    xorg.libX11
+    libxcb
+    libx11
     cairo
     libGL
   ];
