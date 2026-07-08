@@ -22,6 +22,7 @@
   libx11,
   cairo,
   libGL,
+  node-gyp,
 }:
 let
   customBackend = pkgs.callPackage ./backend.nix { };
@@ -48,6 +49,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     python3
     nodejs
+    node-gyp
     pnpmConfigHook
     pnpm_10
     copyDesktopItems
@@ -84,6 +86,14 @@ stdenv.mkDerivation (finalAttrs: {
     export npm_config_nodedir="$ELECTRON_HEADERS_DIR"
 
     pnpm rebuild
+
+    # font-scanner has a binding.gyp but no install script, so pnpm skips it.
+    for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
+      if [ -f "$dir/binding.gyp" ]; then
+        echo "Building $dir"
+        (cd "$dir" && node-gyp rebuild)
+      fi
+    done
 
     # Patch prebuilt binaries in node_modules
     autoPatchelf node_modules
