@@ -4239,10 +4239,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.1";
+      version = "3.2";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4884378/firemonkey-3.1.xpi";
-      sha256 = "91dc40d126f7f96529364544a65fd6db13f801c293fd7e9e2a32780731c260ee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4886408/firemonkey-3.2.xpi";
+      sha256 = "d432e0235bc8858a1b9eccf9527f4b099896430ed91537c19b801d126aa476a0";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -4340,10 +4340,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.9.1";
+      version = "5.10.1";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4759586/floccus-5.9.1.xpi";
-      sha256 = "fd10810c818a6168a1c5bb67d95af33a29ed21d5c4978bfa79fd5bb342376263";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4887521/floccus-5.10.1.xpi";
+      sha256 = "ff42ae958319b2f33deeddd020bd91f22b57a6f382040f72f1273a439d5b2136";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -4693,10 +4693,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.0.1";
+      version = "2.0.2";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4886194/geo_spoof-2.0.1.xpi";
-      sha256 = "604d18e80c00fcfabe07d20258fb81f65a0a3d9823b4622cce41b9a282125350";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4886413/geo_spoof-2.0.2.xpi";
+      sha256 = "1c4f580356fd81c357eb218322c73483dbfe343b3b3430958baf2e05c3be03b8";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -7255,10 +7255,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24.2";
+      version = "0.24.3";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4881712/javascript_restrictor-0.24.2.xpi";
-      sha256 = "967ca21afd87db75ec2b1f014c1419f9fee78c2246a3a8dd9ab91b43f28d8212";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4883135/javascript_restrictor-0.24.3.xpi";
+      sha256 = "ec17a496fd88d3f1b90807263ae7ca3e9f9a4934d7600cad07b85402afb47912";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -14355,10 +14355,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.3";
+      version = "2.4.5";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4882702/styl_us-2.4.3.xpi";
-      sha256 = "16ea7ec442c605da0f57f88255c3ab2c8f3a2c90aa24e315c3474615c893ba5a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4887700/styl_us-2.4.5.xpi";
+      sha256 = "509557b542d9dcd496a316b108dadbcbd5cfa9ec46a44c1f37c463d45f32270a";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
