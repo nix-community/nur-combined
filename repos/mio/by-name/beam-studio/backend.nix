@@ -59,6 +59,7 @@ let
     p.pyasn1
     p.tinycss2
     p.setuptools
+    p.pytest
     opencv-python-wheel
   ]);
 
@@ -117,6 +118,9 @@ pkgs.stdenv.mkDerivation {
     cp -r flux_api_blob_extracted/PYZ-00.pyz_extracted/beamify $out/lib/python3.8/site-packages/
     cp -r flux_api_blob_extracted/PYZ-00.pyz_extracted/fluxclient $out/lib/python3.8/site-packages/
     cp -r flux_api_blob_extracted/PYZ-00.pyz_extracted/fluxsvg $out/lib/python3.8/site-packages/
+
+    # Fix pyinstxtractor bug where printer/__init__.pyc is extracted as printer.pyc alongside the printer directory
+    mv $out/lib/python3.8/site-packages/fluxclient/toolpath/printer.pyc $out/lib/python3.8/site-packages/fluxclient/toolpath/printer/__init__.pyc || true
 
     # Copy native C extensions and assets for proprietary blobs
     cp -r ${backendContents}/resources/backend/flux_api/beamify/* $out/lib/python3.8/site-packages/beamify/ 2>/dev/null || true
