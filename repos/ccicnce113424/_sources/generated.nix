@@ -349,16 +349,16 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "56796c70e90b8c23695a9286a81788a8c8658c32";
+    version = "9c13d58bd259db5c85d2fa306c70ac2457d52555";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "56796c70e90b8c23695a9286a81788a8c8658c32";
+      rev = "9c13d58bd259db5c85d2fa306c70ac2457d52555";
       fetchSubmodules = false;
-      sha256 = "sha256-vtilwjcx0d2+zJ+5JWYGBTgm4Un3dCKOyXRR89AP8lk=";
+      sha256 = "sha256-jyXpOGKBilNANH3OJ1s+CuEp6/WsJ612gOBr0qbDhis=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-vtilwjcx0d2+zJ+5JWYGBTgm4Un3dCKOyXRR89AP8lk=/Cargo.lock";
+      lockFile = ./. + "/sha256-jyXpOGKBilNANH3OJ1s+CuEp6_WsJ612gOBr0qbDhis=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
