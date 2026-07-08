@@ -148,11 +148,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cp -a assets $out/${python3Packages.python.sitePackages}
   '';
 
+  dontWrapQtApps = true;
+
   preFixup = ''
-    qtWrapperArgs+=(
-      --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
-    )
-    wrapProgram $out/bin/cdumm ''${qtWrapperArgs[@]}
+    wrapQtApp $out/bin/cdumm --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
   '';
 
   meta = {
