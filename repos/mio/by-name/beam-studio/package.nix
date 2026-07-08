@@ -23,7 +23,7 @@
   libGL,
 }:
 let
-  customBackend = pkgs.callPackage ./backend.nix {};
+  customBackend = pkgs.callPackage ./backend.nix { };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "beam-studio";
