@@ -36,6 +36,9 @@ stdenv.mkDerivation rec {
   pname = "open-bamboo-networking-${client}";
   version = "1.1.0";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "ClusterM";
     repo = "open-bamboo-networking";

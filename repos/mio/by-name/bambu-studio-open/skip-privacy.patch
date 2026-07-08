@@ -1,0 +1,23 @@
+diff -urN a/resources/web/guide/3/3.js b/resources/web/guide/3/3.js
+--- a/resources/web/guide/3/3.js	2026-07-09 08:36:44.900436795 +1000
++++ b/resources/web/guide/3/3.js	2026-07-09 08:36:44.904436786 +1000
+@@ -3,7 +3,7 @@
+ 
+ function OnInit()
+ {
+-	TranslatePage();
++	GotoSkipPage(); return;
+ 	BindUxProgramPopup();
+ 	
+ 	//SendPrivacySelect();
+diff -urN a/src/libslic3r/AppConfig.hpp b/src/libslic3r/AppConfig.hpp
+--- a/src/libslic3r/AppConfig.hpp	2026-07-09 08:46:09.076219236 +1000
++++ b/src/libslic3r/AppConfig.hpp	2026-07-09 08:46:09.086219214 +1000
+@@ -70,6 +70,7 @@
+ 	bool get(const std::string &section, const std::string &key, std::string &value) const
+ 	{
+ 		value.clear();
++		if (key == "privacyuse") { value = "false"; return true; }
+ 		auto it = m_storage.find(section);
+ 		if (it == m_storage.end())
+ 			return false;

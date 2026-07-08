@@ -17,46 +17,31 @@
              networking_module = LoadLibrary(lib_wstr);
      }
  #else
--    #if defined(__WXMAC__)
+     #if defined(__WXMAC__)
 -    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_NETWORK_LIBRARY) + ".dylib";
--    #else
--    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_NETWORK_LIBRARY) + ".so";
--    #endif
-+    // obn.patch: hardcode open-bamboo-networking plugin path (placeholder replaced at build time)
 +    library = "@obn_plugin_path@";
-+    // (replaced: platform-specific library path detection)
-+    // (replaced: platform-specific library path detection)
-+    // (replaced: platform-specific library path detection)
+     #else
+-    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_NETWORK_LIBRARY) + ".so";
++    library = "@obn_plugin_path@";
+     #endif
      BOOST_LOG_TRIVIAL(info) << __FUNCTION__ << boost::format(", line %1%, loading network module, using_backup %2%\n")%__LINE__ %using_backup;
 -    module_cert_summary = SummarizeModule(library);
 -    if (self_cert_summary) {
--        module_cert_summary = SummarizeModule(library);
--        if (module_cert_summary) {
--            if (IsSamePublisher(*self_cert_summary, *module_cert_summary))
--                networking_module = dlopen(library.c_str(), RTLD_LAZY);
--            else
--                BOOST_LOG_TRIVIAL(info) << "module is from another publisher:" << module_cert_summary->as_print();
--        }
--        else
--            BOOST_LOG_TRIVIAL(info) << "module_cert is null";
--    }
--    else
--        networking_module = dlopen( library.c_str(), RTLD_LAZY);
++    //module_cert_summary = SummarizeModule(library);
++    if (false) {
+         module_cert_summary = SummarizeModule(library);
+         if (module_cert_summary) {
+             if (IsSamePublisher(*self_cert_summary, *module_cert_summary))
+                 networking_module = dlopen(library.c_str(), RTLD_LAZY);
+             else
+                 BOOST_LOG_TRIVIAL(info) << "module is from another publisher:" << module_cert_summary->as_print();
+         }
+         else
+             BOOST_LOG_TRIVIAL(info) << "module_cert is null";
+     }
+     else
+         networking_module = dlopen( library.c_str(), RTLD_LAZY);
 -    if (!networking_module) {
-+    // obn.patch: skip signature verification, dlopen directly
-+    networking_module = dlopen(library.c_str(), RTLD_LAZY);
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
-+    // (replaced: SummarizeModule / certificate verification block)
 +    if (false) {
          char* dll_error = dlerror();
          std::string err       = dll_error ? std::string(dll_error) : std::string("(null)");
@@ -65,16 +50,25 @@
          source_module = LoadLibrary(lib_wstr);
      }
  #else
--#if defined(__WXMAC__)
+ #if defined(__WXMAC__)
 -    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_SOURCE_LIBRARY) + ".dylib";
--#else
--    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_SOURCE_LIBRARY) + ".so";
--#endif
-+    // obn.patch: hardcode open-bamboo-networking BambuSource path (placeholder replaced at build time)
 +    library = "@obn_bambu_source_path@";
-+    // (replaced: platform-specific BambuSource library path)
-+    // (replaced: platform-specific BambuSource library path)
-+    // (replaced: platform-specific BambuSource library path)
+ #else
+-    library = plugin_folder.string() + "/" + std::string("lib") + std::string(BAMBU_SOURCE_LIBRARY) + ".so";
++    library = "@obn_bambu_source_path@";
+ #endif
      source_module = dlopen( library.c_str(), RTLD_LAZY);
      /*if (!source_module) {
  #if defined(__WXMAC__)
+diff -urN a/resources/web/guide/5/5.js b/resources/web/guide/5/5.js
+--- a/resources/web/guide/5/5.js	2026-07-09 08:36:44.901436793 +1000
++++ b/resources/web/guide/5/5.js	2026-07-09 08:36:44.905436784 +1000
+@@ -1,7 +1,7 @@
+ 
+ function OnInit()
+ {
+-	TranslatePage();
++	FinishGuide(); return;
+ 	
+ 	SendInstallPluginCheck();
+ }
