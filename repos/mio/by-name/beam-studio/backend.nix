@@ -137,6 +137,7 @@ pkgs.stdenv.mkDerivation {
     # 4. Create the flux_api executable wrapper using our custom Python environment
     makeWrapper ${pythonEnv}/bin/python $out/bin/flux_api \
       --set PYTHONPATH "$out/lib/python3.8/site-packages" \
+      --set PYTHONUNBUFFERED "1" \
       --add-flags "-m ghost"
   '';
 }
