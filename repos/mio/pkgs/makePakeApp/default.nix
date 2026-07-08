@@ -11,6 +11,7 @@
   rustc,
   curl,
   wget,
+  pkg-config,
   file,
   gnutar,
   rustPlatform,
@@ -67,16 +68,6 @@
 }:
 
 let
-  pakeSrc = pake.src;
-
-  cargoDeps = rustPlatform.fetchCargoVendor {
-    pname = "pake";
-    inherit version;
-    src = pakeSrc;
-    cargoRoot = "src-tauri";
-    hash = "sha256-r54xHSlfn44+jz/wmiFtV+CN6QJ8KB6hyang3xnJZdA=";
-  };
-
   executableName = "pake-${pname}";
 in
 assert lib.assertMsg (pname == lib.toLower pname) "makePakeApp: pname must be lowercase";
@@ -96,6 +87,7 @@ stdenv.mkDerivation (finalAttrs: {
     rustc
     curl
     wget
+    pkg-config
     file
     gnutar
     imagemagick
@@ -156,17 +148,11 @@ stdenv.mkDerivation (finalAttrs: {
     export CARGO_NET_OFFLINE="true"
 
     vendor_dir="$TMPDIR/cargo-vendor"
-    cp -Lr --reflink=auto "${cargoDeps}" "$vendor_dir"
+    cp -Lr --reflink=auto "${pake.cargoDeps}" "$vendor_dir"
     chmod -R u+w "$vendor_dir"
 
     mkdir -p "$PAKE_RUNTIME_DIR/.cargo"
-    cat > "$PAKE_RUNTIME_DIR/.cargo/config.toml" <<EOF
-    [source.crates-io]
-    replace-with = "vendored-sources"
-
-    [source.vendored-sources]
-    directory = "$vendor_dir"
-    EOF
+    sed "s|@vendor@|$vendor_dir|g" "${pake.cargoDeps}/.cargo/config.toml" > "$PAKE_RUNTIME_DIR/.cargo/config.toml"
 
     icon_rgba="$TMPDIR/pake-icon.png"
     magick "${icon}" -alpha on -background none -define png:color-type=6 "$icon_rgba"

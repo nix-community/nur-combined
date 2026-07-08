@@ -9,6 +9,7 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   pnpm,
+  rustPlatform,
   makeBinaryWrapper,
   node-gyp,
   pkg-config,
@@ -186,7 +187,7 @@ stdenv.mkDerivation (finalAttrs: {
           pkg-config
         ]
       } \
-      --set PKG_CONFIG_PATH ${
+      --prefix PKG_CONFIG_PATH : ${
         lib.makeSearchPath "lib/pkgconfig" [
           (lib.getDev glib)
           (lib.getDev gtk3)
@@ -238,6 +239,15 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru = {
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      pname = "pake";
+      inherit (finalAttrs) version src;
+      cargoRoot = "src-tauri";
+      hash = "sha256-dEj0Zo5ioLETtOQolU1fV/RBbMrlhxJgodXt69DTVUE=";
+    };
+  };
 
   meta = {
     description = "Turn any webpage into a desktop app with one command";
