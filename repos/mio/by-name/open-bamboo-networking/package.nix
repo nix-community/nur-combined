@@ -1,3 +1,8 @@
+# Copyright (c) 2024 Tom Sievers
+# SPDX-License-Identifier: MIT
+#
+# NixOS packaging logic is originally inspired by and adapted from:
+# https://codeberg.org/TomSievers/open-bamboo-networking-nixos.git
 {
   lib,
   stdenv,
@@ -70,18 +75,11 @@ stdenv.mkDerivation rec {
     )
   '';
 
-  postInstall = ''
-    mkdir -p $out/share/open-bamboo-networking
-
-    # Normalize/find installed artifacts for downstream module usage.
-    find $out -type f -name 'libbambu_networking*.so' -print \
-      > $out/share/open-bamboo-networking/plugin-files.txt || true
-  '';
-
   meta = {
     description = "Open-source Bambu/Orca network plugin replacement";
     homepage = "https://github.com/ClusterM/open-bamboo-networking";
     license = lib.licenses.agpl3Only;
+    maintainers = with lib.maintainers; [ mio ];
     platforms = lib.platforms.linux;
   };
 }
