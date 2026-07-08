@@ -154,6 +154,10 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Beam Studio";
     homepage = "https://github.com/flux3dp/beam-studio";
+    # Note: While the backend components are proprietary (unfree), beam-studio is
+    # licensed under AGPL-3.0. According to the Software Freedom Conservancy,
+    # users might or might not be entitled to reverse engineer the combined work to exercise their
+    # rights under the AGPL-3.0. Please consult a lawyer if you are unsure about your rights.
     license = with lib.licenses; [
       agpl3Only
       unfree
