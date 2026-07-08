@@ -39,14 +39,20 @@ struct TerminalExit {
 }
 
 #[tauri::command]
+fn create_session_id(state: State<'_, AppState>) -> Result<u64, String> {
+    Ok(state.next_session_id.fetch_add(1, Ordering::Relaxed))
+}
+
+#[tauri::command]
 fn start_session(
     app: tauri::AppHandle,
     state: State<'_, AppState>,
+    session_id: u64,
     host: String,
     cols: u16,
     rows: u16,
-) -> Result<u64, String> {
-    let session_id = state.next_session_id.fetch_add(1, Ordering::Relaxed);
+) -> Result<(), String> {
+
     let pty_system = NativePtySystem::default();
     let pair = pty_system
         .openpty(PtySize {
@@ -128,7 +134,7 @@ fn start_session(
         let _ = exit_app.emit("terminal-exit", TerminalExit { session_id, status });
     });
 
-    Ok(session_id)
+    Ok(())
 }
 
 #[tauri::command]
@@ -215,6 +221,7 @@ fn main() {
         })
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(tauri::generate_handler![
+            create_session_id,
             start_session,
             write_session,
             resize_session,

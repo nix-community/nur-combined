@@ -104,6 +104,16 @@ function TerminalSession({
     };
 
     const start = async () => {
+      let sessionId: number;
+      try {
+        sessionId = await invoke<number>("create_session_id");
+        sessionIdRef.current = sessionId;
+      } catch (error) {
+        setConnectionState("error");
+        term.writeln(`OmniMux: failed to allocate session ID: ${String(error)}`);
+        return;
+      }
+
       outputUnlisten = await listen<TerminalOutput>("terminal-output", (event) => {
         if (event.payload.session_id === sessionIdRef.current) {
           term.write(event.payload.data);
@@ -120,7 +130,8 @@ function TerminalSession({
       });
 
       try {
-        const sessionId = await invoke<number>("start_session", {
+        await invoke("start_session", {
+          sessionId,
           host,
           cols: term.cols,
           rows: term.rows,
@@ -130,7 +141,6 @@ function TerminalSession({
           return;
         }
 
-        sessionIdRef.current = sessionId;
         setConnectionState("connected");
       } catch (error) {
         setConnectionState("error");
