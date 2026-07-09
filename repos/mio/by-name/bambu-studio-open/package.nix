@@ -35,8 +35,8 @@ bambu-studio.overrideAttrs (oldAttrs: {
 
   postPatch = (oldAttrs.postPatch or "") + ''
     substituteInPlace src/slic3r/Utils/NetworkAgent.cpp \
-      --replace-fail "@obn_plugin_path@" "${obn}/lib/libbambu_networking.so" \
-      --replace-fail "@obn_bambu_source_path@" "${obn}/lib/libBambuSource.so"
+      --replace-fail "@obn_plugin_path@" "${obn}/plugins/libbambu_networking.so" \
+      --replace-fail "@obn_bambu_source_path@" "${obn}/plugins/libBambuSource.so"
   '';
 
   meta = oldAttrs.meta // {
