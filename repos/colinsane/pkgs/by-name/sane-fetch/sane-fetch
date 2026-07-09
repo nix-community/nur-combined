@@ -1,0 +1,88 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ]'
+
+import argparse
+import asyncio
+import concurrent.futures
+
+from typing import Any, Callable, Coroutine, ParamSpec, TypeVar
+
+from crawl4ai.async_webcrawler import AsyncWebCrawler, CrawlResultContainer
+from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
+from mcp.server.fastmcp import FastMCP
+
+P = ParamSpec("P")
+R = TypeVar("R")
+
+
+def make_sync(f: Callable[P, Coroutine[Any, Any, R]]) -> Callable[P, R]:
+  def wrapped(*args: P.args, **kwargs: P.kwargs) -> R:
+    try:
+      return asyncio.run(f(*args, **kwargs))
+    except RuntimeError:
+      # XXX idk what this is about. Kimi thinks that asyncio isn't re-entrant (i.e. async -> sync -> async would deadlock)
+      # and i don't doubt it because async is fuck.
+      with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+        return pool.submit(asyncio.run, f(*args, **kwargs)).result()
+
+  return wrapped
+
+
+@make_sync
+async def crawl4ai_fetch(url: str) -> CrawlResultContainer:
+  async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+    return await crawler.arun(url=url)
+
+
+def do_fetch(url: str) -> str:
+  result = crawl4ai_fetch(url)
+  if result.markdown:
+    return result.markdown
+  elif result.cleaned_html:
+    return result.cleaned_html
+  elif result.html:
+    return result.html
+  else:
+    raise RuntimeError(f"failed to extract content. url={url}, result={result}")
+
+
+def cli_fetch(url: str) -> None:
+  print(do_fetch(url))
+
+
+def cli_mcp() -> None:
+  mcp = FastMCP("sane-fetch")
+
+  @mcp.tool()
+  def fetch(url: str) -> str:
+    """Fetch a URL and return its content as markdown or HTML."""
+    try:
+      return do_fetch(url)
+    except Exception as e:
+      return str(e)
+
+  mcp.run(transport="stdio")
+
+
+def main():
+  parser = argparse.ArgumentParser(description="robot-friendly URL fetcher")
+  subparsers = parser.add_subparsers(dest="command")
+
+  fetch_parser = subparsers.add_parser("fetch", help="Fetch a URL and print its content")
+  fetch_parser.add_argument("url", help="URL to fetch")
+
+  subparsers.add_parser("mcp", help="Run as an MCP server over stdio")
+
+  args = parser.parse_args()
+
+  if args.command == "fetch":
+    cli_fetch(args.url)
+  elif args.command == "mcp":
+    cli_mcp()
+  else:
+    parser.print_help()
+    raise ValueError(f"unknown command: {args.command}")
+
+
+if __name__ == "__main__":
+    main()
