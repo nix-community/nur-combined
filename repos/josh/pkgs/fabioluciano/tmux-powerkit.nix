@@ -7,13 +7,13 @@
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "tmux-powerkit";
   rtpFilePath = "tmux-powerkit.tmux";
-  version = "5.28.9";
+  version = "5.28.11";
 
   src = fetchFromGitHub {
     owner = "fabioluciano";
     repo = "tmux-powerkit";
     tag = "v${version}";
-    hash = "sha256-/HV58i856MewWfFkAs/WmhSkzYTTB2FmUAY6QL1hix4=";
+    hash = "sha256-TsNfQSH/B5dpTc6GicSYV/TCY9qDgaD7US9m9YPvK1s=";
   };
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
