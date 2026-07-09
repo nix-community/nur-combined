@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "ca58660ccbf7cc4ff9e6e821c3d13509e62ac03d";
+    version = "8b194a76c2c5b999ba9c023f6cc7227a90696870";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "ca58660ccbf7cc4ff9e6e821c3d13509e62ac03d";
+      rev = "8b194a76c2c5b999ba9c023f6cc7227a90696870";
       fetchSubmodules = false;
-      sha256 = "sha256-kTmVWMHq/Flza/9WS7fp1zttfT8yZ7te4DBNhmCGONs=";
+      sha256 = "sha256-yUtZIFzbj/NIpmxgJcA+oF2XX1dAs1LG1jPG3Wo7qbY=";
     };
-    date = "2026-07-08";
+    date = "2026-07-09";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -112,18 +112,18 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.0.4033.57";
+    version = "8.1.4087.46";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.0.4033.57.universal.dmg";
-      sha256 = "sha256-otjJcL7HXZr3h6zOtEmM4twqb0u7f35K45yU/taKanc=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.46.universal.dmg";
+      sha256 = "sha256-N65vPritiYMc+/JbaOtkf51awW/hrdKKaREa4k2rl58=";
     };
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.21.5b";
+    version = "1.21.6b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.21.5b/zen.macos-universal.dmg";
-      sha256 = "sha256-5qs1bt5B1pc/LzwWXt+XTdBNlLSXqtATL4DRqiXUpWY=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.21.6b/zen.macos-universal.dmg";
+      sha256 = "sha256-oVUjVm3RSQvEan/2DswdBWD3ZNaGm05f8szuMr+VYso=";
     };
   };
 }
