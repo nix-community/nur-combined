@@ -129,11 +129,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 3;
+    fetcherVersion = 4;
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-m18kLGJeRHFDFbXnAur0s25089P9yF/0Lg84V4S3Afs=";
+    hash = "sha256-QcXyIkhMjHxZ1ZXQOrleaQZqWH+kIL+OOSAk4SBaZXs=";
   };
 
   env = {

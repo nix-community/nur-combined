@@ -52,7 +52,7 @@ let
     installPhase = "cp pnpm-lock.yaml $out";
     outputHashMode = "flat";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-Lg0Vva50E6tcBEraJk9OU+sWOiarsUgOKtuncgmxIxU=";
+    outputHash = "sha256-LPkgo8+/sTOYEzujmKk3SaUFf2GCg+fFQ377OgQksJc=";
   };
 
   # Patched source for dependencies fetching
@@ -71,8 +71,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version;
     src = pnpmDepsSrc;
-    fetcherVersion = 3;
-    hash = "sha256-QmkOHiHsVhVsiYzKpqJdqtjXJ5JL3gMWv7tUYJ0GSIU=";
+    fetcherVersion = 4;
+    hash = "sha256-hlG7EvnNEKfJz0qwwUadUvr/B1VrogS7opVjTgKOOlI=";
   };
 
   cargoHash = "sha256-OQDh1FQSFnu9rOIkpfotV2VYK444wvodZ7AIcy8859E=";

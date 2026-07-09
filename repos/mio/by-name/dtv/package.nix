@@ -69,8 +69,8 @@ rustPlatform.buildRustPackage rec {
   pnpmDeps = fetchPnpmDeps {
     inherit pname version;
     src = pnpmDepsSrc;
-    fetcherVersion = 3;
-    hash = "sha256-guqcYV9cAWQQy/BBYbSJRzTRORhMM5ggPMEq/3Id6MA=";
+    fetcherVersion = 4;
+    hash = "sha256-Cgiuriulwnb/cRkuOLlLw+CLe19gp0diYJhIsgZ1sV0=";
   };
 
   buildAndTestSubdir = "src-tauri";

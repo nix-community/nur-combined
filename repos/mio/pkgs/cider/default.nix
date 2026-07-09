@@ -29,11 +29,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 3;
+    fetcherVersion = 4;
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-lE3FdkKI8/eGbLwjyh9759o//eCoVtMnq/Iatkvhazg=";
+    hash = "sha256-ixgb9s5/9PtiVg9yAAPPowcKGRCXmwbEhLQoUqbpHJ4=";
   };
 
   nativeBuildInputs = [
