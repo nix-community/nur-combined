@@ -97,6 +97,11 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm --filter @beam-studio/app run build
     pnpm --filter @beam-studio/app run build-node
 
+    # In a Nix environment wrapper, process.defaultApp is true.
+    # This causes Electron to incorrectly use '.' instead of process.resourcesPath
+    # and opens DevTools on startup. Replace it with false.
+    sed -i 's/process.defaultApp/false/g' apps/app/public/js/node/main.js
+
     # Build font-scanner AFTER webpack to prevent fontconfig hangs during webpack
     for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
       if [ -f "$dir/binding.gyp" ]; then
