@@ -29,6 +29,10 @@
   librsvg,
   jemalloc,
   libqalculate,
+  stb,
+  md4c,
+  nlohmann_json,
+  tomlplusplus,
 
   withLto ? false,
   withNative ? false,
@@ -36,6 +40,16 @@
 
 let
   current = lib.trivial.importJSON ./version.json;
+
+  stb_git = stb.overrideAttrs (_: {
+    version = "unstable-2025-10-26";
+    src = fetchFromGitHub {
+      owner = "nothings";
+      repo = "stb";
+      rev = "f1c79c02822848a9bed4315b12c8c8f3761e1296";
+      hash = "sha256-BlyXJtAI7WqXCTT3ylww8zoG0hBxaojJnQDvdQOXJPE=";
+    };
+  });
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "noctalia";
@@ -89,6 +103,10 @@ stdenv.mkDerivation (finalAttrs: {
     librsvg
     jemalloc
     libqalculate
+    stb_git
+    md4c
+    nlohmann_json
+    tomlplusplus
   ];
 
   mesonFlags = [

@@ -16,14 +16,14 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "pantry";
-  version = "0.4.1-unstable-2026-07-01";
+  version = "0.4.1-unstable-2026-07-09";
 
   # https://github.com/lonerOrz/pantry
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "pantry";
-    rev = "a3884d45b83846beb3f54247b1b4bf32a28a7bcf";
-    hash = "sha256-1Z4Y9BGTouBHwk0NyT9ow7/xx9VlE/jgrjrWhD3ii5E=";
+    rev = "a57b4f2c723ac1c5c0bc8b4776e3ff1488db6e33";
+    hash = "sha256-3cevVhTPiozgIF7Z0izmEWNvSnpijNKYJ/pfxm7v0BA=";
   };
 
   cargoHash = "sha256-CmUk9F+X9NVNBJBDchqPVTgdtqW7UHsChPUwgN5Pv3M=";

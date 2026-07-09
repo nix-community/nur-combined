@@ -9,15 +9,15 @@
 }:
 let
   pname = "gemini-cli-bin";
-  version = "0.49.0";
-  srcHash = "sha256-zgfDq2Ledh76ksDNFrXvy4aaFs4MsEvv7Y8fIrHRN5o=";
-  npmDepsHash = "sha256-qyhtkqvQHoJcVQd2z+zT5nSWpbOImptQvY4cGNeXfio=";
+  version = "0.50.0";
+  srcHash = "sha256-sY2EIS3/nu8DUvnNmaAk9dl1d2ZoN3jhxAIYgnx0HdQ=";
+  npmDepsHash = "sha256-gb3AeWEfX0KHGlJhz+co3gRF+/PJzFxPFM4ChqCy28k=";
 
   src = runCommand "gemini-cli-src-with-lock" { } ''
     mkdir -p $out
     tar -xzf ${
       fetchurl {
-        url = "https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.49.0.tgz";
+        url = "https://registry.npmjs.org/@google/gemini-cli/-/gemini-cli-0.50.0.tgz";
         hash = "${srcHash}";
       }
     } -C $out --strip-components=1
