@@ -102,6 +102,10 @@ stdenv.mkDerivation (finalAttrs: {
     # and opens DevTools on startup. Replace it with false.
     sed -i 's/process.defaultApp/false/g' apps/app/public/js/node/main.js
 
+    # process.resourcesPath points to the electron binary's resources directory,
+    # not the app's resources directory. Fix it to point to our app.asar's parent.
+    sed -i 's|process.resourcesPath|require("path").join(__dirname, "../../../../")|g' apps/app/public/js/node/main.js
+
     # Build font-scanner AFTER webpack to prevent fontconfig hangs during webpack
     for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
       if [ -f "$dir/binding.gyp" ]; then
