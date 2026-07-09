@@ -1,0 +1,20 @@
+{
+  "name": "orca",
+  "source": {
+    "type": "github-release",
+    "repo": "stablyai/orca",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.4.130",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "orca-macos-arm64.dmg",
+      "hash": "sha256-2CUMl0nTjc2t2FpficsDPuEn5uoJnE0pJIy3z5SyafY="
+    },
+    "x86_64-darwin": {
+      "file": "orca-macos-x64.dmg",
+      "hash": "sha256-Fv6Yd2r1fv7uyRCNKxFhBIBg9erUR1rO6WtezrMLsoA="
+    }
+  }
+}

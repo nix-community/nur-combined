@@ -1,0 +1,19 @@
+{
+  "name": "nuvio",
+  "source": {
+    "type": "github-release",
+    "repo": "NuvioMedia/NuvioDesktop",
+    "skip_prerelease": true
+  },
+  "version": "0.1.11-alpha",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "Nuvio-macOS-arm64-{version}.dmg",
+      "hash": "sha256-+IiZcrxneVrKIGMoSeOpj+ZZfrHc/kA7TUpJjqp6gD4="
+    },
+    "x86_64-darwin": {
+      "file": "Nuvio-macOS-x86_64-{version}.dmg",
+      "hash": "sha256-iJwZcs17FAPxEnMHFdq/m/vWvRTYlwW1O3PNZYBLHo0="
+    }
+  }
+}
