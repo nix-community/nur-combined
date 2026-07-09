@@ -78,6 +78,8 @@ jobs:
       github.event.pull_request.head.repo.full_name == github.repository &&
       (needs.check.result == 'failure' || needs.check.result == 'cancelled')
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       - name: Initialize
         uses: spotdemo4/nix-init@1443d93dfa3ca2f043b37f848631d6ac5563b0ec # v1.56.0
@@ -86,7 +88,7 @@ jobs:
           fetch_depth: 0
 
       - name: Run codex
-        uses: spotdemo4/codex-action@8050fe759356d42cc15ab1ed988c24fb4ebd6769 # v0.1.0
+        uses: spotdemo4/codex-action@a7c95ae58a8735d95a1f2f66b7b8618eddee72f8 # v0.1.1
         with:
           auth: ${{ secrets.CODEX_ACTION_AUTH }}
           client-id: ${{ vars.CLIENT_ID }}
