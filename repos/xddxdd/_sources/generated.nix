@@ -325,12 +325,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.54";
+    version = "v7.2.58";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.54";
-      hash = "sha256-rY/LTWZkaAqr/Df6N/gy31T4ntnoKbJAG3dtwfK03TE=";
+      tag = "v7.2.58";
+      hash = "sha256-0/T8VtJRttsXbFBBMviu4SBzUcDnMWz1pRiafJzLWIY=";
     };
   };
   cockpy = {
@@ -358,10 +358,10 @@
   };
   command-code = {
     pname = "command-code";
-    version = "0.41.4";
+    version = "0.44.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/command-code/-/command-code-0.41.4.tgz";
-      hash = "sha256-DpCovixWYrbd3+L8SQ4h0uCaI1D4BsOC3sD6ljdhfbo=";
+      url = "https://registry.npmjs.org/command-code/-/command-code-0.44.0.tgz";
+      hash = "sha256-w5TaNMpxCYWyNA+m1V/PWmU252FKxA/DfUypZ1nfK70=";
     };
   };
   comp128 = {
@@ -1262,24 +1262,24 @@
   };
   liboqs = {
     pname = "liboqs";
-    version = "0.15.0";
+    version = "0.16.0";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      tag = "0.15.0";
-      hash = "sha256-ATnI1QFFljTmMib6oOCiieDQMTwnEe+xIvcAzrz3bbI=";
+      tag = "0.16.0";
+      hash = "sha256-ys1ZqkcBFqblmYjTgDVYcdyK9PW2cvpPfaivbLTJZEU=";
     };
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "b5df1810314b69ac6a2e59712701be73c5081f9d";
+    version = "5a1a854b0dc9f2141bdc771c555ee60c37950183";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "b5df1810314b69ac6a2e59712701be73c5081f9d";
-      hash = "sha256-F7VoKh6uaEi9HQW5tLaKUin7w/kyj/AnO0roWvcDGKo=";
+      rev = "5a1a854b0dc9f2141bdc771c555ee60c37950183";
+      hash = "sha256-ys1ZqkcBFqblmYjTgDVYcdyK9PW2cvpPfaivbLTJZEU=";
     };
-    date = "2026-06-30";
+    date = "2026-07-09";
   };
   libqcef = {
     pname = "libqcef";
@@ -1356,12 +1356,12 @@
   };
   llama-cpp = {
     pname = "llama-cpp";
-    version = "b9931";
+    version = "b9941";
     src = fetchFromGitHub {
       owner = "ggerganov";
       repo = "llama.cpp";
-      tag = "b9931";
-      hash = "sha256-5xxx36yWPt0AgFBt7p4e3mfEjJYekEfSHJkCTF9ruuw=";
+      tag = "b9941";
+      hash = "sha256-5KWYTReyB05MWksZbv+RWnH4qdUPptSWAaPKysBIvsw=";
     };
   };
   loralib = {
@@ -1425,12 +1425,12 @@
   };
   metee = {
     pname = "metee";
-    version = "6.2.4";
+    version = "6.2.5";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "metee";
-      tag = "6.2.4";
-      hash = "sha256-7B4NCFl9vSCzL6IOa0J9T53XLuf/SHsZTiLMsRR4C6k=";
+      tag = "6.2.5";
+      hash = "sha256-ecI6XmIM3VK9+xcbvc5mB22Yg0f/mcUwNpFtJSoP4Gk=";
     };
   };
   mlat-client = {
@@ -1804,10 +1804,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.3.16";
+    version = "9.4.0";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.3.16/PeerBanHelper_9.3.16.zip";
-      hash = "sha256-jERAvp1aUDk8K0eiVGp2Jq9htTBJ8JvzpMgTpKZtHKI=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.4.0/PeerBanHelper_9.4.0.zip";
+      hash = "sha256-aTXQfRZQCSD3mVGzGbYZDXNmC9bgMfnSVyKcB4tl6jY=";
     };
   };
   phpmyadmin = {
@@ -2216,14 +2216,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "c53e7f9f03cccad46bd4c8ca3345bfbc10368aff";
+    version = "36bba3f5cbd2d85ab3af8a074b71d786acf19618";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "c53e7f9f03cccad46bd4c8ca3345bfbc10368aff";
-      hash = "sha256-jikpc756z/pkgRKNi8STtSv24/qj+foORv/yD1ruBmA=";
+      rev = "36bba3f5cbd2d85ab3af8a074b71d786acf19618";
+      hash = "sha256-AcdNTPkTk1/oCFx4d8kncmCd8FAXy8UN3qwhYdLnru8=";
     };
-    date = "2026-07-08";
+    date = "2026-07-09";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2317,12 +2317,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v5.4.0";
+    version = "v6.0.0";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v5.4.0";
-      hash = "sha256-manaxC97v2HVolGxVQubY2wd+TQJ0/Hu0iyPZW80iqc=";
+      tag = "v6.0.0";
+      hash = "sha256-ocIfPH+adGWbplk6i2jtuwZ2oo7nOm+VpqCB1yeDofM=";
     };
   };
   soggy = {
@@ -2475,15 +2475,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "b956ad3b62a6a7496e0c4e914f4fa934daddd13d";
+    version = "50d633c2284a3179a9ec3575089339a987a1052a";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "b956ad3b62a6a7496e0c4e914f4fa934daddd13d";
+      rev = "50d633c2284a3179a9ec3575089339a987a1052a";
       fetchSubmodules = true;
-      hash = "sha256-j4U+EhI8wWfalt4r7eBJiFCAXInahI4zsTSKTxLjI9c=";
+      hash = "sha256-WRz/tn2CKSAfGPEtwKNNXWxKnBp6AKkXTpSuOC3GeYQ=";
     };
-    date = "2026-07-06";
+    date = "2026-07-09";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
