@@ -31,6 +31,7 @@
   redream-dev = lib.callPackage ./pkgs/redream-dev {};
   betteraudio = lib.callPackage ./pkgs/betteraudio {};
   linearmouse = lib.callPackage ./pkgs/linearmouse {};
+  pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
@@ -40,6 +41,7 @@
   hyperkey = lib.callPackage ./pkgs/hyperkey {};
   finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
+  puremac = lib.callPackage ./pkgs/puremac {};
   roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};

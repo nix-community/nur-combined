@@ -1,0 +1,19 @@
+{
+  "name": "pearcleaner",
+  "source": {
+    "type": "github-release",
+    "repo": "alienator88/Pearcleaner",
+    "skip_prerelease": true
+  },
+  "version": "5.4.3",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "Pearcleaner-arm.zip",
+      "hash": "sha256-9FVOaeEXnPzZCIcwGEI/LX4rWI01Vsvs3Xh4iGbZeqs="
+    },
+    "x86_64-darwin": {
+      "file": "Pearcleaner-intel.zip",
+      "hash": "sha256-F+cQAatqgRY3i/Am6ANEYi/cs3wswHygZBWscPzLEyE="
+    }
+  }
+}

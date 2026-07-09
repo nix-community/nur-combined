@@ -7,6 +7,7 @@
     "url_path": ".casks[0].url"
   },
   "version": "1.5.0-1133-g03c2ae9",
+  "locked": true,
   "asset": {
     "url": "https://redream.io/download/redream.universal-mac-v1.5.0-1133-g03c2ae9.tar.gz",
     "hash": "sha256-iXKvOE+CUSWqRIGdxWr8SI9yy1FCrqj3gTtAZVQifMo="
