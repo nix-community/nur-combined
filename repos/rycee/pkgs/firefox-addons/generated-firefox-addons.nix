@@ -900,10 +900,10 @@
     };
     "aws-extend-switch-roles3" = buildMozillaXpiAddon {
       pname = "aws-extend-switch-roles3";
-      version = "6.2.0";
+      version = "6.2.1";
       addonId = "aws-extend-switch-roles@toshi.tilfin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4883001/aws_extend_switch_roles3-6.2.0.xpi";
-      sha256 = "d9a913201f6460dcad257e20a6f196b5cb6c5dda30b46e102180bb423f7369f8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4889102/aws_extend_switch_roles3-6.2.1.xpi";
+      sha256 = "9c6466605202c58eb0d4d347603ccdedc97b0c560329835e75fa7e9e308acc38";
       meta = with lib;
       {
         homepage = "https://github.com/tilfinltd/aws-extend-switch-roles";
@@ -1075,10 +1075,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.20";
+      version = "7.7.21";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4877702/betterttv-7.7.20.xpi";
-      sha256 = "4ba8892101fb62482ec71727d7d081d7703200dd6acd38e99b55d30f370db359";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888970/betterttv-7.7.21.xpi";
+      sha256 = "d01ccbaf3daa27ec247f4840c2f1946d4317b7b3f0a497fa784428df04ed5443";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -2729,10 +2729,10 @@
     };
     "csgo-trader-steam-trading" = buildMozillaXpiAddon {
       pname = "csgo-trader-steam-trading";
-      version = "3.6";
+      version = "3.6.1";
       addonId = "{988dd4f5-e8d5-49bf-a766-ff75b0e19fe2}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4770713/csgo_trader_steam_trading-3.6.xpi";
-      sha256 = "7778d5c1e2d6fe970addb226a1f1d88a1d43db5636b530a282c40ebcea436808";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4870989/csgo_trader_steam_trading-3.6.1.xpi";
+      sha256 = "91d8e6673cf0bdf1e573e46bcd903ac233f2fcb053b232010e1ec40d59ca224b";
       meta = with lib;
       {
         homepage = "https://csgotrader.app/";
@@ -2913,10 +2913,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "152.0.20260706.120035";
+      version = "153.0.20260708.90532";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885691/dansk_da_language_pack-152.0.20260706.120035.xpi";
-      sha256 = "31490911f9206678969a92db1767431e58f4b11de61eefeaa71976a40c08205e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888797/dansk_da_language_pack-153.0.20260708.90532.xpi";
+      sha256 = "645b76add35431c924213a2d18e01d085f6f0014eeb71cb176561ae84bf5e53b";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3129,10 +3129,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "152.0.20260706.120035";
+      version = "153.0.20260708.90532";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885689/deutsch_de_language_pack-152.0.20260706.120035.xpi";
-      sha256 = "5619d7c6f0933bfbcf0fd435b28c1dbc3217dcfc149ebc36fa4371b80e9d0e8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888781/deutsch_de_language_pack-153.0.20260708.90532.xpi";
+      sha256 = "6028593e95083cbc2e712ed097b8fa3f6f7b811506eb99e8140aa3a5437707ba";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4612,10 +4612,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "152.0.20260706.120035";
+      version = "153.0.20260708.90532";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885599/francais_language_pack-152.0.20260706.120035.xpi";
-      sha256 = "1b10a64c1f8b8ea0938701ddd92c08c87ec8dfd679b7fb08bbd3ad5be81d2e17";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888791/francais_language_pack-153.0.20260708.90532.xpi";
+      sha256 = "089b14162b4f310298a42e26b7d2a8956de5f92b5090b155a71f38e31180d243";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4649,10 +4649,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "152.0.20260706.120035";
+      version = "153.0.20260708.90532";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885663/gaidhlig_language_pack-152.0.20260706.120035.xpi";
-      sha256 = "498051bfa33ebd1820c8b91bfb74c0cf8b26515a81e6dfa77285e9d04661886d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888713/gaidhlig_language_pack-153.0.20260708.90532.xpi";
+      sha256 = "c116188f77783e4252ad056a2eac1bebbd175f0bb372022b50d4e4f5fb331bb7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -9966,10 +9966,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.37.0.0";
+      version = "13.38.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4873682/ether_metamask-13.37.0.0.xpi";
-      sha256 = "e7f1a92dc16cccec6e90a0b08bfef316abc1d33aaf40a213ab83a0cabc4e7654";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4884773/ether_metamask-13.38.0.0.xpi";
+      sha256 = "fb2e3ed8d3561ed25ef13e605d306d83a175032b69325448d4c304b79aa4662a";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -10790,10 +10790,10 @@
     };
     "okta-browser-plugin" = buildMozillaXpiAddon {
       pname = "okta-browser-plugin";
-      version = "6.46.0";
+      version = "6.47.0";
       addonId = "plugin@okta.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4807793/okta_browser_plugin-6.46.0.xpi";
-      sha256 = "007547000c9438c21f4ccd09ab447582be11d49c3b16b23ebfa03b2479cc8418";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4874645/okta_browser_plugin-6.47.0.xpi";
+      sha256 = "5b933e0599f094e3f6491192d5d7de4e044eff160307f3f8381a12c297e4a0ef";
       meta = with lib;
       {
         homepage = "https://www.okta.com";
@@ -10889,10 +10889,10 @@
     };
     "onepassword-password-manager" = buildMozillaXpiAddon {
       pname = "onepassword-password-manager";
-      version = "8.12.24.34";
+      version = "8.12.26.40";
       addonId = "{d634138d-c276-4fc8-924b-40a0ea21d284}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4853670/1password_x_password_manager-8.12.24.34.xpi";
-      sha256 = "46ab38c13ce6d472794bdb86ee1e10ec27eb64ee31757ab8a61fe78b826b3bdb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4875695/1password_x_password_manager-8.12.26.40.xpi";
+      sha256 = "1ba3a2466f7aac959bdd9a176b215bd44235a0e4999590594ea28b6a77fc3f5c";
       meta = with lib;
       {
         homepage = "https://1password.com";
@@ -11124,10 +11124,10 @@
     };
     "page-assist" = buildMozillaXpiAddon {
       pname = "page-assist";
-      version = "1.5.72";
+      version = "1.5.73";
       addonId = "page-assist@nazeem";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4872516/page_assist-1.5.72.xpi";
-      sha256 = "3678459e87dbd583e93be6085290821d2d7250a56f5e597145327da35edfcb8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4883587/page_assist-1.5.73.xpi";
+      sha256 = "3ae1043c232cacb0663cd6925270b392fca6b177fa989113c17fef0bb3e50e3f";
       meta = with lib;
       {
         homepage = "https://github.com/n4ze3m/page-assist";
@@ -11177,10 +11177,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.120";
+      version = "1.0.122";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4851850/paperpile_addon-1.0.120.xpi";
-      sha256 = "06928786c4efac161a9f53fd76ca2555ec59b4a3e682cd2bc9c13852f0d81e7d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888348/paperpile_addon-1.0.122.xpi";
+      sha256 = "42314d1df77772a000b88088c684bba82aefbddfd6bf55ba9354f6b9ef406f2b";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -11506,10 +11506,10 @@
     };
     "print-friendly-pdf" = buildMozillaXpiAddon {
       pname = "print-friendly-pdf";
-      version = "6.7.10";
+      version = "6.9.8";
       addonId = "jid0-YQz0l1jthOIz179ehuitYAOdBEs@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4618631/print_friendly_pdf-6.7.10.xpi";
-      sha256 = "d8b366ec0d0cafd8edc71945efd36073e6e875eb584a9f6f978f95dbd022cacf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4874185/print_friendly_pdf-6_UIbxD75.9.8.xpi";
+      sha256 = "ede74b4f83859580504953718d0b1568945d650c5325757918e0d7e3373cadb6";
       meta = with lib;
       {
         homepage = "https://www.printfriendly.com/";
@@ -13399,10 +13399,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "152.0.20260706.120035";
+      version = "153.0.20260708.90532";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885702/scots_language_pack-152.0.20260706.120035.xpi";
-      sha256 = "bbfd6558e20701c05b6ab0100b2b1b22af9209c077114102032c6b0ef0a9481c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888711/scots_language_pack-153.0.20260708.90532.xpi";
+      sha256 = "3a245a30a74419f1b339de15c6dc9d2bd0678715d069c8e56529871ae79a19c7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -15806,10 +15806,10 @@
     };
     "ublock-origin" = buildMozillaXpiAddon {
       pname = "ublock-origin";
-      version = "1.72.0";
+      version = "1.72.2";
       addonId = "uBlock0@raymondhill.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4872816/ublock_origin-1.72.0.xpi";
-      sha256 = "79cd426ab599801c59dfe9895cb4b8002faf3da059f7111c2721ac10168a3b64";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4888680/ublock_origin-1.72.2.xpi";
+      sha256 = "40c315b0da7871868155ecfae7a50a58dfa0920aebd865e008214986f1b7c578";
       meta = with lib;
       {
         homepage = "https://github.com/gorhill/uBlock#ublock-origin";
@@ -17056,10 +17056,10 @@
     };
     "whowrotethat" = buildMozillaXpiAddon {
       pname = "whowrotethat";
-      version = "0.23.4.0";
+      version = "0.23.5.0";
       addonId = "{7c53a467-2542-497a-86fb-59c2904a56d1}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4822592/whowrotethat-0.23.4.0.xpi";
-      sha256 = "08d8b15c173b2cf4c1d3f0895083f1e43fb6fe0e4f69cfb7b386ed5c17802598";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4889269/whowrotethat-0.23.5.0.xpi";
+      sha256 = "114d03fb26a2fcf0064dedaefbc2222b3bcbc3907ebd96929d9f31ecf30322a8";
       meta = with lib;
       {
         homepage = "https://www.mediawiki.org/wiki/WWT";
@@ -17101,6 +17101,7 @@
           "*://ja.wikipedia.org/*"
           "*://ka.wikipedia.org/*"
           "*://kk.wikipedia.org/*"
+          "*://ko.wikipedia.org/*"
           "*://ku.wikipedia.org/*"
           "*://lt.wikipedia.org/*"
           "*://lv.wikipedia.org/*"
@@ -17108,6 +17109,7 @@
           "*://ml.wikipedia.org/*"
           "*://mr.wikipedia.org/*"
           "*://ms.wikipedia.org/*"
+          "*://mt.wikipedia.org/*"
           "*://ne.wikipedia.org/*"
           "*://nl.wikipedia.org/*"
           "*://no.wikipedia.org/*"
@@ -17134,6 +17136,7 @@
           "*://uz.wikipedia.org/*"
           "*://vec.wikipedia.org/*"
           "*://vi.wikipedia.org/*"
+          "*://zh.wikipedia.org/*"
         ];
         platforms = platforms.all;
       };
