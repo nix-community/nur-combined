@@ -46,11 +46,24 @@ jobs:
           }
 
       - name: Update packages via nix-update
+        shell: bash
         run: |
-          nix-update --flake baidupcs-go --commit
-          nix-update --flake quarkpantool --commit
-          nix-update --flake blueprint-mcp --commit
-          nix-update --flake zju-connect --version=branch --commit
+          set -euo pipefail
+
+          run_update_script() {
+            local attr="$1"
+            mapfile -t update_script < <(nix eval --json ".#${attr}.passthru.updateScript" | jq -r '.[]')
+            local cmd="${update_script[0]}"
+            if [[ ! -x "$cmd" ]]; then
+              cmd="$(command -v "$(basename "$cmd")")"
+            fi
+            "$cmd" "${update_script[@]:1}" --flake "$attr" --commit
+          }
+
+          run_update_script baidupcs-go
+          run_update_script quarkpantool
+          run_update_script blueprint-mcp
+          run_update_script zju-connect
 
       - name: Update special packages via nu scripts
         run: |
