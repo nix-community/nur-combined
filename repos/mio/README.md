@@ -75,14 +75,13 @@ files are copied from following locations. some are modified in this repo and so
 + minetest591 - from nixos-24.11 commit 50ab793786d9de88ee30ec4e4c24fb4236fc2674 <https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/games/minetest/default.nix>
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
-+ shared folder, proton-bin, zfs-impermanence-on-shutdown.nix <https://github.com/chaotic-cx/nyx/commit/aacb796ccd42be1555196c20013b9b674b71df75>
++ shared folder, zfs-impermanence-on-shutdown.nix <https://github.com/chaotic-cx/nyx/commit/aacb796ccd42be1555196c20013b9b674b71df75>
 + betterbird <https://github.com/NixOS/nixpkgs/pull/528210>
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 + cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
 + stuntrally ogre mygui nixpkgs commit 56d904a94724499dd1cae942468f8740cdbb112a
 + icu nixpkgs commit 588c72d6229385ef2bab17ec4fc21db014790e4e
 + pkgs/os-specific/linux/kernel/common-flags.nix pkgs/os-specific/linux/zfs/generic.nix nixpkgs commit 154743920299
-+ eden <https://github.com/kira-bruneau/nur-packages.git> <https://github.com/kira-bruneau/nur-packages/commit/83867279d2499dd38b944964a829e5c5df93bddc>
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib pkgs/wineshell
 + unmodified - prismlauncher-unwrapped prismlauncher materialgram telegram-desktop - should sync with nixpkgs
 + android-translation-layer nixpkgs commit d9f0b9cb3d82342268db374b40bf062ea9a5f044
@@ -97,8 +96,6 @@ files are copied from following locations. some are modified in this repo and so
 + darling nixpkgs commit 01b6610eb0c98ee6d840e0d060cb41e334879f65^ 31bdcff5843e30d33eb758334435298a571bd2af^ <https://github.com/NixOS/nixpkgs/commit/31bdcff5843e30d33eb758334435298a571bd2af>
 + widevine-firefox <https://github.com/ToborWinner/teanyth/blob/263decae003ec1b7ed0f7cde30b57c6f2f320c0e/pkgs/firefox-widevine.nix#L4>
 + fdroidcl_git - copied from nixpkgs and updated to <https://github.com/Hoverth/fdroidcl/commit/d870160f16a22836d13f59acdabcd70709c68db6>
-+ librewolf-bin (and librewolf-bin-unwrapped) - copied from nixpkgs <https://github.com/NixOS/nixpkgs/tree/c530e744f6ac771f7930998f9f70efa82fada903/pkgs/by-name/li/librewolf-bin-unwrapped> and updated to latest (152.0-1); the `knownVulnerabilities` nixpkgs-maintenance note was dropped since it is maintained here
-+ librewolf (and librewolf-unwrapped, built from source) - copied from nixpkgs <https://github.com/NixOS/nixpkgs/tree/c530e744f6ac771f7930998f9f70efa82fada903/pkgs/by-name/li/librewolf-unwrapped> and updated to 151.0.4-1 (latest buildable with the pinned nixpkgs `buildMozillaMach`/firefox 151.0.4; 152.0-1 needs a newer toolchain); the `knownVulnerabilities` nixpkgs-maintenance note was dropped since it is maintained here
 
 
 + antigravity-cli <https://github.com/numtide/llm-agents.nix/tree/main/packages/antigravity-cli> commit 04df876de28f0684a0d7110444d7f64da5c14d17

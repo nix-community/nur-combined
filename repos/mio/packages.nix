@@ -172,8 +172,6 @@ byName
     angelscript = angelscript_2_35_1;
   };
 
-  eden = nodarwin (v3overrideAttrs (pkgs.callPackage ./pkgs/eden/package.nix { }));
-
   layan-sddm = nodarwin (pkgs.callPackage ./pkgs/layan-sddm { });
   zw3d = pkgs.callPackage ./pkgs/zw3d {
     notoFontsCjk = pkgs.noto-fonts-cjk-sans;
@@ -189,71 +187,6 @@ byName
   };
   apple-music-desktop = pkgs.callPackage ./pkgs/apple-music-desktop/package.nix {
     electron = electron_castlabs_38;
-  };
-
-  proton-cachyos = pkgs.callPackage ./pkgs/proton-bin {
-    toolTitle = "Proton-CachyOS";
-    tarballPrefix = "proton-";
-    tarballSuffix = "-x86_64.tar.xz";
-    toolPattern = "proton-cachyos-.*";
-    releasePrefix = "cachyos-";
-    releaseSuffix = "-slr";
-    versionFilename = "cachyos-version.json";
-    owner = "CachyOS";
-    repo = "proton-cachyos";
-  };
-
-  proton-cachyos_x86_64_v2 = proton-cachyos.override {
-    toolTitle = "Proton-CachyOS x86-64-v2";
-    tarballSuffix = "-x86_64_v2.tar.xz";
-    versionFilename = "cachyos-v2-version.json";
-  };
-
-  proton-cachyos_x86_64_v3 = proton-cachyos.override {
-    toolTitle = "Proton-CachyOS x86-64-v3";
-    tarballSuffix = "-x86_64_v3.tar.xz";
-    versionFilename = "cachyos-v3-version.json";
-  };
-
-  proton-cachyos_x86_64_v4 = proton-cachyos.override {
-    toolTitle = "Proton-CachyOS x86-64-v4";
-    tarballSuffix = "-x86_64_v4.tar.xz";
-    versionFilename = "cachyos-v4-version.json";
-  };
-
-  proton-cachyos_nightly_x86_64_v3 = proton-cachyos.override {
-    toolTitle = "Proton-CachyOS Nightly x86-64-v3";
-    tarballSuffix = "-x86_64_v3.tar.xz";
-    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v3.tar.xz.zip";
-    version = {
-      base = "10.0";
-      release = "20251112";
-      hash = "sha256-3wkekFESoLgVYdCvMSEWL6nBRytsScUrwpn7zzNLqYE=";
-    };
-    withUpdateScript = false;
-  };
-
-  proton-cachyos_nightly_x86_64_v4 = proton-cachyos.override {
-    toolTitle = "Proton-CachyOS Nightly x86-64-v4";
-    tarballSuffix = "-x86_64_v4.tar.xz";
-    url = "https://nightly.link/CachyOS/proton-cachyos/actions/runs/19506926176/proton-cachyos-10.0-20251112-base-131-g471736d4-x86_64_v4.tar.xz.zip";
-    version = {
-      base = "10.0";
-      release = "20251112";
-      hash = "sha256-0dmK5HnFyN/V1aicCkRiubVkAtW1X1XJZTVljhuWn1w=";
-    };
-    withUpdateScript = false;
-  };
-
-  proton-ge-custom = pkgs.callPackage ./pkgs/proton-bin {
-    toolTitle = "Proton-GE";
-    tarballSuffix = ".tar.gz";
-    toolPattern = "GE-Proton.*";
-    releasePrefix = "GE-Proton";
-    releaseSuffix = "";
-    versionFilename = "ge-version.json";
-    owner = "GloriousEggroll";
-    repo = "proton-ge-custom";
   };
 
   polkit126 = (pkgs.callPackage ./pkgs/polkit/package.nix { }).override (prev: {
@@ -291,23 +224,6 @@ byName
 
   rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
     rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
-  };
-
-  # copied from nixpkgs; librewolf-bin-unwrapped lives in by-name and is wrapped here
-  librewolf-bin = pkgs.wrapFirefox librewolf-bin-unwrapped {
-    pname = "librewolf-bin";
-    extraPrefsFiles = [
-      "${librewolf-bin-unwrapped}/lib/librewolf-bin-${librewolf-bin-unwrapped.version}/librewolf.cfg"
-    ];
-    extraPoliciesFiles = [
-      "${librewolf-bin-unwrapped}/lib/librewolf-bin-${librewolf-bin-unwrapped.version}/distribution/extra-policies.json"
-    ];
-  };
-
-  # copied from nixpkgs; librewolf-unwrapped (built from source) lives in by-name
-  librewolf = pkgs.wrapFirefox librewolf-unwrapped {
-    inherit (librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
-    libName = "librewolf";
   };
 
   davinci-resolve-studio2033 = davinci-resolve2033.override {

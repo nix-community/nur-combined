@@ -201,7 +201,6 @@ in
               beammp-launcher
               mdbook-generate-summary
               #betterbird
-              eden
               ghidra
               trayscale
               prismlauncher-diegiwg
