@@ -28,8 +28,6 @@ bambu-studio.overrideAttrs (oldAttrs: {
     (oldAttrs.nativeBuildInputs or [ ])
     ++ (lib.filter (p: (p.pname or p.name or "") == "wxwidgets") oldAttrs.buildInputs);
 
-  # Note: When creating or modifying patches, make sure line numbers remain unchanged
-  # so it's easier to compare with upstream. Pad with blank lines or comments if needed.
   patches = (oldAttrs.patches or [ ]) ++ [
     ./obn.patch
     ./skip-privacy.patch
