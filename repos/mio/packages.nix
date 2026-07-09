@@ -47,12 +47,6 @@ in
 byName
 // (with byName; rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
-  lmms = pkgs.callPackage ./pkgs/lmms/package.nix {
-    withOptionals = true;
-    stdenv = v3Optimizations pkgs.clangStdenv;
-    perl540 = pkgs.perl540 or pkgs.perl5;
-    perl540Packages = pkgs.perl540Packages or pkgs.perl5Packages;
-  };
   minetest591 = pkgs.callPackage ./pkgs/minetest591 {
     stdenv = v3Optimizations pkgs.clangStdenv;
   };
