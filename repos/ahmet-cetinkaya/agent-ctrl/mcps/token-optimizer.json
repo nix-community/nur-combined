@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "token-optimizer": {
+      "command": "bunx",
+      "args": [
+        "token-optimizer-mcp"
+      ],
+      "description": "Token optimization for 95%+ context reduction via content deduplication and compression"
+    }
+  }
+}

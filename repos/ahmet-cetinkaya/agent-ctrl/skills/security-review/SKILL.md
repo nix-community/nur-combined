@@ -1,6 +1,8 @@
 ---
 name: security-review
 description: Use this skill when adding authentication, handling user input, working with secrets, creating API endpoints, or implementing payment/sensitive features. Provides comprehensive security checklist and patterns.
+metadata:
+  origin: ECC
 ---
 
 # Security Review Skill
@@ -21,13 +23,13 @@ This skill ensures all code follows security best practices and identifies poten
 
 ### 1. Secrets Management
 
-#### ❌ NEVER Do This
+#### FAIL: NEVER Do This
 ```typescript
 const apiKey = "sk-proj-xxxxx"  // Hardcoded secret
 const dbPassword = "password123" // In source code
 ```
 
-#### ✅ ALWAYS Do This
+#### PASS: ALWAYS Do This
 ```typescript
 const apiKey = process.env.OPENAI_API_KEY
 const dbUrl = process.env.DATABASE_URL
@@ -107,14 +109,14 @@ function validateFileUpload(file: File) {
 
 ### 3. SQL Injection Prevention
 
-#### ❌ NEVER Concatenate SQL
+#### FAIL: NEVER Concatenate SQL
 ```typescript
 // DANGEROUS - SQL Injection vulnerability
 const query = `SELECT * FROM users WHERE email = '${userEmail}'`
 await db.query(query)
 ```
 
-#### ✅ ALWAYS Use Parameterized Queries
+#### PASS: ALWAYS Use Parameterized Queries
 ```typescript
 // Safe - parameterized query
 const { data } = await supabase
@@ -139,10 +141,10 @@ await db.query(
 
 #### JWT Token Handling
 ```typescript
-// ❌ WRONG: localStorage (vulnerable to XSS)
+// FAIL: WRONG: localStorage (vulnerable to XSS)
 localStorage.setItem('token', token)
 
-// ✅ CORRECT: httpOnly cookies
+// PASS: CORRECT: httpOnly cookies
 res.setHeader('Set-Cookie',
   `token=${token}; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`)
 ```
@@ -207,6 +209,11 @@ function renderUserContent(html: string) {
 ```
 
 #### Content Security Policy
+
+Start strict and loosen only with a documented removal plan. Do not default to
+`'unsafe-inline'` or `'unsafe-eval'`; they neutralize much of CSP's protection
+and should be treated as temporary compatibility debt.
+
 ```typescript
 // next.config.js
 const securityHeaders = [
@@ -214,8 +221,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: `
       default-src 'self';
-      script-src 'self' 'unsafe-eval' 'unsafe-inline';
-      style-src 'self' 'unsafe-inline';
+      base-uri 'self';
+      object-src 'none';
+      frame-ancestors 'none';
+      script-src 'self';
+      style-src 'self';
       img-src 'self' data: https:;
       font-src 'self';
       connect-src 'self' https://api.example.com;
@@ -299,18 +309,18 @@ app.use('/api/search', searchLimiter)
 
 #### Logging
 ```typescript
-// ❌ WRONG: Logging sensitive data
+// FAIL: WRONG: Logging sensitive data
 console.log('User login:', { email, password })
 console.log('Payment:', { cardNumber, cvv })
 
-// ✅ CORRECT: Redact sensitive data
+// PASS: CORRECT: Redact sensitive data
 console.log('User login:', { email, userId })
 console.log('Payment:', { last4: card.last4, userId })
 ```
 
 #### Error Messages
 ```typescript
-// ❌ WRONG: Exposing internal details
+// FAIL: WRONG: Exposing internal details
 catch (error) {
   return NextResponse.json(
     { error: error.message, stack: error.stack },
@@ -318,7 +328,7 @@ catch (error) {
   )
 }
 
-// ✅ CORRECT: Generic error messages
+// PASS: CORRECT: Generic error messages
 catch (error) {
   console.error('Internal error:', error)
   return NextResponse.json(

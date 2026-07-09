@@ -10,6 +10,7 @@ export LC_ALL=en_US.UTF-8
 export LC_TYPE=en_US.UTF-8
 
 ## Global Tools
+export GPG_TTY=$(tty)
 export PATH="$PATH:$HOME/.bun/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
@@ -139,3 +140,7 @@ bindkey "^[m" copy-prev-shell-word
 alias ls='exa -lah --color=always --group-directories-first --icons --hyperlink'
 alias lls='exa -lah -T --color=always --group-directories-first --icons --hyperlink'
 alias vim='NVIM_APPNAME=nvim-ac nvim'
+
+## Startup
+#inshellisense
+clear

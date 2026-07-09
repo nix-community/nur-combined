@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "cloudflare-workers-builds": {
+      "type": "http",
+      "url": "https://builds.mcp.cloudflare.com/mcp",
+      "description": "Cloudflare Workers builds"
+    }
+  }
+}

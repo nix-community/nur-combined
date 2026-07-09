@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "codescene": {
+      "command": "bunx",
+      "args": [
+        "@codescene/codehealth-mcp"
+      ],
+      "env": {
+        "CS_ACCESS_TOKEN": "${CS_ACCESS_TOKEN}"
+      },
+      "description": "Optional. CodeScene Code Health MCP (community skill: codehealth-mcp). Not enabled by default \u2014 copy only if you opt in. Requires your own CS_ACCESS_TOKEN (no bundled credentials). See skills/codehealth-mcp/SKILL.md for data boundaries and failure behavior."
+    }
+  }
+}

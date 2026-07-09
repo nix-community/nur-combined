@@ -1,13 +1,13 @@
 {
   "mcpServers": {
     "context7": {
-      "command": "npx",
+      "command": "bunx",
       "args": [
-        "-y",
         "@upstash/context7-mcp",
         "--api-key",
         "${CONTEXT7_API_KEY}"
-      ]
+      ],
+      "description": "Up-to-date, version-specific library and framework documentation pulled on demand \u2014 resolves package IDs and fetches current API docs/code examples."
     }
   }
 }

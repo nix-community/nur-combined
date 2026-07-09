@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "bunx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem",
+        "/path/to/your/projects"
+      ],
+      "description": "Filesystem operations (set your path)"
+    }
+  }
+}

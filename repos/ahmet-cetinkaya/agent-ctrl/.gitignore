@@ -1,3 +1,6 @@
 # Local secrets for agent-ctrl catalog integrations
 .env
 .catalog
+
+# Cloned upstream repos used only as local reference (ECC, gd-agentic-skills, etc.)
+.local/

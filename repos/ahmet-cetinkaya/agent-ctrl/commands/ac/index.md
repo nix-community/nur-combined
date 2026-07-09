@@ -1,9 +1,9 @@
 ---
 name: ac:index
-description: "Unified repository indexing, environment initialization, and knowledge graph generation"
+description: "Unified repository indexing, environment initialization, and knowledge graph generation."
 category: special
 complexity: standard
-mcp-servers: [sequential, context7, serena, graphify]
+mcp-servers: [sequential-thinking, context7, serena, graphify]
 personas: [architect, repo-index]
 ---
 

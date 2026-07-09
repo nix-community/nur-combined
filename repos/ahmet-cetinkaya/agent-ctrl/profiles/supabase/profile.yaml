@@ -1,0 +1,8 @@
+name: Supabase
+description: "Supabase platform — agents and MCPs for Postgres, Auth, Storage, and realtime APIs."
+tags:
+  - supabase
+  - postgres
+  - auth
+  - backend
+  - baas

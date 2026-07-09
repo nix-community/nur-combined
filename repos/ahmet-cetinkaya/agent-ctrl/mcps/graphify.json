@@ -11,7 +11,8 @@
         "-m",
         "graphify.serve",
         "${workspace.path}/graphify-out/graph.json"
-      ]
+      ],
+      "description": "Converts a codebase into a queryable knowledge graph \u2014 query architecture, find shortest paths between nodes, and navigate god nodes/communities."
     }
   }
 }

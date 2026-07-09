@@ -1,0 +1,7 @@
+name: ECC Meta
+description: "ECC harness meta-skills — cross-cutting skills that orchestrate the ECC agent fleet."
+tags:
+  - ecc
+  - meta
+  - orchestration
+  - harness

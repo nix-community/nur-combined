@@ -21,8 +21,10 @@ in {
     prettier
   ];
 
-  home-manager.users.ac.home.sessionPath = ["$HOME/.bun/bin"];
-  home-manager.users.ac.home.activation.bunGlobalPackages = lib.mkAfter ''
+  home-manager.sharedModules = [
+    {
+      home.sessionPath = ["$HOME/.bun/bin"];
+      home.activation.bunGlobalPackages = lib.mkAfter ''
         export PATH="/run/current-system/sw/bin:$PATH"
 
         if ! command -v bun >/dev/null 2>&1; then
@@ -54,5 +56,7 @@ in {
       )
       bunPackages
     )}
-  '';
+      '';
+    }
+  ];
 }

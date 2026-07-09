@@ -1,9 +1,0 @@
-{
-  "mcpServers": {
-    "playwright": {
-      "type": "stdio",
-      "command": "bunx",
-      "args": ["-y", "@playwright/mcp@latest"]
-    }
-  }
-}

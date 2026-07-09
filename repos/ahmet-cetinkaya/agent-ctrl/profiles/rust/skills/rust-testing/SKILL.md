@@ -1,7 +1,8 @@
 ---
 name: rust-testing
 description: Rust testing patterns including unit tests, integration tests, async testing, property-based testing, mocking, and coverage. Follows TDD methodology.
-origin: ECC
+metadata:
+  origin: ECC
 ---
 
 # Rust Testing Patterns
@@ -19,7 +20,7 @@ Comprehensive Rust testing patterns for writing reliable, maintainable tests fol
 ## How It Works
 
 1. **Identify target code** — Find the function, trait, or module to test
-2. **Write a test** — Use `#[test]` in a separated `<source_code>.tests.rs` file, rstest for parameterized tests, or proptest for property-based tests
+2. **Write a test** — Use `#[test]` in a `#[cfg(test)]` module, rstest for parameterized tests, or proptest for property-based tests
 3. **Mock dependencies** — Use mockall to isolate the unit under test
 4. **Run tests (RED)** — Verify the test fails with the expected error
 5. **Implement (GREEN)** — Write minimal code to pass
@@ -40,18 +41,15 @@ REPEAT  → Continue with next requirement
 ### Step-by-Step TDD in Rust
 
 ```rust
-// src/math.rs
 // RED: Write test first, use todo!() as placeholder
 pub fn add(a: i32, b: i32) -> i32 { todo!() }
 
 #[cfg(test)]
-#[path = "math.tests.rs"]
-mod tests;
-
-// src/math.tests.rs
-use super::*;
-#[test]
-fn test_add() { assert_eq!(add(2, 3), 5); }
+mod tests {
+    use super::*;
+    #[test]
+    fn test_add() { assert_eq!(add(2, 3), 5); }
+}
 // cargo test → panics at 'not yet implemented'
 ```
 
@@ -87,26 +85,22 @@ impl User {
 }
 
 #[cfg(test)]
-#[path = "user.tests.rs"]
-mod tests;
-```
+mod tests {
+    use super::*;
 
-```rust
-// src/user.tests.rs
-use super::*;
+    #[test]
+    fn creates_user_with_valid_email() {
+        let user = User::new("Alice", "alice@example.com").unwrap();
+        assert_eq!(user.display_name(), "Alice");
+        assert_eq!(user.email, "alice@example.com");
+    }
 
-#[test]
-fn creates_user_with_valid_email() {
-    let user = User::new("Alice", "alice@example.com").unwrap();
-    assert_eq!(user.display_name(), "Alice");
-    assert_eq!(user.email, "alice@example.com");
-}
-
-#[test]
-fn rejects_invalid_email() {
-    let result = User::new("Bob", "not-an-email");
-    assert!(result.is_err());
-    assert!(result.unwrap_err().contains("invalid email"));
+    #[test]
+    fn rejects_invalid_email() {
+        let result = User::new("Bob", "not-an-email");
+        assert!(result.is_err());
+        assert!(result.unwrap_err().contains("invalid email"));
+    }
 }
 ```
 
@@ -248,18 +242,20 @@ fn test_insert(test_db: TestDb) {
 ### Test Helpers
 
 ```rust
-// src/user.tests.rs
-use super::*;
+#[cfg(test)]
+mod tests {
+    use super::*;
 
-/// Creates a test user with sensible defaults.
-fn make_user(name: &str) -> User {
-    User::new(name, &format!("{name}@test.com")).unwrap()
-}
+    /// Creates a test user with sensible defaults.
+    fn make_user(name: &str) -> User {
+        User::new(name, &format!("{name}@test.com")).unwrap()
+    }
 
-#[test]
-fn user_display() {
-    let user = make_user("alice");
-    assert_eq!(user.display_name(), "alice");
+    #[test]
+    fn user_display() {
+        let user = make_user("alice");
+        assert_eq!(user.display_name(), "alice");
+    }
 }
 ```
 
@@ -461,7 +457,7 @@ cargo test -- --ignored           # Run ignored tests
 
 **DO:**
 - Write tests FIRST (TDD)
-- Put unit tests in a separated file named `<source_code>.tests.rs` (e.g., using `#[cfg(test)] #[path = "source.tests.rs"] mod tests;`)
+- Use `#[cfg(test)]` modules for unit tests
 - Test behavior, not implementation
 - Use descriptive test names that explain the scenario
 - Prefer `assert_eq!` over `assert!` for better error messages

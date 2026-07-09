@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "godot": {
+      "command": "bunx",
+      "args": [
+        "@coding-solo/godot-mcp"
+      ],
+      "env": {
+        "DEBUG": "true",
+        "GODOT_PATH": "${GODOT_PATH}"
+      },
+      "enabled": true,
+      "description": "Godot engine integration \u2014 launch the editor, run/debug projects, manage scenes and nodes, and capture engine output."
+    }
+  }
+}

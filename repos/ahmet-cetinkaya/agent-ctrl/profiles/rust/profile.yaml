@@ -1,0 +1,8 @@
+name: Rust
+description: "Rust development — agents, commands, rules, and skills for memory-safe systems, WASM, and high-performance code."
+tags:
+  - rust
+  - systems
+  - memory-safety
+  - wasm
+  - performance

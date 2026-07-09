@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "github": {
+      "command": "bunx",
+      "args": [
+        "@modelcontextprotocol/server-github"
+      ],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_PAT}"
+      },
+      "description": "GitHub operations - PRs, issues, repos"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+name: Media
+description: "Media processing — skills for audio, video, image generation, and transcoding pipelines."
+tags:
+  - media
+  - audio
+  - video
+  - image
+  - ffmpeg

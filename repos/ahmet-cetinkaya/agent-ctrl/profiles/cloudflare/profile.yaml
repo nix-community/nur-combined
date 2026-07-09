@@ -1,0 +1,9 @@
+name: Cloudflare
+description: "Cloudflare platform development — MCPs and bindings for Workers, Pages, D1, R2, and edge compute."
+tags:
+  - cloudflare
+  - workers
+  - edge
+  - serverless
+  - d1
+  - r2

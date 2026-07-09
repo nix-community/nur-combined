@@ -3,7 +3,11 @@
     "sequential-thinking": {
       "type": "stdio",
       "command": "bunx",
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
+      "description": "Structured step-by-step reasoning \u2014 break complex problems into revisable thought sequences with branching and backtracking."
     }
   }
 }

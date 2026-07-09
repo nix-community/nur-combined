@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "magic": {
+      "command": "bunx",
+      "args": [
+        "@magicuidesign/mcp@latest"
+      ],
+      "description": "Magic UI components"
+    }
+  }
+}

@@ -2,10 +2,14 @@
   "mcpServers": {
     "morph": {
       "command": "bunx",
-      "args": ["-y", "@morphllm/morphmcp"],
+      "args": [
+        "-y",
+        "@morphllm/morphmcp"
+      ],
       "env": {
         "MORPH_API_KEY": "${MORPH_KEY}"
-      }
+      },
+      "description": "Fast-apply code edits \u2014 apply partial code snippets to files without full rewrites, plus codebase semantic search."
     }
   }
 }

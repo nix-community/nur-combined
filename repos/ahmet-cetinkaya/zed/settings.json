@@ -1,5 +1,8 @@
 {
-  "diff_view_style": "split",
+  "edit_predictions": {
+    "provider": "codestral"
+  },
+  "diff_view_style": "unified",
   "language_models": {
     "opencode": {
       "show_zen_models": false,
@@ -8,9 +11,9 @@
   },
   "agent": {
     "default_model": {
-      "provider": "ollama",
-      "model": "qwen2.5-coder:14b",
-      "enable_thinking": false
+      "provider": "openrouter",
+      "model": "openrouter/free",
+      "enable_thinking": true
     },
     "dock": "right",
     "favorite_models": [],
@@ -28,6 +31,7 @@
   "buffer_font_family": "FiraCode Nerd Font Mono",
   "buffer_font_size": 16,
   "collaboration_panel": {
+    "dock": "left",
     "button": false,
   },
   "colorize_brackets": true,
@@ -43,6 +47,7 @@
     "git_gutter": "tracked_files",
   },
   "git_panel": {
+    "group_by": "status",
     "dock": "left",
     "sort_by_path": true,
     "tree_view": true,

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "supabase": {
+      "command": "bunx",
+      "args": [
+        "@supabase/mcp-server-supabase@latest",
+        "--project-ref=${SUPABASE_PROJECT_REF}"
+      ],
+      "description": "Supabase database operations"
+    }
+  }
+}

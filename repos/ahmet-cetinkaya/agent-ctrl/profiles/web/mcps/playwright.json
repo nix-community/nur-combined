@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "bunx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest"
+      ],
+      "description": "Browser automation via Playwright \u2014 navigate, click, fill forms, and capture accessibility snapshots/screenshots for web testing and scraping."
+    }
+  }
+}

@@ -184,7 +184,9 @@ in {
     '';
   };
 
-  home-manager.users.ac.home.activation.dartGlobalTools = lib.mkAfter ''
+  home-manager.sharedModules = [
+    {
+      home.activation.dartGlobalTools = lib.mkAfter ''
         export PATH="/run/current-system/sw/bin:$PATH"
 
         if ! command -v dart >/dev/null 2>&1; then
@@ -215,5 +217,7 @@ in {
         tool_name: "    ensure_dart_tool_latest \"${tool_name}\""
       )
       dartTools}
-  '';
+      '';
+    }
+  ];
 }

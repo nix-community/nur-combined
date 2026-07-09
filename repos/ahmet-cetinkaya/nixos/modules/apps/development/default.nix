@@ -27,6 +27,7 @@
     # Editors
     neovim
     vscodium-fhs
+    vscode-fhs
     zed-preview-bin
 
     antigravity-tools-bin

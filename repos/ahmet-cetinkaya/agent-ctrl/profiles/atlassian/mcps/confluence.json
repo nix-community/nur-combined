@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "confluence": {
+      "command": "bunx",
+      "args": [
+        "confluence-mcp-server"
+      ],
+      "env": {
+        "CONFLUENCE_BASE_URL": "${CONFLUENCE_BASE_URL}",
+        "CONFLUENCE_EMAIL": "${CONFLUENCE_EMAIL}",
+        "CONFLUENCE_API_TOKEN": "${CONFLUENCE_API_TOKEN}"
+      },
+      "description": "Confluence Cloud integration \u2014 search pages, retrieve content, explore spaces"
+    }
+  }
+}

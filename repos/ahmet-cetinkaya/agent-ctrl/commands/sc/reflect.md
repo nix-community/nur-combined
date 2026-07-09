@@ -1,6 +1,6 @@
 ---
 name: reflect
-description: "Task reflection and validation using Serena MCP analysis capabilities"
+description: "Task reflection and validation using Serena reflection tools"
 category: special
 complexity: standard
 mcp-servers: [serena]
@@ -33,17 +33,15 @@ Key behaviors:
 - Session lifecycle integration with cross-session persistence and learning capture
 - Performance-critical operations with <200ms core reflection and validation
 ## MCP Integration
-- **Serena MCP**: Mandatory integration for reflection analysis, task validation, and session metadata
+- **Serena MCP**: Reflection analysis and task validation via `think_about_*` tools
 - **Reflection Tools**: think_about_task_adherence, think_about_collected_information, think_about_whether_you_are_done
-- **Memory Operations**: Cross-session persistence with read_memory, write_memory, list_memories
 - **Performance Critical**: <200ms for core reflection operations, <1s for checkpoint creation
 
 ## Tool Coordination
 - **TodoRead/TodoWrite**: Bridge between traditional task management and advanced reflection analysis
-- **think_about_task_adherence**: Validates current approach against project goals and session objectives
-- **think_about_collected_information**: Analyzes session work and information gathering completeness
-- **think_about_whether_you_are_done**: Evaluates task completion criteria and remaining work identification
-- **Memory Tools**: Session metadata updates and cross-session learning capture
+- **think_about_task_adherence** (Serena): Validates current approach against project goals and session objectives
+- **think_about_collected_information** (Serena): Analyzes session work and information gathering completeness
+- **think_about_whether_you_are_done** (Serena): Evaluates task completion criteria and remaining work identification
 
 ## Key Patterns
 - **Task Validation**: Current approach → goal alignment → deviation identification → course correction
@@ -77,12 +75,12 @@ Key behaviors:
 ## Boundaries
 
 **Will:**
-- Perform comprehensive task reflection and validation using Serena MCP analysis tools
+- Perform comprehensive task reflection and validation using Serena reflection tools
 - Bridge TodoWrite patterns with advanced reflection capabilities for enhanced task management
-- Provide cross-session learning capture and session lifecycle integration
+- Provide session lifecycle integration
 
 **Will Not:**
-- Operate without proper Serena MCP integration and reflection tool access
+- Operate without proper Serena (reflection) integration
 - Override task completion decisions without proper adherence and quality validation
-- Bypass session integrity checks and cross-session persistence requirements
+- Bypass session integrity checks
 

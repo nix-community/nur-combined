@@ -1,0 +1,8 @@
+name: ClickHouse
+description: "ClickHouse columnar database — MCPs and skills for OLAP analytics and high-throughput queries."
+tags:
+  - clickhouse
+  - olap
+  - analytics
+  - columnar
+  - database

@@ -1,0 +1,8 @@
+name: Vite
+description: "Vite build tooling — skills for fast modern frontend dev servers and bundling."
+tags:
+  - vite
+  - bundler
+  - frontend
+  - devtools
+  - esm

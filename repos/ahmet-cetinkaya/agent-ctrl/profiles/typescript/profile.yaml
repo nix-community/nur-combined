@@ -1,0 +1,8 @@
+name: TypeScript
+description: "TypeScript development — agents, rules, and skills for type-safe applications across Node and the browser."
+tags:
+  - typescript
+  - types
+  - node
+  - frontend
+  - backend

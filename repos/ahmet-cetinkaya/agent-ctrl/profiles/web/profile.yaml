@@ -1,0 +1,8 @@
+name: Web
+description: "General web platform development — agents, MCPs, and rules spanning HTML, CSS, HTTP, and browser APIs."
+tags:
+  - web
+  - html
+  - css
+  - http
+  - browser

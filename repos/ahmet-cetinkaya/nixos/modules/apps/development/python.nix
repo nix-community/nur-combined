@@ -15,7 +15,9 @@ in {
     uv
   ];
 
-  home-manager.users.ac.home.activation.uvGlobalTools = lib.mkAfter ''
+  home-manager.sharedModules = [
+    {
+      home.activation.uvGlobalTools = lib.mkAfter ''
         export PATH="/run/current-system/sw/bin:$PATH"
 
         if ! command -v uv >/dev/null 2>&1; then
@@ -48,5 +50,7 @@ in {
         tool: "    ensure_uv_tool_latest \"${tool.name}\" \"${tool.source}\""
       )
       uvTools}
-  '';
+      '';
+    }
+  ];
 }

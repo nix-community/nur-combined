@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "evalview": {
+      "command": "uvx",
+      "args": [
+        "--from",
+        "evalview>=0.5,<1",
+        "evalview",
+        "mcp",
+        "serve"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "${OPENAI_API_KEY}"
+      },
+      "description": "AI agent regression testing \u2014 snapshot behavior, detect regressions in tool calls and output quality. 8 tools: create_test, run_snapshot, run_check, list_tests, validate_skill, generate_skill_tests, run_skill_test, generate_visual_report. API key optional \u2014 deterministic checks (tool diff, output hash) work without it. Install: pip install \"evalview>=0.5,<1\""
+    }
+  }
+}

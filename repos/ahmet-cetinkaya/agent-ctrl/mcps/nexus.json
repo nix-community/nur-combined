@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "nexus": {
+      "command": "nexus",
+      "args": [
+        "mcp"
+      ],
+      "description": "Local cost/privacy proxy - query your own usage & savings, route to the cheapest capable model, and mask secrets/PII before egress (nexus_stats, nexus_savings, nexus_recent, nexus_providers, nexus_cost_breakdown)"
+    }
+  }
+}

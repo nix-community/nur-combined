@@ -1,9 +1,9 @@
 ---
 name: save
-description: "Session lifecycle management with Serena MCP integration for session context persistence"
+description: "Session lifecycle management: persist session context and create recovery checkpoints"
 category: session
 complexity: standard
-mcp-servers: [serena]
+mcp-servers: []
 personas: []
 ---
 
@@ -11,7 +11,7 @@ personas: []
 
 ## Triggers
 - Session completion and project context persistence needs
-- Cross-session memory management and checkpoint creation requests
+- Checkpoint creation requests
 - Project understanding preservation and discovery archival scenarios
 - Session lifecycle management and progress tracking requirements
 
@@ -22,30 +22,24 @@ personas: []
 
 ## Behavioral Flow
 1. **Analyze**: Examine session progress and identify discoveries worth preserving
-2. **Persist**: Save session context and learnings using Serena MCP memory management
+2. **Persist**: Save session context and learnings to project memory
 3. **Checkpoint**: Create recovery points for complex sessions and progress tracking
-4. **Validate**: Ensure session data integrity and cross-session compatibility
+4. **Validate**: Ensure session data integrity
 5. **Prepare**: Ready session context for seamless continuation in future sessions
 
 Key behaviors:
-- Serena MCP integration for memory management and cross-session persistence
+- Session context preservation via project memory (`MEMORY.md` and per-fact files)
 - Automatic checkpoint creation based on session progress and critical tasks
-- Session context preservation with comprehensive discovery and pattern archival
-- Cross-session learning with accumulated project insights and technical decisions
-
-## MCP Integration
-- **Serena MCP**: Mandatory integration for session management, memory operations, and cross-session persistence
-- **Memory Operations**: Session context storage, checkpoint creation, and discovery archival
-- **Performance Critical**: <200ms for memory operations, <1s for checkpoint creation
+- Discovery and pattern archival
+- Cross-session learning with accumulated project insights
 
 ## Tool Coordination
-- **write_memory/read_memory**: Core session context persistence and retrieval
-- **think_about_collected_information**: Session analysis and discovery identification
-- **summarize_changes**: Session summary generation and progress documentation
+- **Write/Edit**: Persist session context to `MEMORY.md` and memory files
+- **Read**: Retrieve prior session context
 - **TodoRead**: Task completion tracking for automatic checkpoint triggers
 
 ## Key Patterns
-- **Session Preservation**: Discovery analysis → memory persistence → checkpoint creation
+- **Session Preservation**: Discovery analysis → memory file writes → checkpoint creation
 - **Cross-Session Learning**: Context accumulation → pattern archival → enhanced project understanding
 - **Progress Tracking**: Task completion → automatic checkpoints → session continuity
 - **Recovery Planning**: State preservation → checkpoint validation → restoration readiness
@@ -55,7 +49,7 @@ Key behaviors:
 ### Basic Session Save
 ```
 /sc:save
-# Saves current session discoveries and context to Serena MCP
+# Saves current session discoveries and context to project memory
 # Automatically creates checkpoint if session exceeds 30 minutes
 ```
 
@@ -83,11 +77,10 @@ Key behaviors:
 ## Boundaries
 
 **Will:**
-- Save session context using Serena MCP integration for cross-session persistence
+- Save session context to project memory for cross-session persistence
 - Create automatic checkpoints based on session progress and task completion
 - Preserve discoveries and patterns for enhanced project understanding
 
 **Will Not:**
-- Operate without proper Serena MCP integration and memory access
 - Save session data without validation and integrity verification
 - Override existing session context without proper checkpoint preservation

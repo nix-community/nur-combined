@@ -1,0 +1,8 @@
+name: Healthcare
+description: "Healthcare / healthtech — agents and skills for HIPAA, FHIR, and clinical workflows."
+tags:
+  - healthcare
+  - hipaa
+  - fhir
+  - clinical
+  - compliance

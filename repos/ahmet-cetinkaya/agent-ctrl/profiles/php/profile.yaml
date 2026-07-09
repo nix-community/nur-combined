@@ -1,0 +1,7 @@
+name: PHP
+description: "PHP / Laravel development — agents, MCPs, rules, and skills for web backends and APIs."
+tags:
+  - php
+  - laravel
+  - web
+  - backend

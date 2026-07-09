@@ -7,7 +7,6 @@
   services.flatpak.packages = [
     # Social
     "dev.vencord.Vesktop"
-    "eu.betterbird.Betterbird"
 
     # Network
     "com.protonvpn.www"

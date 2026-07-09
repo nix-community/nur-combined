@@ -1,5 +1,15 @@
-{pkgs, ...}: {
+{pkgs, config, ...}: {
   nixpkgs.config.allowUnfree = true;
+
+  boot = {
+    kernelModules = ["v4l2loopback"];
+    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
+    # exclusive_caps=1 lets OBS and browsers detect the loopback as a webcam;
+    # video_nr=2 pins it to /dev/video2 so it is independent of probe order.
+    extraModprobeConfig = ''
+      options v4l2loopback video_nr=2 card_label=AndroidCam exclusive_caps=1
+    '';
+  };
 
   environment = {
     systemPackages = with pkgs; [

@@ -104,8 +104,7 @@
   "editor.fontFamily": "'FiraCode Nerd Font Mono', 'JetBrains Mono Nerd Font', 'Cascadia Code Nerd Font', 'Victor Mono Nerd Font', 'Noto Sans Mono CJK JP', 'Noto Sans Mono CJK SC', 'Noto Sans Mono CJK KR', 'Noto Naskh Arabic', 'Noto Sans Thai', 'Noto Sans Devanagari', 'Noto Color Emoji', 'Noto Sans Symbols 2', 'Noto Sans Symbols', 'DejaVu Sans Mono', monospace",
   "editor.fontLigatures": true,
   "editor.fontSize": 16,
-  "editor.formatOnSave": true,
-  "editor.formatOnSaveMode": "modifications",
+  "editor.formatOnSaveMode": "modificationsIfAvailable",
   "editor.lineNumbers": "relative",
   "errorLens.enabledDiagnosticLevels": ["error", "warning"],
   "explorer.fileNesting.enabled": true,
@@ -132,6 +131,12 @@
   "extensions.experimental.affinity": {
     "asvetliakov.vscode-neovim": 1,
   },
+  // Nix-packaged builds patchelf the vsce-sign binary (a Node.js SEA), which
+  // corrupts its embedded blob and makes every install/update fail with
+  // "SignatureVerificationInternal: ... UnknownError". Safe to disable since
+  // extensions still come over HTTPS from the marketplace/Open VSX — this
+  // only skips the extra signature layer.
+  "extensions.verifySignature": false,
   "extensionSync": [
     "aaron-bond.better-comments",
     "adrianwilczynski.namespace",
@@ -194,6 +199,7 @@
     "mrmlnc.vscode-attrs-sorter",
     "mrmlnc.vscode-scss",
     "ms-azuretools.vscode-containers",
+    "ms-dotnettools.csharp",
     "ms-dotnettools.vscode-dotnet-runtime",
     "ms-vscode.mono-debug",
     "ms-vscode.test-adapter-converter",
@@ -269,7 +275,6 @@
   "NugetGallery.sources": ["{\"name\":\"nuget.org\",\"url\":\"https://api.nuget.org/v3/index.json\"}"],
   "prettier.printWidth": 120,
   "redhat.telemetry.enabled": false,
-  "scm.repositories.selectionMode": "single",
   "svg.preview.autoShow": true,
   "tailwind-fold.autoFold": false,
   "tailwind-fold.unfoldedTextOpacity": 0.6,
@@ -466,4 +471,20 @@
   "errorLens.gutterIconsEnabled": true,
   "errorLens.border": ["1px dashed", "1px dashed", "1px dashed", "1px dashed"],
   "errorLens.borderRadius": "0.4em",
+  "markdown-preview-enhanced.revealjsTheme": "vscode.css",
+  "markdown-preview-enhanced.codeBlockTheme": "vscode.css",
+  "markdown-preview-enhanced.previewTheme": "github-light.css",
+  "markdown-preview-enhanced.enablePreviewZenMode": true,
+  "workbench.editorAssociations": {
+    "*speedscope.json": "speedscope-in-vscode.speedscope",
+    "{git,gitlens,chat-editing-snapshot-text-model,copilot,git-graph,git-graph-3}:/**/*.qrc": "default",
+    "*.qrc": "qt-core.qrcEditor",
+  },
+  "qt-core.additionalQtPaths": [
+    {
+      "name": "Qt-6.11.1-linux-g++-x86_64_from_PATH",
+      "path": "/run/current-system/sw/bin/qtpaths",
+    },
+  ],
+  "scm.repositories.selectionMode": "single",
 }

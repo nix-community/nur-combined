@@ -14,7 +14,8 @@
         "false",
         "--enable-gui-log-window",
         "false"
-      ]
+      ],
+      "description": "LSP-based semantic code navigation and editing \u2014 find symbols, references, and diagnostics; symbol-level reads and edits across the project."
     }
   }
 }

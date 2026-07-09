@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "firecrawl": {
+      "command": "bunx",
+      "args": [
+        "firecrawl-mcp"
+      ],
+      "env": {
+        "FIRECRAWL_API_KEY": "${FIRECRAWL_API_KEY}"
+      },
+      "description": "Web scraping and crawling"
+    }
+  }
+}

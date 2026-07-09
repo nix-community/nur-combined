@@ -1,0 +1,10 @@
+name: C++
+description: "C++ systems programming — agents, commands, rules, and skills for performance-critical, low-level, and embedded development."
+tags:
+  - cpp
+  - systems
+  - programming
+  - low-level
+  - native
+  - performance
+  - concurrency

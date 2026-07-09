@@ -36,6 +36,8 @@
     ../../modules/apps/utilities/default.nix
     # Virtualization
     ../../modules/apps/utilities/qemu.nix
+    # Work
+    ../../modules/apps/work/insurup.nix
   ];
 
   networking.hostName = "karakiz";

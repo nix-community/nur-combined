@@ -1,0 +1,187 @@
+{
+  "autoCompactEnabled": true,
+  "editorMode": "normal",
+  "effortLevel": "medium",
+  "enabledPlugins": {
+    "clangd-lsp@claude-plugins-official": true,
+    "claude-notifications-go@claude-notifications-go": true,
+    "csharp-lsp@claude-plugins-official": true,
+    "gopls-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true,
+    "kotlin-lsp@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "pyright-lsp@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true
+  },
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "${OMNIROUTE_AUTH_TOKEN}",
+    "ANTHROPIC_BASE_URL": "${OMNIROUTE_BASE_URL}",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "lite-models",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "high-models",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "mid-models",
+    "ANTHROPIC_MODEL": "the-model",
+    "ANTHROPIC_SMALL_FAST_MODEL": "lite-models"
+  },
+  "extraKnownMarketplaces": {
+    "claude-notifications-go": {
+      "source": {
+        "repo": "777genius/claude-notifications-go",
+        "source": "github"
+      }
+    },
+    "ecc": {
+      "source": {
+        "source": "git",
+        "url": "https://github.com/affaan-m/ECC.git"
+      }
+    },
+    "severity1-marketplace": {
+      "source": {
+        "repo": "severity1/severity1-marketplace",
+        "source": "github"
+      }
+    }
+  },
+  "hasCompletedOnboarding": true,
+  "hooks": {
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "command": "rtk hook claude",
+            "type": "command"
+          }
+        ],
+        "matcher": "Bash"
+      }
+    ]
+  },
+  "includeCoAuthoredBy": false,
+  "model": "opus",
+  "permissions": {
+    "allow": [
+      "Bash(rtk base64 *)",
+      "Bash(rtk bun --version)",
+      "Bash(rtk bun build *)",
+      "Bash(rtk bun install)",
+      "Bash(rtk bun run *)",
+      "Bash(rtk bun test)",
+      "Bash(rtk bunx *)",
+      "Bash(rtk cargo --version)",
+      "Bash(rtk cargo build)",
+      "Bash(rtk cargo check)",
+      "Bash(rtk cargo clippy)",
+      "Bash(rtk cargo fmt)",
+      "Bash(rtk cargo test)",
+      "Bash(rtk cat:*)",
+      "Bash(rtk date)",
+      "Bash(rtk df *)",
+      "Bash(rtk docker images)",
+      "Bash(rtk docker inspect *)",
+      "Bash(rtk docker logs *)",
+      "Bash(rtk docker ps)",
+      "Bash(rtk dotnet --version)",
+      "Bash(rtk dotnet build)",
+      "Bash(rtk dotnet clean)",
+      "Bash(rtk dotnet format)",
+      "Bash(rtk dotnet run)",
+      "Bash(rtk dotnet test)",
+      "Bash(rtk du *)",
+      "Bash(rtk fd:*)",
+      "Bash(rtk file *)",
+      "Bash(rtk free)",
+      "Bash(rtk gh api *)",
+      "Bash(rtk gh auth status)",
+      "Bash(rtk gh issue list*)",
+      "Bash(rtk gh issue view*)",
+      "Bash(rtk gh pr checks*)",
+      "Bash(rtk gh pr list*)",
+      "Bash(rtk gh pr view*)",
+      "Bash(rtk gh release list*)",
+      "Bash(rtk gh release view*)",
+      "Bash(rtk gh repo view*)",
+      "Bash(rtk gh run list*)",
+      "Bash(rtk gh run view*)",
+      "Bash(rtk gh workflow list*)",
+      "Bash(rtk gh workflow view*)",
+      "Bash(rtk git branch*)",
+      "Bash(rtk git diff*)",
+      "Bash(rtk git log*)",
+      "Bash(rtk git remote*)",
+      "Bash(rtk git show*)",
+      "Bash(rtk git status*)",
+      "Bash(rtk go build)",
+      "Bash(rtk go fmt)",
+      "Bash(rtk go list)",
+      "Bash(rtk go run)",
+      "Bash(rtk go test)",
+      "Bash(rtk go version)",
+      "Bash(rtk go vet)",
+      "Bash(rtk gradle *)",
+      "Bash(rtk grep:*)",
+      "Bash(rtk head:*)",
+      "Bash(rtk jq:*)",
+      "Bash(rtk kubectl describe *)",
+      "Bash(rtk kubectl get *)",
+      "Bash(rtk ls:*)",
+      "Bash(rtk mkdir *)",
+      "Bash(rtk mkdir -p *)",
+      "Bash(rtk mvn *)",
+      "Bash(rtk node --version)",
+      "Bash(rtk npm --version)",
+      "Bash(rtk npm build)",
+      "Bash(rtk npm install)",
+      "Bash(rtk npm run *)",
+      "Bash(rtk npm test)",
+      "Bash(rtk ollama list)",
+      "Bash(rtk pgrep *)",
+      "Bash(rtk pip list)",
+      "Bash(rtk pip show *)",
+      "Bash(rtk pnpm --version)",
+      "Bash(rtk pnpm install)",
+      "Bash(rtk pnpm run *)",
+      "Bash(rtk pnpm test)",
+      "Bash(rtk ps *)",
+      "Bash(rtk python --version)",
+      "Bash(rtk python -m pytest)",
+      "Bash(rtk python3 --version)",
+      "Bash(rtk rg:*)",
+      "Bash(rtk rustc --version)",
+      "Bash(rtk sed:*)",
+      "Bash(rtk sha256sum *)",
+      "Bash(rtk sha256sum)",
+      "Bash(rtk sort *)",
+      "Bash(rtk stat *)",
+      "Bash(rtk tail -f *)",
+      "Bash(rtk tail:*)",
+      "Bash(rtk tar -tzf *)",
+      "Bash(rtk terraform plan)",
+      "Bash(rtk terraform validate)",
+      "Bash(rtk unzip *)",
+      "Bash(rtk unzip -l *)",
+      "Bash(rtk wc *)",
+      "Bash(rtk which)",
+      "Bash(rtk whoami)",
+      "Bash(rtk xxd *)",
+      "Bash(rtk yarn --version)",
+      "Bash(rtk yarn build)",
+      "Bash(rtk yarn install)",
+      "Bash(rtk yarn test)",
+      "Bash(rtk yq:*)"
+    ],
+    "defaultMode": "auto"
+  },
+  "preferredNotifChannel": "auto",
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0,
+    "type": "command"
+  },
+  "teammateMode": "auto",
+  "worktree": {
+    "baseRef": "fresh"
+  }
+}

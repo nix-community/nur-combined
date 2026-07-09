@@ -7,5 +7,6 @@
     "spellCheckLanguages": [
         "en-US",
         "en"
-    ]
+    ],
+    "hardwareAcceleration": false
 }

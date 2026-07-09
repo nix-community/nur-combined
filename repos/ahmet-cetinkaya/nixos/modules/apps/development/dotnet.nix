@@ -11,17 +11,21 @@
   ];
   dotnetTools = [
     "csharpier"
+    "roslynator.dotnet.cli"
+    "nugone"
   ];
 in {
   environment.systemPackages = with pkgs; [
     dotnetSdk
   ];
 
-  home-manager.users.ac.home.sessionVariables = {
-    DOTNET_ROOT = "${dotnetSdk}/share/dotnet";
-  };
+  home-manager.sharedModules = [
+    {
+      home.sessionVariables = {
+        DOTNET_ROOT = "${dotnetSdk}/share/dotnet";
+      };
 
-  home-manager.users.ac.home.activation.dotnetGlobalTools = lib.mkAfter ''
+      home.activation.dotnetGlobalTools = lib.mkAfter ''
         export PATH="/run/current-system/sw/bin:$PATH"
         export DOTNET_ROOT="$(dirname "$(readlink -f "$(command -v dotnet)")")"
 
@@ -51,5 +55,7 @@ in {
         tool_name: "    ensure_dotnet_tool_latest \"${tool_name}\""
       )
       dotnetTools}
-  '';
+      '';
+    }
+  ];
 }

@@ -1,6 +1,6 @@
 ---
 name: load
-description: "Session lifecycle management with Serena MCP integration for project context loading"
+description: "Session lifecycle management: activate the project (Serena) and load project context"
 category: session
 complexity: standard
 mcp-servers: [serena]
@@ -11,7 +11,6 @@ personas: []
 
 ## Triggers
 - Session initialization and project context loading requests
-- Cross-session persistence and memory retrieval needs
 - Project activation and context management requirements
 - Session lifecycle management and checkpoint loading scenarios
 
@@ -21,28 +20,25 @@ personas: []
 ```
 
 ## Behavioral Flow
-1. **Initialize**: Establish Serena MCP connection and session context management
+1. **Initialize**: Activate the project via Serena
 2. **Discover**: Analyze project structure and identify context loading requirements
-3. **Load**: Retrieve project memories, checkpoints, and cross-session persistence data
+3. **Load**: Retrieve project context and checkpoints
 4. **Activate**: Establish project context and prepare for development workflow
 5. **Validate**: Ensure loaded context integrity and session readiness
 
 Key behaviors:
-- Serena MCP integration for memory management and cross-session persistence
+- Serena for project/symbol activation
 - Project activation with comprehensive context loading and validation
 - Performance-critical operation with <500ms initialization target
-- Session lifecycle management with checkpoint and memory coordination
+- Session lifecycle management with checkpoint coordination
 
 ## MCP Integration
-- **Serena MCP**: Mandatory integration for project activation, memory retrieval, and session management
-- **Memory Operations**: Cross-session persistence, checkpoint loading, and context restoration
+- **Serena MCP**: Project activation and symbol-level code navigation (`activate_project`)
 - **Performance Critical**: <200ms for core operations, <1s for checkpoint creation
 
 ## Tool Coordination
-- **activate_project**: Core project activation and context establishment
-- **list_memories/read_memory**: Memory retrieval and session context loading
+- **activate_project** (Serena): Core project activation and code-navigation context
 - **Read/Grep/Glob**: Project structure analysis and configuration discovery
-- **Write**: Session context documentation and checkpoint creation
 
 ## Key Patterns
 - **Project Activation**: Directory analysis → memory retrieval → context establishment
@@ -55,7 +51,7 @@ Key behaviors:
 ### Basic Project Loading
 ```
 /sc:load
-# Loads current directory project context with Serena memory integration
+# Activates the project via Serena and loads session memory
 # Establishes session context and prepares for development workflow
 ```
 
@@ -83,11 +79,11 @@ Key behaviors:
 ## Boundaries
 
 **Will:**
-- Load project context using Serena MCP integration for memory management
-- Provide session lifecycle management with cross-session persistence
+- Activate the project via Serena and load session memory
+- Provide session lifecycle management
 - Establish project activation with comprehensive context loading
 
 **Will Not:**
 - Modify project structure or configuration without explicit permission
-- Load context without proper Serena MCP integration and validation
+- Load context without proper Serena (activation) integration
 - Override existing session context without checkpoint preservation

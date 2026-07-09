@@ -1,0 +1,9 @@
+name: DevOps
+description: "DevOps / platform engineering — skills for CI/CD, IaC, containers, observability, and release automation."
+tags:
+  - devops
+  - cicd
+  - iac
+  - containers
+  - kubernetes
+  - observability

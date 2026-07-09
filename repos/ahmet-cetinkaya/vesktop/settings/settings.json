@@ -197,7 +197,7 @@
             "enabled": false
         },
         "FixImagesQuality": {
-            "enabled": false
+            "enabled": true
         },
         "FixSpotifyEmbeds": {
             "enabled": false
@@ -639,7 +639,7 @@
         "authenticated": false,
         "url": "https://api.vencord.dev/",
         "settingsSync": false,
-        "settingsSyncVersion": 1780672238732
+        "settingsSyncVersion": 1781957804373
     },
     "eagerPatches": false,
     "uiElements": {
