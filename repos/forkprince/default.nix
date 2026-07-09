@@ -32,6 +32,7 @@
   betteraudio = lib.callPackage ./pkgs/betteraudio {};
   linearmouse = lib.callPackage ./pkgs/linearmouse {};
   pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
+  supercharge = lib.callPackage ./pkgs/supercharge {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
