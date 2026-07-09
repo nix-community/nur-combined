@@ -73,19 +73,20 @@ jobs:
   fix:
     needs: check
     if: >-
-      failure() &&
+      always() &&
       github.event_name == 'pull_request' &&
-      github.event.pull_request.head.repo.full_name == github.repository
+      github.event.pull_request.head.repo.full_name == github.repository &&
+      (needs.check.result == 'failure' || needs.check.result == 'cancelled')
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Initialize
+        uses: spotdemo4/nix-init@1443d93dfa3ca2f043b37f848631d6ac5563b0ec # v1.56.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-          persist-credentials: false
           fetch_depth: 0
 
-      - uses: spotdemo4/codex-action@8050fe759356d42cc15ab1ed988c24fb4ebd6769 # v0.1.0
+      - name: Run codex
+        uses: spotdemo4/codex-action@8050fe759356d42cc15ab1ed988c24fb4ebd6769 # v0.1.0
         with:
           auth: ${{ secrets.CODEX_ACTION_AUTH }}
           client-id: ${{ vars.CLIENT_ID }}

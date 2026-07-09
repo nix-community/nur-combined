@@ -2,7 +2,6 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  nix-update-script,
 }:
 
 {
@@ -14,6 +13,7 @@
   branch,
   owner ? "duckdb",
   fetchSubmodules ? false,
+  submodulePath ? "duckdb",
   loadOptions ? [ ],
   duckdbBuildInputs ? [ ],
   duckdbPostPatch ? "",
@@ -61,14 +61,22 @@ stdenvNoCC.mkDerivation {
         ;
     };
 
-    updateScript = nix-update-script {
-      extraArgs = [
-        "--commit"
-        "--version=branch=${branch}"
-        "--override-filename=packages/duckdb/extensions/${attrName}.nix"
-        "duckdb.extensions.${attrName}"
-      ];
-    };
+    updateScript = [
+      "bash"
+      "packages/duckdb/extensions/update.sh"
+      "--owner"
+      owner
+      "--repo"
+      repo
+      "--branch"
+      branch
+      "--submodule-path"
+      submodulePath
+      "--override-filename"
+      "packages/duckdb/extensions/${attrName}.nix"
+      "--attr"
+      "duckdb.extensions.${attrName}"
+    ];
   };
 
   meta = {
