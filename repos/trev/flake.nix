@@ -127,13 +127,6 @@
             ];
           };
 
-          fix = pkgs.mkShell {
-            packages = with pkgs; [
-              codex
-              gh
-            ];
-          };
-
           update = pkgs.mkShell {
             packages = with pkgs; [
               nix-update
