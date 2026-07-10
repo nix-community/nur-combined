@@ -22,6 +22,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   brave-origin = pkgs.callPackage ./pkgs/brave-origin { };
+  ax = pkgs.callPackage ./pkgs/ax { };
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
   ccusage = pkgs.callPackage ./pkgs/ccusage { };
   kagiana = pkgs.callPackage ./pkgs/kagiana { };

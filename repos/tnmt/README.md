@@ -9,6 +9,7 @@
 
 | Package | Description |
 |---------|-------------|
+| [ax](./pkgs/ax) | The AI-era curl |
 | [brave-origin](./pkgs/brave-origin) | Brave Origin browser without AI, crypto, or rewards |
 | [ccpocket-bridge](./pkgs/ccpocket-bridge) | Bridge server connecting Claude Agent SDK and Codex CLI to mobile devices |
 | [ccusage](./pkgs/ccusage) | Claude Code usage analytics CLI tool |
