@@ -86,8 +86,8 @@
             "url": "https://github.com/DimitarNestorov/Nix-user-repository-packages"
         },
         "DzmingLi": {
-            "rev": "97d5faad49fb4e6c81c3fff433ac4e28a2efb890",
-            "sha256": "15xbw8yivhs7hfxzfqh503rxpq1n9wqfs1d073n46nq89cd26wwp",
+            "rev": "27bb576b650cb99438f55bbdaaa4b4082b472921",
+            "sha256": "032c02yiz3lpgiwxg7wki9hxjmwysx33zjsg3jw6kximh80pzlyr",
             "url": "https://github.com/DzmingLi/nur-packages"
         },
         "Educorreia932": {
@@ -967,6 +967,11 @@
             "rev": "dcd96344d43a837847b1c1920c6866e9c78d4a59",
             "sha256": "0623jffd3j1nahh51768sqmk5q4wbnxl7i2ip8685bk1g1hmki8q",
             "url": "https://github.com/fooker/nur-packages"
+        },
+        "foolnotion": {
+            "rev": "47c762f58ae57a606708b66211ce65527600d274",
+            "sha256": "1bw7rl35m1ngwwi9n9hcc5f8442ynvmlbfjy07qin5jm0wyls7af",
+            "url": "https://github.com/foolnotion/nur-pkg"
         },
         "foresense": {
             "rev": "af832ac9bbe2213339c3c6d8e6d8f4adf4ae2d4a",
