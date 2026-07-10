@@ -1,7 +1,7 @@
 {lib}: rec {
-  githubUrl = repo: tagPrefix: version: file: "https://github.com/${repo}/releases/download/${tagPrefix}${version}/${file}";
+  githubUrl = repo: tagPrefix: version: file: sanitizeUrl "https://github.com/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
-  forgejoUrl = instance: repo: tagPrefix: version: file: "${instance}/${repo}/releases/download/${tagPrefix}${version}/${file}";
+  forgejoUrl = instance: repo: tagPrefix: version: file: sanitizeUrl "${instance}/${repo}/releases/download/${tagPrefix}${version}/${file}";
 
   sanitizeName = name:
     builtins.replaceStrings

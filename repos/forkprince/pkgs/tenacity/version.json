@@ -1,0 +1,21 @@
+{
+  "name": "tenacity",
+  "source": {
+    "type": "forgejo-release",
+    "repo": "tenacityteam/tenacity",
+    "instance": "https://codeberg.org",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.3.5",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "tenacity-macos-{version}-Apple Silicon.dmg",
+      "hash": "sha256-3KLGBrirIUbErryYon1XkcWH9nf2+8zYRlFaaUveSaE="
+    },
+    "x86_64-darwin": {
+      "file": "tenacity-macos-{version}-Intel.dmg",
+      "hash": "sha256-UYJWdyEriGTBY6ABHFzE0fUBDMo8RZ7IyaTndU8Utsw="
+    }
+  }
+}

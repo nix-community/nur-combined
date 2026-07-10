@@ -65,6 +65,7 @@
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
   rustdesk = lib.callPackage ./pkgs/rustdesk {};
+  tenacity = lib.callPackage ./pkgs/tenacity {};
   ghostty = lib.callPackage ./pkgs/ghostty {};
   equibop = lib.callPackage ./pkgs/equibop {};
   vscode = lib.callPackage ./pkgs/vscode {};
