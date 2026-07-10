@@ -1,56 +1,49 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  buildNpmPackage,
+  fetchFromGitHub,
+  bun,
   autoPatchelfHook,
 }:
 
-let
+buildNpmPackage rec {
+  pname = "ax";
   version = "0.1.5";
 
-  sources = {
-    aarch64-darwin = {
-      asset = "ax-darwin-arm64";
-      hash = "sha256-qamolfFN2nRDhAKEA8MsWsQ3vEsuEkaQqeNelKwp5+4=";
-    };
-    x86_64-darwin = {
-      asset = "ax-darwin-x64";
-      hash = "sha256-0UcsQ9SXBTMvrSZAgcAXaEf0Y0y1XofeAIOxRp0qIvg=";
-    };
-    x86_64-linux = {
-      asset = "ax-linux-x64";
-      hash = "sha256-T4/GRF9kg2xrWUKQ96XZAO5X/n8fmbI4Fyubg6oyMxc=";
-    };
-    aarch64-linux = {
-      asset = "ax-linux-arm64";
-      hash = "sha256-oofQkR84+5RAkLymU4k7YUIy/ipMKlXilwFCwHCSHFY=";
-    };
+  src = fetchFromGitHub {
+    owner = "yusukebe";
+    repo = "ax";
+    rev = "v${version}";
+    hash = "sha256-RsRO2WOp4J/SETJa+7FjbaA5PHIW9xmXbQmeN4fBWJM=";
   };
 
-  source =
-    sources.${stdenv.hostPlatform.system}
-      or (throw "ax: unsupported system ${stdenv.hostPlatform.system}");
-in
-stdenv.mkDerivation {
-  pname = "ax";
-  inherit version;
+  npmDepsHash = "sha256-THoHXEySkrkWZh0lj/KbepudL3f7vGZHErh+ap2M/J4=";
 
-  src = fetchurl {
-    url = "https://github.com/yusukebe/ax/releases/download/v${version}/${source.asset}";
-    inherit (source) hash;
-  };
+  postPatch = ''
+    cp ${./package-lock.json} package-lock.json
+  '';
 
-  dontUnpack = true;
-  dontBuild = true;
+  nativeBuildInputs =
+    [ bun ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      autoPatchelfHook
+    ];
 
-  nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    autoPatchelfHook
-  ];
+  dontNpmBuild = true;
+
+  buildPhase = ''
+    runHook preBuild
+
+    bun build src/index.ts --compile --outfile ax
+
+    runHook postBuild
+  '';
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 $src $out/bin/ax
+    install -Dm755 ax $out/bin/ax
 
     runHook postInstall
   '';
@@ -60,6 +53,11 @@ stdenv.mkDerivation {
     homepage = "https://github.com/yusukebe/ax";
     license = lib.licenses.mit;
     mainProgram = "ax";
-    platforms = builtins.attrNames sources;
+    platforms = [
+      "aarch64-darwin"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "x86_64-linux"
+    ];
   };
 }
