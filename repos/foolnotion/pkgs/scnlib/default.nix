@@ -20,7 +20,11 @@ stdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ fast-float ];
+  # fast-float is linked PRIVATE by scnlib's CMake; when scnlib is built
+  # static, CMake does not propagate PRIVATE link deps to consumers via the
+  # exported target, so it must be propagated ourselves in that case.
+  buildInputs = lib.optionals enableShared [ fast-float ];
+  propagatedBuildInputs = lib.optionals (!enableShared) [ fast-float ];
 
   cmakeFlags = [
     "-DSCN_TESTS=OFF"

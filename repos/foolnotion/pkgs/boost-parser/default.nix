@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-parser";
-  version = "1.91.0";
+  version = "1.91.0.beta1";
 
   src = fetchFromGitHub {
     owner = "boostorg";
     repo = "parser";
     rev = "boost-${version}";
-    sha256 = "sha256-Q8wG2XwdhJBTu4lQf/a80T+/mXZ/840Ea+lcYMMd7Xw=";
+    sha256 = "sha256-gES8yWUbeNOkC47OuRx7ApnqjIsoNbuvjs2vb8DU4j0=";
   };
 
   dontConfigure = true;

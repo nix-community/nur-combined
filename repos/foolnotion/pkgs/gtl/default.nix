@@ -4,26 +4,16 @@
 
 stdenv.mkDerivation rec {
   pname = "gtl";
-  version = "1.2.0";
+  version = "unstable-2026-07-02";
 
   src = fetchFromGitHub {
     owner = "greg7mdp";
     repo = "gtl";
-    rev = "b4ac266c9008b6a1ea3d92633adb2066c05a48e6";
-    sha256 = "sha256-c0Mwzems8sGeYgGe0LKsk+5v2KR2js/StXInTR3GZ6o=";
+    rev = "bf28b50e276a9b4d6c01af2d92878801e43920f7";
+    sha256 = "sha256-BUj/F+ZPJ51gVYM5c/PUIjI7fo5yk/tRmUn1Kvn+AXw=";
   };
 
   nativeBuildInputs = [ cmake ];
-
-  postPatch = ''
-    substituteInPlace CMakeLists.txt \
-      --replace-fail 'target_sources(''${PROJECT_NAME} INTERFACE ''${GTL_HEADERS})' '# stripped for install-export compatibility' \
-      --replace-fail 'export(EXPORT ''${PROJECT_NAME}-targets' 'install(EXPORT gtl-targets
-            NAMESPACE gtl::
-            FILE gtlTargets.cmake
-            DESTINATION lib/cmake/gtl' \
-      --replace-fail 'FILE "''${CMAKE_CURRENT_BINARY_DIR}/''${PROJECT_NAME}Targets.cmake")' ')'
-  '';
 
   cmakeFlags = [
     "-DGTL_INSTALL=ON"
@@ -32,13 +22,6 @@ stdenv.mkDerivation rec {
     "-DGTL_BUILD_BENCHMARKS=OFF"
     "-DCMAKE_INSTALL_LIBDIR=lib"
   ];
-
-  postInstall = ''
-    mkdir -p $out/lib/cmake/gtl
-    cat > $out/lib/cmake/gtl/gtlConfig.cmake <<'EOF'
-include("''${CMAKE_CURRENT_LIST_DIR}/gtlTargets.cmake")
-EOF
-  '';
 
   passthru.updateScript = nix-update-script { };
 

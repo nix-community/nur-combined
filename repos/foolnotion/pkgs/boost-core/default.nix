@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-core";
-  version = "1.91.0";
+  version = "1.91.0.beta1";
 
   src = fetchFromGitHub {
     owner = "boostorg";
