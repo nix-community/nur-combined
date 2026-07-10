@@ -1,10 +1,10 @@
 {
-  "1.10.0": {
-    "aarch64-linux": "sha256-1hp/ILlx05n6zJUAgKHM4qNxrvdIpDrX0bc62LZ/jPA=",
-    "x86_64-linux": "sha256-XImEPWl4JJnzXU8eJx0uIdPgqGCmnvrJcEV1HJE1PJ8="
+  "1.10.1": {
+    "aarch64-linux": "sha256-OlSLuy4K4YQrWSU5Eue+kNUzH83xTjuVdsRPH9ET//o=",
+    "x86_64-linux": "sha256-IO1R5EPkBQlP/zYOJGDfcEkR2KEHWRWc4GsWj3faKLc="
   },
-  "1.11.0-pre": {
-    "aarch64-linux": "sha256-IICCLwwilObxw8NrHyJVCf+fQTSzoZ2/v/aWynBuRbk=",
-    "x86_64-linux": "sha256-8cYSR9yNxzkzHuy1agPyNanY6UvKhSO8joyb3u5DL/o="
+  "1.11.1-pre": {
+    "aarch64-linux": "sha256-/JJReR8/sUXiUV0EfbdCftxaa87ZPy1HIWOGQlMmeLg=",
+    "x86_64-linux": "sha256-l8gZZKHj1AJz2i8fRyspVQBag8itr99S6GMiR+fPxzU="
   }
 }
