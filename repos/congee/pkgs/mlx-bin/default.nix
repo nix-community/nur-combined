@@ -29,8 +29,8 @@ let
   wheels = {
     macosx_14_0_arm64 = {
       mlx = {
-        url = "https://files.pythonhosted.org/packages/a3/3f/888f8664d4f8e23a1363a5f50024be5216e199ab7ad0ba20988c7ed6d729/mlx-${version}-cp313-cp313-macosx_14_0_arm64.whl";
-        hash = "sha256-Gz+w3alVsNVSzle91vQrMwmrIbBn5AWH1oSEQ9MH6R8=";
+        url = "https://files.pythonhosted.org/packages/8b/f5/e63f6a9316ded2d14a8ebc7a9ca25734c784e8c54d064a78b4dceeacec0e/mlx-${version}-cp314-cp314-macosx_14_0_arm64.whl";
+        hash = "sha256-oTyc4jw97vaqWgkxXnlT4aXcMR6FH6Fvx0yB+yUJwLk=";
       };
       mlx-metal = {
         url = "https://files.pythonhosted.org/packages/3f/69/fe3b783ebe999f3118234e1e940feb622518bfb1dea6ac5d13b1d36a8449/mlx_metal-${version}-py3-none-macosx_14_0_arm64.whl";
@@ -39,8 +39,8 @@ let
     };
     macosx_15_0_arm64 = {
       mlx = {
-        url = "https://files.pythonhosted.org/packages/dd/14/e9cd18b51f9e1dbcb060eec0fafc2d2428c8e1eacd9b0a02d7c5ce75b661/mlx-${version}-cp313-cp313-macosx_15_0_arm64.whl";
-        hash = "sha256-NLAXHNnrXEP92CCR9hNdbMxaBlNjpKPmj6xk+05T03w=";
+        url = "https://files.pythonhosted.org/packages/31/50/9d0c03ea3134cd85c132df7b0e4b75e6344bd8b4881a0b9c465cfa27f724/mlx-${version}-cp314-cp314-macosx_15_0_arm64.whl";
+        hash = "sha256-sHZL8R/Dpx3umI4ZJ17vZ3dcq2MRLYu37xc8qLKhJHw=";
       };
       mlx-metal = {
         url = "https://files.pythonhosted.org/packages/4f/5d/4c690d5b93c30ba002656c37363159d978705bf8eb801b8481840fb942c2/mlx_metal-${version}-py3-none-macosx_15_0_arm64.whl";
@@ -49,8 +49,8 @@ let
     };
     macosx_26_0_arm64 = {
       mlx = {
-        url = "https://files.pythonhosted.org/packages/ca/20/c6c5fb998c7834d094b2bfb9f003b5246cb270f0266da055c55546c34999/mlx-${version}-cp313-cp313-macosx_26_0_arm64.whl";
-        hash = "sha256-wFmBaEJ5qJNdWLDd4+pbAtIQw7rTMZqg6ZNOwt8WV1I=";
+        url = "https://files.pythonhosted.org/packages/ef/5b/d364cc793bcb504621313acb55627cf0d5403ab2e0a594aa081cdbe4591f/mlx-${version}-cp314-cp314-macosx_26_0_arm64.whl";
+        hash = "sha256-Wcy9DwBE1Pl/EevL8MSAvJ6WKTX9lidfEglUr+plvoo=";
       };
       mlx-metal = {
         url = "https://files.pythonhosted.org/packages/99/82/11fd62a8d7a3e96e5c43220b17de0151e3f10101f8bb3b865f5bd9cdd074/mlx_metal-${version}-py3-none-macosx_26_0_arm64.whl";
@@ -62,9 +62,9 @@ let
   metalWheel = fetchurl wheels.${platform}.mlx-metal;
 in
 
-# The wheels are pinned to cp313; bump the urls/hashes when python changes.
-assert lib.assertMsg (python.pythonVersion == "3.13")
-  "mlx-bin pins cp313 wheels but python is ${python.pythonVersion}";
+# The wheels are pinned to cp314; bump the urls/hashes when python changes.
+assert lib.assertMsg (python.pythonVersion == "3.14")
+  "mlx-bin pins cp314 wheels but python is ${python.pythonVersion}";
 
 buildPythonPackage {
   pname = "mlx";
