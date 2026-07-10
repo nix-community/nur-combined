@@ -62,7 +62,6 @@
     foliate
     freerdp
     gnumeric
-    kodi-wayland
     localsend
     nomacs
     pavucontrol
