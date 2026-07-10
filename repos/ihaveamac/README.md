@@ -49,6 +49,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [mediawiki-1.46.0](https://www.mediawiki.org/) | mediawiki\_1\_46 | The collaborative editing software that runs Wikipedia |
 | [mediawiki-core-1.46.0](https://www.mediawiki.org/) | mediawiki\_1\_46\_core | The collaborative editing software that runs Wikipedia (without bundled extensions) |
 | [mrpack-install-0.21.0-beta-unstable-2026-03-11](https://github.com/nothub/mrpack-install) | mrpack-install | Modrinth Modpack server deployment |
+| [noods-release-unstable-2026-07-09](https://github.com/Hydr8gon/NooDS) | noods | A (hopefully!) speedy DS emulator |
 | [otptool-1.0](https://github.com/SciresM/otptool) | otptool | view and extract data from a 3DS OTP |
 | [qcma-0.4.1-unstable-2025-07-14](https://codestation.github.io/qcma/) | qcma | Cross-platform content manager assistant for the PS Vita |
 | [retro-aim-server-0.24.0](https://github.com/mk6i/retro-aim-server) | retro-aim-server | Self-hostable instant messaging server compatible with classic AIM and ICQ clients |

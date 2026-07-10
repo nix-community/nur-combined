@@ -84,6 +84,7 @@ rec {
   gmodpatchtool = callPackage ./pkgs/gmodpatchtool/package.nix { };
   yt-dlp-master = callPackage ./pkgs/yt-dlp-master/package.nix { };
   wheelwizard = callPackage ./pkgs/wheelwizard/package.nix { };
+  noods = callPackage ./pkgs/noods/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
