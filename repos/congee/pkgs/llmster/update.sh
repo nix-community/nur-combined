@@ -8,7 +8,10 @@ cd "$(dirname "$0")"
 
 # upstream versions look like "0.0.15-2" (version-build); the nix version
 # uses "+" to match the output of `llmster --version`
-upstream="$(curl -fsSL https://lmstudio.ai/install.sh | awk -F'"' '/^APP_VERSION=/ {print $2; exit}')"
+# NB: fetch fully before parsing — piping curl into `awk ... exit` closes the
+# pipe early, so curl fails writing the rest of the body (error 23) under pipefail.
+install_sh="$(curl -fsSL https://lmstudio.ai/install.sh)"
+upstream="$(awk -F'"' '/^APP_VERSION=/ {print $2; exit}' <<<"$install_sh")"
 new_version="${upstream%-*}+${upstream##*-}"
 
 old_version="$(sed -n 's/^  version = "\(.*\)";$/\1/p' default.nix)"
