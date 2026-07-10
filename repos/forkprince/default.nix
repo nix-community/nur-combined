@@ -62,6 +62,7 @@
   overlayed = lib.callPackage ./pkgs/overlayed {};
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
+  rustdesk = lib.callPackage ./pkgs/rustdesk {};
   ghostty = lib.callPackage ./pkgs/ghostty {};
   equibop = lib.callPackage ./pkgs/equibop {};
   vscode = lib.callPackage ./pkgs/vscode {};

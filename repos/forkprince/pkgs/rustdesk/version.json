@@ -1,0 +1,19 @@
+{
+  "name": "rustdesk",
+  "source": {
+    "type": "github-release",
+    "repo": "rustdesk/rustdesk",
+    "skip_prerelease": true
+  },
+  "version": "1.4.9",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "rustdesk-{version}-aarch64.dmg",
+      "hash": "sha256-95NVl7JH1CyPKi7XEXap9YaAGM2eGjO4CWQYpmjIyvA="
+    },
+    "x86_64-darwin": {
+      "file": "rustdesk-{version}-x86_64.dmg",
+      "hash": "sha256-+hEpoGNQGfnFhBk3lCzCsIvgKKGS9HwAnt3n5TgSkE4="
+    }
+  }
+}
