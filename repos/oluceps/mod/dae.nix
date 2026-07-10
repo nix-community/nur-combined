@@ -84,7 +84,7 @@
                        dnsproxy, coredns, mosdns, naive,
                        hysteria, tuic-client, sing-box,
                        juicity, mosproxy, yggdrasil,
-                       zerotier-one, cloudflared, xray) -> must_direct
+                       zerotier-one, cloudflared, xray, rqbit) -> must_direct
 
                  pname(prometheus, ssh) -> direct
 

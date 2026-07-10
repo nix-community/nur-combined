@@ -56,7 +56,7 @@
           insert = {
             "0206c8ff3ff866c4212f1a968882f993e101fbf7ffdaa4e0e722b3ca069c5559".content = ''
               [[backup.snapshots]]
-              sources = [ "/var/.snapshots/latest/lib/backup/postgresql" ]
+              sources = [ "/var/lib/backup/postgresql/all.sql" ]
             '';
           };
           name = "on-hastur.toml";

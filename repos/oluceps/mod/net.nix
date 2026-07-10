@@ -341,12 +341,13 @@ in
       }
     ];
   flake.modules.nixos."net/kaambl" =
-    { ... }:
+    { config, ... }:
     lib.mkMerge [
       common
       {
         networking = {
           hostName = "kaambl";
+          hosts = config.data.hosts.${config.networking.hostName};
         };
         systemd.network = {
           enable = true;

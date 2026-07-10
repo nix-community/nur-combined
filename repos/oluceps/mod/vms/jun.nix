@@ -20,32 +20,32 @@
       networking.firewall.extraInputRules = ''
         iifname "vm2" ip saddr 10.255.0.2 ip daddr 10.255.0.0 tcp dport { 3030, 53, 9222 } accept
       '';
-      systemd.sockets.forward-9222 = {
-        description = "socket for port 9222 forwarding";
-        wantedBy = [ "sockets.target" ];
-        socketConfig = {
-          ListenStream = "10.255.0.0:9222";
-          # bind explicitly to the device
-          # BindToDevice = "vm2";
-          # optional: allow binding even if the interface is not fully up yet
-          # FreeBind = true;
-        };
-      };
+      # systemd.sockets.forward-9222 = {
+      #   description = "socket for port 9222 forwarding";
+      #   wantedBy = [ "sockets.target" ];
+      #   socketConfig = {
+      #     ListenStream = "10.255.0.0:9222";
+      #     # bind explicitly to the device
+      #     BindToDevice = "vm2";
+      #     # optional: allow binding even if the interface is not fully up yet
+      #     FreeBind = true;
+      #   };
+      # };
 
-      systemd.services.forward-9222 = {
-        description = "forward 9222 to localhost";
-        requires = [ "forward-9222.socket" ];
-        after = [ "forward-9222.socket" ];
-        serviceConfig = {
-          # execute the built-in systemd proxy
-          ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:9222";
+      # systemd.services.forward-9222 = {
+      #   description = "forward 9222 to localhost";
+      #   requires = [ "forward-9222.socket" ];
+      #   after = [ "forward-9222.socket" ];
+      #   serviceConfig = {
+      #     # execute the built-in systemd proxy
+      #     ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd 127.0.0.1:9222";
 
-          # security hardening
-          DynamicUser = true;
-          PrivateTmp = true;
-          NoNewPrivileges = true;
-        };
-      };
+      #     # security hardening
+      #     DynamicUser = true;
+      #     PrivateTmp = true;
+      #     NoNewPrivileges = true;
+      #   };
+      # };
       # networking = {
       #   nat = {
       #     enable = true;
@@ -55,6 +55,23 @@
       #     externalInterface = "eno1";
       #   };
       # };
+      #
+      services.realm = {
+        enable = true;
+        settings = {
+          log.level = "warn";
+          network = {
+            no_tcp = false;
+            use_udp = true;
+          };
+          endpoints = [
+            {
+              listen = "10.255.0.0:9222";
+              remote = "127.0.0.1:9222";
+            }
+          ];
+        };
+      };
       microvm.autostart = [
         "june"
       ];
