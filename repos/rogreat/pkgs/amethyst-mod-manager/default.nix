@@ -75,21 +75,20 @@ python3Packages.buildPythonApplication (finalAttrs: {
         -exec install -Dm 755 '{}' "$out/${python3Packages.python.sitePackages}/{}" \;
     popd > /dev/null
 
-    install -d "$out/bin/"
+    install -d $out/bin/
 
-    echo "#!/bin/sh" > "$out/bin/amethyst-mod-manager"
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/gui.py \"\$@\"" >> "$out/bin/amethyst-mod-manager"
-    chmod +x "$out/bin/amethyst-mod-manager"
+    echo "#!/bin/sh" > $out/bin/amethyst-mod-manager
+    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/gui.py \"\$@\"" >> $out/bin/amethyst-mod-manager
+    chmod +x $out/bin/amethyst-mod-manager
 
     echo "#!/bin/sh" > "$out/bin/amethyst-mod-manager-cli"
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cli.py \"\$@\"" >> "$out/bin/amethyst-mod-manager-cli"
-    chmod +x "$out/bin/amethyst-mod-manager-cli"
+    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cli.py \"\$@\"" >> $out/bin/amethyst-mod-manager-cli
+    chmod +x $out/bin/amethyst-mod-manager-cli
 
-    install -Dm644 "flatpak/io.github.Amethyst.ModManager.desktop" "$out/share/applications/io.github.Amethyst.ModManager.desktop"
-    install -Dm644 "src/appimage/mod-manager.png" "$out/share/icons/hicolor/512x512/apps/io.github.Amethyst.ModManager.png"
+    install -Dm644 flatpak/io.github.Amethyst.ModManager.desktop $out/share/applications/io.github.Amethyst.ModManager.desktop
+    install -Dm644 src/appimage/mod-manager.png $out/share/icons/hicolor/512x512/apps/io.github.Amethyst.ModManager.png
 
-    install -Dm644 LICENSE "$out/share/licenses/amethyst-mod-manager/LICENSE"
-    install -Dm644 README.md "$out/share/doc/amethyst-mod-manager/README.md"
+    install -Dm644 Changelog.txt $out/${python3Packages.python.sitePackages}/Changelog.txt
 
     runHook postInstall
   '';
