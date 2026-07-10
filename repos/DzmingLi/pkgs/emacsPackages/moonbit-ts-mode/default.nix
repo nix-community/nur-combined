@@ -5,7 +5,7 @@
   tree-sitter,
 }:
 
-## moonbit-community/moonbit-mode: MoonBit major mode，tree-sitter 高亮 + eglot
+## moonbit-community/moonbit-ts-mode: MoonBit major mode，tree-sitter 高亮 + eglot
 ## (moonbit-lsp) 集成，含 semantic tokens 增强高亮和 moon build/check/test
 ## project 命令。
 ##
@@ -17,7 +17,7 @@
 ##
 ## Consumer pattern:
 ##   programs.emacs.package = (pkgs.emacsPackagesFor pkgs.emacs-pgtk).emacsWithPackages
-##     (epkgs: [ ... epkgs.moonbit-mode ... ]);
+##     (epkgs: [ ... epkgs.moonbit-ts-mode ... ]);
 let
   tree-sitter-moonbit-src = fetchFromGitHub {
     owner = "moonbitlang";
@@ -32,7 +32,7 @@ let
     src = tree-sitter-moonbit-src;
   };
 
-  ## .mbtp 谓词/证明文件用独立 grammar，moonbit-mode 按扩展名选
+  ## .mbtp 谓词/证明文件用独立 grammar，moonbit-ts-mode 按扩展名选
   ## 'moonbit_mbtp 语言，对应 libtree-sitter-moonbit_mbtp.so。
   grammar-mbtp = tree-sitter.buildGrammar {
     language = "moonbit_mbtp";
@@ -42,14 +42,14 @@ let
   };
 in
 emacsPackages.trivialBuild {
-  pname = "moonbit-mode";
-  version = "0.1.0-unstable-2026-07-08";
+  pname = "moonbit-ts-mode";
+  version = "0.1.0-unstable-2026-07-10";
 
   src = fetchFromGitHub {
-    owner = "DzmingLi";
-    repo = "moonbit-mode";
-    rev = "1c2616c5b76d3220444238e39a3931cdd7c795f6";
-    sha256 = "1cnwqb6368h1szrypq9w7j7436p0is9kdd98f9aqnpxhrq8g3vlm";
+    owner = "moonbit-community";
+    repo = "moonbit-ts-mode";
+    rev = "3270f6212b538a87e9b0c3d7ba21d993c7391021";
+    sha256 = "0fslh8vmyj90x6yjp7ir4z49s5lnz9zjxs0rrj29x5b8lyadd1lw";
   };
 
   postInstall = ''
@@ -62,7 +62,7 @@ emacsPackages.trivialBuild {
 
   meta = with lib; {
     description = "MoonBit major mode for Emacs with tree-sitter highlighting and Eglot support";
-    homepage = "https://github.com/moonbit-community/moonbit-mode";
+    homepage = "https://github.com/moonbit-community/moonbit-ts-mode";
     license = licenses.asl20;
     platforms = platforms.unix;
   };
