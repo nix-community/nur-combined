@@ -1,7 +1,7 @@
 {
   description = "William Artero's nix user repository";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11?shallow=1";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable?shallow=1";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     treefmt-nix = {
