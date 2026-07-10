@@ -117,7 +117,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
         "''${makeWrapperArgs[@]}"
         "''${gappsWrapperArgs[@]}"
     )
-    wrapProgram $out/bin/amethyst-mod-manager "''${qtWrapperArgs[@]}"
+    wrapQtApp $out/bin/amethyst-mod-manager
     wrapProgram $out/bin/amethyst-mod-manager-cli "''${makeWrapperArgs[@]}"
   '';
 
