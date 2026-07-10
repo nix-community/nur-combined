@@ -123,6 +123,7 @@ bioinformatics
 bioluminescent
 biome
 biomes
+bioregion
 biostatistician
 biostatisticians
 BIPOC
@@ -507,6 +508,7 @@ freenode
 frictionless
 Friendsgiving
 frisbees
+frontmatter
 fuckup
 Fukushima
 functors

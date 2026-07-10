@@ -1,9 +1,11 @@
 { pkgs }:
 
 let
-  inherit (builtins) filter toFile warn;
-  inherit (lib) findFirst hasInfix recursiveUpdate remove versionAtLeast warnIfNot;
+  inherit (builtins) filter toFile;
+  inherit (lib) hasInfix hasPrefix recursiveUpdate remove versionAtLeast warnIf;
   inherit (pkgs) callPackage fetchFromGitHub lib;
+
+  isStable = hasPrefix "." lib.trivial.versionSuffix;
 in
 # Published as nur.repos.AndrewKvalheim (https://nur.nix-community.org/repos/andrewkvalheim/)
 rec {
@@ -69,7 +71,7 @@ rec {
         # Pending NixOS/nixpkgs#493912
         icalendar =
           if (versionAtLeast icalendar.version "7") then
-            warn "Version override of icalendar is no longer necessary" icalendar
+            warnIf isStable "Version override of icalendar is no longer necessary" icalendar
           else
             icalendar.overridePythonAttrs (icalendar: rec {
               version = "7.1.2";
@@ -80,7 +82,7 @@ rec {
             });
         sunrisesunset =
           if (pythonPackages ? sunrisesunset) then
-            warn "Packaging of sunrisesunset is no longer necessary" sunrisesunset
+            warnIf isStable "Packaging of sunrisesunset is no longer necessary" sunrisesunset
           else
             buildPythonPackage rec {
               pname = "sunrisesunset";
