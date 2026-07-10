@@ -1887,7 +1887,7 @@ dependencies = [
  "specta-typescript",
  "struct-patch",
  "strum",
- "sysinfo 0.39.5",
+ "sysinfo 0.39.6",
  "sysproxy",
  "tauri",
  "tauri-build",
@@ -9833,18 +9833,18 @@ checksum = "7da8b5736845d9f2fcb837ea5d9e2628564b3b043a70948a3f0b778838c5fb4f"
 
 [[package]]
 name = "struct-patch"
-version = "0.12.5"
+version = "0.12.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "16653188c79fd54e2aee455daa0d14e4975292a4a935500bddee6684ad9ead47"
+checksum = "49662ac30d1fb3c0d22bfd128e09fed3b6eea5c1a93a9573c4806dc5ca75a22f"
 dependencies = [
  "struct-patch-derive",
 ]
 
 [[package]]
 name = "struct-patch-derive"
-version = "0.12.5"
+version = "0.12.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48a28cbfd427a1b2e4d441ce9dd2f59763a25a36f3d51c34ee439f08c758df0c"
+checksum = "2b92447ab9bfb35961d208ace5e58ecc9638f06c43a5bb9c8975b1c2240e55c3"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -9972,9 +9972,9 @@ dependencies = [
 
 [[package]]
 name = "sysinfo"
-version = "0.39.5"
+version = "0.39.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2c8bd2130a9b60bee2581bf82cfe89ee836424d1f37dcfa4ce21509611684673"
+checksum = "d2071df9448915b71c4fe6d25deaf1c22f12bd234f01540b77312bb8e41361e6"
 dependencies = [
  "libc",
  "memchr",
