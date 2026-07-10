@@ -66,11 +66,14 @@ python3Packages.buildPythonApplication (finalAttrs: {
     qt6.wrapQtAppsHook
   ];
 
+  buildInputs = [
+    qt6.qtbase
+  ];
+
   dependencies = [
     cdumm-native
     privatebin
     pyside6-fluent-widgets
-    qt6.qtbase
   ]
   ++ (with python3Packages; [
     bsdiff4
