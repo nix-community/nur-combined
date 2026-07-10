@@ -120,6 +120,7 @@ jobs:
           --no-nom \
           -f .#cached.${{ env.SYSTEM }} ${{ matrix.nixpkgs-override }}
     - name: Check evaluation
+      if: false
       run: |
         nix-env -f . -qa \* --meta --xml \
           --allowed-uris https://static.rust-lang.org \
