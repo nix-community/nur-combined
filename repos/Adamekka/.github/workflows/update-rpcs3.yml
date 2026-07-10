@@ -14,6 +14,9 @@ jobs:
     name: Update rpcs3
     runs-on: ubuntu-latest
 
+    env:
+      PAT_TOKEN: ${{ secrets.PAT }}
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -35,7 +38,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
-          token: ${{ secrets.PAT }}
+          token: ${{ env.PAT_TOKEN }}
           add-paths: pkgs/rpcs3/default.nix
           branch: update/rpcs3
           commit-message: Update rpcs3
