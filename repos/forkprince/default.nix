@@ -19,6 +19,7 @@
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
   sonixd = lib.callPackage ./pkgs/sonixd {};
   hytale = lib.callPackage ./pkgs/hytale {};
+  whisky = lib.callPackage ./pkgs/whisky {};
   mcman = lib.callPackage ./pkgs/mcman {};
   sfw = lib.callPackage ./pkgs/sfw {};
 

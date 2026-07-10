@@ -1,0 +1,15 @@
+{
+  "name": "whisky",
+  "source": {
+    "type": "github-release",
+    "repo": "frankea/Whisky",
+    "skip_prerelease": true,
+    "tag_prefix": "app-v"
+  },
+  "asset": {
+    "file": "Whisky-{version}.dmg",
+    "unpack": false
+  },
+  "version": "3.5.0",
+  "hash": "sha256-j4J44vJ+a+oCNFhGlni2sQJyc6iWgVOt7FkV8FYUn0A="
+}
