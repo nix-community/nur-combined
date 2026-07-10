@@ -83,34 +83,44 @@ rec {
   thextech-aod = callPackage ./pkgs/thextech/aod.nix { inherit thextech; };
   gmodpatchtool = callPackage ./pkgs/gmodpatchtool/package.nix { };
   yt-dlp-master = callPackage ./pkgs/yt-dlp-master/package.nix { };
+  wheelwizard = callPackage ./pkgs/wheelwizard/package.nix { };
 
   kwin-move-window = callPackage ./pkgs/kwin-move-window/package.nix { };
 
   mediawiki_1_43 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.43.8";
-    hash = "sha256-xWTg5MZvMwfb14e9BhFuaDYNYZxkxtwB9sce0GEcIB0=";
+    version = "1.43.9";
+    hash = "sha256-RZX4z9OfHEtSeOxDg2xnIFhuY5UYqnah20tVMqOVXuY=";
   };
   mediawiki_1_43_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.43.8";
-    hash = "sha256-+Fw+gb8WkFJxLUCrhBXvwtBwdoY20JwAycTD7U6DsbM=";
+    version = "1.43.9";
+    hash = "sha256-etCk/QYgYCoYQLhmFktYMtxw2BRs2ARivP0b8Br90TE=";
     core = true;
   };
   mediawiki_1_44 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.44.5";
-    hash = "sha256-PidNTU3WS+W6hsgfjaKsR+SZxTfQ+xftlsLQ98XaBGQ=";
+    version = "1.44.6";
+    hash = "sha256-KBFZrWk/ahuHzpeTGXuCe4dvWNwFCM3jjLHIq6boLFk=";
   };
   mediawiki_1_44_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.44.5";
-    hash = "sha256-H6GbwPBky1hJuwlJw0CD9vgGF3Gjjh18trVwrbrLboU=";
+    version = "1.44.6";
+    hash = "sha256-qSWs/KypR5D/HcfRO5PwaJReEgB2gi20QI84k9xvbNg=";
     core = true;
   };
   mediawiki_1_45 = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.45.3";
-    hash = "sha256-XqjB8yHJ+Nuk0aweTsoYJ/sTUZ1KIZDiOfUUMgWKQmk=";
+    version = "1.45.4";
+    hash = "sha256-y3yCRGjrWlEacvCOYpHQncivEuCg/9wlMu4/drsMrXw=";
   };
   mediawiki_1_45_core = callPackage ./pkgs/mediawiki/package.nix {
-    version = "1.45.3";
-    hash = "sha256-iUezgMbl5Adxexhci7W4P+3PjZeqgp/xD8v1kONs8O0=";
+    version = "1.45.4";
+    hash = "sha256-XHcr6fw+EOWO+6INIzWkwm0t2+8oJBuEBGReOZNlsnY=";
+    core = true;
+  };
+  mediawiki_1_46 = callPackage ./pkgs/mediawiki/package.nix {
+    version = "1.46.0";
+    hash = "sha256-rDleT/07Y7hqJC79Z5JXUD5GNEW6n5ibUU2dOzQsRWo=";
+  };
+  mediawiki_1_46_core = callPackage ./pkgs/mediawiki/package.nix {
+    version = "1.46.0";
+    hash = "sha256-NMhihaXOABeQJFvAM/gWM1sJRZtjwOcOV9i6u+ASHiU=";
     core = true;
   };
 

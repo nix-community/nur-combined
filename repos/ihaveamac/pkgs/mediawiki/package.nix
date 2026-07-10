@@ -1,4 +1,4 @@
-# based on: https://github.com/NixOS/nixpkgs/blob/9ca3f649614213b2aaf5f1e16ec06952fe4c2632/pkgs/servers/web-apps/mediawiki/default.nix
+# based on: https://github.com/NixOS/nixpkgs/blob/d407951447dcd00442e97087bf374aad70c04cea/pkgs/by-name/me/mediawiki/package.nix
 
 {
   lib,
@@ -21,8 +21,10 @@ stdenvNoCC.mkDerivation rec {
     inherit hash;
   };
 
+  # the case in "installer" changed with 1.46.0, so i use * to capture both
   postPatch = ''
-    sed -i 's|$vars = Installer::getExistingLocalSettings();|$vars = null;|' includes/installer/CliInstaller.php
+    substituteInPlace includes/*nstaller/CliInstaller.php \
+      --replace-fail '$vars = Installer::getExistingLocalSettings();' '$vars = null;'
   '';
 
   installPhase = ''
@@ -41,11 +43,11 @@ stdenvNoCC.mkDerivation rec {
     inherit (nixosTests.mediawiki) mysql postgresql;
   };
 
-  meta = with lib; {
+  meta = {
     inherit knownVulnerabilities;
     description = "The collaborative editing software that runs Wikipedia${lib.optionalString core " (without bundled extensions)"}";
-    license = licenses.gpl2Plus;
+    license = lib.licenses.gpl2Plus;
     homepage = "https://www.mediawiki.org/";
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
   };
 }
