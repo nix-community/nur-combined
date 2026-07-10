@@ -17,7 +17,7 @@ rec {
   overlays = import ./overlays; # nixpkgs overlays
 
   amethyst-mod-manager = pkgs.callPackage ./pkgs/amethyst-mod-manager {
-    inherit libloot-python customtkinter;
+    inherit libloot-python;
   };
   crimsondesert-ultimatemodsmanager = pkgs.callPackage ./pkgs/crimsondesert-ultimatemodsmanager {
     inherit privatebin pyside6-fluent-widgets;

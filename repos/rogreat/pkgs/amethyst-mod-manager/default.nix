@@ -1,8 +1,6 @@
 {
-  _7zip-zstd,
+  _7zz,
   bash,
-  customtkinter,
-  desktop-file-utils,
   fetchFromGitHub,
   glib,
   gobject-introspection,
@@ -10,45 +8,50 @@
   libloot-python,
   protontricks,
   python3Packages,
+  qt6,
   wrapGAppsHook3,
   xdg-utils,
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "1.3.13";
+  version = "2.0.1";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "ChrisDKN";
     repo = "Amethyst-Mod-Manager";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-KZkVv6AuG1joItUKlDyVmpkcgt/3gnQiSFKDs7ZDz7E=";
+    hash = "sha256-/GLvj7qWIhKdubCuH3BdGrf6TTVRDxql9jPMfrD8Cx0=";
   };
 
   nativeBuildInputs = [
     gobject-introspection
+    qt6.wrapQtAppsHook
     wrapGAppsHook3
+  ];
+
+  buildInputs = [
+    qt6.qtbase
   ];
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   dependencies = [
-    customtkinter
     libloot-python
   ]
   ++ (with python3Packages; [
     bsdiff4
+    certifi
     cryptography
     jeepney
     keyring
     lz4
     msgpack
     pillow
-    py7zr
-    pycairo
-    pygobject3
-    rarfile
+    py7zr # fallback
+    pyside6
     requests
+    secretstorage
     tkinter
     websocket-client
     zstandard
@@ -69,7 +72,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     find . -path "./appimage" -prune -o \
         -not -name "requirements*.txt" \
         -not -name "rebuild_libloot.sh" \
-        -not -name "run.sh" \
+        -not -name "run_qt.sh" \
         -not -name "loot.cpython*.so" \
         -type f \
         -exec install -Dm 755 '{}' "$out/${python3Packages.python.sitePackages}/{}" \;
@@ -78,7 +81,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     install -d $out/bin/
 
     echo "#!/bin/sh" > $out/bin/amethyst-mod-manager
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/gui.py \"\$@\"" >> $out/bin/amethyst-mod-manager
+    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/run_qt.py \"\$@\"" >> $out/bin/amethyst-mod-manager
     chmod +x $out/bin/amethyst-mod-manager
 
     echo "#!/bin/sh" > "$out/bin/amethyst-mod-manager-cli"
@@ -93,14 +96,16 @@ python3Packages.buildPythonApplication (finalAttrs: {
     runHook postInstall
   '';
 
+  dontWrapGApps = true;
+  dontWrapQtApps = true;
+
   preFixup = ''
-    gappsWrapperArgs+=(
+    makeWrapperArgs+=(
         --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
         --suffix PATH : "${
           lib.makeBinPath [
-            _7zip-zstd # 7z (fallback)
+            _7zz # 7zz
             bash
-            desktop-file-utils # update-desktop-database
             glib # gio, gdbus
             protontricks
             python3Packages.python
@@ -108,6 +113,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
           ]
         }"
     )
+    qtWrapperArgs+=(
+        "''${makeWrapperArgs[@]}"
+        "''${gappsWrapperArgs[@]}"
+    )
+    wrapProgram $out/bin/amethyst-mod-manager "''${qtWrapperArgs[@]}"
+    wrapProgram $out/bin/amethyst-mod-manager-cli "''${makeWrapperArgs[@]}"
   '';
 
   meta = {
