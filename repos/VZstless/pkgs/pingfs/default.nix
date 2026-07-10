@@ -10,7 +10,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "pingfs";
   version = "1.0.0";
   src = fetchFromGitHub {
-    owner = "atlarator";
+    owner = "VZstless";
     repo = "pingfs";
     rev = finalAttrs.version;
     hash = "sha256-G0j2vJ2cnmj9TgZ9WHAq/3a7ZD269rLbNtxgm2WHKMs=";

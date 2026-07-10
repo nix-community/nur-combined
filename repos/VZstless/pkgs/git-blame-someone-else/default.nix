@@ -8,7 +8,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "git-blame-someone-else";
   version = "1.0.0";
   src = fetchFromGitHub {
-    owner = "atlarator";
+    owner = "VZstless";
     repo = "git-blame-someone-else";
     rev = finalAttrs.version;
     hash = "sha256-xraG1dR5Q8oDlUXARgh0ql8eRwH4bJWblJFjH1wJcys=";
