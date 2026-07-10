@@ -1,0 +1,29 @@
+{
+  "name": "sonixd",
+  "source": {
+    "type": "github-release",
+    "repo": "jeffvli/sonixd",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "0.15.5",
+  "locked": true,
+  "platforms": {
+    "aarch64-linux": {
+      "file": "Sonixd-{version}-linux-arm64.AppImage",
+      "hash": "sha256-f2KY8sqI8nxksP/PgzB/N7UFLFsqPFqi05N5yhA6on8="
+    },
+    "x86_64-linux": {
+      "file": "Sonixd-{version}-linux-x86_64.AppImage",
+      "hash": "sha256-j8B+o/CJ5SsZPMNbugyP3T9Kb+xuxlVxH02loxlwwDg="
+    },
+    "aarch64-darwin": {
+      "file": "Sonixd-{version}-mac-arm64.zip",
+      "hash": "sha256-ZcMX7r4IhTQsMCgznwvkmRraaSvKXZmOUQThMDmEydU="
+    },
+    "x86_64-darwin": {
+      "file": "Sonixd-{version}-mac-x64.zip",
+      "hash": "sha256-wGO+dsErp/btzneaihg0k0NCR/roMoo2clkRS5ucoSo="
+    }
+  }
+}

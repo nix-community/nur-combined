@@ -17,6 +17,7 @@
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
   equicord = lib.callPackage ./pkgs/equicord {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
+  sonixd = lib.callPackage ./pkgs/sonixd {};
   hytale = lib.callPackage ./pkgs/hytale {};
   mcman = lib.callPackage ./pkgs/mcman {};
   sfw = lib.callPackage ./pkgs/sfw {};
