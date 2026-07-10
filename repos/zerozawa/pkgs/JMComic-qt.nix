@@ -26,11 +26,11 @@ let
 
   jmcomic = python3Packages.buildPythonPackage rec {
     pname = "jmcomic";
-    version = "2.7.0";
+    version = "2.7.1";
     pyproject = true;
     src = fetchPypi {
       inherit pname version;
-      hash = "sha256-E8KSJ8GGIeJ/MpgCYHik1Kxn2Yjwm+u0pgbspxzCLV4=";
+      hash = "sha256-VgoCGHWK8OJhfoLos8X4VdIZ4hE/vIujdyRHsNY3RcQ=";
     };
     build-system = with python3Packages; [ setuptools ];
     dependencies = with python3Packages; [
@@ -46,13 +46,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "JMComic-qt";
-  version = "1.3.3";
+  version = "1.3.3.3";
 
   src = fetchFromGitHub {
     owner = "tonquer";
     repo = "JMComic-qt";
     rev = "v${version}";
-    hash = "sha256-YRU9gLmfROIXJ6Im/Uv1On+W9FIFKcJUMepE2t6eQj4=";
+    hash = "sha256-X0vXNpVMZtS/4tET3hOP4KAMP/Pyjk5V9ZvrRoh3ELE=";
   };
 
   format = "other";

@@ -111,7 +111,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.10.0";
+  version = "4.11.0";
 
   pyproject = true;
 
@@ -119,7 +119,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-6GdsSr3HB6DdxICsIoTcWM47qVabhg8CEuYIdInhGfo=";
+    hash = "sha256-B7ayTJ7Vh1etW0ESZVupUjWxkn1Rq1ukxORHh7V7Wmg=";
   };
 
   build-system = with python3Packages; [
