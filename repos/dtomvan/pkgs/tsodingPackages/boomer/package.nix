@@ -5,7 +5,7 @@
   lib,
   fetchFromGitHub,
   autoPatchelfHook,
-  nim-1_0,
+  nim_1_0,
   libGL,
   libX11,
   libXrandr,
@@ -32,7 +32,7 @@ buildNimPackage (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
 
-    nim-1_0
+    nim_1_0
   ];
 
   nimFlags = [

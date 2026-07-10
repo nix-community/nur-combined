@@ -8,31 +8,33 @@
   sqlite,
   zlib,
   nix-update-script,
-
-  runCommand,
   makeWrapper,
 }:
 
+let
+  rev = "1962fb9d39152dbd3901a0373ed3f900f3d526d4";
+in
+
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tyck";
-  version = "0.1.0";
+  version = "0.1.0-unstable-2026-07-10";
 
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchFromGitea {
     domain = "codeberg.org";
-    owner = "natkr";
+    owner = "dtomvan";
     repo = "tyck";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-P6bW210ThAPESwpE6WA2pd8xRWqEq8Rq/aww4h3y/5Q=";
+    inherit rev;
+    hash = "sha256-xtzfcx6JHCRvN+9A3ht1A4DTYdetsZoumAr/FfWBVW4=";
   };
 
-  cargoHash = "sha256-DY29G0icWpEHgZg9hnys+QT5DF3CceSeEJxajcV0A7c=";
+  cargoHash = "sha256-jEJ9F9P0wgwS4NXnqrR8P8fPwnpGA/184/BLoAbYEhg=";
 
   env = {
     SQLX_OFFLINE = "true";
-    BUILT_OVERRIDE_tyck_GIT_COMMIT_HASH = "cc8902e3e20e5e8af7807a638e37fb99e3251f05";
+    BUILT_OVERRIDE_tyck_GIT_COMMIT_HASH = rev;
   };
 
   nativeBuildInputs = [
