@@ -1,6 +1,6 @@
 {
-  "version": "0.23.0",
-  "hash": "sha256-SJP1CkpkGxsuJZQKxaDPLZMUT1HZmyxqR42nCIHfPLM=",
+  "version": "0.23.1",
+  "hash": "sha256-qFDb6I9w9F/KfRVHmwezykv7y/Tb8BjJQD2v5AxlEfU=",
   "apiDepsHash": "sha256-Im8fSG9sbaSynrN5gLsWVaPgH5g4Zp+x+FUPIBXrKjg=",
   "extensionManagerDepsHash": "sha256-pEgqFgvdz7Bcc+LznCI+KlD1XEfUuWFWjS24MJ7sx3k="
 }
