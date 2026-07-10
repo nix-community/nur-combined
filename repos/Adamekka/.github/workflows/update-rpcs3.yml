@@ -35,6 +35,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.PAT }}
           add-paths: pkgs/rpcs3/default.nix
           branch: update/rpcs3
           commit-message: Update rpcs3

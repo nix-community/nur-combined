@@ -34,6 +34,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.PAT }}
           add-paths: pkgs/lunar-tear/default.nix
           branch: update/lunar-tear
           commit-message: Update lunar-tear

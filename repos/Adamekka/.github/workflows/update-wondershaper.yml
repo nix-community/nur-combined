@@ -34,6 +34,7 @@ jobs:
       - name: Create pull request
         uses: peter-evans/create-pull-request@v8
         with:
+          token: ${{ secrets.PAT }}
           add-paths: pkgs/wondershaper/default.nix
           branch: update/wondershaper
           commit-message: Update wondershaper
