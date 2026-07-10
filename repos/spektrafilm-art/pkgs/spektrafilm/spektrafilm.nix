@@ -22,9 +22,14 @@
   magicgui,
   lmfit,
   pyqt5,
+  qtpy,
+  pillow,
   rawpy,
+  exiv2,
+  lensfunpy,
   numba,
   cython,
+  markdown,
   colour-science,
   pyfftw,
   openimageio,
@@ -32,7 +37,7 @@
 
 buildPythonPackage rec {
   pname = "spektrafilm";
-  version = "0.1.0-dev";
+  version = "0.3.3";
   pyproject = true;
   doCheck = false;
   doInstallCheck = false;
@@ -41,9 +46,11 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "andreavolpato";
     repo = "spektrafilm";
-    rev = "3d3b7daae2d41df325dae04eb108beb3f0e19423";
-    hash = "sha256-5mq59/bzqVInVAF+bsdMNJJp+Enx/GYTxUpexXIHjAg=";
+    rev = "500bc429b7e93450ef228305c319dc03d8e185d1";
+    hash = "sha256-NAXqf1vu6750dgYVKelh7GTHpH/ZNQDobbZmbTMMeQ4=";
   };
+
+  patches = [ ./illuminants-enum.patch ];
 
   build-system = [ setuptools ];
 
@@ -58,9 +65,14 @@ buildPythonPackage rec {
     magicgui
     lmfit
     pyqt5
+    qtpy
+    pillow
     rawpy
+    exiv2
+    lensfunpy
     numba
     cython
+    markdown
     colour-science
     pyfftw
     openimageio

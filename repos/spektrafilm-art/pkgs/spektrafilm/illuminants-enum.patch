@@ -1,0 +1,12 @@
+diff --git a/src/spektrafilm/model/illuminants.py b/src/spektrafilm/model/illuminants.py
+index 5c8a698..4d8f853 100644
+--- a/src/spektrafilm/model/illuminants.py
++++ b/src/spektrafilm/model/illuminants.py
+@@ -7,6 +7,7 @@ from spektrafilm.model.color_filters import schott_kg3_heat_filter, generic_lens
+ 
+ class Illuminants(Enum):
+     lamp = 'TH-KG3' # tungsten halogen with heat filter
++    lamp_with_lens = 'TH-KG3-L' # enlarger source with heat filter and lens transmittance
+     # bulb = 'T'
+     # cine = 'K75P'
+     # led_rgb = 'LED-RGB1'

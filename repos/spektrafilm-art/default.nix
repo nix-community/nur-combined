@@ -14,6 +14,9 @@ let
             pyfftw = python-final.callPackage ./pkgs/spektrafilm/pyfftw.nix {
               inherit (final) fftw;
             };
+            lensfunpy = python-final.callPackage ./pkgs/spektrafilm/lensfunpy.nix {
+              inherit (final) lensfun pkg-config;
+            };
             openimageio = python-final.callPackage ./pkgs/spektrafilm/openimageio.nix {
               inherit (final)
                 fftw zlib imath openexr libjpeg libtiff libpng
