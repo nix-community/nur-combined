@@ -10634,10 +10634,10 @@
     };
     "noscript" = buildMozillaXpiAddon {
       pname = "noscript";
-      version = "13.6.28";
+      version = "13.6.30";
       addonId = "{73a6fe31-595d-460b-a920-fcc0f8843232}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4884207/noscript-13.6.28.xpi";
-      sha256 = "f8c3c882a5c2c8631fc7e6168def24f6707560f3b2130203d9ffd19d2c1c90d8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4890844/noscript-13.6.30.xpi";
+      sha256 = "aca41b0201fa4dfd2adf537ed9bcf641bfb24a61610e98434060f0e420a7e501";
       meta = with lib;
       {
         homepage = "https://noscript.net";
@@ -15122,10 +15122,10 @@
     };
     "topcashback-cashback-coupons" = buildMozillaXpiAddon {
       pname = "topcashback-cashback-coupons";
-      version = "7.8.1.0";
+      version = "7.9.0.0";
       addonId = "{f89939f9-1978-4203-9802-835ce5844ce7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4856959/topcashback_cashback_coupons-7.8.1.0.xpi";
-      sha256 = "850261b3c0538b19115a6eecf5ba5d485bcf5786f4af41063dc54ea72fddf77d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4890201/topcashback_cashback_coupons-7.9.0.0.xpi";
+      sha256 = "f23bee7e5baa2b977df15327af2db1bd6a36649f43fe44c5682c1c648c5f6a9f";
       meta = with lib;
       {
         homepage = "https://www.topcashback.com";
@@ -15149,10 +15149,10 @@
     };
     "torrent-control" = buildMozillaXpiAddon {
       pname = "torrent-control";
-      version = "0.2.48";
+      version = "0.2.49";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4808292/torrent_control-0.2.48.xpi";
-      sha256 = "bba10288c9c60665fb4da67f82ce24b77a042444f48725e691ed497476e599f9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4890426/torrent_control-0.2.49.xpi";
+      sha256 = "b5ee7662d7566065b2d1851a5278b7dbf3141a94c24875beb9c9f57712146a82";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -16084,10 +16084,10 @@
     };
     "video-downloadhelper" = buildMozillaXpiAddon {
       pname = "video-downloadhelper";
-      version = "10.5.2.2";
+      version = "10.5.10.2";
       addonId = "{b9db16a4-6edc-47ec-a1f4-b86292ed211d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875807/video_downloadhelper-10.5.2.2.xpi";
-      sha256 = "860b906d8b672bcda35d30752ca7274dd055372b254ebba0bcb313770a5d1935";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4891485/video_downloadhelper-10.5.10.2.xpi";
+      sha256 = "f5385166569339ea553919334bdee927fe5ff1704738bfa07e2c34f9ef5f5109";
       meta = with lib;
       {
         homepage = "https://www.downloadhelper.net/";
@@ -16130,8 +16130,9 @@
           "*://*.chaturbate.com/*"
           "*://*.chaturbate.eu/*"
           "*://*.chaturbate.global/*"
+          "https://downloadhelper.net/activate*"
+          "https://app.downloadhelper.net/activate*"
           "https://v10.downloadhelper.net/activate*"
-          "https://app.v10.downloadhelper.net/activate*"
         ];
         platforms = platforms.all;
       };
