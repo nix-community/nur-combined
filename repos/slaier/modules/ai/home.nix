@@ -35,20 +35,8 @@ in
 {
   home.packages = with pkgs; [
     rtk
-    (mkShellApp {
-      name = "summarize";
-      package = pkgs.proxychains-ng;
-      flags = "-q ${lib.getExe pkgs.summarize}";
-      runtimeEnv = {
-        SUMMARIZE_MODEL = "google/gemini-3.1-flash-lite";
-      };
-      runtimeEnvFile = {
-        GEMINI_API_KEY = config.sops.secrets.summarize.path;
-      };
-    })
   ];
   sops.secrets = {
-    summarize = { };
     tavily = { };
     context7 = { };
     github = { };
@@ -133,10 +121,6 @@ in
     enableMcpIntegration = true;
 
     skills = {
-      summarize = pkgs.fetchurl {
-        url = "https://raw.githubusercontent.com/openclaw/openclaw/refs/tags/v2026.6.8/skills/summarize/SKILL.md";
-        hash = "sha256-ttm+D/R+ZGKAoP9AIDgj18o2kTqxvqJVdbLeSvs8wN8=";
-      };
       playwright-cli = "${pkgs.playwright-cli}/lib/node_modules/@playwright/cli/skills/playwright-cli";
       grilling = "${pkgs.mattpocock-skills}/share/skills/grilling";
       tdd = "${pkgs.mattpocock-skills}/share/skills/tdd";
