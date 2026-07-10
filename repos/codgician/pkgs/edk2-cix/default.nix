@@ -42,14 +42,14 @@ let
 in
 gcc14Stdenv.mkDerivation (finalAttrs: {
   pname = "edk2-cix";
-  version = "1.2.4";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     fetchSubmodules = true;
     owner = "radxa-pkg";
     repo = finalAttrs.pname;
     rev = finalAttrs.version;
-    hash = "sha256-WF9FkIefMTR9uKtglAT6yaOlYdvFKtOUv2FCQ2jvZcA=";
+    hash = "sha256-zKIT8LmeHXY/qcTT6ZROmBYENePLXjaFXwMyt9oUU0c=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/src";
@@ -82,20 +82,20 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
       inherit (gcc14Stdenv.hostPlatform) system;
       archPath =
         if system == "x86_64-linux" then
-          "X86_64"
+          "."
         else if system == "aarch64-linux" then
           "AARCH64"
         else
           throw "Unsupported build platform: ${system}";
     in
     ''
-      # Patch the pre-built binaries in edk2-non-osi before they're used
-      # These are build tools that run on the build host, which may be skipped 
-      # by autoPatchelf due to architecture mismatch, so we patch manually
+      # Patch the pre-built binaries in edk2-non-osi before they're used.
+      # These are build tools that run on the build host, which may be skipped
+      # by autoPatchelf due to architecture mismatch, so we patch manually.
       for bin in edk2-non-osi/Platform/CIX/Sky1/PackageTool/${archPath}/*; do
-        if [ -f "$bin" ] && [ -x "$bin" ]; then
+        if [ -f "$bin" ] && [ -x "$bin" ] && patchelf --print-interpreter "$bin" > /dev/null 2>&1; then
           echo "Patching package tool: $bin"
-          patchelf --set-interpreter ${glibc}/lib/ld-linux* --set-rpath ${glibc}/lib "$bin" || true
+          patchelf --set-interpreter ${glibc}/lib/ld-linux* --set-rpath ${glibc}/lib "$bin"
         fi
       done
 
@@ -114,7 +114,7 @@ gcc14Stdenv.mkDerivation (finalAttrs: {
         sed -i '$ i\  return 0;' "$memtool"
       done
 
-      patchShebangs .    
+      patchShebangs .
     '';
 
   preBuild = ''
