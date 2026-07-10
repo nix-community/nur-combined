@@ -57,6 +57,7 @@ NUR link: https://nur.nix-community.org/repos/ihaveamac/
 | [rofs-dumper-1.0](https://github.com/PabloMK7/rofs_dumper) | rofs-dumper | Dumps 3DS ROFS containers (early format of romfs) |
 | [rofs-extract-0-unstable-2026-02-28](https://github.com/M-1-RLG/rofs_extract) | rofs-extract | A simple program to extract files from early 3DS ROFS container |
 | [rofsc-1.0.0.0](https://github.com/AtlasOmegaAlpha/rofsc) | rofsc | 3DS ROFS packer |
+| [rokuyon-release-unstable-2026-06-14](https://github.com/Hydr8gon/rokuyon) | rokuyon | An experimental N64 emulator |
 | [rrsync-3.4.1](https://rsync.samba.org/) | rrsync\_341 | Helper to run rsync-only environments from ssh-logins (pinned to 3.4.1) |
 | [rstmcpp-unstable-2023-04-02](https://gitlab.com/beelzy/rstmcpp) | rstmcpp | An experimental port of BrawlLib's RSTM encoder, and the WAV file handling from LoopingAudioConverter, to C++. |
 | [rsync-3.4.1](https://rsync.samba.org/) | rsync\_341 | Fast incremental file transfer utility (pinned to 3.4.1) |
