@@ -51,7 +51,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   postInstall = ''
     wrapProgram $out/bin/tyck \
-      --set-default TYCK_COMMIT_URL "${finalAttrs.src.gitRepoUrl}/src/tag/v${finalAttrs.version}"
+      --set-default TYCK_COMMIT_URL "${finalAttrs.src.gitRepoUrl}/src/commit/${rev}"
   '';
 
   passthru = {
