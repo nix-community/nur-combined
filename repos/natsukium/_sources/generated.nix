@@ -88,15 +88,15 @@
   };
   skills-ref = {
     pname = "skills-ref";
-    version = "0c0c5673846d0a1c983d910b189e329ef3ab8f2a";
+    version = "38a2ff82958afee88dadf4831509e6f7e9d8ef4e";
     src = fetchFromGitHub {
       owner = "agentskills";
       repo = "agentskills";
-      rev = "0c0c5673846d0a1c983d910b189e329ef3ab8f2a";
+      rev = "38a2ff82958afee88dadf4831509e6f7e9d8ef4e";
       fetchSubmodules = false;
-      sha256 = "sha256-GkrmXlCR2BkMFH8O6M3bp1jy0dxxDz8bnpEjasxv80A=";
+      sha256 = "sha256-Wcvw1TLXpj/Wlq/pxK3hKitn6QAVnGLHW6aZUVfABtM=";
     };
-    date = "2026-07-01";
+    date = "2026-07-09";
   };
   skkeleton = {
     pname = "skkeleton";
@@ -112,10 +112,10 @@
   };
   vivaldi-darwin = {
     pname = "vivaldi-darwin";
-    version = "8.1.4087.46";
+    version = "8.1.4087.48";
     src = fetchurl {
-      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.46.universal.dmg";
-      sha256 = "sha256-N65vPritiYMc+/JbaOtkf51awW/hrdKKaREa4k2rl58=";
+      url = "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.48.universal.dmg";
+      sha256 = "sha256-qe7zuRmN7w31Q553gprSpL1nDF4dHg1egyVQ2V26z+o=";
     };
   };
   zen-browser = {
