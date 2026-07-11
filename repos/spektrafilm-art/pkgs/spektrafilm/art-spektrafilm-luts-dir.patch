@@ -1,0 +1,17 @@
+diff --git a/rtgui/filmsimulation.cc b/rtgui/filmsimulation.cc
+index 0123456..89abcde 100644
+--- a/rtgui/filmsimulation.cc
++++ b/rtgui/filmsimulation.cc
+@@ -65,9 +65,13 @@ FilmSimulation::FilmSimulation()
+     EvClutParams = ProcEventMapper::getInstance()->newEvent(
+         rtengine::RGBCURVE, "HISTORY_MSG_FILMSIMULATION_CLUT_PARAMS");
+ 
++    const auto spektrafilmLutsDir = Glib::build_filename(
++        Glib::ustring(g_get_user_data_dir()), "ART", "spektrafilm-luts");
++
+     m_clutComboBox = Gtk::manage(
+         new ClutComboBox({Glib::build_filename(options.ART_base_dir, "luts"),
++                          spektrafilmLutsDir,
+                           options.clutsDir}));
+     int foundClutsCount = m_clutComboBox->foundClutsCount();
+ 
