@@ -20,7 +20,7 @@
   # override if you want to have more up-to-date rulesets
   throne-srslist ? fetchurl {
     url = "https://raw.githubusercontent.com/throneproj/routeprofiles/rule-set/srslist.h";
-    hash = "sha256-snFIx7K2DQukpw1cJB3HrjbHLf0t/6CFNNk0iUCfmuU=";
+    hash = "sha256-flQuzHcKAKnixQ+R/vrlojcp2eBEzn/XhB+Pa5NEDEU=";
   },
 }:
 
