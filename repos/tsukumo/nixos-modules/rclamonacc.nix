@@ -80,12 +80,12 @@ in
       after = [ "clamav-daemon.service" ];
       requires = [ "clamav-daemon.service" ];
       serviceConfig = {
-        ExecStart = "${rclamonacc-pkg}/bin/rclamonacc ${configFile}";
+        ExecStart = "${pkgs.coreutils}/bin/stdbuf -oL ${rclamonacc-pkg}/bin/rclamonacc ${configFile}";
         Type = "simple";
         Restart = "always";
         RestartSec = "5s";
 
-        # Run as root but restrict capabilities to only what is needed for fanotify and file reading
+        # Must run as root in the host namespace to receive fanotify events from the host
         CapabilityBoundingSet = [
           "CAP_SYS_ADMIN"
           "CAP_DAC_OVERRIDE"
@@ -93,18 +93,9 @@ in
         ];
         NoNewPrivileges = true;
 
-        # Sandboxing / Security hardening
-        ProtectSystem = "strict";
-        ProtectHome = "read-only";
-        PrivateTmp = true;
-        PrivateDevices = true;
-        ProtectKernelTunables = true;
-        ProtectKernelModules = true;
-        ProtectControlGroups = true;
-        RestrictNamespaces = true;
+        # Sandboxing / Security hardening (namespace-safe options only)
         RestrictAddressFamilies = [ "AF_UNIX" ];
         RestrictRealtime = true;
-        RestrictSUIDSGID = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
       };
