@@ -10,16 +10,16 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "restic-rados-server";
-  version = "0.7.0";
+  version = "0.8.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "restic-rados-server";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-p8DQlnSeku1zt2mi12XvsZgj2DOA34c4vk6JYkn4ypY=";
+    hash = "sha256-LyUA5nAYylgfbUzxEvo//jIk7MxE2nk20mQS1rGONKY=";
   };
 
-  vendorHash = "sha256-Tn4VQ6VIY4fu3PC0P38ynC7UNKHCwQF8LxU6q9sCnLg=";
+  vendorHash = "sha256-wivLXMYNzChTvy1r/XmIkxZxYLVVJLdyhSS4C+SYjFg=";
 
   env.CGO_ENABLED = 1;
 
