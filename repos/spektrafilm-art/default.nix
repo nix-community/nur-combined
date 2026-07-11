@@ -37,12 +37,12 @@ let
 
   spektrafilm-python = spektrafilm-pkgs.python3.withPackages (ps: with ps; [ numpy scipy spektrafilm ]) ;
   spektrafilm-art = (pkgs.art.overrideAttrs (oldAttrs: {
-    version = "1.25.11-unstable-2026-04-01";
+    version = "1.26.6";
     src = pkgs.fetchFromGitHub {
       owner = "artraweditor";
       repo = "ART";
-      rev = "27554bbeab0adcd98335b0470b37c7bd3db1ae80";
-      hash = "sha256-lCn/qBQ9PEx4pf+0y0fnWHZ2b68Lu6eLKHgcDzNAYio=";
+      rev = "9fee76b983b7727b9371b630f2fa61cf0ba94562";
+      hash = "sha256-m5KQUY7loLKH7X2cDw5n7biH1GJTVONTbguILdjNWrI=";
     };
     postInstall = (oldAttrs.postInstall or "") + ''
       mkdir -p $out/share/ART/extlut
