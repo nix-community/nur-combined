@@ -9,16 +9,16 @@
 }:
 mkOpencodePlugin rec {
   pname = "quota";
-  version = "3.11.0-unstable-2026-07-08";
+  version = "3.11.2-unstable-2026-07-10";
 
   src = fetchFromGitHub {
     owner = "slkiser";
     repo = "opencode-${pname}";
-    rev = "0494ad3dd1e8053056e265a915d66b2e7f4f4fd6";
-    hash = "sha256-oKAKnZwMEpIi/swlIP1VCyo3DtLsB4zfSUWQOd0WrHU=";
+    rev = "0bfd8993960332bc5437c1e0952f1b498d2b03ca";
+    hash = "sha256-NQT5yuMykiheKqt74nk7AM3QTBuwdFWTSd2o/UKSAQo=";
   };
 
-  dependencyHash = "sha256-StZaorSKpBfx1zUP6gXL99p/mdXgkaIhn8V2xZUISTk=";
+  dependencyHash = "sha256-+RblTKXPMU58SPTAsnPY3yDqjPlIysHTP8WNHMMKwIk=";
   dependencyInstallCommand = "BUN_CONFIG_SKIP_SAVE_LOCKFILE=1 bun install --no-cache --ignore-scripts";
 
   nativeBuildInputs = [
