@@ -93,6 +93,9 @@ stdenv.mkDerivation (finalAttrs: {
     # Patch prebuilt binaries in node_modules
     autoPatchelf node_modules
 
+    # Match the official build size by building the Node bundle in production mode
+    sed -i "s/mode: 'development'/mode: 'production'/g" apps/app/webpack.node.js
+
     # Beam Studio build
     pnpm --filter @beam-studio/app run build
     pnpm --filter @beam-studio/app run build-node
@@ -154,6 +157,10 @@ stdenv.mkDerivation (finalAttrs: {
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0
+
+    # Install the application icon
+    mkdir -p $out/share/icons/hicolor/1024x1024/apps
+    cp apps/app/public/img/icon.png $out/share/icons/hicolor/1024x1024/apps/beam-studio.png
 
     runHook postInstall
   '';
