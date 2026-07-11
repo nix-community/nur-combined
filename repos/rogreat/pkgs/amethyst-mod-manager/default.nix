@@ -15,14 +15,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "2.0.1";
+  version = "2.0.2";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "ChrisDKN";
     repo = "Amethyst-Mod-Manager";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/GLvj7qWIhKdubCuH3BdGrf6TTVRDxql9jPMfrD8Cx0=";
+    hash = "sha256-+Q/p82oCDFW2s8HtEHYkB1qggW44AKxXRl4i0HGC8nY=";
   };
 
   nativeBuildInputs = [
@@ -77,6 +77,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
         -type f \
         -exec install -Dm 755 '{}' "$out/${python3Packages.python.sitePackages}/{}" \;
     popd > /dev/null
+
+    ln -s ${libloot-python}/${python3Packages.python.sitePackages}/loot/loot.cpython-314-x86_64-linux-gnu.so \
+        $out/${python3Packages.python.sitePackages}/LOOT
 
     install -d $out/bin/
 
