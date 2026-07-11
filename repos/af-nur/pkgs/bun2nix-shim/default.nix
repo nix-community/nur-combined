@@ -21,6 +21,7 @@
 
 let
   src = ../../vendor/bun2nix;
+  cacheEntryCreatorSrc = ../../vendor/bun2nix/programs/cache-entry-creator;
 
   bunWithNode =
     { useFakeNode ? true, ... }:
@@ -111,11 +112,11 @@ let
     pname = "bun2nix-cache-entry-creator";
     version = "2.1.0";
 
-    src = "${src}/programs/cache-entry-creator";
+    src = cacheEntryCreatorSrc;
     nativeBuildInputs = [ zig_0_15.hook ];
 
     postConfigure = ''
-      ln -s ${import "${finalAttrs.src}/deps.nix" { inherit linkFarm fetchgit; }} $ZIG_GLOBAL_CACHE_DIR/p
+      ln -s ${import (cacheEntryCreatorSrc + "/deps.nix") { inherit linkFarm fetchgit; }} $ZIG_GLOBAL_CACHE_DIR/p
     '';
 
     zigBuildFlags = [ "--release=fast" ];

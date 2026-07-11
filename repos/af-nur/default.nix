@@ -15,10 +15,14 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  astral = pkgs.callPackage ./pkgs/astral { };
+  astral-bin = pkgs.callPackage ./pkgs/astral-bin { };
   classin = pkgs.callPackage ./pkgs/classin { };
   hhsh = pkgs.callPackage ./pkgs/hhsh { };
   linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { };
   mefrpc = pkgs.callPackage ./pkgs/mefrpc { };
+  pixivbiu = pkgs.callPackage ./pkgs/pixivbiu { inherit bun2nix; };
+  pixivbiu-bin = pkgs.callPackage ./pkgs/pixivbiu-bin { };
   xwaylandvideobridge = pkgs.kdePackages.callPackage ./pkgs/xwaylandvideobridge { };
   rikkahub-desktop = pkgs.callPackage ./pkgs/rikkahub-desktop { inherit bun2nix; };
   rikkahub-desktop-bin = pkgs.callPackage ./pkgs/rikkahub-desktop-bin { };
