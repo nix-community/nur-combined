@@ -166,6 +166,10 @@ in
       snd-soc-acpi-intel-match-y := soc-acpi-intel-byt-match.o soc-acpi-intel-cht-match.o soc-acpi-intel-ssp-common.o stubs.o
       EOF
 
+      # Fix EXPORT_SYMBOL_NS namespace string literal compilation error on kernel 6.12
+      substituteInPlace yogabook-linux-kernel/sound/soc/intel/common/soc-acpi-intel-ssp-common.c \
+        --replace-fail '"SND_SOC_ACPI_INTEL_MATCH"' 'SND_SOC_ACPI_INTEL_MATCH'
+
       # Write stubs.c for other platforms to resolve all symbol dependencies of snd_intel_sst_acpi
       cat << 'EOF' > yogabook-linux-kernel/sound/soc/intel/common/stubs.c
       #include <sound/soc-acpi.h>
