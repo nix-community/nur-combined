@@ -130,6 +130,11 @@ in
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.jellyfin ];
 
+          networking.nameservers = [
+            homelab.router.ip
+          ];
+          networking.defaultGateway = cfg.hostAddress;
+
           systemd.services.jellyfin-plugins = {
             description = "Setup Jellyfin plugins";
             wantedBy = [ "jellyfin.service" ];
@@ -142,8 +147,9 @@ in
             script = lib.strings.concatLines (
               [
                 ''
-                  rm -rf ${config.services.jellyfin.dataDir}/plugins
                   mkdir -p ${config.services.jellyfin.dataDir}/plugins
+                  # Remove plugin directories but preserve configurations
+                  find ${config.services.jellyfin.dataDir}/plugins -mindepth 1 -maxdepth 1 -type d ! -name 'configurations' -exec rm -rf {} +
                 ''
               ]
               ++ map (

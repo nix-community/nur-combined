@@ -129,6 +129,7 @@
     ip = "10.200.0.12";
     services.immich = {
       port = 2283;
+      protected = false;
       displayName = "Immich";
       description = "Photo Management";
       category = "Media";
