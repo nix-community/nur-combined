@@ -91,9 +91,9 @@ in
                       | where { || $in.type != "symlink" }
                       | each { |i|
                           try {
-                            let snap_time = ($i.name | path basename | into datetime)
+                            let snap_time = ($i.name | path basename | into datetime --format $date_format)
                             if ((date now) - $snap_time) > ${s.keep} { ${btrfs} sub del $i.name }
-                          }
+                          } catch { |err| print $err.msg }
                         }
                   '';
                 }
