@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  fetchpatch2,
 }:
 
 buildGoModule (finalAttrs: {
@@ -17,6 +18,13 @@ buildGoModule (finalAttrs: {
     tag = finalAttrs.version;
     hash = "sha256-AP1KDEIW8nI97+OuFJIJv6bFsT8c5x5kRNGfcyIvQGg=";
   };
+
+  patches = [
+    (fetchpatch2 {
+      url = "https://github.com/dtomvan/jorge/commit/f26d32cb5795e9354ee67fb712883e0e1cfdc647.patch";
+      hash = "sha256-3zKKUuupTNWu16k+mzeAMRXQgd29nuNtsp98Flrb/E0=";
+    })
+  ];
 
   vendorHash = "sha256-8i9bNQacuAk8VJkDRCcIBfaOKHjPpve5wJRMxpbOs2c=";
 
