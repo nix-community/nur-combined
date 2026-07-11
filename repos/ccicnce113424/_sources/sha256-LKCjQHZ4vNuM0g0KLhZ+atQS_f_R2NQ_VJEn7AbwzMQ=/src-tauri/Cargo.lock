@@ -3115,7 +3115,7 @@ dependencies = [
 
 [[package]]
 name = "motrix-next"
-version = "3.9.7-beta.2"
+version = "3.9.7-beta.3"
 dependencies = [
  "axum",
  "chrono",
@@ -3125,6 +3125,7 @@ dependencies = [
  "dunce",
  "futures-util",
  "igd-next",
+ "ipnet",
  "keepawake",
  "log",
  "maxminddb",
