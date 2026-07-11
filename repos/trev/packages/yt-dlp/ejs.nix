@@ -8,12 +8,12 @@
   nodejs-slim_latest,
   fetchPnpmDeps,
   pnpmConfigHook,
-  pnpm,
+  pnpm_11,
   nix-update-script,
 }:
 
 let
-  pnpm' = pnpm.override {
+  pnpm' = pnpm_11.override {
     nodejs-slim = nodejs-slim_latest;
   };
 in
@@ -38,9 +38,9 @@ buildPythonPackage rec {
       version
       src
       ;
-    fetcherVersion = 3;
+    fetcherVersion = 4;
     pnpm = pnpm';
-    hash = "sha256-LVDuSjSR/gN3tKLCkntHAk81yEVA/ffqiqUVvdke3zo=";
+    hash = "sha256-NeTpc5pyf38dbWBLGuAJ7YVjXFI31h7CSIApjdNJ57c=";
   };
 
   build-system = [
