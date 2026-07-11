@@ -65,11 +65,12 @@ jobs:
             
             {include: [
               $runners[] as $runner |
-              $nixpkgss[] as $nixpkgs |
               ($runner | split("/")) as [$displayRunner, $runner] |
-              (if ($runner | startswith("macos")) then
-                $nixpkgs | gsub("^nixos-(?<version>[0-9]+\\.[0-9]+)$"; "nixpkgs-\(.version)-darwin")
-              else $nixpkgs end) as $nixpkgs |
+              (if ($runner | startswith("macos") and endswith("intel")) then [
+                "nixpkgs-26.05-darwin",
+                "e48b5f12dbcc02fe43d5c0a9f36b569981f41b45", # last commit on unstable before x86_64-darwin was removed
+              empty] else $nixpkgss end) as $nixpkgss |
+              $nixpkgss[] as $nixpkgs |
               select(($runner | startswith("ubuntu")) or ($nixpkgs | startswith("nixos") | not)) |
               ($runner | split("+qemu-")) as [$runner, $qemuSystem] |
               (if $qemuSystem then {
