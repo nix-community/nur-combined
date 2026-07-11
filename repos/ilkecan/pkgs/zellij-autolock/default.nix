@@ -4,15 +4,12 @@
   stdenvNoCC,
 }:
 
-let
-  version = "0.2.2";
-in
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zellij-autolock";
-  inherit version;
+  version = "0.2.2";
 
   src = fetchurl {
-    url = "https://github.com/fresh2dev/zellij-autolock/releases/download/${version}/zellij-autolock.wasm";
+    url = "https://github.com/fresh2dev/zellij-autolock/releases/download/${finalAttrs.version}/zellij-autolock.wasm";
     sha256 = "sha256-aclWB7/ZfgddZ2KkT9vHA6gqPEkJ27vkOVLwIEh7jqQ=";
   };
 
@@ -33,11 +30,10 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Autolock Zellij when certain processes open";
     homepage = "https://github.com/fresh2dev/zellij-autolock";
-    changelog = "https://github.com/fresh2dev/zellij-autolock/releases/tag/${version}";
+    changelog = "https://github.com/fresh2dev/zellij-autolock/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ ilkecan ];
-    mainProgram = null;
     platforms = lib.platforms.linux;
   };
-}
+})

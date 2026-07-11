@@ -4,15 +4,12 @@
   stdenvNoCC,
 }:
 
-let
-  version = "0.3.0";
-in
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zellij-workspace";
-  inherit version;
+  version = "0.3.0";
 
   src = fetchurl {
-    url = "https://github.com/vdbulcke/zellij-workspace/releases/download/v${version}/zellij-workspace.wasm";
+    url = "https://github.com/vdbulcke/zellij-workspace/releases/download/v${finalAttrs.version}/zellij-workspace.wasm";
     sha256 = "sha256-PR8Epa9JfQUHKg+jBF/9Rs3TDzM/9IYXcdm+kJsJa3M=";
   };
 
@@ -33,11 +30,10 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Zellij plugin for applying layouts to current zellij session";
     homepage = "https://github.com/vdbulcke/zellij-workspace";
-    changelog = "https://github.com/vdbulcke/zellij-workspace/releases/tag/v${version}";
+    changelog = "https://github.com/vdbulcke/zellij-workspace/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.mit;
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     maintainers = with lib.maintainers; [ ilkecan ];
-    mainProgram = null;
     platforms = lib.platforms.linux;
   };
-}
+})

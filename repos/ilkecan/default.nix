@@ -6,13 +6,23 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
+let
+  modules = import ./modules;
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
-  modules = import ./modules; # NixOS modules
+  inherit modules; # modules
   overlays = import ./overlays; # nixpkgs overlays
+
+  # ... as well as `xxxModules`, see: https://github.com/nix-community/NUR/pull/1101
+  flakeModules = modules.flake;
+  homeModules = modules.homeManager;
+  nixosModules = modules.nixos;
 
   zellij-autolock = pkgs.callPackage ./pkgs/zellij-autolock { };
   zellij-workspace = pkgs.callPackage ./pkgs/zellij-workspace { };
