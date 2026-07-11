@@ -369,6 +369,7 @@ in
       db.passwordFile = config.sops.secrets."authentik-db-password".path;
       secretKeyFile = config.sops.secrets."authentik-secret-key".path;
       bootstrapPasswordFile = config.sops.secrets."authentik-bootstrap-password".path;
+      ldap.tokenFile = config.sops.secrets."authentik-ldap-token".path;
     };
   };
   # Relay the bridge's localhost-only SMTP port to the nextcloud container's veth address.
@@ -510,6 +511,7 @@ in
   sops.secrets."grafana-secret-key".mode = "0444";
   sops.secrets."authentik-secret-key".mode = "0444";
   sops.secrets."authentik-bootstrap-password".mode = "0444";
+  sops.secrets."authentik-ldap-token".mode = "0444";
   sops.secrets."authentik-db-password" = {
     owner = "postgres";
     mode = "0444";

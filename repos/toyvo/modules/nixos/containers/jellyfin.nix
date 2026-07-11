@@ -67,11 +67,7 @@ in
 
     systemd.tmpfiles.rules = [
       "d /var/lib/nixos-containers/jellyfin/var/log/journal 0755 root systemd-journal -"
-      "d /var/lib/nixos-containers/jellyfin/plugins 0755 jellyfin jellyfin -"
-    ]
-    ++ map (
-      plugin: "L+ /var/lib/nixos-containers/jellyfin/plugins/${plugin.pname} - - - ${plugin}"
-    ) cfg.plugins;
+    ];
 
     containers.jellyfin = {
       autoStart = true;
@@ -133,6 +129,37 @@ in
           };
 
           networking.firewall.allowedTCPPorts = [ cfg.ports.jellyfin ];
+
+          systemd.services.jellyfin-plugins = {
+            description = "Setup Jellyfin plugins";
+            wantedBy = [ "jellyfin.service" ];
+            before = [ "jellyfin.service" ];
+            serviceConfig = {
+              Type = "oneshot";
+              User = "root";
+              RemainAfterExit = true;
+            };
+            script = lib.strings.concatLines (
+              [
+                ''
+                  rm -rf ${config.services.jellyfin.dataDir}/plugins
+                  mkdir -p ${config.services.jellyfin.dataDir}/plugins
+                ''
+              ]
+              ++ map (
+                plugin: "cp -r ${plugin} ${config.services.jellyfin.dataDir}/plugins/${plugin.pname}"
+              ) cfg.plugins
+              ++ [
+                "chown -R jellyfin:jellyfin ${config.services.jellyfin.dataDir}/plugins"
+                "chmod -R u+w ${config.services.jellyfin.dataDir}/plugins"
+              ]
+            );
+          };
+
+          systemd.services.jellyfin = {
+            requires = [ "jellyfin-plugins.service" ];
+            after = [ "jellyfin-plugins.service" ];
+          };
 
           system.stateVersion = "26.11";
         };

@@ -129,6 +129,17 @@ in
       default = homelab.authentik.services.authentik.port;
       description = "Authentik server listen port";
     };
+
+    ldap.port = lib.mkOption {
+      type = lib.types.port;
+      default = 6636;
+      description = "LDAP outpost listen port (LDAPS)";
+    };
+
+    ldap.tokenFile = lib.mkOption {
+      type = lib.types.path;
+      description = "Path to the LDAP outpost token file on the host (decrypted by sops; bind-mounted read-only into container)";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -155,6 +166,7 @@ in
     sops.secrets."authentik-secret-key".mode = "0444";
     sops.secrets."authentik-bootstrap-password".mode = "0444";
     sops.secrets."authentik-db-password".mode = "0444";
+    sops.secrets."authentik-ldap-token".mode = "0444";
 
     systemd.tmpfiles.rules = [
       "d /var/lib/nixos-containers/authentik/var/log/journal 0755 root systemd-journal -"
@@ -180,6 +192,10 @@ in
         };
         "/run/secrets/authentik-db-password" = {
           hostPath = cfg.db.passwordFile;
+          isReadOnly = true;
+        };
+        "/run/secrets/authentik-ldap-token" = {
+          hostPath = cfg.ldap.tokenFile;
           isReadOnly = true;
         };
         "/var/lib/authentik" = {
@@ -238,6 +254,29 @@ in
           '';
         };
 
+        systemd.services.authentik-ldap-outpost = {
+          description = "Authentik LDAP Outpost";
+          wantedBy = [ "multi-user.target" ];
+          after = [
+            "network-online.target"
+            "authentik-server.service"
+          ];
+          wants = [ "network-online.target" ];
+          environment = {
+            AUTHENTIK_HOST = "http://127.0.0.1:${toString cfg.port}";
+            AUTHENTIK_TOKEN = "file:///run/secrets/authentik-ldap-token";
+          };
+          serviceConfig = {
+            Type = "simple";
+            User = "authentik";
+            Group = "authentik";
+            WorkingDirectory = "/var/lib/authentik";
+            ExecStart = "${pkgs.authentik-outposts.ldap}/bin/ldap";
+            Restart = "on-failure";
+            RestartSec = "5s";
+          };
+        };
+
         systemd.tmpfiles.rules = [
           "d /etc/authentik 0755 authentik authentik -"
         ];
@@ -257,7 +296,10 @@ in
         ];
         networking.defaultGateway = cfg.hostAddress;
 
-        networking.firewall.allowedTCPPorts = [ cfg.port ];
+        networking.firewall.allowedTCPPorts = [
+          cfg.port
+          cfg.ldap.port
+        ];
 
         system.stateVersion = "26.11";
       };
