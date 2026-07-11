@@ -85,16 +85,18 @@ in
         Restart = "always";
         RestartSec = "5s";
 
-        # Run as a dynamic non-root user
-        DynamicUser = true;
-        SupplementaryGroups = [ "clamav" ];
-
-        # Capability restrictions: only CAP_SYS_ADMIN is required for fanotify
-        CapabilityBoundingSet = [ "CAP_SYS_ADMIN" ];
-        AmbientCapabilities = [ "CAP_SYS_ADMIN" ];
+        # Run as root but restrict capabilities to only what is needed for fanotify and file reading
+        CapabilityBoundingSet = [
+          "CAP_SYS_ADMIN"
+          "CAP_DAC_OVERRIDE"
+          "CAP_DAC_READ_SEARCH"
+        ];
+        NoNewPrivileges = true;
 
         # Sandboxing / Security hardening
+        ProtectSystem = "strict";
         ProtectHome = "read-only";
+        PrivateTmp = true;
         PrivateDevices = true;
         ProtectKernelTunables = true;
         ProtectKernelModules = true;
@@ -102,6 +104,7 @@ in
         RestrictNamespaces = true;
         RestrictAddressFamilies = [ "AF_UNIX" ];
         RestrictRealtime = true;
+        RestrictSUIDSGID = true;
         LockPersonality = true;
         MemoryDenyWriteExecute = true;
       };
