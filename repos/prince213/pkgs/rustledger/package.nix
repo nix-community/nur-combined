@@ -7,7 +7,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rustledger";
-  version = "0.15.0";
+  version = "0.21.0";
 
   __structuredAttrs = true;
 
@@ -15,10 +15,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "rustledger";
     repo = "rustledger";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-hwLaqMnM/5wwIb/mg8pE8J0mxbnz02RV59kXywwYhvs=";
+    hash = "sha256-sGvkUxxa5bEMz0bC++i/4SBjlBesLBYpqK71tTQJNwI=";
   };
 
-  cargoHash = "sha256-on9xh8MiOLOHztVC5SbpvNPzqfEPJ3HFz2vWMzDYIw4=";
+  cargoHash = "sha256-sI8fj4bsh9IVi31po2iACwFWtQ8VemnBJDKA5M1o2m8=";
+
+  # Disable cargo-auditable until https://github.com/rust-secure-code/cargo-auditable/issues/124 is solved.
+  auditable = false;
+
+  # cost::tests::booked_cost_new_panics_in_debug_on_overflow
+  # cost::tests::booked_cost_new_rejects_inconsistent_pair_in_debug
+  # cost::tests::booked_cost_new_rejects_zero_units_in_debug
+  checkType = "debug";
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];

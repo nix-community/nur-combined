@@ -9,35 +9,16 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
 
-  sources =
-    let
-      base = "https://sf3-cn.feishucdn.com/obj";
-    in
-    {
-      # curl 'https://www.feishu.cn/api/package_info?platform=9'
-      aarch64-darwin = {
-        version = "7.71.12";
-        src = fetchurl {
-          url = "${base}/ee-appcenter/0c65acbe/Feishu-darwin_arm64-7.71.12-signed.dmg";
-          hash = "sha256-3xNJNn8T9Kuhn24DZorKt44f1eOwp13bvhOk4HWZ+nw=";
-        };
-      };
-      # curl 'https://www.feishu.cn/api/package_info?platform=6'
-      x86_64-darwin = {
-        version = "7.71.12";
-        src = fetchurl {
-          url = "${base}/ee-appcenter/474d1c55/Feishu-darwin_x64-7.71.12-signed.dmg";
-          hash = "sha256-zZAe/sjP5/NQ/XEuQhH+LqPJm3HD4GinIFONbtohYp4=";
-        };
-      };
-    };
+  sources = lib.fromJSON (lib.readFile ./sources.json);
+  source = sources.${system} or (throw "Unsupported system: ${system}");
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (feishu) pname;
   __structuredAttrs = true;
   strictDeps = true;
 
-  inherit (sources.${system} or (throw "Unsupported system: ${system}")) version src;
+  inherit (source) version;
+  src = fetchurl source.src;
 
   nativeBuildInputs = [ undmg ];
 
@@ -52,11 +33,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  passthru.updateScript = ./update.nu;
+
   meta = feishu.meta // {
     maintainers = with lib.maintainers; [ prince213 ];
-    platforms = [
-      "aarch64-darwin"
-      "x86_64-darwin"
-    ];
+    platforms = lib.attrNames sources;
   };
 })
