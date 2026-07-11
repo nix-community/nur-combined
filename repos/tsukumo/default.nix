@@ -12,9 +12,9 @@
 }:
 
 let
-  yogabook-linux = pkgs.callPackage ./pkgs/yogabook-linux.nix {};
+  yogabook-linux = pkgs.callPackage ./pkgs/yogabook-linux.nix { };
 in
-{
+rec {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -24,7 +24,12 @@ in
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  jnethack = pkgs.callPackage ./pkgs/jnethack { inherit (import ./lib { inherit pkgs; }) maintainers; };
+  jnethack = pkgs.callPackage ./pkgs/jnethack {
+    inherit (lib) maintainers;
+  };
+  rclamonacc = pkgs.callPackage ./pkgs/rclamonacc {
+    inherit (lib) maintainers;
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 
