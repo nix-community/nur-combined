@@ -7,25 +7,16 @@
 }:
 let
   throwSystem = throw "Unsupported system: ${stdenvNoCC.hostPlatform.system}";
+
+  sources = lib.fromJSON (lib.readFile ./sources.json);
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (anytype) pname;
-  version = "0.55.5";
+  inherit (sources) version;
   __structuredAttrs = true;
   strictDeps = true;
 
-  src =
-    {
-      aarch64-darwin = fetchurl {
-        url = "https://github.com/anyproto/anytype-ts/releases/download/v${finalAttrs.version}/Anytype-${finalAttrs.version}-mac-arm64.zip";
-        hash = "sha256-ZuqgxheBUECjNPbkhHlxWAQT0JDg36DT79jhFZeNgOQ=";
-      };
-      x86_64-darwin = fetchurl {
-        url = "https://github.com/anyproto/anytype-ts/releases/download/v${finalAttrs.version}/Anytype-${finalAttrs.version}-mac-x64.zip";
-        hash = "sha256-xGyoF4Y0Z/ovLrslY2icKAObIwiGJk+DHpGHDxOP6t4=";
-      };
-    }
-    .${stdenvNoCC.hostPlatform.system} or throwSystem;
+  src = fetchurl sources.${stdenvNoCC.hostPlatform.system} or throwSystem;
 
   nativeBuildInputs = [ unzip ];
   sourceRoot = ".";
