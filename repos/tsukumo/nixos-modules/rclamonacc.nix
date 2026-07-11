@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.rclamonacc;
@@ -13,16 +18,16 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.rclamonacc or (pkgs.callPackage ../pkgs/rclamonacc {
+      default = pkgs.callPackage ../pkgs/rclamonacc {
         maintainers = (import ../lib { inherit pkgs; }).maintainers;
-      });
-      defaultText = lib.literalExpression "pkgs.rclamonacc";
+      };
+      defaultText = lib.literalExpression "pkgs.callPackage ../pkgs/rclamonacc { }";
       description = "The rclamonacc package to use.";
     };
 
     settings = lib.mkOption {
       type = lib.types.submodule {
-        freeformType = (pkgs.formats.json {}).type;
+        freeformType = (pkgs.formats.json { }).type;
         options = {
           socket_path = lib.mkOption {
             type = lib.types.str;
@@ -39,7 +44,7 @@ in
             default = 20;
             description = "Maximum number of connections to the ClamAV daemon.";
           };
-          dirs = lib.mkOption {
+          directories = lib.mkOption {
             type = lib.types.listOf lib.types.str;
             default = [ ];
             description = "List of directories to monitor in real-time.";
@@ -56,7 +61,7 @@ in
           };
         };
       };
-      default = {};
+      default = { };
       description = "Settings for rclamonacc.";
     };
   };
