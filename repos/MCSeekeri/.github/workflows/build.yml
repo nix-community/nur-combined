@@ -58,6 +58,20 @@ jobs:
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             -I $PWD
       - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
+        shell: bash
+        run: |
+          heartbeat() {
+            while sleep 5m; do
+              echo "::notice::Nix build is still running at $(date --iso-8601=seconds)"
+            done
+          }
+
+          heartbeat &
+          heartbeat_pid=$!
+          trap 'kill "$heartbeat_pid" 2>/dev/null || true; wait "$heartbeat_pid" 2>/dev/null || true' EXIT
+
+          nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached \
+            --show-trace --option log-lines 0 \
+            ci.nix -A cacheOutputs
       - name: Trigger NUR update
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
