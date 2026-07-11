@@ -94,6 +94,7 @@ let
   nixpkgsConfig = {
     allowUnfree = true;
     allowDeprecatedx86_64Darwin = true;
+    android_sdk.accept_license = true;
   };
 
   mkPackages =
