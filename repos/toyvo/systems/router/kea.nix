@@ -10,6 +10,7 @@ in
         interfaces-config = {
           interfaces = [
             "br0"
+            "br0.10"
             "br0.20"
             "br0.30"
           ];
@@ -68,6 +69,21 @@ in
                     inSubnet && hostAddress > 1 && hostAddress < reserved
                   ) homelab
                 );
+          }
+          {
+            id = 10;
+            pools = [
+              {
+                pool = "10.1.10.${toString reserved} - 10.1.10.254";
+              }
+            ];
+            subnet = "10.1.10.0/24";
+            option-data = [
+              {
+                name = "routers";
+                data = "10.1.10.1";
+              }
+            ];
           }
           {
             id = 20;
@@ -129,6 +145,7 @@ in
       settings = {
         interfaces-config.interfaces = [
           "br0"
+          "br0.10"
           "br0.20"
           "br0.30"
         ];
@@ -178,6 +195,15 @@ in
                     inSubnet && hostAddress > 1 && hostAddress < reserved
                   ) homelab
                 );
+          }
+          {
+            id = 10;
+            pools = [
+              {
+                pool = "fdcd:2022:1118:10::${lib.toHexString reserved} - fdcd:2022:1118:10::ffff";
+              }
+            ];
+            subnet = "fdcd:2022:1118:10::/64";
           }
           {
             id = 20;

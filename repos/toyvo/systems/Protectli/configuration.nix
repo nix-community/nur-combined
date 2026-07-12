@@ -72,6 +72,7 @@
       externalInterface = "enp1s0";
       internalInterfaces = [
         "br0"
+        "br0.10"
         "br0.20"
         "br0.30"
       ];
@@ -102,6 +103,14 @@
           443
         ];
       };
+      interfaces."br0.10" = {
+        allowedTCPPorts = [ 53 ];
+        allowedUDPPorts = [
+          53
+          67
+          68
+        ];
+      };
       interfaces."br0.20" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
@@ -129,6 +138,7 @@
           ct state established,related accept
 
           # Allow CDWifi (br0) to initiate connections to IoT (VLAN 30)
+          iifname "br0" oifname "br0.10" accept
           iifname "br0" oifname "br0.30" accept
 
           # Guest (VLAN 20): drop all forwarding to private subnets
@@ -215,8 +225,27 @@
           { Prefix = "fdbd:2025:0518::/64"; }
         ];
         vlan = [
+          "br0.10"
           "br0.20"
           "br0.30"
+        ];
+      };
+      networks."br0.10" = {
+        matchConfig.Name = "br0.10";
+        address = [
+          "192.168.10.1/24"
+          "fdbd:2025:0518:10::1/64"
+        ];
+        networkConfig = {
+          IPMasquerade = "ipv4";
+          IPv6SendRA = true;
+        };
+        ipv6SendRAConfig = {
+          EmitDNS = true;
+          DNS = [ "fdbd:2025:0518::1" ];
+        };
+        ipv6Prefixes = [
+          { Prefix = "fdbd:2025:0518:10::/64"; }
         ];
       };
       networks."br0.20" = {
@@ -260,6 +289,13 @@
         Kind = "bridge";
         MACAddress = "none";
       };
+      netdevs."br0.10" = {
+        netdevConfig = {
+          Name = "br0.10";
+          Kind = "vlan";
+        };
+        vlanConfig.Id = 10;
+      };
       netdevs."br0.20" = {
         netdevConfig = {
           Name = "br0.20";
@@ -297,6 +333,7 @@
             interfaces-config = {
               interfaces = [
                 "br0"
+                "br0.10"
                 "br0.20"
                 "br0.30"
               ];
@@ -328,6 +365,21 @@
                   {
                     name = "routers";
                     data = "192.168.0.1";
+                  }
+                ];
+              }
+              {
+                id = 10;
+                pools = [
+                  {
+                    pool = "192.168.10.${toString reserved} - 192.168.10.254";
+                  }
+                ];
+                subnet = "192.168.10.0/24";
+                option-data = [
+                  {
+                    name = "routers";
+                    data = "192.168.10.1";
                   }
                 ];
               }
@@ -391,6 +443,7 @@
           settings = {
             interfaces-config.interfaces = [
               "br0"
+              "br0.10"
               "br0.20"
               "br0.30"
             ];
@@ -412,6 +465,15 @@
                   }
                 ];
                 subnet = "fdbd:2025:0518::/64";
+              }
+              {
+                id = 10;
+                pools = [
+                  {
+                    pool = "fdbd:2025:0518:10::${lib.toHexString reserved} - fdbd:2025:0518:10::ffff";
+                  }
+                ];
+                subnet = "fdbd:2025:0518:10::/64";
               }
               {
                 id = 20;
