@@ -50,7 +50,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
-        run: curl --fail --silent --show-error --request POST "https://nur-update.nix-community.org/update?repo=codgician"
+        continue-on-error: true
+        run: |
+          curl --fail --silent --show-error \
+            --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 120 \
+            --request POST "https://nur-update.nix-community.org/update?repo=codgician"
   cleanup-validation-ref:
     needs: [atelier, harness]
     if: ${{ always() && github.event_name == 'workflow_dispatch' && github.repository_id == '852828187' && startsWith(github.ref_name, 'bot/ci/') }}
