@@ -76,13 +76,13 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.24",
-    "hash": "sha256-En6ZDJtqNGp2H9OTR1LembYsmy/6xcvGRr8uLKHw3OA="
+    "version": "10.0.25",
+    "hash": "sha256-15Zpc8PB1CIm4F+JFSkAp0XjSwovgW33RIb//5X3sGY="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.24",
-    "hash": "sha256-yli7Pf5rWSYcohqFNCDqSyzfpudFOR6FvMCOmk1qNmM="
+    "version": "10.0.25",
+    "hash": "sha256-zCt7wHErNWphCXyBGHHZdYXI2dvlJgvgz8MCEyk/Sq8="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -136,13 +136,13 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.3.13",
-    "hash": "sha256-9a2elEgWAzcMncijA927cXPedRtHhdEWqLYXHPLpP3M="
+    "version": "5.4.0",
+    "hash": "sha256-rBLdxAn7Br9UXF0sC577d2HVB3KMjsKBWOqRjd16SIY="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.3.13",
-    "hash": "sha256-DeE4IqbPCw9nWqGITIIm4Hhxyl79p5s7NwJ8HkAbNvQ="
+    "version": "5.4.0",
+    "hash": "sha256-/ajgP8msqTR+GORQADxLN+mE9FJYQSOak/vJ9d082go="
   },
   {
     "pname": "Humanizer.Core",
