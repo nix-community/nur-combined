@@ -1,0 +1,32 @@
+name: New package request
+description: Request packaging the latest stable release of a GitHub-hosted project
+title: "[Package request] "
+labels:
+  - enhancement
+assignees:
+  - codgician
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for requesting a package. Requests created by codgician run automatically. Requests from anyone else wait until codgician applies the `package-request-approved` label.
+
+        Automation discovers the latest stable release and infers the description, executable, license, build system, and supported platforms from upstream. Treat every field as public: do not include secrets.
+
+        Enter the desired lower-case Nix attribute after the `[Package request]` title prefix. It must start with a letter and contain only letters, digits, `_`, and `-`.
+  - type: input
+    id: upstream
+    attributes:
+      label: Upstream repository
+      description: The canonical GitHub repository URL.
+      placeholder: https://github.com/owner/repository
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Packaging notes
+      description: Optional context the automation cannot discover upstream, such as a required build feature. Do not include instructions, source code, logs, or secrets.
+      placeholder: Optional context
+    validations:
+      required: false

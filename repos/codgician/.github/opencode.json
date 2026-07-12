@@ -2,8 +2,27 @@
   "$schema": "https://opencode.ai/config.json",
   "share": "disabled",
   "autoupdate": false,
-  "small_model": "dendro/gpt-5.4-mini",
-  "model": "dendro/gpt-5.5",
+  "small_model": "dendro/gpt-5.6-luna",
+  "model": "dendro/gpt-5.6-terra",
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "*sudo*": "deny",
+      "*git commit*": "deny",
+      "*git push*": "deny",
+      "*git reset*": "deny",
+      "*git clean*": "deny",
+      "*git checkout*": "deny",
+      "*git remote*": "deny",
+      "*git tag*": "deny",
+      "gh": "deny",
+      "gh *": "deny"
+    },
+    "external_directory": "deny",
+    "task": "deny",
+    "question": "deny",
+    "doom_loop": "deny"
+  },
   "provider": {
     "dendro": {
       "npm": "@ai-sdk/openai",
@@ -13,14 +32,14 @@
         "apiKey": "{env:DENDRO_API_KEY}"
       },
       "models": {
-        "gpt-5.5": {
-          "name": "gpt-5.5",
+        "gpt-5.6-terra": {
+          "name": "gpt-5.6-terra",
           "options": {
-            "reasoningEffort": "high"
+            "reasoningEffort": "xhigh"
           }
         },
-        "gpt-5.4-mini": {
-          "name": "gpt-5.4-mini"
+        "gpt-5.6-luna": {
+          "name": "gpt-5.6-luna"
         }
       }
     }

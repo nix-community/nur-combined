@@ -40,18 +40,18 @@
           name = "formatter";
           runtimeInputs = [
             treefmt
-            nixfmt-rfc-style
+            nixfmt
             mdformat
             yamlfmt
           ];
-          text = lib.getExe treefmt;
+          text = ''
+            exec ${lib.getExe treefmt} "$@"
+          '';
         }
       );
 
-      # Tooling shell for running package `updateScript`s and the OpenCode
-      # build-failure auto-fix agent used by the evergreen workflow. Anything
-      # the agent might shell out to while diagnosing a failed bump lives here,
-      # so `nix develop -c opencode ...` (and humans) get them all on PATH.
+      # Tooling shell for package update scripts, OpenCode automation, and CI checks.
+      # Keep every command used by those workflows pinned through this flake.
       devShells = forAllSystems (
         system:
         let
@@ -64,6 +64,11 @@
               git
               cacert
               coreutils
+              # CI/CD harness validation
+              actionlint
+              check-jsonschema
+              shellcheck
+              zizmor
               # Update-script utilities (union of all pkgs/*/update.sh deps)
               curl
               jq
@@ -75,7 +80,7 @@
               nix-prefetch-git
               prefetch-npm-deps
               nurl
-              # OpenCode agent (evergreen build-failure auto-fix)
+              # OpenCode package review/repair agent
               opencode
             ];
 

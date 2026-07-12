@@ -1,169 +1,432 @@
 name: evergreen
 on:
   schedule:
-    - cron: '35 8 * * *'
+    - cron: "35 8 * * *"
   workflow_dispatch:
-concurrency: evergreen
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
+concurrency:
+  group: evergreen
+  cancel-in-progress: false
 jobs:
   flake:
+    if: >-
+      github.repository_id == '852828187' && github.actor == 'codgician' && github.actor_id == '15964984' && github.triggering_actor == 'codgician'
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     outputs:
-      packages: ${{ steps.get_packages.outputs.packages }}
+      packages: ${{ steps.packages.outputs.packages }}
+      base_sha: ${{ steps.packages.outputs.base_sha }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 1
-          persist-credentials: 'true'
-      - uses: DeterminateSystems/nix-installer-action@main
+          persist-credentials: true
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
           extra-conf: |
             accept-flake-config = true
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Update nix flake
-        run: nix flake update >> $GITHUB_STEP_SUMMARY
-      - name: Push changes
+      - name: Update Nix flake
+        run: nix flake update >> "$GITHUB_STEP_SUMMARY"
+      - name: Push lock-file changes
         id: push
         run: |
-          if [[ `git status flake.lock --porcelain` ]]; then
+          if [[ -n "$(git status --porcelain -- flake.lock)" ]]; then
             git config user.name github-actions[bot]
             git config user.email github-actions[bot]@users.noreply.github.com
             git add flake.lock
             git commit -m "bot: nix flake update"
-            git push
-            echo "trigger_build=1" >> $GITHUB_OUTPUT
+            git push origin HEAD:main
+            echo "trigger_build=1" >> "$GITHUB_OUTPUT"
           else
-            echo "flake.lock is not changed..."
-            echo "trigger_build=0" >> $GITHUB_OUTPUT
+            echo "flake.lock is unchanged"
+            echo "trigger_build=0" >> "$GITHUB_OUTPUT"
           fi
       - name: Trigger build
-        uses: actions/github-script@v9
         if: steps.push.outputs.trigger_build == '1'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
-            github.rest.repos.createDispatchEvent({
+            await github.rest.repos.createDispatchEvent({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              event_type: 'build',
+              event_type: "build",
             });
       - name: Find upgradable packages
-        id: get_packages
+        id: packages
         run: |
-          packages=$(nix eval .\#lib.packagesWithUpdateScript --raw --apply "x: builtins.toJSON (builtins.attrNames x)")
-          echo "packages=$packages" >> $GITHUB_OUTPUT
-  package:
+          packages=$(nix eval .#lib.packagesWithUpdateScript --raw --apply "x: builtins.toJSON (builtins.attrNames x)")
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
+          echo "base_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+  prepare-package:
+    name: prepare (${{ matrix.package }})
     needs: flake
+    if: ${{ needs.flake.result == 'success' }}
     strategy:
+      fail-fast: false
       matrix:
         package: ${{ fromJson(needs.flake.outputs.packages) }}
-      fail-fast: false
     runs-on: ubuntu-latest
+    timeout-minutes: 150
+    permissions:
+      contents: read
+    env:
+      PACKAGE: ${{ matrix.package }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v7
+      - name: Checkout trusted revision
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
+          ref: ${{ needs.flake.outputs.base_sha }}
           fetch-depth: 1
-          persist-credentials: 'true'
-      - uses: DeterminateSystems/nix-installer-action@main
+          persist-credentials: false
+      - name: Validate package name
+        run: |
+          if [[ ! "$PACKAGE" =~ ^[a-z][a-z0-9_-]{0,63}$ ]]; then
+            echo "Invalid package attribute: $PACKAGE" >&2
+            exit 1
+          fi
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
           extra-conf: |
             accept-flake-config = true
             experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Run update script for ${{ matrix.package }}
-        id: run_update_script
+      - name: Record baseline
         run: |
-          git config user.name github-actions[bot]
-          git config user.email github-actions[bot]@users.noreply.github.com
+          nix eval --raw ".#$PACKAGE.version" > "$RUNNER_TEMP/old-version"
+          if ! nix eval --raw ".#$PACKAGE.meta.mainProgram" > "$RUNNER_TEMP/main-program" 2>/dev/null; then
+            printf 'none' > "$RUNNER_TEMP/main-program"
+          fi
+          mkdir -p .ai-state
+          printf '\n.ai-state/\n' >> .git/info/exclude
+      - name: Run updater
+        id: updater
+        run: |
+          set +e
+          nix develop .# -c .github/scripts/run_updater.sh "$PACKAGE" \
+            > .ai-state/updater.log 2>&1
+          exit_code=$?
+          set -e
 
-          # Run update script
-          if nix-shell tasks/update.nix --argstr package "${{ matrix.package }}" --argstr commit true --argstr skip-prompt true; then
-            echo "update.nix executed successfully"
-            commits_count=$(git rev-list --all --count)
-            if [ "$commits_count" -ge 2 ]; then
-              echo "pr_title=$(git show -s --format=%s HEAD)" >> $GITHUB_OUTPUT
+          while IFS= read -r -d '' log; do
+            if [[ -f "$log" && ! -L "$log" && $(stat -c '%s' "$log") -le 16777216 ]]; then
+              cp "$log" ".ai-state/$(basename "$log")"
             fi
-          else
-            echo "update.nix execution failed"
+            rm -f -- "$log"
+          done < <(git ls-files --others --exclude-standard -z -- ':(top,glob)*.log')
+
+          outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
+          if [[ -n "$outside" ]]; then
+            echo "Updater changed files outside pkgs/$PACKAGE:" >&2
+            printf '%s\n' "$outside" >&2
             exit 1
           fi
-      - name: Check build
-        id: check_build
-        if: steps.run_update_script.outputs.pr_title != ''
-        run: |
-          # Capture the result instead of hard-failing: the OpenCode review step
-          # runs on both outcomes (reviewer when it passed, fixer when it failed).
-          if nix build .#${{ matrix.package }} 2>&1 | tee /tmp/build.log; then
-            echo "build_ok=1" >> "$GITHUB_OUTPUT"
+          if [[ -n "$(git status --porcelain --untracked-files=all -- "pkgs/$PACKAGE")" ]]; then
+            package_changes=true
           else
-            echo "build_ok=0" >> "$GITHUB_OUTPUT"
+            package_changes=false
           fi
-      - name: Review and fix bump with OpenCode
-        id: opencode_review
-        # Runs after every successful bump. The agent reconciles the package's
-        # dependencies with upstream and enforces nixpkgs best practices: as a
-        # reviewer when the build passed, as a fixer when it failed. It runs
-        # inside the flake dev shell (`nix develop`) so every update-script tool
-        # (nix-prefetch-git, prefetch-npm-deps, nurl, ...) is on PATH for it to
-        # recompute hashes and re-run `nix build` while iterating.
-        if: steps.run_update_script.outputs.pr_title != ''
-        timeout-minutes: 120
+          if [[ "$exit_code" != "0" || "$package_changes" == "true" ]]; then
+            needs_review=true
+          else
+            needs_review=false
+          fi
+          {
+            echo "exit_code=$exit_code"
+            echo "package_changes=$package_changes"
+            echo "needs_review=$needs_review"
+          } >> "$GITHUB_OUTPUT"
+      - name: Check updater result before review
+        id: build
+        if: steps.updater.outputs.package_changes == 'true'
+        run: |
+          set +e
+          nix develop .# -c .github/scripts/validate_bump.sh \
+            "$PACKAGE" "$(cat "$RUNNER_TEMP/main-program")" \
+            > .ai-state/build-before.log 2>&1
+          exit_code=$?
+          set -e
+          echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
+      - name: Record review state
+        if: steps.updater.outputs.needs_review == 'true'
+        env:
+          UPDATER_EXIT: ${{ steps.updater.outputs.exit_code }}
+          BUILD_EXIT: ${{ steps.build.outputs.exit_code }}
+        run: |
+          if [[ -z "$BUILD_EXIT" ]]; then
+            build_state=not-run
+          elif [[ "$BUILD_EXIT" == "0" ]]; then
+            build_state=passed
+          else
+            build_state=failed
+          fi
+          jq -n \
+            --arg package "$PACKAGE" \
+            --argjson updater_exit "$UPDATER_EXIT" \
+            --arg build_state "$build_state" \
+            '{package: $package, updater_exit: $updater_exit, build_state: $build_state, updater_log: ".ai-state/updater.log", build_log: (if $build_state == "not-run" then null else ".ai-state/build-before.log" end)}' \
+            > .ai-state/state.json
+      - name: Review or repair with OpenCode
+        if: steps.updater.outputs.needs_review == 'true'
         env:
           DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
-          OPENCODE_CONFIG: ${{ github.workspace }}/.github/opencode.json
-          OPENCODE_DISABLE_CLAUDE_CODE: '1'
-          OPENCODE_DISABLE_AUTOUPDATE: '1'
         run: |
-          if [ -z "$DENDRO_API_KEY" ]; then
-            echo "DENDRO_API_KEY secret is not set; skipping review." >&2
-            exit 0
-          fi
-
-          if [ "${{ steps.check_build.outputs.build_ok }}" = "1" ]; then
-            STATE="The initial 'nix build .#${{ matrix.package }}' SUCCEEDED. Act as a reviewer: confirm the dependencies still match upstream for the new version and that nixpkgs best practices are followed, and fix anything that is wrong. If nothing needs changing, make no edits."
-          else
-            STATE="The initial 'nix build .#${{ matrix.package }}' FAILED; the log is at /tmp/build.log. Act as a fixer: diagnose and repair the failure (commonly a stale dependency hash or a dependency set that drifted from upstream)."
-          fi
-
-          MSG="Read the file .github/evergreen-review-prompt.md in this repository; it is your full instructions. Then review the package '${{ matrix.package }}' accordingly. ${STATE}"
-
-          nix develop ".#" -c opencode run \
+          export OPENCODE_CONFIG_CONTENT
+          OPENCODE_CONFIG_CONTENT=$(cat .github/opencode.json)
+          export OPENCODE_DISABLE_AUTOUPDATE=1
+          export OPENCODE_DISABLE_CLAUDE_CODE=1
+          message=$(cat .github/evergreen-review-prompt.md)
+          message+=$'\n\nThe validated package attribute is `'
+          message+="$PACKAGE"
+          message+=$'`. Read the evidence under `.ai-state/`.'
+          nix develop .# -c opencode run \
             --pure \
-            --dangerously-skip-permissions \
-            --model dendro/gpt-5.5 \
-            "$MSG"
-      - name: Verify and commit OpenCode changes
-        id: verify_fix
-        if: steps.run_update_script.outputs.pr_title != ''
+            --auto \
+            --model dendro/gpt-5.6-terra \
+            "$message"
+      - name: Export candidate
+        env:
+          NEEDS_REVIEW: ${{ steps.updater.outputs.needs_review }}
         run: |
-          # Only keep the agent's edits if they are real and the package still
-          # builds. This is the hard gate against a hacked or broken result.
-          if [ -z "$(git status --porcelain "pkgs/${{ matrix.package }}")" ]; then
-            echo "OpenCode made no changes."
+          mkdir -p "$RUNNER_TEMP/candidate"
+          cp "$RUNNER_TEMP/old-version" "$RUNNER_TEMP/candidate/old-version"
+          cp "$RUNNER_TEMP/main-program" "$RUNNER_TEMP/candidate/main-program"
+          if [[ "$NEEDS_REVIEW" == "false" ]]; then
+            printf 'up-to-date' > "$RUNNER_TEMP/candidate/state"
             exit 0
           fi
 
-          if nix build .#${{ matrix.package }}; then
-            git add "pkgs/${{ matrix.package }}"
-            git commit -m "${{ matrix.package }}: reconcile packaging after bump (opencode)"
-            echo "Committed OpenCode changes."
-          else
-            echo "OpenCode changes do not build; discarding so the PR reflects only the bump." >&2
-            git checkout -- "pkgs/${{ matrix.package }}" 2>/dev/null || true
+          outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
+          if [[ -n "$outside" ]]; then
+            echo "OpenCode changed files outside pkgs/$PACKAGE:" >&2
+            printf '%s\n' "$outside" >&2
+            exit 1
           fi
+          git add -A -- "pkgs/$PACKAGE"
+          if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
+            echo "Package candidates may not contain symlinks" >&2
+            exit 1
+          fi
+          if git diff --cached --quiet; then
+            echo "OpenCode produced no package changes" >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git diff --cached --binary --full-index > "$RUNNER_TEMP/candidate/changes.patch"
+          printf 'candidate' > "$RUNNER_TEMP/candidate/state"
+      - name: Upload candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: evergreen-candidate-${{ matrix.package }}
+          path: ${{ runner.temp }}/candidate
+          if-no-files-found: error
+          retention-days: 7
+  validate-package:
+    name: validate (${{ matrix.package }})
+    needs: [flake, prepare-package]
+    if: ${{ always() && needs.flake.result == 'success' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.flake.outputs.packages) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    env:
+      PACKAGE: ${{ matrix.package }}
+    steps:
+      - name: Checkout trusted revision
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          ref: ${{ needs.flake.outputs.base_sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Download candidate
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: evergreen-candidate-${{ matrix.package }}
+          path: ${{ runner.temp }}/candidate
+      - name: Inspect candidate
+        id: candidate
+        run: |
+          state=$(cat "$RUNNER_TEMP/candidate/state")
+          if [[ "$state" != "candidate" && "$state" != "up-to-date" ]]; then
+            echo "Invalid candidate state: $state" >&2
+            exit 1
+          fi
+          echo "state=$state" >> "$GITHUB_OUTPUT"
+      - name: Apply candidate
+        if: steps.candidate.outputs.state == 'candidate'
+        run: git apply --index "$RUNNER_TEMP/candidate/changes.patch"
+      - name: Install Nix
+        if: steps.candidate.outputs.state == 'candidate'
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+      - name: Validate candidate
+        if: steps.candidate.outputs.state == 'candidate'
+        run: |
+          nix fmt -- --ci "pkgs/$PACKAGE"
+          before=$(git diff HEAD --binary --full-index -- "pkgs/$PACKAGE" | sha256sum)
+          nix develop .# -c .github/scripts/run_updater.sh "$PACKAGE" \
+            > "$RUNNER_TEMP/updater-validation.log" 2>&1
+          after=$(git diff HEAD --binary --full-index -- "pkgs/$PACKAGE" | sha256sum)
+          if [[ "$before" != "$after" ]]; then
+            echo "Updater changed the reviewed package; it is not idempotent" >&2
+            cat "$RUNNER_TEMP/updater-validation.log" >&2
+            exit 1
+          fi
+          nix develop .# -c .github/scripts/validate_bump.sh \
+            "$PACKAGE" "$(cat "$RUNNER_TEMP/candidate/main-program")"
+          old_version=$(cat "$RUNNER_TEMP/candidate/old-version")
+          new_version=$(nix eval --raw ".#$PACKAGE.version")
+          if [[ ! "$old_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ || ! "$new_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ || "$old_version" == "$new_version" ]]; then
+            echo "Package version did not advance: $old_version -> $new_version" >&2
+            exit 1
+          fi
+          printf '%s' "$new_version" > "$RUNNER_TEMP/candidate/new-version"
+      - name: Prepare verified result
+        env:
+          CANDIDATE_STATE: ${{ steps.candidate.outputs.state }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/verified"
+          cp "$RUNNER_TEMP/candidate/state" "$RUNNER_TEMP/verified/state"
+          if [[ "$CANDIDATE_STATE" == "candidate" ]]; then
+            cp "$RUNNER_TEMP/candidate/changes.patch" "$RUNNER_TEMP/verified/changes.patch"
+            cp "$RUNNER_TEMP/candidate/old-version" "$RUNNER_TEMP/verified/old-version"
+            cp "$RUNNER_TEMP/candidate/new-version" "$RUNNER_TEMP/verified/new-version"
+          fi
+      - name: Upload verified result
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: evergreen-verified-${{ matrix.package }}
+          path: ${{ runner.temp }}/verified
+          if-no-files-found: error
+          retention-days: 1
+  publish-package:
+    name: publish (${{ matrix.package }})
+    needs: [flake, validate-package]
+    if: ${{ always() && needs.flake.result == 'success' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.flake.outputs.packages) }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    env:
+      PACKAGE: ${{ matrix.package }}
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Download verified result
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: evergreen-verified-${{ matrix.package }}
+          path: ${{ runner.temp }}/verified
+      - name: Apply verified result
+        id: result
+        run: |
+          state=$(cat "$RUNNER_TEMP/verified/state")
+          if [[ "$state" == "up-to-date" ]]; then
+            echo "publish=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [[ "$state" != "candidate" ]]; then
+            echo "Invalid verified state: $state" >&2
+            exit 1
+          fi
+          old_version=$(cat "$RUNNER_TEMP/verified/old-version")
+          new_version=$(cat "$RUNNER_TEMP/verified/new-version")
+          if [[ ! "$old_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ || ! "$new_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ ]]; then
+            echo "Invalid verified version metadata" >&2
+            exit 1
+          fi
+          git apply --3way --index "$RUNNER_TEMP/verified/changes.patch"
+          {
+            echo "publish=true"
+            echo "old_version=$old_version"
+            echo "new_version=$new_version"
+          } >> "$GITHUB_OUTPUT"
       - name: Create pull request
-        uses: peter-evans/create-pull-request@v8
-        if: steps.run_update_script.outputs.pr_title != ''
+        id: pull_request
+        if: steps.result.outputs.publish == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          committer: "github-actions <github-actions@github.com>"
-          branch: "bot/${{ matrix.package }}"
-          title: ${{ steps.run_update_script.outputs.pr_title }}
+          base: main
+          branch: bot/${{ matrix.package }}
           delete-branch: true
-          body: "This pull request is created automatically by the evergreen action which runs periodically to bump packages."
-          labels: "bot"
-          reviewers: "codgician"
+          add-paths: pkgs/${{ matrix.package }}
+          commit-message: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
+          committer: github-actions <github-actions@github.com>
+          author: github-actions <github-actions@github.com>
+          title: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
+          body: "Automated update of `${{ matrix.package }}` from `${{ steps.result.outputs.old_version }}` to `${{ steps.result.outputs.new_version }}`."
+          labels: bot
+          reviewers: codgician
+      - name: Dispatch merge validation
+        if: steps.pull_request.outputs.pull-request-operation == 'created' || steps.pull_request.outputs.pull-request-operation == 'updated'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_HEAD_SHA: ${{ steps.pull_request.outputs.pull-request-head-sha }}
+          VALIDATION_ID: ${{ matrix.package }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const head = process.env.PR_HEAD_SHA;
+            const id = process.env.VALIDATION_ID;
+            if (!/^[0-9a-f]{40}$/.test(head) || !/^[a-z][a-z0-9_-]{0,63}$/.test(id)) {
+              throw new Error("Invalid validation ref inputs");
+            }
+            const branch = `bot/ci/${id}-${head.slice(0, 12)}`;
+            const base = await github.rest.repos.getBranch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: "main",
+            });
+            const ref = `heads/${branch}`;
+            try {
+              await github.rest.git.getRef({ owner: context.repo.owner, repo: context.repo.repo, ref });
+              await github.rest.git.updateRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref,
+                sha: base.data.commit.sha,
+                force: true,
+              });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/${ref}`,
+                sha: base.data.commit.sha,
+              });
+            }
+            await github.rest.repos.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: branch,
+              head,
+              commit_message: `Validate ${id} against current main`,
+            });
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "build.yml",
+              ref: branch,
+            });

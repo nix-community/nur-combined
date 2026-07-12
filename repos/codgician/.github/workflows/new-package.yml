@@ -1,0 +1,297 @@
+name: new package request
+on:
+  issues:
+    types: [opened, labeled]
+permissions: {}
+concurrency:
+  group: new-package-${{ github.event.issue.number }}
+  cancel-in-progress: false
+jobs:
+  prepare:
+    if: ${{ github.repository_id == '852828187' && github.actor_id == '15964984' && github.triggering_actor == 'codgician' && github.event.sender.id == 15964984 && github.event.issue.state == 'open' && !github.event.issue.pull_request && startsWith(github.event.issue.title, '[Package request] ') && ((github.event.action == 'opened' && github.event.issue.user.id == 15964984) || (github.event.action == 'labeled' && github.event.label.name == 'package-request-approved')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    permissions:
+      contents: read
+    outputs:
+      package: ${{ steps.request.outputs.package }}
+      issue_number: ${{ steps.request.outputs.issue_number }}
+      upstream: ${{ steps.request.outputs.upstream }}
+    steps:
+      - name: Checkout trusted revision
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Parse request
+        id: request
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            const fs = require("node:fs");
+            const path = require("node:path");
+            const issue = context.payload.issue;
+            const prefix = "[Package request] ";
+            const packageName = issue.title.slice(prefix.length);
+            if (!/^[a-z][a-z0-9_-]{0,63}$/.test(packageName)) {
+              throw new Error("The issue title must end with a valid Nix package attribute");
+            }
+            if (fs.existsSync(path.join(process.env.GITHUB_WORKSPACE, "pkgs", packageName))) {
+              throw new Error(`Package already exists: ${packageName}`);
+            }
+
+            const body = issue.body || "";
+            const matches = [...body.matchAll(/^### ([^\r\n]+)\r?$/gm)];
+            const expected = ["Upstream repository", "Packaging notes"];
+            if (matches.length !== expected.length || matches.some((match, index) => match[1] !== expected[index])) {
+              throw new Error("The issue body does not match the package request form");
+            }
+            const values = Object.fromEntries(matches.map((match, index) => {
+              const start = match.index + match[0].length;
+              const end = index + 1 < matches.length ? matches[index + 1].index : body.length;
+              return [match[1], body.slice(start, end).trim()];
+            }));
+
+            const upstream = values["Upstream repository"];
+            let parsed;
+            try {
+              parsed = new URL(upstream);
+            } catch {
+              throw new Error("Upstream repository must be a canonical GitHub URL");
+            }
+            const parts = parsed.pathname.split("/").filter(Boolean);
+            const canonical = parts.length === 2 ? `https://github.com/${parts[0]}/${parts[1]}` : "";
+            if (parsed.protocol !== "https:" || parsed.hostname !== "github.com" || parsed.port || parsed.username || parsed.password || parsed.search || parsed.hash || upstream !== canonical || parts[1].endsWith(".git")) {
+              throw new Error("Upstream repository must be https://github.com/<owner>/<repository>");
+            }
+
+            let notes = values["Packaging notes"];
+            if (notes === "_No response_") notes = "";
+            if (notes.length > 2000) throw new Error("Packaging notes are too long");
+
+            const stateDir = path.join(process.env.GITHUB_WORKSPACE, ".ai-state");
+            fs.mkdirSync(stateDir, { recursive: true });
+            fs.writeFileSync(path.join(stateDir, "request.json"), JSON.stringify({
+              package: packageName,
+              upstream_url: upstream,
+              packaging_notes: notes,
+            }));
+            fs.appendFileSync(path.join(process.env.GITHUB_WORKSPACE, ".git", "info", "exclude"), "\n.ai-state/\n");
+            core.setOutput("package", packageName);
+            core.setOutput("issue_number", issue.number);
+            core.setOutput("upstream", upstream);
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+      - name: Create package with OpenCode
+        env:
+          DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
+          PACKAGE: ${{ steps.request.outputs.package }}
+        run: |
+          export OPENCODE_CONFIG_CONTENT
+          OPENCODE_CONFIG_CONTENT=$(cat .github/opencode.json)
+          export OPENCODE_DISABLE_AUTOUPDATE=1
+          export OPENCODE_DISABLE_CLAUDE_CODE=1
+          message=$(cat .github/new-package-prompt.md)
+          message+=$'\n\nThe validated package attribute is `'
+          message+="$PACKAGE"
+          message+=$'`. Read the untrusted request facts from `.ai-state/request.json`.'
+          nix develop .# -c opencode run \
+            --pure \
+            --auto \
+            --model dendro/gpt-5.6-terra \
+            "$message"
+      - name: Export package patch
+        env:
+          PACKAGE: ${{ steps.request.outputs.package }}
+        run: |
+          if [[ ! -d "pkgs/$PACKAGE" || -L "pkgs/$PACKAGE" || ! -f "pkgs/$PACKAGE/default.nix" ]]; then
+            echo "OpenCode did not create pkgs/$PACKAGE/default.nix" >&2
+            exit 1
+          fi
+          outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
+          if [[ -n "$outside" ]]; then
+            echo "OpenCode changed files outside pkgs/$PACKAGE:" >&2
+            printf '%s\n' "$outside" >&2
+            exit 1
+          fi
+          git add -A -- "pkgs/$PACKAGE"
+          if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
+            echo "Package candidates may not contain symlinks" >&2
+            exit 1
+          fi
+          if git diff --cached --quiet; then
+            echo "OpenCode produced no package changes" >&2
+            exit 1
+          fi
+          git diff --cached --check
+          mkdir -p "$RUNNER_TEMP/candidate"
+          git diff --cached --binary --full-index > "$RUNNER_TEMP/candidate/changes.patch"
+      - name: Upload candidate
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: new-package-candidate-${{ steps.request.outputs.issue_number }}
+          path: ${{ runner.temp }}/candidate
+          if-no-files-found: error
+          retention-days: 7
+  validate:
+    needs: prepare
+    if: ${{ needs.prepare.result == 'success' && needs.prepare.outputs.package != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: read
+    outputs:
+      version: ${{ steps.package.outputs.version }}
+    env:
+      PACKAGE: ${{ needs.prepare.outputs.package }}
+    steps:
+      - name: Checkout trusted revision
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Download candidate
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: new-package-candidate-${{ needs.prepare.outputs.issue_number }}
+          path: ${{ runner.temp }}/candidate
+      - name: Apply candidate
+        run: git apply --index "$RUNNER_TEMP/candidate/changes.patch"
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+      - name: Validate package
+        id: package
+        run: |
+          nix fmt -- --ci "pkgs/$PACKAGE"
+          before=$(git diff HEAD --binary --full-index -- "pkgs/$PACKAGE" | sha256sum)
+          nix develop .# -c .github/scripts/run_updater.sh "$PACKAGE" \
+            > "$RUNNER_TEMP/updater-validation.log" 2>&1
+          after=$(git diff HEAD --binary --full-index -- "pkgs/$PACKAGE" | sha256sum)
+          if [[ "$before" != "$after" ]]; then
+            echo "Updater changed the reviewed package; it is not idempotent" >&2
+            cat "$RUNNER_TEMP/updater-validation.log" >&2
+            exit 1
+          fi
+          nix develop .# -c .github/scripts/validate_new_package.sh "$PACKAGE"
+          version=$(nix eval --raw ".#$PACKAGE.version")
+          if [[ ! "$version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ ]]; then
+            echo "Invalid package version: $version" >&2
+            exit 1
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          mkdir -p "$RUNNER_TEMP/verified"
+          cp "$RUNNER_TEMP/candidate/changes.patch" "$RUNNER_TEMP/verified/changes.patch"
+      - name: Upload verified package
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: new-package-verified-${{ needs.prepare.outputs.issue_number }}
+          path: ${{ runner.temp }}/verified
+          if-no-files-found: error
+          retention-days: 1
+  publish:
+    needs: [prepare, validate]
+    if: ${{ needs.validate.result == 'success' && needs.prepare.outputs.package != '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      contents: write
+      pull-requests: write
+    env:
+      PACKAGE: ${{ needs.prepare.outputs.package }}
+    steps:
+      - name: Checkout current main
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          ref: main
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Download verified package
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          name: new-package-verified-${{ needs.prepare.outputs.issue_number }}
+          path: ${{ runner.temp }}/verified
+      - name: Apply verified package
+        run: git apply --3way --index "$RUNNER_TEMP/verified/changes.patch"
+      - name: Create pull request
+        id: pull_request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: bot/package-issue-${{ needs.prepare.outputs.issue_number }}
+          delete-branch: true
+          add-paths: pkgs/${{ needs.prepare.outputs.package }}
+          commit-message: "${{ needs.prepare.outputs.package }}: init at ${{ needs.validate.outputs.version }}"
+          committer: github-actions <github-actions@github.com>
+          author: github-actions <github-actions@github.com>
+          title: "${{ needs.prepare.outputs.package }}: init at ${{ needs.validate.outputs.version }}"
+          body: |
+            Add `${{ needs.prepare.outputs.package }}` from ${{ needs.prepare.outputs.upstream }}.
+
+            Closes #${{ needs.prepare.outputs.issue_number }}
+          labels: |
+            bot
+            enhancement
+          reviewers: codgician
+      - name: Dispatch merge validation
+        if: steps.pull_request.outputs.pull-request-operation == 'created' || steps.pull_request.outputs.pull-request-operation == 'updated'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_HEAD_SHA: ${{ steps.pull_request.outputs.pull-request-head-sha }}
+          VALIDATION_ID: ${{ needs.prepare.outputs.package }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const head = process.env.PR_HEAD_SHA;
+            const id = process.env.VALIDATION_ID;
+            if (!/^[0-9a-f]{40}$/.test(head) || !/^[a-z][a-z0-9_-]{0,63}$/.test(id)) {
+              throw new Error("Invalid validation ref inputs");
+            }
+            const branch = `bot/ci/${id}-${head.slice(0, 12)}`;
+            const base = await github.rest.repos.getBranch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: "main",
+            });
+            const ref = `heads/${branch}`;
+            try {
+              await github.rest.git.getRef({ owner: context.repo.owner, repo: context.repo.repo, ref });
+              await github.rest.git.updateRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref,
+                sha: base.data.commit.sha,
+                force: true,
+              });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: `refs/${ref}`,
+                sha: base.data.commit.sha,
+              });
+            }
+            await github.rest.repos.merge({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base: branch,
+              head,
+              commit_message: `Validate ${id} against current main`,
+            });
+            await github.rest.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: "build.yml",
+              ref: branch,
+            });

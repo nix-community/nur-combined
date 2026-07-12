@@ -1,5 +1,4 @@
 name: build
-
 on:
   push:
     branches: [main]
@@ -10,27 +9,68 @@ on:
   workflow_dispatch:
   repository_dispatch:
     types: [build]
-
 permissions:
   contents: read
-  checks: write
-  # atelier's nested build workflow unconditionally declares id-token: write
-  # (for niks3 OIDC cache push). A caller must grant it or GitHub fails the
-  # reusable-workflow graph at startup, even when no cache push is configured.
-  id-token: write
-
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   atelier:
-    uses: stepbrobd/atelier/.github/workflows/discover.yaml@2026.629.2
-
+    permissions:
+      contents: read
+      checks: write
+      # Atelier's nested workflow declares OIDC for optional cache pushes.
+      id-token: write
+    uses: stepbrobd/atelier/.github/workflows/discover.yaml@6cf255b6e35733e746ef42208389159912ecbde2 # 2026.629.2
+  harness:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
+        with:
+          persist-credentials: false
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+      - name: Validate automation
+        run: |
+          nix fmt -- --ci .github flake.nix
+          nix develop .# -c actionlint
+          nix develop .# -c zizmor .github/workflows
+          nix develop .# -c shellcheck .github/scripts/*.sh
+          nix develop .# -c check-jsonschema \
+            --schemafile https://json.schemastore.org/github-issue-forms.json \
+            .github/ISSUE_TEMPLATE/new-package.yml
   nur:
     needs: atelier
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     steps:
       - name: Trigger NUR update
-        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=codgician"
+        run: curl --fail --silent --show-error --request POST "https://nur-update.nix-community.org/update?repo=codgician"
+  cleanup-validation-ref:
+    needs: [atelier, harness]
+    if: ${{ always() && github.event_name == 'workflow_dispatch' && github.repository_id == '852828187' && startsWith(github.ref_name, 'bot/ci/') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Delete validation ref
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          VALIDATION_REF: ${{ github.ref_name }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const branch = process.env.VALIDATION_REF;
+            if (!/^bot\/ci\/[a-z][a-z0-9_-]{0,63}-[0-9a-f]{12}$/.test(branch)) {
+              throw new Error("Invalid validation ref");
+            }
+            await github.rest.git.deleteRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: `heads/${branch}`,
+            });
