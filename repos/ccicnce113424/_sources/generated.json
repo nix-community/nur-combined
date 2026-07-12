@@ -357,7 +357,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-LKCjQHZ4vNuM0g0KLhZ+atQS_f_R2NQ_VJEn7AbwzMQ=/src-tauri/Cargo.lock",
+                "sha256-zLrOj4o2rgPTY1WqxibgTlPJEc2iehfMaUADq5TQ96k=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -373,12 +373,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.7-beta.3",
-            "sha256": "sha256-LKCjQHZ4vNuM0g0KLhZ+atQS/f/R2NQ/VJEn7AbwzMQ=",
+            "rev": "v3.9.7-beta.4",
+            "sha256": "sha256-zLrOj4o2rgPTY1WqxibgTlPJEc2iehfMaUADq5TQ96k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.7-beta.3"
+        "version": "v3.9.7-beta.4"
     },
     "nix-auth": {
         "cargoLock": null,
@@ -426,7 +426,7 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5_rDcS0lNHaoM=/pubspec.lock"
+            "pubspec.lock": "sha256-sAbme6nTaamIanTHuqbKDou2CE_SgYofflrw1F5WlC4=/pubspec.lock"
         },
         "name": "piliplus",
         "passthru": null,
@@ -438,18 +438,18 @@
             "name": null,
             "owner": "bggRGjQaUbCoE",
             "repo": "PiliPlus",
-            "rev": "2.0.9.2",
-            "sha256": "sha256-11Fe6oYdrZYwiXBjtKQephO0W1uQuh5/rDcS0lNHaoM=",
+            "rev": "2.1.0",
+            "sha256": "sha256-sAbme6nTaamIanTHuqbKDou2CE/SgYofflrw1F5WlC4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2.0.9.2"
+        "version": "2.1.0"
     },
     "pixes": {
         "cargoLock": null,
         "date": null,
         "extract": {
-            "pubspec.lock": "sha256-u1eeJZ_9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=/pubspec.lock"
+            "pubspec.lock": "sha256-53tHvGF+GIkoLXeH4m3rNXYX7vI6PFTCZHpBWQ6R4nQ=/pubspec.lock"
         },
         "name": "pixes",
         "passthru": null,
@@ -461,18 +461,18 @@
             "name": null,
             "owner": "pixes-app",
             "repo": "pixes",
-            "rev": "v1.2.2",
-            "sha256": "sha256-u1eeJZ/9XzHsXMnMC01w9gu3zg8VBbghEp7HcPNx0Jo=",
+            "rev": "v1.2.3",
+            "sha256": "sha256-53tHvGF+GIkoLXeH4m3rNXYX7vI6PFTCZHpBWQ6R4nQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.2.2"
+        "version": "v1.2.3"
     },
     "pixes-git": {
         "cargoLock": null,
-        "date": "2026-07-04",
+        "date": "2026-07-12",
         "extract": {
-            "pubspec.lock": "sha256-072oVqDPZQNm1Aaboc57MYDNNGZ4+YyOz_MtLwUGMVg=/pubspec.lock"
+            "pubspec.lock": "sha256-53tHvGF+GIkoLXeH4m3rNXYX7vI6PFTCZHpBWQ6R4nQ=/pubspec.lock"
         },
         "name": "pixes-git",
         "passthru": null,
@@ -484,12 +484,12 @@
             "name": null,
             "owner": "pixes-app",
             "repo": "pixes",
-            "rev": "47004c2ce516f092f7dda65fcc917f4d56c5eeeb",
-            "sha256": "sha256-072oVqDPZQNm1Aaboc57MYDNNGZ4+YyOz/MtLwUGMVg=",
+            "rev": "d838c553d3679b003c53ea456ef53f0f1db882a3",
+            "sha256": "sha256-53tHvGF+GIkoLXeH4m3rNXYX7vI6PFTCZHpBWQ6R4nQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "47004c2ce516f092f7dda65fcc917f4d56c5eeeb"
+        "version": "d838c553d3679b003c53ea456ef53f0f1db882a3"
     },
     "pwasio": {
         "cargoLock": null,
@@ -703,11 +703,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-qgCyJdtRkkT3cTdswJ+lILIdx8I5FqULjceRNpiODGU=",
+            "sha256": "sha256-M1vYDOHP2aPyrhY4hx7q/KNKLVhHa89WcBggNRtcjS8=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.4/waywallen-0.2.4-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.5/waywallen-0.2.5-x86_64.AppImage"
         },
-        "version": "0.2.4"
+        "version": "0.2.5"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
