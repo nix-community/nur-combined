@@ -30,3 +30,4 @@ build_flakes:
           - rich-13-9-4
           - rich-argparse-rich-13-9-4
           - playit-agent
+          - vtt

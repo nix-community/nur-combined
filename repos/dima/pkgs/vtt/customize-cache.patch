@@ -1,0 +1,26 @@
+diff --git a/vts b/vts
+index e5df245..eb60e9a 100755
+--- a/vts
++++ b/vts
+@@ -1,7 +1,7 @@
+ #!/bin/sh
+ 
+ VTT_REMOTE="${VTT_REMOTE:-vanillatweaks.net}"
+-VTT_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
++VTT_CACHE="${VTT_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}}"
+ VTT_MCVER="${VTT_MCVER:-1.18}"
+ 
+ usage() {
+diff --git a/vtu b/vtu
+index b800785..0715612 100755
+--- a/vtu
++++ b/vtu
+@@ -3,7 +3,7 @@
+ VTT_PROTOCOL="${VTT_PROTOCOL:-https://}"
+ VTT_REMOTE="${VTT_REMOTE:-vanillatweaks.net}"
+ VTT_REMOTE_JSON="${VTT_REMOTE_JSON:-$VTT_PROTOCOL$VTT_REMOTE/assets/resources/json}"
+-VTT_CACHE="${XDG_CACHE_HOME:-$HOME/.cache}"
++VTT_CACHE="${VTT_CACHE:-${XDG_CACHE_HOME:-$HOME/.cache}}"
+ VTT_MCVER="${VTT_MCVER:-1.18}"
+ 
+ usage() {
