@@ -430,3 +430,73 @@ jobs:
               workflow_id: "build.yml",
               ref: branch,
             });
+  summary:
+    needs: [flake, prepare-package, validate-package, publish-package]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+    steps:
+      - name: Summarize package results
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PACKAGES: ${{ needs.flake.outputs.packages }}
+        with:
+          script: |-
+            let packages;
+            try {
+              packages = JSON.parse(process.env.PACKAGES || "[]");
+            } catch {
+              throw new Error("Invalid package matrix output");
+            }
+            if (!Array.isArray(packages) || packages.some((name) => !/^[a-z][a-z0-9_-]{0,63}$/.test(name))) {
+              throw new Error("Invalid package matrix output");
+            }
+
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.runId,
+              filter: "latest",
+              per_page: 100,
+            });
+            const jobsByName = new Map(jobs.map((job) => [job.name, job]));
+            const rows = [["Package", "Result"]];
+            const blocked = [];
+
+            for (const packageName of packages) {
+              const stages = [
+                ["prepare", jobsByName.get(`prepare (${packageName})`)],
+                ["validate", jobsByName.get(`validate (${packageName})`)],
+                ["publish", jobsByName.get(`publish (${packageName})`)],
+              ];
+              const failed = stages.find(([, job]) => !job || job.conclusion !== "success");
+              if (failed) {
+                const [stage, job] = failed;
+                rows.push([packageName, `blocked (${stage}: ${job?.conclusion || "missing"})`]);
+                blocked.push(packageName);
+                continue;
+              }
+
+              const prepare = stages[0][1];
+              const publish = stages[2][1];
+              const pullRequest = publish.steps.find((step) => step.name === "Create pull request");
+              if (pullRequest?.conclusion !== "success") {
+                rows.push([packageName, "up-to-date"]);
+                continue;
+              }
+
+              const review = prepare.steps.find((step) => step.name === "Review or repair with OpenCode");
+              rows.push([packageName, review?.conclusion === "success" ? "AI-repaired candidate" : "deterministic candidate"]);
+            }
+
+            await core.summary
+              .addHeading("Evergreen package summary")
+              .addTable(rows)
+              .write();
+
+            if (packages.length === 0) {
+              core.setFailed("Package discovery produced no results");
+            } else if (blocked.length > 0) {
+              core.setFailed(`Blocked packages: ${blocked.join(", ")}`);
+            }
