@@ -305,21 +305,6 @@
         },
         "version": "02.05.02.51"
     },
-    "bepasty": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "bepasty",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-teazPj+IrgbVeUkWqgWhpIldgfCTbZYJAqn5Q5blcm8=",
-            "type": "url",
-            "url": "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.2.tar.gz"
-        },
-        "version": "1.2.2"
-    },
     "bergamot-translator": {
         "cargoLock": null,
         "date": "2024-05-12",

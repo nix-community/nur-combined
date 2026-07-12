@@ -67,10 +67,6 @@ src.github_tag = "qjfoidnh/BaiduPCS-Go"
 fetch.url = "https://github.com/bambulab/BambuStudio/releases/download/v02.05.02.51/BambuStudio_ubuntu-24.04_v02.05.02.51-20260327222803.AppImage"
 src.manual = "02.05.02.51"
 
-[bepasty]
-fetch.pypi = "bepasty"
-src.pypi = "bepasty"
-
 [bergamot-translator]
 fetch.github = "browsermt/bergamot-translator"
 git.fetchSubmodules = true

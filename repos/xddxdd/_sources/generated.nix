@@ -163,14 +163,6 @@
       hash = "sha256-tWda80M3cV5hztEoYkZVGabQMgg6pyc/OniPJfghN0Q=";
     };
   };
-  bepasty = {
-    pname = "bepasty";
-    version = "1.2.2";
-    src = fetchurl {
-      url = "https://pypi.org/packages/source/b/bepasty/bepasty-1.2.2.tar.gz";
-      hash = "sha256-teazPj+IrgbVeUkWqgWhpIldgfCTbZYJAqn5Q5blcm8=";
-    };
-  };
   bergamot-translator = {
     pname = "bergamot-translator";
     version = "9271618ebbdc5d21ac4dc4df9e72beb7ce644774";
