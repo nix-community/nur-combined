@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 94748a1..526e210 100644
+index 90479d8..de63853 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -12,12 +12,12 @@ index 94748a1..526e210 100644
      "@tailwindcss/vite": "4.3.2",
      "@tanstack/react-query": "5.101.2",
 diff --git a/frontend/nyanpasu/project.inlang/settings.json b/frontend/nyanpasu/project.inlang/settings.json
-index 0596557..66c083a 100644
+index cb96b35..3777c63 100644
 --- a/frontend/nyanpasu/project.inlang/settings.json
 +++ b/frontend/nyanpasu/project.inlang/settings.json
 @@ -3,8 +3,8 @@
    "baseLocale": "en",
-   "locales": ["en", "zh-cn", "zh-tw", "ru"],
+   "locales": ["en", "ko", "ru", "zh-cn", "zh-tw"],
    "modules": [
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-message-format@4/dist/index.js",
 -    "https://cdn.jsdelivr.net/npm/@inlang/plugin-m-function-matcher@2/dist/index.js"
@@ -27,7 +27,7 @@ index 0596557..66c083a 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index d5caa05..6c87dec 100644
+index b620e31..9dd595d 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -43,7 +43,7 @@ index d5caa05..6c87dec 100644
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)
-@@ -1180,6 +1186,12 @@ packages:
+@@ -1195,6 +1201,12 @@ packages:
        typescript:
          optional: true
  
@@ -56,7 +56,7 @@ index d5caa05..6c87dec 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1187,6 +1199,10 @@ packages:
+@@ -1202,6 +1214,10 @@ packages:
      resolution: {integrity: sha512-xLVRHAI9Jw6L/NrlK6s1mXCvbFwzk5INEL4i3By4jW9yjIMchJ+JGSw4WgFpiLlcoBuR/qIMmSn6te/Jozuybg==}
      engines: {node: '>=20.0.0'}
  
@@ -67,7 +67,7 @@ index d5caa05..6c87dec 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -4355,6 +4371,11 @@ packages:
+@@ -4370,6 +4386,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -79,7 +79,7 @@ index d5caa05..6c87dec 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7353,6 +7374,16 @@ snapshots:
+@@ -7385,6 +7406,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -96,7 +96,7 @@ index d5caa05..6c87dec 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7367,6 +7398,16 @@ snapshots:
+@@ -7399,6 +7430,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -113,7 +113,7 @@ index d5caa05..6c87dec 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10314,6 +10355,8 @@ snapshots:
+@@ -10346,6 +10387,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
