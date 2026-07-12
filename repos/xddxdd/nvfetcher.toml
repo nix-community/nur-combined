@@ -473,9 +473,8 @@ fetch.url = "https://github.com/share121/inter-knot/releases/download/$ver/inter
 src.github = "share121/inter-knot"
 
 [invisible-firefox]
-fetch.github = "feder-cr/invisible-firefox"
-src.git = "https://github.com/feder-cr/invisible-firefox.git"
-src.branch = "stealth/150"
+fetch.github = "feder-cr/firefox_antidetect_patch"
+src.github = "feder-cr/firefox_antidetect_patch"
 
 [invisible-firefox-bin-linux-arm64]
 fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-linux-arm64.tar.gz"

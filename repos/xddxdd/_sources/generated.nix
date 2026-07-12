@@ -1072,14 +1072,13 @@
   };
   invisible-firefox = {
     pname = "invisible-firefox";
-    version = "6129d8391950913eab8463f05e97f33d7850e318";
+    version = "firefox-15";
     src = fetchFromGitHub {
       owner = "feder-cr";
-      repo = "invisible-firefox";
-      rev = "6129d8391950913eab8463f05e97f33d7850e318";
+      repo = "firefox_antidetect_patch";
+      tag = "firefox-15";
       hash = "sha256-OCbLaLwgA4S+FHj43fWgL2VgIKCxCGJzJtz96q7hVRw=";
     };
-    date = "2026-07-06";
   };
   invisible-firefox-bin-linux-arm64 = {
     pname = "invisible-firefox-bin-linux-arm64";

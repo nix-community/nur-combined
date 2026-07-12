@@ -2079,7 +2079,7 @@
     },
     "invisible-firefox": {
         "cargoLock": null,
-        "date": "2026-07-06",
+        "date": null,
         "extract": null,
         "name": "invisible-firefox",
         "passthru": null,
@@ -2090,13 +2090,13 @@
             "leaveDotGit": false,
             "name": null,
             "owner": "feder-cr",
-            "repo": "invisible-firefox",
-            "rev": "6129d8391950913eab8463f05e97f33d7850e318",
+            "repo": "firefox_antidetect_patch",
+            "rev": "firefox-15",
             "sha256": "sha256-OCbLaLwgA4S+FHj43fWgL2VgIKCxCGJzJtz96q7hVRw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "6129d8391950913eab8463f05e97f33d7850e318"
+        "version": "firefox-15"
     },
     "invisible-firefox-bin-linux-arm64": {
         "cargoLock": null,
