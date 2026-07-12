@@ -2626,27 +2626,6 @@
         },
         "version": "8f1bd2b471cc5a087144096956f7ff8119828730"
     },
-    "llama-cpp": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "llama-cpp",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ggerganov",
-            "repo": "llama.cpp",
-            "rev": "b9941",
-            "sha256": "sha256-5KWYTReyB05MWksZbv+RWnH4qdUPptSWAaPKysBIvsw=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "b9941"
-    },
     "loralib": {
         "cargoLock": null,
         "date": "2024-12-16",
@@ -2851,6 +2830,27 @@
         },
         "version": "v1.38.1"
     },
+    "modelscope-hub": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "modelscope-hub",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "modelscope",
+            "repo": "modelscope_hub",
+            "rev": "v0.1.7",
+            "sha256": "sha256-SmztKFBhLLi5WZUInQRY1K3dkgI1lxPq0QNUvHyvRRU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.7"
+    },
     "mtkclient": {
         "cargoLock": null,
         "date": "2026-06-27",
@@ -3021,12 +3021,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v1.0.0-rc.20",
-            "sha256": "sha256-gtuGFw4mC7nyauTK1r+k+/2hhuW5vEO+T+nCHLIecXY=",
+            "rev": "v1.0.0-rc.21",
+            "sha256": "sha256-qG1me9Gi0armF64f7jDfbpvbvibXkUWGC3e9i0WtY0g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.0-rc.20"
+        "version": "v1.0.0-rc.21"
     },
     "nft-fullcone": {
         "cargoLock": null,
@@ -3423,9 +3423,30 @@
     },
     "openssl-oqs-provider": {
         "cargoLock": null,
-        "date": null,
+        "date": "2026-07-10",
         "extract": null,
         "name": "openssl-oqs-provider",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "open-quantum-safe",
+            "repo": "oqs-provider",
+            "rev": "b104f576562b9b1b4cd8330f03e5b09f15e8971b",
+            "sha256": "sha256-EoKtSaEZKYKQrB3HwlR1GmQCFVlxE2ZSjXFhrTtaqVM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b104f576562b9b1b4cd8330f03e5b09f15e8971b"
+    },
+    "openssl-oqs-provider-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "openssl-oqs-provider-stable",
         "passthru": null,
         "pinned": false,
         "src": {

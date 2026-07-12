@@ -5,6 +5,7 @@
   setuptools,
   # Dependencies
   torch,
+  numpy,
   packaging,
 }:
 buildPythonPackage rec {
@@ -17,6 +18,7 @@ buildPythonPackage rec {
 
   propagatedBuildInputs = [
     torch
+    numpy
     packaging
   ];
 

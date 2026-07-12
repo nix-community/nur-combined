@@ -6,18 +6,21 @@
 firefox-unwrapped.overrideAttrs (old: {
   inherit (sources.invisible-firefox) version src;
 
-  # Skip macOS specific patches
-  prePatch = (old.prePatch or "") + ''
+  patchPhase = ''
+    runHook prePatch
+
     local -a patchesArray
     concatTo patchesArray patches
-    for i in "''${!patchesArray[@]}"; do
-      if grep "/macos_fake_sdk/" "''${patchesArray[i]}" >/dev/null 2>&1; then
-        echo "skipping patch ''${patchesArray[i]}"
-        unset 'patchesArray[i]'
+    for p in "''${patchesArray[@]}"; do
+      if grep -q "/macos_fake_sdk/" "$p" 2>/dev/null; then
+        echo "skipping patch $p"
+      else
+        echo "applying patch $p"
+        patch -p1 < "$p"
       fi
     done
-    patches="''${patchesArray[@]}"
-    echo "Final patches: $patches"
+
+    runHook postPatch
   '';
 
   postPatch = (old.postPatch or "") + ''

@@ -34,7 +34,6 @@ let
     ;
 
   flatGroups = {
-    deprecated = ifNotCI ./deprecated;
     kernel-modules = ./kernel-modules;
     python3Packages = ./python-packages;
     uncategorized = ./uncategorized;

@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (220 packages)</summary>
+<summary>Package set: (Uncategorized) (209 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -172,6 +172,7 @@ Or, use variables from this repository in case I change them:
 |  | `metee` | [metee](https://github.com/intel/metee) | 6.2.5 | C library to access CSE/CSME/GSC firmware via a MEI interface |
 |  | `mlat-client` | [mlat-client](https://github.com/adsb-related-code/mlat-client) | 0.4.2 | Client that selectively forwards Mode S messages to a server that resolves the transmitter position by multilateration |
 |  | `modelscope` | [modelscope](https://www.modelscope.cn/) | 1.38.1 | Bring the notion of Model-as-a-Service to life |
+|  | `modelscope-hub` | [modelscope-hub](https://github.com/modelscope/modelscope_hub) | 0.1.7 | Official Python client to connect with ModelScope Hub |
 |  | `mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 0-unstable-2026-06-27 | MTK reverse engineering and flash tool |
 | `x86_64-linux` | `mtranservercore-rs` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-05-20 | Lightweight multilingual translation service based on Rust and Bergamot translation engine, compatible with multiple translation frontend APIs |
 |  | `n8n-openai-bridge` | [n8n-openai-bridge](https://github.com/sveneisenschmidt/n8n-openai-bridge) | 0.0.17 | OpenAI-compatible API middleware for n8n workflows |
@@ -179,7 +180,6 @@ Or, use variables from this repository in case I change them:
 |  | `ncmm` | [ncmm](https://github.com/3899/ncmm) | 1.1.8 | Command-line assistant for NetEase Cloud Music musicians |
 |  | `netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 3.0.2 | Network-based bootable operating system installer based on iPXE |
 |  | `netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | 0-unstable-2016-07-30 | Run command in Linux network namespace as normal user |
-|  | `new-api` | [new-api](https://github.com/QuantumNous/new-api) | 1.0.0-rc.20 | AI model gateway for aggregation and distribution, supports converting LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats |
 |  | `nft-fullcone` | [nft-fullcone](https://github.com/fullcone-nat-nftables/nft-fullcone) | 0-unstable-2023-05-17 | Nftables fullcone expression kernel module |
 |  | `nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.1.6 | Project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
 |  | `noise-suppression-for-voice` | [noise-suppression-for-voice](https://github.com/werman/noise-suppression-for-voice) | 1.10 | Noise suppression plugin based on Xiph's RNNoise |
@@ -193,7 +193,7 @@ Or, use variables from this repository in case I change them:
 |  | `opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
 |  | `openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
 |  | `openssl-ech` | [openssl-ech](https://github.com/sftcd/openssl/tree/ECH-draft-13c) | 0-unstable-2025-11-18 | OpenSSL with Encrypted Client Hello support |
-|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.11.0 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.11.0-unstable-2026-07-10 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.16 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palworld Server |
 |  | `palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |
@@ -272,20 +272,9 @@ Or, use variables from this repository in case I change them:
 | `Broken` | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
 | `Broken` | `coqui-tts` | [coqui-tts](http://coqui.ai) | 0.22.0 | Deep learning toolkit for Text-to-Speech, battle-tested in research and production |
 | `Broken` | `douban-openapi-server` | [douban-openapi-server](https://github.com/caryyu/douban-openapi-server) | 0-unstable-2022-12-17 | Douban API server that provides unofficial APIs for media information gathering |
-| `Deprecated` `x86_64-linux` | `inter-knot` | [inter-knot](https://inot.top) | 2.16.9+36 | (DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台 |
-| `Deprecated` | `kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 3.32.0 | (DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
-| `Deprecated` | `kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 3.32.0 | (DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
 | `Broken` | `kui` | [kui](https://kui.aber.sh/) | 1.14.1 | Easy-to-use web framework |
-| `Deprecated` | `one-api` | [one-api](https://openai.justsong.cn) | 0.6.10 | (DEPRECATED: No upstream updates for over a year, consider switching to new-api) OpenAI key management & redistribution system, using a single API for all LLMs |
-| `Deprecated` | `openvswitch-dpdk` | [openvswitch-dpdk](https://www.openvswitch.org/) | 3.7.1 | (DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch |
-| `Deprecated` | `payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.3.0 | (DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go |
-| `Deprecated` `x86_64-linux` | `pocl` | [pocl](http://portablecl.org) | 7.1 | (DEPRECATED: pocl is available in nixpkgs) Portable OpenCL standard implementation |
 | `Broken` | `soggy` | [soggy](https://github.com/LDAsuku/soggy) | 0-unstable-2022-12-14 | Experimental server emulator for a game I forgot its name |
 | `Broken` | `uksmd` | [uksmd](https://github.com/CachyOS/uksmd) | 1.3.0 | Userspace KSM helper daemon |
-| `Broken` `Deprecated` | `vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | 26.06 | (DEPRECATED: vpp is available in nixpkgs) Vector Packet Processing |
-| `Deprecated` `x86_64-linux` | `wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `Deprecated` `x86_64-linux` | `wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `Deprecated` `x86_64-linux` | `wechat-uos-without-sandbox` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 </details>
 
 
@@ -372,24 +361,6 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: deprecated (11 packages)</summary>
-
-| State | Path | Name | Version | Description |
-| ----- | ---- | ---- | ------- | ----------- |
-| `x86_64-linux` | `deprecated.inter-knot` | [inter-knot](https://inot.top) | 2.16.9+36 | (DEPRECATED: Service has ceased operation) 绳网是一个游戏、技术交流平台 |
-|  | `deprecated.kata-image` | [kata-image](https://github.com/kata-containers/kata-containers) | 3.32.0 | (DEPRECATED: kata-image is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-images/default.nix) |
-|  | `deprecated.kata-runtime` | [kata-runtime](https://github.com/kata-containers/kata-containers) | 3.32.0 | (DEPRECATED: kata-runtime is available in nixpkgs by a different maintainer) Open source project and community working to build a standard implementation of lightweight Virtual Machines (VMs) that feel and perform like containers, but provide the workload isolation and security advantages of VMs (Packaging script adapted from https://github.com/TUM-DSE/doctor-cluster-config/blob/0c40be8dd86282122f8f04df738c409ef5e3da1c/pkgs/kata-runtime/default.nix) |
-|  | `deprecated.one-api` | [one-api](https://openai.justsong.cn) | 0.6.10 | (DEPRECATED: No upstream updates for over a year, consider switching to new-api) OpenAI key management & redistribution system, using a single API for all LLMs |
-|  | `deprecated.openvswitch-dpdk` | [openvswitch-dpdk](https://www.openvswitch.org/) | 3.7.1 | (DEPRECATED: openvswitch-dpdk is available in nixpkgs) Multilayer virtual switch |
-|  | `deprecated.payload-dumper-go` | [payload-dumper-go](https://github.com/ssut/payload-dumper-go) | 1.3.0 | (DEPRECATED: payload-dumper-go is available in nixpkgs by a different maintainer) Android OTA payload dumper written in Go |
-| `x86_64-linux` | `deprecated.pocl` | [pocl](http://portablecl.org) | 7.1 | (DEPRECATED: pocl is available in nixpkgs) Portable OpenCL standard implementation |
-| `x86_64-linux` | `deprecated.wechat-uos` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `x86_64-linux` | `deprecated.wechat-uos-bin` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `x86_64-linux` | `deprecated.wechat-uos-without-sandbox` | [wechat-uos](https://weixin.qq.com/) | 4.0.0.21 | (DEPRECATED: wechat-uos is available in nixpkgs, if you still want sandbox functionality, use wechat-uos-sandboxed package.) WeChat desktop without sandbox (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
-| `Broken` | `deprecated.vpp` | [vpp](https://wiki.fd.io/view/VPP/What_is_VPP%3F) | 26.06 | (DEPRECATED: vpp is available in nixpkgs) Vector Packet Processing |
-</details>
-
-<details>
 <summary>Package set: kernel-modules (10 packages)</summary>
 
 | State | Path | Name | Version | Description |
@@ -407,7 +378,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: lantianCustomized (15 packages)</summary>
+<summary>Package set: lantianCustomized (14 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -418,7 +389,6 @@ Or, use variables from this repository in case I change them:
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.firefox-unwrapped` | [firefox-unwrapped](http://www.mozilla.com/en-US/firefox/) | 152.0.5 | Firefox with anti fingerprinting modifications |
 |  | `lantianCustomized.librime-with-plugins` | [librime](https://rime.im/) | 1.17.0 | Librime with plugins (librime-charcode, librime-lua, librime-octagram, librime-proto) |
-|  | `lantianCustomized.llama-cpp` | [llama-cpp](https://github.com/ggml-org/llama.cpp) | 9941 | Inference of Meta's LLaMA model (and others) in pure C/C++ |
 |  | `lantianCustomized.ls-iommu` | [ls-iommu](https://gist.github.com/r15ch13/ba2d738985fce8990a4e9f32d07c6ada) | 1.0 | List IOMMUs on system |
 |  | `lantianCustomized.materialgram` | [materialgram](https://kukuruzka165.github.io/materialgram/) | 6.7.7.1 | Telegram Desktop fork with material icons and some improvements (Without anti-features) |
 |  | `lantianCustomized.nbfc-linux` | [nbfc-linux-lantian](https://github.com/xddxdd/nbfc-linux) | 0-unstable-2022-06-13 | NoteBook FanControl ported to Linux (with Lan Tian's modifications) |
@@ -1280,7 +1250,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: python3Packages (32 packages)</summary>
+<summary>Package set: python3Packages (33 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1297,6 +1267,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
 |  | `python3Packages.modelscope` | [modelscope](https://www.modelscope.cn/) | 1.38.1 | Bring the notion of Model-as-a-Service to life |
+|  | `python3Packages.modelscope-hub` | [modelscope-hub](https://github.com/modelscope/modelscope_hub) | 0.1.7 | Official Python client to connect with ModelScope Hub |
 |  | `python3Packages.mtkclient` | [mtkclient](https://github.com/bkerler/mtkclient) | 0-unstable-2026-06-27 | MTK reverse engineering and flash tool |
 |  | `python3Packages.open-webui-kb-manager` | [open-webui-kb-manager](https://github.com/dubh3124/OpenWebUI-KB-Manager) | 0.2.0 | Command-line interface (CLI) tool for managing files and knowledge bases in OpenWebUI |
 |  | `python3Packages.opencc-python-reimplemented` | [opencc-python-reimplemented](https://github.com/yichen0831/opencc-python) | 0-unstable-2023-02-11 | OpenCC made with Python |
@@ -1319,7 +1290,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (167 packages)</summary>
+<summary>Package set: uncategorized (166 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1417,7 +1388,6 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.ncmm` | [ncmm](https://github.com/3899/ncmm) | 1.1.8 | Command-line assistant for NetEase Cloud Music musicians |
 |  | `uncategorized.netboot-xyz` | [netboot-xyz](https://netboot.xyz/) | 3.0.2 | Network-based bootable operating system installer based on iPXE |
 |  | `uncategorized.netns-exec` | [netns-exec](https://github.com/pekman/netns-exec) | 0-unstable-2016-07-30 | Run command in Linux network namespace as normal user |
-|  | `uncategorized.new-api` | [new-api](https://github.com/QuantumNous/new-api) | 1.0.0-rc.20 | AI model gateway for aggregation and distribution, supports converting LLMs into OpenAI-compatible, Claude-compatible, or Gemini-compatible formats |
 |  | `uncategorized.nftables-fullcone` | [nftables](https://netfilter.org/projects/nftables/) | 1.1.6 | Project that aims to replace the existing {ip,ip6,arp,eb}tables framework |
 |  | `uncategorized.noise-suppression-for-voice` | [noise-suppression-for-voice](https://github.com/werman/noise-suppression-for-voice) | 1.10 | Noise suppression plugin based on Xiph's RNNoise |
 |  | `uncategorized.nullfs` | [nullfs](https://github.com/xrgtn/nullfs) | 0-unstable-2016-01-28 | FUSE nullfs drivers |
@@ -1427,7 +1397,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.openai-edge-tts` | [openai-edge-tts](https://tts.travisvn.com/) | 0-unstable-2025-07-01 | Text-to-speech API endpoint compatible with OpenAI's TTS API endpoint, using Microsoft Edge TTS to generate speech for free locally |
 |  | `uncategorized.openedai-speech` | [openedai-speech](https://github.com/matatonic/openedai-speech) | 0.18.2 | OpenAI API compatible text to speech server using Coqui AI's xtts_v2 and/or piper tts as the backend |
 |  | `uncategorized.openssl-ech` | [openssl-ech](https://github.com/sftcd/openssl/tree/ECH-draft-13c) | 0-unstable-2025-11-18 | OpenSSL with Encrypted Client Hello support |
-|  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.11.0 | OpenSSL 3 provider containing post-quantum algorithms |
+|  | `uncategorized.openssl-oqs-provider` | [openssl-oqs-provider](https://openquantumsafe.org) | 0.11.0-unstable-2026-07-10 | OpenSSL 3 provider containing post-quantum algorithms |
 |  | `uncategorized.osdlyrics` | [osdlyrics](https://github.com/osdlyrics/osdlyrics) | 0.5.16 | Standalone lyrics fetcher/displayer (windowed and OSD mode) |
 |  | `uncategorized.palworld-exporter` | [palworld-exporter](https://github.com/palworldlol/palworld-exporter) | 1.3.1 | Prometheus exporter for Palworld Server |
 |  | `uncategorized.palworld-worldoptions` | [palworld-worldoptions](https://github.com/legoduded/palworld-worldoptions) | 1.11.0 | Tool for managing Palworld dedicated server settings |

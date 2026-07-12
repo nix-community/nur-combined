@@ -25,6 +25,8 @@
 - **使用顶层 Xorg 包**：Xorg 相关的库和工具现在可以直接作为顶层包引用，不要使用 `xorg.` 前缀。例如使用 `libX11` 而不是 `xorg.libX11`，使用 `xcbutilimage` 而不是 `xorg.xcbutilimage`
 - **不要使用已弃用的 `system` 属性**：在 NixOS 26.05+ 中，`pkgs.system` 已被弃用，访问时会触发 `evaluation warning: 'system' has been renamed to/replaced by 'stdenv.hostPlatform.system'`。获取当前系统平台时应使用 `stdenv.hostPlatform.system`（或 `final.stdenv.hostPlatform.system`、`prev.stdenv.hostPlatform.system`）。特别注意 `callPackage` 会从 pkgs 作用域自动注入参数，因此辅助函数若声明了 `{ system, ... }` 参数，实际会访问到已弃用的 `pkgs.system`，应改为声明 `{ stdenv, ... }` 并在函数内部用 `let system = stdenv.hostPlatform.system; in` 派生
 - **扁平打包的二进制压缩包**：当上游 tarball 不包含单一顶层目录（直接在 `./` 下展开文件）时，stdenv 默认 `unpackPhase` 会报 `unpacker produced multiple directories`。此时需设置 `sourceRoot = "."`，让构建在解压根目录进行。
+- **structuredAttrs 下修改 patches 列表**：当 `structuredAttrs is enabled` 时，不能在 `prePatch` 中通过修改 `patches` 变量来过滤补丁（`concatTo` 无法正确解析被修改后的字符串变量）。应改为完全覆盖 `patchPhase`，在其中用 `concatTo patchesArray patches` 读取补丁列表后自行过滤和应用。
+- **setuptools 82+ 移除了 `pkg_resources`**：老版本的 XStatic 等包在 `xstatic/__init__.py` 和 `xstatic/pkg/__init__.py` 中使用 `__import__('pkg_resources').declare_namespace(__name__)`，在 setuptools 82+ 中会报 `ModuleNotFoundError: No module named 'pkg_resources'`。修复方法：在 `postPatch` 中用 `substituteInPlace` 删除该调用，同时用 `sed` 从 `setup.py` 中删除 `namespace_packages` 行。
 
 ## 包元数据规范
 
@@ -122,7 +124,17 @@ appimageTools.wrapType2 {
 ### 更新源码
 
 - 修改 `nvfetcher.toml` 后运行 nvfetcher 时，必须指定包名：`nvfetcher -f package-name`
+- `-f` 参数接受的是正则表达式，不是多个独立参数。要匹配多个包，使用正则如 `nvfetcher -f 'package-one|package-two'`
 - 禁止运行不带包名的 `nvfetcher` 命令
+
+### stable/unstable 双源模式
+
+当一个包同时需要稳定版和跟踪上游 main 分支的 unstable 版时，使用以下命名约定：
+
+- `package-name`：**unstable 源**（`src.git`），跟踪 git 主分支
+- `package-name-stable`：**稳定源**（`src.github`），跟踪 GitHub Release
+
+`helpers/nvfetcher-loader.nix` 会自动处理版本号：当 unstable 源的版本是 40 位哈希时，会查找对应的 `package-name-stable` 源获取最近稳定版号，生成 `最近稳定版-unstable-日期` 格式的版本号（如 `0.11.0-unstable-2026-07-10`）。
 
 ### GitHub 源码获取规则
 
@@ -135,6 +147,7 @@ appimageTools.wrapType2 {
 ### GitHub 获取格式
 
 - 从 GitHub 获取时，始终使用 `fetch.github = "user/package"` 格式
+- 当 `fetch.github` 因 GitHub tag/release 歧义（HTTP 300 Multiple Choices）失败时，改用 `fetch.url = "https://github.com/user/package/archive/refs/tags/$ver.tar.gz"`
 
 ## 构建包
 

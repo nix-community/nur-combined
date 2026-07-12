@@ -1,9 +1,7 @@
 {
   writeTextFile,
   callPackage,
-  pkgs,
   lib,
-  inputs,
   _meta,
   _packages,
 }:
@@ -18,19 +16,6 @@ let
   packageSets = lib.filterAttrs (
     n: v: v != null && (builtins.tryEval v).success && !(isHiddenName n) && !(lib.isDerivation v)
   ) _packages;
-
-  deprecatedPackages =
-    let
-      inherit
-        (import ../../../helpers/group.nix {
-          inherit pkgs lib inputs;
-          mode = null;
-        })
-        createCallGroupDeps
-        ;
-      callGroupDeps = createCallGroupDeps _packages callPackage;
-    in
-    builtins.attrNames (import ../../deprecated callGroupDeps);
 
   allPlatforms = [
     "x86_64-linux"
@@ -48,7 +33,6 @@ let
         broken = v.meta.broken or false;
         platforms = v.meta.platforms or [ ];
         url = v.meta.homepage or null;
-        deprecated = builtins.elem n deprecatedPackages;
 
         supportAllPlatforms = builtins.foldl' (a: b: a && b) true (
           builtins.map (p: isTargetPlatform' p v) allPlatforms
@@ -56,10 +40,7 @@ let
         platformTags = lib.flatten (
           builtins.map (p: if isTargetPlatform' p v then [ p ] else [ ]) allPlatforms
         );
-        tags =
-          (lib.optional broken "Broken")
-          ++ (lib.optional deprecated "Deprecated")
-          ++ (lib.optionals (!supportAllPlatforms) platformTags);
+        tags = (lib.optional broken "Broken") ++ (lib.optionals (!supportAllPlatforms) platformTags);
       };
       metaToString =
         v:

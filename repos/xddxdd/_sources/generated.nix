@@ -1354,16 +1354,6 @@
     };
     date = "2026-05-20";
   };
-  llama-cpp = {
-    pname = "llama-cpp";
-    version = "b9941";
-    src = fetchFromGitHub {
-      owner = "ggerganov";
-      repo = "llama.cpp";
-      tag = "b9941";
-      hash = "sha256-5KWYTReyB05MWksZbv+RWnH4qdUPptSWAaPKysBIvsw=";
-    };
-  };
   loralib = {
     pname = "loralib";
     version = "c4593f060e6a368d7bb5af5273b8e42810cdef90";
@@ -1464,6 +1454,16 @@
       hash = "sha256-BTiK6rk9j5Wh6DZZ8eufzAyP8wWCEfIzQKeJ3fJzsjg=";
     };
   };
+  modelscope-hub = {
+    pname = "modelscope-hub";
+    version = "v0.1.7";
+    src = fetchFromGitHub {
+      owner = "modelscope";
+      repo = "modelscope_hub";
+      tag = "v0.1.7";
+      hash = "sha256-SmztKFBhLLi5WZUInQRY1K3dkgI1lxPq0QNUvHyvRRU=";
+    };
+  };
   mtkclient = {
     pname = "mtkclient";
     version = "a6a7147e92907b2017027ae404b84101444ee502";
@@ -1546,12 +1546,12 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v1.0.0-rc.20";
+    version = "v1.0.0-rc.21";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      tag = "v1.0.0-rc.20";
-      hash = "sha256-gtuGFw4mC7nyauTK1r+k+/2hhuW5vEO+T+nCHLIecXY=";
+      tag = "v1.0.0-rc.21";
+      hash = "sha256-qG1me9Gi0armF64f7jDfbpvbvibXkUWGC3e9i0WtY0g=";
     };
   };
   nft-fullcone = {
@@ -1757,6 +1757,17 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
+    version = "b104f576562b9b1b4cd8330f03e5b09f15e8971b";
+    src = fetchFromGitHub {
+      owner = "open-quantum-safe";
+      repo = "oqs-provider";
+      rev = "b104f576562b9b1b4cd8330f03e5b09f15e8971b";
+      hash = "sha256-EoKtSaEZKYKQrB3HwlR1GmQCFVlxE2ZSjXFhrTtaqVM=";
+    };
+    date = "2026-07-10";
+  };
+  openssl-oqs-provider-stable = {
+    pname = "openssl-oqs-provider-stable";
     version = "0.11.0";
     src = fetchurl {
       url = "https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/0.11.0.tar.gz";

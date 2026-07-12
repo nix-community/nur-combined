@@ -603,10 +603,6 @@ fetch.github = "LinguaSpark/server"
 git.fetchSubmodules = true
 src.git = "https://github.com/LinguaSpark/server.git"
 
-[llama-cpp]
-fetch.github = "ggerganov/llama.cpp"
-src.github = "ggerganov/llama.cpp"
-
 [loralib]
 fetch.github = "microsoft/LoRA"
 src.git = "https://github.com/microsoft/LoRA.git"
@@ -646,6 +642,10 @@ src.github_tag = "adsb-related-code/mlat-client"
 [modelscope]
 fetch.github = "modelscope/modelscope"
 src.github = "modelscope/modelscope"
+
+[modelscope-hub]
+fetch.github = "modelscope/modelscope_hub"
+src.github = "modelscope/modelscope_hub"
 
 [mtkclient]
 fetch.github = "bkerler/mtkclient"
@@ -768,7 +768,10 @@ src.git = "https://github.com/sftcd/openssl.git"
 src.branch = "ECH-draft-13c"
 
 [openssl-oqs-provider]
-# fetch.github = "open-quantum-safe/oqs-provider"
+fetch.github = "open-quantum-safe/oqs-provider"
+src.git = "https://github.com/open-quantum-safe/oqs-provider.git"
+
+[openssl-oqs-provider-stable]
 fetch.url = "https://github.com/open-quantum-safe/oqs-provider/archive/refs/tags/$ver.tar.gz"
 src.github = "open-quantum-safe/oqs-provider"
 

@@ -12,6 +12,12 @@ buildPythonPackage rec {
 
   build-system = [ setuptools ];
 
+  postPatch = ''
+    substituteInPlace xstatic/__init__.py xstatic/pkg/__init__.py \
+      --replace-fail "__import__('pkg_resources').declare_namespace(__name__)" ""
+    sed -i '/namespace_packages/d' setup.py
+  '';
+
   pythonImportsCheck = [ "xstatic.pkg.font_awesome" ];
 
   meta = {

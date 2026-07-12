@@ -7,6 +7,7 @@
   attrs,
   datasets,
   einops,
+  modelscope-hub,
   oss2,
   pillow,
   python-dateutil,
@@ -32,6 +33,7 @@ buildPythonPackage rec {
     attrs
     datasets
     einops
+    modelscope-hub
     oss2
     pillow
     python-dateutil

@@ -19,6 +19,7 @@
   pydub,
   pytorch-wpe,
   pyyaml,
+  rapidfuzz,
   requests,
   scipy,
   sentencepiece,
@@ -53,6 +54,7 @@ buildPythonPackage rec {
     pydub
     pytorch-wpe
     pyyaml
+    rapidfuzz
     requests
     scipy
     sentencepiece

@@ -13,7 +13,6 @@ import toml
 
 SKIP_CHECK = [
     "_meta",
-    "deprecated",
     "kernel",
     "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
@@ -22,7 +21,6 @@ SKIP_CHECK = [
 
 SKIP_BUILD = [
     "_meta",
-    "deprecated",
     "kernel",
     "lantianLinuxCachyOS",
     "lantianLinuxXanmod",
