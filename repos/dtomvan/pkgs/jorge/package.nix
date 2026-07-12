@@ -22,7 +22,7 @@ buildGoModule (finalAttrs: {
   patches = [
     (fetchpatch2 {
       url = "https://github.com/dtomvan/jorge/commit/f26d32cb5795e9354ee67fb712883e0e1cfdc647.patch";
-      hash = "sha256-3zKKUuupTNWu16k+mzeAMRXQgd29nuNtsp98Flrb/E0=";
+      hash = "sha256-72gEbFxKSFBJsmvGOBE4J6dDbjBTpWa+unswrP0k7Ic=";
     })
   ];
 

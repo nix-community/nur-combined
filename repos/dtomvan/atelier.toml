@@ -1,5 +1,6 @@
 systems = ["x86_64-linux"]
 exclude = [
+    "packages.x86_64-linux.boomer",            # broken
     "packages.x86_64-linux.shed",              # broken
     "packages.x86_64-linux.koil",              # there's already a check that build this
     "packages.x86_64-linux.vintagestory-beta", # unfree

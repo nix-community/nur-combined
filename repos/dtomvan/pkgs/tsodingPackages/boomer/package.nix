@@ -5,7 +5,7 @@
   lib,
   fetchFromGitHub,
   autoPatchelfHook,
-  nim_1_0,
+  nim,
   libGL,
   libX11,
   libXrandr,
@@ -32,7 +32,7 @@ buildNimPackage (finalAttrs: {
   nativeBuildInputs = [
     autoPatchelfHook
 
-    nim_1_0
+    nim
   ];
 
   nimFlags = [
@@ -47,5 +47,6 @@ buildNimPackage (finalAttrs: {
     homepage = "https://github.com/tsoding/boomer";
     license = lib.licenses.mit;
     mainProgram = "boomer";
+    broken = true;
   };
 })
