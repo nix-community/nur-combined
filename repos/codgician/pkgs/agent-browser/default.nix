@@ -56,8 +56,8 @@ let
       pname = "agent-browser-dashboard";
       inherit version src pnpm;
       pnpmWorkspaces = [ "dashboard" ];
-      fetcherVersion = 3;
-      hash = "sha256-+e7GKjgSn2nlXNGQVSZdsmfJ7FboCgkkW2t5g4TghaM=";
+      fetcherVersion = 4;
+      hash = "sha256-GAjgtLUXPa6OaSvq7PQVp0RIHMIDKcgbFbt6TFwx11g=";
     };
 
     pnpmWorkspaces = [ "dashboard" ];
