@@ -18,16 +18,15 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "libtorrent-rasterbar";
-  version = "2.1.0-pre-2026-05-18";
+  version = "2.1.0";
 
   src = fetchFromGitHub {
     owner = "arvidn";
     repo = "libtorrent";
     # there are no tags for version 2.1 yet
-    # tag = "v${finalAttrs.version}";
-    rev = "712daab918cc34944ad04ef7dee89d673685291d";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-JXpIVobrTEhusftZ+3lWWc96D8kzREmXz2exwZb4R5A=";
+    hash = "sha256-G0pYzbiXgyg28SV+Zk/AADjvKe3uMHyoHOQ3K/pDZ0c=";
   };
 
   nativeBuildInputs = [

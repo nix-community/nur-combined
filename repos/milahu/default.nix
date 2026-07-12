@@ -680,6 +680,10 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       epub-toc = callPackage ./pkgs/development/python-modules/epub-toc { };
 
+      pyexiv2 = callPackage ./pkgs/development/python-modules/pyexiv2 {
+        pkgs-exiv2 = pkgs.exiv2;
+      };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -1540,6 +1544,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   ffmpeg-malicious = callPackage ./pkgs/by-name/ff/ffmpeg-malicious/package.nix { };
 
   vobsub2srt = callPackage ./pkgs/by-name/vo/vobsub2srt/package.nix { };
+
+  flatcv = callPackage ./pkgs/by-name/fl/flatcv/package.nix { };
 
 }
 
