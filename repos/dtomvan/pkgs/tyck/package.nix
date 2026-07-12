@@ -12,25 +12,25 @@
 }:
 
 let
-  rev = "1962fb9d39152dbd3901a0373ed3f900f3d526d4";
+  rev = "21f3be623d5f37f9a8b45377e49200e137775ac1";
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "tyck";
-  version = "0.1.0-unstable-2026-07-10";
+  version = "0.1.0-unstable-2026-07-12";
 
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchFromGitea {
     domain = "codeberg.org";
-    owner = "dtomvan";
+    owner = "natkr";
     repo = "tyck";
     inherit rev;
-    hash = "sha256-xtzfcx6JHCRvN+9A3ht1A4DTYdetsZoumAr/FfWBVW4=";
+    hash = "sha256-LGlr+ik1112by4MXgbaT71smkG5YtjtoS/xtxreSbes=";
   };
 
-  cargoHash = "sha256-jEJ9F9P0wgwS4NXnqrR8P8fPwnpGA/184/BLoAbYEhg=";
+  cargoHash = "sha256-9fOTvv2yoE0x+kaIFXvi3wkZuwFYO2mj1UD6AJ6WSsE=";
 
   env = {
     SQLX_OFFLINE = "true";
