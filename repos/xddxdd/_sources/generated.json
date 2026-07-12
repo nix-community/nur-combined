@@ -515,7 +515,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=",
+            "sha256": "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=",
             "type": "url",
             "url": "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage"
         },
@@ -2745,6 +2745,27 @@
             "type": "github"
         },
         "version": "v0.2605.0"
+    },
+    "mcp-proxy-server": {
+        "cargoLock": null,
+        "date": "2025-02-01",
+        "extract": null,
+        "name": "mcp-proxy-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "adamwattis",
+            "repo": "mcp-proxy-server",
+            "rev": "e53d6df873b85c9e11be68daa3958b04645fc762",
+            "sha256": "sha256-ml6U3XC1O92Wk2k9bLD440V0SYN0szAzfO/yoHtrO2Q=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e53d6df873b85c9e11be68daa3958b04645fc762"
     },
     "metapi": {
         "cargoLock": null,

@@ -627,6 +627,10 @@ src.github = "topjohnwu/Magisk"
 fetch.github = "mautrix/gmessages"
 src.github = "mautrix/gmessages"
 
+[mcp-proxy-server]
+fetch.github = "adamwattis/mcp-proxy-server"
+src.git = "https://github.com/adamwattis/mcp-proxy-server.git"
+
 [metapi]
 fetch.github = "cita-777/metapi"
 src.github = "cita-777/metapi"

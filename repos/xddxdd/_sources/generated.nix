@@ -270,7 +270,7 @@
     version = "0.46.0";
     src = fetchurl {
       url = "https://github.com/browseros-ai/BrowserOS/releases/download/v0.46.0/BrowserOS_v0.46.0_x64.AppImage";
-      hash = "sha256-zHADwaS3OlV1K6QaAudDTV1vXvgiE1lkFPyqJiEod/c=";
+      hash = "sha256-IV3Agg5i4TKDMQy+BjNbW6sqPsLfPcSOQkOADHhSmTw=";
     };
   };
   buname = {
@@ -1412,6 +1412,17 @@
       tag = "v0.2605.0";
       hash = "sha256-ScsjUmQZsB86hT+EqIoI4V3KX3T1sV9C4/3ytcLV8O0=";
     };
+  };
+  mcp-proxy-server = {
+    pname = "mcp-proxy-server";
+    version = "e53d6df873b85c9e11be68daa3958b04645fc762";
+    src = fetchFromGitHub {
+      owner = "adamwattis";
+      repo = "mcp-proxy-server";
+      rev = "e53d6df873b85c9e11be68daa3958b04645fc762";
+      hash = "sha256-ml6U3XC1O92Wk2k9bLD440V0SYN0szAzfO/yoHtrO2Q=";
+    };
+    date = "2025-02-01";
   };
   metapi = {
     pname = "metapi";
