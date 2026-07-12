@@ -103,6 +103,16 @@ stdenvNoCC.mkDerivation {
           ]
           ++ lib.optionals stdenvNoCC.hostPlatform.isLinux [ xdg-utils ]
         )
+      } ${
+        # The embedded `pi_natives.<platform>.node` addon is extracted to
+        # `~/.omp/natives/<version>` at runtime and `dlopen`ed. On Linux it
+        # links against pcre2 (`libpcre2-8.so.0`) with no RPATH, so unlike the
+        # main binary — which only needs its interpreter fixed — the addon can't
+        # find pcre2 in the Nix store. Patching the extracted file is impossible
+        # (it doesn't exist until first run), so put pcre2 on the loader search
+        # path instead. `--suffix` keeps any user-provided libs ahead of ours.
+        lib.optionalString stdenvNoCC.hostPlatform.isLinux
+          "--suffix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ pcre2 ]}"
       }
 
     runHook postInstall
