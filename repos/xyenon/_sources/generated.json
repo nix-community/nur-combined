@@ -259,15 +259,15 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-rtrwuPNvh0krobTDP3oTrAswYj9ALCZITrfudW5EXfc=",
+            "sha256": "sha256-d4I2xyyWh9vry7vMkE1E19G55w/uenqbTspymdy0dqw=",
             "type": "url",
-            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260511/moegirl.dict.yaml"
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260712/moegirl.dict.yaml"
         },
-        "version": "20260511"
+        "version": "20260712"
     },
     "yazi-rs-plugins": {
         "cargoLock": null,
-        "date": "2026-07-05",
+        "date": "2026-07-11",
         "extract": null,
         "name": "yazi-rs-plugins",
         "passthru": null,
@@ -279,11 +279,11 @@
             "name": null,
             "owner": "yazi-rs",
             "repo": "plugins",
-            "rev": "8cd50c622898d3ace3ca821f540241965308289a",
-            "sha256": "sha256-f4y952sUF/lrHMX6enQts/obk2DeatqAcaVHfjTD65k=",
+            "rev": "1cf48ea5b311c86d228eeb45d76cfe29d5312b19",
+            "sha256": "sha256-FUGaDqj4ISvII63V6+T61FHHMj+9bs/cBMz5AvZ4MEc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8cd50c622898d3ace3ca821f540241965308289a"
+        "version": "1cf48ea5b311c86d228eeb45d76cfe29d5312b19"
     }
 }
