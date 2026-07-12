@@ -10,8 +10,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "thukumo";
     repo = "rclamonacc";
-    rev = "a59c44aff515a73506cc6a0aeba2fc443bb6f166";
-    hash = "sha256-HBYQCOPrMlI0W234fYW/lNrhPbTRqbD8o4WtA+5f2qI=";
+    rev = "d527b90933233d54702458ec66bd0ed04fb2dd47";
+    hash = "sha256-nKxUbLy62DdSWAgQ6/PsFdWBTEXYiuF39dA3ofMiauw=";
   };
   cargoHash = "sha256-XjLMb7EN/Pso/ViEuDkbMAsoQPAVJg+F6OoS4YnWIho=";
   meta = with lib; {
