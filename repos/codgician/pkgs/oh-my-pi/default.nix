@@ -5,9 +5,10 @@
   bun,
   fetchFromGitHub,
   fetchurl,
+  gnutar,
+  gzip,
   rustPlatform,
   makeWrapper,
-  patchelf,
   nodejs,
   versionCheckHook,
   writableTmpDirAsHomeHook,
@@ -23,27 +24,22 @@ let
       hash = "sha256-nYokKSpwaAkCBdqsCloiP19pc29Sh+N7+I07QDHtx1A=";
     };
   };
-  biomePlatform =
-    if stdenv.hostPlatform.isx86_64 then
-      "linux-x64"
-    else
-      throw "oh-my-pi: unsupported Biome platform ${stdenv.hostPlatform.system}";
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
-    rev = "v16.4.2";
-    hash = "sha256-NTZ03Lvjr6cJznjyo0CsF71wM6Tic4CBbiOZI9vEmZk=";
+    rev = "v16.4.6";
+    hash = "sha256-yvOA1kGGMNIiPmLxyHUik2KFSm8/JwSCXpAJDIb8kqA=";
   };
 
   bunDeps = stdenvNoCC.mkDerivation {
     pname = "oh-my-pi-bun-deps";
-    version = "16.4.2";
+    version = "16.4.6";
     inherit src;
 
     nativeBuildInputs = [ bunBaseline ];
 
     outputHashMode = "recursive";
-    outputHash = "sha256-OHLkA+06/MdLMzJMSlnawMDnBI7Ql8J3bJ+s/WqtOtw=";
+    outputHash = "sha256-qxhLaEqWTbuFGh4neoqxE3BAE9q3HE42SeiWUTd4iEc=";
 
     dontConfigure = true;
     dontBuild = true;
@@ -66,11 +62,11 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oh-my-pi";
-  version = "16.4.2";
+  version = "16.4.6";
 
   src = "${bunDeps}/source";
 
-  cargoHash = "sha256-boLZmOLad8meTSORRDvBR17QJ8R4qWpC2Lnq7poTYx0=";
+  cargoHash = "sha256-YpZI4R9bYX87UCHVszqOXLLJ0uhnlhe5QYGrALy3cRc=";
 
   dontConfigure = true;
   doCheck = false;
@@ -79,9 +75,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeBuildInputs = [
     bunBaseline
+    gnutar
+    gzip
     makeWrapper
     nodejs
-    patchelf
   ];
 
   disallowedRequisites = [
@@ -95,16 +92,38 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail 'if (Bun.semver.order(Bun.version, MIN_BUN_VERSION) < 0) {' 'if (false) {'
     makeWrapper ${nodejs}/bin/node packages/natives/node_modules/.bin/napi \
       --add-flags "$PWD/node_modules/@napi-rs/cli/dist/cli.js"
-    substituteInPlace packages/coding-agent/scripts/generate-legacy-pi-bundled-registry.ts \
-      --replace-fail '["bunx", "biome", "check", "--write", ...targets]' '["../../node_modules/@biomejs/cli-${biomePlatform}/biome", "check", "--write", ...targets]'
-    patchelf --set-interpreter ${stdenv.cc.bintools.dynamicLinker} \
-      node_modules/@biomejs/cli-${biomePlatform}/biome
+    substituteInPlace packages/stats/scripts/generate-client-bundle.ts \
+      --replace-fail 'await Bun.Archive.write(tempArchivePath, entries, { compress: "gzip" });' 'const archiveProcess = Bun.spawn(
+        [
+          "sh",
+          "-c",
+          "tar --sort=name --mtime=@\"$SOURCE_DATE_EPOCH\" --owner=0 --group=0 --numeric-owner -cf - . | gzip -n > \"$1\"",
+          "sh",
+          tempArchivePath,
+        ],
+        { cwd: dir },
+      );
+      if ((await archiveProcess.exited) !== 0) throw new Error("Failed to create stats archive");'
+    substituteInPlace packages/natives/scripts/embed-native.ts \
+      --replace-fail 'await Bun.write(archivePath, await new Bun.Archive(archiveEntries, { compress: "gzip", level: 9 }).bytes());' 'const archiveProcess = Bun.spawn(
+        [
+          "sh",
+          "-c",
+          "archive_path=$1; shift; tar --sort=name --mtime=@\"$SOURCE_DATE_EPOCH\" --owner=0 --group=0 --numeric-owner -cf - \"$@\" | gzip -n > \"$archive_path\"",
+          "sh",
+          archivePath,
+          ...available.map(addon => addon.filename),
+        ],
+        { cwd: nativeDir },
+      );
+      if ((await archiveProcess.exited) !== 0) throw new Error("Failed to create native archive");'
   '';
 
   buildPhase = ''
     runHook preBuild
 
     export CI=1
+    export SOURCE_DATE_EPOCH=1
     # `crates/pi-natives/src/lib.rs` enables the nightly-only
     # `#![feature(alloc_error_hook)]`; permit that exact upstream feature with
     # nixpkgs' stable compiler.

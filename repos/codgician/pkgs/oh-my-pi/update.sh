@@ -65,7 +65,8 @@ fake_hash_from_build() {
 }
 
 old_version=$(line_value 's/^  version = "([^"]+)";.*/\1/p' "$package_path")
-new_tag=$(curl -fsSL "https://api.github.com/repos/$repo/releases/latest" | jq -er .tag_name)
+release=$(curl -fsSL "https://api.github.com/repos/$repo/releases/latest")
+new_tag=$(jq -er 'select(.draft == false and .prerelease == false) | .tag_name' <<< "$release")
 if [[ ! "$new_tag" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   printf 'Error: latest release tag is not a stable vX.Y.Z semver tag: %q\n' "$new_tag" >&2
   exit 1
@@ -113,7 +114,13 @@ replace_required "$package_path" "    hash = \"${old_source_hash}\";" "    hash 
 replace_required "$package_path" "  version = \"${old_version}\";" "  version = \"${new_version}\";"
 replace_required "$package_path" "    version = \"${old_version}\";" "    version = \"${new_version}\";"
 
-system=$(nix eval --impure --raw --expr builtins.currentSystem)
+case "$(uname -sm)" in
+  "Linux x86_64") system=x86_64-linux ;;
+  *)
+    printf 'Error: oh-my-pi is unsupported on this system: %s\n' "$(uname -sm)" >&2
+    exit 1
+    ;;
+esac
 attr="path:${nur}#legacyPackages.${system}.oh-my-pi"
 source_hash=$(fake_hash_from_build "$attr.passthru.src" source)
 replace_required "$package_path" "    hash = \"${fake_hash}\";" "    hash = \"${source_hash}\";"
