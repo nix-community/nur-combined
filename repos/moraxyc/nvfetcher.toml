@@ -94,11 +94,6 @@ fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLi
 src.github_tag = "cyanheads/git-mcp-server"
 fetch.github = "cyanheads/git-mcp-server"
 
-[grok-search-rs]
-src.github = "Episkey-G/GrokSearch-rs"
-fetch.github = "Episkey-G/GrokSearch-rs"
-cargo_lock = ['Cargo.lock']
-
 [happydeliver]
 src.github = "happyDomain/happydeliver"
 fetch.github = "happyDomain/happydeliver"
