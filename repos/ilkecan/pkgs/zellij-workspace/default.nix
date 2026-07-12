@@ -25,6 +25,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
+  __structuredAttrs = true;
   strictDeps = true;
 
   meta = {
