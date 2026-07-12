@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.9.2";
+  version = "4.3.9.4";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.9.2.xpi";
-  sha256 = "5c9cffe04fd7729ba3f7303d4e78a7d264a9a313ebb3e1d477fed3bcf2b9762b";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.9.4.xpi";
+  sha256 = "1a0c4d26b86087e85965497925c042752e91b432cd18d7161922a97f840c5e5c";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -227,7 +227,6 @@ buildFirefoxXpiAddon {
       "*://*.dna.fr/*"
       "*://*.dnevnik.bg/*"
       "*://*.doorbraak.be/*"
-      "*://*.dvhn.nl/*"
       "*://*.dwell.com/*"
       "*://*.eastbaytimes.com/*"
       "*://*.eastwest.eu/*"
@@ -335,7 +334,6 @@ buildFirefoxXpiAddon {
       "*://*.gva.be/*"
       "*://*.haaretz.co.il/*"
       "*://*.haaretz.com/*"
-      "*://*.haarlemsdagblad.nl/*"
       "*://*.handelsblatt.com/*"
       "*://*.handelszeitung.ch/*"
       "*://*.harpers.org/*"
@@ -460,7 +458,6 @@ buildFirefoxXpiAddon {
       "*://*.lavoz.com.ar/*"
       "*://*.lavozdigital.es/*"
       "*://*.law.com/*"
-      "*://*.lc.nl/*"
       "*://*.le1hebdo.fr/*"
       "*://*.lecanardenchaine.fr/*"
       "*://*.lecho.be/*"
@@ -470,7 +467,6 @@ buildFirefoxXpiAddon {
       "*://*.lefigaro.fr/*"
       "*://*.legrandcontinent.eu/*"
       "*://*.lehighvalleylive.com/*"
-      "*://*.leidschdagblad.nl/*"
       "*://*.lejdd.fr/*"
       "*://*.lejsl.com/*"
       "*://*.lemagit.fr/*"
@@ -500,7 +496,6 @@ buildFirefoxXpiAddon {
       "*://*.libelle.nl/*"
       "*://*.liberation-champagne.fr/*"
       "*://*.liberation.fr/*"
-      "*://*.limburger.nl/*"
       "*://*.linda.nl/*"
       "*://*.lindependant.fr/*"
       "*://*.linforme.com/*"
@@ -542,7 +537,6 @@ buildFirefoxXpiAddon {
       "*://*.milenio.com/*"
       "*://*.mittelbayerische.de/*"
       "*://*.mlive.com/*"
-      "*://*.mnimarkets.com/*"
       "*://*.moda.it/*"
       "*://*.modernhealthcare.com/*"
       "*://*.modernretail.co/*"
@@ -586,7 +580,6 @@ buildFirefoxXpiAddon {
       "*://*.nikkei.com/*"
       "*://*.nj.com/*"
       "*://*.nola.com/*"
-      "*://*.noordhollandsdagblad.nl/*"
       "*://*.nordlittoral.fr/*"
       "*://*.northerndailyleader.com.au/*"
       "*://*.northjersey.com/*"
@@ -970,7 +963,6 @@ buildFirefoxXpiAddon {
       "*://*.hadrianpaywall.com/*"
       "*://*.ith9ueyuhu.it/*"
       "*://*.mcclatchy.com/*"
-      "*://*.ndcmediagroep.nl/*"
       "*://*.nhst.tech/*"
       "*://*.nyt.com/*"
       "*://*.prisa.com/*"
