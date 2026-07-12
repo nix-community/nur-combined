@@ -100,13 +100,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.13.1";
+  version = "3.14.0";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-Wmkt95aorIw4OXWK6ZhkqEBRx+nM/w5zb3srcl882wI=";
+    hash = "sha256-22q8nbj5kduL0sa0QcIyFFE0jVJEROZ5PrNafxS79CM=";
   };
 
   patches = [
@@ -245,7 +245,7 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "pake";
       inherit (finalAttrs) version src;
       cargoRoot = "src-tauri";
-      hash = "sha256-dEj0Zo5ioLETtOQolU1fV/RBbMrlhxJgodXt69DTVUE=";
+      hash = "sha256-nerENNHbwO4mKabYI2IdGQJXLrgK9HQjvAtMXELA974=";
     };
   };
 
