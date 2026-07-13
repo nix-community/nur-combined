@@ -40,6 +40,7 @@ in
   ## external
   # fluent-theme = pkgs.callPackage ./pkgs/fluent-theme { };
   kmonad = pkgs.callPackage ./pkgs/kmonad { };
+  stochos = pkgs.callPackage ./pkgs/stochos { };
   # warpd = pkgs.callPackage ./pkgs/warpd { };
   # otrecorder = pkgs.callPackage ./pkgs/otrecorder { }; # owntracks-recorder
   # owntracks-frontend = pkgs.callPackage ./pkgs/owntracks-frontend { };
@@ -55,10 +56,13 @@ in
   # chatgpt-cli = pkgs.callPackage ./pkgs/chatgpt-cli { };
   # logseq-doctor = pkgs.callPackage ./pkgs/logseq-doctor { };
   # fabric = pkgs.callPackage ./pkgs/fabric { };
+  # hunk is provided via flake input (see flake.nix)
   prr = pkgs.callPackage ./pkgs/prr { };
   html-to-markdown = pkgs.callPackage ./pkgs/html-to-markdown { };
   defuddle = pkgs.callPackage ./pkgs/defuddle { };
   probe = pkgs.callPackage ./pkgs/probe { };
+  confluence-cli = pkgs.callPackage ./pkgs/confluence-cli { };
+  leaf = pkgs.callPackage ./pkgs/leaf { };
 
   # Run nvfetcher in the haskellPackages directory to update sources
   # haskellPackages = callPackages ./pkgs/haskellPackages;
