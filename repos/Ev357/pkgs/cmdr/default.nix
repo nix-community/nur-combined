@@ -8,20 +8,16 @@ pkgs.buildNpmPackage rec {
   version = "0.5.7";
 
   src = pkgs.fetchFromGitHub {
-    owner = "phibr0";
+    owner = "jsmorabito";
     repo = "obsidian-commander";
     rev = version;
     sha256 = "sha256-LRTfR8Su43NNW+LJszv1TMBD3EYukKJnyWWcMc5tmHY=";
   };
 
-  npmDepsHash = "sha256-Gr3PzgSY4Tae6PWMvCsLtzcQu9SO8UUy2rU+8tWQbOs=";
-
-  postPatch =
-    # bash
-    ''
-      cp ${./package.json} package.json
-      cp ${./package-lock.json} package-lock.json
-    '';
+  npmDepsHash = "sha256-l2h7o1JGxsAtEd4iyzII/BC4fCgEtrHLwve+atDacrc=";
+  forceGitDeps = true;
+  makeCacheWritable = true;
+  npmFlags = ["--legacy-peer-deps"];
 
   installPhase =
     # bash
