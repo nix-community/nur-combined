@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
 @path@
 pushd "$(git rev-parse --show-toplevel)" > /dev/null || exit 1
 @script@
