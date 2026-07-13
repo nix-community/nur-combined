@@ -4693,10 +4693,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.0.2";
+      version = "2.0.3";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4886413/geo_spoof-2.0.2.xpi";
-      sha256 = "1c4f580356fd81c357eb218322c73483dbfe343b3b3430958baf2e05c3be03b8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4896300/geo_spoof-2.0.3.xpi";
+      sha256 = "067ba1028a760afbc1977221f73045e8b89a8b67d00c04400bdb0b24bf877635";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -13080,10 +13080,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.7.11";
+      version = "26.7.12";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4894260/refined_github-26.7.11.xpi";
-      sha256 = "6c745c814911cadf2f14208c39ea843f24468fc99d8e6ee4ca82435e4d955688";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4895101/refined_github-26.7.12.xpi";
+      sha256 = "d7601af3c1a6146fe18d0f5f71def6fd4aac4c4ff4d462500540a882855d6d78";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
