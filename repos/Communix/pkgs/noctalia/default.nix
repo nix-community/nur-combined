@@ -3,7 +3,6 @@
   lib,
   config,
   stdenv,
-  fetchFromGitHub,
   meson,
   ninja,
   pkg-config,
@@ -29,12 +28,27 @@
   librsvg,
   libqalculate,
   libxml2,
+  md4c,
+  stb,
+  fetchFromGitHub,
+  nlohmann_json,
+  tomlplusplus,
+  wireplumber,
   jemalloc,
   autoAddDriverRunpath,
   cudaSupport ? config.cudaSupport,
 }:
 let
-  version = "4.7.7-unstable-2026-07-01";
+  version = "5.0.0-beta2";
+  stb' = stb.overrideAttrs (_: {
+    version = "unstable-2025-10-26";
+    src = fetchFromGitHub {
+      owner = "nothings";
+      repo = "stb";
+      rev = "f1c79c02822848a9bed4315b12c8c8f3761e1296";
+      hash = "sha256-BlyXJtAI7WqXCTT3ylww8zoG0hBxaojJnQDvdQOXJPE=";
+    };
+  });
 in
 stdenv.mkDerivation {
   pname = "noctalia";
@@ -43,8 +57,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "noctalia-dev";
     repo = "noctalia";
-    rev = "5f636c6cbed0ee6858fa6b83a9981a455c6d4d2c";
-    hash = "sha256-3yP82Djjr//6Mn+Y0AYe/ywo7PpRCMpDqPxHrPqAWn0=";
+    tag = "v${version}";
+    hash = "sha256-yqkHIypClzlztMmt4HVytCdU8Kqy3EqHJotHtbyFulI=";
   };
 
   postPatch = ''
@@ -75,6 +89,7 @@ stdenv.mkDerivation {
     sdbus-cpp_2
     systemd
     pipewire
+    wireplumber
     pam
     curl
     libwebp
@@ -83,6 +98,10 @@ stdenv.mkDerivation {
     librsvg
     libqalculate
     libxml2
+    md4c
+    stb'
+    nlohmann_json
+    tomlplusplus
   ];
 
   mesonBuildType = "release";
