@@ -12,5 +12,6 @@
     ./overlays.nix
     ./packages.nix
     ./treefmt.nix
+    ./github-actions.nix
   ];
 }

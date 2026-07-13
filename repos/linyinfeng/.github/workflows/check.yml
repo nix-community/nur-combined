@@ -1,47 +1,44 @@
-name: "Nix flake check"
+name: Check
+
 on:
-  pull_request:
   push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  workflow_dispatch:
 
 jobs:
-  check:
+  nix-matrix:
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
-    - name: Maximize build space
-      uses: easimon/maximize-build-space@master
-      if: false # TODO wait for https://github.com/easimon/maximize-build-space/issues/58
-      with:
-        build-mount-path: '/nix'
-        remove-dotnet: 'true'
-        remove-android: 'true'
-        remove-haskell: 'true'
-        remove-codeql: 'true'
-        remove-docker-images: 'true'
-    - name: Checkout repository
-      uses: actions/checkout@main
-    - name: Install nix
-      uses: cachix/install-nix-action@master
-      with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Set nix daemon tmp path
-      run: |
-        sudo mkdir --parents /nix/tmp
-        sudo chmod 777 /nix/tmp
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+      - id: set-matrix
+        name: Generate Nix Matrix
+        run: |
+          set -Eeu
+          matrix="$(nix eval --json '.#githubActions.matrix')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
-        cat > override.conf <<EOF
-        [Service]
-        Environment="TMPDIR=/nix/tmp"
-        EOF
-        sudo mkdir /etc/systemd/system/nix-daemon.service.d/
-        sudo mv override.conf /etc/systemd/system/nix-daemon.service.d/override.conf
-        sudo systemctl daemon-reload
-        sudo systemctl restart nix-daemon
-    - name: Setup cachix
-      uses: cachix/cachix-action@master
-      with:
-        name: linyinfeng
-        signingKey: '${{ secrets.CACHIX_SIGNING_KEY }}'
-    - name: Nix flake check
-      run: nix flake check --verbose --print-build-logs --keep-going
+  nix-build:
+    name: ${{ matrix.name }}
+    needs: nix-matrix
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix: ${{ fromJSON(needs.nix-matrix.outputs.matrix) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+      - name: Setup cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: linyinfeng
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+      - name: Build flake check
+        run: nix build --print-build-logs '.#${{ matrix.attr }}'

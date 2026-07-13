@@ -20,6 +20,9 @@
     nvfetcher.inputs.flake-utils.follows = "flake-utils";
     nvfetcher.inputs.flake-compat.follows = "flake-compat";
 
+    nix-github-actions.url = "github:nix-community/nix-github-actions";
+    nix-github-actions.inputs.nixpkgs.follows = "nixpkgs";
+
     # main nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # extra nixpkgs for checks
