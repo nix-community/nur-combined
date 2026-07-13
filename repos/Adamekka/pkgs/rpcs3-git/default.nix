@@ -49,19 +49,20 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "rpcs3-git";
-  version = "0.0.41-unstable-2026-07-13";
+  version = "0.0.41-unstable-2026-07-10";
 
   src = fetchFromGitHub {
-    hash = "sha256-A3SwOg9m826X2Tr5GR+CL2Nc9cvZoMD+/zC4hupr2gk=";
+    hash = "sha256-W1WTUVhRpSRx1uIOLN8xvF3cANi6D0TtPk/5R2QBjZg=";
     owner = "RPCS3";
     postCheckout = ''
       cd $out/3rdparty
       git submodule update --init \
-        asmjit/asmjit feralinteractive/feralinteractive fusion/fusion SoundTouch/soundtouch \
+        asmjit/asmjit discord-rpc/discord-rpc feralinteractive/feralinteractive \
+        fusion/fusion SoundTouch/soundtouch \
         stblib/stb wolfssl/wolfssl yaml-cpp/yaml-cpp
     '';
     repo = "rpcs3";
-    rev = "d755124c481c5d199254cd97907a60e38127972b";
+    rev = "700ca262f44fda57ba260283c3f0a4772db8a573";
   };
 
   nativeBuildInputs = [
