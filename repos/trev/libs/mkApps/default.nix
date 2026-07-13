@@ -49,7 +49,6 @@ builtins.mapAttrs (
     program = "${program}/bin/${name}";
     meta = {
       inherit (app) script;
-      description = app.script;
     };
   }
 )
