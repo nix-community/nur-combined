@@ -38,8 +38,8 @@ buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "yt-dlp";
     repo = "yt-dlp";
-    rev = "6a188aed91fb0a1b9d62f20377015b8fd2c69762";
-    hash = "sha256-+Q6n0IaFWTqDxPaWrCTXJSTJ36m4dNrwP3tWk5dUyNg=";
+    rev = "d9813a3da6959662841dfb34cad0ee6c07a65d1e";
+    hash = "sha256-fJVsq9PUjJquprNrBfexbjPgk8yl+GCxMhBHf6365OU=";
   };
 
   postPatch = ''
