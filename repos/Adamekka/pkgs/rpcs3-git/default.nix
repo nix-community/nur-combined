@@ -48,7 +48,7 @@ let
     ;
 in
 stdenv.mkDerivation (finalAttrs: {
-  pname = "rpcs3";
+  pname = "rpcs3-git";
   version = "0.0.41-unstable-2026-07-13";
 
   src = fetchFromGitHub {
