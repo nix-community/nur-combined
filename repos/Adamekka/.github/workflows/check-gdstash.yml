@@ -29,6 +29,7 @@ jobs:
 
           api_base_url="https://api.nexusmods.com/v3"
           files_json="$(mktemp)"
+          scan_json="$(mktemp)"
           mod_json="$(mktemp)"
           versions_json="$(mktemp)"
 
@@ -72,7 +73,32 @@ jobs:
           )"
 
           curl_api "$versions_json" "$api_base_url/mod-files/$mod_file_id/versions"
-          python - "$versions_json" <<'PY'
+          python - "$mod_json" <<'PY' | curl \
+            --data-binary @- \
+            --fail \
+            --header "Accept: application/json" \
+            --header "Content-Type: application/json" \
+            --header "apikey: ${NEXUSMODS_API_KEY}" \
+            --output "$scan_json" \
+            --silent \
+            --show-error \
+            --user-agent "Adamekka/nur-packages GD Stash update check" \
+            "https://api.nexusmods.com/v2/graphql"
+          import json
+          import sys
+          from pathlib import Path
+
+          mod = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))["data"]
+          print(json.dumps({
+              "query": "query GDStashScanStatus($modId: ID!, $gameId: ID!) { modFiles(modId: $modId, gameId: $gameId) { fileId scannedV2 } }",
+              "variables": {
+                  "gameId": mod["game_id"],
+                  "modId": mod["game_scoped_id"],
+              },
+          }))
+          PY
+
+          python - "$versions_json" "$scan_json" <<'PY'
           import base64
           import hashlib
           import json
@@ -84,6 +110,7 @@ jobs:
           package_path = Path("pkgs/gdstash/default.nix")
           package_text = package_path.read_text(encoding="utf-8")
           versions = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))["data"]["versions"]
+          scan_response = json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))
 
           def require_match(pattern, text, description):
               match = re.search(pattern, text, re.MULTILINE)
@@ -108,20 +135,43 @@ jobs:
           upstream_file_id = latest_version["game_scoped_id"]
           upstream_version = latest_version["version"]
 
+          if scan_response.get("errors"):
+              print("::error title=GD Stash check failed::NexusMods GraphQL returned errors while checking the file scan status.")
+              print(json.dumps(scan_response["errors"]))
+              sys.exit(1)
+
+          matching_files = [
+              mod_file
+              for mod_file in scan_response.get("data", {}).get("modFiles", [])
+              if str(mod_file["fileId"]) == str(upstream_file_id)
+          ]
+          if not matching_files:
+              print(f"::error title=GD Stash check failed::Could not find Nexus file {upstream_file_id} in GraphQL metadata.")
+              sys.exit(1)
+          scan_status = matching_files[0]["scannedV2"]
+
           print(f"Packaged GD Stash: version {packaged_version}, file id {packaged_file_id}, sha256 {packaged_hash_hex}")
           print(f"Committed GD Stash archive: sha256 {local_hash_hex}")
-          print(f"Upstream GD Stash: version {upstream_version}, file id {upstream_file_id}")
+          print(f"Upstream GD Stash: version {upstream_version}, file id {upstream_file_id}, scan status {scan_status}")
 
-          differences = []
-          if packaged_version != upstream_version:
-              differences.append(f"version {packaged_version} -> {upstream_version}")
-          if packaged_file_id != upstream_file_id:
-              differences.append(f"file id {packaged_file_id} -> {upstream_file_id}")
           if packaged_hash_hex != local_hash_hex:
-              differences.append(f"metadata sha256 {packaged_hash_hex} does not match pkgs/gdstash/GDStash.zip {local_hash_hex}")
+              print(f"::error title=GD Stash check failed::Metadata sha256 {packaged_hash_hex} does not match pkgs/gdstash/GDStash.zip {local_hash_hex}.")
+              sys.exit(1)
 
-          if differences:
-              print("::error title=GD Stash manual update required::" + "; ".join(differences))
+          upstream_differences = []
+          if packaged_version != upstream_version:
+              upstream_differences.append(f"version {packaged_version} -> {upstream_version}")
+          if packaged_file_id != upstream_file_id:
+              upstream_differences.append(f"file id {packaged_file_id} -> {upstream_file_id}")
+
+          # A quarantined archive cannot be downloaded for packaging, so wait for NexusMods to release it.
+          if upstream_differences and scan_status == "QUARANTINED":
+              print("::warning title=GD Stash update quarantined::" + "; ".join(upstream_differences))
+              print(f"NexusMods reports file {upstream_file_id} as quarantined; the update check will retry after its status changes.")
+              sys.exit(0)
+
+          if upstream_differences:
+              print("::error title=GD Stash manual update required::" + "; ".join(upstream_differences))
               print("Download the updated archive from NexusMods, replace pkgs/gdstash/GDStash.zip, then update pkgs/gdstash/default.nix and README.md if needed.")
               sys.exit(1)
 

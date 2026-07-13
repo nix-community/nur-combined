@@ -7,17 +7,11 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update:
     name: Update rpcs3
     runs-on: ubuntu-latest
-
-    environment: Update CI
-
-    env:
-      PAT_TOKEN: ${{ secrets.PAT }}
 
     steps:
       - name: Checkout
@@ -37,14 +31,15 @@ jobs:
           NIXPKGS_ALLOW_UNFREE: "1"
         run: nix run nixpkgs#nix-update -- --flake --use-update-script rpcs3
 
-      - name: Create pull request
-        uses: peter-evans/create-pull-request@v8
-        with:
-          token: ${{ env.PAT_TOKEN }}
-          add-paths: pkgs/rpcs3/default.nix
-          branch: update/rpcs3
-          commit-message: Update rpcs3
-          delete-branch: true
-          title: Update rpcs3
-          body: |
-            Automated update for `rpcs3` from upstream `master`.
+      - name: Commit and push package update
+        run: |
+          if git diff --quiet pkgs/rpcs3/default.nix; then
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+          git add pkgs/rpcs3/default.nix
+          git commit -m "Update rpcs3"
+          git push origin HEAD:main
