@@ -1,0 +1,145 @@
+diff --git a/gfx/thebes/gfxFT2FontList.cpp b/gfx/thebes/gfxFT2FontList.cpp
+index ee37f43d4310..509c77edbcd0 100644
+--- a/gfx/thebes/gfxFT2FontList.cpp
++++ b/gfx/thebes/gfxFT2FontList.cpp
+@@ -578,8 +578,10 @@ hb_blob_t* FT2FontEntry::GetFontTable(uint32_t aTableTag) {
+     // If there's a cairo font face, we may be able to return a blob
+     // that just wraps a range of the attached user font data
+     if (userFontData->FontData()) {
++      uint32_t faceIndex =
++          mFTFace ? uint32_t(mFTFace->GetFace()->face_index & 0x7FFF) : 0;
+       return gfxFontUtils::GetTableFromFontData(userFontData->FontData(),
+-                                                aTableTag);
++                                                aTableTag, faceIndex);
+     }
+   }
+ 
+diff --git a/gfx/thebes/gfxFcPlatformFontList.cpp b/gfx/thebes/gfxFcPlatformFontList.cpp
+index 1b1645bba707..69c6a4f81a31 100644
+--- a/gfx/thebes/gfxFcPlatformFontList.cpp
++++ b/gfx/thebes/gfxFcPlatformFontList.cpp
+@@ -577,7 +577,11 @@ bool gfxFontconfigFontEntry::TestCharacterMap(uint32_t aCh) {
+ bool gfxFontconfigFontEntry::HasFontTable(uint32_t aTableTag) {
+   if (FTUserFontData* ufd = GetUserFontData()) {
+     if (ufd->FontData()) {
+-      return !!gfxFontUtils::FindTableDirEntry(ufd->FontData(), aTableTag);
++      auto* face = GetFTFace();
++      uint32_t faceIndex =
++          face ? uint32_t(face->GetFace()->face_index & 0x7FFF) : 0;
++      return !!gfxFontUtils::FindTableDirEntry(ufd->FontData(), aTableTag,
++                                               faceIndex);
+     }
+   }
+   return gfxFT2FontEntryBase::FaceHasTable(GetFTFace(), aTableTag);
+@@ -587,7 +591,11 @@ hb_blob_t* gfxFontconfigFontEntry::GetFontTable(uint32_t aTableTag) {
+   // for data fonts, read directly from the font data
+   if (FTUserFontData* ufd = GetUserFontData()) {
+     if (ufd->FontData()) {
+-      return gfxFontUtils::GetTableFromFontData(ufd->FontData(), aTableTag);
++      auto* face = GetFTFace();
++      uint32_t faceIndex =
++          face ? uint32_t(face->GetFace()->face_index & 0x7FFF) : 0;
++      return gfxFontUtils::GetTableFromFontData(ufd->FontData(), aTableTag,
++                                                faceIndex);
+     }
+   }
+ 
+diff --git a/gfx/thebes/gfxFontUtils.cpp b/gfx/thebes/gfxFontUtils.cpp
+index f881773d96aa..540c1871e7fc 100644
+--- a/gfx/thebes/gfxFontUtils.cpp
++++ b/gfx/thebes/gfxFontUtils.cpp
+@@ -1047,10 +1047,34 @@ static int DirEntryCmp(const void* aKey, const void* aItem) {
+   return tag - int32_t(entry->tag);
+ }
+ 
++/* static */
++const void* gfxFontUtils::FindSfntOffset(const void* aFontData,
++                                         uint32_t aFaceIndex) {
++  const auto* data = reinterpret_cast<const uint8_t*>(aFontData);
++  const SFNTHeader* sfnt = reinterpret_cast<const SFNTHeader*>(data);
++  if (sfnt->sfntVersion == 0x74746366u) {  // 'ttcf'
++    const TTCHeader* ttc = reinterpret_cast<const TTCHeader*>(data);
++    if (aFaceIndex >= uint32_t(ttc->numFonts)) {
++      return nullptr;
++    }
++    // The offset table immediately follows the TTCHeader (12 bytes).
++    const AutoSwap_PRUint32* offsets =
++        reinterpret_cast<const AutoSwap_PRUint32*>(data + sizeof(TTCHeader));
++    uint32_t faceOffset = offsets[aFaceIndex];
++    return data + faceOffset;
++  }
++  return aFontData;
++}
++
+ /* static */
+ TableDirEntry* gfxFontUtils::FindTableDirEntry(const void* aFontData,
+-                                               uint32_t aTableTag) {
+-  const SFNTHeader* header = reinterpret_cast<const SFNTHeader*>(aFontData);
++                                               uint32_t aTableTag,
++                                               uint32_t aFaceIndex) {
++  const void* sfntData = FindSfntOffset(aFontData, aFaceIndex);
++  if (!sfntData) {
++    return nullptr;
++  }
++  const SFNTHeader* header = reinterpret_cast<const SFNTHeader*>(sfntData);
+   const TableDirEntry* dir = reinterpret_cast<const TableDirEntry*>(header + 1);
+   return static_cast<TableDirEntry*>(
+       bsearch(&aTableTag, dir, uint16_t(header->numTables),
+@@ -1059,9 +1083,12 @@ TableDirEntry* gfxFontUtils::FindTableDirEntry(const void* aFontData,
+ 
+ /* static */
+ hb_blob_t* gfxFontUtils::GetTableFromFontData(const void* aFontData,
+-                                              uint32_t aTableTag) {
+-  const TableDirEntry* dir = FindTableDirEntry(aFontData, aTableTag);
++                                              uint32_t aTableTag,
++                                              uint32_t aFaceIndex) {
++  const TableDirEntry* dir = FindTableDirEntry(aFontData, aTableTag, aFaceIndex);
+   if (dir) {
++    // Table offsets are always relative to the beginning of the file, even
++    // for faces within a .ttc collection.
+     return hb_blob_create(
+         reinterpret_cast<const char*>(aFontData) + dir->offset, dir->length,
+         HB_MEMORY_MODE_READONLY, nullptr, nullptr);
+diff --git a/gfx/thebes/gfxFontUtils.h b/gfx/thebes/gfxFontUtils.h
+index 2327717a908e..23edb57e40f9 100644
+--- a/gfx/thebes/gfxFontUtils.h
++++ b/gfx/thebes/gfxFontUtils.h
+@@ -567,19 +567,33 @@ class gfxFontUtils {
+   static nsresult GetFamilyNameFromTable(hb_blob_t* aNameTable,
+                                          nsACString& aFamilyName);
+ 
++  // Resolve the sfnt offset for a given face within a buffer of font data.
++  // For single-face sfnt data, returns aFontData. For .ttc collections,
++  // reads the TTC header's offset table and returns the pointer to the
++  // sfnt header for the requested face. Returns null if aFaceIndex is out
++  // of range.
++  static const void* FindSfntOffset(const void* aFontData, uint32_t aFaceIndex);
++
+   // Find the table directory entry for a given table tag, in a (validated)
+-  // buffer of 'sfnt' data. Returns null if the tag is not present.
++  // buffer of font data (single-face sfnt or .ttc collection). aFaceIndex
++  // selects the face within a .ttc (ignored for single-face fonts).
++  // Returns null if the tag is not present.
+   static mozilla::TableDirEntry* FindTableDirEntry(const void* aFontData,
+-                                                   uint32_t aTableTag);
++                                                   uint32_t aTableTag,
++                                                   uint32_t aFaceIndex = 0);
+ 
+-  // Return a blob that wraps a table found within a buffer of font data.
++  // Return a blob that wraps a table found within a buffer of font data
++  // (single-face sfnt or .ttc collection). aFaceIndex selects the face
++  // within a .ttc (ignored for single-face fonts). Table offsets are
++  // relative to the beginning of the file, so the blob points into aFontData.
+   // The blob does NOT own its data; caller guarantees that the buffer
+   // will remain valid at least as long as the blob.
+   // Returns null if the specified table is not found.
+-  // This method assumes aFontData is valid 'sfnt' data; before using this,
++  // This method assumes aFontData is valid font data; before using this,
+   // caller is responsible to do any sanitization/validation necessary.
+   static hb_blob_t* GetTableFromFontData(const void* aFontData,
+-                                         uint32_t aTableTag);
++                                         uint32_t aTableTag,
++                                         uint32_t aFaceIndex = 0);
+ 
+   // create a new name table and build a new font with that name table
+   // appended on the end, returns true on success
