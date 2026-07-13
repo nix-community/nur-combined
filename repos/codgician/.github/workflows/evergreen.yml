@@ -13,7 +13,7 @@ jobs:
       github.repository_id == '852828187' && github.actor == 'codgician' && github.actor_id == '15964984' && github.triggering_actor == 'codgician'
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
     outputs:
       packages: ${{ steps.packages.outputs.packages }}
       base_sha: ${{ steps.packages.outputs.base_sha }}
@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           fetch-depth: 1
-          persist-credentials: true
+          persist-credentials: false
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
@@ -30,38 +30,52 @@ jobs:
             accept-flake-config = true
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Update Nix flake
-        run: nix flake update >> "$GITHUB_STEP_SUMMARY"
-      - name: Push lock-file changes
-        id: push
-        run: |
-          if [[ -n "$(git status --porcelain -- flake.lock)" ]]; then
-            git config user.name github-actions[bot]
-            git config user.email github-actions[bot]@users.noreply.github.com
-            git add flake.lock
-            git commit -m "bot: nix flake update"
-            git push origin HEAD:main
-            echo "trigger_build=1" >> "$GITHUB_OUTPUT"
-          else
-            echo "flake.lock is unchanged"
-            echo "trigger_build=0" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Trigger build
-        if: steps.push.outputs.trigger_build == '1'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
-        with:
-          script: |
-            await github.rest.repos.createDispatchEvent({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              event_type: "build",
-            });
       - name: Find upgradable packages
         id: packages
         run: |
           packages=$(nix eval .#lib.packagesWithUpdateScript --raw --apply "x: builtins.toJSON (builtins.attrNames x)")
           echo "packages=$packages" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+      - name: Update Nix flake
+        run: nix flake update >> "$GITHUB_STEP_SUMMARY"
+      - name: Generate publisher token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Create flake update pull request
+        id: pull_request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: main
+          branch: bot/flake-lock
+          delete-branch: true
+          add-paths: flake.lock
+          commit-message: "flake.lock: update inputs"
+          committer: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          author: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          sign-commits: true
+          title: "flake.lock: update inputs"
+          body: |
+            Automated update of the flake inputs.
+
+            - Origin: `nix flake update`
+            - Validation: required pull-request CI before merge
+          labels: |
+            bot
+            bot-deterministic
+            dependencies
+      - name: Enable flake auto-merge
+        if: steps.pull_request.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
+          REPOSITORY: ${{ github.repository }}
+        run: gh pr merge --repo "$REPOSITORY" --auto --squash "$PR_NUMBER"
   prepare-package:
     name: prepare (${{ matrix.package }})
     needs: flake
@@ -342,9 +356,8 @@ jobs:
         package: ${{ fromJson(needs.flake.outputs.packages) }}
     runs-on: ubuntu-latest
     permissions:
-      actions: write
-      contents: write
-      pull-requests: write
+      actions: read
+      contents: read
     env:
       PACKAGE: ${{ matrix.package }}
     steps:
@@ -412,19 +425,27 @@ jobs:
             echo "new_version=$new_version"
             echo "origin_label=$origin_label"
           } >> "$GITHUB_OUTPUT"
+      - name: Generate publisher token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
       - name: Create pull request
         id: pull_request
         if: steps.result.outputs.publish == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           base: main
           branch: bot/${{ matrix.package }}
           delete-branch: true
           add-paths: pkgs/${{ matrix.package }}
           commit-message: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
-          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          author: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
           sign-commits: true
           title: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
           body-path: ${{ runner.temp }}/pull-request-body.md
@@ -432,58 +453,13 @@ jobs:
             bot
             ${{ steps.result.outputs.origin_label }}
           reviewers: codgician
-      - name: Dispatch merge validation
-        if: steps.pull_request.outputs.pull-request-operation == 'created' || steps.pull_request.outputs.pull-request-operation == 'updated'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+      - name: Enable deterministic auto-merge
+        if: steps.result.outputs.origin_label == 'bot-deterministic' && steps.pull_request.outputs.pull-request-number != ''
         env:
-          PR_HEAD_SHA: ${{ steps.pull_request.outputs.pull-request-head-sha }}
-          VALIDATION_ID: ${{ matrix.package }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const head = process.env.PR_HEAD_SHA;
-            const id = process.env.VALIDATION_ID;
-            if (!/^[0-9a-f]{40}$/.test(head) || !/^[a-z][a-z0-9_-]{0,63}$/.test(id)) {
-              throw new Error("Invalid validation ref inputs");
-            }
-            const branch = `bot/ci/${id}-${head.slice(0, 12)}`;
-            const base = await github.rest.repos.getBranch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              branch: "main",
-            });
-            const ref = `heads/${branch}`;
-            try {
-              await github.rest.git.getRef({ owner: context.repo.owner, repo: context.repo.repo, ref });
-              await github.rest.git.updateRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref,
-                sha: base.data.commit.sha,
-                force: true,
-              });
-            } catch (error) {
-              if (error.status !== 404) throw error;
-              await github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `refs/${ref}`,
-                sha: base.data.commit.sha,
-              });
-            }
-            await github.rest.repos.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              base: branch,
-              head,
-              commit_message: `Validate ${id} against current main`,
-            });
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: "build.yml",
-              ref: branch,
-            });
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
+          REPOSITORY: ${{ github.repository }}
+        run: gh pr merge --repo "$REPOSITORY" --auto --squash "$PR_NUMBER"
   summary:
     needs: [flake, prepare-package, validate-package, publish-package]
     if: ${{ always() }}

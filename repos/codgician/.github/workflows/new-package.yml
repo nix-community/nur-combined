@@ -203,9 +203,8 @@ jobs:
     if: ${{ needs.validate.result == 'success' && needs.prepare.outputs.package != '' }}
     runs-on: ubuntu-latest
     permissions:
-      actions: write
-      contents: write
-      pull-requests: write
+      actions: read
+      contents: read
     env:
       PACKAGE: ${{ needs.prepare.outputs.package }}
     steps:
@@ -222,18 +221,26 @@ jobs:
           path: ${{ runner.temp }}/verified
       - name: Apply verified package
         run: git apply --3way --index "$RUNNER_TEMP/verified/changes.patch"
+      - name: Generate publisher token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
       - name: Create pull request
         id: pull_request
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           base: main
           branch: bot/package-issue-${{ needs.prepare.outputs.issue_number }}
           delete-branch: true
           add-paths: pkgs/${{ needs.prepare.outputs.package }}
           commit-message: "${{ needs.prepare.outputs.package }}: init at ${{ needs.validate.outputs.version }}"
-          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          committer: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          author: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
           sign-commits: true
           title: "${{ needs.prepare.outputs.package }}: init at ${{ needs.validate.outputs.version }}"
           body: |
@@ -244,55 +251,3 @@ jobs:
             bot
             enhancement
           reviewers: codgician
-      - name: Dispatch merge validation
-        if: steps.pull_request.outputs.pull-request-operation == 'created' || steps.pull_request.outputs.pull-request-operation == 'updated'
-        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
-        env:
-          PR_HEAD_SHA: ${{ steps.pull_request.outputs.pull-request-head-sha }}
-          VALIDATION_ID: ${{ needs.prepare.outputs.package }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const head = process.env.PR_HEAD_SHA;
-            const id = process.env.VALIDATION_ID;
-            if (!/^[0-9a-f]{40}$/.test(head) || !/^[a-z][a-z0-9_-]{0,63}$/.test(id)) {
-              throw new Error("Invalid validation ref inputs");
-            }
-            const branch = `bot/ci/${id}-${head.slice(0, 12)}`;
-            const base = await github.rest.repos.getBranch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              branch: "main",
-            });
-            const ref = `heads/${branch}`;
-            try {
-              await github.rest.git.getRef({ owner: context.repo.owner, repo: context.repo.repo, ref });
-              await github.rest.git.updateRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref,
-                sha: base.data.commit.sha,
-                force: true,
-              });
-            } catch (error) {
-              if (error.status !== 404) throw error;
-              await github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `refs/${ref}`,
-                sha: base.data.commit.sha,
-              });
-            }
-            await github.rest.repos.merge({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              base: branch,
-              head,
-              commit_message: `Validate ${id} against current main`,
-            });
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: "build.yml",
-              ref: branch,
-            });
