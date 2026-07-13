@@ -12,6 +12,7 @@ Create `pkgs/<package>/` for the request in `.ai-state/request.json`. Package th
 - Provide accurate `meta`: description, homepage, changelog when available, license, provenance, supported platforms, `maintainers = with lib.maintainers; [ codgician ];`, and `mainProgram` when applicable. `x86_64-linux` must be supported.
 - Add a small deterministic offline smoke check.
 - Add an idempotent `passthru.updateScript` that discovers stable releases and updates every related version and hash.
+- Prefer `nix-update-script`; use `gitUpdater` when only tag prefix or suffix handling is needed. Create a custom updater only after testing both and proving they cannot satisfy that contract, and document the concrete limitation in a comment.
 - Run the updater, build, and relevant smoke check. Finish with a package-only diff that passes those checks.
 
 ## Boundaries
