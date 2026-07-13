@@ -5,22 +5,26 @@
   pkg-config,
   openssl,
   stdenv,
-  darwin,
+  apple-sdk,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "probe";
-  version = "0.6.0-rc31";
+  version = "0.6.0-rc327";
 
   src = fetchFromGitHub {
     owner = "buger";
     repo = "probe";
     rev = "v${version}";
-    hash = "sha256-q+1PML9uxZD/pBlek0t+NuU46LohOO3r2NfT4nhYTBI=";
+    hash = "sha256-dQMnmAR84O67YPAJEMimQC6ObnJFlLPfBmAJmz9tAtI=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
+    outputHashes = {
+      "tree-sitter-crystal-0.0.1" = "sha256-f0/i9JHYWeif9xeZPKNacEnwcp6mPRRfFZ90I3lRgW8=";
+      "turso-0.3.0-pre.3" = "sha256-jiPoNgwgKWvLVyWzR9GAgeuMsEZ6Xwm9xV7gLhBU01c=";
+    };
   };
 
   postPatch = ''
@@ -36,10 +40,7 @@ rustPlatform.buildRustPackage rec {
       openssl
     ]
     ++ lib.optionals stdenv.isDarwin [
-      darwin.apple_sdk.frameworks.AppKit
-      darwin.apple_sdk.frameworks.CoreGraphics
-      darwin.apple_sdk.frameworks.Security
-      darwin.apple_sdk.frameworks.SystemConfiguration
+      apple-sdk
     ];
 
   doCheck = false;

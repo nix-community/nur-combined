@@ -5,16 +5,16 @@
 
 buildGoModule rec {
   pname = "protodot";
-  version = "87817c3d0a8e7af753af15508b51292e941bc7c6";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "seamia";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-EOIyWLmUZ9xarqw5bKIiurY+ZB+NOJCkUkjFNtUXDW0=";
+    rev = "v${version}";
+    sha256 = "sha256-UUK5mP8wGli0VpNfLLbEsXBzQaJYWg20n93oTsnHtiA=";
   };
 
-  vendorHash = "sha256-v/Xoedq7PzpnGuFFCHQE96dcQy3SRJuD/VPgNAgsnOM=";
+  vendorHash = "sha256-WHA7mpTUob8bx/e1Hi5tZONaif/smyokE0idfqkh7BI=";
 
   subPackages = [ "." ];
 
