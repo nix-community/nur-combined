@@ -98,12 +98,36 @@
 
             stage.geoip {
               source  = "dst"
-              db      = let sources = import ../_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; }; in sources.GeoLite2-ASN.src;
+              db      = "${
+                let
+                  sources = import ../_sources/generated.nix {
+                    inherit (pkgs)
+                      fetchurl
+                      fetchgit
+                      fetchFromGitHub
+                      dockerTools
+                      ;
+                  };
+                in
+                sources.GeoLite2-ASN.src
+              }"
               db_type = "asn"
             }
             stage.geoip {
               source  = "dst"
-              db      = let sources = import ../_sources/generated.nix { inherit (pkgs) fetchurl fetchgit fetchFromGitHub dockerTools; }; in sources.GeoLite2-City.src;
+              db      = "${
+                let
+                  sources = import ../_sources/generated.nix {
+                    inherit (pkgs)
+                      fetchurl
+                      fetchgit
+                      fetchFromGitHub
+                      dockerTools
+                      ;
+                  };
+                in
+                sources.GeoLite2-City.src
+              }"
               db_type = "city"
             }
 

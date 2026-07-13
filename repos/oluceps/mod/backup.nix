@@ -61,6 +61,10 @@
           };
           name = "on-hastur.toml";
         };
+        "on-eihort" = {
+          cleanPlaceholder = true;
+          name = "on-eihort.toml";
+        };
         "on-coldarch" = {
           insert = {
             "0206c8ff3ff866c4212f1a968882f993e101fbf7ffdaa4e0e722b3ca069c5559".content = ''

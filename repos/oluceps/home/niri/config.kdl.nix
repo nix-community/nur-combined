@@ -340,7 +340,7 @@ in
 
       XF86MonBrightnessUp { spawn "light" "-A" "3"; }
       XF86MonBrightnessdown { spawn "light" "-U" "3"; }
-      Mod+Ctrl+P repeat=false { spawn "${lib.getExe pkgs.vicinae}" "vicinae://extensions/vicinae/clipboard/history"; }
+      Mod+Ctrl+P repeat=false { spawn "${lib.getExe pkgs.vicinae}" "vicinae://launch/clipboard/history"; }
 
       Mod+Q { close-window; }
 

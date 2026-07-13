@@ -24,9 +24,11 @@
           default_session = initial_session;
         };
       };
+      services.gnome.gnome-keyring.enable = lib.mkForce false;
       security.pam.services = {
-        greetd.enableGnomeKeyring = true;
-        login.enableGnomeKeyring = true;
+        # greetd.enableGnomeKeyring = true;
+        # login.enableGnomeKeyring = true;
+        greetd.oo7.enable = true;
       };
       # services.gnome.gcr-ssh-agent.enable = true;
       environment.systemPackages = [

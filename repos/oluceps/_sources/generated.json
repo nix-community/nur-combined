@@ -8,11 +8,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-ULTdNMM5Cwji6kI8qmkdfbpUVUYhFm58jxvfZzay9uQ=",
+            "sha256": "sha256-mbbUWccZnGV8KVyTNgulWAXV7N6A3oWeOzSVdmUwZpk=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-ASN.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.10/GeoLite2-ASN.mmdb"
         },
-        "version": "2026.06.10"
+        "version": "2026.07.10"
     },
     "GeoLite2-City": {
         "cargoLock": null,
@@ -23,11 +23,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kR9Y6XxCbUSqOoKTlV75850J353qqx/gJiX51/7HT+c=",
+            "sha256": "sha256-fk/JU4OGijVtlFAxlKwwCnUGBdaqbYrHb9FiXfY2B2g=",
             "type": "url",
-            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.06.10/GeoLite2-City.mmdb"
+            "url": "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.10/GeoLite2-City.mmdb"
         },
-        "version": "2026.06.10"
+        "version": "2026.07.10"
     },
     "alist": {
         "cargoLock": null,
@@ -64,12 +64,12 @@
             "name": null,
             "owner": "AdguardTeam",
             "repo": "dnsproxy",
-            "rev": "v0.81.4",
-            "sha256": "sha256-KHun1/Da6wfOuMc9D8AJrgZg5PwuXAY6IVajSHa3rRE=",
+            "rev": "v0.83.0",
+            "sha256": "sha256-ceeNS1Z2xQgZrouRTh48in+Z71dBj/dtnOYTPY/0az8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.81.4"
+        "version": "v0.83.0"
     },
     "lxgw-neo-xihei": {
         "cargoLock": null,
@@ -80,11 +80,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-7YRfB+nDHUhzPuWyjuZUIwx7tLKjjhP9JutNWRnAw3w=",
+            "sha256": "sha256-uksTXdA6UPJfaQxyqzjurDfMy7ecEzzSIpkCqG4DA3Y=",
             "type": "url",
-            "url": "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.302/LXGWNeoXiHei.ttf"
+            "url": "https://github.com/lxgw/LxgwNeoXiHei/releases/download/v1.303/LXGWNeoXiHei.ttf"
         },
-        "version": "v1.302"
+        "version": "v1.303"
     },
     "metacubexd": {
         "cargoLock": null,
@@ -95,11 +95,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-OFYWYwHVrMM0049J0+jSXwr36zOKTanO6+PQnqoZA/I=",
+            "sha256": "sha256-CjCKbuO3IYPDf/NYo/I1WzNf0vtRb3+v/7iMITD9J10=",
             "type": "url",
-            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.251.3/compressed-dist.tgz"
+            "url": "https://github.com/MetaCubeX/metacubexd/releases/download/v1.267.2/compressed-dist.tgz"
         },
-        "version": "v1.251.3"
+        "version": "v1.267.2"
     },
     "mosdns": {
         "cargoLock": null,

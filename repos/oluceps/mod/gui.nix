@@ -204,7 +204,9 @@
             disallow-generic-driver-for-switch-rules
           ];
         };
-        gnome.gnome-keyring.enable = true;
+        oo7 = {
+          enable = true;
+        };
         flatpak.enable = true;
         pcscd.enable = true;
         xserver = {
