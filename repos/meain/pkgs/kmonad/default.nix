@@ -4,11 +4,11 @@
 pkgs.stdenv.mkDerivation rec {
   pname = "kmonad";
   name = pname;
-  version = "0.4.2";
+  version = "0.4.5";
 
   src = pkgs.fetchurl {
     url = "https://github.com/kmonad/kmonad/releases/download/${version}/kmonad";
-    sha256 = "sha256-VNPxtWqPyPLnos0pDSy9iJLPxU4edvtM0kdp6/Rv40g=";
+    sha256 = "sha256-BkC0ETONKpSnWZGQiSA9nTduRHVUYTsJFFafVuRq+rc=";
   };
 
   phases = [ "installPhase" ];

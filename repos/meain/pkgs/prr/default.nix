@@ -10,16 +10,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "prr";
-  version = "0.20.0";
+  version = "0.21.0";
 
   src = fetchFromGitHub {
     owner = "danobi";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-duoC3TMgW+h5OrRCbqYPppMtnQBfS9R7ZpHQySgPRv4=";
+    hash = "sha256-G8/T3Jyr0ZtY302AvYxhaC+8Ld03cVL5Cuflz62e0mw=";
   };
 
-  cargoHash = "sha256-PuPCm6IyX/dBcigBhroNaKDwY4TypUDjVODy+2iUix0=";
+  cargoHash = "sha256-R3gycEs9k0VSNd0tD8Fzgbu2ibhGvXgw8H1mnSlQMug=";
 
   buildInputs =
     [ openssl ]
