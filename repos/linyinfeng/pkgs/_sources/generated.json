@@ -50,7 +50,7 @@
     },
     "codestable": {
         "cargoLock": null,
-        "date": "2026-07-10",
+        "date": "2026-07-11",
         "extract": null,
         "name": "codestable",
         "passthru": null,
@@ -60,13 +60,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "30fecaae5e747dbad1f0e599d592d7c04cc7f0c4",
-            "sha256": "sha256-Njex3NDQvonWdepiYj7bGcthaRwvbZ4mlv9RrD3h1mI=",
+            "rev": "00c78b38a6d8242eaac7c8a045dc623b58df6fe3",
+            "sha256": "sha256-/WUwTvF1w4b0AbOgqCThAnLdOYVn+pfraB4Bwjg9BKo=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/liuzhengdongfortest/CodeStable"
         },
-        "version": "30fecaae5e747dbad1f0e599d592d7c04cc7f0c4"
+        "version": "00c78b38a6d8242eaac7c8a045dc623b58df6fe3"
     },
     "cowrie": {
         "cargoLock": null,
@@ -629,7 +629,7 @@
     },
     "rime-luna-pinyin": {
         "cargoLock": null,
-        "date": "2026-07-03",
+        "date": "2026-07-12",
         "extract": null,
         "name": "rime-luna-pinyin",
         "passthru": null,
@@ -639,13 +639,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "32f4a2cf3a3ab82d2a8a306eb843233de579b5c7",
-            "sha256": "sha256-sThCYmOwY9Ml+/+lwKZOmCPvdXCPfcHttTNUp0DzIrw=",
+            "rev": "56b934b099dfbeab842320f13aa8b461a6ab3e42",
+            "sha256": "sha256-yXkF2f980Z0OMb39QQHknqodzIj3SyW23NVo+1C2p/s=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-luna-pinyin.git"
         },
-        "version": "32f4a2cf3a3ab82d2a8a306eb843233de579b5c7"
+        "version": "56b934b099dfbeab842320f13aa8b461a6ab3e42"
     },
     "rime-pinyin-simp": {
         "cargoLock": null,
