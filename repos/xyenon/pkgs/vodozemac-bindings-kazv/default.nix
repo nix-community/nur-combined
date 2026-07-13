@@ -10,14 +10,14 @@ rustPlatform.buildRustPackage {
   __structuredAttrs = true;
 
   pname = "vodozemac-bindings-kazv";
-  version = "0.2.1-unstable-2026-04-04";
+  version = "0.2.1-unstable-2026-07-12";
   src = fetchFromForgejo {
     domain = "r.lily-is.land";
     forceFetchGit = true;
     owner = "the-kazv-project";
     repo = "vodozemac-bindings";
-    rev = "3cf688afc0c8d6fe77e3eb126888a5ddd191f23b";
-    hash = "sha256-OWYLUgqf2ThNF2wbbrzlHsPmDpWbltwNEE4qY3QTZI0=";
+    rev = "83d116679c6e06af957466437cca1fe1e63658a3";
+    hash = "sha256-LRA8Yoez+RJNvrP5AwA0UEeJlpgtLFqyW0ZHXtx85OM=";
   };
 
   cargoLock = {

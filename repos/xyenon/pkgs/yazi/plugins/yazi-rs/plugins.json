@@ -50,6 +50,9 @@
   "vcs-files": {
     "description": "Show Git file changes in Yazi"
   },
+  "vfs-demo": {
+    "description": "Plugin that demonstrates the new [custom VFS provider](https://github.com/sxyazi/yazi/pull/4118) (nightly only)"
+  },
   "zoom": {
     "description": "Enlarge or shrink the preview image of a file, which is useful for magnifying small files for viewing"
   }
