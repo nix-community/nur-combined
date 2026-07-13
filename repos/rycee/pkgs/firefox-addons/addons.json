@@ -1152,6 +1152,9 @@
     "slug": "libredirect"
   },
   {
+    "slug": "lichess-tools-by-siderite"
+  },
+  {
     "slug": "limit-limit-distracting-sites",
     "license": {
       "tag": "custom",
@@ -2263,6 +2266,9 @@
   },
   {
     "slug": "userchrome-toggle-extended"
+  },
+  {
+    "slug": "v2ex-polish"
   },
   {
     "slug": "varia-integrator"

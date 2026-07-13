@@ -2913,10 +2913,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "153.0.20260710.112311";
+      version = "152.0.20260713.164047";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892343/dansk_da_language_pack-153.0.20260710.112311.xpi";
-      sha256 = "0b8076e9fd69c38363782afa8a28996b38ec237742fcec1b05c733cabaec08a8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897794/dansk_da_language_pack-152.0.20260713.164047.xpi";
+      sha256 = "b320ead746be7c7aae3f9f0baae79abacbac9aaa957659c9450703ac6d1ea6b9";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3129,10 +3129,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "153.0.20260710.112311";
+      version = "152.0.20260713.164047";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892345/deutsch_de_language_pack-153.0.20260710.112311.xpi";
-      sha256 = "cb48ee6a079cefadd5dc80f662fda36dd486964a32a7c796fb461d425bbeedf9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897797/deutsch_de_language_pack-152.0.20260713.164047.xpi";
+      sha256 = "8b97a45f9d098402756ff84e0395a977908667f565017042fa790e67d84781ee";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3165,10 +3165,10 @@
     };
     "dictionaries" = buildMozillaXpiAddon {
       pname = "dictionaries";
-      version = "7.5.0";
+      version = "7.5.1";
       addonId = "revir.qing@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4885863/dictionaries-7.5.0.xpi";
-      sha256 = "6d96b82cb76e68548534519dbb908366105e2fda29483d6b2d71cbd949a3db77";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4896991/dictionaries-7.5.1.xpi";
+      sha256 = "170a3bf8b6b512add8b0b4c03af621d1e0782bd2897b5b29513eeef2728fd603";
       meta = with lib;
       {
         homepage = "https://dictionariez.pnl.dev";
@@ -4612,10 +4612,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "153.0.20260710.112311";
+      version = "152.0.20260713.164047";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892349/francais_language_pack-153.0.20260710.112311.xpi";
-      sha256 = "4540bc3c02cda917f84ab54e7b07e3a08fe9240189ce259da646837c08e16036";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897849/francais_language_pack-152.0.20260713.164047.xpi";
+      sha256 = "3aa1b28fcf7386c8c57b0fbcfd756c05699090eec0f4cb6c7b4b0d0008081383";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4649,10 +4649,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "153.0.20260710.112311";
+      version = "152.0.20260713.164047";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892292/gaidhlig_language_pack-153.0.20260710.112311.xpi";
-      sha256 = "e179307de9728ded1c5e9c67397b08902b1c550a522545aa8e81a22d356e2b28";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897862/gaidhlig_language_pack-152.0.20260713.164047.xpi";
+      sha256 = "1a6398fe5be6d09032728eb4ab515e861889d95ed153ff3aa06a9100410fd91d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8453,6 +8453,30 @@
         platforms = platforms.all;
       };
     };
+    "lichess-tools-by-siderite" = buildMozillaXpiAddon {
+      pname = "lichess-tools-by-siderite";
+      version = "2.4.221";
+      addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4898010/lichess_tools_by_siderite-2.4.221.xpi";
+      sha256 = "1c594efb6c0d9f600f51e65cc3161a6abee070d5a46ea57e7b6af82c59325249";
+      meta = with lib;
+      {
+        homepage = "https://siderite.dev/LiChessTools/";
+        description = "Turbocharge lichess.org with a ton of features";
+        license = licenses.mit;
+        mozPermissions = [
+          "activeTab"
+          "https://lichess.org/*"
+          "https://lichess.dev/*"
+          "https://testy.lichess.dev/*"
+          "https://*.lichessladders.com/*"
+          "*://lichess.org/*"
+          "*://lichess.dev/*"
+          "*://testy.lichess.dev/*"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "limit-limit-distracting-sites" = buildMozillaXpiAddon {
       pname = "limit-limit-distracting-sites";
       version = "0.1.4";
@@ -12179,10 +12203,10 @@
     };
     "proton-pass" = buildMozillaXpiAddon {
       pname = "proton-pass";
-      version = "1.37.2";
+      version = "1.38.0";
       addonId = "78272b6fa58f4a1abaac99321d503a20@proton.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4824869/proton_pass-1.37.2.xpi";
-      sha256 = "b6b501be43f7783008d8566c60a5d463917f50df809ba4c1effa9fe35a37d045";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4885390/proton_pass-1.38.0.xpi";
+      sha256 = "225b96360b51b7756b2615432214fc0f4d93e9c3030ab4a864b1e07826eef9db";
       meta = with lib;
       {
         homepage = "https://proton.me";
@@ -12454,10 +12478,10 @@
     };
     "rabattcorner" = buildMozillaXpiAddon {
       pname = "rabattcorner";
-      version = "3.1.2";
+      version = "3.1.3";
       addonId = "jid1-7eplFgLu6atoog@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875732/rabattcorner-3.1.2.xpi";
-      sha256 = "b6d5cfa2c2556b54625a23277ba62a02f42170f87167c38995749ea2f2ddc862";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4896854/rabattcorner-3.1.3.xpi";
+      sha256 = "24c8e87f8e812b64574dfc4219c5f502f36777a234cd0d30bc11edabeb1e5b90";
       meta = with lib;
       {
         homepage = "https://www.rabattcorner.ch/fr/";
@@ -13400,10 +13424,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "153.0.20260710.112311";
+      version = "152.0.20260713.164047";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892430/scots_language_pack-153.0.20260710.112311.xpi";
-      sha256 = "8504b5c9a6bc1faad81b26b7421c10cbca928dc2a16dde370593aae63e9e1b95";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897857/scots_language_pack-152.0.20260713.164047.xpi";
+      sha256 = "48aa25cca60bd2daa07d08093219b505e4f81e7ee9803b87933f89fe5020b144";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14132,10 +14156,10 @@
     };
     "sponsorblock" = buildMozillaXpiAddon {
       pname = "sponsorblock";
-      version = "6.1.6";
+      version = "6.1.7";
       addonId = "sponsorBlocker@ajay.app";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4870235/sponsorblock-6.1.6.xpi";
-      sha256 = "ab8e4cc26e68070c3c6f379b253330b95677e2d25b52149580daa879cf9ba954";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897574/sponsorblock-6.1.7.xpi";
+      sha256 = "0d50e1632c6f15ee15a543e670e1c572974605a5c02622916e08e026803df83f";
       meta = with lib;
       {
         homepage = "https://sponsor.ajay.app";
@@ -15150,10 +15174,10 @@
     };
     "torrent-control" = buildMozillaXpiAddon {
       pname = "torrent-control";
-      version = "0.2.49";
+      version = "0.2.50";
       addonId = "{e6e36c9a-8323-446c-b720-a176017e38ff}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4890426/torrent_control-0.2.49.xpi";
-      sha256 = "b5ee7662d7566065b2d1851a5278b7dbf3141a94c24875beb9c9f57712146a82";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4897005/torrent_control-0.2.50.xpi";
+      sha256 = "7a08c73ef1df0033f623dc178e41dea15d591199e60920d40d0e081d05e23a25";
       meta = with lib;
       {
         homepage = "https://github.com/Mika-/torrent-control";
@@ -16065,6 +16089,165 @@
         description = "This extension allows you to toggle userchrome.css styles on-the-fly with buttons and hotkeys. You'll be able to switch up to six styles";
         license = licenses.mpl20;
         mozPermissions = [ "storage" ];
+        platforms = platforms.all;
+      };
+    };
+    "v2ex-polish" = buildMozillaXpiAddon {
+      pname = "v2ex-polish";
+      version = "2.4.45";
+      addonId = "leokudev@gmail.com";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4813545/v2ex_polish-2.4.45.xpi";
+      sha256 = "46d15437a33771a4171564bf05d66f9aa6af2f5bd36de87dcf5c13d4fd6d360e";
+      meta = with lib;
+      {
+        description = "专为 V2EX 用户设计，提供了丰富的扩展功能。";
+        license = licenses.mpl20;
+        mozPermissions = [
+          "scripting"
+          "contextMenus"
+          "storage"
+          "alarms"
+          "https://v2ex.com/*"
+          "https://www.v2ex.com/*"
+          "https://cn.v2ex.com/*"
+          "https://jp.v2ex.com/*"
+          "https://de.v2ex.com/*"
+          "https://us.v2ex.com/*"
+          "https://hk.v2ex.com/*"
+          "https://global.v2ex.com/*"
+          "https://fast.v2ex.com/*"
+          "https://s.v2ex.com/*"
+          "https://origin.v2ex.com/*"
+          "https://edge.v2ex.com/*"
+          "https://staging.v2ex.com/*"
+          "https://global.v2ex.co/*"
+          "https://v2ex.com/t/*"
+          "https://www.v2ex.com/t/*"
+          "https://cn.v2ex.com/t/*"
+          "https://jp.v2ex.com/t/*"
+          "https://de.v2ex.com/t/*"
+          "https://us.v2ex.com/t/*"
+          "https://hk.v2ex.com/t/*"
+          "https://global.v2ex.com/t/*"
+          "https://fast.v2ex.com/t/*"
+          "https://s.v2ex.com/t/*"
+          "https://origin.v2ex.com/t/*"
+          "https://edge.v2ex.com/t/*"
+          "https://staging.v2ex.com/t/*"
+          "https://global.v2ex.co/t/*"
+          "https://v2ex.com/write/*"
+          "https://v2ex.com/write?*"
+          "https://www.v2ex.com/write/*"
+          "https://www.v2ex.com/write?*"
+          "https://cn.v2ex.com/write/*"
+          "https://cn.v2ex.com/write?*"
+          "https://jp.v2ex.com/write/*"
+          "https://jp.v2ex.com/write?*"
+          "https://de.v2ex.com/write/*"
+          "https://de.v2ex.com/write?*"
+          "https://us.v2ex.com/write/*"
+          "https://us.v2ex.com/write?*"
+          "https://hk.v2ex.com/write/*"
+          "https://hk.v2ex.com/write?*"
+          "https://global.v2ex.com/write/*"
+          "https://global.v2ex.com/write?*"
+          "https://fast.v2ex.com/write/*"
+          "https://fast.v2ex.com/write?*"
+          "https://s.v2ex.com/write/*"
+          "https://s.v2ex.com/write?*"
+          "https://origin.v2ex.com/write/*"
+          "https://origin.v2ex.com/write?*"
+          "https://edge.v2ex.com/write/*"
+          "https://edge.v2ex.com/write?*"
+          "https://staging.v2ex.com/write/*"
+          "https://staging.v2ex.com/write?*"
+          "https://global.v2ex.co/write/*"
+          "https://global.v2ex.co/write?*"
+          "https://v2ex.com/member/*"
+          "https://www.v2ex.com/member/*"
+          "https://cn.v2ex.com/member/*"
+          "https://jp.v2ex.com/member/*"
+          "https://de.v2ex.com/member/*"
+          "https://us.v2ex.com/member/*"
+          "https://hk.v2ex.com/member/*"
+          "https://global.v2ex.com/member/*"
+          "https://fast.v2ex.com/member/*"
+          "https://s.v2ex.com/member/*"
+          "https://origin.v2ex.com/member/*"
+          "https://edge.v2ex.com/member/*"
+          "https://staging.v2ex.com/member/*"
+          "https://global.v2ex.co/member/*"
+          "https://v2ex.com/settings/*"
+          "https://v2ex.com/settings?*"
+          "https://www.v2ex.com/settings/*"
+          "https://www.v2ex.com/settings?*"
+          "https://cn.v2ex.com/settings/*"
+          "https://cn.v2ex.com/settings?*"
+          "https://jp.v2ex.com/settings/*"
+          "https://jp.v2ex.com/settings?*"
+          "https://de.v2ex.com/settings/*"
+          "https://de.v2ex.com/settings?*"
+          "https://us.v2ex.com/settings/*"
+          "https://us.v2ex.com/settings?*"
+          "https://hk.v2ex.com/settings/*"
+          "https://hk.v2ex.com/settings?*"
+          "https://global.v2ex.com/settings/*"
+          "https://global.v2ex.com/settings?*"
+          "https://fast.v2ex.com/settings/*"
+          "https://fast.v2ex.com/settings?*"
+          "https://s.v2ex.com/settings/*"
+          "https://s.v2ex.com/settings?*"
+          "https://origin.v2ex.com/settings/*"
+          "https://origin.v2ex.com/settings?*"
+          "https://edge.v2ex.com/settings/*"
+          "https://edge.v2ex.com/settings?*"
+          "https://staging.v2ex.com/settings/*"
+          "https://staging.v2ex.com/settings?*"
+          "https://global.v2ex.co/settings/*"
+          "https://global.v2ex.co/settings?*"
+          "https://v2ex.com/notifications/*"
+          "https://v2ex.com/notifications?*"
+          "https://www.v2ex.com/notifications/*"
+          "https://www.v2ex.com/notifications?*"
+          "https://cn.v2ex.com/notifications/*"
+          "https://cn.v2ex.com/notifications?*"
+          "https://jp.v2ex.com/notifications/*"
+          "https://jp.v2ex.com/notifications?*"
+          "https://de.v2ex.com/notifications/*"
+          "https://de.v2ex.com/notifications?*"
+          "https://us.v2ex.com/notifications/*"
+          "https://us.v2ex.com/notifications?*"
+          "https://hk.v2ex.com/notifications/*"
+          "https://hk.v2ex.com/notifications?*"
+          "https://global.v2ex.com/notifications/*"
+          "https://global.v2ex.com/notifications?*"
+          "https://fast.v2ex.com/notifications/*"
+          "https://fast.v2ex.com/notifications?*"
+          "https://s.v2ex.com/notifications/*"
+          "https://s.v2ex.com/notifications?*"
+          "https://origin.v2ex.com/notifications/*"
+          "https://origin.v2ex.com/notifications?*"
+          "https://edge.v2ex.com/notifications/*"
+          "https://edge.v2ex.com/notifications?*"
+          "https://staging.v2ex.com/notifications/*"
+          "https://staging.v2ex.com/notifications?*"
+          "https://global.v2ex.co/notifications/*"
+          "https://global.v2ex.co/notifications?*"
+          "https://v2ex.com/go/*"
+          "https://www.v2ex.com/go/*"
+          "https://cn.v2ex.com/go/*"
+          "https://jp.v2ex.com/go/*"
+          "https://de.v2ex.com/go/*"
+          "https://us.v2ex.com/go/*"
+          "https://hk.v2ex.com/go/*"
+          "https://global.v2ex.com/go/*"
+          "https://fast.v2ex.com/go/*"
+          "https://s.v2ex.com/go/*"
+          "https://origin.v2ex.com/go/*"
+          "https://edge.v2ex.com/go/*"
+          "https://staging.v2ex.com/go/*"
+          "https://global.v2ex.co/go/*"
+        ];
         platforms = platforms.all;
       };
     };
