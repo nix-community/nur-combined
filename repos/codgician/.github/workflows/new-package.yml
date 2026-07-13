@@ -232,8 +232,9 @@ jobs:
           delete-branch: true
           add-paths: pkgs/${{ needs.prepare.outputs.package }}
           commit-message: "${{ needs.prepare.outputs.package }}: init at ${{ needs.validate.outputs.version }}"
-          committer: github-actions <github-actions@github.com>
-          author: github-actions <github-actions@github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          sign-commits: true
           title: "${{ needs.prepare.outputs.package }}: init at ${{ needs.validate.outputs.version }}"
           body: |
             Add `${{ needs.prepare.outputs.package }}` from ${{ needs.prepare.outputs.upstream }}.

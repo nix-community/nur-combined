@@ -130,48 +130,62 @@ jobs:
           else
             package_changes=false
           fi
-          if [[ "$exit_code" != "0" || "$package_changes" == "true" ]]; then
-            needs_review=true
-          else
-            needs_review=false
-          fi
           {
             echo "exit_code=$exit_code"
             echo "package_changes=$package_changes"
-            echo "needs_review=$needs_review"
           } >> "$GITHUB_OUTPUT"
-      - name: Check updater result before review
-        id: build
-        if: steps.updater.outputs.package_changes == 'true'
+      - name: Validate deterministic candidate
+        id: deterministic
+        if: steps.updater.outputs.exit_code == '0' && steps.updater.outputs.package_changes == 'true'
         run: |
           set +e
-          nix develop .# -c .github/scripts/validate_bump.sh \
-            "$PACKAGE" "$(cat "$RUNNER_TEMP/main-program")" \
-            > .ai-state/build-before.log 2>&1
+          nix develop .# -c .github/scripts/validate_candidate.sh \
+            "$PACKAGE" \
+            "$(cat "$RUNNER_TEMP/main-program")" \
+            "$(cat "$RUNNER_TEMP/old-version")" \
+            "$RUNNER_TEMP/preflight-new-version" \
+            > .ai-state/deterministic-validation.log 2>&1
           exit_code=$?
           set -e
           echo "exit_code=$exit_code" >> "$GITHUB_OUTPUT"
-      - name: Record review state
-        if: steps.updater.outputs.needs_review == 'true'
+      - name: Select update route
+        id: route
         env:
           UPDATER_EXIT: ${{ steps.updater.outputs.exit_code }}
-          BUILD_EXIT: ${{ steps.build.outputs.exit_code }}
+          PACKAGE_CHANGES: ${{ steps.updater.outputs.package_changes }}
+          DETERMINISTIC_EXIT: ${{ steps.deterministic.outputs.exit_code }}
         run: |
-          if [[ -z "$BUILD_EXIT" ]]; then
-            build_state=not-run
-          elif [[ "$BUILD_EXIT" == "0" ]]; then
-            build_state=passed
+          if [[ "$UPDATER_EXIT" != "0" ]]; then
+            route=ai
+          elif [[ "$PACKAGE_CHANGES" == "false" ]]; then
+            route=up-to-date
+          elif [[ "$DETERMINISTIC_EXIT" == "0" ]]; then
+            route=deterministic
           else
-            build_state=failed
+            route=ai
+          fi
+          echo "route=$route" >> "$GITHUB_OUTPUT"
+      - name: Record review state
+        if: steps.route.outputs.route == 'ai'
+        env:
+          UPDATER_EXIT: ${{ steps.updater.outputs.exit_code }}
+          DETERMINISTIC_EXIT: ${{ steps.deterministic.outputs.exit_code }}
+        run: |
+          if [[ -z "$DETERMINISTIC_EXIT" ]]; then
+            deterministic_state=not-run
+          elif [[ "$DETERMINISTIC_EXIT" == "0" ]]; then
+            deterministic_state=passed
+          else
+            deterministic_state=failed
           fi
           jq -n \
             --arg package "$PACKAGE" \
             --argjson updater_exit "$UPDATER_EXIT" \
-            --arg build_state "$build_state" \
-            '{package: $package, updater_exit: $updater_exit, build_state: $build_state, updater_log: ".ai-state/updater.log", build_log: (if $build_state == "not-run" then null else ".ai-state/build-before.log" end)}' \
+            --arg deterministic_state "$deterministic_state" \
+            '{package: $package, route: "ai", updater_exit: $updater_exit, deterministic_validation: $deterministic_state, updater_log: ".ai-state/updater.log", deterministic_log: (if $deterministic_state == "not-run" then null else ".ai-state/deterministic-validation.log" end)}' \
             > .ai-state/state.json
       - name: Review or repair with OpenCode
-        if: steps.updater.outputs.needs_review == 'true'
+        if: steps.route.outputs.route == 'ai'
         env:
           DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
         run: |
@@ -190,19 +204,23 @@ jobs:
             "$message"
       - name: Export candidate
         env:
-          NEEDS_REVIEW: ${{ steps.updater.outputs.needs_review }}
+          ROUTE: ${{ steps.route.outputs.route }}
         run: |
           mkdir -p "$RUNNER_TEMP/candidate"
           cp "$RUNNER_TEMP/old-version" "$RUNNER_TEMP/candidate/old-version"
           cp "$RUNNER_TEMP/main-program" "$RUNNER_TEMP/candidate/main-program"
-          if [[ "$NEEDS_REVIEW" == "false" ]]; then
+          if [[ "$ROUTE" == "up-to-date" ]]; then
             printf 'up-to-date' > "$RUNNER_TEMP/candidate/state"
             exit 0
+          fi
+          if [[ "$ROUTE" != "deterministic" && "$ROUTE" != "ai" ]]; then
+            echo "Invalid update route: $ROUTE" >&2
+            exit 1
           fi
 
           outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
           if [[ -n "$outside" ]]; then
-            echo "OpenCode changed files outside pkgs/$PACKAGE:" >&2
+            echo "Candidate changed files outside pkgs/$PACKAGE:" >&2
             printf '%s\n' "$outside" >&2
             exit 1
           fi
@@ -212,12 +230,17 @@ jobs:
             exit 1
           fi
           if git diff --cached --quiet; then
-            echo "OpenCode produced no package changes" >&2
+            echo "$ROUTE route produced no package changes" >&2
             exit 1
           fi
           git diff --cached --check
           git diff --cached --binary --full-index > "$RUNNER_TEMP/candidate/changes.patch"
           printf 'candidate' > "$RUNNER_TEMP/candidate/state"
+          if [[ "$ROUTE" == "deterministic" ]]; then
+            printf 'deterministic' > "$RUNNER_TEMP/candidate/origin"
+          else
+            printf 'ai-repaired' > "$RUNNER_TEMP/candidate/origin"
+          fi
       - name: Upload candidate
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -260,6 +283,14 @@ jobs:
             exit 1
           fi
           echo "state=$state" >> "$GITHUB_OUTPUT"
+          if [[ "$state" == "candidate" ]]; then
+            origin=$(cat "$RUNNER_TEMP/candidate/origin")
+            if [[ "$origin" != "deterministic" && "$origin" != "ai-repaired" ]]; then
+              echo "Invalid candidate origin: $origin" >&2
+              exit 1
+            fi
+            echo "origin=$origin" >> "$GITHUB_OUTPUT"
+          fi
       - name: Apply candidate
         if: steps.candidate.outputs.state == 'candidate'
         run: git apply --index "$RUNNER_TEMP/candidate/changes.patch"
@@ -273,25 +304,14 @@ jobs:
       - name: Validate candidate
         if: steps.candidate.outputs.state == 'candidate'
         run: |
-          nix fmt -- --ci "pkgs/$PACKAGE"
-          before=$(git diff HEAD --binary --full-index -- "pkgs/$PACKAGE" | sha256sum)
-          nix develop .# -c .github/scripts/run_updater.sh "$PACKAGE" \
-            > "$RUNNER_TEMP/updater-validation.log" 2>&1
-          after=$(git diff HEAD --binary --full-index -- "pkgs/$PACKAGE" | sha256sum)
-          if [[ "$before" != "$after" ]]; then
-            echo "Updater changed the reviewed package; it is not idempotent" >&2
-            cat "$RUNNER_TEMP/updater-validation.log" >&2
-            exit 1
+          nix develop .# -c .github/scripts/validate_candidate.sh \
+            "$PACKAGE" \
+            "$(cat "$RUNNER_TEMP/candidate/main-program")" \
+            "$(cat "$RUNNER_TEMP/candidate/old-version")" \
+            "$RUNNER_TEMP/candidate/new-version"
+          if ! nix eval --raw ".#$PACKAGE.meta.changelog" > "$RUNNER_TEMP/candidate/changelog" 2>/dev/null; then
+            : > "$RUNNER_TEMP/candidate/changelog"
           fi
-          nix develop .# -c .github/scripts/validate_bump.sh \
-            "$PACKAGE" "$(cat "$RUNNER_TEMP/candidate/main-program")"
-          old_version=$(cat "$RUNNER_TEMP/candidate/old-version")
-          new_version=$(nix eval --raw ".#$PACKAGE.version")
-          if [[ ! "$old_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ || ! "$new_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ || "$old_version" == "$new_version" ]]; then
-            echo "Package version did not advance: $old_version -> $new_version" >&2
-            exit 1
-          fi
-          printf '%s' "$new_version" > "$RUNNER_TEMP/candidate/new-version"
       - name: Prepare verified result
         env:
           CANDIDATE_STATE: ${{ steps.candidate.outputs.state }}
@@ -302,6 +322,8 @@ jobs:
             cp "$RUNNER_TEMP/candidate/changes.patch" "$RUNNER_TEMP/verified/changes.patch"
             cp "$RUNNER_TEMP/candidate/old-version" "$RUNNER_TEMP/verified/old-version"
             cp "$RUNNER_TEMP/candidate/new-version" "$RUNNER_TEMP/verified/new-version"
+            cp "$RUNNER_TEMP/candidate/origin" "$RUNNER_TEMP/verified/origin"
+            cp "$RUNNER_TEMP/candidate/changelog" "$RUNNER_TEMP/verified/changelog"
           fi
       - name: Upload verified result
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
@@ -355,11 +377,40 @@ jobs:
             echo "Invalid verified version metadata" >&2
             exit 1
           fi
+          origin=$(cat "$RUNNER_TEMP/verified/origin")
+          case "$origin" in
+            deterministic)
+              origin_label=bot-deterministic
+              origin_name="deterministic updater"
+              ;;
+            ai-repaired)
+              origin_label=bot-ai-repair
+              origin_name="AI repair"
+              ;;
+            *)
+              echo "Invalid verified origin: $origin" >&2
+              exit 1
+              ;;
+          esac
+          changelog=$(cat "$RUNNER_TEMP/verified/changelog")
+          if [[ -n "$changelog" && ( "$changelog" == *$'\n'* || ! "$changelog" =~ ^https?://[^[:space:]]{1,2048}$ ) ]]; then
+            echo "Invalid changelog URL" >&2
+            exit 1
+          fi
           git apply --3way --index "$RUNNER_TEMP/verified/changes.patch"
+          {
+            printf "Automated update of \`%s\` from \`%s\` to \`%s\`.\n\n" "$PACKAGE" "$old_version" "$new_version"
+            printf -- "- Origin: \`%s\`\n" "$origin_name"
+            printf -- '- Validation: updater idempotence, package build, and smoke check\n'
+            if [[ -n "$changelog" ]]; then
+              printf -- '- Changelog: %s\n' "$changelog"
+            fi
+          } > "$RUNNER_TEMP/pull-request-body.md"
           {
             echo "publish=true"
             echo "old_version=$old_version"
             echo "new_version=$new_version"
+            echo "origin_label=$origin_label"
           } >> "$GITHUB_OUTPUT"
       - name: Create pull request
         id: pull_request
@@ -372,11 +423,14 @@ jobs:
           delete-branch: true
           add-paths: pkgs/${{ matrix.package }}
           commit-message: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
-          committer: github-actions <github-actions@github.com>
-          author: github-actions <github-actions@github.com>
+          committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          sign-commits: true
           title: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
-          body: "Automated update of `${{ matrix.package }}` from `${{ steps.result.outputs.old_version }}` to `${{ steps.result.outputs.new_version }}`."
-          labels: bot
+          body-path: ${{ runner.temp }}/pull-request-body.md
+          labels: |
+            bot
+            ${{ steps.result.outputs.origin_label }}
           reviewers: codgician
       - name: Dispatch merge validation
         if: steps.pull_request.outputs.pull-request-operation == 'created' || steps.pull_request.outputs.pull-request-operation == 'updated'
