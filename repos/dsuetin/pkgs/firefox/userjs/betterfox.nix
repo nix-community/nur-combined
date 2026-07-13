@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation rec {
   pname = "betterfox";
-  version = "150.0";
+  version = "152.0";
 
   src = fetchFromGitHub {
     owner = "yokoffing";
     repo = "Betterfox";
     rev = version;
-    hash = "sha256-elGsTJu+eSzyS9IAnQuEppyhdDkRQwggUP7aypuXRh8=";
+    hash = "sha256-QfisBzeoc8nUrgk/+PTvG9JATsVRWo7RDbohlxkNc+A=";
   };
 
   dontPatch = true;
