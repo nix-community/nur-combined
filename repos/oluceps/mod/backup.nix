@@ -88,6 +88,7 @@
             profiles = map (n: config.vaultix.secrets.${n}.path) [
               "general"
               "on-hastur"
+              "on-eihort"
             ];
             timerConfig = {
               OnCalendar = "*-*-1/3 03:00:00";
