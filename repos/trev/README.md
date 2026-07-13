@@ -380,6 +380,10 @@ Utility function to simplify creating flake [apps](https://nix.dev/manual/nix/la
 apps = pkgs.mkApps {
   default = "cargo run";
   test = "cargo test";
+  lint = {
+    packages = with pkgs; [ shellcheck ];
+    text = "shellcheck scripts/*.sh";
+  };
 };
 ```
 

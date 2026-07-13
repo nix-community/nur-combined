@@ -1,4 +1,5 @@
 {
+  lib,
   replaceVars,
   stdenvNoCC,
 }:
@@ -6,11 +7,31 @@
 builtins.mapAttrs (
   name: script:
   let
+    app =
+      if builtins.isAttrs script then
+        (
+          {
+            text,
+            packages ? [ ],
+          }:
+          {
+            inherit text packages;
+          }
+        )
+          script
+      else
+        {
+          text = script;
+          packages = [ ];
+        };
     program = stdenvNoCC.mkDerivation (finalAttrs: {
       inherit name;
 
       app = replaceVars ./app.sh {
-        inherit script;
+        script = app.text;
+        path = lib.optionalString (app.packages != [ ]) ''
+          export PATH="${lib.makeBinPath app.packages}:$PATH"
+        '';
       };
 
       dontUnpack = true;
@@ -27,8 +48,8 @@ builtins.mapAttrs (
     type = "app";
     program = "${program}/bin/${name}";
     meta = {
-      inherit script;
-      description = script;
+      script = app.text;
+      description = app.text;
     };
   }
 )
