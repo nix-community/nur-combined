@@ -2,6 +2,7 @@
 , fetchFromGitHub
 , lib
 , llvmPackages
+, maintainer
 , ninja
 , qt6
 , unstableGitUpdater
@@ -72,6 +73,7 @@ llvmPackages.stdenv.mkDerivation {
     homepage = "https://github.com/PancakeTAS/lsfg-vk";
     license = lib.licenses.gpl3Only;
     mainProgram = "lsfg-vk-ui";
+    maintainers = [ maintainer ];
     platforms = lib.platforms.linux;
   };
 }

@@ -1,6 +1,7 @@
 { jre
 , lib
 , makeWrapper
+, maintainer
 , stdenvNoCC
 , unzip
 ,
@@ -61,6 +62,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://www.nexusmods.com/grimdawn/mods/2";
     license = lib.licenses.unfree;
     mainProgram = "gdstash";
+    maintainers = [ maintainer ];
     platforms = lib.platforms.unix;
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
   };

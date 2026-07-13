@@ -16,6 +16,7 @@
 , libsm
 , libusb1
 , llvm
+, maintainer
 , miniupnpc
 , openal
 , opencv
@@ -179,6 +180,7 @@ stdenv.mkDerivation (finalAttrs: {
       lib.licenses.unfree
     ];
     mainProgram = "rpcs3";
+    maintainers = [ maintainer ];
     platforms = [
       "aarch64-linux"
       "x86_64-linux"

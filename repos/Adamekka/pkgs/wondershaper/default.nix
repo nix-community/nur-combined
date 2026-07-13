@@ -5,6 +5,7 @@
 , kmod
 , lib
 , makeWrapper
+, maintainer
 , stdenvNoCC
 , unstableGitUpdater
 ,
@@ -101,6 +102,7 @@ stdenvNoCC.mkDerivation rec {
     homepage = "https://github.com/magnific0/wondershaper";
     license = lib.licenses.gpl2Only;
     mainProgram = "wondershaper";
+    maintainers = [ maintainer ];
     platforms = lib.platforms.linux;
   };
 }

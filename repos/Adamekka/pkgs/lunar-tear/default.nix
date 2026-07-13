@@ -6,6 +6,7 @@
 , goose
 , lib
 , makeWrapper
+, maintainer
 , protobuf
 , protoc-gen-go
 , protoc-gen-go-grpc
@@ -115,6 +116,7 @@ buildGoModule rec {
     homepage = "https://github.com/Walter-Sparrow/lunar-tear";
     license = lib.licenses.mit;
     mainProgram = "lunar-tear-start";
+    maintainers = [ maintainer ];
     platforms = lib.platforms.unix;
   };
 }

@@ -8,6 +8,13 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  maintainer = {
+    github = "Adamekka";
+    githubId = 68786400;
+    name = "Adamekka";
+  };
+in
 {
   lib = import ./lib { inherit pkgs; };
   modules = import ./modules;
@@ -15,9 +22,9 @@
 
   # MARK: Packages
 
-  gdstash = pkgs.callPackage ./pkgs/gdstash { };
-  lsfg-vk-git = pkgs.callPackage ./pkgs/lsfg-vk-git { };
-  lunar-tear = pkgs.callPackage ./pkgs/lunar-tear { };
-  rpcs3-git = pkgs.callPackage ./pkgs/rpcs3-git { };
-  wondershaper = pkgs.callPackage ./pkgs/wondershaper { };
+  gdstash = pkgs.callPackage ./pkgs/gdstash { inherit maintainer; };
+  lsfg-vk-git = pkgs.callPackage ./pkgs/lsfg-vk-git { inherit maintainer; };
+  lunar-tear = pkgs.callPackage ./pkgs/lunar-tear { inherit maintainer; };
+  rpcs3-git = pkgs.callPackage ./pkgs/rpcs3-git { inherit maintainer; };
+  wondershaper = pkgs.callPackage ./pkgs/wondershaper { inherit maintainer; };
 }
