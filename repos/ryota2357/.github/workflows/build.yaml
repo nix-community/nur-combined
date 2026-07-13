@@ -13,8 +13,7 @@ jobs:
         os:
           - ubuntu-latest
           - ubuntu-24.04-arm
-          - macos-latest   # M1
-          - macos-15-intel # Intel
+          - macos-latest
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout
