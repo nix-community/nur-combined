@@ -5,30 +5,30 @@
 }:
 
 builtins.mapAttrs (
-  name: script:
+  name: value:
   let
     app =
-      if builtins.isAttrs script then
+      if builtins.isAttrs value then
         (
           {
-            text,
+            script,
             packages ? [ ],
           }:
           {
-            inherit text packages;
+            inherit script packages;
           }
         )
-          script
+          value
       else
         {
-          text = script;
+          script = value;
           packages = [ ];
         };
     program = stdenvNoCC.mkDerivation (finalAttrs: {
       inherit name;
 
       app = replaceVars ./app.sh {
-        script = app.text;
+        inherit (app) script;
         path = lib.optionalString (app.packages != [ ]) ''
           export PATH="${lib.makeBinPath app.packages}:$PATH"
         '';
@@ -48,8 +48,8 @@ builtins.mapAttrs (
     type = "app";
     program = "${program}/bin/${name}";
     meta = {
-      script = app.text;
-      description = app.text;
+      inherit (app) script;
+      description = app.script;
     };
   }
 )

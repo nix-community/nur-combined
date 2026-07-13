@@ -382,7 +382,7 @@ apps = pkgs.mkApps {
   test = "cargo test";
   lint = {
     packages = with pkgs; [ shellcheck ];
-    text = "shellcheck scripts/*.sh";
+    script = "shellcheck scripts/*.sh";
   };
 };
 ```
