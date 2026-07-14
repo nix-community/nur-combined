@@ -1,0 +1,273 @@
+#!/usr/bin/env python3
+
+import argparse
+import base64
+from datetime import datetime
+import hashlib
+import json
+import os
+from pathlib import Path, PurePosixPath
+import re
+import shutil
+import subprocess
+import sys
+import tempfile
+from urllib.parse import quote
+import zipfile
+
+
+API_BASE_URL = "https://api.nexusmods.com/v3"
+API_KEY_NAME = "NEXUSMODS_API_KEY"
+
+
+class UpdateError(Exception):
+    pass
+
+
+def load_api_key(repository_path):
+    api_key = os.environ.get(API_KEY_NAME)
+    if api_key:
+        return api_key
+
+    env_path = repository_path / ".env"
+    if not env_path.exists():
+        raise UpdateError(
+            f"{API_KEY_NAME} is not exported and {env_path} does not exist; "
+            "create it from .env.example"
+        )
+
+    matches = []
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        stripped_line = line.strip()
+        if not stripped_line or stripped_line.startswith("#"):
+            continue
+        if stripped_line.startswith("export "):
+            stripped_line = stripped_line.removeprefix("export ").lstrip()
+
+        name, separator, value = stripped_line.partition("=")
+        if separator and name.strip() == API_KEY_NAME:
+            value = value.strip()
+            if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+                value = value[1:-1]
+            matches.append(value)
+
+    if len(matches) != 1:
+        raise UpdateError(f"{env_path} must contain exactly one {API_KEY_NAME}= entry")
+    if not matches[0]:
+        raise UpdateError(f"{API_KEY_NAME} is empty in {env_path}")
+    return matches[0]
+
+
+def fetch_json(url, api_key):
+    try:
+        with tempfile.TemporaryFile() as response:
+            result = subprocess.run(
+                [
+                    "curl",
+                    "--config", "-",
+                    "--fail",
+                    "--header", "Accept: application/json",
+                    "--silent",
+                    "--show-error",
+                    "--user-agent", "Adamekka/nur-packages GD Stash updater",
+                    url,
+                ],
+                stderr=subprocess.PIPE,
+                stdout=response,
+                text=True,
+                input=f'header = "apikey: {api_key}"\n',
+            )
+            if result.returncode != 0:
+                message = result.stderr.strip() or f"curl exited with {result.returncode}"
+                if "error: 401" in message:
+                    raise UpdateError(
+                        f"NexusMods rejected {API_KEY_NAME}; regenerate a personal API key at "
+                        "https://www.nexusmods.com/settings/api-keys"
+                    )
+                raise UpdateError(f"NexusMods API request failed: {message}")
+            response.seek(0)
+            try:
+                payload = json.load(response)
+            except json.JSONDecodeError as error:
+                raise UpdateError(f"NexusMods API returned invalid JSON: {url}") from error
+    except FileNotFoundError as error:
+        raise UpdateError("curl is required to query NexusMods") from error
+    return payload
+
+
+def fetch_api_data(path, api_key):
+    payload = fetch_json(f"{API_BASE_URL}{path}", api_key)
+
+    if not isinstance(payload, dict) or "data" not in payload:
+        raise UpdateError(f"NexusMods API response has no data field: {path}")
+    return payload["data"]
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Update the packaged GD Stash archive and NexusMods metadata."
+    )
+    parser.add_argument("archive", type=Path, help="manually downloaded GD Stash ZIP")
+    arguments = parser.parse_args()
+
+    repository_path = Path(__file__).resolve().parent.parent
+    archive_path = arguments.archive.expanduser().resolve()
+    package_archive_path = repository_path / "pkgs/gdstash/GDStash.zip"
+    package_path = repository_path / "pkgs/gdstash/default.nix"
+
+    if not archive_path.is_file():
+        raise UpdateError(f"archive does not exist: {archive_path}")
+    try:
+        with zipfile.ZipFile(archive_path) as archive:
+            if not any(
+                PurePosixPath(name).name.lower() == "gdstash.jar"
+                for name in archive.namelist()
+            ):
+                raise UpdateError(f"archive does not contain GDStash.jar: {archive_path}")
+    except zipfile.BadZipFile as error:
+        raise UpdateError(f"archive is not a valid ZIP: {archive_path}") from error
+    try:
+        subprocess.run(
+            ["unzip", "-tqq", archive_path],
+            check=True,
+            stderr=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+        )
+    except FileNotFoundError as error:
+        raise UpdateError("unzip is required to validate the archive") from error
+    except subprocess.CalledProcessError as error:
+        raise UpdateError(f"archive failed its integrity check: {archive_path}") from error
+
+    api_key = load_api_key(repository_path)
+    if any(character in api_key for character in '\\"\r\n'):
+        raise UpdateError(f"{API_KEY_NAME} contains an invalid character")
+    mod_data = fetch_api_data("/games/grimdawn/mods/2", api_key)
+    if not isinstance(mod_data, dict) or "id" not in mod_data:
+        raise UpdateError("NexusMods mod metadata has no id")
+
+    files_data = fetch_api_data(f"/mods/{quote(str(mod_data['id']), safe='')}/files", api_key)
+    if not isinstance(files_data, dict) or not isinstance(files_data.get("mod_files"), list):
+        raise UpdateError("NexusMods files metadata has no mod_files list")
+    matching_files = [
+        mod_file for mod_file in files_data["mod_files"]
+        if isinstance(mod_file, dict)
+        and mod_file.get("is_active") is True
+        and mod_file.get("name") == "GD Stash"
+    ]
+    if len(matching_files) != 1 or "id" not in matching_files[0]:
+        raise UpdateError("NexusMods files metadata must contain exactly one active GD Stash file")
+
+    versions_data = fetch_api_data(
+        f"/mod-files/{quote(str(matching_files[0]['id']), safe='')}/versions",
+        api_key,
+    )
+    if not isinstance(versions_data, dict) or not isinstance(versions_data.get("versions"), list):
+        raise UpdateError("NexusMods versions metadata has no versions list")
+    versions = versions_data["versions"]
+    primary_versions = [
+        version for version in versions
+        if isinstance(version, dict) and version.get("is_primary")
+    ]
+    candidate_versions = primary_versions if primary_versions else versions
+    validated_versions = []
+    for candidate_version in candidate_versions:
+        if not isinstance(candidate_version, dict):
+            raise UpdateError("NexusMods returned an invalid GD Stash version")
+        file_id = candidate_version.get("game_scoped_id")
+        uploaded_at = candidate_version.get("uploaded_at")
+        version = candidate_version.get("version")
+        if (
+            not isinstance(version, str)
+            or re.fullmatch(r"[0-9A-Za-z][0-9A-Za-z.+_-]*", version) is None
+        ):
+            raise UpdateError("NexusMods returned an invalid GD Stash version number")
+        if not str(file_id).isdigit() or int(file_id) <= 0:
+            raise UpdateError("NexusMods returned a GD Stash version with an invalid file ID")
+        if not isinstance(uploaded_at, str):
+            raise UpdateError("NexusMods returned a GD Stash version with an invalid upload time")
+        try:
+            parsed_upload_time = datetime.fromisoformat(uploaded_at.replace("Z", "+00:00"))
+        except ValueError as error:
+            raise UpdateError("NexusMods returned a GD Stash version with an invalid upload time") from error
+        validated_versions.append((parsed_upload_time, candidate_version))
+    if not validated_versions:
+        raise UpdateError("NexusMods returned no GD Stash versions")
+
+    latest_version = max(validated_versions, key=lambda item: item[0])[1]
+    file_id = str(latest_version["game_scoped_id"])
+    version = latest_version["version"]
+    file_metadata = fetch_json(
+        f"https://api.nexusmods.com/v1/games/grimdawn/mods/2/files/{file_id}.json",
+        api_key,
+    )
+    if not isinstance(file_metadata, dict):
+        raise UpdateError("NexusMods returned invalid file metadata")
+    if str(file_metadata.get("file_id")) != file_id:
+        raise UpdateError("NexusMods file metadata has an unexpected file ID")
+    if file_metadata.get("version") != version:
+        raise UpdateError("NexusMods file metadata has an unexpected version")
+    virus_scan_url = file_metadata.get("external_virus_scan_url")
+    if not isinstance(virus_scan_url, str):
+        raise UpdateError("NexusMods file metadata has no VirusTotal checksum URL")
+    checksum_match = re.fullmatch(
+        r"https://www\.virustotal\.com/gui/file/([0-9a-f]{64})/?",
+        virus_scan_url,
+    )
+    if checksum_match is None:
+        raise UpdateError("NexusMods file metadata has an invalid VirusTotal checksum URL")
+
+    archive_digest = hashlib.sha256(archive_path.read_bytes()).digest()
+    archive_hash_hex = archive_digest.hex()
+    if archive_hash_hex != checksum_match.group(1):
+        raise UpdateError(
+            f"archive SHA-256 {archive_hash_hex} does not match Nexus file {file_id} "
+            f"SHA-256 {checksum_match.group(1)}"
+        )
+    archive_hash = "sha256-" + base64.b64encode(archive_digest).decode("ascii")
+
+    package_text = package_path.read_text(encoding="utf-8")
+    replacements = [
+        (r'^(\s*nexusFileHash = ")[^"]+(";)$', archive_hash, "nexusFileHash"),
+        (r'^(\s*nexusFileId = ")[^"]+(";)$', file_id, "nexusFileId"),
+        (r'^(\s*version = ")[^"]+(";)$', version, "version"),
+    ]
+    for pattern, value, name in replacements:
+        package_text, replacement_count = re.subn(
+            pattern,
+            lambda match, replacement=value: f"{match.group(1)}{replacement}{match.group(2)}",
+            package_text,
+            flags=re.MULTILINE,
+        )
+        if replacement_count != 1:
+            raise UpdateError(f"expected exactly one {name} assignment in {package_path}")
+
+    if archive_path != package_archive_path.resolve():
+        package_archive_path.parent.mkdir(parents=True, exist_ok=True)
+        with tempfile.NamedTemporaryFile(dir=package_archive_path.parent, delete=False) as temporary:
+            temporary_path = Path(temporary.name)
+            with archive_path.open("rb") as source:
+                shutil.copyfileobj(source, temporary)
+        temporary_path.replace(package_archive_path)
+    package_path.write_text(package_text, encoding="utf-8")
+
+    print(f"Wrote GD Stash version {version}, Nexus file {file_id}, {archive_hash}")
+    build_environment = os.environ.copy()
+    build_environment["NIXPKGS_ALLOW_UNFREE"] = "1"
+    subprocess.run(
+        ["nix", "build", "--impure", "--no-link", ".#gdstash"],
+        cwd=repository_path,
+        check=True,
+        env=build_environment,
+    )
+    print("GD Stash build succeeded.")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except UpdateError as error:
+        print(f"error: {error}", file=sys.stderr)
+        sys.exit(1)
+    except subprocess.CalledProcessError as error:
+        print(f"error: GD Stash build failed with exit code {error.returncode}", file=sys.stderr)
+        sys.exit(error.returncode)
