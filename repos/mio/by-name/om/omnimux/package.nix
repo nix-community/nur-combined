@@ -17,6 +17,12 @@ let
     version = "0.1.0";
     src = ./src;
     npmDepsHash = "sha256-N2CMOKjrkJWD5tAEgA2pVergl938OIIE/pUziMKbSNo=";
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/dist
+      cp -r dist/* $out/dist/
+      runHook postInstall
+    '';
   };
 in
 rustPlatform.buildRustPackage {

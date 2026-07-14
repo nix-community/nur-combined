@@ -85,7 +85,11 @@ function TerminalSession({
     term.loadAddon(unicode11Addon);
     term.unicode.activeVersion = '11';
     term.open(terminalRef.current);
-    fitAddon.fit();
+    try {
+      fitAddon.fit();
+    } catch (e) {
+      console.warn("fitAddon initial fit failed:", e);
+    }
     term.focus();
 
     term.attachCustomKeyEventHandler((e) => {
