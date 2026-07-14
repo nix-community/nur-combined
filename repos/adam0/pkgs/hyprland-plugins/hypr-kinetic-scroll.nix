@@ -39,6 +39,7 @@ in
 
     meta = with lib; {
       # keep-sorted start
+      broken = versionOlder hyprland.version "0.53.1";
       description = "Hyprland plugin providing compositor-level kinetic scrolling for touchpads";
       homepage = "https://github.com/savonovv/hypr-kinetic-scroll";
       license = licenses.mit;
