@@ -16,6 +16,9 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
+  # bws is unfree in nixpkgs; the flake config enables it only for this package.
+  bws = pkgs.callPackage ./pkgs/bws { };
+
   deploy-rs = pkgs.callPackage ./pkgs/deploy-rs { };
   ghoten = pkgs.callPackage ./pkgs/ghoten { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

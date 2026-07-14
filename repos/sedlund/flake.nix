@@ -30,18 +30,26 @@
       };
 
       perSystem =
-        { pkgs, ... }:
+        { system, ... }:
         let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfreePredicate = pkg: pkg.pname == "bws";
+          };
           nurAttrs = import ./default.nix { inherit pkgs; };
         in
         {
+          _module.args.pkgs = pkgs;
           packages = pkgs.lib.filterAttrs (_: v: pkgs.lib.isDerivation v) nurAttrs;
         };
 
       flake.legacyPackages = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfreePredicate = pkg: pkg.pname == "bws";
+          };
         }
       );
     };
