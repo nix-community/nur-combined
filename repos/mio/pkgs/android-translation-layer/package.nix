@@ -30,13 +30,13 @@
 
 stdenv.mkDerivation {
   pname = "android-translation-layer";
-  version = "a0ebae3";
+  version = "02ab096";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "a0ebae3";
-    hash = "sha256-ZH63Pd3pxQLeXhY34mQxjL/qenGbE0yUCqMMK7mKqko=";
+    rev = "02ab096";
+    hash = "sha256-Xtfs8IgrkHmIxFA65FNdP5H+fWIcQW66Px4sGvBfLbU=";
   };
 
   patches = [

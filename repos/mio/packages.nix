@@ -38,11 +38,37 @@ let
       else
         minipkgs0.prismlauncher-unwrapped;
   };
-  # https://github.com/nix-community/nur-combined/blob/af619b147352e88b4105fbfab03f9395e68e5ee5/repos/dtomvan/default.nix#L6
-  byName = lib.filesystem.packagesFromDirectoryRecursive {
-    inherit (pkgs) callPackage newScope;
-    directory = ./by-name;
-  };
+  byName = lib.makeScope pkgs.newScope (
+    self:
+    let
+      readDir = builtins.readDir ./by-name;
+      flattened = builtins.foldl' (
+        acc: dir:
+        if builtins.stringLength dir == 2 && readDir.${dir} == "directory" then
+          acc
+          // (
+            let
+              subdir = ./by-name + "/${dir}";
+            in
+            builtins.listToAttrs (
+              map
+                (name: {
+                  inherit name;
+                  value = self.callPackage (subdir + "/${name}/package.nix") { };
+                })
+                (
+                  builtins.filter (name: (builtins.readDir subdir).${name} == "directory") (
+                    builtins.attrNames (builtins.readDir subdir)
+                  )
+                )
+            )
+          )
+        else
+          acc
+      ) { } (builtins.attrNames readDir);
+    in
+    flattened
+  );
 in
 byName
 // (with byName; rec {
@@ -102,18 +128,7 @@ byName
       preConfigure = "";
     })
   );
-  mioplays = pkgs.tuxguitar.overrideAttrs (old: {
-    src = pkgs.fetchFromGitHub {
-      owner = "mio-19";
-      repo = "tuxguitar";
-      rev = "0212c160ad3176d3bc96b3003fe03fc7738cebf8";
-      hash = "sha256-Vl15Ydj5sFNtaAhRxuiZwVcuVavD6TVRtZbpthra3tU=";
-    };
 
-    patches = [
-      ./pkgs/tuxguitar/fix-include.patch
-    ];
-  });
   #aria2-wrapped = pkgs.writeShellScriptBin "aria2" ''
   #  ${pkgs.aria2}/bin/aria2c -s65536 -j65536 -x16 -k1M "$@"
   #'';

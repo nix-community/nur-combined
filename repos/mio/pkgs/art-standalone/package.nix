@@ -28,8 +28,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "art_standalone";
-    rev = "5d02ce0";
-    hash = "sha256-Kjhu+bp5TEJ3Cin6cHRH6pm7UDoXcfbOweyCNWqH5jg=";
+    rev = "7a589ff";
+    hash = "sha256-sxpDGLp+5KQ2LlwrdfmJbgG26prWuhMb9tTk9Qu0siw=";
   };
 
   patches = [

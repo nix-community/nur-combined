@@ -1,8 +1,7 @@
 { lib, system }:
-let
-  parsedSystem = lib.systems.parse.mkSystemFromString system;
-in
 rec {
+  parsedSystem = lib.systems.parse.mkSystemFromString system;
+
   join = namespace: current: if namespace != "" then "${namespace}.${current}" else current;
 
   # limit: integer | "explicit"
@@ -25,25 +24,9 @@ rec {
                   warnFn fullKey v "marked broken"
                 else if !(builtins.tryEval v.outPath).success then
                   warnFn fullKey v "out eval broken"
-                else if
-                  (
-                    (v.meta.platforms or [ ]) != [ ]
-                    && !(
-                      builtins.elem system v.meta.platforms
-                      || lib.systems.inspect.matchAnyAttrs (builtins.filter builtins.isAttrs v.meta.platforms) parsedSystem
-                    )
-                  )
-                then
+                else if isImplicitlyUnsupported (v.meta.platforms or [ ]) then
                   warnFn fullKey v "not marked compatible"
-                else if
-                  (
-                    (v.meta.badPlatforms or [ ]) != [ ]
-                    && (
-                      builtins.elem system v.meta.badPlatforms
-                      || lib.systems.inspect.matchAnyAttrs (builtins.filter builtins.isAttrs v.meta.badPlatforms) parsedSystem
-                    )
-                  )
-                then
+                else if isExplicitlyUnsupported (v.meta.badPlatforms or [ ]) then
                   warnFn fullKey v "marked incompatible"
                 else if
                   (
@@ -71,6 +54,24 @@ rec {
     recursive 0 "" "" root;
 
   derivations = derivationsLimited null;
+
+  # drv.meta.platforms -> result
+  isImplicitlyUnsupported =
+    platforms:
+    platforms != [ ]
+    && !(
+      builtins.elem system platforms
+      || lib.systems.inspect.matchAnyPattern (builtins.filter builtins.isAttrs platforms) parsedSystem
+    );
+
+  # drv.meta.badPlatforms -> result
+  isExplicitlyUnsupported =
+    badPlatforms:
+    badPlatforms != [ ]
+    && (
+      builtins.elem system badPlatforms
+      || lib.systems.inspect.matchAnyPattern (builtins.filter builtins.isAttrs badPlatforms) parsedSystem
+    );
 
   # warnFn: k -> v -> message -> result
   # mapFn: k -> v -> result
