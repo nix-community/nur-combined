@@ -13,16 +13,16 @@
 
 buildRustPackage (finalAttrs: {
   pname = "bumper";
-  version = "0.18.1";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "spotdemo4";
     repo = "bumper";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-erprR41ERNL2jH96Zmhct8wC3PNg9ZmpraPO+k4RYTc=";
+    hash = "sha256-n77P5foaVUdzIQoVkDrMw9YfgD+yjXYxISvSYa3XvBc=";
   };
 
-  cargoHash = "sha256-iR1Hi4qYBsn0m1TnPmj+l5nDkvAR9njGmwDaCc4I4SE=";
+  cargoHash = "sha256-BO63rT7XeZJRLEGaZbaBD5aYfx4w9WYATx474ANQlCY=";
 
   nativeBuildInputs = [
     pkg-config
