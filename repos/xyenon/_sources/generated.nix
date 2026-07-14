@@ -102,21 +102,21 @@
   };
   nh = {
     pname = "nh";
-    version = "ee9868f97e74bf2815360a3a0a2d8ae52bd29edb";
+    version = "9d3445c805ca829adb54e1fab749d3a4233d6fac";
     src = fetchFromGitHub {
       owner = "XYenon";
       repo = "nh";
-      rev = "ee9868f97e74bf2815360a3a0a2d8ae52bd29edb";
+      rev = "9d3445c805ca829adb54e1fab749d3a4233d6fac";
       fetchSubmodules = false;
-      sha256 = "sha256-7H0JytC/3M4DZsaRKD1CRLNIBW5uBCbQMxfjvgMLWJc=";
+      sha256 = "sha256-JRXpQn6n/tXlg5M27tBDLE3WAZ6zhG33HmxDbJkMSYM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-7H0JytC_3M4DZsaRKD1CRLNIBW5uBCbQMxfjvgMLWJc=/Cargo.lock";
+      lockFile = ./. + "/sha256-JRXpQn6n_tXlg5M27tBDLE3WAZ6zhG33HmxDbJkMSYM=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-07-04";
+    date = "2026-07-13";
   };
   nix-package-versions = {
     pname = "nix-package-versions";
@@ -155,21 +155,21 @@
   };
   rime-moegirl = {
     pname = "rime-moegirl";
-    version = "20260712";
+    version = "20260713";
     src = fetchurl {
-      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260712/moegirl.dict.yaml";
-      sha256 = "sha256-d4I2xyyWh9vry7vMkE1E19G55w/uenqbTspymdy0dqw=";
+      url = "https://github.com/outloudvi/mw2fcitx/releases/download/20260713/moegirl.dict.yaml";
+      sha256 = "sha256-Fca5vWdmqaRnP6id4TqVGFsTxnynAoQTMgAWntF5eY0=";
     };
   };
   yazi-rs-plugins = {
     pname = "yazi-rs-plugins";
-    version = "8577ec890dd6eba76f8dd4e5383049056a543ff9";
+    version = "bb758e2fd774738f14cd260642631ebbd568741a";
     src = fetchFromGitHub {
       owner = "yazi-rs";
       repo = "plugins";
-      rev = "8577ec890dd6eba76f8dd4e5383049056a543ff9";
+      rev = "bb758e2fd774738f14cd260642631ebbd568741a";
       fetchSubmodules = false;
-      sha256 = "sha256-q2od687hbX21iDrpIjikbJHkmoEk5FSWeGaBr0CsupM=";
+      sha256 = "sha256-uV5KZE+4gT/o7hzer/hwAfU5lyDYgMnRlsQX+BkCRhM=";
     };
     date = "2026-07-13";
   };

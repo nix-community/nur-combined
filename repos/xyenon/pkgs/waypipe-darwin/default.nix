@@ -16,8 +16,8 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "J-x-Z";
     repo = "waypipe-darwin";
-    rev = "bbcdece5d25256e26386c3a72ba92adfa0f7abcc";
-    hash = "sha256-adJxJDbcA5Zbg/SKbWTwQATM/+E6CD0Sw/ewyI02LcI=";
+    rev = "4b78e265c91d62109b17ee28ef1e0511009c1c89";
+    hash = "sha256-0JCyQsee28ovmw4fkDZL7rB2w0TepbjBzBnNTMo+0gE=";
   };
 
   cargoHash = "sha256-IUvXHLxrhc2Au57wsE53Q+NL1cZzFcaRG3HDV8s3xWw=";
