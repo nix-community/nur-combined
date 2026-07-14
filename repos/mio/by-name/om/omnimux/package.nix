@@ -6,7 +6,6 @@
   pkg-config,
   webkitgtk_4_1,
   glib,
-  darwin,
   openssl,
   cargo-tauri,
   wrapGAppsHook3,
@@ -44,12 +43,6 @@ rustPlatform.buildRustPackage {
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     webkitgtk_4_1
     glib
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    darwin.apple_sdk.frameworks.WebKit
-    darwin.apple_sdk.frameworks.AppKit
-    darwin.apple_sdk.frameworks.CoreServices
-    darwin.apple_sdk.frameworks.Security
   ];
 
   # cargo-tauri.hook replaces the build and install phases, so we need to make sure they are used
