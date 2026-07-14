@@ -10,7 +10,7 @@ If the updater succeeded, review its existing bump and repair only real defects.
 
 - The version is the latest stable, non-draft, non-prerelease upstream release.
 - Source revisions, real hashes, dependencies, lockfiles, patches, build flags, metadata, provenance, platforms, and `mainProgram` agree with authoritative upstream evidence.
-- The package builds reproducibly without build-time network access and its focused offline smoke check passes.
+- The package builds reproducibly without build-time network access and its focused offline smoke check passes. A long-running service must provide `passthru.tests.smoke` that starts it on loopback, probes readiness, and stops it cleanly instead of relying on `--help`.
 - Ensure `passthru.updateScript` updates every related version and hash and is idempotent for the same release.
 - Never replace a sufficient `nix-update-script` or `gitUpdater` with a custom updater. Use custom code only when the generic updaters cannot satisfy that contract, and document the concrete limitation.
 - The final diff contains only the complete update under `pkgs/<package>/`.

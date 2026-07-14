@@ -10,7 +10,7 @@ Create `pkgs/<package>/` for the request in `.ai-state/request.json`. Package th
 - Prefer buildable source. Use an upstream binary only when no practical source build exists, and declare accurate `meta.sourceProvenance`.
 - Use immutable sources and real hashes. Match upstream manifests, lockfiles, dependencies, and build flags; the Nix build must not fetch from the network.
 - Provide accurate `meta`: description, homepage, changelog when available, license, provenance, supported platforms, `maintainers = with lib.maintainers; [ codgician ];`, and `mainProgram` when applicable. `x86_64-linux` must be supported.
-- Add a small deterministic offline smoke check.
+- Add `passthru.tests.smoke` as a small deterministic offline check. For a CLI, exercise version or help output; for a long-running service, start it on loopback, probe readiness, and stop it cleanly.
 - Add an idempotent `passthru.updateScript` that discovers stable releases and updates every related version and hash.
 - Prefer `nix-update-script`; use `gitUpdater` when only tag prefix or suffix handling is needed. Create a custom updater only after testing both and proving they cannot satisfy that contract, and document the concrete limitation in a comment.
 - Run the updater, build, and relevant smoke check. Finish with a package-only diff that passes those checks.

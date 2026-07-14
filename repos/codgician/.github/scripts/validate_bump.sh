@@ -24,21 +24,16 @@ if ! main_program=$(nix eval --raw ".#$package.meta.mainProgram" 2>/dev/null); t
     echo "Package removed its required meta.mainProgram: $baseline_main_program" >&2
     exit 1
   fi
-  exit 0
-fi
-if [[ ! "$main_program" =~ ^[A-Za-z0-9][A-Za-z0-9._+-]{0,63}$ || "$main_program" == *..* ]]; then
-  echo "Invalid meta.mainProgram: $main_program" >&2
-  exit 1
-fi
-if [[ "$baseline_main_program" != "none" && "$main_program" != "$baseline_main_program" ]]; then
-  echo "Package changed meta.mainProgram from $baseline_main_program to $main_program" >&2
-  exit 1
+  main_program=none
+else
+  if [[ ! "$main_program" =~ ^[A-Za-z0-9][A-Za-z0-9._+-]{0,63}$ || "$main_program" == *..* ]]; then
+    echo "Invalid meta.mainProgram: $main_program" >&2
+    exit 1
+  fi
+  if [[ "$baseline_main_program" != "none" && "$main_program" != "$baseline_main_program" ]]; then
+    echo "Package changed meta.mainProgram from $baseline_main_program to $main_program" >&2
+    exit 1
+  fi
 fi
 
-program="$output/bin/$main_program"
-resolved=$(readlink -f "$program")
-if [[ ! -x "$program" || "$resolved" != "$output/"* ]]; then
-  echo "meta.mainProgram is not a contained executable: $program" >&2
-  exit 1
-fi
-timeout 30 "$program" --help >/dev/null
+exec .github/scripts/run_smoke_test.sh "$package" "$output" "$main_program"

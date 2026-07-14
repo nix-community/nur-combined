@@ -41,6 +41,8 @@ if [[ "$main_program_json" != "null" ]]; then
     echo "Invalid meta.mainProgram: $main_program" >&2
     exit 2
   fi
+else
+  main_program=none
 fi
 
 nix eval --json .#lib.packagesWithUpdateScript \
@@ -52,12 +54,4 @@ if [[ "$output" == *$'\n'* ]]; then
   echo "Expected one primary output path for $package" >&2
   exit 1
 fi
-if [[ -n "${main_program:-}" ]]; then
-  program="$output/bin/$main_program"
-  resolved=$(readlink -f "$program")
-  if [[ ! -x "$program" || "$resolved" != "$output/"* ]]; then
-    echo "meta.mainProgram is not a contained executable: $program" >&2
-    exit 1
-  fi
-  timeout 30 "$program" --help >/dev/null
-fi
+.github/scripts/run_smoke_test.sh "$package" "$output" "$main_program"
