@@ -8,7 +8,7 @@
   pnpm_10,
   ...
 }: let
-  version = "2026-07-13";
+  version = "2026-07-14";
 
   src = fetchFromGitHub {
     owner = "Equicord";
