@@ -1,35 +1,48 @@
 {
   # keep-sorted start
   fetchFromGitHub,
+  hyprland,
   lib,
   mkHyprlandPlugin,
   # keep-sorted end
-}:
-mkHyprlandPlugin {
-  pluginName = "hypr-kinetic-scroll";
-  version = "0-unstable-2026-07-05";
+}: let
+  release =
+    if lib.versionAtLeast hyprland.version "0.55"
+    then {
+      version = "0.4.0";
+      rev = "1e77fb637b18bcc9d1f76f54212f5881d8b9223c";
+      hash = "sha256-rYhrHXLqMOkiTCgub2s9s4CXoNkTrWq9Qsggq6oGjlQ=";
+    }
+    else {
+      version = "0.3.1";
+      rev = "bcba127cb18320a3ba2418cd8282132ef147480d";
+      hash = "sha256-OY1eg6KvdMGW0pXTCDOu6hZGe1HdMDdAaPxwiUaZOHg=";
+    };
+in
+  mkHyprlandPlugin {
+    pluginName = "hypr-kinetic-scroll";
+    inherit (release) version;
 
-  src = fetchFromGitHub {
-    owner = "savonovv";
-    repo = "hypr-kinetic-scroll";
-    rev = "378e29c8ec9650965fe2713d53d1fff3ce137003";
-    hash = "sha256-Vt8l9PMAgcmbBynqLa91N2nW0Caij52YUYg3mWXYwSE=";
-  };
+    src = fetchFromGitHub {
+      owner = "savonovv";
+      repo = "hypr-kinetic-scroll";
+      inherit (release) hash rev;
+    };
 
-  installPhase = ''
-    runHook preInstall
+    installPhase = ''
+      runHook preInstall
 
-    install -Dm755 hypr-kinetic-scroll.so $out/lib/libhypr-kinetic-scroll.so
+      install -Dm755 hypr-kinetic-scroll.so $out/lib/libhypr-kinetic-scroll.so
 
-    runHook postInstall
-  '';
+      runHook postInstall
+    '';
 
-  meta = {
-    # keep-sorted start
-    description = "Hyprland plugin providing compositor-level kinetic scrolling for touchpads";
-    homepage = "https://github.com/savonovv/hypr-kinetic-scroll";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
-    # keep-sorted end
-  };
-}
+    meta = with lib; {
+      # keep-sorted start
+      description = "Hyprland plugin providing compositor-level kinetic scrolling for touchpads";
+      homepage = "https://github.com/savonovv/hypr-kinetic-scroll";
+      license = licenses.mit;
+      platforms = platforms.linux;
+      # keep-sorted end
+    };
+  }
