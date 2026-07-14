@@ -10,10 +10,10 @@ buildGo125Module {
     owner = "peacock0803sz";
     repo = "notizen";
     tag = "v${version}";
-    hash = "sha256-nZFUGoNiTpKIDSV0arD19n/iCwHaHkioe2RDr/Zx1U0=";
+    hash = "sha256-Ocz+m5LZRzhHOBJ3bkjlkHDbQQZZfYfCP0sWx+QPvaE=";
   };
 
-  vendorHash = "sha256-y8ZUtc70LFItESZsLtor/pd7vJusvCH4AwYzAl0y8u0=";
+  vendorHash = "sha256-n58Qmiv3gik1qkuXQFbQ+soeOQtUz1dUocEAJepqp/E=";
 
   ldflags = [
     "-s"
