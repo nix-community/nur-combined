@@ -55,3 +55,72 @@ jobs:
           curl --fail --silent --show-error \
             --retry 5 --retry-all-errors --retry-delay 5 --retry-max-time 120 \
             --request POST "https://nur-update.nix-community.org/update?repo=codgician"
+  advance-bot-queue:
+    name: advance deterministic bot queue
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository_id == '852828187' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Update oldest deterministic PR
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              base: "main",
+              sort: "created",
+              direction: "asc",
+              per_page: 100,
+            });
+
+            let candidate;
+            for (const pull of pulls) {
+              const labels = pull.labels.map((label) => label.name);
+              if (
+                pull.user?.login !== "galactic-batter[bot]" ||
+                pull.head.repo?.full_name !== context.repo.owner + "/" + context.repo.repo ||
+                !/^bot\/[a-z][a-z0-9_-]{0,63}$/.test(pull.head.ref) ||
+                !labels.includes("bot-deterministic")
+              ) {
+                continue;
+              }
+              const details = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pull.number,
+              });
+              if (details.data.auto_merge) {
+                candidate = details.data;
+                break;
+              }
+            }
+
+            if (!candidate) {
+              core.notice("No deterministic bot PR is waiting for auto-merge");
+              return;
+            }
+            if (candidate.mergeable_state !== "behind") {
+              core.notice(`PR #${candidate.number} is ${candidate.mergeable_state}; no branch update needed`);
+              return;
+            }
+
+            await github.rest.pulls.updateBranch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: candidate.number,
+              expected_head_sha: candidate.head.sha,
+            });
+            core.notice(`Updated PR #${candidate.number}; auto-merge will resume after required checks`);
