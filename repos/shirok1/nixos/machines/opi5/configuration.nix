@@ -251,6 +251,9 @@
 
       "bthome"
       "esphome"
+      "homekit"
+      "homekit_controller"
+      "mobile_app"
       "mqtt"
       "mqtt_eventstream"
       "mqtt_json"
@@ -264,6 +267,7 @@
       "xiaomi_ble"
 
       "ffmpeg"
+      "ibeacon"
       "zeroconf"
     ];
     config = {
@@ -273,8 +277,274 @@
       "automation ui" = "!include automations.yaml";
       "scene ui" = "!include scenes.yaml";
       "script ui" = "!include scripts.yaml";
+
+      climate = [
+        {
+          platform = "tasmota_irhvac";
+          # default_entity_id = "climate.rf_fan";
+          name = "格力空调";
+          unique_id = "d5c40590-330d-413a-8ae7-1850729a72b1";
+
+          command_topic = "cmnd/tasmota_5EA787/IRHVAC";
+          state_topic = "tele/tasmota_5EA787/RESULT";
+          state_topic_2 = "stat/tasmota_5EA787/RESULT";
+          availability_topic = "tele/tasmota_5EA787/LWT";
+
+          temperature_sensor = "sensor.bth125430760_temperature";
+          humidity_sensor = "sensor.bth125430760_humidity";
+          # power_sensor = "binary_sensor.kitchen_ac_power";
+
+          vendor = "GREE";
+          hvac_model = "YBOFB";
+
+          mqtt_delay = 0.0;
+          min_temp = 16;
+          max_temp = 32;
+          target_temp = 26;
+          initial_operation_mode = "off";
+          away_temp = 24;
+          precision = 1;
+
+          supported_modes = [
+            "heat"
+            "cool"
+            "dry"
+            "fan_only"
+            "auto"
+            "off"
+          ];
+
+          supported_fan_speeds = [
+            "auto"
+            "min"
+            "max"
+          ];
+
+          supported_swing_list = [
+            "off"
+            "vertical"
+          ];
+
+          # default_quiet_mode = "Off";
+          # default_turbo_mode = "Off";
+          # default_econo_mode = "Off";
+
+          # celsius_mode = "On";
+          # default_light_mode = "Off";
+          # default_filter_mode = "Off";
+          # default_clean_mode = "Off";
+          # default_beep_mode = "Off";
+          # default_sleep_mode = "-1";
+          # default_swingv = "high";
+          # default_swingh = "left";
+          # keep_mode_when_off = true;
+          # ignore_off_temp = false;
+          # special_mode = "";
+
+          # toggle_list = [
+          #   #   "Beep"
+          #   #   "Clean"
+          #   #   "Econo"
+          #   #   "Filter"
+          #   "Light"
+          #   #   "Quiet"
+          #   #   "Sleep"
+          #   #   "SwingH"
+          #   #   "SwingV"
+          #   #   "Turbo"
+          # ];
+        }
+      ];
+
+      script = {
+        rf_fan_off = {
+          alias = "吊扇关闭 RF";
+          sequence = [
+            {
+              service = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 14 03F2 014A 2832 28181908181818190819081819081818181818190818190909 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_fan_low = {
+          alias = "吊扇 1 档 RF";
+          sequence = [
+            {
+              service = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 14 03 F2 01 54 28 1E 28 18 19 08 18 18 18 19 08 19 08 18 19 08 18 18 18 18 18 19 08 19 09 09 09 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_fan_medium = {
+          alias = "吊扇 2 档 RF";
+          sequence = [
+            {
+              service = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 14 04 B0 01 86 2E 86 28 18 19 08 18 18 18 19 08 19 08 18 19 08 18 18 18 18 18 19 09 09 08 19 09 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_fan_high = {
+          alias = "吊扇 3 档 RF";
+          sequence = [
+            {
+              service = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 14 03FC 0154 277E 28181908181818190819081819081818181818190908181909 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_fan_light = {
+          alias = "吊扇吊灯 RF";
+          sequence = [
+            {
+              action = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 07 03FC 014A 2814 28181908181818190819081819081818181818190908190819 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+
+        rf_kitchen_light = {
+          alias = "厨房照明 RF";
+          sequence = [
+            {
+              action = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 07 01A4 04E2 3264 28181909081909081909090819090818190908181819081908 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_kitchen_fan_speed = {
+          alias = "厨房风扇调速 RF";
+          sequence = [
+            {
+              action = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 07 01B8 04D8 3232 28181909081909081909090819090818190908181909090818 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_kitchen_swing = {
+          alias = "厨房摆风 RF";
+          sequence = [
+            {
+              action = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 07 01A4 04E2 320A 28181909081909081909090819090818190908181819081908 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+        rf_kitchen_ionizer = {
+          alias = "厨房负离子 RF";
+          sequence = [
+            {
+              action = "mqtt.publish";
+              data = {
+                topic = "cmnd/tasmota_DB5CC6/Backlog";
+                payload = "RfRaw AA B0 21 03 08 01B8 04CE 3228 28181909081909081909090819090818190908181909090818 55; RfRaw 0";
+              };
+            }
+          ];
+        };
+      };
+
+      template = [
+        {
+          light = [
+            {
+              name = "OPPLE 吊扇吊灯";
+              unique_id = "47c5de0c-fee8-4cab-8f43-ebaf720d4b1a";
+              optimistic = true;
+              turn_on.action = "script.rf_fan_light";
+              turn_off.action = "script.rf_fan_light";
+            }
+            {
+              name = "厨房照明";
+              unique_id = "e9528960-6abb-4787-8c7a-0f7caa603041";
+              optimistic = true;
+              turn_on.action = "script.rf_kitchen_light";
+              turn_off.action = "script.rf_kitchen_light";
+            }
+          ];
+        }
+        {
+          switch = [
+            {
+              name = "厨房摆风";
+              unique_id = "a3c53ad7-0371-41ce-aa7c-9aa848e399f2";
+              optimistic = true;
+              turn_on.action = "script.rf_kitchen_swing";
+              turn_off.action = "script.rf_kitchen_swing";
+            }
+            {
+              name = "厨房负离子";
+              unique_id = "828d7f8a-b5cb-471a-9203-1aac8787c208";
+              optimistic = true;
+              turn_on.action = "script.rf_kitchen_ionizer";
+              turn_off.action = "script.rf_kitchen_ionizer";
+            }
+          ];
+        }
+        {
+          button = [
+            {
+              name = "厨房风扇调速";
+              unique_id = "d0633e0d-b8e6-4aff-8f4f-d4e29c84e57d";
+              press.action = "script.rf_kitchen_fan_speed";
+            }
+          ];
+        }
+        {
+          fan = [
+            {
+              default_entity_id = "fan.rf_fan";
+              name = "OPPLE 吊扇";
+              unique_id = "102465ee-e9d3-4283-89c0-f83e52b76e18";
+              optimistic = true;
+              turn_on.service = "script.rf_fan_low";
+              turn_off.service = "script.rf_fan_off";
+              speed_count = 3;
+              set_percentage = {
+                service = "script.turn_on";
+                data.entity_id = ''
+                  {% if percentage == 0 %}
+                    script.rf_fan_off
+                  {% elif percentage <= 33 %}
+                    script.rf_fan_low
+                  {% elif percentage <= 66 %}
+                    script.rf_fan_medium
+                  {% else %}
+                    script.rf_fan_high
+                  {% endif %}
+                '';
+              };
+            }
+          ];
+        }
+      ];
     };
     customComponents = with pkgs.home-assistant-custom-components; [
+      spook
       pkgs.shirok1.tasmota-irhvac
       xiaomi_home
     ];
@@ -375,8 +645,13 @@
     7088
     8080
     13831
+    21064 # Home Assistant HomeKit Bridge
+    22437 # qBittorrent
   ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [
+    5353
+    22437 # qBittorrent
+  ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 

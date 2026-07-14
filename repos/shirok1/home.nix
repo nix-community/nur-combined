@@ -24,6 +24,8 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  manual.manpages.enable = false;
+
   catppuccin = {
     autoEnable = true;
     enable = true;
@@ -63,6 +65,7 @@
   };
 
   programs.fzf.enable = true;
+  programs.fzf.historyWidget.command = "";
 
   programs.gitui.enable = true;
 

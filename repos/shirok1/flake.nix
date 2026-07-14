@@ -55,7 +55,7 @@
                   x86_64 = pkgs64;
                   shirok1-x86_64 = import ./default.nix { pkgs = pkgs64; };
                 })
-                inputs.llm-agents.overlays.default
+                inputs.llm-agents.overlays.shared-nixpkgs
                 inputs.rules.overlays.default
               ];
             };
@@ -119,6 +119,7 @@
                       };
                     };
                   }
+                  self.nixosModules.edk2-cix
                   self.nixosModules.osmo-fl2k
                   self.nixosModules.peerbanhelper
                   self.nixosModules.qbittorrent-clientblocker

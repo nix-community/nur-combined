@@ -28,6 +28,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  services.edk2-cix = {
+    enable = true;
+    product = "orion-o6n";
+  };
+
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -201,6 +206,8 @@
         ${box64}/bin/box64 ${shirok1-x86_64.stata.override { ignoreCurl = true; }}/stata-mp "$@"
       '')
       llm-agents.codex
+      llm-agents.claude-code
+      llm-agents.herdr
     ];
   };
 
@@ -560,6 +567,7 @@
     settings = {
       listen = "0.0.0.0:13831";
       dns-ip-preference = "default";
+      mode = "unshaped";
     };
     sops.psk = "snell/psk";
   };
