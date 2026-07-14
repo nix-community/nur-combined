@@ -40,7 +40,7 @@ buildUBoot {
   extraMeta.platforms = [ "aarch64-linux" ];
   env = {
     BL31 = "${armTrustedFirmwareRK3328}/bl31.elf";
-    ROCKCHIP_TPL = "${rkbin}/bin/rk33/rk3328_ddr_400MHz_v1.21.bin";
+    ROCKCHIP_TPL = "${rkbin}/bin/rk33/rk3328_ddr_400MHz_v1.22.bin";
   };
   enableParallelBuilding = true;
   filesToInstall = [

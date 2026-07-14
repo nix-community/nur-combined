@@ -57,6 +57,9 @@ table inet filter {
     type filter hook forward priority 0; policy drop;
     # meta l4proto tcp flow add @f
 
+    # AC, TODO: work out a dummy server instead
+    ip saddr 192.168.1.219 counter reject
+
     # TCP MSS clamping
     tcp flags syn tcp option maxseg size set rt mtu
 

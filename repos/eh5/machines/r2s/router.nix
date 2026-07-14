@@ -29,9 +29,12 @@
       {
         if_name = "extern0";
         nat44 = true;
-        snat_internals = [
-          "192.168.1.0/24"
+        no_snat_dests = [
+          "192.168.4.0/24"
         ];
+        # snat_internals = [
+        #   "192.168.1.0/24"
+        # ];
         ipv4_hairpin_route.internal_if_names = [
           "lo"
           "intern0"
