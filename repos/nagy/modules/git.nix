@@ -131,19 +131,6 @@ in
               ''
             );
           };
-          jq = {
-            clean = "${pkgs.jq}/bin/jq --sort-keys";
-          };
-          # without this, restic snapshots output is not deterministic
-          # jq-restic = {
-          #   clean = "${pkgs.jq}/bin/jq --sort-keys 'sort_by(.id)'";
-          # };
-          # taplo-fmt = {
-          #   clean = "${pkgs.taplo}/bin/taplo fmt -";
-          # };
-          # ruff-format = {
-          #   clean = "ruff format -";
-          # };
         };
         maintenance = {
           auto = false;

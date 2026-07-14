@@ -32,7 +32,7 @@ in
   environment.systemPackages = with pkgs; [
     jq
     yq-go
-    jaq
+    # jaq
     socat
     unzip
     pv
@@ -51,14 +51,9 @@ in
     dool
     doggo
     optipng
-    taplo
-    libjxl
     jqfmt
     jless
     self.all-converters
-    glab
-    jc
-    eza
 
     # for man pages
     (lib.getMan pkgs.msmtp)

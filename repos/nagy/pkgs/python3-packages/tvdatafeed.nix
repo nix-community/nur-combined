@@ -11,14 +11,14 @@
 
 buildPythonPackage {
   pname = "tvdatafeed";
-  version = "0-unstable-2025-10-06";
+  version = "0-unstable-2024-05-07";
   pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "nagy";
+    owner = "demonarch";
     repo = "tvdatafeed";
-    rev = "9a142d9ff3a5f8c6256f295db24128c063ca405e";
-    hash = "sha256-3wFaVwkvLS9iV9uz44/x1fc38XbwRdRFnUCEANOBF0k=";
+    rev = "fd9eed69813e08c07e42ae45c3d9bbb6564bf045";
+    hash = "sha256-uPWU5rm0afKIus6Jgnby0DmEZlctvgSwTIWHTi6tTf4=";
   };
 
   build-system = [

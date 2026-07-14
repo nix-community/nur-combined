@@ -100,11 +100,22 @@ let
       )
     ];
   };
-  inherit (diffResult) sys buildEnv diffedSessionVariables diffedFontPackages;
+  inherit (diffResult)
+    sys
+    buildEnv
+    diffedSessionVariables
+    diffedFontPackages
+    ;
 
   sessionVarExports = lib.concatStringsSep "\n" (
     lib.mapAttrsToList (name: value: "export ${name}=\"${value}\"") (
-      lib.filterAttrs (n: _: !(lib.elem n [ "TERMINFO_DIRS" "NIX_PATH" ])) diffedSessionVariables
+      lib.filterAttrs (
+        n: _:
+        !(lib.elem n [
+          "TERMINFO_DIRS"
+          "NIX_PATH"
+        ])
+      ) diffedSessionVariables
     )
   );
 in
