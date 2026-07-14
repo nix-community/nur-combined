@@ -1,9 +1,10 @@
 {
   lib,
-  pnpm_10,
+  pnpm_11,
   stdenv,
   fetchFromGitHub,
   fetchPnpmDeps,
+  nodejs,
   pnpmConfigHook,
   electron,
   libxkbcommon,
@@ -27,7 +28,7 @@
 }:
 let
   pname = "pear-desktop";
-  version = "3.10.0";
+  version = "3.12.0";
   icons = [
     "16"
     "24"
@@ -47,17 +48,15 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "pear-devs";
     repo = "pear-desktop";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-+PCDA7lHaUQw9DhODRsEScyJC+9v8UPiZ1W8w2h/Ljg=";
+    hash = "sha256-RSQPwsED3YK5VScVAXH3f8Lz74v1b2448gro1Vo22hg=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    pnpm = pnpm_10;
+    pnpm = pnpm_11;
     fetcherVersion = 3;
-    hash = "sha256-3X9z/Zecel6IA38sWAoKjguvLmWJV6KY8FZvFciKyFE=";
+    hash = "sha256-FFOkiuMraK7axTlMsug77SMj8Gyy/ISm6KuwuubGFk4=";
   };
-
-  passthru.autoUpdate = false;
 
   buildInputs = [
     gtk3
@@ -79,7 +78,8 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     electron
     makeWrapper
-    pnpm_10
+    nodejs
+    pnpm_11
     pnpmConfigHook
     copyDesktopItems
   ];
@@ -87,7 +87,6 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
-    pnpm install --frozen-lockfile
     pnpm run build
 
     runHook postBuild
@@ -114,13 +113,6 @@ stdenv.mkDerivation (finalAttrs: {
       mkdir -p $out/lib/${finalAttrs.pname}
       cp -r dist/* $out/lib/${finalAttrs.pname}/
       cp -r node_modules $out/lib/${finalAttrs.pname}/
-
-      mkdir -p $out/lib/${finalAttrs.pname}/assets
-      cp assets/youtube-music-tray.png $out/lib/${finalAttrs.pname}/assets/youtube-music-tray.png
-
-      tray_js="$out/lib/${pname}/main/youtube-music-tray--ObgfMm0.js"
-      target_path="../assets/youtube-music-tray.png"
-      sed -i "s|../../assets/youtube-music-tray\.png|$target_path|g" "$tray_js"
 
       # Do not open DevTools on app launch by setting ELECTRON_IS_DEV to 0.
       # see: https://github.com/sindresorhus/electron-is-dev/blob/main/index.js
