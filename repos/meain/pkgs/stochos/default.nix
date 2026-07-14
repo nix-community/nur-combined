@@ -27,6 +27,7 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Only;
     maintainers = [ ];
     platforms = [ "aarch64-darwin" ];
+    broken = !stdenv.hostPlatform.isAarch64 || !stdenv.hostPlatform.isDarwin;
     mainProgram = "stochos";
   };
 }
