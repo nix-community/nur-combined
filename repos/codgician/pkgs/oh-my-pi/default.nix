@@ -27,19 +27,19 @@ let
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
-    rev = "v16.4.8";
-    hash = "sha256-CoWRtz+ePlWwXiNMQgyiwXROCdtziJSRKipV1YPtC1U=";
+    rev = "v16.5.0";
+    hash = "sha256-M4uHQ81fJQh4w9MdY/E4Sx4You6M3Z+0ykBkFphGPSg=";
   };
 
   bunDeps = stdenvNoCC.mkDerivation {
     pname = "oh-my-pi-bun-deps";
-    version = "16.4.8";
+    version = "16.5.0";
     inherit src;
 
     nativeBuildInputs = [ bunBaseline ];
 
     outputHashMode = "recursive";
-    outputHash = "sha256-DobHQhLJFZJQ5LwhPErd3oeF0go6JXh2gHUDh7D2l9Y=";
+    outputHash = "sha256-SrflUcjZaWDxGx4HLGLhzu1KNMURwOoDcBqyAQcBeWk=";
 
     dontConfigure = true;
     dontBuild = true;
@@ -62,11 +62,11 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oh-my-pi";
-  version = "16.4.8";
+  version = "16.5.0";
 
   src = "${bunDeps}/source";
 
-  cargoHash = "sha256-r4tT509OhQtliX9uaKQRb2I4185tLIjB+18TVYJ3w6s=";
+  cargoHash = "sha256-gcUxTcbLRmGyvT/iXyfxRoRRkP4WbVe6yQiYq+fx+O4=";
 
   dontConfigure = true;
   doCheck = false;
