@@ -16,13 +16,13 @@ let
         doCheck = false;
       });
       inline-snapshot = super.inline-snapshot.overridePythonAttrs (old: {
-        disabledTests = (old.disabledTests or []) ++ [
+        disabledTests = (old.disabledTests or [ ]) ++ [
           "test_docs"
           "test_example"
         ];
       });
       python-ulid = super.python-ulid.overridePythonAttrs (old: {
-        disabledTests = (old.disabledTests or []) ++ [
+        disabledTests = (old.disabledTests or [ ]) ++ [
           "test_same_millisecond_overflow"
         ];
       });

@@ -37,14 +37,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
     outputHash = "sha256-hp1cI+6dbAWrgfgq5nNUScyDDe48E8k7GmaGWxyTCvM="; # Will need to be updated after first run
-    
-    nativeBuildInputs = [ git cacert ];
-    
+
+    nativeBuildInputs = [
+      git
+      cacert
+    ];
+
     buildCommand = ''
       export HOME=$(mktemp -d)
       git config --global url."https://github.com/".insteadOf "git@github.com:"
       git config --global url."https://gitlab.com/".insteadOf "git@gitlab.com:"
-      
+
       git clone https://github.com/overtake/TelegramSwift.git $out
       cd $out
       git checkout 579cebbf0c01fd41b712eff3647fa7f69db9665d
@@ -82,13 +85,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # Telegram for macOS requires framework configuration first
     sed -i 's/no/yes/g' scripts/rebuild || true
-    
+
     # Fix CMake 3.5 compatibility for Mozjpeg
     sed -i 's/cmake_minimum_required(VERSION .*/cmake_minimum_required(VERSION 3.5)/g' submodules/telegram-ios/third-party/mozjpeg/mozjpeg/CMakeLists.txt || true
-    
+
     # Fix libwebp ZIP extraction (Nix GNU tar does not support ZIP, use unzip)
     sed -i 's/tar -xzf "$SOURCE_ARCHIVE" --directory "$OUT_DIR"/unzip -q "$SOURCE_ARCHIVE" -d "$OUT_DIR"/g' core-xprojects/libwebp/libwebp/build*.sh || true
-    
+
     # Run the setup script
     sh scripts/configure_frameworks.sh
 
@@ -106,10 +109,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-    
+
     mkdir -p $out/Applications
     cp -r build/Build/Products/Release/Telegram.app $out/Applications/
-    
+
     runHook postInstall
   '';
 

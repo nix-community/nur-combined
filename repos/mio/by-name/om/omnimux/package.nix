@@ -61,6 +61,11 @@ rustPlatform.buildRustPackage {
     inherit frontend;
   };
 
+  postInstall = lib.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/bin
+    ln -s $out/Applications/omnimux.app/Contents/MacOS/omnimux $out/bin/omnimux
+  '';
+
   meta = with lib; {
     description = "OmniMux - A multi-tab terminal GUI for tmux across hosts";
     homepage = "";
