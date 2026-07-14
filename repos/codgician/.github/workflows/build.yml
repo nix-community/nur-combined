@@ -112,15 +112,19 @@ jobs:
               core.notice("No deterministic bot PR is waiting for auto-merge");
               return;
             }
-            if (candidate.mergeable_state !== "behind") {
-              core.notice(`PR #${candidate.number} is ${candidate.mergeable_state}; no branch update needed`);
-              return;
+            try {
+              await github.rest.pulls.updateBranch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: candidate.number,
+                expected_head_sha: candidate.head.sha,
+              });
+              core.notice(`Updated PR #${candidate.number}; auto-merge will resume after required checks`);
+            } catch (error) {
+              const message = error.response?.data?.message || "";
+              if (error.status === 422 && /not behind/i.test(message)) {
+                core.notice(`PR #${candidate.number} is already up to date`);
+                return;
+              }
+              throw error;
             }
-
-            await github.rest.pulls.updateBranch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: candidate.number,
-              expected_head_sha: candidate.head.sha,
-            });
-            core.notice(`Updated PR #${candidate.number}; auto-merge will resume after required checks`);
