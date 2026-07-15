@@ -13,14 +13,14 @@
 }:
 
 let
-  version = "16.5.0";
+  version = "16.5.2";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-M4uHQ81fJQh4w9MdY/E4Sx4You6M3Z+0ykBkFphGPSg=";
+    hash = "sha256-eOFdTU4Vcv5PXYEeAgO1rXho2eEkWQrWCZ0pCaUjLro=";
   };
 
   # Platform mapping
