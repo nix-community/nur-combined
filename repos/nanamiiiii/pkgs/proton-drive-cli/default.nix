@@ -27,16 +27,16 @@ let
     libgcrypt.lib
   ];
 
-  # Published binaries and their SHA-512 checksums, per
-  # https://proton.me/download/drive/cli/index.html (release 2026-06-17).
+  version = "0.5.0";
+
   sources = {
     x86_64-linux = {
-      url = "https://proton.me/download/drive/cli/0.4.6/linux-x64/proton-drive";
-      hash = "sha512-0YdAmTJ0Lm/caq4plZmPTInqUZmSgzlbyNC9xTQ6edMb9aSF1a+a3zt5CfyS8tLvCxM+3Ek51frx0JbrdEQluw==";
+      url = "https://proton.me/download/drive/cli/${version}/linux-x64/proton-drive";
+      hash = "sha512-2F7bxXQSySqXBbcKjTpcZq2TMzFVTWuSK5EtbfKbTl6bDXqUCllJJ91HiOH424bV6aI/CE8H29Uyf3qeUdYScg==";
     };
     aarch64-linux = {
-      url = "https://proton.me/download/drive/cli/0.4.6/linux-arm64/proton-drive";
-      hash = "sha512-krSMy4L2SAdZq6ECFUarSHwrrvk8mFov02LVpXZpMyaM0DnFRnhu/GQbXCzbYAwSEeHZLzQwWWdrhGG7IdRxFw==";
+      url = "https://proton.me/download/drive/cli/${version}/linux-arm64/proton-drive";
+      hash = "sha512-pnnh4J0pQTRSpqwkZk29JJvK+h+yCOJLnAQTPNl0iL9obTUM/NJSJ0Ksad5CgUKsZctW6xHyUmDTtP+qV9OQVA==";
     };
   };
 
@@ -47,7 +47,7 @@ in
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-drive-cli";
-  version = "0.4.6";
+  inherit version;
 
   src = fetchurl {
     inherit (source) url hash;
