@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation rec {
 
   installPhase = ''
     runHook preInstall
-    install -Dm444 $src $out/share/fonts/unifontex/UnifontExMono.ttf
+    install -Dm444 $src $out/share/fonts/UnifontExMono.ttf
     runHook postInstall
   '';
 
