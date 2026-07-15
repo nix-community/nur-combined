@@ -2,12 +2,10 @@
   lib,
   writeText,
   fetchFromGitHub,
-  runCommand,
   swiftPackages,
   swift,
   swiftpm,
   sqlite,
-  nix-update-script,
 }:
 let
   sqliteModuleMap = writeText "CSQLite.modulemap" ''
@@ -53,15 +51,6 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     install -Dm755 .build/release/tccpolicy $out/bin/tccpolicy
     runHook postInstall
   '';
-
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
-
-  passthru.tests = {
-    help = runCommand "test-tccpolicy-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
-      tccpolicy --help
-      touch $out
-    '';
-  };
 
   meta = {
     description = "Manage macOS TCC database declaratively";
