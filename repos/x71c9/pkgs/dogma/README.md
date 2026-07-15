@@ -179,6 +179,17 @@ Same as `apply` but runs `tofu destroy`.
 
 ---
 
+### `dogma infra init <env> <unit>`
+
+Runs: normalize → validate → `tofu init`. Always re-runs init, bypassing the already-initialized check that `apply`/`destroy` use. Escape hatch when the local `.terraform/` is out of sync in a way the check can't detect (deleted plugin cache, manual edits).
+
+```bash
+dogma infra init dev hetzner
+dogma infra init dev hetzner --upgrade
+```
+
+---
+
 ### `dogma deploy <env> [host]`
 
 Full deploy pipeline.
@@ -287,11 +298,26 @@ nix:
 deploy:
   strategy: nixos-rebuild   # default
 
-hooks:
-  pre-deploy:
-    - ./custom/bump-version.sh
-  post-deploy:
+hooks:                      # for the implicit default pipeline — only valid
+  post-deploy:              # when no pipeline: block is declared below
     - ./custom/notify-slack.sh
+
+pipeline:                   # named pipelines (dogma deploy <name> [env])
+  - name: backend
+    type: nixos             # nixos | custom (default: custom)
+    env: dev                # default env when <env> omitted on the command line
+    version_prefix: deploy  # default: deploy → tags deploy/v26.06.0001
+    version_scheme: calver  # calver (default) | semver | custom
+    version_script: ./custom/next-version.sh  # required when version_scheme: custom
+    deployed_prefix: deployed  # default: deployed → tags deployed-<env>-v26.06.0001
+    hooks:                  # only two hook names: pre-deploy, post-deploy
+      pre-deploy:
+        - ./custom/bump-version.sh
+      post-deploy:
+        - ./custom/notify-slack.sh
+  - name: publish
+    type: custom            # requires command; {env} {version} {pipeline} substituted
+    command: ./scripts/publish.sh {env} {version}
 ```
 
 ## Vault backends
@@ -305,14 +331,20 @@ Set `DOGMA_VAULT` per developer — not in `dogma.yml`.
 
 ## Hooks
 
-Scripts must be executable. Both hooks receive:
+Declared per pipeline under `pipeline[].hooks`. When no `pipeline:` block is declared, a top-level `hooks:` block applies to the implicit default pipeline instead; if pipelines are declared, a top-level `hooks:` block is ignored with a warning. Exactly two hook names exist (kebab-case):
+
+- `pre-deploy` — runs only on `--new` deploys (promotions via `--latest`/`--version` skip it). Tracked file changes made by the hooks are folded into the deploy commit.
+- `post-deploy` — runs after a successful deploy.
+
+Each entry is a path to an executable script, relative to the repo root, optionally with arguments. `{env}`, `{version}`, and `{pipeline}` placeholders are substituted before running. Unknown hook names are ignored with a warning at normalize time.
+
+Both hooks receive:
 
 | Variable | Example | Notes |
 |----------|---------|-------|
-| `DOGMA_VERSION` | `deploy/v26.06.0001` | CalVer tag |
+| `DOGMA_VERSION` | `deploy/v26.06.0001` | Version tag |
 | `DOGMA_ENV` | `dev` | Target environment |
-| `DOGMA_HOSTS` | `backend\nworker` | Newline-separated machine names |
-| `DOGMA_DEPLOYED_IPS` | `deployer@1.2.3.4` | Post-deploy only |
+| `DOGMA_PIPELINE` | `backend` | Pipeline name |
 
 ```bash
 #!/usr/bin/env bash
