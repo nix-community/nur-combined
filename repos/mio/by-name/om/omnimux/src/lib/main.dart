@@ -25,6 +25,7 @@ class _OmnimuxAppState extends State<OmnimuxApp> {
   @override
   void initState() {
     super.initState();
+    // Matches rinf 8.x guidance: finalize Rust before app exit.
     _listener = AppLifecycleListener(
       onExitRequested: () async {
         finalizeRust();
@@ -117,6 +118,7 @@ class _MainScreenState extends State<MainScreen> {
       _sessions.add(session);
       _activeTabIndex = _sessions.length - 1;
     });
+    session.requestFocus();
   }
 
   void _closeTab(int index) {
@@ -202,10 +204,13 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: _sessions.isEmpty
           ? const Center(child: Text('No active sessions. Click + to start.'))
+          // IndexedStack keeps inactive tabs mounted so TerminalView can
+          // autoResize / onResize before the tab is focused.
           : IndexedStack(
               index: _activeTabIndex,
               children: [
-                for (final session in _sessions) session.buildWidget(),
+                for (var i = 0; i < _sessions.length; i++)
+                  _sessions[i].buildWidget(autofocus: i == _activeTabIndex),
               ],
             ),
     );
@@ -221,6 +226,7 @@ class _MainScreenState extends State<MainScreen> {
           setState(() {
             _activeTabIndex = index;
           });
+          session.requestFocus();
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -248,8 +254,12 @@ class TerminalSession {
   final int id;
   final String host;
   final Terminal terminal;
+  final FocusNode focusNode = FocusNode();
   StreamSubscription<RustSignalPack<TerminalOutput>>? _outputSub;
+  StreamSubscription<String>? _decodedSub;
+  StreamController<List<int>>? _ptyBytes;
   bool _disposed = false;
+  bool _started = false;
 
   static final _theme = TerminalTheme(
     cursor: Colors.white,
@@ -281,6 +291,7 @@ class TerminalSession {
       : terminal = Terminal(
           maxLines: 10000,
         ) {
+    // Match xterm.dart example: encode user input as UTF-8 bytes for the PTY.
     terminal.onOutput = (data) {
       if (_disposed) return;
       WriteSession(
@@ -289,28 +300,68 @@ class TerminalSession {
       ).sendSignalToRust();
     };
 
+    // Prefer the first TerminalView layout size (via autoResize → onResize).
+    // Fall back after the first frame if layout never reported a size, as in
+    // the upstream xterm endOfFrame start pattern.
     terminal.onResize = (w, h, pw, ph) {
-      if (_disposed) return;
-      ResizeSession(
-        sessionId: id,
-        cols: w,
-        rows: h,
-      ).sendSignalToRust();
+      if (_disposed || w <= 0 || h <= 0) return;
+      final wasStarted = _started;
+      _startIfNeeded(w, h);
+      // First start already includes cols/rows; later layout changes resize.
+      if (wasStarted) {
+        ResizeSession(
+          sessionId: id,
+          cols: w,
+          rows: h,
+        ).sendSignalToRust();
+      }
     };
+
+    WidgetsBinding.instance.endOfFrame.then((_) {
+      if (_disposed || _started) return;
+      _startIfNeeded(terminal.viewWidth, terminal.viewHeight);
+    });
+
+    // Stream-transform UTF-8 (dart:convert / xterm example). Do NOT use
+    // StringConversionSink.withCallback — that only fires on close().
+    final ptyBytes = StreamController<List<int>>();
+    _ptyBytes = ptyBytes;
+    _decodedSub = ptyBytes.stream
+        .transform(const Utf8Decoder(allowMalformed: true))
+        .listen((chunk) {
+      if (!_disposed) {
+        terminal.write(chunk);
+      }
+    });
 
     _outputSub = TerminalOutput.rustSignalStream
         .where((event) => event.message.sessionId == id)
         .listen((event) {
-      if (_disposed) return;
-      terminal.write(utf8.decode(event.message.data, allowMalformed: true));
+      if (_disposed || _ptyBytes == null || _ptyBytes!.isClosed) return;
+      _ptyBytes!.add(event.message.data);
     });
+  }
 
+  void _startIfNeeded(int cols, int rows) {
+    if (_disposed || _started || cols <= 0 || rows <= 0) return;
+    _started = true;
     StartSession(
       sessionId: id,
       host: host,
-      cols: terminal.viewWidth,
-      rows: terminal.viewHeight,
+      cols: cols,
+      rows: rows,
     ).sendSignalToRust();
+  }
+
+  /// Request keyboard focus when this tab becomes active.
+  /// (IndexedStack keeps children mounted; autofocus alone is not enough.)
+  void requestFocus() {
+    if (_disposed) return;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_disposed) {
+        focusNode.requestFocus();
+      }
+    });
   }
 
   void dispose() {
@@ -318,13 +369,22 @@ class TerminalSession {
     _disposed = true;
     _outputSub?.cancel();
     _outputSub = null;
+    _decodedSub?.cancel();
+    _decodedSub = null;
+    _ptyBytes?.close();
+    _ptyBytes = null;
+    focusNode.dispose();
   }
 
-  Widget buildWidget() {
-    return TerminalView(
-      terminal,
-      theme: _theme,
-      autofocus: true,
+  Widget buildWidget({required bool autofocus}) {
+    return KeyedSubtree(
+      key: ValueKey(id),
+      child: TerminalView(
+        terminal,
+        theme: _theme,
+        focusNode: focusNode,
+        autofocus: autofocus,
+      ),
     );
   }
 }

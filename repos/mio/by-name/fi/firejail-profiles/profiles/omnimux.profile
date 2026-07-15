@@ -25,8 +25,15 @@ whitelist ${HOME}/.ssh
 # Allow known_hosts writes (ssh updates this on first connect)
 whitelist ${HOME}/.ssh/known_hosts
 
-# Allow SSH agent socket when present
-whitelist ${SSH_AUTH_SOCK}
+# SSH agent sockets — firejail only expands known macros (${HOME}, ${RUNUSER},
+# etc.); ${SSH_AUTH_SOCK} is NOT a profile macro (firejail#3884). Allow common
+# concrete paths instead.
+noblacklist ${RUNUSER}/ssh-agent.socket
+whitelist ${RUNUSER}/ssh-agent.socket
+noblacklist ${RUNUSER}/openssh_agent
+whitelist ${RUNUSER}/openssh_agent
+noblacklist /tmp/ssh-*
+whitelist /tmp/ssh-*
 
 include whitelist-common.inc
 include whitelist-runuser-common.inc

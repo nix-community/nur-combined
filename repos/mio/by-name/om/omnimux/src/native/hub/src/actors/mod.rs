@@ -7,13 +7,14 @@ use rinf::{DartSignal, RustSignal};
 use std::{
     collections::HashMap,
     io::{Read, Write},
-    sync::{Arc, Mutex},
+    sync::{mpsc, Arc, Mutex},
 };
 use tokio::task::spawn_blocking;
 
 struct PtySession {
     master: Box<dyn MasterPty + Send>,
-    writer: Arc<Mutex<Box<dyn Write + Send>>>,
+    /// Dropping this closes the dedicated writer thread (recv returns Err).
+    write_tx: mpsc::Sender<Vec<u8>>,
     killer: Mutex<Box<dyn ChildKiller + Send + Sync>>,
 }
 
@@ -31,13 +32,34 @@ fn send_spawn_failure(session_id: i64, message: String) {
     .send_signal_to_dart();
 }
 
+/// Strip an OpenSSH inline comment (`# ...`) when `#` starts a token.
+fn strip_ssh_comment(line: &str) -> &str {
+    let mut in_token_start = true;
+    for (i, ch) in line.char_indices() {
+        if ch == '#' && in_token_start {
+            return line[..i].trim_end();
+        }
+        in_token_start = ch.is_whitespace();
+    }
+    line
+}
+
+fn is_usable_host_token(host: &str) -> bool {
+    // Patterns / negation / option-like tokens are not connectable host aliases.
+    !host.is_empty()
+        && !host.contains('*')
+        && !host.contains('?')
+        && !host.starts_with('!')
+        && !host.starts_with('-')
+}
+
 pub async fn create_actors() {
     let sessions: Arc<Mutex<HashMap<i64, PtySession>>> = Arc::new(Mutex::new(HashMap::new()));
 
     // Handle StartSession
     let sessions_start = sessions.clone();
     tokio::spawn(async move {
-        let mut receiver = StartSession::get_dart_signal_receiver();
+        let receiver = StartSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
             let session_id = signal.message.session_id;
             let host = signal.message.host.clone();
@@ -68,12 +90,14 @@ pub async fn create_actors() {
                 } else {
                     let mut command = CommandBuilder::new("ssh");
                     command.arg("-t");
-                    // Prevent Host tokens like `-J` from becoming ssh options.
+                    // OpenSSH getopt: `--` ends option parsing so Host tokens
+                    // starting with `-` cannot become ssh flags.
                     command.arg("--");
                     command.arg(host);
                     command.arg("tmux a || tmux new");
                     command
                 };
+                // Merges with inherited base env (portable-pty CommandBuilder).
                 command.env("TERM", "xterm-256color");
 
                 let child = match pair.slave.spawn_command(command) {
@@ -103,26 +127,38 @@ pub async fn create_actors() {
                     }
                 };
 
+                // One dedicated writer thread per session preserves keystroke order
+                // (tokio spawn_blocking tasks are not FIFO across the pool).
+                let (write_tx, write_rx) = mpsc::channel::<Vec<u8>>();
+                std::thread::spawn(move || {
+                    let mut writer = writer;
+                    while let Ok(data) = write_rx.recv() {
+                        let _ = writer.write_all(&data);
+                        let _ = writer.flush();
+                    }
+                });
+
                 if let Ok(mut sessions_lock) = sessions.lock() {
                     if let Some(old) = sessions_lock.insert(
                         session_id,
                         PtySession {
                             master: pair.master,
-                            writer: Arc::new(Mutex::new(writer)),
+                            write_tx,
                             killer: Mutex::new(killer),
                         },
                     ) {
                         if let Ok(mut old_killer) = old.killer.lock() {
+                            // portable-pty Unix ChildKiller uses SIGHUP.
                             let _ = old_killer.kill();
                         }
                     }
                 } else {
+                    drop(write_tx);
                     let _ = killer.clone_killer().kill();
                     send_spawn_failure(session_id, "Failed to register session".to_string());
                     return;
                 }
 
-                // Output reader thread
                 std::thread::spawn(move || {
                     let mut buffer = [0; 8192];
                     loop {
@@ -138,7 +174,6 @@ pub async fn create_actors() {
                     }
                 });
 
-                // Waiter thread
                 let mut child = child;
                 let sessions_wait = sessions.clone();
                 std::thread::spawn(move || {
@@ -155,33 +190,27 @@ pub async fn create_actors() {
     // Handle WriteSession
     let sessions_write = sessions.clone();
     tokio::spawn(async move {
-        let mut receiver = WriteSession::get_dart_signal_receiver();
+        let receiver = WriteSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
-            let writer = {
+            let write_tx = {
                 let Ok(sessions_lock) = sessions_write.lock() else {
                     continue;
                 };
                 sessions_lock
                     .get(&signal.message.session_id)
-                    .map(|session| session.writer.clone())
+                    .map(|session| session.write_tx.clone())
             };
-            let Some(writer) = writer else {
+            let Some(write_tx) = write_tx else {
                 continue;
             };
-            let data = signal.message.data;
-            spawn_blocking(move || {
-                if let Ok(mut w) = writer.lock() {
-                    let _ = w.write_all(&data);
-                    let _ = w.flush();
-                }
-            });
+            let _ = write_tx.send(signal.message.data);
         }
     });
 
     // Handle ResizeSession
     let sessions_resize = sessions.clone();
     tokio::spawn(async move {
-        let mut receiver = ResizeSession::get_dart_signal_receiver();
+        let receiver = ResizeSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
             let Ok(sessions_lock) = sessions_resize.lock() else {
                 continue;
@@ -200,7 +229,7 @@ pub async fn create_actors() {
     // Handle StopSession
     let sessions_stop = sessions.clone();
     tokio::spawn(async move {
-        let mut receiver = StopSession::get_dart_signal_receiver();
+        let receiver = StopSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
             let removed = {
                 let Ok(mut sessions_lock) = sessions_stop.lock() else {
@@ -212,13 +241,14 @@ pub async fn create_actors() {
                 if let Ok(mut killer) = session.killer.lock() {
                     let _ = killer.kill();
                 }
+                // write_tx drop ends the writer thread; master drop hangs up the PTY.
             }
         }
     });
 
     // Handle GetSshHosts
     tokio::spawn(async move {
-        let mut receiver = GetSshHosts::get_dart_signal_receiver();
+        let receiver = GetSshHosts::get_dart_signal_receiver();
         while let Some(_signal) = receiver.recv().await {
             spawn_blocking(|| {
                 let mut hosts = vec!["localhost".to_string()];
@@ -243,25 +273,29 @@ fn parse_ssh_config(
     }
     visited.insert(config_path.to_path_buf());
 
-    if let Ok(content) = std::fs::read_to_string(config_path) {
-        for line in content.lines() {
-            let line = line.trim();
-            if line.to_lowercase().starts_with("host ") {
-                let host_part = line[5..].trim();
-                for host in host_part.split_whitespace() {
-                    // Skip patterns and tokens that would look like ssh options.
-                    if host.contains('*')
-                        || host.contains('?')
-                        || host.starts_with('-')
-                        || hosts.contains(&host.to_string())
-                    {
-                        continue;
-                    }
+    let Ok(content) = std::fs::read_to_string(config_path) else {
+        return;
+    };
+
+    for raw_line in content.lines() {
+        let line = strip_ssh_comment(raw_line.trim());
+        if line.is_empty() {
+            continue;
+        }
+
+        let lower = line.to_ascii_lowercase();
+        if lower.starts_with("host ") || lower.starts_with("host\t") {
+            // Keyword is ASCII "host"; keep original casing for host tokens.
+            let rest = line[4..].trim_start();
+            for host in rest.split_whitespace() {
+                if is_usable_host_token(host) && !hosts.iter().any(|h| h == host) {
                     hosts.push(host.to_string());
                 }
-            } else if line.to_lowercase().starts_with("include ") {
-                let include_path = line[8..].trim();
-
+            }
+        } else if lower.starts_with("include ") || lower.starts_with("include\t") {
+            // ssh_config(5): Include may list multiple pathnames (globs, ~, relative).
+            let rest = line[7..].trim_start();
+            for include_path in rest.split_whitespace() {
                 let expanded_path = if include_path.starts_with("~/") {
                     if let Ok(home) = std::env::var("HOME") {
                         std::path::PathBuf::from(home).join(&include_path[2..])
