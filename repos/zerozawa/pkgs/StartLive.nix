@@ -101,12 +101,6 @@ python3Packages.buildPythonApplication rec {
   dontConfigure = true;
   dontWrapQtApps = true;
 
-  # 修复上游 bug: keyring 可能返回空字符串导致 JSON 解析失败
-  postPatch = ''
-    substituteInPlace app_state/__init__.py \
-      --replace-fail ') is not None:' ') is not None and app:'
-  '';
-
   installPhase = ''
     runHook preInstall
 
