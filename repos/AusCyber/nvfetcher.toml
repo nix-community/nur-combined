@@ -18,7 +18,8 @@ fetch.github = "koekeishiya/yabai"
 
 [karabiner-dk]
 src.github = "pqrs-org/Karabiner-DriverKit-VirtualHIDDevice"
-fetch.github = "pqrs-org/Karabiner-DriverKit-VirtualHIDDevice"
+src.prefix = "v"
+fetch.url = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/archive/v$ver.tar.gz"
 
 [kanata]
 src.github_tag = "jtroo/kanata"
