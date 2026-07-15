@@ -26,9 +26,6 @@ let
           "test_same_millisecond_overflow"
         ];
       });
-      django = super.django.overridePythonAttrs (_: {
-        doCheck = false;
-      });
     };
   };
 
