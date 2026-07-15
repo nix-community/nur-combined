@@ -3008,10 +3008,10 @@
     };
     "darkreader" = buildMozillaXpiAddon {
       pname = "darkreader";
-      version = "4.9.128";
+      version = "4.9.129";
       addonId = "addon@darkreader.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4859299/darkreader-4.9.128.xpi";
-      sha256 = "31be69e5e783e30dc255ee357f2a7233486f801cba061560f1a44deb9603296f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4899461/darkreader-4.9.129.xpi";
+      sha256 = "f4f047fe08e420b6d29617738ea00a7b784892b2262b7e6f38dd09b8ee958a44";
       meta = with lib;
       {
         homepage = "https://darkreader.org/";
@@ -4326,10 +4326,10 @@
     };
     "flexheaders-alter-http-headers" = buildMozillaXpiAddon {
       pname = "flexheaders-alter-http-headers";
-      version = "1.5.0";
+      version = "1.6.2";
       addonId = "flexheaders@harrisondeo.me.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4892773/flexheaders_alter_http_headers-1.5.0.xpi";
-      sha256 = "67b0bcd6f7d484008cbea08697cd6ad6331f36173c85412713dc76b1957ab5e1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4898697/flexheaders_alter_http_headers-1.6.2.xpi";
+      sha256 = "b0c5e2d5a392789f58517b294eb8180c13105b72acef53d89e8a9d77d0bcd501";
       meta = with lib;
       {
         description = "A lightweight yet powerful extension to modify HTTP headers on the fly. Unleash the power of FlexHeaders, the ultimate extension for developers and security-conscious users";
@@ -4693,10 +4693,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.0.3";
+      version = "2.0.5";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4896300/geo_spoof-2.0.3.xpi";
-      sha256 = "067ba1028a760afbc1977221f73045e8b89a8b67d00c04400bdb0b24bf877635";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4900222/geo_spoof-2.0.5.xpi";
+      sha256 = "642ffa60fd264d7c23d2c436452d7d500a6428d74c9b7fa8a5f134a9dc402018";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -12780,10 +12780,10 @@
     };
     "reddit-enhancement-suite" = buildMozillaXpiAddon {
       pname = "reddit-enhancement-suite";
-      version = "5.24.8";
+      version = "5.24.9";
       addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4424459/reddit_enhancement_suite-5.24.8.xpi";
-      sha256 = "158405c50704a2cd2bc57c268a95b41dacba509b70d71d6ea280b04215bb8773";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4881407/reddit_enhancement_suite-5.24.9.xpi";
+      sha256 = "dacde06a8289b558d7f3a95cda112459430e3fac3042929eae2ded6a67e440d8";
       meta = with lib;
       {
         homepage = "https://redditenhancementsuite.com/";
@@ -14219,10 +14219,10 @@
     };
     "statshunters" = buildMozillaXpiAddon {
       pname = "statshunters";
-      version = "3.3.7";
+      version = "3.3.8";
       addonId = "browserextension@statshunters.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4857267/statshunters-3.3.7.xpi";
-      sha256 = "b19ae8f2949747f137e85b681032967ef9e0a6cd003d82c140851a489ad286c7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4899523/statshunters-3.3.8.xpi";
+      sha256 = "6c255d6c5cc77152e3b8ecf81fec2036d3e907f188a5764da4dbe2c95e90f5c6";
       meta = with lib;
       {
         homepage = "https://www.statshunters.com";
@@ -14246,8 +14246,7 @@
           "https://bikerouter.de/*"
           "https://brouter.damsy.net/*"
           "https://*.outdooractive.com/*/routeplanner*"
-          "https://ridewithgps.com/routes/new*"
-          "https://ridewithgps.com/routes/*/edit*"
+          "https://ridewithgps.com/*"
           "https://connect.garmin.com/modern/*"
           "https://connect.garmin.com/modern/course/create*"
           "https://connect.garmin.com/modern/course/*"
@@ -14380,10 +14379,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.5";
+      version = "2.4.6";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4887700/styl_us-2.4.5.xpi";
-      sha256 = "509557b542d9dcd496a316b108dadbcbd5cfa9ec46a44c1f37c463d45f32270a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4899605/styl_us-2.4.6.xpi";
+      sha256 = "6954080952bf11dae66d9d46cf739ba98966c62d52ab8ae5d8884d1e620c7428";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
