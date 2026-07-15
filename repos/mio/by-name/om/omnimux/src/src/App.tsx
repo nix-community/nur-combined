@@ -371,29 +371,22 @@ function App() {
             return (
               <div
                 key={tab.id}
-                draggable
-                onDragStart={(e) => {
+                onMouseDown={() => {
                   draggedTabIndex.current = index;
-                  e.dataTransfer.setData('text/plain', index.toString());
-                  const canvas = document.createElement('canvas');
-                  canvas.width = 1;
-                  canvas.height = 1;
-                  e.dataTransfer.setDragImage(canvas, 0, 0);
                 }}
-                onDragOver={(e) => {
-                  e.preventDefault();
+                onMouseEnter={(e) => {
+                  if (e.buttons !== 1) {
+                    draggedTabIndex.current = null;
+                    return;
+                  }
+                  if (draggedTabIndex.current !== null && draggedTabIndex.current !== index) {
+                    const newTabs = [...tabs];
+                    const [removed] = newTabs.splice(draggedTabIndex.current, 1);
+                    newTabs.splice(index, 0, removed);
+                    setTabs(newTabs);
+                    draggedTabIndex.current = index;
+                  }
                 }}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  if (draggedTabIndex.current === null || draggedTabIndex.current === index) return;
-                  
-                  const newTabs = [...tabs];
-                  const [removed] = newTabs.splice(draggedTabIndex.current, 1);
-                  newTabs.splice(index, 0, removed);
-                  setTabs(newTabs);
-                  draggedTabIndex.current = null;
-                }}
-                onDragEnd={() => { draggedTabIndex.current = null; }}
                 onClick={() => setActiveTabId(tab.id)}
                 style={{
                   background: isActive ? theme.background : theme.buttonBackground,
