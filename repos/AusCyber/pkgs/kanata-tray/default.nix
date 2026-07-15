@@ -1,6 +1,7 @@
 {
   lib,
   buildGoModule,
+  llvmPackages,
   fetchFromGitHub,
   nix-update-script,
   makeWrapper,
@@ -31,7 +32,8 @@ buildGoModule (finalAttrs: {
     "-X main.buildVersion=${finalAttrs.version}"
     "-X main.buildHash=${finalAttrs.src.rev}"
   ];
-  nativeBuildInputs = lib.optionals stdenv.isLinux [ pkg-config ];
+  nativeBuildInputs =
+    lib.optionals stdenv.isDarwin [ llvmPackages.lld ] ++ lib.optionals stdenv.isLinux [ pkg-config ];
   buildInputs = [
     makeWrapper
   ]
@@ -39,6 +41,8 @@ buildGoModule (finalAttrs: {
     libayatana-appindicator
     gtk3
   ]);
+
+  env.NIX_CFLAGS_LINK = lib.optionalString stdenv.isDarwin "-fuse-ld=lld";
 
   postInstall = ''
     wrapProgram $out/bin/kanata-tray --set-default KANATA_TRAY_LOG_DIR /tmp --prefix PATH : $out/bin
