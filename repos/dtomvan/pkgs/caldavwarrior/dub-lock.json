@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "dunit": {
+      "version": "1.0.16",
+      "sha256": "0p9g4h5qanbg6281x1068mdl5p7zvqig4zmmi72a2cay6dxnbvxb"
+    },
+    "isfreedesktop": {
+      "version": "0.1.1",
+      "sha256": "0bnjr9avvhl7s09dnbcdr5437yb18jj26fzvm7j292kvd2i8kzqz"
+    },
+    "painlessjson": {
+      "version": "1.3.9",
+      "sha256": "1pzcvxq4ajq8sla3nwksrn59s1n6496m2wkqsv450qjljy0clhzf"
+    },
+    "painlesstraits": {
+      "version": "0.3.0",
+      "sha256": "0li4n0v70x5sgnqv60v5481jqlv22mk338cww4d3z5l0nhng3bvh"
+    },
+    "standardpaths": {
+      "version": "0.8.3",
+      "sha256": "0mv8r96vlrxkk9vp3xqvyzx5sfhzdiky4yv9wgviq8hnm80hiwg2"
+    },
+    "xdgpaths": {
+      "version": "0.2.5",
+      "sha256": "09l3bkcldv7ckh3d2cmivvj3cbql96a24g3khlz7zp9f1aabfykl"
+    }
+  }
+}
