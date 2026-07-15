@@ -1,6 +1,6 @@
 {
   "name": "RPCS3",
-  "version": "0.0.41-19565",
+  "version": "0.0.41-19570",
   "source": {
     "type": "github-release",
     "skip_prerelease": true,
@@ -9,17 +9,17 @@
   "platforms": {
     "aarch64-darwin": {
       "repo": "RPCS3/rpcs3-binaries-mac-arm64",
-      "file": "rpcs3-v0.0.41-19565-d755124c_macos_aarch64.7z",
+      "file": "rpcs3-v0.0.41-19570-49b0306b_macos_aarch64.7z",
       "query": "[0].assets[0].name",
-      "hash": "sha256-cQCMW7VOTO805pOc0uu3zPDhA7g1aEC0uBqeEzz4+ko=",
-      "version": "build-d755124c481c5d199254cd97907a60e38127972b"
+      "hash": "sha256-0hlU6AWRSgS6cZZPV48B4ONKzWw0ft78Nz/Y3reftl0=",
+      "version": "build-49b0306b1dba43c2f966c96667042b2f5ac22988"
     },
     "x86_64-darwin": {
       "repo": "RPCS3/rpcs3-binaries-mac",
-      "file": "rpcs3-v0.0.41-19565-d755124c_macos.7z",
+      "file": "rpcs3-v0.0.41-19570-49b0306b_macos.7z",
       "query": "[0].assets[0].name",
-      "hash": "sha256-sqKzIdjyV0voJz6QY9ZdkmwLDnLpbWLCQ36cPDLW/NU=",
-      "version": "build-d755124c481c5d199254cd97907a60e38127972b"
+      "hash": "sha256-n0mK3mcdYt1QO7K22cB4bw7iZhelgvyQB93FudTLPFQ=",
+      "version": "build-49b0306b1dba43c2f966c96667042b2f5ac22988"
     }
   }
 }

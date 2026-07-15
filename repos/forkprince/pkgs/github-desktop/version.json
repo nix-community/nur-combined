@@ -4,17 +4,17 @@
     "type": "redirect",
     "version_regex": "releases\\/([^\\/]+)\\/"
   },
-  "version": "3.6.2-57f0b637",
+  "version": "3.6.3-931da4a1",
   "platforms": {
     "aarch64-darwin": {
       "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin-arm64",
-      "url": "https://desktop.githubusercontent.com/releases/3.6.2-57f0b637/GitHubDesktop-arm64.zip",
-      "hash": "sha256-0PDjDVGRhGWByJx3GdxJ8gWZGESI6Nq2TRX9ZtZEAHw="
+      "url": "https://desktop.githubusercontent.com/releases/3.6.3-931da4a1/GitHubDesktop-arm64.zip",
+      "hash": "sha256-I8Ebq/LrE/FgR92J9gCe8rVr/Ox1EpO9qqm7DzDireI="
     },
     "x86_64-darwin": {
       "redirect_url": "https://central.github.com/deployments/desktop/desktop/latest/darwin",
-      "url": "https://desktop.githubusercontent.com/releases/3.6.2-57f0b637/GitHubDesktop-x64.zip",
-      "hash": "sha256-RcbYq4dFw5jtVWRIdBNscclbLjVXfUlBwzRrCirVBuM="
+      "url": "https://desktop.githubusercontent.com/releases/3.6.3-931da4a1/GitHubDesktop-x64.zip",
+      "hash": "sha256-yyVLwhqWxPLqCC1pQWesvWxpFMuoe7TBQZKKi4unVxU="
     }
   }
 }
