@@ -15,7 +15,7 @@ When updating code or documentation, treat these files as authoritative:
 - `.agents/command/*.md` - repo-local omp command docs
 - `.agents/skill/nix-packaging/SKILL.md` - repo-local omp nix-packaging skill
 - `.opencode/opencode.jsonc` - OpenCode config and remote `context7` MCP setup
-- `pkgs/*/AGENTS.md` - package-level packaging guides (currently `pkgs/oh-my-pi/AGENTS.md`, `pkgs/banguminet/AGENTS.md`)
+- `pkgs/*/AGENTS.md` - package-level packaging guides (currently `pkgs/oh-my-pi/AGENTS.md`, `pkgs/banguminet/AGENTS.md`, `pkgs/pctx/AGENTS.md`)
 
 ## Current Repository Shape
 
@@ -24,7 +24,7 @@ nur/
 ├── default.nix              # main export surface
 ├── flake.nix                # flake outputs and cache config
 ├── ci.nix                   # CI package/output filtering
-├── pkgs/                    # 24 exported package definitions
+├── pkgs/                    # 28 exported package definitions
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
 ├── overlays/                # placeholder overlays namespace
@@ -52,12 +52,12 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 24 packages from `default.nix`, grouped roughly as:
+The repo currently exports 28 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Qt/Python readers: `JMComic-qt`, `picacg-qt`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `hyprland-mcp-server`, `mcp-cli`, `wechat-web-devtools-linux`
+- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `hyprland-mcp-server`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.
@@ -73,6 +73,8 @@ This repo is not limited to one packaging style. Examples worth following:
 - `buildDotnetModule`
   - Example: `pkgs/banguminet/default.nix` — read `pkgs/banguminet/AGENTS.md` for deps.json regeneration
 - `buildNpmPackage`
+- `rustPlatform.buildRustPackage`
+  - Example: `pkgs/pctx/default.nix` — read `pkgs/pctx/AGENTS.md` before updating its fixed V8 and Swagger UI inputs
 
 ## Repo-Specific Packaging Notes
 
@@ -107,6 +109,7 @@ Filtering behavior:
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
 - `codegraph` is a `buildNpmPackage` that uses `tree-sitter-wasms` (pre-built WASM grammars) and the built-in `node:sqlite` (Node.js >= 22.5) — no native dependencies to compile
 - `banguminet` uses `buildDotnetModule` with a hand-generated `deps.json`; read `pkgs/banguminet/AGENTS.md` before updating
+- `pctx` source-builds its Rust CLI and exposes a separately released Python SDK only as `pctx.passthru.py`; read `pkgs/pctx/AGENTS.md` before updating its V8, Swagger UI, or Python build inputs
 
 ## Quick Commands
 
@@ -116,6 +119,9 @@ nix-build -A JMComic-qt
 
 # Build from flake output
 nix build .#mcp-cli
+# Build the PCTX CLI and its passthru Python SDK
+nix build .#pctx
+nix build .#pctx.py
 
 # Build what CI caches
 nix-build ci.nix -A cacheOutputs
