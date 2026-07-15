@@ -127,6 +127,12 @@ rec {
 
   linasm = pkgs.callPackage ./pkgs/linasm { };
 
+  llama-cpp-prism = pkgs.callPackage ./pkgs/llama-cpp-prism {
+    # rocmPackages doesn't exist on Darwin's pkgs set - the derivation itself
+    # only touches it when rocmSupport is true (Linux default).
+    rocmPackages = pkgs.rocmPackages or { };
+  };
+
   plutovg = pkgs.callPackage ./pkgs/plutovg { };
 
   lunasvg = pkgs.callPackage ./pkgs/lunasvg { plutovg = plutovg; };
