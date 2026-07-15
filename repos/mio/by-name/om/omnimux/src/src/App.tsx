@@ -66,6 +66,7 @@ function TerminalSession({
     let outputUnlisten: UnlistenFn | undefined;
     let exitUnlisten: UnlistenFn | undefined;
     const term = new Terminal({
+      allowProposedApi: true,
       cursorBlink: true,
       convertEol: true,
       fontFamily: "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",

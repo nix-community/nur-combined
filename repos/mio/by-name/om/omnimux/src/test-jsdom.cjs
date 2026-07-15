@@ -1,0 +1,9 @@
+const fs = require('fs');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+const html = fs.readFileSync('test.html', 'utf8');
+const virtualConsole = new jsdom.VirtualConsole();
+virtualConsole.on("error", (e) => { console.error("Error:", e); });
+virtualConsole.on("log", (m) => { console.log("Log:", m); });
+const dom = new JSDOM(html, { runScripts: "dangerously", resources: "usable", virtualConsole });
+setTimeout(() => console.log("Done"), 2000);
