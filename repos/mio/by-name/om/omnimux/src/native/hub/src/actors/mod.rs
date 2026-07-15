@@ -37,6 +37,12 @@ pub async fn create_actors() {
                 }) {
                     Ok(p) => p,
                     Err(e) => {
+                        TerminalOutput {
+                            session_id,
+                            data: format!("Failed to open PTY: {}\r\n", e).into_bytes(),
+                        }
+                        .send_signal_to_dart();
+                        
                         TerminalExit {
                             session_id,
                             status: Some(-1),
@@ -62,7 +68,13 @@ pub async fn create_actors() {
 
                 let mut child = match pair.slave.spawn_command(command) {
                     Ok(c) => c,
-                    Err(_) => {
+                    Err(e) => {
+                        TerminalOutput {
+                            session_id,
+                            data: format!("Failed to spawn SSH process: {}\r\n", e).into_bytes(),
+                        }
+                        .send_signal_to_dart();
+                        
                         TerminalExit {
                             session_id,
                             status: Some(-1),
@@ -161,24 +173,65 @@ pub async fn create_actors() {
         while let Some(_signal) = receiver.recv().await {
             spawn_blocking(move || {
                 let mut hosts = vec!["localhost".to_string()];
+                let mut visited = std::collections::HashSet::new();
                 if let Ok(home) = std::env::var("HOME") {
                     let config_path = std::path::PathBuf::from(home).join(".ssh").join("config");
-                    if let Ok(content) = std::fs::read_to_string(config_path) {
-                        for line in content.lines() {
-                            let line = line.trim();
-                            if line.to_lowercase().starts_with("host ") {
-                                let host_part = line[5..].trim();
-                                for host in host_part.split_whitespace() {
-                                    if !host.contains('*') && !host.contains('?') {
-                                        hosts.push(host.to_string());
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    parse_ssh_config(&config_path, &mut hosts, &mut visited);
                 }
                 SshHostsResult { hosts }.send_signal_to_dart();
             });
         }
     });
+}
+
+fn parse_ssh_config(
+    config_path: &std::path::Path,
+    hosts: &mut Vec<String>,
+    visited: &mut std::collections::HashSet<std::path::PathBuf>,
+) {
+    if visited.contains(config_path) {
+        return;
+    }
+    visited.insert(config_path.to_path_buf());
+
+    if let Ok(content) = std::fs::read_to_string(config_path) {
+        for line in content.lines() {
+            let line = line.trim();
+            if line.to_lowercase().starts_with("host ") {
+                let host_part = line[5..].trim();
+                for host in host_part.split_whitespace() {
+                    if !host.contains('*') && !host.contains('?') {
+                        hosts.push(host.to_string());
+                    }
+                }
+            } else if line.to_lowercase().starts_with("include ") {
+                let include_path = line[8..].trim();
+                
+                // Expand path
+                let expanded_path = if include_path.starts_with("~/") {
+                    if let Ok(home) = std::env::var("HOME") {
+                        std::path::PathBuf::from(home).join(&include_path[2..])
+                    } else {
+                        std::path::PathBuf::from(include_path)
+                    }
+                } else if include_path.starts_with('/') {
+                    std::path::PathBuf::from(include_path)
+                } else {
+                    if let Ok(home) = std::env::var("HOME") {
+                        std::path::PathBuf::from(home).join(".ssh").join(include_path)
+                    } else {
+                        std::path::PathBuf::from(include_path)
+                    }
+                };
+
+                if let Some(expanded_str) = expanded_path.to_str() {
+                    if let Ok(paths) = glob::glob(expanded_str) {
+                        for entry in paths.flatten() {
+                            parse_ssh_config(&entry, hosts, visited);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

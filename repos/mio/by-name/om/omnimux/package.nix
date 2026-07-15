@@ -14,7 +14,7 @@ let
   cargoDeps = rustPlatform.fetchCargoVendor {
     src = lib.cleanSource ./.;
     sourceRoot = "source/src";
-    hash = "sha256-eubJoDI2Q3mqofxseGnZDXuo/qsmGCcnP5dmWgqH8PQ=";
+    hash = "sha256-awpApw0w0TrqUUelGHfMh6aGuha8VWNoDY5pOUouubw=";
   };
 in
 flutter.buildFlutterApplication {

@@ -255,6 +255,35 @@ class TerminalSession {
   }
 
   Widget buildWidget() {
-    return TerminalView(terminal);
+    final theme = TerminalTheme(
+      cursor: Colors.white,
+      selection: Colors.blue.withOpacity(0.3),
+      foreground: const Color(0xFFD4D4D4),
+      background: const Color(0xFF1E1E1E),
+      black: const Color(0xFF000000),
+      red: const Color(0xFFCD3131),
+      green: const Color(0xFF0DBC79),
+      yellow: const Color(0xFFE5E510),
+      blue: const Color(0xFF2472C8),
+      magenta: const Color(0xFFBC3FBC),
+      cyan: const Color(0xFF11A8CD),
+      white: const Color(0xFFE5E5E5),
+      brightBlack: const Color(0xFF666666),
+      brightRed: const Color(0xFFF14C4C),
+      brightGreen: const Color(0xFF23D18B),
+      brightYellow: const Color(0xFFF5F543),
+      brightBlue: const Color(0xFF3B8EEA),
+      brightMagenta: const Color(0xFFD670D6),
+      brightCyan: const Color(0xFF29B8DB),
+      brightWhite: const Color(0xFFE5E5E5),
+      searchHitBackground: Colors.yellow,
+      searchHitBackgroundCurrent: Colors.orange,
+      searchHitForeground: Colors.black,
+    );
+
+    return TerminalView(
+      terminal,
+      theme: theme,
+    );
   }
 }
