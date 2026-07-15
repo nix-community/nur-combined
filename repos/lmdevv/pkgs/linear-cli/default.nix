@@ -7,13 +7,13 @@
 }:
 
 let
-  version = "2.0.0";
+  version = "2.1.0";
 
   targetBySystem = {
-    "x86_64-linux" = "x86_64-unknown-linux-gnu";
-    "aarch64-linux" = "aarch64-unknown-linux-gnu";
-    "x86_64-darwin" = "x86_64-apple-darwin";
-    "aarch64-darwin" = "aarch64-apple-darwin";
+    "x86_64-linux" = "sha256-E3HfCD8fFk/tPG30FKL6zcbl074nw1XxcxOCSCOME+M=";
+    "aarch64-linux" = "sha256-eLJh/TyPxeyVaEcMGiAQYTTLHGWHqy3fUhJ83Z3gE1c=";
+    "x86_64-darwin" = "sha256-s+PoXARitluX6E+AHC9476mig1orNZSqS2Bk3JyMA3o=";
+    "aarch64-darwin" = "sha256-4a1ZbOqAMnyqbLX7//Ooz9HpICerde4mfYXNRcMsyrw=";
   };
 
   sha256BySystem = {
