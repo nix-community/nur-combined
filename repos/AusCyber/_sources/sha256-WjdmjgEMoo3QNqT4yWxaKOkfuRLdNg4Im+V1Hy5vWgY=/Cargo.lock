@@ -409,12 +409,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "either"
-version = "1.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
-
-[[package]]
 name = "embed-resource"
 version = "2.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -691,15 +685,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7943c866cc5cd64cbc25b2e01621d07fa8eb2a1a23160ee81ce38704e97b8ecf"
 
 [[package]]
-name = "itertools"
-version = "0.12.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba291022dbbd398a455acf126c1e341954079855bc60dfdda641363bd6922569"
-dependencies = [
- "either",
-]
-
-[[package]]
 name = "itoa"
 version = "1.0.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -732,7 +717,7 @@ dependencies = [
 
 [[package]]
 name = "kanata"
-version = "1.12.0-prerelease-2"
+version = "1.12.0"
 dependencies = [
  "anyhow",
  "arboard",
@@ -790,7 +775,7 @@ dependencies = [
 
 [[package]]
 name = "kanata-keyberon"
-version = "0.1120.1"
+version = "0.1120.2"
 dependencies = [
  "arraydeque",
  "heapless",
@@ -810,12 +795,11 @@ dependencies = [
 
 [[package]]
 name = "kanata-parser"
-version = "0.1120.1"
+version = "0.1120.2"
 dependencies = [
  "anyhow",
  "bitflags 2.9.1",
  "bytemuck",
- "itertools",
  "kanata-keyberon",
  "log",
  "miette",
@@ -843,7 +827,7 @@ dependencies = [
 
 [[package]]
 name = "kanata-tcp-protocol"
-version = "0.1120.1"
+version = "0.1120.2"
 dependencies = [
  "serde",
  "serde_derive",
@@ -1317,9 +1301,9 @@ checksum = "d61c5ce1153ab5b689d0c074c4e7fc613e942dfb7dd9eea5ab202d2ad91fe361"
 
 [[package]]
 name = "patricia_tree"
-version = "0.8.0"
+version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "31f2f4539bffe53fc4b4da301df49d114b845b077bd5727b7fe2bd9d8df2ae68"
+checksum = "edb45b6331bbdbb54c9a29413703e892ab94f83a31e4a546c778495a91e7fbca"
 dependencies = [
  "bitflags 2.9.1",
 ]

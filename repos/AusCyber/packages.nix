@@ -48,10 +48,6 @@ lib.fix (self: {
     applicationName = "Twilight";
     sourceRoot = "Twilight.app";
   };
-  bartender = pkgs.callPackage ./pkgs/bartender {
-    source = sources.bartender-6;
-    sourceRoot = ".";
-  };
   hardlink = pkgs.callPackage ./pkgs/hardlink {
   };
   yabai = pkgs.callPackage ./pkgs/yabai {
@@ -75,6 +71,9 @@ lib.fix (self: {
     cargoDeps = pkgs.rustPlatform.importCargoLock sources.kanata.cargoLock."Cargo.lock";
   });
   #  karabiner-dk = builtins.trace "karabiner-dk is now in nixpkgs" pkgs.karabiner-dk;
+  karabiner-dk = pkgs.karabiner-dk.overrideAttrs (attrs: {
+    inherit (sources.karabiner-dk) src version;
+  });
   kanata-vk-agent = pkgs.callPackage ./pkgs/kanata-vk-agent {
     source = sources.kanata-vk-agent;
   };
