@@ -39,8 +39,10 @@ flutter.buildFlutterApplication {
     rustPlatform.cargoSetupHook
     cmake
     ninja
-    cocoapods
     cacert
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    cocoapods
   ];
 
   # Intentional: do not wrap with tmux/openssh — use the ones from PATH.
@@ -76,71 +78,64 @@ flutter.buildFlutterApplication {
         fi
   '';
 
-  buildPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        runHook preBuild
-        export HOME=$NIX_BUILD_TOP
-        export CFFIXED_USER_HOME=$NIX_BUILD_TOP
-        export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-        export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
-        export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
-
-        # Create a shadow flutter SDK to make FlutterMacOS.xcframework writable
-        export FAKE_FLUTTER_ROOT=$NIX_BUILD_TOP/fake_flutter
-        mkdir -p $FAKE_FLUTTER_ROOT
-        # Create directory structure and symlink files
-        cp -rs ${flutter}/* $FAKE_FLUTTER_ROOT/
-        chmod -R u+w $FAKE_FLUTTER_ROOT
-
-        # Replace the FlutterMacOS.xcframework with a real, writable copy, preserving internal symlinks
-        FRAMEWORK_DIR="$FAKE_FLUTTER_ROOT/bin/cache/artifacts/engine/darwin-x64-release/FlutterMacOS.xcframework"
-        rm -rf "$FRAMEWORK_DIR"
-        REAL_XCFRAMEWORK=$(readlink -f ${flutter}/bin/cache/artifacts/engine/darwin-x64-release/FlutterMacOS.xcframework)
-        cp -a "$REAL_XCFRAMEWORK" "$FRAMEWORK_DIR"
-        chmod -R u+w "$FRAMEWORK_DIR"
-
-        export PATH=$FAKE_FLUTTER_ROOT/bin:$PATH
-        export FLUTTER_ROOT=$FAKE_FLUTTER_ROOT
-
-        # Create a wrapper for codesign to use the native macOS codesign
-        mkdir -p $NIX_BUILD_TOP/bin
-        cat << 'EOF' > $NIX_BUILD_TOP/bin/codesign
-        #!/usr/bin/env bash
-        exec /usr/bin/codesign "$@"
-        EOF
-        chmod +x $NIX_BUILD_TOP/bin/codesign
-        export PATH=$NIX_BUILD_TOP/bin:$PATH
-
-        mkdir -p build/flutter_assets/fonts
-
-        # Unset Nix compiler variables to prevent xcodebuild from using raw `ld` instead of `clang` for linking
-        unset CC CXX LD AR AS RANLIB NM STRIP
-
-        ${flutter}/bin/flutter config --no-enable-swift-package-manager
-        ${flutter}/bin/flutter build macos -v --release
-        runHook postBuild
-      ''
-    else
-      null;
-
-  installPhase =
-    if stdenv.hostPlatform.isDarwin then
-      ''
-        runHook preInstall
-        mkdir -p $out/Applications
-        cp -r build/macos/Build/Products/Release/*.app $out/Applications/omnimux.app
-        mkdir -p $out/bin
-        ln -s $out/Applications/omnimux.app/Contents/MacOS/* $out/bin/omnimux
-        mkdir -p $debug
-        runHook postInstall
-      ''
-    else
-      null;
-
   meta = {
     description = "Multi-tab terminal UI for local and remote tmux sessions";
     mainProgram = "omnimux";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
+}
+// lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+  buildPhase = ''
+    runHook preBuild
+    export HOME=$NIX_BUILD_TOP
+    export CFFIXED_USER_HOME=$NIX_BUILD_TOP
+    export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+    export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+    export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
+
+    # Create a shadow flutter SDK to make FlutterMacOS.xcframework writable
+    export FAKE_FLUTTER_ROOT=$NIX_BUILD_TOP/fake_flutter
+    mkdir -p $FAKE_FLUTTER_ROOT
+    # Create directory structure and symlink files
+    cp -rs ${flutter}/* $FAKE_FLUTTER_ROOT/
+    chmod -R u+w $FAKE_FLUTTER_ROOT
+
+    # Replace the FlutterMacOS.xcframework with a real, writable copy, preserving internal symlinks
+    FRAMEWORK_DIR="$FAKE_FLUTTER_ROOT/bin/cache/artifacts/engine/darwin-x64-release/FlutterMacOS.xcframework"
+    rm -rf "$FRAMEWORK_DIR"
+    REAL_XCFRAMEWORK=$(readlink -f ${flutter}/bin/cache/artifacts/engine/darwin-x64-release/FlutterMacOS.xcframework)
+    cp -a "$REAL_XCFRAMEWORK" "$FRAMEWORK_DIR"
+    chmod -R u+w "$FRAMEWORK_DIR"
+
+    export PATH=$FAKE_FLUTTER_ROOT/bin:$PATH
+    export FLUTTER_ROOT=$FAKE_FLUTTER_ROOT
+
+    # Create a wrapper for codesign to use the native macOS codesign
+    mkdir -p $NIX_BUILD_TOP/bin
+    cat << 'EOF' > $NIX_BUILD_TOP/bin/codesign
+    #!/usr/bin/env bash
+    exec /usr/bin/codesign "$@"
+    EOF
+    chmod +x $NIX_BUILD_TOP/bin/codesign
+    export PATH=$NIX_BUILD_TOP/bin:$PATH
+
+    mkdir -p build/flutter_assets/fonts
+
+    # Unset Nix compiler variables to prevent xcodebuild from using raw `ld` instead of `clang` for linking
+    unset CC CXX LD AR AS RANLIB NM STRIP
+
+    ${flutter}/bin/flutter config --no-enable-swift-package-manager
+    ${flutter}/bin/flutter build macos -v --release
+    runHook postBuild
+  '';
+
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/Applications
+    cp -r build/macos/Build/Products/Release/*.app $out/Applications/omnimux.app
+    mkdir -p $out/bin
+    ln -s $out/Applications/omnimux.app/Contents/MacOS/* $out/bin/omnimux
+    mkdir -p $debug
+    runHook postInstall
+  '';
 }
