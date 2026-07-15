@@ -1,8 +1,6 @@
 name: New package request
 description: Request packaging the latest stable release of a GitHub-hosted project
 title: "[Package request] "
-labels:
-  - enhancement
 assignees:
   - codgician
 body:

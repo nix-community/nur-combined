@@ -7,6 +7,56 @@ concurrency:
   group: new-package-${{ github.event.issue.number }}
   cancel-in-progress: false
 jobs:
+  announce:
+    if: ${{ github.repository_id == '852828187' && github.actor_id == '15964984' && github.triggering_actor == 'codgician' && github.event.sender.id == 15964984 && github.event.issue.state == 'open' && !github.event.issue.pull_request && startsWith(github.event.issue.title, '[Package request] ') && ((github.event.action == 'opened' && github.event.issue.user.id == 15964984) || (github.event.action == 'labeled' && github.event.label.name == 'package-request-approved')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    continue-on-error: true
+    permissions:
+      issues: write
+    env:
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+    steps:
+      - name: Post initial status
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            const marker = "<!-- new-package-status -->";
+            const body = [
+              marker,
+              "## Package automation",
+              "**Status:** Running",
+              "",
+              "| Stage | Result |",
+              "| --- | --- |",
+              "| Preparation | Running |",
+              "| Validation | Pending |",
+              "| Publishing | Pending |",
+              "",
+              `[View workflow run](${process.env.RUN_URL})`,
+            ].join("\n");
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const existing = comments.find((comment) =>
+              comment.user?.login === "github-actions[bot]" && comment.body?.startsWith(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
   prepare:
     if: ${{ github.repository_id == '852828187' && github.actor_id == '15964984' && github.triggering_actor == 'codgician' && github.event.sender.id == 15964984 && github.event.issue.state == 'open' && !github.event.issue.pull_request && startsWith(github.event.issue.title, '[Package request] ') && ((github.event.action == 'opened' && github.event.issue.user.id == 15964984) || (github.event.action == 'labeled' && github.event.label.name == 'package-request-approved')) }}
     runs-on: ubuntu-latest
@@ -53,18 +103,20 @@ jobs:
               return [match[1], body.slice(start, end).trim()];
             }));
 
-            const upstream = values["Upstream repository"];
+            const upstreamInput = values["Upstream repository"];
             let parsed;
             try {
-              parsed = new URL(upstream);
+              parsed = new URL(upstreamInput);
             } catch {
               throw new Error("Upstream repository must be a canonical GitHub URL");
             }
             const parts = parsed.pathname.split("/").filter(Boolean);
             const canonical = parts.length === 2 ? `https://github.com/${parts[0]}/${parts[1]}` : "";
-            if (parsed.protocol !== "https:" || parsed.hostname !== "github.com" || parsed.port || parsed.username || parsed.password || parsed.search || parsed.hash || upstream !== canonical || parts[1].endsWith(".git")) {
+            const normalizedInput = upstreamInput.endsWith("/") ? upstreamInput.slice(0, -1) : upstreamInput;
+            if (parsed.protocol !== "https:" || parsed.hostname !== "github.com" || parsed.port || parsed.username || parsed.password || parsed.search || parsed.hash || parts.length !== 2 || normalizedInput !== canonical || parts[1].endsWith(".git")) {
               throw new Error("Upstream repository must be https://github.com/<owner>/<repository>");
             }
+            const upstream = canonical;
 
             let notes = values["Packaging notes"];
             if (notes === "_No response_") notes = "";
@@ -251,3 +303,77 @@ jobs:
             bot
             enhancement
           reviewers: codgician
+  report:
+    needs: [announce, prepare, validate, publish]
+    if: ${{ always() && needs.prepare.result != 'skipped' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+    env:
+      RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      PREPARE_RESULT: ${{ needs.prepare.result }}
+      VALIDATE_RESULT: ${{ needs.validate.result }}
+      PUBLISH_RESULT: ${{ needs.publish.result }}
+    steps:
+      - name: Post final status
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            const marker = "<!-- new-package-status -->";
+            const stages = [
+              { name: "Preparation", result: process.env.PREPARE_RESULT },
+              { name: "Validation", result: process.env.VALIDATE_RESULT },
+              { name: "Publishing", result: process.env.PUBLISH_RESULT },
+            ];
+            const resultLabels = {
+              success: "Passed",
+              failure: "Failed",
+              cancelled: "Cancelled",
+              skipped: "Not run",
+            };
+            const failed = stages.find((stage) => stage.result === "failure");
+            const cancelled = stages.find((stage) => stage.result === "cancelled");
+            const status = failed
+              ? `Failed during ${failed.name.toLowerCase()}`
+              : cancelled
+                ? `Cancelled during ${cancelled.name.toLowerCase()}`
+                : stages.every((stage) => stage.result === "success")
+                  ? "Succeeded"
+                  : "Did not complete";
+            const rows = stages.map((stage) =>
+              `| ${stage.name} | ${resultLabels[stage.result] || stage.result} |`
+            );
+            const body = [
+              marker,
+              "## Package automation",
+              `**Status:** ${status}`,
+              "",
+              "| Stage | Result |",
+              "| --- | --- |",
+              ...rows,
+              "",
+              `[View workflow run](${process.env.RUN_URL})`,
+            ].join("\n");
+
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              ...context.repo,
+              issue_number: context.issue.number,
+              per_page: 100,
+            });
+            const existing = comments.find((comment) =>
+              comment.user?.login === "github-actions[bot]" && comment.body?.startsWith(marker)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                ...context.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+            }
