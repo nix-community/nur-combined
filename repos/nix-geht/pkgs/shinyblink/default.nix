@@ -64,16 +64,16 @@ in {
       hash = "sha256-V6OtjtLkRnsDXBQN18KRcLtEDSroglbz6moU7L1eoCk=";
     };
 
-  ff-notext =
-    mkShinyFfUtil
-    "Tesseract OCR-based text removal on farbfeld images"
-    {
-      version = "0.1.0";
-      nativeBuildInputs = [pkgs.pkg-config];
-      buildInputs = [pkgs.tesseract5];
-    }
-    {
-      repo = "ff-notext";
-      hash = "sha256-lAhpJLlpSRLzRG4xgs/Ka8ZA1G8mH0632edHOfn3ffk=";
-    };
+  #ff-notext =
+  #  mkShinyFfUtil
+  #  "Tesseract OCR-based text removal on farbfeld images"
+  #  {
+  #    version = "0.1.0";
+  #    nativeBuildInputs = [pkgs.pkg-config];
+  #    buildInputs = [pkgs.tesseract4];
+  #  }
+  #  {
+  #    repo = "ff-notext";
+  #    hash = "sha256-lAhpJLlpSRLzRG4xgs/Ka8ZA1G8mH0632edHOfn3ffk=";
+  #  };
 }

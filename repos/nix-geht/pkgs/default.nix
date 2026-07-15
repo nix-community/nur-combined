@@ -12,7 +12,7 @@ with lib; let
 in
   rec {
     # TODO: More packages!
-    inherit (shinyblink) ffshot ff-overlay ff-sort ff-glitch ff-notext;
+    inherit (shinyblink) ffshot ff-overlay ff-sort ff-glitch;
     inherit (vifino) artsy;
 
     midimonster = callPackage ./midimonster.nix {};
