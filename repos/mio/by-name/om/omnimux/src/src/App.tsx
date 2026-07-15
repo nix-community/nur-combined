@@ -281,6 +281,7 @@ function App() {
 
   const [hosts, setHosts] = useState<string[]>(["localhost"]);
   const [tabs, setTabs] = useState<Tab[]>([{ id: 'qc', type: 'quick-connect' }]);
+  const draggedTabIndex = useRef<number | null>(null);
   const [activeTabId, setActiveTabId] = useState<string>('qc');
   const [newHost, setNewHost] = useState("");
 
@@ -372,23 +373,27 @@ function App() {
                 key={tab.id}
                 draggable
                 onDragStart={(e) => {
-                  e.dataTransfer.setData('application/omnimux-tab', index.toString());
+                  draggedTabIndex.current = index;
+                  e.dataTransfer.setData('text/plain', index.toString());
+                  const canvas = document.createElement('canvas');
+                  canvas.width = 1;
+                  canvas.height = 1;
+                  e.dataTransfer.setDragImage(canvas, 0, 0);
                 }}
                 onDragOver={(e) => {
                   e.preventDefault();
                 }}
                 onDrop={(e) => {
                   e.preventDefault();
-                  const sourceIndexStr = e.dataTransfer.getData('application/omnimux-tab');
-                  if (!sourceIndexStr) return;
-                  const sourceIndex = parseInt(sourceIndexStr, 10);
-                  if (sourceIndex === index || isNaN(sourceIndex)) return;
+                  if (draggedTabIndex.current === null || draggedTabIndex.current === index) return;
                   
                   const newTabs = [...tabs];
-                  const [removed] = newTabs.splice(sourceIndex, 1);
+                  const [removed] = newTabs.splice(draggedTabIndex.current, 1);
                   newTabs.splice(index, 0, removed);
                   setTabs(newTabs);
+                  draggedTabIndex.current = null;
                 }}
+                onDragEnd={() => { draggedTabIndex.current = null; }}
                 onClick={() => setActiveTabId(tab.id)}
                 style={{
                   background: isActive ? theme.background : theme.buttonBackground,
