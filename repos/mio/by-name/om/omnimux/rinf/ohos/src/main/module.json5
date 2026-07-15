@@ -1,7 +1,0 @@
-{
-  module: {
-    name: "rinf",
-    type: "har",
-    deviceTypes: ["default", "tablet"],
-  },
-}
