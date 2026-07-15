@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rinf/rinf.dart';
@@ -65,14 +67,15 @@ class _MainScreenState extends State<MainScreen> {
   final List<TerminalSession> _sessions = [];
   int _nextSessionId = 1;
   int _activeTabIndex = 0;
+  StreamSubscription<RustSignalPack<SshHostsResult>>? _hostsSub;
+  StreamSubscription<RustSignalPack<TerminalExit>>? _exitSub;
 
   @override
   void initState() {
     super.initState();
     GetSshHosts().sendSignalToRust();
-    
-    // Listen for ssh hosts
-    SshHostsResult.rustSignalStream.listen((event) {
+
+    _hostsSub = SshHostsResult.rustSignalStream.listen((event) {
       if (mounted) {
         setState(() {
           _hosts.clear();
@@ -81,23 +84,30 @@ class _MainScreenState extends State<MainScreen> {
       }
     });
 
-    // Listen for terminal exit
-    TerminalExit.rustSignalStream.listen((event) {
-      if (mounted) {
-        setState(() {
-          final idx = _sessions.indexWhere((s) => s.id == event.message.sessionId);
-          if (idx != -1) {
-            _sessions.removeAt(idx);
-            if (_activeTabIndex >= _sessions.length) {
-              _activeTabIndex = _sessions.length - 1;
-            }
-            if (_activeTabIndex < 0) _activeTabIndex = 0;
+    _exitSub = TerminalExit.rustSignalStream.listen((event) {
+      if (!mounted) return;
+      setState(() {
+        final idx =
+            _sessions.indexWhere((s) => s.id == event.message.sessionId);
+        if (idx != -1) {
+          _sessions.removeAt(idx).dispose();
+          if (_activeTabIndex >= _sessions.length) {
+            _activeTabIndex = _sessions.length - 1;
           }
-        });
-      }
+          if (_activeTabIndex < 0) _activeTabIndex = 0;
+        }
+      });
     });
+  }
 
-    // Output is handled inside TerminalSession class via stream filtering
+  @override
+  void dispose() {
+    _hostsSub?.cancel();
+    _exitSub?.cancel();
+    for (final session in _sessions) {
+      session.dispose();
+    }
+    super.dispose();
   }
 
   void _addTab(String host) {
@@ -106,6 +116,19 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
       _sessions.add(session);
       _activeTabIndex = _sessions.length - 1;
+    });
+  }
+
+  void _closeTab(int index) {
+    final session = _sessions[index];
+    StopSession(sessionId: session.id).sendSignalToRust();
+    session.dispose();
+    setState(() {
+      _sessions.removeAt(index);
+      if (_activeTabIndex >= _sessions.length) {
+        _activeTabIndex = _sessions.length - 1;
+      }
+      if (_activeTabIndex < 0) _activeTabIndex = 0;
     });
   }
 
@@ -128,13 +151,14 @@ class _MainScreenState extends State<MainScreen> {
                       }
                       final TerminalSession item = _sessions.removeAt(oldIndex);
                       _sessions.insert(newIndex, item);
-                      
-                      // Update active tab index if needed
+
                       if (_activeTabIndex == oldIndex) {
                         _activeTabIndex = newIndex;
-                      } else if (_activeTabIndex > oldIndex && _activeTabIndex <= newIndex) {
+                      } else if (_activeTabIndex > oldIndex &&
+                          _activeTabIndex <= newIndex) {
                         _activeTabIndex--;
-                      } else if (_activeTabIndex < oldIndex && _activeTabIndex >= newIndex) {
+                      } else if (_activeTabIndex < oldIndex &&
+                          _activeTabIndex >= newIndex) {
                         _activeTabIndex++;
                       }
                     });
@@ -156,16 +180,20 @@ class _MainScreenState extends State<MainScreen> {
                       title: const Text('New Session'),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
-                        children: _hosts.map((host) => ListTile(
-                          title: Text(host),
-                          onTap: () {
-                            Navigator.pop(context);
-                            _addTab(host);
-                          },
-                        )).toList(),
+                        children: _hosts
+                            .map(
+                              (host) => ListTile(
+                                title: Text(host),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  _addTab(host);
+                                },
+                              ),
+                            )
+                            .toList(),
                       ),
                     );
-                  }
+                  },
                 );
               },
             ),
@@ -174,7 +202,12 @@ class _MainScreenState extends State<MainScreen> {
       ),
       body: _sessions.isEmpty
           ? const Center(child: Text('No active sessions. Click + to start.'))
-          : _sessions[_activeTabIndex].buildWidget(),
+          : IndexedStack(
+              index: _activeTabIndex,
+              children: [
+                for (final session in _sessions) session.buildWidget(),
+              ],
+            ),
     );
   }
 
@@ -191,23 +224,16 @@ class _MainScreenState extends State<MainScreen> {
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          color: isActive ? Theme.of(context).colorScheme.primaryContainer : Colors.transparent,
+          color: isActive
+              ? Theme.of(context).colorScheme.primaryContainer
+              : Colors.transparent,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(session.host),
               const SizedBox(width: 8),
               InkWell(
-                onTap: () {
-                  StopSession(sessionId: session.id).sendSignalToRust();
-                  setState(() {
-                    _sessions.removeAt(index);
-                    if (_activeTabIndex >= _sessions.length) {
-                      _activeTabIndex = _sessions.length - 1;
-                    }
-                    if (_activeTabIndex < 0) _activeTabIndex = 0;
-                  });
-                },
+                onTap: () => _closeTab(index),
                 child: const Icon(Icons.close, size: 16),
               ),
             ],
@@ -222,19 +248,49 @@ class TerminalSession {
   final int id;
   final String host;
   final Terminal terminal;
-  
+  StreamSubscription<RustSignalPack<TerminalOutput>>? _outputSub;
+  bool _disposed = false;
+
+  static final _theme = TerminalTheme(
+    cursor: Colors.white,
+    selection: Colors.blue.withOpacity(0.3),
+    foreground: const Color(0xFFD4D4D4),
+    background: const Color(0xFF1E1E1E),
+    black: const Color(0xFF000000),
+    red: const Color(0xFFCD3131),
+    green: const Color(0xFF0DBC79),
+    yellow: const Color(0xFFE5E510),
+    blue: const Color(0xFF2472C8),
+    magenta: const Color(0xFFBC3FBC),
+    cyan: const Color(0xFF11A8CD),
+    white: const Color(0xFFE5E5E5),
+    brightBlack: const Color(0xFF666666),
+    brightRed: const Color(0xFFF14C4C),
+    brightGreen: const Color(0xFF23D18B),
+    brightYellow: const Color(0xFFF5F543),
+    brightBlue: const Color(0xFF3B8EEA),
+    brightMagenta: const Color(0xFFD670D6),
+    brightCyan: const Color(0xFF29B8DB),
+    brightWhite: const Color(0xFFE5E5E5),
+    searchHitBackground: Colors.yellow,
+    searchHitBackgroundCurrent: Colors.orange,
+    searchHitForeground: Colors.black,
+  );
+
   TerminalSession({required this.id, required this.host})
       : terminal = Terminal(
           maxLines: 10000,
         ) {
     terminal.onOutput = (data) {
+      if (_disposed) return;
       WriteSession(
         sessionId: id,
-        data: data.codeUnits,
+        data: utf8.encode(data),
       ).sendSignalToRust();
     };
 
     terminal.onResize = (w, h, pw, ph) {
+      if (_disposed) return;
       ResizeSession(
         sessionId: id,
         cols: w,
@@ -242,8 +298,11 @@ class TerminalSession {
       ).sendSignalToRust();
     };
 
-    TerminalOutput.rustSignalStream.where((event) => event.message.sessionId == id).listen((event) {
-      terminal.write(String.fromCharCodes(event.message.data));
+    _outputSub = TerminalOutput.rustSignalStream
+        .where((event) => event.message.sessionId == id)
+        .listen((event) {
+      if (_disposed) return;
+      terminal.write(utf8.decode(event.message.data, allowMalformed: true));
     });
 
     StartSession(
@@ -254,36 +313,18 @@ class TerminalSession {
     ).sendSignalToRust();
   }
 
-  Widget buildWidget() {
-    final theme = TerminalTheme(
-      cursor: Colors.white,
-      selection: Colors.blue.withOpacity(0.3),
-      foreground: const Color(0xFFD4D4D4),
-      background: const Color(0xFF1E1E1E),
-      black: const Color(0xFF000000),
-      red: const Color(0xFFCD3131),
-      green: const Color(0xFF0DBC79),
-      yellow: const Color(0xFFE5E510),
-      blue: const Color(0xFF2472C8),
-      magenta: const Color(0xFFBC3FBC),
-      cyan: const Color(0xFF11A8CD),
-      white: const Color(0xFFE5E5E5),
-      brightBlack: const Color(0xFF666666),
-      brightRed: const Color(0xFFF14C4C),
-      brightGreen: const Color(0xFF23D18B),
-      brightYellow: const Color(0xFFF5F543),
-      brightBlue: const Color(0xFF3B8EEA),
-      brightMagenta: const Color(0xFFD670D6),
-      brightCyan: const Color(0xFF29B8DB),
-      brightWhite: const Color(0xFFE5E5E5),
-      searchHitBackground: Colors.yellow,
-      searchHitBackgroundCurrent: Colors.orange,
-      searchHitForeground: Colors.black,
-    );
+  void dispose() {
+    if (_disposed) return;
+    _disposed = true;
+    _outputSub?.cancel();
+    _outputSub = null;
+  }
 
+  Widget buildWidget() {
     return TerminalView(
       terminal,
-      theme: theme,
+      theme: _theme,
+      autofocus: true,
     );
   }
 }

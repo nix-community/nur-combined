@@ -1,4 +1,4 @@
-use rinf::{DartSignal, RustSignal, SignalPiece};
+use rinf::{DartSignal, RustSignal};
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, DartSignal)]

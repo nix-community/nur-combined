@@ -1,5 +1,8 @@
-use crate::signals::*;
-use portable_pty::{CommandBuilder, MasterPty, NativePtySystem, PtySize, PtySystem};
+use crate::signals::{
+    GetSshHosts, ResizeSession, SshHostsResult, StartSession, StopSession, TerminalExit,
+    TerminalOutput, WriteSession,
+};
+use portable_pty::{ChildKiller, CommandBuilder, MasterPty, NativePtySystem, PtySize, PtySystem};
 use rinf::{DartSignal, RustSignal};
 use std::{
     collections::HashMap,
@@ -11,6 +14,21 @@ use tokio::task::spawn_blocking;
 struct PtySession {
     master: Box<dyn MasterPty + Send>,
     writer: Arc<Mutex<Box<dyn Write + Send>>>,
+    killer: Mutex<Box<dyn ChildKiller + Send + Sync>>,
+}
+
+fn send_spawn_failure(session_id: i64, message: String) {
+    TerminalOutput {
+        session_id,
+        data: format!("{message}\r\n").into_bytes(),
+    }
+    .send_signal_to_dart();
+
+    TerminalExit {
+        session_id,
+        status: Some(-1),
+    }
+    .send_signal_to_dart();
 }
 
 pub async fn create_actors() {
@@ -37,17 +55,7 @@ pub async fn create_actors() {
                 }) {
                     Ok(p) => p,
                     Err(e) => {
-                        TerminalOutput {
-                            session_id,
-                            data: format!("Failed to open PTY: {}\r\n", e).into_bytes(),
-                        }
-                        .send_signal_to_dart();
-                        
-                        TerminalExit {
-                            session_id,
-                            status: Some(-1),
-                        }
-                        .send_signal_to_dart();
+                        send_spawn_failure(session_id, format!("Failed to open PTY: {e}"));
                         return;
                     }
                 };
@@ -60,41 +68,59 @@ pub async fn create_actors() {
                 } else {
                     let mut command = CommandBuilder::new("ssh");
                     command.arg("-t");
+                    // Prevent Host tokens like `-J` from becoming ssh options.
+                    command.arg("--");
                     command.arg(host);
                     command.arg("tmux a || tmux new");
                     command
                 };
                 command.env("TERM", "xterm-256color");
 
-                let mut child = match pair.slave.spawn_command(command) {
+                let child = match pair.slave.spawn_command(command) {
                     Ok(c) => c,
                     Err(e) => {
-                        TerminalOutput {
-                            session_id,
-                            data: format!("Failed to spawn SSH process: {}\r\n", e).into_bytes(),
-                        }
-                        .send_signal_to_dart();
-                        
-                        TerminalExit {
-                            session_id,
-                            status: Some(-1),
-                        }
-                        .send_signal_to_dart();
+                        send_spawn_failure(session_id, format!("Failed to spawn process: {e}"));
                         return;
                     }
                 };
                 drop(pair.slave);
 
-                let mut reader = pair.master.try_clone_reader().unwrap();
-                let writer = pair.master.take_writer().unwrap();
+                let killer = child.clone_killer();
+                let mut reader = match pair.master.try_clone_reader() {
+                    Ok(r) => r,
+                    Err(e) => {
+                        let _ = child.clone_killer().kill();
+                        send_spawn_failure(session_id, format!("Failed to clone PTY reader: {e}"));
+                        return;
+                    }
+                };
+                let writer = match pair.master.take_writer() {
+                    Ok(w) => w,
+                    Err(e) => {
+                        let _ = killer.clone_killer().kill();
+                        send_spawn_failure(session_id, format!("Failed to take PTY writer: {e}"));
+                        return;
+                    }
+                };
 
-                sessions.lock().unwrap().insert(
-                    session_id,
-                    PtySession {
-                        master: pair.master,
-                        writer: Arc::new(Mutex::new(writer)),
-                    },
-                );
+                if let Ok(mut sessions_lock) = sessions.lock() {
+                    if let Some(old) = sessions_lock.insert(
+                        session_id,
+                        PtySession {
+                            master: pair.master,
+                            writer: Arc::new(Mutex::new(writer)),
+                            killer: Mutex::new(killer),
+                        },
+                    ) {
+                        if let Ok(mut old_killer) = old.killer.lock() {
+                            let _ = old_killer.kill();
+                        }
+                    }
+                } else {
+                    let _ = killer.clone_killer().kill();
+                    send_spawn_failure(session_id, "Failed to register session".to_string());
+                    return;
+                }
 
                 // Output reader thread
                 std::thread::spawn(move || {
@@ -113,9 +139,11 @@ pub async fn create_actors() {
                 });
 
                 // Waiter thread
+                let mut child = child;
+                let sessions_wait = sessions.clone();
                 std::thread::spawn(move || {
                     let status = child.wait().ok().map(|s| s.exit_code() as i32);
-                    if let Ok(mut sessions_lock) = sessions.lock() {
+                    if let Ok(mut sessions_lock) = sessions_wait.lock() {
                         sessions_lock.remove(&session_id);
                     }
                     TerminalExit { session_id, status }.send_signal_to_dart();
@@ -129,16 +157,24 @@ pub async fn create_actors() {
     tokio::spawn(async move {
         let mut receiver = WriteSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
-            if let Some(session) = sessions_write.lock().unwrap().get(&signal.message.session_id) {
-                let writer = session.writer.clone();
-                let data = signal.message.data;
-                spawn_blocking(move || {
-                    if let Ok(mut w) = writer.lock() {
-                        let _ = w.write_all(&data);
-                        let _ = w.flush();
-                    }
-                });
-            }
+            let writer = {
+                let Ok(sessions_lock) = sessions_write.lock() else {
+                    continue;
+                };
+                sessions_lock
+                    .get(&signal.message.session_id)
+                    .map(|session| session.writer.clone())
+            };
+            let Some(writer) = writer else {
+                continue;
+            };
+            let data = signal.message.data;
+            spawn_blocking(move || {
+                if let Ok(mut w) = writer.lock() {
+                    let _ = w.write_all(&data);
+                    let _ = w.flush();
+                }
+            });
         }
     });
 
@@ -147,7 +183,10 @@ pub async fn create_actors() {
     tokio::spawn(async move {
         let mut receiver = ResizeSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
-            if let Some(session) = sessions_resize.lock().unwrap().get(&signal.message.session_id) {
+            let Ok(sessions_lock) = sessions_resize.lock() else {
+                continue;
+            };
+            if let Some(session) = sessions_lock.get(&signal.message.session_id) {
                 let _ = session.master.resize(PtySize {
                     rows: signal.message.rows,
                     cols: signal.message.cols,
@@ -163,7 +202,17 @@ pub async fn create_actors() {
     tokio::spawn(async move {
         let mut receiver = StopSession::get_dart_signal_receiver();
         while let Some(signal) = receiver.recv().await {
-            sessions_stop.lock().unwrap().remove(&signal.message.session_id);
+            let removed = {
+                let Ok(mut sessions_lock) = sessions_stop.lock() else {
+                    continue;
+                };
+                sessions_lock.remove(&signal.message.session_id)
+            };
+            if let Some(session) = removed {
+                if let Ok(mut killer) = session.killer.lock() {
+                    let _ = killer.kill();
+                }
+            }
         }
     });
 
@@ -171,7 +220,7 @@ pub async fn create_actors() {
     tokio::spawn(async move {
         let mut receiver = GetSshHosts::get_dart_signal_receiver();
         while let Some(_signal) = receiver.recv().await {
-            spawn_blocking(move || {
+            spawn_blocking(|| {
                 let mut hosts = vec!["localhost".to_string()];
                 let mut visited = std::collections::HashSet::new();
                 if let Ok(home) = std::env::var("HOME") {
@@ -200,14 +249,19 @@ fn parse_ssh_config(
             if line.to_lowercase().starts_with("host ") {
                 let host_part = line[5..].trim();
                 for host in host_part.split_whitespace() {
-                    if !host.contains('*') && !host.contains('?') {
-                        hosts.push(host.to_string());
+                    // Skip patterns and tokens that would look like ssh options.
+                    if host.contains('*')
+                        || host.contains('?')
+                        || host.starts_with('-')
+                        || hosts.contains(&host.to_string())
+                    {
+                        continue;
                     }
+                    hosts.push(host.to_string());
                 }
             } else if line.to_lowercase().starts_with("include ") {
                 let include_path = line[8..].trim();
-                
-                // Expand path
+
                 let expanded_path = if include_path.starts_with("~/") {
                     if let Ok(home) = std::env::var("HOME") {
                         std::path::PathBuf::from(home).join(&include_path[2..])
@@ -216,12 +270,12 @@ fn parse_ssh_config(
                     }
                 } else if include_path.starts_with('/') {
                     std::path::PathBuf::from(include_path)
+                } else if let Ok(home) = std::env::var("HOME") {
+                    std::path::PathBuf::from(home)
+                        .join(".ssh")
+                        .join(include_path)
                 } else {
-                    if let Ok(home) = std::env::var("HOME") {
-                        std::path::PathBuf::from(home).join(".ssh").join(include_path)
-                    } else {
-                        std::path::PathBuf::from(include_path)
-                    }
+                    std::path::PathBuf::from(include_path)
                 };
 
                 if let Some(expanded_str) = expanded_path.to_str() {

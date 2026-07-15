@@ -1,6 +1,5 @@
 {
   lib,
-  stdenv,
   flutter,
   pkg-config,
   rustPlatform,
@@ -14,7 +13,7 @@ let
   cargoDeps = rustPlatform.fetchCargoVendor {
     src = lib.cleanSource ./.;
     sourceRoot = "source/src";
-    hash = "sha256-awpApw0w0TrqUUelGHfMh6aGuha8VWNoDY5pOUouubw=";
+    hash = "sha256-Npr21fTx1ExEFng4q9KcsjvfhYfnegFiU6m3BYZpq5w=";
   };
 in
 flutter.buildFlutterApplication {
@@ -34,6 +33,7 @@ flutter.buildFlutterApplication {
     ninja
   ];
 
+  # Intentional: do not wrap with tmux/openssh — use the ones from PATH.
   cargoRoot = ".";
   dontUseCmakeConfigure = true;
   inherit cargoDeps;
@@ -67,4 +67,10 @@ flutter.buildFlutterApplication {
           find linux -name "generated_plugins.cmake" -exec sed -i "s|$RINF_PATH|$PWD/.rinf-writable/|g" {} +
         fi
   '';
+
+  meta = {
+    description = "Multi-tab terminal UI for local and remote tmux sessions";
+    mainProgram = "omnimux";
+    platforms = lib.platforms.linux;
+  };
 }
