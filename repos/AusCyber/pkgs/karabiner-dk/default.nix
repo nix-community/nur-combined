@@ -27,12 +27,17 @@ stdenv.mkDerivation (finalAttrs: {
     xar
   ];
 
-  unpackPhase = ''
-    runHook preUnpack
-    xar -xf $src/dist/Karabiner-DriverKit-VirtualHIDDevice-${finalAttrs.version}.pkg
-    zcat Payload | bsdcpio -i
-    runHook postUnpack
-  '';
+  unpackPhase =
+    let
+      path = "Karabiner-DriverKit-VirtualHIDDevice-${finalAttrs.version}/dist/Karabiner-DriverKit-VirtualHIDDevice-${finalAttrs.version}.pkg";
+    in
+    ''
+      runHook preUnpack
+      tar -xzf $src ${path}
+      xar -xf ${path}
+      zcat Payload | bsdcpio -i
+      runHook postUnpack
+    '';
 
   installPhase = ''
     runHook preInstall
