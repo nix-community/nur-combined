@@ -71,8 +71,11 @@ lib.fix (self: {
     cargoDeps = pkgs.rustPlatform.importCargoLock sources.kanata.cargoLock."Cargo.lock";
   });
   #  karabiner-dk = builtins.trace "karabiner-dk is now in nixpkgs" pkgs.karabiner-dk;
-  karabiner-dk = pkgs.karabiner-dk.overrideAttrs (attrs: {
+  karabiner-dk = pkgs.karabiner-dk.overrideAttrs (attrs: rec {
     inherit (sources.karabiner-dk) src version;
+    meta = attrs.meta // {
+      changelog = "https://github.com/pqrs-org/Karabiner-DriverKit-VirtualHIDDevice/releases/tag/${version}";
+    };
   });
   kanata-vk-agent = pkgs.callPackage ./pkgs/kanata-vk-agent {
     source = sources.kanata-vk-agent;
