@@ -24,6 +24,7 @@ in
     watchdogd = callPackage ./troglobit/watchdogd.nix {inherit libuev;};
 
     open-vmdk = callPackage ./open-vmdk.nix {};
+    scsh3 = callPackage ./scsh3/package.nix {};
   }
   // optionalAttrs (!hasSuffix "-darwin" system) rec {
     # Packages that won't run on Darwin.
