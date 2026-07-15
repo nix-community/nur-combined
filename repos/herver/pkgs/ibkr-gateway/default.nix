@@ -8,20 +8,20 @@
 }:
 
 let
-  version = "10.48.1d";
+  version = "10.48.1e";
   pname = "ibkr-gateway";
 
   src = fetchurl {
     # Always serves the latest version; no versioned URL available
     url = "https://download2.interactivebrokers.com/installers/ibgateway/latest-standalone/ibgateway-latest-standalone-linux-x64.sh";
-    hash = "sha256-5zwXjP5B7Qfe/so7OggmZY8p1XgKj9dZSGjrvoSQ9Fs=";
+    hash = "sha256-eRq+EllMDZyHNnaf2O5jaIYbDRprcOESdbMt7f7BZpI=";
     name = "${pname}-${version}-installer.sh";
   };
 
   # The installer requires exactly Zulu JRE 17.0.16 with JavaFX
   jre = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/jres/linux-amd64-17.0.16.0.101-zulu.tar.gz";
-    hash = "sha256-5zwXjP5B7Qfe/so7OggmZY8p1XgKj9dZSGjrvoSQ9Fs=";
+    hash = "sha256-eRq+EllMDZyHNnaf2O5jaIYbDRprcOESdbMt7f7BZpI=";
   };
 in
 stdenv.mkDerivation {
@@ -173,7 +173,7 @@ stdenv.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.etagHash = "eaca205debbe78339d8c02fa92b053fe";
+  passthru.etagHash = "cb0027f5e22a7a699f5d97ab55836428";
 
   meta = {
     description = "Interactive Brokers Gateway for automated trading";
