@@ -365,11 +365,30 @@ function App() {
           OmniMux
         </div>
         <div style={{ display: 'flex', flex: 1, overflowX: 'auto', gap: 4 }}>
-          {tabs.map((tab) => {
+          {tabs.map((tab, index) => {
             const isActive = tab.id === activeTabId;
             return (
               <div
                 key={tab.id}
+                draggable
+                onDragStart={(e) => {
+                  e.dataTransfer.setData('application/omnimux-tab', index.toString());
+                }}
+                onDragOver={(e) => {
+                  e.preventDefault();
+                }}
+                onDrop={(e) => {
+                  e.preventDefault();
+                  const sourceIndexStr = e.dataTransfer.getData('application/omnimux-tab');
+                  if (!sourceIndexStr) return;
+                  const sourceIndex = parseInt(sourceIndexStr, 10);
+                  if (sourceIndex === index || isNaN(sourceIndex)) return;
+                  
+                  const newTabs = [...tabs];
+                  const [removed] = newTabs.splice(sourceIndex, 1);
+                  newTabs.splice(index, 0, removed);
+                  setTabs(newTabs);
+                }}
                 onClick={() => setActiveTabId(tab.id)}
                 style={{
                   background: isActive ? theme.background : theme.buttonBackground,
@@ -386,6 +405,7 @@ function App() {
                   marginBottom: -1,
                   zIndex: isActive ? 2 : 1,
                   opacity: isActive ? 1 : 0.8,
+                  userSelect: "none",
                 }}
               >
                 {tab.type === 'quick-connect' ? 'Quick Connect' : tab.host}

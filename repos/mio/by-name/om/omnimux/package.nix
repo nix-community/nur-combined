@@ -16,7 +16,7 @@ let
     pname = "omnimux-ui";
     version = "0.1.0";
     src = ./src;
-    npmDepsHash = "sha256-N2CMOKjrkJWD5tAEgA2pVergl938OIIE/pUziMKbSNo=";
+    npmDepsHash = "sha256-2e2dt6BxAUE7STuPzYXZ2kweK2c3VmbqAzXSUyOavBM=";
     installPhase = ''
       runHook preInstall
       mkdir -p $out/dist
