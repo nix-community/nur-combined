@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.3.9.4";
+  version = "4.4.0.2";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.3.9.4.xpi";
-  sha256 = "1a0c4d26b86087e85965497925c042752e91b432cd18d7161922a97f840c5e5c";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.0.2.xpi";
+  sha256 = "fe6dcc760b3862333d12bae8101b9311dc4fa646889150d76dbb3875ed1a9ca6";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -355,7 +355,6 @@ buildFirefoxXpiAddon {
       "*://*.housebeautiful.com/*"
       "*://*.houstonchronicle.com/*"
       "*://*.hoy.es/*"
-      "*://*.huffingtonpost.it/*"
       "*://*.humo.be/*"
       "*://*.hydrogeninsight.com/*"
       "*://*.iai.tv/*"
@@ -537,7 +536,6 @@ buildFirefoxXpiAddon {
       "*://*.milenio.com/*"
       "*://*.mittelbayerische.de/*"
       "*://*.mlive.com/*"
-      "*://*.moda.it/*"
       "*://*.modernhealthcare.com/*"
       "*://*.modernretail.co/*"
       "*://*.monacomatin.mc/*"
@@ -606,7 +604,9 @@ buildFirefoxXpiAddon {
       "*://*.observer.co.uk/*"
       "*://*.ocbj.com/*"
       "*://*.ocregister.com/*"
+      "*://*.ogj.com/*"
       "*://*.oklahoman.com/*"
+      "*://*.oko.press/*"
       "*://*.ole.com.ar/*"
       "*://*.omaha.com/*"
       "*://*.on3.com/*"
@@ -778,6 +778,7 @@ buildFirefoxXpiAddon {
       "*://*.the-independent.com/*"
       "*://*.the-past.com/*"
       "*://*.the-scientist.com/*"
+      "*://*.the-star.co.ke/*"
       "*://*.the-tls.com/*"
       "*://*.theadvocate.com.au/*"
       "*://*.theadvocate.com/*"
@@ -831,6 +832,7 @@ buildFirefoxXpiAddon {
       "*://*.thestar.com/*"
       "*://*.thestate.com/*"
       "*://*.thesun.co.uk/*"
+      "*://*.thesun.ie/*"
       "*://*.thetimes.com/*"
       "*://*.theverge.com/*"
       "*://*.theweek.com/*"
@@ -954,7 +956,6 @@ buildFirefoxXpiAddon {
       "*://*.danzz.ch/*"
       "*://*.emol.cl/*"
       "*://*.epochbase.com/*"
-      "*://*.epochbase.eu/*"
       "*://*.flip-pay.com/*"
       "*://*.ftspecialist-us.com/*"
       "*://*.gjirafa.tech/*"
