@@ -72,6 +72,11 @@
           ];
         };
       };
+
+      systemd.services.realm = {
+        bindsTo = [ "sys-subsystem-net-devices-vm2.device" ];
+        after = [ "sys-subsystem-net-devices-vm2.device" ];
+      };
       microvm.autostart = [
         "june"
       ];
