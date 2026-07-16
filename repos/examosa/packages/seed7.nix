@@ -13,6 +13,7 @@
   sqlite,
   unixODBC,
   versionCheckHook,
+  writableTmpDirAsHomeHook,
   withSqlite ? true,
   withMysql ? false,
   withPostgresql ? false,
@@ -69,12 +70,10 @@ stdenv.mkDerivation (finalAttrs: {
     then "mk_mingw.mak"
     else "makefile";
 
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
+
   # Explicitly specified because the auto-detection in checkPhase does not account for -C
   checkTarget = "test";
-
-  preCheck = ''
-    export HOME=$(mktemp -d)
-  '';
 
   installPhase = ''
     runHook preInstall

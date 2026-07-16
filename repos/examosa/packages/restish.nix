@@ -1,8 +1,9 @@
 {
   buildGoModule,
+  lib,
   fetchFromGitHub,
   installShellFiles,
-  lib,
+  writableTmpDirAsHomeHook,
   nix-update-script,
 }:
 buildGoModule (finalAttrs: {
@@ -24,15 +25,13 @@ buildGoModule (finalAttrs: {
 
   nativeBuildInputs = [installShellFiles];
 
+  nativeCheckInputs = [writableTmpDirAsHomeHook];
+
   checkFlags = let
     skippedTests = [
       "TestAPISyncDiscoveryDoesNotSendAuthToCrossOriginLinkSpec"
     ];
   in ["-skip=^(${lib.concatStringsSep "|" skippedTests})$"];
-
-  preCheck = ''
-    export HOME=$(mktemp -d) EDITOR=true
-  '';
 
   postInstall = ''
     installShellCompletion --cmd restish \
