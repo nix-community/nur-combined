@@ -13,6 +13,16 @@ class MainFlutterWindow: NSWindow {
     self.styleMask.insert(.fullSizeContentView)
     self.isMovableByWindowBackground = true
 
+    let channel = FlutterMethodChannel(name: "omnimux/window", binaryMessenger: flutterViewController.engine.binaryMessenger)
+    channel.setMethodCallHandler { [weak self] (call, result) in
+      if call.method == "zoom" {
+        self?.performZoom(nil)
+        result(nil)
+      } else {
+        result(FlutterMethodNotImplemented)
+      }
+    }
+
     RegisterGeneratedPlugins(registry: flutterViewController)
 
     super.awakeFromNib()

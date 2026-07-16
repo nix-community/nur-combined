@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rinf/rinf.dart';
 import 'package:xterm/xterm.dart';
 import 'src/bindings/bindings.dart';
@@ -154,9 +155,16 @@ class _MainScreenState extends State<MainScreen> {
         titleSpacing: 0,
         leadingWidth: Platform.isMacOS ? 80 : 0,
         leading: Platform.isMacOS ? const SizedBox(width: 80) : null,
-        title: Row(
-          children: [
-            Expanded(
+        title: GestureDetector(
+          behavior: HitTestBehavior.translucent,
+          onDoubleTap: () {
+            if (Platform.isMacOS) {
+              const MethodChannel('omnimux/window').invokeMethod('zoom');
+            }
+          },
+          child: Row(
+            children: [
+              Expanded(
               child: SizedBox(
                 height: 48,
                 child: ReorderableListView(
@@ -191,24 +199,44 @@ class _MainScreenState extends State<MainScreen> {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
+                String customUser = '';
                 showDialog(
                   context: context,
                   builder: (context) {
                     return AlertDialog(
                       title: const Text('New Session'),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: _hosts
-                            .map(
-                              (host) => ListTile(
-                                title: Text(host),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  _addTab(host);
-                                },
+                      content: SizedBox(
+                        width: 300,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextField(
+                              decoration: const InputDecoration(
+                                labelText: 'Username (optional)',
+                                hintText: 'Default from ~/.ssh/config',
                               ),
-                            )
-                            .toList(),
+                              onChanged: (val) => customUser = val.trim(),
+                            ),
+                            const SizedBox(height: 16),
+                            Flexible(
+                              child: ListView(
+                                shrinkWrap: true,
+                                children: _hosts.map((host) {
+                                  return ListTile(
+                                    title: Text(host),
+                                    onTap: () {
+                                      Navigator.pop(context);
+                                      final finalHost = (customUser.isNotEmpty && host != 'localhost')
+                                          ? '$customUser@$host'
+                                          : host;
+                                      _addTab(finalHost);
+                                    },
+                                  );
+                                }).toList(),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -217,6 +245,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ],
         ),
+      ),
       ),
       body: _sessions.isEmpty
           ? const Center(child: Text('No active sessions. Click + to start.'))
