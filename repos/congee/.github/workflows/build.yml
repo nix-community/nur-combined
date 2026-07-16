@@ -59,6 +59,20 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+    - name: Wait for nix daemon
+      # On macos-latest the daemon-mode install races: the LaunchDaemon and
+      # synthetic APFS volume aren't ready when the next step runs, so the nix
+      # client falls back to direct-store access and dies with
+      # "opening lock file /nix/var/nix/db/big-lock: Permission denied".
+      # Poll until the daemon actually answers before proceeding.
+      run: |
+        for i in $(seq 1 30); do
+          if nix store ping; then exit 0; fi
+          echo "nix daemon not ready yet (attempt $i); retrying in 2s"
+          sleep 2
+        done
+        echo "nix daemon never became ready" >&2
+        exit 1
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Compute unfree push filter
