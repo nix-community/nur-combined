@@ -49,10 +49,23 @@ in
       # '';
     })
   else let
-    contents = appimageTools.extract {inherit pname version src;};
-  in
-    appimageTools.wrapType2 {
+    contents = appimageTools.extract {
       inherit pname version src;
+      postExtract = lib.optionalString enableWidevine ''
+        ln -s ${widevine-cdm}/share/google/chrome/WidevineCdm $out/opt/${pname}/WidevineCdm
+      '';
+    };
+  in
+    appimageTools.wrapAppImage {
+      inherit pname version;
+      src = contents;
+
+      extraPreBwrapCmds = lib.optionalString enableWidevine ''
+        WIDEVINE_HINT="''${XDG_CONFIG_HOME:-$HOME/.config}/Helium/WidevineCdm/latest-component-updated-widevine-cdm"
+        CDM_PATH="${widevine-cdm}/share/google/chrome/WidevineCdm"
+        mkdir -p "$(dirname "$WIDEVINE_HINT")"
+        echo '{"Path":"'"$CDM_PATH"'"}'> "$WIDEVINE_HINT"
+      '';
 
       meta =
         meta
@@ -71,10 +84,4 @@ in
         install -d $out/share/lib/${pname}
         cp -r ${contents}/opt/${pname}/locales $out/share/lib/${pname}/
       '';
-
-      extraBwrapArgs = lib.optionals enableWidevine [
-        "--symlink"
-        "${widevine-cdm}/share/google/chrome/WidevineCdm"
-        "${contents}/opt/${pname}/WidevineCdm"
-      ];
     }
