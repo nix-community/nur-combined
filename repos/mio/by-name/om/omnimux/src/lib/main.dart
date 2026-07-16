@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:rinf/rinf.dart';
@@ -44,7 +45,15 @@ class _OmnimuxAppState extends State<OmnimuxApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Omnimux',
+      themeMode: ThemeMode.system,
       theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.blueGrey,
+          brightness: Brightness.light,
+        ),
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blueGrey,
           brightness: Brightness.dark,
@@ -126,7 +135,11 @@ class _MainScreenState extends State<MainScreen> {
     session.dispose();
     setState(() {
       _sessions.removeAt(index);
-      if (_activeTabIndex >= _sessions.length) {
+      if (index < _activeTabIndex) {
+        // We closed a tab to the left of the active tab, so the active tab shifted left.
+        _activeTabIndex--;
+      } else if (_activeTabIndex >= _sessions.length) {
+        // We closed the active tab (or one to the right, but active was the last tab).
         _activeTabIndex = _sessions.length - 1;
       }
       if (_activeTabIndex < 0) _activeTabIndex = 0;
@@ -137,6 +150,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 48,
+        titleSpacing: 0,
+        leadingWidth: Platform.isMacOS ? 80 : 0,
+        leading: Platform.isMacOS ? const SizedBox(width: 80) : null,
         title: Row(
           children: [
             Expanded(
@@ -209,7 +226,7 @@ class _MainScreenState extends State<MainScreen> {
               index: _activeTabIndex,
               children: [
                 for (var i = 0; i < _sessions.length; i++)
-                  _sessions[i].buildWidget(autofocus: i == _activeTabIndex),
+                  _sessions[i].buildWidget(context, autofocus: i == _activeTabIndex),
               ],
             ),
     );
@@ -260,7 +277,7 @@ class TerminalSession {
   bool _disposed = false;
   bool _started = false;
 
-  static final _theme = TerminalTheme(
+  static final _darkTheme = TerminalTheme(
     cursor: Colors.white,
     selection: Colors.blue.withOpacity(0.3),
     foreground: const Color(0xFFD4D4D4),
@@ -277,6 +294,32 @@ class TerminalSession {
     brightRed: const Color(0xFFF14C4C),
     brightGreen: const Color(0xFF23D18B),
     brightYellow: const Color(0xFFF5F543),
+    brightBlue: const Color(0xFF3B8EEA),
+    brightMagenta: const Color(0xFFD670D6),
+    brightCyan: const Color(0xFF29B8DB),
+    brightWhite: const Color(0xFFE5E5E5),
+    searchHitBackground: Colors.yellow,
+    searchHitBackgroundCurrent: Colors.orange,
+    searchHitForeground: Colors.black,
+  );
+
+  static final _lightTheme = TerminalTheme(
+    cursor: Colors.black,
+    selection: Colors.blue.withOpacity(0.3),
+    foreground: const Color(0xFF333333),
+    background: const Color(0xFFFFFFFF),
+    black: const Color(0xFF000000),
+    red: const Color(0xFFCD3131),
+    green: const Color(0xFF008000),
+    yellow: const Color(0xFFB58900),
+    blue: const Color(0xFF2472C8),
+    magenta: const Color(0xFFBC3FBC),
+    cyan: const Color(0xFF11A8CD),
+    white: const Color(0xFFE5E5E5),
+    brightBlack: const Color(0xFF666666),
+    brightRed: const Color(0xFFF14C4C),
+    brightGreen: const Color(0xFF23D18B),
+    brightYellow: const Color(0xFFB58900),
     brightBlue: const Color(0xFF3B8EEA),
     brightMagenta: const Color(0xFFD670D6),
     brightCyan: const Color(0xFF29B8DB),
@@ -375,12 +418,13 @@ class TerminalSession {
     focusNode.dispose();
   }
 
-  Widget buildWidget({required bool autofocus}) {
+  Widget buildWidget(BuildContext context, {required bool autofocus}) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return KeyedSubtree(
       key: ValueKey(id),
       child: TerminalView(
         terminal,
-        theme: _theme,
+        theme: isDark ? _darkTheme : _lightTheme,
         focusNode: focusNode,
         autofocus: autofocus,
       ),
