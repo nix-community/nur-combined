@@ -48,9 +48,6 @@ in {
   bibox = pkgs.callPackage ./pkgs/bibox {
       inherit maintainers;
   };
-  deepseek-tui = pkgs.callPackage ./pkgs/deepseek-tui {
-      inherit maintainers;
-  };
   sootty = pkgs.callPackage ./pkgs/sootty {
       inherit maintainers;
   };

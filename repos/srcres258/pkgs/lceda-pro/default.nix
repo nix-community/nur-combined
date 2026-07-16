@@ -12,7 +12,7 @@
 }: let
     programName = "lceda-pro";
     programNameDesc = "LCEDA Pro";
-    programVersion = "2.2.45.5";
+    programVersion = "3.2.166";
 
     desktopEntry = makeDesktopItem {
         name = programName;
@@ -29,7 +29,7 @@ in stdenv.mkDerivation {
     version = programVersion;
     src = fetchzip {
         url = "https://image.lceda.cn/files/lceda-pro-linux-x64-${programVersion}.zip";
-        hash = "sha256-CnT91aBNTPqRyluZmtvFU+Gr8yu5vkqtz8RAtEIco0Y=";
+        hash = "sha256-J4UBri3yZQ8I8O8a5mrkd2s+VobBlWmktHFqCiGa7hs=";
         stripRoot = false;
     };
 
