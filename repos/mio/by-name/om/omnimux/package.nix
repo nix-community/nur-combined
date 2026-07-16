@@ -78,6 +78,20 @@ flutter.buildFlutterApplication (
           fi
     '';
 
+    postInstall = ''
+      mkdir -p $out/share/icons/hicolor/256x256/apps
+      cp assets/icon.png $out/share/icons/hicolor/256x256/apps/omnimux.png
+      mkdir -p $out/share/applications
+      cat << EOF > $out/share/applications/omnimux.desktop
+      [Desktop Entry]
+      Name=Omnimux
+      Exec=$out/bin/omnimux
+      Icon=omnimux
+      Type=Application
+      Categories=Utility;
+      EOF
+    '';
+
     meta = {
       description = "Multi-tab terminal UI for local and remote tmux sessions";
       mainProgram = "omnimux";
