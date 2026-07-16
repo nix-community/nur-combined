@@ -119,3 +119,7 @@ fetch.github = "wrvsrx/xml"
 [iwe-nvim]
 src.git = "https://github.com/iwe-org/iwe.nvim"
 fetch.github = "iwe-org/iwe.nvim"
+
+[tree-sitter-plumb]
+src.github_tag = "wrvsrx/plumb"
+fetch.github = "wrvsrx/plumb"

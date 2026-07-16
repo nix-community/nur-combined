@@ -266,6 +266,17 @@
       sha256 = "sha256-iMmr4zSm6B7goevHE03DMj9scW4ldXS7CV74sKeqGD4=";
     };
   };
+  tree-sitter-plumb = {
+    pname = "tree-sitter-plumb";
+    version = "0.1.0";
+    src = fetchFromGitHub {
+      owner = "wrvsrx";
+      repo = "plumb";
+      rev = "0.1.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-5npWf/lYAOPnHdd8NZzwmjSdFUva/Xqd8Q1MWuI141s=";
+    };
+  };
   v2ray-rules-dat-geoip = {
     pname = "v2ray-rules-dat-geoip";
     version = "202604272244";
