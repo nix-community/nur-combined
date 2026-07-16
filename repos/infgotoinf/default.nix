@@ -19,5 +19,5 @@
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  UnifontEX = pkgs.callPackage ./pkgs/UnifontEX { };
+  UnifontExMono = pkgs.callPackage ./pkgs/UnifontExMono { };
 }

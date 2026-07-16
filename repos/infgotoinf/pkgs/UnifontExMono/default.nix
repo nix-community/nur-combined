@@ -9,7 +9,7 @@
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/data/fonts/font-awesome/default.nix
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/by-name/un/unifont_upper/package.nix
 stdenvNoCC.mkDerivation rec {
-  pname = "UnifontEX";
+  pname = "UnifontExMono";
   version = "16";
 
   # Decided to use `fetchurl` like here
