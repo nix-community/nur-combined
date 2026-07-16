@@ -148,9 +148,29 @@ jobs:
             echo "exit_code=$exit_code"
             echo "package_changes=$package_changes"
           } >> "$GITHUB_OUTPUT"
+      - name: Inspect updated version
+        id: version
+        if: steps.updater.outputs.exit_code == '0' && steps.updater.outputs.package_changes == 'true'
+        run: |
+          state=invalid
+          set +e
+          new_version=$(nix eval --raw ".#$PACKAGE.version" 2> .ai-state/version-validation.log)
+          exit_code=$?
+          if [[ "$exit_code" == "0" ]]; then
+            state=$(.github/scripts/classify_version.sh \
+              "$(cat "$RUNNER_TEMP/old-version")" \
+              "$new_version" \
+              2>> .ai-state/version-validation.log)
+            exit_code=$?
+          fi
+          set -e
+          if [[ "$exit_code" != "0" ]]; then
+            state=invalid
+          fi
+          echo "state=$state" >> "$GITHUB_OUTPUT"
       - name: Validate deterministic candidate
         id: deterministic
-        if: steps.updater.outputs.exit_code == '0' && steps.updater.outputs.package_changes == 'true'
+        if: steps.version.outputs.state == 'advanced'
         run: |
           set +e
           nix develop .# -c .github/scripts/validate_candidate.sh \
@@ -167,22 +187,20 @@ jobs:
         env:
           UPDATER_EXIT: ${{ steps.updater.outputs.exit_code }}
           PACKAGE_CHANGES: ${{ steps.updater.outputs.package_changes }}
+          VERSION_STATE: ${{ steps.version.outputs.state }}
           DETERMINISTIC_EXIT: ${{ steps.deterministic.outputs.exit_code }}
         run: |
-          if [[ "$UPDATER_EXIT" != "0" ]]; then
-            route=ai
-          elif [[ "$PACKAGE_CHANGES" == "false" ]]; then
-            route=up-to-date
-          elif [[ "$DETERMINISTIC_EXIT" == "0" ]]; then
-            route=deterministic
-          else
-            route=ai
-          fi
+          route=$(.github/scripts/select_update_route.sh \
+            "$UPDATER_EXIT" \
+            "$PACKAGE_CHANGES" \
+            "$VERSION_STATE" \
+            "$DETERMINISTIC_EXIT")
           echo "route=$route" >> "$GITHUB_OUTPUT"
       - name: Record review state
         if: steps.route.outputs.route == 'ai'
         env:
           UPDATER_EXIT: ${{ steps.updater.outputs.exit_code }}
+          VERSION_STATE: ${{ steps.version.outputs.state }}
           DETERMINISTIC_EXIT: ${{ steps.deterministic.outputs.exit_code }}
         run: |
           if [[ -z "$DETERMINISTIC_EXIT" ]]; then
@@ -195,8 +213,9 @@ jobs:
           jq -n \
             --arg package "$PACKAGE" \
             --argjson updater_exit "$UPDATER_EXIT" \
+            --arg version_state "$VERSION_STATE" \
             --arg deterministic_state "$deterministic_state" \
-            '{package: $package, route: "ai", updater_exit: $updater_exit, deterministic_validation: $deterministic_state, updater_log: ".ai-state/updater.log", deterministic_log: (if $deterministic_state == "not-run" then null else ".ai-state/deterministic-validation.log" end)}' \
+            '{package: $package, route: "ai", updater_exit: $updater_exit, version_state: $version_state, deterministic_validation: $deterministic_state, updater_log: ".ai-state/updater.log", version_log: (if $version_state == "" then null else ".ai-state/version-validation.log" end), deterministic_log: (if $deterministic_state == "not-run" then null else ".ai-state/deterministic-validation.log" end)}' \
             > .ai-state/state.json
       - name: Review or repair with OpenCode
         if: steps.route.outputs.route == 'ai'
@@ -239,6 +258,7 @@ jobs:
             exit 1
           fi
           git add -A -- "pkgs/$PACKAGE"
+          .github/scripts/validate_package_source.sh "pkgs/$PACKAGE"
           if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
             echo "Package candidates may not contain symlinks" >&2
             exit 1

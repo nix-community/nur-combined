@@ -9,6 +9,9 @@ if [[ ! "$package" =~ ^[a-z][a-z0-9_-]{0,63}$ ]]; then
   exit 2
 fi
 
+package_path="pkgs/$package"
+.github/scripts/validate_package_source.sh "$package_path"
+
 pname=$(nix eval --raw ".#$package.pname")
 version=$(nix eval --raw ".#$package.version")
 description=$(nix eval --raw ".#$package.meta.description")

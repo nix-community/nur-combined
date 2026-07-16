@@ -17,6 +17,7 @@ if [[ ! "$old_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ ]]; then
 fi
 
 package_path="pkgs/$package"
+.github/scripts/validate_package_source.sh "$package_path"
 git add -A -- "$package_path"
 if git diff --cached --quiet HEAD -- "$package_path"; then
   echo "Package candidate has no changes: $package" >&2
@@ -44,12 +45,8 @@ nix fmt -- --ci "$package_path"
 .github/scripts/validate_bump.sh "$package" "$baseline_main_program"
 
 new_version=$(nix eval --raw ".#$package.version")
-if [[ ! "$new_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ ]]; then
-  echo "Invalid new package version: $new_version" >&2
-  exit 1
-fi
-comparison=$(nix eval --raw --expr "builtins.toString (builtins.compareVersions \"$old_version\" \"$new_version\")")
-if [[ "$comparison" != "-1" ]]; then
+version_state=$(.github/scripts/classify_version.sh "$old_version" "$new_version")
+if [[ "$version_state" != "advanced" ]]; then
   echo "Package version did not advance: $old_version -> $new_version" >&2
   exit 1
 fi

@@ -41,6 +41,7 @@ jobs:
           nix develop .# -c actionlint
           nix develop .# -c zizmor .github/workflows
           nix develop .# -c shellcheck .github/scripts/*.sh
+          nix develop .# -c .github/scripts/automation_guards.test.sh
           nix develop .# -c check-jsonschema \
             --schemafile https://json.schemastore.org/github-issue-forms.json \
             .github/ISSUE_TEMPLATE/new-package.yml

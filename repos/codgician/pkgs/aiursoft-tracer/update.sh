@@ -7,7 +7,7 @@ set -euo pipefail
 
 nur="$(git rev-parse --show-toplevel)"
 path="$nur/pkgs/aiursoft-tracer/default.nix"
-prefetch=$(env -u DENDRO_API_KEY nix-prefetch-git --url https://github.com/AiursoftWeb/Tracer --no-deepClone)
+prefetch=$(nix-prefetch-git --url https://github.com/AiursoftWeb/Tracer --no-deepClone)
 
 new_rev=$(echo "$prefetch" | jq -r '.rev')
 new_version="0-unstable-"$(echo "$prefetch" | jq -r '.date' | sed 's/T.*//')
@@ -39,4 +39,4 @@ sed -i 's#npmDepsHash = "[^"]*"#npmDepsHash = "'"$npm_hash"'"#' "$path"
 popd
 
 # Update nuget deps
-eval "$(env -u DENDRO_API_KEY nix-build . -A aiursoft-tracer.fetch-deps --no-out-link)"
+eval "$(nix-build . -A aiursoft-tracer.fetch-deps --no-out-link)"
