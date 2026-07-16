@@ -5,8 +5,8 @@
 }:
 (jetbrains.idea.overrideAttrs (oldAttrs: {
   src = fetchurl {
-    url = "https://github.com/JetBrains/intellij-community/releases/download/idea%2F2026.1.3/idea-2026.1.3.tar.gz";
-    hash = "sha256-VNeTjX2JL8c4iQmGt0EVz07RHX50usaIjpEuzXg9uDc=";
+    url = "https://github.com/JetBrains/intellij-community/releases/download/idea%2F2026.1.4/idea-2026.1.4.tar.gz";
+    hash = "sha256-KHtR6ddNli8HCGvLHpW/W6F/4Jbhn1cIIt5uHEKXm2k=";
   };
 
   pname = "idea-oss";
@@ -15,8 +15,8 @@
   product = "IntelliJ IDEA Community";
   productShort = "IDEA";
 
-  version = "2026.1.3";
-  buildNumber = "261.25134.95";
+  version = "2026.1.4";
+  buildNumber = "261.26222.65";
   meta = (oldAttrs.meta or {}) // {
     license = lib.licenses.asl20;
   };
