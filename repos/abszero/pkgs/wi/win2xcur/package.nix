@@ -1,11 +1,11 @@
 {
   lib,
-  python313Packages,
+  python314Packages,
   fetchFromGitHub,
 }:
 
 let
-  inherit (python313Packages) buildPythonPackage;
+  inherit (python314Packages) buildPythonPackage;
 in
 
 buildPythonPackage rec {
@@ -20,9 +20,9 @@ buildPythonPackage rec {
   };
 
   pyproject = true;
-  build-system = [ python313Packages.setuptools ];
+  build-system = [ python314Packages.setuptools ];
 
-  propagatedBuildInputs = with python313Packages; [
+  propagatedBuildInputs = with python314Packages; [
     numpy
     wand
   ];

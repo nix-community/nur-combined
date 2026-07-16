@@ -1,6 +1,12 @@
-{ config, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
+  inherit (builtins) readFile;
   inherit (lib) mkEnableOption mkIf;
   cfg = config.abszero.themes.base.ghostty;
 in
@@ -16,5 +22,6 @@ in
     cursor-style = "bar";
     adjust-cursor-thickness = 4;
     selection-invert-fg-bg = true;
+    custom-shader = toString (pkgs.writeText "cursor_warp.glsl" (readFile ./cursor_warp.glsl));
   };
 }

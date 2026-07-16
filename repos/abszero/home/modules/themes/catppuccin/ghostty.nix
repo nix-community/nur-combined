@@ -2,13 +2,14 @@
 
 let
   inherit (lib) mkEnableOption mkIf mkForce;
+  inherit (config.lib.catppuccin) toTitleCase;
   cfg = config.abszero.themes.catppuccin;
 in
 
 {
   imports = [
     ../../../../lib/modules/themes/catppuccin/catppuccin.nix
-    ../base/ghostty.nix
+    ../base/ghostty
     ./fonts.nix
   ];
 
@@ -26,7 +27,7 @@ in
     programs.ghostty = {
       settings = {
         theme = mkIf cfg.useSystemPolarity (
-          mkForce "light:catppuccin-${cfg.lightFlavor}, dark:catppuccin-${cfg.darkFlavor}"
+          mkForce "light:Catppuccin ${toTitleCase cfg.lightFlavor}, dark:Catppuccin ${toTitleCase cfg.darkFlavor}"
         );
         font-family = "Iosevka Inconsolata";
         font-size = 13;

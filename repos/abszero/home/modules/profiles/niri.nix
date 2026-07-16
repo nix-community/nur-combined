@@ -18,10 +18,7 @@ in
   config = mkIf cfg.enable {
     abszero = {
       profiles.full.enable = true;
-      programs = {
-        foot.enable = true;
-        niri.enable = true;
-      };
+      programs.niri.enable = true;
     };
 
     home.packages = with pkgs; [
@@ -30,25 +27,28 @@ in
       vicinae
     ];
 
-    programs.niri.settings = {
-      binds = with config.lib.niri.actions; {
-        XF86MonBrightnessDown.action = spawn "sudo" "brillo" "-qu" "200000" "-U" "5";
-        XF86MonBrightnessUp.action = spawn "sudo" "brillo" "-qu" "200000" "-A" "5";
+    programs = {
+      ghostty.enable = true;
+      niri.settings = {
+        binds = with config.lib.niri.actions; {
+          XF86MonBrightnessDown.action = spawn "sudo" "brillo" "-qu" "200000" "-U" "5";
+          XF86MonBrightnessUp.action = spawn "sudo" "brillo" "-qu" "200000" "-A" "5";
 
-        "Mod+Ctrl+t".action = spawn "foot";
-        "Mod+Ctrl+slash".action = spawn "vicinae" "open";
-        "Mod+Ctrl+b".action = spawn "zen-beta";
-        "Mod+Ctrl+period".action = spawn "smile";
+          "Mod+Ctrl+t".action = spawn "ghostty";
+          "Mod+Ctrl+slash".action = spawn "vicinae" "open";
+          "Mod+Ctrl+b".action = spawn "zen-beta";
+          "Mod+Ctrl+period".action = spawn "smile";
+        };
+
+        spawn-at-startup = [
+          {
+            command = [
+              "vicinae"
+              "server"
+            ];
+          }
+        ];
       };
-
-      spawn-at-startup = [
-        {
-          command = [
-            "vicinae"
-            "server"
-          ];
-        }
-      ];
     };
   };
 }

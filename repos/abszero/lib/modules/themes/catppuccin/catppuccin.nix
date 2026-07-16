@@ -7,7 +7,6 @@ let
     types
     mkEnableOption
     mkOption
-    mkDefault
     mkIf
     toUpper
     ;
