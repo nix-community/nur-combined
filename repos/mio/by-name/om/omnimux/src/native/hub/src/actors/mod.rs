@@ -87,7 +87,7 @@ pub async fn create_actors() {
                     let shell = std::env::var("SHELL").unwrap_or_else(|_| default_shell.to_string());
                     let mut command = CommandBuilder::new(shell);
                     command.arg("-lc");
-                    command.arg("tmux -u a || tmux -u new");
+                    command.arg("tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new");
                     command
                 } else {
                     let mut command = CommandBuilder::new("ssh");
@@ -96,7 +96,7 @@ pub async fn create_actors() {
                     // starting with `-` cannot become ssh flags.
                     command.arg("--");
                     command.arg(host);
-                    command.arg("tmux -u a || tmux -u new");
+                    command.arg("tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new");
                     command
                 };
                 // Merges with inherited base env (portable-pty CommandBuilder).
