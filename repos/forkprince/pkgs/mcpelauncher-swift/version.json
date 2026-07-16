@@ -1,0 +1,15 @@
+{
+  "name": "mcpelauncher-swift",
+  "source": {
+    "type": "github-release",
+    "repo": "hugonote/mcpelauncher-swift",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Minecraft.Bedrock.Launcher-{version}.dmg",
+    "unpack": false
+  },
+  "version": "0.1.12",
+  "hash": "sha256-VkZ+CiLcaVZQFm4fZmfvl61Yt8I1bZwSqwgFIecVQJk="
+}

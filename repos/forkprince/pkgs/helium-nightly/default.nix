@@ -48,7 +48,9 @@ in
       #   runHook postInstall
       # '';
     })
-  else
+  else let
+    contents = appimageTools.extract {inherit pname version src;};
+  in
     appimageTools.wrapType2 {
       inherit pname version src;
 
@@ -58,9 +60,7 @@ in
           license = lib.licenses.unfree;
         };
 
-      extraInstallCommands = let
-        contents = appimageTools.extract {inherit pname version src;};
-      in ''
+      extraInstallCommands = ''
         install -m 444 -D ${contents}/${pname}.desktop -t $out/share/applications
         substituteInPlace $out/share/applications/${pname}.desktop \
           --replace-warn 'Exec=AppRun' 'Exec=${meta.mainProgram}' \
@@ -70,11 +70,11 @@ in
 
         install -d $out/share/lib/${pname}
         cp -r ${contents}/opt/${pname}/locales $out/share/lib/${pname}/
-
-        ${lib.optionalString enableWidevine ''
-          install -d $out/opt/${pname}
-          ln -sf ${widevine-cdm}/share/google/chrome/WidevineCdm \
-            $out/opt/${pname}/WidevineCdm
-        ''}
       '';
+
+      extraBwrapArgs = lib.optionals enableWidevine [
+        "--symlink"
+        "${widevine-cdm}/share/google/chrome/WidevineCdm"
+        "${contents}/opt/${pname}/WidevineCdm"
+      ];
     }

@@ -1,5 +1,5 @@
 # NOTE: Applied a dirty patch while either nixpkgs or equicord fixes the pnpm lock issue
-# Hopefully we can remove this patch once the issue is resolved (il check everyday)
+# Hopefully we can remove this patch once the issue is resolved
 {
   nix-update-script,
   fetchFromGitHub,

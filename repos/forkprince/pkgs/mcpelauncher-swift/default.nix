@@ -1,23 +1,23 @@
 {
   stdenvNoCC,
   fetchurl,
-  unzip,
+  _7zz,
   lib,
 }: let
   ver = lib.helper.read ./version.json;
 in
   stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
-    pname = "crossover";
+    pname = "mcpelauncher-swift";
     inherit (ver) version;
 
     src = fetchurl (lib.helper.getSingle ver);
 
-    nativeBuildInputs = [unzip];
+    nativeBuildInputs = [_7zz];
 
     meta = {
-      description = "Tool to run Windows software";
-      homepage = "https://www.codeweavers.com/products/crossover-mac";
+      description = "Native SwiftUI launcher for Minecraft Bedrock on macOS";
+      homepage = "https://github.com/hugonote/mcpelauncher-swift";
       maintainers = with lib.maintainers; [Prinky];
-      license = lib.licenses.unfree;
+      license = lib.licenses.mit;
     };
   })
