@@ -51,10 +51,7 @@
           # No `i686-linux` because `git-hooks-nix` does not evaluate
         ];
       in
-        flake-utils.lib.eachSystem checkedSystems (system: let
-          nixos-unstable = inputs.nixos-unstable.legacyPackages.${system};
-          alejandra = nixos-unstable.alejandra;
-        in {
+        flake-utils.lib.eachSystem checkedSystems (system: {
           checks =
             {
               pre-commit = git-hooks-nix.lib.${system}.run {
@@ -62,7 +59,6 @@
                 hooks = {
                   alejandra.enable = true;
                 };
-                tools.alejandra = alejandra;
               };
             }
             // (
@@ -81,7 +77,7 @@
             name = "sigprof/nur-packages";
             motd = "{6}🔨 Welcome to {bold}sigprof/nur-packages{reset}";
             packages = [
-              alejandra
+              git-hooks-nix.packages.${system}.alejandra
             ];
             devshell.startup.git-hooks-nix.text = self.checks.${system}.pre-commit.shellHook;
           };
