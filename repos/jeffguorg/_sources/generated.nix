@@ -28,48 +28,48 @@
   };
   claude-code-bin-amd64-darwin = {
     pname = "claude-code-bin-amd64-darwin";
-    version = "2.1.210";
+    version = "2.1.211";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.210/darwin-x64/claude";
-      sha256 = "sha256-iS8sh4BQ2IKeZxGTKN2XaDRfuhiljBaSErcFl8kXXEA=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.211/darwin-x64/claude";
+      sha256 = "sha256-MwSesUz0cCuZK37aQewHf8bnZTn3/QRubTJTh1cjXaQ=";
     };
   };
   claude-code-bin-amd64-linux = {
     pname = "claude-code-bin-amd64-linux";
-    version = "2.1.210";
+    version = "2.1.211";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.210/linux-x64/claude";
-      sha256 = "sha256-59LOtT7Uws7R/n/BxjMcmNxfe0ybJyLZxfo91d/29xk=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.211/linux-x64/claude";
+      sha256 = "sha256-gnLIpHSsnqG8NfGbn3x+fcTcTrbVrT5ISxkzWsckRrI=";
     };
   };
   claude-code-bin-arm64-darwin = {
     pname = "claude-code-bin-arm64-darwin";
-    version = "2.1.210";
+    version = "2.1.211";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.210/darwin-arm64/claude";
-      sha256 = "sha256-G0cdYtERdIJonXVEf14FDGQNpxelo8kebBN5JFD4xmI=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.211/darwin-arm64/claude";
+      sha256 = "sha256-WnKKdhmLbsp/PHzb/0O6tEt3tIwhCPejEH2Il3M4Jik=";
     };
   };
   claude-code-bin-arm64-linux = {
     pname = "claude-code-bin-arm64-linux";
-    version = "2.1.210";
+    version = "2.1.211";
     src = fetchurl {
-      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.210/linux-arm64/claude";
-      sha256 = "sha256-hP6xk8HZHzteuoNu1HwOTe6VMZWrupUJF8PhAe/xdOg=";
+      url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/2.1.211/linux-arm64/claude";
+      sha256 = "sha256-H/9+j5R8B7GdELH79xS35UfpU2JTubWCMNitvEYk+Gc=";
     };
   };
   codex = {
     pname = "codex";
-    version = "rust-v0.144.4";
+    version = "rust-v0.144.5";
     src = fetchFromGitHub {
       owner = "openai";
       repo = "codex";
-      rev = "rust-v0.144.4";
+      rev = "rust-v0.144.5";
       fetchSubmodules = false;
-      sha256 = "sha256-NmYZxjNFPkRWN4rw+eeka10pJt6/oU3ZoLXBxj3dPRU=";
+      sha256 = "sha256-v8MsNWeqiYsTvPtlXs8UMuZKLf7Cj71Vl+MHXihAkos=";
     };
     cargoLock."codex-rs/Cargo.lock" = {
-      lockFile = ./. + "/sha256-NmYZxjNFPkRWN4rw+eeka10pJt6_oU3ZoLXBxj3dPRU=/codex-rs/Cargo.lock";
+      lockFile = ./. + "/sha256-v8MsNWeqiYsTvPtlXs8UMuZKLf7Cj71Vl+MHXihAkos=/codex-rs/Cargo.lock";
       outputHashes = {
         "nucleo-0.5.0" = "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=";
         "runfiles-0.1.0" = "sha256-uJpVLcQh8wWZA3GPv9D8Nt43EOirajfDJ7eq/FB+tek=";
@@ -83,34 +83,34 @@
   };
   codex-bin-amd64-darwin = {
     pname = "codex-bin-amd64-darwin";
-    version = "0.144.4";
+    version = "0.144.5";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.144.4/codex-x86_64-apple-darwin.zst";
-      sha256 = "sha256-k1g/zE3iU4Ju6hkMyh1xyYT570lRxq/hv6HgFiNJ110=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.144.5/codex-x86_64-apple-darwin.zst";
+      sha256 = "sha256-V0gVhRXHZ6drhlxKNNHj9pc70k5biom7AQbM4oWJcm0=";
     };
   };
   codex-bin-amd64-linux = {
     pname = "codex-bin-amd64-linux";
-    version = "0.144.4";
+    version = "0.144.5";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.144.4/codex-x86_64-unknown-linux-musl.zst";
-      sha256 = "sha256-OYBQIPdFuFiGWgSD93x+xDvjkDVGnuvIKVtciZeQHRE=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.144.5/codex-x86_64-unknown-linux-musl.zst";
+      sha256 = "sha256-YI2lPKVpnDTec7AI7yBgRH8bYbWWSxeBEFNpZ/oUEU4=";
     };
   };
   codex-bin-arm64-darwin = {
     pname = "codex-bin-arm64-darwin";
-    version = "0.144.4";
+    version = "0.144.5";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.144.4/codex-aarch64-apple-darwin.zst";
-      sha256 = "sha256-KgT9RWrfg2/Be/cocBzR70NAfeoN3K3v6vhlNuFgOWU=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.144.5/codex-aarch64-apple-darwin.zst";
+      sha256 = "sha256-3F2Kxrw6TLLcRq+bzUroPmTc8kQIb11DVed1LSW3wlY=";
     };
   };
   codex-bin-arm64-linux = {
     pname = "codex-bin-arm64-linux";
-    version = "0.144.4";
+    version = "0.144.5";
     src = fetchurl {
-      url = "https://github.com/openai/codex/releases/download/rust-v0.144.4/codex-aarch64-unknown-linux-musl.zst";
-      sha256 = "sha256-RvbHyd3J1fzfeQVDw1JlVXBOIfdggHpamOQpspc7cv8=";
+      url = "https://github.com/openai/codex/releases/download/rust-v0.144.5/codex-aarch64-unknown-linux-musl.zst";
+      sha256 = "sha256-twUx+p8Z6PytEQDhTLqt7g637WETA33lvr5mqstsIi8=";
     };
   };
   create-tauri-app = {
@@ -212,10 +212,10 @@
   };
   kimi-code = {
     pname = "kimi-code";
-    version = "0.24.1";
+    version = "0.25.0";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.24.1.tgz";
-      sha256 = "sha256-ABPvzyTW/nRWWBODD7bq8xbtXaxeXkGIID3ePrO7r98=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.25.0.tgz";
+      sha256 = "sha256-brX5PaCkwkrUtGSFNfO9V32quT/UqkGHB+fe5f+jzpA=";
     };
   };
   kwok = {
