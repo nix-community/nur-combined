@@ -9,6 +9,7 @@
   pkg-config,
   qt6,
   glslang,
+  ktx-tools,
   lua5_4,
   openal,
   sfml,
@@ -20,7 +21,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rrs";
-  version = "1.9.1";
+  version = "1.9.2";
 
   __structuredAttrs = true;
 
@@ -28,7 +29,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "maisvendoo";
     repo = "RRS";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-c/TqzUCE0RqZ0OgkEmvvckKfa5so9jN8vbqqOCDr0aY=";
+    hash = "sha256-e2g414hAwrO+HJJESnmzL9lGGR9a/WpBzRa78sr0NrE=";
   };
 
   postPatch = ''
@@ -49,7 +50,9 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     qt6.qtbase
     qt6.qtserialbus
+    qt6.qtwebengine
     glslang
+    ktx-tools
     lua5_4
     openal
     sfml

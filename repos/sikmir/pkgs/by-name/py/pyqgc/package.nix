@@ -7,14 +7,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "pyqgc";
-  version = "0.2.2";
+  version = "1.0.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "semuconsulting";
     repo = "pyqgc";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-k41Sh8txGMmUDnwzH/xQRe/pT1LXG8mN3frZYY9guNk=";
+    hash = "sha256-QELy7r9CkcoNN7636PKrCs1IYbYLaVTSWhXGaGu58LU=";
   };
 
   build-system = with python3Packages; [ setuptools ];
