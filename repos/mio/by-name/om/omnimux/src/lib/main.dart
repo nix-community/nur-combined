@@ -49,14 +49,14 @@ class _OmnimuxAppState extends State<OmnimuxApp> {
       themeMode: ThemeMode.system,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueGrey,
+          seedColor: const Color(0xFF3DAEE9),
           brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueGrey,
+          seedColor: const Color(0xFF3DAEE9),
           brightness: Brightness.dark,
         ),
         useMaterial3: true,
@@ -153,6 +153,9 @@ class _MainScreenState extends State<MainScreen> {
       appBar: AppBar(
         toolbarHeight: 48,
         titleSpacing: 0,
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+        elevation: 0,
+        scrolledUnderElevation: 0,
         leadingWidth: Platform.isMacOS ? 80 : 0,
         leading: Platform.isMacOS ? const SizedBox(width: 80) : null,
         title: GestureDetector(
@@ -275,9 +278,36 @@ class _MainScreenState extends State<MainScreen> {
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          color: isActive
-              ? Theme.of(context).colorScheme.primaryContainer
-              : Colors.transparent,
+          decoration: BoxDecoration(
+            color: isActive
+                ? Theme.of(context).colorScheme.surface
+                : Colors.transparent,
+            border: isActive
+                ? Border(
+                    top: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2.0,
+                    ),
+                    right: BorderSide(
+                      color: Theme.of(context).dividerColor,
+                      width: 1.0,
+                    ),
+                    left: BorderSide(
+                      color: Theme.of(context).dividerColor,
+                      width: 1.0,
+                    ),
+                  )
+                : Border(
+                    top: const BorderSide(
+                      color: Colors.transparent,
+                      width: 2.0,
+                    ),
+                    right: BorderSide(
+                      color: Theme.of(context).dividerColor,
+                      width: 1.0,
+                    ),
+                  ),
+          ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -447,15 +477,47 @@ class TerminalSession {
     focusNode.dispose();
   }
 
+  final ValueNotifier<int> fontSize = ValueNotifier(14);
+
   Widget buildWidget(BuildContext context, {required bool autofocus}) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     return KeyedSubtree(
       key: ValueKey(id),
-      child: TerminalView(
-        terminal,
-        theme: isDark ? _darkTheme : _lightTheme,
-        focusNode: focusNode,
-        autofocus: autofocus,
+      child: ValueListenableBuilder<int>(
+        valueListenable: fontSize,
+        builder: (context, size, child) {
+          return Focus(
+            onKeyEvent: (node, event) {
+              if (event is KeyDownEvent || event is KeyRepeatEvent) {
+                final isCtrlOrCmd = HardwareKeyboard.instance.isControlPressed ||
+                                    HardwareKeyboard.instance.isMetaPressed;
+                if (isCtrlOrCmd) {
+                  if (event.logicalKey == LogicalKeyboardKey.equal ||
+                      event.logicalKey == LogicalKeyboardKey.numpadAdd) {
+                    fontSize.value = (fontSize.value + 1).clamp(6, 72);
+                    return KeyEventResult.handled;
+                  } else if (event.logicalKey == LogicalKeyboardKey.minus ||
+                             event.logicalKey == LogicalKeyboardKey.numpadSubtract) {
+                    fontSize.value = (fontSize.value - 1).clamp(6, 72);
+                    return KeyEventResult.handled;
+                  } else if (event.logicalKey == LogicalKeyboardKey.digit0 ||
+                             event.logicalKey == LogicalKeyboardKey.numpad0) {
+                    fontSize.value = 14;
+                    return KeyEventResult.handled;
+                  }
+                }
+              }
+              return KeyEventResult.ignored;
+            },
+            child: TerminalView(
+              terminal,
+              theme: isDark ? _darkTheme : _lightTheme,
+              textStyle: TerminalStyle(fontSize: size.toDouble()),
+              focusNode: focusNode,
+              autofocus: autofocus,
+            ),
+          );
+        },
       ),
     );
   }
