@@ -12,5 +12,6 @@
     ./static.nix
     ./strict.nix
     ./x86_64.nix
+    ./xiaomi-pocophone
   ];
 }

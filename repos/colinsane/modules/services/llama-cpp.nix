@@ -378,16 +378,16 @@ in
 
   config = lib.mkIf (cfg.enable && config.sane.maxBuildCost >= 2) {
     services.llama-cpp.enable = true;
-    # services.llama-cpp.package = pkgs.llama-cpp-vulkan;
+    services.llama-cpp.package = pkgs.llama-cpp-vulkan;
     # services.llama-cpp.package = pkgs.llama-cpp.override { cpuArchDynamicDispatch = false; vulkanSupport = true; };
-    services.llama-cpp.package = pkgs.llama-cpp-vulkan.overrideAttrs (prevAttrs: {
-      version = lib.warnIf (lib.versionOlder "9821" prevAttrs.version) "llama-cpp is updated upstream: remove version override?" "9821";
-      src = prevAttrs.src.overrideAttrs {
-        hash = "sha256-gkE3weJIQGDaGgVPRok+I08n1HfGD9tnugy7HBdlqCs=";
-      };
-      npmDepsHash = "sha256-X1DZgmhS/zHTqDT5zq0kywwntthcJ9vRXeqyO3zz6UU=";
-      # postPatch = "";
-    });
+    # services.llama-cpp.package = pkgs.llama-cpp-vulkan.overrideAttrs (prevAttrs: {
+    #   version = lib.warnIf (lib.versionOlder "9821" prevAttrs.version) "llama-cpp is updated upstream: remove version override?" "9821";
+    #   src = prevAttrs.src.overrideAttrs {
+    #     hash = "sha256-gkE3weJIQGDaGgVPRok+I08n1HfGD9tnugy7HBdlqCs=";
+    #   };
+    #   npmDepsHash = "sha256-X1DZgmhS/zHTqDT5zq0kywwntthcJ9vRXeqyO3zz6UU=";
+    #   # postPatch = "";
+    # });
     services.llama-cpp.settings = {
       verbose = true;
       host = config.sane.hosts.by-name."${config.networking.hostName}".wg-home.ip;

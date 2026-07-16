@@ -8,6 +8,7 @@ usage() {
   echo "creates or updates the patch file indicated by the PR/commit"
   echo ""
   echo "FLAGS"
+  echo "  -o PATH     place the patch at PATH; '-o -' to dump to stdout"
   echo "  --revert    fetch the patch, and then revert it before vendoring."
   echo "              if the patch identifier starts with 'revert-', this is implied"
   echo "              and if --revert is specified then 'revert-' is implicitly prepended to the vendored patch name"
@@ -15,6 +16,7 @@ usage() {
 
 # ident: PR number or commit hash
 ident=
+output=
 # revert: "" or "revert-" to signify that `ident` should be reverted before saving to the patches/ dir
 revert=
 parseArgs() {
@@ -25,6 +27,10 @@ parseArgs() {
       (--help)
         usage
         exit 0
+        ;;
+      (-o)
+        output="${1:?-o must be followed by a PATH}"
+        shift
         ;;
       (--revert)
         revert=revert-
@@ -95,20 +101,53 @@ tryUri() {
   curl --follow --fail "$uri" -o "$scratch" && test -s "$scratch" && mv "$scratch" "$output"
 }
 
+tryGitPatch() {
+  local output=$1
+  local repo_url=$2
+  local commit=$3
+  local tmpdir=$(mktemp -d)
+  (
+    set +e
+    cd "$tmpdir"
+    git init --quiet
+    git remote add origin "$repo_url"
+    if git fetch --depth=2 origin "$commit" >/dev/null 2>&1; then
+      git -c core.abbrev=12 format-patch -1 --stdout --no-signature --unified=3 "$commit" > "$output"
+      test -s "$output"
+    else
+      false
+    fi
+  )
+  local rc=$?
+  rm -rf "$tmpdir"
+  return $rc
+}
+
 main() {
   local ident=$1
   local scratch=$(mktemp)
-  local output=$PATCHES_DIR/$revert$ident.patch
+  local output_
+  case "$output" in
+    ("")
+      output_=$PATCHES_DIR/$revert$ident.patch
+      ;;
+    (-)
+      output_=/dev/stdout
+      ;;
+    (*)
+      output_=$output
+      ;;
+  esac
   # N.B.: github's commit endpoint replies to short hashes; a PR number may also be a value short hash,
   # so try the GH commit endpoint *last*. Gitea does not have this problem.
-  tryUri "$scratch" "https://git.uninsane.org/colin/nixpkgs/commit/$ident.patch?full_index=1" || \
+  tryGitPatch "$scratch" "git@git.uninsane.org:colin/nixpkgs.git" "$ident" || \
     tryUri "$scratch" "https://github.com/NixOS/nixpkgs/pull/$ident.patch?full_index=1" || \
     tryUri "$scratch" "https://github.com/uninsane/nixpkgs/commit/$ident.patch?full_index=1"
 
   if [ -n "$revert" ]; then
-    interdiff "$scratch" /dev/null > "$output"
+    interdiff "$scratch" /dev/null > "$output_"
   else
-    mv "$scratch" "$output"
+    cat "$scratch" > "$output_" && rm "$scratch"
   fi
 }
 

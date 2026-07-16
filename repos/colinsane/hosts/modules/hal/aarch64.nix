@@ -30,7 +30,7 @@ in
 
     sane.programs.pi-coding-agent.config.coderag = false;  #< does not cross compile (2026-07-01)
 
-    boot.kernelPatches = lib.mkIf (!config.boot.kernelPackages.kernel.configfile.preferBuiltin) [
+    boot.kernelPatches = lib.mkIf (!(config.boot.kernelPackages.kernel.configfile.preferBuiltin or true)) [
       {
         # TODO: upstream into nixpkgs. <repo:nixos/nixpkgs:pkgs/os-specific/linux/kernel/common-config.nix>
         name = "fix-module-builtin-mismatch";

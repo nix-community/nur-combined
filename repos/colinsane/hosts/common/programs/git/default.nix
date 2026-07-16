@@ -20,6 +20,7 @@ in
       "difftastic"
       "git-cinnabar"
       "git-lfs"  # LLMs like to use it
+      "git-sane"
       "ssh"
     ];
     sandbox.net = "clearnet";
@@ -27,7 +28,6 @@ in
     sandbox.autodetectCliPaths = "parent";  # autodetection is necessary for git-upload-pack; "parent" so that `git mv` works
     sandbox.extraHomePaths = [
       ".config/git"
-      ".config/nvim"
       # even with `whitelistPwd`, git has to crawl *up* the path -- which isn't necessarily in the sandbox -- to locate parent .git files
       "dev"
       "knowledge"
@@ -56,8 +56,8 @@ in
       alias.dif     = "diff";  # common typo
       alias.difsum  = "diff --compact-summary";  #< show only the list of files which changed, not contents
       alias.pdiff   = "difftool";  # equivalent to `GIT_EXTERNAL_DIFF=difft git diff`
-      alias.plog    = "!GIT_EXTERNAL_DIFF=difft git log --patch --ext-diff";
-      alias.pshow   = "!GIT_EXTERNAL_DIFF=difft git show --ext-diff";
+      alias.plog    = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git log --patch --ext-diff";
+      # alias.pshow   = "!GIT_EXTERNAL_DIFF=difft DFT_IGNORE_COMMENTS=true git show --ext-diff";
       alias.pul     = "pull";  # common typo
       alias.rb      = "rebase";
       alias.reset-head = "reset --hard HEAD";

@@ -100,24 +100,29 @@ let
           # "get_file"
         ];
       };
-      fetch = {
-        # seemingly no command to fetch w/o applying any transformation
-        command = "mcp-fetch-server";
-        # directTools = true;
-        directTools = [
-          "fetch_html"
-          "fetch_markdown"
-          # "fetch_txt"
-          # "fetch_json"  # parses the result as json and then stringifies it as json
-          "fetch_readable"  # like Firefox's reader mode
-          "fetch_youtube_transcript"
-        ];
-      };
+      # fetch = {
+      #   # seemingly no command to fetch w/o applying any transformation
+      #   command = "mcp-fetch-server";
+      #   # directTools = true;
+      #   directTools = [
+      #     "fetch_html"
+      #     "fetch_markdown"
+      #     # "fetch_txt"
+      #     # "fetch_json"  # parses the result as json and then stringifies it as json
+      #     "fetch_readable"  # like Firefox's reader mode
+      #     "fetch_youtube_transcript"
+      #   ];
+      # };
       # fetch = {
       #   command = "mcp-server-fetch";
       #   directTools = true;
       #   # lifecycle = "eager";
       # };
+      fetch = {
+        command = "sane-fetch";
+        args = [ "mcp" ];
+        directTools = true;
+      };
       home_assistant = {
         command = "ha-mcp";
         directTools = false;
@@ -226,7 +231,7 @@ in
       # "agent-lsp"
       # "ck"
       # "cocoindex-code"
-      "fetch-mcp"
+      # "fetch-mcp"
       "ha-mcp"
       "kagi-cli"
       # "kagi-ken-cli"  # for pi-kagi
@@ -240,6 +245,7 @@ in
       # "pandoc"  # for pi-markdown-preview
       # "pi-lens"
       "playwright-mcp"
+      "sane-fetch"
       # "serena"
     ] ++ lib.optionals cfg.coderag [
       "coderag"
@@ -432,7 +438,7 @@ in
     # ```
     # if grep/find/ls tools are enabled, then the first guideline is instead `Prefer grep/find/ls tools over bash for file exploration (faster, respects .gitignore)`
     fs.".config/pi/SYSTEM.md".symlink.text = ''
-      You are an expert coding assistant operating inside pi, a coding agent harness, within a NixOS system. You help users by reading files, executing commands, editing code, and writing new files. You drive requested tasks to completion without stopping for guidance except when truly stuck.
+      You are an expert coding assistant operating inside pi, a coding agent harness, within a NixOS system. You help users by reading files, executing commands, editing code, and writing new files.
 
       Guidelines:
       - If invoked from a git worktree, do all edits inside that tree -- do not edit adjacent or parent checkouts
@@ -443,6 +449,7 @@ in
       - Be concise in your responses and comments
       - Do NOT modify system or user config files without explicit consent (no `git config set`, etc)
       - Do NOT remove files from the nix store without explicit consent (no `nix-collect-garbage`, `nix-store --delete`, etc)
+      - Specify explicit timeouts for any recursive filesystem operations (`grep -r`, `find`, etc)
 
       Things to know about this environment:
       - ~/ref/repos contains several hundred git checkouts organized by $owner/$repo: consult these first when looking for third-party sources. When cloning public repos, place them in this directory rather than a temporary directory, and follow existing name conventions. Always perform full clones -- disk space is cheap.
@@ -461,6 +468,8 @@ in
     # - Use `kagi-ken-cli search` (from bash) for web searches
     # - `kagi-ken-cli "my search phrase"` -> search the web (json response)
     # - Use bash for operations like ls, rg, find, curl
+    # - You drive requested tasks to completion without stopping for guidance except when truly stuck.
+    # - ~/ref/repos and /nix/store contain MILLIONS of files: do NOT perform `grep -r` operations over these directories; explicitly limit the duration of any `find` operations.
     #
     # Available tools:
     # - read: Read file contents

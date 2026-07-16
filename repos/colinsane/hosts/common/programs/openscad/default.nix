@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   sane.programs.openscad = {
-    packageUnwrapped = pkgs.openscad-unstable;  #< XXX(2026-06-05): openscad fails build
+    # packageUnwrapped = pkgs.openscad-unstable;  #< XXX(2026-06-05): openscad fails build
     buildCost = 1;
 
     # if pointed to a file, allow the dir; if opening a dir (is that possible?) allow that dir.

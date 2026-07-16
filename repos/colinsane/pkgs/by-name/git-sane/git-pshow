@@ -1,0 +1,66 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.delta ps.difftastic ps.git ]'
+set -euo pipefail
+
+usage() {
+  echo "git-pshow [...] "
+  echo "  'git show' but pretty"
+}
+
+gitArgs=()
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (-h|--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        gitArgs+=("$arg")
+        ;;
+    esac
+  done
+}
+
+parseArgs "$@"
+
+render() {
+  local difft_out="$(GIT_EXTERNAL_DIFF=difft DFT_COLOR=always DFT_IGNORE_COMMENTS=true git show --ext-diff "${gitArgs[@]}" 2>/dev/null)"
+  local difft_n
+  local difft_good
+  if printf '%s' "$difft_out" | grep -q 'exceeded DFT_GRAPH_LIMIT'; then
+    difft_good=
+  else
+    difft_n=$(printf '%s\n' "$difft_out" | wc -l)
+    difft_good=1
+  fi
+
+  if [ -n "$difft_good" ] && [ "$difft_n" -le 50 ]; then
+    # difftastic output is "good enough", just render it
+    printf '%s\n' "$difft_out" | "${PAGER:-cat}"
+    return 0
+  fi
+
+  # difftastic is lengthy => check if `git show -w` would be prettier
+  # TODO: should be `git -c color.ui=always show -w "${gitArgs[@]}`  ?
+  local git_out="$(git show -w "${gitArgs[@]}" 2>/dev/null)"
+  if [ -z "$difft_good" ]; then
+    # if difftastic output is bad then prefer git show.
+    # N.B.: we could do `delta --paging never | $PAGER` to control paging more precisely,
+    #   but delta doesn't do well when piped like that. let it invoke PAGER itself.
+    printf '%s\n' "$git_out" | delta
+    return 0
+  fi
+
+  local git_n=$(printf '%s\n' "$git_out" | wc -l)
+  if [ $((difft_n * 10)) -gt $((git_n * 13)) ]; then
+    # if the ignore-whitespace diff is meaningfully smaller then prefer git show.
+    printf '%s\n' "$git_out" | delta
+    return 0
+  fi
+
+  printf '%s\n' "$difft_out" | "${PAGER:-cat}"
+}
+render

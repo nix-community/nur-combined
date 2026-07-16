@@ -64,6 +64,28 @@
     }
   },
   {
+    "id": "meta/muse-spark-1.1",
+    "name": "Muse Spark 1.1",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00015,
+      "completion": 4.25,
+      "currency": "USD",
+      "prompt": 1.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "longcat-2.0",
     "name": "LongCat 2.0",
     "pricing": {
@@ -387,10 +409,10 @@
     "id": "claw-high",
     "name": "Claw High",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.002499,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0025,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -444,7 +466,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -452,10 +475,10 @@
     "id": "hermes-high",
     "name": "Hermes High",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.002499,
-      "completion": 25.007,
+      "cacheReadInputPer1kTokens": 0.0025,
+      "completion": 25.0,
       "currency": "USD",
-      "prompt": 4.998,
+      "prompt": 5.0,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -509,7 +532,8 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image"
+        "image",
+        "video"
       ]
     }
   },
@@ -1044,6 +1068,138 @@
     }
   },
   {
+    "id": "openai/gpt-5.6-sol",
+    "name": "GPT 5.6 Sol",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 30.0,
+      "currency": "USD",
+      "prompt": 5.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-5.6-terra",
+    "name": "GPT 5.6 Terra",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 15.0,
+      "currency": "USD",
+      "prompt": 2.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-5.6-terra-pro",
+    "name": "GPT 5.6 Terra Pro",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 15.0,
+      "currency": "USD",
+      "prompt": 2.5,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-5.6-luna",
+    "name": "GPT 5.6 Luna",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0001,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 1.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-5.6-luna-pro",
+    "name": "GPT 5.6 Luna Pro",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0001,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 1.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
+    "id": "openai/gpt-5.6-sol-pro",
+    "name": "GPT 5.6 Sol Pro",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 30.0,
+      "currency": "USD",
+      "prompt": 5.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1050000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "openai/gpt-5.5",
     "name": "GPT 5.5",
     "pricing": {
@@ -1141,7 +1297,7 @@
       "prompt": 5.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
+    "context_length": 1050000,
     "max_output_tokens": 128000,
     "capabilities": {
       "reasoning": true
@@ -1163,10 +1319,10 @@
       "prompt": 5.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 400000,
+    "context_length": 1050000,
     "max_output_tokens": 128000,
     "capabilities": {
-      "reasoning": false
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -1663,10 +1819,10 @@
     "id": "qvq-max",
     "name": "Qwen: QvQ Max",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00063,
-      "completion": 4.77,
+      "cacheReadInputPer1kTokens": 0.0006,
+      "completion": 4.8,
       "currency": "USD",
-      "prompt": 1.26,
+      "prompt": 1.2,
       "unit": "per_million_tokens"
     },
     "context_length": 128000,
@@ -2423,6 +2579,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -2511,6 +2668,7 @@
       "input_modalities": [
         "text",
         "image",
+        "video",
         "audio"
       ]
     }
@@ -2602,6 +2760,28 @@
     }
   },
   {
+    "id": "x-ai/grok-4.5",
+    "name": "Grok 4.5",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 500000,
+    "max_output_tokens": 500000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image"
+      ]
+    }
+  },
+  {
     "id": "x-ai/grok-build-0.1",
     "name": "Grok Build 0.1",
     "pricing": {
@@ -2627,14 +2807,14 @@
     "id": "x-ai/grok-latest",
     "name": "Grok Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
-      "completion": 2.5,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 6.0,
       "currency": "USD",
-      "prompt": 1.25,
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
-    "context_length": 1000000,
-    "max_output_tokens": 1000000,
+    "context_length": 500000,
+    "max_output_tokens": 500000,
     "capabilities": {
       "reasoning": true
     },
@@ -3616,7 +3796,7 @@
     "id": "aion-labs/aion-2.0",
     "name": "AionLabs: Aion-2.0",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0004,
+      "cacheReadInputPer1kTokens": 0.0002,
       "completion": 1.6,
       "currency": "USD",
       "prompt": 0.8,
@@ -3647,6 +3827,48 @@
     "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "aion-labs/aion-3.0",
+    "name": "AionLabs: Aion 3.0",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00075,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 3.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "aion-labs/aion-3.0-mini",
+    "name": "AionLabs: Aion 3.0 Mini",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00018,
+      "completion": 1.4,
+      "currency": "USD",
+      "prompt": 0.7,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 131072,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -3934,10 +4156,10 @@
     "id": "qwen/qwen3-max",
     "name": "Qwen3 Max",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00054009,
-      "completion": 5.4009,
+      "cacheReadInputPer1kTokens": 0.0006001,
+      "completion": 6.001,
       "currency": "USD",
-      "prompt": 1.08018,
+      "prompt": 1.2002,
       "unit": "per_million_tokens"
     },
     "context_length": 256000,
@@ -4828,10 +5050,10 @@
     "id": "zai-org/glm-latest",
     "name": "GLM Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
-      "completion": 2.7,
+      "cacheReadInputPer1kTokens": 7.8e-05,
+      "completion": 1.32,
       "currency": "USD",
-      "prompt": 0.8999999999999999,
+      "prompt": 0.42000000000000004,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -4870,10 +5092,10 @@
     "id": "zai-org/glm-5.2",
     "name": "GLM 5.2",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
-      "completion": 2.7,
+      "cacheReadInputPer1kTokens": 7.8e-05,
+      "completion": 1.32,
       "currency": "USD",
-      "prompt": 0.8999999999999999,
+      "prompt": 0.42000000000000004,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -4891,10 +5113,10 @@
     "id": "zai-org/glm-5.2:thinking",
     "name": "GLM 5.2 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0002,
-      "completion": 2.7,
+      "cacheReadInputPer1kTokens": 7.8e-05,
+      "completion": 1.32,
       "currency": "USD",
-      "prompt": 0.8999999999999999,
+      "prompt": 0.42000000000000004,
       "unit": "per_million_tokens"
     },
     "context_length": 1048576,
@@ -5269,27 +5491,6 @@
     }
   },
   {
-    "id": "cognitivecomputations/dolphin-2.9.2-qwen2-72b",
-    "name": "Dolphin 72b",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 8192,
-    "max_output_tokens": 4096,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
     "id": "doubao-seed-1-8-251215",
     "name": "Doubao Seed 1.8",
     "pricing": {
@@ -5590,10 +5791,10 @@
     "id": "qwen-turbo",
     "name": "Qwen Turbo",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.2491e-05,
-      "completion": 0.18054,
+      "cacheReadInputPer1kTokens": 2.499e-05,
+      "completion": 0.2006,
       "currency": "USD",
-      "prompt": 0.044981999999999994,
+      "prompt": 0.04998,
       "unit": "per_million_tokens"
     },
     "context_length": 1000000,
@@ -5611,10 +5812,10 @@
     "id": "qwen-max",
     "name": "Qwen 2.5 Max",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000719865,
-      "completion": 5.7528,
+      "cacheReadInputPer1kTokens": 0.00079985,
+      "completion": 6.3919999999999995,
       "currency": "USD",
-      "prompt": 1.43973,
+      "prompt": 1.5997,
       "unit": "per_million_tokens"
     },
     "context_length": 32000,
@@ -5632,10 +5833,10 @@
     "id": "qwen3-max-2026-01-23",
     "name": "Qwen3 Max 2026-01-23",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00054009,
-      "completion": 5.4009,
+      "cacheReadInputPer1kTokens": 0.0006001,
+      "completion": 6.001,
       "currency": "USD",
-      "prompt": 1.08018,
+      "prompt": 1.2002,
       "unit": "per_million_tokens"
     },
     "context_length": 256000,
@@ -5810,22 +6011,20 @@
     "id": "qwen3.5-122b-a10b",
     "name": "Qwen3.5 122B A10B",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00018,
-      "completion": 2.8800000000000003,
+      "cacheReadInputPer1kTokens": 0.00010378799999999999,
+      "completion": 3.496,
       "currency": "USD",
-      "prompt": 0.36000000000000004,
+      "prompt": 0.437,
       "unit": "per_million_tokens"
     },
-    "context_length": 260096,
-    "max_output_tokens": 65536,
+    "context_length": 131072,
+    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": false
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image",
-        "video"
+        "text"
       ]
     }
   },
@@ -5833,22 +6032,20 @@
     "id": "qwen3.5-122b-a10b:thinking",
     "name": "Qwen3.5 122B A10B Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.00018,
-      "completion": 2.8800000000000003,
+      "cacheReadInputPer1kTokens": 0.00010378799999999999,
+      "completion": 3.496,
       "currency": "USD",
-      "prompt": 0.36000000000000004,
+      "prompt": 0.437,
       "unit": "per_million_tokens"
     },
-    "context_length": 260096,
-    "max_output_tokens": 65536,
+    "context_length": 131072,
+    "max_output_tokens": 32768,
     "capabilities": {
       "reasoning": true
     },
     "architecture": {
       "input_modalities": [
-        "text",
-        "image",
-        "video"
+        "text"
       ]
     }
   },
@@ -5948,10 +6145,10 @@
     "id": "qwen3.5-flash",
     "name": "Qwen3.5 Flash",
     "pricing": {
-      "cacheReadInputPer1kTokens": 4.5e-05,
-      "completion": 0.36000000000000004,
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.4,
       "currency": "USD",
-      "prompt": 0.09000000000000001,
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 991808,
@@ -5971,10 +6168,10 @@
     "id": "qwen3.5-flash:thinking",
     "name": "Qwen3.5 Flash Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 4.5e-05,
-      "completion": 0.36000000000000004,
+      "cacheReadInputPer1kTokens": 5e-05,
+      "completion": 0.4,
       "currency": "USD",
-      "prompt": 0.09000000000000001,
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 991808,
@@ -6340,10 +6537,10 @@
     "id": "qwen-plus",
     "name": "Qwen Plus",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.000179775,
-      "completion": 1.08018,
+      "cacheReadInputPer1kTokens": 0.00019974999999999998,
+      "completion": 1.2002,
       "currency": "USD",
-      "prompt": 0.35955,
+      "prompt": 0.39949999999999997,
       "unit": "per_million_tokens"
     },
     "context_length": 995904,
@@ -7064,10 +7261,10 @@
     "id": "sonar-pro",
     "name": "Perplexity Pro",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.001496,
-      "completion": 14.993999999999998,
+      "cacheReadInputPer1kTokens": 0.0015,
+      "completion": 15.0,
       "currency": "USD",
-      "prompt": 2.992,
+      "prompt": 3.0,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -7085,10 +7282,31 @@
     "id": "sonar-reasoning-pro",
     "name": "Perplexity Reasoning Pro",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.001003,
-      "completion": 7.998500000000001,
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 8.0,
       "currency": "USD",
-      "prompt": 2.006,
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 127000,
+    "max_output_tokens": 128000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "perplexity-academic-researcher",
+    "name": "Perplexity Academic Researcher",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.001,
+      "completion": 8.0,
+      "currency": "USD",
+      "prompt": 2.0,
       "unit": "per_million_tokens"
     },
     "context_length": 127000,
@@ -7106,10 +7324,10 @@
     "id": "sonar",
     "name": "Perplexity Simple",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005015,
-      "completion": 1.003,
+      "cacheReadInputPer1kTokens": 0.0005,
+      "completion": 1.0,
       "currency": "USD",
-      "prompt": 1.003,
+      "prompt": 1.0,
       "unit": "per_million_tokens"
     },
     "context_length": 127000,
@@ -8045,48 +8263,6 @@
     "max_output_tokens": 16384,
     "capabilities": {
       "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "TEE/deepseek-v4-pro",
-    "name": "DeepSeek V4 Pro TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015000000000000001,
-      "completion": 5.25,
-      "currency": "USD",
-      "prompt": 1.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 800000,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "TEE/deepseek-v4-pro:thinking",
-    "name": "DeepSeek V4 Pro Thinking TEE",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.00015000000000000001,
-      "completion": 5.25,
-      "currency": "USD",
-      "prompt": 1.5,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 800000,
-    "max_output_tokens": 65536,
-    "capabilities": {
-      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -9201,27 +9377,6 @@
       "completion": 0.4,
       "currency": "USD",
       "prompt": 0.2,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": 32768,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text"
-      ]
-    }
-  },
-  {
-    "id": "poolside/laguna-xs.2",
-    "name": "Laguna XS.2",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 5e-05,
-      "completion": 0.2,
-      "currency": "USD",
-      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -10755,8 +10910,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10778,8 +10932,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10801,8 +10954,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10824,8 +10976,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10847,8 +10998,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10870,8 +11020,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10893,8 +11042,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10916,8 +11064,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10939,8 +11086,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10962,8 +11108,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -10985,8 +11130,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11008,8 +11152,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11031,8 +11174,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11054,8 +11196,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11077,8 +11218,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11100,8 +11240,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11123,8 +11262,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11146,8 +11284,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11169,8 +11306,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11192,8 +11328,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11215,8 +11350,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11238,8 +11372,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11261,8 +11394,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11284,8 +11416,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11307,8 +11438,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11330,8 +11460,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11353,8 +11482,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11376,8 +11504,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11399,8 +11526,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11422,8 +11548,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11445,8 +11570,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11468,8 +11592,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11491,8 +11614,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11514,8 +11636,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11537,8 +11658,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11560,8 +11680,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11583,8 +11702,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11606,8 +11724,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11629,8 +11746,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11652,8 +11768,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11675,8 +11790,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11698,8 +11812,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -11721,8 +11834,7 @@
     "architecture": {
       "input_modalities": [
         "text",
-        "image",
-        "video"
+        "image"
       ]
     }
   },
@@ -12114,10 +12226,10 @@
     "id": "qwen/qwen3-coder-next",
     "name": "Qwen3 Coder Next",
     "pricing": {
-      "cacheReadInputPer1kTokens": 7.5e-05,
+      "cacheReadInputPer1kTokens": 0.0001,
       "completion": 1.5,
       "currency": "USD",
-      "prompt": 0.15,
+      "prompt": 0.2,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -12135,10 +12247,10 @@
     "id": "inclusionai/ling-2.6-flash",
     "name": "Ling 2.6 Flash",
     "pricing": {
-      "cacheReadInputPer1kTokens": 4e-05,
-      "completion": 0.24000000000000002,
+      "cacheReadInputPer1kTokens": 2e-05,
+      "completion": 0.3,
       "currency": "USD",
-      "prompt": 0.08,
+      "prompt": 0.1,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -12177,10 +12289,10 @@
     "id": "inclusionai/ring-2.6-1t",
     "name": "Ring 2.6 1T",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0005,
-      "completion": 3.0,
+      "cacheReadInputPer1kTokens": 6e-05,
+      "completion": 2.5,
       "currency": "USD",
-      "prompt": 1.0,
+      "prompt": 0.3,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,

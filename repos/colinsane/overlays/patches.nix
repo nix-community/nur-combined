@@ -34,6 +34,33 @@ final: prev: {
     });
   });
 
+  pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
+    (pyself: pysuper: {
+      lancedb = pysuper.lancedb.overridePythonAttrs (prevAttrs: {
+        postPatch = (prevAttrs.postPatch or "") + ''
+          for f in $cargoDepsCopy/source-registry-0/lance-linalg-6.0.0/src/distance/{cosine_u8.rs,dot_u8.rs,l2_u8.rs}; do
+            substituteInPlace $f \
+              --replace-fail '_avx512_vnni' '_avx2' \
+              --replace-fail '#[target_feature(enable = "avx512f,avx512bw,avx512vnni")]' '#[cfg(false)]'
+          done
+        '';
+      });
+      pylance = pysuper.pylance.overridePythonAttrs (prevAttrs: {
+        # disable avx512vnni primitives which fail to compile, like
+        # - _mm512_dpbusd_epi32
+        # - _mm512_dpwssd_epi32
+        # > rustc-LLVM ERROR: Cannot select: intrinsic %llvm.x86.avx512.vpdpbusd.512
+        postPatch = (prevAttrs.postPatch or "") + ''
+          for f in ../rust/lance-linalg/src/distance/{cosine_u8.rs,dot_u8.rs,l2_u8.rs}; do
+            substituteInPlace $f \
+              --replace-fail '_avx512_vnni' '_avx2' \
+              --replace-fail '#[target_feature(enable = "avx512f,avx512bw,avx512vnni")]' '#[cfg(false)]'
+          done
+        '';
+      });
+    })
+  ];
+
   slurp = if final.lib.versionAtLeast prev.slurp.version "1.5.1" then
     final.lib.warnOnInstantiate "new slurp screenshotter may fail: test before committing" prev.slurp
   else

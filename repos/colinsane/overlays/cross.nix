@@ -175,6 +175,26 @@ in with final; {
   #   # <https://www.gnu.org/software/autoconf/manual/autoconf-2.63/html_node/Runtime.html>
   # };
 
+  # oof, each ffmpeg variant is a unique expression -- not an alias/override; have to override them all
+  ffmpeg_8 = prev.ffmpeg_8.override {
+    withCudaLLVM = false;
+  };
+  ffmpeg_8-full = prev.ffmpeg_8-full.override {
+    withCudaLLVM = false;
+  };
+  ffmpeg_8-headless = prev.ffmpeg_8-headless.override {
+    withCudaLLVM = false;
+  };
+  ffmpeg = prev.ffmpeg.override {
+    withCudaLLVM = false;
+  };
+  ffmpeg-full = prev.ffmpeg-full.override {
+    withCudaLLVM = false;
+  };
+  ffmpeg-headless = prev.ffmpeg-headless.override {
+    withCudaLLVM = false;
+  };
+
   # 2025/12/07: upstreaming is unblocked
   # firejail = prev.firejail.overrideAttrs (upstream: {
   #   # firejail executes its build outputs to produce the default filter list.
@@ -754,6 +774,11 @@ in with final; {
   #     rustc
   #   ];
   # });
+
+  systemd = prev.systemd.overrideAttrs (prevAttrs: {
+    # implemented on my 2026-07-11-cross nixpkgs branch
+    postPatch = lib.replaceString "substituteInPlace meson.build" "substituteInPlace src/bpf/meson.build" prevAttrs.postPatch;
+  });
 
   # 2026/01/03: upstreaming is unblocked
   # tangram = prev.tangram.overrideAttrs (upstream: {

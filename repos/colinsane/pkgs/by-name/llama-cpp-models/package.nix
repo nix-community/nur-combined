@@ -38,6 +38,7 @@ let
       gpt-oss-20b
       # lfm2_5-230m-fable-5-q8_0
       lfm2_5-8b-a1b-ud-iq4_xs
+      liquidai-lfm2-24b-a2b-iq4_xs
       # minimax-m2_5
       # nemotron-3-nano-4b
       # nemotron-3-nano-30b-a3b
@@ -61,7 +62,8 @@ let
       # qwen3_6-35b-a3b-ud-q4_k_m
       qwen3_6-35b-a3b-mtp-ud-q4_k_m
       qwopus3_6-35b-a3b-coder-mtp-q4_k_m
-      qwythos-9b-claude-mythos-5-1m-q4_k_m
+      # qwythos-9b-claude-mythos-5-1m-q4_k_m
+      qwythos-9b-v2-q4_k_m
       step3_7-flash-iq4_xs
     ;
   };

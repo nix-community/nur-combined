@@ -118,6 +118,7 @@ in
       "nmon"
       # "nvimpager"
       "nvme-cli"  # nvme
+      "nvtop"  # supports AMD, intel, etc despite the name
       "openssl"
       "page"
       "parallel"
@@ -481,7 +482,7 @@ in
       "openscad"  # 3d modeling
       # "rhythmbox"  # local music player
       # "slic3r"
-      "soundconverter"
+      # "soundconverter"
       # "spotify"  # x86-only
       "tor-browser"  # x86-only
       # "vlc"

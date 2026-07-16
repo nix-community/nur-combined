@@ -41,7 +41,7 @@ index 85db438a0183..785ee8d1d669 100644
  
    version = "8.14.0";
  
-@@ -205,7 +213,12 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -205,22 +213,37 @@ stdenv.mkDerivation (finalAttrs: {
        die "ringrtc version mismatch"
      fi
  
@@ -55,7 +55,11 @@ index 85db438a0183..785ee8d1d669 100644
        node_modules/@signalapp/ringrtc/build/libringrtc.node
  
      substituteInPlace package.json \
-@@ -217,10 +230,20 @@ stdenv.mkDerivation (finalAttrs: {
+       --replace-fail '"node_modules/@signalapp/ringrtc/build/''${platform}/*''${arch}*.node",' \
+                      '"node_modules/@signalapp/ringrtc/build/libringrtc.node",'
+ 
+     substituteInPlace node_modules/@signalapp/ringrtc/dist/ringrtc/Native.js \
+       --replace-fail 'exports.default = require(`../../build/''${os.platform()}/libringrtc-''${process.arch}.node`);' \
                       'exports.default = require(`../../build/libringrtc.node`);'
  
      rm -r node_modules/@signalapp/libsignal-client/prebuilds

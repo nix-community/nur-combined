@@ -3,13 +3,22 @@
 
 import argparse
 import asyncio
+import base64
 import concurrent.futures
+import enum
+import sys
 
-from typing import Any, Callable, Coroutine, ParamSpec, TypeVar
+from typing import Any, Callable, Coroutine, Optional, ParamSpec, TypeVar, Union
 
 from crawl4ai.async_webcrawler import AsyncWebCrawler, CrawlResultContainer
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
 from mcp.server.fastmcp import FastMCP
+
+class FetchFormat(enum.StrEnum):
+  MARKDOWN = "markdown"
+  HTML = "html"
+  RAW = "raw"
+
 
 P = ParamSpec("P")
 R = TypeVar("R")
@@ -34,51 +43,101 @@ async def crawl4ai_fetch(url: str) -> CrawlResultContainer:
     return await crawler.arun(url=url)
 
 
-def do_fetch(url: str) -> str:
+def do_fetch(url: str, format: FetchFormat) -> Union[str, bytes]:
   result = crawl4ai_fetch(url)
-  if result.markdown:
-    return result.markdown
-  elif result.cleaned_html:
-    return result.cleaned_html
-  elif result.html:
-    return result.html
+
+  def get_file_content() -> Optional[Union[str, bytes]]:
+    if result.downloaded_files:
+      try:
+        with open(result.downloaded_files[0], "r") as f:
+          return f.read()
+      except:
+        with open(result.downloaded_files[0], "rb") as f:
+          return f.read()
+
+  if format is FetchFormat.HTML:
+    results = [
+      lambda: result.html,
+      lambda: result.cleaned_html,
+      get_file_content,
+    ]
+  elif format is FetchFormat.MARKDOWN:
+    results = [
+      lambda: result.markdown,
+      lambda: result.cleaned_html,
+      lambda: result.html,
+      get_file_content,
+    ]
+  elif format is FetchFormat.RAW:
+    results = [
+      get_file_content,
+      lambda: result.markdown,
+      lambda: result.html,
+      lambda: result.cleaned_html,
+    ]
+
+
+  for get in results:
+    if r := get():
+      return r
   else:
     raise RuntimeError(f"failed to extract content. url={url}, result={result}")
 
 
-def cli_fetch(url: str) -> None:
-  print(do_fetch(url))
+def cli_fetch(url: str, format: FetchFormat) -> None:
+  result = do_fetch(url, format=format)
+  if isinstance(result, bytes):
+    sys.stdout.buffer.write(result)
+  else:
+    print(result)
 
 
-def cli_mcp() -> None:
+def cli_mcp(default_format: FetchFormat) -> None:
   mcp = FastMCP("sane-fetch")
 
   @mcp.tool()
-  def fetch(url: str) -> str:
-    """Fetch a URL and return its content as markdown or HTML."""
+  def fetch(url: str, format: FetchFormat = default_format) -> str:
+    """Fetch a URL and return its content as markdown, HTML, or raw bytes (base64-encoded)."""
     try:
-      return do_fetch(url)
+      result = do_fetch(url, format=format)
+      if isinstance(result, bytes):
+        # MCP (JSON-RPC) passes binary via base64 encoding and a specific schema (BlobResourceContentsSchema).
+        # i don't know how to manage the schema, so the best for now is to send inline.
+        return base64.b64encode(result).decode('ascii')
+      return result
     except Exception as e:
       return str(e)
 
   mcp.run(transport="stdio")
 
 
+def add_format_options(parser: argparse.ArgumentParser, suppress: bool = False) -> None:
+  default = argparse.SUPPRESS if suppress else FetchFormat.MARKDOWN
+  format_group = parser.add_mutually_exclusive_group()
+  format_group.add_argument("--html", action="store_const", const=FetchFormat.HTML, dest="format", default=default, help="Return content as HTML")
+  format_group.add_argument("--markdown", action="store_const", const=FetchFormat.MARKDOWN, dest="format", default=default, help="Return content as markdown (default)")
+  format_group.add_argument("--raw", action="store_const", const=FetchFormat.RAW, dest="format", default=default, help="Return raw HTTP response body")
+
+
 def main():
   parser = argparse.ArgumentParser(description="robot-friendly URL fetcher")
+  add_format_options(parser)
+
   subparsers = parser.add_subparsers(dest="command")
 
   fetch_parser = subparsers.add_parser("fetch", help="Fetch a URL and print its content")
+  add_format_options(fetch_parser, suppress=True)
   fetch_parser.add_argument("url", help="URL to fetch")
 
-  subparsers.add_parser("mcp", help="Run as an MCP server over stdio")
+  mcp_parser = subparsers.add_parser("mcp", help="Run as an MCP server over stdio")
+  add_format_options(mcp_parser, suppress=True)
 
   args = parser.parse_args()
 
   if args.command == "fetch":
-    cli_fetch(args.url)
+    cli_fetch(args.url, format=args.format)
   elif args.command == "mcp":
-    cli_mcp()
+    cli_mcp(default_format=args.format)
   else:
     parser.print_help()
     raise ValueError(f"unknown command: {args.command}")

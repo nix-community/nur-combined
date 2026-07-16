@@ -1,0 +1,33 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i bash ../../../integrations/nix-shell --arg f 'ps: [ ps.bash ps.git ]'
+set -euo pipefail
+
+usage() {
+  echo "git-pr PR_NUMBER: pull and switch into the PR branch"
+}
+
+pr_num=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case $arg in
+      (-h|--help)
+        usage
+        exit 0
+        ;;
+      (*)
+        if [ -n "$pr_num" ]; then
+          usage
+          exit 1
+        fi;
+        pr_num="$arg"
+        ;;
+    esac
+  done
+}
+
+parseArgs "$@"
+
+git fetch upstream "pull/$pr_num/head:pr-$pr_num"
+git switch "pr-$pr_num"

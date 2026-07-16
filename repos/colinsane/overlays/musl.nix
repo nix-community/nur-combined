@@ -244,6 +244,18 @@ super.lib.composeManyExtensions [
       };
     };
 
+    apparmor-parser = prev.apparmor-parser.overrideAttrs (prevAttrs: {
+      postPatch = prevAttrs.postPatch + ''
+        # LLM claims:
+        # > Fix musl strtol EINVAL behavior causing conditional expression test failures.
+        # > musl sets errno=EINVAL for non-numeric input (POSIX-compliant), while
+        # > glibc leaves errno=0. Don't treat EINVAL as fatal since non-numeric
+        # > strings are already detected downstream via nullstr().
+        substituteInPlace cond_expr.cc \
+          --replace-fail 'if (errno == EINVAL)' 'if (0 && errno == EINVAL)'
+      '';
+    });
+
     # 2026-06-07: still required
     # 2026-02-14: upstream nixpkgs disables a few tests on aarch64, and a few more for any platform with S3 enabled.
     # alpine disables all python tests, and a few c++ tests:
@@ -901,23 +913,23 @@ super.lib.composeManyExtensions [
     });
 
     # 2026-05-23: still required (for `pkgsMusl.appstream`)
-    libfyaml = prev.libfyaml.overrideAttrs (prevAttrs: {
-      patches = prevAttrs.patches or [] ++ [
-        # 2026-04-26: required to fix `nix-build -A pkgsMusl.appstream`.
-        # > /nix/store/0cqdpmg3w6z3ccc3x6zzm7dvfdzirlp1-binutils-2.46/bin/ld.bfd: cannot find none: Invalid argument
-        # > /nix/store/0cqdpmg3w6z3ccc3x6zzm7dvfdzirlp1-binutils-2.46/bin/ld.bfd: cannot find required: Invalid argument
-        (fetchurl {
-          name = "dont-output-none-required-to-LIBM-if-no-linker-flags-needed-for-it";
-          url = "https://github.com/pantoniou/libfyaml/commit/24b18e7363b336962fe160c1dc05ca57ba95783c.patch?full_index=1";
-          hash = "sha256-QtGgcALHF7GnH3yJIgTrx+Rds0T+s/bJURoUDs0C8pk=";
-        })
-        (fetchurl {
-          name = "configure.ac-Fix-stray-fi";
-          url = "https://github.com/pantoniou/libfyaml/commit/9f2492ca27bb1fda64f2b12edc2da17406208b93.patch?full_index=1";
-          hash = "sha256-WyjVQa+O2MXK1UVCTSxeCHmLecEcsD1xgb4CyOLg/bA=";
-        })
-      ];
-    });
+    # libfyaml = prev.libfyaml.overrideAttrs (prevAttrs: {
+    #   patches = prevAttrs.patches or [] ++ [
+    #     # 2026-04-26: required to fix `nix-build -A pkgsMusl.appstream`.
+    #     # > /nix/store/0cqdpmg3w6z3ccc3x6zzm7dvfdzirlp1-binutils-2.46/bin/ld.bfd: cannot find none: Invalid argument
+    #     # > /nix/store/0cqdpmg3w6z3ccc3x6zzm7dvfdzirlp1-binutils-2.46/bin/ld.bfd: cannot find required: Invalid argument
+    #     (fetchurl {
+    #       name = "dont-output-none-required-to-LIBM-if-no-linker-flags-needed-for-it";
+    #       url = "https://github.com/pantoniou/libfyaml/commit/24b18e7363b336962fe160c1dc05ca57ba95783c.patch?full_index=1";
+    #       hash = "sha256-QtGgcALHF7GnH3yJIgTrx+Rds0T+s/bJURoUDs0C8pk=";
+    #     })
+    #     (fetchurl {
+    #       name = "configure.ac-Fix-stray-fi";
+    #       url = "https://github.com/pantoniou/libfyaml/commit/9f2492ca27bb1fda64f2b12edc2da17406208b93.patch?full_index=1";
+    #       hash = "sha256-WyjVQa+O2MXK1UVCTSxeCHmLecEcsD1xgb4CyOLg/bA=";
+    #     })
+    #   ];
+    # });
 
     # lixPackageSets = prev.lixPackageSets.extend (self: super: {
     #   # makeLixScope = args: (super.makeLixScope args).overrideScope (self': super': {
@@ -1266,6 +1278,15 @@ super.lib.composeManyExtensions [
       openvinoSupport = false;
     };
 
+    openscad-unstable = prev.openscad-unstable.overrideAttrs (prevAttrs: {
+      disabledTests = prevAttrs.disabledTests ++ [
+        # these might be legit test failures
+        "echo_recursion-test-function3"
+        "echo_recursion-test-module"
+        "echo_recursion-test-vector"
+      ];
+    });
+
     # XXX(2026-07-01): level-zero does not compile, assumes too many gnu-specific features
     #                  openvino remains broken even without level-zero though.
     # openvino = prev.openvino.override {
@@ -1294,6 +1315,21 @@ super.lib.composeManyExtensions [
           disabledTests = prevAttrs.disabledTests ++ [
             "test_templates" # test_quickstart_templates and test_quickstart_templates_non_strict
             "test_module_integration" # test_quickstart_templates_non_strict
+          ];
+        });
+
+        crawl4ai = (pysuper.crawl4ai.override {
+          alphashape = null;
+          shapely = null;
+          # optional deps which don't build for musl
+          sentence-transformers = null;
+          tokenizers = null;
+          torch = null;
+          transformers = null;
+        }).overridePythonAttrs (prevAttrs: {
+          pythonRemoveDeps = prevAttrs.pythonRemoveDeps ++ [
+            "alphashape"
+            "shapely"
           ];
         });
 

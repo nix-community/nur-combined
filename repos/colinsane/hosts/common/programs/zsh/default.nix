@@ -129,7 +129,7 @@ in
       if command -v eza >/dev/null; then
         # --hyperlink makes things clickable on wezterm
         # see: <https://wezterm.org/recipes/hyperlinks.html#requirements>
-        alias ls="eza --time-style=long-iso --bytes --hyperlink"
+        alias ls="eza --time-style=long-iso --bytes --hyperlink auto"
       fi
 
       # these should be compatible with `ls=eza` and plain `ls` (for minimal environments).

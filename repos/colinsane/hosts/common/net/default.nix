@@ -3,6 +3,7 @@
 {
   imports = [
     ./dns
+    ./ip6-multicast.nix
     ./hostnames.nix
     ./modemmanager.nix
     ./networkmanager.nix

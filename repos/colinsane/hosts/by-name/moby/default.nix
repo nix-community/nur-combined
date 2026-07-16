@@ -16,7 +16,8 @@
   networking.hostName = "moby";
   sane.cpu = lib.mkDefault "aarch64";
 
-  sane.hal.pine64-pinephone-pro.enable = true;
+  # sane.hal.pine64-pinephone-pro.enable = true;
+  sane.hal.xiaomi-pocophone.enable = true;
   sane.roles.client = true;
   sane.roles.handheld = true;
   sane.services.wg-home.enable = true;

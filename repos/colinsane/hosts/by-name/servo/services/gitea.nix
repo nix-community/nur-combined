@@ -127,8 +127,141 @@
 
   services.anubis.instances."git.uninsane.org" = {
     settings.TARGET = "http://127.0.0.1:3000";
-    # allow IM clients/etc to show embeds/previews, else they just show "please verify you aren't a bot..."
-    settings.OG_PASSTHROUGH = true;
+    settings.SLOG_LEVEL = "DEBUG";
+    # DIFFICULTY=4 is default. DIFFICULTY=5 is 10x harder, etc.
+    # <https://git.kernel.org/> uses 5.
+    # difficulty 6 takes a good 30-60 seconds on my desktop
+    # settings.DIFFICULTY = 7;
+    policy.extraBots = [
+      {
+        name = "high-load";
+        expression = "load_1m >= 12.0";
+        action = "WEIGH";
+        weight.adjust = 5;
+      }
+      {
+        name = "sustained-high-load";
+        expression = "load_5m >= 14.0";
+        action = "WEIGH";
+        weight.adjust = 10;
+      }
+      {
+        name = "low-load";
+        expression = "load_15m <= 8.0";
+        action = "WEIGH";
+        weight.adjust = -10;
+      }
+      # {
+      #   name = "high-cost-paths";
+      #   path_regex = let
+      #     heavyweight = [
+      #       "/colin/linux/"
+      #       "/colin/nixpkgs/"
+      #       "/colin/ModemManager/"
+      #       "/colin/NetworkManager/"
+      #       "/colin/opencellid-mirror/"
+      #       "/colin/podcastindex-db-mirror/"
+      #       "/colin/Signal-Desktop/"
+      #       "/colin/u-boot/"
+      #       # "/shelvacu-mirrors/"
+      #       "/shelvacu-mirrors/mozilla-"
+      #       "/shelvacu-mirrors/comm-"
+      #     ];
+      #   in
+      #     "^(${lib.concatStringsSep "|" heavyweight}).*$";
+      #   action = "WEIGH";
+      #   weight.adjust = 15;
+      # }
+    ] ++ (let
+      heavyweight = [
+        "/colin/linux/"
+        "/colin/nixpkgs/"
+        "/colin/ModemManager/"
+        "/colin/NetworkManager/"
+        "/colin/opencellid-mirror/"
+        "/colin/podcastindex-db-mirror/"
+        "/colin/Signal-Desktop/"
+        "/colin/u-boot/"
+        # "/shelvacu-mirrors/"
+        "/shelvacu-mirrors/mozilla-"
+        "/shelvacu-mirrors/comm-"
+      ];
+    in lib.map (p: {
+      name = "high-cost-path-${lib.replaceString "/" "-" p}";
+      expression = ''path.startsWith("${p}")'';
+      action = "WEIGH";
+      weight.adjust = 15;
+    }) heavyweight)
+    ;
+    policy.settings = {
+      openGraph = {
+        # TODO: it would be nice to enable openGraph for non-heavy paths; not sure how to do that except separate anubis instances.
+        # enabled = true;  #< allow IM clients/etc to show embeds/previews. DON'T ENABLE without measuring first.
+        enabled = false;  #< embeds are just "please verify you aren't a bot...".
+        considerHost = false;
+        ttl = "24h";
+      };
+      thresholds = [
+        {
+          name = "minimal-suspicion";
+          expression = "weight <= 0";
+          action = "ALLOW";
+        }
+        {
+          # for clients that had some weight reduced through custom rules
+          name = "mild-suspicion";
+          expression.all = [
+            "weight > 0"
+            "weight < 10"
+          ];
+          action = "CHALLENGE";
+          # https://anubis.techaro.lol/docs/admin/configuration/challenges/metarefresh
+          challenge.algorithm = "metarefresh";
+          challenge.difficulty = 1;
+          challenge.report_as = 1;
+        }
+        {
+          # for clients that are browser-like but have either gained points from custom rules or
+          # report as a standard browser.
+          name = "moderate-suspicion";
+          expression.all = [
+            "weight >= 10"
+            "weight < 20"
+          ];
+          action = "CHALLENGE";
+          # https://anubis.techaro.lol/docs/admin/configuration/challenges/preact
+          #
+          # this challenge proves the client can run a webapp written with Preact.
+          # the preact webapp simply loads, calculates the SHA-256 checksum of the
+          # challenge data, and forwards that to the client.
+          challenge.algorithm = "preact";
+          challenge.difficulty = 1;
+          challenge.report_as = 1;
+        }
+        {
+          name = "mild-proof-of-work";
+          expression.all = [
+            "weight >= 20"
+            "weight < 30"
+          ];
+          action = "CHALLENGE";
+          # https://anubis.techaro.lol/docs/admin/configuration/challenges/proof-of-work
+          challenge.algorithm = "fast";
+          challenge.difficulty = 5;
+          challenge.report_as = 5;
+        }
+        {
+          # for clients that are browser like and have gained many points from custom rules
+          name = "extreme-suspicion";
+          expression = "weight >= 30";
+          action = "CHALLENGE";
+          # https://anubis.techaro.lol/docs/admin/configuration/challenges/proof-of-work
+          challenge.algorithm = "fast";
+          challenge.difficulty = 6;
+          challenge.report_as = 6;
+        }
+      ];
+    };
   };
 
   # hosted git (web view and for `git <cmd>` use
@@ -140,10 +273,10 @@
     proxyPassHeavy = "http://unix:${config.services.anubis.instances."git.uninsane.org".settings.BIND}";
     # but anubis breaks embeds, so only protect the expensive repos.
     proxyPassLight = "http://127.0.0.1:3000";
-    proxyTo = proxy: root: {
-      proxyPass = proxy;
-      recommendedProxySettings = true;
-    };
+    # proxyTo = proxy: root: {
+    #   proxyPass = proxy;
+    #   recommendedProxySettings = true;
+    # };
   in {
     forceSSL = true;  # gitea complains if served over a different protocol than its config file says
     enableACME = true;
@@ -153,7 +286,7 @@
     '';
 
     locations."/" = {
-      proxyPass = proxyPassLight;
+      proxyPass = proxyPassHeavy;
       recommendedProxySettings = true;
     };
     # selectively proxy the heavyweight items through anubis.
@@ -161,16 +294,16 @@
     # nginx:/colin/linux -> anubis:/colin/linux -> browser is served a loading page
     # -> nginx:.within.website/x/cmd/anubis/api/pass-challenge?response=... -> anubis:.within.website/x/cmd/anubis/api/pass-challenge?response=... -> browser is forwarded to /colin/linux
     # -> nginx:/colin/linux -> anubis:/colin/linux -> gitea:/colin/linux -> browser is served the actual content
-    locations."/.within.website/" = proxyTo proxyPassHeavy;
-    locations."/colin/linux/" = proxyTo proxyPassHeavy;
-    locations."/colin/nixpkgs/" = proxyTo proxyPassHeavy;
-    locations."/colin/opencellid-mirror/" = proxyTo proxyPassHeavy;
-    locations."/colin/NetworkManager/" = proxyTo proxyPassHeavy;
-    locations."/colin/podcastindex-db-mirror/" = proxyTo proxyPassHeavy;
-    locations."/colin/Signal-Desktop/" = proxyTo proxyPassHeavy;
-    locations."/colin/u-boot/" = proxyTo proxyPassHeavy;
-    locations."/shelvacu-mirrors/mozilla-" = proxyTo proxyPassHeavy;
-    locations."/shelvacu-mirrors/comm-" = proxyTo proxyPassHeavy;
+    # locations."/.within.website/" = proxyTo proxyPassHeavy;
+    # locations."/colin/linux/" = proxyTo proxyPassHeavy;
+    # locations."/colin/nixpkgs/" = proxyTo proxyPassHeavy;
+    # locations."/colin/opencellid-mirror/" = proxyTo proxyPassHeavy;
+    # locations."/colin/NetworkManager/" = proxyTo proxyPassHeavy;
+    # locations."/colin/podcastindex-db-mirror/" = proxyTo proxyPassHeavy;
+    # locations."/colin/Signal-Desktop/" = proxyTo proxyPassHeavy;
+    # locations."/colin/u-boot/" = proxyTo proxyPassHeavy;
+    # locations."/shelvacu-mirrors/mozilla-" = proxyTo proxyPassHeavy;
+    # locations."/shelvacu-mirrors/comm-" = proxyTo proxyPassHeavy;
 
     # fuck you @anthropic
     locations."= /robots.txt" = let

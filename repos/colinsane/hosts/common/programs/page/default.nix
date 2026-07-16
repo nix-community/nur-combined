@@ -65,7 +65,9 @@ in
     env.MANROFFOPT = "-c";
   };
 
+  sane.programs.delta.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
   sane.programs.git.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
+  sane.programs.git-sane.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
   sane.programs.man-db.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
   sane.programs.neovim.sandbox.extraPaths = lib.mkIf cfg.enabled [ "/dev/pts" ];  #< XXX(2026-01-27): alternative is to re-wrap neovim just for page.
   sane.programs.mercurial.sandbox = lib.mkIf cfg.enabled sandboxPropagated;
