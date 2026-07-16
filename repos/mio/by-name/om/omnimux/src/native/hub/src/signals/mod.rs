@@ -7,6 +7,7 @@ pub struct StartSession {
     pub host: String,
     pub cols: u16,
     pub rows: u16,
+    pub enable_tmux_mouse: bool,
 }
 
 #[derive(Deserialize, DartSignal)]

@@ -74,26 +74,26 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  final List<String> _hosts = ['localhost'];
   final List<TerminalSession> _sessions = [];
-  int _nextSessionId = 1;
   int _activeTabIndex = 0;
+  int _nextSessionId = 1;
+  List<String> _hosts = ['localhost'];
   StreamSubscription<RustSignalPack<SshHostsResult>>? _hostsSub;
   StreamSubscription<RustSignalPack<TerminalExit>>? _exitSub;
+  bool _enableTmuxMouse = false;
 
   @override
   void initState() {
     super.initState();
-    GetSshHosts().sendSignalToRust();
-
+    _loadSettings();
     _hostsSub = SshHostsResult.rustSignalStream.listen((event) {
       if (mounted) {
         setState(() {
-          _hosts.clear();
-          _hosts.addAll(event.message.hosts);
+          _hosts = ['localhost', ...event.message.hosts];
         });
       }
     });
+    GetSshHosts().sendSignalToRust();
 
     _exitSub = TerminalExit.rustSignalStream.listen((event) {
       if (!mounted) return;
@@ -110,6 +110,34 @@ class _MainScreenState extends State<MainScreen> {
     });
   }
 
+  File get _settingsFile {
+    final home = Platform.environment['HOME'] ?? Platform.environment['USERPROFILE'];
+    return File('$home/.config/omnimux/settings.json');
+  }
+
+  Future<void> _loadSettings() async {
+    try {
+      final file = _settingsFile;
+      if (await file.exists()) {
+        final content = await file.readAsString();
+        final json = jsonDecode(content);
+        setState(() {
+          _enableTmuxMouse = json['enableTmuxMouse'] ?? false;
+        });
+      }
+    } catch (_) {}
+  }
+
+  Future<void> _saveSettings(bool val) async {
+    try {
+      final file = _settingsFile;
+      if (!await file.parent.exists()) {
+        await file.parent.create(recursive: true);
+      }
+      await file.writeAsString(jsonEncode({'enableTmuxMouse': val}));
+    } catch (_) {}
+  }
+
   @override
   void dispose() {
     _hostsSub?.cancel();
@@ -122,7 +150,11 @@ class _MainScreenState extends State<MainScreen> {
 
   void _addTab(String host) {
     final sessionId = _nextSessionId++;
-    final session = TerminalSession(id: sessionId, host: host);
+    final session = TerminalSession(
+      id: sessionId, 
+      host: host, 
+      enableTmuxMouse: _enableTmuxMouse,
+    );
     setState(() {
       _sessions.add(session);
       _activeTabIndex = _sessions.length - 1;
@@ -202,45 +234,97 @@ class _MainScreenState extends State<MainScreen> {
             IconButton(
               icon: const Icon(Icons.add),
               onPressed: () {
-                String customUser = '';
                 showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                      title: const Text('New Session'),
-                      content: SizedBox(
-                        width: 300,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextField(
-                              decoration: const InputDecoration(
-                                labelText: 'Username (optional)',
-                                hintText: 'Default from ~/.ssh/config',
-                              ),
-                              onChanged: (val) => customUser = val.trim(),
-                            ),
-                            const SizedBox(height: 16),
-                            Flexible(
-                              child: ListView(
-                                shrinkWrap: true,
-                                children: _hosts.map((host) {
-                                  return ListTile(
-                                    title: Text(host),
-                                    onTap: () {
+                    String inputText = '';
+                    return StatefulBuilder(
+                      builder: (context, setStateDialog) {
+                        final hostQuery = inputText.contains('@') ? inputText.split('@').last : inputText;
+                        final prefix = inputText.contains('@') ? '${inputText.split('@').first}@' : '';
+                        final visibleHosts = _hosts.where((h) => h.toLowerCase().contains(hostQuery.toLowerCase())).toList();
+
+                        return AlertDialog(
+                          title: const Text('New Session'),
+                          content: SizedBox(
+                            width: 300,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                TextField(
+                                  autofocus: true,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Target (e.g. user@host or just host)',
+                                    hintText: 'Enter custom target or filter below',
+                                  ),
+                                  onChanged: (val) => setStateDialog(() => inputText = val.trim()),
+                                  onSubmitted: (val) {
+                                    if (val.trim().isNotEmpty) {
                                       Navigator.pop(context);
-                                      final finalHost = (customUser.isNotEmpty && host != 'localhost')
-                                          ? '$customUser@$host'
-                                          : host;
-                                      _addTab(finalHost);
-                                    },
-                                  );
-                                }).toList(),
-                              ),
+                                      _addTab(val.trim());
+                                    }
+                                  },
+                                ),
+                                const SizedBox(height: 16),
+                                Flexible(
+                                  child: ListView(
+                                    shrinkWrap: true,
+                                    children: visibleHosts.map((host) {
+                                      return ListTile(
+                                        title: Text(host),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          final finalHost = (prefix.isNotEmpty && host != 'localhost')
+                                              ? '$prefix$host'
+                                              : host;
+                                          _addTab(finalHost);
+                                        },
+                                      );
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }
+                    );
+                  },
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.settings),
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return StatefulBuilder(
+                      builder: (context, setStateDialog) {
+                        return AlertDialog(
+                          title: const Text('Settings'),
+                          content: SwitchListTile(
+                            title: const Text('Enable tmux mouse mode'),
+                            subtitle: const Text('Automatically sets "mouse on" in new sessions so you can scroll with the mouse wheel. Requires restarting active sessions to take effect.'),
+                            value: _enableTmuxMouse,
+                            onChanged: (val) async {
+                              await _saveSettings(val);
+                              setStateDialog(() {
+                                _enableTmuxMouse = val;
+                              });
+                              setState(() {
+                                _enableTmuxMouse = val;
+                              });
+                            },
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context),
+                              child: const Text('Close'),
                             ),
                           ],
-                        ),
-                      ),
+                        );
+                      }
                     );
                   },
                 );
@@ -328,7 +412,9 @@ class _MainScreenState extends State<MainScreen> {
 class TerminalSession {
   final int id;
   final String host;
+  final bool enableTmuxMouse;
   final Terminal terminal;
+  final TerminalController terminalController = TerminalController();
   final FocusNode focusNode = FocusNode();
   StreamSubscription<RustSignalPack<TerminalOutput>>? _outputSub;
   StreamSubscription<String>? _decodedSub;
@@ -388,7 +474,7 @@ class TerminalSession {
     searchHitForeground: Colors.black,
   );
 
-  TerminalSession({required this.id, required this.host})
+  TerminalSession({required this.id, required this.host, required this.enableTmuxMouse})
       : terminal = Terminal(
           maxLines: 10000,
         ) {
@@ -451,6 +537,7 @@ class TerminalSession {
       host: host,
       cols: cols,
       rows: rows,
+      enableTmuxMouse: enableTmuxMouse,
     ).sendSignalToRust();
   }
 
@@ -491,6 +578,8 @@ class TerminalSession {
               if (event is KeyDownEvent || event is KeyRepeatEvent) {
                 final isCtrlOrCmd = HardwareKeyboard.instance.isControlPressed ||
                                     HardwareKeyboard.instance.isMetaPressed;
+                final isShift = HardwareKeyboard.instance.isShiftPressed;
+
                 if (isCtrlOrCmd) {
                   if (event.logicalKey == LogicalKeyboardKey.equal ||
                       event.logicalKey == LogicalKeyboardKey.numpadAdd) {
@@ -504,6 +593,21 @@ class TerminalSession {
                              event.logicalKey == LogicalKeyboardKey.numpad0) {
                     fontSize.value = 14;
                     return KeyEventResult.handled;
+                  } else if (event.logicalKey == LogicalKeyboardKey.keyC && (isShift || Platform.isMacOS)) {
+                    final selection = terminalController.selection;
+                    if (selection != null) {
+                      final text = terminal.buffer.getText(selection);
+                      Clipboard.setData(ClipboardData(text: text));
+                      terminalController.clearSelection();
+                    }
+                    return KeyEventResult.handled;
+                  } else if (event.logicalKey == LogicalKeyboardKey.keyV && (isShift || Platform.isMacOS)) {
+                    Clipboard.getData(Clipboard.kTextPlain).then((data) {
+                      if (data?.text != null && !_disposed) {
+                        terminal.paste(data!.text!);
+                      }
+                    });
+                    return KeyEventResult.handled;
                   }
                 }
               }
@@ -511,8 +615,13 @@ class TerminalSession {
             },
             child: TerminalView(
               terminal,
+              controller: terminalController,
               theme: isDark ? _darkTheme : _lightTheme,
-              textStyle: TerminalStyle(fontSize: size.toDouble()),
+              textStyle: TerminalStyle(
+                fontFamily: 'Menlo',
+                fontFamilyFallback: ['Consolas', 'Ubuntu Mono', 'DejaVu Sans Mono', 'monospace'],
+                fontSize: size.toDouble(),
+              ),
               focusNode: focusNode,
               autofocus: autofocus,
             ),

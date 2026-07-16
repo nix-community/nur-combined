@@ -65,6 +65,7 @@ pub async fn create_actors() {
             let host = signal.message.host.clone();
             let cols = signal.message.cols;
             let rows = signal.message.rows;
+            let enable_tmux_mouse = signal.message.enable_tmux_mouse;
             let sessions = sessions_start.clone();
 
             spawn_blocking(move || {
@@ -82,12 +83,18 @@ pub async fn create_actors() {
                     }
                 };
 
+                let tmux_cmd = if enable_tmux_mouse {
+                    "tmux -u has-session 2>/dev/null && exec tmux -u a \\; set -g mouse on || exec tmux -u new \\; set -g mouse on"
+                } else {
+                    "tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new"
+                };
+
                 let mut command = if host == "localhost" || host == "127.0.0.1" {
                     let default_shell = if cfg!(target_os = "macos") { "zsh" } else { "sh" };
                     let shell = std::env::var("SHELL").unwrap_or_else(|_| default_shell.to_string());
                     let mut command = CommandBuilder::new(shell);
                     command.arg("-lc");
-                    command.arg("tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new");
+                    command.arg(tmux_cmd);
                     command
                 } else {
                     let mut command = CommandBuilder::new("ssh");
@@ -96,7 +103,7 @@ pub async fn create_actors() {
                     // starting with `-` cannot become ssh flags.
                     command.arg("--");
                     command.arg(host);
-                    command.arg("tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new");
+                    command.arg(tmux_cmd);
                     command
                 };
                 // Merges with inherited base env (portable-pty CommandBuilder).

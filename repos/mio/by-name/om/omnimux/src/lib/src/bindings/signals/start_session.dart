@@ -4,11 +4,18 @@ part of 'signals.dart';
 
 @immutable
 class StartSession {
+  final int sessionId;
+  final String host;
+  final int cols;
+  final int rows;
+  final bool enableTmuxMouse;
+
   const StartSession({
     required this.sessionId,
     required this.host,
     required this.cols,
     required this.rows,
+    required this.enableTmuxMouse,
   });
 
   static StartSession deserialize(BinaryDeserializer deserializer) {
@@ -18,6 +25,7 @@ class StartSession {
       host: deserializer.deserializeString(),
       cols: deserializer.deserializeUint16(),
       rows: deserializer.deserializeUint16(),
+      enableTmuxMouse: deserializer.deserializeBool(),
     );
     deserializer.decreaseContainerDepth();
     return instance;
@@ -32,22 +40,19 @@ class StartSession {
     return value;
   }
 
-  final int sessionId;
-  final String host;
-  final int cols;
-  final int rows;
-
   StartSession copyWith({
     int? sessionId,
     String? host,
     int? cols,
     int? rows,
+    bool? enableTmuxMouse,
   }) {
     return StartSession(
       sessionId: sessionId ?? this.sessionId,
       host: host ?? this.host,
       cols: cols ?? this.cols,
       rows: rows ?? this.rows,
+      enableTmuxMouse: enableTmuxMouse ?? this.enableTmuxMouse,
     );
   }
 
@@ -57,6 +62,7 @@ class StartSession {
     serializer.serializeString(host);
     serializer.serializeUint16(cols);
     serializer.serializeUint16(rows);
+    serializer.serializeBool(enableTmuxMouse);
     serializer.decreaseContainerDepth();
   }
 
@@ -75,7 +81,8 @@ class StartSession {
       && sessionId == other.sessionId
       && host == other.host
       && cols == other.cols
-      && rows == other.rows;
+      && rows == other.rows
+      && enableTmuxMouse == other.enableTmuxMouse;
   }
 
   @override
@@ -84,6 +91,7 @@ class StartSession {
         host,
         cols,
         rows,
+        enableTmuxMouse,
       );
 
   @override
@@ -95,7 +103,8 @@ class StartSession {
         'sessionId: $sessionId, '
         'host: $host, '
         'cols: $cols, '
-        'rows: $rows'
+        'rows: $rows, '
+        'enableTmuxMouse: $enableTmuxMouse'
         ')';
       return true;
     }());
