@@ -29,13 +29,13 @@ let
   nodejs = nodejs_22;
   pnpm = pnpm_11.override { nodejs-slim = nodejs; };
 
-  version = "0.31.2";
+  version = "0.32.0";
 
   src = fetchFromGitHub {
     owner = "vercel-labs";
     repo = "agent-browser";
     tag = "v${version}";
-    hash = "sha256-BUXa1Le/AtKR2Gxin6eTG6FSrDVaMtceYrOKkQmk5Jo=";
+    hash = "sha256-/3Odb51c6janz5JNOI3h7kiZxQV8gxS48J4G6v6Zv9M=";
   };
 
   # The Rust CLI embeds the dashboard UI via RustEmbed at compile time.
@@ -57,7 +57,7 @@ let
       inherit version src pnpm;
       pnpmWorkspaces = [ "dashboard" ];
       fetcherVersion = 4;
-      hash = "sha256-GAjgtLUXPa6OaSvq7PQVp0RIHMIDKcgbFbt6TFwx11g=";
+      hash = "sha256-U0FRnspTJ5B9iLGxzalPFaRuDhD/ng+tvgty/J+Bqlc=";
     };
 
     pnpmWorkspaces = [ "dashboard" ];
@@ -96,7 +96,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   sourceRoot = "${finalAttrs.src.name}/cli";
 
-  cargoHash = "sha256-ee8c0v3ZYZLMJReZyO7LAknUEysG84Z9wfSZlQTXNKU=";
+  cargoHash = "sha256-dDi7mTVrXVfIdM/vuuhi4JxWpK0cv/TgjDge4OGZUF4=";
 
   # Place the pre-built dashboard where RustEmbed expects it
   postUnpack = ''
