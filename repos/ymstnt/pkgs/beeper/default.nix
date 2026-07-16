@@ -12,27 +12,18 @@
 let
   pname = "beeper";
   version = "4.2.985";
-  src =
-    let
-      originalSrc = fetchurl {
-      url = "https://beeper-desktop.download.beeper.com/builds/Beeper-${version}-x86_64.AppImage";
-      hash = "sha256-oWJdpZL+Q8/jaI/WJfgXUisPASuvHkxU6rOeJkedHSM=";
-    };
-    fixedSrc =  runCommand "${pname}-${version}-fixed.AppImage" { } ''
-      cp ${originalSrc} $out
-      chmod +w $out
-      # Beeper 4.2.985+ ships Linux AppImages without the type-2 magic bytes
-      # (ASCII "AI" + 0x02 at ELF offset 8) that appimageTools.extract requires.
-      # Restore them so extraction matches the existing x86_64-linux packaging path.
-      printf 'AI\x02' | dd of=$out bs=1 seek=8 conv=notrunc status=none
-    '';
-  in
-  fixedSrc
-  // {
-    drvAttrs = fixedSrc.drvAttrs // {
-      inherit (originalSrc) outputHash outputHashAlgo;
-    };
+  originalSrc = fetchurl {
+    url = "https://beeper-desktop.download.beeper.com/builds/Beeper-${version}-x86_64.AppImage";
+    hash = "sha256-oWJdpZL+Q8/jaI/WJfgXUisPASuvHkxU6rOeJkedHSM=";
   };
+  src =  runCommand "${pname}-${version}-fixed.AppImage" { } ''
+    cp ${originalSrc} $out
+    chmod +w $out
+    # Beeper 4.2.985+ ships Linux AppImages without the type-2 magic bytes
+    # (ASCII "AI" + 0x02 at ELF offset 8) that appimageTools.extract requires.
+    # Restore them so extraction matches the existing x86_64-linux packaging path.
+    printf 'AI\x02' | dd of=$out bs=1 seek=8 conv=notrunc status=none
+  '';
 
   appimageContents = appimageTools.extract {
     inherit pname version src;
@@ -94,7 +85,7 @@ appimageTools.wrapAppImage {
     });
 
     # needed for nix-update
-    inherit src;
+    src = originalSrc;
   };
 
   meta ={
