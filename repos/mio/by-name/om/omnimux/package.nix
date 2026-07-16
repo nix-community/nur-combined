@@ -31,7 +31,6 @@ flutter.buildFlutterApplication (
     targetFlutterPlatform = "linux"; # bypass nixpkgs check
 
     # Allow macOS to use the host's Xcode (requires sandbox = false in nix.conf)
-    __noChroot = true;
 
     nativeBuildInputs = [
       pkg-config
@@ -86,6 +85,7 @@ flutter.buildFlutterApplication (
     };
   }
   // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+    __noChroot = true;
     buildPhase = ''
       runHook preBuild
       export HOME=$NIX_BUILD_TOP
@@ -125,8 +125,8 @@ flutter.buildFlutterApplication (
       # Unset Nix compiler variables to prevent xcodebuild from using raw `ld` instead of `clang` for linking
       unset CC CXX LD AR AS RANLIB NM STRIP
 
-      ${flutter}/bin/flutter config --no-enable-swift-package-manager
-      ${flutter}/bin/flutter build macos -v --release
+      flutter config --no-enable-swift-package-manager
+      flutter build macos -v --release
       runHook postBuild
     '';
 
@@ -135,7 +135,7 @@ flutter.buildFlutterApplication (
       mkdir -p $out/Applications
       cp -r build/macos/Build/Products/Release/*.app $out/Applications/omnimux.app
       mkdir -p $out/bin
-      ln -s $out/Applications/omnimux.app/Contents/MacOS/* $out/bin/omnimux
+      ln -s $out/Applications/omnimux.app/Contents/MacOS/src $out/bin/omnimux
       mkdir -p $debug
       runHook postInstall
     '';
