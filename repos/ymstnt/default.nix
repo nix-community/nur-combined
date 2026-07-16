@@ -15,6 +15,7 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   beeper = pkgs.callPackage ./pkgs/beeper { };
+  brave-origin = pkgs.callPackage ./pkgs/brave-origin { };
   deepdwn = pkgs.callPackage ./pkgs/deepdwn { };
   equicord = pkgs.callPackage ./pkgs/equicord { };
   how-to-convert = pkgs.callPackage ./pkgs/how-to-convert { };
