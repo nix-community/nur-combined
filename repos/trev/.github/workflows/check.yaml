@@ -88,7 +88,7 @@ jobs:
           fetch_depth: 0
 
       - name: Run codex
-        uses: spotdemo4/codex-action@1c23ea1317d94bca25e77d72bdbe6bb0789c18f4 # v0.3.0
+        uses: spotdemo4/codex-action@790981ebe00939bf6c2bc0750f3c431d6fc5bf92 # v0.3.1
         with:
           auth: ${{ secrets.CODEX_ACTION_AUTH }}
           client-id: ${{ vars.CLIENT_ID }}
