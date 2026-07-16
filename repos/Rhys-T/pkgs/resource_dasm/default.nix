@@ -38,11 +38,6 @@ in stdenv.mkDerivation rec {
         substituteInPlace src/Audio/MODSynthesizer.cc --replace-fail '{:-2}' '{:<2}'
         substituteInPlace src/Audio/smssynth.cc --replace-fail '{:-7}' '{:<7}'
     '';
-    # HACK: clang is fine with using the default values in src/Audio/Instrument.*, but gcc isn't.
-    # Remove this once fixed upstream.
-    env = lib.optionalAttrs stdenv.cc.isGNU {
-        NIX_CFLAGS_COMPILE = "-Wno-error=missing-field-initializers";
-    };
     ${if useNetpbm then "postInstall" else null} = ''
         for file in "$out"/bin/*; do
             wrapProgram "$file" --prefix PATH : ${lib.makeBinPath [netpbm]}
