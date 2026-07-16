@@ -31,7 +31,7 @@ appimageTools.wrapAppImage rec {
     install -Dm444 ${src}/tabby.png -t $out/share/pixmaps
 
     substituteInPlace $out/share/applications/tabby.desktop \
-      --replace-fail "Exec=AppRun" "Exec=tabby"
+      --replace-fail "Exec=AppRun" "Exec=tabby --disable-gpu"
 
     . ${makeWrapper}/nix-support/setup-hook
     wrapProgram $out/bin/tabby \
