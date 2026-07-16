@@ -87,17 +87,16 @@ class _MainScreenState extends State<MainScreen> {
 
     _exitSub = TerminalExit.rustSignalStream.listen((event) {
       if (!mounted) return;
-      setState(() {
-        final idx =
-            _sessions.indexWhere((s) => s.id == event.message.sessionId);
-        if (idx != -1) {
-          _sessions.removeAt(idx).dispose();
-          if (_activeTabIndex >= _sessions.length) {
-            _activeTabIndex = _sessions.length - 1;
-          }
-          if (_activeTabIndex < 0) _activeTabIndex = 0;
+      final idx = _sessions.indexWhere((s) => s.id == event.message.sessionId);
+      if (idx != -1) {
+        final session = _sessions[idx];
+        final status = event.message.status;
+        if (status == 0) {
+          _closeTab(idx);
+        } else {
+          session.terminal.write('\r\n\r\n[Process exited with status $status]\r\n');
         }
-      });
+      }
     });
   }
 

@@ -83,7 +83,9 @@ pub async fn create_actors() {
                 };
 
                 let mut command = if host == "localhost" || host == "127.0.0.1" {
-                    let mut command = CommandBuilder::new("sh");
+                    let default_shell = if cfg!(target_os = "macos") { "zsh" } else { "sh" };
+                    let shell = std::env::var("SHELL").unwrap_or_else(|_| default_shell.to_string());
+                    let mut command = CommandBuilder::new(shell);
                     command.arg("-lc");
                     command.arg("tmux a || tmux new");
                     command
@@ -99,6 +101,11 @@ pub async fn create_actors() {
                 };
                 // Merges with inherited base env (portable-pty CommandBuilder).
                 command.env("TERM", "xterm-256color");
+                if let Ok(path) = std::env::var("PATH") {
+                    command.env("PATH", format!("/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:{}", path));
+                } else {
+                    command.env("PATH", "/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:/usr/bin:/bin:/usr/sbin:/sbin");
+                }
 
                 let child = match pair.slave.spawn_command(command) {
                     Ok(c) => c,
