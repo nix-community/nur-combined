@@ -23,7 +23,13 @@
   xdg-utils,
   openssl,
   SDL2,
-  xorg,
+  libX11,
+  libXcursor,
+  libXext,
+  libXi,
+  libXinerama,
+  libXrandr,
+  libXxf86vm,
   wayland,
   libxkbcommon,
   libdecor,
@@ -119,13 +125,13 @@ in
         icu
         openssl
         SDL2
-        xorg.libX11
-        xorg.libXcursor
-        xorg.libXrandr
-        xorg.libXext
-        xorg.libXi
-        xorg.libXinerama
-        xorg.libXxf86vm
+        libX11
+        libXcursor
+        libXrandr
+        libXext
+        libXi
+        libXinerama
+        libXxf86vm
         wayland
         libxkbcommon
         libdecor

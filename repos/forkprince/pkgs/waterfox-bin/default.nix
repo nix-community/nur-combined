@@ -30,7 +30,17 @@
   gtk3,
   mesa,
   nspr,
-  xorg,
+  libX11,
+  libXcomposite,
+  libXcursor,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXi,
+  libXrandr,
+  libXrender,
+  libXScrnSaver,
+  libXtst,
   atk,
   lib,
   nss,
@@ -101,24 +111,24 @@ in
       ];
 
       buildInputs = [
-        xorg.libXcomposite
-        xorg.libXScrnSaver
+        libXcomposite
+        libXScrnSaver
         stdenv.cc.cc.lib
         libappindicator
-        xorg.libXcursor
-        xorg.libXdamage
-        xorg.libXrender
-        xorg.libXfixes
-        xorg.libXrandr
+        libXcursor
+        libXdamage
+        libXrender
+        libXfixes
+        libXrandr
         libpulseaudio
-        xorg.libXext
-        xorg.libXtst
+        libXext
+        libXtst
         at-spi2-core
         libxkbcommon
         at-spi2-atk
         ffmpeg-full
-        xorg.libX11
-        xorg.libXi
+        libX11
+        libXi
         gdk-pixbuf
         dbus-glib
         libnotify

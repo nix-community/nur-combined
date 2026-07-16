@@ -12,7 +12,9 @@
   libGL,
   glib,
   gtk3,
-  xorg,
+  libX11,
+  libXext,
+  libXtst,
   zlib,
   lib,
 }: let
@@ -49,9 +51,9 @@ in
       ];
       buildInputs = [
         libappindicator
-        xorg.libXtst
-        xorg.libXext
-        xorg.libX11
+        libXtst
+        libXext
+        libX11
         fontconfig
         alsa-lib
         wayland
