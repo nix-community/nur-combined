@@ -1,6 +1,5 @@
 {
   stdenvNoCC,
-  pcsx2-bin,
   fetchurl,
   pcsx2,
   lib,
@@ -10,18 +9,17 @@ if stdenvNoCC.isDarwin
 then let
   ver = lib.helper.read ./version.json;
 in
-  pcsx2-bin.overrideAttrs (old: {
-    src = fetchurl (lib.helper.getSingle ver);
+  stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
+    pname = "pcsx2";
     inherit (ver) version;
 
-    installPhase = ''
-      runHook preInstall
-      mkdir -p $out/Applications
-      app=$(find . -maxdepth 2 -name "*.app" -type d | head -n1)
-      cp -R "$app" $out/Applications/
-      runHook postInstall
-    '';
+    src = fetchurl (lib.helper.getSingle ver);
 
-    meta.platforms = lib.platforms.darwin;
+    meta = {
+      description = "Playstation 2 emulator (precompiled binary, repacked from official website)";
+      homepage = "https://pcsx2.net/";
+      license = with lib.licenses; [gpl3Plus lgpl3Plus];
+      maintainers = with lib.maintainers; [Prinky];
+    };
   })
 else pcsx2
