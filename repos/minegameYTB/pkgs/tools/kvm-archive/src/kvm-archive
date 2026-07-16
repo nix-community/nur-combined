@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# kvm-archive — KVM VM import/export tool for virt-manager
+# NixOS-compatible (bash via /usr/bin/env, no hardcoded system paths)
+#
+# Usage:
+#   kvm-archive export <vm_name> [destination_dir] [--format gz|xz|zst] [--level 1-9]
+#   kvm-archive import <archive.tar.gz|xz|zst> [--pool <pool_name>] [--name <new_name>] [--zfs-pool <pool>]
+#   kvm-archive list
+#   kvm-archive help
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# ─────────────────────────────────────────────
+# DEFAULTS
+# ─────────────────────────────────────────────
+
+readonly SCRIPT_NAME="$(basename "$0")"
+readonly REAL_USER="${SUDO_USER:-$USER}"
+readonly REAL_HOME="$(getent passwd "$REAL_USER" | cut -d: -f6)"
+readonly DEFAULT_EXPORT_DIR="${REAL_HOME}/kvm-archives"
+readonly DEFAULT_POOL="default"
+readonly DEFAULT_FORMAT="gz"
+readonly DEFAULT_LEVEL="6"
+readonly TIMESTAMP="$(date +%Y%m%d_%H%M%S)"
+VIRSH_URI="${VIRSH_URI:-qemu:///system}"
+
+# ─────────────────────────────────────────────
+# SOURCE MODULES
+# ─────────────────────────────────────────────
+
+readonly KVM_ARCHIVE_LIB_DIR="${KVM_ARCHIVE_LIB_DIR:-$(dirname "$(readlink -f "$0")")/lib}"
+
+for _module in common helpers zfs export import help; do
+  _path="${KVM_ARCHIVE_LIB_DIR}/${_module}.sh"
+  if [[ ! -f "$_path" ]]; then
+    echo "[ERROR] Missing module: $_path" >&2
+    exit 1
+  fi
+  source "$_path"
+done
+unset _module _path
+
+# ─────────────────────────────────────────────
+# COMMAND: LIST
+# ─────────────────────────────────────────────
+
+cmd_list() {
+  log_section "KVM virtual machines"
+  virsh list --all
+}
+
+# ─────────────────────────────────────────────
+# ENTRYPOINT
+# ─────────────────────────────────────────────
+
+main() {
+  local command="${1:-help}"
+  shift || true
+
+  if [[ "$command" != "help" && "$command" != "--help" && "$command" != "-h" ]]; then
+    check_root "$command" "$@"
+  fi
+
+  check_dependencies
+
+  case "$command" in
+    export)         cmd_export "$@" ;;
+    import)         cmd_import "$@" ;;
+    list)           cmd_list        ;;
+    help|--help|-h) cmd_help        ;;
+    *)
+      log_error "Unknown command: '$command'"
+      cmd_help
+      exit 1
+      ;;
+  esac
+}
+
+main "$@"
