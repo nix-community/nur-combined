@@ -330,6 +330,11 @@
                 ];
               }
               {
+                job_name = "sept-wg-stat";
+                scheme = "http";
+                static_configs = [ { targets = [ "10.255.0.1:9586" ]; } ];
+              }
+              {
                 job_name = "bridge_alive";
                 scheme = "http";
                 metrics_path = "/probe";

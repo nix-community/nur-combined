@@ -24,7 +24,7 @@
             identity
             openssh
             fail2ban
-            scrutiny
+            # scrutiny
             earlyoom
             incus
             vaultix

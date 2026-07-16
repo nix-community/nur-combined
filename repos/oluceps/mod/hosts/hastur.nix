@@ -24,7 +24,6 @@
             identity
             openssh
             fail2ban
-            # scrutiny
             earlyoom
             incus
             vaultix
@@ -39,7 +38,6 @@
             garage
             vxlan-mesh
             yggdrasil
-            scrutiny
             earlyoom
             dae
             # limes
