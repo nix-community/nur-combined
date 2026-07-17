@@ -14,7 +14,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "rsgislib";
-  version = "5.2.1";
+  version = "5.2.3";
 
   __structuredAttrs = true;
 
@@ -22,7 +22,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "remotesensinginfo";
     repo = "rsgislib";
     tag = finalAttrs.version;
-    hash = "sha256-2U5Kyrp7mc/x2GP/HMU5grVk4Trzo5Jq4YjMbGBZvm4=";
+    hash = "sha256-LaqKhINW0LDjlhWZaSZ9Yw6xmEfG5xSYwUPHMcz1I18=";
   };
 
   nativeBuildInputs = [ cmake ];
