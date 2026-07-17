@@ -12,6 +12,11 @@ struct TerminalSession {
     read_rx: async_channel::Receiver<Vec<u8>>,
     cols: u16,
     rows: u16,
+    selection_start: Option<(u16, u16)>,
+    selection_end: Option<(u16, u16)>,
+    is_dragging: bool,
+    grid_bounds: Option<Bounds<Pixels>>,
+    font_size: f32,
 }
 
 impl TerminalSession {
@@ -67,6 +72,11 @@ impl TerminalSession {
             read_rx,
             cols: 80,
             rows: 24,
+            selection_start: None,
+            selection_end: None,
+            is_dragging: false,
+            grid_bounds: None,
+            font_size: 14.0,
         }
     }
 
@@ -83,6 +93,57 @@ impl TerminalSession {
             pixel_width: 0,
             pixel_height: 0,
         });
+    }
+
+    fn get_cell_from_pos(&self, pos: Point<Pixels>) -> Option<(u16, u16)> {
+        if let Some(bounds) = self.grid_bounds {
+            let x: f32 = (pos.x - bounds.origin.x).into();
+            let y: f32 = (pos.y - bounds.origin.y).into();
+            let cell_width = self.font_size * 0.6;
+            let cell_height = self.font_size * 1.14;
+            let col = (x / cell_width).floor() as i32;
+            let row = (y / cell_height).floor() as i32;
+            if col >= 0 && col < self.cols as i32 && row >= 0 && row < self.rows as i32 {
+                return Some((row as u16, col as u16));
+            }
+        }
+        None
+    }
+
+    fn is_selected(&self, r: u16, c: u16) -> bool {
+        if let (Some(s), Some(e)) = (self.selection_start, self.selection_end) {
+            let (s_r, s_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (s.0, s.1) } else { (e.0, e.1) };
+            let (e_r, e_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (e.0, e.1) } else { (s.0, s.1) };
+            if r > s_r && r < e_r { return true; }
+            if r == s_r && r == e_r { return c >= s_c && c <= e_c; }
+            if r == s_r { return c >= s_c; }
+            if r == e_r { return c <= e_c; }
+        }
+        false
+    }
+
+    fn get_selected_text(&self) -> String {
+        let mut text = String::new();
+        let screen = self.parser.screen();
+        if let (Some(s), Some(e)) = (self.selection_start, self.selection_end) {
+            let (s_r, s_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (s.0, s.1) } else { (e.0, e.1) };
+            let (e_r, e_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (e.0, e.1) } else { (s.0, s.1) };
+            for r in s_r..=e_r {
+                let start_c = if r == s_r { s_c } else { 0 };
+                let end_c = if r == e_r { e_c } else { self.cols - 1 };
+                for c in start_c..=end_c {
+                    if let Some(cell) = screen.cell(r, c) {
+                        text.push_str(cell.contents());
+                    } else {
+                        text.push(' ');
+                    }
+                }
+                if r < e_r {
+                    text.push('\n');
+                }
+            }
+        }
+        text
     }
 }
 
@@ -122,9 +183,9 @@ impl Render for TerminalView {
         let session = self.session.clone();
         let session_clone = self.session.clone();
         
-        let (rows, cols) = {
+        let (rows, cols, font_size) = {
             let s = self.session.read(cx);
-            (s.rows, s.cols)
+            (s.rows, s.cols, s.font_size)
         };
         
         let parser = &self.session.read(cx).parser;
@@ -139,14 +200,13 @@ impl Render for TerminalView {
             .bg(rgb(0x1e1e1e))
             .size_full()
             .font_family("Monaco")
-            .text_sm()
+            .text_size(px(font_size))
             .track_focus(&cx.focus_handle())
             .child(
                 canvas(
                     move |bounds, _window, cx| {
-                        // Approximate sizes for Monaco text_sm (approx 14px font size)
-                        let cell_width = 8.4;
-                        let cell_height = 16.0;
+                        let cell_width = font_size * 0.6;
+                        let cell_height = font_size * 1.14;
                         let w: f32 = bounds.size.width.into();
                         let h: f32 = bounds.size.height.into();
                         let new_cols = (w / cell_width).max(10.0) as u16;
@@ -154,6 +214,7 @@ impl Render for TerminalView {
                         
                         cx.defer(move |cx| {
                             cx.update_entity(&session_clone, |session, _cx| {
+                                session.grid_bounds = Some(bounds);
                                 session.resize(new_rows, new_cols);
                             });
                         });
@@ -161,52 +222,81 @@ impl Render for TerminalView {
                     |_, _, _, _| {}
                 ).absolute().size_full()
             )
-            .on_key_down(move |ev, _window, _cx| {
-                let key = ev.keystroke.key.as_str();
-                let mut bytes = Vec::new();
-                
-                if ev.keystroke.modifiers.control {
-                    if key.len() == 1 {
-                        let c = key.chars().next().unwrap();
-                        if c >= 'a' && c <= 'z' {
-                            bytes.push(c as u8 - b'a' + 1);
-                        } else if c >= 'A' && c <= 'Z' {
-                            bytes.push(c as u8 - b'A' + 1);
-                        } else if c == ']' {
-                            bytes.push(0x1d);
-                        } else if c == '\\' {
-                            bytes.push(0x1c);
+            .on_key_down({
+                let session = self.session.clone();
+                let write_tx_keys = write_tx_keys.clone();
+                move |ev, _window, cx| {
+                    let key = ev.keystroke.key.as_str();
+                    let mut bytes = Vec::new();
+                    
+                    if ev.keystroke.modifiers.platform {
+                        if key == "c" {
+                            let text = session.read(cx).get_selected_text();
+                            if !text.is_empty() {
+                                cx.write_to_clipboard(ClipboardItem::new_string(text));
+                            }
+                            return;
+                        } else if key == "v" {
+                            if let Some(item) = cx.read_from_clipboard() {
+                                if let Some(text) = item.text() {
+                                    bytes.extend_from_slice(text.as_bytes());
+                                }
+                            }
+                        } else if key == "=" {
+                            cx.update_entity(&session, |session, _cx| { session.font_size = (session.font_size + 1.0).clamp(6.0, 72.0); });
+                            return;
+                        } else if key == "-" {
+                            cx.update_entity(&session, |session, _cx| { session.font_size = (session.font_size - 1.0).clamp(6.0, 72.0); });
+                            return;
+                        } else if key == "0" {
+                            cx.update_entity(&session, |session, _cx| { session.font_size = 14.0; });
+                            return;
                         }
                     }
-                } else if ev.keystroke.modifiers.alt {
-                    if key.len() == 1 {
-                        bytes.push(0x1b);
-                        bytes.push(key.as_bytes()[0]);
-                    }
-                } else {
-                    match key {
-                        "enter" => bytes.extend_from_slice(b"\r"),
-                        "backspace" => bytes.extend_from_slice(b"\x7f"),
-                        "tab" => bytes.extend_from_slice(b"\t"),
-                        "escape" => bytes.extend_from_slice(b"\x1b"),
-                        "up" => bytes.extend_from_slice(b"\x1b[A"),
-                        "down" => bytes.extend_from_slice(b"\x1b[B"),
-                        "right" => bytes.extend_from_slice(b"\x1b[C"),
-                        "left" => bytes.extend_from_slice(b"\x1b[D"),
-                        "home" => bytes.extend_from_slice(b"\x1b[H"),
-                        "end" => bytes.extend_from_slice(b"\x1b[F"),
-                        "pageup" => bytes.extend_from_slice(b"\x1b[5~"),
-                        "pagedown" => bytes.extend_from_slice(b"\x1b[6~"),
-                        _ => {
-                            if let Some(text) = &ev.keystroke.key_char {
-                                bytes.extend_from_slice(text.as_bytes());
+                    
+                    if ev.keystroke.modifiers.control {
+                        if key.len() == 1 {
+                            let c = key.chars().next().unwrap();
+                            if c >= 'a' && c <= 'z' {
+                                bytes.push(c as u8 - b'a' + 1);
+                            } else if c >= 'A' && c <= 'Z' {
+                                bytes.push(c as u8 - b'A' + 1);
+                            } else if c == ']' {
+                                bytes.push(0x1d);
+                            } else if c == '\\' {
+                                bytes.push(0x1c);
+                            }
+                        }
+                    } else if ev.keystroke.modifiers.alt {
+                        if key.len() == 1 {
+                            bytes.push(0x1b);
+                            bytes.push(key.as_bytes()[0]);
+                        }
+                    } else if !ev.keystroke.modifiers.platform {
+                        match key {
+                            "enter" => bytes.extend_from_slice(b"\r"),
+                            "backspace" => bytes.extend_from_slice(b"\x7f"),
+                            "tab" => bytes.extend_from_slice(b"\t"),
+                            "escape" => bytes.extend_from_slice(b"\x1b"),
+                            "up" => bytes.extend_from_slice(b"\x1b[A"),
+                            "down" => bytes.extend_from_slice(b"\x1b[B"),
+                            "right" => bytes.extend_from_slice(b"\x1b[C"),
+                            "left" => bytes.extend_from_slice(b"\x1b[D"),
+                            "home" => bytes.extend_from_slice(b"\x1b[H"),
+                            "end" => bytes.extend_from_slice(b"\x1b[F"),
+                            "pageup" => bytes.extend_from_slice(b"\x1b[5~"),
+                            "pagedown" => bytes.extend_from_slice(b"\x1b[6~"),
+                            _ => {
+                                if let Some(text) = &ev.keystroke.key_char {
+                                    bytes.extend_from_slice(text.as_bytes());
+                                }
                             }
                         }
                     }
-                }
-                
-                if !bytes.is_empty() {
-                    let _ = write_tx_keys.send(bytes);
+                    
+                    if !bytes.is_empty() {
+                        let _ = write_tx_keys.send(bytes);
+                    }
                 }
             })
             .on_scroll_wheel(move |ev, _window, _cx| {
@@ -218,53 +308,92 @@ impl Render for TerminalView {
                     // Scroll down
                     let _ = write_tx_scroll.send(b"\x1b[<65;1;1M".to_vec());
                 }
+            })
+            .on_mouse_down(MouseButton::Left, {
+                let session = self.session.clone();
+                move |ev, _window, cx| {
+                    cx.update_entity(&session, |session, _cx| {
+                        if let Some(pos) = session.get_cell_from_pos(ev.position) {
+                            session.selection_start = Some(pos);
+                            session.selection_end = Some(pos);
+                            session.is_dragging = true;
+                        } else {
+                            session.selection_start = None;
+                            session.selection_end = None;
+                        }
+                    });
+                }
+            })
+            .on_mouse_move({
+                let session = self.session.clone();
+                move |ev, _window, cx| {
+                    cx.update_entity(&session, |session, _cx| {
+                        if session.is_dragging {
+                            if let Some(pos) = session.get_cell_from_pos(ev.position) {
+                                session.selection_end = Some(pos);
+                            }
+                        }
+                    });
+                }
+            })
+            .on_mouse_up(MouseButton::Left, {
+                let session = self.session.clone();
+                move |_ev, _window, cx| {
+                    cx.update_entity(&session, |session, _cx| {
+                        session.is_dragging = false;
+                    });
+                }
             });
         
         for r in 0..rows {
-            let mut row_div = div().flex().flex_row().h(px(16.0));
+            let mut row_div = div().flex().flex_row().h(px(font_size * 1.14));
             for c in 0..cols {
                 if let Some(cell) = screen.cell(r, c) {
-                    let mut cell_div = div().child(cell.contents().to_string()).w(px(8.4));
+                    let mut cell_div = div().child(cell.contents().to_string()).w(px(font_size * 0.6));
                     
-                    // Apply styles
+                    let mut fg = rgb(0xcccccc);
+                    let mut bg = rgb(0x1e1e1e);
+                    
                     match cell.fgcolor() {
-                        vt100::Color::Default => { cell_div = cell_div.text_color(rgb(0xcccccc)); },
+                        vt100::Color::Default => {},
                         vt100::Color::Idx(i) => {
-                            // Basic 16-color ANSI mapping (approximate)
-                            let c = match i {
+                            fg = match i {
                                 0 => rgb(0x000000), 1 => rgb(0xcc0000), 2 => rgb(0x4e9a06), 3 => rgb(0xc4a000),
                                 4 => rgb(0x3465a4), 5 => rgb(0x75507b), 6 => rgb(0x06989a), 7 => rgb(0xd3d7cf),
                                 8 => rgb(0x555753), 9 => rgb(0xef2929), 10 => rgb(0x8ae234), 11 => rgb(0xfce94f),
                                 12 => rgb(0x729fcf), 13 => rgb(0xad7fa8), 14 => rgb(0x34e2e2), 15 => rgb(0xeeeeec),
-                                _ => rgb(0xcccccc), // Fallback for 256 colors
+                                _ => rgb(0xcccccc),
                             };
-                            cell_div = cell_div.text_color(c);
                         },
-                        vt100::Color::Rgb(r, g, b) => { cell_div = cell_div.text_color(rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32))); },
+                        vt100::Color::Rgb(r, g, b) => { fg = rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32)); },
                     }
                     
                     match cell.bgcolor() {
                         vt100::Color::Default => {},
                         vt100::Color::Idx(i) => {
-                            let c = match i {
+                            bg = match i {
                                 0 => rgb(0x000000), 1 => rgb(0xcc0000), 2 => rgb(0x4e9a06), 3 => rgb(0xc4a000),
                                 4 => rgb(0x3465a4), 5 => rgb(0x75507b), 6 => rgb(0x06989a), 7 => rgb(0xd3d7cf),
                                 8 => rgb(0x555753), 9 => rgb(0xef2929), 10 => rgb(0x8ae234), 11 => rgb(0xfce94f),
                                 12 => rgb(0x729fcf), 13 => rgb(0xad7fa8), 14 => rgb(0x34e2e2), 15 => rgb(0xeeeeec),
-                                _ => rgb(0x000000),
+                                _ => bg,
                             };
-                            cell_div = cell_div.bg(c);
                         },
-                        vt100::Color::Rgb(r, g, b) => { cell_div = cell_div.bg(rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32))); },
+                        vt100::Color::Rgb(r, g, b) => { bg = rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32)); },
                     }
                     
                     if cell.bold() {
                         cell_div = cell_div.font_weight(FontWeight::BOLD);
                     }
-                    if cell.inverse() {
-                        // Reverse video
-                        cell_div = cell_div.bg(rgb(0xcccccc)).text_color(rgb(0x1e1e1e));
+                    if cell.inverse() || session.read(cx).is_selected(r, c) {
+                        // Reverse video or selected
+                        std::mem::swap(&mut fg, &mut bg);
+                        if session.read(cx).is_selected(r, c) {
+                            bg = rgb(0x444444); // selection color
+                        }
                     }
+                    
+                    cell_div = cell_div.text_color(fg).bg(bg);
                     row_div = row_div.child(cell_div);
                 }
             }
@@ -382,7 +511,7 @@ impl Render for TerminalTabs {
 }
 
 fn main() {
-    gpui::Application::new().run(|cx: &mut App| {
+    gpui::Application::new().run(|cx: &mut gpui::App| {
         let bounds = Bounds::centered(None, size(px(800.0), px(600.0)), cx);
         cx.open_window(
             WindowOptions {
