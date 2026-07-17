@@ -1,22 +1,9 @@
 use gpui::*;
-use portable_pty::{CommandBuilder, MasterPty, NativePtySystem, PtySize, PtySystem};
-use std::io::{Read, Write};
-use std::sync::mpsc;
+use gpui_terminal::{ColorPalette, TerminalConfig, TerminalView};
+use portable_pty::{CommandBuilder, NativePtySystem, PtySize, PtySystem};
 
 struct TerminalSession {
-    parser: vt100::Parser,
-    master: Box<dyn MasterPty + Send>,
-    _writer: std::thread::JoinHandle<()>,
-    _reader: std::thread::JoinHandle<()>,
-    write_tx: mpsc::Sender<Vec<u8>>,
-    read_rx: async_channel::Receiver<Vec<u8>>,
-    cols: u16,
-    rows: u16,
-    selection_start: Option<(u16, u16)>,
-    selection_end: Option<(u16, u16)>,
-    is_dragging: bool,
-    grid_bounds: Option<Bounds<Pixels>>,
-    font_size: f32,
+    terminal_view: Entity<TerminalView>,
 }
 
 impl TerminalSession {
@@ -33,373 +20,58 @@ impl TerminalSession {
 
         let mut cmd = CommandBuilder::new("sh");
         cmd.args(["-c", "tmux attach || tmux new-session"]);
+        cmd.env("TERM", "xterm-256color");
+        cmd.env("COLORTERM", "truecolor");
         let _child = pair.slave.spawn_command(cmd).unwrap();
         drop(pair.slave);
 
-        let mut reader = pair.master.try_clone_reader().unwrap();
-        let mut writer = pair.master.take_writer().unwrap();
+        let reader = pair.master.try_clone_reader().unwrap();
+        let writer = pair.master.take_writer().unwrap();
+        
+        let master = std::sync::Arc::new(std::sync::Mutex::new(pair.master));
 
-        let (write_tx, write_rx) = mpsc::channel::<Vec<u8>>();
-        let writer_thread = std::thread::spawn(move || {
-            while let Ok(data) = write_rx.recv() {
-                let _ = writer.write_all(&data);
-                let _ = writer.flush();
-            }
-        });
-
-        let (read_tx, read_rx) = async_channel::unbounded::<Vec<u8>>();
-        let reader_thread = std::thread::spawn(move || {
-            let mut buf = [0; 8192];
-            loop {
-                match reader.read(&mut buf) {
-                    Ok(0) => break,
-                    Ok(n) => {
-                        if read_tx.send_blocking(buf[..n].to_vec()).is_err() {
-                            break;
-                        }
-                    }
-                    Err(_) => break,
-                }
-            }
-        });
-
-        Self {
-            parser: vt100::Parser::new(24, 80, 0),
-            master: pair.master,
-            _writer: writer_thread,
-            _reader: reader_thread,
-            write_tx,
-            read_rx,
+        let config = TerminalConfig {
             cols: 80,
             rows: 24,
-            selection_start: None,
-            selection_end: None,
-            is_dragging: false,
-            grid_bounds: None,
-            font_size: 14.0,
-        }
-    }
-
-    fn resize(&mut self, new_rows: u16, new_cols: u16) {
-        if self.rows == new_rows && self.cols == new_cols {
-            return;
-        }
-        self.rows = new_rows;
-        self.cols = new_cols;
-        self.parser.screen_mut().set_size(new_rows, new_cols);
-        let _ = self.master.resize(PtySize {
-            rows: new_rows,
-            cols: new_cols,
-            pixel_width: 0,
-            pixel_height: 0,
-        });
-    }
-
-    fn get_cell_from_pos(&self, pos: Point<Pixels>) -> Option<(u16, u16)> {
-        if let Some(bounds) = self.grid_bounds {
-            let x: f32 = (pos.x - bounds.origin.x).into();
-            let y: f32 = (pos.y - bounds.origin.y).into();
-            let cell_width = self.font_size * 0.6;
-            let cell_height = self.font_size * 1.14;
-            let col = (x / cell_width).floor() as i32;
-            let row = (y / cell_height).floor() as i32;
-            if col >= 0 && col < self.cols as i32 && row >= 0 && row < self.rows as i32 {
-                return Some((row as u16, col as u16));
-            }
-        }
-        None
-    }
-
-    fn is_selected(&self, r: u16, c: u16) -> bool {
-        if let (Some(s), Some(e)) = (self.selection_start, self.selection_end) {
-            let (s_r, s_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (s.0, s.1) } else { (e.0, e.1) };
-            let (e_r, e_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (e.0, e.1) } else { (s.0, s.1) };
-            if r > s_r && r < e_r { return true; }
-            if r == s_r && r == e_r { return c >= s_c && c <= e_c; }
-            if r == s_r { return c >= s_c; }
-            if r == e_r { return c <= e_c; }
-        }
-        false
-    }
-
-    fn get_selected_text(&self) -> String {
-        let mut text = String::new();
-        let screen = self.parser.screen();
-        if let (Some(s), Some(e)) = (self.selection_start, self.selection_end) {
-            let (s_r, s_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (s.0, s.1) } else { (e.0, e.1) };
-            let (e_r, e_c) = if s.0 < e.0 || (s.0 == e.0 && s.1 <= e.1) { (e.0, e.1) } else { (s.0, s.1) };
-            for r in s_r..=e_r {
-                let start_c = if r == s_r { s_c } else { 0 };
-                let end_c = if r == e_r { e_c } else { self.cols - 1 };
-                for c in start_c..=end_c {
-                    if let Some(cell) = screen.cell(r, c) {
-                        text.push_str(cell.contents());
-                    } else {
-                        text.push(' ');
-                    }
-                }
-                if r < e_r {
-                    text.push('\n');
-                }
-            }
-        }
-        text
-    }
-}
-
-struct TerminalView {
-    session: Entity<TerminalSession>,
-}
-
-impl TerminalView {
-    fn new(session: Entity<TerminalSession>, cx: &mut Context<Self>) -> Self {
-        cx.spawn(async move |this, mut cx| {
-            let rx = gpui::AsyncApp::update(&mut cx, |cx| {
-                gpui::WeakEntity::<TerminalView>::update(&this, cx, |view, cx| {
-                    view.session.read(cx).read_rx.clone()
-                }).ok()
-            }).ok().flatten();
-            
-            if let Some(rx) = rx {
-                while let Ok(data) = rx.recv().await {
-                    let _ = gpui::AsyncApp::update(&mut cx, |cx| {
-                        gpui::WeakEntity::<TerminalView>::update(&this, cx, |view, cx| {
-                            view.session.update(cx, |session, cx| {
-                                session.parser.process(&data);
-                                cx.notify();
-                            });
-                        }).ok()
-                    });
-                }
-            }
-        }).detach();
-
-        Self { session }
-    }
-}
-
-impl Render for TerminalView {
-    fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        let session = self.session.clone();
-        let session_clone = self.session.clone();
-        
-        let (rows, cols, font_size) = {
-            let s = self.session.read(cx);
-            (s.rows, s.cols, s.font_size)
+            font_family: "Monaco".into(),
+            font_size: px(14.0),
+            line_height_multiplier: 1.14,
+            scrollback: 10000,
+            padding: Edges::default(),
+            colors: ColorPalette::default(),
         };
-        
-        let parser = &self.session.read(cx).parser;
-        let screen = parser.screen();
-        let write_tx = self.session.read(cx).write_tx.clone();
-        let write_tx_keys = write_tx.clone();
-        let write_tx_scroll = write_tx.clone();
-        
-        let mut rows_container = div()
-            .flex()
-            .flex_col()
-            .bg(rgb(0x1e1e1e))
-            .size_full()
-            .font_family("Monaco")
-            .text_size(px(font_size))
-            .track_focus(&cx.focus_handle())
-            .child(
-                canvas(
-                    move |bounds, _window, cx| {
-                        let cell_width = font_size * 0.6;
-                        let cell_height = font_size * 1.14;
-                        let w: f32 = bounds.size.width.into();
-                        let h: f32 = bounds.size.height.into();
-                        let new_cols = (w / cell_width).max(10.0) as u16;
-                        let new_rows = (h / cell_height).max(5.0) as u16;
-                        
-                        cx.defer(move |cx| {
-                            cx.update_entity(&session_clone, |session, _cx| {
-                                session.grid_bounds = Some(bounds);
-                                session.resize(new_rows, new_cols);
-                            });
+
+        let terminal_view = cx.new(|cx| {
+            let master_clone = master.clone();
+            TerminalView::new(writer, reader, config, cx)
+                .with_resize_callback(move |cols, rows| {
+                    if let Ok(master) = master_clone.lock() {
+                        let _ = master.resize(PtySize {
+                            cols: cols as u16,
+                            rows: rows as u16,
+                            pixel_width: 0,
+                            pixel_height: 0,
                         });
-                    },
-                    |_, _, _, _| {}
-                ).absolute().size_full()
-            )
-            .on_key_down({
-                let session = self.session.clone();
-                let write_tx_keys = write_tx_keys.clone();
-                move |ev, _window, cx| {
-                    let key = ev.keystroke.key.as_str();
-                    let mut bytes = Vec::new();
-                    
+                    }
+                })
+                .with_key_handler(|ev| {
                     if ev.keystroke.modifiers.platform {
-                        if key == "c" {
-                            let text = session.read(cx).get_selected_text();
-                            if !text.is_empty() {
-                                cx.write_to_clipboard(ClipboardItem::new_string(text));
-                            }
-                            return;
-                        } else if key == "v" {
-                            if let Some(item) = cx.read_from_clipboard() {
-                                if let Some(text) = item.text() {
-                                    bytes.extend_from_slice(text.as_bytes());
-                                }
-                            }
-                        } else if key == "=" {
-                            cx.update_entity(&session, |session, _cx| { session.font_size = (session.font_size + 1.0).clamp(6.0, 72.0); });
-                            return;
-                        } else if key == "-" {
-                            cx.update_entity(&session, |session, _cx| { session.font_size = (session.font_size - 1.0).clamp(6.0, 72.0); });
-                            return;
-                        } else if key == "0" {
-                            cx.update_entity(&session, |session, _cx| { session.font_size = 14.0; });
-                            return;
+                        let key = ev.keystroke.key.as_str();
+                        if key == "=" || key == "-" || key == "0" || key == "c" || key == "v" {
+                            return false;
                         }
                     }
-                    
-                    if ev.keystroke.modifiers.control {
-                        if key.len() == 1 {
-                            let c = key.chars().next().unwrap();
-                            if c >= 'a' && c <= 'z' {
-                                bytes.push(c as u8 - b'a' + 1);
-                            } else if c >= 'A' && c <= 'Z' {
-                                bytes.push(c as u8 - b'A' + 1);
-                            } else if c == ']' {
-                                bytes.push(0x1d);
-                            } else if c == '\\' {
-                                bytes.push(0x1c);
-                            }
-                        }
-                    } else if ev.keystroke.modifiers.alt {
-                        if key.len() == 1 {
-                            bytes.push(0x1b);
-                            bytes.push(key.as_bytes()[0]);
-                        }
-                    } else if !ev.keystroke.modifiers.platform {
-                        match key {
-                            "enter" => bytes.extend_from_slice(b"\r"),
-                            "backspace" => bytes.extend_from_slice(b"\x7f"),
-                            "tab" => bytes.extend_from_slice(b"\t"),
-                            "escape" => bytes.extend_from_slice(b"\x1b"),
-                            "up" => bytes.extend_from_slice(b"\x1b[A"),
-                            "down" => bytes.extend_from_slice(b"\x1b[B"),
-                            "right" => bytes.extend_from_slice(b"\x1b[C"),
-                            "left" => bytes.extend_from_slice(b"\x1b[D"),
-                            "home" => bytes.extend_from_slice(b"\x1b[H"),
-                            "end" => bytes.extend_from_slice(b"\x1b[F"),
-                            "pageup" => bytes.extend_from_slice(b"\x1b[5~"),
-                            "pagedown" => bytes.extend_from_slice(b"\x1b[6~"),
-                            _ => {
-                                if let Some(text) = &ev.keystroke.key_char {
-                                    bytes.extend_from_slice(text.as_bytes());
-                                }
-                            }
-                        }
-                    }
-                    
-                    if !bytes.is_empty() {
-                        let _ = write_tx_keys.send(bytes);
-                    }
-                }
-            })
-            .on_scroll_wheel(move |ev, _window, _cx| {
-                let delta = ev.delta.pixel_delta(px(20.0));
-                if delta.y > px(0.0) {
-                    // Scroll up
-                    let _ = write_tx_scroll.send(b"\x1b[<64;1;1M".to_vec());
-                } else if delta.y < px(0.0) {
-                    // Scroll down
-                    let _ = write_tx_scroll.send(b"\x1b[<65;1;1M".to_vec());
-                }
-            })
-            .on_mouse_down(MouseButton::Left, {
-                let session = self.session.clone();
-                move |ev, _window, cx| {
-                    cx.update_entity(&session, |session, _cx| {
-                        if let Some(pos) = session.get_cell_from_pos(ev.position) {
-                            session.selection_start = Some(pos);
-                            session.selection_end = Some(pos);
-                            session.is_dragging = true;
-                        } else {
-                            session.selection_start = None;
-                            session.selection_end = None;
-                        }
-                    });
-                }
-            })
-            .on_mouse_move({
-                let session = self.session.clone();
-                move |ev, _window, cx| {
-                    cx.update_entity(&session, |session, _cx| {
-                        if session.is_dragging {
-                            if let Some(pos) = session.get_cell_from_pos(ev.position) {
-                                session.selection_end = Some(pos);
-                            }
-                        }
-                    });
-                }
-            })
-            .on_mouse_up(MouseButton::Left, {
-                let session = self.session.clone();
-                move |_ev, _window, cx| {
-                    cx.update_entity(&session, |session, _cx| {
-                        session.is_dragging = false;
-                    });
-                }
-            });
-        
-        for r in 0..rows {
-            let mut row_div = div().flex().flex_row().h(px(font_size * 1.14));
-            for c in 0..cols {
-                if let Some(cell) = screen.cell(r, c) {
-                    let mut cell_div = div().child(cell.contents().to_string()).w(px(font_size * 0.6));
-                    
-                    let mut fg = rgb(0xcccccc);
-                    let mut bg = rgb(0x1e1e1e);
-                    
-                    match cell.fgcolor() {
-                        vt100::Color::Default => {},
-                        vt100::Color::Idx(i) => {
-                            fg = match i {
-                                0 => rgb(0x000000), 1 => rgb(0xcc0000), 2 => rgb(0x4e9a06), 3 => rgb(0xc4a000),
-                                4 => rgb(0x3465a4), 5 => rgb(0x75507b), 6 => rgb(0x06989a), 7 => rgb(0xd3d7cf),
-                                8 => rgb(0x555753), 9 => rgb(0xef2929), 10 => rgb(0x8ae234), 11 => rgb(0xfce94f),
-                                12 => rgb(0x729fcf), 13 => rgb(0xad7fa8), 14 => rgb(0x34e2e2), 15 => rgb(0xeeeeec),
-                                _ => rgb(0xcccccc),
-                            };
-                        },
-                        vt100::Color::Rgb(r, g, b) => { fg = rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32)); },
-                    }
-                    
-                    match cell.bgcolor() {
-                        vt100::Color::Default => {},
-                        vt100::Color::Idx(i) => {
-                            bg = match i {
-                                0 => rgb(0x000000), 1 => rgb(0xcc0000), 2 => rgb(0x4e9a06), 3 => rgb(0xc4a000),
-                                4 => rgb(0x3465a4), 5 => rgb(0x75507b), 6 => rgb(0x06989a), 7 => rgb(0xd3d7cf),
-                                8 => rgb(0x555753), 9 => rgb(0xef2929), 10 => rgb(0x8ae234), 11 => rgb(0xfce94f),
-                                12 => rgb(0x729fcf), 13 => rgb(0xad7fa8), 14 => rgb(0x34e2e2), 15 => rgb(0xeeeeec),
-                                _ => bg,
-                            };
-                        },
-                        vt100::Color::Rgb(r, g, b) => { bg = rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32)); },
-                    }
-                    
-                    if cell.bold() {
-                        cell_div = cell_div.font_weight(FontWeight::BOLD);
-                    }
-                    if cell.inverse() || session.read(cx).is_selected(r, c) {
-                        // Reverse video or selected
-                        std::mem::swap(&mut fg, &mut bg);
-                        if session.read(cx).is_selected(r, c) {
-                            bg = rgb(0x444444); // selection color
-                        }
-                    }
-                    
-                    cell_div = cell_div.text_color(fg).bg(bg);
-                    row_div = row_div.child(cell_div);
-                }
-            }
-            rows_container = rows_container.child(row_div);
-        }
-        rows_container
+                    false
+                })
+        });
+
+        Self { terminal_view }
+    }
+}
+
+impl Render for TerminalSession {
+    fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
+        div().size_full().child(self.terminal_view.clone())
     }
 }
 
@@ -414,11 +86,6 @@ impl TerminalTabs {
         
         cx.spawn(async move |this, mut cx| {
             loop {
-                // Background task to trigger repaints when any session updates
-                // Ideally this would be driven by session events, but for simplicity we poll/wait.
-                // GPUI will notify automatically when the active session updates because the child view updates it.
-                // So we actually don't need a background loop here, TerminalSession's loop calls cx.notify().
-                // But TerminalSession's loop calls `cx.notify()` on TerminalSession, we need it to bubble up.
                 gpui::Timer::after(std::time::Duration::from_millis(16)).await;
                 let _ = gpui::AsyncApp::update(&mut cx, |cx| {
                     gpui::WeakEntity::<TerminalTabs>::update(&this, cx, |_, cx| cx.notify()).ok()
@@ -463,7 +130,6 @@ impl Render for TerminalTabs {
                         .hover(|style| style.bg(rgb(0x555555)).rounded_sm())
                         .child(div().child("x").text_color(rgb(0xcccccc)).text_xs())
                         .on_click(cx.listener(move |this, _, _, _| {
-                            // If we remove the active tab, adjust active_tab
                             if this.tabs.len() > 1 {
                                 this.tabs.remove(i);
                                 if this.active_tab >= i && this.active_tab > 0 {
@@ -497,16 +163,15 @@ impl Render for TerminalTabs {
         );
 
         let active_session = self.tabs[self.active_tab].clone();
-        
-        // Render the active terminal
-        let terminal_view = cx.new(|cx| TerminalView::new(active_session, cx));
 
         div()
             .flex()
             .flex_col()
             .size_full()
             .child(tab_bar)
-            .child(terminal_view)
+            .child(
+                div().flex_grow().child(active_session)
+            )
     }
 }
 
