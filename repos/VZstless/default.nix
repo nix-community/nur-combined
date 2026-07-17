@@ -13,10 +13,8 @@
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
-
-  avocado-framework = pkgs.callPackage ./pkgs/avocado-framework { };
-  dnsglobe = pkgs.callPackage ./pkgs/dnsglobe { };
-  git-blame-someone-else = pkgs.callPackage ./pkgs/git-blame-someone-else { };
-  pingfs = pkgs.callPackage ./pkgs/pingfs { };
-  runmat = pkgs.callPackage ./pkgs/runmat { };
 }
+//  pkgs.lib.packagesFromDirectoryRecursive {
+      callPackage = pkgs.callPackage;
+      directory = ./pkgs;
+    }
