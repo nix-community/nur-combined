@@ -84,9 +84,9 @@ pub async fn create_actors() {
                 };
 
                 let tmux_cmd = if enable_tmux_mouse {
-                    "exec tmux -u new-session -A -s main \\; set -g mouse on"
+                    "tmux -u has-session 2>/dev/null && exec tmux -u a \\; set -g mouse on || exec tmux -u new \\; set -g mouse on"
                 } else {
-                    "exec tmux -u new-session -A -s main"
+                    "tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new"
                 };
 
                 let mut command = if host == "localhost" || host == "127.0.0.1" {
