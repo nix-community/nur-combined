@@ -615,21 +615,73 @@ class TerminalSession {
               }
               return KeyEventResult.ignored;
             },
-            child: TerminalView(
-              terminal,
-              controller: terminalController,
-              theme: isDark ? _darkTheme : _lightTheme,
-              textStyle: TerminalStyle(
-                fontFamily: 'Menlo',
-                fontFamilyFallback: ['Consolas', 'Ubuntu Mono', 'DejaVu Sans Mono', 'monospace'],
-                fontSize: size.toDouble(),
-              ),
-              focusNode: focusNode,
-              autofocus: autofocus,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Listener(
+                  onPointerHover: (event) {
+                    _lastPointerPosition = event.localPosition;
+                  },
+                  onPointerMove: (event) {
+                    _lastPointerPosition = event.localPosition;
+                  },
+                  onPointerPanZoomUpdate: (event) {
+                    _handlePanZoomScroll(event, constraints);
+                  },
+                  child: TerminalView(
+                    terminal,
+                    controller: terminalController,
+                    theme: isDark ? _darkTheme : _lightTheme,
+                    textStyle: TerminalStyle(
+                      fontFamily: 'Menlo',
+                      fontFamilyFallback: ['Consolas', 'Ubuntu Mono', 'DejaVu Sans Mono', 'monospace'],
+                      fontSize: size.toDouble(),
+                    ),
+                    focusNode: focusNode,
+                    autofocus: autofocus,
+                  ),
+                );
+              }
             ),
           );
         },
       ),
     );
+  }
+
+  Offset _lastPointerPosition = Offset.zero;
+  double _scrollAccumulator = 0.0;
+
+  void _handlePanZoomScroll(PointerPanZoomUpdateEvent event, BoxConstraints constraints) {
+    if (!terminal.isUsingAltBuffer) return; // Only apply to alt buffer
+
+    final cellWidth = constraints.maxWidth / terminal.viewWidth;
+    final cellHeight = constraints.maxHeight / terminal.viewHeight;
+    
+    // panDelta is how much the content should move. 
+    // Scrolling down physically moves content up, so panDelta.dy is negative.
+    _scrollAccumulator -= event.panDelta.dy;
+    
+    final lines = (_scrollAccumulator / cellHeight).truncate();
+    if (lines != 0) {
+      _scrollAccumulator -= lines * cellHeight;
+      
+      final col = (_lastPointerPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
+      final row = (_lastPointerPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
+      
+      for (var i = 0; i < lines.abs(); i++) {
+        final up = lines < 0; // lines < 0 means we scrolled up
+        final handled = terminal.mouseInput(
+          up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
+          TerminalMouseButtonState.down,
+          CellOffset(col, row),
+        );
+        
+        if (!handled) {
+          terminal.keyInput(
+            up ? TerminalKey.arrowUp : TerminalKey.arrowDown,
+          );
+        }
+      }
+    }
   }
 }
