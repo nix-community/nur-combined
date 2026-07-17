@@ -18,10 +18,10 @@ wildcard_imports = "deny"
 
 [dependencies]
 rinf = "8.10.0"
-serde = { version = "1.0.219", features = ["derive"] }
-tokio = { version = "1.45.0", features = ["rt", "macros", "time"] }
+serde = { version = "1.0", features = ["derive"] }
+tokio = { version = "1", features = ["rt", "macros", "time"] }
 portable-pty = "0.9.0"
-glob = "0.3.1"
+glob = "0.3.3"
 
 # Uncomment below to target the web.
 # tokio_with_wasm = { version = "0.8.5", features = ["rt", "macros", "time"] }

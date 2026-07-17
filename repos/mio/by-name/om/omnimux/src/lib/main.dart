@@ -398,7 +398,9 @@ class _MainScreenState extends State<MainScreen> {
               Text(session.host),
               const SizedBox(width: 8),
               InkWell(
-                onTap: () => _closeTab(index),
+                onTap: () {
+                  _closeTab(index);
+                },
                 child: const Icon(Icons.close, size: 16),
               ),
             ],
@@ -424,7 +426,7 @@ class TerminalSession {
 
   static final _darkTheme = TerminalTheme(
     cursor: const Color(0xFFFFFFFF),
-    selection: const Color(0xFF4C5B5C).withOpacity(0.5),
+    selection: Color.fromARGB((0.5 * 255).round(), 0x4C, 0x5B, 0x5C),
     foreground: const Color(0xFFCCCCCC),
     background: const Color(0xFF000000),
     black: const Color(0xFF000000),
@@ -450,7 +452,7 @@ class TerminalSession {
 
   static final _lightTheme = TerminalTheme(
     cursor: const Color(0xFF000000),
-    selection: const Color(0xFFC1DEFF).withOpacity(0.5),
+    selection: Color.fromARGB((0.5 * 255).round(), 0xC1, 0xDE, 0xFF),
     foreground: const Color(0xFF000000),
     background: const Color(0xFFFFFFFF),
     black: const Color(0xFF000000),

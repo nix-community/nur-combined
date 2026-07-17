@@ -16,7 +16,7 @@ let
   cargoDeps = rustPlatform.fetchCargoVendor {
     src = lib.cleanSource ./.;
     sourceRoot = "source/src";
-    hash = "sha256-Npr21fTx1ExEFng4q9KcsjvfhYfnegFiU6m3BYZpq5w=";
+    hash = "sha256-CONAxDzeGOLoFWBZuJA7dwvmJEMkwG3+fdE64OTuSOo=";
   };
 in
 flutter.buildFlutterApplication (
@@ -27,6 +27,7 @@ flutter.buildFlutterApplication (
 
     src = lib.cleanSource ./.;
     sourceRoot = "source/src";
+    pubCacheHash = "sha256-1111111111111111111111111111111111111111111=";
 
     targetFlutterPlatform = "linux"; # bypass nixpkgs check
 
@@ -115,12 +116,15 @@ flutter.buildFlutterApplication (
       cp -rs ${flutter}/* $FAKE_FLUTTER_ROOT/
       chmod -R u+w $FAKE_FLUTTER_ROOT
 
-      # Replace the FlutterMacOS.xcframework with a real, writable copy, preserving internal symlinks
-      FRAMEWORK_DIR="$FAKE_FLUTTER_ROOT/bin/cache/artifacts/engine/darwin-x64-release/FlutterMacOS.xcframework"
-      rm -rf "$FRAMEWORK_DIR"
-      REAL_XCFRAMEWORK=$(readlink -f ${flutter}/bin/cache/artifacts/engine/darwin-x64-release/FlutterMacOS.xcframework)
-      cp -a "$REAL_XCFRAMEWORK" "$FRAMEWORK_DIR"
-      chmod -R u+w "$FRAMEWORK_DIR"
+      for ENGINE_DIR in darwin-x64 darwin-x64-release; do
+        FRAMEWORK_DIR="$FAKE_FLUTTER_ROOT/bin/cache/artifacts/engine/$ENGINE_DIR/FlutterMacOS.xcframework"
+        if [ -d "$FRAMEWORK_DIR" ]; then
+          rm -rf "$FRAMEWORK_DIR"
+          REAL_XCFRAMEWORK=$(readlink -f ${flutter}/bin/cache/artifacts/engine/$ENGINE_DIR/FlutterMacOS.xcframework)
+          cp -a "$REAL_XCFRAMEWORK" "$FRAMEWORK_DIR"
+          chmod -R u+w "$FRAMEWORK_DIR"
+        fi
+      done
 
       export PATH=$FAKE_FLUTTER_ROOT/bin:$PATH
       export FLUTTER_ROOT=$FAKE_FLUTTER_ROOT
@@ -149,7 +153,11 @@ flutter.buildFlutterApplication (
       mkdir -p $out/Applications
       cp -r build/macos/Build/Products/Release/*.app $out/Applications/omnimux.app
       mkdir -p $out/bin
-      ln -s $out/Applications/omnimux.app/Contents/MacOS/src $out/bin/omnimux
+      
+      # Find the executable inside MacOS directory
+      EXEC_NAME=$(ls $out/Applications/omnimux.app/Contents/MacOS/ | head -n 1)
+      ln -s $out/Applications/omnimux.app/Contents/MacOS/$EXEC_NAME $out/bin/omnimux
+      
       mkdir -p $debug
       runHook postInstall
     '';
