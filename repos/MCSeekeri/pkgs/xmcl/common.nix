@@ -26,7 +26,7 @@
 }:
 
 let
-  version = "0.57.0";
+  version = "0.62.0";
 
   srcArgs = {
     owner = "voxelum";
@@ -100,14 +100,14 @@ let
     };
 
   installIcons = iconDir: ''
-    install -Dm644 "''${iconDir}/dark@256x256.png" \
+    install -Dm644 "${iconDir}/dark@256x256.png" \
       "$out/share/icons/hicolor/256x256/apps/xmcl.png"
 
-    install -Dm644 "''${iconDir}/dark@tray.png" \
+    install -Dm644 "${iconDir}/dark@tray.png" \
       "$out/share/icons/hicolor/22x22/apps/tray.png"
 
     ${lib.optionalString stdenv.isDarwin ''
-      install -Dm644 "''${iconDir}/dark.icns" \
+      install -Dm644 "${iconDir}/dark.icns" \
         "$out/share/xmcl/icons/icon.icns"
     ''}
   '';

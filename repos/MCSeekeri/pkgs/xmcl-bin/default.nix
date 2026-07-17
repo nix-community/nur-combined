@@ -11,11 +11,15 @@
 }:
 let
   pname = "xmcl-bin";
+  version = "0.61.0";
+  srcArgs = {
+    owner = "voxelum";
+    repo = "x-minecraft-launcher";
+    rev = "v${version}";
+  };
 
   common = callPackage ../xmcl/common.nix { };
   inherit (common)
-    version
-    srcArgs
     desktopItem
     mkLauncher
     installIcons
@@ -30,7 +34,7 @@ let
       if stdenv.isDarwin then
         "sha256-14rI38GdzvHr8POeXZ7Jlndh6K62/10J6HfOxbHTEZo="
       else
-        "sha256-1S6osAnsiKCToRTYDDGzwxwc62DMnw1p9PUYURvLhN0=";
+        "sha256-YLg8gwYQnthHqC9tpg0EK9zFhA1Wh04TY7TSYNOSPPg=";
     # 这个逻辑迟早得大改
     # 等 Nix 终于支持 Windows 的时候再说……
   };
@@ -39,7 +43,7 @@ let
     srcArgs
     // {
       sparseCheckout = [ "xmcl-electron-app/icons" ];
-      hash = "sha256-eCQQSmU23CJtECjoI/pTtiTrO2PbK3h+cgMjO3x+YlI=";
+      hash = "sha256-Z0QF8y9zM1cEXKE+LWJQiFRG7hDwMdLpH4k7X+5T//8=";
     }
   );
 
