@@ -13,7 +13,7 @@ def update-linux [] {
 
   print $"[linux] current: ($old_ver) / ($old_hash)"
 
-  mut prefetched = null
+  mut prefetched: any = null
   for url in $appimage_urls {
     let r = try {
       let lines = (^nix-prefetch-url --print-path $url | lines)
