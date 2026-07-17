@@ -113,8 +113,51 @@ impl Render for TerminalView {
             .text_sm()
             .track_focus(&cx.focus_handle())
             .on_key_down(move |ev, _window, _cx| {
-                if let Some(text) = &ev.keystroke.key_char {
-                    let _ = write_tx_keys.send(text.as_bytes().to_vec());
+                let key = ev.keystroke.key.as_str();
+                let mut bytes = Vec::new();
+                
+                if ev.keystroke.modifiers.control {
+                    if key.len() == 1 {
+                        let c = key.chars().next().unwrap();
+                        if c >= 'a' && c <= 'z' {
+                            bytes.push(c as u8 - b'a' + 1);
+                        } else if c >= 'A' && c <= 'Z' {
+                            bytes.push(c as u8 - b'A' + 1);
+                        } else if c == ']' {
+                            bytes.push(0x1d);
+                        } else if c == '\\' {
+                            bytes.push(0x1c);
+                        }
+                    }
+                } else if ev.keystroke.modifiers.alt {
+                    if key.len() == 1 {
+                        bytes.push(0x1b);
+                        bytes.push(key.as_bytes()[0]);
+                    }
+                } else {
+                    match key {
+                        "enter" => bytes.extend_from_slice(b"\r"),
+                        "backspace" => bytes.extend_from_slice(b"\x7f"),
+                        "tab" => bytes.extend_from_slice(b"\t"),
+                        "escape" => bytes.extend_from_slice(b"\x1b"),
+                        "up" => bytes.extend_from_slice(b"\x1b[A"),
+                        "down" => bytes.extend_from_slice(b"\x1b[B"),
+                        "right" => bytes.extend_from_slice(b"\x1b[C"),
+                        "left" => bytes.extend_from_slice(b"\x1b[D"),
+                        "home" => bytes.extend_from_slice(b"\x1b[H"),
+                        "end" => bytes.extend_from_slice(b"\x1b[F"),
+                        "pageup" => bytes.extend_from_slice(b"\x1b[5~"),
+                        "pagedown" => bytes.extend_from_slice(b"\x1b[6~"),
+                        _ => {
+                            if let Some(text) = &ev.keystroke.key_char {
+                                bytes.extend_from_slice(text.as_bytes());
+                            }
+                        }
+                    }
+                }
+                
+                if !bytes.is_empty() {
+                    let _ = write_tx_keys.send(bytes);
                 }
             })
             .on_scroll_wheel(move |ev, _window, _cx| {
