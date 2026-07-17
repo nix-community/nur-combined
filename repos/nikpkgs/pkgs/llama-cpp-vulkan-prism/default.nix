@@ -1,6 +1,10 @@
  { stdenv, lib
 , fetchurl
-, mesa
+, shaderc
+, vulkan-headers
+, vulkan-loader
+, spirv-headers
+, openssl
 , autoPatchelfHook
 }:
 
@@ -18,7 +22,11 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    mesa
+    openssl
+    shaderc
+    vulkan-headers
+    vulkan-loader
+    spirv-headers
   ];
 
   sourceRoot = ".";
