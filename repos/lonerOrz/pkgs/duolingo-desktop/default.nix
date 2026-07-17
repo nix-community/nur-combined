@@ -6,7 +6,7 @@
   makeWrapper,
   makeDesktopItem,
   copyDesktopItems,
-  electron_40,
+  electron,
   callPackage,
 }:
 let
@@ -33,7 +33,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    electron_40
+    electron
   ];
 
   desktopItems = [
@@ -57,7 +57,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r ./* $appDir/
 
     install -d $out/bin
-    makeWrapper ${electron_40}/bin/electron $out/bin/duolingo-desktop \
+    makeWrapper ${electron}/bin/electron $out/bin/duolingo-desktop \
       --add-flags $appDir/resources/app.asar \
       --set-default ELECTRON_OZONE_PLATFORM_HINT auto \
       --set-default GDK_BACKEND wayland,x11 \
