@@ -20,4 +20,5 @@
   xivlauncher-rb = pkgs.callPackage ./pkgs/xivlauncher-rb { };
   autoeq = pkgs.callPackage ./pkgs/autoeq { };
   ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
+  mandarin-juice-cli = pkgs.callPackage ./pkgs/mandarin-juice-cli { };
 }

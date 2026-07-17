@@ -1,0 +1,42 @@
+[
+  {
+    "pname": "Mi5hmasH.AesCrypto",
+    "version": "0.0.1",
+    "hash": "sha256-4Gq0kvjnjGM2fk1FPh+7ruR1MPADEG+YogBPg3HeN/E="
+  },
+  {
+    "pname": "Mi5hmasH.Compressors",
+    "version": "0.0.2",
+    "hash": "sha256-JWzwP/Wqi8INC0+JW6zRzOuq0oziX/wc0lcKeLnxmKg="
+  },
+  {
+    "pname": "Mi5hmasH.ConsoleHelper",
+    "version": "0.0.1",
+    "hash": "sha256-QRMz2jfg4VpdZ9Sy4X6bor22n3p5xG9dF+d8uwqhV1k="
+  },
+  {
+    "pname": "Mi5hmasH.Converters",
+    "version": "0.0.1",
+    "hash": "sha256-fKnAJ4Fy81oZnOXnDcGCt4lmJNqZbkpTn52NHj3qfd8="
+  },
+  {
+    "pname": "Mi5hmasH.GameLaunchers",
+    "version": "0.0.1",
+    "hash": "sha256-aBYVL9Flp2YD0M1sa1hVa1A2VwYpd2c6cYx4boygQXI="
+  },
+  {
+    "pname": "Mi5hmasH.GameProfile",
+    "version": "0.0.2",
+    "hash": "sha256-YFA0xXAFhCKrZSXl9pjS1AjYoiFMJYhsqjK9M8CAWbA="
+  },
+  {
+    "pname": "Mi5hmasH.Logger",
+    "version": "3.0.2",
+    "hash": "sha256-A/1c9wHxpdVOqLgMCtxFo4bGaJdFIDX+lnUMfMqR6dU="
+  },
+  {
+    "pname": "Mi5hmasH.Progress",
+    "version": "0.0.2",
+    "hash": "sha256-rsqnjlhRlLDDToqNwobsaGJgBtUP+EQmr7urRz4Xz2U="
+  }
+]

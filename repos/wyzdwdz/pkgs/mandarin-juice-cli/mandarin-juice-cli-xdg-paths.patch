@@ -1,0 +1,49 @@
+diff --git a/MandarinJuiceCore/Infrastructure/Directories.cs b/MandarinJuiceCore/Infrastructure/Directories.cs
+index 8a715c9..147c6e1 100644
+--- a/MandarinJuiceCore/Infrastructure/Directories.cs
++++ b/MandarinJuiceCore/Infrastructure/Directories.cs
+@@ -8,7 +8,7 @@ namespace MandarinJuiceCore.Infrastructure;
+ public static class Directories
+ {
+     public static readonly string RootPath = AppDomain.CurrentDomain.BaseDirectory;
+-    public static readonly string Output = Path.Combine(RootPath, "_OUTPUT");
++    public static readonly string Output = Path.Combine(Environment.CurrentDirectory, "_OUTPUT");
+     public static readonly string Profiles = Path.Combine(RootPath, "_profiles");
+ 
+     /// <summary>
+diff --git a/mandarin-juice-cli/Program.cs b/mandarin-juice-cli/Program.cs
+index c762ce8..6f760be 100644
+--- a/mandarin-juice-cli/Program.cs
++++ b/mandarin-juice-cli/Program.cs
+@@ -28,7 +28,9 @@ var logger = new SimpleLogger
+ var consoleLogProvider = new ConsoleLogProvider();
+ logger.AddProvider(consoleLogProvider);
+ // Configure FileLogProvider
+-var fileLogProvider = new FileLogProvider(MyAppInfo.RootPath, 2);
++var logDir = GetLogDirectory();
++Directory.CreateDirectory(logDir);
++var fileLogProvider = new FileLogProvider(logDir, 2);
+ fileLogProvider.CreateLogFile();
+ logger.AddProvider(fileLogProvider);
+ // Add event handler for unhandled exceptions
+@@ -153,6 +155,20 @@ static void PrintHelp()
+     Console.WriteLine(helpMessage);
+ }
+ 
++static string GetLogDirectory()
++{
++    var stateHome = Environment.GetEnvironmentVariable("XDG_STATE_HOME");
++    if (string.IsNullOrWhiteSpace(stateHome))
++    {
++        var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
++        stateHome = string.IsNullOrWhiteSpace(home)
++            ? Path.GetTempPath()
++            : Path.Combine(home, ".local", "state");
++    }
++
++    return Path.Combine(stateHome, "mandarin-juice-cli", "logs");
++}
++
+ string GetValidatedInputRootPath()
+ {
+     arguments.TryGetValue("-p", out var inputRootPath);
