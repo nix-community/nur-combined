@@ -5,6 +5,8 @@
   fetchFromGitHub,
   autoPatchelfHook,
   alsa-lib,
+  cacert,
+  glib-networking,
   gst_all_1,
   libayatana-appindicator,
   mimalloc,
@@ -13,13 +15,13 @@
 }:
 
 let
-  version = "2.2.0";
+  version = "2.2.1";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-xAXhESIGk3St2TgqLtUl6je7DlS4j4vD338T5t99OAE=";
+    hash = "sha256-wAJuUizpDYpEcNM8ltp40basT8J3H+2v5vMFq6KAREE=";
   };
 in
 flutter.buildFlutterApplication {
@@ -83,12 +85,28 @@ flutter.buildFlutterApplication {
     substituteInPlace \
       lib/pages/plugin_editor/plugin_view_page.dart \
       --replace-fail "onReorderItem:" "onReorder:"
+
+    # TabBarScrollController was removed in Flutter 3.44
+    substituteInPlace \
+      lib/bean/dialog/material_bottom_sheet.dart \
+      --replace-fail 'TabBarScrollController' 'ScrollController'
+    sed -i '/scrollController: _scrollController,/d' \
+      lib/bean/dialog/material_bottom_sheet.dart
+
+    # Bangumi mirror search requires KAZUMI_APPID/KAZUMI_KEY injected via
+    # --dart-define in the author's CI (GitHub secrets). Without them the
+    # signed request fails with 401.  Disable the proxy by default so
+    # search falls back to the official Bangumi API directly.
+    sed -i '/_SettingBoxKey.enableBangumiProxy/{n;s/true,/false,/}' \
+      lib/services/storage/settings_keys.dart
   '';
 
   nativeBuildInputs = [ autoPatchelfHook ];
 
   buildInputs = [
     alsa-lib
+    cacert
+    glib-networking
     gst_all_1.gst-libav
     gst_all_1.gst-plugins-bad
     gst_all_1.gst-plugins-base
@@ -104,6 +122,12 @@ flutter.buildFlutterApplication {
     ln -snf ${mpv-unwrapped}/lib/libmpv.so.2 $out/app/$pname/lib/libmpv.so.2
     install -Dm 0644 assets/linux/io.github.Predidit.Kazumi.desktop -t $out/share/applications/
     install -Dm 0644 assets/images/logo/logo_linux.png $out/share/icons/hicolor/512x512/apps/io.github.Predidit.Kazumi.png
+  '';
+
+  preFixup = ''
+    gappsWrapperArgs+=(
+      --set SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt"
+    )
   '';
 
   passthru.updateScript = ./update.py;
