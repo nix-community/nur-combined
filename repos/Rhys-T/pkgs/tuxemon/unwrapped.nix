@@ -247,7 +247,7 @@ in let
                                     args+=("$arg")
                                 done
                                 set -- "''${args[@]}"
-                                update-source-version "@" --ignore-same-version --source-key=data
+                                update-source-version "$@" --ignore-same-version --source-key=data
                                 
                                 if [[ -n "$printChanges" ]]; then
                                     echo -E "$changes"

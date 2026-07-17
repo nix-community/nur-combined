@@ -184,8 +184,8 @@
                                 args+=("$arg")
                             done
                             set -- "''${args[@]}"
-                            update-source-version "@" --ignore-same-version --source-key=npmDeps
-                            update-source-version "@" --ignore-same-version --source-key=electronNpmDeps
+                            update-source-version "$@" --ignore-same-version --source-key=npmDeps
+                            update-source-version "$@" --ignore-same-version --source-key=electronNpmDeps
                             
                             if [[ -n "$printChanges" ]]; then
                                 echo -E "$changes"
