@@ -1,0 +1,15 @@
+{
+  "name": "flux-markdown",
+  "source": {
+    "type": "github-release",
+    "repo": "xykong/flux-markdown",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "FluxMarkdown.dmg",
+    "unpack": false
+  },
+  "version": "1.34.449",
+  "hash": "sha256-ofORB6P2McQ6jdDp7YkpXv975Ut0tS7OYlIWXNhvia8="
+}

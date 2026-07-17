@@ -28,6 +28,7 @@
   folder-preview-pro = lib.callPackage ./pkgs/folder-preview-pro {};
   mcpelauncher-swift = lib.callPackage ./pkgs/mcpelauncher-swift {};
   creality-print = lib.callPackage ./pkgs/creality-print {};
+  flux-markdown = lib.callPackage ./pkgs/flux-markdown {};
   vmware-fusion = lib.callPackage ./pkgs/vmware-fusion {};
   passepartout = lib.callPackage ./pkgs/passepartout {};
   diffusionbee = lib.callPackage ./pkgs/diffusionbee {};
