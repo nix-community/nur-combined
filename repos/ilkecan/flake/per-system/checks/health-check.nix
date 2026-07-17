@@ -1,5 +1,6 @@
 {
   config,
+  lib',
   lib,
   pkgs,
   self,
@@ -14,6 +15,10 @@ let
     importTOML
     concatStringsSep
     assertMsg
+    ;
+
+  inherit (lib')
+    INFINITY
     ;
 
   upstreamStatus = importTOML "${self}/upstream-status.toml";
@@ -32,7 +37,6 @@ let
     us.merged or false && !(us ? removeAfter)
   ) tomlNames;
 
-  INFINITY = 1.0e308 * 2; # TODO move to ./lib
   overdueRemovals = filter (
     name: trivial.oldestSupportedRelease > upstreamStatus.${name}.removeAfter or INFINITY
   ) tomlNames;
