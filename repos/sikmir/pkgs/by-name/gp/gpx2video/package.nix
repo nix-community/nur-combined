@@ -9,22 +9,28 @@
   expat,
   ffmpeg,
   geographiclib,
+  glm,
+  gtkmm4,
+  libepoxy,
   libevent,
+  libpulseaudio,
+  librsvg,
   openimageio,
   openssl,
+  pango,
 }:
 
 stdenv.mkDerivation {
   pname = "gpx2video";
-  version = "0-unstable-2025-08-31";
+  version = "0-unstable-2026-07-15";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "progweb";
     repo = "gpx2video";
-    rev = "c5763300a9ad1008259f97273ad38c181149f2e2";
-    hash = "sha256-qRN8oLJjfQJWDs6kLCqj3lD9ORN0owqFfZut3w40WTQ=";
+    rev = "4b3c96c0f33eeb888d183d838b1429d3568219e3";
+    hash = "sha256-I9bfkLRwJ/9zjoWnfNIh2KZ+G9aPdzrbQZiGF1UH1O0=";
   };
 
   nativeBuildInputs = [
@@ -38,9 +44,15 @@ stdenv.mkDerivation {
     expat
     ffmpeg
     geographiclib
+    glm
+    gtkmm4
+    libepoxy
     libevent
+    libpulseaudio
+    librsvg
     openimageio
     openssl
+    pango
   ];
 
   meta = {
@@ -51,6 +63,6 @@ stdenv.mkDerivation {
     platforms = lib.platforms.linux;
     mainProgram = "gpx2video";
     skip.ci = stdenv.isDarwin;
-    broken = true; # error: 'class OpenImageIO_v3_0::ImageBuf' has no member named 'errorf'
+    broken = true; # error: no matching function for call to 'channels(OpenImageIO::v3_1::ImageBuf&, OpenImageIO::v3_1::ImageBuf&, int, int [4], float [0], std::string [4])'
   };
 }

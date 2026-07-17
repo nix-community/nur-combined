@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "tg-spam";
-  version = "1.25.0";
+  version = "1.26.0";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildGoModule (finalAttrs: {
     owner = "umputun";
     repo = "tg-spam";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RLI32q7AKJPyGbMVUdP4qH7SV/UkWDUivGJPzvoy+0Q=";
+    hash = "sha256-5hQhl6Q7q+vVO5sOoEUHamfFBp7E7/CwzSImYbCVdEg=";
   };
 
   vendorHash = null;

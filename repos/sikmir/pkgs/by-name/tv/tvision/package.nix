@@ -8,15 +8,15 @@
 
 stdenv.mkDerivation {
   pname = "tvision";
-  version = "0-unstable-2025-09-08";
+  version = "0-unstable-2026-05-12";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "magiblot";
     repo = "tvision";
-    rev = "6276f413079cf8da4a57058ec04b8531dedb02ec";
-    hash = "sha256-tvrn4AfvQ44w64Agzyuhj8V+TgV89IuBmzAkb9gF5Vg=";
+    rev = "57b6f56b38e0ee75240a80a10ee0e11470c24693";
+    hash = "sha256-X9KM39OsdL4ZlXPZQv+sIvrZcMSQ23uMx5xZmB0gGDU=";
   };
 
   nativeBuildInputs = [ cmake ];

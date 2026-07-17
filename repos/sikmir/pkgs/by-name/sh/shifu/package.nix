@@ -9,7 +9,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "shifu";
-  version = "0.91.0";
+  version = "0.100.0";
 
   __structuredAttrs = true;
 
@@ -17,10 +17,10 @@ buildGoModule (finalAttrs: {
     owner = "Edgenesis";
     repo = "shifu";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YLXT10FCNpS8SubvQjECLIA7mK/DaKjCH+6hA6cpVtg=";
+    hash = "sha256-tNkeQavVUvO4KfSj7rqIqKNQa5Jpybkr2wO2KQYUO98=";
   };
 
-  vendorHash = "sha256-oKn4RnNbDYMJHY2TmAeBlbI10+80taE3+JiO+cfSSjU=";
+  vendorHash = "sha256-VAOmiAO1dYByrQL1PRUweyKNT/fCfF21/SO1ytlMqDo=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -50,5 +50,6 @@ buildGoModule (finalAttrs: {
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
     mainProgram = "shifuctl";
+    broken = true; # https://github.com/NixOS/nixpkgs/pull/519903
   };
 })

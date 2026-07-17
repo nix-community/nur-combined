@@ -8,6 +8,8 @@
   makeWrapper,
   pkg-config,
   qt6,
+  curl,
+  draco,
   glslang,
   ktx-tools,
   lua5_4,
@@ -51,6 +53,8 @@ stdenv.mkDerivation (finalAttrs: {
     qt6.qtbase
     qt6.qtserialbus
     qt6.qtwebengine
+    curl
+    draco
     glslang
     ktx-tools
     lua5_4
@@ -99,5 +103,6 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = lib.platforms.linux;
     skip.ci = stdenv.isDarwin;
     mainProgram = "launcher";
+    broken = true; # error: 'KTX_BASIS_CODEC_ETC1S' was not declared in this scope
   };
 })
