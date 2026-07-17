@@ -84,9 +84,9 @@ pub async fn create_actors() {
                 };
 
                 let tmux_cmd = if enable_tmux_mouse {
-                    "tmux -u has-session 2>/dev/null && exec tmux -u a \\; set -g mouse on || exec tmux -u new \\; set -g mouse on"
+                    "exec tmux -u new-session -A -s main \\; set -g mouse on"
                 } else {
-                    "tmux -u has-session 2>/dev/null && exec tmux -u a || exec tmux -u new"
+                    "exec tmux -u new-session -A -s main"
                 };
 
                 let mut command = if host == "localhost" || host == "127.0.0.1" {
@@ -108,10 +108,17 @@ pub async fn create_actors() {
                 };
                 // Merges with inherited base env (portable-pty CommandBuilder).
                 command.env("TERM", "xterm-256color");
+                let nix_home_bin = std::env::var("HOME")
+                    .map(|h| format!("{}/.nix-profile/bin", h))
+                    .unwrap_or_default();
+                let nix_prefix = format!(
+                    "/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:{}",
+                    nix_home_bin
+                );
                 if let Ok(path) = std::env::var("PATH") {
-                    command.env("PATH", format!("/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:{}", path));
+                    command.env("PATH", format!("{}:{}", nix_prefix, path));
                 } else {
-                    command.env("PATH", "/run/current-system/sw/bin:/nix/var/nix/profiles/default/bin:$HOME/.nix-profile/bin:/usr/bin:/bin:/usr/sbin:/sbin");
+                    command.env("PATH", format!("{}:/usr/bin:/bin:/usr/sbin:/sbin", nix_prefix));
                 }
 
                 let child = match pair.slave.spawn_command(command) {

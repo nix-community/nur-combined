@@ -82,6 +82,7 @@ class _MainScreenState extends State<MainScreen> {
   StreamSubscription<RustSignalPack<SshHostsResult>>? _hostsSub;
   StreamSubscription<RustSignalPack<TerminalExit>>? _exitSub;
   bool _enableTmuxMouse = false;
+  double _scrollSensitivity = 3.0;
 
   @override
   void initState() {
@@ -124,18 +125,22 @@ class _MainScreenState extends State<MainScreen> {
         final json = jsonDecode(content);
         setState(() {
           _enableTmuxMouse = json['enableTmuxMouse'] ?? false;
+          _scrollSensitivity = (json['scrollSensitivity'] as num?)?.toDouble() ?? 3.0;
         });
       }
     } catch (_) {}
   }
 
-  Future<void> _saveSettings(bool val) async {
+  Future<void> _saveSettings() async {
     try {
       final file = _settingsFile;
       if (!await file.parent.exists()) {
         await file.parent.create(recursive: true);
       }
-      await file.writeAsString(jsonEncode({'enableTmuxMouse': val}));
+      await file.writeAsString(jsonEncode({
+        'enableTmuxMouse': _enableTmuxMouse,
+        'scrollSensitivity': _scrollSensitivity,
+      }));
     } catch (_) {}
   }
 
@@ -152,9 +157,10 @@ class _MainScreenState extends State<MainScreen> {
   void _addTab(String host) {
     final sessionId = _nextSessionId++;
     final session = TerminalSession(
-      id: sessionId, 
-      host: host, 
+      id: sessionId,
+      host: host,
       enableTmuxMouse: _enableTmuxMouse,
+      scrollSensitivity: _scrollSensitivity,
     );
     setState(() {
       _sessions.add(session);
@@ -304,19 +310,38 @@ class _MainScreenState extends State<MainScreen> {
                       builder: (context, setStateDialog) {
                         return AlertDialog(
                           title: const Text('Settings'),
-                          content: SwitchListTile(
-                            title: const Text('Enable tmux mouse mode'),
-                            subtitle: const Text('Automatically sets "mouse on" in new sessions so you can scroll with the mouse wheel. Requires restarting active sessions to take effect.'),
-                            value: _enableTmuxMouse,
-                            onChanged: (val) async {
-                              await _saveSettings(val);
-                              setStateDialog(() {
-                                _enableTmuxMouse = val;
-                              });
-                              setState(() {
-                                _enableTmuxMouse = val;
-                              });
-                            },
+                          content: SizedBox(
+                            width: 320,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SwitchListTile(
+                                  title: const Text('Enable tmux mouse mode'),
+                                  subtitle: const Text('Automatically enables "set mouse on" in tmux for new sessions. Requires restarting active sessions.'),
+                                  value: _enableTmuxMouse,
+                                  onChanged: (val) async {
+                                    setStateDialog(() { _enableTmuxMouse = val; });
+                                    setState(() { _enableTmuxMouse = val; });
+                                    await _saveSettings();
+                                  },
+                                ),
+                                ListTile(
+                                  title: Text('Scroll sensitivity: ${_scrollSensitivity.toStringAsFixed(1)}×'),
+                                  subtitle: Slider(
+                                    value: _scrollSensitivity,
+                                    min: 0.5,
+                                    max: 10.0,
+                                    divisions: 19,
+                                    label: '${_scrollSensitivity.toStringAsFixed(1)}×',
+                                    onChanged: (val) async {
+                                      setStateDialog(() { _scrollSensitivity = val; });
+                                      setState(() { _scrollSensitivity = val; });
+                                      await _saveSettings();
+                                    },
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                           actions: [
                             TextButton(
@@ -416,9 +441,11 @@ class TerminalSession {
   final int id;
   final String host;
   final bool enableTmuxMouse;
+  final double scrollSensitivity;
   final Terminal terminal;
   final TerminalController terminalController = TerminalController();
   final FocusNode focusNode = FocusNode();
+  final ScrollController scrollController = ScrollController();
   StreamSubscription<RustSignalPack<TerminalOutput>>? _outputSub;
   StreamSubscription<String>? _decodedSub;
   StreamController<List<int>>? _ptyBytes;
@@ -477,7 +504,7 @@ class TerminalSession {
     searchHitForeground: Colors.black,
   );
 
-  TerminalSession({required this.id, required this.host, required this.enableTmuxMouse})
+  TerminalSession({required this.id, required this.host, required this.enableTmuxMouse, required this.scrollSensitivity})
       : terminal = Terminal(
           maxLines: 10000,
         ) {
@@ -565,6 +592,7 @@ class TerminalSession {
     _ptyBytes?.close();
     _ptyBytes = null;
     focusNode.dispose();
+    scrollController.dispose();
   }
 
   final ValueNotifier<int> fontSize = ValueNotifier(14);
@@ -636,6 +664,7 @@ class TerminalSession {
                   child: TerminalView(
                     terminal,
                     controller: terminalController,
+                    scrollController: scrollController,
                     theme: isDark ? _darkTheme : _lightTheme,
                     textStyle: TerminalStyle(
                       fontFamily: 'Menlo',
@@ -659,63 +688,77 @@ class TerminalSession {
   double _wheelAccumulator = 0.0;
 
   void _handlePointerScroll(PointerScrollEvent event, BoxConstraints constraints) {
-    if (!terminal.isUsingAltBuffer) return;
+    if (terminal.viewWidth <= 0 || terminal.viewHeight <= 0) return;
 
     final cellWidth = constraints.maxWidth / terminal.viewWidth;
     final cellHeight = constraints.maxHeight / terminal.viewHeight;
-    
-    // Multiply by 3 for faster, more responsive scrolling
-    _wheelAccumulator += event.scrollDelta.dy * 3.0;
-    
+
+    _wheelAccumulator += event.scrollDelta.dy * scrollSensitivity;
+
     final lines = (_wheelAccumulator / cellHeight).truncate();
-    if (lines != 0) {
-      _wheelAccumulator -= lines * cellHeight;
-      
+    if (lines == 0) return;
+    _wheelAccumulator -= lines * cellHeight;
+
+    final up = lines < 0;
+    if (terminal.isUsingAltBuffer) {
+      // Alt buffer (vim, less, htop): send mouse/key events to the application.
       final col = (event.localPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
       final row = (event.localPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
-      
       for (var i = 0; i < lines.abs(); i++) {
-        final up = lines < 0; 
         final handled = terminal.mouseInput(
           up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
           TerminalMouseButtonState.down,
           CellOffset(col, row),
         );
-        
-        if (!handled) {
-          terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
-        }
+        if (!handled) terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
+      }
+    } else {
+      // Normal buffer: scroll the TerminalView's scrollback viewport.
+      // ScrollController offset: 0 = oldest (top), max = newest (bottom).
+      // Scroll up (up=true, lines<0) → decrease offset toward older content.
+      if (scrollController.hasClients) {
+        final delta = lines.abs() * cellHeight;
+        final newOffset = up
+            ? (scrollController.offset - delta).clamp(0.0, scrollController.position.maxScrollExtent)
+            : (scrollController.offset + delta).clamp(0.0, scrollController.position.maxScrollExtent);
+        scrollController.jumpTo(newOffset);
       }
     }
   }
 
   void _handlePanZoomScroll(PointerPanZoomUpdateEvent event, BoxConstraints constraints) {
-    if (!terminal.isUsingAltBuffer) return;
+    if (terminal.viewWidth <= 0 || terminal.viewHeight <= 0) return;
 
     final cellWidth = constraints.maxWidth / terminal.viewWidth;
     final cellHeight = constraints.maxHeight / terminal.viewHeight;
-    
-    // Multiply by 3 for faster trackpad scrolling on macOS/Wayland
-    _scrollAccumulator -= event.panDelta.dy * 3.0;
-    
+
+    _scrollAccumulator -= event.panDelta.dy * scrollSensitivity;
+
     final lines = (_scrollAccumulator / cellHeight).truncate();
-    if (lines != 0) {
-      _scrollAccumulator -= lines * cellHeight;
-      
+    if (lines == 0) return;
+    _scrollAccumulator -= lines * cellHeight;
+
+    final up = lines < 0;
+    if (terminal.isUsingAltBuffer) {
+      // Alt buffer (vim, less, htop): send mouse/key events to the application.
       final col = (_lastPointerPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
       final row = (_lastPointerPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
-      
       for (var i = 0; i < lines.abs(); i++) {
-        final up = lines < 0; 
         final handled = terminal.mouseInput(
           up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
           TerminalMouseButtonState.down,
           CellOffset(col, row),
         );
-        
-        if (!handled) {
-          terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
-        }
+        if (!handled) terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
+      }
+    } else {
+      // Normal buffer: scroll the TerminalView's scrollback viewport.
+      if (scrollController.hasClients) {
+        final delta = lines.abs() * cellHeight;
+        final newOffset = up
+            ? (scrollController.offset - delta).clamp(0.0, scrollController.position.maxScrollExtent)
+            : (scrollController.offset + delta).clamp(0.0, scrollController.position.maxScrollExtent);
+        scrollController.jumpTo(newOffset);
       }
     }
   }
