@@ -176,12 +176,45 @@ impl Render for TerminalView {
             for c in 0..80 {
                 if let Some(cell) = screen.cell(r, c) {
                     let mut cell_div = div().child(cell.contents().to_string());
+                    
                     // Apply styles
-                    let _fg = cell.fgcolor();
-                    let _bg = cell.bgcolor();
-                    // Just basic colors for now
+                    match cell.fgcolor() {
+                        vt100::Color::Default => { cell_div = cell_div.text_color(rgb(0xcccccc)); },
+                        vt100::Color::Idx(i) => {
+                            // Basic 16-color ANSI mapping (approximate)
+                            let c = match i {
+                                0 => rgb(0x000000), 1 => rgb(0xcc0000), 2 => rgb(0x4e9a06), 3 => rgb(0xc4a000),
+                                4 => rgb(0x3465a4), 5 => rgb(0x75507b), 6 => rgb(0x06989a), 7 => rgb(0xd3d7cf),
+                                8 => rgb(0x555753), 9 => rgb(0xef2929), 10 => rgb(0x8ae234), 11 => rgb(0xfce94f),
+                                12 => rgb(0x729fcf), 13 => rgb(0xad7fa8), 14 => rgb(0x34e2e2), 15 => rgb(0xeeeeec),
+                                _ => rgb(0xcccccc), // Fallback for 256 colors
+                            };
+                            cell_div = cell_div.text_color(c);
+                        },
+                        vt100::Color::Rgb(r, g, b) => { cell_div = cell_div.text_color(rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32))); },
+                    }
+                    
+                    match cell.bgcolor() {
+                        vt100::Color::Default => {},
+                        vt100::Color::Idx(i) => {
+                            let c = match i {
+                                0 => rgb(0x000000), 1 => rgb(0xcc0000), 2 => rgb(0x4e9a06), 3 => rgb(0xc4a000),
+                                4 => rgb(0x3465a4), 5 => rgb(0x75507b), 6 => rgb(0x06989a), 7 => rgb(0xd3d7cf),
+                                8 => rgb(0x555753), 9 => rgb(0xef2929), 10 => rgb(0x8ae234), 11 => rgb(0xfce94f),
+                                12 => rgb(0x729fcf), 13 => rgb(0xad7fa8), 14 => rgb(0x34e2e2), 15 => rgb(0xeeeeec),
+                                _ => rgb(0x000000),
+                            };
+                            cell_div = cell_div.bg(c);
+                        },
+                        vt100::Color::Rgb(r, g, b) => { cell_div = cell_div.bg(rgb(((r as u32) << 16) | ((g as u32) << 8) | (b as u32))); },
+                    }
+                    
                     if cell.bold() {
                         cell_div = cell_div.font_weight(FontWeight::BOLD);
+                    }
+                    if cell.inverse() {
+                        // Reverse video
+                        cell_div = cell_div.bg(rgb(0xcccccc)).text_color(rgb(0x1e1e1e));
                     }
                     row_div = row_div.child(cell_div);
                 }

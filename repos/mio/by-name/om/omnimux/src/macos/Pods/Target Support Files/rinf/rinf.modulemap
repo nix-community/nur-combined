@@ -1,6 +1,0 @@
-framework module rinf {
-  umbrella header "rinf-umbrella.h"
-
-  export *
-  module * { export * }
-}
