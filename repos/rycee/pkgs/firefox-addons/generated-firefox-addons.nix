@@ -1075,10 +1075,10 @@
     };
     "betterttv" = buildMozillaXpiAddon {
       pname = "betterttv";
-      version = "7.7.24";
+      version = "7.7.25";
       addonId = "firefox@betterttv.net";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4901546/betterttv-7.7.24.xpi";
-      sha256 = "3e91ab2448a3b144067c50d0c5c35a00480e7bb7a4051a13f738db576f60c51e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4903880/betterttv-7.7.25.xpi";
+      sha256 = "bb1a3caff685c125a0c7f3285cd79a9ea4cc14413c4cfcf11fa3250d18c2f6dc";
       meta = with lib;
       {
         homepage = "https://betterttv.com";
@@ -4239,10 +4239,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.2";
+      version = "3.3";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4886408/firemonkey-3.2.xpi";
-      sha256 = "d432e0235bc8858a1b9eccf9527f4b099896430ed91537c19b801d126aa476a0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4903650/firemonkey-3.3.xpi";
+      sha256 = "17b1a48093de4ac7b5b3af4c6a61a0f78183c7e25e21363faf2839672e69b8fc";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -4294,10 +4294,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.2.0";
+      version = "6.2.1";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4876559/flagfox-6.2.0.xpi";
-      sha256 = "eb2cb431f12a9c4c05c0167f3938197c4e30dc0aeb74bb6e2185a717bc58cb4e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4904080/flagfox-6.2.1.xpi";
+      sha256 = "c222643d3eef7cda78e2885de46a1f0787ac6812d05594e02056948672d3099a";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4326,12 +4326,13 @@
     };
     "flexheaders-alter-http-headers" = buildMozillaXpiAddon {
       pname = "flexheaders-alter-http-headers";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "flexheaders@harrisondeo.me.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4902128/flexheaders_alter_http_headers-1.7.0.xpi";
-      sha256 = "905afe36354180d29e0254728213494db0b6d75f5a24f3b1dc1b044cf3a4b0cd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4903354/flexheaders_alter_http_headers-1.7.1.xpi";
+      sha256 = "ae6ac458bd5c8b52bbcf84239cf3b4402c600ae5f035612e7a4a39ebf9709080";
       meta = with lib;
       {
+        homepage = "https://github.com/harrisondeo/FlexHeader";
         description = "A lightweight yet powerful extension to modify HTTP headers on the fly. Unleash the power of FlexHeaders, the ultimate extension for developers and security-conscious users";
         license = licenses.mpl20;
         mozPermissions = [ "storage" "declarativeNetRequest" ];
@@ -8455,10 +8456,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.221";
+      version = "2.4.222";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4898010/lichess_tools_by_siderite-2.4.221.xpi";
-      sha256 = "1c594efb6c0d9f600f51e65cc3161a6abee070d5a46ea57e7b6af82c59325249";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4902595/lichess_tools_by_siderite-2.4.222.xpi";
+      sha256 = "ccd9ec658387ceb82b4392be2d1ed3fea8cd802b6bf695f0f978bdce98f4c1b7";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10440,10 +10441,10 @@
     };
     "news-feed-eradicator" = buildMozillaXpiAddon {
       pname = "news-feed-eradicator";
-      version = "3.0.4";
+      version = "3.0.5";
       addonId = "@news-feed-eradicator";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4693133/news_feed_eradicator-3.0.4.xpi";
-      sha256 = "eec5b0581b994b5462b06f20a9470c1da0721a4bd9189cad95988479e7258331";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4902519/news_feed_eradicator-3.0.5.xpi";
+      sha256 = "3b6b7c6bc23f2f347cd8936719f61fb5338ec16dc4b2f0073e17c76deb6a5c02";
       meta = with lib;
       {
         homepage = "https://west.io/news-feed-eradicator";
@@ -13754,10 +13755,10 @@
     };
     "sidebery" = buildMozillaXpiAddon {
       pname = "sidebery";
-      version = "5.5.2";
+      version = "5.6.1";
       addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4766841/sidebery-5.5.2.xpi";
-      sha256 = "43e7dd4b8f684e637193d645fbcc94fb182583d24ac9a5b58effc4fb4d9faef2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4903712/sidebery-5.6.1.xpi";
+      sha256 = "e8a0a4b556ab7dd536897c1816af9d0918030223068ea6683a04376103a6caf2";
       meta = with lib;
       {
         homepage = "https://github.com/mbnuqw/sidebery";
@@ -14379,10 +14380,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.6";
+      version = "2.4.7";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4899605/styl_us-2.4.6.xpi";
-      sha256 = "6954080952bf11dae66d9d46cf739ba98966c62d52ab8ae5d8884d1e620c7428";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4903256/styl_us-2.4.7.xpi";
+      sha256 = "76f47f30dfedb53dc9773243bb66c57536aff3df4d86c22a8e4d031ac75b72d6";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -17815,10 +17816,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.7.7";
+      version = "18.7.8";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4901572/youtube_subscription_groups-18.7.7.xpi";
-      sha256 = "a7b0fda776c68df35bd3ca3cb1a6311ead1021be3d9ac445680bf7c566d45a1b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4902610/youtube_subscription_groups-18.7.8.xpi";
+      sha256 = "bb303417c4af673a70104bfad2b6a79cd6621a9e18f6bfdfd4658e0eabc55073";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
