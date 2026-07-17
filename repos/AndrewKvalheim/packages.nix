@@ -3,8 +3,8 @@ resolved: stable:
 with import ./library/override-utils.lib.nix { inherit stable; nur = ./nur.nix; search = [ "unstable" "unstable-small" ]; };
 
 let
-  inherit (lib) hasInfix makeBinPath throwIf;
-  inherit (stable) fetchurl lib;
+  inherit (lib) makeBinPath throwIf;
+  inherit (stable) lib;
 
   community-vscode-extensions = (import <community-vscode-extensions>).extensions.${stable.stdenv.hostPlatform.system}.forVSCodeVersion resolved.vscodium.vscodeVersion;
   open-vsx = { _name = "open-vsx"; vscode-extensions = community-vscode-extensions.open-vsx; };
@@ -24,7 +24,6 @@ specify {
   apex = any;
   attachments.deps = { inherit (import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/303bd8071377433a2d8f76e684ec773d70c5b642.tar.gz") { config.allowUnfree = true; overlays = [ ]; }) yarn2nix-moretea; }; # TODO: Migrate
   blocky-ui = any;
-  bobby = any;
   busyserve = any;
   caddy-with-cache-route53 = any;
   cc-icons-unicode = any;
@@ -122,6 +121,7 @@ specify {
     webfreak.advanced-local-formatters.search = open-vsx;
     ybaumes.highlight-trailing-white-spaces.search = open-vsx;
   };
+  wayback-machine-archiver.version = "≥3.1"; # SPN2 API
   whipper.patch = [ ./library/assets/whipper_flac-level.patch ./library/assets/whipper_speed.patch ./library/assets/whipper_detect-tty.patch ];
   wireguard-vanity-address = any;
   ydotool.patch = ./library/assets/ydotool-engramish.patch; # Pending ReimuNotMoe/ydotool#177

@@ -266,6 +266,7 @@ comedically
 CommonMark
 complementable
 containerd
+Containerfile
 containerize
 contentless
 contrabassoonist
