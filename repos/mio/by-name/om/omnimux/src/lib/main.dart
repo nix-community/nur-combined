@@ -700,28 +700,37 @@ class TerminalSession {
     _wheelAccumulator -= lines * cellHeight;
 
     final up = lines < 0;
-    if (terminal.isUsingAltBuffer) {
-      // Alt buffer (vim, less, htop): send mouse/key events to the application.
-      final col = (event.localPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
-      final row = (event.localPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
-      for (var i = 0; i < lines.abs(); i++) {
-        final handled = terminal.mouseInput(
-          up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
-          TerminalMouseButtonState.down,
-          CellOffset(col, row),
-        );
-        if (!handled) terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
+    final col = (event.localPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
+    final row = (event.localPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
+
+    bool handledByTerminal = true;
+    for (var i = 0; i < lines.abs(); i++) {
+      final handled = terminal.mouseInput(
+        up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
+        TerminalMouseButtonState.down,
+        CellOffset(col, row),
+      );
+      if (!handled) {
+        handledByTerminal = false;
+        break; // Stop attempting if terminal doesn't accept mouse input
       }
-    } else {
-      // Normal buffer: scroll the TerminalView's scrollback viewport.
-      // ScrollController offset: 0 = oldest (top), max = newest (bottom).
-      // Scroll up (up=true, lines<0) → decrease offset toward older content.
-      if (scrollController.hasClients) {
-        final delta = lines.abs() * cellHeight;
-        final newOffset = up
-            ? (scrollController.offset - delta).clamp(0.0, scrollController.position.maxScrollExtent)
-            : (scrollController.offset + delta).clamp(0.0, scrollController.position.maxScrollExtent);
-        scrollController.jumpTo(newOffset);
+    }
+
+    if (!handledByTerminal) {
+      if (terminal.isUsingAltBuffer) {
+        // Fallback for alt buffer (e.g., less, vim without mouse mode): send arrow keys
+        for (var i = 0; i < lines.abs(); i++) {
+          terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
+        }
+      } else {
+        // Fallback for normal buffer: scroll the TerminalView's scrollback viewport
+        if (scrollController.hasClients) {
+          final delta = lines.abs() * cellHeight;
+          final newOffset = up
+              ? (scrollController.offset - delta).clamp(0.0, scrollController.position.maxScrollExtent)
+              : (scrollController.offset + delta).clamp(0.0, scrollController.position.maxScrollExtent);
+          scrollController.jumpTo(newOffset);
+        }
       }
     }
   }
@@ -739,26 +748,37 @@ class TerminalSession {
     _scrollAccumulator -= lines * cellHeight;
 
     final up = lines < 0;
-    if (terminal.isUsingAltBuffer) {
-      // Alt buffer (vim, less, htop): send mouse/key events to the application.
-      final col = (_lastPointerPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
-      final row = (_lastPointerPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
-      for (var i = 0; i < lines.abs(); i++) {
-        final handled = terminal.mouseInput(
-          up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
-          TerminalMouseButtonState.down,
-          CellOffset(col, row),
-        );
-        if (!handled) terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
+    final col = (_lastPointerPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
+    final row = (_lastPointerPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
+
+    bool handledByTerminal = true;
+    for (var i = 0; i < lines.abs(); i++) {
+      final handled = terminal.mouseInput(
+        up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
+        TerminalMouseButtonState.down,
+        CellOffset(col, row),
+      );
+      if (!handled) {
+        handledByTerminal = false;
+        break; // Stop attempting if terminal doesn't accept mouse input
       }
-    } else {
-      // Normal buffer: scroll the TerminalView's scrollback viewport.
-      if (scrollController.hasClients) {
-        final delta = lines.abs() * cellHeight;
-        final newOffset = up
-            ? (scrollController.offset - delta).clamp(0.0, scrollController.position.maxScrollExtent)
-            : (scrollController.offset + delta).clamp(0.0, scrollController.position.maxScrollExtent);
-        scrollController.jumpTo(newOffset);
+    }
+
+    if (!handledByTerminal) {
+      if (terminal.isUsingAltBuffer) {
+        // Fallback for alt buffer (e.g., less, vim without mouse mode): send arrow keys
+        for (var i = 0; i < lines.abs(); i++) {
+          terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
+        }
+      } else {
+        // Fallback for normal buffer: scroll the TerminalView's scrollback viewport
+        if (scrollController.hasClients) {
+          final delta = lines.abs() * cellHeight;
+          final newOffset = up
+              ? (scrollController.offset - delta).clamp(0.0, scrollController.position.maxScrollExtent)
+              : (scrollController.offset + delta).clamp(0.0, scrollController.position.maxScrollExtent);
+          scrollController.jumpTo(newOffset);
+        }
       }
     }
   }
