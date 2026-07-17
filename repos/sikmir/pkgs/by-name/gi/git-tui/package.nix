@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-tui";
-  version = "1.3.0";
+  version = "1.4.0";
 
   __structuredAttrs = true;
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ArthurSonzogni";
     repo = "git-tui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ozh09dcaFFVT+yocTRZPYY/BSx/z4J+0LTbitpL6XuQ=";
+    hash = "sha256-jS84CRiQiyTuEDzgQxD8MJYDIabTjAuYCUXiqBjAT0c=";
   };
 
   patches = [ ./subprocess.patch ];

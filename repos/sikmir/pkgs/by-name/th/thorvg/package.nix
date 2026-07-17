@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "thorvg";
-  version = "1.0.4";
+  version = "1.0.7";
 
   __structuredAttrs = true;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "thorvg";
     repo = "thorvg";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ICyM1B6ntbXgCIn/Dpj3m6iAY8KJdLxNWQjoUfleBSg=";
+    hash = "sha256-Z57xF/MnFaQuun9/m0A23KnTIIFrYrdxLFlmudYHrN0=";
   };
 
   nativeBuildInputs = [

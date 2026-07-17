@@ -6,15 +6,15 @@
 
 buildGoModule (finalAttrs: {
   pname = "solod";
-  version = "0-unstable-2026-04-08";
+  version = "0.2.0";
 
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "solod-dev";
     repo = "solod";
-    rev = "fece3b7c42c1aa64344ebeb129ad2133656a57c8";
-    hash = "sha256-EpZCQiaLeaW80ht+QquE3z43U56TabYF/2RBWsTrUlY=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-+uAHGurm/OZ7Nj91aVeIiMAYPMjDTcxjwA1ullnfkOg=";
   };
 
   vendorHash = "sha256-NIoEiLEb/p5kGQzYibPW9PI28tG3hjrqkLGs4TpSFxA=";

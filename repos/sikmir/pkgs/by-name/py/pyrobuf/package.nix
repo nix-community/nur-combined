@@ -2,6 +2,7 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  fetchpatch,
 }:
 
 python3Packages.buildPythonPackage {
@@ -15,6 +16,18 @@ python3Packages.buildPythonPackage {
     rev = "811a9325eed1c0070ceb424020fe81eeef317e0c";
     hash = "sha256-7NEzRM9B/9f5ODNzDKws7t/9gqbJK7T9AuET+pT26P0=";
   };
+
+  # https://github.com/appnexus/pyrobuf/pull/165
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/appnexus/pyrobuf/commit/af98f882e00c4bfa621f2e70f4ca7a4f30c6c306.patch";
+      hash = "sha256-+EVjmQs45j9siGcw0T++Kt7CGaAW6Z79xj3PDXPFj5E=";
+    })
+    (fetchpatch {
+      url = "https://github.com/appnexus/pyrobuf/commit/c3d1972111e74dbe89b2feda375d2a50e9668df8.patch";
+      hash = "sha256-igp021IXYoMZprrroILtqqHkMGAiypbR9I3zq21B8BU=";
+    })
+  ];
 
   postPatch = ''
     substituteInPlace setup.py \
