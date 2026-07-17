@@ -20,6 +20,7 @@ in
   cockpit-podman = pkgs.callPackage ./pkgs/cockpit-podman { inherit sources; };
   inotify-consumers = pkgs.callPackage ./pkgs/inotify-consumers { };
   libva-v4l2-request = pkgs.callPackage ./pkgs/libva-v4l2-request { };
+  llama-cpp-vulkan-prism = pkgs.callPackage ./pkgs/llama-cpp-vulkan-prism { };
   netsed-quiet = pkgs.callPackage ./pkgs/netsed { };
   overlayfs-tools = pkgs.callPackage ./pkgs/overlayfs-tools { };
   plank-themes = pkgs.callPackage ./pkgs/plank-themes { };
