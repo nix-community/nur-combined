@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/gestures.dart';
 import 'package:rinf/rinf.dart';
 import 'package:xterm/xterm.dart';
 import 'src/bindings/bindings.dart';
@@ -624,6 +625,11 @@ class TerminalSession {
                   onPointerMove: (event) {
                     _lastPointerPosition = event.localPosition;
                   },
+                  onPointerSignal: (event) {
+                    if (event is PointerScrollEvent) {
+                      _handlePointerScroll(event, constraints);
+                    }
+                  },
                   onPointerPanZoomUpdate: (event) {
                     _handlePanZoomScroll(event, constraints);
                   },
@@ -650,6 +656,43 @@ class TerminalSession {
 
   Offset _lastPointerPosition = Offset.zero;
   double _scrollAccumulator = 0.0;
+  double _wheelAccumulator = 0.0;
+
+  void _handlePointerScroll(PointerScrollEvent event, BoxConstraints constraints) {
+    if (!terminal.isUsingAltBuffer) return; // Only apply to alt buffer
+
+    final cellWidth = constraints.maxWidth / terminal.viewWidth;
+    final cellHeight = constraints.maxHeight / terminal.viewHeight;
+    
+    // ScrollEvent uses scrollDelta. dy > 0 means scrolling down.
+    _wheelAccumulator += event.scrollDelta.dy;
+    
+    // Typical mouse wheel click is ~50-100 logical pixels. 
+    // We want roughly 3 lines per wheel click.
+    // So let's divide by cellHeight.
+    final lines = (_wheelAccumulator / cellHeight).truncate();
+    if (lines != 0) {
+      _wheelAccumulator -= lines * cellHeight;
+      
+      final col = (event.localPosition.dx / cellWidth).floor().clamp(0, terminal.viewWidth - 1);
+      final row = (event.localPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
+      
+      for (var i = 0; i < lines.abs(); i++) {
+        final up = lines < 0; // lines < 0 means scrolled up
+        final handled = terminal.mouseInput(
+          up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
+          TerminalMouseButtonState.down,
+          CellOffset(col, row),
+        );
+        
+        if (!handled) {
+          terminal.keyInput(
+            up ? TerminalKey.arrowUp : TerminalKey.arrowDown,
+          );
+        }
+      }
+    }
+  }
 
   void _handlePanZoomScroll(PointerPanZoomUpdateEvent event, BoxConstraints constraints) {
     if (!terminal.isUsingAltBuffer) return; // Only apply to alt buffer
