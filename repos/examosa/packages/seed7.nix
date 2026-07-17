@@ -31,8 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "ThomasMertes";
     repo = "seed7";
-    tag = "Seed7_release_2025-09-30";
-    hash = "sha256-e7FMG/OVejuF7gxoycKW15A/u3m67b/MJoF5/j/Q2pk=";
+    tag = "Seed7_release_2026-07-11";
+    hash = "sha256-zoPMLypK3zYjhD1O/C4MZ3Ej4HFpYoXiHg/ITG4hSDQ=";
   };
 
   buildInputs =
