@@ -8,6 +8,6 @@
 | kanata-vk-agent |  8ce982af6a308788070c076619554d05375b6521 | x86_64-darwin,aarch64-darwin |
 | karabiner-dk |  8.0.0 | x86_64-darwin,aarch64-darwin |
 | yabai |  v7.1.25 | aarch64-darwin,x86_64-darwin |
-| zen-browser |  1.21.6b | aarch64-darwin |
-| zen-browser-twilight |  1.21.6b | aarch64-darwin |
+| zen-browser |  1.21.7b | aarch64-darwin |
+| zen-browser-twilight |  1.21.7b | aarch64-darwin |
 
