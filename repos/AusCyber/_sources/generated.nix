@@ -30,7 +30,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-18JGWMvrFcvvjYgCLXrvaamB4gQd5QQt1jijVokiuiw=";
+      sha256 = "sha256-sRwWcdQ4EULc908wlrW681pPdiCCsmRqFwzUVRUXUBI=";
     };
   };
   helium-linux = {
@@ -115,15 +115,15 @@
   };
   zen = {
     pname = "zen";
-    version = "1.21.7b";
+    version = "1.21.8b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.21.7b/zen.macos-universal.dmg";
-      sha256 = "sha256-OQDeSssyupwUQLxmaW7I/BP/SaKGDd3Ot98/0oH5a8o=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.21.8b/zen.macos-universal.dmg";
+      sha256 = "sha256-TVTFJ7Hhh2Kn12sOzwzpWaKTKf4KaPc32X5kThM0Hgc=";
     };
   };
   zen-twilight = {
     pname = "zen-twilight";
-    version = "1.21.7b";
+    version = "1.21.8b";
     src = fetchurl {
       url = "https://github.com/zen-browser/desktop/releases/download/twilight-1/zen.macos-universal.dmg";
       sha256 = "sha256-TymSPZWkvcsJLld2XyrY6UGZ0skoZu3tvu/hKW94hwU=";
