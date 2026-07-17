@@ -659,17 +659,14 @@ class TerminalSession {
   double _wheelAccumulator = 0.0;
 
   void _handlePointerScroll(PointerScrollEvent event, BoxConstraints constraints) {
-    if (!terminal.isUsingAltBuffer) return; // Only apply to alt buffer
+    if (!terminal.isUsingAltBuffer) return;
 
     final cellWidth = constraints.maxWidth / terminal.viewWidth;
     final cellHeight = constraints.maxHeight / terminal.viewHeight;
     
-    // ScrollEvent uses scrollDelta. dy > 0 means scrolling down.
-    _wheelAccumulator += event.scrollDelta.dy;
+    // Multiply by 3 for faster, more responsive scrolling
+    _wheelAccumulator += event.scrollDelta.dy * 3.0;
     
-    // Typical mouse wheel click is ~50-100 logical pixels. 
-    // We want roughly 3 lines per wheel click.
-    // So let's divide by cellHeight.
     final lines = (_wheelAccumulator / cellHeight).truncate();
     if (lines != 0) {
       _wheelAccumulator -= lines * cellHeight;
@@ -678,7 +675,7 @@ class TerminalSession {
       final row = (event.localPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
       
       for (var i = 0; i < lines.abs(); i++) {
-        final up = lines < 0; // lines < 0 means scrolled up
+        final up = lines < 0; 
         final handled = terminal.mouseInput(
           up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
           TerminalMouseButtonState.down,
@@ -686,23 +683,20 @@ class TerminalSession {
         );
         
         if (!handled) {
-          terminal.keyInput(
-            up ? TerminalKey.arrowUp : TerminalKey.arrowDown,
-          );
+          terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
         }
       }
     }
   }
 
   void _handlePanZoomScroll(PointerPanZoomUpdateEvent event, BoxConstraints constraints) {
-    if (!terminal.isUsingAltBuffer) return; // Only apply to alt buffer
+    if (!terminal.isUsingAltBuffer) return;
 
     final cellWidth = constraints.maxWidth / terminal.viewWidth;
     final cellHeight = constraints.maxHeight / terminal.viewHeight;
     
-    // panDelta is how much the content should move. 
-    // Scrolling down physically moves content up, so panDelta.dy is negative.
-    _scrollAccumulator -= event.panDelta.dy;
+    // Multiply by 3 for faster trackpad scrolling on macOS/Wayland
+    _scrollAccumulator -= event.panDelta.dy * 3.0;
     
     final lines = (_scrollAccumulator / cellHeight).truncate();
     if (lines != 0) {
@@ -712,7 +706,7 @@ class TerminalSession {
       final row = (_lastPointerPosition.dy / cellHeight).floor().clamp(0, terminal.viewHeight - 1);
       
       for (var i = 0; i < lines.abs(); i++) {
-        final up = lines < 0; // lines < 0 means we scrolled up
+        final up = lines < 0; 
         final handled = terminal.mouseInput(
           up ? TerminalMouseButton.wheelUp : TerminalMouseButton.wheelDown,
           TerminalMouseButtonState.down,
@@ -720,9 +714,7 @@ class TerminalSession {
         );
         
         if (!handled) {
-          terminal.keyInput(
-            up ? TerminalKey.arrowUp : TerminalKey.arrowDown,
-          );
+          terminal.keyInput(up ? TerminalKey.arrowUp : TerminalKey.arrowDown);
         }
       }
     }
