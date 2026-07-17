@@ -70,6 +70,11 @@ in
       default = false;
       description = "Whether to calibrate haptic motors on boot (causes vibration at startup).";
     };
+    chargeInputCurrentLimit = lib.mkOption {
+      type = lib.types.int;
+      default = 2000000;
+      description = "Input current limit in microAmps (µA) for charging (e.g. 2000000 for 2A, 3000000 for 3A).";
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -193,6 +198,9 @@ in
 
       # Trigger Pump Express handshake when charger is plugged in
       SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_NAME}=="cht_wcove_pwrsrc", ENV{POWER_SUPPLY_ONLINE}=="1", ENV{POWER_SUPPLY_USB_TYPE}=="*DCP*", TAG+="systemd", ENV{SYSTEMD_WANTS}+="pe-handshake.service"
+
+      # Set input current limit for bq25890 charger when added or changed
+      SUBSYSTEM=="power_supply", KERNEL=="bq25890-charger-*", ACTION=="add|change", RUN+="${pkgs.bash}/bin/bash -c 'echo ${toString cfg.chargeInputCurrentLimit} > /sys/class/power_supply/%k/input_current_limit'"
     '';
 
     # HWDB Settings
