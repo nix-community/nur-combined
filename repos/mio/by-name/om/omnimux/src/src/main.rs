@@ -5,10 +5,13 @@ use std::sync::mpsc;
 
 struct TerminalSession {
     parser: vt100::Parser,
+    master: Box<dyn MasterPty + Send>,
     _writer: std::thread::JoinHandle<()>,
     _reader: std::thread::JoinHandle<()>,
     write_tx: mpsc::Sender<Vec<u8>>,
     read_rx: async_channel::Receiver<Vec<u8>>,
+    cols: u16,
+    rows: u16,
 }
 
 impl TerminalSession {
@@ -57,11 +60,29 @@ impl TerminalSession {
 
         Self {
             parser: vt100::Parser::new(24, 80, 0),
+            master: pair.master,
             _writer: writer_thread,
             _reader: reader_thread,
             write_tx,
             read_rx,
+            cols: 80,
+            rows: 24,
         }
+    }
+
+    fn resize(&mut self, new_rows: u16, new_cols: u16) {
+        if self.rows == new_rows && self.cols == new_cols {
+            return;
+        }
+        self.rows = new_rows;
+        self.cols = new_cols;
+        self.parser.screen_mut().set_size(new_rows, new_cols);
+        let _ = self.master.resize(PtySize {
+            rows: new_rows,
+            cols: new_cols,
+            pixel_width: 0,
+            pixel_height: 0,
+        });
     }
 }
 
@@ -98,6 +119,14 @@ impl TerminalView {
 
 impl Render for TerminalView {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+        let session = self.session.clone();
+        let session_clone = self.session.clone();
+        
+        let (rows, cols) = {
+            let s = self.session.read(cx);
+            (s.rows, s.cols)
+        };
+        
         let parser = &self.session.read(cx).parser;
         let screen = parser.screen();
         let write_tx = self.session.read(cx).write_tx.clone();
@@ -112,6 +141,26 @@ impl Render for TerminalView {
             .font_family("Monaco")
             .text_sm()
             .track_focus(&cx.focus_handle())
+            .child(
+                canvas(
+                    move |bounds, _window, cx| {
+                        // Approximate sizes for Monaco text_sm (approx 14px font size)
+                        let cell_width = 8.4;
+                        let cell_height = 16.0;
+                        let w: f32 = bounds.size.width.into();
+                        let h: f32 = bounds.size.height.into();
+                        let new_cols = (w / cell_width).max(10.0) as u16;
+                        let new_rows = (h / cell_height).max(5.0) as u16;
+                        
+                        cx.defer(move |cx| {
+                            cx.update_entity(&session_clone, |session, _cx| {
+                                session.resize(new_rows, new_cols);
+                            });
+                        });
+                    },
+                    |_, _, _, _| {}
+                ).absolute().size_full()
+            )
             .on_key_down(move |ev, _window, _cx| {
                 let key = ev.keystroke.key.as_str();
                 let mut bytes = Vec::new();
@@ -171,11 +220,11 @@ impl Render for TerminalView {
                 }
             });
         
-        for r in 0..24 {
-            let mut row_div = div().flex().flex_row();
-            for c in 0..80 {
+        for r in 0..rows {
+            let mut row_div = div().flex().flex_row().h(px(16.0));
+            for c in 0..cols {
                 if let Some(cell) = screen.cell(r, c) {
-                    let mut cell_div = div().child(cell.contents().to_string());
+                    let mut cell_div = div().child(cell.contents().to_string()).w(px(8.4));
                     
                     // Apply styles
                     match cell.fgcolor() {
