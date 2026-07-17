@@ -4,6 +4,8 @@
   pkg-config,
   apple-sdk_14,
   stdenv,
+  xorg,
+  libxkbcommon,
 }:
 
 rustPlatform.buildRustPackage {
@@ -21,9 +23,14 @@ rustPlatform.buildRustPackage {
     pkg-config
   ];
 
-  buildInputs = lib.optionals stdenv.isDarwin [
-    apple-sdk_14
-  ];
+  buildInputs =
+    lib.optionals stdenv.isDarwin [
+      apple-sdk_14
+    ]
+    ++ lib.optionals stdenv.isLinux [
+      xorg.libxcb
+      libxkbcommon
+    ];
 
   meta = with lib; {
     description = "Omnimux - GPUI terminal multiplexer";
