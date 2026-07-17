@@ -3,6 +3,7 @@
   python3Packages,
   fetchFromGitHub,
   fetchPypi,
+  fetchurl,
   makeDesktopItem,
   copyDesktopItems,
   makeWrapper,
@@ -55,16 +56,27 @@ let
 
     doCheck = false;
   };
+
+  velopack = python3Packages.buildPythonPackage rec {
+    pname = "velopack";
+    version = "1.2.0";
+    src = fetchurl {
+      url = "https://files.pythonhosted.org/packages/d7/42/ef12667e6a66ac9716c02c7dda80a246e614a5e5554ac22915b9bc024e59/velopack-1.2.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
+      hash = "sha256-T8BVawTHpDIZkjDLIH6Hu4KH4BUqX0z9cfq8TjSIQVI=";
+    };
+    format = "wheel";
+    doCheck = false;
+  };
 in
 python3Packages.buildPythonApplication rec {
   pname = "StartLive";
-  version = "1.0.0";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "Radekyspec";
     repo = pname;
     rev = version;
-    hash = "sha256-6FNjrXNBdWjaEh4hMxyumnsq8eCs4fvz6PXXzU7Wzg0=";
+    hash = "sha256-cllHCrI7JCb2l0q7AI5WFxY7rOnr1x9gYZgWA4sOLyA=";
   };
 
   format = "other";
@@ -95,6 +107,7 @@ python3Packages.buildPythonApplication rec {
     darkdetect
     semver
     pyqtdarktheme-fork
+    velopack
   ];
 
   dontBuild = true;
