@@ -1,0 +1,14 @@
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/deps/clang_sys-965d3b58a9cac183.d: /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/lib.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/support.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/link.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/macros.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/common.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/dynamic.rs
+
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/deps/libclang_sys-965d3b58a9cac183.rlib: /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/lib.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/support.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/link.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/macros.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/common.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/dynamic.rs
+
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/deps/libclang_sys-965d3b58a9cac183.rmeta: /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/lib.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/support.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/link.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/macros.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/common.rs /Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/dynamic.rs
+
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/lib.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/support.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clang-sys-1.8.1/src/link.rs:
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/macros.rs:
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/common.rs:
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out/dynamic.rs:
+
+# env-dep:OUT_DIR=/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/clang-sys-d9ecaf9feb9de2d5/out

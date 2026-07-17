@@ -1,0 +1,43 @@
+{
+  "name": "rinf",
+  "version": "0.1.0",
+  "summary": "Summary",
+  "description": "Description",
+  "homepage": "http://cunarist.org",
+  "license": {
+    "file": "../LICENSE"
+  },
+  "authors": {
+    "Your Company": "email@cunarist.org"
+  },
+  "source": {
+    "path": "."
+  },
+  "source_files": "Classes/**/*",
+  "dependencies": {
+    "FlutterMacOS": [
+
+    ]
+  },
+  "platforms": {
+    "osx": "10.11"
+  },
+  "swift_versions": "5.0",
+  "script_phases": {
+    "name": "Build a Rust library",
+    "script": "sh ${PODS_TARGET_SRCROOT}/../cargokit/build_pod.sh ${PROJECT_DIR}/../../native/hub hub",
+    "execution_position": "before_compile",
+    "input_files": [
+      "${BUILT_PRODUCTS_DIR}/cargokit_phony"
+    ],
+    "output_files": [
+      "${BUILT_PRODUCTS_DIR}/libhub.a"
+    ]
+  },
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES",
+    "EXCLUDED_ARCHS[sdk=iphonesimulator*]": "i386",
+    "OTHER_LDFLAGS": "-force_load ${BUILT_PRODUCTS_DIR}/libhub.a -Wl -undefined dynamic_lookup"
+  },
+  "swift_version": "5.0"
+}

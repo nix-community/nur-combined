@@ -1,0 +1,1 @@
+cargo:rustc-env=MIME_TYPES_GENERATED_PATH=/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/build/mime_guess-891d7a3b370af594/out/mime_types_generated.rs

@@ -1,0 +1,13 @@
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/deps/rinf-55a29ec39aed4d35.d: /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/lib.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/channel.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/error.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/macros.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/shutdown.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/signal_trait.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/traits.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/interface.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/interface_os.rs
+
+/Users/dev/Documents/nurpkgs2/by-name/om/omnimux/src/target/debug/deps/librinf-55a29ec39aed4d35.rmeta: /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/lib.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/channel.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/error.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/macros.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/shutdown.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/signal_trait.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/traits.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/interface.rs /Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/interface_os.rs
+
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/lib.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/channel.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/error.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/macros.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/shutdown.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/signal_trait.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/traits.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/interface.rs:
+/Users/dev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rinf-8.10.0/src/interface_os.rs:
