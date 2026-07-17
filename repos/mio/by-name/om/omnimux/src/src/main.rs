@@ -70,8 +70,30 @@ impl TerminalSession {
 }
 
 impl Render for TerminalSession {
-    fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
-        div().size_full().child(self.terminal_view.clone())
+    fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+        let terminal_view = self.terminal_view.clone();
+        div()
+            .size_full()
+            .on_key_down(cx.listener(move |_this, ev: &gpui::KeyDownEvent, _window, cx| {
+                if ev.keystroke.modifiers.platform {
+                    let key = ev.keystroke.key.as_str();
+                    if key == "=" || key == "-" || key == "0" {
+                        terminal_view.update(cx, |tv, cx| {
+                            let mut config = tv.config().clone();
+                            if key == "=" {
+                                config.font_size += px(1.0);
+                            } else if key == "-" {
+                                config.font_size -= px(1.0);
+                            } else if key == "0" {
+                                config.font_size = px(14.0);
+                            }
+                            config.font_size = config.font_size.clamp(px(6.0), px(72.0));
+                            tv.update_config(config, cx);
+                        });
+                    }
+                }
+            }))
+            .child(self.terminal_view.clone())
     }
 }
 
