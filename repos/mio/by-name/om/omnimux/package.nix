@@ -4,7 +4,7 @@
   pkg-config,
   apple-sdk_14,
   stdenv,
-  xorg,
+  libxcb,
   libxkbcommon,
 }:
 
@@ -28,9 +28,14 @@ rustPlatform.buildRustPackage {
       apple-sdk_14
     ]
     ++ lib.optionals stdenv.isLinux [
-      xorg.libxcb
+      libxcb
       libxkbcommon
     ];
+
+  postInstall = lib.optionalString stdenv.isLinux ''
+    install -Dm444 ${./omnimux.desktop} $out/share/applications/omnimux.desktop
+    install -Dm444 ${./omnimux.svg} $out/share/icons/hicolor/scalable/apps/omnimux.svg
+  '';
 
   meta = with lib; {
     description = "Omnimux - GPUI terminal multiplexer";

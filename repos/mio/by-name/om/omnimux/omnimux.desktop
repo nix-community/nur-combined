@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Omnimux
+Comment=GPUI Terminal Multiplexer
+Exec=omnimux
+Icon=omnimux
+Terminal=false
+Type=Application
+Categories=System;TerminalEmulator;

@@ -1,5 +1,5 @@
 [package]
-name = "src"
+name = "omnimux"
 version = "0.1.0"
 edition = "2024"
 
