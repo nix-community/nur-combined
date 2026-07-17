@@ -18,8 +18,8 @@ in
     meta = {
       description = "Playstation 2 emulator (precompiled binary, repacked from official website)";
       homepage = "https://pcsx2.net/";
-      license = with lib.licenses; [gpl3Plus lgpl3Plus];
       maintainers = with lib.maintainers; [Prinky];
+      license = with lib.licenses; [gpl3Plus lgpl3Plus];
     };
   })
 else pcsx2

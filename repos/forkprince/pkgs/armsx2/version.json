@@ -1,0 +1,19 @@
+{
+  "name": "armsx2",
+  "source": {
+    "type": "github-release",
+    "repo": "ARMSX2/ARMSX2",
+    "skip_prerelease": true
+  },
+  "version": "2.6.0.5",
+  "platforms": {
+    "aarch64-darwin": {
+      "file": "armsx2-macos-arm64-sha.31654bc.tar.xz",
+      "hash": "sha256-WUEe3n3EgIg8fNpiq1c1fvwRy/vJGvHe0fLtDzxb8jQ="
+    },
+    "aarch64-linux": {
+      "file": "armsx2-linux-arm64-16k-appimage-sha.31654bcc7e.AppImage",
+      "hash": "sha256-RGF+c4VI1C3sgDou28S2nmubPRK53QRStAx5GJqiFaI="
+    }
+  }
+}

@@ -47,6 +47,7 @@
   finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
   puremac = lib.callPackage ./pkgs/puremac {};
+  armsx2 = lib.callPackage ./pkgs/armsx2 {};
   roblox = lib.callPackage ./pkgs/roblox {};
   figura = lib.callPackage ./pkgs/figura {};
   achico = lib.callPackage ./pkgs/achico {};
