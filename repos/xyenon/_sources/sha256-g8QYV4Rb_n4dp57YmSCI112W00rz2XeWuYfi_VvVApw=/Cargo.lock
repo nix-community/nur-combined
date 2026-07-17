@@ -1415,7 +1415,6 @@ dependencies = [
  "serde_json",
  "serial_test",
  "spam-db",
- "subprocess",
  "supports-hyperlinks",
  "tempfile",
  "textwrap",
