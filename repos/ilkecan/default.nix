@@ -12,23 +12,16 @@
 
 let
   modules = import ./modules;
-  repo = {
-    # The `lib`, `modules`, and `overlays` names are special
-    lib = import ./lib { inherit pkgs; }; # functions
-    inherit modules; # modules
-    overlays = import ./overlays; # nixpkgs overlays
-
-    # ... as well as `xxxModules`, see: https://github.com/nix-community/NUR/pull/1101
-    flakeModules = modules.flake;
-    homeModules = modules.homeManager;
-    nixosModules = modules.nixos;
-
-    fmodstudio = pkgs.callPackage ./pkgs/fmodstudio { inherit (repo) icu56; }; # https://github.com/NixOS/nixpkgs/pull/491823
-    icu56 = pkgs.callPackage ./pkgs/icu56 { }; # https://github.com/NixOS/nixpkgs/pull/491823
-    keyguard = pkgs.callPackage ./pkgs/keyguard { }; # https://github.com/NixOS/nixpkgs/pull/495316
-    wl-find-cursor = pkgs.callPackage ./pkgs/wl-find-cursor { }; # github.com/NixOS/nixpkgs/pull/504085
-    zellij-autolock = pkgs.callPackage ./pkgs/zellij-autolock { };
-    zellij-workspace = pkgs.callPackage ./pkgs/zellij-workspace { };
-  };
 in
-repo
+{
+  # The `lib`, `modules`, and `overlays` names are special
+  lib = import ./lib { inherit pkgs; }; # functions
+  inherit modules; # modules
+  overlays = import ./overlays; # nixpkgs overlays
+
+  # ... as well as `xxxModules`, see: https://github.com/nix-community/NUR/pull/1101
+  flakeModules = modules.flake;
+  homeModules = modules.homeManager;
+  nixosModules = modules.nixos;
+}
+// import ./packages.nix { inherit pkgs; }

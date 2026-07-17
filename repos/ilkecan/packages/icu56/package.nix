@@ -7,7 +7,6 @@
   path,
   testers,
   updateAutotoolsGnuConfigScriptsHook,
-  ...
 }:
 
 let

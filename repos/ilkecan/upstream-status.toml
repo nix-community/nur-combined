@@ -1,0 +1,20 @@
+[bitburner]
+pr = "https://github.com/NixOS/nixpkgs/pull/542677"
+
+[fmodstudio]
+pr = "https://github.com/NixOS/nixpkgs/pull/491823"
+
+[icu56]
+pr = "https://github.com/NixOS/nixpkgs/pull/491823"
+
+[keyguard]
+pr = "https://github.com/NixOS/nixpkgs/pull/495316"
+
+[wl-find-cursor]
+pr = "https://github.com/NixOS/nixpkgs/pull/504085"
+merged = true
+removeAfter = 2605
+
+[zellij-autolock]
+
+[zellij-workspace]
