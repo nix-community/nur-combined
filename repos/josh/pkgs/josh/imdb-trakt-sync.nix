@@ -8,13 +8,13 @@
 let
   imdb-trakt-sync = python3Packages.buildPythonApplication rec {
     pname = "imdb-trakt-sync";
-    version = "0.1.0-unstable-2026-07-16";
+    version = "0.1.0-unstable-2026-07-17";
 
     src = fetchFromGitHub {
       owner = "josh";
       repo = "imdb-trakt-sync";
-      rev = "dde5567c372151b9025e1c849356d856405a28eb";
-      hash = "sha256-EJtJD7ukP30DnYigYeZzsogsRSDJ2iMxJ0RbJIaYUos=";
+      rev = "4b236dbc16b74a237afbec63df9b56fff1cba4b0";
+      hash = "sha256-QZJavqFKtMeLoakS2de9PO7hCzOhdNqpaYLhtRuYazs=";
     };
 
     pyproject = true;
