@@ -13,15 +13,17 @@
 , ...
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation (finalAttrs: (let
   pname = "kwm";
-  version = "0.3.0";
+  version = "0.3.0.2";
+in {
+  inherit pname version;
 
   src = fetchFromGitHub {
-    owner = "kewuaa";
+    owner = "srcres258";
     repo = "kwm";
-    rev = "v0.3.0"; # v0.3.0 对应提交；也可以直接写 tag
-    hash = "sha256-hX76wTHPTgg5RAHILfd3CjRKPlgAwGSK3lG82IFoUUs=";
+    rev = "v${version}";
+    hash = "sha256-VgrWcdh7LEJUlQH/y6coomvXdxxvOasqH5BC+xJWRWA=";
   };
 
   nativeBuildInputs = [
@@ -61,7 +63,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/kewuaa/kwm";
     license = licenses.gpl3Only;
     platforms = platforms.linux;
-    mainProgram = "kwm";
+    mainProgram = pname;
     maintainers = with maintainers; [ srcres258 ];
   };
-})
+}))
