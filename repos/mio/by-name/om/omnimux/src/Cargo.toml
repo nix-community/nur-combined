@@ -5,6 +5,9 @@ edition = "2024"
 
 [dependencies]
 anyhow = "1.0.103"
+async-channel = "2.5.0"
 gpui = { version = "0.2.2", features = ["runtime_shaders"] }
 portable-pty = "0.9.0"
+smol = "2.0.2"
 tokio = "1.53.0"
+vt100 = "0.16.2"
