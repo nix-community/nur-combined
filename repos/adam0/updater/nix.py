@@ -130,7 +130,7 @@ pkgs:
             file_name = str(ROOT) + match.group(1)
 
     file_path = Path(file_name)
-    if not file_path.is_file():
+    if not file_path.is_relative_to(ROOT) or not file_path.is_file():
         return None
 
     root_dir = file_path.parent
