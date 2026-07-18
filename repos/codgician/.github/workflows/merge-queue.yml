@@ -90,18 +90,21 @@ jobs:
                 (check) => check?.status === "completed" && !successfulConclusions.has(check.conclusion),
               );
 
-              if (!pending && !failed && details.mergeable_state !== "behind") {
+              if (details.mergeable_state === "behind") {
+                (failed ? failedBehind : greenBehind).push({
+                  number: pull.number,
+                  headSha: details.head.sha,
+                });
+                continue;
+              }
+              if (pending) {
+                core.notice(`PR #${pull.number} is current; waiting for required checks`);
+                return;
+              }
+              if (!failed) {
                 core.notice(`PR #${pull.number} is current and green; waiting for auto-merge`);
                 return;
               }
-              if (details.mergeable_state !== "behind" || pending) {
-                continue;
-              }
-
-              (failed ? failedBehind : greenBehind).push({
-                number: pull.number,
-                headSha: details.head.sha,
-              });
             }
 
             const selected = greenBehind[0] || failedBehind[0];
