@@ -5,5 +5,5 @@
 }:
 
 toPythonModule (
-  regina-normal.override { python3 = python; withGUI = false; }
+  regina-normal.override { python3 = python; }
 )
