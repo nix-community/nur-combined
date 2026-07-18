@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   fetchPnpmDeps,
-  fetchpatch,
+  cacert,
   nodejs,
   pnpm,
   pnpmConfigHook,
@@ -12,22 +12,14 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "overpass-turbo";
-  version = "2026-02-22";
+  version = "2026-07-18";
 
   src = fetchFromGitHub {
     owner = "tyrasd";
     repo = "overpass-turbo";
-    rev = "55612905349b668f9f05e0272960c194dc289745";
-    hash = "sha256-s3A33o0jV2edkav2VvkbjRqFJ/qpo+EAATPgc2ZR5JA=";
+    rev = "6c9725ec93e4b1bd051b15b2199b281e2d1e4179";
+    hash = "sha256-s/eXY2sCXlPf8EuKr3Bl0c9oFTzbSfmtHgPMLZDbvSE=";
   };
-
-  patches = [
-    # https://github.com/tyrasd/overpass-turbo/pull/840
-    (fetchpatch {
-      url = "https://github.com/tyrasd/overpass-turbo/commit/867d1a61994379da7cf3f8821bbc84796d59e769.patch";
-      hash = "sha256-HjFfToksyBMSIK+D1AezWMTLdlMvKlwNGN0P86LnTCk=";
-    })
-  ];
 
   postPatch = ''
     substituteInPlace vite.config.mts \
@@ -37,8 +29,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    fetcherVersion = 3;
-    hash = "sha256-+o21KuMzbwCpZxXefSz6f+o71lHCMGIOc0ltOOihT/M=";
+    fetcherVersion = 4;
+    hash = "sha256-kAfuQAY0R4spfMSmEjh3/1RLEFQxxwwpDh4CQPb77w4=";
   };
 
   nativeBuildInputs = [
@@ -57,6 +49,8 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     mv dist $out
   '';
+
+  env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   meta = {
     description = "A web based data mining tool for OpenStreetMap using the Overpass API";

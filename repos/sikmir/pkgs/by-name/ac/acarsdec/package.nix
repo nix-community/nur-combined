@@ -13,7 +13,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "acarsdec";
-  version = "4.4.1";
+  version = "4.6";
 
   __structuredAttrs = true;
 
@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "f00b4r0";
     repo = "acarsdec";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eo5Uj4X8OtGMDTfVgr0TGwSzgUW8QzO0VSFY2Ogzq/M=";
+    hash = "sha256-ehjT+ZBe5Jtpri7cNALXmWtfKhhtX0G2Hbbucm/C8jE=";
   };
 
   nativeBuildInputs = [

@@ -11,7 +11,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "aprsc";
-  version = "2.1.20";
+  version = "2.1.21";
 
   __structuredAttrs = true;
 
@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "hessu";
     repo = "aprsc";
     tag = "release/${finalAttrs.version}";
-    hash = "sha256-LhXo/B4zoq71SZGwfn9AZmNtCSQzpuqvjQ3xrc0k/mY=";
+    hash = "sha256-AKc6vatoFhzOgYCikpWmrMA4D2A+vz7LwziqFKz2Teo=";
   };
 
   patches = [
