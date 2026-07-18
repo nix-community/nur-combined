@@ -23,10 +23,13 @@ let
     filterAttrs
     fixedWidthString
     fromHexString
+    functionArgs
     genList
     hasSuffix
     hashString
     id
+    intersectAttrs
+    isFunction
     isPath
     isType
     length
@@ -50,6 +53,19 @@ in
 {
 
   INFINITY = 1.0e308 * 2;
+
+  callExpression =
+    let
+      callExpressionWith =
+        autoArgs: fn:
+        let
+          f = if isFunction fn then fn else import fn;
+          fargs = functionArgs f;
+          args = intersectAttrs fargs autoArgs;
+        in
+        f args;
+    in
+    callExpressionWith pkgs;
 
   callPackage' = fn: callPackage fn { };
 
