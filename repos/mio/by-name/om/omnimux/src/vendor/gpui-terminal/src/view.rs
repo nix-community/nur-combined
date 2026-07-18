@@ -800,9 +800,9 @@ impl TerminalView {
             ScrollDelta::Pixels(p) => p.y,
             ScrollDelta::Lines(l) => cell_height * l.y,
         };
-        // GPUI: positive Y is scroll down (content moves up). alacritty /
-        // mouse reports use positive delta = wheel up.
-        let lines = pixels_to_scroll_lines(-pixel_delta, cell_height);
+        // GPUI (macOS NSEvent / X11 / Wayland): positive Y = scroll up.
+        // alacritty Scroll::Delta and SGR wheel (64) also use positive = up.
+        let lines = pixels_to_scroll_lines(pixel_delta, cell_height);
         if lines == 0 {
             return;
         }

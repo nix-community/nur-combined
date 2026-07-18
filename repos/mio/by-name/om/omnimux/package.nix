@@ -9,6 +9,7 @@
   wayland,
   vulkan-loader,
   libGL,
+  desktopToDarwinBundle,
 }:
 
 rustPlatform.buildRustPackage {
@@ -24,7 +25,8 @@ rustPlatform.buildRustPackage {
 
   nativeBuildInputs = [
     pkg-config
-  ];
+  ]
+  ++ lib.optional stdenv.hostPlatform.isDarwin desktopToDarwinBundle;
 
   buildInputs =
     lib.optionals stdenv.isDarwin [
@@ -38,7 +40,9 @@ rustPlatform.buildRustPackage {
       libGL
     ];
 
-  postInstall = lib.optionalString stdenv.isLinux ''
+  # Install .desktop + icon on all platforms so Linux gets a launcher entry and
+  # Darwin's desktopToDarwinBundle can generate $out/Applications/Omnimux.app.
+  postInstall = ''
     install -Dm444 ${./omnimux.desktop} $out/share/applications/omnimux.desktop
     install -Dm444 ${./omnimux.svg} $out/share/icons/hicolor/scalable/apps/omnimux.svg
   '';
@@ -58,5 +62,7 @@ rustPlatform.buildRustPackage {
     description = "Omnimux - GPUI terminal multiplexer";
     homepage = "https://github.com/mio-19/nurpkgs";
     license = licenses.mit;
+    mainProgram = "omnimux";
+    platforms = platforms.unix;
   };
 }
