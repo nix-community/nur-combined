@@ -206,7 +206,7 @@ impl TerminalTabs {
 }
 
 impl Render for TerminalTabs {
-    fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+    fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
         let is_dark = cx.window_appearance() == WindowAppearance::Dark;
         let bg_color_bar = if is_dark { rgb(0x2d2d2d) } else { rgb(0xe0e0e0) };
         let bg_color_active = if is_dark { rgb(0x1e1e1e) } else { rgb(0xffffff) };
@@ -258,9 +258,12 @@ impl Render for TerminalTabs {
                 .border_r_1()
                 .border_color(border_color)
                 .cursor_pointer()
-                .on_click(cx.listener(move |this, _, _, _| {
+                .on_click(cx.listener(move |this, _, window, cx| {
                     if i < this.tabs.len() {
                         this.active_tab = i;
+                        // Move keyboard focus straight to the new terminal
+                        let tv = this.tabs[i].read(cx).terminal_view.clone();
+                        tv.read(cx).focus_handle().clone().focus(window);
                     }
                 }))
                 .child(div().child(tab_label).text_color(text_color).text_sm())
@@ -322,6 +325,10 @@ impl Render for TerminalTabs {
 
         self.active_tab = self.active_tab.min(self.tabs.len().saturating_sub(1));
         let active_session = self.tabs[self.active_tab].clone();
+        // Always keep focus on the active terminal so keypresses go straight to tmux
+        if self.prompt.is_none() && self.show_settings == false {
+            active_session.read(cx).terminal_view.read(cx).focus_handle().clone().focus(window);
+        }
 
         let mut main_div = div()
             .flex()
@@ -330,6 +337,8 @@ impl Render for TerminalTabs {
             .bg(bg_color_active)
             .on_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, _window, cx| {
                 if let Some(ref mut input) = this.prompt {
+                    // Swallow the event — don't let it reach the terminal below
+                    cx.stop_propagation();
                     let key = ev.keystroke.key.as_str();
                     
                     let host_query = if input.contains('@') {
