@@ -5,9 +5,9 @@
     "url": "https://pins.twint.pp.ua/api/snapshots/folder-preview-pro/latest",
     "version_path": ".hash"
   },
-  "version": "f72fff3de11bb404c9569575e614365a431e37b810cf52bdbd41f224310d427e",
+  "version": "f16b5d2a47b168e6d0f84273252883f8ad1b6eca8e7a6b06c817643b5e396602",
   "asset": {
     "url": "https://pins.twint.pp.ua/api/download/{version}.zip",
-    "hash": "sha256-9y//PeEbtATJVpV15hQ2WkMeN7gQz1K9vUHyJDENQn4="
+    "hash": "sha256-8WtdKkexaObQ+EJzJSiD+K0bbsqOemsGyBdkO145ZgI="
   }
 }
