@@ -106,7 +106,6 @@ jobs:
                 (failed ? failedBehind : greenBehind).push({
                   number: pull.number,
                   headSha: details.head.sha,
-                  nodeId: details.node_id,
                 });
                 continue;
               }
@@ -127,7 +126,6 @@ jobs:
             }
             core.setOutput("number", selected.number);
             core.setOutput("head-sha", selected.headSha);
-            core.setOutput("node-id", selected.nodeId);
       - name: Generate bot token
         if: ${{ steps.candidate.outputs.number != '' }}
         id: app-token
@@ -137,36 +135,27 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           permission-contents: write
           permission-pull-requests: write
-      - name: Rebase deterministic pull request
+      - name: Update deterministic pull request
         if: ${{ steps.candidate.outputs.number != '' }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           HEAD_SHA: ${{ steps.candidate.outputs.head-sha }}
-          PR_NODE_ID: ${{ steps.candidate.outputs.node-id }}
           PR_NUMBER: ${{ steps.candidate.outputs.number }}
         with:
           github-token: ${{ steps.app-token.outputs.token }}
           script: |
             try {
-              await github.graphql(
-                `mutation RebasePullRequest($input: UpdatePullRequestBranchInput!) {
-                  updatePullRequestBranch(input: $input) {
-                    pullRequest { number headRefOid }
-                  }
-                }`,
-                {
-                  input: {
-                    pullRequestId: process.env.PR_NODE_ID,
-                    expectedHeadOid: process.env.HEAD_SHA,
-                    updateMethod: "REBASE",
-                  },
-                },
-              );
-              core.notice(`Rebased PR #${process.env.PR_NUMBER}; required checks will run again`);
+              await github.rest.pulls.updateBranch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: Number(process.env.PR_NUMBER),
+                expected_head_sha: process.env.HEAD_SHA,
+              });
+              core.notice(`Updated PR #${process.env.PR_NUMBER}; required checks will run again`);
             } catch (error) {
-              const message = error.message || "";
-              if (/not behind|head branch was modified|expected head oid/i.test(message)) {
-                core.notice(`PR #${process.env.PR_NUMBER} no longer needs this rebase`);
+              const message = error.response?.data?.message || "";
+              if (error.status === 422 && /not behind|head branch was modified/i.test(message)) {
+                core.notice(`PR #${process.env.PR_NUMBER} no longer needs this update`);
                 return;
               }
               throw error;
