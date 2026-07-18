@@ -555,7 +555,7 @@ dependencies = [
  "bitflags 2.13.1",
  "cexpr",
  "clang-sys",
- "itertools 0.13.0",
+ "itertools 0.11.0",
  "log",
  "prettyplease",
  "proc-macro2",
@@ -2398,8 +2398,6 @@ dependencies = [
 [[package]]
 name = "gpui-terminal"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "103183282be6cce6ab00c5e3503664b927683e8a1474131e148eae3645746c80"
 dependencies = [
  "alacritty_terminal",
  "anyhow",

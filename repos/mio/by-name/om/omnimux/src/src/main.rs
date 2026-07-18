@@ -28,7 +28,11 @@ impl TerminalSession {
         if let Some(ref h) = host {
             cmd.args(["-c", &format!("ssh {}", h)]);
         } else {
-            cmd.args(["-c", "tmux attach || tmux new-session"]);
+            // Enable tmux mouse so wheel events reach panes / copy-mode
+            cmd.args([
+                "-c",
+                "tmux -u has-session 2>/dev/null && exec tmux -u attach \\; set -g mouse on || exec tmux -u new-session \\; set -g mouse on",
+            ]);
         }
         cmd.env("TERM", "xterm-256color");
         cmd.env("COLORTERM", "truecolor");
@@ -67,10 +71,12 @@ impl TerminalSession {
                     }
                 })
                 .with_key_handler(|ev| {
-                    if ev.keystroke.modifiers.platform {
+                    // Let omnimux handle zoom / copy shortcuts (Ctrl or Super/Cmd)
+                    let mods = &ev.keystroke.modifiers;
+                    if mods.platform || mods.control {
                         let key = ev.keystroke.key.as_str();
-                        if key == "=" || key == "-" || key == "0" || key == "c" || key == "v" {
-                            return false;
+                        if key == "=" || key == "+" || key == "-" || key == "0" || key == "c" || key == "v" {
+                            return true; // consume — parent handles zoom
                         }
                     }
                     false
@@ -98,22 +104,25 @@ impl Render for TerminalSession {
         div()
             .size_full()
             .on_key_down(cx.listener(move |_this, ev: &gpui::KeyDownEvent, _window, cx| {
-                if ev.keystroke.modifiers.platform {
-                    let key = ev.keystroke.key.as_str();
-                    if key == "=" || key == "-" || key == "0" {
-                        terminal_view.update(cx, |tv, cx| {
-                            let mut config = tv.config().clone();
-                            if key == "=" {
-                                config.font_size += px(1.0);
-                            } else if key == "-" {
-                                config.font_size -= px(1.0);
-                            } else if key == "0" {
-                                config.font_size = px(14.0);
-                            }
-                            config.font_size = config.font_size.clamp(px(6.0), px(72.0));
-                            tv.update_config(config, cx);
-                        });
-                    }
+                let mods = &ev.keystroke.modifiers;
+                if !(mods.platform || mods.control) {
+                    return;
+                }
+                let key = ev.keystroke.key.as_str();
+                if key == "=" || key == "+" || key == "-" || key == "0" {
+                    cx.stop_propagation();
+                    terminal_view.update(cx, |tv, cx| {
+                        let mut config = tv.config().clone();
+                        if key == "=" || key == "+" {
+                            config.font_size += px(1.0);
+                        } else if key == "-" {
+                            config.font_size -= px(1.0);
+                        } else if key == "0" {
+                            config.font_size = px(14.0);
+                        }
+                        config.font_size = config.font_size.clamp(px(6.0), px(72.0));
+                        tv.update_config(config, cx);
+                    });
                 }
             }))
             .child(self.terminal_view.clone())
@@ -130,6 +139,27 @@ struct TerminalTabs {
     keep_tab_after_exit: bool,
     auto_reconnect: bool,
     remember_session: bool,
+    last_appearance: Option<WindowAppearance>,
+    focus_active_terminal: bool,
+}
+
+#[derive(Clone)]
+struct TabDrag {
+    index: usize,
+    label: SharedString,
+}
+
+impl Render for TabDrag {
+    fn render(&mut self, _: &mut Window, _: &mut Context<Self>) -> impl IntoElement {
+        div()
+            .px_3()
+            .py_1()
+            .rounded_sm()
+            .bg(rgb(0x3b82f6))
+            .text_color(rgb(0xffffff))
+            .text_sm()
+            .child(self.label.clone())
+    }
 }
 
 fn get_ssh_hosts() -> Vec<String> {
@@ -277,6 +307,8 @@ impl TerminalTabs {
             keep_tab_after_exit,
             auto_reconnect,
             remember_session,
+            last_appearance: None,
+            focus_active_terminal: true,
         }
     }
 }
@@ -306,16 +338,20 @@ impl Render for TerminalTabs {
                 .build()
         };
 
-        // Push palette to every tab so colour scheme tracks the OS theme live
-        for tab in &self.tabs {
-            let palette_clone = palette.clone();
-            tab.update(cx, |session, cx| {
-                session.terminal_view.update(cx, |tv, cx| {
-                    let mut config = tv.config().clone();
-                    config.colors = palette_clone;
-                    tv.update_config(config, cx);
+        // Push palette only when OS appearance changes (not every frame)
+        let appearance = cx.window_appearance();
+        if self.last_appearance != Some(appearance) {
+            self.last_appearance = Some(appearance);
+            for tab in &self.tabs {
+                let palette_clone = palette.clone();
+                tab.update(cx, |session, cx| {
+                    session.terminal_view.update(cx, |tv, cx| {
+                        let mut config = tv.config().clone();
+                        config.colors = palette_clone;
+                        tv.update_config(config, cx);
+                    });
                 });
-            });
+            }
         }
 
         let mut tab_bar = div().flex().flex_row().bg(bg_color_bar).h(px(32.0)).items_center();
@@ -323,6 +359,10 @@ impl Render for TerminalTabs {
         for (i, session) in self.tabs.iter().enumerate() {
             let bg_color = if i == self.active_tab { bg_color_active } else { bg_color_bar };
             let tab_label = session.read(cx).host.clone().unwrap_or_else(|| "localhost".to_string());
+            let drag = TabDrag {
+                index: i,
+                label: tab_label.clone().into(),
+            };
             
             let tab = div()
                 .id(("tab", i))
@@ -338,10 +378,29 @@ impl Render for TerminalTabs {
                 .on_click(cx.listener(move |this, _, window, cx| {
                     if i < this.tabs.len() {
                         this.active_tab = i;
-                        // Move keyboard focus straight to the new terminal
+                        this.focus_active_terminal = true;
                         let tv = this.tabs[i].read(cx).terminal_view.clone();
                         tv.read(cx).focus_handle().clone().focus(window);
                     }
+                }))
+                .on_drag(drag, |drag, _, _, cx| cx.new(|_| drag.clone()))
+                .on_drop(cx.listener(move |this, drag: &TabDrag, _, cx| {
+                    let from = drag.index;
+                    let to = i;
+                    if from == to || from >= this.tabs.len() || to >= this.tabs.len() {
+                        return;
+                    }
+                    let tab = this.tabs.remove(from);
+                    let insert_at = if from < to { to - 1 } else { to };
+                    this.tabs.insert(insert_at, tab);
+                    this.active_tab = insert_at;
+                    this.focus_active_terminal = true;
+                    if this.remember_session {
+                        let hosts: Vec<Option<String>> =
+                            this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                        save_session(&hosts);
+                    }
+                    cx.notify();
                 }))
                 .child(div().child(tab_label).text_color(text_color).text_sm())
                 .child(
@@ -355,6 +414,7 @@ impl Render for TerminalTabs {
                             if this.tabs.len() > 1 {
                                 this.tabs.remove(i);
                                 this.active_tab = this.active_tab.min(this.tabs.len().saturating_sub(1));
+                                this.focus_active_terminal = true;
                             }
                         }))
                 );
@@ -401,10 +461,13 @@ impl Render for TerminalTabs {
         );
 
         self.active_tab = self.active_tab.min(self.tabs.len().saturating_sub(1));
-        let active_session = self.tabs[self.active_tab].clone();
-        // Always keep focus on the active terminal so keypresses go straight to tmux
-        if self.prompt.is_none() && self.show_settings == false {
-            active_session.read(cx).terminal_view.read(cx).focus_handle().clone().focus(window);
+        let active_session = self.tabs.get(self.active_tab).cloned();
+        // Focus active terminal when needed (not every frame — that fights the cursor)
+        if self.focus_active_terminal && self.prompt.is_none() && !self.show_settings {
+            if let Some(ref session) = active_session {
+                session.read(cx).terminal_view.read(cx).focus_handle().clone().focus(window);
+            }
+            self.focus_active_terminal = false;
         }
 
         let mut main_div = div()
@@ -453,6 +516,7 @@ impl Render for TerminalTabs {
                             let new_tab = cx.new(|cx| TerminalSession::new(host_opt, cx));
                             this.tabs.push(new_tab);
                             this.active_tab = this.tabs.len() - 1;
+                            this.focus_active_terminal = true;
                             // Persist session if enabled
                             if this.remember_session {
                                 let hosts: Vec<Option<String>> = this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
@@ -494,7 +558,9 @@ impl Render for TerminalTabs {
                 }
             }))
             .child(tab_bar)
-            .child(div().flex_grow().child(active_session));
+            .when_some(active_session, |this, session| {
+                this.child(div().flex_grow().child(session))
+            });
 
         if let Some(ref input) = self.prompt {
             let host_query = if input.contains('@') {
@@ -541,6 +607,7 @@ impl Render for TerminalTabs {
                             let new_tab = cx.new(|cx| TerminalSession::new(host_opt, cx));
                             this.tabs.push(new_tab);
                             this.active_tab = this.tabs.len() - 1;
+                            this.focus_active_terminal = true;
                         }))
                         .child(div().child(host_clone).text_color(text_color))
                 );
