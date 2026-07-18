@@ -6,17 +6,17 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "wsl-open";
-  version = "0.1.0-unstable-2026-05-17";
+  version = "0.1.1-unstable-2026-07-18";
 
   # https://github.com/lonerOrz/wsl-open.git
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "wsl-open";
-    rev = "fadac078297ad6d33a05a05c298eddfcb6405d5c";
-    hash = "sha256-UxP6S1cZORc0VPcbuJVCRa5UPHk1tjqW7osBBkexnVA=";
+    rev = "ef19c809c30b7f7df8491d30bf1d1066022df16b";
+    hash = "sha256-Mt8wqxNx9Q+q7p05n6NZlGtMyN/lUHAYDaS4tZDycAg=";
   };
 
-  cargoHash = "sha256-DbFrj7Xdx9mQQj74kQf9vAfRNoGRozq+nwBR//NnT9Q=";
+  cargoHash = "sha256-BsYwz7A6DIinoqNjKJkQZGM3M8hT3ir7xlO65VLcEAo=";
 
   passthru.updateArgs = [ "--version=branch" ];
 
