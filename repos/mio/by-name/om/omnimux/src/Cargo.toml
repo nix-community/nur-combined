@@ -7,6 +7,7 @@ edition = "2024"
 anyhow = "1.0.103"
 async-channel = "2.5.0"
 gpui = { version = "0.2.2", features = ["runtime_shaders"] }
+gpui-component = "0.5.1"
 gpui-terminal = "0.1.0"
 parking_lot = "0.12.5"
 portable-pty = "0.9.0"

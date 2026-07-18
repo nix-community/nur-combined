@@ -1,5 +1,6 @@
 use gpui::prelude::*;
 use gpui::*;
+use gpui_component::switch::Switch;
 use gpui_terminal::{ColorPalette, TerminalConfig, TerminalView};
 use portable_pty::{CommandBuilder, NativePtySystem, PtySize, PtySystem};
 
@@ -282,6 +283,7 @@ impl TerminalTabs {
 
 impl Render for TerminalTabs {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
+        let entity = cx.entity().clone();
         let is_dark = cx.window_appearance() == WindowAppearance::Dark;
         let bg_color_bar = if is_dark { rgb(0x2d2d2d) } else { rgb(0xe0e0e0) };
         let bg_color_active = if is_dark { rgb(0x1e1e1e) } else { rgb(0xffffff) };
@@ -589,47 +591,56 @@ impl Render for TerminalTabs {
                         .p_4()
                         .flex_col()
                         .child(div().child("Settings").text_color(text_color).text_xl().mb_4())
-                        .child(
-                            div().flex().flex_row().items_center().mb_2().child(
-                                div().child("Keep tab after exit?").text_color(text_color).w_48()
-                            ).child(
-                                div()
-                                    .id("keep_tab_toggle")
-                                    .cursor_pointer()
-                                    .on_click(cx.listener(|this, _, _, _| { this.keep_tab_after_exit = !this.keep_tab_after_exit; save_settings(this); }))
-                                    .child(div().child(if self.keep_tab_after_exit { "[x]" } else { "[ ]" }).text_color(text_color))
-                            )
-                        )
-                        .child(
-                            div().flex().flex_row().items_center().mb_2().child(
-                                div().child("Auto-reconnect on drop?").text_color(text_color).w_48()
-                            ).child(
-                                div()
-                                    .id("auto_reconnect_toggle")
-                                    .cursor_pointer()
-                                    .on_click(cx.listener(|this, _, _, _| { this.auto_reconnect = !this.auto_reconnect; save_settings(this); }))
-                                    .child(div().child(if self.auto_reconnect { "[x]" } else { "[ ]" }).text_color(text_color))
-                            )
-                        )
-                        .child(
-                            div().flex().flex_row().items_center().mb_4().child(
-                                div().child("Remember & restore tabs on relaunch?").text_color(text_color).w_48()
-                            ).child(
-                                div()
-                                    .id("remember_session_toggle")
-                                    .cursor_pointer()
-                                    .on_click(cx.listener(|this, _, _, cx| {
-                                        this.remember_session = !this.remember_session;
+                        .child({
+                            let entity = entity.clone();
+                            Switch::new("keep_tab_toggle")
+                                .checked(self.keep_tab_after_exit)
+                                .label("Keep tab after exit")
+                                .mb_3()
+                                .on_click(move |checked, _, app| {
+                                    entity.update(app, |this, cx| {
+                                        this.keep_tab_after_exit = *checked;
                                         save_settings(this);
-                                        // Save current session immediately when enabling
+                                        cx.notify();
+                                    });
+                                })
+                        })
+                        .child({
+                            let entity = entity.clone();
+                            Switch::new("auto_reconnect_toggle")
+                                .checked(self.auto_reconnect)
+                                .label("Auto-reconnect on drop")
+                                .mb_3()
+                                .on_click(move |checked, _, app| {
+                                    entity.update(app, |this, cx| {
+                                        this.auto_reconnect = *checked;
+                                        save_settings(this);
+                                        cx.notify();
+                                    });
+                                })
+                        })
+                        .child({
+                            let entity = entity.clone();
+                            Switch::new("remember_session_toggle")
+                                .checked(self.remember_session)
+                                .label("Remember & restore tabs on relaunch")
+                                .mb_4()
+                                .on_click(move |checked, _, app| {
+                                    entity.update(app, |this, cx| {
+                                        this.remember_session = *checked;
+                                        save_settings(this);
                                         if this.remember_session {
-                                            let hosts: Vec<Option<String>> = this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                                            let hosts: Vec<Option<String>> = this
+                                                .tabs
+                                                .iter()
+                                                .map(|t| t.read(cx).host.clone())
+                                                .collect();
                                             save_session(&hosts);
                                         }
-                                    }))
-                                    .child(div().child(if self.remember_session { "[x]" } else { "[ ]" }).text_color(text_color))
-                            )
-                        )
+                                        cx.notify();
+                                    });
+                                })
+                        })
                         .child(
                             div()
                                 .id("close_settings")
@@ -652,6 +663,8 @@ impl Render for TerminalTabs {
 
 fn main() {
     gpui::Application::new().run(|cx: &mut gpui::App| {
+        gpui_component::init(cx);
+
         let bounds = Bounds::centered(None, size(px(800.0), px(600.0)), cx);
         cx.open_window(
             WindowOptions {
