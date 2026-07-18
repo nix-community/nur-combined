@@ -7,7 +7,7 @@ struct TerminalSession {
 }
 
 impl TerminalSession {
-    fn new(cx: &mut Context<Self>) -> Self {
+    fn new(host: Option<String>, cx: &mut Context<Self>) -> Self {
         let pty_system = NativePtySystem::default();
         let pair = pty_system
             .openpty(PtySize {
@@ -19,7 +19,11 @@ impl TerminalSession {
             .unwrap();
 
         let mut cmd = CommandBuilder::new("sh");
-        cmd.args(["-c", "tmux attach || tmux new-session"]);
+        if let Some(h) = host {
+            cmd.args(["-c", &format!("ssh {}", h)]);
+        } else {
+            cmd.args(["-c", "tmux attach || tmux new-session"]);
+        }
         cmd.env("TERM", "xterm-256color");
         cmd.env("COLORTERM", "truecolor");
         let _child = pair.slave.spawn_command(cmd).unwrap();
@@ -38,7 +42,7 @@ impl TerminalSession {
             line_height_multiplier: 1.14,
             scrollback: 10000,
             padding: Edges::default(),
-            colors: ColorPalette::default(),
+            colors: ColorPalette::default(), // GPUI-Terminal will pick up theme
         };
 
         let terminal_view = cx.new(|cx| {
@@ -100,11 +104,12 @@ impl Render for TerminalSession {
 struct TerminalTabs {
     active_tab: usize,
     tabs: Vec<Entity<TerminalSession>>,
+    prompt: Option<String>,
 }
 
 impl TerminalTabs {
     fn new(cx: &mut Context<Self>) -> Self {
-        let first_tab = cx.new(|cx| TerminalSession::new(cx));
+        let first_tab = cx.new(|cx| TerminalSession::new(None, cx));
         
         cx.spawn(async move |this, mut cx| {
             loop {
@@ -118,16 +123,23 @@ impl TerminalTabs {
         Self {
             active_tab: 0,
             tabs: vec![first_tab],
+            prompt: None,
         }
     }
 }
 
 impl Render for TerminalTabs {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        let mut tab_bar = div().flex().flex_row().bg(rgb(0x2d2d2d)).h(px(32.0)).items_center();
+        let is_dark = cx.window_appearance() == WindowAppearance::Dark;
+        let bg_color_bar = if is_dark { rgb(0x2d2d2d) } else { rgb(0xe0e0e0) };
+        let bg_color_active = if is_dark { rgb(0x1e1e1e) } else { rgb(0xffffff) };
+        let text_color = if is_dark { rgb(0xffffff) } else { rgb(0x000000) };
+        let border_color = if is_dark { rgb(0x000000) } else { rgb(0xcccccc) };
+
+        let mut tab_bar = div().flex().flex_row().bg(bg_color_bar).h(px(32.0)).items_center();
         
         for (i, _session) in self.tabs.iter().enumerate() {
-            let bg_color = if i == self.active_tab { rgb(0x1e1e1e) } else { rgb(0x2d2d2d) };
+            let bg_color = if i == self.active_tab { bg_color_active } else { bg_color_bar };
             
             let tab = div()
                 .id(("tab", i))
@@ -138,25 +150,25 @@ impl Render for TerminalTabs {
                 .h_full()
                 .bg(bg_color)
                 .border_r_1()
-                .border_color(rgb(0x000000))
+                .border_color(border_color)
                 .cursor_pointer()
                 .on_click(cx.listener(move |this, _, _, _| {
-                    this.active_tab = i;
+                    if i < this.tabs.len() {
+                        this.active_tab = i;
+                    }
                 }))
-                .child(div().child(format!("Tab {}", i + 1)).text_color(rgb(0xffffff)).text_sm())
+                .child(div().child(format!("Tab {}", i + 1)).text_color(text_color).text_sm())
                 .child(
                     div()
                         .id(("close_tab", i))
                         .ml_2()
                         .p_1()
-                        .hover(|style| style.bg(rgb(0x555555)).rounded_sm())
-                        .child(div().child("x").text_color(rgb(0xcccccc)).text_xs())
+                        .hover(|style| style.bg(if is_dark { rgb(0x555555) } else { rgb(0xcccccc) }).rounded_sm())
+                        .child(div().child("x").text_color(if is_dark { rgb(0xcccccc) } else { rgb(0x555555) }).text_xs())
                         .on_click(cx.listener(move |this, _, _, _| {
                             if this.tabs.len() > 1 {
                                 this.tabs.remove(i);
-                                if this.active_tab >= i && this.active_tab > 0 {
-                                    this.active_tab -= 1;
-                                }
+                                this.active_tab = this.active_tab.min(this.tabs.len().saturating_sub(1));
                             }
                         }))
                 );
@@ -172,28 +184,86 @@ impl Render for TerminalTabs {
                 .justify_center()
                 .size_6()
                 .ml_2()
-                .bg(rgb(0x3d3d3d))
-                .hover(|style| style.bg(rgb(0x555555)))
+                .bg(if is_dark { rgb(0x3d3d3d) } else { rgb(0xcccccc) })
+                .hover(|style| style.bg(if is_dark { rgb(0x555555) } else { rgb(0xaaaaaa) }))
                 .rounded_sm()
                 .cursor_pointer()
-                .on_click(cx.listener(|this, _, _, cx| {
-                    let new_tab = cx.new(|cx| TerminalSession::new(cx));
-                    this.tabs.push(new_tab);
-                    this.active_tab = this.tabs.len() - 1;
+                .on_click(cx.listener(|this, _, _, _| {
+                    this.prompt = Some(String::new());
                 }))
-                .child(div().child("+").text_color(rgb(0xffffff)))
+                .child(div().child("+").text_color(text_color))
         );
 
+        self.active_tab = self.active_tab.min(self.tabs.len().saturating_sub(1));
         let active_session = self.tabs[self.active_tab].clone();
 
-        div()
+        let mut main_div = div()
             .flex()
             .flex_col()
             .size_full()
+            .bg(bg_color_active)
+            .on_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, _window, cx| {
+                if let Some(ref mut input) = this.prompt {
+                    let key = ev.keystroke.key.as_str();
+                    match key {
+                        "enter" => {
+                            let host = input.clone();
+                            this.prompt = None;
+                            let host_opt = if host.trim().is_empty() { None } else { Some(host) };
+                            let new_tab = cx.new(|cx| TerminalSession::new(host_opt, cx));
+                            this.tabs.push(new_tab);
+                            this.active_tab = this.tabs.len() - 1;
+                        }
+                        "escape" => {
+                            this.prompt = None;
+                        }
+                        "backspace" => {
+                            input.pop();
+                        }
+                        "space" => {
+                            input.push(' ');
+                        }
+                        _ => {
+                            if key.chars().count() == 1 {
+                                input.push_str(key);
+                            }
+                        }
+                    }
+                    cx.notify();
+                }
+            }))
             .child(tab_bar)
-            .child(
-                div().flex_grow().child(active_session)
-            )
+            .child(div().flex_grow().child(active_session));
+
+        if let Some(ref input) = self.prompt {
+            let overlay = div()
+                .absolute()
+                .inset_0()
+                .bg(rgba(0x00000080))
+                .flex()
+                .justify_center()
+                .items_center()
+                .child(
+                    div()
+                        .w_96()
+                        .bg(if is_dark { rgb(0x2d2d2d) } else { rgb(0xf0f0f0) })
+                        .rounded_lg()
+                        .p_4()
+                        .flex_col()
+                        .child(div().child("New Session: Enter host (leave blank for localhost)").text_color(text_color).mb_2())
+                        .child(
+                            div()
+                                .child(format!("{}█", input))
+                                .font_family("monospace")
+                                .text_color(text_color)
+                                .bg(if is_dark { rgb(0x1e1e1e) } else { rgb(0xffffff) })
+                                .p_2()
+                        )
+                );
+            main_div = main_div.child(overlay);
+        }
+        
+        main_div
     }
 }
 
