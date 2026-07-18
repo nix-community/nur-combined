@@ -231,10 +231,6 @@ byName
       ];
     });
 
-  rocksmith2tab = pkgs.callPackage ./pkgs/rocksmith2tab {
-    rocksmith-custom-song-toolkit = rocksmith-custom-song-toolkit;
-  };
-
   davinci-resolve-studio2033 = davinci-resolve2033.override {
     studioVariant = true;
   };
