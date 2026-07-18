@@ -58,6 +58,17 @@
     };
     date = "2026-07-06";
   };
+  playwright-cli = {
+    pname = "playwright-cli";
+    version = "v0.1.17";
+    src = fetchFromGitHub {
+      owner = "microsoft";
+      repo = "playwright-cli";
+      rev = "v0.1.17";
+      fetchSubmodules = false;
+      sha256 = "sha256-tc/2Qck3mm6BqWTu2lvvfsM0/BHO/Z0ZvCdFZ7QQqKI=";
+    };
+  };
   qmk-toolbox = {
     pname = "qmk-toolbox";
     version = "0.3.3";

@@ -92,6 +92,27 @@
         },
         "version": "34787bf38ce429a84f94ae00a73418e32cc1abb8"
     },
+    "playwright-cli": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "playwright-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "microsoft",
+            "repo": "playwright-cli",
+            "rev": "v0.1.17",
+            "sha256": "sha256-tc/2Qck3mm6BqWTu2lvvfsM0/BHO/Z0ZvCdFZ7QQqKI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.17"
+    },
     "qmk-toolbox": {
         "cargoLock": null,
         "date": null,

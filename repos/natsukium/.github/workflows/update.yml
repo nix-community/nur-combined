@@ -27,6 +27,9 @@ jobs:
       run: nix run nixpkgs#nvfetcher
     - name: Update firefox addons
       run: nix run git+https://git.sr.ht/~rycee/mozilla-addons-to-nix pkgs/firefox-addons/{addons.json,default.nix}
+    # nvfetcher bumps the source but cannot compute npmDepsHash; refresh it here.
+    - name: Update playwright-cli npm deps hash
+      run: nix run nixpkgs#nix-update -- --flake --version=npmDeps playwright-cli
     - name: Update readme
       run: nix develop -c update-readme
     - name: Create Pull Request

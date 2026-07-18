@@ -25,6 +25,7 @@ rec {
   hammerspoon = pkgs.callPackage ./pkgs/hammerspoon { source = sources.hammerspoon; };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
   paperwm-spoon = pkgs.callPackage ./pkgs/paperwm-spoon { source = sources.paperwm-spoon; };
+  playwright-cli = pkgs.callPackage ./pkgs/playwright-cli { source = sources.playwright-cli; };
   psipred = pkgs.callPackage ./pkgs/psipred { };
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.qutebrowser;

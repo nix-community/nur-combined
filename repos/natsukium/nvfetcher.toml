@@ -22,6 +22,10 @@ src.git = "https://github.com/mogenson/PaperWM.spoon"
 src.branch = "main"
 fetch.github = "mogenson/PaperWM.spoon"
 
+[playwright-cli]
+src.github = "microsoft/playwright-cli"
+fetch.github = "microsoft/playwright-cli"
+
 [qmk-toolbox]
 src.github = "qmk/qmk_toolbox"
 fetch.url = "https://github.com/qmk/qmk_toolbox/releases/download/$ver/QMK.Toolbox.app.zip"
