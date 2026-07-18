@@ -9,8 +9,8 @@
   name = "aws";
   repo = "duckdb-aws";
   branch = "v1.5-variegata";
-  rev = "08ad34f625e4a8e15221e462b96000ff29174447";
-  hash = "sha256-ut7+a6PiR5LWyrITEJaC8MLDrtdqtWyjOaP1hqerllA=";
+  rev = "efa54a990e16c976576685dd4134d2478cf5a574";
+  hash = "sha256-6FIdsmzzkpUnhxVzN5hd9wuQMPPl9VifoCQjttCJG8M=";
   duckdbBuildInputs = [
     aws-sdk-cpp
     curl
