@@ -255,6 +255,7 @@ in
     sandbox.whitelistPwd = true;
     sandbox.extraHomePaths = [
       # ".cache/ck"
+      ".cache/coderag"
       # ".cocoindex_code"
       ".config/ha-mcp/ha-mcp.env"
       # ".config/kagi/kagi-api-key"

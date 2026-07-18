@@ -1,4 +1,4 @@
-From fe70ecb6514f18a931768c0af0720247b827e0d5 Mon Sep 17 00:00:00 2001
+From e2a1dcb873d73d1ef6fe8d20c6d2b5b590637364 Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Tue, 26 May 2026 01:55:27 +0000
 Subject: [PATCH] capnproto: fix static/cross compilation
@@ -8,14 +8,20 @@ fixes `nix-build -A pkgsCross.aarch64-multiplatform.pkgsStatic.capnproto`
 `${binutils}/bin/ar` is an executable for the host platform;
 we can't execute it during a build. use the stdenv's `ar` instead.
 ---
- pkgs/by-name/ca/capnproto/package.nix | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ pkgs/by-name/ca/capnproto/package.nix | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/pkgs/by-name/ca/capnproto/package.nix b/pkgs/by-name/ca/capnproto/package.nix
-index 04a8c602610b0293f5bb4d597c14929cb9dc0cdb..68e327209047ec374fa3073bba77caf25ec259ef 100644
+index 04a8c602610b0293f5bb4d597c14929cb9dc0cdb..6b5dff1de610c698385fbc48f5af4c9870dc55e0 100644
 --- a/pkgs/by-name/ca/capnproto/package.nix
 +++ b/pkgs/by-name/ca/capnproto/package.nix
-@@ -21,7 +21,7 @@ let
+@@ -1,5 +1,4 @@
+ {
+-  binutils,
+   lib,
+   libucontext,
+   pkg-config,
+@@ -21,7 +20,7 @@ let
      dontUnpack = true;
      installPhase = ''
        mkdir -p "$out"/lib

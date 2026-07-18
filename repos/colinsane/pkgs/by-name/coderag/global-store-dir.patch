@@ -1,0 +1,112 @@
+diff --git a/coderag/config.py b/coderag/config.py
+index 145a822..571000a 100644
+--- a/coderag/config.py
++++ b/coderag/config.py
+@@ -10,6 +10,7 @@ from __future__ import annotations
+ 
+ import os
+ from dataclasses import dataclass, field, replace
++import subprocess
+ from pathlib import Path
+ from typing import Tuple
+ 
+@@ -74,6 +75,51 @@ DEFAULT_IGNORE_GLOBS: Tuple[str, ...] = (
+ )
+ 
+ 
++def _fs_escape(path_str: str) -> str:
++    """Escape an absolute filesystem path for use as a directory name.
++
++    ``-`` is escaped to ``--`` and ``/`` is replaced with ``-``.  The root
++    directory ``/`` therefore maps to ``-``:
++
++    * ``/home/colin/src``  -> ``home-colin-src``
++    * ``/home-colin/src``  -> ``home--colin-src``
++    * ``/``                -> ``-``
++    """
++    if path_str == "/":
++        return "-"
++    # Drop the leading /.
++    assert path_str.startswith("/"), path_str
++    body = path_str[1:]
++    return body.replace("-", "--").replace("/", "-")
++
++
++def _default_store_dir(watched_dir: Path) -> Path:
++    """Derive a human-friendly store directory under ``~/.cache/coderag``.
++
++    Uses the git common-dir when available so worktrees of the same repo share
++    an index.  Falls back to the absolute ``watched_dir`` path for non-git
++    directories.
++    """
++    abs_watched = watched_dir.expanduser().absolute()
++    try:
++        result = subprocess.run(
++            ["git", "-C", str(abs_watched), "rev-parse", "--git-common-dir"],
++            capture_output=True,
++            text=True,
++            timeout=5,
++        )
++        if result.returncode == 0:
++            git_dir = result.stdout.strip()
++            if not Path(git_dir).is_absolute():
++                git_dir = str(abs_watched / git_dir)
++            abs_path = Path(git_dir).resolve()
++        else:
++            abs_path = abs_watched.resolve()
++    except Exception:
++        abs_path = abs_watched.resolve()
++    return Path.home() / ".cache" / "coderag" / "stores" / _fs_escape(str(abs_path))
++
++
+ def _env_str(key: str, default: str) -> str:
+     val = os.getenv(key)
+     return val if val is not None and val.strip() else default
+@@ -151,13 +197,11 @@ class Config:
+ 
+     # --- Locations ---
+     watched_dir: Path = field(default_factory=Path.cwd)
+-    # Defaults to ``<watched_dir>/.coderag`` (resolved in ``__post_init__``), so the index
+-    # lives next to the code it indexes. It deliberately does NOT default to the *current
+-    # working directory*: a cwd-relative store silently pointed at a different (often empty)
+-    # ``.coderag`` whenever a command ran from a directory other than the one indexed — e.g.
+-    # ``coderag index --watched-dir /home/me`` would write to ``/home/me/.coderag`` only if
+-    # you happened to be standing in ``/home/me``, and ``coderag status`` from elsewhere then
+-    # found nothing. Set it explicitly with ``--store-dir`` / ``CODERAG_STORE_DIR`` to override.
++    # Defaults to a directory under ``~/.cache/coderag/stores/`` (resolved in
++    # ``__post_init__``), named from the git common-dir or the absolute watched
++    # dir path.  This keeps indices out of the source tree, so worktrees and
++    # transient checkouts can all share the same store.  Set it explicitly with
++    # ``--store-dir`` / ``CODERAG_STORE_DIR`` to override.
+     store_dir: Path = None  # type: ignore[assignment]  # filled in by __post_init__
+ 
+     # --- What to index ---
+@@ -280,7 +324,9 @@ class Config:
+         # ``watched_dir`` without a ``store_dir`` re-derives the store from the new watched dir.
+         if self.store_dir is None:
+             # Frozen dataclass: assign through object.__setattr__.
+-            object.__setattr__(self, "store_dir", self.watched_dir / ".coderag")
++            object.__setattr__(
++                self, "store_dir", _default_store_dir(self.watched_dir)
++            )
+ 
+     def with_overrides(self, **kwargs: object) -> "Config":
+         """Return a copy with the given fields replaced (config stays immutable).
+@@ -290,12 +336,14 @@ class Config:
+         auto-derived store from following a new watched dir, pass ``store_dir`` explicitly.
+         """
+         # If watched_dir is being moved but store_dir isn't given *and* the current store_dir
+-        # was auto-derived from the old watched_dir, clear it so __post_init__ re-derives it
+-        # against the new watched_dir.
++        # was auto-derived, clear it so __post_init__ re-derives it against the new watched_dir.
+         if (
+             "watched_dir" in kwargs
+             and "store_dir" not in kwargs
+-            and self.store_dir == self.watched_dir / ".coderag"
++            and (
++                self.store_dir is None
++                or self.store_dir == _default_store_dir(self.watched_dir)
++            )
+         ):
+             kwargs = {**kwargs, "store_dir": None}
+         return replace(self, **kwargs)  # type: ignore[arg-type]

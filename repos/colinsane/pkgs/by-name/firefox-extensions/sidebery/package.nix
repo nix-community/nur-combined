@@ -1,21 +1,21 @@
 {
   buildNpmPackage,
   fetchFromGitHub,
-  gitUpdater,
   lib,
+  nix-update-script,
   wrapFirefoxAddonsHook,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "sidebery";
-  version = "5.5.2";
+  version = "5.6.1";
   src = fetchFromGitHub {
     owner = "mbnuqw";
     repo = "sidebery";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-V77H6DfLW1Xy3kdjtCSTptfagxo0A6Syv+c3Zm3fJvc=";
+    hash = "sha256-s1ynCWDofd4vlTT4mfOXnQX4hoTgS2BgWzzy9MCg5Fg=";
   };
 
-  npmDepsHash = "sha256-3EyPq9iFh2eidsRMCU4EUpL0ezRASFEJ7jBtvEMcg3M=";
+  npmDepsHash = "sha256-HkTuLkyvtzM6mPRedEeDhZqiVSuqWn2pSQlgz7ssYok=";
 
   nativeBuildInputs = [
     wrapFirefoxAddonsHook
@@ -32,8 +32,10 @@ buildNpmPackage (finalAttrs: {
 
   extid = "{3c078156-979c-498b-8990-85f7987dd929}";
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "v";
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--generate-lockfile"
+    ];
   };
 
   meta = {

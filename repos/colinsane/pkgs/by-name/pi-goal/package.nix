@@ -8,14 +8,14 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-goal";
-  version = "0.15.1";
+  version = "0.19.0";
 
   src = fetchFromGitHub {
     owner = "narumiruna";
     repo = "pi-extensions";
     tag = "v${finalAttrs.version}";
     rootDir = "extensions/pi-goal";
-    hash = "sha256-v6S7Q2BNP5iW1ZR8ZhIi5QfUlpkm8r9x7oUE7A5rqpw=";
+    hash = "sha256-k99XYE5R5ex55dCHUU04AMvyy7MUCJIVzbJhz6bceco=";
     postFetch = ''
       sed -i $out/package.json \
         -e '/"@earendil-works\/pi-coding-agent": /d'
@@ -24,7 +24,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-UCuoLz7KzsU0mDREd+GHfWtsSEJn7jfOGaO9QFpgcKc=";
+  npmDepsHash = "sha256-LwbCUI8rB1+dT+FWcUjS/7xMjzmVDd6jrxukhDdr48M=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json

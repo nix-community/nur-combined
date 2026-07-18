@@ -5,6 +5,7 @@
       "delta"
       "difftastic"
     ];
+    sandbox.net = "clearnet";  #< `git pr` invokes `git fetch`.
     # it calls back into `git`, so we need access to `.git` and the rest.
     # copied from `sane.programs.git.sandbox`
     sandbox.whitelistPwd = true;

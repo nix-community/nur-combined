@@ -1012,6 +1012,17 @@ super.lib.composeManyExtensions [
     #   };
     # });
 
+    # XXX(2026-07-16): patch lttng-ust so that wireplumber (pipewire) doesn't crash on launch.
+    lttng-ust = prev.lttng-ust.overrideAttrs (prevAttrs: {
+      patches = (prevAttrs.patches or []) ++ [
+        (final.fetchpatch {
+          name = "lttng-ust-reduce-stack-size-to-avoid-musl-crash";
+          url = "https://review.lttng.org/changes/lttng-ust~18160/revisions/1/patch?download&raw";
+          hash = "sha256-NpvOgdTa0kCwBy52FMuyfQM8KDNIVKEib2wt98jP5IY=";
+        })
+      ];
+    });
+
     # mailutils = prev.mailutils.overrideAttrs (upstream: {
     #   # nativeCheckInputs = (upstream.nativeCheckInputs or []) ++ [
     #   #   final.coreutils

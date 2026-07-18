@@ -43,6 +43,10 @@ python3.pkgs.buildPythonApplication rec {
       $'".gradle": "gradle",\n    ".nix": "nix",'
   '';
 
+  patches = [
+    ./global-store-dir.patch
+  ];
+
   dependencies = with python3.pkgs; [
     lancedb
     pylance

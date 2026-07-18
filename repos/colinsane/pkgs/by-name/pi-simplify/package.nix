@@ -1,21 +1,21 @@
 {
-  fetchFromGitHub,
-  gitUpdater,
-  lib,
   buildNpmPackage,
+  fetchFromGitHub,
+  lib,
+  nix-update-script,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-simplify";
-  version = "0.2.2";
+  version = "0.2.3";
 
   src = fetchFromGitHub {
     owner = "MattDevy";
     repo = "pi-extensions";
     tag = "pi-simplify-v${finalAttrs.version}";
-    hash = "sha256-0XzYaKGuLzcG31f3aQ65l83DZPbNLI7fg+eJc0s3wo0=";
+    hash = "sha256-bFpHtHBpBop56ylNGwwNsy6090vcOz6aMUAn3i6SE4A=";
   };
 
-  npmDepsHash = "sha256-lM/wfWBWEV5C7SOjEJ4IxN0kOa+EoHmLTQdqDGThVvY=";
+  npmDepsHash = "sha256-i5G7SD90ycuIHpbcB6osiC0NgwuRn0mozeML59nEpNQ=";
 
   buildPhase = ''
     npm run build --workspace=pi-simplify
@@ -29,9 +29,7 @@ buildNpmPackage (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = gitUpdater {
-    rev-prefix = "pi-simplify-v";
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "A Pi extension that reviews recently changed code for clarity, consistency, and maintainability improvements.";

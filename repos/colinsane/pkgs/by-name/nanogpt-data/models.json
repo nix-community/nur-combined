@@ -217,6 +217,73 @@
     }
   },
   {
+    "id": "thinkingmachines/inkling",
+    "name": "Inkling",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00017,
+      "completion": 4.05,
+      "currency": "USD",
+      "prompt": 1.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048000,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "audio"
+      ]
+    }
+  },
+  {
+    "id": "thinkingmachines/inkling:thinking",
+    "name": "Inkling Thinking",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00017,
+      "completion": 4.05,
+      "currency": "USD",
+      "prompt": 1.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048000,
+    "max_output_tokens": 32768,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "audio"
+      ]
+    }
+  },
+  {
+    "id": "nano-gpt-help",
+    "name": "NanoGPT Help",
+    "pricing": {
+      "cacheReadInputPer1kTokens": null,
+      "completion": 0.0,
+      "currency": "USD",
+      "prompt": 0.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 6000,
+    "max_output_tokens": 512,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "auto-model",
     "name": "Auto model",
     "pricing": {
@@ -1876,6 +1943,29 @@
     "architecture": {
       "input_modalities": [
         "text"
+      ]
+    }
+  },
+  {
+    "id": "moonshotai/kimi-k3",
+    "name": "Kimi K3",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.0003,
+      "completion": 15.0,
+      "currency": "USD",
+      "prompt": 3.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1048576,
+    "max_output_tokens": 1048576,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
       ]
     }
   },
@@ -4237,6 +4327,48 @@
     }
   },
   {
+    "id": "kwaipilot/kat-coder-air-v2.5",
+    "name": "KAT Coder Air V2.5",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 3e-05,
+      "completion": 0.6,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 256000,
+    "max_output_tokens": 80000,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
+    "id": "kwaipilot/kat-coder-pro-v2.5",
+    "name": "KAT Coder Pro V2.5",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00015,
+      "completion": 2.96,
+      "currency": "USD",
+      "prompt": 0.74,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 256000,
+    "max_output_tokens": 80000,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "Qwen/Qwen3-235B-A22B-Instruct-2507",
     "name": "Qwen 3 235b A22B 2507",
     "pricing": {
@@ -4987,10 +5119,10 @@
     "id": "zai-org/glm-5",
     "name": "GLM 5",
     "pricing": {
-      "cacheReadInputPer1kTokens": 5.9999999999999995e-05,
+      "cacheReadInputPer1kTokens": 0.00013,
       "completion": 2.5500000000000003,
       "currency": "USD",
-      "prompt": 0.3,
+      "prompt": 0.5,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -5008,10 +5140,10 @@
     "id": "zai-org/glm-5:thinking",
     "name": "GLM 5 Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 5.9999999999999995e-05,
+      "cacheReadInputPer1kTokens": 0.00013,
       "completion": 2.5500000000000003,
       "currency": "USD",
-      "prompt": 0.3,
+      "prompt": 0.5,
       "unit": "per_million_tokens"
     },
     "context_length": 200000,
@@ -9245,10 +9377,10 @@
     "id": "aion-labs/aion-rp-llama-3.1-8b",
     "name": "Llama 3.1 8b (uncensored)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 0.0001003,
-      "completion": 0.2006,
+      "cacheReadInputPer1kTokens": 0.0004,
+      "completion": 1.6,
       "currency": "USD",
-      "prompt": 0.2006,
+      "prompt": 0.8,
       "unit": "per_million_tokens"
     },
     "context_length": 32768,
@@ -11707,28 +11839,6 @@
     }
   },
   {
-    "id": "Gemma-4-31B-it",
-    "name": "Gemma 4 31B IT",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 0.000153,
-      "completion": 0.306,
-      "currency": "USD",
-      "prompt": 0.306,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 262144,
-    "max_output_tokens": null,
-    "capabilities": {
-      "reasoning": true
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "Gemma-4-31B-K1-v5",
     "name": "Gemma 4 31B K1 v5",
     "pricing": {
@@ -12916,7 +13026,7 @@
     "context_length": 256000,
     "max_output_tokens": 32768,
     "capabilities": {
-      "reasoning": false
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [
@@ -12937,7 +13047,7 @@
     "context_length": 1000000,
     "max_output_tokens": 32768,
     "capabilities": {
-      "reasoning": false
+      "reasoning": true
     },
     "architecture": {
       "input_modalities": [

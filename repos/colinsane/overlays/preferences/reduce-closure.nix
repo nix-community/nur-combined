@@ -13,11 +13,12 @@ self: super: {
     # OAuth depends on webkitgtk_4_1: old, forces an annoying recompilation
     enableOAuth2 = false;
   };
-  evolution-data-server-gtk4 = super.evolution-data-server-gtk4.override {
-    # avoid webkitgtk_6_0 build. lol.
-    # N.B.(2026-02-02): this breaks `gnome-calendar` build: "Run-time dependency libedataserverui4-1.0 found: NO (tried pkgconfig)"
-    withGtk4 = false;
-  };
+  # evolution-data-server-gtk4 = super.evolution-data-server-gtk4.override {
+  #   # avoid webkitgtk_6_0 build. lol.
+  #   # N.B.(2026-02-02): this breaks `gnome-calendar` build: "Run-time dependency libedataserverui4-1.0 found: NO (tried pkgconfig)"
+  #   # N.B.(2026-07-18): this breaks `stamp` build: "Dependency "libedataserverui4-1.0" not found, tried pkgconfig"
+  #   withGtk4 = false;
+  # };
 
   # ffmpeg = super.ffmpeg.override {
   #   # required by mpv for spatial audio; enable it globally to avoid shipping many ffmpegs

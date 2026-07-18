@@ -30,14 +30,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "lpa-gtk";
-  version = "0.3";
+  version = "0.4";
 
   src = fetchFromGitea {
     domain = "codeberg.org";
     owner = "lucaweiss";
     repo = "lpa-gtk";
     rev = finalAttrs.version;
-    hash = "sha256-pbvPfGBHTHGnKAE69TSVo/hvAbI8eY/HbS7aX8sTVuE=";
+    hash = "sha256-1siewcpTuWR29H0FiSkMk4TEVtvIOAn7ACt2XVLn4dA=";
   };
 
   postPatch = ''
