@@ -6,8 +6,6 @@ on:
       - '**.md'
       - '.gitignore'
   pull_request:
-  merge_group:
-    types: [checks_requested]
   workflow_dispatch:
   repository_dispatch:
     types: [build]

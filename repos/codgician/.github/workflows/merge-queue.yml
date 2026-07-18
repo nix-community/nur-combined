@@ -1,0 +1,147 @@
+name: merge queue
+on:
+  push:
+    branches: [main]
+  workflow_run: # zizmor: ignore[dangerous-triggers] no checkout or execution of triggering-branch code
+    workflows: [build]
+    types: [completed]
+  pull_request_review:
+    types: [submitted, dismissed]
+  workflow_dispatch:
+permissions:
+  checks: read
+  contents: read
+  pull-requests: read
+concurrency:
+  group: deterministic-merge-queue
+  cancel-in-progress: false
+jobs:
+  advance:
+    if: ${{ github.repository_id == '852828187' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Select deterministic pull request
+        id: candidate
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            const requiredChecks = ["harness", "atelier / Gate"];
+            const successfulConclusions = new Set(["success", "neutral", "skipped"]);
+            const pulls = await github.paginate(github.rest.pulls.list, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: "open",
+              base: "main",
+              sort: "created",
+              direction: "asc",
+              per_page: 100,
+            });
+
+            const greenBehind = [];
+            const failedBehind = [];
+            for (const pull of pulls) {
+              const labels = new Set(pull.labels.map((label) => label.name));
+              if (
+                pull.user?.login !== "galactic-batter[bot]" ||
+                pull.head.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}` ||
+                !/^bot\/[a-z][a-z0-9_-]{0,63}$/.test(pull.head.ref) ||
+                !labels.has("bot-deterministic") ||
+                labels.has("bot-ai-repair")
+              ) {
+                continue;
+              }
+
+              const { data: details } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pull.number,
+              });
+              if (!details.auto_merge || details.mergeable_state === "dirty") {
+                continue;
+              }
+
+              const reviews = await github.paginate(github.rest.pulls.listReviews, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pull.number,
+                per_page: 100,
+              });
+              const latestReviewByUser = new Map();
+              for (const review of reviews) {
+                if (review.user?.id && review.state !== "COMMENTED") {
+                  latestReviewByUser.set(review.user.id, review.state);
+                }
+              }
+              if ([...latestReviewByUser.values()].includes("CHANGES_REQUESTED")) {
+                continue;
+              }
+
+              const checks = await github.paginate(github.rest.checks.listForRef, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: details.merge_commit_sha || details.head.sha,
+                filter: "latest",
+                per_page: 100,
+              });
+              const checksByName = new Map(checks.map((check) => [check.name, check]));
+              const required = requiredChecks.map((name) => checksByName.get(name));
+              const pending = required.some((check) => !check || check.status !== "completed");
+              const failed = required.some(
+                (check) => check?.status === "completed" && !successfulConclusions.has(check.conclusion),
+              );
+
+              if (!pending && !failed && details.mergeable_state !== "behind") {
+                core.notice(`PR #${pull.number} is current and green; waiting for auto-merge`);
+                return;
+              }
+              if (details.mergeable_state !== "behind" || pending) {
+                continue;
+              }
+
+              (failed ? failedBehind : greenBehind).push({
+                number: pull.number,
+                headSha: details.head.sha,
+              });
+            }
+
+            const selected = greenBehind[0] || failedBehind[0];
+            if (!selected) {
+              core.notice("No deterministic bot PR needs a branch update");
+              return;
+            }
+            core.setOutput("number", selected.number);
+            core.setOutput("head-sha", selected.headSha);
+      - name: Generate bot token
+        if: ${{ steps.candidate.outputs.number != '' }}
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Update deterministic pull request
+        if: ${{ steps.candidate.outputs.number != '' }}
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          HEAD_SHA: ${{ steps.candidate.outputs.head-sha }}
+          PR_NUMBER: ${{ steps.candidate.outputs.number }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            try {
+              await github.rest.pulls.updateBranch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: Number(process.env.PR_NUMBER),
+                expected_head_sha: process.env.HEAD_SHA,
+              });
+              core.notice(`Updated PR #${process.env.PR_NUMBER}; required checks will run again`);
+            } catch (error) {
+              const message = error.response?.data?.message || "";
+              if (error.status === 422 && /not behind|head branch was modified/i.test(message)) {
+                core.notice(`PR #${process.env.PR_NUMBER} no longer needs this update`);
+                return;
+              }
+              throw error;
+            }
