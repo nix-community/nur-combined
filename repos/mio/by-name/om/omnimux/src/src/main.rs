@@ -48,16 +48,27 @@ impl TerminalSession {
             })
             .unwrap();
 
-        let mut cmd = CommandBuilder::new("sh");
-        if let Some(ref h) = host {
-            cmd.args(["-c", &format!("ssh {}", h)]);
+        let tmux_cmd = "tmux -u has-session 2>/dev/null && exec tmux -u attach \\; set -g mouse on || exec tmux -u new-session \\; set -g mouse on";
+
+        let mut cmd = if let Some(ref h) = host {
+            if h == "localhost" || h == "127.0.0.1" {
+                let mut cmd = CommandBuilder::new("sh");
+                cmd.args(["-c", tmux_cmd]);
+                cmd
+            } else {
+                // Force a TTY and start/attach tmux on the remote (same as localhost).
+                let mut cmd = CommandBuilder::new("ssh");
+                cmd.arg("-t");
+                cmd.arg("--");
+                cmd.arg(h);
+                cmd.arg(tmux_cmd);
+                cmd
+            }
         } else {
-            // Enable tmux mouse so wheel events reach panes / copy-mode
-            cmd.args([
-                "-c",
-                "tmux -u has-session 2>/dev/null && exec tmux -u attach \\; set -g mouse on || exec tmux -u new-session \\; set -g mouse on",
-            ]);
-        }
+            let mut cmd = CommandBuilder::new("sh");
+            cmd.args(["-c", tmux_cmd]);
+            cmd
+        };
         cmd.env("TERM", "xterm-256color");
         cmd.env("COLORTERM", "truecolor");
         let child_proc = pair.slave.spawn_command(cmd).unwrap();
