@@ -2,40 +2,27 @@
   lib,
   buildPythonPackage,
   fetchFromGitHub,
-  writeText,
   msgpack,
   protobuf,
   psycopg2,
   setuptools,
 }:
 
-let
-  setupPy = writeText "setup.py" ''
-    from setuptools import setup
-    setup(
-      name='tracks_storage_server',
-      version='1.0',
-      install_requires=['msgpack', 'protobuf', 'psycopg2'],
-      py_modules=['server', 'nktk_raw_pb2', 'config'],
-      data_files=[('bin', ['init.sql'])],
-      scripts=['init_db.py'],
-    )
-  '';
-in
 buildPythonPackage {
   pname = "tracks-storage-server";
-  version = "0-unstable-2024-04-27";
+  version = "0-unstable-2026-07-19";
   pyproject = true;
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
-    owner = "wladich";
+    owner = "sikmir";
     repo = "tracks_storage_server";
-    rev = "080526665a38c44e8c08e70d4ddcdda1c1911fc8";
-    hash = "sha256-fN7OG52t2pHxFlCxhnMkVMpctsuwBQyuXMO9CD9eWLg=";
+    rev = "8d975293f884f0bb270e77690946ddf4e8a00a88";
+    hash = "sha256-puFn9k5fL5dM1e5q3nl1m4xsceiXeT0vP3GTSzKE8Ho=";
   };
 
   postPatch = ''
-    cp ${setupPy} ${setupPy.name}
     substitute config.py.example config.py --replace-fail "'password" "#'password"
   '';
 
@@ -51,7 +38,7 @@ buildPythonPackage {
 
   meta = {
     description = "Tracks storage server";
-    homepage = "https://github.com/wladich/tracks_storage_server";
+    homepage = "https://github.com/sikmir/tracks_storage_server";
     license = lib.licenses.free;
     maintainers = [ lib.maintainers.sikmir ];
   };

@@ -84,5 +84,6 @@ lib.makeScope newScope (
     ### NAKARTE
 
     tracks-storage-server = pkgs.python3Packages.callPackage ./nakarte/tracks-storage-server { };
+    tracks-storage-server-go = callPackage ./nakarte/tracks-storage-server/golang.nix { };
   }
 )
