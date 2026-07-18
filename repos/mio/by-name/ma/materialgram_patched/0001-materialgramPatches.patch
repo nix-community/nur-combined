@@ -1,21 +1,7 @@
-From 663d20e4f938d5ad68f5d85f119a53beeebc3991 Mon Sep 17 00:00:00 2001
-From: Mio <mio@mio19.uk>
-Date: Mon, 15 Sep 2025 23:23:57 +1000
-Subject: [PATCH] materialgramPatches
-
----
- .../data/components/sponsored_messages.cpp    | 13 +-----------
- Telegram/SourceFiles/data/data_channel.cpp    |  2 +-
- Telegram/SourceFiles/data/data_story.cpp      |  5 ++---
- .../history/history_inner_widget.cpp          | 21 ++-----------------
- Telegram/SourceFiles/main/main_domain.h       |  4 ++--
- 5 files changed, 8 insertions(+), 37 deletions(-)
-
-diff --git a/Telegram/SourceFiles/data/components/sponsored_messages.cpp b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-index b907f1df65..92919d4d83 100644
---- a/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-+++ b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-@@ -231,25 +231,14 @@ void SponsoredMessages::inject(
+diff -Naur a/Telegram/SourceFiles/data/components/sponsored_messages.cpp b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
+--- a/Telegram/SourceFiles/data/components/sponsored_messages.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/data/components/sponsored_messages.cpp	2026-07-19 11:31:17
+@@ -239,26 +239,26 @@
  }
  
  bool SponsoredMessages::canHaveFor(not_null<History*> history) const {
@@ -25,12 +11,18 @@ index b907f1df65..92919d4d83 100644
 -		return user->isBot();
 -	}
  	return false;
++		//return true;
++	//} else if (const auto user = history->peer->asUser()) {
++		//return user->isBot();
++	//}
++	//return false;
  }
  
  bool SponsoredMessages::canHaveFor(not_null<HistoryItem*> item) const {
 -	return item->history()->peer->isBroadcast()
 -		&& item->isRegular();
 +	return false;
++		//&& item->isRegular();
  }
  
  bool SponsoredMessages::isTopBarFor(not_null<History*> history) const {
@@ -40,26 +32,30 @@ index b907f1df65..92919d4d83 100644
 -		}
 -	}
  	return false;
++		//if (const auto user = history->peer->asUser()) {
++			//return user->isBot();
++		//}
++	//}
++	//return false;
  }
  
-diff --git a/Telegram/SourceFiles/data/data_channel.cpp b/Telegram/SourceFiles/data/data_channel.cpp
-index 08321386f9..38b165d2f5 100644
---- a/Telegram/SourceFiles/data/data_channel.cpp
-+++ b/Telegram/SourceFiles/data/data_channel.cpp
-@@ -1045,7 +1045,7 @@ void ChannelData::clearInvitePeek() {
+ void SponsoredMessages::request(not_null<History*> history, Fn<void()> done) {
+diff -Naur a/Telegram/SourceFiles/data/data_channel.cpp b/Telegram/SourceFiles/data/data_channel.cpp
+--- a/Telegram/SourceFiles/data/data_channel.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/data/data_channel.cpp	2026-07-19 11:31:17
+@@ -1045,7 +1045,7 @@
  }
  
  TimeId ChannelData::invitePeekExpires() const {
 -	return _invitePeek ? _invitePeek->expires : 0;
-+	return 0;
++	return 0; // _invitePeek ? _invitePeek->expires : 0;
  }
  
  QString ChannelData::invitePeekHash() const {
-diff --git a/Telegram/SourceFiles/data/data_story.cpp b/Telegram/SourceFiles/data/data_story.cpp
-index 1c92ecaf0d..a8f1466da3 100644
---- a/Telegram/SourceFiles/data/data_story.cpp
-+++ b/Telegram/SourceFiles/data/data_story.cpp
-@@ -404,12 +404,11 @@ bool Story::out() const {
+diff -Naur a/Telegram/SourceFiles/data/data_story.cpp b/Telegram/SourceFiles/data/data_story.cpp
+--- a/Telegram/SourceFiles/data/data_story.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/data/data_story.cpp	2026-07-19 11:31:17
+@@ -420,12 +420,12 @@
  }
  
  bool Story::canDownloadIfPremium() const {
@@ -71,14 +67,14 @@ index 1c92ecaf0d..a8f1466da3 100644
 -	return _peer->isSelf()
 -		|| (canDownloadIfPremium() && _peer->session().premium());
 +	return true;
++		//|| (canDownloadIfPremium() && _peer->session().premium());
  }
  
  bool Story::canShare() const {
-diff --git a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
-index aea6ca3494..d6a83dc64f 100644
---- a/Telegram/SourceFiles/history/history_inner_widget.cpp
-+++ b/Telegram/SourceFiles/history/history_inner_widget.cpp
-@@ -649,16 +649,7 @@ void HistoryInner::setupSwipeReplyAndBack() {
+diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
+--- a/Telegram/SourceFiles/history/history_inner_widget.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/history/history_inner_widget.cpp	2026-07-19 11:31:17
+@@ -736,16 +736,16 @@
  }
  
  bool HistoryInner::hasSelectRestriction() const {
@@ -93,10 +89,19 @@ index aea6ca3494..d6a83dc64f 100644
 -	}
 -	return true;
 +	return false;
++		//return true;
++	//} else if (!_sharingDisallowed.current()) {
++		//return false;
++	//} else if (const auto chat = _peer->asChat()) {
++		//return !chat->canDeleteMessages();
++	//} else if (const auto channel = _peer->asChannel()) {
++		//return !channel->canDeleteMessages();
++	//}
++	//return true;
  }
  
  void HistoryInner::messagesReceived(
-@@ -3191,7 +3182,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -3482,7 +3482,7 @@
  }
  
  bool HistoryInner::hasCopyRestriction(HistoryItem *item) const {
@@ -105,7 +110,7 @@ index aea6ca3494..d6a83dc64f 100644
  }
  
  bool HistoryInner::hasCopyMediaRestriction(
-@@ -3220,14 +3211,6 @@ bool HistoryInner::showCopyMediaRestriction(not_null<HistoryItem*> item) {
+@@ -3515,15 +3515,15 @@
  }
  
  bool HistoryInner::hasCopyRestrictionForSelected() const {
@@ -118,13 +123,21 @@ index aea6ca3494..d6a83dc64f 100644
 -		}
 -	}
  	return false;
++		//return true;
++	//}
++	//for (const auto &[item, selection] : _selected) {
++		//if (item && item->forbidsForward()) {
++			//return true;
++		//}
++	//}
++	//return false;
  }
  
-diff --git a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
-index e47036c35c..b3e08fd66e 100644
---- a/Telegram/SourceFiles/main/main_domain.h
-+++ b/Telegram/SourceFiles/main/main_domain.h
-@@ -31,8 +31,8 @@ public:
+ bool HistoryInner::showCopyRestrictionForSelected() {
+diff -Naur a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
+--- a/Telegram/SourceFiles/main/main_domain.h	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/main/main_domain.h	2026-07-19 11:31:17
+@@ -31,8 +31,8 @@
  		std::unique_ptr<Account> account;
  	};
  
@@ -135,6 +148,3 @@ index e47036c35c..b3e08fd66e 100644
  
  	explicit Domain(const QString &dataName);
  	~Domain();
--- 
-2.51.0
-
