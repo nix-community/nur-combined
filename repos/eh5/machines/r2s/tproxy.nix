@@ -16,7 +16,7 @@ in
     configFile = secrets."config.dae".path;
   };
   sops.secrets."config.dae".restartUnits = [ "dae.service" ];
-  
+
   systemd.services.usque = {
     description = "usque";
     wants = [ "network-online.target" ];
@@ -28,6 +28,7 @@ in
     serviceConfig = {
       Restart = "on-failure";
       RestartSec = 4;
+      LogFilterPatterns = [ "~is not associated with tcp" ];
     };
   };
   sops.secrets."usque.json".restartUnits = [ "usque.service" ];

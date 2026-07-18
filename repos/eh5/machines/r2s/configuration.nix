@@ -18,6 +18,7 @@
       "tproxy.nft" = { };
       "v2ray.v5.json" = { };
       "udpspeeder.conf" = { };
+      "ppp-secret.conf" = { };
     };
   };
 

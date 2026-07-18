@@ -27,11 +27,11 @@
     };
     config.interfaces = [
       {
-        if_name = "extern0";
+        if_name = "ppp0";
         nat44 = true;
-        no_snat_dests = [
-          "192.168.4.0/24"
-        ];
+        # no_snat_dests = [
+        #   "192.168.4.0/24"
+        # ];
         # snat_internals = [
         #   "192.168.1.0/24"
         # ];
@@ -57,15 +57,15 @@
       local = "/lan/";
       interface = [
         "intern0"
-        "extern0"
+        # "extern0"
       ];
-      no-dhcp-interface = "extern0";
+      # no-dhcp-interface = "extern0";
       bind-interfaces = true;
       address = "/nixos-r2s.lan/192.168.1.1";
       # TODO: build additional hosts from DHCPv6 leases and LAN interface addresses
       #addn-hosts=hosts_from_dhcpv6_leases
       domain = "lan";
-      dhcp-range = "192.168.1.3,192.168.1.255,255.255.255.0,24h";
+      dhcp-range = "192.168.1.10,192.168.1.255,255.255.255.0,24h";
       cache-size = 0;
       no-negcache = true;
     };
