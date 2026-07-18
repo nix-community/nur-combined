@@ -188,6 +188,7 @@ in
               minetest591client
               minetest580client
               musescore-alex
+              omnimux
             ];
           }
         );
