@@ -36,6 +36,12 @@ jobs:
               direction: "asc",
               per_page: 100,
             });
+            const { data: baseBranch } = await github.rest.repos.getBranch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              branch: "main",
+            });
+            const baseSha = baseBranch.commit.sha;
 
             const greenBehind = [];
             const failedBehind = [];
@@ -59,6 +65,12 @@ jobs:
               if (!details.auto_merge || details.mergeable_state === "dirty") {
                 continue;
               }
+              const { data: comparison } = await github.rest.repos.compareCommitsWithBasehead({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                basehead: `${details.head.sha}...${baseSha}`,
+              });
+              const behind = comparison.ahead_by > 0;
 
               const reviews = await github.paginate(github.rest.pulls.listReviews, {
                 owner: context.repo.owner,
@@ -90,7 +102,7 @@ jobs:
                 (check) => check?.status === "completed" && !successfulConclusions.has(check.conclusion),
               );
 
-              if (details.mergeable_state === "behind") {
+              if (behind) {
                 (failed ? failedBehind : greenBehind).push({
                   number: pull.number,
                   headSha: details.head.sha,
