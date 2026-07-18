@@ -19,6 +19,13 @@ PACKAGES = {
         "url_template": "https://github.com/naufal-backup/disbox/releases/download/v{version}/Disbox-Linux-x64.AppImage",
         "file": "pkgs/disbox/default.nix",
     },
+    "ghost-downloader-3": {
+        "type": "github_release",
+        "repo": "XiaoYouChR/Ghost-Downloader-3",
+        "url_template": "https://github.com/XiaoYouChR/Ghost-Downloader-3/archive/v{version}.tar.gz",
+        "unpack": True,
+        "file": "pkgs/ghost-downloader-3/default.nix",
+    },
     "streambert": {
         "type": "github_release",
         "repo": "truelockmc/streambert",
@@ -96,21 +103,31 @@ def update_file(filepath, new_version, new_hash, new_rev=None):
     with open(filepath, "r") as f:
         content = f.read()
 
+    # Handle files with local packages defined before the main package
+    split_str = "python3.pkgs.buildPythonApplication rec {"
+    if split_str in content:
+        parts = content.split(split_str, 1)
+        header = parts[0] + split_str
+        target = parts[1]
+    else:
+        header = ""
+        target = content
+
     # Update version
-    content = re.sub(
-        r'version = "[^"]+";', f'version = "{new_version}";', content
+    target = re.sub(
+        r'version = "[^"]+";', f'version = "{new_version}";', target, count=1
     )
 
     # Update hash/sha256
-    content = re.sub(r'sha256 = "[^"]+";', f'sha256 = "{new_hash}";', content)
-    content = re.sub(r'hash = "[^"]+";', f'hash = "{new_hash}";', content)
+    target = re.sub(r'sha256 = "[^"]+";', f'sha256 = "{new_hash}";', target, count=1)
+    target = re.sub(r'hash = "[^"]+";', f'hash = "{new_hash}";', target, count=1)
 
     # Update rev if present
     if new_rev:
-        content = re.sub(r'rev = "[^"]+";', f'rev = "{new_rev}";', content)
+        target = re.sub(r'rev = "[^"]+";', f'rev = "{new_rev}";', target, count=1)
 
     with open(filepath, "w") as f:
-        f.write(content)
+        f.write(header + target)
 
 
 def update_binance(pkg_name, cfg):
@@ -182,7 +199,7 @@ def update_github_release(pkg_name, cfg):
     )
     download_url = cfg["url_template"].format(version=new_version)
     print(f"Prefetching {download_url}...")
-    new_hash = get_nix_hash(download_url)
+    new_hash = get_nix_hash(download_url, unpack=cfg.get("unpack", False))
     if not new_hash:
         return
 
