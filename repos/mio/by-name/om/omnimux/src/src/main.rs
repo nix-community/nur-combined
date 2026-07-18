@@ -213,6 +213,34 @@ impl Render for TerminalTabs {
         let text_color = if is_dark { rgb(0xffffff) } else { rgb(0x000000) };
         let border_color = if is_dark { rgb(0x000000) } else { rgb(0xcccccc) };
 
+        // Build a palette that matches the OS theme
+        let palette = if is_dark {
+            ColorPalette::default() // dark: #1e1e1e bg, #d4d4d4 fg
+        } else {
+            ColorPalette::builder()
+                .background(0xff, 0xff, 0xff) // white bg
+                .foreground(0x1e, 0x1e, 0x1e) // near-black fg
+                .cursor(0x1e, 0x1e, 0x1e)
+                // Keep ANSI colours legible on white bg
+                .black(0x1e, 0x1e, 0x1e)
+                .bright_black(0x55, 0x55, 0x55)
+                .white(0xbb, 0xbb, 0xbb)
+                .bright_white(0x88, 0x88, 0x88)
+                .build()
+        };
+
+        // Push palette to every tab so colour scheme tracks the OS theme live
+        for tab in &self.tabs {
+            let palette_clone = palette.clone();
+            tab.update(cx, |session, cx| {
+                session.terminal_view.update(cx, |tv, cx| {
+                    let mut config = tv.config().clone();
+                    config.colors = palette_clone;
+                    tv.update_config(config, cx);
+                });
+            });
+        }
+
         let mut tab_bar = div().flex().flex_row().bg(bg_color_bar).h(px(32.0)).items_center();
         
         for (i, session) in self.tabs.iter().enumerate() {
