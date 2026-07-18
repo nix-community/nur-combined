@@ -22,6 +22,10 @@ in
   then
     stdenvNoCC.mkDerivation (lib.helper.mkDarwin {
       inherit pname version src meta;
+
+      extraInstall = ''
+        mv $out/Applications/armsx2-macos-arm64-sha*.app $out/Applications/ARMSX2.app
+      '';
     })
   else
     appimageTools.wrapType2 {
