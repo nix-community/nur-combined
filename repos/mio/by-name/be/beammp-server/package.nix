@@ -52,7 +52,7 @@ stdenv.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   patches = [
-    ../../../patches/beammp-server-zlib.patch
+    ./beammp-server-zlib.patch
   ];
 
   nativeBuildInputs = [
