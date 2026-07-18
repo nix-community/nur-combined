@@ -1,21 +1,7 @@
-From 90f2cf6c6257256bd28e8241d36a6d8ce71ececc Mon Sep 17 00:00:00 2001
-From: Mio <mio@mio19.uk>
-Date: Tue, 16 Sep 2025 00:17:38 +1000
-Subject: [PATCH] telegramPatches
-
----
- .../data/components/sponsored_messages.cpp    | 13 +-----------
- Telegram/SourceFiles/data/data_channel.cpp    |  2 +-
- Telegram/SourceFiles/data/data_story.cpp      |  5 ++---
- .../history/history_inner_widget.cpp          | 21 ++-----------------
- Telegram/SourceFiles/main/main_domain.h       |  4 ++--
- 5 files changed, 8 insertions(+), 37 deletions(-)
-
-diff --git a/Telegram/SourceFiles/data/components/sponsored_messages.cpp b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-index b907f1df65..92919d4d83 100644
---- a/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-+++ b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-@@ -231,25 +231,14 @@ void SponsoredMessages::inject(
+diff -Naur a/Telegram/SourceFiles/data/components/sponsored_messages.cpp b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
+--- a/Telegram/SourceFiles/data/components/sponsored_messages.cpp	2026-07-19 10:07:41
++++ b/Telegram/SourceFiles/data/components/sponsored_messages.cpp	2026-07-19 10:07:41
+@@ -239,25 +239,14 @@
  }
  
  bool SponsoredMessages::canHaveFor(not_null<History*> history) const {
@@ -42,11 +28,10 @@ index b907f1df65..92919d4d83 100644
  	return false;
  }
  
-diff --git a/Telegram/SourceFiles/data/data_channel.cpp b/Telegram/SourceFiles/data/data_channel.cpp
-index 08321386f9..38b165d2f5 100644
---- a/Telegram/SourceFiles/data/data_channel.cpp
-+++ b/Telegram/SourceFiles/data/data_channel.cpp
-@@ -1045,7 +1045,7 @@ void ChannelData::clearInvitePeek() {
+diff -Naur a/Telegram/SourceFiles/data/data_channel.cpp b/Telegram/SourceFiles/data/data_channel.cpp
+--- a/Telegram/SourceFiles/data/data_channel.cpp	2026-07-19 10:07:41
++++ b/Telegram/SourceFiles/data/data_channel.cpp	2026-07-19 10:07:41
+@@ -1109,7 +1109,7 @@
  }
  
  TimeId ChannelData::invitePeekExpires() const {
@@ -55,11 +40,10 @@ index 08321386f9..38b165d2f5 100644
  }
  
  QString ChannelData::invitePeekHash() const {
-diff --git a/Telegram/SourceFiles/data/data_story.cpp b/Telegram/SourceFiles/data/data_story.cpp
-index 1c92ecaf0d..a8f1466da3 100644
---- a/Telegram/SourceFiles/data/data_story.cpp
-+++ b/Telegram/SourceFiles/data/data_story.cpp
-@@ -404,12 +404,11 @@ bool Story::out() const {
+diff -Naur a/Telegram/SourceFiles/data/data_story.cpp b/Telegram/SourceFiles/data/data_story.cpp
+--- a/Telegram/SourceFiles/data/data_story.cpp	2026-07-19 10:07:41
++++ b/Telegram/SourceFiles/data/data_story.cpp	2026-07-19 10:07:41
+@@ -420,12 +420,11 @@
  }
  
  bool Story::canDownloadIfPremium() const {
@@ -74,15 +58,16 @@ index 1c92ecaf0d..a8f1466da3 100644
  }
  
  bool Story::canShare() const {
-diff --git a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
-index 2a938e5bff..e7059fbb2d 100644
---- a/Telegram/SourceFiles/history/history_inner_widget.cpp
-+++ b/Telegram/SourceFiles/history/history_inner_widget.cpp
-@@ -648,16 +648,7 @@ void HistoryInner::setupSwipeReplyAndBack() {
+diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
+--- a/Telegram/SourceFiles/history/history_inner_widget.cpp	2026-07-19 10:07:41
++++ b/Telegram/SourceFiles/history/history_inner_widget.cpp	2026-07-19 10:07:41
+@@ -817,18 +817,7 @@
  }
  
  bool HistoryInner::hasSelectRestriction() const {
--	if (session().frozen()) {
+-	if (_chooseForReportReason.has_value()) {
+-		return false;
+-	} else if (session().frozen()) {
 -		return true;
 -	} else if (!_sharingDisallowed.current()) {
 -		return false;
@@ -96,7 +81,7 @@ index 2a938e5bff..e7059fbb2d 100644
  }
  
  void HistoryInner::messagesReceived(
-@@ -3190,7 +3181,7 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+@@ -3831,7 +3820,7 @@
  }
  
  bool HistoryInner::hasCopyRestriction(HistoryItem *item) const {
@@ -105,7 +90,7 @@ index 2a938e5bff..e7059fbb2d 100644
  }
  
  bool HistoryInner::hasCopyMediaRestriction(
-@@ -3745,15 +3736,5 @@ bool HistoryInner::showCopyMediaRestriction(not_null<HistoryItem*> item) {
+@@ -3864,17 +3853,7 @@
  }
  
  bool HistoryInner::hasCopyRestrictionForSelected() const {
@@ -123,11 +108,11 @@ index 2a938e5bff..e7059fbb2d 100644
 +	return false;
  }
  
-diff --git a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
-index 2e69222b9a..b3e08fd66e 100644
---- a/Telegram/SourceFiles/main/main_domain.h
-+++ b/Telegram/SourceFiles/main/main_domain.h
-@@ -31,8 +31,8 @@ public:
+ bool HistoryInner::showCopyRestrictionForSelected() {
+diff -Naur a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
+--- a/Telegram/SourceFiles/main/main_domain.h	2026-07-19 10:07:41
++++ b/Telegram/SourceFiles/main/main_domain.h	2026-07-19 10:07:41
+@@ -31,8 +31,8 @@
  		std::unique_ptr<Account> account;
  	};
  
@@ -138,5 +123,3 @@ index 2e69222b9a..b3e08fd66e 100644
  
  	explicit Domain(const QString &dataName);
  	~Domain();
--- 
-2.51.0
