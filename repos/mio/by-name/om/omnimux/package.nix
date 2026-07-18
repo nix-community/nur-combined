@@ -6,6 +6,9 @@
   stdenv,
   libxcb,
   libxkbcommon,
+  wayland,
+  vulkan-loader,
+  libGL,
 }:
 
 rustPlatform.buildRustPackage {
@@ -30,11 +33,25 @@ rustPlatform.buildRustPackage {
     ++ lib.optionals stdenv.isLinux [
       libxcb
       libxkbcommon
+      wayland
+      vulkan-loader
+      libGL
     ];
 
   postInstall = lib.optionalString stdenv.isLinux ''
     install -Dm444 ${./omnimux.desktop} $out/share/applications/omnimux.desktop
     install -Dm444 ${./omnimux.svg} $out/share/icons/hicolor/scalable/apps/omnimux.svg
+  '';
+
+  postFixup = lib.optionalString stdenv.isLinux ''
+    patchelf $out/bin/omnimux --add-rpath ${
+      lib.makeLibraryPath [
+        wayland
+        vulkan-loader
+        libGL
+        libxkbcommon
+      ]
+    }
   '';
 
   meta = with lib; {
