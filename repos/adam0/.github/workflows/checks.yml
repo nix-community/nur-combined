@@ -1,6 +1,6 @@
 # yamllint disable rule:document-start
 name: CI
-'on':
+"on":
   push:
     branches:
       - main
@@ -33,4 +33,6 @@ jobs:
             nix-${{ runner.os }}-
           gc-max-store-size-linux: 2G
       - name: Run checks
-        run: nix flake check
+        env:
+          NIXPKGS_ALLOW_UNFREE: "1"
+        run: nix flake check --impure
