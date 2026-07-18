@@ -215,8 +215,9 @@ impl Render for TerminalTabs {
 
         let mut tab_bar = div().flex().flex_row().bg(bg_color_bar).h(px(32.0)).items_center();
         
-        for (i, _session) in self.tabs.iter().enumerate() {
+        for (i, session) in self.tabs.iter().enumerate() {
             let bg_color = if i == self.active_tab { bg_color_active } else { bg_color_bar };
+            let tab_label = session.read(cx).host.clone().unwrap_or_else(|| "localhost".to_string());
             
             let tab = div()
                 .id(("tab", i))
@@ -234,7 +235,7 @@ impl Render for TerminalTabs {
                         this.active_tab = i;
                     }
                 }))
-                .child(div().child(format!("Tab {}", i + 1)).text_color(text_color).text_sm())
+                .child(div().child(tab_label).text_color(text_color).text_sm())
                 .child(
                     div()
                         .id(("close_tab", i))
@@ -389,14 +390,40 @@ impl Render for TerminalTabs {
             
             for (idx, host) in visible_hosts.iter().enumerate() {
                 let is_selected = idx == self.selected_host_index.min(visible_hosts.len().saturating_sub(1));
+                let host_clone = host.clone();
+                let host_for_click = host.clone();
+                let prefix = {
+                    let input = self.prompt.as_deref().unwrap_or("");
+                    if input.contains('@') {
+                        format!("{}@", input.split('@').next().unwrap())
+                    } else {
+                        "".to_string()
+                    }
+                };
                 list_div = list_div.child(
                     div()
+                        .id(("host_item", idx))
                         .p_2()
                         .rounded_sm()
+                        .cursor_pointer()
                         .bg(if is_selected { if is_dark { rgb(0x444444) } else { rgb(0xcccccc) } } else { rgba(0x00000000) })
-                        .child(div().child(host.clone()).text_color(text_color))
+                        .hover(|style| style.bg(if is_dark { rgb(0x3a3a3a) } else { rgb(0xdddddd) }))
+                        .on_click(cx.listener(move |this, _, _, cx| {
+                            let final_host = if host_for_click == "localhost" {
+                                "localhost".to_string()
+                            } else {
+                                format!("{}{}", prefix, host_for_click)
+                            };
+                            this.prompt = None;
+                            let host_opt = if final_host == "localhost" { None } else { Some(final_host) };
+                            let new_tab = cx.new(|cx| TerminalSession::new(host_opt, cx));
+                            this.tabs.push(new_tab);
+                            this.active_tab = this.tabs.len() - 1;
+                        }))
+                        .child(div().child(host_clone).text_color(text_color))
                 );
             }
+
 
             let overlay = div()
                 .absolute()
