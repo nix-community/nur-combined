@@ -122,27 +122,6 @@
         },
         "version": "3.7.0"
     },
-    "sbarlua": {
-        "cargoLock": null,
-        "date": "2026-03-06",
-        "extract": null,
-        "name": "sbarlua",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "FelixKratz",
-            "repo": "SbarLua",
-            "rev": "dba9cc421b868c918d5c23c408544a28aadf2f2f",
-            "sha256": "sha256-lhLTrdufA3ALJ2S5HLdgNOr5seWIWEHkVhZNPObzbvI=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "dba9cc421b868c918d5c23c408544a28aadf2f2f"
-    },
     "skills-ref": {
         "cargoLock": null,
         "date": "2026-07-09",

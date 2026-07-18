@@ -29,7 +29,6 @@ rec {
   qmk-toolbox = pkgs.callPackage ./pkgs/qmk-toolbox { source = sources.qmk-toolbox; };
   qutebrowser = pkgs.qutebrowser;
   skills-ref = pkgs.callPackage ./pkgs/skills-ref { source = sources.skills-ref; };
-  sbarlua = pkgs.callPackage ./pkgs/sbarlua { source = sources.sbarlua; };
   vivaldi = pkgs.vivaldi;
   zen-browser = pkgs.callPackage ./pkgs/zen-browser { source = sources.zen-browser; };
   liga-hackgen-font = pkgs.callPackage ./pkgs/data/fonts/liga-hackgen { inherit ligaturizer; };

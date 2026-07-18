@@ -19,9 +19,9 @@ jobs:
         token: ${{ steps.app-token.outputs.token }}
         persist-credentials: false
     - name: Install nix
-      uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31.10.6
+      uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
       with:
-        extra_nix_config: |
+        nix_conf: |
           experimental-features = nix-command flakes
     - name: Update flake inputs
       run: nix flake update

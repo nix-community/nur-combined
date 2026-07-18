@@ -74,18 +74,6 @@
       sha256 = "sha256-mBcCQb8Sov4d6r/8gSC3DcjgDlVbtxLDh1HESPBJVKM=";
     };
   };
-  sbarlua = {
-    pname = "sbarlua";
-    version = "dba9cc421b868c918d5c23c408544a28aadf2f2f";
-    src = fetchFromGitHub {
-      owner = "FelixKratz";
-      repo = "SbarLua";
-      rev = "dba9cc421b868c918d5c23c408544a28aadf2f2f";
-      fetchSubmodules = false;
-      sha256 = "sha256-lhLTrdufA3ALJ2S5HLdgNOr5seWIWEHkVhZNPObzbvI=";
-    };
-    date = "2026-03-06";
-  };
   skills-ref = {
     pname = "skills-ref";
     version = "38a2ff82958afee88dadf4831509e6f7e9d8ef4e";
