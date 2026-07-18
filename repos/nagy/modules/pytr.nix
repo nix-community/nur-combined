@@ -19,9 +19,4 @@
     ))
   ];
 
-  # https://github.com/pytr-org/pytr/issues/249
-  nixpkgs.config.permittedInsecurePackages = [
-    "python3.13-ecdsa-0.19.1"
-  ];
-
 }

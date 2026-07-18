@@ -99,6 +99,25 @@ let
           preferLocalBuild = true;
           allowSubstitutes = false;
         };
+
+        crate =
+          pkgs.callPackage (builtins.fetchTarball "https://github.com/nagy/crate.el/archive/master.tar.gz")
+            {
+              emacsPackages = super;
+            };
+
+        nixos =
+          pkgs.callPackage (builtins.fetchTarball "https://github.com/nagy/nixos.el/archive/master.tar.gz")
+            {
+              emacsPackages = super;
+            };
+
+        org-jxl-images =
+          pkgs.callPackage
+            (builtins.fetchTarball "https://github.com/nagy/org-jxl-images/archive/master.tar.gz")
+            {
+              emacsPackages = super;
+            };
       }
       // (builtins.mapAttrs (_name: f: f self super) cfg.extraOverrides)
     )

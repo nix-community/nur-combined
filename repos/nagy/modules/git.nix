@@ -50,6 +50,7 @@ in
         # spend more time to produce a smaller diff
         # https://git-scm.com/docs/diff-config#Documentation/diff-config.txt-diffalgorithm
         diff.algorithm = "minimal";
+        diff.external = "${pkgs.difftastic}/bin/difft";
         commit = {
           # Show my changes when writing the message
           verbose = true;
