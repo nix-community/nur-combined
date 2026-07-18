@@ -39,7 +39,7 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-sRwWcdQ4EULc908wlrW681pPdiCCsmRqFwzUVRUXUBI=",
+            "sha256": "sha256-MmopgIizxp8Q1qRYQqJbFY+kj3YfNNlh3q5l5r/9lVM=",
             "type": "url",
             "url": "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip"
         },
@@ -59,12 +59,12 @@
             "name": null,
             "owner": "imputnet",
             "repo": "helium-linux",
-            "rev": "0.14.6.1",
-            "sha256": "sha256-TGm4iIlQuuBbJXCpo82mKJnQfRyHJMBpAPQGNdRHHEI=",
+            "rev": "0.14.7.1",
+            "sha256": "sha256-HnSKfokhZPbbmBvXZtL2zdB5EElthxINcCAuJ/536DY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0.14.6.1"
+        "version": "0.14.7.1"
     },
     "helium-macos": {
         "cargoLock": null,
@@ -75,11 +75,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-bxCLDg8iOct/PR8Reaa0FQ8Pe/r9cp6i5dZZHfWXeUY=",
+            "sha256": "sha256-ZwIhBInDTRRDkp1xuZtoBIZMJ1ir0CKX1O2H1E15TxY=",
             "type": "url",
-            "url": "https://github.com/imputnet/helium-macos/releases/download/0.14.6.1/helium_0.14.6.1_arm64-macos.dmg"
+            "url": "https://github.com/imputnet/helium-macos/releases/download/0.14.7.1/helium_0.14.7.1_arm64-macos.dmg"
         },
-        "version": "0.14.6.1"
+        "version": "0.14.7.1"
     },
     "kanata": {
         "cargoLock": {
