@@ -47,13 +47,20 @@
 //! terminal.read(cx).focus_handle().focus(window);
 //! ```
 
+use crate::clipboard::Clipboard;
 use crate::colors::ColorPalette;
 use crate::event::{GpuiEventProxy, TerminalEvent};
 use crate::input::keystroke_to_bytes;
-use crate::mouse::{encode_modifiers, pixel_to_cell, pixels_to_scroll_lines, scroll_report};
+use crate::mouse::{
+    encode_modifiers, mouse_button_report, mouse_drag_report, pixel_to_cell, pixels_to_scroll_lines,
+    scroll_report,
+};
 use crate::render::TerminalRenderer;
 use crate::terminal::TerminalState;
+use alacritty_terminal::event::WindowSize;
 use alacritty_terminal::grid::Scroll;
+use alacritty_terminal::index::Point as AlacPoint;
+use alacritty_terminal::vte::ansi::Rgb;
 use gpui::{Edges, *};
 use std::io::{Read, Write};
 use std::sync::Arc;
@@ -424,6 +431,12 @@ pub struct TerminalView {
 
     /// Inclusive start/end of the active search match (grid coordinates), if any
     search_highlight: Option<(alacritty_terminal::index::Point, alacritty_terminal::index::Point)>,
+
+    /// Button currently held for mouse reporting / drag (viewport cell coords).
+    mouse_pressed: Option<(MouseButton, AlacPoint)>,
+
+    /// Last cell reported during drag (avoid flooding the PTY).
+    last_mouse_cell: Option<AlacPoint>,
 }
 
 impl TerminalView {
@@ -471,8 +484,13 @@ impl TerminalView {
         // Create event proxy for alacritty
         let event_proxy = GpuiEventProxy::new(event_tx);
 
-        // Create terminal state
-        let state = TerminalState::new(config.cols, config.rows, event_proxy);
+        // Create terminal state with configured scrollback
+        let state = TerminalState::new_with_scrollback(
+            config.cols,
+            config.rows,
+            config.scrollback,
+            event_proxy,
+        );
 
         // Create renderer with font settings and color palette
         let mut renderer = TerminalRenderer::new(
@@ -547,6 +565,8 @@ impl TerminalView {
             clipboard_store_callback: None,
             exit_callback: None,
             search_highlight: None,
+            mouse_pressed: None,
+            last_mouse_cell: None,
         }
     }
 
@@ -745,51 +765,180 @@ impl TerminalView {
         }
     }
 
-    /// Handle mouse down events.
-    ///
-    /// Currently a placeholder for future mouse selection and interaction support.
+    /// Handle mouse down events — focus + SGR mouse reports when enabled.
     fn on_mouse_down(
         &mut self,
-        _event: &MouseDownEvent,
+        event: &MouseDownEvent,
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
-        // Request focus when clicking the terminal
         window.focus(&self.focus_handle);
-        cx.notify();
 
-        // TODO: Implement mouse selection
-        // - Convert pixel coordinates to cell coordinates
-        // - Start selection at clicked cell
-        // - Send mouse reports if mouse tracking is enabled
+        let origin = Point::new(self.config.padding.left, self.config.padding.top);
+        let point = pixel_to_cell(
+            event.position,
+            origin,
+            self.renderer.cell_width,
+            self.renderer.cell_height,
+        );
+        let mode = self.state.mode();
+        let modifiers = encode_modifiers(
+            event.modifiers.shift,
+            event.modifiers.alt,
+            event.modifiers.control,
+        );
+
+        if let Some(bytes) = mouse_button_report(event.button, true, point, modifiers, mode) {
+            let mut writer = self.stdin_writer.lock();
+            let _ = writer.write_all(&bytes);
+            let _ = writer.flush();
+            self.mouse_pressed = Some((event.button, point));
+            self.last_mouse_cell = Some(point);
+        }
+
+        cx.notify();
     }
 
-    /// Handle mouse up events.
-    ///
-    /// Currently a placeholder for future mouse selection support.
+    /// Handle mouse up events — SGR release reports when mouse mode is on.
     fn on_mouse_up(
         &mut self,
-        _event: &MouseUpEvent,
+        event: &MouseUpEvent,
         _window: &mut Window,
         _cx: &mut Context<Self>,
     ) {
-        // TODO: Implement mouse selection
-        // - End selection at released cell
-        // - Copy selection to clipboard if configured
+        let origin = Point::new(self.config.padding.left, self.config.padding.top);
+        let point = pixel_to_cell(
+            event.position,
+            origin,
+            self.renderer.cell_width,
+            self.renderer.cell_height,
+        );
+        let mode = self.state.mode();
+        let modifiers = encode_modifiers(
+            event.modifiers.shift,
+            event.modifiers.alt,
+            event.modifiers.control,
+        );
+
+        if let Some(bytes) = mouse_button_report(event.button, false, point, modifiers, mode) {
+            let mut writer = self.stdin_writer.lock();
+            let _ = writer.write_all(&bytes);
+            let _ = writer.flush();
+        }
+        self.mouse_pressed = None;
+        self.last_mouse_cell = None;
     }
 
-    /// Handle mouse move events.
-    ///
-    /// Currently a placeholder for future mouse selection support.
+    /// Handle mouse move — SGR drag reports while a button is held in mouse mode.
     fn on_mouse_move(
         &mut self,
-        _event: &MouseMoveEvent,
+        event: &MouseMoveEvent,
         _window: &mut Window,
         _cx: &mut Context<Self>,
     ) {
-        // TODO: Implement mouse selection
-        // - Update selection range while dragging
-        // - Send mouse motion reports if mouse tracking is enabled
+        let Some((button, _)) = self.mouse_pressed else {
+            return;
+        };
+        let origin = Point::new(self.config.padding.left, self.config.padding.top);
+        let point = pixel_to_cell(
+            event.position,
+            origin,
+            self.renderer.cell_width,
+            self.renderer.cell_height,
+        );
+        if self.last_mouse_cell == Some(point) {
+            return;
+        }
+        let mode = self.state.mode();
+        let modifiers = encode_modifiers(
+            event.modifiers.shift,
+            event.modifiers.alt,
+            event.modifiers.control,
+        );
+        if let Some(bytes) = mouse_drag_report(button, point, modifiers, mode) {
+            let mut writer = self.stdin_writer.lock();
+            let _ = writer.write_all(&bytes);
+            let _ = writer.flush();
+            self.last_mouse_cell = Some(point);
+        }
+    }
+
+    fn write_pty_str(&self, data: &str) {
+        let mut writer = self.stdin_writer.lock();
+        let _ = writer.write_all(data.as_bytes());
+        let _ = writer.flush();
+    }
+
+    /// Write raw text to the PTY (e.g. clipboard paste).
+    pub fn write_input(&self, data: &str) {
+        self.write_pty_str(data);
+    }
+
+    /// Process pending terminal events.
+    ///
+    /// This method drains all available events from the event receiver
+    /// and handles them appropriately. Note: bytes are processed in the
+    /// async reader task, not here.
+    fn process_events(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        // Process terminal events (from alacritty event proxy)
+        while let Ok(event) = self.event_rx.try_recv() {
+            match event {
+                TerminalEvent::Wakeup => {}
+                TerminalEvent::Bell => {
+                    if let Some(ref callback) = self.bell_callback {
+                        callback(window, cx);
+                    }
+                }
+                TerminalEvent::Title(title) => {
+                    if let Some(ref callback) = self.title_callback {
+                        callback(window, cx, &title);
+                    }
+                }
+                TerminalEvent::ClipboardStore(text) => {
+                    if let Some(ref callback) = self.clipboard_store_callback {
+                        callback(window, cx, &text);
+                    } else if let Ok(mut clipboard) = Clipboard::new() {
+                        let _ = clipboard.copy(&text);
+                    }
+                }
+                TerminalEvent::ClipboardLoad(format) => {
+                    if let Ok(mut clipboard) = Clipboard::new() {
+                        if let Ok(text) = clipboard.paste() {
+                            self.write_pty_str(&format(&text));
+                        }
+                    }
+                }
+                TerminalEvent::PtyWrite(data) => {
+                    self.write_pty_str(&data);
+                }
+                TerminalEvent::ColorRequest(index, format) => {
+                    let rgb = self.state.with_term(|term| {
+                        term.colors()[index].unwrap_or(Rgb {
+                            r: 0,
+                            g: 0,
+                            b: 0,
+                        })
+                    });
+                    self.write_pty_str(&format(rgb));
+                }
+                TerminalEvent::TextAreaSizeRequest(format) => {
+                    let cell_w: f32 = self.renderer.cell_width.into();
+                    let cell_h: f32 = self.renderer.cell_height.into();
+                    let size = WindowSize {
+                        num_lines: self.state.rows() as u16,
+                        num_cols: self.state.cols() as u16,
+                        cell_width: cell_w.round().max(1.0) as u16,
+                        cell_height: cell_h.round().max(1.0) as u16,
+                    };
+                    self.write_pty_str(&format(size));
+                }
+                TerminalEvent::Exit => {
+                    if let Some(ref callback) = self.exit_callback {
+                        callback(window, cx);
+                    }
+                }
+            }
+        }
     }
 
     /// Handle scroll events.
@@ -819,7 +968,7 @@ impl TerminalView {
         let mode = self.state.mode();
         let point = pixel_to_cell(
             event.position,
-            Point::new(px(0.0), px(0.0)),
+            Point::new(self.config.padding.left, self.config.padding.top),
             self.renderer.cell_width,
             cell_height,
         );
@@ -851,46 +1000,6 @@ impl TerminalView {
                 term.scroll_display(Scroll::Delta(lines));
             });
             cx.notify();
-        }
-    }
-
-    /// Process pending terminal events.
-    ///
-    /// This method drains all available events from the event receiver
-    /// and handles them appropriately. Note: bytes are processed in the
-    /// async reader task, not here.
-    fn process_events(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        // Process terminal events (from alacritty event proxy)
-        while let Ok(event) = self.event_rx.try_recv() {
-            match event {
-                TerminalEvent::Wakeup => {
-                    // Terminal has new content - already handled by async task
-                }
-                TerminalEvent::Bell => {
-                    if let Some(ref callback) = self.bell_callback {
-                        callback(window, cx);
-                    }
-                }
-                TerminalEvent::Title(title) => {
-                    if let Some(ref callback) = self.title_callback {
-                        callback(window, cx, &title);
-                    }
-                }
-                TerminalEvent::ClipboardStore(text) => {
-                    if let Some(ref callback) = self.clipboard_store_callback {
-                        callback(window, cx, &text);
-                    }
-                }
-                TerminalEvent::ClipboardLoad => {
-                    // Terminal wants to load data from clipboard
-                    // TODO: Implement clipboard integration
-                }
-                TerminalEvent::Exit => {
-                    if let Some(ref callback) = self.exit_callback {
-                        callback(window, cx);
-                    }
-                }
-            }
         }
     }
 
@@ -1062,14 +1171,19 @@ impl Render for TerminalView {
         let resize_callback = self.resize_callback.clone();
         let padding = self.config.padding;
         let search_highlight = self.search_highlight;
+        let bg = self.config.colors.background();
 
         div()
             .size_full()
-            .bg(rgb(0x1e1e1e))
+            .bg(bg)
             .track_focus(&self.focus_handle)
             .on_key_down(cx.listener(Self::on_key_down))
             .on_mouse_down(MouseButton::Left, cx.listener(Self::on_mouse_down))
+            .on_mouse_down(MouseButton::Middle, cx.listener(Self::on_mouse_down))
+            .on_mouse_down(MouseButton::Right, cx.listener(Self::on_mouse_down))
             .on_mouse_up(MouseButton::Left, cx.listener(Self::on_mouse_up))
+            .on_mouse_up(MouseButton::Middle, cx.listener(Self::on_mouse_up))
+            .on_mouse_up(MouseButton::Right, cx.listener(Self::on_mouse_up))
             .on_mouse_move(cx.listener(Self::on_mouse_move))
             .on_scroll_wheel(cx.listener(Self::on_scroll))
             .child(

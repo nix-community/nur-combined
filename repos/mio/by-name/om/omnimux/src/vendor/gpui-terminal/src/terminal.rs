@@ -159,17 +159,23 @@ impl TerminalState {
     /// let terminal = TerminalState::new(80, 24, event_proxy);
     /// ```
     pub fn new(cols: usize, rows: usize, event_proxy: GpuiEventProxy) -> Self {
-        // Create a default configuration
-        // The Config struct controls various terminal behaviors like scrolling history
-        let config = Config::default();
+        Self::new_with_scrollback(cols, rows, 10_000, event_proxy)
+    }
 
-        // Create dimensions for terminal initialization
+    /// Create a terminal with an explicit scrollback history size.
+    pub fn new_with_scrollback(
+        cols: usize,
+        rows: usize,
+        scrolling_history: usize,
+        event_proxy: GpuiEventProxy,
+    ) -> Self {
+        let config = Config {
+            scrolling_history,
+            ..Config::default()
+        };
+
         let dimensions = TermDimensions::new(cols, rows);
-
-        // Create the terminal with the given configuration and dimensions
         let term = Term::new(config, &dimensions, event_proxy);
-
-        // Create the VTE parser for processing incoming bytes
         let parser = Processor::new();
 
         Self {

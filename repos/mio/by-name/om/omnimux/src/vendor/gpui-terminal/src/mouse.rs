@@ -287,15 +287,40 @@ pub fn mouse_button_report(
     // Bit 2: Shift, Bit 3: Alt, Bit 4: Control
     let button_value = button_code | modifiers;
 
-    // SGR format uses 1-based indexing
+    // SGR format uses 1-based indexing (viewport cell coords from pixel_to_cell)
     let col = point.column.0 + 1;
-    let row = point.line.0 + 1;
+    let row = (point.line.0.max(0) as usize) + 1;
 
     // SGR format: ESC [ < button ; col ; row M/m
     // M for press, m for release
     let action = if pressed { b'M' } else { b'm' };
 
     let sequence = format!("\x1b[<{};{};{}{}", button_value, col, row, action as char);
+    Some(sequence.into_bytes())
+}
+
+/// Generate an SGR mouse *motion* report while a button is held (button code | 32).
+pub fn mouse_drag_report(
+    button: MouseButton,
+    point: AlacPoint,
+    modifiers: u8,
+    mode: TermMode,
+) -> Option<Vec<u8>> {
+    if !mode.intersects(TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG) {
+        return None;
+    }
+
+    let button_code = match button {
+        MouseButton::Left => 0,
+        MouseButton::Middle => 1,
+        MouseButton::Right => 2,
+        _ => return None,
+    };
+
+    let button_value = button_code | modifiers | 32;
+    let col = point.column.0 + 1;
+    let row = (point.line.0.max(0) as usize) + 1;
+    let sequence = format!("\x1b[<{};{};{}M", button_value, col, row);
     Some(sequence.into_bytes())
 }
 
@@ -347,7 +372,7 @@ pub fn scroll_report(
 
         // SGR format uses 1-based indexing
         let col = point.column.0 + 1;
-        let row = point.line.0 + 1;
+        let row = (point.line.0.max(0) as usize) + 1;
 
         // Mouse wheel events are always "pressed" (M), never released
         let sequence = format!("\x1b[<{};{};{}M", button_value, col, row);

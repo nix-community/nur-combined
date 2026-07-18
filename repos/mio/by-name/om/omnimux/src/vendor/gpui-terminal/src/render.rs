@@ -256,33 +256,44 @@ impl TerminalRenderer {
     ///
     /// * `window` - The GPUI window for text system access
     pub fn measure_cell(&mut self, window: &mut Window) {
-        let font = self.gpui_font(FontWeight::NORMAL, FontStyle::Normal);
-
-        let measure_char = "│";
-        let text_run = TextRun {
-            len: measure_char.len(),
-            font,
+        // Measure cell *width* with ASCII 'M' so geometry stays on the primary
+        // monospace font (│ may come from a Nerd fallback with a different advance).
+        let width_run = TextRun {
+            len: 1,
+            font: self.gpui_font(FontWeight::NORMAL, FontStyle::Normal),
             color: gpui::black(),
             background_color: None,
             underline: None,
             strikethrough: None,
         };
-
-        // Measure with box-drawing │ so cell height matches TUI/layout fonts
-        let shaped = window
+        let shaped_width = window
             .text_system()
-            .shape_line(measure_char.into(), self.font_size, &[text_run], None);
-
-        // Get the width from the shaped line (accessed via Deref to LineLayout)
-        if shaped.width > px(0.0) {
-            self.cell_width = shaped.width;
+            .shape_line("M".into(), self.font_size, &[width_run], None);
+        if shaped_width.width > px(0.0) {
+            self.cell_width = shaped_width.width;
         }
 
-        // Ceil ascent+descent so row count matches integer pixel layout (avoids
-        // fractional drift vs apps that assume whole-cell rows).
+        // Line height: prefer box-drawing metrics when available, else 'M'.
+        let measure_char = "│";
+        let height_run = TextRun {
+            len: measure_char.len(),
+            font: self.gpui_font(FontWeight::NORMAL, FontStyle::Normal),
+            color: gpui::black(),
+            background_color: None,
+            underline: None,
+            strikethrough: None,
+        };
+        let shaped = window
+            .text_system()
+            .shape_line(measure_char.into(), self.font_size, &[height_run], None);
         let line_height = (shaped.ascent + shaped.descent).ceil();
         if line_height > px(0.0) {
             self.cell_height = line_height * self.line_height_multiplier;
+        } else {
+            let fallback = (shaped_width.ascent + shaped_width.descent).ceil();
+            if fallback > px(0.0) {
+                self.cell_height = fallback * self.line_height_multiplier;
+            }
         }
     }
 

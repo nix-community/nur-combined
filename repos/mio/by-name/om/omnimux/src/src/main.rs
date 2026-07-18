@@ -1,8 +1,11 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::switch::Switch;
-use gpui_terminal::{ColorPalette, TerminalConfig, TerminalView};
+use gpui_terminal::{Clipboard, ColorPalette, TerminalConfig, TerminalView};
 use portable_pty::{CommandBuilder, NativePtySystem, PtySize, PtySystem};
+use std::collections::HashSet;
+use std::path::{Path, PathBuf};
+use std::time::{Duration, Instant};
 
 struct TerminalSession {
     terminal_view: Entity<TerminalView>,
@@ -11,6 +14,10 @@ struct TerminalSession {
     exit_status: Option<u32>,
     host: Option<String>,
     wants_search: bool,
+    /// Consecutive failed reconnects (for backoff).
+    reconnect_streak: u32,
+    /// When set, auto-reconnect waits until this instant.
+    pending_reconnect_at: Option<Instant>,
 }
 
 fn is_dark_appearance(appearance: WindowAppearance) -> bool {
@@ -71,7 +78,30 @@ impl TerminalSession {
         };
         cmd.env("TERM", "xterm-256color");
         cmd.env("COLORTERM", "truecolor");
-        let child_proc = pair.slave.spawn_command(cmd).unwrap();
+        let child_proc = match pair.slave.spawn_command(cmd) {
+            Ok(child) => child,
+            Err(err) => {
+                eprintln!("omnimux: failed to spawn session: {err}");
+                let mut fallback = CommandBuilder::new("sh");
+                let msg = err.to_string().replace('\'', "");
+                fallback.args([
+                    "-c",
+                    &format!("printf '%s\\n' 'omnimux: failed to start session: {msg}' >&2; exit 1"),
+                ]);
+                match pair.slave.spawn_command(fallback) {
+                    Ok(child) => child,
+                    Err(err2) => {
+                        // Last resort: keep a short-lived shell so the UI can show exit.
+                        eprintln!("omnimux: fallback spawn also failed: {err2}");
+                        let mut last = CommandBuilder::new("false");
+                        last.env("TERM", "xterm-256color");
+                        pair.slave
+                            .spawn_command(last)
+                            .expect("omnimux: unable to spawn any PTY child")
+                    }
+                }
+            }
+        };
         drop(pair.slave);
 
         let child = std::sync::Arc::new(std::sync::Mutex::new(child_proc));
@@ -114,19 +144,20 @@ impl TerminalSession {
                     }
                 })
                 .with_key_handler(|ev| {
-                    // Let omnimux handle zoom / copy shortcuts (Ctrl or Super/Cmd)
+                    // App shortcuts only. Never swallow Ctrl+C (SIGINT) or plain Ctrl+V.
                     let mods = &ev.keystroke.modifiers;
-                    if mods.platform || mods.control {
-                        let key = ev.keystroke.key.as_str();
-                        if key == "="
-                            || key == "+"
-                            || key == "-"
-                            || key == "0"
-                            || key == "c"
-                            || key == "v"
-                            || key == "f"
-                        {
-                            return true; // consume — parent handles zoom / search
+                    let key = ev.keystroke.key.as_str();
+                    if mods.platform {
+                        // Cmd/Super: zoom, search, paste
+                        return matches!(key, "=" | "+" | "-" | "0" | "c" | "v" | "f");
+                    }
+                    if mods.control {
+                        if matches!(key, "=" | "+" | "-" | "0" | "f") {
+                            return true;
+                        }
+                        // Ctrl+Shift+V paste on Linux/Windows
+                        if key == "v" && mods.shift && !cfg!(target_os = "macos") {
+                            return true;
                         }
                     }
                     false
@@ -140,6 +171,8 @@ impl TerminalSession {
             exit_status: None,
             host,
             wants_search: false,
+            reconnect_streak: 0,
+            pending_reconnect_at: None,
         }
     }
 
@@ -170,6 +203,25 @@ impl Render for TerminalSession {
                     cx.stop_propagation();
                     this.wants_search = true;
                     cx.notify();
+                    return;
+                }
+                // Paste: Cmd/Super+V (and Ctrl+Shift+V on non-macOS)
+                let paste = key == "v"
+                    && (mods.platform || (mods.control && mods.shift && !cfg!(target_os = "macos")));
+                if paste {
+                    cx.stop_propagation();
+                    if let Ok(mut clipboard) = Clipboard::new() {
+                        if let Ok(text) = clipboard.paste() {
+                            terminal_view.update(cx, |tv, _| {
+                                tv.write_input(&text);
+                            });
+                        }
+                    }
+                    return;
+                }
+                // Cmd+C reserved for copy once selection exists; do not treat as interrupt.
+                if key == "c" && mods.platform {
+                    cx.stop_propagation();
                     return;
                 }
                 if key == "=" || key == "+" || key == "-" || key == "0" {
@@ -239,19 +291,83 @@ impl Render for TabDrag {
     }
 }
 
-fn get_ssh_hosts() -> Vec<String> {
-    let mut hosts = vec!["localhost".to_string()];
-    let home = std::env::var("HOME").unwrap_or_default();
-    if let Ok(contents) = std::fs::read_to_string(format!("{}/.ssh/config", home)) {
-        for line in contents.lines() {
-            let line = line.trim();
-            if line.to_lowercase().starts_with("host ") {
-                let parts: Vec<&str> = line.split_whitespace().collect();
-                if parts.len() > 1 && !parts[1].contains('*') {
-                    hosts.push(parts[1].to_string());
+fn strip_ssh_comment(line: &str) -> &str {
+    let mut in_token_start = true;
+    for (i, ch) in line.char_indices() {
+        if ch == '#' && in_token_start {
+            return line[..i].trim_end();
+        }
+        in_token_start = ch.is_whitespace();
+    }
+    line
+}
+
+fn is_usable_host_token(host: &str) -> bool {
+    !host.is_empty()
+        && !host.contains('*')
+        && !host.contains('?')
+        && !host.starts_with('!')
+        && !host.starts_with('-')
+}
+
+fn parse_ssh_config(config_path: &Path, hosts: &mut Vec<String>, visited: &mut HashSet<PathBuf>) {
+    if !visited.insert(config_path.to_path_buf()) {
+        return;
+    }
+
+    let Ok(content) = std::fs::read_to_string(config_path) else {
+        return;
+    };
+
+    for raw_line in content.lines() {
+        let line = strip_ssh_comment(raw_line.trim());
+        if line.is_empty() {
+            continue;
+        }
+
+        let lower = line.to_ascii_lowercase();
+        if lower.starts_with("host ") || lower.starts_with("host\t") {
+            let rest = line[4..].trim_start();
+            for host in rest.split_whitespace() {
+                if is_usable_host_token(host) && !hosts.iter().any(|h| h == host) {
+                    hosts.push(host.to_string());
+                }
+            }
+        } else if lower.starts_with("include ") || lower.starts_with("include\t") {
+            let rest = line[7..].trim_start();
+            for include_path in rest.split_whitespace() {
+                let expanded_path = if include_path.starts_with("~/") {
+                    if let Ok(home) = std::env::var("HOME") {
+                        PathBuf::from(home).join(&include_path[2..])
+                    } else {
+                        PathBuf::from(include_path)
+                    }
+                } else if include_path.starts_with('/') {
+                    PathBuf::from(include_path)
+                } else if let Ok(home) = std::env::var("HOME") {
+                    PathBuf::from(home).join(".ssh").join(include_path)
+                } else {
+                    PathBuf::from(include_path)
+                };
+
+                if let Some(expanded_str) = expanded_path.to_str() {
+                    if let Ok(paths) = glob::glob(expanded_str) {
+                        for entry in paths.flatten() {
+                            parse_ssh_config(&entry, hosts, visited);
+                        }
+                    }
                 }
             }
         }
+    }
+}
+
+fn get_ssh_hosts() -> Vec<String> {
+    let mut hosts = vec!["localhost".to_string()];
+    let mut visited = HashSet::new();
+    if let Ok(home) = std::env::var("HOME") {
+        let config_path = PathBuf::from(home).join(".ssh").join("config");
+        parse_ssh_config(&config_path, &mut hosts, &mut visited);
     }
     hosts
 }
@@ -346,30 +462,66 @@ impl TerminalTabs {
                     gpui::WeakEntity::<TerminalTabs>::update(&this, cx, |this, cx| {
                         let mut needs_notify = false;
                         for i in (0..this.tabs.len()).rev() {
-                            let mut has_exited = false;
+                            let auto_reconnect = this.auto_reconnect;
+                            let keep_tab = this.keep_tab_after_exit;
+
+                            let mut just_exited = false;
                             let mut success = false;
+                            let mut reconnect_ready = false;
+                            let mut host = None;
+                            let mut streak = 0u32;
+
                             this.tabs[i].update(cx, |session, _| {
                                 if !session.has_exited {
                                     session.check_exit();
                                     if session.has_exited {
-                                        has_exited = true;
-                                        success = session.exit_status == Some(0);
+                                        just_exited = true;
+                                        if session.exit_status == Some(0) {
+                                            session.reconnect_streak = 0;
+                                            session.pending_reconnect_at = None;
+                                        }
+                                    }
+                                }
+
+                                success = session.has_exited && session.exit_status == Some(0);
+
+                                if session.has_exited && !success && auto_reconnect {
+                                    if session.pending_reconnect_at.is_none() {
+                                        let shift = session.reconnect_streak.min(6);
+                                        let delay_ms = 250u64.saturating_mul(1u64 << shift);
+                                        session.pending_reconnect_at =
+                                            Some(Instant::now() + Duration::from_millis(delay_ms));
+                                        session.reconnect_streak =
+                                            session.reconnect_streak.saturating_add(1);
+                                    }
+                                    if session
+                                        .pending_reconnect_at
+                                        .is_some_and(|t| Instant::now() >= t)
+                                    {
+                                        reconnect_ready = true;
+                                        host = session.host.clone();
+                                        streak = session.reconnect_streak;
                                     }
                                 }
                             });
 
-                            if has_exited {
-                                if !success && this.auto_reconnect {
-                                    let host = this.tabs[i].read(cx).host.clone();
-                                    let colors = this.terminal_palette.clone();
-                                    this.tabs[i] =
-                                        cx.new(|cx| TerminalSession::new(host, colors, cx));
-                                    needs_notify = true;
-                                } else if !this.keep_tab_after_exit {
-                                    this.tabs.remove(i);
-                                    this.active_tab = this.active_tab.min(this.tabs.len().saturating_sub(1));
-                                    needs_notify = true;
+                            if reconnect_ready {
+                                let colors = this.terminal_palette.clone();
+                                this.tabs[i] = cx.new(|cx| {
+                                    let mut session = TerminalSession::new(host, colors, cx);
+                                    session.reconnect_streak = streak;
+                                    session
+                                });
+                                needs_notify = true;
+                            } else if just_exited && !keep_tab && !(auto_reconnect && !success) {
+                                this.tabs.remove(i);
+                                this.active_tab =
+                                    this.active_tab.min(this.tabs.len().saturating_sub(1));
+                                if this.tabs.is_empty() {
+                                    this.prompt = Some(String::new());
+                                    this.focus_ui = true;
                                 }
+                                needs_notify = true;
                             }
                         }
                         // Save session whenever tabs change
@@ -489,12 +641,25 @@ impl Render for TerminalTabs {
                         .p_1()
                         .hover(|style| style.bg(if is_dark { rgb(0x555555) } else { rgb(0xcccccc) }).rounded_sm())
                         .child(div().child("✕").text_color(if is_dark { rgb(0xcccccc) } else { rgb(0x555555) }).text_xs())
-                        .on_click(cx.listener(move |this, _, _, _| {
-                            if this.tabs.len() > 1 {
-                                this.tabs.remove(i);
-                                this.active_tab = this.active_tab.min(this.tabs.len().saturating_sub(1));
+                        .on_click(cx.listener(move |this, _, _, cx| {
+                            this.tabs.remove(i);
+                            if this.tabs.is_empty() {
+                                this.active_tab = 0;
+                                this.prompt = Some(String::new());
+                                this.selected_host_index = 0;
+                                this.ssh_hosts = get_ssh_hosts();
+                                this.focus_ui = true;
+                            } else {
+                                this.active_tab =
+                                    this.active_tab.min(this.tabs.len().saturating_sub(1));
                                 this.focus_active_terminal = true;
                             }
+                            if this.remember_session {
+                                let hosts: Vec<Option<String>> =
+                                    this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                                save_session(&hosts);
+                            }
+                            cx.notify();
                         }))
                 );
                 
@@ -516,8 +681,8 @@ impl Render for TerminalTabs {
                 .child(div().child(label).text_color(text_color))
         };
 
-        let show_client_controls =
-            matches!(window.window_decorations(), Decorations::Client { .. });
+        let show_client_controls = matches!(window.window_decorations(), Decorations::Client { .. })
+            && !cfg!(target_os = "macos");
 
         // Custom title bar: app chrome + add / search / settings (not on the tab strip)
         let mut title_bar = div()
@@ -583,6 +748,7 @@ impl Render for TerminalTabs {
                 title_btn("settings_btn", "⚙", is_dark, text_color).on_click(cx.listener(
                     |this, _, _, _| {
                         this.show_settings = true;
+                        this.focus_ui = true;
                     },
                 )),
             );
@@ -649,9 +815,9 @@ impl Render for TerminalTabs {
             }
         }
 
-        // Host prompt / search must own keyboard focus; otherwise keys go to a
+        // Host prompt / search / settings must own keyboard focus; otherwise keys go to a
         // focused terminal (or nowhere) and the overlay only works with the mouse.
-        if self.focus_ui && (self.prompt.is_some() || self.show_search) {
+        if self.focus_ui && (self.prompt.is_some() || self.show_search || self.show_settings) {
             self.focus_handle.focus(window);
             self.focus_ui = false;
         } else if self.focus_active_terminal
@@ -680,6 +846,16 @@ impl Render for TerminalTabs {
             // Capture so prompt/search keys win even if a terminal under the overlay is focused.
             .capture_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, _window, cx| {
                 let mods = &ev.keystroke.modifiers;
+
+                if this.show_settings {
+                    cx.stop_propagation();
+                    if ev.keystroke.key.as_str() == "escape" {
+                        this.show_settings = false;
+                        this.focus_active_terminal = true;
+                        cx.notify();
+                    }
+                    return;
+                }
 
                 if this.show_search {
                     cx.stop_propagation();
@@ -877,12 +1053,22 @@ impl Render for TerminalTabs {
                                 format!("{}{}", prefix, host_for_click)
                             };
                             this.prompt = None;
-                            let host_opt = if final_host == "localhost" { None } else { Some(final_host) };
+                            let host_opt = if final_host == "localhost" {
+                                None
+                            } else {
+                                Some(final_host)
+                            };
                             let colors = this.terminal_palette.clone();
                             let new_tab = cx.new(|cx| TerminalSession::new(host_opt, colors, cx));
                             this.tabs.push(new_tab);
                             this.active_tab = this.tabs.len() - 1;
                             this.focus_active_terminal = true;
+                            if this.remember_session {
+                                let hosts: Vec<Option<String>> =
+                                    this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                                save_session(&hosts);
+                            }
+                            cx.notify();
                         }))
                         .child(div().child(host_clone).text_color(text_color))
                 );
@@ -1101,7 +1287,11 @@ impl Render for TerminalTabs {
                                 .cursor_pointer()
                                 .flex()
                                 .justify_center()
-                                .on_click(cx.listener(|this, _, _, _| { this.show_settings = false; }))
+                                .on_click(cx.listener(|this, _, _, cx| {
+                                    this.show_settings = false;
+                                    this.focus_active_terminal = true;
+                                    cx.notify();
+                                }))
                                 .child(div().child("Close").text_color(text_color))
                         )
                 );
