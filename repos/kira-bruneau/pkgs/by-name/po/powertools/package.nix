@@ -45,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     patches = [ ./update-lock.patch ];
-    fetcherVersion = 3;
-    hash = "sha256-DEfXkpdm6A4yw4IwHPewDfjUVrMWaL+qQwbO9VLoG8Y=";
+    fetcherVersion = 4;
+    hash = "sha256-6sApbcv2LOZ1vqwLmI875LvlXXGRGMn3NVGJE85u/QE=";
   };
 
   dontUseCmakeConfigure = true;
