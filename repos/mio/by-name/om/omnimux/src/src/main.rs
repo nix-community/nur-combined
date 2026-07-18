@@ -128,6 +128,7 @@ struct TerminalTabs {
     show_settings: bool,
     keep_tab_after_exit: bool,
     auto_reconnect: bool,
+    remember_session: bool,
 }
 
 fn get_ssh_hosts() -> Vec<String> {
@@ -147,10 +148,80 @@ fn get_ssh_hosts() -> Vec<String> {
     hosts
 }
 
+fn config_dir() -> std::path::PathBuf {
+    let home = std::env::var("HOME").unwrap_or_default();
+    std::path::PathBuf::from(format!("{}/.config/omnimux", home))
+}
+
+#[derive(serde::Serialize, serde::Deserialize, Default)]
+struct Settings {
+    keep_tab_after_exit: Option<bool>,
+    auto_reconnect: Option<bool>,
+    remember_session: Option<bool>,
+}
+
+fn load_settings() -> Settings {
+    let path = config_dir().join("settings.json");
+    std::fs::read_to_string(path)
+        .ok()
+        .and_then(|s| serde_json::from_str(&s).ok())
+        .unwrap_or_default()
+}
+
+fn save_settings(tabs: &TerminalTabs) {
+    let dir = config_dir();
+    let _ = std::fs::create_dir_all(&dir);
+    let settings = Settings {
+        keep_tab_after_exit: Some(tabs.keep_tab_after_exit),
+        auto_reconnect: Some(tabs.auto_reconnect),
+        remember_session: Some(tabs.remember_session),
+    };
+    if let Ok(json) = serde_json::to_string_pretty(&settings) {
+        let _ = std::fs::write(dir.join("settings.json"), json);
+    }
+}
+
+fn save_session(hosts: &[Option<String>]) {
+    let dir = config_dir();
+    let _ = std::fs::create_dir_all(&dir);
+    let list: Vec<String> = hosts.iter().map(|h| h.clone().unwrap_or_else(|| "localhost".to_string())).collect();
+    if let Ok(json) = serde_json::to_string_pretty(&list) {
+        let _ = std::fs::write(dir.join("session.json"), json);
+    }
+}
+
+fn load_session() -> Vec<Option<String>> {
+    let path = config_dir().join("session.json");
+    std::fs::read_to_string(path)
+        .ok()
+        .and_then(|s| serde_json::from_str::<Vec<String>>(&s).ok())
+        .unwrap_or_default()
+        .into_iter()
+        .map(|h| if h == "localhost" { None } else { Some(h) })
+        .collect()
+}
+
 impl TerminalTabs {
     fn new(cx: &mut Context<Self>) -> Self {
-        let first_tab = cx.new(|cx| TerminalSession::new(None, cx));
-        
+        let settings = load_settings();
+        let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(true);
+        let auto_reconnect = settings.auto_reconnect.unwrap_or(false);
+        let remember_session = settings.remember_session.unwrap_or(false);
+
+        // Restore saved session or start with prompt open
+        let initial_tabs: Vec<Entity<TerminalSession>> = if remember_session {
+            let saved = load_session();
+            if saved.is_empty() {
+                vec![]
+            } else {
+                saved.into_iter().map(|host| cx.new(|cx| TerminalSession::new(host, cx))).collect()
+            }
+        } else {
+            vec![]
+        };
+
+        let start_prompt = initial_tabs.is_empty();
+
         cx.spawn(async move |this, mut cx| {
             loop {
                 gpui::Timer::after(std::time::Duration::from_millis(16)).await;
@@ -169,20 +240,23 @@ impl TerminalTabs {
                                     }
                                 }
                             });
-                            
+
                             if has_exited {
                                 if !success && this.auto_reconnect {
                                     let host = this.tabs[i].read(cx).host.clone();
                                     this.tabs[i] = cx.new(|cx| TerminalSession::new(host, cx));
                                     needs_notify = true;
                                 } else if !this.keep_tab_after_exit {
-                                    if this.tabs.len() > 1 {
-                                        this.tabs.remove(i);
-                                        this.active_tab = this.active_tab.min(this.tabs.len().saturating_sub(1));
-                                    }
+                                    this.tabs.remove(i);
+                                    this.active_tab = this.active_tab.min(this.tabs.len().saturating_sub(1));
                                     needs_notify = true;
                                 }
                             }
+                        }
+                        // Save session whenever tabs change
+                        if needs_notify && this.remember_session {
+                            let hosts: Vec<Option<String>> = this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                            save_session(&hosts);
                         }
                         if needs_notify {
                             cx.notify();
@@ -194,13 +268,14 @@ impl TerminalTabs {
 
         Self {
             active_tab: 0,
-            tabs: vec![first_tab],
-            prompt: None,
+            tabs: initial_tabs,
+            prompt: if start_prompt { Some(String::new()) } else { None },
             ssh_hosts: get_ssh_hosts(),
             selected_host_index: 0,
             show_settings: false,
-            keep_tab_after_exit: true,
-            auto_reconnect: false,
+            keep_tab_after_exit,
+            auto_reconnect,
+            remember_session,
         }
     }
 }
@@ -376,9 +451,17 @@ impl Render for TerminalTabs {
                             let new_tab = cx.new(|cx| TerminalSession::new(host_opt, cx));
                             this.tabs.push(new_tab);
                             this.active_tab = this.tabs.len() - 1;
+                            // Persist session if enabled
+                            if this.remember_session {
+                                let hosts: Vec<Option<String>> = this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                                save_session(&hosts);
+                            }
                         }
                         "escape" => {
-                            this.prompt = None;
+                            // Only allow closing the prompt if there are open tabs
+                            if !this.tabs.is_empty() {
+                                this.prompt = None;
+                            }
                         }
                         "backspace" => {
                             input.pop();
@@ -513,19 +596,38 @@ impl Render for TerminalTabs {
                                 div()
                                     .id("keep_tab_toggle")
                                     .cursor_pointer()
-                                    .on_click(cx.listener(|this, _, _, _| { this.keep_tab_after_exit = !this.keep_tab_after_exit; }))
+                                    .on_click(cx.listener(|this, _, _, _| { this.keep_tab_after_exit = !this.keep_tab_after_exit; save_settings(this); }))
                                     .child(div().child(if self.keep_tab_after_exit { "[x]" } else { "[ ]" }).text_color(text_color))
                             )
                         )
                         .child(
-                            div().flex().flex_row().items_center().mb_4().child(
+                            div().flex().flex_row().items_center().mb_2().child(
                                 div().child("Auto-reconnect on drop?").text_color(text_color).w_48()
                             ).child(
                                 div()
                                     .id("auto_reconnect_toggle")
                                     .cursor_pointer()
-                                    .on_click(cx.listener(|this, _, _, _| { this.auto_reconnect = !this.auto_reconnect; }))
+                                    .on_click(cx.listener(|this, _, _, _| { this.auto_reconnect = !this.auto_reconnect; save_settings(this); }))
                                     .child(div().child(if self.auto_reconnect { "[x]" } else { "[ ]" }).text_color(text_color))
+                            )
+                        )
+                        .child(
+                            div().flex().flex_row().items_center().mb_4().child(
+                                div().child("Remember & restore tabs on relaunch?").text_color(text_color).w_48()
+                            ).child(
+                                div()
+                                    .id("remember_session_toggle")
+                                    .cursor_pointer()
+                                    .on_click(cx.listener(|this, _, _, cx| {
+                                        this.remember_session = !this.remember_session;
+                                        save_settings(this);
+                                        // Save current session immediately when enabling
+                                        if this.remember_session {
+                                            let hosts: Vec<Option<String>> = this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+                                            save_session(&hosts);
+                                        }
+                                    }))
+                                    .child(div().child(if self.remember_session { "[x]" } else { "[ ]" }).text_color(text_color))
                             )
                         )
                         .child(
