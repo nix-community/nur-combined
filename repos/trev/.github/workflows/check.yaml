@@ -27,7 +27,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@48b6d3dd393260451050b0e6b78bc51fc483d500 # v1.58.0
+        uses: spotdemo4/nix-init@c0437e8d7de78564b4c3a1db710f43ce407e509b # v1.59.0
 
       - name: Check flake
         run: nix flake check --max-jobs 1
@@ -58,7 +58,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@48b6d3dd393260451050b0e6b78bc51fc483d500 # v1.58.0
+        uses: spotdemo4/nix-init@c0437e8d7de78564b4c3a1db710f43ce407e509b # v1.59.0
         with:
           shell: check
 
@@ -82,7 +82,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@48b6d3dd393260451050b0e6b78bc51fc483d500 # v1.58.0
+        uses: spotdemo4/nix-init@c0437e8d7de78564b4c3a1db710f43ce407e509b # v1.59.0
         with:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch_depth: 0
