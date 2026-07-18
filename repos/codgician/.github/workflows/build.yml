@@ -15,27 +15,93 @@ concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: true
 jobs:
+  scope:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      attr: ${{ steps.classify.outputs.attr }}
+      run_automation: ${{ steps.classify.outputs.run_automation }}
+    steps:
+      - name: Classify pull request scope
+        id: classify
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            if (context.eventName !== "pull_request") {
+              core.setOutput("attr", "");
+              core.setOutput("run_automation", "true");
+              return;
+            }
+
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              per_page: 100,
+            });
+            const packages = new Set();
+            let packageOnly = files.length > 0 && files.length < 3000;
+            for (const file of files) {
+              if (file.status === "removed") {
+                packageOnly = false;
+                break;
+              }
+              for (const path of [file.filename, file.previous_filename].filter(Boolean)) {
+                const match = /^pkgs\/([a-z][a-z0-9_-]{0,63})\/.+/.exec(path);
+                if (!match) {
+                  packageOnly = false;
+                  break;
+                }
+                packages.add(match[1]);
+              }
+              if (!packageOnly) break;
+            }
+            packageOnly &&= packages.size === 1;
+
+            const packageName = packageOnly ? [...packages][0] : "";
+            const botPackageRequest =
+              context.payload.pull_request.user.id === 304539431 &&
+              context.payload.pull_request.head.ref.startsWith("bot/package-issue-");
+            core.setOutput("attr", packageOnly ? `*.*.${packageName}` : "");
+            core.setOutput("run_automation", packageOnly && !botPackageRequest ? "false" : "true");
+            core.notice(
+              packageOnly
+                ? `Building only package and check attributes for ${packageName}`
+                : "Building the full CI attribute set",
+            );
   atelier:
+    needs: scope
     permissions:
       contents: read
       checks: write
       # Atelier's nested workflow declares OIDC for optional cache pushes.
       id-token: write
     uses: stepbrobd/atelier/.github/workflows/discover.yaml@6cf255b6e35733e746ef42208389159912ecbde2 # 2026.629.2
+    with:
+      attr: ${{ needs.scope.outputs.attr }}
   harness:
+    needs: scope
     runs-on: ubuntu-latest
     steps:
+      - name: Reuse package-scoped validation
+        if: ${{ needs.scope.outputs.run_automation != 'true' }}
+        run: echo "Automation sources are unchanged; package builds provide the required validation"
       - name: Checkout
+        if: ${{ needs.scope.outputs.run_automation == 'true' }}
         uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7
         with:
           persist-credentials: false
       - name: Install Nix
+        if: ${{ needs.scope.outputs.run_automation == 'true' }}
         uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
         with:
           extra-conf: |
             accept-flake-config = true
             experimental-features = nix-command flakes
       - name: Validate automation
+        if: ${{ needs.scope.outputs.run_automation == 'true' }}
         run: |
           nix fmt -- --ci .github flake.nix
           nix develop .# -c actionlint
