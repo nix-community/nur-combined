@@ -58,8 +58,10 @@ use crate::mouse::{
 use crate::render::TerminalRenderer;
 use crate::terminal::TerminalState;
 use alacritty_terminal::event::WindowSize;
-use alacritty_terminal::grid::Scroll;
-use alacritty_terminal::index::Point as AlacPoint;
+use alacritty_terminal::grid::{Dimensions, Scroll};
+use alacritty_terminal::index::{Column, Point as AlacPoint, Side};
+use alacritty_terminal::selection::{Selection as AlacSelection, SelectionType as AlacSelectionType};
+use alacritty_terminal::term::TermMode;
 use alacritty_terminal::vte::ansi::Rgb;
 use gpui::{Edges, *};
 use std::io::{Read, Write};
@@ -437,6 +439,9 @@ pub struct TerminalView {
 
     /// Last cell reported during drag (avoid flooding the PTY).
     last_mouse_cell: Option<AlacPoint>,
+
+    /// True while Shift (or no mouse-mode) drag is building a local selection.
+    selecting: bool,
 }
 
 impl TerminalView {
@@ -567,6 +572,7 @@ impl TerminalView {
             search_highlight: None,
             mouse_pressed: None,
             last_mouse_cell: None,
+            selecting: false,
         }
     }
 
@@ -766,6 +772,9 @@ impl TerminalView {
     }
 
     /// Handle mouse down events — focus + SGR mouse reports when enabled.
+    ///
+    /// Holding Shift (or when the app has not enabled mouse reporting) selects
+    /// text locally instead of forwarding to the PTY (e.g. tmux).
     fn on_mouse_down(
         &mut self,
         event: &MouseDownEvent,
@@ -775,37 +784,103 @@ impl TerminalView {
         window.focus(&self.focus_handle);
 
         let origin = Point::new(self.config.padding.left, self.config.padding.top);
-        let point = pixel_to_cell(
+        let viewport = pixel_to_cell(
             event.position,
             origin,
             self.renderer.cell_width,
             self.renderer.cell_height,
         );
         let mode = self.state.mode();
+        let mouse_reporting = mode.intersects(
+            TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
+        );
+        // Shift always selects locally; without mouse mode, clicks also select.
+        let local_select = event.button == MouseButton::Left
+            && (event.modifiers.shift || !mouse_reporting);
+
+        if local_select {
+            let grid_point = self.viewport_to_grid(viewport);
+            let ty = match event.click_count {
+                0 | 1 => AlacSelectionType::Simple,
+                2 => AlacSelectionType::Semantic,
+                _ => AlacSelectionType::Lines,
+            };
+            self.state.with_term_mut(|term| {
+                let mut sel = AlacSelection::new(ty, grid_point, Side::Left);
+                if matches!(ty, AlacSelectionType::Semantic | AlacSelectionType::Lines) {
+                    sel.update(grid_point, Side::Right);
+                    sel.include_all();
+                }
+                term.selection = Some(sel);
+            });
+            self.selecting = true;
+            self.mouse_pressed = None;
+            self.last_mouse_cell = None;
+            cx.notify();
+            return;
+        }
+
+        // Clear local selection when interacting with the app/mouse mode.
+        if event.button == MouseButton::Left {
+            self.state.with_term_mut(|term| term.selection = None);
+            self.selecting = false;
+        }
+
+        // Never forward Shift+mouse to the PTY.
+        if event.modifiers.shift {
+            cx.notify();
+            return;
+        }
+
         let modifiers = encode_modifiers(
-            event.modifiers.shift,
+            false, // shift never reported (we gate above)
             event.modifiers.alt,
             event.modifiers.control,
         );
 
-        if let Some(bytes) = mouse_button_report(event.button, true, point, modifiers, mode) {
+        if let Some(bytes) = mouse_button_report(event.button, true, viewport, modifiers, mode) {
             let mut writer = self.stdin_writer.lock();
             let _ = writer.write_all(&bytes);
             let _ = writer.flush();
-            self.mouse_pressed = Some((event.button, point));
-            self.last_mouse_cell = Some(point);
+            self.mouse_pressed = Some((event.button, viewport));
+            self.last_mouse_cell = Some(viewport);
         }
 
         cx.notify();
     }
 
-    /// Handle mouse up events — SGR release reports when mouse mode is on.
+    /// Handle mouse up events — finish local selection or SGR release.
     fn on_mouse_up(
         &mut self,
         event: &MouseUpEvent,
         _window: &mut Window,
-        _cx: &mut Context<Self>,
+        cx: &mut Context<Self>,
     ) {
+        if self.selecting {
+            let origin = Point::new(self.config.padding.left, self.config.padding.top);
+            let viewport = pixel_to_cell(
+                event.position,
+                origin,
+                self.renderer.cell_width,
+                self.renderer.cell_height,
+            );
+            let grid_point = self.viewport_to_grid(viewport);
+            self.state.with_term_mut(|term| {
+                if let Some(sel) = term.selection.as_mut() {
+                    sel.update(grid_point, Side::Right);
+                }
+            });
+            self.selecting = false;
+            cx.notify();
+            return;
+        }
+
+        if event.modifiers.shift {
+            self.mouse_pressed = None;
+            self.last_mouse_cell = None;
+            return;
+        }
+
         let origin = Point::new(self.config.padding.left, self.config.padding.top);
         let point = pixel_to_cell(
             event.position,
@@ -815,7 +890,7 @@ impl TerminalView {
         );
         let mode = self.state.mode();
         let modifiers = encode_modifiers(
-            event.modifiers.shift,
+            false,
             event.modifiers.alt,
             event.modifiers.control,
         );
@@ -829,38 +904,67 @@ impl TerminalView {
         self.last_mouse_cell = None;
     }
 
-    /// Handle mouse move — SGR drag reports while a button is held in mouse mode.
+    /// Handle mouse move — extend local selection or SGR drag reports.
     fn on_mouse_move(
         &mut self,
         event: &MouseMoveEvent,
         _window: &mut Window,
-        _cx: &mut Context<Self>,
+        cx: &mut Context<Self>,
     ) {
-        let Some((button, _)) = self.mouse_pressed else {
-            return;
-        };
         let origin = Point::new(self.config.padding.left, self.config.padding.top);
-        let point = pixel_to_cell(
+        let viewport = pixel_to_cell(
             event.position,
             origin,
             self.renderer.cell_width,
             self.renderer.cell_height,
         );
-        if self.last_mouse_cell == Some(point) {
+
+        if self.selecting {
+            let grid_point = self.viewport_to_grid(viewport);
+            self.state.with_term_mut(|term| {
+                if let Some(sel) = term.selection.as_mut() {
+                    sel.update(grid_point, Side::Right);
+                }
+            });
+            cx.notify();
+            return;
+        }
+
+        let Some((button, _)) = self.mouse_pressed else {
+            return;
+        };
+        if event.modifiers.shift {
+            return;
+        }
+        if self.last_mouse_cell == Some(viewport) {
             return;
         }
         let mode = self.state.mode();
         let modifiers = encode_modifiers(
-            event.modifiers.shift,
+            false,
             event.modifiers.alt,
             event.modifiers.control,
         );
-        if let Some(bytes) = mouse_drag_report(button, point, modifiers, mode) {
+        if let Some(bytes) = mouse_drag_report(button, viewport, modifiers, mode) {
             let mut writer = self.stdin_writer.lock();
             let _ = writer.write_all(&bytes);
             let _ = writer.flush();
-            self.last_mouse_cell = Some(point);
+            self.last_mouse_cell = Some(viewport);
         }
+    }
+
+    /// Map a viewport cell (from [`pixel_to_cell`]) to an absolute grid point.
+    fn viewport_to_grid(&self, viewport: AlacPoint) -> AlacPoint {
+        self.state.with_term(|term| {
+            let cols = term.columns().max(1);
+            let rows = term.screen_lines().max(1);
+            let col = Column(viewport.column.0.min(cols - 1));
+            let row = (viewport.line.0.max(0) as usize).min(rows.saturating_sub(1));
+            alacritty_terminal::term::viewport_to_point(
+                term.grid().display_offset(),
+                alacritty_terminal::index::Point::new(row, col),
+            )
+        })
     }
 
     fn write_pty_str(&self, data: &str) {
@@ -872,6 +976,23 @@ impl TerminalView {
     /// Write raw text to the PTY (e.g. clipboard paste).
     pub fn write_input(&self, data: &str) {
         self.write_pty_str(data);
+    }
+
+    /// Copy the current selection to the system clipboard.
+    ///
+    /// Returns `true` if there was a non-empty selection to copy.
+    pub fn copy_selection(&self) -> bool {
+        let text = self
+            .state
+            .with_term(|term| term.selection_to_string())
+            .filter(|s| !s.is_empty());
+        let Some(text) = text else {
+            return false;
+        };
+        if let Ok(mut clipboard) = Clipboard::new() {
+            return clipboard.copy(&text).is_ok();
+        }
+        false
     }
 
     /// Process pending terminal events.
@@ -965,42 +1086,55 @@ impl TerminalView {
             return;
         }
 
-        let mode = self.state.mode();
         let point = pixel_to_cell(
             event.position,
             Point::new(self.config.padding.left, self.config.padding.top),
             self.renderer.cell_width,
             cell_height,
         );
-        let modifiers = encode_modifiers(
-            event.modifiers.shift,
-            event.modifiers.alt,
-            event.modifiers.control,
+        let mode = self.state.mode();
+        let mouse_reporting = mode.intersects(
+            TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
         );
 
-        use alacritty_terminal::term::TermMode;
-        if mode.intersects(
-            TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
-        ) {
-            // One SGR wheel event per line
-            let step = if lines > 0 { 1 } else { -1 };
-            let mut writer = self.stdin_writer.lock();
-            for _ in 0..lines.abs() {
-                if let Some(bytes) = scroll_report(step, point, modifiers, mode) {
-                    let _ = writer.write_all(&bytes);
-                }
-            }
-            let _ = writer.flush();
-        } else if let Some(bytes) = scroll_report(lines, point, modifiers, mode) {
-            let mut writer = self.stdin_writer.lock();
-            let _ = writer.write_all(&bytes);
-            let _ = writer.flush();
-        } else {
+        // Shift+wheel: never forward to the app/tmux — scroll local history.
+        if event.modifiers.shift {
             self.state.with_term_mut(|term| {
                 term.scroll_display(Scroll::Delta(lines));
             });
             cx.notify();
+            return;
         }
+
+        if !mouse_reporting {
+            if let Some(bytes) = scroll_report(lines, point, 0, mode) {
+                let mut writer = self.stdin_writer.lock();
+                let _ = writer.write_all(&bytes);
+                let _ = writer.flush();
+            } else {
+                self.state.with_term_mut(|term| {
+                    term.scroll_display(Scroll::Delta(lines));
+                });
+                cx.notify();
+            }
+            return;
+        }
+
+        let modifiers = encode_modifiers(
+            false,
+            event.modifiers.alt,
+            event.modifiers.control,
+        );
+
+        // One SGR wheel event per line when mouse reporting is on
+        let step = if lines > 0 { 1 } else { -1 };
+        let mut writer = self.stdin_writer.lock();
+        for _ in 0..lines.abs() {
+            if let Some(bytes) = scroll_report(step, point, modifiers, mode) {
+                let _ = writer.write_all(&bytes);
+            }
+        }
+        let _ = writer.flush();
     }
 
     /// Get the current terminal dimensions.

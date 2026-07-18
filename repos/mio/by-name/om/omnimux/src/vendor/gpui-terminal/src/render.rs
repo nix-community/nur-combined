@@ -489,6 +489,10 @@ impl TerminalRenderer {
         let num_lines = grid.screen_lines();
         let num_cols = grid.columns();
         let colors = term.colors();
+        let selection_range = term
+            .selection
+            .as_ref()
+            .and_then(|s| s.to_range(term));
 
         // Calculate default background color
         let default_bg = self.palette.resolve(
@@ -590,6 +594,40 @@ impl TerminalRenderer {
                         px(0.0),
                         // Amber highlight (semi-opaque feel via bright color)
                         gpui::hsla(0.12, 0.9, 0.45, 0.45),
+                        Edges::<Pixels>::default(),
+                        transparent_black(),
+                        Default::default(),
+                    ));
+                }
+            }
+
+            // Paint local text selection (Shift+drag / no mouse mode)
+            if let Some(sel_range) = selection_range {
+                let mut hl_start: Option<usize> = None;
+                let mut hl_end: Option<usize> = None;
+                for col_idx in 0..num_cols {
+                    let p = AlacPoint::new(line, Column(col_idx));
+                    if sel_range.contains(p) {
+                        if hl_start.is_none() {
+                            hl_start = Some(col_idx);
+                        }
+                        hl_end = Some(col_idx + 1);
+                    }
+                }
+                if let (Some(start_col), Some(end_col)) = (hl_start, hl_end) {
+                    let x = origin.x + self.cell_width * (start_col as f32);
+                    let y = origin.y + self.cell_height * (line_idx as f32);
+                    let width = self.cell_width * ((end_col - start_col) as f32);
+                    window.paint_quad(quad(
+                        Bounds {
+                            origin: Point { x, y },
+                            size: Size {
+                                width,
+                                height: self.cell_height,
+                            },
+                        },
+                        px(0.0),
+                        gpui::hsla(0.58, 0.7, 0.45, 0.4),
                         Edges::<Pixels>::default(),
                         transparent_black(),
                         Default::default(),

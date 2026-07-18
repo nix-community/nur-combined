@@ -5,3 +5,4 @@
 - NEVER FORCE PUSH! Just commit and `git push` normally.
 - ALWAYS confirm that `nix build` passes successfully and the built app functions correctly before committing and pushing any changes.
 - CRITICAL: Make absolutely sure `nix build` passes before ANY push!
+- Omnimux vendors `gpui-terminal`: see `by-name/om/omnimux/src/vendor/gpui-terminal/VENDOR.md` for upstream baseline commit and our local patches.

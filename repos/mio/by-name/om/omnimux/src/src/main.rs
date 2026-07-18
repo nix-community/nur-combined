@@ -1,11 +1,14 @@
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::switch::Switch;
+use gpui_component::theme::Theme;
 use gpui_terminal::{Clipboard, ColorPalette, TerminalConfig, TerminalView};
 use portable_pty::{CommandBuilder, NativePtySystem, PtySize, PtySystem};
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
+
+const DEFAULT_FONT_SIZE: f32 = 14.0;
 
 struct TerminalSession {
     terminal_view: Entity<TerminalView>,
@@ -44,7 +47,12 @@ fn palette_for_appearance(appearance: WindowAppearance) -> ColorPalette {
 }
 
 impl TerminalSession {
-    fn new(host: Option<String>, colors: ColorPalette, cx: &mut Context<Self>) -> Self {
+    fn new(
+        host: Option<String>,
+        colors: ColorPalette,
+        font_size: Pixels,
+        cx: &mut Context<Self>,
+    ) -> Self {
         let pty_system = NativePtySystem::default();
         let pair = pty_system
             .openpty(PtySize {
@@ -119,7 +127,7 @@ impl TerminalSession {
             } else {
                 "monospace".into()
             },
-            font_size: px(14.0),
+            font_size,
             line_height_multiplier: 1.14,
             scrollback: 10000,
             padding: Edges::default(),
@@ -148,15 +156,15 @@ impl TerminalSession {
                     let mods = &ev.keystroke.modifiers;
                     let key = ev.keystroke.key.as_str();
                     if mods.platform {
-                        // Cmd/Super: zoom, search, paste
+                        // Cmd/Super: zoom, search, copy, paste
                         return matches!(key, "=" | "+" | "-" | "0" | "c" | "v" | "f");
                     }
                     if mods.control {
                         if matches!(key, "=" | "+" | "-" | "0" | "f") {
                             return true;
                         }
-                        // Ctrl+Shift+V paste on Linux/Windows
-                        if key == "v" && mods.shift && !cfg!(target_os = "macos") {
+                        // Ctrl+Shift+C/V copy/paste on Linux/Windows
+                        if mods.shift && matches!(key, "c" | "v") && !cfg!(target_os = "macos") {
                             return true;
                         }
                     }
@@ -219,25 +227,20 @@ impl Render for TerminalSession {
                     }
                     return;
                 }
-                // Cmd+C reserved for copy once selection exists; do not treat as interrupt.
-                if key == "c" && mods.platform {
+                // Copy selection: Cmd/Super+C, or Ctrl+Shift+C on non-macOS
+                let copy = key == "c"
+                    && (mods.platform
+                        || (mods.control && mods.shift && !cfg!(target_os = "macos")));
+                if copy {
                     cx.stop_propagation();
+                    terminal_view.update(cx, |tv, _| {
+                        let _ = tv.copy_selection();
+                    });
                     return;
                 }
                 if key == "=" || key == "+" || key == "-" || key == "0" {
+                    // Handled by TerminalTabs (sync across tabs / remember size).
                     cx.stop_propagation();
-                    terminal_view.update(cx, |tv, cx| {
-                        let mut config = tv.config().clone();
-                        if key == "=" || key == "+" {
-                            config.font_size += px(1.0);
-                        } else if key == "-" {
-                            config.font_size -= px(1.0);
-                        } else if key == "0" {
-                            config.font_size = px(14.0);
-                        }
-                        config.font_size = config.font_size.clamp(px(6.0), px(72.0));
-                        tv.update_config(config, cx);
-                    });
                 }
             }))
             .child(self.terminal_view.clone())
@@ -257,6 +260,12 @@ struct TerminalTabs {
     keep_tab_after_exit: bool,
     auto_reconnect: bool,
     remember_session: bool,
+    /// When true, Ctrl/Cmd +/-/0 updates every tab (default).
+    sync_font_size_across_tabs: bool,
+    /// Persist last font size across relaunches.
+    remember_font_size: bool,
+    /// Shared / default font size for new tabs (and sync target).
+    font_size: Pixels,
     last_appearance: Option<WindowAppearance>,
     focus_active_terminal: bool,
     /// Focus the chrome (host prompt / search) so typing isn't swallowed by a terminal.
@@ -382,6 +391,10 @@ struct Settings {
     keep_tab_after_exit: Option<bool>,
     auto_reconnect: Option<bool>,
     remember_session: Option<bool>,
+    sync_font_size_across_tabs: Option<bool>,
+    remember_font_size: Option<bool>,
+    /// Stored when remember_font_size is enabled (pixels).
+    font_size: Option<f32>,
 }
 
 fn load_settings() -> Settings {
@@ -399,6 +412,13 @@ fn save_settings(tabs: &TerminalTabs) {
         keep_tab_after_exit: Some(tabs.keep_tab_after_exit),
         auto_reconnect: Some(tabs.auto_reconnect),
         remember_session: Some(tabs.remember_session),
+        sync_font_size_across_tabs: Some(tabs.sync_font_size_across_tabs),
+        remember_font_size: Some(tabs.remember_font_size),
+        font_size: if tabs.remember_font_size {
+            Some(f32::from(tabs.font_size))
+        } else {
+            None
+        },
     };
     if let Ok(json) = serde_json::to_string_pretty(&settings) {
         let _ = std::fs::write(dir.join("settings.json"), json);
@@ -426,11 +446,96 @@ fn load_session() -> Vec<Option<String>> {
 }
 
 impl TerminalTabs {
+    /// Apply Ctrl/Cmd +/-/0 font zoom to the active tab, or all tabs when sync is on.
+    fn apply_font_key(&mut self, key: &str, cx: &mut Context<Self>) {
+        let base = if self.sync_font_size_across_tabs {
+            self.font_size
+        } else if let Some(session) = self.tabs.get(self.active_tab) {
+            session.read(cx).terminal_view.read(cx).config().font_size
+        } else {
+            self.font_size
+        };
+
+        let mut size = base;
+        if key == "=" || key == "+" {
+            size += px(1.0);
+        } else if key == "-" {
+            size -= px(1.0);
+        } else if key == "0" {
+            size = px(DEFAULT_FONT_SIZE);
+        }
+        size = size.clamp(px(6.0), px(72.0));
+
+        if self.sync_font_size_across_tabs {
+            self.font_size = size;
+            for tab in &self.tabs {
+                tab.update(cx, |session, cx| {
+                    session.terminal_view.update(cx, |tv, cx| {
+                        let mut config = tv.config().clone();
+                        config.font_size = size;
+                        tv.update_config(config, cx);
+                    });
+                });
+            }
+        } else if let Some(session) = self.tabs.get(self.active_tab).cloned() {
+            self.font_size = size; // still the default for newly opened tabs
+            session.update(cx, |session, cx| {
+                session.terminal_view.update(cx, |tv, cx| {
+                    let mut config = tv.config().clone();
+                    config.font_size = size;
+                    tv.update_config(config, cx);
+                });
+            });
+        } else {
+            self.font_size = size;
+        }
+
+        if self.remember_font_size {
+            save_settings(self);
+        }
+    }
+
+    /// Focus the active terminal, then again next frame once it is in the tree.
+    /// (A single focus during/just after creating the first tab often does not stick.)
+    fn focus_active_session(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        self.focus_active_terminal = false;
+        let Some(session) = self.tabs.get(self.active_tab).cloned() else {
+            return;
+        };
+        let tv = session.read(cx).terminal_view.clone();
+        tv.read(cx).focus_handle().clone().focus(window);
+        cx.on_next_frame(window, |this, window, cx| {
+            if this.prompt.is_some() || this.show_search || this.show_settings {
+                return;
+            }
+            let Some(session) = this.tabs.get(this.active_tab) else {
+                return;
+            };
+            session
+                .read(cx)
+                .terminal_view
+                .read(cx)
+                .focus_handle()
+                .clone()
+                .focus(window);
+        });
+    }
+
     fn new(cx: &mut Context<Self>) -> Self {
         let settings = load_settings();
         let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(true);
         let auto_reconnect = settings.auto_reconnect.unwrap_or(false);
         let remember_session = settings.remember_session.unwrap_or(false);
+        let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
+        let remember_font_size = settings.remember_font_size.unwrap_or(false);
+        let font_size = if remember_font_size {
+            px(settings
+                .font_size
+                .unwrap_or(DEFAULT_FONT_SIZE)
+                .clamp(6.0, 72.0))
+        } else {
+            px(DEFAULT_FONT_SIZE)
+        };
 
         // Restore saved session or start with prompt open
         // Use light as the pre-window default; first render syncs to real appearance.
@@ -444,7 +549,7 @@ impl TerminalTabs {
                     .into_iter()
                     .map(|host| {
                         let colors = terminal_palette.clone();
-                        cx.new(|cx| TerminalSession::new(host, colors, cx))
+                        cx.new(|cx| TerminalSession::new(host, colors, font_size, cx))
                     })
                     .collect()
             }
@@ -507,8 +612,10 @@ impl TerminalTabs {
 
                             if reconnect_ready {
                                 let colors = this.terminal_palette.clone();
+                                let font_size = this.font_size;
                                 this.tabs[i] = cx.new(|cx| {
-                                    let mut session = TerminalSession::new(host, colors, cx);
+                                    let mut session =
+                                        TerminalSession::new(host, colors, font_size, cx);
                                     session.reconnect_streak = streak;
                                     session
                                 });
@@ -550,6 +657,9 @@ impl TerminalTabs {
             keep_tab_after_exit,
             auto_reconnect,
             remember_session,
+            sync_font_size_across_tabs,
+            remember_font_size,
+            font_size,
             last_appearance: None,
             focus_active_terminal: !start_prompt,
             focus_ui: start_prompt,
@@ -569,9 +679,11 @@ impl Render for TerminalTabs {
         let text_color = if is_dark { rgb(0xffffff) } else { rgb(0x000000) };
         let border_color = if is_dark { rgb(0x000000) } else { rgb(0xcccccc) };
 
-        // Keep terminal palette in sync with OS theme (and for any newly opened tabs).
+        // Keep terminal palette + gpui-component theme in sync with OS appearance.
+        // (Switch labels use Theme::foreground — without this they stay black in dark mode.)
         if self.last_appearance != Some(appearance) {
             self.last_appearance = Some(appearance);
+            Theme::change(appearance, Some(window), cx);
             self.terminal_palette = palette_for_appearance(appearance);
             let palette_clone = self.terminal_palette.clone();
             for tab in &self.tabs {
@@ -825,16 +937,7 @@ impl Render for TerminalTabs {
             && !self.show_settings
             && !self.show_search
         {
-            if let Some(ref session) = active_session {
-                session
-                    .read(cx)
-                    .terminal_view
-                    .read(cx)
-                    .focus_handle()
-                    .clone()
-                    .focus(window);
-            }
-            self.focus_active_terminal = false;
+            self.focus_active_session(window, cx);
         }
 
         let mut main_div = div()
@@ -844,14 +947,15 @@ impl Render for TerminalTabs {
             .bg(bg_color_active)
             .track_focus(&self.focus_handle)
             // Capture so prompt/search keys win even if a terminal under the overlay is focused.
-            .capture_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, _window, cx| {
+            .capture_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, window, cx| {
                 let mods = &ev.keystroke.modifiers;
 
                 if this.show_settings {
                     cx.stop_propagation();
-                    if ev.keystroke.key.as_str() == "escape" {
+                    let key = ev.keystroke.key.as_str();
+                    if key.eq_ignore_ascii_case("escape") {
                         this.show_settings = false;
-                        this.focus_active_terminal = true;
+                        this.focus_active_session(window, cx);
                         cx.notify();
                     }
                     return;
@@ -869,7 +973,7 @@ impl Render for TerminalTabs {
                                     s.terminal_view.update(cx, |tv, cx| tv.clear_search(cx));
                                 });
                             }
-                            this.focus_active_terminal = true;
+                            this.focus_active_session(window, cx);
                         }
                         "enter" => {
                             let forward = !ev.keystroke.modifiers.shift;
@@ -907,6 +1011,52 @@ impl Render for TerminalTabs {
                     }
                     cx.notify();
                     return;
+                }
+
+                // Font zoom / copy / paste — capture so shortcuts work with terminal focus.
+                if (mods.platform || mods.control)
+                    && this.prompt.is_none()
+                    && !this.show_search
+                    && !this.show_settings
+                    && !this.tabs.is_empty()
+                {
+                    let key = ev.keystroke.key.as_str();
+                    if key == "=" || key == "+" || key == "-" || key == "0" {
+                        cx.stop_propagation();
+                        this.apply_font_key(key, cx);
+                        cx.notify();
+                        return;
+                    }
+                    let paste = key == "v"
+                        && (mods.platform
+                            || (mods.control && mods.shift && !cfg!(target_os = "macos")));
+                    if paste {
+                        cx.stop_propagation();
+                        if let Ok(mut clipboard) = Clipboard::new() {
+                            if let Ok(text) = clipboard.paste() {
+                                if let Some(session) = this.tabs.get(this.active_tab) {
+                                    session.update(cx, |s, cx| {
+                                        s.terminal_view.update(cx, |tv, _| {
+                                            tv.write_input(&text);
+                                        });
+                                    });
+                                }
+                            }
+                        }
+                        return;
+                    }
+                    let copy = key == "c"
+                        && (mods.platform
+                            || (mods.control && mods.shift && !cfg!(target_os = "macos")));
+                    if copy {
+                        cx.stop_propagation();
+                        if let Some(session) = this.tabs.get(this.active_tab) {
+                            session.update(cx, |s, cx| {
+                                let _ = s.terminal_view.read(cx).copy_selection();
+                            });
+                        }
+                        return;
+                    }
                 }
 
                 if let Some(ref mut input) = this.prompt {
@@ -955,10 +1105,12 @@ impl Render for TerminalTabs {
                                     Some(final_host)
                                 };
                             let colors = this.terminal_palette.clone();
-                            let new_tab = cx.new(|cx| TerminalSession::new(host_opt, colors, cx));
+                            let font_size = this.font_size;
+                            let new_tab =
+                                cx.new(|cx| TerminalSession::new(host_opt, colors, font_size, cx));
                             this.tabs.push(new_tab);
                             this.active_tab = this.tabs.len() - 1;
-                            this.focus_active_terminal = true;
+                            this.focus_active_session(window, cx);
                             if this.remember_session {
                                 let hosts: Vec<Option<String>> =
                                     this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
@@ -968,7 +1120,7 @@ impl Render for TerminalTabs {
                         "escape" => {
                             if !this.tabs.is_empty() {
                                 this.prompt = None;
-                                this.focus_active_terminal = true;
+                                this.focus_active_session(window, cx);
                             }
                         }
                         "backspace" => {
@@ -1046,7 +1198,7 @@ impl Render for TerminalTabs {
                         .cursor_pointer()
                         .bg(if is_selected { if is_dark { rgb(0x444444) } else { rgb(0xcccccc) } } else { rgba(0x00000000) })
                         .hover(|style| style.bg(if is_dark { rgb(0x3a3a3a) } else { rgb(0xdddddd) }))
-                        .on_click(cx.listener(move |this, _, _, cx| {
+                        .on_click(cx.listener(move |this, _, window, cx| {
                             let final_host = if host_for_click == "localhost" {
                                 "localhost".to_string()
                             } else {
@@ -1059,10 +1211,12 @@ impl Render for TerminalTabs {
                                 Some(final_host)
                             };
                             let colors = this.terminal_palette.clone();
-                            let new_tab = cx.new(|cx| TerminalSession::new(host_opt, colors, cx));
+                            let font_size = this.font_size;
+                            let new_tab =
+                                cx.new(|cx| TerminalSession::new(host_opt, colors, font_size, cx));
                             this.tabs.push(new_tab);
                             this.active_tab = this.tabs.len() - 1;
-                            this.focus_active_terminal = true;
+                            this.focus_active_session(window, cx);
                             if this.remember_session {
                                 let hosts: Vec<Option<String>> =
                                     this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
@@ -1214,19 +1368,40 @@ impl Render for TerminalTabs {
 
         if self.show_settings {
             let overlay = div()
+                .id("settings_overlay")
                 .absolute()
                 .inset_0()
                 .bg(rgba(0x00000080))
                 .flex()
                 .justify_center()
                 .items_center()
+                .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
+                    // Click outside the panel closes settings.
+                    this.show_settings = false;
+                    this.focus_active_session(window, cx);
+                    cx.notify();
+                }))
+                .on_key_down(cx.listener(|this, ev: &KeyDownEvent, window, cx| {
+                    if ev.keystroke.key.eq_ignore_ascii_case("escape") {
+                        cx.stop_propagation();
+                        this.show_settings = false;
+                        this.focus_active_session(window, cx);
+                        cx.notify();
+                    }
+                }))
                 .child(
                     div()
+                        .id("settings_panel")
                         .w_96()
                         .bg(if is_dark { rgb(0x2d2d2d) } else { rgb(0xf0f0f0) })
+                        .text_color(text_color)
                         .rounded_lg()
                         .p_4()
                         .flex_col()
+                        .on_mouse_down(MouseButton::Left, |_, _, cx| {
+                            // Keep clicks on the panel from closing via the overlay.
+                            cx.stop_propagation();
+                        })
                         .child(div().child("Settings").text_color(text_color).text_xl().mb_4())
                         .child({
                             let entity = entity.clone();
@@ -1234,6 +1409,7 @@ impl Render for TerminalTabs {
                                 .checked(self.keep_tab_after_exit)
                                 .label("Keep tab after exit")
                                 .mb_3()
+                                .text_color(text_color)
                                 .on_click(move |checked, _, app| {
                                     entity.update(app, |this, cx| {
                                         this.keep_tab_after_exit = *checked;
@@ -1248,6 +1424,7 @@ impl Render for TerminalTabs {
                                 .checked(self.auto_reconnect)
                                 .label("Auto-reconnect on drop")
                                 .mb_3()
+                                .text_color(text_color)
                                 .on_click(move |checked, _, app| {
                                     entity.update(app, |this, cx| {
                                         this.auto_reconnect = *checked;
@@ -1261,7 +1438,8 @@ impl Render for TerminalTabs {
                             Switch::new("remember_session_toggle")
                                 .checked(self.remember_session)
                                 .label("Remember & restore tabs on relaunch")
-                                .mb_4()
+                                .mb_3()
+                                .text_color(text_color)
                                 .on_click(move |checked, _, app| {
                                     entity.update(app, |this, cx| {
                                         this.remember_session = *checked;
@@ -1278,6 +1456,49 @@ impl Render for TerminalTabs {
                                     });
                                 })
                         })
+                        .child({
+                            let entity = entity.clone();
+                            Switch::new("sync_font_size_toggle")
+                                .checked(self.sync_font_size_across_tabs)
+                                .label("Sync font size across tabs (Ctrl/Cmd +/-)")
+                                .mb_3()
+                                .text_color(text_color)
+                                .on_click(move |checked, _, app| {
+                                    entity.update(app, |this, cx| {
+                                        this.sync_font_size_across_tabs = *checked;
+                                        if *checked {
+                                            // Align every open tab to the shared size.
+                                            let size = this.font_size;
+                                            for tab in &this.tabs {
+                                                tab.update(cx, |session, cx| {
+                                                    session.terminal_view.update(cx, |tv, cx| {
+                                                        let mut config = tv.config().clone();
+                                                        config.font_size = size;
+                                                        tv.update_config(config, cx);
+                                                    });
+                                                });
+                                            }
+                                        }
+                                        save_settings(this);
+                                        cx.notify();
+                                    });
+                                })
+                        })
+                        .child({
+                            let entity = entity.clone();
+                            Switch::new("remember_font_size_toggle")
+                                .checked(self.remember_font_size)
+                                .label("Remember last font size on relaunch")
+                                .mb_4()
+                                .text_color(text_color)
+                                .on_click(move |checked, _, app| {
+                                    entity.update(app, |this, cx| {
+                                        this.remember_font_size = *checked;
+                                        save_settings(this);
+                                        cx.notify();
+                                    });
+                                })
+                        })
                         .child(
                             div()
                                 .id("close_settings")
@@ -1287,9 +1508,9 @@ impl Render for TerminalTabs {
                                 .cursor_pointer()
                                 .flex()
                                 .justify_center()
-                                .on_click(cx.listener(|this, _, _, cx| {
+                                .on_click(cx.listener(|this, _, window, cx| {
                                     this.show_settings = false;
-                                    this.focus_active_terminal = true;
+                                    this.focus_active_session(window, cx);
                                     cx.notify();
                                 }))
                                 .child(div().child("Close").text_color(text_color))
