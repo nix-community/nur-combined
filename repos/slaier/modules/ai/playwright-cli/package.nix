@@ -6,14 +6,14 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "playwright-cli";
-  version = "0.1.15";
+  version = "0.1.17";
 
   src = fetchurl {
     url = "https://registry.npmjs.org/@playwright/cli/-/cli-${finalAttrs.version}.tgz";
-    hash = "sha256-ZSfLZp11AN5jqKXEo3HVG6KWsENNbe1D4bnAKh7QPLI=";
+    hash = "sha256-HgC/ST1JEjH34QaGO3YtJcBcsw2XOAWeaK0yUtKEIqA=";
   };
 
-  npmDepsHash = "sha256-BvwTp5SEzAVWyvukHhGpmnlLLEL/t7ZrNFLzaq201WE=";
+  npmDepsHash = "sha256-B6t59yhBIBMvI5XN8t2uUq96+Gsu6QVkvdb//DrgL10=";
 
   postPatch = ''
     ln -s ${./package-lock.json} package-lock.json

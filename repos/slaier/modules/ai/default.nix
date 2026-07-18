@@ -75,9 +75,9 @@ in
     settings = {
       model_list = [
         {
-          model_name = "z-ai/glm-5.2";
+          model_name = "stepfun-ai/step-3.5-flash";
           litellm_params = {
-            model = "nvidia_nim/z-ai/glm-5.2";
+            model = "nvidia_nim/stepfun-ai/step-3.5-flash";
             api_key = "os.environ/NVIDIA_NIM_API_KEY";
           };
         }

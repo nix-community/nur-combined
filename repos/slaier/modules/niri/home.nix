@@ -77,5 +77,18 @@ in
       ];
       startupNotify = false;
     };
+    "com.heroicgameslauncher.hgl" = {
+      name = "Heroic Games Launcher";
+      exec = "env http_proxy=http://127.0.0.1:7890 https_proxy=http://127.0.0.1:7890 heroic %u";
+      icon = "com.heroicgameslauncher.hgl";
+      terminal = false;
+      comment = "An Open Source Launcher for GOG, Epic Games and Amazon Games";
+      mimeType = [
+        "x-scheme-handler/heroic"
+      ];
+      categories = [
+        "Game"
+      ];
+    };
   };
 }

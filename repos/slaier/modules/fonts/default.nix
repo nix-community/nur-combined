@@ -1,30 +1,14 @@
 { pkgs, ... }:
 {
+  environment.systemPackages = [ pkgs.font-check ];
   fonts = {
-    enableDefaultPackages = true;
+    enableDefaultPackages = false;
     packages = with pkgs; [
+      dejavu_fonts
+      lxgw-neoxihei
+      lxgw-wenkai
       nerd-fonts.fantasque-sans-mono
       noto-fonts-color-emoji
-      vista-fonts-chs
     ];
-
-    fontconfig = {
-      defaultFonts = {
-        serif = [
-          "FantasqueSansM Nerd Font Mono"
-          "Microsoft YaHei"
-        ];
-        sansSerif = [
-          "FantasqueSansM Nerd Font Mono"
-          "Microsoft YaHei"
-        ];
-        monospace = [
-          "FantasqueSansM Nerd Font Mono"
-          "Microsoft YaHei"
-          "Noto Color Emoji"
-        ];
-        emoji = [ "Noto Color Emoji" ];
-      };
-    };
   };
 }

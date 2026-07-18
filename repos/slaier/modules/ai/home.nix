@@ -103,7 +103,7 @@ in
       flags = "--add-dir ${rtkMD}";
       runtimeEnv =
         let
-          ANTHROPIC_MODEL = "z-ai/glm-5.2";
+          ANTHROPIC_MODEL = "stepfun-ai/step-3.5-flash";
         in
         {
           ANTHROPIC_BASE_URL = "http://127.0.0.1:4000";
