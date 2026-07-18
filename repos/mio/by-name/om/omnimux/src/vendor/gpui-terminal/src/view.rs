@@ -413,6 +413,9 @@ pub struct TerminalView {
 
     /// Callback for terminal exit events
     exit_callback: Option<ExitCallback>,
+
+    /// Inclusive start/end of the active search match (grid coordinates), if any
+    search_highlight: Option<(alacritty_terminal::index::Point, alacritty_terminal::index::Point)>,
 }
 
 impl TerminalView {
@@ -534,6 +537,7 @@ impl TerminalView {
             title_callback: None,
             clipboard_store_callback: None,
             exit_callback: None,
+            search_highlight: None,
         }
     }
 
@@ -921,6 +925,80 @@ impl TerminalView {
         &self.focus_handle
     }
 
+    /// Clear the active search highlight.
+    pub fn clear_search(&mut self, cx: &mut Context<Self>) {
+        self.search_highlight = None;
+        cx.notify();
+    }
+
+    /// Search for `query` in the terminal buffer.
+    ///
+    /// When `forward` is true, finds the next match after the current highlight
+    /// (or from the cursor). When false, searches backward. Scrolls the match
+    /// into view and highlights it.
+    ///
+    /// Returns `true` if a match was found.
+    pub fn search(&mut self, query: &str, forward: bool, cx: &mut Context<Self>) -> bool {
+        if query.is_empty() {
+            self.search_highlight = None;
+            cx.notify();
+            return false;
+        }
+
+        let pattern = escape_regex_literal(query);
+        let Ok(mut regex) = alacritty_terminal::term::search::RegexSearch::new(&pattern) else {
+            self.search_highlight = None;
+            cx.notify();
+            return false;
+        };
+
+        use alacritty_terminal::index::{Direction, Point, Side};
+        use alacritty_terminal::grid::Dimensions;
+
+        let direction = if forward {
+            Direction::Right
+        } else {
+            Direction::Left
+        };
+        let side = if forward {
+            Side::Right
+        } else {
+            Side::Left
+        };
+
+        let origin = match self.search_highlight {
+            Some((_, end)) if forward => end,
+            Some((start, _)) if !forward => start,
+            _ => self.state.with_term(|term| term.grid().cursor.point),
+        };
+
+        let found = self.state.with_term_mut(|term| {
+            let m = term
+                .search_next(&mut regex, origin, direction, side, None)
+                .or_else(|| {
+                    let wrap_origin = if forward {
+                        Point::new(term.topmost_line(), alacritty_terminal::index::Column(0))
+                    } else {
+                        Point::new(term.bottommost_line(), term.last_column())
+                    };
+                    term.search_next(&mut regex, wrap_origin, direction, side, None)
+                });
+
+            if let Some(m) = m {
+                let start = *m.start();
+                let end = *m.end();
+                term.scroll_to_point(start);
+                Some((start, end))
+            } else {
+                None
+            }
+        });
+
+        self.search_highlight = found;
+        cx.notify();
+        self.search_highlight.is_some()
+    }
+
     /// Update the terminal configuration.
     ///
     /// This method updates the terminal's configuration, including font settings,
@@ -973,6 +1051,7 @@ impl Render for TerminalView {
         let renderer = self.renderer.clone();
         let resize_callback = self.resize_callback.clone();
         let padding = self.config.padding;
+        let search_highlight = self.search_highlight;
 
         div()
             .size_full()
@@ -1043,12 +1122,34 @@ impl Render for TerminalView {
                         }
 
                         // Paint the terminal with measured dimensions
-                        measured_renderer.paint(bounds, padding, &term, window, cx);
+                        measured_renderer.paint(
+                            bounds,
+                            padding,
+                            &term,
+                            search_highlight,
+                            window,
+                            cx,
+                        );
                     },
                 )
                 .size_full(),
             )
     }
+}
+
+/// Escape regex metacharacters so the user's query is treated as a literal.
+fn escape_regex_literal(s: &str) -> String {
+    let mut out = String::with_capacity(s.len() * 2);
+    for c in s.chars() {
+        if matches!(
+            c,
+            '\\' | '.' | '+' | '*' | '?' | '(' | ')' | '[' | ']' | '{' | '}' | '|' | '^' | '$'
+        ) {
+            out.push('\\');
+        }
+        out.push(c);
+    }
+    out
 }
 
 // Tests are omitted due to macro expansion issues with the test attribute

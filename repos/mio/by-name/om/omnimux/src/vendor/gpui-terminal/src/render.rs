@@ -66,7 +66,7 @@ use alacritty_terminal::index::{Column, Point as AlacPoint};
 use alacritty_terminal::term::Term;
 use alacritty_terminal::term::cell::{Cell, Flags};
 use alacritty_terminal::term::color::Colors;
-use alacritty_terminal::vte::ansi::Color;
+use alacritty_terminal::vte::ansi::{Color, CursorShape};
 use gpui::{
     App, Bounds, Edges, Font, FontFeatures, FontStyle, FontWeight, Hsla, Pixels, Point,
     SharedString, Size, TextRun, UnderlineStyle, Window, px, quad, transparent_black,
@@ -247,8 +247,9 @@ impl TerminalRenderer {
             style: FontStyle::Normal,
         };
 
+        let measure_char = "│";
         let text_run = TextRun {
-            len: 1,
+            len: measure_char.len(),
             font,
             color: gpui::black(),
             background_color: None,
@@ -256,18 +257,19 @@ impl TerminalRenderer {
             strikethrough: None,
         };
 
-        // Shape a single 'M' character to get its metrics
+        // Measure with box-drawing │ so cell height matches TUI/layout fonts
         let shaped = window
             .text_system()
-            .shape_line("M".into(), self.font_size, &[text_run], None);
+            .shape_line(measure_char.into(), self.font_size, &[text_run], None);
 
         // Get the width from the shaped line (accessed via Deref to LineLayout)
         if shaped.width > px(0.0) {
             self.cell_width = shaped.width;
         }
 
-        // Calculate height from ascent + descent with multiplier for tall glyphs (nerd fonts, etc.)
-        let line_height = shaped.ascent + shaped.descent;
+        // Ceil ascent+descent so row count matches integer pixel layout (avoids
+        // fractional drift vs apps that assume whole-cell rows).
+        let line_height = (shaped.ascent + shaped.descent).ceil();
         if line_height > px(0.0) {
             self.cell_height = line_height * self.line_height_multiplier;
         }
@@ -450,6 +452,7 @@ impl TerminalRenderer {
         bounds: Bounds<Pixels>,
         padding: Edges<Pixels>,
         term: &Term<GpuiEventProxy>,
+        search_highlight: Option<(AlacPoint, AlacPoint)>,
         window: &mut Window,
         _cx: &mut App,
     ) {
@@ -531,6 +534,41 @@ impl TerminalRenderer {
                 ));
             }
 
+            // Paint search-match highlight over this row
+            if let Some((match_start, match_end)) = search_highlight {
+                let mut hl_start: Option<usize> = None;
+                let mut hl_end: Option<usize> = None;
+                for col_idx in 0..num_cols {
+                    let p = AlacPoint::new(line, Column(col_idx));
+                    if p >= match_start && p <= match_end {
+                        if hl_start.is_none() {
+                            hl_start = Some(col_idx);
+                        }
+                        hl_end = Some(col_idx + 1);
+                    }
+                }
+                if let (Some(start_col), Some(end_col)) = (hl_start, hl_end) {
+                    let x = origin.x + self.cell_width * (start_col as f32);
+                    let y = origin.y + self.cell_height * (line_idx as f32);
+                    let width = self.cell_width * ((end_col - start_col) as f32);
+                    window.paint_quad(quad(
+                        Bounds {
+                            origin: Point { x, y },
+                            size: Size {
+                                width,
+                                height: self.cell_height,
+                            },
+                        },
+                        px(0.0),
+                        // Amber highlight (semi-opaque feel via bright color)
+                        gpui::hsla(0.12, 0.9, 0.45, 0.45),
+                        Edges::<Pixels>::default(),
+                        transparent_black(),
+                        Default::default(),
+                    ));
+                }
+            }
+
             // Calculate vertical offset to center text in cell
             // The multiplier adds extra height; we want to distribute it evenly top/bottom
             let base_height = self.cell_height / self.line_height_multiplier;
@@ -606,38 +644,68 @@ impl TerminalRenderer {
             }
         }
 
-        // Paint cursor (convert grid coords → viewport; hide if scrolled off-screen)
-        if let Some(vp) =
-            alacritty_terminal::term::point_to_viewport(display_offset, grid.cursor.point)
-        {
-            if vp.line < num_lines {
-                let cursor_x = origin.x + self.cell_width * (vp.column.0 as f32);
-                let cursor_y = origin.y + self.cell_height * (vp.line as f32);
+        // Paint cursor only when the app wants it visible. TUIs like cursor-agent
+        // often hide the hardware cursor (CSI ?25l) and draw their own, while
+        // parking the VTE cursor just above the tmux status line — painting that
+        // parked position looks like a "wrong" cursor.
+        let renderable = term.renderable_content();
+        let cursor = renderable.cursor;
+        if cursor.shape != CursorShape::Hidden {
+            if let Some(vp) =
+                alacritty_terminal::term::point_to_viewport(display_offset, cursor.point)
+            {
+                if vp.line < num_lines {
+                    let cursor_x = origin.x + self.cell_width * (vp.column.0 as f32);
+                    let cursor_y = origin.y + self.cell_height * (vp.line as f32);
 
-                let cursor_color = self.palette.resolve(
-                    Color::Named(alacritty_terminal::vte::ansi::NamedColor::Cursor),
-                    colors,
-                );
+                    let cursor_color = self.palette.resolve(
+                        Color::Named(alacritty_terminal::vte::ansi::NamedColor::Cursor),
+                        colors,
+                    );
 
-                let cursor_bounds = Bounds {
-                    origin: Point {
-                        x: cursor_x,
-                        y: cursor_y,
-                    },
-                    size: Size {
-                        width: self.cell_width,
-                        height: self.cell_height,
-                    },
-                };
+                    let cursor_bounds = match cursor.shape {
+                        CursorShape::Underline => Bounds {
+                            origin: Point {
+                                x: cursor_x,
+                                y: cursor_y + self.cell_height * 0.85,
+                            },
+                            size: Size {
+                                width: self.cell_width,
+                                height: self.cell_height * 0.15,
+                            },
+                        },
+                        CursorShape::Beam => Bounds {
+                            origin: Point {
+                                x: cursor_x,
+                                y: cursor_y,
+                            },
+                            size: Size {
+                                width: (self.cell_width * 0.15).max(px(1.0)),
+                                height: self.cell_height,
+                            },
+                        },
+                        // Block / HollowBlock — full cell (hollow still filled for now)
+                        _ => Bounds {
+                            origin: Point {
+                                x: cursor_x,
+                                y: cursor_y,
+                            },
+                            size: Size {
+                                width: self.cell_width,
+                                height: self.cell_height,
+                            },
+                        },
+                    };
 
-                window.paint_quad(quad(
-                    cursor_bounds,
-                    px(0.0),
-                    cursor_color,
-                    Edges::<Pixels>::default(),
-                    transparent_black(),
-                    Default::default(),
-                ));
+                    window.paint_quad(quad(
+                        cursor_bounds,
+                        px(0.0),
+                        cursor_color,
+                        Edges::<Pixels>::default(),
+                        transparent_black(),
+                        Default::default(),
+                    ));
+                }
             }
         }
     }
