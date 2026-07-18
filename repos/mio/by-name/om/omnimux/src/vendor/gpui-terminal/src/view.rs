@@ -59,7 +59,7 @@ use crate::render::TerminalRenderer;
 use crate::terminal::TerminalState;
 use alacritty_terminal::event::WindowSize;
 use alacritty_terminal::grid::{Dimensions, Scroll};
-use alacritty_terminal::index::{Column, Point as AlacPoint, Side};
+use alacritty_terminal::index::{Column, Line, Point as AlacPoint, Side};
 use alacritty_terminal::selection::{Selection as AlacSelection, SelectionType as AlacSelectionType};
 use alacritty_terminal::term::TermMode;
 use alacritty_terminal::vte::ansi::Rgb;
@@ -442,6 +442,10 @@ pub struct TerminalView {
 
     /// True while Shift (or no mouse-mode) drag is building a local selection.
     selecting: bool,
+
+    /// Last laid-out bounds of this view (window coordinates).
+    /// Mouse events report window positions; we subtract this origin to get cells.
+    view_bounds: Arc<parking_lot::Mutex<Bounds<Pixels>>>,
 }
 
 impl TerminalView {
@@ -573,6 +577,7 @@ impl TerminalView {
             mouse_pressed: None,
             last_mouse_cell: None,
             selecting: false,
+            view_bounds: Arc::new(parking_lot::Mutex::new(Bounds::default())),
         }
     }
 
@@ -783,13 +788,7 @@ impl TerminalView {
     ) {
         window.focus(&self.focus_handle);
 
-        let origin = Point::new(self.config.padding.left, self.config.padding.top);
-        let viewport = pixel_to_cell(
-            event.position,
-            origin,
-            self.renderer.cell_width,
-            self.renderer.cell_height,
-        );
+        let viewport = self.viewport_cell_at(event.position);
         let mode = self.state.mode();
         let mouse_reporting = mode.intersects(
             TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
@@ -857,13 +856,7 @@ impl TerminalView {
         cx: &mut Context<Self>,
     ) {
         if self.selecting {
-            let origin = Point::new(self.config.padding.left, self.config.padding.top);
-            let viewport = pixel_to_cell(
-                event.position,
-                origin,
-                self.renderer.cell_width,
-                self.renderer.cell_height,
-            );
+            let viewport = self.viewport_cell_at(event.position);
             let grid_point = self.viewport_to_grid(viewport);
             self.state.with_term_mut(|term| {
                 if let Some(sel) = term.selection.as_mut() {
@@ -881,13 +874,7 @@ impl TerminalView {
             return;
         }
 
-        let origin = Point::new(self.config.padding.left, self.config.padding.top);
-        let point = pixel_to_cell(
-            event.position,
-            origin,
-            self.renderer.cell_width,
-            self.renderer.cell_height,
-        );
+        let point = self.viewport_cell_at(event.position);
         let mode = self.state.mode();
         let modifiers = encode_modifiers(
             false,
@@ -911,13 +898,7 @@ impl TerminalView {
         _window: &mut Window,
         cx: &mut Context<Self>,
     ) {
-        let origin = Point::new(self.config.padding.left, self.config.padding.top);
-        let viewport = pixel_to_cell(
-            event.position,
-            origin,
-            self.renderer.cell_width,
-            self.renderer.cell_height,
-        );
+        let viewport = self.viewport_cell_at(event.position);
 
         if self.selecting {
             let grid_point = self.viewport_to_grid(viewport);
@@ -951,6 +932,28 @@ impl TerminalView {
             let _ = writer.flush();
             self.last_mouse_cell = Some(viewport);
         }
+    }
+
+    /// Convert a window-space mouse position to a clamped viewport cell.
+    ///
+    /// GPUI mouse events use window coordinates; the terminal content is offset by
+    /// title/tab chrome. We subtract the last laid-out view bounds (+ padding).
+    fn viewport_cell_at(&self, window_pos: Point<Pixels>) -> AlacPoint {
+        let bounds = *self.view_bounds.lock();
+        let origin = Point::new(
+            bounds.origin.x + self.config.padding.left,
+            bounds.origin.y + self.config.padding.top,
+        );
+        let raw = pixel_to_cell(
+            window_pos,
+            origin,
+            self.renderer.cell_width,
+            self.renderer.cell_height,
+        );
+        let (cols, rows) = self.dimensions();
+        let col = raw.column.0.min(cols.saturating_sub(1));
+        let row = raw.line.0.clamp(0, rows.saturating_sub(1) as i32);
+        AlacPoint::new(Line(row), Column(col))
     }
 
     /// Map a viewport cell (from [`pixel_to_cell`]) to an absolute grid point.
@@ -1086,12 +1089,7 @@ impl TerminalView {
             return;
         }
 
-        let point = pixel_to_cell(
-            event.position,
-            Point::new(self.config.padding.left, self.config.padding.top),
-            self.renderer.cell_width,
-            cell_height,
-        );
+        let point = self.viewport_cell_at(event.position);
         let mode = self.state.mode();
         let mouse_reporting = mode.intersects(
             TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
@@ -1306,6 +1304,7 @@ impl Render for TerminalView {
         let padding = self.config.padding;
         let search_highlight = self.search_highlight;
         let bg = self.config.colors.background();
+        let view_bounds = self.view_bounds.clone();
 
         div()
             .size_full()
@@ -1322,7 +1321,11 @@ impl Render for TerminalView {
             .on_scroll_wheel(cx.listener(Self::on_scroll))
             .child(
                 canvas(
-                    move |bounds, _window, _cx| bounds,
+                    move |bounds, _window, _cx| {
+                        // Remember window-space bounds so mouse hit-testing matches paint.
+                        *view_bounds.lock() = bounds;
+                        bounds
+                    },
                     move |bounds, _, window, cx| {
                         use alacritty_terminal::grid::Dimensions;
 

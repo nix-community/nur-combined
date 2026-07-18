@@ -27,7 +27,7 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 - **Scroll direction**: align GPUI wheel sign with alacritty (positive Y = up); do not double-negate.
 - **Click / drag**: SGR button press/release and drag reports when mouse reporting is enabled (`mouse_button_report` / `mouse_drag_report`).
 - **Shift exception**: with **Shift** held (or when mouse reporting is off), **do not** send mouse events to the PTY; start / extend a **local** selection instead. Shift+wheel always scrolls local history.
-- **Padding-aware** cell hit-testing for mouse/scroll.
+- **Padding-aware** / **window-bounds-aware** cell hit-testing for mouse/scroll (GPUI positions are window-relative; subtract the terminal view origin so tmux gets the correct cell).
 
 ### Selection & clipboard
 
