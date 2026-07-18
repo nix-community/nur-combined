@@ -68,8 +68,8 @@ use alacritty_terminal::term::cell::{Cell, Flags};
 use alacritty_terminal::term::color::Colors;
 use alacritty_terminal::vte::ansi::{Color, CursorShape};
 use gpui::{
-    App, Bounds, Edges, Font, FontFeatures, FontStyle, FontWeight, Hsla, Pixels, Point,
-    SharedString, Size, TextRun, UnderlineStyle, Window, px, quad, transparent_black,
+    App, Bounds, Edges, Font, FontFallbacks, FontFeatures, FontStyle, FontWeight, Hsla, Pixels,
+    Point, SharedString, Size, TextRun, UnderlineStyle, Window, px, quad, transparent_black,
 };
 
 /// A batched run of text with consistent styling.
@@ -169,6 +169,9 @@ pub struct TerminalRenderer {
     /// Font family name (e.g., "Fira Code", "Menlo")
     pub font_family: String,
 
+    /// Fallback families for glyphs missing from the primary font (nerd/powerline icons)
+    pub font_fallbacks: Vec<String>,
+
     /// Font size in pixels
     pub font_size: Pixels,
 
@@ -221,11 +224,26 @@ impl TerminalRenderer {
 
         Self {
             font_family,
+            font_fallbacks: Vec::new(),
             font_size,
             cell_width,
             cell_height,
             line_height_multiplier,
             palette,
+        }
+    }
+
+    fn gpui_font(&self, weight: FontWeight, style: FontStyle) -> Font {
+        Font {
+            family: self.font_family.clone().into(),
+            features: FontFeatures::default(),
+            fallbacks: if self.font_fallbacks.is_empty() {
+                None
+            } else {
+                Some(FontFallbacks::from_fonts(self.font_fallbacks.clone()))
+            },
+            weight,
+            style,
         }
     }
 
@@ -238,14 +256,7 @@ impl TerminalRenderer {
     ///
     /// * `window` - The GPUI window for text system access
     pub fn measure_cell(&mut self, window: &mut Window) {
-        // Measure using a reference character (M is typically the widest)
-        let font = Font {
-            family: self.font_family.clone().into(),
-            features: FontFeatures::default(),
-            fallbacks: None,
-            weight: FontWeight::NORMAL,
-            style: FontStyle::Normal,
-        };
+        let font = self.gpui_font(FontWeight::NORMAL, FontStyle::Normal);
 
         let measure_char = "│";
         let text_run = TextRun {
@@ -610,21 +621,18 @@ impl TerminalRenderer {
                 let underline = flags.contains(alacritty_terminal::term::cell::Flags::UNDERLINE);
 
                 // Create font with styling
-                let font = Font {
-                    family: self.font_family.clone().into(),
-                    features: FontFeatures::default(),
-                    fallbacks: None,
-                    weight: if bold {
+                let font = self.gpui_font(
+                    if bold {
                         FontWeight::BOLD
                     } else {
                         FontWeight::NORMAL
                     },
-                    style: if italic {
+                    if italic {
                         FontStyle::Italic
                     } else {
                         FontStyle::Normal
                     },
-                };
+                );
 
                 // Create text run for this single character
                 let char_str = ch.to_string();

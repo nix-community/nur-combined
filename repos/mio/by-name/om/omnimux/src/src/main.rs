@@ -84,12 +84,20 @@ impl TerminalSession {
         let config = TerminalConfig {
             cols: 80,
             rows: 24,
-            font_family: "Monaco".into(),
+            font_family: if cfg!(target_os = "macos") {
+                "Menlo".into()
+            } else {
+                "monospace".into()
+            },
             font_size: px(14.0),
             line_height_multiplier: 1.14,
             scrollback: 10000,
             padding: Edges::default(),
             colors,
+            font_fallbacks: vec![
+                "Symbols Nerd Font Mono".into(),
+                "Symbols Nerd Font".into(),
+            ],
         };
 
         let terminal_view = cx.new(|cx| {
@@ -1107,6 +1115,7 @@ impl Render for TerminalTabs {
 fn main() {
     gpui::Application::new().run(|cx: &mut gpui::App| {
         gpui_component::init(cx);
+        load_bundled_symbol_fonts(cx);
 
         let bounds = Bounds::centered(None, size(px(800.0), px(600.0)), cx);
         cx.open_window(
@@ -1125,4 +1134,53 @@ fn main() {
         ).unwrap();
         cx.activate(true);
     });
+}
+
+/// Directories that may contain shipped Nerd Font Symbols TTFs.
+fn symbol_font_dirs() -> Vec<std::path::PathBuf> {
+    let mut dirs = Vec::new();
+    if let Ok(dir) = std::env::var("OMNIMUX_FONTS_DIR") {
+        dirs.push(std::path::PathBuf::from(dir));
+    }
+    if let Ok(exe) = std::env::current_exe() {
+        if let Some(bin_dir) = exe.parent() {
+            // Nix: $out/bin/omnimux → $out/share/omnimux/fonts
+            dirs.push(bin_dir.join("../share/omnimux/fonts"));
+            dirs.push(bin_dir.join("fonts"));
+            // Darwin .app: Contents/MacOS/Omnimux → Contents/Resources/fonts
+            dirs.push(bin_dir.join("../Resources/fonts"));
+        }
+    }
+    dirs
+}
+
+/// Load bundled Symbols Nerd Font into GPUI so Starship glyphs can fall back.
+fn load_bundled_symbol_fonts(cx: &gpui::App) {
+    use std::borrow::Cow;
+
+    let mut fonts: Vec<Cow<'static, [u8]>> = Vec::new();
+    for dir in symbol_font_dirs() {
+        let Ok(entries) = std::fs::read_dir(&dir) else {
+            continue;
+        };
+        for entry in entries.flatten() {
+            let path = entry.path();
+            let is_ttf = path
+                .extension()
+                .and_then(|e| e.to_str())
+                .is_some_and(|e| e.eq_ignore_ascii_case("ttf"));
+            if !is_ttf {
+                continue;
+            }
+            if let Ok(bytes) = std::fs::read(&path) {
+                fonts.push(Cow::Owned(bytes));
+            }
+        }
+    }
+    if fonts.is_empty() {
+        return;
+    }
+    if let Err(err) = cx.text_system().add_fonts(fonts) {
+        eprintln!("omnimux: failed to load bundled symbol fonts: {err}");
+    }
 }

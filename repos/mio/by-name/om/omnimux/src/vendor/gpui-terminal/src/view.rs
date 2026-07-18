@@ -139,6 +139,10 @@ pub struct TerminalConfig {
     /// Color palette for terminal colors (16 ANSI colors, 256 extended colors,
     /// foreground, background, and cursor colors)
     pub colors: ColorPalette,
+
+    /// Font families tried when a glyph is missing from [`Self::font_family`]
+    /// (e.g. Starship / Nerd Font symbols).
+    pub font_fallbacks: Vec<String>,
 }
 
 impl Default for TerminalConfig {
@@ -152,6 +156,10 @@ impl Default for TerminalConfig {
             line_height_multiplier: 1.2,
             padding: Edges::all(px(0.0)),
             colors: ColorPalette::default(),
+            font_fallbacks: vec![
+                "Symbols Nerd Font Mono".into(),
+                "Symbols Nerd Font".into(),
+            ],
         }
     }
 }
@@ -467,12 +475,13 @@ impl TerminalView {
         let state = TerminalState::new(config.cols, config.rows, event_proxy);
 
         // Create renderer with font settings and color palette
-        let renderer = TerminalRenderer::new(
+        let mut renderer = TerminalRenderer::new(
             config.font_family.clone(),
             config.font_size,
             config.line_height_multiplier,
             config.colors.clone(),
         );
+        renderer.font_fallbacks = config.font_fallbacks.clone();
 
         // Create focus handle
         let focus_handle = cx.focus_handle();
@@ -1011,6 +1020,7 @@ impl TerminalView {
     pub fn update_config(&mut self, config: TerminalConfig, cx: &mut Context<Self>) {
         // Update renderer with new font settings and palette
         self.renderer.font_family = config.font_family.clone();
+        self.renderer.font_fallbacks = config.font_fallbacks.clone();
         self.renderer.font_size = config.font_size;
         self.renderer.line_height_multiplier = config.line_height_multiplier;
         self.renderer.palette = config.colors.clone();

@@ -136,6 +136,7 @@ fn main() -> Result<()> {
                 line_height_multiplier: 1.05,
                 padding: Edges::all(px(8.0)),
                 colors,
+                ..Default::default()
             };
 
             // Create resize callback that notifies the PTY
