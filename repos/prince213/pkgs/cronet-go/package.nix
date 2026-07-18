@@ -24,7 +24,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cronet-go";
-  version = "148.0.7778.96-1-unstable-2026-06-20";
+  version = "148.0.7778.96-1-unstable-2026-07-12";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -32,9 +32,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "cronet-go";
-    rev = "98d539ce67568fb911654e66a14cf4247ed833ec";
+    rev = "617d38f41f935b46a68f550d9add2e38abb3f168";
     fetchSubmodules = true;
-    hash = "sha256-Kg4gQPu3L0C/mxFFKy2DVCGNALo44kf8UqhmHsa71es=";
+    hash = "sha256-UK7mv0TuhJX4y64DhH49t5mgZFGhMx4Viy/chulKD4s=";
   };
 
   patches = [
