@@ -310,9 +310,15 @@ impl TerminalRenderer {
                 continue;
             }
 
-            // Extract cell styling
-            let fg_color = self.palette.resolve(cell.fg, colors);
-            let bg_color = self.palette.resolve(cell.bg, colors);
+            // Extract cell styling (reverse video swaps fg/bg — used by soft cursors)
+            let (fg_color, bg_color) = {
+                let mut fg = self.palette.resolve(cell.fg, colors);
+                let mut bg = self.palette.resolve(cell.bg, colors);
+                if cell.flags.contains(Flags::INVERSE) {
+                    std::mem::swap(&mut fg, &mut bg);
+                }
+                (fg, bg)
+            };
             let bold = cell.flags.contains(Flags::BOLD);
             let italic = cell.flags.contains(Flags::ITALIC);
             let underline = cell.flags.contains(Flags::UNDERLINE);
@@ -587,8 +593,15 @@ impl TerminalRenderer {
                 let x = origin.x + self.cell_width * (col_idx as f32);
                 let y = origin.y + self.cell_height * (line_idx as f32) + vertical_offset;
 
-                // Get cell colors
-                let fg_color = self.palette.resolve(cell.fg, colors);
+                // Reverse video (soft cursors / selections in TUIs)
+                let (fg_color, _bg_color) = {
+                    let mut fg = self.palette.resolve(cell.fg, colors);
+                    let mut bg = self.palette.resolve(cell.bg, colors);
+                    if cell.flags.contains(Flags::INVERSE) {
+                        std::mem::swap(&mut fg, &mut bg);
+                    }
+                    (fg, bg)
+                };
 
                 // Get cell flags for styling
                 let flags = cell.flags;
