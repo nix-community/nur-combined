@@ -509,6 +509,9 @@
     "slug": "display-_anchors"
   },
   {
+    "slug": "dizionario-italiano"
+  },
+  {
     "slug": "docsafterdark"
   },
   {
@@ -976,6 +979,16 @@
   },
   {
     "slug": "indie-wiki-buddy"
+  },
+  {
+    "slug": "infy-scroll",
+    "license": {
+      "tag": "custom",
+      "shortName": "allrightsreserved",
+      "fullName": "All Rights Reserved",
+      "url": "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186",
+      "free": false
+    }
   },
   {
     "slug": "inkah",

@@ -3293,6 +3293,21 @@
         platforms = platforms.all;
       };
     };
+    "dizionario-italiano" = buildMozillaXpiAddon {
+      pname = "dizionario-italiano";
+      version = "5.2";
+      addonId = "it-IT@dictionaries.addons.mozilla.org";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4812244/dizionario_italiano-5.2.xpi";
+      sha256 = "223def795b58f233c70ff440b765b249eac99d47d4ea752f5f732c42c6be889e";
+      meta = with lib;
+      {
+        homepage = "https://github.com/flodolo/dizionario-it";
+        description = "Add support for Italian to spellchecking";
+        license = licenses.gpl3;
+        mozPermissions = [];
+        platforms = platforms.all;
+      };
+    };
     "docsafterdark" = buildMozillaXpiAddon {
       pname = "docsafterdark";
       version = "2.0.4";
@@ -4341,10 +4356,10 @@
     };
     "floccus" = buildMozillaXpiAddon {
       pname = "floccus";
-      version = "5.10.1";
+      version = "5.10.2";
       addonId = "floccus@handmadeideas.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4887521/floccus-5.10.1.xpi";
-      sha256 = "ff42ae958319b2f33deeddd020bd91f22b57a6f382040f72f1273a439d5b2136";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4905907/floccus-5.10.2.xpi";
+      sha256 = "e84bc56c4e1bfc3cc3aec2a74003c9955ab8f55a3f51394754d2c773afe4f483";
       meta = with lib;
       {
         homepage = "https://floccus.org";
@@ -7093,6 +7108,31 @@
         platforms = platforms.all;
       };
     };
+    "infy-scroll" = buildMozillaXpiAddon {
+      pname = "infy-scroll";
+      version = "10";
+      addonId = "infy-scroll@webextensions";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4795234/infy_scroll-10.xpi";
+      sha256 = "6cb50a6dc86fb7bbccd4971e78fa6cada8bf4d71c6fec5d1ddef0c7ed5ab8219";
+      meta = with lib;
+      {
+        description = "Add customized infinite scrolling to websites and auto load the next page. Supports the AutoPagerize and InfyScroll Databases.";
+        license = {
+          shortName = "allrightsreserved";
+          fullName = "All Rights Reserved";
+          url = "https://en.wikipedia.org/w/index.php?title=All_rights_reserved&oldid=1101263186";
+          free = false;
+        };
+        mozPermissions = [
+          "activeTab"
+          "contextMenus"
+          "scripting"
+          "storage"
+          "<all_urls>"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "inkah" = buildMozillaXpiAddon {
       pname = "inkah";
       version = "1.0.43";
@@ -8456,10 +8496,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.222";
+      version = "2.4.223";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4902595/lichess_tools_by_siderite-2.4.222.xpi";
-      sha256 = "ccd9ec658387ceb82b4392be2d1ed3fea8cd802b6bf695f0f978bdce98f4c1b7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4905893/lichess_tools_by_siderite-2.4.223.xpi";
+      sha256 = "bf914db327e3473b651c9b3082e82c3ed168525ffd05f46e5e7e3f1167d6ac90";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
