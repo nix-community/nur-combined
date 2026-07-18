@@ -534,6 +534,16 @@ impl Render for TerminalTabs {
                     .flex_grow()
                     .h_full()
                     .window_control_area(WindowControlArea::Drag)
+                    .on_click(|ev, window, _| {
+                        if ev.click_count() == 2 {
+                            // macOS: respect System Settings → Dock → double-click title bar
+                            if cfg!(target_os = "macos") {
+                                window.titlebar_double_click();
+                            } else {
+                                window.zoom_window();
+                            }
+                        }
+                    })
                     .child(
                         div()
                             .child("omnimux")
