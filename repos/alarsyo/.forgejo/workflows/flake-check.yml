@@ -1,0 +1,12 @@
+name: flake-check
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  flake-check:
+    runs-on: native
+    steps:
+      - uses: actions/checkout@v4
+      - run: nix flake check
