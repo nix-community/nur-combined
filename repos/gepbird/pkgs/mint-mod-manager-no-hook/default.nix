@@ -2,6 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  fetchpatch,
   pkg-config,
   makeWrapper,
   gtk3,
@@ -31,6 +32,11 @@ rustPlatform.buildRustPackage rec {
   patches = [
     # https://github.com/rust-lang/rust/issues/51114
     ./0001-Drop-usage-of-unstable-if_let_guard-feature.patch
+    (fetchpatch {
+      name = "fix-mod.io-403-error.patch";
+      url = "https://github.com/Wasserkleber/mintfixed/commit/0170376189d46fc8f7b627f8ee0dcdf7b0b2c2ad.patch";
+      hash = "sha256-q+NasQ4xyI+E+ucBw5kJ/MHnZR9ydFxBc6AY9NEVQ04=";
+    })
   ];
 
   preConfigure = ''

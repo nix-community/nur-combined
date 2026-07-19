@@ -2,6 +2,7 @@
   pkgs,
   lib,
   fetchFromGitHub,
+  fetchpatch,
   pkgsCross,
   makeRustPlatform,
   pkg-config,
@@ -51,6 +52,14 @@ rustPlatform.buildRustPackage rec {
       rm -rf $out/.git
     '';
   };
+
+  patches = [
+    (fetchpatch {
+      name = "fix-mod.io-403-error.patch";
+      url = "https://github.com/Wasserkleber/mintfixed/commit/0170376189d46fc8f7b627f8ee0dcdf7b0b2c2ad.patch";
+      hash = "sha256-q+NasQ4xyI+E+ucBw5kJ/MHnZR9ydFxBc6AY9NEVQ04=";
+    })
+  ];
 
   cargoHash = "sha256-5EYSiUTa50gMu2YHx6COVJU+8IFuvc5td/9TzygpeaY=";
 
