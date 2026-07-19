@@ -37,7 +37,7 @@ let
   mingwPkgs = pkgsCross.mingwW64;
   mingwCompiler = mingwPkgs.buildPackages.gcc;
 in
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mint-mod-manager";
   version = "0.2.10-unstable-2025-12-16";
 
@@ -67,10 +67,13 @@ rustPlatform.buildRustPackage rec {
     # Necessary for cross compiled build scripts, otherwise it will build as ELF format
     # https://docs.rs/cc/latest/cc/#external-configuration-via-environment-variables
     CC_x86_64_pc_windows_gnu = "${mingwCompiler}/bin/${mingwCompiler.targetPrefix}cc";
-
     CARGO_TARGET_X86_64_PC_WINDOWS_GNU_RUSTFLAGS = "-L ${mingwPkgs.windows.pthreads}/lib";
-    BUILT_OVERRIDE_mint_lib_GIT_VERSION = "unstable";
   };
+
+  preConfigure = ''
+    export BUILT_OVERRIDE_mint_lib_GIT_VERSION=$(cat GIT_VERSION)
+    echo "Using mint_lib GIT_VERSION: $BUILT_OVERRIDE_mint_lib_GIT_VERSION"
+  '';
 
   nativeBuildInputs = [
     mingwCompiler
@@ -89,7 +92,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     wrapProgram $out/bin/mint \
-      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath buildInputs}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath finalAttrs.buildInputs}" \
       --prefix XDG_DATA_DIRS : "${gtk3}/share/gsettings-schemas/${gtk3.name}"
   '';
 
@@ -101,7 +104,7 @@ rustPlatform.buildRustPackage rec {
       Mint is a 3rd party mod integration tool for Deep Rock Galactic to download and integrate mods completely externally of the game. This enables more stable mod usage as well as offline mod usage.
     '';
     homepage = "https://github.com/trumank/mint";
-    changelog = "https://github.com/trumank/mint/commit/${src.rev}";
+    changelog = "https://github.com/trumank/mint/commit/${finalAttrs.src.rev}";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [
       gepbird
@@ -109,4 +112,4 @@ rustPlatform.buildRustPackage rec {
     mainProgram = "mint";
     platforms = [ "x86_64-linux" ];
   };
-}
+})
