@@ -1,6 +1,6 @@
---- a/settings.gradle.kts
-+++ b/settings.gradle.kts
-@@ -10,6 +10,7 @@
+--- a/settings.gradle.kts	2026-06-26 15:02:59.000000000 +1000
++++ b/settings.gradle.kts	2026-07-19 18:05:13.462781223 +1000
+@@ -12,6 +12,7 @@
                  includeGroupAndSubgroups("com.google")
              }
          }
@@ -8,18 +8,11 @@
          mavenCentral()
          gradlePluginPortal()
      }
-@@ -24,6 +25,7 @@
+@@ -26,6 +27,7 @@
                  includeGroupAndSubgroups("com.google")
              }
          }
 +        maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
          mavenCentral()
-     }
- }
-@@ -32,4 +34,4 @@
-     id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
- }
- 
--include(":composeApp")
-\ No newline at end of file
-+include(":composeApp")
+         maven("https://jitpack.io") {
+             mavenContent {
