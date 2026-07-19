@@ -13,6 +13,7 @@ lib.nixosSystem rec {
   modules =
     [
       ./configuration.nix
+      ./services.nix
       ./tproxy.nix
       ./router.nix
       ./networking.nix

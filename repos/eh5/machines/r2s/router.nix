@@ -51,7 +51,7 @@
       no-resolv = true;
       strict-order = true;
       server = [
-        "127.0.0.1#5353"
+        "127.0.0.1#4053"
         "223.5.5.5#53"
       ];
       local = "/lan/";

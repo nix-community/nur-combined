@@ -155,13 +155,6 @@ in
       UplinkInterface = "ppp0";
       Token = "static:::1";
     };
-    ipv6Prefixes = [
-      {
-        Prefix = "fd78:3378:3378::/64";
-        Assign = true;
-        Token = "static:::1";
-      }
-    ];
     ipv6SendRAConfig = {
       EmitDNS = true;
       DNS = [ "_link_local" ];
@@ -223,6 +216,8 @@ in
     after = [ "sys-subsystem-net-devices-extern0.device" ];
     wantedBy = [ "sys-devices-virtual-net-ppp0.device" ];
     preStart = ''
+      # force PPPoE baby jumbo frames, seems it's allowed by my ISP depiste it not responding PPP-Max-Payload tag
+      ${pkgs.iproute2}/bin/ip link set extern0 mtu 1508
       ${pkgs.iproute2}/bin/ip link set extern0 up
     '';
     serviceConfig = {
@@ -231,13 +226,14 @@ in
   };
 
   environment.etc.ppp-up = {
-    enable = true;
-    target = "ppp/ip-up";
+    target = "ppp/ip-pre-up";
     mode = "0755";
     text = ''
       #!${pkgs.bash}/bin/bash
-      echo set $PPP_IFACE qdisc to cake
-      ${pkgs.iproute2}/bin/tc qdisc replace dev "$PPP_IFACE" root cake
+      # force 1500 MTU
+      if [[ $IFNAME == ppp0 ]]; then
+        ${pkgs.iproute2}/bin/ip link set dev $IFNAME mtu 1500
+      fi
     '';
   };
 
