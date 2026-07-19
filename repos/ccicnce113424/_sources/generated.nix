@@ -32,13 +32,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.3.2";
+    version = "v0.4.0-alpha.1";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.3.2";
+      rev = "v0.4.0-alpha.1";
       fetchSubmodules = false;
-      sha256 = "sha256-xS7v88ICRLGndUfe3oFuLLbFZYHdDPSezkcZSEmLPjA=";
+      sha256 = "sha256-9ZxJc4hrYwo5hdEpg2OvGlUesWhvfEmkSfLrOJlvX3s=";
     };
   };
   fast-nix-gc = {
@@ -349,21 +349,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "7d756853538cdd225cc4abaf17317b72bb7c6c67";
+    version = "84285cdeac2ade4a685e6ca12bad314e449c174f";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "7d756853538cdd225cc4abaf17317b72bb7c6c67";
+      rev = "84285cdeac2ade4a685e6ca12bad314e449c174f";
       fetchSubmodules = false;
-      sha256 = "sha256-s3jBidlQvNsErvVVAs4qb+Kmkd5m+bAkjkEFMwR1CJQ=";
+      sha256 = "sha256-ksOexBXRdA9HOHiZy/vQkZLRCsdsn6AaygVNk9vBVpQ=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-s3jBidlQvNsErvVVAs4qb+Kmkd5m+bAkjkEFMwR1CJQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-ksOexBXRdA9HOHiZy_vQkZLRCsdsn6AaygVNk9vBVpQ=/Cargo.lock";
       outputHashes = {
         "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
       };
     };
-    date = "2026-07-10";
+    date = "2026-07-20";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
