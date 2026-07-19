@@ -3,22 +3,22 @@
   "source": {
     "type": "github-release",
     "repo": "ARMSX2/ARMSX2",
-    "skip_prerelease": true,
+    "tag_filter": "^\\d",
     "name_query": "[0].tag_name"
   },
-  "version": "2.6.1.2",
+  "version": "2.6.1.3",
   "platforms": {
     "aarch64-darwin": {
-      "version": "2.6.1.2",
-      "file": "armsx2-macos-arm64-sha.c2ee554b56.tar.xz",
+      "version": "2.6.1.3",
+      "file": "armsx2-macos-arm64-sha.5b876415be.tar.xz",
       "query": "[0].assets.find(a => a.name.includes('macos')).name",
-      "hash": "sha256-b+k+DQvAo0qjZggKKrgLxzCSwdmMCwYPHxkIqUsKYBM="
+      "hash": "sha256-KI7tuAx+9cv3wi8WuV0u1gPviGmC5etvzKd6OeTZv2w="
     },
     "aarch64-linux": {
-      "version": "2.6.1.2",
-      "file": "armsx2-linux-arm64-16k-appimage-sha.c2ee554b56.AppImage",
+      "version": "2.6.1.3",
+      "file": "armsx2-linux-arm64-16k-appimage-sha.5b876415be.AppImage",
       "query": "[0].assets.find(a => a.name.includes('linux-arm64-16k')).name",
-      "hash": "sha256-3p1kL4dhuiQHbKW5Iae0wS0VBBS9DsBXJ14zDVTXas0="
+      "hash": "sha256-CowrJjqVaoPQmWY+Z2ciGrjD0jHYXc25u3+IrTJMhnE="
     }
   }
 }

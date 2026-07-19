@@ -26,7 +26,7 @@ async function check(file, { config, force, repo = null }) {
     if (!releases?.length) throw new Error(`No releases found matching filter: ${config.source.tag_filter}`);
   }
 
-  const version = (config.source.skip_prerelease || !config.source.query) ? releases[0].tag_name : eval(`(${JSON.stringify(releases)})${config.source.query}`);
+  const version = config.source.query ? eval(`(${JSON.stringify(releases)})${config.source.query}`) : releases[0].tag_name;
   if (!version) throw new Error("Failed to extract version from GitHub releases");
 
   const prefix = config.source.tag_prefix || "";

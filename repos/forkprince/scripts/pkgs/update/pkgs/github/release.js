@@ -107,9 +107,17 @@ async function platforms(file, { config, force }) {
 
       console.log(`Checking ${platform} (${repo})...`);
 
-      const releases = (await getReleases(repo, config.source.skip_prerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      let releases = (await getReleases(repo, config.source.skip_prerelease)).sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
 
-      const version = config.source.skip_prerelease ? releases[0].tag_name : eval(`(${JSON.stringify(releases)})${config.source.query}`);
+      if (config.source.tag_filter) {
+        releases = releases.filter(r => new RegExp(config.source.tag_filter).test(r.tag_name));
+        if (releases.length === 0) {
+          console.log(`Skipping ${platform}: no releases match tag_filter`);
+          continue;
+        }
+      }
+
+      const version = config.source.query ? eval(`(${JSON.stringify(releases)})${config.source.query}`) : releases[0].tag_name;
       if (!version) continue;
 
       const parsed = version.replace(/^v/, "");
@@ -124,6 +132,10 @@ async function platforms(file, { config, force }) {
       const unpack = settings.unpack || false;
 
       const resolved = settings.query ? eval(`(${JSON.stringify(releases)})${settings.query}`) : settings.file;
+      if (!resolved && !settings.url) {
+        console.log(`Skipping ${platform}: no matching asset found for version ${parsed}`);
+        continue;
+      }
 
       let url = resolved ? `https://github.com/${repo}/releases/download/${prefix}${parsed}/${resolved}` : settings.url;
 
