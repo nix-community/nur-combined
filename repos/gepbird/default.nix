@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -19,7 +21,7 @@
 
   xfce4-terminal-sixel = pkgs.callPackage ./pkgs/xfce4-terminal-sixel { };
 
-  orb-forge-gui= pkgs.callPackage ./pkgs/orb-forge-gui { };
+  orb-forge-gui = pkgs.callPackage ./pkgs/orb-forge-gui { };
 
   hytale-launcher = pkgs.callPackage ./pkgs/hytale-launcher { };
 }
