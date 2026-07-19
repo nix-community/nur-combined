@@ -18,6 +18,7 @@
 
   mint-mod-manager = pkgs.callPackage ./pkgs/mint-mod-manager { };
   mint-mod-manager-no-hook = pkgs.callPackage ./pkgs/mint-mod-manager-no-hook { };
+  drg-mint-notag = pkgs.callPackage ./pkgs/drg-mint-notag { };
 
   xfce4-terminal-sixel = pkgs.callPackage ./pkgs/xfce4-terminal-sixel { };
 
