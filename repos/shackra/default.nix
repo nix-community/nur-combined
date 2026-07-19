@@ -14,7 +14,9 @@
 }:
 
 rec {
+  abw-abcde = pkgs.callPackage ./packages/abw-abcde { };
   ngpost = pkgs.libsForQt5.callPackage ./packages/ngpost { };
   gtkcsslanguageserver = pkgs.callPackage ./packages/gtk-css-language-server { };
   mkpsxiso = pkgs.callPackage ./packages/mkpsxiso { };
+  ppf = pkgs.callPackage ./packages/ppf { };
 }
