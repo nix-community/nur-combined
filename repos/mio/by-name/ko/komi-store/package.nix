@@ -41,12 +41,12 @@
 }:
 
 stdenv.mkDerivation (finalAttrs: {
-  pname = "github-store";
+  pname = "komi-store";
   version = "1.9.2";
 
   src = fetchFromGitHub {
-    owner = "OpenHub-Store";
-    repo = "GitHub-Store";
+    owner = "kurikomi-labs";
+    repo = "komi-store";
     tag = "v${finalAttrs.version}";
     hash = "sha256-oRGkXLoH8+bzy3NE2rdtW3qgqT2c+z2y0qmwosatAeg=";
   };
@@ -124,20 +124,17 @@ stdenv.mkDerivation (finalAttrs: {
     cp -r composeApp/build/compose/binaries/main/app/Komi-Store $out
 
     install -Dm644 composeApp/src/jvmMain/resources/logo/app_icon.png \
-      $out/share/icons/hicolor/512x512/apps/github-store.png
-
-    # Distributable launcher is named after packageName
-    ln -s Komi-Store $out/bin/github-store
+      $out/share/icons/hicolor/512x512/apps/komi-store.png
 
     runHook postInstall
   '';
 
   desktopItems = [
     (makeDesktopItem {
-      name = "github-store";
-      exec = "github-store";
-      icon = "github-store";
-      desktopName = "GitHub Store";
+      name = "komi-store";
+      exec = "Komi-Store";
+      icon = "komi-store";
+      desktopName = "Komi Store";
       comment = finalAttrs.meta.description;
       categories = [ "Development" ];
     })
@@ -145,10 +142,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Cross-platform app store for GitHub releases";
-    homepage = "https://github.com/OpenHub-Store/GitHub-Store";
+    homepage = "https://github.com/kurikomi-labs/komi-store";
     license = lib.licenses.asl20;
     platforms = lib.platforms.linux;
-    mainProgram = "github-store";
+    mainProgram = "Komi-Store";
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryBytecode

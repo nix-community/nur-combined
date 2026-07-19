@@ -1,18 +1,18 @@
-# Firejail profile for github-store
+# Firejail profile for Komi-Store
 # Description: Cross-platform app store for GitHub releases (JVM/Compose Desktop)
 # Persistent local customizations
-include github-store.local
+include Komi-Store.local
 # Persistent global definitions
 include globals.local
 
-noblacklist ${HOME}/.config/github-store
-noblacklist ${HOME}/.local/share/github-store
+noblacklist ${HOME}/.config/Komi-Store
+noblacklist ${HOME}/.local/state/Komi-Store
 noblacklist ${DOWNLOADS}
 
-mkdir ${HOME}/.config/github-store
-mkdir ${HOME}/.local/share/github-store
-whitelist ${HOME}/.config/github-store
-whitelist ${HOME}/.local/share/github-store
+mkdir ${HOME}/.config/Komi-Store
+mkdir ${HOME}/.local/state/Komi-Store
+whitelist ${HOME}/.config/Komi-Store
+whitelist ${HOME}/.local/state/Komi-Store
 whitelist ${DOWNLOADS}
 
 include disable-common.inc
