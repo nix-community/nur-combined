@@ -7,7 +7,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sequel-ace";
-  version = "4.1.7-20080";
+  version = "5.3.0-20102";
 
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     owner = "Sequel-Ace";
     repo = "Sequel-Ace";
     tag = "production/${finalAttrs.version}";
-    hash = "sha256-tJh3fLPrHhh1CKTN1iAGQnhqeCoZ5hN5ytL0KwplgHk=";
+    hash = "sha256-Y1ZLQk/Gs1OCmJx90JFroDIZ1tyxRwQEau57iNkkBRE=";
     name = "Sequel-Ace-${lib.head (lib.splitString "-" finalAttrs.version)}.zip";
   };
 

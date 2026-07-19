@@ -1,25 +1,31 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  fetchfromgh,
   jre,
   makeWrapper,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "routeconverter";
-  version = "3.1";
+  version = "3.5";
 
   __structuredAttrs = true;
 
   srcs = [
-    (fetchurl {
-      url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterLinuxOpenSource.jar";
-      hash = "sha256-noGM3Vwv8O7EWMnqhkctA7gyB+So5pZyzfatjt0KN54=";
+    (fetchfromgh {
+      owner = "cpesch";
+      repo = "RouteConverter";
+      tag = finalAttrs.version;
+      hash = "sha256-Cip/rkPT2OfVRQYNtZtl5WhtlIVVeun3+EIXj10NkMQ=";
+      name = "RouteConverterLinux.jar";
     })
-    (fetchurl {
-      url = "https://static.routeconverter.com/download/previous-releases/${finalAttrs.version}/RouteConverterCmdLine.jar";
-      hash = "sha256-EMnSeeklQyQkWBJFZmHm58RbPJTrhQx2qtO0rXTa4HA=";
+    (fetchfromgh {
+      owner = "cpesch";
+      repo = "RouteConverter";
+      tag = finalAttrs.version;
+      hash = "sha256-Yg9ZZUJ3THia8tJSerAPYl8VI9L6kcIFzX0xnH2q7w8=";
+      name = "RouteConverterCmdLine.jar";
     })
   ];
 
@@ -36,7 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
     done
 
     makeWrapper ${jre}/bin/java $out/bin/routeconverter \
-      --add-flags "-jar $out/share/java/RouteConverterLinuxOpenSource.jar"
+      --add-flags "-jar $out/share/java/RouteConverterLinux.jar"
 
     makeWrapper ${jre}/bin/java $out/bin/routeconverter-cli \
       --add-flags "-jar $out/share/java/RouteConverterCmdLine.jar"
