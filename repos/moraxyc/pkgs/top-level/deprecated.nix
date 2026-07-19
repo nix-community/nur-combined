@@ -4,9 +4,10 @@ let
 
   deprecatedPkgs = {
     # Upstreamed
+    flapalerted = "upstreamed";
     sub-store = "upstreamed";
     sub-store-frontend = "upstreamed";
-    flapalerted = "upstreamed";
+    zsh-patina = "upstreamed";
 
     # Unmaintained
     exloli-next = "unmaintained";
