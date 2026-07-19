@@ -39,5 +39,11 @@
       checks = forAllSystems (system: {
         formatting = treefmtEval.${system}.config.build.check self;
       });
+      apps = forAllSystems (system: {
+        check-eval = {
+          type = "app";
+          program = "${self}/check-eval.sh";
+        };
+      });
     };
 }
