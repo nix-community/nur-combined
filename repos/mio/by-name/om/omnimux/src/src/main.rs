@@ -866,47 +866,40 @@ impl Render for TerminalTabs {
             );
 
         if show_client_controls {
+            // Touch-friendly hit targets (~40×32). Tiny size_6 buttons are easy to
+            // miss on Plasma touchscreens; gnome-terminal's chrome is much larger.
+            let ctl = |id: &'static str| {
+                div()
+                    .id(id)
+                    .flex()
+                    .items_center()
+                    .justify_center()
+                    .min_w(px(40.0))
+                    .min_h(px(32.0))
+                    .w(px(40.0))
+                    .h(px(32.0))
+                    .ml_1()
+                    .rounded_sm()
+                    .cursor_pointer()
+            };
             title_bar = title_bar
                 .child(
-                    div()
-                        .id("win_min")
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .size_6()
+                    ctl("win_min")
                         .ml_2()
-                        .rounded_sm()
-                        .cursor_pointer()
                         .hover(|s| s.bg(if is_dark { rgb(0x555555) } else { rgb(0xcccccc) }))
                         .window_control_area(WindowControlArea::Min)
                         .on_click(|_, window, _| window.minimize_window())
                         .child(div().child("–").text_color(text_color)),
                 )
                 .child(
-                    div()
-                        .id("win_max")
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .size_6()
-                        .ml_1()
-                        .rounded_sm()
-                        .cursor_pointer()
+                    ctl("win_max")
                         .hover(|s| s.bg(if is_dark { rgb(0x555555) } else { rgb(0xcccccc) }))
                         .window_control_area(WindowControlArea::Max)
                         .on_click(|_, window, _| window.zoom_window())
                         .child(div().child("□").text_color(text_color)),
                 )
                 .child(
-                    div()
-                        .id("win_close")
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .size_6()
-                        .ml_1()
-                        .rounded_sm()
-                        .cursor_pointer()
+                    ctl("win_close")
                         .hover(|s| s.bg(rgb(0xe81123)))
                         .window_control_area(WindowControlArea::Close)
                         .on_click(|_, window, _| window.remove_window())
@@ -1534,10 +1527,19 @@ fn main() {
                 window_bounds: Some(WindowBounds::Windowed(bounds)),
                 titlebar: Some(TitlebarOptions {
                     title: Some("omnimux".into()),
-                    appears_transparent: true,
+                    // Transparent titlebar is a macOS traffic-light affordance.
+                    // On Linux it often suppresses useful SSD chrome.
+                    appears_transparent: cfg!(target_os = "macos"),
                     traffic_light_position: Some(point(px(12.0), px(10.0))),
                 }),
-                window_decorations: Some(WindowDecorations::Client),
+                // Prefer Plasma/KWin (and other SSD) native window controls on Linux so
+                // touchscreen close works like gnome-terminal. Compositors without SSD
+                // (e.g. GNOME) still force Client; we draw buttons when that happens.
+                window_decorations: Some(if cfg!(target_os = "macos") {
+                    WindowDecorations::Client
+                } else {
+                    WindowDecorations::Server
+                }),
                 app_id: Some("omnimux".into()),
                 ..Default::default()
             },
