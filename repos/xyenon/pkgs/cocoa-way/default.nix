@@ -14,16 +14,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cocoa-way";
-  version = "1.0.1";
+  version = "2.0.2";
 
   src = fetchFromGitHub {
     owner = "J-x-Z";
     repo = "cocoa-way";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JXswHaF81Hw6ymTnLVJczvmje72qUPQl3YrMAWJv6Ys=";
+    hash = "sha256-fuJ60iQYRFd46/XJHcpBm4CQSRZbuYkg38/4umZqR10=";
   };
 
-  cargoHash = "sha256-llveKDuGKSoQyAoIlHfVh/z0FD1zvwdLLifa057xydk=";
+  cargoHash = "sha256-JgnhrTrXnZryl/ai0s7tYKY0vI02k8F0VzPE89ZJPIQ=";
 
   nativeBuildInputs = [
     pkg-config
