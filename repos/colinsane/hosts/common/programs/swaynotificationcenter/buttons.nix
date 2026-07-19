@@ -48,12 +48,13 @@ in
   gps = serviceButton "gps.target" "";
   cell-modem = serviceButton "eg25-control-powered" "󰺐";
 
-  gnome-calls = serviceButton "gnome-calls" "";
-  geary = serviceButton "geary" "";
   abaddon = serviceButton "abaddon" " ";
-  dissent = serviceButton "dissent" " ";
-  discord = serviceButton "discord" " ";
-  signal-desktop = serviceButton "signal-desktop" "󰭻";
   dino = serviceButton "dino" "󰟿";
+  discord = serviceButton "discord" " ";
+  dissent = serviceButton "dissent" " ";
   fractal = serviceButton "fractal" "[m]";
+  geary = serviceButton "geary" "";
+  gnome-calls = serviceButton "gnome-calls" "";
+  signal-desktop = serviceButton "signal-desktop" "󰭻";
+  stamp = serviceButton "stamp" "";
 }

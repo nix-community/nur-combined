@@ -357,7 +357,7 @@ in
       # "gnome.cheese"
       # "gnome-feeds"  # RSS reader (with claimed mobile support)
       # "gnome.file-roller"
-      "geary"  # adaptive e-mail client; uses webkitgtk 4.1
+      # "geary"  # adaptive e-mail client; uses webkitgtk 4.1
       "gnome-calculator"
       # "gnome-calendar"
       "gnome-clocks"
@@ -402,6 +402,7 @@ in
       "signal-desktop"
       "snapshot"  # camera app
       # "spot"  # Gnome Spotify client
+      "stamp"  # gtk4-native email client
       # "sublime-music"
       # "tdesktop"  # broken on phosh
       # "tokodon"

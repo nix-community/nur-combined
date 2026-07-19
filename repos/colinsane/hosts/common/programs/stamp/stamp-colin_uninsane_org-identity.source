@@ -1,0 +1,29 @@
+[Data Source]
+DisplayName=Colin
+Enabled=true
+Parent=stamp-colin_uninsane_org-collection
+
+[Mail Submission]
+# SentFolder=folder://local/Sent
+TransportUid=stamp-transport
+RepliesToOriginFolder=false
+UseSentFolder=false
+
+[Mail Composition]
+Bcc=
+Cc=
+DraftsFolder=folder://local/Drafts
+ReplyStyle=default
+SignImip=true
+TemplatesFolder=folder://local/Templates
+StartBottom=inconsistent
+TopSignature=inconsistent
+Language=
+
+[Mail Identity]
+Address=colin@uninsane.org
+Aliases=
+Name=Colin
+Organization=
+ReplyTo=
+SignatureUid=none

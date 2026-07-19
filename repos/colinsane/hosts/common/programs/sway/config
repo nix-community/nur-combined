@@ -193,6 +193,7 @@ assign [app_id="org.gnome.Geary"] workspace number 1  # geary 46.0 (gtk4)
 assign [app_id="im.dino.Dino"] workspace number 1
 assign [app_id="org.gnome.Calls"] workspace number 1  # gnome-calls >= 47.0-beta
 assign [app_id="org.gnome.Fractal"] workspace number 1
+assign [app_id="org.tabos.stamp"] workspace number 1
 assign [app_id="signal"] workspace number 1
 assign [app_id="so.libdb.dissent"]  workspace number 1
 

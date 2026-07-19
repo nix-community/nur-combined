@@ -1,0 +1,28 @@
+[Data Source]
+DisplayName=Colin
+Enabled=true
+Parent=stamp-colin_uninsane_org-collection
+
+[Authentication]
+Host=mx.uninsane.org
+Method=PLAIN
+Port=465
+ProxyUid=system-proxy
+RememberPassword=true
+User=colin@uninsane.org
+CredentialName=
+IsExternal=false
+
+[Security]
+Method=ssl-on-alternate-port
+# Method=starttls-on-standard-port
+
+[Mail Transport]
+BackendName=smtp
+
+[Smtp Backend]
+ReencodeData=false
+DsnRetFull=false
+DsnNotifySuccess=true
+DsnNotifyFailure=true
+DsnNotifyDelay=true

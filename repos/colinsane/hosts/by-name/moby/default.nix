@@ -40,8 +40,9 @@
 
   # sane.programs.ntfy-sh.config.autostart = true;
   sane.programs.dino.config.autostart = true;
-  sane.programs.signal-desktop.config.autostart = false;
   sane.programs.geary.config.autostart = false;
+  sane.programs.signal-desktop.config.autostart = false;
+  sane.programs.stamp.config.autostart = false;
 
   sane.programs.pipewire.config = {
     # tune so Dino doesn't drop audio

@@ -1,0 +1,8 @@
+[Data Source]
+DisplayName=colin@uninsane.org
+Enabled=true
+Parent=
+
+[Collection]
+# this doesn't actually store anything on webdav; it just forces evolution to load a Collections-capable module
+BackendName=webdav

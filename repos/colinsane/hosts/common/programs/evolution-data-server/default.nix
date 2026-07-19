@@ -99,6 +99,11 @@ in
     sandbox.whitelistDbus.user = true;  #< TODO: reduce
     sandbox.net = "localhost";  #< to reach radicale  (TODO: restrict further)
 
+    sandbox.extraHomePaths = [
+      # other programs may populate config files here for us
+      ".config/evolution"
+    ];
+
     persist.byStore.ephemeral = [
       ".cache/evolution"
       # ~/.config/evolution/sources:
@@ -149,44 +154,7 @@ in
     # - after configuring `pkm.source` above, evolution should auto-discover collection items
     #   and make them available as random UUIDs in e.g. `~/.cache/evolution/sources/pkm/<UUID>.source`.
     # - copy that file here, and rename it as desired.
-    fs.".config/evolution/sources/pkm-contacts.source".symlink.text = ''
-      [Data Source]
-      DisplayName=git-synchronized PKM
-      Enabled=true
-      # Parent=pkm
-
-      [Authentication]
-      Host=localhost
-      Method=plain/password
-      Port=5232
-      ProxyUid=system-proxy
-      RememberPassword=true
-      User=colin
-      CredentialName=
-      IsExternal=false
-
-      [Security]
-      Method=none
-
-      [Resource]
-      Identity=contacts::http://localhost:5232/colin/pkm/
-
-      [WebDAV Backend]
-      AvoidIfmatch=false
-      CalendarAutoSchedule=false
-      Color=
-      DisplayName=git-synchronized PKM
-      EmailAddress=
-      ResourcePath=/colin/pkm/
-      ResourceQuery=
-      SslTrust=
-      Order=4294967295
-      Timeout=90
-
-      [Address Book]
-      BackendName=carddav
-      Order=0
-    '';
+    fs.".config/evolution/sources/pkm-contacts.source".symlink.target = ./pkm-contacts.source;
 
     gsettings."org/freedesktop/folks" = {
       primary-store = "eds:pkm-contacts";

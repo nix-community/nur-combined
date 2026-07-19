@@ -205,6 +205,8 @@ in
             buttons.discord
           ] ++ lib.optionals config.sane.programs.signal-desktop.enabled [
             buttons.signal-desktop
+          ] ++ lib.optionals config.sane.programs.stamp.enabled [
+            buttons.stamp
           ] ++ lib.optionals config.sane.programs.geary.enabled [
             buttons.geary
           ];
