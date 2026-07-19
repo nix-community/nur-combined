@@ -195,7 +195,10 @@ python3.pkgs.buildPythonApplication rec {
       --replace-fail 'Path(".")' 'Path(__file__).resolve().parent.parent.parent'
   '';
 
-  buildInputs = [ qt6.qtbase qt6.qtsvg ];
+  buildInputs = [
+    qt6.qtbase
+    qt6.qtsvg
+  ];
 
   propagatedBuildInputs =
     (with python3.pkgs; [
@@ -218,45 +221,45 @@ python3.pkgs.buildPythonApplication rec {
   dontBuild = true;
 
   installPhase = ''
-      runHook preInstall
+          runHook preInstall
 
-      # Create directories
-      mkdir -p $out/libexec/ghost-downloader-3
-      mkdir -p $out/bin
-      mkdir -p $out/share/applications
+          # Create directories
+          mkdir -p $out/libexec/ghost-downloader-3
+          mkdir -p $out/bin
+          mkdir -p $out/share/applications
 
-      # Copy files
-      cp -r . $out/libexec/ghost-downloader-3/
+          # Copy files
+          cp -r . $out/libexec/ghost-downloader-3/
 
-      # Install application icon
-      mkdir -p $out/share/icons/hicolor/512x512/apps
-      cp app/assets/logo.png $out/share/icons/hicolor/512x512/apps/ghost-downloader-3.png
+          # Install application icon
+          mkdir -p $out/share/icons/hicolor/512x512/apps
+          cp app/assets/logo.png $out/share/icons/hicolor/512x512/apps/ghost-downloader-3.png
 
-      # Generate desktop launcher file
-      cat > $out/share/applications/ghost-downloader-3.desktop <<EOF
-    [Desktop Entry]
-    Name=Ghost Downloader 3
-    Comment=AI-boost multi-protocol concurrent downloader
-    Exec=ghost-downloader-3
-    Icon=ghost-downloader-3
-    Terminal=false
-    Type=Application
-    Categories=Network;FileTransfer;
-EOF
+          # Generate desktop launcher file
+          cat > $out/share/applications/ghost-downloader-3.desktop <<EOF
+        [Desktop Entry]
+        Name=Ghost Downloader 3
+        Comment=AI-boost multi-protocol concurrent downloader
+        Exec=ghost-downloader-3
+        Icon=ghost-downloader-3
+        Terminal=false
+        Type=Application
+        Categories=Network;FileTransfer;
+    EOF
 
-    # Create launcher script
-    cat > $out/bin/ghost-downloader-3 <<EOF
-#!${python3.interpreter}
-import os
-os.environ["QT_PLUGIN_PATH"] = "${qt6.qtsvg}/lib/qt-6/plugins"
-import sys
-sys.path.insert(0, "$out/libexec/ghost-downloader-3")
-import runpy
-runpy.run_path("$out/libexec/ghost-downloader-3/Ghost-Downloader-3.py", run_name="__main__")
-EOF
-    chmod +x $out/bin/ghost-downloader-3
+        # Create launcher script
+        cat > $out/bin/ghost-downloader-3 <<EOF
+    #!${python3.interpreter}
+    import os
+    os.environ["QT_PLUGIN_PATH"] = "${qt6.qtsvg}/lib/qt-6/plugins"
+    import sys
+    sys.path.insert(0, "$out/libexec/ghost-downloader-3")
+    import runpy
+    runpy.run_path("$out/libexec/ghost-downloader-3/Ghost-Downloader-3.py", run_name="__main__")
+    EOF
+        chmod +x $out/bin/ghost-downloader-3
 
-    runHook postInstall
+        runHook postInstall
   '';
 
   meta = {
