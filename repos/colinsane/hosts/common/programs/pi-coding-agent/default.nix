@@ -164,7 +164,7 @@ let
         directTools = [
           # "kagi_ask_page"
           "kagi_batch_search"
-          "kagi_fastgpt"
+          # "kagi_fastgpt"  #< "this command requires KAGI_API_TOKEN"
           "kagi_quick" # Get a Kagi Quick Answer
           "kagi_search" # Search Kagi
           "kagi_translate"

@@ -229,6 +229,7 @@ in
       # "unar"  # for literal .ar files (apparently not supported by dtrx?)
       "unzip"
       "wireguard-tools"  # for `wg`
+      "xdg-ninja"
       "xdg-open"
       # "yarn"
       "zsh"
