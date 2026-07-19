@@ -24,8 +24,6 @@
         # dev
         rustup
         ;
-
-      inherit (pkgs.packages) spot;
     };
   };
 }

@@ -211,6 +211,33 @@ in {
         };
       };
     };
+
+    # Forgejo Actions runner for the local Forgejo instance (git.alarsyo.net).
+    gitea-actions-runner = {
+      package = pkgs.forgejo-runner;
+      instances.hades = {
+        enable = true;
+        name = "hades";
+        url = "https://git.${config.networking.domain}";
+        tokenFile = config.age.secrets."forgejo-runner/hades-token".path;
+        labels = [
+          "docker:docker://node:20-bookworm"
+          "native:host"
+        ];
+        # available to native:host jobs
+        hostPackages = with pkgs; [
+          bash
+          coreutils
+          curl
+          gawk
+          gitMinimal
+          gnused
+          nodejs
+          wget
+          lix
+        ];
+      };
+    };
   };
 
   virtualisation.docker.enable = true;

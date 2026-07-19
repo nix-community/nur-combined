@@ -13,6 +13,8 @@
         // attrs;
     in
       lib.mapAttrs toSecret {
+        "forgejo-runner/hades-token" = {};
+
         "gitlab-runner/hades-nix-runner-env" = {};
 
         "lohr/shared-secret" = {};

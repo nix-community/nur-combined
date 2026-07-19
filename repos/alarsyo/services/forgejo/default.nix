@@ -76,6 +76,8 @@ in {
         # only send cookies via HTTPS
         session.COOKIE_SECURE = true;
 
+        actions.ENABLED = true;
+
         DEFAULT.APP_NAME = "Personal Forge";
       };
 

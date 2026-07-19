@@ -61,11 +61,6 @@ in {
         slurp
         pdfpc
         ;
-
-      inherit
-        (pkgs.packages)
-        spot
-        ;
     };
 
     wayland.windowManager.sway = let
