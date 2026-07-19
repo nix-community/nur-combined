@@ -1527,19 +1527,12 @@ fn main() {
                 window_bounds: Some(WindowBounds::Windowed(bounds)),
                 titlebar: Some(TitlebarOptions {
                     title: Some("omnimux".into()),
-                    // Transparent titlebar is a macOS traffic-light affordance.
-                    // On Linux it often suppresses useful SSD chrome.
-                    appears_transparent: cfg!(target_os = "macos"),
+                    appears_transparent: true,
                     traffic_light_position: Some(point(px(12.0), px(10.0))),
                 }),
-                // Prefer Plasma/KWin (and other SSD) native window controls on Linux so
-                // touchscreen close works like gnome-terminal. Compositors without SSD
-                // (e.g. GNOME) still force Client; we draw buttons when that happens.
-                window_decorations: Some(if cfg!(target_os = "macos") {
-                    WindowDecorations::Client
-                } else {
-                    WindowDecorations::Server
-                }),
+                // Always client decorations so we have a single title bar (app chrome +
+                // window controls). Server decorations on Plasma doubled the chrome.
+                window_decorations: Some(WindowDecorations::Client),
                 app_id: Some("omnimux".into()),
                 ..Default::default()
             },

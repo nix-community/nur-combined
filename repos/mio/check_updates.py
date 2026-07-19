@@ -153,7 +153,19 @@ def get_latest_git_commit_url(url):
         pass
     return None
 
+
+def get_latest_pypi_version(pname):
+    try:
+        req = urllib.request.Request(f"https://pypi.org/pypi/{pname}/json")
+        with urllib.request.urlopen(req, timeout=5) as response:
+            data = json.loads(response.read().decode())
+            return data.get("info", {}).get("version")
+    except Exception:
+        pass
+    return None
+
 def resolve_version(rev, content):
+
     vars = {}
     for k, v in re.findall(r'([a-zA-Z0-9_-]+)\s*=\s*"([^"]+)"', content):
         vars[k] = v
@@ -204,13 +216,17 @@ def main():
             with open(pkg_nix, 'r') as f:
                 content = f.read()
                 
-            if re.search(r'src\s*=\s*sources\.', content) and 'fetchFromGitHub' not in content and 'fetchFromGitLab' not in content and 'fetchgit' not in content:
+            if re.search(r'src\s*=\s*sources\.', content) and not any(x in content for x in ('fetchFromGitHub', 'fetchFromGitLab', 'fetchgit', 'fetchPypi', 'fetchurl')):
                 continue
                 
             git_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
-            git_match = git_matches[-1] if git_matches else None
+            git_match = git_matches[0] if git_matches else None
             fetchgit_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchgit\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
-            fetchgit_match = fetchgit_matches[-1] if fetchgit_matches else None
+            fetchgit_match = fetchgit_matches[0] if fetchgit_matches else None
+            fetchpypi_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.|python3Packages\.)?fetchPypi\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
+            fetchpypi_match = fetchpypi_matches[0] if fetchpypi_matches else None
+            fetchurl_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchurl\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
+            fetchurl_match = fetchurl_matches[0] if fetchurl_matches else None
             
             url = None
             current_rev = None
@@ -258,7 +274,49 @@ def main():
                         domain = "github.com"
                         owner = gh_m.group(1)
                         repo = gh_m.group(2)
+            elif fetchpypi_match:
+                src_block = fetchpypi_match.group(1)
+                pname_m = re.search(r'\bpname\s*=\s*(?:"([^"]+)"|([^";\s]+))', src_block)
+                if not pname_m:
+                    pname_m = re.search(r'\binherit\s+(?:[a-zA-Z0-9_\s]*\s+)?pname\b', src_block)
+                    if pname_m:
+                        pname_val = re.search(r'\bpname\s*=\s*"([^"]+)"', content)
+                        if pname_val: pname_m = pname_val
+                
+                rev_m = re.search(r'\b(?:inherit\s+(?:[a-zA-Z0-9_\s]*\s+)?version\b|version\s*=\s*(?:"([^"]+)"|([^";\s]+)))', src_block)
+                
+                if rev_m and pname_m:
+                    pname_val = pname_m.group(1) or pname_m.group(2)
+                    current_rev = rev_m.group(1) or rev_m.group(2) or "version"
+                    current_rev = resolve_version(current_rev, content)
                     
+                    latest = get_latest_pypi_version(pname_val)
+                    if latest:
+                        if version_key(latest) > version_key(current_rev):
+                            print(f"[UPDATE] {pkg} (PyPI {pname_val}): {current_rev} -> {latest}")
+                            updates_found = True
+                        elif version_key(latest) < version_key(current_rev):
+                            print(f"[DOWNGRADE] {pkg} (PyPI {pname_val}): {current_rev} -> {latest}")
+                    continue
+            elif fetchurl_match:
+                src_block = fetchurl_match.group(1)
+                url_m = re.search(r'\burl\s*=\s*(?:"([^"]+)"|([^";\s]+))', src_block)
+                if url_m:
+                    url_val = url_m.group(1) or url_m.group(2)
+                    
+                    # Try to extract github info
+                    gh_m = re.search(r'github\.com/([^/]+)/([^/]+)/releases/download/(?:[^/]+)/', url_val)
+                    if gh_m:
+                        owner = gh_m.group(1)
+                        repo = gh_m.group(2)
+                        domain = "github.com"
+                        
+                        current_rev_m = re.search(r'\bversion\s*=\s*"([^"]+)"', content)
+                        if current_rev_m:
+                            current_rev = current_rev_m.group(1)
+                            url = f"https://github.com/{owner}/{repo}.git"
+                            name_display = f"{pkg} (fetchurl github {owner}/{repo})"
+
             if url and current_rev:
                 if '${' in current_rev:
                     print(f"[WARN]   {name_display}: Could not resolve src rev {current_rev!r} in {pkg_nix}")

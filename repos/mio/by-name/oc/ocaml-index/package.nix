@@ -6,11 +6,11 @@
 
 ocamlPackages.buildDunePackage rec {
   pname = "ocaml-index";
-  version = "5.6-504";
+  version = "5.7.1-504";
 
   src = fetchurl {
     url = "https://github.com/ocaml/merlin/releases/download/v${version}/merlin-${version}.tbz";
-    hash = "sha256-gtZIpBgNbVqjoIMhjii/GX9OnxR4hN6TArtoEa2Yt38=";
+    hash = "sha256-E5sHPPkUs4tyXFT3W4tkL2VMNJjQpLqM+oMf8CqJcNU=";
   };
 
   minimalOCamlVersion = "5.4";

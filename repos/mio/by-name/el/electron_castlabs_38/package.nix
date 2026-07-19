@@ -43,16 +43,16 @@
 }:
 
 let
-  version = "38.7.2+wvcus";
+  version = "38.8.6+wvcus";
   tag = "linux-x64";
   src = fetchurl {
     url = "https://github.com/castlabs/electron-releases/releases/download/v${version}/electron-v${version}-${tag}.zip";
-    sha256 = "sha256-MDCCywxvoCnv6aSYK7rUAoAU2W2URH16UjRc5hGq9yI=";
+    sha256 = "sha256-6o7GD8JOatYKIwTP2Ssr4QfItW2wgj4SRpRc7FGr7hM=";
   };
   headers = fetchzip {
     name = "electron-${version}-headers";
-    url = "https://artifacts.electronjs.org/headers/dist/v38.7.2/node-v38.7.2-headers.tar.gz";
-    sha256 = "sha256-iZMj4lmnqbL7zrdGBqy23VIsXifyzrlIN2EM5VLti18=";
+    url = "https://artifacts.electronjs.org/headers/dist/v38.8.6/node-v38.8.6-headers.tar.gz";
+    sha256 = "sha256-R+lk96eZi6ujPfUx+TCVe0tQYjdQ43DKyZsIEqI/DeA=";
     stripRoot = false;
   };
 

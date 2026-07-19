@@ -400,12 +400,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.6.2";
+  version = "4.7.1";
   src = fetchFromGitHub {
     owner = "go-skynet";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-xSzluRICA0GGlf8m95YsPGsxHRuGw18EU/h5sCvGtAQ=";
+    hash = "sha256-PATHqfCro/cTSDN3FTOmEfGeXlXpSmSN8CX5BMCb2tU=";
   };
 
   prepare-sources =
