@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "3.9.1",
+  "version": "3.9.2",
   "platforms": {
     "aarch64-darwin": {
       "file": "Passepartout.arm64.dmg",
-      "hash": "sha256-7YVZwdPQdrb9oydXT0TxI7LAAliPNwZ9/EU/9nneJN8="
+      "hash": "sha256-7Bwtpu4wZMzK61qeYre/t0UrVdvbvPCmo+J9V8dx5TQ="
     },
     "x86_64-darwin": {
       "file": "Passepartout.x86_64.dmg",
-      "hash": "sha256-D5qAuKpjKRmRyNV0kiHDHWvOa+4OFXUaPtDKMW1ycq4="
+      "hash": "sha256-rhQEM6zob5SCqmh327kxLdr/seHsLIblwVQ88ljA+1M="
     }
   }
 }
