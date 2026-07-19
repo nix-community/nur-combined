@@ -495,6 +495,28 @@ impl TerminalTabs {
         }
     }
 
+    /// Reset all settings toggles and font size to built-in defaults, persist, and
+    /// apply the default font to every open tab. Does not close tabs or wipe session.json.
+    fn restore_defaults(&mut self, cx: &mut Context<Self>) {
+        self.keep_tab_after_exit = true;
+        self.auto_reconnect = false;
+        self.remember_session = false;
+        self.sync_font_size_across_tabs = true;
+        self.remember_font_size = false;
+        self.font_size = px(DEFAULT_FONT_SIZE);
+        let size = self.font_size;
+        for tab in &self.tabs {
+            tab.update(cx, |session, cx| {
+                session.terminal_view.update(cx, |tv, cx| {
+                    let mut config = tv.config().clone();
+                    config.font_size = size;
+                    tv.update_config(config, cx);
+                });
+            });
+        }
+        save_settings(self);
+    }
+
     /// Focus the active terminal, then again next frame once it is in the tree.
     /// (A single focus during/just after creating the first tab often does not stick.)
     fn focus_active_session(&mut self, window: &mut Window, cx: &mut Context<Self>) {
@@ -1492,6 +1514,22 @@ impl Render for TerminalTabs {
                                     });
                                 })
                         })
+                        .child(
+                            div()
+                                .id("restore_defaults")
+                                .p_2()
+                                .mb_2()
+                                .bg(if is_dark { rgb(0x555555) } else { rgb(0xdddddd) })
+                                .rounded_sm()
+                                .cursor_pointer()
+                                .flex()
+                                .justify_center()
+                                .on_click(cx.listener(|this, _, _, cx| {
+                                    this.restore_defaults(cx);
+                                    cx.notify();
+                                }))
+                                .child(div().child("Restore defaults").text_color(text_color)),
+                        )
                         .child(
                             div()
                                 .id("close_settings")

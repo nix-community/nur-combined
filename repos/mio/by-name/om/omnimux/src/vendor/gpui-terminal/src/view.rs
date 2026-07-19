@@ -443,9 +443,33 @@ pub struct TerminalView {
     /// True while Shift (or no mouse-mode) drag is building a local selection.
     selecting: bool,
 
-    /// Last laid-out bounds of this view (window coordinates).
-    /// Mouse events report window positions; we subtract this origin to get cells.
-    view_bounds: Arc<parking_lot::Mutex<Bounds<Pixels>>>,
+    /// Last laid-out content hit-test geometry (window coords + cell metrics from paint).
+    /// Kept in sync during canvas layout so mouse→cell mapping matches what was drawn —
+    /// important under Wayland fractional scaling (e.g. Plasma 225%).
+    hit_test: Arc<parking_lot::Mutex<TerminalHitTest>>,
+}
+
+/// Geometry used to map window-space mouse positions to terminal cells.
+#[derive(Clone, Copy, Debug)]
+struct TerminalHitTest {
+    /// Top-left of cell (0,0) in window coordinates (includes padding).
+    content_origin: Point<Pixels>,
+    cell_width: Pixels,
+    cell_height: Pixels,
+    cols: usize,
+    rows: usize,
+}
+
+impl Default for TerminalHitTest {
+    fn default() -> Self {
+        Self {
+            content_origin: Point::default(),
+            cell_width: px(8.0),
+            cell_height: px(16.0),
+            cols: 1,
+            rows: 1,
+        }
+    }
 }
 
 impl TerminalView {
@@ -577,7 +601,7 @@ impl TerminalView {
             mouse_pressed: None,
             last_mouse_cell: None,
             selecting: false,
-            view_bounds: Arc::new(parking_lot::Mutex::new(Bounds::default())),
+            hit_test: Arc::new(parking_lot::Mutex::new(TerminalHitTest::default())),
         }
     }
 
@@ -936,23 +960,18 @@ impl TerminalView {
 
     /// Convert a window-space mouse position to a clamped viewport cell.
     ///
-    /// GPUI mouse events use window coordinates; the terminal content is offset by
-    /// title/tab chrome. We subtract the last laid-out view bounds (+ padding).
+    /// Uses the last paint-time [`TerminalHitTest`] so cell size / origin match
+    /// what was drawn (critical on HiDPI / fractional Wayland scales).
     fn viewport_cell_at(&self, window_pos: Point<Pixels>) -> AlacPoint {
-        let bounds = *self.view_bounds.lock();
-        let origin = Point::new(
-            bounds.origin.x + self.config.padding.left,
-            bounds.origin.y + self.config.padding.top,
-        );
+        let hit = *self.hit_test.lock();
         let raw = pixel_to_cell(
             window_pos,
-            origin,
-            self.renderer.cell_width,
-            self.renderer.cell_height,
+            hit.content_origin,
+            hit.cell_width,
+            hit.cell_height,
         );
-        let (cols, rows) = self.dimensions();
-        let col = raw.column.0.min(cols.saturating_sub(1));
-        let row = raw.line.0.clamp(0, rows.saturating_sub(1) as i32);
+        let col = raw.column.0.min(hit.cols.saturating_sub(1));
+        let row = raw.line.0.clamp(0, hit.rows.saturating_sub(1) as i32);
         AlacPoint::new(Line(row), Column(col))
     }
 
@@ -1304,7 +1323,7 @@ impl Render for TerminalView {
         let padding = self.config.padding;
         let search_highlight = self.search_highlight;
         let bg = self.config.colors.background();
-        let view_bounds = self.view_bounds.clone();
+        let hit_test = self.hit_test.clone();
 
         div()
             .size_full()
@@ -1321,11 +1340,7 @@ impl Render for TerminalView {
             .on_scroll_wheel(cx.listener(Self::on_scroll))
             .child(
                 canvas(
-                    move |bounds, _window, _cx| {
-                        // Remember window-space bounds so mouse hit-testing matches paint.
-                        *view_bounds.lock() = bounds;
-                        bounds
-                    },
+                    move |bounds, _window, _cx| bounds,
                     move |bounds, _, window, cx| {
                         use alacritty_terminal::grid::Dimensions;
 
@@ -1341,8 +1356,36 @@ impl Render for TerminalView {
                         let cell_width_f32: f32 = measured_renderer.cell_width.into();
                         let cell_height_f32: f32 = measured_renderer.cell_height.into();
 
-                        let cols = ((available_width / cell_width_f32) as usize).max(1);
-                        let rows = ((available_height / cell_height_f32) as usize).max(1);
+                        // Match Zed: next_up before floor so f32 noise under fractional
+                        // scaling does not drop the last row/column.
+                        let cols = if cell_width_f32 > 0.0 {
+                            (available_width / cell_width_f32)
+                                .next_up()
+                                .floor()
+                                .max(1.0) as usize
+                        } else {
+                            1
+                        };
+                        let rows = if cell_height_f32 > 0.0 {
+                            (available_height / cell_height_f32)
+                                .next_up()
+                                .floor()
+                                .max(1.0) as usize
+                        } else {
+                            1
+                        };
+
+                        // Publish hit-test geometry matching this paint.
+                        *hit_test.lock() = TerminalHitTest {
+                            content_origin: Point::new(
+                                bounds.origin.x + padding.left,
+                                bounds.origin.y + padding.top,
+                            ),
+                            cell_width: measured_renderer.cell_width,
+                            cell_height: measured_renderer.cell_height,
+                            cols,
+                            rows,
+                        };
 
                         // Helper struct implementing Dimensions for resize
                         struct TermSize {
