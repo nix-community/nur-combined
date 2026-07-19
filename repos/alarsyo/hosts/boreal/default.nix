@@ -119,7 +119,7 @@
   };
   environment.systemPackages = [
     pkgs.gamescope-wsi
-    pkgs.wineWowPackages.stable
+    pkgs.wineWow64Packages.stable
     pkgs.bottles
     pkgs.lutris
     pkgs.gnomeExtensions.no-overview
