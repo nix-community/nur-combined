@@ -9,4 +9,5 @@ jobs:
     runs-on: native
     steps:
       - uses: actions/checkout@v4
+      - run: nix --version
       - run: nix flake check
