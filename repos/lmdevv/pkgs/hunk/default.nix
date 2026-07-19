@@ -7,7 +7,7 @@
 }:
 
 let
-  version = "0.17.1";
+  version = "0.17.2";
 
   os =
     if stdenv.hostPlatform.isLinux then
@@ -29,10 +29,10 @@ let
       throw "hunk: unsupported arch ${stdenv.hostPlatform.system}";
 
   sha256BySystem = {
-    "x86_64-linux" = "sha256-5O0+trpL12PnG9xj8tHu2ZP1SxiXdKUHNZLHkJUEG9Y=";
-    "aarch64-linux" = "sha256-6VOFhjUPvL82sUbfQyktTM4S846feNVORpUJaIHSh3s=";
-    "x86_64-darwin" = "sha256-RRPpuSw5kbJ3Ter7ufrvh9corAoOjVYOGmtbPaECGGI=";
-    "aarch64-darwin" = "sha256-YsFtBMXFL/RffxrVbpqpzAlQjUVmRzPhb2iQ0CM7n/k=";
+    "x86_64-linux" = "sha256-cepaQMgG3wJf2nzeXHSHth8HAm3rjKiRabAJizY/xWo=";
+    "aarch64-linux" = "sha256-pHii4CcFZjdTRf02BYyf5KdvAdZ2rq+zuM0g9MDHlGU=";
+    "x86_64-darwin" = "sha256-yL8CdC/XUSV41pqKgRL+7SKHIUI17eIA33jZUWpYpe0=";
+    "aarch64-darwin" = "sha256-V9RtxbzZSgcyGEY1/gA5LHTICMQglW6jbO5Z/waxMvk=";
   };
 
   srcUrl = "https://github.com/modem-dev/hunk/releases/download/v${version}/hunkdiff-${os}-${arch}.tar.gz";
