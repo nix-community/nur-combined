@@ -6,7 +6,7 @@
   fetchNpmDeps,
   npmHooks,
   nodejs_22,
-  python3,
+  jq,
   zip,
 }:
 
@@ -19,49 +19,11 @@ let
     stripRoot = false;
   };
 
-  src = runCommand "sponsorblock-for-youtube-${version}-source" { } ''
-        cp -r ${upstreamSrc} $out
-        chmod -R u+w $out
-
-        ${python3}/bin/python - <<PY
-    import json
-    from pathlib import Path
-
-    path = Path("$out/package-lock.json")
-    data = json.loads(path.read_text())
-
-    def registry_tarball(name: str, version: str) -> str:
-        if name.startswith("@"):
-            _, pkg = name.split("/", 1)
-            return f"https://registry.npmjs.org/{name}/-/{pkg}-{version}.tgz"
-        return f"https://registry.npmjs.org/{name}/-/{name}-{version}.tgz"
-
-    def should_patch(entry: dict) -> bool:
-        version = entry.get("version", "")
-        return (
-            "resolved" not in entry
-            and "integrity" in entry
-            and isinstance(version, str)
-            and version != ""
-            and "://" not in version
-            and not version.startswith(("file:", "git+", "github:", "workspace:"))
-        )
-
-    for pkg_path, entry in data.get("packages", {}).items():
-        if not isinstance(entry, dict) or not pkg_path.startswith("node_modules/"):
-            continue
-        if should_patch(entry):
-            name = pkg_path.rsplit("node_modules/", 1)[1]
-            entry["resolved"] = registry_tarball(name, entry["version"])
-
-    for name, entry in data.get("dependencies", {}).items():
-        if not isinstance(entry, dict):
-            continue
-        if should_patch(entry):
-            entry["resolved"] = registry_tarball(name, entry["version"])
-
-    path.write_text(json.dumps(data, indent=2) + "\n")
-    PY
+  src = runCommand "sponsorblock-for-youtube-${version}-source" { nativeBuildInputs = [ jq ]; } ''
+    cp -r ${upstreamSrc} $out
+    chmod -R u+w $out
+    jq -f ${./fix-package-lock.jq} "$out/package-lock.json" > "$out/package-lock.json.tmp"
+    mv "$out/package-lock.json.tmp" "$out/package-lock.json"
   '';
 in
 stdenv.mkDerivation (finalAttrs: {
