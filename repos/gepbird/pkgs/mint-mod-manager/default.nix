@@ -72,11 +72,6 @@ rustPlatform.buildRustPackage rec {
     BUILT_OVERRIDE_mint_lib_GIT_VERSION = "unstable";
   };
 
-  # workaround for https://github.com/NixOS/nixpkgs/pull/435278#issuecomment-3572538333
-  preConfigure = ''
-    unset RUSTFLAGS
-  '';
-
   nativeBuildInputs = [
     mingwCompiler
     pkg-config
