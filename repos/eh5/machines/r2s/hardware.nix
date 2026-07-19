@@ -91,9 +91,9 @@ in
   };
 
   boot.kernel.sysctl = {
-    "vm.vfs_cache_pressure" = 10;
-    "vm.dirty_ratio" = 50;
-    "vm.swappiness" = 20;
+    "vm.vfs_cache_pressure" = 50;
+    "vm.dirty_ratio" = 20;
+    "vm.swappiness" = 0;
   };
 
   # systemd.services."serial-getty@ttyGS0" = {

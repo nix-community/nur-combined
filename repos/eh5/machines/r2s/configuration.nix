@@ -34,7 +34,8 @@
         "nix-command"
         "flakes"
       ];
-      auto-optimise-store = true;
+      # disable, too slow and too I/O intensive
+      auto-optimise-store = false;
     };
   };
   nixpkgs.config.allowUnfree = true;

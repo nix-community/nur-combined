@@ -39,6 +39,7 @@
           "lo"
           "intern0"
         ];
+        timeout_tcp_est = "10m";
       }
     ];
   };

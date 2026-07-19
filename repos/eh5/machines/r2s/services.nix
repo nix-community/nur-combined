@@ -15,9 +15,11 @@ in
       "template"
       "google_translate"
     ];
-    customComponents = with pkgs.home-assistant-custom-components; [
-      midea_ac_lan
-    ];
+    customComponents =
+      (with pkgs.home-assistant-custom-components; [
+        midea_ac_lan
+      ])
+      ++ (with pkgs; [ home-assistant-heweather ]);
   };
   services.home-assistant.config = {
     default_config = { };

@@ -6,12 +6,7 @@
 let
   inherit (pkgs) lib system;
   utils = import ../utils;
-  callPackage = pkgs.newScope (
-    self
-    // {
-      sources = callPackage ./_sources/generated.nix { };
-    }
-  );
+  callPackage = pkgs.newScope self;
   self = self_base // (lib.optionalAttrs (inputs != null) self_extra);
 
   self_base = {
@@ -19,6 +14,7 @@ let
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
     kcptun = callPackage ./kcptun { };
+    home-assistant-heweather = callPackage ./home-assistant-heweather { };
     mosdns = callPackage ./mosdns { };
     rtl8152-led-ctrl = callPackage ./rtl8152-led-ctrl { };
     udpspeeder = callPackage ./udpspeeder { };
