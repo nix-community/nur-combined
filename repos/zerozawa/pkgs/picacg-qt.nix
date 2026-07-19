@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  python3Packages,
+  python313Packages,
   fetchFromGitHub,
   fetchurl,
   makeDesktopItem,
@@ -29,7 +29,7 @@ let
     '';
   };
 in
-python3Packages.buildPythonApplication rec {
+python313Packages.buildPythonApplication rec {
   pname = "picacg-qt";
   version = "1.5.4";
 
@@ -54,13 +54,21 @@ python3Packages.buildPythonApplication rec {
     vulkan-loader
   ];
 
-  propagatedBuildInputs = with python3Packages; [
-    pyside6 websocket-client pillow pysocks natsort webdavclient3
-    tqdm pysmb lxml setuptools
+  propagatedBuildInputs = with python313Packages; [
+    pyside6
+    websocket-client
+    pillow
+    pysocks
+    natsort
+    webdavclient3
+    tqdm
+    pysmb
+    lxml
+    setuptools
     (httpx.overridePythonAttrs (finalAttrs: {
       dependencies = finalAttrs.dependencies ++ (with finalAttrs.optional-dependencies; http2 ++ socks);
     }))
-    sr-vulkan  # This now includes models
+    sr-vulkan # This now includes models
   ];
 
   dontBuild = true;
@@ -89,7 +97,7 @@ python3Packages.buildPythonApplication rec {
 
     mkdir -p $out/bin
     cat > $out/bin/picacg-qt << EOF
-    #!${python3Packages.python.interpreter}
+    #!${python313Packages.python.interpreter}
     import sys
     import os
     import shutil
@@ -150,7 +158,10 @@ python3Packages.buildPythonApplication rec {
       icon = "PicACG";
       terminal = false;
       type = "Application";
-      categories = [ "Graphics" "Network" ];
+      categories = [
+        "Graphics"
+        "Network"
+      ];
     })
   ];
 

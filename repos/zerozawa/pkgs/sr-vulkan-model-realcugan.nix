@@ -1,10 +1,10 @@
 {
   lib,
-  python3Packages,
+  python313Packages,
   fetchurl,
   ...
 }:
-python3Packages.buildPythonPackage rec {
+python313Packages.buildPythonPackage rec {
   pname = "sr-vulkan-model-realcugan";
   version = "1.0.1";
   format = "wheel";
@@ -19,6 +19,6 @@ python3Packages.buildPythonPackage rec {
     homepage = "https://github.com/tonquer/sr_vulkan";
     license = licenses.mit;
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [binaryBytecode];
+    sourceProvenance = with sourceTypes; [ binaryBytecode ];
   };
 }

@@ -1,14 +1,14 @@
 {
   lib,
-  python3Packages,
+  python313Packages,
   fetchPypi,
   vulkan-loader,
   autoPatchelfHook,
-  sr-vulkan-models ? [],
+  sr-vulkan-models ? [ ],
   ...
 }:
 
-python3Packages.buildPythonPackage rec {
+python313Packages.buildPythonPackage rec {
   pname = "sr-vulkan";
   version = "2.0.1.1";
   format = "wheel";
@@ -27,7 +27,7 @@ python3Packages.buildPythonPackage rec {
   nativeBuildInputs = [ autoPatchelfHook ];
   propagatedBuildInputs = [ vulkan-loader ];
 
-  postInstall = lib.optionalString (sr-vulkan-models != []) ''
+  postInstall = lib.optionalString (sr-vulkan-models != [ ]) ''
     # Create symlinks to model packages in sr_vulkan's site-packages
     # so the binary can find them at ../sr_vulkan_model_*/models/
     for site_packages in $out/lib/python*/site-packages; do

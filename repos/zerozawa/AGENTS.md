@@ -104,6 +104,7 @@ Filtering behavior:
 ### Current implementation quirks worth remembering
 
 - `JMComic-qt` and `picacg-qt` rely on `sr-vulkan-with-models`, not plain `sr-vulkan`
+- The full SR Vulkan stack (`sr-vulkan`, models, `JMComic-qt`, and `picacg-qt`) is pinned to Python 3.13 because the upstream 2.0.1.1 `abi3` wheel segfaults in `initSet` under Python 3.14
 - `hyprland-mcp-server` is a wrapped npm package with runtime PATH injection for Hyprland tooling
 - `context-mode` is a `bun` + `stdenvNoCC.mkDerivation` package with pre-built bundles; it uses `makeBinaryWrapper` and the built-in `node:sqlite` (Node.js >= 22.5) so `better-sqlite3` is not loaded at runtime
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL

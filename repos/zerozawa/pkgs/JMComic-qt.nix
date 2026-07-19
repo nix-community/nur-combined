@@ -1,6 +1,6 @@
 {
   lib,
-  python3Packages,
+  python313Packages,
   fetchFromGitHub,
   fetchPypi,
   makeDesktopItem,
@@ -13,7 +13,7 @@
   ...
 }:
 let
-  commonx = python3Packages.buildPythonPackage rec {
+  commonx = python313Packages.buildPythonPackage rec {
     pname = "commonx";
     version = "0.6.40";
     format = "setuptools";
@@ -24,7 +24,7 @@ let
     doCheck = false;
   };
 
-  jmcomic = python3Packages.buildPythonPackage rec {
+  jmcomic = python313Packages.buildPythonPackage rec {
     pname = "jmcomic";
     version = "2.7.1";
     pyproject = true;
@@ -32,8 +32,8 @@ let
       inherit pname version;
       hash = "sha256-VgoCGHWK8OJhfoLos8X4VdIZ4hE/vIujdyRHsNY3RcQ=";
     };
-    build-system = with python3Packages; [ setuptools ];
-    dependencies = with python3Packages; [
+    build-system = with python313Packages; [ setuptools ];
+    dependencies = with python313Packages; [
       curl-cffi
       pillow
       pycryptodome
@@ -44,7 +44,7 @@ let
     pythonImportsCheck = [ "jmcomic" ];
   };
 in
-python3Packages.buildPythonApplication rec {
+python313Packages.buildPythonApplication rec {
   pname = "JMComic-qt";
   version = "1.3.3.3";
 
@@ -69,7 +69,7 @@ python3Packages.buildPythonApplication rec {
     vulkan-loader
   ];
 
-  propagatedBuildInputs = with python3Packages; [
+  propagatedBuildInputs = with python313Packages; [
     pyside6
     pillow
     lxml
@@ -117,7 +117,7 @@ python3Packages.buildPythonApplication rec {
     mkdir -p $out/bin
 
     cat > $out/bin/JMComic-qt << EOF
-    #!${python3Packages.python.interpreter}
+    #!${python313Packages.python.interpreter}
     import sys
     import os
 
