@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "iso15765-canbus";
-  version = "2024-12-11";
+  version = "2026-06-22";
 
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "devcoons";
     repo = "iso15765-canbus";
     tag = finalAttrs.version;
-    hash = "sha256-qLfrwDUNoFUo58bRudAdkrE5GsREyU/lWkVryX1K2fk=";
+    hash = "sha256-XAp4vYNacHEcPtyc+eNhHAVpREPecO/B8XzpU+yWJ8Y=";
   };
 
   nativeBuildInputs = [ cmake ];

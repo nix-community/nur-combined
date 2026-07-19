@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "isotp-c";
-  version = "1.6.0";
+  version = "1.6.4";
 
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SimonCahill";
     repo = "isotp-c";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-uBefoYoGCM/qyUXN+7wkW1JnDvo7No2leFTzDAMxL0E=";
+    hash = "sha256-i3bDe0dGQMRlm8TZLKpCt9/bYXxeWbbpEbSIVRQm6nY=";
   };
 
   nativeBuildInputs = [ cmake ];

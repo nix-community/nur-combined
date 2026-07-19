@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "serverpp";
-  version = "0.3.1";
+  version = "0.3.2";
 
   __structuredAttrs = true;
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "KazDragon";
     repo = "serverpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-SV+1RrKvDK8OGTGHjCyl5uuRbh/0TMTtC3ax0++HOCI=";
+    hash = "sha256-OFuoNz+3bQ9PvZ79J7R8Qm/8atAR8TDWfhrGBQPgjrQ=";
   };
 
   nativeBuildInputs = [ cmake ];

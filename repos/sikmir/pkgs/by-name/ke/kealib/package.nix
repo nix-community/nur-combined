@@ -4,11 +4,12 @@
   fetchFromGitHub,
   cmake,
   hdf5,
+  highfive,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "kealib";
-  version = "1.6.2";
+  version = "2.0.0";
 
   __structuredAttrs = true;
 
@@ -16,12 +17,15 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ubarsc";
     repo = "kealib";
     tag = "kealib-${finalAttrs.version}";
-    hash = "sha256-wisBE/j2zqW2OdSXezM8/UGnVqNxUZtzDMpbCDUgC9U=";
+    hash = "sha256-qfJmQy0iIu564tjAaMMypQ9pTbMCAwjjPHcvogt1guQ=";
   };
 
   nativeBuildInputs = [ cmake ];
 
-  buildInputs = [ hdf5 ];
+  buildInputs = [
+    hdf5
+    highfive
+  ];
 
   meta = {
     description = "KEALib provides an implementation of the GDAL data model";

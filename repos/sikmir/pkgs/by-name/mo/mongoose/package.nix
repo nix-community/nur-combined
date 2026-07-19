@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "mongoose";
-  version = "7.20";
+  version = "7.22";
 
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "cesanta";
     repo = "mongoose";
     tag = finalAttrs.version;
-    hash = "sha256-qW6HuhcmYwp3e8ioGGP0gSxwxJsqs53KS0jNpMNlWG0=";
+    hash = "sha256-7XBEzIKXnLlITvtIdu3ldB/ISqGT+8o4pd5qcxJHnKE=";
   };
 
   buildInputs = [ mbedtls ];

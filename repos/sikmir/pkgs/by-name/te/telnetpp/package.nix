@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "telnetpp";
-  version = "4.0.1";
+  version = "4.0.2";
 
   __structuredAttrs = true;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "KazDragon";
     repo = "telnetpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-H5yIfsqW+Aud1JMxq9Hmchxk2sStFZNWtI+zqGpJELI=";
+    hash = "sha256-kA5V+vI3DiHIQnylY1kcCYirmT4Qm+sKX0G6uHcr6mw=";
   };
 
   nativeBuildInputs = [

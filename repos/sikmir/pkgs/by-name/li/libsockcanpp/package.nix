@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libsockcanpp";
-  version = "1.5.0";
+  version = "1.8.0";
 
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "SimonCahill";
     repo = "libsockcanpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qIjFEbBRnVFZ5NQlFgjljgtWutWCn2EEymfpJ5LuLQU=";
+    hash = "sha256-Io+FUImqeEK3//HsLrWtfYRVYFRVKckHW3ijRjnR4AM=";
   };
 
   postPatch = ''

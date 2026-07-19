@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "taudem";
-  version = "5.4.0";
+  version = "5.5.0";
 
   __structuredAttrs = true;
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "dtarb";
     repo = "TauDEM";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9gQUXmaA463Fra7u6Kyn2dplOXRCdvYp04gKNoG7Q4Y=";
+    hash = "sha256-t1MaMPbQ9eUk4Uwv8XJwtkHjwjPs4jHnZ26M1v1UiMg=";
   };
 
   nativeBuildInputs = [ cmake ];

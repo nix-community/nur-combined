@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "earthaccess";
-  version = "0.16.0";
+  version = "0.18.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "nsidc";
     repo = "earthaccess";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-/DJW0wHXUC/a9xO+c58bw5jWnrK4vlHta7nbFicAgcE=";
+    hash = "sha256-VOd4x2yMAGdPKymKShBYoYkdd4UxnRaopVX0HGhsVXo=";
   };
 
   build-system = with python3Packages; [

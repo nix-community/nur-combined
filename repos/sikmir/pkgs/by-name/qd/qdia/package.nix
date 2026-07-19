@@ -8,7 +8,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "qdia";
-  version = "0.53";
+  version = "0.65";
 
   __structuredAttrs = true;
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "sunderme";
     repo = "qdia";
     tag = finalAttrs.version;
-    hash = "sha256-iaobnEQm/viGAqHHlVf3LPV+MY16x1CFVQXLaVa/ddg=";
+    hash = "sha256-k8SsnWW6TylaKUT7ODB95zLw+OWgQFJtuPfw2c9AL3s=";
   };
 
   nativeBuildInputs = [

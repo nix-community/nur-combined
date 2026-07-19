@@ -7,15 +7,20 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "c2cwsgiutils";
-  version = "5.1.5";
+  version = "6.1.9";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "camptocamp";
     repo = "c2cwsgiutils";
     tag = finalAttrs.version;
-    hash = "sha256-lPE21SLMgfnNu0qiM3e2qz6zJJ7u5YaNkqOSNTF1FVg=";
+    hash = "sha256-Ca3GCIavXqaimlmboeSHmEeZotQMtgoYXwFbR/ulR1M=";
   };
+
+  build-system = with python3Packages; [
+    poetry-core
+    poetry-dynamic-versioning
+  ];
 
   dependencies = with python3Packages; [
     boltons

@@ -9,7 +9,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "planetiler";
-  version = "0.8.3";
+  version = "0.10.2";
 
   __structuredAttrs = true;
 
@@ -17,7 +17,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "onthegomap";
     repo = "planetiler";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eUDwcJE3Lq2KfC8fedXVq8kUW6zQNt6HurycXFeoFmw=";
+    hash = "sha256-8xC9BBPi5FErJ/QEbUGGZOjh078xYDwqcOI94GwWfk0=";
     name = "planetiler.jar";
   };
 

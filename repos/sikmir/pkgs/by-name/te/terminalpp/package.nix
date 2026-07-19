@@ -12,7 +12,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "terminalpp";
-  version = "4.0.2";
+  version = "4.0.3";
 
   __structuredAttrs = true;
 
@@ -20,7 +20,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "KazDragon";
     repo = "terminalpp";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-9DxBxNhCHAojGkb5knzi0Zzqv5inzJ8K+r0jyskRtVU=";
+    hash = "sha256-2B/k0BUAyetDgHGldZlqh/QU+jeWrHRvf5M4DLnlHoM=";
   };
 
   nativeBuildInputs = [

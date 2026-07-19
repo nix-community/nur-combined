@@ -7,25 +7,27 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "earthpy";
-  version = "0.9.4";
+  version = "0.10.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "earthlab";
     repo = "earthpy";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-MCyeFXtjOqnVarSUk7Z/+Y5oNhYLlxznjWHQOCgUOIc=";
+    hash = "sha256-2ThKdynYCnCR0ViE0yeK8BJjtexVdYGU4oOqBAUb9Yw=";
   };
 
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
     geopandas
+    keyring
     matplotlib
     numpy
+    platformdirs
     rasterio
-    scikit-image
     requests
+    scikit-image
   ];
 
   doCheck = false;

@@ -10,7 +10,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "json-tui";
-  version = "1.4.1";
+  version = "1.4.2";
 
   __structuredAttrs = true;
 
@@ -18,7 +18,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "ArthurSonzogni";
     repo = "json-tui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qS2EbCxH8sUUJMu5hwm1+Nu6SsJRfLReX56YSd1RZU4=";
+    hash = "sha256-PXiTlTwF/qL/Nq1PSf8PHgKa0MD6QrA0tSWiFfm93Gk=";
   };
 
   patches = [ ./no-deps.patch ];

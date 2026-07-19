@@ -8,7 +8,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "chasquid";
-  version = "1.17.0";
+  version = "1.18.0";
 
   __structuredAttrs = true;
 
@@ -16,10 +16,10 @@ buildGoModule (finalAttrs: {
     owner = "albertito";
     repo = "chasquid";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-KOfZKUK6KuW0yaDm5ZbjzGH3xYb84mNmIzEbSDjPtSk=";
+    hash = "sha256-FNr1DjH5AaLZdPsLy/jowpXkX3YhLkH2ygUANMD9ON0=";
   };
 
-  vendorHash = "sha256-u+4Ncr0P32avy8+ZLAzZHCqNm9zNVIC8m618ENh7IXg=";
+  vendorHash = "sha256-zRd4CCLv9gVLykLazGH2P+XPKO8xh5QKshFrVP4YIZY=";
 
   subPackages = [
     "."
