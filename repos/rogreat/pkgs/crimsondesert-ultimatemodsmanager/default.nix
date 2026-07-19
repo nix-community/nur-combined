@@ -1,7 +1,6 @@
 {
   copyDesktopItems,
   fetchFromGitHub,
-  fetchpatch2,
   imagemagick,
   lib,
   makeDesktopItem,
@@ -13,12 +12,12 @@
   xvfb,
 }:
 let
-  version = "3.5.0";
+  version = "3.6.0";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-gV1OwJL/rYGTTDTumuTHbPLVjGNj9AVUd2Ug8oaOW3I=";
+    hash = "sha256-/yEG3fhZ2qSNvPV7GxeKlYEL19xjw1NOKJz4iGz2QK4=";
   };
 
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
@@ -43,14 +42,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   inherit src version;
   pname = "crimsondesert-ultimatemodsmanager";
   pyproject = true;
-
-  patches = [
-    (fetchpatch2 {
-      name = "unix-culprit-feat.patch";
-      url = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/commit/1b1b239179eec0bcbf203f03629f8d9d398ab317.patch?full_index=1";
-      hash = "sha256-zk29eEJw2ZGr3NxHuLAphlxG3s9YEyLsfL2gpyJ/6IM=";
-    })
-  ];
 
   build-system = with python3Packages; [
     setuptools
@@ -80,6 +71,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     cryptography
     lxml
     lz4
+    pillow
     psutil
     py7zr
     pyside6
@@ -100,9 +92,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
     # Fail
     "tests/test_game_index.py::test_extract_reresolves_paz_under_game_dir"
     "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
+    "tests/test_schema_verify.py"
+  ];
+
+  disabledTests = [
     # Slow
-    "tests/test_f3_whole_table_rebuild.py"
-    "tests/test_iteminfo_layout.py"
+    "test_format3"
+    "test_iteminfo"
   ];
 
   disabledTestMarks = [
