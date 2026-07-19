@@ -1,5 +1,5 @@
 {
-  "name": "WG nord",
+  "name": "WG Nord",
   "source": {
     "type": "github-release",
     "repo": "n-thumann/wg-nord",

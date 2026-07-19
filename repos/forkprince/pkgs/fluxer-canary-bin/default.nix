@@ -10,15 +10,15 @@
   ver = lib.helper.read ./version.json;
   platform = stdenvNoCC.hostPlatform.system;
 
-  pname = "fluxer-bin";
+  pname = "fluxer-canary-bin";
   src = fetchurl (lib.helper.getPlatform platform ver);
   inherit (ver) version;
 
   meta = {
-    description = "Fluxer desktop client";
+    description = "Fluxer desktop client (canary)";
     homepage = "https://fluxer.app";
     license = lib.licenses.agpl3Only;
-    mainProgram = "fluxer-bin";
+    mainProgram = "fluxer-canary-bin";
     maintainers = with lib.maintainers; [WoutFontaine Prinky];
   };
 in
@@ -33,10 +33,10 @@ in
     appimageContents = appimageTools.extractType2 {inherit pname version src;};
 
     desktopItem = makeDesktopItem {
-      name = "fluxer";
-      desktopName = "Fluxer";
-      comment = "Fluxer desktop client";
-      exec = "fluxer-bin %U";
+      name = "fluxer-canary";
+      desktopName = "Fluxer Canary";
+      comment = "Fluxer desktop client (canary)";
+      exec = "fluxer-canary-bin %U";
       icon = "fluxer";
       terminal = false;
       categories = ["InstantMessaging"];
@@ -47,7 +47,7 @@ in
 
       extraInstallCommands = ''
         install -Dm444 ${desktopItem}/share/applications/*.desktop \
-          $out/share/applications/fluxer.desktop
+          $out/share/applications/fluxer-canary.desktop
 
         install -Dm444 \
           ${appimageContents}/usr/share/icons/hicolor/256x256/apps/fluxer.png \

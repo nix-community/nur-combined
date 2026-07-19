@@ -1,5 +1,5 @@
 {
-  "name": "rustdesk",
+  "name": "RustDesk",
   "source": {
     "type": "github-release",
     "repo": "rustdesk/rustdesk",

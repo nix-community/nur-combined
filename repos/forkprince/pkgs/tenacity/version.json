@@ -1,5 +1,5 @@
 {
-  "name": "tenacity",
+  "name": "Tenacity",
   "source": {
     "type": "forgejo-release",
     "repo": "tenacityteam/tenacity",

@@ -1,5 +1,5 @@
 {
-  "name": "Fluxer",
+  "name": "Fluxer Stable",
   "source": {
     "type": "api",
     "url": "https://api.fluxer.app/dl/desktop/stable/darwin/x64/RELEASES.json",
