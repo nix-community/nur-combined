@@ -37,6 +37,18 @@ Common patterns:
 - wrapper scripts for GUI entrypoints
 - Vulkan or site-packages symlink setup in `postInstall`
 
+### Flutter applications
+
+Example: `pkgs/LoveIwara/default.nix`
+
+Use `flutter341.buildFlutterApplication` for reproducible Linux desktop builds:
+
+- convert and check in upstream `pubspec.lock` as `pubspec.lock.json`
+- use `customSourceBuilders` when Dart native-asset hooks attempt sandboxed downloads
+- put dynamically loaded FFI libraries in `runtimeDependencies`
+- install the upstream desktop entry and icon in `postInstall`
+- launch the built GUI to verify native plugins and runtime libraries
+
 ### Rust packages
 
 Example: `pkgs/waybar-vd/default.nix`
@@ -121,6 +133,7 @@ some-package = pkgs.callPackage ./pkgs/some-package.nix { };
 ## Current repo-specific examples worth imitating
 
 - `JMComic-qt` / `picacg-qt`: Python GUI packaging plus runtime wrapping
+- `LoveIwara`: source-built Flutter GUI with offline pub dependencies, system SQLite, libmpv runtime wrapping, and upstream desktop integration
 - `sr-vulkan`: model composition through `sr-vulkan-models`
 - `hyprland-mcp-server`: npm packaging plus PATH wrapping
 - `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
@@ -149,5 +162,6 @@ nix-prefetch-github owner repo --rev v1.0.0
 - [ ] `meta` is complete enough for CI filtering and flake exposure
 - [ ] License format matches current repo conventions or is improved deliberately
 - [ ] Build verified with `nix-build -A <pkg>` or equivalent
+- [ ] Flutter pub lock and native-asset sources are fully offline
 - [ ] Runtime behavior checked for wrapped GUI / CLI tools
 - [ ] Docs updated if package inventory or repo behavior changed

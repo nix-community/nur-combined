@@ -5,7 +5,7 @@
 ![Build and populate cache](https://github.com/lz37/nur/workflows/Build%20and%20populate%20cache/badge.svg)
 [![Cachix Cache](https://img.shields.io/badge/cachix-zerozawa-blue.svg)](https://zerozawa.cachix.org)
 
-This repository currently exports **28 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
+This repository currently exports **29 packages**, **1 library helper**, and placeholder `modules` / `overlays` namespaces.
 
 ## Current Exports
 
@@ -17,6 +17,7 @@ This repository currently exports **28 packages**, **1 library helper**, and pla
 |---------|-------------|
 | `JMComic-qt` | Qt-based 禁漫天堂 / 18comic desktop client with Vulkan upscaling support |
 | `picacg-qt` | Qt-based PicACG desktop client with Vulkan upscaling support |
+| `LoveIwara` | Source-built Flutter desktop client for Iwara with libmpv playback |
 | `lightnovel-crawler` | Download light novels and generate e-books |
 | `banguminet` | Third-party Bangumi (番組计划) desktop client built with .NET 10 |
 #### Streaming, networking, and developer tools

@@ -53,6 +53,7 @@ in
   picacg-qt = pkgs.callPackage ./pkgs/picacg-qt.nix {
     sr-vulkan = sr-vulkan-with-models;
   };
+  LoveIwara = pkgs.callPackage ./pkgs/LoveIwara { };
 
   mikusays = pkgs.callPackage ./pkgs/mikusays.nix { };
   sddm-eucalyptus-drop = pkgs.callPackage ./pkgs/sddm-eucalyptus-drop.nix { };

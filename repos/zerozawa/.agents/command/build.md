@@ -12,6 +12,7 @@ Build a package exported from `default.nix`.
 Current examples:
 
 - `JMComic-qt`
+- `LoveIwara`
 - `hyprland-mcp-server`
 - `mcp-cli`
 - `grub-theme-yorha`
@@ -46,7 +47,7 @@ nix-build ci.nix -A cacheOutputs
 
 ## Repo-specific reminders
 
-- `Fladder` has extra Flutter-specific lockfile handling.
+- `LoveIwara` has Flutter pub-lock, native-asset, SQLite, and libmpv runtime handling.
 - `JMComic-qt` and `picacg-qt` expect the model-linked `sr-vulkan` composition.
 - `hyprland-mcp-server` depends on runtime PATH wrapping for Hyprland tools.
 

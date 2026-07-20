@@ -22,9 +22,9 @@ Batch-check exported packages for new upstream versions.
 
 ## Repo-specific notes
 
-- Some packages track releases (`Fladder`, `wechat-web-devtools-linux`).
+- Some packages track releases (`LoveIwara`, `wechat-web-devtools-linux`).
 - Some packages track commits or unstable revisions (`mihomo-smart`, `hyprland-mcp-server`).
-- Some packages have extra lock/hash workflows (`Fladder`, Rust packages, npm packages).
+- Some packages have extra lock/hash workflows (`LoveIwara`, Rust packages, npm packages).
 - `preferLocalBuild = true` and license metadata affect CI/cache outcomes but not whether a package exists in `default.nix`.
 
 ## Example output
@@ -32,7 +32,7 @@ Batch-check exported packages for new upstream versions.
 ```text
 | Package | Current | Latest | Status |
 |---------|---------|--------|--------|
-| Fladder | 0.10.2 | 0.10.3 | update available |
+| LoveIwara | 0.5.0 | 0.5.0 | up to date |
 | mihomo-smart | 166a207 | 166a207 | up to date |
 | JMComic-qt | 1.3.0 | 1.3.0 | up to date |
 ```
