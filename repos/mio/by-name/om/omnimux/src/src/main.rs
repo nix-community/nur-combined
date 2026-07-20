@@ -719,8 +719,26 @@ impl Render for TerminalTabs {
             }
         }
 
-        let mut tab_bar = div().flex().flex_row().bg(bg_color_bar).h(px(32.0)).items_center();
-        
+        let mut tab_bar = div()
+            .id("tab_bar")
+            .flex()
+            .flex_row()
+            .w_full()
+            .bg(bg_color_bar)
+            .h(px(32.0))
+            .items_center()
+            // Empty tab-bar chrome must not eat keyboard focus (macOS leaves no
+            // focused view after a click on a non-track_focus region).
+            .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
+                if this.prompt.is_none()
+                    && !this.show_search
+                    && !this.show_settings
+                    && !this.tabs.is_empty()
+                {
+                    this.focus_active_session(window, cx);
+                }
+            }));
+       
         for (i, session) in self.tabs.iter().enumerate() {
             let bg_color = if i == self.active_tab { bg_color_active } else { bg_color_bar };
             let tab_label = session.read(cx).host.clone().unwrap_or_else(|| "localhost".to_string());
@@ -832,6 +850,16 @@ impl Render for TerminalTabs {
             .border_color(border_color)
             // Leave room for macOS traffic lights when using a transparent titlebar
             .when(cfg!(target_os = "macos"), |d| d.pl(px(78.0)))
+            .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
+                // Same as tab bar: chrome clicks must not leave the terminal unfocused.
+                if this.prompt.is_none()
+                    && !this.show_search
+                    && !this.show_settings
+                    && !this.tabs.is_empty()
+                {
+                    this.focus_active_session(window, cx);
+                }
+            }))
             .child(
                 div()
                     .id("title_bar_drag")
