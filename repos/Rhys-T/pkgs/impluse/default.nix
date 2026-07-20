@@ -1,4 +1,4 @@
-{stdenv, lib, fetchFromGitHub, xcbuildHook, maintainers}: stdenv.mkDerivation {
+{stdenv, lib, fetchFromGitHub, xcbuildHook, unstableGitUpdater, maintainers}: stdenv.mkDerivation {
     pname = "impluse";
     version = "0-unstable-2024-03-14";
     src = fetchFromGitHub {
@@ -24,4 +24,5 @@
         mainProgram = "impluse";
         maintainers = [maintainers.Rhys-T];
     };
+    passthru.updateScript = unstableGitUpdater {};
 }
