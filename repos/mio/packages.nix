@@ -16,28 +16,6 @@ let
   lib = pkgs.lib // import ./lib { inherit pkgs; };
   stdenv = pkgs.stdenv;
   fetchFromGitHub = pkgs.fetchFromGitHub;
-  minipkgs0 = rec {
-    prismlauncher = pkgs.callPackage ./pkgs/prismlauncher/package.nix {
-      prismlauncher-unwrapped = prismlauncher-unwrapped;
-    };
-    prismlauncher-unwrapped = pkgs.callPackage ./pkgs/prismlauncher-unwrapped/package.nix {
-    };
-  };
-  minipkgs = {
-    prismlauncher =
-      if (builtins.compareVersions pkgs.prismlauncher.version minipkgs0.prismlauncher.version) >= 0 then
-        pkgs.prismlauncher
-      else
-        minipkgs0.prismlauncher;
-    prismlauncher-unwrapped =
-      if
-        (builtins.compareVersions pkgs.prismlauncher-unwrapped.version minipkgs0.prismlauncher-unwrapped.version)
-        >= 0
-      then
-        pkgs.prismlauncher-unwrapped
-      else
-        minipkgs0.prismlauncher-unwrapped;
-  };
   byName = lib.makeScope pkgs.newScope (
     self:
     let
@@ -203,8 +181,8 @@ byName
     let
       # https://github.com/NixOS/nixpkgs/blob/ab0821a8289da5bd2cde49ae89cbf6db1e5931ae/pkgs/by-name/pr/prismlauncher/package.nix#L41
       msaClientID = null;
-      prismlauncher = minipkgs.prismlauncher;
-      prismlauncher-unwrapped = minipkgs.prismlauncher-unwrapped;
+      prismlauncher = pkgs.prismlauncher;
+      prismlauncher-unwrapped = pkgs.prismlauncher-unwrapped;
     in
     prismlauncher.overrideAttrs (old: {
       paths = [
