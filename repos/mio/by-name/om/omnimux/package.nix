@@ -12,6 +12,7 @@
   desktopToDarwinBundle,
   makeWrapper,
   nerd-fonts,
+  noto-fonts-color-emoji,
 }:
 
 rustPlatform.buildRustPackage {
@@ -45,13 +46,15 @@ rustPlatform.buildRustPackage {
 
   # Install .desktop + icon on all platforms so Linux gets a launcher entry and
   # Darwin's desktopToDarwinBundle can generate $out/Applications/Omnimux.app.
-  # Also ship Symbols Nerd Font for Starship / powerline glyph fallbacks.
+  # Ship Nerd + emoji fonts for Starship / powerline prompts on Linux and macOS.
   postInstall = ''
     install -Dm444 ${./omnimux.desktop} $out/share/applications/omnimux.desktop
     install -Dm444 ${./omnimux.svg} $out/share/icons/hicolor/scalable/apps/omnimux.svg
 
     mkdir -p $out/share/omnimux/fonts
     cp -L ${nerd-fonts.symbols-only}/share/fonts/truetype/NerdFonts/Symbols/*.ttf \
+      $out/share/omnimux/fonts/
+    cp -L ${noto-fonts-color-emoji}/share/fonts/noto/NotoColorEmoji.ttf \
       $out/share/omnimux/fonts/
   '';
 
@@ -69,6 +72,13 @@ rustPlatform.buildRustPackage {
     + ''
       wrapProgram $out/bin/omnimux \
         --set OMNIMUX_FONTS_DIR $out/share/omnimux/fonts
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
+      if [ -d "$out/Applications/Omnimux.app/Contents/Resources" ]; then
+        mkdir -p "$out/Applications/Omnimux.app/Contents/Resources/fonts"
+        cp -L $out/share/omnimux/fonts/*.ttf \
+          "$out/Applications/Omnimux.app/Contents/Resources/fonts/"
+      fi
     '';
 
   meta = with lib; {

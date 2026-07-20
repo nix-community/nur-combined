@@ -10,6 +10,16 @@ use std::time::{Duration, Instant};
 
 const DEFAULT_FONT_SIZE: f32 = 14.0;
 
+/// Fallback families for glyphs missing from the primary monospace (Starship nerd
+/// icons, powerline separators, and default emoji like hostname `ssh_symbol` 🌐).
+fn symbol_font_fallbacks() -> Vec<String> {
+    vec![
+        "Symbols Nerd Font Mono".into(),
+        "Symbols Nerd Font".into(),
+        "Noto Color Emoji".into(),
+    ]
+}
+
 struct TerminalSession {
     terminal_view: Entity<TerminalView>,
     child: std::sync::Arc<std::sync::Mutex<Box<dyn portable_pty::Child + Send + Sync>>>,
@@ -132,10 +142,7 @@ impl TerminalSession {
             scrollback: 10000,
             padding: Edges::default(),
             colors,
-            font_fallbacks: vec![
-                "Symbols Nerd Font Mono".into(),
-                "Symbols Nerd Font".into(),
-            ],
+            font_fallbacks: symbol_font_fallbacks(),
         };
 
         let terminal_view = cx.new(|cx| {
@@ -1641,7 +1648,7 @@ fn symbol_font_dirs() -> Vec<std::path::PathBuf> {
     dirs
 }
 
-/// Load bundled Symbols Nerd Font into GPUI so Starship glyphs can fall back.
+/// Load bundled Nerd + emoji fonts into GPUI for Starship / powerline fallbacks.
 fn load_bundled_symbol_fonts(cx: &gpui::App) {
     use std::borrow::Cow;
 
