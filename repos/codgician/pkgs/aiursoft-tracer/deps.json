@@ -26,23 +26,23 @@
   },
   {
     "pname": "Aiursoft.Canon",
-    "version": "10.0.11",
-    "hash": "sha256-IjsHWX4PZUBUMYEwq8a5WuIPrJMST7idJn6pgMN59k8="
+    "version": "10.0.12",
+    "hash": "sha256-UCfpNpbIjJHabdh4JXUQfF9WyT+M8/iGPRy0MYxcNvA="
   },
   {
     "pname": "Aiursoft.Canon.BackgroundJobs",
-    "version": "10.0.11",
-    "hash": "sha256-HGDL0GTWWbTa+vwOIowjoeZDPiOVqtIQlykMctBSVNI="
+    "version": "10.0.12",
+    "hash": "sha256-3hSu7hb+nTs33QbgUgkuU0T8a4bOafVrdXuWUYlX93o="
   },
   {
     "pname": "Aiursoft.Canon.ScheduledTasks",
-    "version": "10.0.11",
-    "hash": "sha256-UBLAfhxpfJvkyzozYFU5QfTaRWIihvxpaJD/OSKp1mc="
+    "version": "10.0.12",
+    "hash": "sha256-tWg2c+OunNVD06CCqcJ5d5EgO9DpYVB1Y9Rz3yV1Fdk="
   },
   {
     "pname": "Aiursoft.Canon.ServiceTaskQueue",
-    "version": "10.0.12",
-    "hash": "sha256-ArV0sdVA2li8fLCIh0LHapdaceAvHvKVxQyGwrModSQ="
+    "version": "10.0.13",
+    "hash": "sha256-okI94+Pbnw3zdl6mjmaxcbjjpVrg1BrX0Fkpkuqs2OU="
   },
   {
     "pname": "Aiursoft.ClickhouseLoggerProvider",
@@ -76,13 +76,13 @@
   },
   {
     "pname": "Aiursoft.DbTools.MySql",
-    "version": "10.0.26",
-    "hash": "sha256-/JLuwCBTro2YUf41iZ4Soj6oy06cTeuNlZGsXQVPzxM="
+    "version": "10.0.27",
+    "hash": "sha256-qBieEDdj9t1JYnVmUB4Mh9rkcfKIQSVA7fCgDyekiFc="
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.26",
-    "hash": "sha256-IwuOUh7efFeLRTaQCfJ0YEZAuWs0o66QeSGh5/o53BU="
+    "version": "10.0.27",
+    "hash": "sha256-P3uYhyxqH5CIW7NiOCl9gMVqm2eqj0M2Q+fzMjwvqRc="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -106,8 +106,8 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.16",
-    "hash": "sha256-cwppkTVNDX3IVSkt4pt66rYnwzvfUnEJG+ZjlVmvUO8="
+    "version": "10.0.18",
+    "hash": "sha256-ijARBsuGVmDq3+FWGuK/GY/sYuL5AGE3TcvzQZwF/Qk="
   },
   {
     "pname": "Aiursoft.WebTools",
@@ -136,13 +136,13 @@
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor",
-    "version": "5.4.0",
-    "hash": "sha256-rBLdxAn7Br9UXF0sC577d2HVB3KMjsKBWOqRjd16SIY="
+    "version": "5.5.0",
+    "hash": "sha256-uNBMi0te+2VPw30xS8mGSpacbR+nbJKcJu59oG+GFXc="
   },
   {
     "pname": "EFCoreSecondLevelCacheInterceptor.MemoryCache",
-    "version": "5.4.0",
-    "hash": "sha256-/ajgP8msqTR+GORQADxLN+mE9FJYQSOak/vJ9d082go="
+    "version": "5.5.0",
+    "hash": "sha256-YR1LSjxXdoPKQOy/JkyiGfaXDlRacEsVWONsKcwlwzA="
   },
   {
     "pname": "Humanizer.Core",
@@ -701,7 +701,7 @@
   },
   {
     "pname": "System.IO.Hashing",
-    "version": "10.0.8",
-    "hash": "sha256-nsDMvCvAeKCyp566iEyp3JOWfQnTPgDU3dIFMg0iUL0="
+    "version": "10.0.10",
+    "hash": "sha256-TPzhNJAi0x/X5NoYu62MbRLB7GgVCneSqRDbV3aYQ0M="
   }
 ]
