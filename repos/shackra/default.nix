@@ -19,4 +19,5 @@ rec {
   gtkcsslanguageserver = pkgs.callPackage ./packages/gtk-css-language-server { };
   mkpsxiso = pkgs.callPackage ./packages/mkpsxiso { };
   ppf = pkgs.callPackage ./packages/ppf { };
+  tilemolester = pkgs.callPackage ./packages/tilemolester { };
 }
