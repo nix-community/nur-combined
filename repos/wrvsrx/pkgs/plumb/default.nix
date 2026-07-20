@@ -8,12 +8,12 @@
 }:
 
 let
-  version = "0.4.0";
+  version = "0.5.0";
   src = fetchFromGitHub {
     owner = "wrvsrx";
     repo = "plumb";
     tag = version;
-    hash = "sha256-1VUTAFkaAGagSMfS77v8oQeZ/yDgy+33+i7aDIgolbA=";
+    hash = "sha256-9a8PfMGdK4yOm7w+6t7Kp/ex8ebipbRRyVd0xf6kaiI=";
   };
 
   generatedSource = stdenvNoCC.mkDerivation {
@@ -57,7 +57,7 @@ rustPlatform.buildRustPackage {
   pname = "plumb";
   inherit version src;
 
-  cargoHash = "sha256-fGtGLnB0j95Dgz15BdF0wLdxNwurB507zqFocrdtosE=";
+  cargoHash = "sha256-AKSr4nIFcMYU1rl16RcBSIBGg7muGhQPtUTnrjL1axs=";
 
   postInstall = ''
     mkdir -p $out/share/plumb
