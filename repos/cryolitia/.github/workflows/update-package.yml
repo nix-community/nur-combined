@@ -6,7 +6,6 @@ on:
       - master
     paths:
       - ".github/workflows/update-package.yml"
-      - "pkgs/maa-assistant-arknights/update.sh"
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
@@ -39,7 +38,5 @@ jobs:
       - name: Update packages
         run: |
           ./update.sh
-
-          ./pkgs/maa-assistant-arknights/update.sh
 
           git push
