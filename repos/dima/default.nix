@@ -15,6 +15,7 @@ rec {
 	obsidian-show-whitespace = pkgs.callPackage ./pkgs/obsidian-show-whitespace { };
 	obsidian-smart-typography = pkgs.callPackage ./pkgs/obsidian-smart-typography { };
 	vtt = pkgs.callPackage ./pkgs/vtt { };
+	stripzip = pkgs.callPackage ./pkgs/stripzip { };
 
 	rich-argparse-rich-13-9-4 = pkgs.callPackage ./pkgs/rich-argparse-rich-13-9-4 { inherit rich-13-9-4; };
 	rich-13-9-4 = pkgs.callPackage ./pkgs/rich-13-9-4 { };
