@@ -1,4 +1,5 @@
 const { getReleases } = require("../../forgejo");
+const { guard } = require("../../safe");
 const { apply } = require("../../text");
 const getHash = require("../../hash");
 const update = require("../../file");
@@ -26,7 +27,7 @@ async function check(file, { config, force }) {
 
   const releases = (await getReleases(instance, api_repo, config.source.skip_prerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
-  const version = config.source.query ? eval(`(${JSON.stringify(releases)})${config.source.query}`) : releases[0].tag_name;
+  const version = config.source.query ? await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(config.source.query) : releases[0].tag_name;
   if (!version) throw new Error("Failed to extract version from Forgejo releases");
 
   const parsed = version.replace(/^v/, "");
@@ -124,7 +125,7 @@ async function platforms(file, { config, force }) {
 
       const releases = (await getReleases(instance, repo, config.source.skip_prerelease)).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
-      const version = config.source.query ? eval(`(${JSON.stringify(releases)})${config.source.query}`) : releases[0].tag_name;
+      const version = config.source.query ? await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(config.source.query) : releases[0].tag_name;
       if (!version) continue;
 
       const parsed = version.replace(/^v/, "");

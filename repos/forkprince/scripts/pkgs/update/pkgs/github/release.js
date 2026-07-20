@@ -1,5 +1,6 @@
 const { getReleases, check: checkVersion } = require("../../../github");
 const { apply } = require("../../../text");
+const { guard } = require("../../../safe");
 const getHash = require("../../../hash");
 const update = require("../../../file");
 
@@ -117,7 +118,7 @@ async function platforms(file, { config, force }) {
         }
       }
 
-      const version = config.source.query ? eval(`(${JSON.stringify(releases)})${config.source.query}`) : releases[0].tag_name;
+      const version = config.source.query ? await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(config.source.query) : releases[0].tag_name;
       if (!version) continue;
 
       const parsed = version.replace(/^v/, "");
@@ -131,7 +132,7 @@ async function platforms(file, { config, force }) {
       const prefix = settings.tag_prefix || config.source.tag_prefix || "";
       const unpack = settings.unpack || false;
 
-      const resolved = settings.query ? eval(`(${JSON.stringify(releases)})${settings.query}`) : settings.file;
+      const resolved = settings.query ? await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(settings.query) : settings.file;
       if (!resolved && !settings.url) {
         console.log(`Skipping ${platform}: no matching asset found for version ${parsed}`);
         continue;
@@ -150,7 +151,7 @@ async function platforms(file, { config, force }) {
 
       await update.platforms(file, { platform, url: settings.url ? url : undefined, hash, version: parsed, file: settings.query ? resolved : undefined });
 
-      if (config.source.name_query && !display) display = eval(`(${JSON.stringify(releases)})${config.source.name_query}`);
+      if (config.source.name_query && !display) display = await guard(q => eval(`(${JSON.stringify(releases)})${q}`), undefined)(config.source.name_query);
 
       console.log(`Updated ${platform} to version ${parsed}`);
 
