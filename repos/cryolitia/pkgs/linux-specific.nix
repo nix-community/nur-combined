@@ -84,9 +84,9 @@ lib.attrsets.mergeAttrsList (
         {
           gpd-fan-driver = gpd-fan-driver.modulePackage;
         }
-        // packagesFromDirectoryRecursive {
-          directory = ../pkgs/linux;
-        }
+        # // packagesFromDirectoryRecursive {
+        #   directory = ../pkgs/linux;
+        # }
       )
   )
 )
