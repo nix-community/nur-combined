@@ -41,6 +41,7 @@ let
     iwe = callPackage ./iwe { };
     wl-uinput-proxy = callPackage ./wl-uinput-proxy { };
     djot-tools = callPackage ./djot-tools { };
+    plumb = callPackage ./plumb { };
     pandoc-to-anki = callPackage ./pandoc-to-anki { };
   };
   python-overlay = import ./python-overlay { inherit sources; };
@@ -77,6 +78,7 @@ let
   vim-plugins-overlay = import ./vim-plugins-overlay {
     inherit sources;
     inherit (prev) callPackage;
+    inherit (final) plumb;
   };
 in
 toplevelPackages

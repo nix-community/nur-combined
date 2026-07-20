@@ -479,27 +479,6 @@
         },
         "version": "v0.15.0"
     },
-    "tree-sitter-plumb": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "tree-sitter-plumb",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "wrvsrx",
-            "repo": "plumb",
-            "rev": "0.1.0",
-            "sha256": "sha256-5npWf/lYAOPnHdd8NZzwmjSdFUva/Xqd8Q1MWuI141s=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "0.1.0"
-    },
     "v2ray-rules-dat-geoip": {
         "cargoLock": null,
         "date": null,

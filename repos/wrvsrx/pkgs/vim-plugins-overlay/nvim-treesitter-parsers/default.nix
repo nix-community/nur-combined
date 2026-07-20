@@ -1,54 +1,15 @@
 {
   lib,
   neovimUtils,
-  nodejs,
   nvim-treesitter-parsers,
+  plumb,
   runCommandLocal,
-  stdenvNoCC,
-  tree-sitter,
-  tree-sitter-plumb-source,
   vimUtils,
 }:
 
 let
-  inherit (tree-sitter-plumb-source) version;
-  src = tree-sitter-plumb-source.src + "/tree-sitter-plumb";
-
-  generatedSource = stdenvNoCC.mkDerivation {
-    pname = "tree-sitter-plumb-src";
-    inherit version src;
-
-    nativeBuildInputs = [
-      nodejs
-      tree-sitter
-    ];
-
-    buildPhase = ''
-      runHook preBuild
-      tree-sitter generate
-      runHook postBuild
-    '';
-
-    installPhase = ''
-      runHook preInstall
-      cp -r . "$out"
-      runHook postInstall
-    '';
-  };
-
-  grammar = tree-sitter.buildGrammar {
-    language = "plumb";
-    inherit version;
-    src = generatedSource;
-
-    passthru.generatedSource = generatedSource;
-
-    meta = {
-      description = "Tree-sitter grammar for plumb";
-      homepage = "https://github.com/wrvsrx/plumb/tree/${tree-sitter-plumb-source.version}/tree-sitter-plumb";
-      license = lib.licenses.mit;
-    };
-  };
+  grammar = plumb.tree-sitter-plumb;
+  generatedSource = grammar.generatedSource;
 
   # Mirrors vimPlugins.nvim-treesitter.buildQueries from nixpkgs. That helper
   # only reads nvim-treesitter's runtime, so use the grammar's own queries here.

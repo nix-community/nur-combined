@@ -1,4 +1,8 @@
-{ sources, callPackage }:
+{
+  sources,
+  callPackage,
+  plumb,
+}:
 final: prev: {
   iwe-nvim = callPackage ./iwe-nvim {
     source = sources.iwe-nvim;
@@ -6,6 +10,6 @@ final: prev: {
 
   nvim-treesitter-parsers = callPackage ./nvim-treesitter-parsers {
     inherit (prev) nvim-treesitter-parsers;
-    tree-sitter-plumb-source = sources.tree-sitter-plumb;
+    inherit plumb;
   };
 }
