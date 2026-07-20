@@ -14,13 +14,17 @@ fetch.github = "Freed-Wu/manpager"
 src.pypi = "translate-shell"
 fetch.pypi = "translate_shell"
 
+[lsp-tree-sitter]
+src.pypi = "lsp-tree-sitter"
+fetch.pypi = "lsp_tree_sitter"
+
 [expect-language-server]
 src.pypi = "expect-language-server"
 fetch.pypi = "expect-language-server"
 
 [xilinx-language-server]
 src.pypi = "xilinx-language-server"
-fetch.pypi = "xilinx-language-server"
+fetch.pypi = "xilinx_language_server"
 
 [sublime-syntax-language-server]
 src.pypi = "sublime-syntax-language-server"

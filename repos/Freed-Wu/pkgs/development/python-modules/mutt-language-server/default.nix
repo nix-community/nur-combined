@@ -2,12 +2,13 @@
   mySources,
   python3,
   lib,
+  lsp-tree-sitter,
   tree-sitter-muttrc,
 }:
 
 with python3.pkgs;
 
-buildPythonPackage rec {
+buildPythonPackage {
   inherit (mySources.mutt-language-server) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.10";
@@ -16,8 +17,7 @@ buildPythonPackage rec {
     tree-sitter-muttrc
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    uv-build
   ];
   pythonImportsCheck = [
     "mutt_language_server"

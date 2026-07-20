@@ -2,30 +2,30 @@
   mySources,
   python3,
   lib,
-  lsp-tree-sitter,
-  tree-sitter-tmux,
 }:
 
 with python3.pkgs;
 
 buildPythonPackage {
-  inherit (mySources.tmux-language-server) pname version src;
+  inherit (mySources.lsp-tree-sitter) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.10";
   propagatedBuildInputs = [
-    lsp-tree-sitter
-    tree-sitter-tmux
+    jq
+    jsonschema
+    pygls
+    tree-sitter
   ];
   nativeBuildInputs = [
     uv-build
   ];
   pythonImportsCheck = [
-    "tmux_language_server"
+    "lsp_tree_sitter"
   ];
 
   meta = with lib; {
-    homepage = "https://tmux-language-server.readthedocs.io";
-    description = "tmux's language server";
+    homepage = "https://lsp-tree-sitter.readthedocs.io";
+    description = "a library to create language servers";
     license = licenses.gpl3;
     maintainers = with maintainers; [ Freed-Wu ];
     platforms = platforms.unix;

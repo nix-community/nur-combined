@@ -2,24 +2,23 @@
   mySources,
   python3,
   lib,
+  lsp-tree-sitter,
 }:
 
 with python3.pkgs;
 
-buildPythonPackage rec {
+buildPythonPackage {
   inherit (mySources.termux-language-server) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
     lsp-tree-sitter
     tree-sitter-grammars.tree-sitter-bash
-    platformdirs
     fqdn
     rfc3987
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    uv-build
   ];
   pythonImportsCheck = [
     "termux_language_server"
