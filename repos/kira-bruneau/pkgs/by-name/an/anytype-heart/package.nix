@@ -1,95 +1,95 @@
 {
+  stdenv,
   lib,
-  buildGoModule,
   fetchFromGitHub,
-  protobuf,
+  buildGoModule,
   protoc-gen-grpc-web,
   protoc-gen-js,
+  protobuf,
   tantivy-go,
 }:
 
+let
+  arch =
+    {
+      # https://github.com/anyproto/anytype-heart/blob/f33a6b09e9e4e597f8ddf845fc4d6fe2ef335622/pkg/lib/localstore/ftsearch/ftsearchtantivy.go#L3
+      x86_64-linux = "linux-amd64-musl";
+      aarch64-linux = "linux-arm64-musl";
+      aarch64-darwin = "darwin-arm64";
+    }
+    .${stdenv.hostPlatform.system}
+      or (throw "anytype-heart not supported on ${stdenv.hostPlatform.system}");
+in
 buildGoModule (finalAttrs: {
   pname = "anytype-heart";
-  version = "0.44.0-nightly.20251220.1";
 
+  # Use only versions specified in anytype-ts middleware.version file:
+  #  https://github.com/anyproto/anytype-ts/blob/v<anytype-ts-version>/middleware.version
+  version = "0.50.8";
+
+  # Update only together with 'anytype' package.
+  # nixpkgs-update: no auto update
   src = fetchFromGitHub {
     owner = "anyproto";
     repo = "anytype-heart";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-eQ7fPD/8tQBdAnu1Ze7Pn9HL4sOq0rcqG7ofhwn6OwM=";
+    hash = "sha256-h59Vnmv+iB0NbLQPCHPlmHBDaYoFimrZP/4Cv/IQ7b8=";
   };
 
-  proxyVendor = true;
-
-  vendorHash = "sha256-s/otpfRwXFUOek8oVr5eUcKH4Vwd5BbtB0GH+hjzjwI=";
+  vendorHash = "sha256-uJ/Z2zxqIne3UuxAglZejoqHV/IchYdPhefL9K51U2I=";
 
   subPackages = [ "cmd/grpcserver" ];
-
-  postPatch = ''
-    substituteInPlace makefiles/protos.mk \
-      --replace-fail "setup-protoc-js" ""
-  '';
-
-  nativeBuildInputs = [
-    protobuf
-    protoc-gen-grpc-web
-    protoc-gen-js
+  tags = [
+    "nosigar"
+    "nowatchdog"
   ];
 
-  buildInputs = [ tantivy-go ];
+  env.CGO_ENABLED = 1;
+  proxyVendor = true;
 
-  # https://github.com/anyproto/anytype-heart/blob/v0.43.0-rc02/makefiles/ci-cross-compile-library.mk#L1
-  # https://github.com/anyproto/anytype-heart/blob/v0.43.0-rc02/makefiles/ci-cross-compile-library.mk#L37
-  tags = [
-    "envproduction"
-    "nographviz"
-    "nowatchdog"
-    "nosigar"
-    "nomutexdeadlockdetector"
-    "noheic"
+  nativeBuildInputs = [
+    protoc-gen-grpc-web
+    protoc-gen-js
+    protobuf
   ];
 
   preBuild = ''
-    mkdir deps/libs
-    make write-tantivy-version
-    expected_tantivy_version=$(cat deps/libs/.verified)
-    actual_tantivy_version=${lib.escapeShellArg "v${tantivy-go.version}"}
-    if [ "$expected_tantivy_version" != "$actual_tantivy_version" ]; then
-      echo "error: expected tantivy-go $expected_tantivy_version, but got $actual_tantivy_version"
-      exit 1
-    fi
+    mkdir -p deps/libs/${arch}
+    cp ${tantivy-go}/lib/libtantivy_go.a deps/libs/${arch}
   '';
 
-  postBuild = ''
-    make protos-js
+  postInstall = ''
+    mv $out/bin/grpcserver $out/bin/anytypeHelper
+    mkdir -p $out/lib/protos
+    find pb -type f -name "*.proto" -exec cp {} $out/lib/protos/ \;
+    find pkg/lib/pb -type f -name "*.proto" -exec cp {} $out/lib/protos/ \;
+
+    mkdir -p $out/lib/json/generated
+    cp pkg/lib/bundle/system*.json $out/lib/json/generated
+    cp pkg/lib/bundle/internal*.json $out/lib/json/generated
+
+    mkdir -p $out/share
+    cp LICENSE.md $out/share
   '';
 
-  doCheck = false; # no test files
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p "$out/bin"
-    cp "$GOPATH/bin/grpcserver" "$out/bin/anytypeHelper"
-
-    mkdir -p "$out/include/anytype/protobuf/protos"
-    cp pb/protos/*.proto pb/protos/service/*.proto pkg/lib/pb/model/protos/*.proto "$out/include/anytype/protobuf/protos"
-    cp -r dist/js/pb/* "$out/include/anytype/protobuf"
-
-    mkdir -p "$out/share/anytype/json"
-    cp pkg/lib/bundle/system*.json "$out/share/anytype/json"
-    cp pkg/lib/bundle/internal*.json "$out/share/anytype/json"
-
-    runHook postInstall
-  '';
+  # disable tests to save time, as it's mostly built by users, not CI
+  doCheck = false;
 
   meta = {
     description = "Shared library for Anytype clients";
-    homepage = "https://github.com/anyproto/anytype-heart";
+    homepage = "https://anytype.io/";
     changelog = "https://github.com/anyproto/anytype-heart/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.unfree; # Any Source Available License 1.0
-    maintainers = with lib.maintainers; [ kira-bruneau ];
-    platforms = lib.platforms.linux;
-    mainProgram = "anytypeHelper";
+    license = lib.licenses.unfreeRedistributable;
+    maintainers = with lib.maintainers; [
+      autrimpo
+      adda
+      kira-bruneau
+    ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "aarch64-darwin"
+    ];
+    broken = stdenv.hostPlatform.isDarwin;
   };
 })
