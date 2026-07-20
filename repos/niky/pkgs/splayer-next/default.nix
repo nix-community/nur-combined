@@ -28,14 +28,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260708";
+  version = "1.0.0-20260720";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "56796c70e90b8c23695a9286a81788a8c8658c32"; # No releases yet
+    rev = "84285cdeac2ade4a685e6ca12bad314e449c174f"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-vtilwjcx0d2+zJ+5JWYGBTgm4Un3dCKOyXRR89AP8lk=";
+    hash = "sha256-ksOexBXRdA9HOHiZy/vQkZLRCsdsn6AaygVNk9vBVpQ=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-LCB7+eYNQpSuc3KPLZs7EVm/VjSzi2UKW9TsptaaT3w=";
+    hash = "sha256-8xGEwdovq6Qcw/CDkHMxLMAY0kcBghrOZTKmnHck/Qc=";
   };
 
   nativeBuildInputs = [
