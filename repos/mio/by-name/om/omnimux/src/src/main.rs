@@ -564,6 +564,47 @@ impl TerminalTabs {
         }
     }
 
+    /// Whether an exited session should be closed (matches the poll-loop removal rule).
+    fn should_close_exited_tab(session: &TerminalSession, auto_reconnect: bool) -> bool {
+        if !session.has_exited {
+            return false;
+        }
+        let success = session.exit_status == Some(0);
+        !(auto_reconnect && !success)
+    }
+
+    /// Drop tabs whose PTY has already exited when keep-tab is off.
+    fn remove_exited_tabs(&mut self, cx: &mut Context<Self>) {
+        if self.keep_tab_after_exit {
+            return;
+        }
+        let auto_reconnect = self.auto_reconnect;
+        let mut removed = false;
+        for i in (0..self.tabs.len()).rev() {
+            let close = Self::should_close_exited_tab(self.tabs[i].read(cx), auto_reconnect);
+            if close {
+                self.tabs.remove(i);
+                removed = true;
+            }
+        }
+        if !removed {
+            return;
+        }
+        self.active_tab = self.active_tab.min(self.tabs.len().saturating_sub(1));
+        if self.tabs.is_empty() {
+            self.prompt = Some(String::new());
+            self.selected_host_index = 0;
+            self.ssh_hosts = get_ssh_hosts();
+            self.focus_ui = true;
+        }
+        if self.remember_session {
+            let hosts: Vec<Option<String>> =
+                self.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
+            save_session(&hosts);
+        }
+        cx.notify();
+    }
+
     fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
         let settings = load_settings();
         let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(true);
@@ -681,7 +722,13 @@ impl TerminalTabs {
                                     session
                                 });
                                 needs_notify = true;
-                            } else if just_exited && !keep_tab && !(auto_reconnect && !success) {
+                            } else if just_exited
+                                && !keep_tab
+                                && Self::should_close_exited_tab(
+                                    this.tabs[i].read(cx),
+                                    auto_reconnect,
+                                )
+                            {
                                 this.tabs.remove(i);
                                 this.active_tab =
                                     this.active_tab.min(this.tabs.len().saturating_sub(1));
@@ -1478,6 +1525,9 @@ impl Render for TerminalTabs {
                                 .on_click(move |checked, _, app| {
                                     entity.update(app, |this, cx| {
                                         this.keep_tab_after_exit = *checked;
+                                        if !*checked {
+                                            this.remove_exited_tabs(cx);
+                                        }
                                         save_settings(this);
                                         cx.notify();
                                     });
