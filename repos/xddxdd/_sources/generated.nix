@@ -317,12 +317,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.91";
+    version = "v7.2.92";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.91";
-      hash = "sha256-hPZBe/raS9SUdLGeDg+6QZE84SlI8oD8MQIS4ro5f1M=";
+      tag = "v7.2.92";
+      hash = "sha256-eIvTF1ZoRtw6xmWV1isoTazWaLDJrmD2caq2oR4msx8=";
     };
   };
   cockpy = {
@@ -659,12 +659,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.2";
+    version = "v0.2.3";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.2";
-      hash = "sha256-AHWWqNt1sIPw5Df7H3U9a5hi4gJsZtuc3eqlr8ZQHms=";
+      tag = "v0.2.3";
+      hash = "sha256-JHRAiB4Wta1qHKCD8rr73Cnhfx4Dl9pUR87VFnISB/0=";
     };
   };
   edge-tts = {
@@ -863,14 +863,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "38e421b0c49963a6f46ae2ebbaa24bc5168cc707";
+    version = "8a92bcccbb5b631316ed5cd607c4e28dbaa0e647";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "38e421b0c49963a6f46ae2ebbaa24bc5168cc707";
-      hash = "sha256-zg7p4t62tiohzp/ZTSQUNX18XLaMEyuOohtUQroahHQ=";
+      rev = "8a92bcccbb5b631316ed5cd607c4e28dbaa0e647";
+      hash = "sha256-PZYl7nbxJoEHcveGGtlwLvyGLFYobDcwL2YiW+l6Tac=";
     };
-    date = "2026-07-19";
+    date = "2026-07-20";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -954,12 +954,12 @@
   };
   grok-search-rs = {
     pname = "grok-search-rs";
-    version = "v0.1.17";
+    version = "v0.1.18";
     src = fetchFromGitHub {
       owner = "Episkey-G";
       repo = "GrokSearch-rs";
-      tag = "v0.1.17";
-      hash = "sha256-wvoUNoQfFFkxIgJlyXmHwBQ38U5KPkpAGX/GMw6KyLo=";
+      tag = "v0.1.18";
+      hash = "sha256-jM9YbN93Gv10JKxc1DKhMwSK2FnqPNFs8iBpIBw6X9E=";
     };
   };
   gwmp-mux = {
@@ -1143,20 +1143,20 @@
   };
   kata-containers = {
     pname = "kata-containers";
-    version = "3.32.0";
+    version = "4.0.0";
     src = fetchFromGitHub {
       owner = "kata-containers";
       repo = "kata-containers";
-      tag = "3.32.0";
-      hash = "sha256-dnbzjYDKeAp0wFQcO5VK71vkf7ubVK5Lh9R9jjuro28=";
+      tag = "4.0.0";
+      hash = "sha256-rjQNqHaQugiRkS0rI0C9gFiQ/PStF6Czy4WcAG5SxkQ=";
     };
   };
   kata-image = {
     pname = "kata-image";
-    version = "3.32.0";
+    version = "4.0.0";
     src = fetchurl {
-      url = "https://github.com/kata-containers/kata-containers/releases/download/3.32.0/kata-static-3.32.0-amd64.tar.zst";
-      hash = "sha256-FEns6lC9kfpzqUZI2xldGJUP6Gm6Sx8S0F9V8fp8GwE=";
+      url = "https://github.com/kata-containers/kata-containers/releases/download/4.0.0/kata-static-4.0.0-amd64.tar.zst";
+      hash = "sha256-LDud/ro1VYK0Cu5GKxKRbJdAZU0CMPaWrfcZ1nsGOow=";
     };
   };
   kikoplay = {
@@ -2229,14 +2229,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "ef39a3e8ae769c93ec1dfbfe0b7b449aae3507ba";
+    version = "702ccec969cb0a1d7976881c02f94988e3348910";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "ef39a3e8ae769c93ec1dfbfe0b7b449aae3507ba";
-      hash = "sha256-Il1kuFL0B2yV4m0A/3LVwq7QDqvI7C4yAKsIeVOOp7c=";
+      rev = "702ccec969cb0a1d7976881c02f94988e3348910";
+      hash = "sha256-P2NXeA/68fcxLO6501Yxs56yANGglC4OdTwZJOUUM30=";
     };
-    date = "2026-07-17";
+    date = "2026-07-20";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2540,12 +2540,12 @@
   };
   usque = {
     pname = "usque";
-    version = "v4.2.0";
+    version = "v4.2.1";
     src = fetchFromGitHub {
       owner = "Diniboy1123";
       repo = "usque";
-      tag = "v4.2.0";
-      hash = "sha256-qP7OsjuaSlEjQm1t/EiRcOGdffgc8opdwlQ6xuIslYA=";
+      tag = "v4.2.1";
+      hash = "sha256-aUAji41gVsRs47IDtLAinxUZsZjTQvO/SMWe5GdmJLw=";
     };
   };
   vbmeta-disable-verification = {
