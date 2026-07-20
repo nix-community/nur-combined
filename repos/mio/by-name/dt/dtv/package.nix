@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  applyPatches,
   rustPlatform,
   cargo-tauri,
   nodejs,
@@ -22,30 +23,38 @@
   fetchurl,
 }:
 
-rustPlatform.buildRustPackage rec {
-  pname = "dtv";
+let
   version = "3.0.3";
 
-  src = fetchFromGitHub {
+  upstreamSrc = fetchFromGitHub {
     owner = "chen-zeong";
     repo = "DTV";
     rev = "v${version}";
     sha256 = "0n3bmr3phpbnzib71llxgcw75b4vkliq9h7nidzpz19p0s9k3wgl";
   };
 
+  patchedSrc = applyPatches {
+    name = "dtv-${version}-patched";
+    src = upstreamSrc;
+    patches = [ ./bump-tauri-deps.patch ];
+  };
+in
+
+rustPlatform.buildRustPackage rec {
+  pname = "dtv";
+  inherit version;
+
+  src = patchedSrc;
+
   pnpmLock = stdenv.mkDerivation {
     name = "pnpm-lock.yaml";
-    inherit src;
+    src = patchedSrc;
     nativeBuildInputs = [
       pnpm
       cacert
     ];
 
     buildPhase = ''
-      sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' package.json
-      sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' package.json
-      sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' web/package.json
-      sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' web/package.json
       export SSL_CERT_FILE=${cacert}/etc/ssl/certs/ca-bundle.crt
       export NPM_CONFIG_ENGINE_STRICT=false
       pnpm install --lockfile-only --ignore-scripts --no-frozen-lockfile
@@ -57,12 +66,8 @@ rustPlatform.buildRustPackage rec {
   };
 
   pnpmDepsSrc = runCommand "pnpm-deps-src" { } ''
-    cp -r ${src} $out
+    cp -r ${patchedSrc} $out
     chmod -R +w $out
-    sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' $out/package.json
-    sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' $out/package.json
-    sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' $out/web/package.json
-    sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' $out/web/package.json
     cp ${pnpmLock} $out/pnpm-lock.yaml
   '';
 
@@ -77,7 +82,7 @@ rustPlatform.buildRustPackage rec {
 
   cargoDeps = stdenv.mkDerivation {
     name = "dtv-vendor";
-    inherit src;
+    src = patchedSrc;
     nativeBuildInputs = [
 
       cargo
@@ -120,10 +125,6 @@ rustPlatform.buildRustPackage rec {
   ];
 
   postPatch = ''
-    sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' package.json
-    sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' package.json
-    sed -i 's/"@tauri-apps\/api": "\^2.7.0"/"@tauri-apps\/api": "^2.11.0"/' web/package.json
-    sed -i 's/"@tauri-apps\/plugin-opener": "\^2.4.0"/"@tauri-apps\/plugin-opener": "^2.5.4"/' web/package.json
     cp ${pnpmLock} pnpm-lock.yaml
     cp ${./Cargo.lock} Cargo.lock
     cp ${./Cargo.lock} src-tauri/Cargo.lock

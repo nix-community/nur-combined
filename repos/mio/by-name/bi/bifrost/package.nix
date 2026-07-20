@@ -29,7 +29,6 @@
   git,
   nix,
   coreutils,
-  findutils,
   kdePackages,
 }:
 
@@ -323,7 +322,6 @@ stdenv.mkDerivation {
     name = "update-bifrost";
     runtimeInputs = [
       coreutils
-      findutils
       git
       nix
       nix-update
@@ -332,15 +330,8 @@ stdenv.mkDerivation {
       set -euo pipefail
 
       nix-update bifrost-unwrapped
-      updatePath="$(nix build .#bifrost-unwrapped.mitmCache.updateScript --no-link --print-out-paths)"
-      if [ -x "$updatePath" ]; then
-        "$updatePath"
-      elif [ -d "$updatePath"/bin ]; then
-        updateScript="$(find "$updatePath"/bin -maxdepth 1 -type f -name '*update*' | head -n 1 || true)"
-        if [ -n "$updateScript" ]; then
-          "$updateScript"
-        fi
-      fi
+      updatePath="$(nix build .#bifrost.passthru.unwrapped.mitmCache.updateScript --no-link --print-out-paths)"
+      "$updatePath"
     '';
   });
 

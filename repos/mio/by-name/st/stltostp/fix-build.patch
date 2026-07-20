@@ -1,0 +1,40 @@
+--- a/main.cpp	1970-01-01 10:00:01.000000000 +1000
++++ b/main.cpp	2026-07-20 16:34:16.333837585 +1000
+@@ -1,3 +1,4 @@
++#include <cstdint>
+ /*Copyright(c) 2018, slugdev
+ All rights reserved.
+ 
+@@ -62,10 +63,10 @@
+ 	nodes.resize(tris * 9);
+ 	for (int i = 0; i < tris; i++)
+ 	{
+-		float_t  n[3], pts[9];
++		float  n[3], pts[9];
+ 		uint16_t att;
+-		file.read((char*)(n), sizeof(float_t) * 3);
+-		file.read((char*)(pts), sizeof(float_t) * 9);
++		file.read((char*)(n), sizeof(float) * 3);
++		file.read((char*)(pts), sizeof(float) * 9);
+ 		file.read((char*)(&att), sizeof(uint16_t));
+ 		for (int j = 0; j < 9; j++)
+ 			nodes[i * 9 + j] = pts[j];
+--- a/StepKernel.h	1970-01-01 10:00:01.000000000 +1000
++++ b/StepKernel.h	2026-07-20 16:34:16.336837565 +1000
+@@ -755,7 +755,7 @@
+ 		bool &edge_dir,
+ 		int &merge_cnt);
+ 	void write_step(std::string file_name);
+-	std::string StepKernel::read_line(std::ifstream &stp_file, bool skip_all_space);
++	std::string read_line(std::ifstream &stp_file, bool skip_all_space);
+ 	void read_step(std::string file_name);
+ 	std::vector<Entity*> entities;
+ };
+\ No newline at end of file
+--- a/StepKernel.cpp	1970-01-01 10:00:01.000000000 +1000
++++ b/StepKernel.cpp	2026-07-20 16:34:16.331837597 +1000
+@@ -1,3 +1,4 @@
++#include <cmath>
+ /*Copyright(c) 2018, slugdev
+ All rights reserved.
+ 

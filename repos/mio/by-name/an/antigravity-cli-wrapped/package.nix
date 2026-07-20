@@ -4,7 +4,7 @@
 }:
 
 antigravity-cli.overrideAttrs (oldAttrs: {
-  pname = "antigravity-cli-patched";
+  pname = "antigravity-cli-wrapped";
 
   nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ makeWrapper ];
 
