@@ -1,0 +1,58 @@
+--- a/src/main/java/tm/TMSpecReader.java
++++ b/src/main/java/tm/TMSpecReader.java
+@@ -30,6 +30,7 @@
+ import org.w3c.dom.Node;
+ import java.io.File;
+ import java.io.IOException;
++import java.io.InputStream;
+ import javax.xml.parsers.ParserConfigurationException;
+ import org.xml.sax.SAXException;
+
+@@ -55,6 +56,47 @@
+ *
+ **/
+
++    public static void readSpecs()
++    throws SAXException, ParserConfigurationException, IOException {
++        colorcodecs = new Vector();
++        tilecodecs = new Vector();
++        filefilters = new Vector();
++        palettefilters = new Vector();
++        filelisteners = new Vector();
++        Document doc = null;
++        try {
++            java.net.URL url = TMSpecReader.class.getResource("/tmspec.xml");
++            if (url == null) {
++                throw new IOException("tmspec.xml not found on classpath");
++            }
++            InputStream is = url.openStream();
++            doc = XMLParser.parse(is, url.toString());
++        } catch (SAXException e) {
++            throw e;
++        }
++        catch (ParserConfigurationException e) {
++            throw e;
++        }
++        catch (IOException e) {
++            throw e;
++        }
++        if (doc == null) return;
++
++        tmspec = doc.getDocumentElement();   // root element (<tmspec> tag)
++
++        readDirectColorFormats();
++        readIndexedColorFormats();
++
++        readPlanarTileFormats();
++        readLinearTileFormats();
++        readDirectColorTileFormats();
++        readCompositeTileFormats();
++
++        readFileFilters();
++        readPaletteFilters();
++        readFileListeners();
++    }
++
+     public static void readSpecsFromFile(File file)
+     throws SAXException, ParserConfigurationException, IOException {
+         colorcodecs = new Vector();
