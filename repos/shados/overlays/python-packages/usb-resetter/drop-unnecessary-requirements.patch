@@ -1,0 +1,51 @@
+diff --git a/setup.py b/setup.py
+index a5f6d1c..2fdfbdf 100644
+--- a/setup.py
++++ b/setup.py
+@@ -16,7 +16,6 @@ DESCRIPTION = "small tool to reset USB controllers, hubs or devices"
+ 
+ import sys
+ import os
+-import pkg_resources
+ import setuptools
+ 
+ 
+@@ -56,30 +55,9 @@ def get_metadata(package_file):
+     return _metadata
+ 
+ 
+-def parse_requirements(filename):
+-    """
+-    There is a parse_requirements function in pip but it keeps changing import path
+-    Let's build a simple one
+-    """
+-    try:
+-        requirements_txt = _read_file(filename)
+-        install_requires = [
+-            str(requirement)
+-            for requirement in pkg_resources.parse_requirements(requirements_txt)
+-        ]
+-        return install_requires
+-    except OSError:
+-        print(
+-            'WARNING: No requirements.txt file found as "{}". Please check path or create an empty one'.format(
+-                filename
+-            )
+-        )
+-
+-
+ package_path = os.path.abspath(PACKAGE_NAME)
+ package_file = os.path.join(package_path, "usb_resetter.py")
+ metadata = get_metadata(package_file)
+-requirements = parse_requirements(os.path.join(package_path, "requirements.txt"))
+ long_description = _read_file("README.md")
+ 
+ console_scripts = ["usb_resetter = usb_resetter.usb_resetter:main"]
+@@ -90,7 +68,6 @@ setuptools.setup(
+     # packages = ['command_runner'],
+     packages=setuptools.find_packages(),
+     version=metadata["version"],
+-    install_requires=requirements,
+     classifiers=[
+         # command_runner is mature
+         "Development Status :: 5 - Production/Stable",

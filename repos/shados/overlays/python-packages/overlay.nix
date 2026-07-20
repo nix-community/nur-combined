@@ -7,7 +7,7 @@ in
     (pyfinal: pyprev: {
       factorio-sat = pyfinal.callPackage ./factorio-sat.nix { inherit pins; };
       luaparser = pyfinal.callPackage ./luaparser.nix { inherit pins; };
-      usb-resetter = pyfinal.callPackage ./usb-resetter.nix { inherit pins; };
+      usb-resetter = pyfinal.callPackage ./usb-resetter { inherit pins; };
     })
   ];
 }

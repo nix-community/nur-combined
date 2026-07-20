@@ -3,6 +3,7 @@
   pins,
   buildPythonPackage,
   setuptools,
+  dos2unix,
 }:
 
 buildPythonPackage rec {
@@ -13,6 +14,16 @@ buildPythonPackage rec {
 
   pyproject = true;
   build-system = [ setuptools ];
+
+  nativeBuildInputs = [ dos2unix ];
+
+  prePatch = ''
+    dos2unix setup.py
+  '';
+
+  patches = [
+    ./drop-unnecessary-requirements.patch
+  ];
 
   doCheck = false;
 
