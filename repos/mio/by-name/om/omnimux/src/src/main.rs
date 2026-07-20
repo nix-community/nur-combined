@@ -543,7 +543,21 @@ impl TerminalTabs {
         });
     }
 
-    fn new(cx: &mut Context<Self>) -> Self {
+    fn should_restore_terminal_focus(&self) -> bool {
+        self.prompt.is_none()
+            && !self.show_search
+            && !self.show_settings
+            && !self.tabs.is_empty()
+    }
+
+    /// Restore terminal focus when idle (no overlay). Used by window-level subscriptions.
+    fn restore_terminal_focus(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        if self.should_restore_terminal_focus() {
+            self.focus_active_session(window, cx);
+        }
+    }
+
+    fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
         let settings = load_settings();
         let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(true);
         let auto_reconnect = settings.auto_reconnect.unwrap_or(false);
@@ -581,6 +595,24 @@ impl TerminalTabs {
 
         let start_prompt = initial_tabs.is_empty();
         let focus_handle = cx.focus_handle();
+
+        // Central focus recovery: WM maximize/resize (KDE Plasma), focus dropped to
+        // nothing, or window re-activated after minimize. Chrome clicks no longer
+        // need per-element refocus — track_focus lives on overlays only, not the root.
+        cx.observe_window_bounds(window, |this, window, cx| {
+            this.restore_terminal_focus(window, cx);
+        })
+        .detach();
+        cx.on_focus_lost(window, |this, window, cx| {
+            this.restore_terminal_focus(window, cx);
+        })
+        .detach();
+        cx.observe_window_activation(window, |this, window, cx| {
+            if window.is_window_active() {
+                this.restore_terminal_focus(window, cx);
+            }
+        })
+        .detach();
 
         cx.spawn(async move |this, mut cx| {
             loop {
@@ -726,19 +758,8 @@ impl Render for TerminalTabs {
             .w_full()
             .bg(bg_color_bar)
             .h(px(32.0))
-            .items_center()
-            // Empty tab-bar chrome must not eat keyboard focus (macOS leaves no
-            // focused view after a click on a non-track_focus region).
-            .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
-                if this.prompt.is_none()
-                    && !this.show_search
-                    && !this.show_settings
-                    && !this.tabs.is_empty()
-                {
-                    this.focus_active_session(window, cx);
-                }
-            }));
-       
+            .items_center();
+
         for (i, session) in self.tabs.iter().enumerate() {
             let bg_color = if i == self.active_tab { bg_color_active } else { bg_color_bar };
             let tab_label = session.read(cx).host.clone().unwrap_or_else(|| "localhost".to_string());
@@ -850,16 +871,6 @@ impl Render for TerminalTabs {
             .border_color(border_color)
             // Leave room for macOS traffic lights when using a transparent titlebar
             .when(cfg!(target_os = "macos"), |d| d.pl(px(78.0)))
-            .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
-                // Same as tab bar: chrome clicks must not leave the terminal unfocused.
-                if this.prompt.is_none()
-                    && !this.show_search
-                    && !this.show_settings
-                    && !this.tabs.is_empty()
-                {
-                    this.focus_active_session(window, cx);
-                }
-            }))
             .child(
                 div()
                     .id("title_bar_drag")
@@ -983,13 +994,14 @@ impl Render for TerminalTabs {
             self.focus_active_session(window, cx);
         }
 
+        // No track_focus on the root: a full-window hitbox steals focus from the
+        // terminal when clicking title/tab chrome (GPUI focus-on-mouse-down).
+        // Overlays attach track_focus when shown; global shortcuts use capture below.
         let mut main_div = div()
             .flex()
             .flex_col()
             .size_full()
             .bg(bg_color_active)
-            .track_focus(&self.focus_handle)
-            // Capture so prompt/search keys win even if a terminal under the overlay is focused.
             .capture_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, window, cx| {
                 let mods = &ev.keystroke.modifiers;
 
@@ -1279,6 +1291,7 @@ impl Render for TerminalTabs {
                 .flex()
                 .justify_center()
                 .items_center()
+                .track_focus(&self.focus_handle)
                 .child(
                     div()
                         .w_96()
@@ -1317,6 +1330,7 @@ impl Render for TerminalTabs {
                 .p_3()
                 .shadow_md()
                 .flex_col()
+                .track_focus(&self.focus_handle)
                 .child(
                     div()
                         .flex()
@@ -1418,6 +1432,7 @@ impl Render for TerminalTabs {
                 .flex()
                 .justify_center()
                 .items_center()
+                .track_focus(&self.focus_handle)
                 .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
                     // Click outside the panel closes settings.
                     this.show_settings = false;
@@ -1602,7 +1617,7 @@ fn main() {
                 app_id: Some("omnimux".into()),
                 ..Default::default()
             },
-            |_, cx| cx.new(|cx| TerminalTabs::new(cx))
+            |window, cx| cx.new(|cx| TerminalTabs::new(window, cx))
         ).unwrap();
         cx.activate(true);
     });

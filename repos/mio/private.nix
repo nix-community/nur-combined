@@ -127,5 +127,4 @@ rec {
       fetchRevFromGitea = pkgs.callPackage ./shared/gitea-rev-fetcher.nix { };
     };
 
-  icu = pkgs.callPackage ./pkgs/icu { };
 }
