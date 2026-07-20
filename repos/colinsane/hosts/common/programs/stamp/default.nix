@@ -14,15 +14,6 @@ in
       };
     };
 
-    packageUnwrapped = pkgs.stamp.overrideAttrs (prevAttrs: {
-      buildInputs = prevAttrs.buildInputs ++ [
-        # fixes
-        # `env -u GIO_EXTRA_MODULES stamp`
-        # > Error getting folder: TLS support is not available
-        pkgs.glib-networking
-      ];
-    });
-
     sandbox.net = "clearnet";
     sandbox.whitelistDbus.user.call."org.freedesktop.secrets" = "*";  #< TODO: restrict to a subset of secrets
     sandbox.whitelistDbus.user.call."org.gnome.evolution.dataserver.*" = "*";
