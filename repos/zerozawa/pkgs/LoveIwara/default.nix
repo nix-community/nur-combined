@@ -2,6 +2,7 @@
   lib,
   flutter341,
   fetchFromGitHub,
+  imagemagick,
   stdenvNoCC,
   xdg-utils,
   writeScript,
@@ -86,6 +87,8 @@ flutter341.buildFlutterApplication (finalAttrs: {
     mpv-unwrapped
     sqlite
   ];
+  nativeBuildInputs = [ imagemagick ];
+
   runtimeDependencies = [ mpv-unwrapped ];
 
   postPatch = ''
@@ -108,7 +111,11 @@ flutter341.buildFlutterApplication (finalAttrs: {
       --replace-fail 'Comment=i_iwara video player' \
         'Comment=Cross-platform third-party Iwara client'
     install -Dm644 assets/icon/launcher_icon_v2.png \
-      $out/share/icons/hicolor/1024x1024/apps/i_iwara.png
+      $out/share/icons/hicolor/256x256/apps/i_iwara.png
+    ${imagemagick}/bin/convert \
+      $out/share/icons/hicolor/256x256/apps/i_iwara.png \
+      -resize 256x256 \
+      $out/share/icons/hicolor/256x256/apps/i_iwara.png
   '';
 
   extraWrapProgramArgs = ''
@@ -117,7 +124,7 @@ flutter341.buildFlutterApplication (finalAttrs: {
   '';
 
   meta = {
-    description = "Cross-platform third-party Iwara client built with Flutter";
+    description = "A fast, beautiful, cross-platform third-party Iwara client built with Flutter.";
     homepage = "https://github.com/FoxSensei001/LoveIwara";
     changelog = "https://github.com/FoxSensei001/LoveIwara/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;
