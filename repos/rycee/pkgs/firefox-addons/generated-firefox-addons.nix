@@ -4341,10 +4341,10 @@
     };
     "flexheaders-alter-http-headers" = buildMozillaXpiAddon {
       pname = "flexheaders-alter-http-headers";
-      version = "1.7.1";
+      version = "1.8.1";
       addonId = "flexheaders@harrisondeo.me.uk";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4903354/flexheaders_alter_http_headers-1.7.1.xpi";
-      sha256 = "ae6ac458bd5c8b52bbcf84239cf3b4402c600ae5f035612e7a4a39ebf9709080";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4907839/flexheaders_alter_http_headers-1.8.1.xpi";
+      sha256 = "b3e11e1a47593d5321fe9914f0c7d8c79d721b8d03cf3891f47df118700abca4";
       meta = with lib;
       {
         homepage = "https://github.com/harrisondeo/FlexHeader";
@@ -4709,10 +4709,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.0.5";
+      version = "2.0.9";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4900222/geo_spoof-2.0.5.xpi";
-      sha256 = "642ffa60fd264d7c23d2c436452d7d500a6428d74c9b7fa8a5f134a9dc402018";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4908477/geo_spoof-2.0.9.xpi";
+      sha256 = "1ec05faae603b91dd1847e2241bbcbbdabfdfb921b76b453b331472ef8a7255a";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -10401,10 +10401,10 @@
     };
     "new-tab-override" = buildMozillaXpiAddon {
       pname = "new-tab-override";
-      version = "18.0.0";
+      version = "19.0.0";
       addonId = "newtaboverride@agenedia.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4861424/new_tab_override-18.0.0.xpi";
-      sha256 = "f06536b0358fb94a01c3c18fe70eeaf0d611d1b4b018f7599cbac28fdb7c4ef3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4907726/new_tab_override-19.0.0.xpi";
+      sha256 = "ec4a7fffe93982d646f4275fdb56886a5e364ebde65d817284ed7f427568b83c";
       meta = with lib;
       {
         homepage = "https://www.soeren-hentzschel.at/firefox-webextensions/new-tab-override/";
@@ -10412,11 +10412,13 @@
         license = licenses.mpl20;
         mozPermissions = [
           "browserSettings"
+          "contextualIdentities"
           "cookies"
           "history"
           "menus"
           "sessions"
           "storage"
+          "tabGroups"
           "tabs"
         ];
         platforms = platforms.all;
@@ -14420,10 +14422,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.7";
+      version = "2.4.8";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4903256/styl_us-2.4.7.xpi";
-      sha256 = "76f47f30dfedb53dc9773243bb66c57536aff3df4d86c22a8e4d031ac75b72d6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4907275/styl_us-2.4.8.xpi";
+      sha256 = "455426890a38bd3ee511000112ece51675f8bbc21e988be2170c3ae6900cbedf";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
