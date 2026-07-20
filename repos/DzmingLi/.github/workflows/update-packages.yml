@@ -67,6 +67,13 @@ jobs:
 
       - name: Update special packages via nu scripts
         run: |
+          nu scripts/update-cstar-toolchain.nu
+
+          if not (git status --porcelain pkgs/cstar-toolchain/default.nix | str trim | is-empty) {
+            git add pkgs/cstar-toolchain/default.nix
+            git commit -m "cstar-toolchain: update"
+          }
+
           nu scripts/update-wechat.nu
 
           if not (git status --porcelain pkgs/wechat/linux.nix | str trim | is-empty) {
