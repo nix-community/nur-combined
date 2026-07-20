@@ -18,6 +18,7 @@ pkgs.stdenv.mkDerivation {
 	propagatedBuildInputs = with pkgs; [
 		jq
 		wget
+		curl
 	];
 
 	dontBuild = true;
