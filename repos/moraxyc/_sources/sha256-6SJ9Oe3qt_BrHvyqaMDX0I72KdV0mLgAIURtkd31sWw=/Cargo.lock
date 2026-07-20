@@ -1888,6 +1888,7 @@ version = "0.1.0"
 dependencies = [
  "camino",
  "clash-api",
+ "nyanpasu-core-manager",
  "nyanpasu-utils",
  "parking_lot",
  "serde_yaml_ng",
@@ -1983,6 +1984,7 @@ dependencies = [
  "dirs 6.0.0",
  "encoding_rs",
  "kill_tree",
+ "libc",
  "log",
  "memchr",
  "nix 0.31.3",
