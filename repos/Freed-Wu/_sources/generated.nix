@@ -86,10 +86,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.1.1";
+    version = "0.1.2";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.1.1.tar.gz";
-      sha256 = "sha256-oAtiK5QXu/3smFVFWDntonrBdZKTboeafeNZ+vIMu1Y=";
+      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.1.2.tar.gz";
+      sha256 = "sha256-DpUsbeo1A2+YTKUhCFyxVHtgzRy45rb/omvvrowxXrU=";
     };
   };
   tmux-language-server = {
