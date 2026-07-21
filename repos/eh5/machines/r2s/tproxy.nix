@@ -29,6 +29,10 @@ in
       Restart = "on-failure";
       RestartSec = 4;
       LogFilterPatterns = [ "~is not associated with tcp" ];
+      # usque leaks memory..
+      MemoryHigh = "40M";
+      MemoryMax = "50M";
+      OOMPolicy = "stop";
     };
   };
   sops.secrets."usque.json".restartUnits = [ "usque.service" ];

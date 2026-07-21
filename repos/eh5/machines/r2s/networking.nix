@@ -118,8 +118,8 @@ in
       RxBufferSize = 1024;
       TxBufferSize = 1024;
       TransmitQueueLength = 2000;
-      TCPSegmentationOffload = false;
-      TCP6SegmentationOffload = false;
+      # TCPSegmentationOffload = false;
+      # TCP6SegmentationOffload = false;
     };
   };
 
@@ -130,8 +130,8 @@ in
       MACAddress = "ea:ce:b4:a1:ce:94";
       RxBufferSize = 4096;
       TransmitQueueLength = 2000;
-      TCPSegmentationOffload = false;
-      TCP6SegmentationOffload = false;
+      # TCPSegmentationOffload = false;
+      # TCP6SegmentationOffload = false;
     };
   };
 
@@ -199,11 +199,13 @@ in
     persist
     maxfail 0
     holdoff 5
+    lcp-echo-failure 5
+    lcp-echo-interval 1
     defaultroute
     defaultroute-metric 1
-    default-asyncmap
     noauth
     noaccomp
+    nopcomp
     noremoteip
     noipdefault
     nodetach
@@ -254,10 +256,6 @@ in
       UseHostname = false;
       UseDomains = false;
     };
-    extraConfig = ''
-      [CAKE]
-      Parent=root
-    '';
   };
 
   systemd.services."tweak-network-settings" = {

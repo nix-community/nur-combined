@@ -11,9 +11,20 @@ in
   services.home-assistant = {
     enable = true;
     extraComponents = [
-      "command_line"
+      ## subset of default_config
+      "file"
+      "history"
+      # "homeassistant_alerts"
+      "logbook"
+      "mobile_app"
+      "my"
+      "sun"
+      # "usage_prediction"
+      # "webhook"
+      ## extra
+      # "command_line"
       "template"
-      "google_translate"
+      "profiler"
     ];
     customComponents =
       (with pkgs.home-assistant-custom-components; [
@@ -22,7 +33,6 @@ in
       ++ (with pkgs; [ home-assistant-heweather ]);
   };
   services.home-assistant.config = {
-    default_config = { };
     "automation ui" = "!include automations.yaml";
     "scene ui" = "!include scenes.yaml";
     "script ui" = "!include scripts.yaml";

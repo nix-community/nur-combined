@@ -44,7 +44,7 @@
   networking.hostName = "nixos-r2s";
 
   time.timeZone = "Asia/Shanghai";
-  
+
   systemd.sysusers.enable = true;
 
   documentation.man.enable = true;
@@ -57,6 +57,13 @@
   programs.vim.defaultEditor = true;
   programs.git.enable = true;
   programs.mosh.enable = true;
+
+  systemd.oomd = {
+    enable = true;
+    enableRootSlice = true;
+    enableSystemSlice = true;
+    enableUserSlices = true;
+  };
 
   services.openssh = {
     enable = true;
