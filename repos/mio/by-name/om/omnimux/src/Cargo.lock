@@ -4004,18 +4004,13 @@ dependencies = [
 name = "omnimux"
 version = "0.1.0"
 dependencies = [
- "anyhow",
- "async-channel 2.5.0",
  "glob",
  "gpui",
  "gpui-component",
  "gpui-terminal",
- "parking_lot",
  "portable-pty",
  "serde",
  "serde_json",
- "smol",
- "tokio",
 ]
 
 [[package]]

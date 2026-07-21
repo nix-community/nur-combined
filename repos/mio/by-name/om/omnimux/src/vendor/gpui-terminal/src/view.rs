@@ -50,6 +50,7 @@
 use crate::clipboard::Clipboard;
 use crate::colors::ColorPalette;
 use crate::event::{GpuiEventProxy, TerminalEvent};
+use crate::ime::{ime_cursor_bounds, paint_marked_text, TerminalInputHandler};
 use crate::input::keystroke_to_bytes;
 use crate::mouse::{
     encode_modifiers, mouse_button_report, mouse_drag_report, pixel_to_cell, pixels_to_scroll_lines,
@@ -447,6 +448,9 @@ pub struct TerminalView {
     /// Kept in sync during canvas layout so mouse→cell mapping matches what was drawn —
     /// important under Wayland fractional scaling (e.g. Plasma 225%).
     hit_test: Arc<parking_lot::Mutex<TerminalHitTest>>,
+
+    /// IME pre-edit (composing) state for CJK and similar input methods.
+    ime_state: Option<crate::ime::ImeState>,
 }
 
 /// Geometry used to map window-space mouse positions to terminal cells.
@@ -602,6 +606,44 @@ impl TerminalView {
             last_mouse_cell: None,
             selecting: false,
             hit_test: Arc::new(parking_lot::Mutex::new(TerminalHitTest::default())),
+            ime_state: None,
+        }
+    }
+
+    /// Cell width in pixels (for IME candidate positioning).
+    pub(crate) fn cell_width(&self) -> Pixels {
+        self.renderer.cell_width
+    }
+
+    /// UTF-16 range of the marked text for the platform IME.
+    pub(crate) fn marked_text_range(&self) -> Option<std::ops::Range<usize>> {
+        self.ime_state.as_ref().map(|state| {
+            0..state.marked_text.encode_utf16().count()
+        })
+    }
+
+    /// Set IME pre-edit text (composing).
+    pub(crate) fn set_marked_text(&mut self, text: String, cx: &mut Context<Self>) {
+        if text.is_empty() {
+            self.clear_marked_text(cx);
+            return;
+        }
+        self.ime_state = Some(crate::ime::ImeState { marked_text: text });
+        cx.notify();
+    }
+
+    /// Clear IME pre-edit state.
+    pub(crate) fn clear_marked_text(&mut self, cx: &mut Context<Self>) {
+        if self.ime_state.is_some() {
+            self.ime_state = None;
+            cx.notify();
+        }
+    }
+
+    /// Commit composed IME text to the PTY.
+    pub(crate) fn commit_ime_text(&mut self, text: &str) {
+        if !text.is_empty() {
+            self.write_pty_str(text);
         }
     }
 
@@ -1324,6 +1366,17 @@ impl Render for TerminalView {
         let search_highlight = self.search_highlight;
         let bg = self.config.colors.background();
         let hit_test = self.hit_test.clone();
+        let view_entity = cx.entity().clone();
+        let focus_handle = self.focus_handle.clone();
+        let font_family = self.config.font_family.clone();
+        let font_size = self.config.font_size;
+        let line_height = self.renderer.cell_height;
+        let fg = self.config.colors.foreground();
+        let marked_text = self
+            .ime_state
+            .as_ref()
+            .map(|s| s.marked_text.clone())
+            .unwrap_or_default();
 
         div()
             .size_full()
@@ -1434,6 +1487,46 @@ impl Render for TerminalView {
                             window,
                             cx,
                         );
+
+                        // Register IME input handler at the cursor cell (CJK, compose, etc.)
+                        let cursor_bounds = ime_cursor_bounds(
+                            bounds,
+                            padding,
+                            measured_renderer.cell_width,
+                            measured_renderer.cell_height,
+                            &term,
+                        );
+                        window.handle_input(
+                            &focus_handle,
+                            TerminalInputHandler {
+                                terminal_view: view_entity.clone(),
+                                cursor_bounds,
+                            },
+                            cx,
+                        );
+
+                        // Draw IME pre-edit text over the terminal at the cursor
+                        if !marked_text.is_empty() {
+                            if let Some(cb) = ime_cursor_bounds(
+                                bounds,
+                                padding,
+                                measured_renderer.cell_width,
+                                measured_renderer.cell_height,
+                                &term,
+                            ) {
+                                paint_marked_text(
+                                    &marked_text,
+                                    cb,
+                                    bg,
+                                    fg,
+                                    &font_family,
+                                    font_size,
+                                    line_height,
+                                    window,
+                                    cx,
+                                );
+                            }
+                        }
                     },
                 )
                 .size_full(),
