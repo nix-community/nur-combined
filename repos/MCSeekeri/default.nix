@@ -30,5 +30,9 @@
   xmcl = pkgs.callPackage ./pkgs/xmcl { };
   xmcl-bin = pkgs.callPackage ./pkgs/xmcl-bin { };
   ai-toolbox = pkgs.callPackage ./pkgs/ai-toolbox { };
+  fcitx5-vinput = pkgs.callPackage ./pkgs/fcitx5-vinput { };
+  sabaki = pkgs.callPackage ./pkgs/sabaki { };
+  savedesktop = pkgs.callPackage ./pkgs/savedesktop { };
   unreal-gold = pkgs.callPackage ./pkgs/unreal-gold { };
+  pumpkin = pkgs.callPackage ./pkgs/pumpkin { };
 }

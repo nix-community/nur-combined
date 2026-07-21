@@ -10,12 +10,12 @@
   stdenvNoCC,
 }:
 let
-  version = "0.1.146";
+  version = "0.1.162";
   src = fetchFromGitHub {
     owner = "Wei-Shaw";
     repo = "sub2api";
     rev = "v${version}";
-    hash = "sha256-GS+rpBkzXQy2hJ03hZSzqbetFixjObWsMsIuEVvxIKU=";
+    hash = "sha256-4JYOqN8aLimudg3eWxWkd2Q7YbW+LkmD7XU4VInjmY8=";
   };
 
   frontendPnpmDeps = fetchPnpmDeps {
@@ -65,9 +65,11 @@ buildGoModule {
   inherit version src;
 
   modRoot = "backend";
-  vendorHash = "sha256-Nl3yNle8T3ouk3TSti7ptYXbI6lB1wI29tf2IsWpCk0=";
-
+  vendorHash = "sha256-Iw+iGyR7uGuYDTKk50Y6dEJQoNEf5JzJZxMxcGfT43M=";
   postPatch = ''
+    # 降低 go.mod 要求的 Go 版本以匹配 nixpkgs 中的 Go
+    substituteInPlace backend/go.mod \
+      --replace-fail "go 1.26.5" "go 1.26"
     rm -rf backend/internal/web/dist
     mkdir -p backend/internal/web/dist
     cp -r ${frontend}/. backend/internal/web/dist/
