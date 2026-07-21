@@ -1,3 +1,4 @@
+mod action_dispatch;
 mod actions_handlers;
 mod chrome;
 mod colors;
@@ -138,7 +139,19 @@ impl TerminalTabs {
                     this.restore_terminal_focus(window, cx);
                 }
             }),
+            cx.on_app_quit(|this, cx| {
+                this.kill_all_sessions(cx);
+                async {}
+            }),
         ];
+
+        let tabs_for_close = cx.entity().downgrade();
+        window.on_window_should_close(cx, move |_, cx| {
+            let _ = tabs_for_close.update(cx, |tabs, cx| {
+                tabs.kill_all_sessions(cx);
+            });
+            true
+        });
 
         Self {
             active_tab: 0,
@@ -169,11 +182,6 @@ impl TerminalTabs {
 
 impl Render for TerminalTabs {
     fn render(&mut self, window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        use crate::actions::{
-            CloseOverlay, CloseTab, Copy, FindInTerminal, HostListDown, HostListUp, NewTab,
-            NextTab, Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut, ZoomReset,
-        };
-
         self.active_tab = self.active_tab.min(self.tabs.len().saturating_sub(1));
         self.apply_pending_focus(window, cx);
 
@@ -182,57 +190,15 @@ impl Render for TerminalTabs {
         let colors = colors::chrome_colors(is_dark);
         let active_session = self.tabs.get(self.active_tab).cloned();
 
-        let mut main_div = div()
-            .flex()
-            .flex_col()
-            .size_full()
-            .bg(colors.active)
-            .key_context("omnimux")
-            .on_action(cx.listener(|this, _: &NewTab, window, cx| {
-                this.new_tab(window, cx);
-            }))
-            .on_action(cx.listener(|this, _: &CloseTab, _, cx| {
-                this.close_tab(cx);
-            }))
-            .on_action(cx.listener(|this, _: &FindInTerminal, window, cx| {
-                this.find(window, cx);
-            }))
-            .on_action(cx.listener(|this, _: &ZoomIn, _, cx| {
-                this.apply_font_zoom("=", cx);
-            }))
-            .on_action(cx.listener(|this, _: &ZoomOut, _, cx| {
-                this.apply_font_zoom("-", cx);
-            }))
-            .on_action(cx.listener(|this, _: &ZoomReset, _, cx| {
-                this.apply_font_zoom("0", cx);
-            }))
-            .on_action(cx.listener(|this, _: &Copy, _, cx| {
-                this.copy(cx);
-            }))
-            .on_action(cx.listener(|this, _: &Paste, _, cx| {
-                this.paste(cx);
-            }))
-            .on_action(cx.listener(|this, _: &CloseOverlay, window, cx| {
-                this.close_overlay(window, cx);
-            }))
-            .on_action(cx.listener(|this, _: &NextTab, window, cx| {
-                this.next_tab(window, cx);
-            }))
-            .on_action(cx.listener(|this, _: &PrevTab, window, cx| {
-                this.prev_tab(window, cx);
-            }))
-            .on_action(cx.listener(|this, _: &HostListUp, _, cx| {
-                this.host_list_up(cx);
-            }))
-            .on_action(cx.listener(|this, _: &HostListDown, _, cx| {
-                this.host_list_down(cx);
-            }))
-            .on_action(cx.listener(|this, _: &SearchNext, _, cx| {
-                this.run_search(true, cx);
-            }))
-            .on_action(cx.listener(|this, _: &SearchPrev, _, cx| {
-                this.run_search(false, cx);
-            }))
+        let mut main_div = Self::attach_root_action_handlers(
+            div()
+                .flex()
+                .flex_col()
+                .size_full()
+                .bg(colors.active)
+                .key_context("omnimux"),
+            cx,
+        )
             .child(chrome::render_title_bar(self, colors, window, cx))
             .child(tab_bar::render_tab_bar(self, colors, cx))
             .when_some(active_session, |this, session| {

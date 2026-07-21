@@ -81,3 +81,45 @@ pub fn get_ssh_hosts() -> Vec<String> {
     }
     hosts
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::collections::HashSet;
+
+    #[test]
+    fn strip_ssh_comment_keeps_hash_in_tokens() {
+        assert_eq!(strip_ssh_comment("Host foo#bar"), "Host foo#bar");
+        assert_eq!(strip_ssh_comment("Host foo # comment"), "Host foo");
+    }
+
+    #[test]
+    fn is_usable_host_token_rejects_patterns() {
+        assert!(!is_usable_host_token(""));
+        assert!(!is_usable_host_token("*"));
+        assert!(!is_usable_host_token("?"));
+        assert!(!is_usable_host_token("!foo"));
+        assert!(is_usable_host_token("web"));
+    }
+
+    #[test]
+    fn parse_ssh_config_collects_hosts_and_skips_wildcards() {
+        let path = std::env::temp_dir().join(format!(
+            "omnimux_ssh_config_test_{}",
+            std::process::id()
+        ));
+        std::fs::write(
+            &path,
+            "Host web db\nHost *\n# wildcard line above\nHost backup\n",
+        )
+        .expect("write config");
+
+        let mut hosts = Vec::new();
+        let mut visited = HashSet::new();
+        parse_ssh_config(&path, &mut hosts, &mut visited);
+
+        assert_eq!(hosts, vec!["web", "db", "backup"]);
+        assert!(visited.contains(&path));
+        let _ = std::fs::remove_file(path);
+    }
+}

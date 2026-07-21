@@ -27,7 +27,19 @@ impl TerminalTabs {
         cx.notify();
     }
 
-    pub(crate) fn apply_font_zoom(&mut self, key: &str, cx: &mut Context<Self>) {
+    pub(crate) fn zoom_in(&mut self, cx: &mut Context<Self>) {
+        self.apply_font_zoom_delta(px(1.0), cx);
+    }
+
+    pub(crate) fn zoom_out(&mut self, cx: &mut Context<Self>) {
+        self.apply_font_zoom_delta(px(-1.0), cx);
+    }
+
+    pub(crate) fn zoom_reset(&mut self, cx: &mut Context<Self>) {
+        self.set_font_size(px(DEFAULT_FONT_SIZE), cx);
+    }
+
+    fn apply_font_zoom_delta(&mut self, delta: Pixels, cx: &mut Context<Self>) {
         let base = if self.sync_font_size_across_tabs {
             self.font_size
         } else if let Some(session) = self.tabs.get(self.active_tab) {
@@ -35,16 +47,11 @@ impl TerminalTabs {
         } else {
             self.font_size
         };
+        let size = (base + delta).clamp(px(6.0), px(72.0));
+        self.set_font_size(size, cx);
+    }
 
-        let mut size = base;
-        if key == "=" || key == "+" {
-            size += px(1.0);
-        } else if key == "-" {
-            size -= px(1.0);
-        } else if key == "0" {
-            size = px(DEFAULT_FONT_SIZE);
-        }
-        size = size.clamp(px(6.0), px(72.0));
+    fn set_font_size(&mut self, size: Pixels, cx: &mut Context<Self>) {
 
         if self.sync_font_size_across_tabs {
             self.font_size = size;
@@ -77,10 +84,8 @@ impl TerminalTabs {
     }
 
     pub(crate) fn copy(&mut self, cx: &mut Context<Self>) {
-        if let Some(session) = self.tabs.get(self.active_tab) {
-            session.update(cx, |s, cx| {
-                let _ = s.terminal_view.read(cx).copy_selection();
-            });
+        if let Some(session) = self.tabs.get(self.active_tab).cloned() {
+            let _ = session.read(cx).terminal_view.read(cx).copy_selection();
         }
     }
 

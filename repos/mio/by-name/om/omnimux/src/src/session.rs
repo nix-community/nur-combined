@@ -283,6 +283,15 @@ impl TerminalSession {
 
 impl Render for TerminalSession {
     fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
-        div().size_full().child(self.terminal_view.clone())
+        div()
+            .size_full()
+            .key_context("omnimux_terminal")
+            .child(self.terminal_view.clone())
+    }
+}
+
+impl Drop for TerminalSession {
+    fn drop(&mut self) {
+        self.close();
     }
 }

@@ -46,18 +46,32 @@ impl TerminalTabs {
         let Some(session) = session else {
             return false;
         };
-        if !session.has_exited {
+        Self::session_exit_should_close(session.has_exited, session.exit_status, auto_reconnect)
+    }
+
+    pub(crate) fn session_exit_should_close(
+        has_exited: bool,
+        exit_status: Option<u32>,
+        auto_reconnect: bool,
+    ) -> bool {
+        if !has_exited {
             return false;
         }
-        let success = session.exit_status == Some(0);
+        let success = exit_status == Some(0);
         !(auto_reconnect && !success)
+    }
+
+    pub(crate) fn kill_all_sessions(&mut self, cx: &mut Context<Self>) {
+        for tab in &self.tabs {
+            tab.update(cx, |session, _| session.close());
+        }
     }
 
     fn schedule_reconnect(&mut self, index: usize, cx: &mut Context<Self>) {
         let Some(session) = self.tabs.get(index) else {
             return;
         };
-        let (ready, host, streak) = session.update(cx, |session, _| {
+        let (ready, host, streak, wait) = session.update(cx, |session, _| {
             if session.pending_reconnect_at.is_none() {
                 let shift = session.reconnect_streak.min(6);
                 let delay_ms = 250u64.saturating_mul(1u64 << shift);
@@ -65,10 +79,19 @@ impl TerminalTabs {
                     Some(Instant::now() + Duration::from_millis(delay_ms));
                 session.reconnect_streak = session.reconnect_streak.saturating_add(1);
             }
-            let ready = session
-                .pending_reconnect_at
-                .is_some_and(|t| Instant::now() >= t);
-            (ready, session.host.clone(), session.reconnect_streak)
+            let deadline = session.pending_reconnect_at.unwrap();
+            let ready = Instant::now() >= deadline;
+            let wait = if ready {
+                Duration::ZERO
+            } else {
+                deadline.saturating_duration_since(Instant::now())
+            };
+            (
+                ready,
+                session.host.clone(),
+                session.reconnect_streak,
+                wait,
+            )
         });
 
         if ready {
@@ -78,7 +101,7 @@ impl TerminalTabs {
 
         let tabs = cx.entity().downgrade();
         cx.spawn(async move |_, cx| {
-            gpui::Timer::after(Duration::from_millis(250)).await;
+            gpui::Timer::after(wait).await;
             let _ = tabs.update(cx, |tabs, cx| {
                 if index < tabs.tabs.len() {
                     tabs.schedule_reconnect(index, cx);
@@ -217,5 +240,30 @@ impl TerminalTabs {
             });
         }
         cx.notify();
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::TerminalTabs;
+
+    #[test]
+    fn should_close_exited_tab_when_not_keeping() {
+        assert!(TerminalTabs::session_exit_should_close(true, Some(1), false));
+    }
+
+    #[test]
+    fn should_close_successful_exit_with_auto_reconnect() {
+        assert!(TerminalTabs::session_exit_should_close(true, Some(0), true));
+    }
+
+    #[test]
+    fn should_not_close_failed_exit_with_auto_reconnect() {
+        assert!(!TerminalTabs::session_exit_should_close(true, Some(1), true));
+    }
+
+    #[test]
+    fn should_not_close_running_session() {
+        assert!(!TerminalTabs::session_exit_should_close(false, None, false));
     }
 }

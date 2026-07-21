@@ -63,15 +63,9 @@ pub fn render_host_prompt(
         .items_center()
         .key_context("omnimux_prompt")
         .track_focus(&this.focus_handle)
-        .on_action(cx.listener(|this, _: &crate::actions::HostListUp, _, cx| {
-            this.host_list_up(cx);
-        }))
-        .on_action(cx.listener(|this, _: &crate::actions::HostListDown, _, cx| {
-            this.host_list_down(cx);
-        }))
-        .on_action(cx.listener(|this, _: &crate::actions::CloseOverlay, window, cx| {
-            this.close_overlay(window, cx);
-        }))
+        .on_action(cx.listener(TerminalTabs::on_host_list_up))
+        .on_action(cx.listener(TerminalTabs::on_host_list_down))
+        .on_action(cx.listener(TerminalTabs::on_close_overlay))
         .when(!this.tabs.is_empty(), |overlay| {
             overlay.on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
                 this.show_host_prompt = false;
@@ -154,15 +148,9 @@ pub fn render_search_bar(
         .flex_col()
         .key_context("omnimux_search")
         .track_focus(&this.focus_handle)
-        .on_action(cx.listener(|this, _: &crate::actions::SearchNext, _, cx| {
-            this.run_search(true, cx);
-        }))
-        .on_action(cx.listener(|this, _: &crate::actions::SearchPrev, _, cx| {
-            this.run_search(false, cx);
-        }))
-        .on_action(cx.listener(|this, _: &crate::actions::CloseOverlay, window, cx| {
-            this.close_overlay(window, cx);
-        }))
+        .on_action(cx.listener(TerminalTabs::on_search_next))
+        .on_action(cx.listener(TerminalTabs::on_search_prev))
+        .on_action(cx.listener(TerminalTabs::on_close_overlay))
         .child(
             div()
                 .flex()

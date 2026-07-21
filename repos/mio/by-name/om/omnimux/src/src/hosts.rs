@@ -43,3 +43,44 @@ pub fn host_option(final_host: &str) -> Option<String> {
         Some(trimmed.to_string())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn host_query_after_at() {
+        assert_eq!(host_query("user@web"), "web");
+        assert_eq!(host_query("web"), "web");
+    }
+
+    #[test]
+    fn host_prefix_preserves_user() {
+        assert_eq!(host_prefix("user@"), "user@");
+        assert_eq!(host_prefix("host"), "");
+    }
+
+    #[test]
+    fn filter_hosts_case_insensitive() {
+        let hosts = vec!["WebServer".into(), "db.local".into()];
+        let filtered = filter_hosts("web", &hosts);
+        assert_eq!(filtered, vec!["WebServer".to_string()]);
+    }
+
+    #[test]
+    fn resolve_host_with_selection() {
+        assert_eq!(
+            resolve_host("user@", Some("web")),
+            "user@web"
+        );
+        assert_eq!(resolve_host("", Some("localhost")), "localhost");
+        assert_eq!(resolve_host("mybox", None), "mybox");
+    }
+
+    #[test]
+    fn host_option_localhost_is_none() {
+        assert_eq!(host_option("localhost"), None);
+        assert_eq!(host_option("  "), None);
+        assert_eq!(host_option("web.example"), Some("web.example".into()));
+    }
+}

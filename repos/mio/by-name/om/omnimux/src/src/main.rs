@@ -16,6 +16,9 @@ use gpui::prelude::*;
 use gpui::*;
 use tabs::TerminalTabs;
 
+/// Keymap context for chrome shortcuts that must not steal terminal key bindings.
+const CHROME: &str = "omnimux && !omnimux_terminal";
+
 fn main() {
     gpui::Application::new().run(|cx: &mut gpui::App| {
         gpui_component::init(cx);
@@ -26,29 +29,29 @@ fn main() {
             KeyBinding::new("ctrl-t", NewTab, Some("omnimux")),
             KeyBinding::new("cmd-w", CloseTab, Some("omnimux")),
             KeyBinding::new("ctrl-w", CloseTab, Some("omnimux")),
-            KeyBinding::new("cmd-f", FindInTerminal, Some("omnimux")),
-            KeyBinding::new("ctrl-f", FindInTerminal, Some("omnimux")),
-            KeyBinding::new("cmd-=", ZoomIn, Some("omnimux")),
-            KeyBinding::new("ctrl-=", ZoomIn, Some("omnimux")),
-            KeyBinding::new("cmd-plus", ZoomIn, Some("omnimux")),
-            KeyBinding::new("ctrl-plus", ZoomIn, Some("omnimux")),
-            KeyBinding::new("cmd--", ZoomOut, Some("omnimux")),
-            KeyBinding::new("ctrl--", ZoomOut, Some("omnimux")),
-            KeyBinding::new("cmd-0", ZoomReset, Some("omnimux")),
-            KeyBinding::new("ctrl-0", ZoomReset, Some("omnimux")),
-            KeyBinding::new("cmd-c", Copy, Some("omnimux")),
+            KeyBinding::new("cmd-f", FindInTerminal, Some(CHROME)),
+            KeyBinding::new("ctrl-f", FindInTerminal, Some(CHROME)),
+            KeyBinding::new("cmd-=", ZoomIn, Some(CHROME)),
+            KeyBinding::new("ctrl-=", ZoomIn, Some(CHROME)),
+            KeyBinding::new("cmd-plus", ZoomIn, Some(CHROME)),
+            KeyBinding::new("ctrl-plus", ZoomIn, Some(CHROME)),
+            KeyBinding::new("cmd--", ZoomOut, Some(CHROME)),
+            KeyBinding::new("ctrl--", ZoomOut, Some(CHROME)),
+            KeyBinding::new("cmd-0", ZoomReset, Some(CHROME)),
+            KeyBinding::new("ctrl-0", ZoomReset, Some(CHROME)),
+            KeyBinding::new("cmd-c", Copy, Some(CHROME)),
             #[cfg(not(target_os = "macos"))]
-            KeyBinding::new("ctrl-shift-c", Copy, Some("omnimux")),
-            KeyBinding::new("cmd-v", Paste, Some("omnimux")),
+            KeyBinding::new("ctrl-shift-c", Copy, Some(CHROME)),
+            KeyBinding::new("cmd-v", Paste, Some(CHROME)),
             #[cfg(not(target_os = "macos"))]
-            KeyBinding::new("ctrl-shift-v", Paste, Some("omnimux")),
-            KeyBinding::new("escape", CloseOverlay, Some("omnimux")),
+            KeyBinding::new("ctrl-shift-v", Paste, Some(CHROME)),
+            KeyBinding::new("escape", CloseOverlay, Some(CHROME)),
             KeyBinding::new("escape", CloseOverlay, Some("omnimux_prompt")),
             KeyBinding::new("escape", CloseOverlay, Some("omnimux_search")),
-            KeyBinding::new("cmd-]", NextTab, Some("omnimux")),
-            KeyBinding::new("ctrl-]", NextTab, Some("omnimux")),
-            KeyBinding::new("cmd-[", PrevTab, Some("omnimux")),
-            KeyBinding::new("ctrl-[", PrevTab, Some("omnimux")),
+            KeyBinding::new("cmd-]", NextTab, Some(CHROME)),
+            KeyBinding::new("ctrl-]", NextTab, Some(CHROME)),
+            KeyBinding::new("cmd-[", PrevTab, Some(CHROME)),
+            KeyBinding::new("ctrl-[", PrevTab, Some(CHROME)),
             KeyBinding::new("up", HostListUp, Some("omnimux_prompt")),
             KeyBinding::new("down", HostListDown, Some("omnimux_prompt")),
             KeyBinding::new("cmd-g", SearchNext, Some("omnimux_search")),
