@@ -3,23 +3,23 @@
   buildNpmPackage,
   fetchFromGitHub,
   fetchPnpmDeps,
-  pnpm_10,
+  pnpm_11,
   pnpmConfigHook,
 }:
 let
-  pnpm = pnpm_10;
+  pnpm = pnpm_11;
 in
 buildNpmPackage (finalAttrs: {
   pname = "sing-box-dashboard";
-  version = "0-unstable-2026-06-19";
+  version = "0-unstable-2026-07-19";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "sing-box-dashboard";
-    rev = "ff5d364b0f78899b4626b8597f1464f3cd6e0440";
+    rev = "926abf4c78c0478aa0adc2000b04e46f42906924";
     fetchSubmodules = true;
-    hash = "sha256-Ud/tgY7MSAJ6iyIFtyzxiudsuOdeDcQviGA6XzXmJQ0=";
+    hash = "sha256-GeOHSW06m+wliA9cdhXi/8Zebm+bNPGgeWFP+8Tk5N0=";
   };
 
   npmDeps = null;
@@ -27,7 +27,7 @@ buildNpmPackage (finalAttrs: {
     inherit (finalAttrs) pname version src;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-YLMJc4TeuPq9YwKqTRP9FzSJpaqOrikfz7cP4U9yfIo=";
+    hash = "sha256-kYEXK/cBAaNZae/kHRa4rAtp9muCC4Xd1Ff6zYO3Kro=";
   };
 
   nativeBuildInputs = [ pnpm ];

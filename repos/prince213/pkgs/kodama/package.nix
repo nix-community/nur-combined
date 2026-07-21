@@ -7,7 +7,7 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "kodama";
-  version = "1.0.0";
+  version = "1.0.1";
 
   __structuredAttrs = true;
 
@@ -15,10 +15,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "kodama-community";
     repo = "kodama";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-vATf+cgZWNIKA9Bai/wc2j2ntDmNalWdi91u4UTsiZE=";
+    hash = "sha256-mOVBYG5V7vJDDlyeU7A2Y3LKFxiqbMkFnCEWK1wjEfg=";
   };
 
-  cargoHash = "sha256-YGkI6+/7gyywBPMBjwT9Lz99Gia2ETKpRyvebe0zzYQ=";
+  cargoHash = "sha256-7EMH40utzbtT1AB64VRlGDBvPpx0fDrWXpOPf/JS+TE=";
 
   passthru.updateScript = nix-update-script { };
 
