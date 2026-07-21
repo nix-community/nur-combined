@@ -2619,6 +2619,14 @@
       hash = "sha256-/zsv18BmpjhJ1UrXCtnynzvULWI8YqzhcUWNaCo84Ls=";
     };
   };
+  waline = {
+    pname = "waline";
+    version = "1.41.3";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.3.tgz";
+      hash = "sha256-JwOMSnQQ/sNLuXI5m9BSbCTsOJnIwxLVviXw/HUtFa0=";
+    };
+  };
   wechat-uos = {
     pname = "wechat-uos";
     version = "4.0.0.21";

@@ -5124,6 +5124,21 @@
         },
         "version": "v2.7.3"
     },
+    "waline": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "waline",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-JwOMSnQQ/sNLuXI5m9BSbCTsOJnIwxLVviXw/HUtFa0=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.3.tgz"
+        },
+        "version": "1.41.3"
+    },
     "wechat-uos": {
         "cargoLock": null,
         "date": null,
