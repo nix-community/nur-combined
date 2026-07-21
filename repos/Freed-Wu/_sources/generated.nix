@@ -65,7 +65,7 @@
     version = "0.1.2";
     src = fetchurl {
       url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.2.tar.gz";
-      sha256 = "sha256-cFRPXqq7+hmR+EJgU2uUZ2pO6s2ZHHTHmr1B4Tkuuso";
+      sha256 = "sha256-cFRPXqq7+hmR+EJgU2uUZ2pO6s2ZHHTHmr1B4Tkuuso=";
     };
   };
   sublime-syntax-language-server = {
@@ -159,10 +159,10 @@
   };
   xilinx-language-server = {
     pname = "xilinx-language-server";
-    version = "0.0.5";
+    version = "0.0.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/x/xilinx_language_server/xilinx_language_server-0.0.5.tar.gz";
-      sha256 = "sha256-sjavx/f8dOZv6vhFi+XkA+DiXTMKhD1U2DClvo+xSgs=";
+      url = "https://pypi.org/packages/source/x/xilinx_language_server/xilinx_language_server-0.0.6.tar.gz";
+      sha256 = "sha256-LG70XPEf7dwuIogr6+ucQcAjJT2wxIqCKQpeXkYPWEI=";
     };
   };
   zathura-language-server = {
