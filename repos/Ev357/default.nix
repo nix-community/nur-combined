@@ -11,7 +11,7 @@
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  alx-wol = pkgs.linuxPackages.callPackage ./pkgs/alx-wol {};
+  alx-wol = pkgs.linuxPackages_latest.callPackage ./pkgs/alx-wol {};
   raycast-bitwarden = pkgs.callPackage ./pkgs/raycast-bitwarden {};
   catppuccin-obsidian = pkgs.callPackage ./pkgs/catppuccin-obsidian {};
   cmdr = pkgs.callPackage ./pkgs/cmdr {};
