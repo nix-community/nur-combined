@@ -35,6 +35,7 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 - `TerminalView::copy_selection()` for host shortcuts (⌘C / Ctrl+Shift+C handled in Omnimux).
 - Forward OSC 52 **store** (and default `arboard` fallback) and **load** back to the PTY.
 - Forward **`PtyWrite`**, **`ColorRequest`**, and **`TextAreaSizeRequest`** to the PTY (upstream event bridge dropped several of these).
+- **Security**: OSC 52 defaults to **`Disabled`** (`Osc52Policy` / alacritty `Config.osc52`) so a compromised remote cannot silently overwrite or exfiltrate the system clipboard. Omnimux sets this explicitly; store/load handlers are gated and size-capped. Paste uses **bracketed paste** when the app enables it.
 
 ### Rendering / metrics
 

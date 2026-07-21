@@ -39,9 +39,25 @@ pub fn host_option(final_host: &str) -> Option<String> {
     let trimmed = final_host.trim();
     if trimmed.is_empty() || trimmed == "localhost" {
         None
-    } else {
+    } else if is_safe_ssh_destination(trimmed) {
         Some(trimmed.to_string())
+    } else {
+        None
     }
+}
+
+/// Reject host strings that could confuse `ssh` argv or shell tooling.
+///
+/// Allows `user@host`, DNS names, IPv4/IPv6-ish characters, and `:` / `%` for
+/// ports / zone IDs. Rejects whitespace, shell metacharacters, and leading `-`.
+pub fn is_safe_ssh_destination(host: &str) -> bool {
+    if host.is_empty() || host.starts_with('-') {
+        return false;
+    }
+    host.chars().all(|c| {
+        c.is_ascii_alphanumeric()
+            || matches!(c, '.' | '_' | '-' | '@' | ':' | '%' | '[' | ']')
+    })
 }
 
 #[cfg(test)]
@@ -82,5 +98,17 @@ mod tests {
         assert_eq!(host_option("localhost"), None);
         assert_eq!(host_option("  "), None);
         assert_eq!(host_option("web.example"), Some("web.example".into()));
+    }
+
+    #[test]
+    fn rejects_unsafe_ssh_destinations() {
+        assert!(!is_safe_ssh_destination("-oProxyCommand=evil"));
+        assert!(!is_safe_ssh_destination("host;rm -rf /"));
+        assert!(!is_safe_ssh_destination("host$(id)"));
+        assert!(!is_safe_ssh_destination("host with spaces"));
+        assert!(is_safe_ssh_destination("user@web.example"));
+        assert!(is_safe_ssh_destination("192.168.1.1"));
+        assert!(is_safe_ssh_destination("[::1]:22"));
+        assert_eq!(host_option("-oProxyCommand=x"), None);
     }
 }

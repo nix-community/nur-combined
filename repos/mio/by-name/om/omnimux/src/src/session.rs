@@ -49,6 +49,17 @@ impl TerminalSession {
         let tmux_cmd = "tmux -u has-session 2>/dev/null && exec tmux -u attach \\; set -g mouse on || exec tmux -u new-session \\; set -g mouse on";
 
         let mut cmd = if let Some(ref h) = host {
+            if !crate::hosts::is_safe_ssh_destination(h) {
+                eprintln!("omnimux: rejected unsafe SSH destination: {h:?}");
+                return Self::failed_session(
+                    host,
+                    colors,
+                    font_size,
+                    tabs,
+                    "unsafe SSH destination rejected",
+                    cx,
+                );
+            }
             if h == "localhost" || h == "127.0.0.1" {
                 let mut cmd = CommandBuilder::new("sh");
                 cmd.args(["-c", tmux_cmd]);
@@ -144,6 +155,7 @@ impl TerminalSession {
             padding: Edges::default(),
             colors,
             font_fallbacks: symbol_font_fallbacks(),
+            osc52: gpui_terminal::Osc52Policy::Disabled,
         };
 
         let terminal_view = cx.new(|cx| {
@@ -228,6 +240,7 @@ impl TerminalSession {
             padding: Edges::default(),
             colors,
             font_fallbacks: symbol_font_fallbacks(),
+            osc52: gpui_terminal::Osc52Policy::Disabled,
         };
 
         let terminal_view = cx.new(|cx| {

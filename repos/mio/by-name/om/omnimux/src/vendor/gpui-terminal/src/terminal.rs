@@ -46,10 +46,35 @@
 
 use crate::event::GpuiEventProxy;
 use alacritty_terminal::grid::Dimensions;
-use alacritty_terminal::term::{Config, Term, TermMode};
+use alacritty_terminal::term::{Config, Osc52, Term, TermMode};
 use alacritty_terminal::vte::ansi::Processor;
 use parking_lot::Mutex;
 use std::sync::Arc;
+
+/// OSC 52 clipboard policy (mirrors alacritty; default is disabled for SSH safety).
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub enum Osc52Policy {
+    /// Ignore OSC 52 entirely (safest for untrusted remotes).
+    #[default]
+    Disabled,
+    /// Allow remote → local clipboard writes only.
+    OnlyCopy,
+    /// Allow local clipboard → remote reads only.
+    OnlyPaste,
+    /// Allow both directions.
+    CopyPaste,
+}
+
+impl From<Osc52Policy> for Osc52 {
+    fn from(policy: Osc52Policy) -> Self {
+        match policy {
+            Osc52Policy::Disabled => Osc52::Disabled,
+            Osc52Policy::OnlyCopy => Osc52::OnlyCopy,
+            Osc52Policy::OnlyPaste => Osc52::OnlyPaste,
+            Osc52Policy::CopyPaste => Osc52::CopyPaste,
+        }
+    }
+}
 
 /// Simple dimensions implementation for terminal initialization.
 struct TermDimensions {
@@ -159,7 +184,7 @@ impl TerminalState {
     /// let terminal = TerminalState::new(80, 24, event_proxy);
     /// ```
     pub fn new(cols: usize, rows: usize, event_proxy: GpuiEventProxy) -> Self {
-        Self::new_with_scrollback(cols, rows, 10_000, event_proxy)
+        Self::new_with_scrollback(cols, rows, 10_000, Osc52Policy::Disabled, event_proxy)
     }
 
     /// Create a terminal with an explicit scrollback history size.
@@ -167,10 +192,12 @@ impl TerminalState {
         cols: usize,
         rows: usize,
         scrolling_history: usize,
+        osc52: Osc52Policy,
         event_proxy: GpuiEventProxy,
     ) -> Self {
         let config = Config {
             scrolling_history,
+            osc52: osc52.into(),
             ..Config::default()
         };
 

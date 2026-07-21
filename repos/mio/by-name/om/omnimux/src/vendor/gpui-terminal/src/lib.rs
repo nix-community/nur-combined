@@ -352,7 +352,7 @@ pub use clipboard::Clipboard;
 pub use colors::{ColorPalette, ColorPaletteBuilder};
 pub use event::{GpuiEventProxy, TerminalEvent};
 pub use render::TerminalRenderer;
-pub use terminal::TerminalState;
+pub use terminal::{Osc52Policy, TerminalState};
 pub use view::{
     BellCallback, ClipboardStoreCallback, ExitCallback, KeyHandler, ResizeCallback, TerminalConfig,
     TerminalView, TitleCallback,

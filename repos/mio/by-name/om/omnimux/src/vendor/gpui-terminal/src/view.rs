@@ -153,6 +153,10 @@ pub struct TerminalConfig {
     /// Font families tried when a glyph is missing from [`Self::font_family`]
     /// (e.g. Starship / Nerd Font symbols).
     pub font_fallbacks: Vec<String>,
+
+    /// OSC 52 remote clipboard policy. Default [`Osc52Policy::Disabled`] so a
+    /// compromised remote cannot silently overwrite or read the system clipboard.
+    pub osc52: crate::terminal::Osc52Policy,
 }
 
 impl Default for TerminalConfig {
@@ -170,6 +174,7 @@ impl Default for TerminalConfig {
                 "Symbols Nerd Font Mono".into(),
                 "Symbols Nerd Font".into(),
             ],
+            osc52: crate::terminal::Osc52Policy::Disabled,
         }
     }
 }
@@ -521,11 +526,12 @@ impl TerminalView {
         // Create event proxy for alacritty
         let event_proxy = GpuiEventProxy::new(event_tx);
 
-        // Create terminal state with configured scrollback
+        // Create terminal state with configured scrollback / OSC 52 policy
         let state = TerminalState::new_with_scrollback(
             config.cols,
             config.rows,
             config.scrollback,
+            config.osc52,
             event_proxy,
         );
 
@@ -1038,9 +1044,25 @@ impl TerminalView {
     }
 
     /// Write raw text to the PTY (e.g. clipboard paste).
+    ///
+    /// When the application has bracketed paste enabled, wraps the payload in
+    /// `\e[200~` … `\e[201~` and strips any embedded end-bracket sequences so a
+    /// malicious clipboard cannot terminate the bracket early.
     pub fn write_input(&self, data: &str) {
-        self.write_pty_str(data);
+        let bracketed = self
+            .state
+            .mode()
+            .contains(alacritty_terminal::term::TermMode::BRACKETED_PASTE);
+        if bracketed {
+            let sanitized = data.replace("\x1b[201~", "");
+            self.write_pty_str(&format!("\x1b[200~{sanitized}\x1b[201~"));
+        } else {
+            self.write_pty_str(data);
+        }
     }
+
+    /// Maximum decoded OSC 52 clipboard payload accepted when store is enabled.
+    const OSC52_MAX_BYTES: usize = 1024 * 1024;
 
     /// Copy the current selection to the system clipboard.
     ///
@@ -1080,17 +1102,43 @@ impl TerminalView {
                     }
                 }
                 TerminalEvent::ClipboardStore(text) => {
-                    if let Some(ref callback) = self.clipboard_store_callback {
-                        callback(window, cx, &text);
-                    } else if let Ok(mut clipboard) = Clipboard::new() {
-                        let _ = clipboard.copy(&text);
+                    if text.len() > Self::OSC52_MAX_BYTES {
+                        eprintln!(
+                            "gpui-terminal: ignoring oversized OSC 52 store ({} bytes)",
+                            text.len()
+                        );
+                        continue;
+                    }
+                    match self.config.osc52 {
+                        crate::terminal::Osc52Policy::OnlyCopy
+                        | crate::terminal::Osc52Policy::CopyPaste => {
+                            if let Some(ref callback) = self.clipboard_store_callback {
+                                callback(window, cx, &text);
+                            } else if let Ok(mut clipboard) = Clipboard::new() {
+                                let _ = clipboard.copy(&text);
+                            }
+                        }
+                        crate::terminal::Osc52Policy::Disabled
+                        | crate::terminal::Osc52Policy::OnlyPaste => {}
                     }
                 }
                 TerminalEvent::ClipboardLoad(format) => {
-                    if let Ok(mut clipboard) = Clipboard::new() {
-                        if let Ok(text) = clipboard.paste() {
-                            self.write_pty_str(&format(&text));
+                    match self.config.osc52 {
+                        crate::terminal::Osc52Policy::OnlyPaste
+                        | crate::terminal::Osc52Policy::CopyPaste => {
+                            if let Ok(mut clipboard) = Clipboard::new() {
+                                if let Ok(text) = clipboard.paste() {
+                                    let capped = if text.len() > Self::OSC52_MAX_BYTES {
+                                        &text[..Self::OSC52_MAX_BYTES]
+                                    } else {
+                                        text.as_str()
+                                    };
+                                    self.write_pty_str(&format(capped));
+                                }
+                            }
                         }
+                        crate::terminal::Osc52Policy::Disabled
+                        | crate::terminal::Osc52Policy::OnlyCopy => {}
                     }
                 }
                 TerminalEvent::PtyWrite(data) => {
