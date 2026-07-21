@@ -81,7 +81,7 @@ cmd_import() {
   vm_exists "$vm_name" && die "A VM named '$vm_name' already exists. Remove or rename it first."
 
   if [[ -f "$index_file" ]]; then
-    log_info "Restoring disks to pool '$target_pool' ($pool_path)..."
+    log_info "Restoring disks from archive..."
 
     while IFS='|' read -r original_path disk_filename disk_format zfs_dataset zfs_snapshot zfs_volsize; do
       local src_disk="${disks_dir}/${disk_filename}"
@@ -110,6 +110,7 @@ cmd_import() {
             log_error "Failed to create temporary ZFS dataset. Is pool '$pool' available?"
             die "ZFS pool '$pool' may need to be imported first."
           fi
+          zfs set volmode=dev "${pool}/${temp_parent}"
           zfs_cleanup="$zfs_cleanup ${pool}/${temp_parent}"
 
           if ! zfs receive -F -d "${pool}/${temp_parent}" < "$src_disk" 2>/dev/null; then
@@ -137,6 +138,8 @@ cmd_import() {
             zfs destroy "${target_dataset}@${zfs_snapshot}" 2>/dev/null \
               || log_warn "Could not remove temporary snapshot ${zfs_snapshot}."
           fi
+
+          zfs set volmode=dev "$target_dataset"
 
           local new_dev_path="/dev/zvol/${target_dataset}"
           if [[ "$original_path" != "$new_dev_path" ]]; then
