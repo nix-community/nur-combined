@@ -83,7 +83,8 @@ rustPlatform.buildRustPackage {
 
   meta = with lib; {
     description = "Omnimux - GPUI terminal multiplexer";
-    homepage = "https://github.com/mio-19/nurpkgs";
+    homepage = "https://github.com/mio-19/omnimux";
+    downloadPage = "https://github.com/mio-19/omnimux/releases/tag/rolling";
     license = licenses.mit;
     mainProgram = "omnimux";
     platforms = platforms.unix;
