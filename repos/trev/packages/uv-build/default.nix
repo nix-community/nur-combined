@@ -11,14 +11,14 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "uv-build";
-  version = "0.11.29";
+  version = "0.11.30";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "astral-sh";
     repo = "uv";
     tag = finalAttrs.version;
-    hash = "sha256-mUrycqz0Ya/NbDUmxb39yYMfd8KU5Yz7zWelX1iHURI=";
+    hash = "sha256-QJpGT39U4OYWgyFm07jQFnSkb2dJDbk+Wcr3jxkbVtI=";
   };
 
   nativeBuildInputs = [
@@ -28,7 +28,7 @@ buildPythonPackage (finalAttrs: {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) pname version src;
-    hash = "sha256-AOe35hQMzjq75We6XxzrAbsojcFvt3LWL1AFFzFWol4=";
+    hash = "sha256-Oc9oT/F8HvI89C44lWKuJbXQNhlFL+5bmxmV1rC/mHY=";
   };
 
   buildAndTestSubdir = "crates/uv-build";
