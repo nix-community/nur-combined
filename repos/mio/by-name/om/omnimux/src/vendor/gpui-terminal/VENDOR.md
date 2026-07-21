@@ -49,6 +49,12 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 
 - In-grid search + highlight (`TerminalView::search` / `clear_search`) used by Omnimux’s search UI.
 
+### IME (CJK input)
+
+- `ime.rs`: `TerminalInputHandler` registered during canvas paint via `window.handle_input`, following Zed’s `terminal_element` pattern.
+- Pre-edit (composing) text painted with underline at the terminal cursor; committed text is written to the PTY.
+- Works with Wayland `zwp_text_input_v3` and macOS IME through GPUI’s platform layer.
+
 ### Misc API / robustness
 
 - `write_input` for paste into the PTY.
