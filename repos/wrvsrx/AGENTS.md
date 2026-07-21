@@ -19,7 +19,7 @@ Use `nixfmt` for `*.nix` files and `taplo format` for TOML; both are run by `tre
 
 ## Testing Guidelines
 
-There is no separate test suite. Treat Nix evaluation and targeted builds as required checks. For package changes, run `nix flake check` and at least one `nix build .#<package>` for each changed derivation. For formatter-only changes, run `treefmt`. When changing overlays, build or evaluate an attribute from the affected set, such as `.#python3Packages.<name>`.
+There is no separate test suite. For an isolated package change, run `nix build .#<package>` for each changed derivation; a full `nix flake check` is not required. Run `nix flake check` when changing shared package wiring, overlays, flake outputs, templates, or NixOS modules. For formatter-only changes, run `treefmt`. When changing overlays, build or evaluate an attribute from the affected set, such as `.#python3Packages.<name>`.
 
 ## Commit & Pull Request Guidelines
 
