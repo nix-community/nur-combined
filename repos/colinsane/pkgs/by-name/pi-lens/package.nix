@@ -36,10 +36,11 @@ buildNpmPackage (finalAttrs: {
     runHook postBuild
   '';
 
-  installPhase = ''
-    runHook preInstall
-    cp -R . $out
-    runHook postInstall
+  postInstall = ''
+    mv $out/lib/node_modules/pi-lens/* $out
+    rmdir $out/lib/node_modules/pi-lens
+    rmdir $out/lib/node_modules
+    rmdir $out/lib
   '';
 
   passthru.updateScript = nix-update-script {

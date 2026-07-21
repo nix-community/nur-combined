@@ -32,10 +32,11 @@ buildNpmPackage (finalAttrs: {
 
   dontNpmBuild = true;
 
-  installPhase = ''
-    runHook preInstall
-    cp -R . $out
-    runHook postInstall
+  postInstall = ''
+    mv $out/lib/node_modules/pi-markdown-preview/* $out
+    rmdir $out/lib/node_modules/pi-markdown-preview
+    rmdir $out/lib/node_modules
+    rmdir $out/lib
   '';
 
   passthru.updateScript = nix-update-script {

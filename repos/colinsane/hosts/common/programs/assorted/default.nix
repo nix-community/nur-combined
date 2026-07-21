@@ -236,7 +236,7 @@ in
     ];
 
     pcConsoleUtils = declPackageSet [
-      "claude-code"
+      # "claude-code"
       # "crush"
       "dasht"  # docset documentation viewer
       # "gh"  # MS GitHub cli

@@ -285,6 +285,23 @@ in
 
     fs.".config/pi/mcp.json".symlink.target = mcpConfig;
 
+    fs.".pi/agent/claude-bridge.json".symlink.target = "../../.config/pi/claude-bridge.json";
+    fs.".config/pi/claude-bridge.json".symlink.target = (pkgs.formats.json {}).generate "pi-claude-bridge.json" {
+      askClaude = {
+        enabled = true;
+        allowFullMode = true;
+        defaultIsolated = false;
+        description = "Custom tool description override";
+      };
+      provider = {
+        plan = "max";
+        appendSystemPrompt = false;  #< XXX recommended so that we don't send Anthropic a "you are an agent in the Pi coding harness..." portion of the system prompt
+        longContextExtraUsage = false;
+        strictMcpConfig = true;
+        # pathToClaudeCodeExecutable = lib.getExe pkgs.claude;
+      };
+    };
+
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];
     } ''
@@ -310,6 +327,7 @@ in
         # pkgs.pi-caveman  #< adds `/caveman` slash command
         pkgs.edb-context-viewer  #< adds `/context` slash command
         pkgs.edb-diff-files  #< adds `/diff-files` slash command
+        pkgs.pi-claude-bridge
         pkgs.pi-codex-goal
         pkgs.pi-cwd
         # pkgs.pi-goal  #< adds `/goal` slash command

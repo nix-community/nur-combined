@@ -37,10 +37,11 @@ buildNpmPackage (finalAttrs: {
 
   dontNpmBuild = true;
 
-  installPhase = ''
-    runHook preInstall
-    cp -R . $out
-    runHook postInstall
+  postInstall = ''
+    mv $out/lib/node_modules/pi-mcp-adapter/* $out
+    rmdir $out/lib/node_modules/pi-mcp-adapter
+    rmdir $out/lib/node_modules
+    rmdir $out/lib
   '';
 
   passthru.updateScript = updater-tools.requireAll [
