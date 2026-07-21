@@ -76,7 +76,10 @@ files are copied from following locations. some are modified in this repo and so
 + minetest580 & irrlichtmt - parent of <https://github.com/NixOS/nixpkgs/commit/d61c03fe460f6349e5173e007fb2b678c33bed36> commit 33c8b1a7202d4c22d74f4db73666e9a868069d2c
 + wireguird <https://discourse.nixos.org/t/go-version-error-requires-go1-17-or-later/69176/4>
 + shared folder, zfs-impermanence-on-shutdown.nix <https://github.com/chaotic-cx/nyx/commit/39b1da91e4344890e38f406f64e3e0d5731c5e5f>
-+ betterbird <https://github.com/NixOS/nixpkgs/pull/528210>
++ betterbird package — <https://github.com/NixOS/nixpkgs/pull/528210> (PR commit 64438b57119d6895698b2bbf5f7d0479c3f26de8); version/source hashes updated locally since then
++ buildMozillaMach (`by-name/bu/buildMozillaMach/`) — copied from nixpkgs commit [421eebfd0ec7bccd4abe826ce62d7e6e83129493](https://github.com/NixOS/nixpkgs/tree/421eebfd0ec7bccd4abe826ce62d7e6e83129493/pkgs/build-support/build-mozilla-mach) (`pkgs/build-support/build-mozilla-mach/default.nix` + patches), plus PR #528210 (`finalBinaryName`, `withWasiSysroot`, `extraPreConfigure`) and local Betterbird install-path `finalBinaryName` usage; re-synced with that nixpkgs commit for `python313`, cbindgen patch, and structured attrs
++ wrapFirefox (`by-name/wr/wrapFirefox/`) — copied from nixpkgs commit [421eebfd0ec7bccd4abe826ce62d7e6e83129493](https://github.com/NixOS/nixpkgs/tree/421eebfd0ec7bccd4abe826ce62d7e6e83129493/pkgs/applications/networking/browsers/firefox/wrapper.nix), plus PR #528210 `isMail` flag (desktop metadata no longer keyed off `libName` prefix `thunderbird`)
++ wrapThunderbird (`by-name/wr/wrapThunderbird/`) — copied from nixpkgs commit [421eebfd0ec7bccd4abe826ce62d7e6e83129493](https://github.com/NixOS/nixpkgs/tree/421eebfd0ec7bccd4abe826ce62d7e6e83129493/pkgs/applications/networking/mailreaders/thunderbird/wrapper.nix), plus PR #528210 `isMail = true`
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 + cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib pkgs/wineshell
