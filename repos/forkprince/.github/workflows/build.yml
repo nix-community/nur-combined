@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
 
       - name: Install Bun
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2.2.0
@@ -189,7 +189,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0  # v7.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
         with:
           fetch-depth: 0
           ref: ${{ github.ref_name }}
@@ -199,7 +199,7 @@ jobs:
         uses: wimpysworld/nothing-but-nix@687c797a730352432950c707ab493fcc951818d7  # v10
 
       - name: Install Nix
-        uses: cachix/install-nix-action@a49548c11d9846ad46ecc0115273879b045f001c  # v31.10.7
+        uses: cachix/install-nix-action@630ae543ea3a38a9a4166f03376c02c50f408342  # v31.11.0
         with:
           nix_path: "${{ matrix.nixPath }}"
           extra_nix_config: |
