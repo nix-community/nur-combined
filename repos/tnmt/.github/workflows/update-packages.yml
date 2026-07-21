@@ -16,12 +16,9 @@ jobs:
       matrix:
         package:
           - ccpocket-bridge
-          - ccusage
           - kagiana
           - roots
-          - git-wt
           - givy
-          - mo
           - symbol-desktop-wallet
     steps:
     - name: Checkout repository

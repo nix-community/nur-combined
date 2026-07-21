@@ -1,11 +1,10 @@
 diff --git a/packages/bridge/src/sdk-process.ts b/packages/bridge/src/sdk-process.ts
 --- a/packages/bridge/src/sdk-process.ts
 +++ b/packages/bridge/src/sdk-process.ts
-@@ -539,6 +539,9 @@
-         cwd: projectPath,
+@@ -737,6 +737,9 @@
          resume: options?.sessionId,
          continue: options?.continueMode,
-         permissionMode: options?.permissionMode ?? "default",
+         permissionMode: this._permissionMode ?? "default",
 +        ...(process.env.CLAUDE_CODE_EXECUTABLE
 +          ? { pathToClaudeCodeExecutable: process.env.CLAUDE_CODE_EXECUTABLE }
 +          : {}),

@@ -24,12 +24,9 @@
   brave-origin = pkgs.callPackage ./pkgs/brave-origin { };
   ax = pkgs.callPackage ./pkgs/ax { };
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
-  ccusage = pkgs.callPackage ./pkgs/ccusage { };
   kagiana = pkgs.callPackage ./pkgs/kagiana { };
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };
   roots = pkgs.callPackage ./pkgs/roots { };
-  git-wt = pkgs.callPackage ./pkgs/git-wt { };
   givy = pkgs.callPackage ./pkgs/givy { };
-  mo = pkgs.callPackage ./pkgs/mo { };
   symbol-desktop-wallet = pkgs.callPackage ./pkgs/symbol-desktop-wallet { };
 }
