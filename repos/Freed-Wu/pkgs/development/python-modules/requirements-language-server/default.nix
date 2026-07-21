@@ -3,11 +3,12 @@
   python3,
   lib,
   tree-sitter-requirements,
+  lsp-tree-sitter,
 }:
 
 with python3.pkgs;
 
-buildPythonPackage rec {
+buildPythonPackage {
   inherit (mySources.requirements-language-server) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.11";
@@ -17,10 +18,11 @@ buildPythonPackage rec {
     platformdirs
     lsp-tree-sitter
     tree-sitter-requirements
+    marisa-trie
+    jinja2
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    uv-build
   ];
   pythonImportsCheck = [
     "requirements_language_server"

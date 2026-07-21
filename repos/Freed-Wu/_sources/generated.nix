@@ -17,14 +17,6 @@
       sha256 = "sha256-64KFbS63jyPhl4z0tsS+7vg6b2XrL2uIzhzWtOepu5k=";
     };
   };
-  expect-language-server = {
-    pname = "expect-language-server";
-    version = "0.0.1";
-    src = fetchurl {
-      url = "https://pypi.org/packages/source/e/expect-language-server/expect-language-server-0.0.1.tar.gz";
-      sha256 = "sha256-7L2h91ZpB+VhUlP5kOa4lpKzr8LnkjXcP8I45M9Lrgk=";
-    };
-  };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
     version = "0.2.8";
@@ -70,10 +62,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.1.0";
+    version = "0.1.2";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.0.tar.gz";
-      sha256 = "sha256-MBPR5cQfFuffKZQa4xuX36JkbQUg1sM+JGMcKz5nk+Q=";
+      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.2.tar.gz";
+      sha256 = "sha256-cFRPXqq7+hmR+EJgU2uUZ2pO6s2ZHHTHmr1B4Tkuuso";
     };
   };
   sublime-syntax-language-server = {

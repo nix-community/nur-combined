@@ -85,11 +85,10 @@ let
         { };
     termux-language-server = callPackage ./pkgs/development/python-modules/termux-language-server { };
 
-    expect-language-server = callPackage ./pkgs/development/python-modules/expect-language-server { };
+    xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
     sublime-syntax-language-server =
       callPackage ./pkgs/development/python-modules/sublime-syntax-language-server
         { };
-    xilinx-language-server = callPackage ./pkgs/development/python-modules/xilinx-language-server { };
   };
 in
 myPkgs

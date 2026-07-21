@@ -18,10 +18,6 @@ fetch.pypi = "translate_shell"
 src.pypi = "lsp-tree-sitter"
 fetch.pypi = "lsp_tree_sitter"
 
-[expect-language-server]
-src.pypi = "expect-language-server"
-fetch.pypi = "expect-language-server"
-
 [xilinx-language-server]
 src.pypi = "xilinx-language-server"
 fetch.pypi = "xilinx_language_server"
