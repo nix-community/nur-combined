@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation {
@@ -17,6 +18,16 @@ stdenv.mkDerivation {
 
   patches = [
     ./patches/0001-fix-is_zenny_position-undeclared-buffer.patch
+    ./patches/0002-add-data-dir-env-var.patch
+  ];
+
+  patchFlags = [
+    "-p1"
+    "--ignore-whitespace"
+  ];
+
+  nativeBuildInputs = [
+    makeWrapper
   ];
 
   buildPhase = ''
@@ -32,9 +43,29 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/bin
-    cp extractor jpextractor $out/bin/
+    cp extractor $out/bin/bof4-extractor
+    cp jpextractor $out/bin/bof4-jpextractor
+
+    # Install .src data files (lookup tables)
+    mkdir -p $out/share/bof4-text-extractor
+    cp *.src $out/share/bof4-text-extractor/
+
+    # Patch mass_extract.py to use the prefixed binary names
+    sed -i 's/"jpextractor.exe"/"bof4-jpextractor"/g; s/"extractor.exe"/"bof4-extractor"/g' mass_extract.py
+
+    # Install Python scripts with bof4- prefix
+    # The original scripts lack shebangs, so add them before installing
+    sed -i '1i#!/usr/bin/env python3' mass_extract.py deduplicator.py
+    install -m755 mass_extract.py $out/bin/bof4-mass-extract
+    install -m755 deduplicator.py $out/bin/bof4-deduplicator
+    patchShebangs $out/bin/bof4-mass-extract $out/bin/bof4-deduplicator
 
     runHook postInstall
+  '';
+
+  postFixup = ''
+    wrapProgram $out/bin/bof4-jpextractor --set BOF4_DATA_DIR $out/share/bof4-text-extractor
+    wrapProgram $out/bin/bof4-extractor --set BOF4_DATA_DIR $out/share/bof4-text-extractor
   '';
 
   meta = with lib; {
@@ -48,6 +79,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     maintainers = with maintainers; [ shackra ];
     platforms = platforms.all;
-    mainProgram = "extractor";
+    mainProgram = "bof4-extractor";
   };
 }

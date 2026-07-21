@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  makeWrapper,
 }:
 
 stdenv.mkDerivation {
@@ -14,6 +15,19 @@ stdenv.mkDerivation {
     rev = "ce0d75f61c0240ffe2afa65ecd66a4052bb50942";
     hash = "sha256-bJMOJ6I7zqFeilMmJ+Oy11nWpdVXGoYiQe8ZRgCL1zY=";
   };
+
+  patches = [
+    ./patches/0001-add-data-dir-env-var.patch
+  ];
+
+  patchFlags = [
+    "-p1"
+    "--ignore-whitespace"
+  ];
+
+  nativeBuildInputs = [
+    makeWrapper
+  ];
 
   buildPhase = ''
     runHook preBuild
@@ -28,9 +42,18 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p $out/bin
-    cp extractor jpextractor $out/bin/
+    cp extractor $out/bin/bof3-extractor
+    cp jpextractor $out/bin/bof3-jpextractor
+
+    # Install .txt data files (lookup tables)
+    mkdir -p $out/share/bof3-text-extractor
+    cp *.txt $out/share/bof3-text-extractor/
 
     runHook postInstall
+  '';
+
+  postFixup = ''
+    wrapProgram $out/bin/bof3-jpextractor --set BOF3_DATA_DIR $out/share/bof3-text-extractor
   '';
 
   meta = with lib; {
@@ -44,6 +67,6 @@ stdenv.mkDerivation {
     license = licenses.mit;
     maintainers = with maintainers; [ shackra ];
     platforms = platforms.all;
-    mainProgram = "extractor";
+    mainProgram = "bof3-extractor";
   };
 }

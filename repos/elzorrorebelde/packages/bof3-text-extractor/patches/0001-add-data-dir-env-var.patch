@@ -1,0 +1,63 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jorge Javier Araya Navarro <jorge@esavara.cr>
+Date: Thu, 4 Sep 2026 00:00:00 +0000
+Subject: [PATCH] Add BOF3_DATA_DIR env var support for locating .txt tables
+
+jpextractor opens .txt data files (hiragana, katakana, kanji) using fopen
+with relative paths. Add a get_data_path() helper that checks the
+BOF3_DATA_DIR environment variable first, falling back to the current
+directory. This allows the Nix package to install the .txt files in a
+separate data directory and wrap the binaries with BOF3_DATA_DIR set.
+
+---
+diff --git a/src_c/jpextractor.c b/src_c/jpextractor.c
+index bf83d25..3162168 100644
+--- a/src_c/jpextractor.c
++++ b/src_c/jpextractor.c
+@@ -1,5 +1,17 @@
+ #include "jpextractor.h"
+
++static const char *get_data_path(const char *filename)
++{
++    static char path[1024];
++    const char *datadir = getenv("BOF3_DATA_DIR");
++    if (datadir != NULL && datadir[0] != '\0')
++    {
++        snprintf(path, sizeof(path), "%s/%s", datadir, filename);
++        return path;
++    }
++    return filename;
++}
++
+ int main(int argc, char *argv[])
+ {
+     if (argc != 3)
+@@ -42,7 +54,7 @@ int main(int argc, char *argv[])
+     }
+     fseek(area_file, address, SEEK_SET);
+
+-    FILE *hiragana_source = fopen("hiragana.txt", "r");
++    FILE *hiragana_source = fopen(get_data_path("hiragana.txt"), "r");
+     if (hiragana_source == NULL)
+     {
+         printf("Hiragana table not found!\n");
+@@ -50,7 +62,7 @@ int main(int argc, char *argv[])
+         return 6;
+     }
+
+-    FILE *katakana_source = fopen("katakana.txt", "r");
++    FILE *katakana_source = fopen(get_data_path("katakana.txt"), "r");
+     if (katakana_source == NULL)
+     {
+         printf("Katakana table not found!\n");
+@@ -59,7 +71,7 @@ int main(int argc, char *argv[])
+         return 7;
+     }
+
+-    FILE *kanji_source = fopen("kanji.txt", "r");
++    FILE *kanji_source = fopen(get_data_path("kanji.txt"), "r");
+     if (kanji_source == NULL)
+     {
+         printf("Kanji table not found!\n");
+--
+2.48.1
