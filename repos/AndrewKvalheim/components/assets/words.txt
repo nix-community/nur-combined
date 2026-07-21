@@ -1175,6 +1175,7 @@ PRs
 Prusa
 pseudopods
 pseudopolitical
+PSNR
 PSTN
 PTSD
 Publii
@@ -1518,6 +1519,8 @@ TextSecure
 themeable
 ThinkPad
 threadsafe
+thumbnailer
+thumbnailers
 Thunberg
 Tiananmen
 Tig

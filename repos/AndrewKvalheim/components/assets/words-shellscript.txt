@@ -1,4 +1,5 @@
 alnum
+bwrap
 Eeuo
 Eeux
 Eeuxo

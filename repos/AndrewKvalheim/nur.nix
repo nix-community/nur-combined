@@ -30,6 +30,7 @@ rec {
       uniqueBy;
   };
 
+  "3mf-thumbnailer" = callPackage ./library/3mf-thumbnailer.pkg.nix { };
   ai-robots-txt = callPackage ./library/ai-robots-txt.pkg.nix { };
   apex = callPackage ./library/apex.pkg.nix { };
   blocky-ui = callPackage ./library/blocky-ui.pkg.nix { };

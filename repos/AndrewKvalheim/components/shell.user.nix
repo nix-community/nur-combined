@@ -7,7 +7,7 @@ let
   inherit (lib) concatLines concatStrings escapeShellArg genAttrs getExe getExe' init last mapAttrsToList mapAttrsToListRecursive mkMerge mkOrder toList;
   inherit (pkgs) runtimeShell starship-jj;
   inherit (pkgs.writers) writeTOML;
-  inherit (import ../library/utilities.lib.nix { inherit lib; }) sgr tryEscapeShellArgs;
+  inherit (import ../library/utilities.lib.nix { inherit lib; }) mkSgr sgr tryEscapeShellArgs;
 
   zsh-complete-git-commit-message = toFile "zsh-complete-git-commit-message" (readFile ./assets/complete-git-commit-message.zsh);
   zsh-starship-issue-4205 = toFile "zsh-starship-issue-4205" (readFile ./assets/starship-issue-4205.zsh);
@@ -350,6 +350,11 @@ in
       idiff = "${getExe' imagemagick "compare"} \"$@\" png:- | kitty +kitten icat";
       mkcd = "mkdir --parents \"$@\" && cd \"\${@:$#}\"";
       nest = "mv --no-clobber --verbose \"$1\" \"$1.original\" && mkdir \"$1\" && mv --no-clobber --verbose \"$1.original\" \"$1/$(basename \"$1\")\"";
+      psnr = ''
+        db="$(${getExe' imagemagick "compare"} -metric 'PSNR' "$1" "$2" 'null:' 2>&1 | cut --delimiter ' ' --fields '1')"
+        if (( db >= 45 )); then fg='32'; elif (( db >= 40 )); then fg='33'; else fg='31'; fi
+        printf '${mkSgr "39" "%s" "%s"}\n' "$fg" "$db"
+      '';
       rd = "${getExe' diffutils "diff"} --recursive --unified \"$@\" | ${getExe delta.finalPackage}";
       rdw = "${getExe' diffutils "diff"} --ignore-all-space --ignore-blank-lines --recursive --unified \"$@\" | ${getExe delta.finalPackage}";
       rmdir-all = "${getExe' uutils-findutils "find"} \"$@\" -type 'd' -empty -delete";

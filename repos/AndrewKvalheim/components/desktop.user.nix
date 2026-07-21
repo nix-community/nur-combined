@@ -21,6 +21,7 @@ in
   config = {
     # Packages
     home.packages = with pkgs; [
+      pkgs."3mf-thumbnailer"
       gnome-tweaks
     ];
     dbus.packages = with pkgs;  [
@@ -132,6 +133,7 @@ in
           { wm_class = "qemu"; scratch_layer = true; }
           { wm_class = "stretch-break"; scratch_layer = true; }
           { wm_class = "io.github.pieterdd.StretchBreak"; scratch_layer = true; }
+          { wm_class = "org.gnome.SystemMonitor"; preferredWidth = "${toString term}px"; }
           { wm_class = "Tor Browser"; scratch_layer = true; }
         ];
       };

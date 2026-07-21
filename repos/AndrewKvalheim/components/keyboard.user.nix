@@ -144,6 +144,7 @@ in
     "₉" = "_9"; # subscript nine
 
     # Emoji
+    "❤" = "<3"; # heavy black heart
     "⚠️" = "wa"; # warning sign
     "❌️" = "no"; # cross mark (emoji variation)
     "✅" = "ye"; # white heavy check mark

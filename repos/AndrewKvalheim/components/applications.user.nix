@@ -154,6 +154,7 @@ in
       nix-preview
       nix-top
       nix-tree
+      nixpkgs-hammering
       nixpkgs-review
       nom-wrappers
       off

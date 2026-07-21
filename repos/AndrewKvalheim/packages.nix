@@ -11,6 +11,7 @@ let
   vscode-marketplace = { _name = "vscode-marketplace"; vscode-extensions = community-vscode-extensions.vscode-marketplace; };
 in
 specify {
+  "3mf-thumbnailer" = any;
   add-words = any;
   aegisub.overlay = a: throwIf (a.version != "3.4.2") "aegisub overlay is outdated" {
     version = "3.4.2-unstable-2025-12-01";
@@ -65,6 +66,7 @@ specify {
   journal-brief = any;
   just-local = any;
   kitty.patch = ./library/assets/kitty_paperwm.patch; # Workaround for paperwm/PaperWM#943
+  libgtop.patch = ./library/assets/libgtop_ignores.patch; # Workaround for GNOME/gnome-system-monitor#342
   little-a-map = any;
   losslesscut-bin.args = [ "--disable-networking" ];
   mark-applier = any;

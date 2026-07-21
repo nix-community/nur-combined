@@ -1,0 +1,6 @@
+--- a/sysdeps/linux/mountlist.c
++++ b/sysdeps/linux/mountlist.c
+@@ -111,2 +111,3 @@
+     ignore_list_add_fstype(*ig, "none");
++    ignore_list_add_fstype(*ig, "fuse.portal");
+ 
