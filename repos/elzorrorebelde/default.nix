@@ -20,4 +20,10 @@ rec {
   mkpsxiso = pkgs.callPackage ./packages/mkpsxiso { };
   ppf = pkgs.callPackage ./packages/ppf { };
   tilemolester = pkgs.callPackage ./packages/tilemolester { };
+
+  # glitch-in-the-herring projects
+  bof3-text-extractor = pkgs.callPackage ./packages/bof3-text-extractor { };
+  bof4-text-extractor = pkgs.callPackage ./packages/bof4-text-extractor { };
+  bof-text-editor = pkgs.python3Packages.callPackage ./packages/bof-text-editor { };
+  emi-extractor = pkgs.callPackage ./packages/emi-extractor { };
 }

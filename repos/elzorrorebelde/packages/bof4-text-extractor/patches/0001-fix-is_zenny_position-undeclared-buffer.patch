@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jorge Javier Araya Navarro <jorge@esavara.cr>
+Date: Thu, 4 Sep 2026 00:00:00 +0000
+Subject: [PATCH] Fix is_zenny_position: replace undeclared 'buffer' with
+ default string
+
+The function is_zenny_position in both src/utils.c and src/jputils.c
+references 'buffer' which is declared in a different function
+(is_position) and is not in scope. All switch cases already return
+directly, so this is dead code. Replace with a safe default return
+value.
+
+---
+ src/jputils.c | 2 +-
+ src/utils.c   | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/jputils.c b/src/jputils.c
+index 77daf16..4fccb89 100644
+--- a/src/jputils.c
++++ b/src/jputils.c
+@@ -162,7 +162,7 @@ char *is_zenny_position(byte a)
+             return "[ZENNY BOTTOML]";
+     }
+
+-    return buffer;
++    return "";
+ }
+
+ char *is_symbol(byte a)
+diff --git a/src/utils.c b/src/utils.c
+index 37f8495..d890c95 100644
+--- a/src/utils.c
++++ b/src/utils.c
+@@ -154,7 +154,7 @@ char *is_zenny_position(byte a)
+             return "[ZENNY BOTTOML]";
+     }
+
+-    return buffer;
++    return "";
+ }
+
+ char *is_symbol(byte a)
+--
+2.48.1
