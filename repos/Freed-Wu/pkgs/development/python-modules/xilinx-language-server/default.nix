@@ -6,17 +6,15 @@
 
 with python3.pkgs;
 
-buildPythonPackage rec {
+buildPythonPackage {
   inherit (mySources.xilinx-language-server) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    pygls_2
-    platformdirs
+    pygls
   ];
   nativeBuildInputs = [
-    setuptools-generate
-    setuptools-scm
+    uv-build
   ];
   pythonImportsCheck = [
     "xilinx_language_server"

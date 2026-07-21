@@ -6,12 +6,12 @@
 
 with python3.pkgs;
 
-buildPythonPackage rec {
+buildPythonPackage {
   inherit (mySources.sublime-syntax-language-server) pname version src;
   format = "pyproject";
   disabled = pythonOlder "3.6";
   propagatedBuildInputs = [
-    pygls_2
+    pygls
     platformdirs
   ];
   nativeBuildInputs = [
