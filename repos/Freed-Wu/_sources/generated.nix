@@ -27,10 +27,10 @@
   };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
-    version = "0.2.7";
+    version = "0.2.8";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.7.tar.gz";
-      sha256 = "sha256-cMcjbBwjqiKxa5c2jHTOCn5awRP2HDfLxt4OqtR0dc0=";
+      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.8.tar.gz";
+      sha256 = "sha256-BgGnPzfdQlCYdA3/AExHk2eZ8lm016op5YiiCJWvRSQ=";
     };
   };
   manpager = {
@@ -70,10 +70,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.0.22";
+    version = "0.1.0";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.0.22.tar.gz";
-      sha256 = "sha256-R/dvvv0KIpZQNOQMXlqLW2TfcKSb5h2qHNPkQfQeC/4=";
+      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.0.tar.gz";
+      sha256 = "sha256-MBPR5cQfFuffKZQa4xuX36JkbQUg1sM+JGMcKz5nk+Q=";
     };
   };
   sublime-syntax-language-server = {
@@ -86,10 +86,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.1.2";
+    version = "0.1.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.1.2.tar.gz";
-      sha256 = "sha256-DpUsbeo1A2+YTKUhCFyxVHtgzRy45rb/omvvrowxXrU=";
+      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.1.3.tar.gz";
+      sha256 = "sha256-oY8iBtVmxfLaLjkfpdNu29BGcKJD9ayeEPaxiTbuWBo=";
     };
   };
   tmux-language-server = {
