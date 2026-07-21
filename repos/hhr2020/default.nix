@@ -23,6 +23,7 @@ rec {
   loko = pkgs.callPackage ./pkgs/loko { };
   q5go = pkgs.callPackage ./pkgs/q5go { };
   qbittorrent-dual-boot = pkgs.callPackage ./pkgs/qbittorrent-dual-boot { };
+  qbittorrent-dual-boot-py = pkgs.callPackage ./pkgs/qbittorrent-dual-boot-py { };
   soar = pkgs.callPackage ./pkgs/soar { };
   zju-connect = pkgs.callPackage ./pkgs/zju-connect { };
   zju-learning-assistant = pkgs.callPackage ./pkgs/zju-learning-assistant { };
