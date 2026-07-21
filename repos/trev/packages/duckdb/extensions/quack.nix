@@ -4,6 +4,6 @@
   name = "quack";
   repo = "duckdb-quack";
   branch = "v1.5-variegata";
-  rev = "c1548111c1bfd16207e22fd3cb7e4bde1335b9d0";
-  hash = "sha256-B94mtDHNemCmPQfZIceIaFYeMy4rjwrV6OzRxK83DkQ=";
+  rev = "7e80f7ffcc98d0b3e81d0e1df8cc1c2da240a64b";
+  hash = "sha256-fLswkJMvfhv8yAsWIiZvG6Lg5Svy8d8d8+WmPiWt4AI=";
 }
