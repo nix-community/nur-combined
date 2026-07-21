@@ -7,8 +7,9 @@ use anyhow::{Context as _, Ok, Result};
 use collections::HashMap;
 use cosmic_text::{
     Attrs, AttrsList, CacheKey, Family, Font as CosmicTextFont, FontFeatures as CosmicFontFeatures,
-    FontSystem, ShapeBuffer, ShapeLine, SwashCache,
+    Fallback, FontSystem, PlatformFallback, ShapeBuffer, ShapeLine, SwashCache, fontdb,
 };
+use unicode_script::Script;
 
 use itertools::Itertools;
 use parking_lot::RwLock;
@@ -50,10 +51,55 @@ struct LoadedFont {
     is_known_emoji_font: bool,
 }
 
+/// cosmic-text's Unix fallback list omits Symbols Nerd Font, so Starship / powerline /
+/// Font Awesome private-use glyphs shape as blanks when the primary monospace lacks them.
+/// Omnimux bundles those fonts via `add_fonts`; include them in the fallback chain.
+#[derive(Debug, Default)]
+struct TerminalSymbolFallback;
+
+impl Fallback for TerminalSymbolFallback {
+    fn common_fallback(&self) -> &'static [&'static str] {
+        &[
+            "Symbols Nerd Font Mono",
+            "Symbols Nerd Font",
+            "Noto Sans",
+            "DejaVu Sans",
+            "FreeSans",
+            "Noto Sans Mono",
+            "DejaVu Sans Mono",
+            "FreeMono",
+            "Noto Sans Symbols",
+            "Noto Sans Symbols2",
+            "Noto Color Emoji",
+        ]
+    }
+
+    fn forbidden_fallback(&self) -> &'static [&'static str] {
+        Fallback::forbidden_fallback(&PlatformFallback)
+    }
+
+    fn script_fallback(&self, script: Script, locale: &str) -> &'static [&'static str] {
+        Fallback::script_fallback(&PlatformFallback, script, locale)
+    }
+}
+
+fn new_font_system_with_terminal_fallbacks() -> FontSystem {
+    let locale = std::env::var("LC_ALL")
+        .or_else(|_| std::env::var("LANG"))
+        .unwrap_or_else(|_| "en-US".to_string());
+    let mut db = fontdb::Database::new();
+    db.load_system_fonts();
+    // Match cosmic_text::FontSystem::new_with_fonts defaults.
+    db.set_monospace_family("Noto Sans Mono");
+    db.set_sans_serif_family("Open Sans");
+    db.set_serif_family("DejaVu Serif");
+    FontSystem::new_with_locale_and_db_and_fallback(locale, db, TerminalSymbolFallback)
+}
+
 impl CosmicTextSystem {
     pub(crate) fn new() -> Self {
         // todo(linux) make font loading non-blocking
-        let mut font_system = FontSystem::new();
+        let font_system = new_font_system_with_terminal_fallbacks();
 
         Self(RwLock::new(CosmicTextSystemState {
             font_system,
@@ -234,6 +280,9 @@ impl CosmicTextSystemState {
             let allowed_bad_font_names = [
                 "SegoeFluentIcons", // NOTE: Segoe fluent icons postscript name is inconsistent
                 "Segoe Fluent Icons",
+                // Symbols-only Nerd fonts have no ASCII 'm' but are valid fallback/icon faces.
+                "SymbolsNFM",
+                "SymbolsNF",
             ];
 
             if font.as_swash().charmap().map('m') == 0

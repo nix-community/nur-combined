@@ -1346,6 +1346,14 @@ impl Render for TerminalTabs {
                 .justify_center()
                 .items_center()
                 .track_focus(&self.focus_handle)
+                .when(!self.tabs.is_empty(), |overlay| {
+                    overlay.on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
+                        // Tap outside the panel to cancel (touch-friendly).
+                        this.prompt = None;
+                        this.focus_active_session(window, cx);
+                        cx.notify();
+                    }))
+                })
                 .child(
                     div()
                         .w_96()
@@ -1353,7 +1361,50 @@ impl Render for TerminalTabs {
                         .rounded_lg()
                         .p_4()
                         .flex_col()
-                        .child(div().child("New Session: Enter host (leave blank for localhost)").text_color(text_color).mb_2())
+                        .on_mouse_down(MouseButton::Left, |_, _, cx| {
+                            cx.stop_propagation();
+                        })
+                        .child(
+                            div()
+                                .flex()
+                                .flex_row()
+                                .items_center()
+                                .justify_between()
+                                .mb_2()
+                                .child(
+                                    div()
+                                        .child("New Session: Enter host (leave blank for localhost)")
+                                        .text_color(text_color),
+                                )
+                                .when(!self.tabs.is_empty(), |row| {
+                                    row.child(
+                                        div()
+                                            .id("new_session_close")
+                                            .flex()
+                                            .items_center()
+                                            .justify_center()
+                                            .min_w(px(40.0))
+                                            .min_h(px(32.0))
+                                            .w(px(40.0))
+                                            .h(px(32.0))
+                                            .rounded_sm()
+                                            .cursor_pointer()
+                                            .hover(|s| {
+                                                s.bg(if is_dark {
+                                                    rgb(0x555555)
+                                                } else {
+                                                    rgb(0xcccccc)
+                                                })
+                                            })
+                                            .on_click(cx.listener(|this, _, window, cx| {
+                                                this.prompt = None;
+                                                this.focus_active_session(window, cx);
+                                                cx.notify();
+                                            }))
+                                            .child(div().child("✕").text_color(text_color)),
+                                    )
+                                }),
+                        )
                         .child(
                             div()
                                 .child(format!("{}█", input))

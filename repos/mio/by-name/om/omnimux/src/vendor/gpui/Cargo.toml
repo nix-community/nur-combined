@@ -69,6 +69,7 @@ wayland = [
     "bytemuck",
     "ashpd/wayland",
     "cosmic-text",
+    "unicode-script",
     "font-kit",
     "calloop-wayland-source",
     "wayland-backend",
@@ -88,6 +89,7 @@ x11 = [
     "bytemuck",
     "ashpd",
     "cosmic-text",
+    "unicode-script",
     "font-kit",
     "as-raw-xcb-connection",
     "x11rb",
@@ -361,6 +363,10 @@ optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.cosmic-text]
 version = "0.14.0"
+optional = true
+
+[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.unicode-script]
+version = "0.5"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.filedescriptor]
