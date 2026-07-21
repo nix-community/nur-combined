@@ -564,13 +564,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-ksOexBXRdA9HOHiZy_vQkZLRCsdsn6AaygVNk9vBVpQ=/Cargo.lock",
-                {
-                    "ffmpeg_audio-0.1.0": "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE="
-                }
+                "sha256-V033+cFVeKgscYgxL1Nda1Dn5i+fkAhRBLith3cfoJE=/Cargo.lock",
+                {}
             ]
         },
-        "date": "2026-07-20",
+        "date": "2026-07-21",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -582,12 +580,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "84285cdeac2ade4a685e6ca12bad314e449c174f",
-            "sha256": "sha256-ksOexBXRdA9HOHiZy/vQkZLRCsdsn6AaygVNk9vBVpQ=",
+            "rev": "006eab3d573cdb6175dea7f2b42eaed9e4ee8a1a",
+            "sha256": "sha256-V033+cFVeKgscYgxL1Nda1Dn5i+fkAhRBLith3cfoJE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "84285cdeac2ade4a685e6ca12bad314e449c174f"
+        "version": "006eab3d573cdb6175dea7f2b42eaed9e4ee8a1a"
     },
     "svt-av1-essential": {
         "cargoLock": null,

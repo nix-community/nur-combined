@@ -349,21 +349,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "84285cdeac2ade4a685e6ca12bad314e449c174f";
+    version = "006eab3d573cdb6175dea7f2b42eaed9e4ee8a1a";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "84285cdeac2ade4a685e6ca12bad314e449c174f";
+      rev = "006eab3d573cdb6175dea7f2b42eaed9e4ee8a1a";
       fetchSubmodules = false;
-      sha256 = "sha256-ksOexBXRdA9HOHiZy/vQkZLRCsdsn6AaygVNk9vBVpQ=";
+      sha256 = "sha256-V033+cFVeKgscYgxL1Nda1Dn5i+fkAhRBLith3cfoJE=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ksOexBXRdA9HOHiZy_vQkZLRCsdsn6AaygVNk9vBVpQ=/Cargo.lock";
+      lockFile = ./. + "/sha256-V033+cFVeKgscYgxL1Nda1Dn5i+fkAhRBLith3cfoJE=/Cargo.lock";
       outputHashes = {
-        "ffmpeg_audio-0.1.0" = "sha256-mcFNN6opRtmofuEg2BsWpOiutFQ23DAe+TCXBL1MQfE=";
+        
       };
     };
-    date = "2026-07-20";
+    date = "2026-07-21";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
