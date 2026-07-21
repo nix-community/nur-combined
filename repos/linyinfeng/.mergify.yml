@@ -5,7 +5,7 @@ pull_request_rules:
         - "#approved-reviews-by>=1"
         - "label=auto update"
       - "label=auto merge"
-      - "check-success=tests"
+      - "check-success~=^Check"
       - "#check-pending=0"
       - "#check-failure=0"
     actions:
