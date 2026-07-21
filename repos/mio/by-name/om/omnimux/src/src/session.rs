@@ -1,20 +1,18 @@
 use crate::palette::symbol_font_fallbacks;
+use crate::tabs::TerminalTabs;
 use gpui::prelude::*;
 use gpui::*;
-use gpui_terminal::{Clipboard, ColorPalette, TerminalConfig, TerminalView};
+use gpui_terminal::{ColorPalette, TerminalConfig, TerminalView};
 use portable_pty::{CommandBuilder, NativePtySystem, PtySize, PtySystem};
 use std::time::Instant;
 
 pub struct TerminalSession {
     pub terminal_view: Entity<TerminalView>,
-    pub child: std::sync::Arc<std::sync::Mutex<Box<dyn portable_pty::Child + Send + Sync>>>,
+    child: std::sync::Arc<std::sync::Mutex<Box<dyn portable_pty::Child + Send + Sync>>>,
     pub has_exited: bool,
     pub exit_status: Option<u32>,
     pub host: Option<String>,
-    pub wants_search: bool,
-    /// Consecutive failed reconnects (for backoff).
     pub reconnect_streak: u32,
-    /// When set, auto-reconnect waits until this instant.
     pub pending_reconnect_at: Option<Instant>,
 }
 
@@ -23,8 +21,10 @@ impl TerminalSession {
         host: Option<String>,
         colors: ColorPalette,
         font_size: Pixels,
+        tabs: WeakEntity<TerminalTabs>,
         cx: &mut Context<Self>,
     ) -> Self {
+        let session = cx.entity().downgrade();
         let pty_system = NativePtySystem::default();
         let pair = match pty_system.openpty(PtySize {
             rows: 24,
@@ -35,7 +35,14 @@ impl TerminalSession {
             Ok(pair) => pair,
             Err(err) => {
                 eprintln!("omnimux: failed to open PTY: {err}");
-                return Self::failed_session(host, colors, font_size, &format!("open PTY: {err}"), cx);
+                return Self::failed_session(
+                    host,
+                    colors,
+                    font_size,
+                    tabs,
+                    &format!("open PTY: {err}"),
+                    cx,
+                );
             }
         };
 
@@ -80,6 +87,7 @@ impl TerminalSession {
                             host,
                             colors,
                             font_size,
+                            tabs,
                             &format!("spawn failed: {err2}"),
                             cx,
                         );
@@ -99,6 +107,7 @@ impl TerminalSession {
                     host,
                     colors,
                     font_size,
+                    tabs,
                     &format!("PTY reader: {err}"),
                     cx,
                 );
@@ -112,6 +121,7 @@ impl TerminalSession {
                     host,
                     colors,
                     font_size,
+                    tabs,
                     &format!("PTY writer: {err}"),
                     cx,
                 );
@@ -138,6 +148,8 @@ impl TerminalSession {
 
         let terminal_view = cx.new(|cx| {
             let master_clone = master.clone();
+            let session = session.clone();
+            let tabs = tabs.clone();
             TerminalView::new(writer, reader, config, cx)
                 .with_resize_callback(move |cols, rows| {
                     if let Ok(master) = master_clone.lock() {
@@ -149,21 +161,13 @@ impl TerminalSession {
                         });
                     }
                 })
-                .with_key_handler(|ev| {
-                    let mods = &ev.keystroke.modifiers;
-                    let key = ev.keystroke.key.as_str();
-                    if mods.platform {
-                        return matches!(key, "=" | "+" | "-" | "0" | "c" | "v" | "f");
-                    }
-                    if mods.control {
-                        if matches!(key, "=" | "+" | "-" | "0" | "f") {
-                            return true;
-                        }
-                        if mods.shift && matches!(key, "c" | "v") && !cfg!(target_os = "macos") {
-                            return true;
-                        }
-                    }
-                    false
+                .with_exit_callback(move |_window, cx| {
+                    let _ = session.update(cx, |session, cx| {
+                        session.on_pty_exit(cx);
+                    });
+                    let _ = tabs.update(cx, |tabs, cx| {
+                        tabs.on_session_exited(session.clone(), cx);
+                    });
                 })
         });
 
@@ -173,20 +177,20 @@ impl TerminalSession {
             has_exited: false,
             exit_status: None,
             host,
-            wants_search: false,
             reconnect_streak: 0,
             pending_reconnect_at: None,
         }
     }
 
-    /// Session that shows an error message in the terminal instead of panicking.
     fn failed_session(
         host: Option<String>,
         colors: ColorPalette,
         font_size: Pixels,
+        tabs: WeakEntity<TerminalTabs>,
         message: &str,
         cx: &mut Context<Self>,
     ) -> Self {
+        let session = cx.entity().downgrade();
         let pty_system = NativePtySystem::default();
         let pair = pty_system
             .openpty(PtySize {
@@ -226,8 +230,14 @@ impl TerminalSession {
             font_fallbacks: symbol_font_fallbacks(),
         };
 
-        let terminal_view =
-            cx.new(|cx| TerminalView::new(writer, reader, config, cx));
+        let terminal_view = cx.new(|cx| {
+            let session = session.clone();
+            let tabs = tabs.clone();
+            TerminalView::new(writer, reader, config, cx).with_exit_callback(move |_window, cx| {
+                let _ = session.update(cx, |session, cx| session.on_pty_exit(cx));
+                let _ = tabs.update(cx, |tabs, cx| tabs.on_session_exited(session.clone(), cx));
+            })
+        });
 
         Self {
             terminal_view,
@@ -235,68 +245,44 @@ impl TerminalSession {
             has_exited: false,
             exit_status: None,
             host,
-            wants_search: false,
             reconnect_streak: 0,
             pending_reconnect_at: None,
         }
     }
 
-    pub fn check_exit(&mut self) {
-        if !self.has_exited {
-            if let Ok(mut child) = self.child.lock() {
-                if let Ok(Some(status)) = child.try_wait() {
-                    self.has_exited = true;
-                    self.exit_status = Some(if status.success() { 0 } else { 255 });
-                }
-            }
+    /// Kill the PTY child process (tab close, reconnect replacement).
+    pub fn close(&mut self) {
+        if let Ok(mut child) = self.child.lock() {
+            let _ = child.kill();
         }
+    }
+
+    pub fn on_pty_exit(&mut self, cx: &mut Context<Self>) {
+        if self.has_exited {
+            return;
+        }
+        if let Ok(mut child) = self.child.lock() {
+            if let Ok(Some(status)) = child.try_wait() {
+                self.has_exited = true;
+                self.exit_status = Some(status.exit_code() as u32);
+            } else {
+                self.has_exited = true;
+                self.exit_status = Some(255);
+            }
+        } else {
+            self.has_exited = true;
+            self.exit_status = Some(255);
+        }
+        if self.exit_status == Some(0) {
+            self.reconnect_streak = 0;
+            self.pending_reconnect_at = None;
+        }
+        cx.notify();
     }
 }
 
 impl Render for TerminalSession {
-    fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        let terminal_view = self.terminal_view.clone();
-        div()
-            .size_full()
-            .on_key_down(cx.listener(move |this, ev: &gpui::KeyDownEvent, _window, cx| {
-                let mods = &ev.keystroke.modifiers;
-                if !(mods.platform || mods.control) {
-                    return;
-                }
-                let key = ev.keystroke.key.as_str();
-                if key == "f" {
-                    cx.stop_propagation();
-                    this.wants_search = true;
-                    cx.notify();
-                    return;
-                }
-                let paste = key == "v"
-                    && (mods.platform || (mods.control && mods.shift && !cfg!(target_os = "macos")));
-                if paste {
-                    cx.stop_propagation();
-                    if let Ok(mut clipboard) = Clipboard::new() {
-                        if let Ok(text) = clipboard.paste() {
-                            terminal_view.update(cx, |tv, _| {
-                                tv.write_input(&text);
-                            });
-                        }
-                    }
-                    return;
-                }
-                let copy = key == "c"
-                    && (mods.platform
-                        || (mods.control && mods.shift && !cfg!(target_os = "macos")));
-                if copy {
-                    cx.stop_propagation();
-                    terminal_view.update(cx, |tv, _| {
-                        let _ = tv.copy_selection();
-                    });
-                    return;
-                }
-                if key == "=" || key == "+" || key == "-" || key == "0" {
-                    cx.stop_propagation();
-                }
-            }))
-            .child(self.terminal_view.clone())
+    fn render(&mut self, _window: &mut Window, _cx: &mut Context<Self>) -> impl IntoElement {
+        div().size_full().child(self.terminal_view.clone())
     }
 }

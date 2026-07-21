@@ -1,10 +1,16 @@
+mod actions;
 mod fonts;
+mod hosts;
 mod palette;
 mod session;
 mod settings;
 mod ssh_config;
 mod tabs;
 
+use actions::{
+    CloseOverlay, CloseTab, Copy, FindInTerminal, HostListDown, HostListUp, NewTab, NextTab,
+    Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut, ZoomReset,
+};
 use fonts::load_bundled_symbol_fonts;
 use gpui::prelude::*;
 use gpui::*;
@@ -15,6 +21,42 @@ fn main() {
         gpui_component::init(cx);
         load_bundled_symbol_fonts(cx);
 
+        cx.bind_keys([
+            KeyBinding::new("cmd-t", NewTab, Some("omnimux")),
+            KeyBinding::new("ctrl-t", NewTab, Some("omnimux")),
+            KeyBinding::new("cmd-w", CloseTab, Some("omnimux")),
+            KeyBinding::new("ctrl-w", CloseTab, Some("omnimux")),
+            KeyBinding::new("cmd-f", FindInTerminal, Some("omnimux")),
+            KeyBinding::new("ctrl-f", FindInTerminal, Some("omnimux")),
+            KeyBinding::new("cmd-=", ZoomIn, Some("omnimux")),
+            KeyBinding::new("ctrl-=", ZoomIn, Some("omnimux")),
+            KeyBinding::new("cmd-plus", ZoomIn, Some("omnimux")),
+            KeyBinding::new("ctrl-plus", ZoomIn, Some("omnimux")),
+            KeyBinding::new("cmd--", ZoomOut, Some("omnimux")),
+            KeyBinding::new("ctrl--", ZoomOut, Some("omnimux")),
+            KeyBinding::new("cmd-0", ZoomReset, Some("omnimux")),
+            KeyBinding::new("ctrl-0", ZoomReset, Some("omnimux")),
+            KeyBinding::new("cmd-c", Copy, Some("omnimux")),
+            #[cfg(not(target_os = "macos"))]
+            KeyBinding::new("ctrl-shift-c", Copy, Some("omnimux")),
+            KeyBinding::new("cmd-v", Paste, Some("omnimux")),
+            #[cfg(not(target_os = "macos"))]
+            KeyBinding::new("ctrl-shift-v", Paste, Some("omnimux")),
+            KeyBinding::new("escape", CloseOverlay, Some("omnimux")),
+            KeyBinding::new("escape", CloseOverlay, Some("omnimux_prompt")),
+            KeyBinding::new("escape", CloseOverlay, Some("omnimux_search")),
+            KeyBinding::new("cmd-]", NextTab, Some("omnimux")),
+            KeyBinding::new("ctrl-]", NextTab, Some("omnimux")),
+            KeyBinding::new("cmd-[", PrevTab, Some("omnimux")),
+            KeyBinding::new("ctrl-[", PrevTab, Some("omnimux")),
+            KeyBinding::new("up", HostListUp, Some("omnimux_prompt")),
+            KeyBinding::new("down", HostListDown, Some("omnimux_prompt")),
+            KeyBinding::new("cmd-g", SearchNext, Some("omnimux_search")),
+            KeyBinding::new("ctrl-g", SearchNext, Some("omnimux_search")),
+            KeyBinding::new("cmd-shift-g", SearchPrev, Some("omnimux_search")),
+            KeyBinding::new("ctrl-shift-g", SearchPrev, Some("omnimux_search")),
+        ]);
+
         let bounds = Bounds::centered(None, size(px(800.0), px(600.0)), cx);
         cx.open_window(
             WindowOptions {
@@ -24,8 +66,6 @@ fn main() {
                     appears_transparent: true,
                     traffic_light_position: Some(point(px(12.0), px(10.0))),
                 }),
-                // Always client decorations so we have a single title bar (app chrome +
-                // window controls). Server decorations on Plasma doubled the chrome.
                 window_decorations: Some(WindowDecorations::Client),
                 app_id: Some("omnimux".into()),
                 ..Default::default()

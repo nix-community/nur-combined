@@ -61,6 +61,7 @@ in
   pkg-config,
   pkgsCross, # wasm32 rlbox
   python3,
+  python313,
   runCommand,
   rustc,
   rust-cbindgen,
@@ -367,7 +368,7 @@ buildStdenv.mkDerivation {
     makeBinaryWrapper
     nodejs
     perl
-    python3
+    (if lib.versionAtLeast version "143.0" then python3 else python313)
     rust-cbindgen
     rustPlatform.bindgenHook
     rustc

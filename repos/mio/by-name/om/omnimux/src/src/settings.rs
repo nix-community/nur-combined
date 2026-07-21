@@ -46,3 +46,23 @@ pub fn load_session() -> Vec<Option<String>> {
         .map(|h| if h == "localhost" { None } else { Some(h) })
         .collect()
 }
+
+pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
+    let dir = config_dir();
+    let _ = std::fs::create_dir_all(&dir);
+    let settings = Settings {
+        keep_tab_after_exit: Some(tabs.keep_tab_after_exit),
+        auto_reconnect: Some(tabs.auto_reconnect),
+        remember_session: Some(tabs.remember_session),
+        sync_font_size_across_tabs: Some(tabs.sync_font_size_across_tabs),
+        remember_font_size: Some(tabs.remember_font_size),
+        font_size: if tabs.remember_font_size {
+            Some(f32::from(tabs.font_size))
+        } else {
+            None
+        },
+    };
+    if let Ok(json) = serde_json::to_string_pretty(&settings) {
+        let _ = std::fs::write(dir.join("settings.json"), json);
+    }
+}

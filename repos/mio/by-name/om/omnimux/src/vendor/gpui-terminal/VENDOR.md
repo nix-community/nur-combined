@@ -63,7 +63,7 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 
 ## What Omnimux owns (not in this vendor)
 
-Tab chrome, SSH+tmux spawn, settings (theme sync, font sync/remember), focus hacks, packaging, and shortcut routing live in `by-name/om/omnimux/src/src/main.rs` (and `package.nix`), not here.
+Tab chrome, SSH+tmux spawn, settings (theme sync, font sync/remember), focus hacks, packaging, and shortcut routing live in `by-name/om/omnimux/src/src/tabs/` (and `package.nix`), not here.
 
 ## Refresh / rebase tips
 
