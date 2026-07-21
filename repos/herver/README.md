@@ -8,9 +8,10 @@
 [![Cachix Cache](https://img.shields.io/badge/cachix-herver-blue.svg)](https://herver.cachix.org)
 
 ## Packages
- * [Claude Code](https://code.claude.com/docs/en/overview)
  * [IB Gateway](https://www.interactivebrokers.com/en/trading/ibgateway-latest.php)
  * [IBKR Desktop](https://www.interactivebrokers.com/en/trading/ibkr-desktop.php)
+ * [powerctl](https://git.sr.ht/~sircmpwn/powerctl)
  * [Proton Meet](https://proton.me/meet)
  * [TrackAudio](https://github.com/pierr3/TrackAudio)
+ * [udpxy](https://github.com/pcherenkov/udpxy)
  * [vATIS](https://github.com/vatis-project/vatis)
