@@ -7,15 +7,15 @@
 
 buildGoModule rec {
   pname = "deepseek-reasonix";
-  version = "1.17.11";
+  version = "1.17.17";
   src = fetchFromGitHub {
     owner = "esengine";
     repo = "DeepSeek-Reasonix";
     rev = "v${version}";
-    sha256 = "sha256-8p1HhF0Rw88euVCUqwF6gZuctoCNUHS40h6b7mIgNcA=";
+    sha256 = "sha256-pyK7XeabaVH7cazcoFuGvxJ5rGKmaP8U1PBWFncrI0I=";
   };
 
-  vendorHash = "sha256-7RvxEQ0+bPMpznVqB1NF6rE/TMfP2N54/xr3bP8T2iA=";
+  vendorHash = "sha256-oy51NImtaG9tP5NbgR9N9nLYsgoDqNwj2G4h3HkHFFY=";
 
   subPackages = [
     "cmd/reasonix"

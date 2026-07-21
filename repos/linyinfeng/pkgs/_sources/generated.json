@@ -50,7 +50,7 @@
     },
     "codestable": {
         "cargoLock": null,
-        "date": "2026-07-11",
+        "date": "2026-07-21",
         "extract": null,
         "name": "codestable",
         "passthru": null,
@@ -60,13 +60,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "00c78b38a6d8242eaac7c8a045dc623b58df6fe3",
-            "sha256": "sha256-/WUwTvF1w4b0AbOgqCThAnLdOYVn+pfraB4Bwjg9BKo=",
+            "rev": "7bed4ed514cee2021b5bb822a370f28ab20bc459",
+            "sha256": "sha256-OEldyIU87lzn6da7MqDRqRN7cVz0G61jpDFGezIx/dM=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/liuzhengdongfortest/CodeStable"
         },
-        "version": "00c78b38a6d8242eaac7c8a045dc623b58df6fe3"
+        "version": "7bed4ed514cee2021b5bb822a370f28ab20bc459"
     },
     "cowrie": {
         "cargoLock": null,
@@ -82,12 +82,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v3.0.5",
-            "sha256": "sha256-cfECng27sL8Z39QbGJSgD9rJ6vmX3MpWJicNFRBjjpg=",
+            "rev": "v3.0.8",
+            "sha256": "sha256-JHi2ABNbWNwRRnDOD0pVeEyHPLg9Fzyx6QVqXUdz9SQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.5"
+        "version": "v3.0.8"
     },
     "dot-tar": {
         "cargoLock": {
@@ -189,12 +189,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.37-linux-260629T040856Z",
-            "sha256": "sha256-vZNYWdy1Esn2pK5Uh/q99T7bjTlJ+Ut7QUkHhDBPopc=",
+            "rev": "lts-v6.18.37-linux-260713T060441Z",
+            "sha256": "sha256-f3aIDE3XdqYNFntomuojMN+/oVxAA/zZbEfvCUnuNPY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.37-linux-260629T040856Z"
+        "version": "lts-v6.18.37-linux-260713T060441Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -569,7 +569,7 @@
     },
     "rime-essay": {
         "cargoLock": null,
-        "date": "2026-07-03",
+        "date": "2026-07-13",
         "extract": null,
         "name": "rime-essay",
         "passthru": null,
@@ -579,17 +579,17 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "0debef3f5ae37f081758dd8bbd1fe79719410f7c",
-            "sha256": "sha256-nJ9DYXO+J4eiuwp/paUDviC9TBkt07NgWbxO319YA1M=",
+            "rev": "e9b1a374a6ea015fca5bdd04318924b4483ac35a",
+            "sha256": "sha256-WPutZuxoLQfNk0devhGb2ooAZ7zJt0Ta7OiUtuveJ00=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-essay.git"
         },
-        "version": "0debef3f5ae37f081758dd8bbd1fe79719410f7c"
+        "version": "e9b1a374a6ea015fca5bdd04318924b4483ac35a"
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-07-08",
+        "date": "2026-07-20",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -599,13 +599,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "3a543652a42c21904c62bd881d65e987600f0722",
-            "sha256": "sha256-lIOTc2zdZH9GXKHuH2lv40I8+KaZxo8nZGbZPyBfXbs=",
+            "rev": "b681a34f788795034b3b288830f4861980bc8b0d",
+            "sha256": "sha256-kqn3c5qAotPmItFQURrGtWIko4vQPNqH7S3d1t4nwwU=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/iDvel/rime-ice.git"
         },
-        "version": "3a543652a42c21904c62bd881d65e987600f0722"
+        "version": "b681a34f788795034b3b288830f4861980bc8b0d"
     },
     "rime-loengfan": {
         "cargoLock": null,
@@ -689,7 +689,7 @@
     },
     "rime-quick": {
         "cargoLock": null,
-        "date": "2026-06-01",
+        "date": "2026-07-17",
         "extract": null,
         "name": "rime-quick",
         "passthru": null,
@@ -699,13 +699,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "739ec781a1b88b862823beebb81edaa2d37150cf",
-            "sha256": "sha256-kK/9RxsvPBTL1p+8iOpagDhFiv9QJBKuU8EZlhxhfHI=",
+            "rev": "5dcdb9e353d314239e9c8cddc0f42d52da4837bb",
+            "sha256": "sha256-O+Rbsff2V+TTfrC82PZftALEDDVI2SUUFBlDHyztH/k=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-quick.git"
         },
-        "version": "739ec781a1b88b862823beebb81edaa2d37150cf"
+        "version": "5dcdb9e353d314239e9c8cddc0f42d52da4837bb"
     },
     "rime-stroke": {
         "cargoLock": null,
@@ -729,7 +729,7 @@
     },
     "rime-terra-pinyin": {
         "cargoLock": null,
-        "date": "2026-06-01",
+        "date": "2026-07-17",
         "extract": null,
         "name": "rime-terra-pinyin",
         "passthru": null,
@@ -739,13 +739,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "8ddd679e4485e1d2f411e90f104244eddf580382",
-            "sha256": "sha256-wR2FZRNdxqV8YnsrQ/jWah9WhYFp1pe1cipyYe97NC4=",
+            "rev": "8a2c895ad7ee8e2b137d91be77f18f86b04d7fc9",
+            "sha256": "sha256-clWou1k0a2SFi964e27f4Jee1xx5e85vScYIWJ+exbw=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/rime/rime-terra-pinyin.git"
         },
-        "version": "8ddd679e4485e1d2f411e90f104244eddf580382"
+        "version": "8a2c895ad7ee8e2b137d91be77f18f86b04d7fc9"
     },
     "rime-wubi": {
         "cargoLock": null,
