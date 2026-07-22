@@ -46,7 +46,7 @@ in
       # each concurrent derivation realization uses a different nix build user.
       # default is 32 build users, limiting us to that many concurrent jobs.
       # it's nice to not be limited in that way, so increase this a bit.
-      nix.nrBuildUsers = 64;
+      nix.nrBuildUsers = 256;
 
       # big-parallel allows building e.g. webkitgtk. kvm, nixos-test allows building `nixosTests` (in `nixpkgs` repo).
       nix.settings.system-features = [ "big-parallel" "kvm" "nixos-test" ];
