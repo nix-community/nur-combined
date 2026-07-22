@@ -11,8 +11,8 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "0zby4xi7wld5q3rmblw594d73cl05kg1gn5lr0ivna5sidmx15nh";
-    aarch64-linux = "1isrp36jnw862141w7cpc8fdyx868gvqjksqi58mbwrmb1hrg9q1";
+    x86_64-linux = "1qd43cr7ld8hv0437viakn0gl5l01v0q4qxbwlkq5lnv1rv3629x";
+    aarch64-linux = "0w2s5461chhv6kglv4d5jqbn58hnnwjmk3ww22rmxapx314pgb7b";
   };
 
   urlMap = {
