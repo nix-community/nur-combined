@@ -1,0 +1,30 @@
+diff --git a/src/walk.rs b/src/walk.rs
+index 7316475..77f2691 100644
+--- a/src/walk.rs
++++ b/src/walk.rs
+@@ -524,13 +524,11 @@ impl WorkerState {
+                 // Check the name first, since it doesn't require metadata
+                 let entry_path = entry.path();
+ 
+-                let search_str: Cow<OsStr> = if config.search_full_path {
+-                    let path_abs_buf = filesystem::path_absolute_form(entry_path)
+-                        .expect("Retrieving absolute path succeeds");
+-                    Cow::Owned(path_abs_buf.as_os_str().to_os_string())
++                let search_str: &OsStr = if config.search_full_path {
++                    entry_path.as_os_str()
+                 } else {
+                     match entry_path.file_name() {
+-                        Some(filename) => Cow::Borrowed(filename),
++                        Some(filename) => filename,
+                         None => unreachable!(
+                             "Encountered file system entry without a file name. This should only \
+                              happen for paths like 'foo/bar/..' or '/' which are not supposed to \
+@@ -541,7 +539,7 @@ impl WorkerState {
+ 
+                 if !patterns
+                     .iter()
+-                    .all(|pat| pat.is_match(&filesystem::osstr_to_bytes(search_str.as_ref())))
++                    .all(|pat| pat.is_match(&filesystem::osstr_to_bytes(search_str)))
+                 {
+                     return WalkState::Continue;
+                 }
