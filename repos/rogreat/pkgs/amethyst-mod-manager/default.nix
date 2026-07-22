@@ -43,7 +43,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     # https://github.com/ChrisDKN/Amethyst-Mod-Manager/blob/main/src/requirements-vendor.txt
     pyside6
     py7zr
-    libarchive-c
     pillow
     lz4
     zstandard
@@ -51,8 +50,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     websocket-client
     keyring
     jeepney
-    importlib-metadata
-    backports-tarfile
     msgpack
     bsdiff4
   ]);
