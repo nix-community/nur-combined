@@ -17,7 +17,6 @@
 , udev
 , gtk3
 , qtbase
-, xorg
 , cups
 , pango
 , freetype
@@ -33,6 +32,16 @@
 , libglvnd
 , cairo
 , gdk-pixbuf
+, libXdamage
+, libXtst
+, libXv
+, libXScrnSaver
+, libxcb
+, libX11
+, libXrender
+, libSM
+, libICE
+, libXcursor
 # For wpscloudsvr wrapper
 , pkg-config
 , libappindicator-gtk3
@@ -51,16 +60,16 @@ let
     udev
     gtk3
     qtbase
-    xorg.libXdamage
-    xorg.libXtst
-    xorg.libXv
-    xorg.libXScrnSaver
-    xorg.libxcb
-    xorg.libX11
-    xorg.libXrender
-    xorg.libSM
-    xorg.libICE
-    xorg.libXcursor
+    libXdamage
+    libXtst
+    libXv
+    libXScrnSaver
+    libxcb
+    libX11
+    libXrender
+    libSM
+    libICE
+    libXcursor
     cups
     pango
     libpulseaudio

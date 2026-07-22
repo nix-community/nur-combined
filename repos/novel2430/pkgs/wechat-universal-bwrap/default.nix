@@ -5,7 +5,6 @@
 , dpkg
 , nss
 , nspr
-, xorg
 , pango
 , zlib
 , atkmm
@@ -47,13 +46,30 @@
 , xhost
 , xdg-user-dirs
 , krb5
-
+, libXdamage
+, libXtst
+, libXv
+, libXScrnSaver
+, libxcb
+, libX11
+, libXrender
+, libSM
+, libICE
+, libXcursor
+, libXt
+, libXext
+, libxshmfence
+, libXi
+, libXft
+, libXfixes
+, libXcomposite
+, libXrandr
 , makeWrapper
 , copyDesktopItems
 , makeDesktopItem
 }:
 let
-  libraries = with xorg; [
+  libraries = [
     # Make sure our glibc without hardening gets picked up first
     (lib.hiPrio glibcWithoutHardening)
     stdenv.cc.cc

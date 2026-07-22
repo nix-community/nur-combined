@@ -1,9 +1,10 @@
 {stdenv, fetchFromGitHub, lib
 , gnumake
 , xclip
-, xorg
 , file
 , pkg-config
+, libXfixes
+, libX11
 }:
 stdenv.mkDerivation {
   pname = "clipsim";
@@ -17,9 +18,9 @@ stdenv.mkDerivation {
 
   buildInputs = [
     xclip
-    xorg.libXfixes
+    libXfixes
     file
-    xorg.libX11
+    libX11
   ];
 
   nativeBuildInputs = [ 

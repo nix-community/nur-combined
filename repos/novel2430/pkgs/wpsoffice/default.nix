@@ -16,7 +16,6 @@
 , udev
 , gtk3
 , qtbase
-, xorg
 , cups
 , pango
 , freetype
@@ -27,6 +26,9 @@
 , zlib
 , libdeflate
 , libusb1
+, libXdamage
+, libXtst
+, libXv
 # For wpscloudsvr wrapper
 , libappindicator-gtk3
 
@@ -131,9 +133,9 @@ stdenv.mkDerivation rec {
     udev
     gtk3
     qtbase
-    xorg.libXdamage
-    xorg.libXtst
-    xorg.libXv
+    libXdamage
+    libXtst
+    libXv
     libusb1
     libappindicator-gtk3
   ];

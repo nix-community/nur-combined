@@ -20,10 +20,17 @@
   gdk-pixbuf,
   nss,
   nspr,
-  xorg,
   pango,
   systemd,
   pciutils,
+  libX11,
+  libxcb,
+  libXcomposite,
+  libXdamage,
+  libXext,
+  libXfixes,
+  libXrandr,
+  libxkbfile,
 }:
 let
   headersFetcher =
@@ -45,14 +52,14 @@ let
       gtk3
       nss
       nspr
-      xorg.libX11
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXdamage
-      xorg.libXext
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libxkbfile
+      libX11
+      libxcb
+      libXcomposite
+      libXdamage
+      libXext
+      libXfixes
+      libXrandr
+      libxkbfile
       pango
       pciutils
       stdenv.cc.cc.lib

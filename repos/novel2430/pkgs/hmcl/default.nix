@@ -6,7 +6,6 @@
   makeWrapper,
   copyDesktopItems,
   jre,
-  xorg,
   glib,
   libGL,
   glfw,
@@ -16,6 +15,12 @@
   wayland,
   vulkan-loader,
   libpulseaudio,
+  libX11,
+  libXxf86vm,
+  libXext,
+  libXcursor,
+  libXrandr,
+  libXtst,
 }:
 let
   icon = fetchurl {
@@ -29,12 +34,12 @@ let
     openal
     libglvnd
     vulkan-loader
-    xorg.libX11
-    xorg.libXxf86vm
-    xorg.libXext
-    xorg.libXcursor
-    xorg.libXrandr
-    xorg.libXtst
+    libX11
+    libXxf86vm
+    libXext
+    libXcursor
+    libXrandr
+    libXtst
     libpulseaudio
     wayland
     alsa-lib
@@ -56,11 +61,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "hmcl";
-  version = "3.11.2";
+  version = "3.15.2";
 
   src = fetchurl {
     url = "https://github.com/HMCL-dev/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    hash = "sha256-Db9ly87xt6+S6dgQ0bkVvKwY9t4pMPfnebMKPFrcbhc=";
+    hash = "sha256-SyT8snV83UYGsxr8I2sIYCCAIiei6WOBxPww7Sw0Gpo=";
   };
 
   dontUnpack = true;
