@@ -1,5 +1,5 @@
 diff --git a/src/walk.rs b/src/walk.rs
-index 7316475..77f2691 100644
+index 7316475..40cd6a7 100644
 --- a/src/walk.rs
 +++ b/src/walk.rs
 @@ -524,13 +524,11 @@ impl WorkerState {
@@ -11,7 +11,7 @@ index 7316475..77f2691 100644
 -                        .expect("Retrieving absolute path succeeds");
 -                    Cow::Owned(path_abs_buf.as_os_str().to_os_string())
 +                let search_str: &OsStr = if config.search_full_path {
-+                    entry_path.as_os_str()
++                    entry_path.strip_prefix("./").unwrap_or(entry_path).as_os_str()
                  } else {
                      match entry_path.file_name() {
 -                        Some(filename) => Cow::Borrowed(filename),
