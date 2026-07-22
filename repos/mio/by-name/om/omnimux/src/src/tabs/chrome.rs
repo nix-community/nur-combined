@@ -15,7 +15,8 @@ pub fn render_title_bar(
         let label_el = div()
             .child(label)
             .text_color(colors.text)
-            .text_base()
+            // Slightly larger glyphs without changing the 32px button box height.
+            .text_lg()
             .font_weight(FontWeight::MEDIUM);
         div()
             .id(id)
