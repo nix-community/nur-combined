@@ -7,7 +7,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.grok-search-rs) pname version src;
 
-  cargoHash = "sha256-ozFzIpd9IHiwoBxfUbjsBv2c//p1Qf06YK4KjaERjHE=";
+  cargoHash = "sha256-7PnhPNpivvWu6LxEbd1XNlHPabTennL/HDXgVl3Iqzo=";
 
   postPatch = ''
     sed -i -E 's/^version = ".*"/version = "${finalAttrs.version}"/' Cargo.toml
