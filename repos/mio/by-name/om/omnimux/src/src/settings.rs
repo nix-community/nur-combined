@@ -1,8 +1,67 @@
 use std::path::PathBuf;
 
+use gpui_terminal::Osc52Policy;
+
 pub fn config_dir() -> PathBuf {
     let home = std::env::var("HOME").unwrap_or_default();
     PathBuf::from(format!("{home}/.config/omnimux"))
+}
+
+/// Serializable OSC 52 policy for `settings.json`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize, serde::Deserialize, Default)]
+#[serde(rename_all = "snake_case")]
+pub enum Osc52Setting {
+    /// Block remote clipboard access (safest for untrusted hosts).
+    #[default]
+    Disabled,
+    /// Allow remote → local clipboard writes only.
+    OnlyCopy,
+    /// Allow local clipboard → remote reads only.
+    OnlyPaste,
+    /// Allow both directions.
+    CopyPaste,
+}
+
+impl From<Osc52Setting> for Osc52Policy {
+    fn from(value: Osc52Setting) -> Self {
+        match value {
+            Osc52Setting::Disabled => Osc52Policy::Disabled,
+            Osc52Setting::OnlyCopy => Osc52Policy::OnlyCopy,
+            Osc52Setting::OnlyPaste => Osc52Policy::OnlyPaste,
+            Osc52Setting::CopyPaste => Osc52Policy::CopyPaste,
+        }
+    }
+}
+
+impl From<Osc52Policy> for Osc52Setting {
+    fn from(value: Osc52Policy) -> Self {
+        match value {
+            Osc52Policy::Disabled => Osc52Setting::Disabled,
+            Osc52Policy::OnlyCopy => Osc52Setting::OnlyCopy,
+            Osc52Policy::OnlyPaste => Osc52Setting::OnlyPaste,
+            Osc52Policy::CopyPaste => Osc52Setting::CopyPaste,
+        }
+    }
+}
+
+impl Osc52Setting {
+    pub fn label(self) -> &'static str {
+        match self {
+            Self::Disabled => "Disabled (recommended)",
+            Self::OnlyCopy => "Remote → local only",
+            Self::OnlyPaste => "Local → remote only",
+            Self::CopyPaste => "Both directions",
+        }
+    }
+
+    pub fn all() -> [Self; 4] {
+        [
+            Self::Disabled,
+            Self::OnlyCopy,
+            Self::OnlyPaste,
+            Self::CopyPaste,
+        ]
+    }
 }
 
 #[derive(serde::Serialize, serde::Deserialize, Default)]
@@ -14,6 +73,8 @@ pub struct Settings {
     pub remember_font_size: Option<bool>,
     /// Stored when remember_font_size is enabled (pixels).
     pub font_size: Option<f32>,
+    /// OSC 52 remote clipboard policy. Default: disabled.
+    pub osc52: Option<Osc52Setting>,
 }
 
 pub fn load_settings() -> Settings {
@@ -61,6 +122,7 @@ pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
         } else {
             None
         },
+        osc52: Some(tabs.osc52),
     };
     if let Ok(json) = serde_json::to_string_pretty(&settings) {
         let _ = std::fs::write(dir.join("settings.json"), json);

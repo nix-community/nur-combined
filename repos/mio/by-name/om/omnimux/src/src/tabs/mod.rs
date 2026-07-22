@@ -12,7 +12,7 @@ pub use colors::ChromeColors;
 
 use crate::palette::{is_dark_appearance, palette_for_appearance, DEFAULT_FONT_SIZE};
 use crate::session::TerminalSession;
-use crate::settings::{load_session, load_settings};
+use crate::settings::{load_session, load_settings, Osc52Setting};
 use crate::ssh_config::get_ssh_hosts;
 use gpui::prelude::*;
 use gpui::*;
@@ -35,6 +35,7 @@ pub struct TerminalTabs {
     pub(crate) remember_session: bool,
     pub(crate) sync_font_size_across_tabs: bool,
     pub(crate) remember_font_size: bool,
+    pub(crate) osc52: Osc52Setting,
     pub(crate) font_size: Pixels,
     pub(crate) last_appearance: Option<WindowAppearance>,
     pub(crate) focus_active_terminal: bool,
@@ -58,6 +59,7 @@ impl TerminalTabs {
         let remember_session = settings.remember_session.unwrap_or(false);
         let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
         let remember_font_size = settings.remember_font_size.unwrap_or(false);
+        let osc52 = settings.osc52.unwrap_or_default();
         let font_size = if remember_font_size {
             px(
                 settings
@@ -71,6 +73,7 @@ impl TerminalTabs {
 
         let terminal_palette = palette_for_appearance(WindowAppearance::Light);
         let tabs_weak = cx.entity().downgrade();
+        let osc52_policy = osc52.into();
 
         let initial_tabs: Vec<Entity<TerminalSession>> = if remember_session {
             let saved = load_session();
@@ -82,7 +85,14 @@ impl TerminalTabs {
                     .map(|host| {
                         let colors = terminal_palette.clone();
                         cx.new(|cx| {
-                            TerminalSession::new(host, colors, font_size, tabs_weak.clone(), cx)
+                            TerminalSession::new(
+                                host,
+                                colors,
+                                font_size,
+                                osc52_policy,
+                                tabs_weak.clone(),
+                                cx,
+                            )
                         })
                     })
                     .collect()
@@ -169,6 +179,7 @@ impl TerminalTabs {
             remember_session,
             sync_font_size_across_tabs,
             remember_font_size,
+            osc52,
             font_size,
             last_appearance: None,
             focus_active_terminal: !start_prompt,

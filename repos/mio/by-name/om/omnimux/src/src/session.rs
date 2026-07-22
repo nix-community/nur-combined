@@ -2,7 +2,7 @@ use crate::palette::symbol_font_fallbacks;
 use crate::tabs::TerminalTabs;
 use gpui::prelude::*;
 use gpui::*;
-use gpui_terminal::{ColorPalette, TerminalConfig, TerminalView};
+use gpui_terminal::{ColorPalette, Osc52Policy, TerminalConfig, TerminalView};
 use portable_pty::{CommandBuilder, NativePtySystem, PtySize, PtySystem};
 use std::time::Instant;
 
@@ -21,6 +21,7 @@ impl TerminalSession {
         host: Option<String>,
         colors: ColorPalette,
         font_size: Pixels,
+        osc52: Osc52Policy,
         tabs: WeakEntity<TerminalTabs>,
         cx: &mut Context<Self>,
     ) -> Self {
@@ -39,6 +40,7 @@ impl TerminalSession {
                     host,
                     colors,
                     font_size,
+                    osc52,
                     tabs,
                     &format!("open PTY: {err}"),
                     cx,
@@ -55,6 +57,7 @@ impl TerminalSession {
                     host,
                     colors,
                     font_size,
+                    osc52,
                     tabs,
                     "unsafe SSH destination rejected",
                     cx,
@@ -98,6 +101,7 @@ impl TerminalSession {
                             host,
                             colors,
                             font_size,
+                            osc52,
                             tabs,
                             &format!("spawn failed: {err2}"),
                             cx,
@@ -118,6 +122,7 @@ impl TerminalSession {
                     host,
                     colors,
                     font_size,
+                    osc52,
                     tabs,
                     &format!("PTY reader: {err}"),
                     cx,
@@ -132,6 +137,7 @@ impl TerminalSession {
                     host,
                     colors,
                     font_size,
+                    osc52,
                     tabs,
                     &format!("PTY writer: {err}"),
                     cx,
@@ -155,7 +161,7 @@ impl TerminalSession {
             padding: Edges::default(),
             colors,
             font_fallbacks: symbol_font_fallbacks(),
-            osc52: gpui_terminal::Osc52Policy::Disabled,
+            osc52,
         };
 
         let terminal_view = cx.new(|cx| {
@@ -198,6 +204,7 @@ impl TerminalSession {
         host: Option<String>,
         colors: ColorPalette,
         font_size: Pixels,
+        osc52: Osc52Policy,
         tabs: WeakEntity<TerminalTabs>,
         message: &str,
         cx: &mut Context<Self>,
@@ -240,7 +247,7 @@ impl TerminalSession {
             padding: Edges::default(),
             colors,
             font_fallbacks: symbol_font_fallbacks(),
-            osc52: gpui_terminal::Osc52Policy::Disabled,
+            osc52,
         };
 
         let terminal_view = cx.new(|cx| {

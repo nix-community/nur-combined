@@ -188,17 +188,40 @@ impl TerminalTabs {
         self.remember_session = false;
         self.sync_font_size_across_tabs = true;
         self.remember_font_size = false;
+        self.osc52 = crate::settings::Osc52Setting::Disabled;
         self.font_size = px(DEFAULT_FONT_SIZE);
         let size = self.font_size;
+        let osc52 = self.osc52.into();
         for tab in &self.tabs {
             tab.update(cx, |session, cx| {
                 session.terminal_view.update(cx, |tv, cx| {
                     let mut config = tv.config().clone();
                     config.font_size = size;
+                    config.osc52 = osc52;
                     tv.update_config(config, cx);
                 });
             });
         }
         save_settings_from_tabs(self);
+    }
+
+    pub(crate) fn set_osc52(
+        &mut self,
+        osc52: crate::settings::Osc52Setting,
+        cx: &mut Context<Self>,
+    ) {
+        self.osc52 = osc52;
+        let policy = osc52.into();
+        for tab in &self.tabs {
+            tab.update(cx, |session, cx| {
+                session.terminal_view.update(cx, |tv, cx| {
+                    let mut config = tv.config().clone();
+                    config.osc52 = policy;
+                    tv.update_config(config, cx);
+                });
+            });
+        }
+        save_settings_from_tabs(self);
+        cx.notify();
     }
 }

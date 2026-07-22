@@ -1368,6 +1368,21 @@ impl TerminalView {
     /// * `config` - The new configuration to apply
     /// * `cx` - The context for triggering a repaint
     pub fn update_config(&mut self, config: TerminalConfig, cx: &mut Context<Self>) {
+        // Only push OSC 52 / scrollback into alacritty when they change. Calling
+        // `set_options` on every font/theme update would reset unrelated Term
+        // options and re-emit title events.
+        if config.osc52 != self.config.osc52 || config.scrollback != self.config.scrollback {
+            let scrolling_history = config.scrollback;
+            let osc52 = config.osc52;
+            self.state.with_term_mut(|term| {
+                term.set_options(alacritty_terminal::term::Config {
+                    scrolling_history,
+                    osc52: osc52.into(),
+                    ..alacritty_terminal::term::Config::default()
+                });
+            });
+        }
+
         // Update renderer with new font settings and palette
         self.renderer.font_family = config.font_family.clone();
         self.renderer.font_fallbacks = config.font_fallbacks.clone();

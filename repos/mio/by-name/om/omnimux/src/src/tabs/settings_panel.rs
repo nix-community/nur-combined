@@ -126,7 +126,7 @@ pub fn render_settings_panel(
                     Switch::new("remember_font_size_toggle")
                         .checked(this.remember_font_size)
                         .label("Remember last font size on relaunch")
-                        .mb_4()
+                        .mb_3()
                         .text_color(colors.text)
                         .on_click(move |checked, _, app| {
                             entity.update(app, |this, cx| {
@@ -135,6 +135,45 @@ pub fn render_settings_panel(
                                 cx.notify();
                             });
                         })
+                })
+                .child(
+                    div()
+                        .mb_1()
+                        .child("Remote clipboard (OSC 52)")
+                        .text_color(colors.text)
+                        .font_weight(FontWeight::SEMIBOLD),
+                )
+                .child(
+                    div()
+                        .mb_2()
+                        .text_xs()
+                        .text_color(colors.muted)
+                        .child(
+                            "A hostile remote can abuse OSC 52 to overwrite or read your clipboard. Keep disabled unless you need remote nvim/tmux clipboard sync.",
+                        ),
+                )
+                .child({
+                    let mut radios = div().flex_col().mb_4().gap_1();
+                    for (idx, option) in crate::settings::Osc52Setting::all().into_iter().enumerate()
+                    {
+                        let entity = entity.clone();
+                        let selected = this.osc52 == option;
+                        radios = radios.child(
+                            gpui_component::radio::Radio::new(("osc52", idx))
+                                .checked(selected)
+                                .label(option.label())
+                                .text_color(colors.text)
+                                .on_click(move |checked, _, app| {
+                                    // Radio toggles; only apply when selecting this option.
+                                    if *checked {
+                                        entity.update(app, |this, cx| {
+                                            this.set_osc52(option, cx);
+                                        });
+                                    }
+                                }),
+                        );
+                    }
+                    radios
                 })
                 .child(
                     div()
