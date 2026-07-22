@@ -42,6 +42,11 @@ jobs:
         set -euo pipefail
         updater=$(nix-build --no-out-link -A proton-pass.updateScript)
         "$updater"
+    - name: Update proton-drive-cli
+      run: |
+        set -euo pipefail
+        updater=$(nix-build --no-out-link -A proton-drive-cli.updateScript)
+        "$updater"
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v8
       with:

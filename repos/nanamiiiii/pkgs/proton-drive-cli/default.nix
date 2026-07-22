@@ -2,6 +2,11 @@
   lib,
   stdenvNoCC,
   fetchurl,
+  writeShellScript,
+  curl,
+  gnugrep,
+  gnused,
+  common-updater-scripts,
   autoPatchelfHook,
   glib,
   libffi,
@@ -27,16 +32,16 @@ let
     libgcrypt.lib
   ];
 
-  version = "0.5.0";
+  version = "0.6.0";
 
   sources = {
-    x86_64-linux = {
+    x86_64-linux = fetchurl {
       url = "https://proton.me/download/drive/cli/${version}/linux-x64/proton-drive";
-      hash = "sha512-2F7bxXQSySqXBbcKjTpcZq2TMzFVTWuSK5EtbfKbTl6bDXqUCllJJ91HiOH424bV6aI/CE8H29Uyf3qeUdYScg==";
+      hash = "sha512-539bJ6UagQY8I8FawKnwfg7FyGjnhnDzS0Wzw8Lmee12nmIleWuQDQ0Cc1oMUqIeunI1bzrWF94HbEBVMuaY3A==";
     };
-    aarch64-linux = {
+    aarch64-linux = fetchurl {
       url = "https://proton.me/download/drive/cli/${version}/linux-arm64/proton-drive";
-      hash = "sha512-pnnh4J0pQTRSpqwkZk29JJvK+h+yCOJLnAQTPNl0iL9obTUM/NJSJ0Ksad5CgUKsZctW6xHyUmDTtP+qV9OQVA==";
+      hash = "sha512-RlHXsj0RGpQNWg0wimKq99OfDWqM66TG+qK81pYkVX4OsZ9aUo6NdZ+x/NlsnglHd/q90hg3Le5WPGcSvRPN3g==";
     };
   };
 
@@ -49,9 +54,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proton-drive-cli";
   inherit version;
 
-  src = fetchurl {
-    inherit (source) url hash;
-  };
+  src = source;
 
   dontUnpack = true;
 
@@ -78,14 +81,50 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   dontStrip = true;
 
+  passthru = {
+    inherit sources;
+    updateScript = writeShellScript "update-proton-drive-cli" ''
+      set -o errexit -o nounset -o pipefail
+      export PATH="${
+        lib.makeBinPath [
+          curl
+          gnugrep
+          gnused
+          common-updater-scripts
+        ]
+      }"
+
+      newVersion="$(${curl}/bin/curl --fail --silent https://proton.me/download/drive/cli/index.html \
+        | grep --only-matching --extended-regexp '/download/drive/cli/[0-9]+(\.[0-9]+)+/linux-x64/proton-drive' \
+        | sed --quiet '1s|.*/cli/\([^/]*\)/.*|\1|p')"
+
+      if [[ -z "$newVersion" ]]; then
+        echo "Failed to determine the latest Proton Drive CLI version" >&2
+        exit 1
+      fi
+      if [[ "${version}" = "$newVersion" ]]; then
+        echo "proton-drive-cli is already up-to-date at ${version}"
+        exit 0
+      fi
+
+      for platform in ${lib.escapeShellArgs (builtins.attrNames sources)}; do
+        update-source-version proton-drive-cli "$newVersion" \
+          --ignore-same-version \
+          --source-key="sources.$platform"
+      done
+    '';
+  };
+
   nativeInstallCheckInputs = [ writableTmpDirAsHomeHook ];
   doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
 
     # installCheck runs without a Secret Service backend in the Nix sandbox.
-    PROTON_DRIVE_UNSAFE_SECRETS=1 $out/bin/proton-drive version | grep -F "cli-drive@${finalAttrs.version}"
-    PROTON_DRIVE_UNSAFE_SECRETS=1 $out/bin/proton-drive help > /dev/null
+    export PROTON_DRIVE_CREDENTIALS_STORE=unsafe_file
+    export PROTON_DRIVE_CACHE_DIR="$TMPDIR/proton-drive-cli"
+    $out/bin/proton-drive version | grep -F "cli-drive@${finalAttrs.version}"
+    $out/bin/proton-drive help > /dev/null
 
     runHook postInstallCheck
   '';
