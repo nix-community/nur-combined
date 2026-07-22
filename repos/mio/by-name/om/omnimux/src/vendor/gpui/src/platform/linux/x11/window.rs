@@ -1139,10 +1139,11 @@ impl X11WindowStatePtr {
         state.renderer.update_transparency(is_transparent);
         state.appearance = appearance;
         drop(state);
-        let mut callbacks = self.callbacks.borrow_mut();
-        if let Some(ref mut fun) = callbacks.appearance_changed {
-            (fun)()
+        let mut callback = self.callbacks.borrow_mut().appearance_changed.take();
+        if let Some(ref mut fun) = callback {
+            fun();
         }
+        self.callbacks.borrow_mut().appearance_changed = callback;
     }
 }
 

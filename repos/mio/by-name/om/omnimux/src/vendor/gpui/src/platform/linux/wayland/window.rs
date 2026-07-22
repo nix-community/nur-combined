@@ -751,10 +751,12 @@ impl WaylandWindowStatePtr {
     pub fn set_appearance(&mut self, appearance: WindowAppearance) {
         self.state.borrow_mut().appearance = appearance;
 
-        let mut callbacks = self.callbacks.borrow_mut();
-        if let Some(ref mut fun) = callbacks.appearance_changed {
-            (fun)()
+        // Take-call-restore so appearance observers can touch callbacks / platform.
+        let mut callback = self.callbacks.borrow_mut().appearance_changed.take();
+        if let Some(ref mut fun) = callback {
+            fun();
         }
+        self.callbacks.borrow_mut().appearance_changed = callback;
     }
 
     pub fn primary_output_scale(&self) -> i32 {

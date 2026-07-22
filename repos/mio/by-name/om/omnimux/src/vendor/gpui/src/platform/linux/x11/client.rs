@@ -456,9 +456,20 @@ impl X11Client {
             .insert_source(XDPEventSource::new(&common.background_executor), {
                 move |event, _, client| match event {
                     XDPEvent::WindowAppearance(appearance) => {
-                        client.with_common(|common| common.appearance = appearance);
-                        for window in client.0.borrow_mut().windows.values_mut() {
-                            window.window.set_appearance(appearance);
+                        // Drop client borrow before set_appearance (observers may
+                        // call Platform::window_appearance → with_common).
+                        let windows = {
+                            client.with_common(|common| common.appearance = appearance);
+                            client
+                                .0
+                                .borrow()
+                                .windows
+                                .values()
+                                .map(|w| w.window.clone())
+                                .collect::<Vec<_>>()
+                        };
+                        for mut window in windows {
+                            window.set_appearance(appearance);
                         }
                     }
                     XDPEvent::CursorTheme(_) | XDPEvent::CursorSize(_) => {

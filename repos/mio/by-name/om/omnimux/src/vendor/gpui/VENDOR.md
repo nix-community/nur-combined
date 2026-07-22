@@ -61,6 +61,9 @@ Source of the touch logic:
   with `Symbols Nerd Font Mono` / `Symbols Nerd Font` (Omnimux ships them for
   Starship; GPUI's `Font.fallbacks` field is ignored on Linux). Allow loading
   symbol-only faces that lack ASCII `m`.
+- Wayland/X11 XDP appearance handler: drop the client `RefCell` borrow before
+  `set_appearance` (observers may call `Platform::window_appearance` →
+  `with_common`). Also take-call-restore for the appearance callback.
 
 ## Why not git-only from Zed / gpui-ce
 

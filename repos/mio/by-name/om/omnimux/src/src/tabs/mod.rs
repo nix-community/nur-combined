@@ -140,7 +140,10 @@ impl TerminalTabs {
                 }
             }),
             cx.observe_window_appearance(window, |this, window, cx| {
-                let appearance = cx.window_appearance();
+                // Prefer window.appearance() over cx.window_appearance(): the
+                // latter re-borrows the Wayland client RefCell while XDP still
+                // holds it (gpui-component Theme::sync_system_appearance note).
+                let appearance = window.appearance();
                 this.sync_appearance(appearance, window, cx);
             }),
             cx.observe_window_bounds(window, |this, window, cx| {
