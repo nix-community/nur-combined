@@ -9,6 +9,7 @@ on:
   schedule:
     # GitHub Actions cron uses UTC.
     - cron: "51 2 * * *"
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -29,7 +30,7 @@ jobs:
         # Cachix cache name without ".cachix.org".
         # Leave the placeholder unchanged when Cachix is not configured.
         cachixName:
-          - <YOUR_CACHIX_NAME>
+          - "<YOUR_CACHIX_NAME>"
 
         nixPath:
           - nixpkgs=channel:nixos-26.05
@@ -78,13 +79,12 @@ jobs:
 
       - name: Build Nix packages
         run: |
-          nix build \
-            --file ci.nix \
-            cacheOutputs \
-            --no-link \
-            --print-build-logs \
-            --log-format raw \
-            --option keep-going true
+          nix shell \
+            -f '<nixpkgs>' \
+            nix-build-uncached \
+            -c nix-build-uncached \
+            ci.nix \
+            -A cacheOutputs
 
       - name: Trigger NUR update
         if: >-
