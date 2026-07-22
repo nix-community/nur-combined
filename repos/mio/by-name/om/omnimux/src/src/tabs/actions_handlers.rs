@@ -4,6 +4,7 @@ use crate::palette::DEFAULT_FONT_SIZE;
 use crate::settings::save_settings_from_tabs;
 use gpui::prelude::*;
 use gpui::*;
+use gpui_component::menu::{PopupMenu, PopupMenuItem};
 use gpui_terminal::Clipboard;
 
 impl TerminalTabs {
@@ -104,7 +105,9 @@ impl TerminalTabs {
     }
 
     pub(crate) fn close_overlay(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        if self.pending_open_url.take().is_some() {
+        if self.context_menu.take().is_some() {
+            self.focus_active_session(window, cx);
+        } else if self.pending_open_url.take().is_some() {
             self.focus_active_session(window, cx);
         } else if self.show_settings {
             self.show_settings = false;
@@ -144,6 +147,49 @@ impl TerminalTabs {
             self.focus_active_session(window, cx);
             cx.notify();
         }
+    }
+
+    pub(crate) fn show_terminal_context_menu(
+        &mut self,
+        position: Point<Pixels>,
+        window: &mut Window,
+        cx: &mut Context<Self>,
+    ) {
+        // Replace any open menu (right-click again / new position).
+        self.context_menu.take();
+
+        let has_selection = self
+            .tabs
+            .get(self.active_tab)
+            .is_some_and(|s| s.read(cx).terminal_view.read(cx).has_selection());
+        let focus = self.focus_handle.clone();
+        let tabs = cx.weak_entity();
+        let menu = PopupMenu::build(window, cx, |menu, _, _| {
+            let tabs_copy = tabs.clone();
+            let tabs_paste = tabs.clone();
+            menu.action_context(focus)
+                .min_w(px(140.))
+                .item(
+                    PopupMenuItem::new("Copy")
+                        .disabled(!has_selection)
+                        .on_click(move |_, _, cx| {
+                            let _ = tabs_copy.update(cx, |this, cx| this.copy(cx));
+                        }),
+                )
+                .item(
+                    PopupMenuItem::new("Paste").on_click(move |_, _, cx| {
+                        let _ = tabs_paste.update(cx, |this, cx| this.paste(cx));
+                    }),
+                )
+        });
+        window.focus(&menu.focus_handle(cx));
+        let subscription = cx.subscribe_in(&menu, window, |this, _, _: &DismissEvent, window, cx| {
+            this.context_menu.take();
+            this.focus_active_session(window, cx);
+            cx.notify();
+        });
+        self.context_menu = Some((menu, position, subscription));
+        cx.notify();
     }
 
     pub(crate) fn next_tab(&mut self, window: &mut Window, cx: &mut Context<Self>) {

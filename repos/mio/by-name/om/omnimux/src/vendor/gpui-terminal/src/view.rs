@@ -14,8 +14,10 @@
 //! The terminal uses a push-based async I/O architecture:
 //!
 //! 1. A background thread reads bytes from the PTY stdout in 4KB chunks
-//! 2. Bytes are sent through a [flume](https://docs.rs/flume) channel to an async task
-//! 3. The async task processes bytes through the VTE parser and calls `cx.notify()`
+//! 2. Bytes go through a **bounded** [flume](https://docs.rs/flume) channel (backpressure
+//!    when the UI is behind — important for tmux redraw floods)
+//! 3. An async task drains coalesced batches, feeds the parser, and `cx.notify()`s once
+//!    per batch so intermediate scroll frames can be skipped
 //! 4. GPUI repaints the terminal with the updated grid
 //!
 //! This approach ensures the terminal only wakes when data arrives, avoiding polling.
@@ -54,7 +56,7 @@ use crate::ime::{ime_cursor_bounds, paint_marked_text, TerminalInputHandler};
 use crate::input::keystroke_to_bytes;
 use crate::mouse::{
     encode_modifiers, mouse_button_report, mouse_drag_report, pixel_to_cell, pixels_to_scroll_lines,
-    scroll_report,
+    scroll_report, selection_side,
 };
 use crate::render::TerminalRenderer;
 use crate::terminal::TerminalState;
@@ -325,6 +327,10 @@ pub type ClipboardStoreCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalV
 /// Callback for Cmd/Ctrl+click on a URL (OSC 8 or plain `http(s)://` text).
 pub type LinkClickCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>, &str)>;
 
+/// Callback for host context menu (right-click when not forwarding to the PTY).
+pub type ContextMenuCallback =
+    Box<dyn Fn(&mut Window, &mut Context<TerminalView>, Point<Pixels>)>;
+
 /// Callback for terminal exit events.
 ///
 /// This callback is invoked when the terminal process exits (e.g., shell exits,
@@ -439,6 +445,9 @@ pub struct TerminalView {
 
     /// Callback for Cmd/Ctrl+click URLs
     link_click_callback: Option<LinkClickCallback>,
+
+    /// Callback for host context menu (right-click)
+    context_menu_callback: Option<ContextMenuCallback>,
 
     /// Callback for terminal exit events
     exit_callback: Option<ExitCallback>,
@@ -558,10 +567,11 @@ impl TerminalView {
             Box::new(stdin_writer) as Box<dyn Write + Send>
         ));
 
-        // Create async channel for bytes (push-based notification)
-        // Using flume instead of smol::channel because flume is executor-agnostic
-        // and properly wakes GPUI's async executor when data arrives
-        let (bytes_tx, bytes_rx) = flume::unbounded::<Vec<u8>>();
+        // Bounded queue: when the UI cannot keep up (tmux attach/redraw floods),
+        // `send` blocks the reader → kernel PTY buffer fills → tmux slows down
+        // instead of buffering megabytes in-process ("fast then crawl").
+        const PTY_QUEUE_CHUNKS: usize = 64; // ~256 KiB of 4 KiB reads
+        let (bytes_tx, bytes_rx) = flume::bounded::<Vec<u8>>(PTY_QUEUE_CHUNKS);
 
         // Spawn background thread to read from stdout
         // This thread sends bytes through the async channel
@@ -569,31 +579,63 @@ impl TerminalView {
             Self::read_stdout_blocking(stdout_reader, bytes_tx);
         });
 
-        // Spawn async task that awaits on the channel and notifies the view
-        // This is push-based: the task blocks until bytes arrive, then immediately notifies
+        // Coalesce pending chunks into one parse + one notify so a flood paints
+        // near the latest screen instead of every intermediate scroll line.
+        const PTY_BATCH_MAX_BYTES: usize = 256 * 1024;
         let reader_task = cx.spawn(async move |this: WeakEntity<Self>, cx: &mut AsyncApp| {
+            let process = |this: &WeakEntity<Self>,
+                           cx: &mut AsyncApp,
+                           batch: Vec<u8>|
+             -> bool {
+                this.update(cx, |view: &mut Self, cx: &mut Context<Self>| {
+                    view.state.process_bytes(&batch);
+                    cx.notify();
+                })
+                .is_ok()
+            };
+
             loop {
-                // Wait for bytes from the background reader (blocks until data arrives)
-                match bytes_rx.recv_async().await {
-                    Ok(bytes) => {
-                        // Process bytes and notify the view
-                        let result = this.update(cx, |view: &mut Self, cx: &mut Context<Self>| {
-                            view.state.process_bytes(&bytes);
-                            cx.notify();
-                        });
-                        if result.is_err() {
-                            // View was dropped, exit
-                            break;
-                        }
-                    }
+                let mut batch = match bytes_rx.recv_async().await {
+                    Ok(bytes) => bytes,
                     Err(_) => {
-                        // Channel closed - PTY has finished, send Exit event
                         let _ = exit_event_tx.send(TerminalEvent::Exit);
-                        // Notify view to process the Exit event
                         let _ = this.update(cx, |_view, cx: &mut Context<Self>| {
                             cx.notify();
                         });
                         break;
+                    }
+                };
+
+                while batch.len() < PTY_BATCH_MAX_BYTES {
+                    match bytes_rx.try_recv() {
+                        Ok(chunk) => batch.extend_from_slice(&chunk),
+                        Err(_) => break,
+                    }
+                }
+
+                if !process(&this, cx, batch) {
+                    break;
+                }
+
+                // Still ahead of the UI: yield a frame so the coalesced grid can
+                // paint, then keep draining without waiting for new PTY data.
+                while !bytes_rx.is_empty() {
+                    cx.background_executor()
+                        .timer(std::time::Duration::from_millis(0))
+                        .await;
+
+                    let mut batch = match bytes_rx.try_recv() {
+                        Ok(chunk) => chunk,
+                        Err(_) => break,
+                    };
+                    while batch.len() < PTY_BATCH_MAX_BYTES {
+                        match bytes_rx.try_recv() {
+                            Ok(chunk) => batch.extend_from_slice(&chunk),
+                            Err(_) => break,
+                        }
+                    }
+                    if !process(&this, cx, batch) {
+                        return;
                     }
                 }
             }
@@ -613,6 +655,7 @@ impl TerminalView {
             title_callback: None,
             clipboard_store_callback: None,
             link_click_callback: None,
+            context_menu_callback: None,
             exit_callback: None,
             search_highlight: None,
             mouse_pressed: None,
@@ -787,6 +830,16 @@ impl TerminalView {
         self
     }
 
+    /// Right-click host menu when not forwarding the click to the PTY
+    /// (local selection, Shift held, or mouse reporting off).
+    pub fn with_context_menu_callback(
+        mut self,
+        callback: impl Fn(&mut Window, &mut Context<TerminalView>, Point<Pixels>) + 'static,
+    ) -> Self {
+        self.context_menu_callback = Some(Box::new(callback));
+        self
+    }
+
     /// Set a callback to be invoked when the terminal process exits.
     ///
     /// The callback receives a mutable reference to the window and context,
@@ -813,10 +866,9 @@ impl TerminalView {
 
     /// Background thread that reads from stdout.
     ///
-    /// This function runs in a background thread, continuously reading bytes
-    /// from the stdout reader and sending them through the async channel.
-    /// The async channel allows the main async task to be woken up immediately
-    /// when data arrives (push-based).
+    /// Continuously reads the PTY and sends chunks on a **bounded** channel.
+    /// When the UI is behind, `send` blocks here so the kernel PTY buffer can
+    /// apply natural backpressure to writers (tmux, ssh, etc.).
     fn read_stdout_blocking<R: Read + Send + 'static>(
         mut stdout_reader: R,
         bytes_tx: flume::Sender<Vec<u8>>,
@@ -830,7 +882,7 @@ impl TerminalView {
                     break;
                 }
                 Ok(n) => {
-                    // Send bytes to the async task
+                    // Send bytes to the async task (may block when the queue is full)
                     let bytes = buffer[..n].to_vec();
                     if bytes_tx.send(bytes).is_err() {
                         break; // Channel closed
@@ -907,21 +959,36 @@ impl TerminalView {
         let mouse_reporting = mode.intersects(
             TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
         );
+
+        // Host context menu: Shift, no mouse mode, or an existing local selection
+        // (so right-click after Shift-select does not open tmux's menu).
+        if event.button == MouseButton::Right
+            && (event.modifiers.shift || !mouse_reporting || self.has_selection())
+        {
+            if let Some(ref callback) = self.context_menu_callback {
+                callback(window, cx, event.position);
+            }
+            cx.stop_propagation();
+            cx.notify();
+            return;
+        }
+
         // Shift always selects locally; without mouse mode, clicks also select.
         let local_select = event.button == MouseButton::Left
             && (event.modifiers.shift || !mouse_reporting);
 
         if local_select {
             let grid_point = self.viewport_to_grid(viewport);
+            let side = self.selection_side_at(event.position);
             let ty = match event.click_count {
                 0 | 1 => AlacSelectionType::Simple,
                 2 => AlacSelectionType::Semantic,
                 _ => AlacSelectionType::Lines,
             };
             self.state.with_term_mut(|term| {
-                let mut sel = AlacSelection::new(ty, grid_point, Side::Left);
+                let mut sel = AlacSelection::new(ty, grid_point, side);
                 if matches!(ty, AlacSelectionType::Semantic | AlacSelectionType::Lines) {
-                    sel.update(grid_point, Side::Right);
+                    sel.update(grid_point, side);
                     sel.include_all();
                 }
                 term.selection = Some(sel);
@@ -972,9 +1039,10 @@ impl TerminalView {
         if self.selecting {
             let viewport = self.viewport_cell_at(event.position);
             let grid_point = self.viewport_to_grid(viewport);
+            let side = self.selection_side_at(event.position);
             self.state.with_term_mut(|term| {
                 if let Some(sel) = term.selection.as_mut() {
-                    sel.update(grid_point, Side::Right);
+                    sel.update(grid_point, side);
                 }
             });
             self.selecting = false;
@@ -1016,9 +1084,10 @@ impl TerminalView {
 
         if self.selecting {
             let grid_point = self.viewport_to_grid(viewport);
+            let side = self.selection_side_at(event.position);
             self.state.with_term_mut(|term| {
                 if let Some(sel) = term.selection.as_mut() {
-                    sel.update(grid_point, Side::Right);
+                    sel.update(grid_point, side);
                 }
             });
             cx.notify();
@@ -1065,6 +1134,17 @@ impl TerminalView {
         AlacPoint::new(Line(row), Column(col))
     }
 
+    /// Cell half under the pointer (alacritty selection edge).
+    fn selection_side_at(&self, window_pos: Point<Pixels>) -> Side {
+        let hit = *self.hit_test.lock();
+        selection_side(
+            window_pos,
+            hit.content_origin,
+            hit.cell_width,
+            hit.cols,
+        )
+    }
+
     /// Map a viewport cell (from [`pixel_to_cell`]) to an absolute grid point.
     fn viewport_to_grid(&self, viewport: AlacPoint) -> AlacPoint {
         self.state.with_term(|term| {
@@ -1105,6 +1185,17 @@ impl TerminalView {
 
     /// Maximum decoded OSC 52 clipboard payload accepted when store is enabled.
     const OSC52_MAX_BYTES: usize = 1024 * 1024;
+
+    /// True if there is a non-empty local text selection.
+    pub fn has_selection(&self) -> bool {
+        self.state
+            .with_term(|term| {
+                term.selection
+                    .as_ref()
+                    .and_then(|_| term.selection_to_string())
+                    .is_some_and(|s| !s.is_empty())
+            })
+    }
 
     /// Copy the current selection to the system clipboard.
     ///

@@ -3,6 +3,7 @@
 //! This module provides utilities for mouse interaction with the terminal:
 //!
 //! - [`pixel_to_cell`]: Convert pixel coordinates to grid coordinates
+//! - [`selection_side`]: Left/right half of a cell for alacritty selection anchors
 //! - [`mouse_button_report`]: Generate SGR mouse report sequences
 //! - [`scroll_report`]: Handle scroll wheel events
 //! - [`Selection`]: Text selection data structure
@@ -73,7 +74,7 @@
 //! let bytes = mouse_button_report(MouseButton::Left, true, point, 0, mode);
 //! ```
 
-use alacritty_terminal::index::{Column, Line, Point as AlacPoint};
+use alacritty_terminal::index::{Column, Line, Point as AlacPoint, Side};
 use alacritty_terminal::term::TermMode;
 use gpui::{MouseButton, Pixels, Point};
 
@@ -187,6 +188,38 @@ pub fn pixel_to_cell(
     let row = row.max(0.0) as i32;
 
     AlacPoint::new(Line(row), Column(col))
+}
+
+/// Which half of a cell the pointer is in — used as an alacritty selection anchor.
+///
+/// Alacritty's `Selection::to_range` treats `Side` as an inclusive/exclusive edge.
+/// Always using `Left` on press and `Right` on drag makes right→left selections
+/// (starting in empty space to the right of text) collapse to an empty range.
+///
+/// Past the right edge of the grid (`cols`) counts as [`Side::Right`] on the last
+/// column so dragging left from padding / empty margin still works.
+pub fn selection_side(
+    position: Point<Pixels>,
+    origin: Point<Pixels>,
+    cell_width: Pixels,
+    cols: usize,
+) -> Side {
+    let cw: f32 = cell_width.into();
+    if cw <= 0.0 || cols == 0 {
+        return Side::Left;
+    }
+    let rel_x: f32 = (position.x - origin.x).into();
+    let grid_width = cw * cols as f32;
+    if rel_x >= grid_width {
+        return Side::Right;
+    }
+    let x = rel_x.max(0.0);
+    let within_cell = x - (x / cw).floor() * cw;
+    if within_cell >= cw * 0.5 {
+        Side::Right
+    } else {
+        Side::Left
+    }
 }
 
 /// Determine the selection type based on the number of clicks.
@@ -541,6 +574,27 @@ mod tests {
         let point = pixel_to_cell(position, origin, cell_width, cell_height);
         assert_eq!(point.column.0, 0);
         assert_eq!(point.line.0, 0);
+    }
+
+    #[test]
+    fn test_selection_side_halves() {
+        let origin = point(px(0.0), px(0.0));
+        let cw = px(10.0);
+        // Left half of first cell
+        assert_eq!(
+            selection_side(point(px(2.0), px(0.0)), origin, cw, 80),
+            Side::Left
+        );
+        // Right half of first cell
+        assert_eq!(
+            selection_side(point(px(7.0), px(0.0)), origin, cw, 80),
+            Side::Right
+        );
+        // Past last column → Right (empty margin)
+        assert_eq!(
+            selection_side(point(px(900.0), px(0.0)), origin, cw, 80),
+            Side::Right
+        );
     }
 
     #[test]

@@ -356,6 +356,6 @@ pub use links::is_browser_url;
 pub use render::TerminalRenderer;
 pub use terminal::{Osc52Policy, TerminalState};
 pub use view::{
-    BellCallback, ClipboardStoreCallback, ExitCallback, KeyHandler, LinkClickCallback,
-    ResizeCallback, TerminalConfig, TerminalView, TitleCallback,
+    BellCallback, ClipboardStoreCallback, ContextMenuCallback, ExitCallback, KeyHandler,
+    LinkClickCallback, ResizeCallback, TerminalConfig, TerminalView, TitleCallback,
 };

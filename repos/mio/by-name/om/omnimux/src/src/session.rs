@@ -215,6 +215,7 @@ impl TerminalSession {
         let session_for_exit = session.clone();
         let tabs_for_exit = tabs.clone();
         let tabs_for_link = tabs.clone();
+        let tabs_for_menu = tabs.clone();
 
         view.with_title_callback(move |_window, cx, title| {
             let title = title.to_string();
@@ -239,6 +240,11 @@ impl TerminalSession {
             let url = url.to_string();
             let _ = tabs_for_link.update(cx, |tabs, cx| {
                 tabs.request_open_url(url, window, cx);
+            });
+        })
+        .with_context_menu_callback(move |window, cx, position| {
+            let _ = tabs_for_menu.update(cx, |tabs, cx| {
+                tabs.show_terminal_context_menu(position, window, cx);
             });
         })
         .with_exit_callback(move |_window, cx| {

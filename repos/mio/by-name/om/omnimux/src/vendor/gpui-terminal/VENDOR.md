@@ -32,10 +32,13 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 ### Selection & clipboard
 
 - Local selection via alacritty `Term::selection` / `selection_to_string`, with selection highlight in `render.rs`.
+- Selection anchors use **cell half** (`Side::Left` / `Side::Right`) so Shift-drag works from empty space (including right→left), matching GNOME Terminal / Alacritty. Copy still omits trailing unused cells via alacritty `line_length` (spaces after content are not pasted).
+- Host **context menu** callback (`with_context_menu_callback`): right-click with Shift, no mouse mode, or a local selection opens Omnimux Copy/Paste instead of forwarding to tmux.
 - `TerminalView::copy_selection()` for host shortcuts (⌘C / Ctrl+Shift+C handled in Omnimux).
 - Forward OSC 52 **store** (and default `arboard` fallback) and **load** back to the PTY.
 - Forward **`PtyWrite`**, **`ColorRequest`**, and **`TextAreaSizeRequest`** to the PTY (upstream event bridge dropped several of these).
 - **Security**: OSC 52 defaults to **`Disabled`** (`Osc52Policy` / alacritty `Config.osc52`) so a compromised remote cannot silently overwrite or exfiltrate the system clipboard. Omnimux sets this explicitly; store/load handlers are gated and size-capped. Paste uses **bracketed paste** when the app enables it.
+- **PTY flood handling** (tmux attach/redraw / huge `cat`): bounded flume queue (~256 KiB) for backpressure + coalesce drain (up to 256 KiB per batch, yield between batches) so we paint near the latest grid instead of scrolling every intermediate line.
 
 ### Rendering / metrics
 

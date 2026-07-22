@@ -8,6 +8,7 @@ impl TerminalTabs {
             && !self.show_search
             && !self.show_settings
             && self.pending_open_url.is_none()
+            && self.context_menu.is_none()
             && !self.tabs.is_empty()
     }
 
@@ -48,6 +49,7 @@ impl TerminalTabs {
                 || this.show_search
                 || this.show_settings
                 || this.pending_open_url.is_some()
+                || this.context_menu.is_some()
             {
                 return;
             }
@@ -97,6 +99,7 @@ impl TerminalTabs {
             && !self.show_settings
             && !self.show_search
             && self.pending_open_url.is_none()
+            && self.context_menu.is_none()
         {
             self.focus_active_session(window, cx);
         }
