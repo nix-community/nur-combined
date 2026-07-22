@@ -30,7 +30,7 @@
     version = "tip";
     src = fetchurl {
       url = "https://github.com/ghostty-org/ghostty/releases/download/tip/ghostty-macos-universal.zip";
-      sha256 = "sha256-hR4SggQs9q6AqbnVuDTCPP9auVflERhWEx2HPdzREms=";
+      sha256 = "sha256-JmmdyB3vhTQYqb8FM8UctPGTfoUp72n8uYMyE100LoQ=";
     };
   };
   helium-linux = {
@@ -54,16 +54,16 @@
   };
   kanata = {
     pname = "kanata";
-    version = "v1.12.0";
+    version = "v1.12.1-prerelease-1";
     src = fetchFromGitHub {
       owner = "jtroo";
       repo = "kanata";
-      rev = "v1.12.0";
+      rev = "v1.12.1-prerelease-1";
       fetchSubmodules = false;
-      sha256 = "sha256-WjdmjgEMoo3QNqT4yWxaKOkfuRLdNg4Im+V1Hy5vWgY=";
+      sha256 = "sha256-ypTm0j/f6M2mOM1NjnG4VL8n4XnKrHo3+at7UEWni7A=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-WjdmjgEMoo3QNqT4yWxaKOkfuRLdNg4Im+V1Hy5vWgY=/Cargo.lock";
+      lockFile = ./. + "/sha256-ypTm0j_f6M2mOM1NjnG4VL8n4XnKrHo3+at7UEWni7A=/Cargo.lock";
       outputHashes = {
         
       };
