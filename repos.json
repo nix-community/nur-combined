@@ -763,6 +763,9 @@
         "itscrystalline": {
             "url": "https://github.com/itscrystalline/nur-packages"
         },
+        "itzemoji": {
+            "url": "https://github.com/ItzEmoji/nix-packages"
+        },
         "iuricarras": {
             "url": "https://github.com/iuricarras/nur-packages"
         },
@@ -1089,6 +1092,9 @@
         },
         "mrtnvgr": {
             "url": "https://github.com/mrtnvgr/nurpkgs"
+        },
+        "msaxena": {
+            "url": "https://github.com/MayurSaxena/nurpkgs"
         },
         "mur": {
             "url": "https://github.com/duvetfall/mur"
