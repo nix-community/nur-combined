@@ -74,7 +74,12 @@ fn main() {
                 app_id: Some("omnimux".into()),
                 ..Default::default()
             },
-            |window, cx| cx.new(|cx| TerminalTabs::new(window, cx)),
+            |window, cx| {
+                // gpui-component Input/Switch paint paths call Root::read; the
+                // window's first view must be Root (see gpui-component README).
+                let view = cx.new(|cx| TerminalTabs::new(window, cx));
+                cx.new(|cx| gpui_component::Root::new(view, window, cx))
+            },
         )
         .unwrap();
         cx.activate(true);
