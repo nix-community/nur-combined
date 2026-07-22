@@ -206,3 +206,100 @@ pub fn render_search_bar(
                 .child(status_text),
         )
 }
+
+pub fn render_open_url_confirm(
+    this: &TerminalTabs,
+    colors: ChromeColors,
+    cx: &mut Context<TerminalTabs>,
+) -> impl IntoElement {
+    let url = this
+        .pending_open_url
+        .clone()
+        .unwrap_or_default();
+
+    div()
+        .absolute()
+        .inset_0()
+        .bg(rgba(0x00000080))
+        .flex()
+        .justify_center()
+        .items_center()
+        .key_context("omnimux_link_confirm")
+        .track_focus(&this.focus_handle)
+        .on_action(cx.listener(TerminalTabs::on_close_overlay))
+        .on_mouse_down(MouseButton::Left, cx.listener(|this, _, window, cx| {
+            this.pending_open_url = None;
+            this.focus_active_session(window, cx);
+            cx.notify();
+        }))
+        .child(
+            div()
+                .w_96()
+                .bg(colors.panel)
+                .rounded_lg()
+                .p_4()
+                .flex_col()
+                .on_mouse_down(MouseButton::Left, |_, _, cx| cx.stop_propagation())
+                .child(
+                    div()
+                        .mb_2()
+                        .child("Open link in browser?")
+                        .text_color(colors.text)
+                        .text_lg(),
+                )
+                .child(
+                    div()
+                        .mb_3()
+                        .text_sm()
+                        .text_color(colors.muted)
+                        .child(
+                            "Only open links from hosts you trust. A remote can fake URLs in the terminal.",
+                        ),
+                )
+                .child(
+                    div()
+                        .mb_4()
+                        .p_2()
+                        .rounded_sm()
+                        .bg(colors.btn)
+                        .text_sm()
+                        .text_color(colors.text)
+                        .child(url),
+                )
+                .child(
+                    div()
+                        .flex()
+                        .flex_row()
+                        .gap_2()
+                        .justify_end()
+                        .child(
+                            div()
+                                .id("link_cancel")
+                                .px_3()
+                                .py_2()
+                                .rounded_sm()
+                                .cursor_pointer()
+                                .bg(colors.btn)
+                                .on_click(cx.listener(|this, _, window, cx| {
+                                    this.pending_open_url = None;
+                                    this.focus_active_session(window, cx);
+                                    cx.notify();
+                                }))
+                                .child(div().child("Cancel").text_color(colors.text)),
+                        )
+                        .child(
+                            div()
+                                .id("link_open")
+                                .px_3()
+                                .py_2()
+                                .rounded_sm()
+                                .cursor_pointer()
+                                .bg(rgb(0x3b82f6))
+                                .on_click(cx.listener(|this, _, window, cx| {
+                                    this.confirm_open_url(window, cx);
+                                }))
+                                .child(div().child("Open").text_color(rgb(0xffffff))),
+                        ),
+                ),
+        )
+}

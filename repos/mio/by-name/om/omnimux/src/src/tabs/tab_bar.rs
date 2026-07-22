@@ -43,11 +43,9 @@ pub fn render_tab_bar(
         } else {
             colors.bar
         };
-        let tab_label = session
-            .read(cx)
-            .host
-            .clone()
-            .unwrap_or_else(|| "localhost".to_string());
+        let session_read = session.read(cx);
+        let has_bell = session_read.has_bell;
+        let tab_label = session_read.tab_label();
         let drag = TabDrag {
             index: i,
             label: tab_label.clone().into(),
@@ -65,15 +63,10 @@ pub fn render_tab_bar(
             .border_color(colors.border)
             .cursor_pointer()
             .on_click(cx.listener(move |this, _, window, cx| {
-                if i < this.tabs.len() {
-                    this.active_tab = i;
-                    this.focus_active_terminal = true;
-                    let tv = this.tabs[i].read(cx).terminal_view.clone();
-                    tv.read(cx).focus_handle().clone().focus(window);
-                }
+                this.activate_tab_at(i, window, cx);
             }))
             .on_drag(drag, |drag, _, _, cx| cx.new(|_| drag.clone()))
-            .on_drop(cx.listener(move |this, drag: &TabDrag, _, cx| {
+            .on_drop(cx.listener(move |this, drag: &TabDrag, window, cx| {
                 let from = drag.index;
                 let to = i;
                 if from == to || from >= this.tabs.len() || to >= this.tabs.len() {
@@ -82,16 +75,20 @@ pub fn render_tab_bar(
                 let tab = this.tabs.remove(from);
                 let insert_at = if from < to { to - 1 } else { to };
                 this.tabs.insert(insert_at, tab);
-                this.active_tab = insert_at;
-                this.focus_active_terminal = true;
                 if this.remember_session {
                     let hosts: Vec<Option<String>> =
                         this.tabs.iter().map(|t| t.read(cx).host.clone()).collect();
                     save_session(&hosts);
                 }
-                cx.notify();
+                this.activate_tab_at(insert_at, window, cx);
             }))
-            .child(div().child(tab_label).text_color(colors.text).text_sm())
+            .child(
+                div()
+                    .when(has_bell, |d| d.text_color(rgb(0xf59e0b)))
+                    .when(!has_bell, |d| d.text_color(colors.text))
+                    .text_sm()
+                    .child(tab_label),
+            )
             .child(
                 div()
                     .id(("close_tab", i))

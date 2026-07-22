@@ -342,6 +342,7 @@ pub mod colors;
 pub mod event;
 pub mod ime;
 pub mod input;
+pub mod links;
 pub mod mouse;
 pub mod render;
 pub mod terminal;
@@ -351,9 +352,10 @@ pub mod view;
 pub use clipboard::Clipboard;
 pub use colors::{ColorPalette, ColorPaletteBuilder};
 pub use event::{GpuiEventProxy, TerminalEvent};
+pub use links::is_browser_url;
 pub use render::TerminalRenderer;
 pub use terminal::{Osc52Policy, TerminalState};
 pub use view::{
-    BellCallback, ClipboardStoreCallback, ExitCallback, KeyHandler, ResizeCallback, TerminalConfig,
-    TerminalView, TitleCallback,
+    BellCallback, ClipboardStoreCallback, ExitCallback, KeyHandler, LinkClickCallback,
+    ResizeCallback, TerminalConfig, TerminalView, TitleCallback,
 };

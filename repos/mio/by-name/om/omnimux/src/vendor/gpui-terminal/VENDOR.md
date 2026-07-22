@@ -50,6 +50,12 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 
 - In-grid search + highlight (`TerminalView::search` / `clear_search`) used by Omnimux’s search UI.
 
+### Hyperlinks (Omnimux opt-in)
+
+- `links.rs`: OSC 8 cell URI or plain `http(s)://` under the click point.
+- `with_link_click_callback` + Cmd (macOS) / Ctrl (Linux) + left click in `on_mouse_down`.
+- Omnimux gates this behind Settings → open links (default off) and a confirm overlay; only `http`/`https`.
+
 ### IME (CJK input)
 
 - `ime.rs`: `TerminalInputHandler` registered during canvas paint via `window.handle_input`, following Zed’s `terminal_element` pattern.

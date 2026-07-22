@@ -12,6 +12,10 @@ pub struct TerminalSession {
     pub has_exited: bool,
     pub exit_status: Option<u32>,
     pub host: Option<String>,
+    /// OSC 0/2 title from the remote (empty → fall back to host label).
+    pub title: Option<String>,
+    /// Visual bell until the tab is activated or receives focus.
+    pub has_bell: bool,
     pub reconnect_streak: u32,
     pub pending_reconnect_at: Option<Instant>,
 }
@@ -168,25 +172,22 @@ impl TerminalSession {
             let master_clone = master.clone();
             let session = session.clone();
             let tabs = tabs.clone();
-            TerminalView::new(writer, reader, config, cx)
-                .with_resize_callback(move |cols, rows| {
-                    if let Ok(master) = master_clone.lock() {
-                        let _ = master.resize(PtySize {
-                            cols: cols as u16,
-                            rows: rows as u16,
-                            pixel_width: 0,
-                            pixel_height: 0,
-                        });
-                    }
-                })
-                .with_exit_callback(move |_window, cx| {
-                    let _ = session.update(cx, |session, cx| {
-                        session.on_pty_exit(cx);
-                    });
-                    let _ = tabs.update(cx, |tabs, cx| {
-                        tabs.on_session_exited(session.clone(), cx);
-                    });
-                })
+            Self::wire_view(
+                TerminalView::new(writer, reader, config, cx).with_resize_callback(
+                    move |cols, rows| {
+                        if let Ok(master) = master_clone.lock() {
+                            let _ = master.resize(PtySize {
+                                cols: cols as u16,
+                                rows: rows as u16,
+                                pixel_width: 0,
+                                pixel_height: 0,
+                            });
+                        }
+                    },
+                ),
+                session,
+                tabs,
+            )
         });
 
         Self {
@@ -195,8 +196,85 @@ impl TerminalSession {
             has_exited: false,
             exit_status: None,
             host,
+            title: None,
+            has_bell: false,
             reconnect_streak: 0,
             pending_reconnect_at: None,
+        }
+    }
+
+    fn wire_view(
+        view: TerminalView,
+        session: WeakEntity<Self>,
+        tabs: WeakEntity<TerminalTabs>,
+    ) -> TerminalView {
+        let session_for_title = session.clone();
+        let tabs_for_title = tabs.clone();
+        let session_for_bell = session.clone();
+        let tabs_for_bell = tabs.clone();
+        let session_for_exit = session.clone();
+        let tabs_for_exit = tabs.clone();
+        let tabs_for_link = tabs.clone();
+
+        view.with_title_callback(move |_window, cx, title| {
+            let title = title.to_string();
+            let _ = session_for_title.update(cx, |session, cx| {
+                session.title = if title.is_empty() {
+                    None
+                } else {
+                    Some(title)
+                };
+                cx.notify();
+            });
+            let _ = tabs_for_title.update(cx, |_, cx| cx.notify());
+        })
+        .with_bell_callback(move |_window, cx| {
+            let _ = session_for_bell.update(cx, |session, cx| {
+                session.has_bell = true;
+                cx.notify();
+            });
+            let _ = tabs_for_bell.update(cx, |_, cx| cx.notify());
+        })
+        .with_link_click_callback(move |window, cx, url| {
+            let url = url.to_string();
+            let _ = tabs_for_link.update(cx, |tabs, cx| {
+                tabs.request_open_url(url, window, cx);
+            });
+        })
+        .with_exit_callback(move |_window, cx| {
+            let _ = session_for_exit.update(cx, |session, cx| {
+                session.on_pty_exit(cx);
+            });
+            let _ = tabs_for_exit.update(cx, |tabs, cx| {
+                tabs.on_session_exited(session.clone(), cx);
+            });
+        })
+    }
+
+    /// Label for the tab bar: optional bell + title or host.
+    pub fn tab_label(&self) -> String {
+        let base = self
+            .title
+            .as_deref()
+            .map(str::trim)
+            .filter(|t| !t.is_empty())
+            .map(|t| truncate_chars(t, 28))
+            .unwrap_or_else(|| {
+                self.host
+                    .clone()
+                    .unwrap_or_else(|| "localhost".to_string())
+            });
+        if self.has_bell {
+            format!("! {base}")
+        } else {
+            base
+        }
+    }
+
+    pub fn clear_bell(&mut self, cx: &mut Context<Self>) {
+        if self.has_bell {
+            self.has_bell = false;
+            cx.notify();
         }
     }
 
@@ -251,12 +329,11 @@ impl TerminalSession {
         };
 
         let terminal_view = cx.new(|cx| {
-            let session = session.clone();
-            let tabs = tabs.clone();
-            TerminalView::new(writer, reader, config, cx).with_exit_callback(move |_window, cx| {
-                let _ = session.update(cx, |session, cx| session.on_pty_exit(cx));
-                let _ = tabs.update(cx, |tabs, cx| tabs.on_session_exited(session.clone(), cx));
-            })
+            Self::wire_view(
+                TerminalView::new(writer, reader, config, cx),
+                session.clone(),
+                tabs.clone(),
+            )
         });
 
         Self {
@@ -265,6 +342,8 @@ impl TerminalSession {
             has_exited: false,
             exit_status: None,
             host,
+            title: None,
+            has_bell: false,
             reconnect_streak: 0,
             pending_reconnect_at: None,
         }
@@ -313,5 +392,15 @@ impl Render for TerminalSession {
 impl Drop for TerminalSession {
     fn drop(&mut self) {
         self.close();
+    }
+}
+
+fn truncate_chars(s: &str, max: usize) -> String {
+    let mut iter = s.chars();
+    let truncated: String = iter.by_ref().take(max).collect();
+    if iter.next().is_some() {
+        format!("{truncated}…")
+    } else {
+        truncated
     }
 }

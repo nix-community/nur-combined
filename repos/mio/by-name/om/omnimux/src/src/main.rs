@@ -48,6 +48,7 @@ fn main() {
             KeyBinding::new("escape", CloseOverlay, Some(CHROME)),
             KeyBinding::new("escape", CloseOverlay, Some("omnimux_prompt")),
             KeyBinding::new("escape", CloseOverlay, Some("omnimux_search")),
+            KeyBinding::new("escape", CloseOverlay, Some("omnimux_link_confirm")),
             KeyBinding::new("cmd-]", NextTab, Some(CHROME)),
             KeyBinding::new("ctrl-]", NextTab, Some(CHROME)),
             KeyBinding::new("cmd-[", PrevTab, Some(CHROME)),

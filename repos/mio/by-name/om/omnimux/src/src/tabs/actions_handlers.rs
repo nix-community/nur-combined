@@ -104,7 +104,9 @@ impl TerminalTabs {
     }
 
     pub(crate) fn close_overlay(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        if self.show_settings {
+        if self.pending_open_url.take().is_some() {
+            self.focus_active_session(window, cx);
+        } else if self.show_settings {
             self.show_settings = false;
             self.focus_active_session(window, cx);
         } else if self.show_search {
@@ -116,28 +118,52 @@ impl TerminalTabs {
         cx.notify();
     }
 
+    pub(crate) fn request_open_url(
+        &mut self,
+        url: String,
+        window: &mut Window,
+        cx: &mut Context<Self>,
+    ) {
+        if !self.open_links {
+            return;
+        }
+        if !gpui_terminal::is_browser_url(&url) {
+            return;
+        }
+        self.pending_open_url = Some(url);
+        self.focus_ui = true;
+        self.focus_handle.focus(window);
+        cx.notify();
+    }
+
+    pub(crate) fn confirm_open_url(&mut self, window: &mut Window, cx: &mut Context<Self>) {
+        if let Some(url) = self.pending_open_url.take() {
+            if gpui_terminal::is_browser_url(&url) {
+                cx.open_url(&url);
+            }
+            self.focus_active_session(window, cx);
+            cx.notify();
+        }
+    }
+
     pub(crate) fn next_tab(&mut self, window: &mut Window, cx: &mut Context<Self>) {
         if self.tabs.is_empty() {
             return;
         }
-        self.active_tab = (self.active_tab + 1) % self.tabs.len();
-        self.focus_active_terminal = true;
-        self.focus_active_session(window, cx);
-        cx.notify();
+        let next = (self.active_tab + 1) % self.tabs.len();
+        self.activate_tab_at(next, window, cx);
     }
 
     pub(crate) fn prev_tab(&mut self, window: &mut Window, cx: &mut Context<Self>) {
         if self.tabs.is_empty() {
             return;
         }
-        self.active_tab = if self.active_tab == 0 {
+        let prev = if self.active_tab == 0 {
             self.tabs.len() - 1
         } else {
             self.active_tab - 1
         };
-        self.focus_active_terminal = true;
-        self.focus_active_session(window, cx);
-        cx.notify();
+        self.activate_tab_at(prev, window, cx);
     }
 
     pub(crate) fn host_list_up(&mut self, cx: &mut Context<Self>) {
@@ -189,6 +215,7 @@ impl TerminalTabs {
         self.sync_font_size_across_tabs = true;
         self.remember_font_size = false;
         self.osc52 = crate::settings::Osc52Setting::Disabled;
+        self.open_links = false;
         self.font_size = px(DEFAULT_FONT_SIZE);
         let size = self.font_size;
         let osc52 = self.osc52.into();

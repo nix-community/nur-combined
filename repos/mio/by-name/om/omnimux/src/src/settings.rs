@@ -75,6 +75,8 @@ pub struct Settings {
     pub font_size: Option<f32>,
     /// OSC 52 remote clipboard policy. Default: disabled.
     pub osc52: Option<Osc52Setting>,
+    /// Allow Cmd/Ctrl+click on http(s) / OSC 8 links (confirm before open). Default: off.
+    pub open_links: Option<bool>,
 }
 
 pub fn load_settings() -> Settings {
@@ -123,6 +125,7 @@ pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
             None
         },
         osc52: Some(tabs.osc52),
+        open_links: Some(tabs.open_links),
     };
     if let Ok(json) = serde_json::to_string_pretty(&settings) {
         let _ = std::fs::write(dir.join("settings.json"), json);

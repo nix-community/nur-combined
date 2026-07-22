@@ -136,6 +136,30 @@ pub fn render_settings_panel(
                             });
                         })
                 })
+                .child({
+                    let entity = entity.clone();
+                    Switch::new("open_links_toggle")
+                        .checked(this.open_links)
+                        .label("Open http(s) links (Cmd/Ctrl+click, confirm)")
+                        .mb_1()
+                        .text_color(colors.text)
+                        .on_click(move |checked, _, app| {
+                            entity.update(app, |this, cx| {
+                                this.open_links = *checked;
+                                save_settings_from_tabs(this);
+                                cx.notify();
+                            });
+                        })
+                })
+                .child(
+                    div()
+                        .mb_3()
+                        .text_xs()
+                        .text_color(colors.muted)
+                        .child(
+                            "Off by default. A hostile remote can plant misleading URLs; confirmation is required before opening.",
+                        ),
+                )
                 .child(
                     div()
                         .mb_1()

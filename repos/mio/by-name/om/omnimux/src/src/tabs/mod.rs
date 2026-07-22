@@ -36,6 +36,10 @@ pub struct TerminalTabs {
     pub(crate) sync_font_size_across_tabs: bool,
     pub(crate) remember_font_size: bool,
     pub(crate) osc52: Osc52Setting,
+    /// Opt-in Cmd/Ctrl+click http(s) links with confirm (default off).
+    pub(crate) open_links: bool,
+    /// Pending URL awaiting confirm before `cx.open_url`.
+    pub(crate) pending_open_url: Option<String>,
     pub(crate) font_size: Pixels,
     pub(crate) last_appearance: Option<WindowAppearance>,
     pub(crate) focus_active_terminal: bool,
@@ -60,6 +64,7 @@ impl TerminalTabs {
         let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
         let remember_font_size = settings.remember_font_size.unwrap_or(false);
         let osc52 = settings.osc52.unwrap_or_default();
+        let open_links = settings.open_links.unwrap_or(false);
         let font_size = if remember_font_size {
             px(
                 settings
@@ -180,6 +185,8 @@ impl TerminalTabs {
             sync_font_size_across_tabs,
             remember_font_size,
             osc52,
+            open_links,
+            pending_open_url: None,
             font_size,
             last_appearance: None,
             focus_active_terminal: !start_prompt,
@@ -227,6 +234,9 @@ impl Render for TerminalTabs {
         if self.show_settings {
             main_div =
                 main_div.child(settings_panel::render_settings_panel(self, colors, window, cx));
+        }
+        if self.pending_open_url.is_some() {
+            main_div = main_div.child(overlays::render_open_url_confirm(self, colors, cx));
         }
 
         main_div

@@ -322,6 +322,9 @@ pub type TitleCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>, &st
 /// ```
 pub type ClipboardStoreCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>, &str)>;
 
+/// Callback for Cmd/Ctrl+click on a URL (OSC 8 or plain `http(s)://` text).
+pub type LinkClickCallback = Box<dyn Fn(&mut Window, &mut Context<TerminalView>, &str)>;
+
 /// Callback for terminal exit events.
 ///
 /// This callback is invoked when the terminal process exits (e.g., shell exits,
@@ -433,6 +436,9 @@ pub struct TerminalView {
 
     /// Callback for clipboard store requests
     clipboard_store_callback: Option<ClipboardStoreCallback>,
+
+    /// Callback for Cmd/Ctrl+click URLs
+    link_click_callback: Option<LinkClickCallback>,
 
     /// Callback for terminal exit events
     exit_callback: Option<ExitCallback>,
@@ -606,6 +612,7 @@ impl TerminalView {
             bell_callback: None,
             title_callback: None,
             clipboard_store_callback: None,
+            link_click_callback: None,
             exit_callback: None,
             search_highlight: None,
             mouse_pressed: None,
@@ -771,6 +778,15 @@ impl TerminalView {
         self
     }
 
+    /// Cmd/Ctrl+click URL handler (OSC 8 or plain http(s) text).
+    pub fn with_link_click_callback(
+        mut self,
+        callback: impl Fn(&mut Window, &mut Context<TerminalView>, &str) + 'static,
+    ) -> Self {
+        self.link_click_callback = Some(Box::new(callback));
+        self
+    }
+
     /// Set a callback to be invoked when the terminal process exits.
     ///
     /// The callback receives a mutable reference to the window and context,
@@ -859,6 +875,28 @@ impl TerminalView {
         cx: &mut Context<Self>,
     ) {
         window.focus(&self.focus_handle);
+
+        // Cmd (macOS) / Ctrl (Linux) + left click → open URL when a handler is set.
+        let link_modifier = if cfg!(target_os = "macos") {
+            event.modifiers.platform
+        } else {
+            event.modifiers.control || event.modifiers.platform
+        };
+        if event.button == MouseButton::Left && link_modifier {
+            if let Some(ref callback) = self.link_click_callback {
+                let viewport = self.viewport_cell_at(event.position);
+                let grid_point = self.viewport_to_grid(viewport);
+                if let Some(url) = self.state.with_term(|term| {
+                    crate::links::find_url_at_point(term, grid_point)
+                }) {
+                    if crate::links::is_browser_url(&url) {
+                        callback(window, cx, &url);
+                        cx.notify();
+                        return;
+                    }
+                }
+            }
+        }
 
         let viewport = self.viewport_cell_at(event.position);
         let mode = self.state.mode();
