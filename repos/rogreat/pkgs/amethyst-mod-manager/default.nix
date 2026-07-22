@@ -7,7 +7,6 @@
   libloot-python,
   meson,
   ninja,
-  protontricks,
   python3Packages,
   qt6,
   xdg-utils,
@@ -35,24 +34,23 @@ python3Packages.buildPythonApplication (finalAttrs: {
     qt6.qtbase
   ];
 
-  # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   dependencies = [
     libloot-python
   ]
   ++ (with python3Packages; [
+    # https://github.com/ChrisDKN/Amethyst-Mod-Manager/blob/main/src/requirements-vendor.txt
+    backports-tarfile
     bsdiff4
-    certifi
-    cryptography
+    importlib-metadata
     jeepney
     keyring
+    libarchive-c
     lz4
     msgpack
     pillow
-    py7zr # fallback
+    py7zr
     pyside6
     requests
-    secretstorage
-    tkinter
     websocket-client
     zstandard
   ]);
@@ -77,7 +75,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
             _7zz
             bash
             glib # gio, gdbus
-            protontricks
             python3Packages.python
             xdg-utils # xdg-open, xdg-mime, xdg-settings
           ]
