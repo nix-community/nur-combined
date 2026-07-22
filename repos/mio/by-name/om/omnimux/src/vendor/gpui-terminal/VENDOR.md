@@ -61,6 +61,7 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 - `ime.rs`: `TerminalInputHandler` registered during canvas paint via `window.handle_input`, following Zed’s `terminal_element` pattern.
 - Pre-edit (composing) text painted with underline at the terminal cursor; committed text is written to the PTY.
 - Works with Wayland `zwp_text_input_v3` and macOS IME through GPUI’s platform layer.
+- **KeyDown must `stop_propagation`** after writing to the PTY (Zed `terminal_view` does the same). Otherwise Linux `handle_input` also feeds `key_char` through `InputHandler` and every character is typed twice (worse with Plasma Keyboard / text-input-v3).
 
 ### Misc API / robustness
 

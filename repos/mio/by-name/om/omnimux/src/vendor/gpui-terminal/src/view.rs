@@ -849,18 +849,22 @@ impl TerminalView {
     /// Converts GPUI keystrokes to terminal escape sequences and writes them
     /// to the stdin writer. If a key handler is set and returns true, the event
     /// is consumed and not sent to the terminal.
-    fn on_key_down(&mut self, event: &KeyDownEvent, _window: &mut Window, _cx: &mut Context<Self>) {
+    fn on_key_down(&mut self, event: &KeyDownEvent, _window: &mut Window, cx: &mut Context<Self>) {
         // Check if key handler wants to consume this event
         if let Some(ref handler) = self.key_handler
             && handler(event)
         {
-            return; // Event consumed by handler
+            // Match Zed terminal_view: stop so Wayland does not also deliver
+            // key_char via InputHandler (would double-insert into the PTY).
+            cx.stop_propagation();
+            return;
         }
 
         if let Some(bytes) = keystroke_to_bytes(&event.keystroke, self.state.mode()) {
             let mut writer = self.stdin_writer.lock();
             let _ = writer.write_all(&bytes);
             let _ = writer.flush();
+            cx.stop_propagation();
         }
     }
 
