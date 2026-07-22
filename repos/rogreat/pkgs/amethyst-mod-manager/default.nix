@@ -66,7 +66,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   postInstall = ''
-    ln -s ${libloot-python}/${(builtins.elemAt libloot-python.propagatedBuildInputs 0).sitePackages}/loot/loot.cpython-314-x86_64-linux-gnu.so \
+    PY_TAG="$(${(builtins.elemAt libloot-python.propagatedBuildInputs 0).interpreter} -c 'import sys; print(f"cpython-{sys.version_info.major}{sys.version_info.minor}")')"
+    ln -s ${libloot-python}/${(builtins.elemAt libloot-python.propagatedBuildInputs 0).sitePackages}/loot/loot.$PY_TAG-x86_64-linux-gnu.so \
         $out/${python3Packages.python.sitePackages}/LOOT
   '';
 
@@ -94,6 +95,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     license = lib.licenses.gpl3Plus;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "amethyst-mod-manager";
-    platforms = lib.platforms.linux;
+    platforms = [ "x86_64-linux" ];
   };
 })
