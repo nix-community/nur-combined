@@ -29,6 +29,9 @@
   librsvg,
   jemalloc,
   libqalculate,
+  libxml2,
+  libsodium,
+  libsecret,
   stb,
   md4c,
   nlohmann_json,
@@ -103,6 +106,9 @@ stdenv.mkDerivation (finalAttrs: {
     librsvg
     jemalloc
     libqalculate
+    libxml2
+    libsodium
+    libsecret
     stb_git
     md4c
     nlohmann_json
