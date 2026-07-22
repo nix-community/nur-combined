@@ -21,7 +21,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "RoGreat";
     repo = "Amethyst-Mod-Manager";
-    rev = "3ac3572a9445f229970a4cf2a6f85226b675c900";
+    rev = "2220c4e769a9151dc48407a066a7875abcdee6d3";
     hash = "sha256-kxvQifoQo2AZs3gpAGeXVl5J5iIQz4Nz2RYrRUd5V+g=";
   };
 
