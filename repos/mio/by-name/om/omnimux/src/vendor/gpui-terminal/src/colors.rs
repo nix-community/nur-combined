@@ -108,6 +108,15 @@ pub struct ColorPalette {
 
     /// Default cursor color
     cursor: Hsla,
+
+    /// Exact RGB for OSC 10 replies (avoids Hsla round-trip loss).
+    foreground_rgb: Rgb,
+
+    /// Exact RGB for OSC 11 replies (dark/light detection).
+    background_rgb: Rgb,
+
+    /// Exact RGB for OSC 12 replies.
+    cursor_rgb: Rgb,
 }
 
 impl Default for ColorPalette {
@@ -231,28 +240,31 @@ impl Default for ColorPalette {
         }
 
         // Default terminal colors
-        let foreground = rgb_to_hsla(Rgb {
+        let foreground_rgb = Rgb {
             r: 0xd4,
             g: 0xd4,
             b: 0xd4,
-        }); // Light gray
-        let background = rgb_to_hsla(Rgb {
+        }; // Light gray
+        let background_rgb = Rgb {
             r: 0x1e,
             g: 0x1e,
             b: 0x1e,
-        }); // Dark gray
-        let cursor = rgb_to_hsla(Rgb {
+        }; // Dark gray
+        let cursor_rgb = Rgb {
             r: 0xff,
             g: 0xff,
             b: 0xff,
-        }); // White
+        }; // White
 
         Self {
             ansi_colors,
             extended_colors,
-            foreground,
-            background,
-            cursor,
+            foreground: rgb_to_hsla(foreground_rgb),
+            background: rgb_to_hsla(background_rgb),
+            cursor: rgb_to_hsla(cursor_rgb),
+            foreground_rgb,
+            background_rgb,
+            cursor_rgb,
         }
     }
 }
@@ -390,6 +402,66 @@ impl ColorPalette {
     pub fn cursor(&self) -> Hsla {
         self.cursor
     }
+
+    /// Exact background RGB used for OSC 11 replies.
+    pub fn background_rgb(&self) -> Rgb {
+        self.background_rgb
+    }
+
+    /// Exact foreground RGB used for OSC 10 replies.
+    pub fn foreground_rgb(&self) -> Rgb {
+        self.foreground_rgb
+    }
+
+    /// Exact cursor RGB used for OSC 12 replies.
+    pub fn cursor_rgb(&self) -> Rgb {
+        self.cursor_rgb
+    }
+
+    /// Resolve an alacritty color-table index to RGB for OSC color queries.
+    ///
+    /// Indexes match alacritty/`NamedColor`: 0–15 ANSI, 256 fg, 257 bg, 258 cursor.
+    pub fn rgb_at(&self, index: usize) -> Rgb {
+        match index {
+            0..=15 => hsla_to_rgb(self.ansi_colors[index]),
+            i if i == NamedColor::Foreground as usize => self.foreground_rgb,
+            i if i == NamedColor::Background as usize => self.background_rgb,
+            i if i == NamedColor::Cursor as usize => self.cursor_rgb,
+            16..=255 => hsla_to_rgb(self.extended_colors[index]),
+            _ => self.foreground_rgb,
+        }
+    }
+}
+
+/// Converts GPUI Hsla back to 8-bit RGB (best-effort; special colors use stored RGB).
+fn hsla_to_rgb(hsla: Hsla) -> Rgb {
+    let h = hsla.h * 360.0;
+    let s = hsla.s;
+    let l = hsla.l;
+
+    let c = (1.0 - (2.0 * l - 1.0).abs()) * s;
+    let x = c * (1.0 - ((h / 60.0) % 2.0 - 1.0).abs());
+    let m = l - c / 2.0;
+
+    let (r1, g1, b1) = if h < 60.0 {
+        (c, x, 0.0)
+    } else if h < 120.0 {
+        (x, c, 0.0)
+    } else if h < 180.0 {
+        (0.0, c, x)
+    } else if h < 240.0 {
+        (0.0, x, c)
+    } else if h < 300.0 {
+        (x, 0.0, c)
+    } else {
+        (c, 0.0, x)
+    };
+
+    Rgb {
+        r: ((r1 + m) * 255.0).round().clamp(0.0, 255.0) as u8,
+        g: ((g1 + m) * 255.0).round().clamp(0.0, 255.0) as u8,
+        b: ((b1 + m) * 255.0).round().clamp(0.0, 255.0) as u8,
+    }
 }
 
 /// Converts an RGB color to GPUI's Hsla color format.
@@ -467,19 +539,25 @@ impl ColorPaletteBuilder {
 
     /// Sets the background color.
     pub fn background(mut self, r: u8, g: u8, b: u8) -> Self {
-        self.palette.background = rgb_to_hsla(Rgb { r, g, b });
+        let rgb = Rgb { r, g, b };
+        self.palette.background_rgb = rgb;
+        self.palette.background = rgb_to_hsla(rgb);
         self
     }
 
     /// Sets the foreground color.
     pub fn foreground(mut self, r: u8, g: u8, b: u8) -> Self {
-        self.palette.foreground = rgb_to_hsla(Rgb { r, g, b });
+        let rgb = Rgb { r, g, b };
+        self.palette.foreground_rgb = rgb;
+        self.palette.foreground = rgb_to_hsla(rgb);
         self
     }
 
     /// Sets the cursor color.
     pub fn cursor(mut self, r: u8, g: u8, b: u8) -> Self {
-        self.palette.cursor = rgb_to_hsla(Rgb { r, g, b });
+        let rgb = Rgb { r, g, b };
+        self.palette.cursor_rgb = rgb;
+        self.palette.cursor = rgb_to_hsla(rgb);
         self
     }
 

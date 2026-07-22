@@ -37,6 +37,7 @@ Rough chronological / thematic summary of edits under this vendor tree for Omnim
 - `TerminalView::copy_selection()` for host shortcuts (⌘C / Ctrl+Shift+C handled in Omnimux).
 - Forward OSC 52 **store** (and default `arboard` fallback) and **load** back to the PTY.
 - Forward **`PtyWrite`**, **`ColorRequest`**, and **`TextAreaSizeRequest`** to the PTY (upstream event bridge dropped several of these).
+- **OSC 10/11/12**: answer color queries from Omnimux's palette (not an empty alacritty color table), and push unsolicited OSC 10/11/12 when appearance/theme changes mid-session so TUIs that poll or listen can switch light/dark.
 - **Security**: OSC 52 defaults to **`Disabled`** (`Osc52Policy` / alacritty `Config.osc52`) so a compromised remote cannot silently overwrite or exfiltrate the system clipboard. Omnimux sets this explicitly; store/load handlers are gated and size-capped. Paste uses **bracketed paste** when the app enables it.
 - **PTY flood handling** (tmux attach/redraw / huge `cat`): bounded flume queue (~256 KiB) for backpressure + coalesce drain (up to 256 KiB per batch, yield between batches) so we paint near the latest grid instead of scrolling every intermediate line.
 
