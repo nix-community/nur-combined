@@ -1,0 +1,3 @@
+{
+  scrobblex = ./scrobblex.nix;
+}
