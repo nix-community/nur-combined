@@ -15,7 +15,7 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "2.0.5.beta-1";
+  version = "2.0.4";
   pyproject = false;
 
   src = fetchFromGitHub {
@@ -66,8 +66,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   postInstall = ''
-    PY_TAG="$(${(builtins.elemAt libloot-python.propagatedBuildInputs 0).interpreter} -c 'import sys; print(f"cpython-{sys.version_info.major}{sys.version_info.minor}")')"
-    ln -s ${libloot-python}/${(builtins.elemAt libloot-python.propagatedBuildInputs 0).sitePackages}/loot/loot.$PY_TAG-x86_64-linux-gnu.so \
+    ln -s ${libloot-python}/${(builtins.elemAt libloot-python.propagatedBuildInputs 0).sitePackages}/loot/loot.cpython-*-x86_64-linux-gnu.so \
         $out/${python3Packages.python.sitePackages}/LOOT
   '';
 
