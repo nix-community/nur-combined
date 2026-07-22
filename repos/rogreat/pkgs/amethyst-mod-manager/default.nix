@@ -66,7 +66,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
   postInstall = ''
-    ln -s ${libloot-python}/${python3Packages.python.sitePackages}/loot/loot.cpython-314-x86_64-linux-gnu.so \
+    ln -s ${libloot-python}/${(builtins.elemAt libloot-python.propagatedBuildInputs 0).sitePackages}/loot/loot.cpython-314-x86_64-linux-gnu.so \
         $out/${python3Packages.python.sitePackages}/LOOT
   '';
 
