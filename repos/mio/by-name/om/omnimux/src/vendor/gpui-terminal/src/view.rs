@@ -1555,6 +1555,17 @@ impl TerminalView {
             || config.colors.foreground_rgb() != self.config.colors.foreground_rgb()
             || config.colors.cursor_rgb() != self.config.colors.cursor_rgb();
 
+        // Host palette wins over app OSC 10/11/12 overrides (Contour/Ghostty on OS
+        // theme change). Otherwise ColorRequest would keep returning the stale VT set.
+        if theme_changed {
+            use alacritty_terminal::vte::ansi::{Handler, NamedColor};
+            self.state.with_term_mut(|term| {
+                term.reset_color(NamedColor::Foreground as usize);
+                term.reset_color(NamedColor::Background as usize);
+                term.reset_color(NamedColor::Cursor as usize);
+            });
+        }
+
         // Update renderer with new font settings and palette
         self.renderer.font_family = config.font_family.clone();
         self.renderer.font_fallbacks = config.font_fallbacks.clone();

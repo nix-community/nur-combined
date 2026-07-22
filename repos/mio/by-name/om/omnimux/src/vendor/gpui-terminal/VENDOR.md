@@ -39,7 +39,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 - `TerminalView::copy_selection()` for host shortcuts.
 - Forward OSC 52 **store** (and default `arboard` fallback) and **load** back to the PTY.
 - Forward **`PtyWrite`**, **`ColorRequest`**, and **`TextAreaSizeRequest`** to the PTY (upstream event bridge dropped several of these).
-- **OSC 10/11/12**: `ColorRequest` answers from `ColorPalette` RGB when alacritty’s color table has no override (exact fg/bg/cursor RGB stored on the palette).
+- **OSC 10/11/12**: `ColorRequest` answers from `ColorPalette` RGB when alacritty’s color table has no override (exact fg/bg/cursor RGB stored on the palette). On **host** palette change, clear NamedColor fg/bg/cursor overrides so queries track OS appearance.
 - **DEC mode 2031 / DSR 996–997** (Contour/Ghostty): side-channel CSI observer (`color_scheme.rs`) because alacritty ignores unknown mode 2031 and does not handle `CSI ? 996 n`. Supports enable/disable, synchronous query, DECRPM, and unsolicited `CSI ? 997;Ps n` when the **host** palette changes via `update_config` (not when apps set OSC 10/11).
 - **Security**: OSC 52 defaults to **`Disabled`** (`Osc52Policy` / alacritty `Config.osc52`); store/load handlers are gated and size-capped. Paste uses **bracketed paste** when the app enables it.
 - **PTY flood handling** (tmux attach/redraw / huge `cat`): bounded flume queue (~256 KiB) for backpressure + coalesce drain (up to 256 KiB per batch, yield between batches) so we paint near the latest grid instead of scrolling every intermediate line.

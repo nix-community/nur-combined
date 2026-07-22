@@ -114,7 +114,12 @@ pub fn render_title_bar(
                     .hover(|s| s.bg(colors.hover))
                     .window_control_area(WindowControlArea::Min)
                     .on_click(|_, window, _| window.minimize_window())
-                    .child(div().child("–").text_color(colors.text)),
+                    .child(
+                        div()
+                            .child("–")
+                            .text_color(colors.text)
+                            .text_lg(),
+                    ),
             )
             .child(
                 ctl("win_max")
@@ -125,7 +130,8 @@ pub fn render_title_bar(
                     .child(
                         div()
                             .child(if window.is_maximized() { "❐" } else { "□" })
-                            .text_color(colors.text),
+                            .text_color(colors.text)
+                            .text_lg(),
                     ),
             )
             .child(
@@ -133,7 +139,12 @@ pub fn render_title_bar(
                     .hover(|s| s.bg(rgb(0xe81123)))
                     .window_control_area(WindowControlArea::Close)
                     .on_click(|_, window, _| window.remove_window())
-                    .child(div().child("✕").text_color(colors.text)),
+                    .child(
+                        div()
+                            .child("✕")
+                            .text_color(colors.text)
+                            .text_lg(),
+                    ),
             );
     }
 
