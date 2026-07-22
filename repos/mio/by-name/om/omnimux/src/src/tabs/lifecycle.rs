@@ -68,9 +68,10 @@ impl TerminalTabs {
     }
 
     fn schedule_reconnect(&mut self, index: usize, cx: &mut Context<Self>) {
-        let Some(session) = self.tabs.get(index) else {
+        let Some(session) = self.tabs.get(index).cloned() else {
             return;
         };
+        let session_weak = session.downgrade();
         let (ready, host, streak, wait) = session.update(cx, |session, _| {
             if session.pending_reconnect_at.is_none() {
                 let shift = session.reconnect_streak.min(6);
@@ -94,6 +95,11 @@ impl TerminalTabs {
             )
         });
 
+        // Resolve index by entity id — tabs may have closed/moved during the wait.
+        let Some(index) = self.tab_index_for(&session_weak) else {
+            return;
+        };
+
         if ready {
             self.reconnect_tab_at(index, host, streak, cx);
             return;
@@ -103,7 +109,7 @@ impl TerminalTabs {
         cx.spawn(async move |_, cx| {
             gpui::Timer::after(wait).await;
             let _ = tabs.update(cx, |tabs, cx| {
-                if index < tabs.tabs.len() {
+                if let Some(index) = tabs.tab_index_for(&session_weak) {
                     tabs.schedule_reconnect(index, cx);
                 }
             });

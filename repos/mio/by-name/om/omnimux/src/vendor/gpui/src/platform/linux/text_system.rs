@@ -62,6 +62,10 @@ impl Fallback for TerminalSymbolFallback {
         &[
             "Symbols Nerd Font Mono",
             "Symbols Nerd Font",
+            // Color emoji MUST come before Noto Sans / DejaVu / Symbols2 — those
+            // claim many emoji codepoints with empty or mono outlines, so 🌐 and
+            // friends never reach a working color emoji font (blank cells).
+            "Noto Color Emoji",
             "Noto Sans",
             "DejaVu Sans",
             "FreeSans",
@@ -70,7 +74,6 @@ impl Fallback for TerminalSymbolFallback {
             "FreeMono",
             "Noto Sans Symbols",
             "Noto Sans Symbols2",
-            "Noto Color Emoji",
         ]
     }
 
@@ -89,11 +92,32 @@ fn new_font_system_with_terminal_fallbacks() -> FontSystem {
         .unwrap_or_else(|_| "en-US".to_string());
     let mut db = fontdb::Database::new();
     db.load_system_fonts();
+    // Drop system Noto Color Emoji (often COLRv1 from google-fonts / Fedora).
+    // Swash cannot rasterize COLRv1 → blank glyphs. Omnimux then `add_fonts` a
+    // CBDT bitmap NotoColorEmoji.ttf that actually paints.
+    remove_noto_color_emoji_faces(&mut db);
     // Match cosmic_text::FontSystem::new_with_fonts defaults.
     db.set_monospace_family("Noto Sans Mono");
     db.set_sans_serif_family("Open Sans");
     db.set_serif_family("DejaVu Serif");
     FontSystem::new_with_locale_and_db_and_fallback(locale, db, TerminalSymbolFallback)
+}
+
+fn remove_noto_color_emoji_faces(db: &mut fontdb::Database) {
+    let ids: Vec<_> = db
+        .faces()
+        .filter(|face| {
+            face.post_script_name == "NotoColorEmoji"
+                || face
+                    .families
+                    .iter()
+                    .any(|(name, _)| name == "Noto Color Emoji")
+        })
+        .map(|face| face.id)
+        .collect();
+    for id in ids {
+        db.remove_face(id);
+    }
 }
 
 impl CosmicTextSystem {
@@ -283,6 +307,8 @@ impl CosmicTextSystemState {
                 // Symbols-only Nerd fonts have no ASCII 'm' but are valid fallback/icon faces.
                 "SymbolsNFM",
                 "SymbolsNF",
+                // Color emoji fonts are bitmap/COLR-only — no Latin 'm'.
+                "NotoColorEmoji",
             ];
 
             if font.as_swash().charmap().map('m') == 0

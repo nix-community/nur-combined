@@ -182,13 +182,16 @@ impl TerminalTabs {
                     }),
                 )
         });
-        window.focus(&menu.focus_handle(cx));
+        let menu_focus = menu.focus_handle(cx);
         let subscription = cx.subscribe_in(&menu, window, |this, _, _: &DismissEvent, window, cx| {
             this.context_menu.take();
             this.focus_active_session(window, cx);
             cx.notify();
         });
+        // Set state before focusing so on_focus_lost → restore_terminal_focus
+        // sees context_menu.is_some() and does not steal focus back.
         self.context_menu = Some((menu, position, subscription));
+        window.focus(&menu_focus);
         cx.notify();
     }
 

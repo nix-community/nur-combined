@@ -367,12 +367,29 @@ impl TerminalSession {
             return;
         }
         if let Ok(mut child) = self.child.lock() {
-            if let Ok(Some(status)) = child.try_wait() {
-                self.has_exited = true;
-                self.exit_status = Some(status.exit_code() as u32);
-            } else {
-                self.has_exited = true;
-                self.exit_status = Some(255);
+            match child.try_wait() {
+                Ok(Some(status)) => {
+                    self.has_exited = true;
+                    self.exit_status = Some(status.exit_code() as u32);
+                }
+                Ok(None) => {
+                    // PTY EOF can race slightly ahead of waitpid. Poll briefly
+                    // without a blocking wait (must not stall the UI thread).
+                    let mut code = None;
+                    for _ in 0..20 {
+                        std::thread::sleep(std::time::Duration::from_millis(1));
+                        if let Ok(Some(status)) = child.try_wait() {
+                            code = Some(status.exit_code() as u32);
+                            break;
+                        }
+                    }
+                    self.has_exited = true;
+                    self.exit_status = Some(code.unwrap_or(255));
+                }
+                Err(_) => {
+                    self.has_exited = true;
+                    self.exit_status = Some(255);
+                }
             }
         } else {
             self.has_exited = true;

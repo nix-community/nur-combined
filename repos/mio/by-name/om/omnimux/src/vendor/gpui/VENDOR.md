@@ -61,8 +61,10 @@ Source of the touch logic:
 - `Pixels`: use `f32::from(...)` instead of `.as_f32()` (not on 0.2.2).
 - `platform/linux/text_system.rs`: extend cosmic-text's Unix font fallback list
   with `Symbols Nerd Font Mono` / `Symbols Nerd Font` (Omnimux ships them for
-  Starship; GPUI's `Font.fallbacks` field is ignored on Linux). Allow loading
-  symbol-only faces that lack ASCII `m`.
+  Starship; GPUI's `Font.fallbacks` field is ignored on Linux). Put
+  `Noto Color Emoji` before Noto Sans / DejaVu / Symbols2. Strip system
+  `Noto Color Emoji` (often COLRv1 → blank glyphs under Swash) so bundled CBDT
+  emoji from `add_fonts` wins. Allow loading symbol/emoji faces that lack ASCII `m`.
 - Wayland/X11 XDP appearance handler: drop the client `RefCell` borrow before
   `set_appearance` (observers may call `Platform::window_appearance` →
   `with_common`). Also take-call-restore for the appearance callback.
