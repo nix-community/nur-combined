@@ -29,14 +29,14 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "rapid-mlx";
-  version = "0.10.12";
+  version = "0.10.15";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "raullenchai";
     repo = "Rapid-MLX";
     rev = "v${version}";
-    hash = "sha256-FPObS7NmD+jGvZSPnxbKIG0mzEm92DFI9C+pt4L5BxY=";
+    hash = "sha256-Iik6Y9eUzCqoFwuFVtUj6fFQsKzOjHP7F39+ePkx/gg=";
   };
 
   build-system = with python3Packages; [
@@ -49,6 +49,7 @@ python3Packages.buildPythonApplication rec {
     fastapi
     huggingface-hub
     jsonschema
+    llguidance
     mcp
     mlx
     mlx-lm
