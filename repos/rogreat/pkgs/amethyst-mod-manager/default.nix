@@ -39,20 +39,20 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ]
   ++ (with python3Packages; [
     # https://github.com/ChrisDKN/Amethyst-Mod-Manager/blob/main/src/requirements-vendor.txt
-    backports-tarfile
-    bsdiff4
-    importlib-metadata
-    jeepney
-    keyring
-    libarchive-c
-    lz4
-    msgpack
-    pillow
-    py7zr
     pyside6
+    py7zr
+    libarchive-c
+    pillow
+    lz4
+    zstandard
     requests
     websocket-client
-    zstandard
+    keyring
+    jeepney
+    importlib-metadata
+    backports-tarfile
+    msgpack
+    bsdiff4
   ]);
 
   postPatch = ''
