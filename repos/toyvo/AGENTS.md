@@ -223,9 +223,6 @@ Configured substituters:
 
 - `https://cache.nixos.org`
 - `https://nix-community.cachix.org`
-- `https://toyvo.cachix.org`
-- `https://zed.cachix.org`
-- `https://cache.garnix.io`
 - `https://cache.toyvo.dev`
 
 ## Git Hooks

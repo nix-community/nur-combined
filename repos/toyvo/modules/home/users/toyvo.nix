@@ -18,9 +18,9 @@ in
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
 
   config = lib.mkIf cfg.users.toyvo.enable {
-    home.packages = [
+    home.packages = with pkgs; [
       inputs.nixcfg.packages.${system}.toyvo-neovim
-      pkgs.opencommit
+      opencommit
     ];
     home.sessionVariables.EDITOR = "nvim";
     programs = {
@@ -86,8 +86,36 @@ in
           email = "Collin@Diekvoss.com";
         };
       };
+      jujutsu = {
+        enable = true;
+        settings = {
+          user = {
+            name = "Collin Diekvoss";
+            email = "Collin@Diekvoss.com";
+          };
+          ui.default-command = "st";
+          signing = {
+            backend = "ssh";
+            behavior = "own";
+            key = config.sops.secrets."git_toyvo_sign_ed25519.pub".path;
+          };
+          aliases = {
+            rbm = [
+              "util" "exec" "--"
+              "sh" "-c"
+              "jj git fetch --all-remotes && jj rebase \"$@\" -d main@origin"
+              "sh"
+            ];
+          };
+        };
+      };
       helix.enable = true;
+      herdr.enable = true;
       hyper.enable = cfg.gui.enable;
+      pi-coding-agent = {
+        enable = true;
+        extraPackages = with pkgs; [ nodejs bun ];
+      };
       opencode = {
         enable = true;
         settings.mcp.github-toyvo = {
@@ -160,7 +188,6 @@ in
         enable = cfg.gui.enable;
         package = pkgs.zed-editor;
       };
-      zellij.enable = true;
       ideavim.enable = true;
       bash.initExtra = ''
         source ${config.sops.templates."shell-secrets.env".path}

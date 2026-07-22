@@ -25,7 +25,7 @@ in
           bun
           cargo-generate
           cargo-make
-          cargo-watch
+          stablePkgs.cargo-watch
           ccache
           cmake
           dfu-util

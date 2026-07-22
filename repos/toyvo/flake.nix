@@ -5,17 +5,11 @@
     extra-substituters = [
       "https://cache.nixos.org"
       "https://nix-community.cachix.org"
-      "https://toyvo.cachix.org"
-      "https://zed.cachix.org"
-      "https://cache.garnix.io"
       "https://cache.toyvo.dev"
     ];
     extra-trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "toyvo.cachix.org-1:s++CG1te6YaS9mjICre0Ybbya2o/S9fZIyDNGiD4UXs="
-      "zed.cachix.org-1:/pHQ6dpMsAZk2DiP4WCL0p9YDNKWj2Q5FL20bNmw1cU="
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
       "cache.toyvo.dev:6bv4Qc2/SVaWnWzDOUcoB4pT3i3l4wcM+WrhRBFb7E4="
     ];
   };
@@ -194,6 +188,52 @@
                 pre-commit.text = self'.legacyPackages.pre-commit.text;
                 pre-push.text = self'.legacyPackages.pre-push.text;
               };
+              packages = with pkgs; [
+                _1password-cli
+                cloudflared
+                jira-cli-go
+                lefthook
+                proton-pass-cli
+                volta
+              ];
+              env = [
+                {
+                  name = "JIRA_API_TOKEN";
+                  eval = "$(cat ~/.config/sops-nix/secrets/atlassian_api_token)";
+                }
+                {
+                  name = "CLOUDFLARE_TUNNEL_TOKEN";
+                  eval = "$(cat ~/.config/sops-nix/secrets/cloudflare_tunnel_token)";
+                }
+                {
+                  name = "X_LILJWTY_GATE";
+                  eval = "$(cat ~/.config/sops-nix/secrets/liljwty_gate)";
+                }
+                {
+                  name = "LILJWTY_GATE";
+                  eval = "$(cat ~/.config/sops-nix/secrets/liljwty_gate)";
+                }
+                {
+                  name = "AWS_REGION";
+                  value = "us-west-2";
+                }
+                {
+                  name = "AWS_PROFILE";
+                  value = "fq-global-auth";
+                }
+                {
+                  name = "FQ_ENV";
+                  value = "fq-global-auth";
+                }
+                {
+                  name = "FQ_EMAIL";
+                  value = "collin.diekvoss@floqast.com";
+                }
+                {
+                  name = "NX_TUI";
+                  value = "false";
+                }
+              ];
             };
             # we get infinite recursion on freebsd with `nix flake show`, not investigating
             checks = lib.mkIf (system != "x86_64-freebsd") (

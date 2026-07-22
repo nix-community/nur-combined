@@ -10,6 +10,7 @@ in
   options.nixcfg.shells.enable = lib.mkEnableOption "shell tools";
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables._ZO_ECHO = 1;
     programs = {
       starship = {
         enable = true;

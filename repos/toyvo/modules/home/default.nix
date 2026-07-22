@@ -31,7 +31,6 @@
     ./programs/terminals/rio.nix
     ./programs/terminals/wezterm.nix
     ./programs/volta.nix
-    ./programs/zellij.nix
     ./users/chloe.nix
     ./users/toyvo.nix
   ];
