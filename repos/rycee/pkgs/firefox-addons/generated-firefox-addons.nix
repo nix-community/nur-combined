@@ -183,10 +183,10 @@
     };
     "adnauseam" = buildMozillaXpiAddon {
       pname = "adnauseam";
-      version = "3.28.6";
+      version = "3.28.8";
       addonId = "adnauseam@rednoise.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4821708/adnauseam-3.28.6.xpi";
-      sha256 = "2c2b57e3a29f939147561b7f2804c289285e7a505cc2ea8bab0b8b24e4c708e4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4909199/adnauseam-3.28.8.xpi";
+      sha256 = "fa2aa99c4a3c766514d72a9e9dcc29b3e5b5f8b58072b0d7c495f0c895b72ce0";
       meta = with lib;
       {
         homepage = "https://adnauseam.io";
@@ -3621,10 +3621,10 @@
     };
     "dualsub" = buildMozillaXpiAddon {
       pname = "dualsub";
-      version = "2.71.0";
+      version = "2.71.1";
       addonId = "{104db41e-43f7-4484-bda8-a59536364925}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4871675/dualsub-2.71.0.xpi";
-      sha256 = "3fbd36c3549056017d939b6bb234423c6b8311077b1dcd6189899aace2d67900";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4911904/dualsub-2.71.1.xpi";
+      sha256 = "3c7fce0cab619775c7a2f604e7b84dbd14affc5ec7ca64c85a75001d6c53927e";
       meta = with lib;
       {
         homepage = "https://www.dualsub.xyz/en/";
@@ -3869,10 +3869,10 @@
     };
     "enhancer-for-youtube" = buildMozillaXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.134";
+      version = "2.0.135";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4887502/enhancer_for_youtube-2.0.134.xpi";
-      sha256 = "bf4831c27b8da3804b7511e70782c81fe5af1831947280dc81ccc4edf83cda9a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4904559/enhancer_for_youtube-2.0.135.xpi";
+      sha256 = "24c0107ff01cffd76560c9a76f07f274d7168f18f0aab7899fdd239138e24507";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -7200,14 +7200,14 @@
     };
     "ipfs-companion" = buildMozillaXpiAddon {
       pname = "ipfs-companion";
-      version = "3.3.0";
+      version = "3.4.0";
       addonId = "ipfs-firefox-addon@lidel.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4587033/ipfs_companion-3.3.0.xpi";
-      sha256 = "9e4de48314886a9d6b69bfb1c4903802669dbf50406da6c7a14949ceec788a1e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4912161/ipfs_companion-3.4.0.xpi";
+      sha256 = "2bb5e807643b337e15a9e79ac8be2625332c8260e508f4ddd86b0ac29e9f9d51";
       meta = with lib;
       {
         homepage = "https://github.com/ipfs/ipfs-companion";
-        description = "Harness the power of IPFS in your browser";
+        description = "Connect your browser to a local Kubo IPFS node";
         license = licenses.cc0;
         mozPermissions = [
           "alarms"
@@ -8496,10 +8496,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.223";
+      version = "2.4.224";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4905893/lichess_tools_by_siderite-2.4.223.xpi";
-      sha256 = "bf914db327e3473b651c9b3082e82c3ed168525ffd05f46e5e7e3f1167d6ac90";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4910924/lichess_tools_by_siderite-2.4.224.xpi";
+      sha256 = "9eb4ca0776177a262fb8eaa93e4ff1b91fc30d40794254ea046bdfb0667203e3";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -10031,10 +10031,10 @@
     };
     "metamask" = buildMozillaXpiAddon {
       pname = "metamask";
-      version = "13.39.2.0";
+      version = "13.40.0.0";
       addonId = "webextension@metamask.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4899470/ether_metamask-13.39.2.0.xpi";
-      sha256 = "3ccf5ad1a3edb45f3c27c4304419dd252914b4779627a3b8eead6da2ad398372";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4909366/ether_metamask-13.40.0.0.xpi";
+      sha256 = "3d26dc42654a3c542699ed51fa73d34755d82687019f40c1cf9345e5a2ff5d03";
       meta = with lib;
       {
         description = "The most secure wallet for crypto, NFTs, and DeFi, trusted by millions of users";
@@ -12673,10 +12673,10 @@
     };
     "readwise-highlighter" = buildMozillaXpiAddon {
       pname = "readwise-highlighter";
-      version = "0.17.1";
+      version = "0.17.2";
       addonId = "team@readwise.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4904735/readwise_highlighter-0.17.1.xpi";
-      sha256 = "7eaabd7570486d087e198faf1324dccaa788a275ad8036ebbf883057a3dabc31";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4911561/readwise_highlighter-0.17.2.xpi";
+      sha256 = "9d01358430851b8ad20821a2ea13768edc5db12babf52c2f3d27cbd86c83cb10";
       meta = with lib;
       {
         homepage = "https://read.readwise.io";
@@ -13284,10 +13284,10 @@
     };
     "ruffle_rs" = buildMozillaXpiAddon {
       pname = "ruffle_rs";
-      version = "0.3.0.26163";
+      version = "0.4.0.999999";
       addonId = "{b5501fd1-7084-45c5-9aa6-567c2fcf5dc6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4847266/ruffle_rs-0.3.0.26163.xpi";
-      sha256 = "06de9770e3a14f219a971c70520f9f346027e6ca8141ef93ff02237b395ba62c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4906837/ruffle_rs-0.4.0.999999.xpi";
+      sha256 = "9f0e71ed8f9cf18eb3b528a2ed89b530d2b6dafd15d5a87a6bad26036557846e";
       meta = with lib;
       {
         homepage = "https://ruffle.rs/";
@@ -17535,10 +17535,10 @@
     };
     "xkit-rewritten" = buildMozillaXpiAddon {
       pname = "xkit-rewritten";
-      version = "1.3.5";
+      version = "1.3.6";
       addonId = "{6e710c58-36cc-49d6-b772-bfc3030fa56e}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4853530/xkit_rewritten-1.3.5.xpi";
-      sha256 = "a9ce20a5de8e5805e498aa72adb16ee489b0abdcdff0be767c2d445ac619c4e8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4904759/xkit_rewritten-1.3.6.xpi";
+      sha256 = "28dfc2c0da804062faa7e01afa28ed9110d110ebefe0b424c21c1697708cefd2";
       meta = with lib;
       {
         homepage = "https://github.com/AprilSylph/XKit-Rewritten/wiki";
