@@ -357,7 +357,7 @@
     "motrix-next-beta": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-zLrOj4o2rgPTY1WqxibgTlPJEc2iehfMaUADq5TQ96k=/src-tauri/Cargo.lock",
+                "sha256-f2Dc6a2sYXgD5rB2y2EFPnG1cKLuraLaZtfhXZsl0aI=/src-tauri/Cargo.lock",
                 {}
             ]
         },
@@ -373,12 +373,12 @@
             "name": null,
             "owner": "AnInsomniacy",
             "repo": "motrix-next",
-            "rev": "v3.9.7-beta.4",
-            "sha256": "sha256-zLrOj4o2rgPTY1WqxibgTlPJEc2iehfMaUADq5TQ96k=",
+            "rev": "v3.9.7-beta.5",
+            "sha256": "sha256-f2Dc6a2sYXgD5rB2y2EFPnG1cKLuraLaZtfhXZsl0aI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.9.7-beta.4"
+        "version": "v3.9.7-beta.5"
     },
     "nix-auth": {
         "cargoLock": null,
@@ -564,11 +564,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-V033+cFVeKgscYgxL1Nda1Dn5i+fkAhRBLith3cfoJE=/Cargo.lock",
+                "sha256-kFnBzFP1xSGlgtYZZMDb4_OSnTXixJWsilnxDjzUB9A=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-07-21",
+        "date": "2026-07-22",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -580,12 +580,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "006eab3d573cdb6175dea7f2b42eaed9e4ee8a1a",
-            "sha256": "sha256-V033+cFVeKgscYgxL1Nda1Dn5i+fkAhRBLith3cfoJE=",
+            "rev": "9d09a378bce113e2599dd4689012398425b49195",
+            "sha256": "sha256-kFnBzFP1xSGlgtYZZMDb4/OSnTXixJWsilnxDjzUB9A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "006eab3d573cdb6175dea7f2b42eaed9e4ee8a1a"
+        "version": "9d09a378bce113e2599dd4689012398425b49195"
     },
     "svt-av1-essential": {
         "cargoLock": null,
