@@ -20,6 +20,19 @@ pub fn is_dark_appearance(appearance: WindowAppearance) -> bool {
     )
 }
 
+/// `COLORFGBG` hint used by Cursor CLI and others when OSC 11 is unavailable.
+/// Format is `fg;bg` as ANSI color indices (see Cursor terminal-setup docs).
+pub fn colorfgbg_for_palette(colors: &ColorPalette) -> &'static str {
+    let bg = colors.background_rgb();
+    // Rec. 601 luminance on 8-bit channels; midpoint ~127.5.
+    let y = (299u32 * bg.r as u32 + 587u32 * bg.g as u32 + 114u32 * bg.b as u32) / 1000;
+    if y < 128 {
+        "15;0" // light-on-dark
+    } else {
+        "0;15" // dark-on-light
+    }
+}
+
 pub fn palette_for_appearance(appearance: WindowAppearance) -> ColorPalette {
     if is_dark_appearance(appearance) {
         ColorPalette::default()

@@ -19,15 +19,19 @@ Omnimux syncs the terminal palette from the OS/window appearance (`tabs/lifecycl
 
 - Sessions start with the **current** window appearance (so OSC color queries are correct from the first prompt).
 - On appearance change, Omnimux updates each tab’s `TerminalConfig.colors` and repaints.
+- New sessions also get `COLORFGBG` (`15;0` dark / `0;15` light) as a fallback documented by Cursor CLI when OSC probing fails.
 
-TUIs such as Cursor CLI / Gemini CLI typically detect dark vs light by **querying OSC 11** (terminal background), not by reading OS APIs. Omnimux answers those queries via vendored `gpui-terminal` (`ColorRequest` → palette RGB).
+TUIs such as Cursor CLI / Gemini CLI typically detect dark vs light by **querying OSC 11** (terminal background), not by reading OS APIs. Omnimux answers those queries via vendored `gpui-terminal` (`ColorRequest` → palette RGB), using the xterm `rgb:RRRR/GGGG/BBBB` reply form (alacritty formatter).
 
 | Mechanism | Mid-session after OS theme flip |
 | --- | --- |
 | Omnimux chrome + terminal palette | Updates |
-| OSC 10/11/12 **query** (app polls) | Sees new colors |
+| Direct OSC 10/11/12 **query** to Omnimux (no tmux, or passthrough) | Sees new colors |
+| OSC 11 **inside tmux** | tmux (≥3.4) answers from a **cached** client color (read on attach). Mid-session OS flips often stay stale until detach/reattach ([tmux#3582](https://github.com/tmux/tmux/issues/3582)) |
 | Unsolicited OSC 10/11/12 push | **Not** sent (non-standard; can leak into the shell prompt) |
 | Contour/Ghostty **DEC mode 2031** (`CSI ? 997;Ps n`) | Not implemented yet |
+
+References: [xterm OSC 10/11 query](https://ansicode.eversources.app/en/sequence/osc-color-query), [Contour DEC 2031](http://contour-terminal.org/vt-extensions/color-palette-update-notifications/), [Cursor terminal theme](https://cursor.com/docs/cli/reference/terminal-setup).
 
 ## Local sessions
 

@@ -1,4 +1,4 @@
-use crate::palette::symbol_font_fallbacks;
+use crate::palette::{colorfgbg_for_palette, symbol_font_fallbacks};
 use crate::tabs::TerminalTabs;
 use gpui::prelude::*;
 use gpui::*;
@@ -99,6 +99,8 @@ fi"#;
         };
         cmd.env("TERM", "xterm-256color");
         cmd.env("COLORTERM", "truecolor");
+        // Fallback for TUIs that skip/fail OSC 11 (Cursor CLI documents COLORFGBG).
+        cmd.env("COLORFGBG", colorfgbg_for_palette(&colors));
 
         let child_proc = match pair.slave.spawn_command(cmd) {
             Ok(child) => child,
