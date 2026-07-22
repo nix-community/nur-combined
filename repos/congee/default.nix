@@ -8,6 +8,11 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  # astrometry-net isn't in nixpkgs, so build it here and thread it into siril,
+  # which shells out to its solve-field for local plate solving.
+  astrometry-net = pkgs.callPackage ./pkgs/astrometry-net { };
+in
 {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -22,4 +27,6 @@
   rapid-mlx = pkgs.callPackage ./pkgs/rapid-mlx { };
   llmster = pkgs.callPackage ./pkgs/llmster { };
   whatcable = pkgs.callPackage ./pkgs/whatcable { };
+  inherit astrometry-net;
+  siril = pkgs.callPackage ./pkgs/siril { inherit astrometry-net; };
 }
