@@ -1,6 +1,5 @@
 use super::TerminalTabs;
 use super::ChromeColors;
-use crate::palette::{chrome_search_icon, chrome_settings_icon, CHROME_ICON_FONT};
 use gpui::prelude::*;
 use gpui::*;
 
@@ -10,17 +9,14 @@ pub fn render_title_bar(
     window: &mut Window,
     cx: &mut Context<TerminalTabs>,
 ) -> impl IntoElement {
-    // Same hit target + text style for every chrome control. Icon buttons use
-    // bundled Symbols Nerd Font so ⚙/search don't pick up color emoji on Plasma.
-    let title_btn = |id: &'static str, label: SharedString, icon_font: bool| {
-        let mut label_el = div()
+    // Use text-presentation symbols for broad cross-platform support:
+    // avoid KDE color-emoji sizing while not relying on Nerd Font PUA coverage.
+    let title_btn = |id: &'static str, label: SharedString| {
+        let label_el = div()
             .child(label)
             .text_color(colors.text)
             .text_base()
             .font_weight(FontWeight::MEDIUM);
-        if icon_font {
-            label_el = label_el.font_family(CHROME_ICON_FONT);
-        }
         div()
             .id(id)
             .flex()
@@ -77,17 +73,17 @@ pub fn render_title_bar(
                         .text_sm(),
                 ),
         )
-        .child(title_btn("new_tab_btn", "+".into(), false).on_click(cx.listener(
+        .child(title_btn("new_tab_btn", "+".into()).on_click(cx.listener(
             |this, _, window, cx| {
                 this.open_host_prompt(window, cx);
             },
         )))
-        .child(title_btn("search_btn", chrome_search_icon(), true).on_click(cx.listener(
+        .child(title_btn("search_btn", "⌕".into()).on_click(cx.listener(
             |this, _, window, cx| {
                 this.find(window, cx);
             },
         )))
-        .child(title_btn("settings_btn", chrome_settings_icon(), true).on_click(cx.listener(
+        .child(title_btn("settings_btn", "⚙\u{FE0E}".into()).on_click(cx.listener(
             |this, _, _, cx| {
                 this.show_settings = true;
                 this.focus_ui = true;
