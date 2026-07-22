@@ -84,6 +84,13 @@ in
       patches = (old.patches or [ ]) ++ [ ./patches/openssh.patch ];
     })
   );
+  grub2_patched = nodarwin (
+    v3overridegcc (
+      pkgs.grub2.overrideAttrs (old: {
+        patches = (old.patches or [ ]) ++ [ ./patches/grub-os-prober-title.patch ];
+      })
+    )
+  );
   bees = nodarwin (v3overridegcc pkgs.bees);
   netdata = (v3override (goV3OverrideAttrs pkgs.netdata)).override { withCloudUi = true; };
   # https://gist.github.com/nstarke/baa031e0cab64a608c9bd77d73c50fc6
