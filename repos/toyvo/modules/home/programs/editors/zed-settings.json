@@ -68,10 +68,7 @@
     },
     {
       "external": {
-        "arguments": [
-          "-e",
-          "s/ *$//"
-        ],
+        "arguments": ["-e", "s/ *$//"],
         "command": "sed"
       }
     }
@@ -231,10 +228,7 @@
       "tab_size": 4,
       "formatter": {
         "external": {
-          "arguments": [
-            "--stdin-filepath",
-            "{buffer_path}"
-          ],
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
           "command": "prettier"
         }
       }
@@ -246,19 +240,13 @@
       },
       "formatter": {
         "external": {
-          "arguments": [
-            "--stdin-filepath",
-            "{buffer_path}"
-          ],
+          "arguments": ["--stdin-filepath", "{buffer_path}"],
           "command": "prettier"
         }
       }
     },
     "Nix": {
-      "language_servers": [
-        "nil",
-        "!nixd"
-      ]
+      "language_servers": ["nil", "!nixd"]
     },
     "http": {
       "inlay_hints": {
@@ -270,9 +258,7 @@
     "nil": {
       "initialization_options": {
         "formatting": {
-          "command": [
-            "nixfmt"
-          ]
+          "command": ["nixfmt"]
         },
         "nix": {
           "flake": {

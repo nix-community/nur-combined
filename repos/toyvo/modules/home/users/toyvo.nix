@@ -101,8 +101,11 @@ in
           };
           aliases = {
             rbm = [
-              "util" "exec" "--"
-              "sh" "-c"
+              "util"
+              "exec"
+              "--"
+              "sh"
+              "-c"
               "jj git fetch --all-remotes && jj rebase \"$@\" -d main@origin"
               "sh"
             ];
@@ -114,7 +117,10 @@ in
       hyper.enable = cfg.gui.enable;
       pi-coding-agent = {
         enable = true;
-        extraPackages = with pkgs; [ nodejs bun ];
+        extraPackages = with pkgs; [
+          nodejs
+          bun
+        ];
       };
       opencode = {
         enable = true;
