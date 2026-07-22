@@ -26,10 +26,11 @@ TUIs such as Cursor CLI / Gemini CLI typically detect dark vs light by **queryin
 | Mechanism | Mid-session after OS theme flip |
 | --- | --- |
 | Omnimux chrome + terminal palette | Updates |
-| Direct OSC 10/11/12 **query** to Omnimux (no tmux, or passthrough) | Sees new colors |
-| OSC 11 **inside tmux** | tmux (≥3.4) answers from a **cached** client color (read on attach). Mid-session OS flips often stay stale until detach/reattach ([tmux#3582](https://github.com/tmux/tmux/issues/3582)) |
-| Unsolicited OSC 10/11/12 push | **Not** sent (non-standard; can leak into the shell prompt) |
-| Contour/Ghostty **DEC mode 2031** (`CSI ? 997;Ps n`) | Not implemented yet |
+| Direct OSC 10/11/12 **query** to Omnimux | Sees new colors |
+| Contour/Ghostty **DEC mode 2031** (`CSI ? 2031 h`) | Unsolicited `CSI ? 997;1\|2 n` when Omnimux updates the host palette; apps (Neovim) then re-query OSC 11 |
+| Synchronous scheme query | `CSI ? 996 n` → `CSI ? 997;Ps n` |
+| OSC 11 **inside tmux** | tmux (≥3.4) may still cache client color until reattach or until tmux gains 2031 ([tmux#3582](https://github.com/tmux/tmux/issues/3582), [tmux#4269](https://github.com/tmux/tmux/issues/4269)) |
+| Unsolicited OSC 10/11/12 push | **Not** sent (non-standard) |
 
 References: [xterm OSC 10/11 query](https://ansicode.eversources.app/en/sequence/osc-color-query), [Contour DEC 2031](http://contour-terminal.org/vt-extensions/color-palette-update-notifications/), [Cursor terminal theme](https://cursor.com/docs/cli/reference/terminal-setup).
 

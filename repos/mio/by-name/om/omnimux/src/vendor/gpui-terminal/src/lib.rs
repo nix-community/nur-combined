@@ -338,6 +338,7 @@
 //! to accommodate tall glyphs.
 
 pub mod clipboard;
+pub mod color_scheme;
 pub mod colors;
 pub mod event;
 pub mod ime;

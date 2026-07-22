@@ -50,6 +50,9 @@
 //! ```
 
 use crate::clipboard::Clipboard;
+use crate::color_scheme::{
+    decrpm_2031, dsr_color_scheme, is_dark_rgb, ColorSchemeAction, ColorSchemeState,
+};
 use crate::colors::ColorPalette;
 use crate::event::{GpuiEventProxy, TerminalEvent};
 use crate::ime::{ime_cursor_bounds, paint_marked_text, TerminalInputHandler};
@@ -65,7 +68,6 @@ use alacritty_terminal::grid::{Dimensions, Scroll};
 use alacritty_terminal::index::{Column, Line, Point as AlacPoint, Side};
 use alacritty_terminal::selection::{Selection as AlacSelection, SelectionType as AlacSelectionType};
 use alacritty_terminal::term::TermMode;
-use alacritty_terminal::vte::ansi::Rgb;
 use gpui::{Edges, *};
 use std::io::{Read, Write};
 use std::sync::Arc;
@@ -469,6 +471,9 @@ pub struct TerminalView {
     /// important under Wayland fractional scaling (e.g. Plasma 225%).
     hit_test: Arc<parking_lot::Mutex<TerminalHitTest>>,
 
+    /// Contour / Ghostty DEC mode 2031 + DSR 996/997 color-scheme reporting.
+    color_scheme: ColorSchemeState,
+
     /// IME pre-edit (composing) state for CJK and similar input methods.
     ime_state: Option<crate::ime::ImeState>,
 }
@@ -588,7 +593,7 @@ impl TerminalView {
                            batch: Vec<u8>|
              -> bool {
                 this.update(cx, |view: &mut Self, cx: &mut Context<Self>| {
-                    view.state.process_bytes(&batch);
+                    view.handle_pty_bytes(&batch);
                     cx.notify();
                 })
                 .is_ok()
@@ -662,8 +667,39 @@ impl TerminalView {
             last_mouse_cell: None,
             selecting: false,
             hit_test: Arc::new(parking_lot::Mutex::new(TerminalHitTest::default())),
+            color_scheme: ColorSchemeState::default(),
             ime_state: None,
         }
+    }
+
+    /// Feed PTY output through alacritty and Contour color-scheme CSI side-channel.
+    fn handle_pty_bytes(&mut self, batch: &[u8]) {
+        self.state.process_bytes(batch);
+        for action in self.color_scheme.feed(batch) {
+            self.apply_color_scheme_action(action);
+        }
+    }
+
+    fn apply_color_scheme_action(&mut self, action: ColorSchemeAction) {
+        match action {
+            ColorSchemeAction::EnableNotify | ColorSchemeAction::DisableNotify => {}
+            ColorSchemeAction::QueryScheme => {
+                let dark = is_dark_rgb(self.config.colors.background_rgb());
+                self.write_pty_str(&dsr_color_scheme(dark));
+            }
+            ColorSchemeAction::ReportMode2031 => {
+                self.write_pty_str(&decrpm_2031(self.color_scheme.notify_enabled()));
+            }
+        }
+    }
+
+    /// Unsolicited Contour DSR when the host palette changes (OS appearance / theme).
+    fn notify_color_scheme_if_enabled(&self) {
+        if !self.color_scheme.notify_enabled() {
+            return;
+        }
+        let dark = is_dark_rgb(self.config.colors.background_rgb());
+        self.write_pty_str(&dsr_color_scheme(dark));
     }
 
     /// Cell width in pixels (for IME candidate positioning).
@@ -1515,6 +1551,10 @@ impl TerminalView {
             });
         }
 
+        let theme_changed = config.colors.background_rgb() != self.config.colors.background_rgb()
+            || config.colors.foreground_rgb() != self.config.colors.foreground_rgb()
+            || config.colors.cursor_rgb() != self.config.colors.cursor_rgb();
+
         // Update renderer with new font settings and palette
         self.renderer.font_family = config.font_family.clone();
         self.renderer.font_fallbacks = config.font_fallbacks.clone();
@@ -1525,8 +1565,13 @@ impl TerminalView {
         // Store the new config
         self.config = config;
 
+        // Contour/Ghostty: notify only on host palette changes (not VT OSC set).
+        if theme_changed {
+            self.notify_color_scheme_if_enabled();
+        }
+
         // Trigger a repaint - cell dimensions will be recalculated via measure_cell().
-        // Appearance sync / OSC theme policy: see Omnimux README.md (not unsolicited OSC).
+        // Appearance sync / OSC theme policy: see Omnimux README.md.
         cx.notify();
     }
 
