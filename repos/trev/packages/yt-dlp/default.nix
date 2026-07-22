@@ -32,14 +32,14 @@
 
 buildPythonApplication rec {
   pname = "yt-dlp";
-  version = "2026.07.04-unstable-2026-07-20";
+  version = "2026.07.04-unstable-2026-07-21";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "yt-dlp";
     repo = "yt-dlp";
-    rev = "a8be438aac1b90c3888e974056d967b8be90fa7e";
-    hash = "sha256-l6lJRJg4i1Vfu+PG9/KVmGtsRycJW9yAZIsjj1Nvlw8=";
+    rev = "aaf7405ba3a45b32c59f160426efc9b561af035a";
+    hash = "sha256-WN5Isq68jWX+SS3qnYiv96+7bes3eWVtmiPEOpP+Afc=";
   };
 
   postPatch = ''
