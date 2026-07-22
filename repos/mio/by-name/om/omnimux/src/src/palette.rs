@@ -1,7 +1,20 @@
+use gpui::SharedString;
 use gpui::WindowAppearance;
 use gpui_terminal::ColorPalette;
 
 pub const DEFAULT_FONT_SIZE: f32 = 14.0;
+
+/// Font family for title-bar icons (shipped under `$out/share/omnimux/fonts`).
+pub const CHROME_ICON_FONT: &str = "Symbols Nerd Font";
+
+/// Monochrome Nerd Font (PUA) glyphs for chrome — avoids KDE/Plasma color emoji.
+pub fn chrome_search_icon() -> SharedString {
+    "\u{f002}".into() // nf-fa-search
+}
+
+pub fn chrome_settings_icon() -> SharedString {
+    "\u{f013}".into() // nf-fa-cog
+}
 
 /// Fallback families for glyphs missing from the primary monospace (Starship nerd
 /// icons, powerline separators, and default emoji like hostname `ssh_symbol` 🌐).

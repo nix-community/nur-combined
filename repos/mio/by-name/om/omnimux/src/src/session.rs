@@ -52,7 +52,20 @@ impl TerminalSession {
             }
         };
 
-        let tmux_cmd = "tmux -u has-session 2>/dev/null && exec tmux -u attach \\; set -g mouse on || exec tmux -u new-session \\; set -g mouse on";
+        // Prefer tmux when available; macOS GUI apps get a minimal PATH so include
+        // Homebrew/MacPorts, and fall back to a login shell when tmux is missing.
+        let tmux_cmd = r#"PATH="/opt/homebrew/bin:/usr/local/bin:/opt/local/bin:$PATH"
+if command -v tmux >/dev/null 2>&1; then
+  tmux -u has-session 2>/dev/null && exec tmux -u attach \; set -g mouse on || exec tmux -u new-session \; set -g mouse on
+elif [ -n "${SHELL:-}" ] && [ -x "$SHELL" ]; then
+  exec "$SHELL" -l
+elif [ -x /bin/zsh ]; then
+  exec /bin/zsh -l
+elif [ -x /bin/bash ]; then
+  exec /bin/bash -l
+else
+  exec /bin/sh
+fi"#;
 
         let mut cmd = if let Some(ref h) = host {
             if !crate::hosts::is_safe_ssh_destination(h) {

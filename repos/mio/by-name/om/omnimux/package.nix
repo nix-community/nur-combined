@@ -13,6 +13,7 @@
   makeWrapper,
   nerd-fonts,
   noto-fonts-color-emoji,
+  tmux,
 }:
 
 rustPlatform.buildRustPackage {
@@ -71,7 +72,8 @@ rustPlatform.buildRustPackage {
     ''
     + ''
       wrapProgram $out/bin/omnimux \
-        --set OMNIMUX_FONTS_DIR $out/share/omnimux/fonts
+        --set OMNIMUX_FONTS_DIR $out/share/omnimux/fonts \
+        --prefix PATH : ${lib.makeBinPath [ tmux ]}
     ''
     + lib.optionalString stdenv.hostPlatform.isDarwin ''
       if [ -d "$out/Applications/Omnimux.app/Contents/Resources" ]; then
