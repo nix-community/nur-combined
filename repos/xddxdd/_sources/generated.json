@@ -305,27 +305,6 @@
         },
         "version": "02.05.02.51"
     },
-    "bergamot-translator": {
-        "cargoLock": null,
-        "date": "2024-05-12",
-        "extract": null,
-        "name": "bergamot-translator",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "browsermt",
-            "repo": "bergamot-translator",
-            "rev": "9271618ebbdc5d21ac4dc4df9e72beb7ce644774",
-            "sha256": "sha256-VWKFSxvCH7fVSABMieBWlA0knLYWLI61MyVqoZa6Pm4=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "9271618ebbdc5d21ac4dc4df9e72beb7ce644774"
-    },
     "bifrost": {
         "cargoLock": null,
         "date": null,
@@ -2568,27 +2547,6 @@
             "url": "https://github.com/lightpanda-io/browser/releases/download/0.3.5/lightpanda-aarch64-linux"
         },
         "version": "0.3.5"
-    },
-    "linguaspark-core": {
-        "cargoLock": null,
-        "date": "2025-04-22",
-        "extract": null,
-        "name": "linguaspark-core",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "LinguaSpark",
-            "repo": "core",
-            "rev": "6a2bc711cce73bc053675c0293dd37c8029e62dd",
-            "sha256": "sha256-2cDaHKrmCAkwUGc7FobMb5HAeSKQ2K/zrW6fh0D0TLk=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "6a2bc711cce73bc053675c0293dd37c8029e62dd"
     },
     "linguaspark-server": {
         "cargoLock": null,

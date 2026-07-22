@@ -163,18 +163,6 @@
       hash = "sha256-tWda80M3cV5hztEoYkZVGabQMgg6pyc/OniPJfghN0Q=";
     };
   };
-  bergamot-translator = {
-    pname = "bergamot-translator";
-    version = "9271618ebbdc5d21ac4dc4df9e72beb7ce644774";
-    src = fetchFromGitHub {
-      owner = "browsermt";
-      repo = "bergamot-translator";
-      rev = "9271618ebbdc5d21ac4dc4df9e72beb7ce644774";
-      fetchSubmodules = true;
-      hash = "sha256-VWKFSxvCH7fVSABMieBWlA0knLYWLI61MyVqoZa6Pm4=";
-    };
-    date = "2024-05-12";
-  };
   bifrost = {
     pname = "bifrost";
     version = "1.6.5";
@@ -1320,18 +1308,6 @@
       url = "https://github.com/lightpanda-io/browser/releases/download/0.3.5/lightpanda-aarch64-linux";
       hash = "sha256-jXs6HXuQJL7vlOf8fOhUAw7k1t71+AK44OiCRzHD2To=";
     };
-  };
-  linguaspark-core = {
-    pname = "linguaspark-core";
-    version = "6a2bc711cce73bc053675c0293dd37c8029e62dd";
-    src = fetchFromGitHub {
-      owner = "LinguaSpark";
-      repo = "core";
-      rev = "6a2bc711cce73bc053675c0293dd37c8029e62dd";
-      fetchSubmodules = true;
-      hash = "sha256-2cDaHKrmCAkwUGc7FobMb5HAeSKQ2K/zrW6fh0D0TLk=";
-    };
-    date = "2025-04-22";
   };
   linguaspark-server = {
     pname = "linguaspark-server";
