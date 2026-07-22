@@ -1515,10 +1515,6 @@ impl TerminalView {
             });
         }
 
-        let theme_changed = config.colors.background_rgb() != self.config.colors.background_rgb()
-            || config.colors.foreground_rgb() != self.config.colors.foreground_rgb()
-            || config.colors.cursor_rgb() != self.config.colors.cursor_rgb();
-
         // Update renderer with new font settings and palette
         self.renderer.font_family = config.font_family.clone();
         self.renderer.font_fallbacks = config.font_fallbacks.clone();
@@ -1529,33 +1525,9 @@ impl TerminalView {
         // Store the new config
         self.config = config;
 
-        // Notify in-terminal apps (Gemini CLI polls OSC 11; Neovim OSC11 listens)
-        // when Omnimux appearance changes while the session is running.
-        if theme_changed {
-            self.emit_dynamic_color_update();
-        }
-
-        // Trigger a repaint - cell dimensions will be recalculated via measure_cell()
+        // Trigger a repaint - cell dimensions will be recalculated via measure_cell().
+        // Appearance sync / OSC theme policy: see Omnimux README.md (not unsolicited OSC).
         cx.notify();
-    }
-
-    /// Push unsolicited OSC 10/11/12 so theme-aware TUIs can react mid-session.
-    fn emit_dynamic_color_update(&self) {
-        let fg = self.config.colors.foreground_rgb();
-        let bg = self.config.colors.background_rgb();
-        let cursor = self.config.colors.cursor_rgb();
-        let fmt = |prefix: u8, c: Rgb| {
-            format!(
-                "\x1b]{prefix};rgb:{0:02x}{0:02x}/{1:02x}{1:02x}/{2:02x}{2:02x}\x1b\\",
-                c.r, c.g, c.b
-            )
-        };
-        self.write_pty_str(&format!(
-            "{}{}{}",
-            fmt(10, fg),
-            fmt(11, bg),
-            fmt(12, cursor)
-        ));
     }
 
     /// Calculate terminal dimensions from pixel bounds and cell size.
