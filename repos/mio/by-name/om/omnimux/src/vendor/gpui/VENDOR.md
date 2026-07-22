@@ -56,6 +56,8 @@ Source of the touch logic:
   that PR uses).
 - On touch down, set `mouse_focused_window` from the touched surface so up/move
   reach the window even if the pointer never entered (gap in the upstream PR).
+- Touch uses the same multi-click (`click_count`) tracking as `wl_pointer`, so
+  title-bar double-tap can maximize like a mouse double-click.
 - `Pixels`: use `f32::from(...)` instead of `.as_f32()` (not on 0.2.2).
 - `platform/linux/text_system.rs`: extend cosmic-text's Unix font fallback list
   with `Symbols Nerd Font Mono` / `Symbols Nerd Font` (Omnimux ships them for

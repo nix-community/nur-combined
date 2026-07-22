@@ -2227,11 +2227,30 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                         state.mouse_location = Some(position);
                         state.button_pressed = Some(MouseButton::Left);
 
+                        // Same multi-click tracking as wl_pointer Button Pressed,
+                        // so title-bar double-tap can maximize (click_count == 2).
+                        let click_elapsed = state.click.last_click.elapsed();
+                        if click_elapsed < DOUBLE_CLICK_INTERVAL
+                            && state
+                                .click
+                                .last_mouse_button
+                                .is_some_and(|prev| prev == MouseButton::Left)
+                            && is_within_click_distance(state.click.last_location, position)
+                        {
+                            state.click.current_count += 1;
+                        } else {
+                            state.click.current_count = 1;
+                        }
+                        state.click.last_click = Instant::now();
+                        state.click.last_mouse_button = Some(MouseButton::Left);
+                        state.click.last_location = position;
+                        let click_count = state.click.current_count;
+
                         let input = PlatformInput::MouseDown(MouseDownEvent {
                             button: MouseButton::Left,
                             position,
                             modifiers: state.modifiers,
-                            click_count: 1,
+                            click_count,
                             first_mouse: false,
                         });
                         drop(state);
@@ -2253,11 +2272,12 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
 
                         // Cancel the pending click before scrolling.
                         if let Some(window) = state.mouse_focused_window.clone() {
+                            let click_count = state.click.current_count;
                             let input = PlatformInput::MouseUp(MouseUpEvent {
                                 button: MouseButton::Left,
                                 position: center,
                                 modifiers: state.modifiers,
-                                click_count: 1,
+                                click_count,
                             });
                             state.button_pressed = None;
                             drop(state);
@@ -2355,11 +2375,12 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                         state.button_pressed = None;
 
                         if let Some(window) = state.mouse_focused_window.clone() {
+                            let click_count = state.click.current_count;
                             let input = PlatformInput::MouseUp(MouseUpEvent {
                                 button: MouseButton::Left,
                                 position: state.touch_location.unwrap_or_default(),
                                 modifiers: state.modifiers,
-                                click_count: 1,
+                                click_count,
                             });
                             state.touch_location = None;
                             drop(state);
