@@ -114,21 +114,31 @@ impl TerminalTabs {
         let search_input = cx.new(|cx| InputState::new(window, cx));
 
         let subscriptions = vec![
-            cx.subscribe(&host_input, {
+            // Use App::subscribe + defer — Context::subscribe would re-lease
+            // TerminalTabs while open_host_prompt is still updating it (set_value
+            // emits InputEvent::Change → double-lease panic).
+            App::subscribe(cx, &host_input, {
                 let window_handle = window_handle;
                 let tabs_weak = tabs_weak.clone();
-                move |_, _, event, cx| match event {
+                move |_, event, cx| match event {
                     InputEvent::PressEnter { .. } => {
-                        let _ = window_handle.update(cx, |_, window, cx| {
-                            let _ = tabs_weak.update(cx, |this, cx| {
-                                this.submit_host_prompt(window, cx);
+                        let tabs_weak = tabs_weak.clone();
+                        let window_handle = window_handle;
+                        cx.defer(move |cx| {
+                            let _ = window_handle.update(cx, |_, window, cx| {
+                                let _ = tabs_weak.update(cx, |this, cx| {
+                                    this.submit_host_prompt(window, cx);
+                                });
                             });
                         });
                     }
                     InputEvent::Change => {
-                        let _ = tabs_weak.update(cx, |this, cx| {
-                            this.selected_host_index = 0;
-                            cx.notify();
+                        let tabs_weak = tabs_weak.clone();
+                        cx.defer(move |cx| {
+                            let _ = tabs_weak.update(cx, |this, cx| {
+                                this.selected_host_index = 0;
+                                cx.notify();
+                            });
                         });
                     }
                     _ => {}
