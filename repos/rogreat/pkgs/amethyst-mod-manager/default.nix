@@ -58,16 +58,13 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ]);
 
   postPatch = ''
+    substituteInPlace src/LOOT/eligibility.py src/LOOT/loot_sorter.py \
+        --replace-fail 'import LOOT.loot as loot' 'import loot'
+
     substituteInPlace src/Nexus/nxm_handler.py \
         --replace-fail \
             "f'{cls._quote_if_needed(exe)} {cls._quote_if_needed(script)} --nxm %u'" \
             "'amethyst-mod-manager --nxm %u'"
-  '';
-
-  # https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=amethyst-mod-manager
-  postInstall = ''
-    ln -s ${libloot-python}/${(builtins.elemAt libloot-python.propagatedBuildInputs 0).sitePackages}/loot/loot.cpython-*-x86_64-linux-gnu.so \
-        $out/${python3Packages.python.sitePackages}/LOOT
   '';
 
   dontWrapQtApps = true;
