@@ -65,7 +65,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/HMCL-dev/HMCL/releases/download/v${version}/HMCL-${version}.jar";
-    hash = "sha256-SyT8snV83UYGsxr8I2sIYCCAIiei6WOBxPww7Sw0Gpo=";
+    hash = "sha256-rT+RruLMz/DTlYSOMv4D6ZCOVt36iqyx42v8ea4XSdM=";
   };
 
   dontUnpack = true;
