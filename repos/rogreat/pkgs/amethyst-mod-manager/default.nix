@@ -1,15 +1,16 @@
 {
   _7zz,
   bash,
+  cabextract,
   fetchFromGitHub,
   glib,
-  cabextract,
   lib,
   libloot-python,
   meson,
   ninja,
   python3Packages,
   qt6,
+  winetricks,
   xdg-utils,
 }:
 
@@ -60,6 +61,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     substituteInPlace src/LOOT/eligibility.py src/LOOT/loot_sorter.py \
         --replace-fail 'import LOOT.loot as loot' 'import loot'
 
+    substituteInPlace src/Utils/protontricks.py \
+        --replace-fail '_get_tools_dir() / "winetricks"' 'Path("${lib.getExe winetricks}")' \
+        --replace-fail '_get_tools_dir() / "cabextract"' 'Path("${lib.getExe cabextract}")'
+
     substituteInPlace src/Nexus/nxm_handler.py \
         --replace-fail \
             "f'{cls._quote_if_needed(exe)} {cls._quote_if_needed(script)} --nxm %u'" \
@@ -75,8 +80,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
           lib.makeBinPath [
             # https://github.com/ChrisDKN/Amethyst-Mod-Manager/blob/main/flatpak/io.github.Amethyst.ModManager.yml
             _7zz
-            # unrar - not used
             cabextract
+            winetricks
 
             bash
             glib # gio, gdbus
