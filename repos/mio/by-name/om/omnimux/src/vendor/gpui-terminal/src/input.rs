@@ -189,6 +189,12 @@ pub fn keystroke_to_bytes(keystroke: &Keystroke, mode: TermMode) -> Option<Vec<u
     if keystroke.modifiers.control {
         let key = keystroke.key.as_str();
 
+        // Ctrl+Shift+letter is reserved for the host (copy/paste, etc.) — do not
+        // map to C0 controls (Ctrl+Shift+C must not become ^C / SIGINT).
+        if keystroke.modifiers.shift {
+            return None;
+        }
+
         // Ctrl+A through Ctrl+Z map to 0x01 through 0x1a
         if key.len() == 1 {
             let ch = key.chars().next().unwrap();
@@ -393,6 +399,10 @@ mod tests {
         // Ctrl+Space = 0x00
         let ctrl_space = Keystroke::parse("ctrl-space").unwrap();
         assert_eq!(keystroke_to_bytes(&ctrl_space, mode), Some(vec![0x00]));
+
+        // Ctrl+Shift+C must not become ^C (host copy shortcut)
+        let ctrl_shift_c = Keystroke::parse("ctrl-shift-c").unwrap();
+        assert_eq!(keystroke_to_bytes(&ctrl_shift_c, mode), None);
     }
 
     #[test]

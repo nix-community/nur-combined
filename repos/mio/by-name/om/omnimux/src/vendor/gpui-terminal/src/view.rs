@@ -1486,6 +1486,7 @@ impl Render for TerminalView {
         div()
             .size_full()
             .bg(bg)
+            .key_context("omnimux_terminal")
             .track_focus(&self.focus_handle)
             .on_key_down(cx.listener(Self::on_key_down))
             .on_mouse_down(MouseButton::Left, cx.listener(Self::on_mouse_down))

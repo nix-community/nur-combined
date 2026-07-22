@@ -39,12 +39,20 @@ fn main() {
             KeyBinding::new("ctrl--", ZoomOut, Some(CHROME)),
             KeyBinding::new("cmd-0", ZoomReset, Some(CHROME)),
             KeyBinding::new("ctrl-0", ZoomReset, Some(CHROME)),
-            KeyBinding::new("cmd-c", Copy, Some(CHROME)),
+            // Copy/Paste must work while the terminal is focused (Zed Terminal context).
+            // CHROME (`!omnimux_terminal`) would let ctrl-shift-c fall through as ^C.
+            KeyBinding::new("cmd-c", Copy, Some("omnimux")),
+            KeyBinding::new("cmd-c", Copy, Some("omnimux_terminal")),
             #[cfg(not(target_os = "macos"))]
-            KeyBinding::new("ctrl-shift-c", Copy, Some(CHROME)),
-            KeyBinding::new("cmd-v", Paste, Some(CHROME)),
+            KeyBinding::new("ctrl-shift-c", Copy, Some("omnimux")),
             #[cfg(not(target_os = "macos"))]
-            KeyBinding::new("ctrl-shift-v", Paste, Some(CHROME)),
+            KeyBinding::new("ctrl-shift-c", Copy, Some("omnimux_terminal")),
+            KeyBinding::new("cmd-v", Paste, Some("omnimux")),
+            KeyBinding::new("cmd-v", Paste, Some("omnimux_terminal")),
+            #[cfg(not(target_os = "macos"))]
+            KeyBinding::new("ctrl-shift-v", Paste, Some("omnimux")),
+            #[cfg(not(target_os = "macos"))]
+            KeyBinding::new("ctrl-shift-v", Paste, Some("omnimux_terminal")),
             KeyBinding::new("escape", CloseOverlay, Some(CHROME)),
             KeyBinding::new("escape", CloseOverlay, Some("omnimux_prompt")),
             KeyBinding::new("escape", CloseOverlay, Some("omnimux_search")),
