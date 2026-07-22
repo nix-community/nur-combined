@@ -77,6 +77,8 @@ pub struct Settings {
     pub osc52: Option<Osc52Setting>,
     /// Allow Cmd/Ctrl+click on http(s) / OSC 8 links (confirm before open). Default: off.
     pub open_links: Option<bool>,
+    /// Last window maximize state (restored on next launch).
+    pub window_maximized: Option<bool>,
 }
 
 pub fn load_settings() -> Settings {
@@ -85,6 +87,24 @@ pub fn load_settings() -> Settings {
         .ok()
         .and_then(|s| serde_json::from_str(&s).ok())
         .unwrap_or_default()
+}
+
+fn write_settings(settings: &Settings) {
+    let dir = config_dir();
+    let _ = std::fs::create_dir_all(&dir);
+    if let Ok(json) = serde_json::to_string_pretty(settings) {
+        let _ = std::fs::write(dir.join("settings.json"), json);
+    }
+}
+
+/// Persist whether the main window is maximized (survives reboot).
+pub fn save_window_maximized(maximized: bool) {
+    let mut settings = load_settings();
+    if settings.window_maximized == Some(maximized) {
+        return;
+    }
+    settings.window_maximized = Some(maximized);
+    write_settings(&settings);
 }
 
 pub fn save_session(hosts: &[Option<String>]) {
@@ -111,8 +131,7 @@ pub fn load_session() -> Vec<Option<String>> {
 }
 
 pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
-    let dir = config_dir();
-    let _ = std::fs::create_dir_all(&dir);
+    let existing = load_settings();
     let settings = Settings {
         keep_tab_after_exit: Some(tabs.keep_tab_after_exit),
         auto_reconnect: Some(tabs.auto_reconnect),
@@ -126,8 +145,7 @@ pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
         },
         osc52: Some(tabs.osc52),
         open_links: Some(tabs.open_links),
+        window_maximized: existing.window_maximized,
     };
-    if let Ok(json) = serde_json::to_string_pretty(&settings) {
-        let _ = std::fs::write(dir.join("settings.json"), json);
-    }
+    write_settings(&settings);
 }

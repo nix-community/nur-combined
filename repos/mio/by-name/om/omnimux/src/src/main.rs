@@ -14,6 +14,7 @@ use actions::{
 use fonts::load_bundled_symbol_fonts;
 use gpui::prelude::*;
 use gpui::*;
+use settings::load_settings;
 use tabs::TerminalTabs;
 
 /// Keymap context for chrome shortcuts that must not steal terminal key bindings.
@@ -70,9 +71,14 @@ fn main() {
         ]);
 
         let bounds = Bounds::centered(None, size(px(800.0), px(600.0)), cx);
+        let window_bounds = if load_settings().window_maximized.unwrap_or(false) {
+            WindowBounds::Maximized(bounds)
+        } else {
+            WindowBounds::Windowed(bounds)
+        };
         cx.open_window(
             WindowOptions {
-                window_bounds: Some(WindowBounds::Windowed(bounds)),
+                window_bounds: Some(window_bounds),
                 titlebar: Some(TitlebarOptions {
                     title: Some("omnimux".into()),
                     appears_transparent: true,

@@ -160,7 +160,9 @@ impl TerminalTabs {
                 this.sync_appearance(appearance, window, cx);
             }),
             cx.observe_window_bounds(window, |this, window, cx| {
+                crate::settings::save_window_maximized(window.is_maximized());
                 this.restore_terminal_focus(window, cx);
+                cx.notify();
             }),
             cx.on_focus_lost(window, |this, window, cx| {
                 this.restore_terminal_focus(window, cx);

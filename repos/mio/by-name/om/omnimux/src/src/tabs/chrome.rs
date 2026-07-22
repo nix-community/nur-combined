@@ -18,7 +18,7 @@ pub fn render_title_bar(
             .items_center()
             .justify_center()
             .h(px(32.0))
-            .min_w(px(40.0))
+            .min_w(px(44.0))
             .px_3()
             .ml_1()
             .rounded_sm()
@@ -41,7 +41,7 @@ pub fn render_title_bar(
         .flex()
         .flex_row()
         .items_center()
-        .h(px(40.0))
+        .h(px(36.0))
         .w_full()
         .px_2()
         .bg(colors.bar)
@@ -121,7 +121,12 @@ pub fn render_title_bar(
                     .hover(|s| s.bg(colors.hover))
                     .window_control_area(WindowControlArea::Max)
                     .on_click(|_, window, _| window.zoom_window())
-                    .child(div().child("□").text_color(colors.text)),
+                    // □ = maximize; ❐ = restore (already maximized).
+                    .child(
+                        div()
+                            .child(if window.is_maximized() { "❐" } else { "□" })
+                            .text_color(colors.text),
+                    ),
             )
             .child(
                 ctl("win_close")
