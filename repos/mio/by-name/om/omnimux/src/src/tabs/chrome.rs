@@ -9,18 +9,28 @@ pub fn render_title_bar(
     window: &mut Window,
     cx: &mut Context<TerminalTabs>,
 ) -> impl IntoElement {
-    let title_btn = |id: &'static str, label: &'static str| {
+    // Same hit target + text style for every chrome control. Avoid emoji glyphs
+    // (⚙ renders as color emoji and looks huge next to ASCII "+").
+    let title_btn = |id: &'static str, label: SharedString| {
         div()
             .id(id)
             .flex()
             .items_center()
             .justify_center()
-            .size_6()
+            .h(px(32.0))
+            .min_w(px(40.0))
+            .px_3()
             .ml_1()
             .rounded_sm()
             .cursor_pointer()
             .hover(|style| style.bg(colors.hover))
-            .child(div().child(label).text_color(colors.text))
+            .child(
+                div()
+                    .child(label)
+                    .text_color(colors.text)
+                    .text_base()
+                    .font_weight(FontWeight::MEDIUM),
+            )
     };
 
     let show_client_controls = matches!(window.window_decorations(), Decorations::Client { .. })
@@ -31,7 +41,7 @@ pub fn render_title_bar(
         .flex()
         .flex_row()
         .items_center()
-        .h(px(36.0))
+        .h(px(40.0))
         .w_full()
         .px_2()
         .bg(colors.bar)
@@ -64,17 +74,17 @@ pub fn render_title_bar(
                         .text_sm(),
                 ),
         )
-        .child(title_btn("new_tab_btn", "+").on_click(cx.listener(
+        .child(title_btn("new_tab_btn", "+".into()).on_click(cx.listener(
             |this, _, window, cx| {
                 this.open_host_prompt(window, cx);
             },
         )))
-        .child(title_btn("search_btn", "⌕").on_click(cx.listener(
+        .child(title_btn("search_btn", "Find".into()).on_click(cx.listener(
             |this, _, window, cx| {
                 this.find(window, cx);
             },
         )))
-        .child(title_btn("settings_btn", "⚙").on_click(cx.listener(
+        .child(title_btn("settings_btn", "Settings".into()).on_click(cx.listener(
             |this, _, _, cx| {
                 this.show_settings = true;
                 this.focus_ui = true;
