@@ -21,7 +21,6 @@
   (old: {
     patches = (old.patches or [ ]) ++ [
       ./153-cbindgen-0.29.4-compat.patch
-      ./fix-ttc.patch
     ];
 
     postPatch = (old.postPatch or "") + ''
