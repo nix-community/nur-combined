@@ -1,0 +1,15 @@
+diff --git a/src/app/state/settings.ts b/src/app/state/settings.ts
+index 9fbad4f..2deea6f 100644
+--- a/src/app/state/settings.ts
++++ b/src/app/state/settings.ts
+@@ -50,8 +50,8 @@ export interface Settings {
+ }
+ 
+ const defaultSettings: Settings = {
+-  themeId: undefined,
+-  useSystemTheme: true,
++  themeId: 'butter-theme',
++  useSystemTheme: false,
+   lightThemeId: undefined,
+   darkThemeId: undefined,
+   monochromeMode: false,
