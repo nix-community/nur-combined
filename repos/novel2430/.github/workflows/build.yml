@@ -78,12 +78,13 @@ jobs:
 
       - name: Build Nix packages
         run: |
-          nix-build ci.nix \
-            -A cacheOutputs \
-            --no-out-link \
-            --keep-going \
+          nix build \
+            --file ci.nix \
+            cacheOutputs \
+            --no-link \
             --print-build-logs \
-            --show-trace
+            --log-format raw \
+            --option keep-going true
 
       - name: Trigger NUR update
         if: >-

@@ -6,17 +6,17 @@
 buildGoModule rec {
 
   pname = "zju-connect";
-  version = "0.7.1";
+  version = "1.2.1";
   
   src = fetchFromGitHub ({
     owner = "Mythologyli";
     repo = "zju-connect";
     rev = "v${version}";
     fetchSubmodules = false;
-    sha256 = "sha256-r3kvjW5e66L5K6cHoC2OJWS1SRnKwk8W/YZOPgBr6cw=";
+    sha256 = "sha256-TdXO/dK41zTR00BCOB3TcMTiip2XBSjNx024WpiIT0Q=";
   });
   
-  vendorHash = "sha256-npOYVm/d8Qpg+xrACK+ThMEniq40eKJfZtMAWrecBJk=";
+  vendorHash = "sha256-lDxroSrPwwYF2w7qXR+PQYkre8E+nOwPzDiMoeScjO0=";
 
   meta = with lib; {
     description = "Zhejiang University RVPN Client in Go";
