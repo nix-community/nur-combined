@@ -33,9 +33,9 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "84285cdeac2ade4a685e6ca12bad314e449c174f"; # No releases yet
+    rev = "78696e0b95eef6fee8d531c9814fdcefef299014"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-ksOexBXRdA9HOHiZy/vQkZLRCsdsn6AaygVNk9vBVpQ=";
+    hash = "sha256-JQULU7rq5d9qZqoI6vbR+6om70b3MeyEc1kKLETC4s8=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-8xGEwdovq6Qcw/CDkHMxLMAY0kcBghrOZTKmnHck/Qc=";
+    hash = "sha256-pvB+OrpX/kuyMdH5NSh5/ueNEeYVY3yg2pGTZNLJ1+g=";
   };
 
   nativeBuildInputs = [
