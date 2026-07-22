@@ -63,5 +63,10 @@
 
     substituteInPlace extension_external/spatial/src/spatial/util/math.cpp \
       --replace-fail "#if SPATIAL_USE_GEOS" "#if 0"
+
+    substituteInPlace \
+      extension_external/spatial/src/spatial/index/rtree/rtree_index.cpp \
+      extension_external/spatial/src/spatial/index/rtree/rtree_index.hpp \
+      --replace-fail "CommitDrop" "ResetStorage"
   '';
 }
