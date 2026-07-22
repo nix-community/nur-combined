@@ -79,7 +79,9 @@ impl TerminalTabs {
             px(DEFAULT_FONT_SIZE)
         };
 
-        let terminal_palette = palette_for_appearance(WindowAppearance::Light);
+        // Seed sessions with the current window appearance so OSC color queries
+        // (e.g. OSC 11 background) are correct from the first prompt.
+        let terminal_palette = palette_for_appearance(window.appearance());
         let tabs_weak = cx.entity().downgrade();
         let osc52_policy = osc52.into();
 
