@@ -15,14 +15,14 @@ let
 in
 buildPythonPackage rec {
   pname = "pctx-client";
-  version = "0.4.1";
+  version = "0.4.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "portofcontext";
     repo = "pctx";
     rev = "pctx-py-v${version}";
-    hash = "sha256-0+Ql9I3OnQ/VpcNjQsj0Zv3zgTGLlel87DlfEUJ/WWo=";
+    hash = "sha256-mqJJH0EG6TLPk38Uv6AHlooo7f6tHfR1eQ+LPMMtBJY=";
   };
 
   sourceRoot = "source/pctx-py";

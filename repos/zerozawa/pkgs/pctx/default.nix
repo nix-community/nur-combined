@@ -10,7 +10,7 @@
 }:
 
 let
-  version = "0.7.2";
+  version = "0.7.3";
 
   rustyV8Hashes = {
     "x86_64-linux" = "sha256-chV1PAx40UH3Ute5k3lLrgfhih39Rm3KqE+mTna6ysE=";
@@ -51,10 +51,10 @@ rustPlatform.buildRustPackage {
     owner = "portofcontext";
     repo = "pctx";
     rev = "v${version}";
-    hash = "sha256-WTOxAL9XvVjg4M2jeMZjAtvBkRG/acrn8FrlZDsiy1Q=";
+    hash = "sha256-t2vRlTlCrE7r49ydaE8pjugvSfdhoo7vvf8N/M++X38=";
   };
 
-  cargoHash = "sha256-ImbVGvwRYV9E54r92FiQ8eGFz8AetMCWE/TQ1lk5IAU=";
+  cargoHash = "sha256-C9e83vjYoVZk6IlsfUeylGgwNJIldUfiVcKGaNx8HLw=";
   cargoBuildFlags = [
     "-p"
     "pctx"
