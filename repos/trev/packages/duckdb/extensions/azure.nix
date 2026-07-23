@@ -146,8 +146,8 @@ in
   name = "azure";
   repo = "duckdb-azure";
   branch = "v1.5-variegata";
-  rev = "563589b2f24290a4dcdd4247eaedf2b544f9dbcd";
-  hash = "sha256-4gnj1OCdyhFosaCPVmiyFx9nSCSemNRxIC+nmVwtHjs=";
+  rev = "003214c96d0caa39d5c3e27a9e1976a0692c7d37";
+  hash = "sha256-+d0jF+kzxhcIf6HWgn1FRotPalH2ZYnb1rdXpsJmhAc=";
   duckdbBuildInputs = [
     azure-identity-cpp
     azure-storage-blobs-cpp
