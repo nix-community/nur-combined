@@ -1,0 +1,25 @@
+From fae57d1b3309a1e4c542afa5916de6f970f07914 Mon Sep 17 00:00:00 2001
+From: Tom Oostveen <tomoostveen.06@gmail.com>
+Date: Fri, 24 Jul 2026 00:56:54 +0200
+Subject: [PATCH]
+
+---
+ markup/templates.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/markup/templates.go b/markup/templates.go
+index 45f774c..2109a13 100644
+--- a/markup/templates.go
++++ b/markup/templates.go
+@@ -188,7 +188,7 @@ func (templ Template) RenderWith(context map[string]interface{}, hlTheme string)
+ 				extension.Footnote,
+ 				gm_highlight.NewHighlighting(
+ 					gm_highlight.WithStyle(hlTheme),
+-					gm_highlight.WithFormatOptions(html.TabWidth(CODE_TABWIDTH)),
++					gm_highlight.WithFormatOptions(html.TabWidth(CODE_TABWIDTH), html.WithClasses(true), html.ClassPrefix("chroma-")),
+ 				)))
+ 		}
+ 		md := goldmark.New(options...)
+-- 
+2.54.0
+

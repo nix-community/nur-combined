@@ -24,6 +24,7 @@ buildGoModule (finalAttrs: {
       url = "https://github.com/dtomvan/jorge/commit/f26d32cb5795e9354ee67fb712883e0e1cfdc647.patch";
       hash = "sha256-72gEbFxKSFBJsmvGOBE4J6dDbjBTpWa+unswrP0k7Ic=";
     })
+    ./hl-css-classes.patch
   ];
 
   vendorHash = "sha256-8i9bNQacuAk8VJkDRCcIBfaOKHjPpve5wJRMxpbOs2c=";
