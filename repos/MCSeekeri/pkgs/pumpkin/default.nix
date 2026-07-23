@@ -33,5 +33,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     license = lib.licenses.gpl3Only;
     mainProgram = "pumpkin";
     platforms = lib.platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })

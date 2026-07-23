@@ -67,6 +67,7 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.mit;
     mainProgram = "sabaki";
     platforms = lib.platforms.linux;
+    sourceProvenance = with lib.sourceTypes; [ fromSource ];
     maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 })

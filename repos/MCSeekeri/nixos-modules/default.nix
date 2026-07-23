@@ -1,1 +1,4 @@
-{ metapi = import ./metapi.nix; }
+{
+  metapi = import ./metapi.nix;
+  sunloginclient = import ./sunloginclient.nix;
+}

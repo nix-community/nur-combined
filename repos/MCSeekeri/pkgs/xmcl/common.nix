@@ -120,6 +120,7 @@ let
     license = lib.licenses.mit;
     mainProgram = "xmcl";
     inherit (electron.meta) platforms;
+    maintainers = with lib.maintainers; [ MCSeekeri ];
   };
 in
 {

@@ -67,7 +67,6 @@ buildGoModule {
   modRoot = "backend";
   vendorHash = "sha256-Iw+iGyR7uGuYDTKk50Y6dEJQoNEf5JzJZxMxcGfT43M=";
   postPatch = ''
-    # 降低 go.mod 要求的 Go 版本以匹配 nixpkgs 中的 Go
     substituteInPlace backend/go.mod \
       --replace-fail "go 1.26.5" "go 1.26"
     rm -rf backend/internal/web/dist

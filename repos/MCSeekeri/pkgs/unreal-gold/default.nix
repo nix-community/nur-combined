@@ -141,10 +141,7 @@ stdenv.mkDerivation (_finalAttrs: {
     exec "\$RUNTIME_DIR/System/unreal-bin-amd64" "\$@"
     WRAPPER
         chmod +x "$out/bin/unreal-gold"
-
-        # Install icon.
         install -D "${./unreal-gold.svg}" "$out/share/icons/hicolor/scalable/apps/unreal-gold.svg"
-
         runHook postInstall
   '';
 
