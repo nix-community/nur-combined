@@ -35,24 +35,24 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "psysonic";
-  version = "1.47.0";
+  version = "1.50.0";
 
   src = fetchFromGitHub {
     owner = "Psychotoxical";
     repo = "psysonic";
     tag = "app-v${finalAttrs.version}";
-    hash = "sha256-GLnt2oyTBfPpowS+/LHWGkIfFwKbzdmQsd7zMG8rTKA=";
+    hash = "sha256-KaG4eqM3HS3kwvQLS1FarCjnJ1GETosyNnb1VAneP9w=";
   };
   npmDeps = fetchNpmDeps {
     name = "${finalAttrs.pname}-${finalAttrs.version}-npm-deps";
     inherit (finalAttrs) src;
-    hash = "sha256-r+dan77izwx/QjbT/JXJNfIxUn6YV0FWso+F3y/TLEc=";
+    hash = "sha256-ORdnzlm65b2HeaUrvZehq0jGDxbdchpCzRDPD0EFVh4=";
   };
   cargoRoot = "src-tauri";
   preBuild = ''
     cd src-tauri
   '';
-  cargoHash = "sha256-yV2x5ZR9aUgZG+GTtFiBzN4OHmpF9Nwf1/Uhxcx+IN0=";
+  cargoHash = "sha256-krKZKPxVQOozV32O8G+rzCK/Pcfa4pg6hWyQIDkxfNU=";
 
   desktopItems = [
     (makeDesktopItem {
