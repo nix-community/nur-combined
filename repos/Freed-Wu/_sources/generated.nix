@@ -19,10 +19,10 @@
   };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
-    version = "0.2.10";
+    version = "0.2.12";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.10.tar.gz";
-      sha256 = "sha256-6ZDYSSEQIj/OTk0p0HIA5tzn/9MRB7CZTXuidrfs2s8=";
+      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.12.tar.gz";
+      sha256 = "sha256-pjQ8TiBGakV6hXYrp0cd3Zi3QqTZD3gCdI92q5h8Rkc=";
     };
   };
   manpager = {
@@ -78,10 +78,10 @@
   };
   termux-language-server = {
     pname = "termux-language-server";
-    version = "0.1.3";
+    version = "0.1.6";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.1.3.tar.gz";
-      sha256 = "sha256-oY8iBtVmxfLaLjkfpdNu29BGcKJD9ayeEPaxiTbuWBo=";
+      url = "https://pypi.org/packages/source/t/termux_language_server/termux_language_server-0.1.6.tar.gz";
+      sha256 = "sha256-bK/MnRt+ia1jhrUVcCfhkmT5H11OAC15VQvwq290RLs=";
     };
   };
   tmux-language-server = {
@@ -129,10 +129,10 @@
   };
   tree-sitter-zathurarc = {
     pname = "tree-sitter-zathurarc";
-    version = "0.1.2";
+    version = "0.1.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_zathurarc/tree_sitter_zathurarc-0.1.2.tar.gz";
-      sha256 = "sha256-jGLqa41i4RWci2qONoGksZCCzbWvbKN7PBfG9OQPL6g=";
+      url = "https://pypi.org/packages/source/t/tree_sitter_zathurarc/tree_sitter_zathurarc-0.1.3.tar.gz";
+      sha256 = "sha256-63jXim0xBVBpeCB/Goq0yIyf6lZmdteuYC5OfmO79JY=";
     };
   };
   undollar = {
