@@ -35,11 +35,7 @@
     nurPkgs
     // {
       emacsPackagesFor = emacs: (prev.emacsPackagesFor emacs).overrideScope emacsPackagesOverlay;
-
-      linuxKernel = prev.linuxKernel // {
-        packagesFor = kernel: (prev.linuxKernel.packagesFor kernel).extend linuxModulesOverlay;
-      };
-
+      kernelPackagesExtensions = [ linuxModulesOverlay ];
       pythonPackagesExtensions = [ pythonModulesOverlay ];
     };
 }
