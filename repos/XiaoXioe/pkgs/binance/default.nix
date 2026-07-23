@@ -45,11 +45,11 @@ stdenv.mkDerivation rec {
   # melainkan selalu menimpa berkas binance-amd64-linux.deb di URL statis berikut.
   # Jika terjadi error hash mismatch, jalankan `nix-prefetch-url` pada URL di bawah,
   # lalu perbarui versi (cek via `dpkg-deb -I` di environment ber-dpkg) dan sha256.
-  version = "2.3.1";
+  version = "2.4.1";
 
   src = fetchurl {
     url = "https://download.binance.com/electron-desktop/linux/production/binance-amd64-linux.deb";
-    sha256 = "1acndri50r302rdjqhsgj3mwd78qlyrg6i6pp72h7qp37ibs20rq";
+    sha256 = "sha256-7K5ZGUr/WpiUAXOChgEjCqQEBjgxQ609Xut87B0KS5U=";
   };
 
   nativeBuildInputs = [
