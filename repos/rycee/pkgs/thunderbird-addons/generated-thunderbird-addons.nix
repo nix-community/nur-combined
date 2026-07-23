@@ -2,10 +2,10 @@
   {
     "cardbook" = buildMozillaXpiAddon {
       pname = "cardbook";
-      version = "106.0";
+      version = "106.2";
       addonId = "cardbook@vigneau.philippe";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1048526/cardbook-106.0-tb.xpi?src=";
-      sha256 = "f5b6dcfd6e2fef8603183524c7a7c921773d458d6d32401835222532a0934e82";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049108/cardbook-106.2-tb.xpi?src=";
+      sha256 = "9027f7d7e211771569c38346640947c68a5ecb28f34180482ba3da5f682e0720";
       meta = with lib;
       {
         homepage = "https://gitlab.com/CardBook/CardBook";
@@ -198,10 +198,10 @@
     };
     "owl-for-exchange" = buildMozillaXpiAddon {
       pname = "owl-for-exchange";
-      version = "1.5.2";
+      version = "1.5.3";
       addonId = "owl@beonex.com";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1047764/eule_fur_exchange-1.5.2-tb.xpi?src=";
-      sha256 = "ca7ce687abf095cb2b9f11c02368e44559bcb1161d627e7e1928b3df942d0718";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049033/eule_fur_exchange-1.5.3-tb.xpi?src=";
+      sha256 = "b540ccd87c73e1ba1edf1109ceaf59e891317f6b6af7eae2a31f5d2075da3186";
       meta = with lib;
       {
         homepage = "https://www.beonex.com/owl/";
@@ -307,10 +307,10 @@
     };
     "tb-langpack-de" = buildMozillaXpiAddon {
       pname = "tb-langpack-de";
-      version = "153.0.20260721.181452";
+      version = "153.0.20260722.155700";
       addonId = "langpack-de@thunderbird.mozilla.org";
-      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049305/deutsch_de_language_pack-153.0.20260721.181452-tb.xpi?src=";
-      sha256 = "679c7035123bc227e70a3417d50ba2db979d61eb8f56ed1d1023e05a6e02f1f2";
+      url = "https://addons.thunderbird.net/thunderbird/downloads/file/1049471/deutsch_de_language_pack-153.0.20260722.155700-tb.xpi?src=";
+      sha256 = "c536023f0e76a74c95df4554372d93f8673a063e83c4b7a6316072c622be4d53";
       meta = with lib;
       {
         description = "Deutsch (de) Language Pack";
