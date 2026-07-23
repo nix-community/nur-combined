@@ -50,13 +50,13 @@
   };
   cowrie = {
     pname = "cowrie";
-    version = "v3.0.8";
+    version = "v3.0.9";
     src = fetchFromGitHub {
       owner = "cowrie";
       repo = "cowrie";
-      rev = "v3.0.8";
+      rev = "v3.0.9";
       fetchSubmodules = false;
-      sha256 = "sha256-JHi2ABNbWNwRRnDOD0pVeEyHPLg9Fzyx6QVqXUdz9SQ=";
+      sha256 = "sha256-nARa3kU0rEVaBj32b9NstRkdEhhnoAmPjSbn831z+/I=";
     };
   };
   dot-tar = {
@@ -120,13 +120,13 @@
   };
   linux-intel-lts = {
     pname = "linux-intel-lts";
-    version = "lts-v6.18.37-linux-260713T060441Z";
+    version = "lts-v6.18.38-linux-260717T053932Z";
     src = fetchFromGitHub {
       owner = "intel";
       repo = "linux-intel-lts";
-      rev = "lts-v6.18.37-linux-260713T060441Z";
+      rev = "lts-v6.18.38-linux-260717T053932Z";
       fetchSubmodules = false;
-      sha256 = "sha256-f3aIDE3XdqYNFntomuojMN+/oVxAA/zZbEfvCUnuNPY=";
+      sha256 = "sha256-FmGNSw99iJuDyvEZtJhg6zDcMroWv5axpNUEINJmWpw=";
     };
   };
   linux-intel-mainline-tracking = {
@@ -172,10 +172,10 @@
   };
   moe-koe-music = {
     pname = "moe-koe-music";
-    version = "v1.6.8";
+    version = "v1.6.9";
     src = fetchurl {
-      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.8/MoeKoe_Music_v1.6.8-x86_64.AppImage";
-      sha256 = "sha256-0d3i3W34jQZu/so1HKGr1hX3T8UKkAyhF+GpNGK2bMU=";
+      url = "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.9/MoeKoe_Music_v1.6.9-x86_64.AppImage";
+      sha256 = "sha256-R67YqEd1Tr8P+Zi9GbvExEWH2hBRltqO6FVYu2A0pLI=";
     };
   };
   mstickereditor = {

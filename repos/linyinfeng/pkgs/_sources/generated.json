@@ -82,12 +82,12 @@
             "name": null,
             "owner": "cowrie",
             "repo": "cowrie",
-            "rev": "v3.0.8",
-            "sha256": "sha256-JHi2ABNbWNwRRnDOD0pVeEyHPLg9Fzyx6QVqXUdz9SQ=",
+            "rev": "v3.0.9",
+            "sha256": "sha256-nARa3kU0rEVaBj32b9NstRkdEhhnoAmPjSbn831z+/I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.0.8"
+        "version": "v3.0.9"
     },
     "dot-tar": {
         "cargoLock": {
@@ -189,12 +189,12 @@
             "name": null,
             "owner": "intel",
             "repo": "linux-intel-lts",
-            "rev": "lts-v6.18.37-linux-260713T060441Z",
-            "sha256": "sha256-f3aIDE3XdqYNFntomuojMN+/oVxAA/zZbEfvCUnuNPY=",
+            "rev": "lts-v6.18.38-linux-260717T053932Z",
+            "sha256": "sha256-FmGNSw99iJuDyvEZtJhg6zDcMroWv5axpNUEINJmWpw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "lts-v6.18.37-linux-260713T060441Z"
+        "version": "lts-v6.18.38-linux-260717T053932Z"
     },
     "linux-intel-mainline-tracking": {
         "cargoLock": null,
@@ -283,11 +283,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-0d3i3W34jQZu/so1HKGr1hX3T8UKkAyhF+GpNGK2bMU=",
+            "sha256": "sha256-R67YqEd1Tr8P+Zi9GbvExEWH2hBRltqO6FVYu2A0pLI=",
             "type": "url",
-            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.8/MoeKoe_Music_v1.6.8-x86_64.AppImage"
+            "url": "https://github.com/iAJue/MoeKoeMusic/releases/download/v1.6.9/MoeKoe_Music_v1.6.9-x86_64.AppImage"
         },
-        "version": "v1.6.8"
+        "version": "v1.6.9"
     },
     "mstickereditor": {
         "cargoLock": {
