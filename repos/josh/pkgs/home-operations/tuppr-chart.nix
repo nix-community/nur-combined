@@ -2,6 +2,6 @@
 nur.repos.josh.fetchhelm {
   url = "oci://ghcr.io/home-operations/charts/tuppr";
   chart = "tuppr";
-  version = "0.3.3";
-  sha256 = "sha256-88LH7kwkzLIjKChi8OkNWiqPTiki1O5jrcD7YMPFOK8=";
+  version = "0.4.1";
+  sha256 = "sha256-DfKau72uz2kdrEWpXI32vhXCrza5WDRV0qm5x0G04mU=";
 }
