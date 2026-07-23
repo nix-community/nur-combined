@@ -176,3 +176,33 @@ appimageTools.wrapType2 {
 
 - **分开构建前端和 Go**：将前端构建为独立派生，在 `buildGoModule` 的 `preBuild` 中将构建产物复制到 Go embed 目录
 - **复制到 embed 路径**：如果 Go 使用 `//go:embed` 嵌入前端产物，构建产物必须先放置到对应目录再执行 Go 编译
+
+## Lockfile 与 update.sh
+
+### 生成式 Lockfile
+
+- **何时需要**：当上游使用 nixpkgs 不直接支持的 lockfile（如 `bun.lock`）但构建需要 `package-lock.json` / `pnpm-lock.yaml` 等 lockfile 时，应在包目录下提交一个生成式 lockfile（如 `package-lock.json`），并在派生的 `postPatch` 中复制到源码中
+- **必须配套 update.sh**：每次提交生成式 lockfile 时，必须在其旁边创建 `update.sh` 脚本，用于在上游版本更新后重新生成 lockfile 及相关哈希（如 `npmDepsHash`），以便后续自动更新
+- **update.sh 职责**：脚本应从 nvfetcher 跟踪的源码（如 `nix eval --raw .#package.src`）获取源码，运行对应包管理器生成 lockfile，再计算并写回派生中的哈希
+
+### update.sh 脚本规范
+
+- **使用 `#!nix-shell` shebang**：`update.sh` 必须使用 `#!/usr/bin/env nix-shell` 加 `#!nix-shell -i bash -p <工具>` 的方式声明依赖工具（如 `nodejs`、`prefetch-npm-deps`），而非先 `nix build nixpkgs#<工具> --print-out-paths` 再引用输出路径
+- **示例**：
+
+  ```bash
+  #!/usr/bin/env nix-shell
+  #!nix-shell -i bash -p bash -p nodejs -p prefetch-npm-deps
+  # shellcheck shell=bash
+  SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+  TMPDIR=$(mktemp -d)
+  trap 'rm -rf "$TMPDIR"' EXIT
+  SRC=$(nix eval --raw .#easycli.src)
+  cp -r "$SRC" "$TMPDIR/source"
+  chmod -R +w "$TMPDIR/source"
+  cd "$TMPDIR/source" || exit 1
+  npm install --package-lock-only --ignore-scripts
+  cp package-lock.json "$SCRIPT_DIR/package-lock.json"
+  NEW_HASH=$(prefetch-npm-deps "$SCRIPT_DIR/package-lock.json")
+  sed -i "s|npmDepsHash = \"sha256-[^"]*\";|npmDepsHash = \"$NEW_HASH\";|" "$SCRIPT_DIR/default.nix"
+  ```

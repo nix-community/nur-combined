@@ -30,6 +30,7 @@
   torchaudio,
   tqdm,
   umap-learn,
+  websockets,
 }:
 buildPythonPackage rec {
   inherit (sources.funasr) pname version;
@@ -65,6 +66,7 @@ buildPythonPackage rec {
     torchaudio
     tqdm
     umap-learn
+    websockets
   ];
 
   postPatch = ''

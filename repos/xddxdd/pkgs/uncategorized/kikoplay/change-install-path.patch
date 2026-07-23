@@ -1,24 +1,24 @@
 diff --git a/KikoPlay.pro b/KikoPlay.pro
 index e3f57f5..813e42a 100644
---- a/KikoPlay.pro
-+++ b/KikoPlay.pro
-@@ -749,14 +749,14 @@ linux-g++* {
- 
- unix {
+--- a/KikoPlay.pro	2026-07-22 23:06:43.475285607 -0700
++++ b/KikoPlay.pro	2026-07-22 23:08:39.545720164 -0700
+@@ -809,14 +809,14 @@
+ # Linux install layout (not applicable to the macOS .app bundle)
+ unix:!macx {
      # Install settings
 -    target.path += /usr/bin
--    unix:desktop.path = /usr/share/applications
+-    desktop.path = /usr/share/applications
 +    target.path += OUTPATH/bin
-+    unix:desktop.path = OUTPATH/share/applications
-     unix:desktop.files = io.github.KikoPlayProject.KikoPlay.desktop
--    unix:icons.path = /usr/share/icons/hicolor/128x128/apps
-+    unix:icons.path = OUTPATH/share/icons/hicolor/128x128/apps
-     unix:icons.files = io.github.KikoPlayProject.KikoPlay.png
--    unix:metainfo.path = /usr/share/metainfo
-+    unix:metainfo.path = OUTPATH/share/metainfo
-     unix:metainfo.files = io.github.KikoPlayProject.KikoPlay.metainfo.xml
--    unix:web.path = /usr/share/kikoplay/web
-+    unix:web.path = OUTPATH/share/kikoplay/web
-     unix:web.files = web/*
++    desktop.path = OUTPATH/share/applications
+     desktop.files = io.github.KikoPlayProject.KikoPlay.desktop
+-    icons.path = /usr/share/icons/hicolor/128x128/apps
++    icons.path = OUTPATH/share/icons/hicolor/128x128/apps
+     icons.files = io.github.KikoPlayProject.KikoPlay.png
+-    metainfo.path = /usr/share/metainfo
++    metainfo.path = OUTPATH/share/metainfo
+     metainfo.files = io.github.KikoPlayProject.KikoPlay.metainfo.xml
+-    web.path = /usr/share/kikoplay/web
++    web.path = OUTPATH/share/kikoplay/web
+     web.files = web/*
  
      INSTALLS += target desktop icons metainfo web
