@@ -16,13 +16,13 @@
         environment = {
           BUB_API_BASE = "http://cliproxyapi:8317/v1";
           BUB_API_KEY = "sk-thisisapublicsecretinaverylocalenv";
-          BUB_MODEL = "openai:gemini-3.1-pro-preview";
+          BUB_MODEL = "openai:gemini-3.6-flash-high";
           BUB_ENABLED_CHANNELS = "all";
           BUB_HOME = "/data";
           BUB_SEARCH_SEARXNG_DEFAULT_LANGUAGE = "zh-CN";
           BUB_SEARCH_SEARXNG_USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36";
           BUB_TAPESTORE_REDIS_URL = "redis://tapestoredis:6379/0";
-          BUB_TELEGRAM_ALLOW_CHATS = "-5291037862,-1002215131569,454999736,6280888824";
+          BUB_TELEGRAM_ALLOW_CHATS = "-1003020363451,-1002215131569,-1004431858411,454999736,6280888824";
           BUB_TELEGRAM_ALLOW_USERS = "454999736,6280888824";
           BUB_SEARCH_SEARXNG_BASE_URL = "http://searxng:8080";
         };
@@ -31,6 +31,7 @@
           "${stateDir}/.agents:/root/.agents:rw"
           "/${sourceDir}:/workspace:rw"
           "${stateDir}/data:/data:rw"
+          # "/etc/pki/tls/certs/ca-bundle.crt:/etc/ssl/certs/ca-certificates.crt:ro"
         ];
         dependsOn = [
           "searxng"

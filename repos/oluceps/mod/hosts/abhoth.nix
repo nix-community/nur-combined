@@ -39,6 +39,7 @@
             # sing-server
             xray
             stalwart
+            rustypaste
 
           ])
         )

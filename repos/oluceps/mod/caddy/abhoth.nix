@@ -65,6 +65,32 @@
                         {
                           handle = [
                             {
+                              handler = "rate_limit";
+                              rate_limits = {
+                                static = {
+                                  match = [ { method = [ "GET" ]; } ];
+                                  key = "static";
+                                  window = "1m";
+                                  max_events = 60;
+                                };
+                                dynamic = {
+                                  key = "{http.request.remote.host}";
+                                  window = "5s";
+                                  max_events = 5;
+                                };
+                              };
+                              log_key = true;
+                            }
+                            {
+                              handler = "reverse_proxy";
+                              upstreams = [ { dial = "127.0.0.1:3999"; } ];
+                            }
+                          ];
+                          match = [ { host = [ "pb.nyaw.xyz" ]; } ];
+                        }
+                        {
+                          handle = [
+                            {
                               handler = "reverse_proxy";
                               upstreams = [ { dial = "localhost:9313"; } ];
                             }

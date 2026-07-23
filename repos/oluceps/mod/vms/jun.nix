@@ -97,6 +97,7 @@
                 # ../../nixosModules/hysteria.nix
                 inputs.hermes-agent.nixosModules.default
                 self.modules.nixos.bub
+                self.modules.generic.data
               ];
               networking.hostName = "june";
               networking.useNetworkd = true;
@@ -118,6 +119,23 @@
                   "${matchAll}".allowedUDPPorts = [ 53 ];
                 };
 
+              security = {
+                pki = {
+                  certificateFiles = [
+                    "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+                    config.fn.pki.root_file
+                  ];
+                  # caCertificateBlacklist = [
+                  #   "CNNIC ROOT"
+                  #   "CNNIC SSL"
+                  #   "China Internet Network Information Center EV Certificates Root"
+                  #   "WoSign"
+                  #   "WoSign China"
+                  #   "CA WoSign ECC Root"
+                  #   "Certification Authority of WoSign G2"
+                  # ];
+                };
+              };
               virtualisation = {
                 vmVariant = {
                   virtualisation = {

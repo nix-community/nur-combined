@@ -26,6 +26,7 @@ with pkgs;
   geo
   fractal
   gedit
+  teams-for-linux
   # logseq
   # jetbrains.pycharm-professional
   # jetbrains.idea-ultimate
@@ -77,7 +78,7 @@ with pkgs;
   ccid
 
   yubikey-manager
-  # canokey-manager
+  canokey-manager
 
   # xdeltaUnstable
 

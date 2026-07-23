@@ -30,11 +30,9 @@
             sudo
             empheral-root
             base
-            plugIn
             vxlan-mesh
             yggdrasil
             chrony
-            # sing-server
             xray
             rustypaste
             subs

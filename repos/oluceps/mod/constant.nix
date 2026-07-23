@@ -124,7 +124,6 @@ let
       KoZIzj0EAwIDSAAwRQIhAP/ov68sNHVd+G1mghSlLQF7AvlFkeezRXRl3A3LpXig
       AiAiMKB95uZODsDB9lIaT8nAG7MRpEWSuJxUSw44Vsz9xg==
       -----END CERTIFICATE-----
-
     '';
   };
 

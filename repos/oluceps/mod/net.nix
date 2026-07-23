@@ -4,7 +4,10 @@ let
     services.resolved.settings.Resolve = {
       LLMNR = "true";
       Cache = "no";
-      FallbackDNS = [ "8.8.8.8#dns.google" ];
+      FallbackDNS = [
+        "8.8.8.8#dns.google"
+        "2001:4860:4860::8888#dns.google"
+      ];
       DNSSEC = "false";
     };
     networking = {

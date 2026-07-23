@@ -47,18 +47,18 @@ addrs = ["192.168.0.20"]
 # identifiers = [{ name = "eihort.local", type = "mdns" }]
 
 
-[node.yidhra]
-id = 3
-addrs = ["64.118.146.101", "2404:c140:2005::b:a72a"]
-censor = false
-nat = false
-user = "elen"
-ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfA9a0Uetc/vt0rHTulnQNHZPqJNy9ZyLvmP5GDnaoc"
-link_local_addr = "fe80::216:3eff:fe41:49c6/64"
-wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
-iata = "NRT"
-city = "Tokyo"
-ygg_pubkey = "1aea5a3bc4ab6a92d103d745d3e19aa2bf66b33c5d77e8d5896a905b2ef3ac15"
+# [node.yidhra]
+# id = 3
+# addrs = ["64.118.146.101", "2404:c140:2005::b:a72a"]
+# censor = false
+# nat = false
+# user = "elen"
+# ssh_key = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJfA9a0Uetc/vt0rHTulnQNHZPqJNy9ZyLvmP5GDnaoc"
+# link_local_addr = "fe80::216:3eff:fe41:49c6/64"
+# wg_key = "V3J9d8lUOk4WXj+dIiAZsuKJv3HxUl8J4HvX/s4eElY="
+# iata = "NRT"
+# city = "Tokyo"
+# ygg_pubkey = "1aea5a3bc4ab6a92d103d745d3e19aa2bf66b33c5d77e8d5896a905b2ef3ac15"
 
 [node.abhoth]
 # dmit

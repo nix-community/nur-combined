@@ -94,6 +94,7 @@
               {
                 job_name = "caddy";
                 scheme = "https";
+                tls_config.insecure_skip_verify = true;
                 basic_auth = {
                   username = "prometheus";
                   password_file = secPath;
@@ -114,6 +115,7 @@
               {
                 job_name = "metrics";
                 scheme = "https";
+                tls_config.insecure_skip_verify = true;
                 basic_auth = {
                   username = "prometheus";
                   password_file = secPath;

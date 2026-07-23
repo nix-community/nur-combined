@@ -1,8 +1,9 @@
-
-
 # Project Architecture & Directory Guide
 
+This repo is public repo, should not contain any plaintext secret.
+
 This repository uses a highly modular, `flake-parts` and `import-tree` driven NixOS configuration designed for a distributed cluster. To save time exploring the codebase, understand the following data flows and auto-wiring mechanics:
+
 
 ## Data Flow & Central Source of Truth
 1. **`registry.toml`**: The absolute source of truth for the cluster. It defines node IDs, MAC addresses, IPv6 `addrs`, `ssh_key`s, and `ygg_pubkey`s.

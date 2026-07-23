@@ -50,7 +50,7 @@ in
           "CAP_NET_ADMIN"
           "CAP_NET_BIND_SERVICE"
         ];
-        Restart = "on-failure";
+        Restart = "always";
       };
     };
   };

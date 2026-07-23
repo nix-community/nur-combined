@@ -222,6 +222,12 @@ in
         settings.flake = self;
         secrets = {
           xray = { };
+          subs = {
+            mode = "740";
+            owner = config.identity.user;
+            group = "root";
+            name = "subs.ts";
+          };
         };
       };
     };

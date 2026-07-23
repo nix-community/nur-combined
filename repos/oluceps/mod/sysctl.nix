@@ -27,6 +27,7 @@
       "net.ipv6.conf.all.rp_filter" = 0;
       "net.ipv4.conf.lo.rp_filter" = 0;
       "net.ipv6.conf.lo.rp_filter" = 0;
+      "net.ipv4.ip_nonlocal_bind" = 1;
 
       # Ignore ICMP broadcasts to avoid participating in Smurf attacks
       "net.ipv4.icmp_echo_ignore_broadcasts" = 1;

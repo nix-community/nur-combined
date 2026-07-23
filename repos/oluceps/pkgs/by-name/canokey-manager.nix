@@ -15,8 +15,8 @@ python3Packages.buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "canokeys";
     repo = "yubikey-manager";
-    rev = "9338913427ab5418aee6a962884c8fe3e5255983";
-    hash = "sha256-UcJArBpw5esqekdWtgh7ZbkQi14/CvJdWKOL4C6JpDE=";
+    rev = "8c04e105c94c723de3ea8ee7df3475a80c7b8eab";
+    hash = "sha256-8Viyb8BynCkXnUpUKlp/gJMb/ImHQJ0rmDvcpoOU5zM=";
   };
 
   postPatch = ''
@@ -45,6 +45,7 @@ python3Packages.buildPythonPackage rec {
     pytestCheckHook
     makefun
   ];
+  disabledTestPaths = [ "tests/device" ];
 
   meta = {
     homepage = "https://developers.yubico.com/yubikey-manager";

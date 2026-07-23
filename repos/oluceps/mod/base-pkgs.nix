@@ -63,6 +63,7 @@
           ntfy-sh
           helix
           srm
+          tmux
           # onagre
 
           # common

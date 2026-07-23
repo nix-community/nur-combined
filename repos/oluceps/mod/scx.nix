@@ -10,7 +10,7 @@
 
       services.scx = {
         enable = true;
-        scheduler = "scx_pandemonium";
+        scheduler = "pandemonium";
         # scheduler = "scx_flow";
       };
 

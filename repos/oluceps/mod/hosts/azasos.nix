@@ -33,6 +33,9 @@
             yggdrasil
             chrony
             prometheus
+            xray
+            ntfy
+            subs
           ])
           ++ [ (inputs.nixpkgs + "/nixos/modules/profiles/qemu-guest.nix") ]
         );
@@ -42,6 +45,7 @@
         stateVersion = "25.11";
       };
 
+      xray.configFile = config.vaultix.secrets.xray.path;
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;
         kernelParams = [
