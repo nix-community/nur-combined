@@ -91,4 +91,5 @@ rec {
   cocoa-way = callPackage ./pkgs/cocoa-way { inherit waypipe-darwin; };
   xurl = callPackage ./pkgs/xurl { };
   attic-client = callPackage ./pkgs/attic { inherit (pkgs) attic-client; };
+  lazyrsync = callPackage ./pkgs/lazyrsync { };
 }
