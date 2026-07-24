@@ -1,13 +1,13 @@
 {
     	"standardnotes-x64": {
-    		"version": "desktop@3.201.32",
-    		"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.201.32/standard-notes-3.201.32-mac-x64.dmg",
-    		"sha256": "6a6138876e1aea5b985545d9a6602366dfe1bd252e3cb2ee3bf5f53d45c24292"
+    		"version": "desktop@3.201.35",
+    		"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.201.35/standard-notes-3.201.35-mac-x64.dmg",
+    		"sha256": "d9b4ce8ebb0ab17fa173191853350e6d5ac2a0e01f270c06384018c4ec6540d7"
     	},
     	"standardnotes-arm64": {
-    		"version": "desktop@3.201.32",
-    		"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.201.32/standard-notes-3.201.32-mac-arm64.dmg",
-    		"sha256": "02bb4b95dd6a5812f1d417cce55c336bf62603724b34464b1dd978f679aef7f3"
+    		"version": "desktop@3.201.35",
+    		"url": "https://github.com/standardnotes/app/releases/download/%40standardnotes/desktop%403.201.35/standard-notes-3.201.35-mac-arm64.dmg",
+    		"sha256": "edcd21574f452b360883e661834f6b58871a7bee5d9e5abf57973144c145a1d9"
     	},
     	"whisky": {
     		"version": "v2.3.5",
@@ -25,24 +25,24 @@
     		"sha256": "7f55e1c41634e02190d79653b9b07345645ca651d64855f96c7420668be3a23b"
     	},
     	"floorp": {
-    		"version": "v12.15.3",
-    		"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v12.15.3/floorp-macOS-universal.dmg",
-    		"sha256": "677706d66f978c17715e29090ad5b2d397dcffd1ee21139a13a9e982110e3a81"
+    		"version": "v12.16.2",
+    		"url": "https://github.com/Floorp-Projects/Floorp/releases/download/v12.16.2/floorp-macOS-universal.dmg",
+    		"sha256": "5f6339eda850413eae63bb31a72b6e23bd4bc9cc6626ffcceb0553a340254a6b"
     	},
     	"lunarfyi": {
-    		"version": "v6.10.4",
-    		"url": "https://github.com/alin23/Lunar/releases/download/v6.10.4/Lunar-6.10.4.dmg",
-    		"sha256": "be79c8b73e4f01f0adc20e6ee985e06c001eeaee5e0fbaf6a44faaf149f14f06"
+    		"version": "v6.11.0",
+    		"url": "https://github.com/alin23/Lunar/releases/download/v6.11.0/Lunar-6.11.0.dmg",
+    		"sha256": "a45ad3e4b06a4729eac8c75714fe43067ebd4c750d9d729b27897de831f1237d"
     	},
     	"sol": {
-    		"version": "2.1.346",
-    		"url": "https://github.com/ospfranco/sol/releases/download/2.1.346/2.1.346.zip",
-    		"sha256": "6293bf67de072bbba0a81b2abab368adf0029c65af5384e9f1626c16a2b19b86"
+    		"version": "2.1.347",
+    		"url": "https://github.com/ospfranco/sol/releases/download/2.1.347/2.1.347.zip",
+    		"sha256": "4b5c4976d8c24b01f449ad78471e8f535de418e8ed11a2fb9988270f85c43cfe"
     	},
     	"telegram-desktop": {
-    		"version": "v6.9.4",
-    		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v6.9.4/tsetup.6.9.4.beta.dmg",
-    		"sha256": "c51c75620162681ad99134d94cd2ea76031575c09ee14214af64237091a9c564"
+    		"version": "v7.0.3",
+    		"url": "https://github.com/telegramdesktop/tdesktop/releases/download/v7.0.3/tsetup.7.0.3.dmg",
+    		"sha256": "b413636aa99cd8f32b41b84c66437d291c43425b866e455fafb52b72edde3542"
     	},
 			"ungoogled-chromium-x64": {
     		"version": "150.0.7871.46-1.1",
@@ -55,9 +55,9 @@
     		"sha256": "fe7548ad436e37bba7231f864551d88f77f6697fce1c7b6942fab8129e8a079a"
     	},
 			"bambu-studio": {
-    		"version": "v02.08.00.50",
-    		"url": "https://github.com/bambulab/BambuStudio/releases/download/v02.08.00.50/Bambu_Studio_mac-v02.08.00.50-20260625193201.dmg",
-    		"sha256": "fc7a60ed2d412f8f7b897f2e468bd1062a0b7fbf9437d1ede2100cb51c4eaf2d"
+    		"version": "v02.08.01.55",
+    		"url": "https://github.com/bambulab/BambuStudio/releases/download/v02.08.01.55/Bambu_Studio_mac-v02.08.01.55-20260714203731.dmg",
+    		"sha256": "17eca4d63b909c728bf6d0cf8753397820f15b372e1ce69d6ab71be796a3af0d"
     	},
 			"kap-x64": {
     		"version": "v3.6.0",
