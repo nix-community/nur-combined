@@ -8,6 +8,11 @@ fetch.url = "https://github.com/algerkong/AlgerMusicPlayer/releases/download/v$v
 src.github = "algerkong/AlgerMusicPlayer"
 src.prefix = "v"
 
+[dorion-git]
+cargo_lock = ["src-tauri/Cargo.lock"]
+fetch.github = "SpikeHD/Dorion"
+src.git = "https://github.com/SpikeHD/Dorion"
+
 [dxvk-gplall]
 fetch.url = "https://github.com/Digger1955/dxvk-gplasync-lowlatency/releases/download/DXVK-GPLALL-$ver/DXVK-GPLALL-MSVC-Windows-AVX2-O1_Oi_Ob3-LTCG-AMD64.$ver.zip"
 src.github_tag = "Digger1955/dxvk-gplasync-lowlatency"

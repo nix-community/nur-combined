@@ -19,6 +19,11 @@ lib.makeScope pkgs.newScope (
 
     dav2d = self.callPackage ./dav2d/package.nix { };
 
+    dorion-git = self.callPackage ./dorion-git {
+      inherit (lib.importJSON ./dorion-git/src-info.json) hash;
+      sources = fetchedSrc.dorion-git;
+    };
+
     dxvk-gplall-bin-w32 = self.callPackage ./dxvk-gplall-bin rec {
       sources = fetchedSrc.dxvk-gplall;
       inherit (sources) version;

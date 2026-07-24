@@ -22,6 +22,28 @@
       sha256 = "sha256-nYMDNSpyyCHRKIBhP++sA7FmodSHBUwRSPEM8yLFaF0=";
     };
   };
+  dorion-git = {
+    pname = "dorion-git";
+    version = "055883ee9ebea31d4b56d22f60a43602a755b1c4";
+    src = fetchFromGitHub {
+      owner = "SpikeHD";
+      repo = "Dorion";
+      rev = "055883ee9ebea31d4b56d22f60a43602a755b1c4";
+      fetchSubmodules = false;
+      sha256 = "sha256-RBagN164RxZr0RakugEnviRcD+XOzZTxGtpOhrEyeh4=";
+    };
+    cargoLock."src-tauri/Cargo.lock" = {
+      lockFile = ./. + "/sha256-RBagN164RxZr0RakugEnviRcD+XOzZTxGtpOhrEyeh4=/src-tauri/Cargo.lock";
+      outputHashes = {
+        "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
+        "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
+        "livesplit-hotkey-0.8.0" = "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=";
+        "tauri-plugin-shell-2.2.1" = "sha256-Cl3XZcbFbwgcdMiMwzDLeNK/yALj1KtouUbunmKqD/8=";
+        "window_titles-0.1.0" = "sha256-lk2T+6curAwqOUuQ8RtYCjX2ygGBgzt4ILBAMV+ql0w=";
+      };
+    };
+    date = "2026-07-23";
+  };
   dxvk-gplall = {
     pname = "dxvk-gplall";
     version = "2.7.1-4";

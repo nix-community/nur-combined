@@ -1,0 +1,22 @@
+diff --git a/src-tauri/src/util/notifications.rs b/src-tauri/src/util/notifications.rs
+index fb204e9e4a..05b563421d 100644
+--- a/src-tauri/src/util/notifications.rs
++++ b/src-tauri/src/util/notifications.rs
+@@ -103,7 +103,7 @@
+   app: &tauri::AppHandle,
+   title: String,
+   body: String,
+-  _icon: String,
++  icon: String,
+   additional_data: Option<AdditionalData>,
+ ) {
+   use notify_rust::{Notification, Timeout};
+@@ -113,7 +113,7 @@
+   match Notification::new()
+     .summary(&title)
+     .body(&body)
+-    .icon("dorion")
++    .icon(&icon)
+     .timeout(Timeout::Milliseconds(5000))
+     .action("default", "default")
+     .show()

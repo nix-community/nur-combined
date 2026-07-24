@@ -1,0 +1,14 @@
+diff --git a/src-tauri/src/main.rs b/src-tauri/src/main.rs
+index 35348097db..cfdfa24fbf 100644
+--- a/src-tauri/src/main.rs
++++ b/src-tauri/src/main.rs
+@@ -127,9 +127,6 @@
+     gpu::disable_hardware_accel_windows();
+   }
+ 
+-  #[cfg(target_os = "linux")]
+-  gpu::disable_dma();
+-
+   log!("Are we portable? {}", is_portable());
+ 
+   let context = tauri::generate_context!("tauri.conf.json");
