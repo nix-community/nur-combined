@@ -238,10 +238,10 @@
     };
     "ahrefs-seo-toolbar" = buildMozillaXpiAddon {
       pname = "ahrefs-seo-toolbar";
-      version = "3.2.9";
+      version = "3.2.10";
       addonId = "ahrefs@AhrefsPteLtd";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4775467/ahrefs_seo_toolbar-3.2.9.xpi";
-      sha256 = "c79b4bb9e7b3db33cab6957ff815505a3bc7bd581527611c730159aafc9ee862";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4915508/ahrefs_seo_toolbar-3.2.10.xpi";
+      sha256 = "a7e0cb51717b60db6262ae31889b109d983b8eb41d6e0653e8a6ddd0de8701e1";
       meta = with lib;
       {
         homepage = "https://ahrefs.com/seo-toolbar";
@@ -1279,10 +1279,10 @@
     };
     "bitwarden" = buildMozillaXpiAddon {
       pname = "bitwarden";
-      version = "2026.6.1";
+      version = "2026.7.0";
       addonId = "{446900e4-71c2-419f-a6a7-df9c091e268b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4875950/bitwarden_password_manager-2026.6.1.xpi";
-      sha256 = "7ba16c3d422ab287db17b014a4683bace36341e471e4d4fd58ac2b616c6ac17d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4915668/bitwarden_password_manager-2026.7.0.xpi";
+      sha256 = "11836eb9d2abc9914bb337b57e20c5a09cf44f24fa572f7e886384fd350a5112";
       meta = with lib;
       {
         homepage = "https://bitwarden.com";
@@ -2141,10 +2141,10 @@
     };
     "click-and-read" = buildMozillaXpiAddon {
       pname = "click-and-read";
-      version = "4.5.2";
+      version = "4.5.3";
       addonId = "inist.users@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4862336/click_and_read-4.5.2.xpi";
-      sha256 = "759a2994495bff72c1baefe38692579ac42404ab5bac12c54991186430453250";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4914683/click_and_read-4.5.3.xpi";
+      sha256 = "e3fc2b2605f14930745b1d3c2e437023951a59e086e14d618886c26d7308ba90";
       meta = with lib;
       {
         homepage = "https://clickandread.inist.fr/";
@@ -3967,10 +3967,10 @@
     };
     "external-application" = buildMozillaXpiAddon {
       pname = "external-application";
-      version = "0.6.0";
+      version = "0.6.1";
       addonId = "{65b77238-bb05-470a-a445-ec0efe1d66c4}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4523435/external_application-0.6.0.xpi";
-      sha256 = "5b3813b6a409b8d06cc57df3769c787ec0f646add6a31cfa762a14cc3cec043a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4914536/external_application-0.6.1.xpi";
+      sha256 = "954bdc05103e86ffda9cc9e3721d18778bc70c7d6279c167ddf7a32a99291366";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/external-application-button.html";
@@ -4709,10 +4709,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.0.11";
+      version = "2.0.12";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4910317/geo_spoof-2.0.11.xpi";
-      sha256 = "bace90c6e2e7fec838d9d5abbe51996fbd8d29949efbb605e9b7d8f4c63d45dc";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4915476/geo_spoof-2.0.12.xpi";
+      sha256 = "a7c5d2fdadaa4e227b3743289b7cf7c90f30ffb656de6f76ca6f9e01eb8952c9";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -9023,10 +9023,10 @@
     };
     "mal-sync" = buildMozillaXpiAddon {
       pname = "mal-sync";
-      version = "0.12.3";
+      version = "0.12.4";
       addonId = "{c84d89d9-a826-4015-957b-affebd9eb603}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4710960/mal_sync-0.12.3.xpi";
-      sha256 = "1d9f086ffb81045f50991dca0070006cc548a1492af858f2dcf259301242ed8b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4900958/mal_sync-0.12.4.xpi";
+      sha256 = "c9423329828b90d88465984df855e25b772d1309ec8a9c88727fef6b20e319b6";
       meta = with lib;
       {
         homepage = "https://github.com/lolamtisch/MALSync";
@@ -9070,24 +9070,18 @@
           "*://jkanime.net/*"
           "*://proxer.me/*"
           "*://proxer.net/*"
-          "*://*.kaas.am/*"
-          "*://*.kaas.ro/*"
-          "*://*.kaas.to/*"
-          "*://*.kickassanime.ro/*"
-          "*://*.kickassanime.am/*"
-          "*://*.kickassanimes.io/*"
-          "*://*.kickassanime.mx/*"
-          "*://*.kaa.mx/*"
-          "*://*.kaa.to/*"
+          "*://*.kaa.lt/*"
           "*://*.kaa.si/*"
-          "*://*.kickass-anime.ro/*"
+          "*://*.kaa.to/*"
+          "*://*.kaa.rs/*"
           "*://*.kickassanime.cx/*"
           "*://shinden.pl/episode/*"
           "*://shinden.pl/series/*"
           "*://shinden.pl/titles/*"
           "*://shinden.pl/epek/*"
-          "*://voiranime.com/*"
           "*://*.voiranime.com/*"
+          "*://*.voiranime.tv/*"
+          "*://*.voir-anime.to/*"
           "*://www.viz.com/*"
           "*://www.animezone.pl/odcinki/*"
           "*://www.animezone.pl/odcinek/*"
@@ -9188,7 +9182,6 @@
           "*://www.hulu.com/*"
           "*://www.hidive.com/*"
           "*://mangakatana.com/manga/*"
-          "*://*.manga4life.com/*"
           "*://animexin.vip/*"
           "*://animexin.xyz/*"
           "*://animexinax.com/*"
@@ -9230,7 +9223,6 @@
           "*://*.mangafox.la/manga/*"
           "*://desu-online.pl/*"
           "*://wuxiaworld.site/novel/*"
-          "*://reaperscans.com/*"
           "*://lynxscans.com/*"
           "*://reader.deathtollscans.net/*"
           "*://manhuaplus.com/manga*"
@@ -9239,8 +9231,6 @@
           "*://*.readm.today/manga/*"
           "*://tioanime.com/anime/*"
           "*://tioanime.com/ver/*"
-          "*://*.mangasee123.com/manga*"
-          "*://*.mangasee123.com/read-online*"
           "*://*.okanime.com/animes/*"
           "*://*.okanime.com/movies/*"
           "*://*.okanime.tv/animes/*"
@@ -9263,20 +9253,6 @@
           "*://bentomanga.com/*"
           "*://readmanhua.net/manga*"
           "*://immortalupdates.com/manga*"
-          "*://aniwatch.to/*"
-          "*://aniwatch.nz/*"
-          "*://aniwatch.se/*"
-          "*://hianime.to/*"
-          "*://hianime.nz/*"
-          "*://hianime.mn/*"
-          "*://hianime.sx/*"
-          "*://hianime.bz/*"
-          "*://hianime.pe/*"
-          "*://hianimez.to/*"
-          "*://hianimez.is/*"
-          "*://hianime.cx/*"
-          "*://hianime.gs/*"
-          "*://hianime.do/*"
           "*://lhtranslation.net/manga*"
           "*://mangas-origines.fr/oeuvre*"
           "*://*.bluesolo.org/manga/*"
@@ -9296,8 +9272,6 @@
           "*://*.adkami.com/*"
           "*://kaguya.app/*"
           "*://hdrezka.ag/animation/*"
-          "*://sovetromantica.com/anime/*"
-          "*://ani.wtf/anime/*"
           "*://animationdigitalnetwork.fr/*"
           "*://animationdigitalnetwork.de/*"
           "*://animationdigitalnetwork.com/*"
@@ -9312,7 +9286,6 @@
           "*://anime-sama.org/*"
           "*://anime-sama.fr/*"
           "*://anime-sama.eu/*"
-          "*://mangafire.to/*"
           "*://projectsuki.com/*"
           "*://animebuff.ru/anime/*"
           "*://animeonegai.com/*"
@@ -9335,7 +9308,6 @@
           "*://*.animesonline.in/*"
           "*://latanime.org/*"
           "*://*.mangaread.org/manga/*"
-          "*://templescan.net/*"
           "*://demo.kavitareader.com/*"
           "*://aninexus.to/*"
           "*://*.anidream.cc/*"
@@ -9384,9 +9356,11 @@
           "*://*.vidlox.me/*"
           "*://*.kwik.cx/*"
           "*://*.kwik.si/*"
+          "*://*.mewcdn.online/*"
           "*://*.mega.nz/*"
           "*://*.animeflv.net/*"
           "*://*.jwplayerhls.com/*"
+          "*://playnixes.com/*"
           "*://*.hqq.tv/*"
           "*://waaw.tv/*"
           "*://*.jkanime.net/*"
@@ -9427,6 +9401,7 @@
           "*://*.geoip.redirect-ads.com/*"
           "*://*.streamium.xyz/*"
           "*://kodik.info/*"
+          "*://kodikplayer.com/*"
           "*://aniboom.one/*"
           "*://x.anizium.co/*"
           "*://smotret-anime.org/translations/embed/*"
@@ -9463,6 +9438,8 @@
           "*://*.m1xdrop.net/e/*"
           "*://*.m1xdrop.com/e/*"
           "*://*.m1xdrop.bz/e/*"
+          "*://*.miixdrop.net/e/*"
+          "*://*.miiiixdrop.net/e/*"
           "*://gdriveplayer.me/embed*"
           "*://sendvid.net/v/*"
           "*://sendvid.com/embed/*"
@@ -9643,6 +9620,29 @@
           "*://myvidplay.com/e/*"
           "*://lauradaydo.com/e/*"
           "*://lancewhosedifficult.com/e/*"
+          "*://dianaavoidthey.com/e/*"
+          "*://jefferycontrolmodel.com/e/*"
+          "*://jessicaclearout.com/e/*"
+          "*://marissasharecareer.com/e/*"
+          "*://charlestoughrace.com/e/*"
+          "*://timmaybealready.com/e/*"
+          "*://richardquestionbuilding.com/e/*"
+          "*://charlessheimprove.com/e/*"
+          "*://maryspecialwatch.com/e/*"
+          "*://benjaminreducecommunity.com/e/*"
+          "*://nicholasbreakplan.com/e/*"
+          "*://rebeccasciencestreet.com/e/*"
+          "*://ericeastweight.com/e/*"
+          "*://kathyinformationwhether.com/e/*"
+          "*://bryantenunder.com/e/*"
+          "*://vickisaveworker.com/e/*"
+          "*://rebeccacostthousand.com/e/*"
+          "*://jessicayeahcatch.com/e/*"
+          "*://jeanprofessorcentral.com/e/*"
+          "*://juliewomanwish.com/e/*"
+          "*://garylargeavailable.com/e/*"
+          "*://jennifereconomicgive.com/e/*"
+          "*://pamelachangemission.com/e/*"
           "*://vidoo.tv/*"
           "*://nxload.com/*"
           "*://videobin.co/*"
@@ -9744,14 +9744,8 @@
           "*://fle-rvd0i9o8-moo.com/*"
           "*://dhtpre.com/*"
           "*://*.bunniescdn.online/*"
-          "*://megaup.cc/e/*"
-          "*://megaup.site/e/*"
-          "*://megaup.live/e/*"
-          "*://4spromax.site/e/*"
-          "*://megaup22.online/e/*"
           "*://boosterx.stream/*"
           "*://player.zilla-networks.com/*"
-          "*://megaplay.buzz/*"
           "*://*.anizmplayer.com/*"
           "*://loadx.ws/*"
           "*://odysee.com/*"
@@ -10227,10 +10221,10 @@
     };
     "mtab" = buildMozillaXpiAddon {
       pname = "mtab";
-      version = "1.12.5";
+      version = "1.12.7";
       addonId = "contact@maxhu.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4855979/mtab-1.12.5.xpi";
-      sha256 = "6a7e5063dddf29d17307617738c254f81f90a902a86f0e8abcc37804d9fabad2";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4916414/mtab-1.12.7.xpi";
+      sha256 = "b97ec21a34124e0b7661b909519c97da9d3a6b80ec24e1b614b31ed8bab52564";
       meta = with lib;
       {
         homepage = "https://mtab.maxhu.dev";
@@ -16955,10 +16949,10 @@
     };
     "web-clipper-obsidian" = buildMozillaXpiAddon {
       pname = "web-clipper-obsidian";
-      version = "1.7.0";
+      version = "1.7.1";
       addonId = "clipper@obsidian.md";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4854020/web_clipper_obsidian-1.7.0.xpi";
-      sha256 = "f9670e4ba4c01072dd1689b267ec32074eb1cb9636d8a429a32000646190008e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4913872/web_clipper_obsidian-1.7.1.xpi";
+      sha256 = "e11043d5219bc690903996bf4577da2ef2f69691446fa31184d75b7050cbb1aa";
       meta = with lib;
       {
         homepage = "https://obsidian.md/clipper";
