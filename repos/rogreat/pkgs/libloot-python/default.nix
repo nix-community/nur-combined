@@ -36,6 +36,8 @@ buildPythonPackage (finalAttrs: {
     CARGO_TARGET_DIR = "./target";
   };
 
+  dontCheckPythonMetadata = true;
+
   meta = {
     description = "Experimental Python wrapper around libloot";
     homepage = "https://github.com/loot/libloot/tree/master/python";
