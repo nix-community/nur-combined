@@ -22,23 +22,23 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cc-switch";
-  version = "3.17.0";
+  version = "3.18.0";
 
   src = fetchFromGitHub {
     owner = "farion1231";
     repo = "cc-switch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-pibPthEGtNw06wBu9ZIFdtqlTafTmiyFAawaH+Ou2gc=";
+    hash = "sha256-viAlpiRnPujVeDWizAgmfGbHMsk3+a8sp2T2fy2eHws=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-4S00JM93MR5ARL2eginyNh/0dIrzU5rJQYS1x1PYoig=";
+    hash = "sha256-FcaLjk+DleNAnw5hr+Vpkfawe7oJ789biy0nFhbqeM4=";
   };
 
   cargoRoot = "src-tauri";
-  cargoHash = "sha256-KCKhosPR2C5ShZ1ozFvlFF8bTmOrlbKzbgDX1hmhr2o=";
+  cargoHash = "sha256-ZhhPjFZqANfpXSeaUpvzo5cfTyUSLX2PxoR1OmyVbik=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   postPatch = ''

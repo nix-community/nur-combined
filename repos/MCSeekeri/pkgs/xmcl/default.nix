@@ -29,8 +29,8 @@ let
     meta
     ;
 
-  src = fetchFromGitHub (
-    srcArgs // { hash = "sha256-vlTUTywdn1yn7RquR6d7EOCWcmbCRbmgnR/noLBAK4o="; }
+    src = fetchFromGitHub (
+    srcArgs // { hash = "sha256-bDLoyb4Pn7rxKGnZ0RRIdC8BjLIbnMEmpLz6la/YCbY="; }
   );
 
   pnpmDeps = fetchPnpmDeps {
