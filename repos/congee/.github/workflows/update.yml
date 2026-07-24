@@ -21,12 +21,23 @@ jobs:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Pin NIX_PATH to flake.lock nixpkgs
+        # Bump PRs must be generated and verified against the exact nixpkgs the
+        # Build check uses, not a live channel. Otherwise nix-update computes
+        # hashes / builds against a different nixpkgs than Build, so a bump can
+        # pass here yet fail the required check (or commit a hash Build rejects).
+        run: |
+          nixpkgs=$(nix eval --impure --raw \
+            --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+          echo "NIX_PATH=nixpkgs=$nixpkgs" >> "$GITHUB_ENV"
       - id: list
         run: |
           packages=$(nix-instantiate --eval --json -E \
             'builtins.filter (n: !builtins.elem n ["lib" "modules" "overlays"]) (builtins.attrNames (import ./default.nix {}))')
-          echo "packages=$packages" >> $GITHUB_OUTPUT
+          echo "packages=$packages" >> "$GITHUB_OUTPUT"
 
   update:
     needs: detect-packages
@@ -43,10 +54,17 @@ jobs:
       - uses: cachix/install-nix-action@v31
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
           extra_nix_config: |
             experimental-features = nix-command flakes
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Pin NIX_PATH to flake.lock nixpkgs
+        if: ${{ !inputs.package || inputs.package == matrix.package }}
+        # nix-update bumps and builds against <nixpkgs>; pin it to flake.lock so
+        # the bump is verified against the same nixpkgs the Build check uses.
+        run: |
+          nixpkgs=$(nix eval --impure --raw \
+            --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+          echo "NIX_PATH=nixpkgs=$nixpkgs" >> "$GITHUB_ENV"
       - uses: cachix/cachix-action@v17
         if: ${{ !inputs.package || inputs.package == matrix.package }}
         with:
@@ -97,3 +115,56 @@ jobs:
             --head "$branch" || true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Bump the pinned nixpkgs (flake.lock) on the same daily cadence. The Build
+  # workflow pins to flake.lock, so nixpkgs only moves through this PR — and
+  # that PR is built against the new pin, surfacing toolchain breakage before
+  # merge instead of on a later scheduled run. Skipped when dispatched for a
+  # single package.
+  update-nixpkgs:
+    if: ${{ !inputs.package }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ssh-key: ${{ secrets.NUR_DEPLOY_KEY }}
+      - uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      - name: Configure git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+      - name: Update flake.lock (nixpkgs)
+        run: |
+          old=$(jq -r '.nodes.nixpkgs.locked.rev' flake.lock)
+          nix flake update nixpkgs
+          new=$(jq -r '.nodes.nixpkgs.locked.rev' flake.lock)
+          if [ "$old" = "$new" ]; then
+            echo "nixpkgs already up to date ($old)"
+            exit 0
+          fi
+          echo "OLD=$old" >> "$GITHUB_ENV"
+          echo "NEW=$new" >> "$GITHUB_ENV"
+          git commit -am "chore(flake): bump nixpkgs ${old:0:12} -> ${new:0:12}"
+      - name: Create PR
+        if: env.NEW != ''
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          branch="auto-update/nixpkgs"
+          git fetch origin "refs/heads/$branch:refs/remotes/origin/$branch" || true
+          git checkout -B "$branch"
+          if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+            remote_sha=$(git rev-parse "refs/remotes/origin/$branch")
+            git push -u origin "$branch" --force-with-lease="refs/heads/$branch:$remote_sha"
+          else
+            git push -u origin "$branch"
+          fi
+          gh pr create \
+            --title "chore(flake): bump nixpkgs ${OLD:0:12} -> ${NEW:0:12}" \
+            --body "Automated nixpkgs bump. Build runs on this branch against the new pin, so toolchain breakage surfaces here rather than on a later scheduled run." \
+            --base master \
+            --head "$branch" || true

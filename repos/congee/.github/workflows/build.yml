@@ -39,10 +39,6 @@ jobs:
         # https://github.com/<your_githubname>/nur-packages/settings/secrets
         cachixName:
           - congee
-        nixPath:
-          - nixpkgs=channel:nixos-unstable
-          # - nixpkgs=channel:nixos-unstable
-          # - nixpkgs=channel:nixos-21.11
         # macos-latest is Apple Silicon (aarch64-darwin); free for public
         # repos and covers darwin-only packages like rapid-mlx
         os:
@@ -55,7 +51,6 @@ jobs:
     - name: Install nix
       uses: cachix/install-nix-action@v31
       with:
-        nix_path: "${{ matrix.nixPath }}"
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
@@ -73,6 +68,18 @@ jobs:
         done
         echo "nix daemon never became ready" >&2
         exit 1
+    - name: Pin NIX_PATH to flake.lock nixpkgs
+      # CI must build against the exact nixpkgs in flake.lock, not a live
+      # channel. A live channel drifts underneath CI between runs, so a
+      # toolchain change (e.g. rustc) breaks unrelated builds on a scheduled
+      # run instead of on the PR that caused it. nixpkgs is bumped deliberately
+      # via the auto-update/nixpkgs bot in update.yml, whose PR is then built
+      # here against the new pin.
+      run: |
+        nixpkgs=$(nix eval --impure --raw \
+          --expr '(builtins.getFlake (toString ./.)).inputs.nixpkgs.outPath')
+        echo "Pinned nixpkgs: $nixpkgs"
+        echo "NIX_PATH=nixpkgs=$nixpkgs" >> "$GITHUB_ENV"
     - name: Show nixpkgs version
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Compute unfree push filter
