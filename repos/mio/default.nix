@@ -53,14 +53,15 @@ in
         "26.05:2.11.4:go1.26.3" = "sha256-gg2FrWBzumTkp77AA5faAPOQx68JzureGMignc0r1lA=";
         "26.05:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
         "26.11:2.11.4:go1.26.4" = "sha256-Bv00eNLSJof+kWkLaJAPRjGzaXd/gvKoPt9fmBYG3uw=";
-        "26.05:2.11.4:go1.26.5" = "sha256-QVKOjWXBEEQQkTJNcisiKMr2D63jjH9Gcv09aMaJkGk=";
+        "2.11.4:go1.26.5" = "sha256-QVKOjWXBEEQQkTJNcisiKMr2D63jjH9Gcv09aMaJkGk=";
       };
       nixosVersion = pkgs.lib.versions.majorMinor pkgs.lib.version;
       caddyVersion = pkgs.caddy.version;
       goVersion = pkgs.caddy.passthru.go.version;
       lookupKey = "${nixosVersion}:${caddyVersion}:go${goVersion}";
+      lookup2 = "${caddyVersion}:go${goVersion}";
       pluginsHash =
-        caddyPluginsHashTable.${lookupKey}
+        caddyPluginsHashTable.${lookupKey} or caddyPluginsHashTable.${lookup2}
           or (throw "Unknown caddy version combination: ${lookupKey}. Please update caddyPluginsHashTable in default.nix");
     in
     (goV3OverrideAttrs pkgs.caddy).withPlugins {
