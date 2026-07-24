@@ -37,6 +37,7 @@ specify {
   decompiler-mc = any;
   dmarc-report-converter = any;
   dmarc-report-notifier = any;
+  doh = any;
   easy-timeline = any;
   efficient-compression-tool.broken = e: e.version == "0.9.5" && ! e ? patches; # Pending NixOS/nixpkgs#517041
   email-hash = any;

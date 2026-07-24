@@ -1,3 +1,9 @@
+Work around GNOME/gnome-system-monitor#342
+
+Silences:
+
+    gnome-system-monitor[…]: glibtop(c=…): [WARNING] statvfs '/run/user/1000/doc' failed: Operation not permitted
+
 --- a/sysdeps/linux/mountlist.c
 +++ b/sysdeps/linux/mountlist.c
 @@ -111,2 +111,3 @@

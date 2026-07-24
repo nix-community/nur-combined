@@ -52,6 +52,7 @@ rec {
   co2monitor = callPackage ./library/co2monitor.pkg.nix { };
   decompiler-mc = callPackage ./library/decompiler-mc.pkg.nix { };
   dmarc-report-notifier = callPackage ./library/dmarc-report-notifier.pkg.nix { };
+  doh = callPackage ./library/doh.pkg.nix { };
   easy-timeline = callPackage ./library/easy-timeline.pkg.nix { };
   fastnbt-tools = callPackage ./library/fastnbt-tools.pkg.nix { };
   fediblockhole = callPackage ./library/fediblockhole.pkg.nix { };

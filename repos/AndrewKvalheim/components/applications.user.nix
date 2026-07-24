@@ -105,6 +105,7 @@ in
       dig
       displaycal
       dive
+      doh
       dua
       duperemove
       efficient-compression-tool
