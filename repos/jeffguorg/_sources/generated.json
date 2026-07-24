@@ -362,11 +362,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-+DGMUdYGOdqIQXV90kawi/Sb/frF2N/Vzy9iWgX/AQQ=",
+            "sha256": "sha256-CpGJ62GVZXgbCS5REG81XQ1SqbWdxeaQy1fIml4PAz8=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.29.0.tgz"
+            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.29.1.tgz"
         },
-        "version": "0.29.0"
+        "version": "0.29.1"
     },
     "kwok": {
         "cargoLock": null,

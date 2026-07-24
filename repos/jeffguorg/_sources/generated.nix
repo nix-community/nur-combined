@@ -211,10 +211,10 @@
   };
   kimi-code = {
     pname = "kimi-code";
-    version = "0.29.0";
+    version = "0.29.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.29.0.tgz";
-      sha256 = "sha256-+DGMUdYGOdqIQXV90kawi/Sb/frF2N/Vzy9iWgX/AQQ=";
+      url = "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.29.1.tgz";
+      sha256 = "sha256-CpGJ62GVZXgbCS5REG81XQ1SqbWdxeaQy1fIml4PAz8=";
     };
   };
   kwok = {
