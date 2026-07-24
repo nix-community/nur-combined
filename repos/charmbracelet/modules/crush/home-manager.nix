@@ -13,8 +13,8 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.file.".config/crush/crush.json" = lib.mkIf (cfg.settings != { }) {
-      source = charmLib.toCleanJSON cfg.settings;
+    xdg.configFile."crush/crush.json" = lib.mkIf (cfg.settings != { }) {
+      source = charmLib.toCleanJSON "crush.json" cfg.settings;
     };
   };
 }

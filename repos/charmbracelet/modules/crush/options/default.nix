@@ -9,7 +9,7 @@ in
 
     package = lib.mkOption {
       default = (import ../../../pkgs { inherit pkgs; }).crush;
-      defaultText = "crush";
+      defaultText = lib.literalExpression "charmbracelet-nur.pkgs.crush";
       description = "Package to use for crush";
     };
 

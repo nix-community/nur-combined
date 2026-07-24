@@ -14,7 +14,7 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
     environment.etc."crush/crush.json" = lib.mkIf (cfg.settings != { }) {
-      source = charmLib.toCleanJSON cfg.settings;
+      source = charmLib.toCleanJSON "crush.json" cfg.settings;
     };
   };
 }

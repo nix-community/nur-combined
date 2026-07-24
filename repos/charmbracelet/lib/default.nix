@@ -6,10 +6,10 @@ let
 in
 rec {
   /**
-    Recursively clean an attribute set for JSON serialization by removing all `null` values and any attribute sets that become empty as a result.
+    Recursively clean an attribute set for JSON serialization by removing all `null` values, empty lists, and any attribute sets that become empty as a result.
 
-    Nix module options declared with `default = null` or `default = { }` are always present in the evaluated config, even when the user never sets them.
-    Passing such a config through `builtins.toJSON` produces explicit `null` entries and empty objects in the output.
+    Nix module options declared with `default = null`, `default = { }`, or `default = [ ]` are always present in the evaluated config, even when the user never sets them.
+    Passing such a config through `builtins.toJSON` produces explicit `null` entries, empty objects, and empty arrays in the output.
     Downstream applications may misinterpret these as intentionally configured values
     — for example, an empty `"oauth": {}` block causes Crush to attempt an OAuth token refresh on providers that don't support it.
 
@@ -30,6 +30,7 @@ rec {
       name = "Ollama";
       api_key = null;
       oauth = { access_token = null; refresh_token = null; };
+      disabled_tools = [ ];
       models = [{ id = "qwen3:8b"; cost_per_1m_in = null; }];
     }
     => {
@@ -48,7 +49,7 @@ rec {
             filtered = filterAttrs (_: v: v != null) value;
             cleaned = mapAttrs (_: clean) filtered;
           in
-          filterAttrs (_: v: !(builtins.isAttrs v && v == { })) cleaned
+          filterAttrs (_: v: !(builtins.isAttrs v && v == { }) && !(builtins.isList v && v == [ ])) cleaned
         else if builtins.isList value then
           map clean value
         else
@@ -57,16 +58,17 @@ rec {
     clean;
 
   /**
-    Generate a pretty-printed JSON file from an attribute set, with all `null` values and empty objects recursively removed.
+    Generate a pretty-printed JSON file from an attribute set, with all `null` values, empty objects, and empty lists recursively removed.
 
     Combines `removeNulls` with `pkgs.formats.json` (which uses `jq` under the hood) to produce a human-readable, clean JSON file suitable for use as `home.file.*.source` or `environment.etc.*.source`.
 
     # Inputs
+    `name` : The name of the generated JSON file (e.g. `"crush.json"`).
     `attrs` : The attribute set to serialize.
 
     # Type
     ```
-    toCleanJSON :: AttrSet -> Derivation
+    toCleanJSON :: String -> AttrSet -> Derivation
     ```
 
     # Examples
@@ -74,7 +76,7 @@ rec {
     ## `charmLib.toCleanJSON` usage example
 
     ```nix
-    home.file.".config/crush/crush.json".source = charmLib.toCleanJSON {
+    home.file.".config/crush/crush.json".source = charmLib.toCleanJSON "crush.json" {
       providers.ollama = {
         name = "Ollama";
         api_key = null;
@@ -96,5 +98,5 @@ rec {
     ```
     :::
   */
-  toCleanJSON = attrs: jsonFormat.generate "settings.json" (removeNulls attrs);
+  toCleanJSON = name: attrs: jsonFormat.generate name (removeNulls attrs);
 }
