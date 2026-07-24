@@ -22,6 +22,7 @@ in
   igsc = pkgs.callPackage ./igsc { };
   libwtf = pkgs.callPackage ./libwtf { };
   nix-scan = pkgs.callPackage ./nix-scan { };
+  paper-mono = pkgs.callPackage ./paper-mono { };
   protoc-gen-connect-openapi = pkgs.callPackage ./protoc-gen-connect-openapi { };
   pysentry = pkgs.callPackage ./pysentry { };
   qsvenc = pkgs.callPackage ./qsvenc { };
