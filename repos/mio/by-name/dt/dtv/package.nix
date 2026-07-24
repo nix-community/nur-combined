@@ -103,7 +103,7 @@ rustPlatform.buildRustPackage rec {
     dontInstall = true;
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-hHt76rnn+Ip+q1UOUAY2GdgU6fVtBwfj7H2kH04g8Zk=";
+    outputHash = "sha256-lWbffx9qCMCvdjRkta1DtARkBv9xR9GdNgPYLk98uAE=";
   };
 
   nativeBuildInputs = [
