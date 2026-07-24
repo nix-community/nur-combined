@@ -101,7 +101,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   preFixup = ''
     makeWrapperArgs+=(
         --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
-        --set PATH "${
+        --suffix PATH : "${
           lib.makeBinPath [
             # https://github.com/ChrisDKN/Amethyst-Mod-Manager/blob/main/flatpak/io.github.Amethyst.ModManager.yml
             _7zz
@@ -114,8 +114,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
           ]
         }"
     )
-    wrapQtApp $out/bin/amethyst-mod-manager ''${makeWrapperArgs[@]}
-    wrapProgram $out/bin/amethyst-mod-manager-cli ''${makeWrapperArgs[@]}
+    wrapQtApp $out/bin/amethyst-mod-manager "''${makeWrapperArgs[@]}"
+    wrapProgram $out/bin/amethyst-mod-manager-cli "''${makeWrapperArgs[@]}"
   '';
 
   meta = {
