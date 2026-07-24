@@ -102,10 +102,10 @@
   };
   tree-sitter-muttrc = {
     pname = "tree-sitter-muttrc";
-    version = "0.1.3";
+    version = "0.1.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_muttrc/tree_sitter_muttrc-0.1.3.tar.gz";
-      sha256 = "sha256-kJLQzDoNoIsAjMZXMhOrl9oIigjk4vm1IDKFwZAa17o=";
+      url = "https://pypi.org/packages/source/t/tree_sitter_muttrc/tree_sitter_muttrc-0.1.4.tar.gz";
+      sha256 = "sha256-qWAe/6+GMfofaYIXH+WIy3DCVgFdlWai34uF3rfnmZg=";
     };
   };
   tree-sitter-requirements = {
@@ -121,18 +121,18 @@
   };
   tree-sitter-tmux = {
     pname = "tree-sitter-tmux";
-    version = "0.1.3";
+    version = "0.1.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_tmux/tree_sitter_tmux-0.1.3.tar.gz";
-      sha256 = "sha256-0vnGa99hNjC2bJBITg5nf3h/EhY1su+0ncnxbvc/MJU=";
+      url = "https://pypi.org/packages/source/t/tree_sitter_tmux/tree_sitter_tmux-0.1.4.tar.gz";
+      sha256 = "sha256-ezfB7xlIOBTNV32bUoiSocOPQZW+b2b25OxsM0+yMow=";
     };
   };
   tree-sitter-zathurarc = {
     pname = "tree-sitter-zathurarc";
-    version = "0.1.3";
+    version = "0.1.5";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_zathurarc/tree_sitter_zathurarc-0.1.3.tar.gz";
-      sha256 = "sha256-63jXim0xBVBpeCB/Goq0yIyf6lZmdteuYC5OfmO79JY=";
+      url = "https://pypi.org/packages/source/t/tree_sitter_zathurarc/tree_sitter_zathurarc-0.1.5.tar.gz";
+      sha256 = "sha256-DM/0M1WwjbB7X129aduDllCAbHfVPZ/H0Sf2+rBWDok=";
     };
   };
   undollar = {
