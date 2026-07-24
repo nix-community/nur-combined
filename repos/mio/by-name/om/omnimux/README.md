@@ -39,7 +39,7 @@ References: [xterm OSC 10/11 query](https://ansicode.eversources.app/en/sequence
 
 ## Local sessions
 
-Localhost / empty host runs a shell script that prefers `tmux` (with Homebrew/MacPorts on `PATH` for macOS GUI apps) and falls back to a login shell if `tmux` is missing. The Nix package also prefixes `tmux` onto `PATH` via `wrapProgram`.
+Localhost / empty host runs a shell script that prefers `tmux` and falls back to a login shell if `tmux` is missing. Homebrew/MacPorts bin dirs are prepended to `PATH` only when those directories exist (macOS GUI apps often ship a minimal `PATH`; Linux hosts are left alone). The Nix package also prefixes `tmux` onto `PATH` via `wrapProgram`.
 
 ## Settings Omnimux owns
 

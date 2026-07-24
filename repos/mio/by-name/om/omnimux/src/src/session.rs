@@ -52,9 +52,13 @@ impl TerminalSession {
             }
         };
 
-        // Prefer tmux when available; macOS GUI apps get a minimal PATH so include
-        // Homebrew/MacPorts, and fall back to a login shell when tmux is missing.
-        let tmux_cmd = r#"PATH="/opt/homebrew/bin:/usr/local/bin:/opt/local/bin:$PATH"
+        // Prefer tmux when available; fall back to a login shell when missing.
+        // macOS GUI apps (and some SSH non-login remotes) get a minimal PATH —
+        // only prepend Homebrew/MacPorts dirs that exist so Linux is not polluted
+        // with Darwin-only prefixes like /opt/homebrew/bin.
+        let tmux_cmd = r#"for d in /opt/homebrew/bin /usr/local/bin /opt/local/bin; do
+  [ -d "$d" ] && PATH="$d:$PATH"
+done
 if command -v tmux >/dev/null 2>&1; then
   tmux -u has-session 2>/dev/null && exec tmux -u attach \; set -g mouse on || exec tmux -u new-session \; set -g mouse on
 elif [ -n "${SHELL:-}" ] && [ -x "$SHELL" ]; then
