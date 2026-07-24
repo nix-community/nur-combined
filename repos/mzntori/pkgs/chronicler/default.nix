@@ -14,7 +14,7 @@
 
 let
   name = "chronicler";
-  version = "0.54.1";
+  version = "0.56.3";
 
   chronicler-unwrapped = appimageTools.wrapType2 {
     pname = name;
