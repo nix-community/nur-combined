@@ -1,0 +1,8 @@
+builds: changed
+caches: 
+  - ghcr.io;itzemoji/nix-packages-cache
+compression: zstd
+workers: 50
+signing-key: NIX_SIGNING_KEY
+upstream-cache:
+  - https://cache.nixos.org

@@ -1,0 +1,42 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cache:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - system: x86_64-linux
+            runner: ubuntu-latest
+
+          - system: aarch64-linux
+            runner: ubuntu-24.04-arm
+
+    runs-on: ${{ matrix.runner }}
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - uses: DeterminateSystems/nix-installer-action@v20
+
+      - uses: ItzEmoji/aeroflare@v1
+        with:
+          config: aeroflare-ci.yaml
+        env:
+          NIX_SIGNING_KEY: ${{ secrets.NIX_SIGNING_KEY }} 
+  publish:
+    needs: cache
+    runs-on: ubuntu-latest
+    steps: 
+      - run: |
+          curl -fsS -X POST \
+            "https://nur-update.nix-community.org/update?repo=itzemoji"
