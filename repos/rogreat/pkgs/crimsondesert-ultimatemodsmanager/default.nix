@@ -146,7 +146,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   dontWrapQtApps = true;
 
   preFixup = ''
-    wrapQtApp $out/bin/cdumm --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+    wrapQtApp $out/bin/cdumm --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
   '';
 
   meta = {

@@ -68,8 +68,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   preFixup = ''
     qtWrapperArgs+=(
-        --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
-        --suffix PATH : "${
+        --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+        --set PATH "${
           lib.makeBinPath [
             iw
           ]

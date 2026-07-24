@@ -90,8 +90,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   preFixup = ''
     gappsWrapperArgs+=(
-        --prefix PYTHONPATH : "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
-        --suffix PATH : "${
+        --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+        --set PATH "${
           lib.makeBinPath [
             glib.dev # glib-compile-resources
             p7zip # 7z
