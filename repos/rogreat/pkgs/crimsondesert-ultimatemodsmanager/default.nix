@@ -21,8 +21,9 @@ let
   };
 
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
-    inherit src version;
+    inherit src;
     pname = "cdumm-native";
+    version = "0.1.0";
     pyproject = true;
 
     sourceRoot = "${src.name}/native";
