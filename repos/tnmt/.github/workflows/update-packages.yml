@@ -20,6 +20,11 @@ jobs:
           - roots
           - givy
           - symbol-desktop-wallet
+        include:
+          # Upstream tags multiple components (windows/v*, bridge/v*, ...);
+          # restrict to bridge tags so nix-update doesn't pick another component's version.
+          - package: ccpocket-bridge
+            nix-update-extra-args: "--version-regex 'bridge/v(.+)'"
     steps:
     - name: Checkout repository
       uses: actions/checkout@v7
@@ -42,7 +47,7 @@ jobs:
         NIXPKGS_ALLOW_UNFREE: "1"
       run: |
         nix shell nixpkgs#nix-update -c \
-          nix-update --system x86_64-linux --build -f ./default.nix ${{ matrix.package }}
+          nix-update --system x86_64-linux --build -f ./default.nix ${{ matrix.package }} ${{ matrix.nix-update-extra-args }}
 
     - name: Detect changes
       id: after

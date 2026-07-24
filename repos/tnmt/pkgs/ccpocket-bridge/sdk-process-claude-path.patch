@@ -1,7 +1,8 @@
 diff --git a/packages/bridge/src/sdk-process.ts b/packages/bridge/src/sdk-process.ts
 --- a/packages/bridge/src/sdk-process.ts
 +++ b/packages/bridge/src/sdk-process.ts
-@@ -737,6 +737,9 @@
+@@ -736,7 +736,10 @@
+         cwd: projectPath,
          resume: options?.sessionId,
          continue: options?.continueMode,
          permissionMode: this._permissionMode ?? "default",

@@ -10,13 +10,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "ccpocket-bridge";
-  version = "1.69.0";
+  version = "1.69.1";
 
   src = fetchFromGitHub {
     owner = "K9i-0";
     repo = "ccpocket";
     rev = "bridge/v${finalAttrs.version}";
-    hash = "sha256-9if1qw1c/TPS2cyGMblvCOXNdwrVXxS8EvPJ/RmsnWo=";
+    hash = "sha256-Hkm1HRee0H0PXUu+J5hnSRvicc1g1tRDCUISIb4fSyo=";
   };
 
   patches = [ ./sdk-process-claude-path.patch ];
@@ -75,7 +75,12 @@ buildNpmPackage (finalAttrs: {
       --prefix PATH : ${lib.makeBinPath [ claude-code ]}
   '';
 
-  passthru.updateScript = nix-update-script { };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version-regex"
+      "bridge/v(.+)"
+    ];
+  };
 
   meta = {
     description = "Bridge server connecting Claude Agent SDK and Codex CLI to mobile devices";
