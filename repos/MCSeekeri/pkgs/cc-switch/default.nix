@@ -41,6 +41,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   cargoHash = "sha256-ZhhPjFZqANfpXSeaUpvzo5cfTyUSLX2PxoR1OmyVbik=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
+  checkFlags = [
+     "--skip=npm_anchor_supplies_sibling_node_to_env_shebang"
+  ];
+
   postPatch = ''
     substituteInPlace src-tauri/tauri.conf.json \
       --replace-fail '"createUpdaterArtifacts": true' '"createUpdaterArtifacts": false'
