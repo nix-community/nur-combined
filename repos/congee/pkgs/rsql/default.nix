@@ -23,7 +23,11 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-sOppcQzXTfTXbQW6klwgAAw820Iq22hR1ldQ6lv6+/Q=";
   };
 
-  cargoHash = "sha256-YeJKAER+sr28FbR4xPHNbRoC2vDa8NZMzs+klfFjs6Q=";
+  # ethnum <1.5.3 uses mem::transmute(()) -> TryFromIntError, which no longer
+  # compiles now that TryFromIntError is non-zero-sized. Bump the pinned dep.
+  cargoPatches = [ ./ethnum.patch ];
+
+  cargoHash = "sha256-Wzbbyy+AN4ecILuqDdc7XtExRMNbv0pu5oqR8XTD4Vo=";
 
   nativeBuildInputs = [
     pkg-config
