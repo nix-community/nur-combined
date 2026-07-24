@@ -4,7 +4,7 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-throw-exception";
-  version = "1.91.0.beta1";
+  version = "1.92.0.beta1";
 
   src = fetchFromGitHub {
     owner = "boostorg";

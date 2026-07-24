@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-assert";
-  version = "1.91.0.beta1";
+  version = "1.92.0.beta1";
 
   src = fetchFromGitHub {
     owner = "boostorg";
     repo = "assert";
     rev = "boost-${version}";
-    sha256 = "sha256-2PuFFOmCPQPQQAtZ08gjiEPwTNnzf2UaI8pDsN1gfs4=";
+    sha256 = "sha256-uHV4FXgfaV2b0KRwx+WFAQESjsSdTuVjeISmQ9+iD14=";
   };
 
   dontConfigure = true;

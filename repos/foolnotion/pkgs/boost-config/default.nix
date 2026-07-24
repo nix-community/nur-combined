@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "boost-config";
-  version = "1.91.0.beta1";
+  version = "1.92.0.beta1";
 
   src = fetchFromGitHub {
     owner = "boostorg";
     repo = "config";
     rev = "boost-${version}";
-    sha256 = "sha256-40a2Ho63M5yWGQ6FDFeZxs9yJy1A8Ec6KcW4FvT2TaQ=";
+    sha256 = "sha256-KjLxYomgUt7TU/9yI5b+yxu6UH9Is0TLVdi5F22O4/A=";
   };
 
   dontConfigure = true;
