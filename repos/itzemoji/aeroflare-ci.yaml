@@ -1,4 +1,5 @@
-builds: changed
+builds: 
+  - changed
 caches: 
   - ghcr.io;itzemoji/nix-packages-cache
 compression: zstd
