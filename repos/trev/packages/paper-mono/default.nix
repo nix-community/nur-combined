@@ -10,7 +10,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "paper-mono";
-  version = "0.300-unstable-2026-07-02";
+  version = "0.300-unstable-2026-07-24";
   __structuredAttrs = true;
 
   outputs = [
@@ -21,8 +21,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "paper-design";
     repo = "paper-mono";
-    rev = "b14a9274d854ac17b6225aa3456e9119a28926dc";
-    hash = "sha256-fPfGrUBD6tNSEbJZaGDhPJwj/GCX7V6sGNVzb8osMok=";
+    rev = "896c53c3bea26bacbb0c1d52fe998d28009cad91";
+    hash = "sha256-93RXqzuES2z/jXbgL2qEhKdl3DaOkW29Iji7UGjb+oM=";
   };
 
   strictDeps = true;
