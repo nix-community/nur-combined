@@ -35,7 +35,8 @@ pub fn render_tab_bar(
         .w_full()
         .bg(colors.bar)
         .h(px(32.0))
-        .items_center();
+        .items_center()
+        .occlude();
 
     for (i, session) in this.tabs.iter().enumerate() {
         let bg_color = if i == this.active_tab {
@@ -94,14 +95,21 @@ pub fn render_tab_bar(
                     .id(("close_tab", i))
                     .ml_2()
                     .p_1()
+                    .overflow_hidden()
                     .hover(|style| style.bg(colors.hover).rounded_sm())
+                    .on_mouse_down(MouseButton::Left, |_, window, cx| {
+                        window.prevent_default();
+                        cx.stop_propagation();
+                    })
                     .child(
                         div()
-                            .child("✕")
+                            .child("\u{f00d}") // FA times — avoid color-emoji ✕
+                            .font_family("Symbols Nerd Font Mono")
                             .text_color(colors.muted)
                             .text_xs(),
                     )
                     .on_click(cx.listener(move |this, _, _, cx| {
+                        cx.stop_propagation();
                         this.close_tab_at(i, cx);
                     })),
             );

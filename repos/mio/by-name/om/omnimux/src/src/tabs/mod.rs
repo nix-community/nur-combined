@@ -241,7 +241,17 @@ impl Render for TerminalTabs {
             .child(chrome::render_title_bar(self, colors, window, cx))
             .child(tab_bar::render_tab_bar(self, colors, cx))
             .when_some(active_session, |this, session| {
-                this.child(div().flex_grow().child(session))
+                // flex_1 + min_h(0) + overflow_hidden: avoid the terminal's
+                // size_full hitbox growing under the title/tab bar (chrome
+                // clicks were leaking into tmux mouse mode).
+                this.child(
+                    div()
+                        .flex_1()
+                        .min_h(px(0.0))
+                        .w_full()
+                        .overflow_hidden()
+                        .child(session),
+                )
             });
 
         if self.show_host_prompt {

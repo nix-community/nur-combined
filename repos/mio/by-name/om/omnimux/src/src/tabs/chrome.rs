@@ -4,7 +4,7 @@ use gpui::prelude::*;
 use gpui::*;
 
 /// Bundled Symbols Nerd Font (see `fonts.rs` / `OMNIMUX_FONTS_DIR`).
-/// Prefer this over Unicode emoji/`⚙` so Plasma never picks Noto Color Emoji
+/// Prefer this over Unicode emoji/`✕` so Plasma never picks Noto Color Emoji
 /// (huge colorful glyphs that break title-bar layout and steal clicks).
 const CHROME_ICON_FONT: &str = "Symbols Nerd Font Mono";
 
@@ -12,6 +12,19 @@ const CHROME_ICON_FONT: &str = "Symbols Nerd Font Mono";
 const ICON_PLUS: &str = "\u{f067}";
 const ICON_SEARCH: &str = "\u{f002}";
 const ICON_COG: &str = "\u{f013}";
+const ICON_TIMES: &str = "\u{f00d}";
+const ICON_MINUS: &str = "\u{f068}";
+const ICON_WINDOW_MAXIMIZE: &str = "\u{f2d0}";
+const ICON_WINDOW_RESTORE: &str = "\u{f2d2}";
+
+fn chrome_glyph(glyph: &'static str, color: impl Into<Hsla>) -> Div {
+    div()
+        .child(glyph)
+        .text_color(color)
+        .font_family(CHROME_ICON_FONT)
+        .text_lg()
+        .font_weight(FontWeight::MEDIUM)
+}
 
 pub fn render_title_bar(
     _this: &TerminalTabs,
@@ -19,13 +32,7 @@ pub fn render_title_bar(
     window: &mut Window,
     cx: &mut Context<TerminalTabs>,
 ) -> impl IntoElement {
-    let title_btn = |id: &'static str, glyph: SharedString| {
-        let label_el = div()
-            .child(glyph)
-            .text_color(colors.text)
-            .font_family(CHROME_ICON_FONT)
-            .text_lg()
-            .font_weight(FontWeight::MEDIUM);
+    let title_btn = |id: &'static str, glyph: &'static str| {
         div()
             .id(id)
             .flex()
@@ -39,7 +46,13 @@ pub fn render_title_bar(
             .rounded_sm()
             .cursor_pointer()
             .hover(|style| style.bg(colors.hover))
-            .child(label_el)
+            // Linux: stop mouse-down from falling through to the terminal (tmux
+            // mouse mode would otherwise start a drag) and from title-bar move.
+            .on_mouse_down(MouseButton::Left, |_, window, cx| {
+                window.prevent_default();
+                cx.stop_propagation();
+            })
+            .child(chrome_glyph(glyph, colors.text))
     };
 
     let show_client_controls = matches!(window.window_decorations(), Decorations::Client { .. })
@@ -56,6 +69,10 @@ pub fn render_title_bar(
         .bg(colors.bar)
         .border_b_1()
         .border_color(colors.border)
+        // Block the terminal (and anything else) under the chrome from seeing
+        // title-bar clicks — overlapping flex/`size_full` hitboxes otherwise
+        // forward presses into tmux mouse mode.
+        .occlude()
         .when(cfg!(target_os = "macos"), |d| d.pl(px(78.0)))
         .child(
             div()
@@ -66,6 +83,16 @@ pub fn render_title_bar(
                 .flex_grow()
                 .h_full()
                 .window_control_area(WindowControlArea::Drag)
+                // Wayland/X11 ignore WindowControlArea hit-tests; start a move
+                // on drag ourselves (gpui-component TitleBar does the same).
+                .on_mouse_down(MouseButton::Left, |_, _, cx| {
+                    cx.stop_propagation();
+                })
+                .on_mouse_move(|ev, window, _| {
+                    if ev.pressed_button == Some(MouseButton::Left) {
+                        window.start_window_move();
+                    }
+                })
                 .on_click(|ev, window, _| {
                     if ev.click_count() == 2 {
                         if cfg!(target_os = "macos") {
@@ -83,18 +110,21 @@ pub fn render_title_bar(
                         .text_sm(),
                 ),
         )
-        .child(title_btn("new_tab_btn", ICON_PLUS.into()).on_click(cx.listener(
+        .child(title_btn("new_tab_btn", ICON_PLUS).on_click(cx.listener(
             |this, _, window, cx| {
+                cx.stop_propagation();
                 this.open_host_prompt(window, cx);
             },
         )))
-        .child(title_btn("search_btn", ICON_SEARCH.into()).on_click(cx.listener(
+        .child(title_btn("search_btn", ICON_SEARCH).on_click(cx.listener(
             |this, _, window, cx| {
+                cx.stop_propagation();
                 this.find(window, cx);
             },
         )))
-        .child(title_btn("settings_btn", ICON_COG.into()).on_click(cx.listener(
+        .child(title_btn("settings_btn", ICON_COG).on_click(cx.listener(
             |this, _, _, cx| {
+                cx.stop_propagation();
                 this.show_settings = true;
                 this.focus_ui = true;
                 cx.notify();
@@ -115,6 +145,10 @@ pub fn render_title_bar(
                 .ml_1()
                 .rounded_sm()
                 .cursor_pointer()
+                .on_mouse_down(MouseButton::Left, |_, window, cx| {
+                    window.prevent_default();
+                    cx.stop_propagation();
+                })
         };
         title_bar = title_bar
             .child(
@@ -122,38 +156,38 @@ pub fn render_title_bar(
                     .ml_2()
                     .hover(|s| s.bg(colors.hover))
                     .window_control_area(WindowControlArea::Min)
-                    .on_click(|_, window, _| window.minimize_window())
-                    .child(
-                        div()
-                            .child("–")
-                            .text_color(colors.text)
-                            .text_lg(),
-                    ),
+                    .on_click(|_, window, cx| {
+                        cx.stop_propagation();
+                        window.minimize_window();
+                    })
+                    .child(chrome_glyph(ICON_MINUS, colors.text)),
             )
             .child(
                 ctl("win_max")
                     .hover(|s| s.bg(colors.hover))
                     .window_control_area(WindowControlArea::Max)
-                    .on_click(|_, window, _| window.zoom_window())
-                    // □ = maximize; ❐ = restore (already maximized).
-                    .child(
-                        div()
-                            .child(if window.is_maximized() { "❐" } else { "□" })
-                            .text_color(colors.text)
-                            .text_lg(),
-                    ),
+                    .on_click(|_, window, cx| {
+                        cx.stop_propagation();
+                        window.zoom_window();
+                    })
+                    .child(chrome_glyph(
+                        if window.is_maximized() {
+                            ICON_WINDOW_RESTORE
+                        } else {
+                            ICON_WINDOW_MAXIMIZE
+                        },
+                        colors.text,
+                    )),
             )
             .child(
                 ctl("win_close")
                     .hover(|s| s.bg(rgb(0xe81123)))
                     .window_control_area(WindowControlArea::Close)
-                    .on_click(|_, window, _| window.remove_window())
-                    .child(
-                        div()
-                            .child("✕")
-                            .text_color(colors.text)
-                            .text_lg(),
-                    ),
+                    .on_click(|_, window, cx| {
+                        cx.stop_propagation();
+                        window.remove_window();
+                    })
+                    .child(chrome_glyph(ICON_TIMES, colors.text)),
             );
     }
 

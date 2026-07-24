@@ -116,6 +116,13 @@ let
       mainProgram = "wireguird";
     };
   };
+
+  wireguardToolPath = "/run/wrappers/bin:${
+    lib.makeBinPath [
+      wireguard-tools
+      systemd
+    ]
+  }";
 in
 stdenv.mkDerivation {
   pname = "wireguird";
@@ -123,6 +130,7 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [
     wrapGAppsHook3
+    makeBinaryWrapper
   ];
 
   buildInputs = [
@@ -135,19 +143,16 @@ stdenv.mkDerivation {
   dontBuild = true;
 
   installPhase = ''
-    mkdir -p "$out/bin" "$out/share"
+    mkdir -p "$out/bin" "$out/share/applications"
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
+    # Runs as the logged-in user. On NixOS, programs.wireguird installs
+    # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
     makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/bin/wireguird" \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          wireguard-tools
-          systemd
-        ]
-      }
+      "''${gappsWrapperArgs[@]}" \
+      --prefix PATH : ${wireguardToolPath}
 
-    # Desktop entry
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
       [Desktop Entry]
       Type=Application
