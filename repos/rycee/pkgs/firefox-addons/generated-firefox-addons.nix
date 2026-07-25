@@ -2913,10 +2913,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "154.0.20260722.90302";
+      version = "154.0.20260724.90549";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4913303/dansk_da_language_pack-154.0.20260722.90302.xpi";
-      sha256 = "9ae2aa08f0fbc3a0654377324a12e3af48df78ce77f64725a70f74c0a10d0172";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4917193/dansk_da_language_pack-154.0.20260724.90549.xpi";
+      sha256 = "0de6f91a5c15f56511ae64448e1c89b12a8bced77bc4ba45f15345a09033af7f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3129,10 +3129,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "154.0.20260722.90302";
+      version = "154.0.20260724.90549";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4913302/deutsch_de_language_pack-154.0.20260722.90302.xpi";
-      sha256 = "7e0c4e47cbaad1a8778a5797345c4c6a005c2e82c548de5639c91331c4d1cfa6";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4917201/deutsch_de_language_pack-154.0.20260724.90549.xpi";
+      sha256 = "669b6131e53a1105cc5295dc1098bfefc318dcd3e6d32c384f3b4b4bd55f599a";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4254,10 +4254,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.4";
+      version = "3.5";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4910579/firemonkey-3.4.xpi";
-      sha256 = "6495329725d25564cfc4a1f8e99854921a80a5f617745c096fe6c26ce5098645";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4918415/firemonkey-3.5.xpi";
+      sha256 = "878f7360c440c34d8eae0ab8c69d42f4a861e3dad01c00b2271baa3b32df995d";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -4628,10 +4628,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "154.0.20260722.90302";
+      version = "154.0.20260724.90549";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4913284/francais_language_pack-154.0.20260722.90302.xpi";
-      sha256 = "f63a2d4de0a127ae08e76e0b8203935e4611e33d2bfd224ca92c575f57432f6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4917224/francais_language_pack-154.0.20260724.90549.xpi";
+      sha256 = "0deb1a93d2fa98e815df4ca97fc643623b607a42b89b1b67c434be6e17f4e210";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4665,10 +4665,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "154.0.20260722.90302";
+      version = "154.0.20260724.90549";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4913271/gaidhlig_language_pack-154.0.20260722.90302.xpi";
-      sha256 = "d76e948a01878cd3aac0af119b8ba6dcc4440552f09c2f29613ff694523274bf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4917188/gaidhlig_language_pack-154.0.20260724.90549.xpi";
+      sha256 = "7001fba7c47ec48cd7d6e141d9d86042b907ed1cb70894e1f2d1e1b089a68c62";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -8474,10 +8474,10 @@
     };
     "libredirect" = buildMozillaXpiAddon {
       pname = "libredirect";
-      version = "3.3.0";
+      version = "3.4.0";
       addonId = "7esoorv3@alefvanoon.anonaddy.me";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4734268/libredirect-3.3.0.xpi";
-      sha256 = "1c91739ae52c6eb8522f0efb38397c3d5e85d961b3999f3c5d60f89db447877d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4916828/libredirect-3.4.0.xpi";
+      sha256 = "c0fa9a5c2302eb734b1b614284371061330cf2e7b3519ee96c53e8be58ae298f";
       meta = with lib;
       {
         homepage = "https://libredirect.manerakai.com/";
@@ -8496,10 +8496,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.224";
+      version = "2.4.225";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4910924/lichess_tools_by_siderite-2.4.224.xpi";
-      sha256 = "9eb4ca0776177a262fb8eaa93e4ff1b91fc30d40794254ea046bdfb0667203e3";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4916724/lichess_tools_by_siderite-2.4.225.xpi";
+      sha256 = "18eb2a284133ca243cfa6e030cc415b56ee8c802fe1e2b68199046fe1281361f";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -13461,10 +13461,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "154.0.20260722.90302";
+      version = "154.0.20260724.90549";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4913213/scots_language_pack-154.0.20260722.90302.xpi";
-      sha256 = "5efbcefa1b7144c888eb3311a0a2d83e2494555c73c19bede0046e488060b8bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4917231/scots_language_pack-154.0.20260724.90549.xpi";
+      sha256 = "ba8ff6ab97a9835cdc168eb77578ce2f3861a251062ffbf3b33bedde5c287511";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -17579,10 +17579,10 @@
     };
     "ycs-continued" = buildMozillaXpiAddon {
       pname = "ycs-continued";
-      version = "1.9.0";
+      version = "1.10.0";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4886338/ycs_continued-1.9.0.xpi";
-      sha256 = "caa2eb9549bc613e159a373f89c0b33bcfe01f745151fa373ad7c8751498be30";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4916553/ycs_continued-1.10.0.xpi";
+      sha256 = "61f715fcd4a9aded9c1a3487120bb93b6cbafdfb58ce2fac364051450fb3ca08";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
