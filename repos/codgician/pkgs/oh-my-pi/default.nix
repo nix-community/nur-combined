@@ -7,6 +7,8 @@
   fetchurl,
   gnutar,
   gzip,
+  opus,
+  pkg-config,
   rustPlatform,
   makeWrapper,
   nodejs,
@@ -27,19 +29,19 @@ let
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
-    rev = "v17.0.8";
-    hash = "sha256-f+3+K8yrcIg6JuDl8HK6h3gMuIKC96+CHoP2xOf01/g=";
+    rev = "v17.1.3";
+    hash = "sha256-TCDYc+qJDn2z7EwdwE4RIFFUQBmobaPPynZiGC8Ysjc=";
   };
 
   bunDeps = stdenvNoCC.mkDerivation {
     pname = "oh-my-pi-bun-deps";
-    version = "17.0.8";
+    version = "17.1.3";
     inherit src;
 
     nativeBuildInputs = [ bunBaseline ];
 
     outputHashMode = "recursive";
-    outputHash = "sha256-+rtBHWPA5MrEDUbYke4AEIgj3v0vKOHJUf3u8BtPufI=";
+    outputHash = "sha256-5TlXaGD1pPrcKV/KI9Zgrx+QiRkGOGAqxLAHbZnhmCE=";
 
     dontConfigure = true;
     dontBuild = true;
@@ -62,11 +64,11 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oh-my-pi";
-  version = "17.0.8";
+  version = "17.1.3";
 
   src = "${bunDeps}/source";
 
-  cargoHash = "sha256-3peZ2vodw28DFASOoq81BB/W8cgmFiyuR1XHZ4RTt70=";
+  cargoHash = "sha256-47qCSiHyDLyKxo/xcBOXHA38Cg0VSP/asO2tYzoecOE=";
 
   dontConfigure = true;
   doCheck = false;
@@ -79,7 +81,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gzip
     makeWrapper
     nodejs
+    pkg-config
+    rustPlatform.bindgenHook
   ];
+
+  buildInputs = [ opus ];
 
   disallowedRequisites = [
     bunBaseline
