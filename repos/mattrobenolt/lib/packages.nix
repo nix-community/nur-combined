@@ -57,6 +57,7 @@ let
       hunk = prev.callPackage ../pkgs/hunk/package.nix { };
       inbox = prev.callPackage ../pkgs/inbox/package.nix { };
       prismacat = prev.callPackage ../pkgs/prismacat/package.nix { };
+      qmd = prev.callPackage ../pkgs/qmd/package.nix { };
       txtar = prev.callPackage ../pkgs/txtar/package.nix { };
       zigdoc = prev.callPackage ../pkgs/zigdoc/package.nix { };
       ziglint = prev.callPackage ../pkgs/ziglint/package.nix { };
@@ -85,6 +86,7 @@ in
         hunk
         inbox
         prismacat
+        qmd
         txtar
         zigdoc
         ziglint

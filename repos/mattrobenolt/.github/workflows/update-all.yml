@@ -70,6 +70,10 @@ jobs:
           nix build .#prismacat --no-link
           echo "✓ prismacat builds"
 
+          # Build qmd package
+          nix build .#qmd --no-link
+          echo "✓ qmd builds"
+
           # Build txtar package
           nix build .#txtar --no-link
           echo "✓ txtar builds"
@@ -96,6 +100,7 @@ jobs:
           nix run .#go-bin -- version
           nix run .#inbox -- --help
           nix run .#prismacat -- --help
+          nix run .#qmd -- --version
           nix run .#txtar -- -c -f /tmp/txtar-test.txtar README.md
           nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
           nix run .#ziglint -- --version

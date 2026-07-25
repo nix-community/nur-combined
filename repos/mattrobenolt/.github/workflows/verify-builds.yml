@@ -53,6 +53,9 @@ jobs:
           nix build .#inbox --no-link
           echo "✓ inbox builds successfully"
 
+          nix build .#qmd --no-link
+          echo "✓ qmd builds successfully"
+
           nix build .#zigdoc --no-link
           echo "✓ zigdoc builds successfully"
 
@@ -77,6 +80,9 @@ jobs:
           nix run .#inbox -- --help
           echo "✓ inbox works"
 
+          nix run .#qmd -- --version
+          echo "✓ qmd works"
+
           nix run .#zigdoc -- --help || echo "✓ zigdoc exists (may require input)"
           echo "✓ zigdoc works"
 
@@ -90,5 +96,5 @@ jobs:
           echo "**Validated:**" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ Flake checks passed" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All Go packages build successfully" >> $GITHUB_STEP_SUMMARY
-          echo "- ✅ benchstat, inbox, zigdoc, ziglint, zed, and zed-preview build successfully" >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ benchstat, inbox, qmd, zigdoc, ziglint, zed, and zed-preview build successfully" >> $GITHUB_STEP_SUMMARY
           echo "- ✅ All binaries tested and working" >> $GITHUB_STEP_SUMMARY

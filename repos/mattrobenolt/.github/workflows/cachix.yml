@@ -33,7 +33,7 @@ jobs:
           echo "🏗️ Building source packages for x86_64-linux..."
 
           # Only build packages that compile from source (skip prebuilt binaries)
-          nix build .#benchstat .#zigdoc .#tracy
+          nix build .#benchstat .#qmd .#zigdoc .#tracy
 
           echo "✅ All source packages built successfully"
 
@@ -67,7 +67,7 @@ jobs:
           echo "🏗️ Building source packages for aarch64-linux (via QEMU)..."
 
           # Only build packages that compile from source (skip prebuilt binaries)
-          nix build .#benchstat .#zigdoc .#tracy --system aarch64-linux
+          nix build .#benchstat .#qmd .#zigdoc .#tracy --system aarch64-linux
 
           echo "✅ All source packages built successfully"
 
@@ -93,6 +93,6 @@ jobs:
           echo "🏗️ Building source packages for aarch64-darwin..."
 
           # Only build packages that compile from source (skip prebuilt binaries)
-          nix build .#benchstat .#zigdoc .#tracy
+          nix build .#benchstat .#qmd .#zigdoc .#tracy
 
           echo "✅ All source packages built successfully"

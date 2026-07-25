@@ -27,6 +27,7 @@ See [`pkgs/go-bin/README.md`](./pkgs/go-bin/README.md) for implementation detail
 - [`hunk`](https://github.com/modem-dev/hunk) - Review-first terminal diff viewer for agent-authored changesets (pre-built binary)
 - `inbox` - A fast, beautiful, and distraction-free Gmail client for your terminal (pre-built binary)
 - [`prismacat`](https://github.com/mattrobenolt/prismacat) - Themeable truecolor `cat` with Prism syntax highlighting (pre-built binary)
+- [`qmd`](https://github.com/tobi/qmd) - On-device search engine for Markdown and knowledge bases
 - [`txtar`](https://github.com/mattrobenolt/txtar) - Go-style txtar archive tool (pre-built binary)
 - `zed` / `zed-preview` - Linux Zed editor packages for stable and preview releases
 - `zigdoc` - Generate documentation from Zig source code
@@ -113,6 +114,7 @@ Add this repo as a flake input and apply the overlay:
           pkgs.hunk
           pkgs.inbox
           pkgs.prismacat
+          pkgs.qmd
           pkgs.txtar
         ];
       };
@@ -139,6 +141,7 @@ just build go-bin_1_24
 just build hunk
 just build inbox
 just build prismacat
+just build qmd
 just build txtar
 
 # Run packages
@@ -146,6 +149,7 @@ nix run .#go-bin -- version
 nix run .#hunk -- --help
 nix run .#inbox -- --help
 nix run .#prismacat -- --help
+nix run .#qmd -- --version
 nix run .#txtar -- -c -f /tmp/readme.txtar README.md
 ```
 
