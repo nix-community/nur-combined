@@ -62,10 +62,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.1.2";
+    version = "0.1.3";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.2.tar.gz";
-      sha256 = "sha256-cFRPXqq7+hmR+EJgU2uUZ2pO6s2ZHHTHmr1B4Tkuuso=";
+      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.3.tar.gz";
+      sha256 = "sha256-6YPfGtRll/pTVA2+AvGJHXEXYPfKnXhuxE4iJt3hZyQ=";
     };
   };
   sublime-syntax-language-server = {
