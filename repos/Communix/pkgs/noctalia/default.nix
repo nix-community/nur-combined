@@ -29,6 +29,8 @@
   libqalculate,
   libxml2,
   md4c,
+  libsecret,
+  libsodium,
   stb,
   fetchFromGitHub,
   nlohmann_json,
@@ -39,7 +41,7 @@
   cudaSupport ? config.cudaSupport,
 }:
 let
-  version = "5.0.0-beta2";
+  version = "5.0.0-beta4";
   stb' = stb.overrideAttrs (_: {
     version = "unstable-2025-10-26";
     src = fetchFromGitHub {
@@ -58,13 +60,8 @@ stdenv.mkDerivation {
     owner = "noctalia-dev";
     repo = "noctalia";
     tag = "v${version}";
-    hash = "sha256-yqkHIypClzlztMmt4HVytCdU8Kqy3EqHJotHtbyFulI=";
+    hash = "sha256-BlyXJtAI7WqXCTT3ylww8zoG0hBxaojJnQDvdQOXJPE=";
   };
-
-  postPatch = ''
-    # Remove -march=native and -mtune=native for reproducible builds
-    sed -i "s/'-march=native', '-mtune=native',//" meson.build
-  '';
 
   nativeBuildInputs = [
     meson
@@ -99,6 +96,8 @@ stdenv.mkDerivation {
     libqalculate
     libxml2
     md4c
+    libsecret
+    libsodium
     stb'
     nlohmann_json
     tomlplusplus
@@ -109,7 +108,7 @@ stdenv.mkDerivation {
   ninjaFlags = [ "-v" ];
 
   meta = with lib; {
-    description = "A lightweight Wayland shell and bar built directly on Wayland + OpenGL ES";
+    description = "A sleek, customizable desktop shell crafted for Wayland.";
     homepage = "https://github.com/noctalia-dev/noctalia-shell";
     license = licenses.mit;
     platforms = platforms.linux;

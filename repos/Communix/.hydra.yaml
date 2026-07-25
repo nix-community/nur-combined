@@ -1,0 +1,5 @@
+flake: true
+system: x86_64-linux
+nix:
+  extraOptions: |
+    experimental-features = nix-command flakes

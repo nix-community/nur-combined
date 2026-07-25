@@ -17,5 +17,8 @@
         system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
       );
       overlays.default = import ./overlay.nix;
+      hydraJobs = {
+        packages.x86_64-linux = self.packages.x86_64-linux;
+      };
     };
 }
