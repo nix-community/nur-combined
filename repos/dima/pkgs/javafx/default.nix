@@ -24,7 +24,7 @@ pkgs.stdenv.mkDerivation {
 		cp -r javafx-sdk-21.0.12/. $out
 	'';
 
-	meta = {
+	meta = with pkgs.lib; {
 		description = "Open source, next generation client application platform for desktop, mobile and embedded systems built on Java";
 		homepage = "https://github.com/openjdk/jfx";
 		license = {
@@ -33,5 +33,6 @@ pkgs.stdenv.mkDerivation {
 			url = "https://openjdk.org/legal/gplv2+ce.html";
 			free = true;
 		};
+		sourceProvenance = sourceTypes.binaryBytecode;
 	};
 }
