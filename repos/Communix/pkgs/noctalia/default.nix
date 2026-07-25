@@ -13,6 +13,7 @@
   libglvnd,
   freetype,
   fontconfig,
+  git,
   cairo,
   pango,
   harfbuzz,
@@ -41,7 +42,7 @@
   cudaSupport ? config.cudaSupport,
 }:
 let
-  version = "5.0.0-beta4";
+  version = "5.0.0-beta.4";
   stb' = stb.overrideAttrs (_: {
     version = "unstable-2025-10-26";
     src = fetchFromGitHub {
@@ -60,8 +61,13 @@ stdenv.mkDerivation {
     owner = "noctalia-dev";
     repo = "noctalia";
     tag = "v${version}";
-    hash = "sha256-BlyXJtAI7WqXCTT3ylww8zoG0hBxaojJnQDvdQOXJPE=";
+    hash = "sha256-jXz2vFHgidbyU46ScROLSuBIhsqqtyqNu2M0tmGX/FA=";
   };
+
+  postFixup = ''
+    wrapProgram $out/bin/noctalia \
+      --prefix PATH : ${lib.makeBinPath [ git ]}
+  '';
 
   nativeBuildInputs = [
     meson
