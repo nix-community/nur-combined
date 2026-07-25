@@ -14,7 +14,6 @@
   libxcursor,
   libxinerama,
   libxi,
-  systemd,
   pkg-config,
   makeBinaryWrapper,
   wireguard-tools,
@@ -117,12 +116,10 @@ let
     };
   };
 
-  wireguardToolPath = "/run/wrappers/bin:${
-    lib.makeBinPath [
-      wireguard-tools
-      systemd
-    ]
-  }";
+  # Do not put systemd on PATH here: its resolvconf (resolvectl) would beat
+  # wireguard-tools' openresolv PATH suffix and break DNS= when openresolv is
+  # the backend. programs.wireguird prefixes networking.resolvconf.package.
+  wireguardToolPath = "/run/wrappers/bin:${lib.makeBinPath [ wireguard-tools ]}";
 in
 stdenv.mkDerivation {
   pname = "wireguird";
@@ -136,7 +133,6 @@ stdenv.mkDerivation {
   buildInputs = [
     gtk3
     gsettings-desktop-schemas
-    systemd
   ];
 
   dontUnpack = true;

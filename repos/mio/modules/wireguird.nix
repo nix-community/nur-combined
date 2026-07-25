@@ -26,13 +26,15 @@ let
     source = "${wireguard-tools}/bin/${name}";
   };
 
-  # Prefer systemd's resolvconf (resolvectl) over wireguard-tools' openresolv
+  # Prefer the system DNS backend's resolvconf over wireguard-tools' openresolv
   # PATH suffix. With services.resolved, NixOS sets
-  # networking.resolvconf.package = config.systemd.package and disable openresolv
-  # (nixos/modules/system/boot/resolved.nix).
+  # networking.resolvconf.package = config.systemd.package (resolved.nix);
+  # with openresolv enabled it is pkgs.openresolv.
+  dnsBackendEnabled = config.services.resolved.enable || config.networking.resolvconf.enable;
+
   wgQuickSource =
-    if config.services.resolved.enable then
-      pkgs.writeShellScript "wg-quick-resolved" ''
+    if dnsBackendEnabled then
+      pkgs.writeShellScript "wg-quick-wireguird" ''
         export PATH=${lib.getBin config.networking.resolvconf.package}/bin''${PATH:+:$PATH}
         exec ${wireguard-tools}/bin/wg-quick "$@"
       ''
@@ -95,9 +97,9 @@ in
     # 2. systemd-resolved (services.resolved.enable): resolvconf is resolvectl
     #    and talks D-Bus (SetLinkDNS / SetLinkDomains / RevertLink). CAP_NET_ADMIN
     #    does not skip polkit for these (systemd#18956); allow the wireguard
-    #    group. Actions match what resolvconf -a -x / -d need: set-dns-servers,
-    #    set-domains (~. for -x), set-default-route, revert.
-    #    See org.freedesktop.resolve1.policy and nixos modules for netbird/throne.
+    #    group. wg-quick -a -x needs set-dns-servers and set-domains (~.);
+    #    -d needs revert. See systemd resolvconf-compat.c and
+    #    org.freedesktop.resolve1.policy.
     systemd.services.resolvconf.serviceConfig.ExecStartPost =
       lib.mkIf config.networking.resolvconf.enable
         (
@@ -117,7 +119,6 @@ in
         polkit.addRule(function(action, subject) {
           var actions = [
             "org.freedesktop.resolve1.revert",
-            "org.freedesktop.resolve1.set-default-route",
             "org.freedesktop.resolve1.set-dns-servers",
             "org.freedesktop.resolve1.set-domains",
           ];
@@ -128,16 +129,14 @@ in
       '';
     };
 
-    warnings =
-      lib.optionals (!config.networking.resolvconf.enable && !config.services.resolved.enable)
-        [
-          ''
-            programs.wireguird is enabled but neither networking.resolvconf.enable
-            nor services.resolved.enable is set. DNS= lines in WireGuard configs
-            will not be applied by wg-quick; enable one of those, or manage DNS
-            another way.
-          ''
-        ];
+    warnings = lib.optionals (!dnsBackendEnabled) [
+      ''
+        programs.wireguird is enabled but neither networking.resolvconf.enable
+        nor services.resolved.enable is set. DNS= lines in WireGuard configs
+        will not be applied by wg-quick; enable one of those, or manage DNS
+        another way.
+      ''
+    ];
   };
 
   meta.maintainers = [ ];
