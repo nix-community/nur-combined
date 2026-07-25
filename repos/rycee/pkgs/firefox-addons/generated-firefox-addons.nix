@@ -13499,6 +13499,32 @@
         platforms = platforms.all;
       };
     };
+    "scriptcat" = buildMozillaXpiAddon {
+      pname = "scriptcat";
+      version = "0.16.15";
+      addonId = "{8e515334-52b5-4cc5-b4e8-675d50af677d}";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4812268/scriptcat-0.16.15.xpi";
+      sha256 = "e3b89b82763345b77ab333152869d9a84afc1b28e3788daa5a12a202bf66e108";
+      meta = with lib;
+      {
+        homepage = "https://docs.scriptcat.org/";
+        description = "Everything can be scripted, allowing your browser to do more!";
+        license = licenses.gpl3;
+        mozPermissions = [
+          "tabs"
+          "cookies"
+          "storage"
+          "downloads"
+          "webRequest"
+          "<all_urls>"
+          "contextMenus"
+          "notifications"
+          "clipboardWrite"
+          "webRequestBlocking"
+        ];
+        platforms = platforms.all;
+      };
+    };
     "scroll_anywhere" = buildMozillaXpiAddon {
       pname = "scroll_anywhere";
       version = "9.2";
