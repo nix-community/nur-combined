@@ -62,10 +62,12 @@ buildNpmPackage (finalAttrs: {
     description = "Programming-based incremental game that revolves around hacking and cyberpunk themes";
     homepage = "https://github.com/bitburner-official/bitburner-src";
     changelog = "https://github.com/bitburner-official/bitburner-src/releases/tag/${finalAttrs.src.tag}";
-    license = with lib.licenses; [
-      commons-clause
-      apsl20
-    ];
+    license =
+      with lib.licenses;
+      AND [
+        asl20
+        commons-clause
+      ];
     maintainers = with lib.maintainers; [ ilkecan ];
     platforms = lib.platforms.linux;
     mainProgram = "bitburner";
