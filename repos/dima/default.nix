@@ -17,6 +17,7 @@ rec {
 	vtt = pkgs.callPackage ./pkgs/vtt { };
 	stripzip = pkgs.callPackage ./pkgs/stripzip { };
 	javafx = pkgs.callPackage ./pkgs/javafx { };
+	mcaselector = pkgs.callPackage ./pkgs/mcaselector { inherit javafx; };
 
 	rich-argparse-rich-13-9-4 = pkgs.callPackage ./pkgs/rich-argparse-rich-13-9-4 { inherit rich-13-9-4; };
 	rich-13-9-4 = pkgs.callPackage ./pkgs/rich-13-9-4 { };
