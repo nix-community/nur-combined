@@ -145,11 +145,6 @@ fetch.github = "lilmayofuksu/pyenet"
 git.fetchSubmodules = true
 src.git = "https://github.com/lilmayofuksu/pyenet.git"
 
-[command-code]
-fetch.url = "https://registry.npmjs.org/command-code/-/command-code-$ver.tgz"
-src.webpage = "https://registry.npmjs.org/command-code/latest"
-src.regex = "\"version\":\"([^\"]+)\""
-
 [comp128]
 fetch.github = "Takuto88/comp128-python"
 src.github = "Takuto88/comp128-python"
@@ -462,30 +457,6 @@ src.github = "share121/inter-knot"
 [invisible-firefox]
 fetch.github = "feder-cr/firefox_antidetect_patch"
 src.github = "feder-cr/firefox_antidetect_patch"
-
-[invisible-firefox-bin-linux-arm64]
-fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-linux-arm64.tar.gz"
-src.github = "feder-cr/invisible_playwright"
-src.from_pattern = "^firefox-(.*)$"
-src.to_pattern = "\\1"
-
-[invisible-firefox-bin-linux-x86_64]
-fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-linux-x86_64.tar.gz"
-src.github = "feder-cr/invisible_playwright"
-src.from_pattern = "^firefox-(.*)$"
-src.to_pattern = "\\1"
-
-[invisible-firefox-bin-macos-arm64]
-fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-macos-arm64.tar.gz"
-src.github = "feder-cr/invisible_playwright"
-src.from_pattern = "^firefox-(.*)$"
-src.to_pattern = "\\1"
-
-[invisible-firefox-bin-macos-x86_64]
-fetch.url = "https://github.com/feder-cr/invisible_playwright/releases/download/firefox-$ver/firefox-150.0.1-stealth-macos-x86_64.tar.gz"
-src.github = "feder-cr/invisible_playwright"
-src.from_pattern = "^firefox-(.*)$"
-src.to_pattern = "\\1"
 
 [ja4-nginx-module]
 fetch.github = "FoxIO-LLC/ja4-nginx-module"

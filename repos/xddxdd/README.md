@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (207 packages)</summary>
+<summary>Package set: (Uncategorized) (205 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -76,11 +76,11 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.6.0 | Baidu Netdisk |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-06-18 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
-|  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.5 | High-performance AI gateway with unified OpenAI-compatible API |
-|  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.9-1 | Desktop client for Bilibili |
-|  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.8 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
-|  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.7 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.7 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.6 | High-performance AI gateway with unified OpenAI-compatible API |
+|  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.9-2 | Desktop client for Bilibili |
+|  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.9 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
+|  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `browser-control-mcp` | [browser-control-mcp](https://github.com/eyalzh/browser-control-mcp) | 1.5.1 | MCP server paired with a browser extension that enables AI agents to control the user's browser |
 |  | `browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1131.0 | Browser from 360 |
@@ -89,9 +89,8 @@ Or, use variables from this repository in case I change them:
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.95 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.100 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
-|  | `command-code` | [command-code](https://github.com/CommandCodeAI/command-code) | 0.52.5 | Coding agent that continuously learns your coding taste |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
 | `x86_64-linux` | `crystalhd` | [crystalhd](https://github.com/dbason/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) driver |
@@ -116,7 +115,7 @@ Or, use variables from this repository in case I change them:
 |  | `env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
 |  | `epub-to-xtc-converter` | [epub-to-xtc-converter](https://github.com/bigbag/epub-to-xtc-converter) | 0.8.0 | CLI tool for converting EPUB files to XTC/XTCH format for Xteink e-readers |
 |  | `etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.1 | DynamoDB-compatible API adapter backed by PostgreSQL |
+|  | `extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.2 | DynamoDB-compatible API adapter backed by PostgreSQL |
 |  | `fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-14 | Simulated server implementation of Ollama API |
 |  | `fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 2.0.1-unstable-2025-05-13 | Minimal Delegated License Service (DLS) |
 |  | `fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
@@ -125,9 +124,9 @@ Or, use variables from this repository in case I change them:
 |  | `flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.57-1 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-07-23 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
-|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.07.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
-|  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.5.1 | Lightweight LDAP server for development, home use, or CI |
+|  | `funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-07-25 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.07.25 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `glauth` | [glauth](https://github.com/glauth/glauth) | 2.5.2 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
 |  | `gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -144,7 +143,6 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2026-05-06 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `igsc` | [igsc](https://github.com/intel/igsc) | 1.3.1 | Intel graphics system controller firmware update library |
 |  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.4.3 | FOSS program for converting IME dictionaries |
-|  | `invisible-firefox-bin-unwrapped` | [invisible-firefox-bin-unwrapped](https://github.com/feder-cr/invisible_playwright) | 13 | Firefox with anti fingerprinting modifications (binary package) |
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
@@ -155,8 +153,8 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-07-21 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.5 | Headless browser designed for AI and automation |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-07-23 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.6 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 |  | `loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
@@ -213,7 +211,7 @@ Or, use variables from this repository in case I change them:
 |  | `qsp` | [qsp](https://github.com/QSPFoundation/qspgui) | 5.9.5-unstable-2026-04-14 | Interactive Fiction development platform (GUI application) |
 |  | `qsp-lib` | [qsp-lib](https://github.com/QSPFoundation/qsp) | 0-unstable-2026-06-24 | Interactive fiction development platform (Game Library) |
 |  | `qtwebapp` | [qtwebapp](https://stefanfrings.de/qtwebapp/index-en.html) | 1.9.1 | HTTP server library in C++, inspired by Java Servlets |
-|  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.016.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
+|  | `r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.018.00-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.056.02 | Linux device driver for Realtek Ethernet controllers |
 | `x86_64-linux` | `red-star-os-rgjanggi` | [red-star-os-rgjanggi](https://archive.org/details/RedStarOS) | 3.0 | Rgjanggi game from DPRK Red Star OS 3.0, heavily sandboxed, use at your own risk |
 |  | `red-star-os-wallpapers` | [red-star-os-wallpapers](https://archive.org/details/RedStarOS) | 3.0 | Wallpapers from DPRK Red Star OS 3.0 |
@@ -225,7 +223,7 @@ Or, use variables from this repository in case I change them:
 |  | `rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `rootutils` | [rootutils](https://pypi.org/project/rootutils/) | 1.0.7 | Simple python package to solve all your problems with pythonpath, work dir, file paths, module imports and environment variables |
 |  | `route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
-|  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-22 | Sipwise media proxy for Kamailio |
+|  | `rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-23 | Sipwise media proxy for Kamailio |
 |  | `runpod-python` | [runpod-python](https://github.com/runpod/runpod-python) | 1.11.0 | Python library for RunPod API and serverless worker SDK |
 |  | `runpodctl` | [runpodctl](https://www.runpod.io) | 2.7.2 | RunPod CLI for pod management |
 |  | `sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 10.00 | Original mouse cursors (pointers) for Windows, with minimalistic design |
@@ -246,7 +244,7 @@ Or, use variables from this repository in case I change them:
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2026-03-16 | TQDM progress bar helpers for logging and other headless application |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-07-22 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-07-25 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -264,7 +262,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 |  | `xstatic-asciinema-player` | [xstatic-asciinema-player](https://github.com/asciinema/asciinema-player) | 2.6.1.1 | Asciinema-player packaged for setuptools (easy_install) / pip |
 |  | `xstatic-font-awesome` | [xstatic-font-awesome](https://github.com/FortAwesome/Font-Awesome) | 4.7.0.0 | Font Awesome packaged for setuptools (easy_install) / pip |
-|  | `xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-22 | Sipwise media proxy for Kamailio (kernel module) |
+|  | `xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-23 | Sipwise media proxy for Kamailio (kernel module) |
 |  | `xue` | [xue](https://pypi.org/project/xue/) | 0.0.34 | Minimalist web front-end framework composed of HTMX and Python |
 |  | `xvcd` | [xvcd](https://github.com/RHSResearchLLC/xvcd) | 0-unstable-2019-11-20 | Xilinx Virtual Cable Daemon |
 | `Broken` | `boringssl-oqs` | [boringssl-oqs](https://openquantumsafe.org) | OQS-BoringSSL-snapshot-2025-01 | Fork of BoringSSL that includes prototype quantum-resistant key exchange and authentication in the TLS handshake based on liboqs |
@@ -370,9 +368,9 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `kernel-modules.i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2026-05-06 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `kernel-modules.nft-fullcone` | [nft-fullcone](https://github.com/fullcone-nat-nftables/nft-fullcone) | 0-unstable-2023-05-17 | Nftables fullcone expression kernel module |
 |  | `kernel-modules.nullfsvfs` | [nullfsvfs](https://github.com/abbbi/nullfsvfs) | 0.27 | Virtual black hole file system that behaves like /dev/null |
-|  | `kernel-modules.r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.016.01-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
+|  | `kernel-modules.r8125` | [r8125](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 9.018.00-1 | Linux device driver for Realtek 2.5/5 Gigabit Ethernet controllers with PCI-Express interface |
 |  | `kernel-modules.r8168` | [r8168](https://www.realtek.com/en/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software) | 8.056.02 | Linux device driver for Realtek Ethernet controllers |
-|  | `kernel-modules.xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-22 | Sipwise media proxy for Kamailio (kernel module) |
+|  | `kernel-modules.xt_rtpengine` | [xt_rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-23 | Sipwise media proxy for Kamailio (kernel module) |
 </details>
 
 <details>
@@ -382,7 +380,7 @@ Or, use variables from this repository in case I change them:
 | ----- | ---- | ---- | ------- | ----------- |
 | `x86_64-linux` | `lantianCustomized.asterisk` | [asterisk](https://www.asterisk.org/) | 22.8.2 | Asterisk with Lan Tian modifications |
 |  | `lantianCustomized.attic-telnyx-compatible` | [attic](https://github.com/zhaofengli/attic) | 0-unstable-2026-07-06 | Multi-tenant Nix Binary Cache |
-|  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.14.3 | CoreDNS with Lan Tian's modifications |
+|  | `lantianCustomized.coredns` | [coredns](https://github.com/xddxdd/coredns) | 1.14.6 | CoreDNS with Lan Tian's modifications |
 |  | `lantianCustomized.ffmpeg` | [ffmpeg](https://www.ffmpeg.org/) | 8.1.2 | FFmpeg with Lan Tian modifications |
 |  | `lantianCustomized.firefox-icon-mikozilla-fireyae` | [firefox-icon-mikozilla-fireyae](https://www.reddit.com/r/Genshin_Impact/comments/x73g4p/mikozilla_fireyae/) |  | Custom icon "Mikozilla Fireyae" for Firefox |
 |  | `lantianCustomized.firefox-unwrapped` | invisible-firefox-unwrapped | 150.0.0 | Firefox with anti fingerprinting modifications |
@@ -1118,9 +1116,8 @@ Or, use variables from this repository in case I change them:
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
-|  | `openjdk-adoptium.jdk-bin-11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.31_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_16_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.16.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-11_0_16_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.16_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_17_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.17_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_18_10` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.18_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_19_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.19_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1137,9 +1134,10 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-11_0_29_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.29_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_30_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.30_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-11_0_31_11` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.31_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jdk-bin-11_0_32_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-16` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-16_0_2_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 16.0.2_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-17` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.19_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
+| `x86_64-linux` | `openjdk-adoptium.jdk-bin-17` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_10_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.10_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_11_9` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.11_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_12_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1150,7 +1148,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-17_0_17_10` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.17_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_18_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.18_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_19_10` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.19_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jdk-bin-17_0_3_7` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.3_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
+| `x86_64-linux` | `openjdk-adoptium.jdk-bin-17_0_20_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.20_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_4_1_1` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.4.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_4_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.4_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-17_0_5_8` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 17.0.5_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1183,9 +1181,8 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jdk-bin-8u472_b08` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u472-b08_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u482_b08` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u482-b08_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jdk-bin-8u492_b09` | [openjdk-adoptium-jdk-bin](https://adoptium.net/) | 8u492-b09_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.31_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_16_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.16.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-11_0_16_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.16_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_17_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.17_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_18_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.18_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_19_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.19_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1202,7 +1199,8 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-11_0_29_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.29_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_30_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.30_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-11_0_31_11` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.31_11_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-17` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.19_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
+|  | `openjdk-adoptium.jre-bin-11_0_32_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 11.0.32_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
+| `x86_64-linux` | `openjdk-adoptium.jre-bin-17` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_10_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.10_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_11_9` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.11_9_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_12_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.12_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1213,7 +1211,7 @@ Or, use variables from this repository in case I change them:
 |  | `openjdk-adoptium.jre-bin-17_0_17_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.17_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_18_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.18_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_19_10` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.19_10_adopt | OpenJDK binaries built by Eclipse Adoptium |
-|  | `openjdk-adoptium.jre-bin-17_0_3_7` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.3_7_adopt | OpenJDK binaries built by Eclipse Adoptium |
+| `x86_64-linux` | `openjdk-adoptium.jre-bin-17_0_20_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.20_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_4_1_1` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.4.1_1_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_4_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.4_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
 |  | `openjdk-adoptium.jre-bin-17_0_5_8` | [openjdk-adoptium-jre-bin](https://adoptium.net/) | 17.0.5_8_adopt | OpenJDK binaries built by Eclipse Adoptium |
@@ -1260,7 +1258,7 @@ Or, use variables from this repository in case I change them:
 |  | `python3Packages.drission-page` | [drission-page](https://github.com/g1879/DrissionPage) | 4.1.1.4 | Python based web automation tool |
 |  | `python3Packages.drission-record` | [drission-record](https://gitcode.com/g1879/DrissionRecord) | 2.0.1 | Python data recording toolkit |
 |  | `python3Packages.edge-tts` | [edge-tts](https://github.com/rany2/edge-tts) | 7.2.8 | Use Microsoft Edge's online text-to-speech service from Python WITHOUT needing Microsoft Edge or Windows or an API key |
-|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-07-23 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
+|  | `python3Packages.funasr` | [funasr](https://www.funasr.com/) | 0-unstable-2026-07-25 | Fundamental End-to-End Speech Recognition Toolkit and Open Source SOTA Pretrained Models |
 |  | `python3Packages.kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
 |  | `python3Packages.loralib` | [loralib](https://arxiv.org/abs/2106.09685) | 0-unstable-2024-12-16 | Implementation of "LoRA: Low-Rank Adaptation of Large Language Models" |
 |  | `python3Packages.modelscope` | [modelscope](https://www.modelscope.cn/) | 1.38.1 | Bring the notion of Model-as-a-Service to life |
@@ -1287,7 +1285,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (165 packages)</summary>
+<summary>Package set: uncategorized (163 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1300,11 +1298,11 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.6.0 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-06-18 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
-|  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.5 | High-performance AI gateway with unified OpenAI-compatible API |
-|  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.9-1 | Desktop client for Bilibili |
-|  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.8 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
-|  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.7 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
-|  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.7 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.6 | High-performance AI gateway with unified OpenAI-compatible API |
+|  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.17.9-2 | Desktop client for Bilibili |
+|  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.9 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
+|  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
+|  | `uncategorized.bird-lgproxy-go` | [bird-lgproxy-go](https://github.com/xddxdd/bird-lg-go) | 1.4.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
 |  | `uncategorized.bnxtnvm` | [bnxtnvm](https://resource.fs.com/mall/resource/broadcom-ethernet-network-adapter-user-manual.pdf) | 222.0.144.0 | Broadcom BNXTNVM utility |
 |  | `uncategorized.browser-control-mcp` | [browser-control-mcp](https://github.com/eyalzh/browser-control-mcp) | 1.5.1 | MCP server paired with a browser extension that enables AI agents to control the user's browser |
 |  | `uncategorized.browser360` | [browser360](https://browser.360.net/gc/index.html) | 13.4.1131.0 | Browser from 360 |
@@ -1312,9 +1310,8 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.buname` | [buname](https://github.com/dramforever/buname) | 0-unstable-2025-09-18 | Uname wrapper that renumbers Linux versions as if 2.6 never ended |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.95 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.100 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
-|  | `uncategorized.command-code` | [command-code](https://github.com/CommandCodeAI/command-code) | 0.52.5 | Coding agent that continuously learns your coding taste |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-07 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
 |  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.2.2 | Powerful Free DeepL API, No Token Required |
@@ -1329,7 +1326,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.env-dedup` | [env-dedup](https://github.com/alexjp/env-dedup) | 0-unstable-2025-09-06 | Deduplicate the environment variables values |
 |  | `uncategorized.epub-to-xtc-converter` | [epub-to-xtc-converter](https://github.com/bigbag/epub-to-xtc-converter) | 0.8.0 | CLI tool for converting EPUB files to XTC/XTCH format for Xteink e-readers |
 |  | `uncategorized.etherguard` | [etherguard](https://github.com/KusakabeShi/EtherGuard-VPN) | 0.3.5-f5 | Layer 2 version of WireGuard with Floyd Warshall implementation in Go |
-|  | `uncategorized.extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.1 | DynamoDB-compatible API adapter backed by PostgreSQL |
+|  | `uncategorized.extenddb` | [extenddb](https://github.com/ExtendDB/extenddb) | 0.1.2 | DynamoDB-compatible API adapter backed by PostgreSQL |
 |  | `uncategorized.fake-ollama` | [fake-ollama](https://github.com/spoonnotfound/fake-ollama) | 0-unstable-2025-02-14 | Simulated server implementation of Ollama API |
 |  | `uncategorized.fastapi-dls` | [fastapi-dls](https://gitea.publichub.eu/oscar.krause/fastapi-dls) | 2.0.1-unstable-2025-05-13 | Minimal Delegated License Service (DLS) |
 |  | `uncategorized.fcitx5-breeze` | [fcitx5-breeze](https://github.com/scratch-er/fcitx5-breeze) | 3.1.0 | Fcitx5 theme to match KDE's Breeze style |
@@ -1338,8 +1335,8 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.flaresolverr-alexfozor` | [flaresolverr-alexfozor](https://github.com/AlexFozor/FlareSolverr) | 0-unstable-2024-08-04 | Proxy server to bypass Cloudflare protection, with AlexFozor modifications to support Drission Page |
 |  | `uncategorized.fr24feed` | [fr24feed](https://www.flightradar24.com/share-your-data) | 1.0.57-1 | Flightradar24 Decoder & Feeder lets you effortlessly share ADS-B data with Flightradar24 |
 |  | `uncategorized.ftp-proxy` | [ftp-proxy](http://www.ftpproxy.org/) | 1.2.3 | FTP Proxy Server |
-|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.07.22 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
-|  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | 2.5.1 | Lightweight LDAP server for development, home use, or CI |
+|  | `uncategorized.geolite2` | [geolite2](https://dev.maxmind.com/geoip/geoip2/geolite2/) | 2026.07.25 | MaxMind's GeoIP2 GeoLite2 Country, City, and ASN databases |
+|  | `uncategorized.glauth` | [glauth](https://github.com/glauth/glauth) | 2.5.2 | Lightweight LDAP server for development, home use, or CI |
 | `x86_64-linux` | `uncategorized.google-earth-pro` | [google-earth-pro](https://www.google.com/earth/) | 7.3.7.1155 | World sphere viewer |
 |  | `uncategorized.gopherus` | [gopherus](http://gopherus.sourceforge.net/) | 1.2.2 | Free, multiplatform, console-mode gopher client that provides a classic text interface to the gopherspace |
 |  | `uncategorized.gost-engine` | [gost-engine](https://github.com/gost-engine/engine) | 3.0.3 | Reference implementation of the Russian GOST crypto algorithms for OpenSSL |
@@ -1355,7 +1352,6 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 20250529 | Constructed scripts by Hoyoverse 米哈游的架空文字 |
 |  | `uncategorized.igsc` | [igsc](https://github.com/intel/igsc) | 1.3.1 | Intel graphics system controller firmware update library |
 |  | `uncategorized.imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.4.3 | FOSS program for converting IME dictionaries |
-|  | `uncategorized.invisible-firefox-bin-unwrapped` | [invisible-firefox-bin-unwrapped](https://github.com/feder-cr/invisible_playwright) | 13 | Firefox with anti fingerprinting modifications (binary package) |
 |  | `uncategorized.jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate |
 |  | `uncategorized.kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `uncategorized.kikoplay` | [kikoplay](https://kikoplay.fun) | 2.1.0 | More than a Full-Featured Danmu Player |
@@ -1365,8 +1361,8 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-07-21 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.5 | Headless browser designed for AI and automation |
+|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-07-23 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.6 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 |  | `uncategorized.lyrica` | [lyrica](https://github.com/chiyuki0325/lyrica) | 0.24 | Linux desktop lyrics widget focused on simplicity and integration |
@@ -1420,7 +1416,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.rime-moegirl` | [rime-moegirl](https://github.com/outloudvi/mw2fcitx/releases) | 20260713 | RIME dictionary file for entries from zh.moegirl.org.cn |
 |  | `uncategorized.rime-zhwiki` | [rime-zhwiki](https://github.com/felixonmars/fcitx5-pinyin-zhwiki) | 20250823 | RIME dictionary file for entries from zh.wikipedia.org |
 |  | `uncategorized.route-chain` | [route-chain](https://github.com/xddxdd/route-chain) | 1.1.0-unstable-2026-01-08 | Small app to generate a long path in traceroute |
-|  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-22 | Sipwise media proxy for Kamailio |
+|  | `uncategorized.rtpengine` | [rtpengine](https://github.com/sipwise/rtpengine) | mr26.0.1.19-unstable-2026-07-23 | Sipwise media proxy for Kamailio |
 |  | `uncategorized.runpodctl` | [runpodctl](https://www.runpod.io) | 2.7.2 | RunPod CLI for pod management |
 |  | `uncategorized.sam-toki-mouse-cursors` | [sam-toki-mouse-cursors](https://github.com/SamToki/Sam-Toki-Mouse-Cursors) | 10.00 | Original mouse cursors (pointers) for Windows, with minimalistic design |
 | `x86_64-linux` | `uncategorized.sgx-software-enable` | [sgx-software-enable](https://github.com/intel/sgx-software-enable) | 1.0-unstable-2023-01-06 | Application to enable Intel SGX on Linux systems |
@@ -1435,7 +1431,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.tel42verifier` | [tel42verifier](https://github.com/strexp/tel42verifier) | 0.0.3 | Multi-domain ENUM-based Caller ID verifier for Asterisk |
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-07-22 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-07-25 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
