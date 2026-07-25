@@ -1,7 +1,9 @@
 {
+  pname,
+  meta,
+
   lib,
   fetchurl,
-  sing-box,
   stdenvNoCC,
 
   # nativeBuildInputs
@@ -12,15 +14,15 @@
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "sing-box-app";
-  version = "1.13.14";
+  inherit pname;
+  version = "1.14.0-beta.2";
 
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchurl {
     url = "https://github.com/SagerNet/sing-box/releases/download/v${finalAttrs.version}/SFM-${finalAttrs.version}-Universal.pkg";
-    hash = "sha256-D52P2DoSgbhmkY1umICFGpORqnmZUoGb07eBUwEDTxE=";
+    hash = "sha256-lWGMYQJEhkuKD8qgIzgtf63n51L0No25/e9Z4ePVnFQ=";
   };
 
   nativeBuildInputs = [
@@ -50,8 +52,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  meta = sing-box.meta // {
-    mainProgram = "sing-box-app";
+  meta = meta // {
+    branch = "dev";
+    homepage = "https://github.com/SagerNet/sing-box-for-apple";
+    sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = lib.platforms.darwin;
   };
 })

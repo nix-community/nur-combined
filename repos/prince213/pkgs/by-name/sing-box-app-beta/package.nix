@@ -1,18 +1,76 @@
 {
   lib,
-  sing-box-app,
+  buildNpmPackage,
+  fetchFromGitHub,
+  fetchPnpmDeps,
+  fetchurl,
+  makeDesktopItem,
   sing-box-beta,
+  sing-box-dashboard,
+  stdenvNoCC,
+
+  # nativeBuildInputs
+  buf,
+  copyDesktopItems,
+  cpio,
+  makeBinaryWrapper,
+  pbzx,
+  pnpm_11,
+  pnpmConfigHook,
+  xar,
+
+  # buildInputs
+  electron_43,
 }:
+let
+  pname = "sing-box-app-beta";
 
-sing-box-app.overrideAttrs (previousAttrs: {
-  pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-beta.2";
-
-  src = previousAttrs.src.overrideAttrs {
-    hash = "sha256-lWGMYQJEhkuKD8qgIzgtf63n51L0No25/e9Z4ePVnFQ=";
+  meta = {
+    description = "Client for sing-box";
+    downloadPage = "https://github.com/SagerNet/sing-box/releases";
+    license = lib.licenses.gpl3Plus;
+    # sourceProvenance
+    maintainers = with lib.maintainers; [ prince213 ];
+    mainProgram = "sing-box-app";
   };
+in
+if stdenvNoCC.hostPlatform.isDarwin then
+  import ./darwin.nix {
+    inherit
+      pname
+      meta
+      ;
 
-  meta = sing-box-beta.meta // {
-    platforms = lib.platforms.darwin;
-  };
-})
+    inherit
+      lib
+      fetchurl
+      stdenvNoCC
+      cpio
+      makeBinaryWrapper
+      pbzx
+      xar
+      ;
+  }
+else
+  import ./linux.nix {
+    inherit
+      pname
+      meta
+      ;
+
+    inherit
+      lib
+      buildNpmPackage
+      fetchFromGitHub
+      fetchPnpmDeps
+      makeDesktopItem
+      sing-box-beta
+      sing-box-dashboard
+      buf
+      copyDesktopItems
+      makeBinaryWrapper
+      pnpm_11
+      pnpmConfigHook
+      electron_43
+      ;
+  }

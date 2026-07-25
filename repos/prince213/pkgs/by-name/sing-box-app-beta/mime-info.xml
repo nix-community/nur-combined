@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+  <mime-type type="application/x-sing-box-profile">
+    <comment>sing-box profile</comment>
+    <glob pattern="*.bpf" />
+    <icon name="x-office-document" />
+  </mime-type>
+</mime-info>
