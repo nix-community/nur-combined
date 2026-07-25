@@ -2,13 +2,13 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "dogma";
-  version = "2.2.0"; # without "v"
+  version = "3.0.0"; # without "v"
 
   src = fetchFromGitHub {
     owner = "x71c9";
     repo = "dogma";
     rev = "v${version}";
-    hash = "sha256-R1Gc0nwDW9IfYOWPwv+H1eke6cYiQTA4bKox0v9AExI=";
+    hash = "sha256-cWxfkKLZ4eLbab7hG1YQAq8+rI8soA+wPJV7R08sBeM=";
   };
 
   cargoLock.lockFile = ./Cargo.lock;

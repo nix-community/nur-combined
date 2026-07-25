@@ -104,7 +104,7 @@ source <(dogma completions zsh)
 dogma completions fish > ~/.config/fish/completions/dogma.fish
 ```
 
-`<env>` is completed from `dogma.yml`. `<unit>` is completed from subdirectories of `infra.path`. `<host>` is completed from machine names in `dogma.yml`.
+`<env>` is completed from `dogma.yml`. `<unit>` is completed from subdirectories of `infra.path`. `<pipeline>` is completed from pipeline names in `dogma.yml`.
 
 ## Commands
 
@@ -190,16 +190,19 @@ dogma infra init dev hetzner --upgrade
 
 ---
 
-### `dogma deploy <env> [host]`
+### `dogma deploy <env> [pipeline]`
 
-Full deploy pipeline.
+Full deploy pipeline. Always deploys to all hosts. When no pipelines are declared in `dogma.yml`, an implicit nixos pipeline is used. When exactly one pipeline is declared, `[pipeline]` may be omitted; with several declared it is required.
+
+A pipeline whose `env` attribute is set can also be run by name alone: `dogma deploy <pipeline>`. The single argument is resolved against declared env and pipeline names; a name that matches both is an error and requires the explicit two-argument form.
 
 ```bash
 dogma deploy dev --new                         # new CalVer version, full pipeline
 dogma deploy dev --latest                      # promote latest deploy/* tag
 dogma deploy dev --version deploy/v26.06.0001  # promote specific tag
 dogma deploy dev                               # interactive: pick from tag list
-dogma deploy dev backend --new                 # one host only
+dogma deploy dev backend --new                 # named pipeline 'backend'
+dogma deploy publish-prod --new                # pipeline with env attribute set
 ```
 
 **`--new` pipeline:**
@@ -225,7 +228,6 @@ dogma deploy dev backend --new                 # one host only
 | `--latest` | Promote latest `deploy/*` tag (no hooks) |
 | `--version <tag>` | Promote specific tag (no hooks) |
 | `--skip-infra` | Use existing infra cache |
-| `--skip-sops` | Use existing `.sops.yaml` |
 | `--refetch` | Clear all caches and re-fetch |
 | `-m <msg>` | Commit message for dirty tree (only with `--new`) |
 
@@ -302,10 +304,10 @@ hooks:                      # for the implicit default pipeline — only valid
   post-deploy:              # when no pipeline: block is declared below
     - ./custom/notify-slack.sh
 
-pipeline:                   # named pipelines (dogma deploy <name> [env])
+pipeline:                   # named pipelines (dogma deploy <env> [pipeline])
   - name: backend
     type: nixos             # nixos | custom (default: custom)
-    env: dev                # default env when <env> omitted on the command line
+    env: dev                # optional fixed env — enables `dogma deploy backend`
     version_prefix: deploy  # default: deploy → tags deploy/v26.06.0001
     version_scheme: calver  # calver (default) | semver | custom
     version_script: ./custom/next-version.sh  # required when version_scheme: custom
