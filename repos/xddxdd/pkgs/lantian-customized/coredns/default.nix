@@ -1,7 +1,6 @@
 {
   lib,
   coredns,
-  unbound,
   sources,
   buildGoModule,
   installShellFiles,
@@ -12,26 +11,54 @@ buildGoModule (finalAttrs: {
 
   patches = [ ./fix-large-axfr.patch ];
 
-  buildInputs = [ unbound ];
   nativeBuildInputs = [ installShellFiles ];
 
-  vendorHash = "sha256-wr4z/lujXXSqxfilRRGrtDf0kDfl/VQNQrcQE8fMLPg=";
+  vendorHash = "sha256-iQiH3sfmnqdxVde2sqpcgmuLwym8w0q4T5xsdnYo5lA=";
 
   # Override the go-modules fetcher derivation to fetch plugins
   modBuildPhase = ''
-    cat >> plugin.cfg <<EOF
-    mdns:github.com/openshift/coredns-mdns/v4
+    cat > plugin.cfg <<EOF
+    # Official plugins (trimmed)
+    root:root
+    metadata:metadata
+    geoip:geoip
+    cancel:cancel
+    tls:tls
+    proxyproto:proxyproto
+    quic:quic
+    grpc_server:grpc_server
+    https:https
+    https3:https3
+    timeouts:timeouts
+    multisocket:multisocket
+    reload:reload
+    nsid:nsid
+    bufsize:bufsize
+    bind:bind
+    prometheus:metrics
+    errors:errors
+    log:log
+    local:local
+    any:any
+    loadbalance:loadbalance
+    acl:acl
+    cache:cache
+    dnssec:dnssec
+    minimal:minimal
+    transfer:transfer
+    loop:loop
+    forward:forward
+    grpc:grpc
+
+    # Custom plugins
     alias:github.com/serverwentdown/alias
     meshname:github.com/zhoreeq/coredns-meshname
     meship:github.com/zhoreeq/coredns-meship
-    unbound:github.com/coredns/unbound
     EOF
 
-    go get github.com/openshift/coredns-mdns/v4@${sources.coredns-mdns.rawVersion}
     go get github.com/serverwentdown/alias@${sources.coredns-alias.rawVersion}
     go get github.com/zhoreeq/coredns-meshname@${sources.coredns-meshname.rawVersion}
     go get github.com/zhoreeq/coredns-meship@${sources.coredns-meship.rawVersion}
-    go get github.com/coredns/unbound@${sources.coredns-unbound.rawVersion}
 
     go mod vendor
     CC= GOOS= GOARCH= go generate

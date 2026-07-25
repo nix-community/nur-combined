@@ -374,17 +374,6 @@
       hash = "sha256-E1iixH8nWop3+c4sdC95a2+XChZUc/WVLijZj70wr0c=";
     };
   };
-  coredns-mdns = {
-    pname = "coredns-mdns";
-    version = "1b73907c925f6f57b99d6b88ceee4b7e8ca90026";
-    src = fetchFromGitHub {
-      owner = "openshift";
-      repo = "coredns-mdns";
-      rev = "1b73907c925f6f57b99d6b88ceee4b7e8ca90026";
-      hash = "sha256-0ivQY8Ad+nqiHLkm+VOz2fiUg8MBR9vWKFdUVTAVpYo=";
-    };
-    date = "2023-02-13";
-  };
   coredns-meship = {
     pname = "coredns-meship";
     version = "ba2685d1803672262638f752edb0ae97932b58fa";
@@ -406,16 +395,6 @@
       hash = "sha256-geSwVWytBSsxcncXNtkOAe4tWcSQ/CfVHhZKjdwMOOE=";
     };
     date = "2021-05-27";
-  };
-  coredns-unbound = {
-    pname = "coredns-unbound";
-    version = "v0.0.7";
-    src = fetchFromGitHub {
-      owner = "coredns";
-      repo = "unbound";
-      tag = "v0.0.7";
-      hash = "sha256-RNdTMJqxbpdcJw6RTe+LJNppyFzT23yqeJ65oswRuus=";
-    };
   };
   cryptodev-linux = {
     pname = "cryptodev-linux";

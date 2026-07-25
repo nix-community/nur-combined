@@ -725,27 +725,6 @@
         },
         "version": "1.0.6"
     },
-    "coredns-mdns": {
-        "cargoLock": null,
-        "date": "2023-02-13",
-        "extract": null,
-        "name": "coredns-mdns",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "openshift",
-            "repo": "coredns-mdns",
-            "rev": "1b73907c925f6f57b99d6b88ceee4b7e8ca90026",
-            "sha256": "sha256-0ivQY8Ad+nqiHLkm+VOz2fiUg8MBR9vWKFdUVTAVpYo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "1b73907c925f6f57b99d6b88ceee4b7e8ca90026"
-    },
     "coredns-meship": {
         "cargoLock": null,
         "date": "2021-10-25",
@@ -787,27 +766,6 @@
             "type": "github"
         },
         "version": "a3eb6c946497242b3d5aa73e979a62444299dde2"
-    },
-    "coredns-unbound": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "coredns-unbound",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "coredns",
-            "repo": "unbound",
-            "rev": "v0.0.7",
-            "sha256": "sha256-RNdTMJqxbpdcJw6RTe+LJNppyFzT23yqeJ65oswRuus=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.0.7"
     },
     "cryptodev-linux": {
         "cargoLock": null,
