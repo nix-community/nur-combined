@@ -17,8 +17,9 @@ let
     home-assistant-heweather = callPackage ./home-assistant-heweather { };
     mosdns = callPackage ./mosdns { };
     rtl8152-led-ctrl = callPackage ./rtl8152-led-ctrl { };
-    udpspeeder = callPackage ./udpspeeder { };
     ubootNanopiR2s = callPackage ./uboot-nanopi-r2s { };
+    udpspeeder = callPackage ./udpspeeder { };
+    usque-unstable = callPackage ./usque-unstable { };
     vlmcsd = callPackage ./vlmcsd { };
   };
 

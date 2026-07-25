@@ -23,7 +23,7 @@ in
     after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     script = ''
-      ${pkgs.usque}/bin/usque socks -6 -p 4080 -c ${secrets."usque.json".path} -s hoyoverse.com -d 1.1.1.1 -d 1.0.0.1 -d 2606:4700:4700::1111 -d 2606:4700:4700::1001
+      ${pkgs.usque-unstable}/bin/usque socks -6 -p 4080 -c ${secrets."usque.json".path} -s hoyoverse.com -d 1.1.1.1 -d 1.0.0.1 -d 2606:4700:4700::1111 -d 2606:4700:4700::1001
     '';
     serviceConfig = {
       Restart = "on-failure";

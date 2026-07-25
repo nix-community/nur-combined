@@ -118,6 +118,7 @@
       traceroute
       usbutils
       sing-box
+      xdp-tools
     ]
     ++ (with config.boot.kernelPackages; [
       cpupower
