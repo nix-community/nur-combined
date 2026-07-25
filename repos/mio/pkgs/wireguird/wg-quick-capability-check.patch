@@ -1,6 +1,6 @@
 --- a/wg-quick/linux.bash
 +++ b/wg-quick/linux.bash
-@@ -82,8 +82,30 @@
+@@ -82,8 +82,33 @@
  	esac
  }
  
