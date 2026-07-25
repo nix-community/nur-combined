@@ -1,6 +1,9 @@
 [bitburner]
 pr = "https://github.com/NixOS/nixpkgs/pull/542677"
 
+[eez-studio]
+pr = "https://github.com/NixOS/nixpkgs/pull/493671"
+
 [fmodstudio]
 pr = "https://github.com/NixOS/nixpkgs/pull/491823"
 
@@ -9,6 +12,9 @@ pr = "https://github.com/NixOS/nixpkgs/pull/491823"
 
 [keyguard]
 pr = "https://github.com/NixOS/nixpkgs/pull/495316"
+
+[pokeclicker-desktop]
+pr = "https://github.com/NixOS/nixpkgs/pull/545651"
 
 [wl-find-cursor]
 pr = "https://github.com/NixOS/nixpkgs/pull/504085"
