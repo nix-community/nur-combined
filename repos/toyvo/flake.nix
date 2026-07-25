@@ -188,52 +188,6 @@
                 pre-commit.text = self'.legacyPackages.pre-commit.text;
                 pre-push.text = self'.legacyPackages.pre-push.text;
               };
-              packages = with pkgs; [
-                _1password-cli
-                cloudflared
-                jira-cli-go
-                lefthook
-                proton-pass-cli
-                volta
-              ];
-              env = [
-                {
-                  name = "JIRA_API_TOKEN";
-                  eval = "$(cat ~/.config/sops-nix/secrets/atlassian_api_token)";
-                }
-                {
-                  name = "CLOUDFLARE_TUNNEL_TOKEN";
-                  eval = "$(cat ~/.config/sops-nix/secrets/cloudflare_tunnel_token)";
-                }
-                {
-                  name = "X_LILJWTY_GATE";
-                  eval = "$(cat ~/.config/sops-nix/secrets/liljwty_gate)";
-                }
-                {
-                  name = "LILJWTY_GATE";
-                  eval = "$(cat ~/.config/sops-nix/secrets/liljwty_gate)";
-                }
-                {
-                  name = "AWS_REGION";
-                  value = "us-west-2";
-                }
-                {
-                  name = "AWS_PROFILE";
-                  value = "fq-global-auth";
-                }
-                {
-                  name = "FQ_ENV";
-                  value = "fq-global-auth";
-                }
-                {
-                  name = "FQ_EMAIL";
-                  value = "collin.diekvoss@floqast.com";
-                }
-                {
-                  name = "NX_TUI";
-                  value = "false";
-                }
-              ];
             };
             # we get infinite recursion on freebsd with `nix flake show`, not investigating
             checks = lib.mkIf (system != "x86_64-freebsd") (
