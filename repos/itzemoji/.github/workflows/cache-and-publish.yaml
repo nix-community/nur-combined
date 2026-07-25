@@ -33,10 +33,3 @@ jobs:
           config: aeroflare-ci.yaml
         env:
           NIX_SIGNING_KEY: ${{ secrets.NIX_SIGNING_KEY }} 
-  publish:
-    needs: cache
-    runs-on: ubuntu-latest
-    steps: 
-      - run: |
-          curl -fsS -X POST \
-            "https://nur-update.nix-community.org/update?repo=itzemoji"
