@@ -668,8 +668,8 @@
             "url": "https://github.com/TheColorman/nurpkgs"
         },
         "congee": {
-            "rev": "768a8cc84259eb5381b628893931b6e025496af3",
-            "sha256": "0lypn7p4n4glfma9fai1mh8d6v7lx6kgsl8gqrf3hxq6a6khzcy6",
+            "rev": "c2e0b9fa7b8cf819bd13c02bafc8d1aec364ada3",
+            "sha256": "1y7mpyiqx9sk0cvskdbikzrg4pa339qy0nzczffc9m28y1dir66p",
             "url": "https://github.com/congee/nur"
         },
         "cransom": {
@@ -784,8 +784,8 @@
             "url": "https://github.com/dguibert/nur-packages"
         },
         "dima": {
-            "rev": "074f3805c81b6d881228b913d99fac8e643cf0d6",
-            "sha256": "0fddlv1xh19clhwxfadsx2pmfkrsvahy448vvzc4v97dk9q8m006",
+            "rev": "329480ad86156b370c9628de5f11bab68bec3c75",
+            "sha256": "08x5r95vykkppbgzrbd6sy61jqp2yl6dfmsh8dc355h1ng88ki7i",
             "url": "https://gitlab.com/shdima/nur-packages"
         },
         "divanorama": {
@@ -1129,8 +1129,8 @@
             "url": "https://github.com/hexadecimalDinosaur/nur"
         },
         "hhr2020": {
-            "rev": "2eea5aa10cb84b514ec2b5c6aed7c7e038b7e469",
-            "sha256": "007yihlrahkbrysgq7a81fdw640bif32c061hsmjkf99lhhp1137",
+            "rev": "1af51d9c7cfda4736d96eb35b04498ca997945f7",
+            "sha256": "1cj6lng4yd868fvcrr20z5nf6raqzfbs62dirdzln9rriiq8ws0q",
             "url": "https://github.com/hhr2020/nur-packages"
         },
         "hilorioze": {
@@ -2508,8 +2508,8 @@
             "url": "https://github.com/tox-rs/nur-tox"
         },
         "toyvo": {
-            "rev": "989d9832c9c40fba2c791f9e138d2c4be8511181",
-            "sha256": "1gz8diqspanynpijv78jcbwnj5k4rbx302lydssi8hgy18b6yy4z",
+            "rev": "76beee00c9b4a2f92492eb1452c20a4d64bb0fc4",
+            "sha256": "14bnaq6cl106620andidsh1769f143mb5qlj0d7lkspgfr0aa7ms",
             "url": "https://github.com/ToyVo/nixcfg"
         },
         "trev": {
