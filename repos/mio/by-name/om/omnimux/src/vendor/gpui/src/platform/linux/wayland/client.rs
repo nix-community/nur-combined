@@ -239,6 +239,13 @@ pub(crate) struct WaylandClientState {
     second_touch_location: Option<Point<Pixels>>,
     last_scroll_center: Option<Point<Pixels>>,
     is_scrolling: bool,
+    /// Window that received the current touch MouseDown. Kept separate from
+    /// `mouse_focused_window` so a pointer Leave cannot orphan the matching Up.
+    touch_window: Option<WaylandWindowStatePtr>,
+    /// True after we emitted MouseDown for the primary touch and before Up.
+    /// Prevents double-Up and stuck-press when Up/Cancel is lost or scroll
+    /// cancelled the click.
+    touch_mouse_down_sent: bool,
     loop_handle: LoopHandle<'static, WaylandClientStatePtr>,
     cursor_style: Option<CursorStyle>,
     clipboard: Clipboard,
@@ -629,6 +636,8 @@ impl WaylandClient {
             second_touch_location: None,
             last_scroll_center: None,
             is_scrolling: false,
+            touch_window: None,
+            touch_mouse_down_sent: false,
             loop_handle: handle.clone(),
             enter_token: None,
             cursor_style: None,
@@ -2222,8 +2231,10 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
 
                     if let Some(window) = get_window(&mut state, &surface.id()) {
                         // Remember which window owns this touch so Up/Motion work
-                        // even when the pointer never entered the surface.
+                        // even when the pointer never entered the surface, and so
+                        // pointer Leave cannot drop the matching MouseUp.
                         state.mouse_focused_window = Some(window.clone());
+                        state.touch_window = Some(window.clone());
                         state.mouse_location = Some(position);
                         state.button_pressed = Some(MouseButton::Left);
 
@@ -2246,6 +2257,7 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                         state.click.last_location = position;
                         let click_count = state.click.current_count;
 
+                        state.touch_mouse_down_sent = true;
                         let input = PlatformInput::MouseDown(MouseDownEvent {
                             button: MouseButton::Left,
                             position,
@@ -2271,17 +2283,25 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                         state.mouse_location = Some(center);
 
                         // Cancel the pending click before scrolling.
-                        if let Some(window) = state.mouse_focused_window.clone() {
-                            let click_count = state.click.current_count;
-                            let input = PlatformInput::MouseUp(MouseUpEvent {
-                                button: MouseButton::Left,
-                                position: center,
-                                modifiers: state.modifiers,
-                                click_count,
-                            });
-                            state.button_pressed = None;
-                            drop(state);
-                            window.handle_input(input);
+                        let need_up = state.touch_mouse_down_sent;
+                        state.touch_mouse_down_sent = false;
+                        state.button_pressed = None;
+                        if need_up {
+                            if let Some(window) = state
+                                .touch_window
+                                .clone()
+                                .or_else(|| state.mouse_focused_window.clone())
+                            {
+                                let click_count = state.click.current_count;
+                                let input = PlatformInput::MouseUp(MouseUpEvent {
+                                    button: MouseButton::Left,
+                                    position: center,
+                                    modifiers: state.modifiers,
+                                    click_count,
+                                });
+                                drop(state);
+                                window.handle_input(input);
+                            }
                         }
                     }
                 }
@@ -2337,7 +2357,11 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                 } else if state.active_touch_id == Some(id) && !state.is_scrolling {
                     state.mouse_location = Some(position);
 
-                    if let Some(window) = state.mouse_focused_window.clone() {
+                    if let Some(window) = state
+                        .touch_window
+                        .clone()
+                        .or_else(|| state.mouse_focused_window.clone())
+                    {
                         let input = PlatformInput::MouseMove(MouseMoveEvent {
                             position,
                             pressed_button: state.button_pressed,
@@ -2352,12 +2376,19 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                 if state.active_touch_id == Some(id) {
                     if state.is_scrolling && state.second_touch_id.is_some() {
                         // Promote second finger to primary; end scroll gesture.
+                        // Click was already cancelled when scroll started — do not
+                        // re-assert button_pressed (that left a stuck drag).
                         state.active_touch_id = state.second_touch_id.take();
                         state.touch_location = state.second_touch_location.take();
                         state.is_scrolling = false;
                         state.last_scroll_center = None;
+                        state.button_pressed = None;
 
-                        if let Some(window) = state.mouse_focused_window.clone() {
+                        if let Some(window) = state
+                            .touch_window
+                            .clone()
+                            .or_else(|| state.mouse_focused_window.clone())
+                        {
                             let position = state.touch_location.unwrap_or_default();
                             let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
                                 position,
@@ -2366,34 +2397,52 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                                 touch_phase: TouchPhase::Ended,
                             });
                             state.mouse_location = Some(position);
-                            state.button_pressed = Some(MouseButton::Left);
                             drop(state);
                             window.handle_input(input);
                         }
                     } else {
-                        state.active_touch_id = None;
-                        state.button_pressed = None;
+                        let need_up = state.touch_mouse_down_sent;
+                        let position = state.touch_location.unwrap_or_default();
+                        let click_count = state.click.current_count;
+                        let modifiers = state.modifiers;
+                        let window = state
+                            .touch_window
+                            .take()
+                            .or_else(|| state.mouse_focused_window.clone());
 
-                        if let Some(window) = state.mouse_focused_window.clone() {
-                            let click_count = state.click.current_count;
-                            let input = PlatformInput::MouseUp(MouseUpEvent {
-                                button: MouseButton::Left,
-                                position: state.touch_location.unwrap_or_default(),
-                                modifiers: state.modifiers,
-                                click_count,
-                            });
-                            state.touch_location = None;
-                            drop(state);
-                            window.handle_input(input);
+                        state.active_touch_id = None;
+                        state.touch_location = None;
+                        state.button_pressed = None;
+                        state.touch_mouse_down_sent = false;
+                        state.mouse_location = Some(position);
+
+                        if need_up {
+                            if let Some(window) = window {
+                                let input = PlatformInput::MouseUp(MouseUpEvent {
+                                    button: MouseButton::Left,
+                                    position,
+                                    modifiers,
+                                    click_count,
+                                });
+                                drop(state);
+                                window.handle_input(input);
+                            }
                         }
                     }
                 } else if state.second_touch_id == Some(id) {
+                    // End two-finger scroll; primary finger may still be down but
+                    // the click was already cancelled — leave button released.
                     state.second_touch_id = None;
                     state.second_touch_location = None;
                     state.is_scrolling = false;
                     state.last_scroll_center = None;
+                    state.button_pressed = None;
 
-                    if let Some(window) = state.mouse_focused_window.clone() {
+                    if let Some(window) = state
+                        .touch_window
+                        .clone()
+                        .or_else(|| state.mouse_focused_window.clone())
+                    {
                         let position = state.touch_location.unwrap_or_default();
                         let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
                             position,
@@ -2402,7 +2451,6 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                             touch_phase: TouchPhase::Ended,
                         });
                         state.mouse_location = Some(position);
-                        state.button_pressed = Some(MouseButton::Left);
                         drop(state);
                         window.handle_input(input);
                     }
@@ -2410,6 +2458,18 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
             }
             wl_touch::Event::Cancel => {
                 let was_scrolling = state.is_scrolling;
+                let need_up = state.touch_mouse_down_sent;
+                let position = state
+                    .touch_location
+                    .or(state.mouse_location)
+                    .unwrap_or_default();
+                let click_count = state.click.current_count;
+                let modifiers = state.modifiers;
+                let window = state
+                    .touch_window
+                    .take()
+                    .or_else(|| state.mouse_focused_window.clone());
+
                 state.active_touch_id = None;
                 state.touch_location = None;
                 state.second_touch_id = None;
@@ -2417,22 +2477,26 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                 state.is_scrolling = false;
                 state.last_scroll_center = None;
                 state.button_pressed = None;
+                state.touch_mouse_down_sent = false;
 
-                if let Some(window) = state.mouse_focused_window.clone() {
+                if let Some(window) = window {
                     if was_scrolling {
                         let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
-                            position: state.mouse_location.unwrap_or_default(),
+                            position,
                             delta: ScrollDelta::Pixels(point(px(0.0), px(0.0))),
-                            modifiers: state.modifiers,
+                            modifiers,
                             touch_phase: TouchPhase::Ended,
                         });
                         drop(state);
                         window.handle_input(input);
-                    } else {
-                        let input = PlatformInput::MouseExited(MouseExitEvent {
-                            position: state.mouse_location.unwrap_or_default(),
-                            pressed_button: None,
-                            modifiers: state.modifiers,
+                    } else if need_up {
+                        // Always synthesize MouseUp on cancel — MouseExited alone
+                        // does not clear app-level press state (tmux drag, etc.).
+                        let input = PlatformInput::MouseUp(MouseUpEvent {
+                            button: MouseButton::Left,
+                            position,
+                            modifiers,
+                            click_count,
                         });
                         drop(state);
                         window.handle_input(input);

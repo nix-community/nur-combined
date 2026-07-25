@@ -56,6 +56,10 @@ Source of the touch logic:
   that PR uses).
 - On touch down, set `mouse_focused_window` from the touched surface so up/move
   reach the window even if the pointer never entered (gap in the upstream PR).
+- Also keep `touch_window` + `touch_mouse_down_sent` so a later pointer Leave
+  cannot orphan MouseUp, Cancel synthesizes MouseUp (not only MouseExited),
+  and ending a two-finger scroll does not re-assert `button_pressed` (stuck
+  tmux/local drag after lift).
 - Touch uses the same multi-click (`click_count`) tracking as `wl_pointer`, so
   title-bar double-tap can maximize like a mouse double-click.
 - `Pixels`: use `f32::from(...)` instead of `.as_f32()` (not on 0.2.2).

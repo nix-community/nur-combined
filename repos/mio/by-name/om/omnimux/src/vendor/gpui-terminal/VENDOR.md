@@ -28,6 +28,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 - **Scroll wheel**: upstream `on_scroll` was effectively a no-op for apps; we forward SGR wheel reports when mouse mode is on, arrow keys on alt-screen without mouse mode, else local scrollback.
 - **Scroll direction**: align GPUI wheel sign with alacritty (positive Y = up); do not double-negate.
 - **Click / drag**: SGR button press/release and drag reports when mouse reporting is enabled (`mouse_button_report` / `mouse_drag_report`).
+- **Stuck-press recovery**: if MouseUp is lost (touch cancel, up outside hitbox, platform clears `pressed_button`), terminal ends local select / sends SGR release — `end_pointer_press`, `on_mouse_up_out`, and move-time reconcile when `pressed_button` is `None`.
 - **Shift exception**: with **Shift** held (or when mouse reporting is off), **do not** send mouse events to the PTY; start / extend a **local** selection instead. Shift+wheel always scrolls local history.
 - **Padding-aware** / **paint-synced** cell hit-testing for mouse/scroll (store content origin + cell metrics from the last paint; use Zed-style `next_up` grid sizing so fractional Wayland scales like Plasma 225% don't miss rows).
 
