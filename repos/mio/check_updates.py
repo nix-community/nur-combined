@@ -195,15 +195,24 @@ def main():
     
     updates_found = False
 
-    for d in dirs_to_check:
-        if not os.path.exists(d):
-            continue
-            
-        for pkg in sorted(os.listdir(d)):
-            pkg_path = os.path.join(d, pkg)
-            if not os.path.isdir(pkg_path) or pkg.startswith('_'):
+    def iter_package_dirs():
+        for d in dirs_to_check:
+            if not os.path.exists(d):
                 continue
-                
+            for entry in sorted(os.listdir(d)):
+                entry_path = os.path.join(d, entry)
+                if not os.path.isdir(entry_path) or entry.startswith('_'):
+                    continue
+                # by-name uses by-name/<prefix>/<pkg>/
+                if d == 'by-name':
+                    for pkg in sorted(os.listdir(entry_path)):
+                        pkg_path = os.path.join(entry_path, pkg)
+                        if os.path.isdir(pkg_path) and not pkg.startswith('_'):
+                            yield pkg, pkg_path
+                else:
+                    yield entry, entry_path
+
+    for pkg, pkg_path in iter_package_dirs():
             if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11'] or 'plugin' in pkg:
                 continue
                 
