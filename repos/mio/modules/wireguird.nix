@@ -26,6 +26,19 @@ let
     source = "${wireguard-tools}/bin/${name}";
   };
 
+  # Prefer systemd's resolvconf (resolvectl) over wireguard-tools' openresolv
+  # PATH suffix. With services.resolved, NixOS sets
+  # networking.resolvconf.package = config.systemd.package and disable openresolv
+  # (nixos/modules/system/boot/resolved.nix).
+  wgQuickSource =
+    if config.services.resolved.enable then
+      pkgs.writeShellScript "wg-quick-resolved" ''
+        export PATH=${lib.getBin config.networking.resolvconf.package}/bin''${PATH:+:$PATH}
+        exec ${wireguard-tools}/bin/wg-quick "$@"
+      ''
+    else
+      "${wireguard-tools}/bin/wg-quick";
+
 in
 {
   options = {
@@ -63,16 +76,28 @@ in
         permissions = "u+rx,g+x";
         source = "${lib.getExe package}";
       };
-      wg-quick = mkWrapper "wg-quick";
+      wg-quick = mkWrapper "wg-quick" // {
+        source = wgQuickSource;
+      };
       wg = mkWrapper "wg";
     };
 
-    # wg-quick pushes DNS= lines through resolvconf(8).  openresolv stores
-    # state under /run/resolvconf; NixOS grants the resolvconf group rwx via
-    # ACL in networking.resolvconf (see resolvconf.nix).  Mirror that for the
-    # wireguard group so cap-wrapped wg-quick can update DNS without sudo.
-    # Hook resolvconf's ExecStartPost so ACLs are reapplied when that unit
-    # restarts (e.g. after resolvconf.conf changes).
+    # wg-quick applies DNS= via resolvconf(8):
+    #   resolvconf -a IFACE -m 0 -x   # up
+    #   resolvconf -d IFACE -f       # down
+    #
+    # 1. openresolv (networking.resolvconf.enable): state under /run/resolvconf.
+    #    NixOS grants the resolvconf group rwx via ACL; mirror that for the
+    #    wireguard group so cap-wrapped wg-quick can update DNS without sudo.
+    #    Hook resolvconf's ExecStartPost so ACLs are reapplied when that unit
+    #    restarts (e.g. after resolvconf.conf changes).
+    #
+    # 2. systemd-resolved (services.resolved.enable): resolvconf is resolvectl
+    #    and talks D-Bus (SetLinkDNS / SetLinkDomains / RevertLink). CAP_NET_ADMIN
+    #    does not skip polkit for these (systemd#18956); allow the wireguard
+    #    group. Actions match what resolvconf -a -x / -d need: set-dns-servers,
+    #    set-domains (~. for -x), set-default-route, revert.
+    #    See org.freedesktop.resolve1.policy and nixos modules for netbird/throne.
     systemd.services.resolvconf.serviceConfig.ExecStartPost =
       lib.mkIf config.networking.resolvconf.enable
         (
@@ -86,14 +111,33 @@ in
           ]
         );
 
-    warnings = lib.optionals (!config.networking.resolvconf.enable) [
-      ''
-        programs.wireguird is enabled but networking.resolvconf.enable is false.
-        DNS= lines in WireGuard configs will not be applied by wg-quick unless
-        resolvconf is available (enable networking.resolvconf, or manage DNS
-        another way e.g. systemd-resolved per-link settings).
-      ''
-    ];
+    security.polkit = lib.mkIf config.services.resolved.enable {
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+          var actions = [
+            "org.freedesktop.resolve1.revert",
+            "org.freedesktop.resolve1.set-default-route",
+            "org.freedesktop.resolve1.set-dns-servers",
+            "org.freedesktop.resolve1.set-domains",
+          ];
+          if (actions.indexOf(action.id) >= 0 && subject.isInGroup("${cfg.group}")) {
+            return polkit.Result.YES;
+          }
+        });
+      '';
+    };
+
+    warnings =
+      lib.optionals (!config.networking.resolvconf.enable && !config.services.resolved.enable)
+        [
+          ''
+            programs.wireguird is enabled but neither networking.resolvconf.enable
+            nor services.resolved.enable is set. DNS= lines in WireGuard configs
+            will not be applied by wg-quick; enable one of those, or manage DNS
+            another way.
+          ''
+        ];
   };
 
   meta.maintainers = [ ];
