@@ -1,0 +1,48 @@
+name: Update qmd
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0 zizmor: ignore[artipacked] git-auto-commit needs persisted credentials
+        with:
+          persist-credentials: true
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@908b263ff629f4cc17666315b7fd3ec127c6244d # v14
+
+      - name: Run qmd update script
+        run: nix develop -c just update-qmd
+
+      - name: Check for changes
+        id: verify-diff
+        run: git diff --quiet pkgs/qmd/ || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Validate qmd package
+        if: steps.verify-diff.outputs.changed == 'true'
+        run: |
+          nix flake check --no-build
+          nix build .#qmd --no-link
+          nix run .#qmd -- --version
+
+      - name: Commit and push changes
+        if: steps.verify-diff.outputs.changed == 'true'
+        uses: stefanzweifel/git-auto-commit-action@4a55954c782fc1ea30b9056cd3e7a2b40ca8887d # v7.2.0
+        with:
+          commit_message: 'chore: update qmd version'
+          file_pattern: 'pkgs/qmd/hashes.json'
+          commit_user_name: github-actions[bot]
+          commit_user_email: github-actions[bot]@users.noreply.github.com
+          commit_author: github-actions[bot] <github-actions[bot]@users.noreply.github.com>

@@ -4,7 +4,7 @@
     "aarch64-linux": "sha256-+6Sa/IjLdoD9Xm42Bzp/4xdB3I4q+FT3wjSi0sGo9eY=",
     "x86_64-linux": "sha256-sVXoNWIcx1RYRtRWB4F2j7x8/cabFBKq+plFhPU7tBc="
   },
-  "rev": "e428df76bc0274d9e93eb7ca3e95673315c42e90",
+  "rev": "854ffdc5c76531941eb351b964b02d8bb8439c35",
   "sourceHash": "sha256-LLkrANLLR+2QgOpSdrjbwvzgP7dpOzayy9nCVqFUzeI=",
   "version": "2.6.3"
 }

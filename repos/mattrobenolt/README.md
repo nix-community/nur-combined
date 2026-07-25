@@ -132,6 +132,7 @@ just update go-bin
 just update hunk
 just update inbox
 just update prismacat
+just update qmd
 just update txtar
 just update-all
 

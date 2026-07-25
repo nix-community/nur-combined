@@ -16,6 +16,21 @@ let
   versionData = builtins.fromJSON (builtins.readFile ./hashes.json);
   inherit (versionData) version;
   system = stdenv.hostPlatform.system;
+  targets = {
+    "aarch64-darwin" = {
+      os = "darwin";
+      cpu = "arm64";
+    };
+    "aarch64-linux" = {
+      os = "linux";
+      cpu = "arm64";
+    };
+    "x86_64-linux" = {
+      os = "linux";
+      cpu = "x64";
+    };
+  };
+  target = targets.${system} or (throw "qmd: unsupported system ${system}");
 
   src = fetchFromGitHub {
     owner = "tobi";
@@ -24,8 +39,7 @@ let
     hash = versionData.sourceHash;
   };
 
-  nodeModulesHash =
-    versionData.nodeModulesHashes.${system} or (throw "qmd: unsupported system ${system}");
+  nodeModulesHash = versionData.nodeModulesHashes.${system};
 
   nodeModules = stdenvNoCC.mkDerivation {
     pname = "qmd-node-modules";
@@ -47,7 +61,9 @@ let
         --frozen-lockfile \
         --ignore-scripts \
         --no-progress \
-        --production
+        --production \
+        --os ${target.os} \
+        --cpu ${target.cpu}
 
       runHook postBuild
     '';

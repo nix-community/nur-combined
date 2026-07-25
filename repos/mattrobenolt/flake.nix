@@ -69,6 +69,7 @@
 
           devShells.default = pkgs.mkShell {
             packages = [
+              pkgs.bun
               pkgs.just
               pkgs.python3
               pkgs.zon2nix
