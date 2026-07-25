@@ -39,6 +39,7 @@
   wireplumber,
   jemalloc,
   autoAddDriverRunpath,
+  makeWrapper,
   cudaSupport ? config.cudaSupport,
 }:
 let
@@ -75,6 +76,7 @@ stdenv.mkDerivation {
     pkg-config
     wayland-scanner
     jemalloc
+    makeWrapper
   ]
   ++ lib.optional cudaSupport autoAddDriverRunpath;
 
