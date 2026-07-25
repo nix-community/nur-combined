@@ -235,11 +235,6 @@ fetch.github = "obra/superpowers"
 src.github_tag = "pcherenkov/udpxy"
 fetch.github = "pcherenkov/udpxy"
 
-[uuremote]
-src.httpheader = "https://api.nrd.nie.163.com/api/v1/release/dl/4?channel=gwqd"
-src.regex = 'uuyc[._-]v?(\d+(?:\.\d+)+)\.pkg'
-fetch.url = "https://a56.gdl.netease.com/uuyc_$ver.pkg"
-
 [v2ray-rules-dat]
 src.git = "https://github.com/Loyalsoldier/v2ray-rules-dat.git"
 fetch.github = "Loyalsoldier/v2ray-rules-dat"
