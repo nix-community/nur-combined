@@ -1,3 +1,6 @@
+# Skip wg-quick auto_su when CAP_NET_ADMIN is effective (NixOS capability
+# wrappers). Context is after read_bool(); keep the @@ new-file line count
+# equal to the hunk body (space + plus lines) or patch(1) rejects the file.
 --- a/wg-quick/linux.bash
 +++ b/wg-quick/linux.bash
 @@ -82,8 +82,33 @@

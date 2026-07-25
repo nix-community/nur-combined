@@ -8,6 +8,11 @@
 let
   cfg = config.programs.wireguird;
 
+  # Teach wg-quick auto_su to skip sudo when CAP_NET_ADMIN is effective and
+  # (for up/save) the config is writable. Inserted just before upstream
+  # auto_su(); current context is the end of read_bool(). The @@ new-file
+  # line count must match the hunk body or patch(1) errors with "malformed
+  # patch" (that was the only fix in 993345fb — not a read_bool rebase).
   wgQuickCapabilityPatch = ../pkgs/wireguird/wg-quick-capability-check.patch;
 
   wireguard-tools = pkgs.wireguard-tools.overrideAttrs (old: {
