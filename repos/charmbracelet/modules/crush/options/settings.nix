@@ -152,6 +152,30 @@ lib.mkOption {
                 description = "HTTP headers for HTTP/SSE MCP servers";
               };
 
+              oauth = lib.mkOption {
+                type = lib.types.nullOr lib.types.bool;
+                default = false;
+                description = "Enable OAuth 2.1 authorization flow for this MCP server (HTTP transport only)";
+              };
+
+              oauth_callback_port = lib.mkOption {
+                type = lib.types.nullOr lib.types.int;
+                default = null;
+                description = "Fixed localhost port for the OAuth callback";
+              };
+
+              oauth_client_id = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = "Pre-registered OAuth client ID for servers without dynamic client registration";
+              };
+
+              oauth_client_secret = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = "Pre-registered OAuth client secret paired with oauth_client_id";
+              };
+
               timeout = lib.mkOption {
                 type = lib.types.nullOr lib.types.int;
                 default = 15;
@@ -691,6 +715,45 @@ lib.mkOption {
                       type = lib.types.nullOr lib.types.str;
                       default = null;
                       description = "Access token";
+                    };
+
+                    client = lib.mkOption {
+                      type = lib.types.submodule {
+                        options = {
+                          auth_style = lib.mkOption {
+                            type = lib.types.nullOr lib.types.int;
+                            default = null;
+                            description = "Auth style";
+                          };
+
+                          auth_url = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Auth url";
+                          };
+
+                          client_id = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Client id";
+                          };
+
+                          client_secret = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Client secret";
+                          };
+
+                          token_url = lib.mkOption {
+                            type = lib.types.nullOr lib.types.str;
+                            default = null;
+                            description = "Token url";
+                          };
+
+                        };
+                      };
+                      default = { };
+                      description = "Client";
                     };
 
                     expires_at = lib.mkOption {
