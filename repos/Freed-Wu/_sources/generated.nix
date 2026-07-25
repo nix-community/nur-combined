@@ -19,10 +19,10 @@
   };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
-    version = "0.2.15";
+    version = "0.2.16";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.15.tar.gz";
-      sha256 = "sha256-7N/LtecyffFrnTRIfDK1TNjjnXAaChwhnfZy3WiyZy8=";
+      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.16.tar.gz";
+      sha256 = "sha256-pnF7s+1Jbh7B9H75IMDTukL6l0ToTGmlvgde8Gs27Fc=";
     };
   };
   manpager = {
@@ -129,10 +129,10 @@
   };
   tree-sitter-zathurarc = {
     pname = "tree-sitter-zathurarc";
-    version = "0.1.6";
+    version = "0.1.7";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/t/tree_sitter_zathurarc/tree_sitter_zathurarc-0.1.6.tar.gz";
-      sha256 = "sha256-XzDLqEx9r8L490Q/4c3slrwpvD4Qvjk3pfZpNikwJuc=";
+      url = "https://pypi.org/packages/source/t/tree_sitter_zathurarc/tree_sitter_zathurarc-0.1.7.tar.gz";
+      sha256 = "sha256-boL1vS73hOUJkuut1Qsdn2NYPnHLeGY0K3AyB8OyGW8=";
     };
   };
   undollar = {
