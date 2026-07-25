@@ -5,15 +5,15 @@
     "repo": "obsproject/obs-studio",
     "skip_prerelease": true
   },
-  "version": "32.2.0",
+  "version": "32.2.1",
   "platforms": {
     "aarch64-darwin": {
       "file": "OBS-Studio-{version}-macOS-Apple.dmg",
-      "hash": "sha256-5L7X+HHvqPK7WzHRu9veHQsQFgYgUPXqsD/RbUT3oE0="
+      "hash": "sha256-YSDJlWFL4X7NDuCHdRSoixISSeYmHN5G0UQLh9f/1ww="
     },
     "x86_64-darwin": {
       "file": "OBS-Studio-{version}-macOS-Intel.dmg",
-      "hash": "sha256-fIzM0Z21dxqqOoAxJFNLLp2/Dr5c4cfO54uqpUwuIdo="
+      "hash": "sha256-aQCnptRCKVYRTKw8FI2HEwf9sFMBYMLLtOl/YkyfhaU="
     }
   }
 }
