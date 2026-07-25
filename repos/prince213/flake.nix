@@ -25,12 +25,12 @@
       };
       perSystem =
         { pkgs, ... }:
+        let
+          overlay = self.overlays.default;
+        in
         {
-          packages =
-            let
-              overlay = self.overlays.default;
-            in
-            overlay (pkgs.extend overlay) pkgs;
+          packages = overlay (pkgs.extend overlay) pkgs;
+          legacyPackages = pkgs.extend overlay;
 
           treefmt = {
             projectRootFile = "flake.nix";
