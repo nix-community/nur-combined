@@ -1,16 +1,26 @@
 name: "Build and populate cache"
 on:
   pull_request:
+    branches:
+      - staging
   push:
     branches:
-      - main
-      - master
+      - staging
   schedule:
     # rebuild everyday at 2:51
     # TIP: Choose a random time here so not all repositories are build at once:
     # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
     - cron:  '51 2 * * *'
   workflow_dispatch:
+
+# A newer push to staging (or a newer push to the same PR) makes any build
+# already in flight for that ref moot -- cancel it rather than let it run to
+# completion, and don't let a stale build promote to main out from under a
+# newer one.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   tests:
     strategy:
@@ -70,7 +80,38 @@ jobs:
           -I $PWD
     - name: Build nix packages
       run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
-    - name: Trigger NUR update
-      # Don't replace <YOUR_REPO_NAME> here!
-      if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}
-      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
+
+  ci-success:
+    name: CI success
+    needs: tests
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check build matrix result
+        run: |
+          if [ "${{ needs.tests.result }}" != "success" ]; then
+            echo "Build matrix result: ${{ needs.tests.result }}"
+            exit 1
+          fi
+
+  # `staging` is the rolling branch every update lands on and is allowed to be
+  # red; `main` only ever moves by fast-forwarding to a staging commit that
+  # has actually built (and populated the cache) right here first. Mirrors
+  # nixpkgs master (rolling, can go red) vs nixos-unstable (only ever a
+  # known-good commit).
+  promote-to-main:
+    name: Promote staging to main
+    needs: ci-success
+    if: github.event_name == 'push' && github.ref == 'refs/heads/staging'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Fast-forward main
+        run: git push origin HEAD:main
+      - name: Trigger NUR update
+        run: curl -XPOST "https://nur-update.nix-community.org/update?repo=AusCyber"
