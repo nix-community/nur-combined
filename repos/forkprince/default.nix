@@ -65,6 +65,7 @@
   obs-studio = lib.callPackage ./pkgs/obs-studio {};
   retroarch = lib.callPackage ./pkgs/retroarch {};
   overlayed = lib.callPackage ./pkgs/overlayed {};
+  parabolic = lib.callPackage ./pkgs/parabolic {};
   tiny-rdm = lib.callPackage ./pkgs/tiny-rdm {};
   openrct2 = lib.callPackage ./pkgs/openrct2 {};
   rustdesk = lib.callPackage ./pkgs/rustdesk {};
@@ -80,11 +81,10 @@
   rpcs3 = lib.callPackage ./pkgs/rpcs3 {};
   gimp = lib.callPackage ./pkgs/gimp {};
 
-  helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
-  waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
   fluxer-canary-bin = lib.callPackage ./pkgs/fluxer-canary-bin {};
   fluxer-stable-bin = lib.callPackage ./pkgs/fluxer-stable-bin {};
-  fluxer-bin = lib.warn "fluxer-bin has been renamed to fluxer-stable-bin, please update your inputs" fluxer-stable-bin;
+  helium-nightly = lib.callPackage ./pkgs/helium-nightly {};
+  waterfox-bin = lib.callPackage ./pkgs/waterfox-bin {};
 
   yaagl = lib.callPackage ./pkgs/yaagl {};
   yaagl-os = lib.callPackage ./pkgs/yaagl {region = "os";};
