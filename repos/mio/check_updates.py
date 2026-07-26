@@ -17,6 +17,22 @@ def is_stable_tag(tag, allow_prerelease=False):
         return False
     return True
 
+def filter_tags_by_prefix(tags, current_rev):
+    if not current_rev:
+        return tags
+    m = re.match(r'^([a-zA-Z_-]+[vV]?|vV?)?(\d.*)$', current_rev)
+    if m:
+        prefix = m.group(1) or ""
+        if prefix and prefix not in ('v', 'V'):
+            return [t for t in tags if t.startswith(prefix)]
+        else:
+            res = [t for t in tags if re.match(r'^[vV]?\d', t)]
+            curr_num = m.group(2)
+            if '.' in curr_num:
+                res = [t for t in res if '.' in t or t.lstrip('vV').isdigit()]
+            return res
+    return tags
+
 def get_nvfetcher_managed():
     managed = set()
     if os.path.exists('nvfetcher.toml'):
@@ -38,24 +54,21 @@ def get_nvfetcher_managed():
             pass
     return managed
 
-def get_latest_github_release(owner, repo, allow_prerelease=False):
+def get_latest_github_release(owner, repo, current_rev=None, allow_prerelease=False):
     try:
-        url = f"https://api.github.com/repos/{owner}/{repo}/releases" if allow_prerelease else f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
+        url = f"https://api.github.com/repos/{owner}/{repo}/releases"
         req = urllib.request.Request(url)
         if 'GITHUB_TOKEN' in os.environ:
             req.add_header('Authorization', f"token {os.environ['GITHUB_TOKEN']}")
         with urllib.request.urlopen(req, timeout=5) as response:
             data = json.loads(response.read().decode())
-            if allow_prerelease and isinstance(data, list) and data:
-                tag = data[0].get('tag_name')
-            elif not allow_prerelease and isinstance(data, dict):
-                tag = data.get('tag_name')
-            else:
-                tag = None
-            if tag and is_stable_tag(tag, allow_prerelease):
-                return True, tag
-            else:
-                return True, None
+            if isinstance(data, list):
+                tags = [r.get('tag_name') for r in data if r.get('tag_name')]
+                tags = filter_tags_by_prefix(tags, current_rev)
+                for tag in tags:
+                    if is_stable_tag(tag, allow_prerelease):
+                        return True, tag
+            return True, None
     except urllib.error.HTTPError as e:
         if e.code == 404:
             try:
@@ -79,13 +92,7 @@ def get_latest_github_tag_by_date(owner, repo, current_rev=None, allow_prereleas
             content = response.read().decode()
             tags = re.findall(r'href="[^"]+/releases/tag/([^"]+)"', content)
             tags = [t for t in tags if is_stable_tag(t, allow_prerelease)]
-            
-            if current_rev:
-                curr_norm = current_rev.lstrip('vV')
-                if curr_norm and curr_norm[0].isdigit():
-                    tags = [t for t in tags if re.match(r'^[vV]?\d', t)]
-                    if '.' in curr_norm:
-                        tags = [t for t in tags if '.' in t or t.lstrip('vV').isdigit()]
+            tags = filter_tags_by_prefix(tags, current_rev)
                         
             if tags:
                 return tags[0]
@@ -123,16 +130,7 @@ def get_latest_git_tag_url(url, current_rev=None, allow_prerelease=False):
             
         tags = list(set(tags))
         tags = [t for t in tags if is_stable_tag(t, allow_prerelease)]
-        
-        # Filter garbage tags
-        if current_rev:
-            curr_norm = current_rev.lstrip('vV')
-            if curr_norm and curr_norm[0].isdigit():
-                # Must start with digit
-                tags = [t for t in tags if re.match(r'^[vV]?\d', t)]
-                # If current has dot, tag must have dot OR be just digits
-                if '.' in curr_norm:
-                    tags = [t for t in tags if '.' in t or t.lstrip('vV').isdigit()]
+        tags = filter_tags_by_prefix(tags, current_rev)
                 
         if not tags:
             return None
@@ -186,6 +184,16 @@ def resolve_version(rev, content):
         
     return re.sub(r'\$\{([^}]+)\}', replacer, rev)
 
+def find_main_match(matches, content):
+    if not matches: return None
+    deriv_match = re.search(r'\b(mkDerivation|build[A-Za-z0-9]+Package|build[A-Za-z0-9]+Application|buildGoModule)\b', content)
+    if deriv_match:
+        for m in matches:
+            if m.start() > deriv_match.start(): return m
+    for m in matches:
+        if 'version' in m.group(0) or 'pname' in m.group(0): return m
+    return matches[-1]
+
 def main():
     managed = get_nvfetcher_managed()
     dirs_to_check = ['pkgs', 'by-name']
@@ -203,7 +211,6 @@ def main():
                 entry_path = os.path.join(d, entry)
                 if not os.path.isdir(entry_path) or entry.startswith('_'):
                     continue
-                # by-name uses by-name/<prefix>/<pkg>/
                 if d == 'by-name':
                     for pkg in sorted(os.listdir(entry_path)):
                         pkg_path = os.path.join(entry_path, pkg)
@@ -228,14 +235,24 @@ def main():
             if re.search(r'src\s*=\s*sources\.', content) and not any(x in content for x in ('fetchFromGitHub', 'fetchFromGitLab', 'fetchgit', 'fetchPypi', 'fetchurl')):
                 continue
                 
-            git_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
-            git_match = git_matches[0] if git_matches else None
-            fetchgit_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchgit\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
-            fetchgit_match = fetchgit_matches[0] if fetchgit_matches else None
-            fetchpypi_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.|python3Packages\.)?fetchPypi\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
-            fetchpypi_match = fetchpypi_matches[0] if fetchpypi_matches else None
-            fetchurl_matches = list(re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchurl\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL))
-            fetchurl_match = fetchurl_matches[0] if fetchurl_matches else None
+            all_matches = []
+            for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchFrom(GitHub|GitLab)\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
+                all_matches.append(('git', m))
+            for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchgit\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
+                all_matches.append(('fetchgit', m))
+            for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.|python3Packages\.)?fetchPypi\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
+                all_matches.append(('fetchpypi', m))
+            for m in re.finditer(r'\bsrc\s*=\s*(?:pkgs\.)?fetchurl\s*\{(.+?)\n\s*\}', content, re.MULTILINE | re.DOTALL):
+                all_matches.append(('fetchurl', m))
+            
+            git_match = fetchgit_match = fetchpypi_match = fetchurl_match = None
+            if all_matches:
+                all_matches.sort(key=lambda x: x[1].start())
+                best_type, best_match = all_matches[-1]
+                if best_type == 'git': git_match = best_match
+                elif best_type == 'fetchgit': fetchgit_match = best_match
+                elif best_type == 'fetchpypi': fetchpypi_match = best_match
+                elif best_type == 'fetchurl': fetchurl_match = best_match
             
             url = None
             current_rev = None
@@ -350,7 +367,7 @@ def main():
                     allow_prerelease = not is_stable_tag(current_rev)
                     latest = None
                     if pkg != "tailscale" and domain == "github.com" and owner and repo:
-                        _, latest = get_latest_github_release(owner, repo, allow_prerelease)
+                        _, latest = get_latest_github_release(owner, repo, current_rev, allow_prerelease)
                         if not latest:
                             latest = get_latest_github_tag_by_date(owner, repo, current_rev, allow_prerelease)
                     if not latest:
