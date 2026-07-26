@@ -1,5 +1,9 @@
 # Disclaimer: Some Claude Opus 4.6 was used to write this
-{ pkgs }:
+#
+# `pkgsDarktable` is an optional second nixpkgs used only as the base for the
+# darktable-spektrafilm build (see pkgs/darktable-spektrafilm/). It defaults to
+# `pkgs` so this file still works when imported standalone or via overlay.nix.
+{ pkgs, pkgsDarktable ? pkgs }:
 
 let
   # Import nixpkgs with our overlay that adds custom Python packages
@@ -78,4 +82,15 @@ in
 {
   spektrafilm = spektrafilm-pkgs.python3Packages.spektrafilm;
   spektrafilm-art = spektrafilm-art;
+
+  # darktable built from the Arecsu spektrafilm-draft branch (native C module,
+  # independent of the spektrafilm Python package above). Based on pkgsDarktable
+  # (nixpkgs-unstable) for a dependency set close to the 5.8.0 source.
+  darktable-spektrafilm =
+    pkgsDarktable.callPackage ./pkgs/darktable-spektrafilm/darktable-spektrafilm.nix { };
+
+  # Runtime film/print data pack for the module above. Link it into
+  # ~/.config/darktable/spektrafilm (see README).
+  spektrafilm-data-pack =
+    pkgs.callPackage ./pkgs/darktable-spektrafilm/data-pack.nix { };
 }
