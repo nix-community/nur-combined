@@ -1878,16 +1878,17 @@
     };
     "chrome-mask" = buildMozillaXpiAddon {
       pname = "chrome-mask";
-      version = "9.0.0";
+      version = "10.0.0";
       addonId = "chrome-mask@overengineer.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4822042/chrome_mask-9.0.0.xpi";
-      sha256 = "292dc0ccd360a6893ea34f3b70457ce29516760d64a3ae2c9d61f2687ec7ac7c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4919430/chrome_mask-10.0.0.xpi";
+      sha256 = "08dfc5fc544643c58d428f7da9563b47007f96625c009dccbb096379aefd63c8";
       meta = with lib;
       {
         homepage = "https://github.com/skyschub/chrome-mask";
         description = "Makes Firefox wear a mask to look like Chrome to websites that block Firefox otherwise.";
         license = licenses.mit;
         mozPermissions = [
+          "downloads"
           "storage"
           "tabs"
           "webRequest"
