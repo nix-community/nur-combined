@@ -9,7 +9,18 @@
 let
   packageOverlay = lib.composeManyExtensions [
     allPackagesOverlay
-    byNameOverlay
+    (
+      final: prev:
+      let
+        packages = prev.lib.concatMapAttrs (_: v: v) (
+          prev.lib.packagesFromDirectoryRecursive {
+            callPackage = final._nurCallPackage;
+            directory = ../by-name;
+          }
+        );
+      in
+      packages // { _nurPackageNames = builtins.attrNames packages; }
+    )
   ];
 
   makePackageSet = base: base.extend packageOverlay;
@@ -24,8 +35,6 @@ let
     nur-moraxyc = self;
     nixpkgs = pkgs;
   };
-
-  byNameOverlay = import ./by-name-overlay.nix ../by-name;
 
   deprecatedAliases = import ./deprecated.nix pkgs;
 
