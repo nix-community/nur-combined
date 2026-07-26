@@ -6,7 +6,7 @@ let platforms = {
   x86_64-darwin: 6
 }
 
-const sources = './pkgs/by-name/feishu-darwin/sources.json'
+const sources = './pkgs/by-name/fe/feishu-darwin/sources.json'
 
 $platforms
 | transpose system id

@@ -41,4 +41,4 @@ $platforms
 | insert version $version
 | sort
 | to json
-| save -f ./pkgs/by-name/anytype-darwin/sources.json
+| save -f ./pkgs/by-name/an/anytype-darwin/sources.json

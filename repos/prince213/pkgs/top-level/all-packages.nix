@@ -5,7 +5,9 @@ final: prev:
   };
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [ (import ./python-packages.nix) ];
 }
-// prev.lib.packagesFromDirectoryRecursive {
-  inherit (final) callPackage;
-  directory = ../by-name;
-}
+// prev.lib.concatMapAttrs (_: v: v) (
+  prev.lib.packagesFromDirectoryRecursive {
+    inherit (final) callPackage;
+    directory = ../by-name;
+  }
+)
