@@ -684,6 +684,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
         pkgs-exiv2 = pkgs.exiv2;
       };
 
+      securedrop = callPackage ./pkgs/development/python-modules/securedrop { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
@@ -1546,6 +1548,24 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
   vobsub2srt = callPackage ./pkgs/by-name/vo/vobsub2srt/package.nix { };
 
   flatcv = callPackage ./pkgs/by-name/fl/flatcv/package.nix { };
+
+  inherit
+    ({
+      zfs_2_3 = callPackage ./pkgs/os-specific/linux/zfs/2_3.nix {
+        configFile = "user";
+      };
+      zfs_2_4 = callPackage ./pkgs/os-specific/linux/zfs/2_4.nix {
+        configFile = "user";
+      };
+      zfs_unstable = callPackage ./pkgs/os-specific/linux/zfs/unstable.nix {
+        configFile = "user";
+      };
+    })
+    zfs_2_3
+    zfs_2_4
+    zfs_unstable
+    ; 
+  zfs = zfs_2_4;
 
 }
 
