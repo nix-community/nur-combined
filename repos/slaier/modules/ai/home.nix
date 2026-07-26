@@ -14,12 +14,14 @@ let
     {
       package,
       name ? package.meta.mainProgram,
+      program ? package.meta.mainProgram,
       runtimeEnv ? null,
       runtimeEnvFile ? null,
       flags ? "",
     }:
     pkgs.writeShellApplication {
       inherit name runtimeEnv;
+      derivationArgs.version = pkgs.claude-code.version;
       text =
         lib.optionalString (runtimeEnvFile != null) (
           lib.concatMapAttrsStringSep "" (name: value: ''
@@ -28,12 +30,13 @@ let
           '') runtimeEnvFile
         )
         + ''
-          exec ${lib.getExe package} ${flags} "$@"
+          exec ${lib.getExe' package program} ${flags} "$@"
         '';
     };
 in
 {
   home.packages = with pkgs; [
+    free-claude-code
     rtk
   ];
   sops.secrets = {
@@ -77,19 +80,9 @@ in
             "--tools"
             (lib.concatStringsSep "," [
               "get_file_contents"
-              "get_latest_release"
               "get_repository_tree"
-              "get_tag"
-              "issue_read"
-              "pull_request_read"
-              "list_branches"
-              "list_commits"
-              "list_releases"
               "list_tags"
               "search_code"
-              "search_issues"
-              "search_pull_requests"
-              "search_repositories"
             ])
           ];
         };
@@ -99,21 +92,14 @@ in
     enable = true;
 
     package = mkShellApp {
-      package = pkgs.claude-code;
+      name = "my-claude";
+      package = pkgs.free-claude-code;
+      program = "fcc-claude";
       flags = "--add-dir ${rtkMD}";
-      runtimeEnv =
-        let
-          ANTHROPIC_MODEL = "stepfun-ai/step-3.5-flash";
-        in
-        {
-          ANTHROPIC_BASE_URL = "http://127.0.0.1:4000";
-          ANTHROPIC_AUTH_TOKEN = "dummy";
-          inherit ANTHROPIC_MODEL;
-          ANTHROPIC_DEFAULT_HAIKU_MODEL = ANTHROPIC_MODEL;
-          ANTHROPIC_DEFAULT_SONNET_MODEL = ANTHROPIC_MODEL;
-          ANTHROPIC_DEFAULT_OPUS_MODEL = ANTHROPIC_MODEL;
-          CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD = "1";
-        };
+      runtimeEnv = {
+        CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD = "1";
+        CLAUDE_CODE_ATTRIBUTION_HEADER = "0";
+      };
     };
 
     configDir = "${config.xdg.configHome}/claude";
@@ -161,10 +147,10 @@ in
           "Bash(*)"
           "Edit"
           "WebFetch"
+          "WebSearch"
           "Write"
         ];
         deny = [
-          "WebSearch"
           "Read(./.env)"
           "Read(./secrets/**)"
           "Read(**/*.pem)"

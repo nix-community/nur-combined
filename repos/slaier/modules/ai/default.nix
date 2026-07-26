@@ -1,5 +1,4 @@
 {
-  config,
   pkgs,
   ...
 }:
@@ -63,37 +62,6 @@ let
   '';
 in
 {
-  services.litellm = {
-    enable = true;
-    package = pkgs.litellm.overrideAttrs (prev: {
-      propagatedBuildInputs = prev.propagatedBuildInputs ++ [
-        pkgs.python3Packages.diskcache
-      ];
-    });
-    port = 4000;
-    environmentFile = config.sops.secrets.litellm.path;
-    settings = {
-      model_list = [
-        {
-          model_name = "stepfun-ai/step-3.5-flash";
-          litellm_params = {
-            model = "nvidia_nim/stepfun-ai/step-3.5-flash";
-            api_key = "os.environ/NVIDIA_NIM_API_KEY";
-          };
-        }
-      ];
-      litellm_settings = {
-        cache = true;
-        cache_params = {
-          type = "disk";
-          disk_cache_dir = "/var/cache/litellm";
-        };
-        drop_params = true;
-      };
-    };
-  };
-  systemd.services.litellm.serviceConfig.CacheDirectory = "litellm";
-  sops.secrets.litellm = { };
   services.llama-cpp = {
     enable = true;
     package = llama-cpp;

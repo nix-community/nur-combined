@@ -36,7 +36,6 @@
     "amdgpu.aspm=0"
     "amdgpu.runpm=0"
     "zswap.enabled=1"
-    "ttm.pages_limit=6291456"
     "threadirqs"
   ];
 

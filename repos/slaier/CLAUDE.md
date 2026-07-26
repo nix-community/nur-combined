@@ -2,10 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-# AGENTS.md
-
-NixOS single-host config (x86_64-linux) using Nix flakes with auto-discovered modules.
-
 ## Commands
 
 - `just` — test config (`sudo nixos-rebuild test --flake .#local`)
@@ -33,6 +29,13 @@ The dev shell (`.envrc` via direnv) provides `just`, `nixos-rebuild`, `sops`, `n
 | `overlay.nix`  | NixOS overlay                           | `overlays` output                |
 
 **Critical**: directories prefixed with `_` (e.g. `_archive`, `_experimental`) are skipped. Only the filenames above are recognized — any other filename is ignored. To add a new module, create a directory under `modules/` with the correct file name.
+
+## Modifying Modules: Best Practices
+
+1. **Verify Discovery**: Ensure your file matches the exact names above. If you rename a file to `other.nix`, it will be silently ignored.
+2. **Testing**: Always run `just` (nixos-rebuild test) before committing. If you are modifying packages, use `nix build .#packages.x86_64-linux.<name>` to verify the build.
+3. **Secrets**: If adding new secrets, ensure they are encrypted via `sops` and referenceable by the module.
+4. **Formatting**: Always run `nix fmt` before committing to avoid CI linting failures.
 
 ## Architecture
 
