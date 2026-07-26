@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "facebook-container";
-  version = "2.3.11";
+  version = "2.3.12";
 
   src = fetchFromGitHub {
     owner = "mozilla";
     repo = "contain-facebook";
     tag = finalAttrs.version;
-    hash = "sha256-T9VjUQt/RWYmmUFf4lKPvzyF48RyWNLjPr3tVg1lpc4=";
+    hash = "sha256-sD38A/RE8y9E0M/SpV1KcZ+w4/PwFYeshiTRPbkDWic=";
   };
 
   dontBuild = true;
