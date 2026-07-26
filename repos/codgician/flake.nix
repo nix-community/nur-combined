@@ -50,7 +50,7 @@
         }
       );
 
-      # Tooling shell for package update scripts, OpenCode automation, and CI checks.
+      # Shared tooling shell for local development and every CI harness command.
       # Keep every command used by those workflows pinned through this flake.
       devShells = forAllSystems (
         system:
@@ -80,13 +80,16 @@
               nix-prefetch-git
               prefetch-npm-deps
               nurl
-              # OpenCode package review/repair agent
-              opencode
+              # Pi package review/repair agent
+              pi-coding-agent
             ];
 
             # Make sure update scripts can find the repository root.
             shellHook = ''
               export NIX_PATH="nixpkgs=${pkgs.path}"
+              export PI_OFFLINE=1
+              export PI_TELEMETRY=0
+
             '';
           };
         }

@@ -1,0 +1,16 @@
+{
+  "providers": {
+    "dendro": {
+      "baseUrl": "https://dendro.codgician.me/v1",
+      "api": "openai-completions",
+      "apiKey": "$DENDRO_API_KEY",
+      "models": [
+        {
+          "id": "gpt-5.6-terra",
+          "name": "gpt-5.6-terra",
+          "reasoning": true
+        }
+      ]
+    }
+  }
+}

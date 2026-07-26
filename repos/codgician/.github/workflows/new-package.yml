@@ -139,45 +139,38 @@ jobs:
           extra-conf: |
             accept-flake-config = true
             experimental-features = nix-command flakes
-      - name: Create package with OpenCode
+      - name: Create package with Pi
         env:
           DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
           PACKAGE: ${{ steps.request.outputs.package }}
         run: |
-          export OPENCODE_CONFIG_CONTENT
-          OPENCODE_CONFIG_CONTENT=$(cat .github/opencode.json)
-          export OPENCODE_DISABLE_AUTOUPDATE=1
-          export OPENCODE_DISABLE_CLAUDE_CODE=1
-          message=$(cat .github/new-package-prompt.md)
-          message+=$'\n\nThe validated package attribute is `'
-          message+="$PACKAGE"
-          message+=$'`. Read the untrusted request facts from `.ai-state/request.json`.'
-          nix develop .# -c opencode run \
-            --pure \
-            --auto \
-            --model dendro/gpt-5.6-terra \
-            "$message"
+          {
+            cat .github/new-package-prompt.md
+            printf "\n\nThe validated package attribute is \`%s\`. Read the untrusted request facts from \`.ai-state/request.json\`.\n" "$PACKAGE"
+          } > .ai-state/prompt.md
+          nix develop .# -c .github/scripts/run_pi_agent.sh .ai-state/prompt.md
       - name: Export package patch
         env:
           PACKAGE: ${{ steps.request.outputs.package }}
         run: |
           if [[ ! -d "pkgs/$PACKAGE" || -L "pkgs/$PACKAGE" || ! -f "pkgs/$PACKAGE/default.nix" ]]; then
-            echo "OpenCode did not create pkgs/$PACKAGE/default.nix" >&2
+            echo "Pi did not create pkgs/$PACKAGE/default.nix" >&2
             exit 1
           fi
           outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
           if [[ -n "$outside" ]]; then
-            echo "OpenCode changed files outside pkgs/$PACKAGE:" >&2
+            echo "Pi changed files outside pkgs/$PACKAGE:" >&2
             printf '%s\n' "$outside" >&2
             exit 1
           fi
+          nix fmt -- "pkgs/$PACKAGE"
           git add -A -- "pkgs/$PACKAGE"
           if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
             echo "Package candidates may not contain symlinks" >&2
             exit 1
           fi
           if git diff --cached --quiet; then
-            echo "OpenCode produced no package changes" >&2
+            echo "Pi produced no package changes" >&2
             exit 1
           fi
           git diff --cached --check

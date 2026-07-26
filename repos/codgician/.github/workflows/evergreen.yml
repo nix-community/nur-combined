@@ -217,24 +217,16 @@ jobs:
             --arg deterministic_state "$deterministic_state" \
             '{package: $package, route: "ai", updater_exit: $updater_exit, version_state: $version_state, deterministic_validation: $deterministic_state, updater_log: ".ai-state/updater.log", version_log: (if $version_state == "" then null else ".ai-state/version-validation.log" end), deterministic_log: (if $deterministic_state == "not-run" then null else ".ai-state/deterministic-validation.log" end)}' \
             > .ai-state/state.json
-      - name: Review or repair with OpenCode
+      - name: Review or repair with Pi
         if: steps.route.outputs.route == 'ai'
         env:
           DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
         run: |
-          export OPENCODE_CONFIG_CONTENT
-          OPENCODE_CONFIG_CONTENT=$(cat .github/opencode.json)
-          export OPENCODE_DISABLE_AUTOUPDATE=1
-          export OPENCODE_DISABLE_CLAUDE_CODE=1
-          message=$(cat .github/evergreen-review-prompt.md)
-          message+=$'\n\nThe validated package attribute is `'
-          message+="$PACKAGE"
-          message+=$'`. Read the evidence under `.ai-state/`.'
-          nix develop .# -c opencode run \
-            --pure \
-            --auto \
-            --model dendro/gpt-5.6-terra \
-            "$message"
+          {
+            cat .github/evergreen-review-prompt.md
+            printf "\n\nThe validated package attribute is \`%s\`. Read the evidence under \`.ai-state/\`.\n" "$PACKAGE"
+          } > .ai-state/prompt.md
+          nix develop .# -c .github/scripts/run_pi_agent.sh .ai-state/prompt.md
       - name: Export candidate
         env:
           ROUTE: ${{ steps.route.outputs.route }}
@@ -257,6 +249,7 @@ jobs:
             printf '%s\n' "$outside" >&2
             exit 1
           fi
+          nix fmt -- "pkgs/$PACKAGE"
           git add -A -- "pkgs/$PACKAGE"
           .github/scripts/validate_package_source.sh "pkgs/$PACKAGE"
           if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
@@ -545,7 +538,7 @@ jobs:
                 continue;
               }
 
-              const review = prepare.steps.find((step) => step.name === "Review or repair with OpenCode");
+              const review = prepare.steps.find((step) => step.name === "Review or repair with Pi");
               rows.push([packageName, review?.conclusion === "success" ? "AI-repaired candidate" : "deterministic candidate"]);
             }
 

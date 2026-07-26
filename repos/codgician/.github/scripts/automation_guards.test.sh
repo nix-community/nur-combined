@@ -66,3 +66,9 @@ if .github/scripts/validate_package_source.sh "$tmpdir/package" >/dev/null 2>&1;
   echo 'CI credential reference unexpectedly passed the package-source guard' >&2
   exit 1
 fi
+
+models=$(PACKAGE=pi-guard-test DENDRO_API_KEY=test .github/scripts/run_pi_agent.sh --check)
+if [[ "$models" != *dendro* || "$models" != *gpt-5.6-terra* ]]; then
+  echo 'Pinned Pi environment did not load the Dendro model' >&2
+  exit 1
+fi
