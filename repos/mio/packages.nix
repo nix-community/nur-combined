@@ -51,6 +51,54 @@ in
 byName
 // (with byName; rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
+
+  # https://github.com/a1ive/grub — a1ive's GRUB fork with mouse/touchscreen support
+  # (efi_mouse + ps2mouse modules). Archived upstream but buildable.
+  grub2-a1ive =
+    let
+      # a1ive's fork requires this specific gnulib revision (different from nixpkgs grub2)
+      gnulib-a1ive = pkgs.fetchgit {
+        url = "https://git.savannah.gnu.org/git/gnulib.git";
+        rev = "d271f868a8df9bbec29049d01e056481b7a1a263";
+        hash = "sha256-AON1MEfEbSTZMeDDwawRDUD22/4+jIiWYnk35xg7ZSk=";
+      };
+    in
+    pkgs.grub2_efi.overrideAttrs (old: {
+      src = pkgs.fetchFromGitHub {
+        owner = "a1ive";
+        repo = "grub";
+        rev = "77322411ddd574b461ca7c2b666c881bae51d8bd";
+        sha256 = "0l51g7cm32dkamg3bgc58129rsdpvj2zjj4ff6w7c5ias7mzjzb0";
+      };
+      patches = [ ];
+      # Fix GCC-15 / C23 keyword conflicts with gnulib's stdbool by enforcing gnu11
+      # Disable Werror since the older a1ive fork triggers warnings in newer GCC
+      env.NIX_CFLAGS_COMPILE = "-std=gnu11 -Wno-error";
+      configureFlags = builtins.filter (f: f != "--enable-grub-mount") (old.configureFlags or [ ]) ++ [
+        "--disable-nls"
+      ];
+      preConfigure = ''
+        chmod -R u+w .
+        # gnulib-tool writes into its own srcdir, so give it a writable copy
+        cp -r ${gnulib-a1ive} gnulib-writable
+        chmod -R u+w gnulib-writable
+        # stub missing dist-only file
+        mkdir -p docs
+        touch docs/org.gnu.grub.policy
+        # remove po from SUBDIRS to completely skip translations build
+        sed -i 's/ po / /g' Makefile.am
+        # bootstrap populates grub-core/lib/gnulib/ but then fails at autoreconf
+        # because Makefile.util.am doesn't exist yet in a git checkout — that's OK
+        ./bootstrap --no-git --gnulib-srcdir=gnulib-writable || true
+        # now generate Makefile.util.am + grub-core/Makefile.core.am via Python,
+        # then run autoreconf properly
+        bash ./autogen.sh
+      '';
+      # skip 'make dist' in postConfigure — the a1ive fork lacks some dist-only targets
+      postConfigure = "";
+      postBuild = "";
+    });
+
   minetest591 = pkgs.callPackage ./pkgs/minetest591 {
     stdenv = v3Optimizations pkgs.clangStdenv;
   };
