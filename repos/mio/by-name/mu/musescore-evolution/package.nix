@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
     "--prefix"
     "${lib.optionalString stdenv.hostPlatform.isDarwin "DY"}LD_LIBRARY_PATH"
     ":"
-    "${lib.makeLibraryPath [ libjack2 ]}"
+    (lib.makeLibraryPath [ libjack2 ])
   ]
   ++ lib.optionals stdenv.hostPlatform.isLinux [
     "--set"
