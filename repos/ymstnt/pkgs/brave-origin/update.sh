@@ -1,5 +1,6 @@
 #!/usr/bin/env nix-shell
 #!nix-shell --pure --keep NIX_PATH -i bash -p bash cacert curl jq nix
+cd "$(dirname "${BASH_SOURCE[0]}")"
 
 FILE="default.nix"
 
