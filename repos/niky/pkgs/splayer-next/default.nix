@@ -3,7 +3,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  pnpm_10,
+  pnpm,
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
@@ -24,18 +24,18 @@
 }:
 let
   electron = electron_41;
-  pnpm = pnpm_10; # pnpm_10_29_2 is insecure and Nix refuses to build it
+  # pnpm = pnpm_10; # pnpm_10_29_2 is insecure and Nix refuses to build it
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260724";
+  version = "1.0.0-20260726";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "c10b8f33eb25ffd7287186911f00261879b774d7"; # No releases yet
+    rev = "67145444ff26fecdf2363f4aa9eb34878d8b5fac"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-h27tW4nE27IdvSciNGmUT6F4BpodGeTVOCih9SNlBoQ=";
+    hash = "sha256-REL8lQ7EFZkG+X/i2Y9nlkdtZsGF8TWKthHGnr4eJOs=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -45,8 +45,8 @@ stdenv.mkDerivation (finalAttrs: {
       src
       ;
     inherit pnpm;
-    fetcherVersion = 3;
-    hash = "sha256-yhP/G9eAGeighszF7Rpt5RIQGGVdNl1vpKz/HrOM0SU=";
+    fetcherVersion = 4;
+    hash = "sha256-iDyl4k+JWr3eXF/bzi2Znc1TlEvwIq9GuKX++hakDOc=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -55,7 +55,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "sha256-pvB+OrpX/kuyMdH5NSh5/ueNEeYVY3yg2pGTZNLJ1+g=";
+    hash = "sha256-QShLrkG1uZiPZvYnS3eszQZAvmCmZe4rgiEt7UFGZc8=";
   };
 
   nativeBuildInputs = [
