@@ -15,25 +15,32 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "4e55e384cd66775bb8d502838e18cf4cbeefbe32";
-    hash = "sha256-d6qrb6pwf2nVZ4EMVO0lxHAYkDggLQXER4iTJUX7/Ug=";
+    rev = "7b3592965af60e3fb053cd09c46919914cc80877";
+    hash = "sha256-hMib3QZvKQBZI0FNZtRedQSm/VLd/6fNitJ8AHKClZ8=";
   };
 
-  version = "0-unstable-2026-07-21";
+  version = "0-unstable-2026-07-24";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
     src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
-    npmDepsHash = "sha256-Gf53euGKcC0LQ6I1pCo+t6tXnuqv9bfFPYhz0lcNBSM=";
+    npmDepsHash = "sha256-GWuITQpRMHbwJvhxIsj1Dvqnc3I2rMpHOU9I/nGV3Zs=";
     dontNpmBuild = true;
 
-    # The upstream lockfile pins some packages to Aiursoft's private npm
-    # registry, which is unreliable (Cloudflare 525 errors). Fetch them from
-    # the official registry instead; the tarballs are byte-identical.
-    postPatch = ''
+    # The upstream lockfile and npm config point to Aiursoft's private registry,
+    # which is unreliable (Cloudflare 525 errors). Fetch from the official
+    # registry instead; the tarballs are byte-identical.
+    prePatch = ''
       substituteInPlace package-lock.json \
         --replace-fail "https://npm.aiursoft.com/" "https://registry.npmjs.org/"
+      substituteInPlace .npmrc \
+        --replace-fail "https://npm.aiursoft.com" "https://registry.npmjs.org"
+
+      # The manifest requests a version not in the lockfile or public registry.
+      uiStackVersion=$(sed -n '0,/"node_modules\/@aiursoft\/uistack":/s/^[[:space:]]*"@aiursoft\/uistack": "\([^"]*\)".*/\1/p' package-lock.json)
+      test -n "$uiStackVersion"
+      sed -i -E 's#("@aiursoft/uistack": ")[^"]*(")#\1'"$uiStackVersion"'\2#' package.json
     '';
 
     installPhase = ''
