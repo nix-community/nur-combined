@@ -220,7 +220,7 @@ def main():
                     yield entry, entry_path
 
     for pkg, pkg_path in iter_package_dirs():
-            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11'] or 'plugin' in pkg:
+            if pkg in ['polkit', 'minetest580', 'minetest591', 'irrlichtmt', 'ogre-1_11', 'electron_castlabs_38', 'audacity4', 'ocaml-index'] or 'plugin' in pkg:
                 continue
                 
             pkg_nix = os.path.join(pkg_path, 'package.nix')
