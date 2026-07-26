@@ -44,6 +44,6 @@ jobs:
     - name: Enable auto-merge
       if: steps.cpr.outputs.pull-request-number
       run: |
-        gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
+        gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
       env:
         GH_TOKEN: ${{ steps.app-token.outputs.token }}
