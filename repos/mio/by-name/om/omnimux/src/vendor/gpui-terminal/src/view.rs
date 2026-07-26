@@ -1110,6 +1110,19 @@ impl TerminalView {
         }
     }
 
+    /// End any held local selection / SGR mouse press.
+    ///
+    /// Call on window deactivate (alt-tab) or other host-level recovery so a
+    /// lost mouse-up cannot leave tmux or local select stuck.
+    pub fn release_pointer_press(&mut self, cx: &mut Context<Self>) {
+        if self.mouse_pressed.is_none() && !self.selecting {
+            return;
+        }
+        let hit = *self.hit_test.lock();
+        let position = hit.content_origin;
+        self.end_pointer_press(position, Modifiers::default(), cx);
+    }
+
     /// Handle mouse up events — finish local selection or SGR release.
     fn on_mouse_up(
         &mut self,
@@ -1795,6 +1808,24 @@ impl Render for TerminalView {
                             },
                             cx,
                         );
+
+                        // Zed-style: keep extending drag/select while the button is
+                        // held even if the pointer left this hitbox (title bar, etc.).
+                        // Hovered moves also hit `on_mouse_move`; last_mouse_cell
+                        // dedupes SGR floods.
+                        window.on_mouse_event({
+                            let view = view_entity.clone();
+                            move |e: &MouseMoveEvent, phase, window, cx| {
+                                if phase != DispatchPhase::Bubble {
+                                    return;
+                                }
+                                view.update(cx, |this, cx| {
+                                    if this.selecting || this.mouse_pressed.is_some() {
+                                        this.on_mouse_move(e, window, cx);
+                                    }
+                                });
+                            }
+                        });
 
                         // Draw IME pre-edit text over the terminal at the cursor
                         if !marked_text.is_empty() {

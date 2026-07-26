@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "konfyt";
-  version = "38c87ef";
+  version = "1100c2b";
 
   src = fetchFromGitHub {
     owner = "noedigcode";
     repo = "konfyt";
-    rev = "38c87ef";
-    hash = "sha256-0o+AeobChDAdDKHD+jGRKiRy3E0vHWX1T035JsCh0WM=";
+    rev = "1100c2b";
+    hash = "sha256-JXhEdVh9KJ1HqdSdDM63I73lkwUncK0L4UkxiecznP4=";
   };
 
   nativeBuildInputs = [

@@ -232,6 +232,9 @@ pub(crate) struct WaylandClientState {
     button_pressed: Option<MouseButton>,
     mouse_focused_window: Option<WaylandWindowStatePtr>,
     keyboard_focused_window: Option<WaylandWindowStatePtr>,
+    /// Window that received the current pointer MouseDown. Kept across
+    /// `wl_pointer::Leave` so the matching Button release is not dropped.
+    pointer_button_window: Option<WaylandWindowStatePtr>,
     // Touch tracking (wl_touch → mouse / scroll emulation)
     active_touch_id: Option<i32>,
     touch_location: Option<Point<Pixels>>,
@@ -630,6 +633,7 @@ impl WaylandClient {
             button_pressed: None,
             mouse_focused_window: None,
             keyboard_focused_window: None,
+            pointer_button_window: None,
             active_touch_id: None,
             touch_location: None,
             second_touch_id: None,
@@ -1573,7 +1577,11 @@ impl Dispatch<wl_pointer::WlPointer, ()> for WaylandClientStatePtr {
             } => {
                 state.serial_tracker.update(SerialKind::MouseEnter, serial);
                 state.mouse_location = Some(point(px(surface_x as f32), px(surface_y as f32)));
-                state.button_pressed = None;
+                // Do not clear an in-flight press that survived Leave — the user
+                // may still be holding the button (drag outside then back in).
+                if state.pointer_button_window.is_none() {
+                    state.button_pressed = None;
+                }
 
                 if let Some(window) = get_window(&mut state, &surface.id()) {
                     state.mouse_focused_window = Some(window.clone());
@@ -1604,13 +1612,17 @@ impl Dispatch<wl_pointer::WlPointer, ()> for WaylandClientStatePtr {
             wl_pointer::Event::Leave { .. } => {
                 if let Some(focused_window) = state.mouse_focused_window.clone() {
                     let input = PlatformInput::MouseExited(MouseExitEvent {
-                        position: state.mouse_location.unwrap(),
+                        position: state.mouse_location.unwrap_or_default(),
                         pressed_button: state.button_pressed,
                         modifiers: state.modifiers,
                     });
                     state.mouse_focused_window = None;
-                    state.mouse_location = None;
-                    state.button_pressed = None;
+                    // Keep location + button_pressed while a press is captured so
+                    // the eventual Button release can still deliver MouseUp.
+                    if state.pointer_button_window.is_none() {
+                        state.mouse_location = None;
+                        state.button_pressed = None;
+                    }
 
                     drop(state);
                     focused_window.handle_input(input);
@@ -1653,11 +1665,11 @@ impl Dispatch<wl_pointer::WlPointer, ()> for WaylandClientStatePtr {
                 state.serial_tracker.update(SerialKind::MousePress, serial);
                 let button = linux_button_to_gpui(button);
                 let Some(button) = button else { return };
-                if state.mouse_focused_window.is_none() {
-                    return;
-                }
                 match button_state {
                     wl_pointer::ButtonState::Pressed => {
+                        if state.mouse_focused_window.is_none() {
+                            return;
+                        }
                         if let Some(window) = state.keyboard_focused_window.clone() {
                             if state.composing && state.text_input.is_some() {
                                 drop(state);
@@ -1697,6 +1709,7 @@ impl Dispatch<wl_pointer::WlPointer, ()> for WaylandClientStatePtr {
                         state.click.last_location = state.mouse_location.unwrap();
 
                         state.button_pressed = Some(button);
+                        state.pointer_button_window = state.mouse_focused_window.clone();
 
                         if let Some(window) = state.mouse_focused_window.clone() {
                             let input = PlatformInput::MouseDown(MouseDownEvent {
@@ -1712,13 +1725,26 @@ impl Dispatch<wl_pointer::WlPointer, ()> for WaylandClientStatePtr {
                     }
                     wl_pointer::ButtonState::Released => {
                         state.button_pressed = None;
+                        let position = state.mouse_location.unwrap_or_default();
+                        let click_count = state.click.current_count;
+                        let modifiers = state.modifiers;
+                        // Prefer the current hover target; fall back to the window
+                        // that got MouseDown so Leave cannot orphan the Up.
+                        let window = state
+                            .mouse_focused_window
+                            .clone()
+                            .or_else(|| state.pointer_button_window.take());
+                        state.pointer_button_window = None;
+                        if state.mouse_focused_window.is_none() {
+                            state.mouse_location = None;
+                        }
 
-                        if let Some(window) = state.mouse_focused_window.clone() {
+                        if let Some(window) = window {
                             let input = PlatformInput::MouseUp(MouseUpEvent {
                                 button,
-                                position: state.mouse_location.unwrap(),
-                                modifiers: state.modifiers,
-                                click_count: state.click.current_count,
+                                position,
+                                modifiers,
+                                click_count,
                             });
                             drop(state);
                             window.handle_input(input);

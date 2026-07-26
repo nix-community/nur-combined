@@ -18,6 +18,17 @@ impl TerminalTabs {
         }
     }
 
+    /// End stuck mouse/touch presses in every tab (window blur, etc.).
+    pub(crate) fn release_all_pointer_presses(&mut self, cx: &mut Context<Self>) {
+        for session in &self.tabs {
+            session.update(cx, |session, cx| {
+                session.terminal_view.update(cx, |tv, cx| {
+                    tv.release_pointer_press(cx);
+                });
+            });
+        }
+    }
+
     pub(crate) fn activate_tab_at(
         &mut self,
         index: usize,

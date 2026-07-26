@@ -172,6 +172,10 @@ impl TerminalTabs {
             cx.observe_window_activation(window, |this, window, cx| {
                 if window.is_window_active() {
                     this.restore_terminal_focus(window, cx);
+                } else {
+                    // Ghostty-style: release held mouse/touch on blur so alt-tab
+                    // mid-drag cannot leave tmux selection stuck.
+                    this.release_all_pointer_presses(cx);
                 }
             }),
             cx.on_app_quit(|this, cx| {

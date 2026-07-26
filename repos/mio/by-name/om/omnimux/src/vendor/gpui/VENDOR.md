@@ -60,6 +60,9 @@ Source of the touch logic:
   cannot orphan MouseUp, Cancel synthesizes MouseUp (not only MouseExited),
   and ending a two-finger scroll does not re-assert `button_pressed` (stuck
   tmux/local drag after lift).
+- Pointer MouseDown similarly remembers `pointer_button_window` across
+  `wl_pointer::Leave`, so Button release still delivers MouseUp (same orphan
+  class as touch). Enter does not clear an in-flight press.
 - Touch uses the same multi-click (`click_count`) tracking as `wl_pointer`, so
   title-bar double-tap can maximize like a mouse double-click.
 - `Pixels`: use `f32::from(...)` instead of `.as_f32()` (not on 0.2.2).
