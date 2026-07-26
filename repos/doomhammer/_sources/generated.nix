@@ -8,16 +8,16 @@
 {
   gitpane = {
     pname = "gitpane";
-    version = "v0.8.2";
+    version = "v0.9.1";
     src = fetchFromGitHub {
       owner = "affromero";
       repo = "gitpane";
-      rev = "v0.8.2";
+      rev = "v0.9.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ZeeG9tRkQ4c+/+ZPVzOzzLQTJleZupbhwjEtJTK+CyA=";
+      sha256 = "sha256-gly6+LGr1q0Tr9/rbDbbyuF0Pvh1KhHVQIywmUt5YLc=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-ZeeG9tRkQ4c+_+ZPVzOzzLQTJleZupbhwjEtJTK+CyA=/Cargo.lock";
+      lockFile = ./. + "/sha256-gly6+LGr1q0Tr9_rbDbbyuF0Pvh1KhHVQIywmUt5YLc=/Cargo.lock";
       outputHashes = {
         
       };
@@ -31,42 +31,25 @@
       sha256 = "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=";
     };
   };
-  mermaid-rs-renderer = {
-    pname = "mermaid-rs-renderer";
-    version = "v0.2.2";
-    src = fetchFromGitHub {
-      owner = "1jehuang";
-      repo = "mermaid-rs-renderer";
-      rev = "v0.2.2";
-      fetchSubmodules = false;
-      sha256 = "sha256-iV9kiAaGMVDfWu2BGbalw5NmzmTEsbZWWCh6oQ9BroY=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-iV9kiAaGMVDfWu2BGbalw5NmzmTEsbZWWCh6oQ9BroY=/Cargo.lock";
-      outputHashes = {
-        
-      };
-    };
-  };
   omniwm = {
     pname = "omniwm";
-    version = "v0.5.2.1";
+    version = "v0.5.9";
     src = fetchurl {
-      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.5.2.1/OmniWM-v0.5.2.1.zip";
-      sha256 = "sha256-V0Zj6P94iAou3rYpA+CCz1Vq8Ko3cETuzFtveGD4idc=";
+      url = "https://github.com/BarutSRB/OmniWM/releases/download/v0.5.9/OmniWM-v0.5.9.zip";
+      sha256 = "sha256-oaOCTpUQFQnrzlV2OSMsVwvaDcgefUTFFkKiRMB28nQ=";
     };
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "3a6d076c5169d693e6271d5af5038036bd591bbd";
+    version = "34787bf38ce429a84f94ae00a73418e32cc1abb8";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "3a6d076c5169d693e6271d5af5038036bd591bbd";
+      rev = "34787bf38ce429a84f94ae00a73418e32cc1abb8";
       fetchSubmodules = false;
-      sha256 = "sha256-H9A7nwt0NkyPqN+iOZ9BU24dkAvvfZxucVSPhNx9WPA=";
+      sha256 = "sha256-hffz5Ae/INkYXRgZVX4FNejCbqC1l1aTigFRDFe8cYM=";
     };
-    date = "2026-05-29";
+    date = "2026-07-06";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
