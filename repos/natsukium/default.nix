@@ -21,6 +21,10 @@ rec {
 
   copyq = pkgs.copyq;
   emacs-plus = pkgs.callPackage ./pkgs/emacs-plus { source = sources.emacs-plus; };
+  emacs31-plus = pkgs.callPackage ./pkgs/emacs-plus {
+    source = sources.emacs-plus;
+    emacs = pkgs.emacs31;
+  };
   google-japanese-input = pkgs.callPackage ./pkgs/google-japanese-input { };
   hammerspoon = pkgs.callPackage ./pkgs/hammerspoon { source = sources.hammerspoon; };
   ligaturizer = pkgs.callPackage ./pkgs/ligaturizer { };
