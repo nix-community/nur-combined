@@ -2,25 +2,28 @@
   lib,
   stdenvNoCC,
   bun,
+  clang,
+  cmake,
   fetchFromGitHub,
   rustPlatform,
   makeBinaryWrapper,
   writableTmpDirAsHomeHook,
   nodejs,
+  opus,
   pkg-config,
   wayland,
   libxcb,
 }:
 
 let
-  version = "17.1.0";
+  version = "17.1.3";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-Ul8id6IZ9m8VlLt/3odU7bkMkYS9+DUlK0eU8pzGbVE=";
+    hash = "sha256-TCDYc+qJDn2z7EwdwE4RIFFUQBmobaPPynZiGC8Ysjc=";
   };
 
   # Platform mapping
@@ -69,7 +72,7 @@ let
       runHook postInstall
     '';
 
-    outputHash = "sha256-vVJ4yQ3qzYj7j9TDbeCUGcThdiOC3vtpBSdx6iuN4XI=";
+    outputHash = "sha256-w2G4BX+zAnF5u0yY8Bu2NFL3E/iyP5TnMt/LD0x1MTs=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -81,20 +84,24 @@ let
     pname = "${pname}-pi-natives";
     inherit version src;
 
-    cargoHash = "sha256-OLHYQphrIx5i0M1oXNOWLwrcGFdCZrH2lV0VggV7hGQ=";
+    cargoHash = "sha256-47qCSiHyDLyKxo/xcBOXHA38Cg0VSP/asO2tYzoecOE=";
 
     nativeBuildInputs = [
       bun
+      clang
+      cmake
       pkg-config
       nodejs
     ];
 
     buildInputs = [
+      opus
       wayland
       libxcb
     ];
 
     RUSTC_BOOTSTRAP = "1";
+    LIBCLANG_PATH = "${clang.cc.lib}/lib";
 
     # Use gcc.arch if user configured it (nix.conf gccarch-* → nixpkgs.config.gccArch)
     # Otherwise let upstream auto-detect: avx2 → modern/v3, else baseline/v2

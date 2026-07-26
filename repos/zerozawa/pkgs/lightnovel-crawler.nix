@@ -23,12 +23,12 @@ let
   # lncrawl-scraper — HTTP scraper with Cloudflare bypass (extracted from bundled cloudscraper)
   lncrawl-scraper = python3Packages.buildPythonPackage rec {
     pname = "lncrawl-scraper";
-    version = "0.2.4";
+    version = "0.2.5";
     pyproject = true;
     src = fetchPypi {
       pname = "lncrawl_scraper";
       inherit version;
-      hash = "sha256-y2UzS8h/JkqMooYImVoljM84GqNJuAQnaPVuRM41hWg=";
+      hash = "sha256-cbi2hDwfJ/7+0RGREAiAGBMBYReoFwlHCIy2TZY+ntc=";
     };
     build-system = with python3Packages; [ hatchling ];
     propagatedBuildInputs = with python3Packages; [
@@ -40,6 +40,28 @@ let
     ];
     # curl-cffi is an optional C/Rust extension used by [all] extra
     pythonRemoveDeps = [ "curl-cffi" ];
+    doCheck = false;
+  };
+
+  # lncrawl-translator — Translation module for lightnovel-crawler
+  lncrawl-translator = python3Packages.buildPythonPackage rec {
+    pname = "lncrawl-translator";
+    version = "0.2.1";
+    pyproject = true;
+    src = fetchPypi {
+      pname = "lncrawl_translator";
+      inherit version;
+      hash = "sha256-LG6dYsYGYMVv7r4W+uPkryOP4UYT4K78QGQToeMtl0w=";
+    };
+    build-system = with python3Packages; [ hatchling ];
+    propagatedBuildInputs = with python3Packages; [
+      beautifulsoup4
+      fastapi
+      httpx
+      langdetect
+      pydantic
+      pyyaml
+    ];
     doCheck = false;
   };
 
@@ -111,7 +133,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.12.0";
+  version = "4.13.1";
 
   pyproject = true;
 
@@ -119,7 +141,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-pXu/K50V+jFt3/goGb1fHQS1cWmJLTZtdTOvGuSlbzI=";
+    hash = "sha256-CA/r1sviR11H/Fy1fhqvVVJwRovwFH3+ZII9mtbSuNk=";
   };
 
   build-system = with python3Packages; [
@@ -167,6 +189,7 @@ python3Packages.buildPythonApplication rec {
     # Local helper packages for missing deps
     exejs
     lncrawl-scraper
+    lncrawl-translator
     python-box
     readability-lxml
     questionary
