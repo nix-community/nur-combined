@@ -598,12 +598,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.100",
-            "sha256": "sha256-xuPgaO6k9kwy3O6zh87jmpnQgViSpcKHhtOoObjj04o=",
+            "rev": "v7.2.102",
+            "sha256": "sha256-kDszgZL3BFuDkPQzh8RMdJ0kfn96pABgVcLwU/9b3Xs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.100"
+        "version": "v7.2.102"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1201,12 +1201,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "EasyCLI",
-            "rev": "v0.2.6",
-            "sha256": "sha256-FlgQvPYscHV0Dw01IeF/UBHVlwQpvbp+hNkALWTFEeo=",
+            "rev": "v0.2.7",
+            "sha256": "sha256-uP89iZbApA4ywO4ulckTX3RJ8TpL9qkiE1tMUq7GeZA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.6"
+        "version": "v0.2.7"
     },
     "edge-tts": {
         "cargoLock": null,
@@ -1594,7 +1594,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-07-25",
+        "date": "2026-07-27",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "a28ee6b39dde8319edcc977a8994abf2bcab9ce2",
-            "sha256": "sha256-QqqsPP+kN9p8qgGxR49iYOl8MLfBT1Y5JWsHGxe29FE=",
+            "rev": "05e464c80ccd738591be5d10610f9586ac98f733",
+            "sha256": "sha256-ErP4kXcnKHeSuf6bFLrJ19U4QnpMERQ0AHaYJ36W+nA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "a28ee6b39dde8319edcc977a8994abf2bcab9ce2"
+        "version": "05e464c80ccd738591be5d10610f9586ac98f733"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2340,7 +2340,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-07-23",
+        "date": "2026-07-26",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2352,12 +2352,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "9bd66bbea56c62fad5e2fe3a71a53a9ae8dc55e0",
-            "sha256": "sha256-/fELFMZW5RfLmYXamvMNDlklO6CHHeq3LDQh0xsEqOE=",
+            "rev": "a4e5da1f94143e8bbf40556d1982cbebeb0744e8",
+            "sha256": "sha256-fI/FFzoSEjxFes1KbQZq/yHtAIH64K3pC6zF3bmpbzw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9bd66bbea56c62fad5e2fe3a71a53a9ae8dc55e0"
+        "version": "a4e5da1f94143e8bbf40556d1982cbebeb0744e8"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2868,12 +2868,12 @@
             "name": null,
             "owner": "QuantumNous",
             "repo": "new-api",
-            "rev": "v1.0.0-rc.21",
-            "sha256": "sha256-qG1me9Gi0armF64f7jDfbpvbvibXkUWGC3e9i0WtY0g=",
+            "rev": "v1.0.0-rc.22",
+            "sha256": "sha256-2uTynH8PfmfFMPP/ZotLyQLtvCzPgucLPH1j1KoKOOY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.0.0-rc.21"
+        "version": "v1.0.0-rc.22"
     },
     "nft-fullcone": {
         "cargoLock": null,
@@ -4409,12 +4409,12 @@
             "name": null,
             "owner": "petersulyok",
             "repo": "smfc",
-            "rev": "v6.0.0",
-            "sha256": "sha256-ocIfPH+adGWbplk6i2jtuwZ2oo7nOm+VpqCB1yeDofM=",
+            "rev": "v6.0.1",
+            "sha256": "sha256-WxFZkwGr2atIxKLK9YJOFh561swh43gsx84OmnVlYro=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v6.0.0"
+        "version": "v6.0.1"
     },
     "soggy": {
         "cargoLock": null,

@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.100";
+    version = "v7.2.102";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.100";
-      hash = "sha256-xuPgaO6k9kwy3O6zh87jmpnQgViSpcKHhtOoObjj04o=";
+      tag = "v7.2.102";
+      hash = "sha256-kDszgZL3BFuDkPQzh8RMdJ0kfn96pABgVcLwU/9b3Xs=";
     };
   };
   cockpy = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.6";
+    version = "v0.2.7";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.6";
-      hash = "sha256-FlgQvPYscHV0Dw01IeF/UBHVlwQpvbp+hNkALWTFEeo=";
+      tag = "v0.2.7";
+      hash = "sha256-uP89iZbApA4ywO4ulckTX3RJ8TpL9qkiE1tMUq7GeZA=";
     };
   };
   edge-tts = {
@@ -822,14 +822,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "a28ee6b39dde8319edcc977a8994abf2bcab9ce2";
+    version = "05e464c80ccd738591be5d10610f9586ac98f733";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "a28ee6b39dde8319edcc977a8994abf2bcab9ce2";
-      hash = "sha256-QqqsPP+kN9p8qgGxR49iYOl8MLfBT1Y5JWsHGxe29FE=";
+      rev = "05e464c80ccd738591be5d10610f9586ac98f733";
+      hash = "sha256-ErP4kXcnKHeSuf6bFLrJ19U4QnpMERQ0AHaYJ36W+nA=";
     };
-    date = "2026-07-25";
+    date = "2026-07-27";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1200,14 +1200,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "9bd66bbea56c62fad5e2fe3a71a53a9ae8dc55e0";
+    version = "a4e5da1f94143e8bbf40556d1982cbebeb0744e8";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "9bd66bbea56c62fad5e2fe3a71a53a9ae8dc55e0";
-      hash = "sha256-/fELFMZW5RfLmYXamvMNDlklO6CHHeq3LDQh0xsEqOE=";
+      rev = "a4e5da1f94143e8bbf40556d1982cbebeb0744e8";
+      hash = "sha256-fI/FFzoSEjxFes1KbQZq/yHtAIH64K3pC6zF3bmpbzw=";
     };
-    date = "2026-07-23";
+    date = "2026-07-26";
   };
   libqcef = {
     pname = "libqcef";
@@ -1462,12 +1462,12 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v1.0.0-rc.21";
+    version = "v1.0.0-rc.22";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      tag = "v1.0.0-rc.21";
-      hash = "sha256-qG1me9Gi0armF64f7jDfbpvbvibXkUWGC3e9i0WtY0g=";
+      tag = "v1.0.0-rc.22";
+      hash = "sha256-2uTynH8PfmfFMPP/ZotLyQLtvCzPgucLPH1j1KoKOOY=";
     };
   };
   nft-fullcone = {
@@ -2245,12 +2245,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v6.0.0";
+    version = "v6.0.1";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v6.0.0";
-      hash = "sha256-ocIfPH+adGWbplk6i2jtuwZ2oo7nOm+VpqCB1yeDofM=";
+      tag = "v6.0.1";
+      hash = "sha256-WxFZkwGr2atIxKLK9YJOFh561swh43gsx84OmnVlYro=";
     };
   };
   soggy = {
