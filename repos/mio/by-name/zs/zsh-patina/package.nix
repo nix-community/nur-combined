@@ -10,17 +10,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "zsh-patina";
-  version = "1.8.0";
+  version = "1.9.0";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "michel-kraemer";
     repo = "zsh-patina";
     tag = finalAttrs.version;
-    hash = "sha256-M14IeK+Nsst+6RK6ayhq37YSoFPVptNqE9blVHDI1YM=";
+    hash = "sha256-WVlv+bYFTQ3RG3m2NnG13kMoslXzcPr8CpFWwAOcNBA=";
   };
 
-  cargoHash = "sha256-4Meb4BDV/Um8/YMA5DkeNDcgCMS5cA8olKhOIq9coIU=";
+  cargoHash = "sha256-A946sab9GDBdoNAWH7AN10lEhHNnHnCnNzQgnEcQ8QI=";
 
   nativeBuildInputs = [ installShellFiles ];
   postInstall = ''

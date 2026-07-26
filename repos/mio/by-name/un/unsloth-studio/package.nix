@@ -10,13 +10,13 @@
 
 let
   pname = "unsloth";
-  version = "0.1.481-beta";
+  version = "0.1.501-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
-    rev = "v0.1.481-beta";
-    hash = "sha256-K0tdUqnpCpUG2hsEc+NpIcYNP+iD8/1yoFkdPYTWGFg=";
+    rev = "v${version}";
+    hash = "sha256-fRLrf1xLZhCNf1JPg27Wpor5zNGahoYIvvDoXWcmMbQ=";
   };
 
   # Unsloth Studio frontend is built with npm/vite
@@ -28,7 +28,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/studio/frontend";
-      hash = "sha256-CopfqJd8q14y5vRxkrezg1a11ZJ263OWMoMIfG086ME=";
+      hash = "sha256-jqbJGzODeulCVCaiXXm2IdkqVORqzQCUIsVLOiXXvYg=";
     };
 
     nativeBuildInputs = [

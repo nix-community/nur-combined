@@ -22,13 +22,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bilibili";
-  version = "1.17.9-1";
+  version = "1.17.9-2";
 
   src = fetchFromGitHub {
     owner = "msojocs";
     repo = "bilibili-linux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qd/SBQ7NXhX8a7pIad6yCPrICNHZHhpc5WHVPjL+yME=";
+    hash = "sha256-JDBQvTfVR73vGOtRz1YZEzWQ/AJv+tJGYtrDyU282Rg=";
   };
 
   bilibiliInstaller = fetchurl {
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-aPbPjESCc3lDlK9IJmxdifcAVW3Nfhbq7GEiAew0uwc=";
+    hash = "sha256-K6JWwAIAmwpSYR9O+uXrKM5yfI6mwcXa87KRn0OolVc=";
   };
 
   nativeBuildInputs = [

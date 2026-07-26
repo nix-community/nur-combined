@@ -35,13 +35,13 @@
 let
   bifrost-unwrapped = stdenv.mkDerivation (finalAttrs: {
     pname = "bifrost-unwrapped";
-    version = "2.1.2";
+    version = "2.1.3";
 
     src = fetchFromGitHub {
       owner = "zacharee";
       repo = "SamloaderKotlin";
       tag = finalAttrs.version;
-      hash = "sha256-zK42e70h3eYcMapmegFhsHIcE7AKAcq2aKQ/7ZFQcbA=";
+      hash = "sha256-0LnErYWnsLhFIrZujaVXWLgGRtGXladxfsI0uJ/Fv2c=";
     };
 
     patches = [
@@ -53,6 +53,11 @@ let
 
     postPatch = ''
       echo "kotlin.native.ignoreDisabledTargets=true" >> local.properties
+    ''
+    + lib.optionalString stdenv.isLinux ''
+      # iOS Info.plist stamping needs macOS plutil; no-op on Linux.
+      substituteInPlace common/build.gradle.kts \
+        --replace-fail '"/usr/bin/plutil"' '"${lib.getExe' coreutils "true"}"'
     '';
 
     gradleBuildTask = ":desktop:createReleaseDistributable";

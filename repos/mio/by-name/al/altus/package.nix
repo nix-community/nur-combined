@@ -19,13 +19,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "altus";
-  version = "5.8.0";
+  version = "5.8.1";
 
   src = fetchFromGitHub {
     owner = "amanharwara";
     repo = "altus";
     tag = finalAttrs.version;
-    hash = "sha256-a0rRwdMx0WgMfLdRsnKlVLK6HCB0zdTLmZfIYkxQe2g=";
+    hash = "sha256-7/nC2AK2fo7kbacb6UmIFev6aepZjh7L8zxNqcUEUDU=";
   };
 
   patches = [
