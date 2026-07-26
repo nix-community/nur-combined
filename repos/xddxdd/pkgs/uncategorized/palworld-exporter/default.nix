@@ -3,7 +3,7 @@
   sources,
   python3Packages,
   click-loglevel,
-  py-rcon,
+  rcon,
 }:
 python3Packages.buildPythonApplication rec {
   inherit (sources.palworld-exporter) pname version;
@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication rec {
     click
     click-loglevel
     prometheus-client
-    py-rcon
+    rcon
     requests
   ];
 

@@ -4,19 +4,19 @@
   buildPythonPackage,
   # Dependencies
   requests,
-  data-recorder,
+  datarecorder,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.download-kit) pname version;
+  inherit (sources.downloadkit) pname version;
   pyproject = true;
 
-  inherit (sources.download-kit) src;
+  inherit (sources.downloadkit) src;
 
   build-system = [ setuptools ];
   dependencies = [
     requests
-    data-recorder
+    datarecorder
   ];
 
   pythonImportsCheck = [

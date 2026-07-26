@@ -184,7 +184,7 @@ fetch.git = "https://git.launchpad.net/ubuntu/+source/crystalhd"
 src.git = "https://git.launchpad.net/ubuntu/+source/crystalhd"
 src.branch = "applied/ubuntu/jammy"
 
-[data-recorder]
+[datarecorder]
 fetch.pypi = "DataRecorder"
 src.pypi = "DataRecorder"
 
@@ -234,7 +234,7 @@ src.regex = "\\$script_version = '([0-9\\.]+)';"
 fetch.github = "caryyu/douban-openapi-server"
 src.git = "https://github.com/caryyu/douban-openapi-server.git"
 
-[download-kit]
+[downloadkit]
 fetch.pypi = "DownloadKit"
 src.pypi = "DownloadKit"
 
@@ -242,15 +242,15 @@ src.pypi = "DownloadKit"
 fetch.git = "git://dpdk.org/dpdk-kmods"
 src.git = "git://dpdk.org/dpdk-kmods"
 
-[drission-get]
+[drissionget]
 fetch.url = "https://pypi.org/packages/source/d/drissionget/drissionget-$ver.tar.gz"
 src.pypi = "DrissionGet"
 
-[drission-page]
+[drissionpage]
 fetch.url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-$ver.tar.gz"
 src.pypi = "DrissionPage"
 
-[drission-record]
+[drissionrecord]
 fetch.url = "https://pypi.org/packages/source/d/drissionrecord/drissionrecord-$ver.tar.gz"
 src.pypi = "DrissionRecord"
 
@@ -480,6 +480,10 @@ fetch.url = "https://github.com/kata-containers/kata-containers/releases/downloa
 src.github_tag = "kata-containers/kata-containers"
 src.include_regex = "^[0-9\\.]+$"
 
+[kb-manager]
+fetch.github = "dubh3124/OpenWebUI-KB-Manager"
+src.github = "dubh3124/OpenWebUI-KB-Manager"
+
 [kikoplay]
 fetch.github = "KikoPlayProject/KikoPlay"
 src.github = "KikoPlayProject/KikoPlay"
@@ -689,10 +693,6 @@ src.github = "abbbi/nullfsvfs"
 fetch.github = "hitrov/oci-arm-host-capacity"
 src.git = "https://github.com/hitrov/oci-arm-host-capacity.git"
 
-[open-webui-kb-manager]
-fetch.github = "dubh3124/OpenWebUI-KB-Manager"
-src.github = "dubh3124/OpenWebUI-KB-Manager"
-
 [openai-edge-tts]
 fetch.github = "travisvn/openai-edge-tts"
 src.git = "https://github.com/travisvn/openai-edge-tts.git"
@@ -790,10 +790,6 @@ src.git = "https://github.com/pterodactyl/wings.git"
 [pterodactyl-wings-stable]
 fetch.github = "pterodactyl/wings"
 src.github = "pterodactyl/wings"
-
-[py-rcon]
-fetch.github = "ttk1/py-rcon"
-src.github_tag = "ttk1/py-rcon"
 
 [pyhss]
 fetch.github = "nickvsnetworking/pyhss"
@@ -894,6 +890,10 @@ src.github_tag = "awesometic/realtek-r8125-dkms"
 fetch.github = "mtorromeo/r8168"
 src.github_tag = "mtorromeo/r8168"
 
+[rcon]
+fetch.github = "ttk1/py-rcon"
+src.github_tag = "ttk1/py-rcon"
+
 [rime-aurora-pinyin]
 fetch.github = "hosxy/rime-aurora-pinyin"
 src.git = "https://github.com/hosxy/rime-aurora-pinyin.git"
@@ -940,7 +940,7 @@ src.git = "https://github.com/sipwise/rtpengine.git"
 fetch.github = "sipwise/rtpengine"
 src.github = "sipwise/rtpengine"
 
-[runpod-python]
+[runpod]
 fetch.github = "runpod/runpod-python"
 src.github = "runpod/runpod-python"
 

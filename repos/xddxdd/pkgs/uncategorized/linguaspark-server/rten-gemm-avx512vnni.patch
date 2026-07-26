@@ -1,0 +1,51 @@
+--- a/src/i8dot.rs
++++ b/src/i8dot.rs
+@@ -226,6 +226,10 @@
+
+     impl Avx512VnniIsa {
+         pub fn new() -> Option<Self> {
++            #[cfg(not(target_feature = "avx512vnni"))]
++            {
++                return None;
++            }
+             let isa = Avx512Isa::new()?;
+             if !is_x86_feature_detected!("avx512vnni") {
+                 return None;
+@@ -251,19 +255,26 @@
+             b: <Self::Isa as Isa>::I8,
+             acc: <Self::Isa as Isa>::I32,
+         ) -> <Self::Isa as Isa>::I32 {
+-            use std::arch::x86_64::_mm512_dpbusd_epi32;
+-
+-            #[target_feature(enable = "avx512vnni")]
+-            #[inline]
+-            unsafe fn dot(
+-                a: <Avx512Isa as Isa>::I8,
+-                b: <Avx512Isa as Isa>::I8,
+-                acc: <Avx512Isa as Isa>::I32,
+-            ) -> <Avx512Isa as Isa>::I32 {
+-                _mm512_dpbusd_epi32(acc.0, a.0, b.0).into()
++            #[cfg(target_feature = "avx512vnni")]
++            {
++                use std::arch::x86_64::_mm512_dpbusd_epi32;
++
++                #[target_feature(enable = "avx512vnni")]
++                #[inline]
++                unsafe fn dot(
++                    a: <Avx512Isa as Isa>::I8,
++                    b: <Avx512Isa as Isa>::I8,
++                    acc: <Avx512Isa as Isa>::I32,
++                ) -> <Avx512Isa as Isa>::I32 {
++                    _mm512_dpbusd_epi32(acc.0, a.0, b.0).into()
++                }
++                // Safety: Constructor checks "avx512vnni" feature is supported.
++                unsafe { dot(a, b, acc) }
++            }
++            #[cfg(not(target_feature = "avx512vnni"))]
++            {
++                unreachable!("avx512vnni path disabled to work around rustc/LLVM intrinsic mismatch")
+             }
+-            // Safety: Constructor checks "avx512vnni" feature is supported.
+-            unsafe { dot(a, b, acc) }
+         }
+     }

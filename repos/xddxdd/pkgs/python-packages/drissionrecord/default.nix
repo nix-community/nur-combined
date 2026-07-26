@@ -7,10 +7,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.drission-record) pname version;
+  inherit (sources.drissionrecord) pname version;
   pyproject = true;
 
-  inherit (sources.drission-record) src;
+  inherit (sources.drissionrecord) src;
 
   build-system = [ setuptools ];
   dependencies = [ openpyxl ];

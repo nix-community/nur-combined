@@ -429,8 +429,8 @@
     };
     date = "2020-03-22";
   };
-  data-recorder = {
-    pname = "data-recorder";
+  datarecorder = {
+    pname = "datarecorder";
     version = "3.6.2";
     src = fetchurl {
       url = "https://pypi.org/packages/source/D/DataRecorder/DataRecorder-3.6.2.tar.gz";
@@ -531,8 +531,8 @@
     };
     date = "2022-12-17";
   };
-  download-kit = {
-    pname = "download-kit";
+  downloadkit = {
+    pname = "downloadkit";
     version = "2.0.7";
     src = fetchurl {
       url = "https://pypi.org/packages/source/D/DownloadKit/DownloadKit-2.0.7.tar.gz";
@@ -550,24 +550,24 @@
     };
     date = "2024-11-20";
   };
-  drission-get = {
-    pname = "drission-get";
+  drissionget = {
+    pname = "drissionget";
     version = "1.2.1";
     src = fetchurl {
       url = "https://pypi.org/packages/source/d/drissionget/drissionget-1.2.1.tar.gz";
       hash = "sha256-oFUZvqWcx6WI8aWp7mhEKC5Zlj6sISuqQG2hwgvKmQg=";
     };
   };
-  drission-page = {
-    pname = "drission-page";
+  drissionpage = {
+    pname = "drissionpage";
     version = "4.1.1.4";
     src = fetchurl {
       url = "https://pypi.org/packages/source/d/DrissionPage/drissionpage-4.1.1.4.tar.gz";
       hash = "sha256-TGJEhcvFduFHftt3zZKjGEcE99bQ/QGSjJRKXma6Rxk=";
     };
   };
-  drission-record = {
-    pname = "drission-record";
+  drissionrecord = {
+    pname = "drissionrecord";
     version = "2.0.1";
     src = fetchurl {
       url = "https://pypi.org/packages/source/d/drissionrecord/drissionrecord-2.0.1.tar.gz";
@@ -1036,7 +1036,7 @@
       owner = "feder-cr";
       repo = "firefox_antidetect_patch";
       tag = "firefox-18";
-      hash = "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=";
+      hash = "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=";
     };
   };
   ja4-nginx-module = {
@@ -1084,6 +1084,16 @@
     src = fetchurl {
       url = "https://github.com/kata-containers/kata-containers/releases/download/4.0.0/kata-static-4.0.0-amd64.tar.zst";
       hash = "sha256-LDud/ro1VYK0Cu5GKxKRbJdAZU0CMPaWrfcZ1nsGOow=";
+    };
+  };
+  kb-manager = {
+    pname = "kb-manager";
+    version = "v0.2.0";
+    src = fetchFromGitHub {
+      owner = "dubh3124";
+      repo = "OpenWebUI-KB-Manager";
+      tag = "v0.2.0";
+      hash = "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=";
     };
   };
   kikoplay = {
@@ -1600,16 +1610,6 @@
     };
     date = "2024-08-13";
   };
-  open-webui-kb-manager = {
-    pname = "open-webui-kb-manager";
-    version = "v0.2.0";
-    src = fetchFromGitHub {
-      owner = "dubh3124";
-      repo = "OpenWebUI-KB-Manager";
-      tag = "v0.2.0";
-      hash = "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=";
-    };
-  };
   openai-edge-tts = {
     pname = "openai-edge-tts";
     version = "edaed2afd2cdedcc4648380185d8d7cf7a1eee97";
@@ -1837,16 +1837,6 @@
       hash = "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=";
     };
   };
-  py-rcon = {
-    pname = "py-rcon";
-    version = "v1.3.0";
-    src = fetchFromGitHub {
-      owner = "ttk1";
-      repo = "py-rcon";
-      tag = "v1.3.0";
-      hash = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
-    };
-  };
   pyhss = {
     pname = "pyhss";
     version = "e3f2f9c97ff05658658d2d44969a243857febc3d";
@@ -2054,6 +2044,16 @@
       hash = "sha256-KKfI03RrD+34+KSxwTwDkeB4sGFNY/tU/YbfrfVkTp8=";
     };
   };
+  rcon = {
+    pname = "rcon";
+    version = "v1.3.0";
+    src = fetchFromGitHub {
+      owner = "ttk1";
+      repo = "py-rcon";
+      tag = "v1.3.0";
+      hash = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
+    };
+  };
   rime-aurora-pinyin = {
     pname = "rime-aurora-pinyin";
     version = "122b46976401995cbafcfc748806985ff3a437a4";
@@ -2163,8 +2163,8 @@
       hash = "sha256-zxXH5FbZ5T5iYVzwXilxn6GHuMInJuh8fAa7NOC/Ik8=";
     };
   };
-  runpod-python = {
-    pname = "runpod-python";
+  runpod = {
+    pname = "runpod";
     version = "v1.11.0";
     src = fetchFromGitHub {
       owner = "runpod";

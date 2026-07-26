@@ -4,19 +4,19 @@
   buildPythonPackage,
   # Dependencies
   requests,
-  drission-record,
+  drissionrecord,
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.drission-get) pname version;
+  inherit (sources.drissionget) pname version;
   pyproject = true;
 
-  inherit (sources.drission-get) src;
+  inherit (sources.drissionget) src;
 
   build-system = [ setuptools ];
   dependencies = [
     requests
-    drission-record
+    drissionrecord
   ];
 
   pythonImportsCheck = [ "DrissionGet" ];

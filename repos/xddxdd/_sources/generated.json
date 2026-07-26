@@ -829,11 +829,11 @@
         },
         "version": "72237253de7901c70aa666b3e022289f1ebae0ac"
     },
-    "data-recorder": {
+    "datarecorder": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "data-recorder",
+        "name": "datarecorder",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -1023,11 +1023,11 @@
         },
         "version": "c7e2a0f59ba5cfb2d10a31013547686a4afab99d"
     },
-    "download-kit": {
+    "downloadkit": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "download-kit",
+        "name": "downloadkit",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -1058,11 +1058,11 @@
         },
         "version": "9b182be2ee4bf003c892e1312440e1e5d93eff2c"
     },
-    "drission-get": {
+    "drissionget": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "drission-get",
+        "name": "drissionget",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -1073,11 +1073,11 @@
         },
         "version": "1.2.1"
     },
-    "drission-page": {
+    "drissionpage": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "drission-page",
+        "name": "drissionpage",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -1088,11 +1088,11 @@
         },
         "version": "4.1.1.4"
     },
-    "drission-record": {
+    "drissionrecord": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "drission-record",
+        "name": "drissionrecord",
         "passthru": null,
         "pinned": false,
         "src": {
@@ -2014,7 +2014,7 @@
             "owner": "feder-cr",
             "repo": "firefox_antidetect_patch",
             "rev": "firefox-18",
-            "sha256": "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=",
+            "sha256": "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -2112,6 +2112,27 @@
             "url": "https://github.com/kata-containers/kata-containers/releases/download/4.0.0/kata-static-4.0.0-amd64.tar.zst"
         },
         "version": "4.0.0"
+    },
+    "kb-manager": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "kb-manager",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dubh3124",
+            "repo": "OpenWebUI-KB-Manager",
+            "rev": "v0.2.0",
+            "sha256": "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.0"
     },
     "kikoplay": {
         "cargoLock": null,
@@ -3127,27 +3148,6 @@
         },
         "version": "ea70acaf92bedcf0900a9209bdd8c31106b0df83"
     },
-    "open-webui-kb-manager": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "open-webui-kb-manager",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "dubh3124",
-            "repo": "OpenWebUI-KB-Manager",
-            "rev": "v0.2.0",
-            "sha256": "sha256-qaMym8qnXwO3Fq8QPWUq7PZM1G57BGwtuqSbZQA2WCo=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v0.2.0"
-    },
     "openai-edge-tts": {
         "cargoLock": null,
         "date": "2025-07-01",
@@ -3601,27 +3601,6 @@
         },
         "version": "v1.13.1"
     },
-    "py-rcon": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "py-rcon",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "ttk1",
-            "repo": "py-rcon",
-            "rev": "v1.3.0",
-            "sha256": "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "v1.3.0"
-    },
     "pyhss": {
         "cargoLock": null,
         "date": "2025-04-03",
@@ -4020,6 +3999,27 @@
         },
         "version": "8.056.02"
     },
+    "rcon": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "rcon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ttk1",
+            "repo": "py-rcon",
+            "rev": "v1.3.0",
+            "sha256": "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.0"
+    },
     "rime-aurora-pinyin": {
         "cargoLock": null,
         "date": "2022-08-28",
@@ -4233,11 +4233,11 @@
         },
         "version": "mr26.0.1.19"
     },
-    "runpod-python": {
+    "runpod": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "runpod-python",
+        "name": "runpod",
         "passthru": null,
         "pinned": false,
         "src": {

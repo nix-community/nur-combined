@@ -7,12 +7,7 @@
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (sources.extenddb) pname version src;
 
-  cargoHash = "sha256-QRLKwuTSKnOmTXmP00y3rmxKqqT80UIUNRXCDSDjK24=";
-
-  postPatch = ''
-    substituteInPlace Cargo.toml \
-      --replace-fail 'version = "0.1.0"' 'version = "${finalAttrs.version}"'
-  '';
+  cargoHash = "sha256-kW/fd+hZedM11FSjkxNL9lJv7hcl5MMZTbuRIV7wjUo=";
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

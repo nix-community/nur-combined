@@ -7,10 +7,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.data-recorder) pname version;
+  inherit (sources.datarecorder) pname version;
   pyproject = true;
 
-  inherit (sources.data-recorder) src;
+  inherit (sources.datarecorder) src;
 
   build-system = [ setuptools ];
   dependencies = [

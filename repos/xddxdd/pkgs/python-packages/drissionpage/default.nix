@@ -11,26 +11,26 @@
   tldextract,
   psutil,
   setuptools,
-  drission-get,
-  drission-record,
+  drissionget,
+  drissionrecord,
 }:
 buildPythonPackage rec {
-  inherit (sources.drission-page) pname version;
+  inherit (sources.drissionpage) pname version;
   pyproject = true;
 
-  inherit (sources.drission-page) src;
+  inherit (sources.drissionpage) src;
 
   build-system = [ setuptools ];
   dependencies = [
     requests
     lxml
     cssselect
-    drission-get
+    drissionget
     websocket-client
     click
     tldextract
     psutil
-    drission-record
+    drissionrecord
   ];
 
   pythonImportsCheck = [

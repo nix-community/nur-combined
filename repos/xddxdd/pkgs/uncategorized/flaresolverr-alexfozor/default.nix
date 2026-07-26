@@ -27,7 +27,7 @@ let
       mss
       xvfbwrapper
       distutils
-      drission-page
+      drissionpage
     ]
   );
 

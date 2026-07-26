@@ -13,10 +13,10 @@
   setuptools,
 }:
 buildPythonPackage rec {
-  inherit (sources.open-webui-kb-manager) pname version;
+  inherit (sources.kb-manager) pname version;
   pyproject = true;
 
-  inherit (sources.open-webui-kb-manager) src;
+  inherit (sources.kb-manager) src;
 
   propagatedBuildInputs = [
     click

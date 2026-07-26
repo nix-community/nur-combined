@@ -9,6 +9,8 @@ python3Packages.buildPythonPackage rec {
 
   inherit (sources.email-oauth2-proxy) src;
 
+  dontCheckPythonMetadata = true;
+
   build-system = [ python3Packages.setuptools ];
   dependencies = with python3Packages; [
     cryptography
