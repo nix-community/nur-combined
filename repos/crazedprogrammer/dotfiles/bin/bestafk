@@ -18,7 +18,7 @@ function reconnect {
 
 function launch {
 	pkill -f java
-	MultiMC 2>&1 & >/dev/null
+	MultiMC >/dev/null 2>&1 &
 	sleep 1
 	xdotool mousemove 149 139 click 1
 	sleep 0.05

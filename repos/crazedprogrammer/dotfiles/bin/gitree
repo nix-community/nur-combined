@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Runs `tree`, ignoring files from .gitignore.
+# Copied and modified from https://gist.github.com/jpwilliams/dabff82b0ceb95dd57a7552ea7f2d675
+
+tree -C -I "$( (cat .gitignore 2> /dev/null || cat "$(git rev-parse --show-toplevel 2> /dev/null)"/.gitignore 2> /dev/null || echo "node_modules") | grep -Ev "^#.*$|^[[:space:]]*$" | tr "\\n" "|" | rev | cut -c 2- | rev)"

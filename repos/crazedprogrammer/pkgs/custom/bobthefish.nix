@@ -3,14 +3,14 @@
   fetchFromGitHub ? nixpkgs.fetchFromGitHub }:
 
 stdenv.mkDerivation rec {
-  name = "bobthefish";
-  version = "2017-09-07";
+  pname = "bobthefish";
+  version = "2020-10-16";
 
   src = fetchFromGitHub {
     owner = "oh-my-fish";
     repo = "theme-bobthefish";
-    rev = "f4378582d644e34562d65fc13f318498215bb106";
-    sha256 = "1wgi1fk0mapyy8cwjvm6mzvkjd6asrg6195y4zv0ay0c17zalj3z";
+    rev = "dfec8fa044a937b7a84f54dc2d7cf39495770580";
+    sha256 = "0v1qgf11xln0lzkh3yar7kd81vqwyy57l3c5x3qawddxjz8mnwpc";
   };
 
   installPhase = ''

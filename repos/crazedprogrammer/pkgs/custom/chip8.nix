@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, SDL2 }:
 
 stdenv.mkDerivation rec {
-  name = "chip8";
+  pname = "chip8";
   version = "2018-06-23";
 
   src = fetchFromGitHub {

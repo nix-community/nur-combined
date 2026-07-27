@@ -6,18 +6,14 @@
     enable = true;
 
     # Keyboard options
-    layout = "us";
-    xkbOptions = "caps:escape,compose:ralt";
+    xkb.layout = "us";
+    xkb.options = "caps:escape,compose:ralt";
     autoRepeatDelay = 300;
     autoRepeatInterval = 30;
 
     # Enable the SDDM login manager.
     displayManager.lightdm = {
       enable = true;
-      # autoLogin = {
-      #   enable = true;
-      #   user = "casper";
-      # };
     };
 
     # bspwm window manager.
@@ -25,26 +21,31 @@
       # default = "bspwm";
       bspwm = {
         enable = true;
-        configFile = ../../dotfiles/bspwmrc;
+        configFile = ../../dotfiles/bin/bspwmrc;
         sxhkd.configFile = ../../dotfiles/sxhkdrc;
       };
     };
+  };
+
+  environment.variables = {
+    GTK_THEME = "Nordic";
+    GTK_ICON_THEME = "Paper";
   };
 
   environment.etc = {
     "xdg/gtk-2.0/gtkrc" = {
       mode = "444";
       text = ''
-        gtk-theme-name = "Arc-Dark"
-        gtk-icon-theme-name = "Paper"
+        gtk-theme-name = "${config.environment.variables.GTK_THEME}"
+        gtk-icon-theme-name = "${config.environment.variables.GTK_ICON_THEME}"
       '';
     };
     "xdg/gtk-3.0/settings.ini" = {
       mode = "444";
       text = ''
         [Settings]
-        gtk-theme-name = Arc-Dark
-        gtk-icon-theme-name = Paper
+        gtk-theme-name = ${config.environment.variables.GTK_THEME}
+        gtk-icon-theme-name = ${config.environment.variables.GTK_ICON_THEME}
       '';
     };
     "xdg/mimeapps.list" = {
@@ -60,14 +61,14 @@
   '';
 
   fonts = {
-    fonts = with pkgs; [
+    packages = with pkgs; [
       dejavu_fonts
-      nerdfonts ubuntu_font_family
-      noto-fonts-cjk fira-code
-      fantasque-sans-mono
+      ubuntu_font_family
+      noto-fonts-cjk-sans fira-code
+      # Broken: EULA url returns 503.
+      # corefonts
     ];
     fontconfig = {
-      #hinting.enable = false;
       subpixel.rgba = "none";
       subpixel.lcdfilter = "none";
     };

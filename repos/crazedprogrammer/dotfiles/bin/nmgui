@@ -1,0 +1,5 @@
+#!/bin/sh
+
+nm-applet > /dev/null 2>&1 &
+stalonetray > /dev/null 2>&1
+killall nm-applet

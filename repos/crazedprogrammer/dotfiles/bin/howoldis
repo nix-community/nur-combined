@@ -11,7 +11,7 @@ echo "Nixpkgs channels:"
 
 for channel in "${channels[@]}"
 do
-	channel_secs=$(cat $howoldis_path | jq -r "to_entries[] | .value | select(.name == \"${channel}\").time")
+	channel_secs=$(jq -r "to_entries[] | .value | select(.name == \"${channel}\").time" < $howoldis_path)
 	channel_hours=$(bc <<< "scale=2; $channel_secs/60/60")
 	echo "Channel $channel updated $channel_hours hours ago"
 done

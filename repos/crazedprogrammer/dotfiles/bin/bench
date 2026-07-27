@@ -1,0 +1,6 @@
+#!/bin/sh
+
+threads="$(nproc)"
+
+sysbench cpu --cpu-max-prime=20000 --threads="$threads" run | grep "events per second"
+sysbench memory --threads="$threads" run | grep "transferred"

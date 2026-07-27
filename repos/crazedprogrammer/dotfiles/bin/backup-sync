@@ -1,0 +1,90 @@
+#!/bin/sh
+
+DIRS_LOCATION="$HOME/.private/backup-list"
+PASSWD_LOCATION="$HOME/.private/backup-passwd"
+
+BACKUP_PATH="/var/lib/backup"
+BACKUP_ROOT_PATH="$BACKUP_PATH/root"
+BACKUP_ARCHIVE_PATH="$BACKUP_PATH/archive"
+REMOTE_BACKUP_ARCHIVE_PATH="/home/casper/backup/$(hostname)"
+
+ZIP_METHOD="lz4"
+ARCHIVE_NAME="$(date --iso-8601=date)-backup-$(hostname)"
+ARCHIVE_PATH="${BACKUP_ARCHIVE_PATH}/${ARCHIVE_NAME}.tar.${ZIP_METHOD}"
+
+# Number of files to keep after pruning.
+MIN_FILES_TO_KEEP=2
+MAX_FILES_TO_KEEP=8
+MIN_DISK_GB_FREE_TO_KEEP=30
+
+sync_dirs()
+(
+	echo "Syncing directories..."
+	while read -r dir; do
+		mkdir -p "${BACKUP_ROOT_PATH}${dir}"
+		rsync -a "$dir/" "${BACKUP_ROOT_PATH}${dir}"
+	done < "$DIRS_LOCATION"
+)
+
+create_archive()
+(
+	mkdir -p "$BACKUP_ARCHIVE_PATH"
+
+	echo "Creating archive $ARCHIVE_NAME..."
+	cd "$BACKUP_ROOT_PATH" || exit 1
+	rm -f "$ARCHIVE_PATH"
+	tar -I "${ZIP_METHOD}" -cf "$ARCHIVE_PATH" .
+)
+
+encrypt_archive()
+(
+	echo "Encrypting archive..."
+	ccrypt --encrypt -f -k "$PASSWD_LOCATION" "$ARCHIVE_PATH"
+)
+
+calculate_checksum()
+(
+	echo "Calculating checksum..."
+	sha256sum -b "$ARCHIVE_PATH.cpt" | cut -d " " -f1 > "$ARCHIVE_PATH.cpt.sha256sum"
+)
+
+upload_archive()
+(
+	echo "Uploading archive to VPS..."
+	scp -q "$ARCHIVE_PATH.cpt" "$ARCHIVE_PATH.cpt.sha256sum" "casper@radon:$REMOTE_BACKUP_ARCHIVE_PATH"
+)
+
+prune_archives()
+(
+	cd "$BACKUP_ARCHIVE_PATH" || exit 1
+
+	echo "Pruning archives..."
+	while [ "$(find . -maxdepth 1 -type f | wc -l)" -gt "$MAX_FILES_TO_KEEP" ] || [ "$(df . -B 1G | tail -n1 | tr -s " " | cut -d " " -f 4)" -lt "$MIN_DISK_GB_FREE_TO_KEEP" ]; do
+		if [ "$(find . -maxdepth 1 -type f | wc -l)" -le "$MIN_FILES_TO_KEEP" ]; then
+			break;
+		fi
+		rm "$(find . -maxdepth 1 -type f | sort | head -n1)"
+	done
+)
+
+if [ ! -f "$DIRS_LOCATION" ]; then
+	echo "Backup directory list missing from $DIRS_LOCATION"
+	exit 1
+elif [ ! -f "$PASSWD_LOCATION" ]; then
+	echo "Backup password missing from $PASSWD_LOCATION"
+	exit 1
+fi
+
+sync_dirs
+#create_archive
+
+# Uncomment to generate encrypted archives
+# encrypt_archive
+# calculate_checksum
+
+#prune_archives
+
+# Uncomment to enable uploading back-ups to VPS
+#upload_archive
+
+echo "Done."

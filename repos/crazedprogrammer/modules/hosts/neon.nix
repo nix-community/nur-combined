@@ -20,31 +20,22 @@
     kernelModules = [ "kvm-intel" ];
     kernelParams = [ "i915.enable_psr=1" "i915.enable_fbc=1" "i915.fastboot=1" ];
     extraModulePackages = [ config.boot.kernelPackages.acpi_call ];
-    kernelPatches = [ {
-      name = "config-neon";
-      patch = null;
-      extraConfig = ''
-        MIVYBRIDGE y
-        DRM_AMDGPU n
-      '';
-    } ];
   };
 
   networking.hostName = "neon"; # Define your hostname.
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/566cacb4-81ea-48bb-929f-a60951b852cf";
+    { device = "/dev/disk/by-uuid/37796d43-4ff7-4037-b3b4-6b7df7c5b78b";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/6989-46C8";
+    { device = "/dev/disk/by-uuid/B829-AF71";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/bf1dc388-c115-40c2-bef6-644f717e19a7"; }
-      { device = "/dev/disk/by-uuid/0ddc6bd7-c98e-4ea9-b2b2-535c91f61595"; }
+    [ { device = "/dev/disk/by-uuid/9b01e592-1c2e-429d-8dbd-552c6b5788c1"; }
     ];
 
   nix.maxJobs = 8;
@@ -56,19 +47,19 @@
   services.logind.lidSwitch = "ignore";
 
   environment.systemPackages = with pkgs; [
-    light tpacpi-bat config.boot.kernelPackages.cpupower
+    light tpacpi-bat config.boot.kernelPackages.cpupower batsignal
   ];
 
   # Using TLP because Powertop doesn't work. The cause of this is that the
   # kernel module cpufreq_stats does not exist for some reason, even with CONFIG_CPU_FREQ_STATS=y.
   services.tlp = {
     enable = true;
-    extraConfig = ''
-      CPU_SCALING_GOVERNOR_ON_AC=performance
-      CPU_SCALING_GOVERNOR_ON_BAT=powersave
-      START_CHARGE_THRESH_BAT0=70
-      STOP_CHARGE_THRESH_BAT0=78
-    '';
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      START_CHARGE_THRESH_BAT0 = 75;
+      STOP_CHARGE_THRESH_BAT0 = 90;
+    };
   };
   systemd.services = {
     tlp = {
@@ -87,10 +78,10 @@
       startAt = "*-*-* *:*:00";
     };
   };
+
   services.thinkfan-override = {
     enable = true;
     sensors = ''
-      hwmon /sys/class/thermal/thermal_zone1/temp
       hwmon /sys/class/thermal/thermal_zone0/temp
     '';
     levels = ''
@@ -106,10 +97,25 @@
   };
 
   services.xserver = {
-    videoDrivers = [ "nouveau" "intel" "modesetting" "vesa" ];
+    # Note: displaylink can be added for external USB-C monitor support
+    videoDrivers = [ "nouveau" "modesetting" "vesa" ];
     libinput = {
       enable = true;
-      naturalScrolling = true;
+      touchpad.naturalScrolling = false;
     };
+    config = ''
+      Section "Device"
+        Identifier "nvidia card"
+        Driver "nouveau"
+        Option "GLXVBlank" "on"
+      EndSection
+    '';
   };
+
+  # Enable printing to Canon Pixma MG5750.
+  services.printing.enable = true;
+  services.printing.drivers = [ pkgs.gutenprint ];
+  # Enable Avahi for printer discovery via mDNS.
+  services.avahi.enable = true;
+  services.avahi.nssmdns = true;
 }

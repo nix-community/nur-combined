@@ -1,7 +1,7 @@
 font_family Fira Code
-italic_font Fira Code:Oblique
-bold_font Fira Code:Bold
-bold_italic_font Fira Code:Bold Oblique
+italic_font auto
+bold_font auto
+bold_italic_font auto
 
 font_size 9
 map ctrl+shift+equal change_font_size all +1.0
@@ -10,6 +10,11 @@ map ctrl+shift+minus change_font_size all -1.0
 adjust_line_height 110%
 
 scrollback_lines 10000
+
+confirm_os_window_close 0
+
+# bell
+enable_audio_bell no
 
 # cursor colour
 cursor #93A1A1
@@ -53,3 +58,6 @@ color14   #56B6C2
 # white
 color7    #ABB2BF
 color15   #FFFEFE
+
+# disable update checking
+update_check_interval 0

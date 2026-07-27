@@ -5,8 +5,8 @@ let
     # No mouse accelleration
     input 1133:49283:Logitech_G403_Prodigy_Gaming_Mouse accel_profile flat
 
-    input * xkb_layout "${config.services.xserver.layout}"
-    input * xkb_options "${config.services.xserver.xkbOptions}"
+    input * xkb_layout "${config.services.xserver.xkb.layout}"
+    input * xkb_options "${config.services.xserver.xkb.options}"
     input * repeat_delay "${builtins.toString config.services.xserver.autoRepeatDelay}"
     input * repeat_rate "${builtins.toString (1000 / config.services.xserver.autoRepeatInterval)}"
 
@@ -26,9 +26,7 @@ in
   programs.sway = {
     enable = true;
   };
-  services.xserver.displayManager.extraSessionFilePackages = [
+  services.displayManager.sessionPackages = [
     (pkgs.sway-session.override { configFile = swayConfigFile; })
   ];
-
-  services.dbus.socketActivated = true;
 }

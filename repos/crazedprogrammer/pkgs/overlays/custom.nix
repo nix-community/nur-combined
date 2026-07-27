@@ -14,4 +14,6 @@ self: super:
   compton-latest = super.callPackage ../custom/compton-latest.nix {};
   sway-session = super.callPackage ../custom/sway-session.nix {};
   kernel-gcc-patch = super.callPackage ../custom/kernel-gcc-patch.nix {};
+  bitpocket = super.callPackage ../custom/bitpocket.nix {};
+  inter-font = super.callPackage ../custom/inter-font.nix {};
 }

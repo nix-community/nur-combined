@@ -3,7 +3,7 @@
 { stdenv, fetchFromGitHub, callPackage, nodejs }:
 
 stdenv.mkDerivation {
-  name = "thelounge";
+  pname = "thelounge";
   version = "2.5.0-rc.5";
 
   src = fetchFromGitHub {
@@ -33,7 +33,7 @@ stdenv.mkDerivation {
 
 
 
-# with stdenv.lib;
+# with lib;
 
 # let
 #   nodePackages = callPackage (import <nixpkgs/pkgs/top-level/node-packages.nix>) {
@@ -110,7 +110,7 @@ stdenv.mkDerivation {
 
 # { stdenv, fetchFromGitHub, callPackage, python, utillinux }:
 #
-# with stdenv.lib;
+# with lib;
 #
 # let
 #   nodePackages = callPackage (import ../../../../top-level/node-packages.nix) {

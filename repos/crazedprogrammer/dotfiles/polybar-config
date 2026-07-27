@@ -19,27 +19,27 @@ alert = #ccbd2c40
 border = #dd111111
 
 [bar/xenon]
-modules-left = memory cpuload cpugraph temperature_desktop
-modules-center = i3 bspwm
-modules-right = wired volume date
+modules-left = bspwm volume
+modules-center = title
+modules-right = cpuload temperature_xenon wired date
 
 monitor = ${env:MONITOR:DisplayPort-0}
 width = 100%
-height = 18
-radius = 2.0
+height = 20
+radius = 0
 fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-overline-size = 1
-overline-color = #F00
+underline-size = 2
+underline-color = #F00
 
-border-size = 1
+border-size = 0
 border-color = ${colors.border}
 
-padding-left = 1
-padding-right = 1
+padding-left = 0
+padding-right = 0
 
 module-margin-left = 1
 module-margin-right = 1
@@ -47,11 +47,11 @@ module-margin-right = 1
 font-0 = FiraCode:size=9;3
 
 [bar/neon]
-modules-left = memory cpuload cpufreq cpugraph temperature
-modules-center = i3 bspwm
-modules-right = wireless battery battery_usage volume backlight date
+modules-left = bspwm volume backlight
+modules-center = title
+modules-right = cpuload temperature wireless battery battery_usage date
 
-monitor = ${env:MONITOR:LVDS1}
+monitor = 
 width = ${bar/xenon.width}
 height = ${bar/xenon.height}
 
@@ -61,8 +61,37 @@ fixed-center = ${bar/xenon.fixed-center}
 background = ${bar/xenon.background}
 foreground = ${bar/xenon.foreground}
 
-overline-size = ${bar/xenon.overline-size}
-overline-color = ${bar/xenon.overline-color}
+underline-size = ${bar/xenon.underline-size}
+underline-color = ${bar/xenon.underline-color}
+
+border-size = ${bar/xenon.border-size}
+border-color = ${bar/xenon.border-color}
+
+padding-left = ${bar/xenon.padding-left}
+padding-right = ${bar/xenon.padding-right}
+
+module-margin-left = ${bar/xenon.module-margin-left}
+module-margin-right = ${bar/xenon.module-margin-right}
+
+font-0 = ${bar/xenon.font-0}
+
+[bar/helium]
+modules-left = bspwm volume backlight
+modules-center = title
+modules-right = cpuload temperature wireless battery battery_usage date
+
+monitor = 
+width = ${bar/xenon.width}
+height = ${bar/xenon.height}
+
+radius = ${bar/xenon.radius}
+fixed-center = ${bar/xenon.fixed-center}
+
+background = ${bar/xenon.background}
+foreground = ${bar/xenon.foreground}
+
+underline-size = ${bar/xenon.underline-size}
+underline-color = ${bar/xenon.underline-color}
 
 border-size = ${bar/xenon.border-size}
 border-color = ${bar/xenon.border-color}
@@ -76,9 +105,9 @@ module-margin-right = ${bar/xenon.module-margin-right}
 font-0 = ${bar/xenon.font-0}
 
 [bar/generic]
-modules-left = memory cpuload cpugraph
-modules-center = i3 bspwm
-modules-right = volume date
+modules-left = bspwm volume
+modules-center = title
+modules-right = cpuload date
 
 monitor = ${env:MONITOR:Virtual-1}
 monitor-fallback = ${env:MONITOR:eDP1}
@@ -91,8 +120,8 @@ fixed-center = ${bar/xenon.fixed-center}
 background = ${bar/xenon.background}
 foreground = ${bar/xenon.foreground}
 
-overline-size = ${bar/xenon.overline-size}
-overline-color = ${bar/xenon.overline-color}
+underline-size = ${bar/xenon.underline-size}
+underline-color = ${bar/xenon.underline-color}
 
 border-size = ${bar/xenon.border-size}
 border-color = ${bar/xenon.border-color}
@@ -106,47 +135,13 @@ module-margin-right = ${bar/xenon.module-margin-right}
 font-0 = ${bar/xenon.font-0}
 
 
-[module/i3]
-type = internal/i3
-format = <label-state> <label-mode>
-index-sort = true
-wrapping-scroll = false
-
-; Only show workspaces on the same output as the bar
-;pin-workspaces = true
-
-label-mode-padding = 2
-label-mode-foreground = #000
-label-mode-background = ${colors.primary}
-
-; focused = Active workspace on focused monitor
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-overline = ${colors.primary}
-label-focused-padding = 2
-
-; unfocused = Inactive workspace on any monitor
-label-unfocused = %index%
-label-unfocused-padding = 2
-
-; visible = Active workspace on unfocused monitor
-label-visible = %index%
-label-visible-background = ${self.label-focused-background}
-label-visible-overline = ${self.label-focused-overline}
-label-visible-padding = ${self.label-focused-padding}
-
-; urgent = Workspace with urgency hint set
-label-urgent = %index%
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
 [module/bspwm]
 type = internal/bspwm
 
 pin-workspaces = false
 
 label-focused-background = ${colors.background-alt}
-label-focused-overline= ${colors.primary}
+label-focused-underline= ${colors.primary}
 label-focused-padding = 2
 
 label-occupied-padding = 1
@@ -159,11 +154,11 @@ label-empty-padding = 1
 
 [module/cpugraph]
 type = internal/cpu
-interval = 0.5
+interval = 1
 format = <ramp-coreload>
 format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
-format-overline = ${colors.secondary}
+format-underline = ${colors.secondary}
 label = CPU %percentage-cores%%
 
 ramp-coreload-0 = ▁
@@ -177,23 +172,23 @@ ramp-coreload-7 = █
 
 [module/cpuload]
 type = custom/script
-exec = cat /proc/loadavg | cut -d " " -f1
+exec = cpu-usage
 format-prefix = "CPU "
-format-overline = ${colors.secondary}
+format-underline = ${colors.secondary}
 interval = 1
 
 [module/cpufreq]
 type = custom/script
 exec = sysinfo cpufreq
-format-overline = ${colors.secondary}
-interval = 0.5
+format-underline = ${colors.secondary}
+interval = 1
 
 [module/memory]
 type = internal/memory
-interval = 0.5
+interval = 1
 format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
-format-overline = ${colors.ternary}
+format-underline = ${colors.ternary}
 label = RAM %gb_used%
 
 [module/wireless]
@@ -201,34 +196,28 @@ type = internal/network
 interface = wlp3s0
 interval = 1
 label-connected = NET %downspeed% %upspeed%
-format-connected-overline = ${colors.secondary}
+format-connected-underline = ${colors.secondary}
 
 [module/wired]
 type = internal/network
-interface = enp25s0
+interface = enp4s0
 interval = 1
 label-connected = NET %downspeed% %upspeed%
-format-connected-overline = ${colors.secondary}
+format-connected-underline = ${colors.secondary}
 
 [module/date]
 type = internal/date
 interval = 10
 
-date = "%A, %B %d"
-
 time = %H:%M
 
-format-prefix =
-format-prefix-foreground = ${colors.foreground-alt}
-format-overline = ${colors.ternary}
-
-label = %date% - %time%
+label = %time%
 
 [module/volume]
-type = internal/volume
+type = internal/pulseaudio
 
 format-volume = <label-volume>
-format-volume-overline = ${colors.secondary}
+format-volume-underline = ${colors.primary}
 label-volume = VOL %percentage%%
 label-volume-foreground = ${root.foreground}
 
@@ -243,7 +232,7 @@ card = intel_backlight
 format = <label>
 label = BAC %percentage%%
 
-format-overline = ${colors.secondary}
+format-underline = ${colors.primary}
 label-foreground = ${root.foreground}
 
 [module/battery]
@@ -253,21 +242,21 @@ adapter = ADP0
 full-at = 98
 
 format-charging = <label-charging>
-format-charging-overline = ${colors.secondary}
+format-charging-underline = ${colors.secondary}
 label-charging = CHR %percentage%%
 
 format-discharging = <label-discharging>
-format-discharging-overline = ${self.format-charging-overline}
+format-discharging-underline = ${self.format-charging-underline}
 label-discharging = BAT %percentage%%
 
 format-full-prefix = 
 format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-overline = ${self.format-charging-overline}
+format-full-underline = ${self.format-charging-underline}
 
 [module/battery_usage]
 type = custom/script
 exec = sysinfo battery_usage
-format-overline = ${colors.secondary}
+format-underline = ${colors.secondary}
 interval = 1
 
 [module/temperature]
@@ -276,31 +265,32 @@ thermal-zone = 0
 warn-temperature = 80
 
 format = <label>
-format-overline = ${colors.secondary}
+format-underline = ${colors.secondary}
 format-warn = <label-warn>
-format-warn-overline = ${self.format-overline}
+format-warn-underline = ${self.format-underline}
 
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-[module/temperature_desktop]
+[module/temperature_xenon]
 type = internal/temperature
 hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon0/temp1_input
 thermal-zone = 0
 warn-temperature = 80
 
 format = <label>
-format-overline = ${colors.secondary}
+format-underline = ${colors.secondary}
 format-warn = <label-warn>
-format-warn-overline = ${self.format-overline}
+format-warn-underline = ${self.format-underline}
 
-label = %temperature%
-label-warn = %temperature%
+label = %temperature-c%
+label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
 [module/title]
 type = internal/xwindow
+label-maxlen = 50
 
 [settings]
 screenchange-reload = true

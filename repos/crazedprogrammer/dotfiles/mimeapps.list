@@ -1,4 +1,8 @@
 [Default Applications]
+inode/directory=thunar.desktop
 application/pdf=org.pwmt.zathura.desktop
+text/html=firefox.desktop
 image/svg+xml=firefox.desktop
-image/png=ristretto.desktop
+image/png=viewnior.desktop
+image/jpeg=viewnior.desktop
+image/gif=viewnior.desktop

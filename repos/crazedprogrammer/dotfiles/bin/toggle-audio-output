@@ -1,0 +1,20 @@
+#!/bin/sh
+
+if [ "$(hostname)" != "xenon" ]; then
+	# This script is useless for other hosts than xenon.
+	exit 1
+fi
+
+alsa_card_nr="$(arecord -l | grep "HD-Audio Generic" | head -n 1 | cut -c6-6)"
+pa_card_name=alsa_output.pci-0000_1e_00.3.analog-stereo
+lineout_port=analog-output-lineout
+headphone_port=analog-output-headphones
+
+current_port="$(pactl list sinks | grep "analog-output-" | grep "Active Port" | grep -oE "[^ ]+\$")"
+
+if [ "${current_port}" = "${headphone_port}" ]; then
+	amixer -c "${alsa_card_nr}" cset iface=MIXER,name="Auto-Mute Mode" Disabled > /dev/null
+	pactl set-sink-port "${pa_card_name}" "${lineout_port}"
+else
+	pactl set-sink-port "${pa_card_name}" "${headphone_port}"
+fi

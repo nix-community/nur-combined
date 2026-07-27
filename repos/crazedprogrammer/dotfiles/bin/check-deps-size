@@ -7,11 +7,11 @@ case "$1" in
 		store_path="$1"
 		;;
 	*)
-		store_path="$(dirname "$(dirname "$(readlink "$(which "$1")")")")"
+		store_path="$(dirname "$(dirname "$(readlink "$(command -v "$1")")")")"
 		;;
 esac
 
-echo $store_path
+echo "$store_path"
 if [ "$store_path" != "." ]; then
 	nix-du -r "$store_path" | tred | dot -Tsvg > "$output_path"
 	xdg-open "$output_path"

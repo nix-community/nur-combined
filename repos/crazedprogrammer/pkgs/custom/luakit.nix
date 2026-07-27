@@ -5,13 +5,14 @@ let
   getPath       = lib : type : "${lib}/lib/lua/${luajit.luaversion}/?.${type};${lib}/share/lua/${luajit.luaversion}/?.${type}";
   getLuaPath    = lib : getPath lib "lua";
   getLuaCPath   = lib : getPath lib "so";
-  luaPath       = stdenv.lib.concatStringsSep ";" (map getLuaPath lualibs);
-  luaCPath      = stdenv.lib.concatStringsSep ";" (map getLuaCPath lualibs);
+  luaPath       = lib.concatStringsSep ";" (map getLuaPath lualibs);
+  luaCPath      = lib.concatStringsSep ";" (map getLuaCPath lualibs);
 in
 
 stdenv.mkDerivation {
 
-  name = "luakit-2018.01.05";
+  name = "luakit";
+  pname = "2018.01.05";
 
   src = fetchFromGitHub {
     owner = "luakit";
@@ -43,7 +44,7 @@ stdenv.mkDerivation {
         --set LUA_CPATH '${luaCPath};'
     '';
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Fast, small, webkit based browser framework extensible in Lua";
     homepage    = http://luakit.org;
     license     = licenses.gpl3;

@@ -1,5 +1,5 @@
 # This derivation will be removed when NixOS 19.03 releases.
-{ stdenv, lib, fetchFromGitHub, pkgconfig, asciidoc, docbook_xml_dtd_45
+{ stdenv, lib, fetchFromGitHub, pkg-config, asciidoc, docbook_xml_dtd_45
 , docbook_xsl, libxslt, libxml2, makeWrapper, meson, ninja
 , xorg, libxcb ,xcbutilrenderutil, xcbutilimage, pixman, libev
 , dbus, libconfig, libdrm, libGL, pcre, libX11, libXcomposite, libXdamage
@@ -11,7 +11,7 @@ let
     name = "${source.pname}-${source.version}";
 
     nativeBuildInputs = (source.nativeBuildInputs or []) ++ [
-      pkgconfig
+      pkg-config
       asciidoc
       docbook_xml_dtd_45
       docbook_xsl

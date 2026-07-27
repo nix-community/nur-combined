@@ -8,24 +8,23 @@
     ./users.nix
     ./xserver.nix
     ./wayland.nix
+    # ./cloud.nix
   ];
 
   nixpkgs.overlays = import ../../pkgs/overlays;
 
   nix = {
-    daemonIONiceLevel = 7;
-    daemonNiceLevel = 19;
-    useSandbox = true;
+    settings.sandbox = true;
+    daemonIOSchedPriority = 7;
+    daemonCPUSchedPolicy = "batch";
     extraOptions = ''
       fallback = true
     '';
   };
 
   # Internationalisation properties.
-  i18n = {
-    consoleKeyMap = "us";
-    defaultLocale = "en_US.UTF-8";
-  };
+  console.keyMap = "us";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   # Time zone.
   time.timeZone = "Europe/Amsterdam";

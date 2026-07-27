@@ -3,82 +3,105 @@
 {
   # Allow only these unfree packages.
   nixpkgs.config.allowUnfreePredicate = pkg:
-    pkgs.lib.elem (builtins.parseDrvName pkg.name).name
-    [ "steam" "steam-original" "steam-runtime" "factorio-alpha" "teamspeak-client" ];
+    pkgs.lib.elem (if (builtins.hasAttr "name" pkg) then (builtins.parseDrvName pkg.name).name else pkg.pname)
+    [ "steam" "steam-unwrapped" "steam-runtime" "factorio-alpha" "virtualbox"
+      "pycharm-professional" "clion" "corefonts" "font-bh-lucidatypewriter"
+      "displaylink" ];
 
   # Fix glava not finding config files.
   environment.etc."xdg/glava".source = "${pkgs.glava}/etc/xdg/glava";
 
+  # Disable telemetry on the .NET CLI.
+  environment.variables.DOTNET_CLI_TELEMETRY_OPTOUT = "1";
+
   environment.systemPackages = with pkgs; [
     # Basic tools
-    wget curl jq bc loc p7zip fdupes binutils-unwrapped ls_extended file parallel
+    wget curl jq bc loc p7zip fdupes binutils-unwrapped ls_extended file parallel lz4 ccrypt tree
+    (pass.withExtensions (exts: [ exts.pass-otp ])) gnupg pinentry-gtk2
 
     # Version control
-    git #mercurial darcs
+    git subversion
 
     # Utilities
-    qemu pandoc graphviz flameGraph texlive.combined.scheme-medium clang-tools stress #kristvanity
+    qemu stress sysbench
+    clang-tools rustfmt rust-analyzer clippy
+    pandoc plantuml doxygen graphviz flamegraph
+    (texlive.combine {
+      inherit (texlive) scheme-small enumitem sectsty;
+    })
 
     # X utilities
-    xclip maim slop grim slurp pkgsUnstable.wf-recorder pkgsUnstable.wl-clipboard xdotool hhpc xorg.xhost
+    xclip maim slop lxrandr xdotool hhpc xorg.xhost glxinfo redshift
+    # Wayland utilities
+    grim slurp wf-recorder wl-clipboard
 
     # Nix utilities
     nix-du
 
     # Build systems
-    gnumake cmake gradle
+    gnumake cmake #gradle
 
     # Libraries
-    SDL2 SDL2_image
+    SDL2 SDL2_image libv4l
 
     # Languages
-    lua5_3 cargo gcc luajit openjdk #ghc nodejs-8_x
+    gcc stdenv.cc.cc.lib
+    lua5_3 luajit elixir nim
+    cargo nodejs #jre
+    dotnet-sdk mono
     (urn.override { useLuaJit = true; })
 
     # Games
-    multimc gnome3.gnome-mines #technic-launcher
-    steam steam.run pkgsUnstable.ccemux the-powder-toy chip8 riko4
+    #polymc chip8 riko4
+    gnome-mines ccemux the-powder-toy
 
-    # Emulators
-    #dosbox stella snes9x-gtk vice dolphinEmuMaster
+    # Terminals
+    kitty-wrapped alacritty-wrapped
 
-    # Terminal and editor
-    kitty-wrapped neovim alacritty-wrapped
+    # Editors
+    neovim vscodium
 
     # Browsers
-    firefox w3m #luakit
-
-    # Web chat
-    teamspeak_client #mumble
+    firefox
+    # Mail client
+    thunderbird
 
     # GTK+ and icon theme (settings)
-    arc-theme paper-icon-theme glib gsettings-desktop-schemas
+    arc-theme paper-icon-theme nordic shades-of-gray-theme
+    glib gsettings-desktop-schemas
 
     # Office suite
-    gnome3.gnome-calculator libreoffice-fresh
+    gnome-calculator libreoffice-fresh
 
     # Visual editors
-    gimp #tiled
+    gimp audacity xfce.mousepad
+    #tiled pencil sweethome3d.application
+    #fritzing arduino
+
+    # CLI A/V editors
+    ffmpeg imagemagick
 
     # Multimedia
-    (xfce.thunar.override { thunarPlugins = [ xfce.thunar-archive-plugin ]; }) xfce.mousepad xfce.ristretto
-    audacity mpv gnome3.file-roller cli-visualizer-wrapped ffmpeg cava-wrapped glava zathura #projectm glava
+    (xfce.thunar.override { thunarPlugins = [ xfce.thunar-archive-plugin ]; })
+    (mpv.override { scripts = [ mpvScripts.mpris ]; })
+    viewnior zathura guvcview file-roller #cli-visualizer-wrapped cava-wrapped glava
 
     # Networking
-    openssh networkmanagerapplet #openvpn update-resolv-conf sshfs
+    openssh bitpocket networkmanagerapplet nmap socat openvpn update-resolv-conf #tigervnc youtube-dl
 
     # WM utilities
-    polybar rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest i3lock i3blocks-wrapped
+    (polybar.override { pulseSupport = true; }) rofi-wrapped feh dunst-wrapped libnotify xtrlock-pam compton-latest i3lock i3blocks-wrapped
 
     # Scripts
-    dotfiles-bin
-
-    # School
-    plantuml arduino subversion plantuml #fritzing astah-community
+    dotfiles-bin dotfiles-background
 
     # System utilities
-    pavucontrol polkit_gnome exfat-utils ntfs3g iotop bmon linuxPackages.perf picocom gotop htop sysstat ncdu
+    pavucontrol playerctl blueberry polkit_gnome exfat ntfs3g rdfind iotop bmon linuxPackages.perf picocom gotop htop sysstat ncdu usbutils
+    # Virtualization
+    #docker-compose libguestfs-with-appliance virt-manager
+    # Vagrant libvirtd support
+    #bridge-utils ebtables libxslt libxml2 libvirt zlib
   ] ++ (if builtins.pathExists /home/casper/.factorio.nix
-    then lib.singleton (pkgsUnstable.factorio.override (import /home/casper/.factorio.nix))
+    then lib.singleton (factorio.override (import /home/casper/.factorio.nix))
     else [ ]);
 }

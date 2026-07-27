@@ -27,55 +27,42 @@ if !empty(glob('~/.vim/autoload/plug.vim')) || !empty(glob('~/.local/share/nvim/
 	Plug 'vim-pandoc/vim-pandoc-syntax'
 	Plug 'rhysd/vim-clang-format'
 	Plug 'drmikehenry/vim-headerguard'
+	Plug 'rhysd/git-messenger.vim'
 	call plug#end()
 endif
 
-" Filetype extension registery
+" Swap and backup file directory
+
+if !has('nvim')
+	set directory=$HOME/.vim/swap//
+	set backupdir=$HOME/.vim/backup//
+	execute 'silent :!mkdir -p' shellescape(&directory)
+	execute 'silent :!mkdir -p' shellescape(&backupdir)
+endif
+
+" File type extension registry
 
 au BufNewFile,BufRead *.inc setlocal ft=cpp
 
-" Lazy plugins
+" File type presets
 
-autocmd FileType lisp :packadd rainbow | :RainbowToggleOn
-autocmd FileType c,cpp :packadd vim-clang-format | :packadd vim-headerguard
-autocmd FileType markdown :packadd vim-pandoc-syntax
-
-
-" Autocomplete
-
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#on_insert_enter = 0
-let g:deoplete#max_list = 7
-
-
-" Disable clipboard support until wl-clipboard doesn't create new
-" windows with wlroots compositors.
-
-let g:clipboard = {
-          \   'name': 'myClipboard',
-          \   'copy': {
-          \      '+': ':',
-          \      '*': ':',
-          \    },
-          \   'paste': {
-          \      '+': ':',
-          \      '*': ':',
-          \   },
-          \   'cache_enabled': 1,
-          \ }
-
+autocmd FileType css :setlocal ts=4 sw=4
+autocmd FileType c,cpp,cs,php,python,julia,Dockerfile :setlocal et ts=4 sw=4
+autocmd FileType lisp,arduino,haskell,cabal,lua,typescript,javascript,json,html,xml,cmake :setlocal et ts=2 sw=2
+autocmd FileType markdown,text,plaintex :setlocal foldcolumn=4 colorcolumn=79 textwidth=79 et ts=2 sw=2
+autocmd FileType nix,plantuml :setlocal indentexpr=
 
 " GUI and colors
 
 set mouse=a guicursor= nu rnu noshowmode background=dark tabpagemax=999
-highlight Statement ctermfg=yellow
-highlight LineNr ctermfg=darkgrey
-highlight CursorLineNr ctermfg=grey
-highlight ColorColumn ctermbg=black
-highlight FoldColumn ctermbg=none
-highlight Pmenu ctermbg=darkgrey
-highlight MatchParen cterm=bold ctermbg=darkgrey ctermfg=none
-
+hi Statement ctermfg=yellow
+hi LineNr ctermfg=darkgrey
+hi CursorLineNr ctermfg=grey
+hi ColorColumn ctermbg=black
+hi FoldColumn ctermbg=none
+hi Pmenu ctermbg=darkgrey
+hi MatchParen cterm=bold ctermbg=darkgrey ctermfg=none
+hi gitmessengerPopupNormal term=None ctermfg=255 ctermbg=234
 
 " Keyboard mappings
 
@@ -94,6 +81,14 @@ for dirkey in ['h', 'j', 'k', 'l']
 	execute 'tnoremap <A-' . dirkey . '> <C-\><C-n><C-w>' . dirkey . 'i'
 endfor
 
+" Searching
+
+set ignorecase smartcase
+
+" CtrlP
+
+let g:ctrlp_regexp = 1
+set wildignore+=*/venv/*
 
 " EasyMotion
 
@@ -101,18 +96,19 @@ let g:EasyMotion_do_mapping = 0 " Disable default mappings
 nmap W <Plug>(easymotion-w)
 nmap B <Plug>(easymotion-b)
 
+" Autocomplete
 
-" Searching
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#on_insert_enter = 0
+autocmd VimEnter * call deoplete#custom#option('max_list', 7)
 
-set ignorecase smartcase
+" Enable markdown section folding without the line characters.
+let g:markdown_folding = 1
+autocmd FileType markdown :setlocal foldcolumn=0 numberwidth=7
 
-" File type presets
+" Clang-Format
 
-autocmd FileType lisp,arduino,haskell,cabal,cpp,lua,typescript :setlocal et ts=2 sw=2
-autocmd FileType cs,php,Dockerfile :setlocal ts=4 sw=4 et
-autocmd FileType markdown,text,plaintex :setlocal foldcolumn=4 colorcolumn=79 textwidth=79 et ts=2 sw=2
-autocmd FileType nix,plantuml :setlocal indentexpr=
-
+let g:clang_format#code_style = 'llvm'
 
 " Rainbow parentheses
 
@@ -128,7 +124,6 @@ let g:rainbow_conf = {
 \}
 let g:rainbow_active = 1
 
-
 " Status bar
 
 let g:lightline = {
@@ -136,7 +131,7 @@ let g:lightline = {
 \		'left': [ [ 'mode', 'paste' ],
 \			  [ 'readonly', 'buffername', 'modified' ] ],
 \		'right': [ [ 'lineinfo' ], [ 'percent' ],
-\			   [ 'fileformat', 'fileencoding', 'filetype', "totallines" ] ],
+\			   [ 'fileformat', 'fileencoding', 'filetype', 'totallines' ] ],
 \	},
 \	'inactive':{
 \		'left': [ [ 'buffername' ] ],
@@ -189,28 +184,26 @@ function BufName()
 	return g:bufname_cache[name]
 endfunction
 
-" Clang-Format
+" Auto-load changes from disk
 
-let g:clang_format#code_style = "llvm"
+if !exists('g:CheckUpdateStarted')
+    let g:CheckUpdateStarted = 1
+    call timer_start(1, 'CheckUpdate')
+endif
+function! CheckUpdate(timer)
+    silent! checktime
+    call timer_start(1000, 'CheckUpdate')
+endfunction
 
 " Commands
 
 command Term :belowright new | :terminal
-command Upload :call UploadBuffer()
-command Pan :call Pandoc()
 command CF :ClangFormat
-command CFA :bufdo execute ":CF" | w
+command CFA :bufdo execute ':CF' | w
 command CH :HeaderguardAdd
-command C :w | :execute 'silent :!compiler' bufname('%') '&'
-command CO :w | :execute 'silent :!compiler' bufname('%') '--open' '&'
-
-function UploadBuffer()
-	let sourcepath = TempPath()
-	execute 'w' fnameescape(sourcepath)
-	execute 'silent :!upload' fnameescape(sourcepath)
-	execute 'silent :!rm' fnameescape(sourcepath)
-endfunction
-
+command QE :%bd|e#
+command C :w | :execute 'silent :!compiler' shellescape(bufname('%')) '&'
+command CO :w | :execute 'silent :!compiler' shellescape(bufname('%')) '--open' '&'
 
 " Misc functions
 
@@ -223,3 +216,21 @@ function TempPath(...)
 	let random = Chomp(system('bash -c "echo \$RANDOM"'))
 	return '/tmp/' . random . '.' . ext
 endfunction
+
+" Workaround: Disable clipboard support until wl-clipboard
+" doesn't create new windows with wlroots compositors.
+
+if !empty($WAYLAND_DISPLAY)
+	let g:clipboard = {
+		  \   'name': 'myClipboard',
+		  \   'copy': {
+		  \      '+': ':',
+		  \      '*': ':',
+		  \    },
+		  \   'paste': {
+		  \      '+': ':',
+		  \      '*': ':',
+		  \   },
+		  \   'cache_enabled': 1,
+		  \ }
+endif

@@ -1,7 +1,7 @@
-{ stdenv, fetchFromGitHub, makeWrapper }:
+{ lib, stdenv, fetchFromGitHub, makeWrapper }:
 
 stdenv.mkDerivation rec {
-  name = "ls-extended-${version}";
+  pname = "ls-extended";
   version = "1.1.0";
 
   src = fetchFromGitHub {
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     install -m 755 bin/ls_extended $out/bin/ls_extended
   '';
 
-  meta = with stdenv; {
+  meta = {
     description = "ls with coloring and icons ";
     home = https://github.com/Electrux/ls_extended;
     license = lib.licenses.bsd3;

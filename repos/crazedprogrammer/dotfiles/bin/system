@@ -6,28 +6,43 @@
 function kill {
 	pkill -f polybar
 	pkill -f dunst
+	pkill -f batsignal
 	pkill -f compton
 }
 
 function launch {
-	if [ $(hostname) = "xenon" ]; then
-		sudo mount -o noatime /dev/disk/by-uuid/243205de-6503-42f7-baa6-12aaf3c2a68e /mnt/hdd
-		sleep 5 && sudo hdparm -y /dev/sdb
+	gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME"
+	gsettings set org.gnome.desktop.interface icon-theme "$GTK_ICON_THEME"
+	gsettings set org.gnome.desktop.interface cursor-theme "$GTK_ICON_THEME"
+
+	if [ "$(hostname)" = "xenon" ]; then
+		# Unmute speakers.
+		amixer -c 1 sset "Auto-Mute Mode" Disabled
 	fi
-	gsettings set org.gnome.desktop.interface gtk-theme 'Arc-Dark'
-	gsettings set org.gnome.desktop.interface icon-theme 'Paper'
-	gsettings set org.gnome.desktop.interface cursor-theme 'Paper'
+	if [ "$(hostname)" = "helium" ]; then
+		# Remove tearing on display.
+		xrandr --output eDP --set TearFree on
+	fi
 }
 
 function reload {
 	if is-wayland; then
 		dunst &
 	else
-		feh --bg-tile $HOME/Pictures/Background.png &
+		if [ "$(hostname)" = "xenon" ]; then
+			feh --bg-tile "$(dotfiles-background-wide)" &
+		else
+			feh --bg-scale "$(dotfiles-background)" &
+		fi
 		sh -c "polybar --config=$(dotfiles)/polybar-config \$(hostname) || polybar --config=$(dotfiles)/polybar-config generic" &
 		dunst &
-		if [ $(hostname) == "neon" ]; then
-			compton --backend=glx --vsync drm
+		if [ "$(hostname)" == "neon" ]; then
+			batsignal -w 20 -c 15 &
+			if glxinfo | grep "OpenGL vendor string: nouveau"; then
+				compton --vsync=opengl
+			else
+				compton --backend=glx --vsync=drm
+			fi
 		else
 			compton
 		fi
@@ -47,9 +62,14 @@ function tlock {
 }
 
 function suspend {
-	if [[ $(hostname) == "xenon" && 6700000 -gt $(vmstat -s | grep used\ memory | cut -d " " -f7) ]] ; then
-		systemctl hibernate
-		boot
+	if [[ "$(hostname)" == "xenon" && 6700000 -gt $(vmstat -s | grep used\ memory | cut -d " " -f7) ]] ; then
+		# Prevent "double suspending".
+		if [ ! -f /tmp/.suspend ]; then
+			touch /tmp/.suspend
+			systemctl hibernate
+			sh -c "sleep 1; rm /tmp/.suspend" &
+			disown
+		fi
 	else
 		systemctl suspend
 	fi

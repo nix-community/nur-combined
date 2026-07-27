@@ -6,31 +6,30 @@ OUT_PATH=/tmp/rec-out-$(date +"%Y%m%d-%H%M%S").mp4
 FRAMERATE=60
 
 if is-wayland; then
-	cd /tmp
+	cd /tmp || exit 1
 	wf-recorder -g "$(slurp)"
-	cd -
-	mv /tmp/recording.mp4 $REC_PATH
+	cd - || exit 1
+	mv /tmp/recording.mp4 "$REC_PATH"
 else
-	DISPLAY=$(ps -u $(id -u) -o pid= | \
-	    while read pid; do
-		cat /proc/$pid/environ 2>/dev/null | tr '\0' '\n' | grep '^DISPLAY=:'
+	DISPLAY=$(ps -u "$(id -u)" -o pid= | \
+	    while read -r pid; do
+		tr '\0' '\n' 2>/dev/null < /proc/"$pid"/environ | grep '^DISPLAY=:'
 	    done | grep -o ':[0-9]*' | sort -u)
 
 	# region select & record the video
-	read -r X Y W H G ID < <(slop --noopengl -f "%x %y %w %h %g %i")
+	read -r X Y W H _ _ < <(slop --noopengl -f "%x %y %w %h %g %i")
 	W2=$(echo "($W / 2) * 2" | bc)
 	H2=$(echo "($H / 2) * 2" | bc)
-	ffmpeg -f x11grab -show_region 1 -framerate $FRAMERATE -video_size "${W2}x${H2}" -i "$DISPLAY.0+$X,$Y" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -tune zerolatency $REC_PATH
+	ffmpeg -f x11grab -show_region 1 -framerate $FRAMERATE -video_size "${W2}x${H2}" -i "$DISPLAY.0+$X,$Y" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -tune zerolatency "$REC_PATH"
 fi
 
 if [[ -f $REC_PATH ]]; then
 	if [[ $(hostname) = "xenon" ]]; then
-		ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi -i $REC_PATH -c:v h264_vaapi -b:v 4M -profile 578 -bf 0 $OUT_PATH
+		ffmpeg -hwaccel vaapi -hwaccel_device /dev/dri/renderD128 -hwaccel_output_format vaapi -i "$REC_PATH" -c:v h264_vaapi -b:v 4M -profile 578 -bf 0 "$OUT_PATH"
 	else
-		ffmpeg -i $REC_PATH -c:v libx264 -b:v 4M -bufsize 4M -an $OUT_PATH
+		ffmpeg -i "$REC_PATH" -c:v libx264 -b:v 4M -bufsize 4M -an "$OUT_PATH"
 	fi
-	rm $REC_PATH
-	upload $OUT_PATH
-	rm $OUT_PATH
+	rm "$REC_PATH"
+	notify-send "Saved video to $OUT_PATH"
 fi
 

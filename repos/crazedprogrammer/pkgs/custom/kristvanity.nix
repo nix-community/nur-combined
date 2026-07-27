@@ -1,7 +1,7 @@
 { stdenv, fetchFromGitHub, cmake, openssl_1_1, tclap, pkgconfig }:
 
 stdenv.mkDerivation rec {
-  name = "kristvanity-${version}";
+  pname = "kristvanity";
   version = "2018-07-11";
 
   src = fetchFromGitHub {
