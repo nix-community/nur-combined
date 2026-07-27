@@ -10,25 +10,6 @@ with lib;
     (
       { lib, config, ... }:
       {
-        options.eownerdead.flakes = mkEnableOption (mdDoc ''
-          Enable unstable Nix flakes.
-
-          For See the (wiki)[https://nixos.wiki/wiki/Flakes].
-        '');
-
-        config = (
-          mkIf config.eownerdead.flakes {
-            nix.extraOptions = mkDefault "experimental-features = nix-command flakes";
-
-            # Fix `error: executing 'git': No such file or directory`
-            programs.git.enable = mkDefault true;
-          }
-        );
-      }
-    )
-    (
-      { lib, config, ... }:
-      {
         options.eownerdead.gc = mkEnableOption (mdDoc ''
           Run Nix garbage collection weekly.
 
@@ -95,10 +76,32 @@ with lib;
   config = mkIf config.eownerdead.nix {
     eownerdead = {
       gc = mkDefault true;
-      flakes = mkDefault true;
       binaryCaches = mkDefault true;
       nixTmp = mkDefault true;
     };
-    nix.settings.auto-optimise-store = mkDefault true;
+    nix.settings = {
+      auto-optimise-store = mkDefault true;
+      auto-allocate-uids = true;
+      use-cgroups = true;
+      use-xdg-base-directories = true;
+      experimental-features = [
+        "auto-allocate-uids"
+        "ca-derivations"
+        "cgroups"
+        "dynamic-derivations"
+        "fetch-closure"
+        "fetch-tree"
+        "flakes"
+        "git-hashing"
+        "impure-derivations"
+        "mounted-ssh-store"
+        "nix-command"
+        "pipe-operators"
+        "recursive-nix"
+        "verified-fetches"
+      ];
+    };
+    # Fix `error: executing 'git': No such file or directory`
+    programs.git.enable = mkDefault true;
   };
 }

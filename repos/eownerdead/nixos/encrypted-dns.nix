@@ -16,17 +16,20 @@ with lib;
     networking = {
       nameservers = mkDefault [
         "127.0.0.1"
-        "::1"
       ];
       networkmanager.dns = mkDefault "none";
     };
 
-    services.dnscrypt-proxy2 = {
-      enable = mkDefault true;
-      settings = mkDefault {
-        ipv6_servers = true;
-        require_dnssec = true;
-        http3 = true;
+    services = {
+      resolved.enable = mkForce false;
+      dnscrypt-proxy = {
+        enable = mkForce true;
+        settings = mkDefault {
+          server_names = [ "mullvad-base-doh" ];
+          http3 = true;
+          dnscrypt_servers = false;
+          ipv6_servers = true;
+        };
       };
     };
   };

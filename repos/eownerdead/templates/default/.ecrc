@@ -1,9 +1,0 @@
-{
-  "Exclude": [
-    "flake.lock",
-    ".direnv"
-  ],
-  "Disable": {
-    "IndentSize": true
-  }
-}

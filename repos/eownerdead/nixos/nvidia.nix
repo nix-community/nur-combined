@@ -14,6 +14,7 @@ with lib;
     environment.systemPackages = with pkgs; [ nvtopPackages.nvidia ];
     services.xserver.videoDrivers = mkDefault [ "nvidia" ];
     hardware.nvidia = {
+      open = mkDefault false;
       modesetting.enable = mkDefault true;
       powerManagement.enable = mkDefault true;
     };

@@ -1,29 +1,32 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
-    utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      utils,
-    }:
-    utils.lib.eachDefaultSystem (
-      system:
-      let
-        pkgs = import nixpkgs { inherit system; };
-      in
-      {
-        formatter = pkgs.nixfmt;
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
 
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [
-            editorconfig-checker
-            nixfmt-rfc-style
-          ];
+      perSystem =
+        {
+          pkgs,
+          ...
+        }:
+        {
+          formatter = pkgs.nixfmt;
+
+          devShells.default = pkgs.mkShell {
+            packages = with pkgs; [
+              nixfmt
+            ];
+          };
         };
-      }
-    );
+    };
 }

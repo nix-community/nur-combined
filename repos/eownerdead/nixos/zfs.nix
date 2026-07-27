@@ -7,19 +7,18 @@
 with lib;
 {
   options.eownerdead.zfs = mkEnableOption (mdDoc ''
-    I recommend when you are using ZFS.
+    My ZFS configuration
   '');
 
   config = mkIf config.eownerdead.zfs {
     services.zfs = {
+      autoSnapshot.enable = true;
       trim = {
         enable = mkDefault true;
         interval = mkDefault "monthly";
       };
       autoScrub = {
         enable = mkDefault true;
-        pools = mkDefault [ "rpool" ];
-        interval = mkDefault "weekly";
       };
     };
   };

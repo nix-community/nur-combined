@@ -5,31 +5,23 @@
   nixpkgs,
   ...
 }:
-let
-  sops = config.sops.secrets;
-in
 {
   imports = [
-    ./disko.nix
     ./hardware-configuration.nix
 
-    ../common/sops.nix
     ../common/global-pkgs.nix
   ];
 
   eownerdead = {
     recommended = true;
-    sound = true;
+    gnome = true;
     intelGraphics = true;
     libvirtd = true;
+    fscrypt = true;
   };
 
   boot = {
-    loader = {
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-      systemd-boot.consoleMode = "0";
-    };
+    lanzaboote.enable = true;
     initrd.checkJournalingFS = false; # Takes more than half an hour.
     plymouth.enable = true;
   };
@@ -38,19 +30,14 @@ in
 
   networking = {
     hostName = "slate";
-    useNetworkd = true;
     firewall = {
-      allowedUDPPorts = [ 51820 ]; # WireGuard
-      checkReversePath = false;
+      allowedTCPPorts = [ 9300 ]; # GNOME Packet
+      trustedInterfaces = [ "virbr0" ];
     };
     # wireless.enable = true; # Conflicts with networkmanager
   };
 
   hardware = {
-    opengl = {
-      enable = true;
-      extraPackages = with pkgs; [ intel-media-driver ];
-    };
     enableRedistributableFirmware = true; # wireless lan
     sensor.iio.enable = true;
   };
@@ -58,12 +45,12 @@ in
   i18n = {
     defaultLocale = "ja_JP.UTF-8";
     inputMethod = {
-      enabled = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [ mozc ];
+      enable = true;
+      type = "ibus";
+      ibus.engines = with pkgs.ibus-engines; [ mozc-ut ];
     };
   };
 
-  users.mutableUsers = lib.mkForce true;
   users.users.eownerdead = {
     isNormalUser = true;
     password = "test";
@@ -75,31 +62,12 @@ in
     ];
   };
 
+  home-manager.users.eownerdead = import (../../. + "/users/eownerdead@slate");
+
   services = {
     printing.enable = true;
-    avahi = {
-      enable = true;
-      nssmdns4 = true;
-      nssmdns6 = true;
-      publish = {
-        enable = true;
-        domain = true;
-        addresses = true;
-      };
-    };
-    xserver = {
-      enable = true;
-      displayManager = {
-        startx.enable = true;
-        gdm.enable = true;
-      };
-      desktopManager.gnome.enable = true;
-    };
-    gnome = {
-      gnome-browser-connector.enable = false;
-      gnome-keyring.enable = lib.mkForce false;
-    };
-    wacom.enable = true;
+    fprintd.enable = true;
+    # wacom.enable = true;
   };
 
   programs = {
@@ -107,11 +75,18 @@ in
     wireshark.enable = true;
   };
 
-  security.pam = {
-    enableFscrypt = true;
-    services.login.gnupg = {
+  security = {
+    pam = {
+      enableFscrypt = true;
+      services.login.gnupg = {
+        enable = true;
+        noAutostart = true;
+      };
+    };
+    tpm2 = {
       enable = true;
-      noAutostart = true;
+      pkcs11.enable = true;
+      tctiEnvironment.enable = true;
     };
   };
 
@@ -122,6 +97,13 @@ in
       noto-fonts-cjk-serif
     ];
     fontDir.enable = true;
+    fontconfig.localConf = ''
+      <?xml version='1.0'?>
+      <!DOCTYPE fontconfig SYSTEM 'urn:fontconfig:fonts.dtd'>
+      <fontconfig>
+        <dir>/mnt/win/Windows/Fonts</dir>
+      </fontconfig>
+    '';
     fontconfig.defaultFonts = {
       serif = [
         "DejaVu Serif"
@@ -134,14 +116,50 @@ in
     };
   };
 
-  fileSystems."/nix".neededForBoot = true;
+  fileSystems = {
+    "/" = {
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "size=1G"
+        "mode=755"
+      ];
+    };
+    "/nix" = {
+      options = [
+        "noatime"
+        "gc_merge"
+        "inline_xattr"
+        "inline_data"
+        "inline_dentry"
+        "flush_merge"
+        "compress_algorithm=zstd:6"
+        "compress_chksum"
+        "compress_cache"
+        "inlinecrypt"
+        "atgc"
+        "age_extent_cache"
+      ];
+      neededForBoot = true;
+    };
+    "/mnt/win" = {
+      options = [
+        "ro"
+        "noatime"
+        "showmeta"
+        "prealloc"
+      ];
+    };
+  };
 
   environment = {
     systemPackages = with pkgs; [
       ntfs3g
       libwacom
+      glib
     ];
     persistence."/nix" = {
+      enable = true;
       hideMounts = true;
       directories = [
         "/var/log"
@@ -149,12 +167,26 @@ in
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
         "/etc/NetworkManager/system-connections"
+        "/.fscrypt"
+        "/usr"
       ];
-      files = [ "/etc/machine-id" ];
+      files = [
+        "/etc/machine-id"
+        "/etc/ssh/ssh_host_rsa_key"
+        "/etc/ssh/ssh_host_rsa_key.pub"
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_ed25519_key.pub"
+      ];
+      users.eownerdead = {
+        directories = [
+          "persist"
+          ".cache"
+        ];
+      };
     };
   };
 
   virtualisation.libvirtd.enable = true;
 
-  system.stateVersion = "24.05";
+  system.stateVersion = "26.05";
 }

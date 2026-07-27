@@ -6,18 +6,6 @@
 }:
 let
   cfg = config.eownerdead.emacs;
-
-  fromUsePackage =
-    epkgs: initEl:
-    map (name: epkgs.${name}) (
-      builtins.fromJSON (
-        builtins.readFile (
-          pkgs.runCommand "from-use-package" {
-            nativeBuildInputs = [ epkgs.emacs ];
-          } "emacs --script ${./use-package-list.el} ${initEl} > $out || true"
-        )
-      )
-    );
 in
 {
   options.eownerdead.emacs.enable = lib.mkEnableOption "Enable emacs";
@@ -30,18 +18,17 @@ in
       ];
     };
 
-    programs.emacs = {
-      enable = true;
-      package = pkgs.emacs29-pgtk;
-      extraConfig = builtins.readFile ./init.el;
-      extraPackages =
-        epkgs:
-        (fromUsePackage epkgs ./init.el)
-        ++ (with epkgs; [
-          treesit-grammars.with-all-grammars
-          pkgs.my.emacsPackages.eglot-tempel
-          llvm-mode
-        ]);
+    programs = {
+      emacs = {
+        enable = true;
+        package = pkgs.eownerdead.emacs;
+      };
+      bash.bashrcExtra = ''
+        [ -n "$EAT_SHELL_INTEGRATION_DIR" ] && \
+          source "$EAT_SHELL_INTEGRATION_DIR/bash"
+        [[ "''${INSIDE_EMACS%%,*}" = 'ghostel' ]] && \
+          source "$EMACS_GHOSTEL_PATH/etc/shell/ghostel.bash"
+      '';
     };
 
     services = {

@@ -11,14 +11,10 @@ with lib;
   '');
 
   config = mkIf config.eownerdead.sound {
-    sound.enable = mkDefault true;
-
     services.pipewire = {
       enable = mkDefault true;
       alsa.enable = mkDefault true;
       pulse.enable = mkDefault true;
     };
-
-    hardware.pulseaudio.enable = mkForce false; # Conflicts.
   };
 }
