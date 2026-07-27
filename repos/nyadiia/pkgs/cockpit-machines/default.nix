@@ -23,27 +23,27 @@ stdenv.mkDerivation {
 
   nativeBuildInputs = [ gettext ];
 
-  makeFlags = [
-    "DESTDIR=$(out)"
-    "PREFIX="
-  ];
+  dontBuild = true;
 
-  postPatch = ''
-    substituteInPlace Makefile \
-      --replace /usr/share $out/share
-    touch pkg/lib/cockpit.js
-    touch pkg/lib/cockpit-po-plugin.js
-    touch dist/manifest.json
+  installPhase = ''
+    runHook preInstall
+    mkdir -p $out/share/cockpit/machines
+    cp -r dist/* $out/share/cockpit/machines
+    mkdir -p $out/share/metainfo
+    msgfmt --xml -d po \
+      --template org.cockpit_project.machines.metainfo.xml \
+      -o $out/share/metainfo/org.cockpit_project.machines.metainfo.xml
+    runHook postInstall
   '';
 
   postFixup = ''
-    gunzip $out/share/cockpit/machines/index.js.gz
-    sed -i "s#/usr/bin/python3#/usr/bin/env python3#ig" $out/share/cockpit/machines/index.js
-    sed -i "s#/usr/bin/pwscore#/usr/bin/env pwscore#ig" $out/share/cockpit/machines/index.js
-    gzip -9 $out/share/cockpit/machines/index.js
+    if [ -f $out/share/cockpit/machines/index.js.gz ]; then
+      gunzip $out/share/cockpit/machines/index.js.gz
+      sed -i "s#/usr/bin/python3#/usr/bin/env python3#ig" $out/share/cockpit/machines/index.js
+      sed -i "s#/usr/bin/pwscore#/usr/bin/env pwscore#ig" $out/share/cockpit/machines/index.js
+      gzip -9 $out/share/cockpit/machines/index.js
+    fi
   '';
-
-  dontBuild = true;
 
   meta = with lib; {
     description = "Cockpit UI for virtual machines";
