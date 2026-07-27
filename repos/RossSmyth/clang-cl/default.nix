@@ -3,7 +3,7 @@
   stdenvNoCC,
   makeBinaryWrapper,
   llvmPackages,
-  msvcSdk,
+  windows,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "clang-cl-wrapped";
@@ -20,7 +20,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --inherit-argv0 \
       --append-flags "--target=x86_64-pc-windows-msvc" \
       --append-flags "-fuse-ld=lld-link" \
-      --append-flags "/winsysroot ${msvcSdk}" \
+      --add-flag "/vctoolsdir ${windows.sdk}/crt" \
+      --add-flag "/winsdkdir ${windows.sdk}/sdk" \
       --prefix PATH : ${lib.makeBinPath [ llvmPackages.bintools-unwrapped ]}
   '';
 
@@ -30,11 +31,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     "$out/bin/clang-cl" ${./hello.c} -o hello.exe
 
     echo "checking..."
-    if [ ! -f hello.exe ]; then
+    if test -f hello.exe; then
+      echo "found hello.exe!"
+    else
       echo "hello.exe not found!"
       exit 1
-    else
-      echo "found hello.exe!"
     fi
   '';
 

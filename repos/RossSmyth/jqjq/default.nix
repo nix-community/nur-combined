@@ -9,39 +9,30 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "jqjq";
-  version = "0-unstable-2025-06-02";
+  version = "0-unstable-2026-03-30";
 
   src = fetchFromGitHub {
     owner = "wader";
     repo = "jqjq";
-    rev = "46aabe64866de73bdc0b68cbaf6659266fe03254";
-    hash = "sha256-ypfT8L9ujBGbi1P2R1WmEN6lw3K2NI8d4GRZEcRhjx4=";
+    rev = "adfc53104329c4a4ec81ac30552ccddb3a9fc5eb";
+    hash = "sha256-PPYJ8VFhvVUj7WdMdj5HzU23o/oPekfzgNgAdSD9o24=";
   };
 
-  # So checkPhase can run
-  postPatch = "patchShebangs --build jqjq.jq";
+  # This is wrong, but there's something wrong with
+  # patchShebangs
+  postPatch = ''
+    patchShebangs --build jqjq.jq
+  '';
 
   strictDeps = true;
+  __structuredAttrs = true;
+
   nativeBuildInputs = [ makeBinaryWrapper ];
   buildInputs = [
     bashNonInteractive
   ];
+
   dontBuild = true;
-
-  doCheck = true;
-  nativeCheckInputs = [
-    jaq
-    bashNonInteractive
-  ];
-
-  # For some reason it doesn't detect the Makefile
-  checkPhase = ''
-    runHook preCheck
-
-    make JQ=jaq test-jqjq
-
-    runHook postCheck
-  '';
 
   installPhase = ''
     runHook preInstall
@@ -59,7 +50,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installCheckPhase = ''
     runHook preInstallCheck
 
-    "$out/bin/jqjq" --run-tests < ${finalAttrs.src}/jqjq.test
+    "$out/bin/jqjq" --run-tests < jqjq.test
 
     runHook postInstallCheck
   '';
@@ -72,6 +63,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ RossSmyth ];
     mainProgram = "jqjq";
     license = lib.licenses.mit;
-    platforms = jaq.meta.platforms;
+    platforms = lib.platforms.all;
   };
 })

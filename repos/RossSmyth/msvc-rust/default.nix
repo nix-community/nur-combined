@@ -5,10 +5,10 @@
   llvmPackages,
   clang-cl,
   rustc,
-  msvcSdk,
+  windows,
 }:
 stdenvNoCC.mkDerivation {
-  inherit (rustc) version meta;
+  inherit (rustc) version;
   pname = "rustc-wrapped";
 
   dontUnpack = true;
@@ -28,7 +28,8 @@ stdenvNoCC.mkDerivation {
       --set CC ${lib.getExe clang-cl} \
       --add-flag "--target=x86_64-pc-windows-msvc" \
       --add-flag "-Clinker=lld-link" \
-      --add-flag "-Clink-arg=/winsysroot:${msvcSdk}"
+      --add-flag "-Clink-arg=/vctoolsdir:${windows.sdk}/crt" \
+      --add-flag "-Clink-arg=/winsdkdir:${windows.sdk}/sdk"
   '';
 
   doInstallCheck = true;
@@ -37,11 +38,16 @@ stdenvNoCC.mkDerivation {
     "$out/bin/rustc" ${./hello.rs} -o hello.exe
 
     echo "Checking..."
-    if [ ! -f hello.exe ]; then
+    if test -f hello.exe; then
+      echo "found hello.exe!"
+    else
       echo "hello.exe not found!"
       exit 1
-    else
-      echo "found hello.exe!"
     fi
   '';
+
+  meta = rustc.meta // {
+    description = "rustc wrapped for cross-compiling to MSVC from Unix systems";
+    maintainers = [ lib.maintainers.RossSmyth ];
+  };
 }
