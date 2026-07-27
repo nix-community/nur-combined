@@ -410,6 +410,9 @@
         "congee": {
             "url": "https://github.com/congee/nur"
         },
+        "connoromalley": {
+            "url": "https://codeberg.org/connoromalley/nur-packages"
+        },
         "crazazy": {
             "file": "pkgs/default.nix",
             "url": "https://github.com/crazazy/nixos-config"
@@ -561,6 +564,9 @@
         },
         "fanbb2333": {
             "url": "https://github.com/FanBB2333/nur-packages"
+        },
+        "federicoschonborn": {
+            "url": "https://codeberg.org/FedericoSchonborn/nur-packages"
         },
         "fedx": {
             "url": "https://github.com/FedX-sudo/Nixpkgs_testing_NUR"
@@ -865,6 +871,9 @@
         "kreisys": {
             "submodules": true,
             "url": "https://github.com/kreisys/nur-packages"
+        },
+        "krishnans2006": {
+            "url": "https://github.com/krishnans2006/nur-packages"
         },
         "kuflierl": {
             "url": "https://github.com/kuflierl/NUR"
@@ -1370,6 +1379,9 @@
         },
         "shymega": {
             "url": "https://github.com/shymega/nixfigs-nur"
+        },
+        "signalridge": {
+            "url": "https://github.com/signalridge/nur-packages"
         },
         "sigprof": {
             "url": "https://github.com/sigprof/nur-packages"
