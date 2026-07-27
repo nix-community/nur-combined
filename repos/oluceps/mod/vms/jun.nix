@@ -359,6 +359,14 @@
                     source = "/home/riro/Src/bub";
                     mountPoint = "/home/agent/bub";
                   }
+                  {
+                    proto = "virtiofs";
+                    tag = "cv";
+                    # Source path can be absolute or relative
+                    # to /var/lib/microvms/$hostName
+                    source = "/home/riro/Src/cv";
+                    mountPoint = "/home/agent/cv";
+                  }
                 ];
 
                 # "qemu" has 9p built-in!

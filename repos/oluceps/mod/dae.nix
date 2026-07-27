@@ -84,12 +84,12 @@
                        dnsproxy, coredns, mosdns, naive,
                        hysteria, tuic-client, sing-box,
                        juicity, mosproxy, yggdrasil,
-                       zerotier-one, cloudflared, xray, rqbit) -> must_direct
+                       zerotier-one, xray, rqbit) -> must_direct
 
                  pname(prometheus, ssh) -> direct
 
                  pname(Misskey, conduit, tuwunel, conduwuit,
-                       .mautrix-telegr, arti, .synapse_homese) -> all
+                       .mautrix-telegr, arti, .synapse_homese, cloudflared) -> all
 
                  dip(1.1.1.1, 8.8.8.8, 1.0.0.1, 8.8.4.4) -> all
                  dip(224.0.0.0/3, 'ff00::/8', 10.0.0.0/8, 'fd00::/8', '200::/7') -> direct
@@ -148,6 +148,7 @@
                  domain(suffix: '4.ip.skk.moe') -> all
                  domain(suffix: '2.ip.skk.moe') -> direct
                  domain(suffix: 'exhentai.org') -> ex
+                 domain(suffix: 'argotunnel.com') -> all
 
                  fallback: all
              }

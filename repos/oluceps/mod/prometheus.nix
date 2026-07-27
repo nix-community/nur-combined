@@ -206,6 +206,25 @@
                 relabel_configs = fdcc_instance_relabel;
               }
               {
+                job_name = "eihort_cf_tunnel_metrics";
+                scheme = "http";
+                static_configs = [
+                  {
+                    targets = [
+                      "127.0.0.1:20241"
+                    ];
+                  }
+                ];
+                relabel_configs = [
+                  {
+                    source_labels = [ "__address__" ];
+                    regex = "127.0.0.1:20241";
+                    target_label = "instance";
+                    replacement = "eihort-cf";
+                  }
+                ];
+              }
+              {
                 job_name = "stalwart_metrics";
                 scheme = "https";
                 metrics_path = "/metrics/prometheus";

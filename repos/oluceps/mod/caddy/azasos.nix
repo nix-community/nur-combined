@@ -11,13 +11,75 @@
         expose = true;
         settings.apps = {
           http.servers.srv0 = {
+
+            # listener_wrappers = [
+            #   {
+            #     wrapper = "layer4";
+            #     routes = [
+            #       {
+            #         handle = [
+            #           {
+            #             handler = "proxy";
+            #             upstreams = [
+            #               {
+            #                 dial = [
+            #                   "127.0.0.1:4474"
+            #                 ];
+            #               }
+            #             ];
+            #           }
+            #         ];
+            #         match = [
+            #           {
+            #             tls = {
+            #               sni = [
+            #                 "www.ndl.go.jp"
+            #               ];
+            #             };
+            #           }
+            #         ];
+            #       }
+            #     ];
+            #   }
+
+            #   { wrapper = "tls"; }
+            # ];
             routes = [
               {
                 handle = [
                   {
                     handler = "subroute";
-                    routes = import ../../caddy/nyaw-xyz.nix { inherit pkgs; };
+                    routes = import ../../caddy/nyaw-xyz.nix { inherit pkgs; } ++ [
+
+                      {
+                        handle = [
+                          {
+                            handler = "rate_limit";
+                            rate_limits = {
+                              static = {
+                                match = [ { method = [ "GET" ]; } ];
+                                key = "static";
+                                window = "1m";
+                                max_events = 10;
+                              };
+                              dynamic = {
+                                key = "{http.request.remote.host}";
+                                window = "5s";
+                                max_events = 5;
+                              };
+                            };
+                            log_key = true;
+                          }
+                          {
+                            handler = "reverse_proxy";
+                            upstreams = [ { dial = "localhost:8004"; } ];
+                          }
+                        ];
+                        match = [ { host = [ "subs.nyaw.xyz" ]; } ];
+                      }
+                    ];
                   }
+
                 ];
                 match = [ { host = [ "*.nyaw.xyz" ]; } ];
               }

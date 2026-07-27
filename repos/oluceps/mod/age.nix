@@ -112,44 +112,44 @@ in
         };
       };
     };
-  flake.modules.nixos."age/yidhra" =
-    { config, ... }:
-    {
+  # flake.modules.nixos."age/yidhra" =
+  #   { config, ... }:
+  #   {
 
-      services.openssh.hostKeys = [
-        {
-          path = hostPrivKey;
-          type = "ed25519";
-        }
-      ];
-      vaultix = {
-        settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
-        settings.flake = self;
+  #     services.openssh.hostKeys = [
+  #       {
+  #         path = hostPrivKey;
+  #         type = "ed25519";
+  #       }
+  #     ];
+  #     vaultix = {
+  #       settings.hostPubkey = config.data.node.${config.networking.hostName}.ssh_key;
+  #       settings.flake = self;
 
-        secrets = {
-          # postfix-sasl = { };
-          wg-yidhra = {
-            owner = "systemd-network";
-            group = "root";
-            mode = "400";
-          };
+  #       secrets = {
+  #         # postfix-sasl = { };
+  #         wg-yidhra = {
+  #           owner = "systemd-network";
+  #           group = "root";
+  #           mode = "400";
+  #         };
 
-          wgy-warp = {
-            owner = "systemd-network";
-            group = "root";
-            mode = "400";
-          };
-          subs = {
-            mode = "740";
-            owner = config.identity.user;
-            group = "root";
-            name = "subs.ts";
-          };
+  #         wgy-warp = {
+  #           owner = "systemd-network";
+  #           group = "root";
+  #           mode = "400";
+  #         };
+  #         subs = {
+  #           mode = "740";
+  #           owner = config.identity.user;
+  #           group = "root";
+  #           name = "subs.ts";
+  #         };
 
-          xray = { };
-        };
-      };
-    };
+  #         xray = { };
+  #       };
+  #     };
+  #   };
   flake.modules.nixos."age/kaambl" =
     { config, ... }:
     {

@@ -14,9 +14,9 @@
       virtualisation.oci-containers.containers."bub" = {
         image = "localhost/compose2nix/bub";
         environment = {
-          BUB_API_BASE = "http://cliproxyapi:8317/v1";
-          BUB_API_KEY = "sk-thisisapublicsecretinaverylocalenv";
-          BUB_MODEL = "openai:gemini-3.6-flash-high";
+          # BUB_API_BASE = "http://cliproxyapi:8317/v1";
+          # BUB_API_KEY = "sk-thisisapublicsecretinaverylocalenv";
+          # BUB_MODEL = "openai:gemini-3.6-flash-high";
           BUB_ENABLED_CHANNELS = "all";
           BUB_HOME = "/data";
           BUB_SEARCH_SEARXNG_DEFAULT_LANGUAGE = "zh-CN";
