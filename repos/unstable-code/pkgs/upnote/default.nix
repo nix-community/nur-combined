@@ -12,6 +12,7 @@
   cups,
   gtk3,
   libgbm,
+  libglvnd,
   libxkbcommon,
   nspr,
   nss,
@@ -64,15 +65,29 @@ stdenv.mkDerivation {
     # --ignore-missing 으로 덮기보다 애초에 안 쓰는 파일을 지우는 편이 낫다(잔재도 안 남음).
     rm -f $out/share/upnote/resources/app.asar.unpacked/node_modules/classic-level/prebuilds/*/node.napi.musl.node
 
-    # 래퍼는 wrapGAppsHook3 이 preFixup 에서 다시 감싼다(GSettings 스키마·XDG_DATA_DIRS 주입).
-    #   ⚠ gappsWrapperArgs 를 여기서 직접 쓰면 안 된다 — 그 배열은 preFixup 에서야 채워지므로
-    #     installPhase 시점엔 비어 있고, 결과적으로 g_settings_schema_source_lookup 이 NULL 로 죽는다.
-    makeWrapper $out/share/upnote/upnote $out/bin/upnote
-
     substituteInPlace $out/share/applications/upnote.desktop \
       --replace-fail '/opt/UpNote/upnote' 'upnote'
 
     runHook postInstall
+  '';
+
+  # 래퍼를 preFixup 에서 만든다.
+  #   ⚠ gappsWrapperArgs 는 installPhase 시점엔 비어 있다 — wrapGAppsHook3 이 preFixup 에서야 채운다.
+  #     거기서 쓰면 GSettings 스키마 경로가 안 박혀 g_settings_schema_source_lookup 이 NULL 로 죽는다.
+  #     그래서 dontWrapGApps 로 자동 래핑을 끄고, 채워진 뒤인 여기서 직접 조립한다.
+  #
+  #   LD_LIBRARY_PATH 에 libglvnd 를 넣는 이유: Chromium/ANGLE 은 네이티브 EGL 을 **dlopen** 하므로
+  #     autoPatchelfHook(NEEDED 만 검사)이 못 잡는다. 없으면 기동 시 전부 실패하고 GPU 프로세스가 죽는다:
+  #       Could not dlopen native EGL: libEGL.so.1 → Exiting GPU process due to errors during initialization
+  #     → 소프트웨어 렌더링으로 떨어짐. NixOS 의 /run/opengl-driver/lib 에는 벤더 구현
+  #     (libEGL_nvidia.so.0 / libEGL_mesa.so.0)만 있고 glvnd 디스패치인 libEGL.so.1 은 libglvnd 에 있다.
+  #     벤더 선택은 자동이다 — NixOS libglvnd 는 /run/opengl-driver/share/glvnd/egl_vendor.d 를 기본으로
+  #     본다(패치됨). nixpkgs 의 google-chrome 도 같은 방식으로 libglvnd 를 LD_LIBRARY_PATH 에 넣는다.
+  dontWrapGApps = true;
+  preFixup = ''
+    makeWrapper $out/share/upnote/upnote $out/bin/upnote \
+      "''${gappsWrapperArgs[@]}" \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libglvnd ]}
   '';
 
   meta = {
