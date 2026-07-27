@@ -22,7 +22,7 @@ makeSetupHook {
   };
 
   meta = {
-    description = "Setup hook for making an executable that uses NW.js to launch an RPG Maker MV/MZ game in $out/share or $out/opt";
+    description = "Setup hook for making an executable that uses NW.js to launch an RPG Maker MV game in $out/share or $out/opt";
     maintainers = with lib.maintainers; [ ulysseszhan ];
   };
 } ./setup-hook.sh
