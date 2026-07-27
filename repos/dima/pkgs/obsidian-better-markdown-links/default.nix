@@ -1,15 +1,17 @@
 { pkgs }:
 let
+	version = "3.3.1";
+
 	betterMarkDownLinks = pkgs.fetchFromGitHub {
 		owner = "mnaoumov";
 		repo = "obsidian-better-markdown-links";
-		rev = "3.3.1";
+		rev = version;
 		hash = "sha256-4LzHsraZSjmApHH0tb7WRqNwSoU90lD6y9Q3GTc+xVg=";
 	};
 
 	patchedSrc = pkgs.stdenv.mkDerivation {
 		pname = "obsidian-better-markdown-links-patched";
-		version = "3.3.1";
+		version = version;
 		src = betterMarkDownLinks;
 		patches = [ ./fix-lockfile.patch ./skip-lib-check.patch ];
 
@@ -21,7 +23,7 @@ let
 in
 	pkgs.buildNpmPackage {
 		pname = "obsidian-better-markdown-links";
-		version = "3.3.1";
+		version = version;
 
 		src = patchedSrc;
 
