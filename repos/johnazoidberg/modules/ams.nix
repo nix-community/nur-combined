@@ -30,7 +30,7 @@ in
     #
     # - 81-cpqFca.rules
     # - 81-cpqiScsi.rules
-    systemd.packages = [ pkgs.nur.ams ];
+    systemd.packages = [ pkgs.ams ];
     systemd.services.amsd.wantedBy = [ "multi-user.target" ];
     systemd.services.smad.wantedBy = [ "multi-user.target" ];
   };

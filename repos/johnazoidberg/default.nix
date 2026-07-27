@@ -107,8 +107,8 @@ rec {
   ssacli = pkgs.callPackage ./pkgs/ssacli.nix {};
   ssa = pkgs.callPackage ./pkgs/ssa.nix {}; # TODO: Needs a service probably
   ssaducli = pkgs.callPackage ./pkgs/ssaducli.nix {};
-  #proliant-iso = (import <nixpkgs/nixos> {
-  #  configuration = import ./isos/proliant.nix;
-  #  system = "x86_64-linux";
-  #}).config.system.build.isoImage;
+  proliant-iso = (import <nixpkgs/nixos> {
+    configuration = import ./isos/proliant.nix;
+    system = "x86_64-linux";
+  }).config.system.build.isoImage;
 }
