@@ -1,6 +1,11 @@
 { homelab, lib, ... }:
 let
   reserved = 64;
+  ipv4NetworkPrefix = "10.1";
+  ipv6NetworkPrefix = "fdcd:2022:1118";
+  homeVlanId = "10";
+  guestVlanId = "20";
+  iotVlanId = "30";
 in
 {
   services.kea = {
@@ -10,9 +15,9 @@ in
         interfaces-config = {
           interfaces = [
             "br0"
-            "br0.10"
-            "br0.20"
-            "br0.30"
+            "br0.${homeVlanId}"
+            "br0.${guestVlanId}"
+            "br0.${iotVlanId}"
           ];
           dhcp-socket-type = "raw";
         };
@@ -34,14 +39,18 @@ in
             id = 1;
             pools = [
               {
-                pool = "10.1.0.${toString reserved} - 10.1.0.254";
+                pool = "${ipv4NetworkPrefix}.0.${toString reserved} - ${ipv4NetworkPrefix}.0.254";
               }
             ];
-            subnet = "10.1.0.0/24";
+            subnet = "${ipv4NetworkPrefix}.0.0/24";
             option-data = [
               {
                 name = "routers";
-                data = "10.1.0.1";
+                data = "${ipv4NetworkPrefix}.0.1";
+              }
+              {
+                name = "domain-name-servers";
+                data = "${ipv4NetworkPrefix}.0.1";
               }
             ];
             reservations =
@@ -63,7 +72,7 @@ in
                       ...
                     }:
                     let
-                      inSubnet = lib.hasPrefix "10.1.0." ip;
+                      inSubnet = lib.hasPrefix "${ipv4NetworkPrefix}.0." ip;
                       hostAddress = lib.strings.toInt (lib.last (lib.splitString "." ip));
                     in
                     inSubnet && hostAddress > 1 && hostAddress < reserved
@@ -71,56 +80,64 @@ in
                 );
           }
           {
-            id = 10;
+            id = lib.strings.toInt homeVlanId;
             pools = [
               {
-                pool = "10.1.10.${toString reserved} - 10.1.10.254";
+                pool = "${ipv4NetworkPrefix}.${homeVlanId}.${toString reserved} - ${ipv4NetworkPrefix}.${homeVlanId}.254";
               }
             ];
-            subnet = "10.1.10.0/24";
+            subnet = "${ipv4NetworkPrefix}.${homeVlanId}.0/24";
             option-data = [
               {
                 name = "routers";
-                data = "10.1.10.1";
+                data = "${ipv4NetworkPrefix}.${homeVlanId}.1";
+              }
+              {
+                name = "domain-name-servers";
+                data = "${ipv4NetworkPrefix}.${homeVlanId}.1";
               }
             ];
           }
           {
-            id = 20;
+            id = lib.strings.toInt guestVlanId;
             pools = [
               {
-                pool = "10.1.20.${toString reserved} - 10.1.20.254";
+                pool = "${ipv4NetworkPrefix}.${guestVlanId}.${toString reserved} - ${ipv4NetworkPrefix}.${guestVlanId}.254";
               }
             ];
-            subnet = "10.1.20.0/24";
+            subnet = "${ipv4NetworkPrefix}.${guestVlanId}.0/24";
             option-data = [
               {
                 name = "routers";
-                data = "10.1.20.1";
+                data = "${ipv4NetworkPrefix}.${guestVlanId}.1";
+              }
+              {
+                name = "domain-name-servers";
+                data = "${ipv4NetworkPrefix}.${guestVlanId}.1";
               }
             ];
           }
           {
-            id = 30;
+            id = lib.strings.toInt iotVlanId;
             pools = [
               {
-                pool = "10.1.30.${toString reserved} - 10.1.30.254";
+                pool = "${ipv4NetworkPrefix}.${iotVlanId}.${toString reserved} - ${ipv4NetworkPrefix}.${iotVlanId}.254";
               }
             ];
-            subnet = "10.1.30.0/24";
+            subnet = "${ipv4NetworkPrefix}.${iotVlanId}.0/24";
             option-data = [
               {
                 name = "routers";
-                data = "10.1.30.1";
+                data = "${ipv4NetworkPrefix}.${iotVlanId}.1";
+              }
+              {
+                name = "domain-name-servers";
+                data = "${ipv4NetworkPrefix}.${iotVlanId}.1";
               }
             ];
           }
         ];
         option-data = [
-          {
-            name = "domain-name-servers";
-            data = "10.1.0.1";
-          }
           {
             name = "domain-search";
             data = "diekvoss.internal, diekvoss.net, diekvoss.com";
@@ -145,9 +162,9 @@ in
       settings = {
         interfaces-config.interfaces = [
           "br0"
-          "br0.10"
-          "br0.20"
-          "br0.30"
+          "br0.${homeVlanId}"
+          "br0.${guestVlanId}"
+          "br0.${iotVlanId}"
         ];
         lease-database = {
           name = "/var/lib/kea/dhcp6.leases";
@@ -163,10 +180,16 @@ in
             id = 1;
             pools = [
               {
-                pool = "fdcd:2022:1118::${lib.toHexString reserved} - fdcd:2022:1118::ffff";
+                pool = "${ipv6NetworkPrefix}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}::ffff";
               }
             ];
-            subnet = "fdcd:2022:1118::/64";
+            subnet = "${ipv6NetworkPrefix}::/64";
+            option-data = [
+              {
+                name = "dns-servers";
+                data = "${ipv6NetworkPrefix}::1";
+              }
+            ];
             reservations =
               lib.mapAttrsToList
                 (
@@ -177,7 +200,7 @@ in
                   in
                   {
                     inherit hostname;
-                    ip-addresses = [ "fdcd:2022:1118::${lib.toHexString hostAddress}" ];
+                    ip-addresses = [ "${ipv6NetworkPrefix}::${lib.toHexString hostAddress}" ];
                     hw-address = mac;
                   }
                 )
@@ -189,7 +212,7 @@ in
                       ...
                     }:
                     let
-                      inSubnet = lib.hasPrefix "10.1.0." ip;
+                      inSubnet = lib.hasPrefix "${ipv4NetworkPrefix}.0." ip;
                       hostAddress = lib.strings.toInt (lib.last (lib.splitString "." ip));
                     in
                     inSubnet && hostAddress > 1 && hostAddress < reserved
@@ -197,38 +220,52 @@ in
                 );
           }
           {
-            id = 10;
+            id = lib.strings.toInt homeVlanId;
             pools = [
               {
-                pool = "fdcd:2022:1118:10::${lib.toHexString reserved} - fdcd:2022:1118:10::ffff";
+                pool = "${ipv6NetworkPrefix}:${homeVlanId}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}:${homeVlanId}::ffff";
               }
             ];
-            subnet = "fdcd:2022:1118:10::/64";
+            subnet = "${ipv6NetworkPrefix}:${homeVlanId}::/64";
+            option-data = [
+              {
+                name = "dns-servers";
+                data = "${ipv6NetworkPrefix}:${homeVlanId}::1";
+              }
+            ];
           }
           {
-            id = 20;
+            id = lib.strings.toInt guestVlanId;
             pools = [
               {
-                pool = "fdcd:2022:1118:20::${lib.toHexString reserved} - fdcd:2022:1118:20::ffff";
+                pool = "${ipv6NetworkPrefix}:${guestVlanId}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}:${guestVlanId}::ffff";
               }
             ];
-            subnet = "fdcd:2022:1118:20::/64";
+            subnet = "${ipv6NetworkPrefix}:${guestVlanId}::/64";
+            option-data = [
+              {
+                name = "dns-servers";
+                data = "${ipv6NetworkPrefix}:${guestVlanId}::1";
+              }
+            ];
           }
           {
-            id = 30;
+            id = lib.strings.toInt iotVlanId;
             pools = [
               {
-                pool = "fdcd:2022:1118:30::${lib.toHexString reserved} - fdcd:2022:1118:30::ffff";
+                pool = "${ipv6NetworkPrefix}:${iotVlanId}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}:${iotVlanId}::ffff";
               }
             ];
-            subnet = "fdcd:2022:1118:30::/64";
+            subnet = "${ipv6NetworkPrefix}:${iotVlanId}::/64";
+            option-data = [
+              {
+                name = "dns-servers";
+                data = "${ipv6NetworkPrefix}:${iotVlanId}::1";
+              }
+            ];
           }
         ];
         option-data = [
-          {
-            name = "dns-servers";
-            data = "fdcd:2022:1118::1";
-          }
           {
             name = "domain-search";
             data = "diekvoss.internal, diekvoss.net, diekvoss.com";

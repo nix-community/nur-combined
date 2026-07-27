@@ -10,9 +10,14 @@
   ...
 }:
 let
+  ipv4NetworkPrefix = "10.1";
+  ipv6NetworkPrefix = "fdcd:2022:1118";
+  homeVlanId = "10";
+  guestVlanId = "20";
+  iotVlanId = "30";
   inherit (config.networking) hostName;
   internalHosts = lib.pipe homelab [
-    (lib.filterAttrs (_: host: host ? ip && lib.hasPrefix "10.1.0." host.ip))
+    (lib.filterAttrs (_: host: host ? ip && lib.hasPrefix "${ipv4NetworkPrefix}.0." host.ip))
     (lib.mapAttrsToList (
       name: host: {
         inherit name;
@@ -108,7 +113,10 @@ in
     }
     // (lib.pipe homelab [
       (lib.filterAttrs (
-        _: host: lib.hasPrefix "10.1.0." (host.ip or "") || lib.hasPrefix "10.200." (host.ip or "")
+        _: host:
+        lib.hasPrefix "${ipv4NetworkPrefix}.0." (host.ip or "")
+        || lib.hasPrefix "${ipv4NetworkPrefix}.${homeVlanId}." (host.ip or "")
+        || lib.hasPrefix "10.200." (host.ip or "")
       ))
       (lib.mapAttrsToList (
         name: host:
@@ -124,9 +132,9 @@ in
       externalInterface = "enp2s0";
       internalInterfaces = [
         "br0"
-        "br0.10"
-        "br0.20"
-        "br0.30"
+        "br0.${homeVlanId}"
+        "br0.${guestVlanId}"
+        "br0.${iotVlanId}"
         "wg0"
       ];
     };
@@ -174,7 +182,7 @@ in
           443
         ];
       };
-      interfaces."br0.10" = {
+      interfaces."br0.${homeVlanId}" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
           53
@@ -182,7 +190,7 @@ in
           68
         ];
       };
-      interfaces."br0.20" = {
+      interfaces."br0.${guestVlanId}" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
           53
@@ -190,7 +198,7 @@ in
           68
         ];
       };
-      interfaces."br0.30" = {
+      interfaces."br0.${iotVlanId}" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
           53
@@ -209,16 +217,16 @@ in
           ct state established,related accept
 
           # Allow CDWifi (br0) to initiate connections to IoT (VLAN 30)
-          iifname "br0" oifname "br0.10" accept
-          iifname "br0" oifname "br0.30" accept
+          iifname "br0" oifname "br0.${homeVlanId}" accept
+          iifname "br0" oifname "br0.${iotVlanId}" accept
 
           # Guest (VLAN 20): drop all forwarding to private subnets
-          iifname "br0.20" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
-          iifname "br0.20" ip6 daddr { fc00::/7 } drop
+          iifname "br0.${guestVlanId}" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+          iifname "br0.${guestVlanId}" ip6 daddr { fc00::/7 } drop
 
           # IoT (VLAN 30): drop all forwarding to private subnets
-          iifname "br0.30" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
-          iifname "br0.30" ip6 daddr { fc00::/7 } drop
+          iifname "br0.${iotVlanId}" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+          iifname "br0.${iotVlanId}" ip6 daddr { fc00::/7 } drop
         }
       '';
     };
@@ -283,13 +291,13 @@ in
       networks.br0 = {
         matchConfig.Name = "br0";
         address = [
-          "10.1.0.1/24"
-          "fdcd:2022:1118::1/64"
+          "${ipv4NetworkPrefix}.0.1/24"
+          "${ipv6NetworkPrefix}::1/64"
         ];
         routes = [
           {
             Destination = "10.200.0.0/16";
-            Gateway = "10.1.0.3";
+            Gateway = "${ipv4NetworkPrefix}.0.3";
           }
         ];
         networkConfig = {
@@ -299,22 +307,22 @@ in
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdcd:2022:1118::1" ];
+          DNS = [ "${ipv6NetworkPrefix}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdcd:2022:1118::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}::/64"; }
         ];
         vlan = [
-          "br0.10"
-          "br0.20"
-          "br0.30"
+          "br0.${homeVlanId}"
+          "br0.${guestVlanId}"
+          "br0.${iotVlanId}"
         ];
       };
-      networks."br0.10" = {
-        matchConfig.Name = "br0.10";
+      networks."br0.${homeVlanId}" = {
+        matchConfig.Name = "br0.${homeVlanId}";
         address = [
-          "10.1.10.1/24"
-          "fdcd:2022:1118:10::1/64"
+          "${ipv4NetworkPrefix}.${homeVlanId}.1/24"
+          "${ipv6NetworkPrefix}:${homeVlanId}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -322,17 +330,17 @@ in
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdcd:2022:1118::1" ];
+          DNS = [ "${ipv6NetworkPrefix}:${homeVlanId}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdcd:2022:1118:10::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}:${homeVlanId}::/64"; }
         ];
       };
-      networks."br0.20" = {
-        matchConfig.Name = "br0.20";
+      networks."br0.${guestVlanId}" = {
+        matchConfig.Name = "br0.${guestVlanId}";
         address = [
-          "10.1.20.1/24"
-          "fdcd:2022:1118:20::1/64"
+          "${ipv4NetworkPrefix}.${guestVlanId}.1/24"
+          "${ipv6NetworkPrefix}:${guestVlanId}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -340,17 +348,17 @@ in
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdcd:2022:1118::1" ];
+          DNS = [ "${ipv6NetworkPrefix}:${guestVlanId}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdcd:2022:1118:20::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}:${guestVlanId}::/64"; }
         ];
       };
-      networks."br0.30" = {
-        matchConfig.Name = "br0.30";
+      networks."br0.${iotVlanId}" = {
+        matchConfig.Name = "br0.${iotVlanId}";
         address = [
-          "10.1.30.1/24"
-          "fdcd:2022:1118:30::1/64"
+          "${ipv4NetworkPrefix}.${iotVlanId}.1/24"
+          "${ipv6NetworkPrefix}:${iotVlanId}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -358,10 +366,10 @@ in
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdcd:2022:1118::1" ];
+          DNS = [ "${ipv6NetworkPrefix}:${iotVlanId}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdcd:2022:1118:30::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}:${iotVlanId}::/64"; }
         ];
       };
       netdevs.br0.netdevConfig = {
@@ -369,26 +377,26 @@ in
         Kind = "bridge";
         MACAddress = "none";
       };
-      netdevs."br0.10" = {
+      netdevs."br0.${homeVlanId}" = {
         netdevConfig = {
-          Name = "br0.10";
+          Name = "br0.${homeVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = 10;
+        vlanConfig.Id = lib.strings.toInt homeVlanId;
       };
-      netdevs."br0.20" = {
+      netdevs."br0.${guestVlanId}" = {
         netdevConfig = {
-          Name = "br0.20";
+          Name = "br0.${guestVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = 20;
+        vlanConfig.Id = lib.strings.toInt guestVlanId;
       };
-      netdevs."br0.30" = {
+      netdevs."br0.${iotVlanId}" = {
         netdevConfig = {
-          Name = "br0.30";
+          Name = "br0.${iotVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = 30;
+        vlanConfig.Id = lib.strings.toInt iotVlanId;
       };
       links.br0 = {
         matchConfig.OriginalName = "br0";

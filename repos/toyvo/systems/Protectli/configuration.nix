@@ -7,6 +7,13 @@
   unstablePkgs,
   ...
 }:
+let
+  ipv4NetworkPrefix = "192.168";
+  ipv6NetworkPrefix = "fdbd:2025:0518";
+  homeVlanId = "10";
+  guestVlanId = "20";
+  iotVlanId = "30";
+in
 {
   imports = [
     inputs.nixcfg.modules.nixos.default
@@ -72,9 +79,9 @@
       externalInterface = "enp1s0";
       internalInterfaces = [
         "br0"
-        "br0.10"
-        "br0.20"
-        "br0.30"
+        "br0.${homeVlanId}"
+        "br0.${guestVlanId}"
+        "br0.${iotVlanId}"
       ];
     };
     firewall = {
@@ -103,7 +110,7 @@
           443
         ];
       };
-      interfaces."br0.10" = {
+      interfaces."br0.${homeVlanId}" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
           53
@@ -111,7 +118,7 @@
           68
         ];
       };
-      interfaces."br0.20" = {
+      interfaces."br0.${guestVlanId}" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
           53
@@ -119,7 +126,7 @@
           68
         ];
       };
-      interfaces."br0.30" = {
+      interfaces."br0.${iotVlanId}" = {
         allowedTCPPorts = [ 53 ];
         allowedUDPPorts = [
           53
@@ -138,16 +145,16 @@
           ct state established,related accept
 
           # Allow CDWifi (br0) to initiate connections to IoT (VLAN 30)
-          iifname "br0" oifname "br0.10" accept
-          iifname "br0" oifname "br0.30" accept
+          iifname "br0" oifname "br0.${homeVlanId}" accept
+          iifname "br0" oifname "br0.${iotVlanId}" accept
 
           # Guest (VLAN 20): drop all forwarding to private subnets
-          iifname "br0.20" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
-          iifname "br0.20" ip6 daddr { fc00::/7 } drop
+          iifname "br0.${guestVlanId}" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+          iifname "br0.${guestVlanId}" ip6 daddr { fc00::/7 } drop
 
           # IoT (VLAN 30): drop all forwarding to private subnets
-          iifname "br0.30" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
-          iifname "br0.30" ip6 daddr { fc00::/7 } drop
+          iifname "br0.${iotVlanId}" ip daddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16 } drop
+          iifname "br0.${iotVlanId}" ip6 daddr { fc00::/7 } drop
         }
       '';
     };
@@ -209,8 +216,8 @@
       networks.br0 = {
         matchConfig.Name = "br0";
         address = [
-          "192.168.0.1/24"
-          "fdbd:2025:0518::1/64"
+          "${ipv4NetworkPrefix}.0.1/24"
+          "${ipv6NetworkPrefix}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -219,22 +226,22 @@
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdbd:2025:0518::1" ];
+          DNS = [ "${ipv6NetworkPrefix}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdbd:2025:0518::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}::/64"; }
         ];
         vlan = [
-          "br0.10"
-          "br0.20"
-          "br0.30"
+          "br0.${homeVlanId}"
+          "br0.${guestVlanId}"
+          "br0.${iotVlanId}"
         ];
       };
-      networks."br0.10" = {
-        matchConfig.Name = "br0.10";
+      networks."br0.${homeVlanId}" = {
+        matchConfig.Name = "br0.${homeVlanId}";
         address = [
-          "192.168.10.1/24"
-          "fdbd:2025:0518:10::1/64"
+          "${ipv4NetworkPrefix}.${homeVlanId}.1/24"
+          "${ipv6NetworkPrefix}:${homeVlanId}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -242,17 +249,17 @@
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdbd:2025:0518::1" ];
+          DNS = [ "${ipv6NetworkPrefix}:${homeVlanId}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdbd:2025:0518:10::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}:${homeVlanId}::/64"; }
         ];
       };
-      networks."br0.20" = {
-        matchConfig.Name = "br0.20";
+      networks."br0.${guestVlanId}" = {
+        matchConfig.Name = "br0.${guestVlanId}";
         address = [
-          "192.168.20.1/24"
-          "fdbd:2025:0518:20::1/64"
+          "${ipv4NetworkPrefix}.${guestVlanId}.1/24"
+          "${ipv6NetworkPrefix}:${guestVlanId}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -260,17 +267,17 @@
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdbd:2025:0518::1" ];
+          DNS = [ "${ipv6NetworkPrefix}:${guestVlanId}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdbd:2025:0518:20::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}:${guestVlanId}::/64"; }
         ];
       };
-      networks."br0.30" = {
-        matchConfig.Name = "br0.30";
+      networks."br0.${iotVlanId}" = {
+        matchConfig.Name = "br0.${iotVlanId}";
         address = [
-          "192.168.30.1/24"
-          "fdbd:2025:0518:30::1/64"
+          "${ipv4NetworkPrefix}.${iotVlanId}.1/24"
+          "${ipv6NetworkPrefix}:${iotVlanId}::1/64"
         ];
         networkConfig = {
           IPMasquerade = "ipv4";
@@ -278,10 +285,10 @@
         };
         ipv6SendRAConfig = {
           EmitDNS = true;
-          DNS = [ "fdbd:2025:0518::1" ];
+          DNS = [ "${ipv6NetworkPrefix}:${iotVlanId}::1" ];
         };
         ipv6Prefixes = [
-          { Prefix = "fdbd:2025:0518:30::/64"; }
+          { Prefix = "${ipv6NetworkPrefix}:${iotVlanId}::/64"; }
         ];
       };
       netdevs.br0.netdevConfig = {
@@ -289,26 +296,26 @@
         Kind = "bridge";
         MACAddress = "none";
       };
-      netdevs."br0.10" = {
+      netdevs."br0.${homeVlanId}" = {
         netdevConfig = {
-          Name = "br0.10";
+          Name = "br0.${homeVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = 10;
+        vlanConfig.Id = lib.strings.toInt homeVlanId;
       };
-      netdevs."br0.20" = {
+      netdevs."br0.${guestVlanId}" = {
         netdevConfig = {
-          Name = "br0.20";
+          Name = "br0.${guestVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = 20;
+        vlanConfig.Id = lib.string.toInt guestVlanId;
       };
-      netdevs."br0.30" = {
+      netdevs."br0.${iotVlanId}" = {
         netdevConfig = {
-          Name = "br0.30";
+          Name = "br0.${iotVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = 30;
+        vlanConfig.Id = lib.strings.toInt iotVlanId;
       };
       links.br0 = {
         matchConfig.OriginalName = "br0";
@@ -333,9 +340,9 @@
             interfaces-config = {
               interfaces = [
                 "br0"
-                "br0.10"
-                "br0.20"
-                "br0.30"
+                "br0.${homeVlanId}"
+                "br0.${guestVlanId}"
+                "br0.${iotVlanId}"
               ];
               dhcp-socket-type = "raw";
             };
@@ -357,59 +364,59 @@
                 id = 1;
                 pools = [
                   {
-                    pool = "192.168.0.${toString reserved} - 192.168.0.254";
+                    pool = "${ipv4NetworkPrefix}.0.${toString reserved} - ${ipv4NetworkPrefix}.0.254";
                   }
                 ];
-                subnet = "192.168.0.0/24";
+                subnet = "${ipv4NetworkPrefix}.0.0/24";
                 option-data = [
                   {
                     name = "routers";
-                    data = "192.168.0.1";
+                    data = "${ipv4NetworkPrefix}.0.1";
                   }
                 ];
               }
               {
-                id = 10;
+                id = lib.strings.toInt homeVlanId;
                 pools = [
                   {
-                    pool = "192.168.10.${toString reserved} - 192.168.10.254";
+                    pool = "${ipv4NetworkPrefix}.${homeVlanId}.${toString reserved} - ${ipv4NetworkPrefix}.${homeVlanId}.254";
                   }
                 ];
-                subnet = "192.168.10.0/24";
+                subnet = "${ipv4NetworkPrefix}.${homeVlanId}.0/24";
                 option-data = [
                   {
                     name = "routers";
-                    data = "192.168.10.1";
+                    data = "${ipv4NetworkPrefix}.${homeVlanId}.1";
                   }
                 ];
               }
               {
-                id = 20;
+                id = lib.strings.toInt guestVlanId;
                 pools = [
                   {
-                    pool = "192.168.20.${toString reserved} - 192.168.20.254";
+                    pool = "${ipv4NetworkPrefix}.${guestVlanId}.${toString reserved} - ${ipv4NetworkPrefix}.${guestVlanId}.254";
                   }
                 ];
-                subnet = "192.168.20.0/24";
+                subnet = "${ipv4NetworkPrefix}.${guestVlanId}.0/24";
                 option-data = [
                   {
                     name = "routers";
-                    data = "192.168.20.1";
+                    data = "${ipv4NetworkPrefix}.${guestVlanId}.1";
                   }
                 ];
               }
               {
-                id = 30;
+                id = lib.strings.toInt iotVlanId;
                 pools = [
                   {
-                    pool = "192.168.30.${toString reserved} - 192.168.30.254";
+                    pool = "${ipv4NetworkPrefix}.${iotVlanId}.${toString reserved} - ${ipv4NetworkPrefix}.${iotVlanId}.254";
                   }
                 ];
-                subnet = "192.168.30.0/24";
+                subnet = "${ipv4NetworkPrefix}.${iotVlanId}.0/24";
                 option-data = [
                   {
                     name = "routers";
-                    data = "192.168.30.1";
+                    data = "${ipv4NetworkPrefix}.${iotVlanId}.1";
                   }
                 ];
               }
@@ -443,9 +450,9 @@
           settings = {
             interfaces-config.interfaces = [
               "br0"
-              "br0.10"
-              "br0.20"
-              "br0.30"
+              "br0.${homeVlanId}"
+              "br0.${guestVlanId}"
+              "br0.${iotVlanId}"
             ];
             lease-database = {
               name = "/var/lib/kea/dhcp6.leases";
@@ -461,37 +468,37 @@
                 id = 1;
                 pools = [
                   {
-                    pool = "fdbd:2025:0518::${lib.toHexString reserved} - fdbd:2025:0518::ffff";
+                    pool = "${ipv6NetworkPrefix}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}::ffff";
                   }
                 ];
-                subnet = "fdbd:2025:0518::/64";
+                subnet = "${ipv6NetworkPrefix}::/64";
               }
               {
-                id = 10;
+                id = lib.strings.toInt homeVlanId;
                 pools = [
                   {
-                    pool = "fdbd:2025:0518:10::${lib.toHexString reserved} - fdbd:2025:0518:10::ffff";
+                    pool = "${ipv6NetworkPrefix}:${homeVlanId}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}:${homeVlanId}::ffff";
                   }
                 ];
-                subnet = "fdbd:2025:0518:10::/64";
+                subnet = "${ipv6NetworkPrefix}:${homeVlanId}::/64";
               }
               {
-                id = 20;
+                id = lib.strings.toInt guestVlanId;
                 pools = [
                   {
-                    pool = "fdbd:2025:0518:20::${lib.toHexString reserved} - fdbd:2025:0518:20::ffff";
+                    pool = "${ipv6NetworkPrefix}:${guestVlanId}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}:${guestVlanId}::ffff";
                   }
                 ];
-                subnet = "fdbd:2025:0518:20::/64";
+                subnet = "${ipv6NetworkPrefix}:${guestVlanId}::/64";
               }
               {
-                id = 30;
+                id = lib.strings.toInt iotVlanId;
                 pools = [
                   {
-                    pool = "fdbd:2025:0518:30::${lib.toHexString reserved} - fdbd:2025:0518:30::ffff";
+                    pool = "${ipv6NetworkPrefix}:${iotVlanId}::${lib.toHexString reserved} - ${ipv6NetworkPrefix}:${iotVlanId}::ffff";
                   }
                 ];
-                subnet = "fdbd:2025:0518:30::/64";
+                subnet = "${ipv6NetworkPrefix}:${iotVlanId}::/64";
               }
             ];
             option-data = [
