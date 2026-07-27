@@ -1,0 +1,13 @@
+{
+  "version": "1.10.1",
+  "sources": {
+    "x86_64-linux": {
+      "arch": "x64",
+      "hash": "sha256-2q5TLfwHIx2uAvzjcaZrUObB70ypSnBbs7XyuZaCXuc="
+    },
+    "aarch64-linux": {
+      "arch": "arm64",
+      "hash": "sha256-nUrdFFR3oowznY25OJl9gusiAIUf6rWsQykmNZeUo+M="
+    }
+  }
+}
