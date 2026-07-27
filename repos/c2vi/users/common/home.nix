@@ -11,7 +11,6 @@
 		../../programs/git.nix
     ../../programs/lf/default.nix
 		../../programs/bash.nix
-		../../programs/ssh.nix
 		../../programs/neovim.nix
   ];
 
@@ -22,8 +21,11 @@
 	home.sessionVariables = {
 		EDITOR = "nvim";
 	};
+	home.sessionPath = [
+	  "/home/me/work/path-extra"
+		"${self}/mybin"
+	];
 
-	home.sessionPath = [ "${self}/mybin" ];
   home.file = {
      
     ".subversion/config".text = ''
@@ -35,6 +37,8 @@
   } // (if hostname == "main" then { ".rclone.conf".source = config.lib.file.mkOutOfStoreSymlink "${secretsDir}/rclone-conf"; } else {});
 
    home.packages = with pkgs; [
+    unar
+    lm_sensors
     borgbackup
     rclone
     archivemount
@@ -42,7 +46,8 @@
     pkgs.hostname
 		vim
 		tree
-		htop
+    lsof
+    htop-vim
 		subversion
 		pv
 		nodejs
@@ -52,7 +57,7 @@
 		zip
 		unzip
 		arp-scan
-		lolcat
+		#lolcat
 		comma
 		delta
     jq
@@ -63,7 +68,7 @@
     wakeonlan
 
 		# python....
-		(python310.withPackages (p: with p; [
+		(python3.withPackages (p: with p; [
 			pandas
 			click
 			click-aliases

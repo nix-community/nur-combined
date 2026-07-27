@@ -4,7 +4,7 @@
 # excluding for example my phone phone
 
 { 
-	system.stateVersion = "23.05"; # Did you read the comment?
+	##system.stateVersion = "23.05"; # Did you read the comment?
 
 
 	# Select internationalisation properties.
@@ -24,9 +24,7 @@
   # the hosts file
   networking.extraHosts = ''
     ${builtins.readFile "${self}/misc/my-hosts"}
-    ${builtins.readFile "${self}/misc/my-hosts-me"}
+    ${builtins.readFile "${self}/misc/my-hosts-t"}
   '';
-  environment.etc.current_hosts.text = builtins.readFile "${self}/misc/my-hosts-me";
-  environment.etc.current_hosts.mode = "rw";
 }
 

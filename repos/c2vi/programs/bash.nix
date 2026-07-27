@@ -1,19 +1,17 @@
-{ persistentDir, confDir, hostname, self, pkgs, config, system, inputs, workDir, ... }:
+{ lib, secretsDir, confDir, hostname, self, pkgs, config, system, workDir, ... }:
 {
 	programs.bash = {
 
 		enable = true;
 		enableCompletion = true;
 
-		historyFile = "${persistentDir}/${hostname}/bash-history";
-		historyFileSize = 100000;
+		historyFile = if hostname == "main" then "/home/$USER/work/app-data/${hostname}/bash-history" else "/home/$USER/host/bash-history";
+		historyFileSize = 10000000;
 		historyControl = [ "ignoredups" ];
 		historyIgnore = [
 			"ls"
 			"cd"
 			"exit"
-      "sd vim /etc/hosts"
-      "sd vim /etc/host-youtube-block"
 		];
 
 		shellOptions = [
@@ -23,7 +21,6 @@
 			# check the window size after each command and, if necessary,
 			# update the values of LINES and COLUMNS.
 			"checkwinsize"
-
 			# If set, the pattern "**" used in a pathname expansion context will
 			# match all files and zero or more directories and subdirectories.
 			"globstar"
@@ -36,16 +33,25 @@
 			# is needed to that ssh works
 			# TERM = "xterm";
 
-			# my prompt
-			PS1 = ''\[\033[01;34m\]\W\[\033[00m\]\[\033[01;32m\]\[\033[00m\] ❯❯❯ '';
 
 			TEST = "hiiiiiiiiiiiiiiiiiiiiiiiiiii";
 
 		};
 
 		shellAliases = {
+      archive-video = "${lib.getExe pkgs.yt-dlp} -f \"bv*+ba/b\" --merge-output-format mp4 --embed-thumbnail --write-thumbnail --convert-thumbnails png --add-metadata -o \"%(title)s.%(ext)s\"";
+
+      zed="WAYLAND_DISPLAY= zeditor";
+      npm="pnpm";
+      md="~/work/modules/modules/dev/run";
+      mize="~/work/mize/mize";
+      m="~/work/mize/mize";
+
+      c2="~/work/c2-system/cli/target/debug/system-c2-cli";
+
       ports = "${pkgs.lsof}/bin/lsof -i -P -n";
       losetup = "${pkgs.util-linux}/bin/losetup";
+      u = "sudo umount ~/mnt";
       #log = let
         #log = pkgs.writeShellApplication {
           #name = "log";
@@ -60,7 +66,7 @@
 			shutdown = "echo try harder.... xD";
 			npw = "nmcli c up pw";
 			flex = "neofetch | lolcat";
-			kwoche = "curl https://kalenderwoche.celll.net/?api=1; echo";
+			kwoche = "curl -k https://kalenderwoche.celll.net/?api=1; echo";
 			psg = "ps -e | grep";
 			vilias = "nvim -c 'set syntax=bash' ${confDir}/common/programs/bash.nix";
 			stl = "sudo systemctl";
@@ -85,16 +91,19 @@
 			'';
 		};
 
+    profileExtra = ''
+    '';
+
 		bashrcExtra = ''
       export PATH=${self}/mybin:$PATH
 			export TERM="xterm-color"
       export system=${system}
-      export NIX_PATH=$NIX_PATH:nixpkgs=${self}
+      export NIX_PATH=nixpkgs=${self.inputs.nixpkgs.outPath}
       export NIXPKGS_ALLOW_UNFREE=1
 
-      # the commit hash of nixpkgs 23.11
-      export nip="nixpkgs/71db8c7a02f3be7cb49b495786050ce1913246d3"
-      export nup="nixpkgs/2a34566b67bef34c551f204063faeecc444ae9da"
+      # the commit hash of the nixpkgs revs i use
+      export nip="nixpkgs/${self.inputs.nixpkgs.rev}"
+      export nup="nixpkgs/${self.inputs.nixpkgs-unstable.rev}"
 
       # needed to make ssh -X work
       # see: https://unix.stackexchange.com/questions/412065/ssh-connection-x11-connection-rejected-because-of-wrong-authentication
@@ -102,20 +111,49 @@
 
       export nl="--log-format bar-with-logs"
       export acern="ssh://acern x86_64-linux,aarch64-linux - 20 10 big-parallel - -"
+      export mac="ssh://mac x86_64-linux,aarch64-linux - 8 5 big-parallel - -"
+      export mosatop="ssh://mosatop x86_64-linux,aarch64-linux - 8 5 big-parallel - -"
       export hpm="ssh://hpm x86_64-linux,aarch64-linux - 8 5 big-parallel - -"
 
 			# my prompt
 			if [[ "${hostname}" == "main" ]]
 			then
-				export PS1="\[\033[01;34m\]\W\[\033[00m\]\[\033[01;32m\]\[\033[00m\] ❯❯❯ "
+				#export PS1="\[\033[01;34m\]\W\[\033[00m\]\[\033[01;32m\]\[\033[00m\] ❯❯❯ "
+				#export PS1="\[\033[01;34m\]\W\[\033[00m\]\[\033[01;32m\]\[\033[00m\] > "
+        # \n\[\033[1;34m\][\[\e]0;\u@\h: \w\a\]\u@\h:\w]\$\[\033[0m\]
+        #export PS1="\W > ";
+
+        export PS1="\[\033[01;34m\]\W\033[00m ❯❯❯ "
 			else
-				export PS1="\033[1;32m${hostname}❯ \[\033[01;34m\]\W\[\033[00m\]\[\033[01;32m\]\[\033[00m\] ❯❯❯ "
+				#export PS1="\033[1;32m${hostname}❯ \[\033[01;34m\]\W\[\033[00m\]\[\033[01;32m\]\[\033[00m\] ❯❯❯ "
+
+        export PS1="\033[1;32m${hostname}\[\033[01;34m\] \W\033[00m ❯❯❯ "
 			fi
 
 
-      # source lfcd
-      source ${pkgs.lf.src}/etc/lfcd.sh
-      alias lf="lfcd"
+
+
+      function lf () {
+        ${config.programs.lf.package}/bin/lf -last-dir-path /tmp/lf-last-path && cd $(cat /tmp/lf-last-path)
+      }
+
+
+      function vic() {
+        source ~/work/victorinix/vic
+      }
+
+
+
+
+      # function to create a tmpdir, to use for some temporary work....
+      # made this, to not just keep cluttering my $HOME... with all kinds of projects
+      function mt () {
+        export TOPDIR=$HOME/tmp
+        mkdir -p $TOPDIR
+        cd $(${pkgs.python3}/bin/python ${self}/scripts/quick-tmp-dir.py "$@")
+      }
+
+
 
 
 			# so that programms i spawn from my shell don't have so high cpu priority
@@ -138,6 +176,9 @@
 
 			#################### functions ####################
 
+      nrel(){
+        nix repl --expr "rec { nixpkgs = builtins.getFlake \"nixpkgs\"; pkgs = import nixpkgs {}; flake = builtins.getFlake \"git+file://$(pwd)\"; out = flake.packages.x86_64-linux;} $@"
+      }
 
       # shortcut for copying over to tab
       tta(){
@@ -154,6 +195,7 @@
           scp -O "$1" tab:/sdcard/fast/
         fi
       }
+
 
       tph(){
         if [[ "$1" == "" ]]
@@ -175,11 +217,9 @@
 			# ------------------------------------------------
 			cb() {
 			  local _scs_col="\e[0;32m"; local _wrn_col='\e[1;31m'; local _trn_col='\e[0;33m'
-			  # Check that xclip is installed.
-			  if ! type xclip > /dev/null 2>&1; then
-				 echo -e "$_wrn_col""You must have the 'xclip' program installed.\e[0m"
+
 			  # Check user is not root (root doesn't have access to user xorg server)
-			  elif [[ "$USER" == "root" ]]; then
+			  if [[ "$USER" == "root" ]]; then
 				 echo -e "$_wrn_col""Must be regular user (not root) to copy a file to the clipboard.\e[0m"
 			  else
 				 # If no tty, data should be available on stdin
@@ -195,7 +235,7 @@
 					echo "       echo <string> | cb"
 				 else
 					# Copy input to clipboard
-					echo -n "$input" | xclip -selection c
+					echo -n "$input" | wl-copy
 					# Truncate text for status
 					if [ ''${#input} -gt 80 ]; then input="$(echo $input | cut -c1-80)$_trn_col...\e[0m"; fi
 					# Print status.
@@ -247,9 +287,9 @@
 			sd() {
 				if [ "$1" == "" ]
 				then
-					sudo $(history | tail -n 2 | head -n 1 | awk '{$1=""; print $0}')
+					sudo -E $(history | tail -n 2 | head -n 1 | awk '{$1=""; print $0}')
 				else
-					sudo $@
+					sudo -E $@
 				fi
 			}
 
@@ -259,9 +299,23 @@
 			python3 -c "print($@)"
 			}
 
+      # cam
+      function cam(){
+        xset r rate 130 85
+        xinput set-prop "ZMK Project Charybdis Mouse" 304 60
+        xinput set-prop "Charybdis Mouse" 304 60
+        id=$(xinput | grep Charybdis | tail -n 1 | awk '{print $4}' | cut -c4- )
+        echo id: $id
+        setxkbmap -device $id -layout us
+
+        id=$(xinput | grep Charybdis | tail -n 1 | awk '{print $6}' | cut -c4- )
+        echo id: $id
+        setxkbmap -device $id -layout us
+      }
 
 			# map
 			function map(){
+       source $
 			if [ "$1" == "" ]
 			then
 			bash ~/work/virtchord/reset
@@ -309,7 +363,7 @@
 			complete -W "start stop restart status daemon-reload" stl
 
 			# run 
-			complete -W "mnt-wechner sync-school wstunnel hibernate p speed-test-nixos-iso speed-test-upload speed-test-download bat bstat mnt-files-local mnt-lan-local mnt-files-remote mnt-lan-remote suspend rm-tab-cur rm-last-char mnt-school" ru
+			complete -W "mnt-wechner sync-school wstunnel hibernate p speed-test-nixos-iso speed-test-upload speed-test-download bat bstat mnt-files-local mnt-lan-local mnt-files-remote mnt-lan-remote suspend rm-tab-cur rm-last-char mnt-school mnt-host davinci-resolve-convert-videos" ru
 
 
 		'';

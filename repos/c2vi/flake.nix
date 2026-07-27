@@ -3,8 +3,10 @@
 
   ################################### INPUTS #########################################
 	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/release-24.05";
+		nixpkgs.url = "github:NixOS/nixpkgs/release-25.05";
 		#nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+		
+		nixpkgs-new.url = "github:NixOS/nixpkgs/release-25.11";
 
 		nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 		nixpkgs-old.url = "github:NixOS/nixpkgs/release-23.11";
@@ -17,11 +19,36 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    
+    zed.url = "github:zed-industries/zed";
+    #zed.inputs.nixpkgs.follows = "nixpkgs";
 
+    hetzner_ddns = {
+      url = "github:c2vi/hetzner_ddns";
+      flake = false;
+    };
+    
 		home-manager = {
-			url = "github:nix-community/home-manager/release-24.05";
+			url = "github:nix-community/home-manager/release-25.05";
+			#url = "github:nix-community/home-manager/release-24.05";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
+
+    compass = {
+      url = "github:ppc-social/compass";
+			inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    elephant = {
+      url = "github:abenz1267/elephant";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 		home-manager-old = {
 			url = "github:nix-community/home-manager/release-23.11";
@@ -29,6 +56,11 @@
 		};
 
 		nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+
+    arion = {
+      url = "github:hercules-ci/arion";
+			inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 		nix-index-database.url = "github:Mic92/nix-index-database";
     	nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
@@ -42,22 +74,29 @@
 
     networkmanager.url = "github:c2vi/nixos-networkmanager-profiles";
 
+    lan-mouse.url = "github:feschber/lan-mouse";
+
+    disko = {
+      url = "github:nix-community/disko/latest";
+      #inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     robotnix = {
       #url = "github:nix-community/robotnix";
       url = "github:c2vi/robotnix";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # use fork see: https://github.com/nix-community/nix-on-droid/pull/203#issuecomment-2956162178
     nix-on-droid = {
-      url = "github:nix-community/nix-on-droid/release-23.05";
-      #url = "github:zhaofengli/nix-on-droid";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:frankitox/nix-on-droid/supervisord";
       inputs.home-manager.follows = "home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     # for bootstrap zip ball creation and proot-termux builds, we use a fixed version of nixpkgs to ease maintanence.
     # head of nixos-23.05 as of 2023-06-18
     # note: when updating nixpkgs-for-bootstrap, update store paths of proot-termux in modules/environment/login/default.nix
-    nixpkgs-for-bootstrap.url = "github:NixOS/nixpkgs/c7ff1b9b95620ce8728c0d7bd501c458e6da9e04";
+    nixpkgs-for-nix-on-droid-bootstrap.url = "github:NixOS/nixpkgs/49ee0e94463abada1de470c9c07bfc12b36dcf40";
 
     nix-wsl.url = "github:nix-community/NixOS-WSL";
 
@@ -81,20 +120,27 @@
       url = "github:lilyinstarlight/zmk-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    keyboard-config = {
-      url = "github:eigatech/zmk-config/charybdis-3.5";
-      flake = false;
+
+    waveforms = {
+      url = "github:liff/waveforms-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 	};
 
-	outputs = { self, nixpkgs, nixpkgs-unstable, nixos-generators, flake-utils, systems, ... }@inputs: 
+	outputs = { self, nixpkgs, nixpkgs-unstable, nixos-generators, flake-utils, systems, ... }@inputs:
 
   ################################### LET FOR OUPUTS #########################################
 		let 
 			confDir = "/home/me/work/config";
 			workDir = "/home/me/work";
-			secretsDir = "/home/me/work/here/secrets";
+			secretsDir = "/home/me/secrets";
 			persistentDir = "/home/me/work/app-data";
+      dataDir = "/home/server/host";
 
       tunepkgs = import nixpkgs {
 
@@ -111,6 +157,7 @@
           #})
         #];
       };
+
       mypkgs = import nixpkgs { 
         system = "x86_64-linux"; 
         config = {
@@ -120,19 +167,33 @@
             "electron-25.9.0"
             ];
         }; 
-        overlays = [ 
+        overlays = [
           #( import ./mods/my-nixpkgs-overlay.nix { inherit nixpkgs; } )
           #( import ./mods/second-overlay.nix { inherit nixpkgs; } )
         ];
       };
 
+      pkgsUnstable = import nixpkgs-unstable {
+        system = "x86_64-linux"; 
+        config = {
+          allowUnfree = true;
+        };
+      };
+
       specialArgs = {
-				inherit inputs confDir workDir secretsDir persistentDir self tunepkgs;
+				inherit inputs confDir workDir secretsDir persistentDir self tunepkgs unstable nur pkgsUnstable dataDir;
         system = "x86_64-linux";
         pkgs = mypkgs;
 			};
-    eachSystem = inputs.flake-utils.outputs.lib.eachSystem;
-    allSystems = inputs.flake-utils.outputs.lib.allSystems;
+      eachSystem = inputs.flake-utils.outputs.lib.eachSystem;
+      allSystems = inputs.flake-utils.outputs.lib.allSystems;
+
+      unstable = import nixpkgs-unstable {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+
+      nur = import inputs.nur { pkgs = mypkgs; };
 		in
 
   ################################### EACH SYSTEM OUPUTS #########################################
@@ -153,9 +214,16 @@
       overlays = [ (import ./overlays/static-overlay.nix) (import ./overlays/my-overlay.nix) ];
     };
 
-    acern = self.nixosConfigurations.acern.config.system.build.tarballBuilder;
-    lush = self.nixosConfigurations.lush.config.system.build.sdImage;
-    rpi = self.nixosConfigurations.rpi.config.system.build.sdImage;
+    nod = (mypkgs.callPackage ./mods/nix-on-droid-pkgs.nix {
+      system = "aarch64-linux";
+      _nativeSystem = "x86_64-linux";
+      nix-on-droid-flake = inputs.nix-on-droid;
+      nixpkgs = inputs.nixpkgs-for-nix-on-droid-bootstrap;
+      nixOnDroidChannelURL = "${inputs.nix-on-droid}";
+      nixpkgsChannelURL = "${inputs.nixpkgs-for-nix-on-droid-bootstrap}";
+      home-manager-flake = inputs.home-manager-old; 
+      #nixOnDroidFlakeURL = inputs.nix-on-droid.
+    }).customPkgs.bootstrapZip;
 
     # collection of only my nur pkgs
     # my nur is unstable by default
@@ -210,7 +278,119 @@
 
   ############ apps ################
   apps = {
-    test = inputs.nix-on-droid.outputs.apps.x86_64-linux.deploy;
+    flash = let
+
+        # echo the disks which will be flashed...
+        diskListing = hostname: let
+          list = mypkgs.lib.attrsets.mapAttrsToList (name: value: "echo flashing disk ${name} onto device ${value.device}") self.nixosConfigurations.${hostname}.config.disko.devices.disk;
+          string = mypkgs.lib.strings.concatStringsSep "\n" list;
+        in string;
+
+        diskDefinitionsList = hostname: let
+          list = mypkgs.lib.attrsets.mapAttrsToList (name: value: "diskDefinitions[${name}]=${value.device}") self.nixosConfigurations.${hostname}.config.disko.devices.disk;
+          string = mypkgs.lib.strings.concatStringsSep "\n" list;
+        in string;
+
+        createFlashScript = hostname: {
+          type = "app";
+          program = "${mypkgs.writeShellScriptBin "flash-te" ''
+            set -eo pipefail
+
+            echo flashing for host ${hostname}
+            ${diskListing hostname}
+
+            declare -A diskDefinitions
+            ${diskDefinitionsList hostname}
+
+
+            # default value if no --mode provided
+            MODE="format"
+            ARGS=()
+
+            while [[ $# -gt 0 ]]; do
+              case "$1" in
+                --)                    # end of options; take remaining args as-is
+                  shift
+                  while [[ $# -gt 0 ]]; do
+                    ARGS+=("$1")
+                    shift
+                  done
+                  break
+                  ;;
+                --mode=*)              # --mode=VALUE
+                  MODE="''${1#*=}"
+                  shift
+                  ;;
+                --mode)                # --mode VALUE
+                  if [[ $# -lt 2 ]]; then
+                    echo "Error: --mode requires a value" >&2
+                    exit 1
+                  fi
+                  MODE="$2"
+                  shift 2
+                  ;;
+                --do-flash)
+                  DO_FLASH=yes
+                  shift 1
+                  ;;
+                --efi-vars)
+                  ARGS+=("--write-efi-boot-entries")         # all other args preserved
+                  shift 1
+                  ;;
+                --help)
+                  ARGS+=("--help")         # all other args preserved
+                  DO_FLASH=yes
+                  shift 1
+                  ;;
+                --disk)                # --mode VALUE
+                  if [[ $# -lt 3 ]]; then
+                    echo "Error: --disk requires two values" >&2
+                    exit 1
+                  fi
+                  diskname="$2"
+                  diskval="$3"
+                  diskDefinitions["$diskname"]="$diskval"
+                  shift 3
+                  ;;
+                *)
+                  ARGS+=("$1")         # all other args preserved
+                  shift
+                  ;;
+              esac
+            done
+
+
+            # generate arg string from diskDefinitions
+            diskDefinitionString=""
+            for i in "''${!diskDefinitions[@]}"
+            do
+              diskDefinitionString="$diskDefinitionString --disk $i ''${diskDefinitions[$i]}"
+            done
+
+
+            echo would run: sudo -E ${inputs.disko.packages.x86_64-linux.disko-install}/bin/disko-install --mode $MODE --flake ${self}#${hostname} $diskDefinitionString ''${ARGS[@]}
+
+
+            if [[ $DO_FLASH != "yes" ]]
+            then
+              echo type yes to continue...
+              read acc
+              if [[ "$acc" != "yes" ]]
+              then
+                echo aborting...
+                exit
+              fi
+            fi
+
+            echo flashing...
+            sudo -E ${inputs.disko.packages.x86_64-linux.disko-install}/bin/disko-install --mode $MODE --flake ${self}#${hostname} $diskDefinitionString ''${ARGS[@]}
+          ''}/bin/flash-te";
+        };
+      in {
+      te = createFlashScript "te";
+      ki = createFlashScript "ki";
+      fasu = createFlashScript "fasu";
+    };
 
     wsl = {
       type = "app";
@@ -230,6 +410,11 @@
   ################################### OTHER OUPUTS #########################################
 	{
     top = builtins.mapAttrs (name: value: value.config.system.build.toplevel) (self.nixOnDroidConfigurations // self.nixosConfigurations);
+
+    img = builtins.mapAttrs (name: value: 
+      # build tarball for wsl systems and sdImage for others.....
+      if builtins.hasAttr "wsl" value.config && value.config.wsl.enable then value.config.system.build.tarballBuilder else value.config.system.build.sdImage
+    ) (self.nixOnDroidConfigurations // self.nixosConfigurations);
 
     # this is my nur repo, that you can import and call with pkgs
     nur = import ./nur.nix;
@@ -270,7 +455,47 @@
     };
 
   ############ nixosConfigurations ################
-   	nixosConfigurations = rec {
+    nixosConfigurations = rec {
+      "_lsp_dummp" = nixpkgs.lib.nixosSystem {
+        inherit specialArgs;
+    		system = "x86_64-linux";
+    		modules = [
+          inputs.home-manager.nixosModules.home-manager
+          inputs.networkmanager.nixosModules.networkmanager
+          inputs.arion.nixosModules.arion
+          inputs.disko.nixosModules.disko
+          
+          # other overlay and home manager module access
+          {
+            nixpkgs.overlays = [
+              # overlay for nix vscode extensions to appear in packages
+              #nix-vscode-extensions.overlays.default
+            ];
+            # a dummy user to expose home-manager modules
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {
+              inherit self;
+            };
+            users.users._lsp_dummy_user = {
+              isNormalUser = true;
+              description = "dummy";
+            };
+            # the user is managed by home-manager
+            home-manager.users._lsp_dummy_user = {
+              home.username = "_lsp_dummy_user";
+              home.homeDirectory = "/home/_lsp_dummy_user";
+              home.stateVersion = "24.05";
+
+              # add custom and third party options and configurations
+              imports = [
+                inputs.lan-mouse.homeManagerModules.default
+              ];
+            };
+          }
+        ];
+      };
+      
    		"main" = nixpkgs.lib.nixosSystem {
 				inherit specialArgs;
       		system = "x86_64-linux";
@@ -287,6 +512,14 @@
          		./hosts/hpm.nix
 					  ./hardware/hpm-laptop.nix
             #./mods/hec-server.nix
+      		];
+   		};
+
+   		"mac" = nixpkgs.lib.nixosSystem {
+				inherit specialArgs;
+      		system = "x86_64-linux";
+      		modules = [
+         		./hosts/mac.nix
       		];
    		};
 
@@ -327,6 +560,40 @@
       		];
    		};
 
+      #fesu my second server to fusu
+   		"fe" = nixpkgs.lib.nixosSystem {
+				inherit specialArgs;
+      		system = "x86_64-linux";
+      		modules = [
+         		./hosts/fe.nix
+      		];
+   		};
+      
+   		"te" = nixpkgs.lib.nixosSystem {
+				inherit specialArgs;
+      		system = "x86_64-linux";
+      		modules = [
+         		./hosts/te.nix
+      		];
+   		};
+
+   		"ki" = nixpkgs.lib.nixosSystem {
+				inherit specialArgs;
+      		system = "x86_64-linux";
+      		modules = [
+         		./hosts/ki.nix
+      		];
+   		};
+
+      # my asus tinker board
+   		"ti" = nixpkgs.lib.nixosSystem rec {
+				specialArgs = { inherit inputs confDir workDir secretsDir persistentDir self unstable nur dataDir system;};
+        system = "aarch64-linux";
+        modules = [
+          ./hosts/ti.nix
+        ];
+   		};
+
       # server that hosts stuff
    		"fasu" = nixpkgs.lib.nixosSystem {
 				inherit specialArgs;
@@ -352,9 +619,18 @@
         specialArgs = { inherit inputs confDir workDir secretsDir persistentDir self system; };
         modules = [
           ./hosts/lush.nix
-
         ];
       };
+
+      # lesh... seccond raspi
+   		"le" = nixpkgs.lib.nixosSystem rec {
+          specialArgs = { inherit inputs confDir workDir secretsDir persistentDir self system; };
+      		system = "aarch64-linux";
+      		modules = [
+         		./hosts/le.nix
+      		];
+   		};
+
 
    		"hec-tmp" = nixpkgs.lib.nixosSystem rec {
         system = "aarch64-linux";
@@ -388,6 +664,14 @@
       	system = "x86_64-linux";
         modules = [
           ./hosts/acern.nix
+        ];
+      };
+
+   		"mosatop" = nixpkgs.lib.nixosSystem {
+			  inherit specialArgs;
+      	system = "x86_64-linux";
+        modules = [
+          ./hosts/mosatop.nix
         ];
       };
 
@@ -515,6 +799,7 @@
   ############ nixOnDroidConfigurations ################
     nixOnDroidConfigurations = rec {
       "phone" = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
         modules = [
           ./hosts/phone/nix-on-droid.nix
           {
@@ -530,6 +815,7 @@
         ];
       };
       "tab" = inputs.nix-on-droid.lib.nixOnDroidConfiguration {
+        pkgs = import nixpkgs { system = "aarch64-linux"; };
         modules = [
           ./hosts/tab/nix-on-droid.nix
           {

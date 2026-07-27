@@ -23,8 +23,18 @@
 	boot.initrd.kernelModules = [ "dm-snapshot" ];
 	boot.kernelModules = [ "kvm-intel" ];
 	boot.extraModulePackages = [ ];
-  boot.loader.efi.canTouchEfiVariables = true;
+  	boot.loader.efi.canTouchEfiVariables = true;
 
+     	boot.initrd.luks.devices = {
+        	root = {
+                	#name = "root";
+        		device = "/dev/disk/by-partuuid/ffc93316-5bcf-478a-9143-9ccacd428f48";
+        		preLVM = true;
+        		allowDiscards = true;
+        	};
+        };
+
+  /*
 	fileSystems."/" = {
 		device = "/dev/disk/by-uuid/6518e61e-7120-48ef-81a3-5eae0f67297e";
    	fsType = "btrfs";
@@ -32,6 +42,16 @@
 
 	fileSystems."/boot" = {
 		device = "/dev/disk/by-uuid/0E6C-F209";
+		fsType = "vfat";
+	};
+  */
+	fileSystems."/" = {
+		device = "/dev/disk/by-label/main-root";
+   	fsType = "btrfs";
+   };
+
+	fileSystems."/boot" = {
+		device = "/dev/disk/by-label/MAIN-BOOT";
 		fsType = "vfat";
 	};
 

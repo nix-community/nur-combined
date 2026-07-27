@@ -9,7 +9,7 @@ default_vm_uuid=win
 #default_vm_uuid=6a412143-871f-4838-bacd-5dcfa5fa95c3
 
 username=me
-password=$(cat ~/work/here/secrets/win-vm-pwd)
+password=$(cat ~/secrets/win-vm-pwd)
 
 if [ "$1" == "-o" ];then
 	cmd=$5
@@ -119,6 +119,9 @@ elif [ "$cmd" == "f" ];then
 	#xfreerdp ${RDP_FLAGS} /u:"${RDP_USER}" /p:"${RDP_PASS}" /v:${RDP_IP} /scale:${RDP_SCALE} /dynamic-resolution +clipboard +auto-reconnect +home-drive /wm-class:"Microsoft Windows" -grab-keyboard
 	#
 elif [ "$cmd" == "fl" ];then
+  echo username: $username
+  echo ip: $default_vm_ip
+
 	RDP_SCALE=100
 	MULTI_FLAG="span"
 	RDP_USER=$username

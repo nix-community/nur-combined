@@ -1,4 +1,4 @@
-{ self, config, inputs, ... }:
+{ self, config, secretsDir, ... }:
 {
 	users.users.files = {
    	isNormalUser = true;
@@ -12,7 +12,7 @@
     hostname = config.networking.hostName;
   };
 
-  home-manager.users.files = import ../common/home.nix;
+  home-manager.users.files = import ./home.nix;
 
   users.users.files.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPAgNB1nsKZ5KXnmR6KWjQLfwhFKDispw24o8M7g/nbR me@bitwarden"
@@ -25,6 +25,5 @@
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgKX76Cnd0EpMakB6Iv0Qbkd0BoyHrFc5rgZTdLqIEd me@hpm"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPgKLRF9iYRH3Y8hPjLX1ZY6GyavruqcQ0Q0Y8bnmpv9 me@tab"
   ];
-
 
 }

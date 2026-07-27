@@ -1,0 +1,46 @@
+diff --git a/src/core/flameshotdaemon.cpp b/src/core/flameshotdaemon.cpp
+index b8fdf3cd..b8abd70f 100644
+--- a/src/core/flameshotdaemon.cpp
++++ b/src/core/flameshotdaemon.cpp
+@@ -29,6 +29,11 @@
+ #include "src/core/globalshortcutfilter.h"
+ #endif
+ 
++#if USE_WAYLAND_CLIPBOARD
++#include <KSystemClipboard>
++#include <QMimeData>
++#endif
++
+ /**
+  * @brief A way of accessing the flameshot daemon both from the daemon itself,
+  * and from subcommands.
+@@ -313,14 +318,22 @@ void FlameshotDaemon::attachTextToClipboard(const QString& text,
+     }
+ 
+     m_hostingClipboard = true;
+-    QClipboard* clipboard = QApplication::clipboard();
+ 
+-    clipboard->blockSignals(true);
+-    // This variable is necessary because the signal doesn't get blocked on
+-    // windows for some reason
+-    m_clipboardSignalBlocked = true;
+-    clipboard->setText(text);
+-    clipboard->blockSignals(false);
++    #ifdef USE_WAYLAND_CLIPBOARD
++        auto* mimeData = new QMimeData();
++        mimeData->setText(text);
++        KSystemClipboard::instance()->setMimeData(mimeData,
++                                            QClipboard::Clipboard);
++    #else
++        QClipboard* clipboard = QApplication::clipboard();
++
++        clipboard->blockSignals(true);
++        // This variable is necessary because the signal doesn't get blocked on
++        // windows for some reason
++        m_clipboardSignalBlocked = true;
++        clipboard->setText(text);
++        clipboard->blockSignals(false);
++    #endif
+ }
+ 
+ void FlameshotDaemon::initTrayIcon()

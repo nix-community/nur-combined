@@ -197,11 +197,11 @@
         ip=$(curl my.ip.fi)
         curl "http://dynv6.com/api/update?hostname=${builtins.readFile "${secretsDir}/dns-name-two"}&ipv4=$ip&token=${builtins.readFile "${secretsDir}/dns-name-two-token"}"
         curl "https://dynamicdns.park-your-domain.com/update?host=home&domain=${builtins.readFile "${secretsDir}/dns-name"}&password=${builtins.readFile "${secretsDir}/dns-name-token"}&ip=$ip"
-        curl "https://dynamicdns.park-your-domain.com/update?host=mc&domain=c2vi.dev&password=${builtins.readFile "${secretsDir}/dns-name-token"}&ip=$ip"
 
         # https://www.namecheap.com/support/knowledgebase/article.aspx/29/11/how-to-dynamically-update-the-hosts-ip-with-an-https-request/
       '';
       };
+      #curl "https://dynamicdns.park-your-domain.com/update?host=mc&domain=c2vi.dev&password=${builtins.readFile "${secretsDir}/dns-name-token"}&ip=$ip"
     in
   {
     enable = true;

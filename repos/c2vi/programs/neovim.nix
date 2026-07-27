@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+
+  home.packages = with pkgs; [
+    ccls
+  ];
 	programs.neovim = {
 		enable = true;
 		withPython3 = true;
@@ -7,10 +11,10 @@
 		plugins = with pkgs.vimPlugins; [
 			haskell-vim
 			plenary-nvim
-			# typst ... TODO
 			rust-vim
 			dracula-vim
       lf-vim
+      typst-vim
 		];
 
 		coc.enable = true;
@@ -25,6 +29,16 @@
 		  "rust-analyzer.diagnostics.enable" = true;
 		  "rust-analyzer.checkOnSave.enable" = false;
 		  "languageserver" = {
+        "ccls" = {
+          "command" = "ccls";
+          "filetypes" = ["c" "cpp" "objc" "objcpp"];
+          "rootPatterns" = [".ccls" "compile_commands.json" ".vim/" ".git/" ".hg/"];
+          "initializationOptions" = {
+             "cache" = {
+               "directory" = "/tmp/ccls";
+             };
+           };
+        };
         "slint" = {
           "filetypes" = [ "slint" ];
           "command" = "slint-lsp";
@@ -45,6 +59,11 @@
 					"filetypes" = [ "nix" ];
 					"rootPatterns" =  [ "flake.nix" ];
 				};
+				#"typst" = {
+          # error: 'typst-lsp' has been removed due to lack of upstream maintenance, consider using 'tinymist' instead
+					#"command" = "${pkgs.typst-lsp}/bin/typst-lsp"; 
+					#"filetypes" = [ "typ" "typst" ];
+				#};
 		  };
 		  "svelte.enable-ts-plugin" = true;
 		};
@@ -390,6 +409,20 @@
 
 
 			" ###### rust ###### "
+
+      " specially for mize...
+			cnoreabbrev md call Set_Mize_RunBuild()
+
+      function! Set_Mize_RunBuild()
+			  cnoreabbrev c call Mize_RunBuild()
+      endfunction
+
+      function! Mize_RunBuild()
+				:w
+        silent ! echo Run > ~/.mize/mize_dev_module/pipe
+      endfunction
+
+
 
 			function! Setup_rust()
 

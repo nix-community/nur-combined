@@ -1,0 +1,22 @@
+diff --git a/blocksuite/affine/gfx/pointer/src/tools/pan-tool.ts b/blocksuite/affine/gfx/pointer/src/tools/pan-tool.ts
+index c1abe0aea..b86367ca5 100644
+--- a/blocksuite/affine/gfx/pointer/src/tools/pan-tool.ts
++++ b/blocksuite/affine/gfx/pointer/src/tools/pan-tool.ts
+@@ -54,7 +54,7 @@ export class PanTool extends BaseTool<PanToolOption> {
+ 
+   override mounted(): void {
+     this.addHook('pointerDown', evt => {
+-      const shouldPanWithMiddle = evt.raw.button === MouseButton.MIDDLE;
++      const shouldPanWithMiddle = evt.raw.button === MouseButton.SECONDARY;
+ 
+       if (!shouldPanWithMiddle) {
+         return;
+@@ -111,7 +111,7 @@ export class PanTool extends BaseTool<PanToolOption> {
+       });
+ 
+       const dispose = on(document, 'pointerup', evt => {
+-        if (evt.button === MouseButton.MIDDLE) {
++        if (evt.button === MouseButton.SECONDARY) {
+           restoreToPrevious();
+         }
+         dispose();

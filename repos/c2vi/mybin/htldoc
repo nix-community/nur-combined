@@ -1,0 +1,17 @@
+#!/bin/sh
+
+NIX_EXTRA_FEATURE_ARGS="--extra-experimental-features nix-command --extra-experimental-features flakes"
+
+## check if nix is found in the PATH
+command -V nix || ( echo '"nix" is required for htldoc, but was not found in your PATH.'; echo "nix install instructions: https://nixos.org/download/"; exit 1)
+
+if [ -f "htldoc.nix" ]; then
+	htldocUrl=$(nix $NIX_EXTRA_FEATURE_ARGS eval --expr 'let config = (import ./htldoc.nix {}); in if builtins.hasAttr "htldocVersion" config then config.htldocVersion else "github:c2vi/htldoc/master"' --impure --raw)
+	echo running htldoc version: $htldocUrl >&2
+	exec nix $NIX_EXTRA_FEATURE_ARGS run $htldocUrl -- $@
+
+
+else 
+	exec nix $NIX_EXTRA_FEATURE_ARGS run github:c2vi/htldoc/master -- $@
+fi
+

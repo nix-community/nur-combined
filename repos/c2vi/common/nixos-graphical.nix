@@ -4,6 +4,10 @@
 		../mods/battery_monitor.nix
 	];
 
+  # after firefox 1.122 the cursor did not change on links anymore.....
+  # so i had a firefox-tmp binary, which was built with
+  # sudo nix build github:c2vi/nixos/1b07ba88b21e7f46a6012ecadc0ca3a86eda7281#nixosConfigurations.main.config.home-manager.users.me.programs.firefox.package -L
+
 	modules.battery_monitor.enable = true;
 
 	# Enable the X11 windowing system.
@@ -67,6 +71,11 @@
 	sound.enable = true;
 	hardware.pulseaudio.enable = true;
   services.blueman.enable = true;
+  hardware.bluetooth.settings = {
+    General = {
+      Enable = "Source,Sink,Media,Socket";
+    };
+  };
 	hardware.bluetooth.enable = true;
 
 	# Enable touchpad support (enabled default in most desktopManager).

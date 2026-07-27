@@ -12,7 +12,7 @@
     hostname = config.networking.hostName;
   };
 
-  home-manager.users.me = import ../common/home.nix;
+  home-manager.users.me = import ./home.nix;
 
   users.users.me.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPAgNB1nsKZ5KXnmR6KWjQLfwhFKDispw24o8M7g/nbR me@bitwarden"

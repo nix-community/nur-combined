@@ -1,8 +1,8 @@
 { pkgs, inputs, secretsDir, ...}:
 {
   imports = [
-    inputs.nix-wsl.nixosModules.wsl
     ../users/me/headless.nix
+    ../common/wsl.nix
 
     inputs.networkmanager.nixosModules.networkmanager
 		inputs.home-manager.nixosModules.home-manager
@@ -10,21 +10,10 @@
     ../common/nixos-headless.nix
   ];
 
-  wsl.enable = true;
-
-  services.openssh = {
-    enable = true;
-    ports = [ 2222 ];
-
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-    settings.X11Forwarding = true;
-    extraConfig = ''
-      X11UseLocalhost no
-    '';
-  };
 
   programs.bash.loginShellInit = "";
+  virtualisation.docker.enable = true;
+  users.users.me.extraGroups = [ "docker" ];
 
   # to build rpi images
   boot.binfmt.emulatedSystems = [ 

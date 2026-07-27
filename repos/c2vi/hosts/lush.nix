@@ -1,4 +1,4 @@
-{ lib, pkgs, inputs, secretsDir, workDir, ... }:
+{ lib, pkgs, inputs, secretsDir, config, ... }:
 {
   
   #system.stateVersion = "23.05"; # Did you read the comment?
@@ -32,7 +32,13 @@
     };
   };
   
-  boot.kernelParams = lib.mkForce ["console=ttyS0,115200n8" "console=tty0" "nohibernate" "loglevel=7" ];
+  # get usbip working
+  boot.extraModulePackages = [
+    config.boot.kernelPackages.usbip
+  ];
+
+
+  boot.kernelParams = lib.mkForce ["console=ttyS0,115200n8" "console=ttyAMA0,115200n8" "console=tty0" "nohibernate" "loglevel=7" ];
 	# hardware.bluetooth.enable = true;
 
 
@@ -62,11 +68,10 @@
   services.blueman.enable = true;
   hardware.enableRedistributableFirmware = true;
 
-  # This causes an overlay which causes a lot of rebuilding
-  environment.noXlibs = lib.mkForce false;
-
+  services.tailscale.enable = true;
 
   environment.systemPackages = with pkgs; [
+    linuxPackages.usbip
     vim
     bluez
     git
@@ -75,10 +80,11 @@
   # "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix" creates a
   # disk with this label on first boot. Therefore, we need to keep it. It is the
   # only information from the installer image that we need to keep persistent
-  fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXOS_SD";
-      fsType = "ext4";
-    };
+  fileSystems."/" = { 
+    device = "/dev/disk/by-label/NIXOS_SD";
+    noCheck = true;
+    fsType = "ext4";
+  };
 
   boot = {
     #kernelPackages = lib.mkForce pkgs.linuxPackages_latest;
@@ -115,6 +121,7 @@
   networking.firewall.allowedTCPPorts = [
       8888 # general use
       9999 # general use
+      3240 # usbip
   ];
 
   networking.hostName = "lush";
@@ -122,29 +129,14 @@
   networking.networkmanager.enable = true;
 
   networking.networkmanager.profiles = {
-    home = {
-      connection = {
-        id = "main";
-        uuid = "a02273d9-ad12-395e-8372-f61129635b6f";
-        type = "ethernet";
-        autoconnect-priority = "-999";
-        interface-name = "eth0";
-        autoconnect = true;
-      };
-
-      ipv4 = {
-        address1 = "192.168.1.44/24,192.168.1.1";
-        dns = "1.1.1.1;";
-        method = "manual";
-      };
-    };
-
     pw = {
       connection = {
         id = "pw";
         uuid = "e0103dac-7da0-4e32-a01b-487b8c4c813c";
         type = "wifi";
         interface-name = "wlan0";
+        autoconnect = true;
+        autoconnect-priority = "-200";
       };
 
       wifi = {
@@ -163,6 +155,78 @@
         method = "auto";
       };
     };
+    gw = {
+      connection = {
+        id = "gw";
+        uuid = "de655c52-1af2-4b46-b7b2-8ddad9edb52f";
+        type = "wifi";
+        interface-name = "wlan0";
+        autoconnect-priority = "300";
+      };
+
+      wifi = {
+        hidden = "true";
+        mode = "infrastructure";
+        ssid = builtins.readFile "${secretsDir}/gw-ssid";
+      };
+
+      wifi-security = {
+        key-mgmt = "wpa-psk";
+        psk = builtins.readFile "${secretsDir}/gw-password";
+      };
+
+      ipv4 = {
+        #address1 = "192.168.20.11/24";
+        dns = "1.1.1.1;8.8.8.8;";
+        method = "auto";
+      };
+    };
+
+    hh40 = {
+      connection = {
+        id = "hh40";
+        uuid = "73a61cef-8f7b-4f42-ab3f-0066e0295bbc";
+        type = "wifi";
+        interface-name = "wlan0";
+        autoconnect = true;
+        autoconnect-priority = "-999";
+      };
+
+      wifi = {
+        hidden = "false";
+        mode = "infrastructure";
+        ssid = builtins.readFile "${secretsDir}/home-wifi-ssid";
+      };
+
+      wifi-security = {
+        key-mgmt = "wpa-psk";
+        psk = builtins.readFile "${secretsDir}/home-wifi-password";
+      };
+
+      ipv4 = {
+        method = "auto";
+        address1 = "192.168.1.37/24";
+      };
+    };
+
+    dhcp = {
+      connection = {
+        id = "dhcp";
+        uuid = "c006389a-1697-4f77-91c3-95b466f85f13";
+        type = "ethernet";
+        autoconnect = "true";
+        interface-name = "end0";
+      };
+
+      ethernet = {
+        mac-address = "DC:A6:32:CB:4D:5E";
+      };
+
+      ipv4 = {
+        address1 = "192.168.1.44/24,192.168.1.1";
+        method = "auto";
+      };
+    };
 
     share = {
       connection = {
@@ -170,11 +234,11 @@
         uuid = "f55f34e3-4595-4642-b1f6-df3185bc0a04";
         type = "ethernet";
         autoconnect = false;
-        interface-name = "eth0";
+        interface-name = "end0";
       };
 
       ethernet = {
-        mac-address = "F4:39:09:4A:DF:0E";
+        mac-address = "DC:A6:32:CB:4D:5E";
       };
 
       ipv4 = {

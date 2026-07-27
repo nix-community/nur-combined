@@ -1,0 +1,13 @@
+diff --git a/ndi_monitor.cpp b/ndi_monitor.cpp
+index 6de4dff..6b5c35b 100644
+--- a/ndi_monitor.cpp
++++ b/ndi_monitor.cpp
+@@ -84,7 +84,7 @@ static void fn(struct mg_connection *c, int ev, void *ev_data, void *fn_data){
+    }else if(mg_http_match_uri(hm, "/rest")) { //handle REST events
+       mg_http_reply(c, 200, "", "{\"result\": %d}\n", 123);
+    }else{ // Serve static files
+-      struct mg_http_serve_opts opts = {.root_dir = "/opt/ndi_monitor/assets/"};
++      struct mg_http_serve_opts opts = {.root_dir = getenv("NDI_MONITOR_ASSETS_DIR")};
+       mg_http_serve_dir(c, (mg_http_message*)ev_data, &opts);
+    }
+   }else if (ev == MG_EV_WS_MSG){

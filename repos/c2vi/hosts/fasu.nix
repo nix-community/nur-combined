@@ -6,21 +6,12 @@
 		../common/nixos.nix
     ../common/building.nix
 
+    inputs.disko.nixosModules.disko
 		inputs.home-manager.nixosModules.home-manager
     ../users/me/headless.nix
     ../users/root/default.nix
     ../users/server/headles.nix
 	];
-
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/fasu-root";
-    fsType = "ext4";
-  };
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-label/FASU-BOOT";
-    fsType = "vfat";
-  };
 
   # allow acern to ssh into server
   users.users.server.openssh.authorizedKeys.keys = [
@@ -35,16 +26,8 @@
     }
   ];
 
-	# Use the GRUB 2 boot loader.
-	boot.loader.grub = {
-  	enable = true;
-    #device = "/dev/nbd1";
-    device = "nodev";
-  	efiSupport = false;
-		extraConfig = ''
-			set timeout=2
-		'';
-  };
+  services.tailscale.enable = true;
+
 
   #fileSystems."/boot" = {
   #  device = "/dev/disk/by-label/fusu-boot";
@@ -75,9 +58,9 @@
 		9999 # for general usage
     8080 # for mitm proxy
 
-    25565 # mc server
+    25565 # mc proxy
     25580 # wmc lobby server
-    25566 # mc server
+    25566 # mc proxy cracked
     3306 # mariadb for wmc
     6379 # redis for wmc
 	];
@@ -123,5 +106,57 @@
 			};
 		};
 	};
+
+  ############### disk config
+  boot.plymouth.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = false;
+  boot.loader.grub.efiInstallAsRemovable = false;
+  boot.loader.grub.devices = [ "nodev" ];
+	boot.loader.grub.extraConfig = ''
+		set timeout=2
+	'';
+  # Add these modules 
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ehci_pci"
+    "ahci"
+    "usbhid"
+    "usb_storage"
+    "sd_mod"
+    "virtio_balloon"
+    "virtio_blk"
+    "virtio_pci"
+    "virtio_ring"
+  ];
+
+  # the flash drive in use for fasu
+  disko.devices.disk.root.device = "/dev/nbd0";
+  disko.devices = {
+    disk = {
+      root = {
+        type = "disk";
+        content = {
+          type = "gpt";
+          partitions = {
+
+            biosboot = {
+              size = "2M";
+              type = "21686148-6449-6E6F-744E-656564454649"; # BIOS boot
+            };
+
+            root = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
+              };
+            };
+          };
+        };
+      };
+    };
+  };
 
 }

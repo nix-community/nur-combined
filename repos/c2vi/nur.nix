@@ -5,14 +5,16 @@
 
 let
   lib = pkgs.lib;
-  files = builtins.readDir ./mods/nurPkgs;
-  names = pkgs.lib.attrsets.mapAttrsToList (name: value: pkgs.lib.strings.removeSuffix ".nix" name) files;
+  files = builtins.filter (el: lib.strings.hasSuffix ".nix" el) (lib.attrsets.mapAttrsToList (name: value: name) (builtins.readDir ./mods/nurPkgs));
+  names = map (value: lib.strings.removeSuffix ".nix" value) files;
   pwd = builtins.toString ./.;
 in pkgs.lib.attrsets.genAttrs names (name: (pkgs.callPackage "${pwd}/mods/nurPkgs/${name}.nix" {}))
 //
 {
 
   imap-backup = pkgs.callPackage ./mods/imap-backup/package.nix {};
+
+  eGTouch = pkgs.callPackage ./mods/eGTouch-driver/pkg.nix {};
 
   /* fails for nur evaluations
   iio-hyprland = let
@@ -43,7 +45,7 @@ in pkgs.lib.attrsets.genAttrs names (name: (pkgs.callPackage "${pwd}/mods/nurPkg
       '';
       homepage = "https://github.com/mridah/csv2vcf";
       license = licenses.mit;
-      maintainers = with lib.maintainers; [ ];
+      maintainers = with lib.maintainers; [ c2vi ];
       platforms = platforms.all;
     };
   };

@@ -1,9 +1,10 @@
 
-{ config, pkgs, self, workDir, inputs, persistentDir, system, ... }:
+{ config, secretsDir, pkgs, self, workDir, inputs, persistentDir, system, pkgsUnstable, ... }:
 
 {
 	imports = [
     ../common/home.nix
+    ../../programs/ssh.nix
 
     # my gui programs
 		../../programs/alacritty.nix
@@ -12,32 +13,75 @@
 		../../programs/rofi/default.nix
 		../../programs/zathura.nix
     ../../programs/firefox/default.nix
+    ../../programs/thunderbird.nix
+    inputs.lan-mouse.homeManagerModules.default
+
+    "${inputs.vscode-server}/modules/vscode-server/home.nix"
+
+    inputs.walker.homeManagerModules.default
 	];
+
+  programs.zed-editor = {
+    enable = true;
+    package = inputs.zed.packages.x86_64-linux.default;
+  };
+
+  programs.walker = {
+    enable = false;
+    runAsService = true;
+  };
+
+
+  programs.vscode.enable = true;
+  programs.vscode.extensions = with pkgs.vscode-extensions; [
+    ms-vscode-remote.remote-ssh
+    ms-vscode-remote.remote-ssh-edit
+  ];
+
+  programs.lan-mouse.systemd = true;
 
 	gtk.cursorTheme = {
 		name = "Yaru";
 	 };
 
+  gtk = {
+    enable = true;
+
+    gtk3.extraConfig = {
+      # needed for Prusa Slicer for example
+      "gtk-application-prefer-dark-theme" = 1;
+    };
+
+    gtk4.extraConfig = {
+      "gtk-application-prefer-dark-theme" = 1;
+    };
+  };
+
 	dconf.settings = {
 	  "org/virt-manager/virt-manager/connections" = {
-		 autoconnect = ["qemu:///system"];
-		 uris = ["qemu:///system"];
+		 autoconnect = [ "qemu:///system" "qemu+ssh://me@mac/system" ];
+		 uris = [ "qemu:///system" "qemu+ssh://me@mac/system" ];
 	  };
 	};
 
   home.sessionVariables = {
     inherit system;
+    VIC_BINARY = "/home/me/work/victorinix/vic";
+    PPC_DATA_DIR = "/home/me/work/gitignore/ppc/data";
   };
 
 	services.dunst.enable = true;
 
 
   home.file = {
-    ".mysecrets/root-pwd".text = "changemehiiii";
-    ".mysecrets/me-pwd".text = "changeme";
+    ".davfs2/secrets".source = config.lib.file.mkOutOfStoreSymlink "${secretsDir}/davfs2-secrets";
 
     #".mozilla/firefox".source = config.lib.file.mkOutOfStoreSymlink "${persistentDir}/firefox";
     ".cache/rofi-3.runcache".source = config.lib.file.mkOutOfStoreSymlink "${persistentDir}/rofi-run-cache";
+
+    ".local/share/PrismLauncher/".source = config.lib.file.mkOutOfStoreSymlink "${workDir}/app-data/prism-launcher";
+    ".local/share/DaVinciResolve/".source = config.lib.file.mkOutOfStoreSymlink "${workDir}/app-data/DaVinciResolve";
+    ".local/share/JetBrains/IdeaIC2024.3".source = config.lib.file.mkOutOfStoreSymlink "${workDir}/app-data/IdeaIC2024.3";
   };
 
 
@@ -47,6 +91,7 @@
     # packages that i might not need everywhere??
 		#wstunnel
 		rclone
+		pkgsUnstable.tsx
 		playerctl
 		alsa-utils
 		usbutils
@@ -62,8 +107,9 @@
 
 
     # gui packages
+    songrec
 		obsidian
-    gnome.eog
+    eog
 		xorg.xkbcomp
 		haskellPackages.xmonad-extras
 		haskellPackages.xmonad-contrib
@@ -71,18 +117,19 @@
 		blueman
 		pavucontrol
 		spotify
-		flameshot
 		networkmanagerapplet
 		haskellPackages.xmobar
-		dolphin
+		kdePackages.dolphin
 		mupdf
 		xclip
 		stalonetray
 		killall
+    vlc
+    chromium
 
     # use signal from unstable, because the app itself says it would to update to be usable
 		self.inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.signal-desktop
-		self.inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.ticktick
+		#self.inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.ticktick
 		element-desktop
 		discord
 		wireshark
@@ -91,7 +138,7 @@
     xorg.xmodmap
     inkscape
     kazam
-    onlyoffice-bin
+    onlyoffice-desktopeditors
 
     # my own packages
     supabase-cli
@@ -116,16 +163,18 @@
 		libvirt
 		virt-manager
 		freerdp
+		nixd
     #(pkgs.writeShellApplication {
       #name = "log";
       #runtimeInputs = [ inputs.my-log.packages.${system}.pythonForLog ];
       #text = "cd /home/me/work/log/new; nix develop -c 'python ${workDir}/log/new/client.py'";
       #text = ''${inputs.my-log.packages.${system}.pythonForLog}/bin/python ${workDir}/log/new/client.py "$@"'';
     #})
+    
     (pkgs.writeShellApplication {
       name = "rpi";
       text = let 
-        myPythonRpi = pkgs.writers.writePython3Bin "myPythonRpi" { libraries = [pkgs.python311Packages.dnspython]; } ''
+        myPythonRpi = pkgs.writers.writePython3Bin "myPythonRpi" { libraries = [pkgs.python3Packages.dnspython]; } ''
           # flake8: noqa
           import os
           import re
@@ -161,6 +210,10 @@
             with open("/etc/hosts", "r") as file:
               for line in file.readlines():
                 print(line, end="")
+            exit()
+
+          if sys.argv[1] == "v":
+            os.system("sudo vim /etc/hosts")
             exit()
 
           net = sys.argv[1]
@@ -263,5 +316,3 @@
     })
 	];
 }
-
-

@@ -5,16 +5,16 @@
 
 rustPlatform.buildRustPackage rec {
 	pname = "vcs-cli-utils";
-	version = "0.3.2";
+	version = "1.0.4";
 
 	src = fetchFromGitHub {
 		owner = "henkelmax";
 		repo = "svc-cli-utils";
-    rev = "master";
-    sha256 = "sha256-37kyRO0ojhzJgctbopVyLA0ttK/vYTMIoGYFdZy6hy4=";
+    rev = "${version}";
+    sha256 = "sha256-vRqYQd5OaYXAc74Jlg8twBGDr9YxP+Mk1ZY9JGJTmvc=";
 	};
 
-  cargoHash = "sha256-h2AqkDo9Lvi6G0ZUk+MlzXeFwC/d9AKKWgXUPqSUOEs=";
+  cargoHash = "sha256-RoDXIPCjygdmG9dfDMtKiSdj2rgDAfxkKUXkIUAWotI=";
 
   meta = with lib; {
     description = "Command line utilities for the Simple Voice Chat Minecraft Mod";

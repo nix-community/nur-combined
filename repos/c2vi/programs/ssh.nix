@@ -6,6 +6,20 @@
       "*" = {
 				identityFile = "${secretsDir}/private-key";
       };
+      ouranos = {
+        hostname = "195.201.148.94";
+        user = "root";
+      };
+      ligai = {
+        hostname = "ssh.lightning.ai";
+        identityFile = "~/work/here/secrets/lightning-ai-key";
+        #IdentitiesOnly = "yes";
+        #ServerAliveInterval = 15;
+        #ServerAliveCountMax = 4;
+	      #StrictHostKeyChecking = "no";
+	      #UserKnownHostsFile = "/dev/null";
+        user = "s_01j7xkk335kbnr7r19zhssxn29";
+      };
 			"github.com" = {
 				hostname = "github.com";
 			};
@@ -17,10 +31,6 @@
         hostname = "127.0.0.1";
         user = "me";
       };
-      rpi = {
-        port = 49388;
-        user = "me";
-      };
       files = {
         port = 49388;
         user = "files";
@@ -30,6 +40,29 @@
         port = 49388;
         user = "server";
       };
+      fwin = {
+        user = "me";
+        hostname = "fwin";
+      };
+
+
+      feh = {
+        user = "root";
+        hostname = "100.107.101.77";
+        port = 49001;
+      };
+      ppc-hosting = {
+        user = "root";
+        hostname = "100.107.101.77";
+        port = 49002;
+      };
+      pcmc = {
+        user = "root";
+        hostname = "100.107.101.77";
+        port = 49003;
+      };
+
+
       phone = {
         user = "u0_a345";
         port = 8022;
@@ -42,24 +75,59 @@
         user = "me";
         port = 2222;
       };
+      mac = {
+        user = "me";
+        port = 22;
+      };
+      mosatop = {
+        user = "me";
+        port = 2222;
+      };
 			hpm = {
 				user = "me";
 			};
-
-			fusus = {
-				hostname = "fusu";
+			fasu = {
+				hostname = "fasu";
+				user = "me";
+			};
+			fasus = {
+				hostname = "fasu";
 				user = "server";
 			};
 
 		  fusu = {
+        port = 49388;
 				hostname = "fusu";
 				user = "me";
+			};
+
+		  fe = {
+        port = 22;
+				hostname = "fe";
+				user = "me";
+			};
+
+		  fes = {
+        port = 22;
+				hostname = "fe";
+				user = "server";
+			};
+
+		  fusus = {
+        port = 49388;
+				hostname = "fusu";
+				user = "server";
 			};
 
 			ocih = {
 				hostname = "152.67.70.13";
 				user = "ubuntu";
 			};
+      mandroid = {
+        hostname = "mac";
+        user = "u0_a77";
+        port = 4401;
+      };
 			ocib = {
 				hostname = "140.238.213.48";
 				user = "ubuntu";
@@ -79,6 +147,7 @@
 		};
 	};
 
+   /*
    home.file.".ssh/known_hosts".force = true;
    home.file.".ssh/known_hosts".text = ''
       hpm ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ+FpaNOf+ao6RCa6e43vAHFcQZTGu45rIqAG3Vx0/M8
@@ -96,4 +165,5 @@
     [tab]:8022 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBPVAyWNCCzQSOzeYibuXNPExD7YKcNczvJfc44a3zeo
       [tab]:8022 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDdwFZf3IRa4YZyrNseofTRIDbkmdMiIXa3Gxs7wFzZN+ICwXeipfqV1Lh9C1sI4YnRIqfZlCSU+SE2dqVoQB6Uj64cdLrdslHYvgsR9PY3vVtrYypGfE1XTkLvD516x4mFofo22A9j8fK95fcMwpWLtNnv9SVBIT3V+4fUlbRCngdJ1V2cOd41JIwBrIxmRJ6X5v/SEqajmnVneqEmsqGgGA7JBJBCMSz5wwmZzWrTpzwj4SAD5b1z/R12DZfFHmgJCZYcMbjDgUiD5khsOwCCflH8DtO41PkOZRqDlpPPT9al7qhhESwxE6w5gIvaVh6HJljSCNw9OCQWONotv3gF9tVs6sZXsWxRZ2R0oIeA3rnM+mZxEtxElc2MKLVlsQ9SM2Xcr3J4Y43cWm7m03cDOz+iZecxs2qKAgn5Au72fudapDAtiCuYjKlMGEgbWX3CmxL0n/Uo32yfTRXnEHWMzXezmdGsuHUzk/sHTL8z5RVyzIBNl2HGlhldFbATuwRxXyBW9JIuEll+rW9Jm0MvpT3KoD/Q5aXDVH+21l6SSNBcjvZu00WNiYDD+gFR4BlewobtacGNOR4ErjxVZ10d8p6S5smadmo/RmbjhrVJK8EzigJPsVxEEjtuVq+jAQCvLTZCpEyDF/cBv60vIu4CyZkoAq1UaL64m7nIhR/8Yw==
    '';
+   */
 }

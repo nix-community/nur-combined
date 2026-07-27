@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+swayidle -w -d \
+  timeout 15 'bash -c "~/.config/nixos/scripts/keyboard_fade_brightness.sh 4 0 0.05"' \
+  resume 'bash -c "brightnessctl -d framework_laptop::kbd_backlight set 4"' \
+  timeout 170 'bash -c "brightnessctl g > /tmp/current_brightness && brightnessctl -e s 30%-"' \
+  resume 'bash -c "if [ -f /tmp/current_brightness ]; then brightnessctl set $(cat /tmp/current_brightness); fi"' \
+  timeout 180 '/home/mia/Scripts/lockscript' \
+  timeout 200 'swaymsg "output * dpms off"' \
+  resume 'swaymsg "output * dpms on"' \
+  after-resume 'swaymsg "output * dpms on"' \
+  before-sleep '/home/mia/Scripts/lockscript'

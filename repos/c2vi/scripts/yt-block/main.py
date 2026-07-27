@@ -17,11 +17,36 @@ DEFAULT_STATE = {
         "yt_time_left": 0,
         "yt_time_current": 0,
         "date": "2024-07-15",
+        "yt_ips": [
+            "142.251.208.174",
+            "142.251.208.142",
+            "142.251.208.110",
+            "142.251.39.78",
+            "142.251.39.46",
+            "142.251.39.14",
+            "142.250.201.206",
+            "142.250.180.238",
+            "142.250.180.206",
+            "172.217.20.14",
+            "172.217.19.110",
+
+            "188.21.9.20",
+            "142.251.208.142",
+            "188.21.9.34", 
+            "188.21.9.31",
+
+        # "2a00:1450:400d:80d::200e",
+        # "2a00:1450:400d:80c::200e",
+        # "2a00:1450:400d:802::200e",
+        # "2a00:1450:400d:80e::200e",
+    ]
 }
 
 YT_HOSTS = [
     [ "127.0.0.1", "youtube.com" ],
     [ "127.0.0.1", "www.youtube.com" ],
+    [ "127.0.0.1", "1e100.net" ],
+    [ "::1", "1e100.net" ],
     [ "::1", "www.youtube.com" ],
     [ "::1", "youtube.com" ],
 ]
@@ -39,12 +64,30 @@ def main():
         cmd_info()
         return
 
+    if sys.argv[1] == "a" or sys.argv[1] == "add-yt-addr":
+        cmd_add_addr()
+        return
+
     if sys.argv[1] == "s" or sys.argv[1] == "starter":
         cmd_starter()
         return
     
     print("unknown command!!!!")
     
+def cmd_add_addr():
+    pwd = get_pwd()
+
+    state = read_state(pwd)
+
+    try:
+        ip = sys.argv[2]
+        state["yt_ips"].append(ip)
+    except:
+        print("empty ip.... printing all ips")
+        for ip in state["yt_ips"]:
+            print("ip:", ip)
+
+    write_state(state, pwd)
 
 def cmd_guard():
     pwd = get_pwd()
@@ -53,9 +96,9 @@ def cmd_guard():
 
     # if it's after 22:00 block yt and kill all minecraft processes
     now = datetime.datetime.now()
-    if now.hour >= 21:
+    if now.hour >= 21 or now.hour <= 8:
         print("after 21:00 blocking....")
-        block_yt()
+        block_yt(state)
         kill_mc()
         return
 
@@ -68,11 +111,11 @@ def cmd_guard():
 
     # if time_current in state is 0, block yt
     if state["yt_time_current"] == 0:
-        block_yt()
+        block_yt(state)
 
     # if time_current in state is greater than 0, unblock yt
     if state["yt_time_current"] > 0:
-        unblock_yt()
+        unblock_yt(state)
 
     # decrement time_current
     if state["yt_time_current"] > 0:
@@ -182,41 +225,26 @@ def write_hosts(hosts):
         file.write("\n".join(lines) + "\n")
 
 
-def block_yt():
+def block_yt(state):
+    yt_ips = state["yt_ips"]
     hosts = get_hosts()
     for entry in YT_HOSTS:
         if entry not in hosts:
             hosts.append(entry)
 
     write_hosts(hosts)
-    yt_ips = [
-        "142.251.208.174",
-        "142.251.208.142",
-        "142.251.208.110",
-        "142.251.39.78",
-        "142.251.39.46",
-        "142.251.39.14",
-        "142.250.201.206",
-        "142.250.180.238",
-        "142.250.180.206",
-        "172.217.20.14",
-        "172.217.19.110",
 
-        "188.21.9.20",
-        "142.251.208.142",
-
-        # "2a00:1450:400d:80d::200e",
-        # "2a00:1450:400d:80c::200e",
-        # "2a00:1450:400d:802::200e",
-        # "2a00:1450:400d:80e::200e",
-    ]
+    # the ips, that should be blocked incoming as well
+    #yt_ips_incoming [
+    #]
 
     os.system("iptables -N YTBLOCK")
     print("running: iptables -N YTBLOCK")
 
     os.system("iptables -D OUTPUT -j YTBLOCK")
+    os.system("iptables -D INPUT -j YTBLOCK")
     os.system("iptables -I OUTPUT -j YTBLOCK")
-    os.system("iptables -I INPUT -d 188.21.9.20 -j REJECT")
+    os.system("iptables -I INPUT -j YTBLOCK")
     print("running: iptables -I OUTPUT -j YTBLOCK")
 
     for ip in yt_ips:
@@ -225,7 +253,7 @@ def block_yt():
         print(f"running: iptables -I YTBLOCK -d {ip} -j REJECT")
     #os.system("iptables -I OUTPUT -d  -j REJECT")
 
-def unblock_yt():
+def unblock_yt(state):
     hosts = get_hosts()
     new_hosts = []
     for entry in hosts:
@@ -238,10 +266,11 @@ def unblock_yt():
     os.system("iptables -F YTBLOCK")
     print("running: iptables -F YTBLOCK")
 
+    os.system("iptables -D INPUT -j YTBLOCK")
+    os.system("iptables -D INPUT -j YTBLOCK")
     os.system("iptables -D OUTPUT -j YTBLOCK")
     os.system("iptables -D OUTPUT -j YTBLOCK")
-    os.system("iptables -D OUTPUT -j YTBLOCK")
-    os.system("iptables -D INPUT -d 188.21.9.20 -j REJECT")
+
     print("running 3 times: iptables -D OUTPUT -j YTBLOCK")
 
     os.system("iptables -X YTBLOCK")
@@ -278,9 +307,16 @@ def cmd_starter():
         file.write(str(pid))
         #pass
 
+    pwd = get_pwd()
+    state = read_state(pwd)
+
     while True:
         print("file:", __file__)
+        # write the state file again in case it is missing, so i can't juste delete it, to get 60min again.....
+        if not os.path.exists("/etc/yt_block_state"):
+            write_state(state, pwd)
         os.system(f"$PYTHON {__file__} guard")
+        state = read_state(pwd) # read the new state into memory, to write it before the next call
         time.sleep(60*5)
 
 if __name__ == "__main__":

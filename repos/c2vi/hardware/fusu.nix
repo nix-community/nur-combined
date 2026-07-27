@@ -13,14 +13,19 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/old" =
-    { device = "/dev/disk/by-uuid/adbb1f76-7661-4c36-a603-ff510112114d";
-      fsType = "ext4";
-    };
+  #fileSystems."/old" =
+    #{ device = "/dev/disk/by-uuid/adbb1f76-7661-4c36-a603-ff510112114d";
+      #fsType = "ext4";
+    #};
 
   fileSystems."/" =
     { device = "/dev/disk/by-label/fusu-root";
-      fsType = "btrfs";
+      fsType = "ext4";
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-label/FUSU-BOOT";
+      fsType = "vfat";
     };
 
   swapDevices = [ ];

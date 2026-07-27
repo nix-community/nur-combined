@@ -18,6 +18,13 @@ import XMonad.Hooks.SetWMName
 import XMonad.Hooks.EwmhDesktops
 
 
+import Data.Monoid
+import qualified Data.Map as M
+
+import XMonad
+import Control.Monad
+
+
 import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 
@@ -36,7 +43,8 @@ myClickJustFocuses = False
 
 -- Width of the window border in pixels.
 --
-myBorderWidth   = 2
+myBorderWidth = 2
+-- myBorderWidth = 0
 
 -- modMask lets you specify which modkey you want to use. The default
 -- is mod1Mask ("left alt").  You may also consider using mod3Mask
@@ -78,6 +86,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --((button2), spawn "xinput enable 17"),
     --((modm .|. button2, \w -> focus w >> windows W.shiftMaster),
 
+    ((noModMask,               xK_Page_Up), spawn "alacritty" ),
 
     -- player next
     ((modm,               xK_n), spawn "playerctl next"),
@@ -263,7 +272,7 @@ myManageHook = composeAll
 -- return (All True) if the default handler is to be run afterwards. To
 -- combine event hooks use mappend or mconcat from Data.Monoid.
 --
-myEventHook = ewmhFullscreen
+--myEventHook = ewmhFullscreen `mappend` keyUpEventHook
 
 ------------------------------------------------------------------------
 -- Status bars and logging
@@ -310,7 +319,7 @@ myConfig = ewmh def {
       -- hooks, layouts
         layoutHook         = myLayout,
         manageHook         = myManageHook,
-        handleEventHook    = handleEventHook def <+> fullscreenEventHook,
+        handleEventHook    = handleEventHook def, -- <+> keyUpEventHook, -- <+> fullscreenEventHook ,
         logHook            = myLogHook,
         startupHook        = myStartupHook
     }
@@ -367,3 +376,26 @@ help = unlines ["The default modifier key is 'alt'. Default keybindings:",
     "mod-button1  Set the window to floating mode and move by dragging",
     "mod-button2  Raise the window to the top of the stack",
     "mod-button3  Set the window to floating mode and resize by dragging"]
+
+
+
+
+
+-- me trying to get key up to be handeled
+
+keyUpEventHook :: Event -> X All
+keyUpEventHook e = handle e >> return (All True)
+
+keyUpKeys (XConf{ config = XConfig {XMonad.modMask = modMask} }) = M.fromList $ 
+    [ ((noModMask, xK_Page_Up), spawn "mshot" ) ]
+
+handle :: Event -> X ()
+handle (KeyEvent {ev_event_type = t, ev_state = m, ev_keycode = code})
+    | t == keyRelease = withDisplay $ \dpy -> do
+        s  <- io $ keycodeToKeysym dpy code 0
+        mClean <- cleanMask m
+        ks <- asks keyUpKeys
+        userCodeDef () $ whenJust (M.lookup (mClean, s) ks) id
+handle _ = return ()
+
+

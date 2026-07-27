@@ -17,9 +17,70 @@ then
 ssh tab "rm /sdcard/note/CUR/*"
 
 
+elif [ "$1" == "du" ]
+then
+du -d 1 -h $2 | sort -h -r
+
+elif [ "$1" == "g" ]
+then
+ping 1.1.1.1
+
+
+
+
+elif [ "$1" == "davinci-resolve-convert-videos" ]
+then
+FFMPEG_ACCEL_ARGS="-hwaccel vaapi -hwaccel_device /dev/dri/renderD128"
+KEEP=true
+PRORES=$2
+if [[ "$1" == "d" ]]
+then
+  KEEP=false
+fi
+
+if [ -d "$PWD/vid" ];
+then
+  cd vid
+  mkdir -p "$PWD/for-davinci"
+
+  files=()
+  for x in *.mp4; do
+    files+=("${x%%/*}")
+  done
+
+  for file in "${files[@]}"
+  do
+    echo "handling file: $file"
+    if [ -f "$PWD/for-davinci/${file%.*}$PRORES.mov" ]
+    then
+      rm "$PWD/for-davinci/${file%.*}$PRORES.mov"
+    fi
+    echo "PRORES: $PRORES"
+    [[ "$PRORES" != "-prores" ]] && ffmpeg $FFMPEG_ACCEL_ARGS -i "$PWD/$file" -c:v mpeg4 -c:a mp3 "${PWD}/for-davinci/${file%.*}.mov"
+    [[ "$PRORES" == "-prores" ]] && ffmpeg $FFMPEG_ACCEL_ARGS -i "$PWD/$file" -c:v prores_ks -c:a pcm_s16le "${PWD}/for-davinci/${file%.*}-prores.mov"
+    [[ "$KEEP" == "false" ]] && rm "$file"
+  done
+fi
+
+
+
+
+
 elif [ "$1" == "mnt-wechner" ]
 then
 rclone mount --vfs-cache-mode full -vvvv onedrive-school:projekt-autobatterie ~/work/htl/projekt/wechner/mnt
+
+
+elif [ "$1" == "mnt-host" ]
+then
+if [[ "$1" == "-r" ]]
+then
+  host=$3
+  sshfs $host:/ ~/mnt
+else
+  host=$2
+  sshfs $host: ~/mnt
+fi
 
 
 elif [ "$1" == "mnt-school" ]
@@ -36,7 +97,7 @@ wstunnel -L 55555:127.0.0.1:49388 ws://sebastian.dns.army:49389
 
 elif [ "$1" == "speed-test-nixos-iso" ]
 then
-wget -O /tmp/speed-test.iso "https://dl.t2sde.org/binary/2022/t2-22.6-x86-64-minimal-desktop-gcc-glibc.iso"
+wget -O /tmp/speed-test.iso "https://channels.nixos.org/nixos-24.11/latest-nixos-gnome-x86_64-linux.iso"
 rm /tmp/speed-test.iso
 
 
@@ -99,6 +160,7 @@ cat /sys/class/power_supply/BAT1/status
 
 elif [ "$1" == "hibernate" ]
 then
+swaylock
 sudo systemctl hibernate
 
 
@@ -108,5 +170,3 @@ sudo systemctl suspend
 
 
 fi
-
-

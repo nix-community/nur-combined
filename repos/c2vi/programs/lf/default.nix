@@ -2,23 +2,66 @@
 {
   home.file.".config/lf/icons".source = "${self}/programs/lf/icons";
 	programs.lf = let
-  mylf = pkgs.lf.overrideAttrs (final: prev: {
+
+  myUeberzug = pkgs.ueberzugpp.overrideAttrs (prev: {
+    src = pkgs.fetchFromGitHub {
+      owner = "jstkdng";
+      repo = "ueberzugpp";
+      rev = "528fb0fd6719477308e779aa6dab6040faa698cc";
+      hash = "sha256-VdfpWJOMlC4Ly2lDFvJ+BnOmaM71gLEaIkfwLqzAi/8=";
+    };
+    cmakeFlags = prev.cmakeFlags or [] ++ [ "-DENABLE_SWAY=ON" ];
+  });
+
+  oldpkgs = (builtins.getFlake "nixpkgs/release-25.05").legacyPackages.${system};
+  mylf = oldpkgs.lf.overrideAttrs (final: prev: {
     patches = (prev.patches or [ ]) ++ [
       ./lf-filter.patch
     ];
+    /*
+    src = pkgs.fetchFromGitHub { # use the old v35 version of lf... so that my patch applies
+      owner = "gokcehan";
+      repo = "lf";
+      rev = "r35";
+      hash = "sha256-0ZyIbEKiQ9l30gqHlpW7l/6/TzqVRvnKk9c2FiQ6E6Y=";
+    };
+    */
     checkPhase = "";
   });
+
+  myCleaner = pkgs.writeShellApplication {
+    name = "myCleaner";
+
+    runtimeInputs = with pkgs; [ myUeberzug ];
+
+    text = ''
+      ueberzugpp cmd -s "$UB_SOCKET" -a remove -i PREVIEW
+      UB_PID=$(cat "$UB_PID_FILE")
+      kill "$UB_PID"
+    '';
+  };
+
   myPreviewer = pkgs.writeShellApplication {
     name = "myPreviewer";
     runtimeInputs = with pkgs; [ 
       file
+      gnumeric
+      catdoc
+      odt2txt
+      transmission_4
+      libcdio
+      p7zip
+      unrar
+      xz
       bat # (text)
-      ueberzug # (images, videos, pdf, fonts)
+      exiftool
+      ffmpegthumbnailer
+      myUeberzug # (images, videos, pdf, fonts)
       ffmpegthumbnailer # (videos)
       exiftool # (metadata/audio, and file detection for .webm files)
       jq # (json and metadata)
       lynx # (html/web pages)
-      poppler_utils # pdftoppm # (pdf)
+      poppler-utils # pdftoppm # (pdf)
       odt2txt # (odt)
       imagemagick # convert from imagemagick (fonts)
       atool # (archives)
@@ -28,64 +71,50 @@
     ];
     text = builtins.readFile "${self}/programs/lf/previewer";
   };
-  # use newest version of ueberzug from nixpkgs unstable because: https://github.com/ueber-devel/ueberzug/issues/15
-  # mylfWrapper = let myUeberzug = inputs.nixpkgs-unstable.legacyPackages.${system}.ueberzug;
-  mylfWrapper = let myUeberzug = pkgs.ueberzug.overrideAttrs (final: prev: { version = "18.2.2"; });
-    in pkgs.writeShellApplication {
+
+  mylfWrapper = pkgs.writeShellApplication {
       name = "lf";
 
-      #runtimeInputs = with pkgs; [ curl w3m ];
+      runtimeInputs = with pkgs; [ mylf myUeberzug util-linux ];
 
       text = ''
-        # got it FROM: https://codeberg.org/tplasdio/lf-config/src/branch/main/.local/bin/lfub
 
-
-        # Envolvedor de lf, que permite crear previsualizaciones de imágenes
-        # con ueberzug, en conjunto con mi configuración 'previewer' y 'cleaner' para lf
-        # Taken from: https://github.com/LukeSmithxyz/voidrice/blob/master/.local/bin/lfub
-        # TODO:
-        # - Capturar cuando se cierre/mate la ventana conteniendo la terminal que corre
-        #	este script, pues si no se quedarán procesos huérfanos 'lf' 'lfub' 'ueberzug'
+        # This is a wrapper script for lf that allows it to create image previews with
+        # ueberzug. This works in concert with the lf configuration file and the
+        # lf-cleaner script.
 
         set -e
-        set +u
-        : "''${XDG_CACHE_HOME:="''${HOME}/.cache"}"
+        set +o nounset
 
-        cleanup() {
-          exec 3>&-
-          # FIXME:
-          # after SIGINT commands that expected some arguments, previews for that directory
-          # are stuck in "loading", because there's no fifo file to remove or something
-          # Example:
-          # gpg -d  # ← Forgot to type $f for decrypting a file
-          # Ctrl-C  # ← Back to lf, previews are stuck
-          rm "$FIFO_UEBERZUG"
-        }
+        UB_PID=0
+        UB_SOCKET=""
 
-        main() {
-          if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+        case "$(uname -a)" in
+            *Darwin*) UEBERZUG_TMP_DIR="$TMPDIR" ;;
+            *) UEBERZUG_TMP_DIR="/tmp" ;;
+        esac
+
+        if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
             ${mylf}/bin/lf "$@"
-          else
-            [ -d "''${XDG_CACHE_HOME}/lf" ] || mkdir -p "''${XDG_CACHE_HOME}/lf"
-            export FIFO_UEBERZUG="''${XDG_CACHE_HOME}/lf/ueberzug-$$"
-            mkfifo "$FIFO_UEBERZUG"
-            ${myUeberzug}/bin/ueberzug layer -s < "$FIFO_UEBERZUG" -p json &
-            exec 3> "$FIFO_UEBERZUG"
-            trap cleanup HUP INT QUIT TERM PWR EXIT
-            ${mylf}/bin/lf "$@" 3>&-
-          fi
-        }
+        else
+            [ ! -d "$HOME/.cache/lf" ] && mkdir -p "$HOME/.cache/lf"
+            UB_PID_FILE="$UEBERZUG_TMP_DIR/.$(uuidgen)"
+            ueberzugpp layer --silent --no-stdin --use-escape-codes --pid-file "$UB_PID_FILE"
+            UB_PID=$(cat "$UB_PID_FILE")
+            UB_SOCKET="$UEBERZUG_TMP_DIR/ueberzugpp-''${UB_PID}.socket"
+            export UB_PID UB_SOCKET
 
-        main "$@" || exit $?
+            ${mylf}/bin/lf "$@"
+        fi
       '';
     };
   in
   {
-    package = mylfWrapper;
+    package = mylfWrapper // { inherit myUeberzug; };
 
 		enable = true;
 		commands = {
-			dragon-out = ''%${pkgs.xdragon}/bin/xdragon -a -x "$fx"'';
+			dragon-out = ''%${pkgs.dragon-drop}/bin/xdragon -a -x "$fx"'';
 			editor-open = ''$$EDITOR $f'';
 			mkdir = ''
 				''${{
@@ -144,7 +173,7 @@
         }}
 
       source ${self}/programs/lf/opener
-      set cleaner "${self}/programs/lf/cleaner"
+      set cleaner "${myCleaner}/bin/myCleaner"
       set cursorpreviewfmt "\033[7m"
       set previewer "${myPreviewer}/bin/myPreviewer"
       set period "1"
@@ -164,7 +193,7 @@
       set shellopts "-eu"
       set ifs "\n"
       set shell "bash"
-      set ruler "df:acc:progress:selection:filter:ind"
+      #set ruler "df:acc:progress:selection:filter:ind"
     '';
 	};
 }
