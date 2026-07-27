@@ -1,32 +1,63 @@
 { lib
-, buildGoModule
+, buildGoApplication
+, enableFfmpeg ? true
+, enableLibWebPTools ? true
 , fetchFromGitHub
+, ffmpeg
 , libwebp
+, nix-filter
 }:
 
-buildGoModule rec {
-    pname = "watgbridge";
-    version = "1.8.2";
+let
 
-    src = fetchFromGitHub {
-        owner = "akshettrj";
-        repo = "watgbridge";
-        rev = "v${version}";
-        hash = "sha256-/RTh1rPr54aO750rN5somel3fXxiUp3SPEfa95+V7q8=";
+  v = "1.12.0";
+
+  gitSrc = nix-filter{
+    name = "watgbridge";
+    root = fetchFromGitHub {
+      owner = "akshettrj";
+      repo = "watgbridge";
+      rev = "v${v}";
+      hash = "sha256-cNy/ybkKwicmXLOJbJ2ip/Z+9J7m2R1Iio2bmrLiGtI=";
     };
+    exclude = [
+      "flake.nix"
+      "flake.lock"
+      "README.md"
+      "sample_config.yaml"
+      "watgbridge.service.sample"
+      ".github"
+      "nix"
+      "assets"
+      ".envrc"
+      ".gitignore"
+      "Dockerfile"
+      "LICENSE"
+    ];
+  };
 
-    vendorHash = "sha256-qbQPbRSNw4E5gOYpDFSihMSgiRCC3BDXjeOoiMBEYro=";
+in buildGoApplication rec {
+  pname = "watgbridge";
+  version = v;
 
-    ldflags = [ "-s" "-w" ];
+  pwd = gitSrc;
+  src = gitSrc;
 
-    buildInputs = [ libwebp ];
+  ldflags = [ "-s" "-w" ];
 
-    meta = with lib; {
-        description = "A bridge between WhatsApp and Telegram written in Golang";
-        homepage = "https://github.com/akshettrj/watgbridge";
-        changelog = "https://github.com/akshettrj/watgbridge/releases/tag/v${version}";
-        license = licenses.mit;
-        mainProgram = "watgbridge";
-    };
+  buildInputs = [
+  ] ++ lib.optionals enableFfmpeg [
+    ffmpeg
+  ] ++ lib.optionals enableLibWebPTools [
+    libwebp
+  ];
+
+  meta = with lib; {
+    description = "A bridge between WhatsApp and Telegram written in Golang";
+    homepage = "https://github.com/akshettrj/watgbridge";
+    changelog = "https://github.com/akshettrj/watgbridge/releases/tag/v${version}";
+    license = licenses.mit;
+    mainProgram = "watgbridge";
+  };
 }
 
