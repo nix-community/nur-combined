@@ -1,0 +1,168 @@
+#!/usr/bin/env nix-shell
+#!nix-shell -i bash -p findutils -p git -p nix-update
+
+# each update job has to do an entire nix eval, which can be memory intensive; be careful when tuning this.
+# N.B.: not all update jobs are atomic; parallel updates _may_ cause failed updates if eval of some package `pkgFoo`
+# depends on the `src` field of some library `libBar`, and the two are updated simultaneously.
+# this typically only happens when `libBar` is nix code, and `import`'d.
+PARALLELISM=2
+SELF_PATH=$PWD/$0
+
+usage() {
+  echo "update: update rev/hash for one or more packages"
+  echo "usage: update [options] [attr-path]"
+  echo ""
+  echo "options:"
+  echo "- --dry-run"
+  echo "- --verbose"
+  echo "- -j <n>  (default: $PARALLELISM)"
+  echo ""
+  echo "examples:"
+  echo "- update nixpkgs: update only the nixpkgs input"
+  echo "- update sane: update every package under the 'sane' attribute"
+  echo "- update: update everything i know how to update"
+  exit 1
+}
+
+warn() {
+  echo "$@"
+}
+info() {
+  echo "$@"
+}
+debug() {
+  if [ -n "$verbose" ]; then
+    echo "$@"
+  fi
+}
+
+hasEffect() {
+  if [ -n "$dryRun" ]; then
+    echo "dry-run: skip $@"
+  else
+    eval "$@"
+  fi
+}
+
+REPO_ROOT=
+repo_root() {
+  if [ -z "$REPO_ROOT" ]; then
+    REPO_ROOT=$(git -C "$(dirname SELF_PATH)" rev-parse --show-toplevel)
+  fi
+  echo "$REPO_ROOT"
+}
+
+# usage: getPkgs outVar prefix
+getPkgs() {
+  local -n attrsArr="$1"
+  local attrPrefix="$2"
+  if [ -z "$attrPrefix" ]; then
+    attrPrefix=sane
+  fi
+
+  # # nix-env doesn't seem to build anything when evaluating queries,
+  # # but since i use Import From Derivation along paths which i also want to query,
+  # # then i need to ensure those derivations are available for import.
+  # debug "creating requisite .drv store paths"
+  # nix-instantiate -A nix "$(repo_root)"
+  # nix-instantiate -A nixpkgs-bootstrap.master "$(repo_root)"
+  debug "querying packages to update as part of '$attrPrefix'"
+  local attrs=$(nix eval --raw -f "$(repo_root)" 'updateTargets."'"$attrPrefix"'"' --apply 'builtins.concatStringsSep " "' "${nixFlags[@]}")
+  debug "got: $attrs"
+  attrsArr+=($attrs)
+}
+
+updateOnePkg() {
+  local attrPath="$1"
+
+  local updateScript=$(nix eval --raw -f "$(repo_root)" 'updateScripts."'"$attrPath"'"' "${nixFlags[@]}")
+  if [ -z "$updateScript" ]; then
+    warn "don't know how to update '$attrPath'"
+    return
+  fi
+
+  # make sure everything needed to invoke the update script exists in-store
+  local context=$(nix eval --raw -f "$(repo_root)" 'updateScripts."'"$attrPath"'"' --apply 's: builtins.concatStringsSep " " (builtins.attrNames (builtins.getContext s))' "${nixFlags[@]}")
+  for c in $context; do
+    debug "realizing updateScript requisite: $context"
+    nix-store --realize "$c" "${nixFlags[@]}" || true
+  done
+
+  local workingDir="$(repo_root)/.working/update/$attrPath"
+  rm -rf "$workingDir"
+  mkdir -p "$workingDir"
+
+  info "updating: '$attrPath'"
+  info "working out of $workingDir"
+  debug "$updateScript"
+
+  # update scripts often write artifacts (e.g. `git-commits.txt`) to the working directory,
+  # so change to a unique directory before running the update script to avoid interfering with any other
+  # update scripts that might be running simultaneously.
+  pushd "$workingDir"
+    "$updateScript" > >(tee update.log)  2> >(tee update.stderr >&2)
+  popd
+}
+
+updatePkgsInParallel() {
+  debug "updating packages in parallel using xargs"
+  debug "- $@"
+  debug "- xargs -n 1 -P $PARALLELISM $0 ${scriptFlags[*]}"
+  echo "$@" | xargs -n 1 -P "$PARALLELISM" "$0" "${scriptFlags[@]}"
+}
+
+scriptFlags=()
+nixFlags=()
+dryRun=
+toplevelsToUpdate=()
+verbose=
+parseArgs() {
+  while [ "$#" -ne 0 ]; do
+    local arg=$1
+    shift
+    case "$arg" in
+      (--help)
+        usage
+        ;;
+      (--dry-run)
+        scriptFlags+=(--dry-run)
+        dryRun=1
+        ;;
+      (--verbose)
+        scriptFlags+=(--verbose)
+        verbose=1
+        ;;
+      (-j)
+        PARALLELISM=$1
+        shift
+        ;;
+      (--*)
+        nixFlags+=("$arg")
+        ;;
+      (*)
+        toplevelsToUpdate+=("$arg")
+        ;;
+    esac
+  done
+  if [ "${#toplevelsToUpdate[@]}" -eq 0 ]; then
+    toplevelsToUpdate=(sane)
+  fi
+}
+
+parseArgs "$@"
+pkgsToUpdate=()
+for t in "${toplevelsToUpdate[@]}"; do
+  getPkgs pkgsToUpdate "$t"
+done
+
+case "${#pkgsToUpdate[@]}" in
+  (0)
+    echo "nothing to do"
+    ;;
+  (1)
+    hasEffect updateOnePkg "${pkgsToUpdate[0]}"
+    ;;
+  (*)
+    hasEffect updatePkgsInParallel "${pkgsToUpdate[@]}"
+    ;;
+esac

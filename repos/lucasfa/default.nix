@@ -21,4 +21,6 @@ in
 
   libslimbook = libslimbook;
   python-slimbook = pkgs.callPackage ./pkgs/python-slimbook { inherit libslimbook; };
+  # qc71_slimbook_laptop = pkgs.callPackage ./pkgs/qc71_slimbook_laptop { };
+  freefem = pkgs.callPackage ./pkgs/freefem {};
 }

@@ -10,7 +10,7 @@
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
-          pkgs = import nixpkgs { inherit system; };
+          pkgs = import nixpkgs { inherit system; overlays = builtins.attrValues (import ./overlays); };
         }
       );
       packages = forAllSystems (
