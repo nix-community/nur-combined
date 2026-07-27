@@ -35,5 +35,4 @@ in lib.makeScope newScope (self:
     silver = callPackage ./silver { };
     vgo2nix = callPackage ./vgo2nix { };
     webhook = callPackage ./webhook { };
-    yabai = callPackage ./yabai { };
   })

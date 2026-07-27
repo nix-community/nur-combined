@@ -65,6 +65,18 @@
         "url": "https://github.com/nmattia/niv/archive/8b7b70465c130d8d7a98fba1396ad1481daee518.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
+    "nixpkgs": {
+        "branch": "nixpkgs-unstable",
+        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+        "homepage": "https://github.com/NixOS/nixpkgs",
+        "owner": "NixOS",
+        "repo": "nixpkgs-channels",
+        "rev": "b47873026c7e356a340d0e1de7789d4e8428ac66",
+        "sha256": "0wlhlmghfdvqqw2k7nyiiz4p9762aqbb2q88p6sswmlv499x5hb3",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs-channels/archive/b47873026c7e356a340d0e1de7789d4e8428ac66.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "nixpkgs-darwin": {
         "branch": "10debb86b7db1f4c83cb108d114e67f89dca0ab9",
         "builtin": false,
@@ -85,10 +97,10 @@
         "homepage": null,
         "owner": "kreisys",
         "repo": "silver",
-        "rev": "6a1f0fd911270e5863d540965a0c5e7b40a44369",
-        "sha256": "1h6mr4vymd579dvkvsvazg0nw4ifnhlgh2b4qaqfdxr76jg5khvv",
+        "rev": "52b1b6163c048d6d5022704fd4889c65da5d9ee8",
+        "sha256": "1im0j7v9qniqa1xs7538qzysmh2bsgfq53gzqikpw0n7qqh2a0g1",
         "type": "tarball",
-        "url": "https://github.com/kreisys/silver/archive/6a1f0fd911270e5863d540965a0c5e7b40a44369.tar.gz",
+        "url": "https://github.com/kreisys/silver/archive/52b1b6163c048d6d5022704fd4889c65da5d9ee8.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz",
         "version": "v1.2.0"
     },
