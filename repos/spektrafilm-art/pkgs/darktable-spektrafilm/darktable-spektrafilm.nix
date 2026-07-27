@@ -1,7 +1,7 @@
 # darktable with the native spektrafilm spectral film-simulation module.
 #
-# This builds the Arecsu/darktable `spektrafilm-draft` branch (a dev snapshot of
-# darktable 5.8.0) which adds the spektrafilm IOP as native C:
+# This builds the spektrafilm PR branch (a dev snapshot of darktable 5.8.0)
+# which adds the spektrafilm IOP as native C:
 #   src/iop/spektrafilm.c, src/common/spektra_{core,sim}.{c,h},
 #   data/kernels/spektrafilm.cl (OpenCL path).
 # Unlike the ART spektrafilm integration in this repo, this module is
@@ -18,7 +18,7 @@
   darktable,
   fetchFromGitHub,
   # Enable darktable's ONNX-based AI features (pulls in onnxruntime + libarchive
-  # and the USE_AI cmake path). The spektrafilm-draft branch keeps darktable's
+  # and the USE_AI cmake path). The spektrafilm PR branch keeps darktable's
   # USE_AI option (src/CMakeLists.txt), so it composes normally. Off by default
   # to match nixpkgs; flip with `.override { withAi = true; }`.
   withAi ? false,
@@ -26,16 +26,16 @@
 
 (darktable.override { inherit withAi; }).overrideAttrs (old: {
   pname = "darktable-spektrafilm";
-  # Tracks a moving branch head (spektrafilm-draft), not a tagged release, so
+  # Tracks a moving PR branch head, not a tagged release, so
   # the datestamp keeps the store path honest. Bump it together with src.rev.
-  version = "5.8.0-unstable-2026-07-26";
+  version = "5.8.0-unstable-2026-07-27";
 
   src = fetchFromGitHub {
-    owner = "Arecsu";
+    owner = "piratenpanda";
     repo = "darktable";
-    rev = "69a1eb660d0610174a1ab6cea5035344aea5583e"; # spektrafilm-draft head
+    rev = "a5a0a823da09f3fc93a641f021db5af660473f18"; # darktable-org/darktable#21534 head
     fetchSubmodules = true;
-    hash = "sha256-dGVDTKuuL8BMFXKhepfa6xGixkDVTZxkFJhI6dhVzwQ=";
+    hash = "sha256-a7QBNLaTLhQSnJF7HEKhcX0af/yS/zb7JP+L5wablqU=";
   };
 
   # fetchFromGitHub strips .git, so darktable's `git describe` version detection
@@ -52,7 +52,7 @@
 
   meta = (old.meta or { }) // {
     description =
-      "darktable with the native spektrafilm spectral film-simulation module (Arecsu spektrafilm-draft fork)";
-    homepage = "https://github.com/Arecsu/darktable/tree/spektrafilm-draft";
+      "darktable with the native spektrafilm spectral film-simulation module (darktable PR 21534)";
+    homepage = "https://github.com/darktable-org/darktable/pull/21534";
   };
 })

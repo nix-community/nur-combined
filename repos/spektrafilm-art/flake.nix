@@ -1,8 +1,8 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-  # darktable-spektrafilm builds the Arecsu spektrafilm-draft branch (darktable
-  # 5.8.0) as an overrideAttrs on nixpkgs' darktable. No release channel ships
+  # darktable-spektrafilm builds the spektrafilm PR branch (darktable 5.8.0) as
+  # an overrideAttrs on nixpkgs' darktable. No release channel ships
   # 5.8.0 yet, so we base it on nixpkgs-unstable (darktable 5.6.0) for the
   # closest dependency / cmake match, kept separate from the pinned `nixpkgs`
   # above so the Python spektrafilm packages stay on the stable 25.05 base.

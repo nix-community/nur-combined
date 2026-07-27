@@ -16,11 +16,10 @@ nix profile add --extra-experimental-features nix-command --extra-experimental-f
 ## Darktable with Spektrafilm
 
 This repo also packages [darktable](https://www.darktable.org) built from the
-[`spektrafilm-draft`](https://github.com/Arecsu/darktable/tree/spektrafilm-draft)
-branch of the [Arecsu/darktable](https://github.com/Arecsu/darktable) fork, which
-adds a **native C** spektrafilm module (`src/iop/spektrafilm.c`). Unlike the ART
-integration above, this does **not** depend on the spektrafilm Python package — it
-only needs a runtime data pack.
+[Spektrafilm PR branch](https://github.com/darktable-org/darktable/pull/21534),
+which adds a **native C** spektrafilm module (`src/iop/spektrafilm.c`). Unlike
+the ART integration above, this does **not** depend on the spektrafilm Python
+package — it only needs a runtime data pack.
 
 Install darktable with the spektrafilm module:
 
@@ -50,9 +49,9 @@ ln -sfn "$(nix build --no-link --print-out-paths github:rafaelcgs10/spektrafilm-
 ```
 
 The pack is a prebuilt artifact (the exporter that generates it from the Python
-package is not public yet). When the module is updated, bump both
-`pkgs/darktable-spektrafilm/darktable-spektrafilm.nix` (`src.rev`) and
-`pkgs/darktable-spektrafilm/data-pack.nix` (the pinned zip) together.
+package is not public yet). When a matching pack is published, bump
+`pkgs/darktable-spektrafilm/data-pack.nix` together with
+`pkgs/darktable-spektrafilm/darktable-spektrafilm.nix` (`src.rev`).
 
 Note: I only tested this on Fedora Linux with Nix, and NixOS.
 

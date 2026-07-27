@@ -18,10 +18,10 @@
 # contents (pack.json, spectra_lut.f32, profiles/). Link that out path in as
 # ~/.config/darktable/spektrafilm — see the README.
 #
-# Pinned to a specific dt-spektrafilm-builds commit for reproducibility. When
-# bumping the darktable module (darktable-spektrafilm.nix src.rev), re-pin this
-# to the matching pack — dt-spektrafilm-builds/last-built.sha records which
-# darktable rev the current pack was built against.
+# Pinned to a specific dt-spektrafilm-builds commit for reproducibility. The
+# current published pack was built against 69a1eb6 and already includes the
+# newer development-time data needed by the later PR commits. Re-pin this when a
+# matching pack is published for the current darktable-spektrafilm src.rev.
 { fetchzip }:
 
 fetchzip {
