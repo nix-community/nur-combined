@@ -163,11 +163,9 @@ impl TerminalTabs {
             }),
             cx.observe_window_bounds(window, |this, window, cx| {
                 let window_handle = window.window_handle();
-                cx.spawn(|_, mut cx| async move {
-                    cx.background_executor()
-                        .timer(std::time::Duration::from_millis(500))
-                        .await;
-                    let _ = window_handle.update(&mut cx, |_, window, _| {
+                cx.spawn(async move |_, mut cx| {
+                    gpui::Timer::after(std::time::Duration::from_millis(500)).await;
+                    let _ = window_handle.update(cx, |_, window, _| {
                         crate::settings::save_window_maximized(window.is_maximized());
                     });
                 })
