@@ -5,20 +5,20 @@
     "repo": "ppy/osu",
     "query": "[0].tag_name"
   },
-  "version": "2026.724.0-tachyon",
+  "version": "2026.726.0-lazer",
   "platforms": {
     "x86_64-linux": {
       "file": "osu.AppImage",
-      "hash": "sha256-C+Qpara6rytE6udP1gShZDUqSzQL9KOjOGLmc4CMI24="
+      "hash": "sha256-PTAoYJVD3/0DewBlJgP3WShRUQC2JFvJKancRv07KaA="
     },
     "aarch64-darwin": {
       "file": "osu.app.Apple.Silicon.zip",
-      "hash": "sha256-KjkYJBMipyrXPyo8bN2D5Gck7JKBf20Mci6/vqVAJBs=",
+      "hash": "sha256-LwikashfaYrKB2LqQ0YleOqu0ikykxrSgZE68aRaV9s=",
       "unpack": true
     },
     "x86_64-darwin": {
       "file": "osu.app.Intel.zip",
-      "hash": "sha256-BCPnre2laCZ3E0MTUDqKkpvzwO/2J/7jI17YJCWdkCI=",
+      "hash": "sha256-pXXf5avfylPfBQxifhPuB6m7/nhL9muqFTnurrME2Vs=",
       "unpack": true
     }
   }

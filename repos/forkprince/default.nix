@@ -46,6 +46,7 @@
   hyperkey = lib.callPackage ./pkgs/hyperkey {};
   finetune = lib.callPackage ./pkgs/finetune {};
   open-emu = lib.callPackage ./pkgs/open-emu {};
+  openmtp = lib.callPackage ./pkgs/openmtp {};
   puremac = lib.callPackage ./pkgs/puremac {};
   armsx2 = lib.callPackage ./pkgs/armsx2 {};
   roblox = lib.callPackage ./pkgs/roblox {};

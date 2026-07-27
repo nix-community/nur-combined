@@ -1,9 +1,7 @@
 {
-  fetchPnpmDeps,
   stdenvNoCC,
   overlayed,
   fetchurl,
-  pnpm_10,
   unzip,
   lib,
 }:
@@ -27,14 +25,4 @@ in
       license = lib.licenses.agpl3Plus;
     };
   })
-else
-  (overlayed.override {
-    pnpm_9 = pnpm_10;
-  }).overrideAttrs (old: {
-    pnpmDeps = fetchPnpmDeps {
-      inherit (old) pname version src;
-      pnpm = pnpm_10;
-      fetcherVersion = 3;
-      hash = "sha256-JUhjJaSSveB6p2aMPRDhmShIYdUpvzTfd7vfsTDmV8k=";
-    };
-  })
+else overlayed
