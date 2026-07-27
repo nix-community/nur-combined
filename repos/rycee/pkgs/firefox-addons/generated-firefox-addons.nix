@@ -1878,17 +1878,16 @@
     };
     "chrome-mask" = buildMozillaXpiAddon {
       pname = "chrome-mask";
-      version = "10.0.0";
+      version = "10.1.0";
       addonId = "chrome-mask@overengineer.dev";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4919430/chrome_mask-10.0.0.xpi";
-      sha256 = "08dfc5fc544643c58d428f7da9563b47007f96625c009dccbb096379aefd63c8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4919967/chrome_mask-10.1.0.xpi";
+      sha256 = "fe8fc7ae806fc8f75a1d18988b61ea2f86993dcdd25707f0897e51b33a7b6d95";
       meta = with lib;
       {
         homepage = "https://github.com/skyschub/chrome-mask";
         description = "Makes Firefox wear a mask to look like Chrome to websites that block Firefox otherwise.";
         license = licenses.mit;
         mozPermissions = [
-          "downloads"
           "storage"
           "tabs"
           "webRequest"
@@ -3849,10 +3848,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.6";
+      version = "1.7.7";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4760257/enhancer_for_nebula-1.7.6.xpi";
-      sha256 = "21a91a3c581d77438a2b4ca7e4182fbd28493d532bd163e569bb1d3bd9db8808";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4920067/enhancer_for_nebula-1.7.7.xpi";
+      sha256 = "3c199197cbf2b048f83ce0c64bd5d3453b38195eb6ae6966246df5b365679cbd";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -13142,10 +13141,10 @@
     };
     "refined-github" = buildMozillaXpiAddon {
       pname = "refined-github";
-      version = "26.7.12";
+      version = "26.7.26";
       addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4895101/refined_github-26.7.12.xpi";
-      sha256 = "d7601af3c1a6146fe18d0f5f71def6fd4aac4c4ff4d462500540a882855d6d78";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4920035/refined_github-26.7.26.xpi";
+      sha256 = "b9f0dda8163cff7fc31d8a289080adc24ac4ed255c8b90cf9c3651fd18a88adf";
       meta = with lib;
       {
         homepage = "https://github.com/refined-github/refined-github";
