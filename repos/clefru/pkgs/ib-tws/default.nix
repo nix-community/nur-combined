@@ -2,20 +2,17 @@
 with pkgs;
 
 let
-  jdkWithJavaFX = (pkgs.jdk11.override {
+  jdkWithJavaFX = (pkgs.jdk23.override {
     enableJavaFX = true;
-    openjfx_jdk = openjfx17.override { withWebKit = true; };
-#    openjfx17 = openjfx17.override { withWebKit = true; };
-#    openjfx21 = openjfx21.override { withWebKit = true; };
-#    openjfx23 = openjfx23.override { withWebKit = true; };
+    openjfx_jdk = openjfx23;
   });
   ibDerivation = stdenv.mkDerivation rec {
-  version = "10.40.1d";
+  version = "10.48.1e";
   pname = "ib-tws-native";
 
   src = fetchurl {
     url = "https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh";
-    sha256 = "0ks7r2bjm2is2xd0a2vrrx83cpjs0a946cbgr67mnb2fmqcz43mg";
+    sha256 = "19m8lm54ajaa1486wih5z93yns47226mfbnrlrrdvrxi1id2a82p";
     executable = true;
   };
 
