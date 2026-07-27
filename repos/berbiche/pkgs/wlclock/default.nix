@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib, fetchFromGitHub
 , pkgconfig, meson, ninja, scdoc
 , wayland, wayland-protocols, cairo
 }:
@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ scdoc wayland wayland-protocols cairo ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "A digital analog clock for Wayland desktops.";
     homepage = "https://github.com/Leon-Plickat/wlclock";
     license = licenses.gpl3;

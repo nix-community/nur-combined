@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, fetchpatch
+{ stdenv, lib, fetchFromGitHub, fetchpatch
 , pkgconfig, meson, ninja
 , wayland, wayland-protocols
 , gtk3, gtk-layer-shell
@@ -23,7 +23,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ wayland wayland-protocols gtk3 gtk-layer-shell ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = "Wayland desktop widget to show the sun's shadows on earth";
     homepage = "https://github.com/sentriz/wlr-sunclock";
     license = licenses.lgpl3;

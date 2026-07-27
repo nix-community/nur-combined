@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub
+{ stdenv, lib, fetchFromGitHub
 , pkgconfig, meson, ninja, cmake
 , wayland, wayland-protocols
 , cairo, mpv, wlroots
@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   buildInputs = [ wayland wayland-protocols mpv wlroots cairo ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     description = ''
       A wallpaper program for wlroots based Wayland compositors that
       allows you to play videos with mpv as your wallpaper

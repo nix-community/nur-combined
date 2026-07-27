@@ -15,6 +15,7 @@ with builtins;
 
 let
 
+  isEvaluable = n: (builtins.tryEval n).success;
   isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
   isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
@@ -42,7 +43,7 @@ let
     flattenPkgs
     (listToAttrs
     (map (n: nameValuePair n nurAttrs.${n})
-    (filter (n: !isReserved n)
+    (filter (n: isEvaluable nurAttrs.${n} && !isReserved n)
     (attrNames nurAttrs))));
 
 in
