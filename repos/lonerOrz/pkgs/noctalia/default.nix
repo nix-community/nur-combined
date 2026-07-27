@@ -36,6 +36,7 @@
   md4c,
   nlohmann_json,
   tomlplusplus,
+  libjxl,
 
   withLto ? false,
   withNative ? false,
@@ -113,6 +114,7 @@ stdenv.mkDerivation (finalAttrs: {
     md4c
     nlohmann_json
     tomlplusplus
+    libjxl
   ];
 
   mesonFlags = [

@@ -84,6 +84,7 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
     nodejs
     protobuf
     qt6.qtbase
+    qt6.qttools
     qt6.qtsvg
     qt6.qtwayland
     wayland
