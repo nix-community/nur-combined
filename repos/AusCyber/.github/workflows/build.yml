@@ -61,11 +61,19 @@ jobs:
         extra_nix_config: |
           experimental-features = nix-command flakes
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-    - name: Setup Attic cache
-      uses: ryanccn/attic-action@v0
+          extra-substituters = https://cache.ivymect.in/main
+          extra-trusted-public-keys = main:xS+QBlQtWPB/oX9un7feA68WGJRWfizG4C0YQUsmeN4=
+
+    # Push builds to (and pull from) my cache. cache.ivymect.in speaks
+    # Celler (an Attic fork), so this uses the matching client/action, same
+    # as ivylix. Only for staging itself, once a change has actually landed
+    # there -- PR validation builds just pull from the substituter above.
+    - name: Setup Celler cache
+      uses: auscyber/celler-action@main
+      if: github.event_name == 'push'
       with:
-        endpoint: ${{ secrets.ATTIC_ENDPOINT }}
-        cache: ${{ secrets.ATTIC_CACHE }}
+        endpoint: https://cache.ivymect.in
+        cache: main
         token: ${{ secrets.ATTIC_TOKEN }}
 
     - name: Check evaluation

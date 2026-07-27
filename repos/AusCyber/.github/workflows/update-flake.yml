@@ -31,21 +31,22 @@ jobs:
     - name: update docs
       run: nix run .#docs
 
-    - name: Setup Git
+    # Same staging-first flow as update.yml: opens a PR against staging
+    # (sign-commits attributes it to the app's own auscyber-bot[bot]
+    # identity) and auto-merges once build.yml's checks pass.
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      with:
+        token: ${{ steps.app-token.outputs.token }}
+        commit-message: "chore(deps): update flake inputs"
+        title: "chore(deps): update flake inputs"
+        branch: update-flake
+        base: staging
+        sign-commits: true
+    - name: Enable auto-merge
+      if: steps.cpr.outputs.pull-request-number
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-    # Same staging-first flow as update.yml: build.yml validates the push
-    # before anything reaches main.
-    - name: Commit & push to staging
+        gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
       env:
         GH_TOKEN: ${{ steps.app-token.outputs.token }}
-      run: |
-        git add -A
-        if ! git diff --cached --quiet; then
-          git commit -m "chore(deps): update flake inputs"
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:staging
-        else
-          echo "No flake changes."
-        fi

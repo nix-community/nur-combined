@@ -40,25 +40,27 @@ jobs:
     - name: update docs
       run: nix run .#docs
 
-    - name: Setup Git
+    # Opens (or updates) a PR against staging rather than pushing directly.
+    # sign-commits creates the commit through the API under the app's own
+    # identity (auscyber-bot[bot]), rather than whatever local git config
+    # says -- staging is allowed to be transiently red, that's the point of
+    # it, and build.yml's `pull_request`/`push: staging` triggers pick this
+    # up either way. A GitHub App token (not GITHUB_TOKEN) is used so this
+    # can trigger build.yml at all -- GitHub blocks GITHUB_TOKEN-authored
+    # pushes from triggering other workflows.
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+      with:
+        token: ${{ steps.app-token.outputs.token }}
+        commit-message: "update source"
+        title: "update source"
+        branch: update-nvfetcher
+        base: staging
+        sign-commits: true
+    - name: Enable auto-merge
+      if: steps.cpr.outputs.pull-request-number
       run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-
-    # Lands directly on staging -- staging is allowed to be transiently red,
-    # that's the point of it. build.yml's `push: staging` trigger picks this
-    # up, and only promotes to main once it actually builds. A GitHub App
-    # token (not GITHUB_TOKEN) is used so this push can trigger build.yml at
-    # all -- GitHub blocks GITHUB_TOKEN-authored pushes from triggering other
-    # workflows.
-    - name: Commit & push to staging
+        gh pr merge --auto --merge "${{ steps.cpr.outputs.pull-request-number }}"
       env:
         GH_TOKEN: ${{ steps.app-token.outputs.token }}
-      run: |
-        git add -A
-        if ! git diff --cached --quiet; then
-          git commit -m "update source"
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git" HEAD:staging
-        else
-          echo "No source changes."
-        fi
