@@ -46,8 +46,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "andreavolpato";
     repo = "spektrafilm";
-    rev = "500bc429b7e93450ef228305c319dc03d8e185d1";
-    hash = "sha256-NAXqf1vu6750dgYVKelh7GTHpH/ZNQDobbZmbTMMeQ4=";
+    rev = "6cd00c8d4f30b5b550f50f4bbd3753c9f2a48507";
+    hash = "sha256-JgLAZ8nEVaZwmlIEAzbTmPT96+IaOQCUh7Tlhn1tvso=";
   };
 
   patches = [ ./illuminants-enum.patch ];
