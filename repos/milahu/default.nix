@@ -1567,6 +1567,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
     ; 
   zfs = zfs_2_4;
 
+  embed-pdf-fonts = callPackage ./pkgs/by-name/em/embed-pdf-fonts/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
