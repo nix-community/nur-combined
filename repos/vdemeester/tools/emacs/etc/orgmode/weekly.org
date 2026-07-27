@@ -1,4 +1,4 @@
-* %(format-time-string org-journal-time-format) weekly review                                              :weekly:review:
+** %(format-time-string org-journal-time-format) weekly review :weekly:review:
 %U
 
 - [ ] review [[file:../projects/inbox.org][~inbox.org~]]
@@ -16,4 +16,5 @@
   - *what works, what doesn't ?*
   - *is there task / stuck projects ?*
   - *enhancement possible ?*
-- [ ] export previous agenda (somewhere)
+- Additional /notes/:
+  + …

@@ -3,7 +3,6 @@
 ;;; Version control configuration
 ;;; Code:
 
-;; UseVC
 (use-package vc
   :config
   (setq-default vc-find-revision-no-save t
@@ -11,9 +10,7 @@
   :bind (("C-x v f" . vc-log-incoming)  ;  git fetch
          ("C-x v F" . vc-update)
          ("C-x v d" . vc-diff)))
-;; -UseVC
 
-;; UseVCDir
 (use-package vc-dir
   :config
   (defun vde/vc-dir-project ()
@@ -32,25 +29,19 @@
          ("F" . vc-update)       ; symmetric with P: `vc-push'
          ("d" . vc-diff)         ; align with D: `vc-root-diff'
          ("k" . vc-dir-clean-files)))
-;; -UseVCDir
 
-;; UseVCGit
 (use-package vc-git
   :config
   (setq vc-git-diff-switches "--patch-with-stat")
   (setq vc-git-print-log-follow t))
-;; -UseVCGit
 
-;; UseVCAnnotate
 (use-package vc-annotate
   :config
   (setq vc-annotate-display-mode 'scale)
   :bind (("C-x v a" . vc-annotate)
          :map vc-annotate-mode-map
          ("t" . vc-annotate-toggle-annotation-visibility)))
-;; -UseVcAnnotate
 
-;; UseEdiff
 (use-package ediff
   :commands (ediff ediff-files ediff-merge ediff3 ediff-files3 ediff-merge3)
   :config
@@ -58,9 +49,7 @@
   (setq ediff-split-window-function 'split-window-horizontally)
   (setq ediff-diff-options "-w")
   (add-hook 'ediff-after-quit-hook-internal 'winner-undo))
-;; -UseEdiff
 
-;; UseDiff
 (use-package diff
   :config
   (setq diff-default-read-only nil)
@@ -69,76 +58,34 @@
   (setq diff-refine 'font-lock)
   (setq diff-font-lock-prettify nil)
   (setq diff-font-lock-syntax nil))
-;; -UseDiff
 
-;; UseMagit
+(use-package magit-popup)
+
 (use-package magit
+  :unless noninteractive
   :commands (magit-status magit-clone magit-pull magit-blame magit-log-buffer-file magit-log)
   :bind (("C-c v c" . magit-clone)
          ("C-c v C" . magit-checkout)
          ("C-c v b" . magit-branch)
-         ("C-c v d" . magit-dispatch-popup)
+         ("C-c v d" . magit-dispatch)
+         ("C-c v f" . magit-fetch)
          ("C-c v g" . magit-blame)
          ("C-c v l" . magit-log-buffer-file)
          ("C-c v p" . magit-pull)
          ("C-c v P" . magit-push)
-         ("C-c v v" . magit-status))
+         ("C-c v r" . magit-rebase)
+	 ("C-c v s" . magit-stage)
+         ("C-c v v" . magit-status)
+	 ;; magit-commit ? magit-stage ?
+	 )
   :config
   (setq-default magit-save-repository-buffers 'dontask
                 magit-refs-show-commit-count 'all
-                magit-branch-prefer-remote-upstream '("master")
-                magit-display-buffer-function #'magit-display-buffer-traditional)
+                magit-branch-prefer-remote-upstream '("main")
+		magit-display-buffer-function #'magit-display-buffer-fullframe-status-v1
+		magit-bury-buffer-function #'magit-restore-window-configuration
+		magit-refresh-status-buffer nil)
 
-  (magit-define-popup-option 'magit-rebase-popup
-    ?S "Sign using gpg" "--gpg-sign=" #'magit-read-gpg-secret-key)
-  (magit-define-popup-switch 'magit-log-popup
-    ?m "Omit merge commits" "--no-merges")
-
-  ;; Hide "Recent Commits"
-  (magit-add-section-hook 'magit-status-sections-hook
-                          'magit-insert-modules
-                          'magit-insert-unpushed-to-upstream
-                          'magit-insert-unpulled-from-upstream)
-  (setq-default magit-module-sections-nested nil)
-
-  ;; Show refined hunks during diffs
-  (set-default 'magit-diff-refine-hunk t)
-
-  ;; Refresh `magit-status' after saving a buffer
-  (add-hook 'after-save-hook #'magit-after-save-refresh-status))
-;; -UseMagit
-
-;; UseMagitTodos
-(use-package magit-todos
-  :hook (magit-mode . magit-todos-mode)
-  :custom
-  (magit-todos-exclude-globs '("node_modules" "vendor" "*.json" "*.html"))
-  :config
-  (setq magit-todos-auto-group-items 'always))
-;; -UseMagittodos
-
-;; UseMagitAnnex
-(use-package magit-annex
-  :after magit)
-;; -UseMagitAnnex
-
-;; UseGitAnnex
-(use-package git-annex
-  :after dired
-  :defer t)
-;; -UseGitAnnex
-
-;; UseGitCommit
-(use-package git-commit
-  :after magit
-  :commands (git-commit-mode)
-  :hook (git-commit-mode . vde/git-commit-mode-hook)
-  :config
-  (defun vde/git-commit-mode-hook ()
-    "git-commit mode hook"
-    (set (make-local-variable 'company-backends)
-         '(company-emoji company-capf company-files company-dabbrev))
-    (company-mode 1))
   (setq-default git-commit-summary-max-length 50
                 git-commit-known-pseudo-headers
                 '("Signed-off-by"
@@ -151,31 +98,58 @@
                   "Reviewed-by")
                 git-commit-style-convention-checks
                 '(non-empty-second-line
-                  overlong-summary-line)))
-;; -UseGitCommit
+                  overlong-summary-line))
+  
+  (magit-define-popup-option 'magit-rebase-popup
+                             ?S "Sign using gpg" "--gpg-sign=" #'magit-read-gpg-secret-key)
+  (magit-define-popup-switch 'magit-log-popup
+                             ?m "Omit merge commits" "--no-merges")
+  ;; cargo-culted from https://github.com/magit/magit/issues/3717#issuecomment-734798341
+  ;; valid gitlab options are defined in https://docs.gitlab.com/ee/user/project/push_options.html
+  ;;
+  ;; the second argument to transient-append-suffix is where to append
+  ;; to, not sure what -u is, but this works
+  (transient-append-suffix 'magit-push "-u"
+    '(1 "=s" "Skip gitlab pipeline" "--push-option=ci.skip"))
+  (transient-append-suffix 'magit-push "=s"
+    '(1 "=m" "Create gitlab merge-request" "--push-option=merge_request.create"))
+  (transient-append-suffix 'magit-push "=m"
+    '(1 "=o" "Set push option" "--push-option="))  ;; Will prompt, can only set one extra
 
-;; UseGitConfig
+  (defun vde/fetch-and-rebase-from-upstream ()
+    ""
+    (interactive)
+    (magit-fetch-all "--quiet")
+    (magit-git-rebase (concat "upstream/" (vc-git--symbolic-ref (buffer-file-name))) "-sS"))
+  
+  ;; Hide "Recent Commits"
+  (magit-add-section-hook 'magit-status-sections-hook
+                          'magit-insert-modules
+                          'magit-insert-unpushed-to-upstream
+                          'magit-insert-unpulled-from-upstream)
+  ;; No need for tag in the status header
+  (remove-hook 'magit-status-sections-hook 'magit-insert-tags-header)
+  (setq-default magit-module-sections-nested nil)
+
+  ;; Show refined hunks during diffs
+  (set-default 'magit-diff-refine-hunk t))
+
 (use-package gitconfig-mode
   :commands (gitconfig-mode)
   :mode (("/\\.gitconfig\\'"  . gitconfig-mode)
          ("/\\.git/config\\'" . gitconfig-mode)
          ("/git/config\\'"    . gitconfig-mode)
          ("/\\.gitmodules\\'" . gitconfig-mode)))
-;; -UseGitConfig
 
-;; UseGitIgnore
 (use-package gitignore-mode
   :commands (gitignore-mode)
   :mode (("/\\.gitignore\\'"        . gitignore-mode)
          ("/\\.git/info/exclude\\'" . gitignore-mode)
          ("/git/ignore\\'"          . gitignore-mode)))
-;; -UseGitIgnore
 
-;; UseGitAttributes
 (use-package gitattributes-mode
   :commands (gitattributes-mode)
   :mode (("/\\.gitattributes" . gitattributes-mode)))
-;; -UseGitAttributes
 
 (use-package dired-git-info
   :disabled
@@ -204,6 +178,17 @@
         (message "Line %d: %s" line-number (buffer-string)))
       (kill-buffer log-buf))
     (kill-buffer commit-buf)))
+
+(use-package git-gutter
+  :hook (prog-mode . git-gutter-mode)
+  :config
+  (setq git-gutter:update-interval 0.2))
+
+(use-package git-gutter-fringe
+  :config
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240] nil nil 'bottom))
 
 (provide 'config-vcs)
 ;;; config-vcs.el ends here

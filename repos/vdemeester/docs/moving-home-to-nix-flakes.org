@@ -1,0 +1,34 @@
+#+TITLE: Moving =home= to nix flakes
+#+FILETAGS: #home nix dotfiles configuration
+
+This document is a /live/ document on moving this =monorepo= to using nix flakes. It will go
+through why as well as trying to dig around what was done for it.
+
+* Why flakes
+
+#+begin_quote
+Nix is a package manager that lets you have a more deterministic view of your software
+dependencies and build processes. One if its biggest weaknesses out of the box is that
+there are very few conventions on how projects using Nix should work together. It's like
+having a build system but also having to configure systems to run software yourself. This
+could mean copying a NixOS module out of the project's git repo, writing your own or
+more. In contrast to this, Nix flakes define a set of conventions for how software can be
+build, run, integrated and deployed without having to rely on external tools such as Niv
+or Lorri to help you do basic tasks in a timely manner.
+– from [[https://christine.website/blog/nix-flakes-1-2022-02-21]]
+#+end_quote
+
+Nix flakes seems to be more and more stable and usable, and thus, as I needed to
+re-install one of my laptop powered by NixOS, I felt I would migrate the repository
+towards nix flakes.
+
+The idea is to make this repository a "flake-enabled" repository while still working with
+the current setup I have (=niv=, =morph=, …).
+
+* Digging into the flake
+
+- Going with flake-utils-plus. Why ?
+  For a "configuration" repository, I think it makes perfect sense. For standalone flakes,
+  like projects, … I wouldn't say the same but for this one it does.
+
+#+include: "../flake.nix" src nix

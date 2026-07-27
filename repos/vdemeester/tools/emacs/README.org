@@ -1,1 +1,20 @@
-index.org
+
+* Inspirations
+
+- https://tecosaur.github.io/emacs-config/config.html
+- https://github.com/jeremyf/dotemacs/
+- https://git.sr.ht/~pkal/emacs-init/tree
+- https://git.acdw.net/emacs/tree/
+- https://github.com/mfiano/emacs-config/tree/main
+- https://github.com/akirak/emacs-config/blob/master/emacs/emacs-config.org
+- https://robbmann.io/emacsd/
+- https://github.com/drshapeless/.emacs.d/
+- https://github.com/librephoenix/nixos-config/tree/main/user/app/doom-emacs
+  + https://github.com/psamim/dotfiles/blob/master/doom/config.el#L73
+- https://git.sr.ht/~sebasmonia/dotfiles/tree/master/item/.config/emacs/init.el
+- https://gitlab.com/andreyorst/dotfiles/
+- https://github.com/gopar/.emacs.d
+
+* Packages "inspirations"
+
+- https://www.emacswiki.org/emacs/SetupEl

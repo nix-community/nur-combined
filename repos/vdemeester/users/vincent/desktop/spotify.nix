@@ -1,5 +1,8 @@
 { pkgs, ... }:
 
 {
-  home.packages = with pkgs; [ spotify ];
+  # FIXME: need a .desktop file..
+  home.packages = with pkgs; [
+    spotify
+  ];
 }

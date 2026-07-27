@@ -1,13 +1,13 @@
 { config, pkgs, ... }:
-let
-  sources = import ../../nix/sources.nix;
-in
+#let
+#  sources = import ../../nix/sources.nix;
+#in
 {
   imports = [
     ./thinkpad.nix
-    (sources.nixos-hardware + "/lenovo/thinkpad/tp-smapi.nix")
-    (sources.nixos-hardware + "/common/cpu/intel")
-    (sources.nixos-hardware + "/common/pc/ssd")
+    #(sources.nixos-hardware + "/lenovo/thinkpad/tp-smapi.nix")
+    #(sources.nixos-hardware + "/common/cpu/intel")
+    #(sources.nixos-hardware + "/common/pc/ssd")
   ];
   boot = {
     kernelParams = [ "i915.enable_psr=1" ];
@@ -27,37 +27,38 @@ in
   services = {
     fprintd.enable = true;
     tlp = {
-      extraConfig = ''
+      settings = {
         # CPU optimizations
-        CPU_SCALING_GOVERNOR_ON_AC=performance
-        CPU_SCALING_GOVERNOR_ON_BAT=powersave
-        CPU_MIN_PERF_ON_AC=0
-        CPU_MAX_PERF_ON_AC=100
-        CPU_MIN_PERF_ON_BAT=0
-        CPU_MAX_PERF_ON_BAT=50
-        CPU_BOOST_ON_AC=1
-        CPU_BOOST_ON_BAT=0
+        "CPU_SCALING_GOVERNOR_ON_AC" = "performance";
+        "CPU_SCALING_GOVERNOR_ON_BAT" = "powersave";
+        "CPU_MIN_PERF_ON_AC" = 0;
+        "CPU_MAX_PERF_ON_AC" = 100;
+        "CPU_MIN_PERF_ON_BAT" = 0;
+        "CPU_MAX_PERF_ON_BAT" = 50;
+        "CPU_BOOST_ON_AC" = 1;
+        "CPU_BOOST_ON_BAT" = 0;
         # DEVICES (wifi, ..)
-        DEVICES_TO_DISABLE_ON_STARTUP="bluetooth"
-        DEVICES_TO_ENABLE_ON_AC="bluetooth wifi wwan"
-        DEVICES_TO_DISABLE_ON_BAT="bluetooth"
+        "DEVICES_TO_DISABLE_ON_STARTUP" = "bluetooth";
+        "DEVICES_TO_ENABLE_ON_AC" = "bluetooth wifi wwan";
+        "DEVICES_TO_DISABLE_ON_BAT" = "bluetooth";
         # Network management
-        DEVICES_TO_DISABLE_ON_LAN_CONNECT=""
-        DEVICES_TO_DISABLE_ON_WIFI_CONNECT=""
-        DEVICES_TO_DISABLE_ON_WWAN_CONNECT=""
-        DEVICES_TO_ENABLE_ON_LAN_DISCONNECT=""
-        DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT=""
-        DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT=""
-        DISK_IDLE_SECS_ON_AC=0
-        DISK_IDLE_SECS_ON_BAT=2
-        MAX_LOST_WORK_SECS_ON_AC=15
-        MAX_LOST_WORK_SECS_ON_BAT=60
-        DISK_DEVICES="ata-Corsair_Force_LX_SSD_15256501000102160059"
-        SOUND_POWER_SAVE_ON_AC=0
-        SOUND_POWER_SAVE_ON_BAT=1
-        USB_AUTOSUSPEND=1
-        USB_BLACKLIST_BTUSB=1
-      '';
+        "DEVICES_TO_DISABLE_ON_LAN_CONNECT" = "";
+        "DEVICES_TO_DISABLE_ON_WIFI_CONNECT" = "";
+        "DEVICES_TO_DISABLE_ON_WWAN_CONNECT" = "";
+        "DEVICES_TO_ENABLE_ON_LAN_DISCONNECT" = "";
+        "DEVICES_TO_ENABLE_ON_WIFI_DISCONNECT" = "";
+        "DEVICES_TO_ENABLE_ON_WWAN_DISCONNECT" = "";
+        # Misc
+        "DISK_IDLE_SECS_ON_AC" = 0;
+        "DISK_IDLE_SECS_ON_BAT" = 2;
+        "MAX_LOST_WORK_SECS_ON_AC" = 15;
+        "MAX_LOST_WORK_SECS_ON_BAT" = 60;
+        "DISK_DEVICES" = "ata-Corsair_Force_LX_SSD_15256501000102160059";
+        "SOUND_POWER_SAVE_ON_AC" = 0;
+        "SOUND_POWER_SAVE_ON_BAT" = 1;
+        "USB_AUTOSUSPEND" = 1;
+        "USB_BLACKLIST_BTUSB" = 1;
+      };
     };
   };
 }

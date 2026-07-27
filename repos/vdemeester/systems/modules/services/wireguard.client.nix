@@ -7,13 +7,7 @@ in
 {
   options = {
     services.wireguard = {
-      enable = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Whether to enable a reverse SSH proxy.
-        '';
-      };
+      enable = mkEnableOption "Whether to enable a reverse SSH proxy.";
       ips = mkOption {
         type = with types; listOf str;
         description = ''
@@ -49,8 +43,8 @@ in
     };
   };
   config = mkIf cfg.enable {
-    boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
-    environment.systemPackages = [ pkgs.wireguard ];
+    # boot.extraModulePackages = [ config.boot.kernelPackages.wireguard ];
+    environment.systemPackages = [ pkgs.wireguard-tools ];
     networking.firewall.trustedInterfaces = [ "wg0" ];
     networking.wireguard.enable = true;
     networking.wireguard.interfaces = {

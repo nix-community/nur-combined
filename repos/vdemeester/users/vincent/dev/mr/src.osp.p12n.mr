@@ -1,0 +1,54 @@
+# -*- mode: sh -*-
+include = cat ${HOME}/.config/mr
+
+[gerrit]
+checkout =
+    git clone vdemeest@code.engineering.redhat.com:openshift-pipelines.git gerrit
+    cd gerrit
+    git remote rename origin gerrit
+u = git fetch -p --all
+
+[p12n]
+checkout =
+    git clone git@gitlab.cee.redhat.com:vdemeest/p12n.git p12n
+    cd p12n
+    git config http.sslVerify false
+    git remote add upstream https://gitlab.cee.redhat.com/tekton/p12n
+    git fetch -p --all
+u = git fetch -p --all
+
+[plumbing]
+checkout =
+    git clone git@gitlab.cee.redhat.com:vdemeest/tekton-plumbing.git plumbing
+    cd plumbing
+    git config http.sslVerify false
+    git remote add upstream https://gitlab.cee.redhat.com/tekton/plumbing
+    git fetch -p --all
+u = git fetch -p --all
+
+[honeybadger]
+checkout =
+    git clone git@gitlab.cee.redhat.com:vdemeest/pipeline-products.git honeybadger
+    cd honeybadger
+    git config http.sslVerify false
+    git remote add upstream https://gitlab.cee.redhat.com/pipeline/products
+    git fetch -p --all
+u = git fetch -p --all
+
+[cpaas-config]
+checkout =
+    git clone git@gitlab.cee.redhat.com:vdemeest/openshift-pipelines.git cpaas-config
+    cd cpaas-config
+    git config http.sslVerify false
+    git remote add upstream https://gitlab.cee.redhat.com/cpaas-products/openshift-pipelines.git
+    git fetch -p --all
+u = git fetch -p --all
+
+[cpaas-product-configs]
+checkout =
+    git clone git@gitlab.cee.redhat.com:vdemeest/product-configs.git cpaas-product-configs
+    cd cpaas-product-configs
+    git config http.sslVerify false
+    git remote add upstream https://gitlab.cee.redhat.com/cpaas-products/product-configs.git
+    git fetch -p --all
+u = git fetch -p --all

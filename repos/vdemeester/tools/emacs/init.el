@@ -1,98 +1,47 @@
-;; Initialization
-;; 
-;; I am using the [[https://archive.casouri.cat/note/2020/painless-transition-to-portable-dumper/index.html][portable dump]] feature (/to speed things up/) *but* I want to also start
-;; without =pdump=, so I need to take both cases into account.
+;;; init.el --- init configuration file -*- lexical-binding: t; -*-
 
+;; Copyright (c) 2020-2023  Vincent Demeester <vincent@sbr.pm>
 
-(defvar sbr-dumped nil
-  "non-nil when a dump file is loaded (because dump.el sets this variable).")
+;; Author: Vincent Demeester <vincent@sbr.pm>
+;; URL: https://git.sr.ht/~vdemeester/home
+;; Version: 0.1.0
+;; Package-Requires: ((emacs "29.1"))
 
-(defmacro sbr-if-dump (then &rest else)
-  "Evaluate IF if running with a dump file, else evaluate ELSE."
-  (declare (indent 1))
-  `(if sbr-dumped
-       ,then
-     ,@else))
+;; This file is NOT part of GNU Emacs.
 
-(sbr-if-dump
-    (progn
-      (global-font-lock-mode)
-      (transient-mark-mode)
-      (setq load-path sbr-dumped-load-path))
-  ;; add load-path’s and load autoload files
-  (package-initialize))
+;; This file is free software: you can redistribute it and/or modify it
+;; under the terms of the GNU General Public License as published by the
+;; Free Software Foundation, either version 3 of the License, or (at
+;; your option) any later version.
+;;
+;; This file is distributed in the hope that it will be useful, but
+;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this file.  If not, see <http://www.gnu.org/licenses/>.
 
+;;; Commentary:
 
+;; See my dotfiles: https://git.sr.ht/~vdemeester/home
 
-;; First thing first, let's define a =emacs-start-time= constant to be able to compute the
-;; time Emacs took to start.
+;;; Code:
 
 
 (defconst emacs-start-time (current-time))
 
-
-
-;; My configuration do not support Emacs version lower than 26.
-
-
-(let ((minver 26))
+(let ((minver 28))
   (unless (>= emacs-major-version minver)
     (error "Your Emacs is too old -- this configuration requires v%s or higher" minver)))
 
-
-
-;; One thing though, I am currently not necessarily running Emacs 27, so I am going to need
-;; to have the same configuration in ~init.el~ for a little bit of time.
-;; 
-;; /Note: the lowest emacs version I wanna support is 26 (as of today, might evolve)/
-
-
-;; load early-init.el before Emacs 27.0
-(unless (>= emacs-major-version 27)
-  (message "Early init: Emacs Version < 27.0")
-  (load (expand-file-name "early-init.el" user-emacs-directory)))
-
-
-
-;; We also want our configuration to be working the same on any computer, this means we want
-;; to define every option by ourselves, not relying on default files (~default.el~) that
-;; would be set by our distribution. This is where =inhibit-default-init= comes into play,
-;; setting it to non-nil inhibit loading the ~default~ library.
-;; 
-;; We also want to inhibit some initial default start messages and screen. The default screen
-;; will be as bare as possible.
-
+(add-to-list 'load-path (concat user-emacs-directory "/lisp/"))
 
 (setq inhibit-default-init t)           ; Disable the site default settings
 
-(setq inhibit-startup-message t
-      inhibit-startup-screen t)
-
-
-
-;; Let's also use =y= or =n= instead of =yes= and =no= when exiting Emacs.
-
-
 (setq confirm-kill-emacs #'y-or-n-p)
-
-
-
-;; One last piece to the puzzle is the default mode. Setting it to fundamental-mode means we
-;; won't load any /heavy/ mode at startup (like =org-mode=). We also want this scratch buffer
-;; to be empty, so let's set it as well
-
-
 (setq initial-major-mode 'fundamental-mode
       initial-scratch-message nil)
-
-;; Unicode all the way
-;; :PROPERTIES:
-;; :CUSTOM_ID: h:df45a01a-177d-4909-9ce7-a5423e0ea20f
-;; :END:
-;; 
-;; By default, all my systems are configured and support =utf-8=, so let's just make it a
-;; default in Emacs ; and handle special case on demand.
-
 
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
@@ -100,163 +49,94 @@
 (set-selection-coding-system 'utf-8)
 (set-terminal-coding-system 'utf-8)
 
-;; Package management with =use-package=
-;; :PROPERTIES:
-;; :CUSTOM_ID: h:112262a1-dd4d-4a50-a9e2-85b36bbbd95b
-;; :END:
-;; 
-;; =use-package= is a tool that streamlines the configuration of packages. It handles
-;; everything from assigning key bindings, setting the value of customisation options,
-;; writing hooks, declaring a package as a dependency for another, and so on.
-;; 
-;; #+begin_quote
-;; The =use-package= macro allows you to isolate package configuration in your =.emacs= file
-;; in a way that is both performance-oriented and, well, tidy.  I created it because I have
-;; over 80 packages that I use in Emacs, and things were getting difficult to manage.  Yet
-;; with this utility my total load time is around 2 seconds, with no loss of functionality!
-;; #+end_quote
-;; 
-;; With =use-package= we can improve the start-up performance of Emacs in a few fairly simple
-;; ways. Whenever a command is bound to a key it is configured to be loaded only once
-;; invoked. Otherwise we can specify which functions should be autoloaded by means of the
-;; =:commands= keyword.
-;; 
-;; We need to setup the emacs package system and install =use-package= if not present
-;; already.
+(unless noninteractive
+  (defconst font-height 130
+    "Default font-height to use.")
+  ;; 2024-10-05: Switching from Ubuntu Mono to Cascadia Mono
+  ;; 2024-96-06: Switching from Cascadia Mono to JetBrains Mono
+  (defconst font-family-mono "JetBrains Mono"
+    "Default monospace font-family to use.")
+  (defconst font-family-sans "Ubuntu Sans"
+    "Default sans font-family to use.")
+  ;; Middle/Near East: שלום, السّلام عليكم
+  (when (member "Noto Sans Arabic" (font-family-list))
+    (set-fontset-font t 'arabic "Noto Sans Arabic"))
+  (when (member "Noto Sans Hebrew" (font-family-list))
+    (set-fontset-font t 'arabic "Noto Sans Hebrew"))
+  ;; Africa: ሠላም
+  (when (member "Noto Sans Ethiopic" (font-family-list))
+    (set-fontset-font t 'ethiopic "Noto Sans Ethiopic"))
 
+  ;; If font-family-mono or font-family-sans are not available, use the default Emacs face
+    (set-face-attribute 'default nil
+			:family font-family-mono
+			:height font-height
+			:weight 'regular)
+    (set-face-attribute 'fixed-pitch nil
+			:family font-family-mono
+			:weight 'medium
+			:height font-height)
+    (set-face-attribute 'variable-pitch nil
+			:family font-family-sans
+			:weight 'regular)
 
-(require 'package)
+  (set-fontset-font t 'symbol "Apple Color Emoji")
+  (set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+  (set-fontset-font t 'symbol "Segoe UI Emoji" nil 'append)
+  (set-fontset-font t 'symbol "Symbola" nil 'append)
 
-(setq package-archives
-      '(("melpa" . "http://melpa.org/packages/")
-        ("org" . "https://orgmode.org/elpa/")
-        ("gnu" . "https://elpa.gnu.org/packages/")))
+(defvar contrib/after-load-theme-hook nil
+  "Hook run after a color theme is loaded using `load-theme'.")
 
-(setq package-archive-priorities
-      '(("melpa" .  3)
-        ("org" . 2)
-        ("gnu" . 1)))
+(defun contrib/run-after-load-theme-hook (&rest _)
+  "Run `contrib/after-load-theme-hook'."
+  (run-hooks 'contrib/after-load-theme-hook))
 
-(require 'tls)
+(mapc
+ (lambda (string)
+   (add-to-list 'load-path (locate-user-emacs-file string)))
+ '("lisp" "config"))
 
-;; From https://github.com/hlissner/doom-emacs/blob/5dacbb7cb1c6ac246a9ccd15e6c4290def67757c/core/core-packages.el#L102
-(setq gnutls-verify-error (not (getenv "INSECURE")) ; you shouldn't use this
-      tls-checktrust gnutls-verify-error
-      tls-program (list "gnutls-cli --x509cafile %t -p %p %h"
-                        ;; compatibility fallbacks
-                        "gnutls-cli -p %p %h"
-                        "openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof"))
+(advice-add #'load-theme :after #'contrib/run-after-load-theme-hook)
 
-;; Initialise the packages, avoiding a re-initialisation.
-(unless (bound-and-true-p package--initialized)
-  (setq package-enable-at-startup nil)
-  (package-initialize))
+(require 'modus-themes)
+(setq modus-themes-to-toggle '(modus-operandi modus-vivendi)
+      modus-themes-slanted-constructs nil
+      modus-themes-italic-constructs nil
+      modus-themes-bold-constructs nil
+      modus-themes-mixed-fonts t
+      modus-themes-subtle-diffs t
+      modus-themes-fringes 'subtle ; {nil,'subtle,'intense}
+      modus-themes-headings '((0 . (variable-pitch semilight 1.5))
+			      (1 . (regular 1.4))
+			      (2 . (regular 1.3))
+			      (3 . (regular 1.2))
+			      (agenda-structure . (variable-pitch light 2.2))
+			      (agenda-date . (variable-pitch regular 1.3))
+			      (t . (regular 1.15)))
+      modus-themes-intense-paren-match t
+      modus-themes-completions '(opinionated) ; {nil,'moderate,'opinionated}
+      modus-themes-diffs 'desaturated ; {nil,'desaturated,'fg-only}
+      modus-themes-org-blocks 'gray-background
+      modus-themes-paren-match '(subtle-bold)
+      modus-themes-variable-pitch-headings nil
+      modus-themes-rainbow-headings t
+      modus-themes-section-headings nil
+      modus-themes-scale-headings t
+      )
 
-(setq load-prefer-newer t)              ; Always load newer compiled files
-(setq ad-redefinition-action 'accept)   ; Silence advice redefinition warnings
+(defun my-update-active-mode-line-colors ()
+  (set-face-attribute
+   'mode-line nil
+   :foreground (modus-themes-get-color-value 'fg-mode-line-active)
+   :background (modus-themes-get-color-value 'bg-blue-nuanced)))
+(add-hook 'modus-themes-after-load-theme-hook #'my-update-active-mode-line-colors)
+(define-key global-map (kbd "C-<f5>") #'modus-themes-toggle)
 
-;; Init `delight'
-(unless (package-installed-p 'delight)
-  (package-refresh-contents)
-  (package-install 'delight))
+(load-theme 'modus-operandi :no-confirm))
+(my-update-active-mode-line-colors)
 
-;; Configure `use-package' prior to loading it.
-(eval-and-compile
-  (setq use-package-always-ensure nil)
-  (setq use-package-always-defer nil)
-  (setq use-package-always-demand nil)
-  (setq use-package-expand-minimally nil)
-  (setq use-package-enable-imenu-support t))
-
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
-
-(eval-when-compile
-  (require 'use-package))
-
-;; Early environment setup
-;; 
-;; I want to *force* ==SSH_AUTH_SOCK= in Emacs to use my gpg-agent.
-
-
-(setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
-
-;; =custom.el=
-;; :PROPERTIES:
-;; :CUSTOM_ID: h:1ddaf27e-ff7c-424e-8615-dd0bd22b685f
-;; :END:
-;; 
-;; When you install a package or use the various customisation interfaces to tweak things to
-;; your liking, Emacs will append a piece of elisp to your init file. I prefer to have that
-;; stored in a separate file.
-
-
-(defconst vde/custom-file (locate-user-emacs-file "custom.el")
-  "File used to store settings from Customization UI.")
-
-(use-package cus-edit
-  :config
-  (setq
-   custom-file vde/custom-file
-   custom-buffer-done-kill nil          ; Kill when existing
-   custom-buffer-verbose-help nil       ; Remove redundant help text
-   custom-unlispify-tag-names nil       ; Show me the real variable name
-   custom-unlispify-menu-entries nil)
-  (unless (file-exists-p custom-file)
-    (write-region "" nil custom-file))
-
-  (load vde/custom-file 'no-error 'no-message))
-
-;; Remove built-in =org-mode=
-;; :PROPERTIES:
-;; :CUSTOM_ID: h:9462c0d7-03be-4231-8f22-ce1a04be32b1
-;; :END:
-;; 
-;; I want to make sure I am using the installed version of =orgmode= (from my org
-;; configuration) instead of the built-in one. To do that safely, let's remove the built-in
-;; version out of the load path.
-
-
-(require 'cl-seq)
-(setq load-path
-      (cl-remove-if
-       (lambda (x)
-         (string-match-p "org$" x))
-       load-path))
-
-;; Loading configuration files
-;; :PROPERTIES:
-;; :CUSTOM_ID: h:d6aebc56-aadb-4b01-8404-bb922d12f8a8
-;; :END:
-;; 
-;; This =org-mode= document /tangles/ into several files in different folders :
-;; - ~config~ for my configuration
-;; - ~lisp~ for imported code or library I've written and not yet published
-;; 
-;; I used to load them by hand in the ~init.el~ file, which is very cumbersome, so let's try
-;; to automatically load them. I want to first load the file in the ~lisp~ folder as they are
-;; potentially used by my configuration (in ~config~).
-;; 
-;; Let's define some functions that would do the job.
-
-
-(defun vde/el-load-dir (dir)
-  "Load el files from the given folder"
-  (let ((files (directory-files dir nil "\.el$")))
-    (while files
-      (load-file (concat dir (pop files))))))
-
-(defun vde/short-hostname ()
-  "Return hostname in short (aka wakasu.local -> wakasu)"
-  (string-match "[0-9A-Za-z-]+" system-name)
-  (substring system-name (match-beginning 0) (match-end 0)))
-
-
-
-;; Let's define some constants early, based on the system, and the environment, to be able to
-;; use those later on to skip some package or change some configuration accordingly.
-
+(require 'init-func)
 
 (defconst *sys/gui*
   (display-graphic-p)
@@ -272,7 +152,7 @@
   "Are you a ROOT user?")
 (defconst *nix*
   (executable-find "nix")
-  "Do we have nix? (aka are we running in NixOS or a system using nixpkgs)")
+  "Do we have nix? (aka are we running in NixOS or a system using nixpkgs).")
 (defconst *rg*
   (executable-find "rg")
   "Do we have ripgrep?")
@@ -284,37 +164,125 @@
   "Do we have git?")
 
 (defvar *sys/full*
-  (member (vde/short-hostname) '("wakasu" "naruhodo")) ; "naruhodo" <- put naruhodo back in
+  (member (vde/short-hostname) '("wakasu" "naruhodo"))
   "Is it a full system ?")
 (defvar *sys/light*
   (not *sys/full*)
   "Is it a light system ?")
 
+;; (require 'package)
+;; (setq package-archives nil) ;; To rely only on packages from nix
+;; (setq package-archives
+;;       '(("melpa" . "http://melpa.org/packages/")
+;;         ("org" . "https://orgmode.org/elpa/")
+;;         ("gnu" . "https://elpa.gnu.org/packages/")
+;; 	("nongnu" . "https://elpa.nongnu.org/nongnu/")))
+;; 
+;; (setq package-archive-priorities
+;;       '(("melpa" .  4)
+;;         ("org" . 3)
+;;         ("gnu" . 2)
+;; 	("non-gnu" . 1)))
 
+;; (require 'tls)
+;; 
+;; ;; From https://github.com/hlissner/doom-emacs/blob/5dacbb7cb1c6ac246a9ccd15e6c4290def67757c/core/core-packages.el#L102
+;; (setq gnutls-verify-error (not (getenv "INSECURE")) ; you shouldn't use this
+;;       tls-checktrust gnutls-verify-error
+;;       tls-program (list "gnutls-cli --x509cafile %t -p %p %h"
+;;                         ;; compatibility fallbacks
+;;                         "gnutls-cli -p %p %h"
+;;                         "openssl s_client -connect %h:%p -no_ssl2 -no_ssl3 -ign_eof"))
 
-;; Now, in order to load ~lisp~ and ~config~ files, it's just a matter of calling this
-;; function with the right argument.
+;; Initialise the packages, avoiding a re-initialisation.
+;; (unless (bound-and-true-p package--initialized)
+;;   (setq package-enable-at-startup nil)
+;;   (package-initialize))
 
+(setq load-prefer-newer t)              ; Always load newer compiled files
+(setq ad-redefinition-action 'accept)   ; Silence advice redefinition warnings
 
-(add-to-list 'load-path (concat user-emacs-directory "lisp/"))
-(add-to-list 'load-path (concat user-emacs-directory "lisp/vorg"))
-(require 'init-func)
-(vde/el-load-dir (concat user-emacs-directory "/config/"))
+;; Init `delight'
+;; (unless (package-installed-p 'delight)
+;;   (package-refresh-contents)
+;;   (package-install 'delight))
 
+;; Configure `use-package' prior to loading it.
+(eval-and-compile
+  (setq use-package-always-ensure nil)
+  (setq use-package-always-defer nil)
+  (setq use-package-always-demand nil)
+  (setq use-package-expand-minimally nil)
+  (setq use-package-enable-imenu-support t))
 
+;; (unless (package-installed-p 'use-package)
+;;   (package-refresh-contents)
+;;   (package-install 'use-package))
 
-;; Finally, I want to be able to load files for a specific machine, in case I need it (not
-;; entirely sure why yet but…)
+(eval-when-compile
+  (require 'use-package))
 
+(setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
+
+(defconst vde/custom-file (locate-user-emacs-file "custom.el")
+  "File used to store settings from Customization UI.")
+
+;; Remove built-in org-mode
+(require 'cl-seq)
+(setq load-path
+      (cl-remove-if
+       (lambda (x)
+         (string-match-p "org$" x))
+       load-path))
+
+;; 2024-07-12: I wonder if I should be explicit instead, as using
+;; `require' explicitly. The benefit would be that I decide the order
+;; they load instead of relying on file-system.
+;; (vde/el-load-dir (concat user-emacs-directory "/config/"))
+(require 'org-func)
+(require 'project-func)
+
+;; Make native compilation silent and prune its cache.
+(when (native-comp-available-p)
+  (setq native-comp-async-report-warnings-errors 'silent) ; Emacs 28 with native compilation
+  (setq native-compile-prune-cache t)) ; Emacs 29
+
+;; Refactor this completely. Reduce to the minimum.
+(require '00-base)
+(require '00-clean) ;; Maybe refactor no-littering
+(unless noninteractive
+  (require 'config-appearance)
+  (require 'config-buffers)
+  (require 'config-compile)
+  (require 'config-completion)
+  (require 'config-dired)
+  (require 'config-mouse)
+  (require 'config-navigating)
+  (require 'config-org)
+  (require 'config-programming)
+  (require 'config-projects)
+  (require 'config-search)
+  (require 'config-shells)
+  (require 'config-vcs)
+  (require 'config-web)
+  (require 'config-windows)
+  (require 'programming-config)
+  (require 'programming-containers)
+  (require 'programming-cue)
+  (require 'programming-elisp)
+  (require 'programming-eglot)
+  (require 'programming-go)
+  (require 'programming-js)
+  (require 'programming-nix)
+  (require 'programming-treesitter)
+  (require 'programming-web))
+(require 'config-editing)
+(require 'config-files)
+(require 'config-keybindings)
+(require 'config-misc)
 
 (if (file-exists-p (downcase (concat user-emacs-directory "/hosts/" (vde/short-hostname) ".el")))
     (load-file (downcase (concat user-emacs-directory "/hosts/" (vde/short-hostname) ".el"))))
-
-;; Counting the time of loading
-;; :PROPERTIES:
-;; :CUSTOM_ID: h:2b645e95-6776-4f5b-a318-e5a915943881
-;; :END:
-
 
 (let ((elapsed (float-time (time-subtract (current-time)
                                           emacs-start-time))))

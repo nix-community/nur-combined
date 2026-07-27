@@ -1,0 +1,76 @@
+keys:
+  - &vincent 8C4E8DDA04C18C6B503BD2DBB7E7CF1C634256FA
+  - &aomi b14ab1e44008e7d4c39875324d5981054462545d
+  - &wakasu 81f3a3b3720f8cab8c53e2f88fd25835fc9db1e6
+  - &sakhalin 8b80ab02638ab9c34f6c21bd69928b5908e10cbf
+  - &kerkouane b8b02c0885a74753f8fb53f031f0386f20f3e4ec
+  - &shikoku c7ebcb8e935bda9466e98b1a659af87ff4f5ab02
+  - &demeter 131c2eeb1c88c9b8bc76485df4c7efebe0e72441 # ssh root@demeter.home "cat /etc/ssh/ssh_host_rsa_key" | nix-shell -p ssh-to-pgp --run "ssh-to-pgp -o demeter.asc" 
+  - &athena 73cb7209eb57f9450adbaa3a5cdf368d4cf82a42 # ssh root@athena.home "cat /etc/ssh/ssh_host_rsa_key" | nix-shell -p ssh-to-pgp --run "ssh-to-pgp -o demeter.asc" 
+creation_rules:
+  - path_regex: secrets/servers/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *wakasu
+      - *sakhalin
+      - *kerkouane
+      - *shikoku
+      - *athena
+      - *demeter
+  - path_regex: secrets/desktops/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *aomi
+      - *wakasu
+  - path_regex: secrets/wakasu/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *wakasu
+  - path_regex: secrets/aomi/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *aomi
+  - path_regex: secrets/sakhalin/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *sakhalin
+  - path_regex: secrets/kerkouane/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *kerkouane
+  - path_regex: secrets/shikoku/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *shikoku
+  - path_regex: secrets/athena/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *athena
+  - path_regex: secrets/demeter/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *demeter
+  - path_regex: secrets/k8s/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+  - path_regex: secrets/[^/]+\.yaml$
+    key_groups:
+    - pgp:
+      - *vincent
+      - *aomi
+      - *wakasu
+      - *sakhalin
+      - *kerkouane
+      - *shikoku
+      - *athena
+      - *demeter

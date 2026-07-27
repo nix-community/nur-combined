@@ -1,0 +1,104 @@
+#+title:      denote
+#+date:       [2023-11-20 Mon 12:31]
+#+filetags:   :emacs:notes:orgmode:
+#+identifier: 20231120T123124
+#+category: denote
+
+It is an [[denote:20231120T152341][emacs]] package that allows you to link to files in your org-mode documents.
+
+* Thoughts
+
+The presence of the tags in the filename seem to be both nice and bad at the same time. I
+think time will tell.
+
+* Links
+
+- https://takeonrules.com/2022/10/01/exploring-the-denote-emacs-package/
+  Really interesting, simple take
+- https://takeonrules.com/2022/11/19/project-dispatch-menu-with-org-mode-metadata-denote-and-transient/
+- https://lucidmanager.org/productivity/taking-notes-with-emacs-denote/
+
+** [[https://baty.blog/2022/keeping-my-org-agenda-updated/][Keeping my Org Agenda updated based on Denote keywords - Jack Baty]]
+[2024-02-28 Wed 16:14]
+
+* Dynamic blocks
+
+Old regexp "md\\|org"
+
+#+BEGIN: denote-links :regexp "md"
+- [[denote:20230815T192545][2023-08-15]]
+- [[denote:20230929T113052][Always be quitting - Julio Merino (jmmv.dev)]]
+- [[denote:20230929T113053][Behavior Driven Development]]
+- [[denote:20230929T113054][Blog]]
+- [[denote:20230929T113058][Hyprland]]
+- [[denote:20230929T180738][A Practical Guide to Distributed Scrum]]
+- [[denote:20230929T180739][Culture & Empire]]
+- [[denote:20230929T180740][Debugging Teams]]
+- [[denote:20230929T180741][Getting Things Done]]
+- [[denote:20230929T180742][Inspired]]
+- [[denote:20230929T180743][Remote]]
+- [[denote:20230929T180744][Sleep Smarter]]
+- [[denote:20230929T180745][Staff Engineer]]
+- [[denote:20230929T180746][The Flinch]]
+- [[denote:20230929T180747][The Phoenix Project]]
+- [[denote:20230929T182110][Make Time]]
+- [[denote:20230930T094128][Actually, dark mode can save the planet]]
+- [[denote:20231005T185635][Build Tools Around Workflows, Not Workflows Around Tools]]
+- [[denote:20231006T080429][Counterculture in the Age of Hyperconnectivity]]
+- [[denote:20231006T080435][Don’t Use Stale Bots]]
+- [[denote:20231006T080443][Flake Schemas Making Flake Outputs Extensible · Determinate Systems]]
+- [[denote:20231006T080450][Flexibility]]
+- [[denote:20231006T080643][Beyond customization build tools that grow with us]]
+- [[denote:20231006T080657][40 Questions to Ask Yourself Every Year]]
+- [[denote:20231010T101856][DSLs Are a Waste of Time]]
+- [[denote:20231011T095229][Accept Interfaces Return Struct in Go [2018]]]
+- [[denote:20231016T095412][Choose Boring Technology]]
+- [[denote:20231016T095413][How I Made Peace With Automated Testing. Part 1 — You’re Using Too Many Mocks]]
+- [[denote:20231016T095414][How I Made Peace With Automated Testing. Part 2 - The Fun Tools Are Not Only Javascript]]
+- [[denote:20231017T185415][I Am No Longer Using Flakes]]
+- [[denote:20231019T082509][Concise Explanations Accelerate Progress]]
+- [[denote:20231028T145022][How I Get Things Done]]
+- [[denote:20231114T101657][Fast Path to Burnout - Delaying Deploys]]
+- [[denote:20231123T190449][Joining Getting Things Done and Building a Second Brain Philosophies]]
+- [[denote:20231129T185607][Building a Second Brain]]
+- [[denote:20231201T154535][Donald Knuth on work habits, problem solving, and happiness]]
+- [[denote:20231201T154630][Estimates are about time, so let's cut to the chase]]
+#+END:
+
+#+BEGIN: denote-links :regexp "_notes\\|_emacs"
+- [[denote:20231122T104723][granite, obsidian-like org-mode setup]]
+- [[denote:20231217T094656][Readwise org sync]]
+- [[denote:20231006T080643][Beyond customization build tools that grow with us]]
+- [[denote:20231120T123124][denote]]
+- [[denote:20231120T152341][Emacs]]
+- [[denote:20240119T151128][Obsidian]]
+- [[denote:20240119T151404][Obsidian plugins]]
+- [[denote:20240119T151801][Obsidian publishing]]
+#+END:
+
+#+BEGIN: denote-links :regexp ".*_notes"
+- [[denote:20231120T123124][denote]]
+- [[denote:20231120T152341][Emacs]]
+- [[denote:20240119T151128][Obsidian]]
+- [[denote:20240119T151404][Obsidian plugins]]
+- [[denote:20240119T151801][Obsidian publishing]]
+#+END:
+
+#+BEGIN: denote-links :regexp ".*_emacs"
+- [[denote:20231122T104723][granite, obsidian-like org-mode setup]]
+- [[denote:20231217T094656][Readwise org sync]]
+- [[denote:20231006T080643][Beyond customization build tools that grow with us]]
+- [[denote:20231120T123124][denote]]
+- [[denote:20231120T152341][Emacs]]
+#+END:
+
+* Alternatives
+
+** [[https://github.com/rtrppl/orgrr?tab=readme-ov-file][rtrppl/orgrr: Orgrr is a minimalist but complete note-taking system for Emacs. Its intended purpose is the creation and management of a Zettelkasten-like system.]]
+:PROPERTIES:
+:ID:       baf739dc-66bc-4f50-aff4-1ef6a4bccc7e
+:END:
+[2023-11-22 Wed 16:32]
+
+** [[https://github.com/Kinneyzhang/gkroam][Kinneyzhang/gkroam: A lightweight roam replica on top of emacs org-mode.]]
+[2023-11-22 Wed 16:32]

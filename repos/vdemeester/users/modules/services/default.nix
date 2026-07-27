@@ -1,5 +1,4 @@
 {
   imports = [
-    ./emacs-server.nix
   ];
 }

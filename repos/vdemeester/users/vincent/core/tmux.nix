@@ -13,10 +13,8 @@
     terminal = "tmux-256color";
     #historyLimit = 30000;
     extraConfig = ''
-      source-file ${config.xdg.configHome}/tmux/commons/keybindings
       source-file ${config.xdg.configHome}/tmux/tmux.conf
     '';
   };
   xdg.configFile."tmux/tmux.conf".source = ./tmux/tmux.conf;
-  xdg.configFile."tmux/commons/keybindings".source = ./tmux/keybindings;
 }

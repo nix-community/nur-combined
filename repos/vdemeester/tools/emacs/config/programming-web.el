@@ -1,6 +1,6 @@
 ;;; programming-web.el --- -*- lexical-binding: t -*-
 ;;; Commentary:
-;;; Web related configuration
+;;; Programming the Web related configuration
 ;;; Code:
 
 (use-package web-mode
@@ -36,11 +36,6 @@
         (sp-local-tag "%" "<% "  " %>")
         (sp-local-tag "=" "<%= " " %>")
         (sp-local-tag "#" "<%# " " %>")))))
-
-(use-package company-css
-  :after (company css-mode)
-  :config
-  (push 'company-css company-backends))
 
 (provide 'programming-web)
 ;;; programming-web.el ends here

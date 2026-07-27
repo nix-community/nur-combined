@@ -1,0 +1,158 @@
+#!/usr/bin/env bash
+bekind=$(basename $0)
+bekind_dir=$(dirname "$(readlink -f "$0")")
+profile_dir="./profiles"
+
+bekind_help(){
+    echo "Usage: $ProgName <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    clean    clean all kind clusters"
+    echo "    create   create a kind cluster"
+    echo "    delete   delete a kind cluster"
+    echo "    list     list kind clusters"
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$ProgName <subcommand> -h|--help"
+    echo ""
+}
+
+bekind_create(){
+    profile=""
+    host=""
+    port="8443"
+    while [[ $# -gt 1 ]]
+    do
+        case $1 in
+            "--profile" | "-p")
+                shift
+                profile=$1
+                shift
+                ;;
+            "--port")
+                shift
+                port=$1
+                shift
+                ;;
+            "--host")
+                shift
+                host=$1
+                shift
+                ;;
+        esac
+    done
+    name="$1"
+    shift
+    if [[ -z "${name}" ]]; then
+        name="kind"
+    fi
+    env=""
+    configfile="config.${name}"
+    if [[ -n "${host}" ]]; then
+        env="DOCKER_HOST=ssh://${host}"
+        configfile="${configfile}.${host}"
+    fi
+    args=""
+    if [[ -n "${profile}" ]]; then
+        if [[ -z "${host}" ]]; then
+            echo "Cannot use profile ${profile} without an host" 1>&2
+            exit 1
+        fi
+        # does the profile exists
+        profile_file="${profile_dir}/${profile}.yaml"
+        if [[ -f "${profile_file}" ]]; then
+            tmpfile=$(mktemp /tmp/bekind.XXXXXX)
+            hostip=$(getent hosts ${host} | awk '{ print $1 }')
+            sed -e "s/HOST/${hostip}/g" -e "s/PORT/${port}/g" "${profile_file}" > ${tmpfile}
+            args="${args} --config ${tmpfile}"
+        else
+            echo "Profile ${profile} doesn't exists" 1>&2
+            exit 1
+        fi
+        # replace hosts in there
+    fi
+    tmpkubeconfig=$(mktemp /tmp/bekind.kubeconfig.XXXXXX)
+    export KUBECONFIG=${tmpkubeconfig}
+    echo "> Create the cluster (name: ${name}, args: ${args})"
+    env $env kind create cluster --name ${name} ${args}
+    echo "> Write the kubeconfig in ~/.kube/${configfile}"
+    env $env kind get kubeconfig --name ${name} > ~/.kube/${configfile}
+    rm ${tmpkubeconfig}
+    unset KUBECONFIG
+}
+
+bekind_delete() {
+    while [[ $# -gt 1 ]]
+    do
+        case $1 in
+            "--host")
+                shift
+                host=$1
+                shift
+                ;;
+        esac
+    done
+    name="$1"
+    shift
+    env=""
+    if [[ -z "${name}" ]]; then
+        name="kind"
+    fi
+    if [[ -n "${host}" ]]; then
+        env="DOCKER_HOST=ssh://${host}"
+    fi
+    echo "> Delete kind cluster ${name} from ${host}"
+    env $env kind delete cluster --name ${name}
+}
+
+bekind_list() {
+    while [[ $# -gt 0 ]]
+    do
+        case $1 in
+            "--host")
+                shift
+                host=$1
+                shift
+                ;;
+        esac
+    done
+    env=""
+    if [[ -n "$host" ]]; then
+        env="DOCKER_HOST=ssh://${host}"
+    fi
+    env $env kind get clusters
+}
+
+bekind_clean() {
+    while [[ $# -gt 1 ]]
+    do
+        case $1 in
+            "--host")
+                shift
+                host=$1
+                shift
+                ;;
+        esac
+    done
+    env=""
+    if [[ -n "$host" ]]; then
+        env="DOCKER_HOST=ssh://${host}"
+    fi
+    echo "> Clean kind clusters from ${host}"
+    env $env kind delete clusters --all
+}
+
+subcommand=$1
+case $subcommand in
+    "" | "-h" | "--help")
+        bekind_help
+        ;;
+    *)
+        shift
+        bekind_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$ProgName --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac

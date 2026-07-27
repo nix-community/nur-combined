@@ -1,6 +1,7 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, nixosConfig, pkgs, ... }:
 let
   shellConfig = import ./shell.nix { inherit config lib pkgs; };
+  stable = lib.versionOlder nixosConfig.system.nixos.release "24.05";
 in
 {
   home.packages = with pkgs; [
@@ -18,7 +19,6 @@ in
 
   programs.zsh = {
     enable = true;
-    enableAutosuggestions = true;
     enableCompletion = true;
     autocd = true;
     dotDir = ".config/zsh";
@@ -67,7 +67,8 @@ in
       source $HOME/${config.programs.zsh.dotDir}/completion.zsh
       source $HOME/${config.programs.zsh.dotDir}/plugins/powerlevel10k/powerlevel10k.zsh-theme
       source $HOME/${config.programs.zsh.dotDir}/prompt.zsh
-      setopt hist_ignore_space
+      source $HOME/${config.programs.zsh.dotDir}/plugins/kubectl-config-switcher/kubectl-config-switcher.plugin.zsh
+      setopt HIST_IGNORE_SPACE
       alias -g L="|less"
       alias -g EEL=' 2>&1 | less'
       alias -g GB='`git rev-parse --abbrev-ref HEAD`'
@@ -75,9 +76,16 @@ in
       alias -s {ape,avi,flv,m4a,mkv,mov,mp3,mp4,mpeg,mpg,ogg,ogm,wav,webm}=mpv
       alias -s org=emacs
       (( $+commands[jq] )) && alias -g MJ="| jq -C '.'"  || alias -g MJ="| ${pkgs.python3}/bin/python -mjson.tool"
+      (( $+functions[zshz] )) && compdef _zshz j
+      [[ -n $INSIDE_EMACS ]] && \
+      function ff () {
+        print "\e]51;Efind-file $(readlink -f $1)\e\\"
+      }
     '';
     loginExtra = ''
-      export GOPATH=${config.home.homeDirectory}
+      if [[ -z $DISPLAY && $TTY = /dev/tty1 ]]; then
+        exec sway
+      fi
     '';
     profileExtra = ''
       if [ -e /home/vincent/.nix-profile/etc/profile.d/nix.sh ]; then . /home/vincent/.nix-profile/etc/profile.d/nix.sh; fi
@@ -90,12 +98,21 @@ in
     sessionVariables = { RPROMPT = ""; };
     plugins = [
       {
+        name = "kubectl-config-switcher";
+        src = pkgs.fetchFromGitHub {
+          owner = "chmouel";
+          repo = "kubectl-config-switcher";
+          rev = "faccc5d3c1f98170c38d3889f50fe74f3f6fe2cc";
+          sha256 = "sha256-BOMvC/r6uN9Hewp8OxPIp38+V9Usp6XbMvNoDim0qmc=";
+        };
+      }
+      {
         name = "emoji-cli";
         src = pkgs.fetchFromGitHub {
           owner = "b4b4r07";
           repo = "emoji-cli";
-          rev = "26e2d67d566bfcc741891c8e063a00e0674abc92";
-          sha256 = "0n88w4k5vaz1iyikpmlzdrrkxmfn91x5s4q405k1fxargr1w6bmx";
+          rev = "0fbb2e48e07218c5a2776100a4c708b21cb06688";
+          sha256 = "sha256-ii7RDTK/m+IqK7N+Xb6cEbziLPUQh7ZsbvQiX56F0sE=";
         };
       }
       {
@@ -103,8 +120,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "agkozak";
           repo = "zsh-z";
-          rev = "5b903f8f5489783ee2a4af668a941b7d9a02efc9";
-          sha256 = "07h6ksiqgqyf5m84hv5xf4jcqrl8q1cj8wd4z52cjmy82kk10fkn";
+          rev = "aaafebcd97424c570ee247e2aeb3da30444299cd";
+          sha256 = "sha256-9Wr4uZLk2CvINJilg4o72x0NEAl043lP30D3YnHk+ZA=";
         };
       }
       {
@@ -112,8 +129,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "mafredri";
           repo = "zsh-async";
-          rev = "v1.7.0";
-          sha256 = "1jbbypgn0r4pilhv2s2p11vbkkvlnf75wrhxfcvr7bfjpzyp9wbc";
+          rev = "v1.8.5";
+          sha256 = "sha256-mpXT3Hoz0ptVOgFMBCuJa0EPkqP4wZLvr81+1uHDlCc=";
         };
       }
       {
@@ -121,8 +138,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "zsh-users";
           repo = "zsh-completions";
-          rev = "922eee0706acb111e9678ac62ee77801941d6df2";
-          sha256 = "04skzxv8j06f1snsx62qnca5f2183w0wfs5kz78rs8hkcyd6g89w";
+          rev = "0.34.0";
+          sha256 = "sha256-qSobM4PRXjfsvoXY6ENqJGI9NEAaFFzlij6MPeTfT0o=";
         };
       }
       {
@@ -130,8 +147,8 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "romkatv";
           repo = "powerlevel10k";
-          rev = "700910cd0421a7d25d2800cefa76eb6d80dc62a8";
-          sha256 = "011ja4r3a8vbcs42js9nri4p8pi8z4ccqxl2qyf52pn3pfnidigj";
+          rev = "v1.16.1";
+          sha256 = "sha256-DLiKH12oqaaVChRqY0Q5oxVjziZdW/PfnRW1fCSCbjo=";
         };
       }
       {
@@ -139,11 +156,15 @@ in
         src = pkgs.fetchFromGitHub {
           owner = "chisui";
           repo = "zsh-nix-shell";
-          rev = "v0.1.0";
-          sha256 = "0snhch9hfy83d4amkyxx33izvkhbwmindy0zjjk28hih1a9l2jmx";
+          rev = "v0.5.0";
+          sha256 = "sha256-IT3wpfw8zhiNQsrw59lbSWYh0NQ1CUdUtFzRzHlURH0=";
         };
       }
     ];
     shellAliases = shellConfig.aliases;
-  };
+  } // (if stable then {
+    enableAutosuggestions = true;
+  } else {
+    autosuggestion.enable = true;
+  });
 }

@@ -3,8 +3,42 @@
 ;;; Generic compilation configuration
 ;;; Code:
 
+(defun my-recompile (args)
+  (interactive "P")
+  (cond
+   ((eq major-mode #'emacs-lisp-mode)
+    (call-interactively 'eros-eval-defun))
+   ((bound-and-true-p my-vterm-command)
+    (my-vterm-execute-region-or-current-line my-vterm-command))
+   ((get-buffer "*compilation*")
+    (with-current-buffer"*compilation*"
+      (recompile)))
+   ((get-buffer "*Go Test*")
+    (with-current-buffer "*Go Test*"
+      (recompile)))
+   ((and (eq major-mode #'go-mode)
+         buffer-file-name
+         (string-match
+          "_test\\'" (file-name-sans-extension buffer-file-name)))
+    (my-gotest-maybe-ts-run))
+   ((and (get-buffer "*cargo-test*")
+         (boundp 'my-rustic-current-test-compile)
+         my-rustic-current-test-compile)
+    (with-current-buffer "*cargo-test*"
+      (rustic-cargo-test-run my-rustic-current-test-compile)))
+   ((get-buffer "*cargo-run*")
+    (with-current-buffer "*cargo-run*"
+      (rustic-cargo-run-rerun)))
+   ((get-buffer "*pytest*")
+    (with-current-buffer "*pytest*"
+      (recompile)))
+   ((eq major-mode #'python-mode)
+    (compile (concat python-shell-interpreter " " (buffer-file-name))))
+   ((call-interactively 'compile))))
+
 ;; UseCompile
 (use-package compile
+  :unless noninteractive
   :commands (compile)
   :preface
   (autoload 'ansi-color-apply-on-region "ansi-color")
@@ -17,11 +51,6 @@
                 (derived-mode-p 'rg-mode))
       (let ((inhibit-read-only t))
         (ansi-color-apply-on-region compilation-filter-start (point)))))
-  (defun vde/goto-address-mode ()
-    (unless (or (derived-mode-p 'grep-mode)
-                (derived-mode-p 'ag-mode)
-                (derived-mode-p 'rg-mode))
-      (goto-address-mode t)))
   :config
   (setq-default compilation-scroll-output t
                 ;; I'm not scared of saving everything.
@@ -62,54 +91,13 @@
                  "\\|"
                  "Password for 'http.*github.*':"
                  "\\)"))
-  (add-hook 'compilation-filter-hook #'vde/colorize-compilation-buffer)
-  (add-hook 'compilation-mode-hook #'vde/goto-address-mode))
-;; -UseCompile
+  (add-hook 'compilation-filter-hook #'vde/colorize-compilation-buffer))
 
-;; UseFlycheck
-(use-package flycheck
-  :if (not (eq system-type 'windows-nt))
-  :hook (prog-mode . flycheck-mode)
-  :commands (flycheck-mode flycheck-next-error flycheck-previous-error)
-  :init
-  (dolist (where '((emacs-lisp-mode-hook . emacs-lisp-mode-map)
-                   (haskell-mode-hook    . haskell-mode-map)
-                   (js2-mode-hook        . js2-mode-map)
-                   (c-mode-common-hook   . c-mode-base-map)))
-    (add-hook (car where)
-              `(lambda ()
-                 (bind-key "M-n" #'flycheck-next-error ,(cdr where))
-                 (bind-key "M-p" #'flycheck-previous-error ,(cdr where)))))
-  :config
-  (defalias 'show-error-at-point-soon
-    'flycheck-show-error-at-point)
-  (setq-default flycheck-idle-change-delay 1.2
-                ;; Remove newline checks, since they would trigger an immediate check
-                ;; when we want the idle-change-delay to be in effect while editing.
-                flycheck-check-syntax-automatically '(save
-                                                      idle-change
-                                                      mode-enabled))
-  ;; Each buffer gets its own idle-change-delay because of the
-  ;; buffer-sensitive adjustment above.
-  (defun magnars/adjust-flycheck-automatic-syntax-eagerness ()
-    "Adjust how often we check for errors based on if there are any.
-  This lets us fix any errors as quickly as possible, but in a
-  clean buffer we're an order of magnitude laxer about checking."
-    (setq flycheck-idle-change-delay
-          (if flycheck-current-errors 0.3 3.0)))
-  (make-variable-buffer-local 'flycheck-idle-change-delay)
-  (add-hook 'flycheck-after-syntax-check-hook
-            #'magnars/adjust-flycheck-automatic-syntax-eagerness)
-  (defun flycheck-handle-idle-change ()
-    "Handle an expired idle time since the last change.
-  This is an overwritten version of the original
-  flycheck-handle-idle-change, which removes the forced deferred.
-  Timers should only trigger inbetween commands in a single
-  threaded system and the forced deferred makes errors never show
-  up before you execute another command."
-    (flycheck-clear-idle-change-timer)
-    (flycheck-buffer-automatically 'idle-change)))
-;; -UseFlycheck
+(use-package emacs
+  :bind
+  (:map prog-mode-map
+        ("C-M-<return>" . compile)
+        ("C-<return>"   . my-recompile)))
 
 (provide 'config-compile)
 ;;; config-compile.el ends here

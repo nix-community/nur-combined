@@ -1,4 +1,0 @@
-* worklog                                                         :log:@work:
-%U
-
-%?

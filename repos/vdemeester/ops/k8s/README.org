@@ -1,0 +1,6 @@
+#+TITLE: k8s setup
+#+FILETAGS: #home infra configuration dotfiles kubernetes
+
+This stores any configuration in my personal(s) kubernetes cluster(s). This will probably
+grow organically, but the basic idea is that, if I need to re-create a cluster from
+scratch, all is available from here (bootstrap, …).

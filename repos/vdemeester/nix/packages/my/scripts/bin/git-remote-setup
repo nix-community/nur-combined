@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# Initialize a git repo and add my remotes
+git init
+git remote add sbr "git.sbr.system:git/$1"

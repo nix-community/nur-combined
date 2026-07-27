@@ -3,32 +3,31 @@
 ;;; Files related configurations
 ;;; Code:
 
-;; UseFiles
+;; (use-package autoinsert
+;;   :init
+;;   (setq-default auto-insert-query nil
+;;                 auto-insert-alist nil)
+;;   :config
+;;   (auto-insert-mode 1))
+
+(require 'hardhat)
+(global-hardhat-mode)
+
 (use-package files
   :commands (revert-buffer)
   :bind (("<f5>" . revert-buffer))
   :config
   (setq-default view-read-only t))
-;; -UseFiles
 
-;; UseDirenv
-(use-package direnv
-  :config
-  (setq-default direnv-always-show-summary t
-                direnv-show-paths-in-summary nil)
-  (direnv-mode))
-;; -UseDirenv
-
-;; UseHardHat
-(use-package hardhat
-  :init (global-hardhat-mode))
-;; -UseHardhat
-
-(use-package image-file
-  :disabled
-  :init (auto-image-file-mode))
+(use-package envrc
+  :defer 2
+  :if (executable-find "direnv")
+  :bind (:map envrc-mode-map
+              ("C-c e" . envrc-command-map))
+  :config (envrc-global-mode))
 
 (use-package highlight-indentation
+  :unless noninteractive
   :commands (highlight-indentation-mode highlight-indentation-current-column-mode)
   :config
   (set-face-background 'highlight-indentation-face "#e3e3d3")

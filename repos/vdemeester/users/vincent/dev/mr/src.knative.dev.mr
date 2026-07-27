@@ -1,19 +1,11 @@
+# -*- mode: sh -*-
 include = cat ${HOME}/.config/mr
 
 [DEFAULT]
 lib =
-    export BASE_HOST="${HOME}/src/knative.dev/"
-    export GIT_BASE="github.com:knative/"
+    export BASE_PATH=knative
+    export BASE_USER=vdemeester
+    export BASE_HOST="github.com"
 
-[build]
-[build-template]
-[caching]
-[client]
-[client-contrib]
-[community]
-[eventing]
-[eventing-contrib]
-[net-kourier]
-[observability]
 [pkg]
 [serving]

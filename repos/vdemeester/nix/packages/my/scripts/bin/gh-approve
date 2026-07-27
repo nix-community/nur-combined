@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Approve things
+
+TO_APPROVE=$(gh pr list --json "number,title" | jq -r '.[] | ((.number | tostring) + " " + (.title))' | fzf --multi --ansi --preview "gh pr checks {1}" | awk 'OFS="\t" {print $1}')
+
+for pr in $TO_APPROVE; do
+    gh pr review $pr --approve --body "/lgtm"
+done

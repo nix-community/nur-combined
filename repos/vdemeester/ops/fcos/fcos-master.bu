@@ -1,0 +1,120 @@
+variant: fcos
+version: 1.4.0
+passwd:
+  users:
+    - name: core
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIITpgxTnebhBnFyjWiF1nPM7Wl7qF+ce3xy/FvA4ZVN+ vincent@wakasu
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGxstR3xEf87leVVDS3GVPx8Ap9+eP+OfkSvM26V54XP vincent@shikoku
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJoArpBsTXr3m6q2QnA1vI1DSwmgdU0OAp7DUxcxl9CJfeZIEs/iAerk8jmHgJ2xCEF6SpzI0FWSQIXy8dKpF4wLJ0tCoq5LqQx3jEzy3NUBLfxK+/Baa1te4qG2YImlgnzmEEm5uZlCGZRY2L/U9+4Hwo1AgD69Zzin6QGh2pyTWpmZ/WyhwIfGgqsnlM9XlaVzlMHYfStDi+rUU6XEAfdSqo1SnWKDBHc3mDYGTVhfAlt2LucLKu7oI2MsSlSxva072BExctadtB3TGHbt8gRJZj8CdwgRNhT+hFfbsL6YDvQn6dhTSMuiD8sBEvVble0Nj4p+Q6ROCRIuMuhgh3 cardno:10_153_832
+    - name: robot
+      password_hash: "$y$j9T$8AHcgGEznx/VnaNnbHufj/$zE.UJBpbrZiIKS3FcVLg.VBawvflIDZYn1dzKhJb7x0"
+      ssh_authorized_keys:
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIITpgxTnebhBnFyjWiF1nPM7Wl7qF+ce3xy/FvA4ZVN+ vincent@wakasu
+        - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGxstR3xEf87leVVDS3GVPx8Ap9+eP+OfkSvM26V54XP vincent@shikoku
+        - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDJoArpBsTXr3m6q2QnA1vI1DSwmgdU0OAp7DUxcxl9CJfeZIEs/iAerk8jmHgJ2xCEF6SpzI0FWSQIXy8dKpF4wLJ0tCoq5LqQx3jEzy3NUBLfxK+/Baa1te4qG2YImlgnzmEEm5uZlCGZRY2L/U9+4Hwo1AgD69Zzin6QGh2pyTWpmZ/WyhwIfGgqsnlM9XlaVzlMHYfStDi+rUU6XEAfdSqo1SnWKDBHc3mDYGTVhfAlt2LucLKu7oI2MsSlSxva072BExctadtB3TGHbt8gRJZj8CdwgRNhT+hFfbsL6YDvQn6dhTSMuiD8sBEvVble0Nj4p+Q6ROCRIuMuhgh3 cardno:10_153_832
+      groups: [ sudo ]
+storage:
+  directories:
+    - path: /var/cache/rpm-ostree-install
+  files:
+    # CRI-O DNF module
+    - path: /etc/dnf/modules.d/cri-o.module
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          [cri-o]
+          name=cri-o
+          stream=1.29
+          profiles=
+          state=enabled
+    # YUM repository for kubeadm, kubelet and kubectl
+    - path: /etc/yum.repos.d/kubernetes.repo
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          [kubernetes]
+          name=Kubernetes
+          baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+          enabled=1
+          gpgcheck=1
+          gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg
+            https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+    # configuring automatic loading of br_netfilter on startup
+    - path: /etc/modules-load.d/br_netfilter.conf
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: br_netfilter
+    # setting kernel parameters required by kubelet
+    - path: /etc/sysctl.d/kubernetes.conf
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          net.bridge.bridge-nf-call-iptables=1
+          net.ipv4.ip_forward=1
+    - path: /etc/hostname
+      mode: 0644
+      contents:
+        inline: ~HOSTNAME~
+  disks:
+  - # The link to the block device the OS was booted from.
+    device: /dev/disk/by-id/coreos-boot-disk
+    # We do not want to wipe the partition table since this is the primary
+    # device.
+    wipe_table: false
+    partitions:
+    - number: 4
+      label: root
+      size_mib: 10240 # 10GB
+      resize: true
+    - size_mib: 0
+      # We assign a descriptive label to the partition. This is important
+      # for referring to it in a device-agnostic way in other parts of the
+      # configuration.
+      label: var
+  filesystems:
+    - path: /var
+      device: /dev/disk/by-partlabel/var
+      # We can select the filesystem we'd like.
+      format: ext4
+      # Ask Butane to generate a mount unit for us so that this filesystem
+      # gets mounted in the real root.
+      with_mount_unit: true
+
+systemd:
+  units:
+    - name: rpm-ostree-install@.service
+      enabled: true
+      contents: |
+        [Unit]
+        Description=Layer %i with rpm-ostree
+        Wants=network-online.target
+        After=network-online.target
+        Before=zincati.service
+        ConditionPathExists=!/var/cache/rpm-ostree-install/%i.stamp
+
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/usr/bin/flock /var/cache/rpm-ostree-install/.lock -c "/usr/bin/rpm-ostree install --assumeyes --idempotent --apply-live --allow-inactive %i | tee /var/cache/rpm-ostree-install/%i.stamp"
+
+        [Install]
+        WantedBy=multi-user.target
+    - name: rpm-ostree-install@python3.service
+      enabled: true
+    - name: rpm-ostree-install@libselinux-python3.service
+      enabled: true
+    - name: rpm-ostree-install@kubeadm.service
+      enabled: true
+    - name: rpm-ostree-install@kubelet.service
+      enabled: true
+    - name: rpm-ostree-install@kubectl.service
+      enabled: true
+    - name: rpm-ostree-install@cri-o.service
+      enabled: true
+    - name: rpm-ostree-install@htop.service
+      enabled: true

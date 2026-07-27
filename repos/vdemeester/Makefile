@@ -1,5 +1,39 @@
 # Makefile for home
+HOSTS          = $(shell nix flake show --json | yq '.nixosConfigurations.[] | key')
+HOSTS_BUILD    = $(addprefix host/, $(addsuffix /build,$(HOSTS)))
+BUILDER_HOST   = vincent@shikoku.sbr.pm
 
+hosts: ${HOSTS_BUILD}
+	echo ${HOSTS_BUILD} ${HOSTS}
+
+host/%/build: FORCE
+	nix build .#nixosConfigurations.$*.config.system.build.toplevel --no-link
+host/%/boot: FORCE
+	nixos-rebuild --build-host ${BUILDER_HOST} --target-host root@$*.sbr.pm --flake .#$* boot
+host/%/switch: FORCE
+	nixos-rebuild --build-host ${BUILDER_HOST} --target-host root@$*.sbr.pm --flake .#$* switch
+
+host/shikoku/boot:
+	nixos-rebuild --build-host root@shikoku.sbr.pm --target-host root@shikoku.sbr.pm --flake .#shikoku boot
+host/shikoku/switch:
+	nixos-rebuild --build-host root@shikoku.sbr.pm --target-host root@shikoku.sbr.pm --flake .#shikoku switch
+host/kerkouane/boot:
+	nixos-rebuild --build-host ${BUILDER_HOST} --target-host root@kerkouane.vpn --flake .#kerkouane boot
+host/kerkouane/switch:
+	nixos-rebuild --build-host ${BUILDER_HOST} --target-host root@kerkouane.vpn --flake .#kerkouane switch
+
+boot:
+	sudo nixos-rebuild --flake .# boot
+switch:
+	sudo nixos-rebuild --flake .# switch
+dry-build:
+	nixos-rebuild --flake .# dry-build
+build:
+	nixos-rebuild --flake .# build
+
+FORCE:
+
+# Old – to be removed
 # Variables
 EMACS =
 ifndef EMACS
@@ -9,56 +43,14 @@ endif
 DOTEMACS = ~/.config/emacs
 DOTGNUS = ~/.config/gnus
 ETCNIXOS = /etc/nixos
-SYNCDIR = /home/vincent/sync/nixos
-SRCWWW = ~/src/www
-SRCHOME = ~/src/home
 
 # Targets
 .PHONY: all
-all: switch emacs-dump
+all: switch
 
 .PHONY: update
 update:
 	nix-channel --update
-
-.PHONY: pull
-pull:
-	(cd overlays/emacs-overlay && git checkout master && git pull --rebase)
-
-.PHONY: emacs-dump
-emacs-dump:
-	emacs --batch -q -l ~/.config/emacs/dump.el
-
-.PHONY: secrets
-secrets:
-	mkdir -p secrets
-	cp -Rv $(SYNCDIR)/* secrets/
-
-.PHONY: assets
-assets:
-	mkdir -p assets
-	cp -Rv $(SYNCDIR)/* assets/
-	chown -R vincent:users assets || true
-
-.PHONY: home-build
-home-build: secrets
-	home-manager -f home.nix build
-
-.PHONY: home-switch
-home-switch: secrets
-	home-manager -f home.nix switch
-
-.PHONY: build
-build: secrets setup
-	./hack/system build
-
-.PHONY: nixos-dry-build
-dry-build: secrets setup
-	./hack/system dry-build
-
-.PHONY: switch
-switch: secrets setup
-	./hack/system switch
 
 .PHONY: install-hooks
 install-hooks:
@@ -73,18 +65,24 @@ fmt:
 
 # Cleaning
 .PHONY: clean
-clean:
-	@if test $(USER) = root;\
-	then\
-		nix-env --profile /nix/var/nix/profiles/system --delete-generations 15d;\
-	else\
-		unlink result || true;\
-	fi
+clean: clean-system clean-results
+
+.PHONY: clean-system
+clean-system:
+	nix-env --profile /nix/var/nix/profiles/system --delete-generations 15d
+
+.PHONY: clean-results
+clean-results:
+	unlink results
 
 .PHONY: clean-www
 clean-www:
 	-rm -rvf *.elc
 	-rm -rv ~/.org-timestamps/*
+
+.PHONY: www
+www:
+	(cd www; make)
 
 # Documentation build and publishing
 .PHONY: update-docs
@@ -100,19 +98,6 @@ README.md: README.org
 		--load lib/lisp/docs.el \
 		--funcall update-readme-md
 
-.PHONY: build-www
-build-www: $(SRCWWW)/publish-common.el lib/lisp/publish.el update-docs
-	@echo "Publishing... with current Emacs configurations."
-	${EMACS} --batch --directory $(DOTEMACS)/lisp/ --directory $(DOTEMACS)/lisp/vorg/ \
-		--load $(SRCWWW)/publish-common.el --load lib/lisp/publish.el \
-		--funcall org-publish-all
-
-$(SRCWWW)/Makefile: $(SRCWWW)
-$(SRCWWW)/publish-common.el: $(SRCWWW)
-
-$(SRCWWW):
-	test -d $(SRCWWW) || git clone git@git.sr.ht:~vdemeester/www.git $(SRCWWW)
-
 # Setup and doctor
 .PHONY: doctor
 doctor:
@@ -121,7 +106,7 @@ doctor:
 	@readlink $(DOTNIXPKGS) || $(error $(DOTNIXPKGS) is not correctly linked, you may need to run setup)
 
 .PHONY: setup
-setup: $(DOTEMACS) $(DOTGNUS) $(SYNCDIR) $(SRCHOME)
+setup: $(DOTEMACS) $(DOTGNUS)
 
 $(DOTEMACS):
 	@echo "Link $(DOTEMACS) to $(CURDIR)/tools/emacs"
@@ -130,10 +115,3 @@ $(DOTEMACS):
 $(DOTGNUS):
 	@echo "Link $(DOTGNUs) to $(CURDIR)/tools/gnus"
 	@ln -s $(CURDIR)/tools/gnus $(DOTGNUS)
-
-$(SRCHOME):
-	@echo "Make sure $(SRCHOME) exists"
-	@-ln -s ${PWD} $(SRCHOME)
-
-$(SYNCDIR):
-	$(error $(SYNCDIR) is not present, you need to configure syncthing before running this command)

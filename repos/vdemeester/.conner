@@ -1,0 +1,46 @@
+;;; -*- lisp-data -*-
+((:name "make boot"
+	:command "make boot"
+	:type "vterm"
+	:workdir nil
+	:environment nil)
+ (:name "make switch"
+	:command "make switch"
+	:type "vterm"
+	:workdir nil
+	:environment nil)
+ (:name "host/aomi/boot"
+	:command "make host/aomi/boot"
+	:type "compile"
+	:workdir nil
+	:environment nil)
+ (:name "host/shikoku/boot"
+	:command "make host/shikoku/boot"
+	:type "compile"
+	:workdir nil
+	:environment nil)
+ (:name "host/sakhalin/boot"
+	:command "make host/sakhalin/boot"
+	:type "compile"
+	:workdir nil
+	:environment nil)
+ (:name "host/kerkouane/boot"
+	:command "make host/kerkouane/boot"
+	:type "compile"
+	:workdir nil
+	:environment nil)
+ (:name "host/demeter/boot"
+	:command "make host/demeter/boot"
+	:type "compile"
+	:workdir nil
+	:environment nil)
+ (:name "host/athena/boot"
+	:command "make host/athena/boot"
+	:type "compile"
+	:workdir nil
+	:environment nil)
+ (:name "build wakasu"
+	:command "make build"
+	:type "compile"
+	:workdir nil
+	:environment nil))

@@ -1,0 +1,75 @@
+name: Nix Flake actions
+
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch: {}
+  pull_request:
+  push:
+    branches:
+      - main
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nix-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: cachix/install-nix-action@3715ab1a11cac9e991980d7b4a28d80c7ebdd8f9 # v27
+      - id: set-matrix
+        name: Generate Nix Matrix
+        run: |
+          set -Eeu
+          nix flake show --json | jq '.nixosConfigurations | to_entries | map({"name": .key})'
+          echo matrix="{\"include\": " $(nix flake show --json | jq '.nixosConfigurations | to_entries | map({"name": .key})') >> "$GITHUB_OUTPUT" "}"
+          cat $GITHUB_OUTPUT
+
+  nix-build:
+    needs: nix-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false # Keep running if one leg fails.
+      matrix: ${{fromJSON(needs.nix-matrix.outputs.matrix)}}
+    steps:
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@8831c82abf29b34eb2caac48d5f999ecfc0d8eef # v4.1
+        with:
+          remove-android: 'true'
+          remove-dotnet: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'false'
+          remove-large-packages: 'true'
+          remove-cached-tools: 'true'
+          remove-swapfile: 'true'
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: cachix/install-nix-action@3715ab1a11cac9e991980d7b4a28d80c7ebdd8f9 # v27
+      - uses: cachix/cachix-action@ad2ddac53f961de1989924296a1f236fcfbaa4fc # v15
+        with:
+          name: vdemeester
+          authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+          skipPush: ${{ github.event_name == 'pull_request' }}
+          extra_nix_config: |
+            trusted-public-keys = hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY=
+            substituters = https://hydra.iohk.io https://cache.nixos.org/
+      - uses: dbhi/qus/action@main
+        with:
+          targets: aarch64
+      - name: build
+        run: |
+          # FIXME temporary hack to make system build successfully
+          #       I need to create dumb file for mkOutOfStoreSymlink
+          sudo mkdir -p /home/vincent/src/home/tools/emacs /home/vincent/desktop/documents
+          sudo touch /home/vincent/desktop/documents/.oath
+          # build the system
+          # FIXME: move this away from this somehow
+          BUILD_ARGS=""
+          if [[ "${{ matrix.name }}" == "demeter" || "${{ matrix.name }}" == "athena" ]]; then
+            BUILD_ARGS="${BUILD_ARGS} --option system aarch64-linux"
+          fi
+          nix build ${BUILD_ARGS} -L ".#nixosConfigurations.${{ matrix.name }}.config.system.build.toplevel"

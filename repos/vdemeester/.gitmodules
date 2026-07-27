@@ -1,6 +1,0 @@
-[submodule "tools/emacs/lisp/vorg"]
-	path = tools/emacs/lisp/vorg
-	url = https://gitlab.com/vdemeester/vorg.git
-[submodule "tools/emacs/lisp/emark"]
-	path = tools/emacs/lisp/embark
-	url = https://github.com/oantolin/embark/

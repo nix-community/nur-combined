@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec "$(nix-build --no-out-link ../.. -A tools.ergodox.flash)"

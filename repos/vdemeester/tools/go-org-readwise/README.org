@@ -1,0 +1,27 @@
+#+TITLE: `go-org-readwise`
+
+This is a very very simple project that sync from readwise API to a
+set of org files in a folder. It implements just what is needed from
+the [readwise API](https://readwise.io/api_deets) to work.
+
+* Readwise API
+
+We are /only/ going to implement the export part of the API as, this should be the only one
+we need.
+
+#+begin_quote
+If you want to pull all of the highlights from a user's account into your service (eg
+notetaking apps, backups, etc) this endpoint is all you need!
+#+end_quote
+
+
+* Tasks
+
+** TODO Explore =v3= API
+
+In theory I could rely on the =v3= API to get documents that are "archived" but have no
+highlights. Not sure this is something I want to do though.
+
+I doesn't have highlight so… I would have to query both.
+
+See https://readwise.io/reader_api.

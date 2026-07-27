@@ -1,9 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, nixosConfig, lib, pkgs, ... }:
 
 with lib;
 let
+  # FIXME(change this at some point)
   powermenu = pkgs.writeScript "powermenu.sh" ''
-    #!${pkgs.stdenv.shell}
+    #!/usr/bin/env bash
     MENU="$(${pkgs.rofi}/bin/rofi -sep "|" -dmenu -i -p 'System' -location 3 -xoffset -10 -yoffset 32 -width 20 -hide-scrollbar -line-padding 4 -padding 20 -lines 5 <<< "Suspend|Hibernate|Reboot|Shutdown")"
     case "$MENU" in
       *Suspend) systemctl suspend;;
@@ -12,19 +13,113 @@ let
       *Shutdown) systemctl -i poweroff
     esac
   '';
-  lockCommand = "${pkgs.i3lock-color}/bin/i3lock-color -c 666666";
+  emacs-in-folder = pkgs.writeScript "emacs-in-folder" ''
+    #!/usr/bin/env bash
+    fd . -d 3 --type d ~/src | rofi -dmenu | xargs -I {} zsh -i -c "cd {}; emacs ."
+  '';
+  lockCommand = "${pkgs.betterlockscreen}/bin/betterlockscreen -l dim";
 in
 {
+  imports = [
+    ./alacritty.nix
+    ./autorandr.nix
+    # ./dconf.nix
+    ./xsession.nix
+  ];
+  home.sessionVariables = { WEBKIT_DISABLE_COMPOSITING_MODE = 1; };
   home.packages = with pkgs; [
     alacritty
+    kitty
     arandr
+    # TODO switch to betterlockscreen
     i3lock-color
     libnotify
     maim
     slop
+    # Gnome3 relica
+    # gnome3.dconf-editor
+    # FIXME move this elsewhere
+    pop-gtk-theme
+    pop-icon-theme
+    pinentry-gnome
+
+    aspell
+    aspellDicts.en
+    aspellDicts.fr
+    hunspell
+    hunspellDicts.en_US-large
+    hunspellDicts.en_GB-ize
+    hunspellDicts.fr-any
+    wmctrl
+    xclip
+    xdg-user-dirs
+    xdg-utils
+    xsel
   ];
-  programs.rofi.enable = true;
+  xdg.configFile."rofi/slate.rasi".text = ''
+    * {
+      background-color: #282C33;
+      border-color: #2e343f;
+      text-color: #8ca0aa;
+      spacing: 0;
+      width: 512px;
+    }
+
+    inputbar {
+      border: 0 0 1px 0;
+      children: [prompt,entry];
+    }
+
+    prompt {
+      padding: 16px;
+      border: 0 1px 0 0;
+    }
+
+    textbox {
+      background-color: #2e343f;
+      border: 0 0 1px 0;
+      border-color: #282C33;
+      padding: 8px 16px;
+    }
+
+    entry {
+      padding: 16px;
+    }
+
+    listview {
+      cycle: false;
+      margin: 0 0 -1px 0;
+      scrollbar: false;
+    }
+
+    element {
+      border: 0 0 1px 0;
+      padding: 16px;
+    }
+
+    element selected {
+      background-color: #2e343f;
+    }
+  '';
+  programs.kitty = {
+    enable = true;
+    settings = {
+      term = "xterm-256color";
+      close_on_child_death = "yes";
+      font_family = "Ubuntu Mono";
+    };
+    theme = "Tango Light";
+  };
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji pkgs.rofi-menugen pkgs.rofi-mpd ]; };
+    font = "Ubuntu Mono 14";
+    terminal = "${pkgs.kitty}/bin/kitty";
+    theme = "slate";
+  };
   services = {
+    blueman-applet.enable = true;
+    pasystray.enable = true;
     dunst = {
       enable = true;
       settings = {
@@ -71,118 +166,32 @@ in
     };
     udiskie.enable = true;
     network-manager-applet.enable = true;
-    screen-locker = {
+    /*
+      screern-locker = {
       enable = true;
       lockCmd = lockCommand;
       inactiveInterval = 60;
-    };
+      xautolock = {
+      enable = true;
+      detectSleep = true;
+      };
+      };
+    */
     random-background = {
       enable = true;
+      enableXinerama = true;
       imageDirectory = "${config.home.homeDirectory}/desktop/pictures/walls";
       interval = "5h";
-    };
-  };
-  programs.alacritty = {
-    enable = true;
-    settings = {
-      env.TERM = "xterm-256color";
-      font = {
-        normal = {
-          family = "Ubuntu Mono";
-          style = "Regular";
-        };
-        bold = {
-          family = "Ubuntu Mono";
-          style = "Bold";
-        };
-        italic = {
-          family = "Ubuntu Mono";
-          style = "Italic";
-        };
-        size = 11;
-      };
-      colors = {
-        primary = {
-          background = "0x0A0E14";
-          foreground = "0xB3B1AD";
-        };
-        normal = {
-          black = "0x01060E";
-          blue = "0x53BDFA";
-          cyan = "0x90E1C6";
-          green = "0x91B362";
-          magenta = "0xFAE994";
-          red = "0xEA6C73";
-          white = "0xC7C7C7";
-          yellow = "0xF9AF4F";
-        };
-        bright = {
-          black = "0x686868";
-          blue = "0x59C2FF";
-          cyan = "0x95E6CB";
-          green = "0xC2D94C";
-          magenta = "0xFFEE99";
-          red = "0xF07178";
-          white = "0xFFFFFF";
-          yellow = "0xFFB454";
-        };
-      };
-      mouse.url.modifiers = "Control";
-      shell.program = "${pkgs.zsh}/bin/zsh";
-      key_bindings = [
-        {
-          key = "V";
-          mods = "Control|Shift";
-          action = "Paste";
-        }
-        {
-          key = "C";
-          mods = "Control|Shift";
-          action = "Copy";
-        }
-        {
-          key = "Insert";
-          mods = "Shift";
-          action = "PasteSelection";
-        }
-        {
-          key = "Key0";
-          mods = "Control";
-          action = "ResetFontSize";
-        }
-        {
-          key = "Equals";
-          mods = "Control";
-          action = "IncreaseFontSize";
-        }
-        {
-          key = "Add";
-          mods = "Control";
-          action = "IncreaseFontSize";
-        }
-        {
-          key = "Subtract";
-          mods = "Control";
-          action = "DecreaseFontSize";
-        }
-        {
-          key = "Minus";
-          mods = "Control";
-          action = "DecreaseFontSize";
-        }
-        {
-          key = "Return";
-          mods = "Alt";
-          action = "ToggleFullscreen";
-        }
-      ];
     };
   };
   xsession.windowManager.i3 = {
     package = pkgs.i3-gaps;
     enable = true;
     config = {
-      fonts = [ "Fira Code 10" ];
+      fonts = {
+        names = [ "Ubuntu Mono" ];
+        size = 10.0;
+      };
       focus = {
         followMouse = false;
       };
@@ -192,15 +201,21 @@ in
         hideEdgeBorders = "both";
       };
       keybindings = {
-        "Mod4+Return" = "exec alacritty";
+        "Mod4+Return" = "exec kitty";
+        "Mod4+Shift+Return" = "exec emacsclient -c";
+        "Mod4+Control+Return" = "exec emacs";
+        "Mod4+Control+Shift+Return" = "exec ${emacs-in-folder}";
       };
       gaps = {
-        inner = 0;
-        outer = 0;
+        inner = 2;
+        outer = 2;
       };
       keycodebindings = {
         "Mod4+Shift+24" = "kill";
-        "Mod4+33" = "exec \"${pkgs.rofi}/bin/rofi -show run -modi 'run,window' -kb-row-select 'Tab' -kb-row-tab '' -location 2 -hide-scrollbar -separator-style solid -font 'Ubuntu Mono 14'";
+        "Mod4+33" = "exec \"rofi -show drun -modi 'drun,run,window,ssh' -kb-row-select 'Tab' -kb-row-tab '' -location 2 -hide-scrollbar -separator-style solid -font 'Ubuntu Mono 14'";
+        "Mod4+Shift+33" = "exec \"rofi -show combi -modi 'drun,run,window,ssh,combi' -kb-row-select 'Tab' -kb-row-tab '' -location 2 -hide-scrollbar -separator-style solid -font 'Ubuntu Mono 14'";
+        "Mod4+Control+33" = "exec \"rofi -show emoji -modi emoji -location 2 -hide-scrollbar -separator-style solid -font 'Ubuntu Mono 14'|pbcopy";
+        # "Mod4+space" = "";
         # focus window
         "Mod4+44" = "focus left";
         "Mod4+45" = "focus down";
@@ -222,15 +237,14 @@ in
         "Mod4+Mod1+45" = "gaps inner current minus 5";
         "Mod4+Mod1+46" = "gaps outer current plus 5";
         "Mod4+Mod1+47" = "gaps outer current minus 5";
-        # Split
-        "Mod4+43" = "split h";
-        "Mod4+55" = "split v";
         # Fullscreen
         "Mod4+41" = "fullscreen toggle";
         # Change container layout
         "Mod4+39" = "layout stacking";
         "Mod4+25" = "layout tabbed";
         "Mod4+26" = "layout toggle split";
+        # Split
+        "Mod4+Control+39" = "split h";
         # Manage floating
         "Mod4+Shift+61" = "floating toggle";
         "Mod4+61" = "focus mode_toggle";
@@ -246,8 +260,10 @@ in
         "Mod4+Shift+114" = "focus output right";
         # Custom keybinding
         "Mod4+Shift+32" = "exec ${lockCommand}";
-        "Mod4+Shift+39" = "exec ~/.screenlayout/home-work.sh && systemctl --user start random-background.service";
+        # "Mod4+Shift+39" = "exec ~/.screenlayout/home-work.sh && systemctl --user start random-background.service";
         "Mod4+24" = "border toggle";
+        # TODO transform this into mode with multiple "capture" target
+        "Mod4+32" = "exec capture";
       };
       modes = { };
       bars = [
@@ -256,12 +272,15 @@ in
           position = "bottom";
           trayOutput = "primary";
           statusCommand = "${pkgs.i3status}/bin/i3status";
-          fonts = [ "Fira Code 12" ];
+          fonts = {
+            names = [ "Fira Code" ];
+            size = 12.0;
+          };
         }
       ];
     };
     extraConfig = ''
-        set $mod Mod4
+      set $mod Mod4
 
       # Use Mouse+$mod to drag floating windows to their wanted position
       floating_modifier $mod
@@ -301,14 +320,8 @@ in
       bindcode $mod+Shift+18 move container to workspace $WS9
       bindcode $mod+Shift+19 move container to workspace $WS0
 
-      assign [class="Firefox" window_role="browser"] → $WS1
-      assign [class="Google-chrome" window_role="browser"] → $WS1
-
-      ## quick terminal (tmux)
-      exec --no-startup-id alacritty --title metask --class metask --command tmux
-      for_window [instance="metask"] floating enable;
-      for_window [instance="metask"] move scratchpad; [instance="metask"] scratchpad show; move position center; move scratchpad
-      bindcode $mod+49 [instance="metask"] scratchpad show
+      #assign [class="Firefox" window_role="browser"] → $WS1
+      #assign [class="Google-chrome" window_role="browser"] → $WS1
 
       for_window [title="capture"] floating enable;
 
@@ -332,11 +345,12 @@ in
       bindsym $mod+Shift+p exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
       # powermenu
       bindsym $mod+F12 exec ${powermenu}
+      bindsym $mod+F10 exec ${pkgs.my.scripts}/bin/shot %d
+      bindsym $mod+Shift+F10 exec ${pkgs.my.scripts}/bin/shotf %d
 
       # screen management
-      bindsym $mod+F11 exec "autorandr -c on-the-move"
+      bindsym $mod+F11 exec "autorandr -c"
       bindsym $mod+Shift+F11 exec "arandr"
-      bindsym $mod+Control+F11 exec "autorandr -c home1"
 
       # move workspace to output
       set $workspace_move Move workspace to output : [l]eft [r]ight [d]own [u]p
@@ -385,8 +399,39 @@ in
         }
 
       bindsym $mod+o mode "resize"
+      ## quick terminal (tmux)
+      exec --no-startup-id kitty --title metask --class metask tmux
+      exec --no-startup-id emacsclient -n -c -F "((name . \"_emacs scratchpad_\"))"
+      for_window [instance="metask"] floating enable;
+      for_window [instance="metask"] move scratchpad; [instance="metask"] scratchpad show; move position center; move scratchpad
+      bindcode $mod+49 [instance="metask"] scratchpad show
+
+      bindcode $mod+51 [class="Spotify"] scratchpad show
+      bindcode $mod+23 move scratchpad
+
+      exec --no-startup-id emacsclient -n -c -F "((name . \"_emacs scratchpad_\"))"
+      for_window [title="_emacs scratchpad_" class="Emacs"] move scratchpad
+      bindcode $mod+Shift+49 [title="_emacs scratchpad_" class="Emacs"] scratchpad show
+
+      # System menu
+      set $sysmenu "system:  [s]uspend [l]ock [r]estart [b]lank-screen [p]oweroff reload-[c]onf e[x]it"
+      bindsym $mod+q mode $sysmenu
+      mode $sysmenu {
+          # restart i3 inplace (preserves your layout/session)
+          bindsym s exec ~/.i3/status_scripts/ambisleep; mode "default"
+          bindsym l exec i3lock -c 5a5376; mode "default"
+          bindsym r restart
+          bindsym b exec "xset dpms force off"; mode "default"
+          bindsym p exec systemctl shutdown
+          bindsym c reload; mode "default"
+          bindsym x exit
+          bindsym Return mode "default"
+          bindsym Escape mode "default"
+          bindsym $mod+q mode "default"
+      }
     '';
   };
+  # FIXME switch to polybar ?
   xdg.configFile."i3status/config".text = ''
     # i3status configuration file.
     # see "man i3status" for documentation.
@@ -401,26 +446,10 @@ in
       interval = 2
     }
 
-    #order += "disk /"
-    #order += "run_watch 🐳"
     order += "path_exists 🔑"
-    #order += "wireless _first_"
-    #order += "ethernet _first_"
-    #order += "volume master"
     order += "battery 0"
     order += "load"
     order += "tztime local"
-
-    wireless _first_ {
-      format_up = "W: (%quality at %essid) %ip"
-      format_down = "W: down"
-    }
-
-    ethernet _first_ {
-      # if you use %speed, i3status requires root privileges
-      format_up = "E: %ip (%speed)"
-      format_down = "E: down"
-    }
 
     battery 0 {
       format = "%status %percentage %remaining"
@@ -456,14 +485,6 @@ in
 
     disk "/" {
       format = "%avail"
-    }
-
-    volume master {
-      format = "♪: %volume"
-      format_muted = "♪: muted (%volume)"
-      device = "default"
-      mixer = "Master"
-      mixer_idx = 0
     }
   '';
 }

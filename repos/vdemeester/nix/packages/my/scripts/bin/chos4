@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Update creds and link to the openshift4 devcluster
+
+set -e
+
+CONTROL_PATH=$(mktemp)
+# scp -q pipelines@bootstrap.ospqa.com:os4-build/profiles/vincent/auth/kubeconfig $HOME/.kube/config.os4
+# scp -q pipelines@bootstrap.ospqa.com:os4-build/profiles/vincent/auth/kubeadmin-password $HOME/.kube/kubeadmin.password.os4
+# scp -q pipelines@bootstrap.ospqa.com:os4-build/profiles/vincent/auth/webaccess $HOME/.kube/webaccess.os4
+scp -o ControlPath=${CONTROL_PATH} -q pipelines@bootstrap.ospqa.com:os4-build/profiles/vincent/auth/kubeconfig $HOME/sync/work/chos4/config.os4
+scp -o ControlPath=${CONTROL_PATH} -q pipelines@bootstrap.ospqa.com:os4-build/profiles/vincent/auth/kubeadmin-password $HOME/sync/work/chos4/kubeadmin.password.os4
+scp -o ControlPath=${CONTROL_PATH} -q pipelines@bootstrap.ospqa.com:os4-build/profiles/vincent/auth/webaccess $HOME/sync/work/chos4/webaccess.os4
+scp -o ControlPath=${CONTROL_PATH} -q pipelines@bootstrap.ospqa.com:os4-build/profiles/paac/auth/kubeconfig $HOME/sync/work/chos4/config.paac
+scp -o ControlPath=${CONTROL_PATH} -q pipelines@bootstrap.ospqa.com:os4-build/profiles/paac/auth/kubeadmin-password $HOME/sync/work/chos4/kubeadmin.password.paac
+scp -o ControlPath=${CONTROL_PATH} -q pipelines@bootstrap.ospqa.com:os4-build/profiles/paac/auth/webaccess $HOME/sync/work/chos4/webaccess.paac
+
+for file in kubeadmin.password.os4 webaccess.os4 config.os4 kubeadmin.password.paac webaccess.paac config.paac; do
+    if ! test -f $HOME/.kube/$file; then
+        ln -s $HOME/sync/work/chos4/$file ~/.kube/$file
+    fi
+done
+
+export KUBECONFIG=~/.kube/config.os4
+oc login -u kubeadmin -p $(cat ~/.kube/kubeadmin.password.os4)
+
+echo ">>> scale machineset to 2"
+for machineset in $(oc get machineset -n openshift-machine-api -o name); do
+    oc scale --replicas=2 ${machineset} -n openshift-machine-api
+done
+
+if [[ "$1" == "install" ]]; then
+    op-inst
+fi
+
+echo ">>> your cluster is ready :)"
+read

@@ -144,11 +144,13 @@
           (t . "%Y-%m-%d %R")))
   (setq gnus-summary-line-format "%U%R%z %-16,16&user-date;  %4L:%-30,30f  %B%S\n")
   (setq gnus-summary-mode-line-format "Gnus: %p (%U)")
-  (setq gnus-sum-thread-tree-false-root "")
-  (setq gnus-sum-thread-tree-indent " ")
-  (setq gnus-sum-thread-tree-leaf-with-other "├─➤ ")
-  (setq gnus-sum-thread-tree-root "")
-  (setq gnus-sum-thread-tree-single-leaf "└─➤ ")
+  (setq gnus-sum-thread-tree-false-root "─┬➤")
+  (setq gnus-sum-thread-tree-indent "  ")
+  (setq gnus-sum-thread-tree-single-indent "")
+  (setq gnus-sum-thread-tree-leaf-with-other "├─➤")
+  (setq gnus-sum-thread-tree-root "· ")
+  (setq gnus-sum-thread-tree-single-leaf "└─➤")
+
   (setq gnus-sum-thread-tree-vertical "│")
   :hook
   (gnus-summary-exit-hook . gnus-topic-sort-groups-by-alphabet)
@@ -167,21 +169,21 @@
 ;; -GnusSummary
 
 ;; GnusWin
-(use-package gnus-win
-  :config
-  (gnus-add-configuration
-   '(article
-     (horizontal 1.0
-                 (vertical 40 (group 1.0))
-                 (vertical 1.0
-                           (summary 0.16 point)
-                           (article 1.0)))))
-
-  (gnus-add-configuration
-   '(summary
-     (horizontal 1.0
-                 (vertical 40 (group 1.0))
-                 (vertical 1.0 (summary 1.0 point))))))
+;; (use-package gnus-win
+;;   :config
+;;   (gnus-add-configuration
+;;    '(article
+;;      (horizontal 1.0
+;;                  (vertical 40 (group 1.0))
+;;                  (vertical 1.0
+;;                            (summary 0.16 point)
+;;                            (article 1.0)))))
+;;
+;;   (gnus-add-configuration
+;;    '(summary
+;;      (horizontal 1.0
+;;                  (vertical 40 (group 1.0))
+;;                  (vertical 1.0 (summary 1.0 point))))))
 ;; -GnusWin
 
 ;; GnusDired

@@ -1,0 +1,74 @@
+# -*- mode: sh -*-
+include = cat ${HOME}/.config/mr
+
+[DEFAULT]
+lib =
+    export BASE_USER=vdemeester
+    export BASE_HOST="github.com"
+
+# downstream (RH internal)
+[p12n]
+chain = true
+skip = true
+
+# github.com/openshift
+[openshift-ci]
+skip = true
+lib =
+    export DEFAULT_BRANCH=master
+checkout =
+    git clone git@github.com:vdemeester/release.git openshift-ci
+    cd openshift-ci
+    git remote add upstream https://github.com/openshift/release.git
+    git fetch -p --all
+
+[pipelines-docs]
+lib =
+    export BASE_PATH=openshift
+    export DEFAULT_BRANCH=master
+
+[pipelines-tutorial]
+lib =
+    export BASE_PATH=openshift
+    export DEFAULT_BRANCH=master
+
+[must-gather]
+lib =
+    export BASE_PATH=openshift-pipelines
+
+[pipelines-as-code]
+lib =
+    export BASE_PATH=openshift-pipelines
+
+[operator-tooling]
+lib = 
+    export BASE_PATH=openshift-pipelines
+
+[toolbox]
+lib =
+    export BASE_PATH=openshift-pipelines
+
+# github.com/openshift-pipelines
+[enhancements]
+lib =
+    export BASE_PATH=openshift-pipelines
+[knowledge-base]
+lib =
+    export DEFAULT_BRANCH=master
+checkout =
+    git clone git@github.com:vdemeester/knowledge-base.git
+    cd knowledge-base
+    git remote add upstream git@github.com:openshift-pipelines/knowledge-base.git
+    git fetch -p --all
+
+[cookbook]
+lib =
+    export BASE_PATH=openshift-pipelines
+
+[cluster-tasks-tests]
+lib =
+    export BASE_PATH=ppitonak
+
+[tekton-task-group]
+lib =
+    export BASE_PATH=openshift-pipelines

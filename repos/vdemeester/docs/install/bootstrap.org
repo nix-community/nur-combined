@@ -1,2 +1,0 @@
-#+TITLE: Bootstrap script
-#+SETUPFILE: ../.setupfile.org

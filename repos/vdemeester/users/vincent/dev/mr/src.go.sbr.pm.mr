@@ -1,0 +1,9 @@
+# -*- mode: sh -*-
+include = cat ${HOME}/.config/mr
+
+[ape]
+checkout = git clone git@git.sr.ht:~vdemeester/ape
+[nr]
+checkout = git clone git@git.sr.ht:~vdemeester/nr
+[ram]
+checkout = git clone git@git.sr.ht:~vdemeester/ram

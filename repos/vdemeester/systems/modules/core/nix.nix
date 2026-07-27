@@ -31,7 +31,7 @@ in
         '';
       };
       localCaches = mkOption {
-        default = [ "http://nix.cache.home" ];
+        default = [ ];
         description = "List of local nix caches";
         type = types.listOf types.str;
       };
@@ -40,28 +40,41 @@ in
   config = mkIf cfg.enable {
     environment.systemPackages = [ pkgs.git ];
     nix = {
-      allowedUsers = [ "@wheel" ];
-      binaryCaches = cfg.localCaches ++ [
-        "https://cache.nixos.org/"
-        "https://r-ryantm.cachix.org"
-        "https://vdemeester.cachix.org"
-        "https://shortbrain.cachix.org"
-      ];
-      binaryCachePublicKeys = [
-        "r-ryantm.cachix.org-1:gkUbLkouDAyvBdpBX0JOdIiD2/DP1ldF3Z3Y6Gqcc4c="
-        "vdemeester.cachix.org-1:uCECG6so7v1rs77c5NFz2dCePwd+PGNeZ6E5DrkT7F0="
-        "shortbrain.cachix.org-1:dqXcXzM0yXs3eo9ChmMfmob93eemwNyhTx7wCR4IjeQ="
-        "mic92.cachix.org-1:gi8IhgiT3CYZnJsaW7fxznzTkMUOn1RY4GmXdT/nXYQ="
-      ];
-      buildCores = cfg.buildCores;
-      daemonIONiceLevel = 5;
-      daemonNiceLevel = 10;
+      settings = {
+        cores = cfg.buildCores;
+        substituters = cfg.localCaches ++ [
+          "https://cache.nixos.org/"
+          "https://r-ryantm.cachix.org"
+          "https://shortbrain.cachix.org"
+          "https://vdemeester.cachix.org"
+          "https://chapeau-rouge.cachix.org"
+	  "https://cache.garnix.io"
+        ];
+        trusted-public-keys = [
+          "r-ryantm.cachix.org-1:gkUbLkouDAyvBdpBX0JOdIiD2/DP1ldF3Z3Y6Gqcc4c="
+          "shortbrain.cachix.org-1:dqXcXzM0yXs3eo9ChmMfmob93eemwNyhTx7wCR4IjeQ="
+          "mic92.cachix.org-1:gi8IhgiT3CYZnJsaW7fxznzTkMUOn1RY4GmXdT/nXYQ="
+          "chapeau-rouge.cachix.org-1:r34IG766Ez4Eeanr7Zx+egzXLE2Zgvc+XRspYZPDAn8="
+          "vdemeester.cachix.org-1:eZWNOrLR9A9szeMahn9ENaoT9DB3WgOos8va+d2CU44="
+	  "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        ];
+      };
+      # On laptops at least, make the daemon and builders low priority
+      # to have a responding system while building
+      daemonIOSchedClass = "idle";
+      daemonCPUSchedPolicy = "idle";
+      # FIXME: On servers, we may change this.
+      # daemonIOSchedPriority = 5;
+      # daemonCPUSchedPolicy = "batch";
+
       # if hydra is down, don't wait forever
       extraOptions = ''
         connect-timeout = 20
         build-cores = 0
         keep-outputs = true
         keep-derivations = true
+        builders-use-substitutes = true
+        experimental-features = flakes nix-command
       '';
       gc = {
         automatic = true;
@@ -77,29 +90,37 @@ in
         automatic = true;
         dates = [ "01:10" "12:10" ];
       };
-      nrBuildUsers = config.nix.maxJobs * 2;
-      trustedUsers = [ "root" "@wheel" ];
-      useSandbox = true;
+      nrBuildUsers = 32;
+      #nrBuildUsers = config.nix.maxJobs * 2;
+      settings = {
+        sandbox = true;
+        allowed-users = [ "@wheel" ];
+        trusted-users = [ "root" "@wheel" ];
+      };
     };
+
+    # `nix-daemon` will hit the stack limit when using `nixFlakes`.
+    systemd.services.nix-daemon.serviceConfig."LimitSTACK" = "infinity";
 
     nixpkgs = {
       overlays = [
-        (import ../../../overlays/mkSecret.nix)
-        (import ../../../overlays/sbr.nix)
-        (import ../../../overlays/unstable.nix)
-        (import ../../../nix).emacs
+        # (import ../../../nix/overlays/mkSecret.nix)
+        # (import ../../../nix/overlays/sbr.nix)
+        # (import ../../../nix/overlays/unstable.nix)
+        # (import ../../../nix).emacs
       ];
       config = {
         allowUnfree = true;
+        #allowBroken = true;
       };
     };
     system = {
       extraSystemBuilderCmds = ''
         ln -sv ${pkgs.path} $out/nixpkgs
-        ln -sv ${../../../overlays} $out/overlays
+        ln -sv ${../../../nix/overlays} $out/overlays
       '';
 
-      stateVersion = "20.03";
+      stateVersion = "22.05";
     };
   };
 }

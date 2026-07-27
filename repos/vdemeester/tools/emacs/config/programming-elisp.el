@@ -1,12 +1,9 @@
-;;; programming-elisp.el --- -*- lexical-binding: t -*-
+;;; programming-elisp.el --- -*- lexical-binding: t; -*-
 ;;; Commentary:
-;;; Emacs Lisp configurations
+;;; Emacs lisp programming language configuration
 ;;; Code:
-
-(use-package company-elisp
-  :after company
-  :config
-  (push 'company-elisp company-backends))
+(use-package smartparens
+  :hook ((emacs-lisp-mode . smartparens-mode)))
 
 (provide 'programming-elisp)
 ;;; programming-elisp.el ends here

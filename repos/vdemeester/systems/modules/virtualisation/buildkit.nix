@@ -1,37 +1,28 @@
 { config, lib, pkgs, ... }:
-
-with lib;
 let
   cfg = config.virtualisation.buildkitd;
+  inherit (lib) mkOption mkIf;
+  inherit (lib.types) attrsOf str nullOr path bool package listOf;
+
+  configFile =
+    if cfg.configFile == null then
+      settingsFormat.generate "buildkitd.toml" cfg.settings
+    else
+      cfg.configFile;
+
+  settingsFormat = pkgs.formats.toml { };
 in
 {
-  ###### interface
-
   options.virtualisation.buildkitd = {
-    enable =
-      mkOption {
-        type = types.bool;
-        default = false;
-        description =
-          ''
-            This option enables buildkitd
-          '';
-      };
-
-    listenOptions =
-      mkOption {
-        type = types.listOf types.str;
-        default = [ "/run/buildkitd/buildkitd.sock" ];
-        description =
-          ''
-            A list of unix and tcp buildkitd should listen to. The format follows
-            ListenStream as described in systemd.socket(5).
-          '';
-      };
+    enable = mkOption {
+      type = bool;
+      default = false;
+      description = ''This option enables buildkitd'';
+    };
 
     package = mkOption {
       default = pkgs.buildkit;
-      type = types.package;
+      type = package;
       example = pkgs.buildkit;
       description = ''
         Buildkitd package to be used in the module
@@ -39,61 +30,71 @@ in
     };
 
     packages = mkOption {
-      type = types.listOf types.package;
+      type = listOf package;
       default = [ pkgs.runc pkgs.git ];
       description = "List of packages to be added to buildkitd service path";
     };
 
-    extraOptions =
-      mkOption {
-        type = types.separatedString " ";
-        default = "";
-        description =
-          ''
-            The extra command-line options to pass to
-            <command>buildkitd</command> daemon.
-          '';
+    configFile = lib.mkOption {
+      default = null;
+      description = ''
+        Path to containerd config file.
+        Setting this option will override any configuration applied by the settings option.
+      '';
+      type = nullOr path;
+    };
+
+    args = lib.mkOption {
+      default = { };
+      description = "extra args to append to the containerd cmdline";
+      type = attrsOf str;
+    };
+
+    settings = lib.mkOption {
+      type = settingsFormat.type;
+      default = {
+        grpc.address = [ "unix:///run/buildkit/buildkitd.sock" ];
       };
+      description = ''
+        Verbatim lines to add to containerd.toml
+      '';
+    };
   };
 
-  ###### implementation
-
   config = mkIf cfg.enable {
-    users.groups = [
-      {
-        name = "buildkit";
-        gid = 350;
-      }
-    ];
+    users.groups.buildkit.gid = 350;
     environment.systemPackages = [ cfg.package ];
     systemd.packages = [ cfg.package ];
 
-    systemd.services.buildkitd = {
-      wants = [ "containerd.service" ];
-      after = [ "containerd.service" ];
-      wantedBy = [ "multi-user.target" ];
-      serviceConfig = {
-        ExecStart = [
-          ""
-          ''
-            ${cfg.package}/bin/buildkitd \
-              ${cfg.extraOptions}
-          ''
-        ];
+    virtualisation.buildkitd = {
+      args = {
+        group = "buildkit";
+        config = toString configFile;
       };
-      path = [ cfg.package ] ++ cfg.packages;
+      settings = {
+        debug = false;
+      };
     };
 
+    systemd.services.buildkitd = {
+      after = [ "network.target" "containerd.service" ];
+      wantedBy = [ "multi-user.target" ];
+      serviceConfig = {
+        ExecStart = ''${cfg.package}/bin/buildkitd ${lib.concatStringsSep " " (lib.cli.toGNUCommandLine {} cfg.args)}'';
+        Delegate = "yes";
+        KillMode = "process";
+        Type = "notify";
+        Restart = "always";
+        RestartSec = "10";
 
-    systemd.sockets.buildkitd = {
-      description = "Buildkitd Socket for the API";
-      wantedBy = [ "sockets.target" ];
-      socketConfig = {
-        ListenStream = cfg.listenOptions;
-        SocketMode = "0660";
-        SocketUser = "root";
-        SocketGroup = "buildkit";
+        # "limits" defined below are adopted from upstream: https://github.com/containerd/containerd/blob/master/containerd.service
+        LimitNPROC = "infinity";
+        LimitCORE = "infinity";
+        LimitNOFILE = "infinity";
+        TasksMax = "infinity";
+        OOMScoreAdjust = "-999";
       };
+      path = [ cfg.package ] ++ cfg.packages;
     };
 
   };

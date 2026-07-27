@@ -1,0 +1,9 @@
+# bekind
+
+=bekind= is my personnal command line to manage kind cluster in my developement
+environment. Here is a list of features:
+
+- create a kind cluster on a remote machine (using =ssh=)
+- create a kind cluster based on a /profile/ (1 node, 3 nodes, with ingress, …)
+- list kind cluster on a given remote machine
+- remove/re-create a kind cluster

@@ -1,9 +1,5 @@
 { config, pkgs, ... }:
-let
-  sources = import ../../nix/sources.nix;
-in
 {
-  imports = [ (sources.nixos-hardware + "/lenovo/thinkpad") ];
   boot = {
     blacklistedKernelModules = [
       # Kernel GPU Savings Options (NOTE i915 chipset only)
@@ -15,7 +11,7 @@ in
       options snd_hda_intel power_save=1
     '';
     initrd = {
-      availableKernelModules = [ "ehci_pci" "ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" "aesni-intel" "aes_x86_64" "cryptd" ];
+      availableKernelModules = [ "ehci_pci" "ahci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" "aesni-intel" "cryptd" ];
     };
     kernelModules = [ "kvm_intel" ];
     kernelParams = [
@@ -33,6 +29,7 @@ in
   hardware = {
     trackpoint.enable = false;
     cpu.intel.updateMicrocode = true;
+    opengl.extraPackages = with pkgs; [ vaapiIntel libvdpau-va-gl vaapiVdpau intel-ocl intel-media-driver ];
   };
   services = {
     acpid = {

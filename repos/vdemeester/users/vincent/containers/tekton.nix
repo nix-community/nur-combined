@@ -2,6 +2,13 @@
 
 {
   home.packages = with pkgs; [
-    my.tkn
+    tektoncd-cli
+    kubernetes-helm
+    snazy
+    tkn-pac
+    tkn-local
+    rekor-cli
+    cosign
+    python312Packages.pyaml
   ];
 }

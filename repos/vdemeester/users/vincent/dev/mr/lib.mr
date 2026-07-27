@@ -1,13 +1,24 @@
 # -*- mode: sh -*-
 [DEFAULT]
 lib =
-    BASE="${HOME}/src/"
     my_git_clone() {
         USERNAME=${GIT_USERNAME:-git}
         GIT_PREFIX=${GIT_PREFIX}
         GIT_BASE=${GIT_BASE:-${BASE_HOST}}
-        URL="${GIT_PREFIX}${USERNAME}@${GIT_BASE}${MR_REPO//${BASE_HOST}/}.git"
+        URL="${GIT_PREFIX}${USERNAME}@${GIT_BASE}${MR_REPO//$(dirname ${MR_CONFIG})}.git"
+        UPSTREAM_URL=""
+        if [[ -z "$NO_UPSTREAM_U" ]]; then
+            URL="${GIT_PREFIX}${USERNAME}@${GIT_BASE}:${BASE_USER}/${BASE_PATH}-${MR_REPO//$(dirname ${MR_CONFIG})\/}.git"
+            UPSTREAM_URL="https://${GIT_BASE}/${BASE_PATH}${MR_REPO//$(dirname ${MR_CONFIG}\/)}.git"
+        fi
+        echo "URL         : $URL"
+        echo "UPSTREAM_URL: $UPSTREAM_URL"
         git clone $URL $MR_REPO
+        if [[ -n "$UPSTREAM_URL" ]]; then
+            cd $MR_REPO
+            git remote add upstream $UPSTREAM_URL
+            git fetch -p --all
+        fi
     }
 checkout = my_git_clone
 git_gc = git gc "$@"
@@ -15,13 +26,14 @@ git_gc = git gc "$@"
 git_u =
     git fetch -p --all
     CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    DEFAULT_BRANCH=${DEFAULT_BRANCH:-main}
     echo "On $CURRENT_BRANCH"
     git stash
     REMOTE="origin"
     if [[ -z "$NO_UPSTREAM_U" ]]; then
         git config remote.upstream.url && REMOTE="upstream"
     fi
-    echo "Rebase ${REMOTE}/master on master"
-    git rebase ${REMOTE}/master master
+    echo "Rebase ${REMOTE}/${DEFAULT_BRANCH} on ${DEFAULT_BRANCH}"
+    git rebase ${REMOTE}/${DEFAULT_BRANCH} ${DEFAULT_BRANCH}
     git co $CURRENT_BRANCH
 skip = [ $1 != "checkout" ] && lazy

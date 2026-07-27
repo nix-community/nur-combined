@@ -3,12 +3,14 @@
 {
   imports = [
     ./gcloud.nix
-    ./kubernetes.nix
-    ./openshift.nix
-    ./tekton.nix
   ];
 
   home.packages = with pkgs; [
     skopeo
+    my.manifest-tool
+    # nerdctl
+    # act
+    oras
+    dagger
   ];
 }

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Delete kubernetes objects in bulk
+
+set -euo pipefail
+
+# Handle some filter (to bypass fzf)
+# oc get -A pr -o json | jq '.items[] | select(.status.conditions[].reason == "Cancelled") | .metadata.namespace + "/" + .metadata.name' -r | sort
+
+OBJECT=${1}
+TO_DELETE=$(kubectl get "${OBJECT}" --no-headers | fzf --multi --ansi | awk 'OFS="\t" {print $1}')
+
+for o in ${TO_DELETE}; do
+    set -x
+    kubectl patch "${OBJECT}" "${o}" -p '{"metadata":{"finalizers":null}}' --type=merge
+    kubectl delete "${OBJECT}" "${o}" || true
+    set +x
+done

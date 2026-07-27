@@ -1,1 +1,0 @@
-This holds configuration files for different modes and languages

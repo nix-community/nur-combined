@@ -5,10 +5,32 @@
 
 ;; UseISearch
 (use-package isearch
+  :unless noninteractive
   :config
+  (defun my-project-search-from-isearch ()
+    (interactive)
+    (let ((query (if isearch-regexp
+               isearch-string
+             (regexp-quote isearch-string))))
+      (isearch-update-ring isearch-string isearch-regexp)
+      (let (search-nonincremental-instead)
+        (ignore-errors (isearch-done t t)))
+      (project-find-regexp query)))
+  (defun my-occur-from-isearch ()
+    (interactive)
+    (let ((query (if isearch-regexp
+		     isearch-string
+		   (regexp-quote isearch-string))))
+      (isearch-update-ring isearch-string isearch-regexp)
+      (let (search-nonincremental-instead)
+        (ignore-errors (isearch-done t t)))
+      (occur query)))
   (setq-default search-whitespace-regexp ".*?"
                 isearch-lax-whitespace t
-                isearch-regexp-lax-whitespace nil)
+                isearch-regexp-lax-whitespace nil
+		isearch-lazy-count t
+		lazy-count-prefix-format nil
+		lazy-count-suffix-format "   (%s/%s)")
   (defun stribb/isearch-region (&optional not-regexp no-recursive-edit)
     "If a region is active, make this the isearch default search
 pattern."
@@ -45,6 +67,9 @@ confines of word boundaries (e.g. multiple words)."
     (when isearch-other-end (goto-char isearch-other-end)))
   :bind (("M-s M-o" . multi-occur)
          :map isearch-mode-map
+	 ("C-o" . my-occur-from-isearch)
+	 ("C-f" . my-project-search-from-isearch)
+	 ("C-d" . isearch-forward-symbol-at-point)
          ("DEL" . contrib/isearchp-remove-failed-part-or-last-char)
          ("<C-return>" . contrib/isearch-done-opposite-end)))
 ;; -UseISearch
@@ -58,12 +83,23 @@ confines of word boundaries (e.g. multiple words)."
          ("M-s d" . find-grep-dired))
   :hook ((hook-mode . toggle-truncate-lines))
   :config
+  (setq-default grep-template (string-join '("ugrep"
+                                             "--color=always"
+                                             "--ignore-binary"
+                                             "--ignore-case"
+                                             "--include=<F>"
+                                             "--line-number"
+                                             "--null"
+                                             "--recursive"
+                                             "--regexp=<R>")
+                                           " "))
   (add-to-list 'grep-find-ignored-directories "auto")
   (add-to-list 'grep-find-ignored-directories "elpa"))
 ;; -UseGrep
 
 ;; UseWgrep
 (use-package wgrep
+  :unless noninteractive
   :commands (wgrep-change-to-wgrep-mode)
   :defer 2
   :custom
@@ -77,12 +113,37 @@ confines of word boundaries (e.g. multiple words)."
   :commands (rg rg-project rg-dwim)
   :bind (("M-s r r" . rg)
          ("M-s r p" . rg-project)
-         ("M-s r s" . rg-dwiw))
+         ("M-s r s" . rg-dwim))
   :config
+  (setq rg-group-result t)
+  (setq rg-hide-command t)
+  (setq rg-show-columns nil)
+  (setq rg-show-header t)
+  (setq rg-default-alias-fallback "all")
   (cl-pushnew '("tmpl" . "*.tmpl") rg-custom-type-aliases)
   (cl-pushnew '("gotest" . "*_test.go") rg-custom-type-aliases)
-  (with-eval-after-load 'projectile
-    (defalias 'projectile-ripgrep #'rg-project)))
+  (defun vde/rg-buffer-name ()
+    "Generate a rg buffer name from project if in one"
+    (let ((p (project-root (project-current))))
+      (if p
+	  (format "rg: %s" (abbreviate-file-name p))
+	"rg")))
+  (setq rg-buffer-name #'vde/rg-buffer-name)
+  
+  ;; (when (f-dir-p "~/src/tektoncd/")
+  ;;   (rg-define-search rg-projects-tektoncd
+  ;;     "Search tektoncd (projects)."
+  ;;     :dir "~/src/tektoncd/"
+  ;;     :files "*.*"
+  ;;     :menu ("Projects" "t" "tektoncd")))
+  ;; (when (f-dir-p "~/src/home/")
+  ;;   (rg-define-search rg-projects-home
+  ;;     "Search home."
+  ;;     :dir "~/src/home/"
+  ;;     :files "*.*"
+  ;;     :menu ("Projects" "h" "home")))
+  )
+
 ;; -UseRG
 
 (provide 'config-search)

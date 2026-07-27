@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Connect to RedHat VPN
+# This will ask for which VPN to connect (using available tools) and
+# do some magic
+set -e
+
+GRAPHICS=1
+if ! [ "${XDG_CURRENT_DESKTOP}" == "sway" ]; then
+    if ! command -v xset &> /dev/null; then
+        GRAPHICS=0
+    elif ! timeout 1s xset q &>/dev/null; then
+        GRAPHICS=0
+    fi
+fi
+
+if [[ GRAPHICS -eq 0 ]]; then
+    connection="$(nmcli connection show | grep vpn | fzf)"
+else
+    connection="$(nmcli connection show | grep vpn | zenity --list --title "Red Hat VPNs" --text "Choose your VPN.." --column "Name" --width=600 --height=450)"
+fi
+NOTIFY_CMD="notify-send"
+if [[ GRAPHICS -eq 0 ]]; then
+    NOTIFY_CMD="echo"
+fi
+
+
+uuid=$(echo ${connection} | awk '{print $3}')
+name=$(echo ${connection} | awk '{print $1 $2}')
+VPNSTATUS=$(nmcli connection show --active $uuid | wc -l)
+if [ "$VPNSTATUS" == "0" ]
+then
+    key=$(authkey)
+    passfile=$(mktemp)
+
+    echo -n "vpn.secrets.password:" > $passfile
+    gpg --decrypt $HOME/sync/naruhodo.pass.gpg 2>/dev/null >>$passfile
+    echo -n "${key}" >> $passfile
+
+    nmcli connection up ${uuid} passwd-file $passfile
+    rm $passfile
+    $NOTIFY_CMD "VPN ${name} is connected." "You are now connected to the Red Hat VPN, let's work !"
+else
+    $NOTIFY_CMD "VPN ${name} is already connected." "You are already connected to the Red Hat VPN, let's work !"
+fi
+# Ask for kerberos password if klist returns an error (no creds)
+gpg --decrypt $HOME/sync/pass.gpg 2>/dev/null | kinit vdemeest@REDHAT.COM
+# if ! [[ GRAPHICS -eq 0 ]]; then
+#     klist || {
+#         zenity --password --title="Kerberos password" | kinit vdemeest@REDHAT.COM
+#     }
+# fi

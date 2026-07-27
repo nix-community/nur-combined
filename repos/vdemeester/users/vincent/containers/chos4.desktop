@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=chos4
-Exec=chos4 install
+Exec=chos4
 Type=Application
 Terminal=true
 Categories=System;

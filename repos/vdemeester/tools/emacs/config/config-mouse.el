@@ -4,6 +4,7 @@
 ;;; Code:
 
 (use-package mouse
+  :unless noninteractive
   :config
   (setq mouse-wheel-scroll-amount
         '(1

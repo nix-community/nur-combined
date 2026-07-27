@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+SCREENSHOT_BIN="main -d"
+if command -v grim &> /dev/null; then
+    case $1 in
+	    %c) to='clipboard'; grim - | wl-copy ;;
+	    %d) to=~/desktop/pictures/screenshots/$(hostname)/$(date +'%Y-%m-%d-%H%M%S').png; grim "$to" ;;
+	    *)  to=$1; grim "$to" ;;
+    esac
+else
+maim -d | {
+    case $1 in
+	%c) to='clipboard'; xclip -selection clipboard -t image/png ;;
+	%d) to=~/desktop/pictures/screenshots/$(hostname)/$(date +'%Y-%m-%d-%H%M%S').png; cat > "$to" ;;
+	*)  to=$1; cat > "$to" ;;
+    esac
+}
+fi
+notify-send --category=recording \
+	    --icon=$to \
+	    'Screenshot Taken' "Saved to $to"

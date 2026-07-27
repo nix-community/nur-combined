@@ -1,21 +1,46 @@
 { config, lib, pkgs, ... }:
+
+with lib;
 let
   ca-bundle_crt = "/etc/ssl/certs/ca-bundle.crt";
+  redhat_folders = [
+    "src/github.com/containers"
+    "src/github.com/google"
+    "src/github.com/knative"
+    "src/github.com/kubernetes"
+    "src/github.com/openshift"
+    "src/github.com/openshift-knative"
+    "src/github.com/openshift-pipelines"
+    "src/github.com/operator-framework"
+    "src/github.com/redhat-developer"
+    "src/github.com/tektoncd"
+    "src/gitlab.cee.redhat.com"
+    "src/gitlab.corp.redhat.com"
+    "src/k8s.io"
+    "src/osp"
+    "src/pkg.devel.redhat.com"
+    "src/tektoncd"
+    "src/backstage"
+    "src/knative.dev"
+    "src/knative-sandbox"
+  ];
 in
 {
   home.packages = with pkgs; [
     gist
     git-lfs
-    gitAndTools.git-annex
-    gitAndTools.hub
+    # git-review
+    # gitAndTools.hub
     gitAndTools.gh
+    gitAndTools.git-appraise
     mr
-    my.prm
-    my.ape
+    delta
+    difftastic
+    rs-git-fsmonitor
   ];
   programs.git = {
     enable = true;
-    package = pkgs.gitAndTools.gitFull;
+    package = pkgs.git;
 
     userName = "Vincent Demeester";
     userEmail = "vincent@sbr.pm";
@@ -28,27 +53,36 @@ in
     aliases = {
       b = "branch --color -v";
       br = "branch";
+      ca = "commit --amend";
       ci = "commit --signoff";
       co = "checkout";
       conflicts = "!git ls-files --unmerged | cut -c51- | sort -u | xargs $EDITOR";
-      ca = "commit --amend";
-      wdiff = "diff --color-words";
-      unstage = "reset HEAD";
+      dft = "difftool";
       lg = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative";
       lga = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative --branches --remotes";
       lol = "log --pretty=oneline --abbrev-commit --graph --decorate";
       ls-ignored = "ls-files --exclude-standard --ignored --others";
       resolve = "!git ls-files --unmerged | cut -c51- | sort -u | xargs git add";
-      su = "submodule update --init --recursive";
       st = "status";
+      su = "submodule update --init --recursive";
+      unstage = "reset HEAD";
       w = "status -sb";
+      wdiff = "diff --color-words";
+      kdiff = "difftool --tool=kitty --no-symlinks --dir-diff";
     };
     attributes = [
       "*.org   diff=org"
     ];
     extraConfig = {
       core = {
-        editor = "${pkgs.emacs}/bin/emacsclient -t";
+        fsmonitor = "${pkgs.rs-git-fsmonitor}/bin/rs-git-fsmonitor";
+        pager = "${pkgs.delta}/bin/delta";
+        abbrev = 12;
+        # pager = "${pkgs.delta}/bin/delta --syntax-theme GitHub";
+        # editor = "${pkgs.emacs}/bin/emacsclient -t";
+      };
+      init = {
+        defaultBranch = "main";
       };
       color = {
         status = "auto";
@@ -74,11 +108,41 @@ in
         changed = "yellow";
         untracked = "red";
       };
+      # Either use this *or* git maintenance
+      # fetch = {
+      #   writeCommitGraph = true;
+      # };
+      diff = {
+        algorithm = "histogram";
+        colormoved = "default";
+        colormovedws = "allow-indentation-change";
+        # external = "difft";
+        # tool = "difftastic";
+      };
       "diff.org" = {
         xfuncname = "\"^\\\\*+.*\"";
       };
+      difftool = {
+        prompt = false;
+        trustExitCode = true;
+      };
+      "difftool.difftastic" = {
+        cmd = "difft \"$LOCAL\" \"$REMOTE\"";
+      };
+      "difftool.kitty" = {
+        cmd = "kitten diff $LOCAL $REMOTE";
+      };
+      pager = {
+        difftool = true;
+      };
+      pretty = {
+        fixes = "Fixes: %h (\"%s\")";
+      };
       forge = {
         remote = "upstream";
+      };
+      rerere = {
+        enabled = true;
       };
       hub = {
         protocol = true;
@@ -93,6 +157,13 @@ in
       rebase = {
         autosquash = true;
       };
+      status = {
+        short = true;
+        branch = true;
+      };
+      branch = {
+        sort = "-committerdate";
+      };
       advice = {
         statusHints = false;
         pushNonFastForward = false;
@@ -100,6 +171,30 @@ in
       http = {
         sslCAinfo = "${ca-bundle_crt}";
         sslverify = true;
+      };
+      delta = {
+        syntax-theme = "GitHub";
+        features = "decorations";
+      };
+
+      "delta \"decorations\"" = {
+        commit-decoration-style = "blue ol";
+        commit-style = "raw";
+        file-style = "omit";
+        hunk-header-decoration-style = "blue box";
+        hunk-header-file-style = "red";
+        hunk-header-line-number-style = "#067a00";
+        hunk-header-style = "file line-number syntax";
+        navigate = true;
+      };
+
+      credential = {
+        "https://github.com" = {
+          helper = "!${pkgs.gh}/bin/gh auth git-credential";
+        };
+        "https://gist.github.com" = {
+          helper = "!${pkgs.gh}/bin/gh auth git-credential";
+        };
       };
       github.user = "vdemeester";
       "filter \"lfs\"" = {
@@ -110,64 +205,10 @@ in
       "url \"git@github.com:\"".insteadOf = "git://github.com/";
     };
 
-    includes = [
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/kubernetes/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/k8s.io/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/knative/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/tektoncd/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir/i:${config.home.homeDirectory}/src/github.com/google**";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/k8s.io/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/minishift/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/operator-framework/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/openshift**";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/redhat**";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/github.com/containers/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/gitlab.cee.redhat.com/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/gitlab.corp.redhat.com/";
-      }
-      {
-        path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
-        condition = "gitdir:${config.home.homeDirectory}/src/pkg.devel.redhat.com/";
-      }
-    ];
+    includes = [ ] ++ lists.forEach redhat_folders (x: {
+      path = "${config.xdg.configHome}/git/config.d/redhat.gitconfig";
+      condition = "gitdir:${config.home.homeDirectory}/${x}/**";
+    });
     ignores = [
       "*.elc"
       "*.vo"
@@ -189,12 +230,4 @@ in
     ];
   };
   xdg.configFile."git/config.d/redhat.gitconfig".source = ./git/redhat.gitconfig;
-  xdg.configFile."nr/git" = {
-    text = builtins.toJSON [
-      { cmd = "tig"; }
-      { cmd = "grv"; pkg = "gitAndTools.grv"; }
-      { cmd = "git-appraise"; pkg = "gitAndTools.git-appraise"; chan = "unstable"; }
-    ];
-    onChange = "${pkgs.my.nr}/bin/nr git";
-  };
 }

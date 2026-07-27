@@ -1,4 +1,4 @@
-local lib = import 'gmailctl.libsonnet';
+local lib = import './gmailctl.libsonnet';
 
 local toMe = {
   or: [
@@ -20,7 +20,7 @@ local label_archive(filter, label) =
    ]
 ;
 
-local rh_mailing_list(name, label = '') =
+local rh_mailing_list(name, label = '', archive = true) =
     local labels =
         if label == '' then
            [ std.join('/', std.splitLimit(name, '-', 1) ) ]
@@ -49,7 +49,7 @@ local rh_mailing_list(name, label = '') =
             ],
           },
           actions: {
-            archive: true,
+            archive: archive,
             markSpam: false,
             labels: labels
           }
@@ -57,7 +57,7 @@ local rh_mailing_list(name, label = '') =
     ]
 ;
 
-local google_groups(name, label = '') =
+local google_groups(name, label = '', archive = true) =
     local labels =
         if label == '' then
            [ std.join('/', std.splitLimit(name, '-', 1) ) ]
@@ -86,7 +86,7 @@ local google_groups(name, label = '') =
             ],
           },
           actions: {
-            archive: true,
+            archive: archive,
             markSpam: false,
             labels: labels
           }
@@ -148,11 +148,15 @@ local google_groups(name, label = '') =
     google_groups('istio-dev', 'istio/dev') +
     google_groups('istio-users', 'istio/users') +
     rh_mailing_list('pipelines-interests', 'pipelines/interests') +
-    rh_mailing_list('pipelines-dev', 'pipelines/dev') +
-    google_groups('tekton-dev', 'tekton/dev') +
-    google_groups('tekton-users', 'tekton/users') +
-    google_groups('tekton-governance', 'tekton/governance') +
-    google_groups('tekton-code-of-conduct', 'tekton/code-of-conduct') +
+    rh_mailing_list('pipelines-dev', 'pipelines/dev', false) +
+    rh_mailing_list('pipelines-extcomm', 'pipelines/dev', true) +
+    rh_mailing_list('pipelines-extcomm', 'pipelines/ext', true) +
+    rh_mailing_list('pipelines-bots', 'pipelines/bots', true) +
+    google_groups('tekton-dev', 'tekton/dev', false) +
+    google_groups('tekton-users', 'tekton/users', false) +
+    google_groups('tekton-governance', 'tekton/governance', false) +
+    google_groups('tekton-vmt', 'tekton/vmt', false) +
+    google_groups('tekton-code-of-conduct', 'tekton/code-of-conduct', false) +
     rh_mailing_list('engineering-advocate', 'engineering-advocate') +
     rh_mailing_list('engineering-advocate-nomination', 'engineering-advocate') +
     google_groups('kubernetes-sig-cli', 'kubernetes/sig/cli') +
@@ -172,7 +176,7 @@ local google_groups(name, label = '') =
     label_archive({from: 'concursolutions.com'}, '_tracker/concur') +
     label_archive({from: 'errata@redhat.com'}, '_tracker/errata') +
     label_archive({from: 'builds@travis-ci.com'}, '_build/travis') +
-    label_archive({from: 'cvp-opts@redhat.com'}, '_build/cvp') +
+    #label_archive({from: 'cvp-ops@redhat.com'}, '_build/cvp') +
     label_archive({from: 'buildsys@redhat.com'}, '_build/buildsys') +
     label_archive({from: 'meet-recordings-noreply@google.com'}, '_recordings') +
     rh_mailing_list('bugzilla', '_tracker/bz') +
@@ -186,6 +190,19 @@ local google_groups(name, label = '') =
         markRead: true,
         labels: [
           "area/github"
+        ]
+      }
+    },
+    {
+      filter: {
+        query: "list:(cvp-ops@redhat.com)"
+      },
+      actions: {
+        archive: true,
+        markRead: true,
+        markSpam: false,
+        labels: [
+          "_build/cvp"
         ]
       }
     },

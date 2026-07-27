@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Nix configuration
 ;;; Code:
-(use-package nix-mode
+(use-package nix-ts-mode
   :if *nix*
   :mode ("\\.nix\\'" "\\.nix.in\\'"))
 

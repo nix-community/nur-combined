@@ -1,0 +1,38 @@
+# -*- mode: sh -*-
+include = cat ${HOME}/.config/mr
+
+[DEFAULT]
+lib =
+    export BASE_PATH=tektoncd
+    export BASE_USER=vdemeester
+    export BASE_HOST="github.com"
+
+[catalog]
+[catlin]
+[chains]
+[cli]
+[community]
+[dashboard]
+[experimental]
+[friends]
+[homebrew-tools]
+[hub]
+[operator]
+[pipeline]
+[plumbing]
+[resolution]
+[results]
+[triggers]
+[website]
+
+[buildkit-tekton]
+checkout = git clone git@github.com:vdemeester/buildkit-tekton.git
+
+[vegetable-resolver]
+checkout = git clone git@github.com:vdemeester/vegetable-resolver.git
+
+[tkn-local-action]
+checkout = git clone git@github.com:vdemeester/tkn-local-action.git
+
+[setup-tektoncd]
+checkout = git clone git@github.com:vdemeester/setup-tektoncd.git
