@@ -6,7 +6,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/jetstack/cert-manager/releases/download/v${version}/kubectl-cert_manager-linux-amd64.tar.gz";
-    sha256 = "0i2bv9wb1v00zrf4jzvypkics9spalgmp6i1p5jccqwfngjnbysq";
+    hash = "sha256-WPtl5bOOY8ZkuSGaWx9VVyfN4rx+f0lc/gDssHjaS0Q=";
   };
 
   dontUnpack = true;

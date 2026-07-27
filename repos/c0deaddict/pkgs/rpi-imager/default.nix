@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     owner = "raspberrypi";
     repo = name;
     rev = "v${version}";
-    sha256 = "0dmgrrh4nbv24lr4a8jzba9xglrlprxmfq02nbr6czs48gagff91";
+    hash = "sha256-ITn31ENEf2bysgJgV3u+NNPXk1pfIkUyJWIvS2DOrzY=";
   };
 
   patches = [ ./remove-lsblk-test.patch ];

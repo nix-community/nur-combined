@@ -2,17 +2,16 @@
 
 buildGoModule rec {
   name = "acme-dns";
-  version = "1.0";
+  version = "2.0.2";
 
   src = fetchFromGitHub {
     owner = "joohoi";
     repo = "acme-dns";
     rev = "v${version}";
-    sha256 = "sha256-qQwvhouqzkChWeu65epgoeMNqZyAD18T+xqEMgdMbhA=";
+    hash = "sha256-tjVI+CaQTN1SB/RkTg0CJ1o9azb2ULwR1uKK5fJZ8fw=";
   };
 
-  vendorSha256 = "sha256-q/P+cH2OihvPxPj2XWeLsTBHzQQABp0zjnof+Ys/qKo=";
-  modSha256 = vendorSha256;
+  vendorHash = "sha256-n3icQQkdA0nCkvthsFsUTrYg0B3t8hROL4QXgBQRbSg=";
 
   meta = with lib; {
     homepage = "https://github.com/joohoi/acme-dns";

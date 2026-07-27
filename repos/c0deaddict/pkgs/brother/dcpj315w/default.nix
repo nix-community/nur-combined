@@ -11,9 +11,8 @@ in rec {
     inherit version;
 
     src = fetchurl {
-      url =
-        "https://download.brother.com/welcome/dlf005591/${name}-${version}.i386.deb";
-      sha256 = "sha256-sf5kKinMJYPNz6cUFms7f1I4KBFMQetDX9nMubI0zNc=";
+      url = "https://download.brother.com/welcome/dlf005591/${name}-${version}.i386.deb";
+      hash = "sha256-sf5kKinMJYPNz6cUFms7f1I4KBFMQetDX9nMubI0zNc=";
     };
 
     nativeBuildInputs = [ dpkg makeWrapper ];
@@ -59,9 +58,8 @@ in rec {
     inherit version;
 
     src = fetchurl {
-      url =
-        "https://download.brother.com/welcome/dlf005593/${name}-${version}.i386.deb";
-      sha256 = "sha256-s3f+rbOWyR9bc9dcrBD+NEXJKrA8cVZGazmqz9FWbHc=";
+      url = "https://download.brother.com/welcome/dlf005593/${name}-${version}.i386.deb";
+      hash = "sha256-s3f+rbOWyR9bc9dcrBD+NEXJKrA8cVZGazmqz9FWbHc=";
     };
 
     nativeBuildInputs = [ dpkg makeWrapper ];

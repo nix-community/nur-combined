@@ -8,10 +8,10 @@ buildGoModule rec {
     owner = "fabmation-gmbh";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-/xOa+mfRDKKbu0fNF/SFJZl+aCC0Wx1OFIzmtyyYLI8=";
+    hash = "sha256-/xOa+mfRDKKbu0fNF/SFJZl+aCC0Wx1OFIzmtyyYLI8=";
   };
 
-  vendorSha256 = "sha256-a6Z5gkXDNru6BZwFUtjpatqlVesAw6rajFk8hS2WlCw=";
+  vendorHash = "sha256-a6Z5gkXDNru6BZwFUtjpatqlVesAw6rajFk8hS2WlCw=";
 
   postFixup = ''
     install -dm755 $out/${pname}

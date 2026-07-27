@@ -13,9 +13,8 @@ in stdenv.mkDerivation rec {
   version = "260b";
 
   src = fetchurl {
-    url =
-      "https://cdn.splashdamage.com/downloads/games/wet/et${version}.x86_full.zip";
-    sha256 = "1q5k3rjbg8zba0ii851mid0l11yz2a5rmfsqsv5gzvsqhn7fz3ra";
+    url = "https://cdn.splashdamage.com/downloads/games/wet/et${version}.x86_full.zip";
+    hash = "sha256-Ko/vjoVY7//K1li7mosS34dAQYs1FBQjUOujt2Qes+A=";
   };
 
   nativeBuildInputs = [ unzip autoPatchelfHook ];

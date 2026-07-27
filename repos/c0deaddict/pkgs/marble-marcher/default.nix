@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "HackerPoet";
     repo = "MarbleMarcher";
     rev = version;
-    sha256 = "1kpn9wnf14wm7867dp3lhb10065h4vzy101gab18zkphlwl1dbwq";
+    hash = "sha256-mK8WKKfwzo/CUi+A4P8msBgAwoJ03HYMOpWT4CxP9s4=";
   };
 
   nativeBuildInputs = [ cmake ];

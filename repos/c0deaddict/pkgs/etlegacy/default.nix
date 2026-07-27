@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://www.etlegacy.com/download/file/122";
-    sha256 = "097xazrmzd86a634cdw0ywgl7i3h1x8k6zqs823ccrgnqiyq9r4l";
+    hash = "sha256-lOSEfcT2ZcaGQBp/M1EPcMRDH/eAN0aGUQa1X/NX/SQ=";
   };
 
   buildInputs = [ stdenv.cc.cc.lib libGL libGLU alsaLib ];

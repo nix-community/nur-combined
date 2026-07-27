@@ -8,10 +8,10 @@ buildGoModule rec {
     owner = "helm";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-gwIDPV56btTY1Mf/Pb8Fb+7T4dHOme+jeK5Wgtnk218=";
+    hash = "sha256-gwIDPV56btTY1Mf/Pb8Fb+7T4dHOme+jeK5Wgtnk218=";
   };
 
-  vendorSha256 = "sha256-m2+pKEqJQJSTQffpNRA+Qi8IHCohA26S62RoI991rls=";
+  vendorHash = "sha256-m2+pKEqJQJSTQffpNRA+Qi8IHCohA26S62RoI991rls=";
 
   postFixup = ''
     install -dm755 $out/${pname}

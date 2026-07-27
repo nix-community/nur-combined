@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "dresden-elektronik";
     repo = name;
     rev = "923c8b396898de32d595bd3b46fa73fb806ac1d9";
-    sha256 = "sha256-b89aWVcfGLbPxN5kLgCZlidK+3akMMUbznS8Ju4oSHM=";
+    hash = "hash-b89aWVcfGLbPxN5kLgCZlidK+3akMMUbznS8Ju4oSHM=";
   };
 
   nativeBuildInputs = [ pkg-config ];

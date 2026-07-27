@@ -10,11 +10,11 @@ let
 
 in stdenv.mkDerivation rec {
   name = "keyhub-cli-${version}";
-  version = "26";
+  version = "45";
 
   src = fetchurl {
     url = "https://files.topicus-keyhub.com/manual/keyhub-cli-${version}.zip";
-    sha256 = "sha256-a6NRH6x1b/whm5xTzscScKXYX3WbvXxiGd/a7CCDzOw=";
+    hash = "sha256-GjBVLisnWSnC/WQdRQ66x8JHCeoY96RQlla55UIJWOw=";
   };
 
   buildInputs = [ autoPatchelfHook glibc stdenv.cc.cc zlib ];

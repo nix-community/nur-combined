@@ -1,3 +1,1 @@
-{
-  python = import ./python;
-}
+{}

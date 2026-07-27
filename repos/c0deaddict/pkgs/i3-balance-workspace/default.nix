@@ -13,7 +13,7 @@ buildPythonApplication rec {
     owner = "atreyasha";
     repo = "i3-balance-workspace";
     rev = "v${version}";
-    sha256 = "0xzc8xzj4cnz2m26akr1bb2lm292b8dbvyhkw82wc0ijq1hr0nzk";
+    hash = "sha256-81uQYcAyAsYF4hP6vRpaIolKxVohT2VEFd8yIn9H7Hc=";
   };
 
   format = "pyproject";

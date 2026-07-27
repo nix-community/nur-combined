@@ -8,10 +8,10 @@ rustPlatform.buildRustPackage rec {
     owner = "solokeys";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-CRufj4SAkM0Qdffq45dp41TUqnnWep4zCB0XrEjdoG8=";
+    hash = "sha256-CRufj4SAkM0Qdffq45dp41TUqnnWep4zCB0XrEjdoG8=";
   };
 
-  cargoSha256 = "sha256-Q6/Vi5TB0H3OQ4np/DYIpTOsTPTSDjHonFI24LJ5gWE=";
+  cargoHash = "sha256-Q6/Vi5TB0H3OQ4np/DYIpTOsTPTSDjHonFI24LJ5gWE=";
 
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ pcsclite udev ];

@@ -8,7 +8,7 @@ let
     owner = "prometheus-community";
     repo = "node-exporter-textfile-collector-scripts";
     rev = "414fb44693444cb96a55c7152cdd84d531888e1f";
-    sha256 = "13ja3l78bb47xhdfsmsim5sqggb9avg3x872jqah1m7jm9my7m98";
+    hash = "13ja3l78bb47xhdfsmsim5sqggb9avg3x872jqah1m7jm9my7m98";
   };
 
   cfg = config.services.prometheus.nvme-collector;

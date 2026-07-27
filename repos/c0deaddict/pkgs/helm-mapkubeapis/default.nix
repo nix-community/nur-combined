@@ -8,10 +8,10 @@ buildGoModule rec {
     owner = "helm";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-6NeePXTdp5vlBLfIlWeXQZMZ0Uz/e1ZCgZmJvBJfaFw=";
+    hash = "sha256-6NeePXTdp5vlBLfIlWeXQZMZ0Uz/e1ZCgZmJvBJfaFw=";
   };
 
-  vendorSha256 = "sha256-rVrQqeakPQl3rjzmqzHw74ffreLEVzP153wWJ8TEOIM=";
+  vendorHash = "sha256-rVrQqeakPQl3rjzmqzHw74ffreLEVzP153wWJ8TEOIM=";
 
   postFixup = ''
     mkdir $out/${pname}

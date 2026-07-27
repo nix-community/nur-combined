@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "jgarff";
     repo = name;
     rev = version;
-    sha256 = "sha256-b+xFG1OAx1n7kHYgOecj4CyLgpjKTT+D1rphSaxzH/g=";
+    hash = "sha256-b+xFG1OAx1n7kHYgOecj4CyLgpjKTT+D1rphSaxzH/g=";
   };
 
   cmakeFlags = [ "-DBUILD_SHARED=off" "-DBUILD_TEST=off" ];

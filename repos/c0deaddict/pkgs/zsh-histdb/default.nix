@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     owner = "larkery";
     repo = pname;
     rev = version;
-    sha256 = "sha256-PQIFF8kz+baqmZWiSr+wc4EleZ/KD8Y+lxW2NT35/bg=";
+    hash = "sha256-PQIFF8kz+baqmZWiSr+wc4EleZ/KD8Y+lxW2NT35/bg=";
   };
 
   buildInputs = [ zsh ];
