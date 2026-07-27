@@ -29,9 +29,10 @@ let
                 cmake ninja;
               inherit (final) qt6;
             };
+            pyconify = python-final.callPackage ./pkgs/spektrafilm/pyconify.nix { };
             spektrafilm = python-final.callPackage ./pkgs/spektrafilm/spektrafilm.nix {
               inherit (final) makeWrapper mesa libglvnd;
-              qt5 = final.libsForQt5.qt5;
+              inherit (final) qt6;
             };
           })
         ];

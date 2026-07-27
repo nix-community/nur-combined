@@ -7,7 +7,7 @@
   setuptools,
   makeWrapper,
   # Qt
-  qt5,
+  qt6,
   # OpenGL
   mesa,
   libglvnd,
@@ -22,8 +22,10 @@
   magicgui,
   lmfit,
   pyqt5,
+  pyside6,
   qtpy,
   pillow,
+  pyconify,
   rawpy,
   exiv2,
   lensfunpy,
@@ -37,7 +39,7 @@
 
 buildPythonPackage rec {
   pname = "spektrafilm";
-  version = "0.3.3";
+  version = "0.3.4";
   pyproject = true;
   doCheck = false;
   doInstallCheck = false;
@@ -46,8 +48,8 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "andreavolpato";
     repo = "spektrafilm";
-    rev = "6cd00c8d4f30b5b550f50f4bbd3753c9f2a48507";
-    hash = "sha256-JgLAZ8nEVaZwmlIEAzbTmPT96+IaOQCUh7Tlhn1tvso=";
+    rev = "28bf883e1672e884307edc75852549376e13644e";
+    hash = "sha256-K9K51VwH63hAhWrdogxtlyaaFSCikHS7KcgIyTu207A=";
   };
 
   patches = [ ./illuminants-enum.patch ];
@@ -65,8 +67,10 @@ buildPythonPackage rec {
     magicgui
     lmfit
     pyqt5
+    pyside6
     qtpy
     pillow
+    pyconify
     rawpy
     exiv2
     lensfunpy
@@ -85,8 +89,8 @@ buildPythonPackage rec {
   postFixup = ''
     wrapProgram $out/bin/spektrafilm \
       --unset PYTHONPATH \
-      --set QT_API pyqt5 \
-      --set QT_PLUGIN_PATH "${qt5.qtbase.bin}/${qt5.qtbase.qtPluginPrefix}:${qt5.qtwayland.bin}/${qt5.qtbase.qtPluginPrefix}" \
+      --set QT_API pyside6 \
+      --set QT_PLUGIN_PATH "${qt6.qtbase}/${qt6.qtbase.qtPluginPrefix}:${qt6.qtwayland}/${qt6.qtbase.qtPluginPrefix}" \
       --set QT_QPA_PLATFORM wayland \
       --prefix LD_LIBRARY_PATH : "${mesa}/lib" \
       --prefix LD_LIBRARY_PATH : "${libglvnd}/lib" \
