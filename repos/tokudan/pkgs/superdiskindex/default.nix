@@ -20,7 +20,7 @@ stdenv.mkDerivation rec {
     '';
 
   meta = {
-    homepage = https://github.com/shamada-code/superdiskindex;
+    homepage = "https://github.com/shamada-code/superdiskindex";
     description  = "commandline tool to analyze and convert floppy disk flux captures (scp format) to emulator friendly formats (and metainfo for archive purposes)";
     platforms = lib.platforms.all;
   };

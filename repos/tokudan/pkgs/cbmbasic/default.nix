@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Commodore BASIC V2 as a scripting language";
-    homepage    = https://github.com/mist64/cbmbasic;
+    homepage    = "https://github.com/mist64/cbmbasic";
     license     = licenses.unfree;
   };
 }

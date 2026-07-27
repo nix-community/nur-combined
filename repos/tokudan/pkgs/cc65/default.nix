@@ -19,7 +19,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "a complete cross development package for 6502/65C02 systems, including a powerful macro assembler, a C compiler, linker, librarian and several other tools";
-    homepage    = https://cc65.github.io;
+    homepage    = "https://cc65.github.io";
     license     = licenses.zlib;
   };
 }

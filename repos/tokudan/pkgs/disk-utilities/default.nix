@@ -18,7 +18,7 @@ stdenv.mkDerivation rec {
   setPREFIX = "export PREFIX=$out";
 
   meta = {
-    homepage = https://github.com/keirf/Disk-Utilities;
+    homepage = "https://github.com/keirf/Disk-Utilities";
     description  = "collection of utilities for ripping, dumping, analysing, and modifying disk images";
     platforms = lib.platforms.all;
   };

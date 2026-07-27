@@ -19,10 +19,10 @@ stdenv.mkDerivation rec {
   #};
 
   src = fetchFromGitHub {
-    owner = "OpenCBM";
+    owner = "rittwage";
     repo = "nibtools";
-    rev = "77ec1e1716b579d23130d78586ef5297f17cd6b7";
-    sha256 = "16xh0n7q34h1dgbx9bss05w5lh6lrla31fza7g20fsiyih3bz077";
+    rev = "1d0946a85568effb2638ad92b4498b91d75f4967";
+    hash = "sha256-Tg6cYF4iwVpOSzt6prpE5vZPEVZER99kjNt4cPhr6tc=";
   };
 
   patches = [
@@ -44,7 +44,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "a disk transfer program designed for copying original disks and converting into the G64 and D64 disk image formats";
-    homepage    = https://c64preservation.com/dp.php?pg=nibtools;
+    homepage    = "https://c64preservation.com/dp.php?pg=nibtools";
     license     = licenses.unfree;
   };
 }
