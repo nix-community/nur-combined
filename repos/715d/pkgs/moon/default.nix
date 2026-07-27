@@ -1,7 +1,8 @@
 {
   lib,
   stdenv,
-  rustPlatform,
+  rust-bin,
+  makeRustPlatform,
   fetchFromGitHub,
   openssl,
   pkg-config,
@@ -11,20 +12,32 @@
   writableTmpDirAsHomeHook,
 }:
 
+let
+  toolchain = rust-bin.stable.latest.minimal;
+  rustPlatform = makeRustPlatform {
+    rustc = toolchain;
+    cargo = toolchain;
+  };
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "moon";
-  version = "2.1.0";
+  version = "2.1.1";
 
   src = fetchFromGitHub {
     owner = "moonrepo";
     repo = "moon";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-evvhKZ2p1EMefiISJq/HWeh7goGc27pLCY357737nx8=";
+    hash = "sha256-Gd3h10ZkXCUuXR8iVIqgq4KtUsFG9+IdWBW37OJpzBU=";
   };
 
-  cargoHash = "sha256-Pta179twoEUA5JVW6gZxtFTuazJkeGSaM9ZW73uufjM=";
+  cargoHash = "sha256-xmKnKJtnuHmEx8wKZU9Tq7RZ7v2uiK9rckb+s+Vuw/c=";
 
-  cargoBuildFlags = [ "--bin" "moon" "--bin" "moonx" ];
+  cargoBuildFlags = [
+    "--bin"
+    "moon"
+    "--bin"
+    "moonx"
+  ];
 
   env = {
     RUSTFLAGS = "-C strip=symbols";
