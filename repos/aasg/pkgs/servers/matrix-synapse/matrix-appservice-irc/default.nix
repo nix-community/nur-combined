@@ -21,5 +21,6 @@ nodePackages.matrix-appservice-irc.override {
     license = licenses.asl20;
     maintainers = with maintainers; [ AluisioASG ];
     platforms = platforms.all;
+    hydraPlatforms = platforms.none;
   };
 }

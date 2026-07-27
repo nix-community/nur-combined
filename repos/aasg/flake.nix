@@ -26,6 +26,7 @@
           # Remove packages not compatible with this system.
           (filterAttrs (attr: drv: drv ? meta.platforms -> builtins.elem system drv.meta.platforms))
         ]);
+      legacyPackages = genAttrs defaultSystems (system: (import ./. { pkgs = nixpkgs.legacyPackages.${system}; }));
       nixosModules = mapAttrs (name: path: import path) (import ./modules);
       overlays = {
         pkgs = import ./pkgs/overlay.nix;

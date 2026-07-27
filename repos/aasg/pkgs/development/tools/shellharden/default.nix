@@ -9,6 +9,7 @@
         license = licenses.mpl20;
         maintainers = with maintainers; [ AluisioASG ];
         platforms = platforms.all;
+        hydraPlatforms = platforms.none;
       };
     };
   };

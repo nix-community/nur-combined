@@ -30,6 +30,7 @@ buildPythonPackage rec {
     homepage = "https://github.com/jnrbsn/daemonocle";
     license = licenses.mit;
     platforms = platforms.unix;
+    hydraPlatforms = platforms.none;
     maintainers = with maintainers; [ AluisioASG ];
   };
 }

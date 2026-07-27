@@ -64,6 +64,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/infothrill/python-dyndnsc";
     license = licenses.mit;
     platforms = platforms.unix;
+    hydraPlatforms = platforms.none;
     maintainers = with maintainers; [ AluisioASG ];
   };
 }

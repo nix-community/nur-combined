@@ -20,5 +20,6 @@ buildGoModule rec {
     license = licenses.mit;
     maintainers = with maintainers; [ AluisioASG ];
     platforms = platforms.unix;
+    hydraPlatforms = platforms.none;
   };
 }

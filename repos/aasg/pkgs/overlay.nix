@@ -25,6 +25,8 @@ final: prev:
   linuxPackagesFor = kernel:
     (prev.linuxPackagesFor kernel).extend (import ./os-specific/linux/kernel-packages.nix);
 
+  makeJobScript = final.callPackage ./build-support/make-job-script { };
+
   matrix-appservice-irc = final.callPackage ./servers/matrix-synapse/matrix-appservice-irc {
     nodejs = final.nodejs-12_x;
   };

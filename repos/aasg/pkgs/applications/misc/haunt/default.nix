@@ -41,5 +41,6 @@ stdenv.mkDerivation rec {
     license = licenses.gpl3Plus;
     maintainers = with maintainers; [ AluisioASG ];
     platforms = platforms.gnu;
+    hydraPlatforms = platforms.none;
   };
 }

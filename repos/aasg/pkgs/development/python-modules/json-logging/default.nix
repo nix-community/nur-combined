@@ -50,7 +50,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/bobbui/json-logging-python";
     license = licenses.asl20;
-    platforms = platforms.all;
+    hydraPlatforms = platforms.none;
     maintainers = with maintainers; [ AluisioASG ];
   };
 }

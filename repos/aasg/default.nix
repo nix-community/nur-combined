@@ -7,6 +7,12 @@ let
       pkgs.appendOverlays
       (copyAttrsByPath manifest)
       recurseIntoAttrsRecursive
+      (mapAttrsRecursiveCond
+        (set: set.recurseForDerivations or false)
+        (path: drv:
+          if drv ? meta.hydraPlatforms && drv.meta.hydraPlatforms == platforms.none
+          then warn "aasg-nixexprs.${concatStringsSep "." path} is no longer supported; please switch to use the version in Nixpkgs" drv
+          else drv))
     ];
   self = {
     lib = import ./lib { inherit (pkgs) lib; };
