@@ -49,8 +49,8 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.nextcloud33;
-      defaultText = lib.literalExpression "pkgs.nextcloud33";
+      default = pkgs.nextcloud34;
+      defaultText = lib.literalExpression "pkgs.nextcloud34";
       description = "Nextcloud package version";
     };
 

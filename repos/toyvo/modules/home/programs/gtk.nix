@@ -9,8 +9,16 @@ let
 in
 {
   config = lib.mkIf (cfg.gui.enable && pkgs.stdenv.isLinux) {
-    xdg.enable = true;
+    catppuccin.cursors = {
+      accent = config.catppuccin.accent;
+      enable = lib.mkDefault true;
+      flavor = config.catppuccin.flavor;
+    };
     gtk = {
+      cursorTheme = {
+        name = config.home.pointerCursor.name;
+        size = 24;
+      };
       enable = true;
       font = {
         name = "Noto Sans";
@@ -20,20 +28,13 @@ in
         name = lib.mkDefault "Papirus-Dark";
         package = lib.mkDefault (
           pkgs.catppuccin-papirus-folders.override {
-            flavor = config.catppuccin.flavor;
             accent = config.catppuccin.accent;
+            flavor = config.catppuccin.flavor;
           }
         );
       };
-      cursorTheme = {
-        name = config.home.pointerCursor.name;
-        size = 24;
-      };
     };
-    catppuccin.cursors = {
-      enable = lib.mkDefault true;
-      flavor = config.catppuccin.flavor;
-      accent = config.catppuccin.accent;
-    };
+    home.pointerCursor.enable = true;
+    xdg.enable = true;
   };
 }

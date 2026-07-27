@@ -438,7 +438,7 @@ in
       };
 
       config = { ... }: {
-        services.redis = {
+        services.redis.servers.authentik = {
           enable = true;
           bind = cfg.redisLocalAddress;
           port = cfg.redis.port;
