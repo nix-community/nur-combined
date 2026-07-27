@@ -117,6 +117,8 @@ impl TerminalTabs {
         } else if self.show_host_prompt && !self.tabs.is_empty() {
             self.show_host_prompt = false;
             self.focus_active_session(window, cx);
+        } else if self.show_host_prompt && self.tabs.is_empty() {
+            cx.quit();
         }
         cx.notify();
     }
