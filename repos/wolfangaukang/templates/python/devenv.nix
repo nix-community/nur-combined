@@ -10,13 +10,17 @@ in
 {
   packages = [
     gorin
-    ruff
     ty
   ];
   languages = {
     nix.enable = true;
     python = {
       enable = true;
+      lsp = {
+        enable = true;
+        package = ruff;
+      };
+      venv.enable = true;
       uv = {
         enable = true;
         sync = {

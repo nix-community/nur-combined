@@ -20,6 +20,8 @@ in
 {
   imports = profiles ++ [ "${self}/home/users/bjorn" ];
 
+  gtk.gtk4.theme = null; # NOTE: Default behavior in 26.05
+
   home = {
     packages = with pkgs; [
       gimp
@@ -30,6 +32,7 @@ in
       "Torrentoj"
       "VMs"
     ];
+    stateVersion = "23.05";
   };
 
   personaj = {

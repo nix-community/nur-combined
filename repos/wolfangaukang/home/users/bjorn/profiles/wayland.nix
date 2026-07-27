@@ -120,16 +120,10 @@ in
     kanshi.enable = isWaylandWMEnabled;
     swayidle = {
       enable = isWaylandWMEnabled;
-      events = [
-        {
-          event = "before-sleep";
-          command = "${commands.lock}";
-        }
-        {
-          event = "lock";
-          command = "${commands.lock}";
-        }
-      ];
+      events = {
+        "before-sleep" = "${commands.lock}";
+        "lock" = "${commands.lock}";
+      };
       timeouts = [
         {
           timeout = 300;

@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   pkgs,
   lib,
@@ -17,6 +18,8 @@ let
 
 in
 {
+  imports = [ "${inputs.self}/home/modules/dprint.nix" ];
+
   home.packages = [
     apep
     gorin
@@ -48,6 +51,7 @@ in
         ".devenv/"
       ];
       signing = {
+        format = "openpgp"; # NOTE: In 25.05, this is null
         key = gpgKey;
         signByDefault = true;
       };
@@ -90,9 +94,9 @@ in
   services = {
     gpg-agent = {
       enable = true;
-      # FIXME: Check my purpose
       enableScDaemon = false;
-      pinentry.package = pkgs.pinentry-curses;
+      pinentry.package =
+        if pkgs.stdenv.hostPlatform.isDarwin then pkgs.pinentry_mac else pkgs.pinentry-curses;
     };
   };
 }

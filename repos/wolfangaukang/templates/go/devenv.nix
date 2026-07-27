@@ -4,17 +4,19 @@
 }:
 
 let
-  inherit (pkgs) golangci-lint gopls gorin;
+  inherit (pkgs) golangci-lint gorin;
 
 in
 {
   packages = [
     golangci-lint
-    gopls
     gorin
   ];
   languages = {
-    go.enable = true;
+    go = {
+      enable = true;
+      lsp.enable = true;
+    };
     nix.enable = true;
   };
 }

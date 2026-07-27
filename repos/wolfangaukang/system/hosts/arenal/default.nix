@@ -28,7 +28,6 @@ in
     ++ users
     ++ [
       ./configuration.nix
-      ./impermanence.nix
 
       inputs.home-manager.nixosModules.home-manager
       hmConfig

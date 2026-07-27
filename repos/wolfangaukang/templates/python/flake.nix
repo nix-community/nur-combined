@@ -61,7 +61,7 @@
           };
         }
       );
-      overlays.default = final: prev: { inherit (self.packages.${final.system}) apep; };
+      overlays.default = final: prev: { inherit (self.packages.${final.stdenv.hostPlatform.system}) apep; };
       # Uncomment this after being able to write a working package.nix
       # packages = forEachSystem (system: {
       #   project = pkgsFor.${system}.callPackage ./package.nix { };
@@ -70,6 +70,6 @@
       # apps = forEachSystem (system: {
       #   default = { type = "app"; program = pkgsFor.${system}.lib.getExe self.outputs.packages.${system}.default; };
       # });
-      # overlays.default = final: prev: { inherit (self.packages.${final.system}) project; };
+      # overlays.default = final: prev: { inherit (self.packages.${final.stdenv.hostPlatform.system}) project; };
     };
 }

@@ -93,7 +93,7 @@ in
 
       # LSP
       # Bash
-      nodePackages.bash-language-server
+      bash-language-server
       # Docker
       dockerfile-language-server-nodejs
       # Lua

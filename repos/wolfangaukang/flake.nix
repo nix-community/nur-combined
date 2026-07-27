@@ -4,12 +4,17 @@
   inputs = {
     # Nixpkgs
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixos-stable.url = "github:nixos/nixpkgs/release-24.11";
+    nixpkgs-master.url = "github:nixos/nixpkgs";
+    nixpkgs-release.url = "github:nixos/nixpkgs/release-25.11";
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Nix utilities
     home-manager = {
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-wsl = {
@@ -18,6 +23,10 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     impermanence.url = "github:nix-community/impermanence";
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v1.0.0";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     sops = {
       url = "github:Mic92/sops-nix";
@@ -48,16 +57,18 @@
       url = "git+https://codeberg.org/wolfangaukang/gorin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    sarchi = {
-      url = "git+ssh://git@github.com/simplerisk/sarchi?ref=main";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     dotfiles = {
-      url = "git+https://codeberg.org/wolfangaukang/dotfiles";
+      url = "git+https://codeberg.org/wolfangaukang/dotfiles?ref=push-oxwrwlynyxlm";
       flake = false;
     };
     multifirefox = {
       url = "git+https://codeberg.org/wolfangaukang/multifirefox";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # Other projects
+    starship-jj = {
+      url = "gitlab:lanastara_foss/starship-jj";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -83,7 +94,7 @@
           multifirefox.overlays.default
           nur.overlays.default
           sab.overlays.default
-          sarchi.overlays.default
+          starship-jj.overlays.default
         ]
         ++ (local.overlays);
 
@@ -103,7 +114,9 @@
       devShells = forEachSystem (system: import ./shells { pkgs = pkgsFor.${system}; });
       formatter = forEachSystem (system: pkgsFor.${system}.nixfmt-tree);
 
-      overlays.default = final: prev: { nix-agordoj = self.packages.${final.system}; };
+      overlays.default = final: prev: {
+        nix-agordoj = self.packages.${final.stdenv.hostPlatform.system};
+      };
       templates = import ./templates;
 
       nixosModules = import ./system/modules;
@@ -112,6 +125,11 @@
       nixosConfigurations = import ./system/hosts {
         inherit inputs overlays;
         localLib = local.lib;
+      };
+      darwinConfigurations = import ./system/hosts {
+        inherit inputs overlays;
+        localLib = local.lib;
+        os = "darwin";
       };
     };
 }

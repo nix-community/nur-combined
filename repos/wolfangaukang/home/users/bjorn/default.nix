@@ -8,10 +8,13 @@
 
 let
   inherit (inputs) dotfiles;
+  inherit (pkgs.stdenv) hostPlatform;
 
 in
 {
   imports = [
+    "${inputs.self}/home/modules/peaclock.nix"
+
     ./modules
 
     ./profiles/dev.nix
@@ -24,44 +27,53 @@ in
 
   home = {
     username = "bjorn";
-    homeDirectory = "/home/${config.home.username}";
-    stateVersion = "23.05";
+    homeDirectory =
+      let
+        prefix = if hostPlatform.isDarwin then "Users" else "home";
+      in
+      "/${prefix}/${config.home.username}";
+    file =
+      if hostPlatform.isLinux then
+        builtins.listToAttrs (
+          builtins.map
+            (layout: {
+              name = ".xkb/symbols/${layout}";
+              value = {
+                source = "${dotfiles}/config/xkbmap/${layout}";
+              };
+            })
+            [
+              "colemak-bs_cl"
+              "dvorak-bs_cl"
+            ]
+        )
+      else
+        { };
 
-    file = builtins.listToAttrs (
-      builtins.map
-        (layout: {
-          name = ".xkb/symbols/${layout}";
-          value = {
-            source = "${dotfiles}/config/xkbmap/${layout}";
-          };
-        })
-        [
-          "colemak-bs_cl"
-          "dvorak-bs_cl"
-        ]
-    );
+    packages =
+      with pkgs;
+      [
+        # CLI
+        bc
+        htop
+        p7zip
+        tree
+        shellcheck
 
-    packages = with pkgs; [
-      # CLI
-      bc
-      htop
-      p7zip
-      tree
-      shellcheck
+        # GUI but with CLI tools
+        keepassxc
 
-      # GUI but with CLI tools
-      calibre
-      keepassxc
-
-      # Fonts
-      arkpandora_ttf
-    ];
+        # Fonts
+        arkpandora_ttf
+      ]
+      ++ (lib.optionals hostPlatform.isLinux [ calibre ]); # https://github.com/NixOS/nixpkgs/commit/36351ac94e9c6608bb95f6946f2ec01dee45f65b
   };
 
   programs = {
     atuin = {
       enable = true;
-      enableFishIntegration = true;
+      enableFishIntegration = config.programs.fish.enable;
+      enableZshIntegration = config.programs.zsh.enable;
       settings.style = "auto";
       flags = [ "--disable-up-arrow" ];
     };
@@ -90,12 +102,12 @@ in
   };
 
   services.gnome-keyring = {
-    enable = true;
+    enable = hostPlatform.isLinux;
     components = [ "secrets" ];
   };
 
   xdg = {
-    enable = true;
+    enable = hostPlatform.isLinux;
     terminal-exec = {
       enable = true;
       settings.default =
@@ -105,7 +117,8 @@ in
     };
     userDirs = {
       enable = true;
-      extraConfig.XDG_MISC_DIR = "${config.home.homeDirectory}/Utilecoj";
+      extraConfig.MISC = "${config.home.homeDirectory}/Utilecoj";
+      setSessionVariables = false; # NOTE: Default behavior in 26.05
     }
     // builtins.mapAttrs (name: value: "${config.home.homeDirectory}/${value}") {
       documents = "Dokumentujo";

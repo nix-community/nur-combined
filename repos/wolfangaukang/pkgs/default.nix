@@ -12,6 +12,7 @@ in
   clair-scanner = callPackage ./clair-scanner { };
   iptvnator = callPackage ./iptvnator { };
   mkat = callPackage ./mkat { };
+  mudita-center = callPackage ./mudita-center { };
   npm-groovy-lint = callPackage ./npm-groovy-lint {
     java = pkgs.jdk17; # default version installed
   };

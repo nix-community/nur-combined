@@ -14,4 +14,5 @@ final: prev: {
   #} );
   #upwork-require = prev.callPackage ../pkgs/applications/misc/upwork {};
   burpsuite = prev.callPackage ../pkgs/burpsuite/ce.nix { };
+  mudita-center = prev.callPackage ../pkgs/mudita-center { };
 }

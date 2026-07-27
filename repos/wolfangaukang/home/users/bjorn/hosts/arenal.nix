@@ -4,7 +4,6 @@
   config,
   lib,
   localLib,
-  osConfig,
   ...
 }:
 
@@ -21,11 +20,14 @@ in
 {
   imports = profiles ++ [ "${self}/home/users/bjorn" ];
 
+  gtk.gtk4.theme = null; # NOTE: Default behavior in 26.05
+
   home = {
     persistence."/mnt/persist" = {
       directories = [ ".config/gPodder" ];
       files = [ ".wallpaper1.jpg" ];
     };
+    stateVersion = "23.05";
   };
 
   programs = {
@@ -100,7 +102,7 @@ in
       config = {
         input = {
           "1:1:AT_Translated_Set_2_keyboard" = {
-            xkb_layout = "colemak-bs_cl,us";
+            xkb_layout = "colemak-bs_cl,latam";
             xkb_options = "compose:ralt,grp:ctrl_space_toggle";
           };
           "type:touchpad" = {

@@ -7,6 +7,7 @@
 let
   inherit (lib) getExe;
   inherit (pkgs)
+    bash-language-server
     dprint
     marksman
     nil
@@ -15,7 +16,6 @@ let
     taplo
     yaml-language-server
     ;
-  inherit (pkgs.nodePackages) bash-language-server;
   theme = "ayu_dark";
 
 in

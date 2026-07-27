@@ -94,8 +94,8 @@ let
           darkreader
           multi-account-containers
           privacy-redirect
-          video-downloadhelper
-        ]);
+        ])
+        ++ (lib.optionals pkgs.stdenv.hostPlatform.isLinux (with firefox-addons; [ video-downloadhelper ]));
       settings = base.settings;
     };
     gnaujep = {

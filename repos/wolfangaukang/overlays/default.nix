@@ -1,13 +1,20 @@
 { inputs }:
 
 let
+  mkChannelOverlay =
+    {
+      input,
+      attrName,
+      config ? { },
+    }:
+    (final: prev: {
+      ${attrName} = import input {
+        inherit config;
+        system = prev.stdenv.hostPlatform.system;
+      };
+    });
   overlays = [
-    (import ./nixpkgs-release.nix { inherit inputs; })
-    (import ./nixpkgs-unstable.nix { inherit inputs; })
-  ]
-  ++ [
     (import ./local-apps.nix)
-    (import ./sab.nix { inherit inputs; })
     (import ./shnsplit-24w.nix)
     (import ./wayland.nix)
   ];

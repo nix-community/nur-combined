@@ -20,6 +20,13 @@ in
       }
     ];
   };
-  xdg.configFile."fish/functions/_tide_item_jj.fish".source =
-    "${inputs.dotfiles}/config/fish/functions/_tide_item_jj.fish";
+  xdg.configFile =
+    let
+      base_path = "${inputs.dotfiles}/config/fish";
+
+    in
+    {
+      "fish/functions/_tide_item_jj.fish".source = "${base_path}/functions/_tide_item_jj.fish";
+      "fish/conf.d/tide-prompt-items.fish".source = "${base_path}/conf.d/tide-prompt-items.fish";
+    };
 }

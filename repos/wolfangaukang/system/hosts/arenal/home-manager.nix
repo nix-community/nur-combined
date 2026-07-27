@@ -20,11 +20,7 @@
     sharedModules = [
       inputs.sab.hmModule
       inputs.sops.homeManagerModules.sops
-    ]
-    ++ (with inputs.self.homeManagerModules; [
-      dprint
-      peaclock
-    ]);
+    ];
     users = localLib.importHMUsers [ "bjorn" ] hostname;
   };
 }

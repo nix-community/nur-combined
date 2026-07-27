@@ -22,6 +22,8 @@ in
 
     ./disk-setup.nix
     ./hardware-configuration.nix
+    ./impermanence.nix
+    ./secure-boot.nix
   ];
 
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18; # MUST USE THIS ONE TO RECOGNIZE DISPLAY OUTPUT IN SWAY
@@ -39,6 +41,16 @@ in
     };
     virtualization.podman.enable = true;
   };
+  # This solves the issue with the brightness
+  # TODO: Restrict it to brightness
+  security.polkit.extraConfig = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.policykit.exec" &&
+        subject.isInGroup("wheel")) {
+          return polkit.Result.YES;
+        }
+      });
+  '';
   services = {
     acpid.enable = true;
     openssh.hostKeys = localLib.generateSshHostKeyPaths;

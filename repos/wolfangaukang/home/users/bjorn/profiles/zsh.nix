@@ -13,14 +13,10 @@ in
   programs.zsh = {
     enable = osConfig.programs.zsh.enable;
     enableCompletion = true;
-    oh-my-zsh = {
-      enable = true;
-      plugins = [
-        "git"
-        "docker"
-      ];
-      theme = "linuxonly";
-    };
+    historySubstringSearch.enable = true;
     shellAliases = terminalSettings.shellAliases;
+    initContent = ''
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z} r:|[._-]=* r:|=*'
+    '';
   };
 }

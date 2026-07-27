@@ -8,6 +8,7 @@
 
 let
   inherit (inputs) self;
+  inherit (pkgs.stdenv) hostPlatform;
 
   cfg = config.personaj.work;
 
@@ -38,80 +39,34 @@ let
 
 in
 {
+  imports = (lib.optionals hostPlatform.isLinux [ "${self}/home/profiles/programs/keybase.nix" ]);
+
   options.personaj.work.simplerisk.enable = lib.mkEnableOption "the SimpleRisk profile";
 
   config = lib.mkIf cfg.simplerisk.enable {
-    home.packages = with pkgs; [
-      # GUI
-      gnome-screenshot
-      keybase-gui
-      remmina
-      slack
+    home.packages =
+      with pkgs;
+      [
+        # GUI
+        remmina
 
-      # CLI
-      awscli2
-      aws-mfa
-      sarchi
-      ssm-session-manager-plugin
-    ];
+        # CLI
+        awscli2
+        aws-mfa
+        ssm-session-manager-plugin
+      ]
+      ++ (lib.optionals hostPlatform.isLinux [
+        gnome-screenshot
+        slack
+      ]);
     programs = {
       firefox.profiles = lib.mkForce (
         firefoxSettings.defaultProfiles // { work = firefoxSettings.profiles.simplerisk; }
       );
-      neovim = {
-        extraPackages = with pkgs; [ terraform-ls ];
-        plugins = with pkgs.vimPlugins; [
-          Jenkinsfile-vim-syntax
-          vim-packer
-        ];
-      };
       ssh = {
         enable = true;
         matchBlocks = ssmSettings;
       };
-      vscode.profiles.default = {
-        extensions = with pkgs.vscode-extensions; [
-          redhat.vscode-yaml
-          kddejong.vscode-cfn-lint
-        ];
-        userSettings = {
-          # Cloudformation tags
-          "yaml.customTags" = [
-            "!And"
-            "!And sequence"
-            "!If"
-            "!If sequence"
-            "!Not"
-            "!Not sequence"
-            "!Equals"
-            "!Equals sequence"
-            "!Or"
-            "!Or sequence"
-            "!FindInMap"
-            "!FindInMap sequence"
-            "!Base64"
-            "!Join"
-            "!Join sequence"
-            "!Cidr"
-            "!Ref"
-            "!Sub"
-            "!Sub sequence"
-            "!GetAtt"
-            "!GetAZs"
-            "!ImportValue"
-            "!ImportValue sequence"
-            "!Select"
-            "!Select sequence"
-            "!Split"
-            "!Split sequence"
-          ];
-          "yaml.validate" = true;
-        };
-      };
-    };
-    services = {
-      kbfs.enable = true;
-      keybase.enable = true;
     };
   };
 }

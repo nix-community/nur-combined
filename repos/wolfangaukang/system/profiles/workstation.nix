@@ -26,6 +26,8 @@ let
 
 in
 {
+  imports = [ ../modules/mudita.nix ];
+
   environment.systemPackages = with pkgs; [
     # Android
     android-tools
@@ -46,6 +48,7 @@ in
     };
     graphics.enable = true;
     i2c.enable = true; # Display management
+    mudita.enable = true;
   };
 
   networking = {

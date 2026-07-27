@@ -1,5 +1,6 @@
+"$schema"="https://codeberg.org/wolfangaukang/gorin/raw/branch/main/schema.json"
 shell = "/bin/sh"
-tools = ["gorin", "nix", "nixos-rebuild"]
+global_dependencies = ["gorin", "nix"]
 
 [parameters.SERVER]
 description = "Server to build"
@@ -35,35 +36,41 @@ value = ""
 prerequisites = [ "check_dependencies" ]
 commands = "@gorin makefile > Makefile"
 
+[targets.activate]
+description = "Activates a nix-darwin build"
+prerequisites = [ "check_dependencies" ]
+dependencies = [ "darwin-rebuild" ]
+commands = "sudo ./result/activate"
+
 [targets.test]
 description = "Tests generation"
 prerequisites = [ "check_dependencies" ]
-commands = "doas nixos-rebuild test --flake .#$(SERVER)"
+commands = "$(if $(shell command -v doas 2>/dev/null),doas,sudo) nixos-rebuild test --flake .#$(SERVER)"
 
 [targets.test-s]
 description = "Tests specialisation"
 prerequisites = [ "check_dependencies" ]
-commands = "doas nixos-rebuild test --flake .#$(SERVER) --specialisation $(SPECIALISATION)"
+commands = "$(if $(shell command -v doas 2>/dev/null),doas,sudo) nixos-rebuild test --flake .#$(SERVER) --specialisation $(SPECIALISATION)"
 
 [targets.switch]
 description = "Switches generation"
 prerequisites = [ "check_dependencies" ]
-commands = "doas nixos-rebuild switch --flake .#$(SERVER)"
+commands = "$(if $(shell command -v doas 2>/dev/null),doas,sudo) $(if $(shell command -v darwin-rebuild 2>/dev/null),darwin-rebuild,nixos-rebuild) switch --flake .#$(SERVER)"
 
 [targets.boot]
 description = "Create boot entry"
 prerequisites = [ "check_dependencies" ]
-commands = "doas nixos-rebuild boot --flake .#$(SERVER)"
+commands = "$(if $(shell command -v doas 2>/dev/null),doas,sudo) nixos-rebuild boot --flake .#$(SERVER)"
 
 [targets.boot-p]
 description = "Create boot entry with profile"
 prerequisites = [ "check_dependencies" ]
-commands = "doas nixos-rebuild boot --flake .#$(SERVER) -p $(PROFILE)"
+commands = "$(if $(shell command -v doas 2>/dev/null),doas,sudo) nixos-rebuild boot --flake .#$(SERVER) -p $(PROFILE)"
 
 [targets.build]
 description = "Builds system"
 prerequisites = [ "check_dependencies" ]
-commands = "nixos-rebuild build --flake .#$(SERVER)"
+commands = "$(if $(shell command -v darwin-rebuild 2>/dev/null),darwin-rebuild,nixos-rebuild) build --flake .#$(SERVER)"
 
 [targets.build-remote]
 description = "Builds system on a remote server"
