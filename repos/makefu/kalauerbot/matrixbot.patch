@@ -1,0 +1,12 @@
+diff --git a/matrixbot/matrixbot.py b/matrixbot/matrixbot.py
+index 8e5598c..d8c23d2 100644
+--- a/matrixbot/matrixbot.py
++++ b/matrixbot/matrixbot.py
+@@ -51,7 +51,6 @@ class MatrixBot:
+         self.user = None
+         if self.token is not None and self.user_id is not None:
+             self.user = self.client.get_user(self.user_id)
+-            self.user.set_display_name(self.display_name)
+             self.init_rooms(self.client.rooms)
+             self.invite_listener = self.client.add_invite_listener(self.handle_invite)
+         self.cache = Cache(dbfile=cache_db)

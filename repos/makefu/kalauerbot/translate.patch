@@ -1,0 +1,17 @@
+diff --git a/googletrans/client.py b/googletrans/client.py
+index 89c2237..c203b44 100644
+--- a/googletrans/client.py
++++ b/googletrans/client.py
+@@ -190,6 +190,13 @@ class Translator(object):
+             pass
+         if not PY3 and isinstance(pron, unicode) and isinstance(origin, str):  # pragma: nocover
+             origin = origin.decode('utf-8')
++
++        if pron is None:
++            try:
++                pron = data[0][2][2]
++            except: # pragma: nocover
++                pass
++
+         if dest in EXCLUDES and pron == origin:
+             pron = translated
