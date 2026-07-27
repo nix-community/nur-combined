@@ -36,17 +36,19 @@ let
     src = fetchFromGitHub {
       owner = "vlinkz";
       repo = "nixos-appstream-data";
-      rev = "66b3399e6d81017c10265611a151d1109ff1af1b";
-      hash = "sha256-oiEZD4sMpb2djxReg99GUo0RHWAehxSyQBbiz8Z4DJk=";
+      rev = "df1a03d7d838026f3c70ca18b1d8867f605ed51c";
+      hash = "sha256-uXNpJv687gJMITVYsfuGOywoElKxEcZMRd6HYVHFu24=";
     };
     nativeBuildInputs = [ appstream ];
     installPhase = ''
       runHook preInstall
-      bash ./build.sh all
       mkdir -p $out/share/app-info/{icons/nixos,xmls}
-      cp dest/*.gz $out/share/app-info/xmls/
-      cp -r dest/icons/64x64 $out/share/app-info/icons/nixos/
-      cp -r dest/icons/128x128 $out/share/app-info/icons/nixos/
+      cp appstream/nixos-unstable/Components-*.xml.gz $out/share/app-info/xmls/nixos_x86_64_linux.yml.gz
+      for tarball in appstream/nixos-unstable/icons-*.tar.gz; do
+        size=$(basename "$tarball" .tar.gz | sed 's/icons-//')
+        mkdir -p $out/share/app-info/icons/nixos/$size
+        tar -xzf "$tarball" -C $out/share/app-info/icons/nixos/$size/
+      done
       runHook postInstall
     '';
   };
@@ -67,7 +69,7 @@ stdenv.mkDerivation rec {
   cargoDeps = rustPlatform.importCargoLock {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "nix-data-0.0.2" = "sha256-yts2bkp9cn4SuYPYjgTNbOwTtpFxps3TU8zmS/ftN/Q=";
+      "nix-data-0.0.3" = "sha256-kLcAtvZPa1VKHmMJR3xiX94lkkmfUFvzn/pnw6r5w4I=";
     };
   };
 
@@ -101,6 +103,9 @@ stdenv.mkDerivation rec {
   ];
 
   patchPhase = ''
+    cp ${./Cargo.lock} Cargo.lock
+    substituteInPlace ./Cargo.toml \
+        --replace-fail 'sqlx = { version = "0.6"' 'sqlx = { version = "0.7"'
     substituteInPlace ./src/lib.rs \
         --replace-fail "/usr/share/app-info" "${nixos-appstream-data}/share/app-info"
   '';
