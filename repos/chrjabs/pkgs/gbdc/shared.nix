@@ -6,16 +6,21 @@
 }:
 {
   pname = "gbdc";
-  version = "0.3.3-multi-opt";
+  version = "0.4.0+multi-opt";
 
   src = fetchFromGitHub {
     owner = "chrjabs";
     repo = "gbdc";
-    rev = "62fbff9a481f5ac12f95a3ca15c6e77c51e816ae";
-    hash = "sha256-6vGaMQQqkKe95OYB91Nbt8d3ucDWD5wEdHUSZAl2RSs=";
+    rev = "44d636bf97c3ee7a4853a603c234c51a481c4ba4";
+    hash = "sha256-2cRD7HSj5XXVNdDRHV9jSeJHchVzVMFCQ9s5SgZEviU=";
   };
 
-  patches = [ ./adjust-cmake-for-nix.patch ];
+  patches = [ ./cmake-system-cadical.patch ];
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'version = "0.4.0"' 'version = "0.4.0+multi-opt"'
+  '';
 
   buildInputs = [
     libarchive

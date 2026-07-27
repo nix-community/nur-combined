@@ -7,16 +7,21 @@
   gbdc,
 }:
 python.pkgs.buildPythonPackage rec {
-  pname = "gbd";
-  version = "5.0.0-multi-opt";
+  pname = "gbd-tools";
+  version = "5.2.0+multi-opt";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "chrjabs";
     repo = "gbd";
-    rev = "1babdb3173b1093ea6299ae04bf2380e942fed1b";
-    hash = "sha256-ziWYM72mXwzwAsxvNKq03yujlB4+baNbjjAYFOwfu4Q=";
+    rev = "92fac125b337c2e1582e133ddc61219ce6bc109d";
+    hash = "sha256-hxvhs7Z4oZnCjP9KV5hyxhqqQ57+HOtAvU0xSWtMOAw=";
   };
+
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'version = "5.2.0"' 'version = "5.2.0+multi-opt"'
+  '';
 
   build-system = [
     setuptools
