@@ -79,19 +79,14 @@ buildGoModule rec {
 
 ### npm packages
 
-Example: `pkgs/hyprland-mcp-server.nix`
+Example: `pkgs/codegraph.nix`
 
 ```nix
 buildNpmPackage rec {
   pname = "...";
   version = "...";
   npmDepsHash = "sha256-...";
-
-  nativeBuildInputs = [ makeWrapper ];
-
-  postInstall = ''
-    wrapProgram "$out/bin/${pname}" --prefix PATH : "${lib.makeBinPath [ ... ]}"
-  '';
+  npmBuildScript = "build";
 }
 ```
 
@@ -135,7 +130,7 @@ some-package = pkgs.callPackage ./pkgs/some-package.nix { };
 - `JMComic-qt` / `picacg-qt`: Python GUI packaging plus runtime wrapping
 - `LoveIwara`: source-built Flutter GUI with offline pub dependencies, system SQLite, libmpv runtime wrapping, and upstream desktop integration
 - `sr-vulkan`: model composition through `sr-vulkan-models`
-- `hyprland-mcp-server`: npm packaging plus PATH wrapping
+- `deskbrid`: Rust package whose compositor helper tools stay on PATH at runtime — no wrapper
 - `fetchPixiv`: helper-style library export using `fetchurl` fallback URLs
 
 ## Hash techniques

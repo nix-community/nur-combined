@@ -57,7 +57,7 @@ The repo currently exports 29 packages from `default.nix`, grouped roughly as:
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `hyprland-mcp-server`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`
+- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.
@@ -108,7 +108,7 @@ Filtering behavior:
 - `JMComic-qt` and `picacg-qt` rely on `sr-vulkan-with-models`, not plain `sr-vulkan`
 - The full SR Vulkan stack (`sr-vulkan`, models, `JMComic-qt`, and `picacg-qt`) is pinned to Python 3.13 because the upstream 2.0.1.1 `abi3` wheel segfaults in `initSet` under Python 3.14
 - `LoveIwara` source-builds with `flutter341`; its derivation uses system SQLite instead of the sandboxed native-asset download, treats `sqlite3_flutter_libs 0.6.0+eol` as an empty compatibility package, and removes enum cases absent from the locked Dio 5.9.1
-- `hyprland-mcp-server` is a wrapped npm package with runtime PATH injection for Hyprland tooling
+- `deskbrid` is a Rust package (edition 2024, rustls) that resolves compositor helper tools (hyprctl, grim, wl-clipboard, ydotool, ...) from PATH at runtime — intentionally not wrapped; it installs its systemd user service (store-path ExecStart) and polkit policy under `$out/share`
 - `context-mode` is a `bun` + `stdenvNoCC.mkDerivation` package with pre-built bundles; it uses `makeBinaryWrapper` and the built-in `node:sqlite` (Node.js >= 22.5) so `better-sqlite3` is not loaded at runtime
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
 - `codegraph` is a `buildNpmPackage` that uses `tree-sitter-wasms` (pre-built WASM grammars) and the built-in `node:sqlite` (Node.js >= 22.5) — no native dependencies to compile

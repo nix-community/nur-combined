@@ -29,7 +29,7 @@ This repository currently exports **29 packages**, **1 library helper**, and pla
 | `mihomo-smart` | Mihomo fork with Smart Groups functionality |
 | `wechat-web-devtools-linux` | Linux build of the WeChat Mini Program DevTools |
 | `agentic-contract` | Policy engine CLI for AI agents |
-| `hyprland-mcp-server` | MCP server for Hyprland automation |
+| `deskbrid` | Linux desktop HAL for AI agents — JSON socket daemon, CLI, and MCP server (GNOME, Hyprland, KDE, wlroots, X11) |
 | `oh-my-pi` | AI coding agent CLI/TUI with sub-agent orchestration |
 | `mcp-cli` | Lightweight CLI for interacting with MCP servers |
 | `context-mode` | MCP server for context window optimization — sandboxed code execution, FTS5 knowledge base |
@@ -89,7 +89,7 @@ This repository currently exports **29 packages**, **1 library helper**, and pla
   environment.systemPackages = with pkgs.nur.repos.zerozawa; [
     JMComic-qt
     picacg-qt
-    hyprland-mcp-server
+    deskbrid
   ];
 }
 ```
@@ -112,7 +112,7 @@ This repository currently exports **29 packages**, **1 library helper**, and pla
         name = "example";
         paths = [
           zerozawa-nur.packages.${system}.mcp-cli
-          zerozawa-nur.packages.${system}.hyprland-mcp-server
+          zerozawa-nur.packages.${system}.deskbrid
         ];
       };
     };
@@ -143,7 +143,7 @@ nix-build -A JMComic-qt
 
 # Build context-mode (requires NIXPKGS_ALLOW_UNFREE=1 for Elastic-2.0 license)
 NIXPKGS_ALLOW_UNFREE=1 nix-build -A context-mode
-nix-build -A hyprland-mcp-server
+nix-build -A deskbrid
 
 # Build through flake outputs
 nix build .#mcp-cli
