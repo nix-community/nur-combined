@@ -923,6 +923,9 @@
         "lennis-dev": {
             "url": "https://github.com/lennis-dev/nur-packages"
         },
+        "leonleespkg": {
+            "url": "https://github.com/LeonLeeLi/LeesNixPackage"
+        },
         "lheckemann": {
             "url": "https://github.com/lheckemann/nixwip"
         },
