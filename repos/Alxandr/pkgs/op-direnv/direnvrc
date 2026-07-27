@@ -7,7 +7,7 @@ DIRENV_MIN_VERSION=2.21.3
 OP_MIN_VERSION=2.33.1
 
 _OP_DIRENV_LOG_PREFIX="op-direnv: "
-_OP_DIRENV_OP=${OP_DIRENV_OP:-@op@}
+_OP_DIRENV_OP=${OP_DIRENV_OP:-op}
 
 _op_direnv_info() {
   log_status "${_OP_DIRENV_LOG_PREFIX}$*"
@@ -64,8 +64,7 @@ _op_direnv_preflight() {
     # a syntax error on bash < 3
     if ! _require_version bash "$BASH_VERSION" "$BASH_MIN_VERSION" ||
       # direnv stdlib defines $direnv
-      ! _require_cmd_version "$direnv" "$DIRENV_MIN_VERSION" ||
-      ! _require_cmd_version "$_OP_DIRENV_OP" "$OP_MIN_VERSION"; then
+      ! _require_cmd_version "$direnv" "$DIRENV_MIN_VERSION"; then
       return 1
     fi
   fi
@@ -125,6 +124,15 @@ use_op() {
   watch_file .env.op
 
   if [[ -f .env.op ]]; then
+    if [[ -z ${NIX_DIRENV_SKIP_VERSION_CHECK:-} ]]; then
+      if ! _require_cmd_version "$_OP_DIRENV_OP" "$OP_MIN_VERSION"; then
+        return 1
+      fi
+    elif ! has "$_OP_DIRENV_OP"; then
+      _op_direnv_error "command not found: $_OP_DIRENV_OP"
+      return 1
+    fi
+
     if [[ ! -f .direnv/op.env ]]; then
       run_reason=initial
     elif [[ .env.op -nt .direnv/op.env ]]; then

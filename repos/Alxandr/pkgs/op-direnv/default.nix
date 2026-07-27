@@ -1,7 +1,6 @@
 {
   lib,
   writeTextFile,
-  _1password-cli,
   shellcheck-minimal,
   ...
 }:
@@ -13,9 +12,7 @@ writeTextFile {
   allowSubstitutes = true;
   preferLocalBuild = false;
 
-  text = builtins.replaceStrings [ "@op@" ] [ (lib.getExe _1password-cli) ] (
-    builtins.readFile ./direnvrc
-  );
+  text = builtins.readFile ./direnvrc;
 
   checkPhase = ''
     runHook preCheck
