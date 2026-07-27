@@ -250,6 +250,29 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     rm -rf $out/lib/oh-my-pi/node_modules
     mkdir -p $out/lib/oh-my-pi/node_modules
     cp -R ${node_modules}/node_modules/. $out/lib/oh-my-pi/node_modules/
+    chmod -R u+w $out/lib/oh-my-pi/node_modules
+    # ── Deduplicate libonnxruntime.so.1 SONAME ──
+    # Multiple onnxruntime-node versions ship libonnxruntime.so.1 with
+    # the same SONAME. The dynamic linker loads only the first one
+    # encountered, which can mismatch the binding that needs a specific
+    # version (e.g. VERS_1.24.3 vs VERS_1.26.0).
+    # Fix: give each copy a unique SONAME and update all local NEEDED refs.
+    for lib in $(find $out -name 'libonnxruntime.so.1' -type f 2>/dev/null); do
+      dir=$(dirname "$lib")
+      # Deterministic suffix from directory path
+      suffix=$(echo "$dir" | cksum | cut -d' ' -f1)
+      new_soname="libonnxruntime.so.1.$suffix"
+      echo "Dedup SONAME: $lib → $new_soname"
+      patchelf --set-soname "$new_soname" "$lib"
+      # Rename the file to match the new SONAME, so the dynamic linker
+      # can find it when searching RPATH directories by NEEDED name.
+      mv "$lib" "$dir/$new_soname"
+      lib="$dir/$new_soname"
+      for elf in "$dir"/*; do
+        [ -f "$elf" ] || continue
+        patchelf --replace-needed libonnxruntime.so.1 "$new_soname" "$elf" 2>/dev/null || true
+      done
+    done
 
     # Overlay native addon from Rust build
     mkdir -p $out/lib/oh-my-pi/packages/natives/native
@@ -274,6 +297,25 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       --add-flags "$out/lib/oh-my-pi/packages/stats/src/index.ts"
 
     runHook postInstall
+  '';
+
+  # ── postFixup: add self-directory to RPATH after autoPatchelfHook ──
+  # autoPatchelfHook replaces RPATH with Nix store paths only, stripping
+  # $ORIGIN and non-store paths. The onnxruntime .node/.so pairs need to
+  # find each other in the same directory. Using postPhases ensures this
+  # runs AFTER fixupPhase (and thus after autoPatchelfHook).
+  postPhases = [ "onnxRpathPhase" ];
+  onnxRpathPhase = ''
+    runHook preOnnxRpath
+    for lib in $(find $out -name 'libonnxruntime.so.1.*' -type f 2>/dev/null); do
+      dir=$(dirname "$lib")
+      patchelf --add-rpath "$dir" "$lib" 2>/dev/null || true
+      for elf in "$dir"/*; do
+        [ -f "$elf" ] || continue
+        patchelf --add-rpath "$dir" "$elf" 2>/dev/null || true
+      done
+    done
+    runHook postOnnxRpath
   '';
 
   dontPatchElf = true;

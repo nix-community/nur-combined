@@ -158,10 +158,24 @@ nix-prefetch-github owner repo --rev v1.0.0
 ## Checklist
 
 - [ ] Export wiring updated in `default.nix` or `lib/default.nix` if needed
-- [ ] Builder matches the closest existing package in this repo
-- [ ] `meta` is complete enough for CI filtering and flake exposure
-- [ ] License format matches current repo conventions or is improved deliberately
-- [ ] Build verified with `nix-build -A <pkg>` or equivalent
-- [ ] Flutter pub lock and native-asset sources are fully offline
 - [ ] Runtime behavior checked for wrapped GUI / CLI tools
 - [ ] Docs updated if package inventory or repo behavior changed
+
+## oh-my-pi specific: ELF patching
+
+`oh-my-pi` is a Bun monorepo with pre-built native Node.js addons from npm
+(onnxruntime-node, sherpa-onnx, @img/sharp, etc.). These `.node` and `.so`
+files need special ELF handling:
+
+- **selective fixup** (`dontPatchElf = true` + `dontStrip = true` +
+  `autoPatchelfHook`) replaces the old blanket `dontFixup = true`
+- **`stdenv` (with cc) alongside `stdenvNoCC`** to access `stdenv.cc.cc.lib`
+  for `libstdc++.so.6` resolution
+- **SONAME dedup in installPhase**: multiple onnxruntime-node versions ship
+  `libonnxruntime.so.1` with the same SONAME. Give each a unique
+  `libonnxruntime.so.1.<cksum>` SONAME, rename the file, and update all
+  local NEEDED refs.
+- **`postPhases` RPATH fix**: autoPatchelfHook strips non-store RPATH
+  entries; add the self-directory back via a `postPhases` hook that runs
+  AFTER fixupPhase.
+- Full docs: `pkgs/oh-my-pi/AGENTS.md`

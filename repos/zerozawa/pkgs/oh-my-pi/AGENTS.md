@@ -265,15 +265,30 @@ When bumping `version` from `X.Y.Z` to `A.B.C`:
 3. **cargoHash**: Set `piNatives.cargoHash = lib.fakeHash`,
    build (`nix-build -A oh-my-pi.piNatives`), replace.
 
-4. **Smoke test**:
+4. **Smoke test + ELF verification**:
    ```bash
    nix-build -A oh-my-pi
    result/bin/omp --version
-   result/bin/omp --help | head -5
-   result/bin/omp-stats --help | head -5
+   result/bin/omp --help >/dev/null 2>&1 && echo "omp help OK"
+   result/bin/omp-stats --help >/dev/null 2>&1 && echo "omp-stats help OK"
    ls result/lib/node_modules/@oh-my-pi/ | head -5
    ls result/lib/oh-my-pi/packages/natives/native/*.node
+   # Verify all onnxruntime .node files have self-dir in RPATH
+   for f in $(find result -name 'onnxruntime_binding.node' -path '*/linux/x64/*'); do
+     dir=$(dirname "$f")
+     patchelf --print-rpath "$f" | grep -qF "$dir" || echo "MISSING self-dir RPATH: $f"
+   done
+   # Verify each binding's NEEDED matches the local renamed libonnxruntime
+   for f in $(find result -name 'onnxruntime_binding.node' -path '*/linux/x64/*'); do
+     dir=$(dirname "$f")
+     needed=$(readelf -d "$f" | grep 'NEEDED.*libonnx' | sed 's/.*\[//;s/\]//')
+   done
    ```
+
+5. **Runtime ONNX check**: After installing the new build, restart omp and
+   check `~/.omp/logs/` for any `libonnxruntime`, `libstdc++`, `VERS_`,
+   or `cannot open shared object file` errors. A clean log means the ELF
+   patching pipeline is intact.
 
 ### When upstream changes
 
@@ -282,6 +297,13 @@ When bumping `version` from `X.Y.Z` to `A.B.C`:
   with `outputHashes`.
 - **npm dependencies changed**: `bun.lock` changes → `node_modules`
   hash changes.
+- **onnxruntime-node version changes**: If the lockfile resolves new
+  onnxruntime-node versions (e.g. a dependency upgrades from 1.24.3 →
+  1.27.0), the SONAME dedup logic in `installPhase` will automatically
+  handle the new copies (unique SONAME per directory). However, verify
+  step 5 above — confirm the new versions don't break API compatibility
+  or introduce new shared library dependencies not covered by
+  `autoPatchelfIgnoreMissingDeps`.
 - **New generation scripts**: If upstream adds build steps before
   `bun build --compile`, add them to `buildPhase`.
 - **Bun version required changes**: If upstream bumps MIN_BUN_VERSION
