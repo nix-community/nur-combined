@@ -2,20 +2,81 @@ name: Auto Update
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 0 * * *"
   workflow_dispatch:
+    inputs:
+      package:
+        description: "Package to update (leave empty for all)"
+        required: false
+        type: string
 
 permissions:
   contents: write
 
 jobs:
-  update:
-    name: Update
+  matrix:
+    name: Build Matrix
     runs-on: ubuntu-latest
+    outputs:
+      packages: ${{ steps.set-matrix.outputs.packages }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
+
+      - id: set-matrix
+        run: |
+          if [ -n "${{ inputs.package }}" ]; then
+            echo 'packages=["${{ inputs.package }}"]' >> "$GITHUB_OUTPUT"
+          else
+            echo "packages=$(jq -c . packages.json)" >> "$GITHUB_OUTPUT"
+          fi
+
+  update:
+    name: Update ${{ matrix.package }}
+    needs: matrix
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.matrix.outputs.packages) }}
+    steps:
+      - uses: actions/checkout@v4
+
       - uses: cachix/install-nix-action@v31
-      - run: git -C "$root" config user.name "github-actions[bot]"
-      - run: git -C "$root" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-      - run: nix deveelop -c ./update.sh
-      - run: git push
+        with:
+          extra_nix_config: |
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - uses: cachix/cachix-action@v15
+        with:
+          name: nix-repository--aster-void
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Run update
+        id: update
+        run: nix-shell --run "./scripts/update-package.sh '${{ matrix.package }}'"
+
+      - name: Check format
+        if: steps.update.outputs.updated == 'true'
+        run: nix fmt -- --fail-on-change
+
+      - name: Build package
+        if: steps.update.outputs.updated == 'true'
+        run: nix build .#${{ matrix.package }} --print-build-logs
+
+      - name: Run check script
+        if: steps.update.outputs.updated == 'true'
+        run: |
+          if [ -x "./packages/${{ matrix.package }}/check.sh" ]; then
+            ./packages/${{ matrix.package }}/check.sh
+          fi
+
+      - name: Push to main
+        if: steps.update.outputs.updated == 'true'
+        run: |
+          git commit -m "packages/${{ matrix.package }}: ${{ steps.update.outputs.old_version }} -> ${{ steps.update.outputs.new_version }}"
+          git push origin main

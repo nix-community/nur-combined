@@ -1,10 +1,5 @@
 pre-commit:
-  parallel: true
   jobs:
-    - name: alejandra
-      run: alejandra {staged_files}
-      glob: "*.nix"
-      stage_fixed: true
-    - name: prettier
-      run: prettier . --write
+    - name: treefmt
+      run: treefmt {staged_files}
       stage_fixed: true

@@ -1,10 +1,11 @@
 {
-  system,
+  stdenv,
   fetchzip,
   stdenvNoCC,
   autoPatchelfHook,
   pkgs,
 }: let
+  inherit (stdenv.hostPlatform) system;
   platforms = {
     "x86_64-linux" = {
       url = "linux-x64";
@@ -27,7 +28,7 @@
       isMacOS = true;
     };
   };
-  platform = platforms.${toString system} or (throw "[nix-repository:lotion-bin] system not supported: ${toString system}");
+  platform = platforms.${system} or (throw "[nix-repository:lotion-bin] system not supported: ${system}");
 in
   stdenvNoCC.mkDerivation (finalAttrs: {
     pname = "lotion";

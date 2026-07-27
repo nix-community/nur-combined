@@ -6,8 +6,9 @@
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     blueprint.url = "github:numtide/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
-    treefmt-nix.url = "github:numtide/treefmt-nix";
-    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+    # External flake packages
+    helix-gj1118.url = "github:gj1118/helix";
+    helix-gj1118.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   # Load the blueprint

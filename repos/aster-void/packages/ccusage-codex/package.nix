@@ -3,11 +3,13 @@
   nodejs,
   fetchFromGitHub,
   pnpm,
+  pnpmConfigHook,
+  fetchPnpmDeps,
   makeBinaryWrapper,
   lib,
   bun,
 }: let
-  version = "17.1.3";
+  version = "17.2.0";
 in
   stdenv.mkDerivation (finalAttrs: {
     pname = "ccusage-codex";
@@ -17,18 +19,19 @@ in
       owner = "ryoppippi";
       repo = "ccusage";
       tag = "v${version}";
-      hash = "sha256-s/0tki1xD7dIawGmURlvJGf5C+jhL6HrZLUo5C1bV98=";
+      hash = "sha256-3EHiNPQlvLQgkFRSGWhLuo31PVaNBGhpc9pa3VcR5tw=";
     };
 
-    pnpmDeps = pnpm.fetchDeps {
+    pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
       fetcherVersion = 2;
-      hash = "sha256-zUh/aBRo6xk05NgqSO9WyDyFPQEiHqMzQ8i4Y5XBGgA=";
+      hash = "sha256-nOHptc1Ov6YTHMcU3HDb2BSdcceWeM2rX+XAKiowOxM=";
     };
 
     nativeBuildInputs = [
       nodejs
-      pnpm.configHook
+      pnpm
+      pnpmConfigHook
       bun
       makeBinaryWrapper
     ];

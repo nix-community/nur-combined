@@ -7,7 +7,7 @@
   cfg = config.programs.asdf;
   mkIntegrationOption = name: lib.mkEnableOption "asdf ${name} integration";
 in {
-  _class = "home-manager";
+  _class = "homeManager";
 
   options.programs.asdf = {
     enable = lib.mkEnableOption "asdf version manager";

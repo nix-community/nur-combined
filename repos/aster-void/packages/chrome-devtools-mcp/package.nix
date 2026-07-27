@@ -7,7 +7,7 @@
   makeWrapper,
   runCommand,
 }: let
-  tag = "chrome-devtools-mcp-v0.9.0";
+  tag = "chrome-devtools-mcp-v0.12.1";
   unwrapped = buildNpmPackage {
     pname = "chrome-devtools-mcp-unwrapped";
     version = tag;
@@ -15,7 +15,7 @@
       owner = "ChromeDevTools";
       repo = "chrome-devtools-mcp";
       inherit tag;
-      hash = "sha256-VHKyQFZGoINdiZjb+4VKu0cOp0Klgg/1Tnc9b1jH5Z4=";
+      hash = "sha256-kLIZ3IpeAAY0sycwhoYoBLI96Vh2ATSS8VpFRBptTNw=";
     };
     env = {
       PUPPETEER_SKIP_DOWNLOAD = "true";
@@ -23,12 +23,22 @@
 
     buildPhase = ''
       runHook preBuild
-      npm run prepare
-      npm run build
+      npm run bundle
       runHook postBuild
     '';
 
-    npmDepsHash = "sha256-fUnjN6xSVndJ2O9u8Suc2sogPwTEL8JFgp0HfzvcHjs=";
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/lib/node_modules/chrome-devtools-mcp
+      cp -r build $out/lib/node_modules/chrome-devtools-mcp/
+      cp package.json $out/lib/node_modules/chrome-devtools-mcp/
+      chmod +x $out/lib/node_modules/chrome-devtools-mcp/build/src/index.js
+      mkdir -p $out/bin
+      ln -s $out/lib/node_modules/chrome-devtools-mcp/build/src/index.js $out/bin/chrome-devtools-mcp
+      runHook postInstall
+    '';
+
+    npmDepsHash = "sha256-WPRVYEYOUjRWYKNRbd6+mZeRZLtHfoTlst3vZMt8sxE=";
 
     meta = {
       description = "Chrome DevTools for coding agents";
@@ -47,7 +57,7 @@
     ["--bind" "$HOME" "$HOME"]
     ["--tmpfs" "/opt"]
     ["--dir" "/opt/google/chrome"]
-    ["--symlink" "${lib.getExe chromium}" "opt/google/chrome/chrome"]
+    ["--symlink" "${lib.getExe chromium}" "/opt/google/chrome/chrome"]
     ["--"]
     (lib.getExe unwrapped)
   ];

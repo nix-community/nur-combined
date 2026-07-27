@@ -15,9 +15,6 @@
   installPath = "$out/share/sddm/themes/sddm-astronaut-theme";
   themePath = "Themes/${theme}.conf";
 in
-  lib.warnIfNot (builtins.pathExists "${src}/${themePath}") ''
-    [sddm-astronaut-theme] Configuration file does not exist at ${themePath} - configuration may not work as expected
-  ''
   stdenv.mkDerivation {
     pname = "sddm-astronaut-theme";
     version = "git";

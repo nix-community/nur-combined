@@ -7,7 +7,7 @@
   source = import ./source.nix {inherit pkgs;};
   cfg = config.programs.vscode-remote-wsl-nixos;
 in {
-  _class = "home-manager";
+  _class = "homeManager";
 
   options.programs.vscode-remote-wsl-nixos = {
     enable = lib.mkEnableOption "vscode remote wsl nixos patch";
