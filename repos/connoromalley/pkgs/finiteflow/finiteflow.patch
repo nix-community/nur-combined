@@ -1,0 +1,33 @@
+From 8dd985e5ce7a3508a7fb1ef3b6a82df07903a2d1 Mon Sep 17 00:00:00 2001
+From: connordennyomalley <connordennyomalley@gmail.com>
+Date: Tue, 31 Mar 2026 12:37:39 +0100
+Subject: [PATCH] Include generated header
+
+---
+ CMakeLists.txt | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index d708bf4..f528637 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -72,6 +72,7 @@ include_directories(
+     BEFORE
+     ${CMAKE_CURRENT_SOURCE_DIR}/src
+     ${CMAKE_CURRENT_SOURCE_DIR}/include
++    ${CMAKE_CURRENT_BINARY_DIR}/include
+     )
+ 
+ set(FFLOW_SOURCES
+@@ -120,7 +121,7 @@ set(FFLOW_SOURCES
+     )
+ 
+ set(FFLOW_HEADERS
+-    include/fflow/config.hh
++    ${CMAKE_CURRENT_BINARY_DIR}/include/fflow/config.hh
+ 
+     include/fflow/common.hh
+     include/fflow/small_vector.hh
+-- 
+2.39.5 (Apple Git-154)
+
