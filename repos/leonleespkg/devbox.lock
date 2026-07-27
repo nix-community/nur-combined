@@ -1,0 +1,57 @@
+{
+  "lockfile_version": "1",
+  "packages": {
+    "dpkg@latest": {
+      "last_modified": "2026-06-27T07:37:20Z",
+      "resolved": "github:NixOS/nixpkgs/3d46470bb3030020f7e1361f33514854f5bfa86d#dpkg",
+      "source": "devbox-search",
+      "version": "1.23.7",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/1c7fanc6x3rk3246apkqw9jbyalbvvf0-dpkg-1.23.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/1c7fanc6x3rk3246apkqw9jbyalbvvf0-dpkg-1.23.7"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/82f0813g7v0gppf1fngvk7a7xd01a30j-dpkg-1.23.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/82f0813g7v0gppf1fngvk7a7xd01a30j-dpkg-1.23.7"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/z1g8w3za87qn48bc9jvp7603j2k86dc1-dpkg-1.23.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/z1g8w3za87qn48bc9jvp7603j2k86dc1-dpkg-1.23.7"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/2r888pn7a6x638ykjrlid9fp6rixzrnz-dpkg-1.23.7",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/2r888pn7a6x638ykjrlid9fp6rixzrnz-dpkg-1.23.7"
+        }
+      }
+    },
+    "github:NixOS/nixpkgs/nixpkgs-unstable": {
+      "last_modified": "2026-07-15T11:37:32Z",
+      "resolved": "github:NixOS/nixpkgs/35d3407a3816f3b341d8cf1d60abaf2b7b8166ac?lastModified=1784115452&narHash=sha256-BoYPdqk6jlKXy%2BDyUzyGV%2FCtRGfAhk2MmIgBhsemTGI%3D"
+    }
+  }
+}
