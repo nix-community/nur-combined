@@ -44,8 +44,8 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 ## Settings Omnimux owns
 
 - **OSC 52** remote clipboard: default disabled; opt-in in Settings (policy passed into `TerminalConfig`).
-- **Open links**: off by default; Cmd/Ctrl+click http(s) with confirm (uses vendor link callback).
-- Font size sync / remember, auto-reconnect, remember sessions, window maximized, etc.
+- **Links & Modifiers**: Open http(s) links by clicking them while holding **Ctrl** (confirmation required). Hold **Shift** to bypass mouse reporting in terminal apps (like tmux/vim) and select text locally.
+- Font size sync / remember, auto-reconnect, remember sessions, window maximized (resizing by dragging edges disabled while maximized), etc.
 
 ## Packaging
 

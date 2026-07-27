@@ -129,9 +129,6 @@ impl TerminalTabs {
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
-        if !self.open_links {
-            return;
-        }
         if !gpui_terminal::is_browser_url(&url) {
             return;
         }
@@ -266,7 +263,6 @@ impl TerminalTabs {
         self.sync_font_size_across_tabs = true;
         self.remember_font_size = false;
         self.osc52 = crate::settings::Osc52Setting::Disabled;
-        self.open_links = false;
         self.font_size = px(DEFAULT_FONT_SIZE);
         let size = self.font_size;
         let osc52 = self.osc52.into();

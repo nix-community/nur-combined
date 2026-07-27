@@ -968,12 +968,8 @@ impl TerminalView {
     ) {
         window.focus(&self.focus_handle);
 
-        // Cmd (macOS) / Ctrl (Linux) + left click → open URL when a handler is set.
-        let link_modifier = if cfg!(target_os = "macos") {
-            event.modifiers.platform
-        } else {
-            event.modifiers.control || event.modifiers.platform
-        };
+        // Ctrl + left click → open URL when a handler is set.
+        let link_modifier = event.modifiers.control;
         if event.button == MouseButton::Left && link_modifier {
             if let Some(ref callback) = self.link_click_callback {
                 let viewport = self.viewport_cell_at(event.position);
@@ -1695,6 +1691,7 @@ impl Render for TerminalView {
             .on_mouse_up_out(MouseButton::Right, cx.listener(Self::on_mouse_up_out))
             .on_mouse_move(cx.listener(Self::on_mouse_move))
             .on_scroll_wheel(cx.listener(Self::on_scroll))
+            .on_modifiers_changed({ let entity = view_entity.clone(); move |_, _, cx| entity.update(cx, |_, cx| cx.notify()) })
             .child(
                 canvas(
                     move |bounds, _window, _cx| bounds,
@@ -1788,6 +1785,7 @@ impl Render for TerminalView {
                             padding,
                             &term,
                             search_highlight,
+                            window.modifiers().control,
                             window,
                             cx,
                         );

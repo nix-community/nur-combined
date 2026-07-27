@@ -35,6 +35,82 @@ pub fn find_url_at_point<T>(term: &Term<T>, point: AlacPoint) -> Option<String> 
     find_url_containing(&text, click_byte).map(|url| sanitize_url(&url))
 }
 
+pub fn find_urls_in_row<T>(term: &Term<T>, line: alacritty_terminal::index::Line) -> Vec<RangeInclusive<usize>> {
+    let grid = term.grid();
+    let cols = term.columns();
+    
+    let mut text = String::with_capacity(cols);
+    let mut col_ranges: Vec<RangeInclusive<usize>> = Vec::with_capacity(cols);
+    let mut osc8_ranges = Vec::new();
+    let mut current_osc8: Option<(String, usize)> = None;
+
+    for col in 0..cols {
+        let cell = &grid[AlacPoint::new(line, Column(col))];
+        
+        if let Some(link) = cell.hyperlink() {
+            let uri = sanitize_url(link.uri());
+            if let Some((current_uri, start)) = current_osc8.as_ref() {
+                if *current_uri != uri {
+                    osc8_ranges.push(*start..=col.saturating_sub(1));
+                    current_osc8 = Some((uri, col));
+                }
+            } else {
+                current_osc8 = Some((uri, col));
+            }
+        } else if let Some((_, start)) = current_osc8.take() {
+            osc8_ranges.push(start..=col.saturating_sub(1));
+        }
+
+        let start = text.len();
+        text.push_str(cell.c.to_string().as_str());
+        if text.len() == start {
+            text.push(' ');
+        }
+        col_ranges.push(start..=text.len().saturating_sub(1));
+    }
+    
+    if let Some((_, start)) = current_osc8 {
+        osc8_ranges.push(start..=cols.saturating_sub(1));
+    }
+
+    let mut all_ranges = osc8_ranges;
+
+    let bytes = text.as_bytes();
+    let mut i = 0;
+    while i < bytes.len() {
+        if let Some(rest) = text.get(i..) {
+            if let Some(url) = match_url_at(rest) {
+                let trimmed = trim_url_punctuation(url);
+                let start_byte = i;
+                let end_byte = i + trimmed.len();
+                
+                let mut start_col = None;
+                let mut end_col = None;
+                for (col, byte_range) in col_ranges.iter().enumerate() {
+                    if start_col.is_none() && byte_range.end() >= &start_byte {
+                        start_col = Some(col);
+                    }
+                    if end_col.is_none() && byte_range.start() >= &end_byte {
+                        end_col = Some(col.saturating_sub(1));
+                        break;
+                    }
+                }
+                
+                if let Some(start_col) = start_col {
+                    let end_col = end_col.unwrap_or(cols.saturating_sub(1));
+                    all_ranges.push(start_col..=end_col);
+                }
+                
+                i += url.len();
+                continue;
+            }
+        }
+        i += 1;
+    }
+
+    all_ranges
+}
+
 fn find_url_containing(line: &str, byte_index: usize) -> Option<String> {
     let bytes = line.as_bytes();
     let mut i = 0;

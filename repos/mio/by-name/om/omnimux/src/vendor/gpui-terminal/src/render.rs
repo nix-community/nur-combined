@@ -475,12 +475,13 @@ impl TerminalRenderer {
     /// * `term` - The terminal state
     /// * `window` - The GPUI window
     /// * `cx` - The application context
-    pub fn paint(
-        &self,
+    pub fn paint<T: alacritty_terminal::event::EventListener>(
+        &mut self,
         bounds: Bounds<Pixels>,
         padding: Edges<Pixels>,
-        term: &Term<GpuiEventProxy>,
+        term: &Term<T>,
         search_highlight: Option<(AlacPoint, AlacPoint)>,
+        ctrl_held: bool,
         window: &mut Window,
         _cx: &mut App,
     ) {
@@ -535,6 +536,11 @@ impl TerminalRenderer {
                     (col_idx, cell)
                 })
                 .collect();
+
+            let mut url_cols = Vec::new();
+            if ctrl_held {
+                url_cols = crate::links::find_urls_in_row(term, line);
+            }
 
             // Layout the row for backgrounds
             let (backgrounds, _) = self.layout_row(line_idx, cells.iter().cloned(), colors);
@@ -667,7 +673,7 @@ impl TerminalRenderer {
                 let flags = cell.flags;
                 let bold = flags.contains(alacritty_terminal::term::cell::Flags::BOLD);
                 let italic = flags.contains(alacritty_terminal::term::cell::Flags::ITALIC);
-                let underline = flags.contains(alacritty_terminal::term::cell::Flags::UNDERLINE);
+                let underline = flags.contains(alacritty_terminal::term::cell::Flags::UNDERLINE) || (ctrl_held && url_cols.iter().any(|r| r.contains(&col_idx)));
 
                 // Create font with styling
                 let font = self.gpui_font(

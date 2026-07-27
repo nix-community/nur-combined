@@ -75,8 +75,7 @@ pub struct Settings {
     pub font_size: Option<f32>,
     /// OSC 52 remote clipboard policy. Default: disabled.
     pub osc52: Option<Osc52Setting>,
-    /// Allow Cmd/Ctrl+click on http(s) / OSC 8 links (confirm before open). Default: off.
-    pub open_links: Option<bool>,
+    /// Remember opened tabs across app restarts. Default: off.
     /// Last window maximize state (restored on next launch).
     pub window_maximized: Option<bool>,
 }
@@ -144,7 +143,6 @@ pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
             None
         },
         osc52: Some(tabs.osc52),
-        open_links: Some(tabs.open_links),
         window_maximized: existing.window_maximized,
     };
     write_settings(&settings);

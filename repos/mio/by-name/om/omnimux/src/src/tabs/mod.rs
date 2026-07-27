@@ -37,8 +37,6 @@ pub struct TerminalTabs {
     pub(crate) sync_font_size_across_tabs: bool,
     pub(crate) remember_font_size: bool,
     pub(crate) osc52: Osc52Setting,
-    /// Opt-in Cmd/Ctrl+click http(s) links with confirm (default off).
-    pub(crate) open_links: bool,
     /// Pending URL awaiting confirm before `cx.open_url`.
     pub(crate) pending_open_url: Option<String>,
     /// Right-click terminal context menu (Copy/Paste).
@@ -67,7 +65,6 @@ impl TerminalTabs {
         let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
         let remember_font_size = settings.remember_font_size.unwrap_or(false);
         let osc52 = settings.osc52.unwrap_or_default();
-        let open_links = settings.open_links.unwrap_or(false);
         let font_size = if remember_font_size {
             px(
                 settings
@@ -163,7 +160,7 @@ impl TerminalTabs {
             }),
             cx.observe_window_bounds(window, |this, window, cx| {
                 let window_handle = window.window_handle();
-                cx.spawn(async move |_, mut cx| {
+                cx.spawn(async move |_, cx| {
                     gpui::Timer::after(std::time::Duration::from_millis(500)).await;
                     let _ = window_handle.update(cx, |_, window, _| {
                         crate::settings::save_window_maximized(window.is_maximized());
@@ -216,7 +213,6 @@ impl TerminalTabs {
             sync_font_size_across_tabs,
             remember_font_size,
             osc52,
-            open_links,
             pending_open_url: None,
             context_menu: None,
             font_size,

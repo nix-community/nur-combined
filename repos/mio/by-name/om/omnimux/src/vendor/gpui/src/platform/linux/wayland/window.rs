@@ -1053,6 +1053,9 @@ impl PlatformWindow for WaylandWindow {
 
     fn start_window_resize(&self, edge: crate::ResizeEdge) {
         let state = self.borrow();
+        if state.maximized {
+            return;
+        }
         state.toplevel.resize(
             &state.globals.seat,
             state.client.get_serial(SerialKind::MousePress),
