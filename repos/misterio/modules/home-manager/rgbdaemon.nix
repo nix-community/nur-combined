@@ -23,25 +23,11 @@ in {
       '';
     };
     daemons = {
-      swayWorkspaces = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Enable sway workspaces daemon
-        '';
-      };
       mute = mkOption {
         type = types.bool;
         default = false;
         description = ''
           Enable mute button daemon
-        '';
-      };
-      tty = mkOption {
-        type = types.bool;
-        default = false;
-        description = ''
-          Enable tty status daemon
         '';
       };
       swayLock = mkOption {
@@ -59,22 +45,24 @@ in {
         '';
       };
     };
-    colors = let
-      mkColorOption = name: {
-        inherit name;
-        value = mkOption {
-          type = types.strMatching "[a-fA-F0-9]{6}";
-          description = "${name} color.";
-          default = "ffffff";
+    colors =
+      let
+        mkColorOption = name: {
+          inherit name;
+          value = mkOption {
+            type = types.strMatching "[a-fA-F0-9]{6}";
+            description = "${name} color.";
+            default = "ffffff";
+          };
         };
-      };
-    in listToAttrs (map mkColorOption [
-      "background"
-      "foreground"
-      "secondary"
-      "tertiary"
-      "quaternary"
-    ]);
+      in
+      listToAttrs (map mkColorOption [
+        "background"
+        "foreground"
+        "secondary"
+        "tertiary"
+        "quaternary"
+      ]);
     mouse = {
       device = mkOption {
         type = types.path;
@@ -121,10 +109,8 @@ in {
         COLOR_SECONDARY=${cfg.colors.secondary}
         COLOR_TERTIARY=${cfg.colors.tertiary}
         COLOR_QUATERNARY=${cfg.colors.quaternary}
-        ENABLE_SWAY_WORKSPACES=${toString cfg.daemons.swayWorkspaces}
         ENABLE_SWAY_LOCK=${toString cfg.daemons.swayLock}
         ENABLE_MUTE=${toString cfg.daemons.mute}
-        ENABLE_TTY=${toString cfg.daemons.tty}
         ENABLE_PLAYER=${toString cfg.daemons.player}
       '';
       onChange = ''
@@ -136,9 +122,9 @@ in {
       Service = {
         ExecStart = "${cfg.package}/bin/rgbdaemon";
         ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
-        Restart = "on-failure";
+        Restart = "always";
       };
-      Install = { WantedBy = [ "sway-session.target" ]; };
+      Install = { WantedBy = [ "graphical-session.target" ]; };
     };
   };
 }

@@ -1,17 +1,9 @@
-{ lib, rustPlatform }:
+{ rustPlatform }:
 
-let manifest = (lib.importTOML ./Cargo.toml).package;
-in
-rustPlatform.buildRustPackage rec {
-  pname = manifest.name;
-  inherit (manifest) version;
+rustPlatform.buildRustPackage {
+  pname = "foo-bar";
+  version = "0.1.0";
 
-  src = lib.cleanSource ./.;
-
+  src = ./.;
   cargoLock.lockFile = ./Cargo.lock;
-
-  meta = with lib; {
-    inherit (manifest) description homepage;
-    platforms = platforms.all;
-  };
 }

@@ -1,40 +1,30 @@
 {
   description = "Foo Bar Haskell Project";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    flake-utils.url = "github:numtide/flake-utils";
+  nixConfig = {
+    extra-substituters = [ "https://cache.m7.rs" ];
+    extra-trusted-public-keys = [ "cache.m7.rs:kszZ/NSwE/TjhOcPPQ16IuUiuRSisdiIwhKZCxguaWg=" ];
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+  };
+
+  outputs = { self, nixpkgs }:
     let
-      name = "foo-bar";
-      overlay = final: _prev: {
-        ${name} = final.haskellPackages.callCabal2nix name ./. { };
-      };
-      overlays = [ overlay ];
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      pkgsFor = nixpkgs.legacyPackages;
     in
-    {
-      inherit overlay overlays;
-    } //
-    (flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system overlays; };
-      in
-      rec {
-        # nix build
-        packages.${name} = pkgs.${name};
-        defaultPackage = packages.${name};
+    rec {
+      packages = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage ./default.nix { };
+      });
 
-        # nix run
-        apps.${name} = flake-utils.lib.mkApp { drv = packages.${name}; };
-        defaultApp = apps.${name};
+      devShells = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage ./shell.nix { };
+      });
 
-        # nix develop
-        devShell = pkgs.mkShell {
-          inputsFrom = [ defaultPackage ];
-          buildInputs = with pkgs; [ haskell-language-server cabal-install ghc ];
-        };
-      }));
+      hydraJobs = packages;
+    };
 }
 

@@ -1,39 +1,30 @@
 {
   description = "Foo Bar Rust Project";
 
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    utils.url = "github:numtide/flake-utils";
+  nixConfig = {
+    extra-substituters = [ "https://cache.m7.rs" ];
+    extra-trusted-public-keys = [ "cache.m7.rs:kszZ/NSwE/TjhOcPPQ16IuUiuRSisdiIwhKZCxguaWg=" ];
   };
 
-  outputs = { self, nixpkgs, utils }:
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
+  };
+
+  outputs = { self, nixpkgs }:
     let
-      name = "foo-bar";
-      overlay = final: _prev: {
-        ${name} = final.callPackage ./default.nix { };
-      };
-      overlays = [ overlay ];
-    in {
-      inherit overlay overlays;
-    } //
-    (utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs { inherit system overlays; };
-      in
-      rec {
-        # nix build
-        packages.${name} = pkgs.${name};
-        defaultPackage = packages.${name};
+      forAllSystems = nixpkgs.lib.genAttrs [ "x86_64-linux" "aarch64-linux" ];
+      pkgsFor = nixpkgs.legacyPackages;
+    in
+    rec {
+      packages = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage ./default.nix { };
+      });
 
-        # nix run
-        apps.${name} = utils.lib.mkApp { drv = packages.${name}; };
-        defaultApp = apps.${name};
+      devShells = forAllSystems (system: {
+        default = pkgsFor.${system}.callPackage ./shell.nix { };
+      });
 
-        # nix develop
-        devShell = pkgs.mkShell {
-          inputsFrom = [ defaultPackage ];
-          buildInputs = with pkgs; [ rustc rust-analyzer rustfmt clippy ];
-        };
-      }));
+      hydraJobs = packages;
+    };
 }
 

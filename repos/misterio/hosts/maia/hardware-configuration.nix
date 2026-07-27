@@ -1,14 +1,19 @@
-{ modulesPath, ... }: {
+{
   imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    ../common/btrfs-optin-persistence.nix
-    ../common/encrypted-root.nix
+    ../common/optional/ephemeral-btrfs.nix
+    ../common/optional/encrypted-root.nix
   ];
-
   boot = {
     initrd = {
-      availableKernelModules = [ "usbhid" "xhci_pci" "ahci" "usb_storage" "sd_mod" ];
+      availableKernelModules = [ "xhci_pci" "ahci" "usbhid" "sd_mod" ];
       kernelModules = [ "kvm-intel" ];
+    };
+    loader = {
+      systemd-boot = {
+        enable = true;
+        consoleMode = "max";
+      };
+      efi.canTouchEfiVariables = true;
     };
   };
 
@@ -18,4 +23,12 @@
       fsType = "vfat";
     };
   };
+
+  swapDevices = [{
+    device = "/swap/swapfile";
+    size = 8196;
+  }];
+
+  nixpkgs.hostPlatform.system = "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = true;
 }

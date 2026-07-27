@@ -1,4 +1,3 @@
-# System configuration for my laptop
 { pkgs, inputs, ... }: {
   imports = [
     inputs.hardware.nixosModules.common-cpu-amd
@@ -6,60 +5,41 @@
     inputs.hardware.nixosModules.common-pc-ssd
 
     ./hardware-configuration.nix
-    ../common
-    ../common/misterio-greetd.nix
-    ../common/pipewire.nix
-    ../common/postgres.nix
-    ../common/steam.nix
 
-    ./wireguard.nix
+    ../common/global
+    ../common/users/misterio
+
+    ../common/optional/wireless.nix
+    ../common/optional/greetd.nix
+    ../common/optional/pipewire.nix
+    ../common/optional/quietboot.nix
+    ../common/optional/lol-acfix.nix
   ];
 
-
-  networking.networkmanager.enable = true;
-
-  boot = {
-    # Kernel
-    kernelPackages = pkgs.linuxPackages_zen;
-    # Plymouth (currently only starts at phase 2)
-    plymouth = {
-      enable = true;
-    };
-    loader = {
-      timeout = 0;
-      systemd-boot = {
-        enable = true;
-        consoleMode = "max";
-        editor = false;
-      };
-      efi.canTouchEfiVariables = true;
-    };
-    # Let's me play lol
-    kernel.sysctl = {
-      "abi.vsyscall32" = 0;
-    };
+  networking = {
+    hostName = "pleione";
   };
 
-  services.dbus.packages = [ pkgs.gcr ];
+  boot = {
+    kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    binfmt.emulatedSystems = [ "aarch64-linux" "i686-linux" ];
+  };
 
   powerManagement.powertop.enable = true;
   programs = {
     light.enable = true;
-    gamemode.enable = true;
     adb.enable = true;
     dconf.enable = true;
     kdeconnect.enable = true;
   };
 
   # Lid settings
-  services.logind ={
+  services.logind = {
     lidSwitch = "suspend";
     lidSwitchExternalPower = "lock";
   };
 
-  xdg.portal = {
-    enable = true;
-    gtkUsePortal = true;
-    wlr.enable = true;
-  };
+  hardware.opengl.enable = true;
+
+  system.stateVersion = "22.05";
 }

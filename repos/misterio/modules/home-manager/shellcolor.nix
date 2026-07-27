@@ -10,7 +10,8 @@ let
   renderSettings = settings:
     lib.concatStrings (lib.mapAttrsToList renderSetting settings);
 
-in {
+in
+{
   options.programs.shellcolor = {
     enable = lib.mkEnableOption "shellcolor";
 
@@ -36,6 +37,13 @@ in {
       '';
     };
 
+    enableBashSshFunction = lib.mkOption {
+      default = false;
+      type = lib.types.bool;
+      description = ''
+        Whether to enable SSH integration by replacing ssh with a bash function.
+      '';
+    };
     enableFishSshFunction = lib.mkOption {
       default = false;
       type = lib.types.bool;
@@ -73,6 +81,14 @@ in {
     programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration
       (lib.mkBefore ''
         ${package}/bin/shellcolord $$ & disown
+        ${lib.optionalString cfg.enableBashSshFunction ''
+        ssh() {
+          ${package}/bin/shellcolor disable $$
+          command ssh "$@"
+          ${package}/bin/shellcolor enable $$
+          ${package}/bin/shellcolor apply $$
+        }
+        ''}
       '');
 
     programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration (lib.mkBefore ''
