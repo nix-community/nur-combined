@@ -4,6 +4,7 @@
 
 self: super:
 let
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules"
     || n == "hmModules"; # see https://github.com/nix-community/NUR/issues/140
   nameValuePair = n: v: { name = n; value = v; };

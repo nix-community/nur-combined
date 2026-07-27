@@ -13,6 +13,7 @@
 
 with builtins;
 let
+
   isReserved = n: n == "lib" || n == "overlays" || n == "modules"
     || n == "hmModules"; # see https://github.com/nix-community/NUR/issues/140
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
