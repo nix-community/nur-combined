@@ -2,7 +2,6 @@
   pkgs,
   lib,
   fetchFromGitHub,
-  fetchpatch,
   pkgsCross,
   makeRustPlatform,
   pkg-config,
@@ -80,25 +79,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "drg-mint-notag";
-  version = "0.3.2";
+  version = "0.3.3";
 
   src = fetchFromGitHub {
     owner = "Strappazzon";
     repo = "drg-mint-notag";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-a0bG9dj54tDcO8I6JL3qSRu3tYiOr/GsLvQas/sgrFg=";
+    hash = "sha256-+iOQ544UIXNpXZWeof49F3m9byeXwJKAui7JIsRWKHA=";
   };
 
-  cargoHash = "sha256-rStZkDD7jdn3/RwQEdLf0ycW14O+El08XAm4RDi903c=";
-
-  patches = [
-    # https://github.com/Strappazzon/drg-mint-notag/pull/19
-    (fetchpatch {
-      name = "fix-tests.patch";
-      url = "https://github.com/Strappazzon/drg-mint-notag/compare/04b69a0d499d649c2091ffb2dd00ae8ca1549833~1...2121a8f5de3476f18a965aa739546fd88e38976d.patch";
-      hash = "sha256-vLhbx4k8jVgTmGz8hcjuqg0vdT/+/NFdtKbVdKrUUg4=";
-    })
-  ];
+  cargoHash = "sha256-X3y7X9jh8XjSTu3ErFto7Kk+nZc5//8pAmbhfVDgHJc=";
 
   env = {
     # Necessary for cross compiled build scripts, otherwise it will build as ELF format
