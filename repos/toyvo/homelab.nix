@@ -85,7 +85,7 @@
         port = 5000;
         subdomain = "cache";
         domain = "toyvo.dev";
-        protected = false;
+        forwardAuthGate = false;
         displayName = "Nix Cache";
         description = "Binary Cache";
         category = "Nas";
@@ -129,7 +129,8 @@
     ip = "10.200.0.12";
     services.immich = {
       port = 2283;
-      protected = false;
+      # has oauth configured with authentik
+      forwardAuthGate = false;
       displayName = "Immich";
       description = "Photo Management";
       category = "Media";
@@ -186,7 +187,8 @@
     ip = "10.200.0.6";
     services.jellyfin = {
       port = 8096;
-      protected = false;
+      # has ldap configured with authentik
+      forwardAuthGate = false;
       displayName = "Jellyfin";
       description = "Media Server";
       category = "Jellyfin";
@@ -226,7 +228,7 @@
     services.authentik = {
       port = 9000;
       subdomain = "auth";
-      protected = false;
+      forwardAuthGate = false;
       displayName = "Authentik";
       description = "Identity Provider";
       category = "Infrastructure";

@@ -26,7 +26,7 @@
                 domain ? "diekvoss.net",
                 selfSigned ? false,
                 public ? domain != "diekvoss.net",
-                protected ? true,
+                forwardAuthGate ? true,
                 ...
               }:
               {
@@ -47,7 +47,7 @@
                       ];
                   extraConfig =
                     let
-                      forwardAuthBlock = lib.optionalString (protected && !selfSigned) ''
+                      forwardAuthBlock = lib.optionalString (forwardAuthGate && !selfSigned) ''
                         forward_auth http://${homelab.authentik.ip}:9000 {
                           uri /outpost.goauthentik.io/auth/caddy
                           copy_headers X-Authentik-Username X-Authentik-Groups X-Authentik-Jwt X-Authentik-Email X-Authentik-Name X-Authentik-Uid X-Authentik-Session-Issuer
