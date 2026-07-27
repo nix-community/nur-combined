@@ -10,45 +10,11 @@
     "syntax": "syntax"
   },
   "crates": {
-    "addr2line": {
-      "crateName": "addr2line",
-      "version": "0.24.2",
-      "edition": "2018",
-      "sha256": "1hd1i57zxgz08j6h5qrhsnm2fi0bcqvsh389fw400xm3arz2ggnz",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "gimli",
-          "packageId": "gimli"
-        }
-      ],
-      "libCrateTypes": [
-        "lib"
-      ]
-    },
-    "adler2": {
-      "crateName": "adler2",
-      "version": "2.0.1",
-      "edition": "2021",
-      "sha256": "1ymy18s9hs7ya1pjc9864l30wk8p2qfqdi7mhhcc5nfakxbij09j",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Jonas Schievink <jonasschievink@gmail.com>",
-        "oyvindln <oyvindln@users.noreply.github.com>"
-      ]
-    },
     "aho-corasick": {
       "crateName": "aho-corasick",
-      "version": "1.1.3",
+      "version": "1.1.4",
       "edition": "2021",
-      "sha256": "05mrpkvdgp5d20y2p989f187ry9diliijgwrs254fs9s1m1x6q4f",
+      "sha256": "00a32wb2h07im3skkikc495jvncf62jl6s96vwc7bhi70h9imlyx",
       "source": {
         "type": "crates-io"
       },
@@ -67,6 +33,28 @@
       ],
       "authors": [
         "Andrew Gallant <jamslam@gmail.com>"
+      ]
+    },
+    "alloca": {
+      "crateName": "alloca",
+      "version": "0.4.0",
+      "edition": "2021",
+      "sha256": "1x6p4387rz6j7h342kp3b7bgvqzyl9mibf959pkfk9xflrgd19z5",
+      "source": {
+        "type": "crates-io"
+      },
+      "buildDependencies": [
+        {
+          "name": "cc",
+          "packageId": "cc"
+        }
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "Adel Prokurov <adel.prokurov@gmail.com>",
+        "StackOverflowExcept1on"
       ]
     },
     "anes": {
@@ -89,9 +77,9 @@
     },
     "anstyle": {
       "crateName": "anstyle",
-      "version": "1.0.11",
+      "version": "1.0.14",
       "edition": "2021",
-      "sha256": "1gbbzi0zbgff405q14v8hhpi1kz2drzl9a75r3qhks47lindjbl6",
+      "sha256": "0030szmgj51fxkic1hpakxxgappxzwm6m154a3gfml83lq63l2wl",
       "source": {
         "type": "crates-io"
       },
@@ -105,9 +93,9 @@
     },
     "anyhow": {
       "crateName": "anyhow",
-      "version": "1.0.99",
-      "edition": "2018",
-      "sha256": "001icqvkfl28rxxmk99rm4gvdzxqngj5v50yg2bh3dzcvqfllrxh",
+      "version": "1.0.104",
+      "edition": "2021",
+      "sha256": "0w34jjcm02p5g9kvsjr1dvpw0zs2fi7igi6nr414fkm5gz85w2ik",
       "source": {
         "type": "crates-io"
       },
@@ -124,9 +112,9 @@
     },
     "argh": {
       "crateName": "argh",
-      "version": "0.1.13",
+      "version": "0.1.19",
       "edition": "2018",
-      "sha256": "0h6jzj4aqswk9x6w3lbb8kdskyf93v73wlrfk4pvhdlabhr1izrl",
+      "sha256": "0cyhdi44qc61ciy1a1yqvyk6cww3134aar3s2rpwmafd43l1h611",
       "source": {
         "type": "crates-io"
       },
@@ -138,10 +126,6 @@
         {
           "name": "argh_shared",
           "packageId": "argh_shared"
-        },
-        {
-          "name": "rust-fuzzy-search",
-          "packageId": "rust-fuzzy-search"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -160,9 +144,9 @@
     },
     "argh_derive": {
       "crateName": "argh_derive",
-      "version": "0.1.13",
+      "version": "0.1.19",
       "edition": "2018",
-      "sha256": "00vqfqgxqq6dd9jgbg9qhn12hh06qzsj1incv3ajklsh7awb5dxd",
+      "sha256": "0za2xi4nfnr6102gs3bd5nbnh3883m37vlh5fi3dwpggik8sjhn4",
       "source": {
         "type": "crates-io"
       },
@@ -181,7 +165,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -196,9 +180,9 @@
     },
     "argh_shared": {
       "crateName": "argh_shared",
-      "version": "0.1.13",
+      "version": "0.1.19",
       "edition": "2018",
-      "sha256": "1xplhinnv139x2w2wknvnms7css6c99l8dw7jb1wvv9dr0y18r54",
+      "sha256": "1w8ilkajhz080741djldhqjp0hn62262q4x02y2jgny4p89f1bg5",
       "source": {
         "type": "crates-io"
       },
@@ -222,9 +206,9 @@
     },
     "async-lsp": {
       "crateName": "async-lsp",
-      "version": "0.2.2",
+      "version": "0.2.4",
       "edition": "2021",
-      "sha256": "1xcimswr7341inil04g45djbq92sfbx3k3ikz38nlw21pg28a73c",
+      "sha256": "1fa4wgshrh2kl0xa5kpcidhxw6b5h4p4bnlmh08f6pjw2wggvf68",
       "source": {
         "type": "crates-io"
       },
@@ -292,9 +276,9 @@
     },
     "autocfg": {
       "crateName": "autocfg",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "edition": "2015",
-      "sha256": "1s77f98id9l4af4alklmzq46f21c980v13z2r1pcxx6bqgw0d1n0",
+      "sha256": "0lqasy5i30flcgih1b50kvsk6z32g09r1q4ql7q81pj6228jy0zj",
       "source": {
         "type": "crates-io"
       },
@@ -303,60 +287,6 @@
       ],
       "authors": [
         "Josh Stone <cuviper@gmail.com>"
-      ]
-    },
-    "backtrace": {
-      "crateName": "backtrace",
-      "version": "0.3.74",
-      "edition": "2021",
-      "sha256": "06pfif7nwx66qf2zaanc2fcq7m64i91ki9imw9xd3bnz5hrwp0ld",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "addr2line",
-          "packageId": "addr2line",
-          "target": "cfg(not(all(windows, target_env = \"msvc\", not(target_vendor = \"uwp\"))))"
-        },
-        {
-          "name": "cfg-if",
-          "packageId": "cfg-if"
-        },
-        {
-          "name": "libc",
-          "packageId": "libc",
-          "target": "cfg(not(all(windows, target_env = \"msvc\", not(target_vendor = \"uwp\"))))"
-        },
-        {
-          "name": "miniz_oxide",
-          "packageId": "miniz_oxide",
-          "target": "cfg(not(all(windows, target_env = \"msvc\", not(target_vendor = \"uwp\"))))"
-        },
-        {
-          "name": "object",
-          "packageId": "object",
-          "target": "cfg(not(all(windows, target_env = \"msvc\", not(target_vendor = \"uwp\"))))"
-        },
-        {
-          "name": "rustc-demangle",
-          "packageId": "rustc-demangle"
-        },
-        {
-          "name": "windows-targets",
-          "packageId": "windows-targets 0.52.6",
-          "target": "cfg(windows)"
-        }
-      ],
-      "resolvedDefaultFeatures": [
-        "default",
-        "std"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "The Rust Project Developers"
       ]
     },
     "bitflags 1.3.2": {
@@ -377,11 +307,11 @@
         "The Rust Project Developers"
       ]
     },
-    "bitflags 2.9.4": {
+    "bitflags 2.13.1": {
       "crateName": "bitflags",
-      "version": "2.9.4",
+      "version": "2.13.1",
       "edition": "2021",
-      "sha256": "157kkcv8s7vk6d17dar1pa5cqcz4c8pdrn16wm1ld7jnr86d2q92",
+      "sha256": "1nl76mpykmwmb8rq1l5vw1azdh1wvxdrnsk4sy3rdrzx01nvg25m",
       "source": {
         "type": "crates-io"
       },
@@ -397,9 +327,9 @@
     },
     "borsh": {
       "crateName": "borsh",
-      "version": "1.5.7",
+      "version": "1.8.0",
       "edition": "2018",
-      "sha256": "1kikljm5yr3l9qsw5xvdccragxj4445s4s3fqsgy6hmmipwld1md",
+      "sha256": "07vfzx4wgp4b63nmqbcqjs6gjwgy6lydxrn1ya9l3310gnhpx2x8",
       "source": {
         "type": "crates-io"
       },
@@ -453,9 +383,9 @@
     },
     "bumpalo": {
       "crateName": "bumpalo",
-      "version": "3.19.0",
+      "version": "3.20.3",
       "edition": "2021",
-      "sha256": "0hsdndvcpqbjb85ghrhska2qxvp9i75q2vb70hma9fxqawdy9ia6",
+      "sha256": "0jc6va3nwcqikm7chnpdv1s87my3gs2j7g1sc7g3k91brg3arxbj",
       "source": {
         "type": "crates-io"
       },
@@ -471,9 +401,9 @@
     },
     "bytes": {
       "crateName": "bytes",
-      "version": "1.10.1",
-      "edition": "2018",
-      "sha256": "0smd4wi2yrhp5pmq571yiaqx84bjqlm1ixqhnvfwzzc6pqkn26yp",
+      "version": "1.12.1",
+      "edition": "2021",
+      "sha256": "017z19dpg4f942h051m7bpnzcgng042hhcpd7bmg7bjjqd42lrgw",
       "source": {
         "type": "crates-io"
       },
@@ -504,11 +434,36 @@
         "Jorge Aparicio <jorge@japaric.io>"
       ]
     },
+    "cc": {
+      "crateName": "cc",
+      "version": "1.3.0",
+      "edition": "2018",
+      "sha256": "1f27b93qhs65bjq04ljwgwxf8xq2qbba4j1k99cv9d9qav88i5f8",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "find-msvc-tools",
+          "packageId": "find-msvc-tools"
+        },
+        {
+          "name": "shlex",
+          "packageId": "shlex"
+        }
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "Alex Crichton <alex@alexcrichton.com>"
+      ]
+    },
     "cfg-if": {
       "crateName": "cfg-if",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "edition": "2018",
-      "sha256": "1afg7146gbxjvkbjx7i5sdrpqp9q5akmk9004fr8rsm90jf2il9g",
+      "sha256": "008q28ajc546z5p2hcwdnckmg0hia7rnx52fni04bwqkzyrghc4k",
       "source": {
         "type": "crates-io"
       },
@@ -521,9 +476,9 @@
     },
     "cfg_aliases": {
       "crateName": "cfg_aliases",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "edition": "2018",
-      "sha256": "092pxdc1dbgjb6qvh83gk56rkic2n2ybm4yvy76cgynmzi3zwfk1",
+      "sha256": "09rm3dv28gbsal7w6q76lg2nfyn8wp789ska9b8vr1w750xfhygh",
       "source": {
         "type": "crates-io"
       },
@@ -613,9 +568,9 @@
     },
     "clap": {
       "crateName": "clap",
-      "version": "4.5.47",
-      "edition": "2021",
-      "sha256": "0c99f6m4a7d4ffgahid49h0ci2pv4ccdf417f76nl4wx5n801b3y",
+      "version": "4.6.4",
+      "edition": "2024",
+      "sha256": "1dz5brl39xchkml0khm348i87w89misprlinmnk77vwjawa0q7nr",
       "source": {
         "type": "crates-io"
       },
@@ -635,9 +590,9 @@
     },
     "clap_builder": {
       "crateName": "clap_builder",
-      "version": "4.5.47",
-      "edition": "2021",
-      "sha256": "1mp1f0fz6wp9v87jc9372lg6r4514ja1l8cazf25hfz7a3vvpn9a",
+      "version": "4.6.2",
+      "edition": "2024",
+      "sha256": "12sl6fyj6w2djxj0lsc1lkj1h3wpx74fjhb37izvaf65vjpji5ph",
       "source": {
         "type": "crates-io"
       },
@@ -661,9 +616,9 @@
     },
     "clap_lex": {
       "crateName": "clap_lex",
-      "version": "0.7.5",
-      "edition": "2021",
-      "sha256": "0xb6pjza43irrl99axbhs12pxq4sr8x7xd36p703j57f5i3n2kxr",
+      "version": "1.1.0",
+      "edition": "2024",
+      "sha256": "1ycqkpygnlqnndghhcxjb44lzl0nmgsia64x9581030yifxs7m68",
       "source": {
         "type": "crates-io"
       },
@@ -673,9 +628,9 @@
     },
     "codespan-reporting": {
       "crateName": "codespan-reporting",
-      "version": "0.12.0",
+      "version": "0.13.1",
       "edition": "2021",
-      "sha256": "108g41xqzhr8fx8hlpy5qzmqq8ylldbj37wndkaqm34yy1d2wvgy",
+      "sha256": "10gnryisncjpfv7wi3jv9mhmrvqz6ksvfzddw3gf99q9k5b1sjdg",
       "source": {
         "type": "crates-io"
       },
@@ -718,13 +673,18 @@
     },
     "criterion": {
       "crateName": "criterion",
-      "version": "0.7.0",
+      "version": "0.8.2",
       "edition": "2021",
-      "sha256": "0a6rrgka8013l5d7bhlln60fja7nj4qmlhc4z92y3hqc5fk4gh71",
+      "sha256": "1wwq9pfildrkqgb5pq3mwmv297kvvsizkx7m6sjzk4i4mar4c04m",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
+        {
+          "name": "alloca",
+          "packageId": "alloca",
+          "target": "cfg(any(windows, unix))"
+        },
         {
           "name": "anes",
           "packageId": "anes"
@@ -756,6 +716,10 @@
         {
           "name": "oorandom",
           "packageId": "oorandom"
+        },
+        {
+          "name": "page_size",
+          "packageId": "page_size"
         },
         {
           "name": "plotters",
@@ -802,9 +766,9 @@
     },
     "criterion-plot": {
       "crateName": "criterion-plot",
-      "version": "0.6.0",
+      "version": "0.8.2",
       "edition": "2021",
-      "sha256": "0f73hgvmxacda8xk3a2xfbrqmphcz1ail2xdhjfmkbnzqw6wq6wv",
+      "sha256": "1si9mrnzgs0123mr6d5pmhxq29rxph2q6pbvwjal6mav9wphmn6q",
       "source": {
         "type": "crates-io"
       },
@@ -828,9 +792,9 @@
     },
     "crossbeam-deque": {
       "crateName": "crossbeam-deque",
-      "version": "0.8.6",
+      "version": "0.8.7",
       "edition": "2021",
-      "sha256": "0l9f1saqp1gn5qy0rxvkmz4m6n7fc0b3dbm6q1r5pmgpnyvi3lcx",
+      "sha256": "1sqcxia1mmz2fw8ba1v72jjrvbkvg7c6sz9l3sl07sv1gggf10ai",
       "source": {
         "type": "crates-io"
       },
@@ -854,9 +818,9 @@
     },
     "crossbeam-epoch": {
       "crateName": "crossbeam-epoch",
-      "version": "0.9.18",
+      "version": "0.9.20",
       "edition": "2021",
-      "sha256": "03j2np8llwf376m3fxqx859mgp9f83hj1w34153c7a9c7i5ar0jv",
+      "sha256": "0gzg0v8in20iajikalg5i5qgpp0m26r426f0fs8nwk953w218s9d",
       "source": {
         "type": "crates-io"
       },
@@ -876,9 +840,9 @@
     },
     "crossbeam-utils": {
       "crateName": "crossbeam-utils",
-      "version": "0.8.21",
+      "version": "0.8.22",
       "edition": "2021",
-      "sha256": "0a3aa2bmc8q35fb67432w16wvi54sfmb69rk9h5bhd18vw0c99fh",
+      "sha256": "05vwf7pmjq8c8f3fp5qqdm0z3cnk4p62wi8spf0jms5yjnh3v031",
       "source": {
         "type": "crates-io"
       },
@@ -911,9 +875,9 @@
     },
     "displaydoc": {
       "crateName": "displaydoc",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "edition": "2021",
-      "sha256": "1q0alair462j21iiqwrr21iabkfnb13d6x5w95lkdg21q2xrqdlp",
+      "sha256": "0kyxwfbdmagd8afzb2pzja7wj8dhah7smxdsgw00iq8pa2jhmiqs",
       "source": {
         "type": "crates-io"
       },
@@ -928,7 +892,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "procMacro": true,
@@ -938,9 +902,9 @@
     },
     "dissimilar": {
       "crateName": "dissimilar",
-      "version": "1.0.10",
-      "edition": "2018",
-      "sha256": "08b94x25x3ba6vg79i53wspxyagqr43crg9dw2zn2dpgl3dgyxc9",
+      "version": "1.0.11",
+      "edition": "2021",
+      "sha256": "0gh99yfpjqv5gqzk2fwfm8c7ncl1r7lwkfgjhcmgviar82midnmf",
       "source": {
         "type": "crates-io"
       },
@@ -953,9 +917,9 @@
     },
     "either": {
       "crateName": "either",
-      "version": "1.15.0",
+      "version": "1.16.0",
       "edition": "2021",
-      "sha256": "069p1fknsmzn9llaizh77kip0pqmcwpdsykv2x30xpjyija5gis8",
+      "sha256": "17k7jfbdz7k440h6lws9baz8p9zlxgb41sig3w81h80nwzsjyqli",
       "source": {
         "type": "crates-io"
       },
@@ -966,9 +930,6 @@
       ],
       "libCrateTypes": [
         "lib"
-      ],
-      "authors": [
-        "bluss"
       ]
     },
     "equivalent": {
@@ -985,9 +946,9 @@
     },
     "errno": {
       "crateName": "errno",
-      "version": "0.3.13",
+      "version": "0.3.14",
       "edition": "2018",
-      "sha256": "1bd5g3srn66zr3bspac0150bvpg1s7zi6zwhwhlayivciz12m3kp",
+      "sha256": "1szgccmh8vgryqyadg8xd58mnwwicf39zmin3bsn63df2wbbgjir",
       "source": {
         "type": "crates-io"
       },
@@ -1009,11 +970,12 @@
         },
         {
           "name": "windows-sys",
-          "packageId": "windows-sys 0.60.2",
+          "packageId": "windows-sys 0.61.2",
           "target": "cfg(windows)"
         }
       ],
       "resolvedDefaultFeatures": [
+        "default",
         "std"
       ],
       "libCrateTypes": [
@@ -1051,9 +1013,9 @@
     },
     "fastrand": {
       "crateName": "fastrand",
-      "version": "2.3.0",
+      "version": "2.5.0",
       "edition": "2018",
-      "sha256": "1ghiahsw1jd68df895cy5h3gzwk30hndidn3b682zmshpgmrx41p",
+      "sha256": "08q2r30y62winysimnlpbvw9kiwn0rmdlidqlmzd6z90mv764z6s",
       "source": {
         "type": "crates-io"
       },
@@ -1062,6 +1024,18 @@
       ],
       "authors": [
         "Stjepan Glavina <stjepang@gmail.com>"
+      ]
+    },
+    "find-msvc-tools": {
+      "crateName": "find-msvc-tools",
+      "version": "0.1.9",
+      "edition": "2018",
+      "sha256": "10nmi0qdskq6l7zwxw5g56xny7hb624iki1c39d907qmfh3vrbjv",
+      "source": {
+        "type": "crates-io"
+      },
+      "libCrateTypes": [
+        "lib"
       ]
     },
     "form_urlencoded": {
@@ -1091,9 +1065,9 @@
     },
     "futures": {
       "crateName": "futures",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "0xh8ddbkm9jy8kc5gbvjp9a4b6rqqxvc8471yb2qaz5wm2qhgg35",
+      "sha256": "066j5aqz8an05xh4hn5ljdnjn80z3g335v4grx4gaifr57wg3358",
       "source": {
         "type": "crates-io"
       },
@@ -1134,9 +1108,9 @@
     },
     "futures-channel": {
       "crateName": "futures-channel",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "040vpqpqlbk099razq8lyn74m0f161zd0rp36hciqrwcg2zibzrd",
+      "sha256": "1bn5hlhfkl1sgypmiachaqcgwmr6wmjal7dyhfyb1zkazvs90996",
       "source": {
         "type": "crates-io"
       },
@@ -1162,9 +1136,9 @@
     },
     "futures-core": {
       "crateName": "futures-core",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "0gk6yrxgi5ihfanm2y431jadrll00n5ifhnpx090c2f2q1cr1wh5",
+      "sha256": "1iqdbvcdlplfr2g43h7xrfkv2sg5p1a26x8acz1xgxl07i3hrm9c",
       "source": {
         "type": "crates-io"
       },
@@ -1178,9 +1152,9 @@
     },
     "futures-io": {
       "crateName": "futures-io",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "1ikmw1yfbgvsychmsihdkwa8a1knank2d9a8dk01mbjar9w1np4y",
+      "sha256": "0yjx13qdm9b2p4w00ddw85k6yccnnmqrlrrz8yfmi5jg7jmfqxs5",
       "source": {
         "type": "crates-io"
       },
@@ -1193,9 +1167,9 @@
     },
     "futures-macro": {
       "crateName": "futures-macro",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "0l1n7kqzwwmgiznn0ywdc5i24z72zvh9q1dwps54mimppi7f6bhn",
+      "sha256": "02xiyd5y1nk9b805aympj4wq2czgvxnhcml9w9xkc665d3g3qv9d",
       "source": {
         "type": "crates-io"
       },
@@ -1210,16 +1184,16 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "procMacro": true
     },
     "futures-sink": {
       "crateName": "futures-sink",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "1xyly6naq6aqm52d5rh236snm08kw8zadydwqz8bip70s6vzlxg5",
+      "sha256": "01z38z344hpryw84b6r0rbwcb669d8pyvl2szg10aqwx96n1hi73",
       "source": {
         "type": "crates-io"
       },
@@ -1233,9 +1207,9 @@
     },
     "futures-task": {
       "crateName": "futures-task",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "124rv4n90f5xwfsm9qw6y99755y021cmi5dhzh253s920z77s3zr",
+      "sha256": "02f1y1yvjg1cv998zkgl1706pi9y4fyc9045l1hlmyqyhclfscdj",
       "source": {
         "type": "crates-io"
       },
@@ -1249,9 +1223,9 @@
     },
     "futures-util": {
       "crateName": "futures-util",
-      "version": "0.3.31",
+      "version": "0.3.33",
       "edition": "2018",
-      "sha256": "10aa1ar8bgkgbr4wzxlidkqkcxf77gffyj8j7768h831pcaq784z",
+      "sha256": "1anyg40j5www5l22r2jbn1birsafz4q1w9qmcjk4vqzwasi90ym7",
       "source": {
         "type": "crates-io"
       },
@@ -1289,10 +1263,6 @@
           "packageId": "pin-project-lite"
         },
         {
-          "name": "pin-utils",
-          "packageId": "pin-utils"
-        },
-        {
           "name": "slab",
           "packageId": "slab"
         }
@@ -1316,27 +1286,11 @@
         "lib"
       ]
     },
-    "gimli": {
-      "crateName": "gimli",
-      "version": "0.31.1",
-      "edition": "2018",
-      "sha256": "0gvqc0ramx8szv76jhfd4dms0zyamvlg4whhiz11j34hh3dqxqh7",
-      "source": {
-        "type": "crates-io"
-      },
-      "resolvedDefaultFeatures": [
-        "read",
-        "read-core"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ]
-    },
     "half": {
       "crateName": "half",
-      "version": "2.4.1",
+      "version": "2.7.1",
       "edition": "2021",
-      "sha256": "123q4zzw1x4309961i69igzd1wb7pj04aaii3kwasrz3599qrl3d",
+      "sha256": "0jyq42xfa6sghc397mx84av7fayd4xfxr4jahsqv90lmjr5xi8kf",
       "source": {
         "type": "crates-io"
       },
@@ -1349,6 +1303,10 @@
           "name": "crunchy",
           "packageId": "crunchy",
           "target": "cfg(target_arch = \"spirv\")"
+        },
+        {
+          "name": "zerocopy",
+          "packageId": "zerocopy"
         }
       ],
       "libCrateTypes": [
@@ -1394,19 +1352,16 @@
         "Amanieu d'Antras <amanieu@gmail.com>"
       ]
     },
-    "hashbrown 0.15.5": {
+    "hashbrown 0.17.1": {
       "crateName": "hashbrown",
-      "version": "0.15.5",
-      "edition": "2021",
-      "sha256": "189qaczmjxnikm9db748xyhiw04kpmhm9xj9k9hg0sgx7pjwyacj",
+      "version": "0.17.1",
+      "edition": "2024",
+      "sha256": "0jmqz7i4yl6cm7rbn0i2ffkfrmwi6xkmzkaldr2v8bcsx2v0jngd",
       "source": {
         "type": "crates-io"
       },
       "libCrateTypes": [
         "lib"
-      ],
-      "authors": [
-        "Amanieu d'Antras <amanieu@gmail.com>"
       ]
     },
     "heck": {
@@ -1432,9 +1387,9 @@
     },
     "icu_collections": {
       "crateName": "icu_collections",
-      "version": "1.5.0",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "09j5kskirl59mvqc8kabhy7005yyy7dp88jw9f6f3gkf419a8byv",
+      "sha256": "070r7xd0pynm0hnc1v2jzlbxka6wf50f81wybf9xg0y82v6x3119",
       "source": {
         "type": "crates-io"
       },
@@ -1442,6 +1397,14 @@
         {
           "name": "displaydoc",
           "packageId": "displaydoc"
+        },
+        {
+          "name": "potential_utf",
+          "packageId": "potential_utf"
+        },
+        {
+          "name": "utf8_iter",
+          "packageId": "utf8_iter"
         },
         {
           "name": "yoke",
@@ -1463,11 +1426,11 @@
         "The ICU4X Project Developers"
       ]
     },
-    "icu_locid": {
-      "crateName": "icu_locid",
-      "version": "1.5.0",
+    "icu_locale_core": {
+      "crateName": "icu_locale_core",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "0dznvd1c5b02iilqm044q4hvar0sqibq1z46prqwjzwif61vpb0k",
+      "sha256": "0a9cmin5w1x3bg941dlmgszn33qgq428k7qiqn5did72ndi9n8cj",
       "source": {
         "type": "crates-io"
       },
@@ -1503,34 +1466,30 @@
         "The ICU4X Project Developers"
       ]
     },
-    "icu_locid_transform": {
-      "crateName": "icu_locid_transform",
-      "version": "1.5.0",
+    "icu_normalizer": {
+      "crateName": "icu_normalizer",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "0kmmi1kmj9yph6mdgkc7v3wz6995v7ly3n80vbg0zr78bp1iml81",
+      "sha256": "1d7krxr0xpc4x9635k1100a24nh0nrc59n65j6yk6gbfkplmwvn5",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
-          "name": "displaydoc",
-          "packageId": "displaydoc"
+          "name": "icu_collections",
+          "packageId": "icu_collections"
         },
         {
-          "name": "icu_locid",
-          "packageId": "icu_locid"
-        },
-        {
-          "name": "icu_locid_transform_data",
-          "packageId": "icu_locid_transform_data"
+          "name": "icu_normalizer_data",
+          "packageId": "icu_normalizer_data"
         },
         {
           "name": "icu_provider",
           "packageId": "icu_provider"
         },
         {
-          "name": "tinystr",
-          "packageId": "tinystr"
+          "name": "smallvec",
+          "packageId": "smallvec"
         },
         {
           "name": "zerovec",
@@ -1547,87 +1506,11 @@
         "The ICU4X Project Developers"
       ]
     },
-    "icu_locid_transform_data": {
-      "crateName": "icu_locid_transform_data",
-      "version": "1.5.1",
-      "edition": "2021",
-      "sha256": "07gignya9gzynnyds88bmra4blq9jxzgrcss43vzk2q9h7byc5bm",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "The ICU4X Project Developers"
-      ]
-    },
-    "icu_normalizer": {
-      "crateName": "icu_normalizer",
-      "version": "1.5.0",
-      "edition": "2021",
-      "sha256": "0kx8qryp8ma8fw1vijbgbnf7zz9f2j4d14rw36fmjs7cl86kxkhr",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "displaydoc",
-          "packageId": "displaydoc"
-        },
-        {
-          "name": "icu_collections",
-          "packageId": "icu_collections"
-        },
-        {
-          "name": "icu_normalizer_data",
-          "packageId": "icu_normalizer_data"
-        },
-        {
-          "name": "icu_properties",
-          "packageId": "icu_properties"
-        },
-        {
-          "name": "icu_provider",
-          "packageId": "icu_provider"
-        },
-        {
-          "name": "smallvec",
-          "packageId": "smallvec"
-        },
-        {
-          "name": "utf16_iter",
-          "packageId": "utf16_iter"
-        },
-        {
-          "name": "utf8_iter",
-          "packageId": "utf8_iter"
-        },
-        {
-          "name": "write16",
-          "packageId": "write16"
-        },
-        {
-          "name": "zerovec",
-          "packageId": "zerovec"
-        }
-      ],
-      "resolvedDefaultFeatures": [
-        "compiled_data",
-        "default"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "The ICU4X Project Developers"
-      ]
-    },
     "icu_normalizer_data": {
       "crateName": "icu_normalizer_data",
-      "version": "1.5.1",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "1dqcm86spcqcs4jnra81yqq3g5bpw6bvf5iz621spj5x52137s65",
+      "sha256": "0f5d5d5fhhr9937m2z6z38fzh6agf14z24kwlr6lyczafypf0fys",
       "source": {
         "type": "crates-io"
       },
@@ -1640,24 +1523,20 @@
     },
     "icu_properties": {
       "crateName": "icu_properties",
-      "version": "1.5.1",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "1xgf584rx10xc1p7zjr78k0n4zn3g23rrg6v2ln31ingcq3h5mlk",
+      "sha256": "1pkh3s837808cbwxvfagwc28cvwrz2d9h5rl02jwrhm51ryvdqxy",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
-          "name": "displaydoc",
-          "packageId": "displaydoc"
-        },
-        {
           "name": "icu_collections",
           "packageId": "icu_collections"
         },
         {
-          "name": "icu_locid_transform",
-          "packageId": "icu_locid_transform"
+          "name": "icu_locale_core",
+          "packageId": "icu_locale_core"
         },
         {
           "name": "icu_properties_data",
@@ -1668,8 +1547,8 @@
           "packageId": "icu_provider"
         },
         {
-          "name": "tinystr",
-          "packageId": "tinystr"
+          "name": "zerotrie",
+          "packageId": "zerotrie"
         },
         {
           "name": "zerovec",
@@ -1677,8 +1556,7 @@
         }
       ],
       "resolvedDefaultFeatures": [
-        "compiled_data",
-        "default"
+        "compiled_data"
       ],
       "libCrateTypes": [
         "lib"
@@ -1689,9 +1567,9 @@
     },
     "icu_properties_data": {
       "crateName": "icu_properties_data",
-      "version": "1.5.1",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "1qm5vf17nyiwb87s3g9x9fsj32gkv4a7q7d2sblawx9vfncqgyw5",
+      "sha256": "052awny0qwkbcbpd5jg2cd7vl5ry26pq4hz1nfsgf10c3qhbnawf",
       "source": {
         "type": "crates-io"
       },
@@ -1704,9 +1582,9 @@
     },
     "icu_provider": {
       "crateName": "icu_provider",
-      "version": "1.5.0",
+      "version": "2.2.0",
       "edition": "2021",
-      "sha256": "1nb8vvgw8dv2inqklvk05fs0qxzkw8xrg2n9vgid6y7gm3423m3f",
+      "sha256": "08dl8pxbwr8zsz4c5vphqb7xw0hykkznwi4rw7bk6pwb3krlr70k",
       "source": {
         "type": "crates-io"
       },
@@ -1716,20 +1594,8 @@
           "packageId": "displaydoc"
         },
         {
-          "name": "icu_locid",
-          "packageId": "icu_locid"
-        },
-        {
-          "name": "icu_provider_macros",
-          "packageId": "icu_provider_macros"
-        },
-        {
-          "name": "stable_deref_trait",
-          "packageId": "stable_deref_trait"
-        },
-        {
-          "name": "tinystr",
-          "packageId": "tinystr"
+          "name": "icu_locale_core",
+          "packageId": "icu_locale_core"
         },
         {
           "name": "writeable",
@@ -1744,43 +1610,20 @@
           "packageId": "zerofrom"
         },
         {
+          "name": "zerotrie",
+          "packageId": "zerotrie"
+        },
+        {
           "name": "zerovec",
           "packageId": "zerovec"
         }
       ],
       "resolvedDefaultFeatures": [
-        "macros"
+        "baked"
       ],
       "libCrateTypes": [
         "lib"
       ],
-      "authors": [
-        "The ICU4X Project Developers"
-      ]
-    },
-    "icu_provider_macros": {
-      "crateName": "icu_provider_macros",
-      "version": "1.5.0",
-      "edition": "2021",
-      "sha256": "1mjs0w7fcm2lcqmbakhninzrjwqs485lkps4hz0cv3k36y9rxj0y",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "proc-macro2",
-          "packageId": "proc-macro2"
-        },
-        {
-          "name": "quote",
-          "packageId": "quote"
-        },
-        {
-          "name": "syn",
-          "packageId": "syn 2.0.106"
-        }
-      ],
-      "procMacro": true,
       "authors": [
         "The ICU4X Project Developers"
       ]
@@ -1808,11 +1651,11 @@
         },
         {
           "name": "indexmap",
-          "packageId": "indexmap 2.11.0"
+          "packageId": "indexmap 2.14.0"
         },
         {
           "name": "itertools",
-          "packageId": "itertools 0.14.0"
+          "packageId": "itertools 0.15.0"
         },
         {
           "name": "la-arena",
@@ -1901,9 +1744,9 @@
     },
     "idna_adapter": {
       "crateName": "idna_adapter",
-      "version": "1.2.0",
-      "edition": "2021",
-      "sha256": "0wggnkiivaj5lw0g0384ql2d7zk4ppkn3b1ry4n0ncjpr7qivjns",
+      "version": "1.2.2",
+      "edition": "2024",
+      "sha256": "0557p76l8hj35r9zn1yv7c6x1c0qbrsffmg80n0yy8361ly3fs6b",
       "source": {
         "type": "crates-io"
       },
@@ -1966,11 +1809,11 @@
         "lib"
       ]
     },
-    "indexmap 2.11.0": {
+    "indexmap 2.14.0": {
       "crateName": "indexmap",
-      "version": "2.11.0",
-      "edition": "2021",
-      "sha256": "1sb3nmhisf9pdwfcxzqlvx97xifcvlh5g0rqj9j7i7qg8f01jj7j",
+      "version": "2.14.0",
+      "edition": "2024",
+      "sha256": "1na9z6f0d5pkjr1lgsni470v98gv2r7c41j8w48skr089x2yjrnl",
       "source": {
         "type": "crates-io"
       },
@@ -1981,7 +1824,7 @@
         },
         {
           "name": "hashbrown",
-          "packageId": "hashbrown 0.15.5"
+          "packageId": "hashbrown 0.17.1"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -2013,35 +1856,6 @@
         "sebcrozet <developer@crozet.re>"
       ]
     },
-    "io-uring": {
-      "crateName": "io-uring",
-      "version": "0.7.10",
-      "edition": "2021",
-      "sha256": "0yvjyygwdcqjcgw8zp254hvjbm7as1c075dl50spdshas3aa4vq4",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "bitflags",
-          "packageId": "bitflags 2.9.4"
-        },
-        {
-          "name": "cfg-if",
-          "packageId": "cfg-if"
-        },
-        {
-          "name": "libc",
-          "packageId": "libc"
-        }
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "quininer <quininer@live.com>"
-      ]
-    },
     "itertools 0.13.0": {
       "crateName": "itertools",
       "version": "0.13.0",
@@ -2068,11 +1882,11 @@
         "bluss"
       ]
     },
-    "itertools 0.14.0": {
+    "itertools 0.15.0": {
       "crateName": "itertools",
-      "version": "0.14.0",
+      "version": "0.15.0",
       "edition": "2018",
-      "sha256": "118j6l1vs2mx65dqhwyssbrxpawa90886m3mzafdvyip41w2q69b",
+      "sha256": "1p412hriqm4kxn7x1539vz2p5c5s1v2m36m4kis2ai4dyn9syjwb",
       "source": {
         "type": "crates-io"
       },
@@ -2096,9 +1910,9 @@
     },
     "itoa": {
       "crateName": "itoa",
-      "version": "1.0.15",
-      "edition": "2018",
-      "sha256": "0b4fj9kz54dr3wam0vprjwgygvycyw8r0qwg7vp19ly8b2w16psa",
+      "version": "1.0.18",
+      "edition": "2021",
+      "sha256": "10jnd1vpfkb8kj38rlkn2a6k02afvj3qmw054dfpzagrpl6achlg",
       "source": {
         "type": "crates-io"
       },
@@ -2111,16 +1925,20 @@
     },
     "js-sys": {
       "crateName": "js-sys",
-      "version": "0.3.78",
+      "version": "0.3.103",
       "edition": "2021",
-      "sha256": "0f17vdkpbarm0qlbqb0p1fyiy4l9bs62zvw3fv0ywb29g0shc2qc",
+      "sha256": "00lib0b6hqmw56r2hjp7xrv730qacslirbkdlhvmi39zvgy4pd2k",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
-          "name": "once_cell",
-          "packageId": "once_cell"
+          "name": "cfg-if",
+          "packageId": "cfg-if"
+        },
+        {
+          "name": "futures-util",
+          "packageId": "futures-util"
         },
         {
           "name": "wasm-bindgen",
@@ -2166,9 +1984,9 @@
     },
     "libc": {
       "crateName": "libc",
-      "version": "0.2.175",
+      "version": "0.2.189",
       "edition": "2021",
-      "sha256": "0hw5sb3gjr0ivah7s3fmavlpvspjpd4mr009abmam2sr7r4sx0ka",
+      "sha256": "1whjfs375vlng2q6yrbzs73cvp5lm3w1n2gfqajb2vgf7zg3xbry",
       "source": {
         "type": "crates-io"
       },
@@ -2178,20 +1996,18 @@
       ],
       "libCrateTypes": [
         "lib"
-      ],
-      "authors": [
-        "The Rust Project Developers"
       ]
     },
     "linux-raw-sys": {
       "crateName": "linux-raw-sys",
-      "version": "0.9.4",
+      "version": "0.12.1",
       "edition": "2021",
-      "sha256": "04kyjdrq79lz9ibrf7czk6cv9d3jl597pb9738vzbsbzy1j5i56d",
+      "sha256": "0lwasljrqxjjfk9l2j8lyib1babh2qjlnhylqzl01nihw14nk9ij",
       "source": {
         "type": "crates-io"
       },
       "resolvedDefaultFeatures": [
+        "auxvec",
         "elf",
         "errno",
         "general",
@@ -2208,15 +2024,12 @@
     },
     "litemap": {
       "crateName": "litemap",
-      "version": "0.7.4",
+      "version": "0.8.2",
       "edition": "2021",
-      "sha256": "012ili3vppd4952sh6y3qwcd0jkd0bq2qpr9h7cppc8sj11k7saf",
+      "sha256": "1w7628bc7wwcxc4n4s5kw0610xk06710nh2hn5kwwk2wa91z9nlj",
       "source": {
         "type": "crates-io"
       },
-      "resolvedDefaultFeatures": [
-        "alloc"
-      ],
       "libCrateTypes": [
         "lib"
       ],
@@ -2226,9 +2039,9 @@
     },
     "lock_api": {
       "crateName": "lock_api",
-      "version": "0.4.13",
+      "version": "0.4.14",
       "edition": "2021",
-      "sha256": "0rd73p4299mjwl4hhlfj9qr88v3r0kc8s1nszkfmnq2ky43nb4wn",
+      "sha256": "0rg9mhx7vdpajfxvdjmgmlyrn20ligzqvn8ifmaz7dc79gkrjhr2",
       "source": {
         "type": "crates-io"
       },
@@ -2236,12 +2049,6 @@
         {
           "name": "scopeguard",
           "packageId": "scopeguard"
-        }
-      ],
-      "buildDependencies": [
-        {
-          "name": "autocfg",
-          "packageId": "autocfg"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -2257,9 +2064,9 @@
     },
     "log": {
       "crateName": "log",
-      "version": "0.4.28",
+      "version": "0.4.33",
       "edition": "2021",
-      "sha256": "0cklpzrpxafbaq1nyxarhnmcw9z3xcjrad3ch55mmr58xw2ha21l",
+      "sha256": "1bd9dmk22pxgnf0h0slba6rz99zb0a0b2mdhpk8p92bp26ycbvhc",
       "source": {
         "type": "crates-io"
       },
@@ -2379,9 +2186,9 @@
     },
     "memchr": {
       "crateName": "memchr",
-      "version": "2.7.5",
+      "version": "2.8.3",
       "edition": "2021",
-      "sha256": "1h2bh2jajkizz04fh047lpid5wgw2cr9igpkdhl3ibzscpd858ij",
+      "sha256": "161xa63ipfanf8v3nb82xd5hqgydv55nzw59wyngqbz6alfaz2yg",
       "source": {
         "type": "crates-io"
       },
@@ -2398,34 +2205,11 @@
         "bluss"
       ]
     },
-    "miniz_oxide": {
-      "crateName": "miniz_oxide",
-      "version": "0.8.9",
-      "edition": "2021",
-      "sha256": "05k3pdg8bjjzayq3rf0qhpirq9k37pxnasfn4arbs17phqn6m9qz",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "adler2",
-          "packageId": "adler2"
-        }
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Frommi <daniil.liferenko@gmail.com>",
-        "oyvindln <oyvindln@users.noreply.github.com>",
-        "Rich Geldreich richgel99@gmail.com"
-      ]
-    },
     "mio": {
       "crateName": "mio",
-      "version": "1.0.4",
+      "version": "1.2.2",
       "edition": "2021",
-      "sha256": "073n3kam3nz8j8had35fd2nn7j6a33pi3y5w3kq608cari2d9gkq",
+      "sha256": "09y4b7gc42ymgssshh8sz6gs3y5r8bbigqaw2c4snh6fy5qmrmih",
       "source": {
         "type": "crates-io"
       },
@@ -2433,17 +2217,7 @@
         {
           "name": "libc",
           "packageId": "libc",
-          "target": "cfg(target_os = \"hermit\")"
-        },
-        {
-          "name": "libc",
-          "packageId": "libc",
-          "target": "cfg(target_os = \"wasi\")"
-        },
-        {
-          "name": "libc",
-          "packageId": "libc",
-          "target": "cfg(unix)"
+          "target": "cfg(any(unix, target_os = \"hermit\", target_os = \"wasi\"))"
         },
         {
           "name": "wasi",
@@ -2452,7 +2226,7 @@
         },
         {
           "name": "windows-sys",
-          "packageId": "windows-sys 0.59.0",
+          "packageId": "windows-sys 0.61.2",
           "target": "cfg(windows)"
         }
       ],
@@ -2649,39 +2423,11 @@
         "The Rust Project Developers"
       ]
     },
-    "object": {
-      "crateName": "object",
-      "version": "0.36.7",
-      "edition": "2018",
-      "sha256": "11vv97djn9nc5n6w1gc6bd96d2qk2c8cg1kw5km9bsi3v4a8x532",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "memchr",
-          "packageId": "memchr"
-        }
-      ],
-      "resolvedDefaultFeatures": [
-        "archive",
-        "coff",
-        "elf",
-        "macho",
-        "pe",
-        "read_core",
-        "unaligned",
-        "xcoff"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ]
-    },
     "once_cell": {
       "crateName": "once_cell",
-      "version": "1.21.3",
+      "version": "1.21.4",
       "edition": "2021",
-      "sha256": "0b9x77lb9f1j6nqgf5aka4s2qj0nly176bpbrv6f9iakk5ff3xa2",
+      "sha256": "0l1v676wf71kjg2khch4dphwh1jp3291ffiymr2mvy1kxd5kwz4z",
       "source": {
         "type": "crates-io"
       },
@@ -2715,9 +2461,9 @@
     },
     "ordered-float": {
       "crateName": "ordered-float",
-      "version": "5.0.0",
+      "version": "5.3.0",
       "edition": "2021",
-      "sha256": "009z1k7w729ls2sfg4zknn9v63sk1zghnq54p2lwcjjkdvszkhg2",
+      "sha256": "03mx5yg3ncp0g524y7zbyvhwcxpd8l9v30lgybm5bhqx2v551ndp",
       "source": {
         "type": "crates-io"
       },
@@ -2737,6 +2483,33 @@
       "authors": [
         "Jonathan Reem <jonathan.reem@gmail.com>",
         "Matt Brubeck <mbrubeck@limpet.net>"
+      ]
+    },
+    "page_size": {
+      "crateName": "page_size",
+      "version": "0.6.0",
+      "edition": "2015",
+      "sha256": "1nj0rrwpvagagssljbm29ww1iyrrg15p1q4sk70r2cfi9qcv5m9h",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "libc",
+          "packageId": "libc",
+          "target": "cfg(unix)"
+        },
+        {
+          "name": "winapi",
+          "packageId": "winapi",
+          "target": "cfg(windows)"
+        }
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "Philip Woods <elzairthesorcerer@gmail.com>"
       ]
     },
     "parking_lot 0.11.2": {
@@ -2771,11 +2544,11 @@
         "Amanieu d'Antras <amanieu@gmail.com>"
       ]
     },
-    "parking_lot 0.12.4": {
+    "parking_lot 0.12.5": {
       "crateName": "parking_lot",
-      "version": "0.12.4",
+      "version": "0.12.5",
       "edition": "2021",
-      "sha256": "04sab1c7304jg8k0d5b2pxbj1fvgzcf69l3n2mfpkdb96vs8pmbh",
+      "sha256": "06jsqh9aqmc94j2rlm8gpccilqm6bskbd67zf6ypfc0f4m9p91ck",
       "source": {
         "type": "crates-io"
       },
@@ -2786,7 +2559,7 @@
         },
         {
           "name": "parking_lot_core",
-          "packageId": "parking_lot_core 0.9.11"
+          "packageId": "parking_lot_core 0.9.12"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -2843,11 +2616,11 @@
         "Amanieu d'Antras <amanieu@gmail.com>"
       ]
     },
-    "parking_lot_core 0.9.11": {
+    "parking_lot_core 0.9.12": {
       "crateName": "parking_lot_core",
-      "version": "0.9.11",
+      "version": "0.9.12",
       "edition": "2021",
-      "sha256": "19g4d6m5k4ggacinqprnn8xvdaszc3y5smsmbz1adcdmaqm8v0xw",
+      "sha256": "1hb4rggy70fwa1w9nb0svbyflzdc69h047482v2z3sx2hmcnh896",
       "source": {
         "type": "crates-io"
       },
@@ -2863,7 +2636,7 @@
         },
         {
           "name": "redox_syscall",
-          "packageId": "redox_syscall 0.5.17",
+          "packageId": "redox_syscall 0.5.18",
           "target": "cfg(target_os = \"redox\")"
         },
         {
@@ -2871,8 +2644,8 @@
           "packageId": "smallvec"
         },
         {
-          "name": "windows-targets",
-          "packageId": "windows-targets 0.52.6",
+          "name": "windows-link",
+          "packageId": "windows-link",
           "target": "cfg(windows)"
         }
       ],
@@ -2917,9 +2690,9 @@
     },
     "phf": {
       "crateName": "phf",
-      "version": "0.13.1",
-      "edition": "2021",
-      "sha256": "1pzswx5gdglgjgp4azyzwyr4gh031r0kcnpqq6jblga72z3jsmn1",
+      "version": "0.14.0",
+      "edition": "2024",
+      "sha256": "1xm2nbg5c59b5wvvv4v3sd3sknrlg2z17bkzk440p2090dw7h0q1",
       "source": {
         "type": "crates-io"
       },
@@ -2942,9 +2715,9 @@
     },
     "phf_codegen": {
       "crateName": "phf_codegen",
-      "version": "0.13.1",
-      "edition": "2021",
-      "sha256": "1qfnsl2hiny0yg4lwn888xla5iwccszgxnx8dhbwl6s2h2fpzaj9",
+      "version": "0.14.0",
+      "edition": "2024",
+      "sha256": "1zkgzi52lx4r968cmg3ciqfs40raxy17k2fnxbmzsxpv22jqbda1",
       "source": {
         "type": "crates-io"
       },
@@ -2967,9 +2740,9 @@
     },
     "phf_generator": {
       "crateName": "phf_generator",
-      "version": "0.13.1",
-      "edition": "2021",
-      "sha256": "0dwpp11l41dy9mag4phkyyvhpf66lwbp79q3ik44wmhyfqxcwnhk",
+      "version": "0.14.0",
+      "edition": "2024",
+      "sha256": "003i8qw6ghkcvs6bmxdhnq1a1kmpwbciakazjsybx8fmb44jxdmf",
       "source": {
         "type": "crates-io"
       },
@@ -2992,9 +2765,9 @@
     },
     "phf_shared": {
       "crateName": "phf_shared",
-      "version": "0.13.1",
-      "edition": "2021",
-      "sha256": "0rpjchnswm0x5l4mz9xqfpw0j4w68sjvyqrdrv13h7lqqmmyyzz5",
+      "version": "0.14.0",
+      "edition": "2024",
+      "sha256": "12dalcsaq83pfydhq81195aal0ld9vdx3swz6kk9ncfrw8kr1zf6",
       "source": {
         "type": "crates-io"
       },
@@ -3017,29 +2790,14 @@
     },
     "pin-project-lite": {
       "crateName": "pin-project-lite",
-      "version": "0.2.16",
+      "version": "0.2.17",
       "edition": "2018",
-      "sha256": "16wzc7z7dfkf9bmjin22f5282783f6mdksnr0nv0j5ym5f9gyg1v",
+      "sha256": "1kfmwvs271si96zay4mm8887v5khw0c27jc9srw1a75ykvgj54x8",
       "source": {
         "type": "crates-io"
       },
       "libCrateTypes": [
         "lib"
-      ]
-    },
-    "pin-utils": {
-      "crateName": "pin-utils",
-      "version": "0.1.0",
-      "edition": "2018",
-      "sha256": "117ir7vslsl2z1a7qzhws4pd01cg2d3338c47swjyvqv2n60v1wb",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Josef Brandl <mail@josefbrandl.de>"
       ]
     },
     "plotters": {
@@ -3123,11 +2881,35 @@
         "Hao Hou <haohou302@gmail.com>"
       ]
     },
+    "potential_utf": {
+      "crateName": "potential_utf",
+      "version": "0.1.5",
+      "edition": "2021",
+      "sha256": "0r0518fr32xbkgzqap509s3r60cr0iancsg9j1jgf37cyz7b20q1",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "zerovec",
+          "packageId": "zerovec"
+        }
+      ],
+      "resolvedDefaultFeatures": [
+        "zerovec"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "The ICU4X Project Developers"
+      ]
+    },
     "proc-macro2": {
       "crateName": "proc-macro2",
-      "version": "1.0.101",
+      "version": "1.0.107",
       "edition": "2021",
-      "sha256": "1pijhychkpl7rcyf1h7mfk6gjfii1ywf5n0snmnqs5g4hvyl7bl9",
+      "sha256": "1nb6ly8kp65f724kj73ippc7lvydss24sm2vagk6qpklpg4pwplq",
       "source": {
         "type": "crates-io"
       },
@@ -3151,9 +2933,9 @@
     },
     "quote": {
       "crateName": "quote",
-      "version": "1.0.40",
-      "edition": "2018",
-      "sha256": "1394cxjg6nwld82pzp2d4fp6pmaz32gai1zh9z5hvh0dawww118q",
+      "version": "1.0.47",
+      "edition": "2021",
+      "sha256": "00ch0yyzvv6s671ik0kcsbw8nigdaj2g3fr61kcahwx48aqlvgqz",
       "source": {
         "type": "crates-io"
       },
@@ -3176,9 +2958,9 @@
     },
     "rayon": {
       "crateName": "rayon",
-      "version": "1.10.0",
+      "version": "1.12.0",
       "edition": "2021",
-      "sha256": "1ylgnzwgllajalr4v00y4kj22klq2jbwllm70aha232iah0sc65l",
+      "sha256": "0vcj63xgnk72c30vdrak7dhl53snnaqv9x2faf1d94hzg1kb2fgv",
       "source": {
         "type": "crates-io"
       },
@@ -3194,17 +2976,13 @@
       ],
       "libCrateTypes": [
         "lib"
-      ],
-      "authors": [
-        "Niko Matsakis <niko@alum.mit.edu>",
-        "Josh Stone <cuviper@gmail.com>"
       ]
     },
     "rayon-core": {
       "crateName": "rayon-core",
-      "version": "1.12.1",
+      "version": "1.13.0",
       "edition": "2021",
-      "sha256": "1qpwim68ai5h0j7axa8ai8z0payaawv3id0lrgkqmapx7lx8fr8l",
+      "sha256": "14dbr0sq83a6lf1rfjq5xdpk5r6zgzvmzs5j6110vlv2007qpq92",
       "source": {
         "type": "crates-io"
       },
@@ -3221,11 +2999,7 @@
       "libCrateTypes": [
         "lib"
       ],
-      "links": "rayon-core",
-      "authors": [
-        "Niko Matsakis <niko@alum.mit.edu>",
-        "Josh Stone <cuviper@gmail.com>"
-      ]
+      "links": "rayon-core"
     },
     "redox_syscall 0.2.16": {
       "crateName": "redox_syscall",
@@ -3249,18 +3023,18 @@
         "Jeremy Soller <jackpot51@gmail.com>"
       ]
     },
-    "redox_syscall 0.5.17": {
+    "redox_syscall 0.5.18": {
       "crateName": "redox_syscall",
-      "version": "0.5.17",
+      "version": "0.5.18",
       "edition": "2021",
-      "sha256": "0xrvpchkaxph3r5ww2i04v9nwg3843fp3prf8kqlh1gv01b4c1sl",
+      "sha256": "0b9n38zsxylql36vybw18if68yc9jczxmbyzdwyhb9sifmag4azd",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
           "name": "bitflags",
-          "packageId": "bitflags 2.9.4"
+          "packageId": "bitflags 2.13.1"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -3277,9 +3051,9 @@
     },
     "regex": {
       "crateName": "regex",
-      "version": "1.11.2",
+      "version": "1.13.1",
       "edition": "2021",
-      "sha256": "04k9rzxd11hcahpyihlswy6f1zqw7lspirv4imm4h0lcdl8gvmr3",
+      "sha256": "1391a0a4100ik8cp7l577p3ip3haqq03rd9c5vdr7vcfdixj687h",
       "source": {
         "type": "crates-io"
       },
@@ -3306,9 +3080,9 @@
     },
     "regex-automata": {
       "crateName": "regex-automata",
-      "version": "0.4.10",
+      "version": "0.4.16",
       "edition": "2021",
-      "sha256": "1mllcfmgjcl6d52d5k09lwwq9wj5mwxccix4bhmw5spy1gx5i53b",
+      "sha256": "1b8ihxq99g3hr8mr37bvhib4bfn8rlmpmp0wjg2q1j50plvdpkwg",
       "source": {
         "type": "crates-io"
       },
@@ -3366,9 +3140,9 @@
     },
     "regex-syntax": {
       "crateName": "regex-syntax",
-      "version": "0.8.6",
+      "version": "0.8.11",
       "edition": "2021",
-      "sha256": "00chjpglclfskmc919fj5aq308ffbrmcn7kzbkz92k231xdsmx6a",
+      "sha256": "1m25h5q2wp976fb9gc3dsc9l99svcvd5cri8lncb51c46ydgzxnn",
       "source": {
         "type": "crates-io"
       },
@@ -3424,36 +3198,6 @@
         "Aleksey Kladov <aleksey.kladov@gmail.com>"
       ]
     },
-    "rust-fuzzy-search": {
-      "crateName": "rust-fuzzy-search",
-      "version": "0.1.1",
-      "edition": "2018",
-      "sha256": "1chvl47hq42r219yxs6r1dp4l19acy5ay145hpc5drgzaiq6amx1",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "EnricoCh <enricochiaramello@gmail.com>"
-      ]
-    },
-    "rustc-demangle": {
-      "crateName": "rustc-demangle",
-      "version": "0.1.26",
-      "edition": "2015",
-      "sha256": "1kja3nb0yhlm4j2p1hl8d7sjmn2g9fa1s4pj0qma5kj2lcndkxsn",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Alex Crichton <alex@alexcrichton.com>"
-      ]
-    },
     "rustc-hash": {
       "crateName": "rustc-hash",
       "version": "1.1.0",
@@ -3475,16 +3219,16 @@
     },
     "rustix": {
       "crateName": "rustix",
-      "version": "1.0.8",
+      "version": "1.1.4",
       "edition": "2021",
-      "sha256": "1j6ajqi61agdnh1avr4bplrsgydjw1n4mycdxw3v8g94pyx1y60i",
+      "sha256": "14511f9yjqh0ix07xjrjpllah3325774gfwi9zpq72sip5jlbzmn",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
           "name": "bitflags",
-          "packageId": "bitflags 2.9.4"
+          "packageId": "bitflags 2.13.1"
         },
         {
           "name": "errno",
@@ -3506,7 +3250,7 @@
         {
           "name": "linux-raw-sys",
           "packageId": "linux-raw-sys",
-          "target": "cfg(all(any(target_os = \"android\", target_os = \"linux\"), any(rustix_use_libc, miri, not(all(target_os = \"linux\", any(target_endian = \"little\", any(target_arch = \"s390x\", target_arch = \"powerpc\")), any(target_arch = \"arm\", all(target_arch = \"aarch64\", target_pointer_width = \"64\"), target_arch = \"riscv64\", all(rustix_use_experimental_asm, target_arch = \"powerpc\"), all(rustix_use_experimental_asm, target_arch = \"powerpc64\"), all(rustix_use_experimental_asm, target_arch = \"s390x\"), all(rustix_use_experimental_asm, target_arch = \"mips\"), all(rustix_use_experimental_asm, target_arch = \"mips32r6\"), all(rustix_use_experimental_asm, target_arch = \"mips64\"), all(rustix_use_experimental_asm, target_arch = \"mips64r6\"), target_arch = \"x86\", all(target_arch = \"x86_64\", target_pointer_width = \"64\")))))))"
+          "target": "cfg(all(any(target_os = \"linux\", target_os = \"android\"), any(rustix_use_libc, miri, not(all(target_os = \"linux\", any(target_endian = \"little\", any(target_arch = \"s390x\", target_arch = \"powerpc\")), any(target_arch = \"arm\", all(target_arch = \"aarch64\", target_pointer_width = \"64\"), target_arch = \"riscv64\", all(rustix_use_experimental_asm, target_arch = \"powerpc\"), all(rustix_use_experimental_asm, target_arch = \"powerpc64\"), all(rustix_use_experimental_asm, target_arch = \"s390x\"), all(rustix_use_experimental_asm, target_arch = \"mips\"), all(rustix_use_experimental_asm, target_arch = \"mips32r6\"), all(rustix_use_experimental_asm, target_arch = \"mips64\"), all(rustix_use_experimental_asm, target_arch = \"mips64r6\"), target_arch = \"x86\", all(target_arch = \"x86_64\", target_pointer_width = \"64\")))))))"
         },
         {
           "name": "linux-raw-sys",
@@ -3515,7 +3259,7 @@
         },
         {
           "name": "windows-sys",
-          "packageId": "windows-sys 0.60.2",
+          "packageId": "windows-sys 0.61.2",
           "target": "cfg(windows)"
         }
       ],
@@ -3537,29 +3281,14 @@
     },
     "rustversion": {
       "crateName": "rustversion",
-      "version": "1.0.22",
+      "version": "1.0.23",
       "edition": "2018",
-      "sha256": "0vfl70jhv72scd9rfqgr2n11m5i9l1acnk684m2w83w0zbqdx75k",
+      "sha256": "07z2a843fs80fawwflj9jwn49k9b0bd0dhhbvy0ar69vaxd72m6g",
       "source": {
         "type": "crates-io"
       },
       "procMacro": true,
       "build": "build/build.rs",
-      "authors": [
-        "David Tolnay <dtolnay@gmail.com>"
-      ]
-    },
-    "ryu": {
-      "crateName": "ryu",
-      "version": "1.0.20",
-      "edition": "2018",
-      "sha256": "07s855l8sb333h6bpn24pka5sp7hjk2w667xy6a0khkf6sqv5lr8",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
       "authors": [
         "David Tolnay <dtolnay@gmail.com>"
       ]
@@ -3687,21 +3416,20 @@
     },
     "serde": {
       "crateName": "serde",
-      "version": "1.0.219",
-      "edition": "2018",
-      "sha256": "1dl6nyxnsi82a197sd752128a4avm6mxnscywas1jq30srp2q3jz",
+      "version": "1.0.229",
+      "edition": "2021",
+      "sha256": "1fp04fq4a79bpm61xz1zy0pbz4kpc7d771zii1k3inmszq55jj21",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
-          "name": "serde_derive",
-          "packageId": "serde_derive"
+          "name": "serde_core",
+          "packageId": "serde_core"
         },
         {
           "name": "serde_derive",
-          "packageId": "serde_derive",
-          "target": "cfg(any())"
+          "packageId": "serde_derive"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -3719,11 +3447,39 @@
         "David Tolnay <dtolnay@gmail.com>"
       ]
     },
+    "serde_core": {
+      "crateName": "serde_core",
+      "version": "1.0.229",
+      "edition": "2021",
+      "sha256": "0j1ajiha76h3nmd976il9li6975k121xa7jb39ws8n0yqp4s5p37",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "serde_derive",
+          "packageId": "serde_derive",
+          "target": "cfg(any())"
+        }
+      ],
+      "resolvedDefaultFeatures": [
+        "alloc",
+        "result",
+        "std"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "Erick Tryzelaar <erick.tryzelaar@gmail.com>",
+        "David Tolnay <dtolnay@gmail.com>"
+      ]
+    },
     "serde_derive": {
       "crateName": "serde_derive",
-      "version": "1.0.219",
-      "edition": "2015",
-      "sha256": "001azhjmj7ya52pmfiw4ppxm16nd44y15j2pf5gkcwrcgz7pc0jv",
+      "version": "1.0.229",
+      "edition": "2021",
+      "sha256": "0j4k63i7h1bikxwz2c89ig0hrwbnl9mz1czn85xx99x5cc9dg9g7",
       "source": {
         "type": "crates-io"
       },
@@ -3738,7 +3494,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 3.0.3"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -3752,9 +3508,9 @@
     },
     "serde_json": {
       "crateName": "serde_json",
-      "version": "1.0.143",
+      "version": "1.0.151",
       "edition": "2021",
-      "sha256": "0njabwzldvj13ykrf1aaf4gh5cgl25kf9hzbpafbv3qh3ppsn0fl",
+      "sha256": "051zww7lvpw147vvwss1ng6w587qyrkzg75fvj08q2dfrmgbahf8",
       "source": {
         "type": "crates-io"
       },
@@ -3768,12 +3524,17 @@
           "packageId": "memchr"
         },
         {
-          "name": "ryu",
-          "packageId": "ryu"
+          "name": "serde",
+          "packageId": "serde",
+          "target": "cfg(any())"
         },
         {
-          "name": "serde",
-          "packageId": "serde"
+          "name": "serde_core",
+          "packageId": "serde_core"
+        },
+        {
+          "name": "zmij",
+          "packageId": "zmij"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -3790,9 +3551,9 @@
     },
     "serde_repr": {
       "crateName": "serde_repr",
-      "version": "0.1.20",
+      "version": "0.1.21",
       "edition": "2021",
-      "sha256": "1755gss3f6lwvv23pk7fhnjdkjw7609rcgjlr8vjg6791blf6php",
+      "sha256": "01l987ghc17h1y9cf9xbzmcs77575mbrjf4ca2h70g15vqlicfwd",
       "source": {
         "type": "crates-io"
       },
@@ -3807,7 +3568,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 3.0.3"
         }
       ],
       "procMacro": true,
@@ -3836,15 +3597,43 @@
         "Eliza Weisman <eliza@buoyant.io>"
       ]
     },
+    "shlex": {
+      "crateName": "shlex",
+      "version": "2.0.1",
+      "edition": "2018",
+      "sha256": "1fjsll1cd7d2bcpdij9kd6w62rpbc7qqzvydvs021vsmr1cxvypq",
+      "source": {
+        "type": "crates-io"
+      },
+      "resolvedDefaultFeatures": [
+        "default",
+        "std"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "comex <comexk@gmail.com>",
+        "Fenhl <fenhl@fenhl.net>",
+        "Adrian Taylor <adetaylor@chromium.org>",
+        "Alex Touchet <alextouchet@outlook.com>",
+        "Daniel Parks <dp+git@oxidized.org>",
+        "Garrett Berg <googberg@gmail.com>"
+      ]
+    },
     "signal-hook-registry": {
       "crateName": "signal-hook-registry",
-      "version": "1.4.6",
+      "version": "1.4.8",
       "edition": "2015",
-      "sha256": "12y2v1ms5z111fymaw1v8k93m5chnkp21h0jknrydkj8zydp395j",
+      "sha256": "06vc7pmnki6lmxar3z31gkyg9cw7py5x9g7px70gy2hil75nkny4",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
+        {
+          "name": "errno",
+          "packageId": "errno"
+        },
         {
           "name": "libc",
           "packageId": "libc"
@@ -3860,9 +3649,9 @@
     },
     "siphasher": {
       "crateName": "siphasher",
-      "version": "1.0.1",
+      "version": "1.0.3",
       "edition": "2018",
-      "sha256": "17f35782ma3fn6sh21c027kjmd227xyrx06ffi8gw4xzv9yry6an",
+      "sha256": "0jg6l9xyzca5vy4h6gf8r6p4kk84g98fk95pzig1kq6cr4z8grcf",
       "source": {
         "type": "crates-io"
       },
@@ -3879,9 +3668,9 @@
     },
     "slab": {
       "crateName": "slab",
-      "version": "0.4.11",
+      "version": "0.4.12",
       "edition": "2018",
-      "sha256": "12bm4s88rblq02jjbi1dw31984w61y2ldn13ifk5gsqgy97f8aks",
+      "sha256": "1xcwik6s6zbd3lf51kkrcicdq2j4c1fw0yjdai2apy9467i0sy8c",
       "source": {
         "type": "crates-io"
       },
@@ -3898,9 +3687,9 @@
     },
     "smallvec": {
       "crateName": "smallvec",
-      "version": "1.15.1",
+      "version": "1.15.2",
       "edition": "2018",
-      "sha256": "00xxdxxpgyq5vjnpljvkmy99xij5rxgh913ii1v16kzynnivgcb7",
+      "sha256": "143wzbqf6vgapdp2z4qpl0yvlqcn17s8cnk8m28rqly808zsdmlf",
       "source": {
         "type": "crates-io"
       },
@@ -3917,9 +3706,9 @@
     },
     "smol_str": {
       "crateName": "smol_str",
-      "version": "0.3.2",
-      "edition": "2021",
-      "sha256": "039mj6lc1vkljj17ndlzzkak8kvlmw8ppi6yjdxsh433snfbhxln",
+      "version": "0.3.6",
+      "edition": "2024",
+      "sha256": "08qm7y1k2fkzrs8k78m03h4z4wbarv5g0bfr5m62m1glzil77aja",
       "source": {
         "type": "crates-io"
       },
@@ -3937,9 +3726,9 @@
     },
     "socket2": {
       "crateName": "socket2",
-      "version": "0.6.0",
+      "version": "0.6.5",
       "edition": "2021",
-      "sha256": "01qqdzfnr0bvdwq6wl56c9c4m2cvbxn43dfpcv8gjx208sph8d93",
+      "sha256": "1m7diygswpvlpvrxd6ap169nxgax014jr8220nqlr3bzyb3y5lf3",
       "source": {
         "type": "crates-io"
       },
@@ -3947,11 +3736,11 @@
         {
           "name": "libc",
           "packageId": "libc",
-          "target": "cfg(unix)"
+          "target": "cfg(any(unix, target_os = \"wasi\"))"
         },
         {
           "name": "windows-sys",
-          "packageId": "windows-sys 0.59.0",
+          "packageId": "windows-sys 0.61.2",
           "target": "cfg(windows)"
         }
       ],
@@ -3981,7 +3770,7 @@
         },
         {
           "name": "indexmap",
-          "packageId": "indexmap 2.11.0"
+          "packageId": "indexmap 2.14.0"
         },
         {
           "name": "smol_str",
@@ -4004,15 +3793,12 @@
     },
     "stable_deref_trait": {
       "crateName": "stable_deref_trait",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "edition": "2015",
-      "sha256": "1lxjr8q2n534b2lhkxd6l6wcddzjvnksi58zv11f9y0jjmr15wd8",
+      "sha256": "15h5h73ppqyhdhx6ywxfj88azmrpml9gl6zp3pwy2malqa6vxqkc",
       "source": {
         "type": "crates-io"
       },
-      "resolvedDefaultFeatures": [
-        "alloc"
-      ],
       "libCrateTypes": [
         "lib"
       ],
@@ -4060,11 +3846,11 @@
         "David Tolnay <dtolnay@gmail.com>"
       ]
     },
-    "syn 2.0.106": {
+    "syn 2.0.119": {
       "crateName": "syn",
-      "version": "2.0.106",
+      "version": "2.0.119",
       "edition": "2021",
-      "sha256": "19mddxp1ia00hfdzimygqmr1jqdvyl86k48427bkci4d08wc9rzd",
+      "sha256": "15vjy620l91a3q4n4f4gzhnflmdr6pnm38v2m6cpk86i8av32a47",
       "source": {
         "type": "crates-io"
       },
@@ -4102,6 +3888,43 @@
         "David Tolnay <dtolnay@gmail.com>"
       ]
     },
+    "syn 3.0.3": {
+      "crateName": "syn",
+      "version": "3.0.3",
+      "edition": "2021",
+      "sha256": "18srnql3cd39j9q6hf1az02p67rlr1rf6njx9zx4vxj9i3jvmsak",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "proc-macro2",
+          "packageId": "proc-macro2"
+        },
+        {
+          "name": "quote",
+          "packageId": "quote"
+        },
+        {
+          "name": "unicode-ident",
+          "packageId": "unicode-ident"
+        }
+      ],
+      "resolvedDefaultFeatures": [
+        "clone-impls",
+        "default",
+        "derive",
+        "parsing",
+        "printing",
+        "proc-macro"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "David Tolnay <dtolnay@gmail.com>"
+      ]
+    },
     "synstructure": {
       "crateName": "synstructure",
       "version": "0.13.2",
@@ -4121,7 +3944,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -4215,9 +4038,9 @@
     },
     "thiserror": {
       "crateName": "thiserror",
-      "version": "2.0.16",
+      "version": "2.0.19",
       "edition": "2021",
-      "sha256": "1h30bqyjn5s9ypm668yd9849371rzwk185klwgjg503k2hadcrrl",
+      "sha256": "1ngwxsjsa64v1n7vb90h2b0i3fqk1piwaf0z6fqdacqfhjc3b909",
       "source": {
         "type": "crates-io"
       },
@@ -4240,9 +4063,9 @@
     },
     "thiserror-impl": {
       "crateName": "thiserror-impl",
-      "version": "2.0.16",
+      "version": "2.0.19",
       "edition": "2021",
-      "sha256": "0q3r1ipr1rhff6cgrcvc0njffw17rpcqz9hdc7p754cbqkhinpkc",
+      "sha256": "1ka10pqy1g8zy5al9m8yadg30jp8hx0q80j8awmd8131yw6gxjs3",
       "source": {
         "type": "crates-io"
       },
@@ -4257,7 +4080,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 3.0.3"
         }
       ],
       "procMacro": true,
@@ -4267,9 +4090,9 @@
     },
     "thread_local": {
       "crateName": "thread_local",
-      "version": "1.1.9",
+      "version": "1.1.10",
       "edition": "2021",
-      "sha256": "1191jvl8d63agnq06pcnarivf63qzgpws5xa33hgc92gjjj4c0pn",
+      "sha256": "0w20g2pfdcp8pz3gds0bzksv6mxk802szca8qlr3701jdm69rn8s",
       "source": {
         "type": "crates-io"
       },
@@ -4288,9 +4111,9 @@
     },
     "tinystr": {
       "crateName": "tinystr",
-      "version": "0.7.6",
+      "version": "0.8.3",
       "edition": "2021",
-      "sha256": "0bxqaw7z8r2kzngxlzlgvld1r6jbnwyylyvyjbv1q71rvgaga5wi",
+      "sha256": "0vfr8x285w6zsqhna0a9jyhylwiafb2kc8pj2qaqaahw48236cn8",
       "source": {
         "type": "crates-io"
       },
@@ -4305,7 +4128,6 @@
         }
       ],
       "resolvedDefaultFeatures": [
-        "alloc",
         "zerovec"
       ],
       "libCrateTypes": [
@@ -4342,31 +4164,26 @@
     },
     "tokio": {
       "crateName": "tokio",
-      "version": "1.47.1",
+      "version": "1.53.1",
       "edition": "2021",
-      "sha256": "0f2hp5v3payg6x04ijj67si1wsdhksskhmjs2k9p5f7bmpyrmr49",
+      "sha256": "1v8b3b45pkpbibls75yniqbvx5dlks2708141ljni5mnf6lawb10",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
-          "name": "backtrace",
-          "packageId": "backtrace",
-          "target": "cfg(tokio_taskdump)"
-        },
-        {
           "name": "bytes",
           "packageId": "bytes"
         },
         {
-          "name": "io-uring",
-          "packageId": "io-uring",
-          "target": "cfg(all(tokio_uring, target_os = \"linux\"))"
+          "name": "libc",
+          "packageId": "libc",
+          "target": "cfg(all(tokio_unstable, target_os = \"linux\"))"
         },
         {
           "name": "libc",
           "packageId": "libc",
-          "target": "cfg(all(tokio_uring, target_os = \"linux\"))"
+          "target": "cfg(target_os = \"wasi\")"
         },
         {
           "name": "libc",
@@ -4380,11 +4197,11 @@
         {
           "name": "mio",
           "packageId": "mio",
-          "target": "cfg(all(tokio_uring, target_os = \"linux\"))"
+          "target": "cfg(all(tokio_unstable, target_os = \"linux\"))"
         },
         {
           "name": "parking_lot",
-          "packageId": "parking_lot 0.12.4"
+          "packageId": "parking_lot 0.12.5"
         },
         {
           "name": "pin-project-lite",
@@ -4396,14 +4213,9 @@
           "target": "cfg(unix)"
         },
         {
-          "name": "slab",
-          "packageId": "slab",
-          "target": "cfg(all(tokio_uring, target_os = \"linux\"))"
-        },
-        {
           "name": "socket2",
           "packageId": "socket2",
-          "target": "cfg(not(target_family = \"wasm\"))"
+          "target": "cfg(any(not(target_family = \"wasm\"), all(target_os = \"wasi\", not(target_env = \"p1\"))))"
         },
         {
           "name": "tokio-macros",
@@ -4411,7 +4223,7 @@
         },
         {
           "name": "windows-sys",
-          "packageId": "windows-sys 0.59.0",
+          "packageId": "windows-sys 0.61.2",
           "target": "cfg(windows)"
         }
       ],
@@ -4443,9 +4255,9 @@
     },
     "tokio-macros": {
       "crateName": "tokio-macros",
-      "version": "2.5.0",
+      "version": "2.7.1",
       "edition": "2021",
-      "sha256": "1f6az2xbvqp7am417b78d1za8axbvjvxnmkakz9vr8s52czx81kf",
+      "sha256": "1fj2h3gysqzwqchyhcyyvslwdj7qjgyzlc20d6sajwqf949sya33",
       "source": {
         "type": "crates-io"
       },
@@ -4460,7 +4272,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "procMacro": true,
@@ -4470,9 +4282,9 @@
     },
     "tower": {
       "crateName": "tower",
-      "version": "0.5.2",
+      "version": "0.5.3",
       "edition": "2018",
-      "sha256": "1ybmd59nm4abl9bsvy6rx31m4zvzp5rja2slzpn712y9b68ssffh",
+      "sha256": "1m5i3a2z1sgs8nnz1hgfq2nr4clpdmizlp1d9qsg358ma5iyzrgb",
       "source": {
         "type": "crates-io"
       },
@@ -4525,9 +4337,9 @@
     },
     "tracing": {
       "crateName": "tracing",
-      "version": "0.1.41",
+      "version": "0.1.44",
       "edition": "2018",
-      "sha256": "1l5xrzyjfyayrwhvhldfnwdyligi1mpqm8mzbi2m1d6y6p2hlkkq",
+      "sha256": "006ilqkg1lmfdh3xhg3z762izfwmxcvz0w7m4qx2qajbz9i1drv3",
       "source": {
         "type": "crates-io"
       },
@@ -4562,9 +4374,9 @@
     },
     "tracing-attributes": {
       "crateName": "tracing-attributes",
-      "version": "0.1.30",
+      "version": "0.1.31",
       "edition": "2018",
-      "sha256": "00v9bhfgfg3v101nmmy7s3vdwadb7ngc8c1iw6wai9vj9sv3lf41",
+      "sha256": "1np8d77shfvz0n7camx2bsf1qw0zg331lra0hxb4cdwnxjjwz43l",
       "source": {
         "type": "crates-io"
       },
@@ -4579,7 +4391,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "procMacro": true,
@@ -4591,9 +4403,9 @@
     },
     "tracing-core": {
       "crateName": "tracing-core",
-      "version": "0.1.34",
+      "version": "0.1.36",
       "edition": "2018",
-      "sha256": "0y3nc4mpnr79rzkrcylv5f5bnjjp19lsxwis9l4kzs97ya0jbldr",
+      "sha256": "16mpbz6p8vd6j7sf925k9k8wzvm9vdfsjbynbmaxxyq6v7wwm5yv",
       "source": {
         "type": "crates-io"
       },
@@ -4650,9 +4462,9 @@
     },
     "tracing-subscriber": {
       "crateName": "tracing-subscriber",
-      "version": "0.3.20",
+      "version": "0.3.23",
       "edition": "2018",
-      "sha256": "1m9447bxq7236avgl6n5yb2aqwplrghm61dgipw03mh7ad7s2m10",
+      "sha256": "06fkr0qhggvrs861d7f74pn3i3a10h5jsp4n70jj9ys5b675fzyb",
       "source": {
         "type": "crates-io"
       },
@@ -4719,9 +4531,9 @@
     },
     "unicode-ident": {
       "crateName": "unicode-ident",
-      "version": "1.0.18",
-      "edition": "2018",
-      "sha256": "04k5r6sijkafzljykdq26mhjpmhdx4jwzvn1lh90g9ax9903jpss",
+      "version": "1.0.24",
+      "edition": "2021",
+      "sha256": "0xfs8y1g7syl2iykji8zk5hgfi5jw819f5zsrbaxmlzwsly33r76",
       "source": {
         "type": "crates-io"
       },
@@ -4734,9 +4546,9 @@
     },
     "unicode-segmentation": {
       "crateName": "unicode-segmentation",
-      "version": "1.12.0",
+      "version": "1.13.3",
       "edition": "2018",
-      "sha256": "14qla2jfx74yyb9ds3d2mpwpa4l4lzb9z57c6d2ba511458z5k7n",
+      "sha256": "1a47zaq83p386r3baq4m018xd5q4q0grdg56i1x042dzn71x7xf6",
       "source": {
         "type": "crates-io"
       },
@@ -4750,9 +4562,9 @@
     },
     "unicode-width": {
       "crateName": "unicode-width",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "edition": "2021",
-      "sha256": "0k0mlq7xy1y1kq6cgv1r2rs2knn6rln3g3af50rhi0dkgp60f6ja",
+      "sha256": "0m7jjzlcccw716dy9423xxh0clys8pfpllc5smvfxrzdf66h9b5l",
       "source": {
         "type": "crates-io"
       },
@@ -4770,9 +4582,9 @@
     },
     "url": {
       "crateName": "url",
-      "version": "2.5.7",
+      "version": "2.5.8",
       "edition": "2018",
-      "sha256": "0nzghdv0kcksyvri0npxbjzyx2ihprks5k590y77bld355m17g08",
+      "sha256": "1v8f7nx3hpr1qh76if0a04sj08k86amsq4h8cvpw6wvk76jahrzz",
       "source": {
         "type": "crates-io"
       },
@@ -4792,6 +4604,10 @@
         {
           "name": "serde",
           "packageId": "serde"
+        },
+        {
+          "name": "serde_derive",
+          "packageId": "serde_derive"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -4804,21 +4620,6 @@
       ],
       "authors": [
         "The rust-url developers"
-      ]
-    },
-    "utf16_iter": {
-      "crateName": "utf16_iter",
-      "version": "1.0.5",
-      "edition": "2021",
-      "sha256": "0ik2krdr73hfgsdzw0218fn35fa09dg2hvbi1xp3bmdfrp9js8y8",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Henri Sivonen <hsivonen@hsivonen.fi>"
       ]
     },
     "utf8_iter": {
@@ -4923,9 +4724,9 @@
     },
     "wasm-bindgen": {
       "crateName": "wasm-bindgen",
-      "version": "0.2.101",
+      "version": "0.2.126",
       "edition": "2021",
-      "sha256": "0fv0yrfx170gf7i4dds4c69dxh8axp247wyip2dm4nylmmf9253y",
+      "sha256": "197rma4qg1kb8l4bl7857pgszzval8s1w740g9myyjh92467q1jb",
       "source": {
         "type": "crates-io"
       },
@@ -4939,10 +4740,6 @@
           "packageId": "once_cell"
         },
         {
-          "name": "rustversion",
-          "packageId": "rustversion"
-        },
-        {
           "name": "wasm-bindgen-macro",
           "packageId": "wasm-bindgen-macro"
         },
@@ -4951,52 +4748,16 @@
           "packageId": "wasm-bindgen-shared"
         }
       ],
+      "buildDependencies": [
+        {
+          "name": "rustversion",
+          "packageId": "rustversion",
+          "rename": "rustversion_compat"
+        }
+      ],
       "resolvedDefaultFeatures": [
         "default",
-        "msrv",
-        "rustversion",
         "std"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "The wasm-bindgen Developers"
-      ]
-    },
-    "wasm-bindgen-backend": {
-      "crateName": "wasm-bindgen-backend",
-      "version": "0.2.101",
-      "edition": "2021",
-      "sha256": "1fwkzc2z701g2rm2jq4m20a0lkc6qqq5r3a407yj6yfahalip3g2",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "bumpalo",
-          "packageId": "bumpalo"
-        },
-        {
-          "name": "log",
-          "packageId": "log"
-        },
-        {
-          "name": "proc-macro2",
-          "packageId": "proc-macro2"
-        },
-        {
-          "name": "quote",
-          "packageId": "quote"
-        },
-        {
-          "name": "syn",
-          "packageId": "syn 2.0.106"
-        },
-        {
-          "name": "wasm-bindgen-shared",
-          "packageId": "wasm-bindgen-shared"
-        }
       ],
       "libCrateTypes": [
         "lib"
@@ -5007,9 +4768,9 @@
     },
     "wasm-bindgen-macro": {
       "crateName": "wasm-bindgen-macro",
-      "version": "0.2.101",
+      "version": "0.2.126",
       "edition": "2021",
-      "sha256": "038vxk2yg11c3qv9iyasqcm70dw8sr2xmyaxqjq7bxzgwcx4cgbw",
+      "sha256": "1cda6wl5zyiy7777cfgrix7fhpaqba55l5zpqj4zig7ng7jyaz0n",
       "source": {
         "type": "crates-io"
       },
@@ -5030,13 +4791,17 @@
     },
     "wasm-bindgen-macro-support": {
       "crateName": "wasm-bindgen-macro-support",
-      "version": "0.2.101",
+      "version": "0.2.126",
       "edition": "2021",
-      "sha256": "1ajjqmdbi7ybdpw41avskjfdqnxpc9v547gmr8izj4c2n24wxd3v",
+      "sha256": "03iq412frl2py55skwb3ya08xha0cf6q22zr5kqlwbr675w7r6gk",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
+        {
+          "name": "bumpalo",
+          "packageId": "bumpalo"
+        },
         {
           "name": "proc-macro2",
           "packageId": "proc-macro2"
@@ -5047,11 +4812,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
-        },
-        {
-          "name": "wasm-bindgen-backend",
-          "packageId": "wasm-bindgen-backend"
+          "packageId": "syn 2.0.119"
         },
         {
           "name": "wasm-bindgen-shared",
@@ -5067,9 +4828,9 @@
     },
     "wasm-bindgen-shared": {
       "crateName": "wasm-bindgen-shared",
-      "version": "0.2.101",
+      "version": "0.2.126",
       "edition": "2021",
-      "sha256": "1h94nvm5p8zyr3718x4zhdz7rcmd0rir0b46a1ljqx8k7d58ahzi",
+      "sha256": "097a3kbjls447s1lwr41l21x5crrh5vq3h6zsxccz7slrjq4q6yw",
       "source": {
         "type": "crates-io"
       },
@@ -5089,9 +4850,9 @@
     },
     "web-sys": {
       "crateName": "web-sys",
-      "version": "0.3.78",
+      "version": "0.3.103",
       "edition": "2021",
-      "sha256": "04lbcdr74pilsrf1g76lbw9bwg7zghgslqxdiwmxkw4zfhvvdr3p",
+      "sha256": "0hb1zdnrp99p5r5q66jagsddmwha460yv2wklvzrzk0b3jvdq8l6",
       "source": {
         "type": "crates-io"
       },
@@ -5151,6 +4912,7 @@
         "handleapi",
         "minwindef",
         "ntstatus",
+        "sysinfoapi",
         "winbase",
         "winerror",
         "winnt"
@@ -5179,16 +4941,16 @@
     },
     "winapi-util": {
       "crateName": "winapi-util",
-      "version": "0.1.10",
+      "version": "0.1.11",
       "edition": "2021",
-      "sha256": "08hb8rj3aq9lcrfmliqs4l7v9zh6srbcn0376yn0pndkf5qvyy09",
+      "sha256": "08hdl7mkll7pz8whg869h58c1r9y7in0w0pk8fm24qc77k0b39y2",
       "source": {
         "type": "crates-io"
       },
       "dependencies": [
         {
           "name": "windows-sys",
-          "packageId": "windows-sys 0.60.2",
+          "packageId": "windows-sys 0.61.2",
           "target": "cfg(windows)"
         }
       ],
@@ -5216,17 +4978,14 @@
     },
     "windows-link": {
       "crateName": "windows-link",
-      "version": "0.1.3",
+      "version": "0.2.1",
       "edition": "2021",
-      "sha256": "12kr1p46dbhpijr4zbwr2spfgq8i8c5x55mvvfmyl96m01cx4sjy",
+      "sha256": "1rag186yfr3xx7piv5rg8b6im2dwcf8zldiflvb22xbzwli5507h",
       "source": {
         "type": "crates-io"
       },
       "libCrateTypes": [
         "lib"
-      ],
-      "authors": [
-        "Microsoft"
       ]
     },
     "windows-sys 0.59.0": {
@@ -5240,7 +4999,35 @@
       "dependencies": [
         {
           "name": "windows-targets",
-          "packageId": "windows-targets 0.52.6"
+          "packageId": "windows-targets"
+        }
+      ],
+      "resolvedDefaultFeatures": [
+        "Win32",
+        "Win32_Foundation",
+        "Win32_System",
+        "Win32_System_Threading",
+        "default"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "Microsoft"
+      ]
+    },
+    "windows-sys 0.61.2": {
+      "crateName": "windows-sys",
+      "version": "0.61.2",
+      "edition": "2021",
+      "sha256": "1z7k3y9b6b5h52kid57lvmvm05362zv1v8w0gc7xyv5xphlp44xf",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "windows-link",
+          "packageId": "windows-link"
         }
       ],
       "resolvedDefaultFeatures": [
@@ -5258,8 +5045,12 @@
         "Win32_Storage",
         "Win32_Storage_FileSystem",
         "Win32_System",
+        "Win32_System_Console",
+        "Win32_System_Diagnostics",
+        "Win32_System_Diagnostics_Debug",
         "Win32_System_IO",
         "Win32_System_Pipes",
+        "Win32_System_SystemInformation",
         "Win32_System_SystemServices",
         "Win32_System_Threading",
         "Win32_System_WindowsProgramming",
@@ -5267,47 +5058,9 @@
       ],
       "libCrateTypes": [
         "lib"
-      ],
-      "authors": [
-        "Microsoft"
       ]
     },
-    "windows-sys 0.60.2": {
-      "crateName": "windows-sys",
-      "version": "0.60.2",
-      "edition": "2021",
-      "sha256": "1jrbc615ihqnhjhxplr2kw7rasrskv9wj3lr80hgfd42sbj01xgj",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "windows-targets",
-          "packageId": "windows-targets 0.53.3"
-        }
-      ],
-      "resolvedDefaultFeatures": [
-        "Win32",
-        "Win32_Foundation",
-        "Win32_Networking",
-        "Win32_Networking_WinSock",
-        "Win32_Storage",
-        "Win32_Storage_FileSystem",
-        "Win32_System",
-        "Win32_System_Console",
-        "Win32_System_Diagnostics",
-        "Win32_System_Diagnostics_Debug",
-        "Win32_System_SystemInformation",
-        "default"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows-targets 0.52.6": {
+    "windows-targets": {
       "crateName": "windows-targets",
       "version": "0.52.6",
       "edition": "2021",
@@ -5318,42 +5071,42 @@
       "dependencies": [
         {
           "name": "windows_aarch64_gnullvm",
-          "packageId": "windows_aarch64_gnullvm 0.52.6",
+          "packageId": "windows_aarch64_gnullvm",
           "target": "aarch64-pc-windows-gnullvm"
         },
         {
           "name": "windows_aarch64_msvc",
-          "packageId": "windows_aarch64_msvc 0.52.6",
+          "packageId": "windows_aarch64_msvc",
           "target": "cfg(all(target_arch = \"aarch64\", target_env = \"msvc\", not(windows_raw_dylib)))"
         },
         {
           "name": "windows_i686_gnu",
-          "packageId": "windows_i686_gnu 0.52.6",
+          "packageId": "windows_i686_gnu",
           "target": "cfg(all(target_arch = \"x86\", target_env = \"gnu\", not(target_abi = \"llvm\"), not(windows_raw_dylib)))"
         },
         {
           "name": "windows_i686_gnullvm",
-          "packageId": "windows_i686_gnullvm 0.52.6",
+          "packageId": "windows_i686_gnullvm",
           "target": "i686-pc-windows-gnullvm"
         },
         {
           "name": "windows_i686_msvc",
-          "packageId": "windows_i686_msvc 0.52.6",
+          "packageId": "windows_i686_msvc",
           "target": "cfg(all(target_arch = \"x86\", target_env = \"msvc\", not(windows_raw_dylib)))"
         },
         {
           "name": "windows_x86_64_gnu",
-          "packageId": "windows_x86_64_gnu 0.52.6",
+          "packageId": "windows_x86_64_gnu",
           "target": "cfg(all(target_arch = \"x86_64\", target_env = \"gnu\", not(target_abi = \"llvm\"), not(windows_raw_dylib)))"
         },
         {
           "name": "windows_x86_64_gnullvm",
-          "packageId": "windows_x86_64_gnullvm 0.52.6",
+          "packageId": "windows_x86_64_gnullvm",
           "target": "x86_64-pc-windows-gnullvm"
         },
         {
           "name": "windows_x86_64_msvc",
-          "packageId": "windows_x86_64_msvc 0.52.6",
+          "packageId": "windows_x86_64_msvc",
           "target": "cfg(all(any(target_arch = \"x86_64\", target_arch = \"arm64ec\"), target_env = \"msvc\", not(windows_raw_dylib)))"
         }
       ],
@@ -5364,69 +5117,7 @@
         "Microsoft"
       ]
     },
-    "windows-targets 0.53.3": {
-      "crateName": "windows-targets",
-      "version": "0.53.3",
-      "edition": "2021",
-      "sha256": "14fwwm136dhs3i1impqrrip7nvkra3bdxa4nqkblj604qhqn1znm",
-      "source": {
-        "type": "crates-io"
-      },
-      "dependencies": [
-        {
-          "name": "windows-link",
-          "packageId": "windows-link",
-          "target": "cfg(windows_raw_dylib)"
-        },
-        {
-          "name": "windows_aarch64_gnullvm",
-          "packageId": "windows_aarch64_gnullvm 0.53.0",
-          "target": "aarch64-pc-windows-gnullvm"
-        },
-        {
-          "name": "windows_aarch64_msvc",
-          "packageId": "windows_aarch64_msvc 0.53.0",
-          "target": "cfg(all(target_arch = \"aarch64\", target_env = \"msvc\", not(windows_raw_dylib)))"
-        },
-        {
-          "name": "windows_i686_gnu",
-          "packageId": "windows_i686_gnu 0.53.0",
-          "target": "cfg(all(target_arch = \"x86\", target_env = \"gnu\", not(target_abi = \"llvm\"), not(windows_raw_dylib)))"
-        },
-        {
-          "name": "windows_i686_gnullvm",
-          "packageId": "windows_i686_gnullvm 0.53.0",
-          "target": "i686-pc-windows-gnullvm"
-        },
-        {
-          "name": "windows_i686_msvc",
-          "packageId": "windows_i686_msvc 0.53.0",
-          "target": "cfg(all(target_arch = \"x86\", target_env = \"msvc\", not(windows_raw_dylib)))"
-        },
-        {
-          "name": "windows_x86_64_gnu",
-          "packageId": "windows_x86_64_gnu 0.53.0",
-          "target": "cfg(all(target_arch = \"x86_64\", target_env = \"gnu\", not(target_abi = \"llvm\"), not(windows_raw_dylib)))"
-        },
-        {
-          "name": "windows_x86_64_gnullvm",
-          "packageId": "windows_x86_64_gnullvm 0.53.0",
-          "target": "x86_64-pc-windows-gnullvm"
-        },
-        {
-          "name": "windows_x86_64_msvc",
-          "packageId": "windows_x86_64_msvc 0.53.0",
-          "target": "cfg(all(any(target_arch = \"x86_64\", target_arch = \"arm64ec\"), target_env = \"msvc\", not(windows_raw_dylib)))"
-        }
-      ],
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_aarch64_gnullvm 0.52.6": {
+    "windows_aarch64_gnullvm": {
       "crateName": "windows_aarch64_gnullvm",
       "version": "0.52.6",
       "edition": "2021",
@@ -5441,22 +5132,7 @@
         "Microsoft"
       ]
     },
-    "windows_aarch64_gnullvm 0.53.0": {
-      "crateName": "windows_aarch64_gnullvm",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "0r77pbpbcf8bq4yfwpz2hpq3vns8m0yacpvs2i5cn6fx1pwxbf46",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_aarch64_msvc 0.52.6": {
+    "windows_aarch64_msvc": {
       "crateName": "windows_aarch64_msvc",
       "version": "0.52.6",
       "edition": "2021",
@@ -5471,22 +5147,7 @@
         "Microsoft"
       ]
     },
-    "windows_aarch64_msvc 0.53.0": {
-      "crateName": "windows_aarch64_msvc",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "0v766yqw51pzxxwp203yqy39ijgjamp54hhdbsyqq6x1c8gilrf7",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_i686_gnu 0.52.6": {
+    "windows_i686_gnu": {
       "crateName": "windows_i686_gnu",
       "version": "0.52.6",
       "edition": "2021",
@@ -5501,22 +5162,7 @@
         "Microsoft"
       ]
     },
-    "windows_i686_gnu 0.53.0": {
-      "crateName": "windows_i686_gnu",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "1hvjc8nv95sx5vdd79fivn8bpm7i517dqyf4yvsqgwrmkmjngp61",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_i686_gnullvm 0.52.6": {
+    "windows_i686_gnullvm": {
       "crateName": "windows_i686_gnullvm",
       "version": "0.52.6",
       "edition": "2021",
@@ -5531,22 +5177,7 @@
         "Microsoft"
       ]
     },
-    "windows_i686_gnullvm 0.53.0": {
-      "crateName": "windows_i686_gnullvm",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "04df1in2k91qyf1wzizvh560bvyzq20yf68k8xa66vdzxnywrrlw",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_i686_msvc 0.52.6": {
+    "windows_i686_msvc": {
       "crateName": "windows_i686_msvc",
       "version": "0.52.6",
       "edition": "2021",
@@ -5561,22 +5192,7 @@
         "Microsoft"
       ]
     },
-    "windows_i686_msvc 0.53.0": {
-      "crateName": "windows_i686_msvc",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "0pcvb25fkvqnp91z25qr5x61wyya12lx8p7nsa137cbb82ayw7sq",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_x86_64_gnu 0.52.6": {
+    "windows_x86_64_gnu": {
       "crateName": "windows_x86_64_gnu",
       "version": "0.52.6",
       "edition": "2021",
@@ -5591,22 +5207,7 @@
         "Microsoft"
       ]
     },
-    "windows_x86_64_gnu 0.53.0": {
-      "crateName": "windows_x86_64_gnu",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "1flh84xkssn1n6m1riddipydcksp2pdl45vdf70jygx3ksnbam9f",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_x86_64_gnullvm 0.52.6": {
+    "windows_x86_64_gnullvm": {
       "crateName": "windows_x86_64_gnullvm",
       "version": "0.52.6",
       "edition": "2021",
@@ -5621,22 +5222,7 @@
         "Microsoft"
       ]
     },
-    "windows_x86_64_gnullvm 0.53.0": {
-      "crateName": "windows_x86_64_gnullvm",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "0mvc8119xpbi3q2m6mrjcdzl6afx4wffacp13v76g4jrs1fh6vha",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "windows_x86_64_msvc 0.52.6": {
+    "windows_x86_64_msvc": {
       "crateName": "windows_x86_64_msvc",
       "version": "0.52.6",
       "edition": "2021",
@@ -5651,41 +5237,11 @@
         "Microsoft"
       ]
     },
-    "windows_x86_64_msvc 0.53.0": {
-      "crateName": "windows_x86_64_msvc",
-      "version": "0.53.0",
-      "edition": "2021",
-      "sha256": "11h4i28hq0zlnjcaqi2xdxr7ibnpa8djfggch9rki1zzb8qi8517",
-      "source": {
-        "type": "crates-io"
-      },
-      "libCrateTypes": [
-        "lib"
-      ],
-      "authors": [
-        "Microsoft"
-      ]
-    },
-    "write16": {
-      "crateName": "write16",
-      "version": "1.0.0",
-      "edition": "2021",
-      "sha256": "0dnryvrrbrnl7vvf5vb1zkmwldhjkf2n5znliviam7bm4900z2fi",
-      "source": {
-        "type": "crates-io"
-      },
-      "resolvedDefaultFeatures": [
-        "alloc"
-      ],
-      "libCrateTypes": [
-        "lib"
-      ]
-    },
     "writeable": {
       "crateName": "writeable",
-      "version": "0.5.5",
+      "version": "0.6.3",
       "edition": "2021",
-      "sha256": "0lawr6y0bwqfyayf3z8zmqlhpnzhdx0ahs54isacbhyjwa7g778y",
+      "sha256": "1i54d13h9bpap2hf13xcry1s4lxh7ap3923g8f3c0grd7c9fbyhz",
       "source": {
         "type": "crates-io"
       },
@@ -5698,9 +5254,9 @@
     },
     "yoke": {
       "crateName": "yoke",
-      "version": "0.7.5",
+      "version": "0.8.3",
       "edition": "2021",
-      "sha256": "0h3znzrdmll0a7sglzf9ji0p5iqml11wrj1dypaf6ad6kbpnl3hj",
+      "sha256": "1xgyj6c2lxj2bp891ynmhws87c6z7yyv2li1v0ss9di40hxf57vh",
       "source": {
         "type": "crates-io"
       },
@@ -5719,8 +5275,6 @@
         }
       ],
       "resolvedDefaultFeatures": [
-        "alloc",
-        "default",
         "derive",
         "zerofrom"
       ],
@@ -5733,9 +5287,9 @@
     },
     "yoke-derive": {
       "crateName": "yoke-derive",
-      "version": "0.7.5",
+      "version": "0.8.2",
       "edition": "2021",
-      "sha256": "0m4i4a7gy826bfvnqa9wy6sp90qf0as3wps3wb0smjaamn68g013",
+      "sha256": "13l5y5sz4lqm7rmyakjbh6vwgikxiql51xfff9hq2j485hk4r16y",
       "source": {
         "type": "crates-io"
       },
@@ -5750,7 +5304,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         },
         {
           "name": "synstructure",
@@ -5762,11 +5316,71 @@
         "Manish Goregaokar <manishsmail@gmail.com>"
       ]
     },
+    "zerocopy": {
+      "crateName": "zerocopy",
+      "version": "0.8.55",
+      "edition": "2021",
+      "sha256": "1swncvj53zi9yr08b9ddhfrcmlrmh6ijxzxcr3p6w3qlgg6hb8dm",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "zerocopy-derive",
+          "packageId": "zerocopy-derive"
+        },
+        {
+          "name": "zerocopy-derive",
+          "packageId": "zerocopy-derive",
+          "target": "cfg(any())"
+        }
+      ],
+      "resolvedDefaultFeatures": [
+        "derive",
+        "simd",
+        "zerocopy-derive"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "Joshua Liebow-Feeser <joshlf@google.com>",
+        "Jack Wrenn <jswrenn@amazon.com>"
+      ]
+    },
+    "zerocopy-derive": {
+      "crateName": "zerocopy-derive",
+      "version": "0.8.55",
+      "edition": "2021",
+      "sha256": "1sr8w9zc62lxmw7v6n89nxvqlki48b0nyfpyri6dd367f3xpds8g",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "proc-macro2",
+          "packageId": "proc-macro2"
+        },
+        {
+          "name": "quote",
+          "packageId": "quote"
+        },
+        {
+          "name": "syn",
+          "packageId": "syn 2.0.119"
+        }
+      ],
+      "procMacro": true,
+      "authors": [
+        "Joshua Liebow-Feeser <joshlf@google.com>",
+        "Jack Wrenn <jswrenn@amazon.com>"
+      ]
+    },
     "zerofrom": {
       "crateName": "zerofrom",
-      "version": "0.1.5",
+      "version": "0.1.8",
       "edition": "2021",
-      "sha256": "0bnd8vjcllzrvr3wvn8x14k2hkrpyy1fm3crkn2y3plmr44fxwyg",
+      "sha256": "0wjjdj7gdmd0iq91gzkxl7dlv0nhkk80l4bmdpzh3a1yh48mmh0f",
       "source": {
         "type": "crates-io"
       },
@@ -5777,21 +5391,20 @@
         }
       ],
       "resolvedDefaultFeatures": [
-        "alloc",
         "derive"
       ],
       "libCrateTypes": [
         "lib"
       ],
       "authors": [
-        "Manish Goregaokar <manishsmail@gmail.com>"
+        "The ICU4X Project Developers"
       ]
     },
     "zerofrom-derive": {
       "crateName": "zerofrom-derive",
-      "version": "0.1.6",
+      "version": "0.1.7",
       "edition": "2021",
-      "sha256": "00l5niw7c1b0lf1vhvajpjmcnbdp2vn96jg4nmkhq2db0rp5s7np",
+      "sha256": "18c4wsnznhdxx6m80piil1lbyszdiwsshgjrybqcm4b6qic22lqi",
       "source": {
         "type": "crates-io"
       },
@@ -5806,7 +5419,7 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         },
         {
           "name": "synstructure",
@@ -5818,11 +5431,44 @@
         "Manish Goregaokar <manishsmail@gmail.com>"
       ]
     },
+    "zerotrie": {
+      "crateName": "zerotrie",
+      "version": "0.2.4",
+      "edition": "2021",
+      "sha256": "1gr0pkcn3qsr6in6iixqyp0vbzwf2j1jzyvh7yl2yydh3p9m548g",
+      "source": {
+        "type": "crates-io"
+      },
+      "dependencies": [
+        {
+          "name": "displaydoc",
+          "packageId": "displaydoc"
+        },
+        {
+          "name": "yoke",
+          "packageId": "yoke"
+        },
+        {
+          "name": "zerofrom",
+          "packageId": "zerofrom"
+        }
+      ],
+      "resolvedDefaultFeatures": [
+        "yoke",
+        "zerofrom"
+      ],
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "The ICU4X Project Developers"
+      ]
+    },
     "zerovec": {
       "crateName": "zerovec",
-      "version": "0.10.4",
+      "version": "0.11.6",
       "edition": "2021",
-      "sha256": "0yghix7n3fjfdppwghknzvx9v8cf826h2qal5nqvy8yzg4yqjaxa",
+      "sha256": "0fdjsy6b31q9i0d73sl7xjd12xadbwi45lkpfgqnmasrqg5i3ych",
       "source": {
         "type": "crates-io"
       },
@@ -5853,9 +5499,9 @@
     },
     "zerovec-derive": {
       "crateName": "zerovec-derive",
-      "version": "0.10.3",
+      "version": "0.11.3",
       "edition": "2021",
-      "sha256": "1ik322dys6wnap5d3gcsn09azmssq466xryn5czfm13mn7gsdbvf",
+      "sha256": "0m85qj92mmfvhjra6ziqky5b1p4kcmp5069k7kfadp5hr8jw8pb2",
       "source": {
         "type": "crates-io"
       },
@@ -5870,12 +5516,27 @@
         },
         {
           "name": "syn",
-          "packageId": "syn 2.0.106"
+          "packageId": "syn 2.0.119"
         }
       ],
       "procMacro": true,
       "authors": [
         "Manish Goregaokar <manishsmail@gmail.com>"
+      ]
+    },
+    "zmij": {
+      "crateName": "zmij",
+      "version": "1.0.23",
+      "edition": "2021",
+      "sha256": "06zwri21nnrl34rwinmvbciap8yk1mrl8qfg9pff7lgspc56sri9",
+      "source": {
+        "type": "crates-io"
+      },
+      "libCrateTypes": [
+        "lib"
+      ],
+      "authors": [
+        "David Tolnay <dtolnay@gmail.com>"
       ]
     }
   }

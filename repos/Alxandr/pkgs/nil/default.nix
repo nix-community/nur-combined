@@ -10,8 +10,8 @@ let
   src = fetchFromGitHub {
     owner = "oxalica";
     repo = "nil";
-    rev = "504599f7e555a249d6754698473124018b80d121";
-    hash = "sha256-18j8X2Nbe0Wg1+7YrWRlYzmjZ5Wq0NCVwJHJlBIw/dc=";
+    rev = "205c8ba65a7f956d7837a710794001b3515c65ff";
+    hash = "sha256-F+MFs5cJbqcrlu/6BzQhNwF7Ih26yG9Yg9p4xyDz5eY=";
   };
 
   customBuildRustCrateForPkgs =
