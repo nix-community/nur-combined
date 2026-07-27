@@ -13,12 +13,12 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "razer-laptop-control";
-  version = "2c224ef0cda712f826056450d89e12c5f7bf3d0d";
+  version = "0.2.0-unstable-2026-04-02";
 
   src = fetchFromGitHub {
     owner = "JosuGZ";
     repo = "razer-laptop-control";
-    rev = version;
+    rev = "2c224ef0cda712f826056450d89e12c5f7bf3d0d";
     hash = "sha256-p8hz8FTmoksMh1qYi6Hy/q6BAN1PQNaQ2b9lzQDA2+k=";
   };
 

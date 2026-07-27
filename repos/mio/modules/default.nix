@@ -14,10 +14,12 @@ rec {
         zfs-impermanence-on-shutdown
         darling
         wireguird
+        razer-laptop-control
       ];
     }
   );
   zfs-impermanence-on-shutdown = ./zfs-impermanence-on-shutdown.nix;
   darling = ./darling.nix;
   wireguird = ./wireguird.nix;
+  razer-laptop-control = ./razer-laptop-control.nix;
 }
