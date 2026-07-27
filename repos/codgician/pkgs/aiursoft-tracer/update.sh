@@ -14,11 +14,9 @@ new_version="0-unstable-"$(echo "$prefetch" | jq -r '.date' | sed 's/T.*//')
 old_rev="$(sed -nE 's/\s*rev = "(.*)".*/\1/p' "$path")"
 old_version="$(sed -nE 's/\s*version = "(.*)".*/\1/p' "$path")"
 
-if [[ "$new_rev" == "$old_rev" ]]; then
-    echo "Current revision $old_rev is up-to-date."
-    exit 0
-fi
-
+# Refresh all generated dependency data even when the revision is unchanged.
+# This makes a rerun recover cleanly if a previous update failed after changing
+# the source revision but before regenerating the npm or NuGet dependencies.
 # Update the revision
 hash=$(echo "$prefetch" | jq -r '.hash')
 sed -i -e "s,rev = \"$old_rev\",rev = \"$new_rev\"," \
@@ -29,7 +27,6 @@ sed -i -e "s,rev = \"$old_rev\",rev = \"$new_rev\"," \
 tmpdir=$(mktemp -d)
 trap 'rm -rf "$tmpdir"' EXIT
 curl --fail --silent --show-error -O --output-dir "$tmpdir" "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/Aiursoft.Tracer/wwwroot/package-lock.json"
-curl --fail --silent --show-error -O --output-dir "$tmpdir" "https://raw.githubusercontent.com/AiursoftWeb/Tracer/$new_rev/src/Aiursoft.Tracer/wwwroot/package.json"
 pushd "$tmpdir"
 # Keep in sync with the prePatch rewrite in default.nix: Aiursoft's private
 # npm registry is unreliable, so deps are fetched from the official registry.

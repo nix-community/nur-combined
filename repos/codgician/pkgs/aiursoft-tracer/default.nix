@@ -15,17 +15,17 @@ let
   src = fetchFromGitHub {
     owner = "AiursoftWeb";
     repo = "Tracer";
-    rev = "7b3592965af60e3fb053cd09c46919914cc80877";
-    hash = "sha256-hMib3QZvKQBZI0FNZtRedQSm/VLd/6fNitJ8AHKClZ8=";
+    rev = "296afce941319bd43adf2f768c1b48afe1f311cd";
+    hash = "sha256-0hfzBFdOEuaMRSMA/g7KeDkBtR213DvBZUO2zEK/xVo=";
   };
 
-  version = "0-unstable-2026-07-24";
+  version = "0-unstable-2026-07-27";
 
   wwwroot = buildNpmPackage {
     pname = "${pname}-wwwroot";
     src = "${src}/src/Aiursoft.Tracer/wwwroot";
     inherit version;
-    npmDepsHash = "sha256-GWuITQpRMHbwJvhxIsj1Dvqnc3I2rMpHOU9I/nGV3Zs=";
+    npmDepsHash = "sha256-RJQWJ8pZ4YmUppdhUA2DhH3CW71lY05J25Yywd2q29o=";
     dontNpmBuild = true;
 
     # The upstream lockfile and npm config point to Aiursoft's private registry,
@@ -36,11 +36,6 @@ let
         --replace-fail "https://npm.aiursoft.com/" "https://registry.npmjs.org/"
       substituteInPlace .npmrc \
         --replace-fail "https://npm.aiursoft.com" "https://registry.npmjs.org"
-
-      # The manifest requests a version not in the lockfile or public registry.
-      uiStackVersion=$(sed -n '0,/"node_modules\/@aiursoft\/uistack":/s/^[[:space:]]*"@aiursoft\/uistack": "\([^"]*\)".*/\1/p' package-lock.json)
-      test -n "$uiStackVersion"
-      sed -i -E 's#("@aiursoft/uistack": ")[^"]*(")#\1'"$uiStackVersion"'\2#' package.json
     '';
 
     installPhase = ''
