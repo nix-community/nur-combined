@@ -1,29 +1,23 @@
 #!/usr/bin/env zsh
+set -euxo pipefail
+
 if [ -z $1 ]; then
-    echo "USAGE: talon-src <tar.gz url>"
+    echo "USAGE: talon-src <tar.gz fname>"
     exit 1
 fi
 
 set -euxo pipefail
 cd "$0:A:h"
 
-rm -f beta-src.nix
-
-url=$1
+fname=$1
 version=$(basename $1 | sed 's|\.tar.xz$||' | sed 's|talon-linux-||')
-sha256=$(nix-prefetch-url $url)
 
-tee beta-src.nix << EOF
-{
-  version = "$version";  # updated $(date -I)
-  url = "$url";
-  sha256 = "$sha256";
-}
-EOF
+sed -i "s|^  src =.*|  src = ./$fname;|" default.nix
+sed -i "s|^  version =.*|  version = \"$version\";|" default.nix
 
 # Also upgrade to the latest NixOS channel for building talon
-branch="release-21.11"
+branch="release-25.11"
 channel=$(git ls-remote https://github.com/nixos/nixpkgs $branch | awk '{print $1}')
-sed -i "s|^channel.*|channel='https://github.com/NixOS/nixpkgs/archive/$channel.tar.gz'  # $(date -I)|" talon
+sed -i "s|^channel.*|channel='https://github.com/NixOS/nixpkgs/archive/$channel.tar.gz'  # NixOS $branch as of $(date -I)|" talon
 
 talon

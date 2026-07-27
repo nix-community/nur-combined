@@ -1,8 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+pgrep talon && exit 0
+
 export TERM=xterm-256color
 export NIXPKGS_ALLOW_UNFREE=1
 
-channel='https://github.com/NixOS/nixpkgs/archive/32e954df31da3c6bf5e29b2627f4c2f84fc7a704.tar.gz'  # 2021-12-12
-nix run -f $channel talon -c talon
+notify-send "Starting talon..."
+
+channel='https://github.com/NixOS/nixpkgs/archive/0798500821e8a216823159f4e08afd2d87b9ea8d.tar.gz'  # NixOS release-25.11 as of 2026-05-18
+pgrep snixembed || snixembed &
+
+rm -f ~/talon
+nix build -Lvf $channel talon --out-link ~/talon
+
+steam-run ~/talon/talon

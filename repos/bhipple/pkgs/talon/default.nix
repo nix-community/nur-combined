@@ -3,57 +3,56 @@
 , lib
 , requireFile
 , makeWrapper
+, alacritty
 , bzip2
 , dbus
 , fontconfig
 , freetype
 , glib
 , libGL
-, libxkbcommon_7
+, libpulseaudio
+, libxkbcommon
+, openssl
+, rustc
+, snixembed
 , sqlite
 , udev
 , xorg
 , xz
 , zlib
-, libpulseaudio
-, alacritty
 }:
-let
-  # See README.md
-  srcs =
-    if builtins.pathExists ./beta-src.nix
-    then import ./beta-src.nix
-    else import ./src.nix;
-in
 stdenv.mkDerivation rec {
   pname = "talon";
-  inherit (srcs) version;
-  src = fetchurl {
-    inherit (srcs) url sha256;
-  };
+  version = "115-0.4.0-1050-3c4a";
+  src = ./talon-linux-115-0.4.0-1050-3c4a.tar.xz;
   preferLocalBuild = true;
   nativeBuildInputs = [ makeWrapper ];
   buildInputs = [
-    # qt5.wrapQtAppsHook
-    stdenv.cc.cc
-    stdenv.cc.libc
     bzip2
     dbus
     fontconfig
     freetype
     glib
     libGL
-    libxkbcommon_7
+    libpulseaudio
+    libxkbcommon
+    openssl
+    rustc
+    snixembed
     sqlite
+    stdenv.cc.cc
+    stdenv.cc.libc
     udev
-    xorg.libX11
-    xorg.libSM
     xorg.libICE
+    xorg.libSM
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXrandr
     xorg.libXrender
     xorg.libxcb
     xz
     zlib
-    libpulseaudio
   ];
   phases = [ "unpackPhase" "installPhase" ];
   installPhase = let
@@ -90,7 +89,7 @@ stdenv.mkDerivation rec {
 
     mkdir $out/bin
     (
-      cd $out/bin && ln -s ../talon talon
+      cd $out/bin && ln -s ../talon
     )
 
     runHook postInstall
