@@ -10,12 +10,12 @@
 #!/data/data/com.termux/files/usr/bin/bash
 # Auto-generated Termux shortcut wrapper: {{ . }}
 
-# Setup Termux execution environment
-TERMUX_EXEC_PATH="/data/data/com.termux/files/usr/lib/libtermux-exec.so"
-if [ -f "$TERMUX_EXEC_PATH" ] && [[ "$LD_PRELOAD" != *"$TERMUX_EXEC_PATH"* ]]; then
-	export LD_PRELOAD="$TERMUX_EXEC_PATH"
-	exec "$0" "$@"
-fi
+# # Setup Termux execution environment
+# TERMUX_EXEC_PATH="/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+# if [ -f "$TERMUX_EXEC_PATH" ] && [[ "$LD_PRELOAD" != *"$TERMUX_EXEC_PATH"* ]]; then
+# 	export LD_PRELOAD="$TERMUX_EXEC_PATH"
+# 	exec "$0" "$@"
+# fi
 
 # Set dotfiles root
 export DOTFILES_ROOT="{{ dotfiles }}"
@@ -23,7 +23,7 @@ export DOTFILES_ROOT="{{ dotfiles }}"
 source /data/data/com.termux/files/home/.bashrc
 
 # Execute script directly (no proot needed - proot-exec is only for Go builds)
-exec bash "$DOTFILES_ROOT/bin/_shortcuts/termux/{{ . }}" "$@"
+exec termux-chroot "$DOTFILES_ROOT/bin/_shortcuts/termux/{{ . }}" "$@"
 
 {{- endfile }}
 {{- end }}
