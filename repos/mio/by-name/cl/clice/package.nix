@@ -81,6 +81,14 @@ let
     hash = "sha256-A9nWfgcuVW3x9MDFeviCUK/oGcWJQwadI8LqNR8BlQw=";
   };
 
+  flatc = stdenv.mkDerivation {
+    pname = "flatbuffers-flatc";
+    version = "25.9.23";
+    src = flatbuffersSrc;
+    nativeBuildInputs = [ cmake ];
+    cmakeFlags = [ "-DFLATBUFFERS_BUILD_TESTS=OFF" ];
+  };
+
   kotatsuSrc = fetchFromGitHub {
     owner = "clice-io";
     repo = "kotatsu";
@@ -134,13 +142,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026072505";
+  version = "0.1.2026072605";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oXsUQ0e/Aqk/qHou5Ltmshi/5cfIhRLxHomzJrQRDHs=";
+    hash = "sha256-iW2tkqCJbORs5aem2eGsnR/aekFtxEqvdtIr+ZZpQQM=";
   };
 
   nativeBuildInputs = [
@@ -148,6 +156,7 @@ stdenv.mkDerivation (finalAttrs: {
     ninja
     python3
     pkg-config
+    flatc
   ];
 
   buildInputs = [
