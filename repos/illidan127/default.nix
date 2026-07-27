@@ -19,4 +19,5 @@
   yapf = pkgs.python312Packages.callPackage ./pkgs/yapf { };
   python-lsp-server = pkgs.python312Packages.callPackage ./pkgs/python-lsp-server { };
   cmake-language-server = pkgs.python312Packages.callPackage ./pkgs/cmake-language-server { };
+  skillshare = pkgs.callPackage ./pkgs/skillshare { };
 }
