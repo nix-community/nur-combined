@@ -3,10 +3,15 @@
   callPackage,
   plumb,
 }:
+let
+  plumb-plugin = plumb.neovim-plugin;
+in
 final: prev: {
   iwe-nvim = callPackage ./iwe-nvim {
     source = sources.iwe-nvim;
   };
+
+  plumb-nvim = plumb-plugin;
 
   nvim-treesitter-parsers = callPackage ./nvim-treesitter-parsers {
     inherit (prev) nvim-treesitter-parsers;

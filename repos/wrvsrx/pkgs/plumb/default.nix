@@ -5,15 +5,16 @@
   rustPlatform,
   stdenvNoCC,
   tree-sitter,
+  vimUtils,
 }:
 
 let
-  version = "0.12.0";
+  version = "0.13.0";
   src = fetchFromGitHub {
     owner = "wrvsrx";
     repo = "plumb";
     tag = version;
-    hash = "sha256-kK518W2/bJI1iyMT7ek/zsPMV9jq4XjXlyPbiehVwDQ=";
+    hash = "sha256-E9TA984BNnZDN6oONFCfD74iU+lqDOAs43AT0vd9STs=";
   };
 
   generatedSource = stdenvNoCC.mkDerivation {
@@ -52,12 +53,18 @@ let
       license = lib.licenses.mit;
     };
   };
+
+  neovim-plugin = vimUtils.buildVimPlugin {
+    pname = "plumb.nvim";
+    inherit version;
+    src = src + "/contrib/nvim";
+  };
 in
 rustPlatform.buildRustPackage {
   pname = "plumb";
   inherit version src;
 
-  cargoHash = "sha256-nVMS1n99qH1DQ1DTiGNorAJBJkkuVXxDbeAL5hHou6M=";
+  cargoHash = "sha256-IK69+UPEm0v1iPS041wF01MhC6LggYm3lsFRcPauvrg=";
 
   postInstall = ''
     mkdir -p $out/share/plumb
@@ -65,13 +72,13 @@ rustPlatform.buildRustPackage {
   '';
 
   passthru = {
-    inherit tree-sitter-plumb;
+    inherit neovim-plugin tree-sitter-plumb;
   };
 
   meta = {
     description = "Strict plumb markup language and tooling";
     homepage = "https://github.com/wrvsrx/plumb";
     license = lib.licenses.mit;
-    mainProgram = "plumb-ls";
+    mainProgram = "plumb";
   };
 }
