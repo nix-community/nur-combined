@@ -136,6 +136,9 @@ impl TerminalTabs {
             session.reconnect_streak = streak;
             session
         });
+        if self.active_tab == index {
+            self.focus_active_terminal = true;
+        }
         self.persist_sessions_if_enabled(cx);
         cx.notify();
     }
