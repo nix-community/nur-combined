@@ -1,0 +1,10 @@
+diff --git a/indent/lsl.vim b/indent/lsl.vim
+index e4606fe..af2b3be 100644
+--- a/indent/lsl.vim
++++ b/indent/lsl.vim
+@@ -11,4 +11,5 @@ function! LSLIndent()
+     return indent(previousNum) + &tabstop
+   endif
+ 
++  return indent(previousNum)
+ endfunction

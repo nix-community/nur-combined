@@ -73,7 +73,7 @@ in {
     let
       wrappedPkgVersion = lib.getVersion pkgs.fish;
       wrappedPkgName = lib.removeSuffix "-${wrappedPkgVersion}" pkgs.fish.name;
-      dependencies = concatMap (p: p.dependencies) cfg.plugins;
+      dependencies = concatMap (p: p.dependencies or []) cfg.plugins;
       combinedPluginDrv = pkgs.buildEnv {
         name = "${wrappedPkgName}-plugins-${wrappedPkgVersion}";
         paths = cfg.plugins;
@@ -89,7 +89,9 @@ in {
           fi
 
           if [ -d $out/conf.d ]; then
-            echo "source $out/conf.d/*.fish" >> $out/setup.fish
+            echo "for file in $out/conf.d/*.fish" >> $out/setup.fish
+            echo "  source \$file" >> $out/setup.fish
+            echo "end" >> $out/setup.fish
           fi
         '';
       };

@@ -1,7 +1,7 @@
 image: nixos/nix:latest
 
 variables:
-  NIX_PATH: "nixpkgs=https://nixos.org/channels/nixos-18.09/nixexprs.tar.xz"
+  NIX_PATH: "nixpkgs=https://nixos.org/channels/nixos-19.03/nixexprs.tar.xz"
 
 Build NUR:
   stage: build
@@ -22,3 +22,27 @@ Build NUR:
       || echo "Not master"
   except:
     - schedules
+
+Update Plugins:
+  stage: build
+  before_script:
+    - nix-env -f '<nixpkgs>' -iA git
+    - git remote set-url origin https://nur-updates:$JOMIKBOT@gitlab.com/$CI_PROJECT_PATH.git
+    - git config --global user.email 'jomikbot@hotmail.com'
+    - git config --global user.name 'jomikbot'
+  script:
+    - ./pkgs/vimPlugins/update.py
+    - >-
+      [ "$(git status --porcelain --untracked-files=no)" ]
+      && git commit -m "bot: Update Vim plugins" pkgs/vimPlugins/generated.nix
+      && git push origin HEAD:$CI_COMMIT_REF_NAME
+      || echo No changes to push
+    - ./pkgs/fishPlugins/update.py
+    - >-
+      [ "$(git status --porcelain --untracked-files=no)" ]
+      && git commit -m "bot: Update Fish plugins" pkgs/fishPlugins/generated.nix
+      && git push origin HEAD:$CI_COMMIT_REF_NAME
+      || echo No changes to push
+  only:
+    - schedules
+

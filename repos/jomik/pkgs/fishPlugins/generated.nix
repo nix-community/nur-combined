@@ -6,56 +6,56 @@ let
 {
   fish-fasd = buildFishPlugin {
     pname = "fish-fasd";
-    version = "2019-04-12";
+    version = "2019-08-02";
     src = fetchFromGitHub {
       owner = "jomik";
       repo = "fish-fasd";
-      rev = "58139b4ec80c24bd484483bee0200be40866cdcc";
-      sha256 = "0f1ddpz0xd5wmgsam7hy7yx4a7wkd2p66wpli9vqnxi74m44596h";
+      rev = "9f9211896e45a70aca0d0525bd3dce6acab06f6a";
+      sha256 = "1zlz3n89dvamb7rhvbgbkrvrldbjjay9ybrb6mw35l973357nbdm";
     };
   };
 
   fish-theme-eden = buildFishPlugin {
     pname = "fish-theme-eden";
-    version = "2018-09-10";
+    version = "2021-08-13";
     src = fetchFromGitHub {
       owner = "amio";
       repo = "fish-theme-eden";
-      rev = "ee3291e5151d752e5c2a7fa730080dad379ad5a0";
-      sha256 = "1jqmv4j2z4v40xzxfaa94vrnnl6hlnfbmv3nl0bakynrqxvrbfg9";
+      rev = "e0b1863b6cd854d3dd4bc0ecce5fb67d8e8fabaf";
+      sha256 = "02b2kbggkm15s3h64k5javp2rcvr2iyf0rxp5nkjz0hfdi1wg710";
     };
   };
 
   pure = buildFishPlugin {
     pname = "pure";
-    version = "2019-04-11";
+    version = "2021-05-03";
     src = fetchFromGitHub {
       owner = "rafaelrinaldi";
       repo = "pure";
-      rev = "5b487ca594b275f7ab131dcf8a8a8b4f8194adfc";
-      sha256 = "0yabvnkr04g5fj6bzdx2n62rpfh4fmlhcfp2mx7nqpvfpjfr39pl";
+      rev = "c0df5cb4726aa6831c0473556066a4cbf48fc79e";
+      sha256 = "1ki7b6b7nrb8fzhcslkvg6a9i5fi2da6bv9fm693yvhfhccf863b";
     };
   };
 
   spacefish = buildFishPlugin {
     pname = "spacefish";
-    version = "2019-03-11";
+    version = "2021-01-21";
     src = fetchFromGitHub {
       owner = "matchai";
       repo = "spacefish";
-      rev = "5ee321a3c717cb0bf8baf0798caaf2e576eddf50";
-      sha256 = "1ssqza3jrws3rfzanfispv8wv6h13y5cdrs34l3gnkqhh9acybca";
+      rev = "b1023a9d60fe1ae7234721ad2569b7c563aac46a";
+      sha256 = "0abj7g9kydb1am8kwx136wzlvj90z9ic2lfr2gg20jfr5k0s32f9";
     };
   };
 
   theme-bobthefish = buildFishPlugin {
     pname = "theme-bobthefish";
-    version = "2019-03-29";
+    version = "2021-11-05";
     src = fetchFromGitHub {
       owner = "oh-my-fish";
       repo = "theme-bobthefish";
-      rev = "3b2e847fcc81655ede39c450a240c02528de66aa";
-      sha256 = "1kdjkjmajrc29b65iah0rcppmby567b6wd4iws9vyh4z2yb2fcix";
+      rev = "332f23abd7a095d5b2c024a061af7b890a4f0c20";
+      sha256 = "0nhhc0d5z9k0srpalg7dv6zrls0qsw29bqp9vaajipcz53j7x6lf";
     };
   };
 

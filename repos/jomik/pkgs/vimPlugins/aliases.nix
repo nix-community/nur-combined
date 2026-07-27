@@ -22,7 +22,7 @@ let
   # Make sure that we are not shadowing something from
   # all-packages.nix.
   checkInPkgs = n: alias: if builtins.hasAttr n overriden
-                          then throw "Alias ${n} is still in fish-plugins"
+                          then throw "Alias ${n} is still in vim-plugins"
                           else alias;
 
   mapAliases = aliases:
@@ -31,8 +31,15 @@ let
                               (checkInPkgs n alias)))
                      aliases;
 in mapAliases {
-  fasd = fish-fasd;
-  theme-eden = fish-theme-eden;
-  theme-pure = pure;
-  theme-spacefish = spacefish;
+  clever-f = clever-f-vim;
+  comfortable-motion = comfortable-motion-vim;
+  git-messenger = git-messenger-vim;
+  lightline = lightline-vim;
+  markdown = vim-markdown;
+  markdown-preview = markdown-preview-nvim;
+  package-info = vim-package-info;
+  search-pulse = vim-search-pulse;
+  tcomment = tcomment_vim;
+  tla = vim-tla;
+  which-key = vim-which-key;
 }

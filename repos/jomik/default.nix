@@ -11,7 +11,8 @@ let
       })
       (attrNames list));
 
-  pkgs' = listDirectory (p: pkgs.callPackage p {}) ./pkgs;
+  callPackage = (pkgs.extend (self: super: pkgs')).callPackage;
+  pkgs' = listDirectory (p: callPackage p {}) ./pkgs;
 in pkgs' // {
   pkgs = pkgs';
   home-modules = listDirectory (x: x) ./home-modules;

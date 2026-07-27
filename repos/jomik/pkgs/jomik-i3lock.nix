@@ -8,7 +8,7 @@ let
     scrot
     imagemagick
   ]);
-in pkgs.writeShellScriptBin "slock" ''
+in pkgs.writeShellScriptBin "jomik-i3lock" ''
   export PATH=${path}
   screen=/run/user/$UID/screen.png
 
