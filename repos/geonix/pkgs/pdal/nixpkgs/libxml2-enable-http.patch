@@ -1,0 +1,13 @@
+diff --git b/pkgs/pdal/default.nix a/pkgs/pdal/default.nix
+index 61531be..f1e7009 100644
+--- b/pkgs/pdal/default.nix
++++ a/pkgs/pdal/default.nix
+@@ -53,7 +53,7 @@ stdenv.mkDerivation (finalAttrs: {
+     LASzip
+     libgeotiff
+     libtiff
+-    (libxml2.override { enableHttp = true; })
++    libxml2
+     openscenegraph
+     postgresql
+     proj

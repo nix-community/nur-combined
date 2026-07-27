@@ -1,37 +1,42 @@
-{ lib, makeWrapper, symlinkJoin
+{ makeWrapper
+, nixosTests
+, symlinkJoin
+
 , extraPythonPackages ? (ps: [ ])
+, qgis-unwrapped
+
 , libsForQt5
-, qgis-ltr-unwrapped
 }:
-with lib;
 
 symlinkJoin rec {
 
-  inherit (qgis-ltr-unwrapped) version;
+  inherit (qgis-unwrapped) version src;
   name = "qgis-${version}";
 
-  paths = [ qgis-ltr-unwrapped ];
+  paths = [ qgis-unwrapped ];
 
-  nativeBuildInputs = [ makeWrapper qgis-ltr-unwrapped.py.pkgs.wrapPython ];
+  nativeBuildInputs = [
+    makeWrapper
+    qgis-unwrapped.py.pkgs.wrapPython
+  ];
 
   # extend to add to the python environment of QGIS without rebuilding QGIS application.
-  pythonInputs = qgis-ltr-unwrapped.pythonBuildInputs ++ (extraPythonPackages qgis-ltr-unwrapped.py.pkgs);
+  pythonInputs = qgis-unwrapped.pythonBuildInputs ++ (extraPythonPackages qgis-unwrapped.py.pkgs);
 
   postBuild = ''
-
     buildPythonPath "$pythonInputs"
 
-    wrapProgram $out/bin/qgis \
-      --prefix PATH : $program_PATH \
-      --set PYTHONPATH $program_PYTHONPATH
+    for program in $out/bin/*; do
+      wrapProgram $program \
+        --prefix PATH : $program_PATH \
+        --set PYTHONPATH $program_PYTHONPATH
+    done
   '';
 
-  passthru.unwrapped = qgis-ltr-unwrapped;
+  passthru = {
+    unwrapped = qgis-unwrapped;
+    tests.qgis-ltr = nixosTests.qgis-ltr;
+  };
 
-  inherit (qgis-ltr-unwrapped) meta;
-
-  # FIXME: this setting allows qgis to appear in ci.nix cacheOutputs. It shouldn't be needed.
-  # This behaviour might be caused by symlinkJoin.
-  # See: https://github.com/NixOS/nixpkgs/blob/cf7f4393f3f953faf5765c7a0168c6710baa1423/pkgs/build-support/trivial-builders.nix#L440
-  preferLocalBuild = false;
+  inherit (qgis-unwrapped) meta;
 }

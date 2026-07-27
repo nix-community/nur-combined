@@ -1,0 +1,39 @@
+diff --git b/pkgs/qgis/unwrapped.nix a/pkgs/qgis/unwrapped.nix
+index 850ff7c..3ffd5ef 100644
+--- b/pkgs/qgis/unwrapped.nix
++++ a/pkgs/qgis/unwrapped.nix
+@@ -15,6 +15,7 @@
+ , exiv2
+ , fcgi
+ , flex
++, gdal
+ , geos
+ , grass
+ , gsl
+@@ -29,7 +30,7 @@
+ , postgresql
+ , proj
+ , protobuf
+-, python311
++, python3
+ , qca-qt5
+ , qscintilla
+ , qt3d
+@@ -48,15 +49,8 @@
+ }:
+ 
+ let
+-  py = python311.override {
+-    self = py;
+-    packageOverrides = self: super: {
+-      pyqt5 = super.pyqt5.override {
+-        withLocation = true;
+-        withSerialPort = true;
+-      };
+-    };
+-  };
++  # pyqt5 override was moved to flake.nix
++  py = python3;
+ 
+   pythonBuildInputs = with py.pkgs; [
+     chardet

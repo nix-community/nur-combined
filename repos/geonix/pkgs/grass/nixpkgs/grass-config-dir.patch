@@ -1,0 +1,17 @@
+diff --git a/pkgs/grass/default.nix b/pkgs/grass/default.nix
+index 69d6e98..31624cc 100644
+--- a/pkgs/grass/default.nix
++++ b/pkgs/grass/default.nix
+@@ -52,6 +52,12 @@ stdenv.mkDerivation (finalAttrs: {
+     hash = "sha256-NKMshd6pr2O62ZjmQ/oPttmeVBYVD0Nqhh3SwQrhZf8=";
+   };
+ 
++  patches = [
++    # Backport of https://github.com/OSGeo/grass/pull/3899
++    # by @landam . Remove for GRASS 8.5.
++    ./grass_config_dir.patch
++  ];
++
+   nativeBuildInputs = [
+     makeWrapper
+     wrapGAppsHook3

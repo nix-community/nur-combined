@@ -1,0 +1,16 @@
+--- a/overrides.nix
++++ b/overrides.nix
+@@ -67,6 +67,13 @@ rec {
+ 
+     # >>> CUSTOMIZE HERE
+ 
++    version = "1000.0.0";
++
++    postPatch = ''
++      sed -i "s|Usage:|Usage (patched):|" apps/argparse/argparse.hpp
++    '';
++
++    doInstallCheck = false;
+   })).override { inherit geos libgeotiff libspatialite proj tiledb; useJava = false; };
+   _gdal = gdal;
+ 

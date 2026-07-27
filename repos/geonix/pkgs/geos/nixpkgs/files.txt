@@ -1,0 +1,1 @@
+pkgs/development/libraries/geos/* pkgs/geos/

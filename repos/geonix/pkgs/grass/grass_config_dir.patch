@@ -1,0 +1,103 @@
+diff --git a/gui/wxpython/core/utils.py b/gui/wxpython/core/utils.py
+index 9c42a77487..eec3291242 100644
+--- a/gui/wxpython/core/utils.py
++++ b/gui/wxpython/core/utils.py
+@@ -811,7 +811,9 @@ def GetSettingsPath():
+     if sys.platform == "win32":
+         return os.path.join(os.getenv("APPDATA"), "GRASS%d" % version)
+ 
+-    return os.path.join(os.getenv("HOME"), ".grass%d" % version)
++    return os.path.join(
++        os.getenv("GRASS_CONFIG_DIR") if os.getenv("GRASS_CONFIG_DIR") else os.getenv("HOME"),
++        ".grass%d" % version)
+ 
+ 
+ def StoreEnvVariable(key, value=None, envFile=None):
+diff --git a/lib/gis/home.c b/lib/gis/home.c
+index 166f6f2f19..e584a5e3c1 100644
+--- a/lib/gis/home.c
++++ b/lib/gis/home.c
+@@ -100,6 +100,7 @@ const char *G_config_path(void)
+     static int initialized_config;
+     static const char *config_path = 0;
+     char buf[GPATH_MAX];
++    static const char *config_dir = NULL;
+ 
+     if (G_is_initialized(&initialized_config))
+         return config_path;
+@@ -107,7 +108,10 @@ const char *G_config_path(void)
+ #ifdef __MINGW32__
+     sprintf(buf, "%s%c%s", getenv("APPDATA"), HOST_DIRSEP, CONFIG_DIR);
+ #else
+-    sprintf(buf, "%s%c%s", G_home(), HOST_DIRSEP, CONFIG_DIR);
++    config_dir = getenv("GRASS_CONFIG_DIR");
++    if (!config_dir)
++        config_dir = G_home();
++    sprintf(buf, "%s%c%s", config_dir, HOST_DIRSEP, CONFIG_DIR);
+ #endif
+     config_path = G_store(buf);
+ 
+diff --git a/lib/init/grass.py b/lib/init/grass.py
+index 6d9d8b3b3e..fad0946d70 100755
+--- a/lib/init/grass.py
++++ b/lib/init/grass.py
+@@ -351,6 +351,7 @@ Geographic Resources Analysis Support System (GRASS GIS).
+   FLAG                           {standard_flags}
+ 
+ {env_vars}:
++  GRASS_CONFIG_DIR               {config_dir_var}
+   GRASS_GUI                      {gui_var}
+   GRASS_HTML_BROWSER             {html_var}
+   GRASS_ADDON_PATH               {addon_path_var}
+@@ -394,6 +395,7 @@ def help_message(default_gui):
+             mapset=_("initial GRASS mapset"),
+             full_mapset=_("fully qualified initial mapset directory"),
+             env_vars=_("Environment variables relevant for startup"),
++            config_dir_var=_("set root path for configuration directory"),
+             gui_var=_("select GUI (text, gui, gtext)"),
+             html_var=_("set html web browser for help pages"),
+             addon_path_var=_(
+@@ -454,7 +456,9 @@ def get_grass_config_dir():
+         directory = os.path.join(win_conf_path, grass_config_dirname)
+     else:
+         grass_config_dirname = f".grass{GRASS_VERSION_MAJOR}"
+-        directory = os.path.join(os.getenv("HOME"), grass_config_dirname)
++        directory = os.path.join(
++            os.getenv("GRASS_CONFIG_DIR") if os.getenv("GRASS_CONFIG_DIR") else os.getenv("HOME"),
++            grass_config_dirname)
+     if not os.path.isdir(directory):
+         try:
+             os.mkdir(directory)
+diff --git a/lib/init/variables.html b/lib/init/variables.html
+index 4c84a7803a..6fd10d7f17 100644
+--- a/lib/init/variables.html
++++ b/lib/init/variables.html
+@@ -124,6 +124,13 @@ PERMANENT
+     available are RLE, ZLIB, and LZ4. The compressors BZIP2 and ZSTD
+     must be enabled when configuring GRASS for compilation.</dd>
+ 
++  <dt>GRASS_CONFIG_DIR</dt>
++  <dd>[grass startup script]<br>
++    specifies root path for GRASS configuration directory.
++    If not specified, the default placement of the
++    configuration directory is used: <tt>$HOME</tt> on GNU/Linux,
++    <tt>$HOME/Library</tt> on Mac OS X, and <tt>%APPDATA%</tt> on MS Windows.</dd>
++
+   <dt>GRASS_DB_ENCODING</dt>
+   <dd>[various modules, wxGUI]<br>
+     encoding for vector attribute data (utf-8, ascii, iso8859-1, koi8-r)</dd>
+diff --git a/scripts/g.extension/g.extension.py b/scripts/g.extension/g.extension.py
+index 3fd497d78c..5e48e8bd4b 100644
+--- a/scripts/g.extension/g.extension.py
++++ b/scripts/g.extension/g.extension.py
+@@ -2481,7 +2481,9 @@ def resolve_install_prefix(path, to_system):
+                     "GRASS_ADDON_BASE is not defined, installing to ~/.grass{}/addons"
+                 ).format(VERSION[0])
+             )
+-            path = os.path.join(os.environ["HOME"], f".grass{VERSION[0]}", "addons")
++            path = os.path.join(
++                os.getenv("GRASS_CONFIG_DIR") if os.getenv("GRASS_CONFIG_DIR") else os.getenv("HOME"),
++                f".grass{VERSION[0]}", "addons")
+         else:
+             path = os.environ["GRASS_ADDON_BASE"]
+     if os.path.exists(path) and not os.access(path, os.W_OK):

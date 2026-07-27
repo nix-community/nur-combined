@@ -1,0 +1,42 @@
+name: Release new version
+
+on:
+  schedule:
+    - cron:  '0 23 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    if: github.ref == 'refs/heads/master'
+    name: "Release"
+    runs-on: "ubuntu-22.04"
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Terminate if no changes since last tag
+        run: |
+          if [ "$(git rev-list $(git describe --abbrev=0 --tags)..HEAD --count -- flake.nix flake.lock lib/ pkgs/)" -eq "0" ]; then exit 1; fi
+
+      - name: Generate release tag
+        id: tag
+        run: echo tag="v$(date "+%Y.%V.0")" >> "$GITHUB_OUTPUT"
+
+      - uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "${{ steps.tag.outputs.tag }}"
+          prerelease: false
+
+      - name: Create latest tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag --annotate  --force "latest" --message "Latest released version"
+          git push --force origin latest

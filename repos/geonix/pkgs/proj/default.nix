@@ -1,7 +1,6 @@
 { lib
 , stdenv
 , fetchFromGitHub
-, fetchpatch
 , cmake
 , pkg-config
 , buildPackages
@@ -12,26 +11,23 @@
 , gtest
 , nlohmann_json
 , python3
+, cacert
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "proj";
-  version = "9.1.1";
+  version = "9.4.1";
 
   src = fetchFromGitHub {
     owner = "OSGeo";
     repo = "PROJ";
     rev = finalAttrs.version;
-    hash = "sha256-yw7eSm64qFFt9egJWKVyVo0e7xQRSmfUY7pk6Cwvwdk=";
+    hash = "sha256-sLlG9NNHST9d0G5hV1tOGpTSv4rbUxERW3kwGC+t1iU=";
   };
 
   patches = [
     # https://github.com/OSGeo/PROJ/pull/3252
-    (fetchpatch {
-      name = "only-add-find_dependencyCURL-for-static-builds.patch";
-      url = "https://github.com/OSGeo/PROJ/commit/11f4597bbb7069bd5d4391597808703bd96df849.patch";
-      hash = "sha256-4w5Cu2m5VJZr6E2dUVRyWJdED2TyS8cI8G20EwfQ4u0=";
-    })
+    ./only-add-curl-for-static-builds.patch
   ];
 
   outputs = [ "out" "dev" ];
@@ -40,7 +36,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [ sqlite libtiff curl nlohmann_json ];
 
-  checkInputs = [ gtest ];
+  nativeCheckInputs = [ cacert gtest ];
 
   cmakeFlags = [
     "-DUSE_EXTERNAL_GTEST=ON"
@@ -48,10 +44,14 @@ stdenv.mkDerivation (finalAttrs: {
     "-DNLOHMANN_JSON_ORIGIN=external"
     "-DEXE_SQLITE3=${buildPackages.sqlite}/bin/sqlite3"
   ];
+  CXXFLAGS = [
+    # GCC 13: error: 'int64_t' in namespace 'std' does not name a type
+    "-include cstdint"
+  ];
 
   preCheck =
     let
-      libPathEnvVar = if stdenv.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
+      libPathEnvVar = if stdenv.hostPlatform.isDarwin then "DYLD_LIBRARY_PATH" else "LD_LIBRARY_PATH";
     in
       ''
         export HOME=$TMPDIR
@@ -67,10 +67,11 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = with lib; {
+    changelog = "https://github.com/OSGeo/PROJ/blob/${finalAttrs.src.rev}/NEWS";
     description = "Cartographic Projections Library";
     homepage = "https://proj.org/";
     license = licenses.mit;
+    maintainers = with maintainers; teams.geospatial.members ++ [ dotlambda ];
     platforms = platforms.unix;
-    maintainers = with maintainers; [ dotlambda ];
   };
 })

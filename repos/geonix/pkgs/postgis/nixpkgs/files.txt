@@ -1,0 +1,1 @@
+pkgs/servers/sql/postgresql/ext/postgis.nix pkgs/postgis/

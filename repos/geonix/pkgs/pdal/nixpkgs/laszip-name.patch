@@ -1,0 +1,22 @@
+diff --git b/pkgs/pdal/default.nix a/pkgs/pdal/default.nix
+index c035460..eb96889 100644
+--- b/pkgs/pdal/default.nix
++++ a/pkgs/pdal/default.nix
+@@ -10,7 +10,7 @@
+ , curl
+ , gdal
+ , hdf5-cpp
+-, laszip
++, LASzip
+ , libe57format
+ , libgeotiff
+ , libtiff
+@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
+     curl
+     gdal
+     hdf5-cpp
+-    laszip
++    LASzip
+     libgeotiff
+     libtiff
+     libxml2

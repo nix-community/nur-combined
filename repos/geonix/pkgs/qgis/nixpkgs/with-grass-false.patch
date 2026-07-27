@@ -1,0 +1,26 @@
+diff --git b/pkgs/qgis/unwrapped-ltr.nix a/pkgs/qgis/unwrapped-ltr.nix
+index d3745a0..c178e9c 100644
+--- b/pkgs/qgis/unwrapped-ltr.nix
++++ a/pkgs/qgis/unwrapped-ltr.nix
+@@ -6,7 +6,7 @@
+ , wrapGAppsHook3
+ , wrapQtAppsHook
+ 
+-, withGrass ? true
++, withGrass ? false
+ , withWebKit ? false
+ 
+ , bison
+diff --git b/pkgs/qgis/unwrapped.nix a/pkgs/qgis/unwrapped.nix
+index cf307ab..d9b40b0 100644
+--- b/pkgs/qgis/unwrapped.nix
++++ a/pkgs/qgis/unwrapped.nix
+@@ -6,7 +6,7 @@
+ , wrapGAppsHook3
+ , wrapQtAppsHook
+ 
+-, withGrass ? true
++, withGrass ? false
+ , withWebKit ? false
+ 
+ , bison

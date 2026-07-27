@@ -1,0 +1,13 @@
+diff --git b/pkgs/libspatialite/default.nix a/pkgs/libspatialite/default.nix
+index 98d184a..afa9c65 100644
+--- b/pkgs/libspatialite/default.nix
++++ a/pkgs/libspatialite/default.nix
+@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
+     freexl
+     geos
+     librttopo
+-    (libxml2.override { enableHttp = true; })
++    libxml2
+     minizip
+     proj
+     sqlite

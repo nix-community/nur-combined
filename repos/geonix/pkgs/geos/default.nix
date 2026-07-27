@@ -2,32 +2,41 @@
 , stdenv
 , callPackage
 , fetchurl
-, fetchpatch
-, cmake }:
+, testers
+
+, cmake
+}:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "geos";
-  version = "3.11.1";
+  version = "3.13.0";
 
   src = fetchurl {
-    url = "https://download.osgeo.org/geos/${finalAttrs.pname}-${finalAttrs.version}.tar.bz2";
-    hash = "sha256-bQ6zz6n5LZR3Mcx18XUDVrO9/AfqAgVT2vavHHaOC+I=";
+    url = "https://download.osgeo.org/geos/geos-${finalAttrs.version}.tar.bz2";
+    hash = "sha256-R+yD/zNNZyueRCZpXxXabmNoJEIUlx+r84b/jvbfOeQ=";
   };
 
   nativeBuildInputs = [ cmake ];
 
+  # https://github.com/libgeos/geos/issues/930
+  cmakeFlags = lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) [
+    "-DCMAKE_CTEST_ARGUMENTS=--exclude-regex;unit-geom-Envelope"
+  ];
+
   doCheck = true;
 
   passthru.tests = {
-    geos = callPackage ./tests.nix { };
+    pkg-config = testers.testMetaPkgConfig finalAttrs.finalPackage;
+    geos = callPackage ./tests.nix { geos = finalAttrs.finalPackage; };
   };
 
   meta = with lib; {
-    description = "C++ port of the Java Topology Suite (JTS)";
-    homepage = "https://trac.osgeo.org/geos";
+    description = "C/C++ library for computational geometry with a focus on algorithms used in geographic information systems (GIS) software";
+    homepage = "https://libgeos.org";
     license = licenses.lgpl21Only;
-    maintainers = with lib.maintainers; [
-      willcohen
-    ];
+    mainProgram = "geosop";
+    maintainers = teams.geospatial.members;
+    pkgConfigModules = [ "geos" ];
+    changelog = "https://github.com/libgeos/geos/releases/tag/${finalAttrs.finalPackage.version}";
   };
 })

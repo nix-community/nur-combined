@@ -1,0 +1,49 @@
+name: Update flake inputs
+
+on:
+  schedule:
+    - cron:  '0 1 * * 1'
+  workflow_dispatch:
+
+env:
+  NIX_CONFIG: "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}"
+
+jobs:
+  test:
+    name: Update and create PR
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v30
+
+      - name: Run nix flake update
+        run: >
+          nix flake update
+
+      - name: Generate branch name
+        id: branch
+        run: echo branch="weekly-update-$(date "+%Y.%V")" >> "$GITHUB_OUTPUT"
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          add-paths: |
+            flake.lock
+          title: "pkgs: weekly update (${{ steps.branch.outputs.branch }})"
+          body: |
+            Weekly update of packages.
+          branch: "${{ steps.branch.outputs.branch }}"
+          commit-message: "flake: weekly update of nix flake inputs"
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
+          assignees: imincik
+          # reviewers: imincik
+          token: ${{ secrets.FLAKE_AUTOUPDATE_TOKEN }}
+          draft: true
+          delete-branch: true

@@ -1,0 +1,91 @@
+name: Build packages
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+env:
+  NIX_CONFIG: "access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}"
+
+jobs:
+  check-flake:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: 
+          - ubuntu-22.04
+          # - macos-11
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v30
+
+    - name: Flake metadata
+      run: >
+        nix flake metadata
+
+    - name: Flake show
+      run: >
+        nix flake show
+
+    - name: Flake check
+      run: >
+        nix flake check --no-build --accept-flake-config
+
+
+  build-packages:
+    needs: check-flake
+    strategy:
+      fail-fast: false
+      matrix:
+        os: 
+          - ubuntu-22.04
+          # - macos-11
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Install nix
+      uses: cachix/install-nix-action@v30
+
+    - name: Setup cachix
+      uses: cachix/cachix-action@v15
+      with:
+        name: geonix
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
+
+    - name: Build all packages
+      run: >
+        nix build -L --accept-flake-config .#all-packages
+
+    - name: Test cli shell
+      run: >
+        nix develop --accept-flake-config .#cli
+        --command python -c "import fiona; print(fiona.supported_drivers)"
+
+
+  launch-test:
+    needs: build-packages
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+
+  # FIXME:
+  # launch-test-nixos:
+  #   needs: build-packages
+  #   uses: ./.github/workflows/test-nixos.yml
+  #   secrets: inherit

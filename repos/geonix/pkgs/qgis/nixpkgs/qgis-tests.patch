@@ -1,0 +1,33 @@
+diff --git b/tests/nixos/qgis.nix a/tests/nixos/qgis.nix
+index 7706b8c..362a4c7 100644
+--- b/tests/nixos/qgis.nix
++++ a/tests/nixos/qgis.nix
+@@ -1,9 +1,11 @@
+-import ./make-test-python.nix ({ pkgs, lib, qgisPackage, ... }:
++{ nixpkgs, pkgs, lib, qgisPackage, ... }:
+   let
+     testScript = pkgs.writeTextFile {
+       name = "qgis-test.py";
+-      text = (builtins.readFile ../../pkgs/applications/gis/qgis/test.py);
++      text = (builtins.readFile ../../pkgs/qgis/test.py);
+     };
++
++    testX11Module = import "${toString nixpkgs}/nixos/tests/common/x11.nix";
+   in
+   {
+     name = "qgis";
+@@ -15,7 +17,7 @@ import ./make-test-python.nix ({ pkgs, lib, qgisPackage, ... }:
+       machine = { pkgs, ... }: {
+         virtualisation.diskSize = 2 * 1024;
+ 
+-        imports = [ ./common/x11.nix ];
++        imports = [ testX11Module ];
+         environment.systemPackages = [ qgisPackage ];
+ 
+       };
+@@ -27,4 +29,4 @@ import ./make-test-python.nix ({ pkgs, lib, qgisPackage, ... }:
+       machine.succeed("${qgisPackage}/bin/qgis --version | grep 'QGIS ${qgisPackage.version}'")
+       machine.succeed("${qgisPackage}/bin/qgis --code ${testScript}")
+     '';
+-  })
++  }

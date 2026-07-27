@@ -1,87 +1,86 @@
 { lib
-, mkDerivation
 , fetchFromGitHub
-, cmake
-, ninja
-, flex
+, makeWrapper
+, mkDerivation
+, substituteAll
+, wrapGAppsHook3
+, wrapQtAppsHook
+
+, withGrass ? false
+, withWebKit ? false
+
 , bison
-, proj
+, cmake
+, draco
+, exiv2
+, fcgi
+, flex
 , gdal
 , geos
-, xlibsWrapper
-, sqlite
+, grass
 , gsl
-, qwt
-, fcgi
-, python3
+, hdf5
 , libspatialindex
 , libspatialite
-, postgresql
-, txt2tags
-, openssl
 , libzip
-, hdf5
 , netcdf
-, exiv2
-, protobuf
-, qtbase
-, qtsensors
-, qca-qt5
-, qtkeychain
-, qt3d
-, qscintilla
-, qtserialport
-, qtxmlpatterns
-, withGrass ? true
-, grass
-, withWebKit ? true
-, qtwebkit
+, ninja
+, openssl
 , pdal
+, postgresql
+, proj
+, protobuf
+, python3
+, qca-qt5
+, qscintilla
+, qt3d
+, qtbase
+, qtkeychain
+, qtlocation
+, qtmultimedia
+, qtsensors
+, qtserialport
+, qtwebkit
+, qtxmlpatterns
+, qwt
+, sqlite
+, txt2tags
 , zstd
-, makeWrapper
-, wrapGAppsHook
-, substituteAll
 }:
 
 let
-
-  py = python3.override {
-    packageOverrides = self: super: {
-      pyqt5 = super.pyqt5.override {
-        withLocation = true;
-      };
-    };
-  };
+  # pyqt5 override was moved to flake.nix
+  py = python3;
 
   pythonBuildInputs = with py.pkgs; [
-    qscintilla-qt5
+    chardet
     gdal
     jinja2
     numpy
+    owslib
     psycopg2
-    chardet
-    python-dateutil
-    pyyaml
-    pytz
-    requests
-    urllib3
     pygments
     pyqt5
     pyqt-builder
-    sip
+    python-dateutil
+    pytz
+    pyyaml
+    qscintilla-qt5
+    requests
     setuptools
-    owslib
+    sip
     six
+    urllib3
   ];
 in mkDerivation rec {
-  version = "3.28.1";
+  version = "3.38.3";
   pname = "qgis-unwrapped";
 
   src = fetchFromGitHub {
     owner = "qgis";
     repo = "QGIS";
     rev = "final-${lib.replaceStrings [ "." ] [ "_" ] version}";
-    hash = "sha256-MtmoskOvenY7pNgl+8a+7Bg5qelS+HSgGKqv4FOrYVc=";
+    hash = "sha256-yJFYq4t0LzBr+O2bmtBSeehQ2vfUaZIQfOY68WZcHG4=";
   };
 
   passthru = {
@@ -89,39 +88,50 @@ in mkDerivation rec {
     inherit py;
   };
 
+  nativeBuildInputs = [
+    makeWrapper
+    wrapGAppsHook3
+    wrapQtAppsHook
+
+    bison
+    cmake
+    flex
+    ninja
+  ];
+
   buildInputs = [
-    openssl
-    proj
-    geos
-    xlibsWrapper
-    sqlite
-    gsl
-    qwt
+    draco
     exiv2
-    protobuf
     fcgi
+    geos
+    gsl
+    hdf5
     libspatialindex
     libspatialite
-    postgresql
-    txt2tags
     libzip
-    hdf5
     netcdf
-    qtbase
-    qtsensors
+    openssl
+    pdal
+    postgresql
+    proj
+    protobuf
     qca-qt5
-    qtkeychain
     qscintilla
+    qt3d
+    qtbase
+    qtkeychain
+    qtlocation
+    qtmultimedia
+    qtsensors
     qtserialport
     qtxmlpatterns
-    qt3d
-    pdal
+    qwt
+    sqlite
+    txt2tags
     zstd
   ] ++ lib.optional withGrass grass
     ++ lib.optional withWebKit qtwebkit
     ++ pythonBuildInputs;
-
-  nativeBuildInputs = [ makeWrapper wrapGAppsHook cmake flex bison ninja ];
 
   patches = [
     (substituteAll {
@@ -131,29 +141,45 @@ in mkDerivation rec {
     })
   ];
 
+  # Add path to Qt platform plugins
+  # (offscreen is needed by "${APIS_SRC_DIR}/generate_console_pap.py")
+  env.QT_QPA_PLATFORM_PLUGIN_PATH="${qtbase}/${qtbase.qtPluginPrefix}/platforms";
+
   cmakeFlags = [
     "-DWITH_3D=True"
-    "-DWITH_PDAL=TRUE"
+    "-DWITH_PDAL=True"
+    "-DENABLE_TESTS=False"
+    "-DQT_PLUGINS_DIR=${qtbase}/${qtbase.qtPluginPrefix}"
   ] ++ lib.optional (!withWebKit) "-DWITH_QTWEBKIT=OFF"
-    ++ lib.optional withGrass "-DGRASS_PREFIX7=${grass}/grass78";
+    ++ lib.optional withGrass (let
+        gmajor = lib.versions.major grass.version;
+        gminor = lib.versions.minor grass.version;
+      in "-DGRASS_PREFIX${gmajor}=${grass}/grass${gmajor}${gminor}"
+    );
+
+  qtWrapperArgs = [
+    "--set QT_QPA_PLATFORM_PLUGIN_PATH ${qtbase}/${qtbase.qtPluginPrefix}/platforms"
+  ];
 
   dontWrapGApps = true; # wrapper params passed below
 
   postFixup = lib.optionalString withGrass ''
-    # grass has to be availble on the command line even though we baked in
+    # GRASS has to be availble on the command line even though we baked in
     # the path at build time using GRASS_PREFIX.
-    # using wrapGAppsHook also prevents file dialogs from crashing the program
-    # on non-NixOS
-    wrapProgram $out/bin/qgis \
-      "''${gappsWrapperArgs[@]}" \
-      --prefix PATH : ${lib.makeBinPath [ grass ]}
+    # Using wrapGAppsHook also prevents file dialogs from crashing the program
+    # on non-NixOS.
+    for program in $out/bin/*; do
+      wrapProgram $program \
+        "''${gappsWrapperArgs[@]}" \
+        --prefix PATH : ${lib.makeBinPath [ grass ]}
+    done
   '';
 
-  meta = {
-    description = "A Free and Open Source Geographic Information System";
+  meta = with lib; {
+    description = "Free and Open Source Geographic Information System";
     homepage = "https://www.qgis.org";
-    license = lib.licenses.gpl2Plus;
-    platforms = with lib.platforms; linux;
-    maintainers = with lib.maintainers; [ lsix sikmir erictapen willcohen ];
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; teams.geospatial.members ++ [ lsix ];
+    platforms = with platforms; linux;
   };
 }

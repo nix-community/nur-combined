@@ -1,0 +1,1 @@
+pkgs/servers/geospatial/pg_featureserv/* pkgs/pg_featureserv/

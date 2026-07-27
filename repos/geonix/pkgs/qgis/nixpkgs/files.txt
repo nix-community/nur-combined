@@ -1,0 +1,2 @@
+pkgs/applications/gis/qgis/* pkgs/qgis/
+nixos/tests/qgis.nix tests/nixos/

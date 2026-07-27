@@ -1,0 +1,13 @@
+diff --git b/pkgs/grass/default.nix a/pkgs/grass/default.nix
+index fd26e49..d27e21a 100644
+--- b/pkgs/grass/default.nix
++++ a/pkgs/grass/default.nix
+@@ -75,7 +75,7 @@ stdenv.mkDerivation (finalAttrs: {
+     libpng
+     libsvm
+     libtiff
+-    (libxml2.override { enableHttp = true; })
++    libxml2
+     netcdf
+     pdal
+     postgresql
