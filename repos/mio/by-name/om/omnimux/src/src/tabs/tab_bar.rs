@@ -52,6 +52,10 @@ pub fn render_tab_bar(
             label: tab_label.clone().into(),
         };
 
+        let is_active = i == this.active_tab;
+        let host_clone = session_read.host.clone();
+        let show_refresh = is_active && host_clone.is_some();
+
         let tab = div()
             .id(("tab", i))
             .flex()
@@ -90,6 +94,34 @@ pub fn render_tab_bar(
                     .text_sm()
                     .child(tab_label),
             )
+            .when(show_refresh, |tab_div| {
+                tab_div.child(
+                    div()
+                        .id(("refresh_tab", i))
+                        .ml_2()
+                        .p_1()
+                        .overflow_hidden()
+                        .hover(|style| style.bg(colors.hover).rounded_sm())
+                        .on_mouse_down(MouseButton::Left, |_, window, cx| {
+                            window.prevent_default();
+                            cx.stop_propagation();
+                        })
+                        .child(
+                            div()
+                                .child("\u{f021}") // FA refresh
+                                .font_family("Symbols Nerd Font Mono")
+                                .text_color(colors.muted)
+                                .text_xs(),
+                        )
+                        .on_click(cx.listener({
+                            let host_clone = host_clone.clone();
+                            move |this, _, window, cx| {
+                                cx.stop_propagation();
+                                this.open_tab_for_host(host_clone.clone(), window, cx);
+                            }
+                        })),
+                )
+            })
             .child(
                 div()
                     .id(("close_tab", i))

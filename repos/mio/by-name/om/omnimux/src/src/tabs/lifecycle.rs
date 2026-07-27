@@ -180,6 +180,19 @@ impl TerminalTabs {
         window: &mut Window,
         cx: &mut Context<Self>,
     ) {
+        if let Some(ref target_host) = host_opt {
+            let mut to_remove = None;
+            for (i, tab) in self.tabs.iter().enumerate() {
+                if tab.read(cx).host.as_ref() == Some(target_host) {
+                    to_remove = Some(i);
+                    break;
+                }
+            }
+            if let Some(i) = to_remove {
+                self.close_tab_at(i, cx);
+            }
+        }
+
         let colors = self.terminal_palette.clone();
         let font_size = self.font_size;
         let osc52 = self.osc52.into();
