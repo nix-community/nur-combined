@@ -1,0 +1,26 @@
+From 69cbe799bedf180bf46d43b2f85126a10da21160 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Thu, 2 Nov 2023 23:22:02 +0000
+Subject: [PATCH 7/7] gluestick.run: set_default_device to init on cuda
+
+...when available. The other option is to propagate `device` everywhere
+and pass it to nn.orthogonal_ manually
+---
+ gluestick/run.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/gluestick/run.py b/gluestick/run.py
+index ce5a40c..9c16caf 100644
+--- a/gluestick/run.py
++++ b/gluestick/run.py
+@@ -51,6 +51,7 @@ def main():
+     }
+ 
+     device = 'cuda' if torch.cuda.is_available() else 'cpu'
++    torch.set_default_device(device)
+ 
+     pipeline_model = TwoViewPipeline(conf).to(device).eval()
+ 
+-- 
+2.42.0
+

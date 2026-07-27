@@ -1,0 +1,34 @@
+From bcdcd5c43d0952a400073fba961870822e52f310 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 07:11:19 +0000
+Subject: [PATCH 7/8] cli_args: make it possible to see the final args
+
+---
+ comfy/cli_args.py | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/comfy/cli_args.py b/comfy/cli_args.py
+index 2e2e823..9e76ea5 100644
+--- a/comfy/cli_args.py
++++ b/comfy/cli_args.py
+@@ -1,6 +1,8 @@
+ import argparse
+-import enum
+ import comfy.options
++import enum
++import pprint
++import sys
+ 
+ class EnumAction(argparse.Action):
+     """
+@@ -110,3 +112,7 @@ if args.windows_standalone_build:
+ 
+ if args.disable_auto_launch:
+     args.auto_launch = False
++
++# The args are parsed at import-time and non-deterministically ignored,
++# but at least we could peek at what exactly we end up using
++pprint.pprint({"args_parsing": comfy.options.args_parsing, "args": args}, sys.stderr)
+-- 
+2.42.0
+

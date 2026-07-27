@@ -9,11 +9,13 @@
 , nvidia-thrust
 , useThrustSourceBuild ? true
 , pythonSupport ? true
-, pythonPackages
+, withPythonPackages ? python3Packages
+, python3Packages
 , llvmPackages
 , boost
 , blas
-, swig
+, withSwig ? swig4
+, swig4 ? null
 , addOpenGLRunpath
 , optLevel ? let
     optLevels =
@@ -69,11 +71,11 @@ stdenv.mkDerivation {
 
   buildInputs = [
     blas
-    swig
+    withSwig
   ] ++ lib.optionals pythonSupport [
-    pythonPackages.setuptools
-    pythonPackages.pip
-    pythonPackages.wheel
+    withPythonPackages.setuptools
+    withPythonPackages.pip
+    withPythonPackages.wheel
   ] ++ lib.optionals stdenv.cc.isClang [
     llvmPackages.openmp
   ] ++ lib.optionals cudaSupport [
@@ -81,18 +83,18 @@ stdenv.mkDerivation {
   ];
 
   propagatedBuildInputs = lib.optionals pythonSupport [
-    pythonPackages.numpy
+    withPythonPackages.numpy
   ];
 
   nativeBuildInputs = [ cmake ] ++ lib.optionals cudaSupport [
     cudaPackages.cuda_nvcc
     addOpenGLRunpath
   ] ++ lib.optionals pythonSupport [
-    pythonPackages.python
+    withPythonPackages.python
   ];
 
   passthru.extra-requires.all = [
-    pythonPackages.numpy
+    withPythonPackages.numpy
   ];
 
   cmakeFlags = [
@@ -121,12 +123,12 @@ stdenv.mkDerivation {
     mkdir -p $demos/bin
     cp ./demos/demo_ivfpq_indexing $demos/bin/
   '' + lib.optionalString pythonSupport ''
-    mkdir -p $out/${pythonPackages.python.sitePackages}
+    mkdir -p $out/${withPythonPackages.python.sitePackages}
     (cd faiss/python && python -m pip install dist/*.whl --no-index --no-warn-script-location --prefix="$out" --no-cache)
   '';
 
   fixupPhase = lib.optionalString (pythonSupport && cudaSupport) ''
-    addOpenGLRunpath $out/${pythonPackages.python.sitePackages}/faiss/*.so
+    addOpenGLRunpath $out/${withPythonPackages.python.sitePackages}/faiss/*.so
     addOpenGLRunpath $demos/bin/*
   '';
 
@@ -146,7 +148,7 @@ stdenv.mkDerivation {
           demo_ivfpq_indexing && touch $out
         '';
     } // lib.optionalAttrs pythonSupport {
-      pytest = pythonPackages.callPackage ./tests.nix { };
+      pytest = withPythonPackages.callPackage ./tests.nix { };
     };
   };
 

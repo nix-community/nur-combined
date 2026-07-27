@@ -14,19 +14,8 @@ Uncomment this if you use travis:
 -->
 [![Cachix Cache](https://img.shields.io/badge/cachix-pkgs-blue.svg)](https://pkgs.cachix.org)
 
-## Deploying the undeployable with Nix
+## Something about complexity
 
-Sci-Comp and Deep Learning projects are notoriously hard to build and deploy:
-even to satisfy the build-time dependencies people inevitably fall back to [building things in Docker](https://github.com/NVlabs/instant-ngp/issues/20) (build-time isolation).
-And when building things in Docker, they would some times fetch dependencies through conda.
-And then they would take the stock they've built through sweat and blood, and run it in containers (run-time isolation).
-And that is just the beginning: later, for example, they'll seek for ways to establish a communication between the container and the host system's X-server (that they've put so much effort in isolating from).
-
-When they have gone through all these pains and struggles, and had cheered at a running visualizer from some old baseline project, in a month or two they should probably find that, in spite of all effort, their hard-won trophey won't acknowledge their CUDA installation anymore, and nobody knows why.
-
-Now, have you really considered if there ever was a need for Docker or Kubernetes?
-
-Enter [Nix (for building things) and NixOS](https://nixos.org/) (for setting up the runtime environment, notably `/run/opengl-driver/lib`):
 
 https://user-images.githubusercontent.com/9720532/162585397-7528d249-4db1-4931-930c-3929775d61ea.mp4
 

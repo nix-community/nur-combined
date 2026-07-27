@@ -1,0 +1,11 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+
+[project]
+name = "blip"
+version = "0.0.0"
+
+[tool.setuptools.packages.find]
+include = [ "blip*" ]
+

@@ -1,0 +1,20 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+
+[project]
+name = "comfy-ui"
+version = "2023.11.6"
+
+[project.scripts]
+comfy-ui = "comfy.main:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+"*" = [ "*.json", "*.js", "*.ts", "*.css", "*.html" ]
+
+[tool.setuptools.packages.find]
+include = [ "comfy*" ]
+

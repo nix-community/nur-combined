@@ -1,0 +1,12 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+
+[project]
+name = "prefix-python-modules"
+version = "0.0.1"
+dependencies = [ "rope" ]
+description = "Takes a directory with ambiguously named python modules (top-level utils, networks, datasets, etc) and rewrites them with a project-specific prefix"
+
+[project.scripts]
+prefix-python-modules = "prefix_python_modules:main"

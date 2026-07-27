@@ -1,0 +1,16 @@
+--- a/rope/base/evaluate.py
++++ a/rope/base/evaluate.py
+@@ -184,6 +184,13 @@ class StatementEvaluator(ast.RopeNodeVisitor):
+ 
+         def _get_returned(pyobject):
+             args = arguments.create_arguments(primary, pyobject, node, self.scope)
++            if not hasattr(pyobject, "get_returned_object"):
++                print(
++                    "[E] rope attempting to call non-existent"
++                    " pyobject.get_returned_object,"
++                    f" where pyobject is {pyobject}. Ignoring"
++                )
++                return
+             return pyobject.get_returned_object(args)
+ 
+         if isinstance(pyobject, rope.base.pyobjects.AbstractClass):

@@ -1,0 +1,35 @@
+From 9a6a70953aacb4c9a07d664a37adaa8b30340c59 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 04:35:37 +0000
+Subject: [PATCH 7/8] gradio: just use abspaths,
+
+...because the way gradio serves static files appears broken
+---
+ modules/ui_gradio_extensions.py | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/modules/ui_gradio_extensions.py b/modules/ui_gradio_extensions.py
+index b824b113..c3dd5b0e 100644
+--- a/modules/ui_gradio_extensions.py
++++ b/modules/ui_gradio_extensions.py
+@@ -1,15 +1,13 @@
+ import os
+ import gradio as gr
++from pathlib import Path
+ 
+ from modules import localization, shared, scripts
+ from modules.paths import script_path, data_path
+ 
+ 
+ def webpath(fn):
+-    if fn.startswith(script_path):
+-        web_path = os.path.relpath(fn, script_path).replace('\\', '/')
+-    else:
+-        web_path = os.path.abspath(fn)
++    web_path = Path(fn).resolve().as_posix()
+ 
+     return f'file={web_path}?{os.path.getmtime(fn)}'
+ 
+-- 
+2.42.0
+

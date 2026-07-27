@@ -1,0 +1,33 @@
+From 7311ede52d8a1c79049b81e9614c8c7e4537a556 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Mon, 6 Nov 2023 20:23:23 +0000
+Subject: [PATCH 1/8] main.py: add an entrypoint
+
+---
+ main.py | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/main.py b/main.py
+index 1100a07..426359e 100644
+--- a/main.py
++++ b/main.py
+@@ -141,7 +141,7 @@ def load_extra_path_config(yaml_path):
+                 folder_paths.add_model_folder_path(x, full_path)
+ 
+ 
+-if __name__ == "__main__":
++def main():
+     if args.temp_directory:
+         temp_dir = os.path.join(os.path.abspath(args.temp_directory), "temp")
+         print(f"Setting temp directory to: {temp_dir}")
+@@ -203,3 +203,7 @@ if __name__ == "__main__":
+         print("\nStopped server")
+ 
+     cleanup_temp()
++
++
++if __name__ == "__main__":
++    main()
+-- 
+2.42.0
+

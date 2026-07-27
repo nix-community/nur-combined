@@ -17,13 +17,13 @@
 }:
 buildPythonPackage rec {
   pname = "GPflux";
-  version = "0.3.1";
+  version = "0.4.2";
 
   src = fetchFromGitHub {
     owner = "secondmind-labs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-V/23Dos907zoLYSXRoUkXXIabpLOHyT+huvpOK0+5zc=";
+    hash = "sha256-XPOSfY6uMdF48Tb22hwYbcoq8BCWxitAZEMdEa1NdjE=";
   };
   postPatch = ''
     # sed -i 's/tensorflow>/${builtins.replaceStrings ["-"] ["_"] tensorflow.pname}>/' setup.py

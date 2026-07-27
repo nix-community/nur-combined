@@ -1,0 +1,23 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+
+[project]
+name = "stable-diffusion-webui"
+version = "2023.11.6"
+
+[project.scripts]
+_sd-webui-launch = "sd_webui.launch:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+sd_webui = [ "*.js", "*.css", "*.json"]
+"sd_webui.configs" = [ "*.yaml" ]
+"sd_webui.html" = [ "*.html" ]
+"sd_webui.javascript" = [ "*.js" ]
+"sd_webui.textual_inversion_templates" = [ "*.txt" ]
+
+[tool.setuptools.packages.find]
+include = [ "sd_webui*" ]

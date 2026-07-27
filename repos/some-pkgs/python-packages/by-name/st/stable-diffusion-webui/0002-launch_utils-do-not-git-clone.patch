@@ -1,0 +1,24 @@
+From 6b07a78e916bc56195022417958d882f61642482 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Fri, 17 Nov 2023 03:17:51 +0000
+Subject: [PATCH 2/8] launch_utils: do not git clone
+
+---
+ modules/launch_utils.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/modules/launch_utils.py b/modules/launch_utils.py
+index 6e54d063..b39008b0 100644
+--- a/modules/launch_utils.py
++++ b/modules/launch_utils.py
+@@ -308,6 +308,7 @@ def requirements_met(requirements_file):
+ 
+ 
+ def prepare_environment():
++    return
+     torch_index_url = os.environ.get('TORCH_INDEX_URL', "https://download.pytorch.org/whl/cu118")
+     torch_command = os.environ.get('TORCH_COMMAND', f"pip install torch==2.0.1 torchvision==0.15.2 --extra-index-url {torch_index_url}")
+     requirements_file = os.environ.get('REQS_FILE', "requirements_versions.txt")
+-- 
+2.42.0
+

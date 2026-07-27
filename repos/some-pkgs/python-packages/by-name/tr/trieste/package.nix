@@ -11,13 +11,13 @@
 
 buildPythonPackage rec {
   pname = "trieste";
-  version = "1.0.0";
+  version = "1.2.0";
 
   src = fetchFromGitHub {
     owner = "secondmind-labs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-wNyhr/DJGIJ6zQtsRMS06elAoHXTCqQZoYPabzGWcW8=";
+    hash = "sha256-a7l/ynBBBoaZCVU5YiTwJT/X/LBm1ushL4kEKmXAg+c=";
   };
   postPatch = ''
     sed -i 's/gpflow==2.2.\\*/gpflow>=2.2/' setup.py

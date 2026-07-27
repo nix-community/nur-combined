@@ -1,0 +1,72 @@
+From e358055ec5957cc0458b406b67e917d902def4db Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 04:41:43 +0000
+Subject: [PATCH 8/8] patch out the sys.path tampering
+
+---
+ modules/paths.py   | 13 ++++++++-----
+ modules/scripts.py |  6 ++++--
+ 2 files changed, 12 insertions(+), 7 deletions(-)
+
+diff --git a/modules/paths.py b/modules/paths.py
+index 2af454f1..ceabc0f3 100644
+--- a/modules/paths.py
++++ b/modules/paths.py
+@@ -23,7 +23,7 @@ def mute_sdxl_imports():
+ 
+ 
+ # data_path = cmd_opts_pre.data
+-sys.path.insert(0, script_path)
++# sys.path.insert(0, script_path)
+ 
+ # search for directory of stable diffusion in following places
+ sd_path = None
+@@ -74,14 +74,17 @@ for d, must_exist, what, options in path_dirs:
+     else:
+         d = os.path.abspath(d)
+         if "atstart" in options:
+-            sys.path.insert(0, d)
++            print(f"Prevented an attempt to tamper with sys.path: prepending {d}")
++            # sys.path.insert(0, d)
+         elif "sgm" in options:
+             # Stable Diffusion XL repo has scripts dir with __init__.py in it which ruins every extension's scripts dir, so we
+             # import sgm and remove it from sys.path so that when a script imports scripts.something, it doesbn't use sgm's scripts dir.
+ 
+-            sys.path.insert(0, d)
++            print(f"Prevented an attempt to tamper with sys.path: prepending {d}")
++            # sys.path.insert(0, d)
+             import sgm  # noqa: F401
+-            sys.path.pop(0)
++            # sys.path.pop(0)
+         else:
+-            sys.path.append(d)
++            print(f"Prevented an attempt to tamper with sys.path: prepending {d}")
++            # sys.path.append(d)
+         paths[what] = d
+diff --git a/modules/scripts.py b/modules/scripts.py
+index e8518ad0..8412406c 100644
+--- a/modules/scripts.py
++++ b/modules/scripts.py
+@@ -376,7 +376,8 @@ def load_scripts():
+     for scriptfile in sorted(scripts_list, key=lambda x: [orderby(x.basedir), x]):
+         try:
+             if scriptfile.basedir != paths.script_path:
+-                sys.path = [scriptfile.basedir] + sys.path
++                print(f"Prevented an attempt to tamper with sys.path: prepending {scriptfile.basedir}")
++                pass  # sys.path = [scriptfile.basedir] + sys.path
+             current_basedir = scriptfile.basedir
+ 
+             script_module = script_loading.load_module(scriptfile.path)
+@@ -386,7 +387,8 @@ def load_scripts():
+             errors.report(f"Error loading script: {scriptfile.filename}", exc_info=True)
+ 
+         finally:
+-            sys.path = syspath
++            # By the way syspath has been a reference to sys.path this whole time
++            pass  # sys.path = syspath
+             current_basedir = paths.script_path
+             timer.startup_timer.record(scriptfile.filename)
+ 
+-- 
+2.42.0
+

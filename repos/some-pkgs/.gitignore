@@ -1,3 +1,9 @@
 result
 result-*
-
+**/*.jpg
+**/*.log
+**/*.pkl
+**/*.png
+**/*.pth
+**/*.zip
+flake.lock

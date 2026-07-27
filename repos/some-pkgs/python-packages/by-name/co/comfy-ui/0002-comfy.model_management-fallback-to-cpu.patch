@@ -1,0 +1,29 @@
+From 62ac2e1df6c7cda2e443ca6572795ecc1eba667c Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Mon, 6 Nov 2023 20:29:36 +0000
+Subject: [PATCH 2/8] comfy.model_management: fallback to cpu
+
+This is because --cpu users may want to use pytorch compiled without cuda support
+---
+ comfy/model_management.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/comfy/model_management.py b/comfy/model_management.py
+index 53582fc..1f85620 100644
+--- a/comfy/model_management.py
++++ b/comfy/model_management.py
+@@ -79,8 +79,10 @@ def get_torch_device():
+     else:
+         if is_intel_xpu():
+             return torch.device("xpu")
+-        else:
++        elif torch.cuda.is_available():
+             return torch.device(torch.cuda.current_device())
++        else:
++            return torch.device("cpu")
+ 
+ def get_total_memory(dev=None, torch_total_too=False):
+     global directml_enabled
+-- 
+2.42.0
+

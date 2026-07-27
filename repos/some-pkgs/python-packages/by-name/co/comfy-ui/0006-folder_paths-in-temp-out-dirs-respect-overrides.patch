@@ -1,0 +1,40 @@
+From 26b746e8d9f1f2a69dacd1a06fc4fea5874be61a Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Tue, 7 Nov 2023 15:36:19 +0000
+Subject: [PATCH 6/8] folder_paths: in/temp/out dirs: respect overrides
+
+...in particular, cli_args and COMFY_BASE_PATH
+
+Both are necessary, because cli_args are apparently disabled depending
+on enable_parsing()
+---
+ folder_paths.py | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/folder_paths.py b/folder_paths.py
+index df81250..b4e3948 100644
+--- a/folder_paths.py
++++ b/folder_paths.py
+@@ -1,5 +1,6 @@
+ import os
+ import time
++from comfy.cli_args import args
+ 
+ supported_pt_extensions = set(['.ckpt', '.pt', '.bin', '.pth', '.safetensors'])
+ 
+@@ -31,9 +32,9 @@ folder_names_and_paths["hypernetworks"] = ([os.path.join(models_dir, "hypernetwo
+ 
+ folder_names_and_paths["classifiers"] = ([os.path.join(models_dir, "classifiers")], {""})
+ 
+-output_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), "output")
+-temp_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), "temp")
+-input_directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), "input")
++output_directory = args.output_directory or os.path.join(base_path, "output")
++temp_directory = args.temp_directory or os.path.join(base_path, "temp")
++input_directory = args.input_directory or os.path.join(base_path, "input")
+ 
+ filename_list_cache = {}
+ 
+-- 
+2.42.0
+

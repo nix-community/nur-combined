@@ -22,46 +22,61 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # Set this to notify the global nur package registry that changes are
-        # available.
-        #
-        # The repo name as used in
-        # https://github.com/nix-community/NUR/blob/master/repos.json
-        nurRepo:
-          - some-pkgs
-        # Set this to cache your build results in cachix for faster builds
-        # in CI and for everyone who uses your cache.
-        #
-        # Format: Your cachix cache host name without the ".cachix.org" suffix.
-        # Example: mycache (for mycache.cachix.org)
-        #
-        # For this to work, you also need to set the CACHIX_SIGNING_KEY or
-        # CACHIX_AUTH_TOKEN secret in your repository secrets settings in
-        # Github found at
-        # https://github.com/<your_githubname>/nur-packages/settings/secrets
+        os: [ ubuntu-latest, macos-latest ]
         cachixName:
           - pkgs
-        os: [ ubuntu-latest, macos-latest ]
+          - some-unfree
+        nurRepo:
+          - some-pkgs
     runs-on: ${{ matrix.os }}
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v4
+      if: ${{ matrix.cachixName == 'pkgs' }}
+      uses: DeterminateSystems/nix-installer-action@v16
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-    - uses: DeterminateSystems/magic-nix-cache-action@v2
-    - name: Setup cachix
-      # Don't replace <YOUR_CACHIX_NAME> here!
-      if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
-      uses: cachix/cachix-action@v12
+        extra-conf: |
+          extra-substituters = https://pkgs.cachix.org
+          extra-trusted-public-keys = pkgs.cachix.org-1:/fnDPhnDwMjJA8IXJl+eAJmnU3n/jgfgvb6SZGuq4gs=
+    - name: Install Nix (with unfree substituters)
+      if: ${{ matrix.cachixName == 'some-unfree' }}
+      uses: DeterminateSystems/nix-installer-action@v16
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        extra-conf: |
+          extra-substituters = https://some-unfree.cachix.org https://cuda-maintainers.cachix.org https://pkgs.cachix.org
+          extra-trusted-public-keys = some-unfree.cachix.org-1:2/+ag/3nMOroWbHV2UXRuxo9c2VkVb6mUUy7sCXDe1Y= cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=  pkgs.cachix.org-1:/fnDPhnDwMjJA8IXJl+eAJmnU3n/jgfgvb6SZGuq4gs=
+    - uses: DeterminateSystems/magic-nix-cache-action@v9
+      with:
+        upstream-cache: https://${{ matrix.cachixName }}.cachix.org
+    - name: Setup pkgs.cachix.org
+      if: ${{ matrix.cachixName == 'pkgs' }}
+      uses: cachix/cachix-action@v16
       with:
         authToken: '${{ secrets.CACHIX_AUTH_TOKEN }}'
         name: ${{ matrix.cachixName }}
+    - name: Setup some-unfree.cachix.org
+      if: ${{ matrix.cachixName == 'some-unfree' }}
+      uses: cachix/cachix-action@v16
+      with:
+        authToken: '${{ secrets.CACHIX_AUTH_TOKEN_UNFREE }}'
+        name: ${{ matrix.cachixName }}
     - name: Show nixpkgs version
-      run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-    - name: Build nix packages
-      run: nix shell -f 'https://github.com/Mic92/nix-build-uncached/archive/refs/tags/v1.1.2.tar.gz' -c nix-build-uncached -build-flags -L ci.nix -A cacheOutputs --keep-going
+      run: nix eval nixpkgs#lib.version
+    - name: Build some-pkgs
+      if: ${{ matrix.cachixName == 'pkgs' }}
+      run: nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake ".#legacyPackages.$(nix eval --raw --impure --expr builtins.currentSystem).pkgs.some-pkgs"
+    - name: Build some-pkgs-py
+      if: ${{ matrix.cachixName == 'pkgs' }}
+      run: nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake ".#legacyPackages.$(nix eval --raw --impure --expr builtins.currentSystem).pkgs.some-pkgs-py"
+    - name: Build pkgsCuda.some-pkgs
+      if: ${{ matrix.cachixName == 'some-unfree' }}
+      run: nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake ".#legacyPackages.$(nix eval --raw --impure --expr builtins.currentSystem).pkgsCuda.some-pkgs"
+    - name: Build pkgsCuda.some-pkgs-py
+      if: ${{ matrix.cachixName == 'some-unfree' }}
+      run: nix run github:Mic92/nix-fast-build -- --skip-cached --no-nom --flake ".#legacyPackages.$(nix eval --raw --impure --expr builtins.currentSystem).pkgsCuda.some-pkgs-py"
     - name: Trigger NUR update
       # Don't replace <YOUR_REPO_NAME> here!
       if: ${{ matrix.nurRepo != '<YOUR_REPO_NAME>' }}

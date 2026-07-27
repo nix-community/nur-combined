@@ -1,0 +1,33 @@
+From 6bd26f46c1e197800486549187a0267dbbdded29 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Thu, 2 Nov 2023 20:05:52 +0000
+Subject: [PATCH 6/7] gluestick.run:main: allow overriding weights
+
+---
+ gluestick/run.py | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/gluestick/run.py b/gluestick/run.py
+index 6baa888..ce5a40c 100644
+--- a/gluestick/run.py
++++ b/gluestick/run.py
+@@ -21,6 +21,7 @@ def main():
+     parser.add_argument('--max_pts', type=int, default=1000)
+     parser.add_argument('--max_lines', type=int, default=300)
+     parser.add_argument('--skip-imshow', default=False, action='store_true')
++    parser.add_argument('--weights', default=str(GLUESTICK_ROOT / 'resources' / 'weights' / 'checkpoint_GlueStick_MD.tar'))
+     args = parser.parse_args()
+ 
+     # Evaluation config
+@@ -41,7 +42,7 @@ def main():
+         },
+         'matcher': {
+             'name': 'gluestick',
+-            'weights': str(GLUESTICK_ROOT / 'resources' / 'weights' / 'checkpoint_GlueStick_MD.tar'),
++            'weights': args.weights,
+             'trainable': False,
+         },
+         'ground_truth': {
+-- 
+2.42.0
+

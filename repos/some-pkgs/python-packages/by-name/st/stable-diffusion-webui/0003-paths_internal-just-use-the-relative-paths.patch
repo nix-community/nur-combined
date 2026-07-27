@@ -1,0 +1,40 @@
+From 92cae133ff87020ab46fe8c294d6c3f014bf8197 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 01:02:37 +0000
+Subject: [PATCH 3/8] paths_internal: just use the relative paths...
+
+---
+ modules/paths_internal.py | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/modules/paths_internal.py b/modules/paths_internal.py
+index 005a9b0a..7a62c6ff 100644
+--- a/modules/paths_internal.py
++++ b/modules/paths_internal.py
+@@ -13,19 +13,19 @@ script_path = os.path.dirname(modules_path)
+ 
+ sd_configs_path = os.path.join(script_path, "configs")
+ sd_default_config = os.path.join(sd_configs_path, "v1-inference.yaml")
+-sd_model_file = os.path.join(script_path, 'model.ckpt')
++sd_model_file = 'model.ckpt'
+ default_sd_model_file = sd_model_file
+ 
+ # Parse the --data-dir flag first so we can use it as a base for our other argument default values
+ parser_pre = argparse.ArgumentParser(add_help=False)
+-parser_pre.add_argument("--data-dir", type=str, default=os.path.dirname(modules_path), help="base path where all user data is stored", )
++parser_pre.add_argument("--data-dir", type=str, default="sd_webui_data", help="base path where all user data is stored", )
+ cmd_opts_pre = parser_pre.parse_known_args()[0]
+ 
+ data_path = cmd_opts_pre.data_dir
+ 
+ models_path = os.path.join(data_path, "models")
+ extensions_dir = os.path.join(data_path, "extensions")
+-extensions_builtin_dir = os.path.join(script_path, "extensions-builtin")
+-config_states_dir = os.path.join(script_path, "config_states")
++extensions_builtin_dir = "extensions-builtin"
++config_states_dir = "config_states"
+ 
+ roboto_ttf_file = os.path.join(modules_path, 'Roboto-Regular.ttf')
+-- 
+2.42.0
+

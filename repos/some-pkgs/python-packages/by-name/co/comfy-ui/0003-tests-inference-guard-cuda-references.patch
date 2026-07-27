@@ -1,0 +1,36 @@
+From 85d472a0c68a78c90d1b6b8b504eeddef5124e63 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Mon, 6 Nov 2023 20:55:23 +0000
+Subject: [PATCH 3/8] tests/inference: guard cuda references
+
+---
+ tests/inference/test_inference.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/tests/inference/test_inference.py b/tests/inference/test_inference.py
+index 141cc5c..acc4898 100644
+--- a/tests/inference/test_inference.py
++++ b/tests/inference/test_inference.py
+@@ -161,7 +161,8 @@ class TestInference:
+                 ])
+         yield
+         p.kill()
+-        torch.cuda.empty_cache()
++        if torch.cuda.is_available():
++            torch.cuda.empty_cache()
+ 
+     def start_client(self, listen:str, port:int):
+         # Start client
+@@ -197,7 +198,8 @@ class TestInference:
+         yield comfy_client, comfy_graph
+         del comfy_client
+         del comfy_graph
+-        torch.cuda.empty_cache()
++        if torch.cuda.is_available():
++            torch.cuda.empty_cache()
+ 
+     @fixture
+     def client(self, _client_graph):
+-- 
+2.42.0
+

@@ -1,0 +1,54 @@
+From 1855d31a212cfac8011ac015b1c7a3d799d5e850 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Tue, 7 Nov 2023 17:20:06 +0000
+Subject: [PATCH 1/8] modules.paths: try PYTHONPATH before custom search paths
+
+---
+ modules/paths.py | 22 ++++++++++++++++++++++
+ 1 file changed, 22 insertions(+)
+
+diff --git a/modules/paths.py b/modules/paths.py
+index 25052339..2af454f1 100644
+--- a/modules/paths.py
++++ b/modules/paths.py
+@@ -1,5 +1,7 @@
+ import os
+ import sys
++from pathlib import Path
++
+ from modules.paths_internal import models_path, script_path, data_path, extensions_dir, extensions_builtin_dir  # noqa: F401
+ 
+ import modules.safe  # noqa: F401
+@@ -43,9 +45,29 @@ path_dirs = [
+     (os.path.join(sd_path, '../k-diffusion'), 'k_diffusion/sampling.py', 'k_diffusion', ["atstart"]),
+ ]
+ 
++def find_dist_info(name):
++    name = name.replace("-", "_")
++    for path in sys.path:
++        for match in Path(path).glob(f"{name}-*.dist-info"):
++            return match
++
++
+ paths = {}
+ 
++REQUIRED_DISTS = [ "ldm", "sgm", "stable_diffusion", "blip", "k_diffusion" ]
++
++for dist, (_, _, what, _) in zip(REQUIRED_DISTS, path_dirs):
++    m = find_dist_info(dist)
++    if not m:
++        continue
++
++    # Let's pretend we put `configs` inside the packages
++    paths[what] = m.parent / dist
++
+ for d, must_exist, what, options in path_dirs:
++    if what in paths:
++        continue
++
+     must_exist_path = os.path.abspath(os.path.join(script_path, d, must_exist))
+     if not os.path.exists(must_exist_path):
+         print(f"Warning: {what} not found at path {must_exist_path}", file=sys.stderr)
+-- 
+2.42.0
+

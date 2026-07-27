@@ -37,6 +37,12 @@ buildPythonPackage rec {
       hash = "sha256-OoKar6bCDurRO4g2C7jOd8oFKFFTrHy4D/Gct4OjLzs=";
     })
   ];
+  postPatch = ''
+    substituteInPlace samples/torch/*.py \
+      --replace \
+        'import util' \
+        'import nvdiffrast.samples.torch.util as util'
+  '';
 
 
   nativeBuildInputs = [
@@ -45,8 +51,9 @@ buildPythonPackage rec {
     pkg-config
   ];
   buildInputs = [
-    cuda_nvcc
+    (lib.getDev cuda_nvcc)
     cuda_cudart # CUDA_CUDART_LIBRARY
+    cuda_cccl.dev # CUDA_CUDART_LIBRARY
     cudnn
     cuda_nvrtc # CUDA_NVRTC_LIB
     cuda_nvtx # LIBNVTOOLSEXT
@@ -88,6 +95,10 @@ buildPythonPackage rec {
   # cpp_extension wants ninja and nvcc:
   ++ buildInputs;
 
+  postFixup = ''
+    cp -r ../samples "$out/${python.sitePackages}/nvdiffrast/"
+  '';
+
   passthru.tests.withTensorflow = nvdiffrast.overridePythonAttrs (a: {
     checkInputs = a.checkInputs ++ [
       tensorflow
@@ -96,6 +107,7 @@ buildPythonPackage rec {
       "nvdiffrast"
     ];
   });
+  passthru.gpuTests = callPackage ./gpu-tests.nix { };
 
   meta = {
     maintainers = [ lib.maintainers.SomeoneSerge ];

@@ -19,13 +19,13 @@
 }:
 buildPythonPackage rec {
   pname = "GPflow";
-  version = "2.7.0";
+  version = "2.9.0";
 
   src = fetchFromGitHub {
     owner = "GPflow";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-mt1Ozu+Mbn6XCF9eFj5SNue/kqWbO71z81tpNSZqREo=";
+    hash = "sha256-x6D5/VUiN5f51BeQoo4Ravpr67GclQLUvVolCKW2GTA=";
   };
   postPatch = ''
     sed -i '/tensorflow>=/d' setup.py

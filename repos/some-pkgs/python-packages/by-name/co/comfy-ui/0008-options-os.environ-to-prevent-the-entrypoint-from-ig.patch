@@ -1,0 +1,26 @@
+From cea1f13f7177d65427f47c28c6bb1fbb83bc40a2 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 07:22:11 +0000
+Subject: [PATCH 8/8] options: os.environ to prevent the entrypoint from
+ ignoring the args
+
+---
+ comfy/options.py | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/comfy/options.py b/comfy/options.py
+index f7f8af4..adbdc16 100644
+--- a/comfy/options.py
++++ b/comfy/options.py
+@@ -1,5 +1,7 @@
++import os
++
++args_parsing = "COMFY_FORCE_ARGS" in os.environ
+ 
+-args_parsing = False
+ 
+ def enable_args_parsing(enable=True):
+     global args_parsing
+-- 
+2.42.0
+

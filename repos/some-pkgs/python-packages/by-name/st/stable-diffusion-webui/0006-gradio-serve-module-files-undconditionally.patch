@@ -1,0 +1,26 @@
+From 26b45c10a4bf7150d0ea81970ee4d07774493901 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 04:12:13 +0000
+Subject: [PATCH 6/8] gradio: serve module files undconditionally
+
+In case we override --data-dir
+---
+ modules/cmd_args.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules/cmd_args.py b/modules/cmd_args.py
+index aab62286..763b2d04 100644
+--- a/modules/cmd_args.py
++++ b/modules/cmd_args.py
+@@ -83,7 +83,7 @@ parser.add_argument("--gradio-auth", type=str, help='set gradio authentication l
+ parser.add_argument("--gradio-auth-path", type=str, help='set gradio authentication file path ex. "/path/to/auth/file" same auth format as --gradio-auth', default=None)
+ parser.add_argument("--gradio-img2img-tool", type=str, help='does not do anything')
+ parser.add_argument("--gradio-inpaint-tool", type=str, help="does not do anything")
+-parser.add_argument("--gradio-allowed-path", action='append', help="add path to gradio's allowed_paths, make it possible to serve files from it", default=[data_path])
++parser.add_argument("--gradio-allowed-path", action='append', help="add path to gradio's allowed_paths, make it possible to serve files from it", default=[data_path, os.path.dirname(os.path.dirname(__file__))])
+ parser.add_argument("--opt-channelslast", action='store_true', help="change memory type for stable diffusion to channels last")
+ parser.add_argument("--styles-file", type=str, help="filename to use for styles", default=os.path.join(data_path, 'styles.csv'))
+ parser.add_argument("--autolaunch", action='store_true', help="open the webui URL in the system's default browser upon launch", default=False)
+-- 
+2.42.0
+

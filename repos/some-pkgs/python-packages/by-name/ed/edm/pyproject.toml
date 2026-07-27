@@ -1,0 +1,17 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+
+[project]
+name = "edm"
+version = "2023.01.31"
+
+[project.scripts]
+
+[tool.setuptools]
+# include-package-data = true
+
+[tool.setuptools.package-data]
+# sd_webui = [ "*.js", "*.css", "*.json"]
+
+[tool.setuptools.packages.find]

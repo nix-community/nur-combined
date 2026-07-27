@@ -1,0 +1,27 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [ "setuptools" ]
+
+[project]
+name = "gluestick"
+version = "0.0.0"
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "omegaconf",
+    "opencv-python",
+    "pytlsd @ git+https://github.com/iago-suarez/pytlsd.git@37ac583",
+    "scikit_learn",
+    "scipy",
+    "seaborn",
+    "setuptools",
+    "torch",
+    "torchvision",
+    "tqdm",
+]
+
+[project.scripts]
+gluestick-run = "gluestick.run:main"
+
+[tool.setuptools.packages.find]
+include = [ "gluestick", "gluestick.*" ]

@@ -1,3 +1,5 @@
+# FIXME: This is one huge pile of mess that hasn't been maintained since, about, early 2024.
+
 # Derived from https://github.com/NixOS/nixpkgs/blob/86d0c37bba6b7f8ca20ebd834e793d05be51e40e/pkgs/top-level/read-by-name.nix
 
 /*
@@ -28,19 +30,36 @@ let
 
   # Package files for a single shard
   # Type: String -> String -> AttrsOf Path
-  namesForShard = shard: type:
+  namesForShard =
+    shard: type:
     if type != "directory" then
-    # Ignore non-directories. Technically only README.md is allowed as a file in the base directory, so we could alternatively:
-    # - Assume that README.md is the only file and change the condition to `shard == "README.md"` for a minor performance improvement.
-    #   This would however cause very poor error messages if there's other files.
-    # - Ensure that README.md is the only file, throwing a better error message if that's not the case.
-    #   However this would make for a poor code architecture, because one type of error would have to be duplicated in the validity checks and here.
-    # Additionally in either of those alternatives, we would have to duplicate the hardcoding of "README.md"
+      # Ignore non-directories. Technically only README.md is allowed as a file in the base directory, so we could alternatively:
+      # - Assume that README.md is the only file and change the condition to `shard == "README.md"` for a minor performance improvement.
+      #   This would however cause very poor error messages if there's other files.
+      # - Ensure that README.md is the only file, throwing a better error message if that's not the case.
+      #   However this would make for a poor code architecture, because one type of error would have to be duplicated in the validity checks and here.
+      # Additionally in either of those alternatives, we would have to duplicate the hardcoding of "README.md"
       { }
     else
-      mapAttrs
-        (name: _: baseDirectory + "/${shard}/${name}/package.nix")
-        (readDir (baseDirectory + "/${shard}"));
+      mapAttrs (
+        name: _:
+        let
+          directory = "${baseDirectory}/${shard}/${name}";
+          candidates.package = "${directory}/package.nix";
+          candidates.recipe = "${directory}/default.nix";
+          kind = builtins.head (
+            builtins.filter (k: builtins.pathExists candidates.${k}) [
+              "package"
+              "recipe"
+            ]
+            ++ [ (throw "No package.nix or module.nix in ${baseDirectory}/${shard}/${name}!") ]
+          );
+          path = candidates.${kind};
+        in
+        {
+          inherit directory kind path;
+        }
+      ) (readDir (baseDirectory + "/${shard}"));
 
 in
 mergeAttrsList (mapAttrsToList namesForShard (readDir baseDirectory))

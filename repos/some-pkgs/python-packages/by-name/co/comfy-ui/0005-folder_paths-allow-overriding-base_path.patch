@@ -1,0 +1,26 @@
+From e965b1cf03db8f43da665b09839c7ab8d00a3c25 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Tue, 7 Nov 2023 00:29:17 +0000
+Subject: [PATCH 5/8] folder_paths: allow overriding base_path
+
+...while re-using the relative paths listed in folder_paths.py
+---
+ folder_paths.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/folder_paths.py b/folder_paths.py
+index 4a38dee..df81250 100644
+--- a/folder_paths.py
++++ b/folder_paths.py
+@@ -5,7 +5,7 @@ supported_pt_extensions = set(['.ckpt', '.pt', '.bin', '.pth', '.safetensors'])
+ 
+ folder_names_and_paths = {}
+ 
+-base_path = os.path.dirname(os.path.realpath(__file__))
++base_path = os.environ.get("COMFY_BASE_PATH", os.path.dirname(os.path.realpath(__file__)))
+ models_dir = os.path.join(base_path, "models")
+ folder_names_and_paths["checkpoints"] = ([os.path.join(models_dir, "checkpoints")], supported_pt_extensions)
+ folder_names_and_paths["configs"] = ([os.path.join(models_dir, "configs")], [".yaml"])
+-- 
+2.42.0
+

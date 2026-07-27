@@ -1,0 +1,155 @@
+From 812eb34866ca3a70462f472d68d61ca046eea9f9 Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 01:43:35 +0000
+Subject: [PATCH 5/8] git: don't use it
+
+---
+ modules/config_states.py | 12 +++++++++++-
+ modules/extensions.py    |  9 +++++++++
+ modules/launch_utils.py  |  4 +++-
+ modules/ui_extensions.py | 11 ++++++++---
+ 4 files changed, 31 insertions(+), 5 deletions(-)
+
+diff --git a/modules/config_states.py b/modules/config_states.py
+index b766aef1..77770aa9 100644
+--- a/modules/config_states.py
++++ b/modules/config_states.py
+@@ -8,7 +8,7 @@ import time
+ import tqdm
+ 
+ from datetime import datetime
+-import git
++git = None
+ 
+ from modules import shared, extensions, errors
+ from modules.paths_internal import script_path, config_states_dir
+@@ -47,6 +47,14 @@ def list_config_states():
+ 
+ 
+ def get_webui_config():
++    print("Ignoring get_webui_config()")
++    return {
++        "remote": "origin",
++        "commit_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
++        "commit_date": 0,
++        "branch": "master",
++    }
++
+     webui_repo = None
+ 
+     try:
+@@ -114,6 +122,8 @@ def get_config():
+ 
+ 
+ def restore_webui_config(config):
++    print("Ignoring restore_webui_config()")
++    return
+     print("* Restoring webui state...")
+ 
+     if "webui" not in config:
+diff --git a/modules/extensions.py b/modules/extensions.py
+index bf9a1878..49046918 100644
+--- a/modules/extensions.py
++++ b/modules/extensions.py
+@@ -64,6 +64,10 @@ class Extension:
+         self.status = 'unknown' if self.status == '' else self.status
+ 
+     def do_read_info_from_repo(self):
++        print(f"{__name__}: do_read_info_from_repo: Preventing an attempt to read .git in {self.path}")
++        self.remote = None
++        self.have_info_from_repo = True
++        return
+         repo = None
+         try:
+             if os.path.exists(os.path.join(self.path, ".git")):
+@@ -103,6 +107,9 @@ class Extension:
+         return res
+ 
+     def check_updates(self):
++        self.can_update = False
++        self.status = "fixed"
++        return
+         repo = Repo(self.path)
+         for fetch in repo.remote().fetch(dry_run=True):
+             if fetch.flags != fetch.HEAD_UPTODATE:
+@@ -125,6 +132,8 @@ class Extension:
+         self.status = "latest"
+ 
+     def fetch_and_reset_hard(self, commit='origin'):
++        self.have_info_from_repo = False
++        return
+         repo = Repo(self.path)
+         # Fix: `error: Your local changes to the following files would be overwritten by merge`,
+         # because WSL2 Docker set 755 file permissions instead of 644, this results to the error.
+diff --git a/modules/launch_utils.py b/modules/launch_utils.py
+index b39008b0..8dca8fa9 100644
+--- a/modules/launch_utils.py
++++ b/modules/launch_utils.py
+@@ -19,7 +19,7 @@ args, _ = cmd_args.parser.parse_known_args()
+ logging_config.setup_logging(args.loglevel)
+ 
+ python = sys.executable
+-git = os.environ.get('GIT', "git")
++git = os.environ.get('GIT', "WE_DONT_USE_GIT_AT_RUNTIME")
+ index_url = os.environ.get('INDEX_URL', "")
+ dir_repos = "repositories"
+ 
+@@ -221,6 +221,8 @@ def version_check(commit):
+ 
+ def run_extension_installer(extension_dir):
+     path_installer = os.path.join(extension_dir, "install.py")
++    print(f"{__name__}: Preventing a `python {path_installer}`")
++    return
+     if not os.path.isfile(path_installer):
+         return
+ 
+diff --git a/modules/ui_extensions.py b/modules/ui_extensions.py
+index 2e8c1d6d..54af84b1 100644
+--- a/modules/ui_extensions.py
++++ b/modules/ui_extensions.py
+@@ -4,7 +4,7 @@ import threading
+ import time
+ from datetime import datetime, timezone
+ 
+-import git
++git = None
+ 
+ import gradio as gr
+ import html
+@@ -198,12 +198,12 @@ def update_config_states_table(state_name):
+ 
+     config_name = config_state.get("name", "Config")
+     created_date = time.asctime(time.gmtime(config_state["created_at"]))
+-    filepath = config_state.get("filepath", "<unknown>")
++    filepath = config_state.get("filepath", "<unknown filepath>")
+ 
+     try:
+         webui_remote = config_state["webui"]["remote"] or ""
+         webui_branch = config_state["webui"]["branch"]
+-        webui_commit_hash = config_state["webui"]["commit_hash"] or "<unknown>"
++        webui_commit_hash = config_state["webui"]["commit_hash"] or "<unknown hash>"
+         webui_commit_date = config_state["webui"]["commit_date"]
+         if webui_commit_date:
+             webui_commit_date = time.asctime(time.gmtime(webui_commit_date))
+@@ -338,6 +338,9 @@ def normalize_git_url(url):
+ def install_extension_from_url(dirname, url, branch_name=None):
+     check_access()
+ 
++    print(f"Ignoring install_extension_from_url({repr(dirname)}, {repr(url)}, branch_name={repr(branch_name)})")
++    return [extension_table(), html.escape(f"Not installing anything, because at this point we shouldn't")]
++
+     if isinstance(dirname, str):
+         dirname = dirname.strip()
+     if isinstance(url, str):
+@@ -394,6 +397,8 @@ def install_extension_from_url(dirname, url, branch_name=None):
+ 
+ 
+ def install_extension_from_index(url, hide_tags, sort_column, filter_text):
++    print(f"Ignoring install_extension_from_index({repr(url)}, {repr(hide_tags)}, {sort_column=}, filter_text={repr(filter_text)})")
++    return "", "", "", ""
+     ext_table, message = install_extension_from_url(None, url)
+ 
+     code, _ = refresh_available_extensions_from_data(hide_tags, sort_column, filter_text)
+-- 
+2.42.0
+

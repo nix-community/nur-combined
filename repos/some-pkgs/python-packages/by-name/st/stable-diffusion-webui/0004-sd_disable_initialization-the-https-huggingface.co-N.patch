@@ -1,0 +1,26 @@
+From 2ab01d1b64f1833c25783368b219219f7f3faaca Mon Sep 17 00:00:00 2001
+From: Someone Serge <sergei.kozlukov@aalto.fi>
+Date: Sat, 18 Nov 2023 01:14:28 +0000
+Subject: [PATCH 4/8] sd_disable_initialization: the
+ https://huggingface.co/None/resolve/main/config.json issue
+
+---
+ modules/sd_disable_initialization.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/modules/sd_disable_initialization.py b/modules/sd_disable_initialization.py
+index 8863107a..9b9f9110 100644
+--- a/modules/sd_disable_initialization.py
++++ b/modules/sd_disable_initialization.py
+@@ -65,7 +65,7 @@ class DisableInitialization(ReplaceHelper):
+             return self.create_model_and_transforms(*args, pretrained=None, **kwargs)
+ 
+         def CLIPTextModel_from_pretrained(pretrained_model_name_or_path, *model_args, **kwargs):
+-            res = self.CLIPTextModel_from_pretrained(None, *model_args, config=pretrained_model_name_or_path, state_dict={}, **kwargs)
++            res = self.CLIPTextModel_from_pretrained(pretrained_model_name_or_path, *model_args, config=pretrained_model_name_or_path, state_dict={}, **kwargs)
+             res.name_or_path = pretrained_model_name_or_path
+             return res
+ 
+-- 
+2.42.0
+

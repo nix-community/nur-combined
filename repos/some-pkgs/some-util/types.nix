@@ -3,15 +3,23 @@
 with lib;
 with types;
 {
-  RemoteFile = submodule ({ config, ... }: {
+  RemoteFile = submodule ({ config, name, ... }: {
+    options.name = mkOption {
+      type = str;
+      default = name;
+    };
     options.urls = mkOption { type = listOf str; };
     options.hash = mkOption {
-      type = nullOr str;
-      default = null;
+      type = str;
+      default = lib.fakeHash;
     };
     options.cid = mkOption {
       type = nullOr str;
       default = null;
+    };
+    options.fetcher = mkOption {
+      type = functionTo package;
+      default = pkgs.some-pkgs.fetchdata;
     };
     options.package = mkOption {
       type = package;
@@ -26,7 +34,13 @@ with types;
           "https://cloudflare-ipfs.com/ipfs/${config.cid}"
         ])
       ]);
-      package = mkDefault (pkgs.some-pkgs.fetchdata config);
+      package = mkDefault (
+        # let
+        #   fargs = lib.functionArgs config.fetcher;
+        #   args = builtins.intersectAttrs fargs config;
+        # in
+        config.fetcher config
+      );
     };
   });
 }
