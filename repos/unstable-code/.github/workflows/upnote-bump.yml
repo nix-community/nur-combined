@@ -1,0 +1,96 @@
+name: "UpNote bump"
+# UpNote 는 버전 없는 롤링 URL 로만 배포돼 flake/dependabot 어느 쪽도 신버전을 알려주지 못한다.
+# 게다가 unfree 라 ci.nix 의 isBuildable 필터에서 빠져 build.yml 의 일일 cron 도 이 패키지를 건드리지
+# 않는다 → 아무 자동화도 없으면 영원히 뒤처진다. 그래서 별도 폴링 파이프라인이 필요하다.
+on:
+  schedule:
+    # 월 01:00 UTC = 10:00 KST. nix-configurations 의 weekly flake update(화 06:30)보다 하루 앞서
+    # 돌려, 여기서 머지된 bump 가 다음 날 그쪽 `nix flake update` 에 자연히 실려가게 한다.
+    - cron: '0 1 * * 1'
+  workflow_dispatch:
+
+# 레포 기본값이 default_workflow_permissions=read 라 명시적 상향이 필요하다.
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      # 버전 확인이 먼저다 — update.sh 는 순수 셸(sort -V)이라 nix 가 필요 없다. 덕분에 아래
+      #   nix 설치를 실제 범프가 있는 주로 미룰 수 있다(대부분의 주는 no-op).
+      - name: Check upstream version
+        id: update
+        run: ./pkgs/upnote/update.sh
+
+      - name: Install nix
+        if: steps.update.outputs.updated == 'true'
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+
+      # 검증을 여기서 하는 이유: bump PR 이 트리거하는 build.yml 은 ci.nix 의 unfree 필터 때문에
+      #   upnote 를 빌드하지 않는다. 즉 이 스텝이 이 패키지의 유일한 CI 검증 지점이다.
+      #   해시는 업스트림 메타파일에서 왔으니 맞지만, 새 버전이 새 공유 라이브러리를 요구하거나
+      #   동봉 prebuild 경로가 바뀌면 autoPatchelf 가 깨진다 — PR 을 열기 전에 그걸 잡는다.
+      - name: Verify build
+        if: steps.update.outputs.updated == 'true'
+        run: |
+          nix-build . -A upnote \
+            --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }' \
+            --no-out-link
+
+      - name: Open bump PR
+        if: steps.update.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OLD: ${{ steps.update.outputs.old_version }}
+          NEW: ${{ steps.update.outputs.new_version }}
+          BASE: ${{ github.event.repository.default_branch }}
+        run: |
+          set -euo pipefail
+          branch="auto/upnote-$NEW"
+
+          # 같은 버전 PR 이 이미 떠 있으면(지난 주에 열렸는데 아직 미머지) 조용히 끝낸다.
+          if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
+            echo "PR 이 이미 열려 있음: $branch — 생략"
+            exit 0
+          fi
+
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git commit -am "upnote: $OLD -> $NEW"
+          git push -f -u origin "$branch"
+
+          # 본문은 파일로 넘긴다(--body-file). 게다가 heredoc 을 <<'EOF' 로 **인용**해 셸 해석을 전부
+          #   끈다 — 본문에 백틱이 있어 비인용 heredoc 이면 명령치환으로 먹힌다. 값은 sed 로 주입.
+          body="$RUNNER_TEMP/pr-body.md"
+          cat > "$body" <<'EOF'
+          UpNote `@OLD@` → `@NEW@` (자동 생성).
+
+          업스트림 메타파일: <https://download.getupnote.com/app/latest-linux.yml>
+          version 과 .deb 아티팩트의 sha512 를 그대로 SRI 로 옮겼습니다.
+
+          - [x] `nix-build . -A upnote` 통과 (allowUnfree, 이 워크플로에서 검증)
+          - [ ] 실기기에서 실행 확인 — 특히 Electron GPU 가속과 fcitx5 한글 입력
+
+          이 PR 이 트리거하는 Build 워크플로는 upnote 가 unfree 라 **빌드하지 않습니다**.
+          검증은 위 체크박스가 전부입니다.
+          EOF
+          sed -i -e "s|@OLD@|$OLD|g" -e "s|@NEW@|$NEW|g" "$body"
+
+          # non-draft — 빌드 검증까지 끝난 완성 제안이라 초안으로 둘 이유가 없다.
+          #   nix-configurations 의 weekly-update 의존성 MR 과 같은 정책.
+          gh pr create \
+            --base "$BASE" \
+            --head "$branch" \
+            --title "upnote: $OLD -> $NEW" \
+            --label dependencies \
+            --body-file "$body"
