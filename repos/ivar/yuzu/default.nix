@@ -4,7 +4,7 @@ let
 in {
   mainline = libsForQt5.callPackage ./base.nix rec {
     pname = "yuzu-mainline";
-    version = "787";
+    version = "788";
     branchName = branch;
     src = fetchFromGitHub {
       owner = "yuzu-emu";
