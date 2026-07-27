@@ -8,16 +8,17 @@
   pyside6-fluent-widgets,
   python3Packages,
   qt6,
+  runtimeShell,
   rustPlatform,
   xvfb,
 }:
 let
-  version = "3.6.0";
+  version = "3.7.0";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-/yEG3fhZ2qSNvPV7GxeKlYEL19xjw1NOKJz4iGz2QK4=";
+    hash = "sha256-a0OEAMaCH/l5JCaWxqf2zc1mcdiTDcG+839iQkCUT/U=";
   };
 
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
@@ -126,9 +127,11 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   postInstall = ''
-    mkdir -p $out/bin
-    echo "#!/bin/sh" > $out/bin/cdumm
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cdumm/main.py \"\$@\"" >> $out/bin/cdumm
+    mkdir $out/bin
+    cat << EOF > $out/bin/cdumm
+    #!${runtimeShell}
+    exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cdumm/main.py "\$@"
+    EOF
     chmod +x $out/bin/cdumm
 
     cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm
