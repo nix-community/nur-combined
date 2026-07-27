@@ -1,13 +1,10 @@
-{ pkgs ? import (import ./nix/sources.nix { }).nixpkgs { } }:
-let
-  qemu = with pkgs; callPackage ./pkgs/applications/virtualization/qemu {
-    inherit (darwin.apple_sdk.frameworks) CoreServices Cocoa Hypervisor;
-    inherit (darwin.stubs) rez setfile;
-    inherit (darwin) sigtool;
-  };
-in
-{
-  modules = import ./modules; # NixOS modules
-
-  qemu_kvm = pkgs.lowPrio (qemu.override { hostCpuOnly = true; });
-}
+(import
+  (
+    let lock = builtins.fromJSON (builtins.readFile ./flake.lock); in
+    fetchTarball {
+      url = "https://github.com/edolstra/flake-compat/archive/${lock.nodes.flake-compat.locked.rev}.tar.gz";
+      sha256 = lock.nodes.flake-compat.locked.narHash;
+    }
+  )
+  { src = ./.; }
+).defaultNix
