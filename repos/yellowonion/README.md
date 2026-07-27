@@ -1,18 +1,38 @@
 # Nightly bcachefs nix user repository
 
+your `configuration.nix` should look something like this:
 ```nix
-{ pkgs, ...}:
-{   
-    boot.kernelPackages = lib.mkOverride 0 (pkgs.linuxPackagesFor pkgs.bcachefs-kernel);
-    nixpkgs.overlays = [ 
-    (
-    import "${builtins.fetchTarball "https://github.com/YellowOnion/nur-bcachefs/archive/master.tar.gz"}/overlay.nix" {}
-    )
-    ];
+{ config, pkgs, lib, ...}:
+let
+  yo-nur     = import (builtins.fetchTarball "https://github.com/YellowOnion/nur-bcachefs/archive/master.tar.gz") {};
+in
+{
+  boot.kernelPackages = lib.mkOverride 0 (pkgs.linuxPackagesFor pkgs.bcachefs-kernel-kent);
+  nixpkgs.overlays = [(super: final: { bcachefs-tools = yo-nur.bcachefs-tools;})];
+  
+  nix = {
+    settings = {
+      substituters = [
+          "https://yo-nur.cachix.org"
+          "https://cache.garnix.io"
+      ];
+      trusted-public-keys = [
+        "yo-nur.cachix.org-1:E/RHfQMAZ90mPhvsaqo/GrQ3M1xzXf5Ztt0o+1X3+Bs="
+        "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      ];
+    };
+  };
 }
 ```
 
-ISO Image is available in the cache.
+build iso:
+
+```bash
+    git clone https://github.com/YellowOnion/nur-bcachefs.git
+    cd nur-bcachefs
+    nix-build -A bcachefs-iso --option extra-substituters "https://yo-nur.cachix.org" --option extra-trusted-public-keys "yo-nur.cachix.org-1:E/RHfQMAZ90mPhvsaqo/GrQ3M1xzXf5Ztt0o+1X3+Bs="
+    ls ./result/iso
+```
 
 <!-- Remove this if you don't use github actions -->
 ![Build and populate cache](https://github.com/YellowOnion/nur-bcachefs/workflows/Build%20and%20populate%20cache/badge.svg)
