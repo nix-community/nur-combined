@@ -1,0 +1,35 @@
+--- hadoop-2.6.5-src/hadoop-common-project/hadoop-common/src/main/native/src/exception.c	2016-09-20 07:38:40.000000000 +0200
++++ hadoop-2.6.5-src-new/hadoop-common-project/hadoop-common/src/main/native/src/exception.c	2021-04-14 14:52:21.457930141 +0200
+@@ -22,6 +22,7 @@
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
++#include <errno.h>
+ 
+ jthrowable newExceptionV(JNIEnv* env, const char *name,
+                          const char *fmt, va_list ap)
+@@ -110,9 +111,9 @@
+ 
+ const char* terror(int errnum)
+ {
+-  if ((errnum < 0) || (errnum >= sys_nerr)) {
++  if (errnum < 0) {
+     return "unknown error.";
+   }
+-  return sys_errlist[errnum];
++  return strerror(errnum);
+ }
+ 
+--- hadoop-2.6.5-src/hadoop-common-project/hadoop-common/src/main/native/src/org/apache/hadoop/io/nativeio/NativeIO.c	2016-09-20 07:38:40.000000000 +0200
++++ hadoop-2.6.5-src-new/hadoop-common-project/hadoop-common/src/main/native/src/org/apache/hadoop/io/nativeio/NativeIO.c	2021-04-14 15:32:13.715090864 +0200
+@@ -813,8 +813,8 @@
+   char message[80];
+   jstring jstr_message;
+ 
+-  if ((errnum >= 0) && (errnum < sys_nerr)) {
+-    snprintf(message, sizeof(message), "%s", sys_errlist[errnum]);
++  if (errnum >= 0) {
++    snprintf(message, sizeof(message), "%s", strerror(errnum));
+   } else {
+     snprintf(message, sizeof(message), "Unknown error %d", errnum);
+   }

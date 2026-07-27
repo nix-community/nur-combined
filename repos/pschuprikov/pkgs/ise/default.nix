@@ -1,23 +1,23 @@
-{ lib, buildFHSUserEnv, fetchurl, bash, runCommand }:
+{ lib, buildFHSEnv, fetchurl, bash, runCommand }:
 let
   src = fetchurl {
     url = "file:///dev/null";
     sha256 = "1amd6f6wp4l9zzpsz6y351v4giamdicwg5lswp5azkxvq53b1q6f";
   };
 
-  installer = buildFHSUserEnv {
+  installer = buildFHSEnv {
     name = "batchxsetup";
     targetPkgs = pkgs:
       with pkgs; [
         bash
         ncurses5
-        xlibs.libX11
-        xlibs.libSM
-        xlibs.libICE
-        xlibs.libXi
-        xlibs.libXrender
-        xlibs.libXrandr
-        xlibs.libXext
+        xorg.libX11
+        xorg.libSM
+        xorg.libICE
+        xorg.libXi
+        xorg.libXrender
+        xorg.libXrandr
+        xorg.libXext
         freetype
         fontconfig
         zlib
@@ -67,26 +67,26 @@ let
     EOF
     yes Y | ${installer}/bin/batchxsetup --batch batch.cfg || true
   '';
-in buildFHSUserEnv {
+in buildFHSEnv {
   name = "ise";
   targetPkgs = pkgs:
     with pkgs; [
       bash
       ncurses5
-      xlibs.libX11
-      xlibs.libSM
-      xlibs.libICE
-      xlibs.libXi
-      xlibs.libXrender
-      xlibs.libXrandr
-      xlibs.libXext
-      xlibs.libXmu
-      xlibs.libXcursor
-      xlibs.libXft
-      xlibs.libXtst
-      xlibs.libXp
-      xlibs.libXmu
-      xlibs.libXt
+      xorg.libX11
+      xorg.libSM
+      xorg.libICE
+      xorg.libXi
+      xorg.libXrender
+      xorg.libXrandr
+      xorg.libXext
+      xorg.libXmu
+      xorg.libXcursor
+      xorg.libXft
+      xorg.libXtst
+      xorg.libXp
+      xorg.libXmu
+      xorg.libXt
       motif
       freetype
       fontconfig

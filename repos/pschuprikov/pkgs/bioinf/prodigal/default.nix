@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "2.6.3";
   name = "prodigal-${version}";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   makeFlags = [ "INSTALLDIR=$(out)/bin" ];
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 }

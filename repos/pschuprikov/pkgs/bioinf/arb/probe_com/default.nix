@@ -1,4 +1,4 @@
-{ buildArb, fetchsvn, pkgconfig, arbcore, arbcommon, arbaisc, arbaisc_com, 
+{ buildArb, fetchsvn, pkg-config, arbcore, arbcommon, arbaisc, arbaisc_com, 
   arbaisc_mkptps, glib }:
 buildArb rec {
   version = "6.0.6";
@@ -11,7 +11,7 @@ buildArb rec {
 
   MAIN="client.a";
 
-  nativeBuildInputs = [ pkgconfig arbcore arbcommon glib arbaisc arbaisc_mkptps ];
+  nativeBuildInputs = [ pkg-config arbcore arbcommon glib arbaisc arbaisc_mkptps ];
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags glib-2.0)"

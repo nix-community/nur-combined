@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "2.1.11";
   name = "FastTree-${version}";
@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     cp FastTree $out/bin/
   '';
 
-  meta = with stdenv.lib; {
+  meta = {
     description = "Inference of approximately-maximum-likelihood trees for large multiple sequence alignments";
     homepage = http://www.microbesonline.org/fasttree/;
-    license = licenses.gpl2;
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.unix;
   };
 }

@@ -1,5 +1,5 @@
-{ stdenv, fetchFromGitHub, boost, mpd_clientlib, ncurses, pkgconfig, readline
-, libiconv, icu, curl, autoreconfHook
+{ lib, stdenv, fetchFromGitHub, boost, libmpdclient, ncurses, pkg-config
+, readline, libiconv, icu, curl, autoreconfHook
 , outputsSupport ? true # outputs screen
 , visualizerSupport ? false, fftw ? null # visualizer screen
 , clockSupport ? true # clock screen
@@ -9,7 +9,6 @@
 assert visualizerSupport -> (fftw != null);
 assert taglibSupport -> (taglib != null);
 
-with stdenv.lib;
 stdenv.mkDerivation rec {
   pname = "ncmpcpp";
   version = "HEAD";
@@ -22,22 +21,22 @@ stdenv.mkDerivation rec {
   };
 
   configureFlags = [ "BOOST_LIB_SUFFIX=" ]
-    ++ optional outputsSupport "--enable-outputs"
-    ++ optional visualizerSupport "--enable-visualizer --with-fftw"
-    ++ optional clockSupport "--enable-clock"
-    ++ optional taglibSupport "--with-taglib";
+    ++ lib.optional outputsSupport "--enable-outputs"
+    ++ lib.optional visualizerSupport "--enable-visualizer --with-fftw"
+    ++ lib.optional clockSupport "--enable-clock"
+    ++ lib.optional taglibSupport "--with-taglib";
 
-  nativeBuildInputs = [ autoreconfHook pkgconfig ];
+  nativeBuildInputs = [ autoreconfHook pkg-config ];
 
-  buildInputs = [ boost mpd_clientlib ncurses readline libiconv icu curl ]
-    ++ optional visualizerSupport fftw
-    ++ optional taglibSupport taglib;
+  buildInputs = [ boost libmpdclient ncurses readline libiconv icu curl ]
+    ++ lib.optional visualizerSupport fftw
+    ++ lib.optional taglibSupport taglib;
 
   meta = {
     description = "A featureful ncurses based MPD client inspired by ncmpc";
     homepage    = "https://ncmpcpp.rybczak.net/";
-    license     = licenses.gpl2Plus;
-    maintainers = with maintainers; [ jfrankenau koral lovek323 ];
-    platforms   = platforms.all;
+    license     = lib.licenses.gpl2Plus;
+    maintainers = with lib.maintainers; [ jfrankenau koral lovek323 ];
+    platforms   = lib.platforms.all;
   };
 }

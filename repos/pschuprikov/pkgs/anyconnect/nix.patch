@@ -1,0 +1,60 @@
+diff -ur vpn_orig/vpn_install.sh vpn/vpn_install.sh
+--- vpn_orig/vpn_install.sh	2021-08-13 09:02:54.210585700 +0200
++++ vpn/vpn_install.sh	2021-08-15 12:24:20.188617943 +0200
+@@ -1,5 +1,7 @@
+ #!/bin/sh
+ 
++set -e
++
+ BASH_BASE_SIZE=0x00000000
+ CISCO_AC_TIMESTAMP=0x0000000000000000
+ CISCO_AC_OBJNAME=1234567890123456789012345678901234567890123456789012345678901234
+@@ -105,11 +107,6 @@
+ echo "Installing ${CLIENTNAME}..." > /tmp/${LOGFNAME}
+ echo `whoami` "invoked $0 from " `pwd` " at " `date` >> /tmp/${LOGFNAME}
+ 
+-# Make sure we are root
+-if [ `id | sed -e 's/(.*//'` != "uid=0" ]; then
+-  echo "Sorry, you need super user privileges to run this script."
+-  exitInstallation 1
+-fi
+ ## The web-based installer used for VPN client installation and upgrades does
+ ## not have the license.txt in the current directory, intentionally skipping
+ ## the license agreement. Bug CSCtc45589 has been filed for this behavior.
+@@ -416,8 +413,6 @@
+     exitInstallation 1
+ fi
+ 
+-echo "Updating GTK icon cache" >> /tmp/${LOGFNAME}
+-gtk-update-icon-cache -f -t /usr/share/icons/hicolor >> /tmp/${LOGFNAME} 2>&1
+ 
+ if [ -f "${NEWTEMP}/cisco-anyconnect.menu" ]; then
+     echo "Installing ${NEWTEMP}/cisco-anyconnect.menu" >> /tmp/${LOGFNAME}
+@@ -712,27 +707,10 @@
+ 
+ TESTINIT=`ls -l /proc/1/exe`
+ if [ -z "${TESTINIT##*"systemd"*}" ]; then
+-  echo systemctl daemon-reexec >> /tmp/${LOGFNAME}
+-  systemctl daemon-reexec >> /tmp/${LOGFNAME} 2>&1
+-  # try stop vpnagentd service first in case user is upgrading from old version which doesn't have the proper unintall script
+-  echo systemctl stop ${INIT} >> /tmp/${LOGFNAME}
+-  systemctl stop ${INIT} >> /tmp/${LOGFNAME} 2>&1
+-  echo systemctl disable ${INIT} >> /tmp/${LOGFNAME}
+-  systemctl disable ${INIT} >> /tmp/${LOGFNAME} 2>&1
+-
+   echo "install systemd" >> /tmp/${LOGFNAME}
+   echo "Installing "${NEWTEMP}/${SYSTEMD_SRC} >> /tmp/${LOGFNAME}
+   echo ${INSTALL} -o root -m 644 ${NEWTEMP}/${SYSTEMD_SRC} ${SYSTEMD_CONF_DIR}/${SYSTEMD_SRC} >> /tmp/${LOGFNAME}
+   ${INSTALL} -o root -m 644 ${NEWTEMP}/${SYSTEMD_SRC} ${SYSTEMD_CONF_DIR}/${SYSTEMD_SRC} || exitInstallation 1
+-
+-  echo systemctl enable ${INIT} >> /tmp/${LOGFNAME}
+-  systemctl enable ${INIT} >> /tmp/${LOGFNAME} 2>&1
+-
+-  echo "Starting ${CLIENTNAME} Agent..."
+-  echo "Starting ${CLIENTNAME} Agent..." >> /tmp/${LOGFNAME}
+-
+-  echo systemctl start ${INIT} >> /tmp/${LOGFNAME}
+-  systemctl start ${INIT} >> /tmp/${LOGFNAME} 2>&1 || exitInstallation 1
+ elif [ "x${INITD}" != "x" ]; then
+   echo "no install systemd" >> /tmp/${LOGFNAME}
+   echo "Installing "${NEWTEMP}/${INIT_SRC} >> /tmp/${LOGFNAME}

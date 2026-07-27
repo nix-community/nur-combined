@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, autoconf, tk, tcl, otcl, tclcl, xlibs, libpcap, perl }:
+{ lib, stdenv, fetchurl, autoconf, tk, tcl, otcl, tclcl, xorg, libpcap, perl }:
 stdenv.mkDerivation rec {
   version = "2.35";
 
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
   nativeBuildInputs = [ 
     perl 
     libpcap
-    xlibs.libX11 xlibs.libXt xlibs.libXext 
+    xorg.libX11 xorg.libXt xorg.libXext 
     ];
 
   preInstall = ''
@@ -44,10 +44,10 @@ stdenv.mkDerivation rec {
      install -t $out/bin nse nstk
   '';
 
-  meta = with stdenv.lib; {
+  meta = {
     description = "A discrete event simulator targeted at networking research";
     homepage = http://nsnam.sourceforge.net/wiki/index.php/User_Information;
-    license = with licenses; [ bsdOriginal bsd3 asl20 gpl2 ];
-    platforms = platforms.linux;
+    license = with lib.licenses; [ bsdOriginal bsd3 asl20 gpl2 ];
+    platforms = lib.platforms.linux;
   };
 }

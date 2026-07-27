@@ -1,0 +1,18 @@
+--- /nix/store/jjpqj6xi168kaiiwan3aqdh9856cd2wz-hadoop-2.6.5/etc/hadoop/hadoop-env.sh	1970-01-01 01:00:01.000000000 +0100
++++ hadoop-env.sh	2021-04-15 15:31:25.441640474 +0200
+@@ -32,15 +32,6 @@
+ 
+ export HADOOP_CONF_DIR=${HADOOP_CONF_DIR:-"/etc/hadoop"}
+ 
+-# Extra Java CLASSPATH elements.  Automatically insert capacity-scheduler.
+-for f in $HADOOP_HOME/contrib/capacity-scheduler/*.jar; do
+-  if [ "$HADOOP_CLASSPATH" ]; then
+-    export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:$f
+-  else
+-    export HADOOP_CLASSPATH=$f
+-  fi
+-done
+-
+ # The maximum amount of heap to use, in MB. Default is 1000.
+ #export HADOOP_HEAPSIZE=
+ #export HADOOP_NAMENODE_INIT_HEAPSIZE=""

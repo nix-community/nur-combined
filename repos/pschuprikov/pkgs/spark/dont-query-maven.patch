@@ -1,0 +1,32 @@
+--- source/dev/make-distribution.sh	1970-01-01 01:00:01.000000000 +0100
++++ source-new/dev/make-distribution.sh	2021-12-02 17:21:37.515783193 +0100
+@@ -125,25 +125,10 @@
+     exit -1;
+ fi
+ 
+-VERSION=$("$MVN" help:evaluate -Dexpression=project.version $@ 2>/dev/null\
+-    | grep -v "INFO"\
+-    | grep -v "WARNING"\
+-    | tail -n 1)
+-SCALA_VERSION=$("$MVN" help:evaluate -Dexpression=scala.binary.version $@ 2>/dev/null\
+-    | grep -v "INFO"\
+-    | grep -v "WARNING"\
+-    | tail -n 1)
+-SPARK_HADOOP_VERSION=$("$MVN" help:evaluate -Dexpression=hadoop.version $@ 2>/dev/null\
+-    | grep -v "INFO"\
+-    | grep -v "WARNING"\
+-    | tail -n 1)
+-SPARK_HIVE=$("$MVN" help:evaluate -Dexpression=project.activeProfiles -pl sql/hive $@ 2>/dev/null\
+-    | grep -v "INFO"\
+-    | grep -v "WARNING"\
+-    | fgrep --count "<id>hive</id>";\
+-    # Reset exit status to 0, otherwise the script stops here if the last grep finds nothing\
+-    # because we use "set -o pipefail"
+-    echo -n)
++VERSION=@version@
++SCALA_VERSION=@scalaVersion@
++SPARK_HADOOP_VERSION=@hadoopVersion@
++SPARK_HIVE=0
+ 
+ if [ "$NAME" == "none" ]; then
+   NAME=$SPARK_HADOOP_VERSION

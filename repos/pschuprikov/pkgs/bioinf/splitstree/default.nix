@@ -32,8 +32,8 @@ stdenv.mkDerivation rec {
   '';
 
   meta = {
-    platforms = stdenv.lib.platforms.linux;
-    lincense = stdenv.lib.licenses.unfree;
+    platforms = lib.platforms.linux;
+    lincense = lib.licenses.unfree;
     broken = true;
   };
 }

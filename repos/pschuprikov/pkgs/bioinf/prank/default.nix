@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "170427";
 
@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
     cp prank $out/bin/
   '';
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "7.453";
 
@@ -11,7 +11,7 @@ stdenv.mkDerivation rec {
   sourceRoot = "${name}-without-extensions/core";
   makeFlags = [ "PREFIX=$(out)" ];
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 }

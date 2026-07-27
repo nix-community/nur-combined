@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, autoreconfHook, yacc, bison, flex, swig, libtool
+{ stdenv, fetchFromGitLab, autoreconfHook, bison, flex, swig, libtool
 , perl, texlive }:
 let
   latex = texlive.combine {
@@ -27,5 +27,5 @@ in stdenv.mkDerivation {
 
   enableParallelBuilding = true;
 
-  buildInputs = [ autoreconfHook yacc bison flex swig libtool perl latex ];
+  buildInputs = [ autoreconfHook bison flex swig libtool perl latex ];
 }

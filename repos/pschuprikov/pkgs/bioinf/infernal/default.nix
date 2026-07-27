@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "1.1.3";
   name = "infernal-${version}";
@@ -8,7 +8,7 @@ stdenv.mkDerivation rec {
     sha256 = "sha256:0pm8bm3s6nfa0av4x6m6h27lsg12b3lz3jm0fyh1mc77l2isd61v";
   };
 
-  meta = with stdenv.lib; {
-    platforms = platforms.unix;
+  meta = {
+    platforms = lib.platforms.unix;
   };
 }

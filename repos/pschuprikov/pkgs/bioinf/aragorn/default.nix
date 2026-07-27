@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "1.2.38";
   name = "aragorn-${version}";
@@ -17,10 +17,10 @@ stdenv.mkDerivation rec {
     cp aragorn $out/bin/
   '';
   
-  meta = with stdenv.lib; {
+  meta = {
     description = "tRNA (and tmRNA) detection";
     homepage = http://130.235.244.92/ARAGORN/;
-    license = licenses.gpl2;
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.unix;
   };
 }

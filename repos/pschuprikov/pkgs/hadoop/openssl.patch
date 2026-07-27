@@ -1,0 +1,55 @@
+--- hadoop-2.6.5-src/hadoop-common-project/hadoop-common/src/main/native/src/org/apache/hadoop/crypto/OpensslCipher.c	2015-07-23 07:35:32.000000000 +0200
++++ hadoop-2.6.5-src-new/hadoop-common-project/hadoop-common/src/main/native/src/org/apache/hadoop/crypto/OpensslCipher.c	2021-04-14 15:31:23.242208465 +0200
+@@ -253,14 +253,14 @@
+ static int check_update_max_output_len(EVP_CIPHER_CTX *context, int input_len, 
+     int max_output_len)
+ {
+-  if (context->flags & EVP_CIPH_NO_PADDING) {
++  if (EVP_CIPHER_CTX_flags(context) & EVP_CIPH_NO_PADDING) {
+     if (max_output_len >= input_len) {
+       return 1;
+     }
+     return 0;
+   } else {
+-    int b = context->cipher->block_size;
+-    if (context->encrypt) {
++    int b = EVP_CIPHER_CTX_block_size(context);
++    if (EVP_CIPHER_CTX_encrypting(context)) {
+       if (max_output_len >= input_len + b - 1) {
+         return 1;
+       }
+@@ -307,10 +307,10 @@
+ static int check_doFinal_max_output_len(EVP_CIPHER_CTX *context, 
+     int max_output_len)
+ {
+-  if (context->flags & EVP_CIPH_NO_PADDING) {
++  if (EVP_CIPHER_CTX_flags(context) & EVP_CIPH_NO_PADDING) {
+     return 1;
+   } else {
+-    int b = context->cipher->block_size;
++    int b = EVP_CIPHER_CTX_block_size(context);
+     if (max_output_len >= b) {
+       return 1;
+     }
+--- hadoop-2.6.5-src/hadoop-tools/hadoop-pipes/src/main/native/pipes/impl/HadoopPipes.cc	2016-09-20 07:38:41.000000000 +0200
++++ hadoop-2.6.5-src-new/hadoop-tools/hadoop-pipes/src/main/native/pipes/impl/HadoopPipes.cc	2021-04-14 15:49:24.455167383 +0200
+@@ -420,14 +420,14 @@
+     }
+ 
+     string createDigest(string &password, string& msg) {
+-      HMAC_CTX ctx;
++      HMAC_CTX * ctx = HMAC_CTX_new();
+       unsigned char digest[EVP_MAX_MD_SIZE];
+-      HMAC_Init(&ctx, (const unsigned char *)password.c_str(), 
++      HMAC_Init(ctx, (const unsigned char *)password.c_str(), 
+           password.length(), EVP_sha1());
+-      HMAC_Update(&ctx, (const unsigned char *)msg.c_str(), msg.length());
++      HMAC_Update(ctx, (const unsigned char *)msg.c_str(), msg.length());
+       unsigned int digestLen;
+-      HMAC_Final(&ctx, digest, &digestLen);
+-      HMAC_cleanup(&ctx);
++      HMAC_Final(ctx, digest, &digestLen);
++      HMAC_CTX_free(ctx);
+ 
+       //now apply base64 encoding
+       BIO *bmem, *b64;

@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, dpkg, unzip }:
+{ lib, stdenv, fetchurl, dpkg, unzip }:
 stdenv.mkDerivation {
   version = "1.6.5";
   name = "autofirma";
@@ -27,8 +27,8 @@ stdenv.mkDerivation {
     cp -r usr/* $out/
   '';
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
     broken = true;
   };
 }

@@ -1,0 +1,54 @@
+From 0e479fd636dd1dbe2470323135fe8ccaadf6b300 Mon Sep 17 00:00:00 2001
+From: Pavel Chuprikov <pschuprikov@gmail.com>
+Date: Tue, 10 May 2022 13:56:24 +0200
+Subject: [PATCH 3/4] update for newer openssl
+
+---
+ .../security/credentials/jwt/jwt_verifier.c    | 18 +++++++++++-------
+ 1 file changed, 11 insertions(+), 7 deletions(-)
+
+diff --git a/src/core/lib/security/credentials/jwt/jwt_verifier.c b/src/core/lib/security/credentials/jwt/jwt_verifier.c
+index 0e2a264371..4f14861f36 100644
+--- a/src/core/lib/security/credentials/jwt/jwt_verifier.c
++++ b/src/core/lib/security/credentials/jwt/jwt_verifier.c
+@@ -481,6 +481,8 @@ static EVP_PKEY *pkey_from_jwk(grpc_exec_ctx *exec_ctx, const grpc_json *json,
+                                const char *kty) {
+   const grpc_json *key_prop;
+   RSA *rsa = NULL;
++  BIGNUM* tmp_n = NULL;
++  BIGNUM* tmp_e = NULL;
+   EVP_PKEY *result = NULL;
+ 
+   GPR_ASSERT(kty != NULL && json != NULL);
+@@ -495,19 +497,21 @@ static EVP_PKEY *pkey_from_jwk(grpc_exec_ctx *exec_ctx, const grpc_json *json,
+   }
+   for (key_prop = json->child; key_prop != NULL; key_prop = key_prop->next) {
+     if (strcmp(key_prop->key, "n") == 0) {
+-      rsa->n =
+-          bignum_from_base64(exec_ctx, validate_string_field(key_prop, "n"));
+-      if (rsa->n == NULL) goto end;
++      tmp_n = bignum_from_base64(exec_ctx, validate_string_field(key_prop, "n"));
++      if (tmp_n == NULL) goto end;
+     } else if (strcmp(key_prop->key, "e") == 0) {
+-      rsa->e =
+-          bignum_from_base64(exec_ctx, validate_string_field(key_prop, "e"));
+-      if (rsa->e == NULL) goto end;
++      tmp_e = bignum_from_base64(exec_ctx, validate_string_field(key_prop, "e"));
++      if (tmp_e == NULL) goto end;
+     }
+   }
+-  if (rsa->e == NULL || rsa->n == NULL) {
++  if (tmp_n == NULL || tmp_e == NULL) {
+     gpr_log(GPR_ERROR, "Missing RSA public key field.");
+     goto end;
+   }
++  if (!RSA_set0_key(rsa, tmp_n, tmp_e, NULL)) {
++    gpr_log(GPR_ERROR, "Cannot set RSA key from inputs.");
++    goto end;
++  }
+   result = EVP_PKEY_new();
+   EVP_PKEY_set1_RSA(result, rsa); /* uprefs rsa. */
+ 
+-- 
+2.33.3
+

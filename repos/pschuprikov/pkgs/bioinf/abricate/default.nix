@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, perlPackages, makeWrapper, blast ? null, ncbi_tools, any2fasta, unzip, gzip }:
+{ lib, stdenv, fetchFromGitHub, perlPackages, makeWrapper, blast ? null, ncbi_tools, any2fasta, unzip, gzip }:
 let perl = perlPackages.perl.withPackages (pkgs: with pkgs; [
       PathTiny ListMoreUtils
     ]);
@@ -32,11 +32,10 @@ in stdenv.mkDerivation rec {
   '';
 
   postFixup = ''
-    wrapProgram $out/bin/abricate --prefix PATH : ${stdenv.lib.makeBinPath external}
+    wrapProgram $out/bin/abricate --prefix PATH : ${lib.makeBinPath external}
   '';
   
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
-    broken = isNull blast;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 }

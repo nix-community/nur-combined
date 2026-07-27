@@ -1,0 +1,94 @@
+diff --color -ur hadoop-2.6.5-src/hadoop-project/pom.xml hadoop-2.6.5-src-new/hadoop-project/pom.xml
+--- hadoop-2.6.5-src/hadoop-project/pom.xml     2016-09-20 07:38:41.000000000 +0200
++++ hadoop-2.6.5-src-new/hadoop-project/pom.xml 2021-11-13 10:32:16.553210150 +0100
+@@ -82,6 +82,11 @@
+   <dependencyManagement>
+     <dependencies>
+       <dependency>
++          <groupId>joda-time</groupId>
++          <artifactId>joda-time</artifactId>
++          <version>2.10.13</version>
++      </dependency>
++      <dependency>
+         <groupId>jdiff</groupId>
+         <artifactId>jdiff</artifactId>
+         <version>${jdiff.version}</version>
+@@ -629,6 +634,12 @@
+         <groupId>com.amazonaws</groupId>
+         <artifactId>aws-java-sdk</artifactId>
+         <version>1.7.4</version>
++        <exclusions>
++            <exclusion>
++                  <groupId>joda-time</groupId>
++                  <artifactId>joda-time</artifactId>
++              </exclusion>
++        </exclusions>
+       </dependency>
+       <dependency>
+         <groupId>org.apache.mina</groupId>
+@@ -994,6 +1005,13 @@
+           <groupId>org.apache.avro</groupId>
+           <artifactId>avro-maven-plugin</artifactId>
+           <version>${avro.version}</version>
++          <dependencies>
++              <dependency>
++                <groupId>org.slf4j</groupId>
++                <artifactId>slf4j-simple</artifactId>
++                <version>1.7.5</version>
++              </dependency>
++          </dependencies>
+         </plugin>
+         <plugin>
+           <groupId>org.codehaus.mojo.jspc</groupId>
+@@ -1267,6 +1285,7 @@
+           <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-javadoc-plugin</artifactId>
++            <version>2.8.1</version>
+             <executions>
+               <execution>
+                 <!-- build javadoc jars per jar for publishing to maven -->
+diff --color -ur hadoop-2.6.5-src/pom.xml hadoop-2.6.5-src-new/pom.xml
+--- hadoop-2.6.5-src/pom.xml    2016-09-20 07:38:41.000000000 +0200
++++ hadoop-2.6.5-src-new/pom.xml        2021-11-12 17:59:15.316512673 +0100
+@@ -57,13 +57,6 @@
+       <name>${distMgmtSnapshotsName}</name>
+       <url>${distMgmtSnapshotsUrl}</url>
+     </repository>
+-    <repository>
+-      <id>repository.jboss.org</id>
+-      <url>http://repository.jboss.org/nexus/content/groups/public/</url>
+-      <snapshots>
+-        <enabled>false</enabled>
+-      </snapshots>
+-    </repository>
+   </repositories>
+
+   <licenses>
+@@ -389,6 +382,7 @@
+           <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+             <artifactId>maven-javadoc-plugin</artifactId>
++            <version>2.8.1</version>
+             <inherited>false</inherited>
+             <executions>
+               <execution>
+diff --color -ur hadoop-2.6.5-src/hadoop-build-tools/pom.xml hadoop-2.6.5-src-new/hadoop-build-tools/pom.xml
+--- hadoop-2.6.5-src/hadoop-build-tools/pom.xml 2016-09-20 07:38:40.000000000 +0200
++++ hadoop-2.6.5-src-new/hadoop-build-tools/pom.xml     2021-11-12 18:05:34.860835633 +0100
+@@ -27,6 +27,7 @@
+
+   <properties>
+     <failIfNoTests>false</failIfNoTests>
++    <maven-remote-resources-plugin.version>1.5</maven-remote-resources-plugin.version>
+   </properties>
+   <build>
+     <resources>
+@@ -80,6 +81,7 @@
+       <plugin>
+         <groupId>org.apache.maven.plugins</groupId>
+         <artifactId>maven-remote-resources-plugin</artifactId>
++        <version>${maven-remote-resources-plugin.version}</version>
+         <executions>
+           <execution>
+             <phase>process-resources</phase>

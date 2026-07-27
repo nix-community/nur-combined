@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, perl }:
+{ lib, stdenv, fetchFromGitHub, perl }:
 stdenv.mkDerivation rec {
   version = "0.4.2";
   name = "any2fasta-${version}";
@@ -17,7 +17,7 @@ stdenv.mkDerivation rec {
     install -t $out/bin any2fasta
   '';
 
-  meta = with stdenv.lib; {
-    platforms = platforms.unix;
+  meta = {
+    platforms = lib.platforms.unix;
   };
 }

@@ -18,7 +18,7 @@ stdenv.mkDerivation (attrs // {
       )
   '' + lib.optionalString (attrs ? preBuild) attrs.preBuild;
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 })

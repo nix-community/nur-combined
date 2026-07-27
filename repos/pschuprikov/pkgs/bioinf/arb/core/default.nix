@@ -1,4 +1,4 @@
-{ buildArb, fetchsvn, arbcommon, pkgconfig, glib }:
+{ buildArb, fetchsvn, arbcommon, pkg-config, glib }:
 buildArb rec {
   version = "6.0.6";
   name = "arbcore-${version}";
@@ -8,7 +8,7 @@ buildArb rec {
     sha256 = "sha256:1zasbgq1vmvbll08qhp8mg8cl6sn14ydf0biyy0gid17rzgjf492";
   };
 
-  nativeBuildInputs = [ pkgconfig arbcommon glib ];
+  nativeBuildInputs = [ pkg-config arbcommon glib ];
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags glib-2.0)"

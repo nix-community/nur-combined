@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, tcsh, coreutils, pkg-config }:
+{ lib, stdenv, fetchurl, tcsh, coreutils, pkg-config }:
 stdenv.mkDerivation rec {
   version = "20170106";
   name = "ncbi_tools-${version}";
@@ -33,7 +33,7 @@ stdenv.mkDerivation rec {
     cp -r ncbi/bin $out/
   '';
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 }

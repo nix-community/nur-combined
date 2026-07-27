@@ -1,4 +1,4 @@
-{ buildArb, fetchsvn, pkgconfig, arbcore, arbcommon, glib, arbdb }:
+{ buildArb, fetchsvn, pkg-config, arbcore, arbcommon, glib, arbdb }:
 buildArb rec {
   version = "6.0.6";
   name = "helix-${version}";
@@ -10,7 +10,7 @@ buildArb rec {
 
   MAIN="HELIX.a";
 
-  nativeBuildInputs = [ pkgconfig arbcore arbcommon arbdb glib ];
+  nativeBuildInputs = [ pkg-config arbcore arbcommon arbdb glib ];
 
   preConfigure = ''
     export NIX_CFLAGS_COMPILE="$NIX_CFLAGS_COMPILE $(pkg-config --cflags glib-2.0)"

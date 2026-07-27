@@ -1,4 +1,4 @@
-{ stdenv, fetchurl, perlPackages, blast ? null, parallel, bedtools, prank, mcl, mafft, cd-hit, makeWrapper }:
+{ lib, stdenv, fetchurl, perlPackages, blast ? null, parallel, bedtools, prank, mcl, mafft, cd-hit, makeWrapper }:
 with perlPackages; 
 rec {
   inherit perl;
@@ -27,7 +27,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-DB-EMBL;
       description = "Database object interface for EMBL entry retrieval";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -53,14 +53,14 @@ rec {
     propagatedBuildInputs = [ ArrayUtils BioPerl BioProcedural DigestMD5File ExceptionClass FileFindRule FileGrep FileSlurper FileWhich Graph GraphReadWrite LogLog4perl Moose PerlIOutf8_strict TextCSV ];
 
     postFixup = ''
-      wrapProgram $out/bin/roary --prefix PATH : ${stdenv.lib.makeBinPath external}
+      wrapProgram $out/bin/roary --prefix PATH : ${lib.makeBinPath external}
     '';
 
     meta = {
       homepage = http://www.sanger.ac.uk/;
       description = "Create a pan genome";
-      license = stdenv.lib.licenses.gpl3Plus;
-      platforms = stdenv.lib.platforms.linux;
+      license = lib.licenses.gpl3Plus;
+      platforms = lib.platforms.linux;
       broken = true;  # Tests are not stable
     };
   };
@@ -91,7 +91,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/BioPerl;
       description = "Perl modules for biology";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -111,7 +111,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-Procedural;
       description = "Simple low-dependency procedural interfaces to BioPerl";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -123,7 +123,7 @@ rec {
       sha256 = "462e15274eb6278521407ea302d9eea7252cd44cab2382871f7de833d5f85632";
     };
     meta = {
-      license = stdenv.lib.licenses.artistic1;
+      license = lib.licenses.artistic1;
     };
   };
 
@@ -138,7 +138,7 @@ rec {
     meta = {
       homepage = https://github.com/neilb/Graph-ReadWrite;
       description = "Modules for reading and writing directed graphs";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -151,7 +151,7 @@ rec {
     };
     meta = {
       description = "Test that freed memory objects were, indeed, freed";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -167,7 +167,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-DB-NCBIHelper;
       description = "A collection of routines useful for queries to NCBI databases";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -213,7 +213,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-SearchIO-hmmer;
       description = "A parser for HMMER2 and HMMER3 output (hmmscan, hmmsearch, hmmpfam)";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -229,7 +229,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-DB-RefSeq;
       description = "Database object interface for RefSeq retrieval";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -245,7 +245,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-DB-SwissProt;
       description = "Database object interface to SwissProt retrieval";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -260,7 +260,7 @@ rec {
     meta = {
       homepage = https://metacpan.org/release/Bio-Tools-Run-RemoteBlast;
       description = "Object for remote execution of the NCBI Blast via HTTP";
-      license = with stdenv.lib.licenses; [ artistic1 gpl1Plus ];
+      license = with lib.licenses; [ artistic1 gpl1Plus ];
     };
   };
 
@@ -272,7 +272,7 @@ rec {
       sha256 = "3810e998308fba2e0f4f26043035032b027ce51ce5c8a52a8b8e340ca65f13e5";
     };
     meta = {
-      license = stdenv.lib.licenses.artistic1;
+      license = lib.licenses.artistic1;
     };
   };
 }

@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, autoreconfHook, pkg-config, zlib, glib, boost, tbb, arbdb, arbcommon, arbcore, arbslhelix, arbprobe_com, arbaisc_com }:
+{ lib, stdenv, fetchFromGitHub, autoreconfHook, pkg-config, zlib, glib, boost, tbb, arbdb, arbcommon, arbcore, arbslhelix, arbprobe_com, arbaisc_com }:
 stdenv.mkDerivation rec {
   version = "1.6.0";
   name = "sina-${version}";
@@ -26,8 +26,8 @@ stdenv.mkDerivation rec {
 
   installTargets = "install-exec";
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
     # due to missing libtirpc in CFLAGS
     broken = true;
   };

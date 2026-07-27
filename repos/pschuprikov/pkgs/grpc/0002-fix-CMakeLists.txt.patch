@@ -1,0 +1,49 @@
+From 1f93f16850633ffd670968f68eec12d43887c011 Mon Sep 17 00:00:00 2001
+From: Pavel Chuprikov <pschuprikov@gmail.com>
+Date: Tue, 10 May 2022 13:46:16 +0200
+Subject: [PATCH 2/4] fix CMakeLists.txt
+
+---
+ CMakeLists.txt | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 680ee8b829..e0142406bf 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,7 +36,7 @@
+ 
+ 
+ 
+-cmake_minimum_required(VERSION 2.8)
++cmake_minimum_required(VERSION 3.5.1)
+ 
+ set(PACKAGE_NAME      "grpc")
+ set(PACKAGE_VERSION   "1.3.2")
+@@ -150,9 +150,9 @@ if("${gRPC_CARES_PROVIDER}" STREQUAL "module")
+     message(WARNING "gRPC_CARES_PROVIDER is \"module\" but CARES_ROOT_DIR is wrong")
+   endif()
+ elseif("${gRPC_CARES_PROVIDER}" STREQUAL "package")
+-  find_package(CARES)
+-  if(TARGET CARES::CARES)
+-    set(_gRPC_CARES_LIBRARIES CARES::CARES)
++  find_package(c-ares)
++  if(TARGET c-ares::cares)
++    set(_gRPC_CARES_LIBRARIES c-ares::cares)
+   endif()
+   set(_gRPC_FIND_CARES "if(NOT CARES_FOUND)\n  find_package(CARES)\nendif()")
+ endif()
+@@ -184,8 +184,8 @@ if("${gRPC_PROTOBUF_PROVIDER}" STREQUAL "module")
+       message(WARNING "gRPC_PROTOBUF_PROVIDER is \"module\" but PROTOBUF_ROOT_DIR is wrong")
+   endif()
+ elseif("${gRPC_PROTOBUF_PROVIDER}" STREQUAL "package")
+-  find_package(protobuf CONFIG)
+-  if(protobuf_FOUND)
++  find_package(Protobuf MODULE)
++  if(Protobuf_FOUND)
+     if(TARGET protobuf::${_gRPC_PROTOBUF_LIBRARY_NAME})
+       set(_gRPC_PROTOBUF_LIBRARIES protobuf::${_gRPC_PROTOBUF_LIBRARY_NAME})
+     endif()
+-- 
+2.33.3
+

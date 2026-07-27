@@ -1,4 +1,4 @@
-{ stdenv, fetchurl }:
+{ lib, stdenv, fetchurl }:
 stdenv.mkDerivation rec {
   version = "14-137";
   name = "mcl-${version}";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
 
   configureFlags = [ "--enable-blast" ];
 
-  meta = with stdenv.lib; {
-    platforms = platforms.linux;
+  meta = {
+    platforms = lib.platforms.linux;
   };
 }

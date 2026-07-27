@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitHub, makeWrapper, zlib, perl, perlPackages, llvmPackages }:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, zlib, perl, perlPackages, llvmPackages }:
 
 stdenv.mkDerivation rec {
   version = "4.8.1";
@@ -14,7 +14,7 @@ stdenv.mkDerivation rec {
   propagatedBuildInputs = [ perl perlPackages.TextNSP perlPackages.PerlMagick perlPackages.Storable ];
 
   nativeBuildInputs = [ zlib makeWrapper ] 
-    ++ stdenv.lib.optional stdenv.isDarwin llvmPackages.openmp;
+    ++ lib.optional stdenv.isDarwin llvmPackages.openmp;
 
   makeFlags = [ "PREFIX=$(out)/bin" "CC=$(CXX)"];
 
@@ -26,10 +26,10 @@ stdenv.mkDerivation rec {
     wrapProgram $out/bin/clstr_list_sort.pl --prefix PERL5LIB : $PERL5LIB
   '';
 
-  meta = with stdenv.lib; {
+  meta = {
     description = "Clustering and comparing protein or nucleotide sequences";
     homepage = http://weizhongli-lab.org/cd-hit/;
-    license = licenses.gpl2;
-    platforms = platforms.unix;
+    license = lib.licenses.gpl2;
+    platforms = lib.platforms.unix;
   };
 }
