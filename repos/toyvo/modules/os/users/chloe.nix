@@ -53,10 +53,8 @@ in
       nixcfg = {
         users.chloe.enable = true;
         shells.enable = true;
-        tools.enable = true;
         session.enable = true;
         sops-home.enable = true;
-        catppuccin-home.enable = true;
         gui.enable = enableGui;
       };
     };

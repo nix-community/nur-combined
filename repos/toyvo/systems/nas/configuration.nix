@@ -46,10 +46,8 @@ in
       home.homeDirectory = "/mnt/POOL/hermes";
       nixcfg = {
         shells.enable = true;
-        tools.enable = true;
         session.enable = true;
         sops-home.enable = true;
-        catppuccin-home.enable = true;
       };
       programs = {
         git = {

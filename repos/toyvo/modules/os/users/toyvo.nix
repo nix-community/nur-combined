@@ -67,10 +67,8 @@ in
       home.homeDirectory = "${homePath}/${cfg.toyvo.name}";
       nixcfg = {
         shells.enable = true;
-        tools.enable = true;
         session.enable = true;
         sops-home.enable = true;
-        catppuccin-home.enable = true;
         gui.enable = enableGui;
         users.toyvo.enable = true;
       };

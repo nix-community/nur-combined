@@ -26,10 +26,8 @@ in
       home.username = "root";
       home.homeDirectory = rootHomeDirectory;
       nixcfg.shells.enable = true;
-      nixcfg.tools.enable = true;
       nixcfg.session.enable = true;
       nixcfg.sops-home.enable = true;
-      nixcfg.catppuccin-home.enable = true;
       programs.zsh.enableCompletion = false;
     };
   };
