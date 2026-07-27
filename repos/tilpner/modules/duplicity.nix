@@ -118,7 +118,7 @@ let
         ${joinFlags connectionOptions}
           ${store.remote}
 
-        duplicity remove-all-but-n-full ${toString store.numFullToKeep} \
+        duplicity remove-all-but-n-full ${toString store.numFullToKeep} --force \
         ${joinFlags connectionOptions}
           ${store.remote}
     '';
@@ -226,7 +226,9 @@ in {
 
       home = cfg.stateDir;
       createHome = true;
+      group = "duplicity";
     };
+    users.groups.duplicity = {};
 
     systemd.services =
       mapAttrs'

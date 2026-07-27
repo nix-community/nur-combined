@@ -1,4 +1,4 @@
-{ stdenvNoCC, fetchFromGitHub, makeWrapper, bash, xmlstarlet }:
+{ lib, stdenvNoCC, fetchFromGitHub, makeWrapper, bash, xmlstarlet }:
 
 stdenvNoCC.mkDerivation {
   name = "tungsten";
@@ -21,7 +21,7 @@ stdenvNoCC.mkDerivation {
       --prefix PATH : ${xmlstarlet}/bin
   '';
 
-  meta = with stdenvNoCC.lib; {
+  meta = with lib; {
     description = "A WolframAlpha CLI";
     homepage = https://github.com/ASzc/tungsten;
     license = licenses.gpl3;
