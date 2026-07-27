@@ -1,0 +1,23 @@
+diff --git a/barretenberg/cpp/cmake/lmdb.cmake b/barretenberg/cpp/cmake/lmdb.cmake
+index c2ffefeb26..f4a80fc36b 100644
+--- a/barretenberg/cpp/cmake/lmdb.cmake
++++ b/barretenberg/cpp/cmake/lmdb.cmake
+@@ -1,7 +1,7 @@
+ include(ExternalProject)
+
+ set(LMDB_PREFIX "${CMAKE_BINARY_DIR}/_deps/lmdb")
+-set(LMDB_INCLUDE "${LMDB_PREFIX}/src/lmdb_repo/libraries/liblmdb")
++set(LMDB_INCLUDE "${LMDB_PREFIX}/src/libraries/liblmdb")
+ set(LMDB_LIB "${LMDB_INCLUDE}/liblmdb.a")
+ set(LMDB_HEADER "${LMDB_INCLUDE}/lmdb.h")
+ set(LMDB_OBJECT "${LMDB_INCLUDE}/*.o")
+@@ -9,8 +9,7 @@ set(LMDB_OBJECT "${LMDB_INCLUDE}/*.o")
+ ExternalProject_Add(
+     lmdb_repo
+     PREFIX ${LMDB_PREFIX}
+-    GIT_REPOSITORY "https://github.com/LMDB/lmdb.git"
+-    GIT_TAG ddd0a773e2f44d38e4e31ec9ed81af81f4e4ccbb
++    SOURCE_DIR ${FETCHCONTENT_SOURCE_DIR_LMDB}
+     BUILD_IN_SOURCE YES
+     CONFIGURE_COMMAND "" # No configure step
+     BUILD_COMMAND make -C libraries/liblmdb -e XCFLAGS=-fPIC liblmdb.a

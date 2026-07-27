@@ -1,10 +1,10 @@
 { lib, stdenv, fetchurl, ... }:
 let
   pname = "font-apple-color-emoji";
-  version = "17.4";
+  version = "18.4";
   src = fetchurl {
     url = "https://github.com/samuelngs/apple-emoji-linux/releases/download/v${version}/AppleColorEmoji.ttf";
-    sha256 = "486dc940bc9b858fdf317f97aa607f04a850481074375551a9af87ea569550f1";
+    sha256 = "sha256-pP0He9EUN7SUDYzwj0CE4e39SuNZ+SVz7FdmUviF6r0=";
   };
 in
 stdenv.mkDerivation {

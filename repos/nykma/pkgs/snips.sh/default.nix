@@ -1,9 +1,9 @@
 { pkgs, lib, buildGoModule, fetchFromGitHub, ... }:
 let
   pname = "snips-sh";
-  version = "0.3.2";
-  hash = "sha256-MCCMowqBXkLINXs8EUtPdQn6pd95/80vqGj+mIj4I5w=";
-  vendorHash = "sha256-eeaU+A0KAbIMx+NbXXL1qQNRre92j4wobxDNxrfLPN0=";
+  version = "0.4.2";
+  hash = "sha256-IjGXGY75k9VeeHek0V8SrIElmiQ+Q2P5gEDIp7pmQd8=";
+  vendorHash = "sha256-Lp3yousaDkTCruOP0ytfY84vPmfLMgBoTwf+7Q7Q0Lc=";
   src = fetchFromGitHub {
     # robherley / snips.sh
     owner = "robherley";
@@ -14,9 +14,10 @@ let
 in
 buildGoModule {
   inherit pname vendorHash src version;
+  tags = ["noguesser"];
 
   buildInputs = with pkgs; [
-    libtensorflow
+    # libtensorflow
     sqlite
   ];
   meta = with lib; {

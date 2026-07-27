@@ -3,12 +3,12 @@
   cmake, gnum4, nasm,
   ... }:
 let
-  version = "0.0.3";
+  version = "0.0.6";
   src = fetchFromGitHub {
-    rev = "b17e6fed08e9ceec3518edeffe4384313f91e9ad";
+    rev = "3ea6c4d867fab2425ed435555ec84b8e30cb2826";
     owner = "iden3";
     repo = "rapidsnark";
-    hash = "sha256-23h06Q6vk4rfKO8VwD7Y+Gu6HcSzG0GXSxNeG3agW6k=";
+    hash = "sha256-mFaHRpexBmj8Xz99TPiMAuxcvMBdZAU8JvHHlv+XcxU=";
     fetchSubmodules = true;
     leaveDotGit = false;
   };

@@ -1,0 +1,6 @@
+builds:
+  exclude:
+  - "packages.*.multi-party-sig"
+  - "packages.*.onekey-wallet"
+  - "packages.*.safeheron-crypto-suites"
+  - "packages.*.snipaste"

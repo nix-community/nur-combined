@@ -2,8 +2,8 @@
   cacert, glib-networking, ... }:
 let
   pname = "onekey-wallet";
-  version = "5.2.1";
-  sha256 = "sha256-SVnZl6H+qpRYgNqcyN1khRDFScytRySkHphZd/b6OrI=";
+  version = "5.19.0";
+  sha256 = "sha256-qqw3o4FebbkxHBHNk+sJfDstm4EkOqJhiBL9LRzRhPU=";
   url = "https://web.onekey-asset.com/app-monorepo/v${version}/OneKey-Wallet-${version}-linux-x86_64.AppImage";
   src = fetchurl {
     inherit url sha256;
@@ -17,7 +17,7 @@ appimageTools.wrapType2 {
 
   extraInstallCommands = ''
                          install -m 444 -D ${extractedContents}/onekey-wallet.desktop $out/share/applications/onekey-wallet.desktop
-                         install -m 444 -D ${extractedContents}/usr/share/icons/hicolor/0x0/apps/onekey-wallet.png \
+                         install -m 444 -D ${extractedContents}/usr/share/icons/hicolor/512x512/apps/onekey-wallet.png \
                            $out/share/icons/hicolor/512x512/onekey-wallet.png
                          substituteInPlace $out/share/applications/onekey-wallet.desktop --replace-fail 'Exec=AppRun --no-sandbox' 'Exec=${pname}'
                          '';
