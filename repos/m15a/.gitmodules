@@ -1,3 +1,0 @@
-[submodule "ext/nixpkgs-vim-extra-plugins"]
-	path = ext/nixpkgs-vim-extra-plugins
-	url = https://github.com/m15a/nixpkgs-vim-extra-plugins

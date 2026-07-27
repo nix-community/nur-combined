@@ -1,3 +1,0 @@
-ellisonleao/glow.nvim
-jose-elias-alvarez/null-ls.nvim
-feline-nvim/feline.nvim
