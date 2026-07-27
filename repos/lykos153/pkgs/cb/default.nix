@@ -21,7 +21,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "unify the copy and paste commands into one intelligent chainable command";
-    homepage = https://github.com/javier-lopez/learn/blob/master/sh/tools/cb;
+    homepage = "https://github.com/javier-lopez/learn/blob/master/sh/tools/cb";
     platforms = platforms.all;
   };
 }

@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A feature-full Polybar module to control PulseAudio ";
-    homepage = https://github.com/marioortizmanero/polybar-pulseaudio-control;
+    homepage = "https://github.com/marioortizmanero/polybar-pulseaudio-control";
     license = licenses.mit;
     platforms = platforms.all;
   };

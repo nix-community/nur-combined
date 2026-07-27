@@ -40,7 +40,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "A Bash wrapper around the Timewarrior CLI that aims to improve its usability.";
-    homepage = https://github.com/cheap-glitch/toki;
+    homepage = "https://github.com/cheap-glitch/toki";
     license = licenses.isc;
     platforms = platforms.all;
   };

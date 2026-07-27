@@ -5,14 +5,14 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "garden";
-  version = "0.8.1";
+  version = "1.7.0";
   src = fetchFromGitLab {
     owner = "garden-rs";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-Lw9fXiHqVbnkxhfOXBb6F4M4j1zi8nI/0S+V+/VkDzk=";
+    hash = "sha256-KkvG8/WSr1HHCIoItY0hgriEilY6TzHgcs6L2GaA/lk=";
   };
-  cargoSha256 = "sha256-SbWx3F++2d6JQpLk++AmrGq+kriuDKrTwXADY91Iw0o=";
+  cargoHash = "sha256-f8UHZ/rNWio8TJj99VsO0JztxOrAgOH32zHCogtX4N8=";
 
   doCheck = false;
 

@@ -24,7 +24,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Transfer your Git stashes to and from remotes with ease!";
-    homepage = https://github.com/aklomp/git-rstash;
+    homepage = "https://github.com/aklomp/git-rstash";
     license = licenses.gpl3;
     platforms = platforms.all;
   };
