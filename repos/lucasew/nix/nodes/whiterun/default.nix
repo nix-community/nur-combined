@@ -21,69 +21,25 @@ in
     "${self.inputs.nixos-hardware}/common/pc/ssd"
     ./nvidia.nix
 
-    ./dashboards.nix
     ./dlna.nix
-    ./nextcloud.nix
-    ./sshfs.nix
     ./zfs.nix
-    ./binary-cache.nix
-    ./escrivao.nix
     # ./container-inet-rdp.nix
     ./container-nat.nix
-    ./rtorrent.nix
-    ./transmission.nix
+    ./plymouth.nix
   ];
+
+
+  programs.nix-ld.enable = true;
+
+  hardware.nvidia.modesetting.enable = false;
+
+  gc-hold.enable = true;
 
   boot.kernel.sysctl = {
     "vfs.zfs.arc_sys_free" = 4 * 1024 * 1024 * 1024; # make ZFS free arc before hitting swap
   };
 
-  services.rsyncnet-remote-backup = {
-    enable = true;
-    calendar = "03/6:00:01";
-  };
-
-  services.fusionsolar-reporter.enable = true;
-
-  services.guix.enable = true;
-
-  services.escrivao.enable = true;
-
-  services.postgresql = {
-    enable = true;
-    enableTCPIP = true;
-    userSpecificDatabases = {
-      test = [ "demo" ];
-    };
-  };
-
-  systemd.services.${config.services.python-microservices.services.stt-ptbr.unitName} = {
-    environment = {
-      LD_LIBRARY_PATH = builtins.concatStringsSep ":" [
-        "/run/opengl-driver/lib"
-        "${pkgs.ffmpeg.lib}/lib"
-      ];
-    };
-  };
-  services.python-microservices.services.stt-ptbr = {
-    script = builtins.readFile ./python-microservice-stt-ptbr.py;
-    python = pkgs.python3.withPackages (
-      p: with pkgs.python3PackagesBin; [
-        transformers
-        torchaudio
-        pytorch
-      ]
-    );
-  };
-
-  systemd.forbiddenPaths = [ "/media/storage" ];
-
-  services.ollama.enable = true;
-
   networking.interfaces.enp5s0.wakeOnLan.enable = true;
-
-  services.restic.server.enable = true;
-  services.restic.server.dataDir = "/media/storage/backup/restic";
 
   fileSystems."/media/downloads" = {
     device = "/dev/disk/by-label/downloads";
@@ -101,56 +57,35 @@ in
 
   fileSystems."/media/ssd240" = {
     device = "/dev/disk/by-label/ssd240";
-    # fsType = "ext4";
+    fsType = "btrfs";
   };
 
-  fileSystems."/var/backup" = {
-    device = "/media/storage/backup/var";
-    fsType = "none";
-    options = [ "bind" ];
+  fileSystems."/media/ssd1tb" = {
+    device = "/dev/disk/by-label/ssd1tb";
+    fsType = "ext4";
   };
 
-  services.nginx.enable = true;
+  nix.settings.min-free = 50 * 1024 * 1024 * 1024; # 50GB
 
   programs.ccache.enable = true;
 
-  programs.sunshine.enable = true;
+  services.sunshine.enable = true;
 
-  services.xserver.windowManager.i3.enable = true;
+  # services.xserver.windowManager.i3.enable = true;
   # programs.hyprland.enable = true;
+  programs.sway.enable = true;
 
   services.hardware.openrgb.enable = true;
 
-  services.transmission.enable = true;
-
-  # services.rtorrent.enable = true;
-  # services.rtorrent.enableSandboxSample = true;
-
-  services.miniflux.enable = true;
-  # services.nitter.enable = true;
-
   programs.gamemode.enable = true;
-  services.cf-torrent.enable = true;
-
-  boot.plymouth.enable = true;
-
-  services.libreddit.enable = true;
-  services.invidious.enable = true;
 
   # services.boinc.enable = true;
-
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "lucasew";
-  };
 
   services.flatpak.enable = true;
 
   networking.hostId = "97e3b5a7";
 
-  virtualisation.oci-containers.backend = "docker";
-
-  services.kubo.enable = true;
+  virtualisation.containerd.enable = true;
 
   services.telegram-sendmail.enable = true;
 
@@ -159,7 +94,10 @@ in
     calendar = "00:00:01";
     settings = {
       search = {
-        paths = [ "/media/downloads/steam/steamapps/compatdata" ];
+        paths = [
+          "/media/downloads/steam/steamapps/compatdata"
+          "/media/ssd240/steam/steamapps/compatdata"
+        ];
       };
       flatout-2 = {
         installdir = [ "/media/downloads/steam/steamapps/common/FlatOut2" ];
@@ -167,9 +105,9 @@ in
     };
   };
 
-  services.nextcloud.enable = true;
-
   services.cockpit.enable = true;
+
+  services.nomad.enable = true;
 
   # services.magnetico.enable = true;
 
@@ -187,13 +125,11 @@ in
       };
     };
   };
-  hardware.opengl.driSupport = true;
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.rocm-runtime
-    rocm-opencl-icd
-    rocm-opencl-runtime
+    rocmPackages.clr
   ];
-  hardware.opengl.extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+  hardware.graphics.extraPackages32 = with pkgs; [ ];
 
   programs.steam.enable = true;
 

@@ -1,0 +1,152 @@
+# Auto-generated from template by workspaced
+# i3 config file (v4)
+
+set $mod Mod4
+
+bar {
+  status_command i3pystatus -c $(sdw d root)/bin/_shortcuts/i3pystatus/main.py
+  i3bar_command i3bar --transparency
+  font pango: Fira Code 10
+  hidden_state show
+  position top
+  # output primary
+  tray_output primary
+  workspace_buttons yes
+
+  colors {
+    # background #00{{ .root.modules.base16.config.base00 }}
+    background #00000000
+    statusline #{{ .root.modules.base16.config.base05 }}
+    separator #{{ .root.modules.base16.config.base00 }}
+
+    # name             border                 background             text
+    focused_workspace  #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base02 }} #{{ .root.modules.base16.config.base05 }}
+    active_workspace   #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base03 }} #{{ .root.modules.base16.config.base05 }}
+    inactive_workspace #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base05 }}
+    urgent_workspace   #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base00 }}
+    binding_mode       #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }}
+  }
+}
+
+# Property Name         Border                 Background             Text                   Indicator              Child
+client.focused          #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base0D }} #{{ .root.modules.base16.config.base0C }}
+client.focused_inactive #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base03 }} #{{ .root.modules.base16.config.base01 }}
+client.unfocused        #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base02 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base01 }} #{{ .root.modules.base16.config.base01 }}
+client.urgent           #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base08 }} #{{ .root.modules.base16.config.base08 }}
+client.placeholder      #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base00 }}
+client.background       #{{ .root.modules.base16.config.base07 }} #{{ .root.modules.base16.config.base00 }} #{{ .root.modules.base16.config.base05 }}
+
+# Workspace bindings
+bindsym $mod+0 workspace number 10
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+
+bindsym $mod+Shift+0 move container to workspace number 10
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+
+# Focus bindings
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+a focus parent
+bindsym $mod+Return exec workspaced open terminal
+
+# Move bindings
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up move up
+
+bindsym $mod+Shift+h workspace prev_on_output
+bindsym $mod+Shift+l workspace next_on_output
+
+# i3 control
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec i3-nagbar -t warning -m 'Do you want to exit i3?' -b 'Yes' 'loginctl kill-session $XDG_SESSION_ID'
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+s sticky toggle
+
+# Scratchpad
+bindsym $mod+minus exec workspaced driver workspace scratchpad
+bindsym $mod+equal exec workspaced driver screen toggle
+bindsym $mod+Shift+minus move scratchpad
+
+# Window control
+bindsym $mod+Shift+q kill
+bindsym $mod+Shift+r restart
+bindsym $mod+d exec workspaced driver input launch
+bindsym $mod+Shift+d exec workspaced driver input window
+bindsym $mod+e layout toggle split
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Ctrl+f fullscreen toggle global
+
+bindsym $mod+s layout stacking
+bindsym $mod+space focus mode_toggle
+
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+bindsym $mod+w layout tabbed
+bindsym $mod+Ctrl+Right=resize shrink width 1 px or 1 ppt
+bindsym $mod+Ctrl+Up=resize grow height 1 px or 1 ppt
+bindsym $mod+Ctrl+Down=resize shrink height 1 px or 1 ppt
+bindsym $mod+Ctrl+Left=resize grow width 1 px or 1 ppt
+
+# Media keys
+bindsym XF86AudioRaiseVolume exec workspaced driver audio up
+bindsym XF86AudioLowerVolume exec workspaced driver audio down
+bindsym XF86AudioMute exec workspaced driver audio mute
+
+bindsym XF86AudioNext exec  workspaced driver media next
+bindsym XF86AudioPrev exec  workspaced driver media previous
+bindsym XF86AudioPlay exec  workspaced driver media play-pause
+bindsym XF86AudioPause exec workspaced driver media play-pause
+
+bindsym XF86MonBrightnessUp   exec workspaced driver brightness up
+bindsym XF86MonBrightnessDown exec workspaced driver brightness down
+
+# Multi-monitor
+bindsym $mod+Shift+m move workspace to output left
+bindsym $mod+m focus output next
+
+# Workspaced shortcuts
+bindsym $mod+l exec workspaced driver power lock
+bindsym $mod+n exec workspaced driver workspace rotate
+bindsym $mod+z exec workspaced driver input workspace
+bindsym $mod+Shift+z exec workspaced driver input workspace --move
+
+bindsym $mod+b exec workspaced driver workspace next
+bindsym $mod+Shift+b exec workspaced driver workspace next --move
+
+# Screenshots
+bindsym --release Print exec workspaced driver screenshot output
+bindsym $mod+Print exec workspaced driver screenshot select
+bindsym $mod+Shift+Print exec workspaced driver screenshot window
+bindsym $mod+Ctrl+Shift+Print exec workspaced driver screenshot all
+
+# Autostart
+exec --no-startup-id /run/current-system/sw/libexec/polkit-mate-authentication-agent-1
+exec_always feh --bg-fill --no-fehbg '/etc/wallpaper'
+exec_always systemctl restart --user nm-applet.service blueberry-tray.service kdeconnect.service kdeconnect-indicator.service
+
+# Appearance
+default_border pixel 2
+hide_edge_borders smart
+focus_on_window_activation urgent

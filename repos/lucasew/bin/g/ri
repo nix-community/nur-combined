@@ -5,7 +5,7 @@ set -euo pipefail
 # rebase interactive to the parent branch
 args=()
 if [ $# == 0 ]; then
-  args+=("$(sd g bb)")
+	args+=("$(sd g bb)")
 fi
 
 git rebase --interactive "${args[@]}" "$@"

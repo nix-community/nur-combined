@@ -1,0 +1,33 @@
+{
+  "chat.editor.fontFamily": "DejaVu Sans Mono",
+  "chat.editor.fontSize": 16.0,
+  "debug.console.fontFamily": "DejaVu Sans Mono",
+  "debug.console.fontSize": 16.0,
+  "editor.fontFamily": "DejaVu Sans Mono",
+  "editor.fontSize": 16.0,
+  "editor.inlayHints.fontFamily": "DejaVu Sans Mono",
+  "editor.inlineSuggest.fontFamily": "DejaVu Sans Mono",
+  "editor.minimap.sectionHeaderFontSize": 10.285714285714286,
+  "markdown.preview.fontFamily": "DejaVu Sans",
+  "markdown.preview.fontSize": 16.0,
+  "scm.inputFontFamily": "DejaVu Sans Mono",
+  "scm.inputFontSize": 14.857142857142858,
+  "screencastMode.fontSize": 64.0,
+  "terminal.integrated.fontSize": 16.0,
+  "workbench.colorTheme": "Atom One Dark",
+  "sonarlint.connectedMode.connections.sonarqube": [
+    {
+      "serverUrl": "https://sonarqube.app.lew.tec.br",
+      "connectionId": "https-sonarqube-app-lew-tec-br"
+    }
+  ],
+  "sonarlint.automaticAnalysis": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "latex": false
+  },
+  "mise.binPath": "~/.local/bin/mise"
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+FILEPATH="$(realpath "$1")"
+shift
+PATH_HASH="$(echo "$FILEPATH" | md5sum)"
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/latex-cache"
+mkdir -p "$CACHE_DIR"
+
+mise exec tinytex -- latexmk -interaction=batchmode -aux-directory="$CACHE_DIR/$PATH_HASH" -f -pdf "$@" "$FILEPATH"

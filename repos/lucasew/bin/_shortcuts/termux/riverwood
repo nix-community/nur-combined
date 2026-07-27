@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sd ssh c riverwood
+ssh lucasew@riverwood

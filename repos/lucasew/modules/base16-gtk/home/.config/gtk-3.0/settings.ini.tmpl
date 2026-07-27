@@ -1,0 +1,24 @@
+{{- $c := .root.modules.base16.config -}}
+{{- $gtk := index .root.modules "base16-gtk" -}}
+{{- $theme := $gtk.config.theme_name -}}
+[Settings]
+gtk-theme-name={{ $theme }}
+gtk-icon-theme-name={{ $gtk.config.icon_theme }}
+gtk-font-name={{ $gtk.config.font_name }}
+gtk-cursor-theme-name={{ $gtk.config.cursor_theme }}
+gtk-cursor-theme-size={{ $gtk.config.cursor_size }}
+gtk-toolbar-style=GTK_TOOLBAR_BOTH_HORIZ
+gtk-toolbar-icon-size=GTK_ICON_SIZE_LARGE_TOOLBAR
+gtk-button-images=0
+gtk-menu-images=0
+gtk-enable-event-sounds=1
+gtk-enable-input-feedback-sounds=0
+gtk-xft-antialias=1
+gtk-xft-hinting=1
+gtk-xft-hintstyle=hintslight
+gtk-xft-rgba=rgb
+{{- if $c.dark_mode }}
+gtk-application-prefer-dark-theme=1
+{{- else }}
+gtk-application-prefer-dark-theme=0
+{{- end }}

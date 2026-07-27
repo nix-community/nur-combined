@@ -63,7 +63,7 @@ writeShellScriptBin "pkg" ''
         ;;
         uninstall)
             if [ $# == 0 ]; then
-              PKG="$(pkg list | dmenu 2> /dev/null)" 2> /dev/null ||  error no package to uninstall
+              PKG="$(pkg list | rofi -dmenu -show-icons 2> /dev/null)" 2> /dev/null ||  error no package to uninstall
               pkg uninstall "$PKG"
             fi
             nix-env --uninstall "$@"

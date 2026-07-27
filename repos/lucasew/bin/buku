@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+sd shim buku --really --db ~/.personal/personal-bookmarks/bookmarks.db "$@"

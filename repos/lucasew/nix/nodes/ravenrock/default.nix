@@ -7,14 +7,13 @@
   ...
 }:
 let
-  inherit (pkgs) dotenv;
   inherit (global) username rootPath;
   inherit (lib) mkOverride;
 in
 {
   imports = [
     "${self.inputs.nixpkgs}/nixos/modules/virtualisation/google-compute-image.nix"
-    "${self.inputs.impermanence}/nixos.nix"
+    # "${self.inputs.impermanence}/nixos.nix"
 
     ./modules
     ./nvidia.nix
@@ -39,23 +38,22 @@ in
     # pgbackup.enable = true;
   };
 
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    files = [ "/etc/machine-id" ];
-    directories = [ "/backups" ];
-    users.${username}.directories = [
-      "WORKSPACE"
-      "TMP2"
-    ];
-  };
+  # environment.persistence."/persist" = {
+  #   hideMounts = true;
+  #   files = [ "/etc/machine-id" ];
+  #   directories = [ "/backups" ];
+  #   users.${username}.directories = [
+  #     "WORKSPACE"
+  #     "TMP2"
+  #   ];
+  # };
 
   swapDevices = [ { device = "/persist/swapfile"; } ];
 
   networking.hostName = "ravenrock";
   environment.systemPackages = with pkgs; [
-    dotenv
     htop
-    neofetch
+    fastfetch
   ];
   networking.firewall = {
     enable = true;
@@ -74,7 +72,7 @@ in
     allowedTCPPorts = [
       # 22
       # 80 443
-      # 59356 
+      # 59356
     ];
   };
   users.users = {
@@ -87,9 +85,7 @@ in
     #   enable = true;
     #   resolveLocalQueries = true;
     # };
-    irqbalance.enable = true;
     # php-utils.enable = true;
-    # vaultwarden.enable = true;
     # postgresql = {
     #   enable = true;
     #   enableTCPIP = true;
@@ -107,10 +103,6 @@ in
 
   cachix.enable = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_5_4;
-  # services.nginx = {
-  #   enable = true;
-  #   enableReload = true;
-  # };
+  # boot.kernelPackages = pkgs.linuxPackages_5_4;
   system.stateVersion = "20.03";
 }

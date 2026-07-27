@@ -1,35 +1,58 @@
 # This is a basic workflow to help you get started with Actions
 
-name: prebuild
+name: Build and test stuff for basic breakage
+run-name: "nixcfg prebuild based on ${{ github.sha }}"
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
+  # push:
+  #   branches:
+  #     - master
   workflow_dispatch:
+
+concurrency:
+  group: prebuild
+  cancel-in-progress: true
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
+    name: 'nixcfg prebuild from commit ${{ github.sha }}'
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - uses: cachix/install-nix-action@v12
+      - name: Setup build disk space
+        uses: lucasew/action-i-only-care-about-nix@d506d49d44d5a575d1869a271512c3a1789984c2 # main
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+      - name: Setup stuff
+        run: |
+          sudo mkdir -p /nix/build
+          df -h
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
         with:
-          nix_path: nixpkgs=channel:nixos-unstable
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - uses: cachix/cachix-action@v10
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          extra-conf: |
+            build-dir = /nix/build
+
+      - name: Setup Nix cache
+        uses: DeterminateSystems/magic-nix-cache-action@1828eb4e5414b8dfe36daae53ea3e4b8c3fdec7a # main
+
+      - uses: DeterminateSystems/magic-nix-cache-action@1828eb4e5414b8dfe36daae53ea3e4b8c3fdec7a # main
+      - uses: cachix/cachix-action@3ba601ff5bbb07c7220846facfa2cd81eeee15a1 # v16
         with:
           name: lucasew-personal
           authToken: '${{ secrets.CACHIX_TOKEN }}'
-      - run: ./build
-        env:
-          NIX_PATH: ""
-
-
+      - run: |
+          { while true; do df -h; uptime; sleep 60; done } &
+          nix build .#release --keep-going --accept-flake-config
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: build-logs
+          path: /nix/var/log/nix/drvs
+          include-hidden-files: true

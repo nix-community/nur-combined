@@ -1,0 +1,315 @@
+# This is a basic workflow to help you get started with Actions
+
+name: nixpkgs-review a nixpkgs PR
+run-name: 'nixpkgs-review #${{ github.event.inputs.pr }}'
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  workflow_dispatch:
+    inputs:
+      pr:
+        description: "PR number"
+        type: number
+        required: true
+      extra-args:
+        description: "Extra args for nixpkgs-review"
+        type: string
+        default: ""
+        required: false
+      free-space:
+        description: "Run workflow to increase free space (tradeoff: runs faster vs runs bigger PRs)"
+        type: boolean
+        default: true
+        required: true
+      x86_64-linux:
+        type: boolean
+        description: "Build on x86_64-linux"
+        default: true
+        required: true
+      aarch64-linux:
+        type: boolean
+        description: "Build on aarch64-linux"
+        default: true
+        required: true
+      aarch64-darwin:
+        type: boolean
+        description: "Build on aarch64-darwin"
+        default: false
+        required: true
+      x86_64-darwin:
+        type: boolean
+        description: "Build on x86_64-darwin"
+        default: false
+        required: true
+
+concurrency:
+  group: review-${{ github.event.inputs.pr }}
+  cancel-in-progress: true
+
+jobs:
+  pre-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show summary
+        env:
+          WORKFLOW_INFORMATION: |
+            # [nixpkgs-reviewd](${{github.server_url}}/${{ github.repository }}) workflow started
+
+            - **Extra args**: `${{github.event.inputs.extra-args}}`
+            - **Free space**: ${{github.event.inputs.free-space}}
+            - **PR link**: https://github.com/NixOS/nixpkgs/pull/${{ github.event.inputs.pr }}
+
+            **TARGETS**
+            - **x86_64-linux**: ${{github.event.inputs.x86_64-linux}}
+            - **aarch64-linux**: ${{github.event.inputs.aarch64-linux}}
+            - **aarch64-darwin**: ${{github.event.inputs.aarch64-darwin}}
+            - **x86_64-darwin**: ${{github.event.inputs.x86_64-darwin}}
+        run:
+          echo "$WORKFLOW_INFORMATION" >> $GITHUB_STEP_SUMMARY
+  post-run:
+    runs-on: ubuntu-latest
+    needs:
+      - build-x86_64-linux
+      - build-aarch64-linux
+      - build-aarch64-darwin
+      - build-x86_64-darwin
+    if: ${{ always() }}
+    steps:
+      - name: Fetch reports from runners
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7
+        with:
+          path: reports
+          pattern: report-*
+      - name: Join reports
+        env:
+          COMMENT: |
+            # [nixpkgs-reviewd](${{github.server_url}}/${{ github.repository }}) workflow finished
+
+            **Status and logs**: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          mkdir -p reports # create if not exists so find doesn't fail
+          find reports -type f
+
+          echo "$COMMENT" >> $GITHUB_STEP_SUMMARY
+          for item in $(find reports -name report.md); do
+            echo "" >> $GITHUB_STEP_SUMMARY
+            cat "$item" >> $GITHUB_STEP_SUMMARY
+          done
+
+  build-x86_64-linux:
+    name: 'x86_64-linux'
+    if: ${{ github.event.inputs.x86_64-linux == 'true' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Free up space
+        uses: lucasew/action-i-only-care-about-nix@d506d49d44d5a575d1869a271512c3a1789984c2 # main
+        if: ${{ github.event.inputs.free-space == 'true' }}
+
+      - name: Prepare for Nix if cleaned up
+        run: |
+          sudo mkdir -p /nix/build
+          df -h
+      - name: Try to fetch nixpkgs clone from cache
+        id: git-nixpkgs
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+        with:
+          path: |
+            nixpkgs
+          key: git-nixpkgs
+      - name: Fetch nixpkgs from git if not
+        if: steps.git-nixpkgs.outputs.cache-hit != 'true'
+        run: git clone https://github.com/NixOS/nixpkgs nixpkgs
+      - uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          extra-conf: |
+            build-dir = /nix/build
+      - name: Run review
+        env:
+          PR: ${{ github.event.inputs.pr }}
+          EXTRA_ARGS: ${{ github.event.inputs.extra-args }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          { while true; do df -h; uptime; sleep 60; done } &
+          git config --global user.email "user@example.com"
+          git config --global user.name "user"
+          cd $GITHUB_WORKSPACE/nixpkgs
+          nix run nixpkgs#nixpkgs-review -- pr $PR --print-result --no-shell --eval local $EXTRA_ARGS
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: logs-x86_64-linux
+          path: |
+            ~/.cache/nixpkgs-review/*/logs
+            /nix/var/log/nix/drvs
+          include-hidden-files: true
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: report-x86_64-linux
+          path: ~/.cache/nixpkgs-review/*/report.md
+      - name: Result in summary
+        if: always()
+        env:
+          PR: ${{ github.event.inputs.pr }}
+        run: cat ~/.cache/nixpkgs-review/pr-$PR/report.md >> $GITHUB_STEP_SUMMARY
+
+  build-aarch64-linux:
+    name: 'aarch64-linux'
+    if: ${{ github.event.inputs.aarch64-linux == 'true' }}
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - name: Free up space
+        uses: lucasew/action-i-only-care-about-nix@d506d49d44d5a575d1869a271512c3a1789984c2 # main
+        if: ${{ github.event.inputs.free-space == 'true' }}
+
+      - name: Prepare for Nix if cleaned up
+        run: |
+          sudo mkdir -p /nix/build
+          df -h
+      - name: Try to fetch nixpkgs clone from cache
+        id: git-nixpkgs
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+        with:
+          path: |
+            nixpkgs
+          key: git-nixpkgs
+      - name: Fetch nixpkgs from git if not
+        if: steps.git-nixpkgs.outputs.cache-hit != 'true'
+        run: git clone https://github.com/NixOS/nixpkgs nixpkgs
+      - uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          extra-conf: |
+            build-dir = /nix/build
+      - name: Run review
+        env:
+          PR: ${{ github.event.inputs.pr }}
+          EXTRA_ARGS: ${{ github.event.inputs.extra-args }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          { while true; do df -h; uptime; sleep 60; done } &
+          git config --global user.email "user@example.com"
+          git config --global user.name "user"
+          cd $GITHUB_WORKSPACE/nixpkgs
+          nix run nixpkgs#nixpkgs-review -- pr $PR --print-result --no-shell --eval local $EXTRA_ARGS
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: logs-aarch64-linux
+          path: |
+            ~/.cache/nixpkgs-review/*/logs
+            /nix/var/log/nix/drvs
+          include-hidden-files: true
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: report-aarch64-linux
+          path: ~/.cache/nixpkgs-review/*/report.md
+      - name: Result in summary
+        if: always()
+        env:
+          PR: ${{ github.event.inputs.pr }}
+        run: cat ~/.cache/nixpkgs-review/pr-$PR/report.md >> $GITHUB_STEP_SUMMARY
+
+  build-aarch64-darwin:
+    name: 'aarch64-darwin'
+    if: ${{ github.event.inputs.aarch64-darwin == 'true' }}
+    runs-on: macos-latest
+
+    steps:
+      - name: Try to fetch nixpkgs clone from cache
+        id: git-nixpkgs
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+        with:
+          path: |
+            nixpkgs
+          key: git-nixpkgs
+      - name: Fetch nixpkgs from git if not
+        if: steps.git-nixpkgs.outputs.cache-hit != 'true'
+        run: git clone https://github.com/NixOS/nixpkgs nixpkgs
+      - uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run review
+        env:
+          PR: ${{ github.event.inputs.pr }}
+          EXTRA_ARGS: ${{ github.event.inputs.extra-args }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          { while true; do df -h; uptime; sleep 60; done } &
+          git config --global user.email "user@example.com"
+          git config --global user.name "user"
+          cd $GITHUB_WORKSPACE/nixpkgs
+          nix run nixpkgs#nixpkgs-review -- pr $PR --print-result --no-shell --eval local $EXTRA_ARGS
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: logs-aarch64-darwin
+          path: |
+            /nix/var/log/nix/drvs
+            ~/.cache/nixpkgs-review/*/logs
+          include-hidden-files: true
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: report-aarch64-darwin
+          path: ~/.cache/nixpkgs-review/*/report.md
+      - name: Result in summary
+        if: always()
+        env:
+          PR: ${{ github.event.inputs.pr }}
+        run: cat ~/.cache/nixpkgs-review/pr-$PR/report.md >> $GITHUB_STEP_SUMMARY
+
+  build-x86_64-darwin:
+    name: 'x86_64-darwin'
+    if: ${{ github.event.inputs.x86_64-darwin == 'true' }}
+    # macos-26 alone is arm64; Intel is macos-26-intel
+    runs-on: macos-26-intel
+
+    steps:
+      - name: Try to fetch nixpkgs clone from cache
+        id: git-nixpkgs
+        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+        with:
+          path: |
+            nixpkgs
+          key: git-nixpkgs
+      - name: Fetch nixpkgs from git if not
+        if: steps.git-nixpkgs.outputs.cache-hit != 'true'
+        run: git clone https://github.com/NixOS/nixpkgs nixpkgs
+      - uses: DeterminateSystems/nix-installer-action@c5a866b6ab867e88becbed4467b93592bce69f8a # v21
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run review
+        env:
+          PR: ${{ github.event.inputs.pr }}
+          EXTRA_ARGS: ${{ github.event.inputs.extra-args }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          { while true; do df -h; uptime; sleep 60; done } &
+          git config --global user.email "user@example.com"
+          git config --global user.name "user"
+          cd $GITHUB_WORKSPACE/nixpkgs
+          nix run nixpkgs#nixpkgs-review -- pr $PR --print-result --no-shell --eval local $EXTRA_ARGS
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: logs-x86_64-darwin
+          path: |
+            /nix/var/log/nix/drvs
+            ~/.cache/nixpkgs-review/*/logs
+          include-hidden-files: true
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        if: always()
+        with:
+          name: report-x86_64-darwin
+          path: ~/.cache/nixpkgs-review/*/report.md
+      - name: Result in summary
+        if: always()
+        env:
+          PR: ${{ github.event.inputs.pr }}
+        run: cat ~/.cache/nixpkgs-review/pr-$PR/report.md >> $GITHUB_STEP_SUMMARY

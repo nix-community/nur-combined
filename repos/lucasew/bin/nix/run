@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
+# /**
+#  * Runs a package from the current repository's flake.
+#  *
+#  * This script locates the repository root (using `sd d root`) and executes
+#  * the specified package from the `pkgs` output using `nix run`.
+#  *
+#  * @param package The name of the package to run (from `flake.nix` outputs).
+#  * @param args Additional arguments to pass to the package executable.
+#  */
+
 set -euo pipefail
 
-package="$1"; shift
+package="$1"
+shift
 
 nix run "$(sd d root)#pkgs.$package" -- "$@"

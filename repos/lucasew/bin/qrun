@@ -23,4 +23,4 @@ fi
 
 # echo "${args[@]}" >&2
 
-ts ${args[@]} "$@"
+ts "${args[@]}" "$@"

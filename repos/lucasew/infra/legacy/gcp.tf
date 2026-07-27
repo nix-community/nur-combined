@@ -1,11 +1,21 @@
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "7.18.0"
+    }
+  }
+}
+
 provider "google" {
-    project = var.gcp_project
-    zone = var.gcp_zone
-    credentials = var.gcp_token
+  project     = var.gcp_project
+  zone        = var.gcp_zone
+  credentials = var.gcp_token
 }
 
 resource "google_service_account" "service_account" {
-  account_id   = "lucasew-operator"
+  account_id = "lucasew-operator"
 
   display_name = "Compute Engine default service account"
   project      = var.gcp_project
@@ -13,11 +23,11 @@ resource "google_service_account" "service_account" {
 # terraform import google_service_account.artimanhas-do-lucaum 178195340338-compute@developer.gserviceaccount.com
 
 output "vps-internal-ip" {
-  value = length(google_compute_instance.ivarstead) > 0 ? google_compute_instance.ivarstead[0].network_interface.0.network_ip : ""
+  value = length(google_compute_instance.ivarstead) > 0 ? google_compute_instance.ivarstead[0].network_interface[0].network_ip : ""
 }
 
 output "vps-external-ip" {
-  value = length(google_compute_instance.ivarstead) > 0 ? google_compute_instance.ivarstead[0].network_interface.0.network_ip : ""
+  value = length(google_compute_instance.ivarstead) > 0 ? google_compute_instance.ivarstead[0].network_interface[0].network_ip : ""
 }
 
 
@@ -32,7 +42,7 @@ resource "google_compute_instance" "ivarstead" {
 
   boot_disk {
     auto_delete = false
-    source = data.google_compute_disk.nixos_rootfs.self_link
+    source      = data.google_compute_disk.nixos_rootfs.self_link
   }
 
   confidential_instance_config {
@@ -46,14 +56,14 @@ resource "google_compute_instance" "ivarstead" {
   count = var.gcp_ivarstead_stop ? 0 : 1
 
   guest_accelerator {
-    type = "nvidia-tesla-k80"
+    type  = "nvidia-tesla-k80"
     count = var.gcp_ivarstead_modo_turbo ? 1 : 0
   }
 
   scheduling {
-    preemptible = true
-    automatic_restart = false
-    provisioning_model  = "SPOT"
+    preemptible        = true
+    automatic_restart  = false
+    provisioning_model = "SPOT"
   }
 
   metadata = {
@@ -73,8 +83,8 @@ resource "google_compute_instance" "ivarstead" {
 
   service_account {
     email = google_service_account.service_account.email
-    scopes = [ 
-        "cloud-platform",
+    scopes = [
+      "cloud-platform",
     ]
   }
 
@@ -84,7 +94,7 @@ resource "google_compute_instance" "ivarstead" {
 
 data "google_compute_disk" "nixos_rootfs" {
   # image                     = google_compute_image.nixos_bootstrap.self_link
-  name                      = "nixos-rootfs"
+  name = "nixos-rootfs"
   # physical_block_size_bytes = 4096
   # project                   = var.gcp_project
   # size                      = 20
@@ -95,7 +105,7 @@ data "google_compute_disk" "nixos_rootfs" {
 
 
 data "google_compute_disk" "persist" {
-  name                      = "persist"
+  name = "persist"
 }
 # terraform import google_compute_disk.persist projects/artimanhas-do-lucaum/zones/us-central1-a/disks/persist
 
@@ -115,10 +125,10 @@ data "google_compute_disk" "persist" {
 
 
 resource "google_compute_firewall" "www" {
-  name          = "www"
-  description   = "Libera acesso web"
+  name        = "www"
+  description = "Libera acesso web"
 
-  network       = google_compute_network.vps.self_link
+  network = google_compute_network.vps.self_link
 
   allow {
     ports    = ["80", "443"]
@@ -130,10 +140,10 @@ resource "google_compute_firewall" "www" {
 # terraform import google_compute_firewall.www projects/artimanhas-do-lucaum/global/firewalls/www
 
 resource "google_compute_firewall" "zerotier" {
-  name          = "zerotier"
-  description   = "Zerotier"
+  name        = "zerotier"
+  description = "Zerotier"
 
-  network       = google_compute_network.vps.self_link
+  network = google_compute_network.vps.self_link
 
   allow {
     ports    = ["9993"]
@@ -144,10 +154,10 @@ resource "google_compute_firewall" "zerotier" {
 }
 
 resource "google_compute_firewall" "icmp" {
-  name          = "icmp"
-  description   = "Aceitar pings"
+  name        = "icmp"
+  description = "Aceitar pings"
 
-  network       = google_compute_network.vps.self_link
+  network = google_compute_network.vps.self_link
 
   allow {
     protocol = "icmp"
@@ -158,6 +168,6 @@ resource "google_compute_firewall" "icmp" {
 
 
 resource "google_compute_network" "vps" {
-    name = "vps"
+  name = "vps"
 }
 

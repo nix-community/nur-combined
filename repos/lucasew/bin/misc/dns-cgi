@@ -1,38 +1,69 @@
 #!/usr/bin/env bash
-# [EXPERIMENT] generate hosts file from context
+
+# /**
+#  * Generates a dynamic hosts file from various network sources.
+#  *
+#  * This script aggregates hostname-to-IP mappings from:
+#  * - Docker containers (appending `.docker`).
+#  * - ZeroTier members (if `ZEROTIER_TOKEN` is set, appending `.zt`).
+#  * - Local network devices via `arp-scan` (appending `.arp-MAC-SUFFIX.net`).
+#  *
+#  * It outputs a hosts-file compatible format.
+#  *
+#  * @param prefix Optional domain suffix for filtered entries (default: `.local`).
+#  */
 
 set -eu
 PREFIX=.local
 
 if [ $# -gt 0 ]; then
-    PREFIX=$1; shift
+	PREFIX=$1
+	shift
 fi
 
 function log() {
-    echo "$@" >&2
+	echo "$@" >&2
 }
 
 function has_binary() {
-    which $1 > /dev/null 2> /dev/null
+	which "$1" >/dev/null 2>/dev/null
 }
 
-{
-    log "Fetching docker domains..."
-    docker ps -q | xargs -n 1 docker inspect --format '{{$name := .Name}}{{range $k, $v := .NetworkSettings.Networks}}{{.IPAddress}} {{ $name }}.{{ $k }}.docker{{end}}' | sed 's#\([^ ] \)/#\1#';
+function get_docker_hosts() {
+	# Check if docker is available to avoid crash
+	if ! has_binary docker; then return; fi
 
-    if [[ -v ZEROTIER_TOKEN ]]; then
-        log "Fetching zerotier nodes"
-        if [[ -v ZEROTIER_NETWORKS ]]; then
-            for network in $(echo "$ZEROTIER_NETWORKS" | sed 's; ;\n;g'); do
-                curl "http://my.zerotier.com/api/network/$network/member" -H "Authorization: bearer $ZEROTIER_TOKEN" | jq '. | map(select(.online == true and .config.authorized == true)) | map((if .name != "" then .name else .nodeId end) as $name | .config.ipAssignments | map("\(.) \($name)")) | flatten | join("\n")' -r | sed 's;$;.zt;'
-            done
-        fi
-    fi
+	log "Fetching docker domains..."
+	docker ps -q | xargs -n 1 docker inspect --format '{{$name := .Name}}{{range $k, $v := .NetworkSettings.Networks}}{{.IPAddress}} {{ $name }}.{{ $k }}.docker{{end}}' | sed 's#\([^ ] \)/#\1#'
+}
 
-    if has_binary arp-scan; then
-        log "Fetching local network with arp-scan"
-        sudo arp-scan -localnet | grep -v -e '.*\t.*$' | sed 's;\t; ;g' | grep -v 'Unknown' | awk 'length($0) > 5 {split($3, a, " "); print $1 " " a[1] ".net" }'
-    fi
+function get_zerotier_hosts() {
+	if [[ -v ZEROTIER_TOKEN ]]; then
+		log "Fetching zerotier nodes"
+		if [[ -v ZEROTIER_NETWORKS ]]; then
+			# Complex jq filter extracted for readability
+			local jq_filter='. | map(select(.online == true and .config.authorized == true)) | map((if .name != "" then .name else .nodeId end) as $name | .config.ipAssignments | map("\(.) \($name)")) | flatten | join("\n")'
 
+			echo "$ZEROTIER_NETWORKS" | sed 's; ;\n;g' | while read -r network; do
+				curl "https://my.zerotier.com/api/network/$network/member" -H "Authorization: bearer $ZEROTIER_TOKEN" | jq -r "$jq_filter" | sed 's;$;.zt;'
+			done
+		fi
+	fi
+}
 
-} | grep -v -e '^[ \t]*$'  | sed "s;$;$PREFIX;" | grep -v -e "^[a-z\.]*$PREFIX$"
+function get_arp_hosts() {
+	if has_binary arp-scan; then
+		log "Fetching local network with arp-scan"
+		sudo arp-scan --localnet -q --numeric | awk -F'\t' '{gsub(/:/, "-", $2); print $1, "arp-" $2 ".net"}'
+	fi
+}
+
+function main() {
+	{
+		get_docker_hosts
+		get_zerotier_hosts
+		get_arp_hosts
+	} | grep -v -e '^[ \t]*$' | sed "s;$;$PREFIX;" | grep -v -e "^[a-z\.]*$PREFIX$"
+}
+
+main "$@"

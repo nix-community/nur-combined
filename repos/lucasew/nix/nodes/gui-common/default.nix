@@ -8,6 +8,9 @@ let
   inherit (global) username;
 in
 {
+  disabledModules = [
+    "services/desktops/dunst.nix"
+  ];
   imports = [
     ../common
     ./gui-variants
@@ -15,53 +18,56 @@ in
     ./gui.nix
     ./networking.nix
     ./steam.nix
-    ./git.nix
     ./gammastep.nix
     ./adb.nix
     ./vbox.nix
     ./tuning.nix
-    ./ipfs.nix
     ./gamemode.nix
-    ./syncthing.nix
-    ./stremio.nix
     ./sunshine.nix
     ./wallpaper.nix
     ./extra-fonts.nix
-    ./gui-variants
+    ./polkit.nix
   ];
 
-  systemd.extraConfig = ''
-    DefaultTimeoutStartSec=10s
-  '';
+  systemd.settings.Manager = {
+    DefaultTimeoutStartSec = "10s";
+  };
 
   environment.systemPackages = with pkgs; [
-    gparted
     parallel
-    home-manager
     paper-icon-theme
     p7zip
     unzip # archiving
     pv
     # Extra
     distrobox # plan b
-    git-annex
-    git-remote-gcrypt
-    appimage-wrap
-    xorg.xkill
-    kitty
+    xkill
+    waypipe
+    xwayland-satellite
+    # GUI utilities
+    feh
+    fortune
+    libnotify
+    zenity
+    nix-output-monitor
+    nbr.wine-apps._7zip
+    devenv
   ];
 
+  documentation.man.enable = true;
+
   programs.dconf.enable = true;
+  programs.ydotool.enable = true;
   services.dbus.packages = with pkgs; [ dconf ];
   services.gvfs.enable = true;
   services.tumbler.enable = true;
 
-  programs.ssh = {
-    startAgent = true;
-    extraConfig = ''
-      ConnectTimeout=5
-    '';
-  };
+  # programs.ssh = {
+  #   startAgent = true;
+  #   extraConfig = ''
+  #     ConnectTimeout=5
+  #   '';
+  # };
   services.shellhub-agent = {
     enable = true;
     tenantId = "c574bf33-a21a-49ef-a7a5-1d8fbd823e4e";
@@ -76,19 +82,17 @@ in
   users.users = {
     ${username} = {
       description = "Lucas Eduardo";
+      extraGroups = [ "ydotool" ];
     };
   };
 
-  hardware = {
-    opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-  };
+  hardware.graphics.enable = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = lib.mkDefault true;
 
-  qt.platformTheme.name = lib.mkDefault "qt5ct";
+  # qt.platformTheme.name = lib.mkDefault "qt5ct";
+
+  # https://github.com/NixOS/nixpkgs/pull/297434#issuecomment-2348783988
+  systemd.services.display-manager.environment.XDG_CURRENT_DESKTOP = "X-NIXOS-SYSTEMD-AWARE";
 }

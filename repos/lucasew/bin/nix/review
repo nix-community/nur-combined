@@ -1,5 +1,22 @@
 #!/usr/bin/env bash
 
+# /**
+#  * Wrapper for `nixpkgs-review`.
+#  *
+#  * This script runs `nixpkgs-review` via `nix run` from the local `nixpkgs` input.
+#  * It also supports an optional post-review sleep delay (via `POST_REVIEW_SLEEP`)
+#  * to allow time for manual inspection or cleanup.
+#  *
+#  * @param args Arguments passed to `nixpkgs-review`.
+#  */
+
 set -euo pipefail
 
 nix run nixpkgs#nixpkgs-review -- "$@"
+
+sync
+
+if [[ -v POST_REVIEW_SLEEP ]]; then
+	sleep "$POST_REVIEW_SLEEP"
+	echo post review sleep "$POST_REVIEW_SLEEP" >&2
+fi

@@ -2,7 +2,15 @@
 #! nix-shell -i python3 -p python3Packages.tqdm
 #! vim:ft=python
 
-# [EXPERIMENT] delete garbage paths from oldest to newest
+# /**
+#  * Frees disk space by deleting Nix store paths from oldest to newest.
+#  *
+#  * This script identifies garbage paths in the Nix store (using `nix path-info`),
+#  * sorts them by creation time, and deletes them sequentially until stopped or finished.
+#  * It skips paths that are still valid (not garbage).
+#  *
+#  * Uses `tqdm` for a progress bar.
+#  */
 
 import os
 from sys import stderr

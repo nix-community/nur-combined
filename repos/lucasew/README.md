@@ -2,8 +2,6 @@
 
 [![built with nix](https://builtwithnix.org/badge.svg)](https://builtwithnix.org)
 
-- home-manager: dotfile manager, runs as a configuration.nix extension
-
 - the way it is organized its not necessary to place the nix files in the default locations like
 
     - `/etc/nixos/configuration.nix`

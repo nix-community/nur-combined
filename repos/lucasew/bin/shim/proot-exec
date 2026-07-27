@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# proot-exec: Execute commands in Termux with proot to avoid syscall restrictions
+# Usage: proot-exec <command> [args...]
+
+if [ -n "${TERMUX_VERSION:-}" ]; then
+	# On Termux, use proot directly to avoid termux-chroot's broken sh -c wrapper
+	PREFIX=/data/data/com.termux/files/usr
+
+	# Use proot with bindings similar to termux-chroot but without sh -c wrapper
+	env -u LD_PRELOAD "$PREFIX/bin/proot" \
+		--kill-on-exit \
+		--cwd=. \
+		-b /system:/system \
+		-b /data:/data \
+		-b /dev:/dev \
+		-b /proc:/proc \
+		-b "$PREFIX:/usr" \
+		-b "$PREFIX/bin:/bin" \
+		-b "$PREFIX/bin:/usr/bin" \
+		-b "$PREFIX/etc:/etc" \
+		-b "$PREFIX/lib:/lib" \
+		-b "$PREFIX/share:/share" \
+		-b "$PREFIX/tmp:/tmp" \
+		-b "$PREFIX/var:/var" \
+		-r "$PREFIX/.." \
+		"$@"
+else
+	# Not on Termux, execute directly
+	exec "$@"
+fi

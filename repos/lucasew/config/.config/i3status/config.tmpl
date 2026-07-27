@@ -1,0 +1,66 @@
+# Auto-generated from template by workspaced
+
+general {
+  colors = true
+  color_bad = "#{{ .root.modules.base16.config.base08 }}"
+  color_degraded = "#{{ .root.modules.base16.config.base08 }}"
+  color_good = "#{{ .root.modules.base16.config.base0B }}"
+
+  interval = 2
+}
+
+order += "read_file netusage"
+read_file netusage {
+  path = "/dev/shm/netusage"
+  format = "💬 %content"
+  format_bad = ""
+}
+
+order += "wireless _first_"
+wireless _first_ {
+  format_up = "🛜 %bitrate %frequency %quality"
+  format_down = "🛜 OFF"
+}
+
+order += "ethernet _first_"
+ethernet _first_ {
+  format_up = "🔗 %speed"
+  format_down = "🔗 OFF"
+}
+
+order += "load"
+load {
+  format = "💪 %1min %5min %15min"
+}
+
+order += "cpu_usage"
+cpu_usage {
+  format= "🧠 %usage"
+  max_threshold= 75
+}
+
+order += "memory"
+memory {
+  format = "🐸 %percentage_used"
+  threshold_degraded = "10%"
+  format_degraded = "🐸 %free"
+}
+
+order += "volume master"
+volume master {
+  format = "🔊 %volume"
+  format_muted = "🔊 %volume"
+}
+
+order += "battery all"
+battery all {
+  format = "🔋 %percentage ⚡ %remaining"
+  last_full_capacity = true
+  integer_battery_capacity = true
+  low_threshold = 10
+}
+
+order += "tztime local"
+tztime local {
+  format = "⌛ %Y-%m-%d %H:%M"
+}

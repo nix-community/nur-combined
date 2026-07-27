@@ -3,7 +3,7 @@
 set -euo pipefail
 
 {
-cat <<EOF
+	cat <<EOF
 let
     inherit (builtins) length isAttrs tail head trace unsafeGetAttrPos concatStringsSep;
 
@@ -26,11 +26,11 @@ let
 in builtins.toFile "loc.txt" (concatStringsSep "\n" [
 EOF
 
-for item in $@; do
-    echo "(printPosition ["
-    echo "$item" | sed 's;\.;\n;g' | while read line; do printf '"%s"\n' "$line"; done
-    echo "] rootScope)"
-done
-echo '""'
-echo "])"
+	for item in "$@"; do
+		echo "(printPosition ["
+		echo "$item" | sed 's;\.;\n;g' | while read line; do printf '"%s"\n' "$line"; done
+		echo "] rootScope)"
+	done
+	echo '""'
+	echo "])"
 } | sd nix repl --really 2>/dev/null | grep loc | sed 's;[^"]*"\([^"]*\)"[^$]*;\1;' | while read line; do cat "$line"; done

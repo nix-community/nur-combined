@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.0"
   cloud {
     organization = "lucasew"
     workspaces {
@@ -7,8 +8,8 @@ terraform {
   }
   required_providers {
     zerotier = {
-      source = "zerotier/zerotier"
-      version = "1.2.0"
+      source  = "zerotier/zerotier"
+      version = "1.6.0"
     }
   }
 }
@@ -20,8 +21,8 @@ provider "zerotier" {
 }
 
 variable "zerotier_token" {
-  type = string
-  sensitive = true
+  type        = string
+  sensitive   = true
   description = "Token zerotier"
 }
 

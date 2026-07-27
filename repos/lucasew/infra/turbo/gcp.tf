@@ -1,4 +1,5 @@
 terraform {
+  required_version = ">= 1.0"
   cloud {
     organization = "lucasew"
     workspaces {
@@ -7,78 +8,78 @@ terraform {
   }
   required_providers {
     google = {
-      source = "hashicorp/google"
-      version = "4.65.2"
+      source  = "hashicorp/google"
+      version = "7.18.0"
     }
   }
 }
 
 variable "gcp_instance_image" {
-  type = string
+  type        = string
   description = "Caminho da imagem usada na instância"
-  default = "ml-images/c2-deeplearning-pytorch-1-13-cu113-v20230501-debian-10-py37"
+  default     = "ml-images/c2-deeplearning-pytorch-1-13-cu113-v20230501-debian-10-py37"
 }
 
 variable "gcp_zone" {
-    type = string
-    default = "us-central1-a"
-    description = "Zona do GCP pra subir as coisas"
+  type        = string
+  default     = "us-central1-a"
+  description = "Zona do GCP pra subir as coisas"
 }
 
 variable "gcp_project" {
-    type = string
-    default = "artimanhas-do-lucaum"
-    description = "Projeto que tudo pertence"
+  type        = string
+  default     = "artimanhas-do-lucaum"
+  description = "Projeto que tudo pertence"
 }
 
 variable "gcp_token" {
-    type = string
-    sensitive = true
-    description = "Token GCP"
+  type        = string
+  sensitive   = true
+  description = "Token GCP"
 }
 
 variable "gcp_turbo_stop" {
-    type = bool
-    description = "Stop turbo instance?"
-    default = true
+  type        = bool
+  description = "Stop turbo instance?"
+  default     = true
 }
 
 variable "gcp_turbo_modo_turbo" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "VPS com mais CPU e GPU"
 }
 
 variable "gcp_service_account_id" {
-  type = string
-  default = "turbo-instance"
+  type        = string
+  default     = "turbo-instance"
   description = "Service account id da conta"
 }
 
 variable "gcp_turbo_gpu" {
-  type = string
+  type    = string
   default = "nvidia-tesla-t4"
   # default = "nvidia-tesla-k80"
   description = "Que gpu usar"
 }
 
 variable "gcp_turbo_instance" {
-  type = string
-  default = "n1-highcpu-4"
+  type        = string
+  default     = "n1-highcpu-4"
   description = "Qual instancia usar no modo turbo"
 }
 
 variable "gcp_turbo_disk_size" {
-  type = number
-  default = 20
+  type        = number
+  default     = 20
   description = "Tamanho do rootfs da instancia"
 }
 
 provider "google" {
-    project = var.gcp_project
-    zone = var.gcp_zone
-    # credentials = file("/tmp/artimanhas-do-lucaum-4152360065eb.json")
-    credentials = var.gcp_token
+  project = var.gcp_project
+  zone    = var.gcp_zone
+  # credentials = file("/tmp/artimanhas-do-lucaum-4152360065eb.json")
+  credentials = var.gcp_token
 }
 
 resource "google_service_account" "service_account" {
@@ -88,11 +89,11 @@ resource "google_service_account" "service_account" {
 }
 
 output "turbo-internal-ip" {
-  value = length(google_compute_instance.turbo) > 0 ? google_compute_instance.turbo[0].network_interface.0.network_ip : ""
+  value = length(google_compute_instance.turbo) > 0 ? google_compute_instance.turbo[0].network_interface[0].network_ip : ""
 }
 
 output "turbo-external-ip" {
-  value = length(google_compute_instance.turbo) > 0 ? google_compute_instance.turbo[0].network_interface.0.access_config.0.nat_ip : ""
+  value = length(google_compute_instance.turbo) > 0 ? google_compute_instance.turbo[0].network_interface[0].access_config[0].nat_ip : ""
 }
 
 
@@ -107,7 +108,7 @@ resource "google_compute_instance" "turbo" {
 
   boot_disk {
     auto_delete = false
-    source = google_compute_disk.turbo_rootfs.self_link
+    source      = google_compute_disk.turbo_rootfs.self_link
   }
 
   confidential_instance_config {
@@ -121,14 +122,14 @@ resource "google_compute_instance" "turbo" {
   count = var.gcp_turbo_stop ? 0 : 1
 
   guest_accelerator {
-    type = var.gcp_turbo_gpu
+    type  = var.gcp_turbo_gpu
     count = var.gcp_turbo_modo_turbo ? 1 : 0
   }
 
   scheduling {
-    preemptible = true
-    automatic_restart = false
-    provisioning_model  = "SPOT"
+    preemptible        = true
+    automatic_restart  = false
+    provisioning_model = "SPOT"
   }
 
   metadata = {
@@ -148,8 +149,8 @@ resource "google_compute_instance" "turbo" {
 
   service_account {
     email = google_service_account.service_account.email
-    scopes = [ 
-        "cloud-platform",
+    scopes = [
+      "cloud-platform",
     ]
   }
 
@@ -158,13 +159,13 @@ resource "google_compute_instance" "turbo" {
 # terraform import google_compute_instance.turbo turbo
 
 resource "google_compute_disk" "turbo_rootfs" {
-  image                     = var.gcp_instance_image
-  name                      = "turbo-rootfs"
+  image = var.gcp_instance_image
+  name  = "turbo-rootfs"
   # physical_block_size_bytes = 4096
-  project                   = var.gcp_project
-  size                      = var.gcp_turbo_disk_size
-  type                      = "pd-standard"
-  zone                      = var.gcp_zone
+  project = var.gcp_project
+  size    = var.gcp_turbo_disk_size
+  type    = "pd-standard"
+  zone    = var.gcp_zone
 }
 # terraform import google_compute_disk.nixos_rootfs projects/artimanhas-do-lucaum/zones/us-central1-a/disks/nixos-rootfs
 
@@ -190,10 +191,10 @@ resource "google_compute_disk" "turbo_rootfs" {
 
 
 resource "google_compute_firewall" "www" {
-  name          = "www-turbo"
-  description   = "Libera acesso web"
+  name        = "www-turbo"
+  description = "Libera acesso web"
 
-  network       = google_compute_network.turbo.self_link
+  network = google_compute_network.turbo.self_link
 
   allow {
     ports    = ["80", "443"]
@@ -204,10 +205,10 @@ resource "google_compute_firewall" "www" {
 }
 
 resource "google_compute_firewall" "ssh" {
-  name          = "ssh-turbo"
-  description   = "Libera acesso ssh"
+  name        = "ssh-turbo"
+  description = "Libera acesso ssh"
 
-  network       = google_compute_network.turbo.self_link
+  network = google_compute_network.turbo.self_link
 
   allow {
     ports    = ["22"]
@@ -233,10 +234,10 @@ resource "google_compute_firewall" "ssh" {
 # }
 
 resource "google_compute_firewall" "icmp" {
-  name          = "icmp-turbo"
-  description   = "Aceitar pings"
+  name        = "icmp-turbo"
+  description = "Aceitar pings"
 
-  network       = google_compute_network.turbo.self_link
+  network = google_compute_network.turbo.self_link
 
   allow {
     protocol = "icmp"
@@ -247,6 +248,6 @@ resource "google_compute_firewall" "icmp" {
 
 
 resource "google_compute_network" "turbo" {
-    name = "turbo"
+  name = "turbo"
 }
 

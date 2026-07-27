@@ -1,0 +1,46 @@
+#!/usr/bin/env python3
+"""Pin lewtec/skills to latest commit in workspaced.lock.json and workspaced.cue."""
+
+import json
+import subprocess
+import urllib.request
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+LOCK = ROOT / "workspaced.lock.json"
+CUE = ROOT / "workspaced.cue"
+REPO = "lewtec/skills"
+
+
+def latest_sha() -> str:
+    try:
+        return subprocess.check_output(
+            ["gh", "api", f"repos/{REPO}/commits/HEAD", "--jq", ".sha"],
+            text=True,
+        ).strip()
+    except Exception:
+        req = urllib.request.Request(
+            f"https://api.github.com/repos/{REPO}/commits/HEAD",
+            headers={"Accept": "application/vnd.github+json", "User-Agent": "update_skills"},
+        )
+        with urllib.request.urlopen(req) as r:
+            return json.load(r)["sha"]
+
+
+lock = LOCK.read_text()
+old = next(
+    d["currentDigest"]
+    for d in json.loads(lock)["dependencies"]
+    if d.get("ref") == f"github:{REPO}"
+)
+new = latest_sha()
+if old == new:
+    print(f"already at {new}")
+    raise SystemExit(0)
+
+for path in (LOCK, CUE):
+    text = path.read_text()
+    if old not in text:
+        raise SystemExit(f"{path.name}: hash {old} not found")
+    path.write_text(text.replace(old, new))
+    print(f"{path.name}: {old} -> {new}")

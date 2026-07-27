@@ -2,21 +2,48 @@
   self,
   config,
   pkgs,
+  lib,
   ...
 }:
 {
   imports = [ "${self.inputs.nixos-hardware}/common/gpu/nvidia" ];
 
-  # services.xserver.videoDrivers = [ "modesetting" ]; # usar só AMD pra dar vídeo
+  services.xserver.videoDrivers = [
+    "nvidia"
+    "modesetting"
+  ];
+
+  boot.blacklistedKernelModules = [ "nvidiafb" "nouveau" "nova_core" ]; # CUDA ou GTFO
 
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     nvidiaSettings = true;
+    open = true;
     # nvidiaPersistenced = true;
   };
 
-  # boot.initrd.kernelModules = [ "nvidia" ];
-  # boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+  hardware.nvidia-container-toolkit = {
+    enable = true;
+    device-name-strategy = "uuid";
+  };
 
-  environment.systemPackages = with pkgs; [ nvtopPackages.full ];
+  virtualisation.docker = {
+    # DONT REMOVE THIS LINE, IT'S REQUIRED FOR --gpus=all to work
+    enableNvidia = true;
+  };
+
+  services.nomad.extraSettingsPlugins = [ pkgs.nomad-driver-nvidia ];
+  services.nomad.settings.plugin = lib.mkAfter [
+    {
+      nomad-device-nvidia = {
+        config = {
+          enabled = true;
+        };
+      };
+    }
+  ];
+
+  environment.systemPackages = with pkgs; [
+    nvtopPackages.full
+  ];
 }

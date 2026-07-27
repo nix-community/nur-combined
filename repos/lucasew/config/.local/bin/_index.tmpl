@@ -1,0 +1,33 @@
+{{- /* Script x: adds lazy shims to PATH */ -}}
+{{- file "x" "0755" }}
+#!/usr/bin/env bash
+exec "{{ home }}/.local/bin/workspaced" open exec -p "{{ userDataDir }}/shim/lazy" "$@"
+{{- endfile }}
+
+{{- /* Global shims for tools */ -}}
+{{- range $name, $tool := .root.lazy_tools }}
+    {{- if $tool.global }}
+        {{- $ref := $tool.ref }}{{ if not $ref }}{{ $ref = $name }}{{ end }}
+        {{- $bins := $tool.bins }}
+        {{- if eq (len $bins) 0 }}
+            {{- $binName := $tool.alias }}
+            {{- if not $binName }}
+                {{- $parts := split $ref ":" }}
+                {{- $binName = last $parts }}
+                {{- $parts = split $binName "/" }}
+                {{- $binName = last $parts }}
+            {{- end }}
+            {{- $bins = list $binName }}
+        {{- end }}
+        {{- range $bins }}
+            {{- file . "0755" }}
+#!/usr/bin/env bash
+{{- $locked := lockTool $name }}
+{{- if $locked }}
+# locked: {{ $locked.ref }}@{{ $locked.version }}
+{{- end }}
+exec "{{ home }}/.local/bin/workspaced" open lazy --home --bin "{{ . }}" "{{ $ref }}" -- "$@"
+            {{- endfile }}
+        {{- end }}
+    {{- end }}
+{{- end }}

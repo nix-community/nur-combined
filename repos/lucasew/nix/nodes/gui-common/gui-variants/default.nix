@@ -1,9 +1,13 @@
 {
   imports = [
-    ./xfce.nix
-    ./plasma5.nix
-    ./gnome.nix
+    ./cosmic.nix
     ./i3
+    ./sway
     ./hyprland
+    ./kodi
+    ./dotfiles.nix
+    ./optional/system-tray.nix
+    ./optional/lockscreen.nix
   ];
 }
+

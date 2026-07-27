@@ -14,11 +14,12 @@ in
   config = mkIf config.services.telegram-sendmail.enable {
     services.telegram-sendmail.credentialFile = "/var/run/secrets/telegram-sendmail";
 
+    # root-owned: DynamicUser service has no stable system user; systemd reads
+    # EnvironmentFile as root before starting the unit.
     sops.secrets.telegram-sendmail = {
-      sopsFile = ../../../secrets/telegram_sendmail.env;
-      owner = config.users.users.telegram_sendmail.name;
-      group = config.users.users.telegram_sendmail.group;
+      sopsFile = ../../../../secrets/telegram_sendmail.env;
       format = "dotenv";
+      mode = "0400";
     };
   };
 }

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+# /**
+#  * Caches the result of a Nix evaluation to avoid re-evaluating unchanged flakes.
+#  *
+#  * This script computes an MD5 hash of the flake reference and stores the evaluation
+#  * result (output path) in a cache directory (`$XDG_CACHE_HOME/nixcfg-cached-eval`).
+#  *
+#  * If the cache entry exists and the path it points to is valid, it returns the
+#  * cached path. Otherwise, it triggers `nix eval`, caches the result, and returns it.
+#  */
+
+set -eu
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/nixcfg-cached-eval"
+mkdir -p "$CACHE_DIR"
+
+FLAKE_REF="$1"
+shift
+IFS=' ' read REF_HASH _ <<<$(echo $FLAKE_REF | md5sum)
+
+# echo $FLAKE_REF >&2
+
+CACHE_FILE="$CACHE_DIR/$REF_HASH"
+
+if [ ! -f "$CACHE_FILE" ]; then
+	EVAL_OUT="$(nix eval --raw "$FLAKE_REF")"
+	nix-store -r "$EVAL_OUT" >/dev/null
+	echo "$EVAL_OUT" >"$CACHE_FILE"
+fi
+
+finalPath="$(cat $CACHE_FILE)"
+
+# echo $finalPath >&2
+if [ ! -d "$finalPath" ]; then
+	echo nix cached-eval: cached evaluation file is missing, reevaluating >&2
+	rm "$CACHE_FILE"
+	exec "$0" "$FLAKE_REF" "$@"
+fi
+echo $finalPath

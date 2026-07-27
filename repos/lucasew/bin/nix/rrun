@@ -2,14 +2,15 @@
 
 set -euo pipefail
 
-ref="$1"; shift
+ref="$1"
+shift
 
-IFS='#' read -r repo item <<< "$ref"
+IFS='#' read -r repo item <<<"$ref"
 
-IFS='/' read -r item binary <<< "$item"
+IFS='/' read -r item binary <<<"$item"
 
 if [ "$repo" == ',' ]; then
-  repo="$(sd d root)"
+	repo="$(sd d root)"
 fi
 
 # echo $repo

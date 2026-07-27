@@ -10,20 +10,19 @@ let
   inherit (pkgs)
     vim
     gitMinimal
+    file
     tmux
     xclip
     killall
     script-directory-wrapper
     ;
-  inherit (global) username;
 in
 {
   imports = [
     ./bash-extra.nix
-    ./colors.nix
     ./ccache.nix
     ./dotfiles-dir.nix
-    ./motd.nix
+    ./rev.nix
     ./netns.nix
     ./nix-binary-caches.nix
     ./nixpkgs-symlink.nix
@@ -39,6 +38,7 @@ in
     ./nix-tmp.nix
     ./last-generation.nix
     ./dotd.nix
+    ./kernel.nix
   ];
 
   networking.firewall.allowedTCPPorts = [
@@ -51,6 +51,7 @@ in
   environment.systemPackages = [
     vim
     gitMinimal
+    file
     tmux
     xclip
     killall
@@ -61,10 +62,12 @@ in
     PATH = "$PATH";
   };
   programs.bash = {
-    promptInit = builtins.concatStringsSep "\n" (map (builtins.readFile) [
-      ./bash_init.sh
-      ../../../bin/prelude/999-nix-ps1.sh
-    ]);
+    promptInit = builtins.concatStringsSep "\n" (
+      map (builtins.readFile) [
+        ./bash_init.sh
+        ../../../config/.bashrc.d.tmpl/40-ui-prompt.sh
+      ]
+    );
   };
   networking.domain = lib.mkDefault "lucao.net";
 }

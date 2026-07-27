@@ -1,28 +1,45 @@
 #!/usr/bin/env bash
-# my custom way of setting a second monitor on my laptop with one keystroke
 
+# /**
+#  * Toggles the secondary monitor configuration.
+#  *
+#  * This script detects the state of the HDMI-1 output (via `xrandr`) and applies
+#  * the appropriate layout:
+#  * - If connected: Enables HDMI-1, places it right of eDP-1, sets DPI, and handles rotation.
+#  * - If disconnected: Turns off HDMI-1.
+#  *
+#  * It is designed to be bound to a keystroke for quick toggling.
+#  */
+
+# /**
+#  * Applies the monitor configuration based on detected state.
+#  *
+#  * @param mode The xrandr mode/orientation (e.g., "normal", "right").
+#  * @param state Connection state ("connected" or "disconnected").
+#  * @param num_fields Number of fields in the xrandr output line (used to infer rotation state/capabilities).
+#  */
 function handler {
-    mode=$1
-    state=$2
-    num_fields=$3
-    notify-send "Configurando monitor secundário..."
-    if [ $state == connected ]; then
-        xrandr --auto
-        xrandr --output HDMI-1 --right-of eDP-1
-        xrandr --output HDMI-1 --dpi 100
-        if [ $num_fields == 16 ]; then
-            if [ $mode == normal ]; then
-                xrandr --output HDMI-1 --rotation right
-            else
-                xrandr --output HDMI-1 --rotation normal
-            fi
-        fi
-        sleep 1
-        i3-msg -t command restart
-    else
-        xrandr --output HDMI-1 --off
-    fi
-    xrandr --output eDP-1 --dpi 100
-    notify-send "Configuração finalizada"
+	mode=$1
+	state=$2
+	num_fields=$3
+	notify-send "Configurando monitor secundário..."
+	if [ $state == connected ]; then
+		xrandr --auto
+		xrandr --output HDMI-1 --right-of eDP-1
+		xrandr --output HDMI-1 --dpi 100
+		if [ $num_fields == 16 ]; then
+			if [ $mode == normal ]; then
+				xrandr --output HDMI-1 --rotation right
+			else
+				xrandr --output HDMI-1 --rotation normal
+			fi
+		fi
+		sleep 1
+		sd utils i3wm rpc -t command restart
+	else
+		xrandr --output HDMI-1 --off
+	fi
+	xrandr --output eDP-1 --dpi 100
+	notify-send "Configuração finalizada"
 }
 handler $(xrandr --query --verbose | awk '$1 == "HDMI-1" { print $5 " " $2 " " NF}')

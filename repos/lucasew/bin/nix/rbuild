@@ -1,18 +1,35 @@
 #!/usr/bin/env bash
 
+# /**
+#  * Performs a remote build of a Nix flake reference.
+#  *
+#  * This script offloads the build process to a remote machine (`NIX_RBUILD_TARGET`).
+#  * 1. Resolves the local flake reference.
+#  * 2. Copies the build closure to the remote host.
+#  * 3. Triggers the build on the remote host (using `nom build` if available).
+#  * 4. Copies the build result back to the local machine.
+#  *
+#  * It uses a temporary directory on the remote host for build outputs to avoid
+#  * cluttering the store or persistent paths.
+#  *
+#  * Configuration:
+#  * - `NIX_RBUILD_TARGET`: The SSH host to use for building (default: whiterun).
+#  */
+
 set -euo pipefail
 
 if [ ! -v NIX_RBUILD_TARGET ]; then
-  NIX_RBUILD_TARGET=whiterun
+	NIX_RBUILD_TARGET=whiterun
 fi
 
 echo "[*] Preparing for evaluation" >&2
-ref="$1"; shift
+ref="$1"
+shift
 
-IFS='#' read -r repo item <<< "$ref"
+IFS='#' read -r repo item <<<"$ref"
 
 if [ "$repo" == "," ]; then
-  repo="$(sd d root)"
+	repo="$(sd d root)"
 fi
 
 export repo
@@ -26,17 +43,27 @@ nix-copy-closure -s --to "$NIX_RBUILD_TARGET" "$repo"
 
 echo "[*] Evaluating ref \"$ref\"" >&2
 
+# /**
+#  * Executes a command on the remote build target via SSH.
+#  *
+#  * @param args Command to execute.
+#  */
 function ssh_run {
-  ssh "$NIX_RBUILD_TARGET" "$@"
+	ssh "$NIX_RBUILD_TARGET" "$@"
 }
 
 BUILD_UUID=$(uuidgen)
 
-ssh_run -t mkdir -p /tmp/rbuild-outputs >&2
+# Sentinel: Use XDG_RUNTIME_DIR (wiped on reboot) or fallback to user cache
+REMOTE_CACHE_DIR='"${XDG_RUNTIME_DIR:-${XDG_CACHE_HOME:-$HOME/.cache}}/rbuild-outputs"'
 
-ssh_run -t nom build "$repo#$item" --out-link  /tmp/rbuild-outputs/$BUILD_UUID --show-trace >&2
+ssh_run -t mkdir -p "$REMOTE_CACHE_DIR" >&2
 
-RESULT_OUTPUT="$(ssh_run realpath /tmp/rbuild-outputs/$BUILD_UUID)"
+# Escape the flake reference to prevent command injection
+safe_ref=$(printf "%q" "$repo#$item")
+ssh_run -t nom build "$safe_ref" --out-link "$REMOTE_CACHE_DIR/$BUILD_UUID" --show-trace >&2
+
+RESULT_OUTPUT="$(ssh_run realpath "$REMOTE_CACHE_DIR/$BUILD_UUID")"
 
 echo "[*] Copying result back: \"$RESULT_OUTPUT\"" >&2
 

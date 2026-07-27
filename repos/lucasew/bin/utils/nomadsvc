@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export NOMAD_ADDR="http://ravenrock:4646"
+
+resolve_bin() {
+  local tool="$1"
+  local bin_path=""
+
+  if bin_path="$(command -v "$tool" 2>/dev/null)" && [[ -n "$bin_path" ]]; then
+    printf '%s\n' "$bin_path"
+    return 0
+  fi
+
+  if command -v mise >/dev/null 2>&1; then
+    if bin_path="$(mise exec "$tool" -- which "$tool" 2>/dev/null)" && [[ -n "$bin_path" ]]; then
+      printf '%s\n' "$bin_path"
+      return 0
+    fi
+  fi
+
+  echo "erro: nao foi possivel encontrar '$tool' na PATH nem via 'mise exec $tool -- which $tool'" >&2
+  return 1
+}
+
+NOMAD_BIN="$(resolve_bin nomad)"
+JQ_BIN="$(resolve_bin jq)"
+
+if [[ $# -gt 1 ]]; then
+  echo "uso: $(basename "$0") [servico]" >&2
+  exit 1
+fi
+
+if [[ $# -eq 0 ]]; then
+  services="$(
+    "$NOMAD_BIN" service list -json 2>/dev/null \
+      | "$JQ_BIN" -r '
+          if type == "array" then
+            .[] | (.ServiceName // .Service // .Name // .ID // .)
+          elif type == "object" then
+            if has("Services") then
+              .Services[] | (.ServiceName // .Service // .Name // .ID // .)
+            else
+              keys[]
+            end
+          else
+            empty
+          end
+          | strings
+        ' 2>/dev/null \
+      | sort -u || true
+  )"
+
+  if [[ -n "$services" ]]; then
+    printf '%s\n' "$services"
+    exit 0
+  fi
+
+  "$NOMAD_BIN" service list \
+    | awk 'NR > 1 && NF > 0 && $1 != "No" { print $1 }' \
+    | sort -u
+  exit 0
+fi
+
+service_name="$1"
+
+service_info_json="$("$NOMAD_BIN" service info -json "$service_name" 2>/dev/null || true)"
+
+if [[ -z "$service_info_json" ]]; then
+  echo "erro: servico '$service_name' nao encontrado" >&2
+  exit 1
+fi
+
+endpoint="$(
+  printf '%s\n' "$service_info_json" \
+    | "$JQ_BIN" -r '
+        if type == "array" then .[] elif type == "object" then .[]? else empty end
+        | select(type == "object")
+        | select(.Address != null and .Port != null)
+        | .Address + ":" + (.Port | tostring)
+      ' 2>/dev/null \
+    | head -n 1
+)"
+
+if [[ -z "$endpoint" ]]; then
+  echo "erro: servico '$service_name' sem endpoint valido" >&2
+  exit 1
+fi
+
+printf '%s\n' "$endpoint"

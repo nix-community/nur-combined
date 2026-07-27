@@ -1,0 +1,29 @@
+{{- /* Skip if not on Android/Termux */ -}}
+{{- if not isPhone }}{{ skip }}{{ end -}}
+
+{{- /* Check if shortcuts directory exists */ -}}
+{{- $shortcutsDir := printf "%s/bin/_shortcuts/termux" (dotfiles) -}}
+
+{{- /* Generate a wrapper script for each shortcut file */ -}}
+{{- range readDir $shortcutsDir }}
+{{- file . "0755" }}
+#!/data/data/com.termux/files/usr/bin/bash
+# Auto-generated Termux shortcut wrapper: {{ . }}
+
+# Setup Termux execution environment
+TERMUX_EXEC_PATH="/data/data/com.termux/files/usr/lib/libtermux-exec.so"
+if [ -f "$TERMUX_EXEC_PATH" ] && [[ "$LD_PRELOAD" != *"$TERMUX_EXEC_PATH"* ]]; then
+	export LD_PRELOAD="$TERMUX_EXEC_PATH"
+	exec "$0" "$@"
+fi
+
+# Set dotfiles root
+export DOTFILES_ROOT="{{ dotfiles }}"
+
+source /data/data/com.termux/files/home/.bashrc
+
+# Execute script directly (no proot needed - proot-exec is only for Go builds)
+exec bash "$DOTFILES_ROOT/bin/_shortcuts/termux/{{ . }}" "$@"
+
+{{- endfile }}
+{{- end }}

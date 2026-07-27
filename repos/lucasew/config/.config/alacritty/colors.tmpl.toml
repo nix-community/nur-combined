@@ -1,0 +1,29 @@
+# Auto-generated from template by workspaced
+
+[colors.primary]
+background = "#{{ .root.modules.base16.config.base00 }}"
+foreground = "#{{ .root.modules.base16.config.base05 }}"
+
+[colors.cursor]
+text   = "#{{ .root.modules.base16.config.base00 }}"
+cursor = "#{{ .root.modules.base16.config.base05 }}"
+
+[colors.normal]
+black   = "#{{ .root.modules.base16.config.base00 }}"
+red     = "#{{ .root.modules.base16.config.base08 }}"
+green   = "#{{ .root.modules.base16.config.base0B }}"
+yellow  = "#{{ .root.modules.base16.config.base0A }}"
+blue    = "#{{ .root.modules.base16.config.base0D }}"
+magenta = "#{{ .root.modules.base16.config.base0E }}"
+cyan    = "#{{ .root.modules.base16.config.base0C }}"
+white   = "#{{ .root.modules.base16.config.base05 }}"
+
+[colors.bright]
+black   = "#{{ .root.modules.base16.config.base03 }}"
+red     = "#{{ .root.modules.base16.config.base08 }}"
+green   = "#{{ .root.modules.base16.config.base0B }}"
+yellow  = "#{{ .root.modules.base16.config.base0A }}"
+blue    = "#{{ .root.modules.base16.config.base0D }}"
+magenta = "#{{ .root.modules.base16.config.base0E }}"
+cyan    = "#{{ .root.modules.base16.config.base0C }}"
+white   = "#{{ .root.modules.base16.config.base07 }}"

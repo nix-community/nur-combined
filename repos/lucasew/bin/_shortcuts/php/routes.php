@@ -257,6 +257,7 @@ exact_route("/phpinfo", "phpinfo.php");
 exact_route("/image", "image.php");
 exact_route("/scope_test", "scope_test.php");
 exact_route("/markdown_teste", "markdown_teste.php");
+exact_route("/cristofer", "cristofer.php");
 
 use_route("/", "index.php");
 

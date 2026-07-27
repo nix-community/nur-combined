@@ -1,0 +1,21 @@
+#!/usr/bin/env python3
+
+# fortune com as frases custom
+
+from pathlib import Path
+from random import choice
+import sys
+
+FORTUNE_DIR = Path(__file__).parent.parent / "assets" / "fortune"
+# print(__file__, file=sys.stderr)
+
+
+def fetch_fortunes():
+    for fortune_file in FORTUNE_DIR.glob('*.txt'):
+        for fortune in fortune_file.read_text().split('\n%\n'):
+            if len(fortune) == 0:
+                continue
+            yield fortune
+
+print(choice(list(fetch_fortunes())))
+

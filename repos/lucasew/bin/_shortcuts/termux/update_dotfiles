@@ -1,5 +1,2 @@
 #!/usr/bin/env bash
-
-set -euo pipefail
-sd d pull
-sd d apply
+exec workspaced home sync

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=base16
+Comment=Legacy GTK2 colors from workspaced base16 palette
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=base16
+MetacityTheme=base16
+IconTheme=workspaced-base16
+CursorTheme=Adwaita
+ButtonLayout=menu:minimize,maximize,close

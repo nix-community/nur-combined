@@ -2,6 +2,6 @@
 # which mountpoint a file belongs?
 
 if [[ $# -eq 0 ]]; then
-    exit 1
+	exit 1
 fi
 df "$1" | tail -n 1 | sed 's; ;\n;g' | tail -n 1

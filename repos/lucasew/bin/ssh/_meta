@@ -1,43 +1,63 @@
 #!/usr/bin/env bash
 
+# /**
+#  * Resolves SSH connection parameters for a given node/host.
+#  *
+#  * This script queries the SSH configuration (via secrets and hardcoded lists)
+#  * to find the user, host, and port for a specific node name.
+#  * It outputs shell variable assignments (eval-ready) with the resolved values.
+#  *
+#  * Output format:
+#  * <VAR_PREFIX>_USER=<user>
+#  * <VAR_PREFIX>_HOST=<host>
+#  * <VAR_PREFIX>_PORT=<port>
+#  *
+#  * @param var_prefix The prefix for the output variables (e.g., "REMOTE").
+#  * @param node The node name or SSH alias to resolve.
+#  */
+
 set -eu
 
-# get ssh params from the host list
-#
-# $this var_prefix node
-var_prefix="$1"; shift
-node="$1"; shift
+var_prefix="$1"
+shift
+node="$1"
+shift
 
-item="$({
-    cat /run/secrets/ssh-alias
-    for host in riverwood whiterun; do
-        echo $host lucasew@$host:22
-    done
-} | grep -e "^$node" | sed 's;[^ ]*[ ]*\([^$]*\);\1;' | head -n 1
+if ! [[ "$var_prefix" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+	echo "Invalid variable prefix: $var_prefix" >&2
+	exit 1
+fi
+
+item="$(
+	{
+		cat /run/secrets/ssh-alias
+		for host in riverwood whiterun; do
+			echo $host lucasew@$host:22
+		done
+	} | grep -e "^$node" | sed 's;[^ ]*[ ]*\([^$]*\);\1;' | head -n 1
 )"
 
 # printf "'%s'\n" $item >&2
 
 if [ -z "$item" ]; then
-    # echo item empty >&2
-    item="$node"
+	# echo item empty >&2
+	item="$node"
 fi
 
 IFS='@' read -r user rest < <(printf "%s\n" "$item")
 
 if [ "$user" == "$item" ]; then
-    rest="$item"
-    user=`whoami`
+	rest="$item"
+	user=$(whoami)
 fi
 
 IFS=':' read -r host port < <(printf "%s\n" "$rest")
 
 if [ -z "$port" ]; then
-    port=22
+	port=22
 fi
 
-cat <<EOF
-${var_prefix}_USER="$user"
-${var_prefix}_PORT="$port"
-${var_prefix}_HOST="$host"
-EOF
+# Sentinel: Use printf %q to prevent command injection
+printf "${var_prefix}_USER=%q\n" "$user"
+printf "${var_prefix}_PORT=%q\n" "$port"
+printf "${var_prefix}_HOST=%q\n" "$host"

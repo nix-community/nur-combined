@@ -1,0 +1,47 @@
+name: Ciborg Turbo
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 9 * * *'
+jobs:
+  work:
+    name: "Work"
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
+    - name: "Run worker"
+      env:
+        MISE_CI_TOKEN: ${{ secrets.MISE_CI_TOKEN }}
+        MISE_CI_CALLBACK: ${{ secrets.MISE_CI_CALLBACK }}
+      run: |
+        version=$(curl -fsSL "$MISE_CI_CALLBACK/version.txt")
+        image="ghcr.io/lewtec/ciborg:$version"
+        docker pull $image
+
+        for i in $(seq 4); do
+          sudo systemd-run \
+            --unit="miseci-$i" \
+            --property=Restart=on-success \
+            --property=RestartSec=0s \
+            docker run --rm \
+              -e "MISE_CI_TOKEN=$MISE_CI_TOKEN" \
+              -e "MISE_CI_CALLBACK=$MISE_CI_CALLBACK" \
+              $image worker
+        done
+
+        sudo journalctl -f -u "miseci-*" &
+
+        echo "Workers started. Waiting for them to finish (they stop on error)..."
+        while true; do
+          if ! systemctl is-active --quiet "miseci-1" "miseci-2" "miseci-3" "miseci-4"; then
+            # Se alguma não está ativa, verificamos se TODAS pararam
+            active_count=$(systemctl is-active "miseci-1" "miseci-2" "miseci-3" "miseci-4" | grep -c "^active" || true)
+            if [ "$active_count" -eq 0 ]; then
+              break
+            fi
+          fi
+          sleep 10
+        done
+        echo "All workers stopped."

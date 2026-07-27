@@ -4,7 +4,8 @@ set -euo pipefail
 
 # open terminal ssh session
 
-host="$1"; shift
+host="$1"
+shift
 
 # sd ssh _meta SSH "$host"
 

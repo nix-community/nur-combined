@@ -2,7 +2,7 @@
 
 # Put this on /sdcard
 
-export TMPDIR=`realpath /sdcard/rootfs/temp`
+export TMPDIR=$(realpath /sdcard/rootfs/temp)
 export PATH=$PATH:/data/data/ru.meefik.busybox/files/bin:/sdcard/rootfs
 export ALPINEDROID=/data/alpinedroid
 sh

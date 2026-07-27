@@ -1,9 +1,16 @@
-{ global, lib, ... }:
+{
+  global,
+  lib,
+  config,
+  ...
+}:
 let
   inherit (global) username;
 in
 {
-  users.users.${username}.extraGroups = [ "vboxusers" ];
 
-  virtualisation.virtualbox.host.enable = lib.mkDefault true;
+  config = lib.mkIf config.virtualisation.virtualbox.host.enable {
+    users.users.${username}.extraGroups = [ "vboxusers" ];
+  };
+
 }

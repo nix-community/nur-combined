@@ -6,21 +6,19 @@
 }:
 
 let
-  cfg = config.programs.sunshine;
+  cfg = config.services.sunshine;
 in
 
 {
-  options = {
-    programs.sunshine = {
-      enable = lib.mkEnableOption "sunshine";
-      package = lib.mkPackageOption pkgs "sunshine" { };
-    };
-  };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [ cfg.package ];
 
+    services.sunshine.settings = {
+      motion_as_ds4 = true;
+      touchpad_as_ds4 = true;
+    };
+
     systemd.user.services.sunshine = {
-      script = lib.getExe cfg.package;
       serviceConfig = {
         Restart = "on-failure";
       };

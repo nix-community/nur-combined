@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+hermes_dir="$HOME/.hermes"
+install_dir="$hermes_dir/hermes-agent"
+repo_url="https://github.com/NousResearch/hermes-agent.git"
+python_version="3.11"
+branch="main"
+
+log_info() {
+	printf 'hermes shim: %s\n' "$1" >&2
+}
+
+run_uv() {
+	if ! command -v workspaced >/dev/null 2>&1; then
+		log_info "workspaced not found; cannot resolve uv tool"
+		exit 1
+	fi
+	workspaced open lazy --home uv -- "$@"
+}
+
+run_node() {
+	if ! command -v workspaced >/dev/null 2>&1; then
+		log_info "workspaced not found; cannot resolve node tool"
+		exit 1
+	fi
+	if workspaced open lazy --home node -- "$@"; then
+		return
+	fi
+	workspaced tool with mise:node -- "$@"
+}
+
+ensure_node() {
+	if ! run_node node --version >/dev/null 2>&1; then
+		log_info "failed to resolve node tool (mise:node)"
+		exit 1
+	fi
+}
+
+bootstrap_hermes() {
+	if ! command -v git >/dev/null 2>&1; then
+		log_info "git not found; please install git and run again"
+		exit 1
+	fi
+
+	log_info "creating $hermes_dir"
+	mkdir -p "$hermes_dir"
+
+	if [ ! -d "$install_dir/.git" ]; then
+		log_info "cloning Hermes Agent repository"
+		rm -rf "$install_dir"
+		git clone --branch "$branch" "$repo_url" "$install_dir"
+	fi
+
+	cd "$install_dir"
+	log_info "ensuring Python $python_version via uv"
+	run_uv python install "$python_version"
+	log_info "ensuring Node.js via workspaced/mise"
+	ensure_node
+	log_info "creating virtual environment"
+	run_uv venv venv --python "$python_version"
+	log_info "syncing Hermes dependencies with uv sync"
+	UV_PROJECT_ENVIRONMENT="$install_dir/venv" run_uv sync --python "$python_version"
+
+	if [ -f "$install_dir/package.json" ]; then
+		log_info "installing Node.js dependencies"
+		run_node npm install --silent || log_info "npm install failed; continuing"
+	fi
+	if [ -f "$install_dir/scripts/whatsapp-bridge/package.json" ]; then
+		log_info "installing WhatsApp bridge dependencies"
+		(
+			cd "$install_dir/scripts/whatsapp-bridge"
+			run_node npm install --silent || log_info "whatsapp bridge npm install failed; continuing"
+		)
+	fi
+
+	if [ ! -f "$hermes_dir/.env" ] && [ -f "$install_dir/.env.example" ]; then
+		cp "$install_dir/.env.example" "$hermes_dir/.env"
+	fi
+	if [ ! -f "$hermes_dir/config.yaml" ] && [ -f "$install_dir/cli-config.yaml.example" ]; then
+		cp "$install_dir/cli-config.yaml.example" "$hermes_dir/config.yaml"
+	fi
+	mkdir -p "$hermes_dir"/{cron,sessions,logs,pairing,hooks,image_cache,audio_cache,memories,skills,whatsapp/session}
+}
+
+if [ ! -d "$hermes_dir" ]; then
+	log_info "$hermes_dir not found; bootstrapping Hermes install"
+	bootstrap_hermes
+fi
+
+if [ ! -f "$install_dir/pyproject.toml" ]; then
+	log_info "Hermes project missing at $install_dir; running bootstrap"
+	bootstrap_hermes
+fi
+
+ensure_node
+exec env UV_PROJECT_ENVIRONMENT="$install_dir/venv" workspaced open lazy --home uv -- run --project "$install_dir" --python "$python_version" hermes "$@"

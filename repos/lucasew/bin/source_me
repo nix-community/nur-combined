@@ -1,13 +1,21 @@
 #!/usr/bin/env bash
 
 # basically starts the modular bashrc
+export SD_ROOT
+SD_ROOT="$(dirname "$(realpath "$BASH_SOURCE")")"
 
-export SD_ROOT="$(dirname "$(realpath "$BASH_SOURCE")")"
+if [[ "$SD_ROOT" =~ "/nix" ]]; then
+	if [[ -d ~/.dotfiles/bin ]]; then
+		SD_ROOT=~/.dotfiles/bin
+	elif [[ -d /etc/.dotfiles/bin ]]; then
+		SD_ROOT=/etc/.dotfiles/bin
+	fi
+fi
 
-# i=0
-for script in $(ls $SD_ROOT/prelude | sort); do
-  # i=$((i+1))
-  . "$SD_ROOT/prelude/$script"
-done
+__ws_shell_init="$(workspaced utils shell init bash)" || __ws_shell_init=""
+if [[ -n "${__ws_shell_init}" ]]; then
+	eval "${__ws_shell_init}"
+fi
+unset __ws_shell_init
 
 (return 0 2>/dev/null) || "$@"

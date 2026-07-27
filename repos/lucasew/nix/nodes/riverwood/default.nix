@@ -1,14 +1,10 @@
 {
   self,
-  global,
   pkgs,
   config,
-  lib,
   ...
-}@args:
+}:
 let
-  inherit (self) inputs;
-  inherit (global) username;
   hostname = "riverwood";
 in
 {
@@ -16,18 +12,19 @@ in
     ./hardware-configuration.nix
     ../gui-common
 
-    "${self.inputs.nixos-hardware}/common/cpu/intel/kaby-lake"
-    "${self.inputs.nixos-hardware}/common/gpu/intel"
-    "${self.inputs.nixos-hardware}/common/pc/laptop/ssd"
+    "${self.inputs.nixos-hardware}/common/cpu/intel"
+    "${self.inputs.nixos-hardware}/common/gpu/intel/kaby-lake"
+    "${self.inputs.nixos-hardware}/common/pc/laptop"
 
     ./kvm.nix
     ./networking.nix
-    ./plymouth.nix
+    ./sshfs.nix
     ./remote-build.nix
     ./tuning.nix
-    ./test_socket_activated
-    ./test_php
+    ./earlyoom.nix
+    ./plymouth.nix
   ];
+
 
   boot = {
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
@@ -39,81 +36,23 @@ in
     '';
   };
 
-  environment.systemPackages = with pkgs; [ thunderbird ];
+  environment.systemPackages = with pkgs; [
+    gparted
+    git-annex
+    git-remote-gcrypt
+  ];
 
-  services.rsyncnet-remote-backup = {
-    enable = true;
-    calendar = "00/6:00:01";
-  };
+  programs.nix-ld.enable = true;
 
-  services.guix.enable = true;
+  programs.sway.enable = true;
 
-  services.php-utils.enable = true;
+  services.sunshine.enable = true;
 
-  services.python-microservices.services = {
-    teste = {
-      script = ''
-        from io import StringIO
-        from json import dump
-        def handler():
-          def _ret(self):
-            return dict(foi=True)
-            self.send_response(200)
-            self.send_header('Content-Type', 'application/json')
-            buf = StringIO()
-            dump(dict(foi=True), buf)
-            return buf
-          return _ret
-      '';
-    };
-  };
-  services.xserver.windowManager.i3.enable = true;
-  # programs.hyprland.enable = true;
-
-  programs.sunshine.enable = true;
-
-  # virtualisation.waydroid.enable = true;
-
-  services.nixgram = {
-    enable = true;
-    customCommands = {
-      ping = "echo pong";
-    };
-  };
-
-  services.syncthing = {
-    enable = true;
-    folder-targets = {
-      obsidian = "/home/lucasew/WORKSPACE/ZETTEL/obsidian";
-    };
-    settings = {
-      folders = {
-        obsidian = {
-          label = "Obsidian";
-          id = "43a6e881-d9f2-4517-9ba4-22f4a0c41199";
-          devices = [ "moto-g52" ];
-        };
-      };
-      devices = {
-        moto-g52 = {
-          addresses = [ "tcp://moto-g52" ]; # tailscale
-          id = "ZZB7S3J-5VVLWXY-OUSSEIS-N5SNGVC-MJVVRK2-7PNVQBE-SI7Z2O4-6GVINAK";
-        };
-      };
-    };
-  };
-
-  services.nginx.enable = true;
-
-  boot.plymouth.enable = true;
-
-  services.pocket2kindle.enable = true;
   programs.gamemode.enable = true;
 
   services.flatpak.enable = true;
 
   networking.networkmanager.wifi.scanRandMacAddress = true;
-  networking.hostId = "dabd2d19";
   services.cockpit.enable = true;
 
   services.telegram-sendmail.enable = true;
@@ -127,13 +66,9 @@ in
 
   services.xserver.xkb.model = "acer_laptop";
 
-  services.simple-dashboardd = {
-    enable = true;
-    openFirewall = true;
-  };
-
   virtualisation.kvmgt.enable = false;
   virtualisation.spiceUSBRedirection.enable = true;
+  virtualisation.containerd.enable = true;
 
   # programs.steam.enable = true;
 
@@ -154,23 +89,18 @@ in
     };
   };
 
-  gc-hold.paths = with pkgs; [
-    go
-    gopls
-    # zig zls
-    # terraform
-    # ansible vagrant
-    gnumake
-    cmake
-    clang
-    gdb
-    ccls
-    # python3Packages.pylsp-mypy
-    # nodejs yarn
-    # openjdk11 maven ant
-    docker-compose
-    # jre
-  ];
+  gc-hold = {
+    enable = true;
+    paths = with pkgs; [
+      gnumake
+      cmake
+      clang
+      gdb
+      ccls
+    ];
+  };
+
+  services.hardware.openrgb.enable = true;
 
   networking.hostName = hostname; # Define your hostname.
 
@@ -180,6 +110,13 @@ in
 
   environment.dotd."/etc/trab/nhaa".enable = true;
   services.screenkey.enable = true;
+
+  sops.secrets.claude-code = {
+    sopsFile = ../../../secrets/claude-code.env;
+    owner = config.users.users.lucasew.name;
+    group = config.users.users.lucasew.group;
+    format = "dotenv";
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

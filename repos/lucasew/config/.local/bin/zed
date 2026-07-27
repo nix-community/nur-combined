@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [[ ! -d /usr/share/X11/xkb ]]; then
+	export XKB_CONFIG_ROOT=/run/current-system/sw/share/X11/xkb
+fi
+
+unset WAYLAND_DISPLAY # fix flickering in Intel Graphics
+
+exec x zed "$@"

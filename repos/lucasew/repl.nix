@@ -10,6 +10,5 @@ default
     deploy
     nixosConfigurations
     release
-    nixOnDroidConfigurations
     ;
 }

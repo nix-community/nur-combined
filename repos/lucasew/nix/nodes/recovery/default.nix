@@ -11,41 +11,27 @@
     ../gui-common
   ];
 
+  services.xserver.windowManager.i3.enable = true;
+
   boot = {
     supportedFilesystems = [
       "ntfs"
       "zfs"
     ];
+    zfs.forceImportRoot = false;
     plymouth = {
       enable = true;
       theme = "breeze";
-
-      logo = pkgs.stdenv.mkDerivation {
-        name = "out.png";
-        dontUnpack = true;
-        src = pkgs.fetchurl {
-          url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/skyrim.svg";
-          sha256 = "sha256-l0dPfNdOxOpty+kJfwyC7R26Xv4R7IkleCKkOQFN9SY=";
-        };
-        nativeBuildInputs = with pkgs; [ inkscape ];
-        buildPhase = ''
-          inkscape --export-type="png" $src -o wallpaper.png -w 150 -h 210 -o wallpaper.png
-        '';
-        installPhase = ''
-          install -Dm0644 wallpaper.png $out
-        '';
+      logo = pkgs.plymouthSvgLogo {
+        url = "https://github.com/lucasew/nixcfg/releases/download/debureaucracyzzz/skyrim.svg";
+        sha256 = "sha256-l0dPfNdOxOpty+kJfwyC7R26Xv4R7IkleCKkOQFN9SY=";
       };
     };
   };
   networking = {
     hostId = "2c6b15e1";
     hostName = "recovery-iso";
-    wireless.enable = false;
-  };
-
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "lucasew";
+    wireless.enable = lib.mkForce false;
   };
 
   system.stateVersion = "22.05"; # Did you read the comment?

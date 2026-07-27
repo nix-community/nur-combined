@@ -3,11 +3,11 @@
 set -euo pipefail
 
 # tmux [session]
-# if no arguments list sessions 
+# if no arguments list sessions
 # if arguments create or join a session named all the arguments joined
 
 if [ $# == 0 ]; then
-  tmux ls
+	tmux ls
 else
-  tmux a -t "$*" || tmux new -s "$*"
+	tmux a -t "$*" || tmux new -s "$*"
 fi

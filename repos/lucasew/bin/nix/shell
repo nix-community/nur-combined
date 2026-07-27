@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
-# nix-shell wrapper that loads the NIX_PATH from dotfiles first, good for shebangs without loadDotfilesEnv
-
+# /**
+#  * Wrapper for `nix-shell` that ensures `NIX_PATH` is correctly set.
+#  *
+#  * This script initializes the environment by loading `NIX_PATH` from `bashrc`
+#  * before invoking `nix-shell`. It is particularly useful for shebangs where
+#  * `loadDotfilesEnv` might not have run.
+#  *
+#  * It also supports `cached-nix-shell` if available and not disabled via `DONT_CACHE_NIX`.
+#  */
 
 echo "nix-shell kicked in!" >&2
 
@@ -15,7 +22,7 @@ NIX_SHELL_BIN=nix-shell
 export NIXPKGS_ALLOW_UNFREE=1
 
 if [ ! -v DONT_CACHE_NIX ]; then
-  which cached-nix-shell 2>/dev/null && NIX_SHELL_BIN=cached-nix-shell
+	which cached-nix-shell 2>/dev/null && NIX_SHELL_BIN=cached-nix-shell
 fi
 
 $NIX_SHELL_BIN "$@"

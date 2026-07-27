@@ -11,16 +11,16 @@ args_part=()
 
 is_args=0
 while [ $# -gt 0 ]; do
-    if [ "$1" == "--" ]; then
-        is_args=1
-    else
-        if [ "$is_args" == "0" ]; then
-            packages_part+=("$1")
-        else
-            args_part+=("$1")
-        fi
-    fi
-    shift
+	if [ "$1" == "--" ]; then
+		is_args=1
+	else
+		if [ "$is_args" == "0" ]; then
+			packages_part+=("$1")
+		else
+			args_part+=("$1")
+		fi
+	fi
+	shift
 done
 
 echo packages: ${packages_part[@]}

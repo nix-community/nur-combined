@@ -1,0 +1,29 @@
+{
+  "name": "base16-theme",
+  "displayName": "Base16 Theme (Workspaced)",
+  "description": "Base16 color scheme managed by workspaced",
+  "version": "1.0.0",
+  "publisher": "workspaced",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.12.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "base16",
+    "theme",
+    "dark",
+    "workspaced"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Base16",
+        "uiTheme": "vs-dark",
+        "path": "./themes/base16.json"
+      }
+    ]
+  }
+}

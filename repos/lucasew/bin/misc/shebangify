@@ -3,20 +3,21 @@
 # vim:ft=bash
 
 function show_help() {
-    echo "shebangify [filename] [extra nix-shell args]" >&2
-    exit 0
+	echo "shebangify [filename] [extra nix-shell args]" >&2
+	exit 0
 }
 
 function die() {
-    echo "error: $@" >&2
-    exit 1
+	echo "error: $@" >&2
+	exit 1
 }
 
 if [ "$#" == 0 ]; then
-    show_help
+	show_help
 fi
 
-script="$(realpath "$1")";shift
+script="$(realpath "$1")"
+shift
 
 [ -f "$script" ] || die the script "'$script'" does not exist
 
@@ -31,15 +32,15 @@ echo "extension $script_extension"
 echo "directory $script_directory"
 
 declare -A interpreters=(
-    ["py"]="python"
-    ["js"]="node"
-    ["sh"]="bash"
+	["py"]="python"
+	["js"]="node"
+	["sh"]="bash"
 )
 
 declare -A filetypes=(
-    ["py"]="python"
-    ["js"]="javascript"
-    ["sh"]="bash"
+	["py"]="python"
+	["js"]="javascript"
+	["sh"]="bash"
 )
 
 interpreter=${interpreters[$script_extension]}
@@ -55,18 +56,17 @@ mv "$script" "$tempfile"
 
 outfile="$script_directory/$script_name"
 
-echo "#!/usr/bin/env nix-shell" > $outfile
-echo "#!nix-shell -i $interpreter -p $*" >> $outfile
+echo "#!/usr/bin/env nix-shell" >$outfile
+echo "#!nix-shell -i $interpreter -p $*" >>$outfile
 
 if [[ ! -z $filetype ]]; then
-    echo "# vim:ft=$filetype" >> $outfile
+	echo "# vim:ft=$filetype" >>$outfile
 fi
 
-cat $tempfile >> $outfile
+cat $tempfile >>$outfile
 
 chmod +x $outfile
 
 rm $tempfile
 
 exit 0 # ok
-

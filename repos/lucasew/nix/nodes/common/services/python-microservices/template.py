@@ -1,4 +1,4 @@
-handler # It will fail if not defined
+handler  # It will fail if not defined
 
 try:
     SOCKET_TIMEOUT
@@ -11,12 +11,12 @@ except NameError:
     PORT = 4200
 
 import http.server
-import socketserver
+import io
+import json
 import logging
 import os
-import io
 import socket
-import json
+import socketserver
 import traceback
 
 logging.basicConfig(level=logging.DEBUG)
@@ -24,11 +24,12 @@ logger = logging.getLogger(__name__)
 
 handler_handle = handler()
 
+
 class HTTPError(Exception):
     def __init__(self, code=500, message=None):
         self.code = code
         self.message = message
-        
+
 
 class Handler(http.server.BaseHTTPRequestHandler):
     def address_string(self):
@@ -38,7 +39,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
         # logger.info(f'finish request code={code} mime_type={mime_type}')
         self.send_response(code)
         if mime_type is not None:
-            self.send_header('Content-Type', mime_type)
+            self.send_header("Content-Type", mime_type)
         self.end_headers()
         # self.wfile.write(b'diggy diggy hole')
 
@@ -47,21 +48,21 @@ class Handler(http.server.BaseHTTPRequestHandler):
         if response is None:
             self.handle_finish_request(code=code, mime_type=mime_type)
             return
-            
+
         if isinstance(response, bytes):
             self.handle_finish_request(code=code, mime_type=mime_type)
             return self.wfile.write(response)
         if isinstance(response, str):
             self.handle_finish_request(code=code, mime_type=mime_type)
-            return self.wfile.write(response.encode('utf-8'))
-        if hasattr(response, 'getvalue'):
+            return self.wfile.write(response.encode("utf-8"))
+        if hasattr(response, "getvalue"):
             # self.handle_finish_request(code=code, mime_type=mime_type)
             response.seek(0)
             data = response.getvalue()
             return self.handle_response(data, code=code, mime_type=mime_type)
         buf = io.StringIO()
         json.dump(response, buf)
-        return self.handle_response(buf, code=code, mime_type='application/json')
+        return self.handle_response(buf, code=code, mime_type="application/json")
 
     def _handle_some_request(self):
         try:
@@ -95,16 +96,21 @@ class CustomTCPServer(socketserver.TCPServer):
 
     def handle_timeout(self):
         self._BaseServer__shutdown_request = True
-        logger.debug('trigger timeout, shutdown')
+        logger.debug("trigger timeout, shutdown")
+
 
 httpd = CustomTCPServer(None, Handler, bind_and_activate=False)
-if 'LISTEN_FDS' in os.environ:
-    logger.info('LISTEN_FDS specified, using socket activation logic from systemd')
-    httpd.socket = socket.fromfd(int(os.getenv("LISTEN_FDS_FIRST_FD") or 3), family=httpd.address_family, type=httpd.socket_type)
+if "LISTEN_FDS" in os.environ:
+    logger.info("LISTEN_FDS specified, using socket activation logic from systemd")
+    httpd.socket = socket.fromfd(
+        int(os.getenv("LISTEN_FDS_FIRST_FD") or 3),
+        family=httpd.address_family,
+        type=httpd.socket_type,
+    )
 else:
     logger.info(f"LISTEN_FDS not specified, listening on port {PORT}")
     httpd.socket = socket.socket(family=httpd.address_family, type=httpd.socket_type)
-    httpd.socket.bind(('127.0.0.1', PORT))
+    httpd.socket.bind(("127.0.0.1", PORT))
     httpd.socket.listen(0)
 # httpd.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 4)
 httpd.socket.settimeout(SOCKET_TIMEOUT)
@@ -113,4 +119,4 @@ while httpd.is_continue():
 # httpd.socket.close()
 
 httpd.server_close()
-logger.info('Stopping server')
+logger.info("Stopping server")

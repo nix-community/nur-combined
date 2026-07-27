@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-sd ssh c whiterun
+ssh lucasew@whiterun

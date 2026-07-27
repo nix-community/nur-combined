@@ -1,13 +1,20 @@
 #!/usr/bin/env -S sd shim python3
 
+# /**
+#  * Groups duplicate files based on hash input from stdin.
+#  *
+#  * Reads lines in the format `$hash $filename` (e.g., from `md5sum`) and groups
+#  * filenames by their hash. It outputs the duplicates according to the specified
+#  * format.
+#  *
+#  * Configuration:
+#  * - `FORMAT`: Output format (`default` or `ln_hardlink`).
+#  */
+
 from sys import stdin, argv
 from collections import defaultdict
 from os import environ
 
-# usage:
-# pass the result of a command like md5sum as stdin to this script with no parameters
-# any hash is supported as long it's in the format: $hash $filename
-# customize format with the FORMAT environment variable
 class Formats:
     def default(items):
         keys = list(items.keys())

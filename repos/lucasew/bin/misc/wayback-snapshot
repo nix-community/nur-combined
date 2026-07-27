@@ -6,7 +6,7 @@ set -euo pipefail
 
 result_html="$(mktemp)"
 
-curl --fail-with-body "https://web.archive.org/save/$*" > $result_html
+curl --fail-with-body "https://web.archive.org/save/$*" >$result_html
 
 echo "HTML result saved in '$result_html'" >&2
 

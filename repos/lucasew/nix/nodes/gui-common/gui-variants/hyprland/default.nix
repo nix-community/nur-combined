@@ -7,17 +7,22 @@
 
 {
   imports = [
-    ../optional/flatpak-wayland.nix
+    ../optional/flatpak.nix
     ../optional/kdeconnect-indicator.nix
     ../optional/dunst.nix
   ];
 
   config = lib.mkIf config.programs.hyprland.enable {
+
+    services.xserver.displayManager.lightdm.enable = true;
+
+    security.polkit.agent.enable = true;
+
     programs.hyprland = {
       xwayland.enable = true;
-      portalPackage = pkgs.xdg-desktop-portal-wlr // {
-        override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args [ "hyprland" ]);
-      };
+      # portalPackage = pkgs.xdg-desktop-portal-wlr // {
+      #   override = args: pkgs.xdg-desktop-portal-wlr.override (builtins.removeAttrs args [ "hyprland" ]);
+      # };
     };
 
     services.xserver.enable = true;
@@ -31,22 +36,6 @@
     # programs.sunshine.package = pkgs.sunshine.overrideAttrs (old: {
     #   patches = (old.patches or []) ++ [ ./sunshine-wayland.patch ];
     # });
-
-    systemd.user.services.nm-applet = {
-      path = with pkgs; [ networkmanagerapplet ];
-      script = "exec nm-applet";
-      restartIfChanged = true;
-    };
-    systemd.user.services.blueberry-tray = {
-      path = with pkgs; [
-        (blueberry.overrideAttrs (old: {
-          patches = (old.patches or [ ]) ++ [ ./blueberry-tray-fix.patch ];
-          buildInputs = old.buildInputs ++ [ pkgs.libappindicator-gtk3 ];
-        }))
-      ];
-      script = "blueberry-tray; while true; do sleep 3600; done";
-      restartIfChanged = true;
-    };
 
     systemd.user.services.swayidle = {
       partOf = [ "graphical-session.target" ];
@@ -100,57 +89,22 @@
         ''
           exec swayidle -w -d \
             idlehint 600 \
-            timeout 605 'hyprctl dispatch dpms off' resume 'hyprctl dispatch dpms on' \
-            lock 'swaylock -f ${lib.concatStringsSep " " swaylock-list-args}' \
-            unlock 'hyprctl dispatch dpms on' \
-            before-sleep 'playerctl pause'
+            timeout 605 'workspaced driver screen off' resume 'workspaced driver screen on' \
+            lock 'workspaced driver power lock' \
+            unlock 'workspaced driver screen on' \
+            before-sleep 'workspaced driver media stop'
         '';
     };
 
     security.pam.services.swaylock = { };
-
-    systemd.user.services.dotfile-waybar = {
-      path = with pkgs; [
-        script-directory-wrapper
-        custom.colorpipe
-      ];
-      script = ''
-        mkdir ~/.config/waybar -p
-        cat $(sdw d root)/nix/nodes/gui-common/gui-variants/hyprland/waybar/style.css | colorpipe > ~/.config/waybar/style.css
-        cat $(sdw d root)/nix/nodes/gui-common/gui-variants/hyprland/waybar/config | colorpipe > ~/.config/waybar/config
-      '';
-      restartTriggers = [
-        "${./waybar/style.css}"
-        "${./waybar/config}"
-      ];
-      wantedBy = [ "default.target" ];
-    };
-
-    systemd.user.services.dotfile-hyprland = {
-      path = with pkgs; [
-        script-directory-wrapper
-        custom.colorpipe
-      ];
-      script = ''
-        mkdir ~/.config/hypr -p
-        cat $(sdw d root)/nix/nodes/gui-common/gui-variants/hyprland/hypr/hyprland.conf | colorpipe > ~/.config/hypr/hyprland.conf
-      '';
-      restartTriggers = [ "${./hypr/hyprland.conf}" ];
-      wantedBy = [ "default.target" ];
-    };
-
-    systemd.user.services.polkit-agent = {
-      script = "exec ${pkgs.mate.mate-polkit}/libexec/polkit-mate-authentication-agent-1";
-    };
-
     environment.systemPackages = with pkgs; [
-      swaylock
-      gnome.eog # eye of gnome
-      xfce.ristretto
-      mate.caja
+      eog # eye of gnome
+      ristretto
+      pcmanfm
       playerctl
       brightnessctl
-      gscreenshot
+      grim
+      slurp
       xwaylandvideobridge
       wl-clipboard
       custom.rofi_wayland

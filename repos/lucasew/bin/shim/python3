@@ -1,11 +1,3 @@
 #!/usr/bin/env bash
 
-if ! sd is binary-available python3 >/dev/null; then
-	echo '[*] python não encontrado nativamente, puxando pelo Nix' >&2
-	python_out=$(nix eval --raw "$(sd d root --really)#pkgs.python3.outPath")
-	nix-store -r $python_out >/dev/null
-	export PATH=$PATH:$python_out/bin
-	# echo $python_out
-fi
-
-exec $(sd is binary-available python3) "$@"
+exec mise exec uv -- uv run python3 "$@"

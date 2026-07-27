@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
-
-sd backup
+export WORKSPACED_NO_PROOT=1
+export TERM=dumb
+exec workspaced home backup run

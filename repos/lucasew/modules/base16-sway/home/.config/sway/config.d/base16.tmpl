@@ -1,0 +1,26 @@
+# Base16 Sway colors
+set $base00 #{{ .root.modules.base16.config.base00 }}
+set $base01 #{{ .root.modules.base16.config.base01 }}
+set $base02 #{{ .root.modules.base16.config.base02 }}
+set $base03 #{{ .root.modules.base16.config.base03 }}
+set $base04 #{{ .root.modules.base16.config.base04 }}
+set $base05 #{{ .root.modules.base16.config.base05 }}
+set $base06 #{{ .root.modules.base16.config.base06 }}
+set $base07 #{{ .root.modules.base16.config.base07 }}
+set $base08 #{{ .root.modules.base16.config.base08 }}
+set $base09 #{{ .root.modules.base16.config.base09 }}
+set $base0A #{{ .root.modules.base16.config.base0A }}
+set $base0B #{{ .root.modules.base16.config.base0B }}
+set $base0C #{{ .root.modules.base16.config.base0C }}
+set $base0D #{{ .root.modules.base16.config.base0D }}
+set $base0E #{{ .root.modules.base16.config.base0E }}
+set $base0F #{{ .root.modules.base16.config.base0F }}
+
+# Basic classes
+# class                 border  backgr. text    indicator child_border
+client.focused          $base0D $base0D $base00 $base0D $base0D
+client.focused_inactive $base01 $base01 $base05 $base03 $base01
+client.unfocused        $base01 $base00 $base05 $base01 $base01
+client.urgent           $base08 $base08 $base00 $base08 $base08
+client.placeholder      $base00 $base00 $base05 $base00 $base00
+client.background       $base07

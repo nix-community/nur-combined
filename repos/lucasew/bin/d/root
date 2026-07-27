@@ -6,17 +6,16 @@ set -euo pipefail
 
 dotfilesFolder=
 if [ -d ~/.dotfiles ]; then
-    dotfilesFolder=~/.dotfiles
-elif [ -d /home/lucasew/.dotfiles ]; then
-    dotfilesFolder=/home/lucasew/.dotfiles
+	dotfilesFolder=~/.dotfiles
+elif [ -d "$HOME/.dotfiles" ]; then
+	dotfilesFolder="$HOME/.dotfiles"
 elif [ -d /etc/.dotfiles ]; then
-    dotfilesFolder=/etc/.dotfiles
+	dotfilesFolder=/etc/.dotfiles
 fi
 
 if [ -z "$dotfilesFolder" ]; then
-    echo "can't find dotfiles folder" >&2
-    exit 1
+	echo "can't find dotfiles folder" >&2
+	exit 1
 fi
 
 echo "$(realpath "$dotfilesFolder")"
-

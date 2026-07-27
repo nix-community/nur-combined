@@ -4,18 +4,17 @@
 set -eu -o pipefail
 
 ITEM="$@"
-ITEM_NAME=`basename "$ITEM" | sed 's;[^a-zA-Z0-9_-];_;g'`
+ITEM_NAME=$(basename "$ITEM" | sed 's;[^a-zA-Z0-9_-];_;g')
 
 case "$(realpath "$ITEM")" in
-    /nix*)
-        realpath "$ITEM"
-        exit 0
-    ;;
+/nix*)
+	realpath "$ITEM"
+	exit 0
+	;;
 esac
 
-STORED=`nix store add-path "$ITEM" -n "$ITEM_NAME"`
+STORED=$(nix store add-path "$ITEM" -n "$ITEM_NAME")
 # echo "$STORED"
 chmod +w -R "$ITEM" # no problem doing this, nix will reset the write bits
-rm -rf "$ITEM" && nix-store -r $STORED --add-root "$ITEM" > /dev/null
+rm -rf "$ITEM" && nix-store -r $STORED --add-root "$ITEM" >/dev/null
 echo "$STORED"
-

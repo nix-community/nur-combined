@@ -1,6 +1,7 @@
 # adapted from https://github.com/hashicorp/terraform-provider-kubernetes/blob/main/kubernetes/test-infra/gke/main.tf
 
 terraform {
+  required_version = ">= 1.0"
   cloud {
     organization = "lucasew"
     workspaces {
@@ -8,53 +9,48 @@ terraform {
     }
   }
   required_providers {
-      google = {
-      source = "hashicorp/google"
-      version = "4.65.2"
+    google = {
+      source  = "hashicorp/google"
+      version = "7.18.0"
     }
   }
 }
 
 variable "gcp_zone" {
-    type = string
-    default = "us-central1-a"
-    description = "Zona do GCP pra subir as coisas"
-}
-
-variable "cluster_size" {
-  type = number
-  default = 1
-  description = "Tamanho da familia"
+  type        = string
+  default     = "us-central1-a"
+  description = "Zona do GCP pra subir as coisas"
 }
 
 variable "gcp_project" {
-    type = string
-    default = "artimanhas-do-lucaum"
-    description = "Projeto que tudo pertence"
+  type        = string
+  default     = "artimanhas-do-lucaum"
+  description = "Projeto que tudo pertence"
 }
 
 variable "gcp_instance" {
-  type = string
-  default = "e2-micro"
+  type        = string
+  default     = "e2-micro"
   description = "Qual instancia usar"
 }
 
 
 variable "gcp_token" {
-    type = string
-    sensitive = true
-    description = "Token GCP"
+  type        = string
+  sensitive   = true
+  description = "Token GCP"
 }
 
 variable "kubernetes_version" {
+  type    = string
   default = ""
 }
 
 provider "google" {
-    project = var.gcp_project
-    zone = var.gcp_zone
-    # credentials = file("/tmp/artimanhas-do-lucaum-4152360065eb.json")
-    credentials = var.gcp_token
+  project = var.gcp_project
+  zone    = var.gcp_zone
+  # credentials = file("/tmp/artimanhas-do-lucaum-4152360065eb.json")
+  credentials = var.gcp_token
 }
 
 resource "google_service_account" "default" {
@@ -64,15 +60,15 @@ resource "google_service_account" "default" {
 }
 
 data "google_container_engine_versions" "supported" {
-  location = var.gcp_zone
+  location       = var.gcp_zone
   version_prefix = var.kubernetes_version
 }
 
 resource "google_container_cluster" "primary" {
   # provider = google-beta
-  name = "clusterson"
-  location = var.gcp_zone
-  node_version = data.google_container_engine_versions.supported.latest_node_version
+  name               = "clusterson"
+  location           = var.gcp_zone
+  node_version       = data.google_container_engine_versions.supported.latest_node_version
   min_master_version = data.google_container_engine_versions.supported.latest_master_version
 
   service_external_ips_config {
@@ -81,9 +77,9 @@ resource "google_container_cluster" "primary" {
 
   initial_node_count = 1
   node_config {
-    machine_type = var.gcp_instance
+    machine_type    = var.gcp_instance
     service_account = google_service_account.default.email
-    spot = true
+    spot            = true
     oauth_scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
       "https://www.googleapis.com/auth/compute",

@@ -1,0 +1,10 @@
+{{- range $name, $app := .root.modules.webapp.config.apps }}
+<<<WORKSPACED_FILE:webapp-{{ $name }}.desktop:0644>>>
+[Desktop Entry]
+Type=Application
+Name={{ or $app.desktop_name $name }}
+Exec=workspaced open webapp --url "{{ $app.url }}" {{ if $app.browser}}--chromium "{{$app.browser}}"{{ end }} {{ if $app.profile }}--profile "{{ $app.profile }}"{{ end }}{{ range $app.extra_flags }} --extra-flag "{{ . }}"{{ end }}
+Icon={{ or $app.icon (favicon $app.url) }}
+Categories=Network;WebBrowser;
+<<<WORKSPACED_ENDFILE>>>
+{{- end }}

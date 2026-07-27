@@ -1,9 +1,10 @@
-from .__common import commands, cmds
 from sys import argv
+
+from .__common import cmds, commands
 
 args = [*argv[1:]]
 if len(args) == 0:
-    args.append('repl')
+    args.append("repl")
 cmd = args[0]
 args = args[1:]
 

@@ -14,6 +14,5 @@
       ];
     };
     systemd.services.libvirtd.path = with pkgs; [ virtiofsd ];
-    environment.systemPackages = with pkgs; [ virt-manager ];
   };
 }

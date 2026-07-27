@@ -13,24 +13,18 @@ in
     ../bootstrap
     ./cachix.nix
     ./hold-gc.nix
-    (inputs.simple-dashboard + /nixos-module.nix)
 
     ./ansible-python.nix
     ./services
 
-    ./admin-user.nix
-    ./hosts.nix
     ./kvm.nix
     ./lvm.nix
-    ./nginx-root-domain.nix
-    ./nginx.nix
+    ./nix-ld.nix
     ./nix-index-database.nix
     ./sops.nix
-    ./tmux
     ./tuning.nix
     ./unstore.nix
-    ./postgres-backup.nix
-    ./forbidden-paths.nix
+    ./workusers.nix
   ];
 
   boot.supportedFilesystems = [
@@ -39,6 +33,8 @@ in
   ];
 
   services.lvm.enable = mkDefault false;
+
+  services.phpelo.enable = false;
 
   programs.fuse.userAllowOther = true;
 
@@ -83,15 +79,11 @@ in
 
   boot.loader.grub.memtest86.enable = true;
 
-  virtualisation.docker = {
-    enable = true;
-    # dockerSocket.enable = true;
-    # dockerCompat = true;
-    enableNvidia = true;
-  };
+  virtualisation.docker.enable = lib.mkDefault true;
 
   environment = {
     systemPackages = with pkgs; [
+      bubblewrap
       ts # simple queue system
       rlwrap
       wget
@@ -103,20 +95,16 @@ in
       usbutils
       htop
       lm_sensors
-      neofetch
+      fastfetch
       lls # like netstat
+      cached-nix-shell
     ];
   };
   cachix.enable = true;
 
   services.smartd = {
-    enable = true;
+    enable = lib.mkDefault true;
     autodetect = true;
     notifications.test = true;
   };
-
-  services.nginx.appendHttpConfig = ''
-    error_log stderr;
-    access_log syslog:server=unix:/dev/log combined;
-  '';
 }

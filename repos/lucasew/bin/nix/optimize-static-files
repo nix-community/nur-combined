@@ -3,71 +3,70 @@
 
 set -eu -o pipefail
 
-function log () {
-    echo "$@" > /dev/stderr
+function log() {
+	echo "$@" >/dev/stderr
 }
 
-function optimize_path_stream () {
-    while read line; do
-        if [[ ! -L "$line" ]]; then
-            store_item="$(storeify "$line")"
-            echo "'$line' -> '$store_item'"
-        fi
-    done
+function optimize_path_stream() {
+	while read line; do
+		if [[ ! -L "$line" ]]; then
+			store_item="$(storeify "$line")"
+			echo "'$line' -> '$store_item'"
+		fi
+	done
 }
 
 function optimize_all_files_by_extension() {
-    folder="$1"
-    ext="$2"
-    q=".${ext}$"
-    find "$folder" -type f | grep -e $q || true
+	folder="$1"
+	ext="$2"
+	q=".${ext}$"
+	find "$folder" -type f | grep -e $q || true
 }
 
 function optimize_all_folders_that_has_a_file() {
-    folder="$1"
-    file="$2"
-    find "$folder" -type f | grep "$file" || true | while read line; do
-        if [ "$(basename "$f")" == "$file" ]; then
-            echo "$(dirname "$f")"
-        fi
-    done
+	folder="$1"
+	file="$2"
+	find "$folder" -type f | grep "$file" || true | while read line; do
+		if [ "$(basename "$f")" == "$file" ]; then
+			echo "$(dirname "$f")"
+		fi
+	done
 }
 
 {
 
-    optimize_all_files_by_extension ~/.wine-nix cpl
-    optimize_all_files_by_extension ~/.wine-nix dll
-    optimize_all_files_by_extension ~/.wine-nix drv
-    optimize_all_files_by_extension ~/.wine-nix exe
-    optimize_all_files_by_extension ~/.wine-nix msi
-    optimize_all_files_by_extension ~/.wine-nix ocx
-    optimize_all_files_by_extension ~/.wine-nix sys
+	optimize_all_files_by_extension ~/.wine-nix cpl
+	optimize_all_files_by_extension ~/.wine-nix dll
+	optimize_all_files_by_extension ~/.wine-nix drv
+	optimize_all_files_by_extension ~/.wine-nix exe
+	optimize_all_files_by_extension ~/.wine-nix msi
+	optimize_all_files_by_extension ~/.wine-nix ocx
+	optimize_all_files_by_extension ~/.wine-nix sys
 
-    optimize_all_files_by_extension ~/.gradle jar
+	optimize_all_files_by_extension ~/.gradle jar
 
-    optimize_all_folders_that_has_a_file ~/go go.mod
+	optimize_all_folders_that_has_a_file ~/go go.mod
 
-    optimize_all_files_by_extension ~/.cache/winetricks exe
-    optimize_all_files_by_extension ~/.cache/winetricks EXE
-    optimize_all_files_by_extension ~/.cache/winetricks msi
+	optimize_all_files_by_extension ~/.cache/winetricks exe
+	optimize_all_files_by_extension ~/.cache/winetricks EXE
+	optimize_all_files_by_extension ~/.cache/winetricks msi
 
-    # discord funnily loops in the install modules phase so excluding it
-    find ~ -type d  | grep 'node_modules' | grep -v 'discord' | while read line; do
-        if [ "$(basename "$line")" == "node_modules" ]; then
-            for item in $(ls -1 "$line"); do
-                folder="$line/$item"
-                if [[ "$item" =~ "@" ]]; then
-                    # echo "foi item $folder"
-                    for item in $(ls -1 "$folder"); do
-                        echo "$folder/$item"
-                    done
-                else
-                    echo "$folder"
-                fi
-            done
-        fi;
-    done
+	# discord funnily loops in the install modules phase so excluding it
+	find ~ -type d | grep 'node_modules' | grep -v 'discord' | while read line; do
+		if [ "$(basename "$line")" == "node_modules" ]; then
+			for item in $(ls -1 "$line"); do
+				folder="$line/$item"
+				if [[ "$item" =~ "@" ]]; then
+					# echo "foi item $folder"
+					for item in $(ls -1 "$folder"); do
+						echo "$folder/$item"
+					done
+				else
+					echo "$folder"
+				fi
+			done
+		fi
+	done
 } | optimize_path_stream
 
-    # exit 0
-
+# exit 0

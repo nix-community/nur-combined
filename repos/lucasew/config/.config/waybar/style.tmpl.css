@@ -1,0 +1,93 @@
+@define-color base00 #{{ .root.modules.base16.config.base00 }};
+@define-color base01 #{{ .root.modules.base16.config.base01 }};
+@define-color base02 #{{ .root.modules.base16.config.base02 }};
+@define-color base03 #{{ .root.modules.base16.config.base03 }};
+@define-color base04 #{{ .root.modules.base16.config.base04 }};
+@define-color base05 #{{ .root.modules.base16.config.base05 }};
+@define-color base06 #{{ .root.modules.base16.config.base06 }};
+@define-color base07 #{{ .root.modules.base16.config.base07 }};
+@define-color base08 #{{ .root.modules.base16.config.base08 }};
+@define-color base09 #{{ .root.modules.base16.config.base09 }};
+@define-color base0A #{{ .root.modules.base16.config.base0A }};
+@define-color base0B #{{ .root.modules.base16.config.base0B }};
+@define-color base0C #{{ .root.modules.base16.config.base0C }};
+@define-color base0D #{{ .root.modules.base16.config.base0D }};
+@define-color base0E #{{ .root.modules.base16.config.base0E }};
+@define-color base0F #{{ .root.modules.base16.config.base0F }};
+
+* {
+    font-family: "{{ .root.modules.fontconfig.config.sans_serif }}", "{{ .root.modules.fontconfig.config.emoji }}";
+    font-weight: 300;
+    font-size: 13px;
+    min-height: 26px;
+    background-color: @base00;
+    color: @base05;
+}
+
+
+window {
+    transition: none;
+    box-shadow: none;
+    min-height: 32px;
+}
+
+#tray, #mode, #battery, #cpu, #memory, #network, #pulseaudio, #idle_inhibitor, #backlight, #custom-storage, #custom-updates, #custom-weather, #custom-mail, #clock, #temperature {
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+#pulseaudio.muted {
+    color: @base0F;
+}
+
+#pulseaudio.bluetooth {
+    color: @base0C;
+}
+#temperature.critical {
+    color: @base0F;
+}
+
+
+#workspaces button {
+  padding: 0 8px;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+#workspaces button label {
+    background: none;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+#workspaces button:hover {
+    background: @base02;
+    color: @base05;
+}
+
+#workspaces button.visible {
+    background: @base02;
+    color: @base00;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    font-weight: bolder;
+    color: @base00;
+    background: @base04;
+}
+
+#workspaces button.urgent {
+    background: @base08;
+    color: @base00;
+}
+
+window#waybar {
+    background-color: #ff0000; /* Example: a dark gray hex color */
+}

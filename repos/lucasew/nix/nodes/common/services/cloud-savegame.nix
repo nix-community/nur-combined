@@ -100,7 +100,7 @@ in
 
       default = {
         general.divider = ",";
-        search.paths = "~";
+        search.paths = [ "~" ];
         flatout-2.installdir = [ "~/.local/share/Steam/steamapps/common/FlatOut2" ];
       };
     };
@@ -109,7 +109,7 @@ in
   config = mkIf cfg.enable {
     services.cloud-savegame.settings = {
       general.divider = ",";
-      search.paths = "~";
+      search.paths = [ "~" ];
       flatout-2.installdir = [ "~/.local/share/Steam/steamapps/common/FlatOut2" ];
     };
 
@@ -154,7 +154,7 @@ in
           tilde=~
           OUTPUT_DIR="$(echo "$OUTPUT_DIR" | sed "s;~;$tilde;")"
           if [ -d "$OUTPUT_DIR" ]; then
-            ${cfg.package}/bin/cloud-savegame -o "$OUTPUT_DIR" -c "$CONFIG_FILE" ${optionalString cfg.enableGit "-g"} ${optionalString cfg.enableVerbose "-v"} ${optionalString cfg.enableBacklink "-b"} --max-depth ${toString cfg.maxDepth}
+            ${lib.getExe cfg.package} -o "$OUTPUT_DIR" -c "$CONFIG_FILE" ${optionalString cfg.enableGit "-g"} ${optionalString cfg.enableVerbose "-v"} ${optionalString cfg.enableBacklink "-b"} --max-depth ${toString cfg.maxDepth}
             if [ -x /run/wrappers/bin/sendmail ]; then
               printf "Subject: %s\n%s" "cloud-savegame" "Backup finalizado" | /run/wrappers/bin/sendmail
             fi

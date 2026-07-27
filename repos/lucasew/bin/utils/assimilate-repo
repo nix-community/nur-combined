@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+set -e
+
+# --- Configurações e Defaults ---
+TS=$(date +%s)
+# Folder padrão caso não seja passado via flag
+FOLDER="exp-$TS"
+PREFIX="[EXP-$TS]"
+
+usage() {
+    echo "Uso: $0 <caminho_playground> <url_repo_engolido> [--prefix=VAL] [--folder=VAL]"
+    exit 1
+}
+
+if ! command -v uv &> /dev/null; then echo "Erro: Instale o 'uv'."; exit 1; fi
+if [ "$#" -lt 2 ]; then usage; fi
+
+PLAYGROUND_PATH=$(realpath "$1")
+TARGET_REPO_URL=$2
+shift 2
+
+for i in "$@"; do
+    case $i in
+        --prefix=*) PREFIX="${i#*=}"; shift ;;
+        --folder=*) FOLDER="${i#*=}"; shift ;;
+        *) echo "Opção desconhecida: $i"; usage ;;
+    esac
+done
+
+# A branch SEMPRE leva o timestamp para evitar o erro de 'already exists'
+BRANCH_NAME="assimilate/${FOLDER}-${TS}"
+
+# --- Setup Temporário ---
+RUN_DIR=$(mktemp -d -t assimilate-XXXXXX)
+TEMP_REPO="$RUN_DIR/repo-alvo"
+WORKTREE_PATH="$RUN_DIR/worktree"
+
+trap 'rm -rf "$TEMP_REPO"' EXIT
+
+echo "### 1. Clonando $TARGET_REPO_URL..."
+git clone "$TARGET_REPO_URL" "$TEMP_REPO"
+cd "$TEMP_REPO"
+
+echo "### 2. Recreando histórico (Pasta fixa: $FOLDER)..."
+uv run https://raw.githubusercontent.com/newren/git-filter-repo/main/git-filter-repo \
+    --to-subdirectory-filter "$FOLDER" \
+    --message-callback "return b'$PREFIX ' + message" \
+    --commit-callback "commit.committer_date = commit.author_date" \
+    --force
+
+echo "### 3. Criando Worktree no Playground..."
+cd "$PLAYGROUND_PATH"
+
+# Se por algum milagre a branch com TS existir, ela morre
+git branch -D "$BRANCH_NAME" >/dev/null 2>&1 || true
+
+git worktree add -b "$BRANCH_NAME" "$WORKTREE_PATH"
+
+echo "### 4. Fusão Final..."
+cd "$WORKTREE_PATH"
+git remote add source-temp "$TEMP_REPO"
+git fetch source-temp
+
+SOURCE_BRANCH=$(git -C "$TEMP_REPO" rev-parse --abbrev-ref HEAD)
+
+git merge "source-temp/$SOURCE_BRANCH" \
+    --allow-unrelated-histories \
+    -m "$PREFIX: Assimilando $TARGET_REPO_URL em $FOLDER"
+
+git remote remove source-temp
+
+echo "--------------------------------------------------"
+echo "CONCLUÍDO COM SUCESSO"
+echo "Pasta no Repo: $FOLDER"
+echo "Branch de PR:  $BRANCH_NAME"
+echo "Worktree:      $WORKTREE_PATH"
+echo "--------------------------------------------------"

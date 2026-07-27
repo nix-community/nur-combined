@@ -14,6 +14,11 @@ let
   '';
 in
 {
+  services.displayManager.autoLogin = {
+    enable = lib.mkDefault true;
+    user = lib.mkDefault username;
+  };
+
   users = {
     mutableUsers = true;
     users = {
@@ -25,10 +30,9 @@ in
           "docker"
           "video"
           "render"
-          "transmission"
+          "ssh"
         ];
         initialPassword = "changeme";
-        openssh.authorizedKeys.keyFiles = [ ../../../authorized_keys ];
       };
     };
   };

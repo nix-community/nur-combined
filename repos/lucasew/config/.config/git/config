@@ -1,0 +1,21 @@
+[gpg]
+	format = "ssh"
+
+[gpg "openpgp"]
+	program = "/nix/store/fdfasp6d120bz4v57wz94fra9x6m4hpb-gnupg-2.4.8/bin/gpg"
+
+[user]
+	email = "lucas59356@gmail.com"
+	name = "lucasew"
+	signingkey = ~/.ssh/id_ed25519.pub
+
+[pull]
+	rebase = true
+
+[alias]
+	checkpoint = commit -m "checkpoint"
+    # Difftastic aliases, so `git dlog -p` is `git log -p`
+    # with difftastic and likewise for the other subcommands.
+    dlog = -c diff.external=difft log --ext-diff
+    dshow = -c diff.external=difft show --ext-diff
+    ddiff = -c diff.external=difft diff
