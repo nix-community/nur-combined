@@ -18,13 +18,34 @@ in
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
 
   config = lib.mkIf cfg.users.toyvo.enable {
-    home.packages = with pkgs; [
-      inputs.nixcfg.packages.${system}.toyvo-neovim
-      opencommit
-    ];
-    home.sessionVariables.EDITOR = "nvim";
+    catppuccin = {
+      enable = true;
+      autoEnable = true;
+      flavor = "frappe";
+      accent = "red";
+    };
+    home = {
+      file = {
+        ".opencommit".source = config.lib.file.mkOutOfStoreSymlink config.sops.templates.opencommit.path;
+        # ~/.opencommit is a read-only sops symlink, so opencommit's startup
+        # migrations (which rewrite the global config) fail with EACCES. Our
+        # config is fully managed above, so mark all known migrations complete.
+        ".opencommit_migrations".text = ''
+          ["00_use_single_api_key_and_url","01_remove_obsolete_config_keys_from_global_file","02_set_missing_default_values"]
+        '';
+      };
+      packages = with pkgs; [
+        inputs.nixcfg.packages.${system}.toyvo-neovim
+        opencommit
+      ];
+      sessionVariables.EDITOR = "nvim";
+    };
     programs = {
       alacritty.enable = cfg.gui.enable;
+      bash.initExtra = ''
+        source ${config.sops.templates."shell-secrets.env".path}
+        export OPENCODE_API_KEY
+      '';
       beets = {
         enable = pkgs.stdenv.isLinux;
         settings = {
@@ -71,10 +92,9 @@ in
         enable = true;
         nix-direnv.enable = true;
       };
-      # TODO: undo
-      rio.enable = cfg.gui.enable && pkgs.stdenv.isLinux;
-      wezterm.enable = cfg.gui.enable;
-      kitty.enable = cfg.gui.enable;
+      fish.interactiveShellInit = ''
+        sourceenv ${config.sops.templates."shell-secrets.env".path} > /dev/null 2>&1
+      '';
       git = {
         enable = true;
         signing = {
@@ -86,6 +106,10 @@ in
           email = "Collin@Diekvoss.com";
         };
       };
+      helix.enable = true;
+      herdr.enable = true;
+      hyper.enable = cfg.gui.enable;
+      ideavim.enable = true;
       jujutsu = {
         enable = true;
         settings = {
@@ -112,16 +136,9 @@ in
           };
         };
       };
-      helix.enable = true;
-      herdr.enable = true;
-      hyper.enable = cfg.gui.enable;
-      pi-coding-agent = {
-        enable = true;
-        extraPackages = with pkgs; [
-          nodejs
-          bun
-        ];
-      };
+      kitty.enable = cfg.gui.enable;
+      man.package = pkgs.man;
+      nix-index-database.comma.enable = true;
       opencode = {
         enable = true;
         settings.mcp.github-toyvo = {
@@ -131,6 +148,15 @@ in
           headers.Authorization = "Bearer {file:${config.sops.secrets.github_toyvo_pat.path}}";
         };
       };
+      pi-coding-agent = {
+        enable = true;
+        extraPackages = with pkgs; [
+          nodejs
+          bun
+        ];
+      };
+      # TODO: undo
+      rio.enable = cfg.gui.enable && pkgs.stdenv.isLinux;
       ssh =
         let
           identityConfig = {
@@ -144,73 +170,65 @@ in
         in
         {
           enable = true;
-          settings."github.com" = {
-            IdentitiesOnly = "yes";
-            IdentityFile = [
-              config.sops.secrets.github_toyvo_auth_ed25519.path
-              config.sops.secrets.yubikey_usbc_ed25519_sk.path
-              config.sops.secrets.yubikey_usba_ed25519_sk.path
-            ];
+          settings = {
+            "github.com" = {
+              IdentitiesOnly = "yes";
+              IdentityFile = [
+                config.sops.secrets.github_toyvo_auth_ed25519.path
+                config.sops.secrets.yubikey_usbc_ed25519_sk.path
+                config.sops.secrets.yubikey_usba_ed25519_sk.path
+              ];
+            };
+            "macmini-intel" = identityConfig // {
+              User = "toyvo";
+              HostName = "macmini-intel.internal";
+              RemoteCommand = "fish --login";
+              RequestTTY = "yes";
+            };
+            "macmini-m1" = identityConfig // {
+              User = "toyvo";
+              HostName = "macmini-m1.internal";
+              RemoteCommand = "fish --login";
+              RequestTTY = "yes";
+            };
+            "nas" = identityConfig // {
+              User = "toyvo";
+              HostName = "nas.internal";
+            };
+            "oracle" = identityConfig // {
+              User = "toyvo";
+              HostName = "oracle-cloud-nixos.internal";
+            };
+            "protectli" = identityConfig // {
+              User = "toyvo";
+              HostName = "protectli.internal";
+            };
+            "router" = identityConfig // {
+              User = "toyvo";
+              HostName = "router.internal";
+            };
+            "steamdeck-nixos" = identityConfig // {
+              User = "toyvo";
+              HostName = "steamdeck-nixos.internal";
+            };
+            "windows-desktop" = identityConfig // {
+              User = "toyvo";
+              HostName = "windows-desktop.internal";
+            };
+            "10.1.0.*" = identityConfig;
           };
-          settings."oracle" = identityConfig // {
-            User = "toyvo";
-            HostName = "oracle-cloud-nixos.internal";
-          };
-          settings."router" = identityConfig // {
-            User = "toyvo";
-            HostName = "router.internal";
-          };
-          settings."nas" = identityConfig // {
-            User = "toyvo";
-            HostName = "nas.internal";
-          };
-          settings."protectli" = identityConfig // {
-            User = "toyvo";
-            HostName = "protectli.internal";
-          };
-          settings."macmini-m1" = identityConfig // {
-            User = "toyvo";
-            HostName = "macmini-m1.internal";
-            RemoteCommand = "fish --login";
-            RequestTTY = "yes";
-          };
-          settings."macmini-intel" = identityConfig // {
-            User = "toyvo";
-            HostName = "macmini-intel.internal";
-            RemoteCommand = "fish --login";
-            RequestTTY = "yes";
-          };
-          settings."windows-desktop" = identityConfig // {
-            User = "toyvo";
-            HostName = "windows-desktop.internal";
-          };
-          settings."steamdeck-nixos" = identityConfig // {
-            User = "toyvo";
-            HostName = "steamdeck-nixos.internal";
-          };
-          settings."10.1.0.*" = identityConfig;
         };
+      wezterm.enable = cfg.gui.enable;
       zed-editor = {
         enable = cfg.gui.enable;
         package = pkgs.zed-editor;
       };
-      ideavim.enable = true;
-      bash.initExtra = ''
-        source ${config.sops.templates."shell-secrets.env".path}
-        export OPENCODE_API_KEY
-      '';
       zsh.initContent = ''
         source ${config.sops.templates."shell-secrets.env".path}
         export OPENCODE_API_KEY
       '';
-      fish.interactiveShellInit = ''
-        sourceenv ${config.sops.templates."shell-secrets.env".path} > /dev/null 2>&1
-      '';
     };
-    catppuccin = {
-      flavor = "frappe";
-      accent = "red";
-    };
+    services.easyeffects.enable = pkgs.stdenv.isLinux && cfg.gui.enable;
     sops = {
       secrets = {
         github_toyvo_pat = { };
@@ -254,13 +272,5 @@ in
         '';
       };
     };
-    home.file.".opencommit".source =
-      config.lib.file.mkOutOfStoreSymlink config.sops.templates.opencommit.path;
-    # ~/.opencommit is a read-only sops symlink, so opencommit's startup
-    # migrations (which rewrite the global config) fail with EACCES. Our
-    # config is fully managed above, so mark all known migrations complete.
-    home.file.".opencommit_migrations".text = ''
-      ["00_use_single_api_key_and_url","01_remove_obsolete_config_keys_from_global_file","02_set_missing_default_values"]
-    '';
   };
 }

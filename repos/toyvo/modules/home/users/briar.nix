@@ -16,5 +16,6 @@ in
       flavor = "latte";
       accent = "pink";
     };
+    services.easyeffects.enable = pkgs.stdenv.isLinux && cfg.gui.enable;
   };
 }
