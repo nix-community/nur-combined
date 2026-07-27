@@ -82,23 +82,24 @@ flutter.buildFlutterApplication {
   };
 
   postPatch = ''
-    substituteInPlace \
-      lib/pages/plugin_editor/plugin_view_page.dart \
+    # Fix compatibility issues with Flutter 3.24+ breaking API changes
+    substituteInPlace lib/pages/plugin_editor/plugin_view_page.dart \
       --replace-fail "onReorderItem:" "onReorder:"
 
-    # TabBarScrollController was removed in Flutter 3.44
-    substituteInPlace \
-      lib/bean/dialog/material_bottom_sheet.dart \
-      --replace-fail 'TabBarScrollController' 'ScrollController'
-    sed -i '/scrollController: _scrollController,/d' \
-      lib/bean/dialog/material_bottom_sheet.dart
+    substituteInPlace lib/bean/dialog/material_bottom_sheet.dart \
+      --replace-fail 'TabBarScrollController' 'ScrollController' \
+      --replace-fail 'scrollController: _scrollController,' ""
 
-    # Bangumi mirror search requires KAZUMI_APPID/KAZUMI_KEY injected via
-    # --dart-define in the author's CI (GitHub secrets). Without them the
-    # signed request fails with 401.  Disable the proxy by default so
-    # search falls back to the official Bangumi API directly.
-    sed -i '/_SettingBoxKey.enableBangumiProxy/{n;s/true,/false,/}' \
-      lib/services/storage/settings_keys.dart
+    # Disable Bangumi proxy by default
+    substituteInPlace lib/services/storage/settings_keys.dart \
+      --replace-fail $'_SettingBoxKey.enableBangumiProxy,\n    true,' $'_SettingBoxKey.enableBangumiProxy,\n    false,'
+  '';
+
+  # Ensure HTTPS certificate bundle is available to fix TLS verification
+  preFixup = ''
+    gappsWrapperArgs+=(
+      --set SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt"
+    )
   '';
 
   nativeBuildInputs = [ autoPatchelfHook ];
@@ -121,12 +122,6 @@ flutter.buildFlutterApplication {
     ln -snf ${mpv-unwrapped}/lib/libmpv.so.2 $out/app/$pname/lib/libmpv.so.2
     install -Dm 0644 assets/linux/io.github.Predidit.Kazumi.desktop -t $out/share/applications/
     install -Dm 0644 assets/images/logo/logo_linux.png $out/share/icons/hicolor/512x512/apps/io.github.Predidit.Kazumi.png
-  '';
-
-  preFixup = ''
-    gappsWrapperArgs+=(
-      --set SSL_CERT_FILE "${cacert}/etc/ssl/certs/ca-bundle.crt"
-    )
   '';
 
   passthru.updateScript = ./update.py;
