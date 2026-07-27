@@ -11,7 +11,11 @@
           pkgs = import nixpkgs { inherit system; };
         in
         {
-          packages = import ./pkgs/top-level { localSystem = system; inherit pkgs; };
+          legacyPackages = import ./default.nix {
+            inherit pkgs;
+          };
+
+          packages = nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) self.legacyPackages.${system};
 
           formatter = pkgs.writeShellScriptBin "nur-packages-fmt" ''
             ${pkgs.nixpkgs-fmt}/bin/nixpkgs-fmt .
@@ -43,15 +47,9 @@
           };
         })
     // {
-      nixosModules = nixpkgs.lib.mapAttrs (_: path: import path) (import ./modules) // {
-        default = {
-          imports = nixpkgs.lib.attrValues self.nixosModules;
-        };
+      nixosModules = import ./modules // {
+        default = { ... }: { imports = nixpkgs.lib.attrValues self.nixosModules; };
       };
-
-      overlays = import ./overlays // {
-        pkgs = _: prev: import ./pkgs/top-level/all-packages.nix { pkgs = prev; };
-        default = _: _: { xeals = nixpkgs.lib.composeExtensions self.overlays.pkgs; };
-      };
+      overlays = import ./overlays;
     };
 }

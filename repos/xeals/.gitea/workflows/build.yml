@@ -4,22 +4,15 @@ on:
   push:
 jobs:
 
-  checks:
-    strategy:
-      matrix:
-        check:
-          # - nixpkgs-fmt
-          # - deadnix
-          - nur
+  flake-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: https://gitea.com/actions/checkout@v6
+        uses: https://gitea.com/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
       - name: Install nix
         uses: https://github.com/cachix/install-nix-action@v31
-      - name: Check ${{ matrix.check }}
-        # Depends on nixos/nix#7759 to simply `nix flake check`
-        run: nix run .#checks.$(nix eval --raw --impure --expr "builtins.currentSystem").${{ matrix.check }}
+      - name: Run check
+        run: nix flake check
 
   build-and-update:
     strategy:
@@ -44,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository
-      uses: https://gitea.com/actions/checkout@v6
+      uses: https://gitea.com/actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
     - name: Install nix
       uses: https://github.com/cachix/install-nix-action@v31
     - name: Show nixpkgs version

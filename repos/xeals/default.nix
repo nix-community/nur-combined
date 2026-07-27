@@ -7,12 +7,24 @@
 #     nix-build -A mypackage
 
 { pkgs ? import <nixpkgs> { } }:
+
 let
-  system = pkgs.stdenv.hostPlatform.system;
-  packages = import ./pkgs/top-level { localSystem = system; inherit pkgs; };
+  inherit (pkgs) lib;
+
+  autoPackages = lib.pipe ./pkgs [
+    builtins.readDir
+    builtins.attrNames
+    (map (pkg: {
+      name = pkg;
+      value = pkgs.callPackage "${./pkgs}/${pkg}/package.nix" { };
+    }))
+    builtins.listToAttrs
+  ];
 in
-packages // {
-  # The `lib`, `modules`, and `overlay` names are special
+
+autoPackages //
+{
+  # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays

@@ -13,7 +13,7 @@ in
         # TODO: How do I use mkPackageOption when the package isn't in the
         #  package set?
         type = types.package;
-        default = pkgs.callPackage ../../../pkgs/by-name/po/porkbun-ddns/package.nix { };
+        default = pkgs.callPackage ../../../pkgs/porkbun-ddns/package.nix { };
         defaultText = "pkgs.porkbun-ddns";
         description = lib.mdDoc "The porkbun-ddns package to use.";
       };

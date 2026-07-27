@@ -10,7 +10,6 @@
 let
   pname = "cura5";
   version = "5.6.0";
-  name = "${pname}-${version}";
 
   cura5 = appimageTools.wrapType2 {
     inherit pname version;

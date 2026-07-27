@@ -1,14 +1,13 @@
 { lib
 , fetchPypi
 , python312
-, zlib
+
 }:
 
 let
   python = python312;
   inherit (python.pkgs)
     buildPythonApplication
-    buildPythonPackage
     setuptools
     cython
     numpy_1

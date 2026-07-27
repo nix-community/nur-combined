@@ -1,27 +1,23 @@
 { stdenv
 , lib
 , fetchFromGitHub
-
-, qtbase
-, qmake
-, wrapQtAppsHook ? null # Temporary backwards compatibility
+, qt5
 }:
 
 stdenv.mkDerivation rec {
   pname = "radeon-profile-daemon";
   version = "20190603.g06qxq2h";
 
-  buildInputs = [ qtbase ];
-  nativeBuildInputs = [ qmake wrapQtAppsHook ];
+  buildInputs = [ qt5.qtbase ];
+  nativeBuildInputs = [ qt5.qmake qt5.wrapQtAppsHook ];
 
-  src = (
-    fetchFromGitHub {
-      owner = "marazmista";
-      repo = "radeon-profile-daemon";
-      rev = version;
-      sha256 = "06qxq2hv3l9shna8x5d9awbdm9pbwlc6vckcr63kf37rrs8ykk0j";
-    }
-  ) + "/radeon-profile-daemon";
+  src = fetchFromGitHub {
+    owner = "marazmista";
+    repo = "radeon-profile-daemon";
+    rev = version;
+    sha256 = "06qxq2hv3l9shna8x5d9awbdm9pbwlc6vckcr63kf37rrs8ykk0j";
+  };
+  sourceRoot = "${src.name}/radeon-profile-daemon";
 
   preConfigure = ''
     substituteInPlace radeon-profile-daemon.pro \

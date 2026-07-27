@@ -1,5 +1,4 @@
-{ lib
-, fetchPypi
+{ fetchPypi
 , buildPythonPackage
   # Package dependencies
 , zlib
@@ -13,7 +12,7 @@
 , platformdirs
 , portalocker
 , versioneer
-, distutils
+
 }:
 
 let
@@ -24,7 +23,7 @@ let
     numpy_1
   ];
 
-  platformdirs31 = platformdirs.overrideAttrs (old: {
+  platformdirs31 = platformdirs.overrideAttrs (_old: {
     src = fetchPypi {
       pname = "platformdirs";
       version = "3.1.1";
@@ -51,13 +50,13 @@ let
       platformdirs31
       pymctranslate
 
-      ((portalocker.overrideAttrs (old: {
+      ((portalocker.overrideAttrs (_old: {
         src = fetchPypi {
           pname = "portalocker";
           version = "2.4.0";
           hash = "sha256-pkitdhuOonNwy1kVNQEizYB7gg0hk+1cnMKPFj32N/Q=";
         };
-      })).overridePythonAttrs (old: {
+      })).overridePythonAttrs (_old: {
         doCheck = false;
       }))
     ];

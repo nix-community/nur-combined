@@ -1,9 +1,9 @@
 { lib
-, buildPythonPackage
+, python3Packages
 , fetchPypi
 }:
 
-buildPythonPackage rec {
+python3Packages.buildPythonPackage rec {
   pname = "py-sonic";
   version = "0.7.7";
 
