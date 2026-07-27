@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.102";
+    version = "v7.2.103";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.102";
-      hash = "sha256-kDszgZL3BFuDkPQzh8RMdJ0kfn96pABgVcLwU/9b3Xs=";
+      tag = "v7.2.103";
+      hash = "sha256-fLjvib+XarucTtDoee1JpLjV7RyEwHCKCybtswZYi/4=";
     };
   };
   cockpy = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.7";
+    version = "v0.2.8";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.7";
-      hash = "sha256-uP89iZbApA4ywO4ulckTX3RJ8TpL9qkiE1tMUq7GeZA=";
+      tag = "v0.2.8";
+      hash = "sha256-CnpL6rL1Qff8VstV6+lRxB84h4hLgRSAEUWlfAU5vbw=";
     };
   };
   edge-tts = {
@@ -822,12 +822,12 @@
   };
   funasr = {
     pname = "funasr";
-    version = "05e464c80ccd738591be5d10610f9586ac98f733";
+    version = "16cd165ac3946cc8c08bf845331f91fefec8e1a9";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "05e464c80ccd738591be5d10610f9586ac98f733";
-      hash = "sha256-ErP4kXcnKHeSuf6bFLrJ19U4QnpMERQ0AHaYJ36W+nA=";
+      rev = "16cd165ac3946cc8c08bf845331f91fefec8e1a9";
+      hash = "sha256-utcPHH4mMKyvGNgK4XgxIbhFmnDsdRpETqc+R+5VvQc=";
     };
     date = "2026-07-27";
   };
@@ -1200,14 +1200,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "a4e5da1f94143e8bbf40556d1982cbebeb0744e8";
+    version = "9d20051143544daa348bc0bbdcef5ef121e385d3";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "a4e5da1f94143e8bbf40556d1982cbebeb0744e8";
-      hash = "sha256-fI/FFzoSEjxFes1KbQZq/yHtAIH64K3pC6zF3bmpbzw=";
+      rev = "9d20051143544daa348bc0bbdcef5ef121e385d3";
+      hash = "sha256-pyUJMxOZA+gTSwWZu7ZbA8cNisI9OaX9MGjgC4+gDes=";
     };
-    date = "2026-07-26";
+    date = "2026-07-27";
   };
   libqcef = {
     pname = "libqcef";
@@ -1527,14 +1527,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "e6724a3b811f63264a49a8a8d1d4a5c8b48665ec";
+    version = "dd8bc24234d748705d1ee445c5205e3dcbb78446";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "e6724a3b811f63264a49a8a8d1d4a5c8b48665ec";
-      hash = "sha256-j+KMZk+0RgxAFaAFA9hDoeKcIRg3fGacyBFAMMsC2mU=";
+      rev = "dd8bc24234d748705d1ee445c5205e3dcbb78446";
+      hash = "sha256-ywgLIQh/X+lXxEN7eP30JB/NlOAkU7aLsBpq55cQ7eg=";
     };
-    date = "2026-05-24";
+    date = "2026-07-27";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1891,20 +1891,20 @@
   };
   qemu-user-static-amd64 = {
     pname = "qemu-user-static-amd64";
-    version = "11.0.2+ds-2";
+    version = "11.0.3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.2+ds-2_amd64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.3+ds-2_amd64.deb";
       name = "qemu.deb";
-      hash = "sha256-IZM4xVU0+CiDhe8btsfOIIeqFLlI3cSpqNVuBAw/8ZM=";
+      hash = "sha256-rIQcOZYfwQCmNxKo/a3nFcInkcbnZ7xDns/divWoKIg=";
     };
   };
   qemu-user-static-arm64 = {
     pname = "qemu-user-static-arm64";
-    version = "11.0.2+ds-2";
+    version = "11.0.3+ds-2";
     src = fetchurl {
-      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.2+ds-2_arm64.deb";
+      url = "http://ftp.debian.org/debian/pool/main/q/qemu/qemu-user_11.0.3+ds-2_arm64.deb";
       name = "qemu.deb";
-      hash = "sha256-lmI3nbo4s2iYK3gMiTChlDCXEF8XcqVUVnOUhKxag/Y=";
+      hash = "sha256-HuyQoZME3NgokFiS7WBMan2gbAkShjr6+rxDmzsjgeg=";
     };
   };
   qemu-user-static-armhf = {
@@ -2144,14 +2144,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "60c2a1f8c169f1a13e5a28092134964342db321e";
+    version = "f99cffb24589a7af89504b6691d83accbda38d9b";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "60c2a1f8c169f1a13e5a28092134964342db321e";
-      hash = "sha256-VdqJpHpTO26TAZgGqotYzPqPVcU5fycYVQehn0mdDhg=";
+      rev = "f99cffb24589a7af89504b6691d83accbda38d9b";
+      hash = "sha256-rbdK5f004dFYrJDUMg9i8bWWocBYHB88OQAUB8yj3N8=";
     };
-    date = "2026-07-23";
+    date = "2026-07-27";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2403,15 +2403,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "5929801b7b10fd162e6da5dac76044fa78b1080c";
+    version = "f68e3a0e36e58bc24aca708ee0b984c8e6b29a83";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "5929801b7b10fd162e6da5dac76044fa78b1080c";
+      rev = "f68e3a0e36e58bc24aca708ee0b984c8e6b29a83";
       fetchSubmodules = true;
-      hash = "sha256-o3bcI2MVYCtyZIXH4FjLzlBVder7XdSWX2JJPJu9mmA=";
+      hash = "sha256-mke0gc5nRNIPYp42FhqZoFXj9FFyJg9fNYy6PEG3N6Q=";
     };
-    date = "2026-07-25";
+    date = "2026-07-27";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
