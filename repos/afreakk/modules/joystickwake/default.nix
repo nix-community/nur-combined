@@ -15,7 +15,7 @@ in
         After = "graphical-session.target";
       };
       Service = {
-        Environment = "PATH=${lib.makeBinPath [pkgs.xorg.xset pkgs.xscreensaver]}";
+        Environment = "PATH=${lib.makeBinPath [pkgs.xset pkgs.xscreensaver]}";
         ExecStart = "${pkgs.joystickwake}/bin/joystickwake";
         RestartSec = "10";
         Restart = "always";
