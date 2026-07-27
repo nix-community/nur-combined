@@ -1,0 +1,23 @@
+{
+    "sgdboop": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sgdboop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SteamGridDB",
+            "repo": "SGDBoop",
+            "rev": "v1.4.1",
+            "sha256": "sha256-KN/xRlBlh176Me+z6ZzDGC9ZElTUj8BM4mH4d0YCwhk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.4.1"
+    }
+}

@@ -1,0 +1,3 @@
+[lamb-bin]
+src.github = "magnetophon/lamb-rs"
+fetch.url = "https://github.com/magnetophon/lamb-rs/releases/download/$ver/lamb-$ver-ubuntu-20.04.zip"

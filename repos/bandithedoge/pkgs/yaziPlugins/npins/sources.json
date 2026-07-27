@@ -1,0 +1,213 @@
+{
+  "pins": {
+    "archivemount.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "AnirudhG07",
+        "repo": "archivemount.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "3d353c4d57198ae91a93c5f9d1c7345a5bcb7f84",
+      "url": "https://github.com/AnirudhG07/archivemount.yazi/archive/3d353c4d57198ae91a93c5f9d1c7345a5bcb7f84.tar.gz",
+      "hash": "sha256-MzEXnwT2QAX0aJZX/k03mVDi11N4Lboy01EWMWH54qY="
+    },
+    "augment-command.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "hankertrix",
+        "repo": "augment-command.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "dd2d6cf07f81cef543e37883352e30b91634ec86",
+      "url": "https://github.com/hankertrix/augment-command.yazi/archive/dd2d6cf07f81cef543e37883352e30b91634ec86.tar.gz",
+      "hash": "sha256-sB2t3Gg+WdPG6OE8pD6VovD+x9nN21Jn8XydZZdTqCg="
+    },
+    "exifaudio.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Sonico98",
+        "repo": "exifaudio.yazi"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "4506f9d5032e714c0689be09d566dd877b9d464e",
+      "url": "https://github.com/Sonico98/exifaudio.yazi/archive/4506f9d5032e714c0689be09d566dd877b9d464e.tar.gz",
+      "hash": "sha256-RWCqWBpbmU3sh/A+LBJPXL/AY292blKb/zZXGvIA5/o="
+    },
+    "eza-preview.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sharklasers996",
+        "repo": "eza-preview.yazi"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "7ca4c2558e17bef98cacf568f10ec065a1e5fb9b",
+      "url": "https://github.com/sharklasers996/eza-preview.yazi/archive/7ca4c2558e17bef98cacf568f10ec065a1e5fb9b.tar.gz",
+      "hash": "sha256-ncOOCj53wXPZvaPSoJ5LjaWSzw1omHadKDrXdIb7G5U="
+    },
+    "fast-enter.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "ourongxing",
+        "repo": "fast-enter.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "9fe77d8292c6bc63538acdc97cb91b81542e85a4",
+      "url": "https://github.com/ourongxing/fast-enter.yazi/archive/9fe77d8292c6bc63538acdc97cb91b81542e85a4.tar.gz",
+      "hash": "sha256-E0r0XsyECKMJ8w+9OVJKDggSXhAqlwD3u9ZSEXHc6J0="
+    },
+    "hexyl.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Reledia",
+        "repo": "hexyl.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "016a09bcc249dd3ce06267d54cc039e73de9c647",
+      "url": "https://github.com/Reledia/hexyl.yazi/archive/016a09bcc249dd3ce06267d54cc039e73de9c647.tar.gz",
+      "hash": "sha256-ly/cLKl2y3npoT2nX8ioGOFcRXI4UXbD9Es/5veUhOU="
+    },
+    "nbpreview.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "AnirudhG07",
+        "repo": "nbpreview.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "b50459402c52cbfd8d9262ae91e353d3300f8a8c",
+      "url": "https://github.com/AnirudhG07/nbpreview.yazi/archive/b50459402c52cbfd8d9262ae91e353d3300f8a8c.tar.gz",
+      "hash": "sha256-Fh0F8sa3X6w83KukSdyNw8XtYAnFYcJ36Be55z/fdRw="
+    },
+    "omp.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "saumyajyoti",
+        "repo": "omp.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "32ae96c8da930641ee81c32f76b2d7452ba6c8d9",
+      "url": "https://github.com/saumyajyoti/omp.yazi/archive/32ae96c8da930641ee81c32f76b2d7452ba6c8d9.tar.gz",
+      "hash": "sha256-jawTDIMHIu6YYWcKy9TOuk37yiRcHZ+IhZcdNLE/2VU="
+    },
+    "open-with-cmd.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Ape",
+        "repo": "open-with-cmd.yazi"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "eba191d9915cdca48333740290bb604400392ef6",
+      "url": "https://github.com/Ape/open-with-cmd.yazi/archive/eba191d9915cdca48333740290bb604400392ef6.tar.gz",
+      "hash": "sha256-5Etw2bKTfhWHBXkIR6VZsbEbCN079QfIGLnQEYiR7Lw="
+    },
+    "reflink.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Ape",
+        "repo": "reflink.yazi"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "00f0fd0d8100f3a6325144565c7d6449da9c2b99",
+      "url": "https://github.com/Ape/reflink.yazi/archive/00f0fd0d8100f3a6325144565c7d6449da9c2b99.tar.gz",
+      "hash": "sha256-RHS1kqDt8GdtnLmq9zifrXNd5fu21AdRQr69ljejunI="
+    },
+    "simple-status.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Ape",
+        "repo": "simple-status.yazi"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "d0da1049c417c2d5eec8bf5171ff9aad5c2ae773",
+      "url": "https://github.com/Ape/simple-status.yazi/archive/d0da1049c417c2d5eec8bf5171ff9aad5c2ae773.tar.gz",
+      "hash": "sha256-c6Y8qMnZAA/azV7lCqzwXN2qlgWi6BS6B0nInbR/sb4="
+    },
+    "system-clipboard.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "orhnk",
+        "repo": "system-clipboard.yazi"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "75a53300bed1946c6d488d42efc34864ea26ca85",
+      "url": "https://github.com/orhnk/system-clipboard.yazi/archive/75a53300bed1946c6d488d42efc34864ea26ca85.tar.gz",
+      "hash": "sha256-djvSPRHjP9bc4eXTiHwty4byVgVFRBDvfNYlX/nHVaw="
+    },
+    "torrent-preview.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "kirasok",
+        "repo": "torrent-preview.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "f46528243c458de3ffce38c44607d5a0cde67559",
+      "url": "https://github.com/kirasok/torrent-preview.yazi/archive/f46528243c458de3ffce38c44607d5a0cde67559.tar.gz",
+      "hash": "sha256-VhJvNRKHxVla4v2JJeSnP0MOMBFSm4k7gfqjrHOMVlo="
+    },
+    "video-ffmpeg.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "Tyarel8",
+        "repo": "video-ffmpeg.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "1250b85f2eef2db8a544a641b095e493ad072bb0",
+      "url": "https://github.com/Tyarel8/video-ffmpeg.yazi/archive/1250b85f2eef2db8a544a641b095e493ad072bb0.tar.gz",
+      "hash": "sha256-Z/Xuc+GISTekLnm368MMH08ZU58O7TfKu/4p3XlIVMQ="
+    },
+    "what-size.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "pirafrank",
+        "repo": "what-size.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "179ebf69c9c3ade40cacc0f25e9557a43427c6ca",
+      "url": "https://github.com/pirafrank/what-size.yazi/archive/179ebf69c9c3ade40cacc0f25e9557a43427c6ca.tar.gz",
+      "hash": "sha256-7q/45TopqbojNRvYDmP9+hgSGPmiyLHBcV051qpOB2Y="
+    },
+    "yamb.yazi": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "h-hg",
+        "repo": "yamb.yazi"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "5576bd790e6868019d3ce7e958873cee3c94d783",
+      "url": "https://github.com/h-hg/yamb.yazi/archive/5576bd790e6868019d3ce7e958873cee3c94d783.tar.gz",
+      "hash": "sha256-oq9zyVduKbOPuJVzFHiNIxe/JvNcqujS5edEjZJstpQ="
+    }
+  },
+  "version": 8
+}

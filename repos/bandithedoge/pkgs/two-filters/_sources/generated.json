@@ -1,0 +1,44 @@
+{
+    "two-filters": {
+        "cargoLock": null,
+        "date": "2026-07-20",
+        "extract": null,
+        "name": "two-filters",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "baconpaul",
+            "repo": "two-filters",
+            "rev": "8edb075afad61f0492066cf646c20f3c4205b23c",
+            "sha256": "sha256-jmF6snEBjO5qW86/gv2iuxpAkXbCj5EJUvycm2DsL38=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "8edb075afad61f0492066cf646c20f3c4205b23c"
+    },
+    "vst3sdk": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vst3sdk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "steinbergmedia",
+            "repo": "vst3sdk",
+            "rev": "v3.7.6_build_18",
+            "sha256": "sha256-jfh+iP5rqov8q++IyG4FXlYKs4PQtFjCwCP6xou8N0E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.7.6_build_18"
+    }
+}

@@ -1,0 +1,28 @@
+{
+    "nu-plugin-file": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-pSicwUpRDeyJYjA_TsZmHwh0LkXWnJ9vDIQcGWoQnhg=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "nu-plugin-file",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "fdncred",
+            "repo": "nu_plugin_file",
+            "rev": "v0.26.0",
+            "sha256": "sha256-pSicwUpRDeyJYjA/TsZmHwh0LkXWnJ9vDIQcGWoQnhg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.26.0"
+    }
+}

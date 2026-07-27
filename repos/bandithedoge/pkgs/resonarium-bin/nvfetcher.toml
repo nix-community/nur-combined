@@ -1,0 +1,9 @@
+[resonarium-bin]
+src.github = "gabrielsoule/resonarium"
+src.prefix = "v"
+fetch.url = "https://github.com/gabrielsoule/resonarium/releases/download/v$ver/Resonarium-Instrument-$ver-Linux.zip"
+
+[resonarium-effect-bin]
+src.github = "gabrielsoule/resonarium"
+src.prefix = "v"
+fetch.url = "https://github.com/gabrielsoule/resonarium/releases/download/v$ver/Resonarium-Effect-$ver-Linux.zip"

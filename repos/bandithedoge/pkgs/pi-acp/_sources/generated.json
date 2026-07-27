@@ -1,0 +1,26 @@
+{
+    "pi-acp": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-bM3V_3fxkY2Ib+OyfT82StIIRSLXGDuYUbt1CZKpTuo=/package-lock.json",
+            "package.json": "sha256-bM3V_3fxkY2Ib+OyfT82StIIRSLXGDuYUbt1CZKpTuo=/package.json"
+        },
+        "name": "pi-acp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "svkozak",
+            "repo": "pi-acp",
+            "rev": "v0.0.31",
+            "sha256": "sha256-bM3V/3fxkY2Ib+OyfT82StIIRSLXGDuYUbt1CZKpTuo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.31"
+    }
+}

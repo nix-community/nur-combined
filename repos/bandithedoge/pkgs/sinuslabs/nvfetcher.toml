@@ -1,0 +1,11 @@
+[bandbreite]
+src.github = "Sinuslabs/Bandbreite"
+fetch.url = "https://github.com/Sinuslabs/Bandbreite/releases/download/$ver/Bandbreite-Linux.zip"
+
+[ko]
+src.github = "Sinuslabs/KO"
+fetch.url = "https://github.com/Sinuslabs/KO/releases/download/$ver/KO-Linux.zip"
+
+[reach]
+src.github = "Sinuslabs/Reach"
+fetch.url = "https://github.com/Sinuslabs/Reach/releases/download/$ver/Reach-Linux.zip"

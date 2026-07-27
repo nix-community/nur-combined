@@ -1,0 +1,3 @@
+[wavetable-bin]
+src.github = "FigBug/Wavetable"
+fetch.url = "https://github.com/FigBug/Wavetable/releases/download/$ver/Wavetable.deb"

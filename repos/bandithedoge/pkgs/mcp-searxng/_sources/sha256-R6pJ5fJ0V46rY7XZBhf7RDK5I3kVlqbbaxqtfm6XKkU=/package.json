@@ -1,0 +1,79 @@
+{
+    "name": "mcp-searxng",
+    "version": "1.11.1",
+    "mcpName": "io.github.ihor-sokoliuk/mcp-searxng",
+    "description": "MCP server for SearXNG integration",
+    "license": "MIT",
+    "author": "Ihor Sokoliuk (https://github.com/ihor-sokoliuk)",
+    "homepage": "https://github.com/ihor-sokoliuk/mcp-searxng",
+    "bugs": "https://github.com/ihor-sokoliuk/mcp-searxng/issues",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ihor-sokoliuk/mcp-searxng"
+    },
+    "keywords": [
+        "mcp",
+        "modelcontextprotocol",
+        "searxng",
+        "search",
+        "web-search",
+        "claude",
+        "ai",
+        "pagination",
+        "smithery",
+        "url-reader"
+    ],
+    "type": "module",
+    "bin": {
+        "mcp-searxng": "dist/cli.js"
+    },
+    "main": "dist/index.js",
+    "files": [
+        "dist"
+    ],
+    "engines": {
+        "node": ">=20"
+    },
+    "scripts": {
+        "build": "tsc && shx chmod +x dist/*.js",
+        "watch": "tsc --watch",
+        "test": "cross-env SEARXNG_URL=https://test-searx.example.com tsx __tests__/run-all.ts",
+        "test:coverage": "cross-env SEARXNG_URL=https://test-searx.example.com c8 --reporter=text --include 'src/**' --check-coverage --lines 90 --branches 85 tsx __tests__/run-all.ts",
+        "test:e2e": "node --env-file-if-exists=.env.e2e node_modules/.bin/tsx __tests__/e2e/run-e2e.ts",
+        "bootstrap": "npm install && npm run build",
+        "inspector": "DANGEROUSLY_OMIT_AUTH=true npx @modelcontextprotocol/inspector node dist/cli.js",
+        "lint": "eslint src __tests__",
+        "audit:deps": "npm audit --audit-level=moderate",
+        "security": "npm run lint && npm run audit:deps",
+        "postversion": "TAG=$(node scripts/update-version.js | tail -1) && git add src/version.ts .mcp/server.json && git commit --amend --no-edit && git tag -f $TAG"
+    },
+    "dependencies": {
+        "@modelcontextprotocol/sdk": "1.29.0",
+        "@types/cors": "^2.8.19",
+        "@types/express": "^5.0.6",
+        "cors": "^2.8.6",
+        "express": "^5.2.1",
+        "express-rate-limit": "^8.5.2",
+        "node-html-markdown": "^2.0.0",
+        "node-html-parser": "^6.1.13",
+        "undici": "7.28.0"
+    },
+    "devDependencies": {
+        "@types/node": "22.20.1",
+        "@types/supertest": "^7.2.0",
+        "@typescript-eslint/eslint-plugin": "8.63.0",
+        "@typescript-eslint/parser": "8.63.0",
+        "c8": "^11.0.0",
+        "cross-env": "^10.1.0",
+        "eslint": "10.7.0",
+        "eslint-plugin-security": "^4.0.0",
+        "fast-check": "^4.8.0",
+        "shx": "^0.4.0",
+        "supertest": "^7.2.2",
+        "tsx": "4.23.1",
+        "typescript": "^5.8.3"
+    },
+    "overrides": {
+        "hono": ">=4.12.25"
+    }
+}

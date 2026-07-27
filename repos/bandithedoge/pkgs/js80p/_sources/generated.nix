@@ -4,16 +4,17 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   js80p = {
     pname = "js80p";
-    version = "v3.3.0";
+    version = "v4.1.1";
     src = fetchFromGitHub {
       owner = "attilammagyar";
       repo = "js80p";
-      rev = "v3.3.0";
+      rev = "v4.1.1";
       fetchSubmodules = false;
-      sha256 = "sha256-o1dpfh4F7egJd1bDotKL4o0LBSjhp+u+RO7laThD/g4=";
+      sha256 = "sha256-wFhkwRyxul+mr9GsL+coNFQWu6z4x+Cxm7BUpUujiwk=";
     };
   };
 }

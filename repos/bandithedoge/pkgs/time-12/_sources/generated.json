@@ -1,0 +1,23 @@
+{
+    "time-12": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "time-12",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tiagolr",
+            "repo": "time12",
+            "rev": "v1.2.3",
+            "sha256": "sha256-/siQGQRHPqIP17NE4e/IGEQIzLPnBAXXzU6ucL1y5os=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.2.3"
+    }
+}

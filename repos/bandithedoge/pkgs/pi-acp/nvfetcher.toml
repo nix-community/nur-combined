@@ -1,0 +1,4 @@
+[pi-acp]
+src.github = "svkozak/pi-acp"
+fetch.github = "svkozak/pi-acp"
+extract = ["package.json", "package-lock.json"]

@@ -1,0 +1,6 @@
+[some-sass-language-server]
+src.github_tag = "wkillerud/some-sass"
+src.include_regex = 'some-sass-language-server@.*'
+# nix-prefetch-url doesn't like the @ symbol
+fetch.git = "https://github.com/wkillerud/some-sass.git"
+extract = ["package.json", "package-lock.json"]

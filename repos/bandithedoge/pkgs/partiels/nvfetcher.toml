@@ -1,0 +1,8 @@
+[partiels]
+src.github = "Ircam-Partiels/Partiels"
+fetch.github = "Ircam-Partiels/Partiels"
+git.fetchSubmodules = true
+
+[vamp-plugin-sdk]
+src.manual = "d7ceb7d1d490674c93d334e5378108c4328e9e05"
+fetch.github = "vamp-plugins/vamp-plugin-sdk"

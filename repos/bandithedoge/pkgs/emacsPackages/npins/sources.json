@@ -1,0 +1,70 @@
+{
+  "pins": {
+    "eglot-ltex": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "emacs-languagetool",
+        "repo": "eglot-ltex"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "2ae2fad68ca2520f69b8d8174afc42ca271f6146",
+      "url": "https://github.com/emacs-languagetool/eglot-ltex/archive/2ae2fad68ca2520f69b8d8174afc42ca271f6146.tar.gz",
+      "hash": "sha256-uIbpyFcoaDoiUFo7/XeNJQFDUC+xhvOoG4/IcT9fLvM="
+    },
+    "eglot-x": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nemethf",
+        "repo": "eglot-x"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "46bca93291727454dd92567e761a1e2ab5622590",
+      "url": "https://github.com/nemethf/eglot-x/archive/46bca93291727454dd92567e761a1e2ab5622590.tar.gz",
+      "hash": "sha256-c8NzzK7SOYYDB803Osp3TOymrmwC07+dcvbI4waAfco="
+    },
+    "eglot-yaml": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "yveszoundi",
+        "repo": "eglot-yaml"
+      },
+      "branch": "main",
+      "submodules": false,
+      "revision": "df7fb0056fc124b215648e2e947b1441864ab444",
+      "url": "https://github.com/yveszoundi/eglot-yaml/archive/df7fb0056fc124b215648e2e947b1441864ab444.tar.gz",
+      "hash": "sha256-dsKDPUmlrowgqOlR/A6/G1JN4ScVggXsCtFgawZZRLs="
+    },
+    "explain-pause-mode": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "lastquestion",
+        "repo": "explain-pause-mode"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "ac3eb69f36f345506aad05a6d9bc3ef80d26914b",
+      "url": "https://github.com/lastquestion/explain-pause-mode/archive/ac3eb69f36f345506aad05a6d9bc3ef80d26914b.tar.gz",
+      "hash": "sha256-6FDYnE9rT12f2Lx3yg2tpDVm9txF2VoVxZvADpm4BoM="
+    },
+    "org-bars": {
+      "type": "Git",
+      "repository": {
+        "type": "GitHub",
+        "owner": "tonyaldon",
+        "repo": "org-bars"
+      },
+      "branch": "master",
+      "submodules": false,
+      "revision": "59ff8976ce789c0c594fd4756cbeb5354b6178d2",
+      "url": "https://github.com/tonyaldon/org-bars/archive/59ff8976ce789c0c594fd4756cbeb5354b6178d2.tar.gz",
+      "hash": "sha256-jmczXCAqRUwGLinaC5PF2PT70U+cDTPuxlUCbdAyA9I="
+    }
+  },
+  "version": 8
+}

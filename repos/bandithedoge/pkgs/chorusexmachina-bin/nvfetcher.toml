@@ -1,0 +1,3 @@
+[chorusexmachina-bin]
+src.github = "peastman/ChorusExMachina"
+fetch.url = "https://github.com/peastman/ChorusExMachina/releases/download/$ver/chorus_ex_machina-linux-x86.zip"

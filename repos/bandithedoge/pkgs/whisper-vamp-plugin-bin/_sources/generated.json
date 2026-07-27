@@ -1,0 +1,16 @@
+{
+    "whisper-vamp-plugin-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "whisper-vamp-plugin-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-dN/K5GLO7JsE5RDibSYl+wbA8goIIB5Ro54KN/77dW0=",
+            "type": "tarball",
+            "url": "https://github.com/Ircam-Partiels/whisper-vamp-plugin/releases/download/4.0.0/Whisper-Linux.tar.gz"
+        },
+        "version": "4.0.0"
+    }
+}

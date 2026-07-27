@@ -1,0 +1,23 @@
+{
+    "ghidra-mcp": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ghidra-mcp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bethington",
+            "repo": "ghidra-mcp",
+            "rev": "v5.14.2",
+            "sha256": "sha256-2EMETCttJAz53GQaJDHtegb8+T2cHKmHZVMPrV5Cwxc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v5.14.2"
+    }
+}

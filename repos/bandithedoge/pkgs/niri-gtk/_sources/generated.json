@@ -1,0 +1,23 @@
+{
+    "niri-gtk": {
+        "cargoLock": null,
+        "date": "2026-06-30",
+        "extract": null,
+        "name": "niri-gtk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "sameoldlab",
+            "repo": "niri-gtk",
+            "rev": "b413fbfcf055d92d7028ee3356bfa148e90e2e31",
+            "sha256": "sha256-W0HXUX5SZYTQV+f7F3uVErKbU4Ylj2gBrFBklyffEcU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b413fbfcf055d92d7028ee3356bfa148e90e2e31"
+    }
+}

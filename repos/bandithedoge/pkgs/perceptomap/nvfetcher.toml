@@ -1,0 +1,7 @@
+[perceptomap]
+src.github = "hqrrr/PerceptoMap"
+fetch.github = "hqrrr/PerceptoMap"
+
+[juce]
+src.manual = "8.0.8"
+fetch.github = "juce-framework/JUCE"

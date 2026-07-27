@@ -1,0 +1,19 @@
+[proton-cachyos]
+src.github = "CachyOS/proton-cachyos"
+fetch.tarball = "https://github.com/CachyOS/proton-cachyos/releases/download/$ver/proton-$ver-x86_64_v3.tar.xz"
+
+[proton-sarek]
+src.github = "pythonlover02/Proton-Sarek"
+fetch.tarball = "https://github.com/pythonlover02/Proton-Sarek/releases/download/$ver/$ver.tar.gz"
+
+[proton-sarek-async]
+src.github = "pythonlover02/Proton-Sarek"
+fetch.tarball = "https://github.com/pythonlover02/Proton-Sarek/releases/download/$ver/$ver-async.tar.gz"
+
+[proton-ge]
+src.github = "GloriousEggroll/proton-ge-custom"
+fetch.tarball = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/$ver/$ver.tar.gz"
+
+[proton-em]
+src.github = "Etaash-mathamsetty/Proton"
+fetch.tarball = "https://github.com/Etaash-mathamsetty/Proton/releases/download/$ver/proton-$ver.tar.xz"

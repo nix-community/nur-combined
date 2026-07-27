@@ -1,0 +1,4 @@
+[zerostack]
+src.github = "gi-dellav/zerostack"
+fetch.github = "gi-dellav/zerostack"
+cargo_lock = ["Cargo.lock"]

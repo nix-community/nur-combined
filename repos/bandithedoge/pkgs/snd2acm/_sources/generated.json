@@ -1,0 +1,23 @@
+{
+    "snd2acm": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "snd2acm",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dtiefling",
+            "repo": "snd2acm-portable",
+            "rev": "v7.7j+0.0.1fix",
+            "sha256": "sha256-co7b0T/ZDyj7rcA2OJbYItl+ueQYuJ2QhinUGyBavHg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v7.7j+0.0.1fix"
+    }
+}

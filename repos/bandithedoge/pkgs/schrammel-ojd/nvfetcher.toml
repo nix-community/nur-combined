@@ -1,6 +1,6 @@
 [schrammel-ojd]
 src.git = "https://github.com/JanosGit/Schrammel_OJD"
 src.branch = "develop"
-fetch.git = "https://github.com/JanosGit/Schrammel_OJD"
+fetch.github = "JanosGit/Schrammel_OJD"
 git.fetchSubmodules = true
-cargo_locks = ["Ext/Resvg4JUCE/Ext/resvg/Cargo.lock"]
+cargo_lock = ["Ext/Resvg4JUCE/Ext/resvg/Cargo.lock"]

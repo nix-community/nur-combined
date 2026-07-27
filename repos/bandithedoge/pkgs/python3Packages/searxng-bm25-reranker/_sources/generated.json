@@ -1,0 +1,23 @@
+{
+    "searxng-bm25-reranker": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "searxng-bm25-reranker",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Oaklight",
+            "repo": "searxng-bm25-reranker",
+            "rev": "v0.1.0",
+            "sha256": "sha256-56tp7DMw8sZ6dSnKQ6DDeetWcOhOs6WS3bwlsbIAtxM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.0"
+    }
+}

@@ -1,0 +1,21 @@
+[yabridge]
+src.git = "https://github.com/robbert-vdh/yabridge"
+fetch.github = "robbert-vdh/yabridge"
+cargo_lock = ["tools/yabridgectl/Cargo.lock"]
+
+[bitsery]
+src.github_tag = "fraillt/bitsery"
+fetch.github = "fraillt/bitsery"
+
+[function2]
+src.github = "Naios/function2"
+fetch.github = "Naios/function2"
+
+[clap]
+src.manual = "1.1.9"
+fetch.github = "free-audio/clap"
+
+[vst3]
+src.manual = "v3.7.7_build_19-patched"
+fetch.github = "robbert-vdh/vst3sdk"
+git.fetchSubmodules = true

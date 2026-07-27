@@ -1,0 +1,17 @@
+{
+    "chorusexmachina-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "chorusexmachina-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-rYYx7qzmG/HQKWLg2c6HksCfVkCBf/GbD9pUjBa/4xM=",
+            "type": "url",
+            "url": "https://github.com/peastman/ChorusExMachina/releases/download/v1.3/chorus_ex_machina-linux-x86.zip"
+        },
+        "version": "v1.3"
+    }
+}

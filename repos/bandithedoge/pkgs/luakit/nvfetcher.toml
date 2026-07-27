@@ -1,4 +1,0 @@
-[luakit]
-src.git = "https://github.com/luakit/luakit"
-src.branch = "develop"
-fetch.github = "luakit/luakit"

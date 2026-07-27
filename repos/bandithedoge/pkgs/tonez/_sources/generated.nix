@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   tonez = {
     pname = "tonez";
     version = "2.0.0";
-    src = fetchurl {
+    src = fetchTarball {
       url = "https://www.retornz.com/ld/ToneZ_V2-x64-2.0.0_Linux.zip";
-      sha256 = "sha256-rmz/fbmfMuvpi/juf3tx0+XK+NjpPioeQQDmiCQwEwE=";
+      sha256 = "sha256-nyHpmuk9KnVyNyeConEj1JSh8C2q79uyR7oIx88wLJo=";
     };
   };
 }

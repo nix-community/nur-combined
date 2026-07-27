@@ -4,47 +4,88 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
+  astal-lua = {
+    pname = "astal-lua";
+    version = "67ad5202206e83a3702f45b7c2dfbebb5b6c027d";
+    src = fetchFromGitHub {
+      owner = "tokyob0t";
+      repo = "astal-lua";
+      rev = "67ad5202206e83a3702f45b7c2dfbebb5b6c027d";
+      fetchSubmodules = false;
+      sha256 = "sha256-u/ilx1GthOLu6UScjtyIsE+mLNGhBJBJrrFrxfKpIis=";
+    };
+    date = "2026-07-05";
+  };
   bling = {
     pname = "bling";
     version = "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395";
-    src = fetchgit {
-      url = "https://github.com/blingcorp/bling";
+    src = fetchFromGitHub {
+      owner = "blingcorp";
+      repo = "bling";
       rev = "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
       sha256 = "sha256-rhhUsXQ3awjFiEHEG0axilSCWS6pR+w74K/pIfEUc5w=";
     };
     date = "2024-12-17";
   };
+  lgi = {
+    pname = "lgi";
+    version = "dfa82978d0f0f1ed1e817c9f0c5ea46824069e34";
+    src = fetchFromGitHub {
+      owner = "lgi-devs";
+      repo = "lgi";
+      rev = "dfa82978d0f0f1ed1e817c9f0c5ea46824069e34";
+      fetchSubmodules = false;
+      sha256 = "sha256-MVFBkBygE2cfw3iR/XalyMZxqihgzyMPNJsFnDjKncc=";
+    };
+    date = "2026-04-06";
+  };
   lua-dbus = {
     pname = "lua-dbus";
     version = "cdef26d09aa61d7f1f175675040383f6ae0becbb";
-    src = fetchgit {
-      url = "https://github.com/dodo/lua-dbus";
+    src = fetchFromGitHub {
+      owner = "dodo";
+      repo = "lua-dbus";
       rev = "cdef26d09aa61d7f1f175675040383f6ae0becbb";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
       sha256 = "sha256-S+W6QTqv4kdyR86GCyDLnkml10dO4ZVNXEd3/7vDFGE=";
     };
     date = "2015-04-22";
   };
   lua-dbus_proxy = {
     pname = "lua-dbus_proxy";
-    version = "986bf1a4dc481a753c812c6035d2277a149c9b2a";
+    version = "0f84913358c1f7ce939b79f071bea9883a75cfb5";
+    src = fetchFromGitHub {
+      owner = "stefano-m";
+      repo = "lua-dbus_proxy";
+      rev = "0f84913358c1f7ce939b79f071bea9883a75cfb5";
+      fetchSubmodules = false;
+      sha256 = "sha256-H44JBe2n4QZcQRyQTcYY/DtuG7XQgolPrdPgUU6SJTs=";
+    };
+    date = "2025-11-15";
+  };
+  lua-resty-mpd = {
+    pname = "lua-resty-mpd";
+    version = "5.2.3";
+    src = fetchTarball {
+      url = "https://buffering.party/software/lua-resty-mpd/lua-resty-mpd-5.2.3.tar.gz";
+      sha256 = "sha256-myGOgzqQOCWzL6bwqzRhfReRPdHrFKTb89H/bRmIZD8=";
+    };
+  };
+  luarocks-build-fennel = {
+    pname = "luarocks-build-fennel";
+    version = "87992f7081097a7de03f9cdbbd2e40326851f563";
     src = fetchgit {
-      url = "https://github.com/stefano-m/lua-dbus_proxy";
-      rev = "986bf1a4dc481a753c812c6035d2277a149c9b2a";
+      url = "https://git.sr.ht/~xerool/luarocks-build-fennel";
+      rev = "87992f7081097a7de03f9cdbbd2e40326851f563";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
-      sparseCheckout = [];
-      sha256 = "sha256-AeKYKaPYADWkufB9OicPNTrcm1mQfkuMI+7WKidppNw=";
+      sparseCheckout = [ ];
+      sha256 = "sha256-w5UNq/sMXt2VJP5wae879Tuvo+FWh0ErLJcSMhFDOGI=";
     };
-    date = "2024-10-04";
+    date = "2024-03-21";
   };
 }

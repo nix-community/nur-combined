@@ -1,0 +1,16 @@
+{
+    "blender-radeon-prorender": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "blender-radeon-prorender",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-tfsyG9vXPRDZdVk42/BbBG/RH4q0upzKcnCs25cELEU=",
+            "type": "tarball",
+            "url": "https://github.com/GPUOpen-LibrariesAndSDKs/RadeonProRenderBlenderAddon/releases/download/v3.6.11/RadeonProRenderForBlender_3.6.11_Ubuntu24-325eb7f-linux.zip"
+        },
+        "version": "v3.6.11/RadeonProRenderForBlender_3.6.11_Ubuntu24-325eb7f"
+    }
+}

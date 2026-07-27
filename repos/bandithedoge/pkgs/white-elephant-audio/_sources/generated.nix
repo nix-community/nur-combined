@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   carve-bin = {
     pname = "carve-bin";
-    version = "2.6.0";
+    version = "2.6.1";
     src = fetchurl {
-      url = "https://github.com/jd-13/wea-releases/releases/download/carve-v2.6.0/Carve.v2.6.0.zip";
-      sha256 = "sha256-khoC2AufiGYxjuYLUuQNw2KUfltuiQtuNZGSA8AQxrk=";
+      url = "https://github.com/jd-13/wea-releases/releases/download/carve-v2.6.1/Carve.v2.6.1.zip";
+      sha256 = "sha256-Kb+ms7oPwGZTeQczD4HThLAgERdcvySWezf1fwVO6eY=";
     };
   };
   monstr-bin = {

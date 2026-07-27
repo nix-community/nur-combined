@@ -1,0 +1,44 @@
+{
+    "element": {
+        "cargoLock": null,
+        "date": "2026-07-20",
+        "extract": null,
+        "name": "element",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kushview",
+            "repo": "element",
+            "rev": "0c2d8e8039b741ff61d5034ded7bbae12a63a66e",
+            "sha256": "sha256-tz2JTVba/TbPoM2iacbEgBO2iQuuIVKmRIEFyv9b+74=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0c2d8e8039b741ff61d5034ded7bbae12a63a66e"
+    },
+    "juce": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "juce",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "juce-framework",
+            "repo": "JUCE",
+            "rev": "8.0.13",
+            "sha256": "sha256-TKqW2rsFMAO1HJZ9IFQ7myOzNRScqR0gmLSLQA5Sw28=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "8.0.13"
+    }
+}

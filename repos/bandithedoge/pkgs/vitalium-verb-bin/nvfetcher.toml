@@ -1,0 +1,4 @@
+[vitalium-verb-bin]
+src.github = "BillyDM/vitalium-verb"
+fetch.tarball = "https://github.com/BillyDM/vitalium-verb/releases/download/v$ver/vitaliumverb-$ver-ubuntu-22.04.zip"
+src.prefix = "v"

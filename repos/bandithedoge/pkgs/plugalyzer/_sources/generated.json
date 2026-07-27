@@ -1,0 +1,23 @@
+{
+    "plugalyzer": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "plugalyzer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "CrushedPixel",
+            "repo": "Plugalyzer",
+            "rev": "v0.5.0",
+            "sha256": "sha256-UmeSQi77OQnSjCBD1BgW8Iu/c+IoxipGlVfw5X7nWQo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.5.0"
+    }
+}

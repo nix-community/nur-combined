@@ -1,0 +1,3 @@
+[ircam-vamp-plugins-bin]
+src.github = "Ircam-Partiels/ircam-vamp-plugins"
+fetch.tarball = "https://github.com/Ircam-Partiels/ircam-vamp-plugins/releases/download/$ver/Ircam-Vamp-Plugins-Linux.zip"

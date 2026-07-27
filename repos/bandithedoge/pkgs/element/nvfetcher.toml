@@ -1,0 +1,8 @@
+[element]
+src.git = "https://github.com/kushview/element"
+fetch.github = "kushview/element"
+git.fetchSubmodules = true
+
+[juce]
+src.manual = "8.0.13"
+fetch.github = "juce-framework/JUCE"

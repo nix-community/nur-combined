@@ -1,0 +1,4 @@
+[nu-plugin-compress]
+src.github_tag = "yybit/nu_plugin_compress"
+fetch.github = "yybit/nu_plugin_compress"
+cargo_lock = ["Cargo.lock"]

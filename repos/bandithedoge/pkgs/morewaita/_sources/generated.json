@@ -1,0 +1,23 @@
+{
+    "morewaita": {
+        "cargoLock": null,
+        "date": "2026-06-23",
+        "extract": null,
+        "name": "morewaita",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "somepaulo",
+            "repo": "MoreWaita",
+            "rev": "53bc2ba9c2cdc1f26ef822fcdd8a95e01cce5d58",
+            "sha256": "sha256-gQzkWh+Bav/1WEUmJIUEwCU/HBTGj94DCVIaMU4Vkyk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "53bc2ba9c2cdc1f26ef822fcdd8a95e01cce5d58"
+    }
+}

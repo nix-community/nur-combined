@@ -1,0 +1,3 @@
+[lazyusf]
+src.git = "https://github.com/derselbst/lazyusf"
+fetch.github = "derselbst/lazyusf"

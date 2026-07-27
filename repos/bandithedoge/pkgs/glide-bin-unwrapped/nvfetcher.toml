@@ -1,0 +1,7 @@
+[glide-bin-unwrapped-x86_64-linux]
+src.github = "glide-browser/glide"
+fetch.tarball = "https://github.com/glide-browser/glide/releases/download/$ver/glide.linux-x86_64.tar.xz"
+
+[glide-bin-unwrapped-aarch64-linux]
+src.github = "glide-browser/glide"
+fetch.tarball = "https://github.com/glide-browser/glide/releases/download/$ver/glide.linux-aarch64.tar.xz"

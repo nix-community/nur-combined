@@ -1,0 +1,3 @@
+[niri-gtk]
+src.git = "https://github.com/sameoldlab/niri-gtk.git"
+fetch.github = "sameoldlab/niri-gtk"

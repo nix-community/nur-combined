@@ -1,18 +1,3 @@
-[equalizer]
-src.github = "ZL-Audio/ZLEqualizer"
-fetch.github = "ZL-Audio/ZLEqualizer"
-git.fetchSubmodules = true
-
-[compressor]
-src.git = "https://github.com/ZL-Audio/ZLCompressor"
-fetch.git = "https://github.com/ZL-Audio/ZLCompressor"
-git.fetchSubmodules = true
-
-[splitter]
-src.github = "ZL-Audio/ZLSplitter"
-fetch.github = "ZL-Audio/ZLSplitter"
-git.fetchSubmodules = true
-
 [warm]
 src.github = "ZL-Audio/ZLWarm"
 fetch.github = "ZL-Audio/ZLWarm"

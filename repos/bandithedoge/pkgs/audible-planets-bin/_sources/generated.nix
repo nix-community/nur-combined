@@ -4,21 +4,22 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   audible-planets-lv2 = {
     pname = "audible-planets-lv2";
-    version = "1.1.5";
+    version = "1.2.2";
     src = fetchurl {
-      url = "https://github.com/gregrecco67/AudiblePlanets/releases/download/v1.1.5/Audible.Planets-1.1.5-Linux.lv2.zip";
-      sha256 = "sha256-id/iQD/sXEdyQo22PBjQgqZxwSxnMyQm9p1kcJ4ai9g=";
+      url = "https://github.com/gregrecco67/AudiblePlanets/releases/download/v1.2.2/Audible.Planets-1.2.2-Linux.lv2.zip";
+      sha256 = "sha256-v69WFDZ1R3Dtw668ImNCOc4ETu8uQYyElKhq6O9dqhg=";
     };
   };
   audible-planets-vst3 = {
     pname = "audible-planets-vst3";
-    version = "1.1.5";
+    version = "1.2.2";
     src = fetchurl {
-      url = "https://github.com/gregrecco67/AudiblePlanets/releases/download/v1.1.5/Audible.Planets-1.1.5-Linux.vst3.zip";
-      sha256 = "sha256-xFy2cXlwgaBclAdWJTEtCNgedU9Irtgl4Xr7Ry1oQOA=";
+      url = "https://github.com/gregrecco67/AudiblePlanets/releases/download/v1.2.2/Audible.Planets-1.2.2-Linux.vst3.zip";
+      sha256 = "sha256-S/wevCMOLzKSrCgNu2hpwqupfx1zTdvRCUwlsXKVATk=";
     };
   };
 }

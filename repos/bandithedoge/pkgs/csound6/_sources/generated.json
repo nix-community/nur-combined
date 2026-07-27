@@ -1,0 +1,23 @@
+{
+    "csound6": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "csound6",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "csound",
+            "repo": "csound",
+            "rev": "6.18.1",
+            "sha256": "sha256-O7s92N54+zIl07eIdK/puoSve/qJ3O01fTh0TP+VdZA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6.18.1"
+    }
+}

@@ -4,16 +4,17 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   firefly-synth = {
     pname = "firefly-synth";
-    version = "v1.9.9";
+    version = "v2.0.0-alpha";
     src = fetchFromGitHub {
       owner = "sjoerdvankreel";
       repo = "firefly-synth";
-      rev = "v1.9.9";
+      rev = "v2.0.0-alpha";
       fetchSubmodules = true;
-      sha256 = "sha256-6HlezO89a9VecmbgWbYmq/ehs/iWxpFP029EQRKueb4=";
+      sha256 = "sha256-PBcZ8GfPmiaQrENlFYmCI+d+VpRwRkBTstrdT9rjo7w=";
     };
   };
 }

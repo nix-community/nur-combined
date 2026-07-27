@@ -1,3 +1,0 @@
-[waterfox-bin]
-src.github = "BrowserWorks/Waterfox"
-fetch.url = "https://cdn1.waterfox.net/waterfox/releases/$ver/Linux_x86_64/waterfox-$ver.tar.bz2"

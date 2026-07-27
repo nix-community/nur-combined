@@ -4,17 +4,18 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   ildaeil = {
     pname = "ildaeil";
-    version = "46dcdf781d8c56bdf3d069be5223c12350f7d340";
+    version = "af9fc9f73b1a1832da8d6dfa12f7d03c431293d6";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Ildaeil";
-      rev = "46dcdf781d8c56bdf3d069be5223c12350f7d340";
+      rev = "af9fc9f73b1a1832da8d6dfa12f7d03c431293d6";
       fetchSubmodules = true;
-      sha256 = "sha256-1kpgA6Q875Pe3EKyxCQwHm1VMMII7Np3ZGesAE8+67c=";
+      sha256 = "sha256-7oayKRqAHXEkf3PMsma3HfuHYXrNNR+xkrHyYrZ7s5I=";
     };
-    date = "2024-09-24";
+    date = "2026-02-21";
   };
 }

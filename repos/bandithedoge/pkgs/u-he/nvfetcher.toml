@@ -1,79 +1,123 @@
+[patchelf-raphi]
+src.git = "https://git.sr.ht/~raphi/patchelf"
+fetch.git = "https://git.sr.ht/~raphi/patchelf"
+
 [ACE]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "ACE_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/ACE_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Bazille]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Bazille_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Bazille_$ver_Linux.tar.xz"
+fetch.force = true
+
+[BazilleCM]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "BazilleCM_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/BazilleCM_$ver_Linux.tar.xz"
+fetch.force = true
 
 [ColourCopy]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "ColourCopy_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/ColourCopy_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Diva]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Diva_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Diva_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Filterscape]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Filterscape_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Filterscape_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Hive]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Hive_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Hive_$ver_Linux.tar.xz"
+fetch.force = true
 
 [MFM2]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "MFM2_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/MFM2_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Podolski]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Podolski_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Podolski_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Presswerk]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Presswerk_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Presswerk_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Protoverb]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Protoverb_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Protoverb_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Repro-1]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Repro_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Repro_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Satin]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Satin_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Satin_$ver_Linux.tar.xz"
+fetch.force = true
 
 [TripleCheese]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "TripleCheese_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/TripleCheese_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Twangstrom]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Twangstrom_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Twangstrom_$ver_Linux.tar.xz"
+fetch.force = true
+
+[TyrellN6]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "TyrellN6_(\\d+_public_beta_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/TyrellN6_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Uhbik]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
 src.regex = "Uhbik_(\\d+_\\d+)"
 fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Uhbik_$ver_Linux.tar.xz"
+fetch.force = true
 
 [Zebra2]
 src.webpage = "https://uhe-dl.b-cdn.net/releases/"
-src.regex = "Zebra2_(\\d+_\\d+)"
-fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Zebra2_$ver_Linux.tar.xz"
+src.regex = "Zebra_Legacy_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Zebra_Legacy_$ver_Linux.zip"
+fetch.force = true
+
+[ZebraCM]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "ZebraCM_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/ZebraCM_$ver_Linux.tar.xz"
+fetch.force = true
+
+[Zebra3]
+src.webpage = "https://uhe-dl.b-cdn.net/releases/"
+src.regex = "Zebra3_(\\d+_\\d+)"
+fetch.tarball = "https://uhe-dl.b-cdn.net/releases/Zebra3_$ver_Linux.tar.xz"
+fetch.force = true

@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   bassdrive = {
     pname = "bassdrive";
     version = "2.1.0";

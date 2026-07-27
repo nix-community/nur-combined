@@ -1,76 +1,114 @@
-name: Build and populate cache
+name: Build packages
 on:
-  pull_request:
+  workflow_dispatch:
   push:
     branches:
-      - main
-      - master
-  schedule:
-    - cron: 15 5 * * *
+      - staging
+  workflow_run:
+    workflows:
+      - Update sources
+    types:
+      - completed
+
 jobs:
-  tests:
+  build:
     runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}
-      cancel-in-progress: true
+    strategy:
+      matrix:
+        cacheable: [true, false]
+    name: ${{ format('Build {0} packages', matrix.cacheable && 'cacheable' || 'uncacheable') }}
     steps:
-      - name: Free disk space
-        uses: jlumbroso/free-disk-space@v1.3.1
-        with:
-          tool-cache: true
-          # https://github.com/jlumbroso/free-disk-space/issues/4
-          large-packages: false
+      - name: ci-hoover
+        uses: xd009642/ci-hoover@0.1.1
 
       - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Install Nix
-        uses: DeterminateSystems/nix-installer-action@main
-
-      - name: Magic Nix Cache
-        uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-
-      - name: Setup cachix
-        uses: cachix/cachix-action@v15
+        uses: actions/checkout@v7
         with:
-          name: bandithedoge
-          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
-          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
-          extraPullNames: berberman
+          ref: staging
+          fetch-depth: 0
 
-      - name: Update sources
+      - name: Install Lix
+        uses: samueldr/lix-gha-installer-action@latest
+        with:
+          extra_nix_config: |
+            keep-env-derivations = true
+            keep-outputs = true
+            accept-flake-config = true
+
+      - name: Restore cache
+        if: ${{ !matrix.cacheable }}
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: build-${{ runner.os }}
+          gc-max-store-size: 8G
+          purge: true
+
+      - name: Build cacheable packages
+        if: ${{ matrix.cacheable }}
+        run: |
+          nix develop .#build -c nix-fast-build \
+            -f .#legacyPackages.x86_64-linux._CACHEABLE \
+            --no-nom \
+            --skip-cached \
+            --result-file result.xml \
+            --result-format junit \
+            -j 1 \
+            --cachix-cache bandithedoge
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: Build uncacheable packages
+        if: ${{ !matrix.cacheable }}
         run: |
-          nix flake update
-          echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
-          chmod +x fetch
-          nix develop -c ./fetch
-          rm keyfile.toml
-          git add -A
+          nix develop .#build -c nix-fast-build \
+            -f .#legacyPackages.x86_64-linux._UNCACHEABLE \
+            --no-nom \
+            --skip-cached \
+            --result-file result.xml \
+            --result-format junit
 
-      - name: Format code
-        run: nix fmt
-
-      - name: Check evaluation
+      - name: Install uncacheable packages
+        if: ${{ !matrix.cacheable }}
+        shell: nix run nixpkgs#nushell -- {0}
         run: |
-          nix-env -f . -qa \* --meta --xml \
-            --option allow-import-from-derivation true \
-            --drv-path --show-trace \
-            -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" \
-            -I "$PWD"
+          nix profile list --json
+            | from json
+            | get elements
+            | items {|key, _| nix profile remove $key}
 
-      - name: Build nix packages
-        run: nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached -build-flags '--show-trace' ci.nix -A cacheOutputs
+          nix eval .#_UNCACHEABLE --apply builtins.attrNames --json
+            | from json
+            | each {|attr| nix profile install $".#_UNCACHEABLE.($attr)" }
+
+      - name: Build summary
+        uses: test-summary/action@v2
+        if: always()
+        with:
+          paths: "result.xml"
+
+  merge:
+    needs: build
+    runs-on: ubuntu-latest
+    name: Merge into master
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: staging
+          fetch-depth: 0
+
+      - name: Setup Git user
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Merge into master
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.BRANCH_MERGE_PAT }}
+          source_ref: staging
+          target_branch: master
+          commit_message_template: "Merge updates"
 
       - name: Trigger NUR update
         run: curl -XPOST "https://nur-update.nix-community.org/update?repo=bandithedoge"
-
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          default_author: github_actions
-          message: Update sources

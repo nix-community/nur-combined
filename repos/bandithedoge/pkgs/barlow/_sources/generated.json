@@ -1,0 +1,23 @@
+{
+    "barlow": {
+        "cargoLock": null,
+        "date": "2024-08-09",
+        "extract": null,
+        "name": "barlow",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jpt",
+            "repo": "barlow",
+            "rev": "2ca33194d753691df200902b9073f917ad4d54d1",
+            "sha256": "sha256-X7bPcL6/KxpDSoa5YZkwoDGsEodw8hbgt6dxMh+VlaI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2ca33194d753691df200902b9073f917ad4d54d1"
+    }
+}

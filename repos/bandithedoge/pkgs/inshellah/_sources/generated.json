@@ -1,0 +1,28 @@
+{
+    "inshellah": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-Hl0PLWo6xyhSJaQtOkrNGQFxqBx5AdP1R1veMD22cMc=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-06-27",
+        "extract": null,
+        "name": "inshellah",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "manic-systems",
+            "repo": "inshellah",
+            "rev": "4e0da58e610f4cc3d1d3ab11b27f61afa8be99c1",
+            "sha256": "sha256-Hl0PLWo6xyhSJaQtOkrNGQFxqBx5AdP1R1veMD22cMc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "4e0da58e610f4cc3d1d3ab11b27f61afa8be99c1"
+    }
+}

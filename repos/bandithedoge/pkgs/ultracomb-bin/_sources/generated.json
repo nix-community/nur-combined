@@ -1,0 +1,16 @@
+{
+    "ultracomb-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ultracomb-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-ncINZUf7Z/SkZwGMeTMF/vgt6NQOQHB1KGby+ymcEPM=",
+            "type": "tarball",
+            "url": "https://github.com/Wasaka0/ultracomb/releases/download/0.1.0/linux-0.1.0.zip"
+        },
+        "version": "0.4.1"
+    }
+}

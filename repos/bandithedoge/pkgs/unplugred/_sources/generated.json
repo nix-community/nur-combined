@@ -1,0 +1,65 @@
+{
+    "clap-juce-extensions": {
+        "cargoLock": null,
+        "date": "2026-06-24",
+        "extract": null,
+        "name": "clap-juce-extensions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "free-audio",
+            "repo": "clap-juce-extensions",
+            "rev": "16e9d4ca7b1e86c76e04584b2c08e85a764bcda8",
+            "sha256": "sha256-0oV0KR//AfkdcXyjFQIadmKqMdJTzoVWNSFydoQlzO4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "16e9d4ca7b1e86c76e04584b2c08e85a764bcda8"
+    },
+    "juce": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "juce",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "juce-framework",
+            "repo": "JUCE",
+            "rev": "7.0.12",
+            "sha256": "sha256-/awe6D824ZjF17xjkt0wY7dcDuS/s8KKAv1UKHxF0FM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "7.0.12"
+    },
+    "unplugred": {
+        "cargoLock": null,
+        "date": "2026-07-06",
+        "extract": null,
+        "name": "unplugred",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "unplugred",
+            "repo": "vsts",
+            "rev": "4569a1041370b4c30b3a412dbf36089bcf430894",
+            "sha256": "sha256-U4vRkhQuTh4YOUuyEvFzXGjS/lWacCmFL8HxG0t83xA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "4569a1041370b4c30b3a412dbf36089bcf430894"
+    }
+}

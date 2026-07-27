@@ -1,0 +1,14 @@
+[psydoom-bin-x86_64]
+src.github = "BodbDearg/PsyDoom"
+src.prefix = "releases/"
+fetch.url = "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F$ver/PsyDoom_$ver_Linux_x86_64.AppImage"
+
+[psydoom-bin-aarch64]
+src.github = "BodbDearg/PsyDoom"
+src.prefix = "releases/"
+fetch.url = "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F$ver/PsyDoom_$ver_Linux_AArch64.AppImage"
+
+[psydoom-bin-armhf]
+src.github = "BodbDearg/PsyDoom"
+src.prefix = "releases/"
+fetch.url = "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F$ver/PsyDoom_$ver_Linux_ArmHF.AppImage"

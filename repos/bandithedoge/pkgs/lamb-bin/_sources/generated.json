@@ -1,0 +1,17 @@
+{
+    "lamb-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lamb-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-RTmoc8bVovlW8sKuNiCrj+kfPOgRAA0dwGsteVijcYs=",
+            "type": "url",
+            "url": "https://github.com/magnetophon/lamb-rs/releases/download/v2.1.0/lamb-v2.1.0-ubuntu-20.04.zip"
+        },
+        "version": "v2.1.0"
+    }
+}

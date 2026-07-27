@@ -1,62 +1,141 @@
 {
-  "bling": {
-    "cargoLocks": null,
-    "date": "2024-12-17",
-    "extract": null,
-    "name": "bling",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "rev": "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395",
-      "sha256": "sha256-rhhUsXQ3awjFiEHEG0axilSCWS6pR+w74K/pIfEUc5w=",
-      "sparseCheckout": [],
-      "type": "git",
-      "url": "https://github.com/blingcorp/bling"
+    "astal-lua": {
+        "cargoLock": null,
+        "date": "2026-07-05",
+        "extract": null,
+        "name": "astal-lua",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tokyob0t",
+            "repo": "astal-lua",
+            "rev": "67ad5202206e83a3702f45b7c2dfbebb5b6c027d",
+            "sha256": "sha256-u/ilx1GthOLu6UScjtyIsE+mLNGhBJBJrrFrxfKpIis=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "67ad5202206e83a3702f45b7c2dfbebb5b6c027d"
     },
-    "version": "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395"
-  },
-  "lua-dbus": {
-    "cargoLocks": null,
-    "date": "2015-04-22",
-    "extract": null,
-    "name": "lua-dbus",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "rev": "cdef26d09aa61d7f1f175675040383f6ae0becbb",
-      "sha256": "sha256-S+W6QTqv4kdyR86GCyDLnkml10dO4ZVNXEd3/7vDFGE=",
-      "sparseCheckout": [],
-      "type": "git",
-      "url": "https://github.com/dodo/lua-dbus"
+    "bling": {
+        "cargoLock": null,
+        "date": "2024-12-17",
+        "extract": null,
+        "name": "bling",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "blingcorp",
+            "repo": "bling",
+            "rev": "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395",
+            "sha256": "sha256-rhhUsXQ3awjFiEHEG0axilSCWS6pR+w74K/pIfEUc5w=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "bcfb671248cf9ff636b7fd7d7120d8ed9deaa395"
     },
-    "version": "cdef26d09aa61d7f1f175675040383f6ae0becbb"
-  },
-  "lua-dbus_proxy": {
-    "cargoLocks": null,
-    "date": "2024-10-04",
-    "extract": null,
-    "name": "lua-dbus_proxy",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "rev": "986bf1a4dc481a753c812c6035d2277a149c9b2a",
-      "sha256": "sha256-AeKYKaPYADWkufB9OicPNTrcm1mQfkuMI+7WKidppNw=",
-      "sparseCheckout": [],
-      "type": "git",
-      "url": "https://github.com/stefano-m/lua-dbus_proxy"
+    "lgi": {
+        "cargoLock": null,
+        "date": "2026-04-06",
+        "extract": null,
+        "name": "lgi",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lgi-devs",
+            "repo": "lgi",
+            "rev": "dfa82978d0f0f1ed1e817c9f0c5ea46824069e34",
+            "sha256": "sha256-MVFBkBygE2cfw3iR/XalyMZxqihgzyMPNJsFnDjKncc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "dfa82978d0f0f1ed1e817c9f0c5ea46824069e34"
     },
-    "version": "986bf1a4dc481a753c812c6035d2277a149c9b2a"
-  }
+    "lua-dbus": {
+        "cargoLock": null,
+        "date": "2015-04-22",
+        "extract": null,
+        "name": "lua-dbus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dodo",
+            "repo": "lua-dbus",
+            "rev": "cdef26d09aa61d7f1f175675040383f6ae0becbb",
+            "sha256": "sha256-S+W6QTqv4kdyR86GCyDLnkml10dO4ZVNXEd3/7vDFGE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cdef26d09aa61d7f1f175675040383f6ae0becbb"
+    },
+    "lua-dbus_proxy": {
+        "cargoLock": null,
+        "date": "2025-11-15",
+        "extract": null,
+        "name": "lua-dbus_proxy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "stefano-m",
+            "repo": "lua-dbus_proxy",
+            "rev": "0f84913358c1f7ce939b79f071bea9883a75cfb5",
+            "sha256": "sha256-H44JBe2n4QZcQRyQTcYY/DtuG7XQgolPrdPgUU6SJTs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0f84913358c1f7ce939b79f071bea9883a75cfb5"
+    },
+    "lua-resty-mpd": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "lua-resty-mpd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-myGOgzqQOCWzL6bwqzRhfReRPdHrFKTb89H/bRmIZD8=",
+            "type": "tarball",
+            "url": "https://buffering.party/software/lua-resty-mpd/lua-resty-mpd-5.2.3.tar.gz"
+        },
+        "version": "5.2.3"
+    },
+    "luarocks-build-fennel": {
+        "cargoLock": null,
+        "date": "2024-03-21",
+        "extract": null,
+        "name": "luarocks-build-fennel",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "87992f7081097a7de03f9cdbbd2e40326851f563",
+            "sha256": "sha256-w5UNq/sMXt2VJP5wae879Tuvo+FWh0ErLJcSMhFDOGI=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://git.sr.ht/~xerool/luarocks-build-fennel"
+        },
+        "version": "87992f7081097a7de03f9cdbbd2e40326851f563"
+    }
 }

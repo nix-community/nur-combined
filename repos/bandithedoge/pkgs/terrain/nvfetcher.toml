@@ -1,0 +1,4 @@
+[terrain]
+src.github = "aaronaanderson/Terrain"
+fetch.github = "aaronaanderson/Terrain"
+git.fetchSubmodules = true

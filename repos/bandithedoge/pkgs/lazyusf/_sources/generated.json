@@ -1,0 +1,23 @@
+{
+    "lazyusf": {
+        "cargoLock": null,
+        "date": "2022-04-29",
+        "extract": null,
+        "name": "lazyusf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "derselbst",
+            "repo": "lazyusf",
+            "rev": "17a078d3a8bb7762a33f1db4465f250947bca67a",
+            "sha256": "sha256-nAMDluO86goZTNuqItnNv5501KVS/UmlrhWdcL+H/p8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "17a078d3a8bb7762a33f1db4465f250947bca67a"
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "npr": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-RbSSFW8hMn6pBo6rnWeFwtLtNPAldlQaceNh0mMQErQ=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-05-28",
+        "extract": null,
+        "name": "npr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "a80abbaf521216b454909550a786d0f37273599e",
+            "sha256": "sha256-RbSSFW8hMn6pBo6rnWeFwtLtNPAldlQaceNh0mMQErQ=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/manic-systems/npr.git"
+        },
+        "version": "a80abbaf521216b454909550a786d0f37273599e"
+    }
+}

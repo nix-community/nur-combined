@@ -1,0 +1,23 @@
+{
+    "spectralsuite": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "spectralsuite",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "andrewreeman",
+            "repo": "SpectralSuite",
+            "rev": "v2.2.0",
+            "sha256": "sha256-CqnmF+i7JoAaKQHVx9SwgA566TV0M5BdjibE8ik9AHk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.2.0"
+    }
+}

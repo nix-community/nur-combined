@@ -1,0 +1,8 @@
+[punkott]
+src.git = "https://github.com/gmoican/PunkOTT.git"
+fetch.github = "gmoican/PunkOTT"
+git.fetchSubmodules = true
+
+[catch2]
+src.manual = "v3.8.1"
+fetch.github = "catchorg/Catch2"

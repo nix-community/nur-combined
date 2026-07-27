@@ -1,0 +1,3 @@
+[csound6]
+src.manual = "6.18.1"
+fetch.github = "csound/csound"

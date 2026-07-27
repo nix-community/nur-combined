@@ -1,0 +1,32 @@
+{
+    "resonarium-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "resonarium-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-L7kZA7mJ/gj8KsOmC037pv0i9pK8I7o5jO92Je1/A7E=",
+            "type": "url",
+            "url": "https://github.com/gabrielsoule/resonarium/releases/download/v0.0.11/Resonarium-Instrument-0.0.11-Linux.zip"
+        },
+        "version": "0.0.11"
+    },
+    "resonarium-effect-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "resonarium-effect-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-UCpUse9QBOfTLmRTlK6VLv1plpPmCWI9bofk7cpg11E=",
+            "type": "url",
+            "url": "https://github.com/gabrielsoule/resonarium/releases/download/v0.0.11/Resonarium-Effect-0.0.11-Linux.zip"
+        },
+        "version": "0.0.11"
+    }
+}

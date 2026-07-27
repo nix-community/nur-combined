@@ -1,0 +1,4 @@
+[plugalyzer]
+src.github = "CrushedPixel/Plugalyzer"
+fetch.github = "CrushedPixel/Plugalyzer"
+git.fetchSubmodules = true

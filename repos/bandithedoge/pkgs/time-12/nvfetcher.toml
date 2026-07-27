@@ -1,0 +1,4 @@
+[time-12]
+src.github = "tiagolr/time12"
+fetch.github = "tiagolr/time12"
+git.fetchSubmodules = true

@@ -4,19 +4,18 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   cloudreverb = {
     pname = "cloudreverb";
-    version = "ceb5e1df9f07ee0b2f9c525dd21b998c3952c62e";
-    src = fetchgit {
-      url = "https://github.com/xunil-cloud/CloudReverb";
-      rev = "ceb5e1df9f07ee0b2f9c525dd21b998c3952c62e";
+    version = "92804eda8439d058a018dad606ebd1c403c37b90";
+    src = fetchFromGitHub {
+      owner = "xunil-cloud";
+      repo = "CloudReverb";
+      rev = "92804eda8439d058a018dad606ebd1c403c37b90";
       fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
-      sha256 = "sha256-zXjOSLT1MXjq8fgZ+EcV0uE/UNac8IYTVlFMnX5rqP4=";
+      sha256 = "sha256-erpJlS9VYvYyqYyKjyDuob7Jup+zLuj93j+BRAjPtl4=";
     };
-    date = "2025-01-12";
+    date = "2026-04-13";
   };
 }

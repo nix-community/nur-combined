@@ -4,19 +4,17 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   protrekkr = {
     pname = "protrekkr";
-    version = "0b96ba56379eb179423e9dcbec31a08bf0326c9f";
-    src = fetchgit {
-      url = "https://github.com/falkTX/protrekkr";
-      rev = "0b96ba56379eb179423e9dcbec31a08bf0326c9f";
+    version = "v2.8.3_PRE_2";
+    src = fetchFromGitHub {
+      owner = "hitchhikr";
+      repo = "protrekkr";
+      rev = "v2.8.3_PRE_2";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
-      sha256 = "sha256-4CmYp8dyDwSG2uwODTUqgVWVp53uC1lCvqfHUuJDIQw=";
+      sha256 = "sha256-5pQMoU0FXqniWlVdovxnvU0DXobg5LLKWyt6SlEDhxk=";
     };
-    date = "2019-09-08";
   };
 }

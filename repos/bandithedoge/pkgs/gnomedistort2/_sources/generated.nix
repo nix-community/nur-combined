@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   gnomedistort2 = {
     pname = "gnomedistort2";
     version = "1.0.0";

@@ -1,0 +1,28 @@
+{
+    "nu-plugin-mime": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-ZlUCM105Bfe7QsWMyDSOoVT_WXBJTKdFjvEdPc2KD0w=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-05-09",
+        "extract": null,
+        "name": "nu-plugin-mime",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kik4444",
+            "repo": "nu_plugin_mime",
+            "rev": "7dd4ae2bf757f1732d5e0a4d9e615bc0586b09d8",
+            "sha256": "sha256-ZlUCM105Bfe7QsWMyDSOoVT/WXBJTKdFjvEdPc2KD0w=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "7dd4ae2bf757f1732d5e0a4d9e615bc0586b09d8"
+    }
+}

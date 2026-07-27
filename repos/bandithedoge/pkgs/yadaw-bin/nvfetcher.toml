@@ -1,0 +1,9 @@
+[yadaw-bin-x86_64]
+src.github = "mlm-games/yadaw"
+src.prefix = "v"
+fetch.tarball = "https://github.com/mlm-games/yadaw/releases/download/v$ver/yadaw-$ver-x86_64-unknown-linux-gnu.tar.gz"
+
+[yadaw-bin-aarch64]
+src.github = "mlm-games/yadaw"
+src.prefix = "v"
+fetch.tarball = "https://github.com/mlm-games/yadaw/releases/download/v$ver/yadaw-$ver-aarch64-unknown-linux-gnu.tar.gz"

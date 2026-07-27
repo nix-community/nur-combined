@@ -1,0 +1,16 @@
+{
+    "chainner-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "chainner-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-jvDudezyqZFdUWldk+3fCqVdbS81ymXW1tBSxDrEDTI=",
+            "type": "tarball",
+            "url": "https://github.com/chaiNNer-org/chaiNNer/releases/download/v0.25.1/chaiNNer-linux-x64-0.25.1-portable.zip"
+        },
+        "version": "0.25.1"
+    }
+}

@@ -1,0 +1,55 @@
+[absorb]
+src.git = "https://github.com/Mrugalla/Absorb"
+fetch.github = "Mrugalla/Absorb"
+
+[adsr]
+src.git = "https://github.com/Mrugalla/ADSR"
+fetch.github = "Mrugalla/ADSR"
+
+[allhaas]
+src.git = "https://github.com/Mrugalla/ALLHaas"
+fetch.github = "Mrugalla/ALLHaas"
+
+[hammer-and-meiszel]
+src.git = "https://github.com/Mrugalla/Hammer-and-Meiszel"
+fetch.github = "Mrugalla/Hammer-and-Meiszel"
+
+[jif]
+src.git = "https://github.com/Mrugalla/JIF"
+fetch.github = "Mrugalla/JIF"
+
+[manta]
+src.git = "https://github.com/Mrugalla/Manta"
+fetch.github = "Mrugalla/Manta"
+
+[nel-19]
+src.git = "https://github.com/Mrugalla/NEL-19"
+fetch.github = "Mrugalla/NEL-19"
+
+[nelorbit]
+src.git = "https://github.com/Mrugalla/NELOrbit"
+fetch.github = "Mrugalla/NELOrbit"
+
+[overdrive-reneo]
+src.git = "https://github.com/Mrugalla/Overdrive-ReNEO"
+fetch.github = "Mrugalla/Overdrive-ReNEO"
+
+[perlinnoisemod]
+src.git = "https://github.com/Mrugalla/PerlinNoiseMod"
+fetch.github = "Mrugalla/PerlinNoiseMod"
+
+[pitchglitcher]
+src.git = "https://github.com/Mrugalla/PitchGlitcher"
+fetch.github = "Mrugalla/PitchGlitcher"
+
+[slew-over]
+src.git = "https://github.com/Mrugalla/Slew-Over"
+fetch.github = "Mrugalla/Slew-Over"
+
+[susquash]
+src.git = "https://github.com/Mrugalla/susquash"
+fetch.github = "Mrugalla/susquash"
+
+[xen]
+src.git = "https://github.com/Mrugalla/Xen"
+fetch.github = "Mrugalla/Xen"

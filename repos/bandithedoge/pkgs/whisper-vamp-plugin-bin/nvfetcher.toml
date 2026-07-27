@@ -1,0 +1,3 @@
+[whisper-vamp-plugin-bin]
+src.github = "Ircam-Partiels/whisper-vamp-plugin"
+fetch.tarball = "https://github.com/Ircam-Partiels/whisper-vamp-plugin/releases/download/$ver/Whisper-Linux.tar.gz"

@@ -4,19 +4,17 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   winegui = {
     pname = "winegui";
-    version = "c8c5e8678161377c59f1bde97682a9824d7d70a0";
-    src = fetchgit {
-      url = "https://gitlab.melroy.org/melroy/winegui";
-      rev = "c8c5e8678161377c59f1bde97682a9824d7d70a0";
+    version = "v4.1.0";
+    src = fetchFromGitHub {
+      owner = "winegui";
+      repo = "WineGUI";
+      rev = "v4.1.0";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
-      sha256 = "sha256-nh3Edz8c0M4iNabXcKr12eL+/2fggr6dIHJQTFkYl/Y=";
+      sha256 = "sha256-W8F6hqnsHkLwvK37WuK7ppaJ+Z0p8iSdl6N7kMbmTkU=";
     };
-    date = "2025-01-05";
   };
 }

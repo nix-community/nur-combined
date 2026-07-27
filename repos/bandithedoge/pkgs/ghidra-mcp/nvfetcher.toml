@@ -1,0 +1,3 @@
+[ghidra-mcp]
+src.github = "bethington/ghidra-mcp"
+fetch.github = "bethington/ghidra-mcp"

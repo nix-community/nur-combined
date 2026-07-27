@@ -1,15 +1,16 @@
 {
-  buildFirefoxXpiAddon,
+  buildMozillaXpiAddon,
   fetchurl,
   lib,
   stdenv,
-}: {
-  "augmented-steam" = buildFirefoxXpiAddon {
+}:
+{
+  "augmented-steam" = buildMozillaXpiAddon {
     pname = "augmented-steam";
-    version = "4.2.1";
+    version = "4.7.0";
     addonId = "{1be309c5-3e4f-4b99-927d-bb500eb4fa88}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4403715/augmented_steam-4.2.1.xpi";
-    sha256 = "7e90ed09f3e1ef27c002aa9fc2ea8a846145706f1c7c916059274f8bd23d0edb";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4815001/augmented_steam-4.7.0.xpi";
+    sha256 = "349d010c34fa80973d081e01709e6baa91a9c28244a1ac169cbcc058e1619316";
     meta = with lib; {
       homepage = "https://augmentedsteam.com/";
       description = "Augments your Steam Experience";
@@ -25,27 +26,12 @@
         "*://steamcommunity.com/sharedfiles/editguide?*"
         "*://steamcommunity.com/workshop/editguide/?*"
         "*://steamcommunity.com/workshop/editguide?*"
-        "*://steamcommunity.com/groups/*"
-        "*://steamcommunity.com/id/*/badges"
-        "*://steamcommunity.com/id/*/badges/"
-        "*://steamcommunity.com/id/*/badges/?*"
-        "*://steamcommunity.com/id/*/badges?*"
-        "*://steamcommunity.com/profiles/*/badges"
-        "*://steamcommunity.com/profiles/*/badges/"
-        "*://steamcommunity.com/profiles/*/badges/?*"
-        "*://steamcommunity.com/profiles/*/badges?*"
+        "*://steamcommunity.com/id/*/gamecards/*"
+        "*://steamcommunity.com/profiles/*/gamecards/*"
         "*://steamcommunity.com/tradingcards/boostercreator"
         "*://steamcommunity.com/tradingcards/boostercreator/"
         "*://steamcommunity.com/tradingcards/boostercreator/?*"
         "*://steamcommunity.com/tradingcards/boostercreator?*"
-        "*://steamcommunity.com/id/*/inventory"
-        "*://steamcommunity.com/id/*/inventory/"
-        "*://steamcommunity.com/id/*/inventory/?*"
-        "*://steamcommunity.com/id/*/inventory?*"
-        "*://steamcommunity.com/profiles/*/inventory"
-        "*://steamcommunity.com/profiles/*/inventory/"
-        "*://steamcommunity.com/profiles/*/inventory/?*"
-        "*://steamcommunity.com/profiles/*/inventory?*"
         "*://steamcommunity.com/id/*/friends"
         "*://steamcommunity.com/id/*/friends/*"
         "*://steamcommunity.com/id/*/friends?*"
@@ -64,71 +50,30 @@
         "*://steamcommunity.com/profiles/*/following"
         "*://steamcommunity.com/profiles/*/following/*"
         "*://steamcommunity.com/profiles/*/following?*"
-        "*://steamcommunity.com/app/*/guides"
-        "*://steamcommunity.com/app/*/guides/"
-        "*://steamcommunity.com/app/*/guides/?*"
-        "*://steamcommunity.com/app/*/guides?*"
         "*://steamcommunity.com/id/*/friendsthatplay/*"
         "*://steamcommunity.com/profiles/*/friendsthatplay/*"
-        "*://steamcommunity.com/id/*/gamecards/*"
-        "*://steamcommunity.com/profiles/*/gamecards/*"
-        "*://steamcommunity.com/market/listings/*"
+        "*://steamcommunity.com/id/*/badges"
+        "*://steamcommunity.com/id/*/badges/"
+        "*://steamcommunity.com/id/*/badges/?*"
+        "*://steamcommunity.com/id/*/badges?*"
+        "*://steamcommunity.com/profiles/*/badges"
+        "*://steamcommunity.com/profiles/*/badges/"
+        "*://steamcommunity.com/profiles/*/badges/?*"
+        "*://steamcommunity.com/profiles/*/badges?*"
+        "*://steamcommunity.com/groups/*"
         "*://steamcommunity.com/market"
         "*://steamcommunity.com/market/"
         "*://steamcommunity.com/market/?*"
         "*://steamcommunity.com/market?*"
-        "*://*.steampowered.com/bundle/*"
-        "*://*.steampowered.com/*"
-        "*://*.steampowered.com/agecheck/*"
-        "*://*.steampowered.com/steamaccount/addfunds"
-        "*://*.steampowered.com/steamaccount/addfunds/"
-        "*://*.steampowered.com/steamaccount/addfunds/?*"
-        "*://*.steampowered.com/steamaccount/addfunds?*"
-        "*://*.steampowered.com/digitalgiftcards/selectgiftcard"
-        "*://*.steampowered.com/digitalgiftcards/selectgiftcard/"
-        "*://*.steampowered.com/digitalgiftcards/selectgiftcard/?*"
-        "*://*.steampowered.com/digitalgiftcards/selectgiftcard?*"
-        "*://*.steampowered.com/cart"
-        "*://*.steampowered.com/cart/*"
-        "*://*.steampowered.com/cart?*"
-        "*://steamcommunity.com/tradeoffer/*"
-        "*://*.steampowered.com/account"
-        "*://*.steampowered.com/account/"
-        "*://*.steampowered.com/account/?*"
-        "*://*.steampowered.com/account?*"
-        "*://store.steampowered.com/"
-        "*://store.steampowered.com/?*"
-        "*://store.steampowered.com/account/licenses"
-        "*://store.steampowered.com/account/licenses/"
-        "*://store.steampowered.com/account/licenses/?*"
-        "*://store.steampowered.com/account/licenses?*"
-        "*://*.steampowered.com/app/*"
-        "*://steamcommunity.com/id/*/games"
-        "*://steamcommunity.com/id/*/games/"
-        "*://steamcommunity.com/id/*/games/?*"
-        "*://steamcommunity.com/id/*/games?*"
-        "*://steamcommunity.com/profiles/*/games"
-        "*://steamcommunity.com/profiles/*/games/"
-        "*://steamcommunity.com/profiles/*/games/?*"
-        "*://steamcommunity.com/profiles/*/games?*"
-        "*://steamcommunity.com/id/*/followedgames"
-        "*://steamcommunity.com/id/*/followedgames/"
-        "*://steamcommunity.com/id/*/followedgames/?*"
-        "*://steamcommunity.com/id/*/followedgames?*"
-        "*://steamcommunity.com/profiles/*/followedgames"
-        "*://steamcommunity.com/profiles/*/followedgames/"
-        "*://steamcommunity.com/profiles/*/followedgames/?*"
-        "*://steamcommunity.com/profiles/*/followedgames?*"
-        "*://*.steampowered.com/search"
-        "*://*.steampowered.com/search/*"
-        "*://*.steampowered.com/search?*"
-        "*://*.steampowered.com/sub/*"
-        "*://*.steampowered.com/points"
-        "*://*.steampowered.com/points/*"
-        "*://*.steampowered.com/points?*"
-        "*://steamcommunity.com/market/search"
-        "*://steamcommunity.com/market/search/*"
-        "*://steamcommunity.com/market/search?*"
+        "*://steamcommunity.com/app/*/guides"
+        "*://steamcommunity.com/app/*/guides/"
+        "*://steamcommunity.com/app/*/guides/?*"
+        "*://steamcommunity.com/app/*/guides?*"
+        "*://steamcommunity.com/id/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/id/*/myworkshopfiles?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/profiles/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/profiles/*/myworkshopfiles?*browsefilter=mysubscriptions*"
+        "*://steamcommunity.com/market/listings/*"
         "*://steamcommunity.com/id/*/recommended"
         "*://steamcommunity.com/id/*/recommended/"
         "*://steamcommunity.com/id/*/recommended/?*"
@@ -145,12 +90,34 @@
         "*://steamcommunity.com/profiles/*/reviews/"
         "*://steamcommunity.com/profiles/*/reviews/?*"
         "*://steamcommunity.com/profiles/*/reviews?*"
-        "*://*.steampowered.com/wishlist"
-        "*://*.steampowered.com/wishlist/"
-        "*://*.steampowered.com/wishlist/?*"
-        "*://*.steampowered.com/wishlist?*"
-        "*://*.steampowered.com/wishlist/id/*"
-        "*://*.steampowered.com/wishlist/profiles/*"
+        "*://steamcommunity.com/id/*/games"
+        "*://steamcommunity.com/id/*/games/"
+        "*://steamcommunity.com/id/*/games/?*"
+        "*://steamcommunity.com/id/*/games?*"
+        "*://steamcommunity.com/profiles/*/games"
+        "*://steamcommunity.com/profiles/*/games/"
+        "*://steamcommunity.com/profiles/*/games/?*"
+        "*://steamcommunity.com/profiles/*/games?*"
+        "*://steamcommunity.com/id/*/followedgames"
+        "*://steamcommunity.com/id/*/followedgames/"
+        "*://steamcommunity.com/id/*/followedgames/?*"
+        "*://steamcommunity.com/id/*/followedgames?*"
+        "*://steamcommunity.com/profiles/*/followedgames"
+        "*://steamcommunity.com/profiles/*/followedgames/"
+        "*://steamcommunity.com/profiles/*/followedgames/?*"
+        "*://steamcommunity.com/profiles/*/followedgames?*"
+        "*://steamcommunity.com/id/*/inventory"
+        "*://steamcommunity.com/id/*/inventory/"
+        "*://steamcommunity.com/id/*/inventory/?*"
+        "*://steamcommunity.com/id/*/inventory?*"
+        "*://steamcommunity.com/profiles/*/inventory"
+        "*://steamcommunity.com/profiles/*/inventory/"
+        "*://steamcommunity.com/profiles/*/inventory/?*"
+        "*://steamcommunity.com/profiles/*/inventory?*"
+        "*://steamcommunity.com/market/search"
+        "*://steamcommunity.com/market/search/*"
+        "*://steamcommunity.com/market/search?*"
+        "*://steamcommunity.com/tradeoffer/*"
         "*://steamcommunity.com/sharedfiles/browse"
         "*://steamcommunity.com/sharedfiles/browse/"
         "*://steamcommunity.com/sharedfiles/browse/?*"
@@ -159,6 +126,14 @@
         "*://steamcommunity.com/workshop/browse/"
         "*://steamcommunity.com/workshop/browse/?*"
         "*://steamcommunity.com/workshop/browse?*"
+        "*://steamcommunity.com/sharedfiles/filedetails"
+        "*://steamcommunity.com/sharedfiles/filedetails/*"
+        "*://steamcommunity.com/sharedfiles/filedetails?*"
+        "*://steamcommunity.com/workshop/filedetails"
+        "*://steamcommunity.com/workshop/filedetails/*"
+        "*://steamcommunity.com/workshop/filedetails?*"
+        "*://steamcommunity.com/id/*/stats/*"
+        "*://steamcommunity.com/profiles/*/stats/*"
         "*://steamcommunity.com/sharedfiles"
         "*://steamcommunity.com/sharedfiles/"
         "*://steamcommunity.com/sharedfiles/?*"
@@ -167,18 +142,11 @@
         "*://steamcommunity.com/workshop/"
         "*://steamcommunity.com/workshop/?*"
         "*://steamcommunity.com/workshop?*"
-        "*://steamcommunity.com/id/*"
-        "*://steamcommunity.com/profiles/*"
-        "*://steamcommunity.com/id/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/id/*/myworkshopfiles?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/profiles/*/myworkshopfiles/?*browsefilter=mysubscriptions*"
-        "*://steamcommunity.com/profiles/*/myworkshopfiles?*browsefilter=mysubscriptions*"
-        "*://*.steampowered.com/account/registerkey"
-        "*://*.steampowered.com/account/registerkey/"
-        "*://*.steampowered.com/account/registerkey/?*"
-        "*://*.steampowered.com/account/registerkey?*"
-        "*://steamcommunity.com/id/*/stats/*"
-        "*://steamcommunity.com/profiles/*/stats/*"
+        "*://*.steampowered.com/app/*"
+        "*://*.steampowered.com/account"
+        "*://*.steampowered.com/account/"
+        "*://*.steampowered.com/account/?*"
+        "*://*.steampowered.com/account?*"
         "*://steamcommunity.com/id/*/home"
         "*://steamcommunity.com/id/*/home/"
         "*://steamcommunity.com/id/*/home/?*"
@@ -199,19 +167,58 @@
         "*://steamcommunity.com/profiles/*/friendactivitydetail/*"
         "*://steamcommunity.com/id/*/status/*"
         "*://steamcommunity.com/profiles/*/status/*"
-        "*://steamcommunity.com/sharedfiles/filedetails"
-        "*://steamcommunity.com/sharedfiles/filedetails/*"
-        "*://steamcommunity.com/sharedfiles/filedetails?*"
-        "*://steamcommunity.com/workshop/filedetails"
-        "*://steamcommunity.com/workshop/filedetails/*"
-        "*://steamcommunity.com/workshop/filedetails?*"
+        "*://*.steampowered.com/steamaccount/addfunds"
+        "*://*.steampowered.com/steamaccount/addfunds/"
+        "*://*.steampowered.com/steamaccount/addfunds/?*"
+        "*://*.steampowered.com/steamaccount/addfunds?*"
+        "*://*.steampowered.com/digitalgiftcards/selectgiftcard"
+        "*://*.steampowered.com/digitalgiftcards/selectgiftcard/"
+        "*://*.steampowered.com/digitalgiftcards/selectgiftcard/?*"
+        "*://*.steampowered.com/digitalgiftcards/selectgiftcard?*"
+        "*://steamcommunity.com/id/*"
+        "*://steamcommunity.com/profiles/*"
+        "*://*.steampowered.com/bundle/*"
+        "*://*.steampowered.com/cart"
+        "*://*.steampowered.com/cart/*"
+        "*://*.steampowered.com/cart?*"
+        "*://*.steampowered.com/*"
         "*://steamcommunity.com/id/*/edit/*"
         "*://steamcommunity.com/profiles/*/edit/*"
+        "*://*.steampowered.com/agecheck/*"
+        "*://*.steampowered.com/search"
+        "*://*.steampowered.com/search/*"
+        "*://*.steampowered.com/search?*"
+        "*://*.steampowered.com/points"
+        "*://*.steampowered.com/points/*"
+        "*://*.steampowered.com/points?*"
+        "*://store.steampowered.com/"
+        "*://store.steampowered.com/?*"
+        "*://*.steampowered.com/wishlist"
+        "*://*.steampowered.com/wishlist/"
+        "*://*.steampowered.com/wishlist/?*"
+        "*://*.steampowered.com/wishlist?*"
+        "*://*.steampowered.com/wishlist/id/*"
+        "*://*.steampowered.com/wishlist/profiles/*"
+        "*://*.steampowered.com//wishlist"
+        "*://*.steampowered.com//wishlist/"
+        "*://*.steampowered.com//wishlist/?*"
+        "*://*.steampowered.com//wishlist?*"
+        "*://*.steampowered.com//wishlist/id/*"
+        "*://*.steampowered.com//wishlist/profiles/*"
+        "*://*.steampowered.com/account/registerkey"
+        "*://*.steampowered.com/account/registerkey/"
+        "*://*.steampowered.com/account/registerkey/?*"
+        "*://*.steampowered.com/account/registerkey?*"
+        "*://*.steampowered.com/sub/*"
+        "*://store.steampowered.com/account/licenses"
+        "*://store.steampowered.com/account/licenses/"
+        "*://store.steampowered.com/account/licenses/?*"
+        "*://store.steampowered.com/account/licenses?*"
       ];
       platforms = platforms.all;
     };
   };
-  "auto-tab-discard" = buildFirefoxXpiAddon {
+  "auto-tab-discard" = buildMozillaXpiAddon {
     pname = "auto-tab-discard";
     version = "0.6.7";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
@@ -233,7 +240,7 @@
       platforms = platforms.all;
     };
   };
-  "base64-decoder" = buildFirefoxXpiAddon {
+  "base64-decoder" = buildMozillaXpiAddon {
     pname = "base64-decoder";
     version = "1.1resigned1";
     addonId = "{b20e4f00-ab03-4a88-90e7-4f6b6232c5a9}";
@@ -252,32 +259,30 @@
       platforms = platforms.all;
     };
   };
-  "betterviewer" = buildFirefoxXpiAddon {
+  "betterviewer" = buildMozillaXpiAddon {
     pname = "betterviewer";
-    version = "1.0.5";
+    version = "2.0.2";
     addonId = "ademking@betterviewer";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4002455/betterviewer-1.0.5.xpi";
-    sha256 = "01b90d2afc4dc5de93dbb2eff2cc1cbd8eac181ddefb9d9506ff36788db901a7";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4548184/betterviewer-2.0.2.xpi";
+    sha256 = "692e983dbbdeba2655f7a0cc446fea56ad3aafa831d626b58b414df87ceb1b97";
     meta = with lib; {
       homepage = "https://github.com/Ademking/BetterViewer";
       description = "BetterViewer was designed as a replacement for the image viewing mode built into Firefox and Chrome-based web browsers. With BetterViewer you can use various keyboard shortcuts to quickly pan, zoom images, edit and a lot more!";
       license = licenses.mit;
       mozPermissions = [
-        "webRequest"
-        "webRequestBlocking"
-        "activeTab"
         "storage"
-        "*://*/*"
+        "contextMenus"
+        "<all_urls>"
       ];
       platforms = platforms.all;
     };
   };
-  "canvasblocker" = buildFirefoxXpiAddon {
+  "canvasblocker" = buildMozillaXpiAddon {
     pname = "canvasblocker";
-    version = "1.10.1";
+    version = "1.12";
     addonId = "CanvasBlocker@kkapsner.de";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4262820/canvasblocker-1.10.1.xpi";
-    sha256 = "dae3b648f0b559b8b08cdad8adaaba2fcde3aa7baf0ffe9b2cbca5a3373c98b7";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4691016/canvasblocker-1.12.xpi";
+    sha256 = "0698d92c4bd2d190b2f4025613bf4bd3dba40910d58ab4cf1b32f36637a244c9";
     meta = with lib; {
       homepage = "https://github.com/kkapsner/CanvasBlocker/";
       description = "Alters some JS APIs to prevent fingerprinting.";
@@ -295,12 +300,12 @@
       platforms = platforms.all;
     };
   };
-  "csgofloat" = buildFirefoxXpiAddon {
+  "csgofloat" = buildMozillaXpiAddon {
     pname = "csgofloat";
-    version = "3.3.1";
+    version = "5.16.0";
     addonId = "{194d0dc6-7ada-41c6-88b8-95d7636fe43c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4259722/csgofloat-3.3.1.xpi";
-    sha256 = "24a903e27d9e137e8eb87ec83f8df0f26ed8c902c50c775d6c1b219dab9c1011";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4897673/csgofloat-5.16.0.xpi";
+    sha256 = "8fd6c0c0bab28ca779ee304fed7ab39ccb26cb0615077760cc7b6358950c8db1";
     meta = with lib; {
       homepage = "https://csgofloat.com";
       description = "Shows the float value, paint seed, and screenshots of Counter-Strike (CS:GO &amp; CS2) items on the Steam Market or Inventories";
@@ -308,18 +313,23 @@
       mozPermissions = [
         "storage"
         "scripting"
+        "alarms"
+        "declarativeNetRequestWithHostAccess"
         "*://*.steamcommunity.com/market/listings/730/*"
         "*://*.steamcommunity.com/id/*/tradehistory*"
         "*://*.steamcommunity.com/profiles/*/tradehistory*"
         "*://*.steamcommunity.com/id/*/inventory*"
         "*://*.steamcommunity.com/profiles/*/inventory*"
         "*://*.steamcommunity.com/tradeoffer/*"
+        "*://*.steamcommunity.com/*/tradeoffers/*"
+        "*://*.steamcommunity.com/id/*"
+        "*://*.steamcommunity.com/profiles/*"
         "*://*.csfloat.com/*"
       ];
       platforms = platforms.all;
     };
   };
-  "dont-fuck-with-paste" = buildFirefoxXpiAddon {
+  "dont-fuck-with-paste" = buildMozillaXpiAddon {
     pname = "dont-fuck-with-paste";
     version = "2.7";
     addonId = "DontFuckWithPaste@raim.ist";
@@ -329,16 +339,20 @@
       homepage = "https://github.com/aaronraimist/DontFuckWithPaste";
       description = "This add-on stops websites from blocking copy and paste for password fields and other input fields.";
       license = licenses.mit;
-      mozPermissions = ["storage" "tabs" "<all_urls>"];
+      mozPermissions = [
+        "storage"
+        "tabs"
+        "<all_urls>"
+      ];
       platforms = platforms.all;
     };
   };
-  "downthemall" = buildFirefoxXpiAddon {
+  "downthemall" = buildMozillaXpiAddon {
     pname = "downthemall";
-    version = "4.13.1";
+    version = "4.15.1";
     addonId = "{DDC359D1-844A-42a7-9AA1-88A850A938A8}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4370602/downthemall-4.13.1.xpi";
-    sha256 = "ae0dbb3446bf96fdce8f9da9f82d492d8f21aa903fb971c7d5e84ea5cb637164";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4825019/downthemall-4.15.1.xpi";
+    sha256 = "a6f53822b708b4cb595195f25818fb0eeb690e1244ca2d7fc0d0b645c4dc5de9";
     meta = with lib; {
       homepage = "https://www.downthemall.org/";
       description = "The Mass Downloader for your browser";
@@ -360,7 +374,7 @@
       platforms = platforms.all;
     };
   };
-  "enhanced-github" = buildFirefoxXpiAddon {
+  "enhanced-github" = buildMozillaXpiAddon {
     pname = "enhanced-github";
     version = "6.1.0";
     addonId = "{72bd91c9-3dc5-40a8-9b10-dec633c0873f}";
@@ -379,12 +393,32 @@
       platforms = platforms.all;
     };
   };
-  "gesturefy" = buildFirefoxXpiAddon {
+  "ff2mpv" = buildMozillaXpiAddon {
+    pname = "ff2mpv";
+    version = "6.0.0";
+    addonId = "ff2mpv@yossarian.net";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4394631/ff2mpv-6.0.0.xpi";
+    sha256 = "f5edb75698ebd73d7a6d4034a37636022019adde712379b7a43e741b2a179b9d";
+    meta = with lib; {
+      homepage = "https://github.com/woodruffw/ff2mpv";
+      description = "Tries to play links in mpv.\n\nPress the toolbar button to play the current URL in mpv. Otherwise, right click on a URL and use the context  item to play an arbitrary URL.\n\nYou'll need the native client here: github.com/woodruffw/ff2mpv";
+      license = licenses.mit;
+      mozPermissions = [
+        "nativeMessaging"
+        "contextMenus"
+        "activeTab"
+        "storage"
+        "scripting"
+      ];
+      platforms = platforms.all;
+    };
+  };
+  "gesturefy" = buildMozillaXpiAddon {
     pname = "gesturefy";
-    version = "3.2.13";
+    version = "3.2.18";
     addonId = "{506e023c-7f2b-40a3-8066-bc5deb40aebe}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4330901/gesturefy-3.2.13.xpi";
-    sha256 = "f0908a53854e07fc436d053ea5528d180e7425fd3084ca0921cc558fce1a208b";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4712754/gesturefy-3.2.18.xpi";
+    sha256 = "fbe25c2272ca45efd328eb1c8c7a1887fa4c4003dc953149d3246704c93ec838";
     meta = with lib; {
       homepage = "https://github.com/Robbendebiene/Gesturefy";
       description = "Navigate, operate, and browse faster with mouse gestures! A customizable mouse gesture add-on with a variety of different commands.";
@@ -398,29 +432,27 @@
       platforms = platforms.all;
     };
   };
-  "gitako" = buildFirefoxXpiAddon {
+  "gitako" = buildMozillaXpiAddon {
     pname = "gitako";
-    version = "3.12.1";
+    version = "3.15.4";
     addonId = "{983bd86b-9d6f-4394-92b8-63d844c4ce4c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4315380/gitako_github_file_tree-3.12.1.xpi";
-    sha256 = "68bb06929b08d9c3aff55fdff411b4dc2f57e1752af358b018ab5003fbfeef69";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4668841/gitako_github_file_tree-3.15.4.xpi";
+    sha256 = "851734bd764796dd0fdd4573b7e148a1e77f74e3eef5fd194ddd0dec5f4ef6d8";
     meta = with lib; {
       homepage = "https://github.com/EnixCoda/Gitako";
-      description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/1c1a0c23e84b9c3e43af4c047563692e835dfa55acf38822fa3ca2bd4cb9ad0e/https%3A//youtu.be/r4Ein-s2pN0\" rel=\"nofollow\">https://youtu.be/r4Ein-s2pN0</a>\nHomepage: <a href=\"https://prod.outgoing.prod.webservices.mozgcp.net/v1/414db85f00575463826dd366beac0a912bf5a9dc43e679f39ddb998d218d376c/https%3A//github.com/EnixCoda/Gitako\" rel=\"nofollow\">https://github.com/EnixCoda/Gitako</a>";
+      description = "Gitako is a file tree extension for GitHub, available on Firefox, Chrome, and Edge.\n\nVideo intro: https://youtu.be/r4Ein-s2pN0\nHomepage: https://github.com/EnixCoda/Gitako";
       license = licenses.mit;
       mozPermissions = [
+        "scripting"
         "storage"
         "contextMenus"
         "activeTab"
-        "*://*.github.com/*"
-        "*://gitako.enix.one/*"
-        "*://*.sentry.io/*"
         "https://github.com/*"
       ];
       platforms = platforms.all;
     };
   };
-  "github-code-folding" = buildFirefoxXpiAddon {
+  "github-code-folding" = buildMozillaXpiAddon {
     pname = "github-code-folding";
     version = "0.1.2resigned1";
     addonId = "{b588f8ac-dbdf-4397-bcd7-3d29be2f17d7}";
@@ -430,29 +462,31 @@
       homepage = "https://github.com/noam3127/github-code-folding";
       description = "Enable code folding when viewing files in GitHub.";
       license = licenses.mpl20;
-      mozPermissions = ["tabs" "*://github.com/*"];
+      mozPermissions = [
+        "tabs"
+        "*://github.com/*"
+      ];
       platforms = platforms.all;
     };
   };
-  "github-isometric-contributions" = buildFirefoxXpiAddon {
+  "github-isometric-contributions" = buildMozillaXpiAddon {
     pname = "github-isometric-contributions";
-    version = "1.1.31";
+    version = "1.2.6";
     addonId = "isometric-contributions@jasonlong.me";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4326182/github_isometric_contributions-1.1.31.xpi";
-    sha256 = "bb55818eb558344debfbd0c19ae7ae287ba4d6fa3d119904fe088220c3661be8";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4759677/github_isometric_contributions-1.2.6.xpi";
+    sha256 = "8f4bdf96d914df81b22be95e96426c48e2efeb5601b4393065216e45b11d8f4e";
     meta = with lib; {
       description = "Renders an isometric pixel view of GitHub contribution graphs.";
       license = licenses.mit;
       mozPermissions = [
         "storage"
-        "contextMenus"
-        "activeTab"
+        "https://github.com/"
         "https://github.com/*"
       ];
       platforms = platforms.all;
     };
   };
-  "github-repo-size" = buildFirefoxXpiAddon {
+  "github-repo-size" = buildMozillaXpiAddon {
     pname = "github-repo-size";
     version = "1.7.0";
     addonId = "github-repo-size@mattelrah.com";
@@ -470,7 +504,25 @@
       platforms = platforms.all;
     };
   };
-  "imagus" = buildFirefoxXpiAddon {
+  "harper" = buildMozillaXpiAddon {
+    pname = "harper";
+    version = "2.6.0";
+    addonId = "harper@writewithharper.com";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4879532/private_grammar_checker_harper-2.6.0.xpi";
+    sha256 = "52e145d9e018cb5e59de6e025fb413385ca4d3c04ee1ad315eb728032e101098";
+    meta = with lib; {
+      homepage = "https://writewithharper.com";
+      description = "A private grammar checker for 21st Century English";
+      mozPermissions = [
+        "storage"
+        "tabs"
+        "https://docs.google.com/document/*"
+        "<all_urls>"
+      ];
+      platforms = platforms.all;
+    };
+  };
+  "imagus" = buildMozillaXpiAddon {
     pname = "imagus";
     version = "0.9.8.74";
     addonId = "{00000f2a-7cde-4f20-83ed-434fcb420d71}";
@@ -491,12 +543,12 @@
       platforms = platforms.all;
     };
   };
-  "indie-wiki-buddy" = buildFirefoxXpiAddon {
+  "indie-wiki-buddy" = buildMozillaXpiAddon {
     pname = "indie-wiki-buddy";
-    version = "3.12.0";
+    version = "3.14.6";
     addonId = "{cb31ec5d-c49a-4e5a-b240-16c767444f62}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4405306/indie_wiki_buddy-3.12.0.xpi";
-    sha256 = "dabb4b32fba2150277a564b774b01054b09fd2c9dbfe93f76bb357c5f38cca24";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4815321/indie_wiki_buddy-3.14.6.xpi";
+    sha256 = "ed5e9bd34eb285a51205c149b963266e490c3742a2fe9ec50211b03492bc612b";
     meta = with lib; {
       homepage = "https://getindie.wiki/";
       description = "Helping you discover quality, independent wikis!\n\nWhen visiting a Fandom wiki, Indie Wiki Buddy redirects or alerts you of independent alternatives. It also filters search engine results. BreezeWiki is also supported, to reduce clutter on Fandom.";
@@ -749,28 +801,31 @@
       platforms = platforms.all;
     };
   };
-  "lovely-forks" = buildFirefoxXpiAddon {
+  "lovely-forks" = buildMozillaXpiAddon {
     pname = "lovely-forks";
-    version = "3.7.3";
+    version = "3.7.4";
     addonId = "github-forks-addon@musicallyut.in";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4257592/lovely_forks-3.7.3.xpi";
-    sha256 = "ab9a444acbaa2bebf1bea88a1d41edd9f35208b05510522ab574fdf4cae3058d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4863232/lovely_forks-3.7.4.xpi";
+    sha256 = "16e8139fc8429c8ce30660f94ed573d9c0fd94763dc4953f6144468602d29fca";
     meta = with lib; {
       homepage = "https://github.com/musically-ut/lovely-forks";
       description = "Show notable forks of Github projects.";
       license = licenses.mpl20;
-      mozPermissions = ["storage" "*://github.com/*"];
+      mozPermissions = [
+        "storage"
+        "*://github.com/*"
+      ];
       platforms = platforms.all;
     };
   };
-  "material-icons-for-github" = buildFirefoxXpiAddon {
+  "material-icons-for-github" = buildMozillaXpiAddon {
     pname = "material-icons-for-github";
-    version = "1.8.33";
+    version = "1.16.3";
     addonId = "{eac6e624-97fa-4f28-9d24-c06c9b8aa713}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4415340/material_icons_for_github-1.8.33.xpi";
-    sha256 = "dd3a9d55351ee7747a2ef8ac3b0d972560416ba4c3c9b88b722a2285d8f20a08";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4908635/material_icons_for_github-1.16.3.xpi";
+    sha256 = "ad6955b1808e35ce94703e648f8231c488aa342fbe3d037e59baafd35b6b9a7a";
     meta = with lib; {
-      homepage = "https://github.com/Claudiohbsantos/github-material-icons-extension";
+      homepage = "https://github.com/material-extensions/material-icons-browser-extension";
       description = "Replace the file/folder icons on github file browsers with icons representing the file's type and which tool it is used by.";
       license = licenses.mit;
       mozPermissions = [
@@ -785,16 +840,18 @@
         "*://gitlab.com/*"
         "*://gitee.com/*"
         "*://sourceforge.net/*"
+        "*://codeberg.org/*"
+        "*://tangled.org/*"
       ];
       platforms = platforms.all;
     };
   };
-  "nexusmods-advance" = buildFirefoxXpiAddon {
+  "nexusmods-advance" = buildMozillaXpiAddon {
     pname = "nexusmods-advance";
-    version = "0.24.0.1";
+    version = "0.26.85";
     addonId = "NexusModsAdvance@Caiota";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4418227/nexusmods_advance-0.24.0.1.xpi";
-    sha256 = "6636853e9f2f252147f3fced0a9e7a0853fa7b74b1651694a9976530982386c6";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4896160/nexusmods_advance-0.26.85.xpi";
+    sha256 = "7d454c85fbc38f56de5a1d0212240fabbd08506da00f09ae67c8d37bf921788f";
     meta = with lib; {
       description = "Enhance your browsing experience on the NexusMods site and manage your mods directly through the browser!";
       license = licenses.mpl20;
@@ -811,7 +868,7 @@
       platforms = platforms.all;
     };
   };
-  "npm-hub" = buildFirefoxXpiAddon {
+  "npm-hub" = buildMozillaXpiAddon {
     pname = "npm-hub";
     version = "2024.7.26";
     addonId = "npm-hub@sikelianos.com";
@@ -830,7 +887,7 @@
       platforms = platforms.all;
     };
   };
-  "octolinker" = buildFirefoxXpiAddon {
+  "octolinker" = buildMozillaXpiAddon {
     pname = "octolinker";
     version = "6.10.5";
     addonId = "octolinker@stefanbuck.com";
@@ -852,25 +909,25 @@
       platforms = platforms.all;
     };
   };
-  "privacy-badger" = buildFirefoxXpiAddon {
+  "privacy-badger" = buildMozillaXpiAddon {
     pname = "privacy-badger";
-    version = "2024.7.17";
+    version = "2026.6.16";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4321653/privacy_badger17-2024.7.17.xpi";
-    sha256 = "f7afc15d305966bafc9215f600acb0815c84402b7b8c763493387d19415deb0d";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4854040/privacy_badger17-2026.6.16.xpi";
+    sha256 = "060860a601993fd7c505de9873c5f47adb3e568af1894dc2460b071aa5a32308";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
-      description = "Automatically learns to block invisible trackers.";
+      description = "Automatically learns to block hidden trackers. Made by the leading digital rights nonprofit EFF to stop companies from spying on you.";
       license = licenses.gpl3;
       mozPermissions = [
         "<all_urls>"
         "alarms"
+        "privacy"
+        "storage"
         "tabs"
         "webNavigation"
         "webRequest"
         "webRequestBlocking"
-        "storage"
-        "privacy"
         "https://*.facebook.com/*"
         "http://*.facebook.com/*"
         "https://*.messenger.com/*"
@@ -1264,7 +1321,7 @@
       platforms = platforms.all;
     };
   };
-  "privacy-pass" = buildFirefoxXpiAddon {
+  "privacy-pass" = buildMozillaXpiAddon {
     pname = "privacy-pass";
     version = "4.0.2";
     addonId = "{48748554-4c01-49e8-94af-79662bf34d50}";
@@ -1284,7 +1341,7 @@
       platforms = platforms.all;
     };
   };
-  "pronoundb" = buildFirefoxXpiAddon {
+  "pronoundb" = buildMozillaXpiAddon {
     pname = "pronoundb";
     version = "0.14.6";
     addonId = "firefox-addon@pronoundb.org";
@@ -1308,12 +1365,12 @@
       platforms = platforms.all;
     };
   };
-  "reddit-enhancement-suite" = buildFirefoxXpiAddon {
+  "reddit-enhancement-suite" = buildMozillaXpiAddon {
     pname = "reddit-enhancement-suite";
-    version = "5.24.7";
+    version = "5.24.10";
     addonId = "jid1-xUfzOsOFlzSOXg@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4357190/reddit_enhancement_suite-5.24.7.xpi";
-    sha256 = "f5b4325eba0e6d5be36bf07a5324bdca97a2e44824df83005193a73ca5d7f260";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4899821/reddit_enhancement_suite-5.24.10.xpi";
+    sha256 = "4573cfdb10193467e99e1dd5a792f23ae69764540c2e06d0444f12a81cdc4f0a";
     meta = with lib; {
       homepage = "https://redditenhancementsuite.com/";
       description = "Reddit Enhancement Suite (RES) is a suite of tools to enhance your Reddit browsing experience.";
@@ -1331,12 +1388,12 @@
       platforms = platforms.all;
     };
   };
-  "refined-github" = buildFirefoxXpiAddon {
+  "refined-github" = buildMozillaXpiAddon {
     pname = "refined-github";
-    version = "24.12.20";
+    version = "26.7.12";
     addonId = "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4407997/refined_github-24.12.20.xpi";
-    sha256 = "1c2b1ce845ad2e118ffb9adb341d02e792f995f1bbd2f04a61e5ed15bf18d23a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4895101/refined_github-26.7.12.xpi";
+    sha256 = "d7601af3c1a6146fe18d0f5f71def6fd4aac4c4ff4d462500540a882855d6d78";
     meta = with lib; {
       homepage = "https://github.com/refined-github/refined-github";
       description = "Simplifies the GitHub interface and adds many useful features.";
@@ -1353,12 +1410,12 @@
       platforms = platforms.all;
     };
   };
-  "search_by_image" = buildFirefoxXpiAddon {
+  "search_by_image" = buildMozillaXpiAddon {
     pname = "search_by_image";
-    version = "8.0.2";
+    version = "8.5.3";
     addonId = "{2e5ff8c8-32fe-46d0-9fc8-6b8986621f3c}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4404109/search_by_image-8.0.2.xpi";
-    sha256 = "62cbc95f3977a1ef9259cb53fc063b6202918a09475ae21158cfeffb7bade710";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4840197/search_by_image-8.5.3.xpi";
+    sha256 = "ba604478b50f5c46e13011ea7e3e2906abc7b1b72cb7e87b02c4fbdefa64ae37";
     meta = with lib; {
       homepage = "https://github.com/dessant/search-by-image#readme";
       description = "A powerful reverse image search tool, with support for various search engines, such as Google, Bing, Yandex, Baidu and TinEye.";
@@ -1374,6 +1431,7 @@
         "webRequest"
         "webRequestBlocking"
         "<all_urls>"
+        "scripting"
         "http://*/*"
         "https://*/*"
         "file:///*"
@@ -1381,12 +1439,12 @@
       platforms = platforms.all;
     };
   };
-  "sidebery" = buildFirefoxXpiAddon {
+  "sidebery" = buildMozillaXpiAddon {
     pname = "sidebery";
-    version = "5.2.0";
+    version = "5.6.1";
     addonId = "{3c078156-979c-498b-8990-85f7987dd929}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4246774/sidebery-5.2.0.xpi";
-    sha256 = "a5dd94227daafeec200dc2052fae6daa74d1ba261c267b71c03faa4cc4a6fa14";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4903712/sidebery-5.6.1.xpi";
+    sha256 = "e8a0a4b556ab7dd536897c1816af9d0918030223068ea6683a04376103a6caf2";
     meta = with lib; {
       homepage = "https://github.com/mbnuqw/sidebery";
       description = "Vertical tabs tree and bookmarks in sidebar with advanced containers configuration, grouping and many other features.";
@@ -1403,11 +1461,12 @@
         "menus.overrideContext"
         "search"
         "theme"
+        "identity"
       ];
       platforms = platforms.all;
     };
   };
-  "skip-redirect" = buildFirefoxXpiAddon {
+  "skip-redirect" = buildMozillaXpiAddon {
     pname = "skip-redirect";
     version = "2.3.6";
     addonId = "skipredirect@sblask";
@@ -1428,7 +1487,7 @@
       platforms = platforms.all;
     };
   };
-  "sourcegraph" = buildFirefoxXpiAddon {
+  "sourcegraph" = buildMozillaXpiAddon {
     pname = "sourcegraph";
     version = "23.4.14.1343";
     addonId = "sourcegraph-for-firefox@sourcegraph.com";
@@ -1447,12 +1506,12 @@
       platforms = platforms.all;
     };
   };
-  "sponsorblock" = buildFirefoxXpiAddon {
+  "sponsorblock" = buildMozillaXpiAddon {
     pname = "sponsorblock";
-    version = "5.10.5";
+    version = "6.1.7";
     addonId = "sponsorBlocker@ajay.app";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4410322/sponsorblock-5.10.5.xpi";
-    sha256 = "219e58141efd775fe0c549e3a225d7897616de5880cacc1b21e460f81042b1cb";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4897574/sponsorblock-6.1.7.xpi";
+    sha256 = "0d50e1632c6f15ee15a543e670e1c572974605a5c02622916e08e026803df83f";
     meta = with lib; {
       homepage = "https://sponsor.ajay.app";
       description = "Easily skip YouTube video sponsors. When you visit a YouTube video, the extension will check the database for reported sponsors and automatically skip known sponsors. You can also report sponsors in videos. Other browsers: https://sponsor.ajay.app";
@@ -1460,6 +1519,7 @@
       mozPermissions = [
         "storage"
         "scripting"
+        "unlimitedStorage"
         "https://sponsor.ajay.app/*"
         "https://*.youtube.com/*"
         "https://www.youtube-nocookie.com/embed/*"
@@ -1467,12 +1527,12 @@
       platforms = platforms.all;
     };
   };
-  "steam-database" = buildFirefoxXpiAddon {
+  "steam-database" = buildMozillaXpiAddon {
     pname = "steam-database";
-    version = "4.12";
+    version = "4.35";
     addonId = "firefox-extension@steamdb.info";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4409030/steam_database-4.12.xpi";
-    sha256 = "fa922a9ad4a4ff9bbe2b33d84897cd9cf961bfe8344b83708aa0c418535c3ecd";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4891926/steam_database-4.35.xpi";
+    sha256 = "37c1cdc2eafa701e365eb8e0ef2a5051b956ea1e9941b399b5ab3fa4214fc123";
     meta = with lib; {
       homepage = "https://steamdb.info/";
       description = "Adds SteamDB links and new features on the Steam store and community. View lowest game prices and stats.";
@@ -1514,48 +1574,49 @@
         "https://steamcommunity.com/id/*/gamecards/*"
         "https://steamcommunity.com/profiles/*/gamecards/*"
         "https://steamcommunity.com/market/multibuy*"
-        "https://steamcommunity.com/market/*"
         "https://steamcommunity.com/games/*"
         "https://steamcommunity.com/sharedfiles/*"
         "https://steamcommunity.com/workshop/*"
+        "https://steamcommunity.com/linkfilter/*"
+        "https://steamcommunity.com/market/*"
+        "https://steamcommunity.com/tradingcards/boostercreator*"
       ];
       platforms = platforms.all;
     };
   };
-  "stylus" = buildFirefoxXpiAddon {
+  "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "1.5.51";
+    version = "2.4.8";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4338993/styl_us-1.5.51.xpi";
-    sha256 = "4d7c184af2d81f40c35f33c77c4040dc4205908dbcf65e7c99fafd7d26e4814f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4907275/styl_us-2.4.8.xpi";
+    sha256 = "455426890a38bd3ee511000112ece51675f8bbc21e988be2170c3ae6900cbedf";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
       license = licenses.gpl3;
       mozPermissions = [
+        "alarms"
+        "contextMenus"
+        "storage"
         "tabs"
+        "unlimitedStorage"
         "webNavigation"
         "webRequest"
         "webRequestBlocking"
-        "contextMenus"
-        "storage"
-        "unlimitedStorage"
-        "alarms"
         "<all_urls>"
-        "http://userstyles.org/*"
         "https://userstyles.org/*"
       ];
       platforms = platforms.all;
     };
   };
-  "tabcenter-reborn" = buildFirefoxXpiAddon {
+  "tabcenter-reborn" = buildMozillaXpiAddon {
     pname = "tabcenter-reborn";
-    version = "2.3.1";
+    version = "3.0.2";
     addonId = "tabcenter-reborn@ariasuni";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3829515/tabcenter_reborn-2.3.1.xpi";
-    sha256 = "d31c693c896045d4326c7e9e0152830820009bd60f62b36043bb322cab713f34";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4631653/tabcenter_reborn-3.0.2.xpi";
+    sha256 = "47dc2967afd4bc1774807e52ebc1ccdef909864f873fbbc03e382d47054c24c5";
     meta = with lib; {
-      homepage = "https://framagit.org/ariasuni/tabcenter-reborn";
+      homepage = "https://codeberg.org/ariasuni/tabcenter-reborn";
       description = "Simple and powerful vertical tab bar";
       license = licenses.mpl20;
       mozPermissions = [
@@ -1566,7 +1627,6 @@
         "cookies"
         "menus"
         "menus.overrideContext"
-        "notifications"
         "search"
         "sessions"
         "storage"
@@ -1577,12 +1637,12 @@
       platforms = platforms.all;
     };
   };
-  "tree-style-tab" = buildFirefoxXpiAddon {
+  "tree-style-tab" = buildMozillaXpiAddon {
     pname = "tree-style-tab";
-    version = "4.1.1";
+    version = "4.3.6";
     addonId = "treestyletab@piro.sakura.ne.jp";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4417227/tree_style_tab-4.1.1.xpi";
-    sha256 = "07433d82622184206cea577f1689635f0e74ae3eb378f887fc03ab5f0c26259a";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4900467/tree_style_tab-4.3.6.xpi";
+    sha256 = "9489aeb0f014033a315b0fefc7ac0d7f98111fa960011d34686c668f11a2c5ea";
     meta = with lib; {
       homepage = "http://piro.sakura.ne.jp/xul/_treestyletab.html.en";
       description = "Show tabs like a tree.";
@@ -1596,18 +1656,19 @@
         "search"
         "sessions"
         "storage"
+        "tabGroups"
         "tabs"
         "theme"
       ];
       platforms = platforms.all;
     };
   };
-  "tridactyl" = buildFirefoxXpiAddon {
+  "tridactyl" = buildMozillaXpiAddon {
     pname = "tridactyl";
-    version = "1.24.2";
+    version = "1.24.6";
     addonId = "tridactyl.vim@cmcaine.co.uk";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4405615/tridactyl_vim-1.24.2.xpi";
-    sha256 = "807925f26aab56ab19a28e663ade73743a033e3b77aa09edd3f77bf92e5fb36e";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4854935/tridactyl_vim-1.24.6.xpi";
+    sha256 = "13abd6fef2b5d13a2eca70addb5485a4fba0800436f6a12c57abb03f3cf99205";
     meta = with lib; {
       homepage = "https://tridactyl.xyz";
       description = "Vim, but in your browser. Replace Firefox's control mechanism with one modelled on Vim.\n\nThis addon is very usable, but is in an early stage of development. We intend to implement the majority of Vimperator's features.";
@@ -1640,12 +1701,12 @@
       platforms = platforms.all;
     };
   };
-  "ublock-origin" = buildFirefoxXpiAddon {
+  "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.61.2";
+    version = "1.72.2";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4391011/ublock_origin-1.61.2.xpi";
-    sha256 = "ee3a724a46ff32c17d1723077fecc6ede7fdab742154020b51fb6253ddcbba14";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4888680/ublock_origin-1.72.2.xpi";
+    sha256 = "40c315b0da7871868155ecfae7a50a58dfa0920aebd865e008214986f1b7c578";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";
@@ -1678,12 +1739,12 @@
       platforms = platforms.all;
     };
   };
-  "violentmonkey" = buildFirefoxXpiAddon {
+  "violentmonkey" = buildMozillaXpiAddon {
     pname = "violentmonkey";
-    version = "2.29.0";
+    version = "2.41.0";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4398029/violentmonkey-2.29.0.xpi";
-    sha256 = "2edf39a824476b8a77a57c7c3abdaf3f685a679486e47450fab837b4bd71d469";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4830363/violentmonkey-2.41.0.xpi";
+    sha256 = "42d184788bd2f6a291956dd31cd45daa7b4a5d1b19bf1c74fb0ae76e456fa36b";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Userscript support for browsers, open source.";

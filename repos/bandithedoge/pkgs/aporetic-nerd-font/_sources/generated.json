@@ -1,0 +1,23 @@
+{
+    "aporetic-nerd-font": {
+        "cargoLock": null,
+        "date": "2025-10-14",
+        "extract": null,
+        "name": "aporetic-nerd-font",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Echinoidea",
+            "repo": "Aporetic-Nerd-Font",
+            "rev": "88ae58addaa9240cf329b389afb21338748ec749",
+            "sha256": "sha256-wvzjwnLeaabfhjZCfGpqolalBslcI5oFAdwuQG9VbBI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "88ae58addaa9240cf329b389afb21338748ec749"
+    }
+}

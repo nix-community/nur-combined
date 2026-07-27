@@ -1,0 +1,23 @@
+{
+    "dmenu-flexipatch": {
+        "cargoLock": null,
+        "date": "2026-03-10",
+        "extract": null,
+        "name": "dmenu-flexipatch",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bakkeby",
+            "repo": "dmenu-flexipatch",
+            "rev": "c59af646f2d8ccbc31f799111b0ff7a1282efa63",
+            "sha256": "sha256-eQp1HJ64GJ1Xm6cIAWnaO39A2doL8RAEL4m09paTMjw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "c59af646f2d8ccbc31f799111b0ff7a1282efa63"
+    }
+}

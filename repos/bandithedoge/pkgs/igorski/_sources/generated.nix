@@ -4,16 +4,17 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   darvaza = {
     pname = "darvaza";
-    version = "v1.0.3";
+    version = "1.0.3";
     src = fetchFromGitHub {
       owner = "igorski";
       repo = "darvaza";
-      rev = "v1.0.3";
+      rev = "1.0.3";
       fetchSubmodules = false;
-      sha256 = "sha256-ArpMB8jwsYUEsER4YJmuJkpv7gZgiLzpI2n+Bzp7kqM=";
+      sha256 = "sha256-NvPpTEBNGhz6fcbfJndRSWVcEbnTZafFxkFAGUMNy+Q=";
     };
   };
   delirion = {
@@ -24,73 +25,73 @@
       repo = "delirion";
       rev = "1.1.0";
       fetchSubmodules = false;
-      sha256 = "sha256-w13DfRyIAcfG+DHLRfEV/qUygLWfQkyPcUAHYmklYyo=";
+      sha256 = "sha256-87+9N/CLKuhh+suwUi/y9EVbP2aFqU9ydbjMKp4jE5c=";
     };
   };
   fogpad = {
     pname = "fogpad";
-    version = "v1.0.3";
+    version = "1.0.3";
     src = fetchFromGitHub {
       owner = "igorski";
       repo = "fogpad";
-      rev = "v1.0.3";
+      rev = "1.0.3";
       fetchSubmodules = false;
-      sha256 = "sha256-7eVKdsLWCmQaEVCPMLwqiySe1dnXcDvBqaq0Ip15dO0=";
+      sha256 = "sha256-viZldEegL8Jc1OKYo4fbmo/bc+mBMDCI8LfTVw5v2gs=";
     };
   };
   homecorrupter = {
     pname = "homecorrupter";
-    version = "v1.1.3";
+    version = "1.1.3";
     src = fetchFromGitHub {
       owner = "igorski";
       repo = "homecorrupter";
-      rev = "v1.1.3";
+      rev = "1.1.3";
       fetchSubmodules = false;
-      sha256 = "sha256-eGHyCQ0u3Xxr0x2KDGYtJYqVkrzhM7AGH4V/Gf8nYQg=";
+      sha256 = "sha256-jFD0orWRELJE5CKAxqNF8KKtS9kMnAzrqZTPX8FoRUQ=";
     };
   };
   juce = {
     pname = "juce";
-    version = "8.0.6";
+    version = "8.0.14";
     src = fetchFromGitHub {
       owner = "juce-framework";
       repo = "JUCE";
-      rev = "8.0.6";
+      rev = "8.0.14";
       fetchSubmodules = false;
-      sha256 = "sha256-uwZVBrvb5O9LEh00y93UeEu4u4rd+tLRCdQdxsMpXNg=";
+      sha256 = "sha256-oXFYfFqySW2XtM1e5/ifxAp9qSIVLzY1WAUKE3EscoQ=";
     };
   };
   rechoir = {
     pname = "rechoir";
-    version = "v1.0.0";
+    version = "1.0.0";
     src = fetchFromGitHub {
       owner = "igorski";
       repo = "rechoir";
-      rev = "v1.0.0";
+      rev = "1.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-IVmNdesF16QgviarcCftKt9/v77X+WtTWs1a48z2fe4=";
+      sha256 = "sha256-khVKTGlhPuuBb51A/njcnGKNVMixDPUUsRIoMKGmyY0=";
     };
   };
   regrader = {
     pname = "regrader";
-    version = "v1.0.5";
+    version = "1.0.5";
     src = fetchFromGitHub {
       owner = "igorski";
       repo = "regrader";
-      rev = "v1.0.5";
+      rev = "1.0.5";
       fetchSubmodules = false;
-      sha256 = "sha256-Rb3J+PiAAxYivvml1ngOrxwKIIZhXxlN8/04fTvjh/c=";
+      sha256 = "sha256-tu1xfsnlc+55BdheF9y1N8OyeCrugGu+bHNg6tFK8Ys=";
     };
   };
   transformant = {
     pname = "transformant";
-    version = "v1.0.4";
+    version = "1.0.4";
     src = fetchFromGitHub {
       owner = "igorski";
       repo = "transformant";
-      rev = "v1.0.4";
+      rev = "1.0.4";
       fetchSubmodules = false;
-      sha256 = "sha256-W8quhA+W7pdT6DLGkI92Y+R270jzXM6yr5lizWJwydI=";
+      sha256 = "sha256-GSZ98Q2tjpbVzkyxasX1lQiTfqZ7eOiAJCNFbpLvsCo=";
     };
   };
   vst3sdk = {

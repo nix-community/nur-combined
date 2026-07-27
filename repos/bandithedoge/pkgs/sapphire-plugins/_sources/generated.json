@@ -1,0 +1,44 @@
+{
+    "sapphire-plugins": {
+        "cargoLock": null,
+        "date": "2025-01-27",
+        "extract": null,
+        "name": "sapphire-plugins",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "baconpaul",
+            "repo": "sapphire-plugins",
+            "rev": "2aa07b6ffd6b92d3058efdb5ff7a57fb8d7f25e7",
+            "sha256": "sha256-zobZXe+yM1UFAg4T1GqG7oUk/phYpxivBrX2eJwk6TE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2aa07b6ffd6b92d3058efdb5ff7a57fb8d7f25e7"
+    },
+    "vst3sdk": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vst3sdk",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "steinbergmedia",
+            "repo": "vst3sdk",
+            "rev": "v3.7.6_build_18",
+            "sha256": "sha256-jfh+iP5rqov8q++IyG4FXlYKs4PQtFjCwCP6xou8N0E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.7.6_build_18"
+    }
+}

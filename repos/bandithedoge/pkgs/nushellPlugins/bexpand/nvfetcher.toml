@@ -1,0 +1,4 @@
+[nu-plugin-bexpand]
+src.git = "https://forge.axfive.net/Taylor/nu-plugin-bexpand.git"
+fetch.git = "https://forge.axfive.net/Taylor/nu-plugin-bexpand.git"
+cargo_lock = ["Cargo.lock"]

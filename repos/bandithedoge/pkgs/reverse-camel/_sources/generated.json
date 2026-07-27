@@ -1,0 +1,23 @@
+{
+    "reverse-camel": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "reverse-camel",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "soerenbnoergaard",
+            "repo": "reverse-camel",
+            "rev": "v0.0.4",
+            "sha256": "sha256-XALdDd+HszN0JqQEHCuHNxe0jpWXfavq7EyMINLxhuk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.4"
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "open-mbc-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "open-mbc-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-D9BsxMeuxEuWsQxogDMiA74no6N4H3DJiAYjHhhxza8=",
+            "type": "tarball",
+            "url": "https://github.com/maor1993/open_mbc/releases/download/v0.2.2/open_mbc-v0.2.2-ubuntu-22.04.zip"
+        },
+        "version": "v0.2.2"
+    }
+}

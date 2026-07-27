@@ -1,0 +1,12 @@
+[unplugred]
+src.git = "https://github.com/unplugred/vsts"
+fetch.github = "unplugred/vsts"
+
+[juce]
+src.manual = "7.0.12"
+fetch.github = "juce-framework/JUCE"
+
+[clap-juce-extensions]
+src.git = "https://github.com/free-audio/clap-juce-extensions"
+fetch.github = "free-audio/clap-juce-extensions"
+git.fetchSubmodules = true

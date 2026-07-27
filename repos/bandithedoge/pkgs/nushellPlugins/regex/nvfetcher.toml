@@ -1,0 +1,5 @@
+[nu-plugin-regex]
+src.github_tag = "fdncred/nu_plugin_regex"
+src.ignored = "v0.23.0"
+fetch.github = "fdncred/nu_plugin_regex"
+cargo_lock = ["Cargo.lock"]

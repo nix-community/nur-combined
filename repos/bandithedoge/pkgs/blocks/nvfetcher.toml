@@ -1,4 +1,4 @@
 [blocks]
 src.git = "https://github.com/dan-german/blocks"
-fetch.git = "https://github.com/dan-german/blocks"
+fetch.github = "dan-german/blocks"
 git.fetchSubmodules = true

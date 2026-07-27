@@ -1,0 +1,4 @@
+[nu-plugin-file]
+src.github = "fdncred/nu_plugin_file"
+fetch.github = "fdncred/nu_plugin_file"
+cargo_lock = ["Cargo.lock"]

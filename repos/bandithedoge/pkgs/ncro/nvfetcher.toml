@@ -1,0 +1,4 @@
+[ncro]
+src.github = "manic-systems/ncro"
+fetch.github = "manic-systems/ncro"
+cargo_lock = ["Cargo.lock"]

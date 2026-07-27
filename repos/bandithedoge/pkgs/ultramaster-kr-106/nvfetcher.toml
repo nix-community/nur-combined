@@ -1,0 +1,4 @@
+[ultramaster-kr-106]
+src.github = "kayrockscreenprinting/ultramaster_kr106"
+fetch.github = "kayrockscreenprinting/ultramaster_kr106"
+git.fetchSubmodules = true

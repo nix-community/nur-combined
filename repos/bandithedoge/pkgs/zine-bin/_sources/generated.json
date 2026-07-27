@@ -1,0 +1,62 @@
+{
+    "zine-bin-aarch64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zine-bin-aarch64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-cw0nHuVsjPs5uRgbxVGZZswB/ejsy5hcfgaPetlb1eQ=",
+            "type": "url",
+            "url": "https://github.com/kristoff-it/zine/releases/download/v0.13.0/aarch64-macos.zip"
+        },
+        "version": "v0.13.0"
+    },
+    "zine-bin-aarch64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zine-bin-aarch64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QYKlkF12b83W3QZsz70ZzowgO4FxvbNXFkCUHchfPAk=",
+            "type": "url",
+            "url": "https://github.com/kristoff-it/zine/releases/download/v0.13.0/aarch64-linux-musl.tar.xz"
+        },
+        "version": "v0.13.0"
+    },
+    "zine-bin-x86_64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zine-bin-x86_64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-8Q81X+FmGF6hm9Iqu75qjzoC27SMOLI0iRE2E2p3xAw=",
+            "type": "url",
+            "url": "https://github.com/kristoff-it/zine/releases/download/v0.13.0/x86_64-macos.zip"
+        },
+        "version": "v0.13.0"
+    },
+    "zine-bin-x86_64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zine-bin-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-wlDgKdl4kBsMmjjqsKhg7524db9ob+Dwq/YfGAwoDbo=",
+            "type": "url",
+            "url": "https://github.com/kristoff-it/zine/releases/download/v0.13.0/x86_64-linux-musl.tar.xz"
+        },
+        "version": "v0.13.0"
+    }
+}

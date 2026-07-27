@@ -4,19 +4,18 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   propertree = {
     pname = "propertree";
-    version = "69ca020a5000962c90a91e212a6f2ab3fd481f27";
-    src = fetchgit {
-      url = "https://github.com/corpnewt/ProperTree";
-      rev = "69ca020a5000962c90a91e212a6f2ab3fd481f27";
+    version = "51ed53dbe3c96a81686ae1fc47f6d2a92f668159";
+    src = fetchFromGitHub {
+      owner = "corpnewt";
+      repo = "ProperTree";
+      rev = "51ed53dbe3c96a81686ae1fc47f6d2a92f668159";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
-      sha256 = "sha256-pLEbieAW5V/eIxr81n6isgM8ykxsVWglbeawPECNz30=";
+      sha256 = "sha256-yDkIALfDh8LcCStZGPaUDQbmDdei6nir8XSed2ZqOIs=";
     };
-    date = "2025-01-08";
+    date = "2026-06-20";
   };
 }

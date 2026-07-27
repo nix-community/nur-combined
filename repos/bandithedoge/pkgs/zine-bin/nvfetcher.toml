@@ -1,0 +1,15 @@
+[zine-bin-x86_64-linux]
+src.github = "kristoff-it/zine"
+fetch.url = "https://github.com/kristoff-it/zine/releases/download/$ver/x86_64-linux-musl.tar.xz"
+
+[zine-bin-aarch64-linux]
+src.github = "kristoff-it/zine"
+fetch.url = "https://github.com/kristoff-it/zine/releases/download/$ver/aarch64-linux-musl.tar.xz"
+
+[zine-bin-x86_64-darwin]
+src.github = "kristoff-it/zine"
+fetch.url = "https://github.com/kristoff-it/zine/releases/download/$ver/x86_64-macos.zip"
+
+[zine-bin-aarch64-darwin]
+src.github = "kristoff-it/zine"
+fetch.url = "https://github.com/kristoff-it/zine/releases/download/$ver/aarch64-macos.zip"

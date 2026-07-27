@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   panacea-bin = {
     pname = "panacea-bin";
     version = "v1.0.1";

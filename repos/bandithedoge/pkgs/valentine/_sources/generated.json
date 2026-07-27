@@ -1,0 +1,44 @@
+{
+    "catch2": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "catch2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catchorg",
+            "repo": "Catch2",
+            "rev": "v3.4.0",
+            "sha256": "sha256-DqGGfNjKPW9HFJrX9arFHyNYjB61uoL6NabZatTWrr0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.4.0"
+    },
+    "valentine": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "valentine",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tote-bag-labs",
+            "repo": "valentine",
+            "rev": "v1.0.1",
+            "sha256": "sha256-l/rwSnvPizRsWBle9YaVIadVuWJlqLy4UycvmGLITt8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.1"
+    }
+}

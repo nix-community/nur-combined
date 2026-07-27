@@ -1,0 +1,4 @@
+[barlow]
+src.git = "https://github.com/jpt/barlow.git"
+src.branch = "1.5"
+fetch.github = "jpt/barlow"

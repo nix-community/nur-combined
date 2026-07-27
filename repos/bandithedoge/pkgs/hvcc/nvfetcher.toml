@@ -5,4 +5,4 @@ fetch.github = "Wasted-Audio/hvcc"
 [wstd2daisy]
 src.git = "https://github.com/Wasted-Audio/json2daisy"
 src.branch = "wstd2daisy"
-fetch.git = "https://github.com/Wasted-Audio/json2daisy"
+fetch.github = "Wasted-Audio/json2daisy"

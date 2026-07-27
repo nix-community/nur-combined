@@ -4,19 +4,18 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   misstrhortion = {
     pname = "misstrhortion";
-    version = "c3d110fc48b5a867393c435e3722ff1ee4ecd6f4";
-    src = fetchgit {
-      url = "https://github.com/bandithedoge/misstrhortion";
-      rev = "c3d110fc48b5a867393c435e3722ff1ee4ecd6f4";
+    version = "85fdcf6e994e018778b0d55aa987bd94c9e09f9d";
+    src = fetchFromGitHub {
+      owner = "bandithedoge";
+      repo = "misstrhortion";
+      rev = "85fdcf6e994e018778b0d55aa987bd94c9e09f9d";
       fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
-      sha256 = "sha256-ub9cSNj5JlIjPqcPY5StCrqypYqZly2n4663Hd8Ry2g=";
+      sha256 = "sha256-iUo3zduI6TCqY8ju8Xs+Y0z7V26aXIfUYziakoDOeSg=";
     };
-    date = "2024-12-14";
+    date = "2025-04-02";
   };
 }

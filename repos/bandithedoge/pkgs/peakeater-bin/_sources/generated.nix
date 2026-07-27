@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   peakeater-bin = {
     pname = "peakeater-bin";
     version = "v0.8.2";
-    src = fetchurl {
+    src = fetchTarball {
       url = "https://github.com/vvvar/PeakEater/releases/download/v0.8.2/peakeater-v0.8.2-Linux-x86_64.zip";
-      sha256 = "sha256-Dd99g5+kNuYsLp1bHxiNaVQk1aui8kKtCom7hjTymbk=";
+      sha256 = "sha256-jfs1T8bumU+9XALB+AY8cKHdMP72vQRSS8EapieCkrY=";
     };
   };
 }

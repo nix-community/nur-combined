@@ -1,0 +1,7 @@
+[harrison-32c]
+src.manual = "3-5-22"
+fetch.tarball = "https://rsrc.harrisonconsoles.com/ava/release/32C/$ver/Harrison_32C-linux-amd64.tar.gz"
+
+[harrison-ava]
+src.manual = "10-27-22"
+fetch.tarball = "https://rsrc.harrisonconsoles.com/ava/release/AVA/$ver/Harrison_AVA-linux-amd64.tar.gz"

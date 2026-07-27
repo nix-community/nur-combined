@@ -1,0 +1,23 @@
+{
+    "jdrummer": {
+        "cargoLock": null,
+        "date": "2026-05-25",
+        "extract": null,
+        "name": "jdrummer",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jmantra",
+            "repo": "jdrummer",
+            "rev": "51a5540a9b85d398fa83a4c70533d685846c9661",
+            "sha256": "sha256-vxY5YEzYbTGGT+wZuq8vB0/i1vxSJFReAxJgMTtOlKg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "51a5540a9b85d398fa83a4c70533d685846c9661"
+    }
+}

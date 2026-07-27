@@ -1,0 +1,23 @@
+{
+    "cchorus": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "cchorus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SpotlightKid",
+            "repo": "cchorus",
+            "rev": "v2.2.0",
+            "sha256": "sha256-anOkkPHj5waCdenGD48IjsXEq4hE2Z1l9QTumOaohrE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.2.0"
+    }
+}

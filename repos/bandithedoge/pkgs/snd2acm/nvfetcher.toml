@@ -1,0 +1,3 @@
+[snd2acm]
+src.github = "dtiefling/snd2acm-portable"
+fetch.github = "dtiefling/snd2acm-portable"

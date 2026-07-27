@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   aida-x = {
     pname = "aida-x";
     version = "1.1.0";

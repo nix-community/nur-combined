@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   lv2vst = {
     pname = "lv2vst";
     version = "30a669a021812da05258519cef9d4202f5ce26c3";

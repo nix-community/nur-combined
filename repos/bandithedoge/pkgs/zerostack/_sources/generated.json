@@ -1,0 +1,28 @@
+{
+    "zerostack": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-3JmJiosN_TvK4RpROAaSjbsyvts6HfE9pmlYGDYG+ik=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "zerostack",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gi-dellav",
+            "repo": "zerostack",
+            "rev": "v1.7.0",
+            "sha256": "sha256-3JmJiosN/TvK4RpROAaSjbsyvts6HfE9pmlYGDYG+ik=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.7.0"
+    }
+}

@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   Speedrum = {
     pname = "Speedrum";
     version = "v1.5.3";
@@ -15,10 +16,10 @@
   };
   Speedrum2 = {
     pname = "Speedrum2";
-    version = "v2.2.2";
+    version = "v2.4.0";
     src = fetchurl {
-      url = "https://github.com/apisonic/SP-two/releases/download/v2.2.2/speedrum2-v2.2.2.zip";
-      sha256 = "sha256-4vbaytC0n80WkiiCxmkEwCEEEb5jsIwAgu4KhxeRyx0=";
+      url = "https://github.com/apisonic/SP-two/releases/download/v2.4.0/speedrum2-v2.4.0.zip";
+      sha256 = "sha256-lbsPfabkg/VKrOUE0PDJ08jZ3fHwOCAc6T6g6uGnjB0=";
     };
   };
   SpeedrumLite = {

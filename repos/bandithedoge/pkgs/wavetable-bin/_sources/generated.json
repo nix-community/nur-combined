@@ -1,0 +1,17 @@
+{
+    "wavetable-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wavetable-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-9VRE9hsKO7qCH+Kk7sna/SGxnIdlsfo5VmajMHhRk5c=",
+            "type": "url",
+            "url": "https://github.com/FigBug/Wavetable/releases/download/v1.0.34/Wavetable.deb"
+        },
+        "version": "v1.0.34"
+    }
+}

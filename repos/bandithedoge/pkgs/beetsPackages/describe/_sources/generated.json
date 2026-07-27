@@ -1,0 +1,23 @@
+{
+    "beets-describe": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "beets-describe",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "adamjakab",
+            "repo": "BeetsPluginDescribe",
+            "rev": "v0.0.5",
+            "sha256": "sha256-+aAKQ0JKl8R4/5kmcAfCXNR77onlMoFkraE3JI5Quy4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.0.5"
+    }
+}

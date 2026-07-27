@@ -1,0 +1,17 @@
+{
+    "polarity-md": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "polarity-md",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-tUsh0f42ZftSI23jj7hadIkDWf1QRKwDEFaZ8NRXaSE=",
+            "type": "url",
+            "url": "https://polarity.productions/polarity-md/downloads/PolarityMD-v0.3.8-Linux.zip"
+        },
+        "version": "0.3.8"
+    }
+}

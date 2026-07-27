@@ -1,0 +1,4 @@
+[gate-12]
+src.github = "tiagolr/gate12"
+fetch.github = "tiagolr/gate12"
+git.fetchSubmodules = true

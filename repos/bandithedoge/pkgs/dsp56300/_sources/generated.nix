@@ -4,16 +4,17 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   dsp56300 = {
     pname = "dsp56300";
-    version = "1.4.1";
+    version = "2.2.6";
     src = fetchFromGitHub {
       owner = "dsp56300";
       repo = "gearmulator";
-      rev = "1.4.1";
+      rev = "2.2.6";
       fetchSubmodules = true;
-      sha256 = "sha256-JnXTTtxF5jHPaU+d558JwlGo/QjKHtVuCqel5iaBBCk=";
+      sha256 = "sha256-IFGY28MYKE4fRkwfzIrMwYosWhc8kEr9TjYdUOi6Kf4=";
     };
   };
 }

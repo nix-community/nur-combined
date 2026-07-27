@@ -1,0 +1,28 @@
+{
+    "ncro": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-attdCg_FjUooYxVidEDR5wVeQ8aAPAj4b6HQVL17Tng=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "ncro",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "manic-systems",
+            "repo": "ncro",
+            "rev": "v2.2.2",
+            "sha256": "sha256-attdCg/FjUooYxVidEDR5wVeQ8aAPAj4b6HQVL17Tng=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.2.2"
+    }
+}

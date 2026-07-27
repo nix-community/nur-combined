@@ -1,0 +1,5 @@
+[blender-radeon-prorender]
+src.webpage = "https://api.github.com/repos/GPUOpen-LibrariesAndSDKs/RadeonProRenderBlenderAddon/releases/latest"
+# absolutely dreadful regex alert
+src.regex = '\/(v\d+\.\d+\.\d+\/RadeonProRenderForBlender_(?:\d+\.\d+\.\d+)_Ubuntu24-.+)-linux\.zip'
+fetch.tarball = "https://github.com/GPUOpen-LibrariesAndSDKs/RadeonProRenderBlenderAddon/releases/download/$ver-linux.zip"

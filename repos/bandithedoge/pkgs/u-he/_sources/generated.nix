@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   ACE = {
     pname = "ACE";
     version = "143_16518";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/ACE_143_16518_Linux.tar.xz";
-      sha256 = "sha256-DWmyZtyrbvNoAH2D5gZcMy+ljVjZSxk3bryzX0CkGgg=";
+      sha256 = "sha256-oCyltLPlZsg3RYEq5AgernRyPOLD+MQ8i9HGP0cUux0=";
     };
   };
   Bazille = {
@@ -18,7 +19,15 @@
     version = "113_16518";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Bazille_113_16518_Linux.tar.xz";
-      sha256 = "sha256-0CRxtka/x5bTrWYIcYmTYu+0u7ngbtz2O3Cj0LBltt4=";
+      sha256 = "sha256-dpvyuENTQrvRR76SZd7Lm21azs3gAbYux58q2LL8K4Y=";
+    };
+  };
+  BazilleCM = {
+    pname = "BazilleCM";
+    version = "101_12185";
+    src = fetchTarball {
+      url = "https://uhe-dl.b-cdn.net/releases/BazilleCM_101_12185_Linux.tar.xz";
+      sha256 = "sha256-MYcPAeoa9/qCdIuq1eSYrhqmsY45quYQMBVRVuOytC8=";
     };
   };
   ColourCopy = {
@@ -26,7 +35,7 @@
     version = "102_16742";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/ColourCopy_102_16742_Linux.tar.xz";
-      sha256 = "sha256-fDfClB+MoDWaUpdQkEi9sage5FToTytPIn6RNRsFTMc=";
+      sha256 = "sha256-nvEKPMty1W6M2pdJcG+nGm8F1dAut7rO8cuWyJ3wcSY=";
     };
   };
   Diva = {
@@ -34,7 +43,7 @@
     version = "148_16519";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Diva_148_16519_Linux.tar.xz";
-      sha256 = "sha256-3CRzcz7BJCU0M3fEOzxmg8TWgZajiXghyA1hZ3jdFEY=";
+      sha256 = "sha256-XgwHR17EG+YNpUA+aneUH1XwpR+zDrcDU3S210g63v0=";
     };
   };
   Filterscape = {
@@ -42,7 +51,7 @@
     version = "151_15664";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Filterscape_151_15664_Linux.tar.xz";
-      sha256 = "sha256-glx/yn5/xnPBfRMpOQBpPfDWsTrL4h6J1+hHaOQPYRk=";
+      sha256 = "sha256-xcuKEOr/244iVamCRjyCtANCs0E5qSwnBKFsEj9c2ao=";
     };
   };
   Hive = {
@@ -50,7 +59,7 @@
     version = "212_16520";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Hive_212_16520_Linux.tar.xz";
-      sha256 = "sha256-q+nlzaeASQJnfdiHAi1RSQTgZGaxNZzFJDPguj8OU+c=";
+      sha256 = "sha256-poLI1mXjkxYIZYxp7BRHYyUDjBFdACj3uBn08RdB3yo=";
     };
   };
   MFM2 = {
@@ -58,7 +67,7 @@
     version = "251_16742";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/MFM2_251_16742_Linux.tar.xz";
-      sha256 = "sha256-qhYctgN+wiOwt97atks6mLhoS1k3MQNWpz91+9w+U28=";
+      sha256 = "sha256-PiSMSSqhbpv2qQXqCQlgwy/inAiUZBExj15FCxOIviU=";
     };
   };
   Podolski = {
@@ -66,15 +75,15 @@
     version = "123_12092";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Podolski_123_12092_Linux.tar.xz";
-      sha256 = "sha256-jsCursOUP4sMUNcQoISlIoAg+tLC2EF9uWCb/74+m3E=";
+      sha256 = "sha256-D4YFSKoi5LkD67+J441Q8ip9Nn4qgl2G6sUPxNvzV4w=";
     };
   };
   Presswerk = {
     pname = "Presswerk";
-    version = "115_12092";
+    version = "116_16960";
     src = fetchTarball {
-      url = "https://uhe-dl.b-cdn.net/releases/Presswerk_115_12092_Linux.tar.xz";
-      sha256 = "sha256-A2WV0gG8Bbo2L8ByTPDAnwNm8yw2jAgHZmIvEIyD7/E=";
+      url = "https://uhe-dl.b-cdn.net/releases/Presswerk_116_16960_Linux.tar.xz";
+      sha256 = "sha256-x2NTaKZIyugilfNk4DDpMwfVt9HwgmGQlFhhZ83Vioc=";
     };
   };
   Protoverb = {
@@ -82,7 +91,7 @@
     version = "101_12092";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Protoverb_101_12092_Linux.tar.xz";
-      sha256 = "sha256-z0+MfrMnxF5I1C6U1AFTu6DFioZGKAyc1EnrN2sPqbE=";
+      sha256 = "sha256-VvGHEZ1wzC7u8FLkCrVgNJL3Cx5o4N2vs5InQwIyIVg=";
     };
   };
   Repro-1 = {
@@ -90,7 +99,7 @@
     version = "113_16797";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Repro_113_16797_Linux.tar.xz";
-      sha256 = "sha256-LAWvWB+YPrm+fc1aKOcH06VTMlcbMgb0oesHmdEsmDM=";
+      sha256 = "sha256-Bgzu8LR7m7nhX8u/Q03tM5iKbFS4CbKwxWScQYObl9Y=";
     };
   };
   Satin = {
@@ -98,7 +107,7 @@
     version = "133_15721";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Satin_133_15721_Linux.tar.xz";
-      sha256 = "sha256-TkA5MrqwOi23wre/FxGbUlEJ+uck3me9jxq4kUxFhng=";
+      sha256 = "sha256-Ih5814y4F/l2crq/gmvN1aUAA8B/Hpzvzchqp62ToNc=";
     };
   };
   TripleCheese = {
@@ -106,7 +115,7 @@
     version = "130_12092";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/TripleCheese_130_12092_Linux.tar.xz";
-      sha256 = "sha256-L+uCW6Envlrd/6CRhTwrnazBSCroqlGrm3ltZ9jPGR0=";
+      sha256 = "sha256-Xkv+NcJPB1T/UNftYbHr3I6+OtprexgOTod8LxCkaYE=";
     };
   };
   Twangstrom = {
@@ -114,23 +123,61 @@
     version = "102_16742";
     src = fetchTarball {
       url = "https://uhe-dl.b-cdn.net/releases/Twangstrom_102_16742_Linux.tar.xz";
-      sha256 = "sha256-PU5+4UROIPcQ4/bkz3AMcGNMDzNWZqH42zPzt2z7Ius=";
+      sha256 = "sha256-OK2HwnKNuvjJSy9siHNpBA21RHH9Srm/SnrcRfIjStQ=";
+    };
+  };
+  TyrellN6 = {
+    pname = "TyrellN6";
+    version = "300_public_beta_16976";
+    src = fetchTarball {
+      url = "https://uhe-dl.b-cdn.net/releases/TyrellN6_300_public_beta_16976_Linux.tar.xz";
+      sha256 = "sha256-mg+5BJy9whksEx41lLdw8I9GuJ0JrJSjWwffJRdLpsY=";
     };
   };
   Uhbik = {
     pname = "Uhbik";
-    version = "131_8256";
+    version = "200_19684";
     src = fetchTarball {
-      url = "https://uhe-dl.b-cdn.net/releases/Uhbik_131_8256_Linux.tar.xz";
-      sha256 = "sha256-7bxp2xRITNXuq8rpXIZjnqaGPssJT2K8Cr9HPoVtbLU=";
+      url = "https://uhe-dl.b-cdn.net/releases/Uhbik_200_19684_Linux.tar.xz";
+      sha256 = "sha256-WSs/yI9S7hJWx0iZNpTTfN4gdCnSHk/SXZ5IVWRQxsY=";
     };
   };
   Zebra2 = {
     pname = "Zebra2";
-    version = "293_12092";
+    version = "294_16765";
     src = fetchTarball {
-      url = "https://uhe-dl.b-cdn.net/releases/Zebra2_293_12092_Linux.tar.xz";
-      sha256 = "sha256-qRNDGf/SeHI6I0sOwa95KDumzM2xDDUEslXAbBD2rDI=";
+      url = "https://uhe-dl.b-cdn.net/releases/Zebra_Legacy_294_16765_Linux.zip";
+      sha256 = "sha256-etzkLGpw9yRkgC5O0+nw0LC+Sb230Cm69y4rEF9FxCo=";
     };
+  };
+  Zebra3 = {
+    pname = "Zebra3";
+    version = "302_22175";
+    src = fetchTarball {
+      url = "https://uhe-dl.b-cdn.net/releases/Zebra3_302_22175_Linux.tar.xz";
+      sha256 = "sha256-9Mm9EjRAhYh1j+t0GB+hfRa0I0iN80+T3nY7Bue2R7I=";
+    };
+  };
+  ZebraCM = {
+    pname = "ZebraCM";
+    version = "111_12185";
+    src = fetchTarball {
+      url = "https://uhe-dl.b-cdn.net/releases/ZebraCM_111_12185_Linux.tar.xz";
+      sha256 = "sha256-/iKtVIc28S+0hDN9iSgUqrLVKUOhF7m328aafOHJtqc=";
+    };
+  };
+  patchelf-raphi = {
+    pname = "patchelf-raphi";
+    version = "9079354d2b94050f38594b5fab5f764f73e4b7e0";
+    src = fetchgit {
+      url = "https://git.sr.ht/~raphi/patchelf";
+      rev = "9079354d2b94050f38594b5fab5f764f73e4b7e0";
+      fetchSubmodules = false;
+      deepClone = false;
+      leaveDotGit = false;
+      sparseCheckout = [ ];
+      sha256 = "sha256-fJXkByP2QXo/3tpP1mPCYKmGolwlWLxubGV6xdytmCg=";
+    };
+    date = "2022-08-30";
   };
 }

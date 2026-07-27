@@ -1,3 +1,5 @@
+# lord forgive me
 [just-a-sample-bin]
-src.github = "BOBONA/Just-a-Sample"
-fetch.url = "https://github.com/BOBONA/Just-a-Sample/releases/download/$ver/Linux.VST3.zip"
+src.webpage = "https://api.github.com/repos/BOBONA/Just-a-Sample/releases/latest"
+src.regex = '.+\/(\S+\/JAS\.Linux\.VST3\.v\d\.\d\.\d)'
+fetch.url = "https://github.com/BOBONA/Just-a-Sample/releases/download/$ver.zip"

@@ -1,0 +1,4 @@
+[npr]
+src.git = "https://github.com/manic-systems/npr.git"
+fetch.git = "https://github.com/manic-systems/npr.git"
+cargo_lock = ["Cargo.lock"]

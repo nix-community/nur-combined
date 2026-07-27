@@ -1,0 +1,23 @@
+{
+    "nyan-doom": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "nyan-doom",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "andrikpowell",
+            "repo": "nyan-doom",
+            "rev": "v1.5.4",
+            "sha256": "sha256-xo63dxtKNNyjAc7GXismXt2jtKcQgAIB5Sn1n311sJY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.5.4"
+    }
+}

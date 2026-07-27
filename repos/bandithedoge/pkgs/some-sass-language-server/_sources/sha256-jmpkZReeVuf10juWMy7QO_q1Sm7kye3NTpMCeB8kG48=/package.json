@@ -1,0 +1,74 @@
+{
+  "name": "@somesass/project",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Workspace management for the somesass monorepo",
+  "workspaces": [
+    "packages/*",
+    "vscode-extension"
+  ],
+  "scripts": {
+    "prepare": "husky",
+    "build": "nx run-many -t build",
+    "build:production": "nx run-many -t build:production --skip-nx-cache",
+    "preclean": "nx reset",
+    "clean": "nx run-many -t clean",
+    "postclean": "shx rm -rf node_modules",
+    "coverage": "nx run-many -t coverage",
+    "dev": "echo Watching workspace for changes... && nx watch --all -- nx run \\$NX_PROJECT_NAME:build",
+    "lint": "eslint \"**/*.ts\" --cache",
+    "lint-staged": "lint-staged",
+    "package": "nx package some-sass",
+    "release:dryrun": "nx release --dry-run",
+    "release": "nx release --skip-publish",
+    "start:web": "nx start:web some-sass",
+    "test": "cross-env CI=true nx run-many -t test",
+    "test:all": "npm run test && npm run test:e2e && npm run test:web",
+    "test:e2e": "nx test:e2e some-sass",
+    "test:web": "nx test:web some-sass"
+  },
+  "lint-staged": {
+    "**/*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "20.4.3",
+    "@commitlint/config-conventional": "20.4.3",
+    "@eslint/js": "9.39.3",
+    "@nx/js": "22.5.4",
+    "@nx/web": "22.5.4",
+    "@rspack/cli": "1.7.7",
+    "@rspack/core": "1.7.7",
+    "@swc-node/register": "1.11.1",
+    "@swc/core": "1.15.18",
+    "@swc/helpers": "0.5.19",
+    "@types/node": "22.18.13",
+    "@types/picomatch": "4.0.2",
+    "@types/vscode": "1.86.0",
+    "@vscode/vsce": "3.7.1",
+    "cross-env": "10.1.0",
+    "eslint": "9.39.3",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-depend": "1.5.0",
+    "eslint-plugin-prettier": "5.5.5",
+    "husky": "9.1.7",
+    "lint-staged": "16.3.2",
+    "npm-run-all2": "8.0.4",
+    "nx": "22.5.4",
+    "ovsx": "0.10.9",
+    "prettier": "3.8.1",
+    "shx": "0.4.0",
+    "ts-loader": "9.5.4",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.56.1",
+    "vitest": "4.0.18"
+  },
+  "overrides": {
+    "tinyglobby": {
+      ".": "0.2.14",
+      "fdir": "6.4.4"
+    }
+  }
+}

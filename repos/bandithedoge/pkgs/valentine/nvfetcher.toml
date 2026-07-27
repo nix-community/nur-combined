@@ -1,0 +1,8 @@
+[valentine]
+src.github = "tote-bag-labs/valentine"
+fetch.github = "tote-bag-labs/valentine"
+git.fetchSubmodules = true
+
+[catch2]
+src.manual = "v3.4.0"
+fetch.github = "catchorg/Catch2"

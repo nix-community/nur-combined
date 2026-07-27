@@ -1,1 +1,1 @@
-{pkgs, ...}: final: prev: {}
+{ }: final: prev: { }

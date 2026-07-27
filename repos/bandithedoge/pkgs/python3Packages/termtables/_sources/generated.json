@@ -1,0 +1,23 @@
+{
+    "termtables": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "termtables",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nschloe",
+            "repo": "termtables",
+            "rev": "v0.2.4",
+            "sha256": "sha256-zSCWewHYe1kzY1hVU8+GbfQHXT0yY9MqTVpze9A/NKQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.2.4"
+    }
+}

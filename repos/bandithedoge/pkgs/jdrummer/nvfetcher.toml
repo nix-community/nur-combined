@@ -1,0 +1,3 @@
+[jdrummer]
+src.git = "https://github.com/jmantra/jdrummer"
+fetch.github = "jmantra/jdrummer"

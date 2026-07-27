@@ -1,0 +1,3 @@
+[ultracomb-bin]
+src.github = "Wasaka0/ultracomb"
+fetch.tarball = "https://github.com/Wasaka0/ultracomb/releases/download/0.1.0/linux-0.1.0.zip"

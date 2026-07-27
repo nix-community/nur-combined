@@ -1,0 +1,23 @@
+{
+    "microbiome": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "microbiome",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "dsmaugy",
+            "repo": "microbiome",
+            "rev": "v1.0.0",
+            "sha256": "sha256-RUAkXKzIrIxaVeswCBkDhCnAMKlQxAYt5m9ho1nZRFs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.0"
+    }
+}

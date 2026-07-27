@@ -4,17 +4,18 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   keepmenu = {
     pname = "keepmenu";
-    version = "4eab5ca44cc6da04f2f4a90ea322adfb0642685b";
+    version = "4832a3ae3e7160acb286873a5f87052bb7c50e30";
     src = fetchFromGitHub {
       owner = "firecat53";
       repo = "keepmenu";
-      rev = "4eab5ca44cc6da04f2f4a90ea322adfb0642685b";
+      rev = "4832a3ae3e7160acb286873a5f87052bb7c50e30";
       fetchSubmodules = false;
-      sha256 = "sha256-dqHHupVJKrK+MWL44NXTzwu3CRKINoq4EcaM0+8xhu0=";
+      sha256 = "sha256-MUtwQ9V5PcczR2mISMs8EcFGkDAPmuYSvNW+COC4Bhw=";
     };
-    date = "2024-11-18";
+    date = "2026-06-05";
   };
 }

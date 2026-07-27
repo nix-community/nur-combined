@@ -1,0 +1,23 @@
+{
+    "filt-r": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "filt-r",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tiagolr",
+            "repo": "filtr",
+            "rev": "v1.3.0",
+            "sha256": "sha256-diOM6Y2HrOP5wXg4tVXms7TYOSM16t06ZDg1/Q1L/zc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.0"
+    }
+}

@@ -1,0 +1,23 @@
+{
+    "bitdos": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "bitdos",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "astriiddev",
+            "repo": "BitDOS-VST",
+            "rev": "1.2",
+            "sha256": "sha256-9cyNb00LSe1uYfoEFoDR9mTgs8ULTIoHBo7QZ5YZTOI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.2"
+    }
+}

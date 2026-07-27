@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   hise = {
     pname = "hise";
     version = "4.1.0";

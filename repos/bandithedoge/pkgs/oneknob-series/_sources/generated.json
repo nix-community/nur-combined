@@ -1,0 +1,23 @@
+{
+    "oneknob-series": {
+        "cargoLock": null,
+        "date": "2025-12-21",
+        "extract": null,
+        "name": "oneknob-series",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "DISTRHO",
+            "repo": "OneKnob-Series",
+            "rev": "0a6ed4e54c0e7380abe9191c2b1b951a3bbc87c3",
+            "sha256": "sha256-8CCMkti8Y6SmbhD/apK0LHr41Fnn5qQ99SfzolGi82E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0a6ed4e54c0e7380abe9191c2b1b951a3bbc87c3"
+    }
+}

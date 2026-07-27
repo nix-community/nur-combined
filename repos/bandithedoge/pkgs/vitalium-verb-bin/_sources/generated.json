@@ -1,0 +1,16 @@
+{
+    "vitalium-verb-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vitalium-verb-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-m01aagwJCFRmQTqaVCfrJwqjUjKV20y9aVRiHN1s10E=",
+            "type": "tarball",
+            "url": "https://github.com/BillyDM/vitalium-verb/releases/download/v1.3.0/vitaliumverb-1.3.0-ubuntu-22.04.zip"
+        },
+        "version": "1.3.0"
+    }
+}

@@ -1,11 +1,28 @@
 [lua-dbus_proxy]
 src.git = "https://github.com/stefano-m/lua-dbus_proxy"
-fetch.git = "https://github.com/stefano-m/lua-dbus_proxy"
+fetch.github = "stefano-m/lua-dbus_proxy"
 
 [lua-dbus]
 src.git = "https://github.com/dodo/lua-dbus"
-fetch.git = "https://github.com/dodo/lua-dbus"
+fetch.github = "dodo/lua-dbus"
 
 [bling]
 src.git = "https://github.com/blingcorp/bling"
-fetch.git = "https://github.com/blingcorp/bling"
+fetch.github = "blingcorp/bling"
+
+[astal-lua]
+src.git = "https://github.com/tokyob0t/astal-lua"
+fetch.github = "tokyob0t/astal-lua"
+
+[luarocks-build-fennel]
+src.git = "https://git.sr.ht/~xerool/luarocks-build-fennel"
+fetch.git = "https://git.sr.ht/~xerool/luarocks-build-fennel"
+
+[lgi]
+src.git = "https://github.com/lgi-devs/lgi.git"
+fetch.github = "lgi-devs/lgi"
+
+[lua-resty-mpd]
+src.webpage = "https://buffering.party/software/lua-resty-mpd"
+src.regex = 'lua-resty-mpd-(\d+\.\d+\.\d+).tar.gz'
+fetch.tarball = "https://buffering.party/software/lua-resty-mpd/lua-resty-mpd-$ver.tar.gz"

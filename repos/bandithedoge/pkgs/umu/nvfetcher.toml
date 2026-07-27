@@ -1,4 +1,0 @@
-[umu]
-src.git = "https://github.com/Open-Wine-Components/umu-launcher"
-fetch.git = "https://github.com/Open-Wine-Components/umu-launcher"
-cargo_locks = ["Cargo.lock"]

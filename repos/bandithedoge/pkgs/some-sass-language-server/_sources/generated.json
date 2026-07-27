@@ -1,0 +1,25 @@
+{
+    "some-sass-language-server": {
+        "cargoLock": null,
+        "date": null,
+        "extract": {
+            "package-lock.json": "sha256-jmpkZReeVuf10juWMy7QO_q1Sm7kye3NTpMCeB8kG48=/package-lock.json",
+            "package.json": "sha256-jmpkZReeVuf10juWMy7QO_q1Sm7kye3NTpMCeB8kG48=/package.json"
+        },
+        "name": "some-sass-language-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "some-sass-language-server@2.3.8",
+            "sha256": "sha256-jmpkZReeVuf10juWMy7QO/q1Sm7kye3NTpMCeB8kG48=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/wkillerud/some-sass.git"
+        },
+        "version": "some-sass-language-server@2.3.8"
+    }
+}

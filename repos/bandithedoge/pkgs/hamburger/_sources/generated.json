@@ -1,0 +1,105 @@
+{
+    "chowdsp-utils": {
+        "cargoLock": null,
+        "date": "2025-12-09",
+        "extract": null,
+        "name": "chowdsp-utils",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "e97b826ef3de0b0fd92b15cb2e286076f678d8b9",
+            "sha256": "sha256-YB6VL1kDCmnW9hmDeeBrqQAdr7P8F5vMXOzOU9RoFtA=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/Chowdhury-DSP/chowdsp_utils.git"
+        },
+        "version": "e97b826ef3de0b0fd92b15cb2e286076f678d8b9"
+    },
+    "clap-juce-extensions": {
+        "cargoLock": null,
+        "date": "2026-06-24",
+        "extract": null,
+        "name": "clap-juce-extensions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "free-audio",
+            "repo": "clap-juce-extensions",
+            "rev": "16e9d4ca7b1e86c76e04584b2c08e85a764bcda8",
+            "sha256": "sha256-0oV0KR//AfkdcXyjFQIadmKqMdJTzoVWNSFydoQlzO4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "16e9d4ca7b1e86c76e04584b2c08e85a764bcda8"
+    },
+    "hamburger": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hamburger",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Davit-G",
+            "repo": "Hamburger",
+            "rev": "v0.6.1",
+            "sha256": "sha256-v8l3AP2fipk4Dp9czuPXddQ0KQFNzfO1CErWT/EH6a8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.6.1"
+    },
+    "juce": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "juce",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "juce-framework",
+            "repo": "JUCE",
+            "rev": "51d11a2be6d5c97ccf12b4e5e827006e19f0555a",
+            "sha256": "sha256-iAueT+yHwUUHOzqfK5zXEZQ0GgOKJ9q9TyRrVfWdewc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "51d11a2be6d5c97ccf12b4e5e827006e19f0555a"
+    },
+    "xsimd": {
+        "cargoLock": null,
+        "date": "2026-07-20",
+        "extract": null,
+        "name": "xsimd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "82a37aa77f77ef086104d2cacc26aaa1f628e94d",
+            "sha256": "sha256-3lcjIwrJSyFo+8GoO1h9o4eJyMvN/uzG+hzKIr1xmz0=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/xtensor-stack/xsimd.git"
+        },
+        "version": "82a37aa77f77ef086104d2cacc26aaa1f628e94d"
+    }
+}

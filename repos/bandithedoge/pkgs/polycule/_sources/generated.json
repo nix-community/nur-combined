@@ -1,0 +1,87 @@
+{
+    "matrix": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "matrix",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "TheOneWithTheBraid",
+            "repo": "matrix-dart-sdk",
+            "rev": "82ad90573e0e5e1ccb2cf1e669a5861bd6db351c",
+            "sha256": "sha256-w/QB5nYJ9Lh77TcYKEN/DnNQjWfp+9NX0dwQ9GOzWE8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "82ad90573e0e5e1ccb2cf1e669a5861bd6db351c"
+    },
+    "media_kit": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "media_kit",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "TheOneWithTheBraid",
+            "repo": "media-kit",
+            "rev": "75ed92c5c61d38beaff5d1bf1f4a3fd7bf3edaac",
+            "sha256": "sha256-3VtvM6brOhhx/lgPAzPcxe+I6zB0x7UWIhcEmk9krFc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "75ed92c5c61d38beaff5d1bf1f4a3fd7bf3edaac"
+    },
+    "media_kit_libs_android_video": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "media_kit_libs_android_video",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Predidit",
+            "repo": "media-kit",
+            "rev": "bb17d68ca43443abf68171da1aa703f2ba90a658",
+            "sha256": "sha256-nNKVF0kYOfP7ffqa/WPwATjaleB1QaJcT0aFMO7r+90=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "bb17d68ca43443abf68171da1aa703f2ba90a658"
+    },
+    "polycule": {
+        "cargoLock": null,
+        "date": "2025-11-14",
+        "extract": {
+            "pubspec.lock": "sha256-Sx9KN9RwiCwa3vUMjsRfYb_qymABlszwDR9+3Aj34iA=/pubspec.lock"
+        },
+        "name": "polycule",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "4b294296e4d62215f52da8831a3402f51fb1b9a7",
+            "sha256": "sha256-Sx9KN9RwiCwa3vUMjsRfYb/qymABlszwDR9+3Aj34iA=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gitlab.com/polycule_client/polycule.git"
+        },
+        "version": "4b294296e4d62215f52da8831a3402f51fb1b9a7"
+    }
+}

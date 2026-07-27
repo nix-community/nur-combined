@@ -1,0 +1,23 @@
+{
+    "sofia-sans": {
+        "cargoLock": null,
+        "date": "2023-01-12",
+        "extract": null,
+        "name": "sofia-sans",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lettersoup",
+            "repo": "Sofia-Sans",
+            "rev": "9a1f0ba30f0139b011f9e69c9c462728fa5ef725",
+            "sha256": "sha256-oh+gl9yhkFdrTMPh2jYjUy6bwrykMteE9BzmlakPfk0=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "9a1f0ba30f0139b011f9e69c9c462728fa5ef725"
+    }
+}

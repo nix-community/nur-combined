@@ -1,0 +1,7 @@
+[helium-bin-x86_64]
+src.github_tag = "imputnet/helium-linux"
+fetch.tarball = "https://github.com/imputnet/helium-linux/releases/download/$ver/helium-$ver-x86_64_linux.tar.xz"
+
+[helium-bin-arm64]
+src.github_tag = "imputnet/helium-linux"
+fetch.tarball = "https://github.com/imputnet/helium-linux/releases/download/$ver/helium-$ver-arm64_linux.tar.xz"

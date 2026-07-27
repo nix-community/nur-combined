@@ -1,0 +1,4 @@
+[k-whooms]
+src.webpage = "https://www.hansen-audio.org"
+src.regex = 'Current version: (\d+\.\d+)'
+fetch.tarball = "https://www.hansen-audio.org/download/K-Whooms-$ver-Linux.tar.gz"

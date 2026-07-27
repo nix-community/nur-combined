@@ -1,0 +1,23 @@
+{
+    "gate-12": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "gate-12",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tiagolr",
+            "repo": "gate12",
+            "rev": "v1.3.3",
+            "sha256": "sha256-dyeIWD315+aKZRwtkRYaWNOS8bNDFboMVPHHe7l+IIY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.3.3"
+    }
+}

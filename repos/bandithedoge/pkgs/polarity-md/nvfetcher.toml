@@ -1,0 +1,4 @@
+[polarity-md]
+src.webpage = "https://polarity.productions/polarity-md"
+src.regex = '[Vv](\d+\.\d+\.\d+)'
+fetch.url = "https://polarity.productions/polarity-md/downloads/PolarityMD-v$ver-Linux.zip"

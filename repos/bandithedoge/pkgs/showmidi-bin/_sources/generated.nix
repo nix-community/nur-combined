@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   showmidi-bin = {
     pname = "showmidi-bin";
     version = "1.0.1";
-    src = fetchurl {
+    src = fetchTarball {
       url = "https://github.com/gbevin/ShowMIDI/releases/download/1.0.1/ShowMIDI-Linux-Ubuntu-23.10-x64-1.0.1.tar.bz2";
-      sha256 = "sha256-AhAc+BeMlje78d9v/4dMzQPN7fRX5ygQB9VXPc+jQJ4=";
+      sha256 = "sha256-AcchQe2UAzDc9Ov3NswdpLzuZM+QVYI4AfmQSFdxDSM=";
     };
   };
 }

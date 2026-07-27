@@ -1,0 +1,11 @@
+[git-pages-bin-x86_64-linux]
+src.cmd = "curl https://codeberg.org/api/v1/repos/git-pages/git-pages/releases/latest | jq .name -r"
+fetch.url = "https://codeberg.org/git-pages/git-pages/releases/download/$ver/git-pages.linux-amd64"
+
+[git-pages-bin-aarch64-linux]
+src.cmd = "curl https://codeberg.org/api/v1/repos/git-pages/git-pages/releases/latest | jq .name -r"
+fetch.url = "https://codeberg.org/git-pages/git-pages/releases/download/$ver/git-pages.linux-arm64"
+
+[git-pages-bin-aarch64-darwin]
+src.cmd = "curl https://codeberg.org/api/v1/repos/git-pages/git-pages/releases/latest | jq .name -r"
+fetch.url = "https://codeberg.org/git-pages/git-pages/releases/download/$ver/git-pages.darwin-arm64"

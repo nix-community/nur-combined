@@ -1,0 +1,9 @@
+diff --git a/plugins/CMakeLists.txt b/plugins/CMakeLists.txt
+index b7fc958..9e2b193 100644
+--- a/plugins/CMakeLists.txt
++++ b/plugins/CMakeLists.txt
+@@ -13,4 +13,3 @@ add_subdirectory(dietaudio)
+ add_subdirectory(scope)
+ add_subdirectory(magiccarpet)
+ add_subdirectory(modman)
+-add_subdirectory(fmplus)

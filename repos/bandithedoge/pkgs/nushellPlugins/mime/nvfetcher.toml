@@ -1,0 +1,4 @@
+[nu-plugin-mime]
+src.git = "https://github.com/kik4444/nu_plugin_mime.git"
+fetch.github = "kik4444/nu_plugin_mime"
+cargo_lock = ["Cargo.lock"]

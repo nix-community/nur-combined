@@ -1,0 +1,3 @@
+[open-mbc-bin]
+src.github = "maor1993/open_mbc"
+fetch.tarball = "https://github.com/maor1993/open_mbc/releases/download/$ver/open_mbc-$ver-ubuntu-22.04.zip"

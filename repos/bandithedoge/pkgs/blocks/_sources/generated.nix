@@ -4,17 +4,16 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   blocks = {
     pname = "blocks";
     version = "fae783735daa8cb1a0b8158508ccede4292639ae";
-    src = fetchgit {
-      url = "https://github.com/dan-german/blocks";
+    src = fetchFromGitHub {
+      owner = "dan-german";
+      repo = "blocks";
       rev = "fae783735daa8cb1a0b8158508ccede4292639ae";
       fetchSubmodules = true;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
       sha256 = "sha256-oqBmu3xm2RadkQfoRVLvqTj6b/yd+yagAeVMDrRRW5k=";
     };
     date = "2024-08-07";

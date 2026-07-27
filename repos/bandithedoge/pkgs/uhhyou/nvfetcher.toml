@@ -1,4 +1,0 @@
-[uhhyou]
-src.github = "ryukau/VSTPlugins"
-fetch.github = "ryukau/VSTPlugins"
-git.fetchSubmodules = true

@@ -1,0 +1,23 @@
+{
+    "cherry-doom": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "cherry-doom",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "xemonix0",
+            "repo": "Cherry-Doom",
+            "rev": "cherry-doom-2.1.0",
+            "sha256": "sha256-ixuYlr+X9xLC0xUqazuuj+ebflJf/GjSuWXK05kbtwA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cherry-doom-2.1.0"
+    }
+}

@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   maim-bin = {
     pname = "maim-bin";
-    version = "1.0.0";
+    version = "1.1.1";
     src = fetchurl {
-      url = "https://github.com/ArdenButterfield/Maim/releases/download/v1.0.0/Maim-1.0.0-Linux.zip";
-      sha256 = "sha256-YW1HV/EF8hVncmyITe+oP+XP2AMsw2PyjZ0RfE55eT0=";
+      url = "https://github.com/ArdenButterfield/Maim/releases/download/v1.1.1/Maim-1.1.1-Linux.zip";
+      sha256 = "sha256-3reoRXydMyApPatOq1D0yn8pRTmykdeMZvNdm/4TcV8=";
     };
   };
 }

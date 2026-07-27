@@ -1,0 +1,3 @@
+[dmenu-flexipatch]
+src.git = "https://github.com/bakkeby/dmenu-flexipatch"
+fetch.github = "bakkeby/dmenu-flexipatch"

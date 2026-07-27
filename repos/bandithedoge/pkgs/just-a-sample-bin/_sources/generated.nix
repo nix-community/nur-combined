@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   just-a-sample-bin = {
     pname = "just-a-sample-bin";
-    version = "release";
+    version = "v1.3-latest/JAS.Linux.VST3.v1.3.2";
     src = fetchurl {
-      url = "https://github.com/BOBONA/Just-a-Sample/releases/download/release/Linux.VST3.zip";
-      sha256 = "sha256-E94eKlubCsIn4TwL4HnU6NJsY7NvrDRBK3LpOGsUgsA=";
+      url = "https://github.com/BOBONA/Just-a-Sample/releases/download/v1.3-latest/JAS.Linux.VST3.v1.3.2.zip";
+      sha256 = "sha256-vgkqzmidEChVZ5IZeCiVKfhBynQ57SpTTzb8t7N5avs=";
     };
   };
 }

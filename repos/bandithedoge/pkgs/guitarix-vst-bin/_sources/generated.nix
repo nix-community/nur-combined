@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   guitarix-vst-bin = {
     pname = "guitarix-vst-bin";
-    version = "v0.4";
+    version = "v0.5";
     src = fetchurl {
-      url = "https://github.com/brummer10/guitarix.vst/releases/download/v0.4/Guitarix.vst3.zip";
-      sha256 = "sha256-hE8cDzYdLdS+++42QCKuwhfgbOk/dRLXwZP1jW0VbQ8=";
+      url = "https://github.com/brummer10/guitarix.vst/releases/download/v0.5/Guitarix.vst3.zip";
+      sha256 = "sha256-f1LgS5skyWGG3GkWVRBQb4nhKP8RsBLeMNY12xlYGdA=";
     };
   };
 }

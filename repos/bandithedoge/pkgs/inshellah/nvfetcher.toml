@@ -1,0 +1,4 @@
+[inshellah]
+src.git = "https://github.com/manic-systems/inshellah.git"
+fetch.github = "manic-systems/inshellah"
+cargo_lock = ["Cargo.lock"]

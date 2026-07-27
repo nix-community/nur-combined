@@ -1,0 +1,44 @@
+{
+    "juce": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "juce",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "juce-framework",
+            "repo": "JUCE",
+            "rev": "8.0.8",
+            "sha256": "sha256-kp3rMaHWBbEh4UaRMxcLo/DiSJV942OY+LYxh6W7dFc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "8.0.8"
+    },
+    "perceptomap": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "perceptomap",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hqrrr",
+            "repo": "PerceptoMap",
+            "rev": "v0.18.2",
+            "sha256": "sha256-xGs5w2Pap+mnax/jougfZkP9kLKcuy6ZzNvFvNrSqUo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.18.2"
+    }
+}

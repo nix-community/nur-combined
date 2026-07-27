@@ -1,0 +1,23 @@
+{
+    "reev-r": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "reev-r",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "tiagolr",
+            "repo": "reevr",
+            "rev": "v1.4.0",
+            "sha256": "sha256-uOaImmc8MXhH6P3IN53LGntsWAbsVnqkz8TUk67aYcU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.4.0"
+    }
+}

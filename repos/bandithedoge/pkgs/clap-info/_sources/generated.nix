@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   clap-info = {
     pname = "clap-info";
     version = "v1.2.2";

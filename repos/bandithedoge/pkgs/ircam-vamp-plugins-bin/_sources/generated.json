@@ -1,0 +1,16 @@
+{
+    "ircam-vamp-plugins-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ircam-vamp-plugins-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-QmW7mbtWZCr0ZAkRSfzSjiVVKIgcBLgsfbCeP+Cf2b8=",
+            "type": "tarball",
+            "url": "https://github.com/Ircam-Partiels/ircam-vamp-plugins/releases/download/2.1.0/Ircam-Vamp-Plugins-Linux.zip"
+        },
+        "version": "2.1.0"
+    }
+}

@@ -1,22 +1,23 @@
 {
-  "protrekkr": {
-    "cargoLocks": null,
-    "date": "2019-09-08",
-    "extract": null,
-    "name": "protrekkr",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "deepClone": false,
-      "fetchSubmodules": false,
-      "leaveDotGit": false,
-      "name": null,
-      "rev": "0b96ba56379eb179423e9dcbec31a08bf0326c9f",
-      "sha256": "sha256-4CmYp8dyDwSG2uwODTUqgVWVp53uC1lCvqfHUuJDIQw=",
-      "sparseCheckout": [],
-      "type": "git",
-      "url": "https://github.com/falkTX/protrekkr"
-    },
-    "version": "0b96ba56379eb179423e9dcbec31a08bf0326c9f"
-  }
+    "protrekkr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "protrekkr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "hitchhikr",
+            "repo": "protrekkr",
+            "rev": "v2.8.3_PRE_2",
+            "sha256": "sha256-5pQMoU0FXqniWlVdovxnvU0DXobg5LLKWyt6SlEDhxk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.8.3_PRE_2"
+    }
 }

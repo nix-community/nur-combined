@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   squeezer-bin-standalone = {
     pname = "squeezer-bin-standalone";
     version = "2.5.4";

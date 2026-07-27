@@ -1,0 +1,19 @@
+[envtool-bin]
+src.github = "klknn/kdr"
+fetch.tarball = "https://github.com/klknn/kdr/releases/download/$ver/ubuntu-latest-envtool.zip"
+pinned = true
+
+[epiano2-bin]
+src.github = "klknn/kdr"
+fetch.tarball = "https://github.com/klknn/kdr/releases/download/$ver/ubuntu-latest-epiano2.zip"
+pinned = true
+
+[freeverb-bin]
+src.github = "klknn/kdr"
+fetch.tarball = "https://github.com/klknn/kdr/releases/download/$ver/ubuntu-latest-freeverb.zip"
+pinned = true
+
+[synth2-bin]
+src.github = "klknn/kdr"
+fetch.tarball = "https://github.com/klknn/kdr/releases/download/$ver/ubuntu-latest-synth2.zip"
+pinned = true

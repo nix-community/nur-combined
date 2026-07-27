@@ -1,0 +1,3 @@
+[searxng-bm25-reranker]
+src.github = "Oaklight/searxng-bm25-reranker"
+fetch.github = "Oaklight/searxng-bm25-reranker"

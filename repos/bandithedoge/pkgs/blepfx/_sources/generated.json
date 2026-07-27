@@ -1,32 +1,62 @@
 {
-  "crunchrr": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "crunchrr",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-7edt2knSELwMnPXnBJnvK6PxJ5nlW0b2LPcC6bZV9PE=",
-      "type": "url",
-      "url": "https://github.com/blepfx/dist/releases/download/release-68/crunchrr-x86_64-unknown-linux-gnu.zip"
+    "crunchrr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "crunchrr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-FFAdW7yfz8cfYnfk2TsDeEQ+1TLimLL5HFkMYHTjlM0=",
+            "type": "url",
+            "url": "https://github.com/blepfx/dist/releases/download/release-100/crunchrr-x86_64-unknown-linux-gnu.zip"
+        },
+        "version": "release-100"
     },
-    "version": "release-68"
-  },
-  "destruqtor": {
-    "cargoLocks": null,
-    "date": null,
-    "extract": null,
-    "name": "destruqtor",
-    "passthru": null,
-    "pinned": false,
-    "src": {
-      "name": null,
-      "sha256": "sha256-rmmeYLA3SoH+Ak9JrmyQBbAjqj4OMPOoJ72vduWwLcw=",
-      "type": "url",
-      "url": "https://github.com/blepfx/dist/releases/download/release-68/destruqtor-x86_64-unknown-linux-gnu.zip"
+    "destruqtor": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "destruqtor",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1DkMsAq8G6qwrzqbyq15ID+OPiVk9yzGnQBBbg1CJM0=",
+            "type": "url",
+            "url": "https://github.com/blepfx/dist/releases/download/release-100/destruqtor-x86_64-unknown-linux-gnu.zip"
+        },
+        "version": "release-100"
     },
-    "version": "release-68"
-  }
+    "filtrr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "filtrr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-QW1I0p5PqfPsPlkdyD853vlMJ8+ne5NANN18bFpxBwc=",
+            "type": "url",
+            "url": "https://github.com/blepfx/dist/releases/download/release-100/filtrr-x86_64-unknown-linux-gnu.zip"
+        },
+        "version": "release-100"
+    },
+    "prisma": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "prisma",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-61apPwQ99WxIM0YtTkPumHlwVIH1INUV0B3Sh9l3QxA=",
+            "type": "url",
+            "url": "https://github.com/blepfx/dist/releases/download/release-100/prisma-x86_64-unknown-linux-gnu.zip"
+        },
+        "version": "release-100"
+    }
 }

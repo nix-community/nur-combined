@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   deemix-gui-bin = {
     pname = "deemix-gui-bin";
     version = "3.6.6";

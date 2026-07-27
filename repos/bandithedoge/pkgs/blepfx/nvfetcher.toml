@@ -1,7 +1,15 @@
 [crunchrr]
-src.github = "blepfx/dist"
+src.github_tag = "blepfx/dist"
 fetch.url = "https://github.com/blepfx/dist/releases/download/$ver/crunchrr-x86_64-unknown-linux-gnu.zip"
 
 [destruqtor]
-src.github = "blepfx/dist"
+src.github_tag = "blepfx/dist"
 fetch.url = "https://github.com/blepfx/dist/releases/download/$ver/destruqtor-x86_64-unknown-linux-gnu.zip"
+
+[filtrr]
+src.github_tag = "blepfx/dist"
+fetch.url = "https://github.com/blepfx/dist/releases/download/$ver/filtrr-x86_64-unknown-linux-gnu.zip"
+
+[prisma]
+src.github_tag = "blepfx/dist"
+fetch.url = "https://github.com/blepfx/dist/releases/download/$ver/prisma-x86_64-unknown-linux-gnu.zip"

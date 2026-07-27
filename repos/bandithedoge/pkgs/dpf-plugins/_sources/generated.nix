@@ -4,7 +4,8 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   dpf-plugins = {
     pname = "dpf-plugins";
     version = "v1.7";

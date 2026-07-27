@@ -1,0 +1,4 @@
+[mcp-searxng]
+src.github = "ihor-sokoliuk/mcp-searxng"
+fetch.github = "ihor-sokoliuk/mcp-searxng"
+extract = ["package.json", "package-lock.json"]

@@ -1,0 +1,23 @@
+{
+    "terrain": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "terrain",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "aaronaanderson",
+            "repo": "Terrain",
+            "rev": "1.2.2",
+            "sha256": "sha256-1KlM2zTWSWpFqS/bZyW10OZgPkKiRu8UbX8pZ9Eyx7U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1.2.2"
+    }
+}

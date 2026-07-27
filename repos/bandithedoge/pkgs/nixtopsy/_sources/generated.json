@@ -1,0 +1,28 @@
+{
+    "nixtopsy": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-7sruBCkkco9xuDdlb9+wTr9_TuEXvIAm02M5q7lStIc=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "nixtopsy",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "manic-systems",
+            "repo": "nixtopsy",
+            "rev": "v0.1.0",
+            "sha256": "sha256-7sruBCkkco9xuDdlb9+wTr9/TuEXvIAm02M5q7lStIc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.0"
+    }
+}

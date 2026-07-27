@@ -4,17 +4,18 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   cardinal = {
     pname = "cardinal";
-    version = "89a18eb2f8af0c78bd60d621718fcec10c0327fb";
+    version = "0f5cb4b690c59cba7c717f044a8b56ae8f99c838";
     src = fetchFromGitHub {
       owner = "DISTRHO";
       repo = "Cardinal";
-      rev = "89a18eb2f8af0c78bd60d621718fcec10c0327fb";
+      rev = "0f5cb4b690c59cba7c717f044a8b56ae8f99c838";
       fetchSubmodules = true;
-      sha256 = "sha256-pZvVe2T+7+8MAkiBFmoXoTFKKQmlnOuBFn8eubo3UFc=";
+      sha256 = "sha256-R1D7e9NPA1zDrSezxCluhaYBCJSbhbqPJpL5POKdirw=";
     };
-    date = "2025-01-08";
+    date = "2026-06-29";
   };
 }

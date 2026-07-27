@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   charlatan = {
     pname = "charlatan";
-    version = "3.2.0";
+    version = "3.3.2";
     src = fetchurl {
-      url = "https://blaukraut.info/downloads/charlatan3_3.2.0_linux.zip";
-      sha256 = "sha256-DZA23vYh4rQsPVi8Xq9oc/VFa3YIIqsjZsg2rBuDqfc=";
+      url = "https://blaukraut.info/downloads/charlatan3_3.3.2_linux.zip";
+      sha256 = "sha256-yyQt6t0lzFTdRPd0v9oWW01mA4zzYwLldhbjqmlpll4=";
     };
   };
 }

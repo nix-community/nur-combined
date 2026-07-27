@@ -1,0 +1,68 @@
+name: Update sources
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 15 5 * * *
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ci-hoover
+        uses: xd009642/ci-hoover@0.1.1
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: staging
+
+      - name: Setup Git user
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+
+      - name: Install Lix
+        uses: samueldr/lix-gha-installer-action@latest
+        with:
+          extra_nix_config: |
+            keep-env-derivations = true
+            keep-outputs = true
+            accept-flake-config = true
+
+      - name: Restore cache
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: update-${{ runner.os }}
+          gc-max-store-size: 1G
+          purge: true
+
+      - name: Update sources
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_CONFIG_COUNT: 1
+          GIT_CONFIG_KEY_0: url.https://github.com/.insteadOf
+          GIT_CONFIG_VALUE_0: "git@github.com:"
+        run: |
+          nix flake update --commit-lock-file
+          nix flake update --commit-lock-file --flake ./dev
+          echo -e '[keys]\ngithub = "${{ secrets.GITHUB_TOKEN }}"' > keyfile.toml
+          chmod +x fetch.nu
+          nix develop .#update -c ./fetch.nu --commit
+          rm keyfile.toml
+          git add -A
+
+      - name: Generate package list
+        run: nix eval --raw .#_LIST > LIST.md
+
+      - name: Check for nixpkgs dupes
+        run: |
+          nix eval .#_DUPES --json | jq 'map("- `\(. | join("."))`") | .[]' -r >> $GITHUB_STEP_SUMMARY
+
+      - name: Format code
+        run: nix fmt
+
+      - name: Commit changes
+        run: |
+          git add .
+          git commit -m "Update sources"
+          git push

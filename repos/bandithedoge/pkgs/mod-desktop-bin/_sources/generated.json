@@ -1,0 +1,16 @@
+{
+    "mod-desktop-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "mod-desktop-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-MXGVgjjWuBy0bX528asX6pbR7ptQTHQy4Zd/GVgtQyo=",
+            "type": "tarball",
+            "url": "https://github.com/mod-audio/mod-desktop/releases/download/0.0.12/mod-desktop-0.0.12-linux-x86_64.tar.xz"
+        },
+        "version": "0.0.12"
+    }
+}

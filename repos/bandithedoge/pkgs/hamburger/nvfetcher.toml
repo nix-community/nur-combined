@@ -1,0 +1,20 @@
+[hamburger]
+src.github_tag = "Davit-G/Hamburger"
+fetch.github = "Davit-G/Hamburger"
+
+[juce]
+src.manual = "51d11a2be6d5c97ccf12b4e5e827006e19f0555a"
+fetch.github = "juce-framework/JUCE"
+
+[clap-juce-extensions]
+src.git = "https://github.com/free-audio/clap-juce-extensions.git"
+fetch.github = "free-audio/clap-juce-extensions"
+git.fetchSubmodules = true
+
+[chowdsp-utils]
+src.git = "https://github.com/Chowdhury-DSP/chowdsp_utils.git"
+fetch.git = "https://github.com/Chowdhury-DSP/chowdsp_utils.git"
+
+[xsimd]
+src.git = "https://github.com/xtensor-stack/xsimd.git"
+fetch.git = "https://github.com/xtensor-stack/xsimd.git"

@@ -1,0 +1,3 @@
+[st-flexipatch]
+src.git = "https://github.com/bakkeby/st-flexipatch"
+fetch.github = "bakkeby/st-flexipatch"

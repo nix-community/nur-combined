@@ -4,13 +4,14 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   mxtune-bin = {
     pname = "mxtune-bin";
     version = "v1.2.0";
-    src = fetchurl {
+    src = fetchTarball {
       url = "https://github.com/liuanlin-mx/MXTune/releases/download/v1.2.0/ubuntu1804_x86_64_vst_v1.2.0.zip";
-      sha256 = "sha256-UEk8rRW4WKsDdvYlPPJyMsNqiqQaYZkeqcapLmpAH+c=";
+      sha256 = "sha256-wdpX7JYBL5yr8sDvu9X4w1IOPmZPedw/a8xirpfwHTU=";
     };
   };
 }

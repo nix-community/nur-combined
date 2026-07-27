@@ -1,0 +1,44 @@
+{
+    "catch2": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "catch2",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catchorg",
+            "repo": "Catch2",
+            "rev": "v3.8.1",
+            "sha256": "sha256-blhSdtNXwe4wKPVKlopsE0omgikMdl12JjwqASwJM2w=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v3.8.1"
+    },
+    "punkott": {
+        "cargoLock": null,
+        "date": "2026-03-07",
+        "extract": null,
+        "name": "punkott",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "gmoican",
+            "repo": "PunkOTT",
+            "rev": "55e97d2f114e9db551cfa991074143f1b91ff3ed",
+            "sha256": "sha256-9aC6sf+ljtkVIeo/gQ9yAz26HKJRFaYQhVVu9kqPNlo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "55e97d2f114e9db551cfa991074143f1b91ff3ed"
+    }
+}

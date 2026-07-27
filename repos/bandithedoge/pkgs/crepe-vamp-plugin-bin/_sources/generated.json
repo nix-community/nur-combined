@@ -1,0 +1,16 @@
+{
+    "crepe-vamp-plugin-bin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "crepe-vamp-plugin-bin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-dIFwxJN43dptdpp1jGChUyl9k06sC+L9ZpeXAZBXPeo=",
+            "type": "tarball",
+            "url": "https://github.com/Ircam-Partiels/crepe-vamp-plugin/releases/download/3.0.0/Crepe-Linux.tar.gz"
+        },
+        "version": "3.0.0"
+    }
+}

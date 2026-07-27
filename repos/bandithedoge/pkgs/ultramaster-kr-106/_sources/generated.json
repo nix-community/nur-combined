@@ -1,0 +1,23 @@
+{
+    "ultramaster-kr-106": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ultramaster-kr-106",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "kayrockscreenprinting",
+            "repo": "ultramaster_kr106",
+            "rev": "v2.5.13",
+            "sha256": "sha256-R0nvtdhhrT+ucpBSsWjJEUCInd4/0jDammlUsaCgL6M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.5.13"
+    }
+}

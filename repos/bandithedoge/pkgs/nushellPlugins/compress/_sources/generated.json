@@ -1,0 +1,28 @@
+{
+    "nu-plugin-compress": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-sm26bkBgZqPWaCUJxQqKiA8M_eROh6sCnIRrgxbJPTo=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": null,
+        "extract": null,
+        "name": "nu-plugin-compress",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yybit",
+            "repo": "nu_plugin_compress",
+            "rev": "0.2.5",
+            "sha256": "sha256-sm26bkBgZqPWaCUJxQqKiA8M/eROh6sCnIRrgxbJPTo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.2.5"
+    }
+}

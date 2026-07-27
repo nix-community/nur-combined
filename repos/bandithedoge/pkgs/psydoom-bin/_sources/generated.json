@@ -1,0 +1,47 @@
+{
+    "psydoom-bin-aarch64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "psydoom-bin-aarch64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-q43TIlbvhvO4XKrkxL2BiaH7y6+yKGnYLih4H+TpAdk=",
+            "type": "url",
+            "url": "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F1.1.1/PsyDoom_1.1.1_Linux_AArch64.AppImage"
+        },
+        "version": "1.1.1"
+    },
+    "psydoom-bin-armhf": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "psydoom-bin-armhf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-tB2kLokDxlNNjCozW9wtw9cJkKOR6aEN+B+c4olxTew=",
+            "type": "url",
+            "url": "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F1.1.1/PsyDoom_1.1.1_Linux_ArmHF.AppImage"
+        },
+        "version": "1.1.1"
+    },
+    "psydoom-bin-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "psydoom-bin-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-RtxIEjAtf0Q0UeaavUombaqVlis8aACldelxiemdsYo=",
+            "type": "url",
+            "url": "https://github.com/BodbDearg/PsyDoom/releases/download/releases%2F1.1.1/PsyDoom_1.1.1_Linux_x86_64.AppImage"
+        },
+        "version": "1.1.1"
+    }
+}

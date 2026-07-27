@@ -4,17 +4,16 @@
   fetchurl,
   fetchFromGitHub,
   dockerTools,
-}: {
+}:
+{
   modstems = {
     pname = "modstems";
     version = "9a1b68176f4b10d1676723a36678788cf2790c1a";
-    src = fetchgit {
-      url = "https://github.com/bandithedoge/modstems";
+    src = fetchFromGitHub {
+      owner = "bandithedoge";
+      repo = "modstems";
       rev = "9a1b68176f4b10d1676723a36678788cf2790c1a";
       fetchSubmodules = false;
-      deepClone = false;
-      leaveDotGit = false;
-      sparseCheckout = [];
       sha256 = "sha256-Ffp6/CWNxf2L43cvTkZE9k35pScYsMF7UXh8IG721pw=";
     };
     date = "2024-08-20";

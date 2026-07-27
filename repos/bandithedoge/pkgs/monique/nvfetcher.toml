@@ -1,0 +1,5 @@
+[monique]
+src.git = "https://github.com/surge-synthesizer/monique-monosynth"
+fetch.github = "surge-synthesizer/monique-monosynth"
+git.fetchSubmodules = true
+git.leaveDotGit = true
