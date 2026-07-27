@@ -1,6 +1,8 @@
 {
   lib,
+  stdenv,
   stdenvNoCC,
+  autoPatchelfHook,
   bun,
   clang,
   cmake,
@@ -166,10 +168,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   strictDeps = true;
 
   nativeBuildInputs = [
+    autoPatchelfHook
     bun
     nodejs
     makeBinaryWrapper
     writableTmpDirAsHomeHook
+  ];
+
+  buildInputs = [
+    stdenv.cc.cc.lib
   ];
 
   configurePhase = ''
@@ -269,7 +276,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  dontFixup = true;
+  dontPatchElf = true;
+  dontStrip = true;
+  autoPatchelfIgnoreMissingDeps = [ "*" ];
 
   passthru = {
     inherit node_modules piNatives;

@@ -225,9 +225,19 @@ consumers.
 - **`postPatch` runs too early**: The file `packages/coding-agent/src/cli.ts`
   doesn't exist at `postPatch` time because the source is only copied in
   `configurePhase`. All patching MUST happen in `configurePhase`.
-- **`dontFixup = true`**: Required because the Nix fixup phase would try
-  to strip binaries and patch shebangs in the read-only store path.
-  Shebangs are already patched in the build directory.
+- **Selective fixup (not `dontFixup`)**: The final derivation uses
+  `dontPatchElf = true` + `dontStrip = true` + `autoPatchelfHook` +
+  `autoPatchelfIgnoreMissingDeps = [ "*" ]` instead of blanket `dontFixup`.
+  This preserves `$ORIGIN` RPATH entries in pre-built `.node` files (from
+  npm packages like `onnxruntime-node`, `sherpa-onnx`, `@img/sharp-*`,
+  `lightningcss`, `@rolldown/binding`, `@napi-rs/*`, `@tailwindcss/oxide`,
+  `@anush008/tokenizers`) while letting `autoPatchelfHook` add
+  `libstdc++.so.6` and `libgcc_s.so.1` to RPATH. `autoPatchelfIgnoreMissingDeps`
+  prevents failures for runtime-loaded libraries (e.g. `libonnxruntime.so.1`,
+  `libsherpa-onnx-c-api.so`, `libvips-cpp.so`) that ship alongside the `.node`
+  files. `dontStrip` prevents stripping of `.node` addon files.
+  `stdenv.cc.cc.lib` is added to `buildInputs` for `libstdc++` resolution;
+  `stdenv` (regular, with cc) is passed alongside `stdenvNoCC` for this purpose.
 - **Read-only store**: `$out/lib/oh-my-pi` is read-only. Assets that
   would normally be generated at runtime (stats dashboard build) must
   be pre-generated at build time.
