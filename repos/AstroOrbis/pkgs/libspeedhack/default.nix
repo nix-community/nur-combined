@@ -3,7 +3,7 @@
   stdenv,
 
   gcc,
-  fetchzip
+  fetchzip,
 }:
 stdenv.mkDerivation rec {
   pname = "libspeedhack";

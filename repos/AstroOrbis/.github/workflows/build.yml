@@ -17,9 +17,7 @@ jobs:
         cachixName:
           - totallyccache
         nixPath:
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
-          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-25.05.tar.gz
+          - nixpkgs=https://github.com/NixOS/nixpkgs/archive/91e18d3c384a4c5998e720324425b88f53bbe6e4.tar.gz
     runs-on: ubuntu-latest
     steps:
     - name: Checkout repository

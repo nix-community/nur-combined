@@ -8,11 +8,11 @@
 }:
 pkgs.appimageTools.wrapType2 rec {
   pname = "en-croissant";
-  version = "0.12.1";
+  version = "0.15.0";
 
   src = pkgs.fetchurl {
     url = "https://github.com/franciscoBSalgueiro/en-croissant/releases/download/v${version}/en-croissant_${version}_amd64.AppImage";
-    hash = "sha256-h79+xIOuOWM5pq4L94XVilp9iByhZxUEXO6EJNv+4O8=";
+    hash = "sha256-/Dr8n8rOYqGy3+/Qb4EDiZH/go56+m0Kt/b44mAYr/M=";
   };
 
   nativeBuildInputs = with pkgs; [

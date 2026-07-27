@@ -6,11 +6,11 @@
 }:
 pkgs.appimageTools.wrapType2 rec {
   pname = "hayase";
-  version = "6.4.32";
+  version = "6.4.60";
 
   src = pkgs.fetchurl {
-    url = "https://github.com/hayase-app/ui/releases/download/v${version}/linux-hayase-${version}-linux.AppImage";
-    hash = "sha256-so6yVHIG1NONZ8AFEuGQqgJPOw266Pz8cBT+Afp+Tuo=";
+    url = "https://api.hayase.watch/files/linux-hayase-${version}-linux.AppImage";
+    hash = "sha256-A9JOd3JqYQ+Og0WDQESg1ABcaSYKsUu+spM0y58O4nM=";
   };
 
   nativeBuildInputs = with pkgs; [
@@ -34,7 +34,6 @@ pkgs.appimageTools.wrapType2 rec {
     description = "Hayase - Torrent streaming made simple";
     homepage = "https://hayase.watch";
     changelog = "https://hayase.watch/changelog";
-    license = lib.licenses.bsl11;
     mainProgram = "hayase";
   };
 }

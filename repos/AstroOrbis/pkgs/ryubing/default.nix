@@ -4,11 +4,12 @@
   cctools,
   darwin,
   dotnetCorePackages,
-  fetchFromGitLab,
+  fetchFromGitea,
   libX11,
   libgdiplus,
   moltenvk,
   ffmpeg,
+  fontconfig,
   openal,
   libsoundio,
   sndio,
@@ -24,20 +25,18 @@
   libXi,
   libXrandr,
   udev,
-  SDL2,
-  SDL2_mixer,
 }:
 
 buildDotnetModule rec {
   pname = "ryubing";
-  version = "1.3.224";
+  version = "1.3.333";
 
-  src = fetchFromGitLab {
+  src = fetchFromGitea {
     domain = "git.ryujinx.app";
-    owner = "Ryubing";
-    repo = "Ryujinx";
+    owner = "projects";
+    repo = "Ryubing";
     tag = "Canary-${version}";
-    hash = "sha256-30f6MtRUAUT2Jqb42QKV3jOKxgs7Qnk4nhNoKzuEbHw=";
+    hash = "sha256-SlYai8WrtApmHfpOUmdpGzu26YjZr4KYIZgJGu3b50I=";
   };
 
   nativeBuildInputs = lib.optional stdenv.hostPlatform.isDarwin [
@@ -55,7 +54,6 @@ buildDotnetModule rec {
   runtimeDeps = [
     libX11
     libgdiplus
-    SDL2_mixer
     openal
     libsoundio
     sndio
@@ -63,6 +61,7 @@ buildDotnetModule rec {
     ffmpeg
 
     # Avalonia UI
+    fontconfig
     glew
     libICE
     libSM
@@ -73,7 +72,6 @@ buildDotnetModule rec {
 
     # Headless executable
     libGL
-    SDL2
   ]
   ++ lib.optional (!stdenv.hostPlatform.isDarwin) [
     udev
@@ -108,14 +106,46 @@ buildDotnetModule rec {
 
   preFixup = ''
     ${lib.optionalString stdenv.hostPlatform.isLinux ''
-      mkdir -p $out/share/{applications,icons/hicolor/scalable/apps,mime/packages}
+      # Restore pulls in both SkiaSharp.NativeAssets.Linux and its .NoDependencies
+      # variant, and the latter wins the copy into runtimes/. That build has no
+      # fontconfig and only searches /usr/share/fonts, so Avalonia enumerates zero
+      # font families and aborts on startup. Swap in the fontconfig-linked build.
+      skiaRuntimes=
+      for root in "$NUGET_FALLBACK_PACKAGES" "$NUGET_PACKAGES"; do
+        [ -n "$root" ] || continue
+        for candidate in "$root"/skiasharp.nativeassets.linux/*/runtimes; do
+          if [ -d "$candidate" ]; then
+            skiaRuntimes=$candidate
+            break 2
+          fi
+        done
+      done
+      if [ -z "$skiaRuntimes" ]; then
+        echo "error: no fontconfig-linked libSkiaSharp.so among the restored packages" >&2
+        exit 1
+      fi
+
+      skiaReplaced=0
+      for native in $out/lib/ryubing/runtimes/*/native/libSkiaSharp.so; do
+        rid=$(basename "$(dirname "$(dirname "$native")")")
+        if [ -f "$skiaRuntimes/$rid/native/libSkiaSharp.so" ]; then
+          install -m644 "$skiaRuntimes/$rid/native/libSkiaSharp.so" "$native"
+          skiaReplaced=$((skiaReplaced + 1))
+        fi
+      done
+      if [ "$skiaReplaced" -eq 0 ]; then
+        echo "error: found no libSkiaSharp.so to replace" >&2
+        exit 1
+      fi
+
+      mkdir -p $out/share/{applications,icons/hicolor/256x256/apps,mime/packages}
 
       pushd ${src}/distribution/linux
 
-      install -D ./Ryujinx.desktop  $out/share/applications/Ryujinx.desktop
-      install -D ./Ryujinx.sh       $out/bin/Ryujinx.sh
-      install -D ./mime/Ryujinx.xml $out/share/mime/packages/Ryujinx.xml
-      install -D ../misc/Logo.svg   $out/share/icons/hicolor/scalable/apps/Ryujinx.svg
+      install -D ./app.ryujinx.Ryujinx.desktop $out/share/applications/app.ryujinx.Ryujinx.desktop
+      install -D ./Ryujinx.sh                  $out/bin/Ryujinx.sh
+      install -D ./mime/Ryujinx.xml            $out/share/mime/packages/Ryujinx.xml
+      install -D ../misc/Logo.png              $out/share/icons/hicolor/256x256/apps/app.ryujinx.Ryujinx.png
 
       popd
     ''}
@@ -124,11 +154,9 @@ buildDotnetModule rec {
     ${lib.optionalString (!stdenv.hostPlatform.isDarwin) "ln -s $out/bin/Ryujinx $out/bin/ryujinx"}
   '';
 
-  passthru.updateScript = ./updater.sh;
-
   meta = with lib; {
     homepage = "https://ryujinx.app";
-    changelog = "https://git.ryujinx.app/ryubing/ryujinx/-/wikis/changelog";
+    changelog = "https://git.ryujinx.app/projects/Ryubing/wiki/Changelog";
     description = "Experimental Nintendo Switch Emulator written in C# (community fork of Ryujinx)";
     longDescription = ''
       Ryujinx is an open-source Nintendo Switch emulator, created by gdkchan,

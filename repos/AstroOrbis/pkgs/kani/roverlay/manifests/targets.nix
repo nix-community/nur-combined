@@ -126,4 +126,13 @@
   _124 = "powerpc64le-unknown-linux-musl";
   _125 = "armv7a-none-eabihf";
   _126 = "armv8r-none-eabihf";
+  _127 = "riscv64a23-unknown-linux-gnu";
+  _128 = "x86_64-unknown-linux-gnuasan";
+  _129 = "powerpc64-unknown-linux-musl";
+  _130 = "aarch64-apple-tvos";
+  _131 = "aarch64-apple-tvos-sim";
+  _132 = "aarch64-apple-visionos";
+  _133 = "aarch64-apple-visionos-sim";
+  _134 = "aarch64-apple-watchos";
+  _135 = "aarch64-apple-watchos-sim";
 }

@@ -7,3 +7,8 @@ check:
   -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
   -I ./ \
   --json | jq -r 'values | .[].name'
+
+baseflake := ".#legacyPackages.x86_64-linux."
+
+build pkg:
+  nom build {{baseflake}}{{pkg}}

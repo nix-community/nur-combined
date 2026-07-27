@@ -24,7 +24,7 @@
   xz,
 }:
 let
-  version = "1.52";
+  version = "1.53";
 in
 stdenv.mkDerivation rec {
   pname = "agave-platform-tools-bin";
@@ -32,7 +32,7 @@ stdenv.mkDerivation rec {
 
   src = fetchurl {
     url = "https://github.com/anza-xyz/platform-tools/releases/download/v${version}/platform-tools-linux-x86_64.tar.bz2";
-    hash = "sha256-izhh6T2vCF7BK2XE+sN02b7EWHo94Whx2msIqwwdkH4=";
+    hash = "sha256-h2tcKUo41B1AvtRZKREJHpLMPzmd0XoPnKyHsd+asSA=";
   };
 
   nativeBuildInputs = [

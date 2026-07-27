@@ -14,7 +14,7 @@
 }:
 let
   rustHome =
-    (pkgs.extend (import ./roverlay/default.nix)).rust-bin.nightly."2025-08-06".minimal.override
+    (pkgs.extend (import ./roverlay/default.nix)).rust-bin.nightly."2025-11-21".minimal.override
       {
         extensions = [
           "rustc-dev"
@@ -33,29 +33,26 @@ in
 rustPlatform.buildRustPackage rec {
   pname = "kani";
 
-  version = "kani-0.65.0";
+  version = "kani-0.67.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "model-checking";
     repo = "kani";
     rev = version;
-    hash = "sha256-xle2JCn0HjrWrIkaWbm5mGm0+hPGClMzt3PEO7OgAqg=";
+    hash = "sha256-Advfh0BWvvEbnwWvTpHzu/7MI9P0/dhzvtX9r2qnXeI=";
     fetchSubmodules = true;
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit
-      patches
       pname
       version
       src
       ;
-    hash = "sha256-uhPFy/PwtnGXj1xImoYZU+4Nfryy/A8wxOfvqdXxFYo=";
+    hash = "sha256-vH4eslc5wm7YVNwXWGEtlWyZwxXIxXwgDVli681ENGY=";
   };
 
   nativeBuildInputs = [ makeWrapper ];
-
-  patches = [ ./deps.patch ];
 
   # GCC & solver backends! At least CBMC is required - z3 is optional
   buildInputs = with pkgs; [
