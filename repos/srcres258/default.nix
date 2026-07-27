@@ -6,11 +6,19 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{ pkgs ? import <nixpkgs> { }
+, ieda ? null
+}:
 
 let
     maintainers = import ./maintainers.nix;
+    hasIeda = pkgs.stdenv.hostPlatform.system == "x86_64-linux";
     hasZig_0_16 = pkgs ? zig_0_16;
+    resolvedIeda =
+      if ieda != null then ieda else let
+        lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+        locked = lock.nodes.ieda.locked;
+      in (builtins.${"getFlake"} "github:${locked.owner}/${locked.repo}/${locked.rev}").packages.${pkgs.stdenv.hostPlatform.system}.default;
 in {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -53,6 +61,8 @@ in {
   };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
+} // pkgs.lib.optionalAttrs hasIeda {
+  ieda = resolvedIeda;
 } // pkgs.lib.optionalAttrs hasZig_0_16 {
   kwm = pkgs.callPackage ./pkgs/kwm {
       inherit maintainers;

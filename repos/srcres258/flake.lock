@@ -1,6 +1,41 @@
 {
   "nodes": {
+    "ieda": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1784986793,
+        "narHash": "sha256-qBRq51vaXVI9nCV9FGIErTgDhcdBJBGFh32XAaDPulc=",
+        "owner": "srcres258",
+        "repo": "iEDA",
+        "rev": "6f836be3a2c11b12546863c53956c1ee3f99d4e8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srcres258",
+        "ref": "own",
+        "repo": "iEDA",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1720535198,
+        "narHash": "sha256-zwVvxrdIzralnSbcpghA92tWu2DV2lwv89xZc8MTrbg=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "205fd4226592cc83fd4c0885a3e4c9c400efabb5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-23.11",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1777270315,
         "narHash": "sha256-yKB4G6cKsQsWN7M6rZGk6gkJPDNPIzT05y4qzRyCDlI=",
@@ -18,7 +53,8 @@
     },
     "root": {
       "inputs": {
-        "nixpkgs": "nixpkgs"
+        "ieda": "ieda",
+        "nixpkgs": "nixpkgs_2"
       }
     }
   },
