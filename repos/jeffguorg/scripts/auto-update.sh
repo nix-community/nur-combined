@@ -274,6 +274,8 @@ main() {
   run_nvfetcher_filter "dingtalk" "dingtalk-bin-amd64, dingtalk-bin-arm64" '^(dingtalk-bin-amd64|dingtalk-bin-arm64)$'
   run_nvfetcher_filter "claude-code" "claude-code-bin-arm64-linux, claude-code-bin-amd64-linux, claude-code-bin-arm64-darwin, claude-code-bin-amd64-darwin" '^(claude-code-bin-arm64-linux|claude-code-bin-amd64-linux|claude-code-bin-arm64-darwin|claude-code-bin-amd64-darwin)$'
   run_npm_deps_gate "kimi-code" "kimi-code" '^(kimi-code)$'
+  run_npm_deps_gate "pi-agent" "pi-agent" '^(pi-agent)$'
+  run_nvfetcher_filter "pi-agent-bin" "pi-agent-bin-amd64-linux, pi-agent-bin-arm64-linux, pi-agent-bin-amd64-darwin, pi-agent-bin-arm64-darwin" '^(pi-agent-bin-amd64-linux|pi-agent-bin-arm64-linux|pi-agent-bin-amd64-darwin|pi-agent-bin-arm64-darwin)$'
   run_nvfetcher_filter "kagent" "kagent-bin-amd64-linux, kagent-bin-arm64-linux, kagent-bin-amd64-darwin, kagent-bin-arm64-darwin" '^(kagent-bin-amd64-linux|kagent-bin-arm64-linux|kagent-bin-amd64-darwin|kagent-bin-arm64-darwin)$'
 
   if run_nvfetcher_change_gate "codex" "codex" '^(codex)$' '.src'; then

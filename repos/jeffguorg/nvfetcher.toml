@@ -128,3 +128,27 @@ fetch.url = "https://github.com/kagent-dev/kagent/releases/download/$ver/kagent-
 src.github_tag = "kagent-dev/kagent"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 fetch.url = "https://github.com/kagent-dev/kagent/releases/download/$ver/kagent-darwin-arm64"
+
+[pi-agent]
+src.cmd = "npm view @earendil-works/pi-coding-agent version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-$ver.tgz"
+
+[pi-agent-bin-amd64-linux]
+src.github_tag = "earendil-works/pi"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.url = "https://github.com/earendil-works/pi/releases/download/$ver/pi-linux-x64.tar.gz"
+
+[pi-agent-bin-arm64-linux]
+src.github_tag = "earendil-works/pi"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.url = "https://github.com/earendil-works/pi/releases/download/$ver/pi-linux-arm64.tar.gz"
+
+[pi-agent-bin-amd64-darwin]
+src.github_tag = "earendil-works/pi"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.url = "https://github.com/earendil-works/pi/releases/download/$ver/pi-darwin-x64.tar.gz"
+
+[pi-agent-bin-arm64-darwin]
+src.github_tag = "earendil-works/pi"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.url = "https://github.com/earendil-works/pi/releases/download/$ver/pi-darwin-arm64.tar.gz"

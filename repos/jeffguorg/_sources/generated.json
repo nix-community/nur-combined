@@ -389,6 +389,81 @@
         },
         "version": "v0.8.0"
     },
+    "pi-agent": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-agent",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-g0OrlcurV2by9dSIRN+NsT53Lq0uKXYWbLuCCinay30=",
+            "type": "url",
+            "url": "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-0.82.1.tgz"
+        },
+        "version": "0.82.1"
+    },
+    "pi-agent-bin-amd64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-agent-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-oozWf5OXpa2Z+Th3E78cE0t0fUtssl4A2099AJ7p+MI=",
+            "type": "url",
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-darwin-x64.tar.gz"
+        },
+        "version": "v0.82.1"
+    },
+    "pi-agent-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-agent-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-iEqd7H4LdaVMTRkzyTp9Ra8fu4HDKWTB3UXWf6wfZUQ=",
+            "type": "url",
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-linux-x64.tar.gz"
+        },
+        "version": "v0.82.1"
+    },
+    "pi-agent-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-agent-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-yltmDuDb8rQWn2l1PPYPTg7d3/SklCfN00Zg5BKAJJ8=",
+            "type": "url",
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-darwin-arm64.tar.gz"
+        },
+        "version": "v0.82.1"
+    },
+    "pi-agent-bin-arm64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "pi-agent-bin-arm64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-nnA2+JNwxEMjWioKjMyRqcwrf0r17CCy2tHG9yqpFuY=",
+            "type": "url",
+            "url": "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-linux-arm64.tar.gz"
+        },
+        "version": "v0.82.1"
+    },
     "vagrant-vmware-utility": {
         "cargoLock": null,
         "date": null,

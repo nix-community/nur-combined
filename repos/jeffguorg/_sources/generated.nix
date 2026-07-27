@@ -228,6 +228,46 @@
       sha256 = "sha256-SXiZiDor/+58JcKSBPHOWijvuCqdFmP2vRKJzLTriw8=";
     };
   };
+  pi-agent = {
+    pname = "pi-agent";
+    version = "0.82.1";
+    src = fetchurl {
+      url = "https://registry.npmjs.org/@earendil-works/pi-coding-agent/-/pi-coding-agent-0.82.1.tgz";
+      sha256 = "sha256-g0OrlcurV2by9dSIRN+NsT53Lq0uKXYWbLuCCinay30=";
+    };
+  };
+  pi-agent-bin-amd64-darwin = {
+    pname = "pi-agent-bin-amd64-darwin";
+    version = "v0.82.1";
+    src = fetchurl {
+      url = "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-darwin-x64.tar.gz";
+      sha256 = "sha256-oozWf5OXpa2Z+Th3E78cE0t0fUtssl4A2099AJ7p+MI=";
+    };
+  };
+  pi-agent-bin-amd64-linux = {
+    pname = "pi-agent-bin-amd64-linux";
+    version = "v0.82.1";
+    src = fetchurl {
+      url = "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-linux-x64.tar.gz";
+      sha256 = "sha256-iEqd7H4LdaVMTRkzyTp9Ra8fu4HDKWTB3UXWf6wfZUQ=";
+    };
+  };
+  pi-agent-bin-arm64-darwin = {
+    pname = "pi-agent-bin-arm64-darwin";
+    version = "v0.82.1";
+    src = fetchurl {
+      url = "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-darwin-arm64.tar.gz";
+      sha256 = "sha256-yltmDuDb8rQWn2l1PPYPTg7d3/SklCfN00Zg5BKAJJ8=";
+    };
+  };
+  pi-agent-bin-arm64-linux = {
+    pname = "pi-agent-bin-arm64-linux";
+    version = "v0.82.1";
+    src = fetchurl {
+      url = "https://github.com/earendil-works/pi/releases/download/v0.82.1/pi-linux-arm64.tar.gz";
+      sha256 = "sha256-nnA2+JNwxEMjWioKjMyRqcwrf0r17CCy2tHG9yqpFuY=";
+    };
+  };
   vagrant-vmware-utility = {
     pname = "vagrant-vmware-utility";
     version = "utility-v1.0.24";
