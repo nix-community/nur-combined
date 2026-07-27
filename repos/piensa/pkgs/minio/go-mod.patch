@@ -1,0 +1,15 @@
+diff --git a/go.mod b/go.mod
+index 172635cf..a99d4d21 100644
+--- a/go.mod
++++ b/go.mod
+@@ -30,6 +30,10 @@ require (
+ 	github.com/go-sql-driver/mysql v1.4.1
+ 	github.com/golang/groupcache v0.0.0-20190702054246-869f871628b6 // indirect
+ 	github.com/golang/snappy v0.0.1
++        github.com/eapache/go-xerial-snappy v0.0.0-20180814174437-776d5712da21
++        github.com/eapache/queue v1.1.0
++        github.com/mattn/go-runewidth v0.0.4
++        github.com/mitchellh/mapstructure v1.1.2
+ 	github.com/gomodule/redigo v2.0.0+incompatible
+ 	github.com/gorilla/handlers v1.4.0
+ 	github.com/gorilla/mux v1.7.0

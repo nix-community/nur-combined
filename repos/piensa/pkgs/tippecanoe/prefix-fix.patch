@@ -1,0 +1,10 @@
+diff --git a/Makefile b/Makefile
+index ae542a1..ef439aa 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-PREFIX ?= /usr/local
++PREFIX ?= $(out)
+ MANDIR ?= $(PREFIX)/share/man/man1/
+ BUILDTYPE ?= Release
+ SHELL = /bin/bash

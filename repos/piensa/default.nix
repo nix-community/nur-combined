@@ -17,7 +17,12 @@ rec {
   puertico-osm = pkgs.callPackage ./pkgs/puertico-osm { };
   reva = pkgs.callPackage ./pkgs/reva { };
   dbxcli = pkgs.callPackage ./pkgs/dbxcli { };
+  tippecanoe = pkgs.callPackage ./pkgs/tippecanoe { };
+  caddy = pkgs.callPackage ./pkgs/caddy { };
+  caddy2 = pkgs.callPackage ./pkgs/caddy2 { };
   bemenu = pkgs.callPackage ./pkgs/bemenu { };
+  minio = pkgs.callPackage ./pkgs/minio { };
+  minio-client = pkgs.callPackage ./pkgs/minio-client { };
 #  jamaica = pkgs.callPackage ./pkgs/jamaica { };
 #  modules = import ./modules;
 } 
