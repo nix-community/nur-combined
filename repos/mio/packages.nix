@@ -52,6 +52,7 @@ byName
 // (with byName; rec {
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   graphene-hardened-malloc = v3overrideAttrs pkgs.graphene-hardened-malloc;
+  jetbrains_idea-oss = (pkgs.callPackage ./pkgs/jetbrains_idea-oss { }).idea-oss;
 
   # https://github.com/a1ive/grub — a1ive's GRUB fork with mouse/touchscreen support
   # (efi_mouse + ps2mouse modules). Archived upstream but buildable.
