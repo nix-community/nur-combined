@@ -122,6 +122,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   postPatch = ''
     substituteInPlace src/cdumm/main.py \
         --replace-fail "Path(__file__).resolve().parents[2]" "Path(__file__).resolve().parents[1]"
+
     substituteInPlace src/cdumm/engine/nxm_handler.py \
         --replace-fail "{exe} -m cdumm.main" "cdumm"
   '';
@@ -155,6 +156,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   meta = {
     description = "Crimson Desert Ultimate Mods Manager";
     homepage = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager";
+    changelog = "https://github.com/faisalkindi/CrimsonDesert-UltimateModsManager/blob/master/CHANGELOG.md";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ RoGreat ];
     mainProgram = "cdumm";
