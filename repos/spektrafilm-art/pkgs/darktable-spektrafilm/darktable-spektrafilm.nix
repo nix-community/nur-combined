@@ -33,9 +33,9 @@
   src = fetchFromGitHub {
     owner = "piratenpanda";
     repo = "darktable";
-    rev = "a5a0a823da09f3fc93a641f021db5af660473f18"; # darktable-org/darktable#21534 head
+    rev = "7a5141e4b44dd759aba5ddb77dd1e6ef0f60e6df"; # darktable-org/darktable#21534 before Bauhaus checkbox API change
     fetchSubmodules = true;
-    hash = "sha256-a7QBNLaTLhQSnJF7HEKhcX0af/yS/zb7JP+L5wablqU=";
+    hash = "sha256-XaqshPYp2mkl6Gy+A2VKFxRCA8kIUd0n0hoIezuOTLc=";
   };
 
   # fetchFromGitHub strips .git, so darktable's `git describe` version detection
