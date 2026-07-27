@@ -4,16 +4,16 @@ self: super:
 let
   # This URL needs to be updated about every 2 years when the subkey is rotated.
   pgpKey = super.fetchurl {
-    url = "https://download.cdn.mozilla.net/pub/firefox/candidates/113.0.1-candidates/build1/KEY";
-    sha256 = "beaf64d50d347175af3308e73aaeeb547f912e453bb15594122cb669cc4cabfb";
+    url = "https://download.cdn.mozilla.net/pub/firefox/candidates/138.0b1-candidates/build1/KEY";
+    hash = "sha256-FOGtyDxtZpW6AbNdSj0QoK1AYkQYxHPypT8zJr2XYQk=";
   };
 
   # This file is currently maintained manually, if this Nix expression attempt
   # to download the wrong version, this is likely to be the problem.
   #
-  # Open a pull request against https://github.com/mozilla-releng/ship-it/ to
+  # Open a pull request against https://github.com/mozilla-releng/shipit to
   # update the version, as done in
-  # https://github.com/mozilla-releng/ship-it/pull/182
+  # https://github.com/mozilla-releng/shipit/pull/1467
   firefox_versions = with builtins;
     fromJSON (readFile (fetchurl "https://product-details.mozilla.org/1.0/firefox_versions.json"));
 
@@ -49,7 +49,12 @@ let
       # https://download.cdn.mozilla.net/pub/firefox/releases/55.0b3/SHA256SUMS
       let
         dir = "https://download.cdn.mozilla.net/pub/firefox/releases/${version}";
-        file = "${system}/en-US/firefox-${version}.tar.bz2";
+        # After version 134 firefox switched to using tar.xz instead of tar.bz2
+        majorVersion = super.lib.strings.toInt (
+          builtins.elemAt (super.lib.strings.splitString "." version) 0
+        );
+        extension = if majorVersion > 134 then "tar.xz" else "tar.bz2";
+        file = "${system}/en-US/firefox-${version}.${extension}";
         sha512Of = chksum: file: extractSha512Sum (readFile (fetchurl chksum)) file;
       in rec {
         chksum = "${dir}/SHA512SUMS";
@@ -73,7 +78,7 @@ let
                 fromJSON (readFile (fetchurl "https://download.cdn.mozilla.net/pub/firefox/nightly/latest-mozilla-central/firefox-${version}.en-US.${system}.buildhub.json"));
             in builtins.replaceStrings [ "/${file}" ] [ "" ] buildhubJSON.download.url
           else "https://download.cdn.mozilla.net/pub/firefox/nightly/${yearOf timestamp}/${monthOf timestamp}/${timestamp}-mozilla-central" ;
-        file = "firefox-${version}.en-US.${system}.tar.bz2";
+        file = "firefox-${version}.en-US.${system}.tar.xz";
         sha512Of = chksum: file: head (match ".*[\n]([0-9a-f]*) sha512 [0-9]* ${file}[\n].*" (readFile (fetchurl chksum)));
       in rec {
         chksum = "${dir}/firefox-${version}.en-US.${system}.checksums";
@@ -105,7 +110,12 @@ let
   # From the version info, create a fetchurl derivation which will get the
   # sources from the remote.
   fetchVersion = info:
-    if info.chksumSig != null then
+    if info.verifiedByHand or false then
+      # Set info.verifiedByHand = true; when testing with tarball.
+      super.fetchurl {
+        inherit (info) url sha512;
+      }
+    else if info.chksumSig != null then
       super.fetchurl {
         inherit (info) url sha512;
 
@@ -137,24 +147,57 @@ let
         '';
       };
 
-  firefoxVersion = version:
+  versionWithDefaults = version:
+    { name = "Firefox Twilight";
+      version = "0.0a1";
+      channel = "twilight";
+      wmClass = "firefox-twilight";
+      release = false;
+      # info attribute set is either null, in which case it is infered by
+      # versionInfo, or it should be an attribute set with either:
+      #
+      #   1. Manual verification of packages:
+      #     url = "...";
+      #     sha512 = "...";
+      #     verifiedByHand = true;
+      #
+      #   2. Using a checksum file, which is itself verified using the gpg key.
+      #     url = "...";
+      #     file = "...";
+      #     sha512 = "...";
+      #     chksum = "...";
+      #     chksumSha256 = "...";
+      #     chksumSig = "...";
+      #     chksumSigSha256 = "...";
+      #
+      #   3. Using the gpg key on the archive
+      #     url = "...";
+      #     sha512 = "...";
+      #     sig = "...";
+      #     sigSha512 = "...";
+    } // version;
+
+  firefoxVersion = version':
     let
+      version = versionWithDefaults version';
       info = versionInfo version;
-      pkg = ((self.firefox-bin-unwrapped.override {
+      pkg = ((self.firefox-bin-unwrapped.override ({
         generated = {
           version = version.version;
           sources = { inherit (info) url sha512; };
         };
-        channel = version.channel;
-      }).overrideAttrs (old: {
+      } // super.lib.optionalAttrs (self.firefox-bin-unwrapped.passthru ? applicationName) {
+        applicationName = version.name;
+      })).overrideAttrs (old: {
         # Add a dependency on the signature check.
         src = fetchVersion info;
       }));
-      in super.wrapFirefox pkg {
+      in super.wrapFirefox pkg ({
         pname = "${pkg.binaryName}-bin";
-        desktopName = version.name;
         wmClass = version.wmClass;
-      };
+      } // super.lib.optionalAttrs (!self.firefox-bin-unwrapped.passthru ? applicationName) {
+        desktopName = version.name;
+      });
 
   firefoxVariants = {
     firefox-nightly-bin = {
