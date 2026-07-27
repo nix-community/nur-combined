@@ -30,7 +30,7 @@ in
 		'';
 
 		meta = with pkgs.lib; {
-			homepage = "https://github.com/LostPaul";
+			homepage = "https://github.com/LostPaul/obsidian-folder-notes";
 			license = licenses.agpl3Only;
 			description = "Create notes within folders that can be accessed without collapsing the folder, similar to the functionality offered in Notion";
 		};
