@@ -1,6 +1,4 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  dptf = ./dptf;
+  dptfxtract = ./dptfxtract;
 }
-

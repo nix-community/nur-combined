@@ -1,0 +1,12 @@
+--- a/lib/libcurl.vers.in	2020-03-12 05:33:59.367082951 +0000
++++ b/lib/libcurl.vers.in	2020-03-12 05:33:59.368082948 +0000
+@@ -11,3 +11,8 @@
+   global: curl_*;
+   local: *;
+ };
++CURL_@CURL_LT_SHLIB_VERSIONED_FLAVOUR@3
++{
++  global: curl_*;
++  local: *;
++};
+

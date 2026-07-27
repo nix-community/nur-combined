@@ -8,14 +8,37 @@
 
 { pkgs ? import <nixpkgs> {} }:
 
-{
+rec {
   # The `lib`, `modules`, and `overlay` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
-}
+  hm = home-manager;
+  home-manager = hmModules;
+  hmModules.modules = import ./home-manager;
 
+  vimPlugins = import ./pkgs/vim-plugins {
+    inherit (pkgs) fetchFromGitHub;
+    inherit (pkgs.vimUtils) buildVimPluginFrom2Nix;
+  };
+
+  zshPlugins = import ./pkgs/zsh-plugins {
+    inherit (pkgs) stdenv lib writeTextFile fetchFromGitHub fetchFromGitLab
+      nix-zsh-completions;
+  };
+
+  zshPackages = import ./pkgs/zsh-packages {
+    mkPackage = args: pkg: pkgs.callPackage pkg args;
+  };
+
+  dptf = pkgs.callPackage ./pkgs/dptf {
+    stdenv = pkgs.gcc7Stdenv;
+  };
+
+  dptfxtract = pkgs.callPackage ./pkgs/dptfxtract {};
+
+  immersed-vr = pkgs.callPackage ./pkgs/immersed-vr {};
+
+  parsec-gaming = pkgs.callPackage ./pkgs/parsec-gaming {};
+}

@@ -1,0 +1,60 @@
+diff --git a/DPTF/Linux/CMakeLists.txt b/DPTF/Linux/CMakeLists.txt
+index a1cbd67..d90e6f5 100644
+--- a/DPTF/Linux/CMakeLists.txt
++++ b/DPTF/Linux/CMakeLists.txt
+@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 2.8.6)
+ message ("CXX Flags (initial) : " ${CMAKE_CXX_FLAGS}) 
+ 
+ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-value -fPIC -Wformat -Wformat-security -O2 -D_FORTIFY_SOURCE=2 -fno-strict-overflow -fno-delete-null-pointer-checks -fwrapv")
++set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Werror -Wno-unused-value -Wno-catch-value -fPIC -Wformat -Wformat-security -O2 -D_FORTIFY_SOURCE=2 -fno-strict-overflow -fno-delete-null-pointer-checks -fwrapv")
+ if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS "4.9.0") 
+ 	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstack-protector")
+ else()
+diff --git a/DPTF/Sources/Manager/Policy.cpp b/DPTF/Sources/Manager/Policy.cpp
+index 6e85a76..a3f5a4e 100644
+--- a/DPTF/Sources/Manager/Policy.cpp
++++ b/DPTF/Sources/Manager/Policy.cpp
+@@ -652,8 +652,8 @@ void Policy::sendPolicyLogDataIfLoggingEnabled(Bool loaded)
+ 			policyData.policyIndex = m_policyIndex;
+ 			policyData.loaded = loaded;
+ 			m_guid.copyToBuffer(policyData.policyGuid);
+-			esif_ccb_strncpy(policyData.policyName, m_policyName.c_str(), sizeof(policyData.policyName));
+-			esif_ccb_strncpy(policyData.policyFileName, m_policyFileName.c_str(), sizeof(policyData.policyFileName));
++			esif_ccb_strncpy(policyData.policyName, m_policyName.c_str(), sizeof(policyData.policyName) - 1);
++			esif_ccb_strncpy(policyData.policyFileName, m_policyFileName.c_str(), sizeof(policyData.policyFileName) - 1);
+ 
+ 			esif_data esifEventData = {
+ 				esif_data_type::ESIF_DATA_STRUCTURE, &policyData, sizeof(policyData), sizeof(policyData) };
+diff --git a/ESIF/Products/ESIF_UF/Linux/Makefile b/ESIF/Products/ESIF_UF/Linux/Makefile
+index aa74ebe..798c50f 100644
+--- a/ESIF/Products/ESIF_UF/Linux/Makefile
++++ b/ESIF/Products/ESIF_UF/Linux/Makefile
+@@ -50,6 +50,7 @@ CFLAGS  += -fPIE
+ CFLAGS  += -fPIC
+ CFLAGS  += -O2 -D_FORTIFY_SOURCE=2
+ CFLAGS  += -Wformat -Wformat-security
++CFLAGS  += -Wno-format-truncation -Wno-missing-braces -Wno-unused-but-set-variable -Wno-unused-function -Wno-stringop-truncation -Wno-unused-variable -Wno-sequence-point -D_GNU_SOURCE
+ 
+ # Linker Flags added for security purposes
+ LDFLAGS += -z noexecstack 
+diff --git a/ESIF/Products/ESIF_WS/Linux/Makefile b/ESIF/Products/ESIF_WS/Linux/Makefile
+index 729c72f..0aa3ede 100644
+--- a/ESIF/Products/ESIF_WS/Linux/Makefile
++++ b/ESIF/Products/ESIF_WS/Linux/Makefile
+@@ -33,13 +33,14 @@ LDLIBS := -ldl
+ CPPFLAGS += -I$(SOURCES) -I$(ESIF_SDK_SOURCES)
+ CPPFLAGS += -DESIF_ATTR_USER
+ 
+-CFLAGS += -Werror
++CFLAGS += -Werror -Wall
+ 
+ # Compile Flags added for security purposes
+ CFLAGS  += -fPIE
+ CFLAGS  += -fPIC
+ CFLAGS  += -O2 -D_FORTIFY_SOURCE=2
+ CFLAGS  += -Wformat -Wformat-security
++CFLAGS  += -Wno-unknown-pragmas -Wno-address -Wno-stringop-truncation -Wno-format-truncation -D_GNU_SOURCE
+ 
+ # Linker Flags added for security purposes
+ LDFLAGS += -z noexecstack 
