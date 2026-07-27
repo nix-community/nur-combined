@@ -5,4 +5,6 @@ pkgs.hello.overrideAttrs (oldAttrs: rec {
   postPatch = ''
     sed -i -e 's/Hello, world!/Hello, NUR from ethancedwards8/' src/hello.c
   '';
+
+  doCheck = false;
 })

@@ -12,12 +12,13 @@
 { pkgs ? import <nixpkgs> { } }:
 
 with builtins;
-
 let
-
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules" || n == "hmModules" || n == "ndModules";
+  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
   isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: !(p.meta.broken or false) && p.meta.license.free or true;
+  isBuildable = p: let
+    licenseFromMeta = p.meta.license or [];
+    licenseList = if builtins.isList licenseFromMeta then licenseFromMeta else [licenseFromMeta];
+  in !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
   shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
@@ -46,7 +47,6 @@ let
             (attrNames nurAttrs))));
 
 in
-
 rec {
   buildPkgs = filter isBuildable nurPkgs;
   cachePkgs = filter isCacheable buildPkgs;

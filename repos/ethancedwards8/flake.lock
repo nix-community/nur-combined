@@ -3,11 +3,11 @@
     "dmenu": {
       "flake": false,
       "locked": {
-        "lastModified": 1600225289,
-        "narHash": "sha256-Kqhf7+kl+izCyrcwW6LaNrbYFh23j1nmBN+7/ebOlA0=",
+        "lastModified": 1657987709,
+        "narHash": "sha256-NZ8eI4PtKQ9FB3PI9CeG6FX0exnRkFWWWB8zIw1pVMo=",
         "owner": "ethancedwards",
         "repo": "dmenu-config",
-        "rev": "9cd6fe49998b48aa1b97e8b66d8895624b0ac897",
+        "rev": "891e6d610cd909d40c5925a2c853c28815244d4a",
         "type": "gitlab"
       },
       "original": {
@@ -19,11 +19,11 @@
     "firefox-addons-generator": {
       "flake": false,
       "locked": {
-        "lastModified": 1628544335,
-        "narHash": "sha256-pwEJESWamrnbwv6vMoczciFIaew3uf5MYTqd0E5wE3o=",
+        "lastModified": 1633645545,
+        "narHash": "sha256-jP2IMJNRp2UCanCnSXRr9/OvtGWOSl/O5qp4ds27pY0=",
         "owner": "rycee",
         "repo": "nixpkgs-firefox-addons",
-        "rev": "af6ac3ea7f0050485c3887b7c76e751b7dc4d471",
+        "rev": "f7c023673b443ca4dd79491270de020b2a959862",
         "type": "gitlab"
       },
       "original": {
@@ -34,16 +34,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1630074300,
-        "narHash": "sha256-BFM7OiXRs0RvSUZd6NCGAKWVPn3VodgYQ4TUQXxbMBU=",
+        "lastModified": 1738297584,
+        "narHash": "sha256-AYvaFBzt8dU0fcSK2jKD0Vg23K2eIRxfsVXIPCW9a0E=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "21c937f8cb1e6adcfeb36dfd6c90d9d9bfab1d28",
+        "rev": "9189ac18287c599860e878e905da550aa6dec1cd",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
-        "ref": "nixos-unstable",
+        "ref": "nixpkgs-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -76,11 +76,11 @@
     "sysfo": {
       "flake": false,
       "locked": {
-        "lastModified": 1621648397,
-        "narHash": "sha256-9e9ILzbTelNVeJ38Ns/Gcy+A7tgDanrA/dnammJrQmQ=",
+        "lastModified": 1630266376,
+        "narHash": "sha256-HolKGbHC+6UWYKJIPO2ZFIUtLgUN3VZbcvMnyqTa1O8=",
         "owner": "ethancedwards8",
         "repo": "sysfo",
-        "rev": "9ad6469b1c12712d00e1eac460d04f54f1404e50",
+        "rev": "fd264bdd98a98ac282bf88c0c83677bcafc59125",
         "type": "github"
       },
       "original": {

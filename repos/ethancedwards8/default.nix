@@ -16,9 +16,11 @@
   firefox-addons-generator =
     pkgs.haskellPackages.callPackage ./pkgs/firefox-addons-generator { };
 
-  # hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
+  hello-nur = pkgs.callPackage ./pkgs/hello-nur { };
 
   st = pkgs.callPackage ./pkgs/st { };
+
+  # jobspy = pkgs.python3.pkgs.callPackage ./pkgs/jobspy { };
 
   sysfo = pkgs.callPackage ./pkgs/sysfo { };
 }
