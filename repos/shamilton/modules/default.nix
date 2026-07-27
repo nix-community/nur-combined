@@ -54,6 +54,9 @@ rec {
     sync-database = ./sync-database.nix;
     pronotebot = ./pronotebot.nix;
     pronote-timetable-fetch = ./pronote-timetable-fetch.nix;
+    myterminal = import ./myterminal.nix {
+      inherit (selfnur) kitty-ntfy-cmd;
+    };
   };
 }
 

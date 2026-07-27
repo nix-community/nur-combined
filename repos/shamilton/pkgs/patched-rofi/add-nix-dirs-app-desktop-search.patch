@@ -1,7 +1,7 @@
 diff --color -ur a/source/modes/drun.c b/source/modes/drun.c
---- a/source/modes/drun.c	2022-10-30 15:41:07.970678984 +0100
-+++ b/source/modes/drun.c	2022-10-30 15:47:02.861931289 +0100
-@@ -1016,6 +1016,19 @@
+--- a/source/modes/drun.c	2025-07-21 12:05:50.950771040 +0200
++++ b/source/modes/drun.c	2025-07-21 12:12:06.514176935 +0200
+@@ -1226,6 +1226,19 @@
        TICK_N("Get Desktop apps (user dir)");
      }
  
@@ -9,12 +9,12 @@ diff --color -ur a/source/modes/drun.c b/source/modes/drun.c
 +      gchar *dir;
 +      // Second read nix-profile dir
 +      dir = g_build_filename ( g_get_home_dir (), ".nix-profile/share/applications", NULL );
-+      walk_dir ( pd, dir, dir );
++      walk_dir ( pd, dir, dir, TRUE );
 +      g_free ( dir );
 +
 +      // Third read nix-profile dir
 +      dir = g_build_filename ( "/run/current-system/sw/share/applications", NULL );
-+      walk_dir ( pd, dir, dir );
++      walk_dir ( pd, dir, dir, TRUE );
 +      g_free ( dir );
 +    }
 +

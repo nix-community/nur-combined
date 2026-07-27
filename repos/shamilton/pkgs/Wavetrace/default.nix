@@ -1,15 +1,9 @@
 { lib
 , buildPythonPackage
+, python3Packages
 , fetchFromGitHub 
-, certifi
-, chardet
-, click
-, gdal
-, idna
-, requests
-, shapely
+
 , splat
-, urllib3
 
 , imagemagick_light
 }:
@@ -27,7 +21,7 @@ buildPythonPackage rec {
 
   patches = [ ./fix-geoideval-request.patch ];
 
-  propagatedBuildInputs = [
+  propagatedBuildInputs = with python3Packages; [
     certifi
     chardet
     click
@@ -38,8 +32,10 @@ buildPythonPackage rec {
     splat
     urllib3
   ];
+  buildInputs = with python3Packages; [ setuptools ];
+  pyproject = true;
 
-  checkInputs = [ splat gdal imagemagick_light ];
+  checkInputs = with python3Packages; [ splat gdal imagemagick_light ];
   
   # Needs internet
   doCheck = false;

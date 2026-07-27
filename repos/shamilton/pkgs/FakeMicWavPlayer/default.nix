@@ -10,6 +10,7 @@
 , libvorbis
 , libogg
 , argparse
+# , nix-gitignore
 }:
 
 stdenv.mkDerivation {
@@ -19,9 +20,10 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "SCOTT-HAMILTON";
     repo = "FakeMicWavPlayer";
-    rev = "cf7a4572fa187ebf67bf93dc378ee939b8c46752";
-    sha256 = "1ajgv9mjdrj8y83azvw3gkghlfsqcwmsm0ma55b1f5sfi81691ay";
+    rev = "ee7134c989628c829590261824e76e8f35a0fbc5";
+    sha256 = "sha256-aKXDOJd8fxwwE17jSJy/stfOJzcd83euczxy0Btt8TE=";
   };
+  # src = nix-gitignore.gitignoreSource [] ~/GIT/FakeMicWavPlayer;
 
   nativeBuildInputs = [ pkg-config ninja meson cmake ];
 

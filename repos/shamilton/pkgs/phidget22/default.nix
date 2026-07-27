@@ -12,6 +12,8 @@ python3Packages.buildPythonPackage rec {
   };
 
   doCheck = true;
+  buildInputs = with python3Packages; [ setuptools ];
+  pyproject = true;
 
   meta = with lib; {
     description = "Simple module with a Rect class for Pygame-like rectangular areas";

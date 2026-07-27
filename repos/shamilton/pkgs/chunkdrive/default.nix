@@ -19,7 +19,7 @@ buildRustPackage rec {
   nativeBuildInputs = [ pkg-config ];
   buildInputs = [ openssl ];
 
-  cargoSha256 = "sha256-zcfjzvWGLWMwz/fE3HIgjUtrMew9ZTPa59m69S3893Q=";
+  cargoHash = "sha256-zcfjzvWGLWMwz/fE3HIgjUtrMew9ZTPa59m69S3893Q=";
   verifyCargoDeps = true;
 
   meta = with lib; {

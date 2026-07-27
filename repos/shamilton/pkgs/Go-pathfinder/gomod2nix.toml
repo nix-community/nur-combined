@@ -1,0 +1,9 @@
+schema = 3
+
+[mod]
+  [mod."github.com/SCOTT-HAMILTON/Go-pathfinderalgo"]
+    version = "v0.0.0-20190227132943-32102c2384a6"
+    hash = "sha256-LSgNAZBS3YDKcyLZUpKDnAHgH3fcw5Bk7rOENwR7WK0="
+  [mod."github.com/veandco/go-sdl2"]
+    version = "v0.4.40"
+    hash = "sha256-wkkHudct3p/QkeiAXZWFjdzDAoGUjfDfvV0M7Djgn1A="

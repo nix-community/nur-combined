@@ -9,7 +9,7 @@
 , lesspass-cli
 
 ## Open documentation deps
-, eom, surf, zathura, coreutils, findutils, gawk
+, eom, firefox, zathura, coreutils, findutils, gawk
 
 ## Autotype
 , wmctrl
@@ -45,7 +45,7 @@ stdenv.mkDerivation rec {
 
   propagatedBuildInputs = [
     python3
-    coreutils findutils gawk eom surf zathura 
+    coreutils findutils gawk eom firefox zathura 
     wmctrl
      merge-keepass
     perlEnv
@@ -56,7 +56,7 @@ stdenv.mkDerivation rec {
       --replace wmctrl ${wmctrl}/bin/wmctrl
     substituteInPlace scripts/scripts.desktop \
       --replace @Scripts@ $out \
-      --replace "Exec=surf" "Exec=${surf}/bin/surf"
+      --replace "Exec=surf" "Exec=${firefox}/bin/firefox"
     mv pdf-inverter/invert.perl pdf-inverter/src
 
     echo "#! ${perlEnv}/bin/perl" > pdf-inverter/invert.perl

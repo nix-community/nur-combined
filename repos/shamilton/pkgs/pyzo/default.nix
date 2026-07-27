@@ -1,6 +1,5 @@
 { lib
 , fetchFromGitHub
-, fetchpatch
 , python3
 , shellPython
 , python3Packages ? python3.pkgs
@@ -18,6 +17,8 @@ python3Packages.buildPythonPackage rec {
   };
 
   nativeBuildInputs = [ util-linux ];
+  buildInputs = with python3Packages; [ setuptools ];
+  pyproject = true;
 
   propagatedBuildInputs = with python3Packages; [
     pyside2

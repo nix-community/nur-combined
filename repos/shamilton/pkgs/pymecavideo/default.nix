@@ -5,7 +5,7 @@
 , qttools
 , wrapQtAppsHook
 , qtbase
-, opencv2
+, opencv4
 , makeDesktopItem
 }:
 
@@ -51,6 +51,8 @@ python3Packages.buildPythonApplication rec {
     opencv4
     pyqtgraph
   ];
+  buildInputs = with python3Packages; [ setuptools ];
+  pyproject = true;
 
   desktopItem = makeDesktopItem {
     name = "PyMecaVideo";

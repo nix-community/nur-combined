@@ -1,13 +1,11 @@
 { lib
 , python3Packages
 , fetchFromGitHub
-, parallel-ssh
 , libssh2
 , merge-keepass
-, nix-gitignore
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "sync-database";
   version = "2023-07-11";
 
@@ -18,6 +16,8 @@ python3Packages.buildPythonPackage rec {
     sha256 = "sha256-XT3up7zUPqw0RGTMy0ceF6N7SVWLyEe18q+ZN3HZwWs=";
   };
 
+  buildInputs = with python3Packages; [ setuptools ];
+  pyproject = true;
   propagatedBuildInputs = with python3Packages; [
     setuptools
     libssh2

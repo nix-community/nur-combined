@@ -1,0 +1,3 @@
+[submodule "lib/gomod2nix"]
+	path = lib/gomod2nix
+	url = https://github.com/nix-community/gomod2nix

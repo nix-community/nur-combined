@@ -3,7 +3,7 @@
 , fetchFromGitHub 
 }:
 
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage {
   pname = "merge-keepass";
   version = "2023-07-11";
 
@@ -15,8 +15,11 @@ python3Packages.buildPythonPackage rec {
   };
 
   nativeBuildInputs = with python3Packages; [ pytest ];
+  buildInputs = with python3Packages; [ setuptools ];
   propagatedBuildInputs = with python3Packages; [ pykeepass click dateutils ];
   checkInputs = with python3Packages; [ pytest ];
+
+  pyproject = true;
 
   checkPhase = ''
     pytest tests.py
