@@ -89,7 +89,7 @@ stdenv.mkDerivation (finalAttrs: {
    description = "Zcode, Simple, Fast, Vibe‑Ready ! z.ai agent client";
     homepage = "https://zcode.z.ai";
     license = licenses.unfreeRedistributable;
-    platforms = platforms.linux;
+    platforms = [ "x86_64-linux" ];
     mainProgram = "zcode";
   };
 })
