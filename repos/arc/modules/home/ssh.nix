@@ -1,6 +1,8 @@
 { config, pkgs, lib, ... }: with lib; let
   cfg = config.programs.ssh;
   userKnownHostsFile = builtins.toFile "known_hosts" (concatStringsSep "\n" cfg.knownHosts);
+  # hm is broken and dumb :<
+  mkNudge = mkOverride 99;
 in {
   options.programs.ssh = {
     strictHostKeyChecking = mkOption {
@@ -17,9 +19,9 @@ in {
 
   config.programs.ssh = {
     extraOptionOverrides.StrictHostKeyChecking = cfg.strictHostKeyChecking;
-    userKnownHostsFile = mkIf (length cfg.knownHosts > 0) (toString (
+    settings."*".UserKnownHostsFile = mkIf (length cfg.knownHosts > 0) (mkNudge (
       optional (cfg.strictHostKeyChecking != "yes") "~/.ssh/known_hosts"
-      ++ [ userKnownHostsFile ]
+      ++ [ "${userKnownHostsFile}" ]
     ));
   };
 }

@@ -93,7 +93,7 @@ in {
       system = "x86_64-linux";
       channels = {
         nixpkgs.version = "stable";
-        home-manager = "release-24.05";
+        home-manager = "release-24.11";
       };
     };
     unstable = {

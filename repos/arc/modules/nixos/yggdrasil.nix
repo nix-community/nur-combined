@@ -4,6 +4,7 @@
   isPath = lib.types.path.check;
   runtimeDir = "/run/${config.services.yggdrasil.serviceConfig.RuntimeDirectory or "yggdrasil"}";
   configFile = pkgs.writeText "yggdrasil.conf" (builtins.toJSON cfg.extraConfig);
+  hasPrivateKeyPath = !(opt ? configFile);
   arc = import ../../canon.nix { inherit pkgs; };
   yggdrasil-address = pkgs.yggdrasil-address or arc.packages.yggdrasil-address;
   address = yggdrasil-address.importWithPublicKey cfg.publicKey;
@@ -156,19 +157,19 @@ in {
   };
 
   config = {
-    systemd.services.yggdrasil = mkIf cfg.enable {
+    systemd.services.${if !hasPrivateKeyPath then "yggdrasil" else null} = mkIf cfg.enable {
       preStart = let
         privateKey = key: o: c: optionalString (o.isDefined && isPath c) ''
           printf '{ "${key}": "%s" }' "$(cat ${toString c})"
         '';
-      in mkOverride 90 ''
+      in (mkOverride 90 ''
         {
           ${optionalString (cfg.configFile != null) "cat ${cfg.configFile}"}
           cat ${configFile}
           ${privateKey "PrivateKey" opt.privateKey cfg.privateKey}
           ${optionalString cfg.persistentKeys "cat /var/lib/yggdrasil/keys.json"}
         } | ${pkgs.jq}/bin/jq -s add > ${runtimeDir}/yggdrasil.conf
-      '';
+      '');
       serviceConfig.BindReadOnlyPaths = let
         privateKey = o: c: optional (o.isDefined && isPath c) (toString c);
       in [ "${configFile}" ]
@@ -189,7 +190,7 @@ in {
         ));
         AllowedPublicKeys = mkIf (cfg.allowedPublicKeys != [ ]) (mkOptionDefault cfg.allowedPublicKeys);
         PublicKey = mkIf (opt.publicKey.isDefined) (mkOptionDefault cfg.publicKey);
-        PrivateKey = mkIf (opt.privateKey.isDefined && !isPath cfg.privateKey) (mkOptionDefault cfg.privateKey);
+        ${if hasPrivateKeyPath then "PrivateKeyPath" else "PrivateKey"} = mkIf (opt.privateKey.isDefined && !isPath cfg.privateKey) (mkOptionDefault cfg.privateKey);
         LinkLocalTCPPort = mkOptionDefault cfg.linkLocalTcpPort;
         IfName = mkOptionDefault cfg.ifName;
         IfMTU = mkOptionDefault cfg.ifMtu;

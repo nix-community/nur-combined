@@ -1,5 +1,7 @@
 { config, lib, ... }: with lib; let
   cfg = config.systemd;
+  watchdogReboot = if cfg.watchdog.rebootTimeout == null then "0" else cfg.watchdog.rebootTimeout;
+  watchdogRebootDefault = "10min";
 in {
   options.systemd = {
     watchdog = {
@@ -10,19 +12,19 @@ in {
       };
       rebootTimeout = mkOption {
         type = with types; nullOr str;
-        default = "10min";
+        default = watchdogRebootDefault;
       };
     };
   };
   config = {
     systemd = {
-      extraConfig = mkMerge [
-        (mkIf cfg.watchdog.enable ''
-          RuntimeWatchdogSec=${cfg.watchdog.timeout}
-        '')
-        (mkIf (cfg.watchdog.rebootTimeout != "10min") ''
-          RebootWatchdogSec=${if cfg.watchdog.rebootTimeout == null then "0" else cfg.watchdog.rebootTimeout}
-        '')
+      settings.Manager = mkMerge [
+        (mkIf cfg.watchdog.enable {
+          RuntimeWatchdogSec = mkDefault cfg.watchdog.timeout;
+        })
+        (mkIf (cfg.watchdog.rebootTimeout != watchdogRebootDefault) {
+          RebootWatchdogSec = mkDefault watchdogReboot;
+        })
       ];
     };
   };

@@ -1,7 +1,7 @@
 let
   mergeLinuxConfig = { wrapShellScriptBin, fetchurl, stdenvNoCC, makeWrapper, bash, lib, coreutils, gnused, gnugrep, gnumake, flex ? null, bison ? null }: let
     src = fetchurl {
-      url = https://github.com/torvalds/linux/raw/v5.0/scripts/kconfig/merge_config.sh;
+      url = "https://github.com/torvalds/linux/raw/v5.0/scripts/kconfig/merge_config.sh";
       sha256 = "063v44ffcs24x0ywj4xklglkvm62n2m690gd9pdj00wpbz7z3hni";
     };
   in wrapShellScriptBin "merge_config.sh" src {
@@ -82,10 +82,19 @@ let
 
       outputs = [ "bin" "out" ];
 
+      postPatch = lib.optionalString (lib.versionAtLeast linux.version "6.13") ''
+        substituteInPlace Makefile \
+          --replace '$(TARGET).o:' '$(TARGET).ko:'
+      '';
+
       installPhase = ''
+        runHook preInstall
+
         install -Dm644 -t $out/lib/modules/$kernelVersion/kernel/drivers/video/fbdev/ forcefully_remove_bootfb.ko
         install -Dm755 forcefully_remove_bootfb.sh $bin/bin/forcefully-remove-bootfb
         wrapProgram $bin/bin/forcefully-remove-bootfb --prefix PATH : $shellPath
+
+        runHook postInstall
       '';
 
       dontStrip = true;

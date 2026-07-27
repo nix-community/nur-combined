@@ -5,6 +5,7 @@
     allTags = concatLists (mapAttrsToList (_: c: c.tags) cfg.containers);
   in intersectLists (unique allTags) tags;
   bookmarkUrl = bk: "${bk.url}${concatStrings (map convertKey (containerTags bk.tags))}";
+  isOnline = false;
   database = pkgs.stdenvNoCC.mkDerivation {
     name = "bookmarks.db";
     nativeBuildInputs = [ cfg.package ];
@@ -13,9 +14,10 @@
       unset HOME
       ${concatMapStringsSep "\n" (bookmark: escapeShellArgs ([
         "buku"
+        "--nostdin" "--np"
         "--title" bookmark.title
       ] ++ optionals (bookmark.description != null) [ "-c" bookmark.description ]
-        ++ optionals (!cfg.mutable) [ "--immutable" "1" ]
+        ++ optionals (!cfg.mutable || !isOnline) [ "--immutable" "1" ]
         ++ [ "-a" (bookmarkUrl bookmark) ]
         ++ optional (bookmark.tags != []) (concatStringsSep "," bookmark.tags)
       )) (attrValues cfg.bookmarks)}

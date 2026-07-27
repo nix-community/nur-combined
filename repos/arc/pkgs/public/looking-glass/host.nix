@@ -1,56 +1,71 @@
 { stdenv, lib
 , fetchFromGitHub
-, fetchpatch, runCommand, buildPackages
+, fetchpatch
 , looking-glass-client
 , cmake, pkg-config
 , libbfd, libGLU, libX11
 , libxcb, libXfixes
+, pipewire, glib
 , nvidia-capture-sdk
 , enableNvfbc ? false
+, enablePipewire ? stdenv.hostPlatform.isLinux
+, enableXcb ? stdenv.hostPlatform.isLinux
+, enableBacktrace ? false
 , optimizeForArch ? null
 }: with lib; let
   namedPatches = import ./patches.nix { inherit fetchpatch; };
-  # TODO: this seems like a problem mingw or cmake should handle?
-  windres = buildPackages.writeShellScriptBin "windres" ''
-    exec ${stdenv.cc.targetPrefix}windres \
-      --preprocessor "$CC -E -xc-header -DRC_INVOKED" \
-      "$@"
-  '';
 in stdenv.mkDerivation rec {
   pname = "looking-glass-host";
-  version = "2021-07-24";
+  version = "2024-11-14";
   src = fetchFromGitHub {
     owner = "gnif";
     repo = "LookingGlass";
-    rev = "181b165a4ba45eeedcd8d908b3e786b6ff7a1a35";
-    sha256 = "180g44jym96hzmw0a9wj0gss9q4fr4402ir6v0csarz8aqc7rq8z";
+    rev = "e25492a3a36f7e1fde6e3c3014620525a712a64a";
+    sha256 = "sha256-DBmCJRlB7KzbWXZqKA0X4VTpe+DhhYG5uoxsblPXVzg=";
     fetchSubmodules = true;
   };
 
-  nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = optionals stdenv.isLinux [
+  nativeBuildInputs = [
+    cmake
+  ] ++ optional stdenv.hostPlatform.isLinux pkg-config;
+  buildInputs = optionals stdenv.hostPlatform.isLinux [
+  ] ++ optionals enableXcb [
     libbfd libGLU libX11
     libxcb libXfixes
+  ] ++ optionals enablePipewire [
+    pipewire
+    glib
   ];
 
-  patches = with namedPatches; [
+  /*patches = with namedPatches; [
     nvfbc-pointerthread
     nvfbc-framesize nvfbc-scale
-  ];
+  ];*/
+
+  preConfigure = ''
+    echo $version > VERSION
+    if [[ $version = 20??-??-?? ]]; then
+      export SOURCE_DATE_EPOCH=$(date -d $version +%s)
+    fi
+  '';
 
   makeFlags = [
     "VERBOSE=1"
   ];
+  cmakeDir = "../host";
   cmakeFlags = [
-    "-DVERSION=${version}"
     "-DOPTIMIZE_FOR_NATIVE=${if optimizeForArch == null then "OFF" else optimizeForArch}"
-    "../host"
-  ] ++ optionals stdenv.hostPlatform.isWindows ([
-    "-DCMAKE_RC_COMPILER=${windres}/bin/windres"
+    "-DENABLE_BACKTRACE=${if enableBacktrace then "ON" else "OFF"}"
+  ] ++ optionals stdenv.hostPlatform.isLinux [
+    "-DUSE_XCB=${if enableXcb then "ON" else "OFF"}"
+    "-DUSE_PIPEWIRE=${if enablePipewire then "ON" else "OFF"}"
   ] ++ optionals enableNvfbc [
     "-DUSE_NVFBC=ON"
     "-DNVFBC_SDK=${nvidia-capture-sdk.sdk}"
-  ]);
+  ];
+
+  # glib G_DEFINE_AUTOPTR_CLEANUP_FUNC error: 'response' may be used uninitialized
+  NIX_CFLAGS_COMPILE = optional enablePipewire "-Wno-maybe-uninitialized";
 
   hardeningDisable = [ "all" ];
 

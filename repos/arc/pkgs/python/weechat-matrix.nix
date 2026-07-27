@@ -1,43 +1,25 @@
-{ lib, pythonPackages, weechat-matrix, fetchFromGitHub, enableOlm ? true }:
+{ lib, pythonPackages, weechat-matrix, fetchFromGitHub, fetchpatch, enableOlm ? true }: let
 
-with pythonPackages; let
-
-  matrix-nio-0_21 = (pythonPackages.matrix-nio.override {
-    logbook = null;
-  }).overridePythonAttrs (old: rec {
-    version = "0.21.2";
-    src = fetchFromGitHub {
-      owner = "poljar";
-      repo = "matrix-nio";
-      rev = version;
-      sha256 = "sha256-eK5DPmPZ/hv3i3lzoIuS9sJXKpUNhmBv4+Nw2u/RZi0=";
+  jsonschema = (pythonPackages.jsonschema.override {
+    rpds-py = null;
+  }).overrideAttrs (old: rec {
+    name = "${old.pname}-${version}";
+    version = "4.17.3";
+    src = pythonPackages.jsonschema.src.override {
+      inherit version;
+      hash = "sha256-D4ZEN6uLYHa6ZwdFPvj5imoNUSqA6T+KvbZ29zfstg0=";
     };
+    propagatedBuildInputs = old.propagatedBuildInputs ++ [
+      pythonPackages.pyrsistent
+    ];
   });
-  matrix-nio-0_24 = pythonPackages.matrix-nio.override {
-    aiohttp-socks = pythonPackages.aiohttp-socks.overridePythonAttrs (old: rec {
-      version = "0.8.4";
-      src = fetchPypi {
-        inherit version;
-        pname = "aiohttp_socks";
-        hash = "sha256-a2EdTOg46c8sL+1eDbpEfMhIJKbLqV3FdHYGIB2kbLQ=";
-      };
-    });
-  };
-  matrix-nio = if lib.versionOlder pythonPackages.matrix-nio.version "0.21"
-    then matrix-nio-0_21
-    else if lib.isNixpkgsStable
-    then pythonPackages.matrix-nio.overridePythonAttrs (old: {
-      nativeBuildInputs = old.nativeBuildInputs or [ ] ++ [
-        pythonRelaxDepsHook
-      ];
-      pythonRelaxDeps = [
-        "cachetools"
-      ];
-    }) else if pythonPackages.matrix-nio.version == "0.24.0" && lib.versionAtLeast pythonPackages.aiohttp-socks.version "0.9"
-    then matrix-nio-0_24
-    else pythonPackages.matrix-nio;
-
-in buildPythonPackage rec {
+  matrix-nio = (pythonPackages.matrix-nio.override {
+    inherit jsonschema;
+    #${if enableOlm then "withOlm" else null} = true;
+  }).overrideAttrs (old: {
+    doInstallCheck = false;
+  });
+in with pythonPackages; buildPythonPackage rec {
   pname = "weechat-matrix";
   version = "2023.07.23";
   src = fetchFromGitHub {
@@ -52,6 +34,7 @@ in buildPythonPackage rec {
     pip
   ];
   propagatedBuildInputs = [
+    pyrsistent # why isn't this propagated from jsonschema via nio? .-.
     pyopenssl
     webcolors
     atomicwrites
@@ -59,7 +42,7 @@ in buildPythonPackage rec {
     pythonPackages.logbook or pythonPackages.Logbook
     pygments
     requests
-    python_magic
+    pythonPackages.python-magic or pythonPackages.python_magic
     matrix-nio
   ] ++ lib.optional (pythonOlder "3.5") typing
   ++ lib.optional (pythonOlder "3.2") future
@@ -69,6 +52,25 @@ in buildPythonPackage rec {
     python-olm
     peewee
   ]);
+
+  patches = [
+    (fetchpatch {
+      # python-future is gone on 3.13
+      # https://github.com/poljar/weechat-matrix/pull/368
+      url = "https://github.com/poljar/weechat-matrix/pull/368.patch";
+      name = "python-future";
+      hash = "sha256-BhOfHfNV9GtCcKTGUy+7ByqJcDxBW/YubHQpHOnVv7Q=";
+    })
+    # conflicts with above patch .-.
+    /*(fetchpatch {
+      # fixes ImportError: PyO3 modules do not yet support subinterpreters
+      # https://github.com/poljar/weechat-matrix/pull/367
+      url = "https://github.com/poljar/weechat-matrix/pull/367.patch";
+      name = "pyopenssl-pyo3";
+      hash = "sha256-pPh/M+BMq5X7WWmUI4fPxyhBn1FNqliQ4VhHSCybD3U=";
+    })*/
+    ./pyopenssl-pyo3.patch
+  ];
 
   passAsFile = [ "setup" ];
   setup = ''

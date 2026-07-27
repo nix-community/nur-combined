@@ -1,5 +1,8 @@
-{ lib, config, pkgs, ... }: with lib; let
-  cfg = config.hardware.pulseaudio;
+{ lib, options, config, pkgs, ... }: with lib; let
+  cfg = config.services.pulseaudio;
+  pulseaudio = if options ? services.pulseaudio.extraModules
+    then config.services.pulseaudio
+    else config.hardware.pulseaudio;
   optsConvert = opts: concatStringsSep " "
     (mapAttrsToList (k: v: "${k}=${optStr false (optConvert false v)}") opts);
   optStr = inner: opt:
@@ -37,7 +40,7 @@
       + optionalString (config.opts != { }) (" " + optsConvert config.opts);
   };
 in {
-  options.hardware.pulseaudio = {
+  options.services.pulseaudio = {
     clearDefaults = mkOption {
       type = types.bool;
       default = false;
@@ -88,34 +91,44 @@ in {
     };
   };
 
-  config.hardware.pulseaudio = {
-    bluetooth.provider = mkIf config.services.ofono.enable (mkDefault "ofono");
-    configFile = mkIf cfg.clearDefaults
-      (builtins.toFile "default.pa" "");
-    loadModule = optional cfg.x11bell.enable {
-      module = "x11-bell";
-      opts = {
-        inherit (cfg.x11bell) sample display;
-      };
-    } ++ optionals cfg.bluetooth.enable [
-      "bluetooth-policy"
-      {
-        module = "bluetooth-discover";
-        opts.headset = cfg.bluetooth.provider;
-      }
-    ];
-    extraModules = mkIf cfg.bluetooth.enable [ pkgs.pulseaudio-modules-bt ];
-    #package = mkIf cfg.bluetooth.enable pkgs.pulseaudioFull;
-    samples = mkIf cfg.x11bell.enable {
-      ${cfg.x11bell.sample} = mkDefault cfg.x11bell.samplePath;
+  config = let
+    serviceConf = {
+      extraModules = mkIf cfg.bluetooth.enable [ pkgs.pulseaudio-modules-bt ];
+      #package = mkIf cfg.bluetooth.enable pkgs.pulseaudioFull;
     };
-    extraConfig = mkMerge (
-      mapAttrsToList (samp: path: "load-sample ${samp} ${path}") cfg.samples
-      ++ map (mod: mod.configLine) cfg.loadModule
-      ++ [
-        (mkIf (cfg.defaults.source != null) "set-default-source ${cfg.defaults.source}")
-        (mkIf (cfg.defaults.sink != null) "set-default-sink ${cfg.defaults.source}")
-      ]
-    );
+    conf = {
+      bluetooth.provider = mkIf config.services.ofono.enable (mkDefault "ofono");
+      configFile = mkIf cfg.clearDefaults
+        (builtins.toFile "default.pa" "");
+      loadModule = optional cfg.x11bell.enable {
+        module = "x11-bell";
+        opts = {
+          inherit (cfg.x11bell) sample display;
+        };
+      } ++ optionals cfg.bluetooth.enable [
+        "bluetooth-policy"
+        {
+          module = "bluetooth-discover";
+          opts.headset = cfg.bluetooth.provider;
+        }
+      ];
+      samples = mkIf cfg.x11bell.enable {
+        ${cfg.x11bell.sample} = mkDefault cfg.x11bell.samplePath;
+      };
+      extraConfig = mkMerge (
+        mapAttrsToList (samp: path: "load-sample ${samp} ${path}") cfg.samples
+        ++ map (mod: mod.configLine) cfg.loadModule
+        ++ [
+          (mkIf (cfg.defaults.source != null) "set-default-source ${cfg.defaults.source}")
+          (mkIf (cfg.defaults.sink != null) "set-default-sink ${cfg.defaults.source}")
+        ]
+      );
+    };
+    isNixpkgsStable = lib.versionOlder lib.version "25.05";
+  in {
+    services.pulseaudio = mkMerge ([
+      conf
+    ] ++ optional (!isNixpkgsStable) serviceConf);
+    hardware.${if isNixpkgsStable then "pulseaudio" else null} = serviceConf;
   };
 }

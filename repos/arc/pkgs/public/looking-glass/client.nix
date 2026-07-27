@@ -1,9 +1,10 @@
-{ lib, looking-glass-client, looking-glass-host, fetchFromGitHub, libXinerama }: looking-glass-client.overrideAttrs (old: {
+{ lib, looking-glass-client, looking-glass-host }: let
+  inherit (looking-glass-client) stdenv;
+  inherit (stdenv) hostPlatform;
+in looking-glass-client.overrideAttrs (old: {
   inherit (looking-glass-host) version src;
 
-  buildInputs = old.buildInputs ++ [
-    libXinerama
-  ];
+  NIX_CFLAGS_COMPILE = looking-glass-client.NIX_CFLAGS_COMPILE or [] ++ lib.optional hostPlatform.isLinux "-Wno-maybe-uninitialized";
 
   patches = [ ];
 })

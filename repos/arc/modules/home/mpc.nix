@@ -72,7 +72,7 @@ in {
       enable = mkEnableOption "mpc";
       package = mkOption {
         type = package;
-        default = pkgs.mpc-cli;
+        default = pkgs.mpc or pkgs.mpc-cli;
       };
       servers = mkOption {
         type = attrsOf (submodule mpdServerModule);

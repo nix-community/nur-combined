@@ -148,10 +148,10 @@
     ensureDBOwnership = cfg.database.user == cfg.database.name;
     postStart = {
       owner = ''
-        $PSQL -tAc 'ALTER DATABASE "${cfg.database.name}" OWNER TO "${cfg.database.user}"'
+        ''${PSQL-psql} -tAc 'ALTER DATABASE "${cfg.database.name}" OWNER TO "${cfg.database.user}"'
       '';
       ${toString false} = ''
-        $PSQL -tAc 'GRANT ALL PRIVILEGES ON DATABASE "${cfg.database.name}" TO "${cfg.database.user}"'
+        ''${PSQL-psql} -tAc 'GRANT ALL PRIVILEGES ON DATABASE "${cfg.database.name}" TO "${cfg.database.user}"'
       '';
     };
   in mkIf (!ensureDBOwnership && postStart ? ${toString ensurePermissions}) {
@@ -686,7 +686,7 @@ in {
             };
             permissions = mkMerge [
               {
-                "*" = "relaybot";
+                #"*" = "relaybot"; # invalid permission level, where did this come from?
               }
               (mkIf matrix-synapse.enable {
                 ${matrix-synapse.settings.server_name} = mkOptionDefault "user";
@@ -1598,6 +1598,9 @@ in {
           };
           cmdargs = [
             "-f" config.registration.configuration.path
+          ];
+          setSystemdService.serviceConfig.LogFilterPatterns = [
+            "~access_token=.*"
           ];
         };
       };

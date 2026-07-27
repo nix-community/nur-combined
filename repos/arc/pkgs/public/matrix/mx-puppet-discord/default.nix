@@ -1,4 +1,4 @@
-{ stdenv, fetchFromGitLab, pkgs, lib, nodejs-18_x, nodeEnv, pkg-config, libjpeg
+{ stdenv, fetchFromGitLab, lib, nodejs-18_x, nodeEnv, pkg-config, libjpeg
 , vips, pixman, cairo, pango
 , fetchgit, fetchurl
 }:
@@ -29,6 +29,11 @@ in myNodePackages.package.override {
   nativeBuildInputs = [ nodejs.pkgs.node-pre-gyp pkg-config ];
   buildInputs = [ libjpeg vips pixman cairo pango ];
 
+  preRebuild = ''
+    substituteInPlace node_modules/@discordjs/opus/deps/binding.gyp \
+      --replace-fail '"cflags": [' '"cflags": ["-Wno-incompatible-pointer-types","-Wno-implicit-function-declaration",'
+  '';
+
   postInstall = ''
     # Patch shebangs in node_modules, otherwise the webpack build fails with interpreter problems
     patchShebangs --build "$out/lib/node_modules/mx-puppet-discord/node_modules/"
@@ -50,5 +55,6 @@ in myNodePackages.package.override {
     license = licenses.asl20;
     homepage = "https://gitlab.com/mx-puppet/mx-puppet-discord";
     platforms = platforms.unix;
+    broken = true;
   };
 }

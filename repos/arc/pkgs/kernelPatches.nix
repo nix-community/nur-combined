@@ -1,7 +1,7 @@
 {
   more_uarches = { lib, fetchpatch, hostPlatform, linux, kernelArch ? null, gccArch ? hostPlatform.linux-kernel.arch or hostPlatform.gcc.arch or "x86-64-v3" }: let
     name = "more-uarches";
-    srcs = lib.mapAttrs (_: doSrc) {
+    srcs = lib.mapAttrs doSrc {
       "4.19" = {
         versionRange = "4.19-5.4";
         sha256 = "14xczd9bq6w9rc0lf8scq8nsgphxlnp7jqm91d0zvxj0v0mqylch";
@@ -19,20 +19,40 @@
         sha256 = "sha256-HPaB0/vh5uIkBLGZqTVcFMbm87rc9GVb5q+L1cHAE/o=";
       };
       "6.1.79" = {
-        versionRange = "6.1.79-6.8-rc3";
+        versionRange = "6.1.79+"; # 6.1.79%2B
         sha256 = "sha256-ZEeeQViUZWunzZzeJ6z9/RwoNaQzzJK7q1yBUh4weXE=";
       };
       "6.8-rc4" = {
         versionRange = "6.8-rc4+";
         sha256 = "sha256-VjdF4DC/midcNGcYGrquLwCpkZKeghVbWI3S9++RTV8=";
+        lite = "only";
+      };
+      "6.15-rc1" = {
+        versionRange = "6.15-rc1-6.15.x";
+        sha256 = "sha256-dzZUDYv583vPtTMouwzUTVkrKIgHH6XcLCmkwmCvOPQ=";
+        lite = true;
+      };
+      "6.16" = {
+        versionRange = "6.16+";
+        sha256 = "sha256-I7WZJ7hwOcV9wNw5Ub9u2sIY+pvWzQItsKnMx9vPJ7s=";
+        lite = true;
       };
     };
-    doSrc = { versionRange, sha256 }: fetchpatch {
+    doSrc = v: { versionRange, sha256, ... }@src: fetchpatch {
       name = name + "-${versionRange}.patch";
-      url = patchUrl (lib.replaceStrings [ "+" ] [ "%2B" ] versionRange);
+      url = patchUrl v src;
       inherit sha256;
     };
-    patchUrl = range: "https://github.com/graysky2/kernel_compiler_patch/raw/c409515574bd4d69af45ad74d4e7ba7151010516/more-uarches-for-kernel-${range}.patch";
+    rev = src: if src ? lite
+      then "a814e64f4f871a9e4ed74026cfae9bc24fb166ce"
+      else "c409515574bd4d69af45ad74d4e7ba7151010516";
+    filename = { versionRange, sha256, lite ? false }@src: let
+      range = lib.replaceStrings [ "+" ] [ "%2B" ] versionRange;
+    in if ! src ? lite
+      then "more-uarches-for-kernel-${range}.patch"
+      else if lite == "only" then "lite-more-x86-64-ISA-levels-for-kernel-${range}.patch"
+      else "more-ISA-levels-and-uarches-for-kernel-${range}.patch";
+    patchUrl = v: src: "https://github.com/graysky2/kernel_compiler_patch/raw/${rev src}/${filename src}";
   in {
     inherit name srcs;
     patch =
@@ -43,7 +63,11 @@
       else if lib.versionOlder linux.version "6.8"
         || (lib.hasPrefix "6.8-rc" linux.version && lib.versionOlder linux.version "6.8-rc4")
       then srcs."6.1.79"
-      else srcs."6.8-rc4";
+      else if lib.versionOlder linux.version "6.15"
+      then srcs."6.8-rc4"
+      else if lib.versionOlder linux.version "6.16"
+      then srcs."6.15-rc1"
+      else srcs."6.16";
     extraConfig = let
       archconfig = if kernelArch != null then kernelArch else {
         barcelona = "MBARCELONA";

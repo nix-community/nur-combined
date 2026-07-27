@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }: with lib; let
+{ options, config, pkgs, lib, ... }: with lib; let
   cfg = config.home.shell;
   shellFunctions = lib.concatStringsSep "\n" (lib.mapAttrsToList (fn: body: ''
     function ${fn}() {
@@ -21,9 +21,11 @@ in {
     default = { };
   };
 
-  config.programs.zsh = mkIf config.programs.zsh.enable {
+  config.programs.zsh = let
+      key = if options.programs.zsh ? initContent then "initContent" else "initExtra";
+    in mkIf config.programs.zsh.enable {
     shellAliases = cfg.aliases;
-    initExtra = shellFunctions;
+    "${key}" = shellFunctions;
   };
   config.programs.bash = mkIf config.programs.bash.enable {
     shellAliases = cfg.aliases;

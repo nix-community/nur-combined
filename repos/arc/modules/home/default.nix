@@ -2,6 +2,7 @@
   git = ./git.nix;
   github = ./github.nix;
   bitbucket = ./bitbucket.nix;
+  codeberg = ./codeberg.nix;
   devops = ./devops.nix;
   sshd = ./sshd.nix;
   ssh = ./ssh.nix;
@@ -39,7 +40,7 @@
   __functionArgs = { };
   __functor = self: { ... }: {
     imports = with self; [
-      git github bitbucket devops
+      git github bitbucket codeberg devops
       sshd ssh
       konawall
       task

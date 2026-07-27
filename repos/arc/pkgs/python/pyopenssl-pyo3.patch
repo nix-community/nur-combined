@@ -1,0 +1,55 @@
+From 0c1b51d9b6815245b79ddcac70055f7449935edc Mon Sep 17 00:00:00 2001
+From: Trygve Aaberge <trygveaa@gmail.com>
+Date: Mon, 23 Dec 2024 12:27:08 +0100
+Subject: [PATCH] Conditionally print certificate info
+
+The cryptography package (which pyOpenSSL depends on) doesn't support
+being loaded in multiple sub interpreters from version 41.0.0. Doing it
+in previous versions seemed to work, but could apparenly cause soundness
+issues, so it errors out from version 41.0.0. Note that this isn't a
+change in the cryptography package, but in pyo3 from version 0.17.0,
+which cryptography uses.
+
+This causes the script to fail when reloading it, or if you load it
+after another script with the same dependency. However, since pyOpenSSL
+is only used to print certificate info, wrap it in a try and skip
+printing info instead of crashing if pyOpenSSL can't be imported.
+
+There is another issue with a dependency of matrix-nio using pyo3
+(rpds-py via jsonschema), but this at least helps with part of the
+problem.
+
+See https://github.com/poljar/weechat-matrix/issues/357 for more
+details.
+---
+ main.py | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/main.py b/main.py
+index 765043a..348cf1b 100644
+--- a/main.py
++++ b/main.py
+@@ -40,6 +40,5 @@
+ 
+ import logbook
+ import json
+-import OpenSSL.crypto as crypto
+ from logbook import Logger, StreamHandler
+ 
+@@ -118,6 +117,16 @@
+ 
+ 
+ def print_certificate_info(buff, sock, cert):
++    try:
++        import OpenSSL.crypto as crypto
++    except:
++        message = (
++            "{prefix}matrix: printing certificate info is not supported after reload, "
++            + "see https://github.com/poljar/weechat-matrix/issues/357"
++        ).format(prefix=W.prefix("network"))
++        W.prnt(buff, message)
++        return
++
+     cert_pem = ssl.DER_cert_to_PEM_cert(sock.getpeercert(True))
+ 
+     x509 = crypto.load_certificate(crypto.FILETYPE_PEM, cert_pem)

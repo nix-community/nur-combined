@@ -231,7 +231,7 @@ let
     cfg = config.services.vaultwarden;
   in {
     options.services.vaultwarden = {
-      domain = mkOption {
+      bindDomain = mkOption {
         type = types.unspecified;
       };
       bindings = {
@@ -244,12 +244,15 @@ let
       };
     };
     config = {
-      services.vaultwarden.config = {
-        domain = mkIf opts.domain.isDefined (mkDefault cfg.domain.url);
-        rocketPort = mkIf opts.bindings.rocket.isDefined (mkDefault cfg.bindings.rocket.port);
-        rocketAddress = mkIf opts.bindings.rocket.isDefined (mkDefault cfg.bindings.rocket.out.address);
-        websocketPort = mkIf opts.bindings.websocket.isDefined (mkDefault cfg.bindings.websocket.port);
-        websocketAddress = mkIf opts.bindings.websocket.isDefined (mkDefault cfg.bindings.websocket.out.address);
+      services.vaultwarden = {
+        domain = mkIf opts.bindDomain.isDefined (mkDefault cfg.bindDomain.url);
+        config = {
+          domain = mkIf opts.bindDomain.isDefined (mkDefault cfg.bindDomain.url);
+          rocketPort = mkIf opts.bindings.rocket.isDefined (mkDefault cfg.bindings.rocket.port);
+          rocketAddress = mkIf opts.bindings.rocket.isDefined (mkDefault cfg.bindings.rocket.out.address);
+          websocketPort = mkIf opts.bindings.websocket.isDefined (mkDefault cfg.bindings.websocket.port);
+          websocketAddress = mkIf opts.bindings.websocket.isDefined (mkDefault cfg.bindings.websocket.out.address);
+        };
       };
       networking.enabledBindings = mkMerge [
         (mkIf (cfg.enable && opts.bindings.rocket.isDefined) [ cfg.bindings.rocket ])
@@ -331,6 +334,24 @@ let
     config.services.prosody = let
       opts = options.services.prosody;
       cfg = config.services.prosody;
+      hasUploadDomain = opts.domains.components.isDefined && cfg.domains.components ? upload;
+      hasVirtualDomain = opts.domains.virtual.isDefined && length cfg.domains.virtual > 0 && virtualDomain.enable;
+      virtualDomain = head cfg.domains.virtual;
+      #isProsody012 = versionAtLeast cfg.package.version "0.12.0";
+      isProsody012 = options.services.prosody ? httpFileShare;
+      httpFileShare = {
+        domain = mkDefault cfg.domains.components.upload.fqdn;
+        http_host = mkIf hasVirtualDomain (
+          mkDefault virtualDomain.fqdn
+        );
+      };
+      httpConfig = if isProsody012 then {
+        httpFileShare = mkIf hasUploadDomain httpFileShare;
+      } else {
+        uploadHttp = mkIf hasUploadDomain {
+          inherit (httpFileShare) domain;
+        };
+      };
     in {
       virtualHosts = mkIf opts.domains.virtual.isDefined (
         listToAttrs (map (domain: nameValuePair domain.fqdn {
@@ -341,9 +362,6 @@ let
             cert = mkDefault domain.ssl.certPath;
           };
         }) cfg.domains.virtual)
-      );
-      uploadHttp.domain = mkIf (opts.domains.components.isDefined && cfg.domains.components ? upload) (
-        mkDefault cfg.domains.components.upload.fqdn
       );
       httpPorts = mkMerge [
         (mkIf opts.bindings.web.isDefined [ cfg.bindings.web.port ])
@@ -376,7 +394,7 @@ let
           trusted_proxies = { "127.0.0.1", "::1", }
         '')
       ];
-    };
+    } // httpConfig;
   };
   nixosModule = { commonRoot, lib, ... }: with lib; {
     imports = [

@@ -11,9 +11,9 @@ let
     });
 
     nix-readline = { nix, readline, fetchurl, lib }: let
-      drv = nix.override {
+      drv = if nix ? override then nix.override {
         editline = null;
-      };
+      } else nix;
     patches = version: lib.optional (lib.versionOlder version "2.9") [
       (fetchurl {
         name = "readline-completion.patch";
@@ -47,6 +47,7 @@ let
     };
     in drv.overrideAttrs (old: {
       pname = "nix-readline";
+      name = "nix-readline-${old.version}";
       buildInputs = old.buildInputs ++ [ readline ];
       patches = old.patches or [] ++ patches old.version;
       EDITLINE_LIBS = "${readline}/lib/libreadline${nix.stdenv.hostPlatform.extensions.sharedLibrary}";
@@ -60,9 +61,24 @@ let
       nix = nix_2_3;
     };
 
-    nix-readline-2_19 = { nix-readline, nix_2_19 ? nixVersions.nix_2_19 or nixVersions.nix_2_18 or nix, nixVersions ? {}, nix }: nix-readline.override {
-      nix = nix_2_19;
-    };
+    nix-readline-2_19 = { nix-readline, nix_2_19 ? nixVersions.nix_2_19 or nixVersions.nix_2_18 or nix, nixVersions ? {}, nix, lib }: let
+      # every single nix version was removed from nixpkgs in 25.04, so base it off the flake instead for now...
+      nixAvailable = (builtins.tryEval nix_2_19.meta.available).value;
+      rev-2_19_7 = "185a92ba6cae0a514b74c3630a6a06431b66dee1";
+      nixFlake = builtins.getFlake "github:NixOS/nix/${rev-2_19_7}";
+      inherit (nix-readline.stdenv) system;
+      nixFlakePackages = nixFlake.outputs.packages.${system};
+      nixFlakeNixpkgs = nixFlake.inputs.nixpkgs.legacyPackages.${system};
+      nixFlakePackage = nixFlakePackages.nix.overrideAttrs (old: {
+        buildInputs = builtins.filter (p: p.pname or null != "editline") old.buildInputs;
+      });
+      overrideArgs = if nixAvailable then {
+        nix = nix_2_19;
+      } else {
+        nix = nixFlakePackage;
+        readline = nixFlakeNixpkgs.readline;
+      };
+    in nix-readline.override overrideArgs;
 
     rink-readline = { lib, rink, rustPlatform, fetchpatch }: rustPlatform.buildRustPackage {
       pname = "${rink.pname}-readline";
@@ -85,13 +101,19 @@ let
     };
 
     wireplumber-0_4 = { wireplumber, lib }: let
-      drv = wireplumber.overrideAttrs (old: rec {
+      drv = wireplumber.overrideAttrs (old: let
+        env.NIX_CFLAGS_COMPILE = lib.toList (old.env.NIX_CFLAGS_COMPILE or old.NIX_CFLAGS_COMPILE or []) ++ [
+          "-Wno-error=incompatible-pointer-types"
+        ];
         version = "0.4.17";
-        src = old.src.override {
-          rev = version;
+      in {
+        inherit version;
+        src = old.src.override (prev: {
+          ${if prev.tag or null != null then "tag" else "rev"} = version;
           hash = "sha256-vhpQT67+849WV1SFthQdUeFnYe/okudTQJoL3y+wXwI=";
-        };
-      });
+        });
+        ${if old.__structuredAttrs or false then "env" else null} = lib.mapAttrs (_: toString) env;
+      } // lib.optionalAttrs (! old.__structuredAttrs or false) env);
     in if lib.versionAtLeast wireplumber.version "0.5" then drv else wireplumber;
 
     rnnoise-plugin-extern = { rnnoise-plugin
@@ -167,10 +189,6 @@ let
       pname = "notmuch-arc";
 
       doCheck = false;
-
-      patches = old.patches or [ ] ++ [
-        ./notmuch-ruby.patch
-      ];
 
       meta = old.meta or {} // {
         broken = old.meta.broken or false || hostPlatform.isDarwin;
@@ -379,6 +397,9 @@ let
       };
       enableParallelBuilding = true;
       patches = old.patches or [] ++ [ ./luakit-nodoc.patch ];
+      passthru = old.passthru or { } // {
+        ci.skip = "unmaintained";
+      };
       meta = old.meta // {
         broken = old.meta.broken or false || luakit.stdenv.isDarwin;
       };
@@ -406,7 +427,6 @@ let
     electrum-cli = { lib, electrum, python3Packages, python311Packages ? python3Packages }: let
       electrum-cli = electrum.override {
         enableQt = false;
-        python3 = python311Packages.python;
       };
     in electrum-cli.overridePythonAttrs (old: {
       ${if old ? propagatedBuildInputs then "propagatedBuildInputs" else null} = old.propagatedBuildInputs
@@ -414,6 +434,9 @@ let
 
       # work around nixpkgs breakage
       doCheck = false;
+      disabledTestPaths = [
+        "tests/test_qml_types.py"
+      ];
 
       meta = old.meta // {
         broken = old.meta.broken or false || electrum.stdenv.isDarwin;
@@ -498,7 +521,7 @@ let
       };
     });
 
-    libmpdclient-buffer = { mpd_clientlib, libmpdclient ? mpd_clientlib }: libmpdclient.overrideAttrs (old: {
+    libmpdclient-buffer = { mpd_clientlib ? null, libmpdclient ? mpd_clientlib }: libmpdclient.overrideAttrs (old: {
       pname = "${old.pname}-buffer";
 
       # raise mpd line length limit from 4KB to 32KB

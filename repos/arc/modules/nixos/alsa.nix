@@ -1,5 +1,5 @@
 { config, lib, pkgs, ... }: with lib; let
-  cfg = config.hardware.alsa;
+  cfg = config.hardware.alsa.arc;
   arc = import ../../canon.nix { inherit pkgs lib; };
   alsa = lib.alsa or arc.lib.alsa;
   inherit (alsa) alsaConf alsaDirectiveType;
@@ -589,7 +589,7 @@
     };
   };
 in {
-  options.hardware.alsa = {
+  options.hardware.alsa.arc = {
     enable = mkEnableOption "alsa" // {
       default = cfg.config != { } || cfg.extraConfig != "";
     };
@@ -626,7 +626,7 @@ in {
     };
   };
   config = {
-    hardware.alsa = {
+    hardware.alsa.arc = {
       ucm = {
         configDirectory = pkgs.linkFarm "alsa-ucm2" ([
           {

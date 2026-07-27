@@ -5,6 +5,9 @@ let
       foldl = builtins.foldl';
     } // builtins;
   };
+  wrapOverlayFunctor = overlay:
+    # assholes...
+    a: overlay a;
   collectOverlays = builtins.foldl'
     (overlays: overlay: overlays // overlay.arc'internal or { })
     { };
@@ -25,7 +28,8 @@ let
       ${name} = true;
     };
 
-    __functor = self: self.overlay;
+    # assholes...
+    __functor = self: wrapOverlayFunctor self.overlay;
   }) {
     arc = import ./arc.nix;
     lib = import ./lib.nix;
@@ -53,13 +57,13 @@ let
         path = ../.;
         inherit collectOverlays needsSanitation sanitize;
       };
-      __functor = self: lib.composeManyExtensions self.overlays;
+      __functor = self: wrapOverlayFunctor (lib.composeManyExtensions self.overlays);
     };
 
     wrap = pkgs: pkgs.appendOverlays overlays.ordered;
     inherit hasOverlay hasOverlays;
 
     inherit (overlays.all) arc'internal;
-    __functor = self: self.all;
+    __functor = self: wrapOverlayFunctor self.all;
   };
 in overlays

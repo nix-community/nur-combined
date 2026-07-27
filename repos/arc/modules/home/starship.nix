@@ -1,13 +1,6 @@
-{ config, lib, pkgs, ... }: with lib; let
+{ config, options, lib, pkgs, ... }: with lib; let
   cfg = config.programs.starship;
-in {
-  options.programs.starship = {
-    extraConfig = mkOption {
-      type = types.lines;
-      default = "";
-    };
-  };
-  config.xdg.configFile."starship.toml" = mkIf (cfg.enable && cfg.extraConfig != "") {
+  configFile = mkIf (cfg.enable && cfg.extraConfig != "") {
     source = mkForce (pkgs.runCommand "starship-config" {
       nativeBuildInputs = singleton pkgs.buildPackages.remarshal;
       value = builtins.toJSON cfg.settings;
@@ -17,5 +10,17 @@ in {
       json2toml $valuePath $out
       cat $extraConfigPath >> $out
     '');
+  };
+in {
+  options.programs.starship = {
+    extraConfig = mkOption {
+      type = types.lines;
+      default = "";
+    };
+  };
+  config = if options.programs.starship ? configPath then {
+    home.file.${cfg.configPath} = configFile;
+  } else {
+    xdg.configFile."starship.toml" = configFile;
   };
 }

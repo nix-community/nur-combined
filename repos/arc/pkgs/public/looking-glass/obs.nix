@@ -14,10 +14,9 @@ in stdenv.mkDerivation {
   inherit (looking-glass-host) src version;
   inherit (looking-glass-client) meta;
 
-  NIX_CFLAGS_COMPILE = looking-glass-client.NIX_CFLAGS_COMPILE or "-mavx"; # TODO fix?
-
   patches = with namedPatches; [
-    singlethread cmake-obs-installdir
+    #singlethread
+    cmake-obs-installdir
   ];
 
   nativeBuildInputs = [ cmake pkg-config ];
@@ -25,7 +24,7 @@ in stdenv.mkDerivation {
 
   cmakeFlags = [
     "-DOPTIMIZE_FOR_NATIVE=${if optimizeForArch == null then "OFF" else optimizeForArch}"
-    "-DENABLE_THREADS=${if enableThreading then "ON" else "OFF"}"
+    #"-DENABLE_THREADS=${if enableThreading then "ON" else "OFF"}"
     "../obs"
   ];
 

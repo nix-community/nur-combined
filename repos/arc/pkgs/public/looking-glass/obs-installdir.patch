@@ -1,13 +1,12 @@
 diff --git a/obs/CMakeLists.txt b/obs/CMakeLists.txt
-index ff47c8c..957009f 100644
 --- a/obs/CMakeLists.txt
 +++ b/obs/CMakeLists.txt
-@@ -87,7 +87,7 @@ target_link_libraries(looking-glass-obs
+@@ -120,7 +120,7 @@ target_link_libraries(looking-glass-obs
  )
  
  install(TARGETS looking-glass-obs
--	LIBRARY DESTINATION ${OBS_PLUGIN_PREFIX}/${CMAKE_PROJECT_NAME}/bin/${OBS_PLUGIN_DIR}
-+	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/obs-plugins
+-  LIBRARY DESTINATION ${OBS_PLUGIN_PREFIX}/${CMAKE_PROJECT_NAME}/bin/${OBS_PLUGIN_DIR}
++  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}/obs-plugins
  )
  
  feature_summary(WHAT ENABLED_FEATURES DISABLED_FEATURES)

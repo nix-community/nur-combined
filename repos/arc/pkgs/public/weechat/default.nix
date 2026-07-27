@@ -1,6 +1,7 @@
 {
   weechat-matrix = { python3Packages, fetchFromGitHub }: with python3Packages; buildPythonApplication rec {
     inherit (weechat-matrix) pname version src;
+    format = "setuptools";
 
     propagatedBuildInputs = [ requests weechat-matrix.matrix-nio or matrix-nio ];
 

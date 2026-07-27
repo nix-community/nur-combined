@@ -1,12 +1,12 @@
 { stdenvNoCC, fetchFromGitHub }: stdenvNoCC.mkDerivation rec {
   pname = "git-continue";
-  version = "2022-01-22";
+  version = "2025-08-23";
 
   src = fetchFromGitHub {
     owner = "arcnmx";
     repo = pname;
-    rev = "14923252c19dfdd13c3cc403e354cb30e6512eda";
-    sha256 = "17zf6cw4wjl6wjbc37bjp84qzpcdv68azhniisb3va6s0m6lx4m1";
+    rev = "9c03469ff6231d7eb336bf0926b0a4df2176d6ac";
+    sha256 = "sha256-IfmSji2DwwJg/uYzkLGIE6mzN5CPC3o9pQ0PtTu5P0U=";
   };
 
   installPhase = ''

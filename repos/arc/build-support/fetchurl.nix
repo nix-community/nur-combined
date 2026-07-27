@@ -45,13 +45,17 @@
         url = mirrorUrl url;
       } // nameAttrs
       // optionalAttrs (args ? recursiveHash) { unpack = args.recursiveHash; };
-      nixFetchurl = { meta ? {}, passthru ? {}, ... }@args:
-        if !nix-fetchurl.success || needsNixpkgs args
+      nixFetchurl = args: let
+        fixedargs = args args';
+        args' = if isFunction args then fixedargs else args;
+        passthru = args'.passthru or {};
+      in if !nix-fetchurl.success || needsNixpkgs args'
         then fetchurl args
         else extendDerivation true ({
-          overrideAttrs = f: nixFetchurl (args // (f args));
-          inherit meta passthru;
-        } // passthru) (nix-fetchurl.value (filterArgs args));
+          overrideAttrs = f: nixFetchurl (args' // (f args'));
+          meta = args'.meta or {};
+          inherit passthru;
+        } // passthru) (nix-fetchurl.value (filterArgs args'));
     in nixFetchurl;
   };
 in builders
