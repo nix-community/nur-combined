@@ -2,9 +2,7 @@
   perSystem =
     {
       config,
-      inputs',
       pkgs,
-      self',
       ...
     }:
     {
@@ -12,13 +10,22 @@
         shellHook = ''
           ${config.pre-commit.installationScript}
         '';
-        packages = [ self'.formatter ];
+        packages = with pkgs; [
+          just
+          nix-output-monitor
+          dix
+          nixfmt-rs
+          nixd
+          nix-update
+        ];
       };
-      formatter = pkgs.nixfmt-rfc-style;
       pre-commit.settings.hooks = {
         nil.enable = true;
         actionlint.enable = true;
+        nixfmt-rfc-style.enable = true;
+        nixfmt-rfc-style.package = pkgs.nixfmt-rs;
       };
+
       devShells.secret =
         with pkgs;
         mkShell {
@@ -29,7 +36,7 @@
             ssh-to-pgp
           ];
           shellHook = ''
-            export PS1="\e[0;31m(Secret)\w\$ \e[m" 
+            export PS1="\e[0;31m(Secret)\w\$ \e[m"
           '';
         };
     };

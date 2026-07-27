@@ -1,8 +1,7 @@
-spawn-at-startup "waybar"
-spawn-at-startup "bash" "@startXwayland@"
-spawn-at-startup "@authAgent@"
+spawn-at-startup "noctalia"
 spawn-at-startup "fcitx5" "-d" "--replace"
-spawn-at-startup "hyprpaper"
+spawn-at-startup "clipse" "-listen"
+spawn-at-startup "niriusd"
 
 prefer-no-csd
 
@@ -11,10 +10,18 @@ environment {
 }
 
 output "eDP-1" {
+    position x=0 y=0
     mode "3072x1920@120.002"
     scale 2.0
-    variable-refresh-rate on-demand=true
-    background-color "#003300"
+    variable-refresh-rate
+    focus-at-startup
+}
+
+output "HDMI-A-1" {
+    variable-refresh-rate
+    position x=1536 y=0
+    mode "3840x2160@120.000"
+    scale 2.0
 }
 
 input {
@@ -37,10 +44,13 @@ input {
     focus-follows-mouse max-scroll-amount="10%"
 }
 
+hotkey-overlay { skip-at-startup; }
+
 layout {
-    gaps 10
+    gaps 8
     center-focused-column "never"
     empty-workspace-above-first
+    background-color "transparent"
     preset-column-widths {
         proportion 0.33333
         proportion 0.5
@@ -64,7 +74,6 @@ layout {
         on
     }
     insert-hint {
-        // off
         color "#ffc87f80"
         gradient from="#ffbb6680" to="#ffc88080" angle=45 relative-to="workspace-view"
     }
@@ -74,12 +83,6 @@ layout {
         top 0
         bottom 0
     }
-}
-
-
-switch-events {
-    lid-close { spawn "notify-send" "The laptop lid is closed!"; }
-    lid-open { spawn "notify-send" "The laptop lid is open!"; }
 }
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
@@ -96,29 +99,101 @@ animations {
     }
 }
 
+layer-rule {
+    match namespace="^hyprpaper$"
+    match namespace="^quickshell$"
+    match namespace="^noctalia-wallpaper"
+    place-within-backdrop true
+}
+
+overview {
+    workspace-shadow {
+        off
+    }
+}
+
 window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
+    clip-to-geometry true
+    geometry-corner-radius 8
+    draw-border-with-background false
+}
+
+
+window-rule {
+    match app-id=r#"firefox$"# title="^(Picture-in-Picture|Library)$"
+    match app-id=r#"MEGAsync"#
+    match app-id=r#"^org\.gnome\.NautilusPreviewer$"#
+    match app-id=r#"clipse"#
+    match app-id=r#"org.gnome.Loupe"#
+    open-floating true
+}
+
+/-window-rule {
+    match app-id=r#"dev\.zed\.Zed"#
+    block-out-from "screencast"
+    open-floating true
+    input-pass-through false
+    open-focused false
+    focusable false
+    shadow{
+        off
+    }
+    focus-ring {
+        off
+    }
+     border {
+        off
+    }
+    opacity 0.55
+}
+/-screenshot-notification{
+  off
+}
+
+window-rule {
+    match app-id=r#"io.github.waylyrics.Waylyrics"#
+    open-floating true
+    focus-ring {
+        off
+    }
+     border {
+        off
+    }
+    shadow{
+        off
+    }
+    clip-to-geometry true
 }
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+Return repeat=false { spawn "kitty"; }
+    Mod+K repeat=false hotkey-overlay-title="Quick Access Terminal" { spawn "kitten" "quick-access-terminal"; }
     Mod+E { spawn "nautilus" "-w"; }
-    Mod+R repeat=false { spawn "fuzzel"; }
-    Mod+L { spawn "slock"; }
-    // Example volume keys mappings for PipeWire & WirePlumber.
-    // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
-    XF86MonBrightnessUp   allow-when-locked=true { spawn "@brightnessctl@" "set" "+5%"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "@brightnessctl@" "set" "5%-"; }
+    Mod+R repeat=false { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+A repeat=false { toggle-overview; }
+    Mod+V repeat=false { spawn "noctalia-shell" "ipc" "call" "launcher" "clipboard"; }
+    Mod+P { spawn "nirius" "toggle-follow-mode"; }
+
+    XF86AudioRaiseVolume  allow-when-locked=true { spawn "noctalia" "msg" "volume-up"; }
+    XF86AudioLowerVolume  allow-when-locked=true { spawn "noctalia" "msg" "volume-down"; }
+    XF86AudioMute         allow-when-locked=true { spawn "noctalia" "msg" "volume-mute"; }
+    XF86AudioMicMute      allow-when-locked=true { spawn "noctalia" "msg" "mic-mute"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "noctalia" "msg" "brightness-up"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down"; }
+    XF86Assistant { spawn "kitty"; }
 
     Alt+F4 { close-window; }
     Mod+Q  { close-window; }
+
+    Mod+Tab { focus-column-right-or-first; }
+    Mod+Shift+Tab { focus-column-left-or-last; }
+
+    Mod+F {toggle-window-floating;}
+    Mod+W { toggle-column-tabbed-display; }
+    Mod+L {spawn "noctalia" "msg" "screen-lock" ; }
 
     Mod+Left  { focus-column-left; }
     Mod+Right { focus-column-right; }
@@ -130,9 +205,6 @@ binds {
     Mod+End  { focus-column-last; }
     Mod+Shift+Home { move-column-to-first; }
     Mod+Shift+End  { move-column-to-last; }
-    Mod+Shift+C { spawn "sh" "-c" "xsel -ob | wl-copy"; }
-    Mod+Shift+V { spawn "sh" "-c" "wl-paste -n | xsel -ib"; }
-
 
     Mod+Down              { focus-workspace-down; }
     Mod+Up              { focus-workspace-up; }
@@ -148,10 +220,6 @@ binds {
     Mod+WheelScrollLeft       { focus-column-left; }
     Mod+Shift+WheelScrollRight { move-column-right; }
     Mod+Shift+WheelScrollLeft  { move-column-left; }
-
-    // touchpads by default.
-    // Mod+TouchpadScrollDown { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02+"; }
-    // Mod+TouchpadScrollUp   { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.02-"; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -192,3 +260,8 @@ binds {
     Mod+Shift+P { power-off-monitors; }
 }
 
+debug {
+    honor-xdg-activation-with-invalid-serial
+}
+
+include "./noctalia.kdl"

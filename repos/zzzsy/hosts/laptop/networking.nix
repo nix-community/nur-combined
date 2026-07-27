@@ -1,17 +1,20 @@
 { config, pkgs, ... }:
 {
-  sops.secrets = {
-    "wg" = { };
-    "wg1" = { };
-  };
+  vaultix.secrets.wg = { };
   networking = {
     useDHCP = false;
     firewall.enable = false;
+    wireless.iwd.enable = true;
+    usePredictableInterfaceNames = false;
     networkmanager.enable = true;
+    networkmanager.wifi.backend = "iwd";
+    networkmanager.plugins = with pkgs; [
+      networkmanager-openvpn
+    ];
   };
   services.dae = {
     enable = true;
-    package = pkgs.dae-unstable;
+    package = pkgs.my.dae;
     configFile = "/home/zzzsy/.config/dae/config.dae";
   };
   networking.wg-quick.interfaces = {
@@ -28,12 +31,12 @@
             "0.0.0.0/0"
             "::/0"
           ];
-          endpoint = "10.132.24.24:20243";
+          endpoint = "10.134.53.86:20243";
           persistentKeepalive = 25;
           publicKey = "eIbVZ6xaoA0gu7tuOV7IsC8UiE2pmhb1u62zD5Jh3mY=";
         }
       ];
-      privateKeyFile = config.sops.secrets."wg".path;
+      privateKeyFile = config.vaultix.secrets.wg.path;
       #postUp = ''
       #  ip rule add fwmark 0x800/0x800 table 1145
       #  ip -6 rule add fwmark 0x800/0x800 table 1145
@@ -43,28 +46,24 @@
       #  ip -6 rule del fwmark 0x800/0x800 table 1145
       #'';
     };
-    wg-zx = {
-      autostart = false;
-      address = [
-        "172.12.0.1/32"
-      ];
-      mtu = 1420;
-      peers = [
-      {
-        allowedIPs = [
-          "0.0.0.0/0"
-          "::/0"
-        ];
-        endpoint = "10.134.48.153:20278";
-        persistentKeepalive = 25;
-        publicKey = "i9aFPFalqrYrJcdMAl6eVQ1gYdP0A2+X4rVZ2w+ci2c=";
-      }
-      ];
-      privateKeyFile = config.sops.secrets."wg1".path;
-    };
   };
   services.zerotierone = {
     enable = true;
     joinNetworks = [ "0cccb752f79f6de5" ];
   };
+  programs.openvpn3.enable = true;
+  services.resolved.enable = true;
+  programs.ssh.knownHosts = {
+    nixbuild = {
+      hostNames = [ "eu.nixbuild.net" ];
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPIQCZc54poJ8vqawd8TraNryQeJnvH1eLpIDgbiqymM";
+    };
+  };
+  programs.ssh.extraConfig = ''
+    Host eu.nixbuild.net
+      PubkeyAcceptedKeyTypes ssh-ed25519
+      ServerAliveInterval 60
+      IPQoS throughput
+      IdentityFile /etc/ssh/ssh_host_ed25519_key
+  '';
 }

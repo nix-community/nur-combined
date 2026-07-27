@@ -1,39 +1,43 @@
 { pkgs, ... }:
 {
   nix = {
-    #channel.enable = false;
-    package = pkgs.lix; # nixVersions.latest;
+    channel.enable = false;
+    package = pkgs.lixPackageSets.latest.lix; # nixVersions.latest;
+    distributedBuilds = true;
     settings = {
       experimental-features = [
         "nix-command"
         "flakes"
         "auto-allocate-uids"
         "cgroups"
+        "pipe-operator"
       ];
-      auto-optimise-store = true;
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+      extra-deprecated-features = [
+        "broken-string-escape"
+        "or-as-identifier"
+      ];
       use-xdg-base-directories = true;
       auto-allocate-uids = true;
+      builders-use-substitutes = true;
       use-cgroups = true;
-      # max-jobs = 1;
-      # cores = 2;
       substituters = [
-        "https://nyx.chaotic.cx"
-        "https://cosmic.cachix.org/"
+        "https://zzzsy.cachix.org"
+        "https://attic.xuyh0120.win/lantian"
         "https://cache.garnix.io"
-        "https://mirror.sjtu.edu.cn/nix-channels/store"
+        # "https://mirror.sjtu.edu.cn/nix-channels/store"
         "https://mirrors.ustc.edu.cn/nix-channels/store"
+        "https://cache.numtide.com"
       ];
       trusted-public-keys = [
-        "nyx.chaotic.cx-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
-        "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
-        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "zzzsy.cachix.org-1:rfEIzz0YKP22ZHebgdLVe65S1p3iVB1RUtPMGrIC+DU="
+        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
       ];
-    };
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 3d";
-      dates = "Sun 14:00";
     };
   };
 }

@@ -2,11 +2,12 @@
 
 let
   nix-tools = with pkgs; [
-    nixfmt-rfc-style
+    nixfmt
     nix-index
     nix-tree
-    nix-output-monitor
-    nh
+    nil
+    nixd
+    package-version-server
   ];
 
   build-tools = with pkgs; [
@@ -22,18 +23,20 @@ let
     rustup
     lua
     python3
-    nim
-    zigpkgs.master
     go
-    #julia
+    # julia
     nodejs
-    nodePackages.pnpm
+    pnpm
+    bun
 
     git
-    # hugo
     just
 
-    #ghc
+    # coq
+    # ghc
+    # idris2
+
+    typescript
     #haskellPackages.cabal-install
     #jdk21
   ];
@@ -42,7 +45,9 @@ let
     bat
     hyfetch
     yazi
-    onefetch
+    mosh
+
+    uutils-coreutils-noprefix
 
     # wasm
     #wasmtime
@@ -53,27 +58,28 @@ let
     scrcpy
     bind
     ripgrep
-    ffmpeg_7-full
+    ffmpeg_8-full
     file
     asciinema
     iw
     b3sum
-    lrzip
     tokei
     hyperfine
     rsgain
     # my.odin
     q
     ouch
-    lf
     pdftk
     duf
     nvfetcher
     #steamguard-cli
     rclone
 
+    graphviz
     #zsh
     jq
+
+    my.login
   ];
 
   office = with pkgs; [
@@ -82,47 +88,57 @@ let
     #octave
     typst
     foliate
+    typora
+    # todesk
     texlive.combined.scheme-full
-    asciidoc-full
-    ghex
+    #asciidoc-full
+    # ghex
+    # ida-free
+    megasync
+    filen-cli
+    filen-desktop
+    feishu
+    xournalpp
+    remmina
+    freerdp
+    filezilla
     #handbrake
     #scilab-bin
     #feishu
     #mathematica
     #virtualbox
+    zed-editor
   ];
 
   others = with pkgs; [
     # fractal-next # matrix
     # tdesktop
     # microsoft-edge-dev
-    tor-browser-bundle-bin
+    tor-browser
     google-chrome
     zen-browser
     localsend
     # handbrake
-    netease-cloud-music-gtk
+    splayer
+    # waylyrics
     # jellyfin-media-player
     # wireshark
     # gaphor
     # gimp
     # minder
-    #tsukimi
+    tsukimi
     materialgram
-    # nur.repos.xddxdd.wechat-uos-sandboxed
-
+    wechat
+    # antigravity
+    llm-agents.codex
+    qq
     #ghostty
 
     deluge-gtk
 
-    ciscoPacketTracer8
-
     # vmware-workstation
     adw-gtk3
-    (ventoy.override {
-      defaultGuiType = "gtk3";
-      withGtk3 = true;
-    })
+    ventoy-full-gtk
   ];
 in
 

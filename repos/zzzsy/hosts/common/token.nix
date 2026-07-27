@@ -1,11 +1,7 @@
 { config, ... }:
 {
-  sops.secrets.access-tokens = {
-    mode = "0440";
-    sopsFile = ../../secrets/tokens;
-    format = "binary";
-  };
+  vaultix.secrets.token = { };
   nix.extraOptions = ''
-    !include ${config.sops.secrets.access-tokens.path}
+    !include ${config.vaultix.secrets.token.path}
   '';
 }

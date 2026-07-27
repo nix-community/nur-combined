@@ -1,15 +1,20 @@
 {
   config,
-  lib,
   pkgs,
   ...
 }:
 {
   home.packages = with pkgs; [
-    fuzzel
-    xsel
-    hyprpaper
+    wl-clipboard
+    wdisplays
+    bluetui
+    nirius
+    imagemagick
+    gpu-screen-recorder
+    evtest
+    # noctalia-shell
   ];
+  # ++ [ inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default ];
   xdg.enable = true;
   xdg.portal = with pkgs; {
     enable = true;
@@ -25,21 +30,9 @@
     ];
     xdgOpenUsePortal = true;
   };
-  programs.waybar = {
+  programs.noctalia = {
     enable = true;
-    style = builtins.readFile ./waybar/style.css;
-    settings = builtins.fromJSON (builtins.readFile ./waybar/config.jsonc);
   };
-
-   xdg.configFile."niri/config.kdl".text = builtins.readFile (
-    pkgs.substituteAll {
-      src = ./niri.kdl;
-      authAgent = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      brightnessctl = "${lib.getExe pkgs.brightnessctl}";
-      startXwayland = pkgs.writeText "a.sh" ''
-        sleep 3
-        xwayland-satellite :0
-      '';
-    }
-  );
+  xdg.configFile."niri/config.kdl".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Documents/flakes/home/laptop/desktop/niri/niri.kdl";
 }

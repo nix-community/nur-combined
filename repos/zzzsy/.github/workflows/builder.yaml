@@ -1,0 +1,29 @@
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes pipe-operators
+          nix_path: nixpkgs=flake nixpkgs
+      - name: Setup Cachix
+        uses: cachix/cachix-action@v17
+        with:
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+          name: zzzsy
+      - name: cachyos-kernel
+        run: nix build .#nixosConfigurations.laptop.config.boot.kernelPackages.kernel --show-trace --accept-flake-config
+name: cachyos-kernel
+"on":
+  pull_request:
+    branches:
+      - main
+  push:
+    tags:
+      - v*
+  workflow_dispatch: {}
+run-name: Build cachyos-kernel by @${{ github.actor }}

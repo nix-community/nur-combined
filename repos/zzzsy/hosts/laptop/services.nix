@@ -6,8 +6,27 @@
 }:
 {
   services = {
-    #desktopManager.cosmic.enable = true;
-    #displayManager.cosmic-greeter.enable = true;
+    # scx scheduler
+    scx.enable = true;
+    scx.scheduler = "scx_lavd";
+    scx.extraArgs = [ "--autopower" ];
+
+    upower.enable = true;
+
+    fast-nix-gc = {
+      enable = true;
+      automatic = true;
+      dates = "weekly";
+      deleteOlderThan = "30d";
+      ensureFree = "150G";
+      keepRecent = "3d";
+    };
+    fast-nix-optimise = {
+      enable = true;
+      automatic = true;
+      dates = "weekly";
+    };
+
     dbus.implementation = "broker"; # lock dbus impl to dbus-broker
     udev.extraRules = ''
       KERNEL=="hidraw*", SUBSYSTEM=="hidraw", MODE="0666", TAG+="uaccess", TAG+="udev-acl"
@@ -18,18 +37,9 @@
       enable = true;
       settings.PermitRootLogin = lib.mkDefault "no";
     };
-    printing.enable = true;
+    speechd.enable = false;
     fwupd.enable = true;
-    power-profiles-daemon.enable = false;
-    tlp = {
-      enable = true;
-      settings = {
-        CPU_SCALING_GOVERNOR_ON_AC = "performance";
-        CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-        # START_CHARGE_THRESH_BAT0 = 85;
-        # STOP_CHARGE_THRESH_BAT0 = 90;
-      };
-    };
+    tuned.enable = true;
     pipewire = {
       enable = true;
       alsa.enable = true;
@@ -52,6 +62,34 @@
     earlyoom = {
       enable = true;
     };
+    gvfs.enable = true;
+    udisks2 = {
+      enable = true;
+      mountOnMedia = true;
+      settings = {
+        "udisks2.conf" = {
+          defaults = {
+            encryption = "luks2";
+            ntfs_driver = "ntfs";
+          };
+          udisks2 = {
+            modules = [
+              "*"
+            ];
+            modules_load_preference = "ondemand";
+          };
+        };
+      };
+    };
+    printing = {
+      enable = true;
+      drivers = with pkgs; [
+        cups-filters
+        cups-browsed
+      ];
+      webInterface = true;
+    };
+
     # blueman.enable = true;
   };
 }

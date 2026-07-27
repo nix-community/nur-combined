@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./fish.nix
@@ -25,15 +25,42 @@
     enable = true;
     settings = {
       user = {
-        name = config.programs.git.userName;
-        email = config.programs.git.userEmail;
+        name = config.programs.git.settings.user.name;
+        email = config.programs.git.settings.user.email;
+      };
+      ui = {
+        default-command = [
+          "diff"
+          "--summary"
+        ];
+        show-cryptographic-signatures = true;
+        # paginate = "never";
+        pager = [
+          "delta"
+        ];
+        diff-formatter = ":git";
+      };
+      git = {
+        auto-local-bookmark = true;
+        sign-on-push = true;
+      };
+      signing = {
+        behavior = "own";
+        backend = "ssh";
+        allowed-signers = toString (pkgs.writeText "allowed_signers" "");
+        key = "~/.ssh/id_ed25519.pub";
       };
     };
   };
 
   programs.direnv = {
     enable = true;
+    silent = true;
     nix-direnv.enable = true;
+    enableFishIntegration = false;
+  };
+  programs.direnv-instant = {
+    enable = true;
   };
 
   programs.zoxide = {

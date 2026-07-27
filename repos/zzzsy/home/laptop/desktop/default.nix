@@ -1,10 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ./gnome/dconf.nix
-    # ./hyprland
-    #@TODO
-    # ./niri/default.nix
+    ./niri/default.nix
   ];
 
   xdg = {

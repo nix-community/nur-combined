@@ -1,48 +1,71 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  inputs,
+  ...
+}:
+
+let
+  kernel = pkgs.cachyosKernels.linux-cachyos-rc.override {
+    lto = "thin";
+    processorOpt = "zen4";
+    bbr3 = true; # TCP congestion control
+    acpiCall = true;
+  };
+  kernelPackagesWithLTOFix =
+    let
+      helpers = pkgs.callPackage "${inputs.nix-cachyos-kernel.outPath}/helpers.nix" { };
+    in
+    helpers.kernelModuleLLVMOverride (pkgs.linuxKernel.packagesFor kernel);
+in
 
 {
   imports = [
-    ./gnome
-    ./fonts
+    ./gnome.nix
+    ./niri.nix
     ./rime
+    ./fonts.nix
     ./hardware.nix
     ./services.nix
     ./virt.nix
     ./networking.nix
-    ./sops.nix
-    ./lanzaboote.nix
+    ./vaultix.nix
     ./btrbk.nix
     ./persist.nix
   ];
 
-  # stylix.enable = true;
-
-  services = {
-    scx.enable = true;
-    scx.package = pkgs.scx_git.full;
-    scx.scheduler = "scx_lavd";
-  };
-
-  mods.thinkbook14p-fix.enable = true;
+  # userborn
+  services.userborn.enable = true;
 
   boot = {
     plymouth.enable = true;
     loader = {
-      systemd-boot.enable = true;
-      systemd-boot.configurationLimit = 5;
-      efi.canTouchEfiVariables = false; # @TODO
+      limine.enable = true;
+      limine.maxGenerations = 5;
+      limine.secureBoot.enable = true;
+      limine.extraEntries = ''
+        /Windows
+        protocol: efi
+        path: uuid(6335ba1a-25e9-45e6-aa31-6d82c83c07f5):/EFI/Microsoft/Boot/bootmgfw.efi
+      '';
+      efi.canTouchEfiVariables = true;
     };
     # kernelPackages = pkgs.linuxPackages_latest;
-    kernelPackages = pkgs.linuxPackages_cachyos;
-    #@TODO
+    #kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto-zen4;
+    kernelPackages = kernelPackagesWithLTOFix;
+
     kernelParams = [
-      "amd_pstate=active"
-      # "amd_iommu=off"
-      "pti=on"
-      "log_level=3"
+      "splash"
+      "quiet"
       "nowatchdog"
+      "audit=0"
+      "amd_pstate=active"
+      "amd_iommu=on"
+      "iommu=pt"
+      "pti=on"
+      "loglevel=3"
+      "udev.log_level=3"
+      "rcutree.enable_rcu_lazy=1"
     ];
-    supportedFilesystems = [ "ntfs" ];
   };
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -60,6 +83,10 @@
   };
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "ventoy-gtk3-1.1.12"
+    "wechat-4.1.0.13"
+  ];
 
   environment.pathsToLink = [ "/share/fish" ];
 
@@ -68,15 +95,21 @@
     enableSSHSupport = true;
   };
   programs.fish.enable = true;
-  programs.wireshark.enable = true;
   environment.systemPackages = [
-    pkgs.wireshark
+    pkgs.sbctl
+    pkgs.perf
+    pkgs.squashfsTools
+    pkgs.squashfuse
+    pkgs.openvpn3
   ];
-  #programs.thefuck.enable = true;
-  programs.adb.enable = true;
   programs.fuse.userAllowOther = true;
   services.flatpak.enable = true;
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    sudo.enable = false;
+    sudo-rs.enable = true;
+    sudo-rs.wheelNeedsPassword = false;
+  };
 
   systemd.services.nix-daemon = {
     environment = {
@@ -89,5 +122,5 @@
 
   documentation.nixos.enable = false;
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "26.05";
 }

@@ -8,20 +8,19 @@ image:https://github.com/zzzsyyy/flakes/actions/workflows/lint.yaml/badge.svg?br
 image:https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fgarnix.io%2Fapi%2Fbadges%2Fzzzsyyy%2Fflakes%3Fbranch%3Dmain[alt=built with garnix,link=https://garnix.io]
 image:https://img.shields.io/badge/License-MIT-blue.svg[link=https://en.wikipedia.org/wiki/MIT_License]
 
+image:https://socialify.git.ci/zzzsyyy/flakes/image?custom_description=Mathias%27s+NixOS+configurations&description=1&font=KoHo&language=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2FNixOS%2Fnixos-artwork%2Fmaster%2Flogo%2Fnix-snowflake-colours.svg&name=1&owner=1&pattern=Charlie+Brown&theme=Auto[]
+
 == Features
 
 * [x] layout link:https://flake.parts[flake parts]
-* [x] secrets link:https://github.com/Mic92/sops-nix[sops-nix]
+* [x] secrets link:https://milieuim.github.io/vaultix[vaultix]
 * [x] pkgs update link:https://github.com/berberman/nvfetcher[nvfetcher]
 * [x] tmpfs as root: link:https://github.com/WilliButz/preservation[preservation]
 * [x] shortcut link:https://just.systems/[justfile]
 * [x] Rime (yaml patch & link:https://github.com/iDvel/rime-ice[Rime-Ice])
 * [x] lint link:https://github.com/cachix/pre-commit-hooks.nix[pre-commit]
-* [x] Chaotic link:https://www.nyx.chaotic.cx[Nyx]
-* [x] secure boot link:https://github.com/nix-community/lanzaboote[lanzaboote]
-* [ ] color shema link:https://stylix.danth.me[stylix]
-* [ ] dev environnments: slidev hugo python rust etc.
+* [x] CahyOS Kernel link:https://github.com/xddxdd/nix-cachyos-kernel[nix-cachyos-kernel]
+* [x] secure boot link:https://github.com/limine-bootloader/limine[limine] with `sbctl`
+* [x] dev environnments: slidev hugo python rust etc.
 * [x] overlays
-* [ ] sub-pkgs
 * [x] CI
-
