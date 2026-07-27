@@ -20,4 +20,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   UnifontExMono = pkgs.callPackage ./pkgs/UnifontExMono { };
+  retrosmart-x11-cursors = pkgs.callPackage ./pkgs/retrosmart-x11-cursors { };
 }
