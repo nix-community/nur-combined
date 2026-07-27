@@ -15,11 +15,14 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "a032419e159054abe20ef157c388dd4d9a0ae677";
-    hash = "sha256-cuENcA7juNgHE1HnrqnZptFprUejK8xLZeeB3ll5gZ8=";
+    rev = "929f06307118d95df245071f1f7cbd41ded624be";
+    hash = "sha256-nRIlU/o8UTmVmGIL22VPUqAX4BzvNKSWWiG4XAAGPL8=";
   };
 
-  packageRequires = with emacsPackages; [ yaml ];
+  packageRequires = [
+    emacsPackages.elpaDevelPackages.plz
+    emacsPackages.yaml
+  ];
 
   meta = with lib; {
     description = "Write and publish Zhihu answers and articles from Emacs";
