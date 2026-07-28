@@ -46,7 +46,7 @@ let
 in
 buildGoModule (finalAttrs: {
   inherit (sources.axonhub) pname version src;
-  vendorHash = "sha256-Yx1dY4as3ICRts9GuA4UEFM0p68fHtTHlee5mfSCiq4=";
+  vendorHash = "sha256-RyjXygorzbWzrMIeAVdjiF0wkHL9aZJFdpVnnbc693E=";
 
   tags = [ "nomsgpack" ];
 
