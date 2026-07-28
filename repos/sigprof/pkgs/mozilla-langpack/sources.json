@@ -6621,828 +6621,828 @@
     "153": {
       "linux-x86_64": {
         "ach": {
-          "hash": "sha512-hCxed7V3bJGHH9tNYujF8bUl25TdetaZCk5qdG+FaCXx/i+mPEmNyyApirnGHLu3i2yW6I6AC7OggGJdzICzWA==",
+          "hash": "sha512-oAP6OeZ8n/EUlWqWpfBSzr5b6FW4gBj/XnqlvKHghMhn8C2eLrj7+hpzaUNbB+SnJ17b2MFZa6aN/EWOHd1h4w==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ach@firefox.mozilla.org.xpi": "sha512-1c5Rb/y3TyX5TZtGathKVWjWsg7oqlz5MOUyXSgCYQTe2hcGQLQwyhbLyH1Zmj4AQtmTP9dlbh+elN+TK7BoDA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ach@firefox.mozilla.org.xpi": "sha512-4eeQNOq87y6DLs4BHsMpvAJbq08721EKglsTg9jdMHWNcIcKlczPbyLkLvrwmH0AZ2S7ksWaD62P4ehEVns8pg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ach.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ach.xpi",
+          "version": "153.0.1"
         },
         "af": {
-          "hash": "sha512-i/DUjVIRaYB5/sxbbs7WvHYizrAGvmJF0pm5ugJPcbcYmCvkSwX9oPttOb2F4CAbnrx0SXYEYLhTK9sZINPWdw==",
+          "hash": "sha512-4XJ8lQGIw4uOR1il8Zb9g8awEBpNANe1VC/8zIty4h+62MWynKossKH1G7ZA2hUb07e3cQKV/ISCzuJsrjksgw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-af@firefox.mozilla.org.xpi": "sha512-0UlBJn2kgy/OJP6VDoGFECEepMrPiYofgG3dzLjWDfakU7qZar6rPVqt4yIXCB1uCGSCqX89yrmGd5cAu9fz+A=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-af@firefox.mozilla.org.xpi": "sha512-SAfssr5ZUNQj88It+AgIPhA21k05ulKNwvdnZdBcL470QC/fmsegA+nEh3hPiumNLMXW5UnEr502klwZXxW96g=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/af.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/af.xpi",
+          "version": "153.0.1"
         },
         "an": {
-          "hash": "sha512-seEdELik59mNW8cuc5aCzHW0HADiMmXMbMk69/k/0v2Tq7BenWb2anFOOX66tgUIBwmR7KwT0vRDbqFCPu0p9Q==",
+          "hash": "sha512-bX0/ho/kr7EE04ZhKirZxbiqLYLrjzk/HVhNGgO95xJElPZSqoxLfHJUQVk43AObtr8StXnEXB/K5mwnG+3IbA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-an@firefox.mozilla.org.xpi": "sha512-eJkVFEaOmy3LvtHzYyQaNo0LXltsaVvgITXz55mHADGxnFnI6OiySIsKRFSUbiu/W/wHH6lQOnLPOojpIvHUCA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-an@firefox.mozilla.org.xpi": "sha512-+yXba2tjpJluG49XqVy4xnwOgkNe1LpdSQCkltQt0jTU/miLM+f11DWbFUqjTvgJqFHOHbQ9EwrLcbhv0NFpwA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/an.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/an.xpi",
+          "version": "153.0.1"
         },
         "ar": {
-          "hash": "sha512-17rdEo4iy/nVcDwUlo2bF6+kielUp6T5u+YSkqZb4SrmaHwdJOhKPAi/wV7L9/2uV8t8KL0jExU11aZOyBvahQ==",
+          "hash": "sha512-IXQ8tgOcGcXVvXjg23h6kaYF9fwilGAiUUyxK9xhA70yKPP02uqBZhP65NS9RzFypkRy7fYGj1CX8X3QtTlKyg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ar@firefox.mozilla.org.xpi": "sha512-MrqevzdUNWofpRzDdTGEJvQCANQHicVEraHMep0RZF7DpNsIlGwwIt3M1XZbqVAL1eL0g94fjG/FDFGf9PhKWA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ar@firefox.mozilla.org.xpi": "sha512-07tb/8gIT1lQeB64h5cw+KDLU4HOAeqobFg/9LKPcDXyZ5e0gCWNcLMoUpXaOU37iO9e37R2Y3f2bQtOkgbxMw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ar.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ar.xpi",
+          "version": "153.0.1"
         },
         "ast": {
-          "hash": "sha512-orR84zyNZFwhNPvggP5CQ3os1QRMG24HMg8DgsXqydqNiNU2NcmhsIbhlcJsZkksy0YhpK/YpnEA6e5bOuiUIw==",
+          "hash": "sha512-Icv3Jb1d5UpNr3wmC39m+c8LTQ8BwZWL+bmgPW8AxI+WUTVmoCGEAlaMxykz+KIGt3opgmeTFF0IsHHhkBp8BQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ast@firefox.mozilla.org.xpi": "sha512-So7F7EKixRxhyBh2t/bHFjAKo34pXoQfc9DFs9wdM9G9ShGZJsJp3QxYzusjBQ/r7JweAf66SwMkf97tJj1t1A=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ast@firefox.mozilla.org.xpi": "sha512-Q+1gV5PAuNLl8emm3a3Tu9SwbEFm+Y4avUB5eBlGCpB4/VJSXqzzy6GxFZp0uLsbnU2rp1DxQxD0f1PQCe6PDw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ast.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ast.xpi",
+          "version": "153.0.1"
         },
         "az": {
-          "hash": "sha512-/0xcweOkqkU1vDQ1RDgEDMbvKVLGvp2SgV8CojMmLXWJwGwp1TbdgHcVb5tztY8H0h4X4EsY4qnpUpzbgdGb+g==",
+          "hash": "sha512-k74iOrsXublGuMTQ8ZhMCAP6DONdERYeCe0LY4tQJPq90ABKYwWQIm19Xw+QPbosTOX6W+U/b2XsMxryNJWHRw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-az@firefox.mozilla.org.xpi": "sha512-cUG5sGJ3UEwsFGWl/RFoaH7YdYqEXMZn2kJER6uJ1WwsARRPOAH4Wvtyt17tZSee/lUahA3F8qVPtHFujazcmA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-az@firefox.mozilla.org.xpi": "sha512-9+kU8MLQqlvX4Vwo9GMwTkk/t089H8/QzuloNpFMabQ9/EL3z/0WxsH15MI3hyUgDlTomE4s+IhVOIZAJXGOlw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/az.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/az.xpi",
+          "version": "153.0.1"
         },
         "be": {
-          "hash": "sha512-C8xhd3gkpFi8YZ8mxyDC6nM4EoFYiuAKOLoKCBG54in1LiM0eeVtD1aXDkF10lXZLlh0yxmb4C2kwnHW1VdEoQ==",
+          "hash": "sha512-w7R0kflOw1AW75/1F00/rrVgs33jIMLkagSNBuYoSh+ovRizNMOhPEPODjbocWDM8HVUtGJBEb40xhDTJQw9kA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-be@firefox.mozilla.org.xpi": "sha512-tN5/rFZ7ixIA7/21XIJlaHIsIv1q6w1NYVzK9P7PhjzZFIhSXcF30/eg41umOrfQZ/GfSDZaRtiC3haSzxK3qw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-be@firefox.mozilla.org.xpi": "sha512-ZP0nm6g0vZt0pIdiLdqwjYcEZh/N/K5zOMS5+wNEYtOnWRVplmwjwc9abGqWTq09UvGOv+j7jaMC8KavRNGmJQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/be.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/be.xpi",
+          "version": "153.0.1"
         },
         "bg": {
-          "hash": "sha512-91U0MhDg6/q8sUw13HyBR6y0Kf7uX2r4sxrVAn+43WKHBNH+jTt5T1d0GHXkEwpHPm2PRxJ2hEyFeVBQslQebg==",
+          "hash": "sha512-z7rYF938oydOhAcDEl7d3s/eI4jVszuHy0ENRk+iEVk7hY5uI+fr3cj20RGIFODKrjN7w0GeJszgMpBStdxJlw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-bg@firefox.mozilla.org.xpi": "sha512-cp+G0QHOQc956hCt561MT9NEHg8HwQBNOCak6zTZVuo0ooDoJ+yFVAC3RHtMOWXSS0dfetmV32wK7FS3kdgnkQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-bg@firefox.mozilla.org.xpi": "sha512-x92LCtOxQnoom4oWvaer2VG0ixSXbP6t1XE9jOEq649kc0Qldgvi2e658p2cBMVYmQaTsDVG+k9DTGM6c1KUOQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/bg.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/bg.xpi",
+          "version": "153.0.1"
         },
         "bn": {
-          "hash": "sha512-5c431e2K+fqon0e3WMF+taAICSkbMEx0I/9CISvIupEY+0qCSWF0VqPoG8t2ttRoyoeBdA/OwIS+MqklclL7HQ==",
+          "hash": "sha512-NQaZyPfOTZ5eED1gQ25FCTa5boiOPFUJzuoRBWfihXRg1akALLcWpKGgTYcV4oXcakVrj05RJd7sboeThLglKA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-bn@firefox.mozilla.org.xpi": "sha512-87ullTUi2SqmbgyKngSSihahSx7qcDNAPJVKM/Ps3Vbru0o5vRZ1BGkw9aIbhCBnwX6Ju9J03Q+aD9fBeK4EiQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-bn@firefox.mozilla.org.xpi": "sha512-8ZJiy/4vXH+smKiazmTUiP9kI4aIa6F8PvCWTrFWi12cUfF5+IPUibe2X5cdLv4ls7EAEm+5lWMB7BErychXfg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/bn.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/bn.xpi",
+          "version": "153.0.1"
         },
         "br": {
-          "hash": "sha512-8LoU2Q7kOqYSv1rrdk8L9IpHYOzJh/F0Vvmfe7CXL4KBhOj/5pzsh1XkHkVXxYenbikjgO/EYB31Yp3F+Wv91Q==",
+          "hash": "sha512-6FCi7b6+TDW6vUH+isbV11aTCpBjy12CoQfqEPbkAyXZMRTk32NCSkPwO/x0fLnfhcap5RSesBr4QSzInNIMtQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-br@firefox.mozilla.org.xpi": "sha512-DTRV44ZO2tJdI/77Zzvlw+/kPanvllxSKFYxtSyZS/kq3W9frcoZdGtSH1Y31nSG3hEFqVw1RAGSFaLlvET4Vw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-br@firefox.mozilla.org.xpi": "sha512-RMHbAVp4Je3+f6pIulCDwVTe74hliMGB0YCeq0mdriNG1ojwNYjZiAUaxiyWGDRTFhEEyVZUmwXQF9JZQRrsqQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/br.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/br.xpi",
+          "version": "153.0.1"
         },
         "bs": {
-          "hash": "sha512-ps1TUAO+Wb0KYyLxlI/wKXHyTaqX8dGJ+cSiKb+qLtvH3E7ZoQQz3o557aMVQEUuM+brTUKWMQ5sq3FT1flHSw==",
+          "hash": "sha512-f5iymHvLhkQXT+XyjTOKt75U6RWzD/f+P2rGX5YXhqXp8GdXOAdyA5ZvdwqfB8WYvrz4WSJe/KFNwouYF7wudQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-bs@firefox.mozilla.org.xpi": "sha512-rhKAmlffXkO6W9FQmRmI+qMdSxt86YG0oWCVEahYFfRbacTavOAPi4wet8fizqSELtFY6zaG9iUEp0faaTP0MA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-bs@firefox.mozilla.org.xpi": "sha512-fB148sIsbUIxQozFFuTj3si8EOiIO1FmRDAgnOc3qSNMMTwpQ0CPzrsJrHZB5xUgBVEVfaBkpNuIindgrY3UPg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/bs.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/bs.xpi",
+          "version": "153.0.1"
         },
         "ca": {
-          "hash": "sha512-3iUkA6ekJDafw6Sag5PQ9lIxNXriLySWifKnDwF+mFEXtKl/MTYvgN+WWQUfBPz01+N92xbbbrYT5M+ZSO5R1g==",
+          "hash": "sha512-q1SVqjty3aYk0nggMGcbiiZEawbnQqjeQ9Wc9llMHlNHRQKNGdjxDjGAoQ7bXxla86A7HiAr8kVXPDg9ISROEA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ca@firefox.mozilla.org.xpi": "sha512-zmi3F1rcRo0GPHlKcizRQUW2fDaacz8iFQ3yS0q7/1T0mrfS7kfPcjUrXRl8FHhVPUnTwiCuPaVhUQx0YlSNJw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ca@firefox.mozilla.org.xpi": "sha512-jN+TcMZUDGLfGYhRlKBc+NS8Sh0fNPk2IuHL1umD6i1HUXq6fASDXaJdENrgIbuV7QD4KQiOoIsADjLI0yg/rA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ca.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ca.xpi",
+          "version": "153.0.1"
         },
         "ca-valencia": {
-          "hash": "sha512-HE/AnIRqa5G+Pm3lPPjqXkxwQ8Pp6uqSZx4ZmFYGLFFj5fdvY6GXrn9L7UvcFZ5Je+Yckgu07/LdR2G4Fh8kug==",
+          "hash": "sha512-eqgwDU6Jg9GfFVvihOtbqeCAoQXdUqlKFA0Spl0qiCm0cYGnXs33nAT2RP8Z7mWqTElmFGk8ZcepEFuAXOLT2g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ca-valencia@firefox.mozilla.org.xpi": "sha512-StOWSzapzp0m0cJxOVyvAMJ6vEboLwu4p2tVeLp0xE1Up7fklQ+kCnAu4+Nfrr2DABbkDVLbDsoSenMWIkZWAA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ca-valencia@firefox.mozilla.org.xpi": "sha512-Ip7u7z5tfTHV1wGbYOd7ype8xEYiloikB/jlSHUv2MmGNoakY7whBXq4i2YzaiEgqsDGJuKvqxmGXynppwnDZw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ca-valencia.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ca-valencia.xpi",
+          "version": "153.0.1"
         },
         "cak": {
-          "hash": "sha512-J08mjgnwkJZPBU7bkl75KGwYOteo9NjN3iUYBXdqDbOgoJZYnIhUHuXzFLNmpU9iA/XHETkxW3hVCGkGd1i4Mw==",
+          "hash": "sha512-boWYUO7Ql5N69kOWYrg1R9vedKXaJVqTp3TPGsDfoFeLu0UGJJDjAUWc5X71dYOKjtgNrqnXfJBzt5sgXrlw7A==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-cak@firefox.mozilla.org.xpi": "sha512-f09UbisJ5ULzj/MwSGARwfemMLMIbYU9RoK4knWPqJnrvIrU9pMJFqJNxN79iq+dP4gmoWbH9EW9ENxbyGE9uw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-cak@firefox.mozilla.org.xpi": "sha512-HkkcVw+dYbkNICZVAHN0RhhhjbfiHyE4rVC65MjyxpwG4frtLxmSteTsclbWZMTVYGkqrNXDiQMOUenUt2Gq8A=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/cak.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/cak.xpi",
+          "version": "153.0.1"
         },
         "cs": {
-          "hash": "sha512-169e+KoY/eqSEqsSMMZkywAKaL+QXpH8sA2as0U1mXofBQWU88GRwQqW1BLasA6AwqsydUQHifuLebUI8qTEkA==",
+          "hash": "sha512-AoN1Wrfs6djZVdymKdh1XFqXCGYHFIkRk7Wb+DUBQPRmrjRsTP9nZV84ttS60rp+T6nN7RpU3QheGRdXpFcJgg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-cs@firefox.mozilla.org.xpi": "sha512-Pz+0NozrLQhnNmBwPeSCwhdPO+dI3Rm4agbO5AlarMMBLCriqtZpSU66Q8SFFqDSdPOIoS9gITQmO6QdQj8CFg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-cs@firefox.mozilla.org.xpi": "sha512-HMA/f95i9eCMtfdarDytz4OqcejXXm3P+/9/VbY0LFQXYtRNMhg6HmVqLoqix2khatgZh40QnksB5Vbx1Du2sw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/cs.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/cs.xpi",
+          "version": "153.0.1"
         },
         "cy": {
-          "hash": "sha512-1j6zMZzOpw0AY+hGjwQ7hE93gNOD3wx0xr9usHHSNoBFPqJQm+X5V827vFW17KlMILTzB/e36bB/BcO2f9DSlA==",
+          "hash": "sha512-hQLja7RTgungHTnhBA6zw/N1ZcyIVSp9dUBNImzHtouP9FTLCnMpq7gSs0gtmUJMzUChgPMpFrIV3RwK8tRMyg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-cy@firefox.mozilla.org.xpi": "sha512-qyEmX2dUTS6GWQhwAixrUoFQi4nDx4mwryx1aAzYIQni5HoFbFoRbke7lny7O1YaJYUpNdlb50HB9Go96E/1Dg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-cy@firefox.mozilla.org.xpi": "sha512-oFosoO4FHIOyKNaoIbNeaNM0exnJND1hY0qfVyoo89/U+P+iHxIrV20ZPjtr0k3ue7ZC05sb0DMRF+IgycEWlQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/cy.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/cy.xpi",
+          "version": "153.0.1"
         },
         "da": {
-          "hash": "sha512-W4eYaG9ua1e748ODsqUTD16TBlH52RBqCps/+i0hwj1C64hMi4ttScdrzkhdnGhGN0JTbnrcmvVF0RG29t0Gfw==",
+          "hash": "sha512-qnbkhnvouO93qpzaky2Brez+TEVfT8QTBCo7HMoV6uI3UuZsuX/wLm1aN2L7b6oj1fYm2KBbtu71xkjQ04Sssg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-da@firefox.mozilla.org.xpi": "sha512-GBYQ2Vd/i6CI+TfZuyD5NmgTYZHqT9bhUKuHl1qEnD1/G7f2STJb/Oiwf5kT3vCKgv2uRa55u9CDfqlUxdjyNw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-da@firefox.mozilla.org.xpi": "sha512-LBClqq8FHCmvL2tR5YNEJwXiXYnCtXQqA/ygXWU+0TmzB5luPvIPidFA6i2UeYYlY5tXuQ26mOei57IrN6SXeQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/da.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/da.xpi",
+          "version": "153.0.1"
         },
         "de": {
-          "hash": "sha512-UpqQ4wZRINA/bxhNEgUeVZezK06W4i124KhC8xvhCOiJHyOVzt6OC2WayJvDfybTww5GR17jlkDbACiXjpAKPg==",
+          "hash": "sha512-tXF189S+ihO6IRQSZOyYPA4S5TROG5BGO/HbKqYeXm+HmPQUkfZX0KPYjDOV8AGEkDX0f7aHbQeO25grlfWk8Q==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-de@firefox.mozilla.org.xpi": "sha512-kXNDsUrd6uAJZtrfmbvMJupu5apyvqD6TYgklkxQ0RH6qJoYwjeQzXKistXA1z7QVQIp06QoZgc8N6a3+Spycw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-de@firefox.mozilla.org.xpi": "sha512-yHXnyuAXBFDc9gPB+UEh6B287bE+kcAIHedKT+o2HSGrP6uPISgvJAuWuEu/QeUqV3S8vyS2U7lR9lzRvYYrlg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/de.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/de.xpi",
+          "version": "153.0.1"
         },
         "dsb": {
-          "hash": "sha512-MAWL4Rc13k26AHy/6PTg/7ZltboeKHysfZGXPiQvJBzrA/D76sJW1yJtOfj3cikWpYMnZJ9FK2zlft+r98YvVg==",
+          "hash": "sha512-+8tQm2O8oHfqQHUBV5vsw6iRDHuKpuqC/aTu3eWNQ704J+Nin9u1SJsFb+t+9Lp279vpTBOtW3eIbXk8w0EP4g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-dsb@firefox.mozilla.org.xpi": "sha512-O7aFQzSk0iJ3/mVVbsdNdUnHqExHsYcg7kot9EodU8dZDgj7NbBpWI+L4Y3yEybOU+H3gEMIDOC85Ib0becvtQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-dsb@firefox.mozilla.org.xpi": "sha512-Ak9H3avCG+DWZhD0seVxPP4LA7LLOWhMzY5ebt3LoeUdTxBHezyB8+USWnUlvzr/Kf6yr1yPBUpHye+NPJZOQA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/dsb.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/dsb.xpi",
+          "version": "153.0.1"
         },
         "el": {
-          "hash": "sha512-aOumo910nXByB8klWG3k2CH7KXp0YRt0LxeG3RIXvgu8GX7rCTqcc9PNIK6H6I9+8nVZJxPZRzakIoYAgXzXsQ==",
+          "hash": "sha512-iQc5GvkH1Hmkqb+K8/eLy5lIkmic4LdJIPnhcdruz7G1Uy5OoQXvpnn3QynfLZVOusgcF2gyGTpdPIurFHb3DQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-el@firefox.mozilla.org.xpi": "sha512-DhruPHmim/pR6BOS/LALpfkN166QC4nvRUeXgWPeRXtndIuqu/vAkcdqqNDxECn/Y8gNVnnrRa2qv4RoNorlfg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-el@firefox.mozilla.org.xpi": "sha512-8nfDarPqnBNdph+VlbZhbGn7+JJa+c4v1adU+EwG4wgTAz2bdjX3uvbB0iitoAUjJhpGq/AsP5vogO7Kz2N5ZA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/el.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/el.xpi",
+          "version": "153.0.1"
         },
         "en-CA": {
-          "hash": "sha512-v9svg5sDBIWWlRzWQdU0YfO5AwXXnoD0BXh4HzOsB4sAU5jf6wT2ON1hnQd4d7Z77NVJlKVI2WdE67Q17OLW6g==",
+          "hash": "sha512-PrakqMahdgxAjslEm+yaLzGvRIKCdqUD+fMSpw01FqbTGXEGrIQHcu1v0AMOQjtsMxuqbbnWtJs+5U1WUKHG9g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-en-CA@firefox.mozilla.org.xpi": "sha512-Ao8/N9ReKfuFBqHVOliyLJ03YNnK5EiUJQYoLtaDHr1xzCh6yHz0b6FK/sEZYjiohXTc7+VXQ2Jg4bbXrRyKMw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-en-CA@firefox.mozilla.org.xpi": "sha512-kdxuvfpJdo6rjJCaB33FbfwH8U0Y0avkDSVKa3K7Ou8LhyjyDejFFs6O25AlascDpfnLlGDB7pN23SY9SauArA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/en-CA.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/en-CA.xpi",
+          "version": "153.0.1"
         },
         "en-GB": {
-          "hash": "sha512-PB/Phq1vQxqiEjhT69LjGCTW/hiCrEaFz3xEgIabb4Rb5yUx5WE8g/Sz3NXCUTl9HTdVRXB8MyzY6HYR3inmdg==",
+          "hash": "sha512-0KrftL/nPr2ccqOO4tnoBinDZ5ZMFVh4Icm7B/QnbrqasvwSkWzWE9G5+Wy9Q6UWajJuRDTIz47uVsKIez8gWg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-en-GB@firefox.mozilla.org.xpi": "sha512-hKNH62UECQdE95b47e1VIzYBvv+Hreog8EOf+Y76Xtm0u4jx3f/5rrbJoZ71qrDY+2OgwoN+L9nkJR4bl4AwNg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-en-GB@firefox.mozilla.org.xpi": "sha512-8hicMvJvptWznP89QunaRCJacKtvebfJLXdHKCxhd+NSFj1ng/7h/s6ZWl1/Y8kHPdNjb8fjmmEvGU9Oam5wrw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/en-GB.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/en-GB.xpi",
+          "version": "153.0.1"
         },
         "en-US": {
-          "hash": "sha512-9qAboAJb6RdbJfaMuDLvrWZF6gI+zf8FpAcVTggNZHSEFzLP13izhBQQ4N1OBJ4IE/ey7HMs8noHvqDtCQaGXQ==",
+          "hash": "sha512-KBvwShme0b2otlacwBILhD7uwa7NWcb+hGQ+V1qSNJcP0wBNH3AdQnKwlLSnugOD3oFxDimrwytJ3jt9DjgYTQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-en-US@firefox.mozilla.org.xpi": "sha512-p7zadClLXlPXybrjCtxemkutITC0Hh4zzSwE5dzEmpLN80o45WdEdSaQspTQ5a2/hYSoXZlzb/FZXGlOI/6Jxg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-en-US@firefox.mozilla.org.xpi": "sha512-LT93MypVF8/67u7rhYz+IePFuBPWy9VSBOAkzgfnvT9sFk8ZjRbuFemfcViAWc3cLVL63YsEY7xqPd24cnN3RA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/en-US.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/en-US.xpi",
+          "version": "153.0.1"
         },
         "eo": {
-          "hash": "sha512-tIbE28v9CIPCmKLyitdC5ACuYeAkannYb+/90LXBhmd2grI0BNTi5dKRrJevtiVplrOdSEkjjN7fLYyernwwZw==",
+          "hash": "sha512-i6qhKx8M6k9qoLXRUxZZ4WskpcGx5TFtIuoBK1MYYfX3hZJTwyullyJ5Ss/kmxGn4bk+Ary57eOLvMg2PAjGcg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-eo@firefox.mozilla.org.xpi": "sha512-tuppGqFWp5TZ0slFrXMlbyibqcY0YQPiuChefBLfZzkUxi133l+zat7AOvIz82/+N38OXwDresgbvsPCtVCVGQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-eo@firefox.mozilla.org.xpi": "sha512-zYwT11lZC56m7dlSMh6B5DypqZpCngINT9d2TRM/6fuzfjiJpRAH0yJm2nfQSdLxjrVXjdB/7xr0OJam9ZiJpw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/eo.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/eo.xpi",
+          "version": "153.0.1"
         },
         "es-AR": {
-          "hash": "sha512-1bFkQQ55bJ7zbtKNuF32Fj1Z/U3Fdwx6ju5WDLPUlniKuFWZEhih78SvoqP+Z7xti+YoIqhz+4lClH0ryXw/EA==",
+          "hash": "sha512-9h5Q0lgymY9uC6TbiYRhXmFZgJvOa+r49BXyTklYeeod0AsbUBpWb8B7n2V/Tkttcx1jKWRzqdY+iMGy1FkUow==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-AR@firefox.mozilla.org.xpi": "sha512-86mX0ZkdIe6qouXfNH6e0Aro0dUQITVJ8kVKo4xIwiTam6782fP+6iZf01pvbpHL1fQqTT1BpC//SDYiIKLjNQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-AR@firefox.mozilla.org.xpi": "sha512-eq1ArhYnyybNivIQmAwuLD/TATsHiMYYfjysDrkQDsLLK65dtzFU/9eN8yujXwHr+sp7HmyWSaiibMPIIyXksg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/es-AR.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/es-AR.xpi",
+          "version": "153.0.1"
         },
         "es-CL": {
-          "hash": "sha512-2Xt4f/nfNzNstNPVeoBYUQRZDeEyzL94SzcZXTiJ3xkQafn8mUbWctegYWeE44rJrbyxlHaGow3GsNekDSp5iA==",
+          "hash": "sha512-TzLwwQQOqafnGxBB267+Ae7ZitT2vnbwOhxU4PUDFYN9WP+uS6xZTuWudz1wxFdsaTXgEL/e/+mqsqODNtKDHA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-CL@firefox.mozilla.org.xpi": "sha512-9ZSDjjXjFgGHuqesG7HN4Sw4sw7paiQUitVKs4B9PjZ83J1FMo3pXJhVa5oNjSRquC6scLn7biYSKBtncjla2Q=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-CL@firefox.mozilla.org.xpi": "sha512-auQHtqm20NdHMTmnkvcT7+DrkB2OBT39YspKwhuSNRZ5exrpwEFZx/LiNhAy1FZWjjOnmSZKXswndgdAcrPq6w=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/es-CL.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/es-CL.xpi",
+          "version": "153.0.1"
         },
         "es-ES": {
-          "hash": "sha512-CZsHElMzKDJ/ekQG4I5qz1rA2TjLHnjus67WEb04hytID4XK9mkJXRXXmeZlYMQmg14GuQk0w3xvA2+LqWeoGQ==",
+          "hash": "sha512-TqsO0O9vJJFGAPj0wVgXjXCDX2GGL3TaLZ/S9CVsY47FALSo8KtbGnJzJSjnq+tbjBC2BgsloQ7eMUl4qBTRzA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-ES@firefox.mozilla.org.xpi": "sha512-F1RN2VUm/pwLiu64fwP5xG3/wbGadsQFhFvQWkQsRSHJCh4bmj9f7TiqCmShviiA4o+p0Le6GU9h7D1PQb68Nw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-ES@firefox.mozilla.org.xpi": "sha512-BgNbA7m6pyRWzvCgSdmtHTkD7eO3BE1hdKULIdL2odpt1EH1zlJ6c2DEyvDOZcCU9L2GDH4cPXcFJIGSOANOaQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/es-ES.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/es-ES.xpi",
+          "version": "153.0.1"
         },
         "es-MX": {
-          "hash": "sha512-65hV4AdiJzyYT7Yf56VZlUC4Sx3o30dO0p2Ier7AkoRoWMJAJEoNaXnw965g4YT1qUwK3nYwz8nLNV37JvneYw==",
+          "hash": "sha512-M0jNBVrWtTkC8AyOl17uCpPjybAO+8jSfXR21bYSR88bLDXCGfWpK8gSx4YJ+lxSl1rScH3L4DAXKuZfbEJT6g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-MX@firefox.mozilla.org.xpi": "sha512-ef0MINCntZXyz5R/jxF8fqin2d8NVHEAzFSJc6mvf6+E37HKeK2sUFQ/b+7I2aTWpQbzg6lt7ntcyOIFileJOw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-es-MX@firefox.mozilla.org.xpi": "sha512-hUKutzrv/hjYHH49EieSWjuVMpJ7bpTeEVwhaIOiAblX8sba+5u0yMhummUjxNFpDKX3QyDiWa2f8nW3cTGodg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/es-MX.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/es-MX.xpi",
+          "version": "153.0.1"
         },
         "et": {
-          "hash": "sha512-uKlRWj98tmO3r9RN7nYurCEapzpgqoNk9w0KHmL3Z+JG9yHlXvDDpfFj5wcMpoi0LV6dVjHZwMQL44qZJTQGLw==",
+          "hash": "sha512-ZV7NUQf+P/O0NZSIXpasv//FHt9Y0k9ktoUrDqXfkqMzGFaZTvqhuVodyxuATwpMbtTIHMrK5mfNFy1ngJJWbg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-et@firefox.mozilla.org.xpi": "sha512-bwMhqo/luKng1SthU6jvGLYd8m0JQwXSxQ9p3hRlMLREfqWkxlc0rjxZOYL52AHR1jy4vcMy0WdJAQfIldIX1g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-et@firefox.mozilla.org.xpi": "sha512-adwyCi0njh6M4NmPu0szF4bjXf0/ZrOuFILUnhJ0nsofagxtwp9Ij3MKwp5jRR1qjQfaYi30dYYSCqHUQwXRjw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/et.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/et.xpi",
+          "version": "153.0.1"
         },
         "eu": {
-          "hash": "sha512-fZs9FihKARBsBnUsJbo848hF1yFMTFMzYMG5vSTy5B7WhWY2HG5SSwbcjEg6ywOVD8zge1lRZy82yty+je5IJg==",
+          "hash": "sha512-C7DT8Qm622lBFAg0WlJ1DmCijjgkMF+YELJVrujdbAJjtwmfZcxe/yB1b4v0zet8nbrnWinyToJ/g+PqMYp+Zg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-eu@firefox.mozilla.org.xpi": "sha512-l/UyJydG63Zc/QsUs0CSbqT4cgz7FEC4K2ns9PLPqKeWczNGvh8SEygIJGpl7848xAGswc2HlkPAGD871F2Q4w=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-eu@firefox.mozilla.org.xpi": "sha512-OyaesPzn+r4VrT6veUV/a5Y+cPnHU9LIwSjSqFd/caTrQTQtwf6gT0OplpoLkoeCYOykQp7Uftcm0NWuIL39uw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/eu.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/eu.xpi",
+          "version": "153.0.1"
         },
         "fa": {
-          "hash": "sha512-nr6C6nDncF3eY39dm2RBIfn/JnQ7tnSwM9uPurFTMjuM5rJlmyGauzDCszptnR1CaFo8IFWzYodObobKOPzCAA==",
+          "hash": "sha512-RvaB+GbVv0p0YoJhIwqAey9Tpd8+PGwYt3IjSLRcOKd/D9DI80YrLOpWQET4do41qB7IYcFgFdcIUhAr58tWcA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fa@firefox.mozilla.org.xpi": "sha512-DHgvEqx+TSzFj89OTWuuczEnp1ii589cC0bkrkyGU0vCSLYP8CkUAurgYNWgp2NCawMyq4b6fKequWqAtClJqA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fa@firefox.mozilla.org.xpi": "sha512-0NTmZ54dF9oilbj+Ab1+oEYaYFaYy/I8B0rDiltOCjmBKtAZ9Cr0B5z2ulIIMyDFYDthl1z3U3hx8CmsKF32mg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/fa.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/fa.xpi",
+          "version": "153.0.1"
         },
         "ff": {
-          "hash": "sha512-aKalBYnYy2acnk9piYLjG5hHs35ZL/mqIpf9OKUg/gOk4cD23Ck9LHl1HCcvolIpt/jUE4MQepGNEvxmfGd0hw==",
+          "hash": "sha512-kqiOo+30ROGEU+bNjD38o/IhBITVf8pQU7FK9CsDsAbAw137CLihPbyZXCWmDxMSxHi5qWSqClOEb6OvLTG0Uw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ff@firefox.mozilla.org.xpi": "sha512-kFwK04tHOjrrtL2xmB86zkcUWoYwT2jIMENpHkIIydtwgw3foUIIarHMJQKH6qc3S7eALW7AJicUT8CErpQJCQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ff@firefox.mozilla.org.xpi": "sha512-I5PVfa1Zy283TDVsq3nefNp0e6MDb751iQQTnn6aeYfwgo0zrdloha1DKc9cS4Z+8K8IwDJazVFz9+IR2d8z5w=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ff.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ff.xpi",
+          "version": "153.0.1"
         },
         "fi": {
-          "hash": "sha512-s1o0fSUpV8FSQBZ1ILo9YvP9GobOHatlQKxl7vtssWwj2LKfhUDNqcJTM924+sdXg826zX53OekS1pNvecmxAw==",
+          "hash": "sha512-Q2xf0kihgn9fYK6AIOgKuYmtKJUwmqRxg4IVe9lVDqL9KQOarEuBMeboKL5GuVJDTXCSySCXNVnLeNQ/8fvtNA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fi@firefox.mozilla.org.xpi": "sha512-QyyaRJF/vLXwa9g10hHPV5dOVNFJmzCP2DYM6nwCvhzewlV5/aHhiCg6z1pjGu0Wr0t6k85jnE/6WmXB1+PQCA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fi@firefox.mozilla.org.xpi": "sha512-baEh770vyaJbhCUTzy115qxiBw1HejCWsY7ghiOyztjta5uBkSnkK1AN9nI+X7rodrotdDozdeQkPur257ZUaA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/fi.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/fi.xpi",
+          "version": "153.0.1"
         },
         "fr": {
-          "hash": "sha512-nDh+L+cEEWrdhSqXC8PvgeEhJ6ua/xLb/ofSH9h7L6toGR24QMybTMfFn82AR2tUcJvQzxE8xi+zujHpQHRuMw==",
+          "hash": "sha512-z9P7ECyadQzyXar3/zf3sDZEDG1S3DNcuQOwm2Z5nNXRHm6LBxi8n4xt5g8Yb6tNeFP38CFpCmu6S8LtNIeAMw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fr@firefox.mozilla.org.xpi": "sha512-8UsqDTpdjFSVVFladP3RrDeQKiFbllJyO72TTGHfmrozqntFmfUuqfmeRKxhP+tKi0o3v9M2jA0O0WRcwjw2ww=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fr@firefox.mozilla.org.xpi": "sha512-DoQNS9FNofgQ/u2uWV2wvw5nNF8Nw/7UEjLXl6eCJam6x3UjP+RoYSBF0VwmIu7EfRIwEwiYok+dN7zwyMGtog=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/fr.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/fr.xpi",
+          "version": "153.0.1"
         },
         "fur": {
-          "hash": "sha512-LqmdZpIid7WHub4dI2UpELrxAj6VOHnJJmxAaMoqxw47TK4Aw9/v9G5u+J9VyBfELyS+1pa5rcZma9dXUUvD4A==",
+          "hash": "sha512-TDFu0Hom5T+J1uK4Mdjy496Swor6bj46htGTQn8wepmdThcRTLWllrUVIX2lv2sOcAKZHu9F5Xx0aAKLiB8hrA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fur@firefox.mozilla.org.xpi": "sha512-jGIDe0eFgtIaGZ3ABzF2dUj88LtpZba2N+S0lQbPebw7bb5nKgsi2V393+/YAQ0bpNdPU12mOZGieu2tlxuabA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fur@firefox.mozilla.org.xpi": "sha512-Tz7B8nF2gXMR0WOhyjytmSGCmg+Rta9JDepEOlqM1pnyXU4hVVx+kJFo3zPsuH4hjp7kxPZm71MPerofIzBI3A=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/fur.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/fur.xpi",
+          "version": "153.0.1"
         },
         "fy-NL": {
-          "hash": "sha512-asryaruam8K2clG0h4B5ExpWl3rACbPMKeA9aRv5NGPmQHK2/9lxQNYuqp3cYQ1YjwTClAHi4FFhbtF6/2/QhA==",
+          "hash": "sha512-PQq75d5Bhdt7TIqeELPruBAEMFNhKG0mmIpxMxC7XwR3sKqS175h10EoqDHk1Iu1At9Yig8tKRNTKeGHADaDgw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fy-NL@firefox.mozilla.org.xpi": "sha512-cEVfBk+gMGgtVXqlqD+tyQej1DFJaSYoFkKQGyKF78z0LCXD8mUlCC1kRqu3iyeq8ucZB54smp5mozzqbxF+tw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-fy-NL@firefox.mozilla.org.xpi": "sha512-qA7mHAjpyrg0Z1B/cafGkF9JaAMk132kwk4eOshdi0VQyoAubqSQyKk87JTg5YQalDd7JqZvPUpgzs96k9E1jQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/fy-NL.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/fy-NL.xpi",
+          "version": "153.0.1"
         },
         "ga-IE": {
-          "hash": "sha512-3KgG99kwWogBtOeq88DHYx/fi2kWFauZS/V8oSofSnA9vEPozJLQ8Ps9ZFyw9XS4HZYaLct5WK84vWVtrFFvWw==",
+          "hash": "sha512-GLXLUEIZvOcITF17kxrTWptoDQ10dDPPgJBgx2G/3m05//gJxZo2lkrAnwDubEAMXjEwFVarMcbIVI1h1ZDJcw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ga-IE@firefox.mozilla.org.xpi": "sha512-UATnBBUHZ6vL3xsr3WP9T2p+r9i75dXviTDktIQWFpYrtNLh6GbSAR0P2SFS2jpV+mpcEVCyQpdTcfd8bf/oFA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ga-IE@firefox.mozilla.org.xpi": "sha512-ZlNvzn7clZB8WPd0AA6u9byQCs/Z+bPtiracvjadSL+A9YrG1xyMNrKHWtKu6HENyMKhbFG/WoCrhvVtmEiQsQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ga-IE.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ga-IE.xpi",
+          "version": "153.0.1"
         },
         "gd": {
-          "hash": "sha512-MU9t8XYn0/XuIFs1IcE97vaEe4Lu4Xl3qD4XL0j6QmSezrG+A4hIkDiLDT2tXLISyBzb4W9/2GAEXcCqNVxeLA==",
+          "hash": "sha512-mVkMI1eXGMeUTA0qT2K7Mak2swAGpO842eKbDCzb9QRYt0JXEk4E582qYhW32rHa8zo9G6Hn2qpY2hIlO3f8Kg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gd@firefox.mozilla.org.xpi": "sha512-Bfj8iW4pVC0E/sPTWtMER7lwY/0fWGVGrYqVBbjyg8JGNP2Jns+q+6fLcJ7oUzzDHgdkgxoRuJ9aqZ3GzINslg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gd@firefox.mozilla.org.xpi": "sha512-x3zSI4rTFOP5JjIiKbQx44+SZJoTQwIMn3EeSZIUe27UdMf/CVUq0aKEXwR/QvYWAJighdNRRz4+CYbFNSC8qw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/gd.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/gd.xpi",
+          "version": "153.0.1"
         },
         "gl": {
-          "hash": "sha512-OtqAkmbXEsAYRHglzHywCtZgr0D1myGf9twQuCMcQCu9s4Oz0/4lNg16O2UOgz1LLgS/T1sRbOtKC16Cp2nw5Q==",
+          "hash": "sha512-24qJcoux50sjmMbuAqARvWGjngvRtxO+DpXkD+hNZWoLXFOZovt9+VNpHNos72dyedqxgr9GZnxhRwWFMC83Ew==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gl@firefox.mozilla.org.xpi": "sha512-sisbua27e+lDkFQcqbvvOgVcHNkAeSBgfDJcq0HlSJEwAhAtedxH2AW8fPzkR4uDerMu3NM55eR1M9tEWrHY3Q=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gl@firefox.mozilla.org.xpi": "sha512-BQQGTN/kREGHKC3ntjU5JiWtlh6e0Is7+fPWoF7Jy9iF26G0l3KiYUJ1CCCRbtOimb90cqaDp6FNmk1/iLTuhQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/gl.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/gl.xpi",
+          "version": "153.0.1"
         },
         "gn": {
-          "hash": "sha512-1y1fHxN5LMcE2//yVaGa5y7kv9DE/JdEquXdiC42kw/WsC4a2hOVw34meRPiHjN5qenDuNBvEtgC4hNO9VLXMg==",
+          "hash": "sha512-0N00JZf+DfY+cXUahseadhK/9biiCSyJLhBuWOUi8id23Zf6jXDGcbJNy06PR4jAugSaOMv4PZhR0+wcvnDwRw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gn@firefox.mozilla.org.xpi": "sha512-tUxQv8cv6jg0YD94W4543UKIlhgI6XKPXhAyBRmy111hgJfn2KEnzcvbQlT/017gjtdRA3CsJIj2xltNqAlPmQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gn@firefox.mozilla.org.xpi": "sha512-3nPuBPJ89Av40gQdMHNReNpSnM0/w9y/cRPfib1baKxJUZr3HXUQhcEzK03nZ1VtAbwMPCbommgHQ+VH92buGw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/gn.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/gn.xpi",
+          "version": "153.0.1"
         },
         "gu-IN": {
-          "hash": "sha512-0qjz3Cx+jChBlDNa+1wtvj7DME2qswlcscxgU9BvVe+F9GCRhQqUTR0XD3A3wrEwL1lXSHXDw2Ul8Ldtj/Ipzg==",
+          "hash": "sha512-eWP8A4IfbFFLn8DHZYDg8zClZkN9deWCikjDdMA67xB9cYeBUHbiaw4J7N4lCeU2A9urNjONG8hmIO8YtUqQSA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gu-IN@firefox.mozilla.org.xpi": "sha512-kTxKvr5QaOw7AqsJ4Y0Jg12sjhzTriQRzW5FmR8s9pFFdolX+bPij5kEe3AaRoA0ToRWom2BcFgqxutfGMvJsg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-gu-IN@firefox.mozilla.org.xpi": "sha512-MecY6Glg8cg1k3I4FV1kCTi0z9rU5HW1FSe/SbBtfkgfJidsFlWOvsfDYQfU7rASL1uih1pOkiXbQ0q0pbpxvA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/gu-IN.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/gu-IN.xpi",
+          "version": "153.0.1"
         },
         "he": {
-          "hash": "sha512-paLyKTwqRXm18DQcX+9ozXjuExzrSyfQb43uxmO1dhgi3qGZa8jONE1QG5/khq8mU0lXplUJF0VatDZYgJto1w==",
+          "hash": "sha512-3wmEwAWVpLuJcBfejkrdDk+MPfx425/7+F6O+9Nm6uv74AimZDuHObCayDI/PK7IqFRSZSIODr/J6pcQfCaNdw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-he@firefox.mozilla.org.xpi": "sha512-IYfBgKn3PmDzJ6rhGjfGfOfkSD5vBsycjifn/Royx4eJp62jWxdVjpAOXveWooSYfIot8MWNHiZg2sJRrjI7Xw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-he@firefox.mozilla.org.xpi": "sha512-KXGu46H8PUatJUARG6bi9S0Lpm+B1cMm1FnGq3svVQy/NHwMYrLHal0NE/HFtTi1qa7MrLXvVunlganNw/VDjA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/he.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/he.xpi",
+          "version": "153.0.1"
         },
         "hi-IN": {
-          "hash": "sha512-qzPiUMiEWwqA+LhQD3AaiyABCMEGtPihzo6Vy118L6K6nEPsKnNUzcjyWLNay7N/FApOlcDvruyIsp0wmpXvhg==",
+          "hash": "sha512-ie7LGBVdht/2u9TJRhsphTOmk6G1xOAn+t7t2NUWppGSCX/6rnE8W3Bn6d9JascMB1S/biDZuc3OWKTV+tLZRw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hi-IN@firefox.mozilla.org.xpi": "sha512-290Je1bkMykKMUmnxndWWJjznbasMfEr33lFXka7aVYqPDQ6WTNQlk8Lc/bHlOhNgeR1hlr4BGND1CDJgvtPGA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hi-IN@firefox.mozilla.org.xpi": "sha512-j8tghW8hKeiO1p7BPZpjJ2DbEH27zrWOvA22AgRmKiTUkKXU2ygMjBk+YShTzYSTJUjAI9ovbOh+Gy86RWbwkA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/hi-IN.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/hi-IN.xpi",
+          "version": "153.0.1"
         },
         "hr": {
-          "hash": "sha512-Z/bejMbf0aOp3Fm9I7pdvGZZAZXvPF0e9589tFLDMKphpvEMqPRqKKO7bcZQx7vWbKlw9Cuns4B7/6ox9kjx6A==",
+          "hash": "sha512-9NNPjOqC6HBmaffKeQqf0n0yleUXApW42oZmrO36HxpVa+LsYaAAmaKaSb2E6kXJPHKwKMaXvbLetIyEWmu2Eg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hr@firefox.mozilla.org.xpi": "sha512-es24T7M57sYD03FeefS8JrebiTX7nyHt4pRhRu3pdCVKYKQ3CDk4LNa6P4Yv2fBfP/u8P3deer3KF0cs4mFNhw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hr@firefox.mozilla.org.xpi": "sha512-rO8FpyKDsMYf8OiMWJ7cbVTqwYy5aEYMzW/98MZ5eSIRW+v9edoe/+WhBNVUPhaqY1pj6ITLHTe76bMdkFl42g=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/hr.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/hr.xpi",
+          "version": "153.0.1"
         },
         "hsb": {
-          "hash": "sha512-ScX+DSi0xCiqwqn5zM82XBvkpGALUXUAp/81RAscNiCzpWAESJQcmq4t4skxWDaaz5gg6K4O7630Tw3pGjJcFw==",
+          "hash": "sha512-br3zqAmAmNw/kktDqnAfFnd6En6jVVC2z6KwEX4ck7R7EcjBoSprn423/v3F6GtF69qtoPx6WaaH/mbOB6e/dw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hsb@firefox.mozilla.org.xpi": "sha512-7pMwZJS5tRkPufsr7003ntn7B3eM++oMk0RbgISA5UnAc4iXa7fppUUv2FrqPJNT46fMuHNHY4ti/rDRqXdZZg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hsb@firefox.mozilla.org.xpi": "sha512-nkmJSeXJq8N8PhFbzzGKdx9XqS1MImEi7CQcgKr7E0JHLgA+j6+rhVl7wSRqAl+KKLVrSK1Dq2wrqmzGeyoOmQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/hsb.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/hsb.xpi",
+          "version": "153.0.1"
         },
         "hu": {
-          "hash": "sha512-P22jaJ0LNg2Qm8ZIOm+18johNN/0JjmO1zeaJKQYNGDL+47YK0/ipxdhPg46LvjhzYt9BqAd6ZijhqNABVVWyA==",
+          "hash": "sha512-hJLWdcpRWMUdyMy3DBagfPP8m4rXoo8YuFoqArrJaPUiVbzvMlQJHPLO3FQd939GZdhaS8BL3Xzy9TWbbUJnhA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hu@firefox.mozilla.org.xpi": "sha512-g2SMq4xaGDHP1gws21O41W7rqMQUcu+tQFJ1oMwe62kr4zgIzOFL/RindaqecvCQtOeMxRSrOPL+01qMp02X+g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hu@firefox.mozilla.org.xpi": "sha512-qmdAjVq8FIzexdXLjcz2TsU/SzDs7AcqxTA8jRpPmrHW386R6Og+5I3vOqAyL6CfPukF+vowvfM7f6LhWYRY9Q=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/hu.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/hu.xpi",
+          "version": "153.0.1"
         },
         "hy-AM": {
-          "hash": "sha512-o012RiXIxUWGh4XRn9BrfMZs4zQC3h2x95lYuGWngnHNX5vK/8IKuwTWkXAwE3B0jAy+Z0nuvvFX8qxNh45mfA==",
+          "hash": "sha512-1ZFu4VdJuJtkatVBluGwEb3noRIs5cQ8nYELqoW0rkVbjgZeB8v0QlDginYaCGjKecEJPYVUYL8EcbhGCJkmDA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hy-AM@firefox.mozilla.org.xpi": "sha512-1ziTbC7x+25VXDXLUQz3yehWnUCSAXsjlBcgrcUHZZbRipcfZiqIZTkXGVDP1jS377rxKeXfwCh1XWdFyeDbgQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-hy-AM@firefox.mozilla.org.xpi": "sha512-9a4KUk0vJg2kJF6qOA/GrBwICusflBvWtspPuIwVgqrKFiVJxSRAPA+myhYXlZ3gq3bTDkx1KIGwHRlUpjjEKQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/hy-AM.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/hy-AM.xpi",
+          "version": "153.0.1"
         },
         "ia": {
-          "hash": "sha512-Oozz3gzsrYv3fTYxPlkZktARghJ3dOgAjxX08UHr27GBaIzZApW3HSWHS3MkO8uXk1oUff3eFfw1oHAq+yBkNQ==",
+          "hash": "sha512-pQYH5O4U+eWEAOoWcrkGX5O+PZUdOKX6r2v+oNfyQAooC+saMmsxE2n/dOIlPc+AnLO6uO8Yo31WkZkoNvB0IQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ia@firefox.mozilla.org.xpi": "sha512-aRm3TaK9KBDqOytYDFpyV+B6gEebWVPJVXxegX7nGtOAtkIkVIHFabSftoUvVDRQsHl2nTy/9NcD7qPXt9ruIw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ia@firefox.mozilla.org.xpi": "sha512-Lc8z2A8u8GvSt7sc+Tqp9dt9Nr97dpLg5IQBCMypn9LUoLIjH+RTMKXyXXzgnEwfDXDfKPmCU2xtzd8VxVuJJA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ia.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ia.xpi",
+          "version": "153.0.1"
         },
         "id": {
-          "hash": "sha512-0rofwr7CmvrkcAwFEOOie1eh1CyeW5Js03g/UZW3/gjt7XB8k5hzILBf2iiLluAC7bSyzofzhxtp+3JbOAaYUg==",
+          "hash": "sha512-4VkQ7Ww9Y0RrurzX2V/Pie/HxJCR9sO1vW+xgGbGO1uscc6seM6T5YQLXzkf3ZW3Oa20xo1ahA3j16lrZy4Cjg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-id@firefox.mozilla.org.xpi": "sha512-I2k+Fge4Z/WF9l8jTbMDFGRJo++1HshqgqIe1rC6BkfQcSlQwonX3WZG4D3VN202QzjYopxf9r3mX5TdKUxY6g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-id@firefox.mozilla.org.xpi": "sha512-gBZ/ZHyl6N+HMvXfGU5ezk5hiPfmjxbebYcqpaQev18zRd7r223/m4P9J+gQmIsyoVMGH/zz/LLaZpOXsTTSyg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/id.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/id.xpi",
+          "version": "153.0.1"
         },
         "is": {
-          "hash": "sha512-as5w1yMxPRZrsuB2VLFDbciZ+g6TQyj9SThGy4GkOR94X6EMMhjFsVm5mBcP4Erislat/627IWLigaWmzgp40w==",
+          "hash": "sha512-aLX3ZdZ7ThBF4iahtkDKNz3e2vd+P9yQnaV6dBwWQhjKrXMSg7+HPMruvansacLXxBuvUqMOnRR7FBD5GSRdYw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-is@firefox.mozilla.org.xpi": "sha512-ujctSp8QZ0GKT+ngphUZerWMHwlcybwLvxE7xy1tHLssIOL4G7pCJtG3zHPrNbonH7qQJILArjmELNwwSnfX3w=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-is@firefox.mozilla.org.xpi": "sha512-lK3eaqAlIz53Z1roTU1LW0lyr0+7QT+h2B9e10iYIQvWLAhdR0dZfcapnk/5Ud5L7uqOtnRi9PaQCoW/4w7Mfw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/is.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/is.xpi",
+          "version": "153.0.1"
         },
         "it": {
-          "hash": "sha512-qn8VWT/3dxb0pi3+ZorGjF8srBjE+qo0FEXmMFO7bFIAGBVPiwSBCtVVQGdIFQ4Po+3mSPpll++ilinnt66eBw==",
+          "hash": "sha512-e6f8ppxdLJpNOKi1FkMj7P5msECZ+odiOhMOcmGqc1+7yjtFbMI0yzbkClL52+LaeQss9RweIgWTyzUnw9+M/A==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-it@firefox.mozilla.org.xpi": "sha512-DcpBhXbqwmwlij4nCLXk31Fjyt72UCU/SlfZEpSUsn48t4vWdpZ4Pc5Rv8OSx5KBpXb7biy/u2dJyHIln92rYA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-it@firefox.mozilla.org.xpi": "sha512-+3s/JjmX0xXpLgQfME7nZsflmjhPs0JcgB+i6a4r02OTjhxzQ1vEdXel0f1XR57WVa8qkba3UNo+4+NK6S2OwA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/it.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/it.xpi",
+          "version": "153.0.1"
         },
         "ja": {
-          "hash": "sha512-WYW299QPb7MOSRZfv0MSl6mKPVvNWXGQtUZKaGbxQW3TxOP6jMtQvqpoXkg8Q2VcsNnxSL/LQQAojBW1+JGB+w==",
+          "hash": "sha512-p0S9r8ap4Tqeocvlg5QRt8MzvpzJBHJ0LzW43hcgddxoqH3VJr5jPod4qk4IAs9AQlfgopGlAOvDBVqhTNDUyA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ja@firefox.mozilla.org.xpi": "sha512-2ElpiL5PDaaErPFH3Fpw6wf6x/mQFrv4MrFISBcYdrCTETG0IsG2BjG/QuNJ7IbFfYImX/rvsLBH3M1dgo9wOQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ja@firefox.mozilla.org.xpi": "sha512-XcaMPlwcnpjB/3JFZjQezfZWh5VVXJeMSiSSwLPWB0LM4zVYuGJJ+7QD/fi3cLnJfBB9uMpfvn9TyaEpye3p/w=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ja.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ja.xpi",
+          "version": "153.0.1"
         },
         "ka": {
-          "hash": "sha512-jhTBWfSTGegO8qheyVSnxNBuBo1swXtoHwRjlXNIbuowE7J6yCOd4+OuQzr79hyXAEO/UGZJIdNGZih0WlawlQ==",
+          "hash": "sha512-hRve0mdUVXwX9bqRf1mUoxx4Wn7ZjKVSt8+DxUr0Msfx9RxOLu2FwzLJieBKCzRhAA1dEH7cEnjn+RzOY2+edA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ka@firefox.mozilla.org.xpi": "sha512-PkI7nOHUyraf+YVc3sLfd6AhaV28bZB2s3Lt2MygWYtkmNbykou2MElppK00MpuS62vc/OoSW/4E4Y1QXcJmMQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ka@firefox.mozilla.org.xpi": "sha512-i5vaqNnGpzZIO/lijDJFWShmz8aK1R9CsqbMDQ9jbkz4lIZBLt54upg96Rrr+HIr8FPnnIhX25uPQoLR5xGpbg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ka.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ka.xpi",
+          "version": "153.0.1"
         },
         "kab": {
-          "hash": "sha512-FkLV/U/HaWGPC/oo+q7/91VCzBetgrKL49khMZdhZXMRFntxjK8S2RVyM2+XHTo6VuCQ8pqmV3k8wmJhTDIkrQ==",
+          "hash": "sha512-X9crbjsnqXrYFxR5COKT66khPRK+tzC8gi3zHzzNWafDIaNvb+3ESXYS5QDQh/OooqOvv45VngtRGsxUufpFzg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-kab@firefox.mozilla.org.xpi": "sha512-HTPqeSKbo06FkaLRWSddq4HL8z4x9NRTaDCXxX78gjZbxipBLgKRYRy9c/uGssolW+iJHDPy/FsOWKRUlgEwrQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-kab@firefox.mozilla.org.xpi": "sha512-J6OGaSD1Wrd2nDZ8TbkVGoGJRRvRpyaaz+9nrDrRrj7ObAtZjT5QWQGy14ML5J/DuIWU3GMbQEmsJfcJDZu+2g=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/kab.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/kab.xpi",
+          "version": "153.0.1"
         },
         "kk": {
-          "hash": "sha512-GMFcEofIudH29FcmOwxOTW1lLLyhJerpIHmQO6Kr91yGYloDcupZY7rP7bn3/3VtfHw/Hf+pKZeokoFNUvZWQA==",
+          "hash": "sha512-hl3cBT/4yGbzEJ28J5/qo8ibmhXvFelFOFWviphLP9w37KCGQHQRujNGbvp3ZhAc49JuLxyJ2iFUxTjNw1dvog==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-kk@firefox.mozilla.org.xpi": "sha512-bao+2z5W3nZjE5q1NZ1u8y9zueLx3jotGDymCOfcELPAafWaT0iuJa8JPCM6CnSgsUiCwcUl7CF48HmlSN/OAw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-kk@firefox.mozilla.org.xpi": "sha512-T/ZNLtLFAn+rcQmKBhK9YVLhWMTuqc1yRe/jaQ1SzIyH7RT0R3wRTN87C7MlLRosNrlvZ21N7QUGj2jLaWB8lg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/kk.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/kk.xpi",
+          "version": "153.0.1"
         },
         "km": {
-          "hash": "sha512-9QJH2MpKj9H3rfBsLggTG59ak465qJuoJueuX/JjFLvnUnwuGqkYmIdjFBl+Y9nfKeakA89Zr8TK6UFEiRiQbw==",
+          "hash": "sha512-0xOw7sJjFpRzAyKeuneoSy2pUlrNjHrVSCklCKxQZqZlM3qjBLld8nY1byEjHquXThGSV3A5/sD2dSvkDq5acw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-km@firefox.mozilla.org.xpi": "sha512-4t/hqFyOabaJ8svX5tLjQEueoo+Us/cmPK0V2PG3lRRO8UqTR0BwCxhOphUhrUzbJwxOjEwLIYpZ5xxHnETIKQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-km@firefox.mozilla.org.xpi": "sha512-h/gc1ZXbC4whrD1KBGEFpzy7F+6Kq7k2cLrYh05n/vtNsMPQbCFRGwEDuuDd3farS4a3lYG4B4knBmmUm9R4kw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/km.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/km.xpi",
+          "version": "153.0.1"
         },
         "kn": {
-          "hash": "sha512-snEY07HLEm635DGa4nlfzMdo8HL1xyI39vV5tBlU3AbP0fMyu280op4LUkGxGdtEsTg160YU6Tr4XH8MZpVayA==",
+          "hash": "sha512-s1FFAdWZgzswOXYEC3uKsAfsq3ABcJJV3O5tdukTc7j6Vur3XXhLXaNubwUeNkUSOtw7Db2GYPoXPwTB/CY7Bw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-kn@firefox.mozilla.org.xpi": "sha512-KHKP+1emDFTSnZFl1cKl1RQN71g4vSnOJ+nRgHxDqzymfY66i4fC6Gfhk3yeWMIr7w+3M4x5esm37o3kNvg62g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-kn@firefox.mozilla.org.xpi": "sha512-JSH9F3VhCcUA/hHEcBpu5eHkUnUKJwSbyJdI1JF1hooCP8M+JRtWlw4EaCCEjVfFU2LWDcsqA6X2KtrU4uSA7Q=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/kn.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/kn.xpi",
+          "version": "153.0.1"
         },
         "ko": {
-          "hash": "sha512-d216zCVBP4P3lPfB/fOaggN7O/ByYrJ4y4UkoLHotbSwwp7zTHXNuDRCRcB/Q0lT0M7bjcGY49E+Dlnofkamlg==",
+          "hash": "sha512-vLqu370VFaqlvUK+C7MH9Nf4fVTDXlVAZy6Uz99zCcpNnKFjIiG9s5IfP7jvElL9DoFLVQO2QHOvvC2it+3CpQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ko@firefox.mozilla.org.xpi": "sha512-wRklkQLN/oYgWa/AuJNPJ8o2g3llWcyK6RYccJAxQCN8FSgbKu4LWAsZ0isJh8UkZd07EMVUpVz8qWLzdEwjEQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ko@firefox.mozilla.org.xpi": "sha512-JipxzrkAYKh04hn5HcK+VUVlEbapEclh+kRCLs7HngkXEaHWOoE0MjUp2eWbbFrJvBS+zrLc2QTKgFn3roE3QA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ko.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ko.xpi",
+          "version": "153.0.1"
         },
         "lij": {
-          "hash": "sha512-YnvrbMQIEnEH/8Zgt1qQU0nWEjcPGUpkmdczTK5GHYIyztlC0X/qwtrGVLdbTrsjHCRj0Tn5aGYI99lxuLlPsQ==",
+          "hash": "sha512-FRv64RxQb7/rr03CPzmK4vI7hoWVeN7P60VQaiqUFkR9fsOXDzQg047OKKKootyGHiO6mXPhdi15+ImDIvAFyA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-lij@firefox.mozilla.org.xpi": "sha512-zNEmItEZQX7d2bzlhhmXKC/8CHwF6bG3lZ1YYDSwHMdj9cs1VMrj1K97LBi8zsiOApqPC3Xt7WjmPNLPmfgNsA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-lij@firefox.mozilla.org.xpi": "sha512-yFkcmsVgjfH56aOIaLfenLg9oPiwAEDpWDXJmMH3neUxyRV1mFolScL0XdTVrNQpJAnk3Y7YyFulSfCXDVarIQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/lij.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/lij.xpi",
+          "version": "153.0.1"
         },
         "lt": {
-          "hash": "sha512-axico1YGPvgrqPAnAfF0RLCtkIbFvs0EjE2bEmWADgKq5+cVIXn20F8K1qJVkOzAUvjbcu5HTzkqAT61qyo/bA==",
+          "hash": "sha512-tu30sPMNc6ar8ooDK4uiUoAIFqswnEwQdPJCD25nA1dW5nUiqEQckAv+yMTWg4uHfbp/S4qlMZ35ySbShzxeFQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-lt@firefox.mozilla.org.xpi": "sha512-QZwZF7DbPx/56KaZigKNvQUBDwC2ly1mJiiW15j3DLNhXitvDWqP2rC8gOrJUr8Zr+OR6jgnOwbFvoy5KprgYg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-lt@firefox.mozilla.org.xpi": "sha512-+QiOKtX1LNkI7v/Q8Dj8IB2iVabgcqWbmk9LioqfKZYVZbCDSn9vSOVEcdkjKokUvMTk2e0TpLBbIjwiJIngyQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/lt.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/lt.xpi",
+          "version": "153.0.1"
         },
         "lv": {
-          "hash": "sha512-AXLshX3F5acU0d7WeRpDN7sFq+Sfw9TGkvg33jIV5WcyXvAPQbpFqRdjGp3bQn/SK++16UyISTHw1UstZjxVCg==",
+          "hash": "sha512-CEKmGHA+FTBu5dlk3oNewPwAkxWqSFPhhxnxtqdQzuAQGssf93UrASijI7x7NhFuwu0RPFAaKhsbsn8T/LGY/g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-lv@firefox.mozilla.org.xpi": "sha512-SOe4NLFfnCR0adRXOcYnFVulogITDjLf/QL0gHwUsd/KVrc68YAX21vDKeobcNq2Gfl29GMqVQ1O0F33Iiiw0Q=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-lv@firefox.mozilla.org.xpi": "sha512-uwfSRZXgYQcZ/jB08CTU6FK4VN240qgxp0mt3FEAD3zOM4Z1xtXeklQ2ha4pv5Ds0HN7xz9mMAjVWi+76LMlfg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/lv.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/lv.xpi",
+          "version": "153.0.1"
         },
         "mk": {
-          "hash": "sha512-2t83SsFjYsCjS6AtcHQh5k9XLWDCGxVkJp+X5TkcpfQea/hUoG2yZv+zBHT8VijjwCXPZ8QsHOZIXhcvh1jvqw==",
+          "hash": "sha512-kVsuK45O+v2zbfqed8oA+H9nxxJJFYODB2VfmOrx2TQWVeha7vDHjT2GZRY6uLm3tK6/GwvCnl29MkglgYNRfg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-mk@firefox.mozilla.org.xpi": "sha512-+mwnzX2T42rL3/2x3pOlu4Gnx073n9f9hX4lqGEevo8pL0FHbWcPQ3XdaUqcijYUpGOFGNQ/neKsnwV/RrZeYQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-mk@firefox.mozilla.org.xpi": "sha512-JELoPRbUqaZEDjTz8UQOAbff5QSqQo65xq97Z04UIfxsBhBRRrgua0I4ko7eD88E4zimiFbt7NY3E8oGOrPyaw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/mk.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/mk.xpi",
+          "version": "153.0.1"
         },
         "mr": {
-          "hash": "sha512-AlfU7+Eh67ScWxzJ2yZvsghJG1CPXbWh8IphgRdr49iN5LXKtLWO+6WyY/eo+bwzHk/y/hOF6Cv9MVkBezOk3w==",
+          "hash": "sha512-i0D0qJw8ou9Jmec5evRuFbzG/KZ3amse3TmtCtngrMhLlxdJMhXtvFYhEplqDS09yq7yO7BySdLymNrIbJ5aGQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-mr@firefox.mozilla.org.xpi": "sha512-cSi7YTV/XurwdEt5wMcKwnMJ/Ph4cuPDCiYTg2NxHVGjuJ/tWsZ/DVKxJymCBEuwh6sMNOPZAeuiUNEUXa8ZQg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-mr@firefox.mozilla.org.xpi": "sha512-0BlHAkicg7sCxgAyWf6glLMxn1Abt9KexlgWlV6xckd2xj4NTD5K5AzcmjsB539OOdKsS13hnJhaTijLTTOLfQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/mr.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/mr.xpi",
+          "version": "153.0.1"
         },
         "ms": {
-          "hash": "sha512-YWUmYckHFFC6rAc3MxDZHFDdGXp4fWHV1ksQFuMxwO/dQiVgJQwVq99zDLS72kDmJEWnxhfUa9180Czlf77e3w==",
+          "hash": "sha512-zkLTTXeNEPmlZfoMOMye6Wfx0dualVNwMl0Sh9A6bvMnsDhZBKJUa7SO1pJp+r5W98kiQm2yi8kYjdZYLrNBBA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ms@firefox.mozilla.org.xpi": "sha512-h1aZX0MKwCQJKSRRl/39ViQ7MmlCdC1YSpaqigYfGe+mXW2+e83aObq8ubrLaYWURlsD3nJNDsC05c3XALMu2g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ms@firefox.mozilla.org.xpi": "sha512-quHyLRYwPdsDDwW2S16iX2epl1ZUa+vpml61Xi9tOuqUuDveaq5mJdcyeEEH8OCBlFm5CRccUFWxKjSdwFwhbA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ms.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ms.xpi",
+          "version": "153.0.1"
         },
         "my": {
-          "hash": "sha512-qOiYA7jfpOBX0VBotuu0uZudyC689Jp2wnpBIK+iU4yGChN4V9xPU0k4k1pW3UyvQjqD6gB5HzUX4ehKDxIXUw==",
+          "hash": "sha512-7T0UBVhaOyGgPBiGptQs7lZhlOX81YcvN0lwRmhe2xE4zwgz/c1F5AtruntqhL/uuAr9egJjGclHn030YY8Xgg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-my@firefox.mozilla.org.xpi": "sha512-9EpBmFkOczcGgdTALcrm8TiqESary3e+J7LqqIdWts9rogE8RuCh7/Gn1ftY/P5jOUzlujyhPq6Z2VES3MLSTA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-my@firefox.mozilla.org.xpi": "sha512-jjYYVsHjQRbfAtsXHd+70b6mYom50TE0WRGzHA6oSoAYPgdD3Fct2XQ0KzJpL9Htk+4R2sRMeBH6ZpzRe2VD+Q=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/my.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/my.xpi",
+          "version": "153.0.1"
         },
         "nb-NO": {
-          "hash": "sha512-oI26B04KZigEA+jTzTVgwQfZlg0laqaeBtts+oUXT796QS2gzV46+hgOkmVHLe2XCK30745qYmmhJ+xdMZLrnQ==",
+          "hash": "sha512-OcrNpvKBLDyTL2PH6pWUhysDAOvrQK1RFjXPfgyyWRlyMBrrWlSStDp5XO5HY+a61Ys5O0dbNc7yklE2ectaaw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-nb-NO@firefox.mozilla.org.xpi": "sha512-+iSx2LzS5zlv0Q5deP6Vb4aGQQfo/7UVk3rcv/8qMRaeTPcE5yJdFeTo2PCqTzJjhG6dSCxBggdpW3jm3Ks+KQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-nb-NO@firefox.mozilla.org.xpi": "sha512-ASPy9nzZTAro7WLLpO3HFvdgIUTTSpNOWWLDk7qzKk8E+i5hs9iIrg3la5X1VXTwc9Osi0wtAAjPL4fWiUZeeg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/nb-NO.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/nb-NO.xpi",
+          "version": "153.0.1"
         },
         "ne-NP": {
-          "hash": "sha512-6WfAOyrDfTiovEgGk4iPbf187mY2WS+wMQwfg1jlnD+3WtGjP3zpvrZ9OmxtVzzWTiNnUjf8RWmmpM0byVKTww==",
+          "hash": "sha512-KVs+R0NxIjNV7O/piQIL6sG/dZ0u3IOVzKbLCx5T7/ZbidEfsq0uodUniGb0c46xR0suZIPgop7zyjVa6dM4lA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ne-NP@firefox.mozilla.org.xpi": "sha512-WjKj8JllVUHO5HB43E4M7ipYpRztmbsv4Rnrq3PGa8YLG6O9sxpLsO2Qv0QqIdMmWVsgWMR9Xi2yUcdkxTM74w=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ne-NP@firefox.mozilla.org.xpi": "sha512-ZWuUknLptU968X1b1Tjv3gIDr/6RcJ4vPyOGtXtdtrQWSJUw+krYbc1QBXxav5uE+Y6zLzMibWvRNiYO5w5yvg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ne-NP.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ne-NP.xpi",
+          "version": "153.0.1"
         },
         "nl": {
-          "hash": "sha512-hkJQlyXdx3DARHcjZUJRQcZiUOipHMXMSfty8PCD+3T75wDfh4ayK9dgqLYSFJ+yHPm6MgXIsI5vxpNAbuHa5w==",
+          "hash": "sha512-BSiMKA+x1k+6TZFze3jtvG34huUEpXdsNevVwhxXMz1Oc/WlqOIQuKnHDu0zVNPuRb0RLto3tICo54cxJFFh0A==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-nl@firefox.mozilla.org.xpi": "sha512-sLJDNVuFUA6Ouacif5nf0XB8Szghnga3cU9birvjFlmlFt5nA6N8+XXlV29Z5qHjxp2bkuA0FwUDigCfFqfrOQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-nl@firefox.mozilla.org.xpi": "sha512-MuPy+Jfp5PjHbJTnNQjoPj4HHohZW66Vm//nRsQydXF3t6NM/BvSUJ+e9xEVkWDty+UvXiZPHwOK1owncauxJQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/nl.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/nl.xpi",
+          "version": "153.0.1"
         },
         "nn-NO": {
-          "hash": "sha512-hR7NB1qDfe8EK4qhbZG6JktkS8C5CMv/9P9fXpRRO+296/c6x5zimUYq9+2q1/TPElnc4N+lg4cVsThOLksQnA==",
+          "hash": "sha512-gOCNGkQA53ohGZ1KTMf1y/g+HFrgzF6OfgZ/Q8Q5gGndfCgW0iYx8Su7Zay+zdwf47/LlNUzhuTG/tALLiOBUA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-nn-NO@firefox.mozilla.org.xpi": "sha512-35t6VNErWl6NntnB1ZoXVwgarpQCOUWsKkbX58LAqH3ZEEAmwcqizaV6wZMi0crz3FesVTz2EJbt2qGvNleZuA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-nn-NO@firefox.mozilla.org.xpi": "sha512-Dn3NMdexfQiBQ5TFtA7d6gIRI8/gvcA0bdjmJ1fktibejTHyn78XE37KTOHG10KOE6llePUa7CkwFpsL2D+Ddw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/nn-NO.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/nn-NO.xpi",
+          "version": "153.0.1"
         },
         "oc": {
-          "hash": "sha512-kCtvkTFhpQSgXF7Hu5IZZBV6RA3AzTNx70yaanjlHs+q0y6K2ueoFVcMD6TVv1K3qlgStE0yIXAw/+2/eAQAWQ==",
+          "hash": "sha512-GPnkgEU7w1E/yypyv6IlpVZk9LHRT56RxoeW8IrlA2WXZXYZdGeU5iQokXTYYhIGPX71NdwlqZyLcsvUynY74g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-oc@firefox.mozilla.org.xpi": "sha512-MsIFYFC9aLf1GwRaSvapl9xMMrW9orMz6UKfxfkHDAw6uyWACco6TFv6irAQ44MsgXBuqo3pd+Rw/tASsUkScA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-oc@firefox.mozilla.org.xpi": "sha512-CmETumbUZjyKWI+8PKsGI1PeWB3UXC8BNWvZqyiF73hFmVViGWL/m6+acUkjpZj4A5oC8r/VUxWnJHj51Fx/pw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/oc.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/oc.xpi",
+          "version": "153.0.1"
         },
         "pa-IN": {
-          "hash": "sha512-rZy8N3F/g+vyDAt+GTlY0uc3bWpBsEvNmnj3nX/ZgKLgtB3/lqcrvHnz3OlCvBPZfKEnxMQJpSshIz5LuUB+Yw==",
+          "hash": "sha512-N6SzhuFSILiaZmescKefjuVmibnQj7p34+kNTUQ9O4jifk/0bDXp6tnjVznuHprEEW5v9sS0m84XJ6UZmggMXA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pa-IN@firefox.mozilla.org.xpi": "sha512-xne8Iq1BaDl9MDeS/VADasz8lWM6l6deCB5rKmKqrU/5y0ZOO7zBqMYBJEJ14aNPNEt9+mdnpGWossfkaOLKBw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pa-IN@firefox.mozilla.org.xpi": "sha512-5TXqQVLGcbvrh0Kr82D4TTlMkq7xGOxbT4NOmRO8A/BQsL18pll7K412/k1+fN79RVo/yFqGk/PQ5NT9ljgTeQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/pa-IN.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/pa-IN.xpi",
+          "version": "153.0.1"
         },
         "pl": {
-          "hash": "sha512-hfBrTAYhjHi85szG/94K3hab5wFH1fM8+o1hdHVGAEL/stLXeFYovmwCY+Z6vUcXaiS6sSL4fiJTA5v/IOwonQ==",
+          "hash": "sha512-VuA4BjOpPLl9Mc21i99d2NOOmtw3yDmCc0hyUNLTUk2eKxZoluz1Ohw7N1ATyC75tOiIclFMjsoffjUaNR1O9Q==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pl@firefox.mozilla.org.xpi": "sha512-Bn+r30luvB++MO5jxopYIKazf53dIwUca9/2WfQepg+dRibcHc0Du6V/XkQuNV3GrwwRgywJQJ1Gg57fPeal1g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pl@firefox.mozilla.org.xpi": "sha512-oDBv9JgrE9AsTKB4bKf+en7N6OIG712+ZlBkMsoxc9Vwl0hL+ndw6qiSb3OlkwPVGWtyPwJn/EQoEldJunyUbw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/pl.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/pl.xpi",
+          "version": "153.0.1"
         },
         "pt-BR": {
-          "hash": "sha512-HIENEAASCddSKL9d70u28wb+mFIqkKWd1npSIERoXLhcFjgoJFDrqem91j4gpVDTvgEMzw1Zb3kJP+mJXYOALA==",
+          "hash": "sha512-grmkK//UluGdPIAjKyxEeN3Ov3uo7vrFYCK3y+Z058LoBRgGVg5WVbp1rUHCas2xRNRcwuTG7pwr6Yk2zhsutA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pt-BR@firefox.mozilla.org.xpi": "sha512-fTdzNGDJfEzIFxN3aV5JWkDKYBxcMwvOkQ9+hK57YLL02U/+YnSRxc4lStqppa3599HD2IpP9liJQhrE+VbmwQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pt-BR@firefox.mozilla.org.xpi": "sha512-z3J4edb8Zzyz43mRaoVhN8eCFHaDcgMGNM4ZH1naDOo3vHSsVJ4nIs3vJGhkjBpGOwGDLO2yRiMGnVKzBB8vPQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/pt-BR.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/pt-BR.xpi",
+          "version": "153.0.1"
         },
         "pt-PT": {
-          "hash": "sha512-6SXXstLBwGBbCvMruapK9f6XtSOVMixeZIQy85Hefr38rfk1c78C2kwgYctRG7sZWlhWtd7+5Gal0fiUGTSWmw==",
+          "hash": "sha512-+aKMKmwHmlT0xXrEBOLcOADbrz4+TGHK5BdTNvtgkrWFZyWfSyz0P6jQFCIOC3906eY4fa+UbzWoFvX9zdFu5A==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pt-PT@firefox.mozilla.org.xpi": "sha512-ATwjNEzhndA0VHjMbxmfeswWttWziFkvT/4VAc0e95nkQNwS5H/b9FtMmX5QWDzrn+xktOtLAEcEVE3ipco3fA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-pt-PT@firefox.mozilla.org.xpi": "sha512-FtrHe8l+L5qKNv5SXd3+RNDp4+SeYdiuwmAylRJpBIu3fVIpaUp7DjEiJ60bcbZiHjlep4c8D2uPSr1Uc0srzg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/pt-PT.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/pt-PT.xpi",
+          "version": "153.0.1"
         },
         "rm": {
-          "hash": "sha512-3zWQ9IKTQOllTUy0ct5gtGvtVvVziXFVHNVqbL/r5NmBBxEe7s8ERgmnkFkA56Rub/9DaQDEyjRBY/7N9CydTA==",
+          "hash": "sha512-qdryR2jbsMmi73PG5MLLKOsVlCM4IjLgPzCZTuurjYA964VNOyTfc1l+07ekkVPFhsD42Um3NKcWo+vSvDJ2ZQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-rm@firefox.mozilla.org.xpi": "sha512-u7mJrfx3qEcR/y59nlxMmsZzQy2UjfpwlrFTPwi8G72r6472RS1qRpMrSKbVlIhlZg9rCh5GMd9mDjmgvsWcCg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-rm@firefox.mozilla.org.xpi": "sha512-CfJ+vffhIoMwkBjQ/XNHLDVFiDKv3JAuLVXvRcWXR00GLTIjodAD4oH0fWIOavOgyMEZN3yAEWCw8gWydbeoFw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/rm.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/rm.xpi",
+          "version": "153.0.1"
         },
         "ro": {
-          "hash": "sha512-eBwRsQvqL6ZOFcFd8YcCJtdk37KMAhOptCzeOlic9pTlf3mZvBjg8+0dqixdVdBmGfDTdAe5Q3mfhSaxzXW4cw==",
+          "hash": "sha512-LlVr2Bm0d8MJXHpSEucyYvcgPemO6qIIo1//UNeSU3wPdWyA/Eyhgols79qf7zq2HaXwlnxuKyHPhL8St+La9w==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ro@firefox.mozilla.org.xpi": "sha512-xj3LbY8A0v1xkEbg4VTmIHIieic+now+xkbtcNRByb3o/VashDs3j0E30lvPrOf68dSW7X8bW1BW3W9Dnjwt8g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ro@firefox.mozilla.org.xpi": "sha512-+NkNwqPcf3mninpTpNt3QD8vVaxHWbDVyG7lftM/cttp3d7nIVSL4KJBttGjpDRzIcAmtICWIsCDF2+yAubEdg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ro.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ro.xpi",
+          "version": "153.0.1"
         },
         "ru": {
-          "hash": "sha512-kTkW/ejxokgTMO8So1BcObSMiNN9/y5gE0iFaWvaVmHtGHdMx//q7D/BMj/8kFZ0ItL2NdHStNQmz1911rqRMw==",
+          "hash": "sha512-BrscxiVrVjcspWjfPDu7LYPPsaLaeIEKOQVbDZDiFLYW0dggflBzquEmR5dh8jfmqIo1U+TlqyKQGyWkIFV45w==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ru@firefox.mozilla.org.xpi": "sha512-bdbFYOx3Yspr/F+veZ9mkPV487ZIdsAXsQw5RadTNAQlsTLWS7e41Zqhs303GexGbw01hPr2ZhZkyOBRA5qUdQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ru@firefox.mozilla.org.xpi": "sha512-59K75cQ2xfvaZQ6x6t/kF1++bag3iZ0iBxHKRAlOmNSjTyuMw0TV5Wq2shoXKONr9ggbjphV8QXQ6bVrm+Pgsw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ru.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ru.xpi",
+          "version": "153.0.1"
         },
         "sat": {
-          "hash": "sha512-jNawZOwDWrWMWLi6KxoDbDMEe3yBGVY+WZJ0ga87ga7YIGVw3+8GcvbqChWy39BPYIfu4LUqHXxMd8GMYSP++A==",
+          "hash": "sha512-PveuNFRaRIqzz0Ait/91RSb6bfC2FYYPbMNV29GtZmFnv6l0iRNk7o/vRY1/nwsS5poy7okkhr7P/GXMMjDsEg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sat@firefox.mozilla.org.xpi": "sha512-8x3e8kdUSAkgwfU6HcVAdJ2oGbtlkiZxsubrcEp9sc3I+JHrMGMQxebkxfUEy8gVyeDxh0jkXyNjsZl3tNmZJA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sat@firefox.mozilla.org.xpi": "sha512-p5fQYKecSRLca40oW68v3f8lhvKM3vrXunyFOzWG0ojQFAO2OuxJsYT/rWBRc+a8Uj3LDGI0dKEteItpEXLVqQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sat.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sat.xpi",
+          "version": "153.0.1"
         },
         "sc": {
-          "hash": "sha512-kLm3A2wWqfmBGXqna4CLq4FmHlqLe8X6LlQYQtA2AbmBGKwUrprYqMuJBx0vEDTxv8gKYT9LPx2/fZbZDZ/3Rw==",
+          "hash": "sha512-N6imUO196mcEjTOEvSFZAWwADZl58JrUdIq9afZRQaeKPzfNiE3YkfTrmq3kVnXiEqMP2kxc3Tt6rFwfhXzuMQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sc@firefox.mozilla.org.xpi": "sha512-Xv+zjFz7zX0j+1Kn5lk75breuPOvSQuhHKKG2jNhkGkIXWDl0oFtEZu3YlUoxKX7Cdl5sQYOz3PNOUBPZilZtA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sc@firefox.mozilla.org.xpi": "sha512-e1lhDGm86vBdNdK0/BsLETLz38Mf5157SFytHqRbCtzH4iZKCCGJYsIanJ74Tt1CO65AKhP/CXhIZGjIoW7ejg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sc.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sc.xpi",
+          "version": "153.0.1"
         },
         "sco": {
-          "hash": "sha512-NxyitcjrsiL8+iOLan+DMbHU0PbbePJ4VAnU5TmggC+YyUIu2OmuEXlPRaDjo1gG6lX6mMJeP/vpt09qEc3t9g==",
+          "hash": "sha512-NlujuxxR/3mLHIUxIPDTUXZ051BfhXD3tz4Czc/2wO5fppuPUoZ9/pDOXenSwPQ0N7+NN3FRA7I9T7pxYi4VLQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sco@firefox.mozilla.org.xpi": "sha512-D2LqQtt9TKww1hKkjV7EFUKOs8+Ec1xhlyL9v5Qb9cgA5nqkDxw10DX6NyyuzeHoWvmhrfjA9/6SoIdQR0X+hg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sco@firefox.mozilla.org.xpi": "sha512-QliNCmSuuyA3abO61XRCmY758F95Vn/lc8R8Pq1VeNplNVvPvtcY+MY/5asgmkTvlfAGT+5AJ2VsP3wEqNTlEA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sco.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sco.xpi",
+          "version": "153.0.1"
         },
         "si": {
-          "hash": "sha512-Or4rz+T6jAU7hABt8XRd/oiXo47fwG24tbVH2ojxyAlC3ollyBYw7I5IYAUMqyvRpAa/1FqjkRX/B4nu+z/unw==",
+          "hash": "sha512-WyPv29izGaBj2qDmtMFhPxTgoStsKdhHgu5s/20loqhMiGi+jbsUEZgrAcBHKNo2TFqBgJeGPrR5sYUf65JgvA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-si@firefox.mozilla.org.xpi": "sha512-ufESbXkLA3F4HrmcOSbATACUF5P6XBCtBlc0LNFu6tSommArYEeBNffIqGPyQ0R8H7MRsZwTQeESdGu2vQyBew=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-si@firefox.mozilla.org.xpi": "sha512-/aN0aw5Y2JodSYqZDIdt9VPZhzxMASOvmTE32PIDjGg2didRcdbbCat7GV/8owIpwZHBqzL5Un3OlKijU1/ouA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/si.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/si.xpi",
+          "version": "153.0.1"
         },
         "sk": {
-          "hash": "sha512-ETSZLPMvQG+I61CM7DhDz+G3l10qG4lO1VSVu5VKxpzajQpM5awh4/N19UNjyDlW6c+7oPfQqJ6LY+D3dobzSQ==",
+          "hash": "sha512-/KjS4aYqB/RUHlQ2dK03dc2HFrZQ9PykGvr8Vzv8XYK+xvBFPK9PBm3pOrrI2YTkFNRrPXbF52WX/YF34ocQ9Q==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sk@firefox.mozilla.org.xpi": "sha512-1Ciu2Y37XCC3z+uzoqDyPqq5kVGi09G/rZwpKnZOYQIyOdA/gwPF8gF9eSxKRAm/MTt9z4+qHMXMRZgoC6yN2g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sk@firefox.mozilla.org.xpi": "sha512-IER5cUaGXzjF92E3PDf0lM3Y/aUKEWNTspv9xv/B7NSiJ+C0S5ge2Ag8H/GrfCvHX1VQ3jATZUqvL04YHd/Sew=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sk.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sk.xpi",
+          "version": "153.0.1"
         },
         "skr": {
-          "hash": "sha512-mro9BWwTRc244saY8b69eire8dIfL+bQ0xEJYGR8Zop+ZdWa+y7epUVCj07LqF+irTuXh+4zEbbl7QwcwMX9Ig==",
+          "hash": "sha512-pKHDdpw8kHH3s3wqlV3iLUSVa7Ur2YNN25em9fDtlWFxkjPitGRHMRjl5Lln+zWIiekOwVMlEUCA+lfh8RZd0w==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-skr@firefox.mozilla.org.xpi": "sha512-VUqhWIGnGD1FOxThxqIH6v30zlE9maTn+gsVyPGdoSzxmvpCw5VyaQFidiIRhzJTtAncCeD8db8nR+E/kZLqZw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-skr@firefox.mozilla.org.xpi": "sha512-IM1pRcOolyT5qMM5jBPkRTNlV78ggnFWck36p0VhDiWrJausFTAst67aOBOjpQSwpktpAiJDkp0yzSHHSLfY9g=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/skr.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/skr.xpi",
+          "version": "153.0.1"
         },
         "sl": {
-          "hash": "sha512-sBu/oLkLSvCdZ9dWyimPzWEibca6VQun+1KHZva7KpsRVZtdb6QeX+s/LIiHZbyVrA75RktSTMgchcyiALgDQg==",
+          "hash": "sha512-A/1UijCorIYYATvBgyDFFB8zkJCDz+lGVS07L4e5XKShZV3lDCBLflEVEFSOdgKMmNyH5rEMt+Dd3rT+PT9taA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sl@firefox.mozilla.org.xpi": "sha512-6JonCS0skzDJpJj1nV+aCYf2WVVtlRrvigEx0Qfv4ebxdL50Bg+M0Af4uFCAlr2fOqcFMHc89CyWqI2TU2ev6w=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sl@firefox.mozilla.org.xpi": "sha512-Oam5kQmFK1yaasIeDgxw40TLZEKQMZFjSYKxz5SK5sXpPd2soIgfi5vNGIGfwmcR2/hqKxEOcjmPwUYL5T4iKQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sl.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sl.xpi",
+          "version": "153.0.1"
         },
         "son": {
-          "hash": "sha512-qVo0+/Z/40vZGyAldbIZqsaShmmYeaGuF1xpvPl1tqD7A/SLk4vKDlDwvazZLJ/43VSEBHisCpNG2j9EcLUslA==",
+          "hash": "sha512-rDGk9zPQyjdPNrJNdD01WGg4eTyBkhYF9XUyfR+uLY9nUoOuCTD7U47QCDoN1+MhCXaakjAfiolxPvzC6Pac6g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-son@firefox.mozilla.org.xpi": "sha512-1dhhWQznMwrBCx9yJ1rp6RIy4YtnoU9mxqp4MkHxLT/joniuXPj0vffS9gdCxYaaAU54HBfaxOR8VnZFxDjsPA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-son@firefox.mozilla.org.xpi": "sha512-jWdbyNFhLkcSmQcanzdyVzhjzMJrY7n3a8MS676OTl6aWySgJa/QM71FtadGuVVEZUpH9wE896PX/YltMNeamw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/son.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/son.xpi",
+          "version": "153.0.1"
         },
         "sq": {
-          "hash": "sha512-TpzAadWYvvj1ULKjiV6tflf/GANTIuu9IUqk10KWHG4Q7gaM4LVg4nJrQgk+7VzlJfEWAedbwox/846Mm26RWQ==",
+          "hash": "sha512-v0IQdqV3JvgxAyY5rzh+/vCdseKgCqRFxGcMhxq4TEtf3CwESq3VlQCpv+4MkC2FzE77q3j3lpRF5IeNu5/0pw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sq@firefox.mozilla.org.xpi": "sha512-jyYmfPLdxnj/lg260E5kF0smlfaWh8d5aFwf6lX62/CNgvB+lHm4QEmV48rtMPx6cxaE1QsIjQkLVwO/JY2NcA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sq@firefox.mozilla.org.xpi": "sha512-ImMyDFuFjDeXnaYyctRiM/QjdzozB97F5aHq0dCL4F/bNGMGnel0gctQ/5FV8cLumCaAOlVTGpDYp5064D4blg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sq.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sq.xpi",
+          "version": "153.0.1"
         },
         "sr": {
-          "hash": "sha512-RbW8dVz7Kcc66bQ+SAKB3QW/vGeT1Qm7UzCOxfjMHiEy9D9fx0cvqqL1QWgE/+Fc3Ey29WdYISo8LtXa+kgnSg==",
+          "hash": "sha512-y4kPTHh55KPk4KtPn+DNXzAqJPOIC7SunOJNJhSNMIZ96TMmBBcvBM5rycntPSs0LTWcsshj/ws27Xl9NMhhKQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sr@firefox.mozilla.org.xpi": "sha512-+ygQctnZcKDFYnCgm4df46+5znGCt2rY2cE5MC4QKZax+xXrW1jb6U+leUa7Sew43Fl65iA0AmG3KZxO7fuJNw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sr@firefox.mozilla.org.xpi": "sha512-vel+Re0Vpf9e/1tRJfHIBK4zq8i5xdQjgSh6uk0SBxgapaT4VIfQ+vHu9/rso5cN4x9yJr21AwiU5ZJjJrCL6g=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sr.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sr.xpi",
+          "version": "153.0.1"
         },
         "sv-SE": {
-          "hash": "sha512-rjahOd2RniAtqfGrf/jsI1eafyQ9uICgHFFX2Gr1NE9i3Up2ajAi2PHPq2BSte0u8wyAXCEbBwW8n6JQN93zJQ==",
+          "hash": "sha512-qSWpqSgXhZoiVk07nSM3FZF0v19IDob4PX0x9VBtjh8jAZkNPfBkwKI8ihRAR7dI13H2YsMUDRCt8ILiQdZ1zg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sv-SE@firefox.mozilla.org.xpi": "sha512-bMKtUdhK23cIS4Yg6BRYa/HXPAA+aEbVcMrDOtzB9gTBDUV4uHyqlw+UUfK02g0bimgqifI/on12cCH/VGrCcw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-sv-SE@firefox.mozilla.org.xpi": "sha512-HUJ+0Nysy6vkQ8mPA2s2nt4ASfnY3YUCB65IKhzNpOtpWQ19JX/rRXC1Mrb8koJiu+APxmwuTkvEoYlW7yy/iw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/sv-SE.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/sv-SE.xpi",
+          "version": "153.0.1"
         },
         "szl": {
-          "hash": "sha512-w0CcW+E2eujox1NrcFwGmvRW8IkgH85JvbG27lAAcpKklZW0cdRnX74a0SimJ4NV3GDf+IctlB/wirJzXWcAPw==",
+          "hash": "sha512-HpM2RQOP/2x9Wp52VAo2OjAKtOBeQr6Xc4jfIFdPvI1ESL5KtXBsaNjBvsKTRxORV4TTs4zwSbqZJxH+1iUj0Q==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-szl@firefox.mozilla.org.xpi": "sha512-YUGst+OvMIz5NWL2C3Gj0dRyzo6Ebn9QFNQwi+mZFXVp2Byu8q2e67wqFSSI+QSRcs1fy6g/hJTmU+3mILNP6A=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-szl@firefox.mozilla.org.xpi": "sha512-AGB6SOR+fMi8hvw7VIwr6CivszdYm6kKGxbztuSkFnd/25HCBtk4VOV9X41BoGuENUGMJgeBBqljZgao9+sf9w=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/szl.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/szl.xpi",
+          "version": "153.0.1"
         },
         "ta": {
-          "hash": "sha512-c/vsGM+nxW9ZVc9PGqIV4qv4fW1NXf1GmASFMTrpoLQ7vygWfkNN8kI6eUkopfbMzjsFN1RaT9M91EaxH4/3Kg==",
+          "hash": "sha512-XrS5QSjeE6uqayrAN3DjKRByK7J63NusemOOyLjjrYhpOT1Yntti1zuMT6bL6mBNJ/GA2Ov8xKy/ClJ/qDWIHQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ta@firefox.mozilla.org.xpi": "sha512-Bn5cFi9XkmvBMAaXtYKQFvlXQSc3q4hYR6pqasNhpl4Rgks447ek7kVhGXZxaXTjcPUhQa6PkCQ/dL4BHy/vuw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ta@firefox.mozilla.org.xpi": "sha512-BHbA1KgWhlmRyRikChB1ZGZ3lxaXhOGe+hIJF6HKv/9ekOLRtz6haN/bx+nVpqtAZbROqpDf2xt4lTqJGylgdA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ta.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ta.xpi",
+          "version": "153.0.1"
         },
         "te": {
-          "hash": "sha512-bThMgxGglkk0jaoxqB/MFjAhOtcmkwBKNx1PbT5KBJHPBBj9xTDerfbEIxhdD+l0gVxDSqdr+tlf/9wSYbSNFA==",
+          "hash": "sha512-qYWQr4BSahwrQkzLYXIgJmM5MclQYoQoTzRl3MAI3REvQGbCuir5EC+v1nGG6myI4++qZbkdD/VuETL6UIJ28Q==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-te@firefox.mozilla.org.xpi": "sha512-i26J4ua8YgorV+3Nyg1wZOwoW1KirnfqMGybZYOZ/ui//BKK9z4ZTYWAC7Q6aTi+MokCuLVbmd6w8WXsAbAr+g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-te@firefox.mozilla.org.xpi": "sha512-Y1oQxa6TcoeskFjtMrYmYzJjbHAvU+t0kFj+f9EkeJ3ebJmsppSSz9LdfGTLJqKj75m1vyUvQC/f6JWzCRvIyA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/te.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/te.xpi",
+          "version": "153.0.1"
         },
         "tg": {
-          "hash": "sha512-3gYVixjk/LmevXPN3gjSX/3ktELqz1FZj5hPcAntfiUNQ2j8a5NAxgBm0xl7r1LOxI0hl9hdQwI0uF782NfRHg==",
+          "hash": "sha512-1YnsGFwnDnEGIc7eEUP4Dwc53BStcHDBaxRswanmjRRmAEEmtOy3tGc04KVWeDrQ743/YsE9Gmaw654mkFB6yA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-tg@firefox.mozilla.org.xpi": "sha512-b5pNgagrsJNGlnRA6bO2G6yxifO3CzIpy0b2Tv93nMV3wsB+e7bEDK9lKxKan5lKNEV7VJSAqxErfA0fC4hpMg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-tg@firefox.mozilla.org.xpi": "sha512-ajzO56QEBOWWORMczyw89E/Eg3Ry3kztfLNjUYUSv/ApSitoP3KRPXX7zx6t86zyWfylU8/n73lfi3PLIWDdXA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/tg.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/tg.xpi",
+          "version": "153.0.1"
         },
         "th": {
-          "hash": "sha512-EuF60LD488PStVyRFg2F6b3/nJmFLopHZSWeXUdcJxOXAcErLuIlIU/iIAssLKvSM6HKfuidBzBlgBhDGG3hOw==",
+          "hash": "sha512-zTqNWblSZiupKkhjIVEkXWLMYOdplOxqGTjZ37sQ5Qc9o+v/2cL/rpwRgPOw8sfc7FrOlNyKFNhznsO8wUFBhw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-th@firefox.mozilla.org.xpi": "sha512-YLOo7jp1WpelkNgtExmlf7Q6TOf/AUJpIvQH7+yeD5w8JX8N2MK3G4lJp8/EYkkD859OdY/VvdRnC3dO1hH1VA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-th@firefox.mozilla.org.xpi": "sha512-KudsiISiR9wFr5Xk6XLFvcE03XPbQw7W494VIoR4UTuGeDNOd5Lnlx8LzCPYmdbefv1m0LZM68eUxrRlJjhNaQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/th.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/th.xpi",
+          "version": "153.0.1"
         },
         "tl": {
-          "hash": "sha512-GrYYbFLNFgD4pPL5I8CZBAFyBei7HIsNIZe0cHQKoXByGsSQWuCpWvLAq6yvV9a4mM7197b/V7rhkUetO4CVNg==",
+          "hash": "sha512-Pylz1J9fTkufhooorJXmF2MPdIuKMkyIT5WLXd+RPU74YfpPeKMisbU+tU9E6WLW8ZOhh+WGEd8hG/F3W2lg4g==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-tl@firefox.mozilla.org.xpi": "sha512-ivk6DruxD1bsJx3xy9kkUKWf35oTvXpp4MH5CVB2Cshzqx/02jrueL6UHO9HDy1k2M9AU+WPqKSNrhx6Fp3u/Q=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-tl@firefox.mozilla.org.xpi": "sha512-6cQTb8nCk+riXFrzA1KYXCORfWoNumTA3s32QR4w8POsttTvkVcyLkS7YL+vGZky28mWBIuojeozK5f3PGkdYQ=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/tl.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/tl.xpi",
+          "version": "153.0.1"
         },
         "tr": {
-          "hash": "sha512-w6Q7pRvbc5pHnErsA9+7eXNNusE1cqdVi8Ahy91gR4gVTiJukuoCVtV8DuSorsxJzmFEdldsrcFtli3a30bzuQ==",
+          "hash": "sha512-H00DcvhWwUR4RyVpLZTurTgjkArRf8fdOK98HXUNkBR9kevZP9sKEC58ynmsLKN1nzXIjWq6dEgLA5rsCnQs/A==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-tr@firefox.mozilla.org.xpi": "sha512-ovxw9BmnNcUF2HuRXDULaQ+GOixWgLaSSuEaArGA0UJbizPleus/T1Lo6yn2A/rm0w5K86tMxtaRtcmAWIgWFA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-tr@firefox.mozilla.org.xpi": "sha512-oiKC6SFAXHpk0Ei5p3RidHn1kDu7mmw3gTgC9k9pEm/bGs+Ee4g6LmGOvEMTtfP27vzfWuCpwKkOoTsFDnRsvA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/tr.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/tr.xpi",
+          "version": "153.0.1"
         },
         "trs": {
-          "hash": "sha512-LAvvu6k49J3W6MZ+kg5MSbQQsdoCkiad9Uy4tFY2tMQ1up2L7xDwlPFSnyEzYbcRmiIV0b1FxXjdqHu6nq1TLw==",
+          "hash": "sha512-fxarsL4eHwcAqFb8rMsfcyMhkkwIIDEAqXXbTGPIRMXR1Tvuo+J/IXWyPEAASlR4JAlJonysCAk0TdKRY8bing==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-trs@firefox.mozilla.org.xpi": "sha512-PKKtyjhBZiWZegXP51mPcFg6d9TNF5rx+EaleWE64tLNXps08pGLnMxRmYCi+gv0fimbHzkqaZitzYvqhUdP2g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-trs@firefox.mozilla.org.xpi": "sha512-xy+PvNt1PVlbFhLFmEOYLxhS6/YqtmXpAX0jmBAJGCZh6ggAXV3Eqsr/3F+skLQi52jJHZj66mBkYPkZws+Bsw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/trs.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/trs.xpi",
+          "version": "153.0.1"
         },
         "uk": {
-          "hash": "sha512-vyJJZ3fnDhZsJldx2fwnbkRnbB+rWoDU/N8zga3hiIyGtP1jUVPt8iqRfPIRmROHoYGAYUiPDCudxj9BTt4Hzw==",
+          "hash": "sha512-R3T/uLq4norb1VgY7j4+VpnrISTbJ41hBc2+9HPuphxsBaJihA4HCifO/V1dxkPQyo9GcDQ4eKeM0RSQ9AGZMQ==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-uk@firefox.mozilla.org.xpi": "sha512-F/3OK7tyEPLMqFU9qZj/cGBAVYTHkxD2AJ2QdxK9sT3KGhrJ5Ff3FzKFkqMGlDZkZ+q/vnv8XVWPeXEwBkLEtA=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-uk@firefox.mozilla.org.xpi": "sha512-tHs41Nk1zzwvy0b7WIJD4ltLJua6T9aCCbol9kZib7ah1mSPaQ7G+4HrZLheS2QeyQjQQLPRTJmnV7Cm+KdgJA=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/uk.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/uk.xpi",
+          "version": "153.0.1"
         },
         "ur": {
-          "hash": "sha512-YAAQ0vQqNrTpR9Lgctt7Zcm17Sv2f3BhMeha18OckuRvhM5rs/IcS4CQkg1Ezi6jy9ghkSKUi612AHu6tgDYPw==",
+          "hash": "sha512-te8+ib5oqHyKqEAKlsUJWOWlNEBEHqK34rzw6nLDMm3mXYD+Cnmzu/gljhRunsEWlhVytTgaT60eByCckAUlcw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ur@firefox.mozilla.org.xpi": "sha512-V7GG+xtg79SfXqa3iMelnKzJNH/HYnzJLw5K429LsgvXrSGlDJoagfnXzRIJvNv+swCGYHXHqbynCYdgcRl8vw=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-ur@firefox.mozilla.org.xpi": "sha512-XIwNfQ69PO7GcdMOc62D9LGiTynkVGhwtYhcbarcxlc25X2H7vP3SLa8nTujpOGylv13804n7vbw8s76Aqhtew=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/ur.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/ur.xpi",
+          "version": "153.0.1"
         },
         "uz": {
-          "hash": "sha512-YJtka9sd2nOUi8Dul11/z/PXlXlcjV7ZixNaPB24pswnqJphjOWwTVheljUFEQ0b0oOMAHwt/2rR5iMiMPenyg==",
+          "hash": "sha512-20yp1NfKUt5YiJ6Bfb9461PXHmseYyjwDTLDCLwfI9b8OE3ONesFsaiTvX7mclWckCwhBKx24rlcIZcmwnOjWA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-uz@firefox.mozilla.org.xpi": "sha512-pvvfSM+3zdizg1NPA5nyB9/02W16lGnR1BYe2BTNRpcMBuagdmNXKVHu1/JS8Ev7LkGCyamMslGXextpWmm6Yg=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-uz@firefox.mozilla.org.xpi": "sha512-0F78fFMMOEsHM5K4EEiwg2xfuDopjIlcRquJ9H7AdrdczZI3CCYdjCrUevFrKMdfU6AiUq5Cv9XG+XCBr/3t7Q=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/uz.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/uz.xpi",
+          "version": "153.0.1"
         },
         "vi": {
-          "hash": "sha512-DkfWfCFWjDNKa+7XgYJmUyG3J6U0valh6ixNSWa1yZiGXPLcXbYPi/cJKJsed1r6lz0lfZMJo44OZdxEqcs8Lw==",
+          "hash": "sha512-VL3D0Jj7inyRlv6nIHv2D6dnO/CyPJrX9ypoyqCFMeJiL2AQaU1r5JateYaRdk2kMZ/4CjNjUk1AvdZGsrkBaA==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-vi@firefox.mozilla.org.xpi": "sha512-OGdxdiGk+90tf2Wp0EIqjB0ltJJ495F+UGWkuuzWjrPwDAWcOxvlMl03FpAr8jrfogapzLRhmkJC9s8u8bN09g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-vi@firefox.mozilla.org.xpi": "sha512-vf+6qLtR3K0rj9O/eWBQhoR8UnJ7smZc54UGlm68nQgMCHmaspxnKdVYaCMLiGrbJAvk9BX2BtnhG5KUkOLW5A=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/vi.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/vi.xpi",
+          "version": "153.0.1"
         },
         "xh": {
-          "hash": "sha512-Sg1NEsCcbbuhbr0G2tUcUQGYJhH7tRkNgg4+NWVaFnCgLg10OsvFIqotmeoTEGJIk8PqxFrjyeQmbT3/mrjYlA==",
+          "hash": "sha512-CbwrmTKyI7aNZhEVWqLDPMlV6v64yCZ14skflnMJhYAiH8XFirxhm8wy03XB4TxnbuosTimfUMI7Tibx/uruGw==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-xh@firefox.mozilla.org.xpi": "sha512-w/ZhS/6A+ydriq1exQBefrsJJltHBQFNZhGdRtVLpz2+tccwAwUjZlY0VYZBkGxFxv6h8bk24NjrcOetgDMkVQ=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-xh@firefox.mozilla.org.xpi": "sha512-nZmzQgoQlcCZXvCg+1FMg+SQk3007Wzd0aPy7vv05rzIoOM7CCpF12d29jynuEwMShdwUppWUbjNB7xbfBujpg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/xh.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/xh.xpi",
+          "version": "153.0.1"
         },
         "zh-CN": {
-          "hash": "sha512-sTnTLqgBQ/BzZa747iiXkO/4qI5YavDuL0ZiXwq4V60yHvWH42Na0AlgQnmwPcDb63I1bTb02L7DoOTAAH/b6Q==",
+          "hash": "sha512-ANQRPFDlyyUVmYB3CcAuI/WhaUsjAkTAjaoW0+r1jHZiNR5mQ9AzGR0l0huc6+6TF4/HrSESiOrebdTnKOc3gg==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-zh-CN@firefox.mozilla.org.xpi": "sha512-QmQAm95HV4XntmNpInMfdh3aOlXLuFpxG4xr/XLBAVxBFZHjIReZz+5Rrx9aJsfSbfohK8Z7L91fU4dZzByh2g=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-zh-CN@firefox.mozilla.org.xpi": "sha512-wCJlJdSiN1i9VLjPodeH/PmgMXS5gTdc/tBkE9KYKgAOwDVTVdM2XyvQQpj/0NSL452D3wY6UY0hcRol+3PxMw=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/zh-CN.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/zh-CN.xpi",
+          "version": "153.0.1"
         },
         "zh-TW": {
-          "hash": "sha512-BG5bJX4yvSbXRzA7bGt++pVUh7tQPQzTY1+hCQSKUbnm5Ry/8uFQGCrfew2y1YRYQtHsmK05Zm7bH6j1TNcVWg==",
+          "hash": "sha512-s/wVd28SOFi/wUsZdHmf6onbOHw+119adtlXsgNpfWPvdiISiFMJQGb2exfRnlrAcwgyeiio3kn7pIFbx2vx1A==",
           "narHash": {
-            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-zh-TW@firefox.mozilla.org.xpi": "sha512-cpAsCyy8Jo7pKfEFs5F+xw3LYJgU4lztF5P4nEY4aKLzfL0JxyVTzrqzJakdeuqo/WdoQCsIEi5MF5LITpmy1w=="
+            "share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/langpack-zh-TW@firefox.mozilla.org.xpi": "sha512-lR0w2gap+4LfXbtn+1i21aSEQe8WbSvPet96kTTfSRXz6PbTHeVZxnThX6HBU+sdzNYV7EuFJaCuLuCZzsbfAg=="
           },
-          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0/linux-x86_64/xpi/zh-TW.xpi",
-          "version": "153.0"
+          "url": "https://archive.mozilla.org/pub/firefox/releases/153.0.1/linux-x86_64/xpi/zh-TW.xpi",
+          "version": "153.0.1"
         }
       }
     },
