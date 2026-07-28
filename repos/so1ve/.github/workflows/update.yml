@@ -1,15 +1,9 @@
-name: Update
+name: Update Packages
 
 on:
   schedule:
     - cron: "0 0 * * *"
   workflow_dispatch:
-    inputs:
-      force_release:
-        description: Create a new packaging revision even when the sources are unchanged
-        required: false
-        default: false
-        type: boolean
 
 permissions:
   contents: write
@@ -22,10 +16,8 @@ jobs:
   prepare:
     runs-on: ubuntu-24.04
     outputs:
-      base: ${{ steps.release.outputs.base }}
-      changed: ${{ steps.release.outputs.changed }}
-      should_release: ${{ steps.release.outputs.should_release }}
-      version: ${{ steps.release.outputs.version }}
+      base: ${{ steps.changes.outputs.base }}
+      changed: ${{ steps.changes.outputs.changed }}
     steps:
       - uses: actions/checkout@v7
         with:
@@ -33,62 +25,36 @@ jobs:
           ref: ${{ github.event.repository.default_branch }}
       - uses: cachix/install-nix-action@v31
 
-      - name: Update AB Download Manager
-        run: nix run .#update-ab-download-manager
-
-      - name: Determine release
-        id: release
+      - name: Update packages
         env:
-          FORCE_RELEASE: ${{ inputs.force_release }}
-          GH_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: nix run .#update
+
+      - name: Detect updates
+        id: changes
         run: |
-          version="$(jq --raw-output .version pkgs/ab-download-manager/sources.json)"
-          force_release="${FORCE_RELEASE:-false}"
+          echo "base=$(git rev-parse HEAD)" >>"$GITHUB_OUTPUT"
 
-          if git diff --quiet -- pkgs/ab-download-manager/sources.json; then
-            changed=false
+          if git diff --quiet HEAD --; then
+            echo "changed=false" >>"$GITHUB_OUTPUT"
+            echo "All packages are up to date." >>"$GITHUB_STEP_SUMMARY"
           else
-            changed=true
+            echo "changed=true" >>"$GITHUB_OUTPUT"
+            git diff HEAD --stat >>"$GITHUB_STEP_SUMMARY"
+            git diff HEAD --binary --full-index >"$RUNNER_TEMP/package-updates.patch"
           fi
 
-          has_release=false
-          while IFS= read -r existing_tag; do
-            if gh release view "$existing_tag" >/dev/null 2>&1; then
-              has_release=true
-              break
-            fi
-          done < <(git tag --list "ab-download-manager-v${version}-*")
-
-          if [[ "$changed" == true || "$has_release" == false || "$force_release" == true ]]; then
-            should_release=true
-          else
-            should_release=false
-          fi
-
-          {
-            echo "base=$(git rev-parse HEAD)"
-            echo "version=$version"
-            echo "changed=$changed"
-            echo "should_release=$should_release"
-          } >>"$GITHUB_OUTPUT"
-
-      - name: Save updated sources
-        if: steps.release.outputs.should_release == 'true'
+      - name: Save package updates
+        if: steps.changes.outputs.changed == 'true'
         uses: actions/upload-artifact@v7
         with:
-          name: updated-sources
-          path: pkgs/ab-download-manager/sources.json
+          name: package-updates
+          path: ${{ runner.temp }}/package-updates.patch
           if-no-files-found: error
           retention-days: 1
 
-      - name: Report no update
-        if: steps.release.outputs.should_release != 'true'
-        env:
-          VERSION: ${{ steps.release.outputs.version }}
-        run: echo "AB Download Manager v$VERSION is already released." >>"$GITHUB_STEP_SUMMARY"
-
   validate:
-    if: needs.prepare.outputs.should_release == 'true'
+    if: needs.prepare.outputs.changed == 'true'
     needs: prepare
     name: Validate ${{ matrix.system }}
     strategy:
@@ -106,12 +72,17 @@ jobs:
           ref: ${{ needs.prepare.outputs.base }}
       - uses: actions/download-artifact@v8
         with:
-          name: updated-sources
+          name: package-updates
+          path: ${{ runner.temp }}/package-updates
+      - name: Apply package updates
+        run: git apply "$RUNNER_TEMP/package-updates/package-updates.patch"
       - uses: cachix/install-nix-action@v31
-      - run: nix flake check --print-build-logs
+      - uses: ./.github/actions/build-packages
+        with:
+          system: ${{ matrix.system }}
 
   publish:
-    if: ${{ always() && needs.prepare.outputs.should_release == 'true' && needs.validate.result == 'success' }}
+    if: ${{ always() && needs.prepare.outputs.changed == 'true' && needs.validate.result == 'success' }}
     needs:
       - prepare
       - validate
@@ -123,41 +94,17 @@ jobs:
           ref: ${{ needs.prepare.outputs.base }}
       - uses: actions/download-artifact@v8
         with:
-          name: updated-sources
+          name: package-updates
+          path: ${{ runner.temp }}/package-updates
+      - name: Apply package updates
+        run: git apply "$RUNNER_TEMP/package-updates/package-updates.patch"
 
-      - name: Commit updated sources
-        if: needs.prepare.outputs.changed == 'true'
+      - name: Commit package updates
         env:
           DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
-          VERSION: ${{ needs.prepare.outputs.version }}
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add pkgs/ab-download-manager/sources.json
-          git commit --message "ab-download-manager: update to $VERSION"
+          git add --update
+          git commit --message "packages: update"
           git push origin "HEAD:$DEFAULT_BRANCH"
-
-      - name: Create tag and GitHub Release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ needs.prepare.outputs.version }}
-        run: |
-          git fetch --force --tags origin
-          maximum_revision=0
-
-          while IFS= read -r existing_tag; do
-            revision="${existing_tag##*-}"
-            if [[ "$revision" =~ ^[0-9]+$ ]] && (( revision > maximum_revision )); then
-              maximum_revision="$revision"
-            fi
-          done < <(git tag --list "ab-download-manager-v${VERSION}-*")
-
-          tag="ab-download-manager-v${VERSION}-$((maximum_revision + 1))"
-          target="$(git rev-parse HEAD)"
-
-          gh release create "$tag" \
-            --target "$target" \
-            --generate-notes \
-            --title "$tag"
-
-          echo "Released $tag from $target." >>"$GITHUB_STEP_SUMMARY"

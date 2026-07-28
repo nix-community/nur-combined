@@ -1,6 +1,7 @@
 {
   alsa-lib,
   autoPatchelfHook,
+  callPackage,
   fetchurl,
   fontconfig,
   freetype,
@@ -25,16 +26,21 @@ assert lib.assertMsg (
 
 let
   release = builtins.fromJSON (builtins.readFile ./sources.json);
+  mkGitHubReleaseUpdater = callPackage ../../tools/github-release-updater { };
   source =
     release.sources.${stdenv.hostPlatform.system}
       or (throw "ab-download-manager: unsupported system ${stdenv.hostPlatform.system}");
+  updater = mkGitHubReleaseUpdater {
+    name = "ab-download-manager";
+    config = ./update.json;
+  };
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
   inherit (release) version;
 
   src = fetchurl {
-    url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/ABDownloadManager_${finalAttrs.version}_linux_${source.arch}.tar.gz";
+    url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/${source.asset}";
     inherit (source) hash;
   };
 
@@ -87,7 +93,9 @@ stdenv.mkDerivation (finalAttrs: {
       makeWrapper \
         "$out/opt/ab-download-manager/bin/$program" \
         "$out/bin/$program" \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fontconfig ]}"
+        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fontconfig ]}" \
+        --set-default FONTCONFIG_FILE "${fontconfig.out}/etc/fonts/fonts.conf" \
+        --run 'export _JAVA_OPTIONS="''${_JAVA_OPTIONS:+$_JAVA_OPTIONS }-Djpackage.app-path=$0"'
     done
 
     install -Dm444 \
@@ -100,11 +108,11 @@ stdenv.mkDerivation (finalAttrs: {
     Type=Application
     Name=AB Download Manager
     Comment=Manage and accelerate downloads
-    Exec=ABDownloadManager %U
+    Exec=ABDownloadManager
     Icon=com.abdownloadmanager
     Categories=Network;FileTransfer;
     Terminal=false
-    StartupNotify=true
+    StartupWMClass=com-abdownloadmanager-desktop-AppKt
     EOF
 
     install -Dm444 /dev/stdin \
@@ -124,9 +132,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    inherit uiScale;
+    inherit uiScale updater;
     upstreamSources = release.sources;
-    updateScript = ./update.sh;
+    updateScript = lib.getExe updater;
   };
 
   meta = {

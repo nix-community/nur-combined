@@ -17,12 +17,6 @@ nix run github:so1ve/nur-packages#ab-download-manager
 nix profile install github:so1ve/nur-packages#ab-download-manager
 ```
 
-The command-line client can be run with:
-
-```bash
-nix run github:so1ve/nur-packages#ab-download-manager-cli
-```
-
 ## Home Manager
 
 With NUR:
@@ -79,12 +73,8 @@ environment.systemPackages = [
 
 ## Update
 
-From the repository root:
+Update every package from the repository root:
 
 ```bash
-nix run .#update-ab-download-manager
-nix run .#update-ab-download-manager -- 1.10.2
+nix run .#update
 ```
-
-Release tags use the form
-`ab-download-manager-v<version>-<packaging-revision>`.

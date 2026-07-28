@@ -1,0 +1,30 @@
+name: Build flake packages
+description: Build every package exposed for one system
+
+inputs:
+  system:
+    description: Flake system to build
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Build packages
+      shell: bash
+      env:
+        SYSTEM: ${{ inputs.system }}
+      run: |
+        package_names="$(
+          nix eval --raw ".#packages.$SYSTEM" \
+            --apply 'packages: builtins.concatStringsSep "\n" (builtins.attrNames packages)'
+        )"
+
+        if [[ -z "$package_names" ]]; then
+          echo "No packages found for $SYSTEM" >&2
+          exit 1
+        fi
+
+        while IFS= read -r package; do
+          echo "Building $package for $SYSTEM"
+          nix build ".#packages.$SYSTEM.$package" --print-build-logs
+        done <<<"$package_names"

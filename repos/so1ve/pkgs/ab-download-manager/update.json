@@ -1,0 +1,14 @@
+{
+  "name": "AB Download Manager",
+  "repository": "amir1376/ab-download-manager",
+  "tagPrefix": "v",
+  "output": "pkgs/ab-download-manager/sources.json",
+  "systems": {
+    "x86_64-linux": {
+      "asset": "ABDownloadManager_{version}_linux_x64.tar.gz"
+    },
+    "aarch64-linux": {
+      "asset": "ABDownloadManager_{version}_linux_arm64.tar.gz"
+    }
+  }
+}

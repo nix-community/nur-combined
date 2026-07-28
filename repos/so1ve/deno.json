@@ -1,0 +1,6 @@
+{
+  "tasks": {
+    "check": "deno fmt --check deno.json tools/**/*.{ts,md} pkgs/**/update.json && deno lint tools/**/*.ts && deno check tools/**/*.ts",
+    "fix": "deno lint --fix tools/**/*.ts && deno fmt deno.json tools/**/*.{ts,md} pkgs/**/update.json"
+  }
+}

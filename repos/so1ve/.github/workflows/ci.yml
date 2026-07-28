@@ -16,11 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
-      - run: nix develop --command shellcheck pkgs/ab-download-manager/update.sh
+      - run: nix develop --command deno task check
       - run: nix develop --command actionlint
 
-  check:
-    name: Check ${{ matrix.system }}
+  build:
+    name: Build ${{ matrix.system }}
     strategy:
       fail-fast: false
       matrix:
@@ -33,4 +33,6 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
-      - run: nix flake check --print-build-logs
+      - uses: ./.github/actions/build-packages
+        with:
+          system: ${{ matrix.system }}
