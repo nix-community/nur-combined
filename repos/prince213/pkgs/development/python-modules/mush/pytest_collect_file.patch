@@ -1,0 +1,11 @@
+--- a/docs/conftest.py
++++ b/docs/conftest.py
+@@ -17,6 +17,6 @@
+ ).pytest()
+ 
+ 
+-def pytest_collect_file(parent, path):
++def pytest_collect_file(file_path, parent):
+     if not PY2:
+-        return sybil_collector(parent, path)
++        return sybil_collector(file_path, parent)

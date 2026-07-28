@@ -1,0 +1,20 @@
+--- a/docs/conftest.py
++++ b/docs/conftest.py
+@@ -2,7 +2,7 @@
+ 
+ from sybil import Sybil
+ from sybil.parsers.capture import parse_captures
+-from sybil.parsers.codeblock import CodeBlockParser
++from sybil.parsers.codeblock import PythonCodeBlockParser
+ from sybil.parsers.doctest import DocTestParser
+ 
+ from mush.compat import PY2
+@@ -10,7 +10,7 @@
+ sybil_collector = Sybil(
+     parsers=[
+         DocTestParser(optionflags=REPORT_NDIFF|ELLIPSIS),
+-        CodeBlockParser(),
++        PythonCodeBlockParser(),
+         parse_captures,
+     ],
+     pattern='*.txt',

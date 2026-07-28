@@ -1,0 +1,7 @@
+--- a/mush/tests/conftest.py
++++ b/mush/tests/conftest.py
+@@ -10,2 +10,2 @@
+-def pytest_ignore_collect(path):
+-    if 'py3' in path.basename and PY2:
++def pytest_ignore_collect(collection_path):
++    if 'py3' in collection_path.name and PY2:

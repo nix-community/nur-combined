@@ -1,0 +1,39 @@
+--- a/mush/compat.py
++++ b/mush/compat.py
+@@ -9,6 +9,10 @@
+     from functools import partial
+     from inspect import getargspec, ismethod, isclass, isfunction
+-
++
++    def get_annotations(obj):
++        annotations = getattr(obj, '__annotations__', None)
++        return {} if annotations is None else annotations.copy()
++
+     class Parameter(object):
+         POSITIONAL_ONLY = Marker('POSITIONAL_ONLY')
+         POSITIONAL_OR_KEYWORD = kind = Marker('POSITIONAL_OR_KEYWORD')
+@@ -64,7 +68,12 @@
+         return sig
+-
++
+ else:
+     PY2 = False
+-    from inspect import signature
+-
++    from inspect import get_annotations as inspect_get_annotations, signature
++
++    def get_annotations(obj):
++        if not hasattr(obj, '__annotations__') and not hasattr(obj, '__annotate__'):
++            return {}
++        return inspect_get_annotations(obj)
++
+ NoneType = type(None)
+--- a/mush/declarations.py
++++ b/mush/declarations.py
+@@ -8 +8 @@
+-from .compat import NoneType, signature
++from .compat import NoneType, get_annotations, signature
+@@ -280,2 +280 @@
+-    annotations = getattr(obj, '__annotations__', None)
+-    annotations = {} if annotations is None else annotations.copy()
++    annotations = get_annotations(obj)
