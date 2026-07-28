@@ -1,8 +1,6 @@
 {
   alsa-lib,
   autoPatchelfHook,
-  callPackage,
-  fetchurl,
   fontconfig,
   freetype,
   lib,
@@ -14,6 +12,7 @@
   libXtst,
   libxkbcommon,
   makeWrapper,
+  source,
   stdenv,
   uiScale ? null,
   wayland,
@@ -24,25 +23,9 @@ assert lib.assertMsg (
   uiScale == null || ((builtins.isInt uiScale || builtins.isFloat uiScale) && uiScale > 0)
 ) "ab-download-manager: uiScale must be null or a positive number";
 
-let
-  release = builtins.fromJSON (builtins.readFile ./sources.json);
-  mkGitHubReleaseUpdater = callPackage ../../tools/github-release-updater { };
-  source =
-    release.sources.${stdenv.hostPlatform.system}
-      or (throw "ab-download-manager: unsupported system ${stdenv.hostPlatform.system}");
-  updater = mkGitHubReleaseUpdater {
-    name = "ab-download-manager";
-    config = ./update.json;
-  };
-in
 stdenv.mkDerivation (finalAttrs: {
   pname = "ab-download-manager";
-  inherit (release) version;
-
-  src = fetchurl {
-    url = "https://github.com/amir1376/ab-download-manager/releases/download/v${finalAttrs.version}/${source.asset}";
-    inherit (source) hash;
-  };
+  inherit (source) version src;
 
   sourceRoot = "ABDownloadManager";
 
@@ -132,9 +115,7 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   passthru = {
-    inherit uiScale updater;
-    upstreamSources = release.sources;
-    updateScript = lib.getExe updater;
+    inherit uiScale;
   };
 
   meta = {
@@ -143,7 +124,10 @@ stdenv.mkDerivation (finalAttrs: {
     changelog = "https://github.com/amir1376/ab-download-manager/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     mainProgram = "ABDownloadManager";
-    platforms = builtins.attrNames release.sources;
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
   };
 })

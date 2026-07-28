@@ -1,12 +1,19 @@
 {
   description = "Ray's personal NUR repository";
 
+  nixConfig = {
+    extra-substituters = [ "https://so1ve.cachix.org" ];
+    extra-trusted-public-keys = [
+      "so1ve.cachix.org-1:51jcW4FkJhiLcqPsiUx3nglRP469les8F9zjFxio1nw="
+    ];
+  };
+
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs =
     {
-      self,
       nixpkgs,
+      ...
     }:
     let
       systems = [
@@ -14,12 +21,7 @@
         "aarch64-linux"
       ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
-      pkgsFor =
-        system:
-        import nixpkgs {
-          inherit system;
-          overlays = [ self.overlays.default ];
-        };
+      pkgsFor = system: import nixpkgs { inherit system; };
       repositoryFor =
         system:
         import ./default.nix {
@@ -27,7 +29,6 @@
         };
     in
     {
-      overlays = import ./overlays;
       homeModules = import ./home-modules;
 
       legacyPackages = forAllSystems repositoryFor;
@@ -40,7 +41,13 @@
         system:
         let
           pkgs = pkgsFor system;
-          updatePackages = pkgs.callPackage ./tools/update-packages { } self.packages.${system};
+          updatePackages = pkgs.writeShellApplication {
+            name = "update-packages";
+            runtimeInputs = [ pkgs.nvfetcher ];
+            text = ''
+              nvfetcher -c ${./nvfetcher.toml} -o _sources "$@"
+            '';
+          };
         in
         {
           update = {
@@ -62,8 +69,8 @@
           default = pkgs.mkShellNoCC {
             packages = with pkgs; [
               actionlint
-              deno
               nixfmt-tree
+              nvfetcher
             ];
           };
         }

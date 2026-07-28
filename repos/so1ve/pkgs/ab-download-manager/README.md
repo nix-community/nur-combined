@@ -24,7 +24,7 @@ With NUR:
 ```nix
 {
   imports = [
-    pkgs.nur.repos.so1ve.modules.homeManager.ab-download-manager
+    inputs.nur.repos.so1ve.homeModules.ab-download-manager
   ];
 
   programs.ab-download-manager.enable = true;
@@ -57,24 +57,4 @@ programs.ab-download-manager = {
     installExtension = true;
   };
 };
-```
-
-## Overlay
-
-```nix
-nixpkgs.overlays = [
-  inputs.so1ve-nur.overlays.default
-];
-
-environment.systemPackages = [
-  pkgs.ab-download-manager
-];
-```
-
-## Update
-
-Update every package from the repository root:
-
-```bash
-nix run .#update
 ```

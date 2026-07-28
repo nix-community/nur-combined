@@ -10,7 +10,6 @@ let
     filter
     isAttrs
     listToAttrs
-    map
     ;
 
   reservedNames = [
@@ -19,7 +18,6 @@ let
     "homeModules"
     "lib"
     "nixosModules"
-    "overlays"
   ];
 
   isDerivation = value: isAttrs value && value ? type && value.type == "derivation";

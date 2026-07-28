@@ -28,7 +28,12 @@ jobs:
       - name: Update packages
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: nix run .#update
+        run: |
+          key_file="$RUNNER_TEMP/nvfetcher.toml"
+          trap 'rm -f "$key_file"' EXIT
+          umask 077
+          printf '[keys]\ngithub = "%s"\n' "$GITHUB_TOKEN" >"$key_file"
+          nix run .#update -- -k "$key_file"
 
       - name: Detect updates
         id: changes
@@ -77,6 +82,10 @@ jobs:
       - name: Apply package updates
         run: git apply "$RUNNER_TEMP/package-updates/package-updates.patch"
       - uses: cachix/install-nix-action@v31
+      - uses: cachix/cachix-action@v17
+        with:
+          name: so1ve
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
       - uses: ./.github/actions/build-packages
         with:
           system: ${{ matrix.system }}

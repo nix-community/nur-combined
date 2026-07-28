@@ -1,0 +1,17 @@
+[ab-download-manager-x86_64-linux]
+src.github = "amir1376/ab-download-manager"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/amir1376/ab-download-manager/releases/download/v$ver/ABDownloadManager_$ver_linux_x64.tar.gz"
+
+[ab-download-manager-aarch64-linux]
+src.github = "amir1376/ab-download-manager"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/amir1376/ab-download-manager/releases/download/v$ver/ABDownloadManager_$ver_linux_arm64.tar.gz"
+
+[r-maple-mono-nf-cn]
+src.github = "so1ve/maple-font"
+src.from_pattern = "v(.*)"
+src.to_pattern = "\\1"
+fetch.url = "https://github.com/so1ve/maple-font/releases/download/v$ver/RMapleMono-NF-CN.zip"
