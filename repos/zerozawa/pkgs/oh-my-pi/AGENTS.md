@@ -86,15 +86,20 @@ image processing, PTY, syntax highlighting, and shell operations.
 
 ### Build approach
 
-Uses `rustPlatform.buildRustPackage` but **overrides** `buildPhase` to
-run Bun's `build-native.ts` script instead of bare `cargo build`. This is
-necessary because the upstream napi-rs pipeline:
+Uses `rustPlatform.buildRustPackage` with the **default** `cargo build`
+(via `cargoBuildFlags = ["-p", "pi-natives"]`). No `buildPhase` override.
 
-1. Generates TypeScript declarations (`index.d.ts`, `loader-state.d.ts`)
-2. Normalizes the `.node` filename (`pi_natives.linux-x64-gnu.node` → `pi_natives.linux-x64-baseline.node`)
-3. Runs `gen-enums.ts` to fix ESM exports and const enums in `index.js`/`index.d.ts`
+**Background**: Upstream ≤17.1.5 used `build-native.ts` (napi-rs CLI) to
+build the addon. Upstream ≥17.1.6 migrated to `bazel-natives.ts` (Bazel
+build system) — see `BUILD.bazel` at repo root and `crates/pi-natives/`
+for the new crate location. Bazel is incompatible with the Nix sandbox
+(requires network for toolchain downloads), so we bypass it entirely
+and use bare `cargo build` + manual rename in `installPhase`.
 
-Using raw `cargo build` + manual rename would miss all three.
+The JS/TS loader files (`index.js`, `loader-state.js`, `index.d.ts`,
+`desktop.js`, `desktop.d.ts`, `embedded-addon.js`) are checked into
+`packages/natives/native/` in source and copied verbatim in `installPhase`.
+They do NOT need regeneration — `gen-enums.ts` is dev-only for API changes.
 
 ### Key attributes
 
@@ -103,30 +108,41 @@ Using raw `cargo build` + manual rename would miss all three.
 | `cargoHash` | `sha256-...` | Vendored crate tarballs (502 crates.io deps, zero git deps) |
 | `RUSTC_BOOTSTRAP` | `"1"` | Crate uses `#![feature(alloc_error_hook)]` |
 | `buildType` | `"ci"` | Uses upstream `[profile.ci]` (thin LTO, faster than fat LTO) |
-| `TARGET_VARIANT` | `null` | Auto-detect: AVX2 → modern/v3, else baseline/v2, ARM → native |
 | `dontStrip` | `true` | `.node` is a loaded binary addon, stripping may break it |
 | `doCheck` | `false` | Tests fail in sandbox (process session isolation) |
 
 ### x86_64 CPU variant
 
-`TARGET_VARIANT` 设为 `null`，让上游 `build-native.ts` 自动检测：
+Variant detection happens in `installPhase` via `/proc/cpuinfo`:
 - 构建机有 AVX2 → `modern`（`x86-64-v3`）
 - 无 AVX2 → `baseline`（`x86-64-v2`）
 - ARM64 → `native`
+
+At runtime, the loader (`loader-state.js`) tries `modern` first, then
+falls back to `baseline`. So producing `modern` on AVX2-capable build
+machines is fine — non-AVX2 CPUs will fall through to the `baseline`
+candidate (which won't exist and will error, but on AVX2 machines this
+isn't an issue).
 
 用户可通过以下方式覆盖：
 - `nixpkgs.config.gccArch = "x86-64-v4"`（nix.conf 的 `gccarch-x86-64-v4`）
 - 直接传 `RUSTFLAGS="-C target-cpu=x86-64-v4"` 或 `TARGET_VARIANT=baseline`
 
-之前硬编码 `TARGET_VARIANT=baseline` 已移除，因为 NUR 包的用户
-通常本地构建（不是 CI 缓存分发），自动检测能获得最优性能。
-需要缓存一致性的场景可以显式指定。
+`TARGET_VARIANT` env var is respected in the old `build-native.ts` but
+not used in the cargo-only path — variant is always determined by
+`/proc/cpuinfo` at install time.
 
 ### Hazards
-- **x86_64 baseline vs modern**: Upstream build-native.ts auto-detects
-  AVX2 support on the build host. Modern CPUs will fall back to baseline
-  at runtime (the loader tries `modern` first, then `baseline`).
+- **x86_64 baseline vs modern**: InstallPhase auto-detects AVX2 on the
+  build host. The loader tries `modern` first, then `baseline`. On a
+  non-AVX2 runtime machine loading a `modern`-only build, the loader
+  will fail to find a `baseline` variant — ensure the build machine has
+  AVX2 or force `baseline` via installPhase edit.
 - **aarch64**: No variant suffix — just `pi_natives.linux-arm64.node`.
+- **Bazel incompatibility**: Upstream ≥17.1.6 uses `bazel-natives.ts`
+  which requires Bazel. We bypass Bazel entirely with cargo build. If
+  upstream changes the Rust workspace structure again, the cargo build
+  may need `cargoBuildFlags` or `buildPhase` adjustments.
 
 ---
 
@@ -304,8 +320,11 @@ When bumping `version` from `X.Y.Z` to `A.B.C`:
   step 5 above — confirm the new versions don't break API compatibility
   or introduce new shared library dependencies not covered by
   `autoPatchelfIgnoreMissingDeps`.
-- **New generation scripts**: If upstream adds build steps before
-  `bun build --compile`, add them to `buildPhase`.
+- **Bazel migration**: Upstream ≥17.1.6 replaced `build-native.ts` with
+  `bazel-natives.ts`. If future versions change the build system again,
+  check whether `bazel build` or the old `cargo build` approach still
+  works. The cargo workspace still uses standard Cargo.toml at root and
+  `crates/pi-natives/`, so bare cargo build should continue to work.
 - **Bun version required changes**: If upstream bumps MIN_BUN_VERSION
   significantly (e.g., to 1.5), check if nixpkgs has caught up. If not,
   update the `substituteInPlace` values.
@@ -368,14 +387,16 @@ Expected when bumping versions. Follow the update checklist above.
 | `bun.lock` | Lockfile (binary) |
 | `Cargo.toml` | Rust workspace, patches, profiles |
 | `Cargo.lock` | 502 crates.io dependencies |
-| `crates/pi-natives/Cargo.toml` | cdylib crate definition |
+| `crates/pi-natives/Cargo.toml` | cdylib crate definition (was under packages/natives/ before 17.1.6) |
+| `BUILD.bazel` | Bazel build definitions (not used in Nix build — cargo build used instead) |
 | `packages/coding-agent/package.json` | omp bin, exports, types |
 | `packages/coding-agent/src/cli.ts` | Entrypoint, bun version check |
 | `packages/coding-agent/scripts/build-binary.ts` | Reference for compile flags and entrypoints |
 | `packages/coding-agent/scripts/bundle-dist.ts` | Creates dist/cli.js |
 | `packages/coding-agent/scripts/generate-docs-index.ts` | Docs index generation |
 | `packages/natives/package.json` | native addon wrapper package |
-| `packages/natives/scripts/build-native.ts` | napi-rs build script |
+| `packages/natives/scripts/bazel-natives.ts` | Bazel native build driver (bypassed — cargo used instead) |
+| `packages/natives/scripts/gen-enums.ts` | Dev-only TS enum generation (checked-in files used instead) |
 | `packages/natives/scripts/embed-native.ts` | Creates tar.gz archive for standalone binary (NOT used here) |
 | `packages/natives/native/loader-state.js` | Runtime addon resolution |
 | `packages/stats/package.json` | omp-stats entry |

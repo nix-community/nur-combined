@@ -18,14 +18,14 @@
 }:
 
 let
-  version = "17.1.5";
+  version = "17.1.6";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-swtQxjk2HgzkrxHWMmyXWSBSuD6KGvchI4us1cTLzyQ=";
+    hash = "sha256-lp/29t5plHsn6Yp7/mI8/aZc0ZwlJTV9ot+MLUYQ4s8=";
   };
 
   # Platform mapping
@@ -74,7 +74,7 @@ let
       runHook postInstall
     '';
 
-    outputHash = "sha256-ra9G3j1o10bvHRCFMi0mCHs5LfiwcUjmITcrWcn8ISw=";
+    outputHash = "sha256-tZY7jEjjxdggmqnB6fj8wlKCvSo8czA6NEwcLOSXvkg=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -86,14 +86,12 @@ let
     pname = "${pname}-pi-natives";
     inherit version src;
 
-    cargoHash = "sha256-zkNgYhmIeEOM0/ZZLlHtS3RzyN1qz/kcVNK1NICmvl8=";
+    cargoHash = "sha256-dMR7ubR+sKjIIb8mmiS1G+1Ei7x7Oa24yHCYt6cznss=";
 
     nativeBuildInputs = [
-      bun
       clang
       cmake
       pkg-config
-      nodejs
     ];
 
     buildInputs = [
@@ -134,16 +132,26 @@ let
       mkdir -p "$CARGO_TARGET_DIR"
     '';
 
-    buildPhase = ''
-      runHook preBuild
-      bun --bun --cwd=packages/natives run build
-      runHook postBuild
-    '';
-
     installPhase = ''
       runHook preInstall
       mkdir -p "$out/native"
-      cp -vr packages/natives/native/*.node "$out/native/" 2>/dev/null || true
+
+      # Find the built cdylib .so file
+      local so_file=$(find "$CARGO_TARGET_DIR" -name 'libpi_natives.so' -type f 2>/dev/null | head -1)
+      if [ -z "$so_file" ]; then
+        echo "ERROR: libpi_natives.so not found in CARGO_TARGET_DIR"
+        exit 1
+      fi
+
+      # Determine variant: auto-detect AVX2
+      local variant="baseline"
+      if [ -r /proc/cpuinfo ] && grep -q '^flags.* avx2 ' /proc/cpuinfo 2>/dev/null; then
+        variant="modern"
+      fi
+
+      cp "$so_file" "$out/native/pi_natives.linux-x64-$variant.node"
+
+      # Copy JS/TS files from source
       cp -vr packages/natives/native/*.js "$out/native/" 2>/dev/null || true
       cp -vr packages/natives/native/*.d.ts "$out/native/" 2>/dev/null || true
       runHook postInstall
