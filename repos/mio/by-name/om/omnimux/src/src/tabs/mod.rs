@@ -61,7 +61,7 @@ impl Focusable for TerminalTabs {
 impl TerminalTabs {
     pub fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
         let settings = load_settings();
-        let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(true);
+        let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(false);
         let auto_reconnect = settings.auto_reconnect.unwrap_or(false);
         let remember_session = settings.remember_session.unwrap_or(false);
         let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
