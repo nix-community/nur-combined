@@ -121,7 +121,9 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preInstall
 
     # Compose Multiplatform packageName = "Komi-Store"
-    cp -r composeApp/build/compose/binaries/main/app/Komi-Store $out
+    mkdir -p $out/opt/komi-store $out/bin
+    cp -r composeApp/build/compose/binaries/main/app/Komi-Store/* $out/opt/komi-store/
+    ln -s $out/opt/komi-store/bin/Komi-Store $out/bin/komi-store
 
     install -Dm644 composeApp/src/jvmMain/resources/logo/app_icon.png \
       $out/share/icons/hicolor/512x512/apps/komi-store.png
@@ -132,7 +134,7 @@ stdenv.mkDerivation (finalAttrs: {
   desktopItems = [
     (makeDesktopItem {
       name = "komi-store";
-      exec = "Komi-Store";
+      exec = "komi-store";
       icon = "komi-store";
       desktopName = "Komi Store";
       comment = finalAttrs.meta.description;

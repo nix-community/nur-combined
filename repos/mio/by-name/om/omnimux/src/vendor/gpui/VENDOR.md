@@ -86,3 +86,5 @@ Source of the touch logic:
 - Hosting this same patched tree on a separate git remote would only avoid
   committing files here; it would still be our patched crates.io 0.2.2, not
   upstream tip.
+
+**Update (July 2026):** We investigated upgrading `gpui-component` to its latest `main` commit. However, `gpui-component` has radically changed how it depends on GPUI. It now pulls directly from `zed-industries/zed` via git. Upstream Zed has completely restructured the GPUI codebase (e.g., splitting Wayland code into a separate `gpui_linux` crate) and still has not merged the `wl_touch` PR. Upgrading would require vendoring the entire Zed monorepo (or its GPUI crates) into a new `vendor/zed` directory and porting our ~900-line Wayland touch patch to the new crate architecture. Thus, we remain on `gpui-component` 0.5.1 and this patched crates.io 0.2.2 release for now.
