@@ -1,19 +1,19 @@
 { pkgs }:
 let
 	pname = "playit-agent";
-	version = "1.0.5";
+	version = "1.0.10";
 in
 	pkgs.rustPlatform.buildRustPackage {
 		src = pkgs.fetchFromGitHub {
 			owner = "playit-cloud";
 			repo = pname;
-			rev = "v${version}";
-			hash = "sha256-r0Rbdiv8vMXMwjsD/sRnrzT7BATheU7DJ1qgQWATAwM=";
+			tag = "v${version}";
+			hash = "sha256-aofn28wCivn7ih7DXnyaBSuj3YW63EiyDx/GY1W42XI=";
 		};
 
 		inherit pname version;
 
-		cargoHash = "sha256-Wf8eJTSTAxo56t/ImRXzn7wl1mo4y4D/TQ5JHGoPCrc=";
+		cargoHash = "sha256-pdCzqg0SuzC3qwOQ2fOgi8Nuhgy/R1dTLcS/qA7Crq0=";
 
 		meta = with pkgs.lib; {
 			homepage = "https://github.com/playit-cloud/playit-agent";

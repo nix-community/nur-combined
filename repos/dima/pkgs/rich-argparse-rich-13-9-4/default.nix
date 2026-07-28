@@ -2,7 +2,7 @@
 
 pkgs.python3Packages.buildPythonPackage rec {
 	pname = "rich-argparse";
-	version = "1.7.1";
+	version = "1.8.0";
 	pyproject = true;
 
 	src = pkgs.fetchFromGitHub {

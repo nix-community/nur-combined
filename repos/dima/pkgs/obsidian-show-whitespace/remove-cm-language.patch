@@ -1,58 +1,59 @@
 diff --git a/package-lock.json b/package-lock.json
-index b62ee3d..00911e3 100644
+index aa63640..cdedb79 100644
 --- a/package-lock.json
 +++ b/package-lock.json
 @@ -9,7 +9,6 @@
-       "version": "0.2.8",
+       "version": "0.2.14",
        "license": "AGPL-3.0-only",
        "dependencies": {
 -        "@codemirror/language": "https://github.com/lishid/cm-language",
-         "@codemirror/state": "^6.5.2",
-         "@codemirror/view": "^6.38.2"
+         "@codemirror/state": "^6.5.0",
+         "@codemirror/view": "^6.38.6"
        },
-@@ -199,19 +198,6 @@
+@@ -212,20 +211,6 @@
        "license": "(Apache-2.0 AND BSD-3-Clause)",
        "peer": true
      },
 -    "node_modules/@codemirror/language": {
--      "version": "6.11.2",
--      "resolved": "git+ssh://git@github.com/lishid/cm-language.git#a9c3c7efe17dd1d24395ee2a179fe12dd6ed1e76",
+-      "version": "6.12.3",
+-      "resolved": "git+ssh://git@github.com/lishid/cm-language.git#b817e72a9861b3f8a50a92a2ea53cbafc4f88eb3",
+-      "integrity": "sha512-LNce0NOVTpJljmT6Aw840PHaYpPgbtDJykBaqqPLLO9oQdMCt+9kaD4HKNa+5h6JMkX71YLA9K/rciPrbKQq6Q==",
 -      "license": "MIT",
 -      "dependencies": {
 -        "@codemirror/state": "^6.0.0",
 -        "@codemirror/view": "^6.23.0",
--        "@lezer/common": "^1.1.0",
+-        "@lezer/common": "^1.5.0",
 -        "@lezer/highlight": "^1.0.0",
 -        "@lezer/lr": "^1.0.0",
 -        "style-mod": "^4.0.0"
 -      }
 -    },
      "node_modules/@codemirror/state": {
-       "version": "6.5.2",
-       "resolved": "https://registry.npmjs.org/@codemirror/state/-/state-6.5.2.tgz",
-@@ -675,30 +661,6 @@
-         "node": ">=18"
+       "version": "6.5.0",
+       "resolved": "https://registry.npmjs.org/@codemirror/state/-/state-6.5.0.tgz",
+@@ -986,30 +971,6 @@
+         "url": "https://github.com/sponsors/nzakas"
        }
      },
 -    "node_modules/@lezer/common": {
--      "version": "1.2.3",
--      "resolved": "https://registry.npmjs.org/@lezer/common/-/common-1.2.3.tgz",
--      "integrity": "sha512-w7ojc8ejBqr2REPsWxJjrMFsA/ysDCFICn8zEOR9mrqzOu2amhITYuLD8ag6XZf0CFXDrhKqw7+tW8cX66NaDA==",
+-      "version": "1.5.0",
+-      "resolved": "https://registry.npmjs.org/@lezer/common/-/common-1.5.0.tgz",
+-      "integrity": "sha512-PNGcolp9hr4PJdXR4ix7XtixDrClScvtSCYW3rQG106oVMOOI+jFb+0+J3mbeL/53g1Zd6s0kJzaw6Ri68GmAA==",
 -      "license": "MIT"
 -    },
 -    "node_modules/@lezer/highlight": {
--      "version": "1.2.1",
--      "resolved": "https://registry.npmjs.org/@lezer/highlight/-/highlight-1.2.1.tgz",
--      "integrity": "sha512-Z5duk4RN/3zuVO7Jq0pGLJ3qynpxUVsh7IbUbGj88+uV2ApSAn6kWg2au3iJb+0Zi7kKtqffIESgNcRXWZWmSA==",
+-      "version": "1.2.3",
+-      "resolved": "https://registry.npmjs.org/@lezer/highlight/-/highlight-1.2.3.tgz",
+-      "integrity": "sha512-qXdH7UqTvGfdVBINrgKhDsVTJTxactNNxLk7+UMwZhU13lMHaOBlJe9Vqp907ya56Y3+ed2tlqzys7jDkTmW0g==",
 -      "license": "MIT",
 -      "dependencies": {
--        "@lezer/common": "^1.0.0"
+-        "@lezer/common": "^1.3.0"
 -      }
 -    },
 -    "node_modules/@lezer/lr": {
--      "version": "1.4.2",
--      "resolved": "https://registry.npmjs.org/@lezer/lr/-/lr-1.4.2.tgz",
--      "integrity": "sha512-pu0K1jCIdnQ12aWNaAVU5bzi7Bd1w54J3ECgANPmYLtQKP0HBj2cE/5coBD66MT10xbtIuUr7tg0Shbsvk0mDA==",
+-      "version": "1.4.5",
+-      "resolved": "https://registry.npmjs.org/@lezer/lr/-/lr-1.4.5.tgz",
+-      "integrity": "sha512-/YTRKP5yPPSo1xImYQk7AZZMAgap0kegzqCSYHjAL9x1AZ0ZQW+IpcEzMKagCsbTsLnVeWkxYrCNeXG8xEPrjg==",
 -      "license": "MIT",
 -      "dependencies": {
 -        "@lezer/common": "^1.0.0"
@@ -62,14 +63,14 @@ index b62ee3d..00911e3 100644
        "version": "1.0.2",
        "resolved": "https://registry.npmjs.org/@marijn/find-cluster-break/-/find-cluster-break-1.0.2.tgz",
 diff --git a/package.json b/package.json
-index 31ebfab..b6b5fd1 100644
+index 9d1b43c..a22e2cb 100644
 --- a/package.json
 +++ b/package.json
-@@ -40,7 +40,6 @@
-     "typescript": "5.9.2"
+@@ -42,7 +42,6 @@
+     "typescript": "6.0.3"
    },
    "dependencies": {
 -    "@codemirror/language": "https://github.com/lishid/cm-language",
-     "@codemirror/state": "^6.5.2",
-     "@codemirror/view": "^6.38.2"
+     "@codemirror/state": "^6.5.0",
+     "@codemirror/view": "^6.38.6"
    },

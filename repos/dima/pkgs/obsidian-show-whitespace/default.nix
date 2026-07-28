@@ -3,13 +3,13 @@ let
 	showWhitespace = pkgs.fetchFromGitHub {
 		owner = "ebullient";
 		repo = "obsidian-show-whitespace-cm6";
-		rev = "0.2.8";
-		hash = "sha256-vdlax/BjQK8M2LRUokPGPeCHdVnwGE5faM7frYSZ7m4=";
+		rev = "0.2.14";
+		hash = "sha256-WTJv/1SreVY/aPUhLcKoL3Dzl2SNsc6S/FNgERNMVhA=";
 	};
 
 	patchedSrc = pkgs.stdenv.mkDerivation {
 		pname = "obsidian-show-whitespace-patched";
-		version = "0.2.8";
+		version = "0.2.14";
 		src = showWhitespace;
 
 		patches = [ ./remove-cm-language.patch ];
@@ -22,11 +22,11 @@ let
 in
 	pkgs.buildNpmPackage {
 		pname = "obsidian-show-whitespace";
-		version = "0.2.8";
+		version = "0.2.14";
 
 		src = patchedSrc;
 
-		npmDepsHash = "sha256-oNQbDk3CvO1yMKUnAzTgj+MT2W1T/QnLDB+Rcu8g6TQ=";
+		npmDepsHash = "sha256-+PHCaMi0ir+BbioZD809Tt4ObWfY5cOV/HCsplN28M4=";
 
 		buildPhase = ''
 			npm run build --ignore-scripts
