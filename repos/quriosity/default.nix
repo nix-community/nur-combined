@@ -22,7 +22,7 @@
   BedrockNix = pkgs.callPackage ./pkgs/BedrockNix {};
   olauncher = pkgs.callPackage ./pkgs/olauncher {};
   echo-sddm = pkgs.callPackage ./pkgs/echo-sddm {};
-  leshade = pkgs.callPackage ./pkgs/LeShade {};
+  leshade = pkgs.callPackage ./pkgs/leshade {};
   zen-browser = pkgs.callPackage ./pkgs/zen-browser {};
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };

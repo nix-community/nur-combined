@@ -6,7 +6,7 @@ let
 
   src = fetchurl {
     url = "https://github.com/Wyze3306/BedrockOnLinux/releases/download/v${version}/BedrockOnLinux-${version}-x86_64.AppImage";
-    hash = "sha256-eZepYrU/Mum1Xik20xA7Q/Ir1j34eanEmGdB5BFzHVI=";
+    hash = "sha256-ooDyhz7BR9IzfA2q/X/yHmBLDuv/M2E3Bz7UQzSzteQ=";
   };
 
   appimageContents = appimageTools.extractType2 {
