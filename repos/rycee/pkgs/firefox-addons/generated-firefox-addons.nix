@@ -27,10 +27,10 @@
     };
     "2fas-two-factor-authentication" = buildMozillaXpiAddon {
       pname = "2fas-two-factor-authentication";
-      version = "1.8.2";
+      version = "1.8.3";
       addonId = "admin@2fas.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4824064/2fas_two_factor_authentication-1.8.2.xpi";
-      sha256 = "4d00800f721896ded87b3a639434b8419573d5fd4b85003ad5edd2d8f14c180a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922131/2fas_two_factor_authentication-1.8.3.xpi";
+      sha256 = "539719720bed05811d73703f6bd6050041a8aa221b71113b67dcff1566bc36ef";
       meta = with lib;
       {
         homepage = "https://2fas.com/";
@@ -43,6 +43,7 @@
           "notifications"
           "contextMenus"
           "webNavigation"
+          "alarms"
           "https://*/*"
           "http://*/*"
         ];
@@ -348,10 +349,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.17.0";
+      version = "1.18.0";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4902165/angular_devtools-1.17.0.xpi";
-      sha256 = "a1aab15ed1bf8ec6f188aae4df2f018bf118b28e13497ec883aa4832614f2843";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4915981/angular_devtools-1.18.0.xpi";
+      sha256 = "bf7460efabc04ded4351de3bbf518b15c4b3f71153da9f05b64246ebc3837321";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -842,10 +843,10 @@
     };
     "automatic-dark" = buildMozillaXpiAddon {
       pname = "automatic-dark";
-      version = "1.4.1";
+      version = "1.4.2";
       addonId = "{9ed7d361-ccd9-4cad-9846-977da2651fb5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4074771/automatic_dark-1.4.1.xpi";
-      sha256 = "77efc42567960695ab4fade263e201cca0b85c1af8dd1dd69906b0950fa46a8c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922267/automatic_dark-1.4.2.xpi";
+      sha256 = "d060ce0fa652dcb5ebb2dc0d4b88491759969b5132999cb34416d9b4a3e535f1";
       meta = with lib;
       {
         homepage = "https://github.com/skhzhang/time-based-themes/";
@@ -2913,10 +2914,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "154.0.20260724.90549";
+      version = "153.0.20260727.124451";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4917193/dansk_da_language_pack-154.0.20260724.90549.xpi";
-      sha256 = "0de6f91a5c15f56511ae64448e1c89b12a8bced77bc4ba45f15345a09033af7f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922672/dansk_da_language_pack-153.0.20260727.124451.xpi";
+      sha256 = "ae840bfd1daf9784123823e20e8292e563c804fa28d5aa41f0205c38ea7e4e73";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3129,10 +3130,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "154.0.20260724.90549";
+      version = "153.0.20260727.124451";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4917201/deutsch_de_language_pack-154.0.20260724.90549.xpi";
-      sha256 = "669b6131e53a1105cc5295dc1098bfefc318dcd3e6d32c384f3b4b4bd55f599a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922671/deutsch_de_language_pack-153.0.20260727.124451.xpi";
+      sha256 = "6c95a29614faa87ad87143a2111ca479ec1db44cbc59a74546a00b029c988af7";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4456,10 +4457,10 @@
     };
     "foxyproxy-standard" = buildMozillaXpiAddon {
       pname = "foxyproxy-standard";
-      version = "9.2";
+      version = "9.3";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4472757/foxyproxy_standard-9.2.xpi";
-      sha256 = "8db1c64799a60f7121d51a6e9f6b041871598344927c95afe830c27880f0885d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922152/foxyproxy_standard-9.3.xpi";
+      sha256 = "e1c9e9c515c3f83b027c9be4bf0a910a72f2b019ec067dc37eef76e549ab38a5";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org/";
@@ -4628,10 +4629,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "154.0.20260724.90549";
+      version = "153.0.20260727.124451";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4917224/francais_language_pack-154.0.20260724.90549.xpi";
-      sha256 = "0deb1a93d2fa98e815df4ca97fc643623b607a42b89b1b67c434be6e17f4e210";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922578/francais_language_pack-153.0.20260727.124451.xpi";
+      sha256 = "1d904a51139dd635447c52882425b75babeaccebf954899b8fe33a2483dc23cf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4665,10 +4666,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "154.0.20260724.90549";
+      version = "153.0.20260727.124451";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4917188/gaidhlig_language_pack-154.0.20260724.90549.xpi";
-      sha256 = "7001fba7c47ec48cd7d6e141d9d86042b907ed1cb70894e1f2d1e1b089a68c62";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922622/gaidhlig_language_pack-153.0.20260727.124451.xpi";
+      sha256 = "243e0cdcaab358a6d09a4ce300cb92e0890de0f9a804828932d68df3e0f93ca2";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -7296,10 +7297,10 @@
     };
     "javascript-restrictor" = buildMozillaXpiAddon {
       pname = "javascript-restrictor";
-      version = "0.24.3";
+      version = "0.24.4";
       addonId = "jsr@javascriptrestrictor";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4883135/javascript_restrictor-0.24.3.xpi";
-      sha256 = "ec17a496fd88d3f1b90807263ae7ca3e9f9a4934d7600cad07b85402afb47912";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922138/javascript_restrictor-0.24.4.xpi";
+      sha256 = "7a637190d0625b7e1add9b940836dbb2c0b79506b9c25612aaa4f0ae7454388c";
       meta = with lib;
       {
         homepage = "https://jshelter.org";
@@ -12667,10 +12668,10 @@
     };
     "readwise-highlighter" = buildMozillaXpiAddon {
       pname = "readwise-highlighter";
-      version = "0.17.2";
+      version = "0.17.3";
       addonId = "team@readwise.io";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4911561/readwise_highlighter-0.17.2.xpi";
-      sha256 = "9d01358430851b8ad20821a2ea13768edc5db12babf52c2f3d27cbd86c83cb10";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922006/readwise_highlighter-0.17.3.xpi";
+      sha256 = "70409108b6f2f30642fcbaddbf2eb6c4b00f70c69e206c2962170ec57235a00f";
       meta = with lib;
       {
         homepage = "https://read.readwise.io";
@@ -13461,10 +13462,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "154.0.20260724.90549";
+      version = "153.0.20260727.124451";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4917231/scots_language_pack-154.0.20260724.90549.xpi";
-      sha256 = "ba8ff6ab97a9835cdc168eb77578ce2f3861a251062ffbf3b33bedde5c287511";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922601/scots_language_pack-153.0.20260727.124451.xpi";
+      sha256 = "8dd2e5aba595d65f25973fce65a4f21deda71dc3a60359a49b66067ab7e2e4fa";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13954,10 +13955,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.5";
+      version = "3.4.7";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4862114/simplifygmail-3.4.5.xpi";
-      sha256 = "9985acc4cb075c5ac6ff2aa2155ec980d896a5ce469bf01ada86b6d001955215";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922698/simplifygmail-3.4.7.xpi";
+      sha256 = "af4897d6da383e769d9d77e33e7498490cb823cdf4a8f32d253543534491c222";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -14483,10 +14484,10 @@
     };
     "super-agent" = buildMozillaXpiAddon {
       pname = "super-agent";
-      version = "4.4";
+      version = "4.5";
       addonId = "{a9cc4ef5-1149-47a9-8b94-490f324fe157}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4893288/super_agent-4.4.xpi";
-      sha256 = "afb137395b60d447de70a2702de9571660aa70b682cb7701828586ea0b072c7e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922528/super_agent-4.5.xpi";
+      sha256 = "1cb97aedd4bed75b4de7fd80d571c5a51fa7407fc238760a52f39b842b7dc0f9";
       meta = with lib;
       {
         description = "Super Agent automatically fills out website's cookie consent forms for you based on your preferences. Super Agent will save you a lot of clicks and let you take control of your privacy in a very easy way.";
@@ -17766,10 +17767,10 @@
     };
     "youtube-no-translation" = buildMozillaXpiAddon {
       pname = "youtube-no-translation";
-      version = "2.24.3";
+      version = "2.24.4";
       addonId = "{9a3104a2-02c2-464c-b069-82344e5ed4ec}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4859010/youtube_no_translation-2.24.3.xpi";
-      sha256 = "23ca380b13533fb3cea3ca9de8f69eb6fefd54608c85df0005d368cd1d90fd85";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4916518/youtube_no_translation-2.24.4.xpi";
+      sha256 = "daa68d5c25a8af746a10d1aba8e8103ab3d4598c254eec02e7e76262c4b5d2d9";
       meta = with lib;
       {
         description = "Keeps YouTube content in its original language (Titles, Audio Tracks, Descriptions...)";
@@ -17878,10 +17879,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.7.8";
+      version = "18.7.9";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4902610/youtube_subscription_groups-18.7.8.xpi";
-      sha256 = "bb303417c4af673a70104bfad2b6a79cd6621a9e18f6bfdfd4658e0eabc55073";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4922857/youtube_subscription_groups-18.7.9.xpi";
+      sha256 = "aca9c45df94386f83db1acef9333f4684f2a08460af38a76d27eb66ed975edec";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
