@@ -71,6 +71,18 @@ pub fn render_tab_bar(
                 this.activate_tab_at(i, window, cx);
             }))
             .on_drag(drag, |drag, _, _, cx| cx.new(|_| drag.clone()))
+            .drag_over::<TabDrag>({
+                let hover_bg = colors.hover;
+                move |style, drag, _, _| {
+                    if drag.index != i {
+                        // Highlight target tab while hovering
+                        style.bg(hover_bg)
+                    } else {
+                        // Keep normal background when hovering over itself
+                        style.bg(bg_color)
+                    }
+                }
+            })
             .on_drop(cx.listener(move |this, drag: &TabDrag, window, cx| {
                 let from = drag.index;
                 let to = i;
