@@ -16,11 +16,13 @@
       ...
     }:
     let
+      inherit (nixpkgs) lib;
+
       systems = [
         "x86_64-linux"
         "aarch64-linux"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      forAllSystems = lib.genAttrs systems;
       pkgsFor = system: import nixpkgs { inherit system; };
       repositoryFor =
         system:
@@ -34,7 +36,13 @@
       legacyPackages = forAllSystems repositoryFor;
 
       packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: nixpkgs.lib.isDerivation) (repositoryFor system)
+        system:
+        let
+          pkgs = pkgsFor system;
+        in
+        lib.filterAttrs (
+          _: package: lib.isDerivation package && lib.meta.availableOn pkgs.stdenv.hostPlatform package
+        ) (repositoryFor system)
       );
 
       apps = forAllSystems (

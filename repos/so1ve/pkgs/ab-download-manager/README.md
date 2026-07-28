@@ -1,8 +1,8 @@
 # AB Download Manager
 
-## Install
+## Package
 
-With NUR:
+### NUR
 
 ```nix
 environment.systemPackages = [
@@ -10,7 +10,7 @@ environment.systemPackages = [
 ];
 ```
 
-With the repository flake:
+### Flake
 
 ```bash
 nix run github:so1ve/nur-packages#ab-download-manager
@@ -19,7 +19,7 @@ nix profile install github:so1ve/nur-packages#ab-download-manager
 
 ## Home Manager
 
-With NUR:
+### NUR
 
 ```nix
 {
@@ -31,7 +31,7 @@ With NUR:
 }
 ```
 
-With the repository as a flake input:
+### Repository flake
 
 ```nix
 {
@@ -43,7 +43,7 @@ With the repository as a flake input:
 }
 ```
 
-Available options:
+## Options
 
 ```nix
 programs.ab-download-manager = {

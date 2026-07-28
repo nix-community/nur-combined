@@ -13,14 +13,8 @@
   libXtst,
   libxkbcommon,
   makeWrapper,
-  source ? (
-    let
-      sources = callPackage ../../_sources/generated.nix { };
-      system = stdenv.hostPlatform.system;
-    in
-    sources."ab-download-manager-${system}"
-      or (throw "ab-download-manager: unsupported system ${system}")
-  ),
+  source ?
+    (callPackage ../../_sources/generated.nix { })."ab-download-manager-${stdenv.hostPlatform.system}",
   stdenv,
   uiScale ? null,
   wayland,

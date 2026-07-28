@@ -1,0 +1,13 @@
+diff --git a/run.sh b/run.sh
+index 0451ecc..acb24e6 100755
+--- a/run.sh
++++ b/run.sh
+@@ -140,7 +140,7 @@ say "Radmin VPN for Linux"
+ _missing=""
+ command -v wine       >/dev/null || _missing="$_missing wine"
+ command -v wineserver >/dev/null || _missing="$_missing wineserver"
+-command -v python3    >/dev/null || _missing="$_missing python3"
++[ "$FIX_CHAT" -eq 0 ] || command -v python3 >/dev/null || _missing="$_missing python3"
+ command -v ip         >/dev/null || _missing="$_missing ip(iproute2)"
+ if [ -n "$_missing" ]; then
+     echo "[-] Missing dependencies:$_missing" >&2

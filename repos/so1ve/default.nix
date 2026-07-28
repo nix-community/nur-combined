@@ -10,6 +10,7 @@ in
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn {
     source = sources.r-maple-mono-nf-cn;
   };
+  radmin-vpn = pkgs.callPackage ./pkgs/radmin-vpn { };
 
   homeModules = import ./home-modules;
 }

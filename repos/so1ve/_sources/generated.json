@@ -43,5 +43,20 @@
             "url": "https://github.com/so1ve/maple-font/releases/download/v1783947872/RMapleMono-NF-CN.zip"
         },
         "version": "1783947872"
+    },
+    "radmin-vpn": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "radmin-vpn",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-rulNeEDq77ibiMDfLGajDpChZh8NBdUTKKBpNrIvJoE=",
+            "type": "url",
+            "url": "https://github.com/baptisterajaut/radmin-vpn-linux/releases/download/v1.0.0-rc9/RadminVPN-Linux-x86_64.AppImage"
+        },
+        "version": "v1.0.0-rc9"
     }
 }

@@ -15,3 +15,7 @@ src.github = "so1ve/maple-font"
 src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
 fetch.url = "https://github.com/so1ve/maple-font/releases/download/v$ver/RMapleMono-NF-CN.zip"
+
+[radmin-vpn]
+src.github_tag = "baptisterajaut/radmin-vpn-linux"
+fetch.url = "https://github.com/baptisterajaut/radmin-vpn-linux/releases/download/$ver/RadminVPN-Linux-x86_64.AppImage"

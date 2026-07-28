@@ -30,4 +30,12 @@
       sha256 = "sha256-3tVLkchBXk82MDQFCWlkA3Y2+gxPIl8HBfvljW3DJvw=";
     };
   };
+  radmin-vpn = {
+    pname = "radmin-vpn";
+    version = "v1.0.0-rc9";
+    src = fetchurl {
+      url = "https://github.com/baptisterajaut/radmin-vpn-linux/releases/download/v1.0.0-rc9/RadminVPN-Linux-x86_64.AppImage";
+      sha256 = "sha256-rulNeEDq77ibiMDfLGajDpChZh8NBdUTKKBpNrIvJoE=";
+    };
+  };
 }

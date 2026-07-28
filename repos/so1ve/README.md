@@ -5,9 +5,17 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 [![CI](https://github.com/so1ve/nur-packages/actions/workflows/ci.yml/badge.svg)](https://github.com/so1ve/nur-packages/actions/workflows/ci.yml)
 [![Cachix Cache](https://img.shields.io/badge/cachix-so1ve-blue.svg)](https://so1ve.cachix.org)
 
-## NUR
+## Packages
 
-After enabling NUR, install a package through its repository attribute:
+| Attribute | Documentation |
+| --- | --- |
+| `ab-download-manager` | [Usage](pkgs/ab-download-manager/README.md) |
+| `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
+| `radmin-vpn` | [Usage](pkgs/radmin-vpn/README.md) |
+
+## [NUR](https://github.com/nix-community/NUR)
+
+### Package
 
 ```nix
 environment.systemPackages = [
@@ -15,19 +23,24 @@ environment.systemPackages = [
 ];
 ```
 
-Published Home Manager modules are available through
-`inputs.nur.repos.so1ve.homeModules` when NUR is used as a flake input.
+### Home Manager module
+
+```nix
+imports = [
+  inputs.nur.repos.so1ve.homeModules.ab-download-manager
+];
+```
 
 ## Flake
 
-Run or install a package directly:
+### Run or install
 
 ```bash
 nix run github:so1ve/nur-packages#ab-download-manager
 nix profile install github:so1ve/nur-packages#ab-download-manager
 ```
 
-Or add the repository as a flake input:
+### Input
 
 ```nix
 {
@@ -38,9 +51,7 @@ Or add the repository as a flake input:
 }
 ```
 
-Packages are exposed through `packages` and modules through `homeModules`.
-
-## Binary cache
+## Cachix
 
 ```nix
 nix.settings = {
@@ -51,15 +62,8 @@ nix.settings = {
 };
 ```
 
-## Updating
+## Update package sources
 
 ```bash
 nix run .#update
 ```
-
-## Packages
-
-| Attribute | Documentation |
-| --- | --- |
-| `ab-download-manager` | [Usage](pkgs/ab-download-manager/README.md) |
-| `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
