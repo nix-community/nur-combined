@@ -1,0 +1,24 @@
+diff --git a/app/src/main-process/main.ts b/app/src/main-process/main.ts
+--- a/app/src/main-process/main.ts
++++ b/app/src/main-process/main.ts
+@@ -243,9 +243,18 @@ async function handleCommandLineArguments(argv: string[]) {
+-  // Desktop registers it's protocol handler callback on Windows as
++  // Desktop registers its protocol handler callback on Windows as
+   // `[executable path] --protocol-launcher "%1"`. Note that extra command
+   // line arguments might be added by Chromium
+   // (https://electronjs.org/docs/api/app#event-second-instance).
++  // Linux desktop entries pass the protocol URL directly as an argument.
+ 
+-  if (__WIN32__ && args['protocol-launcher'] === true) {
++  if (
++    (__WIN32__ && args['protocol-launcher'] === true) ||
++    (__LINUX__ &&
++      argv.some(arg =>
++        Array.from(possibleProtocols, p => `${p}://`).some(prefix =>
++          arg.startsWith(prefix)
++        )
++      ))
++  ) {
+     // On Windows we'll end up getting called with something like
+     // `--protocol-launcher --allow-file-access-from-files x-github-client://..`
+     // which minimist naturally interprets as
