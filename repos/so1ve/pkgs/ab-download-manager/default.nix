@@ -1,6 +1,7 @@
 {
   alsa-lib,
   autoPatchelfHook,
+  callPackage,
   fontconfig,
   freetype,
   lib,
@@ -12,7 +13,14 @@
   libXtst,
   libxkbcommon,
   makeWrapper,
-  source,
+  source ? (
+    let
+      sources = callPackage ../../_sources/generated.nix { };
+      system = stdenv.hostPlatform.system;
+    in
+    sources."ab-download-manager-${system}"
+      or (throw "ab-download-manager: unsupported system ${system}")
+  ),
   stdenv,
   uiScale ? null,
   wayland,
