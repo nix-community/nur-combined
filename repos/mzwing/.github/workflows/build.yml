@@ -248,6 +248,7 @@ jobs:
   coordinator:
     name: Distributed build coordinator
     needs: config
+    if: needs.config.outputs.has_builds == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
@@ -383,4 +384,4 @@ jobs:
         success() &&
         github.event_name != 'pull_request' &&
         github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
-      run: curl --fail --show-error -XPOST "https://nur-update.nix-community.org/update?repo=mzwing"
+      run: curl -XPOST "https://nur-update.nix-community.org/update?repo=mzwing"
