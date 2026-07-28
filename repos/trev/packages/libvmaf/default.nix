@@ -37,7 +37,11 @@ stdenv.mkDerivation (finalAttrs: {
     NIX_CFLAGS_COMPILE = "-D__BSD_VISIBLE=1";
   };
 
-  mesonFlags = [ "-Denable_avx512=true" ];
+  mesonFlags = [
+    "-Dbuilt_in_models=true"
+    "-Denable_avx512=true"
+    "-Denable_float=true"
+  ];
 
   outputs = [
     "out"
