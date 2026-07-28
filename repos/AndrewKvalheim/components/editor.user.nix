@@ -321,9 +321,10 @@ in
         "[javascript]" = biome;
         "[json]" = biome;
         "[jsonc]" = biome;
-        "[markdown]" = monospace // { "editor.tabSize" = 4; };
+        "[markdown]" = monospace // prettier // { "editor.tabSize" = 4; };
         "[plaintext]" = inert // monospace;
         "[postcss]" = prettier;
+        "[python]" = { "editor.tabSize" = 4; };
         "[ruby]" = monospace // { "editor.defaultFormatter" = "jnbt.vscode-rufo"; "editor.formatOnSave" = false; };
         "[typescript]" = biome;
         "[typescriptreact]" = biome;

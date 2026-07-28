@@ -80,6 +80,7 @@ specify {
   nom-wrappers = any;
   off = any;
   office-hours = any;
+  onlyBinMan = any;
   oxvg = any;
   pdfalyzer = any;
   picard.overlay = p: { preFixup = p.preFixup + "\nmakeWrapperArgs+=(--prefix PATH : ${makeBinPath [ resolved.rsgain ]})"; }; # NixOS/nixpkgs#255222

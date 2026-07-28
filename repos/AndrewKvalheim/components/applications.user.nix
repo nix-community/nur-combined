@@ -7,7 +7,7 @@ let
   inherit (lib) foldlAttrs getExe getExe' imap0 mkOption nameValuePair throwIfNot;
   inherit (lib.generators) toINI toKeyValue toYAML;
   inherit (lib.hm.gvariant) mkTuple mkUint32;
-  inherit (pkgs) formats makeAutostartItem onlyBin;
+  inherit (pkgs) formats makeAutostartItem onlyBinMan;
   inherit (pkgs.writers) writeTOML;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
@@ -142,7 +142,8 @@ in
       just
       just-local
       killall
-      (onlyBin libwebp) # cwebp
+      (onlyBinMan libjxl)
+      (onlyBinMan libwebp)
       lsof
       magic-wormhole
       miller

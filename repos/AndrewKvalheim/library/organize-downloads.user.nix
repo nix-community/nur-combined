@@ -3,17 +3,21 @@
 let
   inherit (builtins) readFile;
   inherit (lib) getExe getExe';
-  inherit (pkgs) bash efficient-compression-tool findutils resholve uutils-coreutils;
+  inherit (pkgs) bash efficient-compression-tool findutils libjxl resholve uutils-coreutils;
 
   uutils-coreutils' = uutils-coreutils.override { prefix = null; };
 
   handler = resholve.writeScriptBin "organize-downloads" {
     interpreter = getExe bash;
-    inputs = [ efficient-compression-tool findutils uutils-coreutils' ];
+    inputs = [ efficient-compression-tool findutils libjxl uutils-coreutils' ];
     execer = [
+      "cannot:${getExe' libjxl "cjxl"}"
+      "cannot:${getExe' uutils-coreutils' "date"}"
       "cannot:${getExe' uutils-coreutils' "mkdir"}"
       "cannot:${getExe' uutils-coreutils' "mv"}"
+      "cannot:${getExe' uutils-coreutils' "rm"}"
       "cannot:${getExe' uutils-coreutils' "sleep"}"
+      "cannot:${getExe' uutils-coreutils' "stat"}"
       "cannot:${getExe' uutils-coreutils' "tail"}"
     ];
   } (readFile ./assets/organize-downloads.sh);
@@ -25,6 +29,7 @@ in
       Path.PathExistsGlob = [
         "%h/.local/share/PrismLauncher/instances/*/.minecraft/screenshots/*.png"
         "%h/Downloads/Screen{s,\\ S}hot\\ *.png"
+        "%h/Downloads/iKVM_capture.jpg"
         "%h/VirtualBox\\ VMs/*/VirtualBox_*.png" # Related: https://www.virtualbox.org/ticket/22135
       ];
       Install.WantedBy = [ "default.target" ];

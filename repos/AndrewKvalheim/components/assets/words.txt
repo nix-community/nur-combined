@@ -111,6 +111,7 @@ BDFL
 Bellingcat
 Belltown
 bento
+bikeshed
 bikeshedding
 bilayer
 BIMI

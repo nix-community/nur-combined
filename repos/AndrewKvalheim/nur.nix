@@ -98,6 +98,7 @@ rec {
   }).overrideAttrs (o: recursiveUpdate o {
     meta.broken = pkgs.python3Packages.requests-ratelimiter.meta.broken; # NixOS/nixpkgs#497999
   });
+  onlyBinMan = callPackage ./library/onlyBinMan.fn.nix { };
   pdfalyzer = callPackage ./library/pdfalyzer.pkg.nix {
     python3Packages = (pkgs.python3.override {
       packageOverrides = _: pythonPackages: with pythonPackages; {
