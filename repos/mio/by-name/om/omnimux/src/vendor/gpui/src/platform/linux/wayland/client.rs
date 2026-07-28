@@ -238,10 +238,12 @@ pub(crate) struct WaylandClientState {
     // Touch tracking (wl_touch → mouse / scroll emulation)
     active_touch_id: Option<i32>,
     touch_location: Option<Point<Pixels>>,
+    touch_initial_location: Option<Point<Pixels>>,
     second_touch_id: Option<i32>,
     second_touch_location: Option<Point<Pixels>>,
     last_scroll_center: Option<Point<Pixels>>,
     is_scrolling: bool,
+    touchscreen_drag_scrolls: bool,
     /// Window that received the current touch MouseDown. Kept separate from
     /// `mouse_focused_window` so a pointer Leave cannot orphan the matching Up.
     touch_window: Option<WaylandWindowStatePtr>,
@@ -636,10 +638,12 @@ impl WaylandClient {
             pointer_button_window: None,
             active_touch_id: None,
             touch_location: None,
+            touch_initial_location: None,
             second_touch_id: None,
             second_touch_location: None,
             last_scroll_center: None,
             is_scrolling: false,
+            touchscreen_drag_scrolls: std::env::var("GPUI_TOUCHSCREEN_DRAG_SCROLLS").map(|v| v != "0").unwrap_or(true),
             touch_window: None,
             touch_mouse_down_sent: false,
             loop_handle: handle.clone(),
@@ -2254,6 +2258,7 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
                     // First finger → left-button mouse click/drag.
                     state.active_touch_id = Some(id);
                     state.touch_location = Some(position);
+                    state.touch_initial_location = Some(position);
 
                     if let Some(window) = get_window(&mut state, &surface.id()) {
                         // Remember which window owns this touch so Up/Motion work
@@ -2343,45 +2348,88 @@ impl Dispatch<wl_touch::WlTouch, ()> for WaylandClientStatePtr {
 
                 if state.is_scrolling
                     && state.active_touch_id.is_some()
-                    && state.second_touch_id.is_some()
                 {
-                    if let (Some(first_pos), Some(second_pos)) =
+                    let current_center = if let (Some(first_pos), Some(second_pos)) =
                         (state.touch_location, state.second_touch_location)
                     {
-                        let current_center = point(
+                        point(
                             px((f32::from(first_pos.x) + f32::from(second_pos.x)) / 2.0),
                             px((f32::from(first_pos.y) + f32::from(second_pos.y)) / 2.0),
+                        )
+                    } else if let Some(first_pos) = state.touch_location {
+                        first_pos
+                    } else {
+                        return;
+                    };
+
+                    state.mouse_location = Some(current_center);
+
+                    if let Some(last_center) = state.last_scroll_center {
+                        let scroll_delta = point(
+                            px(f32::from(current_center.x) - f32::from(last_center.x)),
+                            px(f32::from(current_center.y) - f32::from(last_center.y)),
                         );
-                        state.mouse_location = Some(current_center);
+                        state.last_scroll_center = Some(current_center);
 
-                        if let Some(last_center) = state.last_scroll_center {
-                            let scroll_delta = point(
-                                px(f32::from(current_center.x) - f32::from(last_center.x)),
-                                px(f32::from(current_center.y) - f32::from(last_center.y)),
-                            );
-                            state.last_scroll_center = Some(current_center);
-
-                            if f32::from(scroll_delta.x).abs() > TOUCH_SCROLL_SENSITIVITY
-                                || f32::from(scroll_delta.y).abs() > TOUCH_SCROLL_SENSITIVITY
-                            {
-                                if let Some(window) = state.mouse_focused_window.clone() {
-                                    let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
-                                        position: current_center,
-                                        delta: ScrollDelta::Pixels(point(
-                                            px(f32::from(scroll_delta.x)),
-                                            px(f32::from(scroll_delta.y)),
-                                        )),
-                                        modifiers: state.modifiers,
-                                        touch_phase: TouchPhase::Moved,
-                                    });
-                                    drop(state);
-                                    window.handle_input(input);
-                                }
+                        if f32::from(scroll_delta.x).abs() > TOUCH_SCROLL_SENSITIVITY
+                            || f32::from(scroll_delta.y).abs() > TOUCH_SCROLL_SENSITIVITY
+                        {
+                            if let Some(window) = state.mouse_focused_window.clone() {
+                                let input = PlatformInput::ScrollWheel(ScrollWheelEvent {
+                                    position: current_center,
+                                    delta: ScrollDelta::Pixels(point(
+                                        px(f32::from(scroll_delta.x)),
+                                        px(f32::from(scroll_delta.y)),
+                                    )),
+                                    modifiers: state.modifiers,
+                                    touch_phase: TouchPhase::Moved,
+                                });
+                                drop(state);
+                                window.handle_input(input);
                             }
                         }
                     }
                 } else if state.active_touch_id == Some(id) && !state.is_scrolling {
                     state.mouse_location = Some(position);
+                    
+                    let mut start_scroll = false;
+                    if state.touchscreen_drag_scrolls {
+                        if let Some(initial) = state.touch_initial_location {
+                            let dx = f32::from(position.x) - f32::from(initial.x);
+                            let dy = f32::from(position.y) - f32::from(initial.y);
+                            if dx.abs() > 8.0 || dy.abs() > 8.0 {
+                                start_scroll = true;
+                            }
+                        }
+                    }
+
+                    if start_scroll {
+                        state.is_scrolling = true;
+                        state.last_scroll_center = Some(position);
+                        
+                        // Cancel the pending click before scrolling.
+                        let need_up = state.touch_mouse_down_sent;
+                        state.touch_mouse_down_sent = false;
+                        state.button_pressed = None;
+                        if need_up {
+                            if let Some(window) = state
+                                .touch_window
+                                .clone()
+                                .or_else(|| state.mouse_focused_window.clone())
+                            {
+                                let click_count = state.click.current_count;
+                                let input = PlatformInput::MouseUp(MouseUpEvent {
+                                    button: MouseButton::Left,
+                                    position,
+                                    modifiers: state.modifiers,
+                                    click_count,
+                                });
+                                drop(state);
+                                window.handle_input(input);
+                            }
+                        }
+                        return;
+                    }
 
                     if let Some(window) = state
                         .touch_window

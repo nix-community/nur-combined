@@ -65,6 +65,9 @@ Source of the touch logic:
   class as touch). Enter does not clear an in-flight press.
 - Touch uses the same multi-click (`click_count`) tracking as `wl_pointer`, so
   title-bar double-tap can maximize like a mouse double-click.
+- Added `GPUI_TOUCHSCREEN_DRAG_SCROLLS` environment variable logic. When enabled,
+  a single-finger touch motion emulates a scroll wheel (if it exceeds a 8px threshold)
+  instead of emulating a left-click drag, improving touch scrolling on Wayland.
 - `Pixels`: use `f32::from(...)` instead of `.as_f32()` (not on 0.2.2).
 - `platform/linux/text_system.rs`: extend cosmic-text's Unix font fallback list
   with `Symbols Nerd Font Mono` / `Symbols Nerd Font` (Omnimux ships them for

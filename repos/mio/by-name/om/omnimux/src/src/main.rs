@@ -22,7 +22,13 @@ use tabs::TerminalTabs;
 const CHROME: &str = "omnimux && !omnimux_terminal";
 
 fn main() {
-    gpui::Application::new().run(|cx: &mut gpui::App| {
+    let settings = load_settings();
+    let drag_scrolls = settings.touchscreen_drag_scrolls.unwrap_or(true);
+    unsafe {
+        std::env::set_var("GPUI_TOUCHSCREEN_DRAG_SCROLLS", if drag_scrolls { "1" } else { "0" });
+    }
+
+    gpui::Application::new().run(move |cx: &mut gpui::App| {
         gpui_component::init(cx);
         load_bundled_symbol_fonts(cx);
 

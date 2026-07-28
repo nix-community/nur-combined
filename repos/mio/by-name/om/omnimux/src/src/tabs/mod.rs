@@ -47,6 +47,7 @@ pub struct TerminalTabs {
     pub(crate) focus_ui: bool,
     pub(crate) focus_handle: FocusHandle,
     pub(crate) terminal_palette: ColorPalette,
+    pub(crate) touchscreen_drag_scrolls: bool,
     _subscriptions: Vec<Subscription>,
 }
 
@@ -65,6 +66,7 @@ impl TerminalTabs {
         let sync_font_size_across_tabs = settings.sync_font_size_across_tabs.unwrap_or(true);
         let remember_font_size = settings.remember_font_size.unwrap_or(false);
         let osc52 = settings.osc52.unwrap_or_default();
+        let touchscreen_drag_scrolls = settings.touchscreen_drag_scrolls.unwrap_or(true);
         let font_size = if remember_font_size {
             px(
                 settings
@@ -221,6 +223,7 @@ impl TerminalTabs {
             focus_ui: start_prompt,
             focus_handle,
             terminal_palette,
+            touchscreen_drag_scrolls,
             _subscriptions: subscriptions,
         }
     }
