@@ -4,7 +4,7 @@
         SDL_compat' = SDL_compat // {
             dev = lib.getDev SDL_compat;
         };
-    in SDL_mixer.override (old: {
+    in SDL_mixer.override (old: builtins.intersectAttrs (lib.functionArgs SDL_mixer.override) {
         SDL = SDL_compat';
         smpeg = (old.smpeg.override {
             SDL = SDL_compat';
