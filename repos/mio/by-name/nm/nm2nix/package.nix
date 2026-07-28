@@ -1,13 +1,13 @@
 {
   lib,
-  stdenv,
+  python3Packages,
   fetchFromGitHub,
-  python3,
 }:
 
-stdenv.mkDerivation rec {
+python3Packages.buildPythonApplication rec {
   pname = "nm2nix";
   version = "0-unstable-2026-03-31";
+  format = "other";
 
   src = fetchFromGitHub {
     owner = "janik-haag";
@@ -16,13 +16,13 @@ stdenv.mkDerivation rec {
     hash = "sha256-etI2VY39TIKl+W/MzraxTYE3eaqH9VYThe3YJzydV0E=";
   };
 
-  buildInputs = [ python3 ];
+  dontBuild = true;
 
   installPhase = ''
     runHook preInstall
 
     mkdir -p $out/bin
-    echo "#!${python3}/bin/python3" > $out/bin/nm2nix
+    echo "#!/usr/bin/env python3" > $out/bin/nm2nix
     cat nm2nix.py >> $out/bin/nm2nix
     chmod +x $out/bin/nm2nix
 
