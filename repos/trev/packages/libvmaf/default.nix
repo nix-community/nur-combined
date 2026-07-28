@@ -1,0 +1,63 @@
+{
+  buildPackages,
+  fetchFromGitHub,
+  lib,
+  meson,
+  nasm,
+  ninja,
+  nix-update-script,
+  stdenv,
+}:
+
+stdenv.mkDerivation (finalAttrs: {
+  pname = "libvmaf";
+  version = "3.2.0";
+
+  src = fetchFromGitHub {
+    owner = "netflix";
+    repo = "vmaf";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-OeHxconxv3HjCoq7nN2IzXA6pOwUdc3Dcm8gDV41978=";
+  };
+
+  sourceRoot = "${finalAttrs.src.name}/libvmaf";
+
+  nativeBuildInputs = [
+    meson
+    ninja
+    nasm
+    (buildPackages.callPackage ./xxd.nix { })
+  ];
+
+  postPatch = lib.optionalString stdenv.hostPlatform.isFreeBSD ''
+    substituteInPlace meson.build --replace-fail '_XOPEN_SOURCE=600' '_XOPEN_SOURCE=700'
+  '';
+
+  env = lib.optionalAttrs stdenv.hostPlatform.isFreeBSD {
+    NIX_CFLAGS_COMPILE = "-D__BSD_VISIBLE=1";
+  };
+
+  mesonFlags = [ "-Denable_avx512=true" ];
+
+  outputs = [
+    "out"
+    "dev"
+  ];
+  doCheck = false;
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--commit"
+      finalAttrs.pname
+    ];
+  };
+
+  meta = {
+    description = "Perceptual video quality assessment based on multi-method fusion (VMAF)";
+    homepage = "https://github.com/Netflix/vmaf";
+    changelog = "https://github.com/Netflix/vmaf/blob/v${finalAttrs.version}/CHANGELOG.md";
+    license = lib.licenses.bsd2Patent;
+    mainProgram = "vmaf";
+    platforms = lib.platforms.unix;
+  };
+})

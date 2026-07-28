@@ -20,6 +20,7 @@ in
   go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
+  libvmaf = pkgs.callPackage ./libvmaf { };
   libwtf = pkgs.callPackage ./libwtf { };
   nix-scan = pkgs.callPackage ./nix-scan { };
   paper-mono = pkgs.callPackage ./paper-mono { };
