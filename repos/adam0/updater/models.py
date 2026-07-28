@@ -5,13 +5,11 @@ from pathlib import Path
 from typing import Literal
 
 VersionMode = Literal["stable", "branch"]
-SourceKind = Literal["flake", "file"]
 ResultStatus = Literal["updated", "skipped", "invalid", "failed"]
 
 
 @dataclass(frozen=True)
 class PackageRef:
-    source_kind: SourceKind
     attrset: str
     attr: str
     attr_path: str
