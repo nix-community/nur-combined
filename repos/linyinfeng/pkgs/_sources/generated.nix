@@ -8,13 +8,13 @@
 {
   aws-sigv4-proxy = {
     pname = "aws-sigv4-proxy";
-    version = "v1.11.1";
+    version = "v1.12";
     src = fetchFromGitHub {
       owner = "awslabs";
       repo = "aws-sigv4-proxy";
-      rev = "v1.11.1";
+      rev = "v1.12";
       fetchSubmodules = false;
-      sha256 = "sha256-ni5uE9Sa2PblePxg+mZBQ0jD8YHugfIXhtNRuLrQCzY=";
+      sha256 = "sha256-U0Jxe52bmV+QaS+mKNdW+VzzCtulRL1ZanbWxp4oqcs=";
     };
   };
   baibot = {
@@ -262,17 +262,17 @@
   };
   plugin-git = {
     pname = "plugin-git";
-    version = "dd1f559c01cde4cf0d16581b60e20d29f33c0665";
+    version = "85d692987aabbb4018d1c38d528b7a154d6aae3f";
     src = fetchgit {
       url = "https://github.com/jhillyerd/plugin-git";
-      rev = "dd1f559c01cde4cf0d16581b60e20d29f33c0665";
+      rev = "85d692987aabbb4018d1c38d528b7a154d6aae3f";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-ByEqv5mZ6S9K+Pkpf1Dybwfqh3x++3AhXaMtw0I3wDo=";
+      sha256 = "sha256-sOFuf6vuyU8q07g3xccLZfwwhct2eHzFmT2BcOe1gcc=";
     };
-    date = "2026-05-05";
+    date = "2026-07-28";
   };
   pyim-greatdict = {
     pname = "pyim-greatdict";

@@ -13,12 +13,12 @@
             "name": null,
             "owner": "awslabs",
             "repo": "aws-sigv4-proxy",
-            "rev": "v1.11.1",
-            "sha256": "sha256-ni5uE9Sa2PblePxg+mZBQ0jD8YHugfIXhtNRuLrQCzY=",
+            "rev": "v1.12",
+            "sha256": "sha256-U0Jxe52bmV+QaS+mKNdW+VzzCtulRL1ZanbWxp4oqcs=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.11.1"
+        "version": "v1.12"
     },
     "baibot": {
         "cargoLock": {
@@ -408,7 +408,7 @@
     },
     "plugin-git": {
         "cargoLock": null,
-        "date": "2026-05-05",
+        "date": "2026-07-28",
         "extract": null,
         "name": "plugin-git",
         "passthru": null,
@@ -418,13 +418,13 @@
             "fetchSubmodules": true,
             "leaveDotGit": false,
             "name": null,
-            "rev": "dd1f559c01cde4cf0d16581b60e20d29f33c0665",
-            "sha256": "sha256-ByEqv5mZ6S9K+Pkpf1Dybwfqh3x++3AhXaMtw0I3wDo=",
+            "rev": "85d692987aabbb4018d1c38d528b7a154d6aae3f",
+            "sha256": "sha256-sOFuf6vuyU8q07g3xccLZfwwhct2eHzFmT2BcOe1gcc=",
             "sparseCheckout": [],
             "type": "git",
             "url": "https://github.com/jhillyerd/plugin-git"
         },
-        "version": "dd1f559c01cde4cf0d16581b60e20d29f33c0665"
+        "version": "85d692987aabbb4018d1c38d528b7a154d6aae3f"
     },
     "pyim-greatdict": {
         "cargoLock": null,
