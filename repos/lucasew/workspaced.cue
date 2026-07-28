@@ -247,6 +247,7 @@ workspaced: {
 		"script-directory": {input: "self:modules/script-directory", enable: true}
 		mise: {input: "self:modules/mise", enable: true}
 		hermes: {input: "self:modules/hermes", enable: true}
+		nix: {input: "self:modules/nix", enable: true}
 	}
 }
 
