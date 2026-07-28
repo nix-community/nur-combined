@@ -50,6 +50,11 @@ jobs:
         restore-keys: |
           nvfetcher-
 
+    - name: Update devenv inputs
+      run: |
+        nix profile add nixpkgs#devenv
+        devenv update
+
     - name: Update sources and dependency hashes
       shell: bash
       run: |
@@ -75,7 +80,7 @@ jobs:
 
         git config user.name 'github-actions[bot]'
         git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-        git add -- flake.lock _sources pkgs
+        git add -- devenv.lock flake.lock _sources pkgs
 
         if git diff --cached --quiet; then
           echo 'changed=false' >>"${GITHUB_OUTPUT}"
