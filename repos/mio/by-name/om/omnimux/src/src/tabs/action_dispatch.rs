@@ -23,6 +23,8 @@ impl TerminalTabs {
             .on_action(cx.listener(Self::on_close_overlay))
             .on_action(cx.listener(Self::on_next_tab))
             .on_action(cx.listener(Self::on_prev_tab))
+            .on_action(cx.listener(Self::on_tab))
+            .on_action(cx.listener(Self::on_shift_tab))
             .on_action(cx.listener(Self::on_host_list_up))
             .on_action(cx.listener(Self::on_host_list_down))
             .on_action(cx.listener(Self::on_search_next))
