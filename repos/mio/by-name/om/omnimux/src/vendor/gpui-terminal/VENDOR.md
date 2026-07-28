@@ -62,6 +62,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 
 - `links.rs`: OSC 8 cell URI or plain `http(s)://` under the click point.
 - `with_link_click_callback` + Cmd (macOS) / Ctrl (Linux) + left click in `on_mouse_down`.
+- Changes the cursor to a pointing hand when hovering over a valid link while holding Cmd/Ctrl.
 
 ### IME (CJK input)
 
