@@ -1,0 +1,9 @@
+[ace-ctx]
+fetch.github = "CodingOX/ace-ctx"
+src.github_tag = "CodingOX/ace-ctx"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
+[autocli]
+fetch.github = "nashsu/AutoCLI"
+src.github_tag = "nashsu/AutoCLI"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"

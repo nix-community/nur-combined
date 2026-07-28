@@ -1,0 +1,98 @@
+name: Update packages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'pkgs/**'
+      - '.github/workflows/update.yml'
+  schedule:
+    - cron: "13 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: update-packages
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update package sources and hashes
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Maximize Nix disk space
+      uses: wimpysworld/nothing-but-nix@v10
+      with:
+        hatchet-protocol: cleave
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          accept-flake-config = false
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Restore nvfetcher database
+      uses: actions/cache@v4
+      with:
+        path: ~/.local/share/nvfetcher
+        key: nvfetcher-${{ github.sha }}
+        restore-keys: |
+          nvfetcher-
+
+    - name: Update sources and dependency hashes
+      shell: bash
+      run: |
+        set -euo pipefail
+        trap 'rm -f secrets.toml' EXIT
+
+        cat >secrets.toml <<EOF
+        [keys]
+        github = "${{ secrets.GITHUB_TOKEN }}"
+        EOF
+
+        nix run .#update
+        nix run .#update-hashes
+
+        rm -f secrets.toml
+        trap - EXIT
+
+    - name: Commit changes
+      id: commit
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        git config user.name 'github-actions[bot]'
+        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git add -- flake.lock _sources pkgs
+
+        if git diff --cached --quiet; then
+          echo 'changed=false' >>"${GITHUB_OUTPUT}"
+          exit 0
+        fi
+
+        git commit -m 'chore: update packages'
+        echo 'changed=true' >>"${GITHUB_OUTPUT}"
+
+    - name: Push changes
+      if: steps.commit.outputs.changed == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ github.ref }}
+
+    - name: Trigger distributed package build
+      if: steps.commit.outputs.changed == 'true'
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: gh workflow run build.yml --ref ${{ github.ref }}

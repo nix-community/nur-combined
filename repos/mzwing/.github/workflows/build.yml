@@ -1,0 +1,387 @@
+name: Build and populate cache
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: nur-packages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  CACHE_NAME: mzwing
+  BUILDER_PREFIX: nur-b-${{ github.run_id }}-${{ github.run_attempt }}
+
+jobs:
+  config:
+    name: Plan package builds
+    runs-on: ubuntu-latest
+    outputs:
+      builders: ${{ steps.plan.outputs.builders }}
+      has_builds: ${{ steps.plan.outputs.has_builds }}
+      targets: ${{ steps.plan.outputs.targets }}
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          accept-flake-config = false
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Configure Cachix for pulls
+      uses: cachix/cachix-action@v17
+      with:
+        name: ${{ env.CACHE_NAME }}
+        skipPush: true
+
+    - name: Check flake evaluation
+      run: nix flake check --all-systems --no-build --no-write-lock-file --show-trace
+
+    - name: Evaluate supported packages
+      id: evaluate
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        targets="$(
+          nix eval --json --impure --expr '
+            let
+              flake = builtins.getFlake (toString ./.);
+              systems = [
+                "x86_64-linux"
+                "aarch64-linux"
+                "aarch64-darwin"
+              ];
+              targetsFor = system:
+                let
+                  pkgs = flake.inputs.nixpkgs.legacyPackages.${system};
+                  ci = import ./ci.nix { inherit pkgs; };
+                in
+                  ci.cacheTargets;
+            in
+              builtins.concatMap targetsFor systems
+          '
+        )"
+
+        printf 'targets=%s\n' "${targets}" >>"${GITHUB_OUTPUT}"
+
+    - name: Check caches and generate builder matrix
+      id: plan
+      env:
+        ALL_TARGETS: ${{ steps.evaluate.outputs.targets }}
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        caches=(
+          "https://${CACHE_NAME}.cachix.org"
+          "https://cache.nixos.org"
+          "https://nix-community.cachix.org"
+        )
+
+        is_cached() {
+          local hash
+          hash="$(basename "$1" | cut -d- -f1)"
+          for cache in "${caches[@]}"; do
+            if curl --fail --head --silent --max-time 15 "${cache}/${hash}.narinfo" >/dev/null; then
+              return 0
+            fi
+          done
+          return 1
+        }
+
+        targets='[]'
+        while IFS=$'\t' read -r name system output_name output_path; do
+          if ! is_cached "${output_path}"; then
+            targets="$(
+              jq -c \
+                --arg name "${name}" \
+                --arg system "${system}" \
+                --arg outputName "${output_name}" \
+                --arg outputPath "${output_path}" \
+                '. + [{name: $name, system: $system, outputName: $outputName, outputPath: $outputPath}]' \
+                <<<"${targets}"
+            )"
+          fi
+        done < <(jq -r '.[] | [.name, .system, .outputName, .outputPath] | @tsv' <<<"${ALL_TARGETS}")
+
+        if ! jq -e '
+          type == "array" and
+          length > 0 and
+          all(.[];
+            (.system | type == "string" and length > 0) and
+            (.idPrefix | type == "string" and test("^[a-z0-9]+(-[a-z0-9]+)*$")) and
+            (.runner | type == "string" and length > 0) and
+            (.count | type == "number" and . > 0 and floor == .) and
+            (.maxJobs | type == "number" and . > 0 and floor == .)
+          ) and
+          (([.[].idPrefix] | length) == ([.[].idPrefix] | unique | length))
+        ' .github/builders.json >/dev/null; then
+          echo 'Invalid .github/builders.json configuration.' >&2
+          exit 1
+        fi
+
+        active_systems="$(jq -c '[.[].system] | unique' <<<"${targets}")"
+        missing_systems="$(
+          jq -cn \
+            --argjson systems "${active_systems}" \
+            --slurpfile pools .github/builders.json '
+              $pools[0] as $config |
+              [
+                $systems[] as $system |
+                select([$config[].system] | index($system) == null) |
+                $system
+              ]
+            '
+        )"
+        if [[ "${missing_systems}" != '[]' ]]; then
+          printf 'No builder pool configured for: %s\n' "$(jq -r 'join(", ")' <<<"${missing_systems}")" >&2
+          exit 1
+        fi
+
+        builders="$(
+          jq -cn \
+            --argjson systems "${active_systems}" \
+            --slurpfile pools .github/builders.json '
+              $pools[0] as $config |
+              {
+                include: [
+                  $config[] as $pool |
+                  select($systems | index($pool.system)) |
+                  range(1; $pool.count + 1) as $index |
+                  {
+                    id: "\($pool.idPrefix)-\($index)",
+                    runner: $pool.runner,
+                    system: $pool.system,
+                    maxJobs: $pool.maxJobs
+                  }
+                ]
+              }
+            '
+        )"
+
+        if [[ "${targets}" == '[]' ]]; then
+          has_builds=false
+        else
+          has_builds=true
+        fi
+
+        {
+          printf 'builders=%s\n' "${builders}"
+          printf 'has_builds=%s\n' "${has_builds}"
+          printf 'targets=%s\n' "${targets}"
+        } >>"${GITHUB_OUTPUT}"
+
+  builder:
+    name: Builder ${{ matrix.id }}
+    needs: config
+    if: needs.config.outputs.has_builds == 'true'
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 360
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.config.outputs.builders) }}
+    steps:
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          accept-flake-config = false
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Configure Cachix build daemon
+      uses: cachix/cachix-action@v17
+      with:
+        name: ${{ env.CACHE_NAME }}
+        authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        useDaemon: true
+
+    - name: Enable Cachix uploads for remote builds
+      run: sudo sh -c "cat '${CACHIX_DAEMON_DIR}/nix.conf' >> /etc/nix/nix.conf"
+
+    - name: Join builder network
+      uses: tailscale/github-action@v4
+      env:
+        TAILSCALE_SSH_DEFAULT_PATH: /nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        tags: tag:nur-ci-builder
+        hostname: ${{ env.BUILDER_PREFIX }}-${{ matrix.id }}
+        args: --ssh --accept-dns=false
+        version: latest
+
+    - name: Restore macOS runner DNS
+      if: endsWith(matrix.system, '-darwin')
+      run: sudo networksetup -setdnsservers Ethernet empty
+
+    - name: Wait for distributed builds
+      shell: bash
+      run: |
+        for _ in {1..120}; do
+          if [[ -e /tmp/builder_claimed ]]; then
+            while true; do
+              echo 'Building...'
+              for _ in {1..12}; do
+                [[ -e /tmp/builder_done ]] && exit 0
+                sleep 5
+              done
+            done
+          fi
+          sleep 5
+        done
+        echo 'Coordinator did not claim this builder within 10 minutes.' >&2
+        exit 1
+
+  coordinator:
+    name: Distributed build coordinator
+    needs: config
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v7
+
+    - name: Maximize Nix disk space
+      if: needs.config.outputs.has_builds == 'true'
+      uses: wimpysworld/nothing-but-nix@v10
+      with:
+        hatchet-protocol: cleave
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          accept-flake-config = false
+          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+          max-jobs = 0
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Configure Cachix for pulls
+      uses: cachix/cachix-action@v17
+      with:
+        name: ${{ env.CACHE_NAME }}
+        skipPush: true
+
+    - name: Join coordinator network
+      if: needs.config.outputs.has_builds == 'true'
+      uses: tailscale/github-action@v4
+      with:
+        oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+        oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+        tags: tag:nur-ci-coordinator
+        hostname: nur-c-${{ github.run_id }}-${{ github.run_attempt }}
+        version: latest
+
+    - name: Configure remote builders
+      if: needs.config.outputs.has_builds == 'true'
+      env:
+        BUILDERS: ${{ needs.config.outputs.builders }}
+      shell: bash
+      run: |
+        set -euo pipefail
+
+        sudo mkdir -p /etc/ssh/ssh_config.d
+        sudo tee /etc/ssh/ssh_config.d/nur-ci-builders.conf >/dev/null <<'EOF'
+        Host nur-b-*
+          StrictHostKeyChecking no
+          UserKnownHostsFile /dev/null
+          BatchMode yes
+          LogLevel ERROR
+        EOF
+        sudo tee /etc/nix/machines </dev/null
+
+        while IFS=$'\t' read -r id system max_jobs; do
+          builder="${BUILDER_PREFIX}-${id}"
+          connected=false
+          for _ in {1..120}; do
+            if ssh -n -o ConnectTimeout=5 "root@${builder}" true 2>/dev/null; then
+              connected=true
+              break
+            fi
+            sleep 5
+          done
+          if [[ "${connected}" != true ]]; then
+            printf 'Builder %s did not become reachable within 10 minutes.\n' "${builder}" >&2
+            exit 1
+          fi
+
+          ssh -n "root@${builder}" 'touch /tmp/builder_claimed'
+          printf 'ssh-ng://root@%s %s - %s 1 big-parallel,benchmark\n' \
+            "${builder}" "${system}" "${max_jobs}" |
+            sudo tee -a /etc/nix/machines >/dev/null
+        done < <(jq -r '.include[] | [.id, .system, .maxJobs] | @tsv' <<<"${BUILDERS}")
+
+        sudo tee -a /etc/nix/nix.conf >/dev/null <<'EOF'
+        builders = @/etc/nix/machines
+        builders-use-substitutes = true
+        max-jobs = 0
+        EOF
+        sudo systemctl restart nix-daemon.service
+
+    - name: Build package outputs
+      if: needs.config.outputs.targets != '[]'
+      env:
+        TARGETS: ${{ needs.config.outputs.targets }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        build_systems="$(jq -c '[.[].system] | unique' <<<"${TARGETS}")"
+        {
+          printf '### Built package outputs\n\n'
+          BUILD_SYSTEMS="${build_systems}" nix build \
+            --impure \
+            --expr '
+              let
+                flake = builtins.getFlake (toString ./.);
+                systems = builtins.fromJSON (builtins.getEnv "BUILD_SYSTEMS");
+                outputsFor = system:
+                  let
+                    pkgs = flake.inputs.nixpkgs.legacyPackages.${system};
+                    ci = import ./ci.nix { inherit pkgs; };
+                  in
+                    ci.cacheOutputs;
+              in
+                builtins.concatMap outputsFor systems
+            ' \
+            --no-link \
+            --no-write-lock-file \
+            --print-build-logs \
+            --print-out-paths \
+            --max-jobs 0 |
+            while IFS= read -r path; do
+              printf -- '- `%s`\n' "${path}"
+            done
+        } >>"${GITHUB_STEP_SUMMARY}"
+
+    - name: Release remote builders
+      if: always() && needs.config.outputs.has_builds == 'true'
+      env:
+        BUILDERS: ${{ needs.config.outputs.builders }}
+      shell: bash
+      run: |
+        while IFS= read -r id; do
+          ssh -n -o ConnectTimeout=5 "root@${BUILDER_PREFIX}-${id}" \
+            'touch /tmp/builder_done' || true
+        done < <(jq -r '.include[].id' <<<"${BUILDERS}")
+
+    # - name: Trigger NUR update
+    #   if: >
+    #     success() &&
+    #     github.event_name != 'pull_request' &&
+    #     github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    #   run: curl --fail --show-error -XPOST "https://nur-update.nix-community.org/update?repo=mzwing"
