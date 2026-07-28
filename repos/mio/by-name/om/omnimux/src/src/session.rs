@@ -395,18 +395,42 @@ fi"#;
                     self.exit_status = Some(status.exit_code());
                 }
                 Ok(None) => {
-                    // PTY EOF can race slightly ahead of waitpid. Poll briefly
-                    // without a blocking wait (must not stall the UI thread).
-                    let mut code = None;
-                    for _ in 0..20 {
-                        std::thread::sleep(std::time::Duration::from_millis(1));
-                        if let Ok(Some(status)) = child.try_wait() {
-                            code = Some(status.exit_code());
-                            break;
+                    // PTY EOF can race slightly ahead of waitpid.
+                    // Retry asynchronously so we never stall the UI thread.
+                    let child_arc = self.child.clone();
+                    let entity = cx.entity().downgrade();
+                    cx.spawn(async move |_, cx| {
+                        for _ in 0..20 {
+                            gpui::Timer::after(std::time::Duration::from_millis(1)).await;
+                            if let Ok(mut child) = child_arc.lock() {
+                                if let Ok(Some(status)) = child.try_wait() {
+                                    let code = status.exit_code();
+                                    let _ = entity.update(cx, |session: &mut Self, cx| {
+                                        if !session.has_exited {
+                                            session.has_exited = true;
+                                            session.exit_status = Some(code);
+                                            if code == 0 {
+                                                session.reconnect_streak = 0;
+                                                session.pending_reconnect_at = None;
+                                            }
+                                            cx.notify();
+                                        }
+                                    });
+                                    return;
+                                }
+                            }
                         }
-                    }
-                    self.has_exited = true;
-                    self.exit_status = Some(code.unwrap_or(255));
+                        // 20 ms elapsed — give up and assume non-zero exit.
+                        let _ = entity.update(cx, |session: &mut Self, cx| {
+                            if !session.has_exited {
+                                session.has_exited = true;
+                                session.exit_status = Some(255);
+                                cx.notify();
+                            }
+                        });
+                    })
+                    .detach();
+                    return; // exit_status stays None until the task resolves
                 }
                 Err(_) => {
                     self.has_exited = true;

@@ -4006,6 +4006,7 @@ dependencies = [
  "gpui-component",
  "gpui-terminal",
  "portable-pty",
+ "quick-xml 0.41.0",
  "serde",
  "serde_json",
 ]

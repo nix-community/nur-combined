@@ -1,7 +1,8 @@
 use super::TerminalTabs;
 use crate::actions::{
     CloseOverlay, CloseTab, Copy, FindInTerminal, HostListDown, HostListUp, NewTab, NextTab,
-    Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut, ZoomReset,
+    PassthroughShiftTab, PassthroughTab, Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut,
+    ZoomReset,
 };
 use gpui::prelude::*;
 use gpui::*;
@@ -83,6 +84,30 @@ impl TerminalTabs {
 
     fn on_prev_tab(this: &mut Self, _: &PrevTab, window: &mut Window, cx: &mut Context<Self>) {
         this.prev_tab(window, cx);
+    }
+
+    /// Forward Tab to the active terminal (overrides gpui-component focus-cycle).
+    fn on_tab(
+        this: &mut Self,
+        _: &PassthroughTab,
+        _window: &mut Window,
+        cx: &mut Context<Self>,
+    ) {
+        if let Some(session) = this.tabs.get(this.active_tab) {
+            session.read(cx).terminal_view.read(cx).write_raw_str("\t");
+        }
+    }
+
+    /// Forward Shift+Tab to the active terminal (overrides gpui-component focus-cycle).
+    fn on_shift_tab(
+        this: &mut Self,
+        _: &PassthroughShiftTab,
+        _window: &mut Window,
+        cx: &mut Context<Self>,
+    ) {
+        if let Some(session) = this.tabs.get(this.active_tab) {
+            session.read(cx).terminal_view.read(cx).write_raw_str("\x1b[Z");
+        }
     }
 
     pub(crate) fn on_host_list_up(this: &mut Self, _: &HostListUp, _: &mut Window, cx: &mut Context<Self>) {

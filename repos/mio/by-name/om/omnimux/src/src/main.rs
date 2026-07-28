@@ -9,7 +9,8 @@ mod tabs;
 
 use actions::{
     CloseOverlay, CloseTab, Copy, FindInTerminal, HostListDown, HostListUp, NewTab, NextTab,
-    Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut, ZoomReset,
+    PassthroughShiftTab, PassthroughTab, Paste, PrevTab, SearchNext, SearchPrev, ZoomIn, ZoomOut,
+    ZoomReset,
 };
 use fonts::load_bundled_symbol_fonts;
 use gpui::prelude::*;
@@ -68,6 +69,9 @@ fn main() {
             KeyBinding::new("ctrl-g", SearchNext, Some("omnimux_search")),
             KeyBinding::new("cmd-shift-g", SearchPrev, Some("omnimux_search")),
             KeyBinding::new("ctrl-shift-g", SearchPrev, Some("omnimux_search")),
+            // Override gpui-component Root focus-cycle bindings inside the terminal.
+            KeyBinding::new("tab", PassthroughTab, Some("omnimux_terminal")),
+            KeyBinding::new("shift-tab", PassthroughShiftTab, Some("omnimux_terminal")),
         ]);
 
         let bounds = Bounds::centered(None, size(px(800.0), px(600.0)), cx);

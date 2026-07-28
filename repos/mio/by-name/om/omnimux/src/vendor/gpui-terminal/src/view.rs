@@ -1243,6 +1243,14 @@ impl TerminalView {
         let _ = writer.flush();
     }
 
+    /// Write a raw byte sequence to the PTY without any bracketed-paste wrapping.
+    ///
+    /// Use this for key-generated escape sequences (e.g. Tab `\t`, Shift-Tab `\x1b[Z`)
+    /// that must arrive verbatim regardless of whether bracketed-paste mode is active.
+    pub fn write_raw_str(&self, data: &str) {
+        self.write_pty_str(data);
+    }
+
     /// Write raw text to the PTY (e.g. clipboard paste).
     ///
     /// When the application has bracketed paste enabled, wraps the payload in
