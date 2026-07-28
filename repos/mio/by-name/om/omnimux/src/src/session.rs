@@ -392,7 +392,7 @@ fi"#;
             match child.try_wait() {
                 Ok(Some(status)) => {
                     self.has_exited = true;
-                    self.exit_status = Some(status.exit_code() as u32);
+                    self.exit_status = Some(status.exit_code());
                 }
                 Ok(None) => {
                     // PTY EOF can race slightly ahead of waitpid. Poll briefly
@@ -401,7 +401,7 @@ fi"#;
                     for _ in 0..20 {
                         std::thread::sleep(std::time::Duration::from_millis(1));
                         if let Ok(Some(status)) = child.try_wait() {
-                            code = Some(status.exit_code() as u32);
+                            code = Some(status.exit_code());
                             break;
                         }
                     }

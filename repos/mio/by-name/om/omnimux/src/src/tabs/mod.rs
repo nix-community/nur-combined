@@ -120,12 +120,12 @@ impl TerminalTabs {
             // TerminalTabs while open_host_prompt is still updating it (set_value
             // emits InputEvent::Change → double-lease panic).
             App::subscribe(cx, &host_input, {
-                let window_handle = window_handle;
+
                 let tabs_weak = tabs_weak.clone();
                 move |_, event, cx| match event {
                     InputEvent::PressEnter { .. } => {
                         let tabs_weak = tabs_weak.clone();
-                        let window_handle = window_handle;
+
                         cx.defer(move |cx| {
                             let _ = window_handle.update(cx, |_, window, cx| {
                                 let _ = tabs_weak.update(cx, |this, cx| {

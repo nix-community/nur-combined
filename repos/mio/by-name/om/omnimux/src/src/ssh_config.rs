@@ -46,9 +46,9 @@ fn parse_ssh_config(config_path: &Path, hosts: &mut Vec<String>, visited: &mut H
         } else if lower.starts_with("include ") || lower.starts_with("include\t") {
             let rest = line[7..].trim_start();
             for include_path in rest.split_whitespace() {
-                let expanded_path = if include_path.starts_with("~/") {
+                let expanded_path = if let Some(stripped) = include_path.strip_prefix("~/") {
                     if let Ok(home) = std::env::var("HOME") {
-                        PathBuf::from(home).join(&include_path[2..])
+                        PathBuf::from(home).join(stripped)
                     } else {
                         PathBuf::from(include_path)
                     }
@@ -60,13 +60,12 @@ fn parse_ssh_config(config_path: &Path, hosts: &mut Vec<String>, visited: &mut H
                     PathBuf::from(include_path)
                 };
 
-                if let Some(expanded_str) = expanded_path.to_str() {
-                    if let Ok(paths) = glob::glob(expanded_str) {
+                if let Some(expanded_str) = expanded_path.to_str()
+                    && let Ok(paths) = glob::glob(expanded_str) {
                         for entry in paths.flatten() {
                             parse_ssh_config(&entry, hosts, visited);
                         }
                     }
-                }
             }
         }
     }

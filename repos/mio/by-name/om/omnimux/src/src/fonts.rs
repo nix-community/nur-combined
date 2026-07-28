@@ -6,15 +6,14 @@ fn symbol_font_dirs() -> Vec<PathBuf> {
     if let Ok(dir) = std::env::var("OMNIMUX_FONTS_DIR") {
         dirs.push(PathBuf::from(dir));
     }
-    if let Ok(exe) = std::env::current_exe() {
-        if let Some(bin_dir) = exe.parent() {
+    if let Ok(exe) = std::env::current_exe()
+        && let Some(bin_dir) = exe.parent() {
             // Nix: $out/bin/omnimux → $out/share/omnimux/fonts
             dirs.push(bin_dir.join("../share/omnimux/fonts"));
             dirs.push(bin_dir.join("fonts"));
             // Darwin .app: Contents/MacOS/Omnimux → Contents/Resources/fonts
             dirs.push(bin_dir.join("../Resources/fonts"));
         }
-    }
     dirs
 }
 

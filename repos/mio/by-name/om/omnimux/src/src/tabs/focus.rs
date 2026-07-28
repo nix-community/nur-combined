@@ -98,9 +98,7 @@ impl TerminalTabs {
                 self.focus_host_input(window, cx);
             } else if self.show_search {
                 self.focus_search_input(window, cx);
-            } else if self.show_settings {
-                self.focus_handle.focus(window);
-            } else if self.pending_open_url.is_some() {
+            } else if self.show_settings || self.pending_open_url.is_some() {
                 self.focus_handle.focus(window);
             }
             return;

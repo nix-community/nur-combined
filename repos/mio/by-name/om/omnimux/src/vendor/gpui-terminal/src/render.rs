@@ -60,7 +60,7 @@
 //! ```
 
 use crate::colors::ColorPalette;
-use crate::event::GpuiEventProxy;
+
 use alacritty_terminal::grid::Dimensions;
 use alacritty_terminal::index::{Column, Point as AlacPoint};
 use alacritty_terminal::term::Term;

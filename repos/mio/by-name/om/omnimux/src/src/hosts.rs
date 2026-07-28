@@ -1,7 +1,7 @@
 /// Host query after `user@` prefix for SSH autocomplete.
 pub fn host_query(input: &str) -> &str {
     if input.contains('@') {
-        input.split('@').last().unwrap_or("")
+        input.split('@').next_back().unwrap_or("")
     } else {
         input
     }
