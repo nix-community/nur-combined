@@ -72,14 +72,16 @@ pub fn render_tab_bar(
             }))
             .on_drag(drag, |drag, _, _, cx| cx.new(|_| drag.clone()))
             .drag_over::<TabDrag>({
-                let hover_bg = colors.hover;
+                let active_border = colors.active;
                 move |style, drag, _, _| {
-                    if drag.index != i {
-                        // Highlight target tab while hovering
-                        style.bg(hover_bg)
+                    if drag.index < i {
+                        // Drop goes after target -> highlight right edge
+                        style.border_r_2().border_color(active_border)
+                    } else if drag.index > i {
+                        // Drop goes before target -> highlight left edge
+                        style.border_l_2().border_r_0().border_color(active_border)
                     } else {
-                        // Keep normal background when hovering over itself
-                        style.bg(bg_color)
+                        style
                     }
                 }
             })
@@ -90,7 +92,7 @@ pub fn render_tab_bar(
                     return;
                 }
                 let tab = this.tabs.remove(from);
-                let insert_at = if from < to { to - 1 } else { to };
+                let insert_at = to;
                 this.tabs.insert(insert_at, tab);
                 if this.remember_session {
                     let hosts: Vec<Option<String>> =
