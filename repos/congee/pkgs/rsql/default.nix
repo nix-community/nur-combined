@@ -14,20 +14,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "rsql";
-  version = "0.19.4";
+  version = "0.20.0";
 
   src = fetchFromGitHub {
     owner = "theseus-rs";
     repo = "rsql";
     rev = "v${version}";
-    hash = "sha256-sOppcQzXTfTXbQW6klwgAAw820Iq22hR1ldQ6lv6+/Q=";
+    hash = "sha256-y0ZxXTdGVSKS/1Qo81lj5PLR1sovwjVwNkZayvFv4fc=";
   };
 
-  # ethnum <1.5.3 uses mem::transmute(()) -> TryFromIntError, which no longer
-  # compiles now that TryFromIntError is non-zero-sized. Bump the pinned dep.
-  cargoPatches = [ ./ethnum.patch ];
-
-  cargoHash = "sha256-Wzbbyy+AN4ecILuqDdc7XtExRMNbv0pu5oqR8XTD4Vo=";
+  cargoHash = "sha256-rvnKRSVGmyTeeoiUVyaK0xe9+C3xM7CvWfLSrDkqVg4=";
 
   nativeBuildInputs = [
     pkg-config
@@ -43,8 +39,10 @@ rustPlatform.buildRustPackage rec {
     duckdb
   ];
 
-  cargoBuildFlags = [ "-p" "rsql_cli" ];
-  cargoTestFlags = [ "-p" "rsql_cli" ];
+  # Upstream declares rust-version 1.97.1; nixpkgs rustc is 1.97.0 and the
+  # code builds fine against it.
+  cargoBuildFlags = [ "-p" "rsql_cli" "--ignore-rust-version" ];
+  cargoTestFlags = [ "-p" "rsql_cli" "--ignore-rust-version" ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   versionCheckProgramArg = "--version";

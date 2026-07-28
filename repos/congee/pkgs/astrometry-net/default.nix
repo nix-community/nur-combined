@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchurl,
+  fetchFromGitHub,
   fixDarwinDylibNames,
   pkg-config,
   python3,
@@ -29,13 +29,16 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "astrometry-net";
-  version = "0.97";
+  version = "0.98";
 
-  # The release tarball bakes the version into makefile.common and ships
-  # pre-swigged sources (no swig/git needed). Releases stop at 0.97.
-  src = fetchurl {
-    url = "https://github.com/dstndstn/astrometry.net/releases/download/${finalAttrs.version}/astrometry.net-${finalAttrs.version}.tar.gz";
-    hash = "sha256-5O7xtli6WtRiKCtmHAyjpcU4uhcW6FP3lwt7n6SjNFk=";
+  # Build from the tag, not the release tarball: upstream tags ahead of
+  # publishing tarballs. swig is only needed by the release/snapshot targets,
+  # not `all`, and AN_GIT_REVISION is passed below in place of `git describe`.
+  src = fetchFromGitHub {
+    owner = "dstndstn";
+    repo = "astrometry.net";
+    tag = finalAttrs.version;
+    hash = "sha256-/YLDcPOQHw23s77s3XRVa6YV4CwT5CKs3f+m2pBLajY=";
   };
 
   # python3: build-time only (generates etc/astrometry.cfg); report.txt, its
