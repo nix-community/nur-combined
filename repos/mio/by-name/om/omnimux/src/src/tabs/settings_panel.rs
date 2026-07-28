@@ -111,6 +111,21 @@ pub fn render_settings_panel(
                 })
                 .child({
                     let entity = entity.clone();
+                    Switch::new("touchscreen_drag_scrolls_toggle")
+                        .checked(this.touchscreen_drag_scrolls)
+                        .label("Touchscreen dragging scrolls instead of selecting")
+                        .mb_3()
+                        .text_color(colors.text)
+                        .on_click(move |checked, _, app| {
+                            entity.update(app, |this, cx| {
+                                this.touchscreen_drag_scrolls = *checked;
+                                save_settings_from_tabs(this);
+                                cx.notify();
+                            });
+                        })
+                })
+                .child({
+                    let entity = entity.clone();
                     Switch::new("sync_font_size_toggle")
                         .checked(this.sync_font_size_across_tabs)
                         .label("Sync font size across tabs (Ctrl/Cmd +/-)")
