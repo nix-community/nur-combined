@@ -143,6 +143,7 @@ let
 
           mkdir -p $out/opt/bifrost
           cp --recursive desktop/build/compose/binaries/main-release/app/Bifrost/* $out/opt/bifrost/
+          rm -rf $out/opt/bifrost/lib/runtime
           install -D --mode=0644 $out/opt/bifrost/lib/Bifrost.png \
             $out/share/icons/hicolor/512x512/apps/bifrost.png
 

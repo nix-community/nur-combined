@@ -1,0 +1,22 @@
+[package]
+name = "omnimux"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+gpui = { version = "0.2.2", features = ["runtime_shaders"] }
+gpui-component = "0.5.1"
+gpui-terminal = { path = "vendor/gpui-terminal" }
+glob = "0.3"
+portable-pty = "0.9.0"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# Pull quick-xml >= 0.41 to silence RUSTSEC-2026-0194/0195 on macOS/Windows builds.
+# (xcb → zed-scap pulled in 0.30.0; not compiled on Linux but present in lockfile.)
+quick-xml = { version = "0.41", optional = true }
+
+# Wayland touchscreen support (wl_touch → mouse/scroll) until upstream merges
+# https://github.com/zed-industries/zed/pull/40139 into crates.io gpui.
+[patch.crates-io]
+gpui = { path = "vendor/gpui" }
+

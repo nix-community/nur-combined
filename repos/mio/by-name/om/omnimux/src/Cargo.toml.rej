@@ -1,0 +1,160 @@
+--- Cargo.toml	1970-01-01 10:00:01.000000000 +1000
++++ gpui/Cargo.toml	2026-07-28 08:46:08.875993030 +1000
+@@ -69,6 +69,7 @@
+     "bytemuck",
+     "ashpd/wayland",
+     "cosmic-text",
++    "unicode-script",
+     "font-kit",
+     "calloop-wayland-source",
+     "wayland-backend",
+@@ -88,6 +89,7 @@
+     "bytemuck",
+     "ashpd",
+     "cosmic-text",
++    "unicode-script",
+     "font-kit",
+     "as-raw-xcb-connection",
+     "x11rb",
+@@ -104,130 +106,6 @@
+ path = "src/gpui.rs"
+ doctest = false
+ 
+-[[example]]
+-name = "animation"
+-path = "examples/animation.rs"
+-
+-[[example]]
+-name = "data_table"
+-path = "examples/data_table.rs"
+-
+-[[example]]
+-name = "drag_drop"
+-path = "examples/drag_drop.rs"
+-
+-[[example]]
+-name = "gif_viewer"
+-path = "examples/gif_viewer.rs"
+-
+-[[example]]
+-name = "gradient"
+-path = "examples/gradient.rs"
+-
+-[[example]]
+-name = "grid_layout"
+-path = "examples/grid_layout.rs"
+-
+-[[example]]
+-name = "hello_world"
+-path = "examples/hello_world.rs"
+-
+-[[example]]
+-name = "image"
+-path = "examples/image/image.rs"
+-
+-[[example]]
+-name = "image_gallery"
+-path = "examples/image_gallery.rs"
+-
+-[[example]]
+-name = "image_loading"
+-path = "examples/image_loading.rs"
+-
+-[[example]]
+-name = "input"
+-path = "examples/input.rs"
+-
+-[[example]]
+-name = "on_window_close_quit"
+-path = "examples/on_window_close_quit.rs"
+-
+-[[example]]
+-name = "opacity"
+-path = "examples/opacity.rs"
+-
+-[[example]]
+-name = "ownership_post"
+-path = "examples/ownership_post.rs"
+-
+-[[example]]
+-name = "painting"
+-path = "examples/painting.rs"
+-
+-[[example]]
+-name = "paths_bench"
+-path = "examples/paths_bench.rs"
+-
+-[[example]]
+-name = "pattern"
+-path = "examples/pattern.rs"
+-
+-[[example]]
+-name = "scrollable"
+-path = "examples/scrollable.rs"
+-
+-[[example]]
+-name = "set_menus"
+-path = "examples/set_menus.rs"
+-
+-[[example]]
+-name = "shadow"
+-path = "examples/shadow.rs"
+-
+-[[example]]
+-name = "svg"
+-path = "examples/svg/svg.rs"
+-
+-[[example]]
+-name = "tab_stop"
+-path = "examples/tab_stop.rs"
+-
+-[[example]]
+-name = "text"
+-path = "examples/text.rs"
+-
+-[[example]]
+-name = "text_layout"
+-path = "examples/text_layout.rs"
+-
+-[[example]]
+-name = "text_wrapper"
+-path = "examples/text_wrapper.rs"
+-
+-[[example]]
+-name = "tree"
+-path = "examples/tree.rs"
+-
+-[[example]]
+-name = "uniform_list"
+-path = "examples/uniform_list.rs"
+-
+-[[example]]
+-name = "window"
+-path = "examples/window.rs"
+-
+-[[example]]
+-name = "window_positioning"
+-path = "examples/window_positioning.rs"
+-
+-[[example]]
+-name = "window_shadow"
+-path = "examples/window_shadow.rs"
+-
+-[[test]]
+-name = "action_macros"
+-path = "tests/action_macros.rs"
+-
+ [dependencies.anyhow]
+ version = "1.0.86"
+ 
+@@ -487,6 +365,10 @@
+ version = "0.14.0"
+ optional = true
+ 
++[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.unicode-script]
++version = "0.5"
++optional = true
++
+ [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.filedescriptor]
+ version = "0.8.2"
+ optional = true

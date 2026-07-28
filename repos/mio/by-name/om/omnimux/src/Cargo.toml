@@ -19,4 +19,5 @@ quick-xml = { version = "0.41", optional = true }
 # https://github.com/zed-industries/zed/pull/40139 into crates.io gpui.
 [patch.crates-io]
 gpui = { path = "vendor/gpui" }
+gpui-component = { path = "vendor/gpui-component" }
 

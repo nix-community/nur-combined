@@ -80,6 +80,8 @@ pub struct Settings {
     pub window_maximized: Option<bool>,
     /// Whether touchscreen dragging acts as scrolling (true) or selection (false).
     pub touchscreen_drag_scrolls: Option<bool>,
+    /// Whether to prompt before opening a link.
+    pub confirm_link_open: Option<bool>,
 }
 
 pub fn load_settings() -> Settings {
@@ -147,6 +149,7 @@ pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
         osc52: Some(tabs.osc52),
         window_maximized: existing.window_maximized,
         touchscreen_drag_scrolls: existing.touchscreen_drag_scrolls,
+        confirm_link_open: Some(tabs.confirm_link_open),
     };
     write_settings(&settings);
 }

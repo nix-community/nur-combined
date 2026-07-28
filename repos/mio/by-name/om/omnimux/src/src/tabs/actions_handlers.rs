@@ -128,9 +128,13 @@ impl TerminalTabs {
         if !gpui_terminal::is_browser_url(&url) {
             return;
         }
-        self.pending_open_url = Some(url);
-        self.focus_ui = true;
-        self.focus_handle.focus(window);
+        if self.confirm_link_open {
+            self.pending_open_url = Some(url);
+            self.focus_ui = true;
+            self.focus_handle.focus(window);
+        } else {
+            cx.open_url(&url);
+        }
         cx.notify();
     }
 

@@ -73,6 +73,21 @@ pub fn render_settings_panel(
                 })
                 .child({
                     let entity = entity.clone();
+                    Switch::new("confirm_link_open_toggle")
+                        .checked(this.confirm_link_open)
+                        .label("Confirm before opening links")
+                        .mb_3()
+                        .text_color(colors.text)
+                        .on_click(move |checked, _, app| {
+                            entity.update(app, |this, cx| {
+                                this.confirm_link_open = *checked;
+                                save_settings_from_tabs(this);
+                                cx.notify();
+                            });
+                        })
+                })
+                .child({
+                    let entity = entity.clone();
                     Switch::new("remember_session_toggle")
                         .checked(this.remember_session)
                         .label("Remember & restore tabs on relaunch")
