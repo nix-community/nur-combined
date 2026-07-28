@@ -11,4 +11,10 @@
 
   zcode = pkgs.callPackage ./pkgs/zcode { };
 
+  vscode-extensions = {
+    jetpack-io = {
+      devbox = pkgs.callPackage ./pkgs/vscode-extensions/devbox { };
+    };
+  };
+
 }
