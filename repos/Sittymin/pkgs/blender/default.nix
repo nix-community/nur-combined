@@ -41,8 +41,8 @@ if oneapiSupport then
     '';
 
     postFixup = (oldAttrs.postFixup or "") + ''
-      for f in "$out/bin/blender" "$out/bin/.blender-wrapped" "$out/lib"/libcycles_kernel_oneapi*.so "$out/lib"/libsycl.so; do
-        [ -e "$f" ] && addDriverRunpath "$f"
+      for program in "$out/bin/blender" "$out/bin/.blender-wrapped"; do
+        addDriverRunpath "$program"
       done
     '';
   })

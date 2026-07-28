@@ -10,6 +10,9 @@
   pkgs ? import <nixpkgs> { },
 }:
 
+let
+  blender = import ./pkgs/blender { inherit pkgs; };
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -19,6 +22,7 @@
   sysmon = pkgs.callPackage ./pkgs/sysmon { };
   guile-lsp-server = pkgs.callPackage ./pkgs/guile-lsp-server { };
   libmks = pkgs.callPackage ./pkgs/libmks { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
+
+  # Blender with Intel oneAPI (Intel Arc / integrated GPU) Cycles support.
+  inherit blender;
 }
