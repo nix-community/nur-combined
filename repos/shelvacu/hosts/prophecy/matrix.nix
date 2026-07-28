@@ -8,7 +8,7 @@ let
   socketDir = "/run/matrix-unix-socket";
   socketPath = "${socketDir}/socket.unix";
   delegatedName = "matrix.shelvacu.com";
-  wellKnownServer = builtins.toJSON { "m.server" = delegatedName; };
+  wellKnownServer = builtins.toJSON { "m.server" = "${delegatedName}:443"; };
   wellKnownClient = builtins.toJSON { "m.homeserver".base_url = "https://${delegatedName}"; };
 in
 {
@@ -42,6 +42,7 @@ in
   services.caddy.virtualHosts = {
     "matrix.shelvacu.com" = {
       vacu.hsts = "preload";
+      serverAliases = [ "matrix.shelvacu.com:8448" ];
       extraConfig = ''
         reverse_proxy unix/${socketPath}
       '';
@@ -57,4 +58,6 @@ in
       }
     '';
   };
+
+  networking.firewall.allowedTCPPorts = [ 8448 ];
 }

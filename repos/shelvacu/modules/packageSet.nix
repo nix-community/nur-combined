@@ -8,9 +8,16 @@
 }:
 let
   inherit (lib) mkOption types;
-  pkgOptions = builtins.attrValues config.vacu.packages;
-  enabledOptions = builtins.filter (o: o.enable) pkgOptions;
-  enabledPkgs = builtins.map (o: o.finalPackage) enabledOptions;
+  # pkgOptions = builtins.attrValues config.vacu.packages;
+  # enabledOptions = builtins.filter (o: o.enable) pkgOptions;
+  # enabledPkgs = builtins.map (o: o.finalPackage) enabledOptions;
+  enabledPkgsFor =
+    packagesOption:
+    lib.pipe packagesOption [
+      builtins.attrValues
+      (builtins.filter (o: o.enable))
+      (map (o: o.finalPackage))
+    ];
   packagesSetType = types.attrsOf (
     types.submodule (
       { name, config, ... }:
@@ -77,26 +84,24 @@ let
     else
       throw "this should never happen; should be a list or string";
   listTy = types.listOf (types.either types.str types.package);
+  packagesOption = mkOption {
+    default = { };
+    type = types.coercedTo (types.either listTy types.str) listOrStringToPackageSet packagesSetType;
+  };
 in
 {
   imports =
     [ ]
     ++ lib.optional (vacuModuleType == "nixos") {
-      environment.systemPackages = config.vacu.finalPackageList;
+      environment.systemPackages = enabledPkgsFor config.vacu.packages;
+      fonts.packages = enabledPkgsFor config.vacu.fontPackages;
     }
     ++ lib.optional (vacuModuleType == "nix-on-droid") {
-      environment.packages = config.vacu.finalPackageList;
+      environment.packages =
+        (enabledPkgsFor config.vacu.packages) ++ (enabledPkgsFor config.vacu.fontPackages);
     };
   options = {
-    vacu.packages = mkOption {
-      default = { };
-      type = types.coercedTo (types.either listTy types.str) listOrStringToPackageSet packagesSetType;
-    };
-    vacu.finalPackageList = mkOption {
-      type = types.listOf types.package;
-      readOnly = true;
-    };
+    vacu.packages = packagesOption;
+    vacu.fontPackages = packagesOption;
   };
-
-  config.vacu.finalPackageList = enabledPkgs;
 }

@@ -1,5 +1,4 @@
-{ lib, vaculib, ... }:
-{
+{ lib, vaculib, ... }: {
   # https://github.com/NixOS/nixpkgs/issues/41251#issuecomment-393660714
   pow =
     base: exponent:

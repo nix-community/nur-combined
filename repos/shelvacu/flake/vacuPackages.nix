@@ -4,15 +4,17 @@
   vacuRoot,
   ...
 }:
+let
+  vacuPackageNames = builtins.attrNames (import /${vacuRoot}/packages { inherit lib vaculib; });
+in
 {
-  perSystem =
-    { pkgs, ... }:
-    let
-      vacuPackageNames = builtins.attrNames (import /${vacuRoot}/packages { inherit lib vaculib; });
-      vacuPackagesAndMore = lib.genAttrs vacuPackageNames (name: pkgs.${name});
-    in
-    {
-      packages = lib.filterAttrs (_: value: lib.isDerivation value) vacuPackagesAndMore;
-      legacyPackages = vacuPackagesAndMore;
-    };
+  vacuBuilds = lib.genAttrs vacuPackageNames (_: {
+    putInPackages = true;
+  });
+  perSystem = { pkgs, ... }: {
+    vacuBuildDerivations = lib.genAttrs vacuPackageNames (name: pkgs.${name});
+    legacyPackages = builtins.mapAttrs (name: _: pkgs.${name}) (
+      import /${vacuRoot}/legacyPackages { inherit lib vaculib; }
+    );
+  };
 }

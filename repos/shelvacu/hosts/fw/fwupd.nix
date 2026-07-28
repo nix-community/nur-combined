@@ -1,5 +1,4 @@
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   vacu.packages = [ config.services.fwupd.package ];
   services.fwupd.enable = true;
   #fwupd gets confused by the multiple EFI partitions, I think I just have to pick one

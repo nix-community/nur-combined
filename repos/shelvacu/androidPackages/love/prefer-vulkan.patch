@@ -1,0 +1,22 @@
+Submodule app/src/main/cpp/love contains modified content
+diff --git i/app/src/main/cpp/love/src/modules/graphics/Graphics.cpp w/app/src/main/cpp/love/src/modules/graphics/Graphics.cpp
+index 97d8773f8..f022c1c6d 100644
+--- i/app/src/main/cpp/love/src/modules/graphics/Graphics.cpp
++++ w/app/src/main/cpp/love/src/modules/graphics/Graphics.cpp
+@@ -116,16 +116,8 @@ namespace vulkan { extern love::graphics::Graphics *createInstance(); }
+ 
+ static const Renderer rendererOrder[] = {
+ 	RENDERER_METAL,
+-#if defined(LOVE_ANDROID) || (defined(LOVE_WINDOWS) && defined(_M_ARM64))
+-	// Don't prioritize Vulkan by default yet on Android - it needs more testing.
+-	// Also don't prioritize Vulkan on Windows ARM64 because it doesn't work.
+-	// See https://github.com/love2d/love/issues/2196
+-	RENDERER_OPENGL,
+-	RENDERER_VULKAN,
+-#else
+ 	RENDERER_VULKAN,
+ 	RENDERER_OPENGL,
+-#endif
+ };
+ 
+ static std::vector<Renderer> defaultRenderers =

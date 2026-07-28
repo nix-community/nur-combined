@@ -14,9 +14,13 @@ let
         str
         number
         bool
-        exposeTy
+        exposeTyNested
       ])
     );
+
+  exposeTyNested = exposeTy // {
+    description = "<vacu>/modules/expose.nix exposeTy";
+  };
 
   builderCommands = lib.pipe config.vacu.expose [
     (lib.mapAttrsToListRecursiveCond (_path: attrs: !lib.isDerivation attrs) (

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: rec {
   /**
     # Type
 
@@ -13,6 +12,28 @@
       name = f name;
       inherit value;
     }) attrs;
+
+  _tests.mapAttrNames.simple =
+    assert
+      (mapAttrNames (name: "prefix-${name}") {
+        a = "a";
+        b = "b";
+      }) == {
+        prefix-a = "a";
+        prefix-b = "b";
+      };
+    true;
+  _tests.mapAttrNames.overwrite =
+    assert lib.elem
+      (mapAttrNames (_: "a") {
+        c = "c";
+        d = "d";
+      }).a
+      [
+        "c"
+        "d"
+      ];
+    true;
 
   # based off of https://github.com/NixOS/nixpkgs/blob/d792a6e0cd4ba35c90ea787b717d72410f56dc40/lib/attrsets.nix#L1577
   /**
@@ -32,8 +53,8 @@
     ## `vaculib.mapMergeAttrs` usage example
 
     ```nix
-    mapMergeAttrs (l: r: l + r) [ { a = 0; b = 1; } { b = 2; c = 5; } ]
-    => { a = 1; b = 3; c = 5; }
+    mapMergeAttrs (l: r: l + r) [ { a = 1; b = 2; } { b = 4; c = 8; } ]
+    => { a = 1; b = 6; c = 8; }
     ```
 
     :::
@@ -47,7 +68,7 @@
           naiveMerge = a // b;
         in
         builtins.mapAttrs (
-          name: val: if a ? name && b ? name then mergeValues a.${name} b.${name} else val
+          name: val: if a ? ${name} && b ? ${name} then mergeValues a.${name} b.${name} else val
         ) naiveMerge;
       # `binaryMerge start end` merges the elements at indices `index` of `list` such that `start <= index < end`
       # Type: Int -> Int -> Attrs
@@ -72,14 +93,45 @@
     else
       binaryMerge 0 (builtins.length list);
 
+  _tests.mapMergeAttrs.simple =
+    assert
+      (mapMergeAttrs (l: r: l + r) [
+        {
+          a = 1;
+          b = 2;
+        }
+        {
+          b = 4;
+          c = 8;
+        }
+      ]) == {
+        a = 1;
+        b = 6;
+        c = 8;
+      };
+    true;
+
   # like the nixpkgs-lib unionOfDisjoint, but errors immediately if there are any conflicts
   unionOfDisjoint =
-    e1: e2:
+    a1: a2:
     let
-      i = builtins.intersectAttrs e1 e2;
+      i = builtins.intersectAttrs a1 a2;
+      conflictsStr = lib.pipe i [
+        builtins.attrNames
+        (map lib.strings.escapeNixIdentifier)
+        (lib.concatStringsSep ", ")
+      ];
     in
-    lib.throwIf (i != { })
-      "vaculib.unionOfDisjoint: conflicting attrs: ${builtins.concatStringsSep " " (builtins.attrNames i)}"
-      e1
-    // e2;
+    lib.throwIf (i != { }) "vaculib.unionOfDisjoint: conflicting attrs: ${conflictsStr}" (a1 // a2);
+
+  _tests.unionOfDisjoint.simple =
+    assert
+      (unionOfDisjoint { a = 1; } { b = 2; }) == {
+        a = 1;
+        b = 2;
+      };
+    true;
+  _tests.unionOfDisjoint.errorOnConflict =
+    assert !(builtins.tryEval (unionOfDisjoint { a = 1; } { a = 1; })).success;
+    true;
 }

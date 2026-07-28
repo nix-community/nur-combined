@@ -20,7 +20,7 @@ let
   colornum = colors.${cfg.color};
   root_text = root: lib.optionalString root "ROOT@";
   final = root: if root then (set_inverted_color colors.red) + "!!" else "$";
-  hostName = if vacuModuleType == "plain" then ''\h'' else config.vacu.shortHostName;
+  hostName = if config.vacu.shortHostName == null then ''\h'' else config.vacu.shortHostName;
   default_ps1 =
     root:
     ""
@@ -29,10 +29,10 @@ let
     + (set_color colornum)
     + "${root_text root}${hostName}:\\w"
     + " "
-    + ''$(vacu_shell_show_return_code)''
+    + "$(vacu_shell_show_return_code)"
     + ''\n''
     + reset_color
-    + ''$(vacu_shell_level_indicator)''
+    + "$(vacu_shell_level_indicator)"
     + (set_color colornum)
     + (final root)
     + reset_color

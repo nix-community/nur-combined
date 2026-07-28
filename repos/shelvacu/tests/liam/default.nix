@@ -38,6 +38,7 @@ let
         map (name: "${name}:{plain}${name}::::::") [
           "shelvacu"
           "julie"
+          "jobs"
         ]
       ))
       + ''
@@ -168,48 +169,42 @@ in
       };
     };
 
-  nodes.liam =
-    { lib, config, ... }:
-    {
-      imports = [
-        /${vacuRoot}/common
-        /${vacuRoot}/hosts/liam
-      ];
-      vacu.underTest = true;
-      vacu.sops.secretsPath = "${sopsTestSecretsFolder}";
-      vacu.liam.relayhosts = {
-        shelvacuAlt = "[badhost.blarg]:587";
-        allDomains = "[${relayDomain}]:587";
-      };
-      system.activationScripts.sopsHack.text = "ln -s ${testAgeSecretFile} /run/secretKey";
-      system.activationScripts.setupSecrets.deps = [ "sopsHack" ];
-      # systemd.services."acme-order-renew-liam.dis8.net".enable = lib.mkForce false;
-      sops.age.keyFile = "/run/secretKey";
-      services.do-agent.enable = false;
-      virtualisation.digitalOcean = {
-        seedEntropy = false;
-        setSshKeys = false;
-        rebuildFromUserData = false;
-        setRootPassword = false;
-      };
-      # uncomment to significantly speed up the test
-      # services.dovecot2.enableDHE = lib.mkForce false;
-      security.acme.defaults.email = lib.mkForce "me@example.org";
-      security.acme.defaults.server = lib.mkForce "https://example.com"; # self-signed only
-      networking.nameservers = lib.mkForce [ nodes.ns.networking.primaryIPAddress ];
-      security.pki.certificateFiles = [ rootCA.certificatePath ];
-
-      vacu.liam.backup.keyPath = pkgs.writeText "test-borg-key" testBorgKey;
-      vacu.hosts.rsn.sshKeys = lib.mkForce [ ]; # remove known key so i can do a trust-on-first-use in the test
-      networking.hosts."${nodes.rsyncnet.networking.primaryIPAddress}" = [
-        config.vacu.liam.backup.rsyncHost
-      ];
+  nodes.liam = { lib, config, ... }: {
+    imports = [
+      /${vacuRoot}/common
+      /${vacuRoot}/hosts/liam
+    ];
+    vacu.underTest = true;
+    vacu.sops.secretsPath = "${sopsTestSecretsFolder}";
+    vacu.liam.relayhosts = {
+      shelvacuAlt = "[badhost.blarg]:587";
+      allDomains = "[${relayDomain}]:587";
     };
+    system.activationScripts.sopsHack.text = "ln -s ${testAgeSecretFile} /run/secretKey";
+    system.activationScripts.setupSecrets.deps = [ "sopsHack" ];
+    # systemd.services."acme-order-renew-liam.dis8.net".enable = lib.mkForce false;
+    sops.age.keyFile = "/run/secretKey";
+    services.do-agent.enable = false;
+    virtualisation.digitalOcean = {
+      seedEntropy = false;
+      setSshKeys = false;
+      rebuildFromUserData = false;
+      setRootPassword = false;
+    };
+    security.acme.defaults.email = lib.mkForce "me@example.org";
+    security.acme.defaults.server = lib.mkForce "https://example.com"; # self-signed only
+    networking.nameservers = lib.mkForce [ nodes.ns.networking.primaryIPAddress ];
+    security.pki.certificateFiles = [ rootCA.certificatePath ];
+
+    vacu.backup.keyPath = pkgs.writeText "test-borg-key" testBorgKey;
+    vacu.hosts.rsn.ssh.keys = lib.mkForce [ ]; # remove known key so i can do a trust-on-first-use in the test
+    networking.hosts."${nodes.rsyncnet.networking.primaryIPAddress}" = [ config.vacu.backup.rsyncHost ];
+  };
 
   nodes.rsyncnet =
     { ... }:
     let
-      borgCfg = nodes.liam.vacu.liam.backup;
+      borgCfg = nodes.liam.vacu.backup;
       user = borgCfg.rsyncUser;
     in
     {
@@ -244,13 +239,11 @@ in
       ];
     };
 
-  nodes.checker =
-    { pkgs, lib, ... }:
-    {
-      imports = [ mailtestModule ];
-      environment.systemPackages = [ pkgs.wget ];
-      networking.nameservers = lib.mkForce (lib.singleton nodes.ns.networking.primaryIPAddress);
-    };
+  nodes.checker = { pkgs, lib, ... }: {
+    imports = [ mailtestModule ];
+    environment.systemPackages = [ pkgs.wget ];
+    networking.nameservers = lib.mkForce (lib.singleton nodes.ns.networking.primaryIPAddress);
+  };
 
   testScript =
     let

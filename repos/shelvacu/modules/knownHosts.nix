@@ -2,6 +2,7 @@
   lib,
   config,
   vacuModuleType ? "nixos",
+  vaculib,
   ...
 }:
 let
@@ -32,15 +33,15 @@ let
           readOnly = true;
         };
         primaryIp = mkOption {
-          type = types.nullOr nameish;
+          type = types.nullOr vaculib.ip.type;
           default = null;
         };
         altIps = mkOption {
-          type = types.listOf nameish;
+          type = types.listOf vaculib.ip.type;
           default = [ ];
         };
         finalIps = mkOption {
-          type = types.listOf nameish;
+          type = types.listOf vaculib.ip.type;
           readOnly = true;
         };
         makeStaticHostsEntry = mkOption { type = types.bool; };
@@ -55,16 +56,19 @@ let
         makeStaticHostsEntry = lib.mkDefault (config.primaryIp != null);
       };
     };
-  etcHostsText = lib.pipe config.vacu.hosts [
-    builtins.attrValues
-    (builtins.filter (cfg: cfg.makeStaticHostsEntry))
-    (map (
-      cfg:
-      assert cfg.primaryIp != null;
-      "${cfg.primaryIp} ${lib.concatStringsSep " " cfg.finalNames}"
-    ))
-    (lib.concatStringsSep "\n")
-  ];
+  hostsFileEntryModule = { name, config, ... }: {
+    options = {
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      names = mkOption {
+        type = types.listOf nameish;
+        default = [ name ];
+      };
+      ip = mkOption { type = vaculib.ip.type; };
+    };
+  };
 in
 {
   options.vacu = {
@@ -72,20 +76,63 @@ in
       type = types.attrsOf (types.submodule hostModule);
       default = { };
     };
-    etcHostsText = mkOption {
-      type = types.str;
-      readOnly = true;
-      default = etcHostsText;
-      defaultText = "(output)";
+    hostsFile = {
+      entries = mkOption {
+        type = types.attrsOf (types.submodule hostsFileEntryModule);
+        default = { };
+      };
+      text = mkOption {
+        type = types.str;
+        readOnly = true;
+        defaultText = "(output)";
+      };
     };
   };
-  config =
-    { }
-    // lib.optionalAttrs (vacuModuleType == "nixos") {
-      networking.extraHosts = config.vacu.etcHostsText;
-    }
-    // lib.optionalAttrs (vacuModuleType == "nix-on-droid") {
-      environment.etc.hosts.text = config.vacu.etcHostsText;
-    };
+  config = {
+    vacu.hostsFile.entries = lib.pipe config.vacu.hosts [
+      builtins.attrValues
+      (builtins.filter (cfg: cfg.makeStaticHostsEntry))
+      (map (
+        cfg:
+        assert cfg.primaryIp != null;
+        lib.nameValuePair (builtins.head cfg.finalNames) {
+          names = cfg.finalNames;
+          ip = cfg.primaryIp;
+        }
+      ))
+      builtins.listToAttrs
+    ];
+    vacu.hostsFile.text =
+      let
+        configs = lib.pipe config.vacu.hostsFile.entries [
+          builtins.attrValues
+          (builtins.filter (cfg: cfg.enable))
+        ];
+        longestIp = lib.pipe configs [
+          (map (cfg: builtins.stringLength "${cfg.ip}"))
+          vaculib.listMaxNonEmpty
+        ];
+      in
+      if configs == [ ] then
+        ""
+      else
+        lib.pipe configs [
+          (map (
+            cfg:
+            "${
+              vaculib.lJustify {
+                totalLength = longestIp;
+                errorOnLonger = true;
+              } cfg.ip
+            } ${lib.concatStringsSep " " cfg.names}\n"
+          ))
+          lib.concatStrings
+        ];
+  }
+  // lib.optionalAttrs (vacuModuleType == "nixos") {
+    networking.extraHosts = config.vacu.hostsFile.text;
+  }
+  // lib.optionalAttrs (vacuModuleType == "nix-on-droid") {
+    environment.etc.hosts.text = config.vacu.hostsFile.text;
+  };
 }
-// lib.optionalAttrs (vacuModuleType == "nixos") { _class = "nixos"; }

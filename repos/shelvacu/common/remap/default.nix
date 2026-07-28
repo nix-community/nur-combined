@@ -12,22 +12,37 @@ let
       path ? ./${name}.c,
       opts ? [ ],
     }:
-    pkgs.runCommandCC name { meta.mainProgram = name; } ''
-      mkdir -p $out/bin
-      (
-        set -x
-        "$CC" -Wall -Wextra -O2 ${lib.escapeShellArgs opts} ${vaculib.path path} -o $out/bin/${name}
-      )
-    '';
-  menu2meta = compileName { name = "menu2meta"; };
-  museDashNumpad =
-    left:
-    compileName {
-      name = "museDashNumpad-${if left then "left" else "right"}";
-      path = ./museDashNumpad.c;
-      opts = lib.optional left "-DSIDE_LEFT";
-    };
-  footpad = compileName { name = "footpad"; };
+    let
+      includeDir = lib.fileset.toSource {
+        root = ./.;
+        fileset = ./inputmapper.h;
+      };
+    in
+    pkgs.runCommandCC name
+      {
+        meta.description = "from ${./default.nix}";
+        meta.mainProgram = name;
+      }
+      ''
+        mkdir -p $out/bin
+        (
+          set -x
+          "$CXX" -Wall -Wextra -O2 -I${includeDir} ${lib.escapeShellArgs opts} ${vaculib.path path} -o $out/bin/${name}
+        )
+      '';
+  numpadArgs = left: {
+    path = ./museDashNumpad.c;
+    opts = lib.optional left "-DSIDE_LEFT";
+  };
+  mapperArgs = {
+    menu2meta = { };
+    museDashNumpadLeft = numpadArgs true;
+    museDashNumpadRight = numpadArgs false;
+    footpad = { };
+    triggers = { };
+    lckey = { };
+  };
+  mappers = builtins.mapAttrs (name: value: compileName ({ inherit name; } // value)) mapperArgs;
   combinedOutputConfigObject = {
     NAME = "Interception Tools - combined output";
     BUSTYPE = "BUS_VIRTUAL";
@@ -49,6 +64,7 @@ let
         REP_PERIOD = 33;
       };
       EV_KEY = vaculib.listOfLines { } ''
+        BTN_MIDDLE
         KEY_ESC
         KEY_1
         KEY_2
@@ -215,9 +231,9 @@ let
     declare -p DEVNODE devNodeReal eventName phys || true
     declare numpadBin
     if [[ $phys == "usb-0000:c5:00.3-2.1.1/input0" ]]; then
-      numpadBin=${lib.getExe (museDashNumpad true)}
+      numpadBin=${lib.getExe mappers.museDashNumpadLeft}
     elif [[ $phys == "usb-0000:c5:00.3-2.1.3/input0" ]]; then
-      numpadBin=${lib.getExe (museDashNumpad false)}
+      numpadBin=${lib.getExe mappers.museDashNumpadRight}
     else
       echo "warn: unrecognized phys $phys" >&2
       exit 0
@@ -229,8 +245,22 @@ let
     {
       JOB = [
         ''echo "running job for mux main"''
-        ''mux -i main | uinput -c ${combinedOutputConfigFile}''
+        "mux -i main | uinput -c ${combinedOutputConfigFile}"
       ];
+    }
+    {
+      JOB = [
+        ''echo "$DEVNODE: running job for LCKEY"''
+        ''intercept -g "$DEVNODE" | ${lib.getExe mappers.lckey} | mux -o main''
+      ];
+      DEVICE.NAME = "LCTECH LCKEY";
+    }
+    {
+      JOB = [
+        ''echo "$DEVNODE: running job for stadia remap"''
+        ''intercept -g "$DEVNODE" | ${lib.getExe mappers.triggers} | uinput -d "$DEVNODE"''
+      ];
+      DEVICE.NAME = "StadiaCRZN-31d2";
     }
     {
       JOB = [
@@ -245,7 +275,7 @@ let
     {
       JOB = [
         ''echo "$DEVNODE: running job for footpad"''
-        ''intercept -g "$DEVNODE" | ${footpad} | mux -o main''
+        ''intercept -g "$DEVNODE" | ${mappers.footpad} | mux -o main''
       ];
       DEVICE = {
         # 1a86:e026
@@ -264,7 +294,7 @@ let
     {
       JOB = [
         ''echo "$DEVNODE: running job for keyboard with CAPSLOCK and/or COMPOSE (menu)"''
-        ''intercept -g "$DEVNODE" | caps2esc -m 1 | ${lib.getExe menu2meta} | mux -o main''
+        ''intercept -g "$DEVNODE" | caps2esc -m 1 | ${lib.getExe mappers.menu2meta} | mux -o main''
       ];
       DEVICE.EVENTS.EV_KEY = [
         "KEY_CAPSLOCK"
@@ -289,10 +319,5 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     };
   };
 
-  vacu.expose.remap = {
-    inherit menu2meta footpad museDashDeviceScript;
-    "udevmonConfig.yaml" = udevmonConfigFile;
-    museDashNumpad-left = museDashNumpad true;
-    museDashNumpad-right = museDashNumpad false;
-  };
+  vacu.expose.remap = { inherit mappers museDashDeviceScript udevmonConfigFile; };
 }

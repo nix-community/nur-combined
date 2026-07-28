@@ -3,6 +3,7 @@ let
   inherit (dnsData) propA;
 in
 {
+  vacu.ns.vanity = 5;
   vacu.liamMail = true;
   A = propA;
   subdomains = {

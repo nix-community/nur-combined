@@ -14,6 +14,7 @@ let
   mapLines = f: lis: lib.concatStringsSep "\n" (map f lis);
   debug = false;
   fqdn = config.networking.fqdn;
+  # domains that are "Verified" on outboundsmtp.com aka duocircle.com aka mailhop.org
   relayable_domains = [
     # keep-sorted start
     "chat.for.miras.pet"
@@ -25,21 +26,37 @@ let
     "shelvacu.com"
     "shelvacu.miras.pet"
     "sv.mt"
+    "wiki.pm3.dev"
     # keep-sorted end
   ];
   dovecot_transport = "lmtp:unix:private/dovecot-lmtp";
-  reject_spam_sources = [
-    # keep-sorted start ignore_prefixes=['"*.']
-    "buyerservice@made-in-china.com"
+  reject_spam_domains = [
+    # keep-sorted start
+    "dataannotation.tech"
+    "directhomemedical.com"
     "hotels.com"
-    "info@rfidlabel.com"
+    "human-i-t.org"
+    "jhaudio.com"
     "made-in-china.com"
-    "reject-spam-test@example.com"
-    "upgrade-plans@asuswebstorage.com"
-    "*.hotels.com"
-    "*.made-in-china.com"
+    "nic.ua"
+    "rfidlabel.com"
+    "spam.example.com"
+    "temuemail.com" #they send their non-spam emails from temu.com lol
+    "temuofficial.com"
+    "wolfram.com"
     # keep-sorted end
   ];
+  reject_spam_sources = [
+    # keep-sorted start
+    "reject-spam-test@example.com"
+    "reply-to@e.digikey.com"
+    "upgrade-plans@asuswebstorage.com"
+    # keep-sorted end
+  ]
+  ++ lib.concatMap (d: [
+    "*.${d}"
+    d
+  ]) reject_spam_domains;
   banned_ips = [
     "45.192.103.243/32"
     "165.154.207.0/24"
@@ -64,18 +81,19 @@ in
     # this goes into virtual_alias_maps
     # "Note: for historical reasons, virtual_alias_maps apply to recipients in all domain classes, not only the virtual alias domain class."
     virtual = ''
+      jobs@shelvacu.com jobs
+      job@shelvacu.com jobs
       julie@shelvacu.com julie
       mom@shelvacu.com julie
-      psv@shelvacu.com psv
     ''
-    + (mapLines (d: "@${d} shelvacu") shel_domains)
+    + (mapLines (d: "@${d} shelvacu") (lib.remove fqdn shel_domains))
     + "\n"
     + (mapLines (d: "@${d} julie") julie_domains);
 
     transport = ''
       shelvacu@${fqdn} ${dovecot_transport}
       julie@${fqdn} ${dovecot_transport}
-      psv@${fqdn} ${dovecot_transport}
+      jobs@${fqdn} ${dovecot_transport}
       backup@${fqdn} ${dovecot_transport}
     '';
 
@@ -95,7 +113,9 @@ in
       mapLines (pattern: "${pattern} REJECT spam") (domains ++ reject_spam_sources)
     );
     mapFiles.banned_ips = pkgs.writeText "banned-ips" (mapLines (ip: "${ip} REJECT spam") banned_ips);
-    # hack to get postfix to add a X-Original-To header
+    mapFiles.recipient_access = pkgs.writeText "recipient-access" ''
+      jean-luc@jean-luc.org 511 I got too much spam to this address, put something else before the @ 
+    '';
     mapFiles.add_envelope_to = pkgs.writeText "addenvelopeto" "/(.+)/ PREPEND X-Envelope-To: $1";
     # mapFiles.sender_transport = pkgs.writeText "sender-transport" "@shelvacu.com relayservice";
     mapFiles.sender_transport = pkgs.writeText "sender-transport" (
@@ -109,17 +129,22 @@ in
     );
     mapFiles.extra_login_maps = pkgs.writeText "extra-login-maps" (
       ''
-        zulip-notify@chat.for.miras.pet miracult-zulip
-        idrac-62pn9z1@shelvacu.com idrac-62pn9z1
+        wiki@wiki.pm3.dev pm3-wiki
+        noreply@wiki.pm3.dev pm3-wiki
+        system@wiki.pm3.dev pm3-wiki
       ''
       + config.services.postfix.virtual
     );
+    mapFiles.jobs_bcc = pkgs.writeText "jobs-bcc" ''
+      jobs@shelvacu.com shelvacu@${fqdn}
+      job@shelvacu.com shelvacu@${fqdn}
+    '';
 
     settings.main = {
       myhostname = fqdn;
       smtpd_tls_chain_files = [ (config.security.acme.certs."liam.dis8.net".directory + "/full.pem") ];
       inet_protocols = "ipv4";
-      virtual_alias_domains = domains;
+      virtual_alias_domains = lib.remove fqdn domains;
 
       message_size_limit = mailSizeLimit;
 
@@ -129,7 +154,7 @@ in
       header_checks = "pcre:/etc/postfix/header_checks";
       smtpd_sender_restrictions = "check_sender_access hash:/etc/postfix/sender_access permit";
       smtpd_client_restrictions = "check_client_access cidr:/etc/postfix/banned_ips permit";
-      smtpd_recipient_restrictions = "check_recipient_access pcre:/etc/postfix/add_envelope_to permit";
+      smtpd_recipient_restrictions = "check_recipient_access hash:/etc/postfix/recipient_access pcre:/etc/postfix/add_envelope_to permit";
       recipient_delimiter = "+";
 
       #we should never use these transport methods unless thru transport map
@@ -146,9 +171,8 @@ in
       lmtp_destination_recipient_limit = 1;
 
       always_bcc = "backup@${fqdn}";
-
-      # not actually 1024 bits, this applies to all DHE >= 1024 bits
-      smtpd_tls_dh1024_param_file = lib.mkIf config.services.dovecot2.enableDHE config.security.dhparams.params.dovecot2.path;
+      recipient_bcc_maps = "hash:/etc/postfix/jobs_bcc";
+      sender_bcc_maps = "hash:/etc/postfix/jobs_bcc";
 
       # smtp_bind_address = 10.46.0.7
       # inet_interfaces = all

@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{ lib, ... }: rec {
   listOfLines =
     {
       comments ? true,
@@ -26,5 +25,21 @@
       ++ lib.optional comments (builtins.filter (s: (builtins.substring 0 1 s) != "#"))
       ++ lib.optional removeEmpty (builtins.filter (s: s != ""));
     in
+    assert inlineComments -> comments;
     lib.pipe lines pipeline;
+
+  _tests.listOfLines.stuff =
+    assert
+      (listOfLines { } ''
+        abc
+
+        def
+        ghi # jkl
+        # mno
+      '') == [
+        "abc"
+        "def"
+        "ghi"
+      ];
+    true;
 }

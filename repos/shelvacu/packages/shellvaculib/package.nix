@@ -13,7 +13,6 @@ runCommandLocal "shellvaculib"
       description = "Bunch of misc shell functions I find useful";
       license = [ lib.licenses.mit ];
       sourceProvenance = [ lib.sourceTypes.fromSource ];
-      mainProgram = null;
       platforms = lib.platforms.all;
     };
   }

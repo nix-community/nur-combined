@@ -1,5 +1,4 @@
-{ vaculib, vacuModules, ... }:
-{
+{ vaculib, vacuModules, ... }: {
   imports = [
     vacuModules.sops
     vacuModules.archived-user
@@ -21,6 +20,10 @@
 
     # networking.interfaces."ens3".useDHCP = false;
     services.openssh.enable = true;
+
+    vacu.packages = ''
+      e2fsprogs
+    '';
 
     system.stateVersion = "25.05";
 

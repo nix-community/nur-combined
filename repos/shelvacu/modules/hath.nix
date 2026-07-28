@@ -34,8 +34,7 @@ let
   ];
   capabilities = [ ] ++ lib.optional cfg.allowPrivilegedPort "CAP_NET_BIND_SERVICE";
   credentialsType = types.submodule (
-    { ... }:
-    {
+    { ... }: {
       options.clientId = mkOption { type = types.ints.unsigned; };
       options.clientKeyPath = mkOption { type = types.path; };
     }
@@ -127,28 +126,28 @@ in
     cacheDir = mkOption {
       type = types.path;
       default = "${cfg.baseDir}/cache";
-      defaultText = lib.literalText ''/''${baseDir}/cache'';
+      defaultText = lib.literalText "/\${baseDir}/cache";
     };
     dataDir = mkOption {
       type = types.path;
       default = "${cfg.baseDir}/data";
-      defaultText = lib.literalText ''/''${baseDir}/data'';
+      defaultText = lib.literalText "/\${baseDir}/data";
     };
     downloadDir = mkOption {
       type = types.path;
       default = "${cfg.baseDir}/download";
-      defaultText = lib.literalText ''/''${baseDir}/download'';
+      defaultText = lib.literalText "/\${baseDir}/download";
     };
     logDir = mkOption {
       type = types.path;
       default = "${cfg.baseDir}/log";
-      defaultText = lib.literalText ''/''${baseDir}/log'';
+      defaultText = lib.literalText "/\${baseDir}/log";
     };
 
     clientLoginPath = mkOption {
       type = types.path;
       default = "${cfg.dataDir}/client_login";
-      defaultText = lib.literalText ''/''${dataDir}/client_login'';
+      defaultText = lib.literalText "/\${dataDir}/client_login";
       readOnly = true;
       internal = true;
       description = "File containing the credentials, in the format {client_id}`-`{client_key}";

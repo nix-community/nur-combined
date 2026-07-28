@@ -7,7 +7,6 @@ let
     attrNames
     attrValues
     ;
-  prepend = element: list: [ element ] ++ list;
   prependIf =
     cond: element: list:
     if cond then [ element ] ++ list else list;
@@ -27,7 +26,7 @@ let
       expanded = singleNothingMode // val;
     in
     assert builtins.isString val || builtins.isAttrs val;
-    assert (builtins.isString val) -> (val == "all" || val == "rw");
+    assert (builtins.isString val) -> (val == "all" || val == "rw" || val == "none");
     assert
       (builtins.isAttrs val)
       ->
@@ -47,6 +46,12 @@ let
       {
         read = true;
         write = true;
+        execute = false;
+      }
+    else if val == "none" then
+      {
+        read = false;
+        write = false;
         execute = false;
       }
     else
@@ -199,7 +204,62 @@ rec {
     assert octalLength == 3 || octalLength == 4;
     assert octalLength == 3 -> suid == false && sgid == false && sticky == false;
     self;
+  _tests.accessMode.all =
+    let
+      res = accessMode { all = "all"; };
+    in
+    {
+      octal = (
+        assert res.octalString == "0777";
+        true
+      );
+      symbolic = (
+        assert res.symbolicString == "u=rwx,g=rwx,o=rwx";
+        true
+      );
+    };
+  _tests.accessMode.allWithSpecial =
+    let
+      res = accessMode {
+        all = "all";
+        suid = true;
+        sgid = true;
+        sticky = true;
+      };
+    in
+    {
+      octal = (
+        assert res.octalString == "7777";
+        true
+      );
+      symbolic = (
+        assert res.symbolicString == "u=rwxs,g=rwxs,o=rwxt";
+        true
+      );
+    };
+  _tests.accessMode.none =
+    let
+      res = accessMode { all = "none"; };
+    in
+    {
+      octal = (
+        assert res.octalString == "0000";
+        true
+      );
+      symbolic = (
+        assert res.symbolicString == "u=,g=,o=";
+        true
+      );
+    };
+  _tests.accessMode.octalLength3 =
+    assert
+      (accessMode {
+        all = "all";
+        octalLength = 3;
+      }).octalString == "777";
+    true;
   accessModeStr = args: "${accessMode args}";
+
   mask =
     {
       all ? "forbid",
@@ -222,4 +282,17 @@ rec {
     assert octalLength == 3 || octalLength == 4;
     self;
   maskStr = args: "${mask args}";
+  _tests.maskStr.forbidAll =
+    assert (maskStr { all = "forbid"; }) == "0777";
+    true;
+  _tests.maskStr.allowAll =
+    assert (maskStr { all = "allow"; }) == "0000";
+    true;
+  _tests.maskStr.octalLength3 =
+    assert
+      (maskStr {
+        all = "forbid";
+        octalLength = 3;
+      }) == "777";
+    true;
 }

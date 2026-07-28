@@ -30,7 +30,7 @@ let
   };
 in
 {
-  imports = lib.optional (vacuModuleType != "plain") adapter;
+  imports = lib.optional (vacuModuleType == "nixos" || vacuModuleType == "nix-on-droid") adapter;
   options.vacu.assertions = mkOption {
     default = [ ];
     type = types.listOf (
@@ -47,5 +47,6 @@ in
   options.vacu.withAsserts = mkOption {
     readOnly = true;
     default = withAsserts;
+    defaultText = "withAsserts function";
   };
 }

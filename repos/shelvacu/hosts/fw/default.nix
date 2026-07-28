@@ -1,4 +1,5 @@
 {
+  lib,
   inputs,
   pkgs,
   vaculib,
@@ -11,6 +12,17 @@
     inputs.nixos-hardware.nixosModules.framework-16-7040-amd
     vacuModules.sops
     /${vacuRoot}/tf2
+    {
+      # vacu.packages.wireshark.enable = lib.mkForce false;
+      programs.wireshark.enable = true;
+      vacu.packages.kicad.package = pkgs.kicad.override {
+        addons = with pkgs.kicadAddons; [
+          kikit
+          kikit-library
+        ];
+        withJava = true;
+      };
+    }
   ]
   ++ vaculib.directoryGrabberList ./.;
 
@@ -23,7 +35,7 @@
   # standard kernel: waydroid works, always zfs-compatible
   # lqx kernel: games run with less stutters
   # boot.kernelPackages = pkgs.linuxKernel.packages.linux_lqx;
-  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_12;
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_6_18;
 
   networking.networkmanager.enable = true;
   services.irqbalance.enable = true;
@@ -40,12 +52,20 @@
     remotePlay.openFirewall = true;
   };
 
+  services.printing = {
+    enable = true;
+    drivers = [ pkgs.cups-dymo ];
+    # extraConf = ''
+    #   LogLevel debug
+    # '';
+  };
+
   vacu.packages = ''
+    _2ship2harkinian
     android-studio
     framework-tool
     fw-ectool
     headsetcontrol
-    openterface-qt
     intiface-central
     # osu-lazer # build broken
     mumble
@@ -57,6 +77,12 @@
     exfatprogs
     gparted
     freecad
+
+    prusa-slicer
+    uvtools
+    kicad
+    wireguard-tools
+    keyspersecond
   '';
 
   services.power-profiles-daemon.enable = true;
@@ -66,7 +92,6 @@
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   services.desktopManager.plasma6.enable = true;
-  services.printing.enable = true;
   programs.system-config-printer.enable = true;
 
   networking.hostId = "c6e309d5";
@@ -83,6 +108,8 @@
   ];
   boot.kernelModules = [ "kvm-amd" ];
 
+  boot.zfs.forceImportRoot = false;
+
   fileSystems."/" = {
     device = "fw/root";
     fsType = "zfs";
@@ -95,7 +122,11 @@
 
   fileSystems."/home/shelvacu/cache" = {
     device = "/cache/shelvacu";
-    options = [ "bind" ];
+    fsType = "none";
+    options = [
+      "bind"
+      "nofail"
+    ];
   };
 
   hardware.cpu.amd.updateMicrocode = true;
@@ -108,6 +139,8 @@
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
+    disabledPlugins = [ "spp" ];
+    settings.General.Experimental = true;
   };
   hardware.openrazer = {
     enable = true;

@@ -379,44 +379,42 @@ let
       m
     '')
     ++ builtins.attrNames keyAliases;
-  bindCommandType = types.strMatching ''[a-zA-Z0-9'; +_-]+'';
-  bindsModule =
-    { config, ... }:
-    {
-      options =
-        (vaculib.mapNamesToAttrsConst (mkOption {
-          type = types.nullOr bindCommandType;
-          default = null;
-        }) keys)
-        // {
-          _out = mkOption {
-            internal = true;
-            readOnly = true;
-            default = lib.pipe keys [
-              (lib.filter (key: config.${key} != null))
-              (map (key: ''bind "${key}" "${config.${key}}"''))
-              (lib.concatStringsSep "\n")
-            ];
-          };
+  bindCommandType = types.strMatching "[a-zA-Z0-9'; +_-]+";
+  bindsModule = { config, ... }: {
+    options =
+      (vaculib.mapNamesToAttrsConst (mkOption {
+        type = types.nullOr bindCommandType;
+        default = null;
+      }) keys)
+      // {
+        _out = mkOption {
+          internal = true;
+          readOnly = true;
+          default = lib.pipe keys [
+            (lib.filter (key: config.${key} != null))
+            (map (key: ''bind "${key}" "${config.${key}}"''))
+            (lib.concatStringsSep "\n")
+          ];
         };
-      imports = lib.pipe keyAliases [
-        (lib.mapAttrsToList (
-          key: aliases:
-          lib.flip map aliases (
-            alias:
-            lib.doRename {
-              from = [ alias ];
-              to = [ key ];
-              warn = false;
-              use = lib.id;
-              visible = true;
-              withPriority = true;
-            }
-          )
-        ))
-        lib.flatten
-      ];
-    };
+      };
+    imports = lib.pipe keyAliases [
+      (lib.mapAttrsToList (
+        key: aliases:
+        lib.flip map aliases (
+          alias:
+          lib.doRename {
+            from = [ alias ];
+            to = [ key ];
+            warn = false;
+            use = lib.id;
+            visible = true;
+            withPriority = true;
+          }
+        )
+      ))
+      lib.flatten
+    ];
+  };
 in
 {
   _class = null; # this goes in any module system
@@ -472,7 +470,7 @@ in
           // END keybinds from config.tf2.binds.default
         ''
       ]
-      ++ lib.optional cfg.binds.clear (lib.mkBefore ''unbindall'')
+      ++ lib.optional cfg.binds.clear (lib.mkBefore "unbindall")
     );
     classLines = mapClassesToAttrs (classname: ''
       // START keybinds from config.tf2.binds.${classname}

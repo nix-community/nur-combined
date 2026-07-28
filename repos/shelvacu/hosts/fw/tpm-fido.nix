@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   vacu.packages = [ "tpm-fido" ];
   users.groups.uhid = { };
   users.users.shelvacu.extraGroups = [

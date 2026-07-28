@@ -15,15 +15,15 @@ let
     (map (lib.concatStringsSep " "))
     (lib.concatStringsSep "\n")
   ];
-  ip4Seg = ''[0-9]{1,3}'';
+  ip4Seg = "[0-9]{1,3}";
   ip4Regex = lib.concatStringsSep ''\.'' [
     ip4Seg
     ip4Seg
     ip4Seg
     ip4Seg
   ];
-  ip6Regex = ''[0-9a-fA-F:]+'';
-  ipRegex = ''(${ip4Regex})|(${ip6Regex})'';
+  ip6Regex = "[0-9a-fA-F:]+";
+  ipRegex = "(${ip4Regex})|(${ip6Regex})";
 in
 {
   imports = [

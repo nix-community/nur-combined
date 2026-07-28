@@ -1,15 +1,12 @@
-{ lib, ... }@passedArgs:
+{ lib }:
 let
-  args = passedArgs // {
+  vaculib-directoryGrabber = import ./directoryGrabber.nix { inherit lib; };
+  args = {
+    inherit lib;
     inherit vaculib;
   };
-  directoryListing = builtins.removeAttrs (builtins.readDir ./.) [ "default.nix" ];
-  filePaths = lib.mapAttrsToList (
-    k: v:
-    assert v == "regular";
-    ./${k}
-  ) directoryListing;
-  functionSets = map (path: import path args) filePaths;
+  filePaths = vaculib-directoryGrabber.directoryGrabber ./.;
+  functionSets = builtins.mapAttrs (_: path: import path args) filePaths;
   mergeVals =
     name: a: b:
     if (builtins.isAttrs a) && (builtins.isAttrs b) then
@@ -21,6 +18,12 @@ let
     builtins.mapAttrs (
       name: val: if (a ? name) && (b ? name) then mergeVals name a.${name} b.${name} else val
     ) (a // b);
-  vaculib = lib.foldr mergeAttrs { } functionSets;
+  removeUnderscoreAttrs = lib.filterAttrs (k: _: (builtins.substring 0 1 k) != "_");
+  attrSetsToMerge = lib.pipe functionSets [
+    removeUnderscoreAttrs
+    (lib.mapAttrsToList (_: v: removeUnderscoreAttrs v))
+    (l: l ++ lib.singleton { _unmerged = functionSets; })
+  ];
+  vaculib = lib.foldr mergeAttrs { } attrSetsToMerge;
 in
 vaculib

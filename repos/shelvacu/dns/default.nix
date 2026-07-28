@@ -14,6 +14,16 @@ let
     mx
     ;
   inherit (config.vacu) hosts;
+  indexToLetter = {
+    "0" = "a";
+    "1" = "b";
+    "2" = "c";
+    "3" = "d";
+    "4" = "e";
+    "5" = "f";
+    "6" = "g";
+    "7" = "h";
+  };
   cloudns = {
     pns51 = {
       domain = "pns51.cloudns.net.";
@@ -36,12 +46,6 @@ let
       ipv6 = "2a06:fb00:1::4:192";
     };
   };
-  # cloudnsDomains = [
-  #   "pns51.cloudns.net."
-  #   "pns52.cloudns.net."
-  #   "pns53.cloudns.net."
-  #   "pns54.cloudns.net."
-  # ];
   cloudnsSoa = (
     ttl (60 * 60) {
       nameServer = cloudns.pns51.domain;
@@ -74,98 +78,136 @@ let
         (map (s: s + ";"))
         (lib.concatStringsSep " ")
       ];
-  vacuZoneExtModule =
-    { config, ... }:
-    {
-      imports = [ vacuDomainExtModule ];
-      options.vacu.cloudns = mkOption {
-        default = true;
+  vacuZoneExtModule = { name, config, ... }: {
+    imports = [ vacuDomainExtModule ];
+    options.vacu.ns = mkOption {
+      type = types.attrTag {
+        cloudns = mkOption { type = types.enum [ true ]; };
+        vanity = mkOption { type = types.ints.between 1 8; };
+        vanityShelvacu = mkOption { type = types.enum [ true ]; };
+        none = mkOption { type = types.enum [ true ]; };
+      };
+      default = {
+        cloudns = true;
+      };
+    };
+    options.vacu.zoneName = mkOption {
+      type = types.str;
+      readOnly = true;
+      default = name;
+    };
+    config = lib.mkMerge [
+      (lib.mkIf (config.vacu.ns ? cloudns) {
+        SOA = cloudnsSoa;
+        NS = map (server: ttl (60 * 60) (ns server.domain)) (builtins.attrValues cloudns);
+      })
+      (lib.mkIf (config.vacu.ns ? vanity) {
+        NS = builtins.genList (
+          i:
+          let
+            letter = indexToLetter.${toString i};
+            domain = "${builtins.replaceStrings [ "." ] [ "" ] name}.${letter}.ns.74358228.xyz.";
+          in
+          ttl (60 * 60) (ns domain)
+        ) config.vacu.ns.vanity;
+      })
+      (lib.mkIf (config.vacu.ns ? vanityShelvacu) {
+        NS = builtins.genList (
+          i:
+          let
+            domain = "ns${toString (i + 1)}.shelvacu.com.";
+          in
+          ttl (60 * 60) (ns domain)
+        ) 4;
+      })
+      {
+        SOA = ttl (60 * 60) {
+          nameServer = (builtins.head config.NS).nsdname;
+          adminEmail = "support@cloudns.net";
+          serial = 1970010101; # cloudns takes care of updating the serial
+          refresh = 7200;
+          retry = 1800;
+          expire = 1209600;
+          minimum = 3600;
+        };
+        vacu.defaultCAA = lib.mkDefault true;
+        TTL = lib.mkDefault 300;
+      }
+    ];
+  };
+  vacuDomainExtModule = { config, ... }: {
+    options.vacu = {
+      liamMail = mkOption {
+        default = false;
         type = types.bool;
       };
-      config = lib.mkMerge [
-        (lib.mkIf config.vacu.cloudns {
-          SOA = cloudnsSoa;
-          NS = map (server: ttl (60 * 60) (ns server.domain)) (builtins.attrValues cloudns);
-          TTL = lib.mkDefault 300;
-        })
-        { vacu.defaultCAA = lib.mkDefault true; }
-      ];
-    };
-  vacuDomainExtModule =
-    { config, ... }:
-    {
-      options.vacu = {
-        liamMail = mkOption {
-          default = false;
-          type = types.bool;
-        };
-        _ancestorHasDMARC = mkOption {
-          type = types.bool;
-          default = false;
-          internal = true;
-        };
-        defaultCAA = mkOption {
-          type = types.bool;
-          default = false;
-        };
+      _ancestorHasDMARC = mkOption {
+        type = types.bool;
+        default = false;
+        internal = true;
       };
-      options.subdomains = mkOption {
-        type = types.attrsOf (
-          types.submodule [
-            { config.vacu._ancestorHasDMARC = config.vacu.liamMail || config.vacu._ancestorHasDMARC; }
-            vacuDomainExtModule
+      defaultCAA = mkOption {
+        type = types.bool;
+        default = false;
+      };
+    };
+    options.subdomains = mkOption {
+      type = types.attrsOf (
+        types.submodule [
+          { config.vacu._ancestorHasDMARC = config.vacu.liamMail || config.vacu._ancestorHasDMARC; }
+          vacuDomainExtModule
+        ]
+      );
+    };
+    config = lib.mkMerge [
+      (lib.mkIf config.vacu.liamMail {
+        MX = singleton (mx.mx 0 "liam.dis8.net.");
+        TXT = singleton (
+          spf.strict [
+            "mx"
+            "include:outbound.mailhop.org"
+            "a:relay.dynu.com"
           ]
         );
-      };
-      config = lib.mkMerge [
-        (lib.mkIf config.vacu.liamMail {
-          MX = singleton (mx.mx 0 "liam.dis8.net.");
-          TXT = singleton (
-            spf.strict [
-              "mx"
-              "include:outbound.mailhop.org"
-              "a:relay.dynu.com"
-            ]
-          );
-          subdomains."${dkimKeyLiam.name}._domainkey".TXT = singleton dkimKeyLiam.content;
-        })
-        (lib.mkIf (config.vacu.liamMail && !config.vacu._ancestorHasDMARC) {
-          subdomains._dmarc.TXT = singleton dmarc;
-        })
-        (lib.mkIf (config.vacu.defaultCAA) {
-          CAA = [
-            {
-              issuerCritical = true;
-              tag = "issue";
-              value = "letsencrypt.org";
-            }
-            {
-              issuerCritical = true;
-              tag = "issue";
-              value = "sectigo.com"; # sectigo = zerossl
-            }
-            {
-              issuerCritical = true;
-              tag = "issuewild";
-              value = "letsencrypt.org";
-            }
-            {
-              issuerCritical = true;
-              tag = "issuewild";
-              value = "sectigo.com";
-            }
-            {
-              issuerCritical = false;
-              tag = "iodef";
-              value = "mailto:caa-violation@shelvacu.com";
-            }
-          ];
-        })
-      ];
-    };
+        subdomains."${dkimKeyLiam.name}._domainkey".TXT = singleton dkimKeyLiam.content;
+      })
+      (lib.mkIf (config.vacu.liamMail && !config.vacu._ancestorHasDMARC) {
+        subdomains._dmarc.TXT = singleton dmarc;
+      })
+      (lib.mkIf (config.vacu.defaultCAA) {
+        CAA = [
+          {
+            issuerCritical = true;
+            tag = "issue";
+            value = "letsencrypt.org";
+          }
+          {
+            issuerCritical = true;
+            tag = "issue";
+            value = "sectigo.com"; # sectigo = zerossl
+          }
+          {
+            issuerCritical = true;
+            tag = "issuewild";
+            value = "letsencrypt.org";
+          }
+          {
+            issuerCritical = true;
+            tag = "issuewild";
+            value = "sectigo.com";
+          }
+          {
+            issuerCritical = false;
+            tag = "iodef";
+            value = "mailto:caa-violation@shelvacu.com";
+          }
+        ];
+      })
+    ];
+  };
   dnsData = {
-    propA = [ hosts.prophecy.primaryIp ];
-    solisA = [ hosts.solis.primaryIp ];
+    propA = [ "${hosts.prophecy.primaryIp}" ];
+    solisA = [ "${hosts.solis.primaryIp}" ];
     doA = [ "138.197.233.105" ];
     inherit cloudns;
     cloudnsNS = map (info: info.domain) (builtins.attrValues cloudns);

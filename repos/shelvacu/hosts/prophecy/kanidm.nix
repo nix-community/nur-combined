@@ -56,8 +56,8 @@ in
       script = ''
         set -euo pipefail
 
-        declare tls_key=${lib.escapeShellArg kaniCfg.serverSettings.tls_key}
-        declare tls_chain=${lib.escapeShellArg kaniCfg.serverSettings.tls_chain}
+        declare tls_key=${lib.escapeShellArg kaniCfg.server.settings.tls_key}
+        declare tls_chain=${lib.escapeShellArg kaniCfg.server.settings.tls_chain}
         if [[ -f $tls_chain ]]; then
           # files already created
           exit 0
@@ -73,17 +73,16 @@ in
     };
 
   services.kanidm = {
-    enableServer = true;
-    enableClient = true;
-    package = pkgs.kanidmWithSecretProvisioning_1_8;
-    serverSettings = {
+    package = pkgs.kanidm_vacuVersion;
+    server.enable = true;
+    server.settings = {
       inherit domain;
       origin = "https://${domain}";
       bindaddress = "${webListenIP}:${builtins.toString webListenPort}";
       #no ldap, for now
       tls_chain = "${tls_dir}/tls_chain.pem";
       tls_key = "${tls_dir}/tls_key.pem";
-      trust_x_forward_for = true;
+      http_client_address_info."x-forward-for" = [ "127.0.0.1" ];
       online_backup = {
         path = "/propdata/kanidm-backups";
         schedule = "46 03 * * *";
@@ -91,7 +90,7 @@ in
       };
     };
     provision = {
-      instanceUrl = "https://${kaniCfg.serverSettings.bindaddress}";
+      instanceUrl = "https://${kaniCfg.server.settings.bindaddress}";
       acceptInvalidCerts = true;
       groups."general_access".overwriteMembers = false;
       persons.shelvacu = {
@@ -101,8 +100,9 @@ in
         displayName = "Shelvacu";
       };
     };
-    clientSettings = {
-      uri = "https://${kaniCfg.serverSettings.bindaddress}";
+    client.enable = true;
+    client.settings = {
+      uri = "https://${kaniCfg.server.settings.bindaddress}";
       verify_ca = false;
       verify_hostnames = false;
     };
@@ -120,10 +120,12 @@ in
   services.caddy.virtualHosts.${domain} = {
     vacu.hsts = "preload";
     extraConfig = ''
-      reverse_proxy * {
-        to https://${webListenIP}:${builtins.toString webListenPort}
-        transport http {
-          tls_insecure_skip_verify
+      handle * {
+        reverse_proxy * {
+          to https://${webListenIP}:${builtins.toString webListenPort}
+          transport http {
+            tls_insecure_skip_verify
+          }
         }
       }
     '';

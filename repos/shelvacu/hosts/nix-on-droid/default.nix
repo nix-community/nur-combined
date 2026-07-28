@@ -1,7 +1,10 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
-  imports = [ ./flake-registry.nix ];
+  imports = [
+    ./flake-registry.nix
+    ./simple-sshd.nix
+  ];
 
   vacu.shell.color = "white";
   vacu.systemKind = "server";
@@ -13,6 +16,14 @@
 
     options timeout:1 attempts:5
   '';
+
+  user.shell =
+    let
+      asPkg = pkgs.writers.writeBashBin "bash-login" { } ''
+        SHLVL= exec -a -bash ${lib.getExe pkgs.bashInteractive} --login -i "$@"
+      '';
+    in
+    lib.getExe asPkg;
 
   # Backup etc files instead of failing to activate generation if a file already exists in /etc
   environment.etcBackupExtension = ".bak";
@@ -39,6 +50,11 @@
     xdg-open.enable = true;
   };
 
-  vacu.packages.jujutsu.enable = false; # build is borked on aarch64-linux
-  vacu.packages.gnupg.enable = true;
+  vacu.packages = lib.mkMerge [
+    { jujutsu.enable = false; } # build is borked on aarch64-linux
+    ''
+      gnupg
+      openssh
+    ''
+  ];
 }

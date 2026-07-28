@@ -26,21 +26,19 @@ let
 
   confFile = fmt.generate "vacu-nix.conf" cfg.settings;
 
-  cacheModule =
-    { ... }:
-    {
-      options = {
-        url = mkOption { type = types.str; };
-        keys = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-        };
-        enable = mkOption {
-          default = true;
-          type = types.bool;
-        };
+  cacheModule = { ... }: {
+    options = {
+      url = mkOption { type = types.str; };
+      keys = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+      };
+      enable = mkOption {
+        default = true;
+        type = types.bool;
       };
     };
+  };
 in
 {
   imports =
@@ -120,6 +118,7 @@ in
     extra-experimental-features = [
       "nix-command"
       "flakes"
+      "configurable-impure-env"
     ];
     extra-trusted-users = [ "@wheel" ];
   };

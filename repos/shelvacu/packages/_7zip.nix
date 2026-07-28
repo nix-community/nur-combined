@@ -1,12 +1,13 @@
 { stdenv, fetchurl }:
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "7zip";
-  version = "25.01";
+  version = "26.01";
 
   src = fetchurl {
-    name = "7z2501-src.tar.xz";
-    url = "https://sourceforge.net/projects/sevenzip/files/7-Zip/25.01/7z2501-src.tar.xz";
-    hash = "sha256-7Qh/g+54nB6l85xGTFWlydQAjesO/pAIFPLfJiuCw24=";
+    url = "https://sourceforge.net/projects/sevenzip/files/7-Zip/${finalAttrs.version}/7z${
+      builtins.replaceStrings [ "." ] [ "" ] finalAttrs.version
+    }-src.tar.xz";
+    hash = "sha256-sjieDpMLL5o0jPD+fZhwpGSCqOwETuC99C4hNtsxw9Y=";
   };
 
   sourceRoot = ".";
@@ -21,4 +22,4 @@ stdenv.mkDerivation {
   '';
 
   meta.mainProgram = "7zz";
-}
+})

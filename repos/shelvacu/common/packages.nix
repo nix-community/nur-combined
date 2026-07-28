@@ -18,6 +18,9 @@ in
         vacuModuleType == "nixos" && config.boot.supportedFilesystems.zfs or false
       ) true;
       borgbackup.enable = config.vacu.isDev && (pkgs.stdenv.hostPlatform.system != "aarch64-linux"); # borgbackup build is borken on aarch64
+      diffoscope.enable = lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-linux") (
+        lib.mkForce false
+      );
       ffmpeg-vacu-full = {
         enable = enableFfmpegFull;
         package = pkgs.ffmpeg-full;
@@ -55,7 +58,7 @@ in
       tshark.enable = !config.vacu.isMinimal && !config.vacu.isGui;
       wireshark.enable = !config.vacu.isMinimal && config.vacu.isGui;
     }
-    (lib.mkIf config.vacu.isGui
+    (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal)
       # just do all the matrix clients, surely one of them will work enough
       ''
         # keep-sorted start
@@ -64,10 +67,10 @@ in
         element-desktop
         fluffychat
         fractal
-        gomuks
-        gomuks-web
+        # gomuks
+        # gomuks-web
         # hydrogen has no -desktop version
-        iamb
+        # iamb # build borked
         kazv
         matrix-commander
         matrix-commander-rs
@@ -75,30 +78,43 @@ in
         mm
         neosay
         nheko
-        pinecone
+        # pinecone # marked insecure
         # quaternion # build is borked
         # keep-sorted end
       ''
     )
     (lib.mkIf config.vacu.isGui
+      # pkgs for GUI systems, minimal or not
+      ''
+        acpi
+        feh
+        gparted
+        iio-sensor-proxy
+        ungoogled-chromium
+        wl-clipboard
+        xev
+      ''
+    )
+    (lib.mkIf (config.vacu.isGui && !config.vacu.isMinimal)
       # pkgs for systems with a desktop GUI
       ''
         # keep-sorted start
-        acpi
         anki
         arduino-ide
         audacity
-        bitwarden-desktop
+        beatblock-cursor
+        # bitwarden-desktop # using EOL electron ugh
         brave
+        calibre
         dino
+        dissent # discord client
+        evince
         filezilla
         gamemode
         ghidra
         gimp
         gnome-maps
-        gparted
         haruna
-        iio-sensor-proxy
         inkscape
         josm
         kdePackages.elisa
@@ -108,24 +124,21 @@ in
         monero-gui
         obsidian
         openscad
-        openterface-qt
+        # openterface-qt #broken build
         orca-slicer
         oscar
         prismlauncher
         shotcut
         signal-desktop
         simplex-chat-desktop
-        svp
+        svp_4_6_263
         tor-browser
         tremotesf
-        ungoogled-chromium
         vlc
         wayland-utils
         wev
         wine
         wine-fonts
-        wl-clipboard
-        xev
         # keep-sorted end
       ''
     )
@@ -134,6 +147,7 @@ in
       # keep-sorted start
       cargo
       clippy
+      diffoscope
       gdb
       gnumake
       man-pages
@@ -163,12 +177,13 @@ in
         android-tools
         bitwarden-cli
         dmidecode
+        efibootmgr
         flac
         gh
         hdparm
         home-manager
         imagemagickBig
-        kanidm_1_8
+        kanidm_vacuVersion
         libfido2
         libsmi
         man
@@ -181,6 +196,7 @@ in
         net-snmp
         nix-index
         nix-inspect
+        nix-output-monitor
         nix-search-cli
         nix-tree
         nmap
@@ -204,6 +220,7 @@ in
       # keep-sorted start
       _7zip
       altcaps
+      bat
       ddrescue
       dnsutils
       ethtool
@@ -220,6 +237,7 @@ in
       killall
       libossp_uuid # provides `uuid` binary
       linuxquota
+      list-auto-roots
       lshw
       lsof
       mosh
@@ -237,6 +255,7 @@ in
       ripgrep
       rsync
       screen
+      scriptipython
       # sed => gnused
       shellvaculib
       ssh-to-age
@@ -250,6 +269,7 @@ in
       vacu-units
       vim
       wget
+      with-nix-config
       xq-xml # like `jq` but for xml
       zip
       # keep-sorted end

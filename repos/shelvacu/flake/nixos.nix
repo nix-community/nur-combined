@@ -26,18 +26,14 @@ let
       "tf2-nix"
     ];
     liam.inp = [ "sops-nix" ];
-    mmm = {
-      inp = [ "nixos-apple-silicon" ];
-      system = "aarch64-linux";
-      unstable = true;
-      readOnlyPkgs = false;
-    };
     prophecy.inp = [
       "impermanence"
       "sops-nix"
       "disko"
       "declarative-jellyfin"
+      "nix-minecraft"
     ];
+    ripper = { };
     shel-installer-iso = {
       module = /${vacuRoot}/hosts/installer/iso.nix;
       readOnlyPkgs = false;
@@ -51,6 +47,7 @@ let
       "impermanence"
       "sops-nix"
     ];
+    vacu-agent-vm = { };
     # keep-sorted end
   };
 
@@ -89,16 +86,41 @@ in
     }
   ) hosts;
 
-  config.flake.qb = lib.mkMerge [
-    (builtins.mapAttrs (name: _: topLevelOf name) hosts)
-    rec {
-      cd = topLevelOf "compute-deck";
-      prop = topLevelOf "prophecy";
-      iso = config.flake.nixosConfigurations.shel-installer-iso.config.system.build.isoImage;
-      pxe-build = config.flake.nixosConfigurations.shel-installer-pxe.config.system.build;
-      pxe-toplevel = pxe-build;
-      pxe-kernel = pxe-build.kernel;
-      pxe-initrd = pxe-build.netbootRamdisk;
+  config.vacuBuilds = lib.mkMerge [
+    (builtins.mapAttrs (
+      name:
+      {
+        system ? "x86_64-linux",
+        ...
+      }:
+      {
+        primarySystem = system;
+        multiSystem = false;
+        derivations.${system} = topLevelOf name;
+      }
+    ) hosts)
+    {
+      compute-deck.aliases = [ "cd" ];
+      prophecy.aliases = [ "prop" ];
+      shel-installer-pxe.aliases = [
+        "pxe"
+        "pxe-build"
+        "pxe-toplevel"
+      ];
+      vacu-agent-vm.aliases = [
+        "agent-vm"
+        "agent"
+      ];
+
+      iso = {
+        primarySystem = "x86_64-linux";
+        multiSystem = false;
+        derivations.x86_64-linux =
+          let
+            isoConfig = config.flake.nixosConfigurations.shel-installer-iso.config;
+          in
+          isoConfig.system.build.isoImage // { config = isoConfig; };
+      };
     }
   ];
 }

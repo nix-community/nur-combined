@@ -3,6 +3,7 @@ let
   inherit (dnsData) propA;
 in
 {
+  vacu.ns.vanityShelvacu = true;
   A = propA;
   subdomains = {
     # keep-sorted start block=yes

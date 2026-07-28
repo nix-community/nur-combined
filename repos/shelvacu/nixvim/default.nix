@@ -1,24 +1,28 @@
-{ minimal, ... }:
-{
+{ minimal, ... }: {
   opts = {
-    cindent = true;
-    cinkeys = "0{,0},0),0],:,!^F,o,O,e";
+    smartindent = true;
+    # cindent = true;
+    # cinkeys = "0{,0},0),0],:,!^F,o,O,e";
     expandtab = true;
     shiftwidth = 2;
     softtabstop = -1;
   };
   plugins = {
+    fugitive.enable = true;
     vim-surround.enable = true;
     lsp = {
       enable = true;
-      # for list of available servers see https://nix-community.github.io/nixvim/25.05/plugins/lsp/ on the left side
+      # for list of available servers see: (on the left side)
+      # https://nix-community.github.io/nixvim/plugins/lsp/
+      # or
+      # https://nix-community.github.io/nixvim/${nixpkgs version}/plugins/lsp/
       servers = {
         # keep-sorted start block=yes
-        bashls.enable = true;
+        bashls.enable = !minimal;
         html.enable = true;
         jsonls.enable = true;
         lua_ls.enable = !minimal;
-        nixd.enable = true;
+        nixd.enable = !minimal;
         pyright.enable = !minimal;
         rust_analyzer = {
           enable = !minimal;

@@ -1,12 +1,11 @@
 { lib, ... }:
 let
-  inherit (lib) types;
   pat = "|[\n\t -~]*[]-~ -[\n\t]";
 in
-{
+rec {
   types.caddyStr =
     let
-      super = types.strMatching pat;
+      super = lib.types.strMatching pat;
     in
     lib.mkOptionType {
       name = "caddyStr";
@@ -17,11 +16,21 @@ in
 
   caddyQuote =
     s:
-    assert builtins.match pat s != null;
-    ''"''
-    + (
+    let
       # yes, { needs two backslashes while " only needs one
-      lib.replaceStrings [ ''"'' ''{'' ] [ ''\"'' ''\\{'' ] s
-    )
-    + ''"'';
+      escaped = lib.replaceStrings [ ''"'' "{" ] [ ''\"'' ''\\{'' ] s;
+    in
+    lib.throwIf (
+      (builtins.match pat s) == null
+    ) ''vaculib.caddyQuote can only accept ascii strings that do not end with `\`'' ''"${escaped}"'';
+
+  _tests.caddyQuote.simple =
+    assert (caddyQuote ''hello " there{'') == ''"hello \" there\\{"'';
+    true;
+  _tests.caddyQuote.empty =
+    assert (caddyQuote "") == ''""'';
+    true;
+  _tests.caddyQuote.endingBackslash =
+    assert !(builtins.tryEval (caddyQuote ''foo\'')).success;
+    true;
 }

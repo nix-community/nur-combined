@@ -79,7 +79,7 @@ in
       pluginRepositories = [
         {
           content.Name = "Jellyfin SSO";
-          content.Url = "https://raw.githubusercontent.com/9p4/jellyfin-plugin-sso/manifest-release/manifest.json";
+          content.Url = "https://raw.githubusercontent.com/Buco7854/jellyfin-plugin-sso/blob/manifest-release/manifest.json";
           tag = "RepositoryInfo";
         }
       ];

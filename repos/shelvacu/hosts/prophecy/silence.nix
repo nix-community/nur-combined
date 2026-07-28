@@ -17,7 +17,6 @@ in
     '';
     serviceConfig = {
       Type = "oneshot";
-      RemainAfterExit = true;
     };
   };
   systemd.timers.silence-equallogic = {

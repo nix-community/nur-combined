@@ -1,3 +1,11 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-git add . && nixos-rebuild --flake .#liam --build-host prophecy --target-host shelvacu@liam --use-remote-sudo "$@"
+source shellvaculib.bash || exit 1
+
+declare git_status
+git_status="$(git status --porcelain=v2)"
+if grep -q '^?' <<<"$git_status"; then
+  svl_die "un-added files"
+fi
+
+nixos-rebuild --flake .#liam --build-host prophecy --target-host shelvacu@liam --use-remote-sudo "$@"

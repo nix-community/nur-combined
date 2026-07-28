@@ -77,16 +77,10 @@ in
       device = "/dev/disk/by-id/scsi-0QEMU_QEMU_HARDDISK_drive-scsi1";
 
       content = {
-        type = "gpt";
-        partitions.root = {
-          size = "100%";
-          content = {
-            type = "filesystem";
-            format = "xfs";
-            mountpoint = "/xstore";
-            mountOptions = [ "nofail" ];
-          };
-        };
+        type = "filesystem";
+        format = "xfs";
+        mountpoint = "/xstore";
+        mountOptions = [ "nofail" ];
       };
     };
   };

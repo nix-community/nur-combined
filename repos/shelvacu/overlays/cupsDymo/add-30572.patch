@@ -1,0 +1,36 @@
+diff --git i/ppd/lw450t.ppd w/ppd/lw450t.ppd
+index 4899328..447167d 100644
+--- i/ppd/lw450t.ppd
++++ w/ppd/lw450t.ppd
+@@ -192,6 +192,7 @@
+ *PageSize 30384_PC_Postage_2-Part/30384 PC Postage 2-Part: "<</PageSize[167 540]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageSize w167h756/30387 PC Postage EPS: "<</PageSize[167 756]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageSize 30387_PC_Postage_EPS/30387 PC Postage EPS: "<</PageSize[167 756]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
++*PageSize 30572/30572 Address Label: "<</PageSize[79 252]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageSize w167h188.1/30854 CD Label: "<</PageSize[167 188]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageSize w176h292/30856 Badge Card Label: "<</PageSize[176 292]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageSize w167h288.2/30857 Badge Label: "<</PageSize[167 288]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+@@ -258,6 +259,7 @@
+ *PageRegion 30384_PC_Postage_2-Part/30384 PC Postage 2-Part: "<</PageSize[167 540]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageRegion w167h756/30387 PC Postage EPS: "<</PageSize[167 756]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageRegion 30387_PC_Postage_EPS/30387 PC Postage EPS: "<</PageSize[167 756]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
++*PageRegion 30572/30572 Address Label: "<</PageSize[79 252]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageRegion w167h188.1/30854 CD Label: "<</PageSize[167 188]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageRegion w176h292/30856 Badge Card Label: "<</PageSize[176 292]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+ *PageRegion w167h288.2/30857 Badge Label: "<</PageSize[167 288]/ImagingBBox null/cupsInteger0 0>>setpagedevice"
+@@ -322,6 +324,7 @@
+ *ImageableArea 30384_PC_Postage_2-Part/30384 PC Postage 2-Part: "4.08 4.32 163.68 524.16"
+ *ImageableArea w167h756/30387 PC Postage EPS: "4.08 4.32 163.68 740.16"
+ *ImageableArea 30387_PC_Postage_EPS/30387 PC Postage EPS: "4.08 4.32 163.68 740.16"
++*ImageableArea 30572/30572 Address Label: "4.32 4.32 74.68 247.68"
+ *ImageableArea w167h188.1/30854 CD Label: "4.08 17.04 161.28 170.40"
+ *ImageableArea w176h292/30856 Badge Card Label: "0.00 4.32 161.28 264.72"
+ *ImageableArea w167h288.2/30857 Badge Label: "4.08 4.32 163.68 271.20"
+@@ -385,6 +388,7 @@
+ *PaperDimension 30384_PC_Postage_2-Part/30384 PC Postage 2-Part: "166.56 540.00"
+ *PaperDimension w167h756/30387 PC Postage EPS: "166.56 756.00"
+ *PaperDimension 30387_PC_Postage_EPS/30387 PC Postage EPS: "166.56 756.00"
++*PaperDimension 30572/30572 Address Label: "79.00 252.00"
+ *PaperDimension w167h188.1/30854 CD Label: "166.32 187.20"
+ *PaperDimension w176h292/30856 Badge Card Label: "175.44 291.60"
+ *PaperDimension w167h288.2/30857 Badge Label: "166.56 288.00"

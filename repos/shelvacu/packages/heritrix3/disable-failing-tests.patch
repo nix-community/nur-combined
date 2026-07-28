@@ -1,0 +1,20 @@
+diff --git i/modules/src/test/java/org/archive/modules/fetcher/FetchHTTPTest.java w/modules/src/test/java/org/archive/modules/fetcher/FetchHTTPTest.java
+index 4a3575b0..b2967284 100644
+--- i/modules/src/test/java/org/archive/modules/fetcher/FetchHTTPTest.java
++++ w/modules/src/test/java/org/archive/modules/fetcher/FetchHTTPTest.java
+@@ -392,6 +392,7 @@ public class FetchHTTPTest {
+     // Usually, the minimum 2 addresses will be 127.0.0.1 and another 
+     // routable (perhaps LAN only eg 192.168.x.x or 10.x.x.x) address.
+     @Test
++    @Disabled
+     public void testHttpBindAddress() throws Exception {
+         List<InetAddress> addrList = new ArrayList<InetAddress>();
+         for (NetworkInterface ifc: Collections.list(NetworkInterface.getNetworkInterfaces())) {
+@@ -691,6 +692,7 @@ public class FetchHTTPTest {
+      * connection fails immediately insted of timing out.
+      */
+     @Test
++    @Disabled
+     public void testConnectionTimeout() throws Exception {
+         CrawlURI curi = makeCrawlURI("http://10.255.255.1/");
+         fetcher().setSoTimeoutMs(300);

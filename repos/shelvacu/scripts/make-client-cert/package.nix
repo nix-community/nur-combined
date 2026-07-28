@@ -17,4 +17,4 @@ writers.writeBashBin "make-client-cert" {
       shellvaculib
     ])
   ];
-} (vaculib.path ./main.sh)
+} (vaculib.path ./make-client-cert.bash)

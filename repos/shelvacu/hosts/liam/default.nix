@@ -1,11 +1,34 @@
 {
+  lib,
   modulesPath,
   config,
   vaculib,
+  dnsEval,
   ...
 }:
 let
   inherit (vaculib) mkOutOption;
+  recurse =
+    path:
+    lib.mapAttrsToList (
+      name: value:
+      let
+        subPath = "${name}.${path}";
+      in
+      [ ] ++ (lib.optional value.vacu.liamMail subPath) ++ (recurse subPath value.subdomains)
+    );
+  domains = lib.pipe (recurse "" dnsEval.config.vacu.dns) [
+    lib.flatten
+    (map (lib.removeSuffix "."))
+  ];
+  julie_domains = [
+    # keep-sorted start
+    "shop.theviolincase.com"
+    "theviolincase.com"
+    "violingifts.com"
+    # keep-sorted end
+  ];
+  shel_domains = builtins.filter (d: !(builtins.elem d julie_domains)) domains;
 in
 {
   imports = [
@@ -15,30 +38,7 @@ in
   ++ vaculib.directoryGrabberList ./.;
 
   options = {
-    vacu.liam = {
-      shel_domains = mkOutOption [
-        # keep-sorted start
-        "chat.for.miras.pet"
-        "dis8.net"
-        "funcache.org"
-        "in.jean-luc.org"
-        "jean-luc.org"
-        "mail.dis8.net"
-        "shelvacu.com"
-        "shelvacu.miras.pet"
-        "shelvacu.net"
-        "shelvacu.org"
-        "sv.mt"
-        # keep-sorted end
-      ];
-      julie_domains = mkOutOption [
-        # keep-sorted start
-        "shop.theviolincase.com"
-        "theviolincase.com"
-        "violingifts.com"
-        # keep-sorted end
-      ];
-      domains = mkOutOption (config.vacu.liam.shel_domains ++ config.vacu.liam.julie_domains);
+    vacu.liam = (vaculib.mkOutOptions { inherit domains julie_domains shel_domains; }) // {
       relayhosts = {
         allDomains = (mkOutOption "[outbound.mailhop.org]:587") // {
           readOnly = false;

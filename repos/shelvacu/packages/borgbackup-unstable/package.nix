@@ -98,7 +98,7 @@ python.pkgs.buildPythonApplication rec {
     pytestCheckHook
   ];
 
-  pytestFlagsArray = [
+  pytestFlags = [
     "--benchmark-skip"
     "--pyargs"
     "borg.testsuite"

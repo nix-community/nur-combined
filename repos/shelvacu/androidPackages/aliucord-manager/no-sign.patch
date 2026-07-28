@@ -1,0 +1,20 @@
+diff --git i/app/build.gradle.kts w/app/build.gradle.kts
+index a54edd0..9aec9c0 100644
+--- i/app/build.gradle.kts
++++ w/app/build.gradle.kts
+@@ -65,14 +65,11 @@ android {
+         val isRelease = System.getenv("RELEASE")?.toBoolean() ?: false
+         val hasReleaseSigning = System.getenv("SIGNING_STORE_PASSWORD")?.isNotEmpty() == true
+ 
+-        if (isRelease && !hasReleaseSigning)
+-            error("Missing keystore in a release workflow!")
+-
+         release {
+             isMinifyEnabled = true
+             isShrinkResources = true
+             isCrunchPngs = true
+-            signingConfig = signingConfigs.getByName(if (hasReleaseSigning) "release" else "debug")
++            signingConfig = signingConfigs.getByName("debug")
+             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+         }
+ 

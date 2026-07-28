@@ -1,0 +1,13 @@
+diff --git i/app/src/main/java/org/tasks/ui/TaskListViewModel.kt w/app/src/main/java/org/tasks/ui/TaskListViewModel.kt
+index b14b6e795..68fd96603 100644
+--- i/app/src/main/java/org/tasks/ui/TaskListViewModel.kt
++++ w/app/src/main/java/org/tasks/ui/TaskListViewModel.kt
+@@ -201,8 +201,6 @@ class TaskListViewModel @Inject constructor(
+                     Banner.NotificationsDisabled
+                 preferences.warnAlarmsDisabled && !applicationContext.canScheduleExactAlarms() ->
+                     Banner.AlarmsDisabled
+-                (IS_GENERIC || !inventory.hasPro) && !firebase.subscribeCooldown ->
+-                    Banner.BegForMoney
+                 preferences.isCurrentlyQuietHours && preferences.warnQuietHoursDisabled ->
+                     Banner.QuietHoursEnabled
+                 accounts.any { it.isMicrosoft } && preferences.warnMicrosoft ->

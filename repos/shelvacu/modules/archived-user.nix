@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   # a dummy user/group that I can set on folders to indicate that they shouldn't be touched
   users.users.archived = {
     # these are "sealed", "SEAL" = 5341

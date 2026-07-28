@@ -1,10 +1,10 @@
-{ config, vacuModules, ... }:
-{
+{ config, vacuModules, ... }: {
   imports = [ vacuModules.sops ];
 
   config.sops.secrets = {
     dovecot-passwd = {
-      restartUnits = [ "dovecot2.service" ];
+      restartUnits = [ "dovecot.service" ];
+      owner = "dovecot2";
     };
     dkim_key = {
       name = "dkimkeys/2024-03-liam.private";

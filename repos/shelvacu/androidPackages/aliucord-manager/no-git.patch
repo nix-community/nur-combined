@@ -1,0 +1,24 @@
+diff --git i/app/build.gradle.kts w/app/build.gradle.kts
+index a54edd0..09e785e 100644
+--- i/app/build.gradle.kts
++++ w/app/build.gradle.kts
+@@ -11,15 +11,10 @@ plugins {
+ }
+ 
+ val isRelease = System.getenv("RELEASE")?.toBoolean() ?: false
+-val gitCurrentBranch = providers.execIgnoreCode("git", "symbolic-ref", "--quiet", "--short", "HEAD").takeIf { it.isNotEmpty() }
+-val gitLatestCommit = providers.execIgnoreCode("git", "rev-parse", "--short", "HEAD")
+-val gitHasLocalCommits = gitCurrentBranch?.let { branch ->
+-    val remoteBranchExists = providers.execIgnoreCode("git", "ls-remote", "--heads", "origin", branch)
+-        .isNotEmpty()
+-
+-    remoteBranchExists && providers.execIgnoreCode("git", "log", "origin/$branch..HEAD").isNotEmpty()
+-} ?: false
+-val gitHasHasLocalChanges = providers.execIgnoreCode("git", "status", "-s").isNotEmpty()
++val gitCurrentBranch = null
++val gitLatestCommit = "unknown"
++val gitHasLocalCommits = false
++val gitHasHasLocalChanges = false
+ 
+ android {
+     namespace = "com.aliucord.manager"

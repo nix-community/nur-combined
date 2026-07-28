@@ -18,8 +18,8 @@ in
     bandwidth = 10 * 1000 * 1000;
     logDays = 0; # forever
     allowHtml = false;
-    sslCert = "${murmurCertDir}/ssl.crt";
-    sslKey = "${murmurCertDir}/ssl.key";
+    tls.certPath = "${murmurCertDir}/ssl.crt";
+    tls.keyPath = "${murmurCertDir}/ssl.key";
   };
 
   systemd.services.murmur = {

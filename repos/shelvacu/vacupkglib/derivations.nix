@@ -11,15 +11,19 @@ rec {
       local ? true,
       ...
     }@args:
+    let
+      # bash = pkgs.bash.__spliced.buildBuild or pkgs.bash;
+      bash = pkgs.bashNonInteractive;
+    in
     assert !vaculib.isPrefixOf "-" cmd;
     derivation (
       {
-        builder = lib.getExe pkgs.bash;
+        builder = lib.getExe bash;
         args = [
           "-c"
           cmd
         ];
-        system = pkgs.stdenv.buildPlatform.system;
+        inherit (bash) system;
       }
       // (lib.optionalAttrs local { preferLocalBuild = true; })
       // (lib.removeAttrs args [

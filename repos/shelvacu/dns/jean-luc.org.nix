@@ -6,12 +6,6 @@ in
 {
   vacu.liamMail = true;
   A = propA;
-  NS = [
-    {
-      nsdname = "ns2.afraid.org.";
-      ttl = 60 * 60;
-    }
-  ];
   subdomains = {
     # keep-sorted start block=yes
     "_a908498ee692a9729bf12e161ae1887d.tdi-readings".CNAME =
@@ -23,4 +17,5 @@ in
     "www".A = propA;
     # keep-sorted end
   };
+  vacu.ns.vanity = 8;
 }

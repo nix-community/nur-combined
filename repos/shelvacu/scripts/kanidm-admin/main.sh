@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source shellvaculib.bash || exit 1
+set -euo pipefail
 
 declare pw
-pw="$(ssh prop -- sudo -u kanidm kanidmd recover-account admin -o json | grep '^{' | jq .password -r)"
+pw="$(ssh prop -- sudo -u kanidm kanidmd scripting recover-account admin | jq -r .output)"
 KANIDM_PASSWORD="$pw" kanidm login --name admin

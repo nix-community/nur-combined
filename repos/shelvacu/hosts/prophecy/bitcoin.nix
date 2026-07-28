@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   services.bitcoind.main = {
     enable = true;
     extraConfig = ''

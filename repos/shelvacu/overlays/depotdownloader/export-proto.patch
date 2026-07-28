@@ -1,0 +1,73 @@
+diff --git c/DepotDownloader/AllProtoTypes.cs w/DepotDownloader/AllProtoTypes.cs
+new file mode 100644
+index 0000000..a67324c
+--- /dev/null
++++ w/DepotDownloader/AllProtoTypes.cs
+@@ -0,0 +1,20 @@
++// This file is subject to the terms and conditions defined
++// in file 'LICENSE', which is part of this source code package.
++
++using ProtoBuf;
++
++namespace DepotDownloader
++{
++    [ProtoContract]
++    class AllProtoTypes
++    {
++#pragma warning disable CS0649 // these are intentionally never set
++        [ProtoMember(1, IsRequired = false)]
++        public DepotConfigStore a;
++        [ProtoMember(2, IsRequired = false)]
++        public AccountSettingsStore b;
++        [ProtoMember(3, IsRequired = false)]
++        public ProtoManifest c;
++#pragma warning restore CS0649
++    }
++}
+diff --git c/DepotDownloader/DepotDownloader.csproj w/DepotDownloader/DepotDownloader.csproj
+index e07acec..ae7e417 100644
+--- c/DepotDownloader/DepotDownloader.csproj
++++ w/DepotDownloader/DepotDownloader.csproj
+@@ -1,4 +1,4 @@
+-﻿<Project Sdk="Microsoft.NET.Sdk">
++<Project Sdk="Microsoft.NET.Sdk">
+   <PropertyGroup>
+     <OutputType>Exe</OutputType>
+     <TargetFramework>net9.0</TargetFramework>
+diff --git c/DepotDownloader/DownloadConfig.cs w/DepotDownloader/DownloadConfig.cs
+index 144853b..c19fb89 100644
+--- c/DepotDownloader/DownloadConfig.cs
++++ w/DepotDownloader/DownloadConfig.cs
+@@ -1,4 +1,4 @@
+-﻿// This file is subject to the terms and conditions defined
++// This file is subject to the terms and conditions defined
+ // in file 'LICENSE', which is part of this source code package.
+ 
+ using System.Collections.Generic;
+diff --git c/DepotDownloader/Program.cs w/DepotDownloader/Program.cs
+index 26b7f16..d765a3e 100644
+--- c/DepotDownloader/Program.cs
++++ w/DepotDownloader/Program.cs
+@@ -10,6 +10,8 @@ using System.Reflection;
+ using System.Runtime.InteropServices;
+ using System.Text.RegularExpressions;
+ using System.Threading.Tasks;
++using ProtoBuf;
++using ProtoBuf.Meta;
+ using SteamKit2;
+ using SteamKit2.CDN;
+ 
+@@ -34,6 +36,13 @@ namespace DepotDownloader
+                 return 0;
+             }
+ 
++            if (args[0] == "--export-proto" && args.Length == 1)
++            {
++                Console.Write(Serializer.GetProto<AllProtoTypes>());
++
++                return 0;
++            }
++
+             Ansi.Init();
+ 
+             DebugLog.Enabled = false;

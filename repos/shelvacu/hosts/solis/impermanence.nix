@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   imports = [ inputs.impermanence.nixosModules.impermanence ];
   environment.persistence."/persistent" = {
     enable = true;

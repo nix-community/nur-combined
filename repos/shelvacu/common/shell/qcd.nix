@@ -1,21 +1,11 @@
-{
-  lib,
-  config,
-  vacuModuleType,
-  ...
-}:
+{ lib, config, ... }:
 let
   inherit (lib) mkOption types;
-  home =
-    if vacuModuleType == "nix-on-droid" then
-      "/data/data/com.termux.nix/files/home"
-    else
-      "/home/shelvacu";
 in
 {
   options.vacu.qcd = mkOption {
     default = { };
-    type = types.attrsOf types.path;
+    type = types.attrsOf types.str;
   };
   config.vacu.shell.functions.qcd = ''
     svl_exact_args $# 1
@@ -23,13 +13,12 @@ in
 
     declare base="''${the_arg%%/*}"
     declare rest="''${the_arg:''${#base}}"
-    declare path
+    declare path=""
 
     if false; then :
     ${lib.pipe config.vacu.qcd [
       (lib.mapAttrsToList (
-        alias: path:
-        ''elif [[ $base == ${lib.escapeShellArg alias} ]]; then path=${lib.escapeShellArg path}''
+        alias: path: "elif [[ $base == ${lib.escapeShellArg alias} ]]; then path=${lib.escapeShellArg path}"
       ))
       (lib.concatStringsSep "\n")
     ]}
@@ -38,17 +27,33 @@ in
       svl_eprintln "unrecognized alias $base"
       return 1
     fi
-
-    cd -- "$path$rest"
+    path="''${path/#\~/$HOME}"
+    declare -a addendums=(
+      ""
+      {.git,}/wt/{master,main}
+    )
+    declare addendum=""
+    for addendum in "''${addendums[@]}"; do
+      if [[ -d "$path$addendum" ]]; then
+        cd -- "$path$addendum$rest"
+        return 0
+      fi
+    done
+    svl_eprintln "alias $base resolved to $path but $path does not exist"
+    return 1
   '';
-  config.vacu.qcd = {
+  config.vacu.qcd = rec {
     # keep-sorted start
-    d = "${home}/dev";
-    dev = "${home}/dev";
-    gg = "${home}/dev/gallerygrab";
-    nod = "${home}/dev/nix-on-droid";
-    np = "${home}/dev/nixpkgs";
-    ns = "${home}/dev/nix-stuff";
+    bb = "~/dev/beatblock-as-src";
+    bbd = "~/dev/beatblock-dissection";
+    d = "~/dev";
+    dev = d;
+    gg = "~/dev/gallerygrab";
+    inv = "~/dev/inv6";
+    inv6 = inv;
+    nod = "~/dev/nix-on-droid";
+    np = "~/dev/nixpkgs";
+    ns = "~/dev/nix-stuff";
     # keep-sorted end
   };
 }

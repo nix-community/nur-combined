@@ -26,8 +26,25 @@ in
       add_flags ? [ ],
       append_flags ? [ ],
       runtimeHook ? null,
-    }:
+      ...
+    }@args:
     let
+      drvAttrs = builtins.removeAttrs args [
+        "original"
+        "new"
+        "argv0"
+        "inherit_argv0"
+        "resolve_argv0"
+        "set"
+        "set_default"
+        "unset"
+        "chdir"
+        "run"
+        "prepend_flags"
+        "add_flags"
+        "append_flags"
+        "runtimeHook"
+      ];
       prependFlags = prepend_flags ++ add_flags;
       originalBin = if lib.isDerivation original then lib.getExe original else original;
       makeWrapperFlags =
@@ -67,25 +84,37 @@ in
           "--append-flags"
           (escapeShellArgs append_flags)
         ]);
+      result = pkgs.stdenvNoCC.mkDerivation (
+        drvAttrs
+        // {
+          name = new;
+
+          nativeBuildInputs = [ pkgs.makeWrapper ] ++ (drvAttrs.nativeBuildInputs or [ ]);
+
+          phases = [ "installPhase" ] ++ (drvAttrs.phases or [ ]);
+
+          installPhase = ''
+            runHook preInstall
+
+            mkdir -p "$out"/bin
+            makeWrapper ${escapeShellArg originalBin} "$out"/bin/${escapeShellArg new} ${escapeShellArgs makeWrapperFlags}
+
+            runHook postInstall
+          '';
+
+          inherit runtimeHook;
+
+          meta = {
+            mainProgram = new;
+          }
+          // (drvAttrs.meta or { });
+        }
+      );
     in
-    pkgs.stdenvNoCC.mkDerivation {
-      name = new;
-
-      nativeBuildInputs = [ pkgs.makeWrapper ];
-
-      phases = [ "installPhase" ];
-
-      installPhase = ''
-        runHook preInstall
-
-        mkdir -p "$out"/bin
-        makeWrapper ${escapeShellArg originalBin} "$out"/bin/${escapeShellArg new} ${escapeShellArgs makeWrapperFlags}
-
-        runHook postInstall
-      '';
-
-      inherit runtimeHook;
-
-      meta.mainProgram = new;
-    };
+    lib.pipe result [
+      (lib.warnIf (drvAttrs ? name) "attempted to pass name to vacupkglib.makeWrapper; use new instead")
+      (lib.warnIf (
+        drvAttrs ? installPhase
+      ) "attempted to pass installPhase to vacupkglib.makeWrapper; use preInstall or postInstall instead")
+    ];
 }

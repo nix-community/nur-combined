@@ -1,5 +1,4 @@
-{ inputs, vaculib, ... }:
-{
+{ inputs, vaculib, ... }: {
   imports = [
     inputs.jovian.nixosModules.jovian
     inputs.home-manager.nixosModules.default
@@ -10,12 +9,12 @@
     systemd-boot.enable = false;
     efi = {
       efiSysMountPoint = "/boot/EFI";
-      canTouchEfiVariables = false;
+      canTouchEfiVariables = true;
     };
     grub = {
       efiSupport = true;
       device = "nodev";
-      efiInstallAsRemovable = true;
+      efiInstallAsRemovable = false;
     };
   };
 
@@ -43,6 +42,7 @@
   services.openssh.enable = true;
 
   vacu.packages = ''
+    _2ship2harkinian
     jupiter-hw-support
     steamdeck-firmware
     steamdeck-bios-fwupd

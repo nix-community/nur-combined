@@ -11,6 +11,7 @@ let
     isList
     length
     head
+    tail
     all
     isInt
     isAttrs
@@ -20,23 +21,18 @@ let
   inherit (lib)
     concatStrings
     concatStringsSep
-    splitString
     match
     replaceStrings
-    reverseList
-    elemAt
     mapAttrsToList
     ;
   mapConcat = f: xs: concatStrings (map f xs);
   mapConcatSep =
     sep: f: xs:
     concatStringsSep sep (map f xs);
-  mapConcatLines = f: xs: mapConcatSep "\n" f xs;
   isListWhere = xs: f: (isList xs) && (all f xs);
   stringOrList = val: (isString val) || ((isListWhere val isString) && (length val) > 0);
   listify = val: if isList val then val else [ val ];
   is_match = regex: s: (match regex s) != null;
-  is_not_match = regex: s: !(is_match regex s);
   only_printable_ascii = s: is_match "[ -~\r\n]*" s;
   has_vars = s: lib.hasInfix ("$" + "{") s;
   sieve_raw_escape_string =
@@ -56,7 +52,7 @@ let
     assert allow_vars || for_debug_comment || (!has_vars s);
     let
       a = sieve_raw_escape_string s;
-      b = if for_debug_comment then replaceStrings [ ''*/'' ] [ ''*\/'' ] a else a;
+      b = if for_debug_comment then replaceStrings [ "*/" ] [ ''*\/'' ] a else a;
       res = if with_quotes then ''"${b}"'' else b;
     in
     res;
@@ -90,15 +86,36 @@ let
     }
     #set_envelope END
   '';
-  envelope_is =
-    key:
+  warn_for_single =
+    match_type: pattern: passthru:
+    assert isString match_type;
+    assert isString pattern;
+    if match_type == ":is" then
+      lib.warnIf (builtins.match ''.*\*.*'' pattern != null) "testing for exact match against ${lib.strings.escapeNixString pattern}, did you mean _matches?" passthru
+    else
+      passthru
+  ;
+  warn_for =
+    match_type: pattern: passthru:
+    assert isString match_type;
+    assert stringOrList pattern;
+    if isString pattern then
+      warn_for_single match_type pattern passthru
+    else if isList pattern then
+      lib.foldl
+        (inner_passthru: inner_pattern: warn_for_single match_type inner_pattern inner_passthru)
+        passthru
+        pattern
+    else
+      throw "impossible"
+    ;
+  envelope_generic =
+    match_type: key:
     assert stringOrList key;
-    ''string :is "${interp dest}" ${sieve_encode key}'';
-  envelope_matches =
-    key:
-    assert stringOrList key;
-    ''string :matches "${interp dest}" ${sieve_encode key}'';
-  envelope_domain_is = key: ''string :is "${interp dest_domain}" ${sieve_quote_string key}'';
+    warn_for match_type key
+    ''string ${match_type} "${interp dest}" ${sieve_encode key}'';
+  envelope_is = envelope_generic ":is";
+  envelope_matches = envelope_generic ":matches";
   sieve_encode_list =
     xs:
     assert isListWhere xs isString;
@@ -181,7 +198,7 @@ let
       # "~"  0x7e ok
       # DEL  0x7f !allowed
       # ATOM-CHAR = something; # "any CHAR except atom-specials"
-      ATOM-CHAR = ''[]!#$&'+-Z^-z|}~]'';
+      ATOM-CHAR = "[]!#$&'+-Z^-z|}~]";
       atom = "${ATOM-CHAR}+";
       flag-keyword = ''\$MDNSent|\$Forwarded|\$Junk|\$NotJunk|\$Phishing|(${atom})'';
       flag-extension = ''\\(${atom})'';
@@ -208,7 +225,7 @@ let
       removeflag ${sieve_quote_string firstFlag};
       if ${combined_condition} {
         ${record_action "pure_flags ${concatStringsSep " " flags}"}
-        ${concatStringsSep "\n" (map (flag: ''addflag ${sieve_quote_string flag};'') flags)}
+        ${concatStringsSep "\n" (map (flag: "addflag ${sieve_quote_string flag};") flags)}
       }
       # pure_flags end
     '';
@@ -232,7 +249,8 @@ let
     match_kind: header_s: match_es:
     assert stringOrList header_s;
     assert stringOrList match_es;
-    ''/* header_generic START */ header ${match_kind} ${sieve_encode header_s} ${sieve_encode match_es} /* header_generic END */'';
+    warn_for match_kind match_es
+    "/* header_generic START */ header ${match_kind} ${sieve_encode header_s} ${sieve_encode match_es} /* header_generic END */";
   header_matches = header_generic ":matches";
   header_is = header_generic ":is";
   subject_generic = match_kind: match_es: header_generic match_kind "Subject" match_es;
@@ -242,29 +260,29 @@ let
     match_kind: environment_name_s: match_es:
     assert stringOrList environment_name_s;
     assert stringOrList match_es;
+    warn_for match_kind match_es
     "environment ${match_kind} ${sieve_encode environment_name_s} ${sieve_encode match_es}";
   environment_matches = environment_generic ":matches";
   environment_is = environment_generic ":is";
-  from_is =
-    addr_list:
+  from_generic =
+    match_type: addr_list:
     assert stringOrList addr_list;
-    ''/* from_is START */ address :is :all "From" ${sieve_encode addr_list} /* from_is END */'';
-  from_matches =
-    addr_list:
-    assert stringOrList addr_list;
-    ''/* from_is START */ address :matches :all "From" ${sieve_encode addr_list} /* from_is END */'';
+    warn_for match_type addr_list
+    ''/* from_generic START */ address ${match_type} :all "From" ${sieve_encode addr_list} /* from_generic END */'';
+  from_is = from_generic ":is";
+  from_matches = from_generic ":matches";
   var_is =
     var_name: rhs:
     assert isString var_name;
     assert stringOrList rhs;
+    warn_for ":is" rhs
     ''string :is "''${${var_name}}" ${sieve_encode rhs}'';
   var_is_true = var_name: var_is var_name "1";
-  var_is_false = var_name: not (var_is_true var_name);
   has_flag =
     flag_name:
     assert isString flag_name;
     assert is_flagish flag_name; # no spaces allowed in flag names
-    ''hasflag :is ${sieve_encode flag_name}'';
+    "hasflag :is ${sieve_encode flag_name}";
   set_with_interp =
     var_name: new_val:
     assert isString var_name;
@@ -307,18 +325,6 @@ let
     extension_name_s:
     assert stringOrList extension_name_s;
     "ihave ${sieve_encode extension_name_s}";
-  # email_filters = map (e: ''
-  #   elsif ${envelope_is e} { # item of email_filters
-  #     ${record_action "email_filters fileinto ${mk_email_folder_name e}"}
-  #     fileinto :create ${sieve_quote_string (mk_email_folder_name e)};
-  #   }
-  # '') email_folders;
-  # domain_filters = map (d: ''
-  #   elsif ${envelope_domain_is d} { # item of domain_filters
-  #     ${record_action "domain_filters fileinto ${mk_domain_folder_name d}"}
-  #     fileinto :create ${sieve_quote_string (mk_domain_folder_name d)};
-  #   }
-  # '') domain_folders;
   set_from =
     {
       condition,
@@ -436,8 +442,8 @@ let
       condition = ''currentdate :matches "iso8601" "*"'';
       var = "datetime";
     }}
-    ${set_with_interp "sieved_message" ''at ''${datetime} by ${config.vacu.versionId} loc ''${env_location} phase ''${env_phase} user ''${env_imap_user} email ''${env_imap_email} cause ''${env_imap_cause} mailbox ''${env_imap_mailbox} changedflags ''${env_imap_changedflags} envelope ''${dest}''}
-    ${maybe_debug ''X-Vacu-Sieved: ''${sieved_message}''}
+    ${set_with_interp "sieved_message" "at \${datetime} by ${config.vacu.versionId} loc \${env_location} phase \${env_phase} user \${env_imap_user} email \${env_imap_email} cause \${env_imap_cause} mailbox \${env_imap_mailbox} changedflags \${env_imap_changedflags} envelope \${dest}"}
+    ${maybe_debug "X-Vacu-Sieved: \${sieved_message}"}
 
     if ${ihave "envelope"} {
       if envelope :all :matches "to" "*@*" {
@@ -460,6 +466,7 @@ let
       removeflag "banking";
       removeflag "banking-statements";
       removeflag "banking-transactions";
+      removeflag "ml";
       removeflag "A";
       removeflag "B";
       removeflag "B.subscriptions";
@@ -470,7 +477,12 @@ let
       ${pure_flags [ "to-b" "B" ] (envelope_matches "*-to-b@shelvacu.com")}
       ${pure_flags [ "to-c" "C" ] (envelope_matches "*-to-c@shelvacu.com")}
       ${pure_flags [ "to-d" "D" ] (envelope_matches "*-to-d@shelvacu.com")}
-      ${pure_flags [ "ml" "B.subscriptions" ] (envelope_matches "*-ml@shelvacu.com")}
+      ${pure_flags [ "mailing-list-by-envelope" "not-spamish" "ml" ] (
+        envelope_matches "*-ml@shelvacu.com"
+      )}
+
+      ${pure_flags [ "dxl" "D" ] (envelope_matches "dxl@shelvacu.com")}
+      ${pure_flags [ "tp8b" "D" ] (envelope_matches "tp8b@sv.mt")}
 
       ${pure_flags [ "dmarc-reports" ] (envelope_is "dmarc-rua@shelvacu.com")}
       ${pure_flags [ "coolppl" "A" ] (from_matches [
@@ -479,6 +491,7 @@ let
         "*@uninsane.org"
         "*@nettika.cat"
         "*@mooooo.ooo"
+        "*@bashme.org"
       ])}
       ${pure_flags [ "wells-fargo" "banking" ] (envelope_is "wf-primary@shelvacu.com")}
       ${pure_flags
@@ -640,7 +653,7 @@ let
         ]
       }
       ${pure_flags
-        [ "bandcamp-not-ignore" "B.subscriptions" ]
+        [ "bandcamp-not-ignore" "ml" ]
         [
           (envelope_is "bandcamp@shelvacu.com")
           ''not hasflag "bandcamp-ignore"''
@@ -674,10 +687,18 @@ let
       }
 
       ${pure_flags
-        [ "money-stuff-not-podcast" "B.subscriptions" ]
+        [ "money-stuff-not-podcast" "ml" ]
         [
           (has_flag "money-stuff")
           (not (has_flag "money-stuff-podcast"))
+        ]
+      }
+
+      ${pure_flags
+        [ "bloomberg-not-money-stuff" "D" ]
+        [
+          (has_flag "bloomberg")
+          (not (has_flag "money-stuff"))
         ]
       }
 
@@ -687,9 +708,6 @@ let
       ])}
       ${pure_flags [ "git-uninsane" "git" "not-spamish" "B" ] (envelope_is "git-uninsane@shelvacu.com")}
       ${pure_flags [ "github" "git" "not-spamish" "B" ] (header_matches "List-Id" "*<*.github.com>")}
-      ${pure_flags [ "mailing-list-by-envelope" "not-spamish" "B" ] (
-        envelope_matches "*-ml@shelvacu.com"
-      )}
       
       ${pure_flags [ "discourse" "not-spamish" "B" ] (exists "X-Discourse-Post-Id")}
       ${pure_flags [ "agora" "not-spamish" ] (envelope_is "agora@shelvacu.com")}
@@ -697,10 +715,12 @@ let
         header_matches "List-Id" "<*.lists.postgresql.org>"
       )}
       ${pure_flags [ "secureaccesswa" "not-spamish" "A" ] (from_is "help@secureaccess.wa.gov")}
-      ${pure_flags [ "letsencrypt-mailing-list" "not-spamish" "B" ] (
+      ${pure_flags [ "letsencrypt-mailing-list" "not-spamish" "ml" ] (
         envelope_is "lets-encrypt-mailing-list@shelvacu.com"
       )}
-      ${pure_flags [ "jmp-news" "not-spamish" "B" ] (header_matches "List-Id" "*<jmp-news.soprani.ca>")}
+      ${pure_flags [ "jmp-news" "not-spamish" "ml" ] (
+        header_matches "List-Id" "*<jmp-news.soprani.ca>"
+      )}
       ${pure_flags
         [ "tf2wiki" "not-spamish" "B" ]
         [
@@ -787,35 +807,42 @@ let
           (subject_matches "Your Royal Mail parcel is on its way")
         ]
       }
-      ${pure_flags [ "aliexpress" "orders" ] (anyof [
-        (from_is [
-          "transaction@notice.aliexpress.com"
-          "aliexpress@notice.aliexpress.com"
-        ])
+      ${pure_flags [ "aliexpress" ] (anyof [
+        (from_matches [ "*@aliexpress.com" "*@*.aliexpress.com" ])
         (envelope_is "ali@shelvacu.com")
       ])}
       ${pure_flags
-        [ "aliexpress-delivered" "B" ]
+        [ "aliexpress-delivered" "orders" "B" ]
         [
           (has_flag "aliexpress")
-          (from_is "transaction@notice.aliexpress.com")
+          (from_matches "*@notice.aliexpress.com")
           (subject_matches "Order * has been signed for")
         ]
       }
       ${pure_flags
-        [ "aliexpress-misc" "C" ]
+        [ "aliexpress-misc" "orders" "C" ]
         [
           (has_flag "aliexpress")
           (not (has_flag "aliexpress-delivered"))
+          (from_matches "*@notice.aliexpress.com")
         ]
       }
+      ${pure_flags
+        [ "aliexpress-spam" "D" ]
+        [
+          (not (has_flag "aliexpress-delivered"))
+          (not (has_flag "aliexpress-misc"))
+          (from_matches [ "*@aliexpress.com" "*@*.aliexpress.com" ])
+        ]
+      }
+      ${pure_flags [ "dhmed" "D" ] (envelope_is "dhmed@shelvacu.com")}
       ${pure_flags [ "brandcrowd" "D" ] (envelope_is "brandcrowd@shelvacu.com")}
       ${pure_flags [ "cpapsupplies" "D" ] (envelope_is "cpapsupplies@shelvacu.com")}
       ${pure_flags [ "genshin" "D" ] (envelope_is "genshin@shelvacu.com")}
       ${pure_flags [ "jork" "B" ] (envelope_is "jork@shelvacu.com")}
       ${pure_flags [ "patreon" "not-spamish" ] (envelope_is "patreon@shelvacu.com")}
       ${pure_flags
-        [ "patreon-post" "B.subscriptions" ]
+        [ "patreon-post" "ml" ]
         [
           (has_flag "patreon")
           (header_is "X-Mailgun-Tag" [
@@ -840,7 +867,7 @@ let
         ]
       }
       ${pure_flags
-        [ "subscribestar-update" "B.subscriptions" ]
+        [ "subscribestar-update" "ml" ]
         [
           (envelope_is "subscribestar@shelvacu.com")
           (subject_matches "New post from * on SubscribeStar.com")
@@ -874,14 +901,14 @@ let
       ])}
       ${pure_flags "itch-io" (from_is "postmaster@itch.io")}
       ${pure_flags
-        [ "itch-io-update" "B.subscriptions" "not-spamish" ]
+        [ "itch-io-update" "ml" "not-spamish" ]
         [
           (has_flag "itch-io")
           (subject_matches "[itch.io] * update *")
         ]
       }
       ${pure_flags
-        [ "lowering-the-bar" "B.subscriptions" "not-spamish" ]
+        [ "lowering-the-bar" "ml" "not-spamish" ]
         [
           (envelope_is "ltb@shelvacu.com")
         ]
@@ -890,7 +917,9 @@ let
         "hotels.com"
         "*.hotels.com"
       ])}
-      ${pure_flags [ "dominos-rewards" "C" ] (from_is [ "rewards@e-rewards.dominos.com" ])}
+      ${pure_flags [ "dominos-rewards" "C" ] (from_is "rewards@e-rewards.dominos.com")}
+
+      ${pure_flags [ "foobar-dis8" "D" ] (envelope_is "foobar@dis8.net")}
 
       ${pure_flags
         [ "spamish-by-headers" "C" ]
@@ -916,8 +945,22 @@ let
         ${fileinto "C"}
       } elsif hasflag "A" {
         ${fileinto "A"}
-      } elsif hasflag "B.subscriptions" {
-        ${fileinto "B.subscriptions"}
+      } elsif hasflag "ml" {
+        if hasflag "bandcamp-not-ignore" {
+          ${fileinto "M.bandcamp"}
+        } elsif hasflag "patreon-post" {
+          ${fileinto "M.paysub"}
+        } elsif hasflag "subscribestar-update" {
+          ${fileinto "M.paysub"}
+        } elsif hasflag "itch-io-update" {
+          ${fileinto "M.paysub"}
+        } elsif hasflag "lowering-the-bar" {
+          ${fileinto "M.lowering-the-bar"}
+        } elsif hasflag "money-stuff-not-podcast" {
+          ${fileinto "M.money-stuff"}
+        } else {
+          ${fileinto "M"}
+        }
       } else {
         ${fileinto "B"}
       }
@@ -925,22 +968,22 @@ let
     # disable any sieve scripts that might want to run after this one
     stop;
   '';
-  pigeonhole_pkg = pkgs.dovecot_pigeonhole;
+  pigeonhole_pkg = config.services.dovecot2.package.dovecot_pigeonhole;
 in
 {
   imports = [
     # Allow running a sieve filter when a message gets moved to another folder in imap
     # see https://doc.dovecot.org/2.3/configuration_manual/sieve/plugins/imapsieve/
     {
-      services.dovecot2 = {
-        sieve.plugins = [ "sieve_imapsieve" ];
-        mailPlugins.perProtocol.imap.enable = [ "imap_sieve" ];
+      services.dovecot2.settings = {
+        plugin.sieve_plugins = [ "sieve_imapsieve" ];
+        "protocol imap".mail_plugins = "$mail_plugins imap_sieve";
       };
     }
   ];
   options.vacu.checkSieve = lib.mkOption {
     readOnly = true;
-    default = pkgs.writeScriptBin "check-liam-sieve" ''
+    default = pkgs.writers.writeBashBin "check-liam-sieve" ''
       set -xev
       ${lib.escapeShellArgs [
         (lib.getExe' pigeonhole_pkg "sieve-test")
@@ -965,6 +1008,7 @@ in
   };
   config = {
     vacu.packages = [ pigeonhole_pkg ];
+    vacu.expose.vacu-liam-sieve = config.vacu.liam-sieve-script;
     services.dovecot2.sieve = {
       extensions = [
         "fileinto"

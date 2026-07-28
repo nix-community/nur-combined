@@ -11,7 +11,10 @@ let
   cfg = config.vacu.copyparties.two_e14;
 in
 {
-  imports = [ vacuModules.copyparty ];
+  imports = [
+    vacuModules.copyparty
+    ./t-pictures.nix
+  ];
   system.activationScripts.migrate-copyparty = {
     deps = [
       "users"
@@ -73,6 +76,7 @@ in
         flags.xdev = false;
         flags.xvol = true;
         bind.readOnly = true;
+        bind.rbind = true;
       };
       "/ppl" = {
         hostPath = vaculib.path ./ppl-folder;
@@ -89,10 +93,10 @@ in
           A: shelvacu
         '';
       };
-      "/general_access" = {
-        hostPath = pkgs.emptyDirectory;
-        access = "r: @general_access";
-      };
+      # "/general_access" = {
+      #   hostPath = pkgs.emptyDirectory;
+      #   access = "r: @general_access";
+      # };
     };
   };
   users.groups.media.members = [ "copyparty-two_e14" ];
@@ -148,6 +152,6 @@ in
       "copyparty.shelvacu.com"
       "files.shelvacu.com"
     ];
-    extraConfig = ''redir * https://2e14.sv.mt{uri}'';
+    extraConfig = "redir * https://2e14.sv.mt{uri}";
   };
 }

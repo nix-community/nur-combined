@@ -1,5 +1,4 @@
-{ modulesPath, ... }:
-{
+{ modulesPath, ... }: {
   imports = [
     ./common
     "${modulesPath}/installer/cd-dvd/installation-cd-minimal.nix"

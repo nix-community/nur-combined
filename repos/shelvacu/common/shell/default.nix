@@ -13,7 +13,7 @@ let
   writeShellFunction =
     name: text:
     pkgs.writeTextFile {
-      inherit name;
+      name = "vacufunc-${name}";
       executable = false;
       destination = "/share/vacufuncs/${name}";
       text = ''

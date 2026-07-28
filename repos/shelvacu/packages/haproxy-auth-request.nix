@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation {
   name = "haproxy-auth-request";
-  version = "unstable-2024-12-17";
+  version = "0-unstable-2026-02-20";
 
   src = fetchFromGitHub {
     owner = "TimWolla";
     repo = "haproxy-auth-request";
-    rev = "215afeb4ae9dbd6f05d0f7a8bf67ea3d34637f13";
-    hash = "sha256-Shmd+vJy8y0AidX4dQyeVRCthwJ+rPq4U9L+Y/mvhZQ=";
+    rev = "cdb891cf52995780bb6128c2a7495d36325e4ff2";
+    hash = "sha256-1JibFpzfDljK8gMJUilQaWHuxQ0hRvQesu8wCB4MbCI=";
   };
 
   installPhase = ''

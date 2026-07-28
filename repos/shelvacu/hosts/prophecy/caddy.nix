@@ -4,6 +4,7 @@
   vacuModules,
   vaculib,
   vacuRoot,
+  pkgs,
   ...
 }:
 let
@@ -39,6 +40,13 @@ in
   };
   services.caddy = {
     enable = true;
+    # package = pkgs.caddy.withPlugins {
+    #   plugins = [
+    #     "github.com/caddyserver/cache-handler@v0.16.0"
+    #     "github.com/darkweak/storages/simplefs/caddy@v0.0.16"
+    #   ];
+    #   hash = "sha256-iJizSgWnQw82nz3uCRXfEQCUUmhZfiRgCQHKKv1bxhA=";
+    # };
     # I was having weird issues where anytime I reloaded caddy, any browser that previously had pages open would spin endlessly trying to load any new ones (from this server) until caddy was restarted
     enableReload = false;
     email = "acme-certs@shelvacu.com";
@@ -125,7 +133,9 @@ in
     SocketBindAllow = [
       "tcp:80"
       "tcp:443"
+      "tcp:8448"
       "udp:443"
+      "udp:8448"
     ];
     SocketBindDeny = "any";
   };

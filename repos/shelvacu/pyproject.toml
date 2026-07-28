@@ -3,7 +3,9 @@
 [tool.pyright]
 verboseOutput = true
 pythonPlatform = "Linux"
-pythonVersion = "3.12"
+pythonVersion = "3.13"
+typeCheckingMode = "strict"
+reportWildcardImportFromLibrary = false
 
 [[tool.pyright.executionEnvironments]]
 root = "tests/liam/testScript"
@@ -20,21 +22,21 @@ extraPaths = [
 ]
 
 [[tool.pyright.executionEnvironments]]
-root = "scripts/dns"
-extraPaths = [ ".generated/dns/python-env/lib/python3.12/site-packages" ]
+root = "scripts/dns-update"
+extraPaths = [ ".generated/dns-update/python-env/lib/python3.13/site-packages" ]
 
 [[tool.pyright.executionEnvironments]]
 root = "tests/liam/mailtest"
-extraPaths = [ ".generated/mailtest/python-env/lib/python3.12/site-packages" ]
-
-# [[tool.pyright.executionEnvironments]]
-# root = "scripts/archive"
-# extraPaths = [ ".generated/scriptipy-env/lib/python3.12/site-packages" ]
+extraPaths = [ ".generated/mailtest/python-env/lib/python3.13/site-packages" ]
 
 [[tool.pyright.executionEnvironments]]
 root = "packages/zfs-supersend"
-extraPaths = [ ".generated/scriptipy-env/lib/python3.12/site-packages" ]
+extraPaths = [ ".generated/general-env/lib/python3.13/site-packages" ]
+
+[[tool.pyright.executionEnvironments]]
+root = "pythonPackages/types-dnspython"
+extraPaths = [ ".generated/dnspython/lib/python3.13/site-packages" ]
 
 [[tool.pyright.executionEnvironments]]
 root = "scripts"
-extraPaths = [ ".generated/general-env/lib/python3.12/site-packages" ]
+extraPaths = [ ".generated/general-env/lib/python3.13/site-packages" ]

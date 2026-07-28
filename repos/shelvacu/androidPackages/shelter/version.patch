@@ -1,0 +1,15 @@
+diff --git i/app/build.gradle w/app/build.gradle
+index f7ae368..7e34c5c 100644
+--- i/app/build.gradle
++++ w/app/build.gradle
+@@ -44,8 +44,8 @@ android {
+         applicationId "net.typeblog.shelter"
+         minSdkVersion 24
+         targetSdkVersion 34
+-        versionCode getVersionCode()
+-        versionName getVersionName()
++        versionCode @versionCode@
++        versionName "@versionName@"
+         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+     }
+     buildTypes {

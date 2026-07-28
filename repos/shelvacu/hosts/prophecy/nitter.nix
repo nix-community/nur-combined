@@ -5,7 +5,7 @@ let
 in
 {
   services.nitter = {
-    enable = true;
+    enable = false;
     redisCreateLocally = true;
     openFirewall = false;
     settings = { };

@@ -1,0 +1,32 @@
+diff --git i/app/build.gradle w/app/build.gradle
+index d5c4527..c906377 100644
+--- i/app/build.gradle
++++ w/app/build.gradle
+@@ -23,7 +23,8 @@ gradle.allprojects {
+ }
+ 
+ repositories {
+-    jcenter()
++    google()
++    mavenCentral()
+ }
+ 
+ dependencies {
+diff --git i/build.gradle w/build.gradle
+index ada894d..3d0f51a 100644
+--- i/build.gradle
++++ w/build.gradle
+@@ -1,10 +1,9 @@
+ buildscript {
+     repositories {
+-        maven { url 'file:///usr/share/maven-repo' }
+-        jcenter()
++        google()
++        mavenCentral()
+     }
+     dependencies {
+-        // 2.2.2 is the version that is included in Debian/stretch
+-        classpath 'com.android.tools.build:gradle:2.2.2'
++        classpath 'com.android.tools.build:gradle:2.3.3'
+     }
+ }

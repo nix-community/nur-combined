@@ -1,5 +1,4 @@
-{ vacuModules, ... }:
-{
+{ vacuModules, ... }: {
   imports = [ vacuModules.tf2 ];
 
   tf2.binds.clear = true;

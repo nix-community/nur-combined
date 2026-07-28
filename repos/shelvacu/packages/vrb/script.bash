@@ -74,6 +74,7 @@ while true; do
   rubyOptionNoArg f && continue
   rubyOptionWithArg prompt prompt-mode && continue
   rubyOptionWithArg back-trace-limit && continue
+  rubyOptionWithArg r && continue
   if [[ $currentArg == "--" ]]; then
     nextArg
     nonOptionArgs+=("${scriptArgs[@]:i}")

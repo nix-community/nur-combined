@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   home-manager.users.shelvacu = {
     home.stateVersion = "23.11";
     programs.librewolf = {

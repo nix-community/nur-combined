@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   vacu.packages = "libva-utils";
   hardware.graphics = {
     enable = true;

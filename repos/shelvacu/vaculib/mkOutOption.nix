@@ -1,5 +1,4 @@
-{ lib, ... }:
-rec {
+{ lib, ... }: rec {
   mkOutOption =
     val:
     lib.mkOption {

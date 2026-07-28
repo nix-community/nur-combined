@@ -1,0 +1,25 @@
+diff --git i/inc/media.php w/inc/media.php
+index ced745097..c846e36e9 100644
+--- i/inc/media.php
++++ w/inc/media.php
+@@ -467,11 +467,6 @@ function media_save($file, $id, $ow, $auth, $move)
+     );
+     $regex = implode('|', $types);
+ 
+-    // because a temp file was created already
+-    if (!preg_match('/\.(' . $regex . ')$/i', $fn)) {
+-        return [$lang['uploadwrong'], -1];
+-    }
+-
+     //check for overwrite
+     $overwrite = file_exists($fn);
+     $auth_ow = (($conf['mediarevisions']) ? AUTH_UPLOAD : AUTH_DELETE);
+@@ -480,7 +475,7 @@ function media_save($file, $id, $ow, $auth, $move)
+     }
+     // check for valid content
+     $ok = media_contentcheck($file['name'], $file['mime']);
+-    if ($ok == -1) {
++    if (false) {
+         return [sprintf($lang['uploadbadcontent'], '.' . $file['ext']), -1];
+     } elseif ($ok == -2) {
+         return [$lang['uploadspam'], -1];

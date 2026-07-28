@@ -1,5 +1,4 @@
-{ pkgs, config, ... }:
-{
+{ pkgs, config, ... }: {
   vacu.packages = [ config.services.postgresql.package ];
 
   services.postgresql = {

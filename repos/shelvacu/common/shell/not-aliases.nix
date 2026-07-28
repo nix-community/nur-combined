@@ -13,11 +13,32 @@ let
     svl_minmax_args $# 1 2
     host="$1"
     session_name="''${2:-main}"
+    declare -a remote_cmd=(
+      ${lib.optionalString with_sudo "sudo"} tmux new-session -A -s "$session_name"
+    )
+    declare ssh_config
+    ssh_config="$(ssh -G -- "$host")"
+    declare -a cmd=(exec)
+    if (printf '%s' "$ssh_config" | grep -q "^proxyjump "); then
+      echo "INFO: proxyjump detected, no mosh" >&2
+      cmd+=(ssh -t)
+    else
+      cmd+=(mosh)
+    fi
+    cmd+=(-- "$host" "''${remote_cmd[@]}")
+      
     set -x
-    mosh -- "$host" ${lib.optionalString with_sudo "sudo"} tmux new-session -A -s "$session_name"
+    "''${cmd[@]}"
   '';
   systemctl = "${pkgs.systemd}/bin/systemctl";
   journalctl = "${pkgs.systemd}/bin/journalctl";
+
+  altcapsPkg = pkgs.altcaps;
+  altcapsBin = lib.getExe altcapsPkg;
+
+  wl-clipboardPkg = pkgs.wl-clipboard;
+  wl-copy = lib.getExe' wl-clipboardPkg "wl-copy";
+  wl-paste = lib.getExe' wl-clipboardPkg "wl-paste";
 
   alt_default_installables = ''
     declare -a new_args
@@ -52,28 +73,53 @@ in
     (script "msl" ''
       svl_exact_args $# 1
       host="$1"
-      echo 'echo "user:"; screen -ls; echo; echo "root:"; sudo screen -ls' | ssh -T "$host"
+      echo 'echo "user:"; tmux list-sessions; echo; echo "root:"; sudo tmux list-sessions' | ssh -T -- "$host"
     '')
     (script "rmln" ''
       svl_min_args $# 1
+      declare passed_dashdash="false"
       for arg in "$@"; do
-        if [[ "$arg" != -* ]] && [[ ! -L "$arg" ]]; then
-          svl_die "$arg is not a symlink"
+        if [[ $passed_dashdash == "true" ]] || [[ $arg != -* ]]; then
+          if [[ ! -L $arg ]]; then
+            svl_die "$arg is not a symlink"
+          fi
+        elif [[ $arg == "--" ]]; then
+          passed_dashdash="true"
+        fi
+      done
+      rm "$@"
+    '')
+    (script "rmempty" ''
+      svl_min_args $# 1
+      declare passed_dashdash="false"
+      for arg in "$@"; do
+        if [[ $passed_dashdash == "true" ]] || [[ $arg != -* ]]; then
+          if [[ ! -e $arg ]]; then
+            svl_die "does not exist: $arg"
+          fi
+          if [[ ! -f $arg ]]; then
+            svl_die "not a regular file: $arg"
+          fi
+          if [[ -s $arg ]]; then
+            svl_die "not empty: $arg"
+          fi
+        elif [[ $arg == "--" ]]; then
+          passed_dashdash="true"
         fi
       done
       rm "$@"
     '')
     (script "altcaps-copy" ''
       declare result
-      result="$(altcaps "$@")"
-      printf '%s' "$result" | wl-copy
-      echo "Copied to clipboard: $result"
+      result="$(${altcapsBin} "$@")"
+      printf '%s' "$result" | ${wl-copy}
+      printf "Copied to clipboard: %q\n" "$result"
     '')
     (script "altcaps-clip" ''
       declare current_clipboard
       # removes a final newline but whatever
-      current_clipboard="$(wl-paste)"
-      printf '%s' "$current_clipboard" | altcaps | wl-copy
+      current_clipboard="$(${wl-paste})"
+      printf '%s' "$current_clipboard" | ${altcapsBin} | ${wl-copy}
     '')
     (script "nr" ''
       # nix run nixpkgs#<thing> -- <args>
@@ -107,30 +153,9 @@ in
       "$view_cmd" "$l"
       rm -r "$d"
     '')
-    (script "nts" ''
-      svl_max_args $# 1
-      declare tempdir suffix="-vacu-nts"
-      if (( $# > 0 )); then
-        suffix="''${suffix}-$1"
-      fi
-      tempdir="$(mktemp -d --suffix="$suffix")"
-      (
-        declare -i exit_code
-        cd -- "$tempdir"
-        svl_capture_exit_code_into exit_code "$SHELL"
-        echo "temp shell exited with code $exit_code"
-      )
-      if rmdir -- "$tempdir" 2>/dev/null; then
-        echo "Automatically removed empty tempdir $tempdir"
-      else
-        printf "ls -Al -- %q\n" "$tempdir"
-        ls -Al -- "$tempdir"
-        declare do_delete
-        svl_ask "Do you want to rm -rf $tempdir?" --result-var do_delete --default-no --short-yes
-        if [[ $do_delete == true ]]; then
-          rm -rf -- "$tempdir"
-        fi
-      fi
+    (script "nix-locate-bin" ''
+      svl_exact_args $# 1
+      exec ${lib.getExe' pkgs.nix-index "nix-locate"} --whole-name --at-root "/bin/$1"
     '')
     (simple "nixcat" [
       "nixview"
@@ -177,8 +202,32 @@ in
       "git"
       "status"
     ])
+    (simple "nvimro" [
+      "nvim"
+      "-R"
+    ])
+    (simple "vcp" [
+      "cp"
+      "--update=none-fail"
+    ])
+    (simple "vmv" [
+      "mv"
+      "--update=none-fail"
+    ])
     #git lazy commit
     (script "glc" ''
+      grep_nofail() {
+        if grep "$@"; then
+          return 0
+        else
+          declare -i exitcode=$?
+          if [[ $exitcode == 1 ]]; then
+            # no matches found, which is fine
+            return 0
+          fi
+          return $exitcode
+        fi
+      }
       svl_max_args $# 1
       declare -i do_push=0
       if [[ $# == 1 ]]; then
@@ -189,11 +238,34 @@ in
       fi
       git add .
       git status
-      svl_confirm_or_die --default-yes "commit this?"
-      git commit -m stuff
+      declare status_info status_info_noheaders
+      status_info="$(git status -b --porcelain=v2)"
+      status_info_noheaders="$(grep_nofail -v '^#' <<<"$status_info")"
+      if [[ $status_info_noheaders == "" ]]; then
+        : # Nothing to commit
+      else
+        svl_confirm_or_die --default-yes "commit this?"
+        git commit -m stuff
+      fi
       if (( $do_push )); then
-        echo "Pushing in background"
-        git push >/dev/null 2>/dev/null &
+        declare upstream upstream_branch upstream_remote
+        upstream="$(git status -b --porcelain=v2 | grep_nofail --only-matching '(?<=^# branch.upstream ).*' -P)"
+        if [[ -z $upstream ]]; then
+          svl_die "no upstream set, cannot push"
+        fi
+        upstream_branch="''${upstream#*/}"
+        upstream_remote="''${upstream%%/*}"
+        git fetch "$upstream_remote" "$upstream_branch"
+        if git merge-base HEAD "$upstream"; then
+          echo "Pushing in background"
+          git push >/dev/null 2>/dev/null &
+        else
+          declare -i exitcode=$?
+          if [[ $exitcode != 1 ]]; then
+            svl_die "git merge-base failed with exit code $exitcode"
+          fi
+          echo "Cannot push: not a fast-forward"
+        fi
       fi
     '')
     (simple "glcp" [
@@ -252,36 +324,15 @@ in
         '';
       }
     )
-    (script "list-auto-roots" ''
-      svl_exact_args $# 0
-      shopt -s nullglob
-      declare auto_roots="/nix/var/nix/gcroots/auto"
-      echo "List of auto nix gcroots:"
-      echo
-      declare -i system_count=0 other_ignored_count=0
-      for fn in "$auto_roots/"*; do
-        if ! [[ -L "$fn" ]]; then
-          svl_die "fn is not a symlink!?: $fn"
-        fi
-        declare pointed
-        pointed="$(readlink -v -- "$fn")"
-        if ! [[ -e "$pointed" ]]; then
-          continue
-        fi
-        case "$pointed" in
-          /nix/var/nix/profiles/system-*)
-            system_count=$((system_count + 1))
-            ;;
-          */.cache/nix/flake-registry.json | */dev/nix-stuff/.generated)
-            other_ignored_count=$((other_ignored_count + 1))
-            ;;
-          *)
-            printf '%q\n' "$pointed"
-            ;;
-        esac
-      done
-      printf "\nand %d system profiles and %d ignored\n" $system_count $other_ignored_count
-    '')
+    (simple "steam-minigames" [
+      "xdg-open"
+      "steam://open/minigameslist"
+    ])
+    (simple "batn" [
+      # bat with no line numbers or diff info, so copy+paste across multiple lines works
+      "bat"
+      "--style=-numbers,-changes"
+    ])
   ];
   vacu.shell.functions = {
     nd = ''

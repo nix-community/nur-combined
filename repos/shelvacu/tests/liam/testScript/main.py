@@ -29,7 +29,7 @@ checker.wait_for_unit("network.target")
 checker.succeed("wget http://liam.dis8.net/.well-known/acme-challenge/test")
 
 liam.wait_for_unit("postfix.service")
-liam.wait_for_unit("dovecot2.service")
+liam.wait_for_unit("dovecot.service")
 liam.succeed("doveadm mailbox create -u shelvacu testFolder")
 relay.wait_for_unit("mailpit.service")
 
@@ -102,7 +102,7 @@ DEFAULT_JOURNALCTL_OPTS: Args = {
 
 
 def journalctl_log_entries(
-    machine: Machine = liam, **kwargs: Arg
+    machine=liam, **kwargs: Arg
 ) -> Generator[LogEntry, None, None]:
     with_defaults = {**kwargs, **DEFAULT_JOURNALCTL_OPTS}
     args = ["journalctl", *dict_args_to_list(with_defaults)]
@@ -281,6 +281,16 @@ d = Defaults(
     smtp={"mailfrom": "whoeve2@example.com", "rcptto": "sieve2est@shelvacu.com"},
     username="shelvacu",
 )
+
+for addr_part in ("job", "jobs", "job+foo", "jobs+foobar"):
+    addr = f"{addr_part}@shelvacu.com"
+    d.make_tester().smtp_accepted(rcptto=addr).imap_found().imap_found(username="jobs")
+    TesterThing().smtp_accepted(
+        mailfrom=addr, username="jobs", submission=True
+    ).mailpit_received().imap_found(username="shelvacu")
+
+d.make_tester().smtp_rejected(rcptto="jean-luc@jean-luc.org")
+
 # test refilter
 d.make_tester().smtp_accepted().imap_move_to("MagicRefilter").imap_found_in("B")
 # refilter doesnt activate on other folders
@@ -337,6 +347,8 @@ TesterThing().smtp_rejected(mailfrom="julie@shelvacu.com")
 TesterThing().smtp_rejected(mailfrom="@shelvacu.org")
 
 TesterThing().smtp_rejected(mailfrom="reject-spam-test@example.com")
+TesterThing().smtp_rejected(mailfrom="mailbox@spam.example.com")
+TesterThing().smtp_rejected(mailfrom="mailbox@subdomain.spam.example.com")
 
 # people cant send as the wrong person
 d = Defaults(smtp={"submission": True})

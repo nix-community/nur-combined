@@ -7,8 +7,8 @@ let
       positiveIdx = if idx < 0 then (lib.length list) + idx else idx;
     in
     lib.elemAt list positiveIdx;
-  isDigits = str: (builtins.match ''[0-9]+'' str) != null;
-  isHexDigits = str: (builtins.match ''[0-9a-fA-F]+'' str) != null;
+  isDigits = str: (builtins.match "[0-9]+" str) != null;
+  isHexDigits = str: (builtins.match "[0-9a-fA-F]+" str) != null;
   isIPAny = obj: lib.isAttrs obj && (obj._type or null) == "com.shelvacu.nix.ip";
   mkVersionDataCore =
     {
@@ -23,6 +23,7 @@ let
     let
       this = args // {
         versionString = "IPv${toString versionInt}";
+        funcPath = "vaculib.ip.v${toString versionInt}";
         bitSize = segmentCount * segmentBitSize;
         segmentValueMax = (vaculib.pow 2 segmentBitSize) - 1;
         maskBitsToSegment =
@@ -50,20 +51,27 @@ let
             ipVersion = versionInt;
             inherit segments;
             __toString = this.ipToString;
-            hasPrefix = false;
-            prefixSize = null;
-            toSubnet = mkIP (args // { prefixSize = this.bitSize; });
           }
-          // lib.optionalAttrs (prefixSize != null) {
-            hasPrefix = true;
-            inherit prefixSize;
-            toSubnet = mkIP args;
-            subnetMask = mkIP {
-              segments = lib.genList (
-                idx: this.maskBitsToSegment (prefixSize - segmentBitSize * idx)
-              ) segmentCount;
-            };
-          };
+          // (
+            if prefixSize == null then
+              {
+                hasPrefix = false;
+                prefixSize = null;
+                fullPrefix = true;
+              }
+            else
+              {
+                hasPrefix = true;
+                inherit prefixSize;
+                fullPrefix = prefixSize == this.bitSize;
+                toSubnet = mkIP args;
+                subnetMask = mkIP {
+                  segments = lib.genList (
+                    idx: this.maskBitsToSegment (prefixSize - segmentBitSize * idx)
+                  ) segmentCount;
+                };
+              }
+          );
         parseStrCore =
           str:
           let
@@ -76,28 +84,55 @@ let
               (subnetStr != null -> (isDigits subnetStr) && prefixSize >= 0 && prefixSize <= this.bitSize)
               && innerParse.valid;
           in
-          {
-            inherit valid;
-          }
-          // lib.optionalAttrs valid {
-            mkArgs = innerParse.mkArgs // {
-              inherit prefixSize;
-            };
-          };
+          (
+            {
+              inherit valid;
+            }
+            // lib.optionalAttrs valid {
+              mkArgs = innerParse.mkArgs // {
+                inherit prefixSize;
+              };
+            }
+          );
         isValidStr = str: (this.parseStrCore str).valid;
+        tryParse =
+          str:
+          let
+            innerParse = this.parseStrCore str;
+          in
+          {
+            success = innerParse.valid;
+            value = if innerParse.valid then mkIP innerParse.mkArgs else false;
+          };
         parse =
           str:
-          builtins.addErrorContext
-            ''While parsing ${lib.strings.escapeNixString str} as ${this.versionString}''
+          builtins.addErrorContext "While parsing ${lib.strings.escapeNixString str} as ${this.versionString}"
             (
               let
-                innerParse = this.parseStrCore str;
+                try = this.tryParse;
               in
               lib.throwIf (
-                !innerParse.valid
-              ) "Invalid ${this.versionString} string: ${lib.strings.escapeNixString str}" mkIP innerParse.mkArgs
+                !try.success
+              ) "Invalid ${this.versionString}: ${lib.strings.escapeNixString str}" try.value
             );
         zero = this.mkIP { segments = lib.genList (_: 0) this.segmentCount; };
+        types = {
+          attrs =
+            {
+              subnet ? false,
+            }:
+            lib.types.mkOptionType {
+              name = "${this.funcPath}.types.attrs";
+              description = "vaculib ${this.versionString} address${lib.optionalString subnet " with subnet"}";
+              # descriptionClass = "idk";
+              check = x: this.isIP x && x.hasPrefix == subnet;
+              merge = vaculib.options.mergeEqualOptionBy vaculib.stringify;
+              emptyValue = this.zero;
+            };
+          attrsOrStr = args: lib.types.coercedTo lib.types.str (this.parse) (this.types.attrs args);
+        };
+        typeWith = this.types.attrsOrStr;
+        type = this.typeWith { subnet = false; };
         publicMethods = {
           inherit (this)
             mkIP
@@ -105,6 +140,9 @@ let
             isValidStr
             parse
             zero
+            types
+            typeWith
+            type
             ;
         };
       };
@@ -163,8 +201,8 @@ let
     ipToStringCore =
       obj:
       (lib.pipe obj.segments [
-        (map vaculib.decToHex)
-        (lib.concatStringSep ":")
+        (map vaculib.intToHex)
+        (lib.concatStringsSep ":")
       ])
       + lib.optionalString obj.hasZone "%${obj.zone}";
     parseSide =
@@ -173,7 +211,7 @@ let
         segmentStrs = lib.splitString ":" str;
         segmentStrs' = if segmentStrs == [ "" ] then [ ] else segmentStrs;
         valid = lib.all isHexDigits segmentStrs;
-        segments = map vaculib.conversions.hexToDec segmentStrs';
+        segments = map vaculib.hexToInt segmentStrs';
       in
       ({ inherit valid; } // lib.optionalAttrs valid { inherit segments; });
     parsePlain =
@@ -222,7 +260,7 @@ let
           (lib.removePrefix "[")
           (lib.removeSuffix "]")
         ];
-        matches = builtins.match ''([0-9a-fA-F:]+)(:${ip4Regex})?(%[a-zA-Z0-9_-]+)?'' withoutBrackets;
+        matches = builtins.match "([0-9a-fA-F:]+)(:${ip4Regex})?(%[a-zA-Z0-9_-]+)?" withoutBrackets;
 
         mainMatchBlegh = elemAt matches 0;
         ip4MatchBlegh = elemAt matches 1;
@@ -256,7 +294,6 @@ let
         # debugData = { inherit mainMatch hasIP4 ip4Match; segmentValid = segmentsResult.valid; };
       in
       assert matches != null -> (builtins.length matches) == 3;
-      # builtins.trace (builtins.deepSeq debugData debugData)
       { inherit valid; } // lib.optionalAttrs valid { mkArgs = { inherit segments zone; }; };
   });
   parseIPAny =
@@ -282,6 +319,22 @@ let
       "prefixSize"
       "zone"
     ];
+  types = {
+    attrs =
+      {
+        subnet ? false,
+      }:
+      lib.types.mkOptionType {
+        name = "vaculib.ip.types.attrs";
+        description = "vaculib IP v4/v6 address${lib.optionalString subnet " with subnet"}";
+        # descriptionClass = "idk";
+        check = x: isIPAny x && x.hasPrefix == subnet;
+        merge = vaculib.options.mergeEqualOptionBy vaculib.stringify;
+      };
+    attrsOrStr = args: lib.types.coercedTo lib.types.str parseIPAny (types.attrs args);
+  };
+  typeWith = types.attrsOrStr;
+  type = typeWith { subnet = false; };
   methods = {
     inherit
       isIPAny
@@ -289,6 +342,9 @@ let
       v4Data
       v6Data
       equalIPs
+      types
+      typeWith
+      type
       ;
     v4 = v4Data.publicMethods;
     v6 = v6Data.publicMethods;
@@ -309,4 +365,5 @@ let
 in
 {
   ip = methods;
+  # _tests.ip
 }

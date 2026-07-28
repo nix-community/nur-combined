@@ -50,11 +50,16 @@ in
     "admin.garage.prophecy".A = propA;
     autoconfig.A = doA;
     awoo.A = s "45.142.157.71";
+    baregit.A = propA;
     copy.A = propA;
     copyparty.A = propA;
+    couch.A = propA;
+    couchdb.A = propA;
     dav-experiment.A = propA;
+    dwabtit.A = propA;
     dynrecords.NS = dnsData.cloudnsNS;
     f.A = propA;
+    fdroid.A = propA;
     files.A = propA;
     ft.subdomains = {
       "*".A = s "45.87.250.193";
@@ -62,6 +67,8 @@ in
     };
     id.A = propA;
     imap.A = doA;
+    inv6.A = propA;
+    java-files.CNAME = s "powerhouse.dyn.74358228.xyz.";
     jelly.A = propA;
     jellyfin.A = propA;
     jf.A = propA;
@@ -69,6 +76,12 @@ in
     local-nixcache.A = s "10.78.79.22";
     mail.A = doA;
     matrix.A = propA;
+    mc.SRV = [ {
+      service = "minecraft";
+      proto = "tcp";
+      port = 25565;
+      target = "powerhouse.dyn.74358228.xyz.";
+    } ];
     mumble.A = propA;
     nitter.A = propA;
     nixcache.A = propA;
@@ -86,6 +99,7 @@ in
     smtp.A = doA;
     sol.CNAME = s "solis";
     solis.A = solisA;
+    syncthing.A = propA;
     vaultwarden.A = propA;
     www.A = propA;
     xs.A = solisA;

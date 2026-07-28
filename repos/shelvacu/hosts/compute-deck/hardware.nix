@@ -2,18 +2,20 @@
   config,
   lib,
   modulesPath,
+  vaculib,
   ...
 }:
 
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
+  boot.initrd.systemd.enable = true;
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
-    "usbhid"
+    # "usbhid"
     "sdhci_pci"
-    "dwc3_pci"
+    # "dwc3_pci"
   ];
   boot.kernelModules = [ "kvm-amd" ];
 
@@ -26,7 +28,18 @@
   fileSystems."/boot/EFI" = {
     device = "/dev/disk/by-uuid/C268-79C8";
     fsType = "vfat";
-    options = [ "nofail" ];
+    options = [
+      "nofail"
+      "fmask=${
+        vaculib.mask {
+          user = {
+            read = "allow";
+            write = "allow";
+          };
+        }
+      }"
+      "dmask=${vaculib.mask { user = "allow"; }}"
+    ];
   };
 
   swapDevices = [ ];

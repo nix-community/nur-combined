@@ -1,7 +1,7 @@
 # borrowed from https://github.com/Misterio77/nix-colors/blob/b01f024090d2c4fc3152cd0cf12027a7b8453ba1/lib/core/conversions.nix
 { lib, vaculib, ... }:
 let
-  hexToDecMap = {
+  hexToIntMap = {
     "0" = 0;
     "1" = 1;
     "2" = 2;
@@ -20,7 +20,7 @@ let
     "f" = 15;
   };
 
-  decToHexList = builtins.attrNames hexToDecMap;
+  intToHexList = builtins.attrNames hexToIntMap;
 
   /*
     Conversion from base 16 to base 10 with a exponent. Is of the form
@@ -54,58 +54,116 @@ let
       hex: A hexadecimal character.
 
     Example:
-      hexCharToDec "5"
+      hexCharToInt "5"
       => 5
-      hexCharToDec "e"
+      hexCharToInt "e"
       => 14
-      hexCharToDec "A"
+      hexCharToInt "A"
       => 10
   */
-  hexCharToDec =
+  hexCharToInt =
     hex:
     let
       lowerHex = lib.toLower hex;
     in
     if builtins.stringLength hex != 1 then
       throw "Function only accepts a single character."
-    else if hexToDecMap ? ${lowerHex} then
-      hexToDecMap."${lowerHex}"
+    else if hexToIntMap ? ${lowerHex} then
+      hexToIntMap."${lowerHex}"
     else
       throw "Character ${hex} is not a hexadecimal value.";
 in
-{
+rec {
   /*
     Converts from hexadecimal to decimal.
 
-    Type: hexToDec :: string -> int
+    Type: hexToInt :: string -> int
 
     Args:
       hex: A hexadecimal string.
 
     Example:
-      hexadecimal "12"
+      hexToInt "12"
       => 18
-      hexadecimal "FF"
+      hexToInt "FF"
       => 255
-      hexadecimal "abcdef"
+      hexToInt "abcdef"
       => 11259375
   */
-  hexToDec =
+  hexToInt =
     hex:
     let
-      decimals = builtins.map hexCharToDec (lib.stringToCharacters hex);
+      decimals = builtins.map hexCharToInt (lib.stringToCharacters hex);
       decimalsAscending = lib.reverseList decimals;
       decimalsPowered = lib.imap0 base16To10 decimalsAscending;
     in
     lib.foldl builtins.add 0 decimalsPowered;
 
-  decToHex =
-    dec:
-    assert builtins.isInt dec;
+  _tests.hexToInt = [
+    (
+      assert (hexToInt "12") == 18;
+      true
+    )
+    (
+      assert (hexToInt "FF") == 255;
+      true
+    )
+    (
+      assert (hexToInt "abcdef") == 11259375;
+      true
+    )
+    (
+      assert (hexToInt "0000f") == 15;
+      true
+    )
+  ];
+
+  /**
+    Converts an integer to a hexadecimal string
+
+    # Type
+
+    ```
+    intToHex :: Int -> String
+    ```
+
+    # Examples
+    :::{.example}
+    ## `vaculib.intToHex` usage example
+
+    ```nix
+    intToHex 0
+    => "0"
+    intToHex 15
+    => "f"
+    intToHex 16
+    => "10"
+    ```
+
+    :::
+  */
+  intToHex =
+    i:
+    assert builtins.isInt i;
     let
-      a = vaculib.divrem dec 16;
-      prefix = if a.quotient == 0 then "" else vaculib.decToHex a.quotient;
-      digit = builtins.elemAt decToHexList a.remainder;
+      a = vaculib.divrem i 16;
+      prefix = if a.quotient == 0 then "" else intToHex a.quotient;
+      digit = builtins.elemAt intToHexList a.remainder;
     in
     prefix + digit;
+
+  _tests.intToHex = [
+    (
+      assert (intToHex 0) == "0";
+      true
+    )
+    (
+      assert (intToHex 15) == "f";
+      true
+    )
+    (
+      assert (intToHex 16) == "10";
+      true
+    )
+  ];
 }

@@ -18,8 +18,7 @@ in
       default = { };
       type = types.attrsOf (
         types.submodule (
-          { name, config, ... }:
-          {
+          { name, config, ... }: {
             options = {
               enable = mkEnableOption "Enable system ident check ${name}";
               name = mkOption {
@@ -29,7 +28,7 @@ in
               script = mkOption {
                 type = types.lines;
                 default = "## system ident check ${config.name}";
-                defaultText = lib.literalText ''## system ident check ${name}'';
+                defaultText = lib.literalText "## system ident check ${name}";
               };
             };
           }

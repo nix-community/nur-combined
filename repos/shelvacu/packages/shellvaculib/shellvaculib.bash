@@ -160,6 +160,7 @@ svl_err() {
   elif [[ -z ${0-} ]]; then
     prefix="**unknown**"
   elif [[ ${SHELL-} != "" ]] && [[ $0 == "${SHELL-}" ]]; then
+    # shellcheck disable=SC2016
     prefix='$SHELL'
   else
     prefix="$0"
@@ -294,6 +295,35 @@ svl_idempotent_add_prompt_command() {
   return 0
 }
 
+# svl_script_dir
+#   (no args)
+# prints script_dir to stdout
+# script_dir is the best guess as to the full path of the directory that contains the current script (argv[0])
+# shellcheck disable=SC2120
+svl_script_dir() {
+  svl_no_args $#
+  declare script_dir
+  if [[ -z $_shellvaculib_arg0_canonicalized ]]; then
+    _shellvaculib_debug_print "svl_script_dir called when _shellvaculib_arg0_canonicalized is unset or blank, returning false (1)"
+    return 1
+  fi
+  if ! script_dir="$(dirname -- "$_shellvaculib_arg0_canonicalized")"; then
+    # shellcheck disable=SC2016  # this is intentionally not expanding
+    _shellvaculib_debug_print 'svl_script_dir failed to call $(dirname -- $_shellvaculib_arg0_canonicalized), returning false (1)'
+    return 1
+  fi
+  printf '%s' "$script_dir"
+}
+
+# svl_cd_script_dir
+# shellcheck disable=SC2120
+svl_cd_script_dir() {
+  svl_no_args $#
+  declare script_dir
+  script_dir="$(svl_script_dir)"
+  cd -- "$script_dir"
+}
+
 # svl_probably_in_script_dir
 #   (no args)
 # because the folder containing the script as well as PWD can be deleted while we're using it (or its parents), it's impossible to know for sure. Woohoo!
@@ -301,19 +331,14 @@ svl_idempotent_add_prompt_command() {
 svl_probably_in_script_dir() {
   svl_no_args $#
   declare script_dir canon_pwd
-  if [[ -z $_shellvaculib_arg0_canonicalized ]]; then
-    _shellvaculib_debug_print "svl_probably_in_script_dir called when _shellvaculib_arg0_canonicalized is unset or blank, returning false (1)"
-    return 1
-  fi
-  if ! script_dir="$(dirname -- "$_shellvaculib_arg0_canonicalized")"; then
-    # shellcheck disable=SC2016  # this is intentionally not expanding
-    _shellvaculib_debug_print 'svl_probably_in_script_dir failed to call $(dirname -- $_shellvaculib_arg0_canonicalized), returning false (1)'
-    return 1
+  if ! script_dir="$(svl_script_dir)"; then
+    _shellvaculib_debug_print 'svl_probably_in_script_dir failed to call svl_script_dir, returning 2 (falsy)'
+    return 2
   fi
   if ! canon_pwd="$(realpath -- "$PWD")"; then
     # shellcheck disable=SC2016  # this is intentionally not expanding
-    _shellvaculib_debug_print 'svl_probably_in_script_dir failed to call $(realpath -- $PWD), returning false (1)'
-    return 1
+    _shellvaculib_debug_print 'svl_probably_in_script_dir failed to call $(realpath -- $PWD), returning 2 (falsy)'
+    return 2
   fi
   [[ $script_dir == "$canon_pwd" ]]
 }
@@ -727,12 +752,34 @@ svl_capture_output_into() {
   return $_shellvaculib_svl_capture_output_into__return_code
 }
 
-# svl_verbose_run cmd [args...]
-svl_verbose_run() {
+# svl_log_verbose_run cmd [args...]
+svl_log_verbose_run() {
   svl_min_args $# 1
   declare cmd_str
   printf -v cmd_str '%q ' "$@"
   cmd_str="${cmd_str% }"
-  svl_err "info: running $cmd_str"
+  svl_err "info: running: $cmd_str"
+}
+
+# svl_verbose_run cmd [args...]
+svl_verbose_run() {
+  svl_min_args $# 1
+  svl_log_verbose_run "$@"
   "$@"
+}
+
+# svl_grep_nomatch_ok {args...}
+#   runs grep with given args, but maps return code 1 to 0. This means failing to find any matches does not trigger errexit. All actual errors still do
+#   `grep` must be otherwise available as a command (this doesnt provide grep)
+svl_grep_nomatch_ok() {
+  if grep "$@"; then
+    return 0
+  else
+    declare -i exitcode=$?
+    if [[ $exitcode == 1 ]]; then
+      # no matches found, which is fine
+      return 0
+    fi
+    return $exitcode
+  fi
 }

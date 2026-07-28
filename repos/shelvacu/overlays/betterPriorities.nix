@@ -5,7 +5,7 @@ let
   makeBetterThan = better: worse: setPriority ((worse.meta.priority or defaultPriority) + 5) better;
 in
 new: old: {
-  orca = makeBetterThan old.orca new.kanidm;
+  orca = makeBetterThan old.orca new.kanidm_vacuVersion;
   xorg = old.xorg // {
     xorgserver = makeBetterThan old.xorg.xorgserver new.xwayland;
   };

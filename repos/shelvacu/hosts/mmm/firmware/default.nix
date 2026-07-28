@@ -1,4 +1,1 @@
-{ ... }:
-{
-  hardware.asahi.peripheralFirmwareDirectory = ./.;
-}
+{ ... }: { hardware.asahi.peripheralFirmwareDirectory = ./.; }

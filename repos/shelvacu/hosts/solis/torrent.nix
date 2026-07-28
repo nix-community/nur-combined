@@ -35,6 +35,14 @@
         };
       };
     };
+    "/xstore/torrents/unfinished".d = {
+      user = "transmission";
+      group = "transmission";
+      mode = vaculib.accessModeStr {
+        user = "all";
+        group = "all";
+      };
+    };
     "/var/run/transmission-socket-dir".d = {
       user = "transmission";
       group = "transmission";
@@ -83,5 +91,8 @@
       download-queue-size = 20;
     };
   };
-  systemd.services.transmission.serviceConfig.BindPaths = [ "/var/run/transmission-socket-dir" ];
+  systemd.services.transmission = {
+    unitConfig.RequiresMountsFor = "/xstore/torrents";
+    serviceConfig.BindPaths = [ "/var/run/transmission-socket-dir" ];
+  };
 }

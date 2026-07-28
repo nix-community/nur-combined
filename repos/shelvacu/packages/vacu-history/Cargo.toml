@@ -5,5 +5,5 @@ edition = "2021"
 
 [dependencies]
 anyhow = { version = "1.0.98", features = ["backtrace"] }
-rusqlite = "0.35.0"
-
+nix = { version = "0.30.1", features = ["fs"] }
+rusqlite = "0.38.0"

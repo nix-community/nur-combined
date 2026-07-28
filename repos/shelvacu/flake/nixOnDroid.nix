@@ -34,17 +34,30 @@ in
     x86_64 = mkNixOnDroid "x86_64-linux";
     default = aarch64;
   };
-
-  config.flake.qb = rec {
-    nix-on-droid = config.flake.nixOnDroidConfigurations.default.activationPackage;
-    nix-on-droid-x86_64 = config.flake.nixOnDroidConfigurations.x86_64.activationPackage;
-    nix-on-droid-x86 = nix-on-droid-x86_64;
-    nix-on-droid-aarch64 = config.flake.nixOnDroidConfigurations.aarch64.activationPackage;
-    nix-on-droid-arm = nix-on-droid-aarch64;
-    nod = nix-on-droid;
-    nod-x86 = nix-on-droid-x86;
-    nod-arm = nix-on-droid-arm;
-    nod-bootstrap-x86_64 = allInputs.nix-on-droid.packages.x86_64-linux.bootstrapZip-x86_64;
-    nod-bootstrap-aarch64 = allInputs.nix-on-droid.packages.x86_64-linux.bootstrapZip-aarch64;
+  config.vacuBuilds.nix-on-droid = {
+    aliases = [ "nod" ];
+    primarySystem = "aarch64-linux";
+    impure = true;
   };
+  config.vacuBuilds.nix-on-droid-bootstrap = {
+    aliases = [ "nod-bootstrap" ];
+    primarySystem = "aarch64-linux";
+    impure = true;
+  };
+  config.perSystem =
+    { system, ... }:
+    let
+      arch =
+        {
+          x86_64-linux = "x86_64";
+          aarch64-linux = "aarch64";
+        }
+        .${system};
+    in
+    {
+      vacuBuildDerivations = {
+        nix-on-droid = config.flake.nixOnDroidConfigurations.${arch}.activationPackage;
+        nix-on-droid-bootstrap = allInputs.nix-on-droid.packages.x86_64-linux."bootstrapZip-${arch}";
+      };
+    };
 }

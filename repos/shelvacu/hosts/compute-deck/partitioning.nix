@@ -1,5 +1,4 @@
-{ inputs, ... }:
-{
+{ inputs, ... }: {
   imports = [ inputs.disko.nixosModules.default ];
   disko.devices.disk.blarg = {
     device = "/dev/disk/by-id/nvme-Micron_2400_MTFDKBK2T0QFM_230341951668_1-part11";

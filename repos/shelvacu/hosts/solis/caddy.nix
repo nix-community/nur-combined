@@ -1,5 +1,4 @@
-{ vacuModules, ... }:
-{
+{ vacuModules, ... }: {
   imports = [ vacuModules.caddy-hsts ];
   services.caddy.enable = true;
   networking.firewall = {

@@ -1,5 +1,4 @@
-{ inputs, vaculib, ... }:
-{
+{ inputs, vaculib, ... }: {
   imports = [ inputs.nixos-apple-silicon.nixosModules.default ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "mmm";

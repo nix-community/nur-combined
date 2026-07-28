@@ -137,7 +137,7 @@ in
     group = mkOption {
       type = types.str;
       default = cfg.user;
-      defaultText = ''{option}`user`'';
+      defaultText = "{option}`user`";
       description = "The group under which to run GenieACS services";
     };
     package = lib.mkPackageOption pkgs "genieacs" { };
@@ -229,8 +229,7 @@ in
           }
         ]
         ++ flip lib.map services (
-          { name, config, ... }:
-          {
+          { name, config, ... }: {
             assertion = (config.sslCert == null) == (config.sslKey == null);
             message = "services.genieacs.${name}: sslCert and sslKey must either both be null or both be non-null";
           }

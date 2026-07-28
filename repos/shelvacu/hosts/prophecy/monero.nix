@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ config, ... }: {
   services.monero = {
     enable = true;
     rpc.restricted = true;

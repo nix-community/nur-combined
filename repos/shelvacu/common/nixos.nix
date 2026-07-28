@@ -28,7 +28,10 @@ lib.optionalAttrs (vacuModuleType == "nixos") {
     tmux = {
       enable = true;
       clock24 = true;
-      extraConfig = "set -g mouse on";
+      extraConfig = ''
+        set -g mouse on
+        set -g history-limit 250000
+      '';
     };
   };
 

@@ -1,14 +1,16 @@
 {
   runCommand,
-  kanidm_1_8 ? null,
-  coreutils,
   bash,
   lib,
   vaculib,
-  whichKanidm ? null,
+  kanidm_vacuVersion,
+  jq,
+  coreutils,
+  openssh,
+  gnugrep,
 }:
 let
-  kanidm = if whichKanidm != null then whichKanidm else kanidm_1_8;
+  kanidm = kanidm_vacuVersion;
 in
 assert kanidm != null;
 runCommand "kanidm-admin" { meta.mainProgram = "kanidm-admin"; } ''
@@ -17,6 +19,9 @@ runCommand "kanidm-admin" { meta.mainProgram = "kanidm-admin"; } ''
       lib.makeBinPath [
         kanidm
         coreutils
+        jq
+        openssh
+        gnugrep
       ]
     )
   }
@@ -24,6 +29,6 @@ runCommand "kanidm-admin" { meta.mainProgram = "kanidm-admin"; } ''
   declare outFn="$out/bin/kanidm-admin"
 
   printf '#!${lib.getExe bash}\nPATH=%q\n#original script follows\n\n' "$pathForScript" >> "$outFn"
-  <${vaculib.path ./main.sh} >> "$outFn"
+  cat ${vaculib.path ./main.sh} >> "$outFn"
   chmod a+x -- "$outFn"
 ''

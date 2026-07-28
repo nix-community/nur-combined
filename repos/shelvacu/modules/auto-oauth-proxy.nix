@@ -7,181 +7,189 @@
 }:
 let
   inherit (lib) mkOption types;
-  # kanidmDomain = config.services.kanidm.serverSettings.domain;
+  # kanidmDomain = config.services.kanidm.server.settings.domain;
   # kanidmUrl = "https://${kanidmDomain}";
   outerConfig = config;
-  instanceModule =
-    { name, config, ... }:
-    {
-      options = {
-        name = mkOption {
-          type = types.str;
-          default = name;
+  instanceModule = { name, config, ... }: {
+    options = {
+      name = mkOption {
+        type = types.str;
+        default = name;
+      };
+      enable = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      enableProxy = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      appDomain = mkOption { type = types.str; };
+      kanidmDomain = mkOption {
+        type = types.str;
+        default = outerConfig.vacu.oauthProxy.kanidmDomain;
+        defaultText = "`config.vacu.oauthProxy.kanidmDomain`";
+      };
+      caddyConfig = mkOption { type = types.lines; };
+      requireOauth = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      displayName = mkOption {
+        type = types.str;
+        default = config.name;
+        defaultText = "name";
+      };
+      kanidmMembers = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+      };
+      configureCaddy = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      configureKanidm = mkOption {
+        type = types.bool;
+        default = true;
+      };
+      clientSecret = mkOption {
+        default = {
+          generate = true;
         };
-        enable = mkOption {
-          type = types.bool;
-          default = true;
-        };
-        appDomain = mkOption { type = types.str; };
-        kanidmDomain = mkOption {
-          type = types.str;
-          default = outerConfig.vacu.oauthProxy.kanidmDomain;
-          defaultText = ''`config.vacu.oauthProxy.kanidmDomain`'';
-        };
-        caddyConfig = mkOption { type = types.lines; };
-        requireOauth = mkOption {
-          type = types.bool;
-          default = true;
-        };
-        displayName = mkOption {
-          type = types.str;
-          default = config.name;
-          defaultText = "name";
-        };
-        kanidmMembers = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-        };
-        configureCaddy = mkOption {
-          type = types.bool;
-          default = true;
-        };
-        configureKanidm = mkOption {
-          type = types.bool;
-          default = true;
-        };
-        clientSecret = mkOption {
-          default = {
-            generate = true;
-          };
-          type = types.attrTag {
-            generate = mkOption { type = types.bool; };
-            path = mkOption { type = types.path; };
-            sops = mkOption {
-              type = types.submodule (
-                { ... }:
-                {
-                  options.sopsFile = mkOption { type = types.path; };
-                  options.key = mkOption { type = types.str; };
-                }
-              );
-            };
-          };
-        };
-        basicAuthAccounts = mkOption {
-          type = types.attrsOf (
-            types.coercedTo vaculib.types.caddyStr lib.singleton (types.listOf vaculib.types.caddyStr)
-          );
-          default = { };
-        };
-        settings = mkOption {
-          type = types.attrsOf types.anything;
-          default = { };
-        };
-        out = {
-          basicAuthEnabled = mkOption {
-            type = types.bool;
-            readOnly = true;
-          };
-          fullName = mkOption {
-            type = types.str;
-            readOnly = true;
-          };
-          socketDir = mkOption {
-            type = types.path;
-            readOnly = true;
-          };
-          socketPath = mkOption {
-            type = types.path;
-            readOnly = true;
-          };
-          generateClientSecret = mkOption {
-            type = types.bool;
-            readOnly = true;
-          };
-          clientSecretDir = mkOption {
-            type = types.path;
-            readOnly = true;
-          };
-          clientSecretFile = mkOption {
-            type = types.path;
-            readOnly = true;
-          };
-          tomlFile = mkOption {
-            type = types.path;
-            readOnly = true;
-          };
-          kanidmGroup = mkOption {
-            type = types.str;
-            readOnly = true;
-          };
-          kanidmUrl = mkOption {
-            type = types.str;
-            readOnly = true;
-          };
-        };
-
-        assertions = mkOption {
-          internal = true;
-          type = types.listOf (
-            types.submodule (
-              { ... }:
-              {
-                options.assertion = mkOption { type = types.bool; };
-                options.message = mkOption { type = types.str; };
+        type = types.attrTag {
+          generate = mkOption { type = types.bool; };
+          path = mkOption { type = types.path; };
+          sops = mkOption {
+            type = types.submodule (
+              { ... }: {
+                options.sopsFile = mkOption { type = types.path; };
+                options.key = mkOption { type = types.str; };
               }
-            )
-          );
-          default = [ ];
+            );
+          };
         };
       };
-      config.assertions = [
-        {
-          assertion = config.out.generateClientSecret -> (config.configureCaddy && config.configureKanidm);
-          message = ''(clientSecret == "generate") -> (configureCaddy && configureKanidm)'';
-        }
-        {
-          assertion = config.configureCaddy || config.configureKanidm;
-          message = "configureCaddy || configureKanidm";
-        }
-        {
-          assertion = config.name == (lib.toLower config.name);
-          message = "names must be lowercase";
-        }
-      ];
-      config.settings = {
-        provider = "oidc";
-        scope = "openid email";
-        oidc_issuer_url = "${config.out.kanidmUrl}/oauth2/openid/${config.name}";
-        client_id = config.name;
-        redirect_url = "https://${config.appDomain}/oauth2/callback";
-        # oidc_groups_claim = "${config.name}_group";
-        # allowed_groups = [];
-        client_secret_file = config.out.clientSecretFile;
-        email_domains = [ "*" ];
-        http_address = "unix://${config.out.socketPath}";
-        set_xauthrequest = true;
-        reverse_proxy = true;
+      basicAuthAccounts = mkOption {
+        type = types.attrsOf (
+          types.coercedTo vaculib.types.caddyStr lib.singleton (types.listOf vaculib.types.caddyStr)
+        );
+        default = { };
       };
-      config.out = {
-        basicAuthEnabled = config.configureCaddy && (config.basicAuthAccounts != { });
-        fullName = "${config.name}-oauth2-proxy";
-        socketDir = "/run/${config.out.fullName}-socket";
-        socketPath = "${config.out.socketDir}/socket.unix";
-        generateClientSecret = config.clientSecret ? generate;
-        clientSecretFile =
-          if config.out.generateClientSecret then
-            "/var/cache/${config.out.fullName}-client-secret/secret"
-          else if config.clientSecret ? sops then
-            outerConfig.sops.secrets.${config.out.fullName}.path
-          else
-            config.clientSecret.path;
-        clientSecretDir = builtins.dirOf config.out.clientSecretFile;
-        tomlFile = pkgs.writers.writeTOML "${config.name}-config.toml" config.settings;
-        kanidmGroup = "${config.name}_access";
-        kanidmUrl = "https://${config.kanidmDomain}";
+      settings = mkOption {
+        type = types.attrsOf types.anything;
+        default = { };
+      };
+      out = {
+        basicAuthEnabled = mkOption {
+          type = types.bool;
+          readOnly = true;
+        };
+        fullName = mkOption {
+          type = types.str;
+          readOnly = true;
+        };
+        socketDir = mkOption {
+          type = types.path;
+          readOnly = true;
+        };
+        socketPath = mkOption {
+          type = types.path;
+          readOnly = true;
+        };
+        generateClientSecret = mkOption {
+          type = types.bool;
+          readOnly = true;
+        };
+        clientSecretDir = mkOption {
+          type = types.path;
+          readOnly = true;
+        };
+        clientSecretFile = mkOption {
+          type = types.path;
+          readOnly = true;
+        };
+        tomlFile = mkOption {
+          type = types.path;
+          readOnly = true;
+        };
+        kanidmGroup = mkOption {
+          type = types.str;
+          readOnly = true;
+        };
+        kanidmUrl = mkOption {
+          type = types.str;
+          readOnly = true;
+        };
+      };
+
+      assertions = mkOption {
+        internal = true;
+        type = types.listOf (
+          types.submodule (
+            { ... }: {
+              options.assertion = mkOption { type = types.bool; };
+              options.message = mkOption { type = types.str; };
+            }
+          )
+        );
+        default = [ ];
       };
     };
+    config.assertions = [
+      {
+        assertion = config.out.generateClientSecret -> (config.configureCaddy && config.configureKanidm);
+        message = ''(clientSecret == "generate") -> (configureCaddy && configureKanidm)'';
+      }
+      {
+        assertion = config.configureCaddy || config.configureKanidm;
+        message = "configureCaddy || configureKanidm";
+      }
+      {
+        assertion = config.name == (lib.toLower config.name);
+        message = "names must be lowercase";
+      }
+    ];
+    config.settings = {
+      provider = "oidc";
+      redirect_url = "https://${config.appDomain}/oauth2/callback";
+      scope = "openid email";
+      # oidc_issuer_url = "${config.out.kanidmUrl}/oauth2/openid/${config.name}";
+      approval_prompt = "auto";
+      client_id = config.name;
+      # oidc_groups_claim = "${config.name}_group";
+      # allowed_groups = [];
+      client_secret_file = config.out.clientSecretFile;
+      code_challenge_method = "S256";
+      login_url = "${config.out.kanidmUrl}/ui/oauth2";
+      oidc_issuer_url = "${config.out.kanidmUrl}/oauth2/openid/${config.name}";
+      oidc_jwks_url = "${config.out.kanidmUrl}/oauth2/openid/${config.name}/public_key.jwk";
+      # oidc_enabled_signing_alg = "ES256";
+      redeem_url = "${config.out.kanidmUrl}/oauth2/token";
+      skip_oidc_discovery = true;
+      email_domains = [ "*" ];
+      http_address = "unix://${config.out.socketPath}";
+      set_xauthrequest = true;
+      reverse_proxy = true;
+    };
+    config.out = {
+      basicAuthEnabled = config.configureCaddy && (config.basicAuthAccounts != { });
+      fullName = "${config.name}-oauth2-proxy";
+      socketDir = "/run/${config.out.fullName}-socket";
+      socketPath = "${config.out.socketDir}/socket.unix";
+      generateClientSecret = config.clientSecret ? generate;
+      clientSecretFile =
+        if config.out.generateClientSecret then
+          "/var/cache/${config.out.fullName}-client-secret/secret"
+        else if config.clientSecret ? sops then
+          outerConfig.sops.secrets.${config.out.fullName}.path
+        else
+          config.clientSecret.path;
+      clientSecretDir = builtins.dirOf config.out.clientSecretFile;
+      tomlFile = pkgs.writers.writeTOML "${config.name}-config.toml" config.settings;
+      kanidmGroup = "${config.name}_access";
+      kanidmUrl = "https://${config.kanidmDomain}";
+    };
+  };
 
   mergeWhereEach =
     cond: f:
@@ -254,16 +262,18 @@ in
       }))
     ];
 
-    systemd.tmpfiles.settings.oauth-proxy-instances = mergeWhereEach (cfg: cfg.configureCaddy) (cfg: {
-      ${cfg.out.socketDir}.d = {
-        user = cfg.out.fullName;
-        group = "${cfg.out.fullName}-socket";
-        mode = vaculib.accessModeStr {
-          user = "all";
-          group = "all";
-        };
-      };
-    });
+    systemd.tmpfiles.settings.oauth-proxy-instances =
+      mergeWhereEach (cfg: cfg.configureCaddy && cfg.enableProxy)
+        (cfg: {
+          ${cfg.out.socketDir}.d = {
+            user = cfg.out.fullName;
+            group = "${cfg.out.fullName}-socket";
+            mode = vaculib.accessModeStr {
+              user = "all";
+              group = "all";
+            };
+          };
+        });
 
     systemd.tmpfiles.settings.oauth-proxy-secrets =
       mergeWhereEach (cfg: cfg.out.generateClientSecret)
@@ -283,7 +293,7 @@ in
         });
 
     systemd.services = mergeEach (cfg: {
-      ${if cfg.configureCaddy then cfg.out.fullName else null} = {
+      ${if (cfg.configureCaddy && cfg.enableProxy) then cfg.out.fullName else null} = {
         description = "oauth2-proxy instance ${cfg.name}";
         wantedBy = [ "caddy.service" ];
         after = [ "kanidm.service" ];
@@ -366,7 +376,7 @@ in
       kanidm.serviceConfig.BindReadOnlyPaths = lib.mkIf cfg.configureKanidm [ cfg.out.clientSecretFile ];
     });
 
-    services.caddy.virtualHosts = mergeWhereEach (cfg: cfg.configureCaddy) (cfg: {
+    services.caddy.virtualHosts = mergeWhereEach (cfg: cfg.configureCaddy && cfg.enableProxy) (cfg: {
       ${cfg.appDomain}.extraConfig = ''
         handle /oauth2/* {
           reverse_proxy unix/${cfg.out.socketPath} {
@@ -382,14 +392,12 @@ in
               ${lib.concatMapAttrsStringSep "\n" (
                 username: passwordHashes:
                 lib.concatMapStringsSep "\n" (
-                  passwordHash: ''${vaculib.caddyQuote username} ${vaculib.caddyQuote passwordHash}''
+                  passwordHash: "${vaculib.caddyQuote username} ${vaculib.caddyQuote passwordHash}"
                 ) passwordHashes
               ) cfg.basicAuthAccounts}
             }
-            request_header -X-Auth-Request-Email
+            request_header -X-Auth-*
             request_header X-Auth-Request-Preferred-Username {http.auth.user.id}
-            request_header -X-Auth-Request-User
-            request_header -X-Auth-Request-Groups
             ${cfg.caddyConfig}
           }
         ''}
@@ -422,14 +430,16 @@ in
       systems.oauth2 = mergeWhereEach (cfg: cfg.configureKanidm) (cfg: {
         ${cfg.name} = {
           basicSecretFile = cfg.out.clientSecretFile;
-          allowInsecureClientDisablePkce = true;
+          # allowInsecureClientDisablePkce = true;
+          enableLegacyCrypto = true;
           preferShortUsername = true;
-          originUrl = cfg.settings.redirect_url;
-          originLanding = "https://${cfg.appDomain}/oauth2/start";
+          originUrl = lib.mkIf cfg.enableProxy cfg.settings.redirect_url;
+          originLanding = lib.mkIf cfg.enableProxy "https://${cfg.appDomain}/oauth2/start";
           displayName = cfg.displayName;
           scopeMaps.${cfg.out.kanidmGroup} = [
             "email"
             "openid"
+            "profile"
           ];
         };
       });

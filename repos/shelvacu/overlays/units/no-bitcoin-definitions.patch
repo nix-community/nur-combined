@@ -1,0 +1,16 @@
+diff --git i/definitions.units w/definitions.units
+index a6aee6c..4fc7e95 100644
+--- i/definitions.units
++++ w/definitions.units
+@@ -5942,11 +5942,6 @@ brpony                  25 britainpound
+ loony                   1 canadadollar    # This coin depicts a loon
+ toony                   2 canadadollar
+ 
+-# Cryptocurrency
+-
+-satoshi                 1e-8 bitcoin
+-XBT                     bitcoin           # nonstandard code
+-
+ # Inflation.
+ #
+ # Currently US inflation as reported by the BLS CPI index is available.

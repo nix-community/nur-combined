@@ -1,5 +1,4 @@
-{ vaculib, ... }:
-{
+{ vaculib, ... }: {
   fileSystems."/archived-drives/rob-anime-seagate-8t/p2" =
     let
       # from `fdisk -u sectors -l disk.img
@@ -34,6 +33,7 @@
 
   fileSystems."/propdata/media/disorganized/rob-anime-drive" = {
     device = "/archived-drives/rob-anime-seagate-8t/p2";
+    fsType = "none";
     options = [
       "bind"
       "x-mount.mkdir"

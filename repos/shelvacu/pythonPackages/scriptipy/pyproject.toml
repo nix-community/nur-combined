@@ -1,6 +1,12 @@
 [project]
 name = "scriptipy"
 version = "0.0.1"
+dependencies = [
+  "pydantic",
+  "requests",
+  "humanfriendly",
+  "httpx",
+]
 
 [build-system]
 requires = ["hatchling"]

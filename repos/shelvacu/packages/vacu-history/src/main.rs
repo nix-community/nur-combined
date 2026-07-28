@@ -1,6 +1,6 @@
 use std::io::Read;
 use rusqlite::{Connection, OpenFlags};
-// use OpenFlags::*;
+use nix::sys::stat::{umask, Mode};
 
 fn parse_ascii_bytes(bytes: &[u8]) -> Result<i64, anyhow::Error> {
     let s = std::str::from_utf8(&bytes)?;
@@ -9,6 +9,7 @@ fn parse_ascii_bytes(bytes: &[u8]) -> Result<i64, anyhow::Error> {
 }
 
 fn main() -> Result<(), anyhow::Error> {
+    umask(Mode::S_IRWXG | Mode::S_IRWXO);
     let db_path = std::env::var_os("VACU_HISTORY_DB_PATH").unwrap();
     let session_id = std::env::var("VACU_HISTORY_SESSION_ID").unwrap();
     // expect on stdin the exact output of HISTTIMEFORMAT='%S|%M|%H|%d|%m|%Y|%w|%j|%z|' history 1

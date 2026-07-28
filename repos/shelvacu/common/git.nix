@@ -8,6 +8,7 @@
   imports = [ vacuModules.git ];
 
   vacu.git.enable = lib.mkDefault config.vacu.isDev;
+  vacu.git.lfs.enable = lib.mkDefault (!config.vacu.isMinimal);
   vacu.git.config = {
     commit.verbose = true;
     init.defaultBranch = "master";

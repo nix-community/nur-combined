@@ -8,44 +8,52 @@
 }:
 let
   inherit (lib) mkOption types;
-  knownHostsAddonModule =
-    { config, ... }:
-    {
-      options = {
-        sshKeys = mkOption {
-          type = types.coercedTo types.str lib.singleton (types.listOf types.str);
-          default = [ ];
-        };
-        sshUsername = mkOption {
-          type = types.nullOr types.str;
-          default = null;
-        };
-        sshPort = mkOption {
-          type = types.port;
-          default = 22;
-        };
-        sshHostname = mkOption { type = types.str; };
-        sshAliases = mkOption {
-          type = types.listOf types.str;
-          default = [ ];
-        };
+  knownHostsAddonModule = { config, ... }: {
+    options.ssh = {
+      keys = mkOption {
+        type = types.coercedTo types.str lib.singleton (types.listOf types.str);
+        default = [ ];
       };
-      config = {
-        sshHostname = lib.mkDefault (
-          if (config.primaryIp != null) then config.primaryIp else config.primaryName
-        );
-        # altNames = [ config.sshHostname ];
-        sshAliases = [ config.primaryName ];
+      username = mkOption {
+        type = types.nullOr types.str;
+        default = null;
+      };
+      port = mkOption {
+        type = types.port;
+        default = 22;
+      };
+      connectAddress = mkOption {
+        type = types.str;
+        description = "Which hostname/ip to connect to; the HostName option in ssh config.";
+        default = if (config.primaryIp != null) then "${config.primaryIp}" else config.primaryName;
+        defaultText = "primaryIp ?? primaryName";
+      };
+      aliases = mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+      };
+      config = mkOption {
+        type = types.lines;
+        default = "";
       };
     };
+    config.ssh = {
+      aliases = [ config.primaryName ];
+      config = lib.mkMerge [
+        (lib.mkIf (config.ssh.username != null) "User ${config.ssh.username}")
+        (lib.mkIf (config.ssh.connectAddress != null) "HostName ${config.ssh.connectAddress}")
+        (lib.mkIf (config.ssh.port != 22) "Port ${toString config.ssh.port}")
+      ];
+    };
+  };
   knownHostsParts = lib.concatMap (
     hostMod:
     let
       knownNames = map (
-        name: if hostMod.sshPort == 22 then name else "[${name}]:${toString hostMod.sshPort}"
+        name: if hostMod.ssh.port == 22 then name else "[${name}]:${toString hostMod.ssh.port}"
       ) (hostMod.finalNames ++ hostMod.finalIps);
     in
-    map (sshKey: lib.concatStringsSep "," knownNames + " " + sshKey) hostMod.sshKeys
+    map (sshKey: lib.concatStringsSep "," knownNames + " " + sshKey) hostMod.ssh.keys
   ) (builtins.attrValues config.vacu.hosts);
   knownHostsText = lib.concatStringsSep "\n" knownHostsParts;
   hostConfigParts = builtins.concatMap (
@@ -53,10 +61,14 @@ let
     map (
       name:
       "Host ${name}\n"
-      + lib.optionalString (hostMod.sshUsername != null) "  User ${hostMod.sshUsername}\n"
-      + lib.optionalString (hostMod.sshHostname != name) "  HostName ${hostMod.sshHostname}\n"
-      + lib.optionalString (hostMod.sshPort != 22) "  Port ${toString hostMod.sshPort}\n"
-    ) hostMod.sshAliases
+      + (lib.pipe hostMod.ssh.config [
+        (lib.splitString "\n")
+        (map lib.trim)
+        (lib.filter (s: s != ""))
+        (map (s: "  ${s}\n"))
+        lib.concatStrings
+      ])
+    ) hostMod.ssh.aliases
   ) (builtins.attrValues config.vacu.hosts);
   hostConfigText = lib.concatStringsSep "\n" hostConfigParts;
 in

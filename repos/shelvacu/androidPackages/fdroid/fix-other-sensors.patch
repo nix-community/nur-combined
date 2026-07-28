@@ -1,0 +1,12 @@
+diff --git i/app/src/main/java/org/fdroid/fdroid/data/Apk.java w/app/src/main/java/org/fdroid/fdroid/data/Apk.java
+index 56c311a54..c2adbb742 100644
+--- i/app/src/main/java/org/fdroid/fdroid/data/Apk.java
++++ w/app/src/main/java/org/fdroid/fdroid/data/Apk.java
+@@ -422,6 +422,7 @@ public class Apk implements Comparable<Apk>, Parcelable {
+                 set.add(versions.getName());
+             }
+         }
++        set.add("android.permission.OTHER_SENSORS");
+         if (set.contains(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+             set.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+         }

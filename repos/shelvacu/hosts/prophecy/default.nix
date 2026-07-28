@@ -1,5 +1,4 @@
-{ vaculib, vacuModules, ... }:
-{
+{ vaculib, vacuModules, ... }: {
   imports = [
     vacuModules.sops
     vacuModules.dyndns-powerhouse
@@ -38,6 +37,7 @@
 
   # zfs can break with hibernate but takes no steps to warn/prevent this >:(
   boot.kernelParams = [ "nohibernate" ];
+  boot.zfs.forceImportRoot = false;
   boot.supportedFilesystems = [
     # nice to have for mounting disk images
     "zfs"

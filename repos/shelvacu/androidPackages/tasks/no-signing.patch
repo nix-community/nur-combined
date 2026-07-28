@@ -1,0 +1,99 @@
+diff --git c/app/build.gradle.kts w/app/build.gradle.kts
+index 434c42dc4..52717f748 100644
+--- c/app/build.gradle.kts
++++ w/app/build.gradle.kts
+@@ -58,19 +58,19 @@ android {
+         testInstrumentationRunner = "org.tasks.TestRunner"
+     }
+ 
+-    signingConfigs {
+-        create("release") {
+-            val tasksKeyAlias: String? by project
+-            val tasksStoreFile: String? by project
+-            val tasksStorePassword: String? by project
+-            val tasksKeyPassword: String? by project
+-
+-            keyAlias = tasksKeyAlias
+-            storeFile = file(tasksStoreFile ?: "none")
+-            storePassword = tasksStorePassword
+-            keyPassword = tasksKeyPassword
+-        }
+-    }
++    // signingConfigs {
++    //     create("release") {
++    //         val tasksKeyAlias: String? by project
++    //         val tasksStoreFile: String? by project
++    //         val tasksStorePassword: String? by project
++    //         val tasksKeyPassword: String? by project
++    //
++    //         keyAlias = tasksKeyAlias
++    //         storeFile = file(tasksStoreFile ?: "none")
++    //         storePassword = tasksStorePassword
++    //         keyPassword = tasksKeyPassword
++    //     }
++    // }
+ 
+     compileOptions {
+         isCoreLibraryDesugaringEnabled = true
+@@ -103,7 +103,7 @@ android {
+             resValue("string", "google_key", tasks_google_key ?: "")
+             isMinifyEnabled = true
+             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard.pro")
+-            signingConfig = signingConfigs.getByName("release")
++            signingConfig = null
+         }
+     }
+ 
+diff --git c/wear/build.gradle.kts w/wear/build.gradle.kts
+index 651efb92d..5eb16ee45 100644
+--- c/wear/build.gradle.kts
++++ w/wear/build.gradle.kts
+@@ -19,19 +19,19 @@ android {
+         minSdk = 30
+     }
+ 
+-    signingConfigs {
+-        create("release") {
+-            val tasksKeyAlias: String? by project
+-            val tasksStoreFile: String? by project
+-            val tasksStorePassword: String? by project
+-            val tasksKeyPassword: String? by project
+-
+-            keyAlias = tasksKeyAlias
+-            storeFile = file(tasksStoreFile ?: "none")
+-            storePassword = tasksStorePassword
+-            keyPassword = tasksKeyPassword
+-        }
+-    }
++    // signingConfigs {
++    //     create("release") {
++    //         val tasksKeyAlias: String? by project
++    //         val tasksStoreFile: String? by project
++    //         val tasksStorePassword: String? by project
++    //         val tasksKeyPassword: String? by project
++    //
++    //         keyAlias = tasksKeyAlias
++    //         storeFile = file(tasksStoreFile ?: "none")
++    //         storePassword = tasksStorePassword
++    //         keyPassword = tasksKeyPassword
++    //     }
++    // }
+ 
+     buildTypes {
+         release {
+@@ -40,7 +40,7 @@ android {
+                 getDefaultProguardFile("proguard-android-optimize.txt"),
+                 "proguard-rules.pro"
+             )
+-            signingConfig = signingConfigs.getByName("release")
++            signingConfig = null
+         }
+     }
+     compileOptions {
+@@ -98,4 +98,4 @@ dependencies {
+     androidTestImplementation(libs.androidx.ui.test.junit4)
+     debugImplementation(libs.androidx.ui.tooling)
+     debugImplementation(libs.androidx.ui.test.manifest)
+-}
+\ No newline at end of file
++}

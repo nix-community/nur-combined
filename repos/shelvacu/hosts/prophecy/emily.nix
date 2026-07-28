@@ -39,29 +39,27 @@ in
       isReadOnly = false;
     };
 
-    config =
-      { ... }:
-      {
-        system.stateVersion = "24.05";
+    config = { ... }: {
+      system.stateVersion = "24.05";
 
-        services.openssh = {
-          enable = true;
-          ports = [ sshPort ];
-          openFirewall = true;
-        };
-
-        users = {
-          users.emily = {
-            uid = emId;
-            isNormalUser = true;
-            isSystemUser = false;
-            hashedPassword = "$y$j9T$gP2phgJ9iSH.tWROn/T2C1$dwifP4R4SY4Fyd6W4vZ7tMDFhZB7Cfji9QvporeKUXB";
-            group = "emily";
-          };
-          groups.emily.gid = emId;
-          mutableUsers = false;
-          allowNoPasswordLogin = true;
-        };
+      services.openssh = {
+        enable = true;
+        ports = [ sshPort ];
+        openFirewall = true;
       };
+
+      users = {
+        users.emily = {
+          uid = emId;
+          isNormalUser = true;
+          isSystemUser = false;
+          hashedPassword = "$y$j9T$gP2phgJ9iSH.tWROn/T2C1$dwifP4R4SY4Fyd6W4vZ7tMDFhZB7Cfji9QvporeKUXB";
+          group = "emily";
+        };
+        groups.emily.gid = emId;
+        mutableUsers = false;
+        allowNoPasswordLogin = true;
+      };
+    };
   };
 }

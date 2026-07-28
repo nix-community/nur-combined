@@ -1,5 +1,4 @@
-{ lib, config, ... }:
-{
+{ lib, config, ... }: {
   services.hardware.bolt.enable = true;
 
   vacu.packages = lib.mkMerge [

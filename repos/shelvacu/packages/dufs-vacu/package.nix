@@ -5,22 +5,23 @@
   fetchFromGitHub,
   installShellFiles,
   stdenv,
+  cacert,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "dufs";
-  version = "0.45.0-unstable-2025-09-04";
+  version = "0.46.0-unstable-2026-02-05";
 
   src = fetchFromGitHub {
     owner = "sigoden";
     repo = "dufs";
-    rev = "23619033ae308e5a60494704be0e51c481a0d03c";
-    hash = "sha256-83lFnT4eRYaBe4e2o6l6AGQycm/oK96n5DXutBNvBsE=";
+    rev = "a118c1348e07bf8312e2ea5b7edabd3b2dca0e11";
+    hash = "sha256-Pkugd+Zz7hnVTWu7c0HlAoztuOEBzAt3IWI8572Eo38=";
   };
 
-  patches = [ ./fix-sort.patch ];
+  cargoHash = "sha256-+MEEyHNc9hRfF8N9JHrF109Z9H2/4aQR6CNhgwdFiq0=";
 
-  cargoHash = "sha256-WdjqG2URtloh5OnpBBnEWHD3WKGkCKLDcCyWRVGIXto=";
+  env.SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
 
   nativeBuildInputs = [ installShellFiles ];
 

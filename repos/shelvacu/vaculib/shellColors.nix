@@ -1,5 +1,4 @@
-{ ... }:
-{
+{ ... }: {
   # https://en.wikipedia.org/wiki/ANSI_escape_code#Colors
   shellColors = {
     black = 30;

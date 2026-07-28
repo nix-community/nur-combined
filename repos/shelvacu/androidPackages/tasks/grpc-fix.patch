@@ -1,0 +1,42 @@
+diff --git i/app/build.gradle.kts w/app/build.gradle.kts
+index 52717f748..5099515ae 100644
+--- i/app/build.gradle.kts
++++ w/app/build.gradle.kts
+@@ -97,6 +97,9 @@ android {
+             enableUnitTestCoverage = project.hasProperty("coverage")
+         }
+         release {
++            configure<CrashlyticsExtension> {
++                mappingFileUploadEnabled = false
++            }
+             val tasks_mapbox_key: String? by project
+             val tasks_google_key: String? by project
+             resValue("string", "mapbox_key", tasks_mapbox_key ?: "")
+diff --git i/wear-datalayer/build.gradle.kts w/wear-datalayer/build.gradle.kts
+index abc3ee376..092dc8a0d 100644
+--- i/wear-datalayer/build.gradle.kts
++++ w/wear-datalayer/build.gradle.kts
+@@ -42,13 +42,14 @@ else
+ 
+ protobuf {
+     protoc {
+-        artifact = libs.protobuf.protoc.stnd.get().toString() + archSuffix
++        path = System.getenv("PROTOC_BIN")
+     }
+     plugins {
+         create("javalite") {
+-            artifact = libs.protobuf.protoc.gen.javalite.get().toString() + archSuffix
++            path = System.getenv("PROTOC_GEN_JAVALITE_BIN")
+         }
+         create("grpc") {
++            // path = System.getenv("PROTOC_GEN_GRPC_JAVA_BIN")
+             artifact = libs.protobuf.protoc.gen.grpc.java.get().toString()
+         }
+         create("grpckt") {
+@@ -87,4 +88,4 @@ dependencies {
+ 
+     implementation(libs.androidx.datastore)
+     implementation(libs.protobuf.kotlin.lite)
+-}
+\ No newline at end of file
++}

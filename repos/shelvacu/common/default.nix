@@ -13,6 +13,7 @@ let
     "nixos"
     "nix-on-droid"
     "plain"
+    "dns"
   ];
 in
 if !builtins.elem vacuModuleType expectedModuleTypes then
@@ -23,6 +24,7 @@ else
       vacuModules.packageSet
       vacuModules.systemKind
       vacuModules.expose
+      vacuModules.environmentVariables
     ]
     ++ vaculib.directoryGrabberList ./.;
     options.vacu = {

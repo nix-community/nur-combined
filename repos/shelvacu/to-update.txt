@@ -1,0 +1,10 @@
+genieacs
+borghash
+borgbackup
+z3
+dufs
+borgstore
+aegis
+bitwarden
+antennapod
+tasks

@@ -7,7 +7,7 @@
   vacuRoot,
   ...
 }:
-lib.optionalAttrs (vacuModuleType != "plain") {
+lib.optionalAttrs (vacuModuleType == "nixos" || vacuModuleType == "nix-on-droid") {
   nix.registry = lib.mkIf (!config.vacu.isMinimal) {
     vacu.to = {
       type = "path";

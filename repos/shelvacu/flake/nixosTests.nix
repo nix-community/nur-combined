@@ -9,6 +9,12 @@
 }:
 let
   outerConfig = config;
+  tests = {
+    liam = { };
+    caddy-kanidm = {
+      isExistingHost = false;
+    };
+  };
 in
 {
   imports = [
@@ -22,9 +28,8 @@ in
     })
   ];
   perSystem =
-    { system, config, ... }:
+    { system, ... }:
     let
-      perSystemConfig = config;
       common = mkCommon {
         inherit system;
         vacuModuleType = "nixos";
@@ -37,43 +42,46 @@ in
         node.pkgsReadOnly = true;
         node.specialArgs = lib.removeAttrs common.specialArgs [ "inputs" ];
       };
-      tests = {
-        liam = { };
-        caddy-kanidm = {
-          isExistingHost = false;
-          broken = true;
-        };
-      };
     in
     lib.optionalAttrs (system == "x86_64-linux") {
-      allTests = builtins.mapAttrs (
+      vacuBuildDerivations = lib.mapAttrs' (
         name:
         {
           isExistingHost ? true,
           broken ? false,
         }:
-        (allInputs.nixpkgs.lib.nixos.runTest {
-          imports = [
-            commonTestModule
-            /${vacuRoot}/tests/${name}
-            {
-              node.specialArgs.inputs =
-                if isExistingHost then
-                  outerConfig.flake.nixosConfigurations.${name}._module.specialArgs.inputs
-                else
-                  common.specialArgs.inputs;
-            }
-          ];
-        })
+        lib.nameValuePair "nixos-test-${name}" (
+          allInputs.nixpkgs.lib.nixos.runTest {
+            imports = [
+              commonTestModule
+              /${vacuRoot}/tests/${name}
+              {
+                node.specialArgs.inputs =
+                  if isExistingHost then
+                    outerConfig.flake.nixosConfigurations.${name}._module.specialArgs.inputs
+                  else
+                    common.specialArgs.inputs;
+              }
+            ];
+          }
+        )
         // {
           inherit broken;
         }
       ) tests;
-
-      checks = lib.filterAttrs (_: v: !v.broken) perSystemConfig.allTests;
     };
 
-  flake.qb = lib.mapAttrs' (
-    name: val: lib.nameValuePair "nixos-test-${name}" val
-  ) outerConfig.flake.allTests."x86_64-linux";
+  vacuBuilds = lib.mapAttrs' (
+    name:
+    {
+      broken ? false,
+      ...
+    }:
+    lib.nameValuePair "nixos-test-${name}" {
+      aliases = [ "test-${name}" ];
+      checkName = name;
+      multiSystem = false;
+      inherit broken;
+    }
+  ) tests;
 }
