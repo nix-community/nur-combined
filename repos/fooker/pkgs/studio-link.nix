@@ -2,7 +2,7 @@
 , fetchurl
 , pulseaudio
 , zlib
-, alsaLib
+, alsa-lib
 , autoPatchelfHook
 , lib
 , ...
@@ -22,7 +22,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     pulseaudio
     zlib
-    alsaLib
+    alsa-lib
   ];
   
   sourceRoot = ".";
