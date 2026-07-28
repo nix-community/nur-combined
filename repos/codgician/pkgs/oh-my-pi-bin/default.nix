@@ -13,7 +13,7 @@
 }:
 
 let
-  version = "17.1.5";
+  version = "17.1.7";
 
   # Upstream's darwin release CI builds `pi_natives.<platform>.node` on a
   # Homebrew host, so the embedded addon hardcodes an absolute Homebrew install
@@ -40,19 +40,19 @@ let
   sources = {
     x86_64-linux = {
       url = "${baseUrl}/omp-linux-x64";
-      hash = "sha256-NQGb+k0ayuAEDvHz2RwpxudAGs/NvP66b/UGprEDyYc=";
+      hash = "sha256-M74CMt6P/01UIFjWZu4VzxVKZgCSJX1L+z/qi8f59uA=";
     };
     aarch64-linux = {
       url = "${baseUrl}/omp-linux-arm64";
-      hash = "sha256-A4ayiw8bkhOYX6n2kJcu2FxWP0soGH+y/bQvzHDXDZ4=";
+      hash = "sha256-o2Ty2H+GNKjvAtdl36MGHES+hC+Alx40rn35A1muJ+M=";
     };
     x86_64-darwin = {
       url = "${baseUrl}/omp-darwin-x64";
-      hash = "sha256-uF2oHE8Ol4z9Cjx40oliiuWkrNBUCL+ZMv12nwfoQUA=";
+      hash = "sha256-z6c7vc+1ho39u0Jy0sN2ICFzr8bPLEojs0yJrhklJ00=";
     };
     aarch64-darwin = {
       url = "${baseUrl}/omp-darwin-arm64";
-      hash = "sha256-jFSMlNH0TsMKdMnqfWBLlFscVBnuNXTbRRiOxm0x10k=";
+      hash = "sha256-o+VmiB3/86MHyWDXs+/97JT/cjaiXoF0w9hiQtYtw8Y=";
     };
   };
 in
