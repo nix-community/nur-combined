@@ -389,6 +389,66 @@
         },
         "version": "v0.8.0"
     },
+    "oh-my-pi-bin-amd64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "oh-my-pi-bin-amd64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-z6c7vc+1ho39u0Jy0sN2ICFzr8bPLEojs0yJrhklJ00=",
+            "type": "url",
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-darwin-x64"
+        },
+        "version": "v17.1.7"
+    },
+    "oh-my-pi-bin-amd64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "oh-my-pi-bin-amd64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-M74CMt6P/01UIFjWZu4VzxVKZgCSJX1L+z/qi8f59uA=",
+            "type": "url",
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-linux-x64"
+        },
+        "version": "v17.1.7"
+    },
+    "oh-my-pi-bin-arm64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "oh-my-pi-bin-arm64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-o+VmiB3/86MHyWDXs+/97JT/cjaiXoF0w9hiQtYtw8Y=",
+            "type": "url",
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-darwin-arm64"
+        },
+        "version": "v17.1.7"
+    },
+    "oh-my-pi-bin-arm64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "oh-my-pi-bin-arm64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-o2Ty2H+GNKjvAtdl36MGHES+hC+Alx40rn35A1muJ+M=",
+            "type": "url",
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-linux-arm64"
+        },
+        "version": "v17.1.7"
+    },
     "pi-agent": {
         "cargoLock": null,
         "date": null,

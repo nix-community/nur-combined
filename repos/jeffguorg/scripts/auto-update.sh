@@ -277,6 +277,7 @@ main() {
   run_npm_deps_gate "pi-agent" "pi-agent" '^(pi-agent)$'
   run_nvfetcher_filter "pi-agent-bin" "pi-agent-bin-amd64-linux, pi-agent-bin-arm64-linux, pi-agent-bin-amd64-darwin, pi-agent-bin-arm64-darwin" '^(pi-agent-bin-amd64-linux|pi-agent-bin-arm64-linux|pi-agent-bin-amd64-darwin|pi-agent-bin-arm64-darwin)$'
   run_nvfetcher_filter "kagent" "kagent-bin-amd64-linux, kagent-bin-arm64-linux, kagent-bin-amd64-darwin, kagent-bin-arm64-darwin" '^(kagent-bin-amd64-linux|kagent-bin-arm64-linux|kagent-bin-amd64-darwin|kagent-bin-arm64-darwin)$'
+  run_nvfetcher_filter "oh-my-pi" "oh-my-pi-bin-amd64-linux, oh-my-pi-bin-arm64-linux, oh-my-pi-bin-amd64-darwin, oh-my-pi-bin-arm64-darwin" '^(oh-my-pi-bin-amd64-linux|oh-my-pi-bin-arm64-linux|oh-my-pi-bin-amd64-darwin|oh-my-pi-bin-arm64-darwin)$'
 
   if run_nvfetcher_change_gate "codex" "codex" '^(codex)$' '.src'; then
     echo "codex changed; updating codex-bin tasks"

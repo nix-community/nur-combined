@@ -37,6 +37,7 @@ in
   kwok = callPackage ./pkgs/kwok/default.nix {};
   kimi-code = callPackage ./pkgs/kimi-code {};
   kagent-bin = callPackage ./pkgs/kagent {};
+  oh-my-pi-bin = callPackage ./pkgs/oh-my-pi {};
   pi-agent = callPackage ./pkgs/pi-agent {};
   pi-agent-bin = callPackage ./pkgs/pi-agent-bin {};
   vagrant-vmware-utility = callPackage ./pkgs/vagrant-vmware-utility.nix {};
