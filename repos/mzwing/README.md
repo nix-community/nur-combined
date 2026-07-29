@@ -11,6 +11,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | --- | --- |
 | `ace-ctx` | [Usage](https://github.com/CodingOX/ace-ctx) |
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
+| `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 
 ## License
 

@@ -20,6 +20,7 @@ in {
 
   ace-ctx = pkgs.callPackage ./pkgs/ace-ctx {source = sources.ace-ctx;};
   autocli = pkgs.callPackage ./pkgs/autocli {source = sources.autocli;};
+  cliproxyapiplus = pkgs.callPackage ./pkgs/cliproxyapiplus {source = sources.cliproxyapiplus;};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

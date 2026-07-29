@@ -28,4 +28,15 @@
       sha256 = "sha256-RXrMGORl1uht22FX1UVATTO1rTPjgMgMozqsAt0dnPE=";
     };
   };
+  cliproxyapiplus = {
+    pname = "cliproxyapiplus";
+    version = "v7.2.88-1";
+    src = fetchFromGitHub {
+      owner = "kaitranntt";
+      repo = "CLIProxyAPIPlus";
+      rev = "v7.2.88-1";
+      fetchSubmodules = false;
+      sha256 = "sha256-GBgTTrEWzscSke1EGJ/LWPSCvlioSmp8HMXHb1EtvnM=";
+    };
+  };
 }
