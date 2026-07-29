@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.104";
+    version = "v7.2.106";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.104";
-      hash = "sha256-fFH+xnwzplOr37P3v3G0RmHaxBoJo5oflNvIqH0zCo8=";
+      tag = "v7.2.106";
+      hash = "sha256-2DAQ9i4L8/8eSkIHbIi5jEXrPDnh699Qui/wAqu+N4A=";
     };
   };
   cockpy = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.8";
+    version = "v0.2.9";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.8";
-      hash = "sha256-CnpL6rL1Qff8VstV6+lRxB84h4hLgRSAEUWlfAU5vbw=";
+      tag = "v0.2.9";
+      hash = "sha256-+MDjEKfhRc57Tpuq8GG/9+5vK9HXSCvncHwKKjYYpss=";
     };
   };
   edge-tts = {
@@ -822,14 +822,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "16cd165ac3946cc8c08bf845331f91fefec8e1a9";
+    version = "e65f6ba0809fe2dfc7e972fa33a090c1751dec25";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "16cd165ac3946cc8c08bf845331f91fefec8e1a9";
-      hash = "sha256-utcPHH4mMKyvGNgK4XgxIbhFmnDsdRpETqc+R+5VvQc=";
+      rev = "e65f6ba0809fe2dfc7e972fa33a090c1751dec25";
+      hash = "sha256-bs0EL8AXU/21y7nkr6+1OOWQExZKhQ2xQjjtp9CjdtQ=";
     };
-    date = "2026-07-27";
+    date = "2026-07-30";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1527,14 +1527,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "351f43026eded292a24a6a76562882049ba54368";
+    version = "340856d19b2d70d6b6fea034d52eebdd3e8040ce";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "351f43026eded292a24a6a76562882049ba54368";
-      hash = "sha256-wljcULNqE7QThhhnG6JXTbWeFkAKFQy+IKP/kA1ZxbA=";
+      rev = "340856d19b2d70d6b6fea034d52eebdd3e8040ce";
+      hash = "sha256-HfEM3WI7DygWyIttwt8uehPKRL+51IXygcZC+S0Mg00=";
     };
-    date = "2026-07-28";
+    date = "2026-07-30";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -1818,14 +1818,14 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "e771816d5e072b3f2a8b9383bfcaffaa8f569dfa";
+    version = "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "e771816d5e072b3f2a8b9383bfcaffaa8f569dfa";
-      hash = "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=";
+      rev = "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4";
+      hash = "sha256-rvt5eqpHDxARivgYfGqM/BC3wxvVtx/b3PJVbJh+tac=";
     };
-    date = "2026-06-28";
+    date = "2026-07-30";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
@@ -2175,12 +2175,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.7.2";
+    version = "v2.8.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.7.2";
-      hash = "sha256-QorGhaHwgzcJJXa36dejLdN8STa8Q7H8qvKK66g2JBA=";
+      tag = "v2.8.0";
+      hash = "sha256-ZbqpeXQQA6ulcKn70BqHtYmdUQLsZuSnFd/GqrtWb5w=";
     };
   };
   sam-toki-mouse-cursors = {

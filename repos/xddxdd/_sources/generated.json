@@ -598,12 +598,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.104",
-            "sha256": "sha256-fFH+xnwzplOr37P3v3G0RmHaxBoJo5oflNvIqH0zCo8=",
+            "rev": "v7.2.106",
+            "sha256": "sha256-2DAQ9i4L8/8eSkIHbIi5jEXrPDnh699Qui/wAqu+N4A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.104"
+        "version": "v7.2.106"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1201,12 +1201,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "EasyCLI",
-            "rev": "v0.2.8",
-            "sha256": "sha256-CnpL6rL1Qff8VstV6+lRxB84h4hLgRSAEUWlfAU5vbw=",
+            "rev": "v0.2.9",
+            "sha256": "sha256-+MDjEKfhRc57Tpuq8GG/9+5vK9HXSCvncHwKKjYYpss=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.8"
+        "version": "v0.2.9"
     },
     "edge-tts": {
         "cargoLock": null,
@@ -1594,7 +1594,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-07-27",
+        "date": "2026-07-30",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "16cd165ac3946cc8c08bf845331f91fefec8e1a9",
-            "sha256": "sha256-utcPHH4mMKyvGNgK4XgxIbhFmnDsdRpETqc+R+5VvQc=",
+            "rev": "e65f6ba0809fe2dfc7e972fa33a090c1751dec25",
+            "sha256": "sha256-bs0EL8AXU/21y7nkr6+1OOWQExZKhQ2xQjjtp9CjdtQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "16cd165ac3946cc8c08bf845331f91fefec8e1a9"
+        "version": "e65f6ba0809fe2dfc7e972fa33a090c1751dec25"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2982,7 +2982,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-07-28",
+        "date": "2026-07-30",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2994,12 +2994,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "351f43026eded292a24a6a76562882049ba54368",
-            "sha256": "sha256-wljcULNqE7QThhhnG6JXTbWeFkAKFQy+IKP/kA1ZxbA=",
+            "rev": "340856d19b2d70d6b6fea034d52eebdd3e8040ce",
+            "sha256": "sha256-HfEM3WI7DygWyIttwt8uehPKRL+51IXygcZC+S0Mg00=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "351f43026eded292a24a6a76562882049ba54368"
+        "version": "340856d19b2d70d6b6fea034d52eebdd3e8040ce"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -3561,7 +3561,7 @@
     },
     "pterodactyl-wings": {
         "cargoLock": null,
-        "date": "2026-06-28",
+        "date": "2026-07-30",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3573,12 +3573,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "e771816d5e072b3f2a8b9383bfcaffaa8f569dfa",
-            "sha256": "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=",
+            "rev": "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4",
+            "sha256": "sha256-rvt5eqpHDxARivgYfGqM/BC3wxvVtx/b3PJVbJh+tac=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e771816d5e072b3f2a8b9383bfcaffaa8f569dfa"
+        "version": "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4"
     },
     "pterodactyl-wings-stable": {
         "cargoLock": null,
@@ -4268,12 +4268,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v2.7.2",
-            "sha256": "sha256-QorGhaHwgzcJJXa36dejLdN8STa8Q7H8qvKK66g2JBA=",
+            "rev": "v2.8.0",
+            "sha256": "sha256-ZbqpeXQQA6ulcKn70BqHtYmdUQLsZuSnFd/GqrtWb5w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.7.2"
+        "version": "v2.8.0"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
