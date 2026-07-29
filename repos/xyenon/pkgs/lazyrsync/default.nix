@@ -11,15 +11,15 @@ rustPlatform.buildRustPackage (finalAttrs: {
   __structuredAttrs = true;
 
   pname = "lazyrsync";
-  version = "0.1.1";
+  version = "0.2.0";
   src = fetchFromGitHub {
     owner = "westpoint-io";
     repo = "lazyrsync";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-JBELPmNSaiwxHq9iZHvvrCX/YLSBsOO3OrzXJ0mPrNw=";
+    hash = "sha256-GKTHohpA9h+uqJS2dwgjMmGfl3KRbmE9Jt94YbprVKE=";
   };
 
-  cargoHash = "sha256-/L6N08TFqwW6yeNFiIUtmz6SxdEuxa6SHMxDoZ4Myl8=";
+  cargoHash = "sha256-OE7TCcPRDqbtVXN/VDO4HckM6woV/0gzfNr8Di+m1Oo=";
 
   nativeBuildInputs = [ makeWrapper ];
 
