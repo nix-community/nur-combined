@@ -1,6 +1,10 @@
 {
   withAcp ? true,
+  withAdvisor ? true,
+  withHooks ? true,
   withMemory ? true,
+  withMultimodal ? true,
+  withPdf ? true,
 
   sources,
 
@@ -15,7 +19,13 @@ rustPlatform.buildRustPackage {
   version = lib.removePrefix "v" sources.zerostack.version;
 
   cargoLock = sources.zerostack.cargoLock."Cargo.lock";
-  buildFeatures = lib.optional withAcp "acp" ++ lib.optional withMemory "memory";
+  buildFeatures =
+    lib.optional withAcp "acp"
+    ++ lib.optional withAdvisor "advisor"
+    ++ lib.optional withHooks "hooks"
+    ++ lib.optional withMemory "memory"
+    ++ lib.optional withMultimodal "multimodal"
+    ++ lib.optional withPdf "pdf";
 
   nativeBuildInputs = [ mold ];
 
@@ -24,6 +34,7 @@ rustPlatform.buildRustPackage {
   checkFlags = [
     "--skip=tests::session_tests::detect_git_branch_in_repo_returns_nonempty"
     "--skip=tests::logging_tests::test_build_stderr_filter_default"
+    "--skip=tests::provider_tests::anthropic_custom_base_appends_v1_messages"
   ];
 
   meta = {

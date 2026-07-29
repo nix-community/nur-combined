@@ -1,6 +1,6 @@
 {
     "name": "mcp-searxng",
-    "version": "1.11.1",
+    "version": "1.12.1",
     "mcpName": "io.github.ihor-sokoliuk/mcp-searxng",
     "description": "MCP server for SearXNG integration",
     "license": "MIT",
@@ -39,16 +39,17 @@
         "watch": "tsc --watch",
         "test": "cross-env SEARXNG_URL=https://test-searx.example.com tsx __tests__/run-all.ts",
         "test:coverage": "cross-env SEARXNG_URL=https://test-searx.example.com c8 --reporter=text --include 'src/**' --check-coverage --lines 90 --branches 85 tsx __tests__/run-all.ts",
-        "test:e2e": "node --env-file-if-exists=.env.e2e node_modules/.bin/tsx __tests__/e2e/run-e2e.ts",
+        "test:e2e": "node --env-file-if-exists=.env.e2e --import tsx __tests__/e2e/run-e2e.ts",
+        "verify:packed-consumer": "node scripts/verify-packed-consumer.mjs",
         "bootstrap": "npm install && npm run build",
         "inspector": "DANGEROUSLY_OMIT_AUTH=true npx @modelcontextprotocol/inspector node dist/cli.js",
-        "lint": "eslint src __tests__",
+        "lint": "eslint src __tests__ scripts --max-warnings=0",
         "audit:deps": "npm audit --audit-level=moderate",
         "security": "npm run lint && npm run audit:deps",
         "postversion": "TAG=$(node scripts/update-version.js | tail -1) && git add src/version.ts .mcp/server.json && git commit --amend --no-edit && git tag -f $TAG"
     },
     "dependencies": {
-        "@modelcontextprotocol/sdk": "1.29.0",
+        "@modelcontextprotocol/sdk": "1.30.0",
         "@types/cors": "^2.8.19",
         "@types/express": "^5.0.6",
         "cors": "^2.8.6",
@@ -56,13 +57,13 @@
         "express-rate-limit": "^8.5.2",
         "node-html-markdown": "^2.0.0",
         "node-html-parser": "^6.1.13",
-        "undici": "7.28.0"
+        "undici": "7.29.0"
     },
     "devDependencies": {
         "@types/node": "22.20.1",
         "@types/supertest": "^7.2.0",
-        "@typescript-eslint/eslint-plugin": "8.63.0",
-        "@typescript-eslint/parser": "8.63.0",
+        "@typescript-eslint/eslint-plugin": "8.65.0",
+        "@typescript-eslint/parser": "8.65.0",
         "c8": "^11.0.0",
         "cross-env": "^10.1.0",
         "eslint": "10.7.0",
@@ -74,6 +75,6 @@
         "typescript": "^5.8.3"
     },
     "overrides": {
-        "hono": ">=4.12.25"
+        "hono": ">=4.12.31"
     }
 }

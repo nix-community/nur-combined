@@ -1,3 +1,7 @@
 [ghidra-mcp]
 src.github = "bethington/ghidra-mcp"
 fetch.github = "bethington/ghidra-mcp"
+
+[python-mcp]
+src.manual = "v1.29.0"
+fetch.github = "modelcontextprotocol/python-sdk"

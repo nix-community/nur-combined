@@ -22,25 +22,25 @@
   };
   clap-juce-extensions = {
     pname = "clap-juce-extensions";
-    version = "16e9d4ca7b1e86c76e04584b2c08e85a764bcda8";
+    version = "54b3c3268ab6721a7afeef813c9e1ce43a3d0fcd";
     src = fetchFromGitHub {
       owner = "free-audio";
       repo = "clap-juce-extensions";
-      rev = "16e9d4ca7b1e86c76e04584b2c08e85a764bcda8";
+      rev = "54b3c3268ab6721a7afeef813c9e1ce43a3d0fcd";
       fetchSubmodules = true;
-      sha256 = "sha256-0oV0KR//AfkdcXyjFQIadmKqMdJTzoVWNSFydoQlzO4=";
+      sha256 = "sha256-Rkc4mN6941+eKrLW5GHuLRYzeDIY/x237P4zefwfHfo=";
     };
-    date = "2026-06-24";
+    date = "2026-07-21";
   };
   hamburger = {
     pname = "hamburger";
-    version = "v0.6.1";
+    version = "v0.7.1";
     src = fetchFromGitHub {
       owner = "Davit-G";
       repo = "Hamburger";
-      rev = "v0.6.1";
+      rev = "v0.7.1";
       fetchSubmodules = false;
-      sha256 = "sha256-v8l3AP2fipk4Dp9czuPXddQ0KQFNzfO1CErWT/EH6a8=";
+      sha256 = "sha256-mAyG7EEQ4byh+kPvBJ0okwxbjw7t0tkwqn+ws/2ekek=";
     };
   };
   juce = {
@@ -56,16 +56,16 @@
   };
   xsimd = {
     pname = "xsimd";
-    version = "82a37aa77f77ef086104d2cacc26aaa1f628e94d";
+    version = "5491a1340b41e193135148e62c5703088fc1ebfc";
     src = fetchgit {
       url = "https://github.com/xtensor-stack/xsimd.git";
-      rev = "82a37aa77f77ef086104d2cacc26aaa1f628e94d";
+      rev = "5491a1340b41e193135148e62c5703088fc1ebfc";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-3lcjIwrJSyFo+8GoO1h9o4eJyMvN/uzG+hzKIr1xmz0=";
+      sha256 = "sha256-4UZEiMPyndRkHVr+IqtXYj9YY8+o43Oc8ChWHCB68tU=";
     };
-    date = "2026-07-20";
+    date = "2026-07-28";
   };
 }

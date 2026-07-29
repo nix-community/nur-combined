@@ -8,15 +8,15 @@
 {
   element = {
     pname = "element";
-    version = "0c2d8e8039b741ff61d5034ded7bbae12a63a66e";
+    version = "8aa000983aadd8b16a341837ac72afd4edcbfc9d";
     src = fetchFromGitHub {
       owner = "kushview";
       repo = "element";
-      rev = "0c2d8e8039b741ff61d5034ded7bbae12a63a66e";
+      rev = "8aa000983aadd8b16a341837ac72afd4edcbfc9d";
       fetchSubmodules = true;
-      sha256 = "sha256-tz2JTVba/TbPoM2iacbEgBO2iQuuIVKmRIEFyv9b+74=";
+      sha256 = "sha256-cwQV/HXHWZ5kqIWEvC/DetIvE9f8YXtEqhrS1A71bKQ=";
     };
-    date = "2026-07-20";
+    date = "2026-07-27";
   };
   juce = {
     pname = "juce";

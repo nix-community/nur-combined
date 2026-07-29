@@ -13,11 +13,32 @@
             "name": null,
             "owner": "bethington",
             "repo": "ghidra-mcp",
-            "rev": "v5.14.2",
-            "sha256": "sha256-2EMETCttJAz53GQaJDHtegb8+T2cHKmHZVMPrV5Cwxc=",
+            "rev": "v6.0.0",
+            "sha256": "sha256-LnhhJwycO8NQV+YaTP7ZoxGkoGLkc14BwY66wczbpp0=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v5.14.2"
+        "version": "v6.0.0"
+    },
+    "python-mcp": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "python-mcp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "modelcontextprotocol",
+            "repo": "python-sdk",
+            "rev": "v1.29.0",
+            "sha256": "sha256-lRlj5RT/R5zrYL5XpdQR2l9t99G94WTsubN0gSQekMc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.29.0"
     }
 }

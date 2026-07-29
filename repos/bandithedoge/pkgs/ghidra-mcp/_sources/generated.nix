@@ -8,13 +8,24 @@
 {
   ghidra-mcp = {
     pname = "ghidra-mcp";
-    version = "v5.14.2";
+    version = "v6.0.0";
     src = fetchFromGitHub {
       owner = "bethington";
       repo = "ghidra-mcp";
-      rev = "v5.14.2";
+      rev = "v6.0.0";
       fetchSubmodules = false;
-      sha256 = "sha256-2EMETCttJAz53GQaJDHtegb8+T2cHKmHZVMPrV5Cwxc=";
+      sha256 = "sha256-LnhhJwycO8NQV+YaTP7ZoxGkoGLkc14BwY66wczbpp0=";
+    };
+  };
+  python-mcp = {
+    pname = "python-mcp";
+    version = "v1.29.0";
+    src = fetchFromGitHub {
+      owner = "modelcontextprotocol";
+      repo = "python-sdk";
+      rev = "v1.29.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-lRlj5RT/R5zrYL5XpdQR2l9t99G94WTsubN0gSQekMc=";
     };
   };
 }

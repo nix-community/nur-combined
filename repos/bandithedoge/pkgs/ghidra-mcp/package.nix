@@ -5,29 +5,45 @@
 
   ghidra,
   makeWrapper,
-  python3,
+  python3Packages,
+  symlinkJoin,
 }:
-let
-  python' = python3.withPackages (p: with p; [ mcp ]);
-in
-ghidra.buildGhidraExtension {
-  inherit (sources.ghidra-mcp) pname src;
-  version = lib.removePrefix "v" sources.ghidra-mcp.version;
+symlinkJoin {
+  name = "ghidra-mcp";
+  paths = [
+    (python3Packages.buildPythonApplication {
+      pname = "ghidra-mcp-bridge";
+      version = lib.removePrefix "v" sources.ghidra-mcp.version;
+      inherit (sources.ghidra-mcp) src;
 
-  nativeBuildInputs = [ makeWrapper ];
+      pyproject = true;
 
-  installPhase = ''
-    runHook preInstall
+      build-system = with python3Packages; [ hatchling ];
 
-    mkdir -p $out/{lib/Ghidra/Extensions,bin}
-    unzip -d $out/lib/Ghidra/Extensions build/distributions/*.zip
-    cp bridge_mcp_ghidra.py $out/lib/Ghidra/Extensions/GhidraMCP
+      dependencies = [
+        (python3Packages.mcp.overrideAttrs (_: {
+          version = lib.removePrefix "v" sources.python-mcp.version;
+          inherit (sources.python-mcp) src;
+        }))
+      ];
+    })
 
-    makeWrapper ${lib.getExe python'} $out/bin/bridge-mcp-ghidra \
-      --add-flag $out/lib/Ghidra/Extensions/GhidraMCP/bridge_mcp_ghidra.py
+    (ghidra.buildGhidraExtension {
+      inherit (sources.ghidra-mcp) pname src;
+      version = lib.removePrefix "v" sources.ghidra-mcp.version;
 
-    runHook postInstall
-  '';
+      nativeBuildInputs = [ makeWrapper ];
+
+      installPhase = ''
+        runHook preInstall
+
+        mkdir -p $out/{lib/Ghidra/Extensions,bin}
+        unzip -d $out/lib/Ghidra/Extensions build/distributions/*.zip
+
+        runHook postInstall
+      '';
+    })
+  ];
 
   meta = {
     description = "Production-ready Model Context Protocol (MCP) server that bridges Ghidra's powerful reverse engineering capabilities with modern AI tools and automation frameworks";

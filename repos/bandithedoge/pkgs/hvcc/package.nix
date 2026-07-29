@@ -1,6 +1,5 @@
 {
   sources,
-  fetchFromGitHub,
 
   lib,
   python3Packages,
@@ -8,7 +7,7 @@
 let
   wstd2daisy = python3Packages.buildPythonPackage {
     inherit (sources.wstd2daisy) pname src;
-    version = sources.wstd2daisy.date;
+    version = "0.5.3";
 
     pyproject = true;
 

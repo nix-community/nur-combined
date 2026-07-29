@@ -8,10 +8,10 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-w3lPN21ZmxVvQgfFef5FIkaWvTgKnU/xd3z26lBU/f0=",
+            "sha256": "sha256-VYklNSnz570maMOE0qnhJ/AGjqwsOkTu7BoSNdLN+EA=",
             "type": "url",
-            "url": "https://github.com/Helion-Engine/Helion/releases/download/0.9.9.1/Helion-0.9.9.1-linux-x64_AOT.zip"
+            "url": "https://github.com/Helion-Engine/Helion/releases/download/1.0.0.0/Helion-1.0.0.0-linux-x64_AOT.zip"
         },
-        "version": "0.9.9.1"
+        "version": "1.0.0.0"
     }
 }

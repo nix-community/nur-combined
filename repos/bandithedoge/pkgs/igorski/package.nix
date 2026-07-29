@@ -18,22 +18,24 @@
   pango,
   pkg-config,
   sqlite,
+  juce,
 }:
 let
   mkJuce =
     {
       source,
       meta,
+      patches ? [ ],
     }:
     stdenv.mkDerivation {
       inherit (source) pname src;
       version = lib.removePrefix "v" source.version;
 
+      inherit patches;
+
       nativeBuildInputs = [ juceCmakeHook ];
 
-      postPatch = ''
-        ln -s ${sources.juce.src} JUCE
-      '';
+      buildInputs = [ juce ];
 
       meta = {
         license = lib.licenses.gpl3Only;
@@ -148,6 +150,7 @@ in
       description = "A multiband Doppler-based chorusing/detune effect";
       homepage = "https://www.igorski.nl/download/delirion";
     };
+    patches = [ ./delirion-cmake.patch ];
   };
 
   rechoir = mkVst3 {

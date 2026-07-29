@@ -1,0 +1,16 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a995785..4daa392 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -27,8 +27,9 @@ set(PLUGIN_NAME "Delirion")
+ # JUCE configuration #
+ ######################
+ 
+-# find_package(JUCE CONFIG REQUIRED)      # When JUCE is installed globally on the system
+-add_subdirectory(JUCE)                    # When JUCE is a Git submodule in the ./JUCE folder (default)
++enable_language(C CXX)
++find_package(JUCE CONFIG REQUIRED)      # When JUCE is installed globally on the system
++# add_subdirectory(JUCE)                    # When JUCE is a Git submodule in the ./JUCE folder (default)
+ 
+ if (APPLE)
+     set(PLUGIN_FORMATS VST3 AU)
