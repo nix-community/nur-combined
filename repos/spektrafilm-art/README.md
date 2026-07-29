@@ -46,30 +46,30 @@ The wrapper creates `~/.config/darktable/spektrafilm` automatically and points i
 
 ## Install With nix profile
 
-The commands below use `nix profile install`; on older Nix versions, `nix profile add` is the same operation.
+The commands below use `nix profile add`.
 
 Install Spektrafilm:
 
 ```sh
-nix profile install --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#spektrafilm
+nix profile add --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#spektrafilm
 ```
 
 Install ART with Spektrafilm:
 
 ```sh
-nix profile install --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#spektrafilm-art
+nix profile add --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#spektrafilm-art
 ```
 
 Install darktable with the native Spektrafilm module:
 
 ```sh
-nix profile install --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#darktable-spektrafilm
+nix profile add --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#darktable-spektrafilm
 ```
 
 Install darktable with Spektrafilm and darktable AI enabled:
 
 ```sh
-nix profile install --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#darktable-spektrafilm-ai
+nix profile add --extra-experimental-features 'nix-command flakes' github:rafaelcgs10/spektrafilm-art-darktable#darktable-spektrafilm-ai
 ```
 
 After installing, start it with:
