@@ -34,7 +34,6 @@
         let
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate = pkg: pkg.pname == "bws";
           };
           nurAttrs = import ./default.nix { inherit pkgs; };
         in
@@ -48,7 +47,6 @@
         import ./default.nix {
           pkgs = import nixpkgs {
             inherit system;
-            config.allowUnfreePredicate = pkg: pkg.pname == "bws";
           };
         }
       );
