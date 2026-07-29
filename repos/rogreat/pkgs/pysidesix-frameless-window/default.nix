@@ -17,13 +17,13 @@ buildPythonPackage (finalAttrs: {
     hash = "sha256-le76ZKvayp1zC8CX/TnizQfTRDpHoWRcyTagB2mW180=";
   };
 
+  build-system = [ setuptools ];
+
   dependencies = [ pyside6 ];
 
   doCheck = false;
 
   pythonImportsCheck = [ "qframelesswindow" ];
-
-  build-system = [ setuptools ];
 
   meta = {
     description = "Frameless window based on PySide6";

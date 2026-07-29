@@ -69,9 +69,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
             "'amethyst-mod-manager --nxm %u'"
   '';
 
-  # no tests
-  doCheck = false;
-
   dontWrapQtApps = true;
 
   preFixup = ''
@@ -91,6 +88,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
     wrapQtApp $out/bin/amethyst-mod-manager ''${makeWrapperArgs[@]}
     wrapProgram $out/bin/amethyst-mod-manager-cli ''${makeWrapperArgs[@]}
   '';
+
+  # no tests
+  doCheck = false;
 
   meta = {
     description = "Linux native mod manager for a variety of games";

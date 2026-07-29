@@ -9,6 +9,7 @@
   libnotify,
   p7zip,
   python3Packages,
+  runtimeShell,
   unrar-free,
   webp-pixbuf-loader,
   wrapGAppsHook4,
@@ -60,10 +61,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/bin"
-    echo "#!/bin/sh" > $out/bin/nomm
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/main.py \"\$@\"" >> "$out/bin/nomm"
-    chmod +x "$out/bin/nomm"
+    mkdir -p $out/bin
+    cat << EOF > $out/bin/nomm
+    #!${runtimeShell}
+    exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/main.py "\$@"
+    EOF
+    chmod +x $out/bin/nomm
 
     install -D build/flatpak/com.nomm.Nomm.desktop $out/share/applications/com.nomm.Nomm.desktop
     install -D build/flatpak/com.nomm.Nomm.metainfo.xml $out/share/metainfo/com.nomm.Nomm.metainfo.xml
@@ -99,6 +102,9 @@ python3Packages.buildPythonApplication (finalAttrs: {
         }"
     )
   '';
+
+  # no tests
+  doCheck = false;
 
   meta = {
     description = "Native Open Mod Manager ";

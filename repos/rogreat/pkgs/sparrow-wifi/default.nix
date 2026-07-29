@@ -7,6 +7,8 @@
   makeDesktopItem,
   python3Packages,
   qt5,
+  runtimeShell,
+  usbutils,
 }:
 
 python3Packages.buildPythonApplication (finalAttrs: {
@@ -21,13 +23,16 @@ python3Packages.buildPythonApplication (finalAttrs: {
     hash = "sha256-rmN7hGnt+zDAsRdJXC2KmJrhgmjxCPZgjpRlQ/HbPZA=";
   };
 
+  # https://github.com/ghostop14/sparrow-wifi/blob/master/requirements.txt
   dependencies = with python3Packages; [
-    gps3
-    matplotlib
-    numpy
-    pyqt5
+    # qscintilla
     pyqtchart
+    gps3
+    # dronekit
+    # manuf
     python-dateutil
+    numpy
+    matplotlib
     requests
   ];
 
@@ -41,8 +46,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
     runHook preInstall
 
     mkdir -p $out/bin
-    echo "#!/bin/sh" > $out/bin/sparrow-wifi
-    echo "exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/sparrow-wifi.py \"\$@\"" >> $out/bin/sparrow-wifi
+    cat << EOF > $out/bin/sparrow-wifi
+    #!${runtimeShell}
+    exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/sparrow-wifi.py "\$@"
+    EOF
     chmod +x $out/bin/sparrow-wifi
 
     mkdir -p $out/${python3Packages.python.sitePackages}
@@ -62,21 +69,31 @@ python3Packages.buildPythonApplication (finalAttrs: {
       icon = "sparrow_wifi";
       exec = "sparrow-wifi";
       comment = "WiFi and Bluetooth Analyzer";
-      categories = [ "Utility" ];
+      categories = [
+        "Network"
+        "Utility"
+      ];
     })
   ];
 
+  dontWrapQtApps = true;
+
   preFixup = ''
-    qtWrapperArgs+=(
+    makeWrapperArgs+=(
         --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
         --set PATH "${
           lib.makeBinPath [
             iw
+            usbutils
           ]
         }"
     )
-    wrapProgram $out/bin/sparrow-wifi ''${qtWrapperArgs[@]}
+    wrapQtApp $out/bin/sparrow-wifi ''${makeWrapperArgs[@]}
   '';
+
+  nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+
+  enabledTestPaths = [ "tests/" ];
 
   meta = {
     description = "Next-Gen GUI-based WiFi and Bluetooth Analyzer for Linux";

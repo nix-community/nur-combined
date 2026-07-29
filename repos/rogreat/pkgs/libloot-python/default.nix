@@ -36,6 +36,8 @@ buildPythonPackage (finalAttrs: {
     CARGO_TARGET_DIR = "./target";
   };
 
+  # no tests
+  doCheck = false;
   dontCheckPythonMetadata = true;
 
   meta = {
