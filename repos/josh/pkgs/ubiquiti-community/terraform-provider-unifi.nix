@@ -1,4 +1,8 @@
-{ terraform-providers, nix-update-script }:
+{
+  terraform-providers,
+  nix-update-script,
+  runCommand,
+}:
 let
   pkg = terraform-providers.mkProvider {
     owner = "ubiquiti-community";
@@ -12,12 +16,20 @@ let
   };
 in
 pkg.overrideAttrs (
-  _finalAttrs: previousAttrs: {
+  finalAttrs: previousAttrs: {
     meta = previousAttrs.meta // {
       description = "Terraform provider for UniFi network controllers";
     };
 
     passthru = previousAttrs.passthru // {
+
+      tests = {
+        version = runCommand "test-terraform-provider-unifi-version" { } ''
+          grep --text --quiet "${finalAttrs.version}" \
+            ${finalAttrs.finalPackage}/libexec/terraform-providers/*/*/*/*/*/terraform-provider-unifi_*
+          touch $out
+        '';
+      };
       updateScript = nix-update-script {
         extraArgs = [
           "--version=stable"

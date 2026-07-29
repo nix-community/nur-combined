@@ -5,6 +5,8 @@
   sqlite,
   swift,
   swiftpm,
+  runCommand,
+  testers,
   writeText,
 }:
 let
@@ -56,6 +58,24 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     install -Dm755 .build/release/tccpolicy $out/bin/tccpolicy
     runHook postInstall
   '';
+
+  passthru.tests = {
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      inherit (finalAttrs) version;
+    };
+
+    help =
+      runCommand "test-tccpolicy-help"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          tccpolicy --help
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Manage macOS TCC database declaratively";

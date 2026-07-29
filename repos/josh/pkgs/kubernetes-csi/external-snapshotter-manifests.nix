@@ -3,6 +3,8 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  yq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "external-snapshotter-manifests";
@@ -29,6 +31,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    parse =
+      runCommand "test-external-snapshotter-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} -name '*.yaml' -exec yq -r '.kind? // empty' {} + | grep -q .
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Kubernetes CSI external-snapshotter CRDs and snapshot-controller manifests";

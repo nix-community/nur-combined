@@ -4,9 +4,10 @@
   fetchFromGitHub,
   deno,
   makeWrapper,
+  runCommand,
   nix-update-script,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nanomail";
   version = "0-unstable-2026-03-04";
 
@@ -35,6 +36,22 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    help =
+      runCommand "test-nanomail-help"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          export HOME="$TMPDIR"
+          export DENO_DIR="$TMPDIR/deno"
+          export DENO_NO_UPDATE_CHECK=1
+          nanomail --help
+          touch $out
+        '';
+  };
+
   meta = {
     description = "A Deno + JXA CLI for reading and managing Apple Mail on macOS";
     homepage = "https://github.com/shareup/nanomail";
@@ -42,4 +59,4 @@ stdenvNoCC.mkDerivation {
     platforms = lib.platforms.darwin;
     mainProgram = "nanomail";
   };
-}
+})

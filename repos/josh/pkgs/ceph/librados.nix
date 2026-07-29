@@ -20,7 +20,6 @@
   bzip2,
   ceph,
   curl,
-  fmt,
   gtest,
   icu,
   lmdb,
@@ -110,7 +109,6 @@ stdenv.mkDerivation (finalAttrs: {
     autoconf
     automake
     cmake
-    fmt
     git
     libtool
     pkg-config

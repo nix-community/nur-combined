@@ -3,6 +3,8 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  yq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "local-path-provisioner-manifests";
@@ -23,6 +25,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    parse =
+      runCommand "test-local-path-provisioner-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} -name '*.yaml' -exec yq -r '.kind? // empty' {} + | grep -q .
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Dynamically provisioning persistent local storage with Kubernetes";

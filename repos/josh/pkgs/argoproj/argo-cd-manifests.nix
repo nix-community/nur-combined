@@ -3,6 +3,8 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  yq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "argo-cd-manifests";
@@ -23,6 +25,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    parse =
+      runCommand "test-argo-cd-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          yq -r '.kind? // empty' ${finalAttrs.finalPackage}/install.yaml | grep -q .
+          yq -r '.kind? // empty' ${finalAttrs.finalPackage}/namespace-install.yaml | grep -q .
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Argo CD Kubernetes manifests";

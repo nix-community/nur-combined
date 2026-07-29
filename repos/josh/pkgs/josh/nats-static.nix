@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  testers,
 }:
 buildGoModule (finalAttrs: {
   pname = "nats-static";
@@ -23,6 +24,14 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      command = "nats-static version";
+      inherit (finalAttrs) version;
+    };
+  };
 
   meta = {
     description = "Serve static files from a NATS JetStream object store over HTTP";

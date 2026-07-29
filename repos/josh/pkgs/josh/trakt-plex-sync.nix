@@ -3,9 +3,10 @@
   python3Packages,
   fetchFromGitHub,
   nur,
+  runCommand,
   nix-update-script,
 }:
-python3Packages.buildPythonApplication (_finalAttrs: {
+python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-plex-sync";
   version = "0.2.0-unstable-2026-07-23";
 
@@ -31,9 +32,22 @@ python3Packages.buildPythonApplication (_finalAttrs: {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  # Upstream has no CLI framework, so --version and --help tests are not possible
   passthru.tests = {
-    # TODO: Add --version test
-    # TODO: Add --help test
+    import =
+      runCommand "test-trakt-plex-sync-import"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [
+            (python3Packages.python.withPackages (_: [
+              (python3Packages.toPythonModule finalAttrs.finalPackage)
+            ]))
+          ];
+        }
+        ''
+          TRAKT_CLIENT_ID=x TRAKT_ACCESS_TOKEN=x python -c "import trakt_plex_sync"
+          touch $out
+        '';
   };
 
   meta = {

@@ -1,4 +1,8 @@
-{ terraform-providers, nix-update-script }:
+{
+  terraform-providers,
+  nix-update-script,
+  runCommand,
+}:
 let
   pkg = terraform-providers.mkProvider {
     owner = "mikluko";
@@ -12,12 +16,20 @@ let
   };
 in
 pkg.overrideAttrs (
-  _finalAttrs: previousAttrs: {
+  finalAttrs: previousAttrs: {
     meta = previousAttrs.meta // {
       description = "Terraform provider for NATS Synadia Cloud";
     };
 
     passthru = previousAttrs.passthru // {
+
+      tests = {
+        version = runCommand "test-terraform-provider-nsc-version" { } ''
+          grep --text --quiet "${finalAttrs.version}" \
+            ${finalAttrs.finalPackage}/libexec/terraform-providers/*/*/*/*/*/terraform-provider-nsc_*
+          touch $out
+        '';
+      };
       updateScript = nix-update-script {
         extraArgs = [
           "--version=stable"
