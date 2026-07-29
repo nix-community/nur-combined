@@ -17,6 +17,28 @@
         pkgsDarktable = import nixpkgs-unstable { inherit system; };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
+      apps = forAllSystems (system:
+        let
+          packages = self.packages.${system};
+        in
+        {
+          spektrafilm = {
+            type = "app";
+            program = "${packages.spektrafilm}/bin/spektrafilm";
+          };
+          spektrafilm-art = {
+            type = "app";
+            program = "${packages.spektrafilm-art}/bin/ART";
+          };
+          darktable-spektrafilm = {
+            type = "app";
+            program = "${packages.darktable-spektrafilm}/bin/darktable";
+          };
+          darktable-spektrafilm-ai = {
+            type = "app";
+            program = "${packages.darktable-spektrafilm-ai}/bin/darktable";
+          };
+        });
       nixosModules = import ./nixos-modules;
       # homeModules = import ./home-modules;
       # darwinModules = import ./darwin-modules;

@@ -41,6 +41,10 @@ let
   };
 
   spektrafilm-python = spektrafilm-pkgs.python3.withPackages (ps: with ps; [ numpy scipy spektrafilm ]) ;
+  spektrafilmDataPack =
+    pkgs.callPackage ./pkgs/darktable-spektrafilm/data-pack.nix {
+      spektrafilm = spektrafilm-pkgs.python3Packages.spektrafilm;
+    };
   spektrafilm-art = (pkgs.art.overrideAttrs (oldAttrs: {
     version = "1.26.6";
     src = pkgs.fetchFromGitHub {
@@ -79,6 +83,10 @@ let
         --prefix PATH : "${spektrafilm-python}/bin"
     '';
   }));
+  darktableSpektrafilm =
+    pkgsDarktable.callPackage ./pkgs/darktable-spektrafilm/darktable-spektrafilm.nix {
+      inherit spektrafilmDataPack;
+    };
 in
 {
   spektrafilm = spektrafilm-pkgs.python3Packages.spektrafilm;
@@ -87,15 +95,11 @@ in
   # darktable built from the spektrafilm PR branch (native C module,
   # independent of the spektrafilm Python package above). Based on pkgsDarktable
   # (nixpkgs-unstable) for a dependency set close to the 5.8.0 source.
-  darktable-spektrafilm =
-    pkgsDarktable.callPackage ./pkgs/darktable-spektrafilm/darktable-spektrafilm.nix { };
+  darktable-spektrafilm = darktableSpektrafilm;
+  darktable-spektrafilm-ai = darktableSpektrafilm.override { withAi = true; };
 
-  # Runtime film/print data pack for the module above. Link it into
-  # ~/.config/darktable/spektrafilm (see README).
-  spektrafilm-data-pack =
-    pkgs.callPackage ./pkgs/darktable-spektrafilm/data-pack.nix {
-      spektrafilm = spektrafilm-pkgs.python3Packages.spektrafilm;
-    };
+  # Runtime film/print data pack for the module above.
+  spektrafilm-data-pack = spektrafilmDataPack;
 
   # darktable AI models (denoise/upscale/object-masking), bundled for offline
   # use since the fork's 5.8.0 version has no auto-download match. Link into

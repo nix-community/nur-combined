@@ -17,6 +17,8 @@
   lib,
   darktable,
   fetchFromGitHub,
+  makeWrapper,
+  spektrafilmDataPack ? null,
   # Enable darktable's ONNX-based AI features (pulls in onnxruntime + libarchive
   # and the USE_AI cmake path). The spektrafilm PR branch keeps darktable's
   # USE_AI option (src/CMakeLists.txt), so it composes normally. Off by default
@@ -50,6 +52,13 @@
     "-DPROJECT_VERSION=5.8.0"
   ];
 
+  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optional (spektrafilmDataPack != null) makeWrapper;
+
+  postFixup = (old.postFixup or "") + lib.optionalString (spektrafilmDataPack != null) ''
+    wrapProgram $out/bin/darktable \
+      --run 'darktable_config_home="''${XDG_CONFIG_HOME:-''${HOME:+$HOME/.config}}"; spektrafilm_pack_dir="$darktable_config_home/darktable/spektrafilm"; if [ -n "$darktable_config_home" ]; then mkdir -p "$darktable_config_home/darktable"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi'
+  '';
+
   # The base derivation greps `darktable --version` for the nix `version`
   # string; our datestamped version won't appear there, so skip the check.
   doInstallCheck = false;
@@ -58,5 +67,6 @@
     description =
       "darktable with the native spektrafilm spectral film-simulation module (darktable PR 21534)";
     homepage = "https://github.com/darktable-org/darktable/pull/21534";
+    mainProgram = "darktable";
   };
 })
