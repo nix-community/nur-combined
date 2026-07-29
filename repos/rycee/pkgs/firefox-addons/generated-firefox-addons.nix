@@ -1799,10 +1799,10 @@
     };
     "chameleon-ext" = buildMozillaXpiAddon {
       pname = "chameleon-ext";
-      version = "0.22.85.1";
+      version = "0.22.86.1";
       addonId = "{3579f63b-d8ee-424f-bbb6-6d0ce3285e6a}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4859613/chameleon_ext-0.22.85.1.xpi";
-      sha256 = "25e5b9322fbd0dbdcc28e5f82cfb375a2c8a5030ef7a9a330774c55eff067741";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4925564/chameleon_ext-0.22.86.1.xpi";
+      sha256 = "baa41af4faee509d5d2a941bbe177ca520f9103952f796dbc5b7e240dc044a75";
       meta = with lib;
       {
         homepage = "https://sereneblue.github.io/chameleon";
@@ -4457,10 +4457,10 @@
     };
     "foxyproxy-standard" = buildMozillaXpiAddon {
       pname = "foxyproxy-standard";
-      version = "9.3";
+      version = "9.4";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922152/foxyproxy_standard-9.3.xpi";
-      sha256 = "e1c9e9c515c3f83b027c9be4bf0a910a72f2b019ec067dc37eef76e549ab38a5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4925065/foxyproxy_standard-9.4.xpi";
+      sha256 = "b2e979001f2ee7402cf277e1a8650a7c4aeb8772ec6cd4310e2802d27fc3239d";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org/";
@@ -8497,10 +8497,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.225";
+      version = "2.4.226";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4916724/lichess_tools_by_siderite-2.4.225.xpi";
-      sha256 = "18eb2a284133ca243cfa6e030cc415b56ee8c802fe1e2b68199046fe1281361f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4924905/lichess_tools_by_siderite-2.4.226.xpi";
+      sha256 = "fa2bb3680b48bd485e26845a696323a3e3163257a9f442b93c62b10828a0b5d9";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -8919,14 +8919,14 @@
     };
     "llmfeeder" = buildMozillaXpiAddon {
       pname = "llmfeeder";
-      version = "2.1.0";
+      version = "2.2.0";
       addonId = "llmfeeder@j47.in";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4696063/llmfeeder-2.1.0.xpi";
-      sha256 = "4418d0bb4ec7960b9ec043c2e393c123392137eed09a0473a089080deb6bfdc8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4925415/llmfeeder-2.2.0.xpi";
+      sha256 = "079ac8da43d4f2430e71090b5b0422692404ef974ac3228d8828d9ba3d25d92e";
       meta = with lib;
       {
         homepage = "https://github.com/jatinkrmalik/LLMFeeder";
-        description = "Convert web pages to clean Markdown for ChatGPT, Claude and AI. Multi-tab support, right-click menus, token counter. 100% offline.";
+        description = "Convert any webpage to clean Markdown for ChatGPT, Claude &amp; Gemini. Multi-tab copy, token counter. 100% private.";
         license = licenses.mit;
         mozPermissions = [
           "activeTab"
@@ -11160,10 +11160,10 @@
     };
     "owasp-penetration-testing-kit" = buildMozillaXpiAddon {
       pname = "owasp-penetration-testing-kit";
-      version = "9.9.7";
+      version = "9.9.8";
       addonId = "pentestkit@DenisPodgurskii";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4835100/owasp_penetration_testing_kit-9.9.7.xpi";
-      sha256 = "a1d78c38a5e77be1e7337a9f981d4df6b0dc6015c46f3d1164b9bf378febf334";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4924757/owasp_penetration_testing_kit-9.9.8.xpi";
+      sha256 = "4a1af2727926dc05e60242f847837b92c80176673e800615c050891c719aaee8";
       meta = with lib;
       {
         homepage = "https://pentestkit.co.uk/";
@@ -12134,10 +12134,10 @@
     };
     "private-grammar-checker-harper" = buildMozillaXpiAddon {
       pname = "private-grammar-checker-harper";
-      version = "2.6.0";
+      version = "2.7.0";
       addonId = "harper@writewithharper.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4879532/private_grammar_checker_harper-2.6.0.xpi";
-      sha256 = "52e145d9e018cb5e59de6e025fb413385ca4d3c04ee1ad315eb728032e101098";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4925222/private_grammar_checker_harper-2.7.0.xpi";
+      sha256 = "661ae49fdd35af9e5e1e50d48fb71fd832693fe1480f53f63e79e26495b9280e";
       meta = with lib;
       {
         homepage = "https://writewithharper.com";
