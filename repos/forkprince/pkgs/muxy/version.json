@@ -6,15 +6,15 @@
     "skip_prerelease": true,
     "tag_prefix": "v"
   },
-  "version": "1.2.1",
+  "version": "1.3.0",
   "platforms": {
     "aarch64-darwin": {
       "file": "Muxy-{version}-arm64.dmg",
-      "hash": "sha256-gctAPp4NsXo1U3t2sJiRXSMNQyQJ8ws9JZ88i1N5gEE="
+      "hash": "sha256-H39vke3lKpSuASIUkoQqvmQUEzHYTtj0UX362V5RHiE="
     },
     "x86_64-darwin": {
       "file": "Muxy-{version}-x86_64.dmg",
-      "hash": "sha256-QYYMrqxg7F/KnkUZx/xyMQxzgxzdBLo29HHn1pUrU58="
+      "hash": "sha256-vtfccxDowzTfn06cK5F6mNsAXpyH+aq04o6KqtD3ygs="
     }
   }
 }
