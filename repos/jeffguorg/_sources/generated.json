@@ -87,7 +87,7 @@
     "codex": {
         "cargoLock": {
             "codex-rs/Cargo.lock": [
-                "sha256-_r4mBoJhHB1v5NTA4Hk565_D5B0deYJf9xJW330hyf0=/codex-rs/Cargo.lock",
+                "sha256-_kTIOX_klxm1nq2bJsBqS8f1jZZp2ilaTeULQFPJgDk=/codex-rs/Cargo.lock",
                 {
                     "crossterm-0.28.1": "sha256-6qCtfSMuXACKFb9ATID39XyFDIEMFDmbx6SSmNe+728=",
                     "nucleo-0.5.0": "sha256-Hm4SxtTSBrcWpXrtSqeO0TACbUxq3gizg1zD/6Yw/sI=",
@@ -110,12 +110,12 @@
             "name": null,
             "owner": "openai",
             "repo": "codex",
-            "rev": "rust-v0.145.0",
-            "sha256": "sha256-/r4mBoJhHB1v5NTA4Hk565/D5B0deYJf9xJW330hyf0=",
+            "rev": "rust-v0.146.0",
+            "sha256": "sha256-/kTIOX/klxm1nq2bJsBqS8f1jZZp2ilaTeULQFPJgDk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "rust-v0.145.0"
+        "version": "rust-v0.146.0"
     },
     "codex-bin-amd64-darwin": {
         "cargoLock": null,
@@ -126,11 +126,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-v+hr/0+OKw3pudh9P7kIoWeFRKZn5hwVDlP5ERzb65M=",
+            "sha256": "sha256-3C7UGBufh4+n7X0mjYb889/hGbasJwMf0R2H9ED6TX8=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.145.0/codex-x86_64-apple-darwin.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.146.0/codex-x86_64-apple-darwin.zst"
         },
-        "version": "0.145.0"
+        "version": "0.146.0"
     },
     "codex-bin-amd64-linux": {
         "cargoLock": null,
@@ -141,11 +141,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-H16qylCVnwWqDTmCyfqOzMpD4xibwz2lzw+vNpLopdQ=",
+            "sha256": "sha256-CtaXkiCN1GqEhqbuw1QpPvVHFZRuOmBmgwjqj5r8bA4=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.145.0/codex-x86_64-unknown-linux-musl.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.146.0/codex-x86_64-unknown-linux-musl.zst"
         },
-        "version": "0.145.0"
+        "version": "0.146.0"
     },
     "codex-bin-arm64-darwin": {
         "cargoLock": null,
@@ -156,11 +156,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-/VQhideZTL0bSEwyzzF1ctfg5jQl46l5eKyMrMXuLuY=",
+            "sha256": "sha256-u5nthJSsu6qtj/XdkyW/C820NwNxjMBALdne/qFAFOw=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.145.0/codex-aarch64-apple-darwin.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.146.0/codex-aarch64-apple-darwin.zst"
         },
-        "version": "0.145.0"
+        "version": "0.146.0"
     },
     "codex-bin-arm64-linux": {
         "cargoLock": null,
@@ -171,11 +171,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-mFUr15STpzEjiRp+7Tym/QRTKz7CHkVpUor1x1tsHTg=",
+            "sha256": "sha256-KEU9lfjTWRPjeJ0Q2qK1vLuCqmzMXwe7Zr12TuGHAgE=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.145.0/codex-aarch64-unknown-linux-musl.zst"
+            "url": "https://github.com/openai/codex/releases/download/rust-v0.146.0/codex-aarch64-unknown-linux-musl.zst"
         },
-        "version": "0.145.0"
+        "version": "0.146.0"
     },
     "create-tauri-app": {
         "cargoLock": {
@@ -362,11 +362,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-LsdNQwmQ2FP/VVSAwBdwQVp5v4mH4zVvfkL/s3kaU6s=",
+            "sha256": "sha256-RCkOqVJEQ19EfJ2xDMhl3kCtCPiwn0YDuAfWu0YtO+s=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.29.2.tgz"
+            "url": "https://registry.npmjs.org/@moonshot-ai/kimi-code/-/kimi-code-0.30.0.tgz"
         },
-        "version": "0.29.2"
+        "version": "0.30.0"
     },
     "kwok": {
         "cargoLock": null,
@@ -398,11 +398,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-z6c7vc+1ho39u0Jy0sN2ICFzr8bPLEojs0yJrhklJ00=",
+            "sha256": "sha256-54QfvPM/3LVD3unR05I+vHY267rgo4x9Cm85xDtLQ8w=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-darwin-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.8/omp-darwin-x64"
         },
-        "version": "v17.1.7"
+        "version": "v17.1.8"
     },
     "oh-my-pi-bin-amd64-linux": {
         "cargoLock": null,
@@ -413,11 +413,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-M74CMt6P/01UIFjWZu4VzxVKZgCSJX1L+z/qi8f59uA=",
+            "sha256": "sha256-fuN/oqzcRh/ihvdn51OTp7rCUA/2ODuGNxQSH3PWEOQ=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-linux-x64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.8/omp-linux-x64"
         },
-        "version": "v17.1.7"
+        "version": "v17.1.8"
     },
     "oh-my-pi-bin-arm64-darwin": {
         "cargoLock": null,
@@ -428,11 +428,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-o+VmiB3/86MHyWDXs+/97JT/cjaiXoF0w9hiQtYtw8Y=",
+            "sha256": "sha256-rB28gk78oCAreURSEDUTvvDAb+gDTJJI2r1dI/SCDXM=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-darwin-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.8/omp-darwin-arm64"
         },
-        "version": "v17.1.7"
+        "version": "v17.1.8"
     },
     "oh-my-pi-bin-arm64-linux": {
         "cargoLock": null,
@@ -443,11 +443,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-o2Ty2H+GNKjvAtdl36MGHES+hC+Alx40rn35A1muJ+M=",
+            "sha256": "sha256-wteeLk1mW1S73PehdKiSsDRs4bY6StX4v+lcXsgou2Y=",
             "type": "url",
-            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.7/omp-linux-arm64"
+            "url": "https://github.com/can1357/oh-my-pi/releases/download/v17.1.8/omp-linux-arm64"
         },
-        "version": "v17.1.7"
+        "version": "v17.1.8"
     },
     "pi-agent": {
         "cargoLock": null,
