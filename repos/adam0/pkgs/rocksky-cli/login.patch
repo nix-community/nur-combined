@@ -1,0 +1,90 @@
+--- a/src/cmd/login.ts
++++ b/src/cmd/login.ts
+@@ -1,40 +1,32 @@
+ import axios from "axios";
+ import chalk from "chalk";
+-import cors from "cors";
+-import express, { Request, Response } from "express";
+ import fs from "fs/promises";
+ import open from "open";
+ import os from "os";
+ import path from "path";
+ 
+-export async function login(handle: string): Promise<void> {
+-  const app = express();
+-  app.use(cors());
+-  app.use(express.json());
+-
+-  const server = app.listen(6996);
+-
+-  app.post("/token", async (req: Request, res: Response) => {
+-    console.log(chalk.bold(chalk.greenBright("Login successful!\n")));
+-    console.log(
+-      "You can use this session key (Token) to authenticate with the API."
+-    );
+-    console.log("Received token (session key):", chalk.green(req.body.token));
+-
+-    const tokenPath = path.join(os.homedir(), ".rocksky", "token.json");
+-    await fs.mkdir(path.dirname(tokenPath), { recursive: true });
+-    await fs.writeFile(
+-      tokenPath,
+-      JSON.stringify({ token: req.body.token }, null, 2)
+-    );
+-
+-    res.json({
+-      ok: 1,
+-    });
++const sleep = (milliseconds: number) =>
++  new Promise((resolve) => setTimeout(resolve, milliseconds));
+ 
+-    server.close();
+-  });
++async function waitForToken(did: string): Promise<string> {
++  for (let attempt = 0; attempt < 150; attempt++) {
++    try {
++      const response = await axios.get("https://api.rocksky.app/token", {
++        headers: { "session-did": did },
++      });
++      const token = response.data.token;
++      if (typeof token === "string" && token) return token;
++    } catch (error) {
++      if (!axios.isAxiosError(error) || error.response?.status !== 401) {
++        throw error;
++      }
++    }
++    await sleep(2000);
++  }
++  throw new Error("Login timed out after 5 minutes");
++}
+ 
++export async function login(handle: string): Promise<void> {
+   const response = await axios.post("https://api.rocksky.app/login", {
+     handle,
+     cli: true,
+@@ -44,12 +36,24 @@
+ 
+   if (!redirectUrl.includes("authorize")) {
+     console.error("Failed to login, please check your handle and try again.");
+-    server.close();
+     return;
+   }
+ 
++  const identity = await axios.get(
++    "https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle",
++    { params: { handle } }
++  );
++
+   console.log("Please visit this URL to authorize the app:");
+   console.log(chalk.cyan(redirectUrl));
+ 
+-  open(redirectUrl);
++  await open(redirectUrl);
++  console.log("Waiting for authorization in your browser...");
++
++  const token = await waitForToken(identity.data.did);
++  const tokenPath = path.join(os.homedir(), ".rocksky", "token.json");
++  await fs.mkdir(path.dirname(tokenPath), { recursive: true });
++  await fs.writeFile(tokenPath, JSON.stringify({ token }, null, 2));
++
++  console.log(chalk.bold(chalk.greenBright("Login successful!")));
+ }

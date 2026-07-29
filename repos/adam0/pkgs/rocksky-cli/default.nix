@@ -27,6 +27,8 @@ in
       hash = "sha256-6e3+09y4Bwxy68ojRa5RKoElSRsHdl6PhPL9gRZwi6s=";
     };
 
+    patches = [./login.patch];
+
     sourceRoot = "${src.name}/apps/cli";
 
     npmDepsHash = "sha256-DsrVGZiSZjTMJUd1SqCrEyd/guVZL68qGXapWzSIcOw=";
@@ -47,6 +49,13 @@ in
     postInstall = lib.optionalString stdenv.isLinux ''
       wrapProgram $out/bin/rocksky \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxDeps}
+    '';
+
+    doInstallCheck = true;
+    installCheckPhase = ''
+      export HOME="$TMPDIR"
+      $out/bin/rocksky --version
+      $out/bin/rocksky whoami 2>&1 | grep -F "not logged in"
     '';
 
     passthru.updateScript = null;
