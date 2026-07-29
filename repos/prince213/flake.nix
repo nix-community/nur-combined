@@ -24,12 +24,22 @@
         overlays.default = import ./pkgs/top-level/all-packages.nix;
       };
       perSystem =
-        { pkgs, ... }:
+        {
+          system,
+          lib,
+          pkgs,
+          ...
+        }:
         let
           overlay = self.overlays.default;
         in
         {
-          packages = overlay (pkgs.extend overlay) pkgs;
+          packages = lib.filterAttrs (_: lib.meta.availableOn { inherit system; }) (
+            lib.removeAttrs (overlay (pkgs.extend overlay) pkgs) [
+              "linuxKernel"
+              "pythonPackagesExtensions"
+            ]
+          );
           legacyPackages = pkgs.extend overlay;
 
           treefmt = {

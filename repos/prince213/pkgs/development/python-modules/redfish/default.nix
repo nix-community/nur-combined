@@ -54,7 +54,7 @@ buildPythonPackage (finalAttrs: {
     description = "Library for interacting with devices that support a Redfish service";
     homepage = "https://github.com/DMTF/python-redfish-library";
     downloadPage = "https://github.com/DMTF/python-redfish-library/releases";
-    changelog = "https://github.com/DMTF/python-redfish-library/releases/tag/${finalAttrs.version}";
+    changelog = "https://github.com/DMTF/python-redfish-library/blob/${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ prince213 ];
   };
