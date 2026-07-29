@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
 buildGoModule (finalAttrs: {
   pname = "bugjour";
@@ -24,6 +25,19 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    help =
+      runCommand "test-bugjour-help"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          bugjour --help
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Detecting Apple Bonjour hostname conflicts…";

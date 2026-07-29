@@ -3,8 +3,10 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  jq,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unpoller-dashboards";
   version = "0-unstable-2026-06-15";
 
@@ -48,10 +50,25 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    json =
+      runCommand "test-unpoller-dashboards-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.influxdb} ${finalAttrs.finalPackage.prometheus} -name '*.json')
+          [ "''${#files[@]}" -gt 0 ]
+          jq --exit-status . "''${files[@]}" >/dev/null
+          touch $out
+        '';
+  };
+
   meta = {
     description = "UniFi Poller Grafana Dashboards";
     homepage = "https://github.com/unpoller/dashboards";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

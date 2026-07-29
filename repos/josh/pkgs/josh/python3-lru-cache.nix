@@ -18,6 +18,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
   pyproject = true;
   __structuredAttrs = true;
 
+  pythonImportsCheck = [ "lru_cache" ];
+
   build-system = with python3Packages; [
     hatchling
   ];

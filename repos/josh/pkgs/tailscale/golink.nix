@@ -2,7 +2,6 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  nix-update-script,
   runCommand,
 }:
 buildGoModule (finalAttrs: {
@@ -24,7 +23,8 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  # TODO: re-enable once the update job's go is >= 1.26.5 (upstream go.mod requirement)
+  # passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
     help = runCommand "test-golink-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''

@@ -44,7 +44,7 @@ def main(
         raise click.UsageError("filename is required")
 
     with open(filename, "r") as f:
-        content = f.read()
+        original_content = content = f.read()
 
     if not nix_pname:
         nix_pname = os.path.basename(filename).removesuffix(".nix")
@@ -83,6 +83,10 @@ def main(
         commit_message = f"{nix_pname}: {nix_old_version} -> {version}"
     else:
         commit_message = f"{nix_pname}: {version}"
+
+    if content == original_content:
+        log(f"{filename} already up to date")
+        return
 
     if dry_run:
         log(f"cat >{filename} <<EOF")

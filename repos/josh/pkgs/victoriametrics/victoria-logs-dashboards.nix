@@ -3,6 +3,8 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  jq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-logs-dashboards";
@@ -35,6 +37,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    json =
+      runCommand "test-victoria-logs-dashboards-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.prometheus} ${finalAttrs.finalPackage.vm} -name '*.json')
+          [ "''${#files[@]}" -gt 0 ]
+          jq --exit-status . "''${files[@]}" >/dev/null
+          touch $out
+        '';
+  };
 
   meta = {
     description = "VictoriaLogs Grafana Dashboards";

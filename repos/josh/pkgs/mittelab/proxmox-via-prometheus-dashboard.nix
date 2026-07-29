@@ -3,8 +3,10 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  jq,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proxmox-via-prometheus-dashboard";
   version = "0-unstable-2023-04-25";
 
@@ -34,10 +36,25 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    json =
+      runCommand "test-proxmox-via-prometheus-dashboard-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          readarray -t files < <(find ${finalAttrs.finalPackage} ${finalAttrs.finalPackage.prometheus} -name '*.json')
+          [ "''${#files[@]}" -gt 0 ]
+          jq --exit-status . "''${files[@]}" >/dev/null
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Grafana Dashboard for Proxmox using Prometheus";
     homepage = "https://github.com/mittelab/proxmox-via-prometheus-dashboard";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

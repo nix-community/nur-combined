@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nix-update-script,
   testers,
+  runCommand,
   age,
   jq,
   opentofu,
@@ -48,6 +49,11 @@ buildGoModule (finalAttrs: {
         package = tofu-age-encryption;
         inherit (finalAttrs) version;
       };
+
+      age-path = runCommand "test-tofu-age-encryption-age-path" { } ''
+        grep --text --quiet "${lib.strings.makeBinPath finalAttrs.agePlugins}" "${lib.getExe tofu-age-encryption}"
+        touch $out
+      '';
     };
 
   meta = {

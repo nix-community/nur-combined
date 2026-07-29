@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   openssl,
+  runCommand,
 }:
 buildGoModule (finalAttrs: {
   pname = "age-plugin-tpm";
@@ -29,6 +30,19 @@ buildGoModule (finalAttrs: {
   ];
 
   doCheck = false;
+
+  passthru.tests = {
+    help =
+      runCommand "test-age-plugin-tpm-help"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          age-plugin-tpm --help
+          touch $out
+        '';
+  };
 
   meta = {
     description = "TPM 2.0 plugin for age (This software is experimental, use it at your own risk)";

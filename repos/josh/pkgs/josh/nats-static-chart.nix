@@ -3,7 +3,7 @@
   stdenvNoCC,
   nur,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nats-static-chart";
   inherit (nur.repos.josh.nats-static) version src;
 
@@ -12,10 +12,21 @@ stdenvNoCC.mkDerivation {
     cp -R $src/charts/nats-static/* $out/
   '';
 
+  passthru.tests = {
+    render = nur.repos.josh.renderHelmTemplate {
+      src = finalAttrs.finalPackage;
+      chartName = "nats-static";
+    };
+    images = nur.repos.josh.checkKubeImages {
+      src = finalAttrs.passthru.tests.render;
+      inherit (finalAttrs) pname version;
+    };
+  };
+
   meta = {
     description = "A Helm chart for nats-static";
     homepage = "https://github.com/josh/nats-static/tree/main/charts/nats-static";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

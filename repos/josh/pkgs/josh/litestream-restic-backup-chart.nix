@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  nur,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "litestream-restic-backup-chart";
@@ -21,6 +22,21 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    render = nur.repos.josh.renderHelmTemplate {
+      src = finalAttrs.finalPackage;
+      chartName = "litestream-restic-backup";
+      helmValues = {
+        litestream.replicaURL = "s3://backup-bucket/db";
+        restic.repository = "s3:https://s3.example.com/restic";
+      };
+    };
+    images = nur.repos.josh.checkKubeImages {
+      src = finalAttrs.passthru.tests.render;
+      inherit (finalAttrs) pname version;
+    };
+  };
 
   meta = {
     description = "A Helm chart for litestream-restic-backup";

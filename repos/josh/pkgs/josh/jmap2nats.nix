@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
 buildGoModule (finalAttrs: {
   pname = "jmap2nats";
@@ -23,6 +24,19 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    help =
+      runCommand "test-jmap2nats-help"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          jmap2nats --help
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Bridge JMAP email push events to NATS JetStream";

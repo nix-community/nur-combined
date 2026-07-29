@@ -3,8 +3,10 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
+  jq,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rfmoz-grafana-dashboards";
   version = "0-unstable-2026-07-09";
 
@@ -26,10 +28,25 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    json =
+      runCommand "test-rfmoz-grafana-dashboards-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          readarray -t files < <(find ${finalAttrs.finalPackage} -name '*.json')
+          [ "''${#files[@]}" -gt 0 ]
+          jq --exit-status . "''${files[@]}" >/dev/null
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Grafana dashboards";
     homepage = "https://github.com/rfmoz/grafana-dashboards";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
-}
+})

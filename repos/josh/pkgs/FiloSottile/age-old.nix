@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
+  testers,
 }:
 buildGoModule (finalAttrs: {
   pname = "age";
@@ -30,6 +31,13 @@ buildGoModule (finalAttrs: {
   '';
 
   doCheck = false;
+
+  passthru.tests = {
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      version = "v${finalAttrs.version}";
+    };
+  };
 
   meta = {
     changelog = "https://github.com/FiloSottile/age/releases/tag/v${finalAttrs.version}";

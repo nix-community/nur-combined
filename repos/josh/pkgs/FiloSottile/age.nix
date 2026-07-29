@@ -3,6 +3,8 @@
   buildGoModule,
   fetchFromGitHub,
   installShellFiles,
+  runCommand,
+  testers,
 }:
 buildGoModule (finalAttrs: {
   pname = "age";
@@ -30,6 +32,28 @@ buildGoModule (finalAttrs: {
   '';
 
   doCheck = false;
+
+  passthru.tests = {
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      version = "v${finalAttrs.version}";
+    };
+
+    roundtrip =
+      runCommand "test-age-roundtrip"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          echo hello nix >message.txt
+          age-keygen -o key.txt
+          age --encrypt --identity key.txt --output message.txt.age message.txt
+          age --decrypt --identity key.txt --output decrypted.txt message.txt.age
+          cmp message.txt decrypted.txt
+          touch $out
+        '';
+  };
 
   meta = {
     changelog = "https://github.com/FiloSottile/age/releases/tag/v${finalAttrs.version}";

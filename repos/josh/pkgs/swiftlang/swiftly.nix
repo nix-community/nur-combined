@@ -10,6 +10,7 @@
   stdenv,
   stdenvNoCC,
   runCommand,
+  testers,
   fetchurl,
   autoPatchelfHook,
   zlib,
@@ -48,16 +49,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.tests = {
-    version =
-      runCommand "test-swiftly-version"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          swiftly --version
-          touch $out
-        '';
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      inherit (finalAttrs) version;
+    };
 
     help =
       runCommand "test-swiftly-help"

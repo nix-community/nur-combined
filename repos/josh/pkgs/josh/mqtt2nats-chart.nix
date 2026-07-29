@@ -3,7 +3,7 @@
   stdenvNoCC,
   nur,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mqtt2nats-chart";
   inherit (nur.repos.josh.mqtt2nats) version src;
 
@@ -12,10 +12,21 @@ stdenvNoCC.mkDerivation {
     cp -R $src/charts/mqtt2nats/* $out/
   '';
 
+  passthru.tests = {
+    render = nur.repos.josh.renderHelmTemplate {
+      src = finalAttrs.finalPackage;
+      chartName = "mqtt2nats";
+    };
+    images = nur.repos.josh.checkKubeImages {
+      src = finalAttrs.passthru.tests.render;
+      inherit (finalAttrs) pname version;
+    };
+  };
+
   meta = {
     description = "A Helm chart for mqtt2nats";
     homepage = "https://github.com/josh/mqtt2nats/tree/main/charts/mqtt2nats";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

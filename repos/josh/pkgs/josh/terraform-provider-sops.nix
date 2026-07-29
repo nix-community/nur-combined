@@ -3,6 +3,7 @@
   terraform-providers,
   sops,
   nix-update-script,
+  runCommand,
 }:
 let
   pkg = terraform-providers.mkProvider {
@@ -17,7 +18,7 @@ let
   };
 in
 pkg.overrideAttrs (
-  _finalAttrs: previousAttrs: {
+  finalAttrs: previousAttrs: {
     ldflags = previousAttrs.ldflags ++ [ "-X main.sopsBinary=${lib.getExe sops}" ];
     passthru = previousAttrs.passthru // {
       updateScript = nix-update-script {
@@ -26,6 +27,14 @@ pkg.overrideAttrs (
           "--override-filename"
           "pkgs/josh/terraform-provider-sops.nix"
         ];
+      };
+
+      tests = {
+        sops-path = runCommand "test-terraform-provider-sops-sops-path" { } ''
+          grep --text --quiet "${lib.getExe sops}" \
+            ${finalAttrs.finalPackage}/libexec/terraform-providers/*/*/*/*/*/terraform-provider-sops_*
+          touch $out
+        '';
       };
     };
   }

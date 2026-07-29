@@ -3,6 +3,7 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
 buildGoModule (finalAttrs: {
   pname = "ceph-mgr-ts-gateway";
@@ -24,6 +25,19 @@ buildGoModule (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    help =
+      runCommand "test-ceph-mgr-ts-gateway-help"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ finalAttrs.finalPackage ];
+        }
+        ''
+          ceph-mgr-ts-gateway --help
+          touch $out
+        '';
+  };
 
   meta = {
     description = "Ceph Manager Tailscale Gateway";

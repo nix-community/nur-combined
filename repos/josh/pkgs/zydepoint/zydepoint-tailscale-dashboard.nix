@@ -2,8 +2,10 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  runCommand,
+  jq,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zydepoint-tailscale-dashboard";
   version = "0-unstable-2025-02-09";
 
@@ -30,10 +32,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    json =
+      runCommand "test-zydepoint-tailscale-dashboard-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          jq --exit-status . ${finalAttrs.finalPackage}/tailscale.json >/dev/null
+          jq --exit-status . ${finalAttrs.finalPackage.prometheus} >/dev/null
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Tailscale traffic with Grafana";
     homepage = "https://github.com/Zydepoint/Tailscale-dashboard";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

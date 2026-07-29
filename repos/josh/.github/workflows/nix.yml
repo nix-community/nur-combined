@@ -6,7 +6,6 @@ on:
 
 env:
   NIX_ABORT_ON_WARN: "1"
-  NIXPKGS_ALLOW_UNFREE: "1"
 
 jobs:
   build:

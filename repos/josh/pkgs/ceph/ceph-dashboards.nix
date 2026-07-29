@@ -2,8 +2,11 @@
   lib,
   stdenvNoCC,
   ceph,
+  jq,
+  prometheus,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ceph-dashboards";
   inherit (ceph) version src;
 
@@ -13,9 +16,35 @@ stdenvNoCC.mkDerivation {
     cp ./monitoring/ceph-mixin/prometheus_alerts.yml $out/alerts/ceph_alerts.yml
   '';
 
+  passthru.tests = {
+    json =
+      runCommand "test-ceph-dashboards-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          readarray -t files < <(find ${finalAttrs.finalPackage} -name '*.json')
+          [ "''${#files[@]}" -gt 0 ]
+          jq --exit-status . "''${files[@]}" >/dev/null
+          touch $out
+        '';
+
+    alerts =
+      runCommand "test-ceph-dashboards-alerts"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ prometheus.cli ];
+        }
+        ''
+          promtool check rules ${finalAttrs.finalPackage}/alerts/ceph_alerts.yml
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Ceph Grafana Dashboards";
     inherit (ceph.meta) homepage license;
     platforms = lib.platforms.all;
   };
-}
+})

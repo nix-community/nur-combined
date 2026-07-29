@@ -1,5 +1,6 @@
 {
   fetchFromGitHub,
+  runCommand,
   writeText,
   offlineimap,
 }:
@@ -19,7 +20,7 @@ let
   '';
 in
 offlineimap.overrideAttrs (
-  _finalAttrs: _previousAttrs: {
+  finalAttrs: previousAttrs: {
     version = "8.0.3";
 
     src = fetchFromGitHub {
@@ -30,5 +31,14 @@ offlineimap.overrideAttrs (
     };
 
     patches = [ no-install-requires-patch ];
+
+    passthru = previousAttrs.passthru // {
+      tests = {
+        help = runCommand "test-offlineimap-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
+          offlineimap --help
+          touch $out
+        '';
+      };
+    };
   }
 )

@@ -4,6 +4,7 @@
   python3Packages,
   runCommand,
   nix-update-script,
+  testers,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-data";
@@ -32,7 +33,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    # TODO: Add --version test
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      version = lib.lists.head (lib.strings.splitString "-unstable-" finalAttrs.version);
+    };
 
     help =
       runCommand "test-trakt-data-help"

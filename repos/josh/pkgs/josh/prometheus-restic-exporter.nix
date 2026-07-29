@@ -61,6 +61,11 @@ buildGoModule (finalAttrs: {
           restic-exporter --help
           touch $out
         '';
+
+    restic-path = runCommand "test-prometheus-restic-exporter-restic-path" { } ''
+      grep --text --quiet "${lib.getExe restic}" "${lib.getExe finalAttrs.finalPackage}"
+      touch $out
+    '';
   };
 
   meta = {
