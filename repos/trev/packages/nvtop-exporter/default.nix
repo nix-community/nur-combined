@@ -24,6 +24,10 @@ buildPythonPackage (final: {
     hash = "sha256-89bsdstpFwt5MgW4Bbvt3+kPvzW7CYFCw0d+xtR6Xho=";
   };
 
+  postPatch = ''
+    sed -i 's/requires = \["uv_build[^"]*"]/requires = ["uv_build"]/' pyproject.toml
+  '';
+
   build-system = [
     setuptools
     uv-build-latest
