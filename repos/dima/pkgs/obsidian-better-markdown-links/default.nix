@@ -1,33 +1,19 @@
 { pkgs }:
 let
-	version = "3.3.1";
-
-	betterMarkDownLinks = pkgs.fetchFromGitHub {
-		owner = "mnaoumov";
-		repo = "obsidian-better-markdown-links";
-		rev = version;
-		hash = "sha256-4LzHsraZSjmApHH0tb7WRqNwSoU90lD6y9Q3GTc+xVg=";
-	};
-
-	patchedSrc = pkgs.stdenv.mkDerivation {
-		pname = "obsidian-better-markdown-links-patched";
-		version = version;
-		src = betterMarkDownLinks;
-		patches = [ ./fix-lockfile.patch ./skip-lib-check.patch ];
-
-		installPhase = ''
-			mkdir -p $out
-			cp -r . $out
-		'';
-	};
+	version = "4.1.6";
 in
 	pkgs.buildNpmPackage {
 		pname = "obsidian-better-markdown-links";
 		version = version;
 
-		src = patchedSrc;
+		src = pkgs.fetchFromGitHub {
+			owner = "mnaoumov";
+			repo = "obsidian-better-markdown-links";
+			rev = version;
+			hash = "sha256-pgmhkay6uoBA2CTJfgrcfF+AHLLQkdZ4O5p81t+y4VE=";
+		};
 
-		npmDepsHash = "sha256-FCgjBLjEN+7d+N5EOX2Fc81rjz5Q7JjXHnWPlAPkYrM=";
+		npmDepsHash = "sha256-JFx0HTJawbD97U/IoYhD8TLCEirFRcuAa0Z68e5ImV8=";
 
 		ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 		NODE_OPTIONS = "--openssl-legacy-provider";
