@@ -2,7 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  go,
+  nix-update-script,
   runCommand,
 }:
 buildGoModule (finalAttrs: {
@@ -24,8 +24,7 @@ buildGoModule (finalAttrs: {
     "-w"
   ];
 
-  # TODO: re-enable once nixpkgs has go 1.26
-  # passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
     help = runCommand "test-golink-help" { nativeBuildInputs = [ finalAttrs.finalPackage ]; } ''
@@ -39,6 +38,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/tailscale/golink";
     license = lib.licenses.bsd3;
     mainProgram = "golink";
-    broken = lib.strings.versionOlder go.version "1.25.1";
   };
 })

@@ -16,7 +16,10 @@ writeShellApplication {
 
   text = ''
     TMPDIR=$(mktemp -d)
+    trap 'rm -rf "$TMPDIR"' EXIT
     export HELM_CACHE_HOME=$TMPDIR/cache
+    export HELM_CONFIG_HOME=$TMPDIR/config
+    export HELM_DATA_HOME=$TMPDIR/data
 
     mkdir -p "$TMPDIR/out"
     helm pull "$@" --destination "$TMPDIR/out" --untar >&2
