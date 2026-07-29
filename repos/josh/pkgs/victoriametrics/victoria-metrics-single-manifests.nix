@@ -1,9 +1,9 @@
 {
   lib,
   stdenvNoCC,
+  nur,
   kubernetes-helm,
   yq,
-  nur,
 }:
 stdenvNoCC.mkDerivation {
   pname = "victoria-metrics-single-manifests";

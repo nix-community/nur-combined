@@ -8,6 +8,9 @@ python3Packages.buildPythonPackage (finalAttrs: {
   pname = "lru-cache";
   version = "1.0.2";
 
+  pyproject = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "josh";
     repo = "lru-cache-python";
@@ -15,16 +18,13 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-p+pQdBBRxWwyymvWUtvcs3dVAuyE+nAzZj1jAi8tKFk=";
   };
 
-  pyproject = true;
-  __structuredAttrs = true;
-
-  pythonImportsCheck = [ "lru_cache" ];
-
   build-system = with python3Packages; [
     hatchling
   ];
 
   nativeCheckInputs = [ python3Packages.pytestCheckHook ];
+
+  pythonImportsCheck = [ "lru_cache" ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 

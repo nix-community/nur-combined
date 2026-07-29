@@ -1,13 +1,16 @@
 {
   lib,
-  fetchFromGitHub,
   python3Packages,
-  runCommand,
+  fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gametrack-data";
   version = "2.0.2";
+
+  pyproject = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -15,9 +18,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-Qsd/KSbKSt62I5o7LgL2+ibZBAjKPTY5NiqCNemLcC8=";
   };
-
-  pyproject = true;
-  __structuredAttrs = true;
 
   build-system = with python3Packages; [
     hatchling

@@ -9,11 +9,13 @@
   lib,
   stdenv,
   stdenvNoCC,
-  runCommand,
-  testers,
   fetchurl,
+
   autoPatchelfHook,
   zlib,
+
+  runCommand,
+  testers,
 }:
 let
   version = "0.3.0";
@@ -29,10 +31,11 @@ let
   };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  __structuredAttrs = true;
-
   pname = "swiftly";
   inherit version;
+
+  __structuredAttrs = true;
+
   src = sources.${stdenvNoCC.hostPlatform.system};
   dontUnpack = true;
   nativeBuildInputs = [

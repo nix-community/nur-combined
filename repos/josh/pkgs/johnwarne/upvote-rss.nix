@@ -2,8 +2,8 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  nix-update-script,
   php,
+  nix-update-script,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "upvote-rss";

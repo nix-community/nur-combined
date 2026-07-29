@@ -1,7 +1,7 @@
 {
   lib,
-  fetchFromGitHub,
   stdenvNoCC,
+  fetchFromGitHub,
   nix-update-script,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {

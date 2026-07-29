@@ -5,10 +5,10 @@
   nix-update-script,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  __structuredAttrs = true;
-
   pname = "local-path-provisioner-manifests";
   version = "0.0.36";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "rancher";

@@ -1,12 +1,14 @@
 {
   lib,
-  fetchFromGitHub,
-  runCommand,
   swiftPackages,
+  fetchFromGitHub,
+
+  coreutils,
   swift,
   swiftpm,
-  coreutils,
+
   nix-update-script,
+  runCommand,
   testers,
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {

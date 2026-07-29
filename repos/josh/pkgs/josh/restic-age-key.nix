@@ -2,14 +2,16 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+
+  age,
+  jq,
+  rclone,
+  restic,
+  tinyxxd,
+
   nix-update-script,
   runCommand,
   testers,
-  age,
-  jq,
-  restic,
-  rclone,
-  tinyxxd,
 }:
 buildGoModule (finalAttrs: {
   pname = "restic-age-key";

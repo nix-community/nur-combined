@@ -1,11 +1,8 @@
 {
   lib,
   stdenv,
+  fetchFromGitHub,
   fetchurl,
-  fetchpatch,
-  runCommandCC,
-  writeText,
-  ceph,
 
   # Build tools
   autoconf,
@@ -21,18 +18,18 @@
   # Dependencies
   boost187,
   bzip2,
+  ceph,
   curl,
-  fetchFromGitHub,
-  openssl,
   gtest,
   icu,
   lmdb,
   lua5_4,
   lz4,
-  nss,
   nspr,
+  nss,
   oath-toolkit,
   openldap,
+  openssl,
   rocksdb,
   snappy,
   sqlite,
@@ -43,8 +40,8 @@
   # Linux only
   babeltrace,
   gnugrep,
-  kmod,
   keyutils,
+  kmod,
   libcap,
   libcap_ng,
   libnl,
@@ -59,6 +56,10 @@
 
   # Darwin only
   apple-sdk,
+
+  fetchpatch,
+  runCommandCC,
+  writeText,
 }:
 
 let

@@ -5,10 +5,10 @@
   nix-update-script,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  __structuredAttrs = true;
-
   pname = "external-snapshotter-manifests";
   version = "8.6.0";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "kubernetes-csi";

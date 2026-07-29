@@ -5,10 +5,10 @@
   nix-update-script,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  __structuredAttrs = true;
-
   pname = "argo-cd-manifests";
   version = "3.4.5";
+
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "argoproj";

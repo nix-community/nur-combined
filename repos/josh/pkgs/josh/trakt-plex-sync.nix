@@ -1,7 +1,7 @@
 {
   lib,
-  fetchFromGitHub,
   python3Packages,
+  fetchFromGitHub,
   nur,
   nix-update-script,
 }:
@@ -9,15 +9,15 @@ python3Packages.buildPythonApplication (_finalAttrs: {
   pname = "trakt-plex-sync";
   version = "0.2.0-unstable-2026-07-23";
 
+  pyproject = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "josh";
     repo = "trakt-plex-sync";
     rev = "10019ab745f5a5c085909b843bb8bd049d498639";
     hash = "sha256-h4v4q8oOjto54ztE5HBExrQ1hTXw4az0MewWdpjg8Pg=";
   };
-
-  pyproject = true;
-  __structuredAttrs = true;
 
   build-system = with python3Packages; [
     hatchling

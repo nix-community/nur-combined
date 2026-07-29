@@ -2,10 +2,12 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  makeWrapper,
+
   bash,
+  makeWrapper,
   perl,
   python3,
+
   nix-update-script,
   runCommand,
 }:
@@ -25,6 +27,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   __structuredAttrs = true;
 
+  nativeBuildInputs = [
+    makeWrapper
+    bash
+    perl
+    venv
+  ];
+
   makeWrapperArgs = [
     "--prefix"
     "PATH"
@@ -34,13 +43,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       perl
       venv
     ])
-  ];
-
-  nativeBuildInputs = [
-    makeWrapper
-    bash
-    perl
-    venv
   ];
 
   buildCommand = ''

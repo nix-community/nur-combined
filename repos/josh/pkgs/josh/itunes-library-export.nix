@@ -1,11 +1,11 @@
 {
   lib,
-  fetchFromGitHub,
-  runCommand,
   swiftPackages,
+  fetchFromGitHub,
   swift,
   swiftpm,
   nix-update-script,
+  runCommand,
 }:
 swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "itunes-library-export";

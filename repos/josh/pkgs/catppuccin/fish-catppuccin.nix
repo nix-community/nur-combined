@@ -1,10 +1,10 @@
 {
   lib,
   fishPlugins,
-  writeText,
   fetchFromGitHub,
   catppuccin-whiskers,
   nix-update-script,
+  writeText,
 }:
 let
   fishTerra = writeText "fish.terra" ''

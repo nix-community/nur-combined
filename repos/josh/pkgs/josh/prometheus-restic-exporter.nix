@@ -18,6 +18,11 @@ buildGoModule (finalAttrs: {
     hash = "sha256-1RjiKFYTUYq3csV34z2BEEgJa4UxOi/7e0LC3QJYPNY=";
   };
 
+  outputs = [
+    "out"
+    "grafana"
+  ];
+
   vendorHash = "sha256-6av04F+ViJyS9Or4Dx6iGPCSxNBs8Kmj9T9U6TD+P/g=";
 
   env.CGO_ENABLED = 0;
@@ -31,11 +36,6 @@ buildGoModule (finalAttrs: {
 
   nativeCheckInputs = [
     restic
-  ];
-
-  outputs = [
-    "out"
-    "grafana"
   ];
 
   postInstall = ''

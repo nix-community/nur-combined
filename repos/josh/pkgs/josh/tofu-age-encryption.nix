@@ -2,12 +2,14 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  nix-update-script,
-  testers,
-  runCommand,
+
   age,
   jq,
   opentofu,
+
+  nix-update-script,
+  runCommand,
+  testers,
 }:
 buildGoModule (finalAttrs: {
   pname = "tofu-age-encryption";

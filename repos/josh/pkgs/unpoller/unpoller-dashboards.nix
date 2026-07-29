@@ -2,9 +2,9 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  jq,
   nix-update-script,
   runCommand,
-  jq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unpoller-dashboards";

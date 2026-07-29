@@ -2,8 +2,8 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  runCommand,
   nix-update-script,
+  runCommand,
 }:
 buildGoModule (finalAttrs: {
   pname = "caddy-tailscale";

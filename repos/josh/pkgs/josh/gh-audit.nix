@@ -1,14 +1,17 @@
 {
   lib,
-  fetchFromGitHub,
   python3Packages,
-  runCommand,
+  fetchFromGitHub,
   nix-update-script,
+  runCommand,
   testers,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gh-audit";
   version = "0.2.0-unstable-2026-07-24";
+
+  pyproject = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -16,9 +19,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     rev = "9994cdd4ddf0a03a55c60800b9c45900fad2e88d";
     hash = "sha256-lpIOWp1AJxwJ96YOmSo7F8jb80SWfl7ZQU0Jfll3oB0=";
   };
-
-  pyproject = true;
-  __structuredAttrs = true;
 
   build-system = with python3Packages; [
     setuptools

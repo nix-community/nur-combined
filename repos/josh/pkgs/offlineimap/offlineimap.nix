@@ -1,8 +1,8 @@
 {
   fetchFromGitHub,
+  offlineimap,
   runCommand,
   writeText,
-  offlineimap,
 }:
 let
   no-install-requires-patch = writeText "urlib3.patch" ''

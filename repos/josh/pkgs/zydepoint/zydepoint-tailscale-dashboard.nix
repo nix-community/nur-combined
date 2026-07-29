@@ -2,8 +2,8 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  runCommand,
   jq,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zydepoint-tailscale-dashboard";

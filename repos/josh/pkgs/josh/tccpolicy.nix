@@ -1,11 +1,11 @@
 {
   lib,
-  writeText,
-  fetchFromGitHub,
   swiftPackages,
+  fetchFromGitHub,
+  sqlite,
   swift,
   swiftpm,
-  sqlite,
+  writeText,
 }:
 let
   sqliteModuleMap = writeText "CSQLite.modulemap" ''

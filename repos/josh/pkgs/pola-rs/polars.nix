@@ -1,9 +1,9 @@
 {
   stdenv,
-  runCommand,
   python3Packages,
   jemalloc,
   rust-jemalloc-sys,
+  runCommand,
 }:
 let
   polarsJemalloc = rust-jemalloc-sys.override {

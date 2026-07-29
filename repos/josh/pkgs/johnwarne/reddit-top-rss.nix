@@ -2,9 +2,9 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
-  runCommand,
-  nix-update-script,
   php,
+  nix-update-script,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "reddit-top-rss";
