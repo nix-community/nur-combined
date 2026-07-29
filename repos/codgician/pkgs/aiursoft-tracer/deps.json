@@ -516,28 +516,28 @@
   },
   {
     "pname": "Microsoft.Testing.Extensions.Telemetry",
-    "version": "2.3.2",
-    "hash": "sha256-3TancCfYy7OW9IU6q+zQv/ETlbBbcjxADrWVRQITytc="
+    "version": "2.3.3",
+    "hash": "sha256-Doo1IAwnDlbqyg2Q6p82RuYYAQ7VkJnY4Pn9MDZqCOs="
   },
   {
     "pname": "Microsoft.Testing.Extensions.TrxReport.Abstractions",
-    "version": "2.3.2",
-    "hash": "sha256-MohDLqtLk1K93p1TnvYlaBNetpGoTZSep3xVQho3zb0="
+    "version": "2.3.3",
+    "hash": "sha256-YAgHS3B0LwRvIHer285QuSrYCO5FcSpAXazL5pNHB4Y="
   },
   {
     "pname": "Microsoft.Testing.Extensions.VSTestBridge",
-    "version": "2.3.2",
-    "hash": "sha256-9W4FmGvIfuwHQr3AFrCZ/uLhtJws5erQccw7ydT5yBU="
+    "version": "2.3.3",
+    "hash": "sha256-/UlwUEIwQyNZxdD0jNcV34ZJ20aLe2kWQTvH3LOIHes="
   },
   {
     "pname": "Microsoft.Testing.Platform",
-    "version": "2.3.2",
-    "hash": "sha256-kGOyHXenLNMpWyVTDWDh6/hP3qFtnHI5qIaet1udKWM="
+    "version": "2.3.3",
+    "hash": "sha256-sH0AyrX0ny0JgVkgRLrvPXIKB55pQWAcd5AERYSzF0o="
   },
   {
     "pname": "Microsoft.Testing.Platform.MSBuild",
-    "version": "2.3.2",
-    "hash": "sha256-u0jsv5BU7gSBZlHoy94WlqM0QCJCFbEW1g19RxKn17Q="
+    "version": "2.3.3",
+    "hash": "sha256-JeU3+8OebODA2k6KSorm2P7piuQZRdS1hhJKAwdfSJA="
   },
   {
     "pname": "Microsoft.TestPlatform.ObjectModel",
@@ -566,18 +566,18 @@
   },
   {
     "pname": "MSTest.Analyzers",
-    "version": "4.3.2",
-    "hash": "sha256-mzMMs8H6u2pRnOb6UjA1pwSOKsULx2v18Stvp/cvxj0="
+    "version": "4.3.3",
+    "hash": "sha256-eA2MisarWvwuAdV49WduYclUnC+hWfHaTt359U+CdCg="
   },
   {
     "pname": "MSTest.TestAdapter",
-    "version": "4.3.2",
-    "hash": "sha256-qiXoMftAKNEtN2LFwMd2e8EkBn03RfIk15CljjOuU0A="
+    "version": "4.3.3",
+    "hash": "sha256-JwGx4QTT2v/qKcuGg1PCqA04OnrB4eDVSUSaO6G+TgA="
   },
   {
     "pname": "MSTest.TestFramework",
-    "version": "4.3.2",
-    "hash": "sha256-BQUOSbJd2LE5C4C5yx7MTozHaWxpo5R6mPC6EdzVHVk="
+    "version": "4.3.3",
+    "hash": "sha256-d/KPWV68JuLlVKtwdXtfLG/tBJ/d4WY9DVY1fOBhpzQ="
   },
   {
     "pname": "MySqlConnector",
