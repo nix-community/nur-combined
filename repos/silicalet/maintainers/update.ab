@@ -1,0 +1,37 @@
+// 2> /dev/null; exit 1
+
+let default_packages = [
+    "amber-lsp",
+    "code996",
+    "dnspick",
+    "ghost-downloader-3",
+    "ipgw",
+    "meatshell",
+    "quien",
+    "uipro-cli",
+]
+
+main (args) {
+    let packages = default_packages
+
+    if len(args) == 2 and args[1] == "--list" {
+        for package in packages {
+            echo(package)
+        }
+        exit(0)
+    }
+
+    if len(args) > 1 {
+        packages = [Text]
+        for index, arg in args {
+            if index > 0 {
+                packages += [arg]
+            }
+        }
+    }
+
+    for package in packages {
+        echo("==> Updating {package}")
+        $ nix-update {package} --flake --build --format $?
+    }
+}
