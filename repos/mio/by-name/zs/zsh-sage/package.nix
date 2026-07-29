@@ -6,13 +6,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "zsh-sage";
-  version = "1.0.1";
+  version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "UtsavMandal2022";
     repo = "zsh-sage";
     rev = "refs/tags/v${finalAttrs.version}";
-    hash = "sha256-DEzbj+1qbf6CSDQL0sh4Ib7SoaJSvKKBA05KGDTLTeg=";
+    hash = "sha256-Pa3GLP29hF6rWsLsJBAlVRL8RvdvzZQQl8viWCI2QUc=";
   };
 
   strictDeps = true;
