@@ -27,7 +27,12 @@ in
       hash = "sha256-6e3+09y4Bwxy68ojRa5RKoElSRsHdl6PhPL9gRZwi6s=";
     };
 
-    patches = [./login.patch];
+    patches = [
+      # keep-sorted start
+      ./api.patch
+      ./login.patch
+      # keep-sorted end
+    ];
 
     sourceRoot = "${src.name}/apps/cli";
 
