@@ -19,12 +19,25 @@
   fetchFromGitHub,
   makeWrapper,
   spektrafilmDataPack ? null,
+  darktableAiModels ? null,
   # Enable darktable's ONNX-based AI features (pulls in onnxruntime + libarchive
   # and the USE_AI cmake path). The spektrafilm PR branch keeps darktable's
   # USE_AI option (src/CMakeLists.txt), so it composes normally. Off by default
   # to match nixpkgs; flip with `.override { withAi = true; }`.
   withAi ? false,
 }:
+
+let
+  wrapDataPack = spektrafilmDataPack != null;
+  wrapAiModels = withAi && darktableAiModels != null;
+  wrapperArgs =
+    lib.optionals wrapDataPack [
+      ''--run 'darktable_config_home="''${XDG_CONFIG_HOME:-''${HOME:+$HOME/.config}}"; spektrafilm_pack_dir="$darktable_config_home/darktable/spektrafilm"; if [ -n "$darktable_config_home" ]; then mkdir -p "$darktable_config_home/darktable"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi' ''
+    ]
+    ++ lib.optionals wrapAiModels [
+      ''--run 'darktable_data_home="''${XDG_DATA_HOME:-''${HOME:+$HOME/.local/share}}"; darktable_models_dir="$darktable_data_home/darktable/models"; if [ -n "$darktable_data_home" ]; then mkdir -p "$darktable_data_home/darktable"; if [ -L "$darktable_models_dir" ] || [ ! -e "$darktable_models_dir" ]; then ln -sfn ${darktableAiModels} "$darktable_models_dir"; fi; fi' ''
+    ];
+in
 
 (darktable.override { inherit withAi; }).overrideAttrs (old: {
   pname = "darktable-spektrafilm";
@@ -52,11 +65,11 @@
     "-DPROJECT_VERSION=5.8.0"
   ];
 
-  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optional (spektrafilmDataPack != null) makeWrapper;
+  nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ lib.optional (wrapperArgs != [ ]) makeWrapper;
 
-  postFixup = (old.postFixup or "") + lib.optionalString (spektrafilmDataPack != null) ''
+  postFixup = (old.postFixup or "") + lib.optionalString (wrapperArgs != [ ]) ''
     wrapProgram $out/bin/darktable \
-      --run 'darktable_config_home="''${XDG_CONFIG_HOME:-''${HOME:+$HOME/.config}}"; spektrafilm_pack_dir="$darktable_config_home/darktable/spektrafilm"; if [ -n "$darktable_config_home" ]; then mkdir -p "$darktable_config_home/darktable"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi'
+      ${lib.concatStringsSep " " wrapperArgs}
   '';
 
   # The base derivation greps `darktable --version` for the nix `version`

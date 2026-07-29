@@ -45,6 +45,8 @@ let
     pkgs.callPackage ./pkgs/darktable-spektrafilm/data-pack.nix {
       spektrafilm = spektrafilm-pkgs.python3Packages.spektrafilm;
     };
+  darktableAiModels =
+    pkgs.callPackage ./pkgs/darktable-spektrafilm/ai-models.nix { };
   spektrafilm-art = (pkgs.art.overrideAttrs (oldAttrs: {
     version = "1.26.6";
     src = pkgs.fetchFromGitHub {
@@ -85,7 +87,7 @@ let
   }));
   darktableSpektrafilm =
     pkgsDarktable.callPackage ./pkgs/darktable-spektrafilm/darktable-spektrafilm.nix {
-      inherit spektrafilmDataPack;
+      inherit spektrafilmDataPack darktableAiModels;
     };
 in
 {
@@ -104,6 +106,5 @@ in
   # darktable AI models (denoise/upscale/object-masking), bundled for offline
   # use since the fork's 5.8.0 version has no auto-download match. Link into
   # ~/.local/share/darktable/models. Override `models` to pick a different set.
-  darktable-ai-models =
-    pkgs.callPackage ./pkgs/darktable-spektrafilm/ai-models.nix { };
+  darktable-ai-models = darktableAiModels;
 }
