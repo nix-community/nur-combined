@@ -38,7 +38,7 @@ final: prev: {
     (pyself: pysuper: {
       lancedb = pysuper.lancedb.overridePythonAttrs (prevAttrs: {
         postPatch = (prevAttrs.postPatch or "") + ''
-          for f in $cargoDepsCopy/source-registry-0/lance-linalg-6.0.0/src/distance/{cosine_u8.rs,dot_u8.rs,l2_u8.rs}; do
+          for f in $cargoDepsCopy/source-registry-0/lance-linalg-*/src/distance/{cosine_u8.rs,dot_u8.rs,l2_u8.rs}; do
             substituteInPlace $f \
               --replace-fail '_avx512_vnni' '_avx2' \
               --replace-fail '#[target_feature(enable = "avx512f,avx512bw,avx512vnni")]' '#[cfg(false)]'
@@ -58,6 +58,25 @@ final: prev: {
           done
         '';
       });
+      torchaudio = pysuper.torchaudio.overridePythonAttrs {
+        # XXX(2026-07-25): hangs around test/torchaudio_unittest/functional/torchscript_consistency_cuda_test.py
+        doCheck = false;
+      };
+      # XXX(2026-07-27): nixpkgs' new pythonMetadataCheckHook queries the dist-info by
+      # derivation pname (`python-tree-sitter-<lang>`), but these generated bindings name
+      # their project `tree_sitter_<lang>`, so the check can never find the metadata.
+      # upstream bug: <https://github.com/NixOS/nixpkgs/issues/545533>
+      tree-sitter-grammars = pysuper.tree-sitter-grammars // (
+        prev.lib.genAttrs [
+          "tree-sitter-go"
+          "tree-sitter-java"
+          "tree-sitter-typescript"
+        ] (name:
+          pysuper.tree-sitter-grammars.${name}.overridePythonAttrs {
+            dontCheckPythonMetadata = true;
+          }
+        )
+      );
     })
   ];
 

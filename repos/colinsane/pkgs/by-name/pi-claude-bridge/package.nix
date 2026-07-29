@@ -6,13 +6,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-claude-bridge";
-  version = "0.6.1";
+  version = "0.6.3";
 
   src = fetchFromGitHub {
     owner = "elidickinson";
     repo = "pi-claude-bridge";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RW+wU+wpoTjKJI12y/t61Mxr2oLRSrBoV0ppG5wR3tE=";
+    hash = "sha256-l1j6n4koT0XyB9R5h6mBmPzfTpANljfziYHC6g4TPyk=";
     postFetch = ''
       sed -i $out/package.json \
         -e '/"@earendil-works\/pi-ai": /d' \
@@ -23,7 +23,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-IiWBH93JFEBRCQzCIbOhqbTJVyzrQKtDED0myXi/wSE=";
+  npmDepsHash = "sha256-dxDWzHsYJb5ZT/4/urvp4AJPralO13uAA2qWJwa/8yA=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json

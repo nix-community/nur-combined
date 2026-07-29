@@ -6,20 +6,29 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-vim";
-  version = "0.3.2";
+  version = "0.14.1";
 
   src = fetchFromGitHub {
     owner = "lajarre";
     repo = "pi-vim";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-DGOWfuLhozXLsWPF3jdGdlmMKGyWZYfzF2V0SsXcDV0=";
+    hash = "sha256-xx6PBcSC4V4ixMv9v0wikP7I71M1i9J4iDJCGB+ENDk=";
+    # upstream omits the integrity hashes for pi-* dependencies, expecting pi to already be present.
+    # patch out the deps onto pi *here*, so that nix-update-script can generate a correct lockfile.
+    postFetch = ''
+      sed -i $out/package.json \
+        -e '/"@earendil-works\/pi-coding-agent": /d' \
+        -e '/"@earendil-works\/pi-tui": /d'
+    '';
   };
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-lWt8VSm/PqasMbFUZ2FmFj3Vyt2MAvTcyzOjUulNn68=";
+  npmDepsHash = "sha256-NEMzKwseBUHAwLcFjdIJa71d/f4xf447dojwS2n31HQ=";
 
-  dontNpmBuild = true;
+  postPatch = ''
+    cp ${./package-lock.json} package-lock.json
+  '';
 
   postInstall = ''
     mv $out/lib/node_modules/pi-vim/* $out

@@ -131,6 +131,7 @@ let
     (fromDb "thefinalstrawradio.noblogs.org/podcasting" // pol)
     (fromDb "the-ben-marc-show.simplecast.com" // tech // pol)  # Ben Horowitz + Marc Andreessen; love to hate em
     (fromDb "timclicks.dev/compose-podcast" // tech)  # Rust-heavy dev interviews
+    (fromDb "tristanharris.com" // pol)
     (fromDb "werenotwrong.fireside.fm" // pol)  # We're Not Wrong
     (fromDb "whycast.podcast.audio/@whycast" // tech)  # What Hackers Yearn [for]: <https://why2025.org/>
     (mkPod "https://sfconservancy.org/casts/the-corresponding-source/feeds/ogg/" // tech)
@@ -284,7 +285,9 @@ let
 
   videos = [
     (fromDb "youtube.com/@AdamNeely")
+    (fromDb "youtube.com/@CanalCincoLatam" // pol)
     (fromDb "youtube.com/@Channel5YouTube" // pol)
+    (fromDb "youtube.com/@CenterforHumaneTechnology")
     (fromDb "youtube.com/@ContraPoints" // pol)
     (fromDb "youtube.com/@Exurb1a")
     (fromDb "youtube.com/@exurb2a114")  # Exurb1a's alt

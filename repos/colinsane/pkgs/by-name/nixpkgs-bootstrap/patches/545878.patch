@@ -1,0 +1,24 @@
+From 5bde6e23262dcba64ebe23eb06670120ecbbccda Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 26 Jul 2026 08:35:01 +0000
+Subject: [PATCH] python3Packages.patchright: disable python metadata check
+
+the package installs to site-packages/patch_python_package.py,
+which seems to not be understood by the new pythonMetadataCheckHook.
+---
+ pkgs/development/python-modules/patchright/default.nix | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/pkgs/development/python-modules/patchright/default.nix b/pkgs/development/python-modules/patchright/default.nix
+index f3617653986700048a3b5ecbb204fd24ee529d07..f12a5bf288c042e11a2b406b29dc0407668fa95f 100644
+--- a/pkgs/development/python-modules/patchright/default.nix
++++ b/pkgs/development/python-modules/patchright/default.nix
+@@ -31,6 +31,8 @@ buildPythonPackage (finalAttrs: {
+   # Module has no tests
+   doCheck = false;
+ 
++  dontCheckPythonMetadata = true;
++
+   # pythonImportsCheck disabled: module attempts filesystem writes at import time
+   pythonImportsCheck = [ ];
+ 

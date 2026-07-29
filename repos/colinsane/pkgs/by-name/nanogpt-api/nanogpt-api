@@ -248,6 +248,21 @@ def generate_crush(nanogpt_models: list[Model]) -> dict[str, object]:
     }
   }
 
+# nano-gpt only reports `capabilities.reasoning` as a bool; it doesn't say
+# *which* reasoning_effort levels a model accepts. pi sends `medium` unless told
+# otherwise, which some models reject (HTTP 400 unsupported_reasoning_effort).
+# per-model overrides, per pi's schema:
+# - thinkingLevelMap: `None` hides a level; a string is sent verbatim to the provider
+# - compat.supportsReasoningEffort: False -> pi omits reasoning_effort entirely,
+#   i.e. defer to the model's own default reasoning
+PI_MODEL_OVERRIDES: dict[str, dict[str, object]] = {
+  # kimi-k3 accepts only low/high/max:
+  "moonshotai/kimi-k3": {
+    "thinkingLevelMap": {"minimal": None, "medium": None, "xhigh": "max"},
+    "compat": {"supportsReasoningEffort": False},
+  },
+}
+
 def generate_pi(nanogpt_models: list[Model]) -> dict[str, object]:
   # schema: <https://pi.dev/docs/latest/models#model-configuration>
   models = []
@@ -291,9 +306,12 @@ def generate_pi(nanogpt_models: list[Model]) -> dict[str, object]:
       # pi supports only image/text
       # nanogpt is seen to return audio/image/text/video
 
-    # model["thinkingLevelMap"] = no way to map
+    if override := PI_MODEL_OVERRIDES.get(nm.id):
+      model.update(override)
+
+    # model["thinkingLevelMap"] = needs manual curation (see PI_MODEL_OVERRIDES)
     # model["api"] = intentionally omitted
-    # model["compat"] = intentionally omitted
+    # model["compat"] = intentionally omitted, unless overridden
 
     models.append(model)
 
@@ -331,7 +349,7 @@ def do_fund(client: Client, amount: float, lightning: bool) -> None:
     print(f"pay {resp.amount} btc to {resp.address}")
     # TODO: automate (with y/n)
     print(f"  lightning-cli withdraw {resp.address} {resp.amount}btc")
-    print(f"  # or: lightning-cli withdraw {resp.address} {resp.amount}btc 6blocks")
+    print(f"  # or: ssh servo-hn lightning-cli withdraw {resp.address} {resp.amount}btc 6blocks")
 
 def do_search(client: Client, query: str) -> None:
   print(json.dumps(client.search(query), indent=2))

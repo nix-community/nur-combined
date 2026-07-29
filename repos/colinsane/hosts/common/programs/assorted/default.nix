@@ -446,7 +446,7 @@ in
       "pcTuiApps"
       ####
       "audacity"
-      "brave"  # for the integrated wallet -- as a backup
+      # "brave"  # for the integrated wallet -- as a backup
       # "cantata"  # music player (mpd frontend)
       # "chromium"  # chromium takes hours to build. brave is chromium-based, distributed in binary form, so prefer it.
       "coppwr"  # pipewire graph viewer

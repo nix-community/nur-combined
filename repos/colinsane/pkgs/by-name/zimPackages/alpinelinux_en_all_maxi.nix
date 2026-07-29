@@ -1,6 +1,6 @@
 { mkVersionedHttpZim }: mkVersionedHttpZim {
   owner = "other";
   pname = "alpinelinux_en_all_maxi";
-  version = "2026-04";
-  hash = "sha256-ISV3umbkNIMPCTQWtof+6KALiWT7nrBveIlbhPFDrtc=";
+  version = "2026-07";
+  hash = "sha256-LRkanai/3keuUFFk0Hahh1EwcL+SKY/g6qvfuqmB3fE=";
 }

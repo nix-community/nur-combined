@@ -1,0 +1,39 @@
+From 2a0b3b5281728f0a439d243276bf52e86c802b44 Mon Sep 17 00:00:00 2001
+From: "R. Ryantm" <ryantm-bot@ryantm.com>
+Date: Thu, 2 Jul 2026 22:32:08 +0000
+Subject: [PATCH] python3Packages.lancedb: 0.32.0 -> 0.34.0
+
+---
+ pkgs/development/python-modules/lancedb/default.nix | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/pkgs/development/python-modules/lancedb/default.nix b/pkgs/development/python-modules/lancedb/default.nix
+index d06a03ae56baa1e9c538d01cd9a481d7599b7585..037474b006c6e66377cdddcdf868b011e4cf9494 100644
+--- a/pkgs/development/python-modules/lancedb/default.nix
++++ b/pkgs/development/python-modules/lancedb/default.nix
+@@ -42,7 +42,7 @@
+ 
+ buildPythonPackage (finalAttrs: {
+   pname = "lancedb";
+-  version = "0.32.0";
++  version = "0.34.0";
+   pyproject = true;
+   __structuredAttrs = true;
+ 
+@@ -50,14 +50,14 @@ buildPythonPackage (finalAttrs: {
+     owner = "lancedb";
+     repo = "lancedb";
+     tag = "python-v${finalAttrs.version}";
+-    hash = "sha256-OIoQCk0YlWpaaau4AiWxarvH4oy1rAjaS9yvs3mIzzo=";
++    hash = "sha256-QCHh0ap3VAY+pUo4FquCxk+qXo4sXR7Nshrptg+dkBY=";
+   };
+ 
+   buildAndTestSubdir = "python";
+ 
+   cargoDeps = rustPlatform.fetchCargoVendor {
+     inherit (finalAttrs) pname version src;
+-    hash = "sha256-rfAhvC6byg134NF21CR5n0A0DL42CLGy7VvHi9aZUrw=";
++    hash = "sha256-wfChrpkMATp7WfvgkSOzl6GXZMBMfv5ZAAGdFXNlQBw=";
+   };
+ 
+   build-system = [ rustPlatform.maturinBuildHook ];

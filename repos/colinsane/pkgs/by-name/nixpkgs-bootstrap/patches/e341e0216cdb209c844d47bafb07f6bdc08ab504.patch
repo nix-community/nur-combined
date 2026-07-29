@@ -1,21 +1,19 @@
-From 21f2ae17067afc1abccbf02d9102387676b5b249 Mon Sep 17 00:00:00 2001
+From e341e0216cdb209c844d47bafb07f6bdc08ab504 Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Sat, 6 Jun 2026 16:16:32 +0000
 Subject: [PATCH] HACK: fix
  pkgsCross.aarch64-multiplatform.signal-desktop.passthru.webrtc
 
-# Conflicts:
-#	pkgs/by-name/si/signal-desktop/package.nix
 ---
  pkgs/by-name/si/signal-desktop/package.nix | 59 ++++++++++++++++++++--
  pkgs/by-name/si/signal-desktop/webrtc.nix  | 15 ++++++
  2 files changed, 70 insertions(+), 4 deletions(-)
 
 diff --git a/pkgs/by-name/si/signal-desktop/package.nix b/pkgs/by-name/si/signal-desktop/package.nix
-index 85db438a0183..785ee8d1d669 100644
+index be16d0a387f6..c5c2f506fc8e 100644
 --- a/pkgs/by-name/si/signal-desktop/package.nix
 +++ b/pkgs/by-name/si/signal-desktop/package.nix
-@@ -11,6 +11,7 @@
+@@ -13,6 +13,7 @@
    python3,
    makeWrapper,
    callPackage,
@@ -23,14 +21,17 @@ index 85db438a0183..785ee8d1d669 100644
    fetchFromGitHub,
    fetchurl,
    jq,
-@@ -35,10 +36,17 @@ let
+@@ -37,13 +38,20 @@ let
    electron = electron_42;
  
    libsignal-node = callPackage ./libsignal-node.nix { inherit nodejs; };
 +  libsignal-node-build = buildPackages.callPackage ./libsignal-node.nix { inherit nodejs; };
-   signal-sqlcipher = callPackage ./signal-sqlcipher.nix { inherit pnpm nodejs; };
+   signal-sqlcipher = callPackage ./signal-sqlcipher.nix {
+     pnpm = pnpm_10;
+     inherit nodejs;
+   };
 +  signal-sqlcipher-build = buildPackages.callPackage ./signal-sqlcipher.nix {
-+    inherit pnpm;
++    pnpm = pnpm_10;
 +    inherit nodejs;
 +  };
  
@@ -39,9 +40,9 @@ index 85db438a0183..785ee8d1d669 100644
 +  webrtc-build = buildPackages.callPackage ./webrtc.nix { };
 +  ringrtc-build = buildPackages.callPackage ./ringrtc.nix { webrtc = webrtc-build; };
  
-   version = "8.14.0";
+   version = "8.18.0";
  
-@@ -205,22 +213,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -225,22 +233,37 @@ stdenv.mkDerivation (finalAttrs: {
        die "ringrtc version mismatch"
      fi
  
@@ -82,7 +83,7 @@ index 85db438a0183..785ee8d1d669 100644
  
      # fs-xattr is required at runtime by preload.wrapper.js,
      # but with npmRebuild disabled its native binding is missing.
-@@ -236,9 +259,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -264,9 +287,37 @@ stdenv.mkDerivation (finalAttrs: {
      cp -r ${sticker-creator} sticker-creator/dist
    '';
  

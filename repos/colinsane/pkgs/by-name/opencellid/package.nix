@@ -12,13 +12,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencellid";
-  version = "0-unstable-2025-08-06";
+  version = "0-unstable-2026-07-29";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "7138c8452ad89f2d83725d05c97b21957f7aaef5";
+    rev = "ce2ce60124a3c22e528f175ba3d9aad15635139f";
     hash = "sha256-t4v6Nr3M8Qu2TI6Y3FERBHNul3ZxPbUkp7bmh8BXa9I=";
   };
 

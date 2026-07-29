@@ -7,15 +7,23 @@
 { pkgs, ... }:
 {
   sane.programs.tor-browser = {
-    buildCost = 1;  # requires building a custom/patched ffmpeg
-    packageUnwrapped = pkgs.tor-browser.overrideAttrs (upstream: {
+    buildCost = 2;  # it's a whole extra firefox build
+    packageUnwrapped = pkgs.tor-browser-from-src.overrideAttrs (prevAttrs: {
       # add `--allow-remote` flag so that i can do `tor-browser http://...` to open in an existing instance.
-      preBuild = (upstream.preBuild or "") + ''
-        makeWrapper() {
-          makeShellWrapper "$@" --add-flag --allow-remote
-        }
-      '';
+      makeWrapperArgs = (prevAttrs.makeWrapperArgs or []) ++ [
+        "--add-flag" "--allow-remote"
+      ];
     });
+
+    # buildCost = 1;  # requires building a custom/patched ffmpeg
+    # packageUnwrapped = pkgs.tor-browser.overrideAttrs (upstream: {
+    #   # add `--allow-remote` flag so that i can do `tor-browser http://...` to open in an existing instance.
+    #   preBuild = (upstream.preBuild or "") + ''
+    #     makeWrapper() {
+    #       makeShellWrapper "$@" --add-flag --allow-remote
+    #     }
+    #   '';
+    # });
     sandbox.net = "clearnet";  # tor over VPN wouldn't make sense
     sandbox.whitelistAudio = true;
     # sandbox.whitelistDbus.user.own = [ "org.mozilla.firefox.*" ];  # so that `tor-browser http://...` can open using an existing instance

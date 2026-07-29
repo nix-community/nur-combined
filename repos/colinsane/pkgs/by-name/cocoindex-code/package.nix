@@ -10,14 +10,14 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "cocoindex-code";
-  version = "0.2.37";
+  version = "0.2.39";
   pyVersion = "1.0.0.dev20260625";
 
   src = fetchFromGitHub {
     owner = "cocoindex-io";
     repo = "cocoindex-code";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Ciiix0mMtaVxBgYQrD62rR0fm1xgHFJ2beSc3wWJZtY=";
+    hash = "sha256-clnb74lILf7Ap4mXarU7KSyN5/+iCmnbZD7p933sDGA=";
     leaveDotGit = true;  #< TODO: try this
   };
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ]'
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ps.python3.pkgs.pypdf ]'
 
 import argparse
 import asyncio
@@ -13,6 +13,7 @@ from typing import Any, Callable, Coroutine, Optional, ParamSpec, TypeVar, Union
 from crawl4ai.async_webcrawler import AsyncWebCrawler, CrawlResultContainer
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
 from mcp.server.fastmcp import FastMCP
+from pypdf import PdfReader
 
 class FetchFormat(enum.StrEnum):
   MARKDOWN = "markdown"
@@ -43,8 +44,21 @@ async def crawl4ai_fetch(url: str) -> CrawlResultContainer:
     return await crawler.arun(url=url)
 
 
+def extract_pdf_text(path: str) -> str:
+  reader = PdfReader(path)
+  return "\n".join(page.extract_text() for page in reader.pages)
+
+
 def do_fetch(url: str, format: FetchFormat) -> Union[str, bytes]:
   result = crawl4ai_fetch(url)
+
+  def get_pdf_content() -> Optional[str]:
+    if result.downloaded_files:
+      path = result.downloaded_files[0]
+      with open(path, "rb") as f:
+        is_pdf = f.read(4) == b"%PDF"
+      if is_pdf:
+        return extract_pdf_text(path)
 
   def get_file_content() -> Optional[Union[str, bytes]]:
     if result.downloaded_files:
@@ -59,10 +73,12 @@ def do_fetch(url: str, format: FetchFormat) -> Union[str, bytes]:
     results = [
       lambda: result.html,
       lambda: result.cleaned_html,
+      get_pdf_content,
       get_file_content,
     ]
   elif format is FetchFormat.MARKDOWN:
     results = [
+      get_pdf_content,
       lambda: result.markdown,
       lambda: result.cleaned_html,
       lambda: result.html,

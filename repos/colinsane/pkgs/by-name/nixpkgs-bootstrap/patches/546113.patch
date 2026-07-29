@@ -1,0 +1,31 @@
+From 3ac2f654e38ad51fd6ce1cadd5cabd4fc66dc75c Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 26 Jul 2026 23:16:34 +0000
+Subject: [PATCH] onetbb: fix musl build
+
+fixes `nix-build -A pkgsMusl.onetbb`, which would previously hang in
+checkPhase
+---
+ pkgs/by-name/on/onetbb/package.nix | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/pkgs/by-name/on/onetbb/package.nix b/pkgs/by-name/on/onetbb/package.nix
+index c5aac8e1963a497103c5b8b6aa827fcc70f9f1f3..ae2abde6e8da29ce5f46ec17c2e847288f51d6f1 100644
+--- a/pkgs/by-name/on/onetbb/package.nix
++++ b/pkgs/by-name/on/onetbb/package.nix
+@@ -67,11 +67,13 @@ stdenv.mkDerivation (finalAttrs: {
+     "test_arena_constraints"
+   ];
+ 
+-  # Disable failing test on musl
++  # Disable failing tests on musl
+   # test/conformance/conformance_resumable_tasks.cpp:37:24: error: ‘suspend’ is not a member of ‘tbb::v1::task’; did you mean ‘tbb::detail::r1::suspend’?
++  # test_eh_algorithms: hangs
+   postPatch = lib.optionalString stdenv.hostPlatform.isMusl ''
+     substituteInPlace test/CMakeLists.txt \
+-      --replace-fail 'tbb_add_test(SUBDIR conformance NAME conformance_resumable_tasks DEPENDENCIES TBB::tbb)' ""
++      --replace-fail 'tbb_add_test(SUBDIR conformance NAME conformance_resumable_tasks DEPENDENCIES TBB::tbb)' "" \
++      --replace-fail 'tbb_add_test(SUBDIR tbb NAME test_eh_algorithms DEPENDENCIES TBB::tbb)' ""
+   '';
+ 
+   cmakeFlags = [
