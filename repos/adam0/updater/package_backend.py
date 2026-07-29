@@ -30,7 +30,7 @@ def update_package(
         return UpdateResult(ref.attr_path, "skipped", f"manifest updater owns {manifest}")
 
     owned_roots = package_owned_roots(ref.file_path)
-    before = read_state(ref.attrset, ref.attr)
+    before = read_state(ref.source_kind, ref.attrset, ref.attr)
 
     with FileTransaction(owned_roots) as transaction:
         try:
@@ -40,12 +40,12 @@ def update_package(
             logger.info("nix-update failed for %s:\n%s", ref.attr_path, error.details)
             return UpdateResult(ref.attr_path, "skipped", f"nix-update failed: {error}")
 
-        after = read_state(ref.attrset, ref.attr)
+        after = read_state(ref.source_kind, ref.attrset, ref.attr)
         changed = transaction.new_changed_files()
         owned_changed, unrelated = paths_owned_by(changed, owned_roots)
         release_prefix = latest_release_prefix_for_url(after.src_url)
         if _preserve_unproven_branch_prefix(ref.file_path, before, after, release_prefix):
-            after = read_state(ref.attrset, ref.attr)
+            after = read_state(ref.source_kind, ref.attrset, ref.attr)
             changed = transaction.new_changed_files()
             owned_changed, unrelated = paths_owned_by(changed, owned_roots)
         validation = validate_transition(
@@ -144,16 +144,28 @@ def _rejected_status(reason: str) -> ResultStatus:
 
 
 def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) -> None:
-    command = [
-        "nix",
-        "run",
-        "nixpkgs#nix-update",
-        "--",
-        "-f",
-        "default.nix",
-        f"--version={version_mode}",
-        ref.attr_path,
-    ]
+    if ref.source_kind == "flake":
+        command = [
+            "nix",
+            "run",
+            "nixpkgs#nix-update",
+            "--",
+            "--flake",
+            "--use-github-releases",
+            f"--version={version_mode}",
+            ref.attr_path,
+        ]
+    else:
+        command = [
+            "nix",
+            "run",
+            "nixpkgs#nix-update",
+            "--",
+            "-f",
+            "default.nix",
+            f"--version={version_mode}",
+            ref.attr_path,
+        ]
     run(command, timeout=timeout)
 
 
@@ -204,8 +216,16 @@ def _last_got_hash(ref: PackageRef, *, timeout: str | None) -> str:
 def _build_with_fake_hash(
     ref: PackageRef, *, timeout: str | None
 ) -> subprocess.CompletedProcess[str]:
-    return run(
-        ["nix-build", "-A", ref.attr_path, "--no-out-link"],
-        timeout=timeout,
-        check=False,
-    )
+    if ref.source_kind == "flake":
+        result = run(
+            ["nix", "build", f".#{ref.attr_path}", "--no-link"],
+            timeout=timeout,
+            check=False,
+        )
+    else:
+        result = run(
+            ["nix-build", "-A", ref.attr_path, "--no-out-link"],
+            timeout=timeout,
+            check=False,
+        )
+    return result

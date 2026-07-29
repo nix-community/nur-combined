@@ -1,25 +1,34 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
-from .models import PackageState
+from .models import PackageState, SourceKind
 from .process import ROOT, run
 from .versions import version_mode
 
 
-def nix_eval_attrset(attrset: str, apply_expr: str) -> str:
-    command = ["nix", "eval", "--raw", "--file", "default.nix"]
-    if attrset:
-        command.append(attrset)
+def nix_eval_attrset(source_kind: SourceKind, attrset: str, apply_expr: str) -> str:
+    if source_kind == "flake":
+        command = ["nix", "eval", "--raw", f".#{attrset}", "--apply", apply_expr]
     else:
-        apply_expr = f"f: ({apply_expr}) (f {{}})"
-    command.extend(["--apply", apply_expr])
+        command = [
+            "nix",
+            "eval",
+            "--raw",
+            "--file",
+            "default.nix",
+            attrset,
+            "--apply",
+            apply_expr,
+        ]
     return run(command).stdout
 
 
-def list_derivations(attrset: str) -> list[str]:
+def list_derivations(source_kind: SourceKind, attrset: str) -> list[str]:
     output = nix_eval_attrset(
+        source_kind,
         attrset,
         r"""
 pkgs:
@@ -60,12 +69,19 @@ in
 """,
         ]
     ).stdout
-    return [""] + [line for line in output.splitlines() if line]
+    return [line for line in output.splitlines() if line]
 
 
-def read_state(attrset: str, attr: str) -> PackageState:
+def flake_attrsets(system: str) -> list[str]:
+    attrset = f"packages.{system}"
+    result = run(["nix", "eval", "--raw", f".#{attrset}", "--apply", 'pkgs: ""'], check=False)
+    return [attrset] if result.returncode == 0 else []
+
+
+def read_state(source_kind: SourceKind, attrset: str, attr: str) -> PackageState:
     escaped = _escape(attr)
     output = nix_eval_attrset(
+        source_kind,
         attrset,
         f'''
 pkgs:
@@ -93,9 +109,10 @@ pkgs:
     )
 
 
-def attr_file_path(attrset: str, attr: str) -> Path | None:
+def attr_file_path(source_kind: SourceKind, attrset: str, attr: str) -> Path | None:
     escaped = _escape(attr)
     position = nix_eval_attrset(
+        source_kind,
         attrset,
         f'''
 pkgs:
@@ -107,6 +124,11 @@ pkgs:
         return None
 
     file_name = position.split(":", 1)[0]
+    if source_kind == "flake":
+        match = re.match(r"^/nix/store/[^/]+-source(/.*)$", file_name)
+        if match:
+            file_name = str(ROOT) + match.group(1)
+
     file_path = Path(file_name)
     if not file_path.is_relative_to(ROOT) or not file_path.is_file():
         return None
