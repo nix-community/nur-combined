@@ -6,26 +6,71 @@
 # (see sf_pack_dir() / dt_loc_get_user_config_dir() in src/iop/spektrafilm.c —
 # it only looks in the user config dir, never in the install datadir).
 #
-# That pack is a prebuilt artifact published by the fork author. It is generated
-# from the spektrafilm Python package by an exporter (tools/spektrafilm_export_data.py,
-# referenced in spektrafilm.c) that is NOT public yet, so we cannot regenerate
-# it reproducibly at build time and pin the published zip instead. Revisit this
-# (generate from the `spektrafilm` Python package built in this same flake) once
-# the exporter is released.
-#
-# The zip wraps everything in a single spektrafilm/ directory; stripRoot (the
-# fetchzip default) drops it so this derivation's out path *is* the pack
-# contents (pack.json, spectra_lut.f32, profiles/). Link that out path in as
-# ~/.config/darktable/spektrafilm — see the README.
-#
-# Pinned to a specific dt-spektrafilm-builds commit for reproducibility. The
-# current published pack was built against 69a1eb6 and already includes the
-# newer development-time data needed by the later PR commits. Re-pin this when a
-# matching pack is published for the current darktable-spektrafilm src.rev.
-{ fetchzip }:
+# The July 29 PR commits switched the spectral upsampling LUT to the upstream
+# float16 format, so the older published Arecsu zip is stale. Generate the pack
+# reproducibly from this flake's pinned Python spektrafilm package and the
+# exporter script posted in the pixls.us thread.
+{
+  lib,
+  runCommand,
+  fetchurl,
+  python3,
+  spektrafilm,
+  darktableSpektrafilmRev ? "1a6bbf4c1cc0dac32311e67307e9ed1c1beaf6ff",
+}:
 
-fetchzip {
-  name = "spektrafilm-data-pack";
-  url = "https://github.com/Arecsu/dt-spektrafilm-builds/raw/332a154e6db3d60911168d4e03829d2468e9b346/spektrafilm-data-pack.zip";
-  hash = "sha256-H41ukz2i1pXfATpYFs4E2UGmvSOXjzvofIIDs0dUDOE=";
-}
+let
+  exporter = fetchurl {
+    name = "spektrafilm_export_data-2026-07-29.py";
+    url = "https://pixls-discuss.s3.dualstack.us-east-1.amazonaws.com/original/3X/0/d/0df15c93a547b6158c5935557832df23f0ffb5ab.py";
+    hash = "sha256-bNzhceTxp303v/obGZVoLaFzXc2ShNqVFAyE+BDFMBs=";
+  };
+
+  pythonEnv = python3.withPackages (_: [ spektrafilm ]);
+in
+runCommand "spektrafilm-data-pack-${spektrafilm.version}"
+  {
+    nativeBuildInputs = [ pythonEnv ];
+    passthru = {
+      inherit darktableSpektrafilmRev exporter;
+      exporterHash = "sha256-bNzhceTxp303v/obGZVoLaFzXc2ShNqVFAyE+BDFMBs=";
+    };
+  }
+  ''
+    export NUMBA_DISABLE_JIT=1
+    export NUMBA_CACHE_DIR=$TMPDIR/numba-cache
+    python ${exporter} -o "$out"
+
+    python - "$out" <<'PY'
+    import hashlib
+    import json
+    import pathlib
+    import struct
+    import sys
+
+    out = pathlib.Path(sys.argv[1])
+    pack = json.loads((out / "pack.json").read_text())
+    if pack.get("spektrafilm_version") != "${spektrafilm.version}":
+        raise SystemExit("unexpected spektrafilm_version in pack.json")
+
+    profiles = sorted((out / "profiles").glob("*.json"))
+    if len(profiles) < 30:
+        raise SystemExit(f"unexpectedly few profiles: {len(profiles)}")
+
+    lut_path = out / "spectra_lut.f32"
+    data = lut_path.read_bytes()
+    if data[:4] != b"SFS2":
+        raise SystemExit("expected new SFS2 float16 LUT header")
+    header_version = struct.unpack_from("<i", data, 4)[0]
+    dims = struct.unpack_from("<iii", data, 8)
+    dtype = struct.unpack_from("<i", data, 20)[0]
+    if header_version != 2 or dtype != 1:
+        raise SystemExit(f"unexpected LUT header: version={header_version} dtype={dtype}")
+    if dims[0] != dims[1] or dims[2] < 70:
+        raise SystemExit(f"unexpected LUT dimensions: {dims}")
+
+    (out / "spectra_lut.f32.sha256").write_text(hashlib.sha256(data).hexdigest() + "\n")
+    (out / "generated-darktable-rev").write_text("${darktableSpektrafilmRev}\n")
+    (out / "exporter.sha256").write_text("sha256-bNzhceTxp303v/obGZVoLaFzXc2ShNqVFAyE+BDFMBs=\n")
+    PY
+  ''

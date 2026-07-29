@@ -28,15 +28,19 @@
   pname = "darktable-spektrafilm";
   # Tracks a moving PR branch head, not a tagged release, so
   # the datestamp keeps the store path honest. Bump it together with src.rev.
-  version = "5.8.0-unstable-2026-07-27";
+  version = "5.8.0-unstable-2026-07-29";
 
   src = fetchFromGitHub {
     owner = "piratenpanda";
     repo = "darktable";
-    rev = "7a5141e4b44dd759aba5ddb77dd1e6ef0f60e6df"; # darktable-org/darktable#21534 before Bauhaus checkbox API change
+    rev = "1a6bbf4c1cc0dac32311e67307e9ed1c1beaf6ff"; # darktable-org/darktable#21534 head
     fetchSubmodules = true;
-    hash = "sha256-XaqshPYp2mkl6Gy+A2VKFxRCA8kIUd0n0hoIezuOTLc=";
+    hash = "sha256-JCWPz++TEZdiM07AtAQRVeFIhRZQ4y46Tb4ugle6HO4=";
   };
+
+  patches = (old.patches or [ ]) ++ [
+    ./fix-spektrafilm-toggle-helpers.patch
+  ];
 
   # fetchFromGitHub strips .git, so darktable's `git describe` version detection
   # would fall back to "unknown-version". Feed the real version to CMake instead

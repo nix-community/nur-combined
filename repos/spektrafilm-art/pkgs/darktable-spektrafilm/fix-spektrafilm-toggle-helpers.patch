@@ -1,0 +1,22 @@
+diff --git a/src/iop/spektrafilm.c b/src/iop/spektrafilm.c
+index 7599524..29ccba7 100644
+--- a/src/iop/spektrafilm.c
++++ b/src/iop/spektrafilm.c
+@@ -84,6 +84,17 @@
+ 
+ DT_MODULE_INTROSPECTION(1, dt_iop_spektrafilm_params_t)
+ 
++static inline void dt_bauhaus_toggle_set(GtkWidget *widget, const gboolean active)
++{
++  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(widget), active);
++}
++
++static inline void dt_bauhaus_toggle_set_default(GtkWidget *widget, const gboolean active)
++{
++  (void)widget;
++  (void)active;
++}
++
+ /* Spatial-scale constants, micrometres on film unless noted (see the LUT
+    module for the full rationale; these are shared with modify_roi_in() and
+    tiling_callback() so the halo math stays in sync). */
