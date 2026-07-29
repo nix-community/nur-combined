@@ -11,6 +11,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "1.0.0-unstable-2026-07-28";
 
   pyproject = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -32,6 +33,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
+    # TODO: Add --version test
+
     help =
       runCommand "test-tmdb-index-help"
         {

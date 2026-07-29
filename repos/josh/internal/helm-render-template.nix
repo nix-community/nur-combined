@@ -9,9 +9,10 @@
   helmArgs ? [ ],
 }:
 stdenvNoCC.mkDerivation {
+  inherit (src) name;
+
   __structuredAttrs = true;
 
-  inherit (src) name;
   inherit src;
 
   nativeBuildInputs = [

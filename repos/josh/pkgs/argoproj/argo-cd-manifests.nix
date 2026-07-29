@@ -13,7 +13,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "argoproj";
     repo = "argo-cd";
-    rev = "v${finalAttrs.version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-hM7ss948dr7KntUGwiFDhr1OrbI+LAJlDgUMnegm+es=";
   };
 

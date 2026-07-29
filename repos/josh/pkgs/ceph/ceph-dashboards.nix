@@ -11,9 +11,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (ceph) version src;
 
   installPhase = ''
+    runHook preInstall
+
     mkdir -p $out/dashboards $out/alerts
     cp -R ./monitoring/ceph-mixin/dashboards_out/* $out/dashboards/
     cp ./monitoring/ceph-mixin/prometheus_alerts.yml $out/alerts/ceph_alerts.yml
+
+    runHook postInstall
   '';
 
   passthru.tests = {

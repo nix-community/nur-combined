@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A Helm chart for ceph-mgr-endpoint-controller";
+    description = "Helm chart for the Ceph manager endpoint controller";
     homepage = "https://github.com/josh/ceph-mgr-endpoint-controller/tree/main/charts/ceph-mgr-endpoint-controller";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

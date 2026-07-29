@@ -10,7 +10,7 @@ let
   fishTerra = writeText "fish.terra" ''
     ---
     whiskers:
-      version: 2.1.0
+      version: ${catppuccin-whiskers.version}
       matrix:
         - flavor
       filename: "conf.d/catppuccin_{{ flavor.identifier }}.fish"

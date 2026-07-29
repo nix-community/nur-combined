@@ -10,18 +10,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-metrics-dashboards";
   version = "1.148.0-cluster";
 
+  outputs = [
+    "out"
+    "prometheus"
+    "vm"
+  ];
+
   src = fetchFromGitHub {
     owner = "VictoriaMetrics";
     repo = "VictoriaMetrics";
     tag = "v${finalAttrs.version}";
     hash = "sha256-Xx2K0eFk5Gylav+HtIuz4XFTU8GUc+wW3i0raE+BZ8Q=";
   };
-
-  outputs = [
-    "out"
-    "prometheus"
-    "vm"
-  ];
 
   dontBuild = true;
 

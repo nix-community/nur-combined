@@ -10,18 +10,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-logs-dashboards";
   version = "1.52.0";
 
+  outputs = [
+    "out"
+    "prometheus"
+    "vm"
+  ];
+
   src = fetchFromGitHub {
     owner = "VictoriaMetrics";
     repo = "VictoriaLogs";
     tag = "v${finalAttrs.version}";
     hash = "sha256-V4TWpv72LJ0FUYruwXvhmCpOLQh5l+7Of7aJS8vF6J0=";
   };
-
-  outputs = [
-    "out"
-    "prometheus"
-    "vm"
-  ];
 
   dontBuild = true;
 

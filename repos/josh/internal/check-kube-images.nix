@@ -8,10 +8,11 @@
   version,
 }:
 stdenvNoCC.mkDerivation {
-  __structuredAttrs = true;
-
   inherit pname version;
   name = "${src.name}-images";
+
+  __structuredAttrs = true;
+
   inherit src;
 
   platforms = [

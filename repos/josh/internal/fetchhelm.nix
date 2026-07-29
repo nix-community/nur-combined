@@ -18,9 +18,9 @@ let
   nixhelm-update = callPackage ./nixhelm-update.nix { };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
-  __structuredAttrs = true;
-
   inherit pname version;
+
+  __structuredAttrs = true;
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";

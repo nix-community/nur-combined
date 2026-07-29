@@ -47,7 +47,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A command line tool to export iTunes Library XML files.";
+    description = "Export iTunes Library XML files";
     homepage = "https://github.com/josh/itunes-library-export";
     license = lib.licenses.mit;
     platforms = lib.platforms.darwin;

@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A Helm chart for restic-rados-server";
+    description = "Helm chart for the restic REST server backed by RADOS";
     homepage = "https://github.com/josh/restic-rados-server/tree/main/charts/restic-rados-server";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

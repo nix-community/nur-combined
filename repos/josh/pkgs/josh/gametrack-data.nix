@@ -26,7 +26,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
-    # TODO: Add --version test
+    # TODO: Add --version test once upstream argparse exposes one
 
     help =
       runCommand "test-gametrack-data-help"

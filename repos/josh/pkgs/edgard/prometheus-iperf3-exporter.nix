@@ -25,6 +25,7 @@ buildGoModule (finalAttrs: {
     "-w"
     "-X github.com/prometheus/common/version.Version=${finalAttrs.version}"
   ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {

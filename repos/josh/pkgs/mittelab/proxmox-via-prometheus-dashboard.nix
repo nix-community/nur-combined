@@ -10,17 +10,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "proxmox-via-prometheus-dashboard";
   version = "0-unstable-2023-04-25";
 
+  outputs = [
+    "out"
+    "prometheus"
+  ];
+
   src = fetchFromGitHub {
     owner = "mittelab";
     repo = "proxmox-via-prometheus-dashboard";
     rev = "c6fa49bb4e43486f1e267fc3812d0929155f67bd";
     hash = "sha256-FrjFIbFEhVyCBoK+KSNv8DQ6X7ddYXqSxThKX3df7dU=";
   };
-
-  outputs = [
-    "out"
-    "prometheus"
-  ];
 
   dontBuild = true;
 

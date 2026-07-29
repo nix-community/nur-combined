@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A Helm chart for jmap2nats";
+    description = "Helm chart for the JMAP to NATS bridge";
     homepage = "https://github.com/josh/jmap2nats/tree/main/charts/jmap2nats";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

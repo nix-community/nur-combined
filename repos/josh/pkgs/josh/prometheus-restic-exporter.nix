@@ -11,17 +11,17 @@ buildGoModule (finalAttrs: {
   pname = "prometheus-restic-exporter";
   version = "1.0.3";
 
+  outputs = [
+    "out"
+    "grafana"
+  ];
+
   src = fetchFromGitHub {
     owner = "josh";
     repo = "restic-exporter";
     tag = "v${finalAttrs.version}";
     hash = "sha256-1RjiKFYTUYq3csV34z2BEEgJa4UxOi/7e0LC3QJYPNY=";
   };
-
-  outputs = [
-    "out"
-    "grafana"
-  ];
 
   vendorHash = "sha256-6av04F+ViJyS9Or4Dx6iGPCSxNBs8Kmj9T9U6TD+P/g=";
 

@@ -1,9 +1,6 @@
 # Upstream to NixOS/nixpkgs
 # - Needs to build from source rather than install binaries.
 #   - Blocked on NixOS/nixpkgs supporting Swift 6.0
-# - Waiting for v0.3.0+ to be released
-#   - Adds `swiftly init`
-#   - Adds macOS support
 #
 {
   lib,
@@ -46,9 +43,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     zlib
   ];
   installPhase = ''
+    runHook preInstall
+
     mkdir -p "$out/bin" "$out/share/swiftly"
     cp "$src" "$out/bin/swiftly"
     chmod +x "$out/bin/swiftly"
+
+    runHook postInstall
   '';
 
   passthru.tests = {

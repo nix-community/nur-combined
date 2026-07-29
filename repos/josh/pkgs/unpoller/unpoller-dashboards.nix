@@ -10,18 +10,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "unpoller-dashboards";
   version = "0-unstable-2026-06-15";
 
+  outputs = [
+    "out"
+    "influxdb"
+    "prometheus"
+  ];
+
   src = fetchFromGitHub {
     owner = "unpoller";
     repo = "dashboards";
     rev = "d79ef7ef30129a2ba9a60141e339a93d4bcc1bec";
     hash = "sha256-O3xAHqHiqqiQQyIkV+XK89T6Sk4GhaRpzb46SSA0ZI4=";
   };
-
-  outputs = [
-    "out"
-    "influxdb"
-    "prometheus"
-  ];
 
   installPhase = ''
     runHook preInstall

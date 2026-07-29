@@ -27,7 +27,7 @@ buildGoModule (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    build-info =
+    help =
       runCommand "test-tailscale-acl-combiner" { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           tailscale-acl-combiner --help

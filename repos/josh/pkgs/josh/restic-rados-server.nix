@@ -4,7 +4,6 @@
   fetchFromGitHub,
 
   ceph,
-  restic,
 
   nix-update-script,
   runCommand,
@@ -32,11 +31,6 @@ buildGoModule (finalAttrs: {
   ldflags = [
     "-w"
     "-X main.version=${finalAttrs.version}"
-  ];
-
-  nativeCheckInputs = [
-    ceph
-    restic
   ];
 
   doCheck = false;

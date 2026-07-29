@@ -13,6 +13,10 @@ let
 in
 pkg.overrideAttrs (
   _finalAttrs: previousAttrs: {
+    meta = previousAttrs.meta // {
+      description = "Terraform provider for managing Ceph resources";
+    };
+
     passthru = previousAttrs.passthru // {
       updateScript = nix-update-script {
         extraArgs = [

@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A Helm chart for mqtt2nats";
+    description = "Helm chart for the MQTT to NATS bridge";
     homepage = "https://github.com/josh/mqtt2nats/tree/main/charts/mqtt2nats";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

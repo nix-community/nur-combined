@@ -11,6 +11,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
   version = "0.2.0";
 
   pyproject = true;
+  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "josh";
@@ -31,6 +32,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
+    # TODO: Add --version test
+
     help =
       runCommand "test-imdb-plex-sync-help"
         {

@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A Helm chart for litestream-restic-backup";
+    description = "Helm chart for Litestream backups replicated with restic";
     homepage = "https://github.com/josh/litestream-restic-backup/tree/main/charts/litestream-restic-backup";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

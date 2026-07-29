@@ -13,15 +13,15 @@ stdenvNoCC.mkDerivation (
     sources = {
       "aarch64-darwin" = fetchzip {
         url = "https://github.com/remko/age-plugin-se/releases/download/v${version}/age-plugin-se-v${version}-macos.zip";
-        sha256 = "sha256-xJ4KHEpDFNGYPUsMlxoVPZe9t8raX0Ohf8jZI+z97y0=";
+        hash = "sha256-xJ4KHEpDFNGYPUsMlxoVPZe9t8raX0Ohf8jZI+z97y0=";
       };
       "aarch64-linux" = fetchzip {
         url = "https://github.com/remko/age-plugin-se/releases/download/v${version}/age-plugin-se-v${version}-aarch64-linux.tgz";
-        sha256 = "sha256-T3tiH2vig+w7PMgMioHCyOAQN5T0TXlUnYgRKqe/aV4=";
+        hash = "sha256-T3tiH2vig+w7PMgMioHCyOAQN5T0TXlUnYgRKqe/aV4=";
       };
       "x86_64-linux" = fetchzip {
         url = "https://github.com/remko/age-plugin-se/releases/download/v${version}/age-plugin-se-v${version}-x86_64-linux.tgz";
-        sha256 = "sha256-hBbB5xNEOCZcS+MXG9xJlNNW4oIvchsyYpezqR1SWJs=";
+        hash = "sha256-hBbB5xNEOCZcS+MXG9xJlNNW4oIvchsyYpezqR1SWJs=";
       };
     };
   in
@@ -32,6 +32,8 @@ stdenvNoCC.mkDerivation (
     src = sources.${stdenvNoCC.hostPlatform.system};
 
     installPhase = ''
+      runHook preInstall
+
       if [ -d $src/usr/bin ]; then
         install -Dm755 $src/usr/bin/age-plugin-se $out/bin/age-plugin-se
       elif [ -f $src/age-plugin-se ]; then
@@ -40,6 +42,8 @@ stdenvNoCC.mkDerivation (
         echo "error: age-plugin-se not found in $src" >&2
         exit 1
       fi
+
+      runHook postInstall
     '';
 
     passthru.tests = {
