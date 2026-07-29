@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "violentmonkey";
-  version = "2.45.5";
+  version = "2.46.0";
 
   src = fetchFromGitHub {
     owner = "violentmonkey";
     repo = "violentmonkey";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oLFVM8co96pkXIbF5121fKQoL56irIyPHT8JAFJ5/wM=";
+    hash = "sha256-bJ0MQwO73HBH9A86sSnVdUdoeZiWkJOr5VJl/P0jabE=";
   };
 
   pnpmDeps = fetchPnpmDeps {
