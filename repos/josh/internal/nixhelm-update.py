@@ -3,7 +3,6 @@ import re
 import subprocess
 import sys
 import tempfile
-import shutil
 
 import click
 import yaml
@@ -50,20 +49,19 @@ def main(
     if not nix_pname:
         nix_pname = os.path.basename(filename).removesuffix(".nix")
 
-    if url.startswith("oci://"):
-        chart_path = helm_pull_oci(url=url)
-    elif chart and url:
-        chart_path = helm_pull(chart=chart, repo=url)
-    else:
-        raise click.UsageError("chart name is required")
+    with tempfile.TemporaryDirectory() as tmpdir:
+        if url.startswith("oci://"):
+            chart_path = helm_pull_oci(url=url, tmpdir=tmpdir)
+        elif chart and url:
+            chart_path = helm_pull(chart=chart, repo=url, tmpdir=tmpdir)
+        else:
+            raise click.UsageError("chart name is required")
 
-    with open(f"{chart_path}/Chart.yaml", "r") as f:
-        chart_data = yaml.safe_load(f)
-    version = chart_data["version"].lstrip("v")
+        with open(f"{chart_path}/Chart.yaml", "r") as f:
+            chart_data = yaml.safe_load(f)
+        version = chart_data["version"].removeprefix("v")
 
-    sha256 = nix_hash(chart_path)
-
-    shutil.rmtree(chart_path)
+        sha256 = nix_hash(chart_path)
 
     content = re.sub(
         r'(^\s+version = ")([^"]*)(")',
@@ -99,11 +97,18 @@ def main(
         git("commit", "--message", commit_message, dry_run=dry_run)
 
 
-def helm_pull(chart: str, repo: str) -> str:
-    tmpdir = tempfile.mkdtemp()
+def helm_env(tmpdir: str) -> dict[str, str]:
+    return {
+        **os.environ,
+        "HELM_CACHE_HOME": os.path.join(tmpdir, ".cache"),
+        "HELM_CONFIG_HOME": os.path.join(tmpdir, ".config"),
+        "HELM_DATA_HOME": os.path.join(tmpdir, ".data"),
+    }
+
+
+def helm_pull(chart: str, repo: str, tmpdir: str) -> str:
     out_dir = os.path.join(tmpdir, "out")
     os.makedirs(out_dir, exist_ok=True)
-    os.environ["HELM_CACHE_HOME"] = os.path.join(tmpdir, ".cache")
     cmd = [
         HELM_PATH,
         "pull",
@@ -115,13 +120,12 @@ def helm_pull(chart: str, repo: str) -> str:
         "--untar",
     ]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, env=helm_env(tmpdir))
     result.check_returncode()
     return first_subdir(out_dir)
 
 
-def helm_pull_oci(url: str) -> str:
-    tmpdir = tempfile.mkdtemp()
+def helm_pull_oci(url: str, tmpdir: str) -> str:
     out_dir = os.path.join(tmpdir, "out")
     os.makedirs(out_dir, exist_ok=True)
     cmd = [
@@ -133,15 +137,15 @@ def helm_pull_oci(url: str) -> str:
         "--untar",
     ]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, env=helm_env(tmpdir))
     result.check_returncode()
     return first_subdir(out_dir)
 
 
 def first_subdir(path: str) -> str:
     subdirs = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
-    if not subdirs:
-        raise RuntimeError(f"No subdirectory found in {path}")
+    if len(subdirs) != 1:
+        raise RuntimeError(f"Expected exactly one subdirectory in {path}, found {subdirs}")
     return os.path.join(path, subdirs[0])
 
 
@@ -181,7 +185,7 @@ def git(*args, dry_run: bool = False) -> None:
     cmd = [GIT_PATH] + list(args)
     log_cmd(cmd)
     if not dry_run:
-        subprocess.run(cmd)
+        subprocess.run(cmd, check=True)
 
 
 def log(message: str) -> None:
