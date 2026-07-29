@@ -31,6 +31,12 @@ in
 
     npmDepsHash = "sha256-DsrVGZiSZjTMJUd1SqCrEyd/guVZL68qGXapWzSIcOw=";
 
+    postPatch = ''
+      substituteInPlace package.json \
+        --replace-fail '--packages external' \
+          '--external @atproto/* --external @hono/* --external @ipld/* --external @logtape/* --external @modelcontextprotocol/* --external @paralleldrive/* --external @rocksky/* --external @tanstack/* --external axios --external better-sqlite3 --external chalk --external classic-level --external commander --external consola --external cors --external dayjs --external dotenv --external drizzle-kit --external drizzle-orm --external effect --external env-paths --external envalid --external express --external hono --external ink --external jotai --external kysely --external lodash --external md5 --external mpris-service --external multiformats --external open --external ramda --external react --external rockbox-ffi --external table --external unstorage --external uuid --external zod'
+    '';
+
     nodejs = nodejs_22;
 
     buildInputs = linuxDeps;
@@ -42,6 +48,8 @@ in
       wrapProgram $out/bin/rocksky \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxDeps}
     '';
+
+    passthru.updateScript = null;
 
     meta = {
       # keep-sorted start

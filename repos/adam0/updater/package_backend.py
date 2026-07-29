@@ -144,6 +144,7 @@ def _rejected_status(reason: str) -> ResultStatus:
 
 
 def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) -> None:
+    update_mode = "unstable" if version_mode == "stable" else version_mode
     if ref.source_kind == "flake":
         command = [
             "nix",
@@ -152,7 +153,7 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
             "--",
             "--flake",
             "--use-github-releases",
-            f"--version={version_mode}",
+            f"--version={update_mode}",
             ref.attr_path,
         ]
     else:
@@ -163,7 +164,7 @@ def _run_nix_update(ref: PackageRef, version_mode: str, *, timeout: str | None) 
             "--",
             "-f",
             "default.nix",
-            f"--version={version_mode}",
+            f"--version={update_mode}",
             ref.attr_path,
         ]
     run(command, timeout=timeout)
