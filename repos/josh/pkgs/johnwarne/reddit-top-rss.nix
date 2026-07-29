@@ -30,8 +30,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace *.php --replace-quiet '"cache/' 'CACHE_DIRECTORY . "/'
     substituteInPlace *.php --replace-quiet "'cache/" "CACHE_DIRECTORY . '/"
     grep -qF 'CACHE_DIRECTORY . ' -- *.php
-    ! grep -F "'cache/" -- *.php
-    ! grep -F '"cache/' -- *.php
+    status=0
+    grep -qF "'cache/" -- *.php || status=$?
+    test "$status" -eq 1
+    status=0
+    grep -qF '"cache/' -- *.php || status=$?
+    test "$status" -eq 1
   '';
 
   nativeCheckInputs = [ php ];
@@ -69,14 +73,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         export CACHE_DIRECTORY="$TMPDIR/reddit-top-rss"
         mkdir -p "$CACHE_DIRECTORY"
 
+        export http_proxy="http://127.0.0.1:1"
+        export https_proxy="http://127.0.0.1:1"
+
         pushd ${reddit-top-rss}/
         export HTTP_HOST="localhost"
         export REQUEST_URI="/"
-        php -f index.php | tee "$CACHE_DIRECTORY/output.html"
+        php -f index.php >"$CACHE_DIRECTORY/output.html"
         popd
 
-        grep "<!DOCTYPE html>" "$CACHE_DIRECTORY/output.html"
-        [ -f "$CACHE_DIRECTORY/token/token.txt" ]
+        grep -q "<!DOCTYPE html>" "$CACHE_DIRECTORY/output.html"
         touch $out
       '';
     };

@@ -63,21 +63,25 @@ def main(
 
         sha256 = nix_hash(chart_path)
 
-    content = re.sub(
+    content, n = re.subn(
         r'(^\s+version = ")([^"]*)(")',
         lambda m: m.group(1) + version + m.group(3),
         content,
         count=1,
         flags=re.MULTILINE,
     )
+    if n != 1:
+        raise RuntimeError(f"no version line found in {filename}")
 
-    content = re.sub(
+    content, n = re.subn(
         r'(^\s+hash = ")([^"]*)(")',
         lambda m: m.group(1) + sha256 + m.group(3),
         content,
         count=1,
         flags=re.MULTILINE,
     )
+    if n != 1:
+        raise RuntimeError(f"no hash line found in {filename}")
 
     if nix_old_version and nix_old_version != version:
         commit_message = f"{nix_pname}: {nix_old_version} -> {version}"
@@ -89,7 +93,7 @@ def main(
         return
 
     if dry_run:
-        log(f"cat >{filename} <<EOF")
+        log(f"cat >{filename} <<'EOF'")
         log(content)
         log("EOF")
     else:
@@ -125,7 +129,7 @@ def helm_pull(chart: str, repo: str, tmpdir: str) -> str:
     ]
     log_cmd(cmd)
     result = subprocess.run(cmd, capture_output=True, text=True, env=helm_env(tmpdir))
-    result.check_returncode()
+    check_result(result)
     return first_subdir(out_dir)
 
 
@@ -142,7 +146,7 @@ def helm_pull_oci(url: str, tmpdir: str) -> str:
     ]
     log_cmd(cmd)
     result = subprocess.run(cmd, capture_output=True, text=True, env=helm_env(tmpdir))
-    result.check_returncode()
+    check_result(result)
     return first_subdir(out_dir)
 
 
@@ -157,7 +161,7 @@ def nix_hash(path: str) -> str:
     cmd = [NIX_HASH_PATH, "--type", "sha256", "--sri", path]
     log_cmd(cmd)
     result = subprocess.run(cmd, capture_output=True, text=True)
-    result.check_returncode()
+    check_result(result)
     return result.stdout.strip()
 
 
@@ -165,7 +169,7 @@ def nix_current_system() -> str:
     cmd = [NIX_PATH, "eval", "--raw", "--impure", "--expr", "builtins.currentSystem"]
     log_cmd(cmd)
     result = subprocess.run(cmd, capture_output=True, text=True)
-    result.check_returncode()
+    check_result(result)
     return result.stdout.strip()
 
 
@@ -180,9 +184,18 @@ def nix_attr_filename(attr_path: str) -> str:
     ]
     log_cmd(cmd)
     result = subprocess.run(cmd, capture_output=True, text=True)
-    result.check_returncode()
+    check_result(result)
     store_path = result.stdout.strip().rsplit(":", 1)[0]
-    return "pkgs/" + store_path.split("/pkgs/", 1)[1]
+    _, sep, rest = store_path.rpartition("/pkgs/")
+    if not sep:
+        raise RuntimeError(f"meta.position {store_path!r} is not under pkgs/")
+    return "pkgs/" + rest
+
+
+def check_result(result: subprocess.CompletedProcess) -> None:
+    if result.returncode != 0 and result.stderr:
+        log(result.stderr.rstrip())
+    result.check_returncode()
 
 
 def git(*args, dry_run: bool = False) -> None:

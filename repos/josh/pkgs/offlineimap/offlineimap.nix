@@ -5,7 +5,7 @@
   writeText,
 }:
 let
-  no-install-requires-patch = writeText "urlib3.patch" ''
+  no-install-requires-patch = writeText "no-install-requires.patch" ''
     diff --git a/setup.py b/setup.py
     index d6bc115..356a7f2 100644
     --- a/setup.py
@@ -30,7 +30,7 @@ offlineimap.overrideAttrs (
       hash = "sha256-2aZbZMk8mYRE+iQNZn2JTJwy7FHIiUytNxzSzmPXlmE=";
     };
 
-    patches = [ no-install-requires-patch ];
+    patches = previousAttrs.patches or [ ] ++ [ no-install-requires-patch ];
 
     passthru = previousAttrs.passthru // {
       tests = {

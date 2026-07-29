@@ -26,6 +26,7 @@
         import flake.outPath {
           inherit system;
           config.allowUnfree = true;
+          overlays = [ ];
         };
 
       mkPackages =

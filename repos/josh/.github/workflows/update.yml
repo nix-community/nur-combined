@@ -56,7 +56,7 @@ jobs:
           exit_code=0
           while read -r attr; do
             printf "\n\n==== Updating %s ====\n" "$attr" >&2
-            if ! UPDATE_NIX_ATTR_PATH="$attr" nix run --file ./internal/update-script.nix; then
+            if ! UPDATE_NIX_ATTR_PATH="$attr" nix run --file ./internal/update-script.nix </dev/null; then
               echo "::error::Update failed for $attr" >&2
               exit_code=1
             fi

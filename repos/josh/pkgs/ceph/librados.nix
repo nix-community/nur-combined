@@ -2,13 +2,13 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchpatch,
   fetchurl,
 
   # Build tools
   autoconf,
   automake,
   cmake,
-  fmt,
   git,
   libtool,
   pkg-config,
@@ -20,6 +20,7 @@
   bzip2,
   ceph,
   curl,
+  fmt,
   gtest,
   icu,
   lmdb,
@@ -57,7 +58,6 @@
   # Darwin only
   apple-sdk,
 
-  fetchpatch,
   runCommandCC,
   writeText,
 }:
@@ -81,15 +81,15 @@ let
     ps.pyyaml
   ]);
 
-  ceph-rocksdb = rocksdb.overrideAttrs {
+  ceph-rocksdb = rocksdb.overrideAttrs (finalAttrs: {
     version = "7.9.2";
     src = fetchFromGitHub {
       owner = "facebook";
       repo = "rocksdb";
-      tag = "v7.9.2";
+      tag = "v${finalAttrs.version}";
       hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
     };
-  };
+  });
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "librados";

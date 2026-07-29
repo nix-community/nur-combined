@@ -35,7 +35,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       dst=''${basename/ - InfluxDB/}
       cp "$src" "$influxdb/$dst"
     done
-    substituteInPlace $influxdb/*.json --replace-warn ' - InfluxDB' ""
+    substituteInPlace $influxdb/*.json --replace-fail ' - InfluxDB' ""
 
     mkdir $prometheus
     for src in ./v2.0.0/*Prometheus.json; do
@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       dst=''${basename/ - Prometheus/}
       cp "$src" "$prometheus/$dst"
     done
-    substituteInPlace $prometheus/*.json --replace-warn ' - Prometheus' ""
+    substituteInPlace $prometheus/*.json --replace-fail ' - Prometheus' ""
 
     runHook postInstall
   '';
