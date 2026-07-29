@@ -11,7 +11,7 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ubi";
-  version = "0.9.0";
+  version = "0.10.0";
 
   __structuredAttrs = true;
 
@@ -19,10 +19,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "houseabsolute";
     repo = "ubi";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-3+cC1X/Ao7x30UCmwUCz/E6HXaIk2G5EDKhgGUKexaE=";
+    hash = "sha256-mmDdb8XeRiC3lUIIvoS43Q6Jt0RY5YL+DbHtEYqw04E=";
   };
 
-  cargoHash = "sha256-qTzJ3s9tsv30gN3Rz8DJqHhRnQW5svTkWBDkR1ZOlIo=";
+  cargoHash = "sha256-5JplwYztnlGkZbvN+Ql5S+A9uPYUb6atCpxW8nOk2Ek=";
 
   nativeBuildInputs = [
     pkg-config

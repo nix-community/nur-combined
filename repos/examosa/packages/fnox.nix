@@ -8,12 +8,11 @@
   pkg-config,
   dbus,
   udev,
-  openssl,
   usage,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "fnox";
-  version = "1.29.0";
+  version = "1.31.1";
 
   __structuredAttrs = true;
 
@@ -21,22 +20,17 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "jdx";
     repo = "fnox";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-sXFcvpAcHrzRbqYLIrq844TH1dHY1G23QIQoIcsCLGY=";
+    hash = "sha256-PAzXu+fltWJXn30RVRUfjCiUUFnt4mb/yeyxM5wCtG8=";
   };
 
-  cargoHash = "sha256-BhBWghjPC8qs5oKECmddV250YO4/hSWupOz+J9DYKog=";
+  cargoHash = "sha256-ImD2PEtoTW1ktNpSzGO0ENyXQ/A4f0ydHqZhSIgNroE=";
 
   nativeBuildInputs = [
     installShellFiles
     pkg-config
   ];
 
-  buildInputs =
-    [
-      dbus
-      openssl
-    ]
-    ++ lib.optional stdenv.hostPlatform.isLinux udev;
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [dbus udev];
 
   postPatch = ''
     substituteInPlace ./src/commands/completion.rs \
@@ -44,7 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   '';
 
   postInstall = ''
-    completions=(--cmd fnox)
+    completions=()
 
     for shell in {ba,fi,z}sh; do
       completion=fnox.$shell
@@ -52,7 +46,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       $JDX_USAGE_BIN generate completion $shell fnox \
         --file fnox.usage.kdl > $completion
 
-      completions+=(--$shell $completion)
+      completions+=($completion)
     done
 
     installShellCompletion "''${completions[@]}"
@@ -61,12 +55,9 @@ rustPlatform.buildRustPackage (finalAttrs: {
     installManPage fnox.1
   '';
 
-  env = {
-    JDX_USAGE_BIN = lib.getExe usage;
-    OPENSSL_NO_VENDOR = true;
-  };
+  env.JDX_USAGE_BIN = lib.getExe usage;
 
-  passthru.updateScript = nix-update-script {};
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     description = "Encrypted/remote secret manager";
