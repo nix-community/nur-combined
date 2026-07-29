@@ -4,8 +4,8 @@
   nur,
 }:
 stdenvNoCC.mkDerivation {
-  name = "nats-static-chart";
-  inherit (nur.repos.josh.nats-static) src;
+  pname = "nats-static-chart";
+  inherit (nur.repos.josh.nats-static) version src;
 
   buildCommand = ''
     mkdir $out

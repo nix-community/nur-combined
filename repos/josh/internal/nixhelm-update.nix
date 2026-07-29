@@ -21,14 +21,17 @@ stdenvNoCC.mkDerivation {
       echo "#!${python.interpreter}"
       cat "${./nixhelm-update.py}"
     ) >$out/bin/nixhelm-update
-    substituteInPlace $out/bin/nixhelm-update --replace-fail '@git@' '${git}/bin/git'
-    substituteInPlace $out/bin/nixhelm-update --replace-fail '@helm@' '${kubernetes-helm}/bin/helm'
-    substituteInPlace $out/bin/nixhelm-update --replace-fail '@nix-hash@' '${nix}/bin/nix-hash'
-    substituteInPlace $out/bin/nixhelm-update --replace-fail '@nix@' '${nix}/bin/nix'
+    substituteInPlace $out/bin/nixhelm-update \
+      --replace-fail '@git@' '${git}/bin/git' \
+      --replace-fail '@helm@' '${kubernetes-helm}/bin/helm' \
+      --replace-fail '@nix-hash@' '${nix}/bin/nix-hash' \
+      --replace-fail '@nix@' '${nix}/bin/nix'
     chmod +x $out/bin/nixhelm-update
   '';
 
   meta = {
+    description = "Update pinned Helm chart versions and hashes in this repo";
+    license = lib.licenses.mit;
     mainProgram = "nixhelm-update";
     platforms = lib.platforms.all;
   };

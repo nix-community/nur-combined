@@ -4,14 +4,14 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-python3Packages.buildPythonPackage rec {
+python3Packages.buildPythonPackage (finalAttrs: {
   pname = "lru-cache";
   version = "1.0.2";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "lru-cache-python";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-p+pQdBBRxWwyymvWUtvcs3dVAuyE+nAzZj1jAi8tKFk=";
   };
 
@@ -32,4 +32,4 @@ python3Packages.buildPythonPackage rec {
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

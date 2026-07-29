@@ -1,10 +1,10 @@
 {
   lib,
   fetchFromGitHub,
-  swiftPackages,
+  stdenvNoCC,
   nix-update-script,
 }:
-swiftPackages.stdenv.mkDerivation (finalAttrs: {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wezterm-tabline";
   version = "1.6.0";
 
@@ -16,7 +16,9 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   };
 
   installPhase = ''
+    runHook preInstall
     cp -R $src $out
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
