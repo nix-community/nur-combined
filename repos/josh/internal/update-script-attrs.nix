@@ -2,8 +2,7 @@
 let
   system = builtins.currentSystem;
   flake = builtins.getFlake (builtins.getEnv "FLAKE_URI");
-  pkgs = import flake.inputs.nixpkgs { inherit system; };
-  packages = import "${flake}/default.nix" { inherit pkgs; };
+  packages = flake.packages.${system};
 
   preferredSystem =
     name:

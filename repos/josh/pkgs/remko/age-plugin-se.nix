@@ -29,7 +29,7 @@ stdenvNoCC.mkDerivation (
     pname = "age-plugin-se";
     version = "0.2.1";
 
-    src = sources.${stdenvNoCC.targetPlatform.system};
+    src = sources.${stdenvNoCC.hostPlatform.system};
 
     installPhase = ''
       if [ -d $src/usr/bin ]; then

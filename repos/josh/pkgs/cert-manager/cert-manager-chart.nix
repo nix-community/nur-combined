@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "oci://quay.io/jetstack/charts/cert-manager";
   chart = "cert-manager";
-  version = "1.21.0";
-  hash = "sha256-QRNY61ZvZkC8vtKv5Ng8Zb+vkt109OnUHRB/CYiSYR4=";
+  version = "1.21.1";
+  hash = "sha256-7OgOm+kDjwAow9EoWM+5XPNmrNte+zxhZq3ZHSf2aqc=";
 
   meta = {
     description = "A Helm chart for cert-manager";
