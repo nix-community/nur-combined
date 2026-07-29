@@ -5,7 +5,6 @@
   bun,
   dbus,
   fetchFromGitHub,
-  importNpmLock,
   lib,
   makeWrapper,
   nodejs_22,
@@ -30,8 +29,7 @@ in
 
     sourceRoot = "${src.name}/apps/cli";
 
-    npmDeps = importNpmLock {npmRoot = src + "/apps/cli";};
-    inherit (importNpmLock) npmConfigHook;
+    npmDepsHash = "sha256-DsrVGZiSZjTMJUd1SqCrEyd/guVZL68qGXapWzSIcOw=";
 
     nodejs = nodejs_22;
 
