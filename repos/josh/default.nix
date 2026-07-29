@@ -7,7 +7,7 @@ let
   callPackage = pkgs.lib.callPackageWith (pkgs // { nur.repos.josh = pkgs' // internalPkgs; });
 
   internalPkgs = {
-    fetchhelm = import ./internal/fetchhelm.nix pkgs;
+    fetchhelm = callPackage ./internal/fetchhelm.nix { };
     nix-prefetch-helm = callPackage ./internal/nix-prefetch-helm.nix { };
     nixhelm-update = callPackage ./internal/nixhelm-update.nix { };
   };

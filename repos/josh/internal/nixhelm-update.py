@@ -66,16 +66,18 @@ def main(
     shutil.rmtree(chart_path)
 
     content = re.sub(
-        r'(^\s+version = ")(.*)(")',
+        r'(^\s+version = ")([^"]*)(")',
         lambda m: m.group(1) + version + m.group(3),
         content,
+        count=1,
         flags=re.MULTILINE,
     )
 
     content = re.sub(
-        r'(^\s+sha256 = ")(.*)(")',
+        r'(^\s+hash = ")([^"]*)(")',
         lambda m: m.group(1) + sha256 + m.group(3),
         content,
+        count=1,
         flags=re.MULTILINE,
     )
 

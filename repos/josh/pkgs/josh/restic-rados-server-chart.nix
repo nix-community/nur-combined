@@ -4,8 +4,8 @@
   nur,
 }:
 stdenvNoCC.mkDerivation {
-  name = "restic-rados-server-chart";
-  inherit (nur.repos.josh.restic-rados-server) src;
+  pname = "restic-rados-server-chart";
+  inherit (nur.repos.josh.restic-rados-server) version src;
 
   buildCommand = ''
     mkdir $out

@@ -4,8 +4,8 @@
   nur,
 }:
 stdenvNoCC.mkDerivation {
-  name = "jmap2nats-chart";
-  inherit (nur.repos.josh.jmap2nats) src;
+  pname = "jmap2nats-chart";
+  inherit (nur.repos.josh.jmap2nats) version src;
 
   buildCommand = ''
     mkdir $out

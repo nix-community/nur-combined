@@ -1,15 +1,20 @@
-pkgs:
+{
+  lib,
+  callPackage,
+  stdenvNoCC,
+  kubernetes-helm,
+}:
 args@{
   pname ? "${chart}-chart",
   url,
   chart,
   version,
-  sha256,
+  hash,
   helmTestValues ? { },
   helmTestArgs ? [ ],
+  meta ? { },
 }:
 let
-  inherit (pkgs) lib callPackage stdenvNoCC;
   nixhelm-update = callPackage ./nixhelm-update.nix { };
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -19,9 +24,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  outputHash = sha256;
+  outputHash = hash;
+  impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
-  nativeBuildInputs = with pkgs; [
+  nativeBuildInputs = [
     kubernetes-helm
   ];
 
@@ -70,9 +76,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Fetch Helm chart";
+    description = "${chart} Helm chart";
     platforms = lib.platforms.all;
-  };
+  }
+  // meta;
 
+  # nixhelm-update locates the calling file via meta.position
   pos = builtins.unsafeGetAttrPos "url" args;
 })

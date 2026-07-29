@@ -4,8 +4,8 @@
   nur,
 }:
 stdenvNoCC.mkDerivation {
-  name = "mqtt2nats-chart";
-  inherit (nur.repos.josh.mqtt2nats) src;
+  pname = "mqtt2nats-chart";
+  inherit (nur.repos.josh.mqtt2nats) version src;
 
   buildCommand = ''
     mkdir $out

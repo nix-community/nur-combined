@@ -13,7 +13,7 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "edgard";
     repo = "iperf3_exporter";
-    tag = "${finalAttrs.version}";
+    tag = finalAttrs.version;
     hash = "sha256-GZgSNBK0ka+m+GxPQUZIKG+6F3HkrGKo43fgh8CoFVs=";
   };
 

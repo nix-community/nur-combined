@@ -10,7 +10,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "misuchiru03";
     repo = "font-consolas-ttf";
-    rev = finalAttrs.version;
+    tag = finalAttrs.version;
     hash = "sha256-O1K2mi6saSrrTEvhECpsFMCKEtLeIk5Muh3XW5yD+mw=";
   };
 
