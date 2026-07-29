@@ -70,7 +70,7 @@
         files = [
           ".npmrc"
           ".mongoshrc.js"
-          # ".gitconfig"
+          ".gitconfig"
           ".bash_history"
           ".claude.json"
         ];

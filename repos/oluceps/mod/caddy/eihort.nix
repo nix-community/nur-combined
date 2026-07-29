@@ -65,6 +65,18 @@
                         handle = [
                           {
                             handler = "reverse_proxy";
+                            upstreams = [
+                              { dial = "localhost:${toString config.services.forgejo.settings.server.HTTP_PORT}"; }
+                            ];
+                          }
+                        ];
+                        match = [ { host = [ "git.nyaw.xyz" ]; } ];
+                        terminal = true;
+                      }
+                      {
+                        handle = [
+                          {
+                            handler = "reverse_proxy";
                             upstreams = [ { dial = "localhost:3336"; } ];
                           }
                         ];

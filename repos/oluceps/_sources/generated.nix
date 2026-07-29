@@ -8,18 +8,18 @@
 {
   GeoLite2-ASN = {
     pname = "GeoLite2-ASN";
-    version = "2026.07.19";
+    version = "2026.07.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.19/GeoLite2-ASN.mmdb";
-      sha256 = "sha256-HizZKUCuR51vt+HFoDy7ee3xW7onCx1li4rXMdtIJVA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.28/GeoLite2-ASN.mmdb";
+      sha256 = "sha256-a9Glg1U9Ec1VFMoYSQi+43nkpv7RC0neVwQ3T66YQlo=";
     };
   };
   GeoLite2-City = {
     pname = "GeoLite2-City";
-    version = "2026.07.19";
+    version = "2026.07.28";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.19/GeoLite2-City.mmdb";
-      sha256 = "sha256-NJ54alaEod/EOTIIQCaBDtyuH0E30x5Y7eaEJI/jpMw=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.28/GeoLite2-City.mmdb";
+      sha256 = "sha256-vHwNyVzFtmAKdaR6BdA2qPfoRC8CAHwyu7NDGGLrmvY=";
     };
   };
   alist = {
@@ -35,13 +35,13 @@
   };
   dnsproxy = {
     pname = "dnsproxy";
-    version = "v0.83.0";
+    version = "v0.83.1";
     src = fetchFromGitHub {
       owner = "AdguardTeam";
       repo = "dnsproxy";
-      rev = "v0.83.0";
+      rev = "v0.83.1";
       fetchSubmodules = false;
-      sha256 = "sha256-ceeNS1Z2xQgZrouRTh48in+Z71dBj/dtnOYTPY/0az8=";
+      sha256 = "sha256-tx0mge1AVGbtG04oJXiBr1ok7mvlcVCD6nUtzH9g+EA=";
     };
   };
   lxgw-neo-xihei = {
@@ -54,10 +54,10 @@
   };
   metacubexd = {
     pname = "metacubexd";
-    version = "v1.269.0";
+    version = "v1.270.6";
     src = fetchurl {
-      url = "https://github.com/MetaCubeX/metacubexd/releases/download/v1.269.0/compressed-dist.tgz";
-      sha256 = "sha256-InBOe96iV7xpSY55B2DGuAmIhZcic9Pcs+pkdFGhFR4=";
+      url = "https://github.com/MetaCubeX/metacubexd/releases/download/v1.270.6/compressed-dist.tgz";
+      sha256 = "sha256-e+o8iHjLFaS9nuWCdQRfQWQuF2Z9vhrjzie/Xj59yZs=";
     };
   };
   mosdns = {

@@ -3,6 +3,10 @@
   flake.modules.nixos.git =
     { config, pkgs, ... }:
     {
+      environment.systemPackages = [
+        pkgs.git-lfs
+        pkgs.git-latexdiff
+      ];
       programs.git = {
         enable = true;
       };

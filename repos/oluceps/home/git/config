@@ -52,3 +52,5 @@
 	email = "secinia@outlook.com"
 	name = "oluceps"
 	signingKey = "/run/vaultix/id"
+[safe]
+    directory = /home/riro/Src/restart_whole

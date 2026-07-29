@@ -46,6 +46,7 @@ let
           "alert"
           "jellyfin"
           "cache"
+          "git"
         ];
         srvOnHastur = [ ];
 
