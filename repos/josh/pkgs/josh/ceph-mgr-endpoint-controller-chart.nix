@@ -4,8 +4,8 @@
   nur,
 }:
 stdenvNoCC.mkDerivation {
-  name = "ceph-mgr-endpoint-controller-chart";
-  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) src;
+  pname = "ceph-mgr-endpoint-controller-chart";
+  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) version src;
 
   buildCommand = ''
     mkdir $out

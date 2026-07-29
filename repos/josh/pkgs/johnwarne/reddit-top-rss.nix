@@ -27,8 +27,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   postPatch = ''
-    substituteInPlace *.php --replace-warn '"cache/' 'CACHE_DIRECTORY . "/'
-    substituteInPlace *.php --replace-warn "'cache/" "CACHE_DIRECTORY . '/"
+    substituteInPlace *.php --replace-quiet '"cache/' 'CACHE_DIRECTORY . "/'
+    substituteInPlace *.php --replace-quiet "'cache/" "CACHE_DIRECTORY . '/"
+    grep -qF 'CACHE_DIRECTORY . ' -- *.php
+    ! grep -F "'cache/" -- *.php
+    ! grep -F '"cache/' -- *.php
   '';
 
   nativeCheckInputs = [ php ];
@@ -38,7 +41,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   checkPhase = ''
     runHook preCheck
 
-    php -l *.php
+    find . -name '*.php' -print0 | xargs -0 -n1 php -l
 
     runHook postCheck
   '';

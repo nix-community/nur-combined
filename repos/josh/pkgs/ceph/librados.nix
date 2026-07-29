@@ -70,7 +70,7 @@ let
       ceph.src
     else
       fetchurl {
-        url = "https://download.ceph.com/tarballs/ceph-20.2.0.tar.gz";
+        url = "https://download.ceph.com/tarballs/ceph-${version}.tar.gz";
         hash = "sha256-jeBk1pgx7zJzOVOfIzx47IJ/o1HEDO2amRbwtBdMZoU=";
       };
 

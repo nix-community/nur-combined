@@ -18,12 +18,12 @@ let
   version = "0.3.0";
   sources = {
     "aarch64-linux" = fetchurl {
-      url = "https://github.com/swiftlang/swiftly/releases/download/0.3.0/swiftly-aarch64-unknown-linux-gnu";
-      sha256 = "0g7xi094h9jk90qa7d9ya1vp16l6rn4m3wrazd42bz5fwirp7z5h";
+      url = "https://github.com/swiftlang/swiftly/releases/download/${version}/swiftly-aarch64-unknown-linux-gnu";
+      hash = "sha256-sPxzc+Su/CVI+yrzUYnNhppwd1A+taMwSFMmSBKI/Tw=";
     };
     "x86_64-linux" = fetchurl {
-      url = "https://github.com/swiftlang/swiftly/releases/download/0.3.0/swiftly-x86_64-unknown-linux-gnu";
-      sha256 = "1gll8rq5qrs4wblk8vds9wcfkva0sdmp88kpj2dwvxwjc04x680q";
+      url = "https://github.com/swiftlang/swiftly/releases/download/${version}/swiftly-x86_64-unknown-linux-gnu";
+      hash = "sha256-GCDTCWCS982bkHcidGvTQO3pGE+6bTTp4kRnXHBGlL4=";
     };
   };
 in

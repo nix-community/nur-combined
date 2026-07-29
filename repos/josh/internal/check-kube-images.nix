@@ -2,6 +2,7 @@
   stdenvNoCC,
   crane,
   cacert,
+  yq,
   src,
   pname,
   version,
@@ -25,10 +26,15 @@ stdenvNoCC.mkDerivation {
   nativeBuildInputs = [
     crane
     cacert
+    yq
   ];
 
   buildCommand = ''
-    readarray -t images < <(grep -rh 'image:' "$src" | sed 's/.*image: *"\?\([^"]*\)"\?.*/\1/' | grep -v '^$' | sort -u)
+    readarray -t images < <(find "$src" -name '*.yaml' -exec yq -r '.. | .image? // empty | strings' {} + | sort -u)
+    if [ "''${#images[@]}" -eq 0 ]; then
+      echo "no images found in $src" >&2
+      exit 1
+    fi
     for image in "''${images[@]}"; do
       for platform in "''${platforms[@]}"; do
         crane manifest --platform "$platform" "$image" >/dev/null

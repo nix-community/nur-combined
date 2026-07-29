@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "tokyonight-extras";
-  version = "stable-unstable-2026-03-24";
+  version = "4.14.1-unstable-2026-03-24";
 
   src = fetchFromGitHub {
     owner = "folke";
@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch=main" ]; };
 
   meta = {
     description = "Provides TokyoNight extras for numerous other applications";

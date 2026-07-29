@@ -19,6 +19,9 @@ let
     lib.lists.toList (pkg.updateScript.command or pkg.updateScript)
   );
   updateCommand = lib.strings.escapeShellArgs (updateScriptArgs ++ [ "--commit" ]);
+
+  inherit (lib.strings) escapeShellArg;
+  branch = escapeShellArg "update-${attr}";
 in
 pkgs.writeShellScriptBin "update-${attr}" ''
   set -o errexit
@@ -28,10 +31,10 @@ pkgs.writeShellScriptBin "update-${attr}" ''
 
   trap 'git checkout --quiet main' EXIT
   git checkout --force main
-  git checkout -B "update-${attr}"
+  git checkout -B ${branch}
   old_sha=$(git rev-parse HEAD)
 
-  UPDATE_NIX_NAME=${name} UPDATE_NIX_PNAME=${pname} UPDATE_NIX_OLD_VERSION=${version} UPDATE_NIX_ATTR_PATH=${attr} ${updateCommand}
+  UPDATE_NIX_NAME=${escapeShellArg name} UPDATE_NIX_PNAME=${escapeShellArg pname} UPDATE_NIX_OLD_VERSION=${escapeShellArg version} UPDATE_NIX_ATTR_PATH=${escapeShellArg attr} ${updateCommand}
 
   new_sha=$(git rev-parse HEAD)
   if [ "$old_sha" == "$new_sha" ]; then
@@ -39,14 +42,14 @@ pkgs.writeShellScriptBin "update-${attr}" ''
     exit 0
   fi
 
-  git push --force origin "update-${attr}"
+  git push --force origin ${branch}
 
-  pr_count=$(gh pr list --head "update-${attr}" --json url --jq 'length')
+  pr_count=$(gh pr list --head ${branch} --json url --jq 'length')
   if [ "$pr_count" -eq 0 ]; then
     pr_url=$(gh pr create \
       --base "main" \
-      --head "update-${attr}" \
-      --title "Update ${attr}" \
+      --head ${branch} \
+      --title ${escapeShellArg "Update ${attr}"} \
       --fill-verbose
     )
     gh pr merge --merge --auto "$pr_url"

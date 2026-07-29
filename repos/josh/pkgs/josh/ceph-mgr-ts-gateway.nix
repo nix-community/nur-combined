@@ -4,18 +4,18 @@
   fetchFromGitHub,
   nix-update-script,
 }:
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "ceph-mgr-ts-gateway";
   version = "0.2.0";
 
   src = fetchFromGitHub {
     owner = "josh";
     repo = "ceph-mgr-ts-gateway";
-    rev = "8c7e0c629b43786ffb99aedfbe7925873f61e047";
-    hash = "sha256-6pNSmIiEdk/F+h5KMU96Vj652W8ja3AcvZr2AQtJ8es=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-h3cdemyYqITtzjwnm7Md6HlTl9EkBsldBvRcBIAc7Hc=";
   };
 
-  vendorHash = "sha256-Zjwgm+lftw070zkQQnm5fIg526gcyvNQBMhqziGkx84=";
+  vendorHash = "sha256-UpLPXWyA4aIDjlUNKgFh3hkres4QfUDHnB0hykeR7WA=";
 
   env.CGO_ENABLED = 0;
   ldflags = [
@@ -31,4 +31,4 @@ buildGoModule {
     license = lib.licenses.mit;
     mainProgram = "ceph-mgr-ts-gateway";
   };
-}
+})
