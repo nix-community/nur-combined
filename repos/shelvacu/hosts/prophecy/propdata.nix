@@ -42,7 +42,7 @@ let
       sizeBytes = safe_size (value.sizeT * t);
       sizeKi = sizeBytes / ki;
       partitionConfig = {
-        size = "${builtins.toString sizeKi}K";
+        size = "${toString sizeKi}K";
         type = fs_type_zfs;
         priority = 1000 + value.idx;
         content = {
@@ -144,6 +144,9 @@ let
     map (
       id: config.disko.devices.disk.${diskName groupName id}.content.partitions.${partName}.device
     ) groupAttrs.${groupName}.diskIds;
+
+  # not including easystores_10; they dont support ERC
+  drivesSupportingErcIds = map (lib.removePrefix "ata-") (seagates ++ easystores_14);
 in
 {
   imports = [ inputs.disko.nixosModules.default ];

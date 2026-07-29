@@ -243,6 +243,7 @@ in
       mosh
       nano
       ncdu
+      ndisc6
       netcat-openbsd
       nixos-rebuild
       openssl
