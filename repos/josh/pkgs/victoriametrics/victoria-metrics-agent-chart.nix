@@ -1,4 +1,4 @@
-{ nur }:
+{ lib, nur }:
 nur.repos.josh.fetchhelm {
   url = "https://victoriametrics.github.io/helm-charts";
   chart = "victoria-metrics-agent";
@@ -8,5 +8,11 @@ nur.repos.josh.fetchhelm {
     remoteWrite = [
       { url = "http://localhost:8428/api/v1/write"; }
     ];
+  };
+
+  meta = {
+    description = "VictoriaMetrics Agent - collects metrics from various sources and stores them to VictoriaMetrics";
+    homepage = "https://github.com/VictoriaMetrics/helm-charts";
+    license = lib.licenses.asl20;
   };
 }

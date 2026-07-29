@@ -1,4 +1,4 @@
-{ nur }:
+{ lib, nur }:
 nur.repos.josh.fetchhelm {
   url = "https://dl.gitea.com/charts/";
   chart = "actions";
@@ -9,5 +9,11 @@ nur.repos.josh.fetchhelm {
     giteaRootURL = "https://gitea.example.com/";
     existingSecret = "gitea-runner-token";
     existingSecretKey = "token";
+  };
+
+  meta = {
+    description = "Gitea Actions Helm chart for Kubernetes";
+    homepage = "https://gitea.com/gitea/helm-actions";
+    license = lib.licenses.mit;
   };
 }

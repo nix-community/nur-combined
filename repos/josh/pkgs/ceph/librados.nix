@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchurl,
+  fetchpatch,
   runCommandCC,
   writeText,
   ceph,
@@ -95,10 +96,12 @@ stdenv.mkDerivation (finalAttrs: {
 
   patches = lib.optionals (!lib.versionAtLeast version "20.2.1") [
     # PyO3 workaround — allows build on Python 3.12 (merged upstream in 20.2.1)
-    (fetchurl {
+    # https://github.com/ceph/ceph/pull/66794
+    # Pinned base...head range of that PR; PR diff URLs are mutable
+    (fetchpatch {
       name = "ceph-upstream-pyo3-workaround.patch";
-      url = "https://github.com/ceph/ceph/pull/66794.diff?full_index=1";
-      hash = "sha256-+OrG9JpMOfZwtzAPJkBrzt+8BGKKiNjQMMpkJSHpGFo=";
+      url = "https://github.com/ceph/ceph/compare/ba0181c0fc1118f6199dc21db58da8ccc94ca0b7...411fcaa78fcf75392dd235533ba9b8d351971b08.diff";
+      hash = "sha256-bZvcCNf9R3JpcHP0r3x6iRE9lp3CGOPCqi44fj15U1E=";
     })
   ];
 
@@ -279,8 +282,7 @@ stdenv.mkDerivation (finalAttrs: {
     cp ../src/include/rados/inline_memory.h $out/include/rados/
     cp ../src/include/rados/page.h $out/include/rados/
     cp ../src/include/rados/crc32c.h $out/include/rados/
-  ''
-  + ''
+
     runHook postInstall
   '';
 

@@ -20,7 +20,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
-    description = "Import, export or merge zsh or fish history files.";
+    description = "Import, export or merge zsh or fish history files";
     mainProgram = "histutils";
     homepage = "https://github.com/josh/histutils";
     license = lib.licenses.mit;
