@@ -9,7 +9,7 @@ let
   internalPkgs = {
     fetchhelm = import ./internal/fetchhelm.nix pkgs;
     nix-prefetch-helm = callPackage ./internal/nix-prefetch-helm.nix { };
-    nixhelm-update = callPackage ../../internal/nixhelm-update.nix { };
+    nixhelm-update = callPackage ./internal/nixhelm-update.nix { };
   };
 
   packagesFromDirectory =
