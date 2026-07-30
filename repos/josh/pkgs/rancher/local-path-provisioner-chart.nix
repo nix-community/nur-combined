@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nur,
   nix-update-script,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "local-path-provisioner-chart";
@@ -20,12 +21,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     mkdir $out
-    cp -R $src/deploy/chart/local-path-provisioner/* $out/
+    cp -R $src/deploy/chart/local-path-provisioner/. $out/
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
+    files =
+      runCommand "test-local-path-provisioner-chart-files"
+        {
+          __structuredAttrs = true;
+        }
+        ''
+          diff -r ${finalAttrs.src}/deploy/chart/local-path-provisioner ${finalAttrs.finalPackage}
+          touch $out
+        '';
+
     render = nur.repos.josh.renderHelmTemplate {
       src = finalAttrs.finalPackage;
       chartName = "local-path-provisioner";
