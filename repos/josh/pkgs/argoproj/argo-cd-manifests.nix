@@ -34,8 +34,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
           nativeBuildInputs = [ yq ];
         }
         ''
-          yq -r '.kind? // empty' ${finalAttrs.finalPackage}/install.yaml | grep -q .
-          yq -r '.kind? // empty' ${finalAttrs.finalPackage}/namespace-install.yaml | grep -q .
+          yq -r '.kind? // empty' ${finalAttrs.finalPackage}/install.yaml >kinds.txt
+          grep -q . kinds.txt
+          yq -r '.kind? // empty' ${finalAttrs.finalPackage}/namespace-install.yaml >kinds.txt
+          grep -q . kinds.txt
           touch $out
         '';
   };

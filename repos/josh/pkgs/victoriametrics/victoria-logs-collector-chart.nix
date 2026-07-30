@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-Anr6TKpNkdq6Ty+DrRiOUEoUEyeCLCBbJ4aDXfKlxDs=";
   helmTestValues = {
     remoteWrite = [
-      { url = "http://localhost:9428"; }
+      { url = "http://victoria-logs:9428"; }
     ];
   };
 

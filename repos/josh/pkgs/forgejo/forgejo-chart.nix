@@ -4,6 +4,14 @@ nur.repos.josh.fetchhelm {
   chart = "forgejo";
   version = "17.1.4";
   hash = "sha256-UobXxnQHV2elYUV1g4kv9yk0PRc53Z+Aqp+2Qfw9/9o=";
+  helmTestValues = {
+    gitea = {
+      admin = {
+        username = "";
+        password = "";
+      };
+    };
+  };
 
   meta = {
     description = "Forgejo Helm chart for Kubernetes";

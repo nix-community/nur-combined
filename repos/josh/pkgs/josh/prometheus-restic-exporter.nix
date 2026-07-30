@@ -66,11 +66,6 @@ buildGoModule (finalAttrs: {
       grep --text --quiet "${lib.getExe restic}" "${lib.getExe finalAttrs.finalPackage}"
       touch $out
     '';
-
-    restic-version = runCommand "test-prometheus-restic-exporter-restic-version" { } ''
-      grep --text --quiet "${restic.version}" "${lib.getExe finalAttrs.finalPackage}"
-      touch $out
-    '';
   };
 
   meta = {

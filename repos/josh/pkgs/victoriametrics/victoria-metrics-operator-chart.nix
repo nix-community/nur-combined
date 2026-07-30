@@ -4,6 +4,9 @@ nur.repos.josh.fetchhelm {
   chart = "victoria-metrics-operator";
   version = "0.67.0";
   hash = "sha256-2e/K2zzfn2iZf2/UV96Hezj7veI32bZg3cTTTZP2XlA=";
+  helmTestValues = {
+    admissionWebhooks.certManager.enabled = true;
+  };
 
   meta = {
     description = "VictoriaMetrics Operator";
