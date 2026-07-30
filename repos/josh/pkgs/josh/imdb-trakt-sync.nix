@@ -27,6 +27,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     click
   ];
 
+  pythonImportsCheck = [ "imdb_trakt_sync" ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {

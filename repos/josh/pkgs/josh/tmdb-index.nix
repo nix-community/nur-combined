@@ -30,6 +30,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     tqdm
   ];
 
+  pythonImportsCheck = [ "tmdb_index" ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {

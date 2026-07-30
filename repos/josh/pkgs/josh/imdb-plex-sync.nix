@@ -29,6 +29,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     nur.repos.josh.polars
   ];
 
+  pythonImportsCheck = [ "imdb_plex_sync" ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {

@@ -15,8 +15,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "trakt-data";
-    rev = "077a1ffa7dfd7cf801bae90437e7c0583ebe3051";
-    hash = "sha256-hlCF3U1VoJor5DTQAwXNggYndIHxjAWDM+91UcFdKoQ=";
+    rev = "72b6b209b45790c448acec607b28c276f912fa90";
+    hash = "sha256-cjr5Q6teFWVscEXK44yXcHM2xMvM11/Y9ccgL3qXEAk=";
   };
 
   build-system = with python3Packages; [
@@ -28,6 +28,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     prometheus-client
     requests
   ];
+
+  pythonImportsCheck = [ "trakt_data" ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 

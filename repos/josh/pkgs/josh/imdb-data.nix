@@ -28,6 +28,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     requests
   ];
 
+  pythonImportsCheck = [ "imdb_data" ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {

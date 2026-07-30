@@ -30,6 +30,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     pyyaml
   ];
 
+  pythonImportsCheck = [ "gh_audit" ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {

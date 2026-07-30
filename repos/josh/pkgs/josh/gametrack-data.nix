@@ -23,6 +23,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
     hatchling
   ];
 
+  pythonImportsCheck = [ "gametrack_data" ];
+
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
