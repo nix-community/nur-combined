@@ -41,6 +41,7 @@ buildNpmPackage rec {
   };
 
   patches = [
+    ./update-dependencies.patch
     ./disable-updates.patch
     ./disable-hotkey-notice.patch
   ];
@@ -51,7 +52,9 @@ buildNpmPackage rec {
     cp ${newIcon} src/renderer/assets/icon.png
   '';
 
-  npmDepsHash = "sha256-dOgkqID35J6wznqgb86AE7RzPRgRfDxFFFUoLvNXakw=";
+  npmDepsHash = "sha256-Y9DmcT+XKJSHVtpWFwY795Ph+gmgI872aUAzObb3+F0=";
+
+  npmFlags = [ "--legacy-peer-deps" ];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
