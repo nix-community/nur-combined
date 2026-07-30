@@ -3,7 +3,6 @@
   bash,
   cabextract,
   fetchFromGitHub,
-  git,
   glib,
   lib,
   libloot-python,
@@ -28,7 +27,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   };
 
   nativeBuildInputs = [
-    git
     meson
     ninja
     qt6.wrapQtAppsHook
@@ -87,6 +85,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     )
     wrapQtApp $out/bin/amethyst-mod-manager ''${makeWrapperArgs[@]}
     wrapProgram $out/bin/amethyst-mod-manager-cli ''${makeWrapperArgs[@]}
+    rm -r $out/share/metainfo
   '';
 
   # no tests
