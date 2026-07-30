@@ -7,4 +7,5 @@
   nixosModules = import ./nixos-modules;
 
   scrobblex = pkgs.callPackage ./pkgs/scrobblex { };
+  trek = pkgs.callPackage ./pkgs/trek { };
 }
