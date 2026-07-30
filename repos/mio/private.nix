@@ -1,14 +1,10 @@
 {
   pkgs ? import <nixpkgs> {
-    #config.permittedInsecurePackages = [
-    #  "qtwebengine-5.15.19"
-    #];
     config.allowUnfree = true;
   },
 }:
 rec {
-  lib = pkgs.lib;
-  stdenv = pkgs.stdenv;
+  inherit (pkgs) lib stdenv;
   # TODO: -Wl,--threads -Wl,--thread-count,xxx
   fixcmake =
     x:

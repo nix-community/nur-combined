@@ -25,7 +25,7 @@ Use without nur: add to flake.nix inputs
     };
 ```
 
-Some packages are only available without nur as they failed to evaluate under nur constraints:
+~~ Some packages are only available without nur as they failed to evaluate under nur constraints (no IFD): ~~ <https://github.com/nix-community/NUR/issues/1020#issuecomment-5134383935>
 
 + gifcurry
 + prospect-mail

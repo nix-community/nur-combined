@@ -15,12 +15,9 @@
         import ./default.nix {
           pkgs = import nixpkgs {
             inherit system;
-            #config.permittedInsecurePackages = [
-            #  "qtwebengine-5.15.19"
-            #];
             config.allowUnfree = true;
           };
-          nurbot = false;
+          no-ifd = false;
         }
       );
       packages = forAllSystems (

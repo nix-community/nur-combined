@@ -8,17 +8,11 @@
 
 {
   pkgs ? import <nixpkgs> {
-    #config.permittedInsecurePackages = [
-    #  "qtwebengine-5.15.19"
-    #];
     config.allowUnfree = true;
   },
-  nurbot ? true,
+  no-ifd ? false,
 }:
 with (import ./private.nix { inherit pkgs; });
-let
-  inherit (pkgs) callPackage;
-in
 {
   # note: some packages might be commented out to reduce package numbers. garnix has hardcoded limit of 100.
   # The `lib`, `modules`, and `overlays` names are special
@@ -26,7 +20,7 @@ in
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 }
-// import ./packages.nix { inherit pkgs nurbot; }
+// import ./packages.nix { inherit pkgs no-ifd; }
 // rec {
   aria2 = v3override (
     pkgs.aria2.overrideAttrs (old: {
@@ -135,10 +129,10 @@ in
     let
       self = import ./default.nix {
         inherit pkgs;
-        nurbot = false;
+        no-ifd = false;
       };
     in
-    if nurbot then
+    if no-ifd then
       { }
     else
       {
