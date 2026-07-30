@@ -52,9 +52,7 @@ buildNpmPackage rec {
     cp ${newIcon} src/renderer/assets/icon.png
   '';
 
-  npmDepsHash = "sha256-Y9DmcT+XKJSHVtpWFwY795Ph+gmgI872aUAzObb3+F0=";
-
-  npmFlags = [ "--legacy-peer-deps" ];
+  npmDepsHash = "sha256-tgncam8gBHiCvYqRuC1w3Wtg8IBUilYLAHiDuxHY6uw=";
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
