@@ -1,7 +1,44 @@
-{ lib, appimageTools, fetchurl, makeDesktopItem, nix-update-script }:
+{ lib
+, stdenv
+, appimageTools
+, fetchurl
+, makeDesktopItem
+, makeWrapper
+, autoPatchelfHook
+, nix-update-script
+, alsa-lib
+, at-spi2-atk
+, at-spi2-core
+, atk
+, cairo
+, cups
+, dbus
+, expat
+, glib
+, gtk3
+, libxkbcommon
+, mesa
+, nspr
+, nss
+, pango
+, systemd
+, libX11
+, libXcomposite
+, libXdamage
+, libXext
+, libXfixes
+, libXrandr
+, libxcb
+, libdbusmenu-gtk2
+, libdbusmenu
+, gtk2
+, dbus-glib
+, musl
+, libsecret
+}:
 
 let
-  pname = "Tabby";
+  pname = "tabby";
   version = "1.0.235";
 
   src = fetchurl {
@@ -26,15 +63,68 @@ let
     ];
   };
 in
-appimageTools.wrapType2 {
-  inherit pname version src;
+stdenv.mkDerivation {
+  inherit pname version;
 
-  extraInstallCommands = ''
+  src = appimageContents;
+
+  nativeBuildInputs = [
+    autoPatchelfHook
+    makeWrapper
+  ];
+
+  buildInputs = [
+    alsa-lib
+    at-spi2-atk
+    at-spi2-core
+    atk
+    cairo
+    cups
+    dbus
+    expat
+    glib
+    gtk3
+    libxkbcommon
+    mesa
+    nspr
+    nss
+    pango
+    stdenv.cc.cc.lib
+    systemd
+    libX11
+    libXcomposite
+    libXdamage
+    libXext
+    libXfixes
+    libXrandr
+    libxcb
+    libdbusmenu-gtk2
+    libdbusmenu
+    gtk2
+    dbus-glib
+    musl
+    libsecret
+  ];
+
+  dontConfigure = true;
+  dontBuild = true;
+
+  installPhase = ''
+    runHook preInstall
+
+    mkdir -p $out/opt/tabby $out/bin
+    cp -r . $out/opt/tabby
+
+    makeWrapper $out/opt/tabby/tabby $out/bin/tabby \
+      --add-flags "--no-sandbox"
+
     install -m 444 -D ${desktopItem}/share/applications/${pname}.desktop \
       $out/share/applications/${pname}.desktop
 
-    install -m 444 -D ${appimageContents}/usr/share/icons/hicolor/256x256/apps/tabby.png \
+    install -m 444 -D $out/opt/tabby/usr/share/icons/hicolor/256x256/apps/tabby.png \
       $out/share/icons/hicolor/256x256/apps/${pname}.png
+
+    runHook postInstall
   '';
 
   passthru.updateScript = nix-update-script { };
@@ -45,6 +135,6 @@ appimageTools.wrapType2 {
     license = licenses.mit;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     platforms = [ "x86_64-linux" ];
-    mainProgram = "Tabby";
+    mainProgram = "tabby";
   };
 }
