@@ -30,13 +30,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.2.88-1";
+    version = "v7.2.105-1";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.2.88-1";
+      rev = "v7.2.105-1";
       fetchSubmodules = false;
-      sha256 = "sha256-GBgTTrEWzscSke1EGJ/LWPSCvlioSmp8HMXHb1EtvnM=";
+      sha256 = "sha256-ZlntaRGj6z662f0WNGomj4KF9fNjlV7Axoeing93V84=";
     };
   };
 }

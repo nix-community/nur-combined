@@ -55,11 +55,11 @@
             "name": null,
             "owner": "kaitranntt",
             "repo": "CLIProxyAPIPlus",
-            "rev": "v7.2.88-1",
-            "sha256": "sha256-GBgTTrEWzscSke1EGJ/LWPSCvlioSmp8HMXHb1EtvnM=",
+            "rev": "v7.2.105-1",
+            "sha256": "sha256-ZlntaRGj6z662f0WNGomj4KF9fNjlV7Axoeing93V84=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.88-1"
+        "version": "v7.2.105-1"
     }
 }
