@@ -18,7 +18,10 @@ let
   updateScriptArgs = builtins.map builtins.toString (
     lib.lists.toList (pkg.updateScript.command or pkg.updateScript)
   );
-  updateCommand = lib.strings.escapeShellArgs (updateScriptArgs ++ [ "--commit" ]);
+  isNixUpdate = lib.strings.hasSuffix "/bin/nix-update" (builtins.head updateScriptArgs);
+  updateCommand = lib.strings.escapeShellArgs (
+    updateScriptArgs ++ lib.lists.optional isNixUpdate "--flake" ++ [ "--commit" ]
+  );
 
   inherit (lib.strings) escapeShellArg;
   branch = escapeShellArg "update-${attr}";
