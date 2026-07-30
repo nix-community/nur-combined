@@ -2,6 +2,7 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
+  pandoc,
 }:
 
 ## DzmingLi/zhihu.el: write and publish Zhihu answers and articles from Emacs.
@@ -15,14 +16,30 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "zhihu.el";
-    rev = "cea464447dce72e183d65568a96842dc2ac7baf8";
-    hash = "sha256-mMI8EE8ae8RvBqBFAv2MpzATciC1GIkoFtBV/PeywCE=";
+    rev = "e46802e6a8626757742f3b75b388d463a18b5b56";
+    hash = "sha256-CwNg3s7hBUMhVdnvpkuizYVrGfApDlfz3jvbS3NZrvI=";
   };
 
   packageRequires = [
     emacsPackages.elpaDevelPackages.plz
     emacsPackages.yaml
   ];
+
+  turnCompilationWarningToError = true;
+
+  postPatch = ''
+    substituteInPlace zhihu.el \
+      --replace-fail '"pandoc"' '"${lib.getExe pandoc}"'
+  '';
+
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+    grep -Fq '"${lib.getExe pandoc}"' zhihu.el
+    emacs -l package -f package-initialize --batch -L . \
+      --eval "(unless (require 'zhihu nil t) (error \"Failed to load zhihu\"))"
+    runHook postCheck
+  '';
 
   meta = with lib; {
     description = "Write and publish Zhihu answers and articles from Emacs";
