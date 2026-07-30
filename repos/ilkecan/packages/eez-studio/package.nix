@@ -3,7 +3,7 @@
   buildNpmPackage,
   cmake,
   copyDesktopItems,
-  electron_39,
+  electron,
   fetchFromGitHub,
   icoutils,
   makeDesktopItem,
@@ -13,22 +13,20 @@
   udev,
 }:
 
-let
-  electron = electron_39; # https://github.com/eez-open/studio/issues/1026
-in
-
 buildNpmPackage (finalAttrs: {
   pname = "eez-studio";
-  version = "0.28.0";
+  version = "0.28.0-unstable-2026-07-29";
 
   src = fetchFromGitHub {
     owner = "eez-open";
     repo = "studio";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-f4Z1Df9w4pDYedXRGwkWrtjZOkoQOcIVx1WYrGWyUYk=";
+    # There isn't any release that include the fixes to support electron_40+ yet.
+    # Switch to using `tag` instead of `rev` after 0.28.1+.
+    rev = "462cca563effb3d6ab9b73ed744d5b2499ba66c9";
+    hash = "sha256-sKqB6H4M77L613NDPo3/m5SGHqagoPLmvs1fcTBQL7g=";
   };
 
-  npmDepsHash = "sha256-vT57+EBkBvg2r4VyiUuxpUmQGSRcXMtDvlXbNALirPE=";
+  npmDepsHash = "sha256-vKyitP5xrUZMMZF8D+e5Z4rwc9Y2iS+S56oV62GHkz0=";
 
   env = {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
@@ -124,12 +122,18 @@ buildNpmPackage (finalAttrs: {
     })
   ];
 
-  passthru.updateScript = nix-update-script { };
+  # TODO remove `extraArgs` after 0.28.1+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version"
+      "branch"
+    ];
+  };
 
   meta = {
     description = "Cross-platform low-code GUI and automation tool for embedded systems and T&M equipment";
     homepage = "https://www.envox.eu/studio/studio-introduction/";
-    changelog = "https://github.com/eez-open/studio/releases/tag/${finalAttrs.src.tag}";
+    changelog = "https://github.com/eez-open/studio/releases/tag/v0.28.0"; # TODO use `finalAttrs.src.tag` after 0.28.1+
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ilkecan ];
     platforms = lib.platforms.linux;
