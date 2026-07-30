@@ -157,17 +157,17 @@ let
           args
           // rec {
             pname = "myosevka-${set}";
-            version = "34.7.0";
+            version = "34.8.0";
             src = fetchFromGitHub {
               owner = "be5invis";
               repo = "iosevka";
               rev = "v${version}";
-              hash = "sha256-OwCtp/WufMCzuaPTDCr2siorUC52zgM2e80DyshzsZw=";
+              hash = "sha256-Vql44qexuYxiCGmjiQUMilIR488KSHpCDjOgPIEl8L8=";
             };
 
             buildPlan = builtins.toJSON { buildPlans.${pname} = privateBuildPlan; };
 
-            npmDepsHash = "sha256-tlBxO9K0itXO6Mac4jcygZ6+9kj1gTdmu+rtbL2qdcE=";
+            npmDepsHash = "sha256-U3H+l6MhiaxcyrQQTTVQcSL4aAI0b3ltQCmylc8+LfE=";
 
             meta = with lib; {
               inherit (src.meta) homepage;
