@@ -3,6 +3,7 @@
   emacsPackages,
   fetchFromGitHub,
   pandoc,
+  typst,
 }:
 
 ## DzmingLi/zhihu.el: write and publish Zhihu answers and articles from Emacs.
@@ -29,13 +30,15 @@ emacsPackages.trivialBuild {
 
   postPatch = ''
     substituteInPlace zhihu.el \
-      --replace-fail '"pandoc"' '"${lib.getExe pandoc}"'
+      --replace-fail '"pandoc"' '"${lib.getExe pandoc}"' \
+      --replace-fail '"typst"' '"${lib.getExe typst}"'
   '';
 
   doCheck = true;
   checkPhase = ''
     runHook preCheck
     grep -Fq '"${lib.getExe pandoc}"' zhihu.el
+    grep -Fq '"${lib.getExe typst}"' zhihu.el
     emacs -l package -f package-initialize --batch -L . \
       --eval "(unless (require 'zhihu nil t) (error \"Failed to load zhihu\"))"
     runHook postCheck
