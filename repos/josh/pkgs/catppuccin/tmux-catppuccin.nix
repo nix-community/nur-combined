@@ -19,8 +19,8 @@ tmuxPlugins.mkTmuxPlugin rec {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
+    description = "Soothing pastel theme for Tmux";
     homepage = "https://github.com/catppuccin/tmux";
-    description = "Soothing pastel theme for Tmux!";
     license = lib.licenses.mit;
     platforms = lib.platforms.unix;
   };

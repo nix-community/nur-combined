@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-+WgOFqk18C7A34u0w5vRJR9kD1UJTG2k5asPJ1qOZKg=";
 
   meta = {
-    description = "A Traefik based Kubernetes ingress controller";
+    description = "Helm chart for the Traefik Kubernetes ingress controller";
     homepage = "https://traefik.io";
     license = lib.licenses.asl20;
   };

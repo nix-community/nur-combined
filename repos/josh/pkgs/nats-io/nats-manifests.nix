@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "nats-manifests";
   inherit (nur.repos.josh.nats-chart) version;
-  src = nur.repos.josh.nats-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.nats-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Helm chart for the NATS.io High Speed Cloud Native Distributed Communications Technology";
+    description = "Kubernetes manifests for NATS, a cloud native messaging system";
     homepage = "https://github.com/nats-io/k8s/tree/main/helm/charts/nats";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

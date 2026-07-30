@@ -17,12 +17,7 @@ let
 in
 pkg.overrideAttrs (
   finalAttrs: previousAttrs: {
-    meta = previousAttrs.meta // {
-      description = "Terraform provider for NATS Synadia Cloud";
-    };
-
     passthru = previousAttrs.passthru // {
-
       tests = {
         version = runCommand "test-terraform-provider-nsc-version" { } ''
           grep --text --quiet "${finalAttrs.version}" \
@@ -37,6 +32,10 @@ pkg.overrideAttrs (
           "pkgs/mikluko/terraform-provider-nsc.nix"
         ];
       };
+    };
+
+    meta = previousAttrs.meta // {
+      description = "Terraform provider for NATS Synadia Cloud";
     };
   }
 )

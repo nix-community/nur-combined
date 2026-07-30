@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "sops-secrets-operator-manifests";
   inherit (nur.repos.josh.sops-secrets-operator-chart) version;
-  src = nur.repos.josh.sops-secrets-operator-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.sops-secrets-operator-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -40,7 +41,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "Helm chart deploys sops-secrets-operator";
+    description = "Kubernetes manifests for sops-secrets-operator";
     homepage = "https://github.com/isindir/sops-secrets-operator/tree/master/chart/helm3/sops-secrets-operator";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;

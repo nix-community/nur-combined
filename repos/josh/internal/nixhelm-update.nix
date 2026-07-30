@@ -1,10 +1,10 @@
 {
   lib,
-  python3,
   stdenvNoCC,
   git,
-  nix,
   kubernetes-helm,
+  nix,
+  python3,
 }:
 let
   python = python3.withPackages (ps: [

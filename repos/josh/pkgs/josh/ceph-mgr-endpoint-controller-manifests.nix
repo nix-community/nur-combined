@@ -7,9 +7,11 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "ceph-mgr-endpoint-controller-manifests";
-  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) version src;
+  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) version;
 
   __structuredAttrs = true;
+
+  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) src;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -36,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Kubernetes manifests for ceph-mgr-endpoint-controller";
+    description = "Kubernetes manifests for ceph-mgr-endpoint-controller";
     homepage = "https://github.com/josh/ceph-mgr-endpoint-controller/tree/main/charts/ceph-mgr-endpoint-controller";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

@@ -4,8 +4,8 @@
   fetchFromGitHub,
   deno,
   makeWrapper,
-  runCommand,
   nix-update-script,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nanomail";
@@ -53,10 +53,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "A Deno + JXA CLI for reading and managing Apple Mail on macOS";
+    description = "Deno + JXA CLI for reading and managing Apple Mail on macOS";
     homepage = "https://github.com/shareup/nanomail";
     license = lib.licenses.mit;
-    platforms = lib.platforms.darwin;
     mainProgram = "nanomail";
+    platforms = lib.platforms.darwin;
   };
 })

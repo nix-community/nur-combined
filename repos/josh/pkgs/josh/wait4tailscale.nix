@@ -49,7 +49,7 @@ buildGoModule (finalAttrs: {
     description = "Monitor Tailscale connection status";
     homepage = "https://github.com/josh/wait4tailscale";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "wait4tailscale";
+    platforms = lib.platforms.all;
   };
 })

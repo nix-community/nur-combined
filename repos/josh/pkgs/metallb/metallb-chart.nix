@@ -9,7 +9,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "A network load-balancer implementation for Kubernetes using standard routing protocols";
+    description = "Network load-balancer implementation for Kubernetes using standard routing protocols";
     homepage = "https://metallb.universe.tf";
     license = lib.licenses.asl20;
   };

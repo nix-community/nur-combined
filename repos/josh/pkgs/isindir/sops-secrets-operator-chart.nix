@@ -10,8 +10,8 @@ nur.repos.josh.fetchhelm {
   ];
 
   meta = {
-    description = "Helm chart deploys sops-secrets-operator";
-    homepage = "https://github.com/isindir/sops-secrets-operator.git";
+    description = "Helm chart for sops-secrets-operator";
+    homepage = "https://github.com/isindir/sops-secrets-operator";
     license = lib.licenses.mpl20;
   };
 }

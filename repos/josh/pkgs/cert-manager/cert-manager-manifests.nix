@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "cert-manager-manifests";
   inherit (nur.repos.josh.cert-manager-chart) version;
-  src = nur.repos.josh.cert-manager-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.cert-manager-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Helm chart for cert-manager";
+    description = "Kubernetes manifests for cert-manager";
     homepage = "https://cert-manager.io";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

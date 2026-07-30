@@ -42,7 +42,7 @@ buildGoModule (finalAttrs: {
     description = "Bridge JMAP email push events to NATS JetStream";
     homepage = "https://github.com/josh/jmap2nats";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "jmap2nats";
+    platforms = lib.platforms.all;
   };
 })

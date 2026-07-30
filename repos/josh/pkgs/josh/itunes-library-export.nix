@@ -11,14 +11,14 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   pname = "itunes-library-export";
   version = "0.1.2";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "josh";
     repo = "itunes-library-export";
     tag = "v${finalAttrs.version}";
     hash = "sha256-zd9T9oWijGKT7kseyEb9QCdu+i9Rpj5fxFl+t9/W4d4=";
   };
-
-  __structuredAttrs = true;
 
   nativeBuildInputs = [
     swift
@@ -50,7 +50,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     description = "Export iTunes Library XML files";
     homepage = "https://github.com/josh/itunes-library-export";
     license = lib.licenses.mit;
-    platforms = lib.platforms.darwin;
     mainProgram = "itunes-library-export";
+    platforms = lib.platforms.darwin;
   };
 })

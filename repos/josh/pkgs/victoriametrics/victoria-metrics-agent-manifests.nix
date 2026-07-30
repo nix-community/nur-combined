@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "victoria-metrics-agent-manifests";
   inherit (nur.repos.josh.victoria-metrics-agent-chart) version;
-  src = nur.repos.josh.victoria-metrics-agent-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.victoria-metrics-agent-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

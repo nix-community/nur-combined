@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "nack-manifests";
   inherit (nur.repos.josh.nack-chart) version;
-  src = nur.repos.josh.nack-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.nack-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Helm chart for NACK - NATS Controller for Kubernetes";
+    description = "Kubernetes manifests for NACK, the NATS controller for Kubernetes";
     homepage = "https://github.com/nats-io/k8s/tree/main/helm/charts/nack";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

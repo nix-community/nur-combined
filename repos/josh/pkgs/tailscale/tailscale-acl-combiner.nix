@@ -36,7 +36,7 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    description = "A CLI tool to combine multiple Tailscale ACL files into one";
+    description = "CLI tool to combine multiple Tailscale ACL files into one";
     homepage = "https://github.com/tailscale-dev/tailscale-acl-combiner";
     license = lib.licenses.bsd3;
     mainProgram = "tailscale-acl-combiner";

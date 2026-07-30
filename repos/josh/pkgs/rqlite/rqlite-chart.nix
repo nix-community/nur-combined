@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-000jtn3L+du3YeWIh5ifJUjK3rjfBANbFiUWOfHXsFs=";
 
   meta = {
-    description = "The lightweight, distributed relational database built on SQLite";
+    description = "Helm chart for rqlite, a lightweight distributed relational database built on SQLite";
     homepage = "https://rqlite.io";
     license = lib.licenses.mit;
   };

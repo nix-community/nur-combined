@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-X5sLK/cOg77H54rxxXENRa3WEH6uLIEkln91IU3YfuI=";
 
   meta = {
-    description = "A Helm chart for the NATS.io High Speed Cloud Native Distributed Communications Technology";
+    description = "Helm chart for NATS, a cloud native messaging system";
     homepage = "https://github.com/nats-io/k8s";
     license = lib.licenses.asl20;
   };

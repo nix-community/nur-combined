@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-WJ+feSnsvWwJkx4K9jL2OKotFfRAV72c5zYddQzv5h8=";
 
   meta = {
-    description = "Headlamp is an easy-to-use and extensible Kubernetes web UI";
+    description = "Helm chart for Headlamp, an extensible Kubernetes web UI";
     homepage = "https://headlamp.dev";
     license = lib.licenses.asl20;
   };

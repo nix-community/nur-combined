@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "external-secrets-manifests";
   inherit (nur.repos.josh.external-secrets-chart) version;
-  src = nur.repos.josh.external-secrets-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.external-secrets-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

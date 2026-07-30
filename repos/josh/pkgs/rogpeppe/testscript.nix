@@ -44,7 +44,7 @@ buildGoModule (finalAttrs: {
     description = "Provides a shell-like test environment that is very nicely tuned for testing Go CLI commands";
     homepage = "https://github.com/rogpeppe/go-internal";
     license = lib.licenses.bsd3;
-    platforms = lib.platforms.all;
     mainProgram = "testscript";
+    platforms = lib.platforms.all;
   };
 })

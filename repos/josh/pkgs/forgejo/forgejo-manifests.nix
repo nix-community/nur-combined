@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "forgejo-manifests";
   inherit (nur.repos.josh.forgejo-chart) version;
-  src = nur.repos.josh.forgejo-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.forgejo-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

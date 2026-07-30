@@ -36,7 +36,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=stable"
+      "--version-regex"
+      "v([0-9.]+-cluster)"
+    ];
+  };
 
   passthru.tests = {
     json =

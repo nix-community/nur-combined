@@ -25,7 +25,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   dependencies = with python3Packages; [
     click
-    requests
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
@@ -49,7 +48,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Sync IMDb watchlist and ratings to Trakt";
     homepage = "https://github.com/josh/imdb-trakt-sync";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "imdb-trakt-sync";
+    platforms = lib.platforms.all;
   };
 })

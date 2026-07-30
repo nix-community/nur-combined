@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-XmhUsFnYNEEuCywXrHrhaMycALRTkZyluzhWwT8F7IM=";
 
   meta = {
-    description = "The VictoriaLogs single Helm chart deploys VictoriaLogs database in Kubernetes";
+    description = "Helm chart for deploying a single-node VictoriaLogs database in Kubernetes";
     homepage = "https://github.com/VictoriaMetrics/helm-charts";
     license = lib.licenses.asl20;
   };

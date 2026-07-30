@@ -18,13 +18,13 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-ilRLEV7qOBZbqzg2XQi4kt0JAb/1ftT4JmahYT0zSRU=";
 
+  nativeBuildInputs = [ installShellFiles ];
+
   ldflags = [
     "-s"
     "-w"
     "-X main.Version=v${finalAttrs.version}"
   ];
-
-  nativeBuildInputs = [ installShellFiles ];
 
   preInstall = ''
     installManPage doc/*.1
@@ -40,9 +40,9 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    changelog = "https://github.com/FiloSottile/age/releases/tag/v${finalAttrs.version}";
-    homepage = "https://age-encryption.org/";
     description = "Modern encryption tool with small explicit keys";
+    homepage = "https://age-encryption.org/";
+    changelog = "https://github.com/FiloSottile/age/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.bsd3;
     mainProgram = "age";
   };

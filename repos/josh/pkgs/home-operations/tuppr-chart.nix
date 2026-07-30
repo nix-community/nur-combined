@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-aZGnFVHmpY9k9v/iadeKAn/GIv4pDOGJdznzHbU26CQ=";
 
   meta = {
-    description = "A Helm chart for tuppr - Talos Linux Upgrade Controller";
+    description = "Helm chart for the Talos Linux upgrade controller";
     homepage = "https://github.com/home-operations/tuppr";
     license = lib.licenses.agpl3Only;
   };

@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-0aA50G7B6WMCTRu5ZWNvebS8tPzvxDFDNPu/0Sgk3ko=";
 
   meta = {
-    description = "Install kube-state-metrics to generate and expose cluster-level metrics";
+    description = "Helm chart for kube-state-metrics, which generates and exposes cluster-level metrics";
     homepage = "https://github.com/kubernetes/kube-state-metrics";
     license = lib.licenses.asl20;
   };

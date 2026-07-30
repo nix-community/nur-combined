@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "headlamp-manifests";
   inherit (nur.repos.josh.headlamp-chart) version;
-  src = nur.repos.josh.headlamp-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.headlamp-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "Headlamp is an easy-to-use and extensible Kubernetes web UI";
+    description = "Kubernetes manifests for Headlamp, an extensible Kubernetes web UI";
     homepage = "https://github.com/kubernetes-sigs/headlamp/tree/main/charts/headlamp";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

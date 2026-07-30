@@ -35,7 +35,7 @@ buildGoModule (finalAttrs: {
     description = "Kubernetes controller for Ceph Manager service discovery";
     homepage = "https://github.com/josh/ceph-mgr-endpoint-controller";
     license = lib.licenses.mit;
-    inherit (ceph.meta) platforms;
     mainProgram = "ceph-mgr-endpoint-controller";
+    inherit (ceph.meta) platforms;
   };
 })

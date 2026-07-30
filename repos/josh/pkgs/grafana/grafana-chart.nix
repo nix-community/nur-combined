@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-3zaHzUQ541/1O7IV82FMQETK1Uhaq5u1cb7ZqUOgHQI=";
 
   meta = {
-    description = "The leading tool for querying and visualizing time series and metrics";
+    description = "Tool for querying and visualizing time series and metrics";
     homepage = "https://grafana.com";
     license = lib.licenses.asl20;
   };

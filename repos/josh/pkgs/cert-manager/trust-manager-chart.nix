@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-4EO12NRwXnEi29AEefEwnyG6gpZGRD9wtVraPj/Xw6Y=";
 
   meta = {
-    description = "trust-manager is the easiest way to manage TLS trust bundles in Kubernetes and OpenShift clusters";
+    description = "Helm chart for trust-manager, an operator for managing TLS trust bundles in Kubernetes and OpenShift";
     homepage = "https://cert-manager.io/docs/trust/trust-manager";
     license = lib.licenses.asl20;
   };

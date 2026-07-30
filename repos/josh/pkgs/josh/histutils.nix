@@ -29,8 +29,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   meta = {
     description = "Import, export or merge zsh or fish history files";
-    mainProgram = "histutils";
     homepage = "https://github.com/josh/histutils";
     license = lib.licenses.mit;
+    mainProgram = "histutils";
   };
 })

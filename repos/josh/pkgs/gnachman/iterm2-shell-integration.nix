@@ -18,14 +18,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "iterm2-shell-integration";
   version = "0-unstable-2026-07-29";
 
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "gnachman";
     repo = "iTerm2-shell-integration";
     rev = "195281b1557531acc61af5f0bce56ecb6b3fe293";
     hash = "sha256-x2+5pCz/QOg8Lbuykn7gRJeQ2mhWEupWb16/bNnNxAw=";
   };
-
-  __structuredAttrs = true;
 
   nativeBuildInputs = [
     makeWrapper

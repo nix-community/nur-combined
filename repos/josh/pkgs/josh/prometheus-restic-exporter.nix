@@ -77,7 +77,7 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for Restic metrics";
     homepage = "https://github.com/josh/restic-exporter";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "restic-exporter";
+    platforms = lib.platforms.all;
   };
 })

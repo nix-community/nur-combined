@@ -7,9 +7,11 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "mqtt2nats-manifests";
-  inherit (nur.repos.josh.mqtt2nats) version src;
+  inherit (nur.repos.josh.mqtt2nats) version;
 
   __structuredAttrs = true;
+
+  inherit (nur.repos.josh.mqtt2nats) src;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -36,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Kubernetes manifests for mqtt2nats";
+    description = "Kubernetes manifests for mqtt2nats";
     homepage = "https://github.com/josh/mqtt2nats/tree/main/charts/mqtt2nats";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

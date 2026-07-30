@@ -5,11 +5,11 @@
   kubernetes-helm,
 }:
 args@{
-  pname ? "${chart}-chart",
   url,
   chart,
   version,
   hash,
+  pname ? "${chart}-chart",
   helmTestValues ? { },
   helmTestArgs ? [ ],
   meta ? { },
@@ -60,6 +60,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     url
     "--chart"
     chart
+    "--position-file"
+    (builtins.unsafeGetAttrPos "url" args).file
   ];
 
   passthru.tests = {

@@ -17,12 +17,7 @@ let
 in
 pkg.overrideAttrs (
   finalAttrs: previousAttrs: {
-    meta = previousAttrs.meta // {
-      description = "Terraform provider for UniFi network controllers";
-    };
-
     passthru = previousAttrs.passthru // {
-
       tests = {
         version = runCommand "test-terraform-provider-unifi-version" { } ''
           grep --text --quiet "${finalAttrs.version}" \
@@ -37,6 +32,10 @@ pkg.overrideAttrs (
           "pkgs/ubiquiti-community/terraform-provider-unifi.nix"
         ];
       };
+    };
+
+    meta = previousAttrs.meta // {
+      description = "Terraform provider for UniFi network controllers";
     };
   }
 )

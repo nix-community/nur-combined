@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "tailscale-operator-manifests";
   inherit (nur.repos.josh.tailscale-operator-chart) version;
-  src = nur.repos.josh.tailscale-operator-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.tailscale-operator-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Helm chart for Tailscale Kubernetes operator";
+    description = "Kubernetes manifests for the Tailscale Kubernetes operator";
     homepage = "https://github.com/tailscale/tailscale/tree/main/cmd/k8s-operator/deploy/chart";
     license = lib.licenses.bsd3;
     platforms = lib.platforms.all;

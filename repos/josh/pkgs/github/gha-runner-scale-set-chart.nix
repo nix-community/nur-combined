@@ -12,7 +12,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "A Helm chart for deploying an AutoScalingRunnerSet";
+    description = "Helm chart for deploying an AutoScalingRunnerSet";
     homepage = "https://github.com/actions/actions-runner-controller";
     license = lib.licenses.asl20;
   };

@@ -29,8 +29,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
-    homepage = "https://github.com/josh/lru-cache-python";
     description = "Persisted LRU cache Python module";
+    homepage = "https://github.com/josh/lru-cache-python";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };

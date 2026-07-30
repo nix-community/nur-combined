@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "rsshub-manifests";
   inherit (nur.repos.josh.rsshub-chart) version;
-  src = nur.repos.josh.rsshub-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.rsshub-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Helm chart for the RSSHub";
+    description = "Kubernetes manifests for RSSHub, an extensible RSS feed generator";
     homepage = "https://github.com/NaturalSelectionLabs/helm-charts/tree/main/charts/rsshub";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

@@ -1,30 +1,20 @@
 {
   lib,
   stdenvNoCC,
-  fetchFromGitHub,
-  nix-update-script,
+  nur,
   runCommand,
   yq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "local-path-provisioner-manifests";
-  version = "0.0.36";
+  inherit (nur.repos.josh.local-path-provisioner-chart) version src;
 
   __structuredAttrs = true;
-
-  src = fetchFromGitHub {
-    owner = "rancher";
-    repo = "local-path-provisioner";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-pMcyabGJEdlV+CvdCjm0JcXUvWyNkdJRPEzVKIK7xOo=";
-  };
 
   buildCommand = ''
     mkdir $out
     cp -R $src/deploy/{local-path-storage,provisioner}.yaml $out/
   '';
-
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
     parse =

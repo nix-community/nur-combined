@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "ceph-csi-rbd-manifests";
   inherit (nur.repos.josh.ceph-csi-rbd-chart) version;
-  src = nur.repos.josh.ceph-csi-rbd-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.ceph-csi-rbd-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

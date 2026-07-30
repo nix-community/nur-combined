@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-qUN0dZJTp/eBV9lO8g2p1RhymE4dVpMVSQcpGfOK6y4=";
 
   meta = {
-    description = "A Helm chart for install actions-runner-controller CRD";
+    description = "Helm chart for installing the actions-runner-controller CRDs";
     homepage = "https://github.com/actions/actions-runner-controller";
     license = lib.licenses.asl20;
   };

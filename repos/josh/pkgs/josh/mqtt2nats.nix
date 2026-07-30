@@ -42,7 +42,7 @@ buildGoModule (finalAttrs: {
     description = "Relay MQTT messages to NATS";
     homepage = "https://github.com/josh/mqtt2nats";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "mqtt2nats";
+    platforms = lib.platforms.all;
   };
 })

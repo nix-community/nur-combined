@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "cloudnative-pg-manifests";
   inherit (nur.repos.josh.cloudnative-pg-chart) version;
-  src = nur.repos.josh.cloudnative-pg-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.cloudnative-pg-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

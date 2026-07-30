@@ -17,12 +17,7 @@ let
 in
 pkg.overrideAttrs (
   finalAttrs: previousAttrs: {
-    meta = previousAttrs.meta // {
-      description = "Terraform provider for managing Ceph resources";
-    };
-
     passthru = previousAttrs.passthru // {
-
       tests = {
         version = runCommand "test-terraform-provider-ceph-version" { } ''
           grep --text --quiet "${finalAttrs.version}" \
@@ -37,6 +32,10 @@ pkg.overrideAttrs (
           "pkgs/josh/terraform-provider-ceph.nix"
         ];
       };
+    };
+
+    meta = previousAttrs.meta // {
+      description = "Terraform provider for managing Ceph resources";
     };
   }
 )

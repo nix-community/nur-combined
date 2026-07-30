@@ -80,15 +80,17 @@ let
     ps.pyyaml
   ]);
 
-  ceph-rocksdb = rocksdb.overrideAttrs (finalAttrs: {
-    version = "7.9.2";
-    src = fetchFromGitHub {
-      owner = "facebook";
-      repo = "rocksdb";
-      tag = "v${finalAttrs.version}";
-      hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
-    };
-  });
+  ceph-rocksdb = rocksdb.overrideAttrs (
+    finalAttrs: _prevAttrs: {
+      version = "7.9.2";
+      src = fetchFromGitHub {
+        owner = "facebook";
+        repo = "rocksdb";
+        tag = "v${finalAttrs.version}";
+        hash = "sha256-5P7IqJ14EZzDkbjaBvbix04ceGGdlWBuVFH/5dpD5VM=";
+      };
+    }
+  );
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "librados";
@@ -161,6 +163,43 @@ stdenv.mkDerivation (finalAttrs: {
     rdma-core
   ];
 
+  cmakeFlags = [
+    "-DWITH_CEPHFS=OFF"
+    "-DWITH_LIBCEPHFS=OFF"
+    "-DWITH_LIBCEPHSQLITE=OFF"
+    "-DWITH_RBD=OFF"
+    "-DWITH_RADOSGW=OFF"
+    "-DWITH_MGR=OFF"
+    "-DWITH_FUSE=OFF"
+    "-DWITH_BLUESTORE=OFF"
+    "-DWITH_KRBD=OFF"
+    "-DWITH_TESTS=OFF"
+    "-DWITH_MGR_DASHBOARD_FRONTEND=OFF"
+    "-DWITH_JAEGER=OFF"
+    "-DWITH_UADK=OFF"
+    "-DWITH_SPDK=OFF"
+    "-DWITH_MANPAGE=OFF"
+
+    "-DWITH_SYSTEM_BOOST=ON"
+    "-DWITH_SYSTEM_ROCKSDB=ON"
+    "-DWITH_SYSTEM_UTF8PROC=ON"
+    "-DWITH_SYSTEM_ZSTD=ON"
+
+    "-DCEPHADM_BUNDLED_DEPENDENCIES=none"
+
+    "-DPython3_EXECUTABLE=${ceph-python}/bin/python3"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    "-DWITH_SYSTEM_LIBURING=ON"
+    "-DWITH_SYSTEMD=OFF"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "-DWITH_LTTNG=OFF"
+    "-DWITH_BABELTRACE=OFF"
+    "-DWITH_SYSTEMD=OFF"
+    "-DWITH_RDMA=OFF"
+  ];
+
   preConfigure = ''
     unset AS
     patchShebangs src/
@@ -206,43 +245,6 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail 'max_acting_prims_per_osd = std::max(max_acting_prims_per_osd, n_aprims);' \
                      'max_acting_prims_per_osd = std::max(max_acting_prims_per_osd, static_cast<uint64_t>(n_aprims));'
   '';
-
-  cmakeFlags = [
-    "-DWITH_CEPHFS=OFF"
-    "-DWITH_LIBCEPHFS=OFF"
-    "-DWITH_LIBCEPHSQLITE=OFF"
-    "-DWITH_RBD=OFF"
-    "-DWITH_RADOSGW=OFF"
-    "-DWITH_MGR=OFF"
-    "-DWITH_FUSE=OFF"
-    "-DWITH_BLUESTORE=OFF"
-    "-DWITH_KRBD=OFF"
-    "-DWITH_TESTS=OFF"
-    "-DWITH_MGR_DASHBOARD_FRONTEND=OFF"
-    "-DWITH_JAEGER=OFF"
-    "-DWITH_UADK=OFF"
-    "-DWITH_SPDK=OFF"
-    "-DWITH_MANPAGE=OFF"
-
-    "-DWITH_SYSTEM_BOOST=ON"
-    "-DWITH_SYSTEM_ROCKSDB=ON"
-    "-DWITH_SYSTEM_UTF8PROC=ON"
-    "-DWITH_SYSTEM_ZSTD=ON"
-
-    "-DCEPHADM_BUNDLED_DEPENDENCIES=none"
-
-    "-DPython3_EXECUTABLE=${ceph-python}/bin/python3"
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
-    "-DWITH_SYSTEM_LIBURING=ON"
-    "-DWITH_SYSTEMD=OFF"
-  ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    "-DWITH_LTTNG=OFF"
-    "-DWITH_BABELTRACE=OFF"
-    "-DWITH_SYSTEMD=OFF"
-    "-DWITH_RDMA=OFF"
-  ];
 
   preBuild = ''
     cmake --build . --target legacy-option-headers -j 1

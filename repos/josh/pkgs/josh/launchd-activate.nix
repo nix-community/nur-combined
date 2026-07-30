@@ -74,7 +74,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     description = "Declaratively load and unload launchd agents";
     homepage = "https://github.com/josh/launchd-activate";
     license = lib.licenses.mit;
-    platforms = lib.platforms.darwin;
     mainProgram = "launchd-activate";
+    platforms = lib.platforms.darwin;
   };
 })

@@ -52,7 +52,7 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for GitHub metrics";
     homepage = "https://github.com/josh/github_exporter";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "github_exporter";
+    platforms = lib.platforms.all;
   };
 })

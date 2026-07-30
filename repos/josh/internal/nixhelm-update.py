@@ -20,6 +20,7 @@ NIX_PATH = "@nix@"
 @click.option("--nix-pname", envvar="UPDATE_NIX_PNAME")
 @click.option("--nix-old-version", envvar="UPDATE_NIX_OLD_VERSION")
 @click.option("--nix-attr-path", envvar="UPDATE_NIX_ATTR_PATH")
+@click.option("--position-file")
 @click.option("--filename")
 @click.option("--commit", is_flag=True)
 @click.option("--dry-run", is_flag=True)
@@ -30,14 +31,15 @@ def main(
     nix_pname: str | None,
     nix_old_version: str | None,
     nix_attr_path: str | None,
+    position_file: str | None,
     filename: str | None,
     commit: bool,
     dry_run: bool,
 ):
-    if not nix_attr_path and chart:
-        nix_attr_path = f"{chart}-chart"
+    if not filename and position_file:
+        filename = pkgs_relative_path(position_file)
 
-    if nix_attr_path and not filename:
+    if not filename and nix_attr_path:
         filename = nix_attr_filename(attr_path=nix_attr_path)
 
     if not filename:
@@ -186,9 +188,13 @@ def nix_attr_filename(attr_path: str) -> str:
     result = subprocess.run(cmd, capture_output=True, text=True)
     check_result(result)
     store_path = result.stdout.strip().rsplit(":", 1)[0]
-    _, sep, rest = store_path.rpartition("/pkgs/")
+    return pkgs_relative_path(store_path)
+
+
+def pkgs_relative_path(path: str) -> str:
+    _, sep, rest = path.rpartition("/pkgs/")
     if not sep:
-        raise RuntimeError(f"meta.position {store_path!r} is not under pkgs/")
+        raise RuntimeError(f"position {path!r} is not under pkgs/")
     return "pkgs/" + rest
 
 

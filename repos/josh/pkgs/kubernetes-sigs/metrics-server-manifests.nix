@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "metrics-server-manifests";
   inherit (nur.repos.josh.metrics-server-chart) version;
-  src = nur.repos.josh.metrics-server-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.metrics-server-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

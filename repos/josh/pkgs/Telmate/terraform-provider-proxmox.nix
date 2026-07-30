@@ -16,10 +16,10 @@ in
 # Update workflow skips this provider; bump it manually instead.
 pkg.overrideAttrs (
   _finalAttrs: previousAttrs: {
+    passthru = builtins.removeAttrs previousAttrs.passthru [ "updateScript" ];
+
     meta = previousAttrs.meta // {
       description = "Terraform provider for Proxmox VE";
     };
-
-    passthru = builtins.removeAttrs previousAttrs.passthru [ "updateScript" ];
   }
 )

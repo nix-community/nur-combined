@@ -17,15 +17,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-0G9pRgkoAPFJh2W0TmARGSmdOTfIovtVP+MRAaxSFm4=";
   };
 
-  extraConfig = ''
-
-    if (!empty($_SERVER["CACHE_DIRECTORY"])) {
-      define('CACHE_DIRECTORY', $_SERVER["CACHE_DIRECTORY"]);
-    } else {
-      define('CACHE_DIRECTORY', sys_get_temp_dir() . '/reddit-top-rss');
-    }
-  '';
-
   postPatch = ''
     substituteInPlace *.php --replace-quiet '"cache/' 'CACHE_DIRECTORY . "/'
     substituteInPlace *.php --replace-quiet "'cache/" "CACHE_DIRECTORY . '/"
@@ -36,6 +27,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     status=0
     grep -qF '"cache/' -- *.php || status=$?
     test "$status" -eq 1
+  '';
+
+  extraConfig = ''
+
+    if (!empty($_SERVER["CACHE_DIRECTORY"])) {
+      define('CACHE_DIRECTORY', $_SERVER["CACHE_DIRECTORY"]);
+    } else {
+      define('CACHE_DIRECTORY', sys_get_temp_dir() . '/reddit-top-rss');
+    }
   '';
 
   nativeCheckInputs = [ php ];

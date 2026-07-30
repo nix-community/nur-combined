@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-Xav0I55wfaV1RbfOQP5HA2L7cU48ShJPe/Zl5JNDW8o=";
 
   meta = {
-    description = "A Helm chart for Tailscale Kubernetes operator";
+    description = "Helm chart for the Tailscale Kubernetes operator";
     homepage = "https://github.com/tailscale/tailscale";
     license = lib.licenses.bsd3;
   };

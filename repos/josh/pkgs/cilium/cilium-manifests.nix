@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "cilium-manifests";
   inherit (nur.repos.josh.cilium-chart) version;
-  src = nur.repos.josh.cilium-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.cilium-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -46,7 +47,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "Cilium - eBPF-based Networking, Observability, and Security";
+    description = "Kubernetes manifests for Cilium, eBPF-based networking, observability, and security";
     homepage = "https://github.com/cilium/cilium";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

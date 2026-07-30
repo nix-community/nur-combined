@@ -29,6 +29,7 @@ buildGoModule (finalAttrs: {
   env.CGO_ENABLED = 1;
 
   ldflags = [
+    "-s"
     "-w"
     "-X main.version=${finalAttrs.version}"
   ];
@@ -52,10 +53,10 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    description = "A restic repository backend that stores data in raw Ceph RADOS";
+    description = "Restic repository backend that stores data in raw Ceph RADOS";
     homepage = "https://github.com/josh/restic-rados-server";
     license = lib.licenses.mit;
-    inherit (ceph.meta) platforms;
     mainProgram = "restic-rados-server";
+    inherit (ceph.meta) platforms;
   };
 })

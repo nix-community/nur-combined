@@ -2,9 +2,11 @@
   lib,
   swiftPackages,
   fetchFromGitHub,
+
   sqlite,
   swift,
   swiftpm,
+
   runCommand,
   testers,
   writeText,
@@ -29,15 +31,6 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-HPTQ+ebGNvfaMKtn8gqXrxG+PDAqmpdWWhmRIyaSXhU=";
   };
 
-  nativeBuildInputs = [
-    swift
-    swiftpm
-  ];
-
-  buildInputs = [
-    sqlite
-  ];
-
   postPatch = ''
     grep -rlF "import SQLite3" Sources | while IFS= read -r f; do
       substituteInPlace "$f" --replace-fail "import SQLite3" "import CSQLite"
@@ -47,6 +40,15 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     grep -rqF "import SQLite3" Sources || status=$?
     test "$status" -eq 1
   '';
+
+  nativeBuildInputs = [
+    swift
+    swiftpm
+  ];
+
+  buildInputs = [
+    sqlite
+  ];
 
   swiftpmFlags = [
     "-Xcc"
@@ -81,7 +83,7 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
     description = "Manage macOS TCC database declaratively";
     homepage = "https://github.com/josh/tccpolicy";
     license = lib.licenses.mit;
-    platforms = lib.platforms.darwin;
     mainProgram = "tccpolicy";
+    platforms = lib.platforms.darwin;
   };
 })

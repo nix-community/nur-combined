@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "gitea-manifests";
   inherit (nur.repos.josh.gitea-chart) version;
-  src = nur.repos.josh.gitea-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.gitea-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

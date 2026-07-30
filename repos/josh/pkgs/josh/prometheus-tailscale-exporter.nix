@@ -52,7 +52,7 @@ buildGoModule (finalAttrs: {
     description = "Prometheus exporter for Tailscale metrics";
     homepage = "https://github.com/josh/tailscale_exporter";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "tailscale_exporter";
+    platforms = lib.platforms.all;
   };
 })

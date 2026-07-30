@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "victoria-metrics-cluster-manifests";
   inherit (nur.repos.josh.victoria-metrics-cluster-chart) version;
-  src = nur.repos.josh.victoria-metrics-cluster-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.victoria-metrics-cluster-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

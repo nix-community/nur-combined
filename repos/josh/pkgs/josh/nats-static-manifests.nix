@@ -7,9 +7,11 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "nats-static-manifests";
-  inherit (nur.repos.josh.nats-static) version src;
+  inherit (nur.repos.josh.nats-static) version;
 
   __structuredAttrs = true;
+
+  inherit (nur.repos.josh.nats-static) src;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -36,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "A Kubernetes manifests for nats-static";
+    description = "Kubernetes manifests for nats-static";
     homepage = "https://github.com/josh/nats-static/tree/main/charts/nats-static";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

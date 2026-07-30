@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "rook-ceph-manifests";
   inherit (nur.repos.josh.rook-ceph-chart) version;
-  src = nur.repos.josh.rook-ceph-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.rook-ceph-chart;
 
   nativeBuildInputs = [
     kubernetes-helm

@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-QPUB8NLn0xT0+s3rHHJ8xkh48QrmeZ310IVflR49XJw=";
 
   meta = {
-    description = "kube-prometheus-stack collects Kubernetes manifests, Grafana dashboards, and Prometheus rules combined with documentation and scripts to provide easy to operate end-to-end Kubernetes cluster monitoring with Prometheus using the Prometheus Operator";
+    description = "Helm chart for end-to-end Kubernetes cluster monitoring with Prometheus, Grafana, and the Prometheus Operator";
     homepage = "https://github.com/prometheus-operator/kube-prometheus";
     license = lib.licenses.asl20;
   };

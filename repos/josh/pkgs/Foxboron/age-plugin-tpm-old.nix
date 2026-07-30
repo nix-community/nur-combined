@@ -46,9 +46,9 @@ buildGoModule (finalAttrs: {
 
   meta = {
     description = "TPM 2.0 plugin for age (This software is experimental, use it at your own risk)";
-    mainProgram = "age-plugin-tpm";
     homepage = "https://github.com/Foxboron/age-plugin-tpm";
     license = lib.licenses.mit;
+    mainProgram = "age-plugin-tpm";
     platforms = lib.platforms.all;
   };
 })

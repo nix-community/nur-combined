@@ -24,7 +24,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
-    description = "A versatile and easy to use tab-bar written in Lua";
+    description = "Tab-bar for WezTerm written in Lua";
     homepage = "https://github.com/michaelbrusegard/tabline.wez";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

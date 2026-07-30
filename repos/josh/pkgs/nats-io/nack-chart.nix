@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-MgEh3svpWxtHfC6JNE/kkF/ddzDg2onua2RaQEddh0U=";
 
   meta = {
-    description = "A Helm chart for NACK - NATS Controller for Kubernetes";
+    description = "Helm chart for NACK, the NATS controller for Kubernetes";
     homepage = "https://github.com/nats-io/k8s";
     license = lib.licenses.asl20;
   };

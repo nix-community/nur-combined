@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-EyzxTVfMZsLIC8KPBdT8AHtR8pVe3DkJ5I4btlTnsnE=";
 
   meta = {
-    description = "An open source trusted cloud native registry that stores, signs, and scans content";
+    description = "Open source trusted cloud native registry that stores, signs, and scans content";
     homepage = "https://goharbor.io";
     license = lib.licenses.asl20;
   };

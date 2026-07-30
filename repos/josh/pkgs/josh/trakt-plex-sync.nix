@@ -3,8 +3,8 @@
   python3Packages,
   fetchFromGitHub,
   nur,
-  runCommand,
   nix-update-script,
+  runCommand,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-plex-sync";
@@ -27,7 +27,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   dependencies = with python3Packages; [
     nur.repos.josh.python3-lru-cache
     plexapi
-    requests
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
@@ -54,7 +53,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Sync Trakt history to Plex library";
     homepage = "https://github.com/josh/trakt-plex-sync";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "trakt-plex-sync";
+    platforms = lib.platforms.all;
   };
 })

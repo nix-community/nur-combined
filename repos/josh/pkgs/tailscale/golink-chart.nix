@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-RSZtkM/lEDVhzCSEj/6xxO8kFpsUOPQ+uw9cRC1DfaY=";
 
   meta = {
-    description = "Tailscale's golink application";
+    description = "Helm chart for golink, a private shortlink service for tailnets";
     homepage = "https://github.com/tiesmaster/golink-helm-chart";
     license = lib.licenses.mit;
   };

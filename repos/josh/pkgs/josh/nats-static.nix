@@ -37,7 +37,7 @@ buildGoModule (finalAttrs: {
     description = "Serve static files from a NATS JetStream object store over HTTP";
     homepage = "https://github.com/josh/nats-static";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "nats-static";
+    platforms = lib.platforms.all;
   };
 })

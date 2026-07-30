@@ -8,9 +8,10 @@
 stdenvNoCC.mkDerivation {
   pname = "victoria-logs-cluster-manifests";
   inherit (nur.repos.josh.victoria-logs-cluster-chart) version;
-  src = nur.repos.josh.victoria-logs-cluster-chart;
 
   __structuredAttrs = true;
+
+  src = nur.repos.josh.victoria-logs-cluster-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -37,7 +38,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "The VictoriaLogs cluster Helm chart deploys VictoriaLogs cluster database in Kubernetes";
+    description = "Kubernetes manifests for a VictoriaLogs cluster database";
     homepage = "https://github.com/VictoriaMetrics/helm-charts/tree/master/charts/victoria-logs-cluster";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

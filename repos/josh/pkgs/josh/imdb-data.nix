@@ -25,7 +25,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
 
   dependencies = with python3Packages; [
     click
-    parsel
     requests
   ];
 
@@ -47,10 +46,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   };
 
   meta = {
-    description = "IMDB personal lists and ratings data scaper";
+    description = "IMDB personal lists and ratings data scraper";
     homepage = "https://github.com/josh/imdb-data";
     license = lib.licenses.mit;
-    platforms = lib.platforms.all;
     mainProgram = "imdb-data";
+    platforms = lib.platforms.all;
   };
 })

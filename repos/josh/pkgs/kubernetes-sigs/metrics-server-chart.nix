@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-rKNrjRauYdg9tfW3Y3oA48UqcsFsApK6Z5k/3rglxss=";
 
   meta = {
-    description = "Metrics Server is a scalable, efficient source of container resource metrics for Kubernetes built-in autoscaling pipelines";
+    description = "Helm chart for Metrics Server, a source of container resource metrics for Kubernetes autoscaling";
     homepage = "https://github.com/kubernetes-sigs/metrics-server";
     license = lib.licenses.asl20;
   };
