@@ -9,6 +9,8 @@ let
   inherit (lib.hm.gvariant) mkTuple mkUint32;
   inherit (pkgs) formats makeAutostartItem onlyBinMan;
   inherit (pkgs.writers) writeTOML;
+  inherit (system) nix systemd;
+  inherit (system.virtualisation) docker;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
 in
@@ -143,6 +145,7 @@ in
       just-local
       killall
       (onlyBinMan libjxl)
+      (onlyBinMan libnotify)
       (onlyBinMan libwebp)
       lsof
       magic-wormhole
@@ -159,7 +162,7 @@ in
       nixpkgs-hammering
       nixpkgs-review
       nom-wrappers
-      off
+      (off.override { docker = docker.package; nix = nix.package; systemd = systemd.package; })
       oha
       kdePackages.okular
       oxvg
@@ -185,6 +188,7 @@ in
       trash-cli
       uniscribe
       unln
+      unzip
       usbutils
       v4l-utils
       vagrant
@@ -205,6 +209,10 @@ in
     # Nautilus scripts
     nautilusScripts = with pkgs; {
       "HEIF,PNG,TIFF → JPEG".xargs = "-n 1 -P 8 nice ${getExe mozjpeg-simple}";
+      "JPEG → JPEG XL".each = ''
+        ${getExe' libjxl "cjxl"} --effort '10' --lossless_jpeg '1' "$path" "''${path%.jpg}.jxl"
+        touch --reference "$path" "''${path%.jpg}.jxl"
+      '';
       "JPEG: Strip geolocation".xargs = "nice ${getExe exiftool} -overwrite_original -gps:all= -xmp:geotag=";
       "PNG: Optimize".xargs = ''
         nice ${getExe efficient-compression-tool} -8 -keep -quiet --mt-file \

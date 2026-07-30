@@ -328,7 +328,7 @@ in
         https = "noglob xhs";
         j = "just-local";
         lsblk = "lsblk --output 'name,type,uuid,label,size,fstype,mountpoints' --paths";
-        mv = "mv --no-clobber --verbose";
+        mv = "mv --update=none-fail --verbose";
         nixos-rebuild = "nom-nixos-rebuild";
         p = "gopass";
         path = "nom-build --no-out-link --pure '<nixpkgs>' --attr";
@@ -349,7 +349,7 @@ in
       extract-pdf-images = "mkdir \"\${1%.pdf}\" && ${getExe' poppler-utils "pdfimages"} -all -p \"$1\" \"\${1%.pdf}/\${1%.pdf}\"";
       idiff = "${getExe' imagemagick "compare"} \"$@\" png:- | kitty +kitten icat";
       mkcd = "mkdir --parents \"$@\" && cd \"\${@:$#}\"";
-      nest = "mv --no-clobber --verbose \"$1\" \"$1.original\" && mkdir \"$1\" && mv --no-clobber --verbose \"$1.original\" \"$1/$(basename \"$1\")\"";
+      nest = "mv --no-target-directory --update=none-fail --verbose \"$1\" \"$1.original\" && mkdir \"$1\" && mv --no-target-directory --update=none-fail --verbose \"$1.original\" \"$1/\${1##*/}\"";
       psnr = ''
         db="$(${getExe' imagemagick "compare"} -metric 'PSNR' "$1" "$2" 'null:' 2>&1 | cut --delimiter ' ' --fields '1')"
         if (( db >= 45 )); then fg='32'; elif (( db >= 40 )); then fg='33'; else fg='31'; fi

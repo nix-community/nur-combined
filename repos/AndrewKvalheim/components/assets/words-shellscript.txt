@@ -23,6 +23,7 @@ pushd
 readarray
 readlink
 realpath
+runuser
 setaf
 setfacl
 sgr0

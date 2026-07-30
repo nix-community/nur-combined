@@ -1,28 +1,27 @@
 #!/usr/bin/env bash
-set -Eeuxo pipefail
+set -Eeuo pipefail
 
-sudo-hint() {
-  sudo --prompt "[sudo [2m$1[22m] password for %p: " "$@"
-}
+[[ -n "${SUDO_USER:-}" ]] || exec sudo --prompt "[sudo ${0##*/}] password for %p: " "$0" "$@"
+udo() { runuser --user "$SUDO_USER" -- "$@"; }
 
 # Containers / virtual machines
-podman system prune --force --volumes
 docker system prune --force --volumes
-vagrant box prune
+udo podman system prune --force --volumes
+udo vagrant box prune
 
 # Channels
-sudo-hint nix-channel --update
 nix-channel --update
+udo nix-channel --update
 
 # User packages
-home-manager expire-generations '-7 days'
-nom-home-manager switch
+udo home-manager expire-generations '-7 days'
+udo nom-home-manager switch
 
 # System packages
-sudo-hint nom-nixos-rebuild boot
+nom-nixos-rebuild boot
 
 # Filesystem
 btrfs filesystem df /
-sudo-hint btrfs balance start --enqueue -dusage=50 -musage=50 /
+btrfs balance start --enqueue -dusage=50 -musage=50 /
 
-sudo-hint poweroff
+poweroff

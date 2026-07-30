@@ -681,6 +681,7 @@ Inkscape
 inlined
 Inoreader
 Instacart
+intaken
 interactable
 interagency
 interdisciplinarity

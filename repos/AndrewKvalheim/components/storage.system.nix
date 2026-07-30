@@ -33,7 +33,6 @@ in
   ];
   services.btrfs.autoScrub.enable = true;
   systemd.services."btrfs-scrub-${escapeSystemdPath "/"}".unitConfig.ConditionACPower = true;
-  security.sudo.allowedCommands = [ "/run/current-system/sw/bin/btrfs balance start --enqueue -dusage=50 -musage=50 /" ];
 
   # /boot
   fileSystems."/boot".options = [ "umask=0077" ]; #  NixOS/nixpkgs#279362
