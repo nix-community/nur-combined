@@ -231,9 +231,18 @@ jobs:
         id: build
         continue-on-error: true
         run: |
+          skip_attrs="[]"
+          if [ -n "$(find ./pkgs -name ".skip" -type f)" ]; then
+            skip_attrs=$(find ./pkgs -name ".skip" -type f | while IFS= read -r f; do
+              pkg=$(basename "$(dirname "$f")")
+              grep -E "^[[:space:]]*[a-zA-Z0-9_-]+[[:space:]]*=[[:space:]]*lib\.callPackage[[:space:]]+\./pkgs/$pkg([[:space:]]|\$)" default.nix 2>/dev/null | sed -E 's/^[[:space:]]*([a-zA-Z0-9_-]+).*/\1/'
+            done | sort -u | jq -R -s 'split("\n") | map(select(length > 0))' 2>/dev/null || echo '[]')
+          fi
+
           nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix \
             -A cacheOutputs \
             --arg pkgs "import <nixpkgs> {}" \
+            --argstr skipPkgs "$skip_attrs" \
             -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
             2>&1 | tee build.log
           exit_code=${PIPESTATUS[0]}
