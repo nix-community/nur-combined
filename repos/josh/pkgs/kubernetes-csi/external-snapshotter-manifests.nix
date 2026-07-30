@@ -2,9 +2,9 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  yq,
   nix-update-script,
   runCommand,
-  yq,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "external-snapshotter-manifests";

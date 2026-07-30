@@ -19,7 +19,7 @@ $ nix flake archive ./internal/
 ## Testing
 
 ```sh
-$ nix flake check --accept-flake-config --show-trace --print-build-logs --keep-going
+$ nix flake check --show-trace --print-build-logs --keep-going
 ```
 
 These flags will give you the most verbose output for debugging. When running in an offline sandox, you should append `--offline`.

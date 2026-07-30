@@ -38,8 +38,8 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "CloudNativePG Helm Charts";
-    homepage = "https://github.com/cloudnative-pg/charts";
+    description = "Kubernetes manifests for the CloudNativePG operator";
+    homepage = "https://cloudnative-pg.io";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };

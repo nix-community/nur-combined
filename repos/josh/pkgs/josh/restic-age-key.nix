@@ -31,8 +31,8 @@ buildGoModule (finalAttrs: {
     "-s"
     "-w"
     "-X main.Version=${finalAttrs.version}"
-    "-X main.AgeProgram=${lib.getExe age}"
-    "-X main.RcloneProgram=${lib.getExe rclone}"
+    "-X main.AgeProgram=${lib.meta.getExe age}"
+    "-X main.RcloneProgram=${lib.meta.getExe rclone}"
   ];
 
   nativeCheckInputs = [
@@ -60,14 +60,14 @@ buildGoModule (finalAttrs: {
       '';
 
       age-path = runCommand "test-restic-age-key-age-path" { nativeBuildInputs = [ restic-age-key ]; } ''
-        restic-age-key --help | grep "${lib.getExe age}"
+        restic-age-key --help | grep "${lib.meta.getExe age}"
         touch $out
       '';
 
       rclone-path =
         runCommand "test-restic-age-key-rclone-path" { nativeBuildInputs = [ restic-age-key ]; }
           ''
-            restic-age-key --help | grep "${lib.getExe rclone}"
+            restic-age-key --help | grep "${lib.meta.getExe rclone}"
             touch $out
           '';
     };

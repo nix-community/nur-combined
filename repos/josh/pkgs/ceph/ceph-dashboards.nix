@@ -10,6 +10,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ceph-dashboards";
   inherit (ceph) version src;
 
+  dontBuild = true;
+
   installPhase = ''
     runHook preInstall
 

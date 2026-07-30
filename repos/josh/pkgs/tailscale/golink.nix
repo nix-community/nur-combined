@@ -38,5 +38,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/tailscale/golink";
     license = lib.licenses.bsd3;
     mainProgram = "golink";
+    platforms = lib.platforms.all;
   };
 })

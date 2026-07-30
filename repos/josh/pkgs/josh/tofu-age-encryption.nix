@@ -53,7 +53,7 @@ buildGoModule (finalAttrs: {
       };
 
       age-path = runCommand "test-tofu-age-encryption-age-path" { } ''
-        grep --text --quiet "${lib.strings.makeBinPath finalAttrs.agePlugins}" "${lib.getExe tofu-age-encryption}"
+        grep --text --quiet "${lib.strings.makeBinPath finalAttrs.agePlugins}" "${lib.meta.getExe tofu-age-encryption}"
         touch $out
       '';
     };

@@ -55,7 +55,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = [
-    "${lib.getExe nixhelm-update}"
+    "${lib.meta.getExe nixhelm-update}"
     "--url"
     url
     "--chart"

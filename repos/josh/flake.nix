@@ -18,7 +18,7 @@
         "x86_64-linux"
       ];
       inherit (nixpkgs) lib;
-      eachSystem = lib.genAttrs systems;
+      eachSystem = lib.attrsets.genAttrs systems;
       addAttrsetPrefix = prefix: lib.attrsets.concatMapAttrs (n: v: { "${prefix}${n}" = v; });
 
       importNixpkgs =

@@ -4,7 +4,9 @@
 let
   inherit (pkgs) lib;
 
-  callPackage = pkgs.lib.callPackageWith (pkgs // { nur.repos.josh = pkgs' // internalPkgs; });
+  callPackage = pkgs.lib.customisation.callPackageWith (
+    pkgs // { nur.repos.josh = pkgs' // internalPkgs; }
+  );
 
   internalPkgs = {
     checkKubeImages = args: callPackage ./internal/check-kube-images.nix args;

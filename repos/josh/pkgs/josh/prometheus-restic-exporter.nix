@@ -30,7 +30,7 @@ buildGoModule (finalAttrs: {
     "-s"
     "-w"
     "-X main.version=${finalAttrs.version}"
-    "-X main.resticBinary=${lib.getExe restic}"
+    "-X main.resticBinary=${lib.meta.getExe restic}"
     "-X main.resticVersion=${restic.version}"
   ];
 
@@ -63,7 +63,7 @@ buildGoModule (finalAttrs: {
         '';
 
     restic-path = runCommand "test-prometheus-restic-exporter-restic-path" { } ''
-      grep --text --quiet "${lib.getExe restic}" "${lib.getExe finalAttrs.finalPackage}"
+      grep --text --quiet "${lib.meta.getExe restic}" "${lib.meta.getExe finalAttrs.finalPackage}"
       touch $out
     '';
   };

@@ -19,7 +19,7 @@ let
 in
 pkg.overrideAttrs (
   finalAttrs: previousAttrs: {
-    ldflags = previousAttrs.ldflags ++ [ "-X main.sopsBinary=${lib.getExe sops}" ];
+    ldflags = previousAttrs.ldflags ++ [ "-X main.sopsBinary=${lib.meta.getExe sops}" ];
     passthru = previousAttrs.passthru // {
       updateScript = nix-update-script {
         extraArgs = [
@@ -36,7 +36,7 @@ pkg.overrideAttrs (
           touch $out
         '';
         sops-path = runCommand "test-terraform-provider-sops-sops-path" { } ''
-          grep --text --quiet "${lib.getExe sops}" \
+          grep --text --quiet "${lib.meta.getExe sops}" \
             ${finalAttrs.finalPackage}/libexec/terraform-providers/*/*/*/*/*/terraform-provider-sops_*
           touch $out
         '';

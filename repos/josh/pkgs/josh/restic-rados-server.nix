@@ -2,9 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-
   ceph,
-
   nix-update-script,
   runCommand,
   testers,

@@ -2,8 +2,8 @@
   lib,
   stdenvNoCC,
   nur,
-  runCommand,
   yq,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "local-path-provisioner-manifests";

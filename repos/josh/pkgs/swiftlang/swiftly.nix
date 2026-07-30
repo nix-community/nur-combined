@@ -34,14 +34,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   __structuredAttrs = true;
 
   src = sources.${stdenvNoCC.hostPlatform.system};
+
   dontUnpack = true;
+
   nativeBuildInputs = [
     autoPatchelfHook
   ];
+
   buildInputs = [
     stdenv.cc.cc.lib
     zlib
   ];
+
   installPhase = ''
     runHook preInstall
 

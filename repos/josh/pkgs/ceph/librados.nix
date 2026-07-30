@@ -2,7 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
+  fetchpatch2,
   fetchurl,
 
   # Build tools
@@ -62,7 +62,7 @@
 }:
 
 let
-  ceph20 = lib.versionAtLeast ceph.version "20";
+  ceph20 = lib.strings.versionAtLeast ceph.version "20";
 
   version = if ceph20 then ceph.version else "20.2.0";
 
@@ -96,14 +96,14 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "librados";
   inherit version src;
 
-  patches = lib.optionals (!lib.versionAtLeast version "20.2.1") [
+  patches = lib.lists.optionals (!lib.strings.versionAtLeast version "20.2.1") [
     # PyO3 workaround — allows build on Python 3.12 (merged upstream in 20.2.1)
     # https://github.com/ceph/ceph/pull/66794
     # Pinned base...head range of that PR; PR diff URLs are mutable
-    (fetchpatch {
+    (fetchpatch2 {
       name = "ceph-upstream-pyo3-workaround.patch";
       url = "https://github.com/ceph/ceph/compare/ba0181c0fc1118f6199dc21db58da8ccc94ca0b7...411fcaa78fcf75392dd235533ba9b8d351971b08.diff";
-      hash = "sha256-bZvcCNf9R3JpcHP0r3x6iRE9lp3CGOPCqi44fj15U1E=";
+      hash = "sha256-Et3v5U6HibwlhErYxogimluLRL+9efRBptdcNuh4xLg=";
     })
   ];
 
@@ -117,7 +117,7 @@ stdenv.mkDerivation (finalAttrs: {
     ceph-python
     which
   ]
-  ++ lib.optional stdenv.hostPlatform.isx86 nasm;
+  ++ lib.lists.optional stdenv.hostPlatform.isx86 nasm;
 
   buildInputs = [
     bzip2
@@ -138,7 +138,7 @@ stdenv.mkDerivation (finalAttrs: {
     zlib
     zstd
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ++ lib.lists.optionals stdenv.hostPlatform.isLinux [
     babeltrace
     keyutils
     libcap
@@ -151,7 +151,7 @@ stdenv.mkDerivation (finalAttrs: {
     udev
     util-linux
   ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  ++ lib.lists.optionals stdenv.hostPlatform.isDarwin [
     apple-sdk
   ];
 
@@ -159,7 +159,7 @@ stdenv.mkDerivation (finalAttrs: {
     boost187
     openssl
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ++ lib.lists.optionals stdenv.hostPlatform.isLinux [
     rdma-core
   ];
 
@@ -189,11 +189,11 @@ stdenv.mkDerivation (finalAttrs: {
 
     "-DPython3_EXECUTABLE=${ceph-python}/bin/python3"
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ++ lib.lists.optionals stdenv.hostPlatform.isLinux [
     "-DWITH_SYSTEM_LIBURING=ON"
     "-DWITH_SYSTEMD=OFF"
   ]
-  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+  ++ lib.lists.optionals stdenv.hostPlatform.isDarwin [
     "-DWITH_LTTNG=OFF"
     "-DWITH_BABELTRACE=OFF"
     "-DWITH_SYSTEMD=OFF"
@@ -204,14 +204,14 @@ stdenv.mkDerivation (finalAttrs: {
     unset AS
     patchShebangs src/
   ''
-  + lib.optionalString stdenv.hostPlatform.isLinux ''
+  + lib.strings.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace src/common/module.c \
       --replace-fail "char command[128];" "char command[256];" \
       --replace-fail "/sbin/modinfo"  "${kmod}/bin/modinfo" \
       --replace-fail "/sbin/modprobe" "${kmod}/bin/modprobe" \
       --replace-fail "/bin/grep" "${gnugrep}/bin/grep"
   ''
-  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+  + lib.strings.optionalString stdenv.hostPlatform.isDarwin ''
     # Disable consteval in bundled fmt (incompatible with Clang 21)
     substituteInPlace src/fmt/include/fmt/base.h \
       --replace-fail '#  define FMT_USE_CONSTEVAL 1' '#  define FMT_USE_CONSTEVAL 0'

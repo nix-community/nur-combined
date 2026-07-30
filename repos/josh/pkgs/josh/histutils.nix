@@ -32,5 +32,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
     homepage = "https://github.com/josh/histutils";
     license = lib.licenses.mit;
     mainProgram = "histutils";
+    platforms = lib.platforms.all;
   };
 })
