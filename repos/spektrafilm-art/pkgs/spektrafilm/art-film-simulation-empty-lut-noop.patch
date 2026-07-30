@@ -1,0 +1,13 @@
+diff --git a/rtengine/ipfilmsim.cc b/rtengine/ipfilmsim.cc
+index 0123456..89abcde 100644
+--- a/rtengine/ipfilmsim.cc
++++ b/rtengine/ipfilmsim.cc
+@@ -32,7 +32,8 @@ namespace rtengine {
+ void ImProcFunctions::filmSimulation(Imagefloat *img)
+ {
+-    if (!params->filmSimulation.enabled) {
++    if (!params->filmSimulation.enabled ||
++        params->filmSimulation.clutFilename.empty()) {
+         return;
+     }
+ 

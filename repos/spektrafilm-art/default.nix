@@ -47,7 +47,7 @@ let
     };
   darktableAiModels =
     pkgs.callPackage ./pkgs/darktable-spektrafilm/ai-models.nix { };
-  spektrafilm-art = (pkgs.art.overrideAttrs (oldAttrs: {
+  spektrafilmArtBase = (pkgs.art.overrideAttrs (oldAttrs: {
     version = "1.26.6";
     src = pkgs.fetchFromGitHub {
       owner = "artraweditor";
@@ -60,6 +60,7 @@ let
     };
     patches = (oldAttrs.patches or []) ++ [
       ./pkgs/spektrafilm/art-spektrafilm-luts-dir.patch
+      ./pkgs/spektrafilm/art-film-simulation-empty-lut-noop.patch
     ];
     postInstall = (oldAttrs.postInstall or "") + ''
       mkdir -p $out/share/ART/extlut
@@ -68,15 +69,27 @@ let
       mkdir -p $out/share/ART/spektrafilm-luts
       cp $out/share/ART/extlut/ART_spektrafilm.json $out/share/ART/spektrafilm-luts/
       cp $out/share/ART/extlut/spektrafilm_mklut.py $out/share/ART/spektrafilm-luts/
-      substituteInPlace $out/share/ART/extlut/ART_spektrafilm.json \
-        --replace-fail '"command" : "python3 spektrafilm_mklut.py --server",' \
-                       '"command" : "${spektrafilm-python}/bin/python spektrafilm_mklut.py --server",'
+    '';
+  }));
+  spektrafilm-art = pkgs.symlinkJoin {
+    name = "spektrafilm-art-${spektrafilmArtBase.version}";
+    paths = [ spektrafilmArtBase ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      rm $out/share/ART/spektrafilm-luts/ART_spektrafilm.json
+      rm $out/share/ART/spektrafilm-luts/spektrafilm_mklut.py
+      cp ${spektrafilmArtBase}/share/ART/spektrafilm-luts/ART_spektrafilm.json $out/share/ART/spektrafilm-luts/
+      cp ${spektrafilmArtBase}/share/ART/spektrafilm-luts/spektrafilm_mklut.py $out/share/ART/spektrafilm-luts/
+      chmod +w $out/share/ART/spektrafilm-luts/ART_spektrafilm.json
+      chmod +w $out/share/ART/spektrafilm-luts/spektrafilm_mklut.py
+
       substituteInPlace $out/share/ART/spektrafilm-luts/ART_spektrafilm.json \
         --replace-fail '"command" : "python3 spektrafilm_mklut.py --server",' \
                        '"command" : "${spektrafilm-python}/bin/python spektrafilm_mklut.py --server",'
-    '';
-    nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ pkgs.makeWrapper ];
-    postFixup = (oldAttrs.postFixup or "") + ''
+      substituteInPlace $out/share/ART/spektrafilm-luts/spektrafilm_mklut.py \
+        --replace-fail '    from spektrafilm.model.stocks import FilmStocks, PrintPapers' \
+                       '    from spektrafilm_gui.options import FilmStocks, PrintStocks as PrintPapers'
+
       wrapProgram $out/bin/ART \
         --run 'spektrafilm_luts_data_home="''${XDG_DATA_HOME:-''${HOME:+$HOME/.local/share}}"; spektrafilm_luts_dir="$spektrafilm_luts_data_home/ART/spektrafilm-luts"; if [ -n "$spektrafilm_luts_data_home" ]; then mkdir -p "$spektrafilm_luts_data_home/ART"; if [ -L "$spektrafilm_luts_dir" ] || [ ! -e "$spektrafilm_luts_dir" ]; then ln -sfn '"$out"'/share/ART/spektrafilm-luts "$spektrafilm_luts_dir"; fi; fi' \
         --prefix PATH : "${spektrafilm-python}/bin"
@@ -84,7 +97,13 @@ let
         --run 'spektrafilm_luts_data_home="''${XDG_DATA_HOME:-''${HOME:+$HOME/.local/share}}"; spektrafilm_luts_dir="$spektrafilm_luts_data_home/ART/spektrafilm-luts"; if [ -n "$spektrafilm_luts_data_home" ]; then mkdir -p "$spektrafilm_luts_data_home/ART"; if [ -L "$spektrafilm_luts_dir" ] || [ ! -e "$spektrafilm_luts_dir" ]; then ln -sfn '"$out"'/share/ART/spektrafilm-luts "$spektrafilm_luts_dir"; fi; fi' \
         --prefix PATH : "${spektrafilm-python}/bin"
     '';
-  }));
+    passthru = (spektrafilmArtBase.passthru or { }) // {
+      basePackage = spektrafilmArtBase;
+    };
+    meta = (spektrafilmArtBase.meta or { }) // {
+      mainProgram = "ART";
+    };
+  };
   darktableSpektrafilm =
     pkgsDarktable.callPackage ./pkgs/darktable-spektrafilm/darktable-spektrafilm.nix {
       inherit spektrafilmDataPack darktableAiModels;
