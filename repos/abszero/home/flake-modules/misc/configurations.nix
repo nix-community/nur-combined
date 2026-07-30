@@ -17,7 +17,7 @@ let
     ;
   inherit (builtins) head;
   inherit (lib.abszero.filesystem) toModuleList;
-  cfg = config.homeConfigurations;
+  cfg = config.abszero.homeConfigurations;
 
   configModule =
     { name, config, ... }:
@@ -47,7 +47,7 @@ let
 in
 
 {
-  options.homeConfigurations = mkOption {
+  options.abszero.homeConfigurations = mkOption {
     type = with types; attrsOf (submodule configModule);
     description = "Abstracted home configuration options";
   };
@@ -62,9 +62,7 @@ in
       in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs lib;
-        extraSpecialArgs = {
-          inherit inputs;
-        };
+        extraSpecialArgs = { inherit inputs; };
         modules = flatten [
           # We do want to install niri for portals (even though it's already installed in NixOS).
           # For some reason this is required to get gtk apps to automatically switch themes.
@@ -72,13 +70,14 @@ in
           inputs.niri.homeModules.niri
           inputs.zen-browser.homeModules.beta
           inputs.nix-index-database.homeModules.nix-index
+          inputs.sops.homeModules.sops
           inputs.catppuccin.homeModules.catppuccin
-          (toModuleList ../../lib/modules)
-          (toModuleList ../modules)
+          (toModuleList ../../../lib/modules)
+          (toModuleList ../../modules)
           c.modules
           {
             nixpkgs.overlays = [
-              (_: prev: import ../../pkgs { pkgs = prev; })
+              (_: prev: import ../../../pkgs { pkgs = prev; })
               inputs.niri.overlays.niri
             ];
             home = {

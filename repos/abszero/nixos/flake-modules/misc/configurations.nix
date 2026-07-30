@@ -15,7 +15,7 @@ let
     flatten
     ;
   inherit (lib.abszero.filesystem) toModuleList;
-  cfg = config.nixosConfigurations;
+  cfg = config.abszero.nixosConfigurations;
 
   configModule =
     { name, ... }:
@@ -42,9 +42,15 @@ let
 in
 
 {
-  options.nixosConfigurations = mkOption {
-    type = with types; attrsOf (submodule configModule);
-    description = "Abstracted home configuration options";
+  options = {
+    abszero.nixosConfigurations = mkOption {
+      type = with types; attrsOf (submodule configModule);
+      description = "Abstracted home configuration options";
+    };
+    # Declare option as anything to allow recursively merging multiple values
+    flake.deploy = mkOption {
+      type = types.anything;
+    };
   };
 
   config.flake.nixosConfigurations = mapAttrs (
@@ -53,29 +59,26 @@ in
       { system, ... }:
       nixpkgs-patcher.lib.nixosSystem {
         inherit system lib;
-        nixpkgsPatcher.inputs = inputs;
-        specialArgs = {
-          inherit inputs;
-        };
+        nixpkgsPatcher = { inherit inputs; };
+        specialArgs = { inherit inputs; };
         modules = flatten [
-          inputs.charmbracelet.nixosModules.crush
-          inputs.disko.nixosModules.disko
-          inputs.lanzaboote.nixosModules.lanzaboote
           inputs.nixified-ai.nixosModules.comfyui
           inputs.wisp.nixosModules.wisp
+          inputs.charmbracelet.nixosModules.crush
+          inputs.sops.nixosModules.sops
+          inputs.disko.nixosModules.disko
+          inputs.lanzaboote.nixosModules.lanzaboote
           inputs.catppuccin.nixosModules.catppuccin
-          (toModuleList ../../lib/modules)
-          (toModuleList ../modules)
+          (toModuleList ../../../lib/modules)
+          (toModuleList ../../modules)
           c.modules
           {
             nixpkgs.overlays = [
-              (_: prev: import ../../pkgs { pkgs = prev; })
+              (_: prev: import ../../../pkgs { pkgs = prev; })
               inputs.nix-cachyos-kernel.overlays.default
               inputs.niri.overlays.niri
             ];
-            networking = {
-              inherit (c) hostName;
-            };
+            networking = { inherit (c) hostName; };
           }
         ];
       }

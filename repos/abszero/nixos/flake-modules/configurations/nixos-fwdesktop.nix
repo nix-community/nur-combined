@@ -1,4 +1,3 @@
-# WARN: no longer updated as of 2025-07-18
 { inputs, lib, ... }:
 
 let
@@ -8,7 +7,18 @@ let
     readFile
     warn
     ;
-  inherit (lib) recursiveUpdate;
+  inherit (lib)
+    types
+    mkEnableOption
+    mkOption
+    mkIf
+    singleton
+    recursiveUpdate
+    ;
+
+  hostName = "nixos-fwdesktop";
+  system = "x86_64-linux";
+  domain = "weathercold.moe";
 
   proxySettings =
     if (readDir ./fracture-ray ? "proxy.json") then
@@ -18,16 +28,31 @@ let
 
   mainModule = {
     abszero = {
-      profiles.full.enable = true;
+      profiles.desktopWithAI.enable = true;
+
+      hardware.framework-desktop-amd-ai-max-300-series.enable = true;
 
       zramSwap.enable = true;
 
       users.admins = [ "weathercold" ];
 
-      hardware.xiaomi-redmibook-16-pro-2024.enable = true;
-
       services = {
         displayManager.tuigreet.enable = true;
+        hardware.framework_rgbafan = {
+          enable = true;
+          mode = "smoothspin";
+          nLeds = 36;
+          extraFlags = [
+            "--speed-from-fan" # Scale animation speed with fan speed
+            # The colors appear lighter than they are
+            "--colors"
+            "e067c8" # Orchid
+            "5b6cf9" # Sapphire
+            "5b6cf9"
+            "e067c8"
+          ];
+        };
+        openssh.enable = true;
         xray = recursiveUpdate proxySettings {
           # enable = true;
           preset = "vless-tcp-xtls-reality-client";
@@ -39,13 +64,14 @@ let
 
       themes.catppuccin = {
         enable = true;
+        fonts.enable = true;
         plymouth.enable = true;
       };
     };
 
     disko.devices.disk.nvme0n1 = {
       type = "disk";
-      device = "/dev/disk/by-id/nvme-BC511_NVMe_SK_hynix_512GB_NY11N03371040170Q";
+      device = "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y429484H";
       content = {
         type = "gpt";
         partitions = {
@@ -64,6 +90,7 @@ let
                 "nodev" # block device files for security
                 "nofail"
                 "nosuid" # block suid and sgid bits for security
+                "umask=0077" # rwx------
                 "x-systemd.automount"
                 "x-systemd.idle-timeout=10min"
               ];
@@ -71,7 +98,7 @@ let
           };
           data = {
             label = "data";
-            size = "150G";
+            size = "700G";
             priority = 1;
             content = {
               type = "btrfs";
@@ -90,7 +117,7 @@ let
           };
           nixos = {
             label = "nixos";
-            size = "100G";
+            size = "100%";
             priority = 2;
             content = {
               type = "btrfs";
@@ -112,34 +139,13 @@ let
               };
             };
           };
-          swap = {
-            label = "swap";
-            size = "16G";
-            priority = 3;
-            content = {
-              type = "swap";
-              discardPolicy = "pages";
-              resumeDevice = true;
-            };
-          };
         };
       };
     };
 
     catppuccin.accent = "pink";
 
-    fileSystems.windows = {
-      device = "/dev/disk/by-partlabel/Basic\x20data\x20partition";
-      fsType = "ntfs3";
-      noCheck = true;
-      options = [
-        "noatime"
-        "noauto"
-        "nofail"
-        "x-systemd.automount"
-        "x-systemd.idle-timeout=10min"
-      ];
-    };
+    nixpkgs.config.rocmSupport = true; # For ComfyUI
 
     users.users = rec {
       weathercold = {
@@ -151,17 +157,65 @@ let
         inherit (weathercold) hashedPassword;
       };
     };
+
+    networking = { inherit domain; };
+
+    services.comfyui.acceleration = "rocm";
+  };
+
+  configModule = submodule: {
+    options = {
+      substituters.${hostName}.enable = mkEnableOption "${hostName} as a substituter";
+      buildMachines.${hostName}.enable = mkEnableOption "${hostName} as a build machine";
+    };
+
+    config.modules = [
+      {
+        nix.settings.substituters = mkIf submodule.config.substituters.${hostName}.enable [
+          "ssh-ng://weathercold@${hostName}.${domain}:1337"
+        ];
+      }
+      {
+        nix = mkIf submodule.config.buildMachines.${hostName}.enable {
+          distributedBuilds = true;
+          buildMachines = singleton {
+            hostName = "${hostName}.${domain}:1337";
+            protocol = "ssh-ng";
+            sshUser = "weathercold";
+            inherit system;
+            maxJobs = 4;
+            speedFactor = 2;
+            supportedFeatures = [
+              "benchmark"
+              "big-parallel"
+              "kvm"
+              "nixos-test"
+            ];
+          };
+          # For builders with faster Internet than the local machine
+          settings.builders-use-substitutes = true;
+        };
+      }
+    ];
   };
 in
 
 {
-  imports = [ ./_options.nix ];
+  options.abszero.nixosConfigurations = mkOption {
+    type = with types; attrsOf (submodule configModule);
+  };
 
-  nixosConfigurations.nixos-redmibook = {
-    system = "x86_64-linux";
-    modules = [
-      inputs.nixos-hardware.nixosModules.xiaomi-redmibook-16-pro-2024
-      mainModule
-    ];
+  config.abszero = {
+    nixosConfigurations.${hostName} = {
+      inherit system;
+      modules = [
+        inputs.nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
+        mainModule
+      ];
+    };
+    programs.ssh.knownHosts.${hostName} = {
+      extraHostNames = [ "${hostName}.${domain}" ];
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF8oO2vJoegH702ELMZU/u8KEWrYEF3GKiWT/AgObq3B weathercold@nixos-fwdesktop";
+    };
   };
 }

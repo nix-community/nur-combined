@@ -25,6 +25,5 @@ in
       enable = true;
       accent = mkIf cfg.cursors.monochromeAccent cfg.polarity;
     };
-    home.pointerCursor.size = 48;
   };
 }

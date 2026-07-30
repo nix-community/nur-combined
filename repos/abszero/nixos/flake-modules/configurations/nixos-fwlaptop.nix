@@ -9,6 +9,10 @@ let
     ;
   inherit (lib) recursiveUpdate;
 
+  hostName = "nixos-fwlaptop";
+  system = "x86_64-linux";
+  domain = "weathercold.moe";
+
   proxySettings =
     if (readDir ./fracture-ray ? "proxy.json") then
       fromJSON (readFile ./fracture-ray/proxy.json)
@@ -17,31 +21,16 @@ let
 
   mainModule = {
     abszero = {
-      profiles.desktopWithAI.enable = true;
+      profiles.laptop.enable = true;
 
       zramSwap.enable = true;
 
       users.admins = [ "weathercold" ];
 
-      hardware.framework-desktop-amd-ai-max-300-series.enable = true;
+      hardware.framework-12-13th-gen-intel.enable = true;
 
       services = {
         displayManager.tuigreet.enable = true;
-        hardware.framework_rgbafan = {
-          enable = true;
-          mode = "smoothspin";
-          nLeds = 36;
-          extraFlags = [
-            "--speed-from-fan" # Scale animation speed with fan speed
-            # The colors appear lighter than they are
-            "--colors"
-            "e067c8" # Orchid
-            "5b6cf9" # Sapphire
-            "5b6cf9"
-            "e067c8"
-           ];
-        };
-        openssh.enable = true;
         xray = recursiveUpdate proxySettings {
           # enable = true;
           preset = "vless-tcp-xtls-reality-client";
@@ -53,14 +42,13 @@ let
 
       themes.catppuccin = {
         enable = true;
-        fonts.enable = true;
         plymouth.enable = true;
       };
     };
 
     disko.devices.disk.nvme0n1 = {
       type = "disk";
-      device = "/dev/disk/by-id/nvme-Samsung_SSD_990_PRO_1TB_S7LANJ0Y429484H";
+      device = "/dev/disk/by-id/nvme-BC511_NVMe_SK_hynix_512GB_NY11N03371040170Q";
       content = {
         type = "gpt";
         partitions = {
@@ -87,7 +75,7 @@ let
           };
           data = {
             label = "data";
-            size = "700G";
+            size = "150G";
             priority = 1;
             content = {
               type = "btrfs";
@@ -106,7 +94,7 @@ let
           };
           nixos = {
             label = "nixos";
-            size = "100%";
+            size = "100G";
             priority = 2;
             content = {
               type = "btrfs";
@@ -128,37 +116,57 @@ let
               };
             };
           };
+          swap = {
+            label = "swap";
+            size = "16G";
+            priority = 3;
+            content = {
+              type = "swap";
+              discardPolicy = "pages";
+              resumeDevice = true;
+            };
+          };
         };
       };
     };
 
     catppuccin.accent = "pink";
 
-    nixpkgs.config.rocmSupport = true; # For ComfyUI
+    fileSystems.windows = {
+      device = "/dev/disk/by-partlabel/Basic\x20data\x20partition";
+      fsType = "ntfs3";
+      noCheck = true;
+      options = [
+        "noatime"
+        "noauto"
+        "nofail"
+        "x-systemd.automount"
+        "x-systemd.idle-timeout=10min"
+      ];
+    };
 
     users.users = rec {
       weathercold = {
         description = "Weathercold";
         isNormalUser = true;
         hashedPassword = "$6$QOTimFq0v8u6oN.I$.m0BQc/tC6/8nluwwQT7AmkbJbfNoh2PnO9biVL4wgWA22zlb/0HheieexWgISAB67r/7floX3bQpZrUjZv9v.";
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDNpRiJBIfsEXVgHQ7NuJ7uk9TEEq97EG6bISYZp+Zt+ Weathercold"
-        ];
       };
       root = {
         inherit (weathercold) hashedPassword;
       };
     };
+
+    networking = { inherit domain; };
   };
 in
 
 {
-  imports = [ ./_options.nix ];
-
-  nixosConfigurations.nixos-fwdesktop = {
-    system = "x86_64-linux";
+  abszero.nixosConfigurations.${hostName} = {
+    inherit system;
+    substituters.nixos-fwdesktop.enable = true;
+    buildMachines.nixos-fwdesktop.enable = true;
     modules = [
-      inputs.nixos-hardware.nixosModules.framework-desktop-amd-ai-max-300-series
+      inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel
       mainModule
     ];
   };

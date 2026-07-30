@@ -15,5 +15,6 @@ in
     # https://geneva.cs.umd.edu/posts/fully-encrypted-traffic/en/, this won't
     # make it less detectable by the GFW.
     ports = [ 1337 ];
+    settings.PasswordAuthentication = false;
   };
 }

@@ -6,6 +6,6 @@ temp
 /.direnv
 
 /.gitsecret/keys/random_seed
-/home/configurations/weathercold/_base.nix
-/nixos/configurations/fracture-ray/proxy.json
+/home/modules/accounts/email/email.json
+/nixos/flake-modules/configurations/fracture-ray/proxy.json
 /nixos/modules/services/rclone/file-systems.nix

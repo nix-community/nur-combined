@@ -37,7 +37,10 @@ in
       };
     };
 
-    nixpkgs.config.permittedInsecurePackages = [ "ventoy-1.1.12" ];
+    nixpkgs.config.permittedInsecurePackages = [
+      "idea-oss-2025.3.4"
+      "ventoy-1.1.12" # Chronic
+    ];
 
     hardware.keyboard.qmk.enable = true;
 
@@ -71,7 +74,6 @@ in
         inkscape
         inotify-tools
         jetbrains.idea-oss
-        jq
         kooha
         libreoffice-qt
         lutris
@@ -83,6 +85,7 @@ in
         proton-vpn
         taisei
         tenacity
+        tetrio-desktop
         vial
         ventoy-full
         vesktop
@@ -90,7 +93,7 @@ in
         waydroid-helper
         waypipe
         wev
-        wget
+        wl-clipboard-rs
         xeyes
         ytmdesktop
         zotero

@@ -140,10 +140,7 @@ mkIf (cfg.enable && cfg.preset == "blackhole-adblock") {
       ip -6 route add local ::/0 dev lo table 100
     '';
 
-    nftables = {
-      enable = true;
-      ruleset = nftablesRuleset;
-    };
+    nftables.ruleset = nftablesRuleset;
   };
 
   services.xray.settings = xraySettings;

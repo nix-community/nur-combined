@@ -18,6 +18,10 @@
         home-manager.follows = "home-manager";
       };
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # bocchi-cursors = {
     #   url = "github:Weathercold/Bocchi-Cursors";
     #   inputs = {
@@ -32,16 +36,16 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     nixpkgs-patcher.url = "github:gepbird/nixpkgs-patcher";
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -53,22 +57,22 @@
       ...
     }@inputs:
     let
-      extendedLib = nixpkgs.lib.extend (
-        _: _: {
-          abszero = import ../lib {
-            inherit (nixpkgs) lib;
-          };
-        }
-      );
+      libAbszero = import ../lib { inherit (nixpkgs) lib; };
+      lib = nixpkgs.lib.extend (_: _: { abszero = libAbszero; });
+      inherit (lib.abszero.filesystem) toModuleList;
     in
     flake-parts.lib.mkFlake
       {
         inherit inputs;
-        specialArgs.lib = extendedLib;
+        specialArgs = { inherit lib; };
       }
       {
-        imports = [ ./flake-module.nix ];
+        imports = toModuleList ./flake-modules;
 
-        systems = [ "x86_64-linux" ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+          "aarch64-linux"
+        ];
       };
 }

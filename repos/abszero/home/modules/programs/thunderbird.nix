@@ -6,9 +6,6 @@ let
     mkOption
     mkEnableOption
     mkIf
-    attrNames
-    genAttrs
-    const
     ;
   cfg = config.abszero.programs.thunderbird;
 in
@@ -21,15 +18,16 @@ in
       default = config.home.username;
     };
   };
+  options.accounts.email.accounts = mkOption {
+    type =
+      with types;
+      attrsOf (submodule {
+        thunderbird.enable = mkIf cfg.enable true;
+      });
+  };
 
-  config = mkIf cfg.enable {
-    programs.thunderbird = {
-      enable = true;
-      profiles.${cfg.profile}.isDefault = true;
-    };
-    # TODO: Configure email when chat and calendar can be configured
-    accounts.email.accounts = genAttrs (attrNames config.abszero.emails) (const {
-      thunderbird.enable = false;
-    });
+  config.programs.thunderbird = mkIf cfg.enable {
+    enable = true;
+    profiles.${cfg.profile}.isDefault = true;
   };
 }

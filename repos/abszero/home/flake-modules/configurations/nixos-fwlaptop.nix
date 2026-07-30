@@ -1,6 +1,4 @@
 let
-  inherit (builtins) readDir warn;
-
   mainModule = {
     abszero = {
       profiles.niri.enable = true;
@@ -20,7 +18,7 @@ let
         catppuccin = {
           cursors.enable = true;
           fcitx5.enable = true;
-          foot.enable = true;
+          ghostty.enable = true;
           gtk.enable = true;
           niri = {
             enable = true;
@@ -56,18 +54,10 @@ let
 in
 
 {
-  imports = [ ../_options.nix ];
-
-  homeConfigurations."weathercold@nixos-fwlaptop" = {
+  abszero.homeConfigurations."weathercold@nixos-fwlaptop" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
-      (
-        if (readDir ./. ? "_base.nix") then
-          ./_base.nix
-        else
-          warn "_base.nix is hidden, configuration is incomplete" { }
-      )
       mainModule
     ];
   };

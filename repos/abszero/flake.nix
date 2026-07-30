@@ -17,7 +17,7 @@
       };
     };
     nixified-ai = {
-      url = "github:Weathercold/flake/feat/cudaless-kitchen";
+      url = "github:nixified-ai/flake";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
@@ -49,6 +49,10 @@
       url = "github:charmbracelet/nur";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # bocchi-cursors = {
     #   url = "github:Weathercold/Bocchi-Cursors";
     #   inputs = {
@@ -74,6 +78,10 @@
         flake-compat.follows = "flake-compat";
       };
     };
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -96,10 +104,6 @@
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -111,20 +115,22 @@
     }@inputs:
 
     let
-      lib = import ./lib { inherit (nixpkgs) lib; };
-      extLib = nixpkgs.lib.extend (_: _: { abszero = lib; });
+      libAbszero = import ./lib { inherit (nixpkgs) lib; };
+      lib = nixpkgs.lib.extend (_: _: { abszero = libAbszero; });
+      inherit (lib) flatten;
+      inherit (lib.abszero.filesystem) toModuleList;
     in
 
     flake-parts.lib.mkFlake
       {
         inherit inputs;
-        specialArgs.lib = extLib;
+        specialArgs = { inherit lib; };
       }
       {
-        imports = [
+        imports = flatten [
           ./pkgs/flake-module.nix
-          ./nixos/flake-module.nix
-          ./home/flake-module.nix
+          (toModuleList ./nixos/flake-modules)
+          (toModuleList ./home/flake-modules)
         ];
 
         # Expose flake-parts options for nixd

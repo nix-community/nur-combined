@@ -21,6 +21,7 @@ functions.
 
 ## Highlights
 
+- Headscale [server](nixos/modules/services/networking/headscale.nix) connecting all hosts
 - Using [darkman](https://gitlab.com/WhyNotHugo/darkman) to
   [automatically switch theme](home/modules/services/scheduling/darkman.nix) based on
   [home-manager configurations](home/configurations/weathercold/nixos-redmibook.nix)
@@ -100,18 +101,17 @@ differing from it only when it makes sense.
 
     nixfiles/
     ├ home/                               home manager config
-    │ ├ configurations/                   home configurations
-    │ │ ├ weathercold/                    personal configurations
-    │ │ │ └ nixos-fwlaptop.nix, ...
-    │ │ ├ custom.nix                      example configuration
-    │ │ └ _options.nix                    configuration abstraction
+    │ ├ flake-modules/                    home flake modules
+    │ │ ├ configurations/                 home configurations
+    │ │ │ └ custom.nix                    example configuration
+    │ │ └ misc/, ...
     │ └ modules/                          home modules
     │   ├ profiles/                       top-level home modules
     │   └ services/, programs/, ...
     ├ nixos/                              nixos config
-    │ ├ configurations/                   nixos configurations
-    │ │ ├ nixos-fwlaptop.nix, ...
-    │ │ └ _options.nix                    configuration abstraction
+    │ ├ flake-modules/                    nixos flake modules
+    │ │ ├ configurations/                 nixos configurations
+    │ │ └ programs/, misc/, ...
     │ └ modules/                          nixos modules
     │   ├ profiles/                       top-level nixos modules
     │   └ services/, programs/, ...
@@ -125,19 +125,13 @@ differing from it only when it makes sense.
 ## Import Graph
 
     nixfiles/flake.nix
-    ├ home/flake-module.nix
-    │ ├ configurations/custom.nix, ...
-    │ ├ configurations/weathercold/nixos-fwlaptop.nix, ...
-    │ │ ├ _base.nix
-    │ │ └ ../_options.nix
-    │ │   └ ../modules/profiles/*, ../modules/services/*, ...                 all home modules
-    │ └ modules/profiles/*, modules/themes/*, ...                             public home modules
-    ├ nixos/flake-module.nix
-    │ ├ configurations/nixos-fwlaptop.nix, ...
-    │ │ ├ inputs.nixos-hardware.nixosModules.framework-12-13th-gen-intel, ... 3rd party nixos modules
-    │ │ └ _options.nix
-    │ │   └ ../modules/profiles/*, ../modules/services/*, ...                 all nixos modules
-    │ └ modules/profiles/*, modules/themes/*, ...                             public nixos modules
+    ├ home/flake-modules/*                                all home flake modules
+    │ ├ misc/configurations.nix -> ../../modules/*        all home modules
+    │ └ misc/modules.nix -> ../../modules/themes/*, ...   public home modules
+    ├ nixos/flake-modules/*                               all nixos flake modules
+    │ ├ configurations/* -> inputs.*.nixosModules.*       3rd party nixos modules
+    │ ├ misc/configurations.nix -> ../../modules/*        all nixos modules
+    │ └ misc/modules.nix -> ../../modules/hardware/*, ... public nixos modules
     ├ pkgs/flake-module.nix
     │ └ default.nix
     │   └ aa/*, ab/*, ...

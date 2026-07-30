@@ -1,7 +1,4 @@
-# WARN: no longer updated as of 2025-07-18
 let
-  inherit (builtins) readDir warn;
-
   mainModule = {
     abszero = {
       profiles.niri.enable = true;
@@ -21,7 +18,7 @@ let
         catppuccin = {
           cursors.enable = true;
           fcitx5.enable = true;
-          foot.enable = true;
+          ghostty.enable = true;
           gtk.enable = true;
           niri.enable = true;
         };
@@ -33,7 +30,14 @@ let
       gtk.icon.enable = true;
     };
 
-    programs.niri.settings.outputs.eDP-1.variable-refresh-rate = true;
+    programs.niri.settings.outputs.DP-4 = {
+      mode = {
+        width = 3840;
+        height = 2160;
+        refresh = 120.0;
+      };
+      variable-refresh-rate = true;
+    };
 
     specialisation = {
       # Hint nh to autoswitch to the current specialisation
@@ -48,18 +52,10 @@ let
 in
 
 {
-  imports = [ ../_options.nix ];
-
-  homeConfigurations."weathercold@nixos-redmibook" = {
+  abszero.homeConfigurations."weathercold@nixos-fwdesktop" = {
     system = "x86_64-linux";
     modules = [
       # inputs.bocchi-cursors.homeModules.bocchi-cursors-shadowBlack
-      (
-        if (readDir ./. ? "_base.nix") then
-          ./_base.nix
-        else
-          warn "_base.nix is hidden, configuration is incomplete" { }
-      )
       mainModule
     ];
   };

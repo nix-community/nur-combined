@@ -9,17 +9,15 @@ in
   options.abszero.profiles.base.enable = mkEnableOption "base profile";
 
   config = mkIf cfg.enable {
+    abszero.accounts.email.enable = true;
+
+    nix.assumeXdg = true;
+
     nixpkgs.config.allowUnfree = true;
 
     home = {
       stateVersion = "26.11";
       preferXdgDirectories = true;
-      # NOTE: this doesn't enable pointerCursor by default.
-      pointerCursor = {
-        gtk.enable = mkDefault true;
-        hyprcursor.enable = mkDefault true;
-        x11.enable = mkDefault true;
-      };
       # Create .profile so that greetd sets session variables before starting
       # the session, since it only sources .profile, not .zprofile nor
       # .bash_profile.
@@ -45,6 +43,7 @@ in
       };
       # NOTE: most of gpg config is in user's configuration
       gpg = {
+        enable = true;
         mutableKeys = mkDefault false;
         mutableTrust = mkDefault false;
       };

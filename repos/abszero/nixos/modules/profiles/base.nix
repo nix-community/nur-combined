@@ -20,7 +20,10 @@ in
   options.abszero.profiles.base.enable = mkEnableOption "base profile";
 
   config = mkIf cfg.enable {
-    abszero.boot.quiet = true;
+    abszero = {
+      boot.quiet = true;
+      services.tailscale.enable = true;
+    };
 
     nix = {
       package = pkgs.nixVersions.latest;
@@ -122,6 +125,16 @@ in
       packages = with pkgs; [ terminus_font ];
     };
 
+    networking = {
+      nftables.enable = true;
+      nameservers = [
+        "2606:4700:4700::1111" # Cloudflare
+        "2620:fe::fe" # Quad9
+        "1.1.1.1" # Cloudflare
+        "9.9.9.9" # Quad9
+      ];
+    };
+
     security.sudo-rs = {
       enable = true;
       wheelNeedsPassword = mkDefault false;
@@ -134,6 +147,13 @@ in
     };
 
     # Allow unfree packages
-    environment.sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+    environment = {
+      sessionVariables.NIXPKGS_ALLOW_UNFREE = "1";
+      systemPackages = with pkgs; [
+        dnsutils
+        jq
+        wget
+      ];
+    };
   };
 }

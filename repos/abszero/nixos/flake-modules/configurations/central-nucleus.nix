@@ -1,46 +1,36 @@
-# Xray server deployed to Vultr
+# Headscale server deployed to Hetzner
 # Install:
-# 1. Upload NixOS ISO
-# 2. Boot from ISO
-# 3. Set root password
-# 4. `nixos-anywhere --flake <flake-path>#fracture-ray root@<ip>`
-# Deploy: `deploy -s path:.#fracture-ray`
+# 1. Boot from ISO
+# 2. Set root password
+# 3. `nixos-anywhere --flake <flake-path>#central-nucleus root@<ip>`
+# Deploy: `deploy -s path:.#central-nucleus`
 {
-  self,
+  config,
   inputs,
   lib,
   ...
 }:
 
 let
-  inherit (builtins)
-    fromJSON
-    readDir
-    readFile
-    warn
-    ;
-  inherit (lib) recursiveUpdate;
+  inherit (lib) singleton;
 
-  proxySettings =
-    if (readDir ./. ? "proxy.json") then
-      fromJSON (readFile ./proxy.json)
-    else
-      warn "proxy.json is hidden, configuration is incomplete" { };
+  hostName = "central-nucleus";
+  system = "x86_64-linux";
+  domain = "weathercold.moe";
+  addr = "2a01:4f8:1c1c:88a8::1";
 
-  mainModule = {
+  mainModule = nixos: {
     abszero = {
       profiles.server.enable = true;
+      hardware.hetzner-co-x86-cx23.enable = true;
       users.admins = [ "weathercold" ];
-      hardware.vultr-cc-intel-regular.enable = true;
-      services.xray = recursiveUpdate proxySettings {
-        enable = true;
-        preset = "vless-tcp-xtls-reality-server";
-      };
+      networking.addrs.${addr}.type = "ipv6";
+      services.headscale.enable = true;
     };
 
-    disko.devices.disk.vda = {
+    disko.devices.disk.sda = {
       type = "disk";
-      device = "/dev/vda";
+      device = "/dev/sda";
       content = {
         type = "gpt";
         partitions = {
@@ -81,7 +71,7 @@ let
     swapDevices = [
       {
         device = "/swap/swapfile";
-        size = 2048;
+        size = 4096;
         discardPolicy = "pages";
       }
     ];
@@ -91,37 +81,49 @@ let
         description = "Weathercold";
         isNormalUser = true;
         hashedPassword = "$6$QOTimFq0v8u6oN.I$.m0BQc/tC6/8nluwwQT7AmkbJbfNoh2PnO9biVL4wgWA22zlb/0HheieexWgISAB67r/7floX3bQpZrUjZv9v.";
-        openssh.authorizedKeys.keys = [
-          "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDNpRiJBIfsEXVgHQ7NuJ7uk9TEEq97EG6bISYZp+Zt+ Weathercold"
-        ];
       };
       root = {
-        inherit (weathercold) hashedPassword openssh;
+        inherit (weathercold) hashedPassword;
+      };
+    };
+
+    networking = {
+      inherit domain;
+      interfaces.enp1s0.ipv6.addresses = singleton {
+        address = addr;
+        prefixLength = 64;
       };
     };
   };
 in
 
 {
-  imports = [ ../_options.nix ];
-
-  nixosConfigurations.fracture-ray = {
-    system = "x86_64-linux";
-    modules = [
-      inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
-      mainModule
-    ];
+  abszero = {
+    nixosConfigurations.${hostName} = {
+      inherit system;
+      modules = [
+        inputs.nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+        mainModule
+      ];
+    };
+    programs.ssh.knownHosts.${hostName} = {
+      extraHostNames = [
+        domain
+        "${hostName}.${domain}"
+      ];
+      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP0sqleia3X4x5fo+h9ReragzkkpJWRIy+yzLcWwFlCd weathercold@central-nucleus";
+    };
   };
 
-  flake.deploy.nodes.fracture-ray = {
-    hostname = proxySettings.address;
+  flake.deploy.nodes.${hostName} = {
+    hostname = "domain";
     sshOpts = [
       "-p"
       "1337"
     ];
     profiles.system = {
       user = "root";
-      path = inputs.deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.fracture-ray;
+      path = inputs.deploy-rs.lib.${system}.activate.nixos config.flake.nixosConfigurations.${hostName};
     };
   };
 }

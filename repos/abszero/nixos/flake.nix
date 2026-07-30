@@ -47,6 +47,10 @@
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,22 +78,22 @@
       ...
     }@inputs:
     let
-      extendedLib = nixpkgs.lib.extend (
-        _: _: {
-          abszero = import ../lib {
-            inherit (nixpkgs) lib;
-          };
-        }
-      );
+      libAbszero = import ../lib { inherit (nixpkgs) lib; };
+      lib = nixpkgs.lib.extend (_: _: { abszero = libAbszero; });
+      inherit (lib.abszero.filesystem) toModuleList;
     in
     flake-parts.lib.mkFlake
       {
         inherit inputs;
-        specialArgs.lib = extendedLib;
+        specialArgs = { inherit lib; };
       }
       {
-        imports = [ ./flake-module.nix ];
+        imports = toModuleList ./flake-modules;
 
-        systems = [ "x86_64-linux" ];
+        systems = [
+          "x86_64-linux"
+          "aarch64-darwin"
+          "aarch64-linux"
+        ];
       };
 }

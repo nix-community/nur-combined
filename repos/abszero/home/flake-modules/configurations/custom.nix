@@ -13,9 +13,7 @@ let
 in
 
 {
-  imports = [ ./_options.nix ];
-
-  homeConfigurations."${username}@${hostName}" = {
+  abszero.homeConfigurations."${username}@${hostName}" = {
     inherit system;
     homeDirectory = mkIf (homeDirectory != null) homeDirectory;
     modules = singleton {
@@ -41,6 +39,7 @@ in
             gtk.enable = true;
             plasma6.enable = true;
           };
+          # Hint nh to autoswitch to the current specialisation
           xdg.dataFile."home-manager/specialisation".text = "colloid";
         };
 
@@ -55,6 +54,10 @@ in
             ghostty.enable = true;
             gtk.enable = true;
             hyprland.enable = true;
+            niri = {
+              enable = true;
+              enableCompactLayout = true;
+            };
             plasma6.enable = true;
           };
           xdg.dataFile."home-manager/specialisation".text = "catppuccin";
