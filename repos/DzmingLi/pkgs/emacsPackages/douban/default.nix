@@ -2,7 +2,6 @@
   lib,
   emacsPackages,
   fetchFromGitHub,
-  curl,
   pandoc,
 }:
 
@@ -17,8 +16,8 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "9faa26cae19c3d1d731d40c8f9df34862a67bfcf";
-    hash = "sha256-wrgs+KbOVpgE1TWANUIwl9yoQ0cuYzrKynGVOdcPYTk=";
+    rev = "c01ab9cb3134a04988f2bdeaa221c7cfae0b1881";
+    hash = "sha256-LkepYXjql/ygrecZSImug95+l5/o3ug3LjB6Xeqeobg=";
   };
 
   packageRequires = [
@@ -26,14 +25,12 @@ emacsPackages.trivialBuild {
     emacsPackages.yaml
   ];
 
+  turnCompilationWarningToError = true;
+
   postPatch = ''
     substituteInPlace douban.el \
       --replace-fail '"pandoc"' '"${lib.getExe pandoc}"'
   '';
-
-  # plz shells out to curl.  Propagating it makes the package usable without
-  # requiring every consumer to remember this non-Elisp runtime dependency.
-  propagatedUserEnvPkgs = [ curl ];
 
   doCheck = true;
   checkPhase = ''
