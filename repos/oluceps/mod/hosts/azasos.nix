@@ -46,6 +46,13 @@
       };
 
       xray.configFile = config.vaultix.secrets.xray.path;
+
+      zramSwap = {
+        enable = true;
+        swapDevices = 1;
+        memoryPercent = 50;
+        algorithm = "lz4";
+      };
       boot = {
         kernelPackages = pkgs.linuxPackages_latest;
         kernelParams = [

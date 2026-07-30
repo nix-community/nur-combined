@@ -30,6 +30,7 @@
         # login.enableGnomeKeyring = true;
         greetd.oo7.enable = true;
       };
+      xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
       # services.gnome.gcr-ssh-agent.enable = true;
       environment.systemPackages = [
         # pkgs.show-current-ws

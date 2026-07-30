@@ -51,6 +51,12 @@
       identity.user = "elen";
       xray.configFile = config.vaultix.secrets.xray.path;
 
+      zramSwap = {
+        enable = true;
+        swapDevices = 1;
+        memoryPercent = 50;
+        algorithm = "lz4";
+      };
       system = {
         # This headless machine uses to perform heavy task.
         # Running database and web services.

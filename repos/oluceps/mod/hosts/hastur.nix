@@ -172,8 +172,8 @@
       zramSwap = {
         enable = false;
         swapDevices = 1;
-        memoryPercent = 80;
-        algorithm = "zstd";
+        memoryPercent = 50;
+        algorithm = "lz4";
       };
       systemd = {
         enableEmergencyMode = false;
