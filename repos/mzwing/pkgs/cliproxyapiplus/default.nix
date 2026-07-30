@@ -60,7 +60,7 @@ buildGoModule rec {
   '';
 
   meta = {
-    description = "Proxy server providing OpenAI, Gemini, Claude, Codex, and Grok compatible APIs for AI CLIs";
+    description = "CCS-maintained fork of CLIProxyAPIPlus (MIT snapshot, Apr 2026) with daily auto-sync from router-for-me/CLIProxyAPI. See plans for context";
     homepage = "https://github.com/kaitranntt/CLIProxyAPIPlus";
     changelog = "https://github.com/kaitranntt/CLIProxyAPIPlus/releases/tag/v${version}";
     license = lib.licenses.mit;
