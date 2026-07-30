@@ -23,35 +23,40 @@ let
   inherit (lib.strings) escapeShellArg;
   branch = escapeShellArg "update-${attr}";
 in
-pkgs.writeShellScriptBin "update-${attr}" ''
-  set -o errexit
-  set -o nounset
-  set -o pipefail
-  set -o xtrace
+pkgs.writeShellApplication {
+  name = "update-${attr}";
 
-  trap 'git checkout --quiet main' EXIT
-  git checkout --force main
-  git checkout -B ${branch}
-  old_sha=$(git rev-parse HEAD)
+  runtimeInputs = [
+    pkgs.gh
+    pkgs.git
+  ];
 
-  UPDATE_NIX_NAME=${escapeShellArg name} UPDATE_NIX_PNAME=${escapeShellArg pname} UPDATE_NIX_OLD_VERSION=${escapeShellArg version} UPDATE_NIX_ATTR_PATH=${escapeShellArg attr} ${updateCommand}
+  text = ''
+    set -o xtrace
 
-  new_sha=$(git rev-parse HEAD)
-  if [ "$old_sha" == "$new_sha" ]; then
-    echo "No commits created" >&2
-    exit 0
-  fi
+    trap 'git checkout --quiet --force main' EXIT
+    git checkout --force main
+    git checkout -B ${branch}
+    old_sha=$(git rev-parse HEAD)
 
-  git push --force origin ${branch}
+    UPDATE_NIX_NAME=${escapeShellArg name} UPDATE_NIX_PNAME=${escapeShellArg pname} UPDATE_NIX_OLD_VERSION=${escapeShellArg version} UPDATE_NIX_ATTR_PATH=${escapeShellArg attr} ${updateCommand}
 
-  pr_count=$(gh pr list --head ${branch} --json url --jq 'length')
-  if [ "$pr_count" -eq 0 ]; then
-    pr_url=$(gh pr create \
-      --base "main" \
-      --head ${branch} \
-      --title ${escapeShellArg "Update ${attr}"} \
-      --fill-verbose
-    )
-    gh pr merge --merge --auto "$pr_url"
-  fi
-''
+    new_sha=$(git rev-parse HEAD)
+    if [ "$old_sha" = "$new_sha" ]; then
+      echo "No commits created" >&2
+      exit 0
+    fi
+
+    git push --force origin ${branch}
+
+    pr_count=$(gh pr list --head ${branch} --json url --jq 'length')
+    if [ "$pr_count" -eq 0 ]; then
+      gh pr create \
+        --base "main" \
+        --head ${branch} \
+        --title ${escapeShellArg "Update ${attr}"} \
+        --fill-verbose
+    fi
+    gh pr merge --merge --auto ${branch}
+  '';
+}

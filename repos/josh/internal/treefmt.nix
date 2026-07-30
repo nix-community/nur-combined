@@ -15,6 +15,8 @@ let
     programs.keep-sorted.enable = true;
     programs.nixfmt.enable = true;
     programs.prettier.enable = true;
+    programs.ruff-check.enable = true;
+    programs.ruff-format.enable = true;
     programs.statix.enable = true;
     # keep-sorted end
   };

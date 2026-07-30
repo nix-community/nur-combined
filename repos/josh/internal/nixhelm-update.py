@@ -155,7 +155,9 @@ def helm_pull_oci(url: str, tmpdir: str) -> str:
 def first_subdir(path: str) -> str:
     subdirs = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
     if len(subdirs) != 1:
-        raise RuntimeError(f"Expected exactly one subdirectory in {path}, found {subdirs}")
+        raise RuntimeError(
+            f"Expected exactly one subdirectory in {path}, found {subdirs}"
+        )
     return os.path.join(path, subdirs[0])
 
 
