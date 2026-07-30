@@ -13,6 +13,12 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 
+## Home Manager modules
+
+| Modules | Documentation |
+| --- | --- |
+| `cliproxyapiplus` | [Usage](home-modules/cliproxyapiplus/README.md) |
+
 ## License
 
 MIT
