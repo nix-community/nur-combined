@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "ebc1676127b3bfbd46e3e26589b104853cac3730",
-      "url": "https://github.com/AstroNvim/AstroLSP/archive/ebc1676127b3bfbd46e3e26589b104853cac3730.tar.gz",
-      "hash": "sha256-N8uwx9PpGey0itrvq/OKOEwtRxXfto0MQ5Tbb7Bnc8w="
+      "revision": "7548bf1090d039a5b79808d63c13176e45487f5f",
+      "url": "https://github.com/AstroNvim/AstroLSP/archive/7548bf1090d039a5b79808d63c13176e45487f5f.tar.gz",
+      "hash": "sha256-nyKSRxJfk9N2FW0F4Kc2KV8yTLbvIPX26wLSayTi0MQ="
     },
     "Comment.nvim": {
       "type": "Git",
