@@ -30,7 +30,7 @@ pub fn render_settings_panel(
         .child(
             div()
                 .id("settings_panel")
-                .w_96()
+                .w_128()
                 .bg(colors.panel)
                 .text_color(colors.text)
                 .rounded_lg()
