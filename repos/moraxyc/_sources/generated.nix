@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "bb587a894ad8b8c9e9d62bdb11a3cd53145edc73";
+    version = "cad5a885bd7cd0445aa824a0dde64f1f8e27456d";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "bb587a894ad8b8c9e9d62bdb11a3cd53145edc73";
+      rev = "cad5a885bd7cd0445aa824a0dde64f1f8e27456d";
       fetchSubmodules = false;
-      sha256 = "sha256-INh5Jw8t9iqjeVeo4cJhF3PnXM1pt47nqGTGTE40Gqg=";
+      sha256 = "sha256-WN+OOsh+9UEgkqFE/A8+Jiyi8nvNjq0hfD4+1/sGvzo=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-INh5Jw8t9iqjeVeo4cJhF3PnXM1pt47nqGTGTE40Gqg=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-WN+OOsh+9UEgkqFE_A8+Jiyi8nvNjq0hfD4+1_sGvzo=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -100,18 +100,18 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "46cac30f3f1eed957f494aeed19bfa56bb994cf6";
+    version = "0105d4b73968572e46fdebef0b56b3ea181b14a2";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "46cac30f3f1eed957f494aeed19bfa56bb994cf6";
+      rev = "0105d4b73968572e46fdebef0b56b3ea181b14a2";
       fetchSubmodules = false;
-      sha256 = "sha256-qamY0rdqtOF6ELHckl89nClE1c6wvzmJxSytv4NQyUM=";
+      sha256 = "sha256-MUgcIJmkIL2A2tQK106Wrv4zvbzflXoRlnBsTrvGP0U=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-qamY0rdqtOF6ELHckl89nClE1c6wvzmJxSytv4NQyUM=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-qamY0rdqtOF6ELHckl89nClE1c6wvzmJxSytv4NQyUM=/web/package-lock.json";
-    };date = "2026-07-28";
+      "web/package.json" = ./. + "/sha256-MUgcIJmkIL2A2tQK106Wrv4zvbzflXoRlnBsTrvGP0U=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-MUgcIJmkIL2A2tQK106Wrv4zvbzflXoRlnBsTrvGP0U=/web/package-lock.json";
+    };date = "2026-07-30";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
@@ -340,15 +340,15 @@
   };
   loyalsoldier-geoip = {
     pname = "loyalsoldier-geoip";
-    version = "4cbe58e70f9997ab9ee6691d9c1d6b10bce9c579";
+    version = "d57a38b3e88abe4c93a50a2eb5d55f59fe7607aa";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "geoip";
-      rev = "4cbe58e70f9997ab9ee6691d9c1d6b10bce9c579";
+      rev = "d57a38b3e88abe4c93a50a2eb5d55f59fe7607aa";
       fetchSubmodules = false;
-      sha256 = "sha256-+KbsfaxpqguMlAQ1P3UD1rDH95AJ9p+A6ErttRgBBo0=";
+      sha256 = "sha256-isdz7LnsDAFIg1PvCCss1C/p5I0IKuNw60ayLeZ+ol0=";
     };
-    date = "2026-07-28";
+    date = "2026-07-30";
   };
   manpage-zh = {
     pname = "manpage-zh";
@@ -386,15 +386,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "b75a1e9fc19308a09cef2cafa5a65d29f9a62442";
+    version = "8b6bbecd5b45ed476591ba65ff19466d81bbb298";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "b75a1e9fc19308a09cef2cafa5a65d29f9a62442";
+      rev = "8b6bbecd5b45ed476591ba65ff19466d81bbb298";
       fetchSubmodules = false;
-      sha256 = "sha256-4E50dxNjHyV8EKu5oCdLyBpDM8HsIpxctOCToHMkbIo=";
+      sha256 = "sha256-pSlNVoJhvFBG/fKy2fJO+n3cLIYB5m6V2d/WPUF48OY=";
     };
-    date = "2026-07-28";
+    date = "2026-07-29";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -528,21 +528,21 @@
   };
   nyanpasu-service = {
     pname = "nyanpasu-service";
-    version = "93bef10f9fb7267c0b8ca11b20c0268b0ad80c1e";
+    version = "940076beb1238493d5755cdde0bec996d360f4a6";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "nyanpasu-service";
-      rev = "93bef10f9fb7267c0b8ca11b20c0268b0ad80c1e";
+      rev = "940076beb1238493d5755cdde0bec996d360f4a6";
       fetchSubmodules = false;
-      sha256 = "sha256-9RYGuVW7ko1i0/WtOwQtqfwU7QHovS5mMBnPAZN2Luc=";
+      sha256 = "sha256-y5ATm9FhuGehJvXERj2Anga1rjnZHcK7HzJH8jWO+rM=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-9RYGuVW7ko1i0_WtOwQtqfwU7QHovS5mMBnPAZN2Luc=/Cargo.lock";
+      lockFile = ./. + "/sha256-y5ATm9FhuGehJvXERj2Anga1rjnZHcK7HzJH8jWO+rM=/Cargo.lock";
       outputHashes = {
         "processkit-2.2.5" = "sha256-aLH0vrplsy8uTBzm5ult//Ix4DGE/Qg5TQyCBlUCCJo=";
       };
     };
-    date = "2026-07-28";
+    date = "2026-07-30";
   };
   nyanpasu-service-stable = {
     pname = "nyanpasu-service-stable";
@@ -554,17 +554,17 @@
   };
   opencode-telegram-bot = {
     pname = "opencode-telegram-bot";
-    version = "v0.22.4";
+    version = "v0.22.5";
     src = fetchFromGitHub {
       owner = "grinev";
       repo = "opencode-telegram-bot";
-      rev = "v0.22.4";
+      rev = "v0.22.5";
       fetchSubmodules = false;
-      sha256 = "sha256-LwldzZ2GwGq4c1nM1j6ZndBMIXCNxBIUJ/VqGJw/9QY=";
+      sha256 = "sha256-e+3IktOZjvc/Bbj54esQcj9FX6L7uoDUBc343kaviwQ=";
     };
     extract = {
-      "package-lock.json" = ./. + "/sha256-LwldzZ2GwGq4c1nM1j6ZndBMIXCNxBIUJ_VqGJw_9QY=/package-lock.json";
-      "package.json" = ./. + "/sha256-LwldzZ2GwGq4c1nM1j6ZndBMIXCNxBIUJ_VqGJw_9QY=/package.json";
+      "package-lock.json" = ./. + "/sha256-e+3IktOZjvc_Bbj54esQcj9FX6L7uoDUBc343kaviwQ=/package-lock.json";
+      "package.json" = ./. + "/sha256-e+3IktOZjvc_Bbj54esQcj9FX6L7uoDUBc343kaviwQ=/package.json";
     };
   };
   picoclaw = {
@@ -638,15 +638,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "0bdde06349695b6acf3b1b07be8d81b081930011";
+    version = "119ad0971c9bb1fbc9d1d71f761953fd09e5b6aa";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "0bdde06349695b6acf3b1b07be8d81b081930011";
+      rev = "119ad0971c9bb1fbc9d1d71f761953fd09e5b6aa";
       fetchSubmodules = false;
-      sha256 = "sha256-wM/XCIt6xUw+xKTh7KtYnXTL3vDwHUn3eHLhGxnjnds=";
+      sha256 = "sha256-VxjHdjZLO87roGC0CU2R77Z20jIrfVelnzLUakd8rEI=";
     };
-    date = "2026-07-28";
+    date = "2026-07-29";
   };
   whois42d-ng = {
     pname = "whois42d-ng";
