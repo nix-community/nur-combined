@@ -1,0 +1,24 @@
+[Unit]
+Description=Attic Nix Binary Cache
+Wants=network-online.target
+After=network-online.target
+
+[Container]
+Image=localhost/atticd:latest
+Pull=never
+ContainerName=atticd
+PublishPort=127.0.0.1:8080:8080
+Volume=attic-data:/var/lib/atticd:Z
+Volume=/root/attic-deploy/server.toml:/etc/attic/server.toml:ro,Z
+Secret=attic-token-hs256,type=env,target=ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64
+NoNewPrivileges=true
+LogDriver=journald
+StopTimeout=30
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStopSec=40
+
+[Install]
+WantedBy=multi-user.target

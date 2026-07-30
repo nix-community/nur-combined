@@ -15,7 +15,14 @@
         }
       );
       packages = forAllSystems (
-        system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+        system:
+        let
+          pkgs = pkgsFor system;
+        in
+        nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system}
+        // nixpkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
+          attic-cache-image = pkgs.callPackage ./deploy/attic/image.nix { };
+        }
       );
       apps = forAllSystems (
         system:

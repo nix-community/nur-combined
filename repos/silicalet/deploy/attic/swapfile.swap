@@ -1,0 +1,8 @@
+[Unit]
+Description=Persistent swap file
+
+[Swap]
+What=/swapfile
+
+[Install]
+WantedBy=swap.target

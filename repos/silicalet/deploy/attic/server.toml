@@ -1,0 +1,26 @@
+listen = "[::]:8080"
+
+allowed-hosts = ["cache.mr-why.cn"]
+api-endpoint = "https://cache.mr-why.cn/"
+
+# Supply this through ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64. Never bake the
+# secret into the image.
+
+[database]
+url = "sqlite:///var/lib/atticd/server.db?mode=rwc"
+
+[storage]
+type = "local"
+path = "/var/lib/atticd/storage"
+
+[chunking]
+nar-size-threshold = 65536
+min-size = 16384
+avg-size = 65536
+max-size = 262144
+
+[compression]
+type = "zstd"
+
+[garbage-collection]
+interval = "12 hours"

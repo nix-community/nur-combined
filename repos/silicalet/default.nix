@@ -28,6 +28,7 @@
   ghost-downloader-3 = pkgs.callPackage ./pkgs/ghost-downloader-3 { };
   ipgw = pkgs.callPackage ./pkgs/ipgw { };
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
+  nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
   quien = pkgs.callPackage ./pkgs/quien { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };
 }
