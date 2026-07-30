@@ -107,7 +107,9 @@ rec {
 
   #  from chaotic-nyx
   gitOverride =
-    with pkgs;
+    let
+      inherit (pkgs) rustPlatform callPackage;
+    in
     import ./shared/git-override.nix {
       inherit (pkgs)
         lib
@@ -116,11 +118,11 @@ rec {
         fetchFromGitLab
         fetchFromGitea
         ;
-      inherit (pkgs.rustPlatform) fetchCargoVendor;
+      inherit (rustPlatform) fetchCargoVendor;
       nyx = ./.;
-      fetchRevFromGitHub = pkgs.callPackage ./shared/github-rev-fetcher.nix { };
-      fetchRevFromGitLab = pkgs.callPackage ./shared/gitlab-rev-fetcher.nix { };
-      fetchRevFromGitea = pkgs.callPackage ./shared/gitea-rev-fetcher.nix { };
+      fetchRevFromGitHub = callPackage ./shared/github-rev-fetcher.nix { };
+      fetchRevFromGitLab = callPackage ./shared/gitlab-rev-fetcher.nix { };
+      fetchRevFromGitea = callPackage ./shared/gitea-rev-fetcher.nix { };
     };
 
 }
