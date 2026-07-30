@@ -1000,10 +1000,10 @@ impl TerminalView {
             TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
         );
 
-        // Host context menu: Shift, no mouse mode, or an existing local selection
-        // (so right-click after Shift-select does not open tmux's menu).
+        // Host context menu: Shift/Alt, no mouse mode, or an existing local selection
+        // (so right-click after Shift/Alt-select does not open tmux's menu).
         if event.button == MouseButton::Right
-            && (event.modifiers.shift || !mouse_reporting || self.has_selection())
+            && (event.modifiers.shift || event.modifiers.alt || !mouse_reporting || self.has_selection())
         {
             if let Some(ref callback) = self.context_menu_callback {
                 callback(window, cx, event.position);
@@ -1013,9 +1013,9 @@ impl TerminalView {
             return;
         }
 
-        // Shift always selects locally; without mouse mode, clicks also select.
+        // Shift/Alt always selects locally; without mouse mode, clicks also select.
         let local_select = event.button == MouseButton::Left
-            && (event.modifiers.shift || !mouse_reporting);
+            && (event.modifiers.shift || event.modifiers.alt || !mouse_reporting);
 
         if local_select {
             let grid_point = self.viewport_to_grid(viewport);
@@ -1046,15 +1046,15 @@ impl TerminalView {
             self.selecting = false;
         }
 
-        // Never forward Shift+mouse to the PTY.
-        if event.modifiers.shift {
+        // Never forward Shift/Alt+mouse to the PTY.
+        if event.modifiers.shift || event.modifiers.alt {
             cx.notify();
             return;
         }
 
         let modifiers = encode_modifiers(
             false, // shift never reported (we gate above)
-            event.modifiers.alt,
+            false, // alt never reported
             event.modifiers.control,
         );
 
@@ -1099,7 +1099,7 @@ impl TerminalView {
         if let Some((button, _)) = self.mouse_pressed.take() {
             let point = self.viewport_cell_at(position);
             let mode = self.state.mode();
-            let report_mods = encode_modifiers(false, modifiers.alt, modifiers.control);
+            let report_mods = encode_modifiers(false, false, modifiers.control);
             if let Some(bytes) = mouse_button_report(button, false, point, report_mods, mode)
             {
                 let mut writer = self.stdin_writer.lock();
@@ -1199,7 +1199,7 @@ impl TerminalView {
         let Some((button, _)) = self.mouse_pressed else {
             return;
         };
-        if event.modifiers.shift {
+        if event.modifiers.shift || event.modifiers.alt {
             return;
         }
         if self.last_mouse_cell == Some(viewport) {
@@ -1208,7 +1208,7 @@ impl TerminalView {
         let mode = self.state.mode();
         let modifiers = encode_modifiers(
             false,
-            event.modifiers.alt,
+            false,
             event.modifiers.control,
         );
         if let Some(bytes) = mouse_drag_report(button, viewport, modifiers, mode) {
@@ -1446,8 +1446,8 @@ impl TerminalView {
             TermMode::MOUSE_REPORT_CLICK | TermMode::MOUSE_MOTION | TermMode::MOUSE_DRAG,
         );
 
-        // Shift+wheel: never forward to the app/tmux — scroll local history.
-        if event.modifiers.shift {
+        // Shift/Alt+wheel: never forward to the app/tmux — scroll local history.
+        if event.modifiers.shift || event.modifiers.alt {
             self.state.with_term_mut(|term| {
                 term.scroll_display(Scroll::Delta(lines));
             });

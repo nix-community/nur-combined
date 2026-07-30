@@ -49,7 +49,7 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 ## Keyboard & Mouse Modifiers
 
 - **Ctrl + Click**: Open http(s) links in your browser (confirmation required).
-- **Shift + Click/Drag**: Bypass mouse reporting in terminal apps (like tmux, vim) to select and copy text locally via the OS clipboard.
+- **Shift + Click/Drag** (or **Option/Alt**): Bypass mouse reporting in terminal apps (like tmux, vim) to select and copy text locally via the OS clipboard.
 
 ## Packaging
 
