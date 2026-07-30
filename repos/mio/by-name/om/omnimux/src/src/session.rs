@@ -93,7 +93,7 @@ fi"#;
                 cmd.arg("-c");
                 // Wrap in sh so that if ssh is killed by a signal (e.g. OS sleep/network reset),
                 // sh exits with 128+signal instead of portable_pty incorrectly reporting code 0.
-                cmd.arg("ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -t -- \"$1\" \"$2\"");
+                cmd.arg("ssh -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -t -- \"$1\" \"exec sh -c '$2'\"");
                 cmd.arg("--");
                 cmd.arg(h);
                 cmd.arg(tmux_cmd);
