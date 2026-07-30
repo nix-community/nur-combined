@@ -65,21 +65,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "7d0e25f017f47708eaa4efc5d0898915485d4467";
+    version = "aac5e3118db566939338569d3e13c75a9fd5eb84";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "7d0e25f017f47708eaa4efc5d0898915485d4467";
+      rev = "aac5e3118db566939338569d3e13c75a9fd5eb84";
       fetchSubmodules = false;
-      sha256 = "sha256-InCL0/sHlhtAn8dNarNPMJQjDe5LNdsDzrLblEC413c=";
+      sha256 = "sha256-gRV5McxnehAfu64D2qQ5iMoM39JkjDRlhMB+2xjTZjs=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-InCL0_sHlhtAn8dNarNPMJQjDe5LNdsDzrLblEC413c=/Cargo.lock";
+      lockFile = ./. + "/sha256-gRV5McxnehAfu64D2qQ5iMoM39JkjDRlhMB+2xjTZjs=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-07-26";
+    date = "2026-07-30";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.7-beta.8";
+    version = "v3.9.7-beta.9";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.7-beta.8";
+      rev = "v3.9.7-beta.9";
       fetchSubmodules = false;
-      sha256 = "sha256-ZdnyvGpa3CAudi73qFeCTOJ4Hh1X89gNkJq2uDWFA4w=";
+      sha256 = "sha256-wm4Cf08kk7ojGUWm+q7d1NdCSAMJiFF/W+wp+02MK/o=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-ZdnyvGpa3CAudi73qFeCTOJ4Hh1X89gNkJq2uDWFA4w=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-wm4Cf08kk7ojGUWm+q7d1NdCSAMJiFF_W+wp+02MK_o=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -261,15 +261,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "47b39a56d7ef5ca7db5320aa4aac90435e07bda3";
+    version = "4623a0c5a733ae1c881a03e5190a4b249861e998";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "47b39a56d7ef5ca7db5320aa4aac90435e07bda3";
+      rev = "4623a0c5a733ae1c881a03e5190a4b249861e998";
       fetchSubmodules = false;
-      sha256 = "sha256-vRs+cWjVgvPdn9mjFIUd0IwlcoMhGBGrEw7zTGZrMro=";
+      sha256 = "sha256-T45hq3Ggyl5q3ZkkYTGYCIACJEdXiIYD1BYW2teOjk8=";
     };
-    date = "2026-07-19";
+    date = "2026-07-30";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -371,21 +371,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "a190accd0152eca620729770912b6bac7495324b";
+    version = "11f4e73bddb831115dafcd2b6689475499299ea4";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "a190accd0152eca620729770912b6bac7495324b";
+      rev = "11f4e73bddb831115dafcd2b6689475499299ea4";
       fetchSubmodules = false;
-      sha256 = "sha256-2z1HTDD3Xd3/JJKBTcYPaC3eYdTBqKLpG8ATVLg0uXc=";
+      sha256 = "sha256-kYzl8hIicLHg8UYwmrAt2DODd06nOglH+plp2FrUY6k=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-2z1HTDD3Xd3_JJKBTcYPaC3eYdTBqKLpG8ATVLg0uXc=/Cargo.lock";
+      lockFile = ./. + "/sha256-kYzl8hIicLHg8UYwmrAt2DODd06nOglH+plp2FrUY6k=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-07-29";
+    date = "2026-07-30";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
