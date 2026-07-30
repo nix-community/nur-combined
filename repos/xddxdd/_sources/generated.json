@@ -314,11 +314,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-hxq71/6yiSU/qmVbhQVMHcRuNpxq/p6dH2HH+6xWeSI=",
+            "sha256": "sha256-20MQFJ/0qjq/624bfJ7JS5s+24EFDiUYxsInrB7hv6E=",
             "type": "url",
-            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.6.tar.gz"
+            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.7.tar.gz"
         },
-        "version": "1.6.6"
+        "version": "1.6.7"
     },
     "bilibili": {
         "cargoLock": null,
@@ -598,12 +598,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.106",
-            "sha256": "sha256-2DAQ9i4L8/8eSkIHbIi5jEXrPDnh699Qui/wAqu+N4A=",
+            "rev": "v7.2.111",
+            "sha256": "sha256-6j0bBtj53B0mKF+t8fOD//HnU+kHI98q5gwo/wM9RUA=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.106"
+        "version": "v7.2.111"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "e65f6ba0809fe2dfc7e972fa33a090c1751dec25",
-            "sha256": "sha256-bs0EL8AXU/21y7nkr6+1OOWQExZKhQ2xQjjtp9CjdtQ=",
+            "rev": "5f177695f238385d513415a0e20883b6411093be",
+            "sha256": "sha256-1oJb0nc8EBcNqO4Zm69jCEck5uGUGtzyjIpUbIbc+Ms=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e65f6ba0809fe2dfc7e972fa33a090c1751dec25"
+        "version": "5f177695f238385d513415a0e20883b6411093be"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -2796,12 +2796,12 @@
             "name": null,
             "owner": "3899",
             "repo": "ncmm",
-            "rev": "v1.1.11",
-            "sha256": "sha256-xCHFFO9RbdDtzHbdUpO08aELce7vg1TqjHvTD810aUU=",
+            "rev": "v1.1.12",
+            "sha256": "sha256-Zk47URtO1sJAIILo5DrU3bkJYAVEVosv3tVizwXD5FQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.1.11"
+        "version": "v1.1.12"
     },
     "netboot-xyz-efi": {
         "cargoLock": null,
@@ -4193,7 +4193,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-07-28",
+        "date": "2026-07-30",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -4205,12 +4205,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "71da9f80474fcac33c84e1d5b9d76badd18d4a2b",
-            "sha256": "sha256-WRlczbs78TyaQL52OM08euV+oCjjj5GrtpGu+2LlNds=",
+            "rev": "5c88971316d865b44395cd87377d0024434afd57",
+            "sha256": "sha256-xsxsn/svdY2evaH5L0ETggQO1IwzlOM0dq81ggmqIEc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "71da9f80474fcac33c84e1d5b9d76badd18d4a2b"
+        "version": "5c88971316d865b44395cd87377d0024434afd57"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4226,12 +4226,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "mr26.0.1.19",
-            "sha256": "sha256-zxXH5FbZ5T5iYVzwXilxn6GHuMInJuh8fAa7NOC/Ik8=",
+            "rev": "mr14.1.1.20",
+            "sha256": "sha256-FGnojDTshkP2aBtmV4ydvQwppJT4iUfS8bP098tiL5M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "mr26.0.1.19"
+        "version": "mr14.1.1.20"
     },
     "runpod": {
         "cargoLock": null,

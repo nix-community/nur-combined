@@ -165,10 +165,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.6.6";
+    version = "1.6.7";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.6.tar.gz";
-      hash = "sha256-hxq71/6yiSU/qmVbhQVMHcRuNpxq/p6dH2HH+6xWeSI=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.7.tar.gz";
+      hash = "sha256-20MQFJ/0qjq/624bfJ7JS5s+24EFDiUYxsInrB7hv6E=";
     };
   };
   bilibili = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.106";
+    version = "v7.2.111";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.106";
-      hash = "sha256-2DAQ9i4L8/8eSkIHbIi5jEXrPDnh699Qui/wAqu+N4A=";
+      tag = "v7.2.111";
+      hash = "sha256-6j0bBtj53B0mKF+t8fOD//HnU+kHI98q5gwo/wM9RUA=";
     };
   };
   cockpy = {
@@ -822,12 +822,12 @@
   };
   funasr = {
     pname = "funasr";
-    version = "e65f6ba0809fe2dfc7e972fa33a090c1751dec25";
+    version = "5f177695f238385d513415a0e20883b6411093be";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "e65f6ba0809fe2dfc7e972fa33a090c1751dec25";
-      hash = "sha256-bs0EL8AXU/21y7nkr6+1OOWQExZKhQ2xQjjtp9CjdtQ=";
+      rev = "5f177695f238385d513415a0e20883b6411093be";
+      hash = "sha256-1oJb0nc8EBcNqO4Zm69jCEck5uGUGtzyjIpUbIbc+Ms=";
     };
     date = "2026-07-30";
   };
@@ -1424,12 +1424,12 @@
   };
   ncmm = {
     pname = "ncmm";
-    version = "v1.1.11";
+    version = "v1.1.12";
     src = fetchFromGitHub {
       owner = "3899";
       repo = "ncmm";
-      tag = "v1.1.11";
-      hash = "sha256-xCHFFO9RbdDtzHbdUpO08aELce7vg1TqjHvTD810aUU=";
+      tag = "v1.1.12";
+      hash = "sha256-Zk47URtO1sJAIILo5DrU3bkJYAVEVosv3tVizwXD5FQ=";
     };
   };
   netboot-xyz-efi = {
@@ -2144,23 +2144,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "71da9f80474fcac33c84e1d5b9d76badd18d4a2b";
+    version = "5c88971316d865b44395cd87377d0024434afd57";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "71da9f80474fcac33c84e1d5b9d76badd18d4a2b";
-      hash = "sha256-WRlczbs78TyaQL52OM08euV+oCjjj5GrtpGu+2LlNds=";
+      rev = "5c88971316d865b44395cd87377d0024434afd57";
+      hash = "sha256-xsxsn/svdY2evaH5L0ETggQO1IwzlOM0dq81ggmqIEc=";
     };
-    date = "2026-07-28";
+    date = "2026-07-30";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr26.0.1.19";
+    version = "mr14.1.1.20";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr26.0.1.19";
-      hash = "sha256-zxXH5FbZ5T5iYVzwXilxn6GHuMInJuh8fAa7NOC/Ik8=";
+      tag = "mr14.1.1.20";
+      hash = "sha256-FGnojDTshkP2aBtmV4ydvQwppJT4iUfS8bP098tiL5M=";
     };
   };
   runpod = {
