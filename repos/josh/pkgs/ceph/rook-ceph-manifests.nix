@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Rook-Ceph Operator - Storage Orchestration for Kubernetes";
     homepage = "https://github.com/rook/rook";
-    license = lib.licenses.mit;
+    license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
 }

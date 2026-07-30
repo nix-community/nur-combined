@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "A Helm chart for the RSSHub";
     homepage = "https://github.com/NaturalSelectionLabs/helm-charts/tree/main/charts/rsshub";
-    license = lib.licenses.agpl3Only;
+    license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
 }

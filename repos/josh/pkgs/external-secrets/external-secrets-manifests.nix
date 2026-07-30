@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "External Secrets Operator - Integrates external secret management systems with Kubernetes";
     homepage = "https://github.com/external-secrets/external-secrets";
-    license = lib.licenses.mit;
+    license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
 }

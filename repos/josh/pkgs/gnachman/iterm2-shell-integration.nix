@@ -29,6 +29,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     makeWrapper
+  ];
+
+  buildInputs = [
     bash
     perl
     venv
@@ -48,7 +51,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   buildCommand = ''
     mkdir -p $out/bin
     cp -r $src/utilities/* $out/bin/
-    patchShebangs $out/bin
+    patchShebangs --host $out/bin
     for bin in $out/bin/*; do
       wrapProgram "$bin" "''${makeWrapperArgs[@]}"
     done
