@@ -225,6 +225,7 @@ impl MacTextSystemState {
             let mut font = font.load()?;
 
             apply_features_and_fallbacks(&mut font, features, fallbacks)?;
+            let is_nerd_font_symbols = font.family_name().replace(" ", "").contains("SymbolsNerdFont");
             // This block contains a precautionary fix to guard against loading fonts
             // that might cause panics due to `.unwrap()`s up the chain.
             {
@@ -239,17 +240,22 @@ impl MacTextSystemState {
                 // but we need to be able to load it for rendering Windows icons in
                 // the Storybook (on macOS).
                 let is_segoe_fluent_icons = font.full_name() == "Segoe Fluent Icons";
-                let is_nerd_font_symbols = font.full_name().contains("Symbols Nerd Font");
 
                 if !has_m_glyph && !is_segoe_fluent_icons && !is_nerd_font_symbols {
                     // I spent far too long trying to track down why a font missing the 'm'
                     // character wasn't loading. This log statement will hopefully save
                     // someone else from suffering the same fate.
+                    println!(
+                        "OMNIMUX DEBUG: font '{}' has no 'm' character and was not loaded",
+                        font.full_name()
+                    );
                     log::warn!(
                         "font '{}' has no 'm' character and was not loaded",
                         font.full_name()
                     );
                     continue;
+                } else if is_nerd_font_symbols {
+                    println!("OMNIMUX DEBUG: Bypassed 'm' check for {}", font.full_name());
                 }
             }
 
@@ -274,12 +280,15 @@ impl MacTextSystemState {
                         .get(kCTFontSlantTrait)
                         .downcast::<CFNumber>()
                         .is_some())
-            } {
-                log::error!(
-                    "Failed to read traits for font {:?}",
+            } && !is_nerd_font_symbols {
+                println!(
+                    "OMNIMUX DEBUG: Failed to read traits for font {:?}",
                     font.postscript_name().unwrap()
                 );
                 continue;
+            }
+            if is_nerd_font_symbols {
+                println!("OMNIMUX DEBUG: Successfully parsed traits for {}", font.full_name());
             }
 
             let font_id = FontId(self.fonts.len());
