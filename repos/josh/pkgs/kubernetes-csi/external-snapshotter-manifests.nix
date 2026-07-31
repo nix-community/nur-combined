@@ -30,7 +30,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       $out/
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+  # The regex excludes upstream's parallel client/vX.Y.Z release namespace
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=stable"
+      "--version-regex=^v([0-9][0-9.]*)$"
+    ];
+  };
 
   passthru.tests = {
     parse =

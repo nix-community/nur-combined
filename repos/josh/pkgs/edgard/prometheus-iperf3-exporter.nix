@@ -36,7 +36,14 @@ buildGoModule (finalAttrs: {
     wrapProgram $out/bin/iperf3_exporter --prefix PATH : ${lib.strings.makeBinPath [ iperf3 ]}
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+  # Upstream switched from v-prefixed to bare numeric tags; the regex pins
+  # the bare scheme so a stray v-tag cannot produce an unfetchable version
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=stable"
+      "--version-regex=^([0-9][0-9.]*)$"
+    ];
+  };
 
   passthru.tests = {
     version = testers.testVersion {

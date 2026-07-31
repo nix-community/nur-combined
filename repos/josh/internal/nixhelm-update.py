@@ -71,9 +71,14 @@ def main(
         if nix_old_version:
             old_key = version_key(nix_old_version)
             new_key = version_key(version)
+            if old_key and new_key is None:
+                log(
+                    f"refusing non-numeric version {nix_old_version} -> {version} in {filename}"
+                )
+                sys.exit(1)
             if old_key and new_key and new_key < old_key:
                 log(f"refusing downgrade {nix_old_version} -> {version} in {filename}")
-                return
+                sys.exit(1)
 
         sha256 = nix_hash(chart_path)
 

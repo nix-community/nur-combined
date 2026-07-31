@@ -22,7 +22,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+  # The regex rejects upstream's occasional malformed v.X.Y.Z tags
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=stable"
+      "--version-regex=v([0-9][0-9.]*)"
+    ];
+  };
 
   passthru.tests = {
     files = runCommand "test-wezterm-tabline-files" { } ''

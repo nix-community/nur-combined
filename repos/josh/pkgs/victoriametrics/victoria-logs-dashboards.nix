@@ -36,7 +36,15 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+  # The repo inherited the full VictoriaMetrics tag history when it was split
+  # out, so tag-based discovery can jump to old VictoriaMetrics versions above
+  # this pin; the releases API contains only VictoriaLogs' own releases
+  passthru.updateScript = nix-update-script {
+    extraArgs = [
+      "--version=stable"
+      "--use-github-releases"
+    ];
+  };
 
   passthru.tests = {
     json =
