@@ -7,6 +7,7 @@ let
 in
 {
   ab-download-manager = pkgs.callPackage ./pkgs/ab-download-manager { };
+  firefoxpwa-xwayland = pkgs.callPackage ./pkgs/firefoxpwa-xwayland { };
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn {
     source = sources.r-maple-mono-nf-cn;
   };

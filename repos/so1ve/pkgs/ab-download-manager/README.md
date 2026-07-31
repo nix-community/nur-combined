@@ -1,8 +1,6 @@
 # AB Download Manager
 
-## Package
-
-### NUR
+Install the package with NUR:
 
 ```nix
 environment.systemPackages = [
@@ -10,16 +8,7 @@ environment.systemPackages = [
 ];
 ```
 
-### Flake
-
-```bash
-nix run github:so1ve/nur-packages#ab-download-manager
-nix profile install github:so1ve/nur-packages#ab-download-manager
-```
-
-## Home Manager
-
-### NUR
+Or use the Home Manager module:
 
 ```nix
 {
@@ -31,27 +20,12 @@ nix profile install github:so1ve/nur-packages#ab-download-manager
 }
 ```
 
-### Repository flake
-
-```nix
-{
-  imports = [
-    inputs.so1ve-nur.homeModules.ab-download-manager
-  ];
-
-  programs.ab-download-manager.enable = true;
-}
-```
-
-## Options
+Optional scaling and Firefox integration:
 
 ```nix
 programs.ab-download-manager = {
   enable = true;
-
-  # null uses automatic scaling.
   uiScale = 2;
-
   browserIntegration.firefox = {
     enable = true;
     installExtension = true;
