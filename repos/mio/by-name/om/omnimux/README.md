@@ -46,10 +46,16 @@ Localhost / empty host runs a shell script that prefers `tmux` and falls back to
 - **OSC 52** remote clipboard: default disabled; opt-in in Settings (policy passed into `TerminalConfig`).
 - Font size sync / remember, auto-reconnect, remember sessions, window maximized (resizing by dragging edges disabled while maximized), etc.
 
-## Keyboard & Mouse Modifiers
+## Keyboard & Mouse Shortcuts
 
+- **Ctrl/Cmd + T**: New Tab
+- **Ctrl/Cmd + W**: Close Tab
+- **Ctrl/Cmd + [ / ]**: Previous / Next Tab
+- **Ctrl/Cmd + F**: Find in Terminal
+- **Ctrl/Cmd + G / Shift+G**: Find Next / Previous
+- **Ctrl/Cmd + = / - / 0**: Zoom In / Out / Reset
 - **Ctrl + Click**: Open http(s) links in your browser (confirmation required).
-- **Shift + Click/Drag** (or **Option/Alt**): Bypass mouse reporting in terminal apps (like tmux, vim) to select and copy text locally via the OS clipboard.
+- **Shift or Option/Alt + Click/Drag**: Bypass mouse reporting in terminal apps (like tmux, vim) to select and copy text locally via the OS clipboard.
 
 ## Packaging
 
