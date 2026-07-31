@@ -83,6 +83,7 @@ jobs:
           echo "failed_apps=${failed_apps}" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
 
       - name: Notify Update Failures
         if: steps.update.outputs.failed_apps != ''
@@ -130,6 +131,7 @@ jobs:
           echo "still_failed_apps=${still_failed_apps}" >> "$GITHUB_OUTPUT"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CODEBERG_TOKEN: ${{ secrets.CODEBERG_TOKEN }}
 
       - name: Notify Retry Failures
         if: steps.retry.outputs.still_failed_apps != ''
