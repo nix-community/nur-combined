@@ -198,10 +198,38 @@ impl MacTextSystemState {
                     };
                     let font = core_graphics::font::CGFont::from_data_provider(data_provider)
                         .map_err(|()| anyhow!("Could not load an embedded font."))?;
+                    unsafe {
+                        unsafe extern "C" {
+                            fn CTFontManagerRegisterGraphicsFont(
+                                font: *mut std::ffi::c_void,
+                                error: *mut *mut std::ffi::c_void,
+                            ) -> bool;
+                        }
+                        use foreign_types::ForeignType;
+                        CTFontManagerRegisterGraphicsFont(font.as_ptr() as *mut _, std::ptr::null_mut());
+                    }
                     let font = font_kit::loaders::core_text::Font::from_core_graphics_font(font);
                     Ok(Handle::from_native(&font))
                 }
-                Cow::Owned(bytes) => Ok(Handle::from_memory(Arc::new(bytes), 0)),
+                Cow::Owned(bytes) => {
+                    let arc = Arc::new(bytes);
+                    let handle = Handle::from_memory(arc.clone(), 0);
+                    if let Ok(font) = font_kit::font::Font::from_bytes(arc, 0) {
+                        let native = font.native_font();
+                        let cg = native.copy_to_CGFont();
+                        unsafe {
+                            unsafe extern "C" {
+                                fn CTFontManagerRegisterGraphicsFont(
+                                    font: *mut std::ffi::c_void,
+                                    error: *mut *mut std::ffi::c_void,
+                                ) -> bool;
+                            }
+                            use foreign_types::ForeignType;
+                            CTFontManagerRegisterGraphicsFont(cg.as_ptr() as *mut _, std::ptr::null_mut());
+                        }
+                    }
+                    Ok(handle)
+                }
             })
             .collect::<Result<Vec<_>>>()?;
         self.memory_source.add_fonts(fonts.into_iter())?;
