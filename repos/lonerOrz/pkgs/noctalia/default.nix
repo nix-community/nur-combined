@@ -32,6 +32,8 @@
   libxml2,
   libsodium,
   libsecret,
+  libical,
+  libsndfile,
   stb,
   md4c,
   nlohmann_json,
@@ -110,6 +112,8 @@ stdenv.mkDerivation (finalAttrs: {
     libxml2
     libsodium
     libsecret
+    libical
+    libsndfile
     stb_git
     md4c
     nlohmann_json
