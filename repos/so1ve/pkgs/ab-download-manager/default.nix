@@ -80,7 +80,12 @@ stdenv.mkDerivation (finalAttrs: {
         "$out/bin/$program" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fontconfig ]}" \
         --set-default FONTCONFIG_FILE "${fontconfig.out}/etc/fonts/fonts.conf" \
-        --run 'export _JAVA_OPTIONS="''${_JAVA_OPTIONS:+$_JAVA_OPTIONS }-Djpackage.app-path=$0"'
+        --run 'app_path="$0"
+          candidate="$(command -v "''${0##*/}" || true)"
+          if [[ -n "$candidate" && "$candidate" -ef '"$out/bin/$program"' ]]; then
+            app_path="$candidate"
+          fi
+          export _JAVA_OPTIONS="''${_JAVA_OPTIONS:+$_JAVA_OPTIONS }-Djpackage.app-path=$app_path"'
     done
 
     install -Dm444 \

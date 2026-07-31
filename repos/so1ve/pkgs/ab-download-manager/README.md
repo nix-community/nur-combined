@@ -32,3 +32,5 @@ programs.ab-download-manager = {
   };
 };
 ```
+
+The Home Manager module also migrates autostart entries created by older package versions from an immutable Nix store path to the stable user profile launcher.

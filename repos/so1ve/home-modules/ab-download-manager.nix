@@ -68,6 +68,21 @@ in
 
     home.packages = [ package ];
 
+    # Older package wrappers exposed the immutable store path to jpackage, so
+    # ABDM persisted a launcher that stopped working after garbage collection.
+    home.activation.migrateAbDownloadManagerAutostart = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      autostart_file=${lib.escapeShellArg "${config.xdg.configHome}/autostart/com.abdownloadmanager.desktop"}
+      if [[ -f "$autostart_file" ]] \
+        && ${pkgs.gnugrep}/bin/grep -Eq \
+          '^Exec="?/nix/store/[a-z0-9]+-ab-download-manager-[^"/]+/(opt/ab-download-manager/)?bin/ABDownloadManager"?([[:space:]]|$)' \
+          "$autostart_file"
+      then
+        ${pkgs.gnused}/bin/sed -i \
+          '/^Exec=/c\Exec="${config.home.profileDirectory}/bin/ABDownloadManager" --background' \
+          "$autostart_file"
+      fi
+    '';
+
     programs.firefox = lib.mkIf cfg.browserIntegration.firefox.enable {
       nativeMessagingHosts = [ package ];
 
