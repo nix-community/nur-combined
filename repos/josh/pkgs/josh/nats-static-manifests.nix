@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "nats-static-manifests";
-  inherit (nur.repos.josh.nats-static) version;
+  inherit (nur.repos.josh.nats-static-chart) version;
 
   __structuredAttrs = true;
 
-  inherit (nur.repos.josh.nats-static) src;
+  src = nur.repos.josh.nats-static-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
     runHook preBuild
     export HELM_CACHE_HOME=$TMPDIR/cache
     yq --yaml-output '.helmValues' "$NIX_ATTRS_JSON_FILE" >values.yaml
-    helm template "$helmChartName" "$src/charts/nats-static" --output-dir . --values values.yaml "''${helmArgs[@]}"
+    helm template "$helmChartName" "$src" --output-dir . --values values.yaml "''${helmArgs[@]}"
     runHook postBuild
   '';
 

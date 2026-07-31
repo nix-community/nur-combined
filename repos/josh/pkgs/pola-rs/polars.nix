@@ -1,4 +1,5 @@
 {
+  lib,
   stdenv,
   python3Packages,
   jemalloc,
@@ -6,70 +7,49 @@
   runCommand,
 }:
 let
+  # cache.nixos.org builds polars' vendored jemalloc on 4K-page machines,
+  # baking that page size in; the import then aborts with "Unsupported system
+  # page size" on 16K-page aarch64-linux kernels (Asahi). nixpkgs' jemalloc
+  # configures --with-lg-page=16 (64K) on aarch64, which is safe for any
+  # smaller page size, and rust-jemalloc-sys' JEMALLOC_OVERRIDE setup hook
+  # makes the vendored build link it instead. Mirrors upstream's unused
+  # polarsJemalloc argument.
+  needsPageSizeSafeJemalloc = stdenv.hostPlatform.isLinux && stdenv.hostPlatform.isAarch64;
   polarsJemalloc = rust-jemalloc-sys.override {
     jemalloc = jemalloc.override { disableInitExecTls = true; };
   };
+  polars' =
+    if needsPageSizeSafeJemalloc then
+      python3Packages.polars.override { polarsMemoryAllocator = polarsJemalloc; }
+    else
+      python3Packages.polars;
 in
-(python3Packages.polars.override {
-  polarsMemoryAllocator = polarsJemalloc;
-}).overrideAttrs
-  (
-    finalAttrs: prevAttrs: {
-      passthru = builtins.removeAttrs prevAttrs.passthru [ "updateScript" ] // {
-        tests =
+polars'.overrideAttrs (
+  finalAttrs: prevAttrs: {
+    passthru = builtins.removeAttrs prevAttrs.passthru [ "updateScript" ] // {
+      tests = {
+        import =
           let
-            polars = finalAttrs.finalPackage;
-            pythonEnv = python3Packages.python.withPackages (_: [ polars ]);
-            expectedAllocSymbol = if stdenv.hostPlatform.isUnix then "jemalloc" else "mimalloc";
-            expectedPageSizeKiB =
-              if
-                stdenv.hostPlatform.isAarch64 || stdenv.hostPlatform.isLoongArch64 || stdenv.hostPlatform.isPower64
-              then
-                64
-              else
-                4;
-            expectedPageSizeBytes = toString (expectedPageSizeKiB * 1024);
+            pythonEnv = python3Packages.python.withPackages (_: [ finalAttrs.finalPackage ]);
           in
-          {
-            page-size =
-              let
-                getconfBin =
-                  if stdenv.hostPlatform.isDarwin then "/usr/bin/getconf" else "${stdenv.cc.libc.bin}/bin/getconf";
-              in
-              runCommand "polars-page-size-${toString expectedPageSizeKiB}k" { inherit expectedPageSizeBytes; } ''
-                actual=$(${getconfBin} PAGESIZE)
-                if [ "$actual" -gt "$expectedPageSizeBytes" ]; then
-                  exit 1
-                fi
-                touch $out
-              '';
-
-            import =
-              runCommand "polars-import-${toString expectedPageSizeKiB}k" { nativeBuildInputs = [ pythonEnv ]; }
-                ''
-                  python -c 'import polars as pl; df = pl.DataFrame({"a": [1, 2, 3]}); assert df.sum().item() == 6; print(df)'
-                  touch $out
-                '';
-
-            allocator =
-              runCommand "polars-allocator-${expectedAllocSymbol}"
-                {
-                  inherit expectedAllocSymbol;
-                  sitePackages = "${polars}/${python3Packages.python.sitePackages}";
-                }
-                ''
-                  runtimeSo=$(find "$sitePackages" -type f \( -name '_polars*.abi3.so' -o -name 'polars.so' \) -print -quit)
-                  if [ -z "$runtimeSo" ]; then
-                    echo "polars runtime .so not found under $sitePackages" >&2
-                    exit 1
-                  fi
-                  if ! grep -aFq "$expectedAllocSymbol" "$runtimeSo"; then
-                    echo "expected allocator '$expectedAllocSymbol' not linked into $runtimeSo" >&2
-                    exit 1
-                  fi
-                  touch $out
-                '';
-          };
+          runCommand "polars-import" { nativeBuildInputs = [ pythonEnv ]; } ''
+            python -c 'import polars as pl; df = pl.DataFrame({"a": [1, 2, 3]}); assert df.sum().item() == 6; print(df)'
+            touch $out
+          '';
+      }
+      // lib.attrsets.optionalAttrs needsPageSizeSafeJemalloc {
+        jemalloc-linkage =
+          runCommand "polars-jemalloc-linkage"
+            {
+              sitePackages = "${finalAttrs.finalPackage}/${python3Packages.python.sitePackages}";
+            }
+            ''
+              runtimeSo=$(find "$sitePackages" -type f -name '_polars*.abi3.so' -print -quit)
+              [ -n "$runtimeSo" ]
+              grep -aFq ${polarsJemalloc}/lib "$runtimeSo"
+              touch $out
+            '';
       };
-    }
-  )
+    };
+  }
+)

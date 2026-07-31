@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "jmap2nats-manifests";
-  inherit (nur.repos.josh.jmap2nats) version;
+  inherit (nur.repos.josh.jmap2nats-chart) version;
 
   __structuredAttrs = true;
 
-  inherit (nur.repos.josh.jmap2nats) src;
+  src = nur.repos.josh.jmap2nats-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
     runHook preBuild
     export HELM_CACHE_HOME=$TMPDIR/cache
     yq --yaml-output '.helmValues' "$NIX_ATTRS_JSON_FILE" >values.yaml
-    helm template "$helmChartName" "$src/charts/jmap2nats" --output-dir . --values values.yaml "''${helmArgs[@]}"
+    helm template "$helmChartName" "$src" --output-dir . --values values.yaml "''${helmArgs[@]}"
     runHook postBuild
   '';
 

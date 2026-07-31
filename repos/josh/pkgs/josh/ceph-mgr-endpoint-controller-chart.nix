@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   nur,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ceph-mgr-endpoint-controller-chart";
@@ -9,10 +10,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     mkdir $out
-    cp -R $src/charts/ceph-mgr-endpoint-controller/* $out/
+    cp -R $src/charts/ceph-mgr-endpoint-controller/. $out/
   '';
 
   passthru.tests = {
+    files =
+      runCommand "test-ceph-mgr-endpoint-controller-chart-files"
+        {
+          __structuredAttrs = true;
+        }
+        ''
+          diff -r ${finalAttrs.src}/charts/ceph-mgr-endpoint-controller ${finalAttrs.finalPackage}
+          touch $out
+        '';
+
     render = nur.repos.josh.renderHelmTemplate {
       src = finalAttrs.finalPackage;
       chartName = "ceph-mgr-endpoint-controller";

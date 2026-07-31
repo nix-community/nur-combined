@@ -11,8 +11,6 @@ let
   internalPkgs = {
     checkKubeImages = args: callPackage ./internal/check-kube-images.nix args;
     fetchhelm = callPackage ./internal/fetchhelm.nix { };
-    nix-prefetch-helm = callPackage ./internal/nix-prefetch-helm.nix { };
-    nixhelm-update = callPackage ./internal/nixhelm-update.nix { };
     renderHelmTemplate = args: callPackage ./internal/helm-render-template.nix args;
   };
 

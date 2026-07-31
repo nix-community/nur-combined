@@ -7,11 +7,11 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "ceph-mgr-endpoint-controller-manifests";
-  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) version;
+  inherit (nur.repos.josh.ceph-mgr-endpoint-controller-chart) version;
 
   __structuredAttrs = true;
 
-  inherit (nur.repos.josh.ceph-mgr-endpoint-controller) src;
+  src = nur.repos.josh.ceph-mgr-endpoint-controller-chart;
 
   nativeBuildInputs = [
     kubernetes-helm
@@ -26,7 +26,7 @@ stdenvNoCC.mkDerivation {
     runHook preBuild
     export HELM_CACHE_HOME=$TMPDIR/cache
     yq --yaml-output '.helmValues' "$NIX_ATTRS_JSON_FILE" >values.yaml
-    helm template "$helmChartName" "$src/charts/ceph-mgr-endpoint-controller" --output-dir . --values values.yaml "''${helmArgs[@]}"
+    helm template "$helmChartName" "$src" --output-dir . --values values.yaml "''${helmArgs[@]}"
     runHook postBuild
   '';
 

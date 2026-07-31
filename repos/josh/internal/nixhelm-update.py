@@ -61,6 +61,11 @@ def main(
 
         with open(f"{chart_path}/Chart.yaml", "r") as f:
             chart_data = yaml.safe_load(f)
+        if chart and chart_data["name"] != chart:
+            raise RuntimeError(
+                f"chart name mismatch in {filename}: "
+                f"expected {chart}, got {chart_data['name']}"
+            )
         version = chart_data["version"].removeprefix("v")
 
         sha256 = nix_hash(chart_path)

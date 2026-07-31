@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   nur,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "jmap2nats-chart";
@@ -9,10 +10,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     mkdir $out
-    cp -R $src/charts/jmap2nats/* $out/
+    cp -R $src/charts/jmap2nats/. $out/
   '';
 
   passthru.tests = {
+    files =
+      runCommand "test-jmap2nats-chart-files"
+        {
+          __structuredAttrs = true;
+        }
+        ''
+          diff -r ${finalAttrs.src}/charts/jmap2nats ${finalAttrs.finalPackage}
+          touch $out
+        '';
+
     render = nur.repos.josh.renderHelmTemplate {
       src = finalAttrs.finalPackage;
       chartName = "jmap2nats";

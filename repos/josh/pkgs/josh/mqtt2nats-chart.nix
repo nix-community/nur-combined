@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   nur,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "mqtt2nats-chart";
@@ -9,10 +10,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     mkdir $out
-    cp -R $src/charts/mqtt2nats/* $out/
+    cp -R $src/charts/mqtt2nats/. $out/
   '';
 
   passthru.tests = {
+    files =
+      runCommand "test-mqtt2nats-chart-files"
+        {
+          __structuredAttrs = true;
+        }
+        ''
+          diff -r ${finalAttrs.src}/charts/mqtt2nats ${finalAttrs.finalPackage}
+          touch $out
+        '';
+
     render = nur.repos.josh.renderHelmTemplate {
       src = finalAttrs.finalPackage;
       chartName = "mqtt2nats";

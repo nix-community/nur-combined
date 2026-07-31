@@ -23,12 +23,9 @@ swiftPackages.stdenv.mkDerivation (finalAttrs: {
   };
 
   nativeBuildInputs = [
+    coreutils
     swift
     swiftpm
-  ];
-
-  buildInputs = [
-    coreutils
   ];
 
   configurePhase = ''

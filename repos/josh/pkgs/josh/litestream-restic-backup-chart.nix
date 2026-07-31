@@ -4,6 +4,7 @@
   fetchFromGitHub,
   nur,
   nix-update-script,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "litestream-restic-backup-chart";
@@ -18,12 +19,22 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     mkdir $out
-    cp -R $src/charts/litestream-restic-backup/* $out/
+    cp -R $src/charts/litestream-restic-backup/. $out/
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   passthru.tests = {
+    files =
+      runCommand "test-litestream-restic-backup-chart-files"
+        {
+          __structuredAttrs = true;
+        }
+        ''
+          diff -r ${finalAttrs.src}/charts/litestream-restic-backup ${finalAttrs.finalPackage}
+          touch $out
+        '';
+
     render = nur.repos.josh.renderHelmTemplate {
       src = finalAttrs.finalPackage;
       chartName = "litestream-restic-backup";

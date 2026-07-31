@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   nur,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "restic-rados-server-chart";
@@ -9,10 +10,20 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     mkdir $out
-    cp -R $src/charts/restic-rados-server/* $out/
+    cp -R $src/charts/restic-rados-server/. $out/
   '';
 
   passthru.tests = {
+    files =
+      runCommand "test-restic-rados-server-chart-files"
+        {
+          __structuredAttrs = true;
+        }
+        ''
+          diff -r ${finalAttrs.src}/charts/restic-rados-server ${finalAttrs.finalPackage}
+          touch $out
+        '';
+
     render = nur.repos.josh.renderHelmTemplate {
       src = finalAttrs.finalPackage;
       chartName = "restic-rados-server";
