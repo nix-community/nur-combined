@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "nats-static-manifests";
   inherit (nur.repos.josh.nats-static-chart) version;
 
@@ -39,10 +40,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-nats-static-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Kubernetes manifests for the nats-static file server";
     homepage = "https://github.com/josh/nats-static/tree/main/charts/nats-static";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

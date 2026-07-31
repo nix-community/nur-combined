@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ceph-csi-cephfs-manifests";
   inherit (nur.repos.josh.ceph-csi-cephfs-chart) version;
 
@@ -39,10 +40,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-ceph-csi-cephfs-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Container Storage Interface (CSI) driver, provisioner, snapshotter, resizer and attacher for Ceph cephfs";
     homepage = "https://github.com/ceph/ceph-csi/tree/devel/charts/ceph-csi-cephfs";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
-}
+})

@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-metrics-operator-manifests";
   inherit (nur.repos.josh.victoria-metrics-operator-chart) version;
 
@@ -41,10 +42,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-victoria-metrics-operator-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Kubernetes manifests for the VictoriaMetrics operator";
     homepage = "https://github.com/VictoriaMetrics/helm-charts/tree/master/charts/victoria-metrics-operator";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
-}
+})

@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rsshub-manifests";
   inherit (nur.repos.josh.rsshub-chart) version;
 
@@ -39,9 +40,23 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-rsshub-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Kubernetes manifests for RSSHub, an extensible RSS feed generator";
     homepage = "https://github.com/NaturalSelectionLabs/helm-charts/tree/main/charts/rsshub";
     platforms = lib.platforms.all;
   };
-}
+})

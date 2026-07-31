@@ -26,11 +26,11 @@ buildGoModule (finalAttrs: {
     "-X main.Version=v${finalAttrs.version}"
   ];
 
+  doCheck = false;
+
   preInstall = ''
     installManPage doc/*.1
   '';
-
-  doCheck = false;
 
   passthru.tests = {
     version = testers.testVersion {

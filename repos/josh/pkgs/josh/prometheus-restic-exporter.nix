@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildGoModule,
   fetchFromGitHub,
   jq,
@@ -39,13 +40,16 @@ buildGoModule (finalAttrs: {
     restic
   ];
 
-  postInstall = ''
-    substituteInPlace ./systemd/*.service --replace-fail /usr/bin/restic-exporter $out/bin/restic-exporter
-    install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
+  postInstall =
+    lib.strings.optionalString stdenv.hostPlatform.isLinux ''
+      substituteInPlace ./systemd/*.service --replace-fail /usr/bin/restic-exporter $out/bin/restic-exporter
+      install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
+    ''
+    + ''
 
-    mkdir $grafana
-    cp -R ./grafana/* $grafana/
-  '';
+      mkdir $grafana
+      cp -R ./grafana/* $grafana/
+    '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 

@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "sops-secrets-operator-manifests";
   inherit (nur.repos.josh.sops-secrets-operator-chart) version;
 
@@ -42,10 +43,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-sops-secrets-operator-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Kubernetes manifests for the sops secrets operator, decrypting sops-encrypted Kubernetes secrets";
     homepage = "https://github.com/isindir/sops-secrets-operator/tree/master/chart/helm3/sops-secrets-operator";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
   };
-}
+})

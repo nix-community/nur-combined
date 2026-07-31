@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-metrics-single-manifests";
   inherit (nur.repos.josh.victoria-metrics-single-chart) version;
 
@@ -39,10 +40,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-victoria-metrics-single-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Kubernetes manifests for single-node VictoriaMetrics, a time series database and long-term remote storage for Prometheus";
     homepage = "https://github.com/VictoriaMetrics/helm-charts/tree/master/charts/victoria-metrics-single";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
-}
+})

@@ -1,5 +1,6 @@
 {
   lib,
+  stdenv,
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
@@ -26,7 +27,7 @@ buildGoModule (finalAttrs: {
     "-X main.Version=${finalAttrs.version}"
   ];
 
-  postInstall = ''
+  postInstall = lib.strings.optionalString stdenv.hostPlatform.isLinux ''
     substituteInPlace ./systemd/*.service --replace-fail /usr/bin/tailscale_exporter $out/bin/tailscale_exporter
     install -D --mode=0444 --target-directory $out/lib/systemd/system ./systemd/*
   '';

@@ -4,8 +4,9 @@
   nur,
   kubernetes-helm,
   yq,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "victoria-metrics-agent-manifests";
   inherit (nur.repos.josh.victoria-metrics-agent-chart) version;
 
@@ -43,10 +44,24 @@ stdenvNoCC.mkDerivation {
     runHook postInstall
   '';
 
+  passthru.tests = {
+    parse =
+      runCommand "test-victoria-metrics-agent-manifests-parse"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ yq ];
+        }
+        ''
+          find ${finalAttrs.finalPackage} \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.kind? // empty' {} + >kinds.txt
+          grep -q . kinds.txt
+          touch $out
+        '';
+  };
+
   meta = {
     description = "Kubernetes manifests for the VictoriaMetrics agent, collecting metrics and forwarding them to VictoriaMetrics";
     homepage = "https://github.com/VictoriaMetrics/helm-charts/tree/master/charts/victoria-metrics-agent";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };
-}
+})

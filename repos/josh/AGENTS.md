@@ -64,7 +64,7 @@ Keep the list flat below eight arguments; separate the groups with blank lines a
 
 Order attributes by the build lifecycle:
 
-`pname` → `version` → format flags (`pyproject`, `__structuredAttrs`, `outputs`) → `src` → `patches`/`postPatch` → hashes (`vendorHash`, `cargoHash`) → inputs (`build-system`, `nativeBuildInputs`, `buildInputs`, `dependencies`) → build configuration (`env`, `ldflags`, `cmakeFlags`) → phases in lifecycle order → check attributes → `passthru` → `meta`
+`pname` → `version` → format flags (`pyproject`, `__structuredAttrs`, `outputs`) → `src` → `patches`/`postPatch` → hashes (`vendorHash`, `cargoHash`) → inputs (`build-system`, `nativeBuildInputs`, `buildInputs`, `nativeCheckInputs`, `dependencies`) → build configuration (`env`, `ldflags`, `cmakeFlags`) → check flags (`doCheck`, `checkFlags`) → phases in lifecycle order (`checkPhase` sits between build and install) → `passthru` → `meta`
 
 `pname` is always first and `meta` is always last, with `passthru` immediately before it.
 
