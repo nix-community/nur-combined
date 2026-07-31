@@ -1,6 +1,5 @@
 {
   fetchFromGitHub,
-  gtk-engine-murrine,
   jdupes,
   lib,
   nix-update-script,
@@ -80,10 +79,6 @@ lib.checkListOfEnum "catppuccin-gtk-theme: theme variants"
     nativeBuildInputs = [
       jdupes
       sassc
-    ];
-
-    propagatedUserEnvPkgs = [
-      gtk-engine-murrine
     ];
 
     postPatch = ''
