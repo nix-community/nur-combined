@@ -25,7 +25,7 @@ jobs:
       id-token: write
     steps:
       - name: Initialize
-        uses: spotdemo4/nix-init@7b3c73a036788c813cef96f63cd32e622ba616f0 # v1.61.0
+        uses: spotdemo4/nix-init@3215144ef6367f915ece1867ff66e63ad92bd9f4 # v1.62.1
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
@@ -58,7 +58,7 @@ jobs:
     steps:
       - id: init
         name: Initialize
-        uses: spotdemo4/nix-init@7b3c73a036788c813cef96f63cd32e622ba616f0 # v1.61.0
+        uses: spotdemo4/nix-init@3215144ef6367f915ece1867ff66e63ad92bd9f4 # v1.62.1
         with:
           app_id: ${{ vars.CLIENT_ID }}
           app_key: ${{ secrets.PRIVATE_KEY }}
