@@ -1,4 +1,5 @@
 {
+  includeFlakePackages ? false,
   nixpkgs ? <nixpkgs>,
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
@@ -25,5 +26,5 @@
   };
 }
 // import ./packages {
-  inherit system pkgs;
+  inherit includeFlakePackages system pkgs;
 }

@@ -7,6 +7,7 @@ let
     inherit nixpkgs;
     system = prev.stdenv.buildPlatform.system;
     pkgs = prev;
+    includeFlakePackages = true;
   };
 in
 {

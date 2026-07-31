@@ -1,4 +1,5 @@
 {
+  includeFlakePackages ? false,
   system ? builtins.currentSystem,
   pkgs ? import <nixpkgs> { inherit system; },
 }:
@@ -30,9 +31,9 @@ in
   qsvenc = pkgs.callPackage ./qsvenc { };
   renovate = pkgs.callPackage ./renovate { };
   shellhook = pkgs.callPackage ./shellhook { };
-  trev-mono = pkgs.callPackage ./trev-mono { inherit system; };
   type2-runtime = pkgs.pkgsStatic.callPackage ./type2-runtime { inherit (pkgs) nix-update-script; };
   xdg-desktop-portal-luminous = pkgs.callPackage ./xdg-desktop-portal-luminous { };
   zig-protobuf = pkgs.callPackage ./zig-protobuf { };
 }
+// (if includeFlakePackages then import ./get-flake.nix { inherit system pkgs; } else { })
 // import ./python.nix { pythonPackages = pkgs.python3Packages; }

@@ -70,6 +70,7 @@
         pkgs.lib.filterAttrs (_: package: pkgs.lib.meta.availableOn { inherit system; } package) (
           import ./packages {
             inherit system pkgs;
+            includeFlakePackages = true;
           }
         )
       );
