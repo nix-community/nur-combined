@@ -24,16 +24,16 @@
   };
   dorion-git = {
     pname = "dorion-git";
-    version = "ac81f5097c4ef91d0eeaab73e9c01243b8bc5ee8";
+    version = "269e8206c814be1d06258dded82abacca4960f3b";
     src = fetchFromGitHub {
       owner = "SpikeHD";
       repo = "Dorion";
-      rev = "ac81f5097c4ef91d0eeaab73e9c01243b8bc5ee8";
+      rev = "269e8206c814be1d06258dded82abacca4960f3b";
       fetchSubmodules = false;
-      sha256 = "sha256-m6G9fHvcG46aLySyPPlla6rnjLqJ3uTJXIz9Wg4Ksk0=";
+      sha256 = "sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl/FGagY=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-m6G9fHvcG46aLySyPPlla6rnjLqJ3uTJXIz9Wg4Ksk0=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl_FGagY=/src-tauri/Cargo.lock";
       outputHashes = {
         "rsrpc-0.28.0" = "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=";
         "simple-websockets-0.1.6" = "sha256-iySzwntHw5Wf5HwKMBYL8mrMl7kjGZrZonL7/zrkeCo=";
@@ -42,7 +42,7 @@
         "window_titles-0.1.0" = "sha256-lk2T+6curAwqOUuQ8RtYCjX2ygGBgzt4ILBAMV+ql0w=";
       };
     };
-    date = "2026-07-28";
+    date = "2026-07-30";
   };
   dxvk-gplall = {
     pname = "dxvk-gplall";
@@ -371,21 +371,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "11f4e73bddb831115dafcd2b6689475499299ea4";
+    version = "5c524eb242dafb7a0565ae8ac286244244109022";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "11f4e73bddb831115dafcd2b6689475499299ea4";
+      rev = "5c524eb242dafb7a0565ae8ac286244244109022";
       fetchSubmodules = false;
-      sha256 = "sha256-kYzl8hIicLHg8UYwmrAt2DODd06nOglH+plp2FrUY6k=";
+      sha256 = "sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-kYzl8hIicLHg8UYwmrAt2DODd06nOglH+plp2FrUY6k=/Cargo.lock";
+      lockFile = ./. + "/sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-07-30";
+    date = "2026-07-31";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";

@@ -32,7 +32,7 @@
     "dorion-git": {
         "cargoLock": {
             "src-tauri/Cargo.lock": [
-                "sha256-m6G9fHvcG46aLySyPPlla6rnjLqJ3uTJXIz9Wg4Ksk0=/src-tauri/Cargo.lock",
+                "sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl_FGagY=/src-tauri/Cargo.lock",
                 {
                     "livesplit-hotkey-0.8.0": "sha256-iYAzlkYMEN2v4IhsnljWpUZkJO5CN1vcqz5thAJvbXc=",
                     "rsrpc-0.28.0": "sha256-L07x93mgTbo+v0Wg91XjCNbRYAltHns8WyrsIrr7pZE=",
@@ -42,7 +42,7 @@
                 }
             ]
         },
-        "date": "2026-07-28",
+        "date": "2026-07-30",
         "extract": null,
         "name": "dorion-git",
         "passthru": null,
@@ -54,12 +54,12 @@
             "name": null,
             "owner": "SpikeHD",
             "repo": "Dorion",
-            "rev": "ac81f5097c4ef91d0eeaab73e9c01243b8bc5ee8",
-            "sha256": "sha256-m6G9fHvcG46aLySyPPlla6rnjLqJ3uTJXIz9Wg4Ksk0=",
+            "rev": "269e8206c814be1d06258dded82abacca4960f3b",
+            "sha256": "sha256-eTBqnsZCpR0Pl3b+ix9mVgSToE9UI66JkL6Pl/FGagY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "ac81f5097c4ef91d0eeaab73e9c01243b8bc5ee8"
+        "version": "269e8206c814be1d06258dded82abacca4960f3b"
     },
     "dxvk-gplall": {
         "cargoLock": null,
@@ -596,11 +596,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-kYzl8hIicLHg8UYwmrAt2DODd06nOglH+plp2FrUY6k=/Cargo.lock",
+                "sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-07-30",
+        "date": "2026-07-31",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -612,12 +612,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "11f4e73bddb831115dafcd2b6689475499299ea4",
-            "sha256": "sha256-kYzl8hIicLHg8UYwmrAt2DODd06nOglH+plp2FrUY6k=",
+            "rev": "5c524eb242dafb7a0565ae8ac286244244109022",
+            "sha256": "sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "11f4e73bddb831115dafcd2b6689475499299ea4"
+        "version": "5c524eb242dafb7a0565ae8ac286244244109022"
     },
     "svt-av1-essential": {
         "cargoLock": null,
