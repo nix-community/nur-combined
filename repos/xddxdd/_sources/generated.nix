@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.111";
+    version = "v7.2.112";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.111";
-      hash = "sha256-6j0bBtj53B0mKF+t8fOD//HnU+kHI98q5gwo/wM9RUA=";
+      tag = "v7.2.112";
+      hash = "sha256-vnpS5w5SyZvni8lapHAQQsVq69Se99XLp7Kc0/eBH2M=";
     };
   };
   cockpy = {
@@ -822,37 +822,37 @@
   };
   funasr = {
     pname = "funasr";
-    version = "5f177695f238385d513415a0e20883b6411093be";
+    version = "d1007c323068d0c5aaa8e0f198668aaebc1a4fc2";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "5f177695f238385d513415a0e20883b6411093be";
-      hash = "sha256-1oJb0nc8EBcNqO4Zm69jCEck5uGUGtzyjIpUbIbc+Ms=";
+      rev = "d1007c323068d0c5aaa8e0f198668aaebc1a4fc2";
+      hash = "sha256-xV6G36fVnQPfKzQ35RrwPGQGp4m69YXUdyxEdTF9y3Y=";
     };
-    date = "2026-07-30";
+    date = "2026-07-31";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.07.28";
+    version = "2026.07.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.28/GeoLite2-ASN.mmdb";
-      hash = "sha256-a9Glg1U9Ec1VFMoYSQi+43nkpv7RC0neVwQ3T66YQlo=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.31/GeoLite2-ASN.mmdb";
+      hash = "sha256-R35TpNqXQv1i7x5uEGy0jczxA2et9Cf4qijpi30ITpc=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.07.28";
+    version = "2026.07.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.28/GeoLite2-City.mmdb";
-      hash = "sha256-vHwNyVzFtmAKdaR6BdA2qPfoRC8CAHwyu7NDGGLrmvY=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.31/GeoLite2-City.mmdb";
+      hash = "sha256-5ClIoaodG8omWe63OlMAUCHMwbUAjlv3qZPlP7T/X+Y=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.07.28";
+    version = "2026.07.31";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.28/GeoLite2-Country.mmdb";
-      hash = "sha256-6bu9tivPkizJ5lMwSceM/ovjopcBgc9ZlO9sFUBrBb0=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.31/GeoLite2-Country.mmdb";
+      hash = "sha256-uIXeAvcxlZ1q6sqYEZaAbztkwlJREUG1gQwxQf3oHRA=";
     };
   };
   glauth = {
@@ -1372,12 +1372,12 @@
   };
   modelscope-hub = {
     pname = "modelscope-hub";
-    version = "v0.1.8";
+    version = "v0.1.9";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope_hub";
-      tag = "v0.1.8";
-      hash = "sha256-SYMgQGKBV+VzncDtQSCekDRfnLMUenbNbE2qGtAOO8w=";
+      tag = "v0.1.9";
+      hash = "sha256-FyR0R9773dmKQJqfZZL4OJXrXAj6fxctOaiS03lKSAo=";
     };
   };
   mtkclient = {
@@ -1527,14 +1527,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "340856d19b2d70d6b6fea034d52eebdd3e8040ce";
+    version = "7f4754721ad7ade7c80566e150ad079bd70cf2fb";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "340856d19b2d70d6b6fea034d52eebdd3e8040ce";
-      hash = "sha256-HfEM3WI7DygWyIttwt8uehPKRL+51IXygcZC+S0Mg00=";
+      rev = "7f4754721ad7ade7c80566e150ad079bd70cf2fb";
+      hash = "sha256-B4rbghyLy8FlPW/gTJSsbrBEndccbc0/jQyP0gvg5Q4=";
     };
-    date = "2026-07-30";
+    date = "2026-07-31";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -2086,14 +2086,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "b681a34f788795034b3b288830f4861980bc8b0d";
+    version = "8a3d9470c00add3cc93da20aac0c6d4a1ab37895";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "b681a34f788795034b3b288830f4861980bc8b0d";
-      hash = "sha256-kqn3c5qAotPmItFQURrGtWIko4vQPNqH7S3d1t4nwwU=";
+      rev = "8a3d9470c00add3cc93da20aac0c6d4a1ab37895";
+      hash = "sha256-+C/4Z44+hguaGgA8SShNLs1wKbgVYOFTLkJqGFiOqb8=";
     };
-    date = "2026-07-20";
+    date = "2026-07-31";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
@@ -2144,23 +2144,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "5c88971316d865b44395cd87377d0024434afd57";
+    version = "b6889883634fa16a5d69d2d6cd9eed0c730d48d0";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "5c88971316d865b44395cd87377d0024434afd57";
-      hash = "sha256-xsxsn/svdY2evaH5L0ETggQO1IwzlOM0dq81ggmqIEc=";
+      rev = "b6889883634fa16a5d69d2d6cd9eed0c730d48d0";
+      hash = "sha256-2EYMlZvYqY8h0LLn9TWSHceudrGWYZDs7h/OdeBv7JA=";
     };
-    date = "2026-07-30";
+    date = "2026-07-31";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr14.1.1.20";
+    version = "mr13.5.1.24";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr14.1.1.20";
-      hash = "sha256-FGnojDTshkP2aBtmV4ydvQwppJT4iUfS8bP098tiL5M=";
+      tag = "mr13.5.1.24";
+      hash = "sha256-k/rI5uvnRvAGtDErPABc+iKIkbcNxWKt3zfDHWk7ED8=";
     };
   };
   runpod = {
@@ -2245,12 +2245,12 @@
   };
   smfc = {
     pname = "smfc";
-    version = "v6.0.1";
+    version = "v6.1.0";
     src = fetchFromGitHub {
       owner = "petersulyok";
       repo = "smfc";
-      tag = "v6.0.1";
-      hash = "sha256-WxFZkwGr2atIxKLK9YJOFh561swh43gsx84OmnVlYro=";
+      tag = "v6.1.0";
+      hash = "sha256-OYMCWQDzYMgbeGCXboQk7YhUmoEumtIoNfoz9DrqHcI=";
     };
   };
   soggy = {
@@ -2603,13 +2603,13 @@
   };
   zstd-nginx-module = {
     pname = "zstd-nginx-module";
-    version = "09ce44eb68bccaa855206f7316fa0219a54bea3f";
+    version = "2522ea91f3b6f0d1e8dcb767ace91fba3688d026";
     src = fetchFromGitHub {
       owner = "HanadaLee";
       repo = "ngx_http_zstd_module";
-      rev = "09ce44eb68bccaa855206f7316fa0219a54bea3f";
-      hash = "sha256-i9NZjtYvNWW8UbR9S7rD7JCICuqXR/NzQ4K622HcTUc=";
+      rev = "2522ea91f3b6f0d1e8dcb767ace91fba3688d026";
+      hash = "sha256-XkBXJtC4KGUP8bGGmkJbJ5tOtL+G8ZrQqMFGYH0GQ0Q=";
     };
-    date = "2026-03-14";
+    date = "2026-07-31";
   };
 }
