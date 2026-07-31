@@ -40,9 +40,7 @@ pub fn load_bundled_symbol_fonts(cx: &gpui::App) {
             }
         }
     }
-    println!("OMNIMUX DEBUG: Found {} bundled fonts to load", fonts.len());
     if fonts.is_empty() {
-        println!("OMNIMUX DEBUG: No bundled fonts found!");
         return;
     }
     if let Err(err) = cx.text_system().add_fonts(fonts) {

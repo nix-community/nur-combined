@@ -245,17 +245,12 @@ impl MacTextSystemState {
                     // I spent far too long trying to track down why a font missing the 'm'
                     // character wasn't loading. This log statement will hopefully save
                     // someone else from suffering the same fate.
-                    println!(
-                        "OMNIMUX DEBUG: font '{}' has no 'm' character and was not loaded",
-                        font.full_name()
-                    );
+
                     log::warn!(
                         "font '{}' has no 'm' character and was not loaded",
                         font.full_name()
                     );
                     continue;
-                } else if is_nerd_font_symbols {
-                    println!("OMNIMUX DEBUG: Bypassed 'm' check for {}", font.full_name());
                 }
             }
 
@@ -281,15 +276,13 @@ impl MacTextSystemState {
                         .downcast::<CFNumber>()
                         .is_some())
             } && !is_nerd_font_symbols {
-                println!(
-                    "OMNIMUX DEBUG: Failed to read traits for font {:?}",
+                log::error!(
+                    "Failed to read traits for font {:?}",
                     font.postscript_name().unwrap()
                 );
                 continue;
             }
-            if is_nerd_font_symbols {
-                println!("OMNIMUX DEBUG: Successfully parsed traits for {}", font.full_name());
-            }
+
 
             let font_id = FontId(self.fonts.len());
             font_ids.push(font_id);
