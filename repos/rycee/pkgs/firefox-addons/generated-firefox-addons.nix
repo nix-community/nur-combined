@@ -1218,10 +1218,10 @@
     };
     "bilibili-clean-homepage" = buildMozillaXpiAddon {
       pname = "bilibili-clean-homepage";
-      version = "1.0";
+      version = "1.1.0";
       addonId = "bilibili-clean-homepage@dzming.li";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4705895/bilibili_clean_homepage-1.0.xpi";
-      sha256 = "177208db434cedb9e022ac8b15ec66fe0ff7038e550402f790f33f12e3767a6a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4929366/bilibili_clean_homepage-1.1.0.xpi";
+      sha256 = "cb8571e6eed4c9969da2c23f1688066509eed74a875e5ef2c77b7f45420638e2";
       meta = with lib;
       {
         description = "屏蔽B站首页视频推荐，只保留搜索框和导航栏.";
@@ -4255,10 +4255,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.5";
+      version = "3.6";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4918415/firemonkey-3.5.xpi";
-      sha256 = "878f7360c440c34d8eae0ab8c69d42f4a861e3dad01c00b2271baa3b32df995d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928978/firemonkey-3.6.xpi";
+      sha256 = "3efaafcc6f330c8d06cbd787b93daf2cea5868341d4cd1ef8e588ccac73e4510";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -4310,10 +4310,10 @@
     };
     "flagfox" = buildMozillaXpiAddon {
       pname = "flagfox";
-      version = "6.2.1";
+      version = "6.2.2";
       addonId = "{1018e4d6-728f-4b20-ad56-37578a4de76b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4904080/flagfox-6.2.1.xpi";
-      sha256 = "c222643d3eef7cda78e2885de46a1f0787ac6812d05594e02056948672d3099a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4929641/flagfox-6.2.2.xpi";
+      sha256 = "c4adb28ca994047c41a92c787aaadc67079619517e94606701290bea8d97812e";
       meta = with lib;
       {
         homepage = "https://flagfox.wordpress.com/";
@@ -4772,10 +4772,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.5.52";
+      version = "10.5.53";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4908902/ghostery-10.5.52.xpi";
-      sha256 = "020e5c44d653d4ca0f313eb79a242c2e56ce73f689c9fe28fcdaddedc0d7b325";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928070/ghostery-10.5.53.xpi";
+      sha256 = "8dee762ae3111af64ed1cb8e1107d2ecbc3014a5d025a3bc11ae1b2314a0979f";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -8497,10 +8497,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.226";
+      version = "2.4.227";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4924905/lichess_tools_by_siderite-2.4.226.xpi";
-      sha256 = "fa2bb3680b48bd485e26845a696323a3e3163257a9f442b93c62b10828a0b5d9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928849/lichess_tools_by_siderite-2.4.227.xpi";
+      sha256 = "125625b69ee4602192f87292987828b8409eedd9019ffcdbae35187ee0a7543b";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -11240,10 +11240,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.124";
+      version = "1.0.125";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4925871/paperpile_addon-1.0.124.xpi";
-      sha256 = "3bd6d1091e0f42a2417173cdb33c1e17b6a031f7f184a353f16eed8ac4235dee";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928300/paperpile_addon-1.0.125.xpi";
+      sha256 = "1f2b2828c79482bd66831b595b2f3ff0cc09e9378a25eca6494f4459bbccac6d";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -11270,10 +11270,10 @@
     };
     "passbolt" = buildMozillaXpiAddon {
       pname = "passbolt";
-      version = "5.13.4";
+      version = "5.14.2";
       addonId = "passbolt@passbolt.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4868504/passbolt-5.13.4.xpi";
-      sha256 = "11a158addf88e4d326a2fbf948f4f062f26a62e9e876687247c9e8c756e876bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4924438/passbolt-5.14.2.xpi";
+      sha256 = "b7b9ea82f353768015954a53e1a6e90f966a87dd1b93bad3c697bef21b4d5d02";
       meta = with lib;
       {
         homepage = "https://www.passbolt.com";
@@ -13955,10 +13955,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.7";
+      version = "3.4.8";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922698/simplifygmail-3.4.7.xpi";
-      sha256 = "af4897d6da383e769d9d77e33e7498490cb823cdf4a8f32d253543534491c222";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928643/simplifygmail-3.4.8.xpi";
+      sha256 = "3e508d705423d03cb7e743e4e9f765a1679341430a92e53cbf1956f1c8de0ac8";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -18003,15 +18003,15 @@
     };
     "zhihu-blocker" = buildMozillaXpiAddon {
       pname = "zhihu-blocker";
-      version = "1.1.0";
+      version = "2.0.0";
       addonId = "zhihu-blocker@dzming.li";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4690490/2977607-1.1.0.xpi";
-      sha256 = "b5ace992910fab7fe336c5564a66f0489ed9ee24431b34dc019df101f2d3e759";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4929381/2977607-2.0.0.xpi";
+      sha256 = "e0e1b27847c8281488a4c437db16eebd8e45e851b228a6b1fb7d0ce9e1a0d26b";
       meta = with lib;
       {
         description = "本插件能屏蔽知乎首页的所有推荐内容和热搜栏，但保留关注和搜索功能，有助于数字健康。";
         license = licenses.agpl3Only;
-        mozPermissions = [ "activeTab" "*://www.zhihu.com/*" ];
+        mozPermissions = [ "*://www.zhihu.com/*" ];
         platforms = platforms.all;
       };
     };
