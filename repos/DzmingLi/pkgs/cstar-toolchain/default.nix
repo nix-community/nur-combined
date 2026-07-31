@@ -14,7 +14,7 @@
 }:
 
 let
-  version = "0.5.3";
+  version = "0.5.4";
   clangVersion = "20.1.8";
   clangResourceVersion = lib.versions.major clangVersion;
 
@@ -26,7 +26,7 @@ let
 
     src = fetchurl {
       url = "https://gitee.com/cstarlang/cstar_docs/releases/download/v${version}/cstar_linux-x64.tar.xz";
-      hash = "sha256-jdREa1nfC1r4nQM6wPtefDFCi3J5JGFFiyvgBh09DY0=";
+      hash = "sha256-dkPTrMOSVvzV73dyyi0rhPbyS4ciMAHnLa1BqDN1Tjo=";
     };
 
     sourceRoot = "cstar_v${version}_linux-x64";
