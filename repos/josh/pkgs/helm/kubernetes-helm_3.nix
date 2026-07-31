@@ -5,19 +5,20 @@
   fetchFromGitHub,
   installShellFiles,
   testers,
+  writableTmpDirAsHomeHook,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "kubernetes-helm";
-  version = "3.20.2";
+  version = "3.21.3";
 
   src = fetchFromGitHub {
     owner = "helm";
     repo = "helm";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YF5djCmCoPdLlEa/cksQgGtscEmIsQTiRqYZNyFjsEY=";
+    hash = "sha256-hebRt4NLDtgXxgKtwSo8CcxHNWvh5TF6TZLYAp5SQe0=";
   };
-  vendorHash = "sha256-kqx23LekpuZJFisVZUoXBY9vHh9zviKyaW5NSa4ecxM=";
+  vendorHash = "sha256-2I3Rt0t6E4kwC1llHv/G/UFG6k8fVKUWaPpTDNq/Zac=";
 
   subPackages = [ "cmd/helm" ];
   ldflags = [
@@ -76,6 +77,7 @@ buildGoModule (finalAttrs: {
   '';
 
   nativeBuildInputs = [ installShellFiles ];
+  nativeCheckInputs = [ writableTmpDirAsHomeHook ];
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
     $out/bin/helm completion bash > helm.bash
     $out/bin/helm completion zsh > helm.zsh

@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-data";
-  version = "0.1.0-unstable-2026-07-30";
+  version = "0-unstable-2026-07-30";
 
   pyproject = true;
   __structuredAttrs = true;
