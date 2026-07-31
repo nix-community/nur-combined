@@ -58,8 +58,12 @@
       treefmt-nix = eachSystem (import ./internal/treefmt.nix);
     in
     {
-      overlays.default = final: _prev: {
-        nur.repos.josh = import ./default.nix { pkgs = final; };
+      overlays.default = final: prev: {
+        nur = (prev.nur or { }) // {
+          repos = (prev.nur.repos or { }) // {
+            josh = import ./default.nix { pkgs = final; };
+          };
+        };
       };
 
       packages = eachSystem (system: mkPackages (importNixpkgs nixpkgs system));

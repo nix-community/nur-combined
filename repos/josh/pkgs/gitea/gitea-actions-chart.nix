@@ -1,5 +1,6 @@
 { lib, nur }:
 nur.repos.josh.fetchhelm {
+  pname = "gitea-actions-chart";
   url = "https://dl.gitea.com/charts/";
   chart = "actions";
   version = "0.1.2";

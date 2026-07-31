@@ -2,6 +2,7 @@
   lib,
   callPackage,
   stdenvNoCC,
+  cacert,
   kubernetes-helm,
 }:
 args@{
@@ -28,6 +29,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 
   nativeBuildInputs = [
+    cacert
     kubernetes-helm
   ];
 
@@ -50,6 +52,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   buildCommand = ''
     export HELM_CACHE_HOME=$TMPDIR/cache
+    export HELM_CONFIG_HOME=$TMPDIR/config
+    export HELM_DATA_HOME=$TMPDIR/data
     helm pull "''${helmPullArgs[@]}" --destination ./out --untar
     cp -R ./out/"$helmChart" $out
   '';
