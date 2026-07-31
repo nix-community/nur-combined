@@ -337,6 +337,67 @@ stdenv.mkDerivation (finalAttrs: {
   passthru = {
     inherit extensions;
 
+    link =
+      let
+        libDir = "${finalAttrs.finalPackage.lib}/lib";
+        archiveNames = [
+          "libduckdb_static.a"
+          "libduckdb_generated_extension_loader.a"
+          "libautocomplete_extension.a"
+          "libcore_functions_extension.a"
+          "libhttpfs_extension.a"
+          "libicu_extension.a"
+          "libjson_extension.a"
+          "libparquet_extension.a"
+          "libquack_extension.a"
+          "libtpcds_extension.a"
+          "libtpch_extension.a"
+          "libduckdb_fastpforlib.a"
+          "libduckdb_fmt.a"
+          "libduckdb_fsst.a"
+          "libduckdb_hyperloglog.a"
+          "libduckdb_jemalloc.a"
+          "libduckdb_mbedtls.a"
+          "libduckdb_miniz.a"
+          "libduckdb_pg_query.a"
+          "libduckdb_re2.a"
+          "libduckdb_skiplistlib.a"
+          "libduckdb_utf8proc.a"
+          "libduckdb_yyjson.a"
+          "libduckdb_zstd.a"
+        ];
+        archives = map (archive: "${libDir}/${archive}") archiveNames;
+        systemLibraries = [
+          "stdc++"
+          "m"
+        ];
+        driverFlags = [ "-pthread" ];
+      in
+      {
+        includeDir = "${finalAttrs.finalPackage.dev}/include";
+        inherit libDir;
+
+        shared = {
+          library = "duckdb";
+          flags = [
+            "-L${libDir}"
+            "-lduckdb"
+          ];
+        };
+
+        static = {
+          inherit archives systemLibraries driverFlags;
+          groupArchives = true;
+          flags = [
+            "-Wl,--start-group"
+          ]
+          ++ archives
+          ++ [ "-Wl,--end-group" ]
+          ++ map (library: "-l${library}") systemLibraries
+          ++ driverFlags;
+        };
+      };
+
     updateScript = nix-update-script {
       extraArgs = [
         "--commit"
