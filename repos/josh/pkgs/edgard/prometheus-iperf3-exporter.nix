@@ -44,7 +44,7 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    description = "Simple server that probes iPerf3 endpoints and exports results via HTTP for Prometheus consumption";
+    description = "Server that probes iPerf3 endpoints and exports results via HTTP for Prometheus consumption";
     homepage = "https://github.com/edgard/iperf3_exporter";
     license = lib.licenses.asl20;
     mainProgram = "iperf3_exporter";

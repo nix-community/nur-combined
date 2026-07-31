@@ -11,7 +11,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "VictoriaLogs Agent - accepts logs from various protocols and replicates them across multiple VictoriaLogs instances";
+    description = "Helm chart for the VictoriaLogs agent, replicating logs across VictoriaLogs instances";
     homepage = "https://github.com/VictoriaMetrics/helm-charts";
     license = lib.licenses.asl20;
   };

@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-/BzBD3ghCCdFPllPjAyIqrDsLUVZ+T6S6dGCW/YpxE8=";
 
   meta = {
-    description = "Kubernetes monitoring on VictoriaMetrics stack. Includes VictoriaMetrics Operator, Grafana dashboards, ServiceScrapes and VMRules";
+    description = "Helm chart for Kubernetes monitoring with the VictoriaMetrics operator, Grafana dashboards, ServiceScrapes and VMRules";
     homepage = "https://github.com/VictoriaMetrics/helm-charts";
     license = lib.licenses.asl20;
   };

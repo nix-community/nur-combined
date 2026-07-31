@@ -49,7 +49,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Ceph Grafana Dashboards";
+    description = "Grafana dashboards and Prometheus alerts from the Ceph mixin";
     inherit (ceph.meta) homepage license;
     platforms = lib.platforms.all;
   };

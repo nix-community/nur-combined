@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-7OgOm+kDjwAow9EoWM+5XPNmrNte+zxhZq3ZHSf2aqc=";
 
   meta = {
-    description = "Helm chart for cert-manager";
+    description = "Helm chart for cert-manager, automating TLS certificate management on Kubernetes";
     homepage = "https://cert-manager.io";
     license = lib.licenses.asl20;
   };

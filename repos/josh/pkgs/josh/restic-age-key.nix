@@ -73,7 +73,7 @@ buildGoModule (finalAttrs: {
     };
 
   meta = {
-    description = "Use asymmetric age keys instead of a password on your restic repository";
+    description = "Use asymmetric age keys instead of a password for restic repositories";
     homepage = "https://github.com/josh/restic-age-key";
     license = lib.licenses.mit;
     mainProgram = "restic-age-key";

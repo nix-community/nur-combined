@@ -9,7 +9,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "VictoriaMetrics Operator";
+    description = "Helm chart for the VictoriaMetrics operator";
     homepage = "https://github.com/VictoriaMetrics/operator";
     license = lib.licenses.asl20;
   };

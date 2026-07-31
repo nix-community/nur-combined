@@ -4,7 +4,7 @@ My Nix User Repository. Mainly re-packaging other people's code hoping to get up
 
 ## Outputs
 
-`overlay.default`
+`overlays.default`
 
 ```
 $ nix repl .

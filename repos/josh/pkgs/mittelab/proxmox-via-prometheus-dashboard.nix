@@ -52,7 +52,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Grafana Dashboard for Proxmox using Prometheus";
+    description = "Grafana dashboard for Proxmox metrics from Prometheus";
     homepage = "https://github.com/mittelab/proxmox-via-prometheus-dashboard";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

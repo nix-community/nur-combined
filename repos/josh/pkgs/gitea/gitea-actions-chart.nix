@@ -13,7 +13,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "Gitea Actions Helm chart for Kubernetes";
+    description = "Helm chart for Gitea Actions runners";
     homepage = "https://gitea.com/gitea/helm-actions";
     license = lib.licenses.mit;
   };

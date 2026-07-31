@@ -2,8 +2,9 @@
   lib,
   tmuxPlugins,
   fetchFromGitHub,
-  nix-update-script,
 }:
+# mkTmuxPlugin discards caller passthru and supplies its own
+# nix-update-script updateScript
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "catppuccin";
   rtpFilePath = "catppuccin.tmux";
@@ -15,8 +16,6 @@ tmuxPlugins.mkTmuxPlugin rec {
     tag = "v${version}";
     hash = "sha256-3CJRQCgS8NAN7vOLBjNGiHbGXTIrIyY/FLmfZrXcEYc=";
   };
-
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
     description = "Soothing pastel theme for Tmux";

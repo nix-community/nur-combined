@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-SlLnegSpa8y1zOX4rjGG1S7lB5hofW3EGaKBsJoz7Fc=";
 
   meta = {
-    description = "eBPF-based Networking, Security, and Observability";
+    description = "Helm chart for Cilium, eBPF-based networking, observability, and security";
     homepage = "https://cilium.io";
     license = lib.licenses.asl20;
   };

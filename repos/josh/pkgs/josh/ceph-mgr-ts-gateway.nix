@@ -40,7 +40,7 @@ buildGoModule (finalAttrs: {
   };
 
   meta = {
-    description = "Ceph Manager Tailscale Gateway";
+    description = "Tailscale gateway to Ceph manager service endpoints";
     homepage = "https://github.com/josh/ceph-mgr-ts-gateway";
     license = lib.licenses.mit;
     mainProgram = "ceph-mgr-ts-gateway";

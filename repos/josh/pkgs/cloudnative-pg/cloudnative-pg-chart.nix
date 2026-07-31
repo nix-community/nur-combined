@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-kEFuvG5CsJ/iloIbBKcrDj1Ta0ZRxJ+KJ5LODMjbY8A=";
 
   meta = {
-    description = "CloudNativePG Operator Helm Chart";
+    description = "Helm chart for the CloudNativePG PostgreSQL operator";
     homepage = "https://cloudnative-pg.io";
     license = lib.licenses.asl20;
   };

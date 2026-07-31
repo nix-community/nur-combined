@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-DoYl6QV7lw5v8JgnktKIdg+Q2muFsVlWoCErroEIw5k=";
 
   meta = {
-    description = "Gitea Helm chart for Kubernetes";
+    description = "Helm chart for Gitea, a self-hosted Git service";
     homepage = "https://gitea.com/gitea/helm-gitea";
     license = lib.licenses.mit;
   };

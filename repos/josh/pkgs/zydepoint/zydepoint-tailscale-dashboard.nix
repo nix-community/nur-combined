@@ -8,7 +8,7 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zydepoint-tailscale-dashboard";
-  version = "0-unstable-2025-02-09";
+  version = "0-unstable-2025-02-10";
 
   outputs = [
     "out"
@@ -50,7 +50,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Tailscale traffic with Grafana";
+    description = "Grafana dashboard visualizing Tailscale traffic";
     homepage = "https://github.com/Zydepoint/Tailscale-dashboard";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

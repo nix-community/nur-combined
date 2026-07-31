@@ -11,7 +11,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "VictoriaMetrics Agent - collects metrics from various sources and stores them to VictoriaMetrics";
+    description = "Helm chart for the VictoriaMetrics agent, collecting metrics and forwarding them to VictoriaMetrics";
     homepage = "https://github.com/VictoriaMetrics/helm-charts";
     license = lib.licenses.asl20;
   };

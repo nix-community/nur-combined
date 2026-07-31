@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-5n3WIada4H/DMfJMh4IUPH5Rb47RfbqjApAwN09ckRk=";
 
   meta = {
-    description = "File, Block, and Object Storage Services for your Cloud-Native Environment";
+    description = "Helm chart for the Rook operator, orchestrating Ceph storage on Kubernetes";
     homepage = "https://github.com/rook/rook";
     license = lib.licenses.asl20;
   };

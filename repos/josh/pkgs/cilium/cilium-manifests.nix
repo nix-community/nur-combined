@@ -26,6 +26,8 @@ stdenvNoCC.mkDerivation {
   buildPhase = ''
     runHook preBuild
     export HELM_CACHE_HOME=$TMPDIR/cache
+    export HELM_CONFIG_HOME=$TMPDIR/config
+    export HELM_DATA_HOME=$TMPDIR/data
     yq --yaml-output '.helmValues' "$NIX_ATTRS_JSON_FILE" >values.yaml
     if [ -n "$helmOutputDir" ]; then
       helm template "$helmChartName" "$src" --output-dir . --values values.yaml "''${helmArgs[@]}"

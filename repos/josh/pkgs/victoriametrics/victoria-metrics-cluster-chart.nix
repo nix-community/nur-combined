@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-Yfcg1sMVkAJLFysoWaEEDxAaZPmdIU5/lflUc2lrGtU=";
 
   meta = {
-    description = "VictoriaMetrics Cluster version - high-performance, cost-effective and scalable TSDB, long-term remote storage for Prometheus";
+    description = "Helm chart for a VictoriaMetrics cluster, a time series database and long-term remote storage for Prometheus";
     homepage = "https://github.com/VictoriaMetrics/helm-charts";
     license = lib.licenses.asl20;
   };

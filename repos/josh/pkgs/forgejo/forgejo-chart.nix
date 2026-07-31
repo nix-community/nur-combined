@@ -14,7 +14,7 @@ nur.repos.josh.fetchhelm {
   };
 
   meta = {
-    description = "Forgejo Helm chart for Kubernetes";
+    description = "Helm chart for Forgejo, a self-hosted Git forge";
     homepage = "https://forgejo.org";
     license = lib.licenses.mit;
   };

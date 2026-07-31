@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-AbYJiSSgTGWkDu32Lmc8vz/1SQnu1QSNaOC8PFCUXFw=";
 
   meta = {
-    description = "Asynchronous data replication for Kubernetes";
+    description = "Helm chart for VolSync, asynchronous volume data replication for Kubernetes";
     homepage = "https://volsync.readthedocs.io";
     license = lib.licenses.agpl3Only;
   };

@@ -2,8 +2,9 @@
   lib,
   tmuxPlugins,
   fetchFromGitHub,
-  nix-update-script,
 }:
+# mkTmuxPlugin discards caller passthru and supplies its own
+# nix-update-script updateScript
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "tmux-powerkit";
   rtpFilePath = "tmux-powerkit.tmux";
@@ -15,8 +16,6 @@ tmuxPlugins.mkTmuxPlugin rec {
     tag = "v${version}";
     hash = "sha256-AtwdejWDvfefhX08MLzoZL6OssSQqU9c4jPj8PfAUJc=";
   };
-
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
   meta = {
     description = "Modular tmux status bar framework";

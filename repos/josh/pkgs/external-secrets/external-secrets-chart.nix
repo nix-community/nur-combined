@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-PPUhkWM5kZSRKwuBLFrEt1cnxtfelj9QGfaEsHUzu5g=";
 
   meta = {
-    description = "External secrets management for Kubernetes";
+    description = "Helm chart for the External Secrets Operator, integrating external secret management systems with Kubernetes";
     homepage = "https://github.com/external-secrets/external-secrets";
     license = lib.licenses.asl20;
   };

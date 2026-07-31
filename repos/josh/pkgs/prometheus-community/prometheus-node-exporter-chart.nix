@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-YHBjSqtecnVYJ8IXZQZaNWSFudLfvLkIRdCRBpV6leQ=";
 
   meta = {
-    description = "Helm chart for Prometheus node exporter";
+    description = "Helm chart for the Prometheus node exporter, exposing hardware and OS metrics";
     homepage = "https://github.com/prometheus/node_exporter";
     license = lib.licenses.asl20;
   };

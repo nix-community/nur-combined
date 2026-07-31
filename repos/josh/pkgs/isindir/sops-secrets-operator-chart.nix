@@ -10,7 +10,7 @@ nur.repos.josh.fetchhelm {
   ];
 
   meta = {
-    description = "Helm chart for sops-secrets-operator";
+    description = "Helm chart for the sops secrets operator, decrypting sops-encrypted Kubernetes secrets";
     homepage = "https://github.com/isindir/sops-secrets-operator";
     license = lib.licenses.mpl20;
   };

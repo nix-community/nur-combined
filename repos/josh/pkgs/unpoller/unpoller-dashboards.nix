@@ -66,7 +66,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "UniFi Poller Grafana Dashboards";
+    description = "Grafana dashboards for UniFi Poller metrics";
     homepage = "https://github.com/unpoller/dashboards";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;

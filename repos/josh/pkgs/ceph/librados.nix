@@ -56,6 +56,7 @@
 
   # Darwin only
   apple-sdk,
+  fixDarwinDylibNames,
 
   runCommandCC,
   writeText,
@@ -117,7 +118,8 @@ stdenv.mkDerivation (finalAttrs: {
     ceph-python
     which
   ]
-  ++ lib.lists.optional stdenv.hostPlatform.isx86 nasm;
+  ++ lib.lists.optional stdenv.hostPlatform.isx86 nasm
+  ++ lib.lists.optional stdenv.hostPlatform.isDarwin fixDarwinDylibNames;
 
   buildInputs = [
     bzip2
@@ -228,8 +230,8 @@ stdenv.mkDerivation (finalAttrs: {
     # tcp_info uses Linux-only TCP_INFO/SOL_TCP; provide stubs on macOS
     substituteInPlace src/common/tcp_info.h \
       --replace-fail '#include <netinet/tcp.h>' $'#ifdef __linux__\n#include <netinet/tcp.h>\n#endif' \
-      --replace-fail 'bool tcp_info(int fd, struct tcp_info& info);' $'#ifdef __linux__\nbool tcp_info(int fd, struct tcp_info\& info);\n#endif' \
-      --replace-fail 'bool dump_tcp_info(int fd, Formatter* f);' $'bool dump_tcp_info(int fd, Formatter* f);\n'
+      --replace-fail 'bool tcp_info(int fd, struct tcp_info& info);' $'#ifdef __linux__\nbool tcp_info(int fd, struct tcp_info\& info);\n#endif'
+    grep -qF 'bool dump_tcp_info(int fd, Formatter* f);' src/common/tcp_info.h
     substituteInPlace src/common/tcp_info.cc \
       --replace-fail '#include "common/tcp_info.h"' $'#include "common/tcp_info.h"\n#ifdef __linux__'
     echo $'#else\nnamespace ceph { bool dump_tcp_info(int, Formatter*) { return false; } }\n#endif' >> src/common/tcp_info.cc
@@ -264,6 +266,17 @@ stdenv.mkDerivation (finalAttrs: {
     if [[ -f lib/librados.dylib ]]; then
       cp -a lib/librados*.dylib $out/lib/
       cp -a lib/libceph-common*.dylib $out/lib/
+      # CMake links build-tree dylibs via @rpath + a build-dir rpath;
+      # rewrite those references to absolute store paths
+      for dylib in $out/lib/*.dylib; do
+        if [ ! -L "$dylib" ]; then
+          otool -L "$dylib" | awk '/@rpath\// { print $1 }' | while read -r ref; do
+            if [ -e "$out/lib/$(basename "$ref")" ]; then
+              install_name_tool -change "$ref" "$out/lib/$(basename "$ref")" "$dylib"
+            fi
+          done
+        fi
+      done
     else
       cp -a lib/librados.so* $out/lib/
       cp -a lib/libceph-common.so* $out/lib/
@@ -303,6 +316,7 @@ stdenv.mkDerivation (finalAttrs: {
       }
       ''
         $CC $radosTestProgram -lrados -o test
+        ./test
         touch $out
       '';
 

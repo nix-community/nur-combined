@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-bmlBYswvzBjLj2+Tl8DSXjjmjvP2zTHk9TOOH84Uc2c=";
 
   meta = {
-    description = "Helm chart for the Prometheus blackbox exporter";
+    description = "Helm chart for the Prometheus blackbox exporter, probing endpoints over HTTP, TCP, DNS and ICMP";
     homepage = "https://github.com/prometheus/blackbox_exporter";
     license = lib.licenses.asl20;
   };

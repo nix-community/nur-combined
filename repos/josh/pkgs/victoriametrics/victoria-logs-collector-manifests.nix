@@ -29,6 +29,8 @@ stdenvNoCC.mkDerivation {
   buildPhase = ''
     runHook preBuild
     export HELM_CACHE_HOME=$TMPDIR/cache
+    export HELM_CONFIG_HOME=$TMPDIR/config
+    export HELM_DATA_HOME=$TMPDIR/data
     yq --yaml-output '.helmValues' "$NIX_ATTRS_JSON_FILE" >values.yaml
     helm template "$helmChartName" "$src" --output-dir . --values values.yaml "''${helmArgs[@]}"
     runHook postBuild
@@ -42,7 +44,7 @@ stdenvNoCC.mkDerivation {
   '';
 
   meta = {
-    description = "VictoriaLogs Collector - collects logs from Kubernetes containers and stores them to VictoriaLogs";
+    description = "Kubernetes manifests for the VictoriaLogs collector, shipping Kubernetes container logs to VictoriaLogs";
     homepage = "https://github.com/VictoriaMetrics/helm-charts/tree/master/charts/victoria-logs-collector";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

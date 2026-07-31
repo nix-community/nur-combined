@@ -43,7 +43,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Argo CD Kubernetes manifests";
+    description = "Kubernetes manifests for Argo CD, a declarative GitOps continuous delivery tool for Kubernetes";
     homepage = "https://argo-cd.readthedocs.io/en/stable/";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;

@@ -6,7 +6,7 @@ nur.repos.josh.fetchhelm {
   hash = "sha256-jULnmFaxi3gsWbCnE26FfML6MOqQ60QCpMuOoSv0hdw=";
 
   meta = {
-    description = "Helm chart for the Grafana Operator";
+    description = "Helm chart for the Grafana operator, managing Grafana instances on Kubernetes";
     homepage = "https://github.com/grafana/grafana-operator";
     license = lib.licenses.asl20;
   };
