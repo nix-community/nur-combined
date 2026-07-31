@@ -1,3 +1,0 @@
-{
-  flake.overlays = import ../overlays;
-}
