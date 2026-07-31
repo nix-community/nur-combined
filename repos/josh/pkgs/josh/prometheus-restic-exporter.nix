@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  jq,
   restic,
   nix-update-script,
   runCommand,
@@ -66,6 +67,19 @@ buildGoModule (finalAttrs: {
       grep --text --quiet "${lib.meta.getExe restic}" "${lib.meta.getExe finalAttrs.finalPackage}"
       touch $out
     '';
+
+    grafana-json =
+      runCommand "test-prometheus-restic-exporter-grafana-json"
+        {
+          __structuredAttrs = true;
+          nativeBuildInputs = [ jq ];
+        }
+        ''
+          readarray -t files < <(find ${finalAttrs.finalPackage.grafana} -name '*.json')
+          [ "''${#files[@]}" -gt 0 ]
+          jq --exit-status . "''${files[@]}" >/dev/null
+          touch $out
+        '';
   };
 
   meta = {

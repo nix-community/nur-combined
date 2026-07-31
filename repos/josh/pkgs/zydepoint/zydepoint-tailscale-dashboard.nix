@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchFromGitHub,
   jq,
+  nix-update-script,
   runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -31,6 +32,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
     json =
