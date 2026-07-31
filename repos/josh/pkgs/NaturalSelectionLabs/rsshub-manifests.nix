@@ -42,7 +42,6 @@ stdenvNoCC.mkDerivation {
   meta = {
     description = "Kubernetes manifests for RSSHub, an extensible RSS feed generator";
     homepage = "https://github.com/NaturalSelectionLabs/helm-charts/tree/main/charts/rsshub";
-    license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
 }

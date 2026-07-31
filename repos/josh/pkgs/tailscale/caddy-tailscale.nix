@@ -42,7 +42,7 @@ buildGoModule (finalAttrs: {
   meta = {
     description = "Experimental integration of Tailscale and Caddy";
     homepage = "https://github.com/tailscale/caddy-tailscale";
-    license = lib.licenses.mit;
+    license = lib.licenses.asl20;
     mainProgram = "caddy";
     platforms = lib.platforms.all;
   };

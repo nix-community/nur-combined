@@ -2,6 +2,10 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+
+  iperf3,
+  makeWrapper,
+
   nix-update-script,
   runCommand,
   testers,
@@ -19,12 +23,18 @@ buildGoModule (finalAttrs: {
 
   vendorHash = "sha256-tA0lx6xOVLw5uZzxYXkAE6IpaW4WjaB25w/AsH4piw8=";
 
+  nativeBuildInputs = [ makeWrapper ];
+
   env.CGO_ENABLED = 0;
   ldflags = [
     "-s"
     "-w"
     "-X github.com/prometheus/common/version.Version=${finalAttrs.version}"
   ];
+
+  postInstall = ''
+    wrapProgram $out/bin/iperf3_exporter --prefix PATH : ${lib.strings.makeBinPath [ iperf3 ]}
+  '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
 
@@ -39,6 +49,23 @@ buildGoModule (finalAttrs: {
         { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
         ''
           iperf3_exporter --help
+          touch $out
+        '';
+
+    iperf3-path = runCommand "test-prometheus-iperf3-exporter-iperf3-path" { } ''
+      grep --text --quiet "${
+        lib.strings.makeBinPath [ iperf3 ]
+      }" "${lib.meta.getExe finalAttrs.finalPackage}"
+      touch $out
+    '';
+
+    startup =
+      runCommand "test-prometheus-iperf3-exporter-startup"
+        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
+        ''
+          status=0
+          timeout 2 iperf3_exporter --web.listen-address=127.0.0.1:0 || status=$?
+          test "$status" -eq 124
           touch $out
         '';
   };

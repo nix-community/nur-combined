@@ -4,10 +4,11 @@
   fetchFromGitHub,
   nix-update-script,
   runCommand,
+  testers,
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-data";
-  version = "0-unstable-2026-07-30";
+  version = "0.1.0-unstable-2026-07-30";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -34,16 +35,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
-    version =
-      runCommand "test-trakt-data-version"
-        {
-          __structuredAttrs = true;
-          nativeBuildInputs = [ finalAttrs.finalPackage ];
-        }
-        ''
-          trakt-data --version | grep "^trakt-data, version "
-          touch $out
-        '';
+    version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      version = lib.lists.head (lib.strings.splitString "-unstable-" finalAttrs.version);
+    };
 
     help =
       runCommand "test-trakt-data-help"
