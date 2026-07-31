@@ -1,2 +1,0 @@
-[language-server.gopls.config]
-gofumpt = true

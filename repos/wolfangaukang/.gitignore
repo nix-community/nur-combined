@@ -1,4 +1,0 @@
-result
-result-*
-*.qcow2
-templates/**/flake.lock
