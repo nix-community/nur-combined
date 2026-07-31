@@ -35,7 +35,7 @@ in
   config = lib.mkIf cfg.enable {
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud33;
+      package = pkgs.nextcloud34;
       hostName = "nextcloud.${config.networking.domain}";
       home = "/var/lib/nextcloud";
       maxUploadSize = cfg.maxSize;
@@ -71,6 +71,7 @@ in
           tasks
           ;
         # notify_push is automatically installed by the module
+        # FIXME: groupfolders? cospend?
       };
     };
 
