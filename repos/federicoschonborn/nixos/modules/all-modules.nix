@@ -1,5 +1,0 @@
-{
-  imports = [
-    ./tinyfeed.nix
-  ];
-}
