@@ -10,12 +10,12 @@ pkgs.writeShellApplication {
 
   text = ''
     if (( $# < 2 || $# > 3 )); then
-      echo "usage: cliproxyapiplus-merge-config CONFIG_FILE MANAGED_FILE [API_KEYS_FILE]" >&2
+      echo "usage: cliproxyapiplus-merge-config CONFIG_PATH SETTINGS_FILE [API_KEYS_FILE]" >&2
       exit 2
     fi
 
     config_file=$1
-    managed_file=$2
+    settings_file=$2
     api_keys_file=''${3:-}
     config_dir="$(dirname -- "$config_file")"
 
@@ -30,12 +30,12 @@ pkgs.writeShellApplication {
       echo "cliproxyapiplus: config path is not a regular file: $config_file" >&2
       exit 1
     fi
-    if [[ ! -r "$managed_file" ]]; then
-      echo "cliproxyapiplus: managed settings file is not readable: $managed_file" >&2
+    if [[ ! -r "$settings_file" ]]; then
+      echo "cliproxyapiplus: settings file is not readable: $settings_file" >&2
       exit 1
     fi
-    if ! yq eval --exit-status 'tag == "!!map"' "$managed_file" >/dev/null; then
-      echo "cliproxyapiplus: managed settings must be a YAML mapping" >&2
+    if ! yq eval --exit-status 'tag == "!!map"' "$settings_file" >/dev/null; then
+      echo "cliproxyapiplus: settings must be a YAML mapping" >&2
       exit 1
     fi
 
@@ -64,7 +64,7 @@ pkgs.writeShellApplication {
       runtime_input=$base_file
     fi
 
-    merge_inputs=("$runtime_input" "$managed_file")
+    merge_inputs=("$runtime_input" "$settings_file")
 
     if [[ -n "$api_keys_file" ]]; then
       if [[ ! -f "$api_keys_file" || ! -r "$api_keys_file" ]]; then

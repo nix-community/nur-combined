@@ -4,68 +4,26 @@
   pkgs,
   ...
 }: let
-  cfg = config.services.cliproxyapiplus;
+  cfg = config.programs.cliproxyapiplus;
   yamlFormat = pkgs.formats.yaml {};
   sources = pkgs.callPackage ../../_sources/generated.nix {};
   defaultPackage = pkgs.callPackage ../../pkgs/cliproxyapiplus {source = sources.cliproxyapiplus;};
 
-  managedSettingsFile = yamlFormat.generate "cliproxyapiplus-managed.yaml" cfg.managedSettings;
-  mergeConfig = import ./merge.nix {inherit pkgs;};
-
-  allowedManagedKeys = [
-    "host"
-    "port"
-    "tls"
-    "remote-management"
-    "auth-dir"
-    "debug"
-    "commercial-mode"
-    "logging-to-file"
-    "logs-max-total-size-mb"
-    "usage-statistics-enabled"
-    "proxy-url"
-    "force-model-prefix"
-    "request-retry"
-    "max-retry-interval"
-    "disable-image-generation"
-    "quota-exceeded"
-    "routing"
-    "ws-auth"
-    "nonstream-keepalive-interval"
-    "codex-instructions-enabled"
-    "streaming"
-    "redis-usage-queue-retention-seconds"
-  ];
-  allowedNestedKeys = {
-    tls = ["enable" "cert" "key"];
-    remote-management = ["allow-remote" "disable-control-panel" "panel-github-repository"];
-    quota-exceeded = ["switch-project" "switch-preview-model" "antigravity-credits"];
-    routing = ["strategy" "session-affinity" "session-affinity-ttl"];
-    streaming = ["keepalive-seconds" "bootstrap-retries"];
+  defaultSettings = {
+    port = 8317;
+    remote-management.panel-github-repository =
+      "https://github.com/kaitranntt/Cli-Proxy-API-Management-Center";
   };
-  configuredManagedKeys = builtins.attrNames cfg.managedSettings;
-  unknownManagedKeys = builtins.filter (name: !builtins.elem name allowedManagedKeys) configuredManagedKeys;
-  nestedSettingsAreAttrs = builtins.all (
-    name: !builtins.hasAttr name cfg.managedSettings || builtins.isAttrs cfg.managedSettings.${name}
-  ) (builtins.attrNames allowedNestedKeys);
-  unknownNestedKeys = lib.concatMap (
-    name:
-      if !builtins.hasAttr name cfg.managedSettings || !builtins.isAttrs cfg.managedSettings.${name}
-      then []
-      else
-        map (child: "${name}.${child}") (
-          builtins.filter
-          (child: !builtins.elem child allowedNestedKeys.${name})
-          (builtins.attrNames cfg.managedSettings.${name})
-        )
-  ) (builtins.attrNames allowedNestedKeys);
+  settingsFile = yamlFormat.generate "cliproxyapiplus-settings.yaml" (
+    lib.recursiveUpdate defaultSettings cfg.settings
+  );
+  mergeConfig = import ./merge.nix {inherit pkgs;};
 
   storeDir = builtins.storeDir or "/nix/store";
   isInStore = path: path == storeDir || lib.hasPrefix "${storeDir}/" path;
-  proxyURL = cfg.managedSettings."proxy-url" or "";
-  proxyURLContainsCredentials =
-    builtins.isString proxyURL
-    && builtins.match "^[A-Za-z][A-Za-z0-9+.-]*://[^/@]+@.*" proxyURL != null;
+  invalidEnvNames = builtins.filter (
+    name: builtins.match "^[A-Za-z_][A-Za-z0-9_]*$" name == null
+  ) (builtins.attrNames cfg.env);
 
   hasConfigArgument = arg:
     arg
@@ -76,66 +34,50 @@
 
   startScript = pkgs.writeShellApplication {
     name = "cliproxyapiplus-start";
-    runtimeInputs = [mergeConfig];
+    runtimeInputs = [
+      pkgs.coreutils
+      mergeConfig
+    ];
     text = ''
-      config_file=${lib.escapeShellArg cfg.configFile}
-      managed_file=${lib.escapeShellArg managedSettingsFile}
+      config_path=${lib.escapeShellArg cfg.configPath}
+      settings_file=${lib.escapeShellArg settingsFile}
       extra_args=(${lib.escapeShellArgs cfg.extraArgs})
-      merge_args=("$config_file" "$managed_file")
+      merge_args=("$config_path" "$settings_file")
       ${lib.optionalString (cfg.apiKeysFile != null) ''
         merge_args+=(${lib.escapeShellArg cfg.apiKeysFile})
       ''}
 
       ${lib.getExe mergeConfig} "''${merge_args[@]}"
 
-      ${lib.optionalString (cfg.environmentFile != null) ''
-        environment_file=${lib.escapeShellArg cfg.environmentFile}
-        if [[ ! -f "$environment_file" || ! -r "$environment_file" ]]; then
-          echo "cliproxyapiplus: environment file is not a readable regular file: $environment_file" >&2
-          exit 1
-        fi
-        while IFS= read -r line || [[ -n "$line" ]]; do
-          line="''${line%$'\r'}"
-          [[ -z "$line" || "$line" == \#* ]] && continue
-          name="''${line%%=*}"
-          value="''${line#*=}"
-          if [[ "$line" != *=* ]] || [[ ! "$name" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]; then
-            echo "cliproxyapiplus: invalid environment assignment in $environment_file" >&2
-            exit 1
-          fi
-          export "$name=$value"
-        done <"$environment_file"
-      ''}
-
-      cd -- "$(dirname -- "$config_file")"
+      cd -- "$(dirname -- "$config_path")"
       exec ${lib.escapeShellArg (lib.getExe cfg.package)} \
-        --config "$config_file" \
+        --config "$config_path" \
         "''${extra_args[@]}"
     '';
   };
 in {
-  options.services.cliproxyapiplus = {
-    enable = lib.mkEnableOption "CLIProxyAPI Plus user service";
+  options.programs.cliproxyapiplus = {
+    enable = lib.mkEnableOption "CLIProxyAPI Plus program and user service";
 
     package = lib.mkOption {
       type = lib.types.package;
       default = defaultPackage;
-      description = "CLIProxyAPI Plus package to run.";
+      description = "CLIProxyAPI Plus package to install and run.";
     };
 
-    configFile = lib.mkOption {
+    configPath = lib.mkOption {
       type = lib.types.str;
       default = "${config.xdg.configHome}/cliproxyapiplus/config.yaml";
       defaultText = lib.literalExpression ''"''${config.xdg.configHome}/cliproxyapiplus/config.yaml"'';
       description = ''
-        Writable runtime configuration file. The management API updates this
+        Writable runtime configuration path. The management API updates this
         file in place, so it must not be a Home Manager managed store symlink.
       '';
     };
 
-    managedSettings = lib.mkOption {
+    settings = lib.mkOption {
       inherit (yamlFormat) type;
-      default = {};
+      default = defaultSettings;
       example = lib.literalExpression ''
         {
           host = "localhost";
@@ -145,11 +87,11 @@ in {
         }
       '';
       description = ''
-        Non-secret settings merged into the writable runtime configuration
-        before every service start. These values are stored in the Nix store
-        and override matching runtime values. Only the documented stable keys
-        are accepted; provider credentials, model lists, plugins, and top-level
-        API keys must remain outside this option.
+        YAML settings merged into the writable runtime configuration before
+        every service start. The module does not validate or filter these
+        settings. They are stored in the Nix store and override matching runtime
+        values. The port defaults to 8317 and the management panel defaults to
+        `kaitranntt/Cli-Proxy-API-Management-Center`.
       '';
     };
 
@@ -164,16 +106,15 @@ in {
       '';
     };
 
-    environmentFile = lib.mkOption {
-      type = lib.types.nullOr lib.types.str;
-      default = null;
-      example = "/run/secrets/cliproxyapiplus.env";
+    env = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = {};
+      example = {
+        MANAGEMENT_PASSWORD = "example";
+      };
       description = ''
-        Optional external `KEY=VALUE` file loaded immediately before starting
-        the service. Names must be shell identifiers; values are used literally
-        without shell evaluation or quote processing. Blank lines and lines
-        beginning with `#` are ignored. It can provide `MANAGEMENT_PASSWORD`
-        without placing the value in the Nix store.
+        Environment variables passed directly to the background service. Values
+        are included in the generated service configuration and the Nix store.
       '';
     };
 
@@ -182,8 +123,9 @@ in {
       default = [];
       example = ["--local-model"];
       description = ''
-        Additional command-line arguments. The module owns the `--config`
-        argument, so it cannot be supplied here.
+        Additional command-line arguments for the background server. The module
+        owns the `--config` argument, so it cannot be supplied here. Values are
+        stored in the Nix store and must not contain secrets.
       '';
     };
   };
@@ -191,43 +133,22 @@ in {
   config = lib.mkIf cfg.enable {
     assertions = [
       {
-        assertion = lib.hasPrefix "/" cfg.configFile && !isInStore cfg.configFile;
-        message = "services.cliproxyapiplus.configFile must be an absolute writable path outside the Nix store";
+        assertion = lib.hasPrefix "/" cfg.configPath && !isInStore cfg.configPath;
+        message = "programs.cliproxyapiplus.configPath must be an absolute writable path outside the Nix store";
       }
       {
         assertion = cfg.apiKeysFile == null || (lib.hasPrefix "/" cfg.apiKeysFile && !isInStore cfg.apiKeysFile);
-        message = "services.cliproxyapiplus.apiKeysFile must be an absolute path outside the Nix store";
+        message = "programs.cliproxyapiplus.apiKeysFile must be an absolute path outside the Nix store";
       }
       {
-        assertion = cfg.environmentFile == null || (lib.hasPrefix "/" cfg.environmentFile && !isInStore cfg.environmentFile);
-        message = "services.cliproxyapiplus.environmentFile must be an absolute path outside the Nix store";
-      }
-      {
-        assertion = unknownManagedKeys == [];
-        message = "services.cliproxyapiplus.managedSettings contains unsupported or runtime-owned keys: ${lib.concatStringsSep ", " unknownManagedKeys}";
-      }
-      {
-        assertion = nestedSettingsAreAttrs;
-        message = "services.cliproxyapiplus.managedSettings nested sections must be attribute sets";
-      }
-      {
-        assertion = unknownNestedKeys == [];
-        message = "services.cliproxyapiplus.managedSettings contains unsupported nested keys: ${lib.concatStringsSep ", " unknownNestedKeys}";
-      }
-      {
-        assertion = !proxyURLContainsCredentials;
-        message = "services.cliproxyapiplus.managedSettings.proxy-url must not contain URL userinfo because managed settings enter the Nix store";
+        assertion = invalidEnvNames == [];
+        message = "programs.cliproxyapiplus.env contains invalid variable names: ${lib.concatStringsSep ", " invalidEnvNames}";
       }
       {
         assertion = !builtins.any hasConfigArgument cfg.extraArgs;
-        message = "services.cliproxyapiplus.extraArgs cannot override --config";
+        message = "programs.cliproxyapiplus.extraArgs cannot override --config";
       }
     ];
-
-    warnings = lib.optional (cfg.apiKeysFile == null) ''
-      services.cliproxyapiplus.apiKeysFile is unset; the module will preserve
-      any runtime top-level api-keys instead of managing them.
-    '';
 
     home.packages = [cfg.package];
 
@@ -236,13 +157,10 @@ in {
         Description = "CLIProxyAPI Plus proxy service";
         After = ["network-online.target"];
         Wants = ["network-online.target"];
-        X-Restart-Triggers = [
-          managedSettingsFile
-          startScript
-        ];
       };
       Service = {
         ExecStart = lib.getExe startScript;
+        Environment = lib.mapAttrsToList (name: value: "${name}=${lib.escapeShellArg value}") cfg.env;
         Restart = "on-failure";
         RestartSec = 5;
         UMask = "0077";
@@ -260,6 +178,7 @@ in {
           SuccessfulExit = false;
         };
         ProcessType = "Background";
+        EnvironmentVariables = cfg.env;
         Umask = 63;
         StandardOutPath = "${config.home.homeDirectory}/Library/Logs/CLIProxyAPIPlus.out.log";
         StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/CLIProxyAPIPlus.err.log";
