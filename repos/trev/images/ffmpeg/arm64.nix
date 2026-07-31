@@ -1,6 +1,6 @@
 { dockerTools }:
 let
-  image = "docker.io/linuxserver/ffmpeg:8.1.2@sha256:595345f99ed5ecbe773388553baa9a0c0cd8f097aa76d3dc89a6b5b7dbee9c4b";
+  image = "docker.io/linuxserver/ffmpeg:8.1.2@sha256:38f9befcbb1ceab4980aeb6dccb5b3a9be335094967fd09a0ba3d50882632731";
   parts = builtins.match "(.+/)(.+):(.+)@(.+)" image;
 in
 # https://github.com/nixos/nixpkgs/issues/445481
@@ -9,7 +9,7 @@ in
   finalImageName = builtins.elemAt parts 1;
   finalImageTag = builtins.elemAt parts 2;
   imageDigest = builtins.elemAt parts 3;
-  hash = "sha256-PDaK8HMx+KKogrX5tpt4vrltVQdmE600syU+0NR4vCs=";
+  hash = "sha256-bGtk2TVmYzdSnReXracS12s/MT2VKB/92Ytr+guY6jE=";
   os = "linux";
   arch = "arm64";
 }).overrideAttrs
