@@ -10,7 +10,7 @@
   pkgs ? import <nixpkgs> {
     config.allowUnfree = true;
   },
-  no-ifd ? false,
+  no-ifd ? true,
 }:
 with (import ./private.nix { inherit pkgs; });
 {
