@@ -76,7 +76,6 @@ let
             pkgs.rbw
 
             pkgs.playerctl
-            self.nanoid-cli
             pkgs.imagemagickBig
             pkgs.ocrmypdf
             pkgs.curl # to get newer versions
@@ -87,6 +86,8 @@ let
               ref = "master";
             }) { })
             pkgs.ron-lsp
+
+            self.pngattach
           ];
 
           services.xserver.enable = true;

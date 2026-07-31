@@ -50,7 +50,7 @@ in
     dnsutils
     dool
     doggo
-    optipng
+    oxipng
     jqfmt
     jless
     self.all-converters
