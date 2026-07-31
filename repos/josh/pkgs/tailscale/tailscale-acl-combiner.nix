@@ -40,6 +40,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/tailscale-dev/tailscale-acl-combiner";
     license = lib.licenses.bsd3;
     mainProgram = "tailscale-acl-combiner";
-    platforms = lib.platforms.all;
   };
 })

@@ -33,7 +33,7 @@ stdenvNoCC.mkDerivation {
   ];
 
   buildCommand = ''
-    imagesRaw=$(find "$src" \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.. | .image? // empty | strings' {} + | sort -u)
+    imagesRaw=$(find "$src" \( -name '*.yaml' -o -name '*.yml' -o -name '*.tpl' \) -exec yq -r '.. | .image? // empty | strings' {} + | sort -u)
     if [ -z "$imagesRaw" ]; then
       echo "no images found in $src" >&2
       exit 1

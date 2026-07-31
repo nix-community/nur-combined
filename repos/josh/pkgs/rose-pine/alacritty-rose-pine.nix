@@ -3,8 +3,9 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "alacritty-rose-pine";
   version = "0-unstable-2025-11-05";
 
@@ -22,10 +23,19 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    files = runCommand "test-alacritty-rose-pine-files" { } ''
+      test -s ${finalAttrs.finalPackage}/rose-pine.toml
+      test -s ${finalAttrs.finalPackage}/rose-pine-moon.toml
+      test -s ${finalAttrs.finalPackage}/rose-pine-dawn.toml
+      touch $out
+    '';
+  };
+
   meta = {
     description = "Soho vibes for Alacritty";
     homepage = "https://github.com/rose-pine/alacritty";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

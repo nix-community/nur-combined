@@ -39,7 +39,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
     mkdir -p $out
-    cp -R ./"$helmChartName"/* $out
+    cp -R ./"$helmChartName"/. $out/
     runHook postInstall
   '';
 
@@ -59,7 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Kubernetes manifests for the sops secrets operator, decrypting sops-encrypted Kubernetes secrets";
-    homepage = "https://github.com/isindir/sops-secrets-operator/tree/master/chart/helm3/sops-secrets-operator";
+    homepage = "https://github.com/isindir/sops-secrets-operator/tree/master/chart/helm4/sops-secrets-operator";
     license = lib.licenses.mpl20;
     platforms = lib.platforms.all;
   };

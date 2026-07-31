@@ -3,8 +3,9 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rose-pine-tmtheme";
   version = "0-unstable-2026-06-22";
 
@@ -26,10 +27,19 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    files = runCommand "test-rose-pine-tmtheme-files" { } ''
+      test -s ${finalAttrs.finalPackage}/share/rose-pine/tmtheme/rose-pine.tmTheme
+      test -s ${finalAttrs.finalPackage}/share/rose-pine/tmtheme/rose-pine-moon.tmTheme
+      test -s ${finalAttrs.finalPackage}/share/rose-pine/tmtheme/rose-pine-dawn.tmTheme
+      touch $out
+    '';
+  };
+
   meta = {
     description = "Soho vibes for TextMate";
     homepage = "https://github.com/rose-pine/tm-theme";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

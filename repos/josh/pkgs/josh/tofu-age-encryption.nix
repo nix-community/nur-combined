@@ -63,7 +63,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/tofu-age-encryption";
     license = lib.licenses.mit;
     mainProgram = "tofu-age-encryption";
-    platforms = lib.platforms.all;
     broken = lib.strings.versionOlder opentofu.version "1.10.0";
   };
 })

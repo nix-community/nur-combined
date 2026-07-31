@@ -44,6 +44,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/tailscale/caddy-tailscale";
     license = lib.licenses.asl20;
     mainProgram = "caddy";
-    platforms = lib.platforms.all;
   };
 })

@@ -7,7 +7,7 @@ nur.repos.josh.fetchhelm {
 
   meta = {
     description = "Helm chart for end-to-end Kubernetes cluster monitoring with Prometheus, Grafana, and the Prometheus Operator";
-    homepage = "https://github.com/prometheus-operator/kube-prometheus";
+    homepage = "https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack";
     license = lib.licenses.asl20;
   };
 }

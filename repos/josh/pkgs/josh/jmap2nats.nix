@@ -44,6 +44,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/jmap2nats";
     license = lib.licenses.mit;
     mainProgram = "jmap2nats";
-    platforms = lib.platforms.all;
   };
 })

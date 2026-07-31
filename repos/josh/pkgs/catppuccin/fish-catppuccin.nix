@@ -4,6 +4,7 @@
   fetchFromGitHub,
   catppuccin-whiskers,
   nix-update-script,
+  runCommand,
   writeText,
 }:
 let
@@ -49,33 +50,45 @@ let
     set -g fish_pager_color_completion {{ palette.text.hex }}
     set -g fish_pager_color_description {{ palette.overlay0.hex }}
   '';
+  # buildFishPlugin rejects the (finalAttrs: ...) form on the stable channel,
+  # so tie the self-reference for tests through this binding instead
+  fish-catppuccin = fishPlugins.buildFishPlugin {
+    pname = "fish-catppuccin";
+    version = "0-unstable-2026-03-13";
+
+    src = fetchFromGitHub {
+      owner = "catppuccin";
+      repo = "fish";
+      rev = "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3";
+      hash = "sha256-3KNWYXfOMzZovdjwjBpjSH8cVlD4CO2QmQcCyQE4Dac=";
+    };
+
+    nativeBuildInputs = [ catppuccin-whiskers ];
+
+    preInstall = ''
+      mkdir -p $out/share/fish/themes
+      install -m644 themes/*.theme $out/share/fish/themes/
+
+      whiskers ${fishTerra}
+    '';
+
+    passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
+
+    passthru.tests = {
+      files = runCommand "test-fish-catppuccin-files" { } ''
+        test -s ${fish-catppuccin}/share/fish/themes/catppuccin-frappe.theme
+        test -s ${fish-catppuccin}/share/fish/themes/catppuccin-macchiato.theme
+        test -s ${fish-catppuccin}/share/fish/themes/catppuccin-mocha.theme
+        touch $out
+      '';
+    };
+
+    meta = {
+      description = "Soothing pastel theme for the Fish Shell";
+      homepage = "https://github.com/catppuccin/fish";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.unix;
+    };
+  };
 in
-fishPlugins.buildFishPlugin {
-  pname = "fish-catppuccin";
-  version = "0-unstable-2026-03-13";
-
-  src = fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "fish";
-    rev = "5fc5ae9c2ec22eb376cb03ce76f0d262a38960f3";
-    hash = "sha256-3KNWYXfOMzZovdjwjBpjSH8cVlD4CO2QmQcCyQE4Dac=";
-  };
-
-  nativeBuildInputs = [ catppuccin-whiskers ];
-
-  preInstall = ''
-    mkdir -p $out/share/fish/themes
-    install -m644 themes/*.theme $out/share/fish/themes/
-
-    whiskers ${fishTerra}
-  '';
-
-  passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
-
-  meta = {
-    description = "Soothing pastel theme for the Fish Shell";
-    homepage = "https://github.com/catppuccin/fish";
-    license = lib.licenses.mit;
-    platforms = lib.platforms.all;
-  };
-}
+fish-catppuccin

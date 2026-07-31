@@ -61,7 +61,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   meta = {
     description = "Grafana dashboards for monitoring VictoriaMetrics";
-    homepage = "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/main/dashboards";
+    homepage = "https://github.com/VictoriaMetrics/VictoriaMetrics/tree/master/dashboards";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
   };

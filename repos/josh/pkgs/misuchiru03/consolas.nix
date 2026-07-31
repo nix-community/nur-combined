@@ -2,6 +2,7 @@
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "consolas";
@@ -19,6 +20,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     install -Dm644 fonts/Consolas.ttf -t $out/share/fonts/truetype
     runHook postInstall
   '';
+
+  passthru.tests = {
+    files = runCommand "test-consolas-files" { } ''
+      test -s ${finalAttrs.finalPackage}/share/fonts/truetype/Consolas.ttf
+      touch $out
+    '';
+  };
 
   meta = {
     description = "Microsoft Consolas font";

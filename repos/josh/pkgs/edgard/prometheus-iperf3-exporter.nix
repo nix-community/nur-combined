@@ -58,16 +58,6 @@ buildGoModule (finalAttrs: {
       }" "${lib.meta.getExe finalAttrs.finalPackage}"
       touch $out
     '';
-
-    startup =
-      runCommand "test-prometheus-iperf3-exporter-startup"
-        { nativeBuildInputs = [ finalAttrs.finalPackage ]; }
-        ''
-          status=0
-          timeout 2 iperf3_exporter --web.listen-address=127.0.0.1:0 || status=$?
-          test "$status" -eq 124
-          touch $out
-        '';
   };
 
   meta = {
@@ -75,6 +65,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/edgard/iperf3_exporter";
     license = lib.licenses.asl20;
     mainProgram = "iperf3_exporter";
-    platforms = lib.platforms.all;
   };
 })

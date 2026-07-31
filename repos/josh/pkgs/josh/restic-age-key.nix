@@ -77,6 +77,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/restic-age-key";
     license = lib.licenses.mit;
     mainProgram = "restic-age-key";
-    platforms = lib.platforms.all;
   };
 })

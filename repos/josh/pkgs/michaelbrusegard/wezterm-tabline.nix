@@ -3,6 +3,7 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "wezterm-tabline";
@@ -22,6 +23,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=stable" ]; };
+
+  passthru.tests = {
+    files = runCommand "test-wezterm-tabline-files" { } ''
+      test -s ${finalAttrs.finalPackage}/plugin/init.lua
+      touch $out
+    '';
+  };
 
   meta = {
     description = "Tab-bar for WezTerm written in Lua";

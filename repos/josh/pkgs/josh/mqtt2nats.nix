@@ -44,6 +44,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/mqtt2nats";
     license = lib.licenses.mit;
     mainProgram = "mqtt2nats";
-    platforms = lib.platforms.all;
   };
 })

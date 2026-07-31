@@ -20,10 +20,13 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace config.php \
       --replace-fail "const UPVOTE_RSS_CACHE_ROOT         = __DIR__ . '/cache/';" \
-                     'define("UPVOTE_RSS_CACHE_ROOT", ($_SERVER["CACHE_DIRECTORY"] ?? $_ENV["CACHE_DIRECTORY"] ?? sys_get_temp_dir() . "/upvote-rss") . "/cache/");'
+                     'define("UPVOTE_RSS_CACHE_ROOT", (getenv("CACHE_DIRECTORY") ?: sys_get_temp_dir() . "/upvote-rss") . "/cache/");'
     substituteInPlace classes/custom-logger.php \
-      --replace-fail "__DIR__ . '/../logs/upvote-rss.log'" 'UPVOTE_RSS_CACHE_ROOT . "../logs/upvote-rss.log"'
-    grep -qF "CACHE_DIRECTORY" config.php
+      --replace-fail "__DIR__ . '/../logs/upvote-rss.log'" \
+                     '(getenv("LOGS_DIRECTORY") ?: (getenv("CACHE_DIRECTORY") ?: sys_get_temp_dir() . "/upvote-rss") . "/logs") . "/upvote-rss.log"'
+    status=0
+    grep -qF "__DIR__ . '/cache" config.php || status=$?
+    test "$status" -eq 1
   '';
 
   nativeCheckInputs = [ php ];

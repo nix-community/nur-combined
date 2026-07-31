@@ -45,6 +45,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/rogpeppe/go-internal";
     license = lib.licenses.bsd3;
     mainProgram = "testscript";
-    platforms = lib.platforms.all;
   };
 })

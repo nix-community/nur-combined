@@ -54,6 +54,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/github_exporter";
     license = lib.licenses.mit;
     mainProgram = "github_exporter";
-    platforms = lib.platforms.all;
   };
 })

@@ -3,8 +3,9 @@
   stdenvNoCC,
   fetchFromGitHub,
   nix-update-script,
+  runCommand,
 }:
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "rose-pine-kitty";
   version = "0-unstable-2025-11-05";
 
@@ -26,10 +27,19 @@ stdenvNoCC.mkDerivation {
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
+  passthru.tests = {
+    files = runCommand "test-rose-pine-kitty-files" { } ''
+      test -s ${finalAttrs.finalPackage}/share/kitty/rose-pine.conf
+      test -s ${finalAttrs.finalPackage}/share/kitty/rose-pine-moon.conf
+      test -s ${finalAttrs.finalPackage}/share/kitty/rose-pine-dawn.conf
+      touch $out
+    '';
+  };
+
   meta = {
     description = "Soho vibes for kitty";
     homepage = "https://github.com/rose-pine/kitty";
     license = lib.licenses.mit;
     platforms = lib.platforms.all;
   };
-}
+})

@@ -42,7 +42,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook preInstall
     if [ -n "$helmOutputDir" ]; then
       mkdir -p $out
-      cp -R ./"$helmChartName"/* $out
+      cp -R ./"$helmChartName"/. $out/
     else
       cp manifests.yaml $out
     fi

@@ -39,6 +39,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/nats-static";
     license = lib.licenses.mit;
     mainProgram = "nats-static";
-    platforms = lib.platforms.all;
   };
 })

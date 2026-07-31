@@ -35,9 +35,12 @@ python3Packages.buildPythonApplication (finalAttrs: {
   passthru.updateScript = nix-update-script { extraArgs = [ "--version=branch" ]; };
 
   passthru.tests = {
+    # Upstream pyproject.toml declares 0.1.0 but the repo has no git tags, so
+    # nix-update pins the snapshot base to 0; assert the reported version
+    # directly and bump this when upstream's pyproject version changes
     version = testers.testVersion {
       package = finalAttrs.finalPackage;
-      version = lib.lists.head (lib.strings.splitString "-unstable-" finalAttrs.version);
+      version = "0.1.0";
     };
 
     help =

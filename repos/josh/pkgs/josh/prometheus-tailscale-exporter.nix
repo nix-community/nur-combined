@@ -54,6 +54,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/tailscale_exporter";
     license = lib.licenses.mit;
     mainProgram = "tailscale_exporter";
-    platforms = lib.platforms.all;
   };
 })

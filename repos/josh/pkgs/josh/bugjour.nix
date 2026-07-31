@@ -44,6 +44,5 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/josh/bugjour";
     license = lib.licenses.mit;
     mainProgram = "bugjour";
-    platforms = lib.platforms.all;
   };
 })
