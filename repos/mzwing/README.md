@@ -12,12 +12,14 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `ace-ctx` | [Usage](https://github.com/CodingOX/ace-ctx) |
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
+| `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
 
 ## Home Manager modules
 
 | Modules | Documentation |
 | --- | --- |
 | `cliproxyapiplus` | [Usage](home-modules/cliproxyapiplus/README.md) |
+| `pumpkin` | [Usage](home-modules/pumpkin/README.md) |
 
 ## License
 

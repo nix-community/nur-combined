@@ -12,3 +12,9 @@ src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 fetch.github = "kaitranntt/CLIProxyAPIPlus"
 src.github_tag = "kaitranntt/CLIProxyAPIPlus"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+-[0-9]+$"
+
+[pumpkin]
+src.git = "https://github.com/Pumpkin-MC/Pumpkin"
+src.branch = "master"
+fetch.github = "Pumpkin-MC/Pumpkin"
+git.fetchSubmodules = true

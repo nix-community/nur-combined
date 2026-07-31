@@ -14,6 +14,8 @@
     alejandra
     just
     nixd
+    ruff
+    ty
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.typenix.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];

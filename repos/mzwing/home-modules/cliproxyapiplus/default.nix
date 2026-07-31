@@ -11,8 +11,7 @@
 
   defaultSettings = {
     port = 8317;
-    remote-management.panel-github-repository =
-      "https://github.com/kaitranntt/Cli-Proxy-API-Management-Center";
+    remote-management.panel-github-repository = "https://github.com/kaitranntt/Cli-Proxy-API-Management-Center";
   };
   settingsFile = yamlFormat.generate "cliproxyapiplus-settings.yaml" (
     lib.recursiveUpdate defaultSettings cfg.settings

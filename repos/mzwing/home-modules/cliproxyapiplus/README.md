@@ -1,6 +1,6 @@
 # CLIProxyAPIPlus Home Manager module
 
-Usage:
+## Usage
 
 ```nix
 # home.nix
