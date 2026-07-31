@@ -129,9 +129,9 @@ pub fn render_tab_bar(
                         )
                         .on_click(cx.listener({
                             let host_clone = host_clone.clone();
-                            move |this, _, window, cx| {
+                            move |this, _, _, cx| {
                                 cx.stop_propagation();
-                                this.open_tab_for_host(host_clone.clone(), window, cx);
+                                this.reconnect_tab_at(i, host_clone.clone(), 0, cx);
                             }
                         })),
                 )

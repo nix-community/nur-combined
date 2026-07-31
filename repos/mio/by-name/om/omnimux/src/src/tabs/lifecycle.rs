@@ -117,7 +117,7 @@ impl TerminalTabs {
         .detach();
     }
 
-    fn reconnect_tab_at(
+    pub(crate) fn reconnect_tab_at(
         &mut self,
         index: usize,
         host: Option<String>,
