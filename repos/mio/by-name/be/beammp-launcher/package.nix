@@ -43,16 +43,17 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
 
-  nativeBuildInputs = [
-    cmake
-  ]
-  ++ lib.optionals (!stdenv.isDarwin) [
-    copyDesktopItems
-    installShellFiles
-  ]
-  ++ [
-    makeBinaryWrapper
-  ];
+  nativeBuildInputs =
+    lib.optionals (!stdenv.isDarwin) [
+      copyDesktopItems
+      installShellFiles
+    ]
+    ++ [
+      cmake
+    ]
+    ++ [
+      makeBinaryWrapper
+    ];
 
   buildInputs = [
     curl
