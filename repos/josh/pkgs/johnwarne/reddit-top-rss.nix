@@ -20,12 +20,17 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   postPatch = ''
     substituteInPlace *.php --replace-quiet '"cache/' 'CACHE_DIRECTORY . "/'
     substituteInPlace *.php --replace-quiet "'cache/" "CACHE_DIRECTORY . '/"
+    substituteInPlace *.php --replace-quiet 'directorySize("cache")' 'directorySize(CACHE_DIRECTORY)'
     grep -qF 'CACHE_DIRECTORY . ' -- *.php
+    grep -qF 'directorySize(CACHE_DIRECTORY)' -- *.php
     status=0
     grep -qF "'cache/" -- *.php || status=$?
     test "$status" -eq 1
     status=0
     grep -qF '"cache/' -- *.php || status=$?
+    test "$status" -eq 1
+    status=0
+    grep -qF '"cache"' -- *.php || status=$?
     test "$status" -eq 1
   '';
 

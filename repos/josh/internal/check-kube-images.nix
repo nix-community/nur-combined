@@ -33,11 +33,12 @@ stdenvNoCC.mkDerivation {
   ];
 
   buildCommand = ''
-    readarray -t images < <(find "$src" \( -name '*.yaml' -o -name '*.yml' -o -name '*.tpl' \) -exec yq -r '.. | .image? // empty | strings' {} + | sort -u)
-    if [ "''${#images[@]}" -eq 0 ]; then
+    imagesRaw=$(find "$src" \( -name '*.yaml' -o -name '*.yml' \) -exec yq -r '.. | .image? // empty | strings' {} + | sort -u)
+    if [ -z "$imagesRaw" ]; then
       echo "no images found in $src" >&2
       exit 1
     fi
+    readarray -t images <<<"$imagesRaw"
     for image in "''${images[@]}"; do
       for platform in "''${platforms[@]}"; do
         crane manifest --platform "$platform" "$image" >/dev/null

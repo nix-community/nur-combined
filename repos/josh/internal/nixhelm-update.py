@@ -66,7 +66,14 @@ def main(
                 f"chart name mismatch in {filename}: "
                 f"expected {chart}, got {chart_data['name']}"
             )
-        version = chart_data["version"].removeprefix("v")
+        version = str(chart_data["version"]).removeprefix("v")
+
+        if nix_old_version:
+            old_key = version_key(nix_old_version)
+            new_key = version_key(version)
+            if old_key and new_key and new_key < old_key:
+                log(f"refusing downgrade {nix_old_version} -> {version} in {filename}")
+                return
 
         sha256 = nix_hash(chart_path)
 
@@ -110,6 +117,15 @@ def main(
     if commit:
         git("add", filename, dry_run=dry_run)
         git("commit", "--message", commit_message, dry_run=dry_run)
+
+
+def version_key(version: str) -> tuple[int, ...] | None:
+    parts: list[int] = []
+    for part in version.split("."):
+        if not part.isdigit():
+            return None
+        parts.append(int(part))
+    return tuple(parts)
 
 
 def helm_env(tmpdir: str) -> dict[str, str]:
