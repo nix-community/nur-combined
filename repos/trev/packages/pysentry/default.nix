@@ -8,16 +8,16 @@
 
 buildRustPackage (finalAttrs: {
   pname = "pysentry";
-  version = "0.4.7";
+  version = "0.4.9";
 
   src = fetchFromGitHub {
     owner = "nyudenkov";
     repo = "pysentry";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-CKTW6neah8pT+S4exMDXJDfRTwZ++SxXZGZlIUo+IY8=";
+    hash = "sha256-KpcDqfHZUQV0gP4Hi+C6rkaQtxTVyzuXSfDN0Bembgc=";
   };
 
-  cargoHash = "sha256-2C22rhay8hVzqO4g1fLKHqIMsbLyhGIaDIw9R6sPXD0=";
+  cargoHash = "sha256-fobFW16CKU0jRdZp7aPI06QU9qL7waIDg2hkue/GRBw=";
 
   preCheck = ''
     export HOME="$TMPDIR"
