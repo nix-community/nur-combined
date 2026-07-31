@@ -61,5 +61,26 @@
             "type": "github"
         },
         "version": "v7.2.105-1"
+    },
+    "pumpkin": {
+        "cargoLock": null,
+        "date": "2026-07-31",
+        "extract": null,
+        "name": "pumpkin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Pumpkin-MC",
+            "repo": "Pumpkin",
+            "rev": "75994f3302fa76078087b9a113130541e4d3fc37",
+            "sha256": "sha256-XVUIxihZeQI7FDh7wUkNBsWzKXSYrha80kACtcRYoQ8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "75994f3302fa76078087b9a113130541e4d3fc37"
     }
 }

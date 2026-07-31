@@ -39,4 +39,16 @@
       sha256 = "sha256-ZlntaRGj6z662f0WNGomj4KF9fNjlV7Axoeing93V84=";
     };
   };
+  pumpkin = {
+    pname = "pumpkin";
+    version = "75994f3302fa76078087b9a113130541e4d3fc37";
+    src = fetchFromGitHub {
+      owner = "Pumpkin-MC";
+      repo = "Pumpkin";
+      rev = "75994f3302fa76078087b9a113130541e4d3fc37";
+      fetchSubmodules = true;
+      sha256 = "sha256-XVUIxihZeQI7FDh7wUkNBsWzKXSYrha80kACtcRYoQ8=";
+    };
+    date = "2026-07-31";
+  };
 }
