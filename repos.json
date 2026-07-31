@@ -25,10 +25,6 @@
         "Alxandr": {
             "url": "https://github.com/Alxandr/nur"
         },
-        "AndrewKvalheim": {
-            "file": "nur.nix",
-            "url": "https://codeberg.org/AndrewKvalheim/configuration"
-        },
         "AsterisMono": {
             "url": "https://github.com/AsterisMono/nur-packages"
         },
@@ -177,9 +173,6 @@
         "alarsyo": {
             "file": "pkgs/default.nix",
             "url": "https://github.com/alarsyo/nixos-config"
-        },
-        "alejo7797": {
-            "url": "https://codeberg.org/alejo7797/nix-expressions"
         },
         "aleksana": {
             "url": "https://github.com/Aleksanaa/NUR-Aleksana"
@@ -399,9 +392,6 @@
         "congee": {
             "url": "https://github.com/congee/nur"
         },
-        "connoromalley": {
-            "url": "https://codeberg.org/connoromalley/nur-packages"
-        },
         "crazazy": {
             "file": "pkgs/default.nix",
             "url": "https://github.com/crazazy/nixos-config"
@@ -536,17 +526,11 @@
         "endle": {
             "url": "https://github.com/Endle/nur-packages"
         },
-        "eownerdead": {
-            "url": "https://codeberg.org/eownerdead/flakes"
-        },
         "ethancedwards8": {
             "url": "https://github.com/ethancedwards8/ethancedwards8-nur"
         },
         "etu": {
             "url": "https://github.com/etu/nur-packages"
-        },
-        "examosa": {
-            "url": "https://codeberg.org/examosa/nur-packages"
         },
         "extends": {
             "url": "https://github.com/ImExtends/nur-packages-template"
@@ -556,9 +540,6 @@
         },
         "fanbb2333": {
             "url": "https://github.com/FanBB2333/nur-packages"
-        },
-        "federicoschonborn": {
-            "url": "https://codeberg.org/FedericoSchonborn/nur-packages"
         },
         "fedx": {
             "url": "https://github.com/FedX-sudo/Nixpkgs_testing_NUR"
@@ -1404,9 +1385,6 @@
         "some-pkgs": {
             "url": "https://github.com/SomeoneSerge/pkgs"
         },
-        "someron": {
-            "url": "https://codeberg.org/someron/nur"
-        },
         "sondr3": {
             "url": "https://github.com/sondr3/nix-expressions"
         },
@@ -1596,9 +1574,6 @@
         },
         "wingej0": {
             "url": "https://github.com/wingej0/nur-packages"
-        },
-        "wolfangaukang": {
-            "url": "https://codeberg.org/wolfangaukang/nix-agordoj.git"
         },
         "workman-nur": {
             "url": "https://github.com/Oliper202020/workman-nur"
