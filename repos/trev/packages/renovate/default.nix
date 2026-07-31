@@ -6,25 +6,24 @@
   makeWrapper,
   nix-update-script,
   nodejs_24,
-  pnpm_10,
+  pnpm_11,
   pnpmConfigHook,
   python3,
   stdenv,
   xcbuild,
-  yq-go,
 }:
 let
   nodejs = nodejs_24;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "renovate";
-  version = "43.220.0";
+  version = "44.4.6";
 
   src = fetchFromGitHub {
     owner = "renovatebot";
     repo = "renovate";
     tag = finalAttrs.version;
-    hash = "sha256-4vklIUYHlAe6BCsJ9MM8W8dzW4vjVas2PC32L03BpaU=";
+    hash = "sha256-4PIBXZJhy20x+Uf9o+BD6nwJdePVuEzNzHe8JpG/mhA=";
   };
 
   patches = [
@@ -39,10 +38,9 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     makeWrapper
     nodejs_24
-    pnpm_10
+    pnpm_11
     pnpmConfigHook
     python3
-    yq-go
   ]
   ++ lib.optional stdenv.hostPlatform.isDarwin [
     xcbuild
@@ -51,18 +49,15 @@ stdenv.mkDerivation (finalAttrs: {
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
-    pnpm = pnpm_10;
-    fetcherVersion = 3;
-    hash = "sha256-FHCinSPh6kFdL9N36ZDqhwrtLqNupxZqEwaznoaQpyQ=";
+    pnpm = pnpm_11;
+    fetcherVersion = 4;
+    hash = "sha256-U9BIZLCrkgwjBlxJSmLYrtqO1Qk/24jr4bQSGCKjO8Y=";
   };
 
   env.COREPACK_ENABLE_STRICT = 0;
 
   buildPhase = ''
     runHook preBuild
-
-    # relax nodejs version
-    yq '.engines.node = "${nodejs.version}"' -i package.json
 
     pnpm build
     find -name 'node_modules' -type d -exec rm -rf {} \; || true
