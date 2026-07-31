@@ -203,6 +203,12 @@ let
           # toplevel `default.nix`, but rather needs the in-place `impure.nix`.
           echo "import $REPO_ROOT/impure.nix" > default.nix
 
+          # upstream nix (unlike lix) prefers a local store over the daemon whenever /nix/var/nix
+          # is user-writable, but that's almost always wrong (e.g. when sandboxed).
+          if [ -z "$NIX_REMOTE" ] && [ -S /nix/var/nix/daemon-socket/socket ]; then
+            export NIX_REMOTE=daemon
+          fi
+
           TMPDIR=$UNIQUE_TO_UPDATER \
           UPDATE_NIX_NAME=${pkg.name or ""} \
           UPDATE_NIX_PNAME=${pkg.pname or ""} \

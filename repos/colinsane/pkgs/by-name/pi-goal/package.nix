@@ -1,30 +1,42 @@
 {
   buildNpmPackage,
   fetchFromGitHub,
+  jq,
   lib,
+  moreutils,
   nix-update-script,
   update-guard,
   updater-tools,
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-goal";
-  version = "0.37.0";
+  version = "0.40.0";
 
   src = fetchFromGitHub {
     owner = "narumiruna";
     repo = "pi-extensions";
     tag = "v${finalAttrs.version}";
     rootDir = "extensions/pi-goal";
-    hash = "sha256-1IdnPZ/CmIijH1mG5EFI9w5HJrnbjCySvHgLudardFw=";
+    hash = "sha256-xGTTfzF7DfvQwtj951oaS626Ed/WmPthZPZLJuEx5eI=";
     postFetch = ''
-      sed -i $out/package.json \
-        -e '/"@earendil-works\/pi-coding-agent": /d'
+      jq '
+        del(
+          .dependencies["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"],
+          .devDependencies["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"],
+          .peerDependencies["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"],
+          .peerDependenciesMeta["@earendil-works/pi-ai", "@earendil-works/pi-tui", "@earendil-works/pi-coding-agent"]
+        )
+      ' $out/package.json | sponge $out/package.json
     '';
+    nativeBuildInputs = [
+      jq
+      moreutils
+    ];
   };
 
-  npmDepsFetcherVersion = 2;
+  npmFlags = [ "--legacy-peer-deps" ];
 
-  npmDepsHash = "sha256-58b5aFJuVP6GUsD57d7X4hVc+B01OOlbmUULGdjz5Ww=";
+  npmDepsHash = "sha256-uwDjk71I0f6edlQHpwsELvhXjc9c3yN4WSXGvVd8c3I=";
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json

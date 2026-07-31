@@ -75,6 +75,11 @@ let
       #   ];
       #   # directTools = true;
       # };
+      auto-zoekt = lib.optionalAttrs cfg.auto-zoekt {
+        command = "auto-zoekt";
+        args = [ "mcp" ];
+        directTools = true;
+      };
       # ccc = {
       #   command = "ccc";
       #   args = [ "mcp" ];
@@ -191,9 +196,13 @@ in
       default = {};
       type = types.submodule {
         options = {
-          coderag = mkOption {
+          auto-zoekt = mkOption {
             type = types.bool;
             default = true;
+          };
+          coderag = mkOption {
+            type = types.bool;
+            default = false;
           };
         };
       };
@@ -248,6 +257,8 @@ in
       "playwright-mcp"
       "sane-fetch"
       # "serena"
+    ] ++ lib.optionals cfg.auto-zoekt [
+      "auto-zoekt"
     ] ++ lib.optionals cfg.coderag [
       "coderag"
     ];
@@ -257,6 +268,7 @@ in
     sandbox.extraHomePaths = [
       # ".cache/ck"
       ".cache/coderag"
+      ".cache/zoekt"
       # ".cocoindex_code"
       ".config/ha-mcp/ha-mcp.env"
       # ".config/kagi/kagi-api-key"

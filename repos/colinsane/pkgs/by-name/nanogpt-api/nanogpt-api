@@ -113,7 +113,7 @@ class ApiClient:
       return {}
 
   def handle_response(self, resp: requests.Response) -> Any:
-    resp_json = resp.json()
+    resp_json = resp.json(parse_float=lambda x: round(float(x), 9))
     logger.debug(f'-> {resp_json}')
     resp.raise_for_status()
     return resp_json

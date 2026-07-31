@@ -1,0 +1,129 @@
+#!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.git ps.python3 ps.python3.pkgs.mcp ps.zoekt ]'
+"""Minimal proof-of-concept code searcher which wraps the `zoekt` CLI.
+
+Exposes a `search` operation -- as an MCP tool and as a CLI subcommand --
+which transparently indexes the requested git repository (via
+`zoekt-git-index`) on first use, then queries the index with `zoekt`.
+Indexing is memoized per-process, so later searches may serve stale results
+-- acceptable for short-lived MCP sessions.
+"""
+
+import argparse
+import base64
+import functools
+import json
+import os
+import shutil
+import subprocess
+
+from mcp.server.fastmcp import FastMCP
+
+MAX_RESULTS = 50
+ZOEKT_BIN = shutil.which("zoekt") or "zoekt"
+ZOEKT_GIT_INDEX_BIN = shutil.which("zoekt-git-index") or "zoekt-git-index"
+
+
+def _default_index_root() -> str:
+  cache_home = os.environ.get("XDG_CACHE_HOME") or os.path.join(
+    os.path.expanduser("~"), ".cache"
+  )
+  return os.path.join(cache_home, "zoekt", "index")
+
+
+INDEX_ROOT = _default_index_root()
+
+
+@functools.lru_cache(maxsize=None)
+def _index_repo(repo_path: str) -> str:
+  """Index a git repository, once per process, and return its index dir."""
+  cmd = [
+    ZOEKT_GIT_INDEX_BIN,
+    "-index",
+    INDEX_ROOT,
+    repo_path,
+  ]
+  proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+  if proc.returncode != 0:
+    raise RuntimeError(f"zoekt-git-index failed: {proc.stderr.strip()}")
+  return INDEX_ROOT
+
+
+def do_search(query: str, repo_path: str, max_results: int, list_files: bool = False) -> str:
+  try:
+    index_dir = _index_repo(repo_path)
+  except RuntimeError as e:
+    return f"error: {e}"
+  # restrict results to the repository's primary indexed rev (HEAD).
+  cmd = [ZOEKT_BIN, "-index_dir", index_dir, "-jsonl", f"branch:HEAD ({query})"]
+  proc = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+
+  results = []
+  for line in proc.stdout.splitlines():
+    hit = json.loads(line)
+    if list_files:
+      if hit["FileName"] not in results:
+        results.append(hit["FileName"])
+    else:
+      for match in hit.get("LineMatches", []):
+        text = base64.b64decode(match["Line"]).decode("utf-8", "replace").strip()
+        results.append(f"{hit['FileName']}:{match['LineNumber']}: {text}")
+
+    if len(results) >= max_results:
+      results = results[:max_results]
+      break
+
+  output = "\n".join(results) + "\n\n" + proc.stderr.strip()
+  return output.strip() or "no results"
+
+
+def cli_search(query: str, repo_path: str, max_results: int, list_files: bool) -> None:
+  print(do_search(query, repo_path=repo_path, max_results=max_results, list_files=list_files))
+
+
+def cli_mcp() -> None:
+  mcp = FastMCP("auto-zoekt")
+
+  @mcp.tool()
+  def search(query: str, repo_path: str = ".", max_results: int = MAX_RESULTS, list_files: bool = False) -> str:
+    """
+    Search a git repository using zoekt code search. Returns fuzzy matches found inside the current checkout.
+
+    Args:
+      query: The zoekt query string, e.g. `foo` or `type:file content:bar`.
+      repo_path: Path to the git repository to search. Defaults to the current working directory.
+      max_results: Maximum number of results to return.
+      list_files: Return the paths of matched files instead of the content. Like ripgrep `-l`.
+    """
+    return do_search(query, repo_path=repo_path, max_results=max_results, list_files=list_files)
+
+  mcp.run()
+
+
+def main() -> None:
+  parser = argparse.ArgumentParser(
+    description="Transparently-indexing code search, backed by the `zoekt` CLI."
+  )
+  subparsers = parser.add_subparsers(dest="command")
+
+  search_parser = subparsers.add_parser("search", help="Search a git repository and print matches")
+  search_parser.add_argument("query", help="zoekt query string, e.g. `foo` or `type:file content:bar`")
+  search_parser.add_argument("--repo", default=".", help="path to the git repository to search (default: current directory)")
+  search_parser.add_argument("--max-results", type=int, default=MAX_RESULTS, help="maximum number of results to return")
+  search_parser.add_argument("-l", "--list", action="store_true", dest="list_files", help="print only the matching file paths, de-duplicated")
+
+  subparsers.add_parser("mcp", help="Run as an MCP server over stdio")
+
+  args = parser.parse_args()
+
+  if args.command == "search":
+    cli_search(args.query, repo_path=args.repo, max_results=args.max_results, list_files=args.list_files)
+  elif args.command == "mcp":
+    cli_mcp()
+  else:
+    parser.print_help()
+    raise ValueError(f"unknown command: {args.command}")
+
+
+if __name__ == "__main__":
+  main()

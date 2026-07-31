@@ -1,6 +1,6 @@
 { mkVersionedHttpZim }: mkVersionedHttpZim {
   owner = "other";
   pname = "archlinux_en_all_maxi";
-  version = "2026-04";
-  hash = "sha256-AI0hzFdpmOF/IUMwnDkpGG47H4MfMhadx8ZFtiB6DhQ=";
+  version = "2026-07";
+  hash = "sha256-w99VEBCpU9LBc6+NZaWWp85DSn+gdxdBvIAP7sytGUI=";
 }

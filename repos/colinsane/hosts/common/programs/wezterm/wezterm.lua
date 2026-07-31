@@ -5,6 +5,12 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
 
+config.font = wezterm.font_with_fallback {
+  -- TODO: plumb fron `config.sane.programs.fontconfig.config.font.fontconfig.defaultFonts.monospace`
+  'Monaspace Argon',
+  'Hack Nerd Font Propo',
+  'NotoMono Nerd Font Propo',
+}
 config.font_size = 14 -- TODO: plumb the same way i do alacritty
 config.adjust_window_size_when_changing_font_size = false
 config.window_close_confirmation = 'NeverPrompt'
