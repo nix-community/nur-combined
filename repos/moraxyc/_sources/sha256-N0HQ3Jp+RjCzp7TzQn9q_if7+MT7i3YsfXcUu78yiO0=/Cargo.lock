@@ -3181,6 +3181,7 @@ dependencies = [
  "chrono",
  "indexmap",
  "rustc_version",
+ "serde_json",
  "specta-macros",
  "url",
  "uuid",
