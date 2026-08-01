@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "oci://ghcr.io/home-operations/charts/tuppr";
   chart = "tuppr";
-  version = "0.4.4";
-  hash = "sha256-5Tko4g3UMkBFES6SZdcovtoIXGuREOa1kgkmKpNvNaQ=";
+  version = "0.4.6";
+  hash = "sha256-fSzdPBXUmBaS2qeYdDTfpGL6mzGDZ6xt581/6eLszwY=";
 
   meta = {
     description = "Helm chart for the Talos Linux upgrade controller";
