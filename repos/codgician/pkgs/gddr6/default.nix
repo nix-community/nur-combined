@@ -9,13 +9,13 @@
 
 stdenv.mkDerivation (_: {
   pname = "gddr6";
-  version = "0-unstable-2026-07-19";
+  version = "0-unstable-2026-07-31";
 
   src = fetchFromGitHub {
     owner = "olealgoritme";
     repo = "gddr6";
-    rev = "7ef74c599778e5ad20fbb04ab75aa355018d4a35";
-    hash = "sha256-E2WHgNYMbVmd0RRkOvteR+Eu/o3CDfYipZpxt7Cg+74=";
+    rev = "b5e11b1d75c11ac275b4abdcae60e1bdeb9f0de4";
+    hash = "sha256-lHkx3idy5eNP3nUvNmEUzQtDWkTf8LnXhs6gzy3MBvk=";
   };
 
   buildInputs = [ cmake ];

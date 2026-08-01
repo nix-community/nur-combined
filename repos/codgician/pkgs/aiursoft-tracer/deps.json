@@ -106,13 +106,13 @@
   },
   {
     "pname": "Aiursoft.UiStack",
-    "version": "10.0.23",
-    "hash": "sha256-2s34YNL5pIoZyRpTtbhe+/YAkjvmmvQHOzSDpPHQTlY="
+    "version": "10.0.24",
+    "hash": "sha256-RWVimBxC5SMgg6katfufWQKHbNSWUg+crVd0oFCDyEg="
   },
   {
     "pname": "Aiursoft.WebTools",
-    "version": "10.0.13",
-    "hash": "sha256-1ey1SWxz0FS4au4JtkqhdK+Za8FakE5Q+kGf5b7GPck="
+    "version": "10.0.14",
+    "hash": "sha256-D/SBeN7zLu9WGQQky6u7Qi9BWc/R6z9uyBNLBhTr8cE="
   },
   {
     "pname": "Aiursoft.WebTools.Abstractions",
@@ -586,8 +586,8 @@
   },
   {
     "pname": "Net.Codecrete.QrCodeGenerator",
-    "version": "3.0.0",
-    "hash": "sha256-1qjOQgvAEaboMALKgvVo4gdtWBtRn9R46N6gQ7dU1Q4="
+    "version": "3.1.0",
+    "hash": "sha256-OPcViDQepk3wOHLebwWsnLtvXDOORVhG/FjaXiGWdjI="
   },
   {
     "pname": "Newtonsoft.Json",
@@ -616,23 +616,23 @@
   },
   {
     "pname": "SkiaSharp",
-    "version": "4.150.1",
-    "hash": "sha256-Kda85aDEECz51qD3JqUPOaG3Hthrp38Byn6zJWFa1KA="
+    "version": "4.151.0",
+    "hash": "sha256-fkVTi54RULQEaAaXL2GNMhUlJxCaXUh/XeyA9PbzAZ8="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Linux.NoDependencies",
-    "version": "4.150.1",
-    "hash": "sha256-988ZI2mAmeGCb04a8ZDk09eQEFUZRoM4bsQVt2Wi0F8="
+    "version": "4.151.0",
+    "hash": "sha256-m4A7qeFVLQ63jtMh8c9Bt1VkF2ERUPAIoDKUYybs++4="
   },
   {
     "pname": "SkiaSharp.NativeAssets.macOS",
-    "version": "4.150.1",
-    "hash": "sha256-NYTJvHOfHAOjKqqwBiVSjsy1MiM2cm6NxXAnzcS09vg="
+    "version": "4.151.0",
+    "hash": "sha256-9+bJa/kpaWMPvpm0BqL4zfltfRqOMpt97tCUkwhGN6g="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Win32",
-    "version": "4.150.1",
-    "hash": "sha256-HhcG5jO8CCTsybT2XLNe7chmsc21JyXp0/9NyQ1Fvvo="
+    "version": "4.151.0",
+    "hash": "sha256-wD9RbquADVnxrAoRbJN0GvjiXm2YEwcQxKx8OoWXDqk="
   },
   {
     "pname": "SQLitePCLRaw.bundle_e_sqlite3",
