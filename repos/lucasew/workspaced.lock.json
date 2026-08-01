@@ -137,6 +137,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:hmans/beans",
+      "depName": "hmans/beans",
+      "currentValue": "v0.4.2",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:imputnet/helium-linux",
       "depName": "imputnet/helium-linux",
       "currentValue": "0.14.3.1",
@@ -164,6 +171,13 @@
       "datasource": "github-releases"
     },
     {
+      "kind": "tool",
+      "ref": "github:lewtec/contapila",
+      "depName": "lewtec/contapila",
+      "currentValue": "0.2.0",
+      "datasource": "github-releases"
+    },
+    {
       "kind": "source",
       "ref": "github:lewtec/skills",
       "depName": "lewtec/skills",
@@ -171,13 +185,6 @@
       "currentValue": "master",
       "currentDigest": "cc6a092360b137d55de349ea9f6c4eb98ee29746",
       "datasource": "git-refs"
-    },
-    {
-      "kind": "tool",
-      "ref": "github:lewtec/contapila",
-      "depName": "lewtec/contapila",
-      "currentValue": "0.2.0",
-      "datasource": "github-releases"
     },
     {
       "kind": "tool",

@@ -230,6 +230,11 @@ workspaced: {
 			global: true
 			bins: ["grok"]
 		}
+		beans: {
+			ref: "github:hmans/beans"
+			global: true
+			bins: ["beans"]
+		}
 	}
 
 	modules: {
