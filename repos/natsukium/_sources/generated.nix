@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "7a1ff08a5850b01a981ad831374a51002414fe9d";
+    version = "922f4ba844724466c2b381a6e14dd89c5ca68864";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "7a1ff08a5850b01a981ad831374a51002414fe9d";
+      rev = "922f4ba844724466c2b381a6e14dd89c5ca68864";
       fetchSubmodules = false;
-      sha256 = "sha256-aZULbvPxwc7cV3YMD3nXvxpleLjKxmSfi6HhPn+f/gI=";
+      sha256 = "sha256-UaVKWdJp2aouhJYW1cPyMSl/xBelLLAfa5upjjYhab0=";
     };
-    date = "2026-07-31";
+    date = "2026-08-01";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -48,15 +48,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "34787bf38ce429a84f94ae00a73418e32cc1abb8";
+    version = "a291a40a8adb3f2986bac57f2482ba34a679850b";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "34787bf38ce429a84f94ae00a73418e32cc1abb8";
+      rev = "a291a40a8adb3f2986bac57f2482ba34a679850b";
       fetchSubmodules = false;
-      sha256 = "sha256-hffz5Ae/INkYXRgZVX4FNejCbqC1l1aTigFRDFe8cYM=";
+      sha256 = "sha256-FS0DobdVJ8U8S1lviNFeT0aV4GIj00ON7BCgWO0DkE8=";
     };
-    date = "2026-07-06";
+    date = "2026-08-01";
   };
   playwright-cli = {
     pname = "playwright-cli";
