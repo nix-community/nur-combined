@@ -2,6 +2,7 @@
   lib,
   buildPythonPackage,
   fetchPypi,
+  numpy,
   scipy,
   pywavelets,
   pillow,
@@ -9,16 +10,17 @@
 
 buildPythonPackage rec {
   pname = "imagehash";
-  version = "4.3.1";
+  version = "4.3.2";
   format = "setuptools";
 
   src = fetchPypi {
     pname = "ImageHash";
     inherit version;
-    hash = "sha256-cDjRt/ngWFvrPdjAqVbwK5WjRsC18kqejMA+utrwqnA=";
+    hash = "sha256-5Up5gFr7gqNKzeR0ahZUBQOpY2/R/7MdjgmbKbu/gVY=";
   };
 
   propagatedBuildInputs = [
+    numpy
     scipy
     pywavelets
     pillow
