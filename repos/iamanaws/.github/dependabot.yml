@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: "nix"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "13:00"
+      timezone: "UTC"
+    groups:
+      flake-lock:
+        patterns:
+          - "*"
+    ignore:
+      - dependency-name: "nix-mineral"
+    commit-message:
+      prefix: "flake.lock"

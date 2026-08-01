@@ -1,0 +1,35 @@
+exec nitrogen --restore
+exec /usr/bin/rpws init 9 -k
+
+set winname title
+set wingravity center
+set transgravity center
+set bargravity center
+
+set border 1
+
+set font "Caskaydia Cove Nerd Font:size=10"
+set fgcolor "#DCDFE4"
+set bgcolor "#282C34"
+
+msgwait 6
+
+
+escape Super_L
+
+bind t exec kitty
+bind b exec firefox
+bind r exec rofi -show drun
+
+unbind c
+bind c exec kitty
+
+bind 1 exec rpws 1
+bind 2 exec rpws 2
+bind 3 exec rpws 3
+bind 4 exec rpws 4
+bind 5 exec rpws 5
+bind 6 exec rpws 6
+bind 7 exec rpws 7
+bind 8 exec rpws 8
+bind 9 exec rpws 9

@@ -1,0 +1,22 @@
+# Examples
+# https://github.com/Mic92/dotfiles/blob/d6114726d859df36ccaa32891c4963ae5717ef7f/nixos/.sops.yaml
+# https://github.com/getsops/sops#213using-sopsyaml-conf-to-select-kms-pgp-and-age-for-new-files
+keys:
+  - &alpha age135jhww6q6e46h30k4vjt2f6vrtduqxccu9rw25tcv46cku9q95nsgh6yzk
+  - &archimedes age1vk5urxzhnpzane2579frm8kwj2sd5g4e64pve0vmc35mz5z87a4q8s5fgg
+  - &daedalus age1yex4qwcqx33ghuxcxew9zl3kmdn44ashsafdgmmly6arra48wcmsy0re2a
+  - &goliath age1s2e5f6ayf33quexchwa75w5w6ss6jyxju38pjkwrwspefd2v8ezsh3c7l8
+creation_rules:
+  # path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
+  - path_regex: secrets/daedalus/.*
+    key_groups:
+      - age:
+        - *daedalus
+  - path_regex: secrets/[^/]+
+    key_groups:
+      - age:
+        - *alpha
+        - *archimedes
+        - *goliath
+        - *daedalus
+

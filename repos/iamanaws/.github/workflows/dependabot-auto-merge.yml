@@ -1,0 +1,26 @@
+name: "dependabot: auto-merge"
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - ready_for_review
+
+jobs:
+  enable-auto-merge:
+    if: github.actor == 'dependabot[bot]' && !github.event.pull_request.draft
+    permissions:
+      contents: write
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: rename PR and enable auto-merge
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_TITLE: "flake.lock: update"
+        run: |
+          gh pr edit "$PR_URL" --title "$PR_TITLE"
+          gh pr merge "$PR_URL" --squash --auto --subject "$PR_TITLE" --delete-branch

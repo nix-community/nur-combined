@@ -1,0 +1,94 @@
+{
+  "$base" = "rgb(282C34)";
+  "$text" = "rgb(DCDFE4)";
+  "$textAlpha" = "DCDFE4";
+  "$yellow" = "rgb(E5C07B)";
+  "$red" = "rgb(E06C75)";
+  "$accent" = "rgb(C678DD)";
+  "$accentAlpha" = "C678DD";
+  "$surface0" = "rgb(5A6374)";
+  "$font" = "caskaydia-cove";
+
+  "$ready_message" = "Scan fingerprint to unlock.";
+  "$present_message" = "Scanning fingerprint...";
+  "$check_message" = "Authenticating...";
+
+  background = {
+    blur_passes = 0;
+    color = "$base";
+  };
+
+  input-field = {
+    monitor = "";
+    size = "300, 60";
+    outline_thickness = 4;
+    dots_size = 0.2;
+    dots_spacing = 0.2;
+    dots_center = true;
+    outer_color = "$accent";
+    inner_color = "$surface0";
+    font_color = "$text";
+    fade_on_empty = false;
+    placeholder_text = ''<span foreground="##$textAlpha"><i>󰌾 Logged in as </i><span foreground="##$accentAlpha">$USER</span></span>'';
+    hide_input = false;
+    check_color = "$accent";
+    check_text = ''<span foreground="##$textAlpha">$check_message</span>'';
+    fail_color = "$red";
+    fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
+    capslock_color = "$yellow";
+    position = "0, -80";
+    halign = "center";
+    valign = "center";
+  };
+
+  label = [
+    {
+      text = "$FPRINTPROMPT $FPRINTFAIL";
+      color = "$text";
+      font_size = 15;
+      font_family = "$font";
+      position = "0, -150";
+      halign = "center";
+      valign = "center";
+    }
+    {
+      text = "Layout: $LAYOUT";
+      color = "$text";
+      font_size = 18;
+      font_family = "$font";
+      position = "30, -30";
+      halign = "left";
+      valign = "top";
+    }
+    {
+      text = "$TIME";
+      color = "$text";
+      font_size = 90;
+      font_family = "$font";
+      position = "-30, 0";
+      halign = "right";
+      valign = "top";
+    }
+    {
+      text = ''cmd[update:43200000] date +"%A, %d %B %Y"'';
+      color = "$text";
+      font_size = 25;
+      font_family = "$font";
+      position = "-30, -150";
+      halign = "right";
+      valign = "top";
+    }
+  ];
+
+  # USER AVATAR
+  # image = {
+  #   monitor = "";
+  #   # path = "$HOME/.face";
+  #   size = 100;
+  #   border_color = "$accent";
+  #   position = "0, 75";
+  #   halign = "center";
+  #   valign = "center";
+  # };
+
+}
