@@ -191,9 +191,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "179ebf69c9c3ade40cacc0f25e9557a43427c6ca",
-      "url": "https://github.com/pirafrank/what-size.yazi/archive/179ebf69c9c3ade40cacc0f25e9557a43427c6ca.tar.gz",
-      "hash": "sha256-7q/45TopqbojNRvYDmP9+hgSGPmiyLHBcV051qpOB2Y="
+      "revision": "c1a8cb62f47b10741fa833f01166af6114b06449",
+      "url": "https://github.com/pirafrank/what-size.yazi/archive/c1a8cb62f47b10741fa833f01166af6114b06449.tar.gz",
+      "hash": "sha256-ZCRxs7KecMgu5tSqQoKCPIELSI2X2SAOeYG6Ct6gTBo="
     },
     "yamb.yazi": {
       "type": "Git",

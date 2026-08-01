@@ -3,8 +3,8 @@
         "cargoLock": null,
         "date": null,
         "extract": {
-            "package-lock.json": "sha256-NksKacRpopm8lAaOG9tbHxJAcr4rlU0uL3dl_VkFbAA=/package-lock.json",
-            "package.json": "sha256-NksKacRpopm8lAaOG9tbHxJAcr4rlU0uL3dl_VkFbAA=/package.json"
+            "package-lock.json": "sha256-fENOOdooi4XbIDjcr02q8qzUCzdo2IW_Bca43SawZ44=/package-lock.json",
+            "package.json": "sha256-fENOOdooi4XbIDjcr02q8qzUCzdo2IW_Bca43SawZ44=/package.json"
         },
         "name": "pi-acp",
         "passthru": null,
@@ -16,11 +16,11 @@
             "name": null,
             "owner": "svkozak",
             "repo": "pi-acp",
-            "rev": "v0.0.32",
-            "sha256": "sha256-NksKacRpopm8lAaOG9tbHxJAcr4rlU0uL3dl/VkFbAA=",
+            "rev": "v0.0.33",
+            "sha256": "sha256-fENOOdooi4XbIDjcr02q8qzUCzdo2IW/Bca43SawZ44=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.0.32"
+        "version": "v0.0.33"
     }
 }
