@@ -235,6 +235,11 @@ workspaced: {
 			global: true
 			bins: ["beans"]
 		}
+		nh: {
+			ref: "github:nix-community/nh"
+			global: true
+			bins: ["nh"]
+		}
 	}
 
 	modules: {

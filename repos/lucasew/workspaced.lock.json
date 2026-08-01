@@ -174,7 +174,7 @@
       "kind": "tool",
       "ref": "github:lewtec/contapila",
       "depName": "lewtec/contapila",
-      "currentValue": "0.2.0",
+      "currentValue": "0.2.1",
       "datasource": "github-releases"
     },
     {
@@ -201,6 +201,13 @@
       "currentValue": "master",
       "currentDigest": "833e99da856a33ef2809a0606ed338224a456eca",
       "datasource": "git-refs"
+    },
+    {
+      "kind": "tool",
+      "ref": "github:nix-community/nh",
+      "depName": "nix-community/nh",
+      "currentValue": "v4.4.2",
+      "datasource": "github-releases"
     },
     {
       "kind": "tool",
