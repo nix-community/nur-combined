@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.112";
+    version = "v7.2.113";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.112";
-      hash = "sha256-vnpS5w5SyZvni8lapHAQQsVq69Se99XLp7Kc0/eBH2M=";
+      tag = "v7.2.113";
+      hash = "sha256-aget6PRnWkzNy/QAG54qCRjHfTRui3srplM+U73Hlbc=";
     };
   };
   cockpy = {
@@ -439,26 +439,26 @@
   };
   dbip-asn-lite = {
     pname = "dbip-asn-lite";
-    version = "2026-07";
+    version = "2026-08";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-07.mmdb.gz";
-      hash = "sha256-n11OaNTXgmyErZLgOqiGqzoDVHb9tctRJUxpfstkAzo=";
+      url = "https://download.db-ip.com/free/dbip-asn-lite-2026-08.mmdb.gz";
+      hash = "sha256-EraUoa7u7j2HR4aC+omhquQ4affDMmTHUV/R+SmSAT4=";
     };
   };
   dbip-city-lite = {
     pname = "dbip-city-lite";
-    version = "2026-07";
+    version = "2026-08";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-city-lite-2026-07.mmdb.gz";
-      hash = "sha256-CMPla7LzmULVvCPCgQbU5Os51L7AB3XAdpRwLDGC9t8=";
+      url = "https://download.db-ip.com/free/dbip-city-lite-2026-08.mmdb.gz";
+      hash = "sha256-K1MgPsNql1BRqBidwSB9Yk47wwL77kdkiShHZTO+adE=";
     };
   };
   dbip-country-lite = {
     pname = "dbip-country-lite";
-    version = "2026-07";
+    version = "2026-08";
     src = fetchurl {
-      url = "https://download.db-ip.com/free/dbip-country-lite-2026-07.mmdb.gz";
-      hash = "sha256-mJxXqa0cHJMDLiisxkOv3wNZfqKEgFIPbxx26mQgUH8=";
+      url = "https://download.db-ip.com/free/dbip-country-lite-2026-08.mmdb.gz";
+      hash = "sha256-N0IPO6MRcRPQAFP56ddU7mvltKGefIHRGkmjBOFwRFE=";
     };
   };
   decluttarr = {
@@ -833,26 +833,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.07.31";
+    version = "2026.08.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.31/GeoLite2-ASN.mmdb";
-      hash = "sha256-R35TpNqXQv1i7x5uEGy0jczxA2et9Cf4qijpi30ITpc=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.01/GeoLite2-ASN.mmdb";
+      hash = "sha256-3c7BRePD6gY4nYhyNY2mU/kIbe3rvX0Ptcdb4nbZRB4=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.07.31";
+    version = "2026.08.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.31/GeoLite2-City.mmdb";
-      hash = "sha256-5ClIoaodG8omWe63OlMAUCHMwbUAjlv3qZPlP7T/X+Y=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.01/GeoLite2-City.mmdb";
+      hash = "sha256-bmaEyrBOu6EMHqn0pEMXXKD/CA4lXoT57wNQUXWCZX4=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.07.31";
+    version = "2026.08.01";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.07.31/GeoLite2-Country.mmdb";
-      hash = "sha256-uIXeAvcxlZ1q6sqYEZaAbztkwlJREUG1gQwxQf3oHRA=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.01/GeoLite2-Country.mmdb";
+      hash = "sha256-0Y8TkBT/Md0LAF4WoVWEnA0mtZxl2ceRaKeA2igYk2Q=";
     };
   };
   glauth = {
@@ -913,12 +913,12 @@
   };
   grok-search-rs = {
     pname = "grok-search-rs";
-    version = "v0.1.22";
+    version = "v0.1.23";
     src = fetchFromGitHub {
       owner = "Episkey-G";
       repo = "GrokSearch-rs";
-      tag = "v0.1.22";
-      hash = "sha256-nCjej8WWfh9rGeS+TU9NQFhWkuSIXVuHYI3ODsneidM=";
+      tag = "v0.1.23";
+      hash = "sha256-/iE5j2TKDYskOpwjM5EsJQa/XklryDpMQ+Crs4+2vTI=";
     };
   };
   gwmp-mux = {
@@ -1036,7 +1036,7 @@
       owner = "feder-cr";
       repo = "firefox_antidetect_patch";
       tag = "firefox-18";
-      hash = "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=";
+      hash = "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=";
     };
   };
   it-tools = {
@@ -1382,12 +1382,12 @@
   };
   modelscope-hub = {
     pname = "modelscope-hub";
-    version = "v0.1.9";
+    version = "v0.2.0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope_hub";
-      tag = "v0.1.9";
-      hash = "sha256-FyR0R9773dmKQJqfZZL4OJXrXAj6fxctOaiS03lKSAo=";
+      tag = "v0.2.0";
+      hash = "sha256-8q4Oz8WGVavrS1afolr8DYR7ATQSzssCgZpp+bdxbng=";
     };
   };
   mtkclient = {
@@ -1472,12 +1472,12 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v1.0.0-rc.22";
+    version = "v1.0.0-rc.23";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      tag = "v1.0.0-rc.22";
-      hash = "sha256-2uTynH8PfmfFMPP/ZotLyQLtvCzPgucLPH1j1KoKOOY=";
+      tag = "v1.0.0-rc.23";
+      hash = "sha256-uZe//07GuM2tjW5fgM8eL4/XhoVAmfdHZioVd4LnOXE=";
     };
   };
   nft-fullcone = {
@@ -1537,14 +1537,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "7f4754721ad7ade7c80566e150ad079bd70cf2fb";
+    version = "49608d3d76082d52fc7db34a566222d12e22239c";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "7f4754721ad7ade7c80566e150ad079bd70cf2fb";
-      hash = "sha256-B4rbghyLy8FlPW/gTJSsbrBEndccbc0/jQyP0gvg5Q4=";
+      rev = "49608d3d76082d52fc7db34a566222d12e22239c";
+      hash = "sha256-yq+Dtdoy8m/opWUKp2e5zuIQb1By7enp5yfm+1pTbbU=";
     };
-    date = "2026-07-31";
+    date = "2026-08-01";
   };
   nginx-njs = {
     pname = "nginx-njs";
