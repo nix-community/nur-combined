@@ -1,0 +1,10 @@
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1419,6 +1419,7 @@
+ 		"node_modules/@earendil-works/pi-coding-agent/node_modules/@earendil-works/pi-agent-core": {
+ 			"version": "0.80.5",
+ 			"resolved": "https://registry.npmjs.org/@earendil-works/pi-agent-core/-/pi-agent-core-0.80.5.tgz",
++			"integrity": "sha512-413NZ5BEwSdL+BAtoBlk7hcA3UGvltcdAPtFoMZ1uqLZRNIoFU0WhNXGwv5Sp1SPBmMR6MAc3neoA+MdOlWJ2w==",
+ 			"license": "MIT",
+ 			"dependencies": {
+ 				"@earendil-works/pi-ai": "^0.80.5",
