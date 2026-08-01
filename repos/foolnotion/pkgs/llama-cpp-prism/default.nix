@@ -8,10 +8,10 @@
 
   rocmSupport ? !stdenv.hostPlatform.isDarwin,
   rocmPackages ? { },
-  # 6900 XT (RDNA2) by default; override per-machine, e.g. the 9060 XT (RDNA4)
-  # needs its own target - confirm with `rocminfo | grep gfx` on that box
-  # rather than trusting a guess here.
-  rocmGpuTargets ? [ "gfx1030" ],
+  # Default to the current main Linux box's RX 9070 XT (RDNA4, Navi 48).
+  # Override per machine when needed; confirm with `rocminfo | grep gfx`
+  # rather than guessing from the marketing name.
+  rocmGpuTargets ? [ "gfx1201" ],
 
   metalSupport ? stdenv.hostPlatform.isDarwin,
 
