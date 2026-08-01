@@ -174,7 +174,7 @@
       "kind": "tool",
       "ref": "github:lewtec/contapila",
       "depName": "lewtec/contapila",
-      "currentValue": "0.2.1",
+      "currentValue": "0.2.2",
       "datasource": "github-releases"
     },
     {
@@ -190,7 +190,7 @@
       "kind": "tool",
       "ref": "github:lucasew/refactree",
       "depName": "lucasew/refactree",
-      "currentValue": "0.9.1",
+      "currentValue": "0.9.2",
       "datasource": "github-releases"
     },
     {
