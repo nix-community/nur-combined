@@ -14,12 +14,12 @@
 
 buildPythonPackage rec {
   pname = "aioice";
-  version = "0.10.1";
+  version = "0.10.2";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-XI4UIhA0SNFxklxnj7OXleX+E9eRCL67AKp1qJnCCUo=";
+    hash = "sha256-vyNsaCnuM8jlQFNdMc1aBmtTHLVt4r6UxGvnbWixqAY=";
   };
 
   build-system = [

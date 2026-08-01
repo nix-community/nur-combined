@@ -18,12 +18,12 @@
 
 buildPythonPackage rec {
   pname = "aiortc";
-  version = "1.13.0";
+  version = "1.15.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-XSCZdcItCRD7Wg8OLKqCjy2pZsU1gPfHFwrDoWqHFiA=";
+    hash = "sha256-7mwHV8oHDPbWvuRBk21u3iTu9RIRu/9mU0CcVA9y5iU=";
   };
 
   build-system = [

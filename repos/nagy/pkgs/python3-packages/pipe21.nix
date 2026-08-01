@@ -1,34 +1,31 @@
 {
   lib,
-  python3,
+  python,
   fetchPypi,
   buildPythonApplication,
 }:
 
 buildPythonApplication rec {
   pname = "pipe21";
-  version = "1.23.0";
+  version = "1.24.0";
   format = "pyproject";
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-U4MFuujCggI64taGhLnFkgaHzYyg8o70H0H46EjklqM=";
+    hash = "sha256-wr3MQYvzVJA73SgAgO/W0lFiL2htYVpKztxUmTWMq2k=";
   };
 
-  nativeBuildInputs = [ python3.pkgs.setuptools ];
+  nativeBuildInputs = [ python.pkgs.setuptools ];
 
-  passthru.optional-dependencies = with python3.pkgs; {
+  passthru.optional-dependencies = with python.pkgs; {
     dev = [
-      autopep8
-      black
       bumpver
-      coveralls
       hypothesis
       mkdocs
       mkdocs-material
+      mypy
       pre-commit
       pytest
-      pytest-cov
     ];
   };
 
