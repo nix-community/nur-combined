@@ -142,6 +142,7 @@ with (import ./private.nix { inherit pkgs; });
             paths = with self; [
               rain
               wireguird
+              nix-software-center
             ];
           }
         );
