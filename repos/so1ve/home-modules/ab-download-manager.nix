@@ -35,6 +35,15 @@ in
       '';
     };
 
+    autostart.enable = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Start AB Download Manager with the graphical session. Home Manager
+        owns the autostart entry; the application's built-in setting is ignored.
+      '';
+    };
+
     browserIntegration.firefox = {
       enable = lib.mkOption {
         type = lib.types.bool;
@@ -68,20 +77,29 @@ in
 
     home.packages = [ package ];
 
-    # Older package wrappers exposed the immutable store path to jpackage, so
-    # ABDM persisted a launcher that stopped working after garbage collection.
-    home.activation.migrateAbDownloadManagerAutostart = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      autostart_file=${lib.escapeShellArg "${config.xdg.configHome}/autostart/com.abdownloadmanager.desktop"}
-      if [[ -f "$autostart_file" ]] \
-        && ${pkgs.gnugrep}/bin/grep -Eq \
-          '^Exec="?/nix/store/[a-z0-9]+-ab-download-manager-[^"/]+/(opt/ab-download-manager/)?bin/ABDownloadManager"?([[:space:]]|$)' \
-          "$autostart_file"
-      then
-        ${pkgs.gnused}/bin/sed -i \
-          '/^Exec=/c\Exec="${config.home.profileDirectory}/bin/ABDownloadManager" --background' \
-          "$autostart_file"
-      fi
-    '';
+    xdg.configFile."autostart/com.abdownloadmanager.desktop" = lib.mkIf cfg.autostart.enable {
+      force = true;
+      text = ''
+        [Desktop Entry]
+        Type=Application
+        Name=AB Download Manager
+        Comment=Manage and accelerate downloads
+        Exec="${config.home.profileDirectory}/bin/ABDownloadManager" --background
+        Icon=com.abdownloadmanager
+        Terminal=false
+        NoDisplay=true
+        X-GNOME-Autostart-enabled=true
+      '';
+    };
+
+    home.activation.removeAbDownloadManagerAutostart = lib.mkIf (!cfg.autostart.enable) (
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        autostart_file=${lib.escapeShellArg "${config.xdg.configHome}/autostart/com.abdownloadmanager.desktop"}
+        if [[ -e "$autostart_file" || -L "$autostart_file" ]]; then
+          ${pkgs.coreutils}/bin/rm -f -- "$autostart_file"
+        fi
+      ''
+    );
 
     programs.firefox = lib.mkIf cfg.browserIntegration.firefox.enable {
       nativeMessagingHosts = [ package ];

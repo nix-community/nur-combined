@@ -20,17 +20,16 @@ Or use the Home Manager module:
 }
 ```
 
-Optional scaling and Firefox integration:
+Options:
 
 ```nix
 programs.ab-download-manager = {
   enable = true;
   uiScale = 2;
+  autostart.enable = true; # ABDM's autostart feature is overridden by this package because it doesn't handle path to the binary correctly.
   browserIntegration.firefox = {
     enable = true;
     installExtension = true;
   };
 };
 ```
-
-The Home Manager module also migrates autostart entries created by older package versions from an immutable Nix store path to the stable user profile launcher.

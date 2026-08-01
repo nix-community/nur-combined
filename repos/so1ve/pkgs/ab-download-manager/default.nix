@@ -4,6 +4,7 @@
   callPackage,
   fontconfig,
   freetype,
+  jdk25_headless,
   lib,
   libGL,
   libX11,
@@ -36,6 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [
     autoPatchelfHook
+    jdk25_headless
     makeWrapper
   ];
 
@@ -61,6 +63,30 @@ stdenv.mkDerivation (finalAttrs: {
     mkdir -p "$out/opt/ab-download-manager"
     cp -r bin lib "$out/opt/ab-download-manager/"
 
+    auto_start_jars=("$out/opt/ab-download-manager/lib/app"/auto-start-desktop-*.jar)
+    if [[ ''${#auto_start_jars[@]} -ne 1 || ! -f "''${auto_start_jars[0]}" ]]; then
+      echo "expected exactly one auto-start-desktop JAR" >&2
+      exit 1
+    fi
+
+    mkdir -p nix-autostart-classes
+    install -m444 ${./Startup.java} Startup.java
+    javac \
+      --release 25 \
+      -cp "''${auto_start_jars[0]}" \
+      -d nix-autostart-classes \
+      Startup.java
+    jar --create \
+      --file "$out/opt/ab-download-manager/lib/app/nix-disable-autostart.jar" \
+      -C nix-autostart-classes .
+
+    for config_file in "$out/opt/ab-download-manager/lib/app"/*.cfg; do
+      substituteInPlace "$config_file" \
+        --replace-fail \
+        "[Application]" \
+        $'[Application]\napp.classpath=$APPDIR/nix-disable-autostart.jar'
+    done
+
     ${lib.optionalString (uiScale != null) ''
       substituteInPlace \
         "$out/opt/ab-download-manager/lib/app/ABDownloadManager.cfg" \
@@ -79,13 +105,7 @@ stdenv.mkDerivation (finalAttrs: {
         "$out/opt/ab-download-manager/bin/$program" \
         "$out/bin/$program" \
         --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ fontconfig ]}" \
-        --set-default FONTCONFIG_FILE "${fontconfig.out}/etc/fonts/fonts.conf" \
-        --run 'app_path="$0"
-          candidate="$(command -v "''${0##*/}" || true)"
-          if [[ -n "$candidate" && "$candidate" -ef '"$out/bin/$program"' ]]; then
-            app_path="$candidate"
-          fi
-          export _JAVA_OPTIONS="''${_JAVA_OPTIONS:+$_JAVA_OPTIONS }-Djpackage.app-path=$app_path"'
+        --set-default FONTCONFIG_FILE "${fontconfig.out}/etc/fonts/fonts.conf"
     done
 
     install -Dm444 \
