@@ -1,70 +1,46 @@
 {
   lib,
-  stdenv,
-  python3Packages,
-  libnotify,
-  makeWrapper,
-  procps,
-  coreutils,
-  util-linux,
+  rustPlatform,
+  fetchFromGitHub,
+  pkg-config,
+  alsa-lib,
 }:
-let
-  pythonEnv = python3Packages.python.withPackages (
-    ps: with ps; [
-      evdev
-      pygame-ce
-    ]
-  );
-in
-stdenv.mkDerivation {
-  pname = "wayclick";
-  version = "1.0.0";
 
-  src = ./.;
+rustPlatform.buildRustPackage (finalAttrs: {
+  pname = "wayclick";
+  version = "0-unstable-2026-07-20";
+
+  src = fetchFromGitHub {
+    owner = "lonerOrz";
+    repo = "wayclick";
+    rev = "7eb8d9d0e615abe2c4ace1c300497737b8d94d6f";
+    hash = "sha256-9IzF5YWw2plY/kGM0LBkde3tVfNulwF+QbyHKM///CA=";
+  };
+
+  cargoHash = "sha256-QYp5B+amLHIY4Yr/kCKngbv4voeBdiY+8czbcWvmdtQ=";
 
   nativeBuildInputs = [
-    makeWrapper
+    pkg-config
   ];
 
   buildInputs = [
-    pythonEnv
-    libnotify
+    alsa-lib
   ];
 
-  dontBuild = true;
+  postInstall = ''
 
-  installPhase = ''
-    mkdir -p $out/bin
-    mkdir -p $out/lib/wayclick
-
-    cp src/wayclick.sh $out/lib/wayclick/wayclick.sh
-    cp src/runner.py   $out/lib/wayclick/runner.py
-
-    chmod +x $out/lib/wayclick/wayclick.sh
-
-    makeWrapper \
-      $out/lib/wayclick/wayclick.sh \
-      $out/bin/wayclick \
-      --set WAYCLICK_RUNNER $out/lib/wayclick/runner.py \
-      --set PYTHON ${pythonEnv}/bin/python3 \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          procps
-          coreutils
-          util-linux
-          libnotify
-        ]
-      }
+    mkdir -p $out/share/wayclick
+    cp -r $src/assets/default $out/share/wayclick/config
   '';
 
-  passthru.autoUpdate = false;
+  passthru.updateArgs = [ "--version=branch" ];
 
   meta = {
     description = "Low-latency key click sound engine using evdev + pygame";
-    homepage = "https://github.com/dusklinux/dusky";
-    license = lib.licenses.mit;
+    homepage = "https://github.com/lonerOrz/wayclick";
+    license = lib.licenses.bsd3;
     platforms = lib.platforms.linux;
     maintainers = with lib.maintainers; [ lonerOrz ];
     mainProgram = "wayclick";
   };
-}
+})
