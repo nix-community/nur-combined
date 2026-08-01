@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation rec {
   pname = "stltostp_git";
-  version = "unstable-2025-11-27";
+  version = "unstable-2026-08-02";
 
   src = fetchFromGitHub {
     owner = "slugdev";
     repo = "stltostp";
-    rev = "b22cfbda0cfb79add475ec66939e6eb714e00082";
-    sha256 = "1hpx15jc0hp4likvqnnh93wmh1d1q0vm60izi1m63fgxm7grkcb2";
+    rev = "e083236";
+    hash = "sha256-p0+h2J1V4cdTdYy9G7S1HI3ahxs/EN3A13Lf2PHyWfM=";
   };
 
   nativeBuildInputs = [ cmake ];

@@ -7,22 +7,16 @@
 
 stdenv.mkDerivation rec {
   pname = "stltostp";
-  version = "1.0.1";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "slugdev";
     repo = "stltostp";
     rev = "v${version}";
-    sha256 = "1bqr6w5n082nj16cr6wh90n9xxiwaa2v36mmy4v8fqrif1wqf3p2";
+    hash = "sha256-ITC4Z4Cck3KE4pMHNVfxLUJ9utyzpH2TvqsbyLSU/jk=";
   };
 
-  patches = [ ./fix-build.patch ];
 
-  prePatch = ''
-    for f in main.cpp StepKernel.h StepKernel.cpp; do
-      sed -i 's/\r$//' "$f"
-    done
-  '';
 
   nativeBuildInputs = [ cmake ];
 
