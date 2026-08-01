@@ -8,13 +8,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libzstd-seek";
-  version = "1.2.0";
+  version = "1.3.0";
 
   src = fetchFromGitHub {
     owner = "martinellimarco";
     repo = "libzstd-seek";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-u8TEpvs+xMW2UhNNsEQRJGc+tChZ+ibTdkcafqq45EE=";
+    hash = "sha256-cBq1n4X+9hxCqj3oieP5bAKBzVjuf3hBepX29bO9QI4=";
   };
 
   cmakeFlags = [ "-DBUILD_SHARED_LIBS=YES" ];

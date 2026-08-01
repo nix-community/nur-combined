@@ -1,24 +1,24 @@
 {
   lib,
   buildPythonPackage,
-  fetchPypi,
+  fetchFromGitHub,
   setuptools,
-  wheel,
 }:
 
 buildPythonPackage rec {
   pname = "pybase62";
-  version = "0.6.0";
+  version = "1.0.0";
   pyproject = true;
 
-  src = fetchPypi {
-    inherit pname version;
-    hash = "sha256-td+lZICFXRWeG+ZFQ1NbJNLDXN0Y1hfxB7734vdBNyI=";
+  src = fetchFromGitHub {
+    owner = "suminb";
+    repo = "base62";
+    tag = "v${version}";
+    hash = "sha256-7N/SGJAVwJOy1ObijA2s9XMrqMMb2SUMJaN72ITUrOM=";
   };
 
   build-system = [
     setuptools
-    wheel
   ];
 
   pythonImportsCheck = [
@@ -27,7 +27,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python module for base62 encoding";
-    homepage = "https://pypi.org/project/pybase62";
+    homepage = "https://github.com/suminb/base62";
     license = lib.licenses.bsd2WithViews;
     maintainers = with lib.maintainers; [ nagy ];
     mainProgram = "pybase62";

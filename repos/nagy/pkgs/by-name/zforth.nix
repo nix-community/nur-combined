@@ -7,13 +7,13 @@
 
 stdenv.mkDerivation {
   pname = "zforth";
-  version = "0-unstable-2025-03-30";
+  version = "0-unstable-2025-08-15";
 
   src = fetchFromGitHub {
     owner = "zevv";
     repo = "zForth";
-    rev = "4f447527f732dc46f389a47b873077f287e0073e";
-    hash = "sha256-PMC0szoJV57w3IVUKoAth9g9F1g7aAAs33ppuVzRQ2o=";
+    rev = "41db72d165c1539d57f3f79970fc57ea881a79dc";
+    hash = "sha256-orHD3dy0SVc+8FXgM28ft3v6xA+RbGKRSBWhKhqs2IM=";
   };
 
   buildInputs = [ readline ];

@@ -6,16 +6,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "sqlite-zstd";
-  version = "0.3.2";
+  version = "0.3.5";
 
   src = fetchFromGitHub {
     owner = "phiresky";
     repo = "sqlite-zstd";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-bl9CF/w6A1Ugz8t+8WimMNOGzysL4eiiu07d2+KND8k=";
+    hash = "sha256-mWkgU60fPQsh6N+T1nn3a0HZhKlF4HapDSg1aFNvKx8=";
   };
 
-  cargoHash = "sha256-pCLcCoVLnu4i0yO57T8V3D4WMKfSu3wgPKchx3jhviU=";
+  cargoHash = "sha256-OeHR3gdhunqhLnVeq/Ux52dzqDHCNUpuicjwsUV8urg=";
 
   # TODO use system provided sqlite and zstd
   # buildInputs = [ sqlite zstd ];

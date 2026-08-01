@@ -6,14 +6,14 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "wikipedia-mcp";
-  version = "1.6.0";
+  version = "2.0.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Rudra-ravi";
     repo = "wikipedia-mcp";
     rev = "v${version}";
-    hash = "sha256-GfZ4mTbtqE4yK5no4LfmIHK3iY3FM/mB6t94w7SzC5Y=";
+    hash = "sha256-Jm+WGUBRiDX88vcDnDOcevWHuksTamu8IWXO5ajccR0=";
   };
 
   build-system = [

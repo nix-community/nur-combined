@@ -6,16 +6,16 @@
 
 buildGoModule {
   pname = "yggmail";
-  version = "0-unstable-2026-02-24";
+  version = "0-unstable-2026-07-24";
 
   src = fetchFromGitHub {
     owner = "neilalexander";
     repo = "yggmail";
-    rev = "aa1c8c72fc2a73a8eb4cb667ec37062bc3ffc29f";
-    hash = "sha256-lhOLNFH6aZSFQTtxkFZLGNvYiWE/2n6K6/AkgiYmCJ8=";
+    rev = "727c60d038f12ee00b746cb356f199d09f340a6e";
+    hash = "sha256-vXKQ3bJm04IDMuUnnZhRa+v+qZaSQth9BQ4fn12zVW0=";
   };
 
-  vendorHash = "sha256-Lm3xgMLVaUyXgxjsjkd5PopVbKWKKvsSovNd2AeCA18=";
+  vendorHash = "sha256-Edf8Ugxi7IFWd8QARzomQy/jcL4wC3yYj2rOxek+6ms=";
 
   ldflags = [
     "-s"
