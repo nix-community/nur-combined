@@ -57,11 +57,11 @@
 
 stdenv.mkDerivation rec {
   pname = "classin";
-  version = "6.0.7.3367";
+  version = "6.0.8.2737";
 
   src = fetchurl {
     url = "https://www.eeo.cn/download/client/classin_${version}_amd64.deb";
-    hash = "sha256-8+VEAPa+G1/LvkBhiHj1Hh4sCmctfKwKIzywRCi82x8=";
+    hash = "sha256-w+hx6vbygQ0Mn/sW9CWaapd4T27XMPQifd3vZoLXPgc=";
   };
 
   nativeBuildInputs = [

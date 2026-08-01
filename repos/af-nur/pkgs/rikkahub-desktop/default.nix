@@ -16,8 +16,8 @@
             src = fetchFromGitHub {
                 owner = "yuh-G";
                 repo = "rikkahub-desktop";
-                rev = "e322d8c24f9bd97cfa50051434accbb505536b0b";
-                hash = "sha256-dEgaDF1i7O+0QbGiqSRIm3OzIPjVbctRIti560VPgs0=";
+                rev = "33f5245bb02aa4ae51ff509deac53d899d72fc60";
+                hash = "sha256-KiF9M+/6n4tSXhO0nGlnD4eXK8hbgkrz31mfnvd690Q=";
             };
 
             nativeBuildInputs = [
@@ -68,8 +68,8 @@
             src = fetchFromGitHub {
                 owner = "yuh-G";
                 repo = "rikkahub-desktop";
-                rev = "e322d8c24f9bd97cfa50051434accbb505536b0b";
-                hash = "sha256-dEgaDF1i7O+0QbGiqSRIm3OzIPjVbctRIti560VPgs0=";
+                rev = "33f5245bb02aa4ae51ff509deac53d899d72fc60";
+                hash = "sha256-KiF9M+/6n4tSXhO0nGlnD4eXK8hbgkrz31mfnvd690Q=";
             };
 
             nativeBuildInputs = [
@@ -124,7 +124,7 @@ in symlinkJoin {
         license = {
             shortName = "rikkahub-segmented-dual";
             fullName = "RikkaHub Segmented Dual License";
-            url = "https://github.com/yuh-G/rikkahub-desktop/blob/e322d8c24f9bd97cfa50051434accbb505536b0b/LICENSE";
+            url = "https://github.com/yuh-G/rikkahub-desktop/blob/33f5245bb02aa4ae51ff509deac53d899d72fc60/LICENSE";
             free = false;
             redistributable = true;
         };

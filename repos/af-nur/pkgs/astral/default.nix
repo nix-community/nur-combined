@@ -34,13 +34,13 @@
 
 let
   pname = "astral";
-  version = "2.8.7";
+  version = "2.9.9";
 
   src = fetchFromGitHub {
     owner = "ldoubil";
     repo = "astral";
     tag = "v${version}";
-    hash = "sha256-b3QFgm0ZMnsuExabPuCGiTdsn46CD/MO0nSVSt1cbV0=";
+    hash = "sha256-ejoBbJygMNV7ZI9dg8VdhX1Z6aYNCZWPznyFhIpIW7Q=";
   };
 
   astralLicense = {
