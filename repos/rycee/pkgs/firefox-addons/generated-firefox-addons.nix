@@ -349,10 +349,10 @@
     };
     "angular-devtools" = buildMozillaXpiAddon {
       pname = "angular-devtools";
-      version = "1.18.0";
+      version = "1.19.0";
       addonId = "{20a9bb38-ed7c-4faf-9aaf-7c5d241fd747}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4915981/angular_devtools-1.18.0.xpi";
-      sha256 = "bf7460efabc04ded4351de3bbf518b15c4b3f71153da9f05b64246ebc3837321";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928315/angular_devtools-1.19.0.xpi";
+      sha256 = "947c1e45caf6c264d0fdb515cccafd9f2713dab5445944881e64eb6ad0fd585c";
       meta = with lib;
       {
         homepage = "https://angular.dev/tools/devtools/";
@@ -2914,10 +2914,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "153.0.20260727.124451";
+      version = "154.0.20260731.90442";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922672/dansk_da_language_pack-153.0.20260727.124451.xpi";
-      sha256 = "ae840bfd1daf9784123823e20e8292e563c804fa28d5aa41f0205c38ea7e4e73";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930570/dansk_da_language_pack-154.0.20260731.90442.xpi";
+      sha256 = "cb3e3cd8545b541f1cf1d0649e75e528d4483c658110c10750a7c9f4b0be6f1f";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3130,10 +3130,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "154.0.20260729.90538";
+      version = "154.0.20260731.90442";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4926455/deutsch_de_language_pack-154.0.20260729.90538.xpi";
-      sha256 = "2e54f88deabdc6efe890bde8c53cc1c77a9128ae53bf242990bf99d0dd2a203e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930571/deutsch_de_language_pack-154.0.20260731.90442.xpi";
+      sha256 = "9cd7715c784e3b8bd42dab643bd9342f5801c7ac9e7e7f1f0227853f21ac45af";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -3870,10 +3870,10 @@
     };
     "enhancer-for-youtube" = buildMozillaXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.135";
+      version = "2.0.135.1";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4904559/enhancer_for_youtube-2.0.135.xpi";
-      sha256 = "24c0107ff01cffd76560c9a76f07f274d7168f18f0aab7899fdd239138e24507";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4926836/enhancer_for_youtube-2.0.135.1.xpi";
+      sha256 = "f0de0ef7f2616df69a420c53e40e380f862771841637a4e125aef3417a27be2b";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -4629,10 +4629,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "154.0.20260729.90538";
+      version = "154.0.20260731.90442";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4926447/francais_language_pack-154.0.20260729.90538.xpi";
-      sha256 = "7a916cc5f800b8aaa0bd087c2123d5ae96aee40231e8b10afae0c02a46b971f0";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930590/francais_language_pack-154.0.20260731.90442.xpi";
+      sha256 = "87e07bb7af4b7f5742156aca9ae4c234bdb624f1bf06d42c6c086125aff56b9c";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4666,10 +4666,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "154.0.20260729.90538";
+      version = "154.0.20260731.90442";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4926424/gaidhlig_language_pack-154.0.20260729.90538.xpi";
-      sha256 = "b37748dc6dd61967fe426b6f1793c86e663f215c8789d3ae988cfa9583067254";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930611/gaidhlig_language_pack-154.0.20260731.90442.xpi";
+      sha256 = "6f02d2ce93459eaad69ae0d5c9afbf7dbcc6f5dc966a2aea1dd81febe420c099";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -4710,10 +4710,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.0.12";
+      version = "2.1.2";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4915476/geo_spoof-2.0.12.xpi";
-      sha256 = "a7c5d2fdadaa4e227b3743289b7cf7c90f30ffb656de6f76ca6f9e01eb8952c9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930472/geo_spoof-2.1.2.xpi";
+      sha256 = "6855ab23fd80ef542d9202aafc12fb46e00e03a0ac239ba0163e1e8753b10151";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -11081,10 +11081,10 @@
     };
     "open-in-vlc" = buildMozillaXpiAddon {
       pname = "open-in-vlc";
-      version = "0.4.4";
+      version = "0.4.5";
       addonId = "{6b954d17-d17c-4a19-8fe6-ee8052a562d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4473229/open_in_vlc-0.4.4.xpi";
-      sha256 = "f315912714ad8b926aa3188f4f0267c7b1815d6e945b6f299641518b3a70d174";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4900396/open_in_vlc-0.4.5.xpi";
+      sha256 = "5a87efe71376f4e75a3dda83ced9d5e1330650f2c277b5ae807c401d47bf8ed5";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/open-in-vlc.html";
@@ -11240,10 +11240,10 @@
     };
     "paperpile" = buildMozillaXpiAddon {
       pname = "paperpile";
-      version = "1.0.125";
+      version = "1.0.126";
       addonId = "firefox-production@paperpile.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928300/paperpile_addon-1.0.125.xpi";
-      sha256 = "1f2b2828c79482bd66831b595b2f3ff0cc09e9378a25eca6494f4459bbccac6d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4931148/paperpile_addon-1.0.126.xpi";
+      sha256 = "24c7c29b9ab1b07b286ed6317d534bfa1c6cb11e99a86472a2bdb0f86dd9f3b9";
       meta = with lib;
       {
         homepage = "https://paperpile.com/?welcome";
@@ -11509,10 +11509,10 @@
     };
     "polkadot-js" = buildMozillaXpiAddon {
       pname = "polkadot-js";
-      version = "0.63.1";
+      version = "0.64.0";
       addonId = "{7e3ce1f0-15fb-4fb1-99c6-25774749ec6d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4749898/polkadot_js_extension-0.63.1.xpi";
-      sha256 = "833c463c9e21c57666b70e86f3fc5a6a18906d5e80ece742c9fbb71d6c04d1eb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930681/polkadot_js_extension-0.64.0.xpi";
+      sha256 = "d678ab5a8cdf3c0123e922dea69d468f6e05e5c8f9e4bf2f580c6ed1761995b0";
       meta = with lib;
       {
         homepage = "https://github.com/polkadot-js/extension";
@@ -13462,10 +13462,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "154.0.20260729.90538";
+      version = "154.0.20260731.90442";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4926526/scots_language_pack-154.0.20260729.90538.xpi";
-      sha256 = "6afa2a99a453abf646c25090e6615250d4b5e0ae85a2eae0eadbb7d0854a1cff";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4930615/scots_language_pack-154.0.20260731.90442.xpi";
+      sha256 = "68dc976cda5083616c20f3e4d24925c3fa6f41bfbdbc3ebb0b03165225ae3cdf";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -14094,10 +14094,10 @@
     };
     "snowflake" = buildMozillaXpiAddon {
       pname = "snowflake";
-      version = "0.10.0";
+      version = "0.10.1";
       addonId = "{b11bea1f-a888-4332-8d8a-cec2be7d24b9}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4843658/torproject_snowflake-0.10.0.xpi";
-      sha256 = "b444c01e50d3832ca98f3cf0d17220dfebd2664e7fd5a7d5e683630a19b2e84b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4928620/torproject_snowflake-0.10.1.xpi";
+      sha256 = "f354f329673f90f27e9cf00c7471f8118f0541dc7a8c9755f61b0bbbdca83800";
       meta = with lib;
       {
         homepage = "https://snowflake.torproject.org/";
@@ -16712,10 +16712,10 @@
     };
     "violentmonkey" = buildMozillaXpiAddon {
       pname = "violentmonkey";
-      version = "2.41.0";
+      version = "2.46.0";
       addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4830363/violentmonkey-2.41.0.xpi";
-      sha256 = "42d184788bd2f6a291956dd31cd45daa7b4a5d1b19bf1c74fb0ae76e456fa36b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4926076/violentmonkey-2.46.0.xpi";
+      sha256 = "c6952513d77911ac9f717cfb32fe63628e4bed31ef96b12ffa92e09e333e31ff";
       meta = with lib;
       {
         homepage = "https://violentmonkey.github.io/";
