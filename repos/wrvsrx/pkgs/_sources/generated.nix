@@ -245,15 +245,15 @@
   };
   task-utils = {
     pname = "task-utils";
-    version = "e7b63ca72b47196f32e3cf9da3ae1b0a80da05c3";
+    version = "bb4ce8f8634f19c31d084e8a232ee62ea79e9cbc";
     src = fetchFromGitHub {
       owner = "wrvsrx";
       repo = "task-utils";
-      rev = "e7b63ca72b47196f32e3cf9da3ae1b0a80da05c3";
+      rev = "bb4ce8f8634f19c31d084e8a232ee62ea79e9cbc";
       fetchSubmodules = false;
-      sha256 = "sha256-1vhbcKkhuqvapXR7GT+zd/ysqlAjil6GWwZDqAHH6/A=";
+      sha256 = "sha256-y/zf2sJSkBb/cLlGnbd5xj1H+3bL0VDnbMY/HIUa0Ak=";
     };
-    date = "2026-02-26";
+    date = "2026-08-02";
   };
   tree-sitter-devicetree = {
     pname = "tree-sitter-devicetree";

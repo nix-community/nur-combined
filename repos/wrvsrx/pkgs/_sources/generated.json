@@ -439,7 +439,7 @@
     },
     "task-utils": {
         "cargoLock": null,
-        "date": "2026-02-26",
+        "date": "2026-08-02",
         "extract": null,
         "name": "task-utils",
         "passthru": null,
@@ -451,12 +451,12 @@
             "name": null,
             "owner": "wrvsrx",
             "repo": "task-utils",
-            "rev": "e7b63ca72b47196f32e3cf9da3ae1b0a80da05c3",
-            "sha256": "sha256-1vhbcKkhuqvapXR7GT+zd/ysqlAjil6GWwZDqAHH6/A=",
+            "rev": "bb4ce8f8634f19c31d084e8a232ee62ea79e9cbc",
+            "sha256": "sha256-y/zf2sJSkBb/cLlGnbd5xj1H+3bL0VDnbMY/HIUa0Ak=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e7b63ca72b47196f32e3cf9da3ae1b0a80da05c3"
+        "version": "bb4ce8f8634f19c31d084e8a232ee62ea79e9cbc"
     },
     "tree-sitter-devicetree": {
         "cargoLock": null,
