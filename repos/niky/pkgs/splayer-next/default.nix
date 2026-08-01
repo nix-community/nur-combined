@@ -28,7 +28,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260731";
+  version = "1.0.0-20260801";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-sL4Xpv6ppSH3Ww5kKA/6XxPyXeicpNhRH01A3IvO+So=";
+    hash = "sha256-pDdHJlDro5/QDSZbf45t3muwwLW8Iq2bSm9zqfWYP6A=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
