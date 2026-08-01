@@ -164,7 +164,8 @@ appimageTools.wrapType2 {
 
 ### fetchPnpmDeps 配置
 
-- **必须设置 `fetcherVersion`**：`fetchPnpmDeps` 要求显式设置 `fetcherVersion`，推荐使用 `fetcherVersion = 3`
+- **必须设置 `fetcherVersion`**：`fetchPnpmDeps` 要求显式设置 `fetcherVersion`。注意 `fetcherVersion = 3` 已不再支持 `pnpm_11`（会报 `fetcherVersion = 3 is no longer supported for pnpm_11`），使用 `pnpm_11` 时必须改用 `fetcherVersion = 4`（将 SQLite 数据库导出为 SQL 文件）；仅在仍使用 `pnpm_10` 等旧版本时才用 `fetcherVersion = 3`
+- **Vite 静态站点的子目录部署**：上游通过 `process.env.BASE_URL` 控制的 Vite 静态站点（如 it-tools），可在包定义中暴露 `baseUrl ? "/"` 参数并设置 `env.BASE_URL = baseUrl`，构建后用户通过 `it-tools.override { baseUrl = "/it-tools/"; }` 即可生成适配子目录运行的产物
 - **使用 `sourceRoot = "source/<子目录>"`**：当 `src` 来自 `fetchFromGitHub` 而项目在子目录中时，`sourceRoot` 需加 `source/` 前缀（如 `source/frontend`）
 - **锁定 pnpm 版本**：当上游 lockfile 与最新 pnpm 版本不兼容时，通过 `pnpm = pnpm_10` 指定兼容的 pnpm 版本
 - **`pnpmConfigHook` 自动安装依赖**：该钩子在 `postConfigure` 阶段自动运行 `pnpm install --offline --frozen-lockfile`，无需手动安装

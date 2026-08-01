@@ -458,6 +458,10 @@ src.github = "share121/inter-knot"
 fetch.github = "feder-cr/firefox_antidetect_patch"
 src.github = "feder-cr/firefox_antidetect_patch"
 
+[it-tools]
+fetch.github = "sharevb/it-tools"
+src.github = "sharevb/it-tools"
+
 [ja4-nginx-module]
 fetch.github = "FoxIO-LLC/ja4-nginx-module"
 src.git = "https://github.com/FoxIO-LLC/ja4-nginx-module.git"

@@ -62,7 +62,7 @@ Or, use variables from this repository in case I change them:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (213 packages)</summary>
+<summary>Package set: (Uncategorized) (214 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -148,6 +148,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `i915-sriov` | [i915-sriov](https://github.com/strongtz/i915-sriov-dkms) | 0-unstable-2026-07-28 | DKMS module of Linux i915 driver with SR-IOV support |
 |  | `igsc` | [igsc](https://github.com/intel/igsc) | 1.3.1 | Intel graphics system controller firmware update library |
 |  | `imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.4.3 | FOSS program for converting IME dictionaries |
+|  | `it-tools` | [it-tools](https://github.com/sharevb/it-tools) | 2026.7.11 | Collection of handy online tools for developers, with great UX |
 |  | `jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate |
 |  | `kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `kaldiio` | [kaldiio](https://github.com/nttcslab-sp/kaldiio) | 2.18.1 | Pure python module for reading and writing kaldi ark files |
@@ -1301,7 +1302,7 @@ Or, use variables from this repository in case I change them:
 </details>
 
 <details>
-<summary>Package set: uncategorized (163 packages)</summary>
+<summary>Package set: uncategorized (164 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -1368,6 +1369,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.hoyo-glyphs` | [hoyo-glyphs](https://github.com/SpeedyOrc-C/Hoyo-Glyphs) | 20250529 | Constructed scripts by Hoyoverse 米哈游的架空文字 |
 |  | `uncategorized.igsc` | [igsc](https://github.com/intel/igsc) | 1.3.1 | Intel graphics system controller firmware update library |
 |  | `uncategorized.imewlconverter` | [imewlconverter](https://github.com/studyzy/imewlconverter) | 3.4.3 | FOSS program for converting IME dictionaries |
+|  | `uncategorized.it-tools` | [it-tools](https://github.com/sharevb/it-tools) | 2026.7.11 | Collection of handy online tools for developers, with great UX |
 |  | `uncategorized.jproxy` | [jproxy](https://github.com/LuckyPuppy514/jproxy) | 3.4.1 | Proxy between Sonarr / Radarr and Jackett / Prowlarr, mainly used to optimize search and improve recognition rate |
 |  | `uncategorized.kaixinsong-fonts` | [kaixinsong-fonts](http://www.guoxuedashi.net/zidian/bujian/KaiXinSong.php) | 3.0 | KaiXinSong |
 |  | `uncategorized.kikoplay` | [kikoplay](https://kikoplay.fun) | 2.1.0 | More than a Full-Featured Danmu Player |

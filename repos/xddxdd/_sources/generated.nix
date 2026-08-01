@@ -1036,7 +1036,17 @@
       owner = "feder-cr";
       repo = "firefox_antidetect_patch";
       tag = "firefox-18";
-      hash = "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=";
+      hash = "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=";
+    };
+  };
+  it-tools = {
+    pname = "it-tools";
+    version = "v2026.7.11";
+    src = fetchFromGitHub {
+      owner = "sharevb";
+      repo = "it-tools";
+      tag = "v2026.7.11";
+      hash = "sha256-Jo2S/LE8Hg4M/TdoivGq4CaSnHfbm70E1cFMdsFDjnE=";
     };
   };
   ja4-nginx-module = {
