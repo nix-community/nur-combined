@@ -8,6 +8,8 @@ in
 {
   config = lib.mkIf cfg.enable {
     home.pointerCursor = {
+      enable = true;
+
       package = pkgs.vimix-cursors;
       name = "Vimix-cursors";
 
