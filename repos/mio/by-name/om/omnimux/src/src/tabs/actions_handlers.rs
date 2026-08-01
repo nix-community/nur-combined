@@ -257,8 +257,8 @@ impl TerminalTabs {
     }
 
     pub(crate) fn restore_defaults(&mut self, cx: &mut Context<Self>) {
-        self.keep_tab_after_exit = true;
-        self.auto_reconnect = false;
+        self.keep_tab_after_exit = false;
+        self.auto_reconnect = true;
         self.remember_session = false;
         self.sync_font_size_across_tabs = true;
         self.remember_font_size = false;
