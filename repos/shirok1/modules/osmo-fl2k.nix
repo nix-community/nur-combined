@@ -7,10 +7,10 @@
 }:
 
 let
-  cfg = config.services.osmo-fl2k;
+  cfg = config.programs.osmo-fl2k;
 in
 {
-  options.services.osmo-fl2k = {
+  options.programs.osmo-fl2k = {
     enable = lib.mkEnableOption "Enable osmo-fl2k";
 
     package = lib.mkOption {

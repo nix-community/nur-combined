@@ -160,17 +160,6 @@
       nurl
       nix-init
       gh
-      (fastfetch.minimal.override {
-        audioSupport = true;
-        dbusSupport = true;
-        flashfetchSupport = true;
-        imageSupport = true;
-        openclSupport = true;
-        openglSupport = true;
-        sqliteSupport = true;
-        terminalSupport = true;
-        vulkanSupport = true;
-      })
       dua
       dust
       zoxide
@@ -597,7 +586,7 @@
     ];
   };
 
-  services.osmo-fl2k.enable = true;
+  programs.osmo-fl2k.enable = true;
 
   systemd.user.services.mihomo = {
     enable = true;

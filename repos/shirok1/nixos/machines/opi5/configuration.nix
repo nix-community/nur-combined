@@ -101,12 +101,6 @@
       nurl
       nix-init
       gh
-      (fastfetch.override {
-        brightnessSupport = false;
-        waylandSupport = false;
-        x11Support = false;
-        xfceSupport = false;
-      })
       dua
       dust
       zoxide
