@@ -10,14 +10,14 @@
 
 buildPythonPackage rec {
   pname = "mintalib";
-  version = "0-unstable-2025-11-11";
+  version = "0-unstable-2026-07-31";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "furechan";
     repo = "mintalib";
-    rev = "591a03a58a89b325249c1fb3431f54704eacc9c6";
-    hash = "sha256-bu+j0QE92ZweMrmEvlrxOOgRPJJJhkvnc4myXNQt5XU=";
+    rev = "f19f7b531c08169e4f1fa42d9f40d461da650dd3";
+    hash = "sha256-vYfmm8q8DzifkRHcCOVDuBLhNpNK5o09lvunhphcBqs=";
   };
 
   build-system = [
@@ -26,10 +26,12 @@ buildPythonPackage rec {
 
   dependencies = [
     numpy
-    pandas
   ];
 
   optional-dependencies = {
+    pandas = [
+      pandas
+    ];
     polars = [
       polars
     ];

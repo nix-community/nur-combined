@@ -12,12 +12,12 @@
 
 buildPythonPackage rec {
   pname = "pylibsrtp";
-  version = "0.12.0";
+  version = "1.0.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-9cPA+2lU57t03H5jmDUnQMpnMn5nWaGZ/oUtvHuEuKw=";
+    hash = "sha256-s53/B1smOo3tU3fySQxg0q9FLJ8GxNBhx6K2QGErNNQ=";
   };
 
   buildInputs = [
@@ -47,7 +47,7 @@ buildPythonPackage rec {
 
   meta = {
     description = "Python wrapper around the libsrtp library";
-    homepage = "https://pypi.org/project/pylibsrtp";
+    homepage = "https://github.com/aiortc/pylibsrtp";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ nagy ];
   };

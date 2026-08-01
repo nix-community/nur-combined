@@ -8,12 +8,12 @@
 
 buildPythonApplication rec {
   pname = "ssort";
-  version = "0.13.0";
+  version = "0.16.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-p7NedyX6k7xr2Cg563AIPPMb1YVFNXU0KI2Yikr47E0=";
+    sha256 = "sha256-HnIiz3/7uwUj2I/hkxo2sLvX9HjSlk/rJb42IcUqmB8=";
   };
 
   propagatedBuildInputs = [
