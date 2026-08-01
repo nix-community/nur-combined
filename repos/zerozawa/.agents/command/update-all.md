@@ -23,7 +23,7 @@ Batch-check exported packages for new upstream versions.
 ## Repo-specific notes
 
 - Some packages track releases (`LoveIwara`, `wechat-web-devtools-linux`).
-- Some packages track commits or unstable revisions (`mihomo-smart`).
+- Some packages track commits or unstable revisions (`mihomo-oix`).
 - Some packages have extra lock/hash workflows (`LoveIwara`, Rust packages, npm packages).
 - `preferLocalBuild = true` and license metadata affect CI/cache outcomes but not whether a package exists in `default.nix`.
 
@@ -33,7 +33,7 @@ Batch-check exported packages for new upstream versions.
 | Package | Current | Latest | Status |
 |---------|---------|--------|--------|
 | LoveIwara | 0.5.0 | 0.5.0 | up to date |
-| mihomo-smart | 166a207 | 166a207 | up to date |
+| mihomo-oix | 166a207 | 166a207 | up to date |
 | JMComic-qt | 1.3.0 | 1.3.0 | up to date |
 ```
 

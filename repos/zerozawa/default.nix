@@ -44,7 +44,6 @@ in
   # Base sr-vulkan without models (for custom use)
   sr-vulkan = pkgs.callPackage ./pkgs/sr-vulkan.nix { };
 
-  fortune-mod-zh = pkgs.callPackage ./pkgs/fortune-mod-zh.nix { };
   fortune-mod-hitokoto = pkgs.callPackage ./pkgs/fortune-mod-hitokoto.nix { };
 
   JMComic-qt = pkgs.callPackage ./pkgs/JMComic-qt.nix {
@@ -61,7 +60,7 @@ in
   wechat-web-devtools-linux = pkgs.callPackage ./pkgs/wechat-web-devtools-linux.nix { };
   zsh-url-highlighter = pkgs.callPackage ./pkgs/zsh-url-highlighter.nix { };
   waybar-vd = pkgs.callPackage ./pkgs/waybar-vd { };
-  mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix { };
+  mihomo-oix = pkgs.callPackage ./pkgs/mihomo-oix.nix { };
   StartLive = pkgs.callPackage ./pkgs/StartLive.nix { };
   bilibili_live_tui = pkgs.callPackage ./pkgs/bilibili_live_tui.nix { };
   mcp-cli = pkgs.callPackage ./pkgs/mcp-cli.nix { };

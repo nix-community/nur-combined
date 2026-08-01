@@ -26,7 +26,7 @@ This repository currently exports **29 packages**, **1 library helper**, and pla
 |---------|-------------|
 | `StartLive` | Bypass Bilibili LiveHime to obtain streaming addresses |
 | `bilibili_live_tui` | Terminal client for Bilibili danmaku send/receive workflows |
-| `mihomo-smart` | Mihomo fork with Smart Groups functionality |
+| `mihomo-oix` | Mihomo fork with LightGBM smart routing |
 | `wechat-web-devtools-linux` | Linux build of the WeChat Mini Program DevTools |
 | `agentic-contract` | Policy engine CLI for AI agents |
 | `deskbrid` | Linux desktop HAL for AI agents — JSON socket daemon, CLI, and MCP server (GNOME, Hyprland, KDE, wlroots, X11) |
@@ -40,7 +40,6 @@ This repository currently exports **29 packages**, **1 library helper**, and pla
 
 | Package | Description |
 |---------|-------------|
-| `fortune-mod-zh` | Debian Chinese Team fortune database |
 | `fortune-mod-hitokoto` | Hitokoto fortune database |
 | `mikusays` | Hatsune Miku themed `cowsay`-style CLI |
 | `sddm-eucalyptus-drop` | Eucalyptus Drop SDDM theme |

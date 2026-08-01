@@ -67,7 +67,7 @@ rustPlatform.buildRustPackage rec {
 
 ### Go packages
 
-Example: `pkgs/mihomo-smart.nix`
+Example: `pkgs/mihomo-oix.nix`
 
 ```nix
 buildGoModule rec {

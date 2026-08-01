@@ -254,6 +254,23 @@ consumers.
   files. `dontStrip` prevents stripping of `.node` addon files.
   `stdenv.cc.cc.lib` is added to `buildInputs` for `libstdc++` resolution;
   `stdenv` (regular, with cc) is passed alongside `stdenvNoCC` for this purpose.
+- **Musl sharp builds must be pruned before `fixupPhase`**: the FOD runs
+  `bun install --cpu="x64" --os="linux"` (x86_64-linux only), but bun
+  does NOT filter optional deps by the `libc` field — `@img/sharp`'s
+  glibc/musl variants share the same `os`/`cpu`, so
+  `@img/sharp-libvips-linuxmusl-*` is still installed. `autoPatchelfHook`
+  then resolves the NEEDED `libvips-cpp.so` of `@img/sharp-linux-x64` to
+  the *musl* copy (its dir wins the search), rewriting the RUNPATH to the
+  musl libvips; on glibc hosts the dlopen fails with
+  `libc.musl-x86_64.so.1: cannot open shared object file`. Symptom: the
+  local tiny-title worker crashes (`tiny-title: worker returned error`)
+  and sessions get no titles. The `installPhase` prunes
+  `@img/sharp-libvips-linuxmusl-*` and `@img/sharp-linuxmusl-*` before
+  `fixupPhase` so autoPatchelfHook only finds the glibc libvips.
+  The package is intentionally x86_64-linux only (`meta.platforms`), so
+  the platform-specific bun flags don't break the shared FOD hash on
+  other architectures; drop the restriction only if you also re-allow
+  `--cpu="*" --os="*"` or make the FOD hash per-system.
 - **Read-only store**: `$out/lib/oh-my-pi` is read-only. Assets that
   would normally be generated at runtime (stats dashboard build) must
   be pre-generated at build time.

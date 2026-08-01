@@ -56,7 +56,7 @@ The repo currently exports 29 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
-- Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
+- Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-oix`
 - MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
@@ -71,7 +71,7 @@ This repo is not limited to one packaging style. Examples worth following:
 - `flutter341.buildFlutterApplication`
   - Example: `pkgs/LoveIwara/default.nix` — JSON pub lock, native source builders, desktop entry, and runtime FFI wrapping
 - `buildGoModule`
-  - Example: `pkgs/mihomo-smart.nix`
+  - Example: `pkgs/mihomo-oix.nix`
 - `buildDotnetModule`
   - Example: `pkgs/banguminet/default.nix` — read `pkgs/banguminet/AGENTS.md` for deps.json regeneration
 - `buildNpmPackage`
