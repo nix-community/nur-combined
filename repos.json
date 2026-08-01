@@ -372,6 +372,9 @@
         "cinqwqeggs": {
             "url": "https://github.com/CinQwQeggs01/nur-packages-template"
         },
+        "claymorwan": {
+            "url": "https://github.com/claymorwan/nurpkgs"
+        },
         "clefru": {
             "url": "https://github.com/clefru/nur-packages"
         },
@@ -665,6 +668,10 @@
         "iagocq": {
             "file": "nur.nix",
             "url": "https://github.com/iagocq/nix"
+        },
+        "iamanaws": {
+            "file": "pkgs/default.nix",
+            "url": "https://github.com/iamanaws/dotfiles"
         },
         "ianmurphy1": {
             "url": "https://github.com/ianmurphy1/nurpkgs"
