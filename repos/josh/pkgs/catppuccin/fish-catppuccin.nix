@@ -13,7 +13,7 @@ let
     whiskers:
       version: ${catppuccin-whiskers.version}
       matrix:
-        - flavor
+        - flavor: [mocha]
       filename: "conf.d/catppuccin_{{ flavor.identifier }}.fish"
     ---
 
@@ -79,6 +79,7 @@ let
         test -s ${fish-catppuccin}/share/fish/themes/catppuccin-frappe.theme
         test -s ${fish-catppuccin}/share/fish/themes/catppuccin-macchiato.theme
         test -s ${fish-catppuccin}/share/fish/themes/catppuccin-mocha.theme
+        test -s ${fish-catppuccin}/share/fish/vendor_conf.d/catppuccin_mocha.fish
         touch $out
       '';
     };

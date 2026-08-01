@@ -74,6 +74,11 @@ buildGoModule (finalAttrs: {
       touch $out
     '';
 
+    restic-version = runCommand "test-prometheus-restic-exporter-restic-version" { } ''
+      grep --text --quiet "${restic.version}" "${lib.meta.getExe finalAttrs.finalPackage}"
+      touch $out
+    '';
+
     grafana-json =
       runCommand "test-prometheus-restic-exporter-grafana-json"
         {
