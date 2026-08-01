@@ -1,4 +1,4 @@
-name: Update Flake
+name: Auto-update packages and flake
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Allow manual triggering
 
 jobs:
-  update-flake:
+  update:
     runs-on: ubuntu-latest
     
     steps:
@@ -32,14 +32,17 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
       
       - name: Update flake
-        run: nix flake update
-      
-      - name: Commit and push if changed
         run: |
+          nix flake update
           git add flake.lock
-          if git diff --staged --quiet; then
-            echo "No changes to commit"
-          else
+          if ! git diff --staged --quiet; then
             git commit -m "chore: update flake.lock [automated]"
-            git push
           fi
+      
+      - name: Auto-update packages
+        run: |
+          nix run nixpkgs#nix-update -- clice --flake --commit || true
+      
+      - name: Push changes
+        run: |
+          git push || echo "No changes to push"
