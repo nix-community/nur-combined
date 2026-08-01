@@ -169,21 +169,21 @@
       "depName": "lewtec/skills",
       "packageName": "https://github.com/lewtec/skills",
       "currentValue": "master",
-      "currentDigest": "7085032aec54009f3eca75d60b771c68ebaca7e0",
+      "currentDigest": "cc6a092360b137d55de349ea9f6c4eb98ee29746",
       "datasource": "git-refs"
     },
     {
       "kind": "tool",
-      "ref": "github:lucasew/contapila-go",
-      "depName": "lucasew/contapila-go",
-      "currentValue": "0.0.4",
+      "ref": "github:lewtec/contapila",
+      "depName": "lewtec/contapila",
+      "currentValue": "0.2.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:lucasew/refactree",
       "depName": "lucasew/refactree",
-      "currentValue": "0.8.1",
+      "currentValue": "0.9.0",
       "datasource": "github-releases"
     },
     {

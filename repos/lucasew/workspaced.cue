@@ -158,7 +158,7 @@ workspaced: {
 			bins: ["rft"]
 		}
 		contapila: {
-			ref: "github:lucasew/contapila-go"
+			ref: "github:lewtec/contapila"
 			global: true
 			bins: ["contapila"]
 		}
@@ -564,7 +564,7 @@ workspaced: {
 	if !#is_phone {
 		lewtec: {
 			from: "github:lewtec/skills"
-			version: "7085032aec54009f3eca75d60b771c68ebaca7e0"
+			version: "cc6a092360b137d55de349ea9f6c4eb98ee29746"
 		}
 	}
 	workspaced: {
