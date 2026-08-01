@@ -4,6 +4,12 @@
 lib.mkOption {
   type = lib.types.submodule {
     options = {
+      env = lib.mkOption {
+        type = lib.types.nullOr (lib.types.attrsOf lib.types.str);
+        default = null;
+        description = "Environment variables to set on startup";
+      };
+
       hooks = lib.mkOption {
         type = lib.types.attrsOf (
           lib.types.listOf (
@@ -374,12 +380,6 @@ lib.mkOption {
               description = "Disable sending metrics";
             };
 
-            disable_notifications = lib.mkOption {
-              type = lib.types.nullOr lib.types.bool;
-              default = false;
-              description = "Deprecated: Use notification_style instead. Disable desktop notifications";
-            };
-
             disable_provider_auto_update = lib.mkOption {
               type = lib.types.nullOr lib.types.bool;
               default = false;
@@ -410,7 +410,7 @@ lib.mkOption {
               description = "Name of the context file to create/update during project initialization";
             };
 
-            notification_style = lib.mkOption {
+            notifications = lib.mkOption {
               type = lib.types.nullOr (
                 lib.types.enum [
                   "auto"
@@ -421,7 +421,7 @@ lib.mkOption {
                 ]
               );
               default = "auto";
-              description = "Notification style to use. Options: auto (default)";
+              description = "Notification style to use. Options: auto (default), native, osc, bell, disabled. Auto selects based on environment: native for local sessions, osc for SSH (with automatic OSC 99/777 detection).";
             };
 
             progress = lib.mkOption {
@@ -530,6 +530,12 @@ lib.mkOption {
                 type = lib.types.nullOr lib.types.str;
                 default = null;
                 description = "API key for authentication with the provider";
+              };
+
+              aws_auth_refresh = lib.mkOption {
+                type = lib.types.nullOr lib.types.str;
+                default = null;
+                description = "Shell command to run when AWS credentials expire (Bedrock only).";
               };
 
               base_url = lib.mkOption {
