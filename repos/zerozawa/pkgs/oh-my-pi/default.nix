@@ -18,14 +18,14 @@
 }:
 
 let
-  version = "17.2.2";
+  version = "17.2.3";
   pname = "oh-my-pi";
 
   src = fetchFromGitHub {
     owner = "can1357";
     repo = "oh-my-pi";
     rev = "v${version}";
-    hash = "sha256-+M0I/+IzuSR0qb0VsDOT3rcwb0u6BiwVi38grBwr0Mc=";
+    hash = "sha256-yh6iETM0pMzoW3SzYfx/SrPQiOCbKgcS094DicfO66A=";
   };
 
   # Platform mapping
@@ -74,7 +74,7 @@ let
       runHook postInstall
     '';
 
-    outputHash = "sha256-vPUlzOW86xndqFdPuGGUKlFMZK8wb7jnqauDKo5/pho=";
+    outputHash = "sha256-ZqUFCnqjGifhrZyPXu9njXhQMfxgCgbtGkDrIM7bxf4=";
     outputHashAlgo = "sha256";
     outputHashMode = "recursive";
   };
@@ -86,7 +86,7 @@ let
     pname = "${pname}-pi-natives";
     inherit version src;
 
-    cargoHash = "sha256-tqx3e/fDT4BIQnvkM9ryHVPWvpwnctjVd/+ErYwbKt0=";
+    cargoHash = "sha256-GxS2ROf/W5kDzzgbyhbYFd70yEDNzIGsRDqFUCuoa5c=";
 
     nativeBuildInputs = [
       clang
@@ -345,7 +345,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "AI coding agent CLI/TUI with 32 built-in tools, 40+ LLM providers, and sub-agent orchestration";
+    description = "The most capable agent surface that ships. Continuously tuned by real-world use — complete out of the box, open all the way down.";
     homepage = "https://github.com/can1357/oh-my-pi";
     license = lib.licenses.mit;
     platforms = [

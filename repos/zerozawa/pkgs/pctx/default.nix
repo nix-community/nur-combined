@@ -72,7 +72,7 @@ rustPlatform.buildRustPackage {
   passthru = { inherit py; };
 
   meta = with lib; {
-    description = "Execution layer for agentic tool calls and MCP servers";
+    description = "The open source framework to connect AI agents to tools and mcp with Code Mode";
     homepage = "https://github.com/portofcontext/pctx";
     license = licenses.mit;
     mainProgram = "pctx";

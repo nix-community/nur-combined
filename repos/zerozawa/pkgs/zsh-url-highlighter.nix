@@ -24,9 +24,9 @@ stdenv.mkDerivation rec {
   '';
 
   meta = with lib; {
-    description = "A plugin for zsh-syntax-highlighting that turns URLs green if they respond with a \" good \"** status, and red otherwise. Useful for checking URL typos.";
+    description = "A plugin for zsh-syntax-highlighting that turns URLs green if they respond with a \"good\" status, and red otherwise.";
     homepage = "https://github.com/ascii-soup/zsh-url-highlighter";
     platforms = zsh.meta.platforms;
-    sourceProvenance = with sourceTypes; [fromSource];
+    sourceProvenance = with sourceTypes; [ fromSource ];
   };
 }

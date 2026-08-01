@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   '';
 
   meta = with lib; {
-    description = "Linux desktop HAL for AI agents — one daemon, one socket, every desktop action";
+    description = "The HAL your Linux desktop agents are missing.";
     longDescription = ''
       Deskbrid auto-detects the desktop environment (GNOME, Hyprland, KDE,
       COSMIC, Sway, Niri, Wayfire, Labwc, X11) and exposes window, input,

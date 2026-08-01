@@ -168,7 +168,7 @@ python313Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "哔咔漫画，PicACG comic PC client (Windows, Linux, MacOS)";
+    description = "哔咔漫画PC客户端（支持window、Linux和macOS），界面使用QT";
     homepage = "https://github.com/tonquer/picacg-qt";
     license = licenses.lgpl3;
     platforms = platforms.linux;

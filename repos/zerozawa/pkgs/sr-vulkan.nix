@@ -44,7 +44,7 @@ python313Packages.buildPythonPackage rec {
   '';
 
   meta = with lib; {
-    description = "A super resolution python tool using Vulkan";
+    description = "This is modified waifu2x-ncnn-vulkan, realsr-ncnn-vulkan realcugan-ncnn-vulkan, Export pyd and so files to Python";
     homepage = "https://github.com/tonquer/waifu2x-vulkan";
     license = licenses.mit;
     platforms = [ "x86_64-linux" ];

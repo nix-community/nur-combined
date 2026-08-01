@@ -124,7 +124,7 @@ flutter341.buildFlutterApplication (finalAttrs: {
   '';
 
   meta = {
-    description = "A fast, beautiful, cross-platform third-party Iwara client built with Flutter.";
+    description = "Love Iwara (also known as i_iwara or 2i) is a third-party client for Iwara built with Flutter. It aims to deliver a smooth, native-feeling experience across phones, tablets, and desktops — all from a single codebase covering Android, Windows, macOS, Linux, and iOS.";
     homepage = "https://github.com/FoxSensei001/LoveIwara";
     changelog = "https://github.com/FoxSensei001/LoveIwara/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;

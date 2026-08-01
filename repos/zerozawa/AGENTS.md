@@ -56,7 +56,7 @@ The repo currently exports 29 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
-- Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-oix`
+- Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
 - MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
@@ -71,7 +71,7 @@ This repo is not limited to one packaging style. Examples worth following:
 - `flutter341.buildFlutterApplication`
   - Example: `pkgs/LoveIwara/default.nix` — JSON pub lock, native source builders, desktop entry, and runtime FFI wrapping
 - `buildGoModule`
-  - Example: `pkgs/mihomo-oix.nix`
+  - Example: `pkgs/mihomo-smart.nix`
 - `buildDotnetModule`
   - Example: `pkgs/banguminet/default.nix` — read `pkgs/banguminet/AGENTS.md` for deps.json regeneration
 - `buildNpmPackage`
@@ -177,6 +177,22 @@ Specific expectations:
 - `AGENTS.md` should describe contributor/agent workflow and source-of-truth files.
 - `.agents/command/*.md` should describe current commands using actual attr names and workflows.
 - `.agents/skill/nix-packaging/SKILL.md` should reflect current repo packaging patterns.
+
+## Package `description` Rule
+
+Every exported package's `meta.description` must match the upstream project's own
+one-line pitch — never write one yourself from memory or from the package code.
+
+When updating a package, and periodically for all packages:
+
+1. Open the upstream repo (GitHub / GitLab / other code platform) README.
+2. Take the first line or first few lines — the project's own tagline/slogan.
+3. Copy the most concise sentence verbatim into `meta.description` (trim trailing
+   punctuation if needed, keep the wording identical).
+4. If the current `description` drifted, is stale, or never matched upstream,
+   replace it with the verbatim upstream line.
+
+Do not paraphrase, translate, or compose descriptions yourself.
 
 ## Common Pitfalls
 

@@ -162,7 +162,7 @@ python313Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "禁漫天堂，18comic，使用qt实现的PC客户端，支持Windows，Linux，MacOS";
+    description = "禁漫天堂PC客户端（支持window、Linux和macOS），界面使用QT";
     homepage = "https://github.com/tonquer/JMComic-qt";
     license = licenses.lgpl3;
     platforms = platforms.linux;

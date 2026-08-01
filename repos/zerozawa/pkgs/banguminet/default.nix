@@ -74,7 +74,7 @@ buildDotnetModule rec {
   '';
 
   meta = with lib; {
-    description = "Third-party Bangumi desktop client built with .NET and Avalonia";
+    description = "BangumiNet 是一个基于 .NET 与 Avalonia 开发的第三方 Bangumi 番组计划 桌面客户端，支持 Windows、Linux 和 MacOS。";
     homepage = "https://github.com/ajtn123/BangumiNet";
     license = licenses.mit;
     mainProgram = "banguminet";

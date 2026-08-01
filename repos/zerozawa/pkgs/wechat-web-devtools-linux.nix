@@ -131,7 +131,7 @@ stdenv.mkDerivation rec {
   + "\nrunHook postInstall";
 
   meta = with lib; {
-    description = "msojocs/wechat-web-devtools-linux: 适用于微信小程序的微信开发者工具 Linux移植版";
+    description = "这是微信开发者工具 Linux版";
     homepage = "https://github.com/msojocs/wechat-web-devtools-linux";
     license = with licenses; [ mit ];
     platforms = with platforms; (intersectLists x86_64 linux);

@@ -102,7 +102,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   meta = with lib; {
-    description = "MCP server that saves 98% of your context window — sandboxed code execution, FTS5 knowledge base, and intent-driven search";
+    description = "The other half of the context problem.";
     homepage = "https://github.com/mksglu/context-mode";
     license = licenses.elastic20;
     platforms = platforms.linux;

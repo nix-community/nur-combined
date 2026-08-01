@@ -19,7 +19,7 @@ buildNpmPackage rec {
   npmBuildScript = "build";
 
   meta = with lib; {
-    description = "Pre-indexed code knowledge graph — semantic code intelligence via MCP";
+    description = "The fastest complete code graph · surgical context · built for how agents actually work · 100% local";
     homepage = "https://github.com/colbymchenry/codegraph";
     license = licenses.mit;
     platforms = platforms.linux;

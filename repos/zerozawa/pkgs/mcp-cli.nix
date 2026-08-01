@@ -4,7 +4,8 @@
   fetchFromGitHub,
   lib,
   stdenvNoCC,
-}: let
+}:
+let
   pname = "mcp-cli";
   version = "0.3.0";
 
@@ -19,12 +20,10 @@
     pname = "${pname}-node-modules";
     inherit version src;
 
-    impureEnvVars =
-      lib.fetchers.proxyImpureEnvVars
-      ++ [
-        "GIT_PROXY_COMMAND"
-        "SOCKS_SERVER"
-      ];
+    impureEnvVars = lib.fetchers.proxyImpureEnvVars ++ [
+      "GIT_PROXY_COMMAND"
+      "SOCKS_SERVER"
+    ];
 
     nativeBuildInputs = [
       bun
@@ -57,43 +56,43 @@
     outputHash = "sha256-BgCPeb8ZjO7SiJPkiAbWRi+bbsUdzzIwbBvnHoufviM=";
   };
 in
-  stdenvNoCC.mkDerivation {
-    inherit pname version src;
+stdenvNoCC.mkDerivation {
+  inherit pname version src;
 
-    nativeBuildInputs = [
-      bun
-    ];
+  nativeBuildInputs = [
+    bun
+  ];
 
-    dontConfigure = true;
+  dontConfigure = true;
 
-    buildPhase = ''
-      runHook preBuild
+  buildPhase = ''
+    runHook preBuild
 
-      export HOME=$TMPDIR
-      cp -r ${node_modules}/node_modules .
-      chmod -R u+w node_modules
+    export HOME=$TMPDIR
+    cp -r ${node_modules}/node_modules .
+    chmod -R u+w node_modules
 
-      bun build --compile --minify src/index.ts --outfile dist/${pname}
+    bun build --compile --minify src/index.ts --outfile dist/${pname}
 
-      runHook postBuild
-    '';
+    runHook postBuild
+  '';
 
-    installPhase = ''
-      runHook preInstall
+  installPhase = ''
+    runHook preInstall
 
-      install -Dm755 dist/${pname} $out/bin/${pname}
+    install -Dm755 dist/${pname} $out/bin/${pname}
 
-      runHook postInstall
-    '';
+    runHook postInstall
+  '';
 
-    dontFixup = true;
+  dontFixup = true;
 
-    meta = with lib; {
-      description = "Lightweight CLI to interact with MCP servers";
-      homepage = "https://github.com/philschmid/mcp-cli";
-      license = with licenses; [mit];
-      platforms = ["x86_64-linux"];
-      sourceProvenance = with sourceTypes; [fromSource];
-      mainProgram = pname;
-    };
-  }
+  meta = with lib; {
+    description = "A lightweight, Bun-based CLI for interacting with MCP (Model Context Protocol) servers.";
+    homepage = "https://github.com/philschmid/mcp-cli";
+    license = with licenses; [ mit ];
+    platforms = [ "x86_64-linux" ];
+    sourceProvenance = with sourceTypes; [ fromSource ];
+    mainProgram = pname;
+  };
+}

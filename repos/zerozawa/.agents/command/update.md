@@ -9,9 +9,10 @@ Update a single package exported from `default.nix`.
 1. Find the package attr in `default.nix`.
 2. Open the corresponding file under `pkgs/`.
 3. Update version / rev / hash inputs.
-4. Rebuild the package with `nix-build -A <package-name>`.
-5. **Test runtime dependencies**: run the built binary (`result/bin/<name> --help` or equivalent) to catch missing shared library errors (e.g. `libICE.so.6`). If it crashes on a missing `lib*.so`, add it to `runtimeDeps` / `buildInputs` / `propagatedBuildInputs`, rebuild, and re-test.
-6. If needed, update repo docs when package inventory, naming, or behavior changed.
+4. **Check `meta.description`**: it must match the upstream project's own one-line pitch. Do NOT write it yourself — open the upstream repo (GitHub/GitLab/other) README and copy the most concise tagline or slogan verbatim from the first line(s). Update the `description` if it drifted or is stale.
+5. Rebuild the package with `nix-build -A <package-name>`.
+6. **Test runtime dependencies**: run the built binary (`result/bin/<name> --help` or equivalent) to catch missing shared library errors (e.g. `libICE.so.6`). If it crashes on a missing `lib*.so`, add it to `runtimeDeps` / `buildInputs` / `propagatedBuildInputs`, rebuild, and re-test.
+7. If needed, update repo docs when package inventory, naming, or behavior changed.
 
 ## Hash update methods
 
@@ -43,6 +44,6 @@ nix-prefetch-github <owner> <repo> --rev v<version>
 
 ## Examples
 
-- `nix-build -A mihomo-oix`
+- `nix-build -A mihomo-smart`
 - `nix-build -A LoveIwara`
 - `nix-build -A deskbrid`

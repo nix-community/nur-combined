@@ -38,7 +38,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "Specify CLI — toolkit for Spec-Driven Development (SDD) from GitHub";
+    description = "Define what to build before building it — with any AI coding agent.";
     longDescription = ''
       Spec Kit is GitHub's official toolkit for Spec-Driven Development.
       It flips the traditional script: specifications become executable,

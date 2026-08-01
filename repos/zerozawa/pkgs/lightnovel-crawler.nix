@@ -212,7 +212,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Download lightnovels from various online sources and generate e-books";
+    description = "Lightnovel Crawler downloads web novels and similar fiction from hundreds of online reading sites and saves them as e-books — so you can read offline on your phone, tablet, or e-reader.";
     homepage = "https://github.com/lncrawl/lightnovel-crawler";
     license = with licenses; [ gpl3Only ];
     platforms = platforms.linux;

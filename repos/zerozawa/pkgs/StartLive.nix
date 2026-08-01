@@ -187,7 +187,7 @@ python3Packages.buildPythonApplication rec {
   doCheck = false;
 
   meta = with lib; {
-    description = "绕过B站直播姬获取推流地址 - Bypass Bilibili LiveHime to get streaming address";
+    description = "Bypass the requirement to use Bilibili’s official \"LiveHime\" client to start streaming.";
     longDescription = ''
       StartLive is a tool to bypass the requirement to use Bilibili's official
       "LiveHime" client to start streaming. It provides a simple GUI to obtain
