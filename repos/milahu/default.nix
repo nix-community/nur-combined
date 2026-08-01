@@ -688,6 +688,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       nvgpu = callPackage ./pkgs/development/python-modules/nvgpu { };
 
+      llm-aided-ocr = callPackage ./pkgs/development/python-modules/llm-aided-ocr { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
