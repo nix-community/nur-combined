@@ -80,7 +80,7 @@ in
       pulseaudio
       feh
       brightnessctl
-      unstable.i3pystatus
+      i3pystatus
     ];
 
   };

@@ -34,8 +34,6 @@
     };
   };
 
-  gc-hold.paths = lib.mkForce [ ];
-
   virtualisation.docker.enable = false;
 
   documentation.enable = false;

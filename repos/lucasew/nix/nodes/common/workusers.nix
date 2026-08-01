@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
   users = {
@@ -19,8 +19,5 @@
       gid = 1999;
     };
   };
-  environment.systemPackages = with pkgs; [
-    brave
-  ];
   virtualisation.podman.enable = true;
 }

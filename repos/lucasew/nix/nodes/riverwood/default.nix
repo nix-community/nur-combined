@@ -68,7 +68,6 @@ in
 
   virtualisation.kvmgt.enable = false;
   virtualisation.spiceUSBRedirection.enable = true;
-  virtualisation.containerd.enable = true;
 
   # programs.steam.enable = true;
 
@@ -87,17 +86,6 @@ in
         useOSProber = true;
       };
     };
-  };
-
-  gc-hold = {
-    enable = true;
-    paths = with pkgs; [
-      gnumake
-      cmake
-      clang
-      gdb
-      ccls
-    ];
   };
 
   services.hardware.openrgb.enable = true;

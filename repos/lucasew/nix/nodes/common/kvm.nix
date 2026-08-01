@@ -13,6 +13,8 @@
         "libvirtd"
       ];
     };
+    # Host CPU only — no cross-arch system emulators
+    virtualisation.libvirtd.qemu.package = lib.mkDefault pkgs.qemu_kvm;
     systemd.services.libvirtd.path = with pkgs; [ virtiofsd ];
   };
 }

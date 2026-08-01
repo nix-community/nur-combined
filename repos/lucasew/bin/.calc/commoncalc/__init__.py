@@ -277,7 +277,7 @@ def simplex(num_vars, obj_type, obj, *restrictions):
                     warn("Alternate Solution exists")
                     break
 
-        def objective_minimize(self):
+        def _solve_objective(self, pick_column, is_improving):
             self.update_objective_function()
 
             for row, column in enumerate(self.basic_vars[1:]):
@@ -289,8 +289,8 @@ def simplex(num_vars, obj_type, obj, *restrictions):
                         ),
                     )
 
-            key_column = max_index(self.coeff_matrix[0])
-            condition = self.coeff_matrix[0][key_column] > 0
+            key_column = pick_column(self.coeff_matrix[0])
+            condition = is_improving(self.coeff_matrix[0][key_column])
 
             while condition:
                 key_row = self.find_key_row(key_column=key_column)
@@ -299,8 +299,8 @@ def simplex(num_vars, obj_type, obj, *restrictions):
                 self.normalize_to_pivot(key_row, pivot)
                 self.make_key_column_zero(key_column, key_row)
 
-                key_column = max_index(self.coeff_matrix[0])
-                condition = self.coeff_matrix[0][key_column] > 0
+                key_column = pick_column(self.coeff_matrix[0])
+                condition = is_improving(self.coeff_matrix[0][key_column])
 
             solution = {}
             for i, var in enumerate(self.basic_vars[1:]):
@@ -312,43 +312,12 @@ def simplex(num_vars, obj_type, obj, *restrictions):
                     solution["x_" + str(i + 1)] = Fraction("0")
             self.check_alternate_solution()
             return solution
+
+        def objective_minimize(self):
+            return self._solve_objective(max_index, lambda c: c > 0)
 
         def objective_maximize(self):
-            self.update_objective_function()
-
-            for row, column in enumerate(self.basic_vars[1:]):
-                if self.coeff_matrix[0][column] != 0:
-                    self.coeff_matrix[0] = add_row(
-                        self.coeff_matrix[0],
-                        multiply_const_row(
-                            -self.coeff_matrix[0][column], self.coeff_matrix[row + 1]
-                        ),
-                    )
-
-            key_column = min_index(self.coeff_matrix[0])
-            condition = self.coeff_matrix[0][key_column] < 0
-
-            while condition:
-                key_row = self.find_key_row(key_column=key_column)
-                self.basic_vars[key_row] = key_column
-                pivot = self.coeff_matrix[key_row][key_column]
-                self.normalize_to_pivot(key_row, pivot)
-                self.make_key_column_zero(key_column, key_row)
-
-                key_column = min_index(self.coeff_matrix[0])
-                condition = self.coeff_matrix[0][key_column] < 0
-
-            solution = {}
-            for i, var in enumerate(self.basic_vars[1:]):
-                if var < self.num_vars:
-                    solution["x_" + str(var + 1)] = self.coeff_matrix[i + 1][-1]
-
-            for i in range(0, self.num_vars):
-                if i not in self.basic_vars[1:]:
-                    solution["x_" + str(i + 1)] = Fraction("0")
-            self.check_alternate_solution()
-
-            return solution
+            return self._solve_objective(min_index, lambda c: c < 0)
 
         def print_coeff_matrix(self):
             for line in self.coeff_matrix:
@@ -472,25 +441,21 @@ class IP:
                 return False
         return True
 
-    def mask_number_hosts(self):
+    def _mask_bit_count(self, bit_char):
         if self.is_mask():
             s = self.bin_stream()
             bits = 0
             for c in s:
-                if c == "0":
+                if c == bit_char:
                     bits += 1
-            return (2**bits) - 2
+            return bits
         raise TypeError("%s is not a mask", self.__repr__())
 
+    def mask_number_hosts(self):
+        return (2**self._mask_bit_count("0")) - 2
+
     def mask_number_nets(self):
-        if self.is_mask():
-            s = self.bin_stream()
-            bits = 0
-            for c in s:
-                if c == "1":
-                    bits += 1
-            return 2**bits
-        raise TypeError("%s is not a mask", self.__repr__())
+        return 2**self._mask_bit_count("1")
 
     def get_class(self):
         [a, b, c, d] = self._ip

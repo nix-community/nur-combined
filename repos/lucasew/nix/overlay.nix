@@ -33,16 +33,6 @@ in
 
   enroot = callPackage ./pkgs/enroot.nix {};
 
-  python3PackagesCuda = prev.python3Packages.overrideScope (self: super: {
-    cudaSupport = true;
-    ctranslate2 = super.ctranslate2.override {
-      ctranslate2-cpp = prev.ctranslate2.override {
-        withCUDA = true;
-        withCuDNN = true;  
-      };
-    };
-  });
-
   lib = prev.lib.extend (
     final: prev: {
       jpg2png = cp ./lib/jpg2png.nix;
@@ -143,11 +133,6 @@ in
     enableIpp = true;
     enableTbb = true;
     enableDC1394 = true;
-  };
-
-  opencv4FullCuda = final.opencv4Full.override {
-    enableCuda = true;
-    enableCudnn = true;
   };
 
   intel-ocl = prev.intel-ocl.overrideAttrs (old: {

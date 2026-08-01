@@ -42,7 +42,7 @@ in
         maim
         xclip
         i3status
-        unstable.i3pystatus
+        i3pystatus
         mate-polkit
       ];
   };

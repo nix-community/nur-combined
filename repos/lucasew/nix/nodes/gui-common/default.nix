@@ -50,11 +50,12 @@ in
     libnotify
     zenity
     nix-output-monitor
-    nbr.wine-apps._7zip
-    devenv
   ];
 
   documentation.man.enable = true;
+
+  # graphical-desktop enables this by default; pulls ~700M mbrola voices
+  services.speechd.enable = false;
 
   programs.dconf.enable = true;
   programs.ydotool.enable = true;

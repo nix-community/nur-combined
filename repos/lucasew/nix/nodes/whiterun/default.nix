@@ -33,8 +33,6 @@ in
 
   hardware.nvidia.modesetting.enable = false;
 
-  gc-hold.enable = true;
-
   boot.kernel.sysctl = {
     "vfs.zfs.arc_sys_free" = 4 * 1024 * 1024 * 1024; # make ZFS free arc before hitting swap
   };
@@ -85,8 +83,6 @@ in
 
   networking.hostId = "97e3b5a7";
 
-  virtualisation.containerd.enable = true;
-
   services.telegram-sendmail.enable = true;
 
   services.cloud-savegame = {
@@ -127,7 +123,6 @@ in
   };
   hardware.graphics.extraPackages = with pkgs; [
     rocmPackages.rocm-runtime
-    rocmPackages.clr
   ];
   hardware.graphics.extraPackages32 = with pkgs; [ ];
 
