@@ -23,7 +23,7 @@ configurations. Other programs that can be simply included in
 
 | Type          | Name                                                                                                                    |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| GTK Theme     | [Orchis](https://github.com/vinceliuice/Orchis-theme)                                                                   |
+| GTK Theme     | [adw-gtk3](https://github.com/lassekongo83/adw-gtk3)                                                                    |
 | Terminal Font | [FantasqueSansMono Nerd Font Mono](https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/FantasqueSansMono) |
 
 ## Structure

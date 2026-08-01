@@ -7,8 +7,8 @@
       name = "capitaine-cursors";
     };
     theme = {
-      package = pkgs.orchis-theme;
-      name = "Orchis-Light";
+      package = pkgs.adw-gtk3;
+      name = "adw-gtk3-dark";
     };
   };
 }

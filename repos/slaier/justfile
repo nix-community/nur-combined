@@ -15,3 +15,4 @@ update:
   nix-update playwright-cli --flake --generate-lockfile
   nix-update mattpocock-skills --flake
   nix-update pw-duck --flake
+  nix-update free-claude-code --flake -u

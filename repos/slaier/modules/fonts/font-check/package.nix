@@ -1,13 +1,16 @@
-{ lib
-, stdenv
-, python3
-, makeWrapper
+{
+  lib,
+  stdenv,
+  python3,
+  makeWrapper,
 }:
 
 let
-  pythonEnv = python3.withPackages (ps: with ps; [
-    fonttools
-  ]);
+  pythonEnv = python3.withPackages (
+    ps: with ps; [
+      fonttools
+    ]
+  );
 in
 
 stdenv.mkDerivation {
