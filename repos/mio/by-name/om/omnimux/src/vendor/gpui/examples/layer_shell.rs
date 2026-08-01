@@ -1,6 +1,4 @@
-#![cfg_attr(target_family = "wasm", no_main)]
-
-fn run_example() {
+fn main() {
     #[cfg(all(target_os = "linux", feature = "wayland"))]
     example::main();
 
@@ -8,27 +6,15 @@ fn run_example() {
     panic!("This example requires the `wayland` feature and a linux system.");
 }
 
-#[cfg(not(target_family = "wasm"))]
-fn main() {
-    run_example();
-}
-
-#[cfg(target_family = "wasm")]
-#[wasm_bindgen::prelude::wasm_bindgen(start)]
-pub fn start() {
-    gpui_platform::web_init();
-    run_example();
-}
-
 #[cfg(all(target_os = "linux", feature = "wayland"))]
 mod example {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
     use gpui::{
-        App, Bounds, Context, FontWeight, Size, Window, WindowBackgroundAppearance, WindowBounds,
-        WindowKind, WindowOptions, div, layer_shell::*, point, prelude::*, px, rems, rgba, white,
+        App, Application, Bounds, Context, FontWeight, Size, Window, WindowBackgroundAppearance,
+        WindowBounds, WindowKind, WindowOptions, div, layer_shell::*, point, prelude::*, px, rems,
+        rgba, white,
     };
-    use gpui_platform::application;
 
     struct LayerShellExample;
 
@@ -74,7 +60,7 @@ mod example {
     }
 
     pub fn main() {
-        application().run(|cx: &mut App| {
+        Application::new().run(|cx: &mut App| {
             cx.open_window(
                 WindowOptions {
                     titlebar: None,

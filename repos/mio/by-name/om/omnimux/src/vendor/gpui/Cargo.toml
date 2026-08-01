@@ -21,8 +21,8 @@ autobins = false
 autoexamples = false
 autotests = false
 autobenches = false
-description = "Zed's GPU-accelerated UI framework"
-homepage = "https://gpui.rs"
+description = "A community fork of Zed's GPU-accelerated UI framework"
+homepage = "https://gpui-ce.github.io/"
 readme = "README.md"
 keywords = [
     "desktop",
@@ -31,8 +31,7 @@ keywords = [
 ]
 categories = ["gui"]
 license = "Apache-2.0"
-repository = "https://github.com/zed-industries/zed"
-resolver = "2"
+repository = "https://github.com/gpui-ce/gpui-ce"
 
 [features]
 default = [
@@ -56,20 +55,19 @@ screen-capture = ["scap"]
 test-support = [
     "leak-detection",
     "collections/test-support",
-    "rand",
     "util/test-support",
     "http_client/test-support",
     "wayland",
     "x11",
 ]
 wayland = [
+    "bitflags",
     "blade-graphics",
     "blade-macros",
     "blade-util",
     "bytemuck",
     "ashpd/wayland",
     "cosmic-text",
-    "unicode-script",
     "font-kit",
     "calloop-wayland-source",
     "wayland-backend",
@@ -77,6 +75,7 @@ wayland = [
     "wayland-cursor",
     "wayland-protocols",
     "wayland-protocols-plasma",
+    "wayland-protocols-wlr",
     "filedescriptor",
     "xkbcommon",
     "open",
@@ -89,7 +88,6 @@ x11 = [
     "bytemuck",
     "ashpd",
     "cosmic-text",
-    "unicode-script",
     "font-kit",
     "as-raw-xcb-connection",
     "x11rb",
@@ -106,6 +104,126 @@ name = "gpui"
 path = "src/gpui.rs"
 doctest = false
 
+[[example]]
+name = "animation"
+path = "examples/animation.rs"
+
+[[example]]
+name = "data_table"
+path = "examples/data_table.rs"
+
+[[example]]
+name = "drag_drop"
+path = "examples/drag_drop.rs"
+
+[[example]]
+name = "focus_visible"
+path = "examples/focus_visible.rs"
+
+[[example]]
+name = "gif_viewer"
+path = "examples/gif_viewer.rs"
+
+[[example]]
+name = "gradient"
+path = "examples/gradient.rs"
+
+[[example]]
+name = "grid_layout"
+path = "examples/grid_layout.rs"
+
+[[example]]
+name = "hello_world"
+path = "examples/hello_world.rs"
+
+[[example]]
+name = "image_loading"
+path = "examples/image_loading.rs"
+
+[[example]]
+name = "input"
+path = "examples/input.rs"
+
+[[example]]
+name = "layer_shell"
+path = "examples/layer_shell.rs"
+
+[[example]]
+name = "on_window_close_quit"
+path = "examples/on_window_close_quit.rs"
+
+[[example]]
+name = "opacity"
+path = "examples/opacity.rs"
+
+[[example]]
+name = "painting"
+path = "examples/painting.rs"
+
+[[example]]
+name = "paths_bench"
+path = "examples/paths_bench.rs"
+
+[[example]]
+name = "pattern"
+path = "examples/pattern.rs"
+
+[[example]]
+name = "scrollable"
+path = "examples/scrollable.rs"
+
+[[example]]
+name = "set_menus"
+path = "examples/set_menus.rs"
+
+[[example]]
+name = "shadow"
+path = "examples/shadow.rs"
+
+[[example]]
+name = "svg"
+path = "examples/svg/svg.rs"
+
+[[example]]
+name = "tab_stop"
+path = "examples/tab_stop.rs"
+
+[[example]]
+name = "text"
+path = "examples/text.rs"
+
+[[example]]
+name = "text_layout"
+path = "examples/text_layout.rs"
+
+[[example]]
+name = "text_wrapper"
+path = "examples/text_wrapper.rs"
+
+[[example]]
+name = "tree"
+path = "examples/tree.rs"
+
+[[example]]
+name = "uniform_list"
+path = "examples/uniform_list.rs"
+
+[[example]]
+name = "window"
+path = "examples/window.rs"
+
+[[example]]
+name = "window_positioning"
+path = "examples/window_positioning.rs"
+
+[[example]]
+name = "window_shadow"
+path = "examples/window_shadow.rs"
+
+[[test]]
+name = "action_macros"
+path = "tests/action_macros.rs"
+
 [dependencies.anyhow]
 version = "1.0.86"
 
@@ -114,6 +232,10 @@ version = "4.7"
 
 [dependencies.backtrace]
 version = "0.3"
+optional = true
+
+[dependencies.bitflags]
+version = "2.6.0"
 optional = true
 
 [dependencies.blade-graphics]
@@ -131,6 +253,9 @@ optional = true
 [dependencies.bytemuck]
 version = "1"
 optional = true
+
+[dependencies.circular-buffer]
+version = "1.0"
 
 [dependencies.collections]
 version = "0.2.2"
@@ -199,7 +324,6 @@ version = "1"
 
 [dependencies.rand]
 version = "0.9"
-optional = true
 
 [dependencies.raw-window-handle]
 version = "0.6"
@@ -224,9 +348,9 @@ features = ["indexmap2"]
 [dependencies.seahash]
 version = "4.1"
 
-[dependencies.semantic_version]
-version = "0.2.2"
-package = "gpui_semantic_version"
+[dependencies.semver]
+version = "1.0"
+features = ["serde"]
 
 [dependencies.serde]
 version = "1.0.221"
@@ -251,6 +375,9 @@ features = ["union"]
 
 [dependencies.smol]
 version = "2.0"
+
+[dependencies.spin]
+version = "0.10.0"
 
 [dependencies.stacksafe]
 version = "0.1"
@@ -355,18 +482,14 @@ version = "1"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.calloop]
-version = "0.13.0"
+version = "0.14.3"
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.calloop-wayland-source]
-version = "0.3.0"
+version = "0.4.1"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.cosmic-text]
 version = "0.14.0"
-optional = true
-
-[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.unicode-script]
-version = "0.5"
 optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.filedescriptor]
@@ -421,6 +544,11 @@ optional = true
 
 [target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.wayland-protocols-plasma]
 version = "0.2.0"
+features = ["client"]
+optional = true
+
+[target.'cfg(any(target_os = "linux", target_os = "freebsd"))'.dependencies.wayland-protocols-wlr]
+version = "0.3.9"
 features = ["client"]
 optional = true
 
@@ -496,6 +624,9 @@ version = "21"
 version = "0.4.3"
 features = ["metal"]
 
+[target.'cfg(target_os = "macos")'.dependencies.flume]
+version = "0.11"
+
 [target.'cfg(target_os = "macos")'.dependencies.font-kit]
 version = "0.14.1-zed"
 optional = true
@@ -504,12 +635,8 @@ package = "zed-font-kit"
 [target.'cfg(target_os = "macos")'.dependencies.foreign-types]
 version = "0.5"
 
-[target.'cfg(target_os = "macos")'.dependencies.log]
-version = "0.4.16"
-features = [
-    "kv_unstable_serde",
-    "serde",
-]
+[target.'cfg(target_os = "macos")'.dependencies.mach2]
+version = "0.5"
 
 [target.'cfg(target_os = "macos")'.dependencies.media]
 version = "0.2.2"
@@ -609,6 +736,9 @@ version = "0.5"
 [target.'cfg(target_os = "windows")'.build-dependencies.embed-resource]
 version = "3.0"
 
+[target.'cfg(target_os = "windows")'.build-dependencies.windows-registry]
+version = "0.5"
+
 [lints.clippy]
 dbg_macro = "deny"
 declare_interior_mutable_const = "deny"
@@ -629,3 +759,37 @@ priority = -1
 [lints.rust.unexpected_cfgs]
 level = "allow"
 priority = 0
+
+[profile.dev]
+codegen-units = 16
+split-debuginfo = "unpacked"
+incremental = false
+
+[profile.dev.package.proc-macro2]
+opt-level = 3
+
+[profile.dev.package.quote]
+opt-level = 3
+
+[profile.dev.package.resvg]
+opt-level = 3
+
+[profile.dev.package.syn]
+opt-level = 3
+
+[profile.dev.package.taffy]
+opt-level = 3
+
+[profile.dev.build-override]
+codegen-units = 16
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+debug = 1
+
+[profile.release-fast]
+lto = false
+codegen-units = 16
+debug = 2
+inherits = "release"

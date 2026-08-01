@@ -1,0 +1,5 @@
+# Nextest configuration for GPUI
+# https://nexte.st/book/configuration.html
+
+[profile.default]
+# Default test settings
