@@ -19,6 +19,8 @@ emacsPackages.trivialBuild {
     hash = "sha256-GzDPZumhXbbEPvtWyjVZ5Dkqt7EUof3yyZ9qF9kqOWw=";
   };
 
+  patches = [ ./direct-process-pipeline.patch ];
+
   packageRequires = [ emacsPackages.agent-shell ];
 
   doCheck = true;

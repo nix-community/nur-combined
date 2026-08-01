@@ -1,0 +1,371 @@
+diff --git a/agent-shell-math-renderer.el b/agent-shell-math-renderer.el
+--- a/agent-shell-math-renderer.el
++++ b/agent-shell-math-renderer.el
+@@ -976,0 +977,59 @@
++(defun agent-shell-math-renderer--process-output (buffer)
++  "Return BUFFER's process output as an unpropertized string."
++  (if (buffer-live-p buffer)
++      (with-current-buffer buffer
++        (buffer-substring-no-properties (point-min) (point-max)))
++    ""))
++
++(defun agent-shell-math-renderer--start-process
++    (stage command dir output-buffer sentinel)
++  "Start STAGE directly with argv COMMAND in DIR.
++Send stdout and stderr to OUTPUT-BUFFER and install SENTINEL.  No
++shell is involved, so this is independent of `shell-file-name'."
++  (with-current-buffer output-buffer
++    (goto-char (point-max))
++    (insert (format "[%s] %S\n" stage command)))
++  (let ((default-directory (file-name-as-directory dir)))
++    (make-process
++     :name (format "agent-shell-math-renderer-%s" stage)
++     :buffer output-buffer
++     :command command
++     :connection-type 'pipe
++     :noquery t
++     :sentinel sentinel)))
++
++(defun agent-shell-math-renderer--run-process-chain
++    (dir output-buffer stages done)
++  "Run asynchronous STAGES sequentially in DIR, then call DONE.
++Each element of STAGES is (NAME COMMAND OUTPUT-FILE), where COMMAND
++is an argv list passed directly to `make-process'.  A stage succeeds
++only when it exits with status zero and OUTPUT-FILE exists.  DONE is
++called once with non-nil on complete success and nil on any failed
++exit, signal, missing output, or process startup error."
++  (cl-labels
++      ((run
++        (remaining)
++        (if (null remaining)
++            (funcall done t)
++          (pcase-let* ((`(,stage ,command ,output-file) (car remaining))
++                       (settled nil))
++            (condition-case err
++                (agent-shell-math-renderer--start-process
++                 stage command dir output-buffer
++                 (lambda (process _event)
++                   (when (and (not settled)
++                              (memq (process-status process) '(exit signal)))
++                     (setq settled t)
++                     (if (and (eq (process-status process) 'exit)
++                              (zerop (process-exit-status process))
++                              (file-exists-p output-file))
++                         (run (cdr remaining))
++                       (funcall done nil)))))
++              (error
++               (with-current-buffer output-buffer
++                 (goto-char (point-max))
++                 (insert (format "%s failed to start: %s\n"
++                                 stage (error-message-string err))))
++               (funcall done nil)))))))
++    (run stages)))
++
+@@ -977,21 +1036,35 @@ coalesced onto a single in-flight compile; all are overlaid when it
+-(defun agent-shell-math-renderer--compile-failed (key latex dir)
+-  "Handle a failed LaTeX compile for KEY with source LATEX.
+-DIR is the scratch directory containing the build log.  The log
+-is copied to a persistent file in the math cache directory, and a
+-warning is emitted with a clickable link to it."
++(defun agent-shell-math-renderer--compile-failed
++    (key latex dir &optional process-output)
++  "Handle a failed LaTeX-to-SVG compile for KEY with source LATEX.
++DIR is the scratch directory containing equation.log when LaTeX
++created one.  PROCESS-OUTPUT is the captured stdout and stderr from
++the direct LaTeX/dvisvgm processes.  A persistent log containing the
++available diagnostics is written to the math cache directory, and a
++warning is emitted with a clickable link to it."
+   (let* ((log-src (expand-file-name "equation.log" dir))
+          (log-dst (expand-file-name (concat key ".log")
+                                     (agent-shell-math-renderer--cache-dir)))
++         (have-tex-log (file-exists-p log-src))
++         (have-output (not (string-empty-p (or process-output ""))))
+          (snippet (truncate-string-to-width latex 60 nil nil t)))
+-    (when (file-exists-p log-src)
+-      (copy-file log-src log-dst t))
++    (when (or have-tex-log have-output)
++      (with-temp-file log-dst
++        (when have-tex-log
++          (insert-file-contents log-src)
++          (goto-char (point-max))
++          (unless (bolp)
++            (insert "\n")))
++        (when have-output
++          (when have-tex-log
++            (insert "\n--- process output ---\n"))
++          (insert process-output))))
+     (display-warning
+      'agent-shell-math-renderer
+-     (format "LaTeX compile failed for: %s\nSee log: %s"
++     (format "LaTeX-to-SVG compile failed for: %s\nSee log: %s"
+              snippet
+              (if (file-exists-p log-dst) log-dst "(no log available)"))
+      :warning)
+-    (when (file-exists-p log-dst)
++    (when (and (file-exists-p log-dst) (get-buffer "*Warnings*"))
+       (with-current-buffer "*Warnings*"
+         (let ((inhibit-read-only t))
+           (goto-char (point-max))
+@@ -1027,7 +1100,9 @@ portable; it can slot in here without changing callers."
+          (tex (expand-file-name "equation.tex" dir))
+          (dvi (expand-file-name "equation.dvi" dir))
+          (svg (agent-shell-math-renderer--svg-file key))
+-         (cleanup (lambda () (ignore-errors (delete-directory dir t)))))
++         (cleanup (lambda () (ignore-errors (delete-directory dir t))))
++         (output-buffer (generate-new-buffer
++                         (format " *agent-shell-math-renderer-%s*" key))))
+     (with-temp-file tex
+       (insert agent-shell-math-renderer-preamble "\n"
+               (if (string-empty-p agent-shell-math-renderer-appended-preamble)
+@@ -1047,41 +1122,48 @@ portable; it can slot in here without changing callers."
+     ;; paths via --no-fonts), so the scale doesn't affect quality, and the
+     ;; displayed size is set later by `--math-display-scale'.  Fixing it at 1
+     ;; means the SVG carries the equation's natural point dimensions.
+     ;; `--currentcolor' rewrites the default ink to the `currentColor' token
+     ;; so the file is color-independent (tinted at display time).
+-    (let ((command
+-           (format "cd %s && %s -interaction=nonstopmode -halt-on-error %s && %s --no-fonts --exact-bbox --currentcolor --scale=1 -o %s %s"
+-                   (shell-quote-argument dir)
+-                   (shell-quote-argument agent-shell-math-renderer-latex-program)
+-                   (shell-quote-argument tex)
+-                   (shell-quote-argument agent-shell-math-renderer-dvisvgm-program)
+-                   (shell-quote-argument svg)
+-                   (shell-quote-argument dvi))))
+-      (condition-case err
+-          (set-process-sentinel
+-           (start-process-shell-command "agent-shell-math-renderer" nil command)
+-           (lambda (process _event)
+-             (when (memq (process-status process) '(exit signal))
+-               (if (and (eq (process-status process) 'exit)
+-                        (zerop (process-exit-status process))
+-                        (file-exists-p svg))
+-                   (dolist (region (gethash key agent-shell-math-renderer--pending))
+-                     (let ((buffer (nth 0 region))
+-                           (start (nth 1 region))
+-                           (end (nth 2 region)))
+-                       (when (buffer-live-p buffer)
+-                         (with-current-buffer buffer
+-                           (agent-shell-math-renderer--overlay-image
+-                            buffer start end
+-                            (agent-shell-math-renderer--cached-image key))))))
+-                 (agent-shell-math-renderer--compile-failed key latex dir))
+-               (remhash key agent-shell-math-renderer--pending)
+-               (funcall cleanup))))
+-        (error
+-         ;; Couldn't even spawn the process — drop the queue and clean up.
+-         (remhash key agent-shell-math-renderer--pending)
+-         (funcall cleanup)
+-         (signal (car err) (cdr err)))))))
++    (agent-shell-math-renderer--run-process-chain
++     dir output-buffer
++     (list
++      (list 'latex
++            (list agent-shell-math-renderer-latex-program
++                  "-interaction=nonstopmode"
++                  "-halt-on-error"
++                  tex)
++            dvi)
++      (list 'dvisvgm
++            (list agent-shell-math-renderer-dvisvgm-program
++                  "--no-fonts"
++                  "--exact-bbox"
++                  "--currentcolor"
++                  "--scale=1"
++                  "-o"
++                  svg
++                  dvi)
++            svg))
++     (lambda (success)
++       (unwind-protect
++           (if success
++               (dolist
++                   (region
++                    (gethash key agent-shell-math-renderer--pending))
++                 (let ((buffer (nth 0 region))
++                       (start (nth 1 region))
++                       (end (nth 2 region)))
++                   (when (buffer-live-p buffer)
++                     (with-current-buffer buffer
++                       (agent-shell-math-renderer--overlay-image
++                        buffer start end
++                        (agent-shell-math-renderer--cached-image key))))))
++             (agent-shell-math-renderer--compile-failed
++              key latex dir
++              (agent-shell-math-renderer--process-output output-buffer)))
++         (remhash key agent-shell-math-renderer--pending)
++         (when (buffer-live-p output-buffer)
++           (kill-buffer output-buffer))
++         (funcall cleanup))))))
+ 
+ (defun agent-shell-math-renderer--refresh-buffer (buffer)
+   "Re-render every display-math region in BUFFER for the current colors.
+diff --git a/tests/agent-shell-math-renderer-tests.el b/tests/agent-shell-math-renderer-tests.el
+--- a/tests/agent-shell-math-renderer-tests.el
++++ b/tests/agent-shell-math-renderer-tests.el
+@@ -608,0 +609,166 @@
++(defun agent-shell-math-renderer-tests--finish-fake-process
++    (process exit-status &optional output)
++  "Finish fake PROCESS with EXIT-STATUS, optionally appending OUTPUT."
++  (when output
++    (with-current-buffer (plist-get (aref process 3) :buffer)
++      (goto-char (point-max))
++      (insert output)))
++  (aset process 1 'exit)
++  (aset process 2 exit-status)
++  (funcall (plist-get (aref process 3) :sentinel) process "finished\n"))
++
++(defmacro agent-shell-math-renderer-tests--with-fake-processes (&rest body)
++  "Run BODY with direct asynchronous processes captured as fake processes."
++  (declare (indent 0) (debug t))
++  `(let* ((asmr-test-cache-dir (make-temp-file "asm-process-cache" t))
++          (agent-shell-math-renderer-cache-directory asmr-test-cache-dir)
++          (agent-shell-math-renderer-latex-program "latex-direct")
++          (agent-shell-math-renderer-dvisvgm-program "dvisvgm-direct")
++          (agent-shell-math-renderer--pending (make-hash-table :test 'equal))
++          (asmr-test-processes nil)
++          (asmr-test-warnings nil))
++     (unwind-protect
++         (cl-letf
++             (((symbol-function 'make-process)
++               (lambda (&rest plist)
++                 (let ((process
++                        (vector 'fake-process 'run 0 plist default-directory)))
++                   (setq asmr-test-processes
++                         (append asmr-test-processes (list process)))
++                   process)))
++              ((symbol-function 'process-status)
++               (lambda (process) (aref process 1)))
++              ((symbol-function 'process-exit-status)
++               (lambda (process) (aref process 2)))
++              ((symbol-function 'display-warning)
++               (lambda (&rest warning)
++                 (push warning asmr-test-warnings)))
++              ((symbol-function 'start-process-shell-command)
++               (lambda (&rest _)
++                 (error "A shell pipeline must not be used"))))
++           ,@body)
++       (dolist (process asmr-test-processes)
++         (let ((buffer (plist-get (aref process 3) :buffer))
++               (dir (aref process 4)))
++           (when (buffer-live-p buffer)
++             (kill-buffer buffer))
++           (when (and (file-directory-p dir)
++                      (string-prefix-p
++                       "agent-shell-math-renderer"
++                       (file-name-nondirectory (directory-file-name dir))))
++             (delete-directory dir t))))
++       (delete-directory asmr-test-cache-dir t))))
++
++(ert-deftest
++    agent-shell-math-renderer-compile-direct-argv-works-without-posix-shell ()
++  ;; A Nu or invalid user shell is irrelevant: only latex is started first,
++  ;; then dvisvgm after the DVI appears, and the successful SVG is overlaid.
++  (agent-shell-math-renderer-tests--with-fake-processes
++    (let ((shell-file-name "nu")
++          (explicit-shell-file-name "/definitely/not-a-posix-shell")
++          (target (generate-new-buffer " *asm-direct-target*"))
++          overlay-call)
++      (unwind-protect
++          (cl-letf
++              (((symbol-function 'agent-shell-math-renderer--cached-image)
++                (lambda (_key) 'fake-image))
++               ((symbol-function 'agent-shell-math-renderer--overlay-image)
++                (lambda (buffer start end image)
++                  (setq overlay-call (list buffer start end image)))))
++            (with-current-buffer target
++              (insert "xy"))
++            (puthash "success" (list (list target 1 2))
++                     agent-shell-math-renderer--pending)
++            (agent-shell-math-renderer--compile "success" "x^2")
++            (should (= (length asmr-test-processes) 1))
++            (let* ((latex-process (car asmr-test-processes))
++                   (latex-plist (aref latex-process 3))
++                   (latex-command (plist-get latex-plist :command))
++                   (scratch (aref latex-process 4))
++                   (output-buffer (plist-get latex-plist :buffer))
++                   (dvi (expand-file-name "equation.dvi" scratch))
++                   (svg (expand-file-name "success.svg" asmr-test-cache-dir)))
++              (should (equal (car latex-command) "latex-direct"))
++              (should (equal (nth 1 latex-command)
++                             "-interaction=nonstopmode"))
++              (should (equal (nth 2 latex-command) "-halt-on-error"))
++              (should (equal (file-name-nondirectory (nth 3 latex-command))
++                             "equation.tex"))
++              (should (equal (plist-get latex-plist :connection-type) 'pipe))
++              (should (plist-get latex-plist :noquery))
++              (with-temp-file dvi
++                (insert "fake dvi"))
++              (agent-shell-math-renderer-tests--finish-fake-process
++               latex-process 0)
++              (should (= (length asmr-test-processes) 2))
++              (let* ((dvisvgm-process (cadr asmr-test-processes))
++                     (dvisvgm-command
++                      (plist-get (aref dvisvgm-process 3) :command)))
++                (should
++                 (equal dvisvgm-command
++                        (list "dvisvgm-direct"
++                              "--no-fonts" "--exact-bbox" "--currentcolor"
++                              "--scale=1" "-o" svg dvi)))
++                (with-temp-file svg
++                  (insert "<svg/>"))
++                (agent-shell-math-renderer-tests--finish-fake-process
++                 dvisvgm-process 0))
++              (should (equal overlay-call (list target 1 2 'fake-image)))
++              (should-not (gethash "success"
++                                   agent-shell-math-renderer--pending))
++              (should-not (file-directory-p scratch))
++              (should-not (buffer-live-p output-buffer))))
++        (when (buffer-live-p target)
++          (kill-buffer target))))))
++
++(ert-deftest agent-shell-math-renderer-latex-failure-saves-process-output ()
++  ;; If latex fails before producing equation.log, its captured stderr is
++  ;; persisted, dvisvgm is not started, and pending/scratch state is cleaned.
++  (agent-shell-math-renderer-tests--with-fake-processes
++    (let ((shell-file-name "/definitely/not-a-shell")
++          (explicit-shell-file-name "nu"))
++      (puthash "latex-fail" 'queued agent-shell-math-renderer--pending)
++      (agent-shell-math-renderer--compile "latex-fail" "bad")
++      (let* ((latex-process (car asmr-test-processes))
++             (output-buffer (plist-get (aref latex-process 3) :buffer))
++             (scratch (aref latex-process 4))
++             (log (expand-file-name "latex-fail.log" asmr-test-cache-dir)))
++        (agent-shell-math-renderer-tests--finish-fake-process
++         latex-process 1 "latex stderr marker\n")
++        (should (= (length asmr-test-processes) 1))
++        (should-not (gethash "latex-fail"
++                             agent-shell-math-renderer--pending))
++        (should-not (file-directory-p scratch))
++        (should-not (buffer-live-p output-buffer))
++        (should (file-exists-p log))
++        (with-temp-buffer
++          (insert-file-contents log)
++          (should (search-forward "latex stderr marker" nil t)))
++        (should asmr-test-warnings)))))
++
++(ert-deftest agent-shell-math-renderer-dvisvgm-failure-keeps-both-logs ()
++  ;; A second-stage failure keeps equation.log and dvisvgm's own output.
++  (agent-shell-math-renderer-tests--with-fake-processes
++    (puthash "svg-fail" 'queued agent-shell-math-renderer--pending)
++    (agent-shell-math-renderer--compile "svg-fail" "bad-svg")
++    (let* ((latex-process (car asmr-test-processes))
++           (scratch (aref latex-process 4))
++           (dvi (expand-file-name "equation.dvi" scratch))
++           (tex-log (expand-file-name "equation.log" scratch))
++           (log (expand-file-name "svg-fail.log" asmr-test-cache-dir)))
++      (with-temp-file dvi
++        (insert "fake dvi"))
++      (with-temp-file tex-log
++        (insert "equation.log marker\n"))
++      (agent-shell-math-renderer-tests--finish-fake-process latex-process 0)
++      (should (= (length asmr-test-processes) 2))
++      (agent-shell-math-renderer-tests--finish-fake-process
++       (cadr asmr-test-processes) 2 "dvisvgm stderr marker\n")
++      (should-not (gethash "svg-fail" agent-shell-math-renderer--pending))
++      (should-not (file-directory-p scratch))
++      (should (file-exists-p log))
++      (with-temp-buffer
++        (insert-file-contents log)
++        (should (search-forward "equation.log marker" nil t))
++        (should (search-forward "dvisvgm stderr marker" nil t)))
++      (should asmr-test-warnings))))
