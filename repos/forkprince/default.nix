@@ -38,6 +38,7 @@
   pearcleaner = lib.callPackage ./pkgs/pearcleaner {};
   supercharge = lib.callPackage ./pkgs/supercharge {};
   cot-editor = lib.callPackage ./pkgs/cot-editor {};
+  vorssaint = lib.callPackage ./pkgs/vorssaint {};
   playcover = lib.callPackage ./pkgs/playcover {};
   dropshare = lib.callPackage ./pkgs/dropshare {};
   convierto = lib.callPackage ./pkgs/convierto {};

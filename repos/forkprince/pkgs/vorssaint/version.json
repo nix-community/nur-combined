@@ -1,0 +1,15 @@
+{
+  "name": "Vorssaint",
+  "source": {
+    "type": "github-release",
+    "repo": "vorssaint/vorssaint-utils",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Vorssaint-3.2.0.dmg",
+    "unpack": false
+  },
+  "version": "3.2.0",
+  "hash": "sha256-pNW12sDHE10XpRJHdKZnSKHs9przozK5BwxU/a7dXfo="
+}
