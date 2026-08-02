@@ -7,7 +7,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "imdb-trakt-sync";
-  version = "0.1.0-unstable-2026-07-27";
+  version = "0.1.0-unstable-2026-08-01";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -15,8 +15,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "imdb-trakt-sync";
-    rev = "fcabed8e2838a95a4c148d088c56e530f235ff4b";
-    hash = "sha256-/GV9YunOeTJR0SAwhAUmAr57WaKgu+Zdh5tBUz3ssBs=";
+    rev = "89f9f9ef82da3d3f6493ce91fd6d1629e65858ce";
+    hash = "sha256-Jpmc/kKtMGn8orLOxsb0Ynl5JN3JaGMmUvlwsx/F+K0=";
   };
 
   build-system = with python3Packages; [

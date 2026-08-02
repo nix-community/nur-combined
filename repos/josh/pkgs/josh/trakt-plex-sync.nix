@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "trakt-plex-sync";
-  version = "0.2.0-unstable-2026-07-30";
+  version = "0.2.0-unstable-2026-08-01";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "trakt-plex-sync";
-    rev = "b86b8a3fefc5eda8aba7836b46ba1991d6a9a0c8";
-    hash = "sha256-UsPqjDHtba6fkLWl5Kf7fSpYsM6lBsTyPqCDXeQGycs=";
+    rev = "f99644dd3acf3427a2237c7645edddfea084cb97";
+    hash = "sha256-OAxDNVopX/K1i0ueGxco/ekxblI7npYpR5sQ6kyWBHM=";
   };
 
   build-system = with python3Packages; [

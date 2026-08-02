@@ -7,7 +7,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "imdb-data";
-  version = "0.1.0-unstable-2026-07-26";
+  version = "0.1.0-unstable-2026-08-02";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -15,8 +15,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "imdb-data";
-    rev = "3c508bbb35f899cbbe4e4c6479b13e201216a75a";
-    hash = "sha256-cUmpi8jFKswFoBfka3xU5NLoJGUl+PJjxP8fCv9Wd2s=";
+    rev = "e3e90a495e425ab9ba61f5f07a6f31e4f363c2c5";
+    hash = "sha256-npHnVKFN3x9SfvV4aTAGG2QBvGRFOCGBSG0UNz1lqbg=";
   };
 
   build-system = with python3Packages; [

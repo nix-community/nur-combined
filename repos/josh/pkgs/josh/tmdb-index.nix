@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "tmdb-index";
-  version = "1.0.0-unstable-2026-07-28";
+  version = "1.0.0-unstable-2026-08-01";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "tmdb-index";
-    rev = "ecb2c6e859d4e34314b597d029e0a119c3fed87c";
-    hash = "sha256-ZRqaLuGU+mm1TRoxupQ/OphVUd/F1pENJ2e7NmZVlF0=";
+    rev = "2d81dcbf42cf86f3424f8895f57157567bb4b95e";
+    hash = "sha256-QvHEOJw5S2QWYTBydRlP5qyiImQfY20gQVXW2QhOEQM=";
   };
 
   build-system = with python3Packages; [
