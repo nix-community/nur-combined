@@ -4255,10 +4255,10 @@
     };
     "firemonkey" = buildMozillaXpiAddon {
       pname = "firemonkey";
-      version = "3.6";
+      version = "3.7";
       addonId = "firemonkey@eros.man";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928978/firemonkey-3.6.xpi";
-      sha256 = "3efaafcc6f330c8d06cbd787b93daf2cea5868341d4cd1ef8e588ccac73e4510";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4932315/firemonkey-3.7.xpi";
+      sha256 = "d24b68c936e23e201a7ae305ba8d2fdd7e83c4cdfba383e24129b8aaa21fb237";
       meta = with lib;
       {
         homepage = "https://github.com/erosman/firemonkey";
@@ -17606,10 +17606,10 @@
     };
     "ycs-continued" = buildMozillaXpiAddon {
       pname = "ycs-continued";
-      version = "1.10.0";
+      version = "1.10.1";
       addonId = "ycs-cont-public@pymaster.tw";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4916553/ycs_continued-1.10.0.xpi";
-      sha256 = "61f715fcd4a9aded9c1a3487120bb93b6cbafdfb58ce2fac364051450fb3ca08";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4931728/ycs_continued-1.10.1.xpi";
+      sha256 = "74fbbd15a6e85d166030fcc5c38e6e16217764b1e74976a97271058a9c16e2da";
       meta = with lib;
       {
         homepage = "https://github.com/pc035860/YCS-cont";
