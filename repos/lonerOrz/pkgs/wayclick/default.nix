@@ -8,13 +8,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "wayclick";
-  version = "0-unstable-2026-07-20";
+  version = "0-unstable-2026-08-01";
 
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "wayclick";
-    rev = "7eb8d9d0e615abe2c4ace1c300497737b8d94d6f";
-    hash = "sha256-9IzF5YWw2plY/kGM0LBkde3tVfNulwF+QbyHKM///CA=";
+    rev = "36ec706fd10863d1af09ca0fde5f589d773e7d38";
+    hash = "sha256-LlJ80MrMLeaaVtq+mfwoW+mfGWEf5KlT9pNfUYwes3c=";
   };
 
   cargoHash = "sha256-QYp5B+amLHIY4Yr/kCKngbv4voeBdiY+8czbcWvmdtQ=";
