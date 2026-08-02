@@ -13,6 +13,8 @@ pr = "https://github.com/NixOS/nixpkgs/pull/491823"
 [keyguard]
 pr = "https://github.com/NixOS/nixpkgs/pull/495316"
 
+[pokeclicker]
+
 [pokeclicker-desktop]
 pr = "https://github.com/NixOS/nixpkgs/pull/545651"
 
