@@ -22,13 +22,13 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cc-switch";
-  version = "3.18.0";
+  version = "3.19.1";
 
   src = fetchFromGitHub {
     owner = "farion1231";
     repo = "cc-switch";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-viAlpiRnPujVeDWizAgmfGbHMsk3+a8sp2T2fy2eHws=";
+    hash = "sha256-5QcttpdiwjPyHfE8UdLkXP5DemLnddlwTr6P0S6tKF4=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -38,7 +38,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoRoot = "src-tauri";
-  cargoHash = "sha256-ZhhPjFZqANfpXSeaUpvzo5cfTyUSLX2PxoR1OmyVbik=";
+  cargoHash = "sha256-hmo4AWlSCrRPdcmFJw+p60oqcgq+9UcEWUfgXeTVbOY=";
   buildAndTestSubdir = finalAttrs.cargoRoot;
 
   checkFlags = [

@@ -26,17 +26,14 @@
   luker = pkgs.callPackage ./pkgs/luker { };
   metapi = pkgs.callPackage ./pkgs/metapi { };
   sub2api = pkgs.callPackage ./pkgs/sub2api { };
-  tauritavern = pkgs.callPackage ./pkgs/tauritavern { };
   xmcl = pkgs.callPackage ./pkgs/xmcl { };
   xmcl-bin = pkgs.callPackage ./pkgs/xmcl-bin { };
   ai-toolbox = pkgs.callPackage ./pkgs/ai-toolbox { };
   sabaki = pkgs.callPackage ./pkgs/sabaki { };
   savedesktop = pkgs.callPackage ./pkgs/savedesktop { };
   unreal-gold = pkgs.callPackage ./pkgs/unreal-gold { };
-  pumpkin = pkgs.callPackage ./pkgs/pumpkin { };
   follow = pkgs.callPackage ./pkgs/follow { };
   super-productivity = pkgs.callPackage ./pkgs/super-productivity { };
-  feeluown = pkgs.callPackage ./pkgs/feeluown { };
   wiliwili = pkgs.callPackage ./pkgs/wiliwili { };
   sunloginclient = pkgs.callPackage ./pkgs/sunloginclient { };
   nutstore = pkgs.callPackage ./pkgs/nutstore { };
