@@ -1,0 +1,11 @@
+diff --git a/src/renderer/utils/getFreeRDP.ts b/src/renderer/utils/getFreeRDP.ts
+--- a/src/renderer/utils/getFreeRDP.ts
++++ b/src/renderer/utils/getFreeRDP.ts
+@@ -22,6 +22,7 @@ export class FreeRDPInstallation {
+ }
+ 
+ const freeRDPInstallations = [
++    new FreeRDPInstallation("sdl-freerdp"),
+     new FreeRDPInstallation("xfreerdp3"),
+     new FreeRDPInstallation("xfreerdp"),
+     new FreeRDPInstallation("flatpak", ["run", "--command=xfreerdp", "com.freerdp.FreeRDP"]),

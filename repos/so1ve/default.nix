@@ -11,6 +11,9 @@ in
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn {
     source = sources.r-maple-mono-nf-cn;
   };
+  winboat = pkgs.callPackage ./pkgs/winboat {
+    source = sources.winboat;
+  };
 
   homeModules = import ./home-modules;
 }

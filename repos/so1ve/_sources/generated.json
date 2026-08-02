@@ -43,5 +43,25 @@
             "url": "https://github.com/so1ve/maple-font/releases/download/v1783947872/RMapleMono-NF-CN.zip"
         },
         "version": "1783947872"
+    },
+    "winboat": {
+        "cargoLock": null,
+        "date": "2026-07-31",
+        "extract": null,
+        "name": "winboat",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "4fefd6da554fe80b0fc9da7a5dd8355371e1d3fd",
+            "sha256": "sha256-kutFvwpnh4zNnEFMzj1MQtpfFy2P+4TpiDqPBZqVam4=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/TibixDev/winboat.git"
+        },
+        "version": "4fefd6da554fe80b0fc9da7a5dd8355371e1d3fd"
     }
 }

@@ -15,3 +15,8 @@ src.github = "so1ve/maple-font"
 src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
 fetch.url = "https://github.com/so1ve/maple-font/releases/download/v$ver/RMapleMono-NF-CN.zip"
+
+[winboat]
+src.git = "https://github.com/TibixDev/winboat.git"
+src.branch = "main"
+fetch.git = "https://github.com/TibixDev/winboat.git"
