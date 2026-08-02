@@ -23,7 +23,7 @@ jobs:
       on_pr_branch: ${{ steps.export-flag.outputs.on_pr_branch }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Install nix
         uses: DeterminateSystems/determinate-nix-action@main
       - name: Update flake.lock
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
