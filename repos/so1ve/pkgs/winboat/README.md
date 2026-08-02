@@ -1,6 +1,6 @@
 # WinBoat
 
-This package builds WinBoat from latest source code with modifications to prefer using `sdl-freerdp`(Wayland).
+This package builds WinBoat from latest source code
 
 ## NixOS
 
