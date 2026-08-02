@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.4.0-alpha.1";
+    version = "v0.4.0-alpha.2";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.4.0-alpha.1";
+      rev = "v0.4.0-alpha.2";
       fetchSubmodules = false;
-      sha256 = "sha256-9ZxJc4hrYwo5hdEpg2OvGlUesWhvfEmkSfLrOJlvX3s=";
+      sha256 = "sha256-dx2yrXA+s5o463NwH5KEaSrQODHAf3gnmMhtZHPsui8=";
     };
   };
   fast-nix-gc = {
@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.7-beta.9";
+    version = "v3.9.7-beta.10";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.7-beta.9";
+      rev = "v3.9.7-beta.10";
       fetchSubmodules = false;
-      sha256 = "sha256-wm4Cf08kk7ojGUWm+q7d1NdCSAMJiFF/W+wp+02MK/o=";
+      sha256 = "sha256-9WE0QQjbiSma9kjOpiYdAigY6hfne3N+pe9b4id8H/E=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-wm4Cf08kk7ojGUWm+q7d1NdCSAMJiFF_W+wp+02MK_o=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-9WE0QQjbiSma9kjOpiYdAigY6hfne3N+pe9b4id8H_E=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
@@ -261,15 +261,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "4623a0c5a733ae1c881a03e5190a4b249861e998";
+    version = "b0f8deb1efcb498b4f02189eaa893674603ccf99";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "4623a0c5a733ae1c881a03e5190a4b249861e998";
+      rev = "b0f8deb1efcb498b4f02189eaa893674603ccf99";
       fetchSubmodules = false;
-      sha256 = "sha256-T45hq3Ggyl5q3ZkkYTGYCIACJEdXiIYD1BYW2teOjk8=";
+      sha256 = "sha256-AUujtI5lTvkCaIFNXyf6+fgH5fZFCnapd0C+KutSBpc=";
     };
-    date = "2026-07-30";
+    date = "2026-08-02";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -433,15 +433,15 @@
   };
   uosc-danmaku-git = {
     pname = "uosc-danmaku-git";
-    version = "33c3b9a187a06bb311586dfa8a5662ba93eecc63";
+    version = "948f64eef08011faf2f3eb43050062d7ce5ed1ba";
     src = fetchFromGitHub {
       owner = "Tony15246";
       repo = "uosc_danmaku";
-      rev = "33c3b9a187a06bb311586dfa8a5662ba93eecc63";
+      rev = "948f64eef08011faf2f3eb43050062d7ce5ed1ba";
       fetchSubmodules = false;
-      sha256 = "sha256-iCLhrrEGaiXecgz39cjBGwZ5wSdyb8k5mP5mTrDEGYU=";
+      sha256 = "sha256-+Dz7EC/YXj4UsNAYBmUxMnk3EkCe3kAjPDwZVX/PLdU=";
     };
-    date = "2026-07-29";
+    date = "2026-08-02";
   };
   waywallen-bin = {
     pname = "waywallen-bin";
