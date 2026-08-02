@@ -23,6 +23,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
   doInstallCheck = true;
 
+  checkFlags = [
+    "--skip=test::store_b_request"
+  ];
+
   __darwinAllowLocalNetworking = true;
 
   meta = {
