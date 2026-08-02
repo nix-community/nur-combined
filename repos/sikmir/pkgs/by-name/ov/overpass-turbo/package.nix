@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "overpass-turbo";
-  version = "2026-07-18";
+  version = "2026-07-19";
 
   src = fetchFromGitHub {
     owner = "tyrasd";
     repo = "overpass-turbo";
-    rev = "6c9725ec93e4b1bd051b15b2199b281e2d1e4179";
-    hash = "sha256-s/eXY2sCXlPf8EuKr3Bl0c9oFTzbSfmtHgPMLZDbvSE=";
+    rev = "bb21a1cad2bbb3bf02abeb380b565244feed2bf7";
+    hash = "sha256-2KDOM2xtPg0257q2+PYI4ZC2YLnB0WyJ2SUWdk2y9ek=";
   };
 
   postPatch = ''
@@ -30,7 +30,7 @@ stdenv.mkDerivation (finalAttrs: {
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 4;
-    hash = "sha256-kAfuQAY0R4spfMSmEjh3/1RLEFQxxwwpDh4CQPb77w4=";
+    hash = "sha256-NlZZvty3nfZcxb/Cw6X8IHIlJbqiSRrkDycgtQgvsIg=";
   };
 
   nativeBuildInputs = [
@@ -57,5 +57,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/tyrasd/overpass-turbo";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true; # Error: Cannot find module './vite-plus.linux-x64-gnu.node'
   };
 })
