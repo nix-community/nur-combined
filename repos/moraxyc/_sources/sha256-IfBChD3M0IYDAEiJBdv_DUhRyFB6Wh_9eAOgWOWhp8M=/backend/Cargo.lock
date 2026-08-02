@@ -364,7 +364,7 @@ dependencies = [
  "objc2-foundation 0.3.2",
  "parking_lot",
  "percent-encoding",
- "windows-sys 0.60.2",
+ "windows-sys 0.59.0",
  "wl-clipboard-rs",
  "x11rb",
 ]
@@ -1778,9 +1778,9 @@ dependencies = [
 
 [[package]]
 name = "clap"
-version = "4.6.4"
+version = "4.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d91e0c145792ef73a6ad36d27c75ac09f1832222a3c209689d90f534685ee5b7"
+checksum = "301b56658598e48f3648647ac6fc887be7e7108eddfa4e9b63fcf3ec58c0cadf"
 dependencies = [
  "clap_builder",
  "clap_derive",
@@ -1788,9 +1788,9 @@ dependencies = [
 
 [[package]]
 name = "clap_builder"
-version = "4.6.2"
+version = "4.6.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f09628afdcc538b57f3c6341e9c8e9970f18e4a481690a64974d7023bd33548b"
+checksum = "94a65403d1a1bd28f7dc68eb8506e8874808ee5eecb59298de588e2e1407a078"
 dependencies = [
  "anstream",
  "anstyle",
@@ -3279,7 +3279,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -4911,9 +4911,9 @@ dependencies = [
 
 [[package]]
 name = "interprocess"
-version = "2.4.2"
+version = "2.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "069323743400cb7ab06a8fe5c1ed911d36b6919ec531661d034c89083629595b"
+checksum = "798de1433ba514cc6c04c4144c2469af81396e4906195218737c776d47769572"
 dependencies = [
  "doctest-file",
  "futures-core",
@@ -7896,7 +7896,7 @@ dependencies = [
  "once_cell",
  "socket2",
  "tracing",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -8617,7 +8617,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys 0.12.1",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -8676,7 +8676,7 @@ dependencies = [
  "security-framework",
  "security-framework-sys",
  "webpki-root-certs",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -10497,7 +10497,7 @@ dependencies = [
  "getrandom 0.4.3",
  "once_cell",
  "rustix 1.1.4",
- "windows-sys 0.52.0",
+ "windows-sys 0.59.0",
 ]
 
 [[package]]
@@ -10692,9 +10692,9 @@ dependencies = [
 
 [[package]]
 name = "time"
-version = "0.3.54"
+version = "0.3.55"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3e1d5e639ff6bab73cb6885cc7e7b1de96c3f32c68ec55f3952614bec1092244"
+checksum = "cdb87b95ec50ddfa440816d227a17b2ccbdda963a316a727fda0fc4334f7d134"
 dependencies = [
  "deranged",
  "js-sys",

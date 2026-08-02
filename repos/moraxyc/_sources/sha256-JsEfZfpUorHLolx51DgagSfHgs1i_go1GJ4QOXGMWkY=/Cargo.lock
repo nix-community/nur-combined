@@ -520,7 +520,7 @@ checksum = "c8d4a3bb8b1e0c1050499d1815f5ab16d04f0959b233085fb31653fbfc9d98f9"
 
 [[package]]
 name = "clash-api"
-version = "0.1.1"
+version = "1.0.0-rc.1"
 dependencies = [
  "axum",
  "backon",
@@ -1938,7 +1938,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-manager"
-version = "0.1.1"
+version = "1.0.0-rc.1"
 dependencies = [
  "camino",
  "chrono",
@@ -1950,6 +1950,7 @@ dependencies = [
  "parking_lot",
  "schemars",
  "serde",
+ "serde_json",
  "serde_yaml_ng",
  "specta",
  "tempfile",
@@ -1961,19 +1962,20 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-core-metadata"
-version = "0.1.0"
+version = "1.0.0-rc.1"
 dependencies = [
  "constcat",
  "enumset",
  "schemars",
  "semver",
  "serde",
+ "serde_json",
  "specta",
 ]
 
 [[package]]
 name = "nyanpasu-ipc"
-version = "1.4.5"
+version = "2.0.0-rc.1"
 dependencies = [
  "anyhow",
  "axum",
@@ -1983,6 +1985,7 @@ dependencies = [
  "http",
  "indexmap",
  "interprocess",
+ "nyanpasu-core-metadata",
  "nyanpasu-utils",
  "reqwest",
  "reqwest-websocket",
@@ -2000,7 +2003,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service"
-version = "1.4.5"
+version = "2.0.0-rc.1"
 dependencies = [
  "nyanpasu-service-runtime",
  "nyanpasu-utils",
@@ -2012,7 +2015,7 @@ dependencies = [
 
 [[package]]
 name = "nyanpasu-service-runtime"
-version = "1.4.5"
+version = "2.0.0-rc.1"
 dependencies = [
  "ansi-str",
  "anyhow",
@@ -2029,7 +2032,6 @@ dependencies = [
  "ctrlc",
  "dunce",
  "futures-util",
- "indexmap",
  "nyanpasu-core-manager",
  "nyanpasu-ipc",
  "nyanpasu-utils",
