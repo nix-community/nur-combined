@@ -21,7 +21,7 @@
     },
     "opencode": {
       "default_config_options": {
-        "model": "opencode-go/deepseek-v4-flash"
+        "model": "opencode-go/kimi-k3"
       },
       "type": "registry"
     }

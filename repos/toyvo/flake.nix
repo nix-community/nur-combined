@@ -17,6 +17,15 @@
   inputs = {
     apple-silicon-support.url = "github:tpwrules/nixos-apple-silicon";
     catppuccin.url = "github:catppuccin/nix";
+    # Raw (unbuilt) starship port source. catppuccin/nix's starship module
+    # imports the theme TOML at eval time (IFD) from the whiskers-built
+    # package, which breaks cross-platform evaluation (e.g. evaluating
+    # darwin configs on x86_64-linux CI). Point catppuccin.sources.starship
+    # at this instead. Rev mirrors catppuccin/nix's pkgs/sources.json.
+    catppuccin-starship = {
+      url = "github:catppuccin/starship/5906cc369dd8207e063c0e6e2d27bd0c0b567cb8";
+      flake = false;
+    };
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixos-unstable";

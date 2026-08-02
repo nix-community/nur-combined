@@ -13,6 +13,7 @@ in
   imports = [
     ../programs/terminals/hyper.nix
     ../programs/editors/zed.nix
+    ../programs/jujutsu.nix
   ];
 
   options.nixcfg.users.toyvo.enable = lib.mkEnableOption "Enable toyvo profile";
@@ -23,6 +24,11 @@ in
       autoEnable = true;
       flavor = "frappe";
       accent = "red";
+      # Avoid IFD: upstream module imports the theme TOML from the
+      # whiskers-built package at eval time, which cannot be built when
+      # evaluating for a foreign platform (CI evaluates darwin configs
+      # on x86_64-linux). Use the raw port source instead.
+      sources.starship = "${inputs.catppuccin-starship}/themes";
     };
     home = {
       file = {
@@ -112,6 +118,7 @@ in
       ideavim.enable = true;
       jujutsu = {
         enable = true;
+        aiDescribe.enable = true;
         settings = {
           user = {
             name = "Collin Diekvoss";
