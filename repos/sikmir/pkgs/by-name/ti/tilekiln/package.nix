@@ -48,5 +48,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/pnorman/tilekiln";
     license = lib.licenses.gpl3Plus;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true; # https://github.com/pnorman/tilekiln/issues/73
   };
 })

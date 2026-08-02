@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   autoreconfHook,
-  wxGTK32,
+  wxwidgets_3_2,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -21,7 +21,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   nativeBuildInputs = [ autoreconfHook ];
 
-  buildInputs = [ wxGTK32 ];
+  buildInputs = [ wxwidgets_3_2 ];
 
   meta = {
     description = "C++ geoJSON and topoJSON parser and rendering using the WxWidgets GUI library";
