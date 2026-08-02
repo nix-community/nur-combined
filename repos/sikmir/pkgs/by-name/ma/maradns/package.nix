@@ -42,6 +42,7 @@ stdenv.mkDerivation (finalAttrs: {
       mit
     ];
     maintainers = [ lib.maintainers.sikmir ];
-    platforms = lib.platforms.unix;
+    platforms = lib.platforms.linux;
+    skip.ci = stdenv.isDarwin;
   };
 })
