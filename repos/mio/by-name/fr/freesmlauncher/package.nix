@@ -29,7 +29,11 @@
   controllerSupport ? stdenv.hostPlatform.isLinux,
   gamemodeSupport ? stdenv.hostPlatform.isLinux,
   textToSpeechSupport ? stdenv.hostPlatform.isLinux,
-  jdks ? [ openjdk8 openjdk17 openjdk21 ],
+  jdks ? [
+    openjdk8
+    openjdk17
+    openjdk21
+  ],
   openjdk8,
   openjdk17,
   openjdk21,
@@ -39,57 +43,66 @@ assert lib.assertMsg (
 ) "controllerSupport only has an effect on Linux.";
 assert lib.assertMsg (
   textToSpeechSupport -> stdenv.hostPlatform.isLinux
-) "textToSpeechSupport only has an effect on Linux."; let
+) "textToSpeechSupport only has an effect on Linux.";
+let
   isLinux = stdenv.hostPlatform.isLinux;
 
   launcher = freesmlauncher-unwrapped.override {
     inherit msaClientID gamemodeSupport;
   };
 
-  runtimePrograms = [ mesa-demos pciutils xrandr ];
-  runtimeLibs =
-    [
-      stdenv.cc.cc.lib
+  runtimePrograms = [
+    mesa-demos
+    pciutils
+    xrandr
+  ];
+  runtimeLibs = [
+    stdenv.cc.cc.lib
 
-      glfw3-minecraft
-      openal
+    glfw3-minecraft
+    openal
 
-      alsa-lib
-      libjack2
-      libpulseaudio
-      pipewire
+    alsa-lib
+    libjack2
+    libpulseaudio
+    pipewire
 
-      libGL
-      libX11
-      libXcursor
-      libXext
-      libXrandr
-      libXxf86vm
+    libGL
+    libX11
+    libXcursor
+    libXext
+    libXrandr
+    libXxf86vm
 
-      udev
-      vulkan-loader
-    ]
-    ++ lib.optionals textToSpeechSupport [ flite ]
-    ++ lib.optionals gamemodeSupport [ gamemode.lib ]
-    ++ lib.optionals controllerSupport [ libusb1 ];
+    udev
+    vulkan-loader
+  ]
+  ++ lib.optionals textToSpeechSupport [ flite ]
+  ++ lib.optionals gamemodeSupport [ gamemode.lib ]
+  ++ lib.optionals controllerSupport [ libusb1 ];
 in
-  symlinkJoin {
-    pname = "freesmlauncher";
-    inherit (launcher) version meta;
-    paths = [ launcher ];
-    nativeBuildInputs = [ kdePackages.wrapQtAppsHook ];
-    buildInputs = with kdePackages;
-      [ qtbase qtsvg ]
-      ++ lib.optional (lib.versionAtLeast qtbase.version "6" && isLinux) qtwayland;
+symlinkJoin {
+  pname = "freesmlauncher";
+  inherit (launcher) version meta;
+  paths = [ launcher ];
+  nativeBuildInputs = [ kdePackages.wrapQtAppsHook ];
+  buildInputs =
+    with kdePackages;
+    [
+      qtbase
+      qtsvg
+    ]
+    ++ lib.optional (lib.versionAtLeast qtbase.version "6" && isLinux) qtwayland;
 
-    postBuild = ''
-      wrapQtAppsHook
-    '';
+  postBuild = ''
+    wrapQtAppsHook
+  '';
 
-    qtWrapperArgs =
-      [ "--prefix FREESMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}" ]
-      ++ lib.optionals isLinux [
-        "--prefix PATH : ${lib.makeBinPath runtimePrograms}"
-        "--prefix LD_LIBRARY_PATH : ${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
-      ];
-  }
+  qtWrapperArgs = [
+    "--prefix FREESMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
+  ]
+  ++ lib.optionals isLinux [
+    "--prefix PATH : ${lib.makeBinPath runtimePrograms}"
+    "--prefix LD_LIBRARY_PATH : ${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
+  ];
+}

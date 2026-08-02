@@ -16,8 +16,6 @@ stdenv.mkDerivation rec {
     hash = "sha256-ITC4Z4Cck3KE4pMHNVfxLUJ9utyzpH2TvqsbyLSU/jk=";
   };
 
-
-
   nativeBuildInputs = [ cmake ];
 
   meta = with lib; {

@@ -47,7 +47,7 @@ def main() -> int:
     self_path = Path(sys.argv[1]).absolute()
     if self_path.is_file():
         self_path = self_path.parent
-    nixpkgs_path = self_path.parent.parent
+    nixpkgs_path = self_path.parent.parent.parent
 
     print(f"{self_path=} {nixpkgs_path=}", file=sys.stderr)
 
