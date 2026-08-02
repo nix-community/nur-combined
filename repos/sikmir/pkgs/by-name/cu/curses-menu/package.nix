@@ -6,17 +6,17 @@
 
 python3Packages.buildPythonPackage (finalAttrs: {
   pname = "curses-menu";
-  version = "0.7.0";
+  version = "0.9.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "pmbarrett314";
     repo = "curses-menu";
     tag = finalAttrs.version;
-    hash = "sha256-l5KPBPODfeQdZIW3kjoj4ImhokFKjxyiB7r57Ryqj0g=";
+    hash = "sha256-QEIH7kzvjuqkhEynQuB0t6cAIGrwkY00QLISe9KsEgc=";
   };
 
-  build-system = with python3Packages; [ poetry-core ];
+  build-system = with python3Packages; [ hatchling ];
 
   dependencies = with python3Packages; [
     deprecated

@@ -31,6 +31,8 @@ stdenv.mkDerivation (finalAttrs: {
     libargs
   ];
 
+  env.NIX_CFLAGS_COMPILE = "-fexceptions";
+
   meta = {
     description = "A JSON terminal UI made in C++";
     homepage = "https://github.com/ArthurSonzogni/json-tui";
