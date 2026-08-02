@@ -16,7 +16,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-E8Z1ljtF66K7XVfIU9pmXVYduzMOGaemNWmN1ysSm1w=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools_80 ];
 
   dependencies = with python3Packages; [
     sqlalchemy
