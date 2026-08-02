@@ -45,10 +45,7 @@ nix profile install github:so1ve/nur-packages#ab-download-manager
 
 ```nix
 {
-  inputs.so1ve-nur = {
-    url = "github:so1ve/nur-packages";
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
+  inputs.so1ve.url = "github:so1ve/nur-packages";
 }
 ```
 
