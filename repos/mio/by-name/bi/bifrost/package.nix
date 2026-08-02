@@ -151,6 +151,14 @@ stdenv.mkDerivation (finalAttrs: {
           $out/share/icons/hicolor/512x512/apps/bifrost.png
 
         makeWrapper $out/opt/bifrost/bin/Bifrost $out/bin/Bifrost \
+          --run '
+            if [ -z "''${GDK_SCALE:-}" ] && [ "''${XDG_CURRENT_DESKTOP:-}" = "KDE" ]; then
+              SCALE=$(${lib.getExe' kdePackages.kconfig "kreadconfig6"} --group KScreen --key ScaleFactor 2>/dev/null || true)
+              if [ -n "$SCALE" ]; then
+                export _JAVA_OPTIONS="-Dsun.java2d.uiScale=$SCALE ''${_JAVA_OPTIONS:-}"
+              fi
+            fi
+          ' \
           --prefix PATH : "${
             lib.makeBinPath (
               [
