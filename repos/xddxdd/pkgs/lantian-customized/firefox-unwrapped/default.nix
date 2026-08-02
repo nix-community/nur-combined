@@ -2,12 +2,18 @@
   buildMozillaMach,
   lib,
   stdenv,
-  sources,
+  fetchFromGitHub,
 }:
 (
   (buildMozillaMach {
-    inherit (sources.invisible-firefox) pname src;
+    pname = "invisible-firefox";
     version = "150.0.0"; # keep compatibility with patch version ranges
+    src = fetchFromGitHub {
+      owner = "feder-cr";
+      repo = "firefox_antidetect_patch";
+      tag = "firefox-18";
+      hash = "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=";
+    };
 
     meta = {
       maintainers = with lib.maintainers; [ xddxdd ];

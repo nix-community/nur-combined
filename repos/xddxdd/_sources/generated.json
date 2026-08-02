@@ -1999,27 +1999,6 @@
         },
         "version": "v2.16.9+36"
     },
-    "invisible-firefox": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "invisible-firefox",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "feder-cr",
-            "repo": "firefox_antidetect_patch",
-            "rev": "firefox-18",
-            "sha256": "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "firefox-18"
-    },
     "it-tools": {
         "cargoLock": null,
         "date": null,

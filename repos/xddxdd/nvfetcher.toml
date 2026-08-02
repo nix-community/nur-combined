@@ -454,10 +454,6 @@ src.github = "studyzy/imewlconverter"
 fetch.url = "https://github.com/share121/inter-knot/releases/download/$ver/inter_knot_linux.zip"
 src.github = "share121/inter-knot"
 
-[invisible-firefox]
-fetch.github = "feder-cr/firefox_antidetect_patch"
-src.github = "feder-cr/firefox_antidetect_patch"
-
 [it-tools]
 fetch.github = "sharevb/it-tools"
 src.github = "sharevb/it-tools"
