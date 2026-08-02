@@ -70,13 +70,13 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "StartLive";
-  version = "1.1.1";
+  version = "1.1.2";
 
   src = fetchFromGitHub {
     owner = "Radekyspec";
     repo = pname;
     rev = version;
-    hash = "sha256-QeagyxKbVIp60nxwFsiRkKWT9xYc0+dz3jouS3N9lRs=";
+    hash = "sha256-hkjJTQNEapNb5R/G2NkydUIdDNVz4Gb7fjraHyi6ZDE=";
   };
 
   format = "other";

@@ -7,16 +7,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "deskbrid";
-  version = "1.3.0";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "coe0718";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-VKF/2mqRUxP828JZaPfez1YDTl60M1Ta6gE3Gprh/BU=";
+    hash = "sha256-07J5Xlf0vJIRwrZ/oDbXOBHXgLZixf7PzDZoN2T969I=";
   };
 
-  cargoHash = "sha256-Xd7tLynUKzwvI3aITlXN+D7OhpoCjGa221ALTPQ4Q7o=";
+  cargoHash = "sha256-45onatiLg05dLcvgGVab3YpnQIWvhdzzBUaB6dolQQA=";
 
   nativeBuildInputs = [
     pkg-config
