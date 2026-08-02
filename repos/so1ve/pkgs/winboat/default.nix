@@ -137,7 +137,7 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$out/bin" "$out/libexec/winboat" "$out/share/winboat"
+    mkdir -p "$out/bin" "$out/libexec/winboat" "$out/share/winboat/guest_server"
     cp -r dist/linux-unpacked/resources "$out/share/winboat/resources"
 
     install -Dm444 \
@@ -145,7 +145,7 @@ stdenv.mkDerivation (finalAttrs: {
       "$out/share/icons/hicolor/256x256/apps/winboat.svg"
 
     ln -s "$out/share/winboat/resources/data" "$out/share/winboat/data"
-    ln -s "$out/share/winboat/resources/guest_server" "$out/share/winboat/guest_server"
+    ln -s ../resources/guest_server "$out/share/winboat/guest_server/dist"
 
     makeWrapper ${freerdp}/bin/sdl-freerdp "$out/libexec/winboat/sdl-freerdp" \
       --set SDL_VIDEODRIVER wayland
