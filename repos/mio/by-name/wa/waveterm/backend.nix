@@ -19,7 +19,7 @@ let
   # waveterm bakes a build time string into the binaries; pin it for reproducibility.
   buildTime = "0";
 in
-buildGoModule {
+buildGoModule (finalAttrs: {
   pname = "waveterm-backend";
   inherit version src;
 
@@ -81,4 +81,4 @@ buildGoModule {
       "aarch64-linux"
     ];
   };
-}
+})

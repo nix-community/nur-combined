@@ -23,37 +23,17 @@
 let
   electron = electron_41;
   nodejs = nodejs_22;
+in
+buildNpmPackage (finalAttrs: {
+  pname = "waveterm";
+  version = "0.14.5";
 
   src = fetchFromGitHub {
     owner = "wavetermdev";
     repo = "waveterm";
-    tag = "v${version}";
+    tag = "v${finalAttrs.version}";
     hash = "sha256-SUcvIpM+++qfyAlwUPSGVz2OUJXPe0bsefcjUKYUF/g=";
   };
-
-  version = "0.14.5";
-
-  # The Go backend (wavesrv + wsh) is a separate derivation with its own vendorHash.
-  backend = callPackage ./backend.nix { inherit version src; };
-
-  # The tsunami "scaffold" ships a small node_modules (tailwind CLI) that Wave
-  # uses at runtime to build user widgets. It is installed from its own
-  # package.json (no lockfile upstream), so we vendor a generated one.
-  scaffoldSrc = runCommand "waveterm-scaffold-src" { } ''
-    mkdir -p $out
-    cp ${./tsunami-scaffold-package.json} $out/package.json
-    cp ${./tsunami-scaffold-package-lock.json} $out/package-lock.json
-  '';
-
-  scaffoldNpmDeps = fetchNpmDeps {
-    name = "waveterm-tsunami-scaffold-npm-deps";
-    src = scaffoldSrc;
-    hash = "sha256-PU6pKf+IlULH1JDjfCfeM2M+tEwPirr7zLlo9lTEtMU=";
-  };
-in
-buildNpmPackage (finalAttrs: {
-  pname = "waveterm";
-  inherit version src;
 
   npmDepsHash = "sha256-YkRfTZwjIet6CWTtqG8X9LjoCOjHO+L2uHHtBlr7tao=";
 
@@ -114,7 +94,7 @@ buildNpmPackage (finalAttrs: {
     cp ${./tsunami-scaffold-package-lock.json} scaffold/package-lock.json
 
     scaffoldCache="$TMPDIR/scaffold-npm-cache"
-    cp -r ${scaffoldNpmDeps} "$scaffoldCache"
+    cp -r ${finalAttrs.passthru.scaffoldNpmDeps} "$scaffoldCache"
     chmod -R u+w "$scaffoldCache"
 
     pushd scaffold
@@ -142,7 +122,7 @@ buildNpmPackage (finalAttrs: {
     cp -r schema dist/schema
 
     mkdir -p dist/bin
-    cp -r ${backend}/bin/. dist/bin/
+    cp -r ${finalAttrs.passthru.backend}/bin/. dist/bin/
     chmod -R u+w dist/bin
 
     # 4. Package the unpacked app directory against the nixpkgs electron.
@@ -215,7 +195,19 @@ buildNpmPackage (finalAttrs: {
   ];
 
   passthru = {
-    inherit backend;
+    backend = callPackage ./backend.nix {
+      inherit (finalAttrs) version src;
+    };
+    scaffoldSrc = runCommand "waveterm-scaffold-src" { } ''
+      mkdir -p $out
+      cp ${./tsunami-scaffold-package.json} $out/package.json
+      cp ${./tsunami-scaffold-package-lock.json} $out/package-lock.json
+    '';
+    scaffoldNpmDeps = fetchNpmDeps {
+      name = "waveterm-tsunami-scaffold-npm-deps";
+      src = finalAttrs.passthru.scaffoldSrc;
+      hash = "sha256-PU6pKf+IlULH1JDjfCfeM2M+tEwPirr7zLlo9lTEtMU=";
+    };
     # NOTE: a version bump also requires refreshing backend.nix's vendorHash and
     # regenerating tsunami-scaffold-package-lock.json from the new template.
     updateScript = nix-update-script { };
@@ -229,7 +221,7 @@ buildNpmPackage (finalAttrs: {
     license = lib.licenses.asl20;
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     mainProgram = "waveterm";
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ ];
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
