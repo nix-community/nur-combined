@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  serviceLib,
   ...
 }: let
   cfg = config.services.pumpkin;
@@ -20,9 +21,6 @@
 
   storeDir = builtins.storeDir or "/nix/store";
   isInStore = path: path == storeDir || lib.hasPrefix "${storeDir}/" path;
-  invalidEnvNames = builtins.filter (
-    name: builtins.match "^[A-Za-z_][A-Za-z0-9_]*$" name == null
-  ) (builtins.attrNames cfg.env);
 
   startScript = pkgs.writeShellApplication {
     name = "pumpkin-start";
@@ -36,10 +34,10 @@
 
       data_dir=${lib.escapeShellArg cfg.dataDir}
       config_file="$data_dir/pumpkin.toml"
-      config_state="$data_dir/.pumpkin-home-manager-managed.json"
+      config_state="$data_dir/.pumpkin-nix-managed.json"
       config_backup="$data_dir/pumpkin.toml.stateful"
       whitelist_file="$data_dir/data/whitelist.json"
-      whitelist_state="$data_dir/data/.pumpkin-home-manager-whitelist.json"
+      whitelist_state="$data_dir/data/.pumpkin-nix-whitelist.json"
       whitelist_backup="$data_dir/data/whitelist.json.stateful"
 
       mkdir -p -- "$data_dir/data"
@@ -84,24 +82,23 @@
     // {
       description = "Minecraft UUID";
     };
-in {
-  options.services.pumpkin = {
-    enable = lib.mkEnableOption "Pumpkin Minecraft server user service";
+
+  options = {
+    enable = lib.mkEnableOption "Pumpkin Minecraft server system service";
 
     package = lib.mkPackageOption localPackages "pumpkin" {
       pkgsText = "inputs.nur.repos.mzwing";
-      extraDescription = "It is installed and used by the user service.";
+      extraDescription = "It is installed system-wide and used by the system service.";
     };
 
     dataDir = lib.mkOption {
       type = lib.types.str;
-      default = "${config.xdg.dataHome}/pumpkin";
-      defaultText = lib.literalExpression ''"''${config.xdg.dataHome}/pumpkin"'';
-      example = lib.literalExpression ''"''${config.home.homeDirectory}/servers/pumpkin"'';
+      default = "/var/lib/pumpkin";
+      example = "/srv/pumpkin";
       description = ''
         Writable working directory containing `pumpkin.toml`, worlds, plugins,
-        logs, and all other Pumpkin runtime state. The directory is created
-        when the service starts.
+        logs, and all other Pumpkin runtime state. The directory is created for
+        the dedicated service account when the module is enabled.
       '';
     };
 
@@ -161,11 +158,11 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable {
+  sharedConfig = {
     assertions = [
       {
-        assertion = lib.hasPrefix "/" cfg.dataDir && !isInStore cfg.dataDir;
-        message = "services.pumpkin.dataDir must be an absolute writable path outside the Nix store";
+        assertion = !isInStore cfg.dataDir;
+        message = "services.pumpkin.dataDir must be outside the Nix store";
       }
       {
         assertion =
@@ -177,54 +174,43 @@ in {
             && !isInStore cfg.secretSettingsFile);
         message = "services.pumpkin.secretSettingsFile must be an absolute path outside the Nix store";
       }
-      {
-        assertion = invalidEnvNames == [];
-        message = "services.pumpkin.env contains invalid variable names: ${lib.concatStringsSep ", " invalidEnvNames}";
-      }
-      {
-        assertion = lib.meta.availableOn pkgs.stdenv.hostPlatform cfg.package;
-        message = "services.pumpkin.package is not available on ${pkgs.stdenv.hostPlatform.system}";
-      }
-      {
-        assertion = pkgs.stdenv.hostPlatform.isLinux || pkgs.stdenv.hostPlatform.isDarwin;
-        message = "services.pumpkin supports only Linux and Darwin";
-      }
     ];
-
-    home.packages = [cfg.package];
-
-    systemd.user.services.pumpkin = lib.mkIf pkgs.stdenv.hostPlatform.isLinux {
-      Unit = {
-        Description = "Pumpkin Minecraft server";
-        After = ["network-online.target"];
-        Wants = ["network-online.target"];
-      };
-      Service = {
-        ExecStart = lib.getExe startScript;
-        Environment = lib.mapAttrsToList (name: value: "${name}=${value}") cfg.env;
-        Restart = "on-failure";
-        RestartSec = 5;
-        TimeoutStopSec = 120;
-        UMask = "0077";
-      };
-      Install.WantedBy = ["default.target"];
-    };
-
-    launchd.agents.pumpkin = lib.mkIf pkgs.stdenv.hostPlatform.isDarwin {
-      enable = true;
-      config = {
-        ProgramArguments = [(lib.getExe startScript)];
-        RunAtLoad = true;
-        KeepAlive = {
-          Crashed = true;
-          SuccessfulExit = false;
-        };
-        ProcessType = "Background";
-        EnvironmentVariables = cfg.env;
-        Umask = 63;
-        StandardOutPath = "${config.home.homeDirectory}/Library/Logs/Pumpkin.out.log";
-        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/Pumpkin.err.log";
-      };
-    };
   };
+
+  mkService = {
+    account ? {},
+    nixos ? {},
+    darwin ? {},
+  }:
+    serviceLib.mkSpec {
+      name = "pumpkin";
+      description = "Pumpkin Minecraft server";
+      packages = [cfg.package];
+
+      process = {
+        executable = lib.getExe startScript;
+        environment = cfg.env;
+        workingDirectory = cfg.dataDir;
+        umask = "0077";
+      };
+
+      account =
+        lib.recursiveUpdate {
+          logicalName = "pumpkin";
+          home = cfg.dataDir;
+          description = "Pumpkin Minecraft server service user";
+        }
+        account;
+
+      lifecycle = {
+        autostart = true;
+        restart = "on-failure";
+        restartBackoffSeconds = 5;
+        stopTimeoutSeconds = 120;
+      };
+
+      inherit nixos darwin;
+    };
+in {
+  inherit options sharedConfig mkService;
 }

@@ -14,12 +14,19 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
 
-## Home Manager modules
+## NixOS modules
 
 | Modules | Documentation |
 | --- | --- |
-| `cliproxyapiplus` | [Usage](home-modules/cliproxyapiplus/README.md) |
-| `pumpkin` | [Usage](home-modules/pumpkin/README.md) |
+| `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
+| `pumpkin` | [Usage](docs/modules/pumpkin.md) |
+
+## nix-darwin modules
+
+| Modules | Documentation |
+| --- | --- |
+| `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
+| `pumpkin` | [Usage](docs/modules/pumpkin.md) |
 
 ## License
 

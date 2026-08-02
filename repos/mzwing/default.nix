@@ -14,7 +14,7 @@ in {
   lib = import ./lib {inherit pkgs;}; # functions
   nixosModules = import ./nixos-modules; # NixOS modules
   homeModules = import ./home-modules; # Home Manager modules
-  # darwinModules = { }; # nix-darwin modules
+  darwinModules = import ./darwin-modules; # nix-darwin modules
   # flakeModules = { }; # flake-parts modules
   overlays = import ./overlays; # nixpkgs overlays
 

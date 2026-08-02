@@ -205,7 +205,7 @@ def back_up_initial_config(
 
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Merge schema-agnostic Home Manager settings into Pumpkin TOML"
+        description="Merge schema-agnostic Nix module settings into Pumpkin TOML"
     )
     parser.add_argument("config", type=Path, help="Writable runtime pumpkin.toml")
     parser.add_argument("settings", type=Path, help="Declarative TOML settings")

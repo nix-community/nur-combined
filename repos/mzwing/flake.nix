@@ -27,7 +27,7 @@
     };
     nixosModules = import ./nixos-modules;
     homeModules = import ./home-modules;
-    # darwinModules = import ./darwin-modules;
+    darwinModules = import ./darwin-modules;
     # flakeModules = import ./flake-modules;
   };
 }
