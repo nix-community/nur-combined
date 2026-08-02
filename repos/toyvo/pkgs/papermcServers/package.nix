@@ -29,6 +29,7 @@ let
   packages = lib.mapAttrs' (version: value: {
     name = "papermc-${escapeVersion version}";
     value = callPackage ./derivation.nix {
+      inherit lib;
       inherit (value) version hash url;
       jre = getJre version;
     };

@@ -23,6 +23,7 @@ let
   packages = lib.mapAttrs' (version: value: {
     name = "VintagestoryServer-${escapeVersion version}";
     value = callPackage ./derivation.nix {
+      inherit lib;
       inherit (value) hash url;
       inherit version;
       dotnet-runtime = getDotnetRuntime version;

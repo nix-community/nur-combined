@@ -25,6 +25,7 @@ let
   packages = lib.mapAttrs' (version: value: {
     name = "neoforge-${escapeVersion version}";
     value = callPackage ./derivation.nix {
+      inherit lib;
       inherit (value) version hash;
       jre = getJre version;
     };
