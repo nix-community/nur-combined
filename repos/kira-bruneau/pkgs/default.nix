@@ -72,6 +72,20 @@ in
 // {
   inherit callPackage;
 
+  cec-sync = callPackage ./by-name/ce/cec-sync/package.nix {
+    libcec = libcec.overrideAttrs (
+      finalAttrs: prevAttrs: {
+        version = "7.1.1";
+        src = fetchFromGitHub {
+          owner = "Pulse-Eight";
+          repo = "libcec";
+          rev = "libcec-${finalAttrs.version}";
+          sha256 = "sha256-t8GUQKWTcxjyaAlsTP4C+heYiVYowG7x+fmjHPND7As=";
+        };
+      }
+    );
+  };
+
   emacsPackages = lib.recurseIntoAttrs (
     emacsPackagesOverlay (prev.emacsPackages // emacsPackages) prev.emacsPackages
   );
