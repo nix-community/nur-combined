@@ -9,24 +9,24 @@ system ? builtins.currentSystem
 }:
 let
   shaMap = {
-    i686-linux = "1x0xhbm1g6s2060rg97xl5pbs2byplvlkpqlr78dwxbwdfr1hgi4";
-    x86_64-linux = "0z3m5wnw0h337mkp8qma9phq311m1i2kazaprja3hqr455vyqqxc";
-    aarch64-linux = "01h7l2iqf6n7spky4d0rnji15hd12hbvwhfibcj7aiwkydzip3il";
-    x86_64-darwin = "0hpgpgafx7nwfzb8dw0470wywdkl228x7s3vpmmpapq8nmw6yxpy";
-    aarch64-darwin = "0hmjqiz70ndyyk9yq5a03albd6r249x059ajynwc2ddrcczpa5qr";
+    i686-linux = "0405d26jgw8zfmlsm748ibyqwrj38pyy9c8lqwhf6b28kg6cgj2f";
+    x86_64-linux = "1ljqpyxgwscfsjsp1f31q20qm757vyi9q9ismkqy5gs5kqplc44i";
+    aarch64-linux = "11xiwyk0677rvrwfhrvs80d3jwbibwjbnn0ib7ygjgmsqmvgkgfi";
+    x86_64-darwin = "01yp1hh7gqy9g6214n0d6z3xck4my2n9bd7cc0xdpcf7fcswpj3w";
+    aarch64-darwin = "0n1ci5xdq0skgxz85dp7bndbw98j1xnwnnkayj3s8q8fipmncraj";
   };
 
   urlMap = {
-    i686-linux = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.6.0/projecthelper_Linux_i386.tar.gz";
-    x86_64-linux = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.6.0/projecthelper_Linux_x86_64.tar.gz";
-    aarch64-linux = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.6.0/projecthelper_Linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.6.0/projecthelper_Darwin_x86_64.tar.gz";
-    aarch64-darwin = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.6.0/projecthelper_Darwin_arm64.tar.gz";
+    i686-linux = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.7.0/projecthelper_Linux_i386.tar.gz";
+    x86_64-linux = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.7.0/projecthelper_Linux_x86_64.tar.gz";
+    aarch64-linux = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.7.0/projecthelper_Linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.7.0/projecthelper_Darwin_x86_64.tar.gz";
+    aarch64-darwin = "https://github.com/NoUseFreak/projecthelper/releases/download/v0.7.0/projecthelper_Darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "projecthelper";
-  version = "0.6.0";
+  version = "0.7.0";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
