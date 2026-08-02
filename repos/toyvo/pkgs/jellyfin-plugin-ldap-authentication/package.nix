@@ -28,7 +28,7 @@ stdenv.mkDerivation rec {
     description = "LDAP Authentication plugin for Jellyfin";
     homepage = "https://github.com/jellyfin/jellyfin-plugin-ldapauth";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ toyvo ];
+    maintainers = with lib.maintainers; [ toyvo ];
     platforms = platforms.all;
   };
 }

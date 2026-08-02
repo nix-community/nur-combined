@@ -117,7 +117,7 @@ stdenv.mkDerivation {
       "x86_64-linux"
     ]
     ++ lib.optionals (versionAtLeast version "1.18.0") [ "aarch64-linux" ];
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "VintagestoryServer";
   };
 }

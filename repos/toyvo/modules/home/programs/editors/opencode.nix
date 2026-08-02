@@ -26,18 +26,18 @@
 
       mcp = {
         nixos = {
-          type = "local";
           command = [ (lib.getExe stablePkgs.mcp-nixos) ];
           enabled = true;
+          type = "local";
         };
         chrome-devtools = {
-          type = "local";
-          enabled = true;
           command = [
             "npx"
             "-y"
             "chrome-devtools-mcp@latest"
           ];
+          enabled = true;
+          type = "local";
         };
       };
     };

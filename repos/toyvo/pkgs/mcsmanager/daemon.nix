@@ -55,14 +55,6 @@ stdenv.mkDerivation rec {
       "x86_64-linux"
       "aarch64-linux"
     ];
-    maintainers = [
-      {
-        name = "Collin Diekvoss";
-        email = "Collin@Diekvoss.com";
-        matrix = "@toyvo:matrix.org";
-        github = "ToyVo";
-        githubId = 5168912;
-      }
-    ];
+    maintainers = with lib.maintainers; [ toyvo ];
   };
 }

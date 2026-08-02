@@ -117,7 +117,7 @@ stdenv.mkDerivation rec {
     description = "Brief description";
     homepage = "https://example.com";
     license = lib.licenses.mit;
-    maintainers = [ lib.maintainers.toyvo ];
+    maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "program-name";
   };
 }

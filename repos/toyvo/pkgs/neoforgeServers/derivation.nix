@@ -53,7 +53,7 @@ stdenv.mkDerivation {
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.lgpl21;
     platforms = platforms.unix;
-    maintainers = [ ];
+    maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "minecraft-server";
   };
 }

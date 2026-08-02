@@ -88,7 +88,7 @@
       inputs = flake_inputs // {
         nixcfg = self;
       };
-      configurations = import ./systems inputs;
+      configurations = import ./configurations inputs;
       import_nixpkgs =
         system: nixpkgs:
         import nixpkgs {
@@ -172,7 +172,6 @@
             legacyPackages = ourPackages // {
               # inherit (self) lib overlays modules;
               inherit (self) lib modules;
-              maintainers = pkgs.callPackage "${self}/maintainers" { };
             };
             packages = flakePackages system ourPackages;
             overlayAttrs.toyvo = ourPackages;

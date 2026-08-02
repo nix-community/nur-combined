@@ -11,7 +11,7 @@ writeShellScriptBin "pre-push" ''
     --drv-path --show-trace \
     -I $PWD
   echo "Build nix packages"
-  nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached maintainers/ci.nix -A cacheOutputs
+  nix shell -f '<nixpkgs>' nix-build-uncached -c nix-build-uncached ci.nix -A cacheOutputs
 ''
 // {
   meta = {
