@@ -10,8 +10,8 @@
   name = "iceberg";
   repo = "duckdb-iceberg";
   branch = "v1.5-variegata";
-  rev = "7d7990e43a0e60d01cd9ee44770d4edf74f28b08";
-  hash = "sha256-ixwfDsawZpU8rZj3NOfIzbPTXCCzY0WbxSOJd1GyM1Y=";
+  rev = "d987bfc2015df5d825c09567db782be37001a0b3";
+  hash = "sha256-GkbAUy4CPArGF7cAlUfGCzsTmCodjNNhNFzzdXovDp4=";
   duckdbBuildInputs = [
     aws-sdk-cpp
     croaring
