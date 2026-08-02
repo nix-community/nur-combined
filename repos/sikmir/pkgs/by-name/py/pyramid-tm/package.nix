@@ -14,7 +14,7 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-gUjSGRKFKAyaDCPm3xAYs1FLTO8CEVuHLdA1Ck14cJw=";
   };
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools_80 ];
 
   dependencies = with python3Packages; [
     pyramid
