@@ -6,14 +6,14 @@
 
 python3Packages.buildPythonPackage {
   pname = "cogdumper";
-  version = "0.5.0";
+  version = "1.1.0";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "mapbox";
     repo = "COGDumper";
-    rev = "89a5f05fc0ed88c36f44e42dfe8d48e4c4ff389b";
-    hash = "sha256-gLBBGP2AMKP8biSbMtrxGs7vLDXbP+Y6Ct82FiNdNjs=";
+    rev = "bfc823fbd54901573a27ce83d7311e01d8d9066c";
+    hash = "sha256-+/PFfcb3peFIFh41rXsezgOsgEeti3mdMfTgS5ljOFE=";
   };
 
   build-system = with python3Packages; [ setuptools ];
