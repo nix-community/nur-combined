@@ -15,8 +15,8 @@ in
   name = "mysql_scanner";
   repo = "duckdb-mysql";
   branch = "v1.5-variegata";
-  rev = "83f07475917e5da515f209c4b64a7b502952175f";
-  hash = "sha256-b8V9q3cX/oyRZAuqa1ddxyAbcayYct8kEq1qtYVf8S8=";
+  rev = "a04f824de11ee55fe5a95af9ea780112a14c4083";
+  hash = "sha256-bMKWV58gUVoFm89KE3DDB1HPFQAbKeNgJblRQ+lDsBE=";
   fetchSubmodules = true;
   loadOptions = [ "DONT_LINK" ];
   duckdbBuildInputs = [
