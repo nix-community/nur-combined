@@ -43,7 +43,7 @@ jobs:
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
 
     - name: Restore nvfetcher database
-      uses: actions/cache@v4
+      uses: actions/cache@v6
       with:
         path: ~/.local/share/nvfetcher
         key: nvfetcher-${{ github.sha }}
