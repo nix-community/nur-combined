@@ -41,15 +41,15 @@
   };
   paperwm-spoon = {
     pname = "paperwm-spoon";
-    version = "34787bf38ce429a84f94ae00a73418e32cc1abb8";
+    version = "a291a40a8adb3f2986bac57f2482ba34a679850b";
     src = fetchFromGitHub {
       owner = "mogenson";
       repo = "PaperWM.spoon";
-      rev = "34787bf38ce429a84f94ae00a73418e32cc1abb8";
+      rev = "a291a40a8adb3f2986bac57f2482ba34a679850b";
       fetchSubmodules = false;
-      sha256 = "sha256-hffz5Ae/INkYXRgZVX4FNejCbqC1l1aTigFRDFe8cYM=";
+      sha256 = "sha256-FS0DobdVJ8U8S1lviNFeT0aV4GIj00ON7BCgWO0DkE8=";
     };
-    date = "2026-07-06";
+    date = "2026-08-01";
   };
   powershell-beautifier = {
     pname = "powershell-beautifier";
