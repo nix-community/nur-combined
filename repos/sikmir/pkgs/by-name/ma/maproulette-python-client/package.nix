@@ -34,5 +34,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/osmlab/maproulette-python-client";
     license = lib.licenses.asl20;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true; # importlib.metadata.PackageNotFoundError: No package metadata was found for maproulette-python-client
   };
 })
