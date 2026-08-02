@@ -2,6 +2,7 @@
   fetchurl,
   lib,
   stdenvNoCC,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -27,6 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   __structuredAttrs = true;
   strictDeps = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Autolock Zellij when certain processes open";

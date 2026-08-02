@@ -22,5 +22,7 @@ merged = true
 removeAfter = 2605
 
 [zellij-autolock]
+pr = "https://github.com/NixOS/nixpkgs/pull/548437"
 
 [zellij-workspace]
+pr = "https://github.com/NixOS/nixpkgs/pull/548444"

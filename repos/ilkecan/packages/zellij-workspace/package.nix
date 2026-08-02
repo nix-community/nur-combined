@@ -2,15 +2,16 @@
   fetchurl,
   lib,
   stdenvNoCC,
+  nix-update-script,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "zellij-workspace";
-  version = "0.3.0";
+  version = "0.3.2";
 
   src = fetchurl {
     url = "https://github.com/vdbulcke/zellij-workspace/releases/download/v${finalAttrs.version}/zellij-workspace.wasm";
-    sha256 = "sha256-PR8Epa9JfQUHKg+jBF/9Rs3TDzM/9IYXcdm+kJsJa3M=";
+    sha256 = "sha256-nbaxG8POfsRd3lyZ4bI+SJOy78slkboG4cESdnJxD14=";
   };
 
   dontUnpack = true;
@@ -27,6 +28,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   __structuredAttrs = true;
   strictDeps = true;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Zellij plugin for applying layouts to current zellij session";
