@@ -1,4 +1,4 @@
-pkgs@{ stdenv, lib, zstd, autoPatchelfHook, makeWrapper, desktop-file-utils, openssl, glib, gtk3, libsoup_3, webkitgtk_4_1, libappindicator,fetchurl}:
+pkgs@{ stdenv, lib, wrapGAppsHook3, zstd, autoPatchelfHook, makeWrapper, desktop-file-utils, openssl, glib, gtk3, libsoup_3, webkitgtk_4_1, libappindicator,fetchurl}:
 
 stdenv.mkDerivation rec {
   pname = "octarine";
@@ -9,7 +9,7 @@ stdenv.mkDerivation rec {
     hash = "sha256-hUiKn0mGVDj3yoi6ITM+ffoN36ok5Ak9Oiukk6tbFD0=";
   };
 
-  nativeBuildInputs = [ zstd autoPatchelfHook makeWrapper ];
+  nativeBuildInputs = [ zstd autoPatchelfHook wrapGAppsHook3 makeWrapper ];
 
   buildInputs = [
     openssl
