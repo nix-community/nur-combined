@@ -13,6 +13,7 @@ let
     dae-unstable = callPackage ./dae-unstable { };
     einat = callPackage ./einat { };
     fake-hwclock = callPackage ./fake-hwclock { };
+    ipv6toolkit = callPackage ./ipv6toolkit { };
     kcptun = callPackage ./kcptun { };
     home-assistant-heweather = callPackage ./home-assistant-heweather { };
     mosdns = callPackage ./mosdns { };

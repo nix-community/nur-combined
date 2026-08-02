@@ -105,6 +105,7 @@
       gdb
       htop
       iperf
+      ipv6toolkit
       libgpiod
       lm_sensors
       lsof

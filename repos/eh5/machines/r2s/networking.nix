@@ -152,8 +152,11 @@ in
     #   DNS = [ "_server_address" ];
     # };
     dhcpPrefixDelegationConfig = {
+      SubnetId = "0";
       UplinkInterface = "ppp0";
       Token = "static:::1";
+      # https://github.com/systemd/systemd/issues/43147 workaround
+      Assign = false;
     };
     ipv6SendRAConfig = {
       EmitDNS = true;
@@ -245,6 +248,7 @@ in
       DHCP = "ipv6";
       DefaultRouteOnDevice = true;
       KeepConfiguration = "static";
+      IPv6MTUBytes = 1500;
     };
     dhcpV6Config = {
       WithoutRA = "solicit";
@@ -256,7 +260,12 @@ in
       UseHostname = false;
       UseDomains = false;
     };
+    ipv6AcceptRAConfig = {
+      UseMTU = false;
+    };
   };
+
+  # systemd.services."systemd-networkd".environment.SYSTEMD_LOG_LEVEL = "debug";
 
   systemd.services."tweak-network-settings" = {
     description = "Tweak network settings";

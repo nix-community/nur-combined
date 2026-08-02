@@ -61,7 +61,7 @@ table inet filter {
     ip saddr 192.168.1.219 counter reject
 
     # TCP MSS clamping
-    tcp flags syn tcp option maxseg size set rt mtu
+    # tcp flags syn tcp option maxseg size set rt mtu
 
     iifname { lo, intern0 } accept
 

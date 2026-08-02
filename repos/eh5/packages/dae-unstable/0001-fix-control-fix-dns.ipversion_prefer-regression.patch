@@ -1,0 +1,218 @@
+From 90b373e841885b49ac1ea6ccf06f79639199ba98 Mon Sep 17 00:00:00 2001
+From: Huang-Huang Bao <i@eh5.me>
+Date: Sun, 2 Aug 2026 21:14:04 +0800
+Subject: [PATCH 1/2] fix(control): fix dns.ipversion_prefer regression
+
+---
+ control/dns_control.go | 141 ++++++++++++++---------------------------
+ 1 file changed, 49 insertions(+), 92 deletions(-)
+
+diff --git a/control/dns_control.go b/control/dns_control.go
+index d5bf872..202f429 100644
+--- a/control/dns_control.go
++++ b/control/dns_control.go
+@@ -10,6 +10,7 @@ import (
+ 	"encoding/binary"
+ 	"errors"
+ 	"fmt"
++	"math"
+ 	"net"
+ 	"net/netip"
+ 	"strconv"
+@@ -18,6 +19,7 @@ import (
+ 	"sync/atomic"
+ 	"time"
+ 
++	"github.com/awnumar/fastrand"
+ 	"github.com/daeuniverse/dae/common/consts"
+ 	commonerrors "github.com/daeuniverse/dae/common/errors"
+ 	"github.com/daeuniverse/dae/common/netutils"
+@@ -25,6 +27,7 @@ import (
+ 	"github.com/daeuniverse/dae/component/outbound"
+ 	"github.com/daeuniverse/dae/component/outbound/dialer"
+ 	dnsmessage "github.com/miekg/dns"
++	"github.com/mohae/deepcopy"
+ 	"github.com/sirupsen/logrus"
+ 	"golang.org/x/sync/singleflight"
+ )
+@@ -2225,90 +2228,6 @@ func (c *DnsController) HandleWithResponseWriter_(ctx context.Context, dnsMessag
+ 			c.RemoveDnsRespCacheFamily(baseCacheKey)
+ 			return c.sendRejectWithResponseWriter_(dnsMessage, req, responseWriter)
+ 		}
+-
+-		// Check cache after routing (non-reject case)
+-		if resp, needRefresh := c.LookupDnsRespCache_(dnsMessage, responseCacheKey, false); resp != nil {
+-			// Cache hit - return immediately without singleflight
+-			// OPTIMISTIC CACHE: resp may be stale, trigger background refresh if needed
+-			if needRefresh {
+-				// Background refresh - don't block the current request
+-				go c.backgroundRefresh(responseCacheKey, dnsMessage, req, upstreamIndex, upstream)
+-			}
+-
+-			if err = c.writeCachedResponse(resp, dnsMessage.Id, req, responseWriter); err != nil {
+-				return err
+-			}
+-			// Log cache hit with dest addr for CI compatibility.
+-			// Format includes "-> dest:port" so CI grep can verify routing.
+-			if c.log.IsLevelEnabled(logrus.DebugLevel) && len(dnsMessage.Question) > 0 && req != nil {
+-				q := dnsMessage.Question[0]
+-				c.log.WithFields(logrus.Fields{
+-					"network": "udp(dns)",
+-					"_qname":  strings.ToLower(q.Name),
+-					"qtype":   QtypeToString(q.Qtype),
+-				}).Debugf("%v <-> %v (cache)",
+-					RefineSourceToShow(req.realSrc, req.realDst.Addr()),
+-					RefineAddrPortToShow(req.realDst),
+-				)
+-			}
+-			return nil
+-		}
+-
+-		// Cache miss - use singleflight to coalesce concurrent requests
+-		// This prevents thundering herd on upstream DNS servers
+-		res, err, _ := c.sf.Do(responseCacheKey, func() (any, error) {
+-			// Shared singleflight resolution should ignore individual client
+-			// cancellation, but it must still stop promptly when the DNS
+-			// controller is closing during reload/shutdown.
+-			resCtx, resCancel := c.newWorkContext(5 * time.Second)
+-			defer resCancel()
+-
+-			// This goroutine performs the actual resolution.
+-			// It returns the DNS response message, or an error.
+-			return c.resolveForSingleflight(resCtx, dnsMessage, req, upstreamIndex, upstream, responseCacheKey, baseCacheKey)
+-		})
+-
+-		if err != nil {
+-			return err
+-		}
+-
+-		// res is the *dnsmessage.Msg
+-		respMsg := res.(*dnsmessage.Msg)
+-
+-		// Optimization: Try to get pre-packed response from cache after singleflight.
+-		// This avoids another Pack() call which is common in high-concurrency scenarios.
+-		if responseCacheKey != "" {
+-			if resp, _ := c.LookupDnsRespCache_(dnsMessage, responseCacheKey, false); resp != nil {
+-				if err = c.writeCachedResponse(resp, dnsMessage.Id, req, responseWriter); err != nil {
+-					return err
+-				}
+-				return nil
+-			}
+-		}
+-
+-		// Write response.
+-		// For packet-send path, avoid deep-copying DNS message and just patch ID in packed bytes.
+-		if responseWriter != nil {
+-			respMsgUnique := respMsg.Copy()
+-			respMsgUnique.Id = dnsMessage.Id
+-			return responseWriter.WriteMsg(respMsgUnique)
+-		}
+-
+-		// If no responseWriter (internal UDP path), pack and send directly.
+-		data, err := respMsg.Pack()
+-		if err != nil {
+-			return fmt.Errorf("pack DNS packet: %w", err)
+-		}
+-		if len(data) >= 2 {
+-			binary.BigEndian.PutUint16(data[:2], dnsMessage.Id)
+-		}
+-		if req == nil || req.lConn == nil {
+-			return fmt.Errorf("dns request connection is nil for singleflight response")
+-		}
+-		if err = sendRuntimeTrackedPkt(c.log, data, req.realDst, req.realSrc, req.downloadRecorder()); err != nil {
+-			return err
+-		}
+-		return nil
+ 	}
+ 
+ 	return c.handleWithResponseWriterInternal(ctx, dnsMessage, req, responseWriter, upstreamIndex, upstream, responseCacheKey, baseCacheKey)
+@@ -2348,8 +2267,6 @@ func (m *msgCapturer) TsigTimersOnly(bool)         {}
+ func (m *msgCapturer) Hijack()                     {}
+ 
+ // handleWithResponseWriterInternal handles DNS requests with response writer.
+-// When ip_version_prefer is set, it implements RFC 8305 Happy Eyeballs
+-// Resolution Delay: wait briefly for preferred response type before responding.
+ //
+ // Renamed from HandleWithResponseWriter_ to internal to avoid recursion loop with SF.
+ func (c *DnsController) handleWithResponseWriterInternal(ctx context.Context, dnsMessage *dnsmessage.Msg, req *udpRequest, responseWriter dnsmessage.ResponseWriter, upstreamIndex consts.DnsRequestOutboundIndex, upstream *dns.Upstream, responseCacheKey string, baseCacheKey string) (err error) {
+@@ -2365,8 +2282,10 @@ func (c *DnsController) handleWithResponseWriterInternal(ctx context.Context, dn
+ 	}
+ 
+ 	// Get qtype for preference handling (RFC 8305 Happy Eyeballs).
++	var qname string
+ 	var qtype uint16
+ 	if len(dnsMessage.Question) != 0 {
++		qname = dnsMessage.Question[0].Name
+ 		qtype = dnsMessage.Question[0].Qtype
+ 	}
+ 
+@@ -2378,11 +2297,53 @@ func (c *DnsController) handleWithResponseWriterInternal(ctx context.Context, dn
+ 	// Only A and AAAA responses participate in preference waiting. The wait is
+ 	// applied after upstream resolution so cached/direct non-address responses
+ 	// keep the fast path.
+-	if qtype != dnsmessage.TypeA && qtype != dnsmessage.TypeAAAA {
++	if len(dnsMessage.Question) == 0 || qtype != dnsmessage.TypeA && qtype != dnsmessage.TypeAAAA {
+ 		return c.handleWithResponseWriter_(ctx, dnsMessage, req, true, responseWriter, upstreamIndex, upstream, responseCacheKey, baseCacheKey)
+ 	}
+ 
+-	return c.handleWithResponseWriter_(ctx, dnsMessage, req, true, responseWriter, upstreamIndex, upstream, responseCacheKey, baseCacheKey)
++	dnsMessage2 := deepcopy.Copy(dnsMessage).(*dnsmessage.Msg)
++	dnsMessage2.Id = uint16(fastrand.Intn(math.MaxUint16))
++
++	var qtype2 uint16
++	switch qtype {
++	case dnsmessage.TypeA:
++		qtype2 = dnsmessage.TypeAAAA
++	case dnsmessage.TypeAAAA:
++		qtype2 = dnsmessage.TypeA
++	default:
++		return fmt.Errorf("unexpected qtype path")
++	}
++	dnsMessage2.Question[0].Qtype = qtype2
++
++	var baseCacheKey2 = c.cacheKey(qname, qtype2)
++	var responseCacheKey2 = c.responseCacheKey(baseCacheKey2, req, upstreamIndex, upstream)
++
++	done := make(chan struct{})
++	go func() {
++		_ = c.handleWithResponseWriter_(ctx, dnsMessage2, req, false, responseWriter, upstreamIndex, upstream, responseCacheKey2, baseCacheKey2)
++		done <- struct{}{}
++	}()
++	err = c.handleWithResponseWriter_(ctx, dnsMessage, req, false, responseWriter, upstreamIndex, upstream, responseCacheKey, baseCacheKey)
++	<-done
++	if err != nil {
++		return err
++	}
++
++	resp, _ := c.LookupDnsRespCache_(dnsMessage, responseCacheKey, true)
++	if resp == nil {
++		// resp is not valid.
++		c.log.WithFields(logrus.Fields{
++			"qname": qname,
++		}).Tracef("Reject %v due to resp not valid", qtype)
++		return c.sendRejectWithResponseWriter_(dnsMessage, req, responseWriter)
++	}
++	// resp is valid.
++	cache2 := c.LookupDnsRespCache(responseCacheKey2, true)
++	if c.currentQtypePrefer() == qtype || cache2 == nil || !cache2.IncludeAnyIp() {
++		return c.writeCachedResponse(resp, dnsMessage.Id, req, responseWriter)
++	} else {
++		return c.sendRejectWithResponseWriter_(dnsMessage, req, responseWriter)
++	}
+ }
+ 
+ func (c *DnsController) handleWithResponseWriter_(
+@@ -2781,10 +2742,6 @@ func (c *DnsController) dialSend(
+ 		return c.dialSend(ctx, invokingDepth+1, req, data, id, nextUpstream, needResp, responseWriter, responseCacheKey, baseCacheKey)
+ 	}
+ 
+-	// Apply preference wait logic for A/AAAA responses.
+-	// This must happen before logging and sending the response.
+-	respMsg = c.applyPreferenceWait(respMsg)
+-
+ 	if upstreamIndex.IsReserved() && c.log.IsLevelEnabled(logrus.DebugLevel) {
+ 		var (
+ 			qname string
+-- 
+2.55.0
+

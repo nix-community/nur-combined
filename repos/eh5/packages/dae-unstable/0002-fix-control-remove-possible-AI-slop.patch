@@ -1,0 +1,381 @@
+From 3664d004601861e89a7f5d72bb8700530e321bb1 Mon Sep 17 00:00:00 2001
+From: Huang-Huang Bao <i@eh5.me>
+Date: Sun, 2 Aug 2026 21:16:54 +0800
+Subject: [PATCH 2/2] fix(control): remove possible AI slop
+
+---
+ control/dns_control.go                   |  78 -----------
+ control/dns_preference_wait.go           | 162 -----------------------
+ control/dns_preference_wait_test.go      |  75 -----------
+ control/dns_runtime_test_helpers_test.go |   1 -
+ 4 files changed, 316 deletions(-)
+ delete mode 100644 control/dns_preference_wait.go
+ delete mode 100644 control/dns_preference_wait_test.go
+
+diff --git a/control/dns_control.go b/control/dns_control.go
+index 202f429..ed50791 100644
+--- a/control/dns_control.go
++++ b/control/dns_control.go
+@@ -127,11 +127,6 @@ type dnsControllerStore struct {
+ 	bpfUpdateWg     sync.WaitGroup
+ 	bpfUpdateOnce   sync.Once
+ 	bpfUpdateClosed atomic.Bool
+-
+-	// prefWaitRegistry manages waits for preferred DNS response types.
+-	// When ip_version_prefer is set, non-preferred responses wait briefly
+-	// for preferred responses to arrive (RFC 8305 Happy Eyeballs).
+-	prefWaitRegistry *preferenceWaitRegistry
+ }
+ 
+ // DnsController is a lightweight generation-local facade over a shared
+@@ -161,7 +156,6 @@ func newDnsControllerStore() *dnsControllerStore {
+ 		evictorDone:       make(chan struct{}),
+ 		evictorQ:          make(chan *DnsCache, 512),
+ 		evictorWake:       make(chan struct{}, 1),
+-		prefWaitRegistry:  newPreferenceWaitRegistry(),
+ 	}
+ }
+ 
+@@ -2569,78 +2563,6 @@ func (c *DnsController) sendRejectWithResponseWriter_(dnsMessage *dnsmessage.Msg
+ 	return c.sendDnsErrorResponse_(dnsMessage, dnsmessage.RcodeSuccess, "Reject", req, responseWriter)
+ }
+ 
+-// applyPreferenceWait implements RFC 8305 Happy Eyeballs Resolution Delay.
+-// When ip_version_prefer is set and a non-preferred A/AAAA response is received,
+-// wait briefly (50ms) for the preferred response to arrive before using this one.
+-//
+-// This function handles two scenarios:
+-// 1. Non-preferred response arrives (e.g., A when prefer=6): Register wait and wait for preferred
+-// 2. Preferred response arrives (e.g., AAAA when prefer=6): Notify any waiting requests
+-//
+-// The function returns the response to use (preferred if arrived during wait, otherwise original).
+-func (c *DnsController) applyPreferenceWait(respMsg *dnsmessage.Msg) *dnsmessage.Msg {
+-	c.requireStore()
+-	// Fast path: preference not enabled
+-	if c.currentQtypePrefer() == 0 {
+-		return respMsg
+-	}
+-
+-	// Only handle A/AAAA responses
+-	if len(respMsg.Question) == 0 {
+-		return respMsg
+-	}
+-	q := respMsg.Question[0]
+-	if q.Qtype != dnsmessage.TypeA && q.Qtype != dnsmessage.TypeAAAA {
+-		return respMsg
+-	}
+-
+-	// Get canonical qname for matching
+-	qname := dnsmessage.CanonicalName(q.Name)
+-
+-	// Case 1: This is the preferred response type - notify waiting requests
+-	qtypePrefer := c.currentQtypePrefer()
+-	if isPreferredType(q.Qtype, qtypePrefer) {
+-		// Notify any waiting requests for this domain
+-		if c.prefWaitRegistry.notifyPreferred(qname, q.Qtype, qtypePrefer) {
+-			if c.log.IsLevelEnabled(logrus.TraceLevel) {
+-				c.log.Tracef("Preferred %v response for %v notified waiting request", QtypeToString(q.Qtype), qname)
+-			}
+-		}
+-		return respMsg
+-	}
+-
+-	// Case 2: This is a non-preferred response - register wait and wait for preferred
+-	if wait := c.prefWaitRegistry.registerWait(qname, q.Qtype, qtypePrefer); wait != nil {
+-		// Non-preferred response arrived before preferred - wait briefly for preferred
+-		if c.log.IsLevelEnabled(logrus.TraceLevel) {
+-			c.log.Tracef("Non-preferred %v response for %v, waiting %v for preferred %v",
+-				QtypeToString(q.Qtype), qname, PreferenceResolutionDelay, QtypeToString(qtypePrefer))
+-		}
+-
+-		// Wait for preferred response or timeout
+-		preferred := wait.waitFor()
+-
+-		// Clean up wait registry
+-		c.prefWaitRegistry.remove(qname)
+-
+-		if preferred {
+-			if c.log.IsLevelEnabled(logrus.TraceLevel) {
+-				c.log.Tracef("Preferred %v response arrived for %v during wait for %v",
+-					QtypeToString(qtypePrefer), qname, QtypeToString(q.Qtype))
+-			}
+-		} else if c.log.IsLevelEnabled(logrus.TraceLevel) {
+-			c.log.Tracef("Preferred %v response not arrived for %v within %v, using %v response",
+-				QtypeToString(qtypePrefer), qname, PreferenceResolutionDelay, QtypeToString(q.Qtype))
+-		}
+-
+-		// Always return the original response. The wait only changes when we
+-		// release the response, not the DNS question/answer type pairing.
+-		return respMsg
+-	}
+-
+-	return respMsg
+-}
+-
+ func (c *DnsController) dialSend(
+ 	ctx context.Context,
+ 	invokingDepth int,
+diff --git a/control/dns_preference_wait.go b/control/dns_preference_wait.go
+deleted file mode 100644
+index e915ebf..0000000
+--- a/control/dns_preference_wait.go
++++ /dev/null
+@@ -1,162 +0,0 @@
+-/*
+- * SPDX-License-Identifier: AGPL-3.0-only
+- * Copyright (c) 2022-2026, daeuniverse Organization <dae@v2raya.org>
+- */
+-
+-package control
+-
+-import (
+-	"sync"
+-	"time"
+-
+-	dnsmessage "github.com/miekg/dns"
+-)
+-
+-const (
+-	// PreferenceResolutionDelay is the time to wait for a preferred
+-	// DNS response type (e.g., AAAA) after receiving a non-preferred
+-	// type (e.g., A). Based on RFC 8305 Happy Eyeballs Resolution Delay.
+-	//
+-	// From RFC 8305 Section 3:
+-	// "If a positive A response is received first due to reordering,
+-	// the client SHOULD wait a short time for the AAAA response to
+-	// ensure that preference is given to IPv6 (it is common for the
+-	// AAAA response to follow the A response by a few milliseconds).
+-	// The recommended value for the Resolution Delay is 50 milliseconds."
+-	PreferenceResolutionDelay = 50 * time.Millisecond
+-)
+-
+-// preferenceWait represents a request waiting for its preferred DNS response type.
+-// When a non-preferred response arrives (e.g., A when prefer=6), we wait briefly
+-// to see if the preferred response (e.g., AAAA) arrives before responding.
+-type preferenceWait struct {
+-	qtype     uint16        // Original query type (A or AAAA)
+-	preferred bool          // Whether the preferred response arrived in time
+-	done      chan struct{} // Closed when wait is complete (timeout or preferred arrived)
+-	deadline  time.Time     // Wait deadline
+-}
+-
+-// preferenceWaitRegistry manages concurrent DNS queries waiting for preferred response types.
+-// Thread-safe for concurrent access.
+-type preferenceWaitRegistry struct {
+-	mu    sync.RWMutex
+-	waits map[string]*preferenceWait // key: qname → wait info
+-}
+-
+-// newPreferenceWaitRegistry creates a new registry.
+-func newPreferenceWaitRegistry() *preferenceWaitRegistry {
+-	return &preferenceWaitRegistry{
+-		waits: make(map[string]*preferenceWait),
+-	}
+-}
+-
+-// registerWait registers a wait for the preferred response type.
+-// Returns the wait struct if registered, nil if qtypePrefer is disabled.
+-// If a wait already exists for this qname, returns the existing wait.
+-func (r *preferenceWaitRegistry) registerWait(qname string, qtype uint16, qtypePrefer uint16) *preferenceWait {
+-	// Fast path: preference not enabled
+-	if qtypePrefer == 0 {
+-		return nil
+-	}
+-
+-	// Only wait for A/AAAA responses
+-	if qtype != dnsmessage.TypeA && qtype != dnsmessage.TypeAAAA {
+-		return nil
+-	}
+-
+-	// No wait needed if this is the preferred type
+-	if qtype == qtypePrefer {
+-		return nil
+-	}
+-
+-	r.mu.Lock()
+-	defer r.mu.Unlock()
+-
+-	// Check if already waiting
+-	if existing, ok := r.waits[qname]; ok {
+-		return existing
+-	}
+-
+-	// Create new wait
+-	w := &preferenceWait{
+-		qtype:    qtype,
+-		done:     make(chan struct{}),
+-		deadline: time.Now().Add(PreferenceResolutionDelay),
+-	}
+-	r.waits[qname] = w
+-	return w
+-}
+-
+-// notifyPreferred notifies a waiting query that the preferred response has arrived.
+-// Returns true if a waiter was found and notified.
+-func (r *preferenceWaitRegistry) notifyPreferred(qname string, qtype uint16, qtypePrefer uint16) bool {
+-	// Fast path: preference not enabled
+-	if qtypePrefer == 0 {
+-		return false
+-	}
+-
+-	// Only A/AAAA responses
+-	if qtype != dnsmessage.TypeA && qtype != dnsmessage.TypeAAAA {
+-		return false
+-	}
+-
+-	// Must be the preferred type
+-	if qtype != qtypePrefer {
+-		return false
+-	}
+-
+-	r.mu.Lock()
+-	w, ok := r.waits[qname]
+-	if ok {
+-		// Mark the preferred response as observed before releasing the waiter.
+-		w.preferred = true
+-		close(w.done)
+-		delete(r.waits, qname)
+-	}
+-	r.mu.Unlock()
+-	return ok
+-}
+-
+-// remove removes a wait from the registry.
+-func (r *preferenceWaitRegistry) remove(qname string) {
+-	r.mu.Lock()
+-	delete(r.waits, qname)
+-	r.mu.Unlock()
+-}
+-
+-// waitFor waits for the preferred response or timeout.
+-// Returns true if the preferred response arrived before the timeout.
+-func (w *preferenceWait) waitFor() (preferred bool) {
+-	if w == nil {
+-		return false
+-	}
+-
+-	deadline := w.deadline
+-	now := time.Now()
+-
+-	if deadline.After(now) {
+-		// Wait for preferred response or timeout
+-		timeout := time.NewTimer(deadline.Sub(now))
+-		defer timeout.Stop()
+-
+-		select {
+-		case <-w.done:
+-			// Preferred response arrived
+-			return w.preferred
+-		case <-timeout.C:
+-			// Timeout, use original response
+-			return false
+-		}
+-	}
+-
+-	// Already past deadline
+-	return false
+-}
+-
+-// isPreferredType returns true if qtype is the preferred A/AAAA type.
+-func isPreferredType(qtype uint16, qtypePrefer uint16) bool {
+-	if qtypePrefer == 0 {
+-		return false
+-	}
+-	return qtype == qtypePrefer
+-}
+diff --git a/control/dns_preference_wait_test.go b/control/dns_preference_wait_test.go
+deleted file mode 100644
+index e0e95f7..0000000
+--- a/control/dns_preference_wait_test.go
++++ /dev/null
+@@ -1,75 +0,0 @@
+-/*
+- * SPDX-License-Identifier: AGPL-3.0-only
+- */
+-
+-package control
+-
+-import (
+-	"testing"
+-	"time"
+-
+-	dnsmessage "github.com/miekg/dns"
+-	"github.com/sirupsen/logrus"
+-)
+-
+-func TestApplyPreferenceWaitPreservesOriginalQType(t *testing.T) {
+-	c := &DnsController{
+-		dnsControllerStore: &dnsControllerStore{
+-			prefWaitRegistry: newPreferenceWaitRegistry(),
+-		},
+-		log: logrus.New(),
+-	}
+-	c.qtypePrefer.Store(uint32(dnsmessage.TypeAAAA))
+-
+-	original := new(dnsmessage.Msg)
+-	original.SetQuestion("example.com.", dnsmessage.TypeA)
+-	original.Response = true
+-	original.Answer = append(original.Answer, &dnsmessage.A{
+-		Hdr: dnsmessage.RR_Header{
+-			Name:   "example.com.",
+-			Rrtype: dnsmessage.TypeA,
+-			Class:  dnsmessage.ClassINET,
+-			Ttl:    60,
+-		},
+-		A: []byte{1, 1, 1, 1},
+-	})
+-
+-	done := make(chan *dnsmessage.Msg, 1)
+-	go func() {
+-		done <- c.applyPreferenceWait(original)
+-	}()
+-
+-	waitForPreferenceWaiter(t, c.prefWaitRegistry, "example.com.")
+-
+-	if ok := c.prefWaitRegistry.notifyPreferred("example.com.", dnsmessage.TypeAAAA, dnsmessage.TypeAAAA); !ok {
+-		t.Fatal("expected preferred response to notify waiter")
+-	}
+-
+-	select {
+-	case got := <-done:
+-		if got != original {
+-			t.Fatal("expected the original response to be returned")
+-		}
+-		if len(got.Question) == 0 || got.Question[0].Qtype != dnsmessage.TypeA {
+-			t.Fatalf("unexpected response qtype: %+v", got.Question)
+-		}
+-	case <-time.After(time.Second):
+-		t.Fatal("timed out waiting for preference wait to complete")
+-	}
+-}
+-
+-func waitForPreferenceWaiter(t *testing.T, r *preferenceWaitRegistry, qname string) {
+-	t.Helper()
+-
+-	deadline := time.Now().Add(time.Second)
+-	for time.Now().Before(deadline) {
+-		r.mu.RLock()
+-		_, ok := r.waits[qname]
+-		r.mu.RUnlock()
+-		if ok {
+-			return
+-		}
+-		time.Sleep(time.Millisecond)
+-	}
+-	t.Fatalf("waiter for %s was not registered in time", qname)
+-}
+diff --git a/control/dns_runtime_test_helpers_test.go b/control/dns_runtime_test_helpers_test.go
+index 6ccb987..11454a8 100644
+--- a/control/dns_runtime_test_helpers_test.go
++++ b/control/dns_runtime_test_helpers_test.go
+@@ -14,7 +14,6 @@ func newTestDnsControllerStore() *dnsControllerStore {
+ 	return &dnsControllerStore{
+ 		dnsCache:          sync.Map{},
+ 		dnsForwarderCache: sync.Map{},
+-		prefWaitRegistry:  newPreferenceWaitRegistry(),
+ 	}
+ }
+ 
+-- 
+2.55.0
+
