@@ -329,11 +329,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-E6GPPXWW4Xgh9iCWFtmzGBD2IcbEtfl1n9UrBgUBix4=",
+            "sha256": "sha256-t0l4R9toyvfZmKKIH/tZlQ5hln/BXR9hH9th1cmMJfk=",
             "type": "url",
-            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.9-2/bilibili-asar-v1.17.9-2.tar.gz"
+            "url": "https://github.com/msojocs/bilibili-linux/releases/download/v1.18.0-1/bilibili-asar-v1.18.0-1.tar.gz"
         },
-        "version": "v1.17.9-2"
+        "version": "v1.18.0-1"
     },
     "bilibili-src": {
         "cargoLock": null,
@@ -349,12 +349,12 @@
             "name": null,
             "owner": "msojocs",
             "repo": "bilibili-linux",
-            "rev": "v1.17.9-2",
-            "sha256": "sha256-JDBQvTfVR73vGOtRz1YZEzWQ/AJv+tJGYtrDyU282Rg=",
+            "rev": "v1.18.0-1",
+            "sha256": "sha256-JRXf1C587OWC5aIUfaf8YPjYlnGxGC1KIvzAXZmCtMg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.17.9-2"
+        "version": "v1.18.0-1"
     },
     "bin-cpuflags-x86": {
         "cargoLock": null,
@@ -598,12 +598,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.113",
-            "sha256": "sha256-aget6PRnWkzNy/QAG54qCRjHfTRui3srplM+U73Hlbc=",
+            "rev": "v7.2.114",
+            "sha256": "sha256-Uk34VvNpIj9h0Nj2nWd9QzPJ9mhAZYXCTnBRwNU1Xmo=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.113"
+        "version": "v7.2.114"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1201,12 +1201,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "EasyCLI",
-            "rev": "v0.2.9",
-            "sha256": "sha256-+MDjEKfhRc57Tpuq8GG/9+5vK9HXSCvncHwKKjYYpss=",
+            "rev": "v0.2.10",
+            "sha256": "sha256-4P69zuPh9eTWpgbHGEyvmfg36zleSVQZ92nB6eEI2qc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.9"
+        "version": "v0.2.10"
     },
     "edge-tts": {
         "cargoLock": null,
@@ -1923,7 +1923,7 @@
     },
     "i915-sriov-dkms": {
         "cargoLock": null,
-        "date": "2026-07-28",
+        "date": "2026-08-02",
         "extract": null,
         "name": "i915-sriov-dkms",
         "passthru": null,
@@ -1935,12 +1935,12 @@
             "name": null,
             "owner": "strongtz",
             "repo": "i915-sriov-dkms",
-            "rev": "e3c384c19719afdd8fe480f5e39e2a49763843f6",
-            "sha256": "sha256-pf57l1bxKOSpv930lyXU8ODV3lpDSjp4bM4NUYBtqi8=",
+            "rev": "bef2b42864f5224b85845920554003371b11f3af",
+            "sha256": "sha256-5qw5I2PTJAnhAzKKZ6inSECfXpj5j1m7pg4JmbXiT8o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "e3c384c19719afdd8fe480f5e39e2a49763843f6"
+        "version": "bef2b42864f5224b85845920554003371b11f3af"
     },
     "igsc": {
         "cargoLock": null,
@@ -2700,7 +2700,7 @@
     },
     "mtkclient": {
         "cargoLock": null,
-        "date": "2026-07-21",
+        "date": "2026-08-02",
         "extract": null,
         "name": "mtkclient",
         "passthru": null,
@@ -2712,12 +2712,12 @@
             "name": null,
             "owner": "bkerler",
             "repo": "mtkclient",
-            "rev": "382fb302f31c442c5c83d4938ee19640d07b3305",
-            "sha256": "sha256-luTT8yUZDXKdltQVMgj0bnCAFNQoYpGjpP2xRGzGLdY=",
+            "rev": "0542a8729993000661e2325e838217ee754d1632",
+            "sha256": "sha256-sl6u9HbJmUCuAeKhd1qwpceBqa88nekgpTVXvZ6Rd4o=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "382fb302f31c442c5c83d4938ee19640d07b3305"
+        "version": "0542a8729993000661e2325e838217ee754d1632"
     },
     "n8n-openai-bridge": {
         "cargoLock": null,
@@ -2982,7 +2982,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-08-01",
+        "date": "2026-08-03",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2994,12 +2994,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "49608d3d76082d52fc7db34a566222d12e22239c",
-            "sha256": "sha256-yq+Dtdoy8m/opWUKp2e5zuIQb1By7enp5yfm+1pTbbU=",
+            "rev": "8c4d5455cd9f961c792e30814f1498498f1418bb",
+            "sha256": "sha256-3OZzvVh83csqPKp5jOxlA908X7FPniF7aYtw0uewUj4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "49608d3d76082d52fc7db34a566222d12e22239c"
+        "version": "8c4d5455cd9f961c792e30814f1498498f1418bb"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -4079,7 +4079,7 @@
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-07-31",
+        "date": "2026-08-02",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -4091,12 +4091,12 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "8a3d9470c00add3cc93da20aac0c6d4a1ab37895",
-            "sha256": "sha256-+C/4Z44+hguaGgA8SShNLs1wKbgVYOFTLkJqGFiOqb8=",
+            "rev": "569ff3bc65dd4aec0a26b33c49c8bbdfa8b5fd57",
+            "sha256": "sha256-U1aof8zSRKMXPDNXIB+LxbeRz5lBTegEG37iaFXS6fY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8a3d9470c00add3cc93da20aac0c6d4a1ab37895"
+        "version": "569ff3bc65dd4aec0a26b33c49c8bbdfa8b5fd57"
     },
     "rime-moegirl": {
         "cargoLock": null,

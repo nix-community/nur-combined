@@ -173,20 +173,20 @@
   };
   bilibili = {
     pname = "bilibili";
-    version = "v1.17.9-2";
+    version = "v1.18.0-1";
     src = fetchurl {
-      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.17.9-2/bilibili-asar-v1.17.9-2.tar.gz";
-      hash = "sha256-E6GPPXWW4Xgh9iCWFtmzGBD2IcbEtfl1n9UrBgUBix4=";
+      url = "https://github.com/msojocs/bilibili-linux/releases/download/v1.18.0-1/bilibili-asar-v1.18.0-1.tar.gz";
+      hash = "sha256-t0l4R9toyvfZmKKIH/tZlQ5hln/BXR9hH9th1cmMJfk=";
     };
   };
   bilibili-src = {
     pname = "bilibili-src";
-    version = "v1.17.9-2";
+    version = "v1.18.0-1";
     src = fetchFromGitHub {
       owner = "msojocs";
       repo = "bilibili-linux";
-      tag = "v1.17.9-2";
-      hash = "sha256-JDBQvTfVR73vGOtRz1YZEzWQ/AJv+tJGYtrDyU282Rg=";
+      tag = "v1.18.0-1";
+      hash = "sha256-JRXf1C587OWC5aIUfaf8YPjYlnGxGC1KIvzAXZmCtMg=";
     };
   };
   bin-cpuflags-x86 = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.113";
+    version = "v7.2.114";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.113";
-      hash = "sha256-aget6PRnWkzNy/QAG54qCRjHfTRui3srplM+U73Hlbc=";
+      tag = "v7.2.114";
+      hash = "sha256-Uk34VvNpIj9h0Nj2nWd9QzPJ9mhAZYXCTnBRwNU1Xmo=";
     };
   };
   cockpy = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.9";
+    version = "v0.2.10";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.9";
-      hash = "sha256-+MDjEKfhRc57Tpuq8GG/9+5vK9HXSCvncHwKKjYYpss=";
+      tag = "v0.2.10";
+      hash = "sha256-4P69zuPh9eTWpgbHGEyvmfg36zleSVQZ92nB6eEI2qc=";
     };
   };
   edge-tts = {
@@ -992,14 +992,14 @@
   };
   i915-sriov-dkms = {
     pname = "i915-sriov-dkms";
-    version = "e3c384c19719afdd8fe480f5e39e2a49763843f6";
+    version = "bef2b42864f5224b85845920554003371b11f3af";
     src = fetchFromGitHub {
       owner = "strongtz";
       repo = "i915-sriov-dkms";
-      rev = "e3c384c19719afdd8fe480f5e39e2a49763843f6";
-      hash = "sha256-pf57l1bxKOSpv930lyXU8ODV3lpDSjp4bM4NUYBtqi8=";
+      rev = "bef2b42864f5224b85845920554003371b11f3af";
+      hash = "sha256-5qw5I2PTJAnhAzKKZ6inSECfXpj5j1m7pg4JmbXiT8o=";
     };
-    date = "2026-07-28";
+    date = "2026-08-02";
   };
   igsc = {
     pname = "igsc";
@@ -1382,14 +1382,14 @@
   };
   mtkclient = {
     pname = "mtkclient";
-    version = "382fb302f31c442c5c83d4938ee19640d07b3305";
+    version = "0542a8729993000661e2325e838217ee754d1632";
     src = fetchFromGitHub {
       owner = "bkerler";
       repo = "mtkclient";
-      rev = "382fb302f31c442c5c83d4938ee19640d07b3305";
-      hash = "sha256-luTT8yUZDXKdltQVMgj0bnCAFNQoYpGjpP2xRGzGLdY=";
+      rev = "0542a8729993000661e2325e838217ee754d1632";
+      hash = "sha256-sl6u9HbJmUCuAeKhd1qwpceBqa88nekgpTVXvZ6Rd4o=";
     };
-    date = "2026-07-21";
+    date = "2026-08-02";
   };
   n8n-openai-bridge = {
     pname = "n8n-openai-bridge";
@@ -1527,14 +1527,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "49608d3d76082d52fc7db34a566222d12e22239c";
+    version = "8c4d5455cd9f961c792e30814f1498498f1418bb";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "49608d3d76082d52fc7db34a566222d12e22239c";
-      hash = "sha256-yq+Dtdoy8m/opWUKp2e5zuIQb1By7enp5yfm+1pTbbU=";
+      rev = "8c4d5455cd9f961c792e30814f1498498f1418bb";
+      hash = "sha256-3OZzvVh83csqPKp5jOxlA908X7FPniF7aYtw0uewUj4=";
     };
-    date = "2026-08-01";
+    date = "2026-08-03";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -2086,14 +2086,14 @@
   };
   rime-ice = {
     pname = "rime-ice";
-    version = "8a3d9470c00add3cc93da20aac0c6d4a1ab37895";
+    version = "569ff3bc65dd4aec0a26b33c49c8bbdfa8b5fd57";
     src = fetchFromGitHub {
       owner = "iDvel";
       repo = "rime-ice";
-      rev = "8a3d9470c00add3cc93da20aac0c6d4a1ab37895";
-      hash = "sha256-+C/4Z44+hguaGgA8SShNLs1wKbgVYOFTLkJqGFiOqb8=";
+      rev = "569ff3bc65dd4aec0a26b33c49c8bbdfa8b5fd57";
+      hash = "sha256-U1aof8zSRKMXPDNXIB+LxbeRz5lBTegEG37iaFXS6fY=";
     };
-    date = "2026-07-31";
+    date = "2026-08-02";
   };
   rime-moegirl = {
     pname = "rime-moegirl";
