@@ -2,20 +2,20 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  fetchpatch,
   fftwFloat,
   libsamplerate,
   libsndfile,
   libusb1,
   portaudio,
   rtl-sdr,
-  qt5,
-  libsForQt5,
+  qt6,
+  qt6Packages,
+  wrapGAppsHook3,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "fmreceiver";
-  version = "2.1";
+  version = "3.20";
 
   __structuredAttrs = true;
 
@@ -23,21 +23,11 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "JvanKatwijk";
     repo = "sdr-j-fm";
     tag = finalAttrs.version;
-    hash = "sha256-U0m9PIB+X+TBoz5FfXMvR/tZjkNIy7B613I7eLT5UIs=";
+    hash = "sha256-qNSmBVY1n5+DR9k1d+nY11gBrYS7Ah774R2FMgCR4ks=";
   };
 
-  patches = [
-    # support qwt-6.2.0
-    (fetchpatch {
-      url = "https://github.com/JvanKatwijk/sdr-j-fm/commit/4ca2f3a28e3e3460dc95be851fcd923e91488573.patch";
-      hash = "sha256-tjNsg9Rc8kBn+6UzPsf1WLt+ZRYv8neG/CSyZKjObh0=";
-    })
-  ];
-
   postPatch = ''
-    substituteInPlace fmreceiver.pro \
-      --replace-fail "-lqwt-qt5" "-lqwt" \
-      --replace-fail "CONFIG" "#CONFIG"
+    substituteInPlace fmreceiver.pro --replace-fail "CONFIG" "#CONFIG"
   ''
   + lib.optionalString stdenv.isDarwin ''
     substituteInPlace fmreceiver.pro --replace-fail "-lrt " ""
@@ -46,8 +36,9 @@ stdenv.mkDerivation (finalAttrs: {
   '';
 
   nativeBuildInputs = [
-    qt5.qmake
-    qt5.wrapQtAppsHook
+    qt6.qmake
+    qt6.wrapQtAppsHook
+    wrapGAppsHook3 # required for FileChooser
   ];
 
   buildInputs = [
@@ -56,27 +47,29 @@ stdenv.mkDerivation (finalAttrs: {
     libsndfile
     libusb1
     portaudio
-    libsForQt5.qwt
+    qt6Packages.qwt
   ];
 
   qmakeFlags = [ "CONFIG+=dabstick" ];
 
-  qtWrapperArgs = [
+  gappsWrapperArgs = [
     "--prefix ${lib.optionalString stdenv.isDarwin "DY"}LD_LIBRARY_PATH : ${
       lib.makeLibraryPath [ rtl-sdr ]
     }"
   ];
 
+  env.NIX_LDFLAGS = "-lqwt";
+
   installPhase =
     if stdenv.isDarwin then
       ''
         mkdir -p $out/Applications
-        mv linux-bin/fmreceiver-2.0.app $out/Applications/fmreceiver.app
-        install_name_tool -change {,${libsForQt5.qwt}/lib/}libqwt.6.dylib "$out/Applications/fmreceiver.app/Contents/MacOS/fmreceiver-2.0"
+        mv linux-bin/fmreceiver-3.20.app $out/Applications/fmreceiver.app
+        install_name_tool -change {,${qt6Packages.qwt}/lib/}libqwt.6.dylib "$out/Applications/fmreceiver.app/Contents/MacOS/fmreceiver-3.20"
       ''
     else
       ''
-        install -Dm755 linux-bin/fmreceiver-2.0 $out/bin/fmreceiver
+        install -Dm755 linux-bin/fmreceiver-3.20 $out/bin/fmreceiver
       '';
 
   meta = {
