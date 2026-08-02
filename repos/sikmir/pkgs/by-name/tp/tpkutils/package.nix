@@ -23,7 +23,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     mercantile
     pymbtiles
     six
-    setuptools # pkg_resources
+    setuptools_80 # pkg_resources
   ];
 
   nativeCheckInputs = with python3Packages; [ pytestCheckHook ];
