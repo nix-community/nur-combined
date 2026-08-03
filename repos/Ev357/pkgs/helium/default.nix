@@ -8,7 +8,7 @@
   widevine-cdm,
   enableWideVine ? false,
 }: let
-  version = "0.15.1.1 ";
+  version = "0.15.1.1";
   repo = "https://github.com/imputnet/helium-linux";
   sourceMap = {
     x86_64-linux = fetchurl {
