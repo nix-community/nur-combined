@@ -20,5 +20,6 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   shimelinux = pkgs.callPackage ./pkgs/shimelinux { };
+  utmt-cli = pkgs.callPackage ./pkgs/utmt-cli { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }
