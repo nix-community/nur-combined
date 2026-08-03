@@ -61,5 +61,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/camptocamp/tilecloud";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 })

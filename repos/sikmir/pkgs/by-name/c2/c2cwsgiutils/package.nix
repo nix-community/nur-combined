@@ -2,7 +2,6 @@
   lib,
   fetchFromGitHub,
   python3Packages,
-  pipfile,
 }:
 
 python3Packages.buildPythonPackage (finalAttrs: {
@@ -17,6 +16,12 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-Ca3GCIavXqaimlmboeSHmEeZotQMtgoYXwFbR/ulR1M=";
   };
 
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "\"poetry-plugin-tweak-dependencies-version\"," "" \
+      --replace-fail "\"poetry-plugin-drop-python-upper-constraint\"," ""
+  '';
+
   build-system = with python3Packages; [
     poetry-core
     poetry-dynamic-versioning
@@ -26,7 +31,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     boltons
     lxml
     netifaces
-    pipfile
     psycopg2
     pyramid
     requests
@@ -41,5 +45,6 @@ python3Packages.buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/camptocamp/c2cwsgiutils";
     license = lib.licenses.bsd2;
     maintainers = [ lib.maintainers.sikmir ];
+    broken = true;
   };
 })
