@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-IfBChD3M0IYDAEiJBdv_DUhRyFB6Wh_9eAOgWOWhp8M=/backend/Cargo.lock",
+                "sha256-fdg1JPox9uzepSrsTIShIXDHfb2cpVlcDp3InPCae5I=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -115,7 +115,7 @@
                 }
             ]
         },
-        "date": "2026-08-02",
+        "date": "2026-08-03",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -127,12 +127,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "fba0d8ff11b4a071de3f958d2fb3e8d1df533829",
-            "sha256": "sha256-IfBChD3M0IYDAEiJBdv/DUhRyFB6Wh/9eAOgWOWhp8M=",
+            "rev": "de3400db7a1f22b60b0d8c4aa7f8de109b6e7d1f",
+            "sha256": "sha256-fdg1JPox9uzepSrsTIShIXDHfb2cpVlcDp3InPCae5I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "fba0d8ff11b4a071de3f958d2fb3e8d1df533829"
+        "version": "de3400db7a1f22b60b0d8c4aa7f8de109b6e7d1f"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -498,11 +498,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-8FlX5iLmeC9zC4VAi4Pdz5MJZmmr6qTiW+nroJQYg7Q=",
+            "sha256": "sha256-lXRzpvftODcD1KN0dT5VvXF3qq6Rpqp9b/AWd2wXicA=",
             "type": "url",
-            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.352/HMCL-3.17.0.352.jar"
+            "url": "https://github.com/HMCL-dev/HMCL/releases/download/v3.17.0.353/HMCL-3.17.0.353.jar"
         },
-        "version": "3.17.0.352"
+        "version": "3.17.0.353"
     },
     "hmcl-dev-src": {
         "cargoLock": null,
@@ -518,12 +518,12 @@
             "name": null,
             "owner": "HMCL-dev",
             "repo": "HMCL",
-            "rev": "v3.17.0.352",
-            "sha256": "sha256-QlStHTU71TiV/ohxjvKfPO9bJGZ5dpDAToihV1vaBhM=",
+            "rev": "v3.17.0.353",
+            "sha256": "sha256-1RwcIBhL+BS46xmD1zmwLp2Of9jv5xdQAZ+yFxJsI5M=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.17.0.352"
+        "version": "v3.17.0.353"
     },
     "hysteria-realm-server": {
         "cargoLock": null,
@@ -653,7 +653,7 @@
     },
     "meta-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-01",
+        "date": "2026-08-02",
         "extract": null,
         "name": "meta-rules-dat",
         "passthru": null,
@@ -665,12 +665,12 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "meta-rules-dat",
-            "rev": "f8272324331ff5762528fb9681006b3d3fe85165",
-            "sha256": "sha256-FwoEEj83fBkJ/wBAp9tKxnkirqb9LXmuw8B6OOfPO6Q=",
+            "rev": "5c71d5e310de094437d8237c0eb40b7dafa5444d",
+            "sha256": "sha256-ErG8SfcVA7uddBr3VsJeXvBNsKm1KRUWQ8WLdlpzfFI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f8272324331ff5762528fb9681006b3d3fe85165"
+        "version": "5c71d5e310de094437d8237c0eb40b7dafa5444d"
     },
     "metacubex-geo": {
         "cargoLock": null,
@@ -1093,7 +1093,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-01",
+        "date": "2026-08-02",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -1105,12 +1105,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "1da9bbdc9a5cc5b9a550497df1a400c9eb09d92d",
-            "sha256": "sha256-qKrtIPOsHk1qhqH7rjvv/G/K0d5KwU6wm9S514jopnU=",
+            "rev": "d4a3df22d58ad8e2262402fbacf5b041bbbc99df",
+            "sha256": "sha256-DsQjDEebwih1iKpGOe4HeYp+ZNzOS3fWDZyWy8PZ59A=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1da9bbdc9a5cc5b9a550497df1a400c9eb09d92d"
+        "version": "d4a3df22d58ad8e2262402fbacf5b041bbbc99df"
     },
     "whois42d-ng": {
         "cargoLock": {
