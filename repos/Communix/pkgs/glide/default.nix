@@ -14,13 +14,13 @@
 }:
 
 let
-  glideVersion = "0.1.62a";
+  glideVersion = "0.1.63a";
   glideRevision = "e89e9a621993";
-  firefoxVersion = "152.0b2";
+  firefoxVersion = "153.0b5";
 
   firefoxSrc = fetchurl {
     url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
-    hash = "sha512-DoHR3+TI+nSCZpo+EEV16qzzxnHWelGNoSrJCZiQiK8etxaAFQQsSWfAQsHVpxXtVbjgxUmcPAU/5MQ6O0Z16A==";
+    hash = "sha256-ieLG6g0xK/pRdDaj+/iXn/ajlHWCbNwfoKnlsF0fiFw=";
   };
 
   patchedSrc = stdenv.mkDerivation (finalAttrs: {
@@ -32,7 +32,7 @@ let
       owner = "glide-browser";
       repo = "glide";
       tag = glideVersion;
-      hash = "sha256-g5QzxF6v7NzwqfZC0oOkebjQjsvwTGgaitXQjK1Yqs4=";
+      hash = "sha256-m4LApx/yphBDUyWqLwOi16vjrtVVyTafiHvJQDBFpns=";
     };
 
     postUnpack = ''
@@ -52,8 +52,8 @@ let
 
     pnpmDeps = fetchPnpmDeps {
       inherit (finalAttrs) pname version src;
-      fetcherVersion = 3;
-      hash = "sha256-P1ROOZC4F00WqAfkN2hcvcHfJ2l+2rfWVUdJOQ9+wIg=";
+      fetcherVersion = 4;
+      hash = "sha256-30p+Sn7UcO4UJPEh9NIvP3opyR/M2c4kp2lWa6e0o2k=";
     };
 
     buildPhase = ''
