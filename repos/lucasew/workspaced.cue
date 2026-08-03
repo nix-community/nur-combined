@@ -210,6 +210,11 @@ workspaced: {
 			global: true
 			bins: ["jj"]
 		}
+		lazygit: {
+			ref: "github:jesseduffield/lazygit"
+			global: true
+			bins: ["lazygit"]
+		}
 		pi: {
 			ref: "github:badlogic/pi-mono"
 			global: true
