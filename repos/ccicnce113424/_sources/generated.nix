@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.4.0-alpha.2";
+    version = "v0.4.0-alpha.3";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.4.0-alpha.2";
+      rev = "v0.4.0-alpha.3";
       fetchSubmodules = false;
-      sha256 = "sha256-dx2yrXA+s5o463NwH5KEaSrQODHAf3gnmMhtZHPsui8=";
+      sha256 = "sha256-iYmMc55+vncp2wiIVknWpcUYrTRT8LvKvPSVaNUvm78=";
     };
   };
   fast-nix-gc = {
@@ -244,16 +244,16 @@
   };
   motrix-next-beta = {
     pname = "motrix-next-beta";
-    version = "v3.9.7-beta.10";
+    version = "v3.9.7";
     src = fetchFromGitHub {
       owner = "AnInsomniacy";
       repo = "motrix-next";
-      rev = "v3.9.7-beta.10";
+      rev = "v3.9.7";
       fetchSubmodules = false;
-      sha256 = "sha256-9WE0QQjbiSma9kjOpiYdAigY6hfne3N+pe9b4id8H/E=";
+      sha256 = "sha256-REB89vOrNKyqH39OVd/jQonDvuIIYpm5rrBYg6w6Vq8=";
     };
     cargoLock."src-tauri/Cargo.lock" = {
-      lockFile = ./. + "/sha256-9WE0QQjbiSma9kjOpiYdAigY6hfne3N+pe9b4id8H_E=/src-tauri/Cargo.lock";
+      lockFile = ./. + "/sha256-REB89vOrNKyqH39OVd_jQonDvuIIYpm5rrBYg6w6Vq8=/src-tauri/Cargo.lock";
       outputHashes = {
         
       };
