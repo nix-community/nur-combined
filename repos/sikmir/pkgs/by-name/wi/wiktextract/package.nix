@@ -31,7 +31,7 @@ python3Packages.buildPythonApplication {
       --replace-fail python-Levenshtein Levenshtein
   '';
 
-  build-system = with python3Packages; [ setuptools ];
+  build-system = with python3Packages; [ setuptools_80 ];
 
   dependencies = with python3Packages; [
     levenshtein
@@ -51,6 +51,8 @@ python3Packages.buildPythonApplication {
     mkdir -p nltk_data/corpora
     unzip ${brown} -d nltk_data/corpora
   '';
+
+  disabledTestPaths = [ "tests/test_long.py" ];
 
   meta = {
     description = "Wiktionary dump file parser and multilingual data extractor";

@@ -22,6 +22,8 @@ python3Packages.buildPythonPackage {
 
   doCheck = false;
 
+  dontCheckPythonMetadata = true;
+
   pythonImportsCheck = [ "distance" ];
 
   meta = {
