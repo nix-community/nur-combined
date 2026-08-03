@@ -6,12 +6,12 @@
 
 python3Packages.buildPythonPackage rec {
   pname = "pygubu";
-  version = "0.41";
+  version = "0.41.2";
   format = "setuptools";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "sha256-T2YSINCrkQAWceGltoJYeWjsS3s5SiERBWBXMXe60Tc=";
+    sha256 = "sha256-0KmmCet49YbU6H/16BjahVzk4ast07mH42Xy0Zvbp0s=";
   };
 
   propagatedBuildInputs = [
