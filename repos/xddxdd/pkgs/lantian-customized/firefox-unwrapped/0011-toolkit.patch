@@ -1,0 +1,65 @@
+diff --git a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
+index 217d51f4c7..b15f14983c 100644
+--- a/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
++++ b/toolkit/components/enterprisepolicies/EnterprisePoliciesParent.sys.mjs
+@@ -736,6 +736,19 @@ class JSONPoliciesProvider {
+   }
+ }
+ 
++class PlaywrightPoliciesProvider extends JSONPoliciesProvider {
++  _getConfigurationFile() {
++    let prefPath = Services.prefs.getStringPref(PREF_ALTERNATE_PATH, "");
++    if (!prefPath)
++      return null;
++
++    dump(`Playwright: loading enterprise policies from ${prefPath}\n`);
++    let configFile = Cc["@mozilla.org/file/local;1"].createInstance(Ci.nsIFile);
++    configFile.initWithPath(prefPath);
++    return configFile;
++  }
++}
++
+ class WindowsGPOPoliciesProvider {
+   constructor() {
+     this._policies = null;
+diff --git a/toolkit/xre/nsWindowsWMain.cpp b/toolkit/xre/nsWindowsWMain.cpp
+index b7c376eadc..81a843ed2a 100644
+--- a/toolkit/xre/nsWindowsWMain.cpp
++++ b/toolkit/xre/nsWindowsWMain.cpp
+@@ -14,9 +14,12 @@
+ #endif
+ 
+ #include "mozilla/Char16.h"
++#include "mozilla/CmdLineAndEnvUtils.h"
+ #include "nsUTF8Utils.h"
+ 
+ #include <windows.h>
++#include <io.h>
++#include <stdlib.h>
+ 
+ #ifdef __MINGW32__
+ 
+@@ -114,6 +117,23 @@ static void FreeAllocStrings(int argc, char** argv) {
+ int wmain(int argc, WCHAR** argv) {
+   SanitizeEnvironmentVariables();
+   SetDllDirectoryW(L"");
++  // Playwright juggler-pipe: copy inherited stdio FDs 3 and 4 (the parent
++  // process passed them via Node.js stdio array) into env vars so the
++  // pipe code in nsRemoteDebuggingPipe.cpp can pick them up after the
++  // launcher → browser child handoff.  FF146 patch ported for FF150.
++  bool hasJugglerPipe =
++      mozilla::CheckArg(argc, argv, "juggler-pipe", nullptr,
++                        mozilla::CheckArgFlag::None) == mozilla::ARG_FOUND;
++  if (hasJugglerPipe && !mozilla::EnvHasValue("PW_PIPE_READ")) {
++    intptr_t stdio3 = _get_osfhandle(3);
++    intptr_t stdio4 = _get_osfhandle(4);
++    CHAR stdio3str[20];
++    CHAR stdio4str[20];
++    _itoa(static_cast<int>(stdio3), stdio3str, 10);
++    _itoa(static_cast<int>(stdio4), stdio4str, 10);
++    SetEnvironmentVariableA("PW_PIPE_READ", stdio3str);
++    SetEnvironmentVariableA("PW_PIPE_WRITE", stdio4str);
++  }
+ 
+   // Only run this code if LauncherProcessWin.h was included beforehand, thus
+   // signalling that the hosting process should support launcher mode.

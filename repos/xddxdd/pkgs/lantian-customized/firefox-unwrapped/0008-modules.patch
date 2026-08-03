@@ -1,0 +1,250 @@
+diff --git a/modules/libpref/Preferences.cpp b/modules/libpref/Preferences.cpp
+index 6e2b95ff7f..0b3bc14a6f 100644
+--- a/modules/libpref/Preferences.cpp
++++ b/modules/libpref/Preferences.cpp
+@@ -6458,6 +6458,7 @@ static const PrefListEntry sOverrideRestrictionsList[]{
+ // StaticPrefList) and would normally by blocklisted but we allow them through
+ // anyway, so this override list acts as an allowlist
+ static const PrefListEntry sDynamicPrefOverrideList[]{
++    PREF_LIST_ENTRY("zoom.stealth."),  // Stealth: allow string prefs in content processes
+     PREF_LIST_ENTRY("accessibility.tabfocus"),
+     PREF_LIST_ENTRY("app.update.channel"),
+     PREF_LIST_ENTRY("apz.subtest"),
+diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/StaticPrefList.yaml
+index 3d33f9916a..5075d50766 100644
+--- a/modules/libpref/init/StaticPrefList.yaml
++++ b/modules/libpref/init/StaticPrefList.yaml
+@@ -20873,6 +20873,211 @@
+   value: 20
+   mirror: always
+ 
++- name: zoom.stealth.fpp.hw_seed
++  type: int32_t
++  value: -1
++  mirror: always
++
++- name: zoom.stealth.screen.width
++  type: int32_t
++  value: -1
++  mirror: always
++
++- name: zoom.stealth.screen.height
++  type: int32_t
++  value: -1
++  mirror: always
++
++- name: zoom.stealth.audio.sample_rate
++  type: int32_t
++  value: -1
++  mirror: always
++
++# Diagnostic gate (2026-06-22): when false, disable the per-session OfflineAudioContext
++# noise even if hw_seed > 0. Lets us isolate whether the audio noise (vs the font jitter)
++# is what drives FP Pro tampering_ml on Windows. Default true = noise on (legacy behaviour).
++- name: zoom.stealth.audio.fp_noise
++  type: RelaxedAtomicBool
++  value: true
++  mirror: always
++
++- name: zoom.stealth.audio.output_latency_ms
++  type: int32_t
++  value: -1
++  mirror: always
++
++- name: zoom.stealth.audio.max_channel_count
++  type: int32_t
++  value: -1
++  mirror: always
++
++- name: zoom.stealth.hw_concurrency
++  type: RelaxedAtomicInt32
++  value: -1
++  mirror: always
++
++- name: zoom.stealth.webgl.renderer
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++- name: zoom.stealth.webgl.vendor
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# WebGL1 / WebGL2 supported-extensions whitelist (comma-separated).
++# Read by ClientWebGLContext::GetSupportedExtensions and IsSupported.
++# Empty = use native list (real driver extensions). Non-empty = return this
++# list verbatim and reject any extension NOT in it. Used to hide Linux/Mesa
++# extensions and mirror a canonical Windows ANGLE extension set.
++- name: zoom.stealth.webgl.extensions
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++- name: zoom.stealth.webgl2.extensions
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# WebGL getParameter() int32 override table. Comma-separated "ENUM|int"
++# entries (ENUM in decimal, e.g. 3379 = GL_MAX_TEXTURE_SIZE). Used to
++# return Windows ANGLE canonical values from GetParameter(pname) when
++# the host's real driver (Mesa on Linux) would give different numbers —
++# FP Pro's parameter hash matches Windows only when this is populated.
++- name: zoom.stealth.webgl.int_params
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Same but for float/float[2] params. "ENUM|a" or "ENUM|a:b" for vec2.
++- name: zoom.stealth.webgl.float_params
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Same but for int[2] (like MAX_VIEWPORT_DIMS). "ENUM|a:b"
++- name: zoom.stealth.webgl.int2_params
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Windows ANGLE canonical getShaderPrecisionFormat() triples. Closes FP Pro
++# webgl_extensions.shader_precisions hash signal — Linux Mesa returns
++# different range/precision than Win D3D11. Format:
++# "SHADERTYPE*PRECISIONTYPE|rangeMin:rangeMax:precision,..." where
++# SHADERTYPE=35632 (FRAGMENT) or 35633 (VERTEX), PRECISIONTYPE=36336..36341
++# (LOW_FLOAT..HIGH_INT). E.g. "35633*36338|-127:127:23". Empty = native.
++- name: zoom.stealth.webgl.shader_precisions
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Stealth (Option B): replace WebGL readback/snapshot RGB with hash(seed,index)
++# (endpoint-preserving: 0/255 bytes kept so pixelscan's red-box `oe` term passes)
++# instead of the per-channel gamma LUT. Makes the WebGL render hash a pure function
++# of (seed, dimensions) — HOST-INDEPENDENT (the gamma preserves the real GPU's
++# render structure, so its clean-render-seed pool is per-host calibrated). OFF by
++# default: it overwrites the real render, so legitimate WebGL readback/display is
++# lost. Enable only where host-independence matters more than WebGL fidelity
++# (multi-GPU headless fleets). Read by ApplyStealthWebGLPixels.
++- name: zoom.stealth.webgl.substitute_pixels
++  type: RelaxedAtomicBool
++  value: false
++  mirror: always
++
++# Per-profile font allow-list (comma-separated lowercase family names) = the set
++# the page may enumerate. Sampled by the Python _fpforge (core always +
++# conditioned optional subset) and applied to the native system font list AT
++# CONSTRUCTION (gfxPlatformFontList ctor) so it is set once at init with no
++# runtime font-list rebuild. Glyphs for these names come from the bundled fonts
++# in <GRE>/fonts. Empty = no filtering (vanilla).
++- name: zoom.stealth.font.fontlist
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# CSS system-ui generic family (e.g. "Segoe UI"). When set, the system-ui
++# generic resolves to exactly this family on every host. Empty = vanilla.
++- name: zoom.stealth.font.system_ui
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Canvas pixel substitution mode (Bool). When true, GetImageBuffer replaces
++# every RGB pixel with a deterministic hash of (seed, pixel_index) instead of
++# adding ±1 additive noise. Alpha channel preserved. Small canvases (<64x64)
++# skipped. Use to eliminate OS-level canvas rendering signatures (Mesa/Linux
++# vs ANGLE/Windows) when spoofing a different target OS at the JS layer —
++# the resulting canvas fingerprint is purely seed-driven, OS-independent.
++- name: zoom.stealth.canvas.substitute_pixels
++  type: RelaxedAtomicBool
++  value: false
++  mirror: always
++
++# Mask used by ApplyStealthCanvasPixelNoise to choose which pixels get the
++# +/-1 noise. A pixel is modified iff (per_pixel_hash & mask) == 0, so a
++# mask of 2^N - 1 yields a 1/2^N modification rate. Defaults to 7 = 1/8
++# pixels (~12.5%). Set to 15 (= 1/16, ~6.25%) for low-variance GPU stacks
++# (Intel HD) where the default rate over-amplifies the FP Pro tampering ML
++# score; set to 31 for the most conservative noise.
++- name: zoom.stealth.canvas.noise_skip_mask
++  type: RelaxedAtomicInt32
++  value: 7
++  mirror: always
++
++# Synthetic speech voices (comma-separated entries, each "NAME|LANG|D|L").
++# Read by SpeechSynthesis::GetVoices — when set, bypass the OS voice
++# registry entirely and return fabricated voices with these fields. Accessors
++# on SpeechSynthesisVoice parse the URI (stealth-voice:NAME|LANG|D|L) to
++# answer GetName/GetLang/LocalService/Default queries. Empty = native list.
++- name: zoom.stealth.voices.list
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# IANA timezone override (e.g. "America/New_York"). Single source of truth for
++# StealthFox timezone spoofing. Takes priority over juggler.timezone.override.
++- name: zoom.stealth.timezone
++  type: String
++  value: ""
++  mirror: never
++
++# Storage quota override (megabytes). When > 0, navigator.storage.estimate()
++# returns exactly this value (in MB) to the page, overriding the disk-based
++# group/origin limit. -1 (default) = vanilla Firefox behavior. Python Forge
++# samples this conditional on gpu_class to fake realistic SSD sizes without
++# exposing the real host disk size as a fingerprint signal.
++- name: zoom.stealth.storage.quota_mb
++  type: RelaxedAtomicInt32
++  value: -1
++  mirror: always
++
++# Proxy egress IP to inject as synthetic srflx ICE candidate (WebRTC realism).
++# Set by the Python launcher from the proxy's egress IP. Empty = feature disabled.
++- name: zoom.stealth.webrtc.public_ip
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Optional fake LAN host IP for the synthetic host candidate base.
++# Empty = leave host gathering to native code (mDNS *.local obfuscation).
++- name: zoom.stealth.webrtc.host_ip
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# Drop IPv6 host candidates from ICE gathering. The upstream
++# media.peerconnection.ice.disableIPv6 pref is dead in FF150, so this is the
++# stealth replacement: stops the real global IPv6 host (and any IPv6 srflx
++# derived from it) leaking past a TCP-only SOCKS proxy. Also readable via env
++# STEALTHFOX_WEBRTC_DISABLE_IPV6 (primary, for the socket process).
++- name: zoom.stealth.webrtc.disable_ipv6
++  type: bool
++  value: false
++  mirror: always
++
+ #---------------------------------------------------------------------------
+ # End of prefs
+ #---------------------------------------------------------------------------
+diff --git a/modules/libpref/init/all.js b/modules/libpref/init/all.js
+index 7f57c5510c..eeb841a8cf 100644
+--- a/modules/libpref/init/all.js
++++ b/modules/libpref/init/all.js
+@@ -1437,6 +1437,8 @@ pref("network.proxy.ssl_port",              0);
+ pref("network.proxy.socks",                 "");
+ pref("network.proxy.socks_port",            0);
+ pref("network.proxy.socks_version",         5);
++pref("network.proxy.socks_username",        "");
++pref("network.proxy.socks_password",        "");
+ pref("network.proxy.proxy_over_tls",        true);
+ pref("network.proxy.no_proxies_on",         "");
+ pref("network.proxy.failover_timeout",      1800); // 30 minutes
+@@ -3729,7 +3731,7 @@ pref("toolkit.legacyUserProfileCustomizations.stylesheets", false);
+   pref("datareporting.policy.minimumPolicyVersion", 1);
+   pref("datareporting.policy.minimumPolicyVersion.channel-beta", 2);
+   pref("datareporting.policy.firstRunURL", "https://www.mozilla.org/privacy/firefox/");
+-  pref("datareporting.policy.dataSubmissionPolicyBypassNotification", false);
++  pref("datareporting.policy.dataSubmissionPolicyBypassNotification", true);
+ #endif
+ 
+ #ifdef MOZ_SERVICES_HEALTHREPORT

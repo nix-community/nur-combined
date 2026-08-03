@@ -1,0 +1,1119 @@
+diff --git a/gfx/thebes/CoreTextFontList.cpp b/gfx/thebes/CoreTextFontList.cpp
+index e2a4ed57c8..aebe56646b 100644
+--- a/gfx/thebes/CoreTextFontList.cpp
++++ b/gfx/thebes/CoreTextFontList.cpp
+@@ -4,6 +4,7 @@
+ 
+ #include "AppleUtils.h"
+ #include "CoreTextFontList.h"
++#include "StealthBundleFontList.h"
+ #include "gfxFontConstants.h"
+ #include "gfxMacFont.h"
+ #include "gfxUserFontSet.h"
+@@ -1036,6 +1037,16 @@ CoreTextFontList::~CoreTextFontList() {
+ 
+ void CoreTextFontList::AddFamily(const nsACString& aFamilyName,
+                                  FontVisibility aVisibility) {
++#ifdef MOZ_BUNDLED_FONTS
++  // Stealth bundle-only: keep only bundled families, drop every host system
++  // font. CoreText merges bundled + system fonts into a single enumeration
++  // (unlike Win/Linux, which enumerate host and bundled separately, so there we
++  // skip the host enumeration wholesale), so the filter must be per-family here:
++  // drop any family not in the bundled set.
++  if (mStealthBundleOnly && !mBundledFamilies.Contains(aFamilyName)) {
++    return;
++  }
++#endif
+   nsAutoCString key;
+   ToLowerCase(aFamilyName, key);
+ 
+@@ -1230,6 +1241,21 @@ void CoreTextFontList::InitSharedFontListForPlatform() {
+ 
+   InitSystemFontNames();
+ 
++  if (mStealthBundleOnly && XRE_IsParentProcess()) {
++    // Uniform bundle: build the shared family list from our manifest (skipping
++    // the CoreText enumeration; host fonts never enter). Faces are provided
++    // lazily by GetFacesInitDataForFamily.
++    auto* bundle = StealthBundleFontList::Get();
++    auto* list = SharedFontList();
++    if (bundle && list) {
++      nsTArray<fontlist::Family::InitData> families(bundle->Families().Clone());
++      list->SetFamilyNames(families);
++      InitAliasesForSingleFaceList();
++      GetPrefsAndStartLoader();
++      return;
++    }
++  }
++
+   if (XRE_IsParentProcess()) {
+     // Only the parent process listens for OS font-changed notifications;
+     // after rebuilding its list, it will update the content processes.
+@@ -1699,6 +1725,75 @@ already_AddRefed<gfxFontFamily> CoreTextFontList::CreateFontFamily(
+ 
+ already_AddRefed<gfxFontEntry> CoreTextFontList::CreateFontEntry(
+     fontlist::Face* aFace, const fontlist::Family* aFamily) {
++  if (mStealthBundleOnly) {
++    // Instantiate the face straight from its bundle file:
++    // CTFontManagerCreateFontDescriptorsFromData yields one descriptor per face
++    // of a .ttc, so pick the wanted index and wrap its CGFont in a CTFontEntry.
++    auto* bundle = StealthBundleFontList::Get();
++    if (!bundle) {
++      return nullptr;
++    }
++    nsCString file(aFace->mDescriptor.AsString(SharedFontList()));
++    nsTArray<uint8_t> data;
++    if (!bundle->ReadFaceData(file, data) || data.IsEmpty()) {
++      return nullptr;
++    }
++    AutoCFTypeRef<CFDataRef> cfData(
++        CFDataCreate(kCFAllocatorDefault, data.Elements(), data.Length()));
++    if (!cfData) {
++      return nullptr;
++    }
++    AutoCFTypeRef<CFArrayRef> descriptors(
++        CTFontManagerCreateFontDescriptorsFromData(cfData));
++    if (!descriptors) {
++      return nullptr;
++    }
++    CFIndex descCount = CFArrayGetCount(descriptors);
++    // Pick the wanted face by PostScript name, NOT by raw array index: Apple
++    // does not document CTFontManagerCreateFontDescriptorsFromData as returning
++    // a .ttc's faces in the collection's file order, so indexing could select
++    // the wrong CJK face. Match kCTFontNameAttribute (the PostScript name)
++    // against the manifest's psname; fall back to the index only if that fails.
++    CTFontDescriptorRef desc = nullptr;
++    nsAutoCString wantPsname;
++    if (bundle->GetPsname(file, aFace->mIndex, wantPsname)) {
++      for (CFIndex i = 0; i < descCount; i++) {
++        auto* d = (CTFontDescriptorRef)CFArrayGetValueAtIndex(descriptors, i);
++        AutoCFTypeRef<CFStringRef> ps(
++            (CFStringRef)CTFontDescriptorCopyAttribute(d, kCTFontNameAttribute));
++        if (!ps) {
++          continue;
++        }
++        nsAutoString ps16;
++        GetStringForCFString(ps, ps16);
++        if (NS_ConvertUTF16toUTF8(ps16).Equals(wantPsname)) {
++          desc = d;
++          break;
++        }
++      }
++    }
++    if (!desc) {
++      if (aFace->mIndex >= descCount) {
++        return nullptr;
++      }
++      desc = (CTFontDescriptorRef)CFArrayGetValueAtIndex(descriptors,
++                                                         aFace->mIndex);
++    }
++    AutoCFTypeRef<CTFontRef> ctFont(
++        CTFontCreateWithFontDescriptor(desc, 0.0, nullptr));
++    if (!ctFont) {
++      return nullptr;
++    }
++    AutoCFTypeRef<CGFontRef> cgFont(CTFontCopyGraphicsFont(ctFont, nullptr));
++    if (!cgFont) {
++      return nullptr;
++    }
++    nsAutoCString name(aFamily->DisplayName().AsString(SharedFontList()));
++    auto fe = MakeRefPtr<CTFontEntry>(name, cgFont, aFace->mWeight, aFace->mStretch,
++                               aFace->mStyle, true, false);
++    fe->InitializeFrom(aFace, aFamily);
++    return fe.forget();
++  }
+   RefPtr fe = MakeRefPtr<CTFontEntry>(
+       aFace->mDescriptor.AsString(SharedFontList()), aFace->mWeight, false,
+       0.0);  // XXX standardFace, sizeHint
+@@ -1794,6 +1889,13 @@ void CoreTextFontList::AddFaceInitData(
+ void CoreTextFontList::GetFacesInitDataForFamily(
+     const fontlist::Family* aFamily, nsTArray<fontlist::Face::InitData>& aFaces,
+     bool aLoadCmaps) const {
++  if (mStealthBundleOnly) {
++    if (auto* bundle = StealthBundleFontList::Get()) {
++      bundle->GetFaces(aFamily->DisplayName().AsString(SharedFontList()),
++                       aFaces);
++      return;
++    }
++  }
+   auto name = aFamily->Key().AsString(SharedFontList());
+   CrashReporter::AutoRecordAnnotation autoFontName(
+       CrashReporter::Annotation::FontName, name);
+@@ -1911,6 +2013,15 @@ void CoreTextFontList::InitSystemFontNames() {
+ FontFamily CoreTextFontList::GetDefaultFontForPlatform(
+     FontVisibilityProvider* aFontVisibilityProvider, const gfxFontStyle* aStyle,
+     nsAtom* aLanguage) {
++  if (mStealthBundleOnly) {
++    // The macOS system UI font is a host font we drop under bundle-only; fall
++    // back to the bundled Windows UI persona so the platform default resolves
++    // to a real (bundled) family instead of null.
++    FontFamily f = FindFamily(aFontVisibilityProvider, "Segoe UI"_ns);
++    if (!f.IsNull()) {
++      return f;
++    }
++  }
+   AutoCFTypeRef<CTFontRef> font(CTFontCreateUIFontForLanguage(
+       kCTFontUIFontUser, 0.0, nullptr));  // TODO: language
+   AutoCFTypeRef<CFStringRef> name(CTFontCopyFamilyName(font));
+diff --git a/gfx/thebes/StealthBundleFontList.cpp b/gfx/thebes/StealthBundleFontList.cpp
+new file mode 100644
+index 0000000000..5fad605228
+--- /dev/null
++++ b/gfx/thebes/StealthBundleFontList.cpp
+@@ -0,0 +1,200 @@
++/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++// NOTE (2026-07-06): DRAFT - written without a local build (macOS has no dev
++// box; a full Firefox build is ~2h). The structure + the SharedFontList /
++// WeightRange idioms are taken from confirmed in-tree signatures
++// (SharedFontList.h Family/Face::InitData, CoreTextFontList.cpp weight/stretch
++// construction). Validate + adjust at the first build: the file-read helper,
++// fixed-pitch (manifest does not yet carry it), and the exact FontVisibility.
++
++#include "StealthBundleFontList.h"
++
++#include "gfxFontConstants.h"
++#include "mozilla/FontPropertyTypes.h"
++#include "nsIFile.h"
++#include "nsIInputStream.h"
++#include "nsNetUtil.h"
++#include "nsStreamUtils.h"
++#include "nsDirectoryServiceDefs.h"
++#include "nsDirectoryServiceUtils.h"
++#include "nsReadableUtils.h"
++
++using namespace mozilla;
++using mozilla::fontlist::Face;
++using mozilla::fontlist::Family;
++
++// Split aLine on '|' into aOut, keeping empty fields (a face's psname may be
++// empty). Returns the field count.
++static uint32_t SplitPipe(const nsACString& aLine,
++                          nsTArray<nsCString>& aOut) {
++  aOut.Clear();
++  int32_t start = 0;
++  const nsCString line(aLine);
++  while (true) {
++    int32_t bar = line.FindChar('|', start);
++    if (bar < 0) {
++      aOut.AppendElement(Substring(line, start));
++      break;
++    }
++    aOut.AppendElement(Substring(line, start, bar - start));
++    start = bar + 1;
++  }
++  return aOut.Length();
++}
++
++static int32_t ParseInt(const nsACString& aStr, int32_t aDefault) {
++  nsresult rv;
++  int32_t v = nsCString(aStr).ToInteger(&rv);
++  return NS_FAILED(rv) ? aDefault : v;
++}
++
++static float ParseFloat(const nsACString& aStr, float aDefault) {
++  nsresult rv;
++  float v = nsCString(aStr).ToFloat(&rv);
++  return NS_FAILED(rv) ? aDefault : v;
++}
++
++bool StealthBundleFontList::Load() {
++  nsCOMPtr<nsIFile> file;
++  if (NS_FAILED(NS_GetSpecialDirectory(NS_GRE_DIR, getter_AddRefs(file)))) {
++    return false;
++  }
++  if (NS_FAILED(file->Append(u"fonts"_ns)) ||
++      NS_FAILED(file->Append(u"bundle-fonts.list"_ns))) {
++    return false;
++  }
++  nsCOMPtr<nsIInputStream> stream;
++  if (NS_FAILED(NS_NewLocalFileInputStream(getter_AddRefs(stream), file))) {
++    return false;
++  }
++  nsCString data;
++  if (NS_FAILED(NS_ConsumeStream(stream, UINT32_MAX, data))) {
++    return false;
++  }
++
++  nsCString currentKey;  // lowercased display name of the family being filled
++  nsTArray<nsCString> fields;
++
++  for (const auto& lineRange : data.Split('\n')) {
++    nsDependentCSubstring line(lineRange);
++    if (line.IsEmpty() || line[0] == '#') {
++      continue;
++    }
++    if (StringBeginsWith(line, "F|"_ns)) {
++      nsCString name(Substring(line, 2));
++      nsAutoCString key(name);
++      ToLowerCase(key);
++      currentKey = key;
++      mFamilies.AppendElement(Family::InitData(key, name, Family::kNoIndex,
++                                               FontVisibility::Base));
++      continue;
++    }
++    if (StringBeginsWith(line, "f|"_ns)) {
++      // f|<file>|<index>|<w_min>|<w_max>|<stretch_min>|<stretch_max>|<style>|<psname>
++      if (SplitPipe(line, fields) < 9 || currentKey.IsEmpty()) {
++        continue;  // malformed / orphan face - skip, never crash
++      }
++      StealthBundleFace face;
++      face.mFile = fields[1];
++      face.mIndex = uint16_t(ParseInt(fields[2], 0));
++      face.mWeightMin = ParseInt(fields[3], 400);
++      face.mWeightMax = ParseInt(fields[4], face.mWeightMin);
++      face.mStretchMin = ParseFloat(fields[5], 100.0f);
++      face.mStretchMax = ParseFloat(fields[6], face.mStretchMin);
++      face.mItalic = fields[7].EqualsLiteral("italic");
++      face.mPsname = fields[8];
++      mFaces.LookupOrInsert(currentKey).AppendElement(std::move(face));
++    }
++  }
++
++  return !mFamilies.IsEmpty();
++}
++
++void StealthBundleFontList::GetFaces(const nsACString& aFamilyName,
++                                     nsTArray<Face::InitData>& aFaces) {
++  nsAutoCString key(aFamilyName);
++  ToLowerCase(key);
++  auto entry = mFaces.Lookup(key);
++  if (!entry) {
++    return;
++  }
++  for (const auto& f : entry.Data()) {
++    // Build a fresh (move-only) Face::InitData per call from the cached raw
++    // primitives; aggregate-init every member in declaration order, with fresh
++    // (move-only) range values.
++    Face::InitData face = {
++        f.mFile,   // mDescriptor = bundle file name
++        f.mIndex,  // mIndex
++#ifdef MOZ_WIDGET_GTK
++        0,  // mSize (0 = scalable)
++#endif
++        false,  // mFixedPitch (manifest does not carry it yet)
++        WeightRange(FontWeight::FromInt(f.mWeightMin),
++                    FontWeight::FromInt(f.mWeightMax)),
++        StretchRange(FontStretch::FromFloat(f.mStretchMin),
++                     FontStretch::FromFloat(f.mStretchMax)),
++        SlantStyleRange(f.mItalic ? FontSlantStyle::ITALIC
++                                  : FontSlantStyle::NORMAL),
++        nullptr,  // mCharMap
++    };
++    aFaces.AppendElement(std::move(face));
++  }
++}
++
++bool StealthBundleFontList::ReadFaceData(const nsACString& aFile,
++                                         nsTArray<uint8_t>& aData) {
++  nsCString file(aFile);
++  if (auto cached = mFileCache.Lookup(file)) {
++    aData.AppendElements(cached.Data());
++    return true;
++  }
++  nsCOMPtr<nsIFile> path;
++  if (NS_FAILED(NS_GetSpecialDirectory(NS_GRE_DIR, getter_AddRefs(path))) ||
++      NS_FAILED(path->Append(u"fonts"_ns)) ||
++      NS_FAILED(path->Append(NS_ConvertUTF8toUTF16(file)))) {
++    return false;
++  }
++  nsCOMPtr<nsIInputStream> stream;
++  if (NS_FAILED(NS_NewLocalFileInputStream(getter_AddRefs(stream), path))) {
++    return false;
++  }
++  nsCString bytes;
++  if (NS_FAILED(NS_ConsumeStream(stream, UINT32_MAX, bytes))) {
++    return false;
++  }
++  nsTArray<uint8_t> buf;
++  buf.AppendElements(reinterpret_cast<const uint8_t*>(bytes.get()),
++                     bytes.Length());
++  aData.AppendElements(buf);
++  mFileCache.InsertOrUpdate(file, std::move(buf));
++  return true;
++}
++
++bool StealthBundleFontList::GetPsname(const nsACString& aFile, uint16_t aIndex,
++                                      nsACString& aOut) {
++  for (const auto& faces : mFaces.Values()) {
++    for (const auto& f : faces) {
++      if (f.mIndex == aIndex && f.mFile.Equals(aFile)) {
++        aOut = f.mPsname;
++        return !aOut.IsEmpty();
++      }
++    }
++  }
++  return false;
++}
++
++/* static */
++StealthBundleFontList* StealthBundleFontList::Get() {
++  static StealthBundleFontList* sInstance = []() -> StealthBundleFontList* {
++    auto* list = new StealthBundleFontList();
++    if (list->Load()) {
++      return list;  // leaked on purpose: lives for the process
++    }
++    delete list;
++    return nullptr;
++  }();
++  return sInstance;
++}
+diff --git a/gfx/thebes/StealthBundleFontList.h b/gfx/thebes/StealthBundleFontList.h
+new file mode 100644
+index 0000000000..48d1c5fe24
+--- /dev/null
++++ b/gfx/thebes/StealthBundleFontList.h
+@@ -0,0 +1,89 @@
++/* -*- Mode: C++; tab-width: 8; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
++/* This Source Code Form is subject to the terms of the Mozilla Public
++ * License, v. 2.0. If a copy of the MPL was not distributed with this
++ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
++
++#ifndef StealthBundleFontList_h_
++#define StealthBundleFontList_h_
++
++#include "SharedFontList.h"
++#include "nsTArray.h"
++#include "nsTHashMap.h"
++#include "nsHashKeys.h"
++
++// One manifest face, stored as trivially-copyable raw values. Both
++// fontlist::Face::InitData and the CSS WeightRange/StretchRange/SlantStyleRange
++// types are move-only (deleted copy), so we cannot cache them; instead we cache
++// these primitives and build a fresh Face::InitData (with fresh ranges) per
++// GetFaces call, the way the platform backends build theirs.
++struct StealthBundleFace {
++  nsCString mFile;
++  nsCString mPsname;  // PostScript name (nameID 6); used to pick the right .ttc face
++  uint16_t mIndex = 0;
++  int32_t mWeightMin = 400;
++  int32_t mWeightMax = 400;
++  float mStretchMin = 100.0f;
++  float mStretchMax = 100.0f;
++  bool mItalic = false;
++};
++
++/**
++ * Reads <GRE>/fonts/bundle-fonts.list (generated offline by
++ * scripts/gen_bundle_font_manifest.py) and hands back the canonical family list
++ * plus the per-family face init data. This lets InitSharedFontListForPlatform
++ * build the shared font list uniformly from the bundle on EVERY OS, instead of
++ * enumerating the host font backend (DWrite / fontconfig / CoreText), which
++ * diverges per OS. The OS is used only to rasterize a face from its file (see
++ * each backend's CreateFontEntry).
++ *
++ * A Face's mDescriptor holds the bundle file name and mIndex the face index
++ * within it (0 for .ttf, 0..N for .ttc); CreateFontEntry loads
++ * <GRE>/fonts/<file> at that index. Parsed once, lazily, on first Get().
++ */
++class StealthBundleFontList final {
++ public:
++  // Returns the singleton, or nullptr if the manifest is missing/unreadable
++  // (caller then falls back to an empty bundle-only list - never to host
++  // fonts).
++  static StealthBundleFontList* Get();
++
++  // The full family list, ready for SharedFontList()->SetFamilyNames().
++  const nsTArray<mozilla::fontlist::Family::InitData>& Families() const {
++    return mFamilies;
++  }
++
++  // Appends the faces for aFamilyName (its display name) to aFaces. No-op if
++  // the family is unknown. Mirrors the platform GetFacesInitDataForFamily
++  // contract.
++  void GetFaces(const nsACString& aFamilyName,
++                nsTArray<mozilla::fontlist::Face::InitData>& aFaces);
++
++  // Reads the raw bytes of a bundle file (aFile is a Face's mDescriptor, i.e.
++  // the file name under <GRE>/fonts) into aData. Cached: the same buffer is
++  // shared across all faces of a .ttc. Returns false if the file is unreadable.
++  bool ReadFaceData(const nsACString& aFile, nsTArray<uint8_t>& aData);
++
++  // Returns the PostScript name of the face at (aFile, aIndex) via aOut, or
++  // false if unknown. macOS CreateFontEntry uses this to select the correct
++  // face from CTFontManagerCreateFontDescriptorsFromData by PostScript name
++  // (kCTFontNameAttribute) rather than trusting the descriptor array order,
++  // which Apple does not document as matching the .ttc's face order.
++  bool GetPsname(const nsACString& aFile, uint16_t aIndex, nsACString& aOut);
++
++ private:
++  StealthBundleFontList() = default;
++  ~StealthBundleFontList() = default;
++
++  // Reads + parses the manifest into mFamilies + mFaces. Returns false on any
++  // failure (missing file, malformed line); on failure the instance is left
++  // empty and Get() returns nullptr.
++  bool Load();
++
++  nsTArray<mozilla::fontlist::Family::InitData> mFamilies;
++  // family lookup key (lowercased display name) -> its faces (raw, copyable)
++  nsTHashMap<nsCStringHashKey, nsTArray<StealthBundleFace>> mFaces;
++  // file name -> its raw bytes, so the N faces of a .ttc share one read
++  nsTHashMap<nsCStringHashKey, nsTArray<uint8_t>> mFileCache;
++};
++
++#endif  // StealthBundleFontList_h_
+diff --git a/gfx/thebes/gfxDWriteFontList.cpp b/gfx/thebes/gfxDWriteFontList.cpp
+index 439120e8e8..f96b1137d5 100644
+--- a/gfx/thebes/gfxDWriteFontList.cpp
++++ b/gfx/thebes/gfxDWriteFontList.cpp
+@@ -7,6 +7,7 @@
+ #include "mozilla/intl/OSPreferences.h"
+ 
+ #include "gfxDWriteFontList.h"
++#include "StealthBundleFontList.h"
+ #include "gfxDWriteFonts.h"
+ #include "gfxDWriteCommon.h"
+ #include "nsUnicharUtils.h"
+@@ -760,8 +761,8 @@ nsresult gfxDWriteFontEntry::CreateFontFace(
+       } else if (mFontFile) {
+         IDWriteFontFile* fontFile = mFontFile.get();
+         hr = Factory::GetDWriteFactory()->CreateFontFace(
+-            mFaceType, 1, &fontFile, 0, DWRITE_FONT_SIMULATIONS_NONE,
+-            getter_AddRefs(mFontFace));
++            mFaceType, 1, &fontFile, mBundleFaceIndex,
++            DWRITE_FONT_SIMULATIONS_NONE, getter_AddRefs(mFontFace));
+       } else {
+         MOZ_ASSERT_UNREACHABLE("invalid font entry");
+         return NS_ERROR_FAILURE;
+@@ -1070,6 +1071,51 @@ static void GetPostScriptNameFromNameTable(IDWriteFontFace* aFace,
+ 
+ already_AddRefed<gfxFontEntry> gfxDWriteFontList::CreateFontEntry(
+     fontlist::Face* aFace, const fontlist::Family* aFamily) {
++  if (mStealthBundleOnly) {
++    // Uniform bundle path: instantiate the face straight from its bundle file
++    // (the manifest family list drives everything; the DWrite collection is not
++    // consulted). Like MakePlatformFont, but keeps multi-face .ttc files and
++    // addresses the wanted face by index (mBundleFaceIndex).
++    auto* bundle = StealthBundleFontList::Get();
++    if (!bundle) {
++      return nullptr;
++    }
++    const nsCString file(aFace->mDescriptor.AsString(SharedFontList()));
++    nsTArray<uint8_t> data;
++    if (!bundle->ReadFaceData(file, data) || data.IsEmpty()) {
++      return nullptr;
++    }
++    uint8_t* buf = static_cast<uint8_t*>(malloc(data.Length()));
++    if (!buf) {
++      return nullptr;
++    }
++    memcpy(buf, data.Elements(), data.Length());
++    RefPtr<gfxDWriteFontFileStream> stream;
++    RefPtr<IDWriteFontFile> fontFile;
++    HRESULT hr = gfxDWriteFontFileLoader::CreateCustomFontFile(
++        buf, data.Length(), getter_AddRefs(fontFile), getter_AddRefs(stream));
++    free(buf);
++    if (FAILED(hr)) {
++      return nullptr;
++    }
++    nsAutoString uniqueName;
++    if (NS_FAILED(gfxFontUtils::MakeUniqueUserFontName(uniqueName))) {
++      return nullptr;
++    }
++    auto entry = MakeRefPtr<gfxDWriteFontEntry>(NS_ConvertUTF16toUTF8(uniqueName),
++                                         fontFile, stream, aFace->mWeight,
++                                         aFace->mStretch, aFace->mStyle);
++    entry->mBundleFaceIndex = aFace->mIndex;
++    BOOL supported;
++    DWRITE_FONT_FILE_TYPE fileType;
++    UINT32 numFaces;
++    if (FAILED(fontFile->Analyze(&supported, &fileType, &entry->mFaceType,
++                                 &numFaces)) ||
++        !supported || aFace->mIndex >= numFaces) {
++      return nullptr;
++    }
++    return entry.forget();
++  }
+   IDWriteFontCollection* collection =
+ #ifdef MOZ_BUNDLED_FONTS
+       aFamily->IsBundled() ? mBundledFonts : mSystemFonts;
+@@ -1336,6 +1382,13 @@ void gfxDWriteFontList::AppendFamiliesFromCollection(
+ void gfxDWriteFontList::GetFacesInitDataForFamily(
+     const fontlist::Family* aFamily, nsTArray<fontlist::Face::InitData>& aFaces,
+     bool aLoadCmaps) const {
++  if (mStealthBundleOnly) {
++    if (auto* bundle = StealthBundleFontList::Get()) {
++      bundle->GetFaces(aFamily->DisplayName().AsString(SharedFontList()),
++                       aFaces);
++      return;
++    }
++  }
+   IDWriteFontCollection* collection =
+ #ifdef MOZ_BUNDLED_FONTS
+       aFamily->IsBundled() ? mBundledFonts : mSystemFonts;
+@@ -1651,16 +1704,26 @@ void gfxDWriteFontList::InitSharedFontListForPlatform() {
+       forceClassicFams.Sort();
+     }
+     nsTArray<fontlist::Family::InitData> families;
+-    AppendFamiliesFromCollection(mSystemFonts, families, &forceClassicFams);
++    if (mStealthBundleOnly) {
++      // Uniform bundle: the family list is our manifest, not the DWrite
++      // collection enumeration (host fonts never enter). The collections above
++      // are still set up so mGDIInterop etc. stay valid; CreateFontEntry
++      // rasterizes each face straight from its bundle file.
++      if (auto* bundle = StealthBundleFontList::Get()) {
++        families = bundle->Families().Clone();
++      }
++    } else {
++      AppendFamiliesFromCollection(mSystemFonts, families, &forceClassicFams);
+ #ifdef MOZ_BUNDLED_FONTS
+-    if (mBundledFonts) {
+-      TimeStamp start2 = TimeStamp::Now();
+-      AppendFamiliesFromCollection(mBundledFonts, families);
+-      TimeStamp end2 = TimeStamp::Now();
+-      glean::fontlist::bundledfonts_activate.AccumulateRawDuration(
+-          (end1 - start1) + (end2 - start2));
+-    }
++      if (mBundledFonts) {
++        TimeStamp start2 = TimeStamp::Now();
++        AppendFamiliesFromCollection(mBundledFonts, families);
++        TimeStamp end2 = TimeStamp::Now();
++        glean::fontlist::bundledfonts_activate.AccumulateRawDuration(
++            (end1 - start1) + (end2 - start2));
++      }
+ #endif
++    }
+     SharedFontList()->SetFamilyNames(families);
+     GetPrefsAndStartLoader();
+   }
+@@ -1736,12 +1799,18 @@ nsresult gfxDWriteFontList::InitFontListForPlatform() {
+ 
+   QueryPerformanceCounter(&t3);  // system font collection
+ 
+-  GetFontsFromCollection(mSystemFonts);
++  // Stealth bundle-only: skip the host system-font enumeration entirely; only
++  // the bundled collection (above) populates the list, so no host font enters.
++  if (!mStealthBundleOnly) {
++    GetFontsFromCollection(mSystemFonts);
++  }
+ 
+   // if no fonts found, something is out of whack, bail and use GDI backend
+-  NS_ASSERTION(mFontFamilies.Count() > kBundledCount,
++  // (skip this when stealth bundle-only is active: we intentionally add no
++  // system fonts, so Count()==kBundledCount is the expected, correct state).
++  NS_ASSERTION(mStealthBundleOnly || mFontFamilies.Count() > kBundledCount,
+                "no fonts found in the system fontlist -- holy crap batman!");
+-  if (mFontFamilies.Count() == kBundledCount) {
++  if (!mStealthBundleOnly && mFontFamilies.Count() == kBundledCount) {
+     glean::fontlist::dwritefont_init_problem.AccumulateSingleSample(
+         uint32_t(errNoFonts));
+     return NS_ERROR_FAILURE;
+diff --git a/gfx/thebes/gfxDWriteFontList.h b/gfx/thebes/gfxDWriteFontList.h
+index fd667abeb0..99e6b096d3 100644
+--- a/gfx/thebes/gfxDWriteFontList.h
++++ b/gfx/thebes/gfxDWriteFontList.h
+@@ -240,6 +240,10 @@ class gfxDWriteFontEntry final : public gfxFontEntry {
+ 
+   DWRITE_FONT_FACE_TYPE mFaceType;
+ 
++  // Face index within a custom (bundle) font file; 0 for single-face files and
++  // for system fonts. Lets a .ttc face be addressed by index in CreateFontFace.
++  uint16_t mBundleFaceIndex = 0;
++
+   mozilla::Atomic<FontTableCache*> mFontTableCache;
+ 
+   int8_t mIsCJK;
+diff --git a/gfx/thebes/gfxFT2FontList.cpp b/gfx/thebes/gfxFT2FontList.cpp
+index 4b1c7d78c9..d74316926b 100644
+--- a/gfx/thebes/gfxFT2FontList.cpp
++++ b/gfx/thebes/gfxFT2FontList.cpp
+@@ -579,8 +579,10 @@ hb_blob_t* FT2FontEntry::GetFontTable(uint32_t aTableTag) {
+     // If there's a cairo font face, we may be able to return a blob
+     // that just wraps a range of the attached user font data
+     if (userFontData->FontData()) {
++      uint32_t faceIndex =
++          mFTFace ? uint32_t(mFTFace->GetFace()->face_index & 0x7FFF) : 0;
+       return gfxFontUtils::GetTableFromFontData(userFontData->FontData(),
+-                                                aTableTag);
++                                                aTableTag, faceIndex);
+     }
+   }
+ 
+diff --git a/gfx/thebes/gfxFcPlatformFontList.cpp b/gfx/thebes/gfxFcPlatformFontList.cpp
+index 4ac42437a0..b128b3244c 100644
+--- a/gfx/thebes/gfxFcPlatformFontList.cpp
++++ b/gfx/thebes/gfxFcPlatformFontList.cpp
+@@ -5,6 +5,7 @@
+ #include "mozilla/Logging.h"
+ 
+ #include "gfxFcPlatformFontList.h"
++#include "StealthBundleFontList.h"
+ #include "gfxFont.h"
+ #include "gfxFT2Utils.h"
+ #include "gfxPlatform.h"
+@@ -629,7 +630,11 @@ bool gfxFontconfigFontEntry::TestCharacterMap(uint32_t aCh) {
+ bool gfxFontconfigFontEntry::HasFontTable(uint32_t aTableTag) {
+   if (FTUserFontData* ufd = GetUserFontData()) {
+     if (ufd->FontData()) {
+-      return !!gfxFontUtils::FindTableDirEntry(ufd->FontData(), aTableTag);
++      auto* face = GetFTFace();
++      uint32_t faceIndex =
++          face ? uint32_t(face->GetFace()->face_index & 0x7FFF) : 0;
++      return !!gfxFontUtils::FindTableDirEntry(ufd->FontData(), aTableTag,
++                                               faceIndex);
+     }
+   }
+   return gfxFT2FontEntryBase::FaceHasTable(GetFTFace(), aTableTag);
+@@ -639,7 +644,11 @@ hb_blob_t* gfxFontconfigFontEntry::GetFontTable(uint32_t aTableTag) {
+   // for data fonts, read directly from the font data
+   if (FTUserFontData* ufd = GetUserFontData()) {
+     if (ufd->FontData()) {
+-      return gfxFontUtils::GetTableFromFontData(ufd->FontData(), aTableTag);
++      auto* face = GetFTFace();
++      uint32_t faceIndex =
++          face ? uint32_t(face->GetFace()->face_index & 0x7FFF) : 0;
++      return gfxFontUtils::GetTableFromFontData(ufd->FontData(), aTableTag,
++                                                faceIndex);
+     }
+   }
+ 
+@@ -1631,6 +1640,13 @@ void gfxFcPlatformFontList::AddPatternToFontList(
+     }
+   }
+ 
++  // Stealth bundle-only: a skipped family (above) left aFontFamily null; drop
++  // every face of it (this catches faces 2..N of a skipped family, which take
++  // the FcStrCmp==0 path and never re-enter the block above).
++  if (!aFontFamily) {
++    return;
++  }
++
+   // Add pointers to other localized family names. Most fonts
+   // only have a single name, so the first call to GetString
+   // will usually not match
+@@ -1779,8 +1795,12 @@ nsresult gfxFcPlatformFontList::InitFontListForPlatform() {
+ #endif
+ 
+   // iterate over available fonts
+-  FcFontSet* systemFonts = FcConfigGetFonts(nullptr, FcSetSystem);
+-  AddFontSetFamilies(systemFonts, policy.get(), /* aAppFonts = */ false);
++  // Stealth bundle-only: skip the host system-font enumeration entirely; only
++  // the app-bundled set (above) populates the list, so no host font enters.
++  if (!mStealthBundleOnly) {
++    FcFontSet* systemFonts = FcConfigGetFonts(nullptr, FcSetSystem);
++    AddFontSetFamilies(systemFonts, policy.get(), /* aAppFonts = */ false);
++  }
+ 
+   return NS_OK;
+ }
+@@ -1883,6 +1903,25 @@ void gfxFcPlatformFontList::InitSharedFontListForPlatform() {
+   UpdateSystemFontOptions();
+ #endif
+ 
++  if (mStealthBundleOnly) {
++    // Uniform bundle: build the shared family list + faces from our manifest,
++    // skipping the fontconfig enumeration (host fonts never enter). Linux builds
++    // faces eagerly, so AddFaces each family here.
++    auto* bundle = StealthBundleFontList::Get();
++    auto* list = SharedFontList();
++    if (bundle && list) {
++      nsTArray<fontlist::Family::InitData> famData(bundle->Families().Clone());
++      list->SetFamilyNames(famData);
++      for (uint32_t i = 0; i < list->NumFamilies(); i++) {
++        auto& fam = list->Families()[i];
++        nsTArray<fontlist::Face::InitData> faceData;
++        bundle->GetFaces(fam.DisplayName().AsString(list), faceData);
++        fam.AddFaces(list, faceData);
++      }
++      return;
++    }
++  }
++
+ #ifdef MOZ_BUNDLED_FONTS
+   if (StaticPrefs::gfx_bundled_fonts_activate_AtStartup() != 0) {
+     auto timerId = glean::fontlist::bundledfonts_activate.Start();
+@@ -2256,6 +2295,33 @@ gfxFcPlatformFontList::GetFilteredPlatformFontLists() {
+ 
+ already_AddRefed<gfxFontEntry> gfxFcPlatformFontList::CreateFontEntry(
+     fontlist::Face* aFace, const fontlist::Family* aFamily) {
++  if (mStealthBundleOnly) {
++    // Instantiate the face straight from its bundle file via FreeType;
++    // CloneFace takes the .ttc face index directly.
++    auto* bundle = StealthBundleFontList::Get();
++    if (!bundle) {
++      return nullptr;
++    }
++    const nsCString file(aFace->mDescriptor.AsString(SharedFontList()));
++    nsTArray<uint8_t> data;
++    if (!bundle->ReadFaceData(file, data) || data.IsEmpty()) {
++      return nullptr;
++    }
++    uint8_t* buf = static_cast<uint8_t*>(malloc(data.Length()));
++    if (!buf) {
++      return nullptr;
++    }
++    memcpy(buf, data.Elements(), data.Length());
++    // FTUserFontData takes ownership of buf (frees it in its dtor).
++    RefPtr<FTUserFontData> ufd = new FTUserFontData(buf, data.Length());
++    RefPtr<SharedFTFace> face = ufd->CloneFace(aFace->mIndex);
++    if (!face) {
++      return nullptr;
++    }
++    nsAutoCString name(aFamily->DisplayName().AsString(SharedFontList()));
++    return MakeAndAddRef<gfxFontconfigFontEntry>(name, aFace->mWeight, aFace->mStretch,
++                                      aFace->mStyle, std::move(face));
++  }
+   nsAutoCString desc(aFace->mDescriptor.AsString(SharedFontList()));
+   FcPattern* pattern = FcNameParse((const FcChar8*)desc.get());
+   RefPtr fe = MakeRefPtr<gfxFontconfigFontEntry>(desc, pattern, true);
+@@ -2716,8 +2782,12 @@ void gfxFcPlatformFontList::AddGenericFonts(
+     }
+   }
+ 
+-  // when pref fonts exist, use standard pref font lookup
+-  if (usePrefFontList) {
++  // when pref fonts exist, use standard pref font lookup. Stealth: also force
++  // this path when bundle-only, so the CSS generics resolve via the base-class
++  // ResolveGenericFontNames (StealthGenericWindowsFont -> Windows fonts) instead
++  // of fontconfig, which would map them to a host font we have dropped (making
++  // serif/monospace collapse to Arial).
++  if (usePrefFontList || mStealthBundleOnly) {
+     gfxPlatformFontList::AddGenericFonts(aFontVisibilityProvider, aGenericType,
+                                          aLanguage, aFamilyList);
+     if (!isSystemUi) {
+diff --git a/gfx/thebes/gfxFont.cpp b/gfx/thebes/gfxFont.cpp
+index f3b7e5d841..0144ba4499 100644
+--- a/gfx/thebes/gfxFont.cpp
++++ b/gfx/thebes/gfxFont.cpp
+@@ -4201,6 +4201,44 @@ void gfxFont::SetupGlyphExtents(DrawTarget* aDrawTarget, uint32_t aGlyphID,
+ // Return FALSE if the gfxFontEntry subclass does not
+ // implement GetFontTable(), or for non-sfnt fonts where tables are
+ // not available.
++// STEALTH: host-independent vertical metrics straight from the font's own OS/2
++// sfnt table (FUnits->px), bypassing the platform backend (DWrite/FreeType/CoreText)
++// whose computed asc/desc differ per OS. For a given bundled font + size the values
++// are byte-identical on every host -> canvas TextMetrics vertical fields become
++// host-independent (see CanvasRenderingContext2D::DrawOrMeasureText). emAscent/Descent
++// from sTypoAscender/sTypoDescender, maxAscent/Descent from usWinAscent/usWinDescent
++// (the Windows convention we always claim). Returns false if no usable OS/2 table.
++bool gfxFont::GetStealthHostIndepVMetrics(gfxFloat& aEmAscent, gfxFloat& aEmDescent,
++                                          gfxFloat& aMaxAscent,
++                                          gfxFloat& aMaxDescent) {
++  if (mFUnitsConvFactor < 0.0) {
++    uint16_t unitsPerEm =
++        GetFontEntry() ? GetFontEntry()->UnitsPerEm() : gfxFontEntry::kInvalidUPEM;
++    if (unitsPerEm == gfxFontEntry::kInvalidUPEM || unitsPerEm == 0) {
++      return false;
++    }
++    mFUnitsConvFactor = GetAdjustedSize() / unitsPerEm;
++  }
++  if (mFUnitsConvFactor <= 0.0) {
++    return false;
++  }
++  gfxFontEntry::AutoTable os2Table(mFontEntry, TRUETYPE_TAG('O', 'S', '/', '2'));
++  if (!os2Table) {
++    return false;
++  }
++  uint32_t len;
++  const OS2Table* os2 =
++      reinterpret_cast<const OS2Table*>(hb_blob_get_data(os2Table, &len));
++  if (len < offsetof(OS2Table, usWinDescent) + sizeof(uint16_t)) {
++    return false;
++  }
++  aEmAscent = int16_t(os2->sTypoAscender) * mFUnitsConvFactor;
++  aEmDescent = -int16_t(os2->sTypoDescender) * mFUnitsConvFactor;  // sTypoDescender < 0
++  aMaxAscent = uint16_t(os2->usWinAscent) * mFUnitsConvFactor;
++  aMaxDescent = uint16_t(os2->usWinDescent) * mFUnitsConvFactor;
++  return true;
++}
++
+ // If this returns TRUE without setting the mIsValid flag, then we -did-
+ // apparently find an sfnt, but it was too broken to be used.
+ bool gfxFont::InitMetricsFromSfntTables(Metrics& aMetrics) {
+diff --git a/gfx/thebes/gfxFont.h b/gfx/thebes/gfxFont.h
+index 8da1512aad..42a254140e 100644
+--- a/gfx/thebes/gfxFont.h
++++ b/gfx/thebes/gfxFont.h
+@@ -1676,6 +1676,14 @@ class gfxFont {
+     return *mVerticalMetrics;
+   }
+ 
++  // STEALTH: host-independent vertical metrics straight from the font's OS/2 sfnt
++  // table (FUnits->px), bypassing the platform backend (DWrite/FreeType/CoreText)
++  // whose computed asc/desc differ per OS. Same bundled font + size => byte-identical
++  // on every host. Used to make canvas TextMetrics vertical fields host-independent.
++  // Returns false if no usable OS/2 table (caller keeps native metrics). See .cpp.
++  bool GetStealthHostIndepVMetrics(gfxFloat& aEmAscent, gfxFloat& aEmDescent,
++                                   gfxFloat& aMaxAscent, gfxFloat& aMaxDescent);
++
+   struct Baselines {
+     std::atomic<gfxFloat> mAlphabetic;
+     std::atomic<gfxFloat> mHanging;
+diff --git a/gfx/thebes/gfxFontUtils.cpp b/gfx/thebes/gfxFontUtils.cpp
+index e7e0917035..031bb05280 100644
+--- a/gfx/thebes/gfxFontUtils.cpp
++++ b/gfx/thebes/gfxFontUtils.cpp
+@@ -1090,10 +1090,34 @@ static int DirEntryCmp(const void* aKey, const void* aItem) {
+   return tag - int32_t(entry->tag);
+ }
+ 
++/* static */
++const void* gfxFontUtils::FindSfntOffset(const void* aFontData,
++                                         uint32_t aFaceIndex) {
++  const auto* data = reinterpret_cast<const uint8_t*>(aFontData);
++  const SFNTHeader* sfnt = reinterpret_cast<const SFNTHeader*>(data);
++  if (sfnt->sfntVersion == 0x74746366u) {  // 'ttcf'
++    const TTCHeader* ttc = reinterpret_cast<const TTCHeader*>(data);
++    if (aFaceIndex >= uint32_t(ttc->numFonts)) {
++      return nullptr;
++    }
++    // The offset table immediately follows the TTCHeader (12 bytes).
++    const AutoSwap_PRUint32* offsets =
++        reinterpret_cast<const AutoSwap_PRUint32*>(data + sizeof(TTCHeader));
++    uint32_t faceOffset = offsets[aFaceIndex];
++    return data + faceOffset;
++  }
++  return aFontData;
++}
++
+ /* static */
+ TableDirEntry* gfxFontUtils::FindTableDirEntry(const void* aFontData,
+-                                               uint32_t aTableTag) {
+-  const SFNTHeader* header = reinterpret_cast<const SFNTHeader*>(aFontData);
++                                               uint32_t aTableTag,
++                                               uint32_t aFaceIndex) {
++  const void* sfntData = FindSfntOffset(aFontData, aFaceIndex);
++  if (!sfntData) {
++    return nullptr;
++  }
++  const SFNTHeader* header = reinterpret_cast<const SFNTHeader*>(sfntData);
+   const TableDirEntry* dir = reinterpret_cast<const TableDirEntry*>(header + 1);
+   return static_cast<TableDirEntry*>(
+       bsearch(&aTableTag, dir, uint16_t(header->numTables),
+@@ -1102,9 +1126,12 @@ TableDirEntry* gfxFontUtils::FindTableDirEntry(const void* aFontData,
+ 
+ /* static */
+ hb_blob_t* gfxFontUtils::GetTableFromFontData(const void* aFontData,
+-                                              uint32_t aTableTag) {
+-  const TableDirEntry* dir = FindTableDirEntry(aFontData, aTableTag);
++                                              uint32_t aTableTag,
++                                              uint32_t aFaceIndex) {
++  const TableDirEntry* dir = FindTableDirEntry(aFontData, aTableTag, aFaceIndex);
+   if (dir) {
++    // Table offsets are always relative to the beginning of the file, even
++    // for faces within a .ttc collection.
+     return hb_blob_create(
+         reinterpret_cast<const char*>(aFontData) + dir->offset, dir->length,
+         HB_MEMORY_MODE_READONLY, nullptr, nullptr);
+diff --git a/gfx/thebes/gfxFontUtils.h b/gfx/thebes/gfxFontUtils.h
+index 2327717a90..23edb57e40 100644
+--- a/gfx/thebes/gfxFontUtils.h
++++ b/gfx/thebes/gfxFontUtils.h
+@@ -567,19 +567,33 @@ class gfxFontUtils {
+   static nsresult GetFamilyNameFromTable(hb_blob_t* aNameTable,
+                                          nsACString& aFamilyName);
+ 
++  // Resolve the sfnt offset for a given face within a buffer of font data.
++  // For single-face sfnt data, returns aFontData. For .ttc collections,
++  // reads the TTC header's offset table and returns the pointer to the
++  // sfnt header for the requested face. Returns null if aFaceIndex is out
++  // of range.
++  static const void* FindSfntOffset(const void* aFontData, uint32_t aFaceIndex);
++
+   // Find the table directory entry for a given table tag, in a (validated)
+-  // buffer of 'sfnt' data. Returns null if the tag is not present.
++  // buffer of font data (single-face sfnt or .ttc collection). aFaceIndex
++  // selects the face within a .ttc (ignored for single-face fonts).
++  // Returns null if the tag is not present.
+   static mozilla::TableDirEntry* FindTableDirEntry(const void* aFontData,
+-                                                   uint32_t aTableTag);
++                                                   uint32_t aTableTag,
++                                                   uint32_t aFaceIndex = 0);
+ 
+-  // Return a blob that wraps a table found within a buffer of font data.
++  // Return a blob that wraps a table found within a buffer of font data
++  // (single-face sfnt or .ttc collection). aFaceIndex selects the face
++  // within a .ttc (ignored for single-face fonts). Table offsets are
++  // relative to the beginning of the file, so the blob points into aFontData.
+   // The blob does NOT own its data; caller guarantees that the buffer
+   // will remain valid at least as long as the blob.
+   // Returns null if the specified table is not found.
+-  // This method assumes aFontData is valid 'sfnt' data; before using this,
++  // This method assumes aFontData is valid font data; before using this,
+   // caller is responsible to do any sanitization/validation necessary.
+   static hb_blob_t* GetTableFromFontData(const void* aFontData,
+-                                         uint32_t aTableTag);
++                                         uint32_t aTableTag,
++                                         uint32_t aFaceIndex = 0);
+ 
+   // create a new name table and build a new font with that name table
+   // appended on the end, returns true on success
+diff --git a/gfx/thebes/gfxHarfBuzzShaper.cpp b/gfx/thebes/gfxHarfBuzzShaper.cpp
+index 78449d12e6..39d9bb9233 100644
+--- a/gfx/thebes/gfxHarfBuzzShaper.cpp
++++ b/gfx/thebes/gfxHarfBuzzShaper.cpp
+@@ -9,6 +9,7 @@
+ #include "gfxFontUtils.h"
+ #include "gfxTextRun.h"
+ #include "mozilla/Sprintf.h"
++#include "mozilla/StaticPrefs_zoom.h"
+ #include "mozilla/intl/String.h"
+ #include "mozilla/intl/UnicodeProperties.h"
+ #include "mozilla/intl/UnicodeScriptCodes.h"
+@@ -1487,6 +1488,40 @@ bool gfxHarfBuzzShaper::ShapeText(const char16_t* aText, uint32_t aOffset,
+ 
+   hb_shape(mHBFont, mBuffer, features.Elements(), features.Length());
+ 
++  // Stealth: per-session BOUNDED font-width offset (smart jitter v2). The old
++  // version added a per-glyph spacing PLUS a cumulative offset, so the total
++  // measureText perturbation scaled with string length (up to ~2.8px on a long
++  // probe string) and spiked FP Pro tampering_ml on minimal-font profiles
++  // (a Windows that exposes few fonts is already "on the edge" for FP's ML, and
++  // a multi-pixel font-metric deviation tips it). font_preferences are a near-
++  // exact Windows signal, so any large deviation is a tell.
++  // v2 perturbs the run's TOTAL advance by a SINGLE small bounded amount
++  // (<= kStealthJitterMax px), length-independent: still varies measureText /
++  // font_hash for per-profile uniqueness, but stays well within FP's tolerance.
++  // Derived from zoom.stealth.fpp.hw_seed (per-profile, deterministic); 0 = vanilla.
++  {
++    int32_t stealthSeed = mozilla::StaticPrefs::zoom_stealth_fpp_hw_seed();
++    if (stealthSeed > 0) {
++      const float kStealthJitterMax = 0.05f;  // max total advance offset, in px
++      uint32_t s = (uint32_t(stealthSeed) * 1103515245u + 12345u) & 0x7fffffffu;
++      float randomFloat =
++          (static_cast<float>(s) / 2147483647.0f) * kStealthJitterMax;
++      hb_position_t spacing = FloatToFixed(randomFloat);
++      unsigned int glyphCount = 0;
++      hb_glyph_position_t* glyphPositions =
++          hb_buffer_get_glyph_positions(mBuffer, &glyphCount);
++      if (glyphCount > 0) {
++        // Apply the bounded offset to the LAST glyph's advance only -> the run's
++        // total width shifts by exactly `spacing`, independent of glyph count.
++        if (aVertical) {
++          glyphPositions[glyphCount - 1].y_advance -= spacing;
++        } else {
++          glyphPositions[glyphCount - 1].x_advance += spacing;
++        }
++      }
++    }
++  }
++
+   if (isRightToLeft) {
+     hb_buffer_reverse(mBuffer);
+   }
+diff --git a/gfx/thebes/gfxPlatformFontList.cpp b/gfx/thebes/gfxPlatformFontList.cpp
+index 3cc19fd89e..395feb22d3 100644
+--- a/gfx/thebes/gfxPlatformFontList.cpp
++++ b/gfx/thebes/gfxPlatformFontList.cpp
+@@ -34,6 +34,7 @@
+ #include "mozilla/StaticPrefs_gfx.h"
+ #include "mozilla/StaticPrefs_layout.h"
+ #include "mozilla/StaticPrefs_mathml.h"
++#include "mozilla/StaticPrefs_zoom.h"
+ #include "mozilla/glean/GfxMetrics.h"
+ #include "mozilla/TimeStamp.h"
+ #include "mozilla/dom/BlobImpl.h"
+@@ -324,6 +325,14 @@ gfxPlatformFontList::gfxPlatformFontList(bool aNeedFullnamePostscriptNames)
+ 
+   mFontPrefs = MakeUnique<FontPrefs>();
+ 
++  // Stealth: this patched build is ALWAYS bundle-only. The per-OS InitFontList
++  // backends skip the host font enumeration entirely, so host system fonts never
++  // enter the font list - the exposed set is exactly the bundled Windows font
++  // families, identical on every OS. There is NO external allow-list and no
++  // per-profile customization: the list IS the bundle. (The bundled fonts must
++  // be active; see gfx.bundled-fonts.activate, default-on.)
++  mStealthBundleOnly = true;
++
+   gfxFontUtils::GetPrefsFontList(kFontSystemWhitelistPref, mEnabledFontsList);
+   mFontFamilyWhitelistActive = !mEnabledFontsList.IsEmpty();
+ 
+@@ -2258,6 +2267,11 @@ void gfxPlatformFontList::MaybeRemoveCmap(gfxCharacterMap* aCharMap,
+ static void GetSystemUIFontFamilies(
+     FontVisibilityProvider* aFontVisibilityProvider,
+     [[maybe_unused]] nsAtom* aLangGroup, nsTArray<nsCString>& aFamilies) {
++  // Stealth: our persona is always Windows, so `font-family: system-ui` must
++  // resolve to "Segoe UI" on every host - never the host's real menu font
++  // (Cantarell on Linux, San Francisco on macOS). Hardcoded, no external config.
++  aFamilies.AppendElement("Segoe UI"_ns);
++  return;
+   // TODO: On macOS, use CTCreateUIFontForLanguage or such thing (though the
+   // code below ends up using [NSFont systemFontOfSize: 0.0].
+   nsFont systemFont;
+@@ -2284,6 +2298,31 @@ static void GetSystemUIFontFamilies(
+   CopyUTF16toUTF8(systemFontName, *aFamilies.AppendElement());
+ }
+ 
++// Stealth: map the standard CSS generics to the bundled Windows fonts, per
++// language group, matching a real Windows install. Returns nullptr for scripts
++// we don't force (natural resolution against the bundle) and for non-text
++// generics (cursive/fantasy/system-ui, handled elsewhere).
++static const char* StealthGenericWindowsFont(StyleGenericFontFamily aGeneric,
++                                             const char* aLang) {
++  if (aGeneric != StyleGenericFontFamily::Serif &&
++      aGeneric != StyleGenericFontFamily::SansSerif &&
++      aGeneric != StyleGenericFontFamily::Monospace) {
++    return nullptr;
++  }
++  auto is = [&](const char* s) { return aLang && !strcmp(aLang, s); };
++  if (is("ja")) return "Yu Gothic UI";
++  if (is("ko")) return "Malgun Gothic";
++  if (is("zh-CN")) return "Microsoft YaHei UI";
++  if (is("zh-TW") || is("zh-HK")) return "Microsoft JhengHei UI";
++  // Default (Latin + any other non-CJK script; the default langgroup differs by
++  // platform - "x-western" on Windows, something else on Linux/fontconfig - so we
++  // do NOT gate on it): western Windows fonts. For a script the western font
++  // lacks, the bundled font that covers it is used as fallback.
++  if (aGeneric == StyleGenericFontFamily::Serif) return "Times New Roman";
++  if (aGeneric == StyleGenericFontFamily::SansSerif) return "Arial";
++  return "Consolas";  // Monospace
++}
++
+ void gfxPlatformFontList::ResolveGenericFontNames(
+     FontVisibilityProvider* aFontVisibilityProvider,
+     StyleGenericFontFamily aGenericType, eFontPrefLang aPrefLang,
+@@ -2309,6 +2348,15 @@ void gfxPlatformFontList::ResolveGenericFontNames(
+     gfxFontUtils::ParseFontList(value, genericFamilies);
+   }
+ 
++  // Stealth: force the standard generics to the bundled Windows fonts on every
++  // host (prepend = highest priority), so they never resolve to a dropped host
++  // font. No external font.name-list.* needed.
++  if (mStealthBundleOnly) {
++    if (const char* win = StealthGenericWindowsFont(aGenericType, langGroupStr)) {
++      genericFamilies.InsertElementAt(0, nsDependentCString(win));
++    }
++  }
++
+   nsAtom* langGroup = GetLangGroupForPrefLang(aPrefLang);
+   MOZ_ASSERT(langGroup, "null lang group for pref lang");
+ 
+diff --git a/gfx/thebes/gfxPlatformFontList.h b/gfx/thebes/gfxPlatformFontList.h
+index e238d16907..a4ed5dc5f1 100644
+--- a/gfx/thebes/gfxPlatformFontList.h
++++ b/gfx/thebes/gfxPlatformFontList.h
+@@ -1106,6 +1106,13 @@ class gfxPlatformFontList : public gfxFontInfoLoader {
+   nsTArray<nsCString> mEnabledFontsList;
+   nsTHashSet<nsCString> mIconFontsSet;
+ 
++  // Stealth bundle-only: always true in this patched build. The platform font
++  // list is built from the bundled fonts ALONE; the host font enumeration is
++  // skipped entirely (see the InitFontList backends), so host system fonts
++  // never enter it. The exposed set is exactly the bundle - no external
++  // allow-list. Set in the constructor.
++  bool mStealthBundleOnly = false;
++
+   // This is an owning reference; we are responsible to delete the FontList at
+   // appropriate times.
+   std::atomic<mozilla::fontlist::FontList*> mSharedFontList = nullptr;
+diff --git a/gfx/thebes/moz.build b/gfx/thebes/moz.build
+index 6919fcff1c..eb51ac65bc 100644
+--- a/gfx/thebes/moz.build
++++ b/gfx/thebes/moz.build
+@@ -233,6 +233,12 @@ UNIFIED_SOURCES += [
+     "VsyncSource.cpp",
+ ]
+ 
++# Our uniform bundle-only font-list builder. Non-unified: it defines a few
++# short-named file-static helpers that could collide in a unified blob.
++SOURCES += [
++    "StealthBundleFontList.cpp",
++]
++
+ UNIFIED_SOURCES += [
+     "SkMemoryReporter.cpp",
+ ]
