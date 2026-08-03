@@ -4,7 +4,7 @@
   buildGoModule,
 }:
 let
-  rev = "653d388205a81d74bfc7d74217400e4b69c5fd89";
+  rev = "a866d76895b0865874900b8edb832991515bc6e3";
 in
 buildGoModule rec {
   pname = "mihomo-smart";
@@ -14,7 +14,7 @@ buildGoModule rec {
     owner = "vernesong";
     repo = "mihomo";
     inherit rev;
-    hash = "sha256-DGfNMuY7/vxysqZL8OFq3NGN4NHIolUPsYQGfAX+SW8=";
+    hash = "sha256-iIjMrSHsqt7YEtRIKKER1GMw03kaEoUJiucCESzx4c4=";
   };
   vendorHash = "sha256-db2/7HEYUNtU1B3T+T9bYDnwRxxZshGR3EOK51Ut0Q4=";
   excludedPackages = [ "./test" ];
@@ -37,7 +37,7 @@ buildGoModule rec {
   '';
 
   meta = with lib; {
-    description = "A rule-based tunnel in Go with Smart Groups functionality (fork of mihomo)";
+    description = "Another Mihomo Kernel.";
     homepage = "https://github.com/vernesong/mihomo";
     license = licenses.gpl3Only;
     mainProgram = pname;
