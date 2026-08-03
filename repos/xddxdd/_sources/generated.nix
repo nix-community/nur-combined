@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.114";
+    version = "v7.2.116";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.114";
-      hash = "sha256-Uk34VvNpIj9h0Nj2nWd9QzPJ9mhAZYXCTnBRwNU1Xmo=";
+      tag = "v7.2.116";
+      hash = "sha256-qBsvkGmzyY9cFhlLSAPEiHQHmzJYws9TssQ96zM44nk=";
     };
   };
   cockpy = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.10";
+    version = "v0.2.12";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.10";
-      hash = "sha256-4P69zuPh9eTWpgbHGEyvmfg36zleSVQZ92nB6eEI2qc=";
+      tag = "v0.2.12";
+      hash = "sha256-y5UKX4mZif+scew4RVLSYp2bXxoKlCW1qbO9xpUhs9k=";
     };
   };
   edge-tts = {
@@ -822,14 +822,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "d1007c323068d0c5aaa8e0f198668aaebc1a4fc2";
+    version = "99879903d2dfe9e2c87d411e331c483848b496c9";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "d1007c323068d0c5aaa8e0f198668aaebc1a4fc2";
-      hash = "sha256-xV6G36fVnQPfKzQ35RrwPGQGp4m69YXUdyxEdTF9y3Y=";
+      rev = "99879903d2dfe9e2c87d411e331c483848b496c9";
+      hash = "sha256-lUdgTghR2Vuc4S58ArWCiheWK0FRLUd+N4K3zpOeEjE=";
     };
-    date = "2026-07-31";
+    date = "2026-08-04";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -1818,23 +1818,23 @@
   };
   pterodactyl-wings = {
     pname = "pterodactyl-wings";
-    version = "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4";
+    version = "981634f42a3d8b8f52acec030c9391746880793a";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      rev = "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4";
-      hash = "sha256-rvt5eqpHDxARivgYfGqM/BC3wxvVtx/b3PJVbJh+tac=";
+      rev = "981634f42a3d8b8f52acec030c9391746880793a";
+      hash = "sha256-T7SsKiY/hbzE9cttwMuxvOisHcMXEK9a7mQwGnjL/vk=";
     };
-    date = "2026-07-30";
+    date = "2026-08-03";
   };
   pterodactyl-wings-stable = {
     pname = "pterodactyl-wings-stable";
-    version = "v1.13.1";
+    version = "v1.13.2";
     src = fetchFromGitHub {
       owner = "pterodactyl";
       repo = "wings";
-      tag = "v1.13.1";
-      hash = "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=";
+      tag = "v1.13.2";
+      hash = "sha256-rvt5eqpHDxARivgYfGqM/BC3wxvVtx/b3PJVbJh+tac=";
     };
   };
   pyhss = {
@@ -2144,14 +2144,14 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "b6889883634fa16a5d69d2d6cd9eed0c730d48d0";
+    version = "c2a410d7e96f1ec383b2195776aa3928751342a6";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "b6889883634fa16a5d69d2d6cd9eed0c730d48d0";
-      hash = "sha256-2EYMlZvYqY8h0LLn9TWSHceudrGWYZDs7h/OdeBv7JA=";
+      rev = "c2a410d7e96f1ec383b2195776aa3928751342a6";
+      hash = "sha256-ntRGwnSTanPS1Fmn7Dm8TQi3A/06jCEKh1oWUgnsUqc=";
     };
-    date = "2026-07-31";
+    date = "2026-08-03";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
@@ -2175,12 +2175,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.8.0";
+    version = "v2.8.1";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.8.0";
-      hash = "sha256-ZbqpeXQQA6ulcKn70BqHtYmdUQLsZuSnFd/GqrtWb5w=";
+      tag = "v2.8.1";
+      hash = "sha256-3l0j5CuBT9XfX9LX5zktNMlvTo82reA9f2QlALLm/r8=";
     };
   };
   sam-toki-mouse-cursors = {

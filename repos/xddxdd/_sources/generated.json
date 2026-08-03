@@ -598,12 +598,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.114",
-            "sha256": "sha256-Uk34VvNpIj9h0Nj2nWd9QzPJ9mhAZYXCTnBRwNU1Xmo=",
+            "rev": "v7.2.116",
+            "sha256": "sha256-qBsvkGmzyY9cFhlLSAPEiHQHmzJYws9TssQ96zM44nk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.114"
+        "version": "v7.2.116"
     },
     "cockpy": {
         "cargoLock": null,
@@ -1201,12 +1201,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "EasyCLI",
-            "rev": "v0.2.10",
-            "sha256": "sha256-4P69zuPh9eTWpgbHGEyvmfg36zleSVQZ92nB6eEI2qc=",
+            "rev": "v0.2.12",
+            "sha256": "sha256-y5UKX4mZif+scew4RVLSYp2bXxoKlCW1qbO9xpUhs9k=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.2.10"
+        "version": "v0.2.12"
     },
     "edge-tts": {
         "cargoLock": null,
@@ -1594,7 +1594,7 @@
     },
     "funasr": {
         "cargoLock": null,
-        "date": "2026-07-31",
+        "date": "2026-08-04",
         "extract": null,
         "name": "funasr",
         "passthru": null,
@@ -1606,12 +1606,12 @@
             "name": null,
             "owner": "modelscope",
             "repo": "FunASR",
-            "rev": "d1007c323068d0c5aaa8e0f198668aaebc1a4fc2",
-            "sha256": "sha256-xV6G36fVnQPfKzQ35RrwPGQGp4m69YXUdyxEdTF9y3Y=",
+            "rev": "99879903d2dfe9e2c87d411e331c483848b496c9",
+            "sha256": "sha256-lUdgTghR2Vuc4S58ArWCiheWK0FRLUd+N4K3zpOeEjE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d1007c323068d0c5aaa8e0f198668aaebc1a4fc2"
+        "version": "99879903d2dfe9e2c87d411e331c483848b496c9"
     },
     "geolite2-asn": {
         "cargoLock": null,
@@ -3561,7 +3561,7 @@
     },
     "pterodactyl-wings": {
         "cargoLock": null,
-        "date": "2026-07-30",
+        "date": "2026-08-03",
         "extract": null,
         "name": "pterodactyl-wings",
         "passthru": null,
@@ -3573,12 +3573,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4",
-            "sha256": "sha256-rvt5eqpHDxARivgYfGqM/BC3wxvVtx/b3PJVbJh+tac=",
+            "rev": "981634f42a3d8b8f52acec030c9391746880793a",
+            "sha256": "sha256-T7SsKiY/hbzE9cttwMuxvOisHcMXEK9a7mQwGnjL/vk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "28af6dd8aea12f50e6ac0c1c7f1153893bb54dc4"
+        "version": "981634f42a3d8b8f52acec030c9391746880793a"
     },
     "pterodactyl-wings-stable": {
         "cargoLock": null,
@@ -3594,12 +3594,12 @@
             "name": null,
             "owner": "pterodactyl",
             "repo": "wings",
-            "rev": "v1.13.1",
-            "sha256": "sha256-WADZUUaQZiJEcl3IeyH6L8SNJxYvWzsfGdWIYNrdRVs=",
+            "rev": "v1.13.2",
+            "sha256": "sha256-rvt5eqpHDxARivgYfGqM/BC3wxvVtx/b3PJVbJh+tac=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.13.1"
+        "version": "v1.13.2"
     },
     "pyhss": {
         "cargoLock": null,
@@ -4193,7 +4193,7 @@
     },
     "rtpengine": {
         "cargoLock": null,
-        "date": "2026-07-31",
+        "date": "2026-08-03",
         "extract": null,
         "name": "rtpengine",
         "passthru": null,
@@ -4205,12 +4205,12 @@
             "name": null,
             "owner": "sipwise",
             "repo": "rtpengine",
-            "rev": "b6889883634fa16a5d69d2d6cd9eed0c730d48d0",
-            "sha256": "sha256-2EYMlZvYqY8h0LLn9TWSHceudrGWYZDs7h/OdeBv7JA=",
+            "rev": "c2a410d7e96f1ec383b2195776aa3928751342a6",
+            "sha256": "sha256-ntRGwnSTanPS1Fmn7Dm8TQi3A/06jCEKh1oWUgnsUqc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "b6889883634fa16a5d69d2d6cd9eed0c730d48d0"
+        "version": "c2a410d7e96f1ec383b2195776aa3928751342a6"
     },
     "rtpengine-stable": {
         "cargoLock": null,
@@ -4268,12 +4268,12 @@
             "name": null,
             "owner": "runpod",
             "repo": "runpodctl",
-            "rev": "v2.8.0",
-            "sha256": "sha256-ZbqpeXQQA6ulcKn70BqHtYmdUQLsZuSnFd/GqrtWb5w=",
+            "rev": "v2.8.1",
+            "sha256": "sha256-3l0j5CuBT9XfX9LX5zktNMlvTo82reA9f2QlALLm/r8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v2.8.0"
+        "version": "v2.8.1"
     },
     "sam-toki-mouse-cursors": {
         "cargoLock": null,
