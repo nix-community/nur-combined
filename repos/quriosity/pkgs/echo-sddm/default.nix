@@ -2,13 +2,13 @@
 
 stdenvNoCC.mkDerivation {
   pname = "echo-sddm";
-  version = "7fbce9a";
+  version = "e004121";
 
   src = fetchFromGitHub {
     owner = "xCaptaiN09";
     repo = "echo-sddm";
-    rev = "7fbce9a3fb1aaed05bda7f522c4949658422c5c7";
-    hash = "sha256-7Us7dzaGc/x1Vf8XFfHEMjB+xzhmMd4U5rtJJLI8e18=";
+    rev = "e004121450ff71050d3d76a998b86eafdbb6bf47";
+    hash = "sha256-J8JCTkbQhhxJam3GmmHLAt8sRqGqLUsBdkehUjvJZbs=";
   };
 
   dontBuild = true;
@@ -16,7 +16,7 @@ stdenvNoCC.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/share/sddm/themes/echo
-    cp -r Main.qml metadata.desktop theme.conf install.sh assets \
+    cp -r Main.qml metadata.desktop theme.conf assets \
       $out/share/sddm/themes/echo/
       echo "QtVersion=6" >> $out/share/sddm/themes/echo/metadata.desktop
     runHook postInstall
