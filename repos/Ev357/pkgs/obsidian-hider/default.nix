@@ -8,15 +8,15 @@
 in
   pkgs.buildNpmPackage rec {
     pname = "obsidian-hider";
-    version = "1.6.2";
+    version = "1.7.0";
 
     src = pkgs.fetchFromGitHub {
       inherit owner repo;
       rev = version;
-      sha256 = "sha256-YFKzLcMmXip3PqZN9+TwW8k6hqY6nc3XFGf1QTBdzsg=";
+      sha256 = "sha256-U3TeeVmpS+mmHupdmRa3Jt0j9JP9OTI+YOPQkHbnNQ0=";
     };
 
-    npmDepsHash = "sha256-MH7dZMs5qjCPMPe2QM2akbDgwN74vwVGGsA8PgVH1wA=";
+    npmDepsHash = "sha256-TEIR0hMvk3p5cAlBJ4B8kxbCjhjMHz5tP03X0vKpPMc=";
 
     installPhase =
       # bash
