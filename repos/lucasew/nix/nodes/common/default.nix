@@ -1,5 +1,6 @@
 {
   self,
+  config,
   pkgs,
   lib,
   ...
@@ -80,6 +81,8 @@ in
   boot.loader.grub.memtest86.enable = true;
 
   virtualisation.docker.enable = lib.mkDefault true;
+  # dockerd talks to /run/containerd/containerd.sock; without this unit, pulls/creates fail
+  virtualisation.containerd.enable = lib.mkDefault config.virtualisation.docker.enable;
 
   environment = {
     systemPackages = with pkgs; [
