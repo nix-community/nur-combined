@@ -1,16 +1,23 @@
 {
   description = "My personal NUR repository";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs.cangjie-nixpkgs.url = "github:NixOS/nixpkgs/50ab793786d9de88ee30ec4e4c24fb4236fc2674";
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      cangjie-nixpkgs,
+      nixpkgs,
+    }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
       pkgsFor = system: import nixpkgs { inherit system; };
+      cangjieBuildPkgsFor = system: import cangjie-nixpkgs { inherit system; };
     in
     {
       legacyPackages = forAllSystems (
         system:
         import ./default.nix {
+          cangjieBuildPkgs = cangjieBuildPkgsFor system;
           pkgs = pkgsFor system;
         }
       );

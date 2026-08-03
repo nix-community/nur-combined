@@ -26,6 +26,6 @@ nix run .#update -- --list
 ```
 
 The updater is written in [Amber](./maintainers/update.ab) and invokes
-`nix-update` with build and formatting enabled. `cangjie` is intentionally not
-included because its vendor download does not expose a standard tag feed; its
-fixed version and hash must be updated manually.
+`nix-update` with build and formatting enabled. `cangjie` is built from the
+upstream source repositories, while the previous vendor binary package remains
+available as `cangjie-bin`.

@@ -24,3 +24,4 @@ type = "zstd"
 
 [garbage-collection]
 interval = "12 hours"
+default-retention-period = "3 days"

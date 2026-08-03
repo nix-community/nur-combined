@@ -8,6 +8,10 @@
 #     nix-build -A mypackage
 
 {
+  cangjieBuildPkgs ? import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/50ab793786d9de88ee30ec4e4c24fb4236fc2674.tar.gz";
+    sha256 = "sha256-/bVBlRpECLVzjV19t5KMdMFWSwKLtb5RyXdjz3LJT+g=";
+  }) { system = pkgs.stdenv.hostPlatform.system; },
   pkgs ? import <nixpkgs> { },
 }:
 
@@ -22,7 +26,8 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   amber-lsp = pkgs.callPackage ./pkgs/amber-lsp { };
-  cangjie = pkgs.callPackage ./pkgs/cangjie { };
+  cangjie = pkgs.callPackage ./pkgs/cangjie { inherit cangjieBuildPkgs; };
+  cangjie-bin = pkgs.callPackage ./pkgs/cangjie/binary.nix { };
   code996 = pkgs.callPackage ./pkgs/code996 { };
   dnspick = pkgs.callPackage ./pkgs/dnspick { };
   ghost-downloader-3 = pkgs.callPackage ./pkgs/ghost-downloader-3 { };
@@ -30,5 +35,6 @@
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
   nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
   quien = pkgs.callPackage ./pkgs/quien { };
+  seekey = pkgs.callPackage ./pkgs/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };
 }

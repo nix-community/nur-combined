@@ -98,6 +98,8 @@ nix profile install \
 attic login personal https://cache.mr-why.cn ADMIN_TOKEN
 attic cache create nur
 attic cache configure nur --public
+attic cache create nur-pr
+attic cache configure nur-pr --public --retention-period '1 day'
 ```
 
 Build and upload from either the workstation or the server:
@@ -119,4 +121,12 @@ Its public key is:
 
 ```text
 nur:aQlY5sfibsfPJgLVG4yMCrJLB4+RJ1vaebK4sWl74K4=
+```
+
+Pull requests from branches in this repository upload to the short-lived
+`https://cache.mr-why.cn/nur-pr` staging cache. It has a one-day retention
+period and this public key:
+
+```text
+nur-pr:jUrGaS3si2esbX9X2BvhP7mpx2Wyf3Fy3SCC+JQ7E58=
 ```
