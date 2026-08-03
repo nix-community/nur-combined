@@ -96,10 +96,10 @@
     };
     "adaptive-tab-bar-colour" = buildMozillaXpiAddon {
       pname = "adaptive-tab-bar-colour";
-      version = "4.0.6";
+      version = "4.1.0";
       addonId = "ATBC@EasonWong";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4894283/adaptive_tab_bar_colour-4.0.6.xpi";
-      sha256 = "183edf18d70f7935d799f455aadac7b6b4ac68e979843c7db292e1c4a02f680d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4933754/adaptive_tab_bar_colour-4.1.0.xpi";
+      sha256 = "800fe1b4296a5b29b7224e587795bce150e5b79745c159fe9c98ff71d8883c9f";
       meta = with lib;
       {
         homepage = "https://github.com/easonwong-de/Adaptive-Tab-Bar-Colour";
@@ -3849,10 +3849,10 @@
     };
     "enhancer-for-nebula" = buildMozillaXpiAddon {
       pname = "enhancer-for-nebula";
-      version = "1.7.7";
+      version = "1.7.8";
       addonId = "nebula-enhancer@piber.at";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4920067/enhancer_for_nebula-1.7.7.xpi";
-      sha256 = "3c199197cbf2b048f83ce0c64bd5d3453b38195eb6ae6966246df5b365679cbd";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4934267/enhancer_for_nebula-1.7.8.xpi";
+      sha256 = "2984634cda2b4f9a1cee34281666ee32108accd231bf2140d1d61b0316892e6a";
       meta = with lib;
       {
         homepage = "https://github.com/cpiber/NebulaEnhance#readme";
@@ -4457,10 +4457,10 @@
     };
     "foxyproxy-standard" = buildMozillaXpiAddon {
       pname = "foxyproxy-standard";
-      version = "9.4";
+      version = "9.5";
       addonId = "foxyproxy@eric.h.jung";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4925065/foxyproxy_standard-9.4.xpi";
-      sha256 = "b2e979001f2ee7402cf277e1a8650a7c4aeb8772ec6cd4310e2802d27fc3239d";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4933543/foxyproxy_standard-9.5.xpi";
+      sha256 = "05d1b2002db53a48939531f6023b189621f9062b0f8c9631ee099bb08a21d346";
       meta = with lib;
       {
         homepage = "https://getfoxyproxy.org/";
@@ -13182,10 +13182,10 @@
     };
     "remove-youtube-s-suggestions" = buildMozillaXpiAddon {
       pname = "remove-youtube-s-suggestions";
-      version = "4.3.81";
+      version = "4.3.82";
       addonId = "{21f1ba12-47e1-4a9b-ad4e-3a0260bbeb26}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4795073/remove_youtube_s_suggestions-4.3.81.xpi";
-      sha256 = "9b53f35586ba410f85eb2cb6683de353aa7b7254073d7c4f51098a7a60376caa";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4934617/remove_youtube_s_suggestions-4.3.82.xpi";
+      sha256 = "64aea3fefb5246a0ccaf0c8c5fdf60bf76010352100513dbd88cb03d759a5337";
       meta = with lib;
       {
         homepage = "https://lawrencehook.com/rys/";
@@ -14443,10 +14443,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.8";
+      version = "2.4.9";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4907275/styl_us-2.4.8.xpi";
-      sha256 = "455426890a38bd3ee511000112ece51675f8bbc21e988be2170c3ae6900cbedf";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4934380/styl_us-2.4.9.xpi";
+      sha256 = "7108b8d5b600d9d35caee46c50416b296721683d3497c572e029e84f7e42afb7";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
