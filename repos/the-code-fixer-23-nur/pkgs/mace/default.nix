@@ -9,22 +9,22 @@
 let
   inherit (stdenvNoCC.hostPlatform) system;
   shaMap = {
-    x86_64-linux = "sha256-FsbYe30Rl5ehMJOGA4g4HNnVb9s9q/qCHcNGkbtuGBA=";
-    aarch64-linux = "sha256-HQqAj7+BY5NV7zra4PccXkDOh/OTncdSvL69V6Dm1I=";
-    x86_64-darwin = "sha256-AD6t58Rwqssg64r1wR5VBX0OlqdU5Q1XtDwN8XqO/HY=";
-    aarch64-darwin = "sha256-Crp6pDbA4Yg2ffo5fq06ZJfS8MT/FbvzPENDp6iAC8s=";
+    x86_64-linux = "14i4hv1hq0fz95c3gphfalkycrlc1imgxj1q6hszd2y50cmakyw7";
+    aarch64-linux = "04dz2kgh8vcf1ijjbqyjg1jwzy09hpwf54c0lmcrqhixni0wpb6x";
+    x86_64-darwin = "003mpzgi8x8rj299hc5bk2h7ns5jfj88kdsc8alwhamimv5448lp";
+    aarch64-darwin = "172c0bsv68mdcr51qfpmx6hqqcn5rb1lck531x84fzwp4svwxvgf";
   };
 
   urlMap = {
-    x86_64-linux = "https://github.com/louiss0/mace/releases/download/v1.0.0/mace_1.0.0_linux_amd64.tar.gz";
-    aarch64-linux = "https://github.com/louiss0/mace/releases/download/v1.0.0/mace_1.0.0_linux_arm64.tar.gz";
-    x86_64-darwin = "https://github.com/louiss0/mace/releases/download/v1.0.0/mace_1.0.0_darwin_amd64.tar.gz";
-    aarch64-darwin = "https://github.com/louiss0/mace/releases/download/v1.0.0/mace_1.0.0_darwin_arm64.tar.gz";
+    x86_64-linux = "https://github.com/louiss0/mace/releases/download/v1.0.1/mace_1.0.1_linux_amd64.tar.gz";
+    aarch64-linux = "https://github.com/louiss0/mace/releases/download/v1.0.1/mace_1.0.1_linux_arm64.tar.gz";
+    x86_64-darwin = "https://github.com/louiss0/mace/releases/download/v1.0.1/mace_1.0.1_darwin_amd64.tar.gz";
+    aarch64-darwin = "https://github.com/louiss0/mace/releases/download/v1.0.1/mace_1.0.1_darwin_arm64.tar.gz";
   };
 in
 stdenvNoCC.mkDerivation {
   pname = "mace";
-  version = "1.0.0";
+  version = "1.0.1";
   src = fetchurl {
     url = urlMap.${system};
     sha256 = shaMap.${system};
