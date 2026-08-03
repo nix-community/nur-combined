@@ -177,10 +177,11 @@ stdenv.mkDerivation (finalAttrs: {
     mv * $out/lib/node_modules/pake/
     makeWrapper ${lib.getExe nodejs_22} $out/bin/pake \
       --add-flags "$out/lib/node_modules/pake/dist/cli.js" \
-      ${lib.optionalString (appimageTools != null) "--set PAKE_APPIMAGE_TOOLS_DIR ${appimageTools} \\"}
+      ${lib.optionalString (appimageTools != null) "--set PAKE_APPIMAGE_TOOLS_DIR ${appimageTools}"} \
       --set NODE_PATH "$out/lib/node_modules/pake/node_modules" \
+      --set-default PAKE_SKIP_INSTALL 1 ${lib.optionalString stdenv.hostPlatform.isLinux "\\"}
+      ${lib.optionalString stdenv.hostPlatform.isLinux ''
       --set PKG_CONFIG ${pakePkgConfig}/bin/pkg-config \
-      --set-default PAKE_SKIP_INSTALL 1 \
       --prefix PATH : ${
         lib.makeBinPath [
           pakePkgConfig
@@ -236,6 +237,7 @@ stdenv.mkDerivation (finalAttrs: {
           libayatana-appindicator
         ]
       }
+      ''}
 
     runHook postInstall
   '';
@@ -254,6 +256,6 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://github.com/tw93/Pake";
     license = lib.licenses.mit;
     mainProgram = "pake";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.all;
   };
 })
