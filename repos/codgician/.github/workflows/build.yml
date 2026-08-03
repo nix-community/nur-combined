@@ -95,11 +95,19 @@ jobs:
           persist-credentials: false
       - name: Install Nix
         if: ${{ needs.scope.outputs.run_automation == 'true' }}
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        uses: NixOS/nix-installer-action@main # zizmor: ignore[unpinned-uses] track upstream main
         with:
           extra-conf: |
             accept-flake-config = true
             experimental-features = nix-command flakes
+      - name: Setup Attic cache
+        if: github.ref == 'refs/heads/main'
+        uses: ryanccn/attic-action@v0 # zizmor: ignore[unpinned-uses] track v0 releases
+        with:
+          endpoint: https://cache.codgician.me
+          cache: nur-packages
+          token: ${{ secrets.CACHE_PUSH_TOKEN }}
+          inputs-from: .
       - name: Validate automation
         if: ${{ needs.scope.outputs.run_automation == 'true' }}
         run: |
