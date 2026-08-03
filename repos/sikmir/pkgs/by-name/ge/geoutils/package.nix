@@ -17,6 +17,11 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-uwWIFdNeGoOs5mLIgIMQ+TB1716dmwVTgwWIotIb+cY=";
   };
 
+  postPatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail "setuptools_scm[toml]>=8,<9.0" "setuptools_scm[toml]"
+  '';
+
   build-system = with python3Packages; [ setuptools-scm ];
 
   pythonRelaxDeps = true;
