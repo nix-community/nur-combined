@@ -32,6 +32,7 @@
   nix,
   coreutils,
   kdePackages,
+  desktopToDarwinBundle,
 }:
 
 let
@@ -60,6 +61,8 @@ stdenv.mkDerivation (finalAttrs: {
 
   postPatch = ''
     echo "kotlin.native.ignoreDisabledTargets=true" >> local.properties
+    substituteInPlace desktop/build.gradle.kts \
+      --replace-fail 'nativeDistributions {' 'nativeDistributions { modules("java.sql");'
   ''
   + lib.optionalString stdenv.isLinux ''
     # iOS Info.plist stamping needs macOS plutil; no-op on Linux.
@@ -98,6 +101,9 @@ stdenv.mkDerivation (finalAttrs: {
   ]
   ++ lib.optionals stdenv.isLinux [
     autoPatchelfHook
+  ]
+  ++ lib.optionals stdenv.isDarwin [
+    desktopToDarwinBundle
   ];
 
   buildInputs = lib.optionals stdenv.isLinux [
@@ -131,11 +137,14 @@ stdenv.mkDerivation (finalAttrs: {
       ''
         runHook preInstall
 
-        mkdir -p $out/bin $out/Applications
-        cp --recursive desktop/build/compose/binaries/main-release/app/Bifrost.app \
-          $out/Applications/Bifrost.app
+        mkdir -p $out/bin $out/libexec
+        cp -a desktop/build/compose/binaries/main-release/app/Bifrost.app \
+          $out/libexec/Bifrost.app
 
-        makeWrapper $out/Applications/Bifrost.app/Contents/MacOS/Bifrost $out/bin/Bifrost
+        install -D --mode=0644 desktop/src/jvmMain/resources/icon.png \
+          $out/share/icons/hicolor/512x512/apps/bifrost.png
+
+        makeWrapper $out/libexec/Bifrost.app/Contents/MacOS/Bifrost $out/bin/Bifrost
 
         runHook postInstall
       ''
