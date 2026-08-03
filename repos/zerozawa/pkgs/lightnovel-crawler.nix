@@ -20,26 +20,28 @@ let
     doCheck = false;
   };
 
-  # lncrawl-scraper — HTTP scraper with Cloudflare bypass (extracted from bundled cloudscraper)
+  # lncrawl-scraper — layered bot-detection bypass scraper (extracted from lightnovel-crawler)
   lncrawl-scraper = python3Packages.buildPythonPackage rec {
     pname = "lncrawl-scraper";
-    version = "0.2.5";
+    version = "1.7.0";
     pyproject = true;
     src = fetchPypi {
       pname = "lncrawl_scraper";
       inherit version;
-      hash = "sha256-cbi2hDwfJ/7+0RGREAiAGBMBYReoFwlHCIy2TZY+ntc=";
+      hash = "sha256-aYZ8A1vvSeXthI+uGxQ4mVTwRGid+vre7+a0Bo+SyrE=";
     };
     build-system = with python3Packages; [ hatchling ];
+    # base deps + [all] extra (cdp/botauth/image)
     propagatedBuildInputs = with python3Packages; [
       beautifulsoup4
-      brotli
+      curl-cffi
+      cryptography
       lxml
+      pillow
+      pysocks
       requests
-      exejs
+      websockets
     ];
-    # curl-cffi is an optional C/Rust extension used by [all] extra
-    pythonRemoveDeps = [ "curl-cffi" ];
     doCheck = false;
   };
 
@@ -133,7 +135,7 @@ let
 in
 python3Packages.buildPythonApplication rec {
   pname = "lightnovel-crawler";
-  version = "4.13.1";
+  version = "4.14.0";
 
   pyproject = true;
 
@@ -141,7 +143,7 @@ python3Packages.buildPythonApplication rec {
     owner = "lncrawl";
     repo = "lightnovel-crawler";
     rev = "v${version}";
-    hash = "sha256-CA/r1sviR11H/Fy1fhqvVVJwRovwFH3+ZII9mtbSuNk=";
+    hash = "sha256-KAPBkTYEYs53U5f2Xe6gB1d/hnVKu4oDrHKK43zFZH4=";
   };
 
   build-system = with python3Packages; [
@@ -156,11 +158,13 @@ python3Packages.buildPythonApplication rec {
   # Some packages not in nixpkgs are provided as local helpers above
   propagatedBuildInputs = with python3Packages; [
     alembic
+    argon2-cffi
     base58
     beautifulsoup4
     brotli
     colorama
     ebooklib
+    email-validator
     fastapi
     html5lib
     imap-tools
@@ -198,8 +202,6 @@ python3Packages.buildPythonApplication rec {
 
   pythonImportsCheck = [ "lncrawl" ];
 
-  pythonRemoveDeps = [ "nodriver" ];
-
   doCheck = false;
 
   postFixup = ''
@@ -212,7 +214,7 @@ python3Packages.buildPythonApplication rec {
   '';
 
   meta = with lib; {
-    description = "Lightnovel Crawler downloads web novels and similar fiction from hundreds of online reading sites and saves them as e-books — so you can read offline on your phone, tablet, or e-reader.";
+    description = "Turn a web novel into an e-book with one command — or run a private server that keeps your whole library downloaded, translated, and readable in the browser.";
     homepage = "https://github.com/lncrawl/lightnovel-crawler";
     license = with licenses; [ gpl3Only ];
     platforms = platforms.linux;
