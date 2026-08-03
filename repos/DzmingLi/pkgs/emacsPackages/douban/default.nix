@@ -5,7 +5,7 @@
   pandoc,
 }:
 
-## DzmingLi/douban.el: write and publish Douban long reviews from Emacs.
+## DzmingLi/douban.el: write and publish Douban content from Emacs.
 ##
 ## Consumer (with this repository's overlay enabled):
 ##   emacsWithPackages (epkgs: [ ... epkgs.douban ... ])
@@ -16,8 +16,8 @@ emacsPackages.trivialBuild {
   src = fetchFromGitHub {
     owner = "DzmingLi";
     repo = "douban.el";
-    rev = "c01ab9cb3134a04988f2bdeaa221c7cfae0b1881";
-    hash = "sha256-LkepYXjql/ygrecZSImug95+l5/o3ug3LjB6Xeqeobg=";
+    rev = "9d251471c41723bfd06a6311a1fa7507258a38ee";
+    hash = "sha256-OqG/BOxM4nOgajKfPNSoNnDCTyP4qSU5iLTYXYdeqp4=";
   };
 
   packageRequires = [
@@ -42,7 +42,7 @@ emacsPackages.trivialBuild {
   '';
 
   meta = with lib; {
-    description = "Write and publish Douban long reviews from Emacs";
+    description = "Write and publish Douban content from Emacs";
     homepage = "https://github.com/DzmingLi/douban.el";
     license = licenses.gpl3Plus;
     platforms = platforms.unix;
