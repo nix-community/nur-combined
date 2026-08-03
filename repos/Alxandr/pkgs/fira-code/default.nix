@@ -10,8 +10,8 @@ let
   src = fetchFromGitHub {
     owner = "tonsky";
     repo = "FiraCode";
-    rev = "727682c24c33fb0bbc7ab0ed9b7a8d0d9745a198";
-    sha256 = "sha256-2/64g+J9l3XVcYJ2yRsrY5jnQzU+OT6Madl97mCzTuk=";
+    rev = "ecd367b040ad92a28b64fa93135775f7e2417b37";
+    sha256 = "sha256-jjV+63PCxCxzMjur2x/MVOfNUMJEFnG+8Zl6NSri1VA=";
   };
 
   updateScript = nix-update-script {
