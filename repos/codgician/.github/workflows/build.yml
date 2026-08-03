@@ -81,6 +81,9 @@ jobs:
     uses: stepbrobd/atelier/.github/workflows/discover.yaml@0dc970e40d5be02aaea0d7e88cbf5e0b96a9a8b6 # 2026.722.0
     with:
       attr: ${{ needs.scope.outputs.attr }}
+      push: ${{ github.ref == 'refs/heads/main' }}
+    secrets:
+      ATTIC_TOKEN: ${{ secrets.CACHE_PUSH_TOKEN }}
   harness:
     needs: scope
     runs-on: ubuntu-latest
@@ -100,14 +103,6 @@ jobs:
           extra-conf: |
             accept-flake-config = true
             experimental-features = nix-command flakes
-      - name: Setup Attic cache
-        if: github.ref == 'refs/heads/main'
-        uses: ryanccn/attic-action@v0 # zizmor: ignore[unpinned-uses] track v0 releases
-        with:
-          endpoint: https://cache.codgician.me
-          cache: nur-packages
-          token: ${{ secrets.CACHE_PUSH_TOKEN }}
-          inputs-from: .
       - name: Validate automation
         if: ${{ needs.scope.outputs.run_automation == 'true' }}
         run: |
