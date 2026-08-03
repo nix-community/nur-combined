@@ -4,6 +4,7 @@
   outputs = { self, nixpkgs }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
+      lib = nixpkgs.lib;
     in
     {
       legacyPackages = forAllSystems (system: import ./default.nix {
