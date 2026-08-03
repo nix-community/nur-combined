@@ -12,12 +12,12 @@
     maintainers,
 }: buildNpmPackage (finalAttrs: {
     pname = "shapez-ce";
-    version = "0-unstable-2026-07-17";
+    version = "0-unstable-2026-08-03";
     src = fetchFromGitHub {
         owner = "tobspr-games";
         repo = "shapez-community-edition";
-        rev = "2906277c35bc861e760c118754dc954a623ebe86";
-        hash = "sha256-opWqV74yeRlk+cfZuO6+a0bZgkmxn4J9n75JatbuzMQ=";
+        rev = "a3fdbf4f594772bbb8b72910987e7a23008fea8f";
+        hash = "sha256-SKJhoXyNS6dy68MvofN6kmMb/mOT/nVcX+1u6/r1FWM=";
     };
     texturePacker = fetchurl {
         url = "https://web.archive.org/web/20241202185338id_/https://libgdx-nightlies.s3.amazonaws.com/libgdx-runnables/runnable-texturepacker.jar";
