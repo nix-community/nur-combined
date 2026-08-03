@@ -11,15 +11,15 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   inherit (qqmusic) pname;
-  version = "11.7.0.2";
+  version = "11.8.0.2";
 
   __structuredAttrs = true;
   strictDeps = true;
 
   src = fetchurl rec {
-    name = "QQMusicMac11.7.0Build02.dmg";
-    url = "https://web.archive.org/web/20260725075011if_/https://dldir.y.qq.com/ecosfile/music_clntupate/mac/other/${name}?sign=1784965795-mE787kwAIR9azxLt-0-de7361f4895e046ab95e7f9d6efcbf9a";
-    hash = "sha256-Y4Voh7qB39Z2RwaQKVnJcEsU+aABYmYzsrUpPFmQtWE=";
+    name = "QQMusicMac11.8.0Build02.dmg";
+    url = "https://web.archive.org/web/20260803144330if_/https://dldir.y.qq.com/ecosfile/music_clntupate/mac/other/${name}?sign=1785768194-qXyRvNpxK9ZGy23l-0-42cba27e0a0ae6b6f732e53e04125247";
+    hash = "sha256-UQ/tKSQmKo4pzHtbs/8clE3SJzt+JdiCtirsxgwuDUY=";
   };
 
   nativeBuildInputs = [ undmg ];
