@@ -1,0 +1,18 @@
+--- a/main.go
++++ b/main.go
+@@ -822,6 +822,7 @@
+ 	if mod.Replace != nil {
+ 		mod = mod.Replace
+ 	}
+
++	mod.Version = "@version@"
+ 	fmt.Fprintf(w, "%s %s\n\n", mod.Path, mod.Version)
+ 	fmt.Fprintf(w, "Build settings:\n")
+ 	for _, setting := range info.Settings {
+--- a/testdata/script/help.txtar
++++ b/testdata/script/help.txtar
+@@ -90,3 +90,3 @@
+ exec garble version
+-stdout -count=1 'mvdan.cc/garble \(devel\)'
++stdout -count=1 'mvdan.cc/garble @version@'
+ stdout -count=1 'Build settings'

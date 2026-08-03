@@ -296,6 +296,7 @@ main() {
 
   run_go_vendorhash_gate "kwok" "kwok" '^(kwok)$'
   run_go_vendorhash_gate "vagrant-vmware-utility" "vagrant-vmware-utility" '^(vagrant-vmware-utility)$'
+  run_go_vendorhash_gate "garble" "garble" '^(garble)$'
 
   warn_unplanned_tasks
   print_execution_summary

@@ -176,3 +176,9 @@ fetch.url = "https://github.com/earendil-works/pi/releases/download/$ver/pi-darw
 src.github_tag = "earendil-works/pi"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 fetch.url = "https://github.com/earendil-works/pi/releases/download/$ver/pi-darwin-arm64.tar.gz"
+
+[garble]
+src.github = "burrowers/garble"
+src.use_max_tag = true
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+fetch.github = "burrowers/garble"

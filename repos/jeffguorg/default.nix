@@ -41,6 +41,7 @@ in
   pi-agent = callPackage ./pkgs/pi-agent {};
   pi-agent-bin = callPackage ./pkgs/pi-agent-bin {};
   vagrant-vmware-utility = callPackage ./pkgs/vagrant-vmware-utility.nix {};
+  garble = callPackage ./pkgs/garble {};
 
   caddy-with-plugins = callPackage ./pkgs/caddy-with-plugins {};
 }

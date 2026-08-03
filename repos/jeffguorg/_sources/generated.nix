@@ -177,6 +177,17 @@
       sha256 = "sha256-SEKPcpWGmBWQDDQYZ7u9J5sOsXI2QofdeLshzt+0me8=";
     };
   };
+  garble = {
+    pname = "garble";
+    version = "v0.17.0";
+    src = fetchFromGitHub {
+      owner = "burrowers";
+      repo = "garble";
+      rev = "v0.17.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-yIdyvKxqlrYp77biXUiCrvMyTFStafkB+y5QF1M0CEg=";
+    };
+  };
   kagent-bin-amd64-darwin = {
     pname = "kagent-bin-amd64-darwin";
     version = "v0.9.12";

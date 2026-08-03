@@ -293,6 +293,27 @@
         },
         "version": "8.1.0.6021101"
     },
+    "garble": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "garble",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "burrowers",
+            "repo": "garble",
+            "rev": "v0.17.0",
+            "sha256": "sha256-yIdyvKxqlrYp77biXUiCrvMyTFStafkB+y5QF1M0CEg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.17.0"
+    },
     "kagent-bin-amd64-darwin": {
         "cargoLock": null,
         "date": null,
