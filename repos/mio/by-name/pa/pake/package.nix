@@ -181,62 +181,62 @@ stdenv.mkDerivation (finalAttrs: {
       --set NODE_PATH "$out/lib/node_modules/pake/node_modules" \
       --set-default PAKE_SKIP_INSTALL 1 ${lib.optionalString stdenv.hostPlatform.isLinux "\\"}
       ${lib.optionalString stdenv.hostPlatform.isLinux ''
-      --set PKG_CONFIG ${pakePkgConfig}/bin/pkg-config \
-      --prefix PATH : ${
-        lib.makeBinPath [
-          pakePkgConfig
-          pkg-config
-        ]
-      } \
-      --prefix PKG_CONFIG_PATH : ${
-        lib.makeSearchPath "lib/pkgconfig" [
-          (lib.getDev glib)
-          (lib.getDev gtk3)
-          (lib.getDev gtk4)
-          (lib.getDev gdk-pixbuf)
-          (lib.getDev pango)
-          (lib.getDev cairo)
-          (lib.getDev atk)
-          (lib.getDev libx11)
-          (lib.getDev libxext)
-          (lib.getDev libxi)
-          (lib.getDev libxrandr)
-          (lib.getDev libxcursor)
-          (lib.getDev libxfixes)
-          (lib.getDev libxcomposite)
-          (lib.getDev libxdamage)
-          (lib.getDev libxinerama)
-          (lib.getDev wayland)
-          (lib.getDev libxkbcommon)
-          (lib.getDev fontconfig)
-          (lib.getDev libepoxy)
-          (lib.getDev fribidi)
-          (lib.getDev harfbuzz)
-          (lib.getDev libthai)
-          (lib.getDev freetype)
-          (lib.getDev libpng)
-          (lib.getDev libxrender)
-          (lib.getDev libxft)
-          (lib.getDev libsoup_3)
-          (lib.getDev libayatana-indicator)
-          (lib.getDev ayatana-ido)
-          (lib.getDev libdbusmenu)
-          (lib.getDev webkitgtk_4_1)
-          (lib.getDev glib-networking)
-          (lib.getDev libayatana-appindicator)
-          (lib.getDev openssl)
-          (lib.getDev libsysprof-capture)
-          (lib.getDev gst_all_1.gst-plugins-base)
-          (lib.getDev gst_all_1.gst-plugins-bad)
-          (lib.getDev gst_all_1.gst-plugins-good)
-          (lib.getDev gst_all_1.gst-plugins-rs)
-        ]
-      } \
-      --prefix LD_LIBRARY_PATH : ${
-        lib.makeLibraryPath [
-          libayatana-appindicator
-        ]
-      }
+        --set PKG_CONFIG ${pakePkgConfig}/bin/pkg-config \
+        --prefix PATH : ${
+          lib.makeBinPath [
+            pakePkgConfig
+            pkg-config
+          ]
+        } \
+        --prefix PKG_CONFIG_PATH : ${
+          lib.makeSearchPath "lib/pkgconfig" [
+            (lib.getDev glib)
+            (lib.getDev gtk3)
+            (lib.getDev gtk4)
+            (lib.getDev gdk-pixbuf)
+            (lib.getDev pango)
+            (lib.getDev cairo)
+            (lib.getDev atk)
+            (lib.getDev libx11)
+            (lib.getDev libxext)
+            (lib.getDev libxi)
+            (lib.getDev libxrandr)
+            (lib.getDev libxcursor)
+            (lib.getDev libxfixes)
+            (lib.getDev libxcomposite)
+            (lib.getDev libxdamage)
+            (lib.getDev libxinerama)
+            (lib.getDev wayland)
+            (lib.getDev libxkbcommon)
+            (lib.getDev fontconfig)
+            (lib.getDev libepoxy)
+            (lib.getDev fribidi)
+            (lib.getDev harfbuzz)
+            (lib.getDev libthai)
+            (lib.getDev freetype)
+            (lib.getDev libpng)
+            (lib.getDev libxrender)
+            (lib.getDev libxft)
+            (lib.getDev libsoup_3)
+            (lib.getDev libayatana-indicator)
+            (lib.getDev ayatana-ido)
+            (lib.getDev libdbusmenu)
+            (lib.getDev webkitgtk_4_1)
+            (lib.getDev glib-networking)
+            (lib.getDev libayatana-appindicator)
+            (lib.getDev openssl)
+            (lib.getDev libsysprof-capture)
+            (lib.getDev gst_all_1.gst-plugins-base)
+            (lib.getDev gst_all_1.gst-plugins-bad)
+            (lib.getDev gst_all_1.gst-plugins-good)
+            (lib.getDev gst_all_1.gst-plugins-rs)
+          ]
+        } \
+        --prefix LD_LIBRARY_PATH : ${
+          lib.makeLibraryPath [
+            libayatana-appindicator
+          ]
+        }
       ''}
 
     runHook postInstall

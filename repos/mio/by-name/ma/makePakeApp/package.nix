@@ -14,7 +14,7 @@
   gnutar,
   rustPlatform,
   imagemagick,
-  
+
   dpkg ? null,
   autoPatchelfHook ? null,
   alsa-lib ? null,
@@ -92,20 +92,58 @@ stdenv.mkDerivation (finalAttrs: {
     file
     gnutar
     imagemagick
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     autoPatchelfHook
     dpkg
   ];
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    alsa-lib atk at-spi2-atk at-spi2-core cairo cups dbus gdk-pixbuf glib glib-networking
-    gtk3 gtk4 harfbuzz fontconfig freetype libdrm libepoxy libglvnd libpng libsoup_3
-    libxkbcommon libx11 libxcomposite libxdamage libxext libxfixes libxrandr libxcb
-    libxcursor libxi libxinerama libxrender libayatana-appindicator libdbusmenu
-    libayatana-indicator ayatana-ido mesa pango wayland webkitgtk_4_1
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
-    apple-sdk_14
-  ];
+  buildInputs =
+    lib.optionals stdenv.hostPlatform.isLinux [
+      alsa-lib
+      atk
+      at-spi2-atk
+      at-spi2-core
+      cairo
+      cups
+      dbus
+      gdk-pixbuf
+      glib
+      glib-networking
+      gtk3
+      gtk4
+      harfbuzz
+      fontconfig
+      freetype
+      libdrm
+      libepoxy
+      libglvnd
+      libpng
+      libsoup_3
+      libxkbcommon
+      libx11
+      libxcomposite
+      libxdamage
+      libxext
+      libxfixes
+      libxrandr
+      libxcb
+      libxcursor
+      libxi
+      libxinerama
+      libxrender
+      libayatana-appindicator
+      libdbusmenu
+      libayatana-indicator
+      ayatana-ido
+      mesa
+      pango
+      wayland
+      webkitgtk_4_1
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isDarwin [
+      apple-sdk_14
+    ];
 
   buildPhase = ''
     runHook preBuild
@@ -130,7 +168,9 @@ stdenv.mkDerivation (finalAttrs: {
 
     mkdir -p build
     cd build
-    pake "${url}" --name "${appName}" --icon "$icon_rgba" --targets ${if stdenv.hostPlatform.isLinux then "deb" else "app"}
+    pake "${url}" --name "${appName}" --icon "$icon_rgba" --targets ${
+      if stdenv.hostPlatform.isLinux then "deb" else "app"
+    }
 
     runHook postBuild
   '';
@@ -138,45 +178,50 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    ${if stdenv.hostPlatform.isLinux then ''
-      deb="$(ls -1 *.deb | head -n 1)"
-      if [ -z "$deb" ]; then
-        echo "No .deb produced by pake" >&2
-        exit 1
-      fi
+    ${
+      if stdenv.hostPlatform.isLinux then
+        ''
+          deb="$(ls -1 *.deb | head -n 1)"
+          if [ -z "$deb" ]; then
+            echo "No .deb produced by pake" >&2
+            exit 1
+          fi
 
-      dpkg-deb -x "$deb" app
+          dpkg-deb -x "$deb" app
 
-      mkdir -p "$out"
-      shopt -s nullglob
-      for dir in app/usr app/opt; do
-        if [ -e "$dir" ]; then
-          cp -a "$dir" "$out/"
-        fi
-      done
+          mkdir -p "$out"
+          shopt -s nullglob
+          for dir in app/usr app/opt; do
+            if [ -e "$dir" ]; then
+              cp -a "$dir" "$out/"
+            fi
+          done
 
-      mkdir -p "$out/bin"
-      # __NV_DISABLE_EXPLICIT_SYNC -> https://github.com/tauri-apps/tauri/issues/10702
-      wrapProgram "$out/usr/bin/${executableName}" \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}" \
-        --set __NV_DISABLE_EXPLICIT_SYNC 1
-      ln -s "$out/usr/bin/${executableName}" "$out/bin/${pname}"
-    '' else ''
-      echo "Checking for .app files:"
-      find . -maxdepth 1 -name "*.app"
-      app_path=(*.app)
-      if [ ''${#app_path[@]} -eq 0 ] || [ ! -e "''${app_path[0]}" ]; then
-        echo "No .app produced by pake" >&2
-        exit 1
-      fi
+          mkdir -p "$out/bin"
+          # __NV_DISABLE_EXPLICIT_SYNC -> https://github.com/tauri-apps/tauri/issues/10702
+          wrapProgram "$out/usr/bin/${executableName}" \
+            --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath [ libayatana-appindicator ]}" \
+            --set __NV_DISABLE_EXPLICIT_SYNC 1
+          ln -s "$out/usr/bin/${executableName}" "$out/bin/${pname}"
+        ''
+      else
+        ''
+          echo "Checking for .app files:"
+          find . -maxdepth 1 -name "*.app"
+          app_path=(*.app)
+          if [ ''${#app_path[@]} -eq 0 ] || [ ! -e "''${app_path[0]}" ]; then
+            echo "No .app produced by pake" >&2
+            exit 1
+          fi
 
-      mkdir -p "$out/Applications"
-      cp -a "''${app_path[0]}" "$out/Applications/"
-      
-      out_app=("$out/Applications/"*.app)
-      mkdir -p "$out/bin"
-      ln -s "''${out_app[0]}/Contents/MacOS/${executableName}" "$out/bin/${pname}"
-    ''}
+          mkdir -p "$out/Applications"
+          cp -a "''${app_path[0]}" "$out/Applications/"
+
+          out_app=("$out/Applications/"*.app)
+          mkdir -p "$out/bin"
+          ln -s "''${out_app[0]}/Contents/MacOS/${executableName}" "$out/bin/${pname}"
+        ''
+    }
 
     runHook postInstall
   '';
