@@ -9,7 +9,7 @@ Install WinBoat and enable either Docker or Podman. For example, with Docker:
 ```nix
 {
   environment.systemPackages = [
-    pkgs.nur.repos.so1ve.winboat
+    pkgs.nur.repos.so1ve.winboat-unstable
   ];
 
   virtualisation.docker.enable = true;

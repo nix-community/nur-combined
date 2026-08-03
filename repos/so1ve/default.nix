@@ -11,7 +11,7 @@ in
   r-maple-mono-nf-cn = pkgs.callPackage ./pkgs/r-maple-mono-nf-cn {
     source = sources.r-maple-mono-nf-cn;
   };
-  winboat = pkgs.callPackage ./pkgs/winboat {
+  winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable {
     source = sources.winboat;
   };
 

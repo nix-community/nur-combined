@@ -12,7 +12,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | `ab-download-manager` | [Usage](pkgs/ab-download-manager/README.md) |
 | `firefoxpwa-xwayland` | [Usage](pkgs/firefoxpwa-xwayland/README.md) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
-| `winboat` | [Usage](pkgs/winboat/README.md) |
+| `winboat-unstable` | [Usage](pkgs/winboat-unstable/README.md) |
 
 ## [NUR](https://github.com/nix-community/NUR)
 
