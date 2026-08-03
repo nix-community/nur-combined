@@ -29,7 +29,6 @@ let
     description = "Client for sing-box";
     downloadPage = "https://github.com/SagerNet/sing-box/releases";
     license = lib.licenses.gpl3Plus;
-    # sourceProvenance
     maintainers = with lib.maintainers; [ prince213 ];
     mainProgram = "sing-box-app";
   };

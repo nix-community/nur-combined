@@ -28,7 +28,7 @@ let
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cronet-go";
-  version = "148.0.7778.96-1-unstable-2026-07-12";
+  version = "150.0.7871.63-1-unstable-2026-07-31";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -36,9 +36,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "SagerNet";
     repo = "cronet-go";
-    rev = "617d38f41f935b46a68f550d9add2e38abb3f168";
+    rev = "cfbca3ad7edb3f8c1bd78b4bcb7c4c1a1ae3d195";
     fetchSubmodules = true;
-    hash = "sha256-UK7mv0TuhJX4y64DhH49t5mgZFGhMx4Viy/chulKD4s=";
+    hash = "sha256-zRT5pNwspqb69SbR20cw9wgihxSTX8uqwpx0IPZuLOg=";
   };
 
   patches = [
@@ -49,6 +49,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       libresolv = lib.getInclude darwin.libresolv;
     }
   );
+
+  postPatch = ''
+    patchShebangs --build naiveproxy/src/build/toolchain/apple/linker_driver.py
+  '';
 
   nativeBuildInputs = [
     buildPackages.rustc.llvmPackages.bintools
