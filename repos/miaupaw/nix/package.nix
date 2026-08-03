@@ -9,9 +9,8 @@
 , pkg-config
 , llvmPackages
 , patchelf
-, pipewire
-, wayland
 , libxkbcommon
+, wayland
 , dbus
 , fontconfig
 , libx11
@@ -19,16 +18,15 @@
 , libxrandr
 , libxi
 , jetbrains-mono
-, version ? "0.1.1"
+, version ? "0.1.2"
 }:
 
 let
   # Runtime shared libs the binary loads (some via dlopen — patchelf alone
   # would not pull them in, hence explicit makeLibraryPath in postFixup).
   runtimeLibs = [
-    pipewire
-    wayland
     libxkbcommon
+    wayland
     dbus
     fontconfig
     libx11

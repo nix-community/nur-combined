@@ -50,7 +50,7 @@ const NARRATIVE: &[&str] = &[
 
 const TITLE: &str = "INSTANT EYEDROPPER REBORN";
 const TITLE_SCALE: f32 = 1.2;
-const FOOTER_PREFIX: &str = "v0.1.1-alpha // PANDORA CORE // ";
+const FOOTER_PREFIX: &str = "v0.1.2-alpha // PANDORA CORE // ";
 const FOOTER_URL: &str = "INSTANT-EYEDROPPER.COM";
 const FOOTER_COPY: &str = " 2006-2026 // KYIV UKRAINE // KONSTANTIN YAGOLA";
 const FOOTER_SCALE: f32 = 0.25;

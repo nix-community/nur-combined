@@ -109,7 +109,13 @@ impl Dispatch<ZwlrScreencopyFrameV1, ()> for WlrCaptureHandler {
             zwlr_screencopy_frame_v1::Event::Buffer {
                 format, width, height, stride,
             } => {
-                let fmt = format.into_result().unwrap_or(wl_shm::Format::Xrgb8888);
+                // Unknown enum code — don't stay silent: colors will almost surely be wrong
+                let fmt = format.into_result().unwrap_or_else(|raw| {
+                    log_warn(&format!(
+                        "WLR Screencopy: unknown wl_shm format {raw:?} — assuming Xrgb8888"
+                    ));
+                    wl_shm::Format::Xrgb8888
+                });
                 state.buffer_info = Some((width, height, stride, fmt));
             }
             zwlr_screencopy_frame_v1::Event::Ready { .. } => {
@@ -170,8 +176,13 @@ pub fn capture_output(
     if width == 0 || height == 0 {
         return Err(anyhow::anyhow!("WLR Screencopy: invalid dimensions {}x{}", width, height));
     }
-    if stride < width.saturating_mul(4) {
-        return Err(anyhow::anyhow!("WLR Screencopy: stride {} too small for width {}", stride, width));
+    // Stride is validated against the format's bpp: mango hands out 24-bit
+    // Bgr888 (stride = width*3), and that is a legal compositor reply (issue #7)
+    if stride < width.saturating_mul(format_bpp(format)) {
+        return Err(anyhow::anyhow!(
+            "WLR Screencopy: stride {} too small for width {} ({:?})",
+            stride, width, format
+        ));
     }
     let size = (stride as u64 * height as u64) as usize;
 
@@ -215,10 +226,20 @@ pub fn capture_output(
     Ok(ScreenCapture { xrgb_buffer, width, height })
 }
 
+/// Bytes per pixel for known wl_shm formats.
+/// Unknown formats are treated as 4-byte (XRGB family) — as historically,
+/// convert_to_xrgb warns about exotics.
+fn format_bpp(format: wl_shm::Format) -> u32 {
+    match format {
+        wl_shm::Format::Rgb888 | wl_shm::Format::Bgr888 => 3,
+        _ => 4,
+    }
+}
+
 /// Convert raw pixels to XRGB u32.
 ///
 /// For Xrgb8888/Argb8888 (native little-endian) — zero-copy via bytemuck.
-/// For exotic formats — byte-by-byte fallback.
+/// For 24-bit (Rgb888/Bgr888) and exotic formats — byte-by-byte fallback.
 fn convert_to_xrgb(ptr: *const u8, width: u32, height: u32, stride: u32, format: wl_shm::Format) -> Vec<u32> {
     let num_pixels = (width * height) as usize;
 
@@ -256,30 +277,33 @@ fn convert_to_xrgb(ptr: *const u8, width: u32, height: u32, stride: u32, format:
         return u32_slice.to_vec();
     }
 
+    // Slow path: byte-by-byte conversion honoring stride (padding between rows)
     match format {
         wl_shm::Format::Xrgb8888 | wl_shm::Format::Argb8888
-        | wl_shm::Format::Xbgr8888 | wl_shm::Format::Abgr8888 => {}
+        | wl_shm::Format::Xbgr8888 | wl_shm::Format::Abgr8888
+        | wl_shm::Format::Rgb888 | wl_shm::Format::Bgr888 => {}
         _ => log_warn(&format!(
             "Exotic pixel format detected: {:?} — colors may be wrong. \
-             Please report at https://github.com/spicebrains/ie-r/issues",
+             Please report at https://github.com/miaupaw/ie-r/issues",
             format
         )),
     }
 
+    let bpp = format_bpp(format) as usize;
     let size = (stride * height) as usize;
     let slice = unsafe { std::slice::from_raw_parts(ptr, size) };
     let mut buf = Vec::with_capacity(num_pixels);
 
     for row in 0..height {
         let row_start = (row * stride) as usize;
-        let row_slice = &slice[row_start..row_start + (width * 4) as usize];
+        let row_slice = &slice[row_start..row_start + width as usize * bpp];
 
-        for chunk in row_slice.chunks_exact(4) {
+        for chunk in row_slice.chunks_exact(bpp) {
             let (r, g, b) = match format {
-                // Xbgr8888/Abgr8888 little-endian: [R,G,B,X]
-                wl_shm::Format::Xbgr8888 | wl_shm::Format::Abgr8888 =>
+                // Xbgr8888/Abgr8888 little-endian: [R,G,B,X]; Bgr888: [R,G,B]
+                wl_shm::Format::Xbgr8888 | wl_shm::Format::Abgr8888 | wl_shm::Format::Bgr888 =>
                     (chunk[0] as u32, chunk[1] as u32, chunk[2] as u32),
-                // Xrgb8888/Argb8888 little-endian: [B,G,R,X]
+                // Xrgb8888/Argb8888 little-endian: [B,G,R,X]; Rgb888: [B,G,R]
                 _ =>
                     (chunk[2] as u32, chunk[1] as u32, chunk[0] as u32),
             };
@@ -289,3 +313,8 @@ fn convert_to_xrgb(ptr: *const u8, width: u32, height: u32, stride: u32, format:
 
     buf
 }
+
+// Tests live in wlr_tests.rs (test mechanics out of the logic file).
+#[cfg(test)]
+#[path = "wlr_tests.rs"]
+mod tests;

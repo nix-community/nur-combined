@@ -296,7 +296,7 @@ impl WindowHandler for IEWaylandState {
 
         if self.first_configure {
             // Consume the activation token: tell GNOME Shell the window has appeared.
-            let token = crate::daemon::dbus_tray::LAST_ACTIVATION_TOKEN
+            let token = crate::core::capture::portal::LAST_ACTIVATION_TOKEN
                 .lock()
                 .ok()
                 .and_then(|mut g| g.take());

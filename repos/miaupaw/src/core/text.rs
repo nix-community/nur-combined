@@ -1,15 +1,38 @@
 use crate::core::metrics::TextMetrics;
 use ab_glyph::{Font, FontVec, PxScale, ScaleFont};
 use fontdb::{Database, Family, Query, Source};
+use std::cell::RefCell;
+use std::collections::HashMap;
 use std::fs;
 use std::sync::Arc;
 use crate::core::terminal::log_step;
+
+/// A cached rasterized glyph: coverage bitmap + placement metrics.
+/// ab_glyph rasterizes the glyph at position (0,0) and the line's
+/// fractional offset is applied at blit time with integer truncation —
+/// the phase is always zero, so a (char, scale) cache reproduces the
+/// output exactly.
+struct CachedGlyph {
+    w: usize,
+    h: usize,
+    min_x: f32,
+    min_y: f32,
+    advance: f32,
+    coverage: Vec<u8>,
+}
+
+/// A safety valve against cache blow-up under continuously varying scale
+/// (the alphabet is tiny and sizes are discrete — normally tens of entries).
+const GLYPH_CACHE_LIMIT: usize = 1024;
 
 pub struct TextRenderer {
     pub font_data: Arc<Vec<u8>>,
     font: Option<FontVec>,
     scale: PxScale,
     pub metrics: TextMetrics,
+    /// Rasterization cache: (char, scale bits) → bitmap. RefCell — drawing
+    /// takes `&self` (the paint phase mutates no state), access is single-threaded.
+    glyph_cache: RefCell<HashMap<(char, u32), CachedGlyph>>,
 }
 
 impl TextRenderer {
@@ -23,6 +46,7 @@ impl TextRenderer {
             font,
             scale: PxScale::from(size),
             metrics,
+            glyph_cache: RefCell::new(HashMap::new()),
         }
     }
 
@@ -33,6 +57,8 @@ impl TextRenderer {
             // FontVec implements Font — reuse for metric recalculation.
             self.metrics = TextMetrics::from_font(font, size);
         }
+        // The cache key includes scale, but stale sizes are dead weight now.
+        self.glyph_cache.borrow_mut().clear();
     }
 
     #[allow(clippy::too_many_arguments)]
@@ -68,6 +94,17 @@ impl TextRenderer {
         let mod_ascent = self.metrics.ascent * scale_modifier;
         let mod_height = self.metrics.height * scale_modifier;
 
+        let scale_bits = mod_scale.y.to_bits();
+        let mut cache = self.glyph_cache.borrow_mut();
+        if cache.len() > GLYPH_CACHE_LIMIT {
+            cache.clear();
+        }
+
+        // Opacities in 8.8 fixed-point: full = 256, dim from dim_opacity.
+        let dim256 = ((dim_opacity * 256.0).round() as i32).clamp(0, 256) as u32;
+        let color_rb = color & 0x00FF00FF;
+        let color_g = color & 0x0000FF00;
+
         let lines: Vec<&str> = text.split('\n').collect();
         let mut current_y = y as f32 + mod_ascent;
 
@@ -91,52 +128,89 @@ impl TextRenderer {
                 x as f32
             };
 
-            // Initialize opacity to 1.0; dim_opacity kicks in after \x01.
-            let current_color = color;
-            let mut current_opacity_modifier = 1.0;
+            // Initialize opacity to full; dim_opacity kicks in after \x01.
+            let mut current_op256 = 256u32;
 
             for c in line.chars() {
                 if c == '\x01' {
                     // \x01 — turn on dimming mid-string
-                    current_opacity_modifier = dim_opacity;
+                    current_op256 = dim256;
                     continue;
                 }
                 if c == '\x02' {
                     // \x02 — restore full opacity
-                    current_opacity_modifier = 1.0;
+                    current_op256 = 256;
                     continue;
                 }
                 if c.is_control() {
                     continue;
                 }
-                let glyph = scaled_font.scaled_glyph(c);
-                if let Some(outlined) = scaled_font.outline_glyph(glyph) {
-                    let bounds = outlined.px_bounds();
-                    outlined.draw(|gx, gy, coverage| {
-                        let px = start_x + caret.x + bounds.min.x + gx as f32;
-                        let py = current_y + bounds.min.y + gy as f32;
 
-                        if px >= 0.0 && px < width as f32 && py >= 0.0 && py < height as f32 {
-                            let px_idx = (py as usize) * width + (px as usize);
-                            let bg = buffer[px_idx];
-
-                            let final_cov = coverage * current_opacity_modifier;
-
-                            let out_r = (final_cov * ((current_color >> 16) & 0xFF) as f32
-                                + (1.0 - final_cov) * ((bg >> 16) & 0xFF) as f32)
-                                as u32;
-                            let out_g = (final_cov * ((current_color >> 8) & 0xFF) as f32
-                                + (1.0 - final_cov) * ((bg >> 8) & 0xFF) as f32)
-                                as u32;
-                            let out_b = (final_cov * (current_color & 0xFF) as f32
-                                + (1.0 - final_cov) * (bg & 0xFF) as f32)
-                                as u32;
-
-                            buffer[px_idx] = (out_r << 16) | (out_g << 8) | out_b;
+                // Rasterization happens only on a cache miss. Empty glyphs
+                // (space) are cached as 0×0, else they would miss forever.
+                let g = cache.entry((c, scale_bits)).or_insert_with(|| {
+                    let advance = scaled_font.h_advance(scaled_font.glyph_id(c));
+                    let glyph = scaled_font.scaled_glyph(c);
+                    match scaled_font.outline_glyph(glyph) {
+                        Some(outlined) => {
+                            let bounds = outlined.px_bounds();
+                            let gw = (bounds.max.x - bounds.min.x) as usize;
+                            let gh = (bounds.max.y - bounds.min.y) as usize;
+                            let mut coverage = vec![0u8; gw * gh];
+                            outlined.draw(|gx, gy, cov| {
+                                let idx = gy as usize * gw + gx as usize;
+                                if idx < coverage.len() {
+                                    coverage[idx] = (cov * 255.0) as u8;
+                                }
+                            });
+                            CachedGlyph {
+                                w: gw, h: gh,
+                                min_x: bounds.min.x, min_y: bounds.min.y,
+                                advance, coverage,
+                            }
                         }
-                    });
+                        None => CachedGlyph {
+                            w: 0, h: 0, min_x: 0.0, min_y: 0.0,
+                            advance, coverage: Vec::new(),
+                        },
+                    }
+                });
+
+                // Blit from cache: integer start (floor of the fractional
+                // base — equivalent to the old per-pixel truncation), packed
+                // RB|G blend: two channels per multiply, zero f32 per pixel.
+                let ix0 = (start_x + caret.x + g.min_x).floor() as i32;
+                let iy0 = (current_y + g.min_y).floor() as i32;
+
+                for gy in 0..g.h {
+                    let py = iy0 + gy as i32;
+                    if py < 0 || py >= height as i32 {
+                        continue;
+                    }
+                    let row = py as usize * width;
+                    let cov_row = &g.coverage[gy * g.w..(gy + 1) * g.w];
+
+                    for (gx, &cov) in cov_row.iter().enumerate() {
+                        if cov == 0 {
+                            continue;
+                        }
+                        let px = ix0 + gx as i32;
+                        if px < 0 || px >= width as i32 {
+                            continue;
+                        }
+                        // coverage 0..255 → weight 0..256 (×257>>8), then opacity.
+                        let f = (((cov as u32 * 257) >> 8) * current_op256) >> 8;
+                        let inv = 256 - f;
+
+                        let idx = row + px as usize;
+                        let bg = buffer[idx];
+                        let rb = (((bg & 0x00FF00FF) * inv + color_rb * f) >> 8) & 0x00FF00FF;
+                        let gr = (((bg & 0x0000FF00) * inv + color_g * f) >> 8) & 0x0000FF00;
+                        buffer[idx] = rb | gr;
+                    }
                 }
-                caret.x += scaled_font.h_advance(scaled_font.glyph_id(c));
+
+                caret.x += g.advance;
             }
 
             // Advance to next line accounting for line spacing modifier.

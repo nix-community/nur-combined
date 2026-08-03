@@ -9,11 +9,51 @@ use smithay_client_toolkit::seat::{
 };
 use wayland_client::{Connection, QueueHandle, protocol::{wl_keyboard, wl_pointer}};
 
+use crate::connectors::keymap;
+use crate::core::config::CursorStyle;
 use crate::core::overlay::UserAction;
 use crate::core::terminal::Styled;
 
-use super::IEWaylandState;
+use super::{IEWaylandState, InputState};
 use super::oracle::{Oracle, EnterKind};
+
+/// Wayland-specific: keysym → digit as typed (top row + numpad).
+/// The digit→action policy lives in keymap; this is pure code translation.
+fn digit_of_keysym(k: Keysym) -> Option<u8> {
+    match k {
+        Keysym::_1 | Keysym::KP_1 => Some(1),
+        Keysym::_2 | Keysym::KP_2 => Some(2),
+        Keysym::_3 | Keysym::KP_3 => Some(3),
+        Keysym::_4 | Keysym::KP_4 => Some(4),
+        Keysym::_5 | Keysym::KP_5 => Some(5),
+        Keysym::_6 | Keysym::KP_6 => Some(6),
+        Keysym::_7 | Keysym::KP_7 => Some(7),
+        Keysym::_8 | Keysym::KP_8 => Some(8),
+        Keysym::_9 | Keysym::KP_9 => Some(9),
+        Keysym::_0 | Keysym::KP_0 => Some(0),
+        _ => None,
+    }
+}
+
+fn mods_of(input: &InputState) -> keymap::Mods {
+    keymap::Mods { shift: input.shift, ctrl: input.ctrl, alt: input.alt }
+}
+
+/// Maps the user-facing [`CursorStyle`] to the right sctk call. Only the
+/// MAIN overlay-aim cursor goes through here; transient cursor flips for
+/// the About window hover/pick-blink stay on their own (`CursorIcon::Default`
+/// etc) — they're UI state, not user policy.
+fn apply_overlay_cursor(
+    pointer: &mut smithay_client_toolkit::seat::pointer::ThemedPointer,
+    conn: &Connection,
+    style: CursorStyle,
+) {
+    match style {
+        CursorStyle::Crosshair => { let _ = pointer.set_cursor(conn, CursorIcon::Crosshair); }
+        CursorStyle::Default   => { let _ = pointer.set_cursor(conn, CursorIcon::Default); }
+        CursorStyle::None      => { let _ = pointer.hide_cursor(); }
+    }
+}
 
 // ── Keyboard ────────────────────────────────────────────────────────────────
 // Escape/Enter/Space → dispatch(). Arrows → Nudge/Jump depending on modifiers.
@@ -73,27 +113,20 @@ impl KeyboardHandler for IEWaylandState {
                 self.dispatch(UserAction::PickColor { serial: true });
             }
             _ => {
+                let mods = mods_of(&self.input);
                 let action = if event.raw_code == 41 {
                     // - Seriously, you downloaded a gig of docs for one line?! )
                     // - Well what did you expect? That's the way of the Hunter!
                     // Physical KEY_GRAVE (evdev code 41), works on any keyboard layout
                     Some(UserAction::ToggleHud)
+                } else if let Some(d) = digit_of_keysym(event.keysym) {
+                    keymap::digit_action(d)
                 } else {
                     match event.keysym {
-                        Keysym::_1 => Some(UserAction::SelectFormatDigit(1)),
-                        Keysym::_2 => Some(UserAction::SelectFormatDigit(2)),
-                        Keysym::_3 => Some(UserAction::SelectFormatDigit(3)),
-                        Keysym::_4 => Some(UserAction::SelectFormatDigit(4)),
-                        Keysym::_5 => Some(UserAction::SelectFormatDigit(5)),
-                        Keysym::_6 => Some(UserAction::SelectFormatDigit(6)),
-                        Keysym::_7 => Some(UserAction::SelectFormatDigit(7)),
-                        Keysym::_8 => Some(UserAction::SelectFormatDigit(8)),
-                        Keysym::_9 => Some(UserAction::SelectFormatDigit(9)),
-                        Keysym::_0 => Some(UserAction::SelectFormatDigit(0)),
-                        Keysym::Up    => Some(if self.input.ctrl || self.input.shift { UserAction::Jump(0, -1)  } else { UserAction::Nudge(0, -1)  }),
-                        Keysym::Down  => Some(if self.input.ctrl || self.input.shift { UserAction::Jump(0, 1)   } else { UserAction::Nudge(0, 1)   }),
-                        Keysym::Left  => Some(if self.input.ctrl || self.input.shift { UserAction::Jump(-1, 0)  } else { UserAction::Nudge(-1, 0)  }),
-                        Keysym::Right => Some(if self.input.ctrl || self.input.shift { UserAction::Jump(1, 0)   } else { UserAction::Nudge(1, 0)   }),
+                        Keysym::Up    => Some(keymap::arrow_action(mods, 0, -1)),
+                        Keysym::Down  => Some(keymap::arrow_action(mods, 0, 1)),
+                        Keysym::Left  => Some(keymap::arrow_action(mods, -1, 0)),
+                        Keysym::Right => Some(keymap::arrow_action(mods, 1, 0)),
                         Keysym::grave | Keysym::asciitilde => Some(UserAction::ToggleHud), // Fallback
                         _ => None,
                     }
@@ -129,10 +162,10 @@ impl KeyboardHandler for IEWaylandState {
         event: KeyEvent,
     ) {
         let action = match event.keysym {
-            Keysym::Up    => Some(UserAction::KeyRelease { dx: 0,  dy: -1 }),
-            Keysym::Down  => Some(UserAction::KeyRelease { dx: 0,  dy: 1  }),
-            Keysym::Left  => Some(UserAction::KeyRelease { dx: -1, dy: 0  }),
-            Keysym::Right => Some(UserAction::KeyRelease { dx: 1,  dy: 0  }),
+            Keysym::Up    => Some(keymap::arrow_release(0, -1)),
+            Keysym::Down  => Some(keymap::arrow_release(0, 1)),
+            Keysym::Left  => Some(keymap::arrow_release(-1, 0)),
+            Keysym::Right => Some(keymap::arrow_release(1, 0)),
             _ => None,
         };
 
@@ -261,18 +294,20 @@ impl PointerHandler for IEWaylandState {
                             let enter_result = oracle.classify_enter(self.input.x, self.input.y);
                             let is_phantom = matches!(enter_result, EnterKind::Phantom);
 
-                            let tag = format!("[{: >10}]", "Enter");
-                            eprintln!("{} tile={} lpos={:?} raw=({},{}) mod=({},{}) phantom={} ovl={}x{} [startup]",
-                                if is_phantom { tag.gray() } else { tag.yellow().bold() },
-                                tile_idx, tile.logical_pos, self.input.x, self.input.y,
-                                self.input.x + tile.logical_pos.0, self.input.y + tile.logical_pos.1,
-                                is_phantom, ovl_w, ovl_h);
+                            if crate::core::terminal::info_visible() {
+                                let tag = format!("[{: >10}]", "Enter");
+                                eprintln!("{} tile={} lpos={:?} raw=({},{}) mod=({},{}) phantom={} ovl={}x{} [startup]",
+                                    if is_phantom { tag.gray() } else { tag.yellow().bold() },
+                                    tile_idx, tile.logical_pos, self.input.x, self.input.y,
+                                    self.input.x + tile.logical_pos.0, self.input.y + tile.logical_pos.1,
+                                    is_phantom, ovl_w, ovl_h);
+                            }
 
                             if let EnterKind::Real { buf_x, buf_y } = enter_result {
                                 app.canvas.active_idx = tile_idx;
                                 self.active_output = Some(ovl_output);
                                 app.magnifier.reset();
-                                app.update_physical_mouse(buf_x, buf_y);
+                                app.update_cursor(buf_x, buf_y);
                             } else {
                                 self.input.phantom_count += 1;
                             }
@@ -289,10 +324,12 @@ impl PointerHandler for IEWaylandState {
                             );
                             let (buf_x, buf_y) = oracle.motion_to_buffer(self.input.x, self.input.y);
 
-                            let tag = format!("[{: >10}]", "Enter");
-                            eprintln!("{} tile={} lpos={:?} raw=({},{}) ovl={}x{} [processing]",
-                                tag.yellow().bold(), tile_idx, tile.logical_pos,
-                                self.input.x, self.input.y, ovl_w, ovl_h);
+                            if crate::core::terminal::info_visible() {
+                                let tag = format!("[{: >10}]", "Enter");
+                                eprintln!("{} tile={} lpos={:?} raw=({},{}) ovl={}x{} [processing]",
+                                    tag.yellow().bold(), tile_idx, tile.logical_pos,
+                                    self.input.x, self.input.y, ovl_w, ovl_h);
+                            }
 
                             let is_same_output = self.active_output.as_ref() == Some(&ovl_output);
                             app.canvas.active_idx = tile_idx;
@@ -301,15 +338,19 @@ impl PointerHandler for IEWaylandState {
                                 // Cross-monitor transition — full reset with spawn animation.
                                 app.magnifier.reset();
                             }
-                            app.update_physical_mouse(buf_x, buf_y);
+                            app.update_cursor(buf_x, buf_y);
                         }
                         self.input.pending_correction = true;
                         // Phantom (startup) — ignored. Motion will pick up the correct position.
                     }
 
-                    // Set crosshair cursor.
+                    // Set cursor per config (default = Crosshair, classic
+                    // eyedropper behavior).
+                    let cursor_style = self.overlay_app.as_ref()
+                        .map(|a| a.config.system.cursor)
+                        .unwrap_or_default();
                     if let Some(pointer) = &mut self.pointer {
-                        let _ = pointer.set_cursor(_conn, CursorIcon::Crosshair);
+                        apply_overlay_cursor(pointer, _conn, cursor_style);
                     }
 
                     self.needs_redraw = true;
@@ -343,7 +384,7 @@ impl PointerHandler for IEWaylandState {
                         (self.input.x as f64, self.input.y as f64)
                     };
 
-                    if self.input.pending_correction {
+                    if self.input.pending_correction && crate::core::terminal::info_visible() {
                         let tag = format!("[{: >10}]", "Motion");
                         eprintln!("{} tile={} raw=({},{}) buf=({:.0},{:.0}) [first]",
                             tag.blue().bold(), overlay_idx, self.input.x, self.input.y,
@@ -364,7 +405,7 @@ impl PointerHandler for IEWaylandState {
                         if self.input.pending_correction {
                             self.input.pending_correction = false;
                         }
-                        app.update_physical_mouse(buf_pos.0, buf_pos.1);
+                        app.update_cursor(buf_pos.0, buf_pos.1);
                     }
 
                     self.needs_redraw = true;
@@ -417,16 +458,7 @@ impl PointerHandler for IEWaylandState {
                     }
 
                     if delta != 0 {
-                        let action = if self.input.ctrl {
-                            UserAction::ChangeFontSize(delta)
-                        } else if self.input.shift {
-                            UserAction::ResizeMagnifier(delta)
-                        } else if self.input.alt {
-                            UserAction::ChangeAimSize(delta)
-                        } else {
-                            UserAction::Zoom(delta)
-                        };
-                        self.dispatch(action);
+                        self.dispatch(keymap::wheel_action(mods_of(&self.input), delta));
                         self.redraw(qh);
                     }
                 }

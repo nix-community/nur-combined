@@ -36,7 +36,7 @@ impl Default for ColorService {
 
 impl ColorService {
     pub fn new() -> Self {
-        let config = Config::load(false);
+        let config = Config::load();
         #[cfg(unix)]
         crate::daemon::dbus_menu::DBusMenu::prime_layout_state(&config);
         let clipboard = Clipboard::new().ok();
@@ -76,7 +76,7 @@ impl ColorService {
         let mut perf = Perf::new();
         perf.log("Hotkey/Event detected");
 
-        self.config = Config::load(true);
+        self.config = Config::load_quiet();
         log_info("Configuration hot-reloaded");
         #[cfg(unix)]
         crate::daemon::dbus_menu::DBusMenu::notify_layout_update(&self.config);
@@ -103,7 +103,7 @@ impl ColorService {
     /// For each color: formats via `format_color`, prints an ANSI swatch to the terminal,
     /// appends to `clipboard_texts`. Final string is joined with `deck_separator`.
     /// History is updated in-memory only; `save()` is called externally in `finalize_overlay`.
-    pub fn copy_color(&mut self, colors: &[image::Rgba<u8>]) {
+    pub fn copy_color(&mut self, colors: &[image::Rgba<u8>], coords: &[(i32, i32)]) {
         if colors.is_empty() { return; }
 
         let mut clipboard_texts = Vec::new();
@@ -111,17 +111,44 @@ impl ColorService {
         let selected_fmt = self.config.templates.get_selected_template().to_string();
         let precision = self.config.templates.float_precision;
 
-        for color in colors {
+        // Per-deck coord formatting: right-align numbers inside parens so every
+        // (X, Y) string has identical length → swatches line up in their column.
+        // Coords drop out cleanly if the connector didn't pass them (defensive
+        // parity guard, not expected at runtime since coord_deck is parallel).
+        let have_coords = coords.len() == colors.len();
+        let coord_strs: Vec<String> = if have_coords {
+            let max_x = coords.iter().map(|(x, _)| x.to_string().len()).max().unwrap_or(0);
+            let max_y = coords.iter().map(|(_, y)| y.to_string().len()).max().unwrap_or(0);
+            coords.iter()
+                .map(|(x, y)| format!("({:>wx$}, {:>wy$})", x, y, wx = max_x, wy = max_y))
+                .collect()
+        } else {
+            Vec::new()
+        };
+
+        for (idx, color) in colors.iter().enumerate() {
             let r = color.0[0]; let g = color.0[1]; let b = color.0[2];
             let hex = formats::rgb_to_hex(r, g, b);
             let text = formats::format_color(&selected_fmt, r, g, b, precision);
 
             // Truecolor ANSI swatch of the picked pixel color
             let swatch = "██".rgb(r, g, b);
-            log_plain("Color", &format!("{} {} → {}", swatch, hex.as_str().bold(), text.as_str().cyan()));
+            if have_coords {
+                let coord = coord_strs[idx].as_str().gray();
+                log_plain("Color", &format!("{} {} {} → {}", coord, swatch, hex.as_str().bold(), text.as_str().cyan()));
+            } else {
+                log_plain("Color", &format!("{} {} → {}", swatch, hex.as_str().bold(), text.as_str().cyan()));
+            }
 
             clipboard_texts.push(text);
-            self.save_history_entry(hex);
+            if self.config.pick.write_history {
+                self.save_history_entry(hex);
+            }
+        }
+
+        if !self.config.pick.clipboard {
+            log_info("Clipboard write skipped (pick.clipboard = false)");
+            return;
         }
 
         let separator = self.config.templates.deck_separator.replace("{nl}", "\n");
@@ -152,7 +179,7 @@ impl ColorService {
     ///   2. Copy   — if colors picked: clipboard + history; otherwise log "cancelled"
     ///   3. Save   — single disk write: config + history together
     ///   4. Notify — update tray menu from the already-current self.config
-    pub fn finalize_overlay(&mut self, overlay_config: &crate::core::config::Config, color_deck: Vec<image::Rgba<u8>>) {
+    pub fn finalize_overlay(&mut self, overlay_config: &crate::core::config::Config, color_deck: Vec<image::Rgba<u8>>, coord_deck: Vec<(i32, i32)>) {
         //    Sync: optics/HUD/format settings from overlay → daemon config
         self.config.magnifier.aperture = overlay_config.magnifier.aperture;
         self.config.magnifier.aim_size = overlay_config.magnifier.aim_size;
@@ -163,7 +190,7 @@ impl ColorService {
 
         //    Copy: if colors were picked — to clipboard + history
         if !color_deck.is_empty() {
-            self.copy_color(&color_deck);
+            self.copy_color(&color_deck, &coord_deck);
         } else {
             log_info("Selection cancelled.");
         }
@@ -180,5 +207,54 @@ impl ColorService {
     fn save_history_entry(&mut self, hex: String) {
         self.config.push_history(hex);
         // Do not call save() here — avoids a double disk write.
+    }
+
+    /// Handles platform-independent UserEvents — code shared by all three
+    /// event loops (Wayland calloop / X11 winit / Win32 message pump).
+    /// Platform-specific events (LaunchOverlay, ShowAbout, Quit) are handed
+    /// back to the caller as `Some(event)` — each loop has its own mechanics.
+    pub fn handle_user_event(&mut self, event: crate::daemon::UserEvent) -> Option<crate::daemon::UserEvent> {
+        use crate::daemon::UserEvent;
+        match event {
+            UserEvent::EditConfig => {
+                let config_path = Config::get_config_path();
+                log_info(&format!("Opening config in editor: {:?}", config_path));
+                let _ = open::that(config_path);
+                None
+            }
+            UserEvent::CopyFromHistory(hex) => {
+                let s = hex.trim_start_matches('#');
+                if let Ok(val) = u32::from_str_radix(s, 16) {
+                    let r = ((val >> 16) & 0xFF) as u8;
+                    let g = ((val >> 8) & 0xFF) as u8;
+                    let b = (val & 0xFF) as u8;
+                    // History entries carry no coordinates; defensive empty
+                    // slice → copy_color skips the inline coord prefix.
+                    self.copy_color(&[image::Rgba([r, g, b, 255])], &[]);
+                }
+                None
+            }
+            UserEvent::SelectTemplate(key) => {
+                log_step("Menu", &format!("Template selected: {}", key));
+                self.config.templates.selected = key;
+                self.config.save();
+                #[cfg(unix)]
+                crate::daemon::dbus_menu::DBusMenu::notify_template_changed(&self.config.templates.selected);
+                None
+            }
+            UserEvent::ToggleHUD => {
+                self.config.hud.show = !self.config.hud.show;
+                self.config.save();
+                log_step("Menu", &format!("HUD: {}", if self.config.hud.show { "on" } else { "off" }));
+                #[cfg(unix)]
+                crate::daemon::dbus_menu::DBusMenu::notify_hud_changed(self.config.hud.show);
+                None
+            }
+            UserEvent::OpenHomepage => {
+                crate::daemon::open_homepage();
+                None
+            }
+            other => Some(other),
+        }
     }
 }

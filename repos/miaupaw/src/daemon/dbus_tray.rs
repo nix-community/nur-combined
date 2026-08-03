@@ -47,9 +47,9 @@ const WATCHER_INTERFACE_NAME: &str = "org.kde.StatusNotifierWatcher";
 
 pub static DBUS_CONNECTION: std::sync::OnceLock<zbus::Connection> = std::sync::OnceLock::new();
 
-/// Last XDG activation token from GNOME Shell (via tray click).
-/// Used as parent_window when calling XDG Portal.
-pub static LAST_ACTIVATION_TOKEN: std::sync::Mutex<Option<String>> = std::sync::Mutex::new(None);
+// The activation-token slot lives in core/capture/portal.rs (consumer owns the slot);
+// we only fill it in provide_xdg_activation_token — a daemon→core arrow.
+use crate::core::capture::portal::LAST_ACTIVATION_TOKEN;
 
 pub struct DBusTray {
     _handle: tokio::task::JoinHandle<()>,
@@ -87,7 +87,7 @@ impl TrayItem {
     #[zbus(property)]
     fn icon_name(&self) -> String {
         use crate::core::config::{Config, TrayIcon};
-        match Config::load(true).system.tray_icon {
+        match Config::load_quiet().system.tray_icon {
             TrayIcon::Mono      => "ie-r-symbolic".to_string(),
             TrayIcon::Color
             | TrayIcon::MonoWhite
@@ -108,7 +108,7 @@ impl TrayItem {
     #[zbus(property)]
     fn icon_pixmap(&self) -> Vec<(i32, i32, Vec<u8>)> {
         use crate::core::config::{Config, TrayIcon};
-        match Config::load(true).system.tray_icon {
+        match Config::load_quiet().system.tray_icon {
             TrayIcon::Color     => TRAY_ICON_COLOR.clone(),
             TrayIcon::MonoWhite => TRAY_ICON_WHITE.clone(),
             TrayIcon::MonoBlack  => TRAY_ICON_BLACK.clone(),
@@ -213,7 +213,7 @@ impl TrayItem {
 impl DBusTray {
     pub fn new(proxy: EventSender) -> Result<Self> {
         use crate::core::config::{Config, TrayIcon};
-        if Config::load(true).system.tray_icon == TrayIcon::None {
+        if Config::load_quiet().system.tray_icon == TrayIcon::None {
             log_step("DBus", "Tray icon disabled (tray_icon = none)");
             return Ok(Self { _handle: tokio::spawn(async {}) });
         }

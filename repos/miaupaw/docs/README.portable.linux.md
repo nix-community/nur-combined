@@ -60,6 +60,21 @@ bindsym Alt+Shift+h exec pkill -SIGUSR2 ie-r
 
 ---
 
+## CLI
+
+Beyond the daemon, `ie-r` exposes a CLI surface for scripting:
+
+```bash
+ie-r --pick                  # interactive: overlay → stdout
+ie-r --pick -c               # → clipboard too
+ie-r --pixel 320,180 -f hex  # sample one pixel → stdout
+ie-r --help                  # colour-coded quick reference
+```
+
+Full reference: [github.com/miaupaw/ie-r/blob/master/docs/cli.md](https://github.com/miaupaw/ie-r/blob/master/docs/cli.md)
+
+---
+
 ## Configuration
 
 All settings live in `~/.config/ie-r/config.toml`. Created with defaults on first run. IE-R preserves your comments when updating the config.

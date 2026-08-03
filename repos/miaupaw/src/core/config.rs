@@ -1,8 +1,70 @@
-use std::sync::LazyLock;
+use std::sync::{LazyLock, OnceLock};
+use std::path::{Path, PathBuf};
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io::ErrorKind;
 use crate::core::terminal::{log_step, log_warn, log_error};
+
+// ==============================================================================
+// --- CONFIG PATH OVERRIDE (--config PATH) ---
+// Set once in main() before any Config::load / get_config_path call.
+// Becomes the single source of truth for *every* config load (initial,
+// hot-reload, save) — so daemon + override writes back into the override
+// path, headless/--pick paths read it without modification.
+// History path is NOT affected: history is per-system state, presets share it.
+// ==============================================================================
+
+static CONFIG_OVERRIDE_PATH: OnceLock<PathBuf> = OnceLock::new();
+
+/// Records the `--config PATH` override. Idempotent; second call is a no-op.
+/// Call this in `main()` *after* validating the path with [`validate_override`].
+pub fn set_config_override(path: PathBuf) {
+    let _ = CONFIG_OVERRIDE_PATH.set(path);
+}
+
+/// Read the override path if set. None means "use the default config location".
+pub fn get_config_override() -> Option<&'static PathBuf> {
+    CONFIG_OVERRIDE_PATH.get()
+}
+
+// ==============================================================================
+// --- PICK AVERAGE OVERRIDE (--average / --avg N) ---
+// CLI flag for box-filter sampling (N×N mean pool). Single value shared by:
+//   • probe modes (--pixel/--pixels/--stdin) — passed as aim_radius into
+//     PhysicalCanvas::sample_vector. Each probe path consumes its own
+//     Option<u32> directly; the static is for the --pick path only.
+//   • --pick mode — overrides `magnifier.aim_size` at overlay init, so
+//     both visual aim-frame and click-sample averaging follow one knob.
+// Daemon mode never sets this — daemon's aim_size stays config-driven.
+// ==============================================================================
+
+static PICK_AVERAGE_OVERRIDE: OnceLock<u32> = OnceLock::new();
+
+/// Records the `--average / --avg N` override for the --pick path.
+/// Set once in `main()` when dispatching Mode::Pick. Daemon path never sets.
+pub fn set_pick_average_override(v: u32) {
+    let _ = PICK_AVERAGE_OVERRIDE.set(v);
+}
+
+/// Read the override if set. None → use config.magnifier.aim_size as-is.
+pub fn get_pick_average_override() -> Option<u32> {
+    PICK_AVERAGE_OVERRIDE.get().copied()
+}
+
+/// Pre-flight check for `--config PATH`. Fails fast (caller exits 2) when
+/// the file is missing or unreadable — unlike the default path, where
+/// "missing" legitimately means "first run, seed defaults".
+pub fn validate_override(path: &Path) -> Result<(), String> {
+    if !path.exists() {
+        return Err(format!("config file not found: {}", path.display()));
+    }
+    if !path.is_file() {
+        return Err(format!("config path is not a file: {}", path.display()));
+    }
+    fs::read_to_string(path)
+        .map_err(|e| format!("cannot read {}: {}", path.display(), e))?;
+    Ok(())
+}
 
 // ==============================================================================
 // --- THE SACRED TEXT (DEFAULT TEMPLATE) ---
@@ -144,6 +206,8 @@ pub struct Config {
     #[serde(default)]
     pub history: HistoryConfig,
     #[serde(default)]
+    pub pick: PickConfig,
+    #[serde(default)]
     pub system: SystemConfig,
 }
 
@@ -161,6 +225,8 @@ pub struct MagnifierConfig {
     pub offset_y: i32,
     #[serde(default = "default_jump_threshold")]
     pub jump_threshold: i32,
+    #[serde(default = "default_show_aim")]
+    pub show_aim: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -223,6 +289,13 @@ pub struct PhysicsConfig {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct TemplatesConfig {
+    /// User's *interactive* format preference — mutated by the overlay
+    /// (digits 1..0 + finalize_overlay saving back to disk) and by the tray
+    /// menu. Read by daemon + `--pick`, where the user is present and can
+    /// react to a flip. **Probe modes (`--pixel` / `--pixels` / `--stdin` /
+    /// `--history`) do NOT read this field** — they use
+    /// `probe::default_format_for_probe()` to keep script output deterministic
+    /// regardless of interactive drift. See that function for the rationale.
     #[serde(default = "default_selected_template")]
     pub selected: String,
     #[serde(default = "default_float_precision")]
@@ -267,10 +340,28 @@ pub struct ShowTemplatesConfig {
     pub formats: indexmap::IndexMap<String, String>,
 }
 
+/// Pick behavior toggles. Defaults preserve classic eyedropper semantics;
+/// flipping these morphs the overlay into other modes (e.g. read-only magnifier)
+/// without touching gesture wiring — `OverlayApp::handle_action` early-returns
+/// on `PickColor` when `enabled = false` (one gate for all 13 connector
+/// callsites), and `ColorService::copy_color` honours `clipboard` /
+/// `write_history` independently.
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PickConfig {
+    #[serde(default = "default_pick_enabled")]
+    pub enabled: bool,
+    #[serde(default = "default_pick_clipboard")]
+    pub clipboard: bool,
+    #[serde(default = "default_pick_write_history")]
+    pub write_history: bool,
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct HistoryConfig {
     #[serde(default = "default_history_size")]
     pub size: usize,
+    #[serde(default = "default_history_show")]
+    pub show: usize,
     #[serde(default = "default_history_reverse")]
     pub reverse_order: bool,
     #[serde(default = "default_history_colors", skip_serializing)]
@@ -295,10 +386,30 @@ pub enum TrayIcon {
     None,      // no tray icon, SNI not registered
 }
 
+/// System cursor shown while the overlay is up. Three baseline choices —
+/// every backend has exact equivalents, so no per-platform leak.
+///
+/// `Crosshair` (default) preserves classic eyedropper behavior. `Default`
+/// uses the system arrow (handy for magnifier-mode presets where aiming
+/// is less important). `None` hides the cursor entirely (for a clean,
+/// chrome-less zoom — overlay's own aim marker still draws unless that's
+/// also disabled via [magnifier] show_aim).
+#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq)]
+#[serde(rename_all = "kebab-case")]
+#[derive(Default)]
+pub enum CursorStyle {
+    #[default]
+    Crosshair, // classic eyedropper — current behavior
+    Default,   // OS arrow / pointer
+    None,      // hidden — overlay's aim marker (if any) does the work
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct SystemConfig {
     #[serde(default)]
     pub tray_icon: TrayIcon,
+    #[serde(default)]
+    pub cursor: CursorStyle,
     #[serde(default = "default_auto_cancel")]
     pub auto_cancel: u64,
     #[cfg(windows)]
@@ -344,6 +455,7 @@ impl Default for TemplatesConfig { fn default() -> Self { DEFAULT_INSTANCE.templ
 impl Default for CopyTemplatesConfig { fn default() -> Self { DEFAULT_INSTANCE.templates.copy.clone() } }
 impl Default for ShowTemplatesConfig { fn default() -> Self { DEFAULT_INSTANCE.templates.show.clone() } }
 impl Default for HistoryConfig { fn default() -> Self { DEFAULT_INSTANCE.history.clone() } }
+impl Default for PickConfig { fn default() -> Self { DEFAULT_INSTANCE.pick.clone() } }
 impl Default for SystemConfig { fn default() -> Self { DEFAULT_INSTANCE.system.clone() } }
 
 fn default_aperture() -> u32 { DEFAULT_INSTANCE.magnifier.aperture }
@@ -352,6 +464,7 @@ fn default_size() -> u32 { DEFAULT_INSTANCE.magnifier.size }
 fn default_offset_x() -> i32 { DEFAULT_INSTANCE.magnifier.offset_x }
 fn default_offset_y() -> i32 { DEFAULT_INSTANCE.magnifier.offset_y }
 fn default_jump_threshold() -> i32 { DEFAULT_INSTANCE.magnifier.jump_threshold }
+fn default_show_aim() -> bool { DEFAULT_INSTANCE.magnifier.show_aim }
 fn default_frame() -> u32 { DEFAULT_INSTANCE.colors.frame }
 fn default_aim() -> u32 { DEFAULT_INSTANCE.colors.aim }
 fn default_background() -> u32 { DEFAULT_INSTANCE.colors.background }
@@ -388,7 +501,11 @@ fn default_tpl_vb() -> String { DEFAULT_INSTANCE.templates.copy.vb.clone() }
 fn default_tpl_long() -> String { DEFAULT_INSTANCE.templates.copy.long.clone() }
 fn default_line_spacing() -> f32 { DEFAULT_INSTANCE.templates.show.line_spacing }
 fn default_history_size() -> usize { DEFAULT_INSTANCE.history.size }
+fn default_history_show() -> usize { DEFAULT_INSTANCE.history.show }
 fn default_history_reverse() -> bool { DEFAULT_INSTANCE.history.reverse_order }
+fn default_pick_enabled() -> bool { DEFAULT_INSTANCE.pick.enabled }
+fn default_pick_clipboard() -> bool { DEFAULT_INSTANCE.pick.clipboard }
+fn default_pick_write_history() -> bool { DEFAULT_INSTANCE.pick.write_history }
 fn default_history_colors() -> Vec<String> {
     DEFAULT_HISTORY_COLORS.iter().map(|s| s.to_string()).collect()
 }
@@ -410,6 +527,12 @@ fn default_welcome_balloon() -> bool { DEFAULT_INSTANCE.system.welcome_balloon }
 
 impl Config {
     pub fn get_config_path() -> std::path::PathBuf {
+        // --config PATH wins over every default-location resolution.
+        // History path is intentionally NOT routed through here — see
+        // CONFIG_OVERRIDE_PATH comment at the top of this file.
+        if let Some(p) = get_config_override() {
+            return p.clone();
+        }
         #[cfg(windows)]
         { Self::get_config_path_windows() }
         #[cfg(not(windows))]
@@ -541,8 +664,18 @@ impl Config {
         Ok(())
     }
 
-    /// Loads config from disk. Falls back to defaults if the file is missing or invalid.
-    pub fn load(silent: bool) -> Self {
+    /// Loads config from disk, logging the path ("Target confirmed"). Daemon startup.
+    pub fn load() -> Self {
+        Self::load_impl(false)
+    }
+
+    /// Same, but without the INFO path log — hot-reload and probe modes.
+    pub fn load_quiet() -> Self {
+        Self::load_impl(true)
+    }
+
+    /// Falls back to defaults if the file is missing or invalid (+ backs up the broken one).
+    fn load_impl(silent: bool) -> Self {
         let path = Self::get_config_path();
         let mut loaded_from_config = false;
         let mut config = if let Ok(content) = fs::read_to_string(&path) {

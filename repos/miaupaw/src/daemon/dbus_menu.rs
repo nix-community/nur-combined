@@ -34,8 +34,13 @@ pub static DBUS_MENU_REVISION: std::sync::atomic::AtomicU32 = std::sync::atomic:
 /// One RwLock instead of five — atomic updates, no ordering concerns.
 struct MenuState {
     /// Color history in raw order (newest-first, before any reversal).
+    /// Full disk-cap (`config.history.size`) is kept here; the menu slice
+    /// is taken in `MenuSnapshot::take()` via `show`.
     history: Vec<String>,
-    /// History reversal flag. Applied on each MenuSnapshot::take().
+    /// Number of history items shown in the menu (`config.history.show`).
+    show: usize,
+    /// History reversal flag. Applied on each MenuSnapshot::take(),
+    /// only to the shown slice — saved order on disk stays chronological.
     reverse_order: bool,
     /// Optional external launcher override for wlroots popup fallback.
     menu_command: Option<Vec<String>>,
@@ -52,6 +57,7 @@ impl MenuState {
     fn new() -> Self {
         Self {
             history: Vec::new(),
+            show: 10,
             reverse_order: false,
             menu_command: None,
             selected_template: String::new(),
@@ -62,6 +68,24 @@ impl MenuState {
 }
 
 static MENU_STATE: LazyLock<RwLock<MenuState>> = LazyLock::new(|| RwLock::new(MenuState::new()));
+
+/// The history slice shown in the menu. Storage is newest-first
+/// (push_history inserts at index 0), so "the last `show` colors" = the
+/// first `show` elements. reverse_order flips the display order of THAT
+/// slice — not the whole history (otherwise take(show) on the reversed
+/// vec would return the oldest entries instead of the recent ones).
+fn slice_history_for_menu(history: &[String], show: usize, reverse_order: bool) -> Vec<String> {
+    let limit = show.min(history.len());
+    let mut slice: Vec<String> = history[..limit].to_vec();
+    if reverse_order {
+        slice.reverse();
+    }
+    slice
+}
+
+#[cfg(test)]
+#[path = "dbus_menu_tests.rs"]
+mod tests;
 
 /// Snapshot of menu state — single source of truth for both dbusmenu and external launchers.
 /// Read from caches (not disk), guaranteed consistent.
@@ -76,11 +100,7 @@ impl MenuSnapshot {
     /// Atomic snapshot of all menu state under a single read lock.
     pub fn take() -> Self {
         let state = MENU_STATE.read().unwrap();
-        let history = if state.reverse_order {
-            state.history.iter().rev().cloned().collect()
-        } else {
-            state.history.clone()
-        };
+        let history = slice_history_for_menu(&state.history, state.show, state.reverse_order);
         Self {
             history,
             menu_command: state.menu_command.clone(),
@@ -342,10 +362,11 @@ impl DBusMenu {
 
 impl DBusMenu {
     pub fn new(proxy: EventSender) -> Self {
-        let config = crate::core::config::Config::load(true);
+        let config = crate::core::config::Config::load_quiet();
         {
             let mut state = MENU_STATE.write().unwrap();
             state.history = config.history.colors;
+            state.show = config.history.show;
             state.reverse_order = config.history.reverse_order;
             state.selected_template = config.templates.selected.clone();
             state.show_hud = config.hud.show;
@@ -364,6 +385,7 @@ impl DBusMenu {
     fn sync_state(config: &crate::core::config::Config) {
         let mut state = MENU_STATE.write().unwrap();
         state.history = config.history.colors.clone();
+        state.show = config.history.show;
         state.reverse_order = config.history.reverse_order;
         state.menu_command = config.system.menu_command.clone();
         state.selected_template = config.templates.selected.clone();

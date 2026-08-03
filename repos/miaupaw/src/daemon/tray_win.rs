@@ -58,7 +58,7 @@ pub struct WinTray {
 
 impl WinTray {
     pub fn new(sender: EventSender, show_welcome: bool) -> Self {
-        let config = Config::load(true);
+        let config = Config::load_quiet();
         if config.system.tray_icon == TrayIcon::None {
             log_step("Tray", "Disabled by config (tray-icon = \"none\")");
             return Self { thread: None, hwnd: Arc::new(AtomicIsize::new(0)) };
@@ -311,7 +311,7 @@ unsafe extern "system" fn tray_wnd_proc(
 unsafe fn show_context_menu(hwnd: HWND, _sender: &EventSender) {
     unsafe {
         let hmenu = CreatePopupMenu().expect("CreatePopupMenu");
-        let config = Config::load(true);
+        let config = Config::load_quiet();
 
         // DPI-aware icon size: 16px at 96 DPI, scales with system DPI.
         // GetDeviceCaps works on Win 8.1+ (no GetDpiForSystem which is Win10+).
@@ -332,8 +332,9 @@ unsafe fn show_context_menu(hwnd: HWND, _sender: &EventSender) {
         let _ = AppendMenuW(hmenu, MF_SEPARATOR, 0, None);
 
         // ── Color history (flat list, newest first) ─────────────────
+        // `show` caps the visible slice; `size` is the disk storage cap.
         for (i, hex) in config.history.colors.iter().enumerate() {
-            if i >= config.history.size { break; }
+            if i >= config.history.show { break; }
             let id = IDM_HISTORY_BASE + i as u32;
             let wide: Vec<u16> = hex.encode_utf16().chain(std::iter::once(0)).collect();
             let _ = AppendMenuW(hmenu, MF_STRING, id as usize, PCWSTR(wide.as_ptr()));
@@ -521,7 +522,7 @@ fn handle_menu_command(sender: &EventSender, id: u32) {
         _ if (IDM_HISTORY_BASE..IDM_HISTORY_BASE + 100).contains(&id) =>
         {
             // Re-read config to get color at this index
-            let config = Config::load(true);
+            let config = Config::load_quiet();
             let idx = (id - IDM_HISTORY_BASE) as usize;
             if let Some(hex) = config.history.colors.get(idx) {
                 sender.send(UserEvent::CopyFromHistory(hex.clone()));

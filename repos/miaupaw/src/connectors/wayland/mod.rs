@@ -1,4 +1,5 @@
 mod delegates;
+pub mod headless; // CaptureContext — headless bring-up for CLI --pixel path
 mod input;
 mod render;
 pub mod oracle; // Oracle — single source of truth for coordinate transformations
@@ -193,6 +194,51 @@ impl IEWaylandState {
     /// Safe to call with no overlay active — just sets the flag.
     pub fn request_redraw(&mut self) {
         self.needs_redraw = true;
+    }
+
+    /// headless CaptureContext (CLI).
+    /// Collects all monitor passports (OutputMeta) from OutputState — the
+    /// single point for three consumers: the daemon (launch_overlay), the
+    /// About window, and the headless CaptureContext (CLI).
+    ///
+    /// The fallback cascade comes from headless practice: many compositors
+    /// never send xdg-output to a windowless client, so a missing
+    /// logical_size is reconstructed from the physical mode / scale_factor.
+    /// The daemon normally gets xdg-output fine — for it this is insurance.
+    pub fn collect_output_meta(&self) -> Vec<crate::core::capture::OutputMeta> {
+        self.output_state
+            .outputs()
+            .map(|o| {
+                let info = self.output_state.info(&o);
+                let name = info.as_ref().and_then(|i| i.name.clone()).unwrap_or_default();
+                let scale = info.as_ref().map(|i| i.scale_factor.max(1)).unwrap_or(1);
+                let cur_mode = info
+                    .as_ref()
+                    .and_then(|i| i.modes.iter().find(|m| m.current).map(|m| m.dimensions));
+                let logical_pos = info
+                    .as_ref()
+                    .and_then(|i| i.logical_position)
+                    .or_else(|| info.as_ref().map(|i| i.location))
+                    .unwrap_or((0, 0));
+                let (logical_w, logical_h) = info
+                    .as_ref()
+                    .and_then(|i| i.logical_size)
+                    .or_else(|| cur_mode.map(|(w, h)| (w / scale, h / scale)))
+                    .unwrap_or((0, 0));
+                let transform = info
+                    .as_ref()
+                    .map(|i| i.transform)
+                    .unwrap_or(wl_output::Transform::Normal);
+                crate::core::capture::OutputMeta {
+                    output: o,
+                    name,
+                    logical_pos,
+                    logical_w,
+                    logical_h,
+                    transform,
+                }
+            })
+            .collect()
     }
 
     pub fn dispatch(&mut self, action: UserAction) -> bool {

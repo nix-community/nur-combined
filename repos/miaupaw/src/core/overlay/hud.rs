@@ -100,6 +100,15 @@ pub struct Hud {
     // --- Tearing ---
     tear_state: Option<TearState>,
 
+    // --- Damage Bookkeeping ---
+    /// The previous rendered frame's full rect. An explicit invariant: before
+    /// damage narrowing the deque received the full rect EVERY frame, which
+    /// implicitly insured the previous position when a slide-out began. The
+    /// insurance is now explicit: a frame where the position changed pushes
+    /// union(previous, current) — otherwise the first jump's right strip is
+    /// orphaned (a trail up to 40% of the HUD wide).
+    prev_rect: Option<(i32, i32, usize, usize)>,
+
     // --- Cold Boot Flag ---
     /// First frame of life. If the cursor is already in the danger zone — don't pretend
     /// we were here, just vanish silently. No panic allowed.
@@ -124,6 +133,7 @@ impl Hud {
             just_reset: show,
             chroma_state: None,
             tear_state: None,
+            prev_rect: None,
             text_renderer: TextRenderer::new(font_data, FONT_SIZE as f32 * scale_factor as f32),
         }
     }
@@ -141,6 +151,14 @@ impl Hud {
     /// Invalidates cache (called on format change, font change, etc.)
     pub fn invalidate_cache(&mut self) {
         self.cache_valid = false;
+    }
+
+    /// The goodbye rect for paths where the HUD stops being drawn WITHOUT a
+    /// slide-out (the blink branch never calls render). The taker must push
+    /// it into the deque — otherwise the HUD's last position is orphaned as a
+    /// phantom. One-shot: take.
+    pub fn take_prev_rect(&mut self) -> Option<(i32, i32, usize, usize)> {
+        self.prev_rect.take()
     }
 
     /// Reset on overlay close / cursor loss.
@@ -248,6 +266,16 @@ impl Hud {
     /// **HUD rendering.**
     ///
     /// Returns dirty rect `(x, y, w, h)` if HUD was drawn, `None` if hidden.
+    ///
+    /// **Content vs damage are two separate contracts.** The HUD pixels in the
+    /// canvas are fully correct EVERY frame (the full cache blit guards
+    /// against round-robin SHM buffers lagging several frames behind, and
+    /// against cold buffers after a full copy). Damage, however, only needs
+    /// to cover the diff between surface commits: in the static state that is
+    /// the breathing '///' plus glitch bands — the returned rect narrows to
+    /// their union. Animation or cache rebuild — full rect, as before. Always
+    /// exactly ONE rect per frame: the `MAX_DIRTY_RECTS_PER_FRAME` budget
+    /// does not grow.
     #[allow(clippy::too_many_arguments)]
     pub fn render(
         &mut self,
@@ -293,7 +321,11 @@ impl Hud {
         let cy_offset = (draw_y - y) as usize;
 
         // --- Caching ---
-        if self.is_animating || !self.cache_valid || self.cache.len() != hud_w * hud_h {
+        // Captured BEFORE the branch: it arms cache_valid inside, while the
+        // damage decision at the end must see the state the frame began with.
+        let full_redraw = self.is_animating || !self.cache_valid || self.cache.len() != hud_w * hud_h;
+
+        if full_redraw {
             draw_base(
                 canvas, width, height, bg_buffer, blur_buf_1, blur_buf_2,
                 &self.text_renderer, config, theme,
@@ -338,8 +370,18 @@ impl Hud {
             .map(|ts| ts.born.elapsed().as_millis() >= ts.duration_ms as u128)
             .unwrap_or(true);
 
+        // A dead glitch's band gets one last damage push: the previous surface
+        // commit still contained it, the content is already restored by the
+        // cache blit.
+        let mut expired_bands: Option<(i32, i32, usize, usize)> = None;
+
         if tear_expired {
-            self.tear_state = None;
+            if let Some(ts) = self.tear_state.take() {
+                for band in &ts.bands {
+                    let r = band_rect(draw_x, draw_y, uw, uh, band.band_y, band.band_h);
+                    expired_bands = Some(merge_rect(expired_bands, r));
+                }
+            }
             if is_glitching {
                 let mut seed = elapsed_ms as u32 ^ 0x7E_A8_BA_5E;
                 let mut rng = || -> u32 { seed ^= seed << 13; seed ^= seed >> 17; seed ^= seed << 5; seed };
@@ -378,7 +420,12 @@ impl Hud {
             .unwrap_or(true);
 
         if chroma_expired {
-            self.chroma_state = None;
+            if let Some(cs) = self.chroma_state.take() {
+                for band in &cs.bands {
+                    let r = band_rect(draw_x, draw_y, uw, uh, band.band_y, band.band_h);
+                    expired_bands = Some(merge_rect(expired_bands, r));
+                }
+            }
             if is_glitching {
                 // Pseudo-random from elapsed_ms — new seed each frame, deterministic for a given ms
                 let mut seed = elapsed_ms as u32 ^ 0xCA_FE_BA_BE;
@@ -400,7 +447,80 @@ impl Hud {
             apply_persistent_chroma(canvas, width, draw_x as usize, draw_y as usize, uw, uh, cs);
         }
 
-        Some((x, y, hud_w, hud_h))
+        // --- Damage ---
+        // Animation / cache rebuild / position shift → union(previous, current)
+        // full rect: the previous position must enter the deque (restore +
+        // damage), or the vacated strip is orphaned. Static in place → the
+        // union of the dynamics: breathing '///' + live glitch bands + bands
+        // that died this frame.
+        let full_rect = (x, y, hud_w, hud_h);
+        let prev = self.prev_rect.replace(full_rect);
+
+        if full_redraw || prev != Some(full_rect) {
+            return Some(match prev {
+                Some(p) => merge_rect(Some(p), full_rect),
+                None => full_rect,
+            });
+        }
+
+        // The breathing '///' in the header is the only unconditional dynamic.
+        let slash_w = self.text_renderer.measure_text_width("/") * 0.4;
+        let text_h = self.text_renderer.metrics.height * 0.4;
+        let mut damage = (
+            x + (40.0 * scale).round() as i32 - 4,
+            y + (30.0 * scale).round() as i32 - 4,
+            (slash_w * 3.0).ceil() as usize + 8,
+            text_h.ceil() as usize + 8,
+        );
+
+        if let Some(ref ts) = self.tear_state {
+            for band in &ts.bands {
+                let r = band_rect(draw_x, draw_y, uw, uh, band.band_y, band.band_h);
+                damage = merge_rect(Some(damage), r);
+            }
+        }
+        if let Some(ref cs) = self.chroma_state {
+            for band in &cs.bands {
+                let r = band_rect(draw_x, draw_y, uw, uh, band.band_y, band.band_h);
+                damage = merge_rect(Some(damage), r);
+            }
+        }
+        if expired_bands.is_some() {
+            damage = merge_rect(expired_bands, damage);
+        }
+
+        Some(damage)
+    }
+}
+
+/// A glitch band in screen coordinates (clipped to the HUD's visible area).
+fn band_rect(
+    draw_x: i32,
+    draw_y: i32,
+    uw: usize,
+    uh: usize,
+    band_y: usize,
+    band_h: usize,
+) -> (i32, i32, usize, usize) {
+    let by = band_y.min(uh);
+    let bh = band_h.min(uh - by);
+    (draw_x, draw_y + by as i32, uw, bh)
+}
+
+/// Union of two dirty rects (None = the second one as is).
+fn merge_rect(
+    a: Option<(i32, i32, usize, usize)>,
+    b: (i32, i32, usize, usize),
+) -> (i32, i32, usize, usize) {
+    match a {
+        None => b,
+        Some(a) => {
+            let x = a.0.min(b.0);
+            let y = a.1.min(b.1);
+            let x2 = (a.0 + a.2 as i32).max(b.0 + b.2 as i32);
+            let y2 = (a.1 + a.3 as i32).max(b.1 + b.3 as i32);
+            (x, y, (x2 - x) as usize, (y2 - y) as usize)
+        }
     }
 }
 
@@ -573,7 +693,7 @@ fn draw_base(
         1, 0x0AFFFFFF,
     );
 
-    let footer_text = "IE-R v0.1.1 // DIGITAL SENSOR";
+    let footer_text = "IE-R v0.1.2 // DIGITAL SENSOR";
     let footer_scale = 0.28;
     let footer_width = text_renderer.measure_text_width(footer_text) * footer_scale;
     text_renderer.draw_text_scaled(

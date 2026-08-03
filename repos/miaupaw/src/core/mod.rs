@@ -1,6 +1,6 @@
 pub mod about;
 pub mod capture;
-pub mod color_service;
+pub mod clipboard;
 pub mod config;
 pub mod formats;
 pub mod metrics;

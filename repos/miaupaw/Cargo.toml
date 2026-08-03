@@ -1,6 +1,6 @@
 [package]
 name = "ie-r"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 
 # ── Cross-platform ────────────────────────────────────────────────
@@ -12,6 +12,7 @@ fontdb = "0.23.0"
 global-hotkey = "0.6.0"
 image = { version = "0.25.9", default-features = false, features = ["png"] }
 indexmap = { version = "2.7.1", features = ["serde"] }
+lexopt = "0.3"
 open = "5"
 serde = { version = "1.0.228", features = ["derive"] }
 tempfile = "3.10"

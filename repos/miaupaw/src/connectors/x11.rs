@@ -1,6 +1,6 @@
 /// X11/Winit Connector
 /// Full-featured driver for the X11 (XWayland) environment.
-/// Resurrects the original architecture from commit 4e0359f:
+/// Resurrects the pre-refactor daemon architecture:
 ///   - One EventLoop<UserEvent> per process (critical for Winit)
 ///   - DaemonApp implements ApplicationHandler<UserEvent>
 ///   - OverlayApp creates/destroys the window via resumed()/window_event()
@@ -8,14 +8,15 @@
 ///   - Buffer recycling between launches
 ///
 /// Launch: WAYLAND_DISPLAY="" cargo run
+use crate::connectors::keymap;
 use crate::core::capture;
-use crate::core::color_service::ColorService;
+use crate::daemon::color_service::ColorService;
 use crate::core::overlay::{OverlayApp, UserAction};
 use crate::daemon::UserEvent;
 use crate::daemon::dbus_tray::DBusTray;
 use crate::daemon::event_sender::EventSender;
 use crate::daemon::scout::Scout;
-use crate::core::terminal::{log_step, log_info, log_warn, log_error};
+use crate::core::terminal::{log_step, log_info, log_error};
 // ─── X11 Overlay Window ──────────────────────────────────────────────────────
 
 use anyhow::Result;
@@ -63,7 +64,7 @@ impl X11OverlayWindow {
             ctrl_pressed: false,
             alt_pressed: false,
             monitors: Vec::new(),
-            prev_dirty_rects: std::collections::VecDeque::with_capacity(12),
+            prev_dirty_rects: std::collections::VecDeque::with_capacity(crate::core::overlay::DIRTY_RECT_HISTORY + 2),
         }
     }
 
@@ -103,7 +104,15 @@ impl X11OverlayWindow {
         }
 
         let window = Arc::new(event_loop.create_window(win_attr).unwrap());
-        window.set_cursor(CursorIcon::Crosshair);
+        // Cursor per config (default = Crosshair). Only the main overlay
+        // cursor follows the config; transient Default flips (post-pick,
+        // blink) stay as-is — they're UI state, not user policy.
+        use crate::core::config::CursorStyle;
+        match self.app.config.system.cursor {
+            CursorStyle::Crosshair => window.set_cursor(CursorIcon::Crosshair),
+            CursorStyle::Default   => window.set_cursor(CursorIcon::Default),
+            CursorStyle::None      => window.set_cursor_visible(false),
+        }
 
         // Explicitly set the window size.
         // Priority: root_size from XCB (giant window = full virtual desktop),
@@ -197,7 +206,7 @@ impl X11OverlayWindow {
         // Always show the magnifier immediately. Under XWayland it may appear
         // at a stale position, but that is better than an invisible eyedropper.
         self.mouse_pos = Some(initial_pos);
-        self.app.update_physical_mouse(initial_pos.x, initial_pos.y);
+        self.app.update_cursor(initial_pos.x, initial_pos.y);
 
         // Set initial monitor_rect so magnifier clamps correctly from the first frame.
         self.app.monitor_rect = Self::monitor_rect_at(&self.monitors, initial_pos.x as i32, initial_pos.y as i32);
@@ -323,7 +332,7 @@ impl X11OverlayWindow {
                 }
 
                 self.mouse_pos = Some(position);
-                self.app.update_physical_mouse(position.x, position.y);
+                self.app.update_cursor(position.x, position.y);
                 self.app.monitor_rect = Self::monitor_rect_at(
                     &self.monitors, position.x as i32, position.y as i32,
                 );
@@ -339,19 +348,12 @@ impl X11OverlayWindow {
                 };
                 let zoom_delta = y.partial_cmp(&0.0).map_or(0, |o| o as i32);
                 if zoom_delta != 0 {
-                    // Handle mouse actions respecting modifiers (Ctrl/Shift).
-                    if self.ctrl_pressed {
-                        self.app
-                            .handle_action(UserAction::ChangeFontSize(zoom_delta));
-                    } else if self.shift_pressed {
-                        self.app
-                            .handle_action(UserAction::ResizeMagnifier(zoom_delta));
-                    } else if self.alt_pressed {
-                        self.app
-                            .handle_action(UserAction::ChangeAimSize(zoom_delta));
-                    } else {
-                        self.app.handle_action(UserAction::Zoom(zoom_delta));
-                    }
+                    let mods = keymap::Mods {
+                        shift: self.shift_pressed,
+                        ctrl: self.ctrl_pressed,
+                        alt: self.alt_pressed,
+                    };
+                    self.app.handle_action(keymap::wheel_action(mods, zoom_delta));
                     if let Some(window) = &self.window {
                         window.request_redraw();
                     }
@@ -388,17 +390,28 @@ impl X11OverlayWindow {
 
 // ─── X11 Daemon ──────────────────────────────────────────────────────────────
 // Implements ApplicationHandler for the Winit EventLoop,
-// mirroring the original DaemonApp from 4e0359f.
+// mirroring the original DaemonApp implementation.
 
 struct X11DaemonApp {
     svc: ColorService,
-    _tray: DBusTray,
-    _scout: Scout,
+    // RAII keep-alives; `None` in `--pick` one-shot (no tray icon, no
+    // global-hotkey grab that would clash with a running daemon).
+    _tray: Option<DBusTray>,
+    _scout: Option<Scout>,
     overlay: Option<X11OverlayWindow>,
+    /// `Some` for `ie-r --pick` one-shot: skip tray/scout, auto-launch
+    /// the overlay on resume, finalize via `probe::finish_pick` (relay-
+    /// redirect + `process::exit`) instead of `svc.finalize_overlay`.
+    pick_req: Option<crate::cli::PickReq>,
 }
 
 impl X11DaemonApp {
-    fn new(svc: ColorService, tray: DBusTray, scout: Scout) -> Self {
+    fn new(
+        svc: ColorService,
+        tray: Option<DBusTray>,
+        scout: Option<Scout>,
+        pick_req: Option<crate::cli::PickReq>,
+    ) -> Self {
         // KWin script: skipTaskbar + keepAbove.
         if let Some(ref conn) = svc.dbus_conn {
             Self::install_kwin_skip_taskbar(conn);
@@ -409,6 +422,7 @@ impl X11DaemonApp {
             _tray: tray,
             _scout: scout,
             overlay: None,
+            pick_req,
         }
     }
 
@@ -520,13 +534,15 @@ impl X11DaemonApp {
                 }
             }
             Err(e) => {
-                log_warn("KWin Scripting not available (expected on non-KDE):");
+                // Expected on non-KDE — downgrade to INFO so it stays out of
+                // the default Normal-tier stderr. Verbose still sees it.
+                log_info("KWin Scripting not available (expected on non-KDE):");
                 let err_str = e.to_string();
                 if let Some((first, second)) = err_str.split_once(": ") {
-                    log_warn(&format!("{}:", first));
-                    log_warn(second);
+                    log_info(&format!("{}:", first));
+                    log_info(second);
                 } else {
-                    log_warn(&err_str);
+                    log_info(&err_str);
                 }
             }
         }
@@ -534,51 +550,33 @@ impl X11DaemonApp {
 }
 
 impl ApplicationHandler<UserEvent> for X11DaemonApp {
-    fn resumed(&mut self, _event_loop: &ActiveEventLoop) {
-        log_info("Daemon resumed/ready. Waiting for hotkeys...");
+    fn resumed(&mut self, event_loop: &ActiveEventLoop) {
+        if self.pick_req.is_some() {
+            // `ie-r --pick` one-shot: no tray, no hotkey wait — overlay up immediately.
+            log_info("Pick mode (X11) — launching overlay...");
+            self.launch_overlay(event_loop, None);
+        } else {
+            log_info("Daemon resumed/ready. Waiting for hotkeys...");
+        }
     }
 
     fn user_event(&mut self, event_loop: &ActiveEventLoop, event: UserEvent) {
+        // Platform-independent events are absorbed by ColorService::handle_user_event;
+        // only platform-specific ones (overlay/quit/about) come back here.
+        let Some(event) = self.svc.handle_user_event(event) else { return };
         match event {
-            UserEvent::ToggleHUD => {
-                self.svc.config.hud.show = !self.svc.config.hud.show;
-                self.svc.config.save();
-                crate::daemon::dbus_menu::DBusMenu::notify_hud_changed(self.svc.config.hud.show);
-            }
             UserEvent::LaunchOverlay(coords) => {
                 log_info("LaunchOverlay event received!");
                 self.launch_overlay(event_loop, coords);
-            }
-            UserEvent::OpenHomepage => {
-                crate::daemon::open_homepage();
             }
             UserEvent::Quit => {
                 log_info("Quit event received.");
                 event_loop.exit();
             }
-            UserEvent::EditConfig => {
-                let config_path = crate::core::config::Config::get_config_path();
-                log_info(&format!("Opening config in editor: {:?}", config_path));
-                let _ = open::that(config_path);
-            }
-            UserEvent::CopyFromHistory(hex) => {
-                let s = hex.trim_start_matches('#');
-                if let Ok(val) = u32::from_str_radix(s, 16) {
-                    let r = ((val >> 16) & 0xFF) as u8;
-                    let g = ((val >> 8) & 0xFF) as u8;
-                    let b = (val & 0xFF) as u8;
-                    self.svc.copy_color(&[image::Rgba([r, g, b, 255])]);
-                }
-            }
-            UserEvent::SelectTemplate(key) => {
-                log_step("Menu", &format!("Template selected: {}", key));
-                self.svc.config.templates.selected = key.clone();
-                self.svc.config.save();
-                crate::daemon::dbus_menu::DBusMenu::notify_template_changed(&key);
-            }
             UserEvent::ShowAbout => {
                 // TODO: X11 About window
             }
+            _ => {}
         }
     }
 
@@ -600,8 +598,12 @@ impl ApplicationHandler<UserEvent> for X11DaemonApp {
                 }
 
             if ow.app.should_exit {
-                let color_deck = ow.app.take_color_deck();
-                self.svc.finalize_overlay(&ow.app.config, color_deck);
+                let session = ow.app.take_session();
+                if let Some(req) = self.pick_req.as_ref() {
+                    // --pick one-shot: relay-redirect + exit. Never returns.
+                    crate::probe::finish_pick(&mut self.svc, session.colors, session.coords, session.phys_coords, req);
+                }
+                self.svc.finalize_overlay(&session.config, session.colors, session.coords);
                 should_close = true;
             }
         }
@@ -624,125 +626,94 @@ impl ApplicationHandler<UserEvent> for X11DaemonApp {
 
         if let Some(ow) = &mut self.overlay
             && let DeviceEvent::Key(key) = event {
+                let pressed = key.state == ElementState::Pressed;
+                let mods = keymap::Mods {
+                    shift: ow.shift_pressed,
+                    ctrl: ow.ctrl_pressed,
+                    alt: ow.alt_pressed,
+                };
                 let mut needs_wake = false;
-                match key.physical_key {
-                    PhysicalKey::Code(KeyCode::Escape) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::Cancel);
+
+                // Digit row (top + numpad) → digit as typed; the policy lives in keymap.
+                let digit = match key.physical_key {
+                    PhysicalKey::Code(KeyCode::Digit1) | PhysicalKey::Code(KeyCode::Numpad1) => Some(1),
+                    PhysicalKey::Code(KeyCode::Digit2) | PhysicalKey::Code(KeyCode::Numpad2) => Some(2),
+                    PhysicalKey::Code(KeyCode::Digit3) | PhysicalKey::Code(KeyCode::Numpad3) => Some(3),
+                    PhysicalKey::Code(KeyCode::Digit4) | PhysicalKey::Code(KeyCode::Numpad4) => Some(4),
+                    PhysicalKey::Code(KeyCode::Digit5) | PhysicalKey::Code(KeyCode::Numpad5) => Some(5),
+                    PhysicalKey::Code(KeyCode::Digit6) | PhysicalKey::Code(KeyCode::Numpad6) => Some(6),
+                    PhysicalKey::Code(KeyCode::Digit7) | PhysicalKey::Code(KeyCode::Numpad7) => Some(7),
+                    PhysicalKey::Code(KeyCode::Digit8) | PhysicalKey::Code(KeyCode::Numpad8) => Some(8),
+                    PhysicalKey::Code(KeyCode::Digit9) | PhysicalKey::Code(KeyCode::Numpad9) => Some(9),
+                    PhysicalKey::Code(KeyCode::Digit0) | PhysicalKey::Code(KeyCode::Numpad0) => Some(0),
+                    _ => None,
+                };
+                // Arrows → direction vector; Jump-vs-Nudge is keymap's call.
+                let arrow = match key.physical_key {
+                    PhysicalKey::Code(KeyCode::ArrowUp) => Some((0, -1)),
+                    PhysicalKey::Code(KeyCode::ArrowDown) => Some((0, 1)),
+                    PhysicalKey::Code(KeyCode::ArrowLeft) => Some((-1, 0)),
+                    PhysicalKey::Code(KeyCode::ArrowRight) => Some((1, 0)),
+                    _ => None,
+                };
+
+                if let Some(d) = digit {
+                    if pressed && let Some(act) = keymap::digit_action(d) {
+                        ow.app.handle_action(act);
                         needs_wake = true;
                     }
-                    PhysicalKey::Code(KeyCode::Backquote) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::ToggleHud);
+                } else if let Some((dx, dy)) = arrow {
+                    if pressed {
+                        ow.app.handle_action(keymap::arrow_action(mods, dx, dy));
                         needs_wake = true;
+                    } else {
+                        ow.app.handle_action(keymap::arrow_release(dx, dy));
                     }
-                    PhysicalKey::Code(KeyCode::Digit1) | PhysicalKey::Code(KeyCode::Numpad1)
-                        if key.state == ElementState::Pressed =>
-                    {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(1));
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit2) | PhysicalKey::Code(KeyCode::Numpad2)
-                        if key.state == ElementState::Pressed =>
-                    {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(2));
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit3) | PhysicalKey::Code(KeyCode::Numpad3)
-                        if key.state == ElementState::Pressed =>
-                    {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(3));
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit4) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(4)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit5) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(5)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit6) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(6)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit7) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(7)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit8) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(8)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit9) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(9)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Digit0) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::SelectFormatDigit(0)); needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::ShiftLeft)
-                    | PhysicalKey::Code(KeyCode::ShiftRight) => {
-                        ow.shift_pressed = key.state == ElementState::Pressed;
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::ControlLeft)
-                    | PhysicalKey::Code(KeyCode::ControlRight) => {
-                        ow.ctrl_pressed = key.state == ElementState::Pressed;
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::AltLeft)
-                    | PhysicalKey::Code(KeyCode::AltRight) => {
-                        ow.alt_pressed = key.state == ElementState::Pressed;
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::ArrowUp) => {
-                        let action = if ow.ctrl_pressed || ow.shift_pressed { UserAction::Jump(0, -1) } else { UserAction::Nudge(0, -1) };
-                        if key.state == ElementState::Pressed {
-                            ow.app.handle_action(action);
+                } else {
+                    match key.physical_key {
+                        PhysicalKey::Code(KeyCode::Escape) if pressed => {
+                            ow.app.handle_action(UserAction::Cancel);
                             needs_wake = true;
-                        } else {
-                            ow.app.handle_action(UserAction::KeyRelease { dx: 0, dy: -1 });
                         }
-                    }
-                    PhysicalKey::Code(KeyCode::ArrowDown) => {
-                        let action = if ow.ctrl_pressed || ow.shift_pressed { UserAction::Jump(0, 1) } else { UserAction::Nudge(0, 1) };
-                        if key.state == ElementState::Pressed {
-                            ow.app.handle_action(action);
+                        PhysicalKey::Code(KeyCode::Backquote) if pressed => {
+                            ow.app.handle_action(UserAction::ToggleHud);
                             needs_wake = true;
-                        } else {
-                            ow.app.handle_action(UserAction::KeyRelease { dx: 0, dy: 1 });
                         }
-                    }
-                    PhysicalKey::Code(KeyCode::ArrowLeft) => {
-                        let action = if ow.ctrl_pressed || ow.shift_pressed { UserAction::Jump(-1, 0) } else { UserAction::Nudge(-1, 0) };
-                        if key.state == ElementState::Pressed {
-                            ow.app.handle_action(action);
+                        PhysicalKey::Code(KeyCode::ShiftLeft)
+                        | PhysicalKey::Code(KeyCode::ShiftRight) => {
+                            ow.shift_pressed = pressed;
                             needs_wake = true;
-                        } else {
-                            ow.app.handle_action(UserAction::KeyRelease { dx: -1, dy: 0 });
                         }
-                    }
-                    PhysicalKey::Code(KeyCode::ArrowRight) => {
-                        let action = if ow.ctrl_pressed || ow.shift_pressed { UserAction::Jump(1, 0) } else { UserAction::Nudge(1, 0) };
-                        if key.state == ElementState::Pressed {
-                            ow.app.handle_action(action);
+                        PhysicalKey::Code(KeyCode::ControlLeft)
+                        | PhysicalKey::Code(KeyCode::ControlRight) => {
+                            ow.ctrl_pressed = pressed;
                             needs_wake = true;
-                        } else {
-                            ow.app.handle_action(UserAction::KeyRelease { dx: 1, dy: 0 });
                         }
+                        PhysicalKey::Code(KeyCode::AltLeft)
+                        | PhysicalKey::Code(KeyCode::AltRight) => {
+                            ow.alt_pressed = pressed;
+                            needs_wake = true;
+                        }
+                        PhysicalKey::Code(KeyCode::Enter) | PhysicalKey::Code(KeyCode::NumpadEnter)
+                            if pressed =>
+                        {
+                            ow.app.handle_action(UserAction::PickColor { serial: ow.shift_pressed });
+                            if ow.app.blink.is_some()
+                                && let Some(w) = &ow.window {
+                                    w.set_cursor(winit::window::CursorIcon::Default);
+                                }
+                            needs_wake = true;
+                        }
+                        PhysicalKey::Code(KeyCode::Space) if pressed => {
+                            ow.app.handle_action(UserAction::PickColor { serial: true });
+                            if ow.app.blink.is_some()
+                                && let Some(w) = &ow.window {
+                                    w.set_cursor(winit::window::CursorIcon::Default);
+                                }
+                            needs_wake = true;
+                        }
+                        _ => {}
                     }
-                    PhysicalKey::Code(KeyCode::Enter) | PhysicalKey::Code(KeyCode::NumpadEnter)
-                        if key.state == ElementState::Pressed =>
-                    {
-                        ow.app.handle_action(UserAction::PickColor { serial: ow.shift_pressed });
-                        if ow.app.blink.is_some()
-                            && let Some(w) = &ow.window {
-                                w.set_cursor(winit::window::CursorIcon::Default);
-                            }
-                        needs_wake = true;
-                    }
-                    PhysicalKey::Code(KeyCode::Space) if key.state == ElementState::Pressed => {
-                        ow.app.handle_action(UserAction::PickColor { serial: true });
-                        if ow.app.blink.is_some()
-                            && let Some(w) = &ow.window {
-                                w.set_cursor(winit::window::CursorIcon::Default);
-                            }
-                        needs_wake = true;
-                    }
-                    _ => {}
                 }
 
                 // "Kick" the event loop to process changes immediately.
@@ -788,7 +759,7 @@ impl ApplicationHandler<UserEvent> for X11DaemonApp {
 /// Returns a ScreenCapture sized to the X11 root (= virtual desktop that
 /// spans all monitors). The overlay window is created at the same size, so
 /// cursor and capture coordinates match 1:1 with no heuristics.
-fn capture_x11_root() -> anyhow::Result<capture::ScreenCapture> {
+pub fn capture_x11_root() -> anyhow::Result<capture::ScreenCapture> {
     use x11rb::connection::Connection;
     use x11rb::protocol::xproto::{ConnectionExt, ImageFormat};
 
@@ -842,19 +813,30 @@ fn capture_x11_root() -> anyhow::Result<capture::ScreenCapture> {
 
 use crate::core::terminal::print_logo;
 
-/// Launches the daemon in X11 mode. Original architecture from 4e0359f.
+/// Launches the daemon in X11 mode. Pre-refactor architecture.
 /// Blocks the current thread indefinitely (Winit EventLoop).
-pub fn run_x11_daemon(svc: ColorService) -> Result<()> {
-    print_logo();
+///
+/// When `pick = Some(_)`, behaves as `ie-r --pick` one-shot: skips
+/// tray/scout/signal handlers, raises the overlay in `resumed()`, and on
+/// close finalizes via `probe::finish_pick` (relay-redirect + `process::exit`).
+pub fn run_x11_daemon(svc: ColorService, pick: Option<crate::cli::PickReq>) -> Result<()> {
+    let oneshot = pick.is_some();
+    if !oneshot {
+        print_logo();
+    }
     log_info("X11 Winit backend active");
-    log_info("...");
-    log_info("To trigger IE-R, bind system shortcuts to UNIX signals:");
-    log_info("SIGUSR1 (Pick Color): pkill -SIGUSR1 ie-r");
-    log_info("SIGUSR2 (Open Menu):  pkill -SIGUSR2 ie-r");
-    log_info("i3/bspwm/sxhkd example:");
-    log_info("bindsym $mod+Shift+p exec pkill -SIGUSR1 ie-r");
+    if !oneshot {
+        log_info("...");
+        log_info("To trigger IE-R, bind system shortcuts to UNIX signals:");
+        log_info("SIGUSR1 (Pick Color): pkill -SIGUSR1 ie-r");
+        log_info("SIGUSR2 (Open Menu):  pkill -SIGUSR2 ie-r");
+        log_info("i3/bspwm/sxhkd example:");
+        log_info("bindsym $mod+Shift+p exec pkill -SIGUSR1 ie-r");
+    }
 
-    let scout = Scout::new(&svc.config.system.hotkey)?;
+    // Skip the global-hotkey grab on one-shot — it would clash with a
+    // running daemon's grab.
+    let scout = if oneshot { None } else { Some(Scout::new(&svc.config.system.hotkey)?) };
 
     #[cfg(target_os = "linux")]
     use winit::platform::x11::EventLoopBuilderExtX11;
@@ -877,36 +859,42 @@ pub fn run_x11_daemon(svc: ColorService) -> Result<()> {
     let rt = tokio::runtime::Runtime::new()?;
     let _guard = rt.enter();
 
-    // Wire up DBusTray via universal EventSender
-    let sender = EventSender::from_winit(proxy);
-    let tray = DBusTray::new(sender.clone())?;
+    // Wire up DBusTray via universal EventSender — skipped on one-shot
+    // (no tray icon, and signals/menu have nothing to deliver to).
+    let tray = if oneshot {
+        None
+    } else {
+        let sender = EventSender::from_winit(proxy);
+        let tray = DBusTray::new(sender.clone())?;
 
-    // Universal POSIX signal interception (SIGUSR1/SIGUSR2) via Tokio.
-    // The entire x11.rs module is cfg(unix) gated in mod.rs,
-    // so we can use tokio::signal::unix safely without local cfgs.
-    use tokio::signal::unix::{signal, SignalKind};
-    let sender_sig = sender.clone();
-    rt.spawn(async move {
-        if let (Ok(mut sig1), Ok(mut sig2)) = (
-            signal(SignalKind::user_defined1()),
-            signal(SignalKind::user_defined2()),
-        ) {
-            loop {
-                tokio::select! {
-                    _ = sig1.recv() => {
-                        log_info("Received SIGUSR1 (X11). Launching overlay.");
-                        sender_sig.send(UserEvent::LaunchOverlay(None));
-                    }
-                    _ = sig2.recv() => {
-                        log_info("Received SIGUSR2 (X11). Launching menu.");
-                        tokio::spawn(crate::daemon::pipe_menu::show_menu(sender_sig.clone()));
+        // Universal POSIX signal interception (SIGUSR1/SIGUSR2) via Tokio.
+        // The entire x11.rs module is cfg(unix) gated in mod.rs,
+        // so we can use tokio::signal::unix safely without local cfgs.
+        use tokio::signal::unix::{signal, SignalKind};
+        let sender_sig = sender.clone();
+        rt.spawn(async move {
+            if let (Ok(mut sig1), Ok(mut sig2)) = (
+                signal(SignalKind::user_defined1()),
+                signal(SignalKind::user_defined2()),
+            ) {
+                loop {
+                    tokio::select! {
+                        _ = sig1.recv() => {
+                            log_info("Received SIGUSR1 (X11). Launching overlay.");
+                            sender_sig.send(UserEvent::LaunchOverlay(None));
+                        }
+                        _ = sig2.recv() => {
+                            log_info("Received SIGUSR2 (X11). Launching menu.");
+                            tokio::spawn(crate::daemon::pipe_menu::show_menu(sender_sig.clone()));
+                        }
                     }
                 }
             }
-        }
-    });
+        });
+        Some(tray)
+    };
 
-    let mut app = X11DaemonApp::new(svc, tray, scout);
+    let mut app = X11DaemonApp::new(svc, tray, scout, pick);
 
     event_loop.run_app(&mut app)?;
 

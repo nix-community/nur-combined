@@ -8,37 +8,70 @@
 //!
 //! DIRTY RECT CONTRACT: render() returns partial damage regions in dirty_rects.
 //! We BitBlt ONLY those regions, NOT the full screen. Without this, CPU pegs at
-//! 100% from ~480MB/s of wasted memcpy (8MB × 60fps). See ARCHITECTURE.md.
+//! 100% from ~480MB/s of wasted memcpy (8MB × 60fps).
 
+use std::sync::atomic::{AtomicU8, Ordering};
 use std::time::Instant;
 
 use anyhow::Result;
-use image::Rgba;
 use windows::Win32::Foundation::*;
 use windows::Win32::Graphics::Gdi::*;
 use windows::Win32::UI::Input::KeyboardAndMouse::*;
 use windows::Win32::UI::WindowsAndMessaging::*;
 
-use crate::core::config::Config;
-use crate::core::overlay::{OverlayApp, UserAction};
+use crate::connectors::keymap;
+use crate::core::config::CursorStyle;
+use crate::core::overlay::{OverlayApp, SessionResult, UserAction};
 use crate::core::terminal::log_step;
+
+// Cursor style for the overlay, set per run from `config.system.cursor`.
+// `WM_SETCURSOR` runs on the UI thread with no app pointer, so we lift the
+// choice into a process-wide atomic — three variants fit in a u8.
+// 0 = Crosshair (default), 1 = Default (arrow), 2 = None (hidden).
+static OVERLAY_CURSOR_STYLE: AtomicU8 = AtomicU8::new(0);
+
+fn store_cursor_style(style: CursorStyle) {
+    let v = match style {
+        CursorStyle::Crosshair => 0,
+        CursorStyle::Default   => 1,
+        CursorStyle::None      => 2,
+    };
+    OVERLAY_CURSOR_STYLE.store(v, Ordering::Relaxed);
+}
+
+/// Resolve the overlay cursor handle per the current `OVERLAY_CURSOR_STYLE`.
+/// `None` returns a NULL cursor — callers feed it straight to `SetCursor`
+/// or the `WNDCLASSEXW.hCursor` field, and Win32 hides the pointer.
+///
+/// # Safety
+/// Calls `LoadCursorW`, which is FFI to Win32. No invariants beyond the
+/// usual "linked against user32" — safe under any valid Windows process.
+unsafe fn load_overlay_cursor() -> HCURSOR {
+    let style = OVERLAY_CURSOR_STYLE.load(Ordering::Relaxed);
+    let id = match style {
+        1 => IDC_ARROW,
+        2 => return HCURSOR::default(), // NULL → hidden
+        _ => IDC_CROSS,
+    };
+    unsafe { LoadCursorW(None, id) }.unwrap_or_default()
+}
 
 // ══════════════════════════════════════════════════════════════════════════════
 // Public API
 // ══════════════════════════════════════════════════════════════════════════════
 
-/// Result of an overlay session.
-pub struct OverlayResult {
-    pub color_deck: Vec<Rgba<u8>>,
-    pub config: Config,
-}
-
 /// Run the Win32 overlay loop.  Blocks until the user picks a color or cancels.
 ///
 /// `app` must already contain the captured `PhysicalCanvas`.
-/// Returns the collected color deck (empty if cancelled).
-pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
+/// Returns the session outcome (empty deck if cancelled) — the shared
+/// `core::overlay::SessionResult`, same shape on every backend.
+pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<SessionResult> {
     let start = Instant::now();
+
+    // Lift the configured cursor style into the process-wide atomic so the
+    // window class registration AND the WM_SETCURSOR handler can both read
+    // it without an app pointer.
+    store_cursor_style(app.config.system.cursor);
 
     unsafe {
         // Virtual screen covers all monitors (may have negative origin)
@@ -57,7 +90,7 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
             cbSize: std::mem::size_of::<WNDCLASSEXW>() as u32,
             style: CS_HREDRAW | CS_VREDRAW,
             lpfnWndProc: Some(wnd_proc),
-            hCursor: LoadCursorW(None, IDC_CROSS)?,
+            hCursor: load_overlay_cursor(),
             lpszClassName: class_name,
             ..Default::default()
         };
@@ -115,7 +148,7 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
             ctrl: false,
             alt: false,
             needs_redraw: true,
-            prev_dirty_rects: std::collections::VecDeque::with_capacity(12),
+            prev_dirty_rects: std::collections::VecDeque::with_capacity(crate::core::overlay::DIRTY_RECT_HISTORY + 2),
         });
 
         // Initial mouse position and monitor rect
@@ -123,7 +156,7 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
         if GetCursorPos(&mut cursor_pt).is_ok() {
             let mx = (cursor_pt.x - vx) as f64;
             let my = (cursor_pt.y - vy) as f64;
-            state.app.update_physical_mouse(mx, my);
+            state.app.update_cursor(mx, my);
 
             let hmon = MonitorFromPoint(cursor_pt, MONITOR_DEFAULTTONEAREST);
             let mut mi = MONITORINFO {
@@ -216,9 +249,7 @@ pub fn run_overlay(app: OverlayApp, owner: HWND) -> Result<OverlayResult> {
         let _ = DeleteDC(hdc_mem);
         let _ = DeleteObject(hbitmap);
 
-        let deck = state.app.take_color_deck();
-        let config = state.app.config.clone();
-        Ok(OverlayResult { color_deck: deck, config })
+        Ok(state.app.take_session())
     }
 }
 
@@ -383,10 +414,10 @@ unsafe extern "system" fn wnd_proc(
         WM_MOUSEMOVE => {
             let x = (lparam.0 & 0xFFFF) as i16 as f64;
             let y = ((lparam.0 >> 16) & 0xFFFF) as i16 as f64;
-            if state.app.physical_mouse_pos == Some((x, y)) {
+            if state.app.cursor_pos == Some((x, y)) {
                 return LRESULT(0);
             }
-            state.app.update_physical_mouse(x, y);
+            state.app.update_cursor(x, y);
 
             // Detect current monitor and store its bounds in canvas-local coords.
             // Magnifier uses this to clamp/reflect within the monitor boundary.
@@ -465,11 +496,10 @@ unsafe extern "system" fn wnd_proc(
         // ── Anti-flicker ─────────────────────────────────────────
         WM_ERASEBKGND => LRESULT(1),
 
-        // ── Cursor: keep crosshair even when window gets SetCursor
+        // ── Cursor: enforce configured overlay cursor against any system override
+        // (NULL HCURSOR hides the pointer — that's how `system.cursor = "none"` lands).
         WM_SETCURSOR => {
-            if let Ok(cursor) = LoadCursorW(None, IDC_CROSS) {
-                SetCursor(cursor);
-            }
+            SetCursor(load_overlay_cursor());
             LRESULT(1)
         }
 
@@ -482,9 +512,21 @@ unsafe extern "system" fn wnd_proc(
 // Helpers
 // ══════════════════════════════════════════════════════════════════════════════
 
+/// Current modifiers → policy snapshot for keymap.
+#[inline]
+fn mods_of(state: &Win32State) -> keymap::Mods {
+    keymap::Mods { shift: state.shift, ctrl: state.ctrl, alt: state.alt }
+}
+
 /// Handle key-down event. Single source of truth for both WM_KEYDOWN (defensive
 /// fallback) and WM_HOOK_KEYDOWN (LL hook primary path).
 fn handle_key_down(state: &mut Win32State, vk: VIRTUAL_KEY) {
+    if let Some(d) = digit_of_vk(vk) {
+        if let Some(act) = keymap::digit_action(d) {
+            dispatch(state, act);
+        }
+        return;
+    }
     match vk {
         VK_ESCAPE => dispatch(state, UserAction::Cancel),
         VK_RETURN => dispatch(state, UserAction::PickColor { serial: state.shift }),
@@ -492,15 +534,8 @@ fn handle_key_down(state: &mut Win32State, vk: VIRTUAL_KEY) {
         VK_OEM_3  => dispatch(state, UserAction::ToggleHud), // `/~ key
         VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN => {
             let (dx, dy) = arrow_delta(vk);
-            let action = if state.shift || state.ctrl {
-                UserAction::Jump(dx, dy)
-            } else {
-                UserAction::Nudge(dx, dy)
-            };
+            let action = keymap::arrow_action(mods_of(state), dx, dy);
             dispatch(state, action);
-        }
-        vk if is_digit_vk(vk) => {
-            dispatch(state, UserAction::SelectFormatDigit(digit_from_vk(vk)));
         }
         // Modifier tracking
         VK_SHIFT | VK_LSHIFT | VK_RSHIFT => state.shift = true,
@@ -519,7 +554,7 @@ fn handle_key_up(state: &mut Win32State, vk: VIRTUAL_KEY) {
         VK_MENU | VK_LMENU | VK_RMENU => state.alt = false,
         VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN => {
             let (dx, dy) = arrow_delta(vk);
-            state.app.handle_action(UserAction::KeyRelease { dx, dy });
+            state.app.handle_action(keymap::arrow_release(dx, dy));
             state.needs_redraw = true;
         }
         _ => {}
@@ -530,15 +565,7 @@ fn handle_key_up(state: &mut Win32State, vk: VIRTUAL_KEY) {
 /// (defensive fallback) and WM_HOOK_WHEEL (LL hook primary path).
 fn handle_wheel(state: &mut Win32State, raw_delta: i16) {
     let steps = if raw_delta > 0 { 1 } else { -1 };
-    let action = if state.ctrl {
-        UserAction::ChangeFontSize(steps)
-    } else if state.shift {
-        UserAction::ResizeMagnifier(steps)
-    } else if state.alt {
-        UserAction::ChangeAimSize(steps)
-    } else {
-        UserAction::Zoom(steps)
-    };
+    let action = keymap::wheel_action(mods_of(state), steps);
     dispatch(state, action);
 }
 
@@ -561,17 +588,15 @@ fn arrow_delta(vk: VIRTUAL_KEY) -> (i32, i32) {
     }
 }
 
-/// Checks if the virtual key corresponds to a digit (0-9).
+/// VIRTUAL_KEY → digit as typed (top row 0x30-0x39 + numpad 0x60-0x69).
+/// keymap convention: the digit as typed, '0' = 0 (not 10).
 #[inline]
-fn is_digit_vk(vk: VIRTUAL_KEY) -> bool {
-    vk.0 >= 0x30 && vk.0 <= 0x39
-}
-
-/// Extracts the integer value from a digit virtual key.
-/// Note: '0' maps to index 10 to match the 1...0 keyboard layout order.
-#[inline]
-fn digit_from_vk(vk: VIRTUAL_KEY) -> usize {
-    if vk.0 == 0x30 { 10 } else { (vk.0 - 0x30) as usize }
+fn digit_of_vk(vk: VIRTUAL_KEY) -> Option<u8> {
+    match vk.0 {
+        0x30..=0x39 => Some((vk.0 - 0x30) as u8),
+        0x60..=0x69 => Some((vk.0 - 0x60) as u8), // VK_NUMPAD0..=VK_NUMPAD9
+        _ => None,
+    }
 }
 
 /// Keys the overlay actively handles — swallowed by the LL hook to prevent
@@ -581,7 +606,7 @@ fn is_overlay_action_key(vk: VIRTUAL_KEY) -> bool {
     matches!(vk,
         VK_ESCAPE | VK_RETURN | VK_SPACE | VK_OEM_3 |
         VK_LEFT | VK_RIGHT | VK_UP | VK_DOWN
-    ) || is_digit_vk(vk)
+    ) || digit_of_vk(vk).is_some()
 }
 
 /// Modifier keys — tracked locally but MUST pass through the hook to preserve

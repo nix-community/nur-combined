@@ -16,8 +16,8 @@ BEGIN
     BEGIN
       VALUE "FileDescription", "Instant Eyedropper Reborn Tray Launcher"
       VALUE "ProductName",     "IE-R"
-      VALUE "FileVersion",     "0.1.1"
-      VALUE "ProductVersion",  "0.1.1"
+      VALUE "FileVersion",     "0.1.2"
+      VALUE "ProductVersion",  "0.1.2"
       VALUE "OriginalFilename","ie-r-tray.exe"
       VALUE "LegalCopyright",  "2006-2026 Konstantin Yagola"
     END

@@ -116,7 +116,7 @@ fn perform_kwin_capture(
         .get("height")
         .and_then(|v| u32::try_from(v).ok())
         .unwrap_or(0);
-    let _type = metadata
+    let reply_type = metadata
         .get("type")
         .and_then(|v| <&str>::try_from(v).ok())
         .unwrap_or("unknown");
@@ -137,13 +137,13 @@ fn perform_kwin_capture(
     while t3.elapsed() < Duration::from_millis(500) {
         // seek(End) is cheaper than metadata().len(): one lseek vs fstat
         let current_size = file.seek(SeekFrom::End(0)).unwrap_or(0);
-        if _type == "raw" && current_size >= expected_size {
+        if reply_type == "raw" && current_size >= expected_size {
             file.seek(SeekFrom::Start(0))?;
             let t_read = Instant::now();
             file.read_to_end(&mut bytes)?;
             log_step("Capture", &format!("File read: {}ms ({}MB)", t_read.elapsed().as_millis(), bytes.len() / 1_000_000));
             break;
-        } else if _type != "raw" && current_size > 0 {
+        } else if reply_type != "raw" && current_size > 0 {
             file.seek(SeekFrom::Start(0))?;
             file.read_to_end(&mut bytes)?;
             break;
@@ -159,7 +159,7 @@ fn perform_kwin_capture(
         return Err(anyhow!("DBus capture resulted in empty or incomplete data"));
     }
 
-    if _type == "raw" && width > 0 && height > 0 {
+    if reply_type == "raw" && width > 0 && height > 0 {
         if bytes.len() >= expected_size as usize {
             let num_pixels = (width * height) as usize;
             bytes.truncate(num_pixels * 4);
@@ -174,7 +174,7 @@ fn perform_kwin_capture(
                     .map(|c| u32::from_ne_bytes([c[0], c[1], c[2], c[3]]))
                     .collect(),
             };
-            log_step("Capture", &format!("Total: {}ms ({}x{}, type={})", t0.elapsed().as_millis(), width, height, _type));
+            log_step("Capture", &format!("Total: {}ms ({}x{}, type={})", t0.elapsed().as_millis(), width, height, reply_type));
             return Ok(ScreenCapture {
                 xrgb_buffer: xrgb,
                 width,

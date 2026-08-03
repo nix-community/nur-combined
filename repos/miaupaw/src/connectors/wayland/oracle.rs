@@ -38,7 +38,7 @@
 ///   raw = cursor_local, corrected = cursor_global > ovl_w → phantom ✓
 ///
 /// Algorithm: `corrected = raw + logical_pos`. If out of [0, ovl_w) → phantom.
-/// Details: artifacts/2026.03.17/ENTER_INVESTIGATION.md
+/// Empirically derived from Hyprland deviation testing.
 
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub enum CompositorHint {
@@ -70,7 +70,6 @@ pub struct Oracle {
     scale_x: f64,
     scale_y: f64,
     /// Compositor type hint for selecting the classification strategy.
-    #[allow(dead_code)]
     hint: CompositorHint,
 }
 
@@ -147,3 +146,7 @@ impl Oracle {
         (raw_x as f64 * self.scale_x, raw_y as f64 * self.scale_y)
     }
 }
+
+#[cfg(test)]
+#[path = "oracle_tests.rs"]
+mod tests;

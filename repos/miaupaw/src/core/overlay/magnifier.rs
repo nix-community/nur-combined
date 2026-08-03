@@ -4,22 +4,49 @@ use crate::core::text::TextRenderer;
 use crate::core::overlay::glass::draw_frosted_rect;
 use crate::core::config::{ColorsConfig, Config};
 
-/// Read-only rendering context passed from the overlay orchestrator.
-/// Keeps magnifier's render() signature stable as new effects are added.
-pub struct RenderCtx<'a> {
+/// Input context for the SIMULATION phase (step): everything springs,
+/// geometry and measurements need. Canvas is read-only color sampling.
+pub struct StepCtx<'a> {
+    pub config: &'a Config,
+    pub canvas: &'a PhysicalCanvas,
+    pub aim_pos: (f64, f64),
+    pub local_mx: i32,              // physical px, local to active tile
+    pub local_my: i32,
+    /// Active tile buffer size — position clamp bounds.
+    pub buf_w: usize,
+    pub buf_h: usize,
+    // Current monitor bounds in canvas-local coords (x, y, w, h).
+    // None → fall back to full buffer bounds.
+    pub monitor_rect: Option<(i32, i32, i32, i32)>,
+}
+
+/// Input context for the PAINT phase (draw): theme, flash, frame color.
+pub struct DrawCtx<'a> {
     pub config: &'a Config,
     pub theme: &'a ColorsConfig,
     pub canvas: &'a PhysicalCanvas,
-    pub mouse_pos: (f64, f64),
-    pub local_mx: i32,              // physical px, local to active tile — for cross-monitor sampling via canvas.sample()
-    pub local_my: i32,              // physical px, local to active tile — for cross-monitor sampling via canvas.sample()
-    pub dt: f64,
+    pub local_mx: i32,
+    pub local_my: i32,
     pub flash_intensity: f32,
     pub frame_color: u32,
-    // Current monitor bounds in canvas-local coords (x, y, w, h).
-    // Magnifier clamps to this rect so it never crosses monitor boundaries.
-    // None → fall back to full canvas bounds.
-    pub monitor_rect: Option<(i32, i32, i32, i32)>,
+}
+
+/// Frame geometry computed by `step()` and consumed by `draw()`.
+/// Plain data — positioning (edge-flip included) is testable without
+/// a framebuffer.
+pub struct Layout {
+    pub start_x: i32,
+    pub start_y: i32,
+    pub grid_size: usize,
+    pub outer_w: usize,
+    pub outer_h: usize,
+    pub text_box_width: usize,
+    pub text_outer_width: usize,
+    pub total_width: usize,
+    pub target_text_h: usize,
+    pub pixel_scale: f64,
+    pub full_text: Option<String>,
+    pub animating: bool,
 }
 
 const MARGIN: usize = 1;
@@ -31,17 +58,8 @@ pub fn ensure_odd(v: i32) -> i32 {
 }
 
 #[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_ensure_odd() {
-        assert_eq!(ensure_odd(10), 11);
-        assert_eq!(ensure_odd(11), 11);
-        assert_eq!(ensure_odd(0), 1);
-        assert_eq!(ensure_odd(-2), -1);
-    }
-}
+#[path = "magnifier_tests.rs"]
+mod tests;
 
 /// Self-contained Magnifier entity.
 /// Owns its own physics (anim_pos, anim_vel) and text renderer.
@@ -148,47 +166,20 @@ impl Magnifier {
         }
     }
 
-    /// **Physics + magnifier render in one call.**
+    /// **Simulation phase: springs + geometry + measurements.**
     ///
-    /// Called from `OverlayApp::render()` every frame when `mouse_pos` is present.
-    /// Combines three phases:
+    /// Called from `OverlayApp::update()` every tick while aim_pos is present.
+    ///   1. Springs (Implicit Euler, O(1)): anim_size / anim_text_w / anim_pos.
+    ///      `f = 1 + damping·dt + stiffness·dt²` — stable at any dt.
+    ///   2. Geometry: position right of the cursor, edge-flip left when it
+    ///      doesn't fit, clamp to monitor_rect (or buffer). Targets use FINAL
+    ///      sizes, not animated ones — otherwise the magnifier "slides"
+    ///      instead of growing in place.
+    ///   3. Measurements: color sample (read-only canvas) → text → block size.
     ///
-    ///   1. **Springs (Implicit Euler, O(1)):**
-    ///      Animates `anim_size` (physical size), `anim_text_w` (text block width)
-    ///      and `anim_pos` (screen position). Uses implicit Euler with divisor
-    ///      `f = 1 + damping·dt + stiffness·dt²` — unconditionally stable at any dt,
-    ///      no sub-step loops, no explosions on Wayland lag.
-    ///
-    ///   2. **Geometry:**
-    ///      Computes `target_x/y` — magnifier position to the right of cursor (config offset).
-    ///      If it doesn't fit on the right — flips to the left: `target_x = mx - total_width`.
-    ///      Clamp ensures the magnifier stays within buffer bounds.
-    ///
-    ///   3. **Render:**
-    ///      Border → black fill → zoomed pixels → frosted glass → hex text → flash.
-    ///
-    /// Returns `(bounds, is_animating)`:
-    ///   - `bounds` = `(start_x, start_y, total_width, total_height)` for dirty rect
-    ///   - `is_animating` = true while at least one spring hasn't settled
-    pub fn render(
-        &mut self,
-        buffer: &mut [u32],
-        width: usize,
-        height: usize,
-        ctx: &RenderCtx,
-        blur_buf_1: &mut Vec<u32>,
-        blur_buf_2: &mut Vec<u32>,
-    ) -> ((i32, i32, usize, usize), bool) {
+    /// Returns [`Layout`] — plain data for `draw()` and for tests.
+    pub fn step(&mut self, dt: f64, ctx: &StepCtx) -> Layout {
         let config = ctx.config;
-        let theme = ctx.theme;
-        let canvas = ctx.canvas;
-        let mouse_pos = ctx.mouse_pos;
-        let local_mx = ctx.local_mx;
-        let local_my = ctx.local_my;
-        let dt = ctx.dt;
-        let flash_intensity = ctx.flash_intensity;
-        let frame_color = ctx.frame_color;
-
         let target_size = config.magnifier.size as f64;
 
         let stiffness = config.physics.stiffness;
@@ -198,14 +189,9 @@ impl Magnifier {
         self.total_time += dt;
 
         // --- Springs: pre-computed divisor (Implicit Euler) ---
-        // f = 1 + damping·dt + stiffness·dt² — denominator of implicit integration scheme.
-        // Makes the system unconditionally stable: at any dt (even 200ms after idle)
-        // velocity decreases, not explodes. One divisor for all three springs per frame.
         let f = 1.0 + damping * dt + stiffness * dt * dt;
 
-        // 1. Size animation
-        // pop_effect = 0.0 → instant appear (anim_size starts at target_size).
-        // pop_effect > 0.0 → spawn animation: start from 0, stiffness = stiffness * pop_effect.
+        // 1. Size animation. pop_effect=0 → instant; >0 → spawn from zero.
         let pop_stiffness = stiffness * pop_effect;
         let pop_f = 1.0 + damping * dt + pop_stiffness * dt * dt;
         let mut cur_size = self.anim_size.unwrap_or(if pop_effect == 0.0 { target_size } else { 0.0 });
@@ -213,7 +199,6 @@ impl Magnifier {
         self.anim_size_vel = (self.anim_size_vel + dt * pop_stiffness * ds) / pop_f;
         cur_size += self.anim_size_vel * dt;
 
-        // Stop thresholds for size
         if (cur_size - target_size).abs() < 0.1 && self.anim_size_vel.abs() < 0.1 {
             cur_size = target_size;
             self.anim_size_vel = 0.0;
@@ -221,29 +206,23 @@ impl Magnifier {
         self.anim_size = Some(cur_size);
 
         // --- Physical Optical Monolith Guarantee ---
-        // Even if the logical size is odd, after scaling (e.g. 1.25x)
-        // the physical screen size may become even, breaking aim centering.
-        // We forcibly make the physical grid odd.
         let mut grid_size = cur_size.round() as usize;
         grid_size = ensure_odd(grid_size as i32) as usize;
 
         let aperture = config.magnifier.aperture as usize;
         let pixel_scale = grid_size as f64 / aperture as f64;
 
-        let mx = mouse_pos.0 as i32;
-        let my = mouse_pos.1 as i32;
+        let mx = ctx.aim_pos.0 as i32;
+        let my = ctx.aim_pos.1 as i32;
 
-        // Sample color: average over aim_size×aim_size area (radius=0 → single pixel)
+        // Color sample under the aim (read-only) — feeds the text.
         let aim_radius = config.magnifier.aim_size.max(1) as i32 / 2;
-        let (r, g, b) = canvas.sample_average(local_mx, local_my, aim_radius);
+        let (r, g, b) = ctx.canvas.sample_average(ctx.local_mx, ctx.local_my, aim_radius);
 
         let scale_mod = config.templates.get_current_scale_modifier();
         let line_spacing = config.templates.show.line_spacing;
 
-        // --- Text: one prepare_text call per frame ---
-        // Build the display string once — needed for width measurement (measure)
-        // and rendering (draw_hex_text). At font.size=0 (collapsed mode) text is hidden,
-        // target_text_w=0.0, and the spring smoothly collapses the text block to zero.
+        // Text: one prepare_text per tick. font.size=0 → collapsed (no text).
         let full_text = if config.font.size > 0.0 {
             Some(self.prepare_text(config, r, g, b))
         } else {
@@ -276,18 +255,9 @@ impl Magnifier {
         let text_outer_width = if text_box_width > 0 { text_box_width + (MARGIN * 2) } else { 0 };
         let total_width = if text_box_width > 0 { magnifier_outer_width + text_outer_width - MARGIN } else { magnifier_outer_width };
 
-        //   target_x = mx - total_width - offset_x
         // --- Geometry: positioning with edge reflection ---
-        // By default the magnifier sits to the right of the cursor (config offset_x)
-        // and centers vertically on it (offset_y).
-        // If magnifier + text block don't fit on the right — flip to the left:
-        //   target_x = mx - total_width - offset_x
-        // Similarly vertically: if we overflow the bottom edge — clamp to it.
-        // Clamp ensures the magnifier doesn't go past the left/top screen edge.
-        //
-        // All position target calculations use final sizes (target_size, target_text_w),
-        // not animated values (cur_size, cur_text_w). Otherwise the target drifts as the
-        // magnifier grows — it "slides" instead of growing in place.
+        // Targets use final sizes (target_size, target_text_w), not animated
+        // ones — otherwise the target drifts while growing.
         let final_grid_size = ensure_odd(target_size.round() as i32) as usize;
         let final_outer_height = final_grid_size + (MARGIN * 2);
         let final_outer_width = final_grid_size + (MARGIN * 2);
@@ -297,10 +267,10 @@ impl Magnifier {
         let mut target_x = mx + config.magnifier.offset_x;
         let mut target_y = my - (final_outer_height as i32 / 2) + config.magnifier.offset_y;
 
-        // Clamp to current monitor bounds (Windows multi-monitor) or full canvas (Wayland per-output).
+        // Clamp to the current monitor (Win32/X11 multi-monitor) or buffer (Wayland per-output).
         let (mon_x0, mon_y0, mon_x1, mon_y1) = match ctx.monitor_rect {
             Some((x, y, w, h)) => (x, y, x + w, y + h),
-            None => (0, 0, width as i32, height as i32),
+            None => (0, 0, ctx.buf_w as i32, ctx.buf_h as i32),
         };
 
         if target_x + final_total_width as i32 > mon_x1 {
@@ -314,8 +284,7 @@ impl Magnifier {
 
         let (mut current_x, mut current_y) = self.anim_pos.unwrap_or((mx as f64, my as f64));
 
-        // While size is still animating — position uses the same stiffness as the size spring
-        // (pop_stiffness) so both springs stay in sync. Afterwards — switch to global stiffness.
+        // While size is settling — position uses the same stiffness (springs in sync).
         let pos_stiffness = if (cur_size - target_size).abs() > 0.5 { pop_stiffness } else { stiffness };
         let pos_f = 1.0 + damping * dt + pos_stiffness * dt * dt;
 
@@ -327,7 +296,6 @@ impl Magnifier {
         self.anim_vel.1 = (self.anim_vel.1 + dt * pos_stiffness * dy) / pos_f;
         current_y += self.anim_vel.1 * dt;
 
-        // Stop threshold for position
         if (current_x - target_x as f64).abs() < 0.1 && self.anim_vel.0.abs() < 0.1 {
             current_x = target_x as f64;
             self.anim_vel.0 = 0.0;
@@ -337,79 +305,114 @@ impl Magnifier {
             self.anim_vel.1 = 0.0;
         }
 
-        let animating = cur_size != target_size 
+        let animating = cur_size != target_size
                         || cur_text_w != target_text_w
                         || current_x != target_x as f64 || current_y != target_y as f64;
 
         self.anim_pos = Some((current_x, current_y));
 
-        let start_x = current_x.round() as i32;
-        let start_y = current_y.round() as i32;
+        Layout {
+            start_x: current_x.round() as i32,
+            start_y: current_y.round() as i32,
+            grid_size,
+            outer_w: magnifier_outer_width,
+            outer_h: magnifier_outer_height,
+            text_box_width,
+            text_outer_width,
+            total_width,
+            target_text_h,
+            pixel_scale,
+            full_text,
+            animating,
+        }
+    }
+
+    /// **Paint phase: blit from a prepared Layout.**
+    ///
+    /// Border → black fill → zoomed pixels → frosted glass → text → flash.
+    /// Mutates NO state. Returns (dirty-rect bounds, matrix_active — digital
+    /// rain is visible and wants another frame).
+    #[allow(clippy::too_many_arguments)]
+    pub fn draw(
+        &self,
+        buffer: &mut [u32],
+        width: usize,
+        height: usize,
+        layout: &Layout,
+        ctx: &DrawCtx,
+        blur_buf_1: &mut Vec<u32>,
+        blur_buf_2: &mut Vec<u32>,
+    ) -> ((i32, i32, usize, usize), bool) {
+        let config = ctx.config;
+        let theme = ctx.theme;
+        let start_x = layout.start_x;
+        let start_y = layout.start_y;
 
         draw_rect(
-            buffer, width, height, start_x, start_y, magnifier_outer_width, magnifier_outer_height, frame_color,
+            buffer, width, height, start_x, start_y, layout.outer_w, layout.outer_h, ctx.frame_color,
         );
         draw_filled_rect(
-            buffer, width, height, start_x + 1, start_y + 1, grid_size, grid_size, 0x000000,
+            buffer, width, height, start_x + 1, start_y + 1, layout.grid_size, layout.grid_size, 0x000000,
         );
 
-        // bg_buf for glassmorphism = active tile's buffer (same physical monitor as the surface)
-        let bg_buf = canvas.active().capture.xrgb_buffer.as_slice();
+        // bg_buf for glassmorphism = active tile's buffer (same physical monitor)
+        let bg_buf = ctx.canvas.active().capture.xrgb_buffer.as_slice();
 
         let matrix_active = draw_zoomed_pixels(
-            buffer, width, height, start_x, start_y, local_mx, local_my, canvas, pixel_scale, aperture, config.magnifier.aim_size as usize, theme, self.total_time,
+            buffer, width, height, start_x, start_y, ctx.local_mx, ctx.local_my, ctx.canvas,
+            layout.pixel_scale, config.magnifier.aperture as usize,
+            config.magnifier.aim_size as usize, config.magnifier.show_aim, theme, self.total_time,
         );
 
-        if text_box_width > 0 && grid_size >= target_text_h {
-            let text_box_start_x = start_x + magnifier_outer_width as i32 - MARGIN as i32;
+        if layout.text_box_width > 0 && layout.grid_size >= layout.target_text_h {
+            let scale_mod = config.templates.get_current_scale_modifier();
+            let line_spacing = config.templates.show.line_spacing;
+            let text_box_start_x = start_x + layout.outer_w as i32 - MARGIN as i32;
             draw_rect(
-                buffer, width, height, text_box_start_x, start_y, text_outer_width, magnifier_outer_height, frame_color,
+                buffer, width, height, text_box_start_x, start_y, layout.text_outer_width, layout.outer_h, ctx.frame_color,
             );
 
             draw_frosted_rect(
-                buffer, width, height, text_box_start_x + 1, start_y + 1, text_box_width, magnifier_outer_height - 2,
+                buffer, width, height, text_box_start_x + 1, start_y + 1, layout.text_box_width, layout.outer_h - 2,
                 bg_buf, blur_buf_1, blur_buf_2, config.physics.blur_radius, theme.background, config.physics.glass_opacity,
             );
 
-            if let Some(ref text) = full_text {
+            if let Some(ref text) = layout.full_text {
                 draw_hex_text(
-                    buffer, width, height, text_box_start_x + 1, start_y + 1, text_box_width, magnifier_outer_height - 2,
+                    buffer, width, height, text_box_start_x + 1, start_y + 1, layout.text_box_width, layout.outer_h - 2,
                     text, theme.foreground, &self.text_renderer, scale_mod, line_spacing, config.font.dim_zeros, true,
                 );
             }
         }
 
         // --- Flash Feedback (click flash) ---
-        if flash_intensity > 0.0 {
-            // Draw white fill over the magnifier
-            // Intensity (0..1) maps to opacity
-            let alpha = (flash_intensity * 255.0) as u32;
+        if ctx.flash_intensity > 0.0 {
+            // Blend towards white in packed RB|G: two channels per multiply,
+            // 8.8 fixed-point weights (shift instead of dividing by 255).
+            let a256 = ((ctx.flash_intensity * 256.0) as u32).min(256);
+            let inv_a = 256 - a256;
+            let white_rb = 0x00FF00FF * a256;
+            let white_g = 0x0000FF00 * a256;
             let fx = start_x + 1;
             let fy = start_y + 1;
-            let fw = grid_size;
-            let fh = grid_size;
-            
+            let fw = layout.grid_size;
+            let fh = layout.grid_size;
+
             for row in (fy.max(0) as usize)..((fy + fh as i32).max(0) as usize).min(height) {
                 let row_start = row * width;
                 for col in (fx.max(0) as usize)..((fx + fw as i32).max(0) as usize).min(width) {
                     let idx = row_start + col;
                     let bg = buffer[idx];
-                    let r = ((bg >> 16) & 0xFF) as u8;
-                    let g = ((bg >> 8) & 0xFF) as u8;
-                    let b = (bg & 0xFF) as u8;
-                    
-                    let inv_a = 255 - alpha;
-                    let nr = (((r as u32) * inv_a + 255 * alpha) / 255) as u8;
-                    let ng = (((g as u32) * inv_a + 255 * alpha) / 255) as u8;
-                    let nb = (((b as u32) * inv_a + 255 * alpha) / 255) as u8;
-                    
-                    buffer[idx] = ((nr as u32) << 16) | ((ng as u32) << 8) | (nb as u32);
+                    let rb = (((bg & 0x00FF00FF) * inv_a + white_rb) >> 8) & 0x00FF00FF;
+                    let g = (((bg & 0x0000FF00) * inv_a + white_g) >> 8) & 0x0000FF00;
+                    buffer[idx] = rb | g;
                 }
             }
         }
 
-        ((start_x, start_y, total_width, magnifier_outer_height), animating || matrix_active)
+        ((start_x, start_y, layout.total_width, layout.outer_h), matrix_active)
     }
+
 }
 
 /// **Digital Rain Easter Egg: The Dual-Layer Rift.**
@@ -539,6 +542,7 @@ fn draw_zoomed_pixels(
     pixel_scale: f64,
     aperture: usize,
     aim_size: usize,
+    show_aim: bool,
     theme: &ColorsConfig,
     total_time: f64,
 ) -> bool {
@@ -576,7 +580,9 @@ fn draw_zoomed_pixels(
         }
     }
 
-    draw_aim_marker(buffer, width, height, start_x, start_y, src_radius, aim_size, pixel_scale, theme.aim);
+    if show_aim {
+        draw_aim_marker(buffer, width, height, start_x, start_y, src_radius, aim_size, pixel_scale, theme.aim);
+    }
 
     matrix_hit
 }

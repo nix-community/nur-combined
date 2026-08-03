@@ -4,7 +4,7 @@
 !define APP_NAME    "Instant Eyedropper Reborn"
 !define APP_EXE     "ie-r.exe"
 !define TRAY_EXE    "ie-r-tray.exe"
-!define APP_VERSION "0.1.1"
+!define APP_VERSION "0.1.2"
 !define PUBLISHER   "Konstantin Yagola"
 !define URL         "https://instant-eyedropper.com"
 !define REG_UNINST  "Software\Microsoft\Windows\CurrentVersion\Uninstall\ie-r"
@@ -18,9 +18,13 @@
     !define OUTDIR "."
 !endif
 
+!ifndef OUTFILE
+    !define OUTFILE "ie-r-v${APP_VERSION}-windows-x86_64-setup.exe"
+!endif
+
 ; ── Output ──────────────────────────────────────────────────────────────────
 Name            "${APP_NAME}"
-OutFile         "${OUTDIR}/ie-r-setup-v${APP_VERSION}.exe"
+OutFile         "${OUTDIR}/${OUTFILE}"
 InstallDir      "$LOCALAPPDATA\ie-r"
 RequestExecutionLevel user
 
@@ -83,7 +87,7 @@ Section "!IE-R" SEC_MAIN
     WriteRegDWORD HKCU "${REG_UNINST}" "NoRepair"       1
 SectionEnd
 
-Section /o "Desktop shortcut" SEC_DESKTOP
+Section "Desktop shortcut" SEC_DESKTOP
     SetOutPath "$INSTDIR"
     CreateShortcut "$DESKTOP\${APP_NAME}.lnk" \
         "$INSTDIR\${TRAY_EXE}" "" "$INSTDIR\${TRAY_EXE}"

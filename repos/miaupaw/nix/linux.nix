@@ -1,24 +1,68 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # nix/linux.nix — Linux distribution outputs.
+#   • appimage           — AppImage Type 2: pinned type2-runtime + squashfs(AppDir).
 # Linux distribution outputs: relocatable portable + (broken) appimage + zip
 # wrapper. Plus the two #!/bin/sh scripts shipped inside portable. defaultPkg
 # is the built ie-r from package.nix; linux.nix adds distribution scaffolding.
 # ─────────────────────────────────────────────────────────────────────────────
-{ pkgs
-, version
-, copyCommonDocs
-, defaultPkg  # the built ie-r derivation (packages.default)
-}:
+{ pkgs, version, copyCommonDocs, defaultPkg  } : # the built ie-r derivation (packages.default)
 
 let
   # ── Portable Scripts ──────────────────────────────────────────────────
   # MUST use #!/bin/sh — these scripts run on non-Nix systems. pkgs.writeShellScript
   # would embed #!/nix/store/... which breaks portability.
+  # AppRun — AppImage entry point. Does two things:
+  #   1. Desktop integration: creates/updates ie-r.desktop if missing or Exec= path changed
+  #      (user moved the AppImage). Cache updates run in background — no startup delay.
+  #   2. Launch: execs $APPDIR/bin/ie-r (portableLauncher handles ld-linux + env vars).
+  # $APPIMAGE and $APPDIR are set by type2-runtime before AppRun is called.
+  appRun = pkgs.writeTextFile {
+    name = "AppRun";
+    executable = true;
+    text = ''
+        #!/bin/sh
+        # bash
+        DESKTOP="$HOME/.local/share/applications/ie-r.desktop"
+        ICON_DIR="$HOME/.local/share/icons/hicolor/scalable/apps"
+        ICON_SYMBOLIC_DIR="$HOME/.local/share/icons/hicolor/symbolic/apps"
+        CURRENT_EXEC=$(grep "^Exec=" "$DESKTOP" 2>/dev/null | cut -d= -f2-)
+
+        if [ ! -f "$DESKTOP" ] || [ "$CURRENT_EXEC" != "$APPIMAGE" ]; then
+            mkdir -p "$HOME/.local/share/applications" "$ICON_DIR" "$ICON_SYMBOLIC_DIR"
+
+            printf '%s\n' \
+                '[Desktop Entry]' \
+                'Name=Instant Eyedropper Reborn' \
+                'Comment=Pixel-perfect color picker. Native Wayland/X11.' \
+                "Exec=$APPIMAGE" \
+                'Icon=ie-r' \
+                'Type=Application' \
+                'Categories=Utility;Graphics;Development;' \
+                'StartupNotify=false' \
+                'Terminal=false' \
+                'StartupWMClass=ie-r' \
+                'SkipTaskbar=true' \
+                'X-KDE-DBUS-Restricted-Interfaces=org.kde.KWin.ScreenShot2' \
+                > "$DESKTOP"
+
+            cp "$APPDIR/ie-r.svg" "$ICON_DIR/ie-r.svg" 2>/dev/null
+            cp "$APPDIR/share/icons/hicolor/symbolic/apps/ie-r-symbolic.svg" "$ICON_SYMBOLIC_DIR/ie-r-symbolic.svg" 2>/dev/null
+
+            update-desktop-database "$HOME/.local/share/applications" 2>/dev/null &
+            gtk-update-icon-cache -f -t "$HOME/.local/share/icons/hicolor" 2>/dev/null &
+        fi
+
+        exec "$APPDIR/bin/ie-r" "$@"
+    '';
+  };
+
   portableLauncher = pkgs.writeTextFile {
     name = "ie-r";
     executable = true;
-    text = '' # bash
+    # higlighter token on second string for correct appimage assembly
+    text = ''
         #!/bin/sh
+        # bash
         HERE="$(dirname "$(readlink -f "$0")")"
         export XKB_CONFIG_ROOT="$HERE/../share/xkb"
         export XLOCALEDIR="$HERE/../share/X11/locale"
@@ -31,8 +75,10 @@ let
   postinstallScript = pkgs.writeTextFile {
     name = "postinstall";
     executable = true;
-    text = '' # bash
+    # higlighter token on second string for correct appimage assembly
+    text = ''
         #!/bin/sh
+        # bash
         HERE="$(dirname "$(readlink -f "$0")")"
         DESKTOP_DIR="$HOME/.local/share/applications"
         AUTOSTART_DIR="$HOME/.config/autostart"
@@ -112,8 +158,7 @@ let
             ${pkgs.libxrandr}/lib/libXrandr.so.2 \
             ${pkgs.libxi}/lib/libXi.so.6 \
             ${pkgs.libxrender}/lib/libXrender.so.1 \
-            ${pkgs.libxkbcommon}/lib/libxkbcommon-x11.so.0 \
-            ${pkgs.pipewire}/lib/libpipewire-0.3.so.0; \
+            ${pkgs.libxkbcommon}/lib/libxkbcommon-x11.so.0; \
         do
             echo "$lib" >> libs_list
         done
@@ -169,7 +214,7 @@ let
         mkdir -p $out/fonts
         cp ${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf $out/fonts/
         cp ${../assets/fonts/OFL.txt} $out/fonts/OFL.txt  # explicit name to strip nix-hash prefix
-        cp ${../README.portable.md} $out/README.md
+        cp ${../docs/README.portable.linux.md} $out/README.md
         ${copyCommonDocs "$out"}
 
         patchelf --set-rpath '$ORIGIN/../lib' $out/bin/.ie-r-raw
@@ -184,10 +229,6 @@ let
   };
 
   # ── AppImage ──────────────────────────────────────────────────────────
-  # AppImage Type 2 = type2-runtime ELF + squashfs(AppDir), concatenated.
-  # No appimagekit (gone from nixpkgs 25.11), no AppImage-running-AppImage —
-  # just squashfsTools and a pinned runtime via fetchurl. AppDir is portable/
-  # plus AppImage entry points (AppRun, top-level desktop / icon / .DirIcon).
   appimage-runtime = pkgs.fetchurl {
     url  = "https://github.com/AppImage/type2-runtime/releases/download/20251108/runtime-x86_64";
     hash = "sha256-L8qLRDySUQ8Ug6iD9gBhrQm0a5eLJjHIB82HOkfsJg0=";
@@ -204,7 +245,8 @@ let
         cp -rL ${portable}/* AppDir/
         chmod -R u+w AppDir
 
-        ln -s bin/ie-r AppDir/AppRun
+        cp ${appRun} AppDir/AppRun
+        chmod +x AppDir/AppRun
         cp AppDir/share/ie-r.desktop AppDir/ie-r.desktop
         cp AppDir/share/icons/hicolor/scalable/apps/ie-r.svg AppDir/ie-r.svg
         ln -s ie-r.svg AppDir/.DirIcon
@@ -214,17 +256,36 @@ let
 
     installPhase = '' # bash
         mkdir -p $out
-        cat ${appimage-runtime} appdir.sqfs > $out/ie-r-v${version}-x86_64.AppImage
-        chmod +x $out/ie-r-v${version}-x86_64.AppImage
+        cat ${appimage-runtime} appdir.sqfs > $out/ie-r-v${version}-linux-x86_64.AppImage
+        chmod +x $out/ie-r-v${version}-linux-x86_64.AppImage
     '';
   };
 
+  # ── App: nix run .#appimage ──────────────────────────────────────────
+  # Copies the built AppImage into builds/. AppImages cannot run directly on
+  # NixOS (no standard FHS); test on Ubuntu/Fedora after export.
+  appimage-export = {
+    type = "app";
+    meta.description = "Export IE-R AppImage (builds/ie-r-vVERSION-linux-x86_64.AppImage)";
+    program = let
+      script = pkgs.writeShellScriptBin "appimage-ie-r" '' # bash
+          APPIMAGE="ie-r-v${version}-linux-x86_64.AppImage"
+          echo -e "\033[1;32m▸ Exporting AppImage to builds/...\033[0m"
+          mkdir -p "./builds"
+          rm -f "./builds/$APPIMAGE"
+          cp "${appimage}/$APPIMAGE" "./builds/$APPIMAGE"
+          chmod 755 "./builds/$APPIMAGE"
+          echo -e "\033[1;32m✔ Done! ./builds/$APPIMAGE\033[0m"
+      '';
+    in "${script}/bin/appimage-ie-r";
+  };
+
   # ── App: nix run .#bundle ─────────────────────────────────────────────
-  # Wraps .#portable into ie-r-vVERSION.zip (built derivation is read-only,
-  # so we copy + chmod 755 before zipping).
+  # Wraps .#portable into builds/ie-r-vVERSION-linux-x86_64-portable.zip (built
+  # derivation is read-only, so we copy + chmod 755 before zipping).
   bundle = {
     type = "app";
-    meta.description = "Build Linux portable bundle (ie-r-vVERSION.zip)";
+    meta.description = "Build Linux portable bundle (builds/ie-r-vVERSION-linux-x86_64-portable.zip)";
     program = let
       script = pkgs.writeShellScriptBin "bundle-ie-r" '' # bash
           echo -e "\033[1;32m▸ Starting Divine Distribution...\033[0m"
@@ -238,10 +299,11 @@ let
           VERSION="v${version}"
           STAGE_DIR="tmp/staging"
           FINAL_DIR="ie-r"
-          ZIP_NAME="ie-r-$VERSION.zip"
+          ZIP_NAME="ie-r-$VERSION-linux-x86_64-portable.zip"
 
           echo "▸ Extracting and cleaning structure..."
-          rm -rf "$STAGE_DIR" "$ZIP_NAME"
+          mkdir -p ../../builds
+          rm -rf "$STAGE_DIR" "../../builds/$ZIP_NAME"
           mkdir -p "$STAGE_DIR/$FINAL_DIR"
 
           cp -rL "$BUNDLE_PATH"/* "$STAGE_DIR/$FINAL_DIR/"
@@ -249,17 +311,17 @@ let
           echo "▸ Leveling permissions (755)..."
           chmod -R 755 "$STAGE_DIR/$FINAL_DIR"
 
-          echo "▸ Archiving to $ZIP_NAME..."
+          echo "▸ Archiving to builds/$ZIP_NAME..."
           cd "$STAGE_DIR"
-          ${pkgs.zip}/bin/zip -rq "../../$ZIP_NAME" "$FINAL_DIR"
+          ${pkgs.zip}/bin/zip -rq "../../builds/$ZIP_NAME" "$FINAL_DIR"
           cd - > /dev/null
 
-          echo -e "\033[1;32m✔ Done! Archive ready: ./$ZIP_NAME\033[0m"
+          echo -e "\033[1;32m✔ Done! Archive ready: ./builds/$ZIP_NAME\033[0m"
           echo "· Internal structure: $FINAL_DIR/{bin,lib,share}"
       '';
     in "${script}/bin/bundle-ie-r";
   };
 in
 {
-  inherit portable appimage bundle portableLauncher postinstallScript;
+  inherit portable appimage appimage-export bundle appRun portableLauncher postinstallScript;
 }

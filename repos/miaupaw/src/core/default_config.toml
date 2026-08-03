@@ -5,6 +5,19 @@
 #   Constructive Cyberpunk Style. High Tech, High Spirit.
 # ==============================================================================
 
+# Pick behavior toggles. Defaults preserve classic eyedropper semantics —
+# clicks sample and copy. Compose them in a separate config to morph the
+# overlay into a read-only magnifier (see `--config PATH`).
+#
+# All gestures map through these:
+#   enabled       — Click / Enter / Space / Shift+Click sampling as a whole
+#   clipboard     — copy picked color(s) into the system clipboard
+#   write_history — append picked color(s) to the saved history
+[pick]
+enabled       = true   # false: every sample gesture is a no-op; Esc still closes
+clipboard     = true   # false: skip clipboard write on pick
+write_history = true   # false: do not append to history on pick
+
 # The magnifier is the core UI element — a floating zoomed-in pixel grid
 # that follows the cursor. Aperture controls how many source pixels are
 # captured (field of view), size controls the physical window on screen.
@@ -17,6 +30,7 @@ size = 141          # physical window size on screen (px)
 offset_x = 100      # horizontal offset from cursor
 offset_y = 0        # vertical offset from cursor
 jump_threshold = 10 # color sensitivity for Ctrl+Arrow jumps (higher = skip more gradients)
+show_aim = true     # draw the aim crosshair over the zoomed grid (turn off for pure magnifier feel)
 
 # Interface colors in HEX (#RRGGBB).
 # These define the visual identity of the overlay.
@@ -95,12 +109,18 @@ hsl     = "{h}, {s}%, {l}%"
 hsv     = "{h}, {s}%, {v}%"
 cmyk    = "{c}%, {m}%, {y}%, {k}%"
 
-# Color history is shown in the system tray context menu.
-# Settings live here; picked colors are stored separately in
-# ~/.local/state/ie-r/history.toml (or $XDG_STATE_HOME/ie-r/history.toml).
+# Color history.
+# Storage: ~/.local/state/ie-r/history.toml (or $XDG_STATE_HOME/ie-r/history.toml).
+# `size` is the disk cap (how much we remember); `show` is how many of those
+# appear in the tray menu / default `ie-r --history` dump. `show` ≤ `size`;
+# values above `size` clamp down silently.
+# `reverse_order` orients the *shown* slice in the tray menu only — terminal
+# output from `ie-r --history` is always chronological (oldest → newest, so
+# the most recent pick is the last line — natural for `| tail -n 1`).
 [history]
-size = 15             # max colors to remember
-reverse_order = true  # newest first in tray menu
+size = 100            # max colors stored on disk
+show = 10             # how many appear in tray menu / default --history dump
+reverse_order = true  # newest first in tray menu (terminal output ignores this)
 
 # Global system integration settings.
 [system]
@@ -112,6 +132,14 @@ reverse_order = true  # newest first in tray menu
 # "mono-black" — explicit black pixmap. For light panels when symbolic fails.
 # "none"       — disable tray entirely. SNI is not registered.
 tray_icon = "color"
+
+# Cursor shown while the overlay is up.
+# "crosshair" — classic eyedropper aim. (default)
+# "default"   — system arrow / pointer (useful for magnifier-mode presets).
+# "none"      — hide the system cursor entirely; the overlay's own aim
+#               marker does the work (combine with [magnifier] show_aim
+#               to also drop that for the cleanest chrome-less zoom).
+cursor = "crosshair"
 
 # Inactivity watchdog timeout (seconds).
 # Automatically cancels the overlay if no movement/input is detected.

@@ -9,7 +9,7 @@ pub mod windows;
 
 use anyhow::Result;
 #[cfg(unix)]
-use crate::core::terminal::{log_step, log_warn};
+use crate::core::terminal::{log_step, log_info, log_warn};
 #[cfg(unix)]
 use wayland_client::protocol::wl_output;
 
@@ -34,6 +34,10 @@ pub struct MonitorTile {
     /// Platform-specific output handle (WlOutput on Unix, unused on Windows for now)
     #[cfg(unix)]
     pub output: Option<wayland_client::protocol::wl_output::WlOutput>,
+    /// Human-readable output name (e.g. "DP-2", "eDP-1", `\\.\DISPLAY1`).
+    /// Empty when not provided by the backend (Portal-tier, X11 root capture).
+    /// Surfaced by `ie-r --monitors` for diagnostic scripts.
+    pub name: String,
     /// Fractional scale factor (e.g. 1.0, 1.5, 2.0).
     /// Used to translate pointer events (logical) → world coordinates.
     pub scale: f64,
@@ -55,6 +59,7 @@ impl MonitorTile {
     pub fn from_capture(
         capture: ScreenCapture,
         output: wayland_client::protocol::wl_output::WlOutput,
+        name: String,
         logical_pos: (i32, i32),
         logical_w: i32,
         logical_h: i32,
@@ -66,7 +71,7 @@ impl MonitorTile {
         } else {
             1.0
         };
-        Self { capture, output: Some(output), scale, logical_pos, logical_w, logical_h, transform }
+        Self { capture, output: Some(output), name, scale, logical_pos, logical_w, logical_h, transform }
     }
 }
 
@@ -107,6 +112,9 @@ impl PhysicalCanvas {
             tiles: vec![MonitorTile {
                 capture,
                 output,
+                // Fused single-tile backends (Portal, X11 root) don't expose
+                // per-output names — empty here, surfaced as "-" by --monitors.
+                name: String::new(),
                 scale: 1.0,
                 logical_pos: (0, 0),
                 logical_w,
@@ -125,6 +133,7 @@ impl PhysicalCanvas {
         Self {
             tiles: vec![MonitorTile {
                 capture,
+                name: String::new(),
                 scale: 1.0,
                 logical_pos: (0, 0),
                 logical_w,
@@ -175,28 +184,164 @@ impl PhysicalCanvas {
         None
     }
 
-    /// Average color of (2*radius+1)² area around (cx, cy). radius=0 → single pixel.
-    /// Cross-monitor aware via sample(). Out-of-bounds pixels are excluded from the average.
-    pub fn sample_average(&self, cx: i32, cy: i32, radius: i32) -> (u8, u8, u8) {
-        let mut sum_r = 0u32;
-        let mut sum_g = 0u32;
-        let mut sum_b = 0u32;
-        let mut count = 0u32;
-        for dy in -radius..=radius {
-            for dx in -radius..=radius {
-                if let Some(px) = self.sample(cx + dx, cy + dy) {
-                    sum_r += (px >> 16) & 0xFF;
-                    sum_g += (px >> 8) & 0xFF;
-                    sum_b += px & 0xFF;
-                    count += 1;
+    /// Sample a pixel using **absolute logical** coordinates (compositor space).
+    ///
+    /// Unlike `sample()` which takes local-physical coords relative to the
+    /// active tile, this accepts the coordinates a user would see: (0,0) is
+    /// the top-left of the leftmost monitor. Used by `--pixel X,Y`.
+    pub fn sample_logical(&self, logical_x: i32, logical_y: i32) -> Option<u32> {
+        for tile in &self.tiles {
+            if logical_x >= tile.logical_pos.0 && logical_x < tile.logical_pos.0 + tile.logical_w &&
+               logical_y >= tile.logical_pos.1 && logical_y < tile.logical_pos.1 + tile.logical_h {
+
+                let local_log_x = logical_x - tile.logical_pos.0;
+                let local_log_y = logical_y - tile.logical_pos.1;
+
+                let phys_x = (local_log_x as f64 * tile.scale).round() as i32;
+                let phys_y = (local_log_y as f64 * tile.scale).round() as i32;
+
+                if phys_x >= 0 && (phys_x as u32) < tile.capture.width &&
+                   phys_y >= 0 && (phys_y as u32) < tile.capture.height {
+                    let idx = phys_y as usize * tile.capture.width as usize + phys_x as usize;
+                    return Some(tile.capture.xrgb_buffer[idx]);
                 }
             }
         }
+        None
+    }
+
+    /// Forward analogue of `sample_logical`'s tile lookup, but returning the
+    /// `(monitor_idx, phys_x, phys_y)` triple instead of a pixel value. Used
+    /// by the emit-side coord conversion when `--phys` is requested and the
+    /// input was logical. Returns `None` when the logical coord falls outside
+    /// every tile (off-canvas).
+    pub fn logical_to_physical(&self, logical_x: i32, logical_y: i32) -> Option<(usize, i32, i32)> {
+        for (idx, tile) in self.tiles.iter().enumerate() {
+            if logical_x >= tile.logical_pos.0 && logical_x < tile.logical_pos.0 + tile.logical_w &&
+               logical_y >= tile.logical_pos.1 && logical_y < tile.logical_pos.1 + tile.logical_h {
+                let local_log_x = logical_x - tile.logical_pos.0;
+                let local_log_y = logical_y - tile.logical_pos.1;
+                let phys_x = (local_log_x as f64 * tile.scale).round() as i32;
+                let phys_y = (local_log_y as f64 * tile.scale).round() as i32;
+                return Some((idx, phys_x, phys_y));
+            }
+        }
+        None
+    }
+
+    /// Inverse of the logical→physical mapping in `sample_logical`: convert a
+    /// per-tile physical coordinate back to absolute compositor logical space.
+    /// Returns `None` if `monitor_idx` is out of range. Subpixel precision is
+    /// lost (round to nearest logical pixel) — acceptable for CLI coord
+    /// emission, where the user's screen coordinate system is integer logical.
+    pub fn physical_to_logical(&self, monitor_idx: usize, phys_x: i32, phys_y: i32) -> Option<(i32, i32)> {
+        let tile = self.tiles.get(monitor_idx)?;
+        Some((
+            tile.logical_pos.0 + (phys_x as f64 / tile.scale).round() as i32,
+            tile.logical_pos.1 + (phys_y as f64 / tile.scale).round() as i32,
+        ))
+    }
+
+    /// Batch convert per-tile-physical coords to desktop-relative logical
+    /// form (the public `--pixel X,Y` contract). Used by the overlay's
+    /// `logical_coords()` derive path — phys_coord_deck is single source
+    /// of truth, logical view is computed at read time.
+    /// Conversion failure (bad monitor index) falls through with (x, y)
+    /// untouched — defensive; shouldn't trigger on well-formed input.
+    pub fn logical_coords_for(&self, phys: &[(usize, i32, i32)]) -> Vec<(i32, i32)> {
+        let (ox, oy) = self.min_origin();
+        phys.iter()
+            .map(|&(idx, x, y)| {
+                self.physical_to_logical(idx, x, y)
+                    .map(|(lx, ly)| (lx - ox, ly - oy))
+                    .unwrap_or((x, y))
+            })
+            .collect()
+    }
+
+    /// Direct physical sampling against a specific tile — bypasses the
+    /// logical→tile lookup that `sample_logical` does. Used by the CLI
+    /// `--pixel N:X,Y` (physical-coord opt-in) path: caller already knows
+    /// which monitor's buffer to read. Out-of-tile-bounds → None.
+    pub fn sample_in_tile(&self, monitor_idx: usize, phys_x: i32, phys_y: i32) -> Option<u32> {
+        read_at_tile_pixel(self.tiles.get(monitor_idx)?, phys_x, phys_y)
+    }
+
+    /// N×N physical-pixel box averaging on a specific tile. Centre coord must
+    /// be in-bounds (returns None otherwise); OOB neighbours are silently
+    /// excluded. `aim_radius <= 0` → fast single-pixel read.
+    pub fn sample_in_tile_average(&self, monitor_idx: usize, phys_x: i32, phys_y: i32, aim_radius: i32) -> Option<u32> {
+        let tile = self.tiles.get(monitor_idx)?;
+        // Centre must be in-bounds (matches single-pixel OOB semantics) —
+        // gate before kernel so a click-on-edge with radius=0 short-circuits.
+        read_at_tile_pixel(tile, phys_x, phys_y)?;
+        if aim_radius <= 0 {
+            return read_at_tile_pixel(tile, phys_x, phys_y);
+        }
+        average_kernel(aim_radius, |dx, dy| read_at_tile_pixel(tile, phys_x + dx, phys_y + dy))
+    }
+
+    /// Sample many logical coords against this already-captured canvas.
+    ///
+    /// Pure, transport-free — the in-process path and a future daemon call
+    /// this exact fn. Out-of-bounds is per-element (`None`), so the caller
+    /// chooses skip-vs-abort at the edge; the core never decides policy.
+    pub fn sample_vector(&self, coords: &[(i32, i32)], aim_radius: i32) -> Vec<Option<u32>> {
+        coords.iter().map(|&(x, y)| {
+            // Single tile lookup per coord regardless of aim_radius — replaces
+            // the previous two-pass (sample_logical + sample_average_logical)
+            // which iterated tiles twice. Hot path on bulk scans (scan.rb's
+            // 10k+ coords).
+            let (idx, phys_x, phys_y) = self.logical_to_physical(x, y)?;
+            self.sample_in_tile_average(idx, phys_x, phys_y, aim_radius)
+        }).collect()
+    }
+
+    /// Average colour of an N×N **physical-pixel** box around the centre
+    /// identified by absolute-logical coordinates. Thin wrapper —
+    /// resolves the tile via `logical_to_physical`, delegates to
+    /// `sample_in_tile_average`. Returns (0, 0, 0) for off-canvas centres
+    /// (kept for API stability; callers should gate via `sample_logical`).
+    pub fn sample_average_logical(&self, logical_x: i32, logical_y: i32, radius: i32) -> (u8, u8, u8) {
+        let result = self.logical_to_physical(logical_x, logical_y)
+            .and_then(|(idx, px, py)| self.sample_in_tile_average(idx, px, py, radius));
+        match result {
+            Some(packed) => (
+                ((packed >> 16) & 0xFF) as u8,
+                ((packed >> 8) & 0xFF) as u8,
+                (packed & 0xFF) as u8,
+            ),
+            None => (0, 0, 0),
+        }
+    }
+
+    /// Average colour of (2*radius+1)² area around (cx, cy) in **local-physical**
+    /// coordinates of the active tile (like `sample()`). radius=0 → single
+    /// pixel. Cross-tile-aware via `sample()`'s logical raycast — pixels
+    /// near the active-tile edge can pull from neighbour tiles. OOB pixels
+    /// are excluded from the average. Magnifier overlay hot path.
+    pub fn sample_average(&self, cx: i32, cy: i32, radius: i32) -> (u8, u8, u8) {
+        let packed = average_kernel(radius, |dx, dy| self.sample(cx + dx, cy + dy))
+            .unwrap_or(0);
         (
-            sum_r.checked_div(count).unwrap_or(0) as u8,
-            sum_g.checked_div(count).unwrap_or(0) as u8,
-            sum_b.checked_div(count).unwrap_or(0) as u8,
+            ((packed >> 16) & 0xFF) as u8,
+            ((packed >> 8) & 0xFF) as u8,
+            (packed & 0xFF) as u8,
         )
+    }
+
+    /// Top-left of the desktop bounding box in global logical space.
+    ///
+    /// Compositors may anchor outputs at a non-zero origin (e.g. a single
+    /// monitor reported at x=1920). CLI `--pixel X,Y` is desktop-relative
+    /// (origin = leftmost/topmost monitor, like grim/slurp), so callers add
+    /// this offset before [`Self::sample_vector`]. The daemon keeps absolute
+    /// coords for per-monitor overlay placement — hence this is opt-in, not
+    /// baked into the canvas.
+    pub fn min_origin(&self) -> (i32, i32) {
+        let min_x = self.tiles.iter().map(|t| t.logical_pos.0).min().unwrap_or(0);
+        let min_y = self.tiles.iter().map(|t| t.logical_pos.1).min().unwrap_or(0);
+        (min_x, min_y)
     }
 
     /// The tile where the overlay surface lives.
@@ -205,6 +350,69 @@ impl PhysicalCanvas {
     pub fn active(&self) -> &MonitorTile {
         self.tiles.get(self.active_idx).unwrap_or(&self.tiles[0])
     }
+}
+
+// ─── Sampling primitives ────────────────────────────────────────────────────
+// Two functions form the math foundation under every `sample_*` method:
+//   • read_at_tile_pixel — atomic single-pixel read (bounds-check + buffer
+//     index), inlined by the optimiser into every caller's hot path
+//   • average_kernel — generic (2r+1)² box-filter loop, parametrised over
+//     a sampler closure. Magnifier passes a raycast-capable sampler (cross-
+//     tile sampling at active-tile edges); probe passes a single-tile
+//     direct-read closure.
+// Closures monomorphise per call site → matches manual loop in release.
+
+/// Atomic single-pixel read against one tile's buffer. Returns None for
+/// out-of-tile coords. Used directly by `sample_in_tile` / fast-path of
+/// `sample_in_tile_average`, and inside the closure passed to
+/// `average_kernel` for probe-side box averaging.
+#[inline]
+fn read_at_tile_pixel(tile: &MonitorTile, phys_x: i32, phys_y: i32) -> Option<u32> {
+    let w = tile.capture.width as i32;
+    let h = tile.capture.height as i32;
+    if phys_x < 0 || phys_x >= w || phys_y < 0 || phys_y >= h {
+        return None;
+    }
+    let idx = phys_y as usize * tile.capture.width as usize + phys_x as usize;
+    Some(tile.capture.xrgb_buffer[idx])
+}
+
+/// Generic (2r+1)² box-filter averaging loop. Sums in `u32` (sufficient
+/// headroom: 8-bit channel × 441 max pixels at r=10 ≪ u32::MAX), divides
+/// by valid-sample count to keep OOB neighbours from biasing the average
+/// toward zero. Returns None only when every neighbour was OOB (count=0).
+///
+/// `sampler(dx, dy)` is closed over by the caller — magnifier passes
+/// `|dx, dy| self.sample(cx + dx, cy + dy)` (raycast across tiles),
+/// probe passes `|dx, dy| read_at_tile_pixel(tile, phys_x + dx, phys_y + dy)`
+/// (single tile). Both inline at the call site.
+#[inline]
+fn average_kernel<F>(radius: i32, mut sampler: F) -> Option<u32>
+where
+    F: FnMut(i32, i32) -> Option<u32>,
+{
+    let mut sum_r = 0u32;
+    let mut sum_g = 0u32;
+    let mut sum_b = 0u32;
+    let mut count = 0u32;
+    for dy in -radius..=radius {
+        for dx in -radius..=radius {
+            if let Some(px) = sampler(dx, dy) {
+                sum_r += (px >> 16) & 0xFF;
+                sum_g += (px >> 8) & 0xFF;
+                sum_b += px & 0xFF;
+                count += 1;
+            }
+        }
+    }
+    if count == 0 {
+        return None;
+    }
+    Some(
+        ((sum_r / count) << 16)
+            | ((sum_g / count) << 8)
+            | (sum_b / count),
+    )
 }
 
 /// Apply a Wayland output transform to an XRGB capture.
@@ -326,13 +534,14 @@ pub fn capture_all_outputs(
             let manager = manager.clone();
             let wl_shm = wl_shm.clone();
             let out_clone = meta.output.clone();
+            let name = meta.name.clone();
             let logical_pos = meta.logical_pos;
             let logical_w = meta.logical_w;
             let logical_h = meta.logical_h;
             let transform = meta.transform;
             std::thread::spawn(move || {
                 wlr::capture_output(&conn, &manager, &wl_shm, &out_clone)
-                    .map(|capture| MonitorTile::from_capture(capture, out_clone, logical_pos, logical_w, logical_h, transform))
+                    .map(|capture| MonitorTile::from_capture(capture, out_clone, name, logical_pos, logical_w, logical_h, transform))
             })
         }).collect();
 
@@ -356,17 +565,21 @@ pub fn capture_all_outputs(
                     Ok(capture) => Some(MonitorTile::from_capture(
                         capture,
                         meta.output.clone(),
+                        meta.name.clone(),
                         meta.logical_pos,
                         meta.logical_w,
                         meta.logical_h,
                         meta.transform,
                     )),
                     Err(e) => {
+                        // KWin tier unavailable for this output — expected on
+                        // non-KDE compositors. The per-output skip falls through
+                        // to the next tier; not a warning.
                         let e_str = e.to_string();
                         let (kind, desc) = e_str.split_once(": ").unwrap_or(("", &e_str));
-                        log_warn(&format!("KWin capture skipped for {}:", meta.name));
-                        if !kind.is_empty() { log_warn(&format!("   {}:", kind)); }
-                        log_warn(&format!("   {}", desc));
+                        log_info(&format!("KWin capture skipped for {}:", meta.name));
+                        if !kind.is_empty() { log_info(&format!("   {}:", kind)); }
+                        log_info(&format!("   {}", desc));
                         None
                     }
                 }
@@ -453,6 +666,7 @@ fn try_split_virtual_desktop(
         tiles.push(MonitorTile::from_capture(
             sub,
             m.output.clone(),
+            m.name.clone(),
             m.logical_pos,
             m.logical_w,
             m.logical_h,
@@ -486,103 +700,7 @@ pub fn capture_all_outputs() -> Result<PhysicalCanvas> {
     windows::capture_dxgi()
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-// Unit Tests
-// ══════════════════════════════════════════════════════════════════════════════
-
+// Tests live in capture_tests.rs (test mechanics out of the logic file).
 #[cfg(test)]
-mod tests {
-    use super::*;
-    use wayland_client::protocol::wl_output::Transform;
-
-    #[test]
-    fn test_apply_transform_identity() {
-        let capture = ScreenCapture {
-            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
-            width: 3,
-            height: 2,
-        };
-        let result = apply_transform(capture, Transform::Normal);
-        assert_eq!(result.width, 3);
-        assert_eq!(result.height, 2);
-        assert_eq!(result.xrgb_buffer, vec![1, 2, 3, 4, 5, 6]);
-    }
-
-    #[test]
-    fn test_apply_transform_flipped() {
-        // Source (3x2):
-        // [1, 2, 3]
-        // [4, 5, 6]
-        // Flipped (horizontal mirror):
-        // [3, 2, 1]
-        // [6, 5, 4]
-        let capture = ScreenCapture {
-            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
-            width: 3,
-            height: 2,
-        };
-        let result = apply_transform(capture, Transform::Flipped);
-        assert_eq!(result.width, 3);
-        assert_eq!(result.height, 2);
-        assert_eq!(result.xrgb_buffer, vec![3, 2, 1, 6, 5, 4]);
-    }
-
-    #[test]
-    fn test_apply_transform_90() {
-        // Source (3x2):
-        // [1, 2, 3]
-        // [4, 5, 6]
-        // 90 deg clockwise:
-        // [4, 1]
-        // [5, 2]
-        // [6, 3]
-        let capture = ScreenCapture {
-            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
-            width: 3,
-            height: 2,
-        };
-        let result = apply_transform(capture, Transform::_90);
-        assert_eq!(result.width, 2);
-        assert_eq!(result.height, 3);
-        assert_eq!(result.xrgb_buffer, vec![4, 1, 5, 2, 6, 3]);
-    }
-
-    #[test]
-    fn test_apply_transform_180() {
-        // Source (3x2):
-        // [1, 2, 3]
-        // [4, 5, 6]
-        // 180 deg:
-        // [6, 5, 4]
-        // [3, 2, 1]
-        let capture = ScreenCapture {
-            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
-            width: 3,
-            height: 2,
-        };
-        let result = apply_transform(capture, Transform::_180);
-        assert_eq!(result.width, 3);
-        assert_eq!(result.height, 2);
-        assert_eq!(result.xrgb_buffer, vec![6, 5, 4, 3, 2, 1]);
-    }
-
-    #[test]
-    fn test_apply_transform_270() {
-        // Source (3x2):
-        // [1, 2, 3]
-        // [4, 5, 6]
-        // 270 deg clockwise (or 90 deg counter-clockwise):
-        // [3, 6]
-        // [2, 5]
-        // [1, 4]
-        let capture = ScreenCapture {
-            xrgb_buffer: vec![1, 2, 3, 4, 5, 6],
-            width: 3,
-            height: 2,
-        };
-        let result = apply_transform(capture, Transform::_270);
-        assert_eq!(result.width, 2);
-        assert_eq!(result.height, 3);
-        assert_eq!(result.xrgb_buffer, vec![3, 6, 2, 5, 1, 4]);
-    }
-}
+#[path = "capture_tests.rs"]
+mod tests;

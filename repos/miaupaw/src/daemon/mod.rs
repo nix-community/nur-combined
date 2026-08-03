@@ -4,6 +4,7 @@ pub mod dbus_menu;
 pub mod dbus_tray;
 #[cfg(windows)]
 pub mod about_win;
+pub mod color_service;
 pub mod event_sender;
 #[cfg(unix)]
 pub mod pipe_menu;

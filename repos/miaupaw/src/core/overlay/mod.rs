@@ -14,6 +14,11 @@ mod magnifier;
 pub mod primitives;
 pub mod shapes;
 
+// State-machine tests (handle_action / take_session) live in overlay_tests.rs.
+#[cfg(test)]
+#[path = "overlay_tests.rs"]
+mod tests;
+
 // Re-export shared rendering primitives for other core modules (e.g. About window)
 pub use glass::draw_frosted_rect;
 
@@ -29,6 +34,25 @@ use std::time::Instant;
 
 use primitives::copy_region;
 
+// ── Render-loop invariant constants ──────────────────────────────────────────
+
+/// SHM buffer rotation depth (Wayland triple buffering; worst case for others).
+pub const SHM_BUFFER_ROTATION: usize = 3;
+
+/// Max dirty rects born per frame: satellite + magnifier∪deck + HUD.
+/// Adding a new rect source? INCREASE this — otherwise history shrinks below
+/// the rotation depth and stale buffers stop restoring background (ghosts).
+pub const MAX_DIRTY_RECTS_PER_FRAME: usize = 3;
+
+/// The dirty deque is NOT cleared after restore — it is a sliding history:
+/// every buffer in the rotation must get to restore background from ITS old
+/// rects when it returns from the pool.
+pub const DIRTY_RECT_HISTORY: usize = SHM_BUFFER_ROTATION * MAX_DIRTY_RECTS_PER_FRAME + 1;
+
+/// Seconds before auto_cancel when the frame starts pulsing (and main.rs
+/// kicks the idle overlay's render — see the run_wayland_daemon timer).
+pub const WATCHDOG_WARNING_WINDOW_SECS: u64 = 10;
+
 pub struct RepeatState {
     pub dx: i32,
     pub dy: i32,
@@ -37,16 +61,41 @@ pub struct RepeatState {
     pub last_repeat: Instant,
 }
 
+/// One pick: color + pick-time coordinate in per-tile-physical form.
+#[derive(Clone, Copy)]
+pub struct Pick {
+    pub color: Rgba<u8>,
+    pub tile: usize,
+    pub phys_x: i32,
+    pub phys_y: i32,
+}
+
+/// Overlay session outcome — everything the finalizers (daemon / --pick)
+/// need, from a single `take_session()` call. The "derive logical BEFORE
+/// take" ordering invariant is encapsulated inside — callers have no
+/// ordering left to get wrong.
+pub struct SessionResult {
+    pub colors: Vec<Rgba<u8>>,
+    /// Logical (desktop-relative) view — derived from phys_coords via canvas.
+    pub coords: Vec<(i32, i32)>,
+    /// Per-tile physical (monitor_idx, phys_x, phys_y) — source of truth.
+    pub phys_coords: Vec<(usize, i32, i32)>,
+    /// Config snapshot — the session may have mutated it (zoom, format, HUD).
+    pub config: Config,
+}
+
 pub struct OverlayApp {
     /// Pixel mosaic of all captured monitors. 
     /// Coordinates asked from it must be in the active tile's local physical space.
     pub canvas: PhysicalCanvas,
 
-    // --- Legacy convenience aliases (always mirror the active tile) ---
+    // aim_pos — the logical AIM (arrows/jump move it independently of the mouse);
+    // cursor_pos — the OS hardware cursor. They diverge during keyboard
+    // navigation — a satellite is drawn at the aim point then.
     pub buf_width: u32,
     pub buf_height: u32,
-    pub mouse_pos: Option<(f64, f64)>,
-    pub physical_mouse_pos: Option<(f64, f64)>,
+    pub aim_pos: Option<(f64, f64)>,
+    pub cursor_pos: Option<(f64, f64)>,
     pub scale_factor: f64,
 
     // Config holds all settings (aperture, size, colors, offsets)
@@ -54,8 +103,11 @@ pub struct OverlayApp {
 
     pub backend_name: String,
 
-    // Collected colors (for serial/multi-pick mode)
-    pub color_deck: Vec<Rgba<u8>>,
+    // Collected picks (serial mode): color + per-tile-physical coordinate as
+    // one record — the "decks stay in lockstep" invariant is expressed by the
+    // type, nothing to keep in sync. The logical coord view is derived on the
+    // way out in `take_session()`.
+    pub deck: Vec<Pick>,
     // Shutdown flag
     pub should_exit: bool,
     // Timing for first redraw
@@ -96,6 +148,12 @@ pub struct OverlayApp {
     // Used by magnifier for edge-reflection and clamping on multi-monitor setups.
     // None = use canvas bounds (correct for Wayland per-output surfaces).
     pub monitor_rect: Option<(i32, i32, i32, i32)>,
+
+    // --- update() → paint() bridge ---
+    /// Magnifier frame color for this frame (watchdog pulse). update() writes, paint() reads.
+    pub border_color: u32,
+    /// Magnifier layout computed by update() for paint(). None — magnifier not drawn.
+    magnifier_layout: Option<magnifier::Layout>,
 }
 
 /// State for the final color-capture animation.
@@ -153,6 +211,12 @@ impl OverlayApp {
         // Critical for perfect centering of the central pixel.
         config.magnifier.aperture = magnifier::ensure_odd(config.magnifier.aperture as i32) as u32;
         config.magnifier.size = magnifier::ensure_odd(config.magnifier.size as i32) as u32;
+        // --pick --average N override: applied BEFORE ensure_odd / aperture
+        // clamp, so the CLI value still goes through the same normalisation
+        // path as config-driven aim_size. Daemon path never sets this.
+        if let Some(cli_avg) = crate::core::config::get_pick_average_override() {
+            config.magnifier.aim_size = cli_avg;
+        }
         config.magnifier.aim_size = magnifier::ensure_odd(config.magnifier.aim_size.max(1) as i32) as u32;
         if config.magnifier.aim_size > config.magnifier.aperture {
             config.magnifier.aim_size = config.magnifier.aperture;
@@ -165,22 +229,23 @@ impl OverlayApp {
         let active = canvas.active();
         let buf_width = active.capture.width;
         let buf_height = active.capture.height;
+        let border_color = config.colors.frame;
 
         Self {
             canvas,
             buf_width,
             buf_height,
-            mouse_pos: None,
-            physical_mouse_pos: None,
+            aim_pos: None,
+            cursor_pos: None,
             scale_factor,
             config,
             backend_name,
-            color_deck: Vec::new(),
+            deck: Vec::new(),
             should_exit: false,
             first_redraw_time: Some(Instant::now()),
             last_frame_time: None,
             needs_redraw: false,
-            dirty_rects: std::collections::VecDeque::with_capacity(12),
+            dirty_rects: std::collections::VecDeque::with_capacity(DIRTY_RECT_HISTORY + 2),
             warmed_buffers: HashMap::new(),
             blur_buf_1: Vec::new(),
             blur_buf_2: Vec::new(),
@@ -191,6 +256,8 @@ impl OverlayApp {
             blink: None,
             last_activity: Instant::now(),
             monitor_rect: None,
+            border_color,
+            magnifier_layout: None,
         }
     }
 
@@ -211,16 +278,22 @@ impl OverlayApp {
     /// Updates the physical mouse position from OS connectors.
     /// `x, y` — physical coordinates in the active tile's local space (not world).
     /// `world_x, world_y` — world coordinates for cross-monitor pixel sampling.
-    pub fn update_physical_mouse(&mut self, x: f64, y: f64) {
+    pub fn update_cursor(&mut self, x: f64, y: f64) {
         self.last_activity = Instant::now();
-        self.physical_mouse_pos = Some((x, y));
-        self.mouse_pos = Some((x, y));
+        self.cursor_pos = Some((x, y));
+        self.aim_pos = Some((x, y));
         self.needs_redraw = true;
     }
 
-    /// Take and return the collected color deck.
-    pub fn take_color_deck(&mut self) -> Vec<Rgba<u8>> {
-        std::mem::take(&mut self.color_deck)
+    /// Takes the session outcome: colors + both coord forms + config snapshot.
+    /// The canvas stays put — the derive/take ordering is encapsulated here.
+    pub fn take_session(&mut self) -> SessionResult {
+        let picks = std::mem::take(&mut self.deck);
+        let phys_coords: Vec<(usize, i32, i32)> =
+            picks.iter().map(|p| (p.tile, p.phys_x, p.phys_y)).collect();
+        let coords = self.canvas.logical_coords_for(&phys_coords);
+        let colors = picks.iter().map(|p| p.color).collect();
+        SessionResult { colors, coords, phys_coords, config: self.config.clone() }
     }
 
     /// Extract RGB from the XRGB u32 buffer of the active tile.
@@ -376,11 +449,11 @@ impl OverlayApp {
             }
             UserAction::Nudge(dx, dy) => {
                 // Precision 1-pixel aim nudge (Sniper mode).
-                if let Some((x, y)) = self.mouse_pos {
+                if let Some((x, y)) = self.aim_pos {
                     let active = self.canvas.active();
                     let new_x = (x + dx as f64).clamp(0.0, active.capture.width as f64 - 1.0);
                     let new_y = (y + dy as f64).clamp(0.0, active.capture.height as f64 - 1.0);
-                    self.mouse_pos = Some((new_x, new_y));
+                    self.aim_pos = Some((new_x, new_y));
                     self.needs_redraw = true;
 
                     // Start repeat tracker only if the direction has changed.
@@ -393,9 +466,9 @@ impl OverlayApp {
             }
             UserAction::Jump(dx, dy) => {
                 // Hyperspace jump (to the next visual boundary).
-                if let Some((x, y)) = self.mouse_pos {
+                if let Some((x, y)) = self.aim_pos {
                     let target = self.find_jump_target(x as u32, y as u32, dx, dy);
-                    self.mouse_pos = Some(target);
+                    self.aim_pos = Some(target);
                     self.needs_redraw = true;
 
                     // Start repeat tracker only if the direction has changed.
@@ -481,18 +554,31 @@ impl OverlayApp {
                 self.needs_redraw = true;
             }
             UserAction::PickColor { serial } => {
+                // Pick-disabled mode: every sample gesture is a no-op.
+                // Esc/Cancel still works — overlay can be used as a read-only magnifier.
+                if !self.config.pick.enabled { return; }
                 self.repeat_tracker = None; // Emergency stop: picking a color interrupts movement
-                if let Some((x, y)) = self.mouse_pos {
+                if let Some((x, y)) = self.aim_pos {
                     let color = self.sample_aim_color(x as u32, y as u32);
-                    self.color_deck.push(color);
+                    // aim_pos = per-tile physical of the active tile —
+                    // store as-is. Logical view derives on the way out in
+                    // `take_session()` (canvas physical_to_logical +
+                    // min_origin shift).
+                    self.deck.push(Pick {
+                        color,
+                        tile: self.canvas.active_idx,
+                        phys_x: x as i32,
+                        phys_y: y as i32,
+                    });
 
                     if serial {
                         // Serial mode: flash + continue working.
                         self.flash_intensity = 1.0;
                         self.needs_redraw = true;
                     } else {
-                        // Final pick: log the final coordinates.
-                        crate::core::terminal::log_plain("Coords", &format!("({}, {})", x as u32, y as u32));
+                        // Final pick: pick coordinates are logged inline in
+                        // `ColorService::copy_color` (gray prefix before swatch,
+                        // aligned per-deck) — color and coordinate travel as one Pick.
                         // Launch blink effect or exit immediately.
                         if self.config.physics.blink_effect == "converge" {
                             let target_size = self.config.magnifier.size as f64;
@@ -506,13 +592,14 @@ impl OverlayApp {
                             // Build the train: all colors from the deck (including the final pick).
                             // Stagger between launches is fixed (~20ms), capped at 100ms total spread.
                             // Each square flies the full 300ms — same speed regardless of count.
-                            let count = self.color_deck.len();
+                            let count = self.deck.len();
                             // Fixed 100ms spread, evenly divided between squares.
                             // 2 colors: 100ms gap. 5: 25ms. 10: 11ms — dense tail.
                             let spread = if count <= 1 { 0.0 } else { 0.1 };
                             let stagger_step = if count > 1 { spread / (count - 1) as f32 } else { 0.0 };
 
-                            let squares: Vec<BlinkSquare> = self.color_deck.iter().enumerate().map(|(i, c)| {
+                            let squares: Vec<BlinkSquare> = self.deck.iter().enumerate().map(|(i, p)| {
+                                let c = p.color;
                                 let rgb = ((c.0[0] as u32) << 16)
                                          | ((c.0[1] as u32) << 8)
                                          | (c.0[2] as u32);
@@ -541,7 +628,7 @@ impl OverlayApp {
             }
             UserAction::Cancel => {
                 self.repeat_tracker = None;
-                self.color_deck.clear();
+                self.deck.clear();
                 self.should_exit = true;
             }
         }
@@ -554,32 +641,42 @@ impl OverlayApp {
         self.invalidate_render();
     }
 
-    /// **Frame render**
-    ///
-    /// Called by the system whenever the window needs to be redrawn.
-    /// Receives a raw `canvas` slice from the Wayland SHM buffer.
-    ///
-    /// Returns `true` if dirty rect was used (partial damage),
-    /// `false` if a full repaint was performed (full damage).
-    /// **Main overlay render loop.**
-    ///
-    /// Called by the connector (wayland.rs / x11.rs) on every frame callback from the compositor.
-    /// Receives a raw u32 slice from the Wayland SHM buffer and draws directly into it.
-    ///
-    /// Operation order:
-    ///   1. **dt / frame time** — compute delta, clamp to 100ms (protection from idle spikes).
-    ///   2. **Dirty rect restore** — if buffer is "warm", restore only changed regions;
-    ///      otherwise full memcpy background → canvas (first-time "warming").
-    ///   3. **Flash decay** — white flash fade-out after a serial pick.
-    ///   4. **Keyboard repeat** — custom auto-repeat (OS repeat is unreliable in Wayland).
-    ///   5. **Blink / Normal** — either the final converge animation, or magnifier + HUD.
-    ///
-    /// Returns `true` (partial damage) or `false` (full damage) — signal for wayland.rs
-    /// to select the `damage_buffer` region.
-    pub fn render(&mut self, canvas: &mut [u32], width: u32, height: u32) -> bool {
-        if width == 0 || height == 0 {
-            return false;
+    /// dt from last_frame_time: defaults to 0.016 (first frame); anything
+    /// above 100ms clamps to 0.016 (protects animations from idle spikes).
+    /// The single frame-time source.
+    fn tick_dt(&mut self) -> f64 {
+        let now = Instant::now();
+        let mut dt = self
+            .last_frame_time
+            .map(|t| t.elapsed().as_secs_f64())
+            .unwrap_or(0.016);
+        if dt > 0.1 {
+            dt = 0.016;
         }
+        self.last_frame_time = Some(now);
+        dt
+    }
+
+    ///   2. watchdog auto-cancel (→ should_exit)
+    ///   3. flash decay
+    ///      (→ magnifier_layout) + hud.update
+    /// **Simulation phase: state tick without touching a single pixel.**
+    ///
+    /// The Hud pattern (update/render "intentionally separated") promoted to
+    /// the orchestrator level. The internal order is an invariant:
+    ///   1. needs_redraw = false (reset BEFORE animations — they re-arm it)
+    ///   2. watchdog auto-cancel (→ should_exit)
+    ///   3. flash decay
+    ///   4. keyboard auto-repeat (moves the aim; refreshes last_activity)
+    ///   5. blink lifecycle (train landed → blink=None + should_exit)
+    ///   6. no blink: watchdog border pulse (→ border_color) + magnifier.step
+    ///      (→ magnifier_layout) + hud.update
+    ///
+    /// Testable headless: no buffer, no display.
+    pub fn update(&mut self, dt: f64) {
+        // Reset the animation flag BEFORE the ticks — repeat/flash/blink re-arm it.
+        // (Historical invariant: "repeat logic AFTER the needs_redraw reset".)
+        self.needs_redraw = false;
 
         // --- Watchdog: auto-cancel on inactivity ---
         let inactive_secs_f = self.last_activity.elapsed().as_secs_f32();
@@ -590,40 +687,142 @@ impl OverlayApp {
             crate::core::terminal::log_step("System", "Watchdog: Auto-cancel triggered due to inactivity.");
         }
 
-        let now = std::time::Instant::now();
-        let mut dt = self
-            .last_frame_time
-            .map(|t| t.elapsed().as_secs_f64())
-            .unwrap_or(0.016);
-        
-        // Prevent massive animation skips after waking up from idle state (>100ms)
-        if dt > 0.1 {
-            dt = 0.016; // Start with safe 60FPS frame time
+        // --- Flash Feedback Decay ---
+        if self.flash_intensity > 0.0 {
+            self.flash_intensity -= (dt as f32 * 5.0).max(0.1);
+            if self.flash_intensity < 0.0 {
+                self.flash_intensity = 0.0;
+            }
+            // Require redraw while flash is actively decaying
+            self.needs_redraw = true;
         }
-        
-        self.last_frame_time = Some(now);
 
-        // Clone config out of self to avoid borrow conflicts.
+        // --- Custom keyboard auto-repeat (independent of OS) ---
+        // Wayland's system key-repeat is unreliable. Our tracker:
+        //   - set on first press (Nudge / Jump)
+        //   - delay=350ms pause, rate=30ms (nudge) / 120ms (jump)
+        //   - any other action resets the tracker
+        if let Some(ref repeat) = self.repeat_tracker {
+            // While the key is held — keep the loop alive so the timer ticks.
+            self.needs_redraw = true;
+            self.last_activity = Instant::now();
+
+            let elapsed = repeat.started.elapsed().as_millis() as u64;
+            let delay = 350; // Initial pause before repeat kicks in
+            let rate = if repeat.is_jump { 120 } else { 30 }; // Interval between steps (ms)
+            let (rdx, rdy, is_jump) = (repeat.dx, repeat.dy, repeat.is_jump);
+
+            if elapsed > delay && repeat.last_repeat.elapsed().as_millis() as u64 >= rate
+                && let Some((x, y)) = self.aim_pos {
+                    if is_jump {
+                        let target = self.find_jump_target(x as u32, y as u32, rdx, rdy);
+                        self.aim_pos = Some(target);
+                    } else {
+                        let new_x = (x + rdx as f64).clamp(0.0, self.buf_width as f64 - 1.0);
+                        let new_y = (y + rdy as f64).clamp(0.0, self.buf_height as f64 - 1.0);
+                        self.aim_pos = Some((new_x, new_y));
+                    }
+                    // Safely update after releasing the immutable borrow.
+                    self.repeat_tracker.as_mut().unwrap().last_repeat = Instant::now();
+                }
+        }
+
+        // --- Blink lifecycle (the train is flying / has landed) ---
+        if let Some(ref blink) = self.blink {
+            if blink.started.elapsed().as_secs_f32() >= blink.duration {
+                self.blink = None;
+                self.should_exit = true;
+            } else {
+                self.needs_redraw = true;
+            }
+        }
+
+        if self.blink.is_some() {
+            // While blink is active: magnifier and HUD neither tick nor draw.
+            self.magnifier_layout = None;
+            return;
+        }
+
+        // --- Magnifier: border pulse + physics/geometry (only with a live aim) ---
+        if let Some(pos) = self.aim_pos {
+            // Border pulse as the timeout nears: theme → red, 0.5Hz → 2.5Hz.
+            let timeout_f = timeout as f32;
+            let warning_start = (timeout_f - WATCHDOG_WARNING_WINDOW_SECS as f32).max(0.0);
+
+            self.border_color = if timeout > 0 && inactive_secs_f > warning_start {
+                self.needs_redraw = true; // keep the loop alive for the animation
+                let progress = (inactive_secs_f - warning_start) / WATCHDOG_WARNING_WINDOW_SECS as f32; // 0.0 -> 1.0
+                let freq = 0.5 + progress * 2.0;
+                let pulse = (inactive_secs_f * std::f32::consts::PI * 2.0 * freq).sin() * 0.5 + 0.5;
+
+                let r_base = ((self.config.colors.frame >> 16) & 0xFF) as f32;
+                let g_base = ((self.config.colors.frame >> 8) & 0xFF) as f32;
+                let b_base = (self.config.colors.frame & 0xFF) as f32;
+
+                let r = (r_base * (1.0 - pulse) + 255.0 * pulse) as u32;
+                let g = (g_base * (1.0 - pulse) + 30.0 * pulse) as u32; // cleaner red
+                let b = (b_base * (1.0 - pulse) + 30.0 * pulse) as u32;
+
+                (0xFF << 24) | (r << 16) | (g << 8) | b
+            } else {
+                self.config.colors.frame
+            };
+
+            let ctx = magnifier::StepCtx {
+                config: &self.config,
+                canvas: &self.canvas,
+                aim_pos: pos,
+                local_mx: pos.0 as i32,
+                local_my: pos.1 as i32,
+                buf_w: self.buf_width as usize,
+                buf_h: self.buf_height as usize,
+                monitor_rect: self.monitor_rect,
+            };
+            let layout = self.magnifier.step(dt, &ctx);
+            if layout.animating {
+                self.needs_redraw = true;
+            }
+            self.magnifier_layout = Some(layout);
+        } else {
+            self.magnifier_layout = None;
+        }
+
+        // --- HUD: physics always ticks (even a hidden HUD slides out smoothly) ---
+        if self.hud.update(dt, self.aim_pos, self.config.hud.show, self.scale_factor) {
+            self.needs_redraw = true;
+        }
+    }
+
+    /// **Paint phase: pixels from prepared state.**
+    ///
+    /// Order: dirty-restore/full copy → exit gate (no ghost frames) →
+    /// blink squares OR (satellite → magnifier from Layout → deck → dirty
+    /// bookkeeping → HUD). Returns `true` = partial damage.
+    ///
+    /// Purity exception: matrix rain (digital rain past the screen edge) is
+    /// only discovered while drawing pixels — paint re-arms needs_redraw so
+    /// the rain keeps falling.
+    pub fn paint(&mut self, canvas: &mut [u32], width: u32, height: u32) -> bool {
+        if width == 0 || height == 0 {
+            return false;
+        }
+
         let w = width as usize;
         let h = height as usize;
 
         // --- Dirty Rect / Buffer Warming ---
-        // Wayland uses several SHM buffers simultaneously (typically 2–3, round-robin).
-        // Each buffer is a separate chunk of memory with a unique address.
-        // "Warming" = the buffer has received at least one full background copy.
-        // Only a warm buffer can be updated partially: restore background only in
-        // the previous frame's dirty_rects, instead of a full ~32MB memcpy each frame.
-        // A cold buffer (new address) ALWAYS gets a full copy — otherwise artifacts
-        // from the previous buffer content would leak through partial updates.
-        // --- Dirty Rect / Buffer Warming ---
+        // Wayland uses several SHM buffers (round-robin). "Warming" = the buffer
+        // has received at least one full background copy. Only a warm buffer may
+        // be updated partially (restore via the previous frame's dirty_rects
+        // instead of a full ~32MB memcpy). A cold address ALWAYS gets a full copy.
         let active = self.canvas.active();
         let background = &active.capture.xrgb_buffer;
-        
+
         let ptr = canvas.as_ptr() as usize;
         let tile_idx = self.canvas.active_idx;
         let is_warmed = self.warmed_buffers.get(&ptr) == Some(&tile_idx);
 
-        let use_dirty = is_warmed && self.mouse_pos.is_some() && !self.dirty_rects.is_empty();
+        let use_dirty = is_warmed && self.aim_pos.is_some() && !self.dirty_rects.is_empty();
 
         if use_dirty {
             // Fast path: restore only previous dirty regions from background
@@ -640,155 +839,103 @@ impl OverlayApp {
             self.warmed_buffers.insert(ptr, tile_idx);
         }
 
-        // Reset the animation-pending flag before drawing.
-        self.needs_redraw = false;
-
-        // If the application is already exiting (e.g. Blink just finished),
-        // suppress UI rendering. No ghost frames!
+        // The app is exiting (watchdog / blink landed / Cancel) — background
+        // restored, no UI drawn. No ghost frames!
         if self.should_exit {
             return use_dirty;
         }
 
-        // --- Flash Feedback Decay ---
-        if self.flash_intensity > 0.0 {
-            self.flash_intensity -= (dt as f32 * 5.0).max(0.1); 
-            if self.flash_intensity < 0.0 {
-                self.flash_intensity = 0.0;
-            }
-            // Require redraw while flash is actively decaying
-            self.needs_redraw = true;
-        }
-
-        // --- Custom keyboard auto-repeat (independent of OS) ---
-        // Wayland's system key-repeat is unreliable: some compositors send events
-        // irregularly or with delay. Our tracker is self-contained:
-        //   - repeat_tracker is set on first press (Nudge / Jump)
-        //   - delay=350ms pause before "go" (matching keyboard feel)
-        //   - rate=30ms (nudge) or 120ms (jump) between steps
-        //   - any other action (pick, cancel, format) resets the tracker
-        // Logic lives here in render() to tick in step with frame callbacks,
-        // not in a separate thread with sleeps.
-        // IMPORTANT: repeat logic runs AFTER needs_redraw reset, otherwise it gets clobbered.
-        if let Some(ref repeat) = self.repeat_tracker {
-            // While key is held — keep the render loop spinning so the timer ticks.
-            self.needs_redraw = true;
-            self.last_activity = Instant::now();
-
-            let elapsed = repeat.started.elapsed().as_millis() as u64;
-            let delay = 350; // Initial pause before repeat kicks in
-            let rate = if repeat.is_jump { 120 } else { 30 }; // Interval between steps (ms)
-            let (rdx, rdy, is_jump) = (repeat.dx, repeat.dy, repeat.is_jump);
-
-            if elapsed > delay && repeat.last_repeat.elapsed().as_millis() as u64 >= rate
-                && let Some((x, y)) = self.mouse_pos {
-                    if is_jump {
-                        let target = self.find_jump_target(x as u32, y as u32, rdx, rdy);
-                        self.mouse_pos = Some(target);
-                    } else {
-                        let new_x = (x + rdx as f64).clamp(0.0, self.buf_width as f64 - 1.0);
-                        let new_y = (y + rdy as f64).clamp(0.0, self.buf_height as f64 - 1.0);
-                        self.mouse_pos = Some((new_x, new_y));
-                    }
-                    // Safely update after releasing the immutable borrow.
-                    self.repeat_tracker.as_mut().unwrap().last_repeat = Instant::now();
-                }
-        }
-
-        // =====================================================================
-        // --- FINAL BLINK ANIMATION (if active — replaces magnifier and HUD) ---
-        // =====================================================================
-        // "Train" — closing animation when blink_effect = "converge".
-        // All colors from the deck (including the final pick) fly from magnifier center
-        // to cursor along a parabolic arc with staggered delays. Total time = 300ms regardless
-        // of square count. Each square: EaseOutQuad, start_size→4px, border 6→1px.
-        // While blink is active: magnifier, HUD and satellite cursor are NOT drawn.
         if let Some(ref blink) = self.blink {
+            // =====================================================================
+            // --- FINAL BLINK ANIMATION (replaces magnifier and HUD) ---
+            // =====================================================================
+            // Square positions are a pure function of time (lifecycle is in update()).
             let global_t = blink.started.elapsed().as_secs_f32();
-            if global_t >= blink.duration {
-                self.blink = None;
-                self.should_exit = true;
-            } else {
-                self.needs_redraw = true;
 
-                // Target = current mouse position (cursor may have moved!).
-                let target = self.mouse_pos
-                    .map(|p| (p.0 as f32, p.1 as f32))
-                    .unwrap_or(blink.origin);
+            // Target = current mouse position (the cursor may have moved!).
+            let target = self.aim_pos
+                .map(|p| (p.0 as f32, p.1 as f32))
+                .unwrap_or(blink.origin);
 
-                // Draw each train square (earlier ones underneath later ones).
-                for sq in &blink.squares {
-                    let local_t = global_t - sq.delay;
-                    if local_t < 0.0 { continue; } // hasn't launched yet
-                    let t = (local_t / blink.fly_time).min(1.0);
-                    if t >= 1.0 { continue; } // already landed
+            // Draw each train square (earlier ones underneath later ones).
+            for sq in &blink.squares {
+                let local_t = global_t - sq.delay;
+                if local_t < 0.0 { continue; } // hasn't launched yet
+                let t = (local_t / blink.fly_time).min(1.0);
+                if t >= 1.0 { continue; } // already landed
 
-                    // EaseOutQuad: fast start, smooth deceleration.
-                    let ease = 1.0 - (1.0 - t) * (1.0 - t);
+                // EaseOutQuad: fast start, smooth deceleration.
+                let ease = 1.0 - (1.0 - t) * (1.0 - t);
 
-                    let base_x = blink.origin.0 + (target.0 - blink.origin.0) * ease;
-                    let base_y = blink.origin.1 + (target.1 - blink.origin.1) * ease;
+                let base_x = blink.origin.0 + (target.0 - blink.origin.0) * ease;
+                let base_y = blink.origin.1 + (target.1 - blink.origin.1) * ease;
 
-                    // Parabolic arc for the "hop" feel.
-                    let dx = target.0 - blink.origin.0;
-                    let hop_height = dx.abs() * 0.1 + 15.0;
-                    let arc_offset = t * (1.0 - t) * 4.0 * hop_height;
+                // Parabolic arc for the "hop" feel.
+                let dx = target.0 - blink.origin.0;
+                let hop_height = dx.abs() * 0.1 + 15.0;
+                let arc_offset = t * (1.0 - t) * 4.0 * hop_height;
 
-                    let px = base_x;
-                    let py = base_y - arc_offset;
+                let px = base_x;
+                let py = base_y - arc_offset;
 
-                    // Size: from start_size down to 4px.
-                    let size = (blink.start_size * (1.0 - ease) + 4.0).round() as i32;
-                    let border = (1.0 * (1.0 - ease)).round() as i32;
-                    let border = border.clamp(1, (size - 2).max(2) / 2);
+                // Size: from start_size down to 4px.
+                let size = (blink.start_size * (1.0 - ease) + 4.0).round() as i32;
+                let border = (1.0 * (1.0 - ease)).round() as i32;
+                let border = border.clamp(1, (size - 2).max(2) / 2);
 
-                    let half = size / 2;
-                    let bx = px as i32 - half;
-                    let by = py as i32 - half;
+                let half = size / 2;
+                let bx = px as i32 - half;
+                let by = py as i32 - half;
 
-                    for row in by.max(0)..(by + size).min(h as i32) {
-                        for col in bx.max(0)..(bx + size).min(w as i32) {
-                            let idx = row as usize * w + col as usize;
-                            let is_border = row < by + border
-                                         || row >= by + size - border
-                                         || col < bx + border
-                                         || col >= bx + size - border;
-
-                            if is_border {
-                                canvas[idx] = 0x00FFFFFF;
-                            } else {
-                                canvas[idx] = sq.color;
-                            }
-                        }
-                    }
-                }
-
-                // Dirty rect for the full train (origin → target, max size).
-                let full_size = blink.start_size as i32;
-                let ox = blink.origin.0 as i32;
-                let oy = blink.origin.1 as i32;
-                let tx = target.0 as i32;
-                let ty = target.1 as i32;
-                let drx = (ox.min(tx) - full_size / 2 - 2).max(0);
-                let dry = (oy.min(ty) - full_size - 2).max(0); // extra height for arc
-                let drx2 = (ox.max(tx) + full_size / 2 + 2).min(w as i32);
-                let dry2 = (oy.max(ty) + full_size / 2 + 2).min(h as i32);
-                self.dirty_rects.push_back((drx, dry, (drx2 - drx) as usize, (dry2 - dry) as usize));
+                // Border + fill as two filled rects (SIMD fill in primitives)
+                // instead of a per-pixel loop with a branch per pixel.
+                primitives::draw_filled_rect(canvas, w, h, bx, by, size as usize, size as usize, 0x00FFFFFF);
+                let inner = (size - 2 * border).max(0) as usize;
+                primitives::draw_filled_rect(canvas, w, h, bx + border, by + border, inner, inner, sq.color);
             }
+
+            // Dirty rect for the full train (origin → target, max size).
+            let full_size = blink.start_size as i32;
+            let ox = blink.origin.0 as i32;
+            let oy = blink.origin.1 as i32;
+            let tx = target.0 as i32;
+            let ty = target.1 as i32;
+            let drx = (ox.min(tx) - full_size / 2 - 2).max(0);
+            let dry = (oy.min(ty) - full_size - 2).max(0); // extra height for arc
+            let drx2 = (ox.max(tx) + full_size / 2 + 2).min(w as i32);
+            let dry2 = (oy.max(ty) + full_size / 2 + 2).min(h as i32);
+            // The HUD is not drawn in the blink branch and cannot fend for
+            // itself: its last position enters the deque as a one-shot goodbye
+            // rect — otherwise, with the static damage narrowed, the HUD
+            // lingers as a phantom until the animation ends.
+            if let Some(hud_rect) = self.hud.take_prev_rect() {
+                while self.dirty_rects.len() >= DIRTY_RECT_HISTORY {
+                    self.dirty_rects.pop_front();
+                }
+                self.dirty_rects.push_back(hud_rect);
+            }
+
+            // History rotation — same as the normal path: without it the deque
+            // grows for the whole blink (~one push per frame) and every paint
+            // restores the entire accumulated tail. The train rect covers the
+            // full trajectory every frame, so HISTORY depth is enough for the
+            // round-robin buffers.
+            while self.dirty_rects.len() >= DIRTY_RECT_HISTORY {
+                self.dirty_rects.pop_front();
+            }
+            self.dirty_rects.push_back((drx, dry, (drx2 - drx) as usize, (dry2 - dry) as usize));
         } else {
             // =====================================================================
             // --- NORMAL RENDERING (magnifier, satellite cursor, color deck, HUD) ---
             // =====================================================================
-            
-            // Draw magnifier and obtain precise render bounding box.
-            if let Some(pos) = self.mouse_pos {
+            if let Some(pos) = self.aim_pos {
                 let mut satellite_bounds = None;
-                if let Some(phys) = self.physical_mouse_pos {
+                if let Some(phys) = self.cursor_pos {
                     let dx = pos.0 - phys.0;
                     let dy = pos.1 - phys.1;
                     let dist = (dx * dx + dy * dy).sqrt();
-                    // Draw satellite if the system cursor has lagged behind the logical aim.
-                    // Magnifier is drawn on top (reading from the active tile canvas), so
-                    // if it overlaps the satellite it will cleanly and correctly cover it.
+                    // Satellite when the system cursor lags the logical aim.
+                    // The magnifier draws on top and cleanly covers it on overlap.
                     if dist > 10.0 {
                         satellite_bounds = Some(shapes::draw_satellite_cursor(
                             canvas, w, h, pos.0 as i32, pos.1 as i32
@@ -796,107 +943,75 @@ impl OverlayApp {
                     }
                 }
 
-                // --- Watchdog border pulse (warning before auto-exit) ---
-                let timeout_f = timeout as f32;
-                let warning_start = (timeout_f - 10.0).max(0.0);
-
-                let border_color = if timeout > 0 && inactive_secs_f > warning_start {
-                    self.needs_redraw = true; // keep render loop alive for animation
-                    let progress = (inactive_secs_f - warning_start) / 10.0; // 0.0 -> 1.0
-
-                    // Frequency: 0.5Hz (slow breath) → 2.5Hz (noticeable alarm)
-                    let freq = 0.5 + progress * 2.0;
-                    let pulse = (inactive_secs_f * std::f32::consts::PI * 2.0 * freq).sin() * 0.5 + 0.5;
-
-                    // lerp: theme frame color → red
-                    let r_base = ((self.config.colors.frame >> 16) & 0xFF) as f32;
-                    let g_base = ((self.config.colors.frame >> 8) & 0xFF) as f32;
-                    let b_base = (self.config.colors.frame & 0xFF) as f32;
-
-                    let r = (r_base * (1.0 - pulse) + 255.0 * pulse) as u32;
-                    let g = (g_base * (1.0 - pulse) + 30.0 * pulse) as u32; // cleaner red
-                    let b = (b_base * (1.0 - pulse) + 30.0 * pulse) as u32;
-
-                    (0xFF << 24) | (r << 16) | (g << 8) | b
-                } else {
-                    self.config.colors.frame
-                };
-
-                // Since sample() handles boundaries smoothly using local coords, we pass local directly.
-                let ctx = magnifier::RenderCtx {
-                    config: &self.config,
-                    theme: &self.config.colors,
-                    canvas: &self.canvas,
-                    mouse_pos: pos,
-                    local_mx: pos.0 as i32,
-                    local_my: pos.1 as i32,
-                    dt,
-                    flash_intensity: self.flash_intensity,
-                    frame_color: border_color,
-                    monitor_rect: self.monitor_rect,
-                };
-                let (bounds, is_animating) = self.magnifier.render(
-                    canvas, w, h, &ctx,
-                    &mut self.blur_buf_1, &mut self.blur_buf_2,
-                );
-
-                if is_animating {
-                    self.needs_redraw = true;
-                }
-
-                let mut final_bounds = bounds;
-
-                // --- DRAW COLOR DECK ---
-                if !self.color_deck.is_empty() {
-                    let (mag_start_x, mag_start_y, mag_total_w, mag_h) = bounds;
-                    let mag_w = mag_h; // Since magnifier is always square, its outer width = outer height
-                    
-                    let deck_bounds = shapes::draw_color_deck(
-                        canvas,
-                        w,
-                        h,
-                        mag_start_x,
-                        mag_start_y + mag_h as i32 + 2,
-                        mag_w,
-                        &self.color_deck,
-                        border_color,
+                if let Some(layout) = self.magnifier_layout.take() {
+                    let ctx = magnifier::DrawCtx {
+                        config: &self.config,
+                        theme: &self.config.colors,
+                        canvas: &self.canvas,
+                        local_mx: pos.0 as i32,
+                        local_my: pos.1 as i32,
+                        flash_intensity: self.flash_intensity,
+                        frame_color: self.border_color,
+                    };
+                    let (bounds, matrix_active) = self.magnifier.draw(
+                        canvas, w, h, &layout, &ctx,
+                        &mut self.blur_buf_1, &mut self.blur_buf_2,
                     );
-                    
-                    // Merge bounds (Union of Magnifier rect and Deck rect)
-                    let f_x = mag_start_x.min(deck_bounds.0);
-                    let f_y = mag_start_y.min(deck_bounds.1);
-                    
-                    let f_w = (mag_start_x + mag_total_w as i32).max(deck_bounds.0 + deck_bounds.2 as i32) - f_x;
-                    let f_h = (mag_start_y + mag_h as i32).max(deck_bounds.1 + deck_bounds.3 as i32) - f_y;
 
-                    final_bounds = (f_x, f_y, f_w as usize, f_h as usize);
-                }
+                    // Matrix rain is visible → the rain must keep falling next frame.
+                    if matrix_active {
+                        self.needs_redraw = true;
+                    }
 
-                while self.dirty_rects.len() >= 10 {
-                    self.dirty_rects.pop_front();
+                    let mut final_bounds = bounds;
+
+                    // --- DRAW COLOR DECK ---
+                    if !self.deck.is_empty() {
+                        let (mag_start_x, mag_start_y, mag_total_w, mag_h) = bounds;
+                        let mag_w = mag_h; // Since magnifier is always square, its outer width = outer height
+
+                        let deck_bounds = shapes::draw_color_deck(
+                            canvas,
+                            w,
+                            h,
+                            mag_start_x,
+                            mag_start_y + mag_h as i32 + 2,
+                            mag_w,
+                            &self.deck,
+                            self.border_color,
+                        );
+
+                        // Merge bounds (Union of Magnifier rect and Deck rect)
+                        let f_x = mag_start_x.min(deck_bounds.0);
+                        let f_y = mag_start_y.min(deck_bounds.1);
+
+                        let f_w = (mag_start_x + mag_total_w as i32).max(deck_bounds.0 + deck_bounds.2 as i32) - f_x;
+                        let f_h = (mag_start_y + mag_h as i32).max(deck_bounds.1 + deck_bounds.3 as i32) - f_y;
+
+                        final_bounds = (f_x, f_y, f_w as usize, f_h as usize);
+                    }
+
+                    while self.dirty_rects.len() >= DIRTY_RECT_HISTORY {
+                        self.dirty_rects.pop_front();
+                    }
+                    if let Some(sb) = satellite_bounds {
+                        self.dirty_rects.push_back(sb);
+                    }
+                    self.dirty_rects.push_back(final_bounds);
                 }
-                if let Some(sb) = satellite_bounds {
-                    self.dirty_rects.push_back(sb);
-                }
-                self.dirty_rects.push_back(final_bounds);
 
             } else if !self.dirty_rects.is_empty() {
+                // The mouse left the overlay: the old magnifier was already restored
+                // above — clean up. (Stays in paint: clearing BEFORE restore would
+                // leave a ghost.)
                 self.dirty_rects.clear();
                 self.magnifier.reset();
                 self.last_frame_time = None;
                 self.hud.reset(self.config.hud.show);
             }
 
-            // --- HUD: update() and render() are intentionally separated ---
-            // update() advances physics (proximity detection, departure timer, spring) and
-            // returns needs_redraw. Always called — even when HUD is fully hidden,
-            // so the spring keeps ticking and the HUD slides smoothly off screen.
-            // render() draws to canvas only if HUD is at least partially visible
-            // (offset_x > VISIBILITY_THRESHOLD), returns dirty rect or None.
-            if self.hud.update(dt, self.mouse_pos, self.config.hud.show, self.scale_factor) {
-                self.needs_redraw = true;
-            }
-
+            // HUD: render draws only when at least partially visible;
+            // physics already ticked in update().
             let active_tile = self.canvas.active();
             if let Some(hud_bounds) = self.hud.render(
                 canvas, w, h, &active_tile.capture.xrgb_buffer,
@@ -914,4 +1029,14 @@ impl OverlayApp {
 
         use_dirty
     }
+
+    /// **Main overlay render loop** — the connectors' public API, as before.
+    /// Now a thin wrapper: time → [`update`] (simulation) → [`paint`] (pixels).
+    /// Returns `true` (partial damage) / `false` (full damage).
+    pub fn render(&mut self, canvas: &mut [u32], width: u32, height: u32) -> bool {
+        let dt = self.tick_dt();
+        self.update(dt);
+        self.paint(canvas, width, height)
+    }
+
 }

@@ -94,7 +94,7 @@ pub fn draw_color_deck(
     start_x: i32,
     start_y: i32,
     mag_width: usize,
-    deck: &[image::Rgba<u8>],
+    deck: &[super::Pick],
     frame_color: u32,
 ) -> (i32, i32, usize, usize) {
     if deck.is_empty() {
@@ -121,10 +121,11 @@ pub fn draw_color_deck(
         (box_size + gap) as f64
     };
 
-    for (i, color) in deck.iter().enumerate() {
+    for (i, pick) in deck.iter().enumerate() {
         let x = start_draw_x + (i as f64 * step).round() as i32;
         let y = start_y;
-        
+
+        let color = pick.color;
         let c_u32 = ((color.0[0] as u32) << 16) | ((color.0[1] as u32) << 8) | (color.0[2] as u32);
         
         super::primitives::draw_rect(buffer, width, height, x, y, box_size, box_size, frame_color);

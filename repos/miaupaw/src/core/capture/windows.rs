@@ -154,8 +154,13 @@ unsafe fn capture_output_dxgi(
 
         // Monitor position in virtual desktop coordinates
         let rect: RECT = desc.DesktopCoordinates;
+        // DXGI gives us `\\.\DISPLAY1`-style names — not pretty, but unique
+        // and stable enough for diagnostic listing via `--monitors`.
+        let device_name = String::from_utf16_lossy(&desc.DeviceName);
+        let name = device_name.trim_end_matches('\0').to_string();
         Ok(MonitorTile {
             capture: ScreenCapture { xrgb_buffer, width, height },
+            name,
             scale: 1.0,
             logical_pos: (rect.left, rect.top),
             logical_w: width as i32,

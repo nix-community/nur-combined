@@ -19,4 +19,4 @@ Email: [webmaster@spicebrains.com](mailto:webmaster@spicebrains.com)
 
 Please provide a detailed description of the vulnerability and steps to reproduce it. We will acknowledge your report within 48 hours and work on a fix as soon as possible.
 
-Thank you for helping keep IE-R secure! 🦾🛡️
+Thank you for helping keep IE-R secure!

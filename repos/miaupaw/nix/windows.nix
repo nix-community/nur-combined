@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # nix/windows.nix — Windows cross-compilation: toolchain + apps.
-#   • installer — nix run .#windows-installer → ie-r-setup-vVERSION.exe (NSIS)
-#   • bundle    — nix run .#windows-bundle    → ie-r-portable-vVERSION.zip
+#   • installer — nix run .#windows-installer → builds/ie-r-vVERSION-windows-x86_64-setup.exe (NSIS)
+#   • bundle    — nix run .#windows-bundle    → builds/ie-r-vVERSION-windows-x86_64-portable.zip
 # Windows cross-build: mingw toolchain, shared shell fragments (env / icon
 # generation / bundle assembly) and two apps (NSIS installer + portable zip).
 # Re-exports mingw bits because flake's devShell needs them too.
@@ -60,7 +60,7 @@ let
       cp "$_TRAY_EXE"                                   "${dest}/ie-r-tray.exe"
       cp ${pkgs.jetbrains-mono}/share/fonts/truetype/JetBrainsMono-Regular.ttf "${dest}/fonts/JetBrainsMono-Regular.ttf"
       cp ${../assets/fonts/OFL.txt}       "${dest}/fonts/OFL.txt"
-      cp ${../README.portable.windows.md} "${dest}/README.md"
+      cp ${../docs/README.portable.windows.md} "${dest}/README.md"
       ${copyCommonDocs "${dest}"}
   '';
 
@@ -68,10 +68,10 @@ let
   # Each app is a shell script: winArtifacts → winEnv → cargo cross-build
   # → winBundleAssembly → finalize (NSIS / zip).
 
-  # NSIS installer — produces ie-r-setup-vVERSION.exe
+  # NSIS installer — produces builds/ie-r-vVERSION-windows-x86_64-setup.exe
   installer = {
     type = "app";
-    meta.description = "Build Windows NSIS installer (ie-r-setup-vVERSION.exe)";
+    meta.description = "Build Windows NSIS installer (builds/ie-r-vVERSION-windows-x86_64-setup.exe)";
     program = let
       script = pkgs.writeShellScriptBin "windows-installer-ie-r" '' # bash
           echo -e "\033[1;32m▸ Building IE-R Windows Installer...\033[0m"
@@ -82,21 +82,24 @@ let
           BUNDLE="$PWD/tmp/installer-bundle"
           ${winBundleAssembly "$BUNDLE"}
 
+          INSTALLER="ie-r-v${version}-windows-x86_64-setup.exe"
+          mkdir -p builds
           ${pkgs.nsis}/bin/makensis \
               -DBUNDLE="$BUNDLE" \
-              -DOUTDIR="$PWD" \
+              -DOUTDIR="$PWD/builds" \
+              -DOUTFILE="$INSTALLER" \
               ${../assets/installer.nsi}
 
           rm -rf "$BUNDLE"
-          echo -e "\033[1;32m✔ Done! ie-r-setup-v${version}.exe ready.\033[0m"
+          echo -e "\033[1;32m✔ Done! builds/$INSTALLER ready.\033[0m"
       '';
     in "${script}/bin/windows-installer-ie-r";
   };
 
-  # Portable bundle — produces ie-r-portable-vVERSION.zip
+  # Portable bundle — produces builds/ie-r-vVERSION-windows-x86_64-portable.zip
   bundle = {
     type = "app";
-    meta.description = "Build Windows portable bundle (ie-r-portable-vVERSION.zip)";
+    meta.description = "Build Windows portable bundle (builds/ie-r-vVERSION-windows-x86_64-portable.zip)";
     program = let
       script = pkgs.writeShellScriptBin "windows-bundle-ie-r" '' # bash
           echo -e "\033[1;32m▸ Building IE-R Windows Portable...\033[0m"
@@ -107,18 +110,19 @@ let
           VERSION="v${version}"
           STAGE_DIR="tmp/staging-windows"
           FINAL_DIR="ie-r"
-          ZIP_NAME="ie-r-portable-$VERSION.zip"
+          ZIP_NAME="ie-r-$VERSION-windows-x86_64-portable.zip"
 
           echo "▸ Assembling bundle..."
-          rm -rf "$STAGE_DIR" "$ZIP_NAME"
+          mkdir -p builds
+          rm -rf "$STAGE_DIR" "builds/$ZIP_NAME"
           ${winBundleAssembly "$STAGE_DIR/$FINAL_DIR"}
 
-          echo "▸ Archiving to $ZIP_NAME..."
+          echo "▸ Archiving to builds/$ZIP_NAME..."
           cd "$STAGE_DIR"
-          ${pkgs.zip}/bin/zip -rq "../../$ZIP_NAME" "$FINAL_DIR"
+          ${pkgs.zip}/bin/zip -rq "../../builds/$ZIP_NAME" "$FINAL_DIR"
           cd - > /dev/null
 
-          echo -e "\033[1;32m✔ Done! Archive ready: ./$ZIP_NAME\033[0m"
+          echo -e "\033[1;32m✔ Done! Archive ready: ./builds/$ZIP_NAME\033[0m"
           echo "· ie-r/{ie-r.exe, fonts/, LICENSE, README.md, PRIVACY.md, SECURITY.md}"
       '';
     in "${script}/bin/windows-bundle-ie-r";

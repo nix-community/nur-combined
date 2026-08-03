@@ -10,7 +10,7 @@ This bundle is self-contained — just unzip and run, no installation required.
 ## Quick Start
 
 1. Unzip the archive anywhere you like
-2. Run `ie-r.exe`
+2. Run `ie-r-tray.exe`
 3. IE-R appears in your system tray
 
 To activate: press the hotkey (default `Alt+Shift+X`) or click the tray icon.
@@ -30,22 +30,35 @@ Press your hotkey (or click the tray icon). A magnifier appears over your screen
 
 ---
 
-## Hotkey
+## Hotkey & CLI
 
 The default hotkey is `Alt+Shift+X`, configurable in `config.toml`.
 
-For scripting and automation (AutoHotkey, Task Scheduler, etc.), you can trigger IE-R from the command line:
+The bundle ships two executables:
+
+- **`ie-r-tray.exe`** — silent GUI launcher. No console window appears.
+  Use it for shortcuts, autostart, AutoHotkey, and Task Scheduler. It forwards
+  all arguments to `ie-r.exe` under the hood — but stdout is discarded, so
+  pair `--pick` with `-c` (clipboard) or `--write-history` to capture results.
+- **`ie-r.exe`** — the real binary. Use it in `cmd` / PowerShell when you
+  need stdout — CLI workflows, scripts that capture color values.
+
+Common invocations:
 
 ```
-ie-r.exe --pick    ; activate color picker
-ie-r.exe --menu    ; open color history menu
+ie-r-tray.exe                     ; launch daemon (no console flash)
+ie-r-tray.exe --pick -c           ; one-shot overlay → clipboard (silent)
+ie-r.exe --pick                   ; one-shot overlay → stdout
+ie-r.exe --pixel 320,180 -f hex   ; sample one pixel → stdout
+ie-r.exe --help                   ; colour-coded quick reference
 ```
 
 **AutoHotkey example:**
 ```ahk
-!+c::Run ie-r.exe --pick
-!+h::Run ie-r.exe --menu
+!+c::Run "ie-r-tray.exe --pick -c"
 ```
+
+Full CLI reference: [github.com/miaupaw/ie-r/blob/master/docs/cli.md](https://github.com/miaupaw/ie-r/blob/master/docs/cli.md)
 
 ---
 

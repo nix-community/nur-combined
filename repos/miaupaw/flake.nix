@@ -1,5 +1,5 @@
 {
-    description = "Instant Eyedropper Reborn - Universal Command Center...";
+    description = "Instant Eyedropper Reborn — pixel-perfect color picker for Wayland, X11 & Windows";
 
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
@@ -12,11 +12,12 @@
         pkgs = import nixpkgs {
             inherit system;
             overlays = [ (import rust-overlay) ];
-            config.allowUnfree = true;  # ie-r itself is unfree (custom IE-R License); needed since meta declares licenses.unfree
+            # ie-r itself is unfree (custom IE-R License); needed since meta declares licenses.unfree
+            config.allowUnfree = true;
         };
 
         # ── Project metadata ─────────────────────────────────────────────────
-        version = "0.1.1";  # single source of truth — also referenced in assets/installer.nsi
+        version = "0.1.2";  # single source of truth — also referenced in assets/installer.nsi
 
         # ── Toolchain ────────────────────────────────────────────────────────
         rustToolchain = pkgs.rust-bin.stable.latest.default.override {
@@ -33,15 +34,14 @@
         nativeDeps = with pkgs; [ pkg-config llvmPackages.libclang patchelf ];
 
         runtimeLibs = with pkgs; [
-            pipewire
-            wayland
-            libxkbcommon
-            dbus
-            fontconfig
-            libx11
-            libxcursor
-            libxrandr
-            libxi
+            libxkbcommon    # only directly-linked lib; smithay-client-toolkit evdev→Keysym + layout for Wayland keyboard
+            wayland         # wayland-sys dlopen's libwayland-client.so — compositor socket entry point (WAYLAND_DISPLAY)
+            dbus            # D-Bus session bus; KWin ScreenShot2 API (Tier 1 capture), SNI tray, dbusmenu protocol
+            fontconfig      # fontdb+fontconfig-parser reads /etc/fonts/fonts.conf for system font directory discovery
+            libx11          # x11-dl dlopen's libX11.so — X11 connector window management + XCB bridge (XWayland path)
+            libxcursor      # x11-dl dlopen's libXcursor.so — cursor shapes for X11 overlay (Crosshair/Default/None)
+            libxrandr       # x11-dl dlopen's libXrandr.so — monitor geometry in X11 connector
+            libxi           # x11-dl dlopen's libXi.so — XInput2 pointer events + XGrabKey for global hotkeys
         ];
 
         libclangPath = "${pkgs.llvmPackages.libclang.lib}/lib";
@@ -51,9 +51,9 @@
         # Used by all three distribution paths (windows-installer, windows-bundle, portable).
         # README is intentionally NOT included — it's platform-specific.
         copyCommonDocs = dest: '' # bash
-            cp ${./LICENSE}     "${dest}/LICENSE"
-            cp ${./PRIVACY.md}  "${dest}/PRIVACY.md"
-            cp ${./SECURITY.md} "${dest}/SECURITY.md"
+            cp ${./LICENSE}          "${dest}/LICENSE"
+            cp ${./docs/PRIVACY.md}  "${dest}/PRIVACY.md"
+            cp ${./docs/SECURITY.md} "${dest}/SECURITY.md"
         '';
 
         # ── Windows: cross-toolchain + apps (windows-installer, windows-bundle) ──
@@ -86,18 +86,18 @@
         # ── Commands & Apps ──────────────────────────────────────────────────
         apps.${system} = {
             default  = { type = "app"; program = "${self.packages.${system}.default}/bin/ie-r"; meta.description = "Run IE-R color picker"; };
-            appimage = { type = "app"; program = "${self.packages.${system}.appimage}/ie-r-v${version}-x86_64.AppImage"; meta.description = "Build and run IE-R AppImage"; };
+            appimage = linux.appimage-export;
 
             # Windows installer — run with: nix run .#windows-installer
             # Self-contained: builds exe + assembles bundle + runs NSIS
-            # Produces: ie-r-setup-vVERSION.exe
+            # Produces: builds/ie-r-vVERSION-windows-x86_64-setup.exe
             windows-installer = windows.installer;
 
             # Windows portable bundle — run with: nix run .#windows-bundle
-            # Produces: ie-r-portable-vVERSION.zip → {ie-r.exe, fonts/, LICENSE, README.md, PRIVACY.md, SECURITY.md}
+            # Produces: builds/ie-r-vVERSION-windows-x86_64-portable.zip → {ie-r.exe, fonts/, LICENSE, README.md, PRIVACY.md, SECURITY.md}
             windows-bundle = windows.bundle;
 
-            # The "Divine Distributor" — wraps .#portable into ie-r-vVERSION.zip
+            # The "Divine Distributor" — wraps .#portable into builds/ie-r-vVERSION-linux-x86_64-portable.zip
             bundle = linux.bundle;
         };
 

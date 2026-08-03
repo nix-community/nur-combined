@@ -3,12 +3,12 @@
 [![Built with Nix](https://img.shields.io/badge/Nix-Flake-blue.svg?logo=nixos&logoColor=white)](https://nixos.org)
 [![Language: Rust](https://img.shields.io/badge/Language-Rust-orange.svg?logo=rust)](https://www.rust-lang.org)
 
-**A high-performance, system-wide color picker for Linux (Wayland & X11).**
+**A high-performance, system-wide color picker for Linux (Wayland & X11) and Windows.**
 Click → Color → Done. Zero latency, pixel-perfect precision.
 
 ---
 
-IE-R (pronounced 'eyer') is a color picker and daemon for Linux. It lives in your system tray, listens for hotkeys, and puts the color under your cursor into your clipboard instantly.
+IE-R (pronounced 'eyer') is a color picker and daemon. It lives in your system tray, activates via hotkeys, and puts the color under your cursor into your clipboard instantly.
 
 This is the resurrection of the original "Instant Eyedropper" tool, which has served users for over 20 years. Now it's a native Wayland app written from scratch in Rust. Same idea — but with everything users asked for over two decades finally built in.
 
@@ -36,11 +36,11 @@ That's the basic loop. But there's more:
 5. **Hyper Jump:** `Shift + Arrows` jumps the cursor to the next significant color change (threshold is configurable).
 6. **Dynamic Aperture:** `Mouse Wheel` changes the magnifier's zoom level.
 7. **Area Sampling:** `Alt + Scroll` changes the capture area to calculate the average color of a region.
-8. **10 color formats:** HEX, RGB, HSL, HSV, CMYK, Delphi, VB Hex, Long, + **customizable templates**
-9.  **Runtime UI Tweaks:** Adjust magnifier size (`Shift + Scroll`) and font size (`Ctrl + Scroll`) without opening settings.
-10. **Hotkey:** Configurable global hotkey (default Alt+Shift+X for X11) + SIGUSR1 for Wayland compositors
-11. **Config:** Single TOML file. Preserves your comments on save. Controls everything: colors, sizes, fonts, physics, effects
-12. **Tray:** SNI system tray with color history, format selection, config access
+8. **10 color formats:** HTML, HEX, RGB, HSL, HSV, CMYK, Float, Delphi, VB Hex, Long, + **customizable templates**
+9. **Hotkey:** Configurable global hotkey (default Alt+Shift+X for X11) + SIGUSR1 for Wayland compositors
+10. **Config:** Single TOML file. Preserves your comments on save. Controls everything: colors, sizes, fonts, physics, effects
+11. **Tray:** SNI system tray with color history, format selection, config access
+12. **CLI / Probe modes:** Scripts can sample pixels directly (`--pixel`, `--pixels`, `--stdin`, `--history`, `--monitors`), compose with the relay axis (clipboard, swatch, format), or raise an interactive overlay on demand (`--pick`). See [`docs/cli.md`](docs/cli.md) for the full reference.
 
 ## Architecture & Performance
 IE-R is written in **Pure Rust** (Edition 2024) and talks directly to Wayland protocols. No Electron, no heavy frameworks, zero GPU overhead.
@@ -72,8 +72,23 @@ yay -S ie-r
 
 The PKGBUILD installs the binary, `.desktop` file, and icon to standard system paths. KWin authorization works out of the box.
 
+### AppImage
+Download the latest `ie-r-vX.X.X-linux-x86_64.AppImage` from Releases:
+```bash
+chmod +x ie-r-v*.AppImage
+./ie-r-v*.AppImage
+```
+
+On first launch, IE-R installs its `.desktop` entry and icons into `~/.local/share/` automatically — pointing them at the AppImage's current location. Move the file later? Next launch detects the new path and updates the `.desktop`. The AppImage is self-contained and runs on any x86_64 Linux with a glibc-compatible runtime.
+
+To remove desktop integration, delete the AppImage and:
+```bash
+rm ~/.local/share/applications/ie-r.desktop \
+   ~/.local/share/icons/hicolor/{scalable,symbolic}/apps/ie-r*.svg
+```
+
 ### Portable bundle
-Download the latest `ie-r-vX.X.X.zip` from Releases. Unpack anywhere and run the integration script:
+Download the latest `ie-r-vX.X.X-linux-x86_64-portable.zip` from Releases. Unpack anywhere and run the integration script:
 ```bash
 unzip ie-r-v*.zip
 cd ie-r
@@ -82,8 +97,10 @@ cd ie-r
 
 `postinstall.sh` installs the `.desktop` file and icon into `~/.local/share/`, offers to add IE-R to autostart, and prints a hotkey setup tip. The bundle is self-contained — it ships its own libraries and runs on any x86_64 Linux.
 
+The bundle ships its own quick-start guide — see [`docs/README.portable.linux.md`](docs/README.portable.linux.md).
+
 ### Build from source
-Requires Rust 1.80+ and development libraries: `wayland-client`, `libxkbcommon`, `pipewire`, `dbus`, `fontconfig`, `libx11`.
+Requires Rust 1.85+ (edition 2024) and development libraries: `wayland-client`, `libxkbcommon`, `pipewire`, `dbus`, `fontconfig`, `libx11`.
 ```bash
 git clone https://github.com/miaupaw/ie-r
 cd ie-r
@@ -156,6 +173,8 @@ cp ~/.local/share/applications/ie-r.desktop ~/.config/autostart/
 
 Settings live in `~/.config/ie-r/config.toml`. Picked color history lives in `~/.local/state/ie-r/history.toml`. Both files are created as needed on first run, and IE-R preserves your comments when updating the config.
 
+Run `ie-r --help` for a colour-coded quick reference, or see [`docs/cli.md`](docs/cli.md) for the full CLI documentation: every mode, every flag, configuration recipes (including a chrome-less magnifier preset), exit-code semantics, and platform-specific clipboard notes.
+
 ---
 
 ## License
@@ -163,7 +182,7 @@ Settings live in `~/.config/ie-r/config.toml`. Picked color history lives in `~/
 IE-R is source-available under a custom license. See [LICENSE](LICENSE) for the full text.
 
 *   **Source code** — you may read and modify it for personal use. Public forks, redistribution of modified versions, and incorporation into other projects are not permitted.
-*   **Individuals & small organizations**  — free to use.
+*   **Individuals & small organizations** (fewer than 50 employees *and* under $1M annual gross revenue) — free to use.
 *   **Business** — For business use, please [contact](mailto:info@spicebrains.com) the author .
 
 **Author:** [Konstantin Yagola](mailto:info@spicebrains.com).

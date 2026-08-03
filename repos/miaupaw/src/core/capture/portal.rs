@@ -11,8 +11,16 @@ use anyhow::Result;
 use image::RgbaImage;
 use std::time::Instant;
 
-use crate::core::terminal::{log_step, log_warn, log_info};
+use crate::core::terminal::{log_step, log_info};
 use super::{ScreenCapture, rgba_to_capture};
+
+/// Last XDG activation token from GNOME Shell (via tray click).
+/// Used as parent_window for the XDG Portal call, then consumed in
+/// WindowHandler::configure for xdg_activation_v1.activate() (kills the spinner).
+///
+/// The slot lives in core (this module is the consumer); the daemon layer
+/// (dbus_tray::provide_xdg_activation_token) fills it — a legal daemon→core arrow.
+pub static LAST_ACTIVATION_TOKEN: std::sync::Mutex<Option<String>> = std::sync::Mutex::new(None);
 
 /// Single-capture cascade. Returns one frame the size of the visible virtual
 /// desktop (per-output slicing happens on top via splitter heuristic).
@@ -36,12 +44,14 @@ pub fn capture_screen(dbus_conn: Option<&zbus::blocking::Connection>) -> Result<
                 return Ok(cap);
             }
             Err(e) => {
+                // KWin tier unavailable — expected on non-KDE compositors.
+                // Falling through to Portal is the planned path, not a warning.
                 let e_str = e.to_string();
                 let (kind, desc) = e_str.split_once(": ").unwrap_or(("", &e_str));
-                log_warn("KWin DBus offline");
-                if !kind.is_empty() { log_warn(&format!("   {}:", kind)); }
-                log_warn(&format!("   {}", desc));
-                log_warn("Switching to Portal...");
+                log_info("KWin DBus offline");
+                if !kind.is_empty() { log_info(&format!("   {}:", kind)); }
+                log_info(&format!("   {}", desc));
+                log_info("Switching to Portal...");
             }
         }
     } else {
@@ -67,7 +77,7 @@ async fn capture_via_portal() -> Result<RgbaImage> {
     // Clone the token (not take): it is needed twice —
     // 1. here as parent_window for Portal (authorization on GNOME)
     // 2. later in WindowHandler::configure for xdg_activation_v1.activate() (dismisses spinner)
-    let token = crate::daemon::dbus_tray::LAST_ACTIVATION_TOKEN
+    let token = LAST_ACTIVATION_TOKEN
         .lock()
         .ok()
         .and_then(|g| g.clone());
@@ -76,6 +86,10 @@ async fn capture_via_portal() -> Result<RgbaImage> {
         log_step("Portal", &format!("Using activation token: {}", t));
     }
 
+    // Deliberate nesting: the X11 variant is ashpd's only constructor taking a
+    // string-typed WindowIdentifierType, and Display of the inner Wayland(token)
+    // yields the correct wire format "wayland:{token}".
+    // Verified against ashpd 0.12.3 sources (window_identifier/mod.rs).
     let identifier = token.map(|t| WindowIdentifier::X11(WindowIdentifierType::Wayland(t)));
 
     let screenshot = Screenshot::request()

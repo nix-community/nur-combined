@@ -9,7 +9,7 @@ use smithay_client_toolkit::{
 use wayland_client::{QueueHandle, protocol::wl_shm};
 
 use crate::core::about::{self, AboutApp};
-use crate::core::capture::{self, OutputMeta};
+use crate::core::capture;
 use crate::core::overlay::{OverlayApp, UserAction};
 use crate::core::terminal::{log_info, log_error, Styled};
 
@@ -82,10 +82,10 @@ impl IEWaylandState {
                 viewport,
                 width: 0,
                 height: 0,
-                dirty_rects: std::collections::VecDeque::with_capacity(12),
+                dirty_rects: std::collections::VecDeque::with_capacity(crate::core::overlay::DIRTY_RECT_HISTORY + 2),
                 committed: false,
                 frame_pending: false,
-                buffers: std::collections::VecDeque::with_capacity(3),
+                buffers: std::collections::VecDeque::with_capacity(crate::core::overlay::SHM_BUFFER_ROTATION),
             });
         }
 
@@ -97,11 +97,13 @@ impl IEWaylandState {
         self.pool = Some(SlotPool::new(max_pixels * 4, shm).expect("Failed to create SHM pool"));
         self.overlay_app = Some(app);
 
-        for output in self.output_state.outputs() {
-            if let Some(info) = self.output_state.info(&output) {
-                eprintln!("{} name={:?}  pos={:?}  size={:?}",
-                    format!("[{: >10}]", "Monitor").magenta(),
-                    info.name, info.logical_position, info.logical_size);
+        if crate::core::terminal::info_visible() {
+            for output in self.output_state.outputs() {
+                if let Some(info) = self.output_state.info(&output) {
+                    eprintln!("{} name={:?}  pos={:?}  size={:?}",
+                        format!("[{: >10}]", "Monitor").magenta(),
+                        info.name, info.logical_position, info.logical_size);
+                }
             }
         }
 
@@ -135,7 +137,7 @@ impl IEWaylandState {
     /// Called from the calloop post-dispatch closure after each dispatch_pending.
     /// No longer activates anything — only cleans up the batch state.
     pub fn flush_pending_enters(&mut self, _qh: &QueueHandle<Self>) {
-        if self.input.batch_count > 1 {
+        if self.input.batch_count > 1 && crate::core::terminal::info_visible() {
             let tag = format!("[{: >10}]", "Flush");
             let real = self.input.batch_count - self.input.phantom_count;
             eprintln!("{} Batch: {} enters → {} real, {} phantom",
@@ -237,7 +239,8 @@ impl IEWaylandState {
 
                 // SAFETY: SHM buffer is 4-byte aligned (wl_shm guarantees page-aligned mmap).
                 // Convert &mut [u8] → &mut [u32] for direct XRGB8888 pixel writes.
-                let (_, canvas_u32, _) = unsafe { canvas.align_to_mut::<u32>() };
+                let (prefix, canvas_u32, _) = unsafe { canvas.align_to_mut::<u32>() };
+                debug_assert!(prefix.is_empty(), "SHM buffer misaligned — pixels would shift");
 
                 if !is_active {
                     // --- Inactive monitor: direct background memcpy, skip render() ---
@@ -275,7 +278,7 @@ impl IEWaylandState {
                     // One bbox instead of a mosaic of rects: with fractional scaling the compositor
                     // loses 1px at seams due to f64→i32 rounding. One rectangle guarantees
                     // no visible seams. Clamp to buffer size is mandatory.
-                    // (see artifacts/2026.02.27/kwin_fractional_damage.md)
+                    // (empirically observed under KWin with fractional scaling.)
                     {
                         let wl_surface = self.overlays[overlay_idx].surface.wl_surface();
                         if !app.dirty_rects.is_empty() {
@@ -325,8 +328,8 @@ impl IEWaylandState {
                 self.overlays[overlay_idx].committed = true;
                 self.overlays[overlay_idx].frame_pending = true;
 
-                // Per-overlay triple buffering: keep the last 3 buffers.
-                if self.overlays[overlay_idx].buffers.len() >= 3 {
+                // Per-overlay buffer ring: keep the last SHM_BUFFER_ROTATION buffers.
+                if self.overlays[overlay_idx].buffers.len() >= crate::core::overlay::SHM_BUFFER_ROTATION {
                     self.overlays[overlay_idx].buffers.pop_front();
                 }
                 self.overlays[overlay_idx].buffers.push_back(buffer);
@@ -348,17 +351,7 @@ impl IEWaylandState {
         let compositor = self.compositor.as_ref().expect("wl_compositor required");
 
         // 1. Capture background BEFORE creating the surface (so the window doesn't appear in the screenshot).
-        let output_meta: Vec<_> = self.output_state.outputs().map(|o| {
-            let info = self.output_state.info(&o);
-            let name = info.as_ref().and_then(|i| i.name.clone()).unwrap_or_default();
-            let logical_pos = info.as_ref().and_then(|i| i.logical_position).unwrap_or((0, 0));
-            let logical_w = info.as_ref().and_then(|i| i.logical_size).map(|s| s.0).unwrap_or(0);
-            let logical_h = info.as_ref().and_then(|i| i.logical_size).map(|s| s.1).unwrap_or(0);
-            let transform = info.as_ref()
-                .map(|i| i.transform)
-                .unwrap_or(wayland_client::protocol::wl_output::Transform::Normal);
-            OutputMeta { output: o, name, logical_pos, logical_w, logical_h, transform }
-        }).collect();
+        let output_meta = self.collect_output_meta();
 
         let screencopy = match (&self.screencopy_manager, &self.shm) {
             (Some(manager), Some(shm)) => Some((&self.conn, manager, shm.wl_shm())),
@@ -459,7 +452,8 @@ impl IEWaylandState {
             Err(_) => return,
         };
 
-        let (_, canvas_u32, _) = unsafe { canvas.align_to_mut::<u32>() };
+        let (prefix, canvas_u32, _) = unsafe { canvas.align_to_mut::<u32>() };
+        debug_assert!(prefix.is_empty(), "SHM buffer misaligned — pixels would shift");
         
         // Render with glassmorphism.
         about.app.render(
@@ -489,7 +483,7 @@ impl IEWaylandState {
             OverlaySurface::Xdg(window) => window.commit(),
         }
 
-        if about.buffers.len() >= 3 {
+        if about.buffers.len() >= crate::core::overlay::SHM_BUFFER_ROTATION {
             about.buffers.pop_front();
         }
         about.buffers.push_back(buffer);

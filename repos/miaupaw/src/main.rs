@@ -7,11 +7,7 @@ use calloop::{
 #[cfg(unix)]
 use calloop_wayland_source::WaylandSource;
 use core::capture;
-#[cfg(unix)]
-use core::capture::OutputMeta;
-use core::color_service::ColorService;
-#[cfg(unix)]
-use core::config::Config;
+use daemon::color_service::ColorService;
 use core::terminal::{print_logo, log_info};
 #[cfg(unix)]
 use core::terminal::{log_error, log_warn};
@@ -26,13 +22,22 @@ use std::time::Duration;
 #[cfg(unix)]
 use wayland_client::{Connection, globals::registry_queue_init};
 
+pub mod cli;
 pub mod connectors;
 pub mod core;
 pub mod daemon;
+pub mod probe;
 
 #[cfg(unix)]
 use connectors::wayland::IEWaylandState;
 pub use daemon::UserEvent;
+
+use cli::{Mode, PickReq};
+
+// CLI types, argument parsing, and help rendering live in `cli.rs`.
+// Probe runners (--pixel / --pixels / --stdin / --pick finalization) live
+// in `probe.rs`. This file keeps only what orchestrates the daemon: the
+// per-platform event loops and `main()` itself.
 
 /// Wayland daemon branch. Thin wrapper around ColorService that adds
 /// only platform-specific orchestration: creating the Layer Shell overlay
@@ -40,8 +45,10 @@ pub use daemon::UserEvent;
 #[cfg(unix)]
 struct DaemonApp {
     svc: ColorService,
-    _tray: DBusTray,
-    _scout: Scout,
+    // RAII keep-alives; `None` in `--pick` one-shot (no tray icon, no
+    // global-hotkey grab that would clash with a running daemon).
+    _tray: Option<DBusTray>,
+    _scout: Option<Scout>,
 }
 
 #[cfg(unix)]
@@ -52,9 +59,19 @@ impl DaemonApp {
 
         Ok(Self {
             svc,
-            _tray: tray,
-            _scout: scout,
+            _tray: Some(tray),
+            _scout: Some(scout),
         })
+    }
+
+    /// `--pick` one-shot: overlay-rendering ColorService only — no tray,
+    /// no Scout (a one-shot must not steal the daemon's global hotkey).
+    fn new_oneshot() -> Self {
+        Self {
+            svc: ColorService::new(),
+            _tray: None,
+            _scout: None,
+        }
     }
 
     /// Activates eyedropper mode. Entry point for hotkeys and tray icon clicks.
@@ -75,28 +92,7 @@ impl DaemonApp {
         let mut perf = self.svc.reload_config();
 
         // Pre-collect output metadata (output_state is !Send, must happen on this thread)
-        let output_meta: Vec<_> = state.output_state.outputs().map(|o| {
-            let info = state.output_state.info(&o);
-            let name = info.as_ref()
-                .and_then(|i| i.name.clone())
-                .unwrap_or_default();
-            let logical_pos = info.as_ref()
-                .and_then(|i| i.logical_position)
-                .or_else(|| info.as_ref().map(|i| i.location))
-                .unwrap_or((0, 0));
-            let logical_w = info.as_ref()
-                .and_then(|i| i.logical_size)
-                .map(|s| s.0)
-                .unwrap_or(0);
-            let logical_h = info.as_ref()
-                .and_then(|i| i.logical_size)
-                .map(|s| s.1)
-                .unwrap_or(0);
-            let transform = info.as_ref()
-                .map(|i| i.transform)
-                .unwrap_or(wayland_client::protocol::wl_output::Transform::Normal);
-            OutputMeta { output: o, name, logical_pos, logical_w, logical_h, transform }
-        }).collect();
+        let output_meta = state.collect_output_meta();
 
         let screencopy = match (&state.screencopy_manager, &state.shm) {
             (Some(manager), Some(shm)) => Some((&state.conn, manager, shm.wl_shm())),
@@ -140,28 +136,56 @@ struct AppState {
     exit_requested: bool,
     /// Deferred About launch — gives menus time to close before screenshot
     about_requested_at: Option<std::time::Instant>,
+    /// `Some` in `--pick` one-shot: overlay close relays + exits instead of
+    /// the daemon's clipboard finalize.
+    pick: Option<PickReq>,
 }
 
 // ─── Wayland Main Loop ──────────────────────────────────────────────────────
 
 #[cfg(unix)]
-fn run_wayland_daemon() -> Result<()> {
-    print_logo();
-    log_info("Wayland backend active");
-    log_info("...");
-    log_info("To trigger IE-R, bind system shortcuts to UNIX signals:");
-    log_info("SIGUSR1 (Pick Color): killall -SIGUSR1 ie-r");
-    log_info("SIGUSR2 (Open Menu):  killall -SIGUSR2 ie-r");
-    log_info("... or pkill -SIGUSR1 ie-r");
-    log_info("Hyprland example (add to hyprland.conf):");
-    log_info("bind = SUPER SHIFT, P, exec, pkill -SIGUSR1 ie-r");
+fn run_wayland_daemon(pick: Option<PickReq>) -> Result<()> {
+    let oneshot = pick.is_some();
+    if !oneshot {
+        print_logo();
+        log_info("Wayland backend active");
+        log_info("...");
+        log_info("To trigger IE-R, bind system shortcuts to UNIX signals:");
+        log_info("SIGUSR1 (Pick Color): killall -SIGUSR1 ie-r");
+        log_info("SIGUSR2 (Open Menu):  killall -SIGUSR2 ie-r");
+        log_info("... or pkill -SIGUSR1 ie-r");
+        log_info("Hyprland example (add to hyprland.conf):");
+        log_info("bind = SUPER SHIFT, P, exec, pkill -SIGUSR1 ie-r");
+    }
 
     // Grab the Wayland socket and initialise the object registry.
     // This is the foundation without which the Layer Shell cannot be built.
     let conn = Connection::connect_to_env().expect("Failed to connect to Wayland");
-    let (globals, event_queue) = registry_queue_init(&conn).expect("Failed to get registry");
+    let (globals, mut event_queue) = registry_queue_init(&conn).expect("Failed to get registry");
     let qh = event_queue.handle();
-    let wayland_state = IEWaylandState::new(conn.clone(), &globals, &qh);
+    let mut wayland_state = IEWaylandState::new(conn.clone(), &globals, &qh);
+
+    // `--pick` is one-shot: the overlay is launched immediately, before the
+    // event loop has dispatched anything, so OutputState must be populated
+    // up front (the daemon path gets this for free — its launch is deferred
+    // to a signal long after dispatch began).
+    if oneshot {
+        for _ in 0..8 {
+            event_queue.roundtrip(&mut wayland_state)?;
+            let mut outs = wayland_state.output_state.outputs();
+            let any = outs.next().is_some();
+            let ready = wayland_state.output_state.outputs().all(|o| {
+                wayland_state
+                    .output_state
+                    .info(&o)
+                    .map(|i| i.logical_size.is_some() || i.modes.iter().any(|m| m.current))
+                    .unwrap_or(false)
+            });
+            if any && ready {
+                break;
+            }
+        }
+    }
 
     // --- Signal Matrix (POSIX Kill Block) ---
     // Critical: we must intercept signals BEFORE Tokio spawns threads.
@@ -195,55 +219,37 @@ fn run_wayland_daemon() -> Result<()> {
     let (tx, rx) = calloop::channel::channel();
     let sender = daemon::event_sender::EventSender::from_calloop(tx);
     let sender_for_signals = sender.clone();
-    let tray = DBusTray::new(sender)?;
-    let daemon = DaemonApp::new(tray)?;
+    // `--pick` one-shot: no tray icon, no Scout. The tray-channel and
+    // signals sources below stay wired but never fire — the process exits
+    // on the first pick, well before any signal matters.
+    let daemon = if oneshot {
+        DaemonApp::new_oneshot()
+    } else {
+        DaemonApp::new(DBusTray::new(sender)?)?
+    };
 
     loop_handle
-        .insert_source(rx, |event, _, state: &mut AppState| match event {
-            calloop::channel::Event::Msg(UserEvent::LaunchOverlay(_coords)) => {
-                // Wayland path doesn't currently need the specific coordinates since Wayland compositor manages pointers
-                state.daemon.launch_overlay(&mut state.wayland, &state.qh);
-            }
-            calloop::channel::Event::Msg(UserEvent::EditConfig) => {
-                let config_path = Config::get_config_path();
-                log_info(&format!("Opening config in editor: {:?}", config_path));
-                let _ = open::that(config_path);
-            }
-            calloop::channel::Event::Msg(UserEvent::CopyFromHistory(hex)) => {
-                let s = hex.trim_start_matches('#');
-                if let Ok(val) = u32::from_str_radix(s, 16) {
-                    let r = ((val >> 16) & 0xFF) as u8;
-                    let g = ((val >> 8) & 0xFF) as u8;
-                    let b = (val & 0xFF) as u8;
-                    state.daemon.svc.copy_color(&[image::Rgba([r, g, b, 255])]);
+        .insert_source(rx, |event, _, state: &mut AppState| {
+            // Platform-independent events (config/history/template/HUD/homepage)
+            // are handled by ColorService; only platform-specific ones come back.
+            let calloop::channel::Event::Msg(event) = event else { return };
+            let Some(event) = state.daemon.svc.handle_user_event(event) else { return };
+            match event {
+                UserEvent::LaunchOverlay(_coords) => {
+                    // Wayland path doesn't currently need the specific coordinates since Wayland compositor manages pointers
+                    state.daemon.launch_overlay(&mut state.wayland, &state.qh);
                 }
+                UserEvent::ShowAbout
+                    if state.wayland.overlay_app.is_none() && state.wayland.about_surface.is_none()
+                        && state.about_requested_at.is_none() =>
+                {
+                    state.about_requested_at = Some(std::time::Instant::now());
+                }
+                UserEvent::Quit => {
+                    state.exit_requested = true;
+                }
+                _ => {}
             }
-            calloop::channel::Event::Msg(UserEvent::SelectTemplate(key)) => {
-                log_step("Menu", &format!("Template selected: {}", key));
-                state.daemon.svc.config.templates.selected = key.clone();
-                state.daemon.svc.config.save();
-                daemon::dbus_menu::DBusMenu::notify_template_changed(&key);
-            }
-            calloop::channel::Event::Msg(UserEvent::ShowAbout)
-                if state.wayland.overlay_app.is_none() && state.wayland.about_surface.is_none()
-                    && state.about_requested_at.is_none() =>
-            {
-                state.about_requested_at = Some(std::time::Instant::now());
-            }
-            calloop::channel::Event::Msg(UserEvent::OpenHomepage) => {
-                daemon::open_homepage();
-            }
-            calloop::channel::Event::Msg(UserEvent::Quit) => {
-                state.exit_requested = true;
-            }
-            calloop::channel::Event::Msg(UserEvent::ToggleHUD) => {
-                state.daemon.svc.config.hud.show = !state.daemon.svc.config.hud.show;
-                state.daemon.svc.config.save();
-                crate::daemon::dbus_menu::DBusMenu::notify_hud_changed(
-                    state.daemon.svc.config.hud.show,
-                );
-            }
-            _ => {}
         })
         .map_err(|e| anyhow::anyhow!("Tray channel source error: {}", e))?;
 
@@ -305,7 +311,7 @@ fn run_wayland_daemon() -> Result<()> {
                 let timeout = app.config.system.auto_cancel;
                 if timeout > 0 {
                     let elapsed = app.last_activity.elapsed().as_secs();
-                    let warning_at = timeout.saturating_sub(10);
+                    let warning_at = timeout.saturating_sub(core::overlay::WATCHDOG_WARNING_WINDOW_SECS);
                     if elapsed >= warning_at && !state.wayland.is_redraw_pending() {
                         state.wayland.request_redraw();
                         state.wayland.redraw(&state.qh);
@@ -315,10 +321,13 @@ fn run_wayland_daemon() -> Result<()> {
 
             if state.wayland.exit {
                 if let Some(ref mut o) = state.wayland.overlay_app {
-                    let color_deck = o.take_color_deck();
-                    let overlay_config = o.config.clone();
+                    let session = o.take_session();
 
-                    state.daemon.svc.finalize_overlay(&overlay_config, color_deck);
+                    if let Some(req) = state.pick.as_ref() {
+                        // --pick one-shot: relay-redirect + exit. Never returns.
+                        probe::finish_pick(&mut state.daemon.svc, session.colors, session.coords, session.phys_coords, req);
+                    }
+                    state.daemon.svc.finalize_overlay(&session.config, session.colors, session.coords);
                 }
 
                 state.wayland.close_overlay();
@@ -338,7 +347,16 @@ fn run_wayland_daemon() -> Result<()> {
         qh,
         exit_requested: false,
         about_requested_at: None,
+        pick,
     };
+
+    // `--pick` one-shot: launch the overlay now (no signal/tray to trigger
+    // it). The loop then runs until the user clicks or cancels (Esc/RMB),
+    // at which point the timer's exit branch relays + exits the process.
+    if oneshot {
+        let AppState { daemon, wayland, qh, .. } = &mut app_state;
+        daemon.launch_overlay(wayland, qh);
+    }
 
     let signal = event_loop.get_signal();
 
@@ -356,14 +374,14 @@ fn run_wayland_daemon() -> Result<()> {
 // ─── X11 Main Loop ──────────────────────────────────────────────────────────
 
 #[cfg(unix)]
-fn run_x11_daemon() -> Result<()> {
+fn run_x11_daemon(pick: Option<PickReq>) -> Result<()> {
     let svc = ColorService::new();
 
     // Tokio is required for DBusTray.
     let rt = tokio::runtime::Runtime::new()?;
     let _guard = rt.enter();
 
-    connectors::x11::run_x11_daemon(svc)
+    connectors::x11::run_x11_daemon(svc, pick)
 }
 
 // ─── Windows Main Loop (stub) ───────────────────────────────────────────────
@@ -373,7 +391,9 @@ fn run_x11_daemon() -> Result<()> {
 /// Global hotkey and tray icon both send UserEvent through an mpsc channel.
 /// The main loop polls hotkey events, tray events, and Win32 messages.
 #[cfg(windows)]
-fn run_windows_daemon(is_relaunch: bool) -> Result<()> {
+fn run_windows_daemon(pick: Option<PickReq>, is_relaunch: bool) -> Result<()> {
+    let oneshot = pick.is_some();
+
     // DPI awareness must be set before any window/capture calls.
     // Safe to call once; subsequent calls return E_ACCESSDENIED (ignored).
     unsafe {
@@ -382,10 +402,50 @@ fn run_windows_daemon(is_relaunch: bool) -> Result<()> {
         );
     }
 
-    print_logo();
-    log_info("Windows backend active");
+    if !oneshot {
+        print_logo();
+        log_info("Windows backend active");
+    }
 
     let mut svc = ColorService::new();
+
+    // --- One-shot fork (`ie-r --pick`) ---
+    // Skip the whole tray/hotkey/message-pump scaffolding — just capture,
+    // raise the overlay, finalize via probe::finish_pick (never returns)
+    // on success, or exit 1 with a clear message on capture failure.
+    if let Some(req) = pick {
+        log_info("Pick mode (Windows) — launching overlay...");
+        match capture::capture_all_outputs() {
+            Ok(canvas) => {
+                let overlay = OverlayApp::new(
+                    canvas,
+                    svc.config.clone(),
+                    svc.cached_font_data.clone(),
+                    svc.hud_font_data.clone(),
+                    "COMPOSITOR: WINDOWS".to_string(),
+                    1.0,
+                );
+                // No owner HWND on one-shot — overlay is a self-contained
+                // top-level WS_POPUP, nothing else to clash with.
+                let owner = windows::Win32::Foundation::HWND::default();
+                match connectors::windows::run_overlay(overlay, owner) {
+                    Ok(session) => {
+                        // Never returns: relay-redirect + process::exit.
+                        probe::finish_pick(&mut svc, session.colors, session.coords, session.phys_coords, &req);
+                    }
+                    Err(e) => {
+                        eprintln!("error: overlay failed: {}", e);
+                        std::process::exit(1);
+                    }
+                }
+            }
+            Err(e) => {
+                eprintln!("error: capture failed: {}", e);
+                std::process::exit(1);
+            }
+        }
+    }
+
     let mut _scout = Scout::new(&svc.config.system.hotkey)?;
 
     // Show welcome balloon if it's the first run OR a relaunch (re-run triggered by user).
@@ -433,37 +493,12 @@ fn run_windows_daemon(is_relaunch: bool) -> Result<()> {
             }
         }
 
-        // Poll tray / IPC events
+        // Poll tray / IPC events. Platform-independent ones are absorbed by
+        // ColorService::handle_user_event; only platform-specific come back.
         while let Ok(event) = rx.try_recv() {
+            let Some(event) = svc.handle_user_event(event) else { continue };
             match event {
                 daemon::UserEvent::LaunchOverlay(_) => { triggered = true; }
-                daemon::UserEvent::EditConfig => {
-                    let config_path = crate::core::config::Config::get_config_path();
-                    log_info(&format!("Opening config: {:?}", config_path));
-                    let _ = open::that(config_path);
-                }
-                daemon::UserEvent::SelectTemplate(key) => {
-                    log_step("Menu", &format!("Template: {}", key));
-                    svc.config.templates.selected = key;
-                    svc.config.save();
-                }
-                daemon::UserEvent::ToggleHUD => {
-                    svc.config.hud.show = !svc.config.hud.show;
-                    svc.config.save();
-                    log_step("Menu", &format!("HUD: {}", if svc.config.hud.show { "on" } else { "off" }));
-                }
-                daemon::UserEvent::OpenHomepage => {
-                    daemon::open_homepage();
-                }
-                daemon::UserEvent::CopyFromHistory(hex) => {
-                    let s = hex.trim_start_matches('#');
-                    if let Ok(val) = u32::from_str_radix(s, 16) {
-                        let r = ((val >> 16) & 0xFF) as u8;
-                        let g = ((val >> 8) & 0xFF) as u8;
-                        let b = (val & 0xFF) as u8;
-                        svc.copy_color(&[image::Rgba([r, g, b, 255])]);
-                    }
-                }
                 daemon::UserEvent::ShowAbout => {
                     daemon::about_win::show_about(svc.hud_font_data.clone());
                 }
@@ -471,6 +506,7 @@ fn run_windows_daemon(is_relaunch: bool) -> Result<()> {
                     log_info("Quit requested. Exiting.");
                     return Ok(());
                 }
+                _ => {}
             }
         }
 
@@ -498,8 +534,8 @@ fn run_windows_daemon(is_relaunch: bool) -> Result<()> {
                     );
 
                     match connectors::windows::run_overlay(overlay, tray_hwnd) {
-                        Ok(result) => {
-                            svc.finalize_overlay(&result.config, result.color_deck);
+                        Ok(session) => {
+                            svc.finalize_overlay(&session.config, session.colors, session.coords);
                             log_step("Done", "Overlay closed");
                         }
                         Err(e) => log_step("Error", &format!("Overlay failed: {}", e)),
@@ -612,10 +648,155 @@ fn check_and_kill_existing_instance() {
 }
 
 /// Entry point into the matrix.
-/// Wayland detected → Layer Shell + Calloop path.
-/// No Wayland → fallback to the proven Winit + Softbuffer architecture.
+/// Parse args → dispatch mode → launch platform event loop.
 fn main() -> Result<()> {
-    // 0. Announce our correct name to the OS so killall -SIGUSR1 ie-r works
+    // Windows: enable ANSI escape sequences for BOTH stdout and stderr.
+    // log_* writes to stderr; --help and probe values write to stdout.
+    #[cfg(windows)]
+    unsafe {
+        use windows_sys::Win32::System::Console::*;
+        for h in [STD_OUTPUT_HANDLE, STD_ERROR_HANDLE] {
+            let handle = GetStdHandle(h);
+            let mut mode = 0u32;
+            GetConsoleMode(handle, &mut mode);
+            let _ = SetConsoleMode(handle, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+        }
+    }
+
+    // Windows console warm-up: SGR reset + flush, both streams.
+    // On layered consoles like ConEmu/Far the VT parser initialises its
+    // palette state lazily on first escape — without this, the first few
+    // coloured log lines render with a shifted palette (white → gray,
+    // gray → black). Writing an explicit reset before any real output
+    // pins the starting state.
+    #[cfg(windows)]
+    {
+        use std::io::Write;
+        eprint!("\x1b[0m");
+        print!("\x1b[0m");
+        let _ = std::io::stderr().flush();
+        let _ = std::io::stdout().flush();
+    }
+
+    // 0. Parse arguments before any heavy initialization.
+    // Arg/usage errors exit 2 (POSIX-ish: 2 = invalid invocation).
+    let (mode, verbose, config_override) = match cli::parse_args() {
+        Ok(m) => m,
+        Err(e) => {
+            eprintln!("error: {e}");
+            std::process::exit(2);
+        }
+    };
+
+    // 0.1. --config PATH: validate file exists & is readable, then install
+    // it as the single source of truth for every subsequent Config::load /
+    // get_config_path call (initial load, hot-reload, save). Fail fast on
+    // typos — unlike the default location, a missing override path must
+    // never silently seed a new file (that's hostile to user intent).
+    if let Some(path) = config_override {
+        if let Err(e) = core::config::validate_override(&path) {
+            eprintln!("error: --config {e}");
+            std::process::exit(2);
+        }
+        core::config::set_config_override(path);
+    }
+
+    // Verbosity (Variant A): daemon → all logs (long service, ops want them);
+    // non-daemon CLI → silence INFO-tier by default; `-v`/`--verbose` overrides
+    // either way. ERROR+WARN always reach stderr. See cli-roadmap-waves.md W1.
+    {
+        use core::terminal::{set_verbosity, Verbosity};
+        let v = if verbose {
+            Verbosity::Verbose
+        } else {
+            match mode {
+                Mode::Daemon => Verbosity::Verbose,
+                #[cfg(windows)]
+                Mode::CaptureTest => Verbosity::Verbose,
+                _ => Verbosity::Normal,
+            }
+        };
+        set_verbosity(v);
+    }
+
+    // `--pick` falls through to the platform dispatch (it reuses the daemon
+    // runner in one-shot mode), carrying its relay request here.
+    #[cfg_attr(windows, allow(unused_assignments, unused_mut))]
+    let mut pick_req: Option<PickReq> = None;
+
+    // --help and --version fire instantly, no side effects.
+    match mode {
+        Mode::Help => {
+            cli::print_help();
+            return Ok(());
+        }
+        Mode::Version => {
+            println!("ie-r {}", env!("CARGO_PKG_VERSION"));
+            return Ok(());
+        }
+        Mode::Pixel { coords, format, float_precision, relays, average, phys } => {
+            return probe::run_pixels(coords, format, float_precision, relays, average, phys);
+        }
+        Mode::Stdin { format, float_precision, relays, realtime, with_coords, average, phys } => {
+            return probe::run_stdin(format, float_precision, relays, realtime, with_coords, average, phys);
+        }
+        Mode::History { format, float_precision, relays, limit } => {
+            return probe::run_history(format, float_precision, relays, limit);
+        }
+        Mode::Monitors { relays } => {
+            return probe::run_monitors(relays);
+        }
+        Mode::Pick { format, float_precision, relays, with_coords, average, phys } => {
+            // Stash --average for the overlay path: process-wide static read
+            // by OverlayApp init when overriding magnifier.aim_size.
+            if let Some(avg) = average {
+                core::config::set_pick_average_override(avg);
+            }
+            pick_req = Some(PickReq { format, float_precision, relays, with_coords, average, phys });
+        }
+        #[cfg(windows)]
+        Mode::CaptureTest => {
+            print_logo();
+            log_info("Capture test mode");
+            let canvas = capture::capture_all_outputs()?;
+            let tile = canvas.active();
+            let w = tile.capture.width;
+            let h = tile.capture.height;
+            let rgba: Vec<u8> = tile.capture.xrgb_buffer.iter().flat_map(|&px| {
+                [((px >> 16) & 0xFF) as u8, ((px >> 8) & 0xFF) as u8, (px & 0xFF) as u8, 255u8]
+            }).collect();
+            let path = "ie-r-capture-test.png";
+            image::save_buffer(path, &rgba, w, h, image::ColorType::Rgba8)?;
+            log_step("Test", &format!("Saved {}x{} → {}", w, h, path));
+            return Ok(());
+        }
+        Mode::Daemon => {}
+    }
+
+    // ── Daemon initialization ────────────────────────────────────────────────
+
+    // 0. Display-presence guard. The overlay (daemon mode + `--pick` one-shot)
+    // needs a graphical session — either Wayland socket or X11 server. Without
+    // it, winit's X11 fallback drops into libX11 with a null display ptr and
+    // segfaults in C land. Probe modes never reach this point (they
+    // early-return above and work over D-Bus portal, which doesn't need a
+    // local display — see `ie-r --pixel` working through SSH).
+    #[cfg(unix)]
+    {
+        let has_wayland = std::env::var_os("WAYLAND_DISPLAY").is_some();
+        let has_x11 = std::env::var_os("DISPLAY").is_some();
+        if !has_wayland && !has_x11 {
+            eprintln!("error: no display available (WAYLAND_DISPLAY and DISPLAY both unset)");
+            eprintln!("help:  the overlay needs a graphical session.");
+            eprintln!("       · for SSH workflows, use probe modes — `ie-r --pixel X,Y`,");
+            eprintln!("         `--stdin`, `--history`, etc. all work via the D-Bus portal");
+            eprintln!("         and don't need a local display.");
+            eprintln!("       · for SSH + daemon, forward X11 with `ssh -X`.");
+            std::process::exit(1);
+        }
+    }
+
+    // 1. Announce our correct name to the OS so killall -SIGUSR1 ie-r works
     // even through layers of wrappers and loaders.
     #[cfg(unix)]
     {
@@ -625,46 +806,21 @@ fn main() -> Result<()> {
         }
     }
 
-    // Windows: enable ANSI escape sequences in console
-    #[cfg(windows)]
-    unsafe {
-        use windows_sys::Win32::System::Console::*;
-        let handle = GetStdHandle(STD_OUTPUT_HANDLE);
-        let mut mode = 0u32;
-        GetConsoleMode(handle, &mut mode);
-        let _ = SetConsoleMode(handle, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+    // 2. Politely ask the old process to quit.
+    // EXCEPT `--pick`: a one-shot must NOT kill a running tray daemon — it
+    // just raises its own overlay alongside it. (Overlay/screencopy
+    // contention between the two is the deferred IPC-niche concern.)
+    #[cfg(unix)]
+    if pick_req.is_none() {
+        check_and_kill_existing_instance();
     }
 
-    // 1. Politely ask the old process to quit.
-    #[cfg(unix)]
-    check_and_kill_existing_instance();
-
-    // 1. Politely ask the old process to quit (Windows).
+    // 2. Politely ask the old process to quit (Windows).
     // FindWindowW("IERTray") → PostMessageW(WM_CLOSE) → wait for window to disappear.
     #[cfg(windows)]
     let is_relaunch = check_and_kill_existing_instance_win();
 
-    // 1.5. --capture-test: capture → PNG → exit (Phase 1 smoke test)
-    #[cfg(windows)]
-    if std::env::args().any(|a| a == "--capture-test") {
-        use core::capture;
-        use core::terminal::log_step;
-        print_logo();
-        log_info("Capture test mode");
-        let canvas = capture::capture_all_outputs()?;
-        let tile = canvas.active();
-        let w = tile.capture.width;
-        let h = tile.capture.height;
-        let rgba: Vec<u8> = tile.capture.xrgb_buffer.iter().flat_map(|&px| {
-            [((px >> 16) & 0xFF) as u8, ((px >> 8) & 0xFF) as u8, (px & 0xFF) as u8, 255u8]
-        }).collect();
-        let path = "ie-r-capture-test.png";
-        image::save_buffer(path, &rgba, w, h, image::ColorType::Rgba8)?;
-        log_step("Test", &format!("Saved {}x{} → {}", w, h, path));
-        return Ok(());
-    }
-
-    // 2. Platform dispatch
+    // 3. Platform dispatch
     #[cfg(unix)]
     {
         // Attempt to connect to Wayland. If $WAYLAND_DISPLAY is empty or
@@ -673,17 +829,17 @@ fn main() -> Result<()> {
             Ok(_conn) => {
                 // conn is dropped here — run_wayland_daemon will create its own.
                 drop(_conn);
-                run_wayland_daemon()
+                run_wayland_daemon(pick_req)
             }
             Err(e) => {
                 log_info(&format!("Wayland connection failed ({}). Falling back to X11/Winit.", e));
-                run_x11_daemon()
+                run_x11_daemon(pick_req)
             }
         }
     }
 
     #[cfg(windows)]
     {
-        run_windows_daemon(is_relaunch)
+        run_windows_daemon(pick_req, is_relaunch)
     }
 }
