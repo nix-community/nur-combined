@@ -403,6 +403,9 @@
             "file": "pkgs/nur-packages.nix",
             "url": "https://github.com/CrazedProgrammer/nix"
         },
+        "crimsonvariable": {
+            "url": "https://github.com/crimsonvariable/nur-packages"
+        },
         "crtified": {
             "url": "https://github.com/CRTified/nur-packages"
         },
