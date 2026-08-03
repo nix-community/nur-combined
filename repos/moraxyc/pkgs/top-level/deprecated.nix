@@ -5,6 +5,7 @@ let
   deprecatedPkgs = {
     # Upstreamed
     flapalerted = "upstreamed";
+    sing-box = "upstreamed";
     sub-store = "upstreamed";
     sub-store-frontend = "upstreamed";
     zsh-patina = "upstreamed";
