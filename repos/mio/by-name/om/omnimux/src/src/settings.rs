@@ -133,6 +133,28 @@ pub fn load_session() -> Vec<Option<String>> {
         .collect()
 }
 
+pub fn load_recent_hosts() -> Vec<String> {
+    let path = config_dir().join("recent_hosts.json");
+    std::fs::read_to_string(path)
+        .ok()
+        .and_then(|s| serde_json::from_str::<Vec<String>>(&s).ok())
+        .unwrap_or_default()
+}
+
+pub fn add_recent_host(host: &str) {
+    let mut recents = load_recent_hosts();
+    recents.retain(|h| h != host);
+    recents.insert(0, host.to_string());
+    if recents.len() > 20 {
+        recents.truncate(20);
+    }
+    let dir = config_dir();
+    let _ = std::fs::create_dir_all(&dir);
+    if let Ok(json) = serde_json::to_string_pretty(&recents) {
+        let _ = std::fs::write(dir.join("recent_hosts.json"), json);
+    }
+}
+
 pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
     let existing = load_settings();
     let settings = Settings {

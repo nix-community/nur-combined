@@ -13,7 +13,6 @@ pub use colors::ChromeColors;
 use crate::palette::{is_dark_appearance, palette_for_appearance, DEFAULT_FONT_SIZE};
 use crate::session::TerminalSession;
 use crate::settings::{load_session, load_settings, Osc52Setting};
-use crate::ssh_config::get_ssh_hosts;
 use gpui::prelude::*;
 use gpui::*;
 use gpui_component::input::{InputEvent, InputState};
@@ -59,6 +58,31 @@ impl Focusable for TerminalTabs {
 }
 
 impl TerminalTabs {
+    pub(crate) fn get_available_hosts(tabs: &[Entity<TerminalSession>], cx: &App) -> Vec<String> {
+        let mut open_hosts = std::collections::HashSet::new();
+        for tab in tabs {
+            if let Some(h) = &tab.read(cx).host {
+                open_hosts.insert(h.clone());
+            } else {
+                open_hosts.insert("localhost".to_string());
+            }
+        }
+        
+        let recent = crate::settings::load_recent_hosts();
+        let ssh_hosts = crate::ssh_config::get_ssh_hosts();
+        
+        let mut final_list = Vec::new();
+        let mut seen = std::collections::HashSet::new();
+        
+        for h in recent.into_iter().chain(ssh_hosts.into_iter()) {
+            if !open_hosts.contains(&h) && seen.insert(h.clone()) {
+                final_list.push(h);
+            }
+        }
+        
+        final_list
+    }
+
     pub fn new(window: &mut Window, cx: &mut Context<Self>) -> Self {
         let settings = load_settings();
         let keep_tab_after_exit = settings.keep_tab_after_exit.unwrap_or(false);
@@ -202,9 +226,9 @@ impl TerminalTabs {
 
         Self {
             active_tab: 0,
+            ssh_hosts: Self::get_available_hosts(&initial_tabs, cx),
             tabs: initial_tabs,
             show_host_prompt: start_prompt,
-            ssh_hosts: get_ssh_hosts(),
             selected_host_index: 0,
             show_settings: false,
             show_search: false,
