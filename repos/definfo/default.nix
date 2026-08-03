@@ -21,5 +21,4 @@
   nsub = pkgs.callPackage ./pkgs/nsub { };
   sarasa-term-sc-nerd = pkgs.callPackage ./pkgs/sarasa-term-sc-nerd { };
   waylrc = pkgs.callPackage ./pkgs/waylrc { };
-  wemeet = pkgs.callPackage ./pkgs/wemeet { };
 }
