@@ -1,0 +1,11 @@
+[ziggy-bin-x86_64-linux]
+src.github = "kristoff-it/ziggy"
+fetch.tarball = "https://github.com/kristoff-it/ziggy/releases/download/$ver/x86_64-linux-musl.tar.xz"
+
+[ziggy-bin-aarch64-linux]
+src.github = "kristoff-it/ziggy"
+fetch.tarball = "https://github.com/kristoff-it/ziggy/releases/download/$ver/aarch64-linux.tar.xz"
+
+[ziggy-bin-aarch64-darwin]
+src.github = "kristoff-it/ziggy"
+fetch.tarball = "https://github.com/kristoff-it/ziggy/releases/download/$ver/aarch64-macos.zip"

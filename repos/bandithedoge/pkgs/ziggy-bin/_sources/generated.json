@@ -1,0 +1,44 @@
+{
+    "ziggy-bin-aarch64-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ziggy-bin-aarch64-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-tn4Bi86KRNk5TYBV+HrvoYwWHi2VyjpNmRbVzlQeK1c=",
+            "type": "tarball",
+            "url": "https://github.com/kristoff-it/ziggy/releases/download/v0.2.0/aarch64-macos.zip"
+        },
+        "version": "v0.2.0"
+    },
+    "ziggy-bin-aarch64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ziggy-bin-aarch64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-O+I2zECcUIK7XZ2aqHu9aAd3+Z800XxSDhHMlhm88sU=",
+            "type": "tarball",
+            "url": "https://github.com/kristoff-it/ziggy/releases/download/v0.2.0/aarch64-linux.tar.xz"
+        },
+        "version": "v0.2.0"
+    },
+    "ziggy-bin-x86_64-linux": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "ziggy-bin-x86_64-linux",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-iNQQwWewDg1O7a7xni4pwq1EM3sXPpFba58hmtKlEL0=",
+            "type": "tarball",
+            "url": "https://github.com/kristoff-it/ziggy/releases/download/v0.2.0/x86_64-linux-musl.tar.xz"
+        },
+        "version": "v0.2.0"
+    }
+}

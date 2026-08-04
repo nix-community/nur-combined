@@ -23,6 +23,7 @@ src.git = "https://github.com/lgi-devs/lgi.git"
 fetch.github = "lgi-devs/lgi"
 
 [lua-resty-mpd]
+pinned = true # expired tls cert
 src.webpage = "https://buffering.party/software/lua-resty-mpd"
 src.regex = 'lua-resty-mpd-(\d+\.\d+\.\d+).tar.gz'
 fetch.tarball = "https://buffering.party/software/lua-resty-mpd/lua-resty-mpd-$ver.tar.gz"

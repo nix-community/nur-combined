@@ -135,6 +135,7 @@
       homepage = "https://buffering.party/software/lua-resty-mpd/";
       license = lib.licenses.mit;
       maintainers = [ lib.maintainers.bandithedoge ];
+      broken = true; # expired tls cert
     };
   };
 }
