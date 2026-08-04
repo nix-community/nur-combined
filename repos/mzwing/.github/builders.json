@@ -10,14 +10,14 @@
     "system": "aarch64-linux",
     "idPrefix": "linux-arm64",
     "runner": "ubuntu-24.04-arm",
-    "count": 3,
+    "count": 2,
     "maxJobs": 3
   },
   {
     "system": "aarch64-darwin",
     "idPrefix": "darwin-arm64",
     "runner": "macos-latest",
-    "count": 3,
+    "count": 2,
     "maxJobs": 3
   }
 ]

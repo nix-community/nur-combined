@@ -99,9 +99,13 @@ with builtins; let
           RUSTC_WRAPPER = "sccache";
           SCCACHE_DIR = "${compileCacheDir}/sccache";
           SCCACHE_CACHE_SIZE = "2G";
+          # Builds on one builder run as different nixbld users; world-
+          # writable cache entries let all of them share the directory.
+          # ($out permissions are canonicalized by Nix after the build.)
           preBuild =
             (old.preBuild or "")
             + ''
+              umask 000
               mkdir -p "$SCCACHE_DIR"
             '';
         });
@@ -116,6 +120,7 @@ with builtins; let
           preBuild =
             (old.preBuild or "")
             + ''
+              umask 000
               export GOCACHE=${compileCacheDir}/gocache
               mkdir -p "$GOCACHE"
             '';
