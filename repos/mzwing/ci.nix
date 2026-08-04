@@ -8,7 +8,16 @@
 #
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
-{pkgs ? import <nixpkgs> {}}:
+#
+# When `compileCache` is enabled (or NUR_COMPILE_CACHE=1 is set in the
+# environment of an impure evaluation), source-built packages are wrapped
+# with compiler caches (sccache for Rust, GOCACHE for Go) pointing at a
+# persistent directory mounted into the CI builders' Nix sandbox. This is
+# meant for CI only; local builds are unaffected.
+{
+  pkgs ? import <nixpkgs> {},
+  compileCache ? (builtins.getEnv "NUR_COMPILE_CACHE") == "1",
+}:
 with builtins; let
   reservedNames = [
     "lib"
@@ -72,8 +81,50 @@ with builtins; let
     outputPath = entry.output.outPath;
   };
 
+  compileCacheDir = "/opt/nur-ci-compile-cache";
+  rustCachedNames = ["ace-ctx" "autocli" "pumpkin"];
+  goCachedNames = ["cliproxyapiplus" "sing-box-alpha" "sing-box-beta"];
+
+  applyCompileCache = entry: let
+    name = concatStringsSep "." entry.attrPath;
+  in
+    if !compileCache
+    then entry
+    else if elem name rustCachedNames
+    then
+      entry
+      // {
+        package = entry.package.overrideAttrs (old: {
+          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.sccache];
+          RUSTC_WRAPPER = "sccache";
+          SCCACHE_DIR = "${compileCacheDir}/sccache";
+          SCCACHE_CACHE_SIZE = "2G";
+          preBuild =
+            (old.preBuild or "")
+            + ''
+              mkdir -p "$SCCACHE_DIR"
+            '';
+        });
+      }
+    else if elem name goCachedNames
+    then
+      entry
+      // {
+        package = entry.package.overrideAttrs (old: {
+          # Exported in preBuild so it wins over any GOCACHE set by the
+          # nixpkgs Go setup hook.
+          preBuild =
+            (old.preBuild or "")
+            + ''
+              export GOCACHE=${compileCacheDir}/gocache
+              mkdir -p "$GOCACHE"
+            '';
+        });
+      }
+    else entry;
+
   nurAttrs = import ./default.nix {inherit pkgs;};
-  nurEntries = flattenPkgs [] (removeAttrs nurAttrs reservedNames);
+  nurEntries = map applyCompileCache (flattenPkgs [] (removeAttrs nurAttrs reservedNames));
 in rec {
   buildEntries = filter (entry: isBuildable entry.package) nurEntries;
   cacheEntries = filter (entry: isCacheable entry.package) buildEntries;

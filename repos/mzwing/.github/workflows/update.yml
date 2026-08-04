@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'pkgs/**'
+      - 'nvfetcher.toml'
       - '.github/workflows/update.yml'
   schedule:
     - cron: "23 12 * * *"
@@ -41,6 +42,13 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
           substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Restore Nix store
+      uses: nix-community/cache-nix-action@v7
+      with:
+        primary-key: nix-update-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
+        restore-prefixes-first-match: nix-update-
+        gc-max-store-size-linux: 4G
 
     - name: Restore nvfetcher database
       uses: actions/cache@v6

@@ -8,6 +8,14 @@
 #     nix-build -A mypackage
 {pkgs ? import <nixpkgs> {}}: let
   sources = pkgs.callPackage ./_sources/generated.nix {};
+  typenix = pkgs.callPackage ./pkgs/typenix {
+    source = sources.typenix;
+    tree-sitter-nix = sources.tree-sitter-nix;
+  };
+  typenix-vscode = pkgs.callPackage ./pkgs/typenix-vscode {
+    source = sources.typenix;
+    inherit typenix;
+  };
 in {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
@@ -21,9 +29,18 @@ in {
   ace-ctx = pkgs.callPackage ./pkgs/ace-ctx {source = sources.ace-ctx;};
   autocli = pkgs.callPackage ./pkgs/autocli {source = sources.autocli;};
   cliproxyapiplus = pkgs.callPackage ./pkgs/cliproxyapiplus {source = sources.cliproxyapiplus;};
+  gryph = pkgs.callPackage ./pkgs/gryph {source = sources.gryph;};
   pumpkin = pkgs.callPackage ./pkgs/pumpkin {source = sources.pumpkin;};
   sing-box-alpha = pkgs.callPackage ./pkgs/sing-box-alpha {source = sources.sing-box-alpha;};
   sing-box-beta = pkgs.callPackage ./pkgs/sing-box-beta {source = sources.sing-box-beta;};
+  inherit typenix typenix-vscode;
+  vscode-extensions = pkgs.lib.recurseIntoAttrs {
+    ryanrasti = pkgs.lib.recurseIntoAttrs {
+      typenix = pkgs.callPackage ./pkgs/vscode-extensions/ryanrasti/typenix {
+        inherit typenix-vscode;
+      };
+    };
+  };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }

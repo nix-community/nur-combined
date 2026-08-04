@@ -12,7 +12,9 @@ sing-box.overrideAttrs (_finalAttrs: previousAttrs: {
 
   passthru = builtins.removeAttrs (previousAttrs.passthru or {}) ["updateScript"];
 
-  meta = (previousAttrs.meta or {}) // {
-    changelog = "https://github.com/SagerNet/sing-box/releases/tag/${source.version}";
-  };
+  meta =
+    (previousAttrs.meta or {})
+    // {
+      changelog = "https://github.com/SagerNet/sing-box/releases/tag/${source.version}";
+    };
 })

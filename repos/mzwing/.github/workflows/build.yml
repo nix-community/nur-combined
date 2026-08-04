@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - 'pkgs/**'
+      - '_sources/**'
+      - 'nvfetcher.toml'
   workflow_dispatch:
 
 permissions:
@@ -16,6 +20,9 @@ concurrency:
 env:
   CACHE_NAME: mzwing
   BUILDER_PREFIX: nur-b-${{ github.run_id }}-${{ github.run_attempt }}
+  # Enable sccache/GOCACHE compile caches in ci.nix (impure eval only).
+  # Set to "0" to fall back to plain builds.
+  NUR_COMPILE_CACHE: "1"
 
 jobs:
   config:
@@ -37,6 +44,13 @@ jobs:
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
           substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
           trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+
+    - name: Restore Nix store
+      uses: nix-community/cache-nix-action@v7
+      with:
+        primary-key: nix-config-${{ hashFiles('flake.lock') }}
+        restore-prefixes-first-match: nix-config-
+        gc-max-store-size-linux: 2G
 
     - name: Configure Cachix for pulls
       uses: cachix/cachix-action@v17
@@ -211,6 +225,29 @@ jobs:
     - name: Enable Cachix uploads for remote builds
       run: sudo sh -c "cat '${CACHIX_DAEMON_DIR}/nix.conf' >> /etc/nix/nix.conf"
 
+    - name: Compute weekly compile cache key
+      id: cachekey
+      run: echo "week=$(date +%Y-%U)" >>"${GITHUB_OUTPUT}"
+
+    - name: Prepare compile cache directory
+      run: |
+        sudo mkdir -p /opt/nur-ci-compile-cache/sccache /opt/nur-ci-compile-cache/gocache
+        sudo chmod -R 777 /opt/nur-ci-compile-cache
+        # Remote builds via ssh-ng read /etc/nix/nix.conf per session, so no
+        # daemon restart is needed (and macOS builds are unsandboxed anyway).
+        echo 'extra-sandbox-paths = /opt/nur-ci-compile-cache' | sudo tee -a /etc/nix/nix.conf
+
+    - name: Restore compile cache
+      uses: actions/cache/restore@v6
+      with:
+        path: /opt/nur-ci-compile-cache
+        key: compile-cache-${{ matrix.system }}-${{ steps.cachekey.outputs.week }}
+        restore-keys: |
+          compile-cache-${{ matrix.system }}-
+
+    - name: Fix compile cache permissions
+      run: sudo chmod -R 777 /opt/nur-ci-compile-cache
+
     - name: Join builder network
       uses: tailscale/github-action@v4
       env:
@@ -244,6 +281,16 @@ jobs:
         done
         echo 'Coordinator did not claim this builder within 10 minutes.' >&2
         exit 1
+
+    - name: Save compile cache
+      if: always()
+      # Two builders per system share one weekly cache key; the loser of the
+      # save race is allowed to fail silently.
+      continue-on-error: true
+      uses: actions/cache/save@v6
+      with:
+        path: /opt/nur-ci-compile-cache
+        key: compile-cache-${{ matrix.system }}-${{ steps.cachekey.outputs.week }}
 
   coordinator:
     name: Distributed build coordinator
