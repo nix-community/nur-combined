@@ -15,7 +15,6 @@ stdenv.mkDerivation {
 
   src = ./.;
 
-
   buildPhase = ''
     runHook preBuild
     gcc -shared -fPIC -o libuosdevicea.so libuosdevicea.c
@@ -24,14 +23,14 @@ stdenv.mkDerivation {
 
   installPhase = ''
     runHook preInstall
-    
+
     local wechat_root="$out/libexec/wechat-universal"
-    
+
     install -Dm755 libuosdevicea.so "$wechat_root/usr/lib/license/libuosdevicea.so"
     echo 'DISTRIB_ID=uos' | install -Dm644 /dev/stdin "$wechat_root/etc/lsb-release"
-    
+
     install -Dm755 wechat-universal.sh "$wechat_root/common.sh"
-    
+
     substituteInPlace "$wechat_root/common.sh" \
       --replace-fail "/{usr/lib/flatpak-xdg-utils,sandbox}/xdg-open" "${flatpak-xdg-utils}/bin/xdg-open /sandbox/xdg-open" \
       --replace-fail "/usr/lib/wechat-universal/common.sh" "$wechat_root/common.sh" \
@@ -48,15 +47,15 @@ stdenv.mkDerivation {
     ln -s $wechat_root/common.sh $out/bin/wechat
     ln -s $wechat_root/common.sh $out/bin/start.sh
     ln -s $wechat_root/common.sh $out/bin/stop.sh
-    
+
     install -Dm644 wechat-universal.desktop $out/share/applications/wechat-universal.desktop
     substituteInPlace $out/share/applications/wechat-universal.desktop \
       --replace-fail "/usr/lib/wechat-universal" "$out/bin"
       
     install -Dm644 wechat-license $out/share/licenses/wechat-universal/wechat-license
-    
+
     install -Dm644 ${wechat.src}/wechat.png $out/share/icons/hicolor/256x256/apps/wechat-universal.png
-    
+
     runHook postInstall
   '';
 
@@ -65,7 +64,10 @@ stdenv.mkDerivation {
     homepage = "https://linux.weixin.qq.com/";
     license = licenses.unfree;
     maintainers = [ ];
-    platforms = [ "x86_64-linux" "aarch64-linux" ];
+    platforms = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
     mainProgram = "wechat-universal";
   };
 }
