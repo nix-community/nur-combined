@@ -14,6 +14,7 @@
   qrencode,
   stripJavaArchivesHook,
   tomlplusplus,
+  vulkan-headers,
   zlib,
   msaClientID ? null,
 }:
@@ -63,6 +64,7 @@ stdenv.mkDerivation (finalAttrs: {
     libarchive
     qrencode
     tomlplusplus
+    vulkan-headers
     zlib
   ]
   ++ lib.optional stdenv.hostPlatform.isLinux gamemode;
