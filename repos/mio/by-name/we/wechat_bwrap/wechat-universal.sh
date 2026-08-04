@@ -216,6 +216,9 @@ try_start() {
         --ro-bind {/usr/lib/wechat-universal,}/etc/lsb-release
 
         # /home
+        # Fake $HOME for isolation; overlay real XDG user dirs afterward so
+        # send-file / file picker can see Downloads etc. (AUR default exposes
+        # none of these — only ~/.config/wechat-universal/binds.list).
         --bind "${WECHAT_HOME_DIR}" "${HOME}"
         --bind "${WECHAT_FILES_DIR}"{,}
         --bind-try "${HOME}/.pki"{,}
@@ -233,6 +236,35 @@ try_start() {
         --ro-bind "${DBUS_SESSION_BUS_PATH}"{,}
         --ro-bind "${XDG_RUNTIME_DIR}/pulse"{,}
     )
+
+    # Default host folders for attaching/sending files. Resolved on the host
+    # before bwrap; bind-try after HOME remap so they appear under the real
+    # absolute paths (e.g. $HOME/Downloads). Skip if unset or equal to $HOME.
+    # Opt out: WECHAT_EXPOSE_USER_DIRS=0. Extra paths: binds.list / --bind.
+    WECHAT_DEFAULT_BINDS=()
+    if [[ "${WECHAT_EXPOSE_USER_DIRS:-1}" != 0 ]]; then
+        _wechat_add_user_dir() {
+            local dir="$1"
+            if [[ -n "${dir}" && "${dir}" != "${HOME}" && "${dir}" != / ]]; then
+                WECHAT_DEFAULT_BINDS+=(--bind-try "${dir}" "${dir}")
+            fi
+        }
+        _wechat_xdg_dir() {
+            # $1: env var name, $2: xdg-user-dir key, $3: fallback under $HOME
+            local dir="${!1:-}"
+            if [[ -z "${dir}" ]] && command -v xdg-user-dir >/dev/null 2>&1; then
+                dir="$(xdg-user-dir "$2" 2>/dev/null || true)"
+            fi
+            printf '%s\n' "${dir:-$HOME/$3}"
+        }
+        _wechat_add_user_dir "$(_wechat_xdg_dir XDG_DOWNLOAD_DIR DOWNLOAD Downloads)"
+        _wechat_add_user_dir "$(_wechat_xdg_dir XDG_DESKTOP_DIR DESKTOP Desktop)"
+        _wechat_add_user_dir "$(_wechat_xdg_dir XDG_PICTURES_DIR PICTURES Pictures)"
+        _wechat_add_user_dir "$(_wechat_xdg_dir XDG_DOCUMENTS_DIR DOCUMENTS Documents)"
+        _wechat_add_user_dir "$(_wechat_xdg_dir XDG_VIDEOS_DIR VIDEOS Videos)"
+        _wechat_add_user_dir "$(_wechat_xdg_dir XDG_MUSIC_DIR MUSIC Music)"
+        unset -f _wechat_add_user_dir _wechat_xdg_dir
+    fi
 
     case "${WECHAT_MULTIPLE_INSTANCE}" in
     '')
@@ -264,7 +296,7 @@ try_start() {
         ;;
     esac
 
-    exec bwrap "${BWRAP_ARGS[@]}" "${BWRAP_CUSTOM_BINDS[@]}" "${BWRAP_DEV_BINDS[@]}" /opt/wechat-universal/wechat "$@"
+    exec bwrap "${BWRAP_ARGS[@]}" "${WECHAT_DEFAULT_BINDS[@]}" "${BWRAP_CUSTOM_BINDS[@]}" "${BWRAP_DEV_BINDS[@]}" /opt/wechat-universal/wechat "$@"
     echo "Error: Failed to exec bwrap, rerun this script with 'bash -x $0' to show the full command history"
     return 1
 }

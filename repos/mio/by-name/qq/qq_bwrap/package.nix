@@ -47,6 +47,33 @@ stdenv.mkDerivation {
     fi
     EOF
 
+    # Source after electron_flags is declared. Electron needs GTK/Qt IM modules
+    # (wechat_bwrap does the same); Wayland also needs --enable-wayland-ime.
+    cat << 'EOF' > $out/libexec/qq-setup-ime.sh
+    #!/bin/bash
+    if [ -z "''${QQ_IME_WORKAROUND}" ] || [ "''${QQ_IME_WORKAROUND}" = auto ]; then
+        case "''${XMODIFIERS}" in
+            *@im=fcitx*) QQ_IME_WORKAROUND=fcitx ;;
+            *@im=ibus*) QQ_IME_WORKAROUND=ibus ;;
+            *) QQ_IME_WORKAROUND=none ;;
+        esac
+    fi
+    case "''${QQ_IME_WORKAROUND}" in
+        fcitx)
+            export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
+            unset IBUS_USE_PORTAL 2>/dev/null || true
+            ;;
+        ibus)
+            export QT_IM_MODULE=ibus GTK_IM_MODULE=ibus IBUS_USE_PORTAL=1
+            ;;
+    esac
+    if [ -n "''${WAYLAND_DISPLAY}" ]; then
+        if ! printf '%s\0' "''${electron_flags[@]}" | grep -qz -- 'enable-wayland-ime'; then
+            electron_flags+=(--enable-wayland-ime=true)
+        fi
+    fi
+    EOF
+
     cat << 'EOF' > $out/libexec/qq_normal
     #!/bin/bash
 
@@ -93,6 +120,8 @@ stdenv.mkDerivation {
             electron_flags+=("''${line}")
         fi
     done
+    # shellcheck source=/dev/null
+    source @out@/libexec/qq-setup-ime.sh
 
     # 移除无用崩溃报告和日志 (Before start)
     rm -rf "''${QQ_APP_DIR}/crash_files"
@@ -154,7 +183,6 @@ stdenv.mkDerivation {
         --ro-bind-try "''${HOME}/.local/share/icons" "''${HOME}/.local/share/icons" \
         --ro-bind-try "''${XDG_CONFIG_HOME}/gtk-3.0" "''${XDG_CONFIG_HOME}/gtk-3.0" \
         --ro-bind-try "''${XDG_CONFIG_HOME}/dconf" "''${XDG_CONFIG_HOME}/dconf" \
-        --setenv IBUS_USE_PORTAL 1 \
         --setenv QQNTIM_HOME "''${QQ_APP_DIR}/QQNTim" \
         --setenv LITELOADERQQNT_PROFILE "''${QQ_APP_DIR}/LiteLoaderQQNT" \
         "''${bwrap_flags[@]}" \
@@ -250,6 +278,8 @@ stdenv.mkDerivation {
               electron_flags+=("''${line}")
           fi
       done
+      # shellcheck source=/dev/null
+      source @out@/libexec/qq-setup-ime.sh
 
       if [ -f "''${QQ_APP_DIR}/.qq_mac" ]; then
           qq_mac=$(cat "''${QQ_APP_DIR}/.qq_mac")
@@ -308,7 +338,6 @@ stdenv.mkDerivation {
           --ro-bind-try "''${HOME}/.local/share/icons" "''${HOME}/.local/share/icons" \
           --ro-bind-try "''${XDG_CONFIG_HOME}/gtk-3.0" "''${XDG_CONFIG_HOME}/gtk-3.0" \
           --ro-bind-try "''${XDG_CONFIG_HOME}/dconf" "''${XDG_CONFIG_HOME}/dconf" \
-          --setenv IBUS_USE_PORTAL 1 \
           --setenv QQNTIM_HOME "''${QQ_APP_DIR}/QQNTim" \
           --setenv LITELOADERQQNT_PROFILE "''${QQ_APP_DIR}/LiteLoaderQQNT" \
           --bind "''${INFO_DIR}" "''${INFO_DIR}" \
