@@ -1,0 +1,7 @@
+Customize menu icon
+
+--- i/extension.js
++++ w/extension.js
+@@ -10 +10 @@
+-const ICON = "utilities-terminal-symbolic";
++const ICON = "view-list-bullet-symbolic";

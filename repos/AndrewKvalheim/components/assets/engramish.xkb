@@ -1,0 +1,67 @@
+partial alphanumeric_keys modifier_keys
+xkb_symbols "basic" {
+  name[Group1]= "Engramish (Basic)";
+
+  key <TLDE> { [ Print, Print, Print ] }; // ja 半角/全角/漢字 (hankaku/zenkaku/kanji: halfwidth/fullwidth/kanji) a.k.a <HZTG>
+  key <AE01> { [ F1, F1, F1 ] };
+  key <AE02> { [ F2, F2, F2 ] };
+  key <AE03> { [ F3, F3, F3 ] };
+  key <AE04> { [ F4, F4, F4 ] };
+  key <AE05> { [ F5, F5, F5 ] };
+  key <AE06> { [ F6, F6, F6 ] };
+  key <AE07> { [ F7, F7, F7 ] };
+  key <AE08> { [ F8, F8, F8 ] };
+  key <AE09> { [ F9, F9, F9 ] };
+  key <AE10> { [ F10, F10, F10 ] };
+  key <AE11> { [ F11, F11, F11 ] };
+  key <AE12> { [ F12, F12, F12 ] };
+  key <AE13> { [ F13, F13, F13 ] }; // only ja ¥ (yen)
+  key <BKSP> { [ BackSpace, BackSpace, Delete ] };
+
+  key <TAB> { [ Tab, Tab, Tab ] };
+  key <AD01> { [ b, B, greater ] };
+  key <AD02> { [ y, Y, bracketright ] };
+  key <AD03> { [ o, O, braceright ] };
+  key <AD04> { [ u, U, parenright ] };
+  key <AD05> { [ rightsinglequotemark, leftsinglequotemark, apostrophe ] };
+  key <AD06> { [ ampersand, bar, question ] };
+  key <AD07> { [ d, D, 7 ] };
+  key <AD08> { [ n, N, 8 ] };
+  key <AD09> { [ g, G, 9 ] };
+  key <AD10> { [ v, V, asterisk ] };
+  key <AD11> { [ q, Q, dollar ] };
+  key <AD12> { [ F14, F14, F14 ] }; // ja [ (left bracket)
+  key <BKSL> { [ asciitilde ] }; // ja ] (right bracket) a.k.a. <AC12>
+
+  key <CAPS> { [ BackSpace, BackSpace, Delete ] }; // ja 英数 (eisū: alphanumeric)
+  key <AC01> { [ h, H, less ] };
+  key <AC02> { [ i, I, bracketleft ] };
+  key <AC03> { [ a, A, braceleft ] };
+  key <AC04> { [ e, E, parenleft ] };
+  key <AC05> { [ leftdoublequotemark, rightdoublequotemark, quotedbl ] };
+  key <AC06> { [ comma, colon, minus ] };
+  key <AC07> { [ t, T, 4 ] };
+  key <AC08> { [ r, R, 5 ] };
+  key <AC09> { [ s, S, 6 ] };
+  key <AC10> { [ c, C, 0 ] };
+  key <AC11> { [ slash, backslash, numbersign ] };
+
+  key <AB01> { [ j, J, at ] };
+  key <AB02> { [ x, X, percent ] };
+  key <AB03> { [ k, K, grave ] };
+  key <AB04> { [ w, W, exclam ] };
+  key <AB05> { [ z, Z, asciicircum ] };
+  key <AB06> { [ period, semicolon, equal ] };
+  key <AB07> { [ m, M, 1 ] };
+  key <AB08> { [ l, L, 2 ] };
+  key <AB09> { [ f, F, 3 ] };
+  key <AB10> { [ p, P, plus ] };
+  key <AB11> { [ F15, F15, F15 ] }; // only ja ろ (ro)
+
+  // key <NFER> { [ Muhenkan ] }; // only ja 無変換 (muhenkan: non-conversion to kanji)
+  key <SPCE> { [ space, space, underscore ] };
+  // key <XFER> { [ Henkan, Mode_switch ], type[group1]="PC_ALT_LEVEL2" }; // only ja 変換 (henkan: convert to kanji)
+  // key <HKTG> { [ Hiragana_Katakana, Romaji ], type[group1]="PC_ALT_LEVEL2" }; // only ja カタカナ/ひらがな/ローマ字 (katakana/hiragana/rōmaji)
+
+  include "level3(ralt_switch_multikey)"
+};

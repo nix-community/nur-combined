@@ -1,0 +1,74 @@
+:root {
+  --tab-border-radius: 5px 5px 0 0 !important;
+  --tab-button-border-radius: 5px;
+  --tab-min-height: 32px;
+  --toolbar-start-end-padding: 5px !important;
+  --toolbarbutton-inner-padding: 5px !important;
+  --toolbarbutton-outer-padding: 1px !important;
+}
+
+.tab-background {
+  margin-bottom: 0 !important;
+  margin-top: 0 !important;
+  overflow: hidden;
+}
+
+.tab-close-button {
+  border-radius: var(--tab-button-border-radius) !important;
+}
+
+.tab-context-line {
+  border-radius: 0 !important;
+  margin: 0 !important;
+}
+
+.tabbrowser-tab {
+  padding-inline: 0 1px !important;
+}
+
+.tabbrowser-tab
+  > .tab-stack
+  > .tab-background:not([selected="true"], [multiselected]) {
+  background-color: color-mix(in srgb, currentColor 5%, transparent);
+}
+
+.titlebar-spacer[type="pre-tabs"] {
+  display: none;
+}
+
+#tabbrowser-tabs[haspinnedtabs]:not([positionpinnedtabs])
+  > #tabbrowser-arrowscrollbox
+  > .tabbrowser-tab:nth-child(1 of :not([pinned], [hidden])) {
+  margin-inline-start: 0px !important;
+}
+
+/* Font */
+
+#userContext-label,
+.tab-text {
+  font-family: Affine, Roboto;
+}
+
+/* Hide unused elements */
+
+#star-button-box,
+#userContext-indicator {
+  display: none;
+}
+
+/* Dim bright buttons */
+
+:root:not(:-moz-lwtheme) .urlbar-addon-page-action[style*=".svg"] {
+  filter: grayscale(100%) brightness(20%) invert() brightness(44%) !important;
+}
+
+#ublock0_raymondhill_net-browser-action .toolbarbutton-icon {
+  filter: grayscale(1) brightness(2.5);
+}
+
+/* Customize uBlock Origin default profile color */
+
+#ublock0_raymondhill_net-browser-action
+  .toolbarbutton-badge[style*="background-color: rgba(102, 102, 102, 1)"] {
+  background-color: #df4a16 !important;
+}

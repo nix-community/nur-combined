@@ -1,0 +1,5 @@
+clig
+dlig
+liga
+onum
+pcap

@@ -1,0 +1,12 @@
+attrset
+attrsets
+builtins
+fetchurl
+fetchpatch
+fetchzip
+foldl
+foldr
+pkgs
+pname
+pyproject
+stdenv

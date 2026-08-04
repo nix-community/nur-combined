@@ -1,0 +1,5 @@
+--- a/whipper/program/flac.py
++++ b/whipper/program/flac.py
+@@ -17 +17 @@
+-                    '-f', infile])
++                    '-f', '--compression-level-5', infile])

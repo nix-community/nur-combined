@@ -1,0 +1,10 @@
+Remove imperative settings entry from menu
+
+--- i/extension.js
++++ w/extension.js
+@@ -153,5 +152,0 @@
+-    this._indicator.menu.addAction(
+-      "Settings",
+-      () => this.openPreferences(),
+-      "preferences-system-symbolic",
+-    );

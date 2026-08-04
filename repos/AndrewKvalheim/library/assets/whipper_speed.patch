@@ -1,0 +1,40 @@
+--- a/whipper/command/cd.py
++++ b/whipper/command/cd.py
+@@ -273 +273,5 @@
++        self.parser.add_argument('-s', '--speed',
++                                 action="store", dest="maxspeed",
++                                 default=None,
++                                 help="Limit read speed of the drive")
+         self.parser.add_argument('-x', '--force-overread',
+@@ -479 +483,2 @@
+                                               overread=self.options.overread,
++                                              maxspeed=self.options.maxspeed,
+--- a/whipper/common/program.py
++++ b/whipper/common/program.py
+@@ -561 +561 @@
+-                 overread, what=None, coverArtPath=None):
++                 overread, maxspeed=None, what=None, coverArtPath=None):
+@@ -600 +600,2 @@
+                                            stop, overread,
++                                           maxspeed=maxspeed,
+--- a/whipper/program/cdparanoia.py
++++ b/whipper/program/cdparanoia.py
+@@ -211 +211 @@
+-    def __init__(self, path, table, start, stop, overread, offset=0,
++    def __init__(self, path, table, start, stop, overread, maxspeed=None, offset=0,
+@@ -238 +238,2 @@
+         self._stop = stop
++        self._maxspeed = maxspeed
+@@ -279 +280,3 @@
++        if self._maxspeed:
++            argv.extend(["--force-read-speed", str(self._maxspeed), ])
+         if self._device:
+@@ -442 +445 @@
+-    def __init__(self, path, table, start, stop, overread, offset=0,
++    def __init__(self, path, table, start, stop, overread, maxspeed=None, offset=0,
+@@ -479 +482 @@
+-                          offset=offset, device=device, what=what))
++                          maxspeed=maxspeed, offset=offset, device=device, what=what))
+@@ -482 +485 @@
+-                          offset=offset, device=device, action="Verifying",
++                          maxspeed=maxspeed, offset=offset, device=device, action="Verifying",

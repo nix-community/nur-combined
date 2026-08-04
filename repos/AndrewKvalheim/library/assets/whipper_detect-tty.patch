@@ -1,0 +1,6 @@
+--- a/whipper/extern/task/task.py
++++ b/whipper/extern/task/task.py
+@@ -484 +484,3 @@
+              self._verboseRun = verbose
++        if not sys.stdout.isatty():
++            self._verboseRun = False
