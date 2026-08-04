@@ -1,0 +1,34 @@
+--- a/src/utils/mod.rs
++++ b/src/utils/mod.rs
+@@ -748,13 +748,7 @@
+                 stderr: stderr_string,
+             })
+         }
+-        Ok(None) => {
+-            log::warn!("Executing command {:?} timed out.", cmd.get_program());
+-            log::warn!(
+-                "You can set command_timeout in your config to a higher value to allow longer-running commands to keep executing."
+-            );
+-            None
+-        }
++        Ok(None) => None,
+         Err(error) => {
+             log::info!(
+                 "Executing command {:?} failed by: {:?}",
+--- a/src/modules/custom.rs
++++ b/src/modules/custom.rs
+@@ -213,13 +213,7 @@
+     }
+ 
+     match output.wait().ok()? {
+-        None => {
+-            log::warn!("Executing custom command {cmd:?} timed out.");
+-            log::warn!(
+-                "You can set command_timeout in your config to a higher value or set ignore_timeout to true for this module to allow longer-running commands to keep executing."
+-            );
+-            None
+-        }
++        None => None,
+         Some(status) => Some(status),
+     }
+ }

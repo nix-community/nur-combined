@@ -1,0 +1,21 @@
+--- a/src/main.rs	1970-01-01 12:00:01
++++ b/src/main.rs	2026-08-05 01:35:53
+@@ -233,6 +233,18 @@
+         (Some(FetcherFunction::Fetchurl), ..) => Fetchurl.into(),
+ 
+         (Some(FetcherFunction::Fetchzip), ..) => Fetchzip.into(),
++
++        // Prefer fetchurl over the default fetchgit fallback when no revision
++        // is given and the URL is not a bare git repo. fetchgit cannot resolve
++        // "latest" revisions, so that fallback always fails otherwise
++        // (e.g. cgit `/patch/?id=...` downloads, arbitrary file URLs).
++        (None, ..)
++            if matches!(opts.fallback, FetcherFunction::Fetchgit)
++                && opts.rev.is_none()
++                && !path.trim_end_matches('/').ends_with(".git") =>
++        {
++            Fetchurl.into()
++        }
+ 
+         (None, ..) => match opts.fallback {
+             FetcherFunction::BuiltinsFetchGit => BuiltinsFetchGit.into(),
