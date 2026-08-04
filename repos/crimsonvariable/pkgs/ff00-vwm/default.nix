@@ -4,24 +4,36 @@
   fetchFromGitHub,
   pkg-config,
   wrapGAppsHook4,
+  gdk-pixbuf,
   gtk4,
   libx11,
   libxrandr,
+  librsvg,
   mpv,
+  webp-pixbuf-loader,
+  gnome,
 }:
 
+let
+  pixbufLoaderCache = gnome._gdkPixbufCacheBuilder_DO_NOT_USE {
+    extraLoaders = [
+      librsvg
+      webp-pixbuf-loader
+    ];
+  };
+in
 rustPlatform.buildRustPackage rec {
   pname = "ff00-vwm";
-  version = "0.1.0-alpha.1";
+  version = "0.2.0-alpha.1";
 
   src = fetchFromGitHub {
     owner = "crimsonvariable";
     repo = "ff00-vwm";
     tag = "v${version}";
-    hash = "sha256-QnXMH0qgTaU/tdBJn1qm6ErPjGeYB5AbjMj9mQjBhjc=";
+    hash = "sha256-9xBU9oohqTCJMuGT3l5IBI/R3EwE6Jd5M9RF8hGvSGg=";
   };
 
-  cargoHash = "sha256-D5dQyBxjdJzUu99xwt3QaFlOmnOwvU9JA0Yd0ZQkElA=";
+  cargoHash = "sha256-l07dnG3Yg0G7qcw2NnjGdUDUmlwbGFh3f5leCDMPNB8=";
 
   nativeBuildInputs = [
     pkg-config
@@ -29,10 +41,15 @@ rustPlatform.buildRustPackage rec {
   ];
 
   buildInputs = [
+    gdk-pixbuf
     gtk4
     libx11
     libxrandr
+    librsvg
+    webp-pixbuf-loader
   ];
+
+  GDK_PIXBUF_MODULE_FILE = pixbufLoaderCache;
 
   postInstall = ''
     install -Dm644 data/com.crimsonvariable.FF00Vwm.desktop \
@@ -45,13 +62,14 @@ rustPlatform.buildRustPackage rec {
   '';
 
   preFixup = ''
+    export GDK_PIXBUF_MODULE_FILE=${pixbufLoaderCache}
     gappsWrapperArgs+=(
       --prefix PATH : ${lib.makeBinPath [ mpv ]}
     )
   '';
 
   meta = {
-    description = "Per-monitor video wallpaper manager for Linux X11";
+    description = "Per-monitor video and image wallpaper manager for Linux X11";
     homepage = "https://crimsonvariable.com/projects/ff00-vwm/";
     changelog = "https://github.com/crimsonvariable/ff00-vwm/blob/v${version}/CHANGELOG.md";
     downloadPage = "https://github.com/crimsonvariable/ff00-vwm/releases";
