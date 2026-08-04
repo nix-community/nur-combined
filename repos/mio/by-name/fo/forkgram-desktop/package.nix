@@ -27,17 +27,10 @@ telegram-desktop.override {
       popd
     '';
 
-    postBuild = (old.postBuild or "") + ''
-      if [ -d Forkgram.app ]; then
-        mv Forkgram.app telegram-desktop.app
-        mv telegram-desktop.app/Contents/MacOS/Forkgram telegram-desktop.app/Contents/MacOS/telegram-desktop
-      fi
-    '';
-
     meta = old.meta // {
       description = "Forkgram desktop messaging app";
       homepage = "https://github.com/forkgram/tdesktop";
-      mainProgram = "telegram-desktop";
+      mainProgram = "Forkgram";
     };
   });
 }

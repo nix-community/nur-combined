@@ -50,18 +50,20 @@ stdenv.mkDerivation (finalAttrs: {
     node-gyp
     pnpmConfigHook
     pnpm_10
+    pkg-config
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     copyDesktopItems
     autoPatchelfHook
-    pkg-config
   ];
 
   buildInputs = [
-    stdenv.cc.cc.lib
     fontconfig
     freetype
+    cairo
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+    stdenv.cc.cc.lib
     libxcb
     libx11
-    cairo
     libGL
   ];
 
@@ -90,7 +92,7 @@ stdenv.mkDerivation (finalAttrs: {
     pnpm rebuild
 
     # Patch prebuilt binaries in node_modules
-    autoPatchelf node_modules
+    ${lib.optionalString stdenv.hostPlatform.isLinux "autoPatchelf node_modules"}
 
     # Match the official build size by building the Node bundle in production mode
     substituteInPlace apps/app/webpack.node.js \
@@ -119,7 +121,7 @@ stdenv.mkDerivation (finalAttrs: {
         echo "Patching and building $dir"
         patch -d "$dir" -p1 < ${./font-scanner-null-init.patch}
         (cd "$dir" && node-gyp rebuild)
-        autoPatchelf "$dir"
+        ${lib.optionalString stdenv.hostPlatform.isLinux ''autoPatchelf "$dir"''}
       fi
     done
 
@@ -128,13 +130,15 @@ stdenv.mkDerivation (finalAttrs: {
     chmod -R u+w electron-dist
 
     cd apps/app
-    pnpm exec electron-builder \
+    CSC_IDENTITY_AUTO_DISCOVERY=false pnpm exec electron-builder \
       --dir \
       -c.electronDist=../../electron-dist \
       -c.electronVersion=${electron.version} \
       -c.npmRebuild=false \
       -c.asarUnpack="**/*.node" \
-      -c.linux.target=dir
+      -c.${if stdenv.hostPlatform.isDarwin then "mac" else "linux"}.target=dir \
+      -c.mac.icon=null \
+      -c.mac.identity=null
     cd ../..
 
     runHook postBuild
@@ -143,36 +147,53 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/beam-studio
-    cp -r apps/app/dist/linux-unpacked/locales $out/share/beam-studio/
-    cp -r apps/app/dist/linux-unpacked/resources $out/share/beam-studio/
-    cp apps/app/dist/linux-unpacked/*.pak $out/share/beam-studio/ || true
+    ${if stdenv.hostPlatform.isDarwin then ''
+      mkdir -p $out/Applications
+      # electron-builder --dir outputs to dist/mac-arm64/ (no -unpacked suffix) on darwin
+      appDir=$(echo apps/app/dist/mac*/"Beam Studio.app" 2>/dev/null | head -1)
+      if [ -z "$appDir" ] || [ ! -d "$appDir" ]; then
+        echo "ERROR: Could not find 'Beam Studio.app' in apps/app/dist/"
+        find apps/app/dist/ -maxdepth 2 -type d || true
+        exit 1
+      fi
+      cp -r "$appDir" $out/Applications/
 
-    # Setup our source-built custom backend (Linux AppImage does not use swiftray)
-    mkdir -p $out/share/beam-studio/resources/backend/flux_api
-    ln -s ${customBackend}/bin/flux_api $out/share/beam-studio/resources/backend/flux_api/flux_api
+      mkdir -p $out/bin
+      makeWrapper "$out/Applications/Beam Studio.app/Contents/MacOS/Beam Studio" $out/bin/beam-studio \
+        --set ELECTRON_FORCE_IS_PACKAGED 1 \
+        --set ELECTRON_IS_DEV 0
+    '' else ''
+      mkdir -p $out/share/beam-studio
+      cp -r apps/app/dist/linux-unpacked/locales $out/share/beam-studio/
+      cp -r apps/app/dist/linux-unpacked/resources $out/share/beam-studio/
+      cp apps/app/dist/linux-unpacked/*.pak $out/share/beam-studio/ || true
 
-    mkdir -p $out/bin
-    # Required: Chromium's sandbox needs user namespaces; NixOS often disables them,
-    # and the official AppImage also hardcodes --no-sandbox for the same reason.
-    makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
-      --add-flags $out/share/beam-studio/resources/app.asar \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
-      --add-flags "--no-sandbox" \
-      --set-default FONTCONFIG_FILE /etc/fonts/fonts.conf \
-      --set-default FONTCONFIG_PATH /etc/fonts \
-      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-      --set-default ELECTRON_IS_DEV 0 \
-      --inherit-argv0
+      # Setup our source-built custom backend (Linux AppImage does not use swiftray)
+      mkdir -p $out/share/beam-studio/resources/backend/flux_api
+      ln -s ${if stdenv.hostPlatform.isLinux then customBackend else ""}/bin/flux_api $out/share/beam-studio/resources/backend/flux_api/flux_api
 
-    # Install the application icon
-    mkdir -p $out/share/icons/hicolor/512x512/apps
-    cp apps/app/public/img/icon.png $out/share/icons/hicolor/512x512/apps/beam-studio.png
+      mkdir -p $out/bin
+      # Required: Chromium's sandbox needs user namespaces; NixOS often disables them,
+      # and the official AppImage also hardcodes --no-sandbox for the same reason.
+      makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
+        --add-flags $out/share/beam-studio/resources/app.asar \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
+        --add-flags "--no-sandbox" \
+        --set-default FONTCONFIG_FILE /etc/fonts/fonts.conf \
+        --set-default FONTCONFIG_PATH /etc/fonts \
+        --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+        --set-default ELECTRON_IS_DEV 0 \
+        --inherit-argv0
+
+      # Install the application icon
+      mkdir -p $out/share/icons/hicolor/512x512/apps
+      cp apps/app/public/img/icon.png $out/share/icons/hicolor/512x512/apps/beam-studio.png
+    ''}
 
     runHook postInstall
   '';
 
-  desktopItems = [
+  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
       name = "beam-studio";
       exec = "beam-studio %U";
@@ -190,16 +211,12 @@ stdenv.mkDerivation (finalAttrs: {
   meta = {
     description = "Laser cutting and engraving software for FLUX machines";
     homepage = "https://github.com/flux3dp/beam-studio";
-    # Note: While the backend components are proprietary (unfree), beam-studio is
-    # licensed under AGPL-3.0. According to the Software Freedom Conservancy,
-    # users might or might not be entitled to reverse engineer the combined work to exercise their
-    # rights under the AGPL-3.0. Please consult a lawyer if you are unsure about your rights.
     license = with lib.licenses; [
       agpl3Only
       unfree
     ];
     maintainers = [ ];
     mainProgram = "beam-studio";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })

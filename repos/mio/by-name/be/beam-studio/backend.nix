@@ -4,7 +4,7 @@
   fetchFromGitHub,
   fetchurl,
   appimageTools,
-  autoPatchelfHook,
+  autoPatchelfHook ? null,
 }:
 let
   # Pinned to NixOS 23.05 for Python 3.8 and pre-compiled numpy/scipy.
@@ -23,26 +23,41 @@ let
       };
 
   # OpenCV takes hours to build from source, so we use the pre-compiled wheel.
-  opencv-python-wheel = oldPkgs.python38Packages.buildPythonPackage rec {
-    pname = "opencv_python";
-    version = "4.10.0.84";
-    format = "wheel";
-    src = pkgs.fetchurl {
-      url = "https://files.pythonhosted.org/packages/3f/a4/d2537f47fd7fcfba966bd806e3ec18e7ee1681056d4b0a9c8d983983e4d5/opencv_python-4.10.0.84-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
-      hash = "sha256-ms4UD8bWR/vhxpK8sqvOdolzSRIiwGfBMdgJV8WVtx8=";
+  opencv-python-wheel = if pkgs.stdenv.hostPlatform.isDarwin then
+    oldPkgs.python38Packages.buildPythonPackage rec {
+      pname = "opencv_python";
+      version = "4.10.0.84";
+      format = "wheel";
+      src = if pkgs.stdenv.hostPlatform.isAarch64 then pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/66/82/564168a349148298aca281e342551404ef5521f33fba17b388ead0a84dc5/opencv_python-4.10.0.84-cp37-abi3-macosx_11_0_arm64.whl";
+        hash = "sha256-/Bgvj0zaUbRfAcZOTL7fwvAK/3md6+vDBdjQIQxD8lE=";
+      } else pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/64/4a/016cda9ad7cf18c58ba074628a4eaae8aa55f3fd06a266398cef8831a5b9/opencv_python-4.10.0.84-cp37-abi3-macosx_12_0_x86_64.whl";
+        hash = "sha256-ceV1dE8dI/eXQUUCVGYEQnhfRaB5chKFLuUZnvEu7Zg=";
+      };
+      pipInstallFlags = [ "--no-deps" ];
+    }
+  else
+    oldPkgs.python38Packages.buildPythonPackage rec {
+      pname = "opencv_python";
+      version = "4.10.0.84";
+      format = "wheel";
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/3f/a4/d2537f47fd7fcfba966bd806e3ec18e7ee1681056d4b0a9c8d983983e4d5/opencv_python-4.10.0.84-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl";
+        hash = "sha256-ms4UD8bWR/vhxpK8sqvOdolzSRIiwGfBMdgJV8WVtx8=";
+      };
+      buildInputs = with oldPkgs; [
+        zlib
+        libGL
+        glib
+        xorg.libSM
+        xorg.libICE
+        xorg.libX11
+        xorg.libXext
+      ];
+      nativeBuildInputs = [ oldPkgs.autoPatchelfHook ];
+      pipInstallFlags = [ "--no-deps" ];
     };
-    buildInputs = with oldPkgs; [
-      zlib
-      libGL
-      glib
-      xorg.libSM
-      xorg.libICE
-      xorg.libX11
-      xorg.libXext
-    ];
-    nativeBuildInputs = [ oldPkgs.autoPatchelfHook ];
-    pipInstallFlags = [ "--no-deps" ];
-  };
 
   # Complete Python 3.8 environment for fluxghost
   pythonEnv = oldPkgs.python38.withPackages (p: [
@@ -80,16 +95,33 @@ let
     hash = "sha256-lOC2ydUVG77vx+dFLpbiSzlsLb/LA0jl8SxMCGX+/lg=";
   };
 
-  # The original AppImage to extract proprietary blobs from
-  backendAppImage = fetchurl {
-    url = "https://beamstudio.s3.amazonaws.com/linux-22.04/Beam%20Studio-2.6.8.AppImage";
-    hash = "sha256-IUTK+WEevUgKGBoBV+momrhgPna6XH39/zhSNB9xUo0=";
-  };
-  backendContents = appimageTools.extractType2 {
-    pname = "beam-studio-backend-contents";
-    version = "2.6.8";
-    src = backendAppImage;
-  };
+  # The original app distribution to extract proprietary blobs from
+  backendContents = if pkgs.stdenv.hostPlatform.isDarwin then
+    let
+      macZip = pkgs.fetchzip {
+        url = "https://beamstudio.s3.amazonaws.com/mac/Beam%20Studio-2.6.8-mac.zip";
+        hash = "sha256-KYcw+Fd5NgnXr2pknbYzJCBnw9yd+rVds/oXpGY9W3c=";
+        stripRoot = false;
+      };
+    in pkgs.stdenv.mkDerivation {
+      name = "beam-studio-backend-contents";
+      src = macZip;
+      installPhase = ''
+        mkdir -p $out/resources/backend
+        cp -r "Beam Studio.app/Contents/Resources/backend/flux_api" $out/resources/backend/
+      '';
+    }
+  else
+    let
+      linuxAppImage = fetchurl {
+        url = "https://beamstudio.s3.amazonaws.com/linux-22.04/Beam%20Studio-2.6.8.AppImage";
+        hash = "sha256-IUTK+WEevUgKGBoBV+momrhgPna6XH39/zhSNB9xUo0=";
+      };
+    in appimageTools.extractType2 {
+      pname = "beam-studio-backend-contents";
+      version = "2.6.8";
+      src = linuxAppImage;
+    };
 in
 pkgs.stdenv.mkDerivation {
   pname = "flux-backend";
@@ -100,6 +132,7 @@ pkgs.stdenv.mkDerivation {
   nativeBuildInputs = [
     oldPkgs.python38
     pkgs.makeWrapper
+  ] ++ pkgs.lib.optionals pkgs.stdenv.hostPlatform.isLinux [
     oldPkgs.autoPatchelfHook
   ];
   buildInputs = [
