@@ -1,23 +1,23 @@
-{
-  lib,
-  stdenvNoCC,
-  python3,
-  git,
-  cacert,
-  cmake,
-  ninja,
-  openssl,
-  zlib,
-  autoconf,
-  libtool,
-  automake,
-  yasm,
-  nasm,
-  pkg-config,
-  unzip,
-  meson,
-  fetchzip,
-  writableTmpDirAsHomeHook,
+{ lib
+, stdenvNoCC
+, python3
+, git
+, cacert
+, cmake
+, ninja
+, openssl
+, zlib
+, autoconf
+, libtool
+, automake
+, yasm
+, nasm
+, pkg-config
+, unzip
+, meson
+, fetchzip
+, writableTmpDirAsHomeHook
+,
 }:
 
 # NOTE: Building TelegramSwift (the native Telegram for macOS client) from source
@@ -102,22 +102,27 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     export CFFIXED_USER_HOME=$HOME
 
     # Telegram for macOS requires framework configuration first
-    sed -i 's/no/yes/g' scripts/rebuild || true
+    echo "yes" > scripts/rebuild
 
     # Fix CMake 3.5 compatibility for Mozjpeg
-    sed -i 's/cmake_minimum_required(VERSION .*/cmake_minimum_required(VERSION 3.5)/g' submodules/telegram-ios/third-party/mozjpeg/mozjpeg/CMakeLists.txt || true
+    substituteInPlace submodules/telegram-ios/third-party/mozjpeg/mozjpeg/CMakeLists.txt \
+      --replace-warn "cmake_minimum_required(VERSION 2.8.12)" "cmake_minimum_required(VERSION 3.5)"
 
     # Fix libwebp ZIP extraction (Nix GNU tar does not support ZIP, use unzip)
-    sed -i 's/tar -xzf "$SOURCE_ARCHIVE" --directory "$OUT_DIR"/unzip -q "$SOURCE_ARCHIVE" -d "$OUT_DIR"/g' core-xprojects/libwebp/libwebp/build*.sh || true
+    substituteInPlace core-xprojects/libwebp/libwebp/build*.sh \
+      --replace-warn 'tar -xzf "$SOURCE_ARCHIVE" --directory "$OUT_DIR"' 'unzip -q "$SOURCE_ARCHIVE" -d "$OUT_DIR"'
 
     # Fix webrtc build script to correctly copy source directory contents (avoids missing CMakeLists.txt)
-    sed -i 's/cp -R \$SOURCE_DIR \$BUILD_DIR/cp -R "$SOURCE_DIR"\/. "$BUILD_DIR"\//g' core-xprojects/webrtc/webrtc/build.sh || true
+    substituteInPlace core-xprojects/webrtc/webrtc/build.sh \
+      --replace-warn 'cp -R $SOURCE_DIR $BUILD_DIR' 'cp -R "$SOURCE_DIR"/. "$BUILD_DIR"/'
 
     # Fix Mozjpeg build script for GNU cp
-    sed -i 's/mozjpeg\/" "''${BUILD_DIR}build\/"/mozjpeg\/"\/. "''${BUILD_DIR}build\/"/g' core-xprojects/Mozjpeg/Mozjpeg/build.sh || true
+    substituteInPlace core-xprojects/Mozjpeg/Mozjpeg/build.sh \
+      --replace-warn 'mozjpeg/" "''${BUILD_DIR}build/"' 'mozjpeg/"/. "''${BUILD_DIR}build/"'
 
     # Fix webrtc libopus include path
-    sed -i 's/libopus\/build\/libopus\/include\/opus/libopus\/build\/libopus\/include\/opus\/include/g' core-xprojects/webrtc/webrtc.xcodeproj/project.pbxproj || true
+    substituteInPlace core-xprojects/webrtc/webrtc.xcodeproj/project.pbxproj \
+      --replace-warn 'libopus/build/libopus/include/opus' 'libopus/build/libopus/include/opus/include'
 
     # Fix the custom pkg-config wrapper to parse custom paths properly when ffmpeg prepends them
     cat > submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/pkg-config <<'EOF'
@@ -183,7 +188,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     find . -name "opus*.h" -exec cp {} submodules/telegram-ios/submodules/OpusBinding/SharedHeaders/libopus/include/opus/ \;
 
     # Fix Sparkle using BSD ln -sfh instead of GNU ln -sfn (coreutils)
-    find submodules -name "project.pbxproj" -exec sed -i 's/ln -sfh/ln -sfn/g' {} + || true
+    find submodules -name "project.pbxproj" -exec substituteInPlace {} \
+      --replace-warn 'ln -sfh' 'ln -sfn' \;
 
     # Xcode's metal stub is broken even after `xcodebuild -downloadComponent MetalToolchain`.
     # Precompile with the working Shared Metal toolchain, then hide sources so xcodebuild
@@ -211,7 +217,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # Hide metal sources so Xcode skips CompileMetalFile; keep copies as resources for Bundle.module
     find . -name "*.metal" -exec mv {} {}.txt \;
-    find . -name "Package.swift" -exec sed -i 's/\.metal"/.metal.txt"/g' {} +
+    find . -name "Package.swift" -exec substituteInPlace {} \
+      --replace-warn '.metal"' '.metal.txt"' \;
     sed -i '/MetalFunctions.metal in Sources/d' Telegram.xcodeproj/project.pbxproj || true
 
     # Xcode 26 rejects Firebase/Google SPM frameworks that use iOS-style shallow bundles on macOS.
