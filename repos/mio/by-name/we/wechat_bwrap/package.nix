@@ -29,6 +29,28 @@ stdenv.mkDerivation {
     install -Dm755 libuosdevicea.so "$wechat_root/usr/lib/license/libuosdevicea.so"
     echo 'DISTRIB_ID=uos' | install -Dm644 /dev/stdin "$wechat_root/etc/lsb-release"
 
+    # buildFHSEnv makes /usr/lib an absolute symlink to /usr/lib64. bwrap then fails with
+    # "Can't mkdir /usr/lib/license: No such file or directory" when overlaying the UOS
+    # license dir. Rebuild a thin /usr with a relative lib->lib64 link and a real
+    # lib64/license mount point so the later --ro-bind succeeds on the read-only tree.
+    mkdir -p "$wechat_root/fhs-usr/lib64/license"
+    for entry in "${wechat.fhsenv}"/usr/*; do
+      name=$(basename "$entry")
+      case "$name" in
+        lib)
+          ln -s lib64 "$wechat_root/fhs-usr/lib"
+          ;;
+        lib64)
+          for libentry in "$entry"/*; do
+            ln -s "$libentry" "$wechat_root/fhs-usr/lib64/$(basename "$libentry")"
+          done
+          ;;
+        *)
+          ln -s "$entry" "$wechat_root/fhs-usr/$name"
+          ;;
+      esac
+    done
+
     install -Dm755 wechat-universal.sh "$wechat_root/common.sh"
 
     substituteInPlace "$wechat_root/common.sh" \
@@ -37,10 +59,11 @@ stdenv.mkDerivation {
       --replace-fail "/opt/wechat-universal{,}" "${wechat.src}/opt/wechat /opt/wechat-universal" \
       --replace-fail "{/usr/lib/wechat-universal,}/usr/lib/license" "$wechat_root/usr/lib/license /usr/lib/license" \
       --replace-fail "{/usr/lib/wechat-universal,}/etc/lsb-release" "$wechat_root/etc/lsb-release /etc/lsb-release" \
-      --replace-fail "--ro-bind /usr{,}" "--ro-bind /nix /nix --ro-bind-try /run/current-system/sw /run/current-system/sw --ro-bind-try /run/opengl-driver /run/opengl-driver --ro-bind ${wechat.fhsenv}/usr /usr" \
+      --replace-fail "--ro-bind /usr{,}" "--ro-bind /nix /nix --ro-bind-try /run/current-system/sw /run/current-system/sw --ro-bind-try /run/opengl-driver /run/opengl-driver --ro-bind $wechat_root/fhs-usr /usr" \
       --replace-fail "--bind /usr/bin/{true,lsblk}" "" \
       --replace-fail "exec bwrap" "exec ${bubblewrap}/bin/bwrap" \
-      --replace-fail "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal')" "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal'|'wechat')"
+      --replace-fail "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal')" "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal'|'wechat')" \
+      --replace-fail 'PATH="/sandbox:''${PATH}"' 'PATH="/sandbox:''${PATH}" LD_LIBRARY_PATH="/usr/lib:/usr/lib64"'
 
     mkdir -p $out/bin
     ln -s $wechat_root/common.sh $out/bin/wechat-universal

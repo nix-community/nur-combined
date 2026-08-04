@@ -56,7 +56,27 @@ impl TerminalSession {
         // macOS GUI apps (and some SSH non-login remotes) get a minimal PATH —
         // only prepend Homebrew/MacPorts dirs that exist so Linux is not polluted
         // with Darwin-only prefixes like /opt/homebrew/bin.
-        let tmux_cmd = r#"for d in /opt/homebrew/bin /usr/local/bin /opt/local/bin; do
+        //
+        // Ensure UTF-8 when the session would otherwise be C/POSIX. GUI Omnimux
+        // often inherits LANG=C; macOS sshd rarely injects pam UTF-8 (Linux does).
+        // Under C, zsh counts emoji by byte length (🌐 → 4) while the terminal
+        // uses width 2, so Tab redraw leaves ghost text ("rm" → "rmrm"). Runs
+        // inside remote `sh -c` too — client LANG is not SendEnv'd by default.
+        let tmux_cmd = r#"case "${LC_ALL:-${LC_CTYPE:-${LANG:-}}}" in
+  *[Uu][Tt][Ff]*) ;;
+  *)
+    case "${LANG:-}" in
+      ""|C|POSIX) LANG=en_US.UTF-8 ;;
+      *.[Uu][Tt][Ff]*|*[Uu][Tt][Ff]8) ;;
+      *.*) LANG="${LANG%.*}.UTF-8" ;;
+      *) LANG="${LANG}.UTF-8" ;;
+    esac
+    LC_CTYPE=$LANG
+    export LANG LC_CTYPE
+    unset LC_ALL
+    ;;
+esac
+for d in /opt/homebrew/bin /usr/local/bin /opt/local/bin; do
   [ -d "$d" ] && PATH="$d:$PATH"
 done
 if command -v tmux >/dev/null 2>&1; then
@@ -108,6 +128,7 @@ fi"#;
         cmd.env("COLORTERM", "truecolor");
         // Fallback for TUIs that skip/fail OSC 11 (Cursor CLI documents COLORFGBG).
         cmd.env("COLORFGBG", colorfgbg_for_palette(&colors));
+        apply_utf8_locale_env(&mut cmd);
 
         let child_proc = match pair.slave.spawn_command(cmd) {
             Ok(child) => child,
@@ -455,6 +476,38 @@ impl Render for TerminalSession {
             .size_full()
             .key_context("omnimux_terminal")
             .child(self.terminal_view.clone())
+    }
+}
+
+/// If the process environment has no UTF-8 locale (common for macOS GUI apps),
+/// set LANG/LC_CTYPE so local shells and ssh inherit a sane default. The remote
+/// startup script applies the same fix (client LANG is not SendEnv'd).
+fn apply_utf8_locale_env(cmd: &mut CommandBuilder) {
+    let lc_all = std::env::var("LC_ALL").ok();
+    let lc_ctype = std::env::var("LC_CTYPE").ok();
+    let lang = std::env::var("LANG").ok();
+    let effective = lc_all
+        .as_deref()
+        .or(lc_ctype.as_deref())
+        .or(lang.as_deref())
+        .unwrap_or("");
+    let lower = effective.to_ascii_lowercase();
+    if lower.contains("utf-8") || lower.contains("utf8") {
+        return;
+    }
+
+    let utf8 = match lang.as_deref() {
+        None | Some("") | Some("C") | Some("POSIX") => "en_US.UTF-8".to_owned(),
+        Some(l) => match l.rsplit_once('.') {
+            Some((base, _)) => format!("{base}.UTF-8"),
+            None => format!("{l}.UTF-8"),
+        },
+    };
+    cmd.env("LANG", &utf8);
+    cmd.env("LC_CTYPE", &utf8);
+    // LC_ALL overrides LANG/LC_CTYPE; replace a non-UTF-8 value if present.
+    if lc_all.is_some() {
+        cmd.env("LC_ALL", &utf8);
     }
 }
 
