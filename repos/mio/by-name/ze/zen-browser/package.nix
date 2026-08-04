@@ -2,8 +2,7 @@
   buildMozillaMach,
   buildNpmPackage,
   fetchFromGitHub,
-  writeScriptBin,
-  runtimeShell,
+  writeShellScriptBin,
   rustPlatform,
   vips,
   lib,
@@ -23,55 +22,40 @@ let
   firefoxVersion = "153.0.1";
 
   firefoxSrc = fetchurl {
-    url = "https://archive.mozilla.org/pub/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
+    url = "mirror://mozilla/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
     hash = "sha512-MQ0aont5Au9eBSli47fSgZ0PX25Zb93q/uU/Cek5DUgB9bZU9Moen9TBXHEkH8MYRK+qTQhvgsUbUWpAH75/QA==";
   };
 
-  # Surfer's async-icns invokes macOS iconutil/sips. On Darwin we provide
-  # working replacements; on Linux keep cheap no-ops (Mac icon generation is
-  # skipped there and we avoid pulling imagemagick/libicns into the build).
-  macIconTools =
-    if stdenv.hostPlatform.isDarwin then
-      [
-        (writeScriptBin "iconutil" ''
-          #!${runtimeShell}
-          set -euo pipefail
-          if [ "''${1-}" = "--convert" ] && [ "''${2-}" = "icns" ] && [ "''${3-}" = "--output" ]; then
-            out="$4"
-            iconset="$5"
-            shopt -s nullglob
-            inputs=()
-            for f in "$iconset"/*.png; do
-              case "$f" in
-                *@2x.png) continue ;;
-              esac
-              inputs+=("$f")
-            done
-            exec ${libicns}/bin/png2icns "$out" "''${inputs[@]}"
-          fi
-          echo >&2 "$@"
-        '')
-        (writeScriptBin "sips" ''
-          #!${runtimeShell}
-          set -euo pipefail
-          # async-icns: sips SOURCE -Z SIZE --out DEST
-          if [ "''${2-}" = "-Z" ] && [ "''${4-}" = "--out" ]; then
-            exec ${imagemagick}/bin/magick "$1" -resize "$3x$3" "$5"
-          fi
-          echo >&2 "$@"
-        '')
-      ]
-    else
-      [
-        (writeScriptBin "iconutil" ''
-          #!${runtimeShell}
-          echo >&2 "$@"
-        '')
-        (writeScriptBin "sips" ''
-          #!${runtimeShell}
-          echo >&2 "$@"
-        '')
-      ];
+  # Surfer's async-icns shells out to macOS iconutil/sips. Provide nixpkgs-style
+  # replacements (cf. bsnes-hd/higan using png2icns) only on Darwin; Linux skips
+  # Mac icon generation and does not need stubs.
+  macIconTools = lib.optionals stdenv.hostPlatform.isDarwin [
+    (writeShellScriptBin "iconutil" ''
+      set -euo pipefail
+      if [ "''${1-}" = "--convert" ] && [ "''${2-}" = "icns" ] && [ "''${3-}" = "--output" ]; then
+        out="$4"
+        iconset="$5"
+        shopt -s nullglob
+        inputs=()
+        for f in "$iconset"/*.png; do
+          case "$f" in
+            *@2x.png) continue ;;
+          esac
+          inputs+=("$f")
+        done
+        exec ${lib.getExe' libicns "png2icns"} "$out" "''${inputs[@]}"
+      fi
+      echo >&2 "$@"
+    '')
+    (writeShellScriptBin "sips" ''
+      set -euo pipefail
+      # async-icns: sips SOURCE -Z SIZE --out DEST
+      if [ "''${2-}" = "-Z" ] && [ "''${4-}" = "--out" ]; then
+        exec ${lib.getExe imagemagick} "$1" -resize "$3x$3" "$5"
+      fi
+      echo >&2 "$@"
+    '')
+  ];
 
   patchedSurfer = buildNpmPackage {
     pname = "surfer-patched";
@@ -185,20 +169,21 @@ in
   };
 
   meta = {
+    # since Firefox 60, build on 32-bit platforms fails with "out of memory".
+    # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
+    broken = stdenv.buildPlatform.is32bit;
     description = "Firefox based browser with a focus on privacy and customization";
     homepage = "https://zen-browser.app";
     changelog = "https://zen-browser.app/release-notes/#${version}";
+    license = lib.licenses.mpl20;
+    mainProgram = "zen";
     maintainers = with lib.maintainers; [
       matthewpi
       titaniumtown
       eveeifyeve
     ];
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    # since Firefox 60, build on 32-bit platforms fails with "out of memory".
-    # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
     maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
-    license = lib.licenses.mpl20;
-    mainProgram = "zen";
+    platforms = lib.platforms.unix;
   };
 }).override
   {
