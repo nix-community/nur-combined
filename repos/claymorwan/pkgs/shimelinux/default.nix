@@ -65,6 +65,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   meta = {
     description = "An unofficial Linux port of Shimeji-ee Desktop Pet";
+    homepage = "https://github.com/BujjuIsABee/shimelinux";
     license = lib.licenses.bsd3;
     maintainers = with lib.maintainers; [ claymorwan ];
     mainProgram = "shimelinux";
