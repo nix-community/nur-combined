@@ -12,8 +12,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "milahu";
     repo = "fsindex";
-    rev = "1462b11041f854204ab341b13322a95ea51c1cf1";
-    hash = "sha256-YM/OIuRTTl+NTfeUNmvk0VfDvj2yrUAukO/px6lXYzs=";
+    rev = "147da0803fee74033d88df032814077f09144394";
+    hash = "sha256-C8rD/SRH+5UJydn9ufYDXRknq1HlU0ijBq/m1WVy+js=";
   };
 
   build-system = [
