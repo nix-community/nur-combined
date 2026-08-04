@@ -235,7 +235,9 @@ jobs:
         sudo chmod -R 777 /opt/nur-ci-compile-cache
         # Remote builds via ssh-ng read /etc/nix/nix.conf per session, so no
         # daemon restart is needed (and macOS builds are unsandboxed anyway).
-        echo 'extra-sandbox-paths = /opt/nur-ci-compile-cache' | sudo tee -a /etc/nix/nix.conf
+        # The leading newline guards against a missing trailing newline in
+        # the appended Cachix daemon config.
+        printf '\nextra-sandbox-paths = /opt/nur-ci-compile-cache\n' | sudo tee -a /etc/nix/nix.conf
 
     - name: Restore compile cache
       uses: actions/cache/restore@v6
