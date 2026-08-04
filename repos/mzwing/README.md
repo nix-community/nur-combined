@@ -13,6 +13,8 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
+| `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
+| `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |
 
 ## NixOS modules
 

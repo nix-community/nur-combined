@@ -22,6 +22,8 @@ in {
   autocli = pkgs.callPackage ./pkgs/autocli {source = sources.autocli;};
   cliproxyapiplus = pkgs.callPackage ./pkgs/cliproxyapiplus {source = sources.cliproxyapiplus;};
   pumpkin = pkgs.callPackage ./pkgs/pumpkin {source = sources.pumpkin;};
+  sing-box-alpha = pkgs.callPackage ./pkgs/sing-box-alpha {source = sources.sing-box-alpha;};
+  sing-box-beta = pkgs.callPackage ./pkgs/sing-box-beta {source = sources.sing-box-beta;};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
