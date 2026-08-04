@@ -52,18 +52,47 @@ stdenv.mkDerivation {
     fi
     EOF
 
-    # Source after electron_flags is declared. Electron needs GTK/Qt IM modules
-    # (wechat_bwrap does the same); Wayland also needs --enable-wayland-ime.
+    # Source after electron_flags is declared. Wayland/Plasma+fcitx5: unset
+    # GTK/Qt IM_MODULE and use Electron text-input (KWin: v1). X11: fcitx/ibus
+    # modules like wechat. Override: QQ_IME_WORKAROUND=wayland|fcitx|ibus|x11|none.
     cat << 'EOF' > $out/libexec/qq-setup-ime.sh
     #!/bin/bash
+    _qq_flags_have() {
+        printf '%s\0' "''${electron_flags[@]}" | grep -qz -- "$1"
+    }
     if [ -z "''${QQ_IME_WORKAROUND}" ] || [ "''${QQ_IME_WORKAROUND}" = auto ]; then
-        case "''${XMODIFIERS}" in
-            *@im=fcitx*) QQ_IME_WORKAROUND=fcitx ;;
-            *@im=ibus*) QQ_IME_WORKAROUND=ibus ;;
-            *) QQ_IME_WORKAROUND=none ;;
-        esac
+        if [ -n "''${WAYLAND_DISPLAY}" ]; then
+            QQ_IME_WORKAROUND=wayland
+        else
+            case "''${XMODIFIERS}" in
+                *@im=fcitx*) QQ_IME_WORKAROUND=fcitx ;;
+                *@im=ibus*) QQ_IME_WORKAROUND=ibus ;;
+                *) QQ_IME_WORKAROUND=none ;;
+            esac
+        fi
     fi
     case "''${QQ_IME_WORKAROUND}" in
+        wayland)
+            unset GTK_IM_MODULE QT_IM_MODULE QT_IM_MODULES SDL_IM_MODULE IBUS_USE_PORTAL \
+                2>/dev/null || true
+            if ! _qq_flags_have 'ozone-platform'; then
+                electron_flags+=(--ozone-platform-hint=auto)
+            fi
+            if ! _qq_flags_have 'enable-wayland-ime'; then
+                electron_flags+=(--enable-wayland-ime=true)
+            fi
+            case "''${XDG_CURRENT_DESKTOP:-}:''${XDG_SESSION_DESKTOP:-}" in
+                *KDE*|*Plasma*)
+                    # Overrides nixpkgs qq's text-input-v3 under NIXOS_OZONE_WL.
+                    electron_flags+=(--wayland-text-input-version=1)
+                    ;;
+                *)
+                    if ! _qq_flags_have 'wayland-text-input-version'; then
+                        electron_flags+=(--wayland-text-input-version=3)
+                    fi
+                    ;;
+            esac
+            ;;
         fcitx)
             export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
             unset IBUS_USE_PORTAL 2>/dev/null || true
@@ -71,12 +100,13 @@ stdenv.mkDerivation {
         ibus)
             export QT_IM_MODULE=ibus GTK_IM_MODULE=ibus IBUS_USE_PORTAL=1
             ;;
+        x11)
+            export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
+            unset IBUS_USE_PORTAL 2>/dev/null || true
+            electron_flags+=(--ozone-platform=x11)
+            ;;
     esac
-    if [ -n "''${WAYLAND_DISPLAY}" ]; then
-        if ! printf '%s\0' "''${electron_flags[@]}" | grep -qz -- 'enable-wayland-ime'; then
-            electron_flags+=(--enable-wayland-ime=true)
-        fi
-    fi
+    unset -f _qq_flags_have
     EOF
 
     # Source after HOME is known. Fills QQ_USER_DIR_BINDS for bwrap
