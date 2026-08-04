@@ -3,7 +3,7 @@
     "system": "x86_64-linux",
     "idPrefix": "linux-x86-64",
     "runner": "ubuntu-latest",
-    "count": 3,
+    "count": 2,
     "maxJobs": 3
   },
   {
@@ -17,7 +17,7 @@
     "system": "aarch64-darwin",
     "idPrefix": "darwin-arm64",
     "runner": "macos-latest",
-    "count": 2,
+    "count": 3,
     "maxJobs": 3
   }
 ]

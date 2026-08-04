@@ -108,6 +108,14 @@ with builtins; let
               umask 000
               mkdir -p "$SCCACHE_DIR"
             '';
+          # umask 000 makes $out group/other-writable, which Nix rejects as
+          # "suspicious ownership or permission"; strip those bits again.
+          postFixup =
+            (old.postFixup or "")
+            + ''
+              find "$out" -type f -exec chmod go-w {} +
+              find "$out" -type d -exec chmod go-w {} +
+            '';
         });
       }
     else if elem name goCachedNames
@@ -123,6 +131,13 @@ with builtins; let
               umask 000
               export GOCACHE=${compileCacheDir}/gocache
               mkdir -p "$GOCACHE"
+            '';
+          # See the Rust branch above.
+          postFixup =
+            (old.postFixup or "")
+            + ''
+              find "$out" -type f -exec chmod go-w {} +
+              find "$out" -type d -exec chmod go-w {} +
             '';
         });
       }
