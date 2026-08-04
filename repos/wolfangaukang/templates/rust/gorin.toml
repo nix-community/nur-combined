@@ -1,0 +1,39 @@
+shell = "/bin/sh"
+tools = [ "cargo", "gorin", "nix" ]
+
+[parameters.NIXELEM]
+description = "INTENDED TO USE WITH *-nix"
+comparator = "unset"
+value = ""
+
+[targets.makefile]
+prerequisites = [ "check_dependencies" ]
+commands = "@gorin makefile > Makefile"
+
+[targets.build-nix]
+prerequisites = [ "check_dependencies" ]
+commands = "nix build .#$(NIXELEM)"
+
+[targets.run-nix]
+prerequisites = [ "check_dependencies" ]
+commands = "nix run .#$(NIXELEM)"
+
+[targets.flake-show]
+prerequisites = [ "check_dependencies" ]
+commands = "nix flake show --impure"
+
+[targets.build]
+prerequisites = [ "check_dependencies" ]
+commands = "@cargo build"
+
+[targets.clippy]
+prerequisites = [ "check_dependencies" ]
+commands = "@cargo clippy"
+
+[targets.clean]
+prerequisites = [ "check_dependencies" ]
+commands = "@cargo clean"
+
+[targets.test]
+prerequisites = [ "check_dependencies" ]
+commands = "@cargo test"

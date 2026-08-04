@@ -1,0 +1,68 @@
+{
+  "vpn": {
+    "target": "i-0126bab3c4861123a",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "us-east-1"
+  },
+  "vpn-canada": {
+    "target": "i-03c414c06b1c908fc",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "ca-central-1"
+  },
+  "vpn-london": {
+    "target": "i-0d4e4c30279e67ea7",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "eu-west-2"
+  },
+  "vpn-frankfurt": {
+    "target": "i-078282a917c99089f",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "eu-central-1"
+  },
+  "elk": {
+    "target": "i-0a83d0bc2e5b71538",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "us-east-1"
+  },
+  "www": {
+    "target": "i-0496f3e028de86fbe",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "us-east-1"
+  },
+  "jenkins": {
+    "target": "i-081cd3e6fbe538c09",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "us-east-1"
+  },
+  "services": {
+    "target": "i-0a90f07d42b4d3f86",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "us-east-1"
+  },
+  "simplerisk_i-*": {
+    "target": "$(echo %h | awk -F '_' 'NR==1{print $2}')",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "us-east-1"
+  },
+  "simplerisk-ca_i-*": {
+    "target": "$(echo %h | awk -F '_' 'NR==1{print $2}')",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "ca-central-1"
+  },
+  "simplerisk-lo_i-*": {
+    "target": "$(echo %h | awk -F '_' 'NR==1{print $2}')",
+    "profile": "pedro",
+    "user": "pedro",
+    "region": "eu-west-2"
+  }
+}

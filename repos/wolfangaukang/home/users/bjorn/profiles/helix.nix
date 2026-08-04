@@ -1,0 +1,99 @@
+{
+  pkgs,
+  lib,
+  ...
+}:
+
+let
+  inherit (lib) getExe;
+  inherit (pkgs)
+    bash-language-server
+    dprint
+    marksman
+    nil
+    nixfmt
+    rumdl
+    taplo
+    yaml-language-server
+    ;
+  theme = "ayu_dark";
+
+in
+{
+  programs.helix = {
+    enable = true;
+    defaultEditor = true;
+    languages = {
+      language-server = {
+        bash-language-server.command = getExe bash-language-server;
+        marksman.command = getExe marksman;
+        nil = {
+          command = getExe nil;
+          config.nil.nix.flake.autoArchive = true;
+        };
+        rumdl = {
+          command = getExe rumdl;
+          args = [ "server" ];
+        };
+        taplo.command = getExe taplo;
+        yaml-language-server.command = getExe yaml-language-server;
+      };
+      language = [
+        {
+          name = "markdown";
+          language-servers = [
+            "marksman"
+            "rumdl"
+          ];
+          soft-wrap = {
+            enable = true;
+            wrap-at-text-width = true;
+          };
+          text-width = 80;
+          formatter = {
+            command = getExe dprint;
+            args = [
+              "fmt"
+              "-c"
+              "~/.config/dprint/dprint.json"
+              "--stdin"
+              "md"
+            ];
+          };
+          auto-format = true;
+        }
+        {
+          name = "nix";
+          formatter.command = getExe nixfmt;
+          auto-format = true;
+        }
+      ];
+    };
+    settings = {
+      inherit theme;
+      editor = {
+        bufferline = "multiple";
+        cursorline = true;
+        cursor-shape = {
+          insert = "bar";
+          normal = "block";
+          select = "underline";
+        };
+        indent-guides = {
+          character = "|";
+          render = true;
+        };
+        line-number = "relative";
+        lsp = {
+          display-messages = true;
+        };
+        soft-wrap = {
+          enable = true;
+          wrap-indicator = "↪ ";
+        };
+      };
+    };
+  };
+  home.file.".config/helix/themes/${theme}.toml".source =
+    "${pkgs.helix}/lib/runtime/themes/${theme}.toml";
+}

@@ -1,0 +1,25 @@
+diff --git a/setup.cfg b/setup.cfg
+index 6ab00b6..ab32b5a 100644
+--- a/setup.cfg
++++ b/setup.cfg
+@@ -19,13 +19,13 @@ packages = find:
+ python_requires = >=3.8
+ include_package_data = True
+ install_requires =
+-    aws-error-utils~=2.5.0
+-    boto3~=1.21.10
+-    botocore~=1.24.8
+-    cachetools~=5.0.0
+-    click~=8.0.4
+-    click-log~=0.3.2
+-    colorlog~=6.6.0
++    aws-error-utils>=2.5.0
++    boto3>=1.21.10
++    botocore>=1.24.8
++    cachetools>=5.0.0
++    click>=8.0.4
++    click-log>=0.3.2
++    colorlog>=6.6.0
+ 
+ [options.packages.find]
+ include = access_undenied_aws*

@@ -1,0 +1,25 @@
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
+
+# Python files
+**/__pycache__
+**/.pytest_cache/*
+bin/*
+build/*
+dist/*
+lib/*
+pyvenv.cfg
+#project.egg-info/*
+
+# Nix related files
+result
+
+# direnv
+.direnv
