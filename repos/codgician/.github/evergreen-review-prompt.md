@@ -2,9 +2,9 @@
 
 ## Goal
 
-Finish a correct update for the validated package. Start with `.ai-state/state.json`, its referenced logs, and the current `git diff -- pkgs/<package>/`.
+Finish a correct update for the validated package. Start with `.ai-state/state.json`, its referenced logs, and the package changes. For an initial candidate, inspect `git diff -- pkgs/<package>/`; for a committed pull-request repair, compare the recorded base and head revisions.
 
-If the updater succeeded, review its existing bump and repair only real defects. If it failed, diagnose the log, fix the package-local expression or updater, and rerun the updater until it succeeds.
+If the updater succeeded, review its existing bump and repair only real defects. If it failed, diagnose the log, fix the package-local expression or updater, and rerun the updater until it succeeds. For pull-request repairs, treat the failed CI log as the authoritative reproduction and fix its package-local cause.
 
 ## Success criteria
 

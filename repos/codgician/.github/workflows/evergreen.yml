@@ -3,24 +3,28 @@ on:
   schedule:
     - cron: "35 8 * * *"
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [flake.lock]
 permissions: {}
 concurrency:
   group: evergreen
   cancel-in-progress: false
 jobs:
-  flake:
-    if: >-
-      github.repository_id == '852828187' && github.actor == 'codgician' && github.actor_id == '15964984' && github.triggering_actor == 'codgician'
+  foundation:
+    if: ${{ github.repository_id == '852828187' && ((github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name != 'push' && github.actor == 'codgician' && github.actor_id == '15964984' && github.triggering_actor == 'codgician')) }}
     runs-on: ubuntu-latest
     permissions:
       contents: read
     outputs:
       packages: ${{ steps.packages.outputs.packages }}
       base_sha: ${{ steps.packages.outputs.base_sha }}
+      run_packages: ${{ steps.route.outputs.run_packages }}
     steps:
-      - name: Checkout
+      - name: Checkout trusted main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
+          ref: main
           fetch-depth: 1
           persist-credentials: false
       - name: Install Nix
@@ -37,8 +41,29 @@ jobs:
           echo "packages=$packages" >> "$GITHUB_OUTPUT"
           echo "base_sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: Update Nix flake
-        run: nix flake update >> "$GITHUB_STEP_SUMMARY"
+        id: flake_update
+        if: github.event_name != 'push'
+        run: |
+          nix flake update >> "$GITHUB_STEP_SUMMARY"
+          if git diff --quiet -- flake.lock; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Select package update route
+        id: route
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          FLAKE_CHANGED: ${{ steps.flake_update.outputs.changed }}
+        run: |
+          if [[ "$EVENT_NAME" == "push" || "$FLAKE_CHANGED" != "true" ]]; then
+            echo "run_packages=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run_packages=false" >> "$GITHUB_OUTPUT"
+            echo "Package updates are deferred until the flake.lock pull request merges" >> "$GITHUB_STEP_SUMMARY"
+          fi
       - name: Generate publisher token
+        if: steps.flake_update.outputs.changed == 'true'
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
         with:
@@ -48,6 +73,7 @@ jobs:
           permission-pull-requests: write
       - name: Create flake update pull request
         id: pull_request
+        if: steps.flake_update.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
         with:
           token: ${{ steps.app-token.outputs.token }}
@@ -68,7 +94,6 @@ jobs:
           labels: |
             bot
             bot-deterministic
-            dependencies
       - name: Enable flake auto-merge
         if: steps.pull_request.outputs.pull-request-number != ''
         env:
@@ -78,12 +103,12 @@ jobs:
         run: gh pr merge --repo "$REPOSITORY" --auto --squash "$PR_NUMBER"
   prepare-package:
     name: prepare (${{ matrix.package }})
-    needs: flake
-    if: ${{ needs.flake.result == 'success' }}
+    needs: foundation
+    if: needs.foundation.result == 'success' && needs.foundation.outputs.run_packages == 'true'
     strategy:
       fail-fast: false
       matrix:
-        package: ${{ fromJson(needs.flake.outputs.packages) }}
+        package: ${{ fromJson(needs.foundation.outputs.packages) }}
     runs-on: ubuntu-latest
     timeout-minutes: 150
     permissions:
@@ -94,7 +119,7 @@ jobs:
       - name: Checkout trusted revision
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
-          ref: ${{ needs.flake.outputs.base_sha }}
+          ref: ${{ needs.foundation.outputs.base_sha }}
           fetch-depth: 1
           persist-credentials: false
       - name: Validate package name
@@ -168,16 +193,15 @@ jobs:
             state=invalid
           fi
           echo "state=$state" >> "$GITHUB_OUTPUT"
-      - name: Validate deterministic candidate
+      - name: Validate deterministic structure
         id: deterministic
         if: steps.version.outputs.state == 'advanced'
         run: |
           set +e
-          nix develop .# -c .github/scripts/validate_candidate.sh \
+          nix develop .# -c bash .github/scripts/validate_candidate_structure.sh \
             "$PACKAGE" \
-            "$(cat "$RUNNER_TEMP/main-program")" \
             "$(cat "$RUNNER_TEMP/old-version")" \
-            "$RUNNER_TEMP/preflight-new-version" \
+            "$RUNNER_TEMP/new-version" \
             > .ai-state/deterministic-validation.log 2>&1
           exit_code=$?
           set -e
@@ -227,13 +251,19 @@ jobs:
             printf "\n\nThe validated package attribute is \`%s\`. Read the evidence under \`.ai-state/\`.\n" "$PACKAGE"
           } > .ai-state/prompt.md
           nix develop .# -c .github/scripts/run_pi_agent.sh .ai-state/prompt.md
+      - name: Validate AI candidate
+        if: steps.route.outputs.route == 'ai'
+        run: |
+          nix develop .# -c .github/scripts/validate_candidate.sh \
+            "$PACKAGE" \
+            "$(cat "$RUNNER_TEMP/main-program")" \
+            "$(cat "$RUNNER_TEMP/old-version")" \
+            "$RUNNER_TEMP/new-version"
       - name: Export candidate
         env:
           ROUTE: ${{ steps.route.outputs.route }}
         run: |
           mkdir -p "$RUNNER_TEMP/candidate"
-          cp "$RUNNER_TEMP/old-version" "$RUNNER_TEMP/candidate/old-version"
-          cp "$RUNNER_TEMP/main-program" "$RUNNER_TEMP/candidate/main-program"
           if [[ "$ROUTE" == "up-to-date" ]]; then
             printf 'up-to-date' > "$RUNNER_TEMP/candidate/state"
             exit 0
@@ -262,6 +292,11 @@ jobs:
           fi
           git diff --cached --check
           git diff --cached --binary --full-index > "$RUNNER_TEMP/candidate/changes.patch"
+          cp "$RUNNER_TEMP/old-version" "$RUNNER_TEMP/candidate/old-version"
+          cp "$RUNNER_TEMP/new-version" "$RUNNER_TEMP/candidate/new-version"
+          if ! nix eval --raw ".#$PACKAGE.meta.changelog" > "$RUNNER_TEMP/candidate/changelog" 2>/dev/null; then
+            : > "$RUNNER_TEMP/candidate/changelog"
+          fi
           printf 'candidate' > "$RUNNER_TEMP/candidate/state"
           if [[ "$ROUTE" == "deterministic" ]]; then
             printf 'deterministic' > "$RUNNER_TEMP/candidate/origin"
@@ -274,99 +309,15 @@ jobs:
           name: evergreen-candidate-${{ matrix.package }}
           path: ${{ runner.temp }}/candidate
           if-no-files-found: error
-          retention-days: 7
-  validate-package:
-    name: validate (${{ matrix.package }})
-    needs: [flake, prepare-package]
-    if: ${{ always() && needs.flake.result == 'success' }}
-    strategy:
-      fail-fast: false
-      matrix:
-        package: ${{ fromJson(needs.flake.outputs.packages) }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 120
-    permissions:
-      contents: read
-    env:
-      PACKAGE: ${{ matrix.package }}
-    steps:
-      - name: Checkout trusted revision
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
-        with:
-          ref: ${{ needs.flake.outputs.base_sha }}
-          fetch-depth: 1
-          persist-credentials: false
-      - name: Download candidate
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-        with:
-          name: evergreen-candidate-${{ matrix.package }}
-          path: ${{ runner.temp }}/candidate
-      - name: Inspect candidate
-        id: candidate
-        run: |
-          state=$(cat "$RUNNER_TEMP/candidate/state")
-          if [[ "$state" != "candidate" && "$state" != "up-to-date" ]]; then
-            echo "Invalid candidate state: $state" >&2
-            exit 1
-          fi
-          echo "state=$state" >> "$GITHUB_OUTPUT"
-          if [[ "$state" == "candidate" ]]; then
-            origin=$(cat "$RUNNER_TEMP/candidate/origin")
-            if [[ "$origin" != "deterministic" && "$origin" != "ai-repaired" ]]; then
-              echo "Invalid candidate origin: $origin" >&2
-              exit 1
-            fi
-            echo "origin=$origin" >> "$GITHUB_OUTPUT"
-          fi
-      - name: Apply candidate
-        if: steps.candidate.outputs.state == 'candidate'
-        run: git apply --index "$RUNNER_TEMP/candidate/changes.patch"
-      - name: Install Nix
-        if: steps.candidate.outputs.state == 'candidate'
-        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
-        with:
-          extra-conf: |
-            accept-flake-config = true
-            experimental-features = nix-command flakes
-      - name: Validate candidate
-        if: steps.candidate.outputs.state == 'candidate'
-        run: |
-          nix develop .# -c .github/scripts/validate_candidate.sh \
-            "$PACKAGE" \
-            "$(cat "$RUNNER_TEMP/candidate/main-program")" \
-            "$(cat "$RUNNER_TEMP/candidate/old-version")" \
-            "$RUNNER_TEMP/candidate/new-version"
-          if ! nix eval --raw ".#$PACKAGE.meta.changelog" > "$RUNNER_TEMP/candidate/changelog" 2>/dev/null; then
-            : > "$RUNNER_TEMP/candidate/changelog"
-          fi
-      - name: Prepare verified result
-        env:
-          CANDIDATE_STATE: ${{ steps.candidate.outputs.state }}
-        run: |
-          mkdir -p "$RUNNER_TEMP/verified"
-          cp "$RUNNER_TEMP/candidate/state" "$RUNNER_TEMP/verified/state"
-          if [[ "$CANDIDATE_STATE" == "candidate" ]]; then
-            cp "$RUNNER_TEMP/candidate/changes.patch" "$RUNNER_TEMP/verified/changes.patch"
-            cp "$RUNNER_TEMP/candidate/old-version" "$RUNNER_TEMP/verified/old-version"
-            cp "$RUNNER_TEMP/candidate/new-version" "$RUNNER_TEMP/verified/new-version"
-            cp "$RUNNER_TEMP/candidate/origin" "$RUNNER_TEMP/verified/origin"
-            cp "$RUNNER_TEMP/candidate/changelog" "$RUNNER_TEMP/verified/changelog"
-          fi
-      - name: Upload verified result
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
-        with:
-          name: evergreen-verified-${{ matrix.package }}
-          path: ${{ runner.temp }}/verified
-          if-no-files-found: error
           retention-days: 1
   publish-package:
     name: publish (${{ matrix.package }})
-    needs: [flake, validate-package]
-    if: ${{ always() && needs.flake.result == 'success' }}
+    needs: [foundation, prepare-package]
+    if: ${{ always() && needs.foundation.result == 'success' && needs.foundation.outputs.run_packages == 'true' }}
     strategy:
       fail-fast: false
       matrix:
-        package: ${{ fromJson(needs.flake.outputs.packages) }}
+        package: ${{ fromJson(needs.foundation.outputs.packages) }}
     runs-on: ubuntu-latest
     permissions:
       actions: read
@@ -380,38 +331,38 @@ jobs:
           ref: main
           fetch-depth: 1
           persist-credentials: false
-      - name: Download verified result
-        id: verified
+      - name: Download candidate
+        id: candidate_download
         continue-on-error: true
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
-          name: evergreen-verified-${{ matrix.package }}
-          path: ${{ runner.temp }}/verified
-      - name: Apply verified result
+          name: evergreen-candidate-${{ matrix.package }}
+          path: ${{ runner.temp }}/candidate
+      - name: Apply candidate
         id: result
         env:
-          VERIFIED_DOWNLOAD: ${{ steps.verified.outcome }}
+          CANDIDATE_DOWNLOAD: ${{ steps.candidate_download.outcome }}
         run: |
-          if [[ "$VERIFIED_DOWNLOAD" != "success" ]]; then
+          if [[ "$CANDIDATE_DOWNLOAD" != "success" ]]; then
             echo "publish=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          state=$(cat "$RUNNER_TEMP/verified/state")
+          state=$(cat "$RUNNER_TEMP/candidate/state")
           if [[ "$state" == "up-to-date" ]]; then
             echo "publish=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           if [[ "$state" != "candidate" ]]; then
-            echo "Invalid verified state: $state" >&2
+            echo "Invalid candidate state: $state" >&2
             exit 1
           fi
-          old_version=$(cat "$RUNNER_TEMP/verified/old-version")
-          new_version=$(cat "$RUNNER_TEMP/verified/new-version")
+          old_version=$(cat "$RUNNER_TEMP/candidate/old-version")
+          new_version=$(cat "$RUNNER_TEMP/candidate/new-version")
           if [[ ! "$old_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ || ! "$new_version" =~ ^[0-9A-Za-z][0-9A-Za-z._+~-]{0,127}$ ]]; then
-            echo "Invalid verified version metadata" >&2
+            echo "Invalid candidate version metadata" >&2
             exit 1
           fi
-          origin=$(cat "$RUNNER_TEMP/verified/origin")
+          origin=$(cat "$RUNNER_TEMP/candidate/origin")
           case "$origin" in
             deterministic)
               origin_label=bot-deterministic
@@ -422,20 +373,30 @@ jobs:
               origin_name="AI repair"
               ;;
             *)
-              echo "Invalid verified origin: $origin" >&2
+              echo "Invalid candidate origin: $origin" >&2
               exit 1
               ;;
           esac
-          changelog=$(cat "$RUNNER_TEMP/verified/changelog")
+          changelog=$(cat "$RUNNER_TEMP/candidate/changelog")
           if [[ -n "$changelog" && ( "$changelog" == *$'\n'* || ! "$changelog" =~ ^https?://[^[:space:]]{1,2048}$ ) ]]; then
             echo "Invalid changelog URL" >&2
             exit 1
           fi
-          git apply --3way --index "$RUNNER_TEMP/verified/changes.patch"
+          git apply --3way --index "$RUNNER_TEMP/candidate/changes.patch"
+          while IFS= read -r path; do
+            if [[ "$path" != "pkgs/$PACKAGE/"* ]]; then
+              echo "Candidate contains a path outside pkgs/$PACKAGE: $path" >&2
+              exit 1
+            fi
+          done < <(git diff --cached --name-only)
+          if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
+            echo "Package candidates may not contain symlinks" >&2
+            exit 1
+          fi
           {
             printf "Automated update of \`%s\` from \`%s\` to \`%s\`.\n\n" "$PACKAGE" "$old_version" "$new_version"
             printf -- "- Origin: \`%s\`\n" "$origin_name"
-            printf -- '- Validation: updater idempotence, package build, and smoke check\n'
+            printf -- '- Validation: full required pull-request CI before merge or review\n'
             if [[ -n "$changelog" ]]; then
               printf -- '- Changelog: %s\n' "$changelog"
             fi
@@ -471,84 +432,23 @@ jobs:
           sign-commits: true
           title: "${{ matrix.package }}: ${{ steps.result.outputs.old_version }} -> ${{ steps.result.outputs.new_version }}"
           body-path: ${{ runner.temp }}/pull-request-body.md
-          labels: |
-            bot
-            ${{ steps.result.outputs.origin_label }}
-          reviewers: codgician
-      - name: Enable deterministic auto-merge
-        if: steps.result.outputs.origin_label == 'bot-deterministic' && steps.pull_request.outputs.pull-request-number != ''
-        env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
-          REPOSITORY: ${{ github.repository }}
-        run: gh pr merge --repo "$REPOSITORY" --auto --squash "$PR_NUMBER"
-  summary:
-    needs: [flake, prepare-package, validate-package, publish-package]
-    if: ${{ always() }}
-    runs-on: ubuntu-latest
-    permissions:
-      actions: read
-    steps:
-      - name: Summarize package results
+      - name: Synchronize automation labels
+        if: steps.pull_request.outputs.pull-request-number != ''
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
-          PACKAGES: ${{ needs.flake.outputs.packages }}
+          ORIGIN_LABEL: ${{ steps.result.outputs.origin_label }}
+          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
         with:
-          script: |-
-            let packages;
-            try {
-              packages = JSON.parse(process.env.PACKAGES || "[]");
-            } catch {
-              throw new Error("Invalid package matrix output");
-            }
-            if (!Array.isArray(packages) || packages.some((name) => !/^[a-z][a-z0-9_-]{0,63}$/.test(name))) {
-              throw new Error("Invalid package matrix output");
-            }
-
-            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            await github.rest.issues.setLabels({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              run_id: context.runId,
-              filter: "latest",
-              per_page: 100,
+              issue_number: Number(process.env.PR_NUMBER),
+              labels: ["bot", process.env.ORIGIN_LABEL],
             });
-            const jobsByName = new Map(jobs.map((job) => [job.name, job]));
-            const rows = [["Package", "Result"]];
-            const blocked = [];
-
-            for (const packageName of packages) {
-              const stages = [
-                ["prepare", jobsByName.get(`prepare (${packageName})`)],
-                ["validate", jobsByName.get(`validate (${packageName})`)],
-                ["publish", jobsByName.get(`publish (${packageName})`)],
-              ];
-              const failed = stages.find(([, job]) => !job || job.conclusion !== "success");
-              if (failed) {
-                const [stage, job] = failed;
-                rows.push([packageName, `blocked (${stage}: ${job?.conclusion || "missing"})`]);
-                blocked.push(packageName);
-                continue;
-              }
-
-              const prepare = stages[0][1];
-              const publish = stages[2][1];
-              const pullRequest = publish.steps.find((step) => step.name === "Create pull request");
-              if (pullRequest?.conclusion !== "success") {
-                rows.push([packageName, "up-to-date"]);
-                continue;
-              }
-
-              const review = prepare.steps.find((step) => step.name === "Review or repair with Pi");
-              rows.push([packageName, review?.conclusion === "success" ? "AI-repaired candidate" : "deterministic candidate"]);
-            }
-
-            await core.summary
-              .addHeading("Evergreen package summary")
-              .addTable(rows)
-              .write();
-
-            if (packages.length === 0) {
-              core.setFailed("Package discovery produced no results");
-            } else if (blocked.length > 0) {
-              core.setFailed(`Blocked packages: ${blocked.join(", ")}`);
-            }
+      - name: Report published candidate
+        if: steps.pull_request.outputs.pull-request-number != ''
+        env:
+          PR_NUMBER: ${{ steps.pull_request.outputs.pull-request-number }}
+        run: 'echo "Published or updated PR #$PR_NUMBER"'

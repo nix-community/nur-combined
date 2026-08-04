@@ -2,14 +2,8 @@ name: merge queue
 on:
   push:
     branches: [main]
-  workflow_run: # zizmor: ignore[dangerous-triggers] no checkout or execution of triggering-branch code
-    workflows: [build]
-    types: [completed]
-  pull_request_review:
-    types: [submitted, dismissed]
   workflow_dispatch:
 permissions:
-  checks: read
   contents: read
   pull-requests: read
 concurrency:
@@ -20,13 +14,11 @@ jobs:
     if: ${{ github.repository_id == '852828187' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Select deterministic pull request
+      - name: Select stale bot pull request
         id: candidate
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
-            const requiredChecks = ["harness", "atelier / Gate"];
-            const successfulConclusions = new Set(["success", "neutral", "skipped"]);
             const pulls = await github.paginate(github.rest.pulls.list, {
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -43,16 +35,14 @@ jobs:
             });
             const baseSha = baseBranch.commit.sha;
 
-            const greenBehind = [];
-            const failedBehind = [];
             for (const pull of pulls) {
               const labels = new Set(pull.labels.map((label) => label.name));
               if (
-                pull.user?.login !== "galactic-batter[bot]" ||
+                pull.user?.id !== 304539431 ||
                 pull.head.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}` ||
                 !/^bot\/[a-z][a-z0-9_-]{0,63}$/.test(pull.head.ref) ||
-                !labels.has("bot-deterministic") ||
-                labels.has("bot-ai-repair")
+                !labels.has("bot") ||
+                (!labels.has("bot-deterministic") && !labels.has("bot-ai-repair"))
               ) {
                 continue;
               }
@@ -62,72 +52,22 @@ jobs:
                 repo: context.repo.repo,
                 pull_number: pull.number,
               });
-              if (!details.auto_merge || details.mergeable_state === "dirty") {
-                continue;
-              }
+              if (details.mergeable_state === "dirty") continue;
+
               const { data: comparison } = await github.rest.repos.compareCommitsWithBasehead({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 basehead: `${details.head.sha}...${baseSha}`,
               });
-              const behind = comparison.ahead_by > 0;
+              if (comparison.ahead_by === 0) continue;
 
-              const reviews = await github.paginate(github.rest.pulls.listReviews, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                pull_number: pull.number,
-                per_page: 100,
-              });
-              const latestReviewByUser = new Map();
-              for (const review of reviews) {
-                if (review.user?.id && review.state !== "COMMENTED") {
-                  latestReviewByUser.set(review.user.id, review.state);
-                }
-              }
-              if ([...latestReviewByUser.values()].includes("CHANGES_REQUESTED")) {
-                continue;
-              }
-
-              const checks = await github.paginate(github.rest.checks.listForRef, {
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: details.merge_commit_sha || details.head.sha,
-                filter: "latest",
-                per_page: 100,
-              });
-              const checksByName = new Map(checks.map((check) => [check.name, check]));
-              const required = requiredChecks.map((name) => checksByName.get(name));
-              const pending = required.some((check) => !check || check.status !== "completed");
-              const failed = required.some(
-                (check) => check?.status === "completed" && !successfulConclusions.has(check.conclusion),
-              );
-
-              if (behind) {
-                (failed ? failedBehind : greenBehind).push({
-                  number: pull.number,
-                  headSha: details.head.sha,
-                });
-                continue;
-              }
-              if (pending) {
-                core.notice(`PR #${pull.number} is current; waiting for required checks`);
-                return;
-              }
-              if (!failed) {
-                core.notice(`PR #${pull.number} is current and green; waiting for auto-merge`);
-                return;
-              }
-            }
-
-            const selected = greenBehind[0] || failedBehind[0];
-            if (!selected) {
-              core.notice("No deterministic bot PR needs a branch update");
+              core.setOutput("number", String(pull.number));
+              core.setOutput("head-sha", details.head.sha);
               return;
             }
-            core.setOutput("number", selected.number);
-            core.setOutput("head-sha", selected.headSha);
+            core.notice("No bot pull request needs a branch update");
       - name: Generate bot token
-        if: ${{ steps.candidate.outputs.number != '' }}
+        if: steps.candidate.outputs.number != ''
         id: app-token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
         with:
@@ -135,8 +75,8 @@ jobs:
           private-key: ${{ secrets.APP_PRIVATE_KEY }}
           permission-contents: write
           permission-pull-requests: write
-      - name: Update deterministic pull request
-        if: ${{ steps.candidate.outputs.number != '' }}
+      - name: Update bot pull request
+        if: steps.candidate.outputs.number != ''
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           HEAD_SHA: ${{ steps.candidate.outputs.head-sha }}

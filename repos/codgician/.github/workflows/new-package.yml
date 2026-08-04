@@ -294,8 +294,8 @@ jobs:
             Closes #${{ needs.prepare.outputs.issue_number }}
           labels: |
             bot
+            bot-ai-repair
             enhancement
-          reviewers: codgician
   report:
     needs: [announce, prepare, validate, publish]
     if: ${{ always() && needs.prepare.result != 'skipped' }}

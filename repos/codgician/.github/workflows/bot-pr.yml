@@ -1,0 +1,474 @@
+name: bot pull request
+on:
+  workflow_run: # zizmor: ignore[dangerous-triggers] bot identity, same-repo branch, exact SHA, and package-only scope are verified before checkout
+    workflows: [build]
+    types: [completed]
+permissions: {}
+concurrency:
+  group: bot-pr-${{ github.event.workflow_run.head_branch }}
+  cancel-in-progress: false
+jobs:
+  inspect:
+    if: ${{ github.repository_id == '852828187' && github.event.workflow_run.event == 'pull_request' }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      pull-requests: read
+    outputs:
+      action: ${{ steps.inspect.outputs.action }}
+      reason: ${{ steps.inspect.outputs.reason }}
+      number: ${{ steps.inspect.outputs.number }}
+      package: ${{ steps.inspect.outputs.package }}
+      branch: ${{ steps.inspect.outputs.branch }}
+      head_sha: ${{ steps.inspect.outputs.head_sha }}
+      base_sha: ${{ steps.inspect.outputs.base_sha }}
+      attempt: ${{ steps.inspect.outputs.attempt }}
+      new_package: ${{ steps.inspect.outputs.new_package }}
+    steps:
+      - name: Inspect bot pull request
+        id: inspect
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            const run = context.payload.workflow_run;
+            let pullNumber = run.pull_requests?.[0]?.number;
+            if (!pullNumber) {
+              const pulls = await github.paginate(github.rest.pulls.list, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                state: "open",
+                head: `${context.repo.owner}:${run.head_branch}`,
+                per_page: 100,
+              });
+              pullNumber = pulls.find((pull) => pull.head.sha === run.head_sha)?.number;
+            }
+            if (!pullNumber) {
+              core.notice("Completed build is not associated with an open pull request");
+              return;
+            }
+
+            const { data: pull } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+            });
+            const labels = new Set(pull.labels.map((label) => label.name));
+            if (
+              pull.user?.id !== 304539431 ||
+              pull.head.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}` ||
+              !labels.has("bot") ||
+              (!labels.has("bot-deterministic") && !labels.has("bot-ai-repair"))
+            ) {
+              core.notice(`PR #${pullNumber} is not an owned package automation pull request`);
+              return;
+            }
+            if (pull.head.sha !== run.head_sha) {
+              core.notice(`PR #${pullNumber} advanced after build ${run.id}; ignoring stale result`);
+              return;
+            }
+
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+              per_page: 100,
+            });
+            const packages = new Set();
+            let packageOnly = files.length > 0 && files.length < 3000;
+            for (const file of files) {
+              for (const path of [file.filename, file.previous_filename].filter(Boolean)) {
+                const match = /^pkgs\/([a-z][a-z0-9_-]{0,63})\/.+/.exec(path);
+                if (!match) {
+                  packageOnly = false;
+                  break;
+                }
+                packages.add(match[1]);
+              }
+              if (!packageOnly) break;
+            }
+            packageOnly &&= packages.size === 1;
+            if (!packageOnly) {
+              core.notice(`PR #${pullNumber} is not confined to one package`);
+              return;
+            }
+            const packageName = [...packages][0];
+            const newPackage = /^bot\/package-issue-[1-9][0-9]*$/.test(pull.head.ref);
+            if (pull.head.ref !== `bot/${packageName}` && !newPackage) {
+              core.notice(`PR #${pullNumber} branch does not match package ${packageName}`);
+              return;
+            }
+
+            const commits = await github.paginate(github.rest.pulls.listCommits, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+              per_page: 100,
+            });
+            const repairPrefix = `bot repair(${packageName}):`;
+            const attempts = commits.filter((commit) => commit.commit.message.startsWith(repairPrefix)).length;
+            const nextAttempt = attempts + 1;
+            const setCommonOutputs = () => {
+              core.setOutput("number", String(pullNumber));
+              core.setOutput("package", packageName);
+              core.setOutput("branch", pull.head.ref);
+              core.setOutput("head_sha", pull.head.sha);
+              core.setOutput("base_sha", pull.base.sha);
+              core.setOutput("attempt", String(nextAttempt));
+              core.setOutput("new_package", newPackage ? "true" : "false");
+            };
+            setCommonOutputs();
+
+            if (run.conclusion === "success") {
+              core.setOutput("action", labels.has("bot-ai-repair") ? "review" : "merge");
+              return;
+            }
+
+            const jobs = await github.paginate(github.rest.actions.listJobsForWorkflowRun, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: run.id,
+              filter: "latest",
+              per_page: 100,
+            });
+            const successful = new Set(["success", "neutral", "skipped"]);
+            const failedJobs = jobs.filter((job) => !successful.has(job.conclusion));
+            const harness = jobs.find((job) => job.name === "harness");
+            const escapedPackage = packageName.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+            const packageBuild = new RegExp(`^atelier / Build / (?:packages|checks)\\.[^.]+\\.${escapedPackage}$`);
+            const packageFailures = failedJobs.filter((job) => packageBuild.test(job.name));
+            const atelierFailures = failedJobs.filter((job) => job.name.startsWith("atelier / "));
+            const onlyAtelierFailed = atelierFailures.length > 0 && atelierFailures.length === failedJobs.length;
+
+            if (harness?.conclusion !== "success") {
+              core.setOutput("action", "block");
+              core.setOutput("reason", `automation harness failed in build ${run.id}`);
+              return;
+            }
+            if (packageFailures.length > 0) {
+              if (attempts >= 3) {
+                core.setOutput("action", "block");
+                core.setOutput("reason", `package CI still fails after ${attempts} AI repair attempts`);
+              } else {
+                core.setOutput("action", "repair");
+                core.setOutput("reason", packageFailures.map((job) => job.name).join(", "));
+              }
+              return;
+            }
+            if (onlyAtelierFailed && Number(run.run_attempt || 1) < 2) {
+              core.setOutput("action", "rerun");
+              core.setOutput("reason", `retrying non-package Atelier failure: ${atelierFailures.map((job) => job.name).join(", ")}`);
+              return;
+            }
+            if (onlyAtelierFailed && attempts < 3) {
+              core.setOutput("action", "repair");
+              core.setOutput("reason", atelierFailures.map((job) => job.name).join(", "));
+              return;
+            }
+
+            core.setOutput("action", "block");
+            core.setOutput("reason", `build ${run.id} failed outside the package build: ${failedJobs.map((job) => job.name).join(", ")}`);
+  finish:
+    needs: inspect
+    if: needs.inspect.outputs.action == 'merge' || needs.inspect.outputs.action == 'review'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Request review for AI-assisted pull request
+        if: needs.inspect.outputs.action == 'review'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_NUMBER: ${{ needs.inspect.outputs.number }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const pullNumber = Number(process.env.PR_NUMBER);
+            const [{ data: requested }, reviews] = await Promise.all([
+              github.rest.pulls.listRequestedReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pullNumber,
+              }),
+              github.paginate(github.rest.pulls.listReviews, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pullNumber,
+                per_page: 100,
+              }),
+            ]);
+            const alreadyRequested = requested.users.some((user) => user.login === "codgician");
+            const latestReview = [...reviews].reverse().find((review) => review.user?.login === "codgician");
+            if (!alreadyRequested && latestReview?.state !== "APPROVED") {
+              await github.rest.pulls.requestReviewers({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pullNumber,
+                reviewers: ["codgician"],
+              });
+            }
+      - name: Enable auto-merge
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          PR_NUMBER: ${{ needs.inspect.outputs.number }}
+          REPOSITORY: ${{ github.repository }}
+        run: gh pr merge --repo "$REPOSITORY" --auto --squash "$PR_NUMBER"
+  rerun:
+    needs: inspect
+    if: needs.inspect.outputs.action == 'rerun'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Rerun failed jobs once
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        with:
+          script: |
+            await github.rest.actions.reRunWorkflowFailedJobs({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              run_id: context.payload.workflow_run.id,
+            });
+  repair:
+    needs: inspect
+    if: needs.inspect.outputs.action == 'repair'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    permissions:
+      actions: read
+      contents: read
+    env:
+      PACKAGE: ${{ needs.inspect.outputs.package }}
+      BASE_SHA: ${{ needs.inspect.outputs.base_sha }}
+      HEAD_SHA: ${{ needs.inspect.outputs.head_sha }}
+      REPAIR_ATTEMPT: ${{ needs.inspect.outputs.attempt }}
+      NEW_PACKAGE: ${{ needs.inspect.outputs.new_package }}
+    steps:
+      - name: Checkout failed revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.inspect.outputs.head_sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@ef8a148080ab6020fd15196c2084a2eea5ff2d25 # v22
+        with:
+          extra-conf: |
+            accept-flake-config = true
+            experimental-features = nix-command flakes
+      - name: Collect failed CI evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          REPOSITORY: ${{ github.repository }}
+          FAILURE_REASON: ${{ needs.inspect.outputs.reason }}
+        run: |
+          mkdir -p .ai-state
+          printf '\n.ai-state/\n' >> .git/info/exclude
+          gh run view "$RUN_ID" --repo "$REPOSITORY" --log-failed > .ai-state/ci-failure.log
+          jq -n \
+            --arg package "$PACKAGE" \
+            --arg head_sha "$HEAD_SHA" \
+            --arg base_sha "$BASE_SHA" \
+            --arg reason "$FAILURE_REASON" \
+            --argjson attempt "$REPAIR_ATTEMPT" \
+            '{package: $package, route: "pr-ci-repair", head_sha: $head_sha, base_sha: $base_sha, failure_reason: $reason, repair_attempt: $attempt, ci_log: ".ai-state/ci-failure.log"}' \
+            > .ai-state/state.json
+      - name: Record base package contract
+        if: needs.inspect.outputs.new_package != 'true'
+        run: |
+          git worktree add --detach "$RUNNER_TEMP/base" "$BASE_SHA"
+          nix eval --raw "$RUNNER_TEMP/base#$PACKAGE.version" > "$RUNNER_TEMP/old-version"
+          if ! nix eval --raw "$RUNNER_TEMP/base#$PACKAGE.meta.mainProgram" > "$RUNNER_TEMP/main-program" 2>/dev/null; then
+            printf 'none' > "$RUNNER_TEMP/main-program"
+          fi
+          git worktree remove "$RUNNER_TEMP/base"
+      - name: Repair pull request with Pi
+        env:
+          DENDRO_API_KEY: ${{ secrets.DENDRO_API_KEY }}
+        run: |
+          {
+            if [[ "$NEW_PACKAGE" == "true" ]]; then
+              cat .github/new-package-prompt.md
+            else
+              cat .github/evergreen-review-prompt.md
+            fi
+            printf "\n\nRepair attempt %s for package \`%s\` on an existing bot pull request. The candidate is committed at \`%s\`; compare it with base \`%s\` and read \`.ai-state/ci-failure.log\`.\n" \
+              "$REPAIR_ATTEMPT" "$PACKAGE" "$HEAD_SHA" "$BASE_SHA"
+          } > .ai-state/prompt.md
+          nix develop .# -c .github/scripts/run_pi_agent.sh .ai-state/prompt.md
+      - name: Validate repaired candidate
+        run: |
+          if [[ "$NEW_PACKAGE" == "true" ]]; then
+            git add -A -- "pkgs/$PACKAGE"
+            before=$(git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" | sha256sum)
+            nix develop .# -c .github/scripts/run_updater.sh "$PACKAGE"
+            outside=$(git status --porcelain --untracked-files=all -- . ":(exclude)pkgs/$PACKAGE/**")
+            if [[ -n "$outside" ]]; then
+              echo "Updater changed files outside pkgs/$PACKAGE:" >&2
+              printf '%s\n' "$outside" >&2
+              exit 1
+            fi
+            git add -A -- "pkgs/$PACKAGE"
+            after=$(git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" | sha256sum)
+            if [[ "$before" != "$after" ]]; then
+              echo "Updater changed the repaired package; it is not idempotent" >&2
+              exit 1
+            fi
+            nix fmt -- --ci "pkgs/$PACKAGE"
+            nix develop .# -c .github/scripts/validate_new_package.sh "$PACKAGE"
+          else
+            nix develop .# -c .github/scripts/validate_candidate.sh \
+              "$PACKAGE" \
+              "$(cat "$RUNNER_TEMP/main-program")" \
+              "$(cat "$RUNNER_TEMP/old-version")" \
+              "$RUNNER_TEMP/new-version"
+          fi
+          git add -A -- "pkgs/$PACKAGE"
+          git diff --cached --check
+          git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" > "$RUNNER_TEMP/repair.patch"
+      - name: Upload repair patch
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: bot-repair-${{ needs.inspect.outputs.number }}-${{ needs.inspect.outputs.attempt }}
+          path: ${{ runner.temp }}/repair.patch
+          if-no-files-found: error
+          retention-days: 1
+  publish-repair:
+    needs: [inspect, repair]
+    if: needs.repair.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+    env:
+      PACKAGE: ${{ needs.inspect.outputs.package }}
+      BRANCH: ${{ needs.inspect.outputs.branch }}
+      EXPECTED_HEAD: ${{ needs.inspect.outputs.head_sha }}
+      PR_NUMBER: ${{ needs.inspect.outputs.number }}
+      REPAIR_ATTEMPT: ${{ needs.inspect.outputs.attempt }}
+      NEW_PACKAGE: ${{ needs.inspect.outputs.new_package }}
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Checkout expected bot revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ needs.inspect.outputs.head_sha }}
+          fetch-depth: 1
+          persist-credentials: true
+          token: ${{ steps.app-token.outputs.token }}
+      - name: Download repair patch
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: bot-repair-${{ needs.inspect.outputs.number }}-${{ needs.inspect.outputs.attempt }}
+          path: ${{ runner.temp }}
+      - name: Verify current head and apply repair
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          current=$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq .head.sha)
+          if [[ "$current" != "$EXPECTED_HEAD" ]]; then
+            echo "PR #$PR_NUMBER advanced from $EXPECTED_HEAD to $current; refusing stale repair" >&2
+            exit 1
+          fi
+          git apply --index "$RUNNER_TEMP/repair.patch"
+          .github/scripts/validate_package_source.sh "pkgs/$PACKAGE"
+          while IFS= read -r path; do
+            if [[ "$path" != "pkgs/$PACKAGE/"* ]]; then
+              echo "Repair contains a path outside pkgs/$PACKAGE: $path" >&2
+              exit 1
+            fi
+          done < <(git diff --cached --name-only)
+          if git ls-files --stage -- "pkgs/$PACKAGE" | grep -q '^120000 '; then
+            echo "Package repairs may not contain symlinks" >&2
+            exit 1
+          fi
+          git diff --cached --check
+          git config user.name 'galactic-batter[bot]'
+          git config user.email '304539431+galactic-batter[bot]@users.noreply.github.com'
+          git commit -m "bot repair($PACKAGE): CI attempt $REPAIR_ATTEMPT"
+          git push origin "HEAD:refs/heads/$BRANCH"
+      - name: Mark pull request as AI-assisted
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_NUMBER: ${{ needs.inspect.outputs.number }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const pullNumber = Number(process.env.PR_NUMBER);
+            await github.rest.issues.setLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pullNumber,
+              labels: process.env.NEW_PACKAGE === "true" ? ["bot", "bot-ai-repair", "enhancement"] : ["bot", "bot-ai-repair"],
+            });
+            const { data: pull } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+            });
+            try {
+              await github.graphql(
+                `mutation($pullRequestId: ID!) {
+                  disablePullRequestAutoMerge(input: {pullRequestId: $pullRequestId}) {
+                    pullRequest { id }
+                  }
+                }`,
+                { pullRequestId: pull.node_id },
+              );
+            } catch (error) {
+              if (!/not enabled|not in the auto-merge queue/i.test(error.message)) throw error;
+            }
+  block:
+    needs: inspect
+    if: needs.inspect.outputs.action == 'block'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-pull-requests: write
+      - name: Report blocker once
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_NUMBER: ${{ needs.inspect.outputs.number }}
+          HEAD_SHA: ${{ needs.inspect.outputs.head_sha }}
+          REASON: ${{ needs.inspect.outputs.reason }}
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          script: |
+            const marker = `<!-- bot-ci-blocked:${process.env.HEAD_SHA} -->`;
+            const comments = await github.paginate(github.rest.issues.listComments, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(process.env.PR_NUMBER),
+              per_page: 100,
+            });
+            if (comments.some((comment) => comment.body?.includes(marker))) return;
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: Number(process.env.PR_NUMBER),
+              body: `${marker}\nBot automation is blocked on the current revision: ${process.env.REASON}`,
+            });

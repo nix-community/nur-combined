@@ -2,7 +2,7 @@
 
 ## Goal
 
-Create `pkgs/<package>/` for the request in `.ai-state/request.json`. Package the latest stable, non-draft, non-prerelease release from the canonical upstream repository. Discover all facts not present in the request from upstream evidence.
+Create or repair `pkgs/<package>/`. For an initial request, read `.ai-state/request.json`; for an existing bot pull request, start with `.ai-state/state.json`, its CI log, and the committed package changes. Package the latest stable, non-draft, non-prerelease release from the canonical upstream repository and discover missing facts from upstream evidence.
 
 ## Success criteria
 
