@@ -48,7 +48,8 @@
         "$config_file" \
         ${lib.escapeShellArg settingsFile} \
         "$config_state" \
-        "$config_backup"
+        "$config_backup"${lib.concatMapStrings (path: " \\
+        --api-key-file ${lib.escapeShellArg path}") cfg.apiKeysPaths}
 
       cd -- "$data_dir"
       exec ${lib.escapeShellArg (lib.getExe cfg.package)} \
@@ -100,6 +101,24 @@
       '';
     };
 
+    apiKeysPaths = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      example = ["/run/secrets/cliproxyapiplus-api-keys"];
+      description = ''
+        External files (outside the Nix store) containing API keys, one per
+        line. Files are read at every service start, in the given order, and
+        the keys are merged into the `api-keys` value of the writable
+        `config.yaml`. Blank lines and lines starting with `#` are ignored;
+        leading and trailing whitespace is trimmed. Duplicates are kept.
+        Symbolic links are followed, so sops-nix and agenix secrets can be
+        used. A missing or unreadable file aborts the service start. This
+        option is mutually exclusive with `settings.api-keys`. Changes to
+        these files take effect on the next service restart. The service
+        account must have read permission on the files.
+      '';
+    };
+
     env = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = {};
@@ -132,6 +151,14 @@
       {
         assertion = !builtins.any hasConfigArgument cfg.extraArgs;
         message = "services.cliproxyapiplus.extraArgs cannot override --config";
+      }
+      {
+        assertion = cfg.apiKeysPaths == [] || !(cfg.settings ? "api-keys");
+        message = "services.cliproxyapiplus.apiKeysPaths and services.cliproxyapiplus.settings.api-keys are mutually exclusive";
+      }
+      {
+        assertion = builtins.all (path: lib.hasPrefix "/" path && !isInStore path) cfg.apiKeysPaths;
+        message = "services.cliproxyapiplus.apiKeysPaths entries must be absolute paths outside the Nix store";
       }
     ];
   };

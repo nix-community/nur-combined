@@ -61,6 +61,23 @@ def load_yaml_mapping(path: Path, description: str) -> dict[str, Any]:
     return value
 
 
+def load_api_keys(paths: list[Path]) -> list[str]:
+    keys: list[str] = []
+    for path in paths:
+        if not path.exists() or not path.is_file():
+            raise ConfigError(f"API key file is not a readable regular file: {path}")
+        try:
+            with path.open("r", encoding="utf-8") as file:
+                for line in file:
+                    stripped = line.strip()
+                    if not stripped or stripped.startswith("#"):
+                        continue
+                    keys.append(stripped)
+        except (OSError, UnicodeError) as error:
+            raise ConfigError(f"could not read API key file {path}: {error}") from error
+    return keys
+
+
 def load_runtime_config(path: Path) -> dict[str, Any]:
     if path.is_symlink():
         raise ConfigError(f"runtime config is not a regular file: {path}")
@@ -252,6 +269,14 @@ def parse_arguments() -> argparse.Namespace:
     parser.add_argument("settings", type=Path, help="Declarative YAML settings")
     parser.add_argument("state", type=Path, help="Managed-path state file")
     parser.add_argument("backup", type=Path, help="One-time stateful backup")
+    parser.add_argument(
+        "--api-key-file",
+        type=Path,
+        action="append",
+        default=[],
+        dest="api_key_files",
+        help="External file with one API key per line (repeatable, order preserved)",
+    )
     return parser.parse_args()
 
 
@@ -277,10 +302,17 @@ def main() -> int:
             remove_path(runtime, old_path)
 
         merge(runtime, settings)
-        managed_paths = sorted(set(leaf_paths(settings)))
+        managed_paths = set(leaf_paths(settings))
+
+        if arguments.api_key_files:
+            api_keys = load_api_keys(arguments.api_key_files)
+            runtime["api-keys"] = api_keys
+            managed_paths.add(("api-keys",))
+
+        managed_path_list = sorted(managed_paths)
 
         back_up_initial_config(config_path, state_path, backup_path)
-        write_outputs(config_path, state_path, runtime, managed_paths)
+        write_outputs(config_path, state_path, runtime, managed_path_list)
     except (ConfigError, OSError) as error:
         print(f"cliproxyapiplus: {error}", file=sys.stderr)
         return 1

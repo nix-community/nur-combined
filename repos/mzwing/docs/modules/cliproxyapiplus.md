@@ -26,9 +26,9 @@ The NixOS module uses a systemd system service and the dedicated `cliproxyapiplu
       host = "localhost";
       port = 8317;
       auth-dir = "~/.cli-proxy-api";
-      api-keys = [
-        "replace-me"
-      ];
+      # api-keys = [
+      #   "replace-me"
+      # ];
       remote-management = {
         allow-remote = false;
         disable-control-panel = false;
@@ -36,6 +36,9 @@ The NixOS module uses a systemd system service and the dedicated `cliproxyapiplu
       };
       routing.strategy = "round-robin";
     };
+
+    # Mutually exclusive with settings.api-keys; read at every start.
+    # apiKeysPaths = ["/run/secrets/cliproxyapiplus-api-keys"];
 
     env.EXAMPLE = "example";
     extraArgs = ["--local-model"];
@@ -91,6 +94,9 @@ The module does not open firewall ports automatically. Open the configured liste
       routing.strategy = "round-robin";
     };
 
+    # Mutually exclusive with settings.api-keys; read at every start.
+    # apiKeysPaths = ["/run/secrets/cliproxyapiplus-api-keys"];
+
     env.EXAMPLE = "example";
     extraArgs = ["--local-model"];
   };
@@ -128,7 +134,7 @@ The runtime configuration and bookkeeping files use mode `0600`; the service use
 
 ## API keys and other secrets
 
-API keys are ordinary schema-agnostic settings:
+API keys can be declared as ordinary schema-agnostic settings:
 
 ```nix
 services.cliproxyapiplus.settings.api-keys = [
@@ -137,7 +143,31 @@ services.cliproxyapiplus.settings.api-keys = [
 ];
 ```
 
-The module intentionally provides no separate API key file or secret settings file. All values in `settings`, `env`, and `extraArgs` enter the Nix store. API keys and other secrets declared there are therefore visible to users that can read the corresponding store paths. They also exist as plaintext in `${services.cliproxyapiplus.dataDir}/config.yaml`, protected only by the service directory ownership, the `0077` umask, and file mode `0600`.
+All values in `settings`, `env`, and `extraArgs` enter the Nix store. API keys and other secrets declared there are therefore visible to users that can read the corresponding store paths. They also exist as plaintext in `${services.cliproxyapiplus.dataDir}/config.yaml`, protected only by the service directory ownership, the `0077` umask, and file mode `0600`.
+
+To keep API keys out of the Nix store, point `apiKeysPaths` at one or more external files instead:
+
+```nix
+services.cliproxyapiplus.apiKeysPaths = [
+  "/run/secrets/cliproxyapiplus-api-keys" # e.g. a sops-nix or agenix secret
+  "/srv/cliproxyapiplus/extra-keys.txt"
+];
+```
+
+Each file contains one API key per line:
+
+```text
+# shared with the staging deployment
+key-1
+
+key-2
+```
+
+Before every start the module reads the files in the listed order and merges their keys into the `api-keys` value of `config.yaml`. Blank lines and lines starting with `#` are ignored; leading and trailing whitespace is trimmed. Duplicate keys are kept. Symbolic links are followed, so sops-nix and agenix secrets work out of the box. If all files together yield no keys, `api-keys` is set to an empty list. A missing or unreadable file aborts the service start.
+
+`apiKeysPaths` is mutually exclusive with `settings.api-keys`; setting both fails the system evaluation. Every path must be absolute and outside the Nix store. Removing `apiKeysPaths` again removes the formerly managed `api-keys` value from `config.yaml` on the next start.
+
+Changes to these files do not restart the service automatically; restart it to pick up new keys. The `cliproxyapiplus` (NixOS) or `_cliproxyapiplus` (nix-darwin) service account must be able to read the files.
 
 Values written directly through CLIProxyAPIPlus's management API can remain outside the Nix store as long as their paths are not also declared in `settings`.
 
