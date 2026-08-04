@@ -24,6 +24,8 @@ python3Packages.buildPythonPackage (finalAttrs: {
 
   build-system = with python3Packages; [ poetry-core ];
 
+  pythonRelaxDeps = true;
+
   dependencies = with python3Packages; [
     requests
     chardet
