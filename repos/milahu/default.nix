@@ -740,6 +740,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   epub-toc = python3Packages.epub-toc;
 
+  fsindex = python3Packages.fsindex;
+
   deno = pkgs.deno // {
     pkgs = (pkgs.deno.pkgs or {}) // (
       callPackage ./pkgs/deno/pkgs { }
