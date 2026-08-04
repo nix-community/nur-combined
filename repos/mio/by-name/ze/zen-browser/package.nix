@@ -13,6 +13,8 @@
   python3Minimal,
   pkg-config,
   cargo,
+  imagemagick,
+  libicns,
 }:
 
 let
@@ -84,10 +86,16 @@ let
       rustPlatform.cargoSetupHook
       (writeScriptBin "iconutil" ''
         #!${runtimeShell}
+        if [ "$1" = "--convert" ] && [ "$2" = "icns" ] && [ "$3" = "--output" ]; then
+          exec ${libicns}/bin/png2icns "$4" $(ls "$5"/*.png | grep -v '@2x')
+        fi
         echo >&2 "$@"
       '')
       (writeScriptBin "sips" ''
         #!${runtimeShell}
+        if [ "$2" = "-Z" ]; then
+          exec ${imagemagick}/bin/magick "$1" -resize "$3x$3" "$5"
+        fi
         echo >&2 "$@"
       '')
     ];
