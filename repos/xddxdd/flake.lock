@@ -1,25 +1,5 @@
 {
   "nodes": {
-    "chinese-fonts-overlay": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1783394282,
-        "narHash": "sha256-aHKHSvTLProiVzyMKOo+nbRff9Ts3dTX9PpxlYcc084=",
-        "owner": "brsvh",
-        "repo": "chinese-fonts-overlay",
-        "rev": "da90d47fa1a6f8fbfcc5795bc9351c98142f37ea",
-        "type": "github"
-      },
-      "original": {
-        "owner": "brsvh",
-        "repo": "chinese-fonts-overlay",
-        "type": "github"
-      }
-    },
     "devshell": {
       "inputs": {
         "nixpkgs": [
@@ -226,7 +206,6 @@
     },
     "root": {
       "inputs": {
-        "chinese-fonts-overlay": "chinese-fonts-overlay",
         "devshell": "devshell",
         "flake-parts": "flake-parts",
         "nix-cachyos-kernel": "nix-cachyos-kernel",

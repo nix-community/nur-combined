@@ -5,10 +5,6 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # keep-sorted start block=yes
-    chinese-fonts-overlay = {
-      url = "github:brsvh/chinese-fonts-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
