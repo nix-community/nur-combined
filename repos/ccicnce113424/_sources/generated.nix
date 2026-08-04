@@ -54,13 +54,13 @@
   };
   enimul = {
     pname = "enimul";
-    version = "v0.4.0-alpha.3";
+    version = "v0.4.0-alpha.4";
     src = fetchFromGitHub {
       owner = "lzpls";
       repo = "enimul";
-      rev = "v0.4.0-alpha.3";
+      rev = "v0.4.0-alpha.4";
       fetchSubmodules = false;
-      sha256 = "sha256-iYmMc55+vncp2wiIVknWpcUYrTRT8LvKvPSVaNUvm78=";
+      sha256 = "sha256-I6gCVb3E0GAqT0CmMOf5HIdYHdAHqULAWwFzFtB+J+c=";
     };
   };
   fast-nix-gc = {
@@ -445,18 +445,18 @@
   };
   waywallen-bin = {
     pname = "waywallen-bin";
-    version = "0.2.6";
+    version = "0.3.0";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen/releases/download/v0.2.6/waywallen-0.2.6-x86_64.AppImage";
-      sha256 = "sha256-SAUUJN6ldS4Pn2kOpTYMD9/gOsEM+lLKsZDdXF+ocnw=";
+      url = "https://github.com/waywallen/waywallen/releases/download/v0.3.0/waywallen-0.3.0-x86_64.AppImage";
+      sha256 = "sha256-4Z5Mqeiuo4c/ioLZOoTQZtQf0qRSXBLzc5UqV1hhxO0=";
     };
   };
   waywallen-display-bin = {
     pname = "waywallen-display-bin";
-    version = "0.2.9";
+    version = "0.3.0";
     src = fetchurl {
-      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.2.9/waywallen-kde-0.2.9-x86_64-embed.zip";
-      sha256 = "sha256-6MijKLGYEc+nlfSwjTxt6AHvQGYBZPvWpmipIeX3vuE=";
+      url = "https://github.com/waywallen/waywallen-display/releases/download/v0.3.0/waywallen-kde-0.3.0-x86_64-embed.zip";
+      sha256 = "sha256-fS/jZA3WAqYZLhFtnv8TOfZgCrFe2GtAgz4UoEuIik0=";
     };
   };
   wild = {

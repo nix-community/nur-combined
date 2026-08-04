@@ -90,12 +90,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.4.0-alpha.3",
-            "sha256": "sha256-iYmMc55+vncp2wiIVknWpcUYrTRT8LvKvPSVaNUvm78=",
+            "rev": "v0.4.0-alpha.4",
+            "sha256": "sha256-I6gCVb3E0GAqT0CmMOf5HIdYHdAHqULAWwFzFtB+J+c=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.4.0-alpha.3"
+        "version": "v0.4.0-alpha.4"
     },
     "fast-nix-gc": {
         "cargoLock": {
@@ -733,11 +733,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-SAUUJN6ldS4Pn2kOpTYMD9/gOsEM+lLKsZDdXF+ocnw=",
+            "sha256": "sha256-4Z5Mqeiuo4c/ioLZOoTQZtQf0qRSXBLzc5UqV1hhxO0=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.2.6/waywallen-0.2.6-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.0/waywallen-0.3.0-x86_64.AppImage"
         },
-        "version": "0.2.6"
+        "version": "0.3.0"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
@@ -748,11 +748,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-6MijKLGYEc+nlfSwjTxt6AHvQGYBZPvWpmipIeX3vuE=",
+            "sha256": "sha256-fS/jZA3WAqYZLhFtnv8TOfZgCrFe2GtAgz4UoEuIik0=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.2.9/waywallen-kde-0.2.9-x86_64-embed.zip"
+            "url": "https://github.com/waywallen/waywallen-display/releases/download/v0.3.0/waywallen-kde-0.3.0-x86_64-embed.zip"
         },
-        "version": "0.2.9"
+        "version": "0.3.0"
     },
     "wild": {
         "cargoLock": {
