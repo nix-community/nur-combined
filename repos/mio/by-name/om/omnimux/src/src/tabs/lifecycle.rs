@@ -209,11 +209,11 @@ impl TerminalTabs {
     }
 
     pub(crate) fn submit_host_prompt(&mut self, window: &mut Window, cx: &mut Context<Self>) {
-        let input = self.host_input.read(cx).value().to_string();
-        let visible = crate::hosts::filter_hosts(crate::hosts::host_query(&input), &self.ssh_hosts);
+        let visible = self.get_visible_hosts(cx);
         let selected = visible
             .get(self.selected_host_index.min(visible.len().saturating_sub(1)))
-            .map(|s| s.as_str());
+            .map(|s| s.host.as_str());
+        let input = self.host_input.read(cx).value().to_string();
         let final_host = resolve_host(&input, selected);
         let host_opt = host_option(&final_host);
         self.open_tab_for_host(host_opt, window, cx);

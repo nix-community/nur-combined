@@ -11,7 +11,7 @@ pub fn render_host_prompt(
     cx: &mut Context<TerminalTabs>,
 ) -> impl IntoElement {
     let input = this.host_input.read(cx).value().to_string();
-    let visible = filter_hosts(host_query(&input), &this.ssh_hosts);
+    let visible = this.get_visible_hosts(cx);
     let prefix = host_prefix(&input);
 
     let mut list_div = div()
@@ -26,8 +26,8 @@ pub fn render_host_prompt(
             idx == this
                 .selected_host_index
                 .min(visible.len().saturating_sub(1));
-        let host_clone = host.clone();
-        let host_for_click = host.clone();
+        let host_clone = host.host.clone();
+        let host_for_click = host.host.clone();
         let prefix = prefix.clone();
         list_div = list_div.child(
             div()
@@ -41,6 +41,14 @@ pub fn render_host_prompt(
                     rgba(0x00000000)
                 })
                 .hover(|style| style.bg(if is_selected { colors.btn } else { colors.hover }))
+                .when(host.is_recent, |el| {
+                    let host_to_remove = host_for_click.clone();
+                    el.on_mouse_down(MouseButton::Right, cx.listener(move |this, _, _, cx| {
+                        crate::settings::remove_recent_host(&host_to_remove);
+                        this.ssh_hosts = TerminalTabs::get_available_hosts(&this.tabs, cx);
+                        cx.notify();
+                    }))
+                })
                 .on_click(cx.listener(move |this, _, window, cx| {
                     let final_host = if host_for_click == "localhost" {
                         "localhost".to_string()
@@ -50,7 +58,23 @@ pub fn render_host_prompt(
                     let host_opt = host_option(&final_host);
                     this.open_tab_for_host(host_opt, window, cx);
                 }))
-                .child(div().child(host_clone).text_color(colors.text)),
+                .child(
+                    div()
+                        .flex()
+                        .flex_row()
+                        .justify_between()
+                        .child(div().child(host_clone).text_color(colors.text))
+                        .child(
+                            div()
+                                .flex()
+                                .flex_row()
+                                .gap_2()
+                                .text_xs()
+                                .when(host.is_open, |el| el.child(div().child("Open").text_color(rgb(0x10b981))))
+                                .when(!host.is_open && host.is_recent, |el| el.child(div().child("Recent").text_color(colors.muted)))
+                                .when(!host.is_open && !host.is_recent && host.is_ssh_config, |el| el.child(div().child("SSH Config").text_color(colors.muted)))
+                        )
+                ),
         );
     }
 

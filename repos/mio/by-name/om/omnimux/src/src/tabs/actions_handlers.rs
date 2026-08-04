@@ -222,8 +222,7 @@ impl TerminalTabs {
     }
 
     pub(crate) fn host_list_down(&mut self, cx: &mut Context<Self>) {
-        let input = self.host_input.read(cx).value().to_string();
-        let visible = filter_hosts(host_query(&input), &self.ssh_hosts);
+        let visible = self.get_visible_hosts(cx);
         if self.selected_host_index + 1 < visible.len() {
             self.selected_host_index += 1;
             cx.notify();

@@ -16,11 +16,19 @@ pub fn host_prefix(input: &str) -> String {
     }
 }
 
-pub fn filter_hosts(query: &str, hosts: &[String]) -> Vec<String> {
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct HostItem {
+    pub host: String,
+    pub is_open: bool,
+    pub is_recent: bool,
+    pub is_ssh_config: bool,
+}
+
+pub fn filter_hosts(query: &str, hosts: &[HostItem]) -> Vec<HostItem> {
     let q = query.to_lowercase();
     hosts
         .iter()
-        .filter(|h| h.to_lowercase().contains(&q))
+        .filter(|h| h.host.to_lowercase().contains(&q))
         .cloned()
         .collect()
 }
@@ -78,9 +86,12 @@ mod tests {
 
     #[test]
     fn filter_hosts_case_insensitive() {
-        let hosts = vec!["WebServer".into(), "db.local".into()];
+        let hosts = vec![
+            HostItem { host: "WebServer".into(), is_open: false, is_recent: false, is_ssh_config: false },
+            HostItem { host: "db.local".into(), is_open: false, is_recent: false, is_ssh_config: false }
+        ];
         let filtered = filter_hosts("web", &hosts);
-        assert_eq!(filtered, vec!["WebServer".to_string()]);
+        assert_eq!(filtered[0].host, "WebServer".to_string());
     }
 
     #[test]

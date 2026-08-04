@@ -155,6 +155,19 @@ pub fn add_recent_host(host: &str) {
     }
 }
 
+pub fn remove_recent_host(host: &str) {
+    let mut recents = load_recent_hosts();
+    let initial_len = recents.len();
+    recents.retain(|h| h != host);
+    if recents.len() != initial_len {
+        let dir = config_dir();
+        let _ = std::fs::create_dir_all(&dir);
+        if let Ok(json) = serde_json::to_string_pretty(&recents) {
+            let _ = std::fs::write(dir.join("recent_hosts.json"), json);
+        }
+    }
+}
+
 pub fn save_settings_from_tabs(tabs: &crate::tabs::TerminalTabs) {
     let existing = load_settings();
     let settings = Settings {
