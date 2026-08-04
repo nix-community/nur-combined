@@ -14,7 +14,7 @@ diff --git a/modules/libpref/init/StaticPrefList.yaml b/modules/libpref/init/Sta
 index 3d33f9916a..5075d50766 100644
 --- a/modules/libpref/init/StaticPrefList.yaml
 +++ b/modules/libpref/init/StaticPrefList.yaml
-@@ -20873,6 +20873,193 @@
+@@ -20873,6 +20873,211 @@
    value: 20
    mirror: always
  
@@ -130,6 +130,24 @@ index 3d33f9916a..5075d50766 100644
 +- name: zoom.stealth.webgl.substitute_pixels
 +  type: RelaxedAtomicBool
 +  value: false
++  mirror: always
++
++# Per-profile font allow-list (comma-separated lowercase family names) = the set
++# the page may enumerate. Sampled by the Python _fpforge (core always +
++# conditioned optional subset) and applied to the native system font list AT
++# CONSTRUCTION (gfxPlatformFontList ctor) so it is set once at init with no
++# runtime font-list rebuild. Glyphs for these names come from the bundled fonts
++# in <GRE>/fonts. Empty = no filtering (vanilla).
++- name: zoom.stealth.font.fontlist
++  type: DataMutexString
++  value: ""
++  mirror: always
++
++# CSS system-ui generic family (e.g. "Segoe UI"). When set, the system-ui
++# generic resolves to exactly this family on every host. Empty = vanilla.
++- name: zoom.stealth.font.system_ui
++  type: DataMutexString
++  value: ""
 +  mirror: always
 +
 +# Canvas pixel substitution mode (Bool). When true, GetImageBuffer replaces

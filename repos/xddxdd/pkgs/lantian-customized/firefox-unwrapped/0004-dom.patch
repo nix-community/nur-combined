@@ -366,6 +366,55 @@ index fd69a573df..5273310f34 100644
    return ret;
  }
  
+@@ -5268,6 +5422,48 @@ UniquePtr<TextMetrics> CanvasRenderingContext2D::DrawOrMeasureText(
+         -processor.mBoundingBox.Y() - baselineAnchor;
+     double actualBoundingBoxDescent =
+         processor.mBoundingBox.YMost() + baselineAnchor;
++    // STEALTH: replace the host-engine vertical metrics with host-INDEPENDENT values
++    // from the font's OS/2 sfnt table, so every TextMetrics vertical field is
++    // byte-identical across hosts (DWrite vs FreeType vs CoreText) for a given bundled
++    // font + size. The width is already host-independent (HarfBuzz advance jitter, §5.2e).
++    // Horizontal text only; falls back to the native path if no usable OS/2 table.
++    gfxFloat emA, emD, maxA, maxD;
++    if (StaticPrefs::zoom_stealth_fpp_hw_seed() > 0 &&
++        fontOrientation == nsFontMetrics::eHorizontal &&
++        font->GetStealthHostIndepVMetrics(emA, emD, maxA, maxD)) {
++      gfxFloat hiAnchor;  // host-independent baseline anchor (mirrors baselineAnchor)
++      switch (state.textBaseline) {
++        case CanvasTextBaseline::Top:
++          hiAnchor = emA;
++          break;
++        case CanvasTextBaseline::Middle:
++          hiAnchor = (emA - emD) * 0.5;
++          break;
++        case CanvasTextBaseline::Bottom:
++          hiAnchor = -emD;
++          break;
++        case CanvasTextBaseline::Hanging:
++          hiAnchor = emA * 0.8;
++          break;
++        case CanvasTextBaseline::Ideographic:
++          hiAnchor = -emD;
++          break;
++        default:  // Alphabetic
++          hiAnchor = 0.0;
++          break;
++      }
++      return MakeUnique<TextMetrics>(
++          totalWidth, 0.0, totalWidth,  // width + actualBoundingBoxLeft/Right
++          maxA - hiAnchor,              // fontBoundingBoxAscent
++          maxD + hiAnchor,              // fontBoundingBoxDescent
++          emA - hiAnchor,               // actualBoundingBoxAscent (em-box bound)
++          emD + hiAnchor,               // actualBoundingBoxDescent
++          emA - hiAnchor,               // emHeightAscent
++          emD + hiAnchor,               // emHeightDescent
++          (emA * 0.8) - hiAnchor,       // hangingBaseline
++          0.0 - hiAnchor,               // alphabeticBaseline
++          (-emD) - hiAnchor);           // ideographicBaseline
++    }
+     return MakeUnique<TextMetrics>(
+         totalWidth, actualBoundingBoxLeft, actualBoundingBoxRight,
+         fontMetrics.maxAscent - baselineAnchor,   // fontBBAscent
 @@ -6734,6 +6930,26 @@ nsresult CanvasRenderingContext2D::GetImageDataArray(
                          aWidth * 4, SurfaceFormat::R8G8B8A8,
                          dstWriteRect.Size());
