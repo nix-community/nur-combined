@@ -199,7 +199,7 @@ stdenv.mkDerivation (finalAttrs: {
           # and the official AppImage also hardcodes --no-sandbox for the same reason.
           makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
             --add-flags $out/share/beam-studio/resources/app.asar \
-            --add-flags "''${NIXOS_OZONE_WL:+''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
+            --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
             --add-flags "--no-sandbox" \
             --set-default FONTCONFIG_FILE /etc/fonts/fonts.conf \
             --set-default FONTCONFIG_PATH /etc/fonts \

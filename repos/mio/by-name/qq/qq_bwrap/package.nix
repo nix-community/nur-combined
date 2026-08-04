@@ -315,7 +315,7 @@ stdenv.mkDerivation (finalAttrs: {
         --bind "''${INFO_DIR}" "''${INFO_DIR}" \
         --setenv INFO_FILE "''${INFO_FILE}" \
         "''${bwrap_flags[@]}" \
-        $out/libexec/qq_inner "''${electron_flags[@]}" "$@" &
+        @out@/libexec/qq_inner "''${electron_flags[@]}" "$@" &
 
     if [ "$?" -ne 0 ]; then
         rm "$INFO_FILE"
@@ -386,21 +386,24 @@ stdenv.mkDerivation (finalAttrs: {
     if [ "''${QQ_FIX_MAC}" == 1 ]; then
         ${
           if withMacFix then
-            ''exec $out/libexec/qq_mac_fix "$@"''
+            ''exec @out@/libexec/qq_mac_fix "$@"''
           else
             ''
               echo "WARNING: QQ_FIX_MAC is set, but qq_bwrap was not built with withMacFix=true."
               echo "Please rebuild with withMacFix=true to use MAC spoofing. Falling back to normal."
-              exec $out/libexec/qq_normal "$@"
+              exec @out@/libexec/qq_normal "$@"
             ''
         }
     else
-        exec $out/libexec/qq_normal "$@"
+        exec @out@/libexec/qq_normal "$@"
     fi
     EOF
 
-    chmod +x $out/libexec/* $out/bin/*
+    # Quoted heredocs leave $out literal; bake the real store path in.
+    substituteInPlace $out/bin/qq $out/libexec/qq_mac_fix \
+      --replace-fail '@out@' "$out"
 
+    chmod +x $out/libexec/* $out/bin/*
     runHook postInstall
   '';
 

@@ -7,6 +7,7 @@
   rustPlatform,
   vips,
   lib,
+  stdenv,
   fetchurl,
   callPackage,
   gitMinimal,
@@ -25,6 +26,52 @@ let
     url = "https://archive.mozilla.org/pub/firefox/releases/${firefoxVersion}/source/firefox-${firefoxVersion}.source.tar.xz";
     hash = "sha512-MQ0aont5Au9eBSli47fSgZ0PX25Zb93q/uU/Cek5DUgB9bZU9Moen9TBXHEkH8MYRK+qTQhvgsUbUWpAH75/QA==";
   };
+
+  # Surfer's async-icns invokes macOS iconutil/sips. On Darwin we provide
+  # working replacements; on Linux keep cheap no-ops (Mac icon generation is
+  # skipped there and we avoid pulling imagemagick/libicns into the build).
+  macIconTools =
+    if stdenv.hostPlatform.isDarwin then
+      [
+        (writeScriptBin "iconutil" ''
+          #!${runtimeShell}
+          set -euo pipefail
+          if [ "''${1-}" = "--convert" ] && [ "''${2-}" = "icns" ] && [ "''${3-}" = "--output" ]; then
+            out="$4"
+            iconset="$5"
+            shopt -s nullglob
+            inputs=()
+            for f in "$iconset"/*.png; do
+              case "$f" in
+                *@2x.png) continue ;;
+              esac
+              inputs+=("$f")
+            done
+            exec ${libicns}/bin/png2icns "$out" "''${inputs[@]}"
+          fi
+          echo >&2 "$@"
+        '')
+        (writeScriptBin "sips" ''
+          #!${runtimeShell}
+          set -euo pipefail
+          # async-icns: sips SOURCE -Z SIZE --out DEST
+          if [ "''${2-}" = "-Z" ] && [ "''${4-}" = "--out" ]; then
+            exec ${imagemagick}/bin/magick "$1" -resize "$3x$3" "$5"
+          fi
+          echo >&2 "$@"
+        '')
+      ]
+    else
+      [
+        (writeScriptBin "iconutil" ''
+          #!${runtimeShell}
+          echo >&2 "$@"
+        '')
+        (writeScriptBin "sips" ''
+          #!${runtimeShell}
+          echo >&2 "$@"
+        '')
+      ];
 
   patchedSurfer = buildNpmPackage {
     pname = "surfer-patched";
@@ -78,27 +125,16 @@ let
     cargoRoot = "tools/ffprefs";
 
     # Requires surfer deps still because surfer is still in package.json
-    nativeBuildInputs = patchedSurfer.nativeBuildInputs ++ [
-      cargo
-      gitMinimal
-      python3Minimal
-      rustPlatform.cargoCheckHook
-      rustPlatform.cargoSetupHook
-      (writeScriptBin "iconutil" ''
-        #!${runtimeShell}
-        if [ "$1" = "--convert" ] && [ "$2" = "icns" ] && [ "$3" = "--output" ]; then
-          exec ${libicns}/bin/png2icns "$4" $(ls "$5"/*.png | grep -v '@2x')
-        fi
-        echo >&2 "$@"
-      '')
-      (writeScriptBin "sips" ''
-        #!${runtimeShell}
-        if [ "$2" = "-Z" ]; then
-          exec ${imagemagick}/bin/magick "$1" -resize "$3x$3" "$5"
-        fi
-        echo >&2 "$@"
-      '')
-    ];
+    nativeBuildInputs =
+      patchedSurfer.nativeBuildInputs
+      ++ [
+        cargo
+        gitMinimal
+        python3Minimal
+        rustPlatform.cargoCheckHook
+        rustPlatform.cargoSetupHook
+      ]
+      ++ macIconTools;
 
     buildPhase = ''
       runHook preBuild

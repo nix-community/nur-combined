@@ -14,7 +14,6 @@
   yasm,
   nasm,
   pkg-config,
-  unzip,
   meson,
   fetchzip,
   writableTmpDirAsHomeHook,
@@ -76,7 +75,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     yasm
     nasm
     pkg-config
-    unzip
     meson
     writableTmpDirAsHomeHook
   ];
@@ -94,9 +92,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1
     cp -r ${finalAttrs.ffmpegSrc}/* submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1/
 
-    # Allow scripts to find xcrun and xcodebuild on the host
+    # Prefer macOS BSD ln/tar over Nix GNU tools (scripts use ln -sfh, tar-on-zip).
+    # Keep GNU cp: BSD cp -a dir/ dest/ copies contents, while GNU nests as dest/dir/,
+    # and libopus/webrtc include paths are tuned for the GNU layout.
+    # Keep the rest of Nix PATH ahead of /usr/bin so gnused etc. stay available.
+    mkdir -p "$TMPDIR/macos-bin"
+    ln -sf /bin/ln /usr/bin/tar "$TMPDIR/macos-bin/"
     export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
-    export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin
+    export PATH="$TMPDIR/macos-bin:$PATH:/usr/bin:/bin:/usr/sbin:/sbin"
 
     # CoreFoundation uses the user database for home dir, override it:
     export CFFIXED_USER_HOME=$HOME
@@ -108,19 +111,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     substituteInPlace submodules/telegram-ios/third-party/mozjpeg/mozjpeg/CMakeLists.txt \
       --replace-warn "cmake_minimum_required(VERSION 2.8.12)" "cmake_minimum_required(VERSION 3.5)"
 
-    # Fix libwebp ZIP extraction (Nix GNU tar does not support ZIP, use unzip)
-    substituteInPlace core-xprojects/libwebp/libwebp/build*.sh \
-      --replace-warn 'tar -xzf "$SOURCE_ARCHIVE" --directory "$OUT_DIR"' 'unzip -q "$SOURCE_ARCHIVE" -d "$OUT_DIR"'
-
-    # Fix webrtc build script to correctly copy source directory contents (avoids missing CMakeLists.txt)
+    # Copy contents into existing build dirs (avoids nesting the source basename inside BUILD_DIR)
     substituteInPlace core-xprojects/webrtc/webrtc/build.sh \
       --replace-warn 'cp -R $SOURCE_DIR $BUILD_DIR' 'cp -R "$SOURCE_DIR"/. "$BUILD_DIR"/'
 
-    # Fix Mozjpeg build script for GNU cp
     substituteInPlace core-xprojects/Mozjpeg/Mozjpeg/build.sh \
       --replace-warn 'mozjpeg/" "''${BUILD_DIR}build/"' 'mozjpeg/"/. "''${BUILD_DIR}build/"'
 
-    # Fix webrtc libopus include path
+    # GNU cp nests libopus headers at .../include/opus/include/; match that here.
     substituteInPlace core-xprojects/webrtc/webrtc.xcodeproj/project.pbxproj \
       --replace-warn 'libopus/build/libopus/include/opus' 'libopus/build/libopus/include/opus/include'
 
@@ -187,10 +185,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p submodules/telegram-ios/submodules/OpusBinding/SharedHeaders/libopus/include/opus
     find . -name "opus*.h" -exec cp {} submodules/telegram-ios/submodules/OpusBinding/SharedHeaders/libopus/include/opus/ \;
 
-    # Fix Sparkle using BSD ln -sfh instead of GNU ln -sfn (coreutils)
-    find submodules -name "project.pbxproj" -exec substituteInPlace {} \
-      --replace-warn 'ln -sfh' 'ln -sfn' \;
-
     # Xcode's metal stub is broken even after `xcodebuild -downloadComponent MetalToolchain`.
     # Precompile with the working Shared Metal toolchain, then hide sources so xcodebuild
     # does not invoke CompileMetalFile.
@@ -215,10 +209,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
       $METALLIB MetalFunctions.air -o MetalFunctions.metallib
     fi
 
-    # Hide metal sources so Xcode skips CompileMetalFile; keep copies as resources for Bundle.module
+    # Hide metal sources so Xcode skips CompileMetalFile; keep copies as resources for Bundle.module.
+    # substituteInPlace is a shell function — cannot use it with find -exec; use gnused instead.
     find . -name "*.metal" -exec mv {} {}.txt \;
-    find . -name "Package.swift" -exec substituteInPlace {} \
-      --replace-warn '.metal"' '.metal.txt"' \;
+    find . -name 'Package.swift' -exec sed -i 's/\.metal"/.metal.txt"/g' {} +
     sed -i '/MetalFunctions.metal in Sources/d' Telegram.xcodeproj/project.pbxproj || true
 
     # Xcode 26 rejects Firebase/Google SPM frameworks that use iOS-style shallow bundles on macOS.
@@ -287,8 +281,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     set -e
     if [ "$xcstatus" -ne 0 ]; then
       deepen_embedded_frameworks build/Build/Products/Release/Telegram.app
-      if [ ! -d build/Build/Products/Release/Telegram.app/Contents/MacOS ]; then
-        echo "xcodebuild failed before producing Telegram.app" >&2
+      if [ ! -x build/Build/Products/Release/Telegram.app/Contents/MacOS/Telegram ]; then
+        echo "xcodebuild failed before producing Telegram.app binary" >&2
         exit "$xcstatus"
       fi
       for fw in build/Build/Products/Release/Telegram.app/Contents/Frameworks/*.framework; do
@@ -303,6 +297,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
             ;;
         esac
       done
+    fi
+
+    if [ ! -x build/Build/Products/Release/Telegram.app/Contents/MacOS/Telegram ]; then
+      echo "Telegram.app binary missing after build" >&2
+      exit 1
     fi
 
     # Inject precompiled metallibs into SPM resource bundles / app
