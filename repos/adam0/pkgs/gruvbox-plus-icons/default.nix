@@ -2,7 +2,6 @@
   # keep-sorted start
   fetchFromGitHub,
   folder-color ? "plasma",
-  gnome-icon-theme,
   gtk3,
   hicolor-icon-theme,
   kdePackages ? null,
@@ -34,7 +33,6 @@ in
     propagatedBuildInputs = [
       # keep-sorted start
       breeze-icons
-      gnome-icon-theme
       hicolor-icon-theme
       # keep-sorted end
     ];
