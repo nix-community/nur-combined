@@ -35,9 +35,18 @@ stdenv.mkDerivation {
     # license dir. Rebuild a thin /usr with a relative lib->lib64 link and a real
     # lib64/license mount point so the later --ro-bind succeeds on the read-only tree.
     mkdir -p "$wechat_root/fhs-usr/lib64/license"
+    # fhs-usr/bin must be a real directory (not a symlink) so that bwrap can
+    # shadow individual files (e.g. /usr/bin/lsblk) inside an already-mounted
+    # read-only /usr bind.  Same reason lib64 is expanded rather than symlinked.
+    mkdir -p "$wechat_root/fhs-usr/bin"
     for entry in "${wechat.fhsenv}"/usr/*; do
       name=$(basename "$entry")
       case "$name" in
+        bin)
+          for binentry in "$entry"/*; do
+            ln -s "$binentry" "$wechat_root/fhs-usr/bin/$(basename "$binentry")"
+          done
+          ;;
         lib)
           ln -s lib64 "$wechat_root/fhs-usr/lib"
           ;;

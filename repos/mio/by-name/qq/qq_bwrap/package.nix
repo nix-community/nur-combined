@@ -124,7 +124,8 @@ stdenv.mkDerivation {
         --new-session --cap-drop ALL --unshare-user-try --unshare-pid --unshare-cgroup-try \
         --ro-bind /nix /nix \
         --ro-bind-try /bin /bin \
-        --ro-bind-try /usr/bin /usr/bin \
+        --tmpfs /usr/bin \
+        --ro-bind-try /usr/bin/env /usr/bin/env \
         --ro-bind @out@/libexec/qq-xdg-open /usr/bin/xdg-open \
         --ro-bind-try /etc/machine-id /etc/machine-id \
         --ro-bind-try /etc/passwd /etc/passwd \
@@ -276,7 +277,8 @@ stdenv.mkDerivation {
           --cap-add CAP_NET_ADMIN,CAP_NET_RAW,CAP_SYS_ADMIN \
           --ro-bind /nix /nix \
           --ro-bind-try /bin /bin \
-          --ro-bind-try /usr/bin /usr/bin \
+          --tmpfs /usr/bin \
+          --ro-bind-try /usr/bin/env /usr/bin/env \
           --ro-bind @out@/libexec/qq-xdg-open /usr/bin/xdg-open \
           --ro-bind-try /etc/machine-id /etc/machine-id \
           --ro-bind-try /etc/passwd /etc/passwd \
