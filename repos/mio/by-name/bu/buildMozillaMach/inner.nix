@@ -247,10 +247,12 @@ let
   # Compile the wasm32 sysroot to build the RLBox Sandbox
   # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/
   # We only link c++ libs here, our compiler wrapper can find wasi libc and crt itself.
+  # LLVM 22.1 renamed wasm32-wasi -> wasm32-wasip1; Firefox (clang>=22.1) and our
+  # clang wrapper both look under lib/wasm32-wasip1 (see nixpkgs buildMozillaMach).
   wasiSysRoot = runCommand "wasi-sysroot" { } ''
-    mkdir -p $out/lib/wasm32-wasi
-    for lib in ${pkgsCross.wasi32.llvmPackages.libcxx}/lib/*; do
-      ln -s $lib $out/lib/wasm32-wasi
+    mkdir -p $out/lib/wasm32-wasip1
+    for lib in ${pkgsCross.wasm32-wasip1.llvmPackages.libcxx}/lib/*; do
+      ln -s $lib $out/lib/wasm32-wasip1
     done
   '';
 
@@ -429,8 +431,8 @@ buildStdenv.mkDerivation {
     export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE=system
 
     # RBox WASM Sandboxing
-    export WASM_CC=${pkgsCross.wasi32.stdenv.cc}/bin/${pkgsCross.wasi32.stdenv.cc.targetPrefix}cc
-    export WASM_CXX=${pkgsCross.wasi32.stdenv.cc}/bin/${pkgsCross.wasi32.stdenv.cc.targetPrefix}c++
+    export WASM_CC=${pkgsCross.wasm32-wasip1.stdenv.cc}/bin/${pkgsCross.wasm32-wasip1.stdenv.cc.targetPrefix}cc
+    export WASM_CXX=${pkgsCross.wasm32-wasip1.stdenv.cc}/bin/${pkgsCross.wasm32-wasip1.stdenv.cc.targetPrefix}c++
   ''
   + lib.optionalString pgoSupport ''
     if [ -e "$TMPDIR/merged.profdata" ]; then

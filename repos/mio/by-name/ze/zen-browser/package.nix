@@ -12,9 +12,7 @@
   gitMinimal,
   python3Minimal,
   pkg-config,
-  nixosTests,
   cargo,
-  runCommand,
 }:
 
 let
@@ -38,13 +36,11 @@ let
     };
 
     nativeBuildInputs = [ pkg-config ];
-    # TODO: this should be in nativeBuildInputs, since sharp is only used during build, but it doesn't seem to be
-    # visible in there. why not?
+    # TODO: this should be in nativeBuildInputs, since sharp is only used during
+    # build, but it doesn't seem to be visible in there. why not?
     buildInputs = [ vips ];
 
-    patches = [
-      ./patch-surfer-git-usage.patch
-    ];
+    patches = [ ./patch-surfer-git-usage.patch ];
 
     npmDepsHash = "";
     makeCacheWritable = true;
@@ -69,7 +65,6 @@ let
     '';
 
     npmDepsHash = "sha256-rfVWUQxCBZGIM7QHYxQlTYd6yWH5fIY74yhGU0ZY4rQ=";
-
     makeCacheWritable = true;
 
     # NOTE: this is used for the ffprefs step.
@@ -125,72 +120,43 @@ let
     dontFixup = true;
   });
 in
-(
-  (buildMozillaMach {
-    pname = "zen-browser";
-    packageVersion = version;
-    version = firefoxVersion;
-    applicationName = "zen";
-    branding = "browser/branding/release";
-    requireSigning = false;
-    allowAddonSideload = true;
+(buildMozillaMach {
+  pname = "zen-browser";
+  packageVersion = version;
+  version = firefoxVersion;
+  applicationName = "Zen";
+  binaryName = "zen";
+  branding = "browser/branding/release";
+  requireSigning = false;
+  allowAddonSideload = true;
 
-    src = patchedSrc;
+  src = patchedSrc;
 
-    extraConfigureFlags = [
-      "--with-app-basename=Zen"
+  extraConfigureFlags = [
+    "--with-app-basename=Zen"
+  ];
+
+  updateScript = callPackage ./update.nix {
+    attrPath = "zen-browser";
+  };
+
+  meta = {
+    description = "Firefox based browser with a focus on privacy and customization";
+    homepage = "https://zen-browser.app";
+    changelog = "https://zen-browser.app/release-notes/#${version}";
+    maintainers = with lib.maintainers; [
+      matthewpi
+      titaniumtown
+      eveeifyeve
     ];
-
-    tests = { inherit (nixosTests) zen-browser; };
-    updateScript = callPackage ./update.nix { };
-
-    meta = {
-      description = "Firefox based browser with a focus on privacy and customization";
-      homepage = "https://zen-browser.app";
-      downloadPage = "https://zen-browser.app/download";
-      changelog = "https://zen-browser.app/release-notes/#${version}";
-      maintainers = with lib.maintainers; [
-        matthewpi
-        titaniumtown
-        eveeifyeve
-      ];
-      platforms = lib.platforms.linux ++ lib.platforms.darwin;
-      maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
-      updateScript = callPackage ./update.nix {
-        attrPath = "zen-browser-unwrapped";
-      };
-      license = lib.licenses.mpl20;
-      mainProgram = "firefox";
-    };
-
-  }).overrideAttrs
-  (old: {
-    configureFlags = lib.map (
-      f:
-      if lib.hasPrefix "--with-wasi-sysroot=" f then
-        let
-          originalWasiSysRoot = lib.removePrefix "--with-wasi-sysroot=" f;
-          newWasiSysRoot = runCommand "wasi-sysroot-fixed" { } ''
-            cp -rs ${originalWasiSysRoot} $out
-            chmod -R +w $out/lib
-            cd $out/lib
-            if [ -d "wasm32-wasi" ]; then
-              ln -s wasm32-wasi wasm32-wasip1
-              ln -s wasm32-wasi wasm32-unknown-wasi
-              ln -s wasm32-wasi wasm32-unknown-wasip1
-            elif [ -d "wasm32-wasip1" ]; then
-              ln -s wasm32-wasip1 wasm32-wasi
-              ln -s wasm32-wasip1 wasm32-unknown-wasi
-              ln -s wasm32-wasip1 wasm32-unknown-wasip1
-            fi
-          '';
-        in
-        "--with-wasi-sysroot=${newWasiSysRoot}"
-      else
-        f
-    ) old.configureFlags;
-  })
-).override
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
+    # since Firefox 60, build on 32-bit platforms fails with "out of memory".
+    # not in `badPlatforms` because cross-compilation on 64-bit machine might work.
+    maxSilent = 14400; # 4h, double the default of 7200s (c.f. #129212, #129115)
+    license = lib.licenses.mpl20;
+    mainProgram = "zen";
+  };
+}).override
   {
     crashreporterSupport = false;
     enableOfficialBranding = false;
