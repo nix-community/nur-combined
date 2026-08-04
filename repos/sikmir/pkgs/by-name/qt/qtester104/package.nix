@@ -3,6 +3,7 @@
   stdenv,
   fetchFromGitHub,
   qt6,
+  xcbuild,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -21,6 +22,9 @@ stdenv.mkDerivation (finalAttrs: {
   nativeBuildInputs = [
     qt6.qmake
     qt6.wrapQtAppsHook
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    xcbuild # for plutil
   ];
 
   postInstall = ''
