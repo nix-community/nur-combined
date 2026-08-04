@@ -1,0 +1,44 @@
+--- a/src/headers/paridecl.h
++++ b/src/headers/paridecl.h
+@@ -1751,6 +1751,11 @@ GEN     galoischarpoly(GEN gal, GEN ch, long o);
+ GEN     galoischartable(GEN gal);
+ GEN     nfgrunwaldwang(GEN nf0, GEN Lpr, GEN Ld, GEN pl, long var);
+ GEN     nfgwkummer(GEN nf, GEN Lpr, GEN Ld, GEN pl, long var);
++ 
++/* https://github.com/ericahlqvist/Massey-pari/commit/59de86167115b7795237d53aff2d2192d784e33a */
++GEN     allauts(GEN rnf, GEN aut);
++long    cyclicrelfrob(GEN rnf, GEN auts, GEN pr);
++GEN     rnfcycaut(GEN rnf);
+ 
+ /* alglin1.c */
+ 
+--- a/src/modules/algebras.c
++++ b/src/modules/algebras.c
+@@ -4009,7 +4009,7 @@ cyclicrelfrob0(GEN nf, GEN aut, GEN pr, GEN q, long f, long g)
+   return g * Fl_inv(s, f); /* < n */
+ }
+ 
+-static long
++long
+ cyclicrelfrob(GEN rnf, GEN auts, GEN pr)
+ {
+   pari_sp av = avma;
+@@ -4068,7 +4068,7 @@ localhasse(GEN rnf, GEN cnd, GEN pl, GEN auts, GEN b, long k)
+   return gc_long(av, Fl_neg(h,n));
+ }
+ 
+-static GEN
++GEN
+ allauts(GEN rnf, GEN aut)
+ {
+   long n = rnf_get_degree(rnf), i;
+@@ -4360,7 +4360,7 @@ genefrob(GEN nf, GEN gal, GEN r)
+   return g;
+ }
+ 
+-static GEN
++GEN
+ rnfcycaut(GEN rnf)
+ {
+   GEN nf2 = obj_check(rnf, rnf_NFABS);
+

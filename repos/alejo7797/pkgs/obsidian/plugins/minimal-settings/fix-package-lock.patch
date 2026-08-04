@@ -1,0 +1,26 @@
+diff --git a/package-lock.json b/package-lock.json
+index 1ff5c84..67092f6 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -11,7 +11,7 @@
+       "devDependencies": {
+         "@types/node": "^16.11.6",
+         "esbuild": "0.13.12",
+-        "obsidian": "latest",
++        "obsidian": "^1.6.6",
+         "tslib": "2.3.1",
+         "typescript": "^5.5.3"
+       }
+@@ -325,9 +325,9 @@
+       }
+     },
+     "node_modules/obsidian": {
+-      "version": "1.5.7-1",
+-      "resolved": "https://registry.npmjs.org/obsidian/-/obsidian-1.5.7-1.tgz",
+-      "integrity": "sha512-T5ZRuQ1FnfXqEoakTTHVDYvzUEEoT8zSPnQCW31PVgYwG4D4tZCQfKHN2hTz1ifnCe8upvwa6mBTAP2WUA5Vng==",
++      "version": "1.6.6",
++      "resolved": "https://registry.npmjs.org/obsidian/-/obsidian-1.6.6.tgz",
++      "integrity": "sha512-GZHzeOiwmw/wBjB5JwrsxAZBLqxGQmqtEKSvJJvT0LtTcqeOFnV8jv0ZK5kO7hBb44WxJc+LdS7mZgLXbb+qXQ==",
+       "dev": true,
+       "dependencies": {
+         "@types/codemirror": "5.60.8",
