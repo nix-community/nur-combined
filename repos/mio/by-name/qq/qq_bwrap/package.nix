@@ -12,6 +12,7 @@
   bindDocuments ? false,
   slirp4netns,
   socat,
+  xdg-user-dirs,
 }:
 
 # Adapted from https://aur.archlinux.org/packages/linuxqq-nt-bwrap
@@ -93,8 +94,8 @@ stdenv.mkDerivation {
     _qq_xdg_dir() {
         # $1: env var name, $2: xdg-user-dir key, $3: fallback under $HOME
         local dir="''${!1:-}"
-        if [ -z "''${dir}" ] && command -v xdg-user-dir >/dev/null 2>&1; then
-            dir="$(xdg-user-dir "$2" 2>/dev/null || true)"
+        if [ -z "''${dir}" ]; then
+            dir="$(@xdgUserDir@ "$2" 2>/dev/null || true)"
         fi
         printf '%s\n' "''${dir:-$HOME/$3}"
     }
@@ -455,7 +456,8 @@ stdenv.mkDerivation {
     substituteInPlace $out/libexec/qq-setup-user-dirs.sh \
       --replace-fail '@bindDownloads@' '${if bindDownloads then "1" else "0"}' \
       --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
-      --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}'
+      --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}' \
+      --replace-fail '@xdgUserDir@' '${xdg-user-dirs}/bin/xdg-user-dir'
 
     chmod +x $out/libexec/* $out/bin/*
     runHook postInstall

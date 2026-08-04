@@ -7,6 +7,7 @@
   wechat,
   bubblewrap,
   flatpak-xdg-utils,
+  xdg-user-dirs,
   # Overlay real XDG dirs into the fake sandbox $HOME for send-file.
   bindDownloads ? true,
   bindDesktop ? false,
@@ -89,7 +90,8 @@ stdenv.mkDerivation {
       --replace-fail '--ro-bind "''${XDG_RUNTIME_DIR}/pulse"{,}' '--ro-bind-try "''${XDG_RUNTIME_DIR}/pulse"{,}' \
       --replace-fail '@bindDownloads@' '${if bindDownloads then "1" else "0"}' \
       --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
-      --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}'
+      --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}' \
+      --replace-fail '@xdgUserDir@' '${xdg-user-dirs}/bin/xdg-user-dir'
 
     mkdir -p $out/bin
     ln -s $wechat_root/common.sh $out/bin/wechat-universal

@@ -67,7 +67,7 @@ try_start() {
     if [[ "${WECHAT_DATA_DIR}" ]]; then
         WECHAT_DATA_DIR=$(readlink -f -- "${WECHAT_DATA_DIR}")
     else
-        XDG_DOCUMENTS_DIR="${XDG_DOCUMENTS_DIR:-$(xdg-user-dir DOCUMENTS)}"
+        XDG_DOCUMENTS_DIR="${XDG_DOCUMENTS_DIR:-$(@xdgUserDir@ DOCUMENTS)}"
         if [[ -z "${XDG_DOCUMENTS_DIR}" ]]; then
             echo 'Error: Failed to get XDG_DOCUMENTS_DIR, refuse to continue'
             exit 1
@@ -78,9 +78,9 @@ try_start() {
     WECHAT_FILES_DIR="${WECHAT_DATA_DIR}/xwechat_files"
     WECHAT_HOME_DIR="${WECHAT_DATA_DIR}/home"
 
-    # Runtime folder setup
-    XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-$(xdg-user-dir RUNTIME)}"
-    if [[ -z "${XDG_RUNTIME_DIR}" ]]; then
+    # Runtime folder setup (not an xdg-user-dir key; prefer env /run/user)
+    XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+    if [[ -z "${XDG_RUNTIME_DIR}" || ! -d "${XDG_RUNTIME_DIR}" ]]; then
         echo 'Error: Failed to get XDG_RUNTIME_DIR, refuse to continue'
         exit 1
     fi
@@ -249,8 +249,8 @@ try_start() {
     _wechat_xdg_dir() {
         # $1: env var name, $2: xdg-user-dir key, $3: fallback under $HOME
         local dir="${!1:-}"
-        if [[ -z "${dir}" ]] && command -v xdg-user-dir >/dev/null 2>&1; then
-            dir="$(xdg-user-dir "$2" 2>/dev/null || true)"
+        if [[ -z "${dir}" ]]; then
+            dir="$(@xdgUserDir@ "$2" 2>/dev/null || true)"
         fi
         printf '%s\n' "${dir:-$HOME/$3}"
     }
