@@ -3,43 +3,53 @@
   stdenv,
   fetchFromGitHub,
   cmake,
-  ninja,
-  jdk17,
-  stripJavaArchivesHook,
-  kdePackages,
-  cmark,
-  qrencode,
-  zlib,
-  tomlplusplus,
-  ghc_filesystem,
-  libarchive,
   pkg-config,
-  darwin,
+  cmark,
   gamemode,
+  jdk17,
+  kdePackages,
+  libarchive,
+  ninja,
+  nix-update-script,
+  qrencode,
+  stripJavaArchivesHook,
+  tomlplusplus,
+  zlib,
   msaClientID ? null,
-  gamemodeSupport ? stdenv.hostPlatform.isLinux,
 }:
-
 let
-  isDarwin = stdenv.hostPlatform.isDarwin;
+  libnbtplusplus = fetchFromGitHub {
+    owner = "FreesmTeam";
+    repo = "libnbtplusplus";
+    rev = "687e43031df0dc641984b4256bcca50d5b3f7de3";
+    hash = "sha256-7itkptyjoRcXfGLwg1/jxajetZ3a4mDc66+w4X6yW8s=";
+  };
 in
-assert lib.assertMsg (
-  gamemodeSupport -> stdenv.hostPlatform.isLinux
-) "gamemodeSupport only on linux";
-stdenv.mkDerivation {
+stdenv.mkDerivation (finalAttrs: {
   pname = "freesmlauncher-unwrapped";
   version = "2.2.2";
 
   src = fetchFromGitHub {
     owner = "FreesmTeam";
     repo = "FreesmLauncher";
-    rev = "2.2.2";
-    fetchSubmodules = true;
-    hash = "sha256-6GvKLoyW46DjXK5N6LmnyNVeRJ2miuzGnVurajzekNQ=";
+    tag = finalAttrs.version;
+    hash = "sha256-FPBifWh/1hOhUpEl+eoB685T9lP5lSA9FQHQeFBJu24=";
   };
+
+  postUnpack = ''
+    rm -rf source/libraries/libnbtplusplus
+    ln -s ${libnbtplusplus} source/libraries/libnbtplusplus
+  '';
+
+  # Ensure that instance shortcuts point to our final wrapper, rather than this unwrapped version
+  postPatch = ''
+    substituteInPlace launcher/minecraft/ShortcutUtils.cpp \
+      --replace-fail 'QApplication::applicationFilePath()' 'QProcessEnvironment::systemEnvironment().value("NIX_LAUNCHER_WRAPPER", "${placeholder "out"}/bin/freesmlauncher")'
+  '';
 
   nativeBuildInputs = [
     cmake
+    pkg-config
     ninja
     kdePackages.extra-cmake-modules
     jdk17
@@ -48,37 +58,37 @@ stdenv.mkDerivation {
 
   buildInputs = [
     cmark
-    ghc_filesystem
     kdePackages.qtbase
     kdePackages.qtnetworkauth
-    kdePackages.quazip
     libarchive
-    tomlplusplus
-    pkg-config
     qrencode
+    tomlplusplus
     zlib
   ]
-  ++ lib.optionals isDarwin [ darwin.apple_sdk.frameworks.Cocoa ]
-  ++ lib.optionals gamemodeSupport [ gamemode ];
+  ++ lib.optional stdenv.hostPlatform.isLinux gamemode;
 
   cmakeFlags = [
+    # downstream branding
     (lib.cmakeFeature "Launcher_BUILD_PLATFORM" "nixpkgs")
   ]
   ++ lib.optionals (msaClientID != null) [
-    (lib.cmakeFeature "Launcher_MSA_CLIENT_ID" msaClientID)
-  ]
-  ++ lib.optionals (lib.versionOlder kdePackages.qtbase.version "6") [
-    (lib.cmakeFeature "Launcher_QT_VERSION_MAJOR" "5")
+    (lib.cmakeFeature "Launcher_MSA_CLIENT_ID" (toString msaClientID))
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    # we wrap our binary manually
     (lib.cmakeFeature "INSTALL_BUNDLE" "nodeps")
+    # disable built-in updater
     (lib.cmakeFeature "MACOSX_SPARKLE_UPDATE_FEED_URL" "''")
     (lib.cmakeFeature "CMAKE_INSTALL_PREFIX" "${placeholder "out"}/Applications/")
   ];
 
   doCheck = true;
+
   dontWrapQtApps = true;
-  enableParallelBuilding = true;
+
+  passthru = {
+    updateScript = nix-update-script { };
+  };
 
   meta = {
     description = "Prism Launcher fork aimed to provide a free way to play Minecraft";
@@ -88,9 +98,10 @@ stdenv.mkDerivation {
       with offline account without any restrictions.
     '';
     homepage = "https://freesmlauncher.org/";
+    changelog = "https://github.com/FreesmTeam/FreesmLauncher/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.linux ++ lib.platforms.darwin;
-    mainProgram = "freesmlauncher";
     maintainers = with lib.maintainers; [ s0me1newithhand7s ];
+    mainProgram = "freesmlauncher";
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
-}
+})

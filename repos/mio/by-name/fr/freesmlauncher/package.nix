@@ -1,108 +1,146 @@
 {
-  lib,
-  symlinkJoin,
-  kdePackages,
   addDriverRunpath,
-  freesmlauncher-unwrapped,
-  stdenv,
   alsa-lib,
   flite,
   gamemode,
   glfw3-minecraft,
+  jdk17,
+  jdk21,
+  jdk25,
+  jdk8,
+  kdePackages,
+  lib,
   libGL,
-  libX11,
-  libXcursor,
-  libXext,
-  libXrandr,
-  libXxf86vm,
+  libx11,
+  libxcursor,
+  libxext,
+  libxrandr,
+  libxxf86vm,
   libjack2,
   libpulseaudio,
   libusb1,
-  mesa-demos,
   openal,
   pciutils,
   pipewire,
+  freesmlauncher-unwrapped,
+  stdenv,
+  symlinkJoin,
   udev,
   vulkan-loader,
+  wayland,
+  wrapGAppsHook3,
   xrandr,
-  msaClientID ? null,
+
+  additionalLibs ? [ ],
+  additionalPrograms ? [ ],
   controllerSupport ? stdenv.hostPlatform.isLinux,
   gamemodeSupport ? stdenv.hostPlatform.isLinux,
-  textToSpeechSupport ? stdenv.hostPlatform.isLinux,
   jdks ? [
-    openjdk8
-    openjdk17
-    openjdk21
+    jdk25
+    jdk21
+    jdk17
+    jdk8
   ],
-  openjdk8,
-  openjdk17,
-  openjdk21,
+  msaClientID ? null,
+  textToSpeechSupport ? stdenv.hostPlatform.isLinux,
 }:
+
 assert lib.assertMsg (
   controllerSupport -> stdenv.hostPlatform.isLinux
 ) "controllerSupport only has an effect on Linux.";
+
 assert lib.assertMsg (
   textToSpeechSupport -> stdenv.hostPlatform.isLinux
 ) "textToSpeechSupport only has an effect on Linux.";
+
 let
-  isLinux = stdenv.hostPlatform.isLinux;
-
-  launcher = freesmlauncher-unwrapped.override {
-    inherit msaClientID gamemodeSupport;
-  };
-
-  runtimePrograms = [
-    mesa-demos
-    pciutils
-    xrandr
-  ];
-  runtimeLibs = [
-    stdenv.cc.cc.lib
-
-    glfw3-minecraft
-    openal
-
-    alsa-lib
-    libjack2
-    libpulseaudio
-    pipewire
-
-    libGL
-    libX11
-    libXcursor
-    libXext
-    libXrandr
-    libXxf86vm
-
-    udev
-    vulkan-loader
-  ]
-  ++ lib.optionals textToSpeechSupport [ flite ]
-  ++ lib.optionals gamemodeSupport [ gamemode.lib ]
-  ++ lib.optionals controllerSupport [ libusb1 ];
+  freesmlauncher' = freesmlauncher-unwrapped.override { inherit msaClientID; };
 in
+
 symlinkJoin {
   pname = "freesmlauncher";
-  inherit (launcher) version meta;
-  paths = [ launcher ];
-  nativeBuildInputs = [ kdePackages.wrapQtAppsHook ];
-  buildInputs =
-    with kdePackages;
-    [
-      qtbase
-      qtsvg
-    ]
-    ++ lib.optional (lib.versionAtLeast qtbase.version "6" && isLinux) qtwayland;
+  inherit (freesmlauncher') version;
+
+  paths = [ freesmlauncher' ];
+
+  nativeBuildInputs = [
+    kdePackages.wrapQtAppsHook
+    wrapGAppsHook3
+  ];
+
+  buildInputs = [
+    kdePackages.qtbase
+    kdePackages.qtimageformats
+    kdePackages.qtsvg
+  ]
+  ++ lib.optional stdenv.hostPlatform.isLinux kdePackages.qtwayland;
 
   postBuild = ''
+    # Required for org.gtk.Settings.FileChooser
+    gappsWrapperArgsHook
+    qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
+
     wrapQtAppsHook
   '';
 
-  qtWrapperArgs = [
-    "--prefix FREESMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
-  ]
-  ++ lib.optionals isLinux [
-    "--prefix PATH : ${lib.makeBinPath runtimePrograms}"
-    "--prefix LD_LIBRARY_PATH : ${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
-  ];
+  qtWrapperArgs =
+    let
+      runtimeLibs = [
+        (lib.getLib stdenv.cc.cc)
+        ## native versions
+        glfw3-minecraft
+        openal
+
+        ## openal
+        alsa-lib
+        libjack2
+        libpulseaudio
+        pipewire
+
+        ## glfw
+        libGL
+        libx11
+        libxcursor
+        libxext
+        libxrandr
+        libxxf86vm
+        wayland
+
+        udev # oshi
+
+        vulkan-loader # VulkanMod's lwjgl
+      ]
+      ++ lib.optional textToSpeechSupport flite
+      ++ lib.optional gamemodeSupport gamemode.lib
+      ++ lib.optional controllerSupport libusb1
+      ++ additionalLibs;
+
+      runtimePrograms = [
+        pciutils # need lspci
+        xrandr # needed for LWJGL [2.9.2, 3) https://github.com/LWJGL/lwjgl/issues/128
+      ]
+      ++ additionalPrograms;
+
+    in
+    [
+      "--set NIX_LAUNCHER_WRAPPER ${placeholder "out"}/bin/freesmlauncher"
+      "--prefix FREESMLAUNCHER_JAVA_PATHS : ${lib.makeSearchPath "bin/java" jdks}"
+    ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [
+      "--set LD_LIBRARY_PATH ${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
+      "--prefix PATH : ${lib.makeBinPath runtimePrograms}"
+    ];
+
+  meta = {
+    inherit (freesmlauncher'.meta)
+      description
+      longDescription
+      homepage
+      changelog
+      license
+      maintainers
+      mainProgram
+      platforms
+      ;
+  };
 }
