@@ -102,7 +102,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://freesmlauncher.org/";
     changelog = "https://github.com/FreesmTeam/FreesmLauncher/releases/tag/${finalAttrs.version}";
     license = lib.licenses.gpl3Only;
-    maintainers = with lib.maintainers; [ s0me1newithhand7s ];
+    maintainers = with lib.maintainers; [ mio ];
     mainProgram = "freesmlauncher";
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };

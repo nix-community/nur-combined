@@ -74,16 +74,16 @@ let
     hash = "sha256-KxkCFhB20O+2bPzzOZXPSb+HYfB16M9g1sR2OZPUMAM=";
   };
 
-  # Script to extract .pyc from PyInstaller
+  # Script to extract .pyc from PyInstaller (pinned commit; hash locks content)
   pyinstxtractor = fetchurl {
-    url = "https://raw.githubusercontent.com/extremecoders-re/pyinstxtractor/master/pyinstxtractor.py";
+    url = "https://raw.githubusercontent.com/extremecoders-re/pyinstxtractor/815d31cf26bc71e62f851b2e549452e7b7c9dd98/pyinstxtractor.py";
     hash = "sha256-lOC2ydUVG77vx+dFLpbiSzlsLb/LA0jl8SxMCGX+/lg=";
   };
 
   # The original AppImage to extract proprietary blobs from
   backendAppImage = fetchurl {
     url = "https://beamstudio.s3.amazonaws.com/linux-22.04/Beam%20Studio-2.6.8.AppImage";
-    hash = "sha256-+NNeAThprCd+1WE7aVqlkCEk4rLmKN0aD5RykRkHOa8=";
+    hash = "sha256-IUTK+WEevUgKGBoBV+momrhgPna6XH39/zhSNB9xUo0=";
   };
   backendContents = appimageTools.extractType2 {
     pname = "beam-studio-backend-contents";
@@ -92,7 +92,7 @@ let
   };
 in
 pkgs.stdenv.mkDerivation {
-  name = "flux-backend";
+  pname = "flux-backend";
   version = "2.6.8";
 
   src = fluxghost-src;

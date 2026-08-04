@@ -16,8 +16,6 @@
   pkg-config,
   fontconfig,
   freetype,
-  fetchurl,
-  appimageTools,
   libxcb,
   libx11,
   cairo,
@@ -34,8 +32,8 @@ stdenv.mkDerivation (finalAttrs: {
   src = fetchFromGitHub {
     owner = "flux3dp";
     repo = "beam-studio";
-    rev = "refs/tags/app-2.6.8-stable";
-    hash = "sha256-gfmIuw3aKDzAFGIDZTs1V/mDIkDWDvdbb+dJ9m0OOeQ=";
+    tag = "app-2.6.8-stable";
+    hash = "sha256-sKJhNvulqLYDko7uwzlGNexx81XUFNM1aJjZHOnCrc0=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -78,7 +76,8 @@ stdenv.mkDerivation (finalAttrs: {
     runHook preBuild
 
     export XDG_CACHE_HOME=$(mktemp -d)
-    export FONTCONFIG_FILE=${pkgs.fontconfig.out}/etc/fonts/fonts.conf
+    export FONTCONFIG_FILE=${fontconfig.out}/etc/fonts/fonts.conf
+    export FONTCONFIG_PATH=${fontconfig.out}/etc/fonts
 
     # prevent node-gyp from downloading Electron headers
     export ELECTRON_HEADERS_DIR="$PWD/.electron-headers"
@@ -94,7 +93,8 @@ stdenv.mkDerivation (finalAttrs: {
     autoPatchelf node_modules
 
     # Match the official build size by building the Node bundle in production mode
-    sed -i "s/mode: 'development'/mode: 'production'/g" apps/app/webpack.node.js
+    substituteInPlace apps/app/webpack.node.js \
+      --replace-fail "mode: 'development'" "mode: 'production'"
 
     # Beam Studio build
     pnpm --filter @beam-studio/app run build
@@ -103,11 +103,13 @@ stdenv.mkDerivation (finalAttrs: {
     # In a Nix environment wrapper, process.defaultApp is true.
     # This causes Electron to incorrectly use '.' instead of process.resourcesPath
     # and opens DevTools on startup. Replace it with false.
-    sed -i 's/process.defaultApp/false/g' apps/app/public/js/node/main.js
+    substituteInPlace apps/app/public/js/node/main.js \
+      --replace-fail 'process.defaultApp' 'false'
 
     # process.resourcesPath points to the electron binary's resources directory,
     # not the app's resources directory. Fix it to point to our app.asar's parent.
-    sed -i 's|process.resourcesPath|require("path").join(__dirname, "../../../../")|g' apps/app/public/js/node/main.js
+    substituteInPlace apps/app/public/js/node/main.js \
+      --replace-fail 'process.resourcesPath' 'require("path").join(__dirname, "../../../../")'
 
     # Build font-scanner AFTER webpack to prevent fontconfig hangs during webpack
     for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
@@ -148,19 +150,21 @@ stdenv.mkDerivation (finalAttrs: {
     ln -s ${customBackend}/bin/flux_api $out/share/beam-studio/resources/backend/flux_api/flux_api
 
     mkdir -p $out/bin
-    # The official AppImage explicitly hardcodes --no-sandbox in its desktop file to prevent
-    # Chromium sandbox crashes (like /dev/shm IPC failures) on various Linux distributions.
+    # Required: Chromium's sandbox needs user namespaces; NixOS often disables them,
+    # and the official AppImage also hardcodes --no-sandbox for the same reason.
     makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
       --add-flags $out/share/beam-studio/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
       --add-flags "--no-sandbox" \
+      --set FONTCONFIG_FILE ${fontconfig.out}/etc/fonts/fonts.conf \
+      --set FONTCONFIG_PATH ${fontconfig.out}/etc/fonts \
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0
 
     # Install the application icon
-    mkdir -p $out/share/icons/hicolor/1024x1024/apps
-    cp apps/app/public/img/icon.png $out/share/icons/hicolor/1024x1024/apps/beam-studio.png
+    mkdir -p $out/share/icons/hicolor/512x512/apps
+    cp apps/app/public/img/icon.png $out/share/icons/hicolor/512x512/apps/beam-studio.png
 
     runHook postInstall
   '';
@@ -181,7 +185,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   meta = {
-    description = "Beam Studio";
+    description = "Laser cutting and engraving software for FLUX machines";
     homepage = "https://github.com/flux3dp/beam-studio";
     # Note: While the backend components are proprietary (unfree), beam-studio is
     # licensed under AGPL-3.0. According to the Software Freedom Conservancy,
