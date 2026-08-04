@@ -41,7 +41,7 @@ rustPlatform.buildRustPackage {
   src = ../.;
   cargoLock.lockFile = ../Cargo.lock;
 
-  # cargo test needs a display server / pipewire — not feasible in Nix sandbox
+  # cargo test needs a display server — not feasible in Nix sandbox
   doCheck = false;
 
   nativeBuildInputs = [ pkg-config llvmPackages.libclang patchelf ];
@@ -63,7 +63,7 @@ rustPlatform.buildRustPackage {
       substituteInPlace $out/share/applications/ie-r.desktop --replace-fail "Exec=ie-r" "Exec=$out/bin/ie-r"
   '';
 
-  # Force-bake rpath so dlopen() finds X11/Wayland/Pipewire libs without LD_LIBRARY_PATH.
+  # Force-bake rpath so dlopen() finds X11/Wayland libs without LD_LIBRARY_PATH.
   postFixup = '' # bash
       patchelf --set-rpath "${lib.makeLibraryPath runtimeLibs}" $out/bin/ie-r
   '';

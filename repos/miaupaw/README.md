@@ -100,7 +100,7 @@ cd ie-r
 The bundle ships its own quick-start guide — see [`docs/README.portable.linux.md`](docs/README.portable.linux.md).
 
 ### Build from source
-Requires Rust 1.85+ (edition 2024) and development libraries: `wayland-client`, `libxkbcommon`, `pipewire`, `dbus`, `fontconfig`, `libx11`.
+Requires Rust 1.85+ (edition 2024) and development libraries: `wayland-client`, `libxkbcommon`, `dbus`, `fontconfig`, `libx11`.
 ```bash
 git clone https://github.com/miaupaw/ie-r
 cd ie-r

@@ -2,7 +2,7 @@
     description = "Instant Eyedropper Reborn — pixel-perfect color picker for Wayland, X11 & Windows";
 
     inputs = {
-        nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+        nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
         rust-overlay.url = "github:oxalica/rust-overlay";
     };
 
@@ -71,7 +71,8 @@
     in {
         # ── Dev Environment ──────────────────────────────────────────────────
         devShells.${system}.default = pkgs.mkShell {
-            buildInputs = [ rustToolchain mingwCC mingwPthreads ] ++ nativeDeps ++ runtimeLibs;
+            nativeBuildInputs = [ mingwCC ];
+            buildInputs = [ rustToolchain ] ++ nativeDeps ++ runtimeLibs;
             LIBCLANG_PATH = libclangPath;
             LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath runtimeLibs;
             CARGO_TARGET_X86_64_PC_WINDOWS_GNU_LINKER = "${mingwCC}/bin/x86_64-w64-mingw32-gcc";

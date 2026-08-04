@@ -2,7 +2,7 @@
 
 let
   runtimeLibs = with pkgs; [
-    pipewire wayland libxkbcommon dbus fontconfig
+    wayland libxkbcommon dbus fontconfig
     libx11 libxcursor libxrandr libxi
   ];
 in

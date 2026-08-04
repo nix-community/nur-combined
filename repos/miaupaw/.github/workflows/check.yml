@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwayland-dev libxkbcommon-dev libdbus-1-dev libfontconfig-dev \
-            libpipewire-0.3-dev pkg-config libx11-dev libxcursor-dev libxrandr-dev libxi-dev
+            pkg-config libx11-dev libxcursor-dev libxrandr-dev libxi-dev
       - run: cargo check
       - run: cargo clippy -- -D warnings
 

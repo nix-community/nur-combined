@@ -657,9 +657,6 @@ impl OverlayApp {
         dt
     }
 
-    ///   2. watchdog auto-cancel (→ should_exit)
-    ///   3. flash decay
-    ///      (→ magnifier_layout) + hud.update
     /// **Simulation phase: state tick without touching a single pixel.**
     ///
     /// The Hud pattern (update/render "intentionally separated") promoted to

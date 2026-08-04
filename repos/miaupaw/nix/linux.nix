@@ -130,7 +130,7 @@ let
 
   # ── Relocatable Bundle ────────────────────────────────────────────────
   # Surgical lib-harvest: ldd the binary + force-include dlopen entry points
-  # (X11/Wayland/Pipewire), then recursive ldd to pull libxcb/libXau/etc. Bundles
+  # (X11/Wayland), then recursive ldd to pull libxcb/libXau/etc. Bundles
   # ld-linux + trimmed xkb/locale data → self-contained on any glibc Linux.
   portable = pkgs.stdenv.mkDerivation {
     name = "ie-r-portable";
@@ -148,8 +148,8 @@ let
         # 1a. Gather direct dependencies of the binary
         ldd $out/bin/.ie-r-raw | awk '{print $3}' | grep "^/nix/store" > libs_list
 
-        # 1b. Force-include X11/Wayland/Pipewire entry points for dlopen()
-        echo "▸ Locating dlopen entry points (X11 + Wayland + Pipewire)..."
+        # 1b. Force-include X11/Wayland entry points for dlopen()
+        echo "▸ Locating dlopen entry points (X11 + Wayland)..."
         for lib in \
             ${pkgs.wayland}/lib/libwayland-client.so.0 \
             ${pkgs.libx11}/lib/libX11.so.6 \
