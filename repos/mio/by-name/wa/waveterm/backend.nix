@@ -11,6 +11,8 @@ let
     {
       x86_64-linux = "amd64";
       aarch64-linux = "arm64";
+      x86_64-darwin = "amd64";
+      aarch64-darwin = "arm64";
     }
     .${stdenv.hostPlatform.system}
       or (throw "waveterm: unsupported system ${stdenv.hostPlatform.system}");
@@ -79,6 +81,8 @@ buildGoModule (finalAttrs: {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
     ];
   };
 })

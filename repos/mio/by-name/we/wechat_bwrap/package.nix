@@ -46,6 +46,16 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     ln -s $wechat_root/common.sh $out/bin/wechat-universal
     ln -s $wechat_root/common.sh $out/bin/wechat
+    ln -s $wechat_root/common.sh $out/bin/start.sh
+    ln -s $wechat_root/common.sh $out/bin/stop.sh
+    
+    install -Dm644 wechat-universal.desktop $out/share/applications/wechat-universal.desktop
+    substituteInPlace $out/share/applications/wechat-universal.desktop \
+      --replace-fail "/usr/lib/wechat-universal" "$out/bin"
+      
+    install -Dm644 wechat-license $out/share/licenses/wechat-universal/wechat-license
+    
+    install -Dm644 ${wechat.src}/wechat.png $out/share/icons/hicolor/256x256/apps/wechat-universal.png
     
     runHook postInstall
   '';

@@ -47,11 +47,12 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [
     nodejs
     makeShellWrapper
+  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
     copyDesktopItems
     wrapGAppsHook3
   ];
 
-  buildInputs = [
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
     gtk3
     libxkbcommon
     libx11
@@ -63,6 +64,8 @@ buildNpmPackage (finalAttrs: {
     ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
     # postinstall runs `electron-builder install-app-deps`, which needs network.
     WAVETERM_SKIP_APP_DEPS = "1";
+    # disable code signing on darwin
+    CSC_IDENTITY_AUTO_DISCOVERY = "false";
   };
 
   dontNpmBuild = true;
@@ -135,6 +138,7 @@ buildNpmPackage (finalAttrs: {
       -p never \
       -c.electronDist=electron-dist \
       -c.electronVersion=${electron.version} \
+      -c.mac.identity=null \
       -c.npmRebuild=false
 
     runHook postBuild
@@ -143,35 +147,50 @@ buildNpmPackage (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/share/waveterm
-    cp -r make/*-unpacked/resources $out/share/waveterm/resources
+    if [ "$defaultBuildPlatform" = "linux" ]; then
+      mkdir -p $out/share/waveterm
+      cp -r make/*-unpacked/resources $out/share/waveterm/resources
+    else
+      # Check what is created on Darwin
+      ls -la make/
+      ls -la make/* || true
+    fi
 
-    # use makeShellWrapper (instead of makeBinaryWrapper) for proper shell variable
-    # expansion of the NIXOS_OZONE_WL flags, see https://github.com/NixOS/nixpkgs/issues/172583
-    makeShellWrapper "${lib.getExe electron}" "$out/bin/waveterm" \
-      --add-flags "$out/share/waveterm/resources/app.asar" \
-      "''${gappsWrapperArgs[@]}" \
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          libxkbcommon
-          libx11
-          libxcb
-          libxtst
-        ]
-      }" \
-      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true}}" \
-      --set-default ELECTRON_IS_DEV 0 \
-      --inherit-argv0
+    if [ "$defaultBuildPlatform" = "linux" ]; then
+      mkdir -p $out/share/waveterm
+      cp -r make/*-unpacked/resources $out/share/waveterm/resources
 
-    for size in 16 32 48 64 128 256 512; do
-      install -Dm644 "build/icons/''${size}x''${size}.png" \
-        "$out/share/icons/hicolor/''${size}x''${size}/apps/waveterm.png"
-    done
+      # use makeShellWrapper (instead of makeBinaryWrapper) for proper shell variable
+      # expansion of the NIXOS_OZONE_WL flags, see https://github.com/NixOS/nixpkgs/issues/172583
+      makeShellWrapper "${lib.getExe electron}" "$out/bin/waveterm" \
+        --add-flags "$out/share/waveterm/resources/app.asar" \
+        "''${gappsWrapperArgs[@]}" \
+        --prefix LD_LIBRARY_PATH : "${
+          lib.makeLibraryPath [
+            libxkbcommon
+            libx11
+            libxcb
+            libxtst
+          ]
+        }" \
+        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true}}" \
+        --set-default ELECTRON_IS_DEV 0 \
+        --inherit-argv0
+
+      for size in 16 32 48 64 128 256 512; do
+        install -Dm644 "build/icons/''${size}x''${size}.png" \
+          "$out/share/icons/hicolor/''${size}x''${size}/apps/waveterm.png"
+      done
+    else
+      mkdir -p $out/Applications $out/bin
+      cp -r make/*/Wave.app $out/Applications/Wave.app
+      ln -s $out/Applications/Wave.app/Contents/MacOS/Wave $out/bin/waveterm
+    fi
 
     runHook postInstall
   '';
 
-  desktopItems = [
+  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
       name = "waveterm";
       exec = "waveterm %U";
@@ -225,6 +244,8 @@ buildNpmPackage (finalAttrs: {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
     ];
   };
 })
