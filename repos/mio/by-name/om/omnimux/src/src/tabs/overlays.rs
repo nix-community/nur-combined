@@ -99,7 +99,7 @@ pub fn render_host_prompt(
         })
         .child(
             div()
-                .w_96()
+                .w(px(550.0))
                 .bg(colors.panel)
                 .rounded_lg()
                 .p_4()
