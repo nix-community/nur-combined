@@ -8,4 +8,6 @@
 
   scrobblex = pkgs.callPackage ./pkgs/scrobblex { };
   trek = pkgs.callPackage ./pkgs/trek { };
+
+  yamtrack = pkgs.callPackage ./pkgs/yamtrack { };
 }
