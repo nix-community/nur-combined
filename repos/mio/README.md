@@ -100,6 +100,7 @@ files are copied from following locations. some are modified in this repo and so
 + telegram-desktop_682 nixpkgs 8dc49b8b206a683d1f6605e0fd993c0f5d49c98d
 + jetbrains_idea-oss - copied from nixpkgs commit 38a4887411571457d700c51c64a6e49ead2ed5ab
 + qq_bwrap - adapted from linuxqq-nt-bwrap https://aur.archlinux.org/packages/linuxqq-nt-bwrap
++ wechat_bwrap - adapted from AUR package wechat-universal-bwrap (https://aur.archlinux.org/packages/wechat-universal-bwrap) by 7Ji, leaeasy, and devome
 
 ## todo - reading
 
