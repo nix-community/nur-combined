@@ -55,16 +55,16 @@
             "name": null,
             "owner": "kaitranntt",
             "repo": "CLIProxyAPIPlus",
-            "rev": "v7.2.105-1",
-            "sha256": "sha256-ZlntaRGj6z662f0WNGomj4KF9fNjlV7Axoeing93V84=",
+            "rev": "v7.2.116-5",
+            "sha256": "sha256-WMhO/mXhESsXbo1pY09f/ti3a5TZNDqg5w9xVPBThzw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.105-1"
+        "version": "v7.2.116-5"
     },
     "pumpkin": {
         "cargoLock": null,
-        "date": "2026-08-03",
+        "date": "2026-08-04",
         "extract": null,
         "name": "pumpkin",
         "passthru": null,
@@ -76,11 +76,53 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "5eaf550a4cf1c9d5d584c3ea44986d65b1478209",
-            "sha256": "sha256-u6t++jbEvvN0+1mD6Bcr4nY7Egx/2alcIVPurD0Hx48=",
+            "rev": "460cb9b01c9cf07bb38d1c3a0a81197086a649cc",
+            "sha256": "sha256-K0eWwG//eE8K3IQxl4viSd3z6hJu4swoi2quHUOJxwE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5eaf550a4cf1c9d5d584c3ea44986d65b1478209"
+        "version": "460cb9b01c9cf07bb38d1c3a0a81197086a649cc"
+    },
+    "sing-box-alpha": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sing-box-alpha",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SagerNet",
+            "repo": "sing-box",
+            "rev": "v1.14.0-beta.5",
+            "sha256": "sha256-9s6C7F5LVGKkr65FIuUM32hkUbXUlC4MGINNSBdWykc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.14.0-beta.5"
+    },
+    "sing-box-beta": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sing-box-beta",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "SagerNet",
+            "repo": "sing-box",
+            "rev": "v1.14.0-beta.5",
+            "sha256": "sha256-9s6C7F5LVGKkr65FIuUM32hkUbXUlC4MGINNSBdWykc=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.14.0-beta.5"
     }
 }

@@ -8,7 +8,7 @@ rustPlatform.buildRustPackage rec {
   inherit (source) pname src;
   version = "0-unstable-${source.date}";
 
-  cargoHash = "sha256-U+hfeNqNn2+Z8BB4Ohm9h3BluGL4jHIbJUTObG+hClk=";
+  cargoHash = "sha256-wBOXR1oNQsNI0k+nBZhHciFt+PgTr9BktrmkWq4+MlU=";
 
   nativeBuildInputs = [rustfmt];
 
