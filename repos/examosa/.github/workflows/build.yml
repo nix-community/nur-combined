@@ -1,0 +1,80 @@
+name: "Build and populate cache"
+
+on:
+  pull_request:
+
+  push:
+    branches:
+      - main
+
+  schedule:
+    # rebuild everyday at 2:51
+    # TIP: Choose a random time here so not all repositories are build at once:
+    # https://www.random.org/clock-times/?num=1&earliest=01%3A00&latest=08%3A00&interval=5&format=html&rnd=new
+    - cron: "51 2 * * *"
+
+  workflow_dispatch:
+
+concurrency:
+  group: "ci-${{ github.ref_name }}"
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    timeout-minutes: 90
+
+    strategy:
+      matrix:
+        nixPath:
+          - nixpkgs=channel:nixpkgs-unstable
+          - nixpkgs=channel:nixos-unstable
+          - nixpkgs=channel:nixos-26.05
+
+        os:
+          - ubuntu-latest
+
+        include:
+          - nixPath: nixpkgs=channel:nixpkgs-unstable
+            os: macos-latest
+
+    runs-on: "${{ matrix.os }}"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
+
+      - name: Install nix
+        uses: cachix/install-nix-action@8aa03977d8d733052d78f4e008a241fd1dbf36b3 # v31
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+
+      - name: Show nixpkgs version
+        run: nix eval --impure --raw --expr '(import <nixpkgs> {}).lib.version'
+
+      - name: Setup cachix
+        uses: cachix/cachix-action@5f2d7c5294214f71b873db4b969586b980625e71 # v17
+        with:
+          name: ${{ github.repository_owner }}
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa \* --meta --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix-instantiate --find-file nixpkgs) \
+            -I $PWD
+
+      - name: Build nix packages
+        run: nix shell --file '<nixpkgs>' nix-fast-build --command nix-fast-build
+          --no-nom --skip-cached --file ci.nix --attr cacheOutputs
+
+      - name: Trigger NUR update
+        if: ${{ false }}
+        run: curl -X POST "https://nur-update.nix-community.org/update?repo=${{
+          github.repository_owner }}"
