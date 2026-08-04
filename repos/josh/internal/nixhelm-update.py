@@ -156,7 +156,9 @@ def helm_pull(chart: str, repo: str, tmpdir: str) -> str:
         "--untar",
     ]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True, env=helm_env(tmpdir))
+    result = subprocess.run(
+        cmd, capture_output=True, text=True, env=helm_env(tmpdir), check=False
+    )
     check_result(result)
     return first_subdir(out_dir)
 
@@ -173,7 +175,9 @@ def helm_pull_oci(url: str, tmpdir: str) -> str:
         "--untar",
     ]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True, env=helm_env(tmpdir))
+    result = subprocess.run(
+        cmd, capture_output=True, text=True, env=helm_env(tmpdir), check=False
+    )
     check_result(result)
     return first_subdir(out_dir)
 
@@ -190,7 +194,7 @@ def first_subdir(path: str) -> str:
 def nix_hash(path: str) -> str:
     cmd = [NIX_HASH_PATH, "--type", "sha256", "--sri", path]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False)
     check_result(result)
     return result.stdout.strip()
 
@@ -198,7 +202,7 @@ def nix_hash(path: str) -> str:
 def nix_current_system() -> str:
     cmd = [NIX_PATH, "eval", "--raw", "--impure", "--expr", "builtins.currentSystem"]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False)
     check_result(result)
     return result.stdout.strip()
 
@@ -213,7 +217,7 @@ def nix_attr_filename(attr_path: str) -> str:
         f".#packages.{system}.{attr_path}.meta.position",
     ]
     log_cmd(cmd)
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, check=False)
     check_result(result)
     store_path = result.stdout.strip().rsplit(":", 1)[0]
     return pkgs_relative_path(store_path)
