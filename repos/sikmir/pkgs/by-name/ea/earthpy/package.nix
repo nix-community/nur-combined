@@ -17,6 +17,10 @@ python3Packages.buildPythonPackage (finalAttrs: {
     hash = "sha256-2ThKdynYCnCR0ViE0yeK8BJjtexVdYGU4oOqBAUb9Yw=";
   };
 
+  postPatch = ''
+    substituteInPlace ./setup.py --replace-fail 'version="0.10.0",' 'version="${finalAttrs.version}",'
+  '';
+
   build-system = with python3Packages; [ setuptools ];
 
   dependencies = with python3Packages; [
