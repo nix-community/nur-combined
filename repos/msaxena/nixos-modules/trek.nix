@@ -160,6 +160,18 @@ in {
       description = ''
         Number of trusted reverse-proxy hops. Needed for `forceHttps` to
         work correctly behind a reverse proxy.
+
+        This cannot be used to *disable* trusting proxy headers: TREK's own
+        `if (NODE_ENV=production || TRUST_PROXY) app.set('trust proxy',
+        parseInt(TRUST_PROXY) || 1)` treats an explicit `0` the same as
+        unset, and this module always sets `NODE_ENV=production` — so
+        Express trusts one `X-Forwarded-For`/`X-Forwarded-Proto` hop
+        unconditionally regardless of this option. If you expose TREK
+        directly (see {option}`services.trek.openFirewall`) without a
+        reverse proxy that strips inbound `X-Forwarded-*` headers from
+        untrusted clients, those headers are effectively attacker-controlled
+        input: they can spoof the IP the per-IP login rate limiter and audit
+        log key on, defeating both.
       '';
     };
 
@@ -174,7 +186,36 @@ in {
     };
 
     defaultLanguage = lib.mkOption {
-      type = lib.types.nullOr (lib.types.enum ["de" "en" "es" "fr" "hu" "nl" "br" "cs" "pl" "ru" "zh" "zh-TW" "it" "ar"]);
+      # Keep in sync with shared/src/i18n/languages.ts's SUPPORTED_LANGUAGES
+      # at whatever tag pkgs/trek is pinned to -- it grows as translations
+      # are added upstream.
+      type = lib.types.nullOr (
+        lib.types.enum [
+          "de"
+          "en"
+          "es"
+          "fr"
+          "hu"
+          "nl"
+          "br"
+          "cs"
+          "pl"
+          "ru"
+          "zh"
+          "zh-TW"
+          "it"
+          "tr"
+          "ar"
+          "id"
+          "ja"
+          "ko"
+          "uk"
+          "gr"
+          "sv"
+          "vi"
+          "ca"
+        ]
+      );
       default = null;
       description = ''
         Default language on the login page for users with no saved
@@ -355,7 +396,13 @@ in {
     openFirewall = lib.mkOption {
       type = lib.types.bool;
       default = false;
-      description = "Open <option>services.trek.port</option> in the firewall.";
+      description = ''
+        Open <option>services.trek.port</option> in the firewall. See
+        {option}`services.trek.trustProxy` — TREK always trusts one
+        `X-Forwarded-For`/`X-Forwarded-Proto` hop, so only enable this if
+        clients cannot reach the service directly without going through a
+        reverse proxy that strips those headers first.
+      '';
     };
   };
 
@@ -382,6 +429,15 @@ in {
           HSTS_INCLUDE_SUBDOMAINS = lib.boolToString cfg.hstsIncludeSubdomains;
           ALLOW_INTERNAL_NETWORK = lib.boolToString cfg.allowInternalNetwork;
           DEMO_MODE = lib.boolToString cfg.demoMode;
+          # Always set explicitly rather than leaving COOKIE_SECURE unset:
+          # upstream's own auto-derivation is "secure when NODE_ENV=production
+          # OR FORCE_HTTPS=true", and this module always sets
+          # NODE_ENV=production above, so leaving it to auto-derive would
+          # make cookies secure unconditionally -- silently breaking login
+          # over plain HTTP for anyone running with forceHttps = false.
+          COOKIE_SECURE = lib.boolToString (
+            if cfg.cookieSecure != null then cfg.cookieSecure else cfg.forceHttps
+          );
         }
         // optionalEnv "ALLOWED_ORIGINS" (
           if cfg.allowedOrigins == []
@@ -394,17 +450,6 @@ in {
           then null
           else toString cfg.trustProxy
         )
-        // {
-          # Always set explicitly rather than leaving COOKIE_SECURE unset:
-          # upstream's own auto-derivation is "secure when NODE_ENV=production
-          # OR FORCE_HTTPS=true", and this module always sets
-          # NODE_ENV=production above, so leaving it to auto-derive would
-          # make cookies secure unconditionally -- silently breaking login
-          # over plain HTTP for anyone running with forceHttps = false.
-          COOKIE_SECURE = lib.boolToString (
-            if cfg.cookieSecure != null then cfg.cookieSecure else cfg.forceHttps
-          );
-        }
         // optionalEnv "DEFAULT_LANGUAGE" cfg.defaultLanguage
         // optionalEnv "SESSION_DURATION" cfg.sessionDuration
         // optionalEnv "SESSION_DURATION_REMEMBER" cfg.sessionDurationRemember
@@ -496,6 +541,16 @@ in {
           RestrictRealtime = true;
           RestrictSUIDSGID = true;
           RemoveIPC = true;
+          CapabilityBoundingSet = [];
+          SystemCallArchitectures = "native";
+          ProtectHostname = true;
+          ProtectKernelLogs = true;
+          ProtectClock = true;
+          # "invisible" only hides *other* users' /proc/<pid> entries; trek's
+          # own plugin child processes run as the same "trek" user and stay
+          # visible to it.
+          ProtectProc = "invisible";
+          UMask = "0077";
           ReadWritePaths = [cfg.dataDir];
         }
         // lib.optionalAttrs isDefaultDataDir {

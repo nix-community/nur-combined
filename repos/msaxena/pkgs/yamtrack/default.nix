@@ -36,6 +36,16 @@ let
       psycopg
       psycopg-pool
       python-decouple
+      # nixpkgs' redis-py is currently ahead of both Yamtrack's own pin
+      # (pyproject.toml: redis[hiredis]~=7.4.0) and, more importantly,
+      # kombu's declared hard ceiling (kombu[redis]'s own extras require
+      # "redis<6.5"; Celery's broker transport goes through kombu, not
+      # Yamtrack's own redis pin). The existing VM test's celery-ping health
+      # check already round-trips a real task through this exact path and
+      # passes, but redis-py 8's changed connection-timeout defaults could
+      # still surface as spurious broker timeouts under real load that a
+      # smoke test wouldn't catch. If Celery task delivery ever misbehaves,
+      # check here first.
       redis
       requests
       requests-ratelimiter

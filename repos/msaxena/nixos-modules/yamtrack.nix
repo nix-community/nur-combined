@@ -18,6 +18,17 @@ let
 
   boolStr = b: if b then "true" else "false";
 
+  isSqlite = cfg.database.host == null && !cfg.database.createLocally;
+
+  # Keys the module computes for its own correctness/hardening and that
+  # `environment` (a user-facing catch-all, see its description) must never
+  # be able to shadow: HOME backs gunicorn's control socket path, and
+  # SQLITE_PATH is what keeps the live database inside the persisted state
+  # directory. Applied as the last override below, after cfg.environment.
+  protectedEnv =
+    { HOME = stateDir; }
+    // lib.optionalAttrs isSqlite { SQLITE_PATH = "${stateDir}/db.sqlite3"; };
+
   # Settings that are inherently credential-shaped (API keys, OAuth client
   # secrets, the Django SECRET_KEY, a remote DB_PASSWORD, ...) are
   # deliberately *not* exposed as plain Nix string options: `services.*`
@@ -33,6 +44,9 @@ let
       HOME = stateDir;
       TZ = cfg.timeZone;
       VERSION = pkg.version;
+      # Only gunicorn (the "yamtrack" service) reads this; harmless to also
+      # set it in the manage/celery units' environment, which just ignore it.
+      WEB_CONCURRENCY = toString cfg.workers;
       DEBUG = boolStr cfg.debug;
       ADMIN_ENABLED = boolStr cfg.adminEnabled;
       REGISTRATION = boolStr cfg.registrationEnabled;
@@ -98,7 +112,8 @@ let
           SQLITE_PATH = "${stateDir}/db.sqlite3";
         }
     )
-    // cfg.environment;
+    // cfg.environment
+    // protectedEnv;
 
   hardening = {
     NoNewPrivileges = true;
@@ -120,6 +135,17 @@ let
     RestrictRealtime = true;
     RestrictSUIDSGID = true;
     RemoveIPC = true;
+    CapabilityBoundingSet = [ ];
+    SystemCallArchitectures = "native";
+    ProtectHostname = true;
+    ProtectKernelLogs = true;
+    ProtectClock = true;
+    # Safe here specifically because the Python env is a fixed, closed
+    # dependency set (no subprocess-spawning/psutil-style dependency) -- see
+    # pkgs/yamtrack/default.nix's pythonEnv.
+    ProtectProc = "invisible";
+    UMask = "0077";
+    SystemCallFilter = [ "@system-service" ];
   };
 
   baseServiceConfig = {
@@ -464,14 +490,18 @@ in
       type = lib.types.attrsOf lib.types.str;
       default = { };
       example = {
-        YAMTRACK_AUTO_LOGIN_USERNAME = "alice";
+        VERSION = "custom-build-label";
       };
       description = ''
         Extra non-secret environment variables passed to the Yamtrack
         service verbatim, for anything upstream reads via python-decouple
         that isn't already covered by a dedicated option above — see
         Yamtrack's `src/config/settings.py` for the full list of `config()`
-        calls. Values set here take precedence over the dedicated options.
+        calls. Values set here take precedence over the dedicated options,
+        with two exceptions this module always pins regardless: `HOME`
+        (backs gunicorn's control socket path) and `SQLITE_PATH` (keeps the
+        database inside the persisted state directory) — setting either here
+        is a no-op.
       '';
     };
 
@@ -550,9 +580,7 @@ in
       ] ++ dbUnitDeps;
       requires = [ "yamtrack-migrate.service" ] ++ dbUnitDeps;
       wantedBy = [ "multi-user.target" ];
-      environment = commonEnv // {
-        WEB_CONCURRENCY = toString cfg.workers;
-      };
+      environment = commonEnv;
       serviceConfig = baseServiceConfig // {
         Type = "simple";
         ExecStart = "${pkg}/bin/yamtrack-gunicorn --bind ${cfg.host}:${toString cfg.port}";
