@@ -1,5 +1,3 @@
 {
-  # Add your NixOS modules here
-  #
-  # my-module = ./my-module;
+  echo-sddm = ./echo-sddm.nix;
 }

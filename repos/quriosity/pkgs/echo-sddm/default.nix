@@ -1,4 +1,4 @@
-{ lib, stdenvNoCC, fetchFromGitHub }:
+{ lib, stdenvNoCC, fetchFromGitHub, enableWallpaper ? false, wallpaper ? null}:
 
 stdenvNoCC.mkDerivation {
   pname = "echo-sddm";
@@ -18,7 +18,14 @@ stdenvNoCC.mkDerivation {
     mkdir -p $out/share/sddm/themes/echo
     cp -r Main.qml metadata.desktop theme.conf assets \
       $out/share/sddm/themes/echo/
-      echo "QtVersion=6" >> $out/share/sddm/themes/echo/metadata.desktop
+
+    ${lib.optionalString enableWallpaper ''
+      substituteInPlace $out/share/sddm/themes/echo/theme.conf \
+        --replace-fail "type=pure" "type=frosted"
+    ''}
+    ${lib.optionalString (wallpaper != null) ''
+      cp ${wallpaper} $out/share/sddm/themes/echo/assets/backgrounds/background.png
+    ''}
     runHook postInstall
   '';
 
