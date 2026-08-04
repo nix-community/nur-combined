@@ -62,6 +62,27 @@
         },
         "version": "v7.2.116-5"
     },
+    "gryph": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "gryph",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "safedep",
+            "repo": "gryph",
+            "rev": "v0.7.0",
+            "sha256": "sha256-be4ybYX1BepEJ6T2ORHsC523jdzq6Oy/u6LD1zw6iNU=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.7.0"
+    },
     "pumpkin": {
         "cargoLock": null,
         "date": "2026-08-04",
@@ -124,5 +145,47 @@
             "type": "github"
         },
         "version": "v1.14.0-beta.5"
+    },
+    "tree-sitter-nix": {
+        "cargoLock": null,
+        "date": "2026-06-25",
+        "extract": null,
+        "name": "tree-sitter-nix",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "nix-community",
+            "repo": "tree-sitter-nix",
+            "rev": "3d0173d903e630b6e14d17f1cf79488791379ded",
+            "sha256": "sha256-DFmFRZ47TPr8mgmRyXuHLfkQRmO58m4QyN9OBISb7IE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "3d0173d903e630b6e14d17f1cf79488791379ded"
+    },
+    "typenix": {
+        "cargoLock": null,
+        "date": "2026-03-11",
+        "extract": null,
+        "name": "typenix",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "ryanrasti",
+            "repo": "typenix",
+            "rev": "13550ee05461121a74a6467aefc479a62026cdfc",
+            "sha256": "sha256-lLnCbe+m2R6ONA+EYLu8bC8slMjC28wnO0Qsuic89Ww=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "13550ee05461121a74a6467aefc479a62026cdfc"
     }
 }

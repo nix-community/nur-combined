@@ -7,7 +7,7 @@ buildGoModule rec {
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  vendorHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  vendorHash = "sha256-H0YVTdYOfNyOgWmqqUetcFpy2afIjc6UHpbdyKGFRGc=";
 
   subPackages = ["cmd/gryph"];
 

@@ -39,6 +39,17 @@
       sha256 = "sha256-WMhO/mXhESsXbo1pY09f/ti3a5TZNDqg5w9xVPBThzw=";
     };
   };
+  gryph = {
+    pname = "gryph";
+    version = "v0.7.0";
+    src = fetchFromGitHub {
+      owner = "safedep";
+      repo = "gryph";
+      rev = "v0.7.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-be4ybYX1BepEJ6T2ORHsC523jdzq6Oy/u6LD1zw6iNU=";
+    };
+  };
   pumpkin = {
     pname = "pumpkin";
     version = "460cb9b01c9cf07bb38d1c3a0a81197086a649cc";
@@ -72,5 +83,29 @@
       fetchSubmodules = false;
       sha256 = "sha256-9s6C7F5LVGKkr65FIuUM32hkUbXUlC4MGINNSBdWykc=";
     };
+  };
+  tree-sitter-nix = {
+    pname = "tree-sitter-nix";
+    version = "3d0173d903e630b6e14d17f1cf79488791379ded";
+    src = fetchFromGitHub {
+      owner = "nix-community";
+      repo = "tree-sitter-nix";
+      rev = "3d0173d903e630b6e14d17f1cf79488791379ded";
+      fetchSubmodules = false;
+      sha256 = "sha256-DFmFRZ47TPr8mgmRyXuHLfkQRmO58m4QyN9OBISb7IE=";
+    };
+    date = "2026-06-25";
+  };
+  typenix = {
+    pname = "typenix";
+    version = "13550ee05461121a74a6467aefc479a62026cdfc";
+    src = fetchFromGitHub {
+      owner = "ryanrasti";
+      repo = "typenix";
+      rev = "13550ee05461121a74a6467aefc479a62026cdfc";
+      fetchSubmodules = false;
+      sha256 = "sha256-lLnCbe+m2R6ONA+EYLu8bC8slMjC28wnO0Qsuic89Ww=";
+    };
+    date = "2026-03-11";
   };
 }
