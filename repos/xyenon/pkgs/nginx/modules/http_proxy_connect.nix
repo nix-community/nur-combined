@@ -55,6 +55,7 @@ let
 in
 {
   inherit name src;
+  pname = name;
 
   patches = [ "${src}/patch/${patch.patchName}.patch" ];
 

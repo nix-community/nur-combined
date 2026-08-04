@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+nix_profile=/nix/var/nix/profiles/default
+
+if ! command -v nix >/dev/null 2>&1 && [[ -e "$nix_profile/etc/profile.d/nix-daemon.sh" ]]; then
+	# shellcheck disable=SC1091
+	source "$nix_profile/etc/profile.d/nix-daemon.sh"
+	export PATH="$nix_profile/bin:$PATH"
+fi
+
+if ! command -v nix >/dev/null 2>&1; then
+	echo "Installing Nix..."
+	curl --proto '=https' --tlsv1.2 --fail --silent --show-error --location \
+		https://install.determinate.systems/nix | sh -s -- install --no-confirm
+	# The installer cannot update this running process's environment.
+	# shellcheck disable=SC1091
+	source "$nix_profile/etc/profile.d/nix-daemon.sh"
+else
+	echo "Nix is already installed."
+fi
+
+nix_config_marker="# nur-packages trusted orb user"
+if ! sudo grep -Fqx "$nix_config_marker" /etc/nix/nix.custom.conf; then
+	printf '\n%s\ntrusted-users = root %s\n' "$nix_config_marker" "$(id -un)" |
+		sudo tee -a /etc/nix/nix.custom.conf >/dev/null
+	sudo systemctl restart nix-daemon.service
+fi
+
+profile_marker="# nur-packages Nix environment"
+touch "$HOME/.bash_profile"
+if ! grep -Fqx "$profile_marker" "$HOME/.bash_profile"; then
+	cat >>"$HOME/.bash_profile" <<'EOF'
+
+# nur-packages Nix environment
+if [[ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+	# shellcheck disable=SC1091
+	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+fi
+EOF
+fi
+
+path_marker="# nur-packages Nix binary path"
+if ! grep -Fqx "$path_marker" "$HOME/.bash_profile"; then
+	cat >>"$HOME/.bash_profile" <<'EOF'
+
+# nur-packages Nix binary path
+case ":$PATH:" in
+	*:/nix/var/nix/profiles/default/bin:*) ;;
+	*) export PATH="/nix/var/nix/profiles/default/bin:$PATH" ;;
+esac
+EOF
+fi
+
+echo "Evaluating the locked flake..."
+nix eval --accept-flake-config --no-write-lock-file \
+	"$repo_root#packages.$(nix eval --raw --impure --expr builtins.currentSystem)" \
+	--apply builtins.attrNames >/dev/null
+
+echo "Orb setup complete."
