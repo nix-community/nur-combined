@@ -247,8 +247,6 @@ let
   # Compile the wasm32 sysroot to build the RLBox Sandbox
   # https://hacks.mozilla.org/2021/12/webassembly-and-back-again-fine-grained-sandboxing-in-firefox-95/
   # We only link c++ libs here, our compiler wrapper can find wasi libc and crt itself.
-  # LLVM 22.1 renamed wasm32-wasi -> wasm32-wasip1; Firefox (clang>=22.1) and our
-  # clang wrapper both look under lib/wasm32-wasip1 (see nixpkgs buildMozillaMach).
   wasiSysRoot = runCommand "wasi-sysroot" { } ''
     mkdir -p $out/lib/wasm32-wasip1
     for lib in ${pkgsCross.wasm32-wasip1.llvmPackages.libcxx}/lib/*; do

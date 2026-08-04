@@ -1,2 +1,2 @@
 { callPackage }:
-opts: callPackage (import ./inner.nix opts) { }
+opts: callPackage (import ./default.nix opts) { }
