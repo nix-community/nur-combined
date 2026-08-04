@@ -77,9 +77,13 @@ stdenv.mkDerivation (finalAttrs: {
     bwrap_flags_file="''${XDG_CONFIG_HOME}/qq-bwrap-flags.conf"
     declare -a bwrap_flags
     if [[ -f "''${bwrap_flags_file}" ]]; then
-        while read -r line; do
+        while IFS= read -r line; do
             if [[ ! "''${line}" =~ ^[[:space:]]*# ]] && [[ -n "''${line}" ]]; then
-                bwrap_flags+=("''${line}")
+                eval "expanded_line=\"$line\""
+                read -ra parts <<< "$expanded_line"
+                for part in "''${parts[@]}"; do
+                    bwrap_flags+=("$part")
+                done
             fi
         done < "''${bwrap_flags_file}"
     fi
@@ -87,12 +91,13 @@ stdenv.mkDerivation (finalAttrs: {
     electron_flags_file="''${XDG_CONFIG_HOME}/qq-electron-flags.conf"
     declare -a electron_flags
     if [[ -f "''${electron_flags_file}" ]]; then
-        while read -r line; do
-            if [[ ! "''${line}" =~ ^[[:space:]]*# ]] && [[ -n "''${line}" ]]; then
-                electron_flags+=("''${line}")
-            fi
-        done < "''${electron_flags_file}"
+        mapfile -t ELECTRON_FLAGS_MAPFILE <"''${electron_flags_file}"
     fi
+    for line in "''${ELECTRON_FLAGS_MAPFILE[@]}"; do
+        if [[ ! "''${line}" =~ ^[[:space:]]*#.* ]]; then
+            electron_flags+=("''${line}")
+        fi
+    done
 
     # 移除无用崩溃报告和日志 (Before start)
     rm -rf "''${QQ_APP_DIR}/crash_files"
@@ -144,7 +149,7 @@ stdenv.mkDerivation (finalAttrs: {
         --dev-bind /tmp /tmp \
         --bind-try "''${HOME}/.pki" "''${HOME}/.pki" \
         --ro-bind-try "''${XAUTHORITY}" "''${XAUTHORITY}" \
-        --bind "''${QQ_DOWNLOAD_DIR}" "''${QQ_DOWNLOAD_DIR}" \
+        --bind-try "''${QQ_DOWNLOAD_DIR}" "''${QQ_DOWNLOAD_DIR}" \
         --bind "''${QQ_APP_DIR}" "''${QQ_APP_DIR}" \
         --ro-bind-try "''${FONTCONFIG_HOME}" "''${FONTCONFIG_HOME}" \
         --ro-bind-try "''${HOME}/.icons" "''${HOME}/.icons" \
@@ -229,21 +234,26 @@ stdenv.mkDerivation (finalAttrs: {
     bwrap_flags_file="''${XDG_CONFIG_HOME}/qq-bwrap-flags.conf"
     declare -a bwrap_flags
     if [[ -f "''${bwrap_flags_file}" ]]; then
-        while read -r line; do
+        while IFS= read -r line; do
             if [[ ! "''${line}" =~ ^[[:space:]]*# ]] && [[ -n "''${line}" ]]; then
-                bwrap_flags+=("''${line}")
+                eval "expanded_line=\"$line\""
+                read -ra parts <<< "$expanded_line"
+                for part in "''${parts[@]}"; do
+                    bwrap_flags+=("$part")
+                done
             fi
         done < "''${bwrap_flags_file}"
     fi
     electron_flags_file="''${XDG_CONFIG_HOME}/qq-electron-flags.conf"
     declare -a electron_flags
     if [[ -f "''${electron_flags_file}" ]]; then
-        while read -r line; do
-            if [[ ! "''${line}" =~ ^[[:space:]]*# ]] && [[ -n "''${line}" ]]; then
-                electron_flags+=("''${line}")
-            fi
-        done < "''${electron_flags_file}"
+        mapfile -t ELECTRON_FLAGS_MAPFILE <"''${electron_flags_file}"
     fi
+    for line in "''${ELECTRON_FLAGS_MAPFILE[@]}"; do
+        if [[ ! "''${line}" =~ ^[[:space:]]*#.* ]]; then
+            electron_flags+=("''${line}")
+        fi
+    done
 
     if [ -f "''${QQ_APP_DIR}/.qq_mac" ]; then
         qq_mac=$(cat "''${QQ_APP_DIR}/.qq_mac")
@@ -260,6 +270,7 @@ stdenv.mkDerivation (finalAttrs: {
 
     INFO_DIR=$(mktemp -d)
     INFO_FILE=$INFO_DIR/info
+    echo "nameserver 10.0.2.3" > "$INFO_DIR/resolv.conf"
 
     export PATH="${flatpak-xdg-utils}/bin:$PATH"
 
@@ -274,7 +285,7 @@ stdenv.mkDerivation (finalAttrs: {
         --ro-bind-try /etc/machine-id /etc/machine-id \
         --ro-bind-try /etc/passwd /etc/passwd \
         --ro-bind-try /etc/nsswitch.conf /etc/nsswitch.conf \
-        --ro-bind-try /etc/resolv.conf /etc/resolv.conf \
+        --ro-bind "''${INFO_DIR}/resolv.conf" /etc/resolv.conf \
         --ro-bind-try /etc/localtime /etc/localtime \
         --ro-bind-try /etc/fonts /etc/fonts \
         --ro-bind-try /etc/profiles /etc/profiles \
@@ -290,7 +301,7 @@ stdenv.mkDerivation (finalAttrs: {
         --dev-bind /tmp /tmp \
         --bind-try "''${HOME}/.pki" "''${HOME}/.pki" \
         --ro-bind-try "''${XAUTHORITY}" "''${XAUTHORITY}" \
-        --bind "''${QQ_DOWNLOAD_DIR}" "''${QQ_DOWNLOAD_DIR}" \
+        --bind-try "''${QQ_DOWNLOAD_DIR}" "''${QQ_DOWNLOAD_DIR}" \
         --setenv QQ_APP_DIR "''${QQ_APP_DIR}" \
         --bind "''${QQ_APP_DIR}" "''${QQ_APP_DIR}" \
         --ro-bind-try "''${FONTCONFIG_HOME}" "''${FONTCONFIG_HOME}" \
