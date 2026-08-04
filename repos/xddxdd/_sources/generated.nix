@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.116";
+    version = "v7.2.118";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.116";
-      hash = "sha256-qBsvkGmzyY9cFhlLSAPEiHQHmzJYws9TssQ96zM44nk=";
+      tag = "v7.2.118";
+      hash = "sha256-kuq9uBlv9VXR/kQ1+9e2sfwWmNsZFUXc9JVyjkKacOM=";
     };
   };
   cockpy = {
@@ -473,12 +473,12 @@
   };
   deeplx = {
     pname = "deeplx";
-    version = "v1.2.2";
+    version = "v1.2.3";
     src = fetchFromGitHub {
       owner = "OwO-Network";
       repo = "DeepLX";
-      tag = "v1.2.2";
-      hash = "sha256-b4ulKY4C2G5NiLBDqv2ISyTOee+202IR6x1h+Y/F5DY=";
+      tag = "v1.2.3";
+      hash = "sha256-SDyE2JnnrBJE9cGJZYxT6UppDTaCCaD/dX1tdTvlxxY=";
     };
   };
   dingtalk = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.12";
+    version = "v0.2.13";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.12";
-      hash = "sha256-y5UKX4mZif+scew4RVLSYp2bXxoKlCW1qbO9xpUhs9k=";
+      tag = "v0.2.13";
+      hash = "sha256-51XeKDNfeWU7W4QSerZVsdQSomC2ClnA/xs+fjZdec0=";
     };
   };
   edge-tts = {
@@ -822,36 +822,36 @@
   };
   funasr = {
     pname = "funasr";
-    version = "99879903d2dfe9e2c87d411e331c483848b496c9";
+    version = "6829ba7845052bf75e998ba9257552b0c8c2d510";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "99879903d2dfe9e2c87d411e331c483848b496c9";
-      hash = "sha256-lUdgTghR2Vuc4S58ArWCiheWK0FRLUd+N4K3zpOeEjE=";
+      rev = "6829ba7845052bf75e998ba9257552b0c8c2d510";
+      hash = "sha256-PDyCKxykgNU2mqoPQ2+ktthB6157detZivXhA0pFceM=";
     };
     date = "2026-08-04";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.08.01";
+    version = "2026.08.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.01/GeoLite2-ASN.mmdb";
-      hash = "sha256-3c7BRePD6gY4nYhyNY2mU/kIbe3rvX0Ptcdb4nbZRB4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.04/GeoLite2-ASN.mmdb";
+      hash = "sha256-3d2M1RM8yA58rz6NHh946yx/dT4raY+kfzJtCgr7v+o=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.08.01";
+    version = "2026.08.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.01/GeoLite2-City.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.04/GeoLite2-City.mmdb";
       hash = "sha256-bmaEyrBOu6EMHqn0pEMXXKD/CA4lXoT57wNQUXWCZX4=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.08.01";
+    version = "2026.08.04";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.01/GeoLite2-Country.mmdb";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.04/GeoLite2-Country.mmdb";
       hash = "sha256-0Y8TkBT/Md0LAF4WoVWEnA0mtZxl2ceRaKeA2igYk2Q=";
     };
   };
@@ -1362,12 +1362,12 @@
   };
   modelscope = {
     pname = "modelscope";
-    version = "v1.39.0";
+    version = "v1.39.1";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "modelscope";
-      tag = "v1.39.0";
-      hash = "sha256-tkwgn3EeR6SVIcOIMJ2U+ktFAckhaFLubRgteO4BGxA=";
+      tag = "v1.39.1";
+      hash = "sha256-jG0g7G2cXVNFUB1ItHcC0wJg6Zj0oGkKGLhgHji3sPQ=";
     };
   };
   modelscope-hub = {
@@ -1424,12 +1424,12 @@
   };
   ncmm = {
     pname = "ncmm";
-    version = "v1.1.12";
+    version = "v1.1.13";
     src = fetchFromGitHub {
       owner = "3899";
       repo = "ncmm";
-      tag = "v1.1.12";
-      hash = "sha256-Zk47URtO1sJAIILo5DrU3bkJYAVEVosv3tVizwXD5FQ=";
+      tag = "v1.1.13";
+      hash = "sha256-cOqEWfdiRWaYKBiTRTFwh5urusUh/ynXBvM5GlbKens=";
     };
   };
   netboot-xyz-efi = {
@@ -1548,13 +1548,13 @@
   };
   nginx-oidc = {
     pname = "nginx-oidc";
-    version = "0.5.0";
+    version = "0.6.0";
     src = fetchFromGitHub {
       owner = "kjdev";
       repo = "nginx-oidc";
-      tag = "0.5.0";
+      tag = "0.6.0";
       fetchSubmodules = true;
-      hash = "sha256-NMLzaEjR5q1gx9DDa+yLY5NdOTaeoG94Yr8Kvk5BSEk=";
+      hash = "sha256-/zvE28uVYOKNx7htlg5meiQegvFupbSkhhA6l+5KDHs=";
     };
   };
   ngx_brotli = {
@@ -1663,14 +1663,14 @@
   };
   openssl-oqs-provider = {
     pname = "openssl-oqs-provider";
-    version = "00fde3373e466043ee30ed31e32c56f6964ee5f4";
+    version = "ed86b5ea0e6ab533a6f36374a0c4426cf48c6213";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "oqs-provider";
-      rev = "00fde3373e466043ee30ed31e32c56f6964ee5f4";
-      hash = "sha256-yT8la2Z5s8+mvhGEfmUgyf3GMz2GX+1VWOmY3+Jn99c=";
+      rev = "ed86b5ea0e6ab533a6f36374a0c4426cf48c6213";
+      hash = "sha256-DOLlN41Hc5wCYMSAQyPfCnnGTY1z4DKWbHMsVNChWYc=";
     };
-    date = "2026-07-21";
+    date = "2026-08-04";
   };
   openssl-oqs-provider-stable = {
     pname = "openssl-oqs-provider-stable";
@@ -1732,10 +1732,10 @@
   };
   peerbanhelper = {
     pname = "peerbanhelper";
-    version = "9.4.2";
+    version = "9.4.3";
     src = fetchurl {
-      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.4.2/PeerBanHelper_9.4.2.zip";
-      hash = "sha256-9dhFbABJ/UgvOFBi6NZGX1pUKV4/g2aiGu+2TOCnvtU=";
+      url = "https://github.com/Ghost-chu/PeerBanHelper/releases/download/v9.4.3/PeerBanHelper_9.4.3.zip";
+      hash = "sha256-S3+weUE/ylo3xoULDNbjKWXqAqMu2umab/85aElydSA=";
     };
   };
   phpmyadmin = {
@@ -2144,12 +2144,12 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "c2a410d7e96f1ec383b2195776aa3928751342a6";
+    version = "ae8d2fdc27774e3cf36d419309547eae34d3640c";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "c2a410d7e96f1ec383b2195776aa3928751342a6";
-      hash = "sha256-ntRGwnSTanPS1Fmn7Dm8TQi3A/06jCEKh1oWUgnsUqc=";
+      rev = "ae8d2fdc27774e3cf36d419309547eae34d3640c";
+      hash = "sha256-r24nDPY3zntzfIbg1MRnLr6BUhRBNBdDdPnu+WCnv0A=";
     };
     date = "2026-08-03";
   };
