@@ -1,162 +1,46 @@
-{ lib, pkgs }:
+{ pkgs }:
 
-# Build Brave from source using an FHS environment.
-# FHS provides /usr/bin/env and lets depot_tools, gclient, vpython3 work correctly.
+# Build Brave from source in an FHS environment.
 #
 # Usage:
 #   BUILD_DIR=$PWD/scratch-build nix run .#brave-origin
 #
 # Env knobs:
-#   BUILD_DIR   - checkout root (default: $HOME/brave-build)
-#   SYNC_ONLY=1 - stop after gclient/pnpm sync (skip compile)
-#   SKIP_SYNC=1 - skip sync/hooks and go straight to compile
-#   MAX_RETRIES - sync retry count on transient failures (default: 20)
+#   BUILD_DIR    - checkout root (default: $HOME/brave-build)
+#   SYNC_ONLY=1  - stop after sync/hooks
+#   SKIP_SYNC=1  - skip sync/hooks and go straight to compile
+#   MAX_RETRIES  - sync retry count on transient failures (default: 20)
 
 let
-  # depot_tools uses `import httplib2.socks` which requires a socks.py file
-  # INSIDE the httplib2 package dir (bundled in old versions, removed in modern).
-  # We patch the nixpkgs httplib2 to inject a shim that re-exports PySocks.
   httplib2WithSocks = pkgs.python3.pkgs.httplib2.overrideAttrs (old: {
     propagatedBuildInputs = (old.propagatedBuildInputs or [ ]) ++ [ pkgs.python3.pkgs.pysocks ];
     postInstall = (old.postInstall or "") + ''
-            sitepkgs=$out/lib/${pkgs.python3.libPrefix}/site-packages
-            cat > $sitepkgs/httplib2/socks.py << 'SOCKSEOF'
-      # shim: re-export PySocks as httplib2.socks for depot_tools compatibility
-      try:
-          from socks import *
-          from socks import socksocket, setdefaultproxy, wrapmodule
-      except ImportError:
-          pass
-      SOCKSEOF
+      sitepkgs=$out/lib/${pkgs.python3.libPrefix}/site-packages
+      printf '%s\n' \
+        'try:' \
+        '    from socks import *' \
+        '    from socks import socksocket, setdefaultproxy, wrapmodule' \
+        'except ImportError:' \
+        '    pass' \
+        > "$sitepkgs/httplib2/socks.py"
     '';
   });
 
-  # Python env with all modules depot_tools needs
   pythonEnv = pkgs.python3.withPackages (
     ps: with ps; [
       (ps.toPythonModule httplib2WithSocks)
-      ps.pysocks
-      ps.requests
-      ps.six
-      ps.setuptools
-      ps.pip
-      ps.fido2
-      ps.packaging
-      ps.pyyaml
+      pysocks
+      requests
+      six
+      setuptools
+      pip
+      fido2
+      packaging
+      pyyaml
     ]
   );
 
-  fhsEnv = pkgs.buildFHSEnv {
-    name = "brave-build-env";
-    targetPkgs =
-      pkgs: with pkgs; [
-        # Core build tools
-        git
-        pythonEnv
-        nodejs
-        pnpm
-        ninja
-        pkg-config
-        gn
-        curl
-        curlWithGnuTls
-        wget
-        cacert
-        bash
-        coreutils
-        which
-        lsb-release
-        # Compiler toolchain
-        gcc
-        binutils
-        # C/C++ libraries for Chromium
-        glib
-        glib.dev
-        nss
-        nspr
-        atk
-        at-spi2-atk
-        cups
-        dbus
-        pango
-        cairo
-        libxkbcommon
-        libxkbcommon.dev
-        # X11
-        libx11
-        libxcomposite
-        libxdamage
-        libxext
-        libxfixes
-        libxrandr
-        libxtst
-        libxcb
-        # Other system libs
-        alsa-lib
-        mesa
-        libgbm
-        libdrm
-        udev
-        libusb1
-        fontconfig
-        freetype
-        expat
-        zlib
-        openssl
-        glibc
-      ];
-    runScript = "bash";
-  };
-
-  buildScript = pkgs.writeShellScriptBin "build-brave-origin-from-source" ''
-        set -euo pipefail
-
-        BUILD_DIR="''${BUILD_DIR:-$HOME/brave-build}"
-        export BUILD_DIR
-        MAX_RETRIES="''${MAX_RETRIES:-20}"
-        SYNC_ONLY="''${SYNC_ONLY:-0}"
-        SKIP_SYNC="''${SKIP_SYNC:-0}"
-        mkdir -p "$BUILD_DIR"
-        cd "$BUILD_DIR"
-
-        echo "==> Build directory: $BUILD_DIR"
-
-        # Tell depot_tools not to self-update. Do NOT set VPYTHON_BYPASS: Brave
-        # hooks need vpython3 to provide modules such as PyYAML.
-        export DEPOT_TOOLS_UPDATE=0
-        # SSL certs
-        export GIT_SSL_CAINFO="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-        export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-        export CURL_CA_BUNDLE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-
-        # Isolated writable venv: Brave hooks run `pip install -U pip`, which cannot
-        # write into the Nix store python used by buildFHSEnv.
-        VENV_DIR="$BUILD_DIR/.brave-python-venv"
-        if [ ! -x "$VENV_DIR/bin/python3" ] || ! "$VENV_DIR/bin/python3" -c 'import httplib2, socks, yaml' 2>/dev/null; then
-          echo "==> Creating isolated writable Python venv at $VENV_DIR"
-          rm -rf "$VENV_DIR"
-          ${pkgs.python3}/bin/python3 -m venv "$VENV_DIR"
-          "$VENV_DIR/bin/python3" -m pip -q --disable-pip-version-check install -U pip \
-            httplib2 pysocks requests six setuptools packaging fido2 pyyaml >/dev/null
-          sitepkgs="$("$VENV_DIR/bin/python3" -c 'import site; print(site.getsitepackages()[0])')"
-          cat > "$sitepkgs/httplib2/socks.py" << 'SOCKSEOF'
-    try:
-        from socks import *
-        from socks import socksocket, setdefaultproxy, wrapmodule
-    except ImportError:
-        pass
-    SOCKSEOF
-        fi
-        export VIRTUAL_ENV="$VENV_DIR"
-        export PYTHONPATH="$("$VENV_DIR/bin/python3" -c 'import site; print(site.getsitepackages()[0])')''${PYTHONPATH:+:$PYTHONPATH}"
-
-        # Chromium's prebuilt cargo needs Debian-style libcurl-gnutls.so.4 (CURL_GNUTLS_3).
-        # Provide a tiny dlsym shim that forwards to Nix's libcurl.so.4.
-        SHIM_DIR="$BUILD_DIR/.libshim"
-        if [ ! -f "$SHIM_DIR/libcurl-gnutls.so.4" ]; then
-          echo "==> Building libcurl-gnutls.so.4 shim for Chromium cargo"
-          mkdir -p "$SHIM_DIR"
-          cat > "$SHIM_DIR/curl_gnutls_shim.c" << 'SHIMEOF'
+  curlShimC = pkgs.writeText "curl-gnutls-shim.c" ''
     #define _GNU_SOURCE
     #include <dlfcn.h>
     #include <stdio.h>
@@ -203,94 +87,183 @@ let
     WRAP_V(curl_slist_append, void *, (void *list, const char *data), (list, data))
     WRAP_VOID(curl_slist_free_all, (void *list), (list))
     WRAP_V(curl_version_info, void *, (int age), (age))
-    SHIMEOF
-          cat > "$SHIM_DIR/curl_gnutls.map" << 'MAPEOF'
+  '';
+
+  curlShimMap = pkgs.writeText "curl-gnutls.map" ''
     CURL_GNUTLS_3 {
       global: curl_*;
       local: *;
     };
-    MAPEOF
-          gcc -shared -fPIC -o "$SHIM_DIR/libcurl-gnutls.so.4" "$SHIM_DIR/curl_gnutls_shim.c" \
-            -ldl -Wl,--version-script="$SHIM_DIR/curl_gnutls.map" -Wl,-soname,libcurl-gnutls.so.4
+  '';
+
+  fhsEnv = pkgs.buildFHSEnv {
+    name = "brave-build-env";
+    targetPkgs =
+      pkgs': with pkgs'; [
+        git
+        pythonEnv
+        nodejs
+        pnpm
+        ninja
+        pkg-config
+        gn
+        curl
+        curlWithGnuTls
+        wget
+        cacert
+        bash
+        coreutils
+        which
+        lsb-release
+        gcc
+        binutils
+        glib
+        glib.dev
+        nss
+        nspr
+        atk
+        at-spi2-atk
+        cups
+        dbus
+        pango
+        cairo
+        libxkbcommon
+        libxkbcommon.dev
+        libx11
+        libxcomposite
+        libxdamage
+        libxext
+        libxfixes
+        libxrandr
+        libxtst
+        libxcb
+        alsa-lib
+        mesa
+        libgbm
+        libdrm
+        udev
+        libusb1
+        fontconfig
+        freetype
+        expat
+        zlib
+        openssl
+        glibc
+      ];
+    runScript = "bash";
+  };
+
+  buildScript = pkgs.writeShellScriptBin "build-brave-origin-from-source" ''
+    set -euo pipefail
+
+    BUILD_DIR="''${BUILD_DIR:-$HOME/brave-build}"
+    export BUILD_DIR
+    MAX_RETRIES="''${MAX_RETRIES:-20}"
+    SYNC_ONLY="''${SYNC_ONLY:-0}"
+    SKIP_SYNC="''${SKIP_SYNC:-0}"
+
+    mkdir -p "$BUILD_DIR"
+    cd "$BUILD_DIR"
+
+    echo "==> Build directory: $BUILD_DIR"
+
+    export DEPOT_TOOLS_UPDATE=0
+    export GIT_SSL_CAINFO="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    export SSL_CERT_FILE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+    export CURL_CA_BUNDLE="${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+
+    VENV_DIR="$BUILD_DIR/.brave-python-venv"
+    if [ ! -x "$VENV_DIR/bin/python3" ] || ! "$VENV_DIR/bin/python3" -c 'import httplib2, socks, yaml' >/dev/null 2>&1; then
+      echo "==> Creating writable Python venv at $VENV_DIR"
+      rm -rf "$VENV_DIR"
+      ${pkgs.python3}/bin/python3 -m venv "$VENV_DIR"
+      "$VENV_DIR/bin/python3" -m pip -q --disable-pip-version-check install -U pip \
+        httplib2 pysocks requests six setuptools packaging fido2 pyyaml >/dev/null
+      sitepkgs=$(echo "$VENV_DIR"/lib/python*/site-packages)
+      printf '%s\n' \
+        'try:' \
+        '    from socks import *' \
+        '    from socks import socksocket, setdefaultproxy, wrapmodule' \
+        'except ImportError:' \
+        '    pass' \
+        > "$sitepkgs/httplib2/socks.py"
+    fi
+    export VIRTUAL_ENV="$VENV_DIR"
+    export PYTHONPATH="$(echo "$VENV_DIR"/lib/python*/site-packages)''${PYTHONPATH:+:$PYTHONPATH}"
+
+    SHIM_DIR="$BUILD_DIR/.libshim"
+    if [ ! -f "$SHIM_DIR/libcurl-gnutls.so.4" ]; then
+      echo "==> Building libcurl-gnutls shim for Chromium cargo"
+      mkdir -p "$SHIM_DIR"
+      cp "${curlShimC}" "$SHIM_DIR/curl_gnutls_shim.c"
+      cp "${curlShimMap}" "$SHIM_DIR/curl_gnutls.map"
+      gcc -shared -fPIC -o "$SHIM_DIR/libcurl-gnutls.so.4" \
+        "$SHIM_DIR/curl_gnutls_shim.c" -ldl \
+        -Wl,--version-script="$SHIM_DIR/curl_gnutls.map" \
+        -Wl,-soname,libcurl-gnutls.so.4
+    fi
+    export LD_LIBRARY_PATH="$SHIM_DIR:/usr/lib64:/usr/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+
+    echo "==> 1. Setting up depot_tools..."
+    if [ ! -d depot_tools ]; then
+      git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+    fi
+    export PATH="$VENV_DIR/bin:$BUILD_DIR/depot_tools:$PATH"
+
+    echo "==> 2. Cloning brave-core..."
+    mkdir -p src
+    if [ ! -d src/brave ]; then
+      git clone https://github.com/brave/brave-core.git src/brave
+    fi
+
+    # Patch DEPS without runtime Python script.
+    if [ -f src/brave/DEPS ] && grep -q "no-warn-script-location', 'pip'" src/brave/DEPS; then
+      echo "==> Patching src/brave/DEPS update_pip hook for Nix"
+      sed -i \
+        "s|\\['python3', '-m', 'pip', '-q', '--disable-pip-version-check', 'install', '-U', '--no-warn-script-location', 'pip'\\],|['true'],  # nurpkgs: skip pip self-upgrade (Nix store is read-only)|" \
+        src/brave/DEPS
+    fi
+
+    cd src/brave
+
+    if [ "$SKIP_SYNC" = "1" ]; then
+      echo "==> SKIP_SYNC=1 set; skipping sync/hooks"
+    else
+      if [ -f "$BUILD_DIR/src/DEPS" ] && [ -d "$BUILD_DIR/src/.git" ]; then
+        SYNC_CMD=(pnpm run sync)
+        echo "==> 3. Resuming with: ''${SYNC_CMD[*]}"
+      else
+        SYNC_CMD=(pnpm run init)
+        echo "==> 3. Fresh checkout with: ''${SYNC_CMD[*]}"
+      fi
+
+      attempt=1
+      while true; do
+        echo "==> sync attempt $attempt/$MAX_RETRIES..."
+        if "''${SYNC_CMD[@]}"; then
+          echo "==> sync succeeded"
+          break
         fi
-        export LD_LIBRARY_PATH="$SHIM_DIR:/usr/lib64:/usr/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
-
-        # Step 1: depot_tools
-        echo "==> 1. Setting up depot_tools..."
-        if [ ! -d depot_tools ]; then
-          git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+        if [ "$attempt" -ge "$MAX_RETRIES" ]; then
+          echo "==> sync failed after $MAX_RETRIES attempts" >&2
+          exit 1
         fi
-        export PATH="$VENV_DIR/bin:$BUILD_DIR/depot_tools:$PATH"
+        sleep_secs=$((attempt < 8 ? (1 << attempt) : 300))
+        echo "==> sync failed; sleeping ''${sleep_secs}s before retry..."
+        sleep "$sleep_secs"
+        attempt=$((attempt + 1))
+        SYNC_CMD=(pnpm run sync)
+      done
+    fi
 
-        # Step 2: brave-core in the right place
-        echo "==> 2. Cloning brave-core..."
-        mkdir -p src
-        if [ ! -d src/brave ]; then
-          git clone https://github.com/brave/brave-core.git src/brave
-        fi
+    if [ "$SYNC_ONLY" = "1" ]; then
+      echo "==> SYNC_ONLY=1 set; skipping compile"
+      exit 0
+    fi
 
-        # Skip Brave's pip self-upgrade hook (Nix store python is immutable)
-        if [ -f src/brave/DEPS ] && grep -q "no-warn-script-location', 'pip'" src/brave/DEPS; then
-          echo "==> Patching src/brave/DEPS update_pip hook for Nix"
-          ${pkgs.python3}/bin/python3 - <<'PY'
-    from pathlib import Path
-    import os
-    p = Path(os.environ["BUILD_DIR"]) / "src/brave/DEPS"
-    text = p.read_text()
-    old = "['python3', '-m', 'pip', '-q', '--disable-pip-version-check', 'install', '-U', '--no-warn-script-location', 'pip']"
-    new = "['true'],  # nurpkgs: skip pip self-upgrade (Nix store is read-only)"
-    # Keep a single trailing comma after the action value by stripping any leftover
-    text2 = text.replace(old + ",", new, 1) if (old + ",") in text else text.replace(old, new, 1)
-    if text2 != text:
-        p.write_text(text2)
-    PY
-        fi
-
-        cd src/brave
-
-        if [ "$SKIP_SYNC" = "1" ]; then
-          echo "==> SKIP_SYNC=1 set; skipping sync/hooks"
-        else
-          # Prefer resume (sync) once chromium src exists; full init otherwise.
-          if [ -f "$BUILD_DIR/src/DEPS" ] && [ -d "$BUILD_DIR/src/.git" ]; then
-            SYNC_CMD=(pnpm run sync)
-            echo "==> 3. Resuming with: ''${SYNC_CMD[*]}"
-          else
-            SYNC_CMD=(pnpm run init)
-            echo "==> 3. Fresh checkout with: ''${SYNC_CMD[*]}"
-          fi
-
-          attempt=1
-          while true; do
-            echo "==> sync attempt $attempt/$MAX_RETRIES..."
-            if "''${SYNC_CMD[@]}"; then
-              echo "==> sync succeeded"
-              break
-            fi
-            if [ "$attempt" -ge "$MAX_RETRIES" ]; then
-              echo "==> sync failed after $MAX_RETRIES attempts" >&2
-              exit 1
-            fi
-            # Exponential backoff capped at 5 minutes (helps with googlesource 429)
-            sleep_secs=$(( attempt < 8 ? (1 << attempt) : 300 ))
-            echo "==> sync failed; sleeping ''${sleep_secs}s before retry..."
-            sleep "$sleep_secs"
-            attempt=$((attempt + 1))
-            # After first failure, always resume via sync (init is not idempotent-friendly)
-            SYNC_CMD=(pnpm run sync)
-          done
-        fi
-
-        if [ "$SYNC_ONLY" = "1" ]; then
-          echo "==> SYNC_ONLY=1 set; skipping compile"
-          exit 0
-        fi
-
-        # Step 4: compile
-        echo "==> 4. Building brave (this will take many hours)..."
-        pnpm run build
-
-        echo "==> Build complete! Binary: $BUILD_DIR/src/out/Component/brave"
+    echo "==> 4. Building brave (this will take many hours)..."
+    pnpm run build
+    echo "==> Build complete! Binary: $BUILD_DIR/src/out/Component/brave"
   '';
 in
 pkgs.writeShellScriptBin "brave-origin-build" ''
