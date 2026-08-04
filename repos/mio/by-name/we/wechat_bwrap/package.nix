@@ -37,7 +37,7 @@ stdenv.mkDerivation {
       --replace-fail "/opt/wechat-universal{,}" "${wechat.src}/opt/wechat /opt/wechat-universal" \
       --replace-fail "{/usr/lib/wechat-universal,}/usr/lib/license" "$wechat_root/usr/lib/license /usr/lib/license" \
       --replace-fail "{/usr/lib/wechat-universal,}/etc/lsb-release" "$wechat_root/etc/lsb-release /etc/lsb-release" \
-      --replace-fail "--ro-bind /usr{,}" "--ro-bind ${wechat.fhsenv}/usr /usr" \
+      --replace-fail "--ro-bind /usr{,}" "--ro-bind /nix /nix --ro-bind-try /run/current-system/sw /run/current-system/sw --ro-bind-try /run/opengl-driver /run/opengl-driver --ro-bind ${wechat.fhsenv}/usr /usr" \
       --replace-fail "--bind /usr/bin/{true,lsblk}" "" \
       --replace-fail "exec bwrap" "exec ${bubblewrap}/bin/bwrap" \
       --replace-fail "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal')" "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal'|'wechat')"
