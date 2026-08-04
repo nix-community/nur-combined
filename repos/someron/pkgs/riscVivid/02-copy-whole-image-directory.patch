@@ -1,0 +1,17 @@
+diff --git a/build.xml b/build.xml
+index c9aba3e..d1b28db 100644
+--- a/build.xml
++++ b/build.xml
+@@ -46,9 +46,9 @@
+ 			<copy file="lib_local/apache-log4j-1.2.17/LICENSE" tofile="./bin/META-INF/LICENSE.log4j"/>
+ 			<copy file="lib_local/apache-log4j-1.2.17/NOTICE" tofile="./bin/META-INF/NOTICE.log4j"/>
+ 		<mkdir dir="./bin/img/"/>
+-			<copy file="img/riscVivid_small.png" tofile="./bin/img/riscVivid_small.png"/>
+-			<copy file="img/riscVivid-quadrat128x128.png" tofile="./bin/img/riscVivid-quadrat128x128.png"/>
+-			<copy file="img/riscVivid-quadrat16x16.png" tofile="./bin/img/riscVivid-quadrat16x16.png"/>
++			<copy todir="./bin/img/" >
++				<fileset dir="img" includes="**"/>
++			</copy>
+         <jar destfile="riscVivid.jar" filesetmanifest="mergewithoutmain">
+             <manifest>
+                 <attribute name="Main-Class" value="riscVivid.main.RiscVividSimulatorMain"/>

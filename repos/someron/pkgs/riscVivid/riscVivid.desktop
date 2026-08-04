@@ -1,0 +1,6 @@
+[Desktop Entry]
+Comment=A RISC-V processor simulator
+Name=riscVivid
+Exec=riscVivid
+Type=Application
+Icon=riscVivid
