@@ -3,9 +3,15 @@ on:
   workflow_run: # zizmor: ignore[dangerous-triggers] bot identity, same-repo branch, exact SHA, and package-only scope are verified before checkout
     workflows: [build]
     types: [completed]
+  workflow_dispatch:
+    inputs:
+      pull_request:
+        description: Bot pull request number whose repair commits need re-signing
+        required: true
+        type: string
 permissions: {}
 concurrency:
-  group: bot-pr-${{ github.event.workflow_run.head_branch }}
+  group: bot-pr-${{ github.event.workflow_run.head_branch || inputs.pull_request || github.run_id }}
   cancel-in-progress: false
 jobs:
   inspect:
@@ -334,12 +340,23 @@ jobs:
           fi
           git add -A -- "pkgs/$PACKAGE"
           git diff --cached --check
-          git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" > "$RUNNER_TEMP/repair.patch"
+          mkdir -p "$RUNNER_TEMP/repair"
+          git diff --cached --binary --full-index HEAD -- "pkgs/$PACKAGE" > "$RUNNER_TEMP/repair/repair.patch"
+          old_version=
+          if [[ "$NEW_PACKAGE" == "false" ]]; then
+            old_version=$(cat "$RUNNER_TEMP/old-version")
+          fi
+          bash .github/scripts/prepare_bot_pr_metadata.sh \
+            "$PACKAGE" \
+            "$old_version" \
+            "$NEW_PACKAGE" \
+            "$RUNNER_TEMP/repair" \
+            "$REPAIR_ATTEMPT"
       - name: Upload repair patch
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: bot-repair-${{ needs.inspect.outputs.number }}-${{ needs.inspect.outputs.attempt }}
-          path: ${{ runner.temp }}/repair.patch
+          path: ${{ runner.temp }}/repair
           if-no-files-found: error
           retention-days: 1
   publish-repair:
@@ -369,14 +386,13 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           ref: ${{ needs.inspect.outputs.head_sha }}
-          fetch-depth: 1
-          persist-credentials: true
-          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+          persist-credentials: false
       - name: Download repair patch
         uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: bot-repair-${{ needs.inspect.outputs.number }}-${{ needs.inspect.outputs.attempt }}
-          path: ${{ runner.temp }}
+          path: ${{ runner.temp }}/repair
       - name: Verify current head and apply repair
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -387,7 +403,7 @@ jobs:
             echo "PR #$PR_NUMBER advanced from $EXPECTED_HEAD to $current; refusing stale repair" >&2
             exit 1
           fi
-          git apply --index "$RUNNER_TEMP/repair.patch"
+          git apply --index "$RUNNER_TEMP/repair/repair.patch"
           .github/scripts/validate_package_source.sh "pkgs/$PACKAGE"
           while IFS= read -r path; do
             if [[ "$path" != "pkgs/$PACKAGE/"* ]]; then
@@ -400,10 +416,34 @@ jobs:
             exit 1
           fi
           git diff --cached --check
-          git config user.name 'galactic-batter[bot]'
-          git config user.email '304539431+galactic-batter[bot]@users.noreply.github.com'
-          git commit -m "bot repair($PACKAGE): CI attempt $REPAIR_ATTEMPT"
-          git push origin "HEAD:refs/heads/$BRANCH"
+      - name: Read repaired pull request metadata
+        id: metadata
+        run: |
+          echo "title=$(cat "$RUNNER_TEMP/repair/title")" >> "$GITHUB_OUTPUT"
+          echo "commit-message=$(cat "$RUNNER_TEMP/repair/commit-message")" >> "$GITHUB_OUTPUT"
+      - name: Publish signed repair
+        id: pull_request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: main
+          branch: ${{ needs.inspect.outputs.branch }}
+          delete-branch: true
+          add-paths: pkgs/${{ needs.inspect.outputs.package }}
+          commit-message: ${{ steps.metadata.outputs.commit-message }}
+          committer: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          author: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          sign-commits: true
+          title: ${{ steps.metadata.outputs.title }}
+          body-path: ${{ runner.temp }}/repair/body.md
+      - name: Require verified repair commits
+        env:
+          VERIFIED: ${{ steps.pull_request.outputs.pull-request-commits-verified }}
+        run: |
+          if [[ "$VERIFIED" != "true" ]]; then
+            echo "Repair commits were not verified" >&2
+            exit 1
+          fi
       - name: Mark pull request as AI-assisted
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
@@ -472,3 +512,146 @@ jobs:
               issue_number: Number(process.env.PR_NUMBER),
               body: `${marker}\nBot automation is blocked on the current revision: ${process.env.REASON}`,
             });
+  resign:
+    if: ${{ github.repository_id == '852828187' && github.event_name == 'workflow_dispatch' && github.actor_id == '15964984' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Inspect unsigned bot repair
+        id: inspect
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
+        env:
+          PR_NUMBER: ${{ inputs.pull_request }}
+        with:
+          script: |
+            const pullNumber = Number(process.env.PR_NUMBER);
+            if (!Number.isSafeInteger(pullNumber) || pullNumber < 1) {
+              throw new Error("Invalid pull request number");
+            }
+            const { data: pull } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+            });
+            const labels = new Set(pull.labels.map((label) => label.name));
+            if (
+              pull.user?.id !== 304539431 ||
+              pull.head.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}` ||
+              !labels.has("bot") ||
+              !labels.has("bot-ai-repair")
+            ) {
+              throw new Error(`PR #${pullNumber} is not an AI-repaired bot pull request`);
+            }
+
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+              per_page: 100,
+            });
+            const packages = new Set();
+            for (const file of files) {
+              for (const path of [file.filename, file.previous_filename].filter(Boolean)) {
+                const match = /^pkgs\/([a-z][a-z0-9_-]{0,63})\/.+/.exec(path);
+                if (!match) throw new Error(`PR #${pullNumber} contains non-package path ${path}`);
+                packages.add(match[1]);
+              }
+            }
+            if (packages.size !== 1) throw new Error(`PR #${pullNumber} is not confined to one package`);
+            const packageName = [...packages][0];
+            const newPackage = /^bot\/package-issue-[1-9][0-9]*$/.test(pull.head.ref);
+            if (pull.head.ref !== `bot/${packageName}` && !newPackage) {
+              throw new Error(`PR #${pullNumber} branch does not match package ${packageName}`);
+            }
+
+            const commits = await github.paginate(github.rest.pulls.listCommits, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pullNumber,
+              per_page: 100,
+            });
+            const details = await Promise.all(
+              commits.map((commit) => github.rest.repos.getCommit({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: commit.sha,
+              }).then((response) => response.data)),
+            );
+            const unsigned = details.filter((commit) => !commit.commit.verification?.verified);
+            if (unsigned.length === 0) throw new Error(`PR #${pullNumber} has no unsigned commits`);
+            if (unsigned.some((commit) => !commit.commit.message.startsWith(`bot repair(${packageName}):`))) {
+              throw new Error(`PR #${pullNumber} contains an unsigned commit that is not a bot repair`);
+            }
+            if (pull.base.repo?.full_name !== `${context.repo.owner}/${context.repo.repo}` || pull.base.ref !== "main") {
+              throw new Error(`PR #${pullNumber} does not target this repository's main branch`);
+            }
+
+            core.setOutput("number", String(pullNumber));
+            core.setOutput("package", packageName);
+            core.setOutput("branch", pull.head.ref);
+            core.setOutput("head", pull.head.sha);
+            core.setOutput("parent", pull.base.sha);
+            core.setOutput("title", pull.title);
+      - name: Generate bot token
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3
+        with:
+          client-id: ${{ vars.APP_CLIENT_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+      - name: Checkout unsigned repair
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          ref: ${{ steps.inspect.outputs.head }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Restore repair as working changes
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.inspect.outputs.number }}
+          EXPECTED_HEAD: ${{ steps.inspect.outputs.head }}
+          PARENT: ${{ steps.inspect.outputs.parent }}
+          PACKAGE: ${{ steps.inspect.outputs.package }}
+          BODY_PATH: ${{ runner.temp }}/resign-body.md
+        run: |
+          current=$(gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq .head.sha)
+          if [[ "$current" != "$EXPECTED_HEAD" ]]; then
+            echo "PR #$PR_NUMBER advanced from $EXPECTED_HEAD to $current; refusing stale re-sign" >&2
+            exit 1
+          fi
+          gh api "repos/$REPOSITORY/pulls/$PR_NUMBER" --jq .body > "$BODY_PATH"
+          git reset --mixed "$PARENT"
+          .github/scripts/validate_package_source.sh "pkgs/$PACKAGE"
+          while IFS= read -r path; do
+            if [[ "$path" != "pkgs/$PACKAGE/"* ]]; then
+              echo "Unsigned repair contains a path outside pkgs/$PACKAGE: $path" >&2
+              exit 1
+            fi
+          done < <(git diff --name-only)
+          git diff --check
+      - name: Re-publish verified repair
+        id: pull_request
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          base: main
+          branch: ${{ steps.inspect.outputs.branch }}
+          commit-message: "bot repair(${{ steps.inspect.outputs.package }}): re-sign CI repair"
+          add-paths: pkgs/${{ steps.inspect.outputs.package }}
+          committer: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          author: galactic-batter[bot] <304539431+galactic-batter[bot]@users.noreply.github.com>
+          sign-commits: true
+          title: ${{ steps.inspect.outputs.title }}
+          body-path: ${{ runner.temp }}/resign-body.md
+      - name: Require verified repair commits
+        env:
+          VERIFIED: ${{ steps.pull_request.outputs.pull-request-commits-verified }}
+        run: |-
+          if [[ "$VERIFIED" != "true" ]]; then
+            echo "Re-published repair commits were not verified" >&2
+            exit 1
+          fi
