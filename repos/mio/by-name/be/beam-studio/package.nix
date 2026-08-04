@@ -111,10 +111,13 @@ stdenv.mkDerivation (finalAttrs: {
     substituteInPlace apps/app/public/js/node/main.js \
       --replace-fail 'process.resourcesPath' 'require("path").join(__dirname, "../../../../")'
 
-    # Build font-scanner AFTER webpack to prevent fontconfig hangs during webpack
+    # Build font-scanner AFTER webpack to prevent fontconfig hangs during webpack.
+    # Also patch NULL-init bug: missing fontconfig attributes otherwise segfault
+    # in copyString and freeze the UI via sync GetAvailableFonts IPC.
     for dir in $(find node_modules -path "*/node_modules/font-scanner" -type d); do
       if [ -f "$dir/binding.gyp" ]; then
-        echo "Building $dir"
+        echo "Patching and building $dir"
+        patch -d "$dir" -p1 < ${./font-scanner-null-init.patch}
         (cd "$dir" && node-gyp rebuild)
         autoPatchelf "$dir"
       fi
@@ -156,8 +159,8 @@ stdenv.mkDerivation (finalAttrs: {
       --add-flags $out/share/beam-studio/resources/app.asar \
       --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
       --add-flags "--no-sandbox" \
-      --set FONTCONFIG_FILE ${fontconfig.out}/etc/fonts/fonts.conf \
-      --set FONTCONFIG_PATH ${fontconfig.out}/etc/fonts \
+      --set-default FONTCONFIG_FILE /etc/fonts/fonts.conf \
+      --set-default FONTCONFIG_PATH /etc/fonts \
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0

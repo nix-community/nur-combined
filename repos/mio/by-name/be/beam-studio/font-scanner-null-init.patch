@@ -1,0 +1,20 @@
+Initialize FcPatternGetString out-params before use.
+
+font-scanner 0.2.1 leaves these pointers uninitialized; when a font is
+missing attributes, FcPatternGetString fails and copyString() strlen()'s
+garbage → SIGSEGV, which freezes Beam Studio's Electron main process on
+sync GetAvailableFonts IPC.
+
+--- a/src/FontManagerLinux.cc
++++ b/src/FontManagerLinux.cc
+@@ -109,8 +109,8 @@
+ }
+ 
+ FontDescriptor *createFontDescriptor(FcPattern *pattern) {
+-  FcChar8 *path, *psName, *family, *style;
+-  int weight, width, slant, spacing;
++  FcChar8 *path = NULL, *psName = NULL, *family = NULL, *style = NULL;
++  int weight = 0, width = 0, slant = 0, spacing = 0;
+ 
+   FcPatternGetString(pattern, FC_FILE, 0, &path);
+   FcPatternGetString(pattern, FC_POSTSCRIPT_NAME, 0, &psName);
