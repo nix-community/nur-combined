@@ -5,14 +5,18 @@ name: "UpNote bump"
 on:
   schedule:
     # 월 01:00 UTC = 10:00 KST. nix-configurations 의 weekly flake update(화 06:30)보다 하루 앞서
-    # 돌려, 여기서 머지된 bump 가 다음 날 그쪽 `nix flake update` 에 자연히 실려가게 한다.
+    # 돌려, 여기서 반영된 bump 가 다음 날 그쪽 `nix flake update` 에 자연히 실려가게 한다.
+    # ⚠ 그 하루 간격이 성립하려면 **반영까지 자동**이어야 한다(→ 아래 Commit & push). PR 만 열고
+    #   사람 손을 기다리면 그 사이 롤링 URL 이 갈려 다음 날 다운스트림 빌드가 해시 불일치로 깨진다.
+    # ⚠ 남는 레이스: UpNote 가 이 폴링(월 10:00 KST)과 다운스트림 잡(화 06:30 KST) **사이**에
+    #   릴리스하면 여전히 깨진다(약 20시간 창, 구조적). 그때는 다운스트림의 실패 알림이 잡는다.
     - cron: '0 1 * * 1'
   workflow_dispatch:
 
 # 레포 기본값이 default_workflow_permissions=read 라 명시적 상향이 필요하다.
+#   master 직접 푸시라 contents 만 있으면 된다(PR 을 안 만드므로 pull-requests 불요).
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   bump:
@@ -46,51 +50,51 @@ jobs:
             --arg pkgs 'import <nixpkgs> { config.allowUnfree = true; }' \
             --no-out-link
 
-      - name: Open bump PR
+      # PR 을 거치지 않고 기본 브랜치에 직접 커밋한다. 이 레포엔 브랜치 보호가 없어 squash 머지
+      #   결과와 직접 푸시 결과가 **동일한 커밋 하나**이고, 리뷰 창은 실제로 아무도 쓰지 않는다 —
+      #   알림이 오지 않아 PR #4(9.20.0)가 일주일 방치됐고 그 사이 업스트림이 롤링 URL 을 갈아끼워
+      #   다운스트림(nix-configurations) 주간 빌드가 해시 불일치로 깨졌다. 사람 손이 필요한 단계를
+      #   두는 것 자체가 이 파이프라인의 단일 실패점이었다.
+      #   검증은 바로 위 Verify build 가 담당하고, 회귀 시 대응은 revert 다.
+      - name: Commit & push
         if: steps.update.outputs.updated == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OLD: ${{ steps.update.outputs.old_version }}
           NEW: ${{ steps.update.outputs.new_version }}
           BASE: ${{ github.event.repository.default_branch }}
         run: |
           set -euo pipefail
-          branch="auto/upnote-$NEW"
-
-          # 같은 버전 PR 이 이미 떠 있으면(지난 주에 열렸는데 아직 미머지) 조용히 끝낸다.
-          if [ -n "$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')" ]; then
-            echo "PR 이 이미 열려 있음: $branch — 생략"
-            exit 0
-          fi
 
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git switch -c "$branch"
-          git commit -am "upnote: $OLD -> $NEW"
-          git push -f -u origin "$branch"
 
-          # 본문은 파일로 넘긴다(--body-file). 게다가 heredoc 을 <<'EOF' 로 **인용**해 셸 해석을 전부
-          #   끈다 — 본문에 백틱이 있어 비인용 heredoc 이면 명령치환으로 먹힌다. 값은 sed 로 주입.
-          body="$RUNNER_TEMP/pr-body.md"
-          cat > "$body" <<'EOF'
-          UpNote `@OLD@` → `@NEW@` (자동 생성).
+          # 커밋 메시지는 파일로 넘긴다(-F). heredoc 을 <<'EOF' 로 **인용**해 셸 해석을 전부 끈다 —
+          #   본문에 백틱이 있어 비인용 heredoc 이면 명령치환으로 먹힌다. 값은 sed 로 주입.
+          msg="$RUNNER_TEMP/commit-msg.txt"
+          cat > "$msg" <<'EOF'
+          upnote: @OLD@ -> @NEW@
 
-          업스트림 메타파일: <https://download.getupnote.com/app/latest-linux.yml>
-          version 과 .deb 아티팩트의 sha512 를 그대로 SRI 로 옮겼습니다.
+          업스트림 메타파일(<https://download.getupnote.com/app/latest-linux.yml>)의 version 과
+          .deb 아티팩트 sha512 를 그대로 SRI 로 옮겼다. 롤링 URL 이라 이 갱신이 늦으면 옛 해시가
+          그대로 깨지므로 자동 폴링·자동 푸시한다.
 
-          - [x] `nix-build . -A upnote` 통과 (allowUnfree, 이 워크플로에서 검증)
-          - [ ] 실기기에서 실행 확인 — 특히 Electron GPU 가속과 fcitx5 한글 입력
+          검증: `nix-build . -A upnote` (allowUnfree) 통과 — UpNote 는 unfree 라 build.yml 의
+          isBuildable 필터에서 빠져, 이 워크플로가 유일한 CI 검증 지점이다.
 
-          이 PR 이 트리거하는 Build 워크플로는 upnote 가 unfree 라 **빌드하지 않습니다**.
-          검증은 위 체크박스가 전부입니다.
+          ⚠ 실행 확인은 사후다. Electron GPU 가속(libEGL dlopen)과 fcitx5 한글 입력은 빌드가
+          잡지 못한다 — 이상이 있으면 이 커밋을 revert 할 것.
           EOF
-          sed -i -e "s|@OLD@|$OLD|g" -e "s|@NEW@|$NEW|g" "$body"
+          sed -i -e "s|@OLD@|$OLD|g" -e "s|@NEW@|$NEW|g" "$msg"
+          git commit -aF "$msg"
 
-          # non-draft — 빌드 검증까지 끝난 완성 제안이라 초안으로 둘 이유가 없다.
-          #   nix-configurations 의 weekly-update 의존성 MR 과 같은 정책.
-          gh pr create \
-            --base "$BASE" \
-            --head "$branch" \
-            --title "upnote: $OLD -> $NEW" \
-            --label dependencies \
-            --body-file "$body"
+          # 스케줄 실행 중 다른 커밋이 들어와 non-fast-forward 가 될 수 있다. 이 커밋은 default.nix
+          #   두 줄만 건드리므로 rebase 로 얹으면 그만이다(강제 푸시는 쓰지 않는다).
+          for i in 1 2 3; do
+            if git push origin "HEAD:$BASE"; then
+              exit 0
+            fi
+            echo "푸시 재시도 $i/3 — 원격이 앞서 있어 rebase 후 재시도"
+            git pull --rebase origin "$BASE"
+          done
+          echo "error: 푸시 실패 — 수동 확인 필요" >&2
+          exit 1
