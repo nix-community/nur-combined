@@ -145,10 +145,11 @@ buildNpmPackage (finalAttrs: {
     runHook postBuild
   '';
 
-  installPhase = ''
-    runHook preInstall
-
-    if [ "$defaultBuildPlatform" = "linux" ]; then
+  installPhase =
+    ''
+      runHook preInstall
+    ''
+    + lib.optionalString stdenv.hostPlatform.isLinux ''
       mkdir -p $out/share/waveterm
       cp -r make/*-unpacked/resources $out/share/waveterm/resources
 
@@ -173,14 +174,15 @@ buildNpmPackage (finalAttrs: {
         install -Dm644 "build/icons/''${size}x''${size}.png" \
           "$out/share/icons/hicolor/''${size}x''${size}/apps/waveterm.png"
       done
-    else
+    ''
+    + lib.optionalString stdenv.hostPlatform.isDarwin ''
       mkdir -p $out/Applications $out/bin
       cp -r make/*/Wave.app $out/Applications/Wave.app
       ln -s $out/Applications/Wave.app/Contents/MacOS/Wave $out/bin/waveterm
-    fi
-
-    runHook postInstall
-  '';
+    ''
+    + ''
+      runHook postInstall
+    '';
 
   desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
