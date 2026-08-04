@@ -15,15 +15,13 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "eez-studio";
-  version = "0.28.0-unstable-2026-07-29";
+  version = "0.29.0";
 
   src = fetchFromGitHub {
     owner = "eez-open";
     repo = "studio";
-    # There isn't any release that include the fixes to support electron_40+ yet.
-    # Switch to using `tag` instead of `rev` after 0.28.1+.
-    rev = "462cca563effb3d6ab9b73ed744d5b2499ba66c9";
-    hash = "sha256-sKqB6H4M77L613NDPo3/m5SGHqagoPLmvs1fcTBQL7g=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-dYVIUBQ++hkyI6gzpwE2KTXo3tfKid4yfs8IZ+jm20w=";
   };
 
   npmDepsHash = "sha256-vKyitP5xrUZMMZF8D+e5Z4rwc9Y2iS+S56oV62GHkz0=";
@@ -122,18 +120,12 @@ buildNpmPackage (finalAttrs: {
     })
   ];
 
-  # TODO remove `extraArgs` after 0.28.1+
-  passthru.updateScript = nix-update-script {
-    extraArgs = [
-      "--version"
-      "branch"
-    ];
-  };
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Cross-platform low-code GUI and automation tool for embedded systems and T&M equipment";
     homepage = "https://www.envox.eu/studio/studio-introduction/";
-    changelog = "https://github.com/eez-open/studio/releases/tag/v0.28.0"; # TODO use `finalAttrs.src.tag` after 0.28.1+
+    changelog = "https://github.com/eez-open/studio/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ ilkecan ];
     platforms = lib.platforms.linux;

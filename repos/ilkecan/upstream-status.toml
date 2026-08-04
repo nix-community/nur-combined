@@ -25,6 +25,12 @@ removeAfter = 2605
 
 [zellij-autolock]
 pr = "https://github.com/NixOS/nixpkgs/pull/548437"
+merged = true
+removeAfter = 2605
+replacementMessage = "Please replace `${pkgs.nur.repos.ilkecan.zellij-autolock}/share/zellij/plugins/zellij-autolock.wasm` with `${pkgs.zellijPlugins.autolock}`."
 
 [zellij-workspace]
 pr = "https://github.com/NixOS/nixpkgs/pull/548444"
+merged = true
+removeAfter = 2605
+replacementMessage = "Please replace `${pkgs.nur.repos.ilkecan.zellij-workspace}/share/zellij/plugins/zellij-workspace.wasm` with `${pkgs.zellijPlugins.workspace}`."
