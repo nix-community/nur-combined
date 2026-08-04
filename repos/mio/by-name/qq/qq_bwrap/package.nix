@@ -6,6 +6,10 @@
   flatpak-xdg-utils,
   iproute2,
   withMacFix ? true,
+  # Overlay real XDG dirs into the sandbox for send-file / downloads.
+  bindDownloads ? true,
+  bindDesktop ? false,
+  bindDocuments ? false,
   slirp4netns,
   socat,
 }:
@@ -74,6 +78,44 @@ stdenv.mkDerivation {
     fi
     EOF
 
+    # Source after HOME is known. Fills QQ_USER_DIR_BINDS for bwrap
+    # (same Nix flags as wechat_bwrap: bindDownloads / bindDesktop / bindDocuments).
+    cat << 'EOF' > $out/libexec/qq-setup-user-dirs.sh
+    #!/bin/bash
+    declare -a QQ_USER_DIR_BINDS=()
+    _qq_add_user_dir() {
+        local dir="$1"
+        if [ -n "''${dir}" ] && [ "''${dir}" != "''${HOME}" ] && [ "''${dir}" != / ]; then
+            mkdir -p "''${dir}"
+            QQ_USER_DIR_BINDS+=(--bind-try "''${dir}" "''${dir}")
+        fi
+    }
+    _qq_xdg_dir() {
+        # $1: env var name, $2: xdg-user-dir key, $3: fallback under $HOME
+        local dir="''${!1:-}"
+        if [ -z "''${dir}" ] && command -v xdg-user-dir >/dev/null 2>&1; then
+            dir="$(xdg-user-dir "$2" 2>/dev/null || true)"
+        fi
+        printf '%s\n' "''${dir:-$HOME/$3}"
+    }
+    if [ @bindDownloads@ -eq 1 ]; then
+        if [ -z "''${QQ_DOWNLOAD_DIR}" ]; then
+            QQ_DOWNLOAD_DIR="$(_qq_xdg_dir XDG_DOWNLOAD_DIR DOWNLOAD Downloads)"
+        fi
+        if [ "''${QQ_DOWNLOAD_DIR%/}" = "''${HOME}" ]; then
+            QQ_DOWNLOAD_DIR="''${HOME}/Downloads"
+        fi
+        _qq_add_user_dir "''${QQ_DOWNLOAD_DIR}"
+    fi
+    if [ @bindDesktop@ -eq 1 ]; then
+        _qq_add_user_dir "$(_qq_xdg_dir XDG_DESKTOP_DIR DESKTOP Desktop)"
+    fi
+    if [ @bindDocuments@ -eq 1 ]; then
+        _qq_add_user_dir "$(_qq_xdg_dir XDG_DOCUMENTS_DIR DOCUMENTS Documents)"
+    fi
+    unset -f _qq_add_user_dir _qq_xdg_dir
+    EOF
+
     cat << 'EOF' > $out/libexec/qq_normal
     #!/bin/bash
 
@@ -82,19 +124,10 @@ stdenv.mkDerivation {
     XDG_CONFIG_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}"
     FONTCONFIG_HOME="''${XDG_CONFIG_HOME}/fontconfig"
     QQ_APP_DIR="''${XDG_CONFIG_HOME}/QQ"
-    if [ -z "''${QQ_DOWNLOAD_DIR}" ]; then
-        if command -v xdg-user-dir >/dev/null 2>&1; then
-            XDG_DOWNLOAD_DIR="$(xdg-user-dir DOWNLOAD)"
-        fi
-        QQ_DOWNLOAD_DIR="''${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
-    fi
-
-    if [ "''${QQ_DOWNLOAD_DIR%/}" = "''${HOME}" ]; then
-        QQ_DOWNLOAD_DIR="''${HOME}/Downloads"
-    fi
 
     mkdir -p "''${QQ_APP_DIR}"
-    mkdir -p "''${QQ_DOWNLOAD_DIR}"
+    # shellcheck source=/dev/null
+    source @out@/libexec/qq-setup-user-dirs.sh
 
     bwrap_flags_file="''${XDG_CONFIG_HOME}/qq-bwrap-flags.conf"
     declare -a bwrap_flags
@@ -176,7 +209,7 @@ stdenv.mkDerivation {
         --dev-bind /tmp /tmp \
         --bind-try "''${HOME}/.pki" "''${HOME}/.pki" \
         --ro-bind-try "''${XAUTHORITY}" "''${XAUTHORITY}" \
-        --bind-try "''${QQ_DOWNLOAD_DIR}" "''${QQ_DOWNLOAD_DIR}" \
+        "''${QQ_USER_DIR_BINDS[@]}" \
         --bind "''${QQ_APP_DIR}" "''${QQ_APP_DIR}" \
         --ro-bind-try "''${FONTCONFIG_HOME}" "''${FONTCONFIG_HOME}" \
         --ro-bind-try "''${HOME}/.icons" "''${HOME}/.icons" \
@@ -244,16 +277,10 @@ stdenv.mkDerivation {
       XDG_CONFIG_HOME="''${XDG_CONFIG_HOME:-$HOME/.config}"
       FONTCONFIG_HOME="''${XDG_CONFIG_HOME}/fontconfig"
       QQ_APP_DIR="''${XDG_CONFIG_HOME}/QQ"
-      if [ -z "''${QQ_DOWNLOAD_DIR}" ]; then
-          if command -v xdg-user-dir >/dev/null 2>&1; then
-              XDG_DOWNLOAD_DIR="$(xdg-user-dir DOWNLOAD)"
-          fi
-          QQ_DOWNLOAD_DIR="''${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
-      fi
-      if [ "''${QQ_DOWNLOAD_DIR%/}" = "''${HOME}" ]; then QQ_DOWNLOAD_DIR="''${HOME}/Downloads"; fi
 
       mkdir -p "''${QQ_APP_DIR}"
-      mkdir -p "''${QQ_DOWNLOAD_DIR}"
+      # shellcheck source=/dev/null
+      source @out@/libexec/qq-setup-user-dirs.sh
 
       bwrap_flags_file="''${XDG_CONFIG_HOME}/qq-bwrap-flags.conf"
       declare -a bwrap_flags
@@ -330,7 +357,7 @@ stdenv.mkDerivation {
           --dev-bind /tmp /tmp \
           --bind-try "''${HOME}/.pki" "''${HOME}/.pki" \
           --ro-bind-try "''${XAUTHORITY}" "''${XAUTHORITY}" \
-          --bind-try "''${QQ_DOWNLOAD_DIR}" "''${QQ_DOWNLOAD_DIR}" \
+          "''${QQ_USER_DIR_BINDS[@]}" \
           --setenv QQ_APP_DIR "''${QQ_APP_DIR}" \
           --bind "''${QQ_APP_DIR}" "''${QQ_APP_DIR}" \
           --ro-bind-try "''${FONTCONFIG_HOME}" "''${FONTCONFIG_HOME}" \
@@ -422,9 +449,13 @@ stdenv.mkDerivation {
     fi
     EOF
 
-    # Quoted heredocs leave $out literal; bake the real store path in.
+    # Quoted heredocs leave $out / bind flags literal; bake real values in.
     substituteInPlace $out/bin/qq $out/libexec/qq_normal ${lib.optionalString withMacFix "$out/libexec/qq_mac_fix"} \
       --replace-fail '@out@' "$out"
+    substituteInPlace $out/libexec/qq-setup-user-dirs.sh \
+      --replace-fail '@bindDownloads@' '${if bindDownloads then "1" else "0"}' \
+      --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
+      --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}'
 
     chmod +x $out/libexec/* $out/bin/*
     runHook postInstall
