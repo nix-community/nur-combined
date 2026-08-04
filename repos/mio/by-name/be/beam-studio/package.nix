@@ -23,7 +23,8 @@
   node-gyp,
 }:
 let
-  customBackend = pkgs.callPackage ./backend.nix { };
+  # Only instantiate the custom backend on Linux; Darwin uses the bundled binary from the app
+  customBackend = if stdenv.hostPlatform.isLinux then pkgs.callPackage ./backend.nix { } else null;
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "beam-studio";
@@ -51,7 +52,8 @@ stdenv.mkDerivation (finalAttrs: {
     pnpmConfigHook
     pnpm_10
     pkg-config
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     copyDesktopItems
     autoPatchelfHook
   ];
@@ -60,7 +62,8 @@ stdenv.mkDerivation (finalAttrs: {
     fontconfig
     freetype
     cairo
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     stdenv.cc.cc.lib
     libxcb
     libx11
@@ -130,15 +133,31 @@ stdenv.mkDerivation (finalAttrs: {
     chmod -R u+w electron-dist
 
     cd apps/app
-    CSC_IDENTITY_AUTO_DISCOVERY=false pnpm exec electron-builder \
-      --dir \
-      -c.electronDist=../../electron-dist \
-      -c.electronVersion=${electron.version} \
-      -c.npmRebuild=false \
-      -c.asarUnpack="**/*.node" \
-      -c.${if stdenv.hostPlatform.isDarwin then "mac" else "linux"}.target=dir \
-      -c.mac.icon=null \
-      -c.mac.identity=null
+    ${
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          # Disable codesigning and icon compilation (actool/codesign not in Nix sandbox)
+          CSC_IDENTITY_AUTO_DISCOVERY=false pnpm exec electron-builder \
+            --dir \
+            -c.electronDist=../../electron-dist \
+            -c.electronVersion=${electron.version} \
+            -c.npmRebuild=false \
+            -c.asarUnpack="**/*.node" \
+            -c.mac.target=dir \
+            -c.mac.icon=null \
+            -c.mac.identity=null
+        ''
+      else
+        ''
+          pnpm exec electron-builder \
+            --dir \
+            -c.electronDist=../../electron-dist \
+            -c.electronVersion=${electron.version} \
+            -c.npmRebuild=false \
+            -c.asarUnpack="**/*.node" \
+            -c.linux.target=dir
+        ''
+    }
     cd ../..
 
     runHook postBuild
@@ -147,48 +166,52 @@ stdenv.mkDerivation (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    ${if stdenv.hostPlatform.isDarwin then ''
-      mkdir -p $out/Applications
-      # electron-builder --dir outputs to dist/mac-arm64/ (no -unpacked suffix) on darwin
-      appDir=$(echo apps/app/dist/mac*/"Beam Studio.app" 2>/dev/null | head -1)
-      if [ -z "$appDir" ] || [ ! -d "$appDir" ]; then
-        echo "ERROR: Could not find 'Beam Studio.app' in apps/app/dist/"
-        find apps/app/dist/ -maxdepth 2 -type d || true
-        exit 1
-      fi
-      cp -r "$appDir" $out/Applications/
+    ${
+      if stdenv.hostPlatform.isDarwin then
+        ''
+          mkdir -p $out/Applications
+          # electron-builder --dir outputs to dist/mac-arm64/ (no -unpacked suffix) on darwin
+          appDir=$(echo apps/app/dist/mac*/"Beam Studio.app" 2>/dev/null | head -1)
+          if [ -z "$appDir" ] || [ ! -d "$appDir" ]; then
+            echo "ERROR: Could not find 'Beam Studio.app' in apps/app/dist/"
+            find apps/app/dist/ -maxdepth 2 -type d || true
+            exit 1
+          fi
+          cp -r "$appDir" $out/Applications/
 
-      mkdir -p $out/bin
-      makeWrapper "$out/Applications/Beam Studio.app/Contents/MacOS/Beam Studio" $out/bin/beam-studio \
-        --set ELECTRON_FORCE_IS_PACKAGED 1 \
-        --set ELECTRON_IS_DEV 0
-    '' else ''
-      mkdir -p $out/share/beam-studio
-      cp -r apps/app/dist/linux-unpacked/locales $out/share/beam-studio/
-      cp -r apps/app/dist/linux-unpacked/resources $out/share/beam-studio/
-      cp apps/app/dist/linux-unpacked/*.pak $out/share/beam-studio/ || true
+          mkdir -p $out/bin
+          makeWrapper "$out/Applications/Beam Studio.app/Contents/MacOS/Beam Studio" $out/bin/beam-studio \
+            --set ELECTRON_FORCE_IS_PACKAGED 1 \
+            --set ELECTRON_IS_DEV 0
+        ''
+      else
+        ''
+          mkdir -p $out/share/beam-studio
+          cp -r apps/app/dist/linux-unpacked/locales $out/share/beam-studio/
+          cp -r apps/app/dist/linux-unpacked/resources $out/share/beam-studio/
 
-      # Setup our source-built custom backend (Linux AppImage does not use swiftray)
-      mkdir -p $out/share/beam-studio/resources/backend/flux_api
-      ln -s ${if stdenv.hostPlatform.isLinux then customBackend else ""}/bin/flux_api $out/share/beam-studio/resources/backend/flux_api/flux_api
+          # Setup our source-built custom backend (Linux AppImage does not use swiftray)
+          mkdir -p $out/share/beam-studio/resources/backend/flux_api
+          ln -s ${customBackend}/bin/flux_api $out/share/beam-studio/resources/backend/flux_api/flux_api
 
-      mkdir -p $out/bin
-      # Required: Chromium's sandbox needs user namespaces; NixOS often disables them,
-      # and the official AppImage also hardcodes --no-sandbox for the same reason.
-      makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
-        --add-flags $out/share/beam-studio/resources/app.asar \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
-        --add-flags "--no-sandbox" \
-        --set-default FONTCONFIG_FILE /etc/fonts/fonts.conf \
-        --set-default FONTCONFIG_PATH /etc/fonts \
-        --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
-        --set-default ELECTRON_IS_DEV 0 \
-        --inherit-argv0
+          mkdir -p $out/bin
+          # Required: Chromium's sandbox needs user namespaces; NixOS often disables them,
+          # and the official AppImage also hardcodes --no-sandbox for the same reason.
+          makeWrapper ${electron}/bin/electron $out/bin/beam-studio \
+            --add-flags $out/share/beam-studio/resources/app.asar \
+            --add-flags "''${NIXOS_OZONE_WL:+''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime=true --wayland-text-input-version=3}}" \
+            --add-flags "--no-sandbox" \
+            --set-default FONTCONFIG_FILE /etc/fonts/fonts.conf \
+            --set-default FONTCONFIG_PATH /etc/fonts \
+            --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+            --set-default ELECTRON_IS_DEV 0 \
+            --inherit-argv0
 
-      # Install the application icon
-      mkdir -p $out/share/icons/hicolor/512x512/apps
-      cp apps/app/public/img/icon.png $out/share/icons/hicolor/512x512/apps/beam-studio.png
-    ''}
+          # Install the application icon
+          mkdir -p $out/share/icons/hicolor/512x512/apps
+          cp apps/app/public/img/icon.png $out/share/icons/hicolor/512x512/apps/beam-studio.png
+        ''
+    }
 
     runHook postInstall
   '';
