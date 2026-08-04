@@ -5,7 +5,7 @@
   bubblewrap,
   flatpak-xdg-utils,
   iproute2,
-  withMacFix ? false,
+  withMacFix ? true,
   slirp4netns,
   socat,
 }:
