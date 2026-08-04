@@ -79,10 +79,12 @@ symlinkJoin {
     # Required for org.gtk.Settings.FileChooser
     gappsWrapperArgsHook
     qtWrapperArgs+=("''${gappsWrapperArgs[@]}")
-  '' + lib.optionalString stdenv.hostPlatform.isDarwin ''
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
     mkdir -p $out/bin
     ln -s $out/Applications/FreesmLauncher.app/Contents/MacOS/freesmlauncher $out/bin/freesmlauncher
-  '' + ''
+  ''
+  + ''
 
     wrapQtAppsHook
   '';

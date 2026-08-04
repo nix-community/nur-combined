@@ -47,7 +47,8 @@ buildNpmPackage (finalAttrs: {
   nativeBuildInputs = [
     nodejs
     makeShellWrapper
-  ] ++ lib.optionals stdenv.hostPlatform.isLinux [
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
     copyDesktopItems
     wrapGAppsHook3
   ];
@@ -146,15 +147,6 @@ buildNpmPackage (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
-
-    if [ "$defaultBuildPlatform" = "linux" ]; then
-      mkdir -p $out/share/waveterm
-      cp -r make/*-unpacked/resources $out/share/waveterm/resources
-    else
-      # Check what is created on Darwin
-      ls -la make/
-      ls -la make/* || true
-    fi
 
     if [ "$defaultBuildPlatform" = "linux" ]; then
       mkdir -p $out/share/waveterm

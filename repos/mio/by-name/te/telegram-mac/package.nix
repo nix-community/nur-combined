@@ -1,23 +1,23 @@
-{ lib
-, stdenvNoCC
-, python3
-, git
-, cacert
-, cmake
-, ninja
-, openssl
-, zlib
-, autoconf
-, libtool
-, automake
-, yasm
-, nasm
-, pkg-config
-, unzip
-, meson
-, fetchzip
-, writableTmpDirAsHomeHook
-,
+{
+  lib,
+  stdenvNoCC,
+  python3,
+  git,
+  cacert,
+  cmake,
+  ninja,
+  openssl,
+  zlib,
+  autoconf,
+  libtool,
+  automake,
+  yasm,
+  nasm,
+  pkg-config,
+  unzip,
+  meson,
+  fetchzip,
+  writableTmpDirAsHomeHook,
 }:
 
 # NOTE: Building TelegramSwift (the native Telegram for macOS client) from source
