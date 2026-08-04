@@ -1,0 +1,22 @@
+commit 22c4d592
+Good "git" signature for federicoschonborn@disroot.org with ED25519 key SHA256:VQU8kjdC7yKiBGpoDv4uDtfSnUdM0OziTRPiRTrmK7c
+Author: Federico Damián Schonborn <federicoschonborn@disroot.org>
+Date:   2025-06-05 23:48:09 -0300
+
+    meson.build: make vcs_tag substituable
+    
+    Signed-off-by: Federico Damián Schonborn <federicoschonborn@disroot.org>
+
+diff --git a/meson.build b/meson.build
+index f301612f..35c0bfc1 100644
+--- a/meson.build
++++ b/meson.build
+@@ -4,7 +4,7 @@ project('highscore', ['c', 'vala'],
+   default_options: [ 'warning_level=2', 'werror=false', ],
+ )
+ 
+-vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
++vcs_tag = '@rev@'
+ 
+ if get_option('profile') == 'development'
+   profile = 'Devel'

@@ -1,0 +1,17 @@
+# Nix
+result
+result-*
+
+# Update script
+update-git-commits.txt
+*.log
+*.fetchlog
+
+# ?
+BiplanesRevival.*
+
+# Direnv
+.direnv
+
+# Pre Commit Hooks
+.pre-commit-config.yaml
