@@ -13,7 +13,7 @@
 }:
 
 let
-  version = "17.2.4";
+  version = "17.2.7";
 
   # Upstream's darwin release CI builds `pi_natives.<platform>.node` on a
   # Homebrew host, so the embedded addon hardcodes an absolute Homebrew install
@@ -40,19 +40,19 @@ let
   sources = {
     x86_64-linux = {
       url = "${baseUrl}/omp-linux-x64";
-      hash = "sha256-pucIbzuAf2ilsItJWX9DSeXONzZWObevXpyP41mYmEA=";
+      hash = "sha256-bjgsgLCvWAFrD1N7YEo6KfHpEEq7SYcFKVNB44+9x3Q=";
     };
     aarch64-linux = {
       url = "${baseUrl}/omp-linux-arm64";
-      hash = "sha256-rEc8v2HMGiYH0og5MOZB4V6Oedos3UL/7I1wGthaIZw=";
+      hash = "sha256-EsllnAM/GQZV+VMDed5VQlkP4D3WqsPQI8FSyDki8qE=";
     };
     x86_64-darwin = {
       url = "${baseUrl}/omp-darwin-x64";
-      hash = "sha256-mXvAyYrCvTAQv4b947dTR4Mt1cEQvGxgOs5n5wokn5U=";
+      hash = "sha256-lAqKRqNfs/mqh0sS9m3WpHMGa1Sm78aKqOCyEWvGV2Q=";
     };
     aarch64-darwin = {
       url = "${baseUrl}/omp-darwin-arm64";
-      hash = "sha256-850lbGsuzn8uuFwk/Ef/vjmheW6m7qJgWtVk/OQsQI4=";
+      hash = "sha256-zS9HVFyz+OteFckbyQVNc5Z3dGUuAgtDLilIA9G3HqA=";
     };
   };
 in
@@ -134,12 +134,13 @@ stdenvNoCC.mkDerivation {
             or (throw "oh-my-pi-bin: unsupported darwin system ${stdenvNoCC.hostPlatform.system}");
       in
       ''
-        # Force omp to extract its embedded native addon (`--help` triggers it,
-        # `--version` does not). It then traps trying to dlopen the Homebrew-linked
-        # addon, so ignore the exit status and assert on the extracted file.
+        # `--help` is deliberately lightweight upstream and does not load native
+        # modules. `doctor` loads them, which extracts the embedded addon before
+        # it traps trying to dlopen its Homebrew-linked pcre2. Ignore that expected
+        # failure and assert that extraction completed.
         export HOME="$TMPDIR/omp-home"
         mkdir -p "$HOME"
-        $out/libexec/omp --help > /dev/null 2>&1 || true
+        $out/libexec/omp doctor > /dev/null 2>&1 || true
 
         extracted="$HOME/.omp/natives/${version}/${addon.name}"
         [ -f "$extracted" ] || { echo "oh-my-pi-bin: addon not extracted at $extracted" >&2; exit 1; }
