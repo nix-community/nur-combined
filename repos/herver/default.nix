@@ -4,6 +4,7 @@
   lib = import ./lib { inherit pkgs; }; # functions
 
   modules = {
+    tunnet = ./modules/tunnet.nix; # NixOS module exposing services.tunnet
     udpxy = ./modules/udpxy.nix; # NixOS module exposing services.udpxy
   };
 
@@ -16,6 +17,8 @@
   proton-meet = pkgs.callPackage ./pkgs/proton-meet { };
 
   trackaudio = pkgs.callPackage ./pkgs/trackaudio { };
+
+  tunnet = pkgs.callPackage ./pkgs/tunnet { };
 
   udpxy = pkgs.callPackage ./pkgs/udpxy { };
 

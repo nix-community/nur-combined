@@ -13,5 +13,6 @@
  * [powerctl](https://git.sr.ht/~sircmpwn/powerctl)
  * [Proton Meet](https://proton.me/meet)
  * [TrackAudio](https://github.com/pierr3/TrackAudio)
+ * [Tunnet](https://github.com/tunnetio/Tunnet)
  * [udpxy](https://github.com/pcherenkov/udpxy)
  * [vATIS](https://github.com/vatis-project/vatis)
