@@ -32,6 +32,7 @@ let
       # jail for a homeless system user).
       HOME = stateDir;
       TZ = cfg.timeZone;
+      VERSION = pkg.version;
       DEBUG = boolStr cfg.debug;
       ADMIN_ENABLED = boolStr cfg.adminEnabled;
       REGISTRATION = boolStr cfg.registrationEnabled;
@@ -96,7 +97,8 @@ let
         {
           SQLITE_PATH = "${stateDir}/db.sqlite3";
         }
-    );
+    )
+    // cfg.environment;
 
   hardening = {
     NoNewPrivileges = true;
@@ -456,6 +458,21 @@ in
           it off.
         '';
       };
+    };
+
+    environment = lib.mkOption {
+      type = lib.types.attrsOf lib.types.str;
+      default = { };
+      example = {
+        YAMTRACK_AUTO_LOGIN_USERNAME = "alice";
+      };
+      description = ''
+        Extra non-secret environment variables passed to the Yamtrack
+        service verbatim, for anything upstream reads via python-decouple
+        that isn't already covered by a dedicated option above — see
+        Yamtrack's `src/config/settings.py` for the full list of `config()`
+        calls. Values set here take precedence over the dedicated options.
+      '';
     };
 
     environmentFiles = lib.mkOption {

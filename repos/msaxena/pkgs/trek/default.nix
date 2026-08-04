@@ -1,9 +1,11 @@
 {
   lib,
+  stdenv,
   buildNpmPackage,
   fetchFromGitHub,
   makeWrapper,
   nodejs,
+  testers,
 }:
 
 buildNpmPackage (finalAttrs: {
@@ -67,6 +69,59 @@ buildNpmPackage (finalAttrs: {
 
     runHook postInstall
   '';
+
+  passthru.tests = lib.optionalAttrs stdenv.hostPlatform.isLinux {
+    trek = testers.nixosTest {
+      name = "trek";
+
+      nodes.machine =
+        { pkgs, ... }:
+        {
+          imports = [ ../../nixos-modules/trek.nix ];
+
+          services.trek = {
+            enable = true;
+            package = finalAttrs.finalPackage;
+            port = 3000;
+            openFirewall = true;
+            # Default forceHttps = false is the setting under test below --
+            # exercises the COOKIE_SECURE fix (secure cookies must NOT be
+            # forced on when TREK isn't behind TLS, or logins silently break).
+            environmentFiles = [
+              (pkgs.writeText "trek-env" ''
+                ADMIN_EMAIL=admin@test.local
+                ADMIN_PASSWORD=Test12345!ABC
+              '')
+            ];
+          };
+        };
+
+      testScript = ''
+        machine.wait_for_unit("trek.service")
+        machine.wait_for_open_port(3000)
+        machine.wait_until_succeeds("curl -sf http://localhost:3000/api/health")
+
+        # First-boot ADMIN_EMAIL/ADMIN_PASSWORD seeded the admin account;
+        # log in with it and inspect the raw response for the session cookie.
+        response = machine.succeed(
+            "curl -si -X POST http://localhost:3000/api/auth/login "
+            "-H 'Content-Type: application/json' "
+            "-d '{\"email\":\"admin@test.local\",\"password\":\"Test12345!ABC\"}'"
+        )
+        assert '"token"' in response, f"login did not return a token: {response}"
+
+        set_cookie_lines = [
+            line for line in response.splitlines() if line.lower().startswith("set-cookie:")
+        ]
+        assert set_cookie_lines, f"no Set-Cookie header in login response: {response}"
+        assert "secure" not in set_cookie_lines[0].lower(), (
+            "session cookie was marked Secure despite forceHttps = false "
+            f"(COOKIE_SECURE regression -- browsers would silently drop this "
+            f"cookie over plain HTTP, breaking login): {set_cookie_lines[0]}"
+        )
+      '';
+    };
+  };
 
   meta = {
     description = "Self-hosted, real-time collaborative travel planner with mapping, budgeting, packing lists and journaling";

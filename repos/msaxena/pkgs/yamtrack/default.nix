@@ -202,7 +202,13 @@ stdenv.mkDerivation (finalAttrs: {
     '';
     homepage = "https://github.com/FuzzyGrim/Yamtrack";
     changelog = "https://github.com/FuzzyGrim/Yamtrack/releases/tag/v${finalAttrs.version}";
-    license = lib.licenses.agpl3Plus;
+    # Yamtrack's LICENSE file is the unmodified FSF AGPLv3 template (no
+    # project-specific "or later" grant attached to it, and the README just
+    # says "AGPL-3.0") -- same as upstream TREK's LICENSE in this repo, which
+    # is classified agpl3Only. Absent an explicit "or later" grant, "only" is
+    # the correct default rather than assuming the boilerplate's optional
+    # "or any later version" clause was adopted.
+    license = lib.licenses.agpl3Only;
     platforms = lib.platforms.linux ++ lib.platforms.darwin;
   };
 })
