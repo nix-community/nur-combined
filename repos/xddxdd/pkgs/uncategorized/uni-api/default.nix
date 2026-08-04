@@ -17,6 +17,7 @@ let
       h2
       httpx
       httpx-socks
+      msgspec
       pillow
       pytest
       python-multipart
@@ -36,6 +37,15 @@ stdenv.mkDerivation {
     makeWrapper
     curl
   ];
+
+  doCheck = true;
+  checkPhase = ''
+    runHook preCheck
+
+    ${python}/bin/python -c "import uni_api.app"
+
+    runHook postCheck
+  '';
 
   installPhase = ''
     runHook preInstall
