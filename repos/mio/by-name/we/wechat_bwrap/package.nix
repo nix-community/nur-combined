@@ -7,6 +7,7 @@
   wechat,
   bubblewrap,
   flatpak-xdg-utils,
+  coreutils,
 }:
 
 stdenv.mkDerivation {
@@ -17,7 +18,7 @@ stdenv.mkDerivation {
 
   buildPhase = ''
     runHook preBuild
-    gcc -shared -fPIC -o libuosdevicea.so libuosdevicea.c
+    $CC -shared -fPIC -o libuosdevicea.so libuosdevicea.c
     runHook postBuild
   '';
 
@@ -60,21 +61,26 @@ stdenv.mkDerivation {
       --replace-fail "{/usr/lib/wechat-universal,}/usr/lib/license" "$wechat_root/usr/lib/license /usr/lib/license" \
       --replace-fail "{/usr/lib/wechat-universal,}/etc/lsb-release" "$wechat_root/etc/lsb-release /etc/lsb-release" \
       --replace-fail "--ro-bind /usr{,}" "--ro-bind /nix /nix --ro-bind-try /run/current-system/sw /run/current-system/sw --ro-bind-try /run/opengl-driver /run/opengl-driver --ro-bind $wechat_root/fhs-usr /usr" \
-      --replace-fail "--bind /usr/bin/{true,lsblk}" "" \
-      --replace-fail "exec bwrap" "exec ${bubblewrap}/bin/bwrap" \
+      --replace-fail "--bind /usr/bin/{true,lsblk}" "--bind ${coreutils}/bin/true /usr/bin/lsblk" \
+      --replace-fail 'exec bwrap "' 'exec ${bubblewrap}/bin/bwrap "' \
       --replace-fail "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal')" "'start.sh'|'start'|'wechat-universal.sh'|'wechat-universal'|'wechat')" \
-      --replace-fail 'PATH="/sandbox:''${PATH}"' 'PATH="/sandbox:''${PATH}" LD_LIBRARY_PATH="/usr/lib:/usr/lib64"'
+      --replace-fail 'PATH="/sandbox:''${PATH}"' 'PATH="/sandbox:''${PATH}" LD_LIBRARY_PATH="/usr/lib:/usr/lib64"' \
+      --replace-fail '--dev-bind /run/dbus{,}' '--dev-bind-try /run/dbus{,}' \
+      --replace-fail '--ro-bind "''${DBUS_SESSION_BUS_PATH}"{,}' '--ro-bind-try "''${DBUS_SESSION_BUS_PATH}"{,}' \
+      --replace-fail '--ro-bind "''${XDG_RUNTIME_DIR}/pulse"{,}' '--ro-bind-try "''${XDG_RUNTIME_DIR}/pulse"{,}'
 
     mkdir -p $out/bin
     ln -s $wechat_root/common.sh $out/bin/wechat-universal
     ln -s $wechat_root/common.sh $out/bin/wechat
     ln -s $wechat_root/common.sh $out/bin/start.sh
+    ln -s $wechat_root/common.sh $out/bin/start
     ln -s $wechat_root/common.sh $out/bin/stop.sh
+    ln -s $wechat_root/common.sh $out/bin/stop
 
     install -Dm644 wechat-universal.desktop $out/share/applications/wechat-universal.desktop
     substituteInPlace $out/share/applications/wechat-universal.desktop \
       --replace-fail "/usr/lib/wechat-universal" "$out/bin"
-      
+
     install -Dm644 wechat-license $out/share/licenses/wechat-universal/wechat-license
 
     install -Dm644 ${wechat.src}/wechat.png $out/share/icons/hicolor/256x256/apps/wechat-universal.png
