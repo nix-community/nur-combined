@@ -142,13 +142,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "clice";
-  version = "0.1.2026080205";
+  version = "0.1.2026080305";
 
   src = fetchFromGitHub {
     owner = "clice-io";
     repo = "clice";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-1X6b9kUsl4GkVbjIEuwMXnvhjvD6wjF+qe2Na8gAZ/E=";
+    hash = "sha256-bJKeGKD4nIcH44JrNWXu8QCjUQs+YMchfCX5b3WQRl8=";
   };
 
   nativeBuildInputs = [
