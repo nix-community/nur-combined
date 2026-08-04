@@ -38,7 +38,7 @@ src.sort_version_key = "parse_version"
 
 [tree-sitter-nix]
 src.git = "https://github.com/nix-community/tree-sitter-nix"
-src.branch = "main"
+src.branch = "master"
 fetch.github = "nix-community/tree-sitter-nix"
 
 [typenix]
