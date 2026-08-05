@@ -145,44 +145,43 @@ buildNpmPackage (finalAttrs: {
     runHook postBuild
   '';
 
-  installPhase =
-    ''
-      runHook preInstall
-    ''
-    + lib.optionalString stdenv.hostPlatform.isLinux ''
-      mkdir -p $out/share/waveterm
-      cp -r make/*-unpacked/resources $out/share/waveterm/resources
+  installPhase = ''
+    runHook preInstall
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
+    mkdir -p $out/share/waveterm
+    cp -r make/*-unpacked/resources $out/share/waveterm/resources
 
-      # use makeShellWrapper (instead of makeBinaryWrapper) for proper shell variable
-      # expansion of the NIXOS_OZONE_WL flags, see https://github.com/NixOS/nixpkgs/issues/172583
-      makeShellWrapper "${lib.getExe electron}" "$out/bin/waveterm" \
-        --add-flags "$out/share/waveterm/resources/app.asar" \
-        "''${gappsWrapperArgs[@]}" \
-        --prefix LD_LIBRARY_PATH : "${
-          lib.makeLibraryPath [
-            libxkbcommon
-            libx11
-            libxcb
-            libxtst
-          ]
-        }" \
-        --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true}}" \
-        --set-default ELECTRON_IS_DEV 0 \
-        --inherit-argv0
+    # use makeShellWrapper (instead of makeBinaryWrapper) for proper shell variable
+    # expansion of the NIXOS_OZONE_WL flags, see https://github.com/NixOS/nixpkgs/issues/172583
+    makeShellWrapper "${lib.getExe electron}" "$out/bin/waveterm" \
+      --add-flags "$out/share/waveterm/resources/app.asar" \
+      "''${gappsWrapperArgs[@]}" \
+      --prefix LD_LIBRARY_PATH : "${
+        lib.makeLibraryPath [
+          libxkbcommon
+          libx11
+          libxcb
+          libxtst
+        ]
+      }" \
+      --add-flags "\''${NIXOS_OZONE_WL:+\''${WAYLAND_DISPLAY:+--ozone-platform-hint=auto --enable-features=UseOzonePlatform,WaylandWindowDecorations,WebRTCPipeWireCapturer --enable-wayland-ime=true}}" \
+      --set-default ELECTRON_IS_DEV 0 \
+      --inherit-argv0
 
-      for size in 16 32 48 64 128 256 512; do
-        install -Dm644 "build/icons/''${size}x''${size}.png" \
-          "$out/share/icons/hicolor/''${size}x''${size}/apps/waveterm.png"
-      done
-    ''
-    + lib.optionalString stdenv.hostPlatform.isDarwin ''
-      mkdir -p $out/Applications $out/bin
-      cp -r make/*/Wave.app $out/Applications/Wave.app
-      ln -s $out/Applications/Wave.app/Contents/MacOS/Wave $out/bin/waveterm
-    ''
-    + ''
-      runHook postInstall
-    '';
+    for size in 16 32 48 64 128 256 512; do
+      install -Dm644 "build/icons/''${size}x''${size}.png" \
+        "$out/share/icons/hicolor/''${size}x''${size}/apps/waveterm.png"
+    done
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/Applications $out/bin
+    cp -r make/*/Wave.app $out/Applications/Wave.app
+    ln -s $out/Applications/Wave.app/Contents/MacOS/Wave $out/bin/waveterm
+  ''
+  + ''
+    runHook postInstall
+  '';
 
   desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
