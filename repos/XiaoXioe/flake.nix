@@ -32,22 +32,24 @@
         pkgs:
         let
           lib = pkgs.lib;
-          pkgsPath = ./pkgs;
-          packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
-          packageNames = builtins.attrNames packageDirs;
+          packageFiles = import ./pkgs/by-name.nix {
+            inherit lib;
+            baseDirectory = ./pkgs/by-name;
+          };
         in
-        lib.genAttrs packageNames (name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { })
+        lib.mapAttrs (name: path: pkgs.callPackage path { }) packageFiles
       );
 
       overlays.default =
         final: prev:
         let
           lib = final.lib;
-          pkgsPath = ./pkgs;
-          packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
-          packageNames = builtins.attrNames packageDirs;
+          packageFiles = import ./pkgs/by-name.nix {
+            inherit lib;
+            baseDirectory = ./pkgs/by-name;
+          };
         in
-        lib.genAttrs packageNames (name: final.callPackage (pkgsPath + "/${name}/default.nix") { });
+        lib.mapAttrs (name: path: final.callPackage path { }) packageFiles;
 
       homeModules.freqtrade-setup = import ./modules/freqtrade-setup.nix;
 

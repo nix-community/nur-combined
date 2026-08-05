@@ -4,21 +4,22 @@
 
 let
   lib = pkgs.lib;
-  pkgsPath = ./pkgs;
-
-  # Membaca direktori secara dinamis persis seperti di flake.nix kamu
-  packageDirs = lib.filterAttrs (name: type: type == "directory") (builtins.readDir pkgsPath);
-  packageNames = builtins.attrNames packageDirs;
+  packageFiles = import ./pkgs/by-name.nix {
+    inherit lib;
+    baseDirectory = ./pkgs/by-name;
+  };
 in
-(lib.genAttrs packageNames (name: pkgs.callPackage (pkgsPath + "/${name}/default.nix") { }))
+(lib.mapAttrs (name: path: pkgs.callPackage path { }) packageFiles)
 // {
   overlays.default =
     final: prev:
     let
-      packageDirs = final.lib.filterAttrs (name: type: type == "directory") (builtins.readDir ./pkgs);
-      packageNames = final.lib.attrNames packageDirs;
+      packageFiles = import ./pkgs/by-name.nix {
+        inherit (final) lib;
+        baseDirectory = ./pkgs/by-name;
+      };
     in
-    final.lib.genAttrs packageNames (name: final.callPackage (./pkgs + "/${name}/default.nix") { });
+    lib.mapAttrs (name: path: final.callPackage path { }) packageFiles;
 
   modules = {
     freqtrade-setup = import ./modules/freqtrade-setup.nix;
