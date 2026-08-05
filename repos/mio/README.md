@@ -101,6 +101,7 @@ files are copied from following locations. some are modified in this repo and so
 + jetbrains_idea-oss - copied from nixpkgs commit 38a4887411571457d700c51c64a6e49ead2ed5ab
 + qq_bwrap - adapted from linuxqq-nt-bwrap https://aur.archlinux.org/packages/linuxqq-nt-bwrap
 + wechat_bwrap - adapted from AUR package wechat-universal-bwrap (https://aur.archlinux.org/packages/wechat-universal-bwrap) by 7Ji, leaeasy, and devome
++ gcenx-wine-staging / gcenx-wine-devel / gcenx-wine-stable — packaging adapted from [nobbmaestro/wine-stable-nix](https://github.com/nobbmaestro/wine-stable-nix); prebuilt Wine.app binaries from [Gcenx/macOS_Wine_builds](https://github.com/Gcenx/macOS_Wine_builds). Prefixed `gcenx-` to distinguish from nixpkgs `wine*` (Linux source builds; Darwin unsupported on nixpkgs-unstable).
 
 ## todo - reading
 
