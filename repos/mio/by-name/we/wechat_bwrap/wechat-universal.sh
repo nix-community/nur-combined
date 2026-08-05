@@ -91,10 +91,14 @@ try_start() {
     fi
 
     # wechat-universal only supports xcb
+    # Audio: talk to host Pulse/PipeWire-Pulse over the socket only (no shm), and
+    # keep the cookie path explicit after the fake-$HOME remap below.
     export QT_QPA_PLATFORM=xcb \
         QT_AUTO_SCREEN_SCALE_FACTOR=1 \
         PATH="/sandbox:${PATH}" \
-        PULSE_SERVER="${PULSE_SERVER:-unix:${XDG_RUNTIME_DIR}/pulse/native}"
+        PULSE_SERVER="${PULSE_SERVER:-unix:${XDG_RUNTIME_DIR}/pulse/native}" \
+        PULSE_CLIENTCONFIG="${PULSE_CLIENTCONFIG:-/etc/wechat-pulse-client.conf}" \
+        PULSE_COOKIE="${PULSE_COOKIE:-${HOME}/.config/pulse/cookie}"
 
     if [[ -z "${WECHAT_IME_WORKAROUND}" || "${WECHAT_IME_WORKAROUND}" == 'auto' ]]; then
         case "${XMODIFIERS}" in 
@@ -186,8 +190,8 @@ try_start() {
         # /dev
         --dev /dev
         --dev-bind /dev/dri{,}
-        # Private tmpfs /dev/shm breaks Pulse/VLC voice playback; use host shm.
-        --dev-bind /dev/shm{,}
+        # Private shm is fine: PULSE_CLIENTCONFIG sets enable-shm=no (Flatpak-style).
+        --tmpfs /dev/shm
         --dev-bind-try /dev/snd{,}
 
         # /proc
@@ -200,6 +204,12 @@ try_start() {
         --ro-bind /etc/resolv.conf{,}
         --ro-bind /etc/localtime{,}
         --ro-bind-try /etc/fonts{,}
+        # Like nixpkgs buildFHSEnv: host ALSA/Pulse client config. Without this,
+        # ALSA has no pulse/pipewire routing and VLC may hit raw /dev/snd.
+        --ro-bind-try /etc/alsa{,}
+        --ro-bind-try /etc/asound.conf{,}
+        --ro-bind-try /etc/pulse{,}
+        --ro-bind /usr/lib/wechat-universal/pulse-client.conf /etc/wechat-pulse-client.conf
 
         # /sys
         --dir /sys/dev # hack for Intel / AMD graphics, mesa calling virtual nodes needs /sys/dev being 0755

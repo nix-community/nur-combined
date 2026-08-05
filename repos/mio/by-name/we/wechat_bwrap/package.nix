@@ -76,10 +76,12 @@ stdenv.mkDerivation {
     printf '%s\n' '#!/bin/sh' 'exit 0' | install -Dm755 /dev/stdin "$wechat_root/fhs-usr/bin/lsblk"
 
     install -Dm755 wechat-universal.sh "$wechat_root/common.sh"
+    install -Dm644 pulse-client.conf "$wechat_root/pulse-client.conf"
 
     substituteInPlace "$wechat_root/common.sh" \
       --replace-fail "/{usr/lib/flatpak-xdg-utils,sandbox}/xdg-open" "${flatpak-xdg-utils}/bin/xdg-open /sandbox/xdg-open" \
       --replace-fail "/usr/lib/wechat-universal/common.sh" "$wechat_root/common.sh" \
+      --replace-fail "/usr/lib/wechat-universal/pulse-client.conf" "$wechat_root/pulse-client.conf" \
       --replace-fail "/opt/wechat-universal{,}" "${wechat.src}/opt/wechat /opt/wechat-universal" \
       --replace-fail "{/usr/lib/wechat-universal,}/usr/lib/license" "$wechat_root/usr/lib/license /usr/lib/license" \
       --replace-fail "{/usr/lib/wechat-universal,}/etc/lsb-release" "$wechat_root/etc/lsb-release /etc/lsb-release" \
