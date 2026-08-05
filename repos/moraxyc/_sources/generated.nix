@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "a58f00b6ceb7c5d049b196516f14b82383d784ee";
+    version = "9c1926dcc9d20c15df3c42c3d09137e14cb561bb";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "a58f00b6ceb7c5d049b196516f14b82383d784ee";
+      rev = "9c1926dcc9d20c15df3c42c3d09137e14cb561bb";
       fetchSubmodules = false;
-      sha256 = "sha256-8PG07E5PVHEcdC8E/hZIZIU/zxkBOo9DWAPyYuhBLqk=";
+      sha256 = "sha256-glquKiTt4ac3u232kScAAMpU/6117pXFAYoqC4pEjNo=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-8PG07E5PVHEcdC8E_hZIZIU_zxkBOo9DWAPyYuhBLqk=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-glquKiTt4ac3u232kScAAMpU_6117pXFAYoqC4pEjNo=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -88,7 +88,7 @@
         "include-compress-bytes-0.1.0" = "sha256-wl02rEb2OCTt8Yv+nwu4AChLC3gN6R53dNtgvM4+q7g=";
       };
     };
-    date = "2026-08-04";
+    date = "2026-08-05";
   };
   clash-nyanpasu-stable = {
     pname = "clash-nyanpasu-stable";
@@ -100,18 +100,18 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "838b974dfbe9383bc2ba8cb3261f5d4df7229293";
+    version = "13e79185ea72d905d66326c8360c551597176770";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "838b974dfbe9383bc2ba8cb3261f5d4df7229293";
+      rev = "13e79185ea72d905d66326c8360c551597176770";
       fetchSubmodules = false;
-      sha256 = "sha256-+hhb2UWfH/NjIxMWLLMpv+1Y8cnzRXrCRJd5e/KCenw=";
+      sha256 = "sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-+hhb2UWfH_NjIxMWLLMpv+1Y8cnzRXrCRJd5e_KCenw=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-+hhb2UWfH_NjIxMWLLMpv+1Y8cnzRXrCRJd5e_KCenw=/web/package-lock.json";
-    };date = "2026-08-04";
+      "web/package.json" = ./. + "/sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=/web/package-lock.json";
+    };date = "2026-08-05";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
@@ -386,15 +386,15 @@
   };
   meta-rules-dat = {
     pname = "meta-rules-dat";
-    version = "649f3316b9f6edb982759442e3ca9e21dcf5e3cf";
+    version = "f9bd98d01967899502f77e84eeccaca5d0e0e245";
     src = fetchFromGitHub {
       owner = "MetaCubeX";
       repo = "meta-rules-dat";
-      rev = "649f3316b9f6edb982759442e3ca9e21dcf5e3cf";
+      rev = "f9bd98d01967899502f77e84eeccaca5d0e0e245";
       fetchSubmodules = false;
-      sha256 = "sha256-1TOUaSas68tNQg7dk6yZPPPw3ueDwHUFUIhTcFq0kwc=";
+      sha256 = "sha256-KNcbrRiXqJyCHInothxC1aB1utd+Yf2M26ZA199ThLc=";
     };
-    date = "2026-08-03";
+    date = "2026-08-04";
   };
   metacubex-geo = {
     pname = "metacubex-geo";
@@ -512,18 +512,18 @@
   };
   nipaplay-reload-darwin = {
     pname = "nipaplay-reload-darwin";
-    version = "1.11.2";
+    version = "1.11.3";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.2/NipaPlay_1.11.2_macOS_Universal.dmg";
-      sha256 = "sha256-GGLM/wR9IUQys0tw2XKJ0r1Gm6rCv3zgLzhbkLynQfA=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.3/NipaPlay_1.11.3_macOS_Universal.dmg";
+      sha256 = "sha256-P5a7gWGvAzrTxHsMlsb20KAI1maIW3wkz3H6I94O9sk=";
     };
   };
   nipaplay-reload-x86_64-linux = {
     pname = "nipaplay-reload-x86_64-linux";
-    version = "1.11.2";
+    version = "1.11.3";
     src = fetchurl {
-      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.2/NipaPlay-1.11.2-Linux-amd64.AppImage";
-      sha256 = "sha256-99NKluoZaaGoviuHdpS/hBzdIDIwqRXDllqfpGd3gTw=";
+      url = "https://github.com/MCDFsteve/NipaPlay-Reload/releases/download/v1.11.3/NipaPlay-1.11.3-Linux-amd64.AppImage";
+      sha256 = "sha256-E6asDVoRSUNYFcJC2fO93spMPVemn37lDlpz68ePag4=";
     };
   };
   nyanpasu-service = {
@@ -638,15 +638,15 @@
   };
   v2ray-rules-dat = {
     pname = "v2ray-rules-dat";
-    version = "46d0c087fc6d76effc131e64b6f9525eac4dce49";
+    version = "1102b24d9a260f18b46dabf181f2652b2f74c833";
     src = fetchFromGitHub {
       owner = "Loyalsoldier";
       repo = "v2ray-rules-dat";
-      rev = "46d0c087fc6d76effc131e64b6f9525eac4dce49";
+      rev = "1102b24d9a260f18b46dabf181f2652b2f74c833";
       fetchSubmodules = false;
-      sha256 = "sha256-cwEuk6oIinns4g3oufu1jYkSNU0j6JYShok0Vpu51kk=";
+      sha256 = "sha256-t3HKR1w/HEczro4ws0yMAVX/1zvRMlVtfZj7REDJNDs=";
     };
-    date = "2026-08-03";
+    date = "2026-08-04";
   };
   whois42d-ng = {
     pname = "whois42d-ng";

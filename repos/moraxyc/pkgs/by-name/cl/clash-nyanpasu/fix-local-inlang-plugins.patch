@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index d0bc523..27e5ae6 100644
+index 8cf1bf8..b79ab6a 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -7,7 +7,7 @@ index d0bc523..27e5ae6 100644
      "@csstools/normalize.css": "12.1.1",
      "@iconify/json": "2.2.509",
 +    "@inlang/plugin-m-function-matcher": "^2.2.9",
-+    "@inlang/plugin-message-format": "^4.4.0",
++    "@inlang/plugin-message-format": "^4.4.1",
      "@monaco-editor/react": "4.7.0",
      "@tailwindcss/vite": "4.3.3",
      "@tanstack/react-query": "5.101.4",
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 8e039e6..d4be92e 100644
+index 3213961..e78bdaa 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -38,8 +38,8 @@ index 8e039e6..d4be92e 100644
 +        specifier: ^2.2.9
 +        version: 2.2.9
 +      '@inlang/plugin-message-format':
-+        specifier: ^4.4.0
-+        version: 4.4.0
++        specifier: ^4.4.1
++        version: 4.4.1
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -50,8 +50,8 @@ index 8e039e6..d4be92e 100644
 +  '@inlang/plugin-m-function-matcher@2.2.9':
 +    resolution: {integrity: sha512-FqrEw6p5UKn0fVLedILx5vjEAPAl01Uuv1xlF6pQ9XMxpDsTUSOAPrjWuus1jiPBnYEdbK8cP43Ni0e3IPz9aQ==}
 +
-+  '@inlang/plugin-message-format@4.4.0':
-+    resolution: {integrity: sha512-n4aXt6XVg5kxhKoLAhi9nMgZtCA9iS0QOaXte56VqxWHcfj9O4c4gOkyVQZH7H9D8h7OZufCrO1sZGYOypPwEA==}
++  '@inlang/plugin-message-format@4.4.1':
++    resolution: {integrity: sha512-gI918CgIbOzrSk8BdETtARYVo3WcojjD33ASmn+taeNunkgrN5U4TkEqpC3yDJ+G0tMZm1mhEzS3dn3JwJpQoA==}
 +
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
@@ -67,7 +67,7 @@ index 8e039e6..d4be92e 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -4558,6 +4574,11 @@ packages:
+@@ -4569,6 +4585,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -79,7 +79,7 @@ index 8e039e6..d4be92e 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7652,6 +7673,16 @@ snapshots:
+@@ -7719,6 +7740,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -89,14 +89,14 @@ index 8e039e6..d4be92e 100644
 +    transitivePeerDependencies:
 +      - babel-plugin-macros
 +
-+  '@inlang/plugin-message-format@4.4.0':
++  '@inlang/plugin-message-format@4.4.1':
 +    dependencies:
 +      flat: 6.0.1
 +
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7666,6 +7697,16 @@ snapshots:
+@@ -7733,6 +7764,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -113,7 +113,7 @@ index 8e039e6..d4be92e 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10680,6 +10721,8 @@ snapshots:
+@@ -10753,6 +10794,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
