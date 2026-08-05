@@ -5,3 +5,5 @@ result-*
 .codex-tmp
 .antigravitycli
 scratch-build/
+
+__pycache__

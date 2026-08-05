@@ -162,36 +162,85 @@ def get_latest_pypi_version(pname):
         pass
     return None
 
-def resolve_version(rev, content):
+def lookup_nix_string_assign(name, content, pos=None):
+    """Resolve `name = "..."` near a src block.
 
-    vars = {}
-    for k, v in re.findall(r'([a-zA-Z0-9_-]+)\s*=\s*"([^"]+)"', content):
-        vars[k] = v
-    
-    if rev in vars:
-        rev = vars[rev]
+    Prefer the outermost (least-indented) assignment before `pos`. Nested
+    helper packages often redefine `version` (e.g. zen-browser's surfer pin);
+    using the last assignment in the whole file mis-resolves the main package
+    `tag = version`.
+    """
+    candidates = []
+    for m in re.finditer(
+        rf'(?m)^([ \t]*){re.escape(name)}\s*=\s*"([^"]+)"',
+        content,
+    ):
+        if pos is None or m.start() < pos:
+            candidates.append((len(m.group(1)), m.start(), m.group(2)))
+    if not candidates:
+        # Fall back to any assignment (not necessarily line-anchored).
+        for m in re.finditer(rf'\b{re.escape(name)}\s*=\s*"([^"]+)"', content):
+            if pos is None or m.start() < pos:
+                candidates.append((9999, m.start(), m.group(1)))
+    if not candidates:
+        return None
+    min_indent = min(c[0] for c in candidates)
+    outer = [c for c in candidates if c[0] == min_indent]
+    return outer[-1][2]
+
+
+def resolve_version(rev, content, pos=None):
+    if not rev:
+        return rev
+
+    def lookup(name):
+        return lookup_nix_string_assign(name, content, pos)
+
+    if re.fullmatch(r'[a-zA-Z_][a-zA-Z0-9_-]*', rev):
+        resolved = lookup(rev)
+        if resolved is not None:
+            rev = resolved
     if rev == 'version' or rev.endswith('.version'):
-        rev = vars.get('version', rev)
+        resolved = lookup('version')
+        if resolved is not None:
+            rev = resolved
 
     if '${' not in rev:
         return rev
-    
+
     def replacer(match):
         var_name = match.group(1)
         if var_name.endswith('.version'):
             var_name = 'version'
-        return vars.get(var_name, match.group(0))
-        
+        found = lookup(var_name)
+        return found if found is not None else match.group(0)
+
     return re.sub(r'\$\{([^}]+)\}', replacer, rev)
 
 def find_main_match(matches, content):
     if not matches: return None
-    deriv_match = re.search(r'\b(mkDerivation|build[A-Za-z0-9]+Package|build[A-Za-z0-9]+Application|buildGoModule)\b', content)
-    if deriv_match:
-        for m in matches:
-            if m.start() > deriv_match.start(): return m
+    # Prefer src whose rev/tag references package `version` (main package),
+    # not commit-pinned helper fetches.
+    versioned = []
     for m in matches:
-        if 'version' in m.group(0) or 'pname' in m.group(0): return m
+        block = m.group(0)
+        if re.search(r'\b(?:rev|tag)\s*=\s*version\b', block) or re.search(
+            r'\b(?:rev|tag)\s*=\s*"\$\{version\}"', block
+        ) or re.search(r'\binherit\s+(?:[^;]*\s)?(?:rev|tag)\b', block):
+            versioned.append(m)
+    if versioned:
+        return versioned[-1]
+    deriv_match = re.search(
+        r'(?m)^\s*\(?\s*(?:pkgs\.)?(mkDerivation|build[A-Za-z0-9]+Package|build[A-Za-z0-9]+Application|buildGoModule)\b',
+        content,
+    )
+    if deriv_match:
+        after = [m for m in matches if m.start() > deriv_match.start()]
+        if after:
+            return after[-1]
+    for m in matches:
+        if 'version' in m.group(0) or 'pname' in m.group(0):
+            return m
     return matches[-1]
 
 def main():
@@ -248,7 +297,9 @@ def main():
             git_match = fetchgit_match = fetchpypi_match = fetchurl_match = None
             if all_matches:
                 all_matches.sort(key=lambda x: x[1].start())
-                best_type, best_match = all_matches[-1]
+                match_objs = [m for _, m in all_matches]
+                best_match = find_main_match(match_objs, content)
+                best_type = next(t for t, m in all_matches if m is best_match)
                 if best_type == 'git': git_match = best_match
                 elif best_type == 'fetchgit': fetchgit_match = best_match
                 elif best_type == 'fetchpypi': fetchpypi_match = best_match
@@ -260,10 +311,12 @@ def main():
             domain = None
             owner = None
             repo = None
+            src_pos = None
             
             if git_match:
                 forge = git_match.group(1)
                 src_block = git_match.group(2)
+                src_pos = git_match.start()
                 
                 owner_m = re.search(r'\bowner\s*=\s*"([^"]+)"', src_block)
                 repo_m = re.search(r'\brepo\s*=\s*"([^"]+)"', src_block)
@@ -274,7 +327,7 @@ def main():
                     owner = owner_m.group(1)
                     repo = repo_m.group(1)
                     current_rev = rev_m.group(1) or rev_m.group(2) or rev_m.group(3)
-                    current_rev = resolve_version(current_rev, content)
+                    current_rev = resolve_version(current_rev, content, src_pos)
                     
                     domain = "github.com"
                     if forge == "GitLab":
@@ -287,12 +340,13 @@ def main():
             
             elif fetchgit_match:
                 src_block = fetchgit_match.group(1)
+                src_pos = fetchgit_match.start()
                 url_m = re.search(r'\burl\s*=\s*(?:"([^"]+)"|([^";\s]+))', src_block)
                 rev_m = re.search(r'\b(?:inherit\s+(rev|tag)|(?:rev|tag)\s*=\s*(?:"([^"]+)"|([^";\s]+)))', src_block)
                 if url_m and rev_m:
                     url = url_m.group(1) if url_m.group(1) else url_m.group(2)
                     current_rev = rev_m.group(1) or rev_m.group(2) or rev_m.group(3)
-                    current_rev = resolve_version(current_rev, content)
+                    current_rev = resolve_version(current_rev, content, src_pos)
                     name_display = f"{pkg} (fetchgit {url})"
                     
                     gh_m = re.search(r'github\.com/([^/]+)/([^/.]+)(?:\.git)?', url)
@@ -302,6 +356,7 @@ def main():
                         repo = gh_m.group(2)
             elif fetchpypi_match:
                 src_block = fetchpypi_match.group(1)
+                src_pos = fetchpypi_match.start()
                 pname_m = re.search(r'\bpname\s*=\s*(?:"([^"]+)"|([^";\s]+))', src_block)
                 if not pname_m:
                     pname_m = re.search(r'\binherit\s+(?:[a-zA-Z0-9_\s]*\s+)?pname\b', src_block)
@@ -314,7 +369,7 @@ def main():
                 if rev_m and pname_m:
                     pname_val = pname_m.group(1) or pname_m.group(2)
                     current_rev = rev_m.group(1) or rev_m.group(2) or "version"
-                    current_rev = resolve_version(current_rev, content)
+                    current_rev = resolve_version(current_rev, content, src_pos)
                     
                     latest = get_latest_pypi_version(pname_val)
                     if latest:
@@ -326,6 +381,7 @@ def main():
                     continue
             elif fetchurl_match:
                 src_block = fetchurl_match.group(1)
+                src_pos = fetchurl_match.start()
                 url_m = re.search(r'\burl\s*=\s*(?:"([^"]+)"|([^";\s]+))', src_block)
                 if url_m:
                     url_val = url_m.group(1) or url_m.group(2)
@@ -337,9 +393,8 @@ def main():
                         repo = gh_m.group(2)
                         domain = "github.com"
                         
-                        current_rev_m = re.search(r'\bversion\s*=\s*"([^"]+)"', content)
-                        if current_rev_m:
-                            current_rev = current_rev_m.group(1)
+                        current_rev = lookup_nix_string_assign('version', content, src_pos)
+                        if current_rev:
                             url = f"https://github.com/{owner}/{repo}.git"
                             name_display = f"{pkg} (fetchurl github {owner}/{repo})"
 

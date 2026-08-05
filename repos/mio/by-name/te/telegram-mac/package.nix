@@ -176,18 +176,18 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # Fix CMake 3.5 compatibility for Mozjpeg
     substituteInPlace submodules/telegram-ios/third-party/mozjpeg/mozjpeg/CMakeLists.txt \
-      --replace-warn "cmake_minimum_required(VERSION 2.8.12)" "cmake_minimum_required(VERSION 3.5)"
+      --replace-fail "cmake_minimum_required(VERSION 2.8.12)" "cmake_minimum_required(VERSION 3.5)"
 
     # Copy contents into existing build dirs (avoids nesting the source basename inside BUILD_DIR)
     substituteInPlace core-xprojects/webrtc/webrtc/build.sh \
-      --replace-warn 'cp -R $SOURCE_DIR $BUILD_DIR' 'cp -R "$SOURCE_DIR"/. "$BUILD_DIR"/'
+      --replace-fail 'cp -R $SOURCE_DIR $BUILD_DIR' 'cp -R "$SOURCE_DIR"/. "$BUILD_DIR"/'
 
     substituteInPlace core-xprojects/Mozjpeg/Mozjpeg/build.sh \
-      --replace-warn 'mozjpeg/" "''${BUILD_DIR}build/"' 'mozjpeg/"/. "''${BUILD_DIR}build/"'
+      --replace-fail 'mozjpeg/" "''${BUILD_DIR}build/"' 'mozjpeg/"/. "''${BUILD_DIR}build/"'
 
     # GNU cp nests libopus headers at .../include/opus/include/; match that here.
     substituteInPlace core-xprojects/webrtc/webrtc.xcodeproj/project.pbxproj \
-      --replace-warn 'libopus/build/libopus/include/opus' 'libopus/build/libopus/include/opus/include'
+      --replace-fail 'libopus/build/libopus/include/opus' 'libopus/build/libopus/include/opus/include'
 
     # Fix the custom pkg-config wrapper to parse custom paths properly when ffmpeg prepends them
     cat > submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/pkg-config <<'EOF'
