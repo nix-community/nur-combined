@@ -6,6 +6,7 @@
   flatpak-xdg-utils,
   # GTK IM module for Electron-on-XWayland (Linux QQ's Wayland IME is unreliable).
   fcitx5-gtk,
+  gtk3,
   iproute2,
   withMacFix ? true,
   # Overlay real XDG dirs into the sandbox for send-file / downloads.
@@ -20,6 +21,18 @@
 # Adapted from https://aur.archlinux.org/packages/linuxqq-nt-bwrap
 # Original work by Kirikaze Chiyuki and sukanka
 
+let
+  # Electron/GTK needs an immodules cache; GTK_PATH alone is unreliable in the sandbox.
+  fcitxGtk3ImmodulesCache = stdenv.mkDerivation {
+    name = "qq-fcitx5-gtk3-immodules.cache";
+    nativeBuildInputs = [ gtk3.dev ];
+    buildCommand = ''
+      mkdir -p $out
+      GTK_PATH=${fcitx5-gtk}/lib/gtk-3.0 \
+        gtk-query-immodules-3.0 > "$out/immodules.cache"
+    '';
+  };
+in
 stdenv.mkDerivation {
   pname = "qq_bwrap";
   version = qq.version;
@@ -29,7 +42,8 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin $out/libexec $out/share
+    mkdir -p $out/bin $out/libexec $out/share $out/etc/gtk-3.0
+    cp ${fcitxGtk3ImmodulesCache}/immodules.cache $out/etc/gtk-3.0/immodules.cache
 
     # Copy desktop and icons from qq
     if [ -d "${qq}/share/applications" ]; then
@@ -58,6 +72,8 @@ stdenv.mkDerivation {
     # Linux QQ's Electron Wayland IME is unreliable (even when other apps + host
     # fcitx5 are fine under NIXOS_OZONE_WL). Default fcitx → XWayland + GTK IM
     # (community fix). Override: QQ_IME_WORKAROUND=wayland|fcitx|ibus|x11|none.
+    # Host often has waylandFrontend=true so GTK/Qt IM_MODULE are unset; we still
+    # detect via XMODIFIERS and force GTK IM + X11 ozone for this app.
     cat << 'EOF' > $out/libexec/qq-setup-ime.sh
     #!/bin/bash
     _qq_flags_have() {
@@ -73,6 +89,16 @@ stdenv.mkDerivation {
             *ibus*) printf ibus; return ;;
         esac
         printf none
+    }
+    _qq_apply_fcitx_gtk() {
+        export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
+        export SDL_IM_MODULE=fcitx
+        export XMODIFIERS="''${XMODIFIERS:-@im=fcitx}"
+        export GTK_PATH="@fcitx5Gtk@/lib/gtk-3.0''${GTK_PATH:+:$GTK_PATH}"
+        export GTK_IM_MODULE_FILE="@immodulesCache@"
+        # im-fcitx5.so needs libFcitx5GClient; keep it on the loader path.
+        export LD_LIBRARY_PATH="@fcitx5Gtk@/lib''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+        unset IBUS_USE_PORTAL 2>/dev/null || true
     }
     if [ -z "''${QQ_IME_WORKAROUND}" ] || [ "''${QQ_IME_WORKAROUND}" = auto ]; then
         case "$(_qq_detect_im)" in
@@ -99,7 +125,7 @@ stdenv.mkDerivation {
     case "''${QQ_IME_WORKAROUND}" in
         wayland)
             unset GTK_IM_MODULE QT_IM_MODULE QT_IM_MODULES SDL_IM_MODULE IBUS_USE_PORTAL \
-                2>/dev/null || true
+                GTK_IM_MODULE_FILE 2>/dev/null || true
             if ! _qq_flags_have 'ozone-platform'; then
                 electron_flags+=(--ozone-platform-hint=auto)
             fi
@@ -119,27 +145,22 @@ stdenv.mkDerivation {
             esac
             ;;
         fcitx)
-            export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
-            export XMODIFIERS="''${XMODIFIERS:-@im=fcitx}"
-            export GTK_PATH="@fcitx5Gtk@/lib/gtk-3.0''${GTK_PATH:+:$GTK_PATH}"
-            unset IBUS_USE_PORTAL 2>/dev/null || true
+            _qq_apply_fcitx_gtk
             ;;
         ibus)
             export QT_IM_MODULE=ibus GTK_IM_MODULE=ibus IBUS_USE_PORTAL=1
+            unset GTK_IM_MODULE_FILE 2>/dev/null || true
             ;;
         x11)
-            # Drop NIXOS_OZONE_WL so nixpkgs qq wrapper does not inject Wayland
-            # ozone/IME flags ahead of --ozone-platform=x11.
-            unset NIXOS_OZONE_WL IBUS_USE_PORTAL 2>/dev/null || true
-            export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
-            export SDL_IM_MODULE=fcitx
-            export XMODIFIERS="''${XMODIFIERS:-@im=fcitx}"
+            # Drop NIXOS_OZONE_WL / WAYLAND_DISPLAY so nixpkgs qq wrapper does not
+            # inject Wayland ozone/IME flags and Electron stays on X11 GTK IM.
+            unset NIXOS_OZONE_WL IBUS_USE_PORTAL WAYLAND_DISPLAY 2>/dev/null || true
+            _qq_apply_fcitx_gtk
             export ELECTRON_OZONE_PLATFORM_HINT=x11
-            export GTK_PATH="@fcitx5Gtk@/lib/gtk-3.0''${GTK_PATH:+:$GTK_PATH}"
             electron_flags+=(--ozone-platform=x11)
             ;;
     esac
-    unset -f _qq_flags_have _qq_detect_im
+    unset -f _qq_flags_have _qq_detect_im _qq_apply_fcitx_gtk
     EOF
 
     # Source after HOME is known. Fills QQ_USER_DIR_BINDS for bwrap
@@ -280,6 +301,8 @@ stdenv.mkDerivation {
         --ro-bind-try "''${HOME}/.local/share/icons" "''${HOME}/.local/share/icons" \
         --ro-bind-try "''${XDG_CONFIG_HOME}/gtk-3.0" "''${XDG_CONFIG_HOME}/gtk-3.0" \
         --ro-bind-try "''${XDG_CONFIG_HOME}/dconf" "''${XDG_CONFIG_HOME}/dconf" \
+        --ro-bind-try "''${XDG_CONFIG_HOME}/fcitx" "''${XDG_CONFIG_HOME}/fcitx" \
+        --ro-bind-try "''${XDG_CONFIG_HOME}/fcitx5" "''${XDG_CONFIG_HOME}/fcitx5" \
         --setenv QQNTIM_HOME "''${QQ_APP_DIR}/QQNTim" \
         --setenv LITELOADERQQNT_PROFILE "''${QQ_APP_DIR}/LiteLoaderQQNT" \
         "''${bwrap_flags[@]}" \
@@ -429,6 +452,8 @@ stdenv.mkDerivation {
           --ro-bind-try "''${HOME}/.local/share/icons" "''${HOME}/.local/share/icons" \
           --ro-bind-try "''${XDG_CONFIG_HOME}/gtk-3.0" "''${XDG_CONFIG_HOME}/gtk-3.0" \
           --ro-bind-try "''${XDG_CONFIG_HOME}/dconf" "''${XDG_CONFIG_HOME}/dconf" \
+          --ro-bind-try "''${XDG_CONFIG_HOME}/fcitx" "''${XDG_CONFIG_HOME}/fcitx" \
+          --ro-bind-try "''${XDG_CONFIG_HOME}/fcitx5" "''${XDG_CONFIG_HOME}/fcitx5" \
           --setenv QQNTIM_HOME "''${QQ_APP_DIR}/QQNTim" \
           --setenv LITELOADERQQNT_PROFILE "''${QQ_APP_DIR}/LiteLoaderQQNT" \
           --bind "''${INFO_DIR}" "''${INFO_DIR}" \
@@ -517,7 +542,8 @@ stdenv.mkDerivation {
     substituteInPlace $out/bin/qq $out/libexec/qq_normal ${lib.optionalString withMacFix "$out/libexec/qq_mac_fix"} \
       --replace-fail '@out@' "$out"
     substituteInPlace $out/libexec/qq-setup-ime.sh \
-      --replace-fail '@fcitx5Gtk@' '${fcitx5-gtk}'
+      --replace-fail '@fcitx5Gtk@' '${fcitx5-gtk}' \
+      --replace-fail '@immodulesCache@' "$out/etc/gtk-3.0/immodules.cache"
     substituteInPlace $out/libexec/qq-setup-user-dirs.sh \
       --replace-fail '@bindDownloads@' '${if bindDownloads then "1" else "0"}' \
       --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
