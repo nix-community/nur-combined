@@ -10,12 +10,14 @@
 # which this is possible.
 #
 # When `compileCache` is enabled (or NUR_COMPILE_CACHE=1 is set in the
-# environment of an impure evaluation), source-built packages are wrapped
-# with compiler caches (sccache for Rust, GOCACHE for Go) pointing at a
-# persistent directory mounted into the CI builders' Nix sandbox. This is
-# meant for CI only; local builds are unaffected.
+# environment of an impure evaluation), source-built Go packages are
+# wrapped with a persistent GOCACHE directory mounted into the CI
+# builders' Nix sandbox. This is meant for CI only; local builds are
+# unaffected. (Rust packages use crane for caching instead; see
+# default.nix.)
 {
   pkgs ? import <nixpkgs> {},
+  craneLib ? null,
   compileCache ? (builtins.getEnv "NUR_COMPILE_CACHE") == "1",
 }:
 with builtins; let
@@ -82,7 +84,6 @@ with builtins; let
   };
 
   compileCacheDir = "/opt/nur-ci-compile-cache";
-  rustCachedNames = ["ace-ctx" "autocli" "pumpkin"];
   goCachedNames = ["cliproxyapiplus" "sing-box-alpha" "sing-box-beta"];
 
   applyCompileCache = entry: let
@@ -90,41 +91,6 @@ with builtins; let
   in
     if !compileCache
     then entry
-    else if elem name rustCachedNames
-    then
-      entry
-      // {
-        package = entry.package.overrideAttrs (old: {
-          nativeBuildInputs = (old.nativeBuildInputs or []) ++ [pkgs.sccache];
-          RUSTC_WRAPPER = "sccache";
-          SCCACHE_DIR = "${compileCacheDir}/sccache";
-          SCCACHE_CACHE_SIZE = "2G";
-          # Connect to the single host-level sccache server over a Unix
-          # socket bind-mounted into the sandbox. sccache's local storage
-          # supports only ONE server per SCCACHE_DIR; letting each build
-          # spawn its own server (per-sandbox network namespaces) races on
-          # the shared cache dir and fails spuriously ("server looks like
-          # it shut down unexpectedly").
-          SCCACHE_SERVER_UDS = "${compileCacheDir}/sccache.sock";
-          # Builds on one builder run as different nixbld users; world-
-          # writable cache entries let all of them share the directory.
-          # ($out permissions are canonicalized by Nix after the build.)
-          preBuild =
-            (old.preBuild or "")
-            + ''
-              umask 000
-              mkdir -p "$SCCACHE_DIR"
-            '';
-          # umask 000 makes $out group/other-writable, which Nix rejects as
-          # "suspicious ownership or permission"; strip those bits again.
-          postFixup =
-            (old.postFixup or "")
-            + ''
-              find "$out" -type f -exec chmod go-w {} +
-              find "$out" -type d -exec chmod go-w {} +
-            '';
-        });
-      }
     else if elem name goCachedNames
     then
       entry
@@ -153,7 +119,7 @@ with builtins; let
       }
     else entry;
 
-  nurAttrs = import ../default.nix {inherit pkgs;};
+  nurAttrs = import ../default.nix {inherit pkgs craneLib;};
   nurEntries = map applyCompileCache (flattenPkgs [] (removeAttrs nurAttrs reservedNames));
 in rec {
   buildEntries = filter (entry: isBuildable entry.package) nurEntries;

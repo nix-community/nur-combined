@@ -27,10 +27,14 @@
 #          package (lazy recursion, e.g. typenix-vscode -> typenix);
 #       3. an argument matching a key of `sources` receives that source
 #          (e.g. typenix's tree-sitter-nix);
-#       4. everything else is left for callPackage to resolve from nixpkgs
+#       4. an argument matching a key of `inject` receives that value
+#          (uniform repo-wide injection, e.g. craneLib);
+#       5. everything else is left for callPackage to resolve from nixpkgs
 #          (e.g. sing-box).
-#     `extraArgs.<name>` is an explicit exception table that overrides
-#     auto-injection (e.g. typenix-vscode's `source` is sources.typenix).
+#     `inject` maps argument names to values and applies to every package
+#     that declares the argument. `extraArgs.<name>` is an explicit
+#     exception table that overrides auto-injection for a single package
+#     (e.g. typenix-vscode's `source` is sources.typenix).
 #     `sources` defaults to the repository's ../_sources/generated.nix.
 #
 #     NOTE: rule 2 takes precedence over nixpkgs resolution, so adding a
@@ -62,6 +66,7 @@
     pkgs,
     dir,
     sources ? defaultSources pkgs,
+    inject ? {},
     extraArgs ? {},
   }: let
     autoArgsFor = name: let
@@ -69,13 +74,16 @@
       shouldInject = arg:
         (arg == "source" && builtins.hasAttr name sources)
         || builtins.hasAttr arg result
-        || builtins.hasAttr arg sources;
+        || builtins.hasAttr arg sources
+        || builtins.hasAttr arg inject;
       valueFor = arg:
         if arg == "source" && builtins.hasAttr name sources
         then builtins.getAttr name sources
         else if builtins.hasAttr arg result
         then builtins.getAttr arg result
-        else builtins.getAttr arg sources;
+        else if builtins.hasAttr arg sources
+        then builtins.getAttr arg sources
+        else builtins.getAttr arg inject;
     in
       builtins.listToAttrs (map (arg: {
         name = arg;

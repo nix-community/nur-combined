@@ -2,6 +2,7 @@
   lib,
   stdenv,
   rustPlatform,
+  craneLib ? null,
   source,
   coreutils,
   installShellFiles,
@@ -10,29 +11,20 @@
   procps,
   lsof,
   xdg-utils,
-}:
-rustPlatform.buildRustPackage rec {
+}: let
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  cargoHash = "sha256-EZ/CRVQjGB14HpBjKBRLW9Sj9In7Kp8754E5XiiQYX4=";
-
   patches = [./fix-download-url-in-data-test.patch];
-
-  cargoBuildFlags = [
-    "--package"
-    "autocli"
-  ];
-  cargoTestFlags = ["--workspace"];
-  doCheck = true;
-  nativeCheckInputs = [
-    coreutils
-    which
-  ];
 
   nativeBuildInputs =
     [installShellFiles]
     ++ lib.optionals stdenv.hostPlatform.isLinux [makeWrapper];
+
+  nativeCheckInputs = [
+    coreutils
+    which
+  ];
 
   postInstall = ''
     installShellCompletion --cmd autocli \
@@ -55,7 +47,6 @@ rustPlatform.buildRustPackage rec {
     }
   '';
 
-  doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
 
@@ -89,4 +80,66 @@ rustPlatform.buildRustPackage rec {
       "aarch64-darwin"
     ];
   };
-}
+in
+  if craneLib == null
+  then
+    # Fallback for consumers without crane (e.g. importing this repository's
+    # default.nix with plain nixpkgs): a regular single-layer build.
+    rustPlatform.buildRustPackage {
+      inherit
+        pname
+        src
+        version
+        patches
+        nativeBuildInputs
+        nativeCheckInputs
+        postInstall
+        postFixup
+        installCheckPhase
+        meta
+        ;
+
+      cargoHash = "sha256-EZ/CRVQjGB14HpBjKBRLW9Sj9In7Kp8754E5XiiQYX4=";
+
+      cargoBuildFlags = [
+        "--package"
+        "autocli"
+      ];
+      cargoTestFlags = ["--workspace"];
+      doCheck = true;
+
+      doInstallCheck = true;
+    }
+  else let
+    commonArgs = {
+      inherit pname src;
+      cargoExtraArgs = "--package autocli";
+    };
+    # Dependencies only. The version is deliberately constant so this layer
+    # is rebuilt only when Cargo.lock or the toolchain changes, never on an
+    # upstream version bump. `patches` is deliberately not passed here: it
+    # only touches a test data file, which the stubbed dependency sources
+    # do not contain.
+    cargoArtifacts = craneLib.buildDepsOnly (commonArgs
+      // {
+        version = "0";
+        doCheck = false;
+      });
+  in
+    craneLib.buildPackage (commonArgs
+      // {
+        inherit
+          version
+          cargoArtifacts
+          patches
+          nativeBuildInputs
+          nativeCheckInputs
+          postInstall
+          postFixup
+          installCheckPhase
+          meta
+          ;
+        cargoTestExtraArgs = "--workspace";
+        doCheck = true;
+        doInstallCheck = true;
+      })

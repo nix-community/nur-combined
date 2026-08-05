@@ -2,22 +2,13 @@
   lib,
   stdenv,
   rustPlatform,
+  craneLib ? null,
   source,
   makeWrapper,
   xdg-utils,
-}:
-rustPlatform.buildRustPackage rec {
+}: let
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
-
-  cargoHash = "sha256-Cu1tvGpqxzz4J8x80pd+MpAUZkn7NbByjFXVM3L5S8E=";
-
-  cargoBuildFlags = [
-    "--package"
-    "ace-ctx"
-  ];
-  cargoTestFlags = ["--all-features"];
-  doCheck = true;
 
   nativeBuildInputs = lib.optionals stdenv.hostPlatform.isLinux [makeWrapper];
 
@@ -36,7 +27,6 @@ rustPlatform.buildRustPackage rec {
       --prefix PATH : ${lib.makeBinPath [xdg-utils]}
   '';
 
-  doInstallCheck = true;
   installCheckPhase = ''
     runHook preInstallCheck
 
@@ -65,4 +55,60 @@ rustPlatform.buildRustPackage rec {
       "aarch64-darwin"
     ];
   };
-}
+in
+  if craneLib == null
+  then
+    # Fallback for consumers without crane (e.g. importing this repository's
+    # default.nix with plain nixpkgs): a regular single-layer build.
+    rustPlatform.buildRustPackage {
+      inherit
+        pname
+        src
+        version
+        nativeBuildInputs
+        postInstall
+        postFixup
+        installCheckPhase
+        meta
+        ;
+
+      cargoHash = "sha256-Cu1tvGpqxzz4J8x80pd+MpAUZkn7NbByjFXVM3L5S8E=";
+
+      cargoBuildFlags = [
+        "--package"
+        "ace-ctx"
+      ];
+      cargoTestFlags = ["--all-features"];
+      doCheck = true;
+
+      doInstallCheck = true;
+    }
+  else let
+    commonArgs = {
+      inherit pname src;
+      cargoExtraArgs = "--package ace-ctx";
+    };
+    # Dependencies only. The version is deliberately constant so this layer
+    # is rebuilt only when Cargo.lock or the toolchain changes, never on an
+    # upstream version bump.
+    cargoArtifacts = craneLib.buildDepsOnly (commonArgs
+      // {
+        version = "0";
+        doCheck = false;
+      });
+  in
+    craneLib.buildPackage (commonArgs
+      // {
+        inherit
+          version
+          cargoArtifacts
+          nativeBuildInputs
+          postInstall
+          postFixup
+          installCheckPhase
+          meta
+          ;
+        cargoTestExtraArgs = "--all-features";
+        doCheck = true;
+        doInstallCheck = true;
+      })

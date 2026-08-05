@@ -20,8 +20,9 @@ concurrency:
 env:
   CACHE_NAME: mzwing
   BUILDER_PREFIX: nur-b-${{ github.run_id }}-${{ github.run_attempt }}
-  # Enable sccache/GOCACHE compile caches in ci/default.nix (impure eval only).
-  # Set to "0" to fall back to plain builds.
+  # Enable the persistent GOCACHE compile cache in ci/default.nix (impure
+  # eval only). Rust packages are cached via crane instead. Set to "0" to
+  # fall back to plain builds.
   NUR_COMPILE_CACHE: "1"
 
 jobs:
@@ -105,7 +106,7 @@ jobs:
 
     - name: Prepare compile cache directory
       run: |
-        sudo mkdir -p /opt/nur-ci-compile-cache/sccache /opt/nur-ci-compile-cache/gocache
+        sudo mkdir -p /opt/nur-ci-compile-cache/gocache
         # The cache restore tarball is extracted as the runner user, which
         # must own these directories to chmod/utime them. The post-restore
         # step re-opens permissions for the nixbld build users.
@@ -130,22 +131,6 @@ jobs:
 
     - name: Fix compile cache permissions
       run: sudo chmod -R 777 /opt/nur-ci-compile-cache
-
-    - name: Install sccache on the builder host
-      run: nix build nixpkgs#sccache --out-link /tmp/sccache-host
-
-    - name: Start shared sccache server
-      run: |
-        # One host-level server owns the cache directory; sandboxed builds
-        # reach it over the bind-mounted Unix socket. sccache's local
-        # storage supports only one server per SCCACHE_DIR.
-        sudo env \
-          SCCACHE_DIR=/opt/nur-ci-compile-cache/sccache \
-          SCCACHE_CACHE_SIZE=2G \
-          SCCACHE_IDLE_TIMEOUT=0 \
-          SCCACHE_SERVER_UDS=/opt/nur-ci-compile-cache/sccache.sock \
-          /tmp/sccache-host/bin/sccache --start-server
-        sudo chmod 777 /opt/nur-ci-compile-cache/sccache.sock
 
     - name: Join builder network
       uses: tailscale/github-action@v4
@@ -181,17 +166,11 @@ jobs:
         echo 'Coordinator did not claim this builder within 10 minutes.' >&2
         exit 1
 
-    - name: Stop sccache server
-      if: always()
-      run: |
-        sudo env SCCACHE_SERVER_UDS=/opt/nur-ci-compile-cache/sccache.sock \
-          /tmp/sccache-host/bin/sccache --stop-server || true
-
     - name: Fix compile cache permissions before save
       if: always()
-      # sccache creates some entries as 0600 owned by nixbld users, which the
-      # runner user cannot read; and the archived modes must stay permissive
-      # so nixbld users can write to them again after the next restore.
+      # Build users (nixbld*) create entries the runner user cannot read;
+      # and the archived modes must stay permissive so nixbld users can
+      # write to them again after the next restore.
       run: sudo chmod -R 777 /opt/nur-ci-compile-cache
 
     - name: Save compile cache
