@@ -2,6 +2,7 @@
 
 let
   cfg = config.quriosity.sddm-themes.echo;
+  echo-sddm = pkgs.callPackage ../pkgs/echo-sddm { };
 in
 {
   options.quriosity.sddm-themes.echo = {
@@ -29,7 +30,7 @@ in
     ];
 
     environment.systemPackages = [
-      (pkgs.echo-sddm.override {
+      (echo-sddm.override {
         enableWallpaper = cfg.wallpaper.enable;
         wallpaper = cfg.wallpaper.image;
       })

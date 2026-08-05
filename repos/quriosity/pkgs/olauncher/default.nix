@@ -24,11 +24,11 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "olauncher";
-  version = "1.7.3_04";
+  version = "2.3.1";
 
   src = fetchurl {
-    url = "https://github.com/olauncher/olauncher/releases/download/v${version}/olauncher-${version}-redist.jar";
-    hash = "sha256-K3CFG1h9E/EKO0b6mxdHuixO05CjyNXLr90udcDKjL8=";
+    url = "https://github.com/RagedMeteor1837/olauncher/releases/download/v${version}/olauncher-${version}-redist.jar";
+    hash = "sha256-dkZ+hEvYTEWLGOpZii0wzHafP06vCIusdBIOcP2zbn4=";
   };
 
   dontUnpack = true;
@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
     description = "Modified old-style Minecraft launcher with Microsoft authentication support";
     homepage = "https://github.com/olauncher/olauncher";
     changelog = "https://github.com/olauncher/olauncher/releases/tag/v${version}";
-    license = licenses.cc0;
+    license = licenses.gpl3Only;
     sourceProvenance = [ lib.sourceTypes.binaryBytecode ];
     platforms = platforms.linux;
     mainProgram = "olauncher";
