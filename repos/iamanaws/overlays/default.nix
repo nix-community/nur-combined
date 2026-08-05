@@ -9,21 +9,19 @@ let
     # ...
     # });
 
-    t3code = prev.t3code.override {
-      t3code-unwrapped = final.callPackage "${
-        final.applyPatches {
-          name = "t3code-0.0.31-source";
-          src = "${prev.path}/pkgs/by-name/t3/t3code";
-          patches = [
-            (final.fetchpatch2 {
-              url = "https://github.com/NixOS/nixpkgs/pull/547678.patch?full_index=1";
-              hash = "sha256-otebz1pRHhU3JLvCgiDyRekIpGkB8fxMZcoROqJzl7E=";
-            })
-          ];
-          patchFlags = [ "-p5" ];
-        }
-      }/unwrapped.nix" { };
-    };
+    # https://github.com/NixOS/nixpkgs/pull/549253
+    # glaze 8.0.0 broke hyprland's find_package(glaze 7...<8), which then
+    # falls back to FetchContent/git clone and fails in the nix sandbox.
+    hyprland = prev.hyprland.overrideAttrs (old: {
+      postPatch =
+        ''
+          # Relax glaze dependency
+          # FIXME: this shouldn't be needed once the upstream code will adopt it
+          substituteInPlace CMakeLists.txt start/CMakeLists.txt hyprpm/CMakeLists.txt \
+            --replace-fail "glaze 7...<8" "glaze"
+        ''
+        + (old.postPatch or "");
+    });
   };
 
   # This one brings our custom packages from the 'pkgs' directory and makes
