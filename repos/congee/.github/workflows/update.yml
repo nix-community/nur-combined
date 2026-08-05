@@ -82,6 +82,9 @@ jobs:
           if [ "${{ matrix.package }}" = "llmster" ]; then
             # nix-update cannot detect versions for llmster.lmstudio.ai
             ./pkgs/llmster/update.sh --commit
+          elif [ "${{ matrix.package }}" = "sentry" ]; then
+            # sentry also pins @sentry/api and its OpenAPI spec
+            ./pkgs/sentry/update.sh --commit
           else
             nix-shell -p nix-update --run "nix-update --commit ${{ matrix.package }}"
           fi

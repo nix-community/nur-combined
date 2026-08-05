@@ -13,28 +13,28 @@
 
 let
   pname = "sentry";
-  version = "0.40.0";
+  version = "0.41.0";
   pnpm = pnpm_10;
 
   src = fetchFromGitHub {
     owner = "getsentry";
     repo = "cli";
     rev = version;
-    hash = "sha256-L2Q1dgBNEvJ3Stl72UQN0xi71iO5kgPe02tuto1ZupI=";
+    hash = "sha256-/IhfQvbho3FKo8QPD5Wt1z0pH19jAnHyOIR2WYUHgbA=";
   };
 
   # @sentry/api version pinned in pnpm-lock.yaml; determines the OpenAPI spec tag
-  sentryApiVersion = "0.141.0";
+  sentryApiVersion = "0.253.0";
 
   openapi-spec = fetchurl {
     url = "https://raw.githubusercontent.com/getsentry/sentry-api-schema/${sentryApiVersion}/openapi-derefed.json";
-    hash = "sha256-GjGMWxTRVora4p2EwizEpvdcKbIbXHpn1/+fyKeCO+4=";
+    hash = "sha256-NzjSn8mNR61dxdQdUJQ5MFQ0FYNJdibFY3MKlJNcJjQ=";
   };
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src pnpm;
     fetcherVersion = 3;
-    hash = "sha256-TBct3J5QLEpVc7fvMGWSgxXdZxeUgcITLfgfvUV1b24=";
+    hash = "sha256-ppbuitfjeSqCSW2bBzcDcSzNuGxicmxBt4nw19huZRA=";
   };
 in
 stdenv.mkDerivation {
@@ -52,12 +52,21 @@ stdenv.mkDerivation {
   buildPhase = ''
     runHook preBuild
 
+    # A stale sentryApiVersion still builds, silently baking an outdated API
+    # schema — so fail loudly when the pin drifts from the lockfile.
+    lockApiVersion=$(sed -n "s|^  '@sentry/api@\([0-9.]*\)':$|\1|p" pnpm-lock.yaml | head -n1)
+    if [ "$lockApiVersion" != "${sentryApiVersion}" ]; then
+      echo "error: pinned @sentry/api ${sentryApiVersion} != pnpm-lock $lockApiVersion" >&2
+      echo "run pkgs/sentry/update.sh to re-pin the OpenAPI spec" >&2
+      exit 1
+    fi
+
     # Generate API schema using pre-fetched OpenAPI spec
-    mkdir -p src/generated
-    substituteInPlace script/generate-api-schema.ts \
+    mkdir -p packages/cli/src/generated
+    substituteInPlace packages/cli/script/generate-api-schema.ts \
       --replace-fail 'await fetch(openApiUrl)' \
         'await (async () => ({ ok: true, json: async () => JSON.parse(require("fs").readFileSync("${openapi-spec}", "utf-8")) }))()'
-    substituteInPlace script/build.ts \
+    substituteInPlace packages/cli/script/build.ts \
       --replace-fail 'const NODE_VERSION = "lts";' \
         'const NODE_VERSION = "${nodejs.version}";'
 
@@ -79,7 +88,7 @@ stdenv.mkDerivation {
   installPhase = ''
     runHook preInstall
     mkdir -p $out/bin
-    install -m755 dist-bin/sentry-* $out/bin/sentry
+    install -m755 packages/cli/dist-bin/sentry-* $out/bin/sentry
     runHook postInstall
   '';
 
