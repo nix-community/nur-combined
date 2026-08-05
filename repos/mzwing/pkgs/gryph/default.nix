@@ -41,7 +41,7 @@ buildGoModule rec {
   '';
 
   meta = {
-    description = "Local-first observability and audit trail tool for AI coding agents";
+    description = "Security layer for AI coding agents";
     homepage = "https://github.com/safedep/gryph";
     changelog = "https://github.com/safedep/gryph/releases/tag/${source.version}";
     license = lib.licenses.asl20;

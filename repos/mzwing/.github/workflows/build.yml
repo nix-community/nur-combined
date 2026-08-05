@@ -284,6 +284,13 @@ jobs:
         echo 'Coordinator did not claim this builder within 10 minutes.' >&2
         exit 1
 
+    - name: Fix compile cache permissions before save
+      if: always()
+      # sccache creates some entries as 0600 owned by nixbld users, which the
+      # runner user cannot read; and the archived modes must stay permissive
+      # so nixbld users can write to them again after the next restore.
+      run: sudo chmod -R 777 /opt/nur-ci-compile-cache
+
     - name: Save compile cache
       if: always()
       # Two builders per system share one weekly cache key; the loser of the

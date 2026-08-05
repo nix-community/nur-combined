@@ -42,7 +42,7 @@ buildGo126Module {
   '';
 
   meta = {
-    description = "TypeScript compiler in Go with native Nix support";
+    description = "Full typing for Nix based on TypeScript";
     homepage = "https://github.com/ryanrasti/typenix";
     license = lib.licenses.asl20;
     mainProgram = "typenix";

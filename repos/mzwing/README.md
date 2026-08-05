@@ -15,6 +15,8 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
 | `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |
+| `typenix` | [Usage](https://github.com/ryanrasti/typenix) |
+| `vscode-extensions.ryanrasti.typenix` | [Usage](https://github.com/ryanrasti/typenix) |
 
 ## NixOS modules
 

@@ -17,7 +17,7 @@ vscode-utils.buildVscodeExtension {
   passthru.updateScript = null;
 
   meta = {
-    description = "TypeNix VS Code extension - TypeScript IDE support for Nix";
+    description = "Full TypeScript-grade typing for Nix — autocomplete, type errors, hover docs, go-to-definition";
     homepage = "https://github.com/ryanrasti/typenix";
     license = lib.licenses.asl20;
     platforms = [
