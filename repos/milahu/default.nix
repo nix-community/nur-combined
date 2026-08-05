@@ -690,6 +690,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
       llm-aided-ocr = callPackage ./pkgs/development/python-modules/llm-aided-ocr { };
 
+      fsindex = callPackage ./pkgs/development/python-modules/fsindex { };
+
     #}))); # python3.pkgs
 
   #}))); # python3
