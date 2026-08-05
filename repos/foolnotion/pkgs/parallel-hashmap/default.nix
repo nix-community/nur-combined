@@ -21,7 +21,9 @@ stdenv.mkDerivation rec {
     substituteInPlace phmapTargets.cmake --replace "/build/source" "$out/include"
     mkdir -p $out/lib/cmake/phmap
     install -m 644 phmapTargets.cmake $out/lib/cmake/phmap/
-    echo "include(\"''\\$''\{CMAKE_CURRENT_LIST_DIR}/phmapTargets.cmake\"''\)" > $out/lib/cmake/phmap/phmapConfig.cmake
+    cat > $out/lib/cmake/phmap/phmapConfig.cmake <<'EOF'
+include("''${CMAKE_CURRENT_LIST_DIR}/phmapTargets.cmake")
+EOF
   '';
 
   passthru.updateScript = nix-update-script { };
