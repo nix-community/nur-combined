@@ -19,16 +19,14 @@
   writableTmpDirAsHomeHook,
 }:
 
-# NOTE: Building TelegramSwift (the native Telegram for macOS client) from source
-# is notoriously complex in a pure Nix environment. It relies heavily on Xcode,
-# Swift Package Manager (which requires network access during the build), and
-# specific code-signing setups.
+# Native Telegram for macOS (TelegramSwift) via host Xcode.
 #
-# This derivation provides a foundation, but achieving a fully pure, functional
-# build will likely require:
-# 1. Impure builds (sandbox = false) to allow Xcode and SPM network access.
-# 2. Or, a complex translation of Swift Package Manager dependencies into Nix.
-# 3. Supplying valid `api_id` and `api_hash` credentials.
+# Sandbox strategy (Darwin, matching nixpkgs macvim):
+# - Keep the Nix sandbox ON (no __noChroot): network stays blocked.
+# - Use a broad sandboxProfile so xcodebuild can use host Xcode / Metal.
+# - Prefetch SwiftPM deps in a fixed-output derivation (FODs may use the network).
+#
+# Requires Xcode at /Applications/Xcode.app and the Shared Metal toolchain.
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "telegram-mac";
@@ -72,6 +70,55 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     '';
   };
 
+  # Fixed-output: may use the network. Produces Xcode's clonedSourcePackages tree.
+  spmDeps = stdenvNoCC.mkDerivation {
+    name = "telegram-mac-spm";
+    outputHashMode = "recursive";
+    outputHashAlgo = "sha256";
+    outputHash = "sha256-2MxwU1tNz3oCCwRSNvSS5hRSWZd87gtlJDQfN7TFwaQ=";
+
+    inherit (finalAttrs) src;
+    nativeBuildInputs = [ writableTmpDirAsHomeHook ];
+
+    # Host Xcode must be visible while resolving packages (same profile as the app build).
+    sandboxProfile = ''
+      (allow file-read* file-write* process-exec mach-lookup)
+      (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
+    '';
+
+    buildCommand = ''
+      export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+      export PATH="$DEVELOPER_DIR/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      export CFFIXED_USER_HOME=$HOME
+
+      cp -a "$src" src
+      chmod -R u+w src
+      cd src
+
+      mkdir -p "$out"
+      # Local-package path quirks can make resolve exit non-zero after remotes are fetched.
+      set +e
+      xcodebuild -resolvePackageDependencies \
+        -workspace Telegram-Mac.xcworkspace \
+        -scheme Telegram \
+        -clonedSourcePackagesDirPath "$out" \
+        -derivedDataPath "$TMPDIR/derived" \
+        -IDEPackageSupportDisableManifestSandbox=YES \
+        -IDEPackageSupportDisablePluginExecutionSandbox=YES
+      set -e
+
+      test -d "$out/checkouts/firebase-ios-sdk"
+      test -f "$out/workspace-state.json"
+
+      substituteInPlace "$out/workspace-state.json" \
+        --replace-fail "$out" '@SPM@' \
+        --replace-fail "$NIX_BUILD_TOP/src" '@SRC@'
+
+      # Drop checkout VCS dirs; keep repositories/ for Xcode's package graph.
+      find "$out/checkouts" -name .git -print0 | xargs -0 rm -rf
+    '';
+  };
+
   nativeBuildInputs = [
     python3
     cmake
@@ -88,9 +135,12 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     writableTmpDirAsHomeHook
   ];
 
-  # Using xcodebuild directly usually requires the environment to have Xcode available.
-  # This requires setting `sandbox = false` in your nix.conf for Darwin.
-  __noChroot = true; # Hint for Hydra/Nix to disable sandbox if possible
+  # Keep sandbox enabled (network blocked). Allow host Xcode like nixpkgs macvim.
+  sandboxProfile = ''
+    (allow file-read* file-write* process-exec mach-lookup)
+    (deny file-read* file-write* process-exec mach-lookup (subpath "/usr/local") (with no-log))
+  '';
+
   dontUseCmakeConfigure = true;
   dontUseMesonConfigure = true;
 
@@ -112,6 +162,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     # CoreFoundation uses the user database for home dir, override it:
     export CFFIXED_USER_HOME=$HOME
+
+    # Prefetched SwiftPM tree (relocatable placeholders -> this build tree).
+    mkdir -p build/swiftpm
+    cp -a ${finalAttrs.spmDeps}/. build/swiftpm/
+    chmod -R u+w build/swiftpm
+    substituteInPlace build/swiftpm/workspace-state.json \
+      --replace-fail '@SPM@' "$PWD/build/swiftpm" \
+      --replace-fail '@SRC@' "$PWD"
 
     # Telegram for macOS requires framework configuration first
     echo "yes" > scripts/rebuild
@@ -272,6 +330,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
                  -configuration Release \
                  -derivedDataPath build \
                  -clonedSourcePackagesDirPath build/swiftpm \
+                 -disableAutomaticPackageResolution \
+                 -onlyUsePackageVersionsFromResolvedFile \
                  -IDEPackageSupportDisableManifestSandbox=YES \
                  -IDEPackageSupportDisablePluginExecutionSandbox=YES \
                  VALIDATE_PRODUCT=NO \
@@ -344,11 +404,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   meta = {
     description = "Telegram for macOS (Native Swift Client)";
     longDescription = ''
-      The native macOS Telegram client, built from source. 
-      Warning: Building this requires Xcode and is generally not pure.
+      Native macOS Telegram client built from source with host Xcode.
+      Darwin builds use a macvim-style sandboxProfile (sandbox stays on;
+      SwiftPM deps are prefetched as a fixed-output derivation).
     '';
     homepage = "https://github.com/overtake/TelegramSwift";
     license = lib.licenses.gpl2Plus;
     platforms = lib.platforms.darwin;
+    # Host Xcode + Shared Metal toolchain; not buildable on Hydra.
+    hydraPlatforms = [ ];
   };
 })
