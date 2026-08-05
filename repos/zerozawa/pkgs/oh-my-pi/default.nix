@@ -13,6 +13,7 @@
   nodejs,
   opus,
   pkg-config,
+  python3,
   wayland,
   libxcb,
 }:
@@ -166,6 +167,63 @@ let
       ];
     };
   };
+
+  # ─────────────────────────────────────────────────
+  # Phase 4: browser relay extension (CRX3)
+  # ─────────────────────────────────────────────────
+  # Stable extension identity for home-manager's programs.chromium.extensions
+  # (`crxPath`). browser-relay-key.pem is a committed THROWAWAY key — it only
+  # pins the CRX extension ID across rebuilds; it authenticates nothing else.
+  # extensionId = sha256(SPKI DER of the key)[:16], nibbles mapped 0..f → a..p.
+  extensionId = "lgcklnhmbedbnkhgepghbnojilibgani";
+
+  browserRelayExtension = stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "omp-browser-relay-extension";
+    # Version of the extension manifest (packages/browser-relay/extension/
+    # manifest.json), NOT the omp release version. home-manager writes this
+    # into `external_version`; pack-crx3.py fails the build if upstream bumps
+    # the manifest version and this drifts.
+    version = "0.1.0";
+    inherit src;
+    sourceRoot = "${src.name}/packages/browser-relay";
+
+    nativeBuildInputs = [
+      bun
+      (python3.withPackages (ps: [ ps.cryptography ]))
+    ];
+
+    dontConfigure = true;
+    dontFixup = true;
+
+    buildPhase = ''
+      runHook preBuild
+      # Same as upstream scripts/build-extension.ts (Bun.build + asset copy),
+      # minus the zip and CLI-asset embedding. Relative entrypoint keeps the
+      # banner comment identical to the release-zip background.js.
+      bun build extension/background.ts --outdir=dist --target=browser
+      cp extension/manifest.json extension/options.html extension/options.js dist/
+      runHook postBuild
+    '';
+
+    installPhase = ''
+      runHook preInstall
+      python3 ${./pack-crx3.py} dist ${./browser-relay-key.pem} $out \
+        --expect-id ${extensionId} \
+        --expect-version ${finalAttrs.version}
+      runHook postInstall
+    '';
+
+    passthru = {
+      id = extensionId;
+    };
+
+    meta = {
+      description = "Lets the omp coding agent drive your existing tabs through a local CDP relay";
+      homepage = "https://github.com/can1357/oh-my-pi/tree/main/packages/browser-relay";
+      license = lib.licenses.mit;
+      platforms = lib.platforms.all;
+    };
+  });
 
 in
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -341,7 +399,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   autoPatchelfIgnoreMissingDeps = [ "*" ];
 
   passthru = {
-    inherit node_modules piNatives;
+    inherit node_modules piNatives browserRelayExtension;
   };
 
   meta = {

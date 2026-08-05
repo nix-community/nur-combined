@@ -14,18 +14,21 @@ waste hours re-deriving the same lessons.
 
 ```text
 pkgs/oh-my-pi/
-├── default.nix       # Single file: all 3 phases inline
-└── AGENTS.md         # ← this file
+├── default.nix            # Single file: all 4 phases inline
+├── pack-crx3.py           # Phase 4: CRX3 packer for the browser relay extension
+├── browser-relay-key.pem  # Phase 4: throwaway RSA key pinning the CRX extension ID
+└── AGENTS.md              # ← this file
 ```
 
-The `default.nix` contains **three derivations** in one file:
+The `default.nix` contains **four derivations** in one file:
 
 ```
 let
-  node_modules = stdenvNoCC.mkDerivation { ... };   # Phase 1: FOD
-  piNatives    = rustPlatform.buildRustPackage { ... }; # Phase 2: Rust
+  node_modules          = stdenvNoCC.mkDerivation { ... };    # Phase 1: FOD
+  piNatives             = rustPlatform.buildRustPackage { ... }; # Phase 2: Rust
+  browserRelayExtension = stdenvNoCC.mkDerivation { ... };    # Phase 4: CRX3 ext
 in
-stdenvNoCC.mkDerivation { ... };                     # Phase 3: final
+stdenvNoCC.mkDerivation { ... };                              # Phase 3: final
 ```
 
 The file is intentionally monolithic (not split into submodules) because
@@ -277,6 +280,86 @@ consumers.
 
 ---
 
+## Phase 4: browserRelayExtension — CRX3 for home-manager
+
+### Purpose
+
+Source-builds the omp browser relay extension
+(`packages/browser-relay/extension/`) and packs it into a **CRX3** file so
+home-manager's `programs.chromium.extensions.*.crxPath` can install it.
+Exposed as `passthru.browserRelayExtension`; the derivation's out path IS
+the `.crx` file.
+
+### Why a CRX packer
+
+HM's `crxPath` is written into
+`<configDir>/External Extensions/<id>.json` as
+`{ external_crx, external_version }`, and Chromium's `external_crx`
+installer only accepts **signed CRX3** files — the upstream release asset
+`omp-browser-relay-extension.zip` is a bare zip and would be rejected.
+nixpkgs has no CRX packer, so `pack-crx3.py` hand-rolls the format:
+deterministic zip → `SignedData{crx_id}` → RSA PKCS#1 v1.5/SHA-256
+signature → `CrxFileHeader` protobuf → `"Cr24"` header.
+
+### The committed key (`browser-relay-key.pem`)
+
+A committed **throwaway** RSA-2048 key. The CRX extension ID is derived
+from the public key (`sha256(SPKI DER)[:16]`, nibbles → `a..p`), so the
+key IS the extension's identity. It must stay fixed or every rebuild
+would mint a new ID and break the HM config's `id`. It authenticates
+nothing else — the CRX is installed locally from your own store path via
+your own HM config; there is no remote update channel trusting this key.
+Current ID: `lgcklnhmbedbnkhgepghbnojilibgani` (hardcoded as
+`extensionId`; the build fails if the key no longer derives it).
+
+### Build steps
+
+Mirrors upstream `scripts/build-extension.ts` minus the zip/embed steps:
+
+1. `bun build extension/background.ts --outdir=dist --target=browser`
+   (run from the package root — a relative entrypoint keeps the banner
+   comment byte-identical to the release-zip `background.js`; verified
+   identical for v17.2.9 with nixpkgs bun 1.3.13)
+2. copy `manifest.json`, `options.html`, `options.js` verbatim
+3. `pack-crx3.py dist browser-relay-key.pem $out --expect-id …
+   --expect-version …`
+
+`version` is the extension **manifest** version (`0.1.0`), not the omp
+release version — HM writes it into `external_version`, and Chromium
+compares it against the installed manifest version.
+
+### home-manager usage
+
+```nix
+let
+  relayExt = pkgs.nur.repos.zerozawa.oh-my-pi.passthru.browserRelayExtension;
+in
+{
+  programs.chromium.extensions = [
+    {
+      inherit (relayExt) id version;
+      crxPath = relayExt;
+    }
+  ];
+}
+```
+
+Chromium copies/extracts the CRX into the mutable profile
+(`~/.config/chromium/Default/Extensions/<id>/<version>/`) at startup, so
+the immutable store path is only read at install/update time; the HM
+generation keeps it GC-alive. A version bump changes the store path and
+`external_version`, and Chromium upgrades the extension on next start.
+
+### Updating
+
+No extra FOD hash — the derivation shares the main `src`. If upstream
+bumps the extension's manifest version, the build fails at
+`--expect-version`: bump `browserRelayExtension.version` to match. Only
+rotate `browser-relay-key.pem` deliberately (changes the extension ID;
+update `extensionId` accordingly).
+
+---
+
 ## Updating the Package
 
 ### Full update checklist
@@ -298,7 +381,11 @@ When bumping `version` from `X.Y.Z` to `A.B.C`:
 3. **cargoHash**: Set `piNatives.cargoHash = lib.fakeHash`,
    build (`nix-build -A oh-my-pi.piNatives`), replace.
 
-4. **Smoke test + ELF verification**:
+4. **browserRelayExtension**: Build `nix build .#oh-my-pi.browserRelayExtension`.
+   No hash to refresh (shares `src`); it fails only if upstream bumped the
+   extension manifest version — then bump `browserRelayExtension.version`.
+
+5. **Smoke test + ELF verification**:
    ```bash
    nix-build -A oh-my-pi
    result/bin/omp --version
@@ -318,7 +405,7 @@ When bumping `version` from `X.Y.Z` to `A.B.C`:
    done
    ```
 
-5. **Runtime ONNX check**: After installing the new build, restart omp and
+6. **Runtime ONNX check**: After installing the new build, restart omp and
    check `~/.omp/logs/` for any `libonnxruntime`, `libstdc++`, `VERS_`,
    or `cannot open shared object file` errors. A clean log means the ELF
    patching pipeline is intact.
