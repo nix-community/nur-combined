@@ -2,10 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  applyPatches,
   fetchNpmDeps,
   npmHooks,
   nodejs_22,
-  python3,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -16,17 +16,25 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "icloud-mail";
   version = "1.2.0";
 
-  src = fetchFromGitHub {
-    owner = "Swe-HimelRana";
-    repo = "icloud-mail";
-    rev = "b93ad31147255460308fcf30ee706cfa246d3473";
-    hash = "sha256-t4awg1n+ieeOe7H4KnKmECTMHbePWUdm65BXwiAyChE=";
+  # Upstream last commit: 2024-05-07 (v1.2.0). Patch bumps runtime deps and
+  # adapts main.js for electron-context-menu v4 (pure ESM) + current Chromium UA.
+  src = applyPatches {
+    src = fetchFromGitHub {
+      owner = "Swe-HimelRana";
+      repo = "icloud-mail";
+      rev = "b93ad31147255460308fcf30ee706cfa246d3473";
+      hash = "sha256-t4awg1n+ieeOe7H4KnKmECTMHbePWUdm65BXwiAyChE=";
+    };
+    patches = [ ./update-dependencies.patch ];
+    postPatch = ''
+      # Prefer the regenerated package-lock.json; yarn.lock is unused under Nix.
+      rm -f yarn.lock
+    '';
   };
 
   npmDeps = fetchNpmDeps {
     inherit (finalAttrs) pname version src;
-    npmFlags = [ "--include=dev" ];
-    hash = "sha256-l5/YiIY+pMGcW+bRhZ9He3KiaYmhaq7qWxxaN+fIZtc=";
+    hash = "sha256-eRr7QBBorRAqw3KSiFWbSU2Q0juuAbCk63nRv7xTs3w=";
   };
 
   nativeBuildInputs = [
@@ -34,32 +42,9 @@ stdenv.mkDerivation (finalAttrs: {
     npmHooks.npmConfigHook
     makeWrapper
     copyDesktopItems
-    python3
   ];
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-
-  npmInstallFlags = [
-    "--omit=dev"
-  ];
-
-  postPatch = ''
-        python3 - <<'PY'
-    import json
-    from pathlib import Path
-
-    path = Path("package.json")
-    data = json.loads(path.read_text())
-    dev = data.get("devDependencies", {})
-    if "electron-builder" in dev:
-        dev.pop("electron-builder", None)
-        if dev:
-            data["devDependencies"] = dev
-        else:
-            data.pop("devDependencies", None)
-        path.write_text(json.dumps(data, indent=2) + "\n")
-    PY
-  '';
 
   installPhase = ''
     runHook preInstall
