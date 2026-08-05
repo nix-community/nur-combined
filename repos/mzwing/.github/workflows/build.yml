@@ -131,6 +131,22 @@ jobs:
     - name: Fix compile cache permissions
       run: sudo chmod -R 777 /opt/nur-ci-compile-cache
 
+    - name: Install sccache on the builder host
+      run: nix build nixpkgs#sccache --out-link /tmp/sccache-host
+
+    - name: Start shared sccache server
+      run: |
+        # One host-level server owns the cache directory; sandboxed builds
+        # reach it over the bind-mounted Unix socket. sccache's local
+        # storage supports only one server per SCCACHE_DIR.
+        sudo env \
+          SCCACHE_DIR=/opt/nur-ci-compile-cache/sccache \
+          SCCACHE_CACHE_SIZE=2G \
+          SCCACHE_IDLE_TIMEOUT=0 \
+          SCCACHE_SERVER_UDS=/opt/nur-ci-compile-cache/sccache.sock \
+          /tmp/sccache-host/bin/sccache --start-server
+        sudo chmod 777 /opt/nur-ci-compile-cache/sccache.sock
+
     - name: Join builder network
       uses: tailscale/github-action@v4
       env:
@@ -164,6 +180,12 @@ jobs:
         done
         echo 'Coordinator did not claim this builder within 10 minutes.' >&2
         exit 1
+
+    - name: Stop sccache server
+      if: always()
+      run: |
+        sudo env SCCACHE_SERVER_UDS=/opt/nur-ci-compile-cache/sccache.sock \
+          /tmp/sccache-host/bin/sccache --stop-server || true
 
     - name: Fix compile cache permissions before save
       if: always()

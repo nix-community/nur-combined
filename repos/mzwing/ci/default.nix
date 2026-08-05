@@ -99,6 +99,13 @@ with builtins; let
           RUSTC_WRAPPER = "sccache";
           SCCACHE_DIR = "${compileCacheDir}/sccache";
           SCCACHE_CACHE_SIZE = "2G";
+          # Connect to the single host-level sccache server over a Unix
+          # socket bind-mounted into the sandbox. sccache's local storage
+          # supports only ONE server per SCCACHE_DIR; letting each build
+          # spawn its own server (per-sandbox network namespaces) races on
+          # the shared cache dir and fails spuriously ("server looks like
+          # it shut down unexpectedly").
+          SCCACHE_SERVER_UDS = "${compileCacheDir}/sccache.sock";
           # Builds on one builder run as different nixbld users; world-
           # writable cache entries let all of them share the directory.
           # ($out permissions are canonicalized by Nix after the build.)
