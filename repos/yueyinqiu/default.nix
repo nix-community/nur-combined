@@ -21,6 +21,7 @@
 
   mihomo-manager-mihomo-mixin = pkgs.callPackage ./pkgs/mihomo-manager-mihomo-mixin { };
   snavi = pkgs.callPackage ./pkgs/snavi { };
+
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
