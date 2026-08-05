@@ -110,40 +110,61 @@ let
         src = fetchFromGitHub {
           owner = "ggerganov";
           repo = "llama.cpp";
-          rev = "751ebd17a58a8a513994509214373bb9e6a3d66c";
-          hash = "sha256-lKlghscGFFfprhJ5P+TRvWb2LapVklaAtH/qY0RNWz0=";
+          rev = "221f0f6356efe2260023208365705ec5d5a7c8f5";
+          hash = "sha256-MxSoUmCdusWpiXO8/ZvCV2yRGE7JUAm4/rkyPkuxcnY=";
           fetchSubmodules = true;
         };
         npmDeps = null;
         npmConfigHook = null;
         preConfigure = "";
         postConfigure = "";
+        # Mirror LocalAI backend/cpp/llama-cpp/prepare.sh against this llama.cpp pin.
         postPatch = ''
-          cd tools
-          if [ -d ${src}/backend/cpp/llama-cpp ]; then
-            cp -r --no-preserve=mode ${src}/backend/cpp/llama-cpp grpc-server
-          else
-            cp -r --no-preserve=mode ${src}/backend/cpp/llama grpc-server
+          llamaCppBackend=${src}/backend/cpp/llama-cpp
+          if [ -d "$llamaCppBackend/patches" ]; then
+            for patch in "$llamaCppBackend"/patches/*; do
+              echo "Applying LocalAI llama.cpp patch $patch"
+              patch -p1 < "$patch"
+            done
           fi
-          if [ -d ../examples/llava ]; then
-            cp ../examples/llava/clip* ../examples/llava/llava.* grpc-server
-          fi
-          # copy all server sources (including chat-auto-parser.h and server-chat.cpp
-          # added in newer llama.cpp revisions); exclude CMakeLists.txt and server.cpp
-          # (LocalAI's grpc-server has its own CMakeLists.txt and uses grpc-server.cpp)
-          for f in server/*; do
-            fname=$(basename "$f")
-            case "$fname" in CMakeLists.txt|server.cpp) continue ;; esac
-            cp -r "$f" grpc-server/
+
+          mkdir -p tools/grpc-server
+          for f in tools/server/*; do
+            cp -r --no-preserve=mode "$f" tools/grpc-server/
           done
-          cp ../vendor/nlohmann/json.hpp grpc-server/json.hpp
-          cp ../vendor/cpp-httplib/httplib.h grpc-server/httplib.h
-          cp ${src}/backend/backend.proto grpc-server
-          sed -i grpc-server/CMakeLists.txt \
+          cp --no-preserve=mode \
+            "$llamaCppBackend"/CMakeLists.txt \
+            "$llamaCppBackend"/grpc-server.cpp \
+            "$llamaCppBackend"/message_content.h \
+            "$llamaCppBackend"/message_content_test.cpp \
+            "$llamaCppBackend"/passthrough_options.h \
+            "$llamaCppBackend"/passthrough_options_test.cpp \
+            "$llamaCppBackend"/parent_watch.h \
+            "$llamaCppBackend"/parent_watch_test.cpp \
+            tools/grpc-server/
+          cp --no-preserve=mode vendor/nlohmann/json.hpp tools/grpc-server/
+          cp --no-preserve=mode vendor/cpp-httplib/httplib.h tools/grpc-server/
+          cp --no-preserve=mode ${src}/backend/backend.proto tools/grpc-server/
+
+          if grep -q "LLAMA_LOAD_MODE_MMAP" include/llama.h; then
+            legacyLoadMode=0
+          else
+            legacyLoadMode=1
+          fi
+          printf '%s\n' \
+            '// Generated for LocalAI nix packaging. Do not edit.' \
+            '#pragma once' \
+            "#define LOCALAI_LEGACY_LOAD_MODE $legacyLoadMode" \
+            > tools/grpc-server/llama_compat.h
+
+          sed -i tools/grpc-server/CMakeLists.txt \
             -e '/get_filename_component/ s;[.\/]*backend/;;' \
+            -e 's;PRIVATE ../llava;PRIVATE ../mtmd;' \
             -e '$a\install(TARGETS ''${TARGET} RUNTIME)'
-          cd ..
-          printf "\nadd_subdirectory(tools/grpc-server)" >> CMakeLists.txt
+
+          if ! grep -q "grpc-server" tools/CMakeLists.txt; then
+            echo "add_subdirectory(grpc-server)" >> tools/CMakeLists.txt
+          fi
         '';
         cmakeFlags = prev.cmakeFlags ++ [
           (lib.cmakeBool "BUILD_SHARED_LIBS" false)
@@ -172,6 +193,10 @@ let
           cp $src/include/llama.h $out/include/
           if [ -e bin/rpc-server ]; then
             cp bin/rpc-server $out/bin/llama-rpc-server
+          elif [ -e bin/ggml-rpc-server ]; then
+            cp bin/ggml-rpc-server $out/bin/llama-rpc-server
+          elif [ -e $out/bin/ggml-rpc-server ]; then
+            ln -sf ggml-rpc-server $out/bin/llama-rpc-server
           fi
         '';
       }
@@ -302,10 +327,10 @@ let
   whisper-cpp = effectiveStdenv.mkDerivation {
     name = "whisper-cpp";
     src = fetchFromGitHub {
-      owner = "ggerganov";
+      owner = "ggml-org";
       repo = "whisper.cpp";
-      rev = "v1.8.2";
-      hash = "sha256-OU5mDnLZHmtdSEN5u0syJcU91L+NCO45f9eG6OsgFfU=";
+      rev = "306c88f4d1286aec1bf96e544632897886af5501";
+      hash = "sha256-tW3UkERd/4PLpjSObBkZVqJPzue70oGeLDNiQDTDwSU=";
     };
 
     nativeBuildInputs = [
@@ -330,13 +355,12 @@ let
       ++ lib.optionals with_openblas [ openblas.dev ];
 
     cmakeFlags = [
-      (lib.cmakeBool "WHISPER_CUDA" with_cublas)
-      (lib.cmakeBool "WHISPER_CLBLAST" with_clblas)
-      (lib.cmakeBool "WHISPER_OPENBLAS" with_openblas)
-      (lib.cmakeBool "WHISPER_NO_AVX" (!enable_avx))
-      (lib.cmakeBool "WHISPER_NO_AVX2" (!enable_avx2))
-      (lib.cmakeBool "WHISPER_NO_FMA" (!enable_fma))
-      (lib.cmakeBool "WHISPER_NO_F16C" (!enable_f16c))
+      (lib.cmakeBool "GGML_CUDA" with_cublas)
+      (lib.cmakeBool "GGML_BLAS" with_openblas)
+      (lib.cmakeBool "GGML_AVX" enable_avx)
+      (lib.cmakeBool "GGML_AVX2" enable_avx2)
+      (lib.cmakeBool "GGML_FMA" enable_fma)
+      (lib.cmakeBool "GGML_F16C" enable_f16c)
       (lib.cmakeBool "BUILD_SHARED_LIBS" false)
     ];
     postInstall = ''
@@ -369,10 +393,10 @@ let
   stable-diffusion = stdenv.mkDerivation {
     name = "stable-diffusion";
     src = fetchFromGitHub {
-      owner = "richiejp";
+      owner = "leejet";
       repo = "stable-diffusion.cpp";
-      rev = "53e3b17eb3d0b5760ced06a1f98320b68b34aaae"; # branch cuda-fix
-      hash = "sha256-z56jafOdibpX+XhRsrc7ieGbeug4bf737/UobqkpBV0=";
+      rev = "ea7f0c87cfe4c673263b4c201c596c7f1cbe2528";
+      hash = "sha256-6SbkmYj7h+uCz4oUChr6nh/N3Xvu6E/Yyf2sb6NZn5c=";
       fetchSubmodules = true;
     };
     installPhase = ''
@@ -400,12 +424,12 @@ let
       stdenv;
 
   pname = "local-ai";
-  version = "4.7.1";
+  version = "4.8.0";
   src = fetchFromGitHub {
     owner = "go-skynet";
     repo = "LocalAI";
     tag = "v${version}";
-    hash = "sha256-PATHqfCro/cTSDN3FTOmEfGeXlXpSmSN8CX5BMCb2tU=";
+    hash = "sha256-xbxU41SfS8bbwsJUxFp2Ay2qhIPGzghwvg6I3MEUVhU=";
   };
 
   prepare-sources =
@@ -416,7 +440,9 @@ let
       mkdir sources
       ${cp} ${if with_tts then go-piper else go-piper.src} sources/go-piper
       ${cp} ${whisper-cpp.src} sources/whisper.cpp
-      cp ${whisper-cpp}/lib/lib*.a sources/whisper.cpp
+      if ls ${whisper-cpp}/lib/lib*.a >/dev/null 2>&1; then
+        cp ${whisper-cpp}/lib/lib*.a sources/whisper.cpp
+      fi
       ${cp} ${bark} sources/bark.cpp
       ${cp} ${stable-diffusion} sources/stablediffusion-ggml.cpp
     '';
@@ -424,7 +450,7 @@ let
   self = buildGoModule.override { stdenv = effectiveStdenv; } {
     inherit pname version src;
 
-    vendorHash = "sha256-ZkRli8h9aNs058hlt/07nmLYt6ub9sggv9W7I39PAJ8=";
+    vendorHash = "sha256-7GTiE/zdU91iK02mOYxuaDApNwqlNKeKZVndSkU/Ejg=";
 
     env.NIX_CFLAGS_COMPILE = " -isystem ${opencv}/include/opencv4";
 
@@ -438,6 +464,10 @@ let
 
       if [ -f backend/go/image/stablediffusion-ggml/Makefile ]; then
         sed -i backend/go/image/stablediffusion-ggml/Makefile \
+          -e '/^libsd/ s,$, $(COMBINED_LIB),'
+      fi
+      if [ -f backend/go/stablediffusion-ggml/Makefile ]; then
+        sed -i backend/go/stablediffusion-ggml/Makefile \
           -e '/^libsd/ s,$, $(COMBINED_LIB),'
       fi
 
@@ -458,8 +488,14 @@ let
       mkdir -p backend-assets/util
       cp ${llama-cpp-rpc}/bin/llama-rpc-server backend-assets/util/llama-cpp-rpc-server
 
-      mkdir -p backend/go/image/stablediffusion-ggml
-      cp -r --no-preserve=mode,ownership ${stable-diffusion}/build backend/go/image/stablediffusion-ggml/build
+      if [ -d backend/go/image/stablediffusion-ggml ] || [ -d backend/go/stablediffusion-ggml ]; then
+        sd_dir=backend/go/image/stablediffusion-ggml
+        if [ ! -d "$sd_dir" ]; then
+          sd_dir=backend/go/stablediffusion-ggml
+        fi
+        mkdir -p "$sd_dir"
+        cp -r --no-preserve=mode,ownership ${stable-diffusion}/build "$sd_dir/build"
+      fi
 
       # satisfy go:embed directive for react UI with a dummy file
       # LocalAI gracefully handles a missing UI if the file is empty/invalid
