@@ -1,0 +1,18 @@
+Source: skyenet-archive-keyring
+Section: misc
+Priority: optional
+Maintainer: Skye Soss <skyler.soss@gmail.com>
+Build-Depends: debhelper-compat (= 13), apt, gnupg
+Rules-Requires-Root: no
+Standards-Version: 4.7.0
+Vcs-Browser: https://github.com/Skyb0rg007/packages
+Vcs-Git: https://github.com/Skyb0rg007/packages.git
+Homepage: https://apt.soss.website/
+
+Package: skyenet-archive-keyring
+Architecture: all
+Depends: ${misc:Depends}
+Multi-Arch: foreign
+Description: GnuPG archive key for the Skyenet APT repository
+ The Skyenet APT repository digitally signs its Release files.
+ This package contains the current archive public key used for that.

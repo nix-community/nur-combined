@@ -1,0 +1,32 @@
+Codename: noble
+Suite: stable
+Architectures: source i386 amd64 arm64
+Components: main
+Contents:
+SignWith: EE62E7E6E0A7085937149790431A7429E5947FD7
+Origin: skye-packages
+Label: skye-packages
+Description: Personally-packaged APT packages
+AlsoAcceptFor: unstable
+
+Codename: plucky
+Suite:
+Architectures: source i386 amd64 arm64
+Components: main
+Contents:
+SignWith: EE62E7E6E0A7085937149790431A7429E5947FD7
+Origin: skye-packages
+Label: skye-packages
+Description: Personally-packaged APT packages
+AlsoAcceptFor: unstable
+
+Codename: sid
+Suite:
+Architectures: source i386 amd64 arm64
+Components: main
+Contents:
+SignWith: EE62E7E6E0A7085937149790431A7429E5947FD7
+Origin: skye-packages
+Label: skye-packages
+Description: Personally-packaged APT packages
+AlsoAcceptFor: unstable

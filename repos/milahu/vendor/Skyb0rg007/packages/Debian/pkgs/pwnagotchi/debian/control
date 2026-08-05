@@ -1,0 +1,48 @@
+Source: pwnagotchi
+Section: net
+Priority: optional
+Maintainer: Skye Soss <skyler.soss@gmail.com>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               dh-python,
+               python3-all,
+               python3-setuptools,
+               pybuild-plugin-pyproject,
+               python3-flaskext.wtf,
+               python3-flask,
+               python3-yaml,
+               python3-file-read-backwards,
+               python3-flask-cors,
+               python3-requests,
+               python3-tomlkit,
+               python3-toml,
+               python3-websockets,
+               python3-smbus,
+               python3-smbus2,
+               python3-spidev,
+               python3-scapy,
+               python3-pydrive2,
+               python3-dateutil,
+               python3-pycryptodome,
+               python3-numpy,
+               python3-inky,
+               python3-gpiozero,
+               python3-gast,
+               python3-build,
+               python3-prctl,
+# python3-tweepy,
+# python3-shimmy,
+# python3-pisugar,
+# Testsuite:
+Standards-Version: 4.7.0
+Vcs-Browser: https://github.com/jayofelony/pwnagotchi
+Vcs-Git: https://github.com/jayofelony/pwnagotchi.git
+Homepage: https://github.com/jayofelony/pwnagotchi
+X-Python3-Version: >= 3.11
+
+Package: pwnagotchi
+Section: net
+Architecture: all
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+Description: Deep Reinforcement Learning instrumenting bettercap for WiFI pwning.

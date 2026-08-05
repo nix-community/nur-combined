@@ -1577,6 +1577,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   embed-pdf-fonts = callPackage ./pkgs/by-name/em/embed-pdf-fonts/package.nix { };
 
+  browsertrix-crawler = callPackage ./vendor/Skyb0rg007/packages/NixOS/pkgs/by-name/browsertrix-crawler/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages

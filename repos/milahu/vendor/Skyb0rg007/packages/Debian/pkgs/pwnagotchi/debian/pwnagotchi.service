@@ -1,0 +1,21 @@
+[Unit]
+Description=pwnagotchi Deep Reinforcement Learning instrumenting bettercap for WiFi pwning.
+Documentation=https://pwnagotchi.org
+Wants=network.target
+After=pwngrid.service
+
+[Service]
+# TODO: Determine the best method to switch modes
+Type=simple
+WorkingDirectory=/var/lib/pwnagotchi
+ExecStart=/usr/bin/pwnagotchi --manual
+Restart=always
+RestartSec=30
+TasksMax=infinity
+LimitNPROC=infinity
+StandardOutput=null
+StandardError=null
+
+[Install]
+WantedBy=multi-user.target
+

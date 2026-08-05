@@ -1,0 +1,90 @@
+version=4
+opts="component=config, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/config.tgz \
+    debian
+opts="component=boot-amd64, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/boot.amd64-unix.tgz \
+    same
+opts="component=boot-x86, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/boot.x86-unix.tgz \
+    same
+opts="component=boot-ppc, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/boot.ppc-unix.tgz \
+    same
+opts="component=cm, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/cm.tgz \
+    same
+opts="component=ckit, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ckit.tgz \
+    same
+opts="component=cml, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/cml.tgz \
+    same
+opts="component=compiler, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/compiler.tgz \
+    same
+opts="component=heap2asm, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/heap2asm.tgz \
+    same
+opts="component=ml-burg, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ml-burg.tgz \
+    same
+opts="component=ml-lex, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ml-lex.tgz \
+    same
+opts="component=ml-lpt, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ml-lpt.tgz \
+    same
+opts="component=ml-yacc, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ml-yacc.tgz \
+    same
+opts="component=MLRISC, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/MLRISC.tgz \
+    same
+opts="component=nlffi, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/nlffi.tgz \
+    same
+opts="component=old-basis, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/old-basis.tgz \
+    same
+opts="component=pgraph, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/pgraph.tgz \
+    same
+opts="component=runtime, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/runtime.tgz \
+    same
+opts="component=smlnj-c, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/smlnj-c.tgz \
+    same
+opts="component=smlnj-lib, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/smlnj-lib.tgz \
+    same
+opts="component=system, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/system.tgz \
+    same
+opts="component=trace-debug-profile, filenamemangle=s:.*/([^/]+)/([^/]+)\.tgz:@PACKAGE@_$2$1.tar.gz:, pagemangle=s%/index.html\"%/\"%," \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/ \
+    https://smlnj.cs.uchicago.edu/dist/working/@ANY_VERSION@/trace-debug-profile.tgz \
+    same \
+    uupdate

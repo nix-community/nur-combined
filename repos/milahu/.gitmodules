@@ -16,3 +16,6 @@
 [submodule "pkgs/development/tools/sbt-derivation/src/sbt-derivation"]
 	path = pkgs/development/tools/sbt-derivation/src/sbt-derivation
 	url = https://github.com/zaninime/sbt-derivation
+[submodule "vendor/Skyb0rg007/packages"]
+	path = vendor/Skyb0rg007/packages
+	url = https://github.com/Skyb0rg007/packages

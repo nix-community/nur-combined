@@ -1,0 +1,29 @@
+Source: smlnj
+Section: devel
+Priority: optional
+Maintainer: Skye Soss <skyler.soss@gmail.com>
+Build-Depends: debhelper-compat (= 13),
+Build-Depends-Indep: ghostscript,
+                     latexmk,
+                     texlive-binaries,
+Rules-Requires-Root: no
+Standards-Version: 4.7.0
+Vcs-Browser: https://github.com/smlnj/legacy
+Vcs-Git: https://github.com/smlnj/legacy.git
+Homepage: https://smlnj.org/
+
+Package: smlnj
+Architecture: amd64 i386 powerpc
+Depends: smlnj-runtime (= ${binary:Version}), ${misc:Depends}
+Description: Standard ML of New Jersey interactive compiler
+ This project is the old version of Standard ML of New Jersey that
+ continues to support older systems (e.g., 32-bit machines). We
+ will continue to fix bugs and make minor improvements while the
+ main development branch matures. We will also backport additions
+ to the SML/NJ Library and other components.
+
+Package: smlnj-runtime
+Architecture: amd64 i386 powerpc
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: Standard ML of New Jersey runtime system
+ Install this package if you want to run programs compiled with SML/NJ.

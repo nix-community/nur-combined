@@ -1,0 +1,2 @@
+#Type Name    ID GECOS                   Home directory   Shell
+u!    pwngrid -  "PwnGRID service user"  /var/lib/pwngrid /usr/sbin/nologin

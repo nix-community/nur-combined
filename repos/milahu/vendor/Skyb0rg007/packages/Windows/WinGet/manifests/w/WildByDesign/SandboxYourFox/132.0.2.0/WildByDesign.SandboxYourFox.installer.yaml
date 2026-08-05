@@ -1,0 +1,12 @@
+# Created using wingetcreate 1.6.5.0
+# yaml-language-server: $schema=https://aka.ms/winget-manifest.installer.1.6.0.schema.json
+
+PackageIdentifier: WildByDesign.SandboxYourFox
+PackageVersion: 132.0.2.0
+InstallerType: exe
+Installers:
+- InstallerUrl: https://github.com/WildByDesign/SandboxYourFox/releases/download/132.0.2/SandboxYourFox-132.0.2.exe
+  Architecture: x64
+  InstallerSha256: BEC7598791521392043F9233773C0FC11148F63610F3A48155C0FDDECEEA2C4A
+ManifestType: installer
+ManifestVersion: 1.6.0

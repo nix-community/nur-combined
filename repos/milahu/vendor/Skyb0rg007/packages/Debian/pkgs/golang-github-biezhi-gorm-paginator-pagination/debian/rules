@@ -1,0 +1,7 @@
+#!/usr/bin/make -f
+
+export DH_GOLANG_EXCLUDES := github.com/biezhi/gorm-paginator/pagination/example
+export DEB_BUILD_MAINT_OPTIONS := optimize=-lto
+
+%:
+	dh $@ --builddirectory=_build --buildsystem=golang

@@ -1,0 +1,6 @@
+#! /usr/bin/make -f
+
+export PYBUILD_NAME = pwnagotchi
+
+%:
+	dh $@ --with=python3 --buildsystem=pybuild
