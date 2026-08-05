@@ -51,6 +51,6 @@ pi \
   --no-context-files \
   --tools read,bash,edit,write,grep,find,ls \
   --provider dendro \
-  --model gpt-5.6-terra \
-  --thinking xhigh \
+  --model grok-4.5 \
+  --thinking high \
   "$prompt"

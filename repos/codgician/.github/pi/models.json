@@ -2,12 +2,12 @@
   "providers": {
     "dendro": {
       "baseUrl": "https://dendro.codgician.me/v1",
-      "api": "openai-completions",
+      "api": "openai-responses",
       "apiKey": "$DENDRO_API_KEY",
       "models": [
         {
-          "id": "gpt-5.6-terra",
-          "name": "gpt-5.6-terra",
+          "id": "grok-4.5",
+          "name": "grok-4.5",
           "reasoning": true
         }
       ]

@@ -68,7 +68,7 @@ if .github/scripts/validate_package_source.sh "$tmpdir/package" >/dev/null 2>&1;
 fi
 
 models=$(PACKAGE=pi-guard-test DENDRO_API_KEY=test .github/scripts/run_pi_agent.sh --check)
-if [[ "$models" != *dendro* || "$models" != *gpt-5.6-terra* ]]; then
+if [[ "$models" != *dendro* || "$models" != *grok-4.5* ]]; then
   echo 'Pinned Pi environment did not load the Dendro model' >&2
   exit 1
 fi
