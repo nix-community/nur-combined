@@ -5,7 +5,6 @@
   meson,
   openjdk17,
   lib,
-  glib,
   pkg-config,
   wayland-protocols,
   wayland,
@@ -22,20 +21,19 @@
   art-standalone,
   bionic-translation,
   alsa-lib,
-  makeBinaryWrapper,
-  replaceVars,
+  makeWrapper,
   nixosTests,
   bintools,
 }:
 
 stdenv.mkDerivation {
   pname = "android-translation-layer";
-  version = "cf2c759";
+  version = "0-unstable-2026-07-30";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "android_translation_layer";
-    rev = "cf2c759";
+    rev = "cf2c759fa93330f45df6107dcf8984cf49b29c64";
     hash = "sha256-+TTntAnE/5j/FhGcdXRui3/p/sfkc83CKNdBf9Yage0=";
   };
 
@@ -54,7 +52,7 @@ stdenv.mkDerivation {
   '';
 
   nativeBuildInputs = [
-    makeBinaryWrapper
+    makeWrapper
     meson
     ninja
     openjdk17

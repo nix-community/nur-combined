@@ -1,5 +1,5 @@
 # Add missing npm "resolved" URLs so fetchNpmDeps can download packages
-# whose lock entries only have integrity + version (SponsorBlock release zip).
+# whose lock entries only have integrity + version (SponsorBlock lockfile).
 
 def registry_tarball($name; $version):
   if ($name | startswith("@")) then

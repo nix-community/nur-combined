@@ -1,7 +1,7 @@
 {
   lib,
   stdenv,
-  fetchzip,
+  fetchFromGitHub,
   runCommand,
   fetchNpmDeps,
   npmHooks,
@@ -11,14 +11,17 @@
 }:
 
 let
-  version = "6.1.6";
+  version = "6.1.7";
 
-  upstreamSrc = fetchzip {
-    url = "https://github.com/ajayyy/SponsorBlock/releases/download/${version}/SourceCodeUseThisOne.zip";
-    hash = "sha256-gby1WGY1MMpOXoeifNdaqVb9BDSquhM2cWKC1Z9dnlw=";
-    stripRoot = false;
+  upstreamSrc = fetchFromGitHub {
+    owner = "ajayyy";
+    repo = "SponsorBlock";
+    tag = version;
+    hash = "sha256-AcXRTvPZJjCvCMLINa65pLxLvsr8AQ92vSIEk60pemM=";
+    fetchSubmodules = true;
   };
 
+  # Upstream package-lock omits many "resolved" URLs; patch so fetchNpmDeps can download.
   src = runCommand "sponsorblock-for-youtube-${version}-source" { nativeBuildInputs = [ jq ]; } ''
     cp -r ${upstreamSrc} $out
     chmod -R u+w $out
@@ -74,6 +77,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
+    changelog = "https://github.com/ajayyy/SponsorBlock/releases/tag/${version}";
     description = "SponsorBlock for YouTube Firefox add-on built from source";
     homepage = "https://github.com/ajayyy/SponsorBlock";
     license = lib.licenses.gpl3Only;

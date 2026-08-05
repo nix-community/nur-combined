@@ -161,18 +161,6 @@ byName
   local-ai-cuda = local-ai.override { with_cublas = true; };
   mdbook-generate-summary = v3overrideAttrs (pkgs.callPackage ./pkgs/mdbook-generate-summary { });
   gifcurry = nonurbot (pkgs.callPackage ./pkgs/gifcurry { });
-  # currently no changes so just use nixpkgs version of bionic-translation and art-standalone
-  bionic-translation = pkgs.bionic-translation; # pkgs.callPackage ./pkgs/bionic-translation/package.nix { };
-  art-standalone = pkgs.art-standalone;
-  /*
-    pkgs.callPackage ./pkgs/art-standalone/package.nix {
-      bionic-translation = bionic-translation;
-    };
-  */
-  android-translation-layer = pkgs.callPackage ./pkgs/android-translation-layer/package.nix {
-    art-standalone = art-standalone;
-    bionic-translation = bionic-translation;
-  };
   ogre-1_11 = v3overrideAttrs (pkgs.callPackage ./pkgs/ogre-1_11/package.nix { });
   angelscript_2_35_1 = v3overrideAttrs (
     pkgs.angelscript.overrideAttrs (
