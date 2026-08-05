@@ -90,12 +90,12 @@
             "name": null,
             "owner": "lzpls",
             "repo": "enimul",
-            "rev": "v0.4.0-alpha.4",
-            "sha256": "sha256-I6gCVb3E0GAqT0CmMOf5HIdYHdAHqULAWwFzFtB+J+c=",
+            "rev": "v0.4.0-alpha.5",
+            "sha256": "sha256-BVN1k2lDZwCpXp5pUS3bCLH0Qnx4TOIEXG3IsdO/19g=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v0.4.0-alpha.4"
+        "version": "v0.4.0-alpha.5"
     },
     "fast-nix-gc": {
         "cargoLock": {
@@ -170,7 +170,7 @@
     "jaq": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-cwHYsLp9uBb3_etH0bGYzNLOJJypeE4qED7jTBESHiE=/Cargo.lock",
+                "sha256-_yAwLcPwfW5UH+PCCrsFaM0Nuk1S5QONLsNgvVCBLX8=/Cargo.lock",
                 {}
             ]
         },
@@ -186,12 +186,12 @@
             "name": null,
             "owner": "01mf02",
             "repo": "jaq",
-            "rev": "v3.1.0",
-            "sha256": "sha256-cwHYsLp9uBb3/etH0bGYzNLOJJypeE4qED7jTBESHiE=",
+            "rev": "v3.1.1",
+            "sha256": "sha256-/yAwLcPwfW5UH+PCCrsFaM0Nuk1S5QONLsNgvVCBLX8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v3.1.0"
+        "version": "v3.1.1"
     },
     "jj-lsp": {
         "cargoLock": {
@@ -596,11 +596,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=/Cargo.lock",
+                "sha256-lL4wmxVudO2p5JYAR2t0iSszbq56lrg4snRuvn9idwc=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-07-31",
+        "date": "2026-08-05",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -612,12 +612,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "5c524eb242dafb7a0565ae8ac286244244109022",
-            "sha256": "sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=",
+            "rev": "09d2a8c4099ca804dea7c40f8f2ca68102d89313",
+            "sha256": "sha256-lL4wmxVudO2p5JYAR2t0iSszbq56lrg4snRuvn9idwc=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5c524eb242dafb7a0565ae8ac286244244109022"
+        "version": "09d2a8c4099ca804dea7c40f8f2ca68102d89313"
     },
     "svt-av1-essential": {
         "cargoLock": null,
@@ -733,11 +733,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-4Z5Mqeiuo4c/ioLZOoTQZtQf0qRSXBLzc5UqV1hhxO0=",
+            "sha256": "sha256-R1m2gJ1OyOMRmg8AJF/YEDt1JmzQNfA/8BU/uL93oys=",
             "type": "url",
-            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.0/waywallen-0.3.0-x86_64.AppImage"
+            "url": "https://github.com/waywallen/waywallen/releases/download/v0.3.1/waywallen-0.3.1-x86_64.AppImage"
         },
-        "version": "0.3.0"
+        "version": "0.3.1"
     },
     "waywallen-display-bin": {
         "cargoLock": null,
