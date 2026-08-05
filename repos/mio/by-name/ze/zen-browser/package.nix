@@ -75,7 +75,8 @@ let
 
     patches = [ ./patch-surfer-git-usage.patch ];
 
-    npmDepsHash = "";
+    npmDepsHash = "sha256-S7GjJLeHZjRpOD+99F7CCHFdqlNLrbS9g5KkhVxAbzI=";
+    npmFlags = [ "--legacy-peer-deps" ];
     makeCacheWritable = true;
   };
 
@@ -109,21 +110,33 @@ let
     cargoRoot = "tools/ffprefs";
 
     # Requires surfer deps still because surfer is still in package.json
-    nativeBuildInputs =
-      patchedSurfer.nativeBuildInputs
-      ++ [
-        cargo
-        gitMinimal
-        python3Minimal
-        rustPlatform.cargoCheckHook
-        rustPlatform.cargoSetupHook
-      ]
-      ++ macIconTools;
+    nativeBuildInputs = [
+      patchedSurfer
+    ]
+    ++ patchedSurfer.nativeBuildInputs
+    ++ [
+      cargo
+      gitMinimal
+      python3Minimal
+      rustPlatform.cargoCheckHook
+      rustPlatform.cargoSetupHook
+    ]
+    ++ macIconTools;
+
+    # npm ci installs registry @zen-browser/surfer; replace with our build that
+    # stubs git-rev-parse / addon commits (git apply for Zen patches is unchanged).
+    preBuild = ''
+      rm -rf node_modules/@zen-browser/surfer
+      ln -s ${patchedSurfer}/lib/node_modules/@zen-browser/surfer \
+        node_modules/@zen-browser/surfer
+      ln -sfn ${patchedSurfer}/bin/surfer node_modules/.bin/surfer
+    '';
 
     buildPhase = ''
       runHook preBuild
 
-      npm run surfer ci --brand release --display-version ${version}
+      # package.json "ci": surfer ci --brand release --display-version <ver>
+      npm run ci -- ${version}
       npm run import
       python scripts/update_en_US_packs.py
 

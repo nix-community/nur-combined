@@ -1,8 +1,7 @@
 diff --git a/src/commands/build.ts b/src/commands/build.ts
-index 1ff9936..3ba264a 100644
 --- a/src/commands/build.ts
 +++ b/src/commands/build.ts
-@@ -27,25 +27,6 @@ const applyConfig = async (os: string) => {
+@@ -27,25 +27,6 @@
  
    const brandingKey = dynamicConfig.get('brand')
  
@@ -28,7 +27,7 @@ index 1ff9936..3ba264a 100644
    const templateOptions = {
      name: config.name,
      vendor: config.name,
-@@ -56,7 +37,6 @@ const applyConfig = async (os: string) => {
+@@ -56,7 +37,6 @@
        ? 'browser/branding/' + brandingKey
        : 'browser/branding/unofficial',
      binName: config.binaryName,
@@ -37,10 +36,9 @@ index 1ff9936..3ba264a 100644
  
    const commonConfig = stringTemplate(
 diff --git a/src/commands/download/addon.ts b/src/commands/download/addon.ts
-index 8610fbe..b14ae72 100644
 --- a/src/commands/download/addon.ts
 +++ b/src/commands/download/addon.ts
-@@ -216,18 +216,7 @@ ${runTree(files, '')}`
+@@ -216,18 +216,7 @@
  }
  
  export async function initializeAddon(addon: AddonInfo & { name: string }) {
@@ -60,39 +58,10 @@ index 8610fbe..b14ae72 100644
  }
  
  export async function addAddonsToMozBuild(
-diff --git a/src/commands/patches/git-patch.ts b/src/commands/patches/git-patch.ts
-index e26efbb..3ff7cf8 100644
---- a/src/commands/patches/git-patch.ts
-+++ b/src/commands/patches/git-patch.ts
-@@ -12,22 +12,5 @@ export interface IGitPatch extends IMelonPatch {
- }
- 
- export async function apply(path: string): Promise<void> {
--  try {
--    await execa('git', ['apply', '-R', ...PATCH_ARGS, path], {
--      cwd: ENGINE_DIR,
--    })
--  } catch {
--    // If the patch has already been applied, we want to revert it. Because
--    // there is no good way to check this we are just going to catch and
--    // discard the error
--    undefined
--  }
--
--  const { stdout, exitCode } = await execa(
--    'git',
--    ['apply', ...PATCH_ARGS, path],
--    { cwd: ENGINE_DIR }
--  )
--
--  if (exitCode != 0) log.error(stdout)
-+	log.info(`Skip applying ${path}`)
- }
 diff --git a/template/configs/common/mozconfig b/template/configs/common/mozconfig
-index 7d04c63..d0b2e45 100644
 --- a/template/configs/common/mozconfig
 +++ b/template/configs/common/mozconfig
-@@ -15,7 +15,6 @@ export MOZ_STUB_INSTALLER=1
+@@ -12,7 +12,6 @@
  export MOZ_INCLUDE_SOURCE_INFO=1
  # Change the below repository to your GitHub repository.
  export MOZ_SOURCE_REPO=https://github.com/example/example
