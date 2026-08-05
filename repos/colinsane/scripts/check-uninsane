@@ -83,6 +83,10 @@ check "[8.8.8.8] uninsane.org. DNS" nslookup uninsane.org. 8.8.8.8
 check "[DOOF] uninsane.org. DNS" nslookup uninsane.org. "$DOOF_IPV4"
 # OVPNS DNS is no longer used
 # check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
+check "[FROM-OVPN] uninsane.org. DNS" sane-vpn do ovpnd-us -- nslookup uninsane.org.
+
+check "uninsane.org. SSH" ssh -o HostKeyAlias=servo uninsane.org. true
+check "[FROM-OVPN] uninsane.org. SSH" sane-vpn do ovpnd-us -- ssh -o HostKeyAlias=servo uninsane.org. true
 
 check "https://uninsane.org online" curl --silent --fail-with-body https://uninsane.org
 check "https://matrix.uninsane.org online" curl --silent --fail-with-body https://matrix.uninsane.org
@@ -92,10 +96,13 @@ check "https://fed.uninsane.org online" curl --silent --fail-with-body https://f
 check "http://uninsane.org online" curl --silent --fail-with-body http://uninsane.org
 check "[OVPNS] http://uninsane.org online" curl "--connect-to" "uninsane.org:80:$OVPNS_IPV4:80" --silent --fail-with-body http://uninsane.org
 check "[DOOF] http://uninsane.org online" curl "--connect-to" "uninsane.org:80:$DOOF_IPV4:80" --silent --fail-with-body http://uninsane.org
+check "[FROM-OVPN] uninsane.org. DNS" sane-vpn do ovpnd-us -- curl --silent --fail-with-body http://uninsane.org
 
 # port 443 is accessible over doofnet
 check "[DOOF] https://uninsane.org online" curl "--connect-to" "uninsane.org:443:$DOOF_IPV4:443" --silent --fail-with-body https://uninsane.org
 check "[DOOF] https://matrix.uninsane.org online" curl "--connect-to" "matrix.uninsane.org:443:$DOOF_IPV4:443" --silent --fail-with-body https://matrix.uninsane.org
+
+check "[FROM-OVPN] https://uninsane.org online" sane-vpn do ovpnd-us -- curl --silent --fail-with-body https://uninsane.org
 
 check "uninsane.org DMARC record" nslookup -querytype=TXT _dmarc.uninsane.org.
 _checkPtr() {

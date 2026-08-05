@@ -26,5 +26,5 @@
   # see <https://manpages.ubuntu.com/manpages/bionic/man5/user-dirs.conf.5.html>
   sane.user.fs.".config/user-dirs.conf".symlink.text = "enabled=False";
 
-  sane.user.fs.".config/environment.d/30-user-dirs.conf".symlink.target = "../user-dirs.dirs";
+  sane.user.fs.".config/environment.d/20-user-dirs.conf".symlink.target = "../user-dirs.dirs";
 }

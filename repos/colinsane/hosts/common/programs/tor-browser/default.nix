@@ -38,6 +38,7 @@
       #v to persist $profile/prefs.js, required for js toggle. TODO: persist this more narrowly
       ".tor project/firefox"
     ];
-    mime.urlAssociations."^https?://.+\\.onion$" = "torbrowser.desktop";
+    mime.urlAssociations."^https?://.+\\.onion$" = "tor-browser.desktop";
+    mime.urlAssociations."^https?://.+\\.onion/.+$" = "tor-browser.desktop";
   };
 }

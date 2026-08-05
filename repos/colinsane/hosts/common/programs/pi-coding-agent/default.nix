@@ -385,6 +385,16 @@ in
       }
     '';
 
+    fs.".config/pi/auth.json".symlink.target = (pkgs.formats.json {}).generate "pi-auth.json" {
+      # this lets me manually load/unload models
+      "llama.cpp" = {
+        type = "api_key";
+        env = {
+          LLAMA_BASE_URL = "http://${deskoHostname}:11435";
+        };
+      };
+    };
+
     fs.".config/pi/models.json".symlink.target = pkgs.runCommand "pi-models.json" {
       nativeBuildInputs = [ pkgs.jq ];
     } ''
@@ -442,18 +452,21 @@ in
         # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-iq4_xs.id}"
         # # "llama-cpp/${llamaCppModels.qwen3_5-122b-a10b-ud-q4_k_xl.id}"
         # "llama-cpp/${llamaCppModels.step3_7-flash-iq4_xs.id}"
-        "poll/gpt-oss-20b"
+        # "poll/gpt-oss-20b"
         "qwen3.5-122b-a10b"
         "google/gemma-4-31b-it"
         "moonshotai/kimi-k2.6"
-        "moonshotai/kimi-k3"
-        "deepseek/deepseek-latest"
-        "zai-org/glm-latest"
+        "moonshotai/kimi-k3"  #< N.B.: k3 is worse than terra in most measures (cost, capability, speed)
+        "openai/gpt-5.6-luna"
+        "openai/gpt-5.6-terra"
+        "openai/gpt-5.6-sol"
+        # "deepseek/deepseek-latest"
+        # "zai-org/glm-latest"
         # "x-ai/grok-latest"
-        "openai/gpt-5.5"
-        "openai/gpt-chat-latest"
-        "google/gemini-pro-latest"
-        "anthropic/claude-opus-latest"
+        # "openai/gpt-5.5"
+        # "openai/gpt-chat-latest"
+        # "google/gemini-pro-latest"
+        # "anthropic/claude-opus-latest"
         # "mercury-2"
         # "google/gemini-flash-latest"
         # "moonshotai/kimi-latest"

@@ -783,6 +783,11 @@ super.lib.composeManyExtensions [
       doCheck = false;
     };
 
+    # 2026-08-02: fixes load error:
+    # > Error loading shared library ld-linux-x86-64.so.2: No such file or directory (needed by /nix/store/hywhkbdqg2xkb4m7d2d302vj6gxkch06-google-chrome-151.0.7922.71/share/google/chrome/chrome)
+    # Google does not appear to distribute musl .debs, nor does any musl-based distro have a google-chrome package.
+    google-chrome = final._pkgsGnu.google-chrome;
+
     # 2026-05-23: still required
     gparted = prev.gparted.override {
       # 2026-01-29: `gpart` (binary which is placed on runtime PATH) does not build for musl.
@@ -1115,12 +1120,6 @@ super.lib.composeManyExtensions [
              #include <netlink/genl/ctrl.h>
           '';
         })
-        (fetchpatch {
-          # XXX(2026-04-07): required for version >= 2.9.1
-          url = "https://marc.info/?l=linux-nfs&m=177557989913637&q=raw";
-          name = "Add-include-string-h-to-fix-build-failure";
-          hash = "sha256-5hwBMbAgESudUbivwXz0hYf2qPUgCvNtN3JZp2KN60o=";
-        })
         # XXX(2026-02-15): musl-includes.patch is still needed, to fixing missing include for `basename`;
         # void's patch for 2.8.4 doesn't cleanly apply to 2.8.5.
         # (fetchVoid {
@@ -1128,6 +1127,10 @@ super.lib.composeManyExtensions [
         #   hash = "sha256-dZEafrXDZH/IPo1u7B65u01nwFMfcqSMnVyHAapexa8=";
         # })
       ];
+      postPatch = (upstream.postPatch or "") + ''
+        # 2026-08-04: musl needs <stddef.h> for offsetof in support/nfs/getport.c
+        sed -i '/#include "nfslib.h"/a #include <stddef.h>' support/nfs/getport.c
+      '';
 
       # version = "2.6.4";
       # src = fetchurl {
@@ -1365,6 +1368,10 @@ super.lib.composeManyExtensions [
           torch = null;
           transformers = null;
         }).overridePythonAttrs (prevAttrs: {
+          # tests/memory/test_stress_api_xs.py imports this without declaring it.
+          nativeCheckInputs = (prevAttrs.nativeCheckInputs or []) ++ [
+            pyself.typer
+          ];
           pythonRemoveDeps = prevAttrs.pythonRemoveDeps ++ [
             "alphashape"
             "shapely"

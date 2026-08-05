@@ -23,7 +23,11 @@
         prevAttrs.installPhase
       ;
 
-      # disable Ctrl+W = Close shortcut
+      # - disable Ctrl+W = Close shortcut
+      # - ~fix downloads directory.~
+      #   - Slack persists the downloads directory to disk under the PrefSSBFileDownloadPath key at ~/.config/Slack/storage/root-state.json
+      #   - --replace-fail 's.PrefSSBFileDownloadPath===""||p1(s.PrefSSBFileDownloadPath)' 'true'
+      #   - NO: do manually. Slack should get the right downloads folder if re-installed; to fix a bugged installation, manually edit ~/.config/Slack/storage/root-state.json
       postInstall = (prevAttrs.postInstall or "") + ''
         asar extract $out/lib/slack/resources/app.asar app.tmp
         substituteInPlace app.tmp/dist/main.bundle.cjs \

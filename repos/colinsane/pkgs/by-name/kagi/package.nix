@@ -11,13 +11,13 @@
 
 buildGoModule (finalAttrs: {
   pname = "kagi";
-  version = "1.0.0";
+  version = "1.0.1";
 
   src = fetchFromGitHub {
     owner = "grantcarthew";
     repo = "kagi";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-LBht0Etg5XEDQPETxp+xmr7HT1qbAV4Ul1opi4KfK/k=";
+    hash = "sha256-ytKwWKc7H9mL14pzKwix03yUw2/hTa5RyQO7/2+4Dig=";
   };
   proxyVendor = true;
   vendorHash = "sha256-RgGDapuL5gtviLBHv42jmcARRf6tBLmrlTpImNlr8mg=";

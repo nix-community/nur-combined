@@ -1,24 +1,154 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ps.python3.pkgs.pypdf ]'
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.python3 ps.python3.pkgs.aiohttp-socks ps.python3.pkgs.crawl4ai ps.python3.pkgs.mcp ps.python3.pkgs.pypdf ps.python3.pkgs.stem ps.tor ps.tor.geoip ]'
 
 import argparse
 import asyncio
 import base64
 import concurrent.futures
 import enum
+import os
+import shutil
+import tempfile
+import urllib.parse
 import sys
 
 from typing import Any, Callable, Coroutine, Optional, ParamSpec, TypeVar, Union
 
+import aiohttp
+from aiohttp_socks import ProxyConnector
+from crawl4ai import CacheMode, CrawlerRunConfig
 from crawl4ai.async_webcrawler import AsyncWebCrawler, CrawlResultContainer
 from crawl4ai.async_crawler_strategy import AsyncHTTPCrawlerStrategy
 from mcp.server.fastmcp import FastMCP
 from pypdf import PdfReader
+from stem.control import Controller, Listener
+from stem.process import launch_tor_with_config
 
 class FetchFormat(enum.StrEnum):
   MARKDOWN = "markdown"
   HTML = "html"
   RAW = "raw"
+
+
+class Network(enum.StrEnum):
+  WAN = "wan"
+  TOR = "tor"
+
+
+def is_onion_url(url: str) -> bool:
+  hostname = urllib.parse.urlparse(url).hostname
+  return bool(hostname and hostname.lower().rstrip(".").endswith(".onion"))
+
+
+def find_tor_geoip(name: str) -> Optional[str]:
+  for data_dir in os.environ.get("XDG_DATA_DIRS", "").split(":"):
+    if data_dir:
+      path = os.path.join(data_dir, "tor", name)
+      if os.path.isfile(path):
+        return path
+  return None
+
+
+def find_tor_geoip_from_path(name: str) -> Optional[str]:
+  tor_path = shutil.which("tor")
+  if not tor_path:
+    return None
+  tor_root = os.path.dirname(os.path.dirname(tor_path))
+  path = os.path.join(tor_root, "share", "tor", name)
+  return path if os.path.isfile(path) else None
+
+
+class TorConnection:
+  def __init__(self) -> None:
+    self._data_dir: Optional[tempfile.TemporaryDirectory[str]] = None
+    self._process = None
+    self._controller: Optional[Controller] = None
+    self.socks_port: Optional[int] = None
+
+  def __enter__(self) -> "TorConnection":
+    data_dir = tempfile.TemporaryDirectory(prefix="sane-fetch-tor-")
+    self._data_dir = data_dir
+    control_socket = os.path.join(data_dir.name, "control")
+    config = {
+      "DataDirectory": data_dir.name,
+      "ClientOnly": "1",
+      "SocksPort": "127.0.0.1:auto",
+      "ControlSocket": control_socket,
+      "CookieAuthentication": "1",
+      "AvoidDiskWrites": "1",
+      "Log": ["NOTICE stdout"],
+    }
+    geoip = find_tor_geoip("geoip") or find_tor_geoip_from_path("geoip")
+    geoip6 = find_tor_geoip("geoip6") or find_tor_geoip_from_path("geoip6")
+    if geoip:
+      config["GeoIPFile"] = geoip
+    if geoip6:
+      config["GeoIPv6File"] = geoip6
+
+    try:
+      tor = shutil.which("tor")
+      assert tor is not None, "tor executable is not available"
+      self._process = launch_tor_with_config(
+        config,
+        tor_cmd=tor,
+        timeout=180,
+        take_ownership=True,
+      )
+      self._controller = Controller.from_socket_file(control_socket)
+      self._controller.authenticate()
+      listeners = self._controller.get_listeners(Listener.SOCKS)
+      assert len(listeners) == 1 and listeners[0][0] in ("127.0.0.1", "localhost"), \
+        f"unexpected Tor SOCKS listeners: {listeners}"
+      self.socks_port = int(listeners[0][1])
+      return self
+    except Exception:
+      self.__exit__(None, None, None)
+      raise
+
+  def __exit__(self, exc_type, exc_value, traceback) -> None:
+    if self._controller is not None:
+      try:
+        self._controller.close()
+      except Exception:
+        pass
+      self._controller = None
+
+    if self._process is not None:
+      try:
+        self._process.terminate()
+        self._process.wait(timeout=10)
+      except Exception:
+        try:
+          self._process.kill()
+          self._process.wait(timeout=10)
+        except Exception:
+          pass
+      self._process = None
+
+    if self._data_dir is not None:
+      self._data_dir.cleanup()
+      self._data_dir = None
+    self.socks_port = None
+
+
+class TorHTTPCrawlerStrategy(AsyncHTTPCrawlerStrategy):
+  def __init__(self, socks_port: int, **kwargs: Any):
+    super().__init__(**kwargs)
+    self.socks_port = socks_port
+
+  async def start(self) -> None:
+    if not self._session:
+      connector = ProxyConnector.from_url(
+        f"socks5://127.0.0.1:{self.socks_port}",
+        rdns=True,
+        limit=self.max_connections,
+        ttl_dns_cache=self.dns_cache_ttl,
+      )
+      self._session = aiohttp.ClientSession(
+        headers=dict(self._BASE_HEADERS),
+        connector=connector,
+        timeout=aiohttp.ClientTimeout(total=self.DEFAULT_TIMEOUT),
+      )
 
 
 P = ParamSpec("P")
@@ -39,9 +169,18 @@ def make_sync(f: Callable[P, Coroutine[Any, Any, R]]) -> Callable[P, R]:
 
 
 @make_sync
-async def crawl4ai_fetch(url: str) -> CrawlResultContainer:
-  async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
-    return await crawler.arun(url=url)
+async def crawl4ai_fetch(url: str, network: Network) -> CrawlResultContainer:
+  if network is Network.TOR:
+    with TorConnection() as tor:
+      strategy = TorHTTPCrawlerStrategy(socks_port=tor.socks_port)
+      async with AsyncWebCrawler(crawler_strategy=strategy) as crawler:
+        return await crawler.arun(
+          url=url,
+          config=CrawlerRunConfig(cache_mode=CacheMode.BYPASS),
+        )
+  elif network is Network.WAN:
+    async with AsyncWebCrawler(crawler_strategy=AsyncHTTPCrawlerStrategy()) as crawler:
+      return await crawler.arun(url=url)
 
 
 def extract_pdf_text(path: str) -> str:
@@ -49,8 +188,11 @@ def extract_pdf_text(path: str) -> str:
   return "\n".join(page.extract_text() for page in reader.pages)
 
 
-def do_fetch(url: str, format: FetchFormat) -> Union[str, bytes]:
-  result = crawl4ai_fetch(url)
+def do_fetch(url: str, format: FetchFormat, network: Optional[Network]) -> Union[str, bytes]:
+  if network is None:
+    network = Network.TOR if is_onion_url(url) else Network.WAN
+
+  result = crawl4ai_fetch(url, network)
 
   def get_pdf_content() -> Optional[str]:
     if result.downloaded_files:
@@ -100,8 +242,8 @@ def do_fetch(url: str, format: FetchFormat) -> Union[str, bytes]:
     raise RuntimeError(f"failed to extract content. url={url}, result={result}")
 
 
-def cli_fetch(url: str, format: FetchFormat) -> None:
-  result = do_fetch(url, format=format)
+def cli_fetch(url: str, format: FetchFormat, network: Optional[Network]) -> None:
+  result = do_fetch(url, format=format, network=network)
   if isinstance(result, bytes):
     sys.stdout.buffer.write(result)
   else:
@@ -112,10 +254,14 @@ def cli_mcp(default_format: FetchFormat) -> None:
   mcp = FastMCP("sane-fetch")
 
   @mcp.tool()
-  def fetch(url: str, format: FetchFormat = default_format) -> str:
+  def fetch(
+    url: str,
+    format: FetchFormat = default_format,
+    network: Optional[Network] = None,
+  ) -> str:
     """Fetch a URL and return its content as markdown, HTML, or raw bytes (base64-encoded)."""
     try:
-      result = do_fetch(url, format=format)
+      result = do_fetch(url, format=format, network=network)
       if isinstance(result, bytes):
         # MCP (JSON-RPC) passes binary via base64 encoding and a specific schema (BlobResourceContentsSchema).
         # i don't know how to manage the schema, so the best for now is to send inline.
@@ -135,6 +281,25 @@ def add_format_options(parser: argparse.ArgumentParser, suppress: bool = False) 
   format_group.add_argument("--raw", action="store_const", const=FetchFormat.RAW, dest="format", default=default, help="Return raw HTTP response body")
 
 
+def add_network_options(parser: argparse.ArgumentParser) -> None:
+  parser.set_defaults(network=None)
+  network_group = parser.add_mutually_exclusive_group()
+  network_group.add_argument(
+    "--tor",
+    action="store_const",
+    const=Network.TOR,
+    dest="network",
+    help="Use the Tor network",
+  )
+  network_group.add_argument(
+    "--wan",
+    action="store_const",
+    const=Network.WAN,
+    dest="network",
+    help="Use the WAN network",
+  )
+
+
 def main():
   parser = argparse.ArgumentParser(description="robot-friendly URL fetcher")
   add_format_options(parser)
@@ -143,6 +308,7 @@ def main():
 
   fetch_parser = subparsers.add_parser("fetch", help="Fetch a URL and print its content")
   add_format_options(fetch_parser, suppress=True)
+  add_network_options(fetch_parser)
   fetch_parser.add_argument("url", help="URL to fetch")
 
   mcp_parser = subparsers.add_parser("mcp", help="Run as an MCP server over stdio")
@@ -151,7 +317,7 @@ def main():
   args = parser.parse_args()
 
   if args.command == "fetch":
-    cli_fetch(args.url, format=args.format)
+    cli_fetch(args.url, format=args.format, network=args.network)
   elif args.command == "mcp":
     cli_mcp(default_format=args.format)
   else:

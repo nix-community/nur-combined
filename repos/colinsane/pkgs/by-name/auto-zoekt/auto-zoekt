@@ -1,5 +1,5 @@
 #!/usr/bin/env -S NIX_BUILD_SHELL=/bin/sh nix-shell
-#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.git ps.python3 ps.python3.pkgs.mcp ps.zoekt ]'
+#!nix-shell -i python3 ../../../integrations/nix-shell --arg f 'ps: [ ps.auto-zoekt.zoekt ps.git ps.python3 ps.python3.pkgs.mcp ]'
 """Minimal proof-of-concept code searcher which wraps the `zoekt` CLI.
 
 Exposes a `search` operation -- as an MCP tool and as a CLI subcommand --
@@ -13,111 +13,366 @@ import argparse
 import base64
 import functools
 import json
+import logging
 import os
+import re
 import shutil
 import subprocess
 
+from dataclasses import dataclass
 from mcp.server.fastmcp import FastMCP
+from typing import Iterator
 
 MAX_RESULTS = 50
-ZOEKT_BIN = shutil.which("zoekt") or "zoekt"
-ZOEKT_GIT_INDEX_BIN = shutil.which("zoekt-git-index") or "zoekt-git-index"
+
+logger = logging.getLogger(__name__)
 
 
-def _default_index_root() -> str:
-  cache_home = os.environ.get("XDG_CACHE_HOME") or os.path.join(
-    os.path.expanduser("~"), ".cache"
-  )
-  return os.path.join(cache_home, "zoekt", "index")
+class Executor:
+  def check_call(self, cmd: list[str], *args, **kwargs) -> int:
+    logger.debug(' '.join(cmd))
+    return subprocess.check_call(cmd, *args, **kwargs)
 
+  def check_output(self, cmd: list[str], *args, **kwargs) -> bytes:
+    logger.debug(' '.join(cmd))
+    return subprocess.check_output(cmd, *args, **kwargs)
 
-INDEX_ROOT = _default_index_root()
+executor = Executor()
 
+class Git:
+  def _git_bytes(self, pwd: str, args: list[str]) -> bytes:
+    return executor.check_output(
+      ["git", "-C", pwd] + args
+    )
+  def _git(self, pwd: str, args: list[str]) -> str:
+    return self._git_bytes(pwd, args).decode().strip()
 
-@functools.lru_cache(maxsize=None)
-def _index_repo(repo_path: str) -> str:
-  """Index a git repository, once per process, and return its index dir."""
-  cmd = [
-    ZOEKT_GIT_INDEX_BIN,
-    "-index",
-    INDEX_ROOT,
-    repo_path,
-  ]
-  proc = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
-  if proc.returncode != 0:
-    raise RuntimeError(f"zoekt-git-index failed: {proc.stderr.strip()}")
-  return INDEX_ROOT
+  @functools.lru_cache(maxsize=1024)
+  def repo_git_dir(self, top: str) -> str:
+    # needs to work for all checkout types:
+    # - traditional `git clone`
+    # - bare git repo
+    # - worktree
+    if os.path.isfile(top):
+      top = os.path.dirname(top)
+    return self._git(top, ["rev-parse", "--path-format=absolute", "--git-common-dir"])
 
+  def repo_root(self, top: str) -> str:
+    return self.repo_git_dir(top).rstrip("/.git")
 
-def do_search(query: str, repo_path: str, max_results: int, list_files: bool = False) -> str:
-  try:
-    index_dir = _index_repo(repo_path)
-  except RuntimeError as e:
-    return f"error: {e}"
-  # restrict results to the repository's primary indexed rev (HEAD).
-  cmd = [ZOEKT_BIN, "-index_dir", index_dir, "-jsonl", f"branch:HEAD ({query})"]
-  proc = subprocess.run(cmd, capture_output=True, text=True, timeout=60)
+  def path_within_repo(self, path: str) -> str:
+    """
+    given a fs path, returns its path as known by git, i.e. relative to the checkout root.
+    works with traditional clones, bare repos, and git worktrees.
 
-  results = []
-  for line in proc.stdout.splitlines():
-    hit = json.loads(line)
-    if list_files:
-      if hit["FileName"] not in results:
-        results.append(hit["FileName"])
+    if `path` is a directory then the return value will include a trailing slash -- unless it's the
+    toplevel itself, in which case the result is ""
+    """
+    # --show-prefix returns the path relative to the repo root, with trailing slash.
+    if os.path.isfile(path):
+      dir_, file_ = os.path.split(path)
+      return self._git(dir_, ["rev-parse", "--show-prefix", file_])
     else:
-      for match in hit.get("LineMatches", []):
-        text = base64.b64decode(match["Line"]).decode("utf-8", "replace").strip()
-        results.append(f"{hit['FileName']}:{match['LineNumber']}: {text}")
+      return self._git(path, ["rev-parse", "--show-prefix"])
 
-    if len(results) >= max_results:
-      results = results[:max_results]
+  def branch(self, path: str) -> str:
+    """
+    given a fs path, which must reside in some git checkout, return the branch name associated with that checkout
+    """
+    return self._git(path, ["branch", "--show-current"]) or "HEAD"
+
+  def show(self, git_dir: str, obj: str) -> bytes:
+    return self._git_bytes(git_dir, ["show", obj])
+
+git = Git()
+
+
+@dataclass(frozen=True)
+class ZoektLineMatch:
+  line_number: int  # 1-based indexing
+  score: float
+  text: str
+
+
+@dataclass(frozen=True)
+class ZoektFileMatch:
+  file_name: str
+  repository: str
+  line_matches: list[ZoektLineMatch]
+  score: float
+  version: str
+
+
+class Zoekt:
+  """
+  Wraps `zoekt` and its helper binaries (`zoekt-git-index`) into a python-consumable API
+  """
+  @functools.cached_property
+  def index_dir(self) -> str:
+    """
+    Return the directory in which Zoekt will place its index shards
+    """
+    cache_home = os.environ.get("XDG_CACHE_HOME") or os.path.join(
+      os.path.expanduser("~"), ".cache"
+    )
+    return os.path.join(cache_home, "zoekt", "index")
+
+  @functools.lru_cache(maxsize=None)
+  def index_repo(self, toplevel: str) -> None:
+    """
+    Index a git repository, once per process lifetime
+    """
+    cmd = [
+      "zoekt-git-index",
+      "-index",
+      self.index_dir,
+      # hack zoekt-git-index to derive a reasonable repo name.
+      # default repo naming is `basename $GIT_CHECKOUT` -- very prone to collisions.
+      # `-repo_cache /` forces the name to be derived relative to /, ensuring names are unique
+      "-repo_cache",
+      "/",
+      "-branches",
+      git.branch(toplevel),
+      git.repo_root(toplevel),
+    ]
+    executor.check_call(cmd, timeout=300)
+
+  def query(self, toplevel: str, query: str) -> Iterator[ZoektFileMatch]:
+    self.index_repo(toplevel)
+    repo_root = git.repo_root(toplevel)
+    prefix = git.path_within_repo(toplevel)
+    branch = git.branch(toplevel)
+    cmd = [
+      "zoekt",
+      "-index_dir",
+      self.index_dir,
+      "-jsonl",
+      f"repo:{re.escape(repo_root)} file:^{re.escape(prefix)}.*$ branch:{branch} ({query})",
+    ]
+    for line in executor.check_output(cmd, timeout=60).decode("utf-8", "replace").splitlines():
+      hit = json.loads(line)
+      yield ZoektFileMatch(
+        file_name=hit["FileName"],
+        line_matches=[
+          ZoektLineMatch(
+            line_number=match["LineNumber"],
+            score=match["Score"],
+            text=base64.b64decode(match["Line"]).decode("utf-8", "replace"),
+          )
+          for match in hit.get("LineMatches", [])
+        ],
+        repository=hit["Repository"],
+        score=hit["Score"],
+        version=hit.get("Version", "HEAD"),
+      )
+
+  @functools.lru_cache(maxsize=1024)
+  def read_file(self, repository: str, version: str, file_name: str) -> list[str]:
+    """Read a file from the revision returned by zoekt."""
+    return git.show(
+      repository, f"{version}:{file_name}"
+    ).decode("utf-8", "replace").splitlines()
+
+
+zoekt = Zoekt()
+
+
+def _append_match(
+  results: list[str],
+  file_name: str,
+  line_number: int,
+  text: str,
+  is_match: bool,
+) -> None:
+  # Match ripgrep's output convention: matching lines use ':' and context
+  # lines use '-'.
+  separator = ":" if is_match else "-"
+  results.append(f"{file_name}{separator}{line_number}{separator}{text}")
+
+@dataclass(frozen=True)
+class MatchSnippet:
+  file_name: str
+  repository: str
+  # git hash
+  version: str
+  # each list contains 1-based line numbers, sequentially ordered and unique.
+  # an entry in context_lines _may_ extend beyond the end of the file (FIXME).
+  context_lines: list[int]  # also includes the match lines
+  match_lines: list[int]
+
+class MatchIngester:
+  def __init__(self, list_files: bool, context: int) -> None:
+    self.list_files = list_files
+    self.context = context
+    self.snippets = []
+
+  def _begin_snippet(self, match: ZoektFileMatch) -> MatchSnippet:
+    """
+    Appends a new snippet to self.snippets and returns a mutable handle to it.
+    """
+    snippet = MatchSnippet(
+      file_name=match.file_name,
+      repository=match.repository,
+      version=match.version,
+      context_lines=[],
+      match_lines=[],
+    )
+    self.snippets.append(snippet)
+    return snippet
+
+
+  def feed(self, match: ZoektFileMatch) -> None:
+    snippet = self._begin_snippet(match)
+
+    if self.list_files:
+      return
+
+    for line_match in match.line_matches:
+      start_line = max(1, line_match.line_number - self.context)
+      end_line = line_match.line_number + self.context
+
+      # start_line-1, otherwise adjacent snippets would not be merged.
+      # we always want merging in this case, otherwise the rendering makes it
+      # look like lines were cut even when they weren't.
+      #
+      # 11-hello
+      # 12:again
+      # 13-to
+      # --                 #< we don't want this cutline!
+      # 14-all
+      # 15:my
+      # 16-friends
+      if snippet.context_lines and start_line-1 not in snippet.context_lines:
+        snippet = self._begin_snippet(match)
+
+      for line in range(start_line, end_line+1):
+        if line not in snippet.context_lines:
+          snippet.context_lines.append(line)
+      snippet.match_lines.append(line_match.line_number)
+
+
+def do_search(
+  query: str,
+  toplevel: str,
+  max_results: int,
+  list_files: bool = False,
+  context: int = 0,
+) -> str:
+  assert context >= 0, "context must be non-negative"
+  assert max_results > 0, "max_results must be positive"
+
+  ingester = MatchIngester(list_files=list_files, context=context)
+  truncated = False
+  for result in zoekt.query(toplevel, query):
+    if len(ingester.snippets) >= max_results:
+      truncated = True
       break
+    ingester.feed(result)
 
-  output = "\n".join(results) + "\n\n" + proc.stderr.strip()
-  return output.strip() or "no results"
+  output = []
+  prev_file_name = None
+  for snippet in ingester.snippets:
+    if snippet.file_name != prev_file_name:
+      output.append(snippet.file_name)
+    elif context:
+      output.append("--")
+    prev_file_name = snippet.file_name
+
+    file_lines = zoekt.read_file(snippet.repository, snippet.version, snippet.file_name)
+    for line_no in snippet.context_lines:
+      if line_no > len(file_lines):
+        continue
+      text = file_lines[line_no - 1]
+      if line_no in snippet.match_lines:
+        output.append(f"{line_no}:{text}")
+      else:
+        output.append(f"{line_no}-{text}")
+
+  if truncated:
+    output += ["", "(results truncated)"]
+
+  return "\n".join(output) or "no results"
 
 
-def cli_search(query: str, repo_path: str, max_results: int, list_files: bool) -> None:
-  print(do_search(query, repo_path=repo_path, max_results=max_results, list_files=list_files))
+def cli_search(
+  query: str,
+  toplevel: str,
+  max_results: int,
+  list_files: bool,
+  context: int,
+) -> None:
+  print(do_search(
+    query,
+    toplevel=toplevel,
+    max_results=max_results,
+    list_files=list_files,
+    context=context,
+  ))
 
 
 def cli_mcp() -> None:
   mcp = FastMCP("auto-zoekt")
 
   @mcp.tool()
-  def search(query: str, repo_path: str = ".", max_results: int = MAX_RESULTS, list_files: bool = False) -> str:
+  def search(
+    query: str,
+    toplevel: str = ".",
+    max_results: int = MAX_RESULTS,
+    list_files: bool = False,
+    context: int = 0,
+  ) -> str:
     """
-    Search a git repository using zoekt code search. Returns fuzzy matches found inside the current checkout.
+    Search a git repository using zoekt code search. Returns fuzzy matches found at/below the `toplevel` directory.
 
     Args:
       query: The zoekt query string, e.g. `foo` or `type:file content:bar`.
-      repo_path: Path to the git repository to search. Defaults to the current working directory.
+      toplevel: Directory within which to search. Defaults to the current working directory.
       max_results: Maximum number of results to return.
       list_files: Return the paths of matched files instead of the content. Like ripgrep `-l`.
+      context: Number of lines to show before and after each match, like ripgrep `-C`.
     """
-    return do_search(query, repo_path=repo_path, max_results=max_results, list_files=list_files)
+    return do_search(
+      query,
+      toplevel=toplevel,
+      max_results=max_results,
+      list_files=list_files,
+      context=context,
+    )
 
   mcp.run()
 
 
 def main() -> None:
+  logging.basicConfig()
+
   parser = argparse.ArgumentParser(
-    description="Transparently-indexing code search, backed by the `zoekt` CLI."
+    description="Transparently-indexing code search, backed by the `zoekt` CLI. Query syntax follows https://github.com/sourcegraph/zoekt/blob/main/doc/query_syntax.md"
   )
+  parser.add_argument("-v", "--verbose", action="store_true", help="enable debug-level logging")
   subparsers = parser.add_subparsers(dest="command")
 
   search_parser = subparsers.add_parser("search", help="Search a git repository and print matches")
   search_parser.add_argument("query", help="zoekt query string, e.g. `foo` or `type:file content:bar`")
-  search_parser.add_argument("--repo", default=".", help="path to the git repository to search (default: current directory)")
+  search_parser.add_argument("--toplevel", default=".", help="directory within which to search (default: current directory)")
   search_parser.add_argument("--max-results", type=int, default=MAX_RESULTS, help="maximum number of results to return")
+  search_parser.add_argument("-C", "--context", type=int, default=0, help="show NUM lines before and after each match")
   search_parser.add_argument("-l", "--list", action="store_true", dest="list_files", help="print only the matching file paths, de-duplicated")
 
   subparsers.add_parser("mcp", help="Run as an MCP server over stdio")
 
   args = parser.parse_args()
 
+  if args.verbose:
+    logging.getLogger().setLevel(logging.DEBUG)
+
   if args.command == "search":
-    cli_search(args.query, repo_path=args.repo, max_results=args.max_results, list_files=args.list_files)
+    cli_search(
+      args.query,
+      toplevel=args.toplevel,
+      max_results=args.max_results,
+      list_files=args.list_files,
+      context=args.context,
+    )
   elif args.command == "mcp":
     cli_mcp()
   else:

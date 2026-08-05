@@ -10,16 +10,16 @@
 rustPlatform.buildRustPackage {
   pname = "gps-share";
   # require 0.3.1-unstable because 0.3.1 doesn't pass `doCheck`; tip has test fixes
-  version = "0.3.1-unstable-2024-03-19";
+  version = "0.3.1-unstable-2026-07-21";
 
   src = fetchFromGitHub {
     owner = "zeenix";
     repo = "gps-share";
-    rev = "2b3955549643ae99ebe0681079d6fa1deaee20ea";
-    hash = "sha256-GBO5b8yqQkEcmAEsvcLTZoQF8MOdutvNIbqk7OTVdFk=";
+    rev = "aa7a1bac446390eeb39f9382c724bbbb36619c40";
+    hash = "sha256-tK4rt96foufY/Ai2l++zUwtCZVQOu7Ap08P3Qgk4Ta0=";
   };
 
-  cargoHash = "sha256-WhYHFaSZfnlEmlXFLj7BIt0agMFuz07LcAXJ9ZOOrvY=";
+  cargoHash = "sha256-t5muhj4y/Sx/G9v/PAsHmBFqjqAE6uaJd6/viSl4L/8=";
 
   nativeBuildInputs = [
     pkg-config
@@ -28,15 +28,6 @@ rustPlatform.buildRustPackage {
   buildInputs = [
     udev
   ];
-
-  postPatch = ''
-    # this fixes `pgksMusl.gps-share`.
-    cat >> "$cargoDepsCopy/source-registry-0/serial-0.3.4/Cargo.toml" <<'EOF'
-      [target.'cfg(all(target_os = "linux", target_env = "musl"))'.dependencies]
-      termios = "0.2.2"
-      ioctl-rs = "0.1.5"
-    EOF
-  '';
 
   passthru.updateScript = nix-update-script {
     extraArgs = [ "--version=branch" ];

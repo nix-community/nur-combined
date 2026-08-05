@@ -38,18 +38,27 @@ in lib.makeScope newScope (self: {
   # pkgs may take the following form:
   # - { pkgNameA = pkgValueA; "pkg.name.b" = pkg.value.b; ... }
   # - ps: <evaluate to one of the above exprs>
-  mkShell = {
-    pname,
-    interpreter,
-    interpreterName ? lib.last (builtins.split "/" interpreter),
-    pkgsEnv,
-    pkgExprs,
-    merge ? "append",  #< "append" new {PATH,XDG_DATA_DIRS} entries to existing {PATH,XDG_DATA_DIRS}? or "prepend"?
-    srcPath ? pname, #< N.B.: should not contain `/`'s
-    srcRoot ? null,
-    src ? null,
-    ...
-  }@attrs:
+  mkShell = lib.extendMkDerivation {
+    constructDrv = stdenvNoCC.mkDerivation;
+    excludeDrvArgNames = [
+      "interpreter"
+      "interpreterName"
+      "pkgExprs"
+      "pkgsEnv"
+      "srcPath"
+    ];
+    extendDrvArgs = finalAttrs: {
+      pname,
+      interpreter,
+      interpreterName ? lib.last (builtins.split "/" interpreter),
+      pkgsEnv,
+      pkgExprs,
+      merge ? "append",  #< "append" new {PATH,XDG_DATA_DIRS} entries to existing {PATH,XDG_DATA_DIRS}? or "prepend"?
+      srcPath ? pname, #< N.B.: should not contain `/`'s
+      srcRoot ? null,
+      src ? null,
+      ...
+    }@attrs:
   let
     repoRoot = ../../..;
     getPathToRoot = ascended: at:
@@ -76,18 +85,18 @@ in lib.makeScope newScope (self: {
     # allow any package to be a list of packages, to support things like
     # -p python3.pkgs.foo.propagatedBuildInputs
     pkgsEnv' = lib.flatten pkgsEnv;
-  in
-    stdenvNoCC.mkDerivation (finalAttrs: {
-      version = "0.1.0";  # default version
-      preferLocalBuild = true;
+  in {
+      __structuredAttrs = true;
+      version = attrs.version or "0.1.0";  # default version
+      preferLocalBuild = attrs.preferLocalBuild or true;
 
       nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [
         makeBinaryWrapper
       ];
 
-      runtimePrefixes = pkgsEnv';
+      runtimePrefixes = attrs.runtimePrefixes or pkgsEnv';
 
-      configurePhase = ''
+      configurePhase = attrs.configurePhase or ''
         runHook preConfigure
 
         # generate `extraPaths`, `extraXdgDataDirs` colon-separated paths for use in the build phase.
@@ -116,7 +125,7 @@ in lib.makeScope newScope (self: {
             crawlPackage "$p"
           done
         }
-        crawlPackages $runtimePrefixes
+        crawlPackages "''${runtimePrefixes[@]}"
         append_PATH=
         prepend_PATH=
         append_XDG_DATA_DIRS=
@@ -131,7 +140,7 @@ in lib.makeScope newScope (self: {
         runHook postConfigure
       '';
 
-      buildPhase = ''
+      buildPhase = attrs.buildPhase or ''
         runHook preBuild
 
         die() {
@@ -184,7 +193,7 @@ in lib.makeScope newScope (self: {
         runHook postBuild
       '';
 
-      installPhase = ''
+      installPhase = attrs.installPhase or ''
         runHook preInstall
 
         install -Dm755 ${srcPath} $out/bin/${srcPath}
@@ -204,7 +213,7 @@ in lib.makeScope newScope (self: {
 
       # TODO: should assert that `--help` actually prints something reasonable (e.g. program name),
       # and isn't inadvertently a no-op
-      installCheckPhase = ''
+      installCheckPhase = attrs.installCheckPhase or ''
         runHook preInstallCheck
 
         timeout 15 $out/bin/${srcPath} --help
@@ -212,24 +221,19 @@ in lib.makeScope newScope (self: {
         runHook postInstallCheck
       '';
 
-      doInstallCheck = true;
+      doInstallCheck = attrs.doInstallCheck or true;
 
-      meta = {
-        mainProgram = srcPath;
-      } // (attrs.meta or {});
-    } // extraDerivArgs // (removeAttrs attrs [
-      "interpreter"
-      "interpreterName"
-      "meta"
-      "nativeBuildInputs"
-      "pkgExprs"
-      "pkgsEnv"
-      "srcPath"
-    ])
-  );
+      meta = (attrs.meta or {}) // {
+        mainProgram = (attrs.meta or {}).mainProgram or srcPath;
+      };
+    } // extraDerivArgs;
+  };
 
   # `mkShell` specialization for `nix-shell -i bash` scripts.
-  mkBash = { pkgs ? {}, ...}@attrs:
+  mkBash = lib.extendMkDerivation {
+    constructDrv = self.mkShell;
+    excludeDrvArgNames = [ "bash" "pkgs" ];
+    extendDrvArgs = finalAttrs: { pkgs ? {}, ...}@attrs:
     let
       # XXX(2025-12-08): static bash is way faster than normal bash:
       # `nix-build -A bash && hyperfine './result/bin/sh --version'`
@@ -243,10 +247,12 @@ in lib.makeScope newScope (self: {
       bash' = pkgsMusl.bash;
       pkgsEnv = [ bash' ] ++ (builtins.attrValues pkgs);
       pkgExprs = insertTopo "bash" (builtins.attrNames pkgs);
-    in self.mkShell ({
-      inherit pkgsEnv pkgExprs;
-      interpreter = lib.getExe bash';
-      postConfigure = ''
+    in {
+      inherit pkgs;
+      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
+      pkgExprs = attrs.pkgExprs or pkgExprs;
+      interpreter = attrs.interpreter or (lib.getExe bash');
+      postConfigure = attrs.postConfigure or ''
         DOLLAR='$'
         if [[ -n "$append_PATH" ]]; then
           shellPreamble="$shellPreamble"$'\n'
@@ -272,18 +278,23 @@ in lib.makeScope newScope (self: {
           unset prepend_XDG_DATA_DIRS
         fi
       '';
-    } // (removeAttrs attrs [ "bash" "pkgs" ])
-  );
+    };
+  };
 
   # `mkShell` specialization for `nix-shell -i ysh` (oil) scripts.
-  mkYsh = { pkgs ? {}, ...}@attrs:
+  mkYsh = lib.extendMkDerivation {
+    constructDrv = self.mkShell;
+    excludeDrvArgNames = [ "oils-for-unix" "pkgs" ];
+    extendDrvArgs = finalAttrs: { pkgs ? {}, ...}@attrs:
     let
       pkgsEnv = [ oils-for-unix ] ++ (builtins.attrValues pkgs);
       pkgExprs = insertTopo "oils-for-unix" (builtins.attrNames pkgs);
-    in self.mkShell ({
-      inherit pkgsEnv pkgExprs;
-      interpreter = lib.getExe' oils-for-unix "ysh";
-      postConfigure = ''
+    in {
+      inherit pkgs;
+      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
+      pkgExprs = attrs.pkgExprs or pkgExprs;
+      interpreter = attrs.interpreter or (lib.getExe' oils-for-unix "ysh");
+      postConfigure = attrs.postConfigure or ''
         shellPreambleBody=
         if [[ -n "$append_PATH" ]]; then
           shellPreambleBody="$shellPreambleBody"$'\n'
@@ -333,18 +344,23 @@ in lib.makeScope newScope (self: {
         '
         fi
       '';
-    } // (removeAttrs attrs [ "oils-for-unix" "pkgs" ])
-  );
+    };
+  };
 
   # `mkShell` specialization for `nix-shell -i zsh` scripts.
-  mkZsh = { pkgs ? {}, ...}@attrs:
+  mkZsh = lib.extendMkDerivation {
+    constructDrv = self.mkShell;
+    excludeDrvArgNames = [ "pkgs" "zsh" ];
+    extendDrvArgs = finalAttrs: { pkgs ? {}, ...}@attrs:
     let
       pkgsEnv = [ zsh ] ++ (builtins.attrValues pkgs);
       pkgExprs = insertTopo "zsh" (builtins.attrNames pkgs);
-    in self.mkShell ({
-      inherit pkgsEnv pkgExprs;
-      interpreter = lib.getExe zsh;
-      postConfigure = ''
+    in {
+      inherit pkgs;
+      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
+      pkgExprs = attrs.pkgExprs or pkgExprs;
+      interpreter = attrs.interpreter or (lib.getExe zsh);
+      postConfigure = attrs.postConfigure or ''
         DOLLAR='$'
         if [[ -n "$append_PATH" ]]; then
           shellPreamble="$shellPreamble"$'\n'
@@ -370,22 +386,27 @@ in lib.makeScope newScope (self: {
           unset prepend_XDG_DATA_DIRS
         fi
       '';
-    } // (removeAttrs attrs [ "pkgs" "zsh" ])
-  );
+    };
+  };
 
   # `mkShell` specialization for invocations of `nix-shell -i python3 -p python3 ...`
-  mkPython3 = { pkgs ? {}, ... }@attrs:
+  mkPython3 = lib.extendMkDerivation {
+    constructDrv = self.mkShell;
+    excludeDrvArgNames = [ "pkgs" "python3" ];
+    extendDrvArgs = finalAttrs: { pkgs ? {}, ... }@attrs:
     let
       pkgsEnv = builtins.attrValues pkgs;
       pkgExprs = insertTopo "python3" (builtins.attrNames pkgs);
-    in self.mkShell ({
-      inherit pkgsEnv pkgExprs;
-      interpreter = lib.getExe python3;
-      interpreterName = "python3";
+    in {
+      inherit pkgs;
+      pkgsEnv = attrs.pkgsEnv or pkgsEnv;
+      pkgExprs = attrs.pkgExprs or pkgExprs;
+      interpreter = attrs.interpreter or (lib.getExe python3);
+      interpreterName = attrs.interpreterName or "python3";
       # the logic for dealing with PYTHONPATH (which governs `import` search path)
       # comes from <repo:nixos/nixpkgs:pkgs/development/interpreters/python/wrap.sh>
       # and <repo:nixos/nixpkgs:pkgs/development/interpreters/python/wrap-python.nix>
-      postConfigure = ''
+      postConfigure = attrs.postConfigure or ''
         for p in "''${runtimePrefixesList[@]}"; do
           # XXX: python site dirs appear to be unordered?
           addToSearchPath add_PYTHONPATH "$p/${python3.sitePackages}"
@@ -452,6 +473,6 @@ in lib.makeScope newScope (self: {
         '
         fi
       '';
-    } // (removeAttrs attrs [ "pkgs" "python3" ])
-  );
+    };
+  };
 })

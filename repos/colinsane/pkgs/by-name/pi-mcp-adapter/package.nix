@@ -10,13 +10,13 @@
 }:
 buildNpmPackage (finalAttrs: {
   pname = "pi-mcp-adapter";
-  version = "2.15.0";
+  version = "2.17.0";
 
   src = fetchFromGitHub {
     owner = "nicobailon";
     repo = "pi-mcp-adapter";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LFE5QOe3eMroxFvTvi0MomoTBGyaDp9YP42jnsi+inE=";
+    hash = "sha256-jJZ1NwtFVft8I1B7TJWZ3fiB21SBw+DJRRrUcIt9hFE=";
     # upstream omits the integrity hashes for pi-* dependencies, expecting pi to already be present.
     # patch out the deps onto pi *here*, so that nix-update-script can generate a correct lockfile.
     postFetch = ''
@@ -37,7 +37,7 @@ buildNpmPackage (finalAttrs: {
 
   npmDepsFetcherVersion = 2;
 
-  npmDepsHash = "sha256-BJPmVJ29blTdVfXqtz70V8D+XoF6bIBbINEwP8HEs9U=";
+  npmDepsHash = "sha256-SYSjUcFfT1nBpD5V0dliNbOhYGd36LaEoAh3AMsRXwc=";
 
   # lockfile generated in a pi-mcp-adapter checkout using
   # `npm install --package-lock-only`.

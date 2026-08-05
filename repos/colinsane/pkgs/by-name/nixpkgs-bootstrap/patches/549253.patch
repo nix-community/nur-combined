@@ -1,0 +1,25 @@
+From e0832b878323bd1236a6d2be42359f5741e0398b Mon Sep 17 00:00:00 2001
+From: Sergei Volkov <taranarmo@gmail.com>
+Date: Tue, 4 Aug 2026 20:57:11 +0200
+Subject: [PATCH] hyprland: fix build by relaxing glaze dependency
+
+---
+ pkgs/by-name/hy/hyprland/package.nix | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/pkgs/by-name/hy/hyprland/package.nix b/pkgs/by-name/hy/hyprland/package.nix
+index 8368cf4775793ba10a27d5681134c6e43966dcce..912078403c4ca4a2ab0bed3dac9c103ad8515df4 100644
+--- a/pkgs/by-name/hy/hyprland/package.nix
++++ b/pkgs/by-name/hy/hyprland/package.nix
+@@ -96,6 +96,11 @@ customStdenv.mkDerivation (finalAttrs: {
+   };
+ 
+   postPatch = ''
++    # Relax glaze dependency
++    # FIXME: this shouldn't be needed once the upstream code will adopt it
++    substituteInPlace CMakeLists.txt start/CMakeLists.txt hyprpm/CMakeLists.txt \
++      --replace-fail "glaze 7...<8" "glaze"
++
+     # Fix hardcoded paths to /usr installation
+     substituteInPlace src/render/types.hpp \
+       --replace-fail /usr $out

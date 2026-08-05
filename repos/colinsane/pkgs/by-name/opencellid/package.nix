@@ -7,18 +7,19 @@
   lib,
   nix-update-script,
   stdenvNoCC,
+  update-guard,
   writeShellApplication,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "opencellid";
-  version = "0-unstable-2026-07-29";
+  version = "0-unstable-2026-07-31";
 
   src = fetchFromGitea {
     domain = "git.uninsane.org";
     owner = "colin";
     repo = "opencellid-mirror";
-    rev = "ce2ce60124a3c22e528f175ba3d9aad15635139f";
+    rev = "658aebb195dd943f118777126298b0c08c649ce3";
     hash = "sha256-t4v6Nr3M8Qu2TI6Y3FERBHNul3ZxPbUkp7bmh8BXa9I=";
   };
 
@@ -58,6 +59,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     };
     updateFromOpenCellId = lib.getExe finalAttrs.passthru.opencellid-update-script;
     updateScript = _experimental-update-script-combinators.sequence [
+      update-guard.weekly
       finalAttrs.passthru.updateFromOpenCellId
       finalAttrs.passthru.updateFromMirror
     ];

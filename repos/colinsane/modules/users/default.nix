@@ -252,10 +252,10 @@ let
         # '';
 
         # allow env vars to refer to eachother (just re-evaluate them a couple times to compute a fix point, right? :P)
-        fs.".config/environment.d/21-sane-nixos-users-fix1.conf".symlink.target = "20-sane-nixos-users.conf";
-        fs.".config/environment.d/22-sane-nixos-users-fix2.conf".symlink.target = "20-sane-nixos-users.conf";
+        fs.".config/environment.d/31-sane-nixos-users-fix1.conf".symlink.target = "30-sane-nixos-users.conf";
+        fs.".config/environment.d/32-sane-nixos-users-fix2.conf".symlink.target = "30-sane-nixos-users.conf";
 
-        fs.".config/environment.d/20-sane-nixos-users.conf".symlink.text =
+        fs.".config/environment.d/30-sane-nixos-users.conf".symlink.text =
           let
             env = lib.mapAttrsToList
               # partially escape shell expressions.

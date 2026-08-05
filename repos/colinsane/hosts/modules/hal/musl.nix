@@ -54,6 +54,7 @@ in
     sane.programs.libreoffice.enableFor.user.colin = false;  #< 2026-02-03: blocked on rhino -> gradle: "libc.so.6 -> not found"
     sane.programs.losslesscut.enableFor.user.colin = false;  #< 2026-05-26: blocked by electron_39
     sane.programs.mepo.enableFor.user.colin = false;  #< 2026-01-29 - 2026-05-23: fails installPhase: "Failed loading SDL3 library."
+    sane.programs.mumble.enableFor.user.colin = false;  #< 2026-08-01: blocked on poco
     sane.programs.newsflash.enableFor.user.colin = false;  #< 2026-05-23: fails build "error[E0425]: cannot find function `malloc_trim` in crate `libc`"
     # sane.programs.newelle.enableFor.user.colin = false;  #< 2026-02-03: blocked on anthropic -> ... -> arrow-cpp
     # sane.programs.nix.packageUnwrapped = lib.mkForce pkgs.nixVersions.latest;  #< 2026-02-28 - 2026-03-27: `pkgsMusl.lix` fails several unit tests right now

@@ -1,4 +1,4 @@
-From e341e0216cdb209c844d47bafb07f6bdc08ab504 Mon Sep 17 00:00:00 2001
+From 8f6fa933f7a00a04b3e085c4f2bf6f42cfbdbdcd Mon Sep 17 00:00:00 2001
 From: Colin <colin@uninsane.org>
 Date: Sat, 6 Jun 2026 16:16:32 +0000
 Subject: [PATCH] HACK: fix
@@ -6,11 +6,11 @@ Subject: [PATCH] HACK: fix
 
 ---
  pkgs/by-name/si/signal-desktop/package.nix | 59 ++++++++++++++++++++--
- pkgs/by-name/si/signal-desktop/webrtc.nix  | 15 ++++++
- 2 files changed, 70 insertions(+), 4 deletions(-)
+ pkgs/by-name/si/signal-desktop/webrtc.nix  | 18 +++++--
+ 2 files changed, 69 insertions(+), 8 deletions(-)
 
 diff --git a/pkgs/by-name/si/signal-desktop/package.nix b/pkgs/by-name/si/signal-desktop/package.nix
-index be16d0a387f6..c5c2f506fc8e 100644
+index 8425fa03dbdd..d85c56a662b9 100644
 --- a/pkgs/by-name/si/signal-desktop/package.nix
 +++ b/pkgs/by-name/si/signal-desktop/package.nix
 @@ -13,6 +13,7 @@
@@ -22,7 +22,7 @@ index be16d0a387f6..c5c2f506fc8e 100644
    fetchurl,
    jq,
 @@ -37,13 +38,20 @@ let
-   electron = electron_42;
+   electron = electron_43;
  
    libsignal-node = callPackage ./libsignal-node.nix { inherit nodejs; };
 +  libsignal-node-build = buildPackages.callPackage ./libsignal-node.nix { inherit nodejs; };
@@ -40,9 +40,9 @@ index be16d0a387f6..c5c2f506fc8e 100644
 +  webrtc-build = buildPackages.callPackage ./webrtc.nix { };
 +  ringrtc-build = buildPackages.callPackage ./ringrtc.nix { webrtc = webrtc-build; };
  
-   version = "8.18.0";
+   version = "8.21.0";
  
-@@ -225,22 +233,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -220,22 +228,37 @@ stdenv.mkDerivation (finalAttrs: {
        die "ringrtc version mismatch"
      fi
  
@@ -83,7 +83,7 @@ index be16d0a387f6..c5c2f506fc8e 100644
  
      # fs-xattr is required at runtime by preload.wrapper.js,
      # but with npmRebuild disabled its native binding is missing.
-@@ -264,9 +287,37 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -266,9 +289,37 @@ stdenv.mkDerivation (finalAttrs: {
      cp -r ${sticker-creator} sticker-creator/dist
    '';
  
@@ -123,10 +123,26 @@ index be16d0a387f6..c5c2f506fc8e 100644
        ${
          if stdenv.hostPlatform.isDarwin then "--mac" else "--linux"
 diff --git a/pkgs/by-name/si/signal-desktop/webrtc.nix b/pkgs/by-name/si/signal-desktop/webrtc.nix
-index 9f6465a4e84b..67a6c56abb67 100644
+index 4fb2a9066d3c..b3e51d6efccb 100644
 --- a/pkgs/by-name/si/signal-desktop/webrtc.nix
 +++ b/pkgs/by-name/si/signal-desktop/webrtc.nix
-@@ -129,6 +129,15 @@ stdenv.mkDerivation (finalAttrs: {
+@@ -87,10 +87,11 @@ stdenv.mkDerivation (finalAttrs: {
+   ];
+ 
+   env = {
+-    BUILD_CC = "$CC_FOR_BUILD";
+-    BUILD_CXX = "$CXX_FOR_BUILD";
+-    BUILD_AR = "$AR_FOR_BUILD";
+-    BUILD_NM = "$NM_FOR_BUILD";
++    BUILD_CC = "${buildPackages.llvmPackages.stdenv.cc}/bin/cc";
++    BUILD_CXX = "${buildPackages.llvmPackages.stdenv.cc}/bin/c++";
++    BUILD_AR = "${buildPackages.llvmPackages.llvm}/bin/llvm-ar";
++    BUILD_NM = "${buildPackages.llvmPackages.llvm}/bin/llvm-nm";
++    BUILD_READELF = "${buildPackages.llvmPackages.llvm}/bin/llvm-readelf";
+     NIX_CFLAGS_COMPILE = lib.optionalString stdenv.hostPlatform.isLinux "-Wno-changes-meaning";
+   };
+ 
+@@ -119,6 +120,15 @@ stdenv.mkDerivation (finalAttrs: {
      substituteInPlace build/toolchain/linux/BUILD.gn \
        --replace-fail 'toolprefix = "aarch64-linux-gnu-"' 'toolprefix = ""'
  
@@ -142,16 +158,3 @@ index 9f6465a4e84b..67a6c56abb67 100644
      substituteInPlace modules/audio_device/linux/pulseaudiosymboltable_linux.cc \
        --replace-fail "libpulse.so.0" "${pulseaudio}/lib/libpulse.so.0"
    ''
-@@ -155,6 +164,12 @@ stdenv.mkDerivation (finalAttrs: {
-     echo "generate_location_tags = true" >> build/config/gclient_args.gni
-   '';
- 
-+  env.BUILD_CC = "${buildPackages.llvmPackages.stdenv.cc}/bin/cc";
-+  env.BUILD_CXX = "${buildPackages.llvmPackages.stdenv.cc}/bin/c++";
-+  env.BUILD_AR = "${buildPackages.llvmPackages.llvm}/bin/llvm-ar";
-+  env.BUILD_NM = "${buildPackages.llvmPackages.llvm}/bin/llvm-nm";
-+  env.BUILD_READELF = "${buildPackages.llvmPackages.llvm}/bin/llvm-readelf";
-+
-   gnFlags =
-     lib.optionals stdenv.hostPlatform.isLinux [
-       # webrtc uses chromium's `src/build/BUILDCONFIG.gn`. many of these flags

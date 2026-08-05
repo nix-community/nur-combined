@@ -137,6 +137,12 @@ in with final; {
   #   shell = runtimeShell;
   # };
 
+  clapper-enhancers = prev.clapper-enhancers.overrideAttrs (prevAttrs: {
+    nativeBuildInputs = prevAttrs.nativeBuildInputs ++ [
+      buildPackages.mesonEmulatorHook
+    ];
+  });
+
   # 2026/01/27: upstreaming is unblocked, but a cleaner solution than this doesn't seem to exist yet
   confy = prev.confy.overrideAttrs (upstream: {
     # meson's `python.find_installation` method somehow just doesn't support cross compilation.
