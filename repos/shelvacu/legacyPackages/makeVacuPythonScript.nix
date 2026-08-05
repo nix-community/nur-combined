@@ -31,22 +31,21 @@ let
     "typeCheckingMode"
   ];
   inherit (python3Packages) hatchling scriptipy buildPythonApplication;
+  moduleName =
+    assert (builtins.match "[a-zA-Z_-][a-zA-Z0-9_-]*" name) != null;
+    lib.replaceStrings [ "-" ] [ "_" ] name;
   hasData = data != null;
   pyproj = {
     project = {
       inherit name;
       version = args.version or "0.0.1";
-      scripts.${name} = "run:run";
+      scripts.${name} = "${moduleName}:run";
     };
     build-system = {
       requires = [ "hatchling" ];
       build-backend = "hatchling.build";
     };
-    tool.hatch.build.targets.wheel.include = [
-      "source.py"
-      "run.py"
-    ]
-    ++ lib.optional hasData "nixdata.py";
+    tool.hatch.build.targets.wheel.include = [ moduleName ];
     tool.pyright = {
       inherit typeCheckingMode;
       reportWildcardImportFromLibrary = false;
@@ -62,10 +61,9 @@ let
       writeText "${name}-source-file.py" src
     else
       throw "invalid type for src";
-  isStringish = x: (vaculib.isStringish x) || (lib.isDerivation x);
   pythonTypeOf =
     x:
-    if isStringish x then
+    if vaculib.isStringish x then
       "str"
     else if builtins.isBool x then
       "bool"
@@ -107,7 +105,7 @@ let
     ];
   toPythonExpr =
     x:
-    if isStringish x then
+    if vaculib.isStringish x then
       escapePythonStr x
     else if builtins.isBool x then
       (if x then "True" else "False")
@@ -142,11 +140,19 @@ let
   dataText = dataImportText + "\n\n" + dataMainText;
   dataFile = writeText "${name}-nixdata.py" dataText;
 
-  nixdataPkg = runCommand "nixdata-for-${name}" { } ''
+  nixdataPkg = python3Packages.toPythonModule (runCommand "nixdata-for-${name}" {
+    nativeBuildInputs = [ python3Packages.python ];
+  } ''
     declare outDir="$out/"${lib.escapeShellArg python3Packages.python.sitePackages}"/nixdata"
     mkdir -p "$outDir"
     cp -T -- ${dataFile} "$outDir/__init__.py"
     touch "$outDir/py.typed"
+    python -m compileall -q --invalidation-mode unchecked-hash "$outDir"
+  '');
+
+  initFile = writeText "makeVacuPythonScript-init.py" ''
+    def run():
+      from . import vacuPythonScript__source # pyright: ignore[reportUnusedImport]
   '';
 in
 buildPythonApplication (
@@ -157,10 +163,11 @@ buildPythonApplication (
     pyproject = true;
 
     src = runCommand "${name}-src" { } ''
-      mkdir -p $out
-      ln -s ${pyproj_toml} $out/pyproject.toml
-      ln -s ${sourceFile} $out/source.py
-      printf "def run():\n\timport source # pyright: ignore[reportUnusedImport]" > $out/run.py
+      declare moduleDir="$out/"${lib.escapeShellArg moduleName}
+      mkdir -p "$moduleDir"
+      cp -T ${pyproj_toml} $out/pyproject.toml
+      cp -T ${sourceFile} "$moduleDir/vacuPythonScript__source.py"
+      cp -T ${initFile} "$moduleDir/__init__.py"
     '';
 
     build-system = [ hatchling ];
