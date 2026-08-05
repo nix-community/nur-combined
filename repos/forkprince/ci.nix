@@ -1,56 +1,58 @@
-{pkgs ? import <nixpkgs> {}, skipPkgs ? "[]"}:
-let
+{
+  pkgs ? import <nixpkgs> {},
+  skipPkgs ? "[]",
+}: let
   skipList = builtins.fromJSON skipPkgs;
 in
-with builtins; let
-  isReserved = n: n == "lib" || n == "overlays" || n == "modules";
-  isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
-  isBuildable = p: let
-    licenseFromMeta = p.meta.license or [];
-    licenseList =
-      if builtins.isList licenseFromMeta
-      then licenseFromMeta
-      else [licenseFromMeta];
-    supportedPlatforms = p.meta.platforms or [];
-    currentSystem = pkgs.stdenv.hostPlatform.system;
-  in
-    !(p.meta.broken or false)
-    && builtins.all (license: license.free or true) licenseList
-    && (supportedPlatforms == [] || builtins.any (platform: platform == currentSystem) supportedPlatforms);
-  isCacheable = p: !(p.preferLocalBuild or false);
-  shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
+  with builtins; let
+    isReserved = n: n == "lib" || n == "overlays" || n == "modules";
+    isDerivation = p: isAttrs p && p ? type && p.type == "derivation";
+    isBuildable = p: let
+      licenseFromMeta = p.meta.license or [];
+      licenseList =
+        if builtins.isList licenseFromMeta
+        then licenseFromMeta
+        else [licenseFromMeta];
+      supportedPlatforms = p.meta.platforms or [];
+      currentSystem = pkgs.stdenv.hostPlatform.system;
+    in
+      !(p.meta.broken or false)
+      && builtins.all (license: license.free or true) licenseList
+      && (supportedPlatforms == [] || builtins.any (platform: platform == currentSystem) supportedPlatforms);
+    isCacheable = p: !(p.preferLocalBuild or false);
+    shouldRecurseForDerivations = p: isAttrs p && p.recurseForDerivations or false;
 
-  nameValuePair = n: v: {
-    name = n;
-    value = v;
-  };
+    nameValuePair = n: v: {
+      name = n;
+      value = v;
+    };
 
-  concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
+    concatMap = builtins.concatMap or (f: xs: concatLists (map f xs));
 
-  flattenPkgs = s: let
-    f = p:
-      if shouldRecurseForDerivations p
-      then flattenPkgs p
-      else if isDerivation p
-      then [p]
-      else [];
-  in
-    concatMap f (attrValues s);
+    flattenPkgs = s: let
+      f = p:
+        if shouldRecurseForDerivations p
+        then flattenPkgs p
+        else if isDerivation p
+        then [p]
+        else [];
+    in
+      concatMap f (attrValues s);
 
-  outputsOf = p: map (o: p.${o}) p.outputs;
+    outputsOf = p: map (o: p.${o}) p.outputs;
 
-  nurAttrs = import ./default.nix {pkgs = import <nixpkgs> {config.allowUnfree = true;};};
+    nurAttrs = import ./default.nix {pkgs = import <nixpkgs> {config.allowUnfree = true;};};
 
-  nurPkgs =
-    flattenPkgs
-    (listToAttrs
-      (map (n: nameValuePair n nurAttrs.${n})
-        (filter (n: !isReserved n && !(builtins.elem n skipList))
-          (attrNames nurAttrs))));
-in rec {
-  buildPkgs = filter isBuildable nurPkgs;
-  cachePkgs = filter isCacheable buildPkgs;
+    nurPkgs =
+      flattenPkgs
+      (listToAttrs
+        (map (n: nameValuePair n nurAttrs.${n})
+          (filter (n: !isReserved n && !(builtins.elem n skipList))
+            (attrNames nurAttrs))));
+  in rec {
+    buildPkgs = filter isBuildable nurPkgs;
+    cachePkgs = filter isCacheable buildPkgs;
 
-  buildOutputs = concatMap outputsOf buildPkgs;
-  cacheOutputs = concatMap outputsOf cachePkgs;
-}
+    buildOutputs = concatMap outputsOf buildPkgs;
+    cacheOutputs = concatMap outputsOf cachePkgs;
+  }

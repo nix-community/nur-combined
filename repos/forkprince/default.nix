@@ -15,6 +15,7 @@
   ab-download-manager = lib.callPackage ./pkgs/abdm {};
   osu-tachyon = lib.callPackage ./pkgs/osu-tachyon {};
   moonplayer = lib.callPackage ./pkgs/moonplayer {};
+  noisetorch = lib.callPackage ./pkgs/noisetorch {};
   equicord = lib.callPackage ./pkgs/equicord {};
   wg-nord = lib.callPackage ./pkgs/wg-nord {};
   sonixd = lib.callPackage ./pkgs/sonixd {};
