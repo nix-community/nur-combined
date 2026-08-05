@@ -33,7 +33,7 @@ nix run .#update -- --list
 
 The updater is written in [Amber](./maintainers/update.ab) and invokes
 `nix-update` with GitHub Releases discovery, build validation, and formatting
-enabled. The default update set uses `meatshell-x86_64-bin` and
-`nyaterm-x86_64-bin` to avoid rebuilding their slower source packages.
+enabled. The default update set uses `meatshell-x86_64-linux-bin` and
+`nyaterm-x86_64-linux-bin` to avoid rebuilding their slower source packages.
 `cangjie` is built from the upstream source repositories, while the previous
 vendor binary package remains available as `cangjie-bin`.

@@ -1,19 +1,28 @@
 // 2> /dev/null; exit 1
 
-let default_packages = [
-    "amber-lsp",
-    "code996",
-    "dnspick",
-    "ghost-downloader-3",
-    "ipgw",
-    "meatshell-x86_64-bin",
-    "nyaterm-x86_64-bin",
-    "quien",
-    "uipro-cli",
-]
-
 main (args) {
+    const system = $ nix eval --raw --impure --expr builtins.currentSystem $?
     let packages = [Text]
+    let default_packages = [
+        "amber-lsp",
+        "code996",
+        "dnspick",
+        "ghost-downloader-3",
+        "ipgw",
+        "quien",
+        "uipro-cli",
+    ]
+    const system_binary_package_names = [
+        "meatshell",
+        "nyaterm",
+    ]
+
+    for package_name in system_binary_package_names {
+        const package = "{package_name}-{system}-bin"
+        $ test -f "pkgs/{package_name}/{system}-bin.nix" $ succeeded {
+            default_packages += [package]
+        }
+    }
 
     if len(args) == 1 {
         echo("Usage: nur-packages-update <package>...")

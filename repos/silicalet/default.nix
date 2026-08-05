@@ -15,6 +15,17 @@
   pkgs ? import <nixpkgs> { },
 }:
 
+let
+  system = pkgs.stdenv.hostPlatform.system;
+  systemBinaryPackage =
+    name:
+    let
+      packageFile = ./pkgs + "/${name}/${system}-bin.nix";
+    in
+    pkgs.lib.optionalAttrs (builtins.pathExists packageFile) {
+      "${name}-${system}-bin" = pkgs.callPackage packageFile { };
+    };
+in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
@@ -33,10 +44,10 @@
   ghost-downloader-3 = pkgs.callPackage ./pkgs/ghost-downloader-3 { };
   ipgw = pkgs.callPackage ./pkgs/ipgw { };
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
-  meatshell-x86_64-bin = pkgs.callPackage ./pkgs/meatshell/x86_64-bin.nix { };
   nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
-  nyaterm-x86_64-bin = pkgs.callPackage ./pkgs/nyaterm/x86_64-bin.nix { };
   quien = pkgs.callPackage ./pkgs/quien { };
   seekey = pkgs.callPackage ./pkgs/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };
 }
+// systemBinaryPackage "meatshell"
+// systemBinaryPackage "nyaterm"

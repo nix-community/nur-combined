@@ -52,8 +52,8 @@ jobs:
           - dnspick
           - ghost-downloader-3
           - ipgw
-          - meatshell-x86_64-bin
-          - nyaterm-x86_64-bin
+          - meatshell-x86_64-linux-bin
+          - nyaterm-x86_64-linux-bin
           - quien
           - seekey
           - uipro-cli
