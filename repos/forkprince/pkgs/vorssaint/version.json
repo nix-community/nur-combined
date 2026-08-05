@@ -7,9 +7,9 @@
     "tag_prefix": "v"
   },
   "asset": {
-    "file": "Vorssaint-3.2.0.dmg",
+    "file": "Vorssaint-{version}.dmg",
     "unpack": false
   },
-  "version": "3.2.0",
-  "hash": "sha256-pNW12sDHE10XpRJHdKZnSKHs9przozK5BwxU/a7dXfo="
+  "version": "3.3.0",
+  "hash": "sha256-1ssVPm5JSW99AdDiAHN2/3zn3DWYRrt9Tb4t5wnzO+4="
 }
