@@ -1,8 +1,8 @@
 diff --git a/Telegram/SourceFiles/data/components/sponsored_messages.cpp b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-index d2746ad9a..daa842747 100644
+index 4e68421..e21acbd 100644
 --- a/Telegram/SourceFiles/data/components/sponsored_messages.cpp
 +++ b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
-@@ -195,11 +195,6 @@ void SponsoredMessages::inject(
+@@ -239,11 +239,6 @@ void SponsoredMessages::inject(
  }
  
  bool SponsoredMessages::canHaveFor(not_null<History*> history) const {
@@ -10,6 +10,18 @@ index d2746ad9a..daa842747 100644
 -		return true;
 -	} else if (const auto user = history->peer->asUser()) {
 -		return user->isBot();
+-	}
+ 	return false;
+ }
+ 
+@@ -253,11 +248,6 @@ bool SponsoredMessages::canHaveFor(not_null<HistoryItem*> item) const {
+ }
+ 
+ bool SponsoredMessages::isTopBarFor(not_null<History*> history) const {
+-	if (peerIsUser(history->peer->id)) {
+-		if (const auto user = history->peer->asUser()) {
+-			return user->isBot();
+-		}
 -	}
  	return false;
  }

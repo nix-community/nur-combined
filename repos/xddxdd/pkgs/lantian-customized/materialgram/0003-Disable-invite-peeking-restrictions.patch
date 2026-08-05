@@ -1,8 +1,8 @@
 diff --git a/Telegram/SourceFiles/data/data_channel.cpp b/Telegram/SourceFiles/data/data_channel.cpp
-index dddc441..fdf9e81 100644
+index 4aee47b..92d3d34 100644
 --- a/Telegram/SourceFiles/data/data_channel.cpp
 +++ b/Telegram/SourceFiles/data/data_channel.cpp
-@@ -779,7 +779,7 @@ void ChannelData::clearInvitePeek() {
+@@ -1045,7 +1045,7 @@ void ChannelData::clearInvitePeek() {
  }
  
  TimeId ChannelData::invitePeekExpires() const {

@@ -6,21 +6,14 @@
 let
   unwrapped = materialgram.unwrapped.overrideAttrs (old: {
     # Patches obtained from https://github.com/Layerex/telegram-desktop-patches
+    # adapted to materialgram's fork of telegram-desktop.
     patches = (old.patches or [ ]) ++ [
-      ./disable-invite-peeking-restrictions.patch
-      ./disable-sponspored-messages.patch
-      ./disable-stories.patch
+      ./0001-Disable-sponsored-messages.patch
+      ./0002-Disable-saving-restrictions.patch
+      ./0003-Disable-invite-peeking-restrictions.patch
+      ./0004-Disable-accounts-limit.patch
+      ./0005-Option-to-disable-stories.patch
     ];
-
-    # Disable account limit
-    postPatch = (old.postPatch or "") + ''
-      sed -i -E \
-        "s/static constexpr auto kMaxAccounts =.*/static constexpr auto kMaxAccounts = 255;/g" \
-        Telegram/SourceFiles/main/main_domain.h
-      sed -i -E \
-        "s/static constexpr auto kPremiumMaxAccounts =.*/static constexpr auto kPremiumMaxAccounts = 255;/g" \
-        Telegram/SourceFiles/main/main_domain.h
-    '';
 
     meta = old.meta // {
       description = "${old.meta.description} (Without anti-features)";

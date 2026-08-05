@@ -1,0 +1,81 @@
+diff --git a/Telegram/SourceFiles/data/data_stories.cpp b/Telegram/SourceFiles/data/data_stories.cpp
+index 6744234..1d78f57 100644
+--- a/Telegram/SourceFiles/data/data_stories.cpp
++++ b/Telegram/SourceFiles/data/data_stories.cpp
+@@ -7,6 +7,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ */
+ #include "data/data_stories.h"
+ 
++#include "base/options.h"
+ #include "base/unixtime.h"
+ #include "apiwrap.h"
+ #include "core/application.h"
+@@ -144,6 +145,15 @@ bool RemoveUnsorted(std::vector<StoryId> &list, StoryId id) {
+ 
+ } // namespace
+ 
++const char kOptionDisableStories[] = "disable-stories";
++
++base::options::toggle DisableStories({
++	.id = kOptionDisableStories,
++	.name = "Disable stories",
++	.description = "",
++	.defaultValue = false,
++});
++
+ std::vector<StoryId> RespectingPinned(const StoriesIds &ids) {
+ 	if (ids.pinnedToTop.empty()) {
+ 		return ids.list;
+@@ -426,6 +436,9 @@ void Stories::clearArchive(not_null<PeerData*> peer) {
+ void Stories::parseAndApply(
+ 		const MTPPeerStories &stories,
+ 		ParseSource source) {
++	if (DisableStories.value()) {
++		return;
++	}
+ 	const auto &data = stories.data();
+ 	const auto peerId = peerFromMTP(data.vpeer());
+ 	const auto already = _readTill.find(peerId);
+@@ -711,6 +724,9 @@ void Stories::savedStateChanged(not_null<Story*> story) {
+ }
+ 
+ void Stories::loadMore(StorySourcesList list) {
++	if (DisableStories.value()) {
++		return;
++	}
+ 	const auto index = static_cast<int>(list);
+ 	if (_loadMoreRequestId[index] || _sourcesLoaded[index]) {
+ 		return;
+diff --git a/Telegram/SourceFiles/data/data_stories.h b/Telegram/SourceFiles/data/data_stories.h
+index e6648fa..5e019fc 100644
+--- a/Telegram/SourceFiles/data/data_stories.h
++++ b/Telegram/SourceFiles/data/data_stories.h
+@@ -38,6 +38,8 @@ class Story;
+ struct StoryAlbum;
+ class StoryPreload;
+ 
++extern const char kOptionDisableStories[];
++
+ struct StoriesIds {
+ 	std::vector<StoryId> list; // flat_set<int, greater> for saved/archive.
+ 	std::vector<StoryId> pinnedToTop;
+diff --git a/Telegram/SourceFiles/settings/settings_experimental.cpp b/Telegram/SourceFiles/settings/settings_experimental.cpp
+index 31315bd..6055d75 100644
+--- a/Telegram/SourceFiles/settings/settings_experimental.cpp
++++ b/Telegram/SourceFiles/settings/settings_experimental.cpp
+@@ -26,6 +26,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "core/launcher.h"
+ #include "core/sandbox.h"
+ #include "chat_helpers/tabbed_panel.h"
++#include "data/data_stories.h"
+ #include "dialogs/dialogs_widget.h"
+ #include "dialogs/ui/dialogs_layout.h"
+ #include "history/history_item_components.h"
+@@ -204,6 +205,7 @@ void SetupExperimental(
+ 			rpl::duplicate(reloadOptionsRequests));
+ 	};
+ 
++	addToggle(Data::kOptionDisableStories);
+ 	addToggle(ChatHelpers::kOptionTabbedPanelShowOnClick);
+ 	addToggle(Dialogs::kOptionForumHideChatsList);
+ 	addToggle(Dialogs::Ui::kOptionDialogsMuteIcon);
