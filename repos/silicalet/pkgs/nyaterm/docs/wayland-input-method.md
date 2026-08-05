@@ -3,7 +3,7 @@
 ## 适用范围
 
 本文记录上游 NyaTerm `v1.2.0` x86_64 AppImage 在
-`nyaterm-x86_64-linux-bin` 包中的已知问题。
+`nyaterm-bin` 包中的已知问题。
 
 该问题于 2026 年 8 月 5 日在使用 Fcitx5 的 Wayland 会话中完成调查。
 
@@ -49,7 +49,7 @@ XIM 和 Wayland 模块，但不包含 Fcitx5 GTK 模块（`im-fcitx5.so`）。�
 内置缓存包含 GTK 的 XIM 模块，因此在 Fcitx5 XIM 前端可用时，可以尝试：
 
 ```console
-GTK_IM_MODULE=xim nix run path:.#nyaterm-x86_64-linux-bin
+GTK_IM_MODULE=xim nix run path:.#nyaterm-bin
 ```
 
 该方法不会启用原生 Wayland，并且依赖正常工作的 XIM 服务，不能视为完整修复。

@@ -44,7 +44,7 @@ jobs:
     timeout-minutes: 330
     strategy:
       fail-fast: false
-      max-parallel: 3
+      max-parallel: 10
       matrix:
         package:
           - amber-lsp
@@ -52,8 +52,8 @@ jobs:
           - dnspick
           - ghost-downloader-3
           - ipgw
-          - meatshell-x86_64-linux-bin
-          - nyaterm-x86_64-linux-bin
+          - meatshell-bin
+          - nyaterm-bin
           - quien
           - seekey
           - uipro-cli
