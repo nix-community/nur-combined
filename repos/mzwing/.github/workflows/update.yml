@@ -75,6 +75,12 @@ jobs:
         EOF
 
         nix run .#update
+
+        # nix-update evaluates the crane-built Rust packages, which read
+        # their (just-bumped) sources at evaluation time. Realise the
+        # source FODs first or evaluation fails on this fresh store.
+        nix run .#realise-sources
+
         nix run .#update-hashes
 
         rm -f secrets.toml

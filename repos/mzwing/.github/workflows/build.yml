@@ -59,6 +59,11 @@ jobs:
         name: ${{ env.CACHE_NAME }}
         skipPush: true
 
+    - name: Realise package sources
+      # crane reads package sources at evaluation time, which fails on a
+      # fresh store unless the source FODs are realised first.
+      run: nix run .#realise-sources
+
     - name: Check flake evaluation
       run: nix flake check --all-systems --no-build --no-write-lock-file --show-trace
 
@@ -222,6 +227,12 @@ jobs:
         tags: tag:nur-ci-coordinator
         hostname: nur-c-${{ github.run_id }}-${{ github.run_attempt }}
         version: latest
+
+    - name: Realise package sources
+      if: needs.config.outputs.has_builds == 'true'
+      # crane reads package sources at evaluation time, which fails on a
+      # fresh store unless the source FODs are realised first.
+      run: nix run .#realise-sources
 
     - name: Configure remote builders
       if: needs.config.outputs.has_builds == 'true'
