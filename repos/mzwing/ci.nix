@@ -123,10 +123,13 @@ with builtins; let
       entry
       // {
         package = entry.package.overrideAttrs (old: {
-          # Exported in preBuild so it wins over any GOCACHE set by the
-          # nixpkgs Go setup hook.
-          preBuild =
-            (old.preBuild or "")
+          # This must go in postConfigure, not preBuild: buildGoModule's
+          # goModules FOD inherits preBuild (and would fail with world-
+          # writable output due to umask 000), while postConfigure is not
+          # inherited and still runs after configurePhase's default
+          # GOCACHE export, so our value wins.
+          postConfigure =
+            (old.postConfigure or "")
             + ''
               umask 000
               export GOCACHE=${compileCacheDir}/gocache
