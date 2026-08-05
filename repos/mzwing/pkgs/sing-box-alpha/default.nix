@@ -8,7 +8,7 @@ sing-box.overrideAttrs (_finalAttrs: previousAttrs: {
   version = lib.removePrefix "v" source.version;
   inherit (source) src;
 
-  vendorHash = "sha256-djkEuzNVT9MRFHm2F6O+wBqEZd5LXH0kdZqd2qSy8iQ=";
+  vendorHash = "sha256-QDRLNatY0PHhM1GGusK/SOlCAK1le9Bf3t3Ns8rPG0Q=";
 
   passthru = builtins.removeAttrs (previousAttrs.passthru or {}) ["updateScript"];
 

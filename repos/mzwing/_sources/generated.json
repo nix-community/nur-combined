@@ -97,12 +97,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "460cb9b01c9cf07bb38d1c3a0a81197086a649cc",
-            "sha256": "sha256-K0eWwG//eE8K3IQxl4viSd3z6hJu4swoi2quHUOJxwE=",
+            "rev": "7c3177b4046fb3fa721e07ad2f8e1787c379f369",
+            "sha256": "sha256-e8gjEgC5ZBrHigvm/b418FYaaBJJzCnguEq2uLTmuRg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "460cb9b01c9cf07bb38d1c3a0a81197086a649cc"
+        "version": "7c3177b4046fb3fa721e07ad2f8e1787c379f369"
     },
     "sing-box-alpha": {
         "cargoLock": null,
@@ -118,12 +118,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.5",
-            "sha256": "sha256-9s6C7F5LVGKkr65FIuUM32hkUbXUlC4MGINNSBdWykc=",
+            "rev": "v1.14.0-beta.7",
+            "sha256": "sha256-wLjezKTIVLbXsTgHQyaPyrOmoG8iPTKpapjHT7W1z+I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.5"
+        "version": "v1.14.0-beta.7"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -139,12 +139,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.5",
-            "sha256": "sha256-9s6C7F5LVGKkr65FIuUM32hkUbXUlC4MGINNSBdWykc=",
+            "rev": "v1.14.0-beta.7",
+            "sha256": "sha256-wLjezKTIVLbXsTgHQyaPyrOmoG8iPTKpapjHT7W1z+I=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.5"
+        "version": "v1.14.0-beta.7"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
