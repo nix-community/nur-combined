@@ -16,17 +16,17 @@
 
 rustPlatform.buildRustPackage (finallAttrs: {
   pname = "pantry";
-  version = "0.4.1-unstable-2026-07-09";
+  version = "0.4.2-unstable-2026-08-05";
 
   # https://github.com/lonerOrz/pantry
   src = fetchFromGitHub {
     owner = "lonerOrz";
     repo = "pantry";
-    rev = "7e9d4cee4fd42cd25afda3e10712df20af78a72b";
-    hash = "sha256-sKtpfCIhmt2HLM4RnP7fuvn9atl+4TxhwD4j67XmnaI=";
+    rev = "94813091cda705173406f1286b7b73c5d1300598";
+    hash = "sha256-EzxzPuTdqzn1MHRmFxDGV86junE+ew+n1w8KogIiT8o=";
   };
 
-  cargoHash = "sha256-YbtCgTuDx57OzETB/qFjIFhCJ+l7nv8h0iiBN56TjdU=";
+  cargoHash = "sha256-zhGSo8xl4RG4XizJRHazAGL1aCAFCxlytWg4AxuReNA=";
 
   nativeBuildInputs = [
     pkg-config
