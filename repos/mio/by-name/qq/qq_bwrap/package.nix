@@ -4,6 +4,8 @@
   qq,
   bubblewrap,
   flatpak-xdg-utils,
+  # GTK IM module for Electron-on-XWayland (Linux QQ's Wayland IME is unreliable).
+  fcitx5-gtk,
   iproute2,
   withMacFix ? true,
   # Overlay real XDG dirs into the sandbox for send-file / downloads.
@@ -52,24 +54,47 @@ stdenv.mkDerivation {
     fi
     EOF
 
-    # Source after electron_flags is declared. Wayland/Plasma+fcitx5: unset
-    # GTK/Qt IM_MODULE and use Electron text-input (KWin: v1). X11: fcitx/ibus
-    # modules like wechat. Override: QQ_IME_WORKAROUND=wayland|fcitx|ibus|x11|none.
+    # Source after electron_flags is declared.
+    # Linux QQ's Electron Wayland IME is unreliable (even when other apps + host
+    # fcitx5 are fine under NIXOS_OZONE_WL). Default fcitx → XWayland + GTK IM
+    # (community fix). Override: QQ_IME_WORKAROUND=wayland|fcitx|ibus|x11|none.
     cat << 'EOF' > $out/libexec/qq-setup-ime.sh
     #!/bin/bash
     _qq_flags_have() {
         printf '%s\0' "''${electron_flags[@]}" | grep -qz -- "$1"
     }
+    _qq_detect_im() {
+        case "''${XMODIFIERS}" in
+            *@im=fcitx*) printf fcitx; return ;;
+            *@im=ibus*) printf ibus; return ;;
+        esac
+        case "''${GTK_IM_MODULE}:''${QT_IM_MODULE}" in
+            *fcitx*) printf fcitx; return ;;
+            *ibus*) printf ibus; return ;;
+        esac
+        printf none
+    }
     if [ -z "''${QQ_IME_WORKAROUND}" ] || [ "''${QQ_IME_WORKAROUND}" = auto ]; then
-        if [ -n "''${WAYLAND_DISPLAY}" ]; then
-            QQ_IME_WORKAROUND=wayland
-        else
-            case "''${XMODIFIERS}" in
-                *@im=fcitx*) QQ_IME_WORKAROUND=fcitx ;;
-                *@im=ibus*) QQ_IME_WORKAROUND=ibus ;;
-                *) QQ_IME_WORKAROUND=none ;;
-            esac
-        fi
+        case "$(_qq_detect_im)" in
+            fcitx)
+                # Prefer XWayland over native Wayland text-input for this app.
+                QQ_IME_WORKAROUND=x11
+                ;;
+            ibus)
+                if [ -n "''${WAYLAND_DISPLAY}" ]; then
+                    QQ_IME_WORKAROUND=wayland
+                else
+                    QQ_IME_WORKAROUND=ibus
+                fi
+                ;;
+            *)
+                if [ -n "''${WAYLAND_DISPLAY}" ]; then
+                    QQ_IME_WORKAROUND=wayland
+                else
+                    QQ_IME_WORKAROUND=none
+                fi
+                ;;
+        esac
     fi
     case "''${QQ_IME_WORKAROUND}" in
         wayland)
@@ -95,18 +120,26 @@ stdenv.mkDerivation {
             ;;
         fcitx)
             export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
+            export XMODIFIERS="''${XMODIFIERS:-@im=fcitx}"
+            export GTK_PATH="@fcitx5Gtk@/lib/gtk-3.0''${GTK_PATH:+:$GTK_PATH}"
             unset IBUS_USE_PORTAL 2>/dev/null || true
             ;;
         ibus)
             export QT_IM_MODULE=ibus GTK_IM_MODULE=ibus IBUS_USE_PORTAL=1
             ;;
         x11)
+            # Drop NIXOS_OZONE_WL so nixpkgs qq wrapper does not inject Wayland
+            # ozone/IME flags ahead of --ozone-platform=x11.
+            unset NIXOS_OZONE_WL IBUS_USE_PORTAL 2>/dev/null || true
             export QT_IM_MODULE=fcitx GTK_IM_MODULE=fcitx
-            unset IBUS_USE_PORTAL 2>/dev/null || true
+            export SDL_IM_MODULE=fcitx
+            export XMODIFIERS="''${XMODIFIERS:-@im=fcitx}"
+            export ELECTRON_OZONE_PLATFORM_HINT=x11
+            export GTK_PATH="@fcitx5Gtk@/lib/gtk-3.0''${GTK_PATH:+:$GTK_PATH}"
             electron_flags+=(--ozone-platform=x11)
             ;;
     esac
-    unset -f _qq_flags_have
+    unset -f _qq_flags_have _qq_detect_im
     EOF
 
     # Source after HOME is known. Fills QQ_USER_DIR_BINDS for bwrap
@@ -483,6 +516,8 @@ stdenv.mkDerivation {
     # Quoted heredocs leave $out / bind flags literal; bake real values in.
     substituteInPlace $out/bin/qq $out/libexec/qq_normal ${lib.optionalString withMacFix "$out/libexec/qq_mac_fix"} \
       --replace-fail '@out@' "$out"
+    substituteInPlace $out/libexec/qq-setup-ime.sh \
+      --replace-fail '@fcitx5Gtk@' '${fcitx5-gtk}'
     substituteInPlace $out/libexec/qq-setup-user-dirs.sh \
       --replace-fail '@bindDownloads@' '${if bindDownloads then "1" else "0"}' \
       --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
