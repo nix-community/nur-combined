@@ -1,7 +1,10 @@
 {pkgs}: let
   script = pkgs.writeShellApplication {
     name = "realise-sources";
-    runtimeInputs = [pkgs.nix];
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.nix
+    ];
     # The nix expressions are intentionally single-quoted so the shell does
     # not expand them.
     excludeShellChecks = ["SC2016"];
@@ -14,8 +17,12 @@
 
       # Fetch the source FOD outputs. They are platform-independent, so
       # fetching them for the host system makes them available to every
-      # supported system.
-      nix build --impure --no-link --print-build-logs --expr '
+      # supported system. --max-jobs is given explicitly so this also
+      # works on hosts configured with `max-jobs = 0` (e.g. the build
+      # coordinator, which delegates all real builds to remote builders;
+      # these fetches are small downloads).
+      nix build --impure --no-link --print-build-logs \
+        --max-jobs "$(nproc)" --expr '
         let
           flake = builtins.getFlake ("path:" + builtins.getEnv "PWD");
           pkgs = flake.inputs.nixpkgs.legacyPackages.''${builtins.currentSystem};
