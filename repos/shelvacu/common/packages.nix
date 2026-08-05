@@ -52,6 +52,7 @@ in
       ruby.package = lib.mkOverride 900 pkgs.ruby_3_4;
       wine.package = winePkgs.waylandFull;
       wine-fonts.package = winePkgs.fonts;
+      with-nix-config.enable = lib.mkIf (vacuModuleType == "nix-on-droid") (lib.mkForce false); # temp workaround until this is fixed https://git.uninsane.org/shelvacu/nix-stuff/issues/4
       vacu-units.package = config.vacu.units.finalPackage;
     }
     {
@@ -103,7 +104,7 @@ in
         arduino-ide
         audacity
         beatblock-cursor
-        # bitwarden-desktop # using EOL electron ugh
+        bitwarden-desktop
         brave
         calibre
         dino

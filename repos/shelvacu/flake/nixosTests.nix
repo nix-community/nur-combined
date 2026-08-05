@@ -14,6 +14,9 @@ let
     caddy-kanidm = {
       isExistingHost = false;
     };
+    qemu-vm = {
+      isExistingHost = false;
+    };
   };
 in
 {

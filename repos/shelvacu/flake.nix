@@ -229,6 +229,8 @@
 
               # TODO: replace with sth else
               "opendkim-2.11.0-Beta2"
+
+              "electron-39.8.10"
             ];
           }
           // (argAttr.config or { });

@@ -127,4 +127,14 @@ in
     fsType = "btrfs";
     options = [ "subvol=nix" ] ++ btrfsOpts;
   };
+
+  # VM rootfs subvolumes live here; must be created manually before first use:
+  #   mount /btr-root-in-here/rw
+  #   btrfs subvolume create /btr-root-in-here/rw/vms
+  #   umount /btr-root-in-here/rw
+  fileSystems."/vms" = {
+    device = btrfsDevice;
+    fsType = "btrfs";
+    options = [ "subvol=vms" "nofail" ] ++ btrfsOpts;
+  };
 }

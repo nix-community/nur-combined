@@ -74,9 +74,9 @@
     #personal hosts
     # keep-sorted start block=yes
     agent = {
-      altNames = [ "agent-vm" ];
-      primaryIp = "10.78.79.143";
-      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMyvGNQK0UNh7JeFGBkwtUi0kykrELWru2WePqxAEAsb";
+      altNames = [ "agent-vm" "vacu-agent-vm" ];
+      primaryIp = "10.78.77.2";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpQF6K3Zqxc0vlEgrJWCEkcIpWkBbR6ks6TA3Q5lc6B";
     };
     awoo = {
       primaryIp = "45.142.157.71";
@@ -144,6 +144,10 @@
       wireguardKey = "shel/wMBU/Ut2rhAZymW/AYG3ycGfaEN6R2LsEpkqDU=";
       ssh.aliases = [ "prop" ];
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPmy1+1CL6mLbp0IfRTLwsVdjKmw5u0kbQqHin8oXMq";
+    };
+    quasar2 = {
+      primaryIp = "10.78.77.3";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJGciplj0+lsCNweAmLWObgliF3iATaGSAaSpLUJ5eN2";
     };
     ripper = {
       altNames = [ "rip" ];

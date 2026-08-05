@@ -68,6 +68,11 @@ in
       "vnopn.shelvacu-static"
       "vnopn.t2d.lan.shelvacu-static"
     ];
+    "10.78.77.2" = [
+      "agent"
+      "agent-vm"
+      "vacu-agent-vm"
+    ];
     "10.78.79.11" = [
       "mmm"
       "mmm.shelvacu-static"

@@ -60,6 +60,16 @@ in
         vacu.hsts = false;
         extraConfig = ''respond / "74358228 is awesome"'';
       };
+      "consortium.chat" = {
+        vacu.hsts = false;
+        serverAliases = [
+          "matrix.consortium.chat"
+          "admin.consortium.chat"
+        ];
+        extraConfig = ''
+          reverse_proxy http://${config.vacu.qemuVMs.quasar2.address}:80
+        '';
+      };
       "for.miras.pet" = {
         vacu.hsts = false;
         serverAliases = [

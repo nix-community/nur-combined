@@ -1,21 +1,24 @@
-{ vaculib, ... }: {
-  imports = vaculib.directoryGrabberList ./.;
+{ lib, config, vaculib, vacuModules, ... }:
+{
+  imports = [
+    vacuModules.vacuvmGuest
+  ] ++ vaculib.directoryGrabberList ./.;
 
   vacu.hostName = "vacu-agent-vm";
-  vacu.systemKind = "minimal";
 
   services.openssh.enable = true;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  networking.networkmanager.enable = true;
-
   users.users.agent = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
+    openssh.authorizedKeys.keys = lib.attrValues config.vacu.ssh.authorizedKeys;
   };
 
   system.stateVersion = "25.11";
+
+  vacuvmGuest.ip = "10.78.77.2";
 
   networking.firewall.allowedUDPPorts = [
     137

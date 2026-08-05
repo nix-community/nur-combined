@@ -33,6 +33,7 @@ let
       "declarative-jellyfin"
       "nix-minecraft"
     ];
+    quasar2.inp = [ "sops-nix" ];
     ripper = { };
     shel-installer-iso = {
       module = /${vacuRoot}/hosts/installer/iso.nix;
