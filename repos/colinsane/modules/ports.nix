@@ -6,6 +6,7 @@ let
     options = {
       protocol = mkOption {
         type = types.listOf (types.enum [ "udp" "tcp" ]);
+        apply = lib.unique;
       };
       visibleTo.lan = mkOption {
         type = types.bool;

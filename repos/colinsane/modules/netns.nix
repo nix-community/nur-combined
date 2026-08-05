@@ -53,6 +53,16 @@ let
         type = types.str;
       };
 
+      mtu = mkOption {
+        # Maximum Transmission Unit for payloads sent over the wg tunnel.
+        # wg defaults to 1420. discover the real MTU with (from inside the netns):
+        #   ping -M do -s 1364 -c 2 1.1.1.1  # adjust 1364 up/down until traffic is lost
+        #   # then add 28 to the ping value, for IPv4 header + ICMP
+        # XXX(2026-08-05): wg-doof seems to require 1392 now. The tunnel's peer is IPv6 now -- maybe that's related?
+        type = types.int;
+        default = 1392;
+      };
+
       services = mkOption {
         type = types.listOf types.str;
         default = [];
@@ -130,6 +140,9 @@ let
         ${ip} link set ${name}-veth-b netns ${name} || echo "${name}-veth-b was already moved into its netns"
         ${in-ns} ${ip} addr add ${veth.netns.ipv4}/24 dev ${name}-veth-b || echo "${name}-veth-b aleady has IP address"
         ${in-ns} ${ip} link set ${name}-veth-b up
+
+        ${ip} link set dev ${name}-veth-a mtu ${toString mtu}
+        ${in-ns} ${ip} link set dev ${name}-veth-b mtu ${toString mtu}
 
         # make it so traffic originating from the host side of the veth
         # is sent over the veth no matter its destination (well, unless it's to another interface that exists on the host).
@@ -227,6 +240,7 @@ let
 
         ${ip} link set wg-${name} netns ${name}
 
+        ${in-ns} ${ip} link set dev wg-${name} mtu ${toString mtu}
         ${in-ns} ${wg'} set wg-${name} private-key ${wg.privateKeyFile}
         ${in-ns} ${ip} address add ${wg.address.ipv4} dev wg-${name}
         ${in-ns} ${ip} link set up dev wg-${name}

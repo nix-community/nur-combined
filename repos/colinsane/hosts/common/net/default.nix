@@ -24,6 +24,7 @@
   #   that heuristic fails for complicated VPN-style routing, especially with SNAT.
   # networking.firewall.checkReversePath = false;  # or "loose" to keep it partially.
   # networking.firewall.enable = false;  #< set false to debug
+  # networking.firewall.backend = "nftables";
 
   # this is needed to forward packets from the VPN to the host.
   # this is required separately by servo and by any `sane-vpn` users,

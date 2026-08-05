@@ -41,10 +41,14 @@ check() {
   else
     printf "checking %s... " "$label"
   fi
+  local runner=(runLocal)
+  if [[ "$1" == "runOnHost" ]]; then
+    runner=()
+  fi
   if [ "$verbose" -ge 2 ]; then
-    "$@"
+    "${runner[@]}" "$@"
   else
-    "$@" > /dev/null
+    "${runner[@]}" "$@" > /dev/null
   fi
   local rc=$?
   if [ $rc -ne 0 ]; then
@@ -57,13 +61,19 @@ check() {
   return $rc
 }
 
+runLocal() {
+  # TODO: can't use timeout if the "command" we're going to run is a shell function...
+  # timeout 8 "$@"
+  "$@"
+}
+
 runOnHost() {
   local host="$1"
   shift
   if [ "$host" = "$(hostname)" ]; then
-    "$@"
+    runLocal "$@"
   else
-    ssh "$host-hn" "$@"
+    runLocal ssh "$host-hn" "$@"
   fi
 }
 
@@ -85,6 +95,11 @@ check "[DOOF] uninsane.org. DNS" nslookup uninsane.org. "$DOOF_IPV4"
 # check "[OVPNS] uninsane.org. DNS" nslookup uninsane.org. "$OVPNS_IPV4"
 check "[FROM-OVPN] uninsane.org. DNS" sane-vpn do ovpnd-us -- nslookup uninsane.org.
 
+
+# N.B.: intermediary DNS servers might not understand tcp -> dig directly at uninsane.org's NS
+check "uninsane.org. DNS [tcp]" dig +tcp "@$DOOF_IPV4" uninsane.org.
+check "[FROM-OVPN] uninsane.org. DNS [tcp]" sane-vpn do ovpnd-us -- dig +tcp "@$DOOF_IPV4" uninsane.org.
+
 check "uninsane.org. SSH" ssh -o HostKeyAlias=servo uninsane.org. true
 check "[FROM-OVPN] uninsane.org. SSH" sane-vpn do ovpnd-us -- ssh -o HostKeyAlias=servo uninsane.org. true
 
@@ -96,7 +111,7 @@ check "https://fed.uninsane.org online" curl --silent --fail-with-body https://f
 check "http://uninsane.org online" curl --silent --fail-with-body http://uninsane.org
 check "[OVPNS] http://uninsane.org online" curl "--connect-to" "uninsane.org:80:$OVPNS_IPV4:80" --silent --fail-with-body http://uninsane.org
 check "[DOOF] http://uninsane.org online" curl "--connect-to" "uninsane.org:80:$DOOF_IPV4:80" --silent --fail-with-body http://uninsane.org
-check "[FROM-OVPN] uninsane.org. DNS" sane-vpn do ovpnd-us -- curl --silent --fail-with-body http://uninsane.org
+check "[FROM-OVPN] uninsane.org. online" sane-vpn do ovpnd-us -- curl --silent --fail-with-body http://uninsane.org
 
 # port 443 is accessible over doofnet
 check "[DOOF] https://uninsane.org online" curl "--connect-to" "uninsane.org:443:$DOOF_IPV4:443" --silent --fail-with-body https://uninsane.org
@@ -119,7 +134,9 @@ check "git.uninsane.org" git ls-remote https://git.uninsane.org/colin/nix-files.
 check "ftp://servo" curl --silent ftp://servo/.public_for_test/test
 check "ftp://servo-hn" curl --silent ftp://servo-hn/.public_for_test/test
 check "ftps://ftp.uninsane.org" curl --silent ftps://ftp.uninsane.org/.public_for_test/test
+# TODO: this port redirection is wrong?
 check "[DOOF] ftps://ftp.uninsane.org" curl "--connect-to" "ftp.uninsane.org:80:$DOOF_IPV4:80" --silent ftps://ftp.uninsane.org/.public_for_test/test
+check "[FROM-OVPN] ftps://ftp.uninsane.org" sane-vpn do ovpnd-us -- curl --silent ftps://ftp.uninsane.org/.public_for_test/test
 
 check "bitcoind is responsive" runOnHost servo bitcoin-cli echo ping
 _bitcoindSynchronized() {
