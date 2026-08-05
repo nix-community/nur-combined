@@ -3,13 +3,16 @@
   buildNpmPackage,
   fetchFromGitHub,
   electron,
+  electron_43 ? electron,
   makeWrapper,
   python3,
   makeDesktopItem,
   copyDesktopItems,
   lib,
 }:
-
+let
+  electron = electron_43;
+in
 buildNpmPackage (finalAttrs: {
   pname = "vieb";
   version = "12.10.0";
