@@ -2,6 +2,9 @@
   script = pkgs.writeShellApplication {
     name = "realise-sources";
     runtimeInputs = [pkgs.nix];
+    # The nix expression is intentionally single-quoted so the shell does
+    # not expand it.
+    excludeShellChecks = ["SC2016"];
     text = ''
       # crane parses Cargo.lock and crawls package sources at evaluation
       # time, which realises the source FODs' context. On a fresh store a
