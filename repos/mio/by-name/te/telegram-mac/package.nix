@@ -32,7 +32,9 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "telegram-mac";
-  version = "10.14"; # Update to the latest desired version
+  # Latest published GitHub source is the `release` branch tip (no Release tags).
+  # Official DMGs may be newer; upstream MARKETING_VERSION here is 11.15.
+  version = "11.15";
 
   ffmpegSrc = fetchzip {
     url = "https://ffmpeg.org/releases/ffmpeg-7.1.tar.xz";
@@ -43,7 +45,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     name = "telegram-mac-source";
     outputHashMode = "recursive";
     outputHashAlgo = "sha256";
-    outputHash = "sha256-hp1cI+6dbAWrgfgq5nNUScyDDe48E8k7GmaGWxyTCvM="; # Will need to be updated after first run
+    outputHash = "sha256-jBDhtqNNN0/m5C3fmtAmiLG0dAPMU5uf9yn0IkpfqRk=";
 
     nativeBuildInputs = [
       git
@@ -57,7 +59,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
       git clone https://github.com/overtake/TelegramSwift.git $out
       cd $out
-      git checkout 579cebbf0c01fd41b712eff3647fa7f69db9665d
+      git checkout 76ff8e4219452df317cd19e4df69b9e394dd5a87
+
+      # The release branch pins private upstream remotes; use public mirrors that
+      # contain the same commits (TelegramMessenger tag release-11.14 / overtake fork).
+      substituteInPlace .gitmodules \
+        --replace-fail 'git@gitlab.com:peter-iakovlev/telegram-ios.git' 'https://github.com/TelegramMessenger/Telegram-iOS.git' \
+        --replace-fail 'git@github.com:john-preston/tgcalls.git' 'https://github.com/overtake/tgcalls.git'
+
       git submodule update --init --recursive
       rm -rf .git
     '';
