@@ -165,10 +165,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.6.7";
+    version = "1.6.8";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.7.tar.gz";
-      hash = "sha256-20MQFJ/0qjq/624bfJ7JS5s+24EFDiUYxsInrB7hv6E=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.8.tar.gz";
+      hash = "sha256-M5t0ZyU4TVYJSr5gxF9lrcs3c7SqZJWokcqBZd1i4Pc=";
     };
   };
   bilibili = {
@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.118";
+    version = "v7.2.120";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.118";
-      hash = "sha256-kuq9uBlv9VXR/kQ1+9e2sfwWmNsZFUXc9JVyjkKacOM=";
+      tag = "v7.2.120";
+      hash = "sha256-4B/M1VKVvKPy9TVyCgOPfP1lQASscVT784q4chL8nWE=";
     };
   };
   cockpy = {
@@ -618,12 +618,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.13";
+    version = "v0.2.15";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.13";
-      hash = "sha256-51XeKDNfeWU7W4QSerZVsdQSomC2ClnA/xs+fjZdec0=";
+      tag = "v0.2.15";
+      hash = "sha256-egcyAs9hncN8dkTxBCUl9dtsQ/DmoQ8eQ6+KMRHIg5c=";
     };
   };
   edge-tts = {
@@ -822,14 +822,14 @@
   };
   funasr = {
     pname = "funasr";
-    version = "6829ba7845052bf75e998ba9257552b0c8c2d510";
+    version = "680b1b3f10d35c9fc388230800a3c8b0570271b0";
     src = fetchFromGitHub {
       owner = "modelscope";
       repo = "FunASR";
-      rev = "6829ba7845052bf75e998ba9257552b0c8c2d510";
-      hash = "sha256-PDyCKxykgNU2mqoPQ2+ktthB6157detZivXhA0pFceM=";
+      rev = "680b1b3f10d35c9fc388230800a3c8b0570271b0";
+      hash = "sha256-KlcB1lOaDv5etvzN3D+6h84ipx7P7BuYUdGJUXNkJGg=";
     };
-    date = "2026-08-04";
+    date = "2026-08-05";
   };
   geolite2-asn = {
     pname = "geolite2-asn";
@@ -913,12 +913,12 @@
   };
   grok-search-rs = {
     pname = "grok-search-rs";
-    version = "v0.1.23";
+    version = "v0.1.24";
     src = fetchFromGitHub {
       owner = "Episkey-G";
       repo = "GrokSearch-rs";
-      tag = "v0.1.23";
-      hash = "sha256-/iE5j2TKDYskOpwjM5EsJQa/XklryDpMQ+Crs4+2vTI=";
+      tag = "v0.1.24";
+      hash = "sha256-RbGspj/jQ/Z5VwUFFKegfJsRJn4AZcTQjczPngbDuUw=";
     };
   };
   gwmp-mux = {
@@ -2144,23 +2144,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "ae8d2fdc27774e3cf36d419309547eae34d3640c";
+    version = "f8ee3c11852b8babb4f61e8e46cc6d3347dd4303";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "ae8d2fdc27774e3cf36d419309547eae34d3640c";
-      hash = "sha256-r24nDPY3zntzfIbg1MRnLr6BUhRBNBdDdPnu+WCnv0A=";
+      rev = "f8ee3c11852b8babb4f61e8e46cc6d3347dd4303";
+      hash = "sha256-i3UC9ZZVihvijEnBGJgMAiryuEecZMLSIY73moIRyCA=";
     };
-    date = "2026-08-03";
+    date = "2026-08-05";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr13.5.1.24";
+    version = "mr13.5.1.25";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr13.5.1.24";
-      hash = "sha256-k/rI5uvnRvAGtDErPABc+iKIkbcNxWKt3zfDHWk7ED8=";
+      tag = "mr13.5.1.25";
+      hash = "sha256-YaRLoors0agCpMdv8ZVUphhnGeS61Azk3QlAx8kVDFo=";
     };
   };
   runpod = {
@@ -2175,12 +2175,12 @@
   };
   runpodctl = {
     pname = "runpodctl";
-    version = "v2.8.1";
+    version = "v2.9.0";
     src = fetchFromGitHub {
       owner = "runpod";
       repo = "runpodctl";
-      tag = "v2.8.1";
-      hash = "sha256-3l0j5CuBT9XfX9LX5zktNMlvTo82reA9f2QlALLm/r8=";
+      tag = "v2.9.0";
+      hash = "sha256-0QMDJ7xdVfm3kPYgJcNgyyInSY8UWbbzQI0bT69x1us=";
     };
   };
   sam-toki-mouse-cursors = {
@@ -2403,15 +2403,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "b90eb5b2d2a470d427b5e3a195f32e39a11b66e3";
+    version = "423e8d078bad8f9fb46fb27ee16bd9ba5bf207b2";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "b90eb5b2d2a470d427b5e3a195f32e39a11b66e3";
+      rev = "423e8d078bad8f9fb46fb27ee16bd9ba5bf207b2";
       fetchSubmodules = true;
-      hash = "sha256-7zVl7g69gHj5wooNMm79kYnVpRkCfn36q9qnchbI/YE=";
+      hash = "sha256-i8y547BSHy9e1nUAEiZnQ+TYwhhmjAy5pzD6El7EAfs=";
     };
-    date = "2026-07-28";
+    date = "2026-08-05";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2485,15 +2485,15 @@
   };
   vk-hdr-layer = {
     pname = "vk-hdr-layer";
-    version = "57b26b8927b133566be13a7702f74a62109bad15";
+    version = "8ec9b54d21f7474a9c406cf7366598a298d145f7";
     src = fetchFromGitHub {
       owner = "Zamundaaa";
       repo = "VK_hdr_layer";
-      rev = "57b26b8927b133566be13a7702f74a62109bad15";
+      rev = "8ec9b54d21f7474a9c406cf7366598a298d145f7";
       fetchSubmodules = true;
-      hash = "sha256-E1j3s6Ie8jLY5CFaNoOs/ffbUGloK0ZUC5vLwjwsrZw=";
+      hash = "sha256-gD+BOfM/2QN0UxhlVZNgsHCgIJkGZppHfM1ONsnMe2U=";
     };
-    date = "2026-03-25";
+    date = "2026-08-05";
   };
   vlmcsd = {
     pname = "vlmcsd";
