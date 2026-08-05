@@ -182,11 +182,14 @@ def temporary_file(directory: Path, prefix: str, content: bytes) -> Path:
 
 def replace_if_changed(temporary: Path, destination: Path) -> None:
     try:
-        if destination.is_file() and not destination.is_symlink():
-            if temporary.read_bytes() == destination.read_bytes():
-                destination.chmod(0o600)
-                temporary.unlink()
-                return
+        if (
+            destination.is_file()
+            and not destination.is_symlink()
+            and temporary.read_bytes() == destination.read_bytes()
+        ):
+            destination.chmod(0o600)
+            temporary.unlink()
+            return
         os.replace(temporary, destination)
     finally:
         temporary.unlink(missing_ok=True)

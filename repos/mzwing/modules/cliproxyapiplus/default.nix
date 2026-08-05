@@ -7,9 +7,12 @@
 }: let
   cfg = config.services.cliproxyapiplus;
   yamlFormat = pkgs.formats.yaml {};
-  sources = pkgs.callPackage ../../_sources/generated.nix {};
-  defaultPackage = pkgs.callPackage ../../pkgs/cliproxyapiplus {source = sources.cliproxyapiplus;};
-  localPackages = {cliproxyapiplus = defaultPackage;};
+  localPackages = {
+    cliproxyapiplus = (import ../../internal/discover.nix {inherit (pkgs) lib;}).package {
+      inherit pkgs;
+      name = "cliproxyapiplus";
+    };
+  };
   helpers = import ./helpers.nix {inherit pkgs;};
 
   defaultSettings = {

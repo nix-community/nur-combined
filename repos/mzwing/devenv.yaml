@@ -2,10 +2,11 @@
 inputs:
   nixpkgs:
     url: github:cachix/devenv-nixpkgs/rolling
-  typenix:
-    url: github:ryanrasti/typenix
-  agenix:
-    url: github:ryantm/agenix
+  nur:
+    url: github:nix-community/NUR
+    inputs:
+      nixpkgs:
+        follows: nixpkgs
 
 # If you're using non-OSS software, you can set allow_unfree to true.
 allow_unfree: true

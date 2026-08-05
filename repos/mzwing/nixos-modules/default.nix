@@ -1,4 +1,2 @@
-{
-  cliproxyapiplus = ./cliproxyapiplus;
-  pumpkin = ./pumpkin;
-}
+{lib}:
+(import ../internal/discover.nix {inherit lib;}).subdirs ./.

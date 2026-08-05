@@ -3,6 +3,8 @@
   pkgs,
   ...
 }: {
+  overlays = [inputs.nur.overlays.default];
+
   languages.nix = {
     enable = true;
     lsp.enable = true;
@@ -16,15 +18,13 @@
     nixd
     ruff
     ty
-    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
-    inputs.typenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    nur.repos.mzwing.typenix
   ];
 
   enterTest = ''
     act --version
     actionlint -version
     alejandra --version
-    which agenix
     just --version
     nixd --version
     typenix --version

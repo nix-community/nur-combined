@@ -146,7 +146,7 @@ with builtins; let
       }
     else entry;
 
-  nurAttrs = import ./default.nix {inherit pkgs;};
+  nurAttrs = import ../default.nix {inherit pkgs;};
   nurEntries = map applyCompileCache (flattenPkgs [] (removeAttrs nurAttrs reservedNames));
 in rec {
   buildEntries = filter (entry: isBuildable entry.package) nurEntries;

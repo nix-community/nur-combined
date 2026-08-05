@@ -1,6 +1,5 @@
 {pkgs}:
-import ../internal/discover-outputs.nix {
-  inherit (pkgs) lib;
-  root = ./.;
+(import ../internal/discover.nix {inherit (pkgs) lib;}).outputs {
+  dir = ./.;
   args = {inherit pkgs;};
 }

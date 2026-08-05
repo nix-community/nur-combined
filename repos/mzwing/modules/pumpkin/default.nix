@@ -7,9 +7,12 @@
 }: let
   cfg = config.services.pumpkin;
   tomlFormat = pkgs.formats.toml {};
-  sources = pkgs.callPackage ../../_sources/generated.nix {};
-  defaultPackage = pkgs.callPackage ../../pkgs/pumpkin {source = sources.pumpkin;};
-  localPackages = {pumpkin = defaultPackage;};
+  localPackages = {
+    pumpkin = (import ../../internal/discover.nix {inherit (pkgs) lib;}).package {
+      inherit pkgs;
+      name = "pumpkin";
+    };
+  };
   helpers = import ./helpers.nix {inherit pkgs;};
 
   settingsFile = tomlFormat.generate "pumpkin-settings.toml" cfg.settings;
