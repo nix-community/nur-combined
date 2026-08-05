@@ -3870,10 +3870,10 @@
     };
     "enhancer-for-youtube" = buildMozillaXpiAddon {
       pname = "enhancer-for-youtube";
-      version = "2.0.135.1";
+      version = "2.0.136";
       addonId = "enhancerforyoutube@maximerf.addons.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4926836/enhancer_for_youtube-2.0.135.1.xpi";
-      sha256 = "f0de0ef7f2616df69a420c53e40e380f862771841637a4e125aef3417a27be2b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4933627/enhancer_for_youtube-2.0.136.xpi";
+      sha256 = "38a0420804d08224fc44e838aec432e947eb688b1300f423eeecbb44d33037fa";
       meta = with lib;
       {
         homepage = "https://www.mrfdev.com/enhancer-for-youtube";
@@ -4772,10 +4772,10 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.5.53";
+      version = "10.5.54";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928070/ghostery-10.5.53.xpi";
-      sha256 = "8dee762ae3111af64ed1cb8e1107d2ecbc3014a5d025a3bc11ae1b2314a0979f";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4937913/ghostery-10.5.54.xpi";
+      sha256 = "919648f04bcef38bd4cf209fe68f6e95f496ef72c715e855ed9dfa597c76baf1";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
@@ -7640,10 +7640,10 @@
     };
     "kiss-translator" = buildMozillaXpiAddon {
       pname = "kiss-translator";
-      version = "2.0.28";
+      version = "2.0.30";
       addonId = "{fb25c100-22ce-4d5a-be7e-75f3d6f0fc13}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4872641/kiss_translator-2.0.28.xpi";
-      sha256 = "1e14a49977b24215e3e8fa339ca526c721fb179766984cee94bf9d8d884abdf4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4938065/kiss_translator-2.0.30.xpi";
+      sha256 = "eda180c8b05953e4fb8b349efbdcde81a252faafecbcbe98bb3ccd542c593e2a";
       meta = with lib;
       {
         homepage = "https://github.com/fishjar/kiss-translator";
@@ -7779,10 +7779,10 @@
     };
     "leechblock-ng" = buildMozillaXpiAddon {
       pname = "leechblock-ng";
-      version = "1.7.2";
+      version = "1.7.3";
       addonId = "leechblockng@proginosko.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4657335/leechblock_ng-1.7.2.xpi";
-      sha256 = "133566ccfd9a52fe284766957f002b533237c61b125dcffaa73c91dc8fb8c1e5";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4938336/leechblock_ng-1.7.3.xpi";
+      sha256 = "57d81b0183195a5c799f120113dfbae0b7d687de6e60cc5d2a44eaf9892c9e06";
       meta = with lib;
       {
         homepage = "https://www.proginosko.com/leechblock/";
@@ -8965,10 +8965,10 @@
     };
     "lockedin-yt" = buildMozillaXpiAddon {
       pname = "lockedin-yt";
-      version = "1.1.8";
+      version = "1.1.9";
       addonId = "kartik@lockedin.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4834295/lockedin_yt-1.1.8.xpi";
-      sha256 = "d5bcce5b09d5707fc1437901c911e0f75f969060255382350c3871c3b38fe64b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4937206/lockedin_yt-1.1.9.xpi";
+      sha256 = "89e8427d941a95870a82464b645b87604fe10ed034992407513396e12349dd9d";
       meta = with lib;
       {
         homepage = "https://kartikhalkunde.github.io/LockedIn-YT/";
@@ -12697,10 +12697,10 @@
     };
     "recap" = buildMozillaXpiAddon {
       pname = "recap";
-      version = "2.8.8";
+      version = "2.8.9";
       addonId = "info@recapthelaw.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4699162/recap_195534-2.8.8.xpi";
-      sha256 = "6e0b0f9e456df09e89900407bb4098ba71cbcf0f21523d38c4f36a9de92bda9e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4938599/recap_195534-2.8.9.xpi";
+      sha256 = "12384ad7d9f76548163c56982866f1d5375e71210d70f6d60d8ee7af88beb24d";
       meta = with lib;
       {
         homepage = "https://free.law/recap/";
@@ -17621,10 +17621,10 @@
     };
     "yomitan" = buildMozillaXpiAddon {
       pname = "yomitan";
-      version = "26.7.21.0";
+      version = "26.7.29.0";
       addonId = "{6b733b82-9261-47ee-a595-2dda294a4d08}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4927363/yomitan-26.7.21.0.xpi";
-      sha256 = "70354cbede26f7abc44fe9d6325a408385264270c6b7752770c9f35dd63c2018";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4938554/yomitan-26.7.29.0.xpi";
+      sha256 = "04a7610105ba31ad0b8152419b8db827a169c27e4c07ee731441fa5fb63f6763";
       meta = with lib;
       {
         homepage = "https://github.com/themoeway/yomitan";
@@ -17879,10 +17879,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.0";
+      version = "18.8.2";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4936628/youtube_subscription_groups-18.8.0.xpi";
-      sha256 = "ac4e6c52769d35521d9a1ca76e5b6869d1f6cd17da29737bd4da3bfb6943e055";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4938549/youtube_subscription_groups-18.8.2.xpi";
+      sha256 = "c2989d79e0b7f6e11f73ccf576855b0c9e70d2f3810072d998fb982e8fc998be";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
