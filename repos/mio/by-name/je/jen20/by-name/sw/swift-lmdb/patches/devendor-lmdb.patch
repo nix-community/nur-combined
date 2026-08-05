@@ -1,0 +1,26 @@
+diff --git a/Package.swift b/Package.swift
+index 89a25d5..153a0bb 100644
+--- a/Package.swift
++++ b/Package.swift
+@@ -18,16 +18,7 @@ let package = Package(
+     targets: [
+         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
+         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
+-        .target(
+-            name: "CLMDB",
+-            dependencies: [],
+-            cSettings: [
+-                .define("MDB_USE_POSIX_MUTEX", to: "1",
+-                        // Windows does not use POSIX mutex
+-                        .when(platforms: [.linux, .macOS])),
+-                .define("MDB_USE_ROBUST", to: "0"),
+-                .unsafeFlags(["-Wno-shorten-64-to-32"])
+-            ]),
++        .systemLibrary(name: "CLMDB", pkgConfig: "lmdb")
+     ],
+     cLanguageStandard: .c11
+ )
+diff --git a/Sources/CLMDB/include/module.modulemap b/Sources/CLMDB/module.modulemap
+similarity index 100%
+rename from Sources/CLMDB/include/module.modulemap
+rename to Sources/CLMDB/module.modulemap

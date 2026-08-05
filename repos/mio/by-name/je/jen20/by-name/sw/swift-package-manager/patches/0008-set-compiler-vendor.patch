@@ -1,0 +1,50 @@
+From 3419fcca9fe35906d79d6bb5e1538875db042590 Mon Sep 17 00:00:00 2001
+From: Randy Eckenrode <randy@largeandhighquality.com>
+Date: Sat, 13 Dec 2025 22:59:36 -0500
+Subject: [PATCH] set-compiler-vendor
+
+---
+ Sources/PackageModel/UserToolchain.swift      | 6 ------
+ Sources/PackageModel/UserToolchain.swift.orig | 8 ++++++++
+ 2 files changed, 8 insertions(+), 6 deletions(-)
+
+diff --git a/Sources/PackageModel/UserToolchain.swift b/Sources/PackageModel/UserToolchain.swift
+index 39d7333c5..b63997bad 100644
+--- a/Sources/PackageModel/UserToolchain.swift
++++ b/Sources/PackageModel/UserToolchain.swift
+@@ -409,13 +409,7 @@ public final class UserToolchain: Toolchain {
+     }
+ 
+     public func _isClangCompilerVendorApple() throws -> Bool? {
+-        // Assume the vendor is Apple on macOS.
+-        // FIXME: This might not be the best way to determine this.
+-        #if os(macOS)
+-        return true
+-        #else
+         return false
+-        #endif
+     }
+ 
+     /// Returns the path to lldb.
+diff --git a/Sources/PackageModel/UserToolchain.swift.orig b/Sources/PackageModel/UserToolchain.swift.orig
+index 7f21304c6..39d7333c5 100644
+--- a/Sources/PackageModel/UserToolchain.swift.orig
++++ b/Sources/PackageModel/UserToolchain.swift.orig
+@@ -956,6 +956,14 @@ public final class UserToolchain: Toolchain {
+             }
+         }
+ 
++        // The manifest and plugin paths should be in the store if they’re nowhere else.
++        if let storeLibraryPath = try? Basics.AbsolutePath(validating: "@out@/lib/swift/pm") {
++            return .init(
++                manifestLibraryPath: storeLibraryPath.appending("ManifestAPI"),
++                pluginLibraryPath: storeLibraryPath.appending("PluginAPI")
++            )
++        }
++
+         // we are using a SwiftPM outside a toolchain, use the compiler path to compute the location
+         return .init(swiftCompilerPath: swiftCompilerPath)
+     }
+-- 
+2.51.2
+

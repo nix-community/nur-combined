@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Randy Eckenrode <randy@largeandhighquality.com>
+Date: Sat, 11 Jul 2026 12:14:16 -0400
+Subject: [PATCH] gnu-install-dirs
+
+---
+ Sources/IndexStoreDB/CMakeLists.txt | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/Sources/IndexStoreDB/CMakeLists.txt b/Sources/IndexStoreDB/CMakeLists.txt
+index 290a96d..44e9729 100644
+--- a/Sources/IndexStoreDB/CMakeLists.txt
++++ b/Sources/IndexStoreDB/CMakeLists.txt
+@@ -26,11 +26,11 @@ endif()
+ 
+ get_swift_host_arch(swift_arch)
+ install(TARGETS IndexStoreDB
+-  ARCHIVE DESTINATION lib/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>
+-  LIBRARY DESTINATION lib/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>
+-  RUNTIME DESTINATION bin)
++  ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++  LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
++  RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}")
+ install(FILES
+   ${CMAKE_BINARY_DIR}/swift/IndexStoreDB.swiftdoc
+   ${CMAKE_BINARY_DIR}/swift/IndexStoreDB.swiftmodule
+-  DESTINATION lib/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>/${swift_arch})
++  DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/../lib/swift$<$<NOT:$<BOOL:${BUILD_SHARED_LIBS}>>:_static>/$<LOWER_CASE:${CMAKE_SYSTEM_NAME}>/${swift_arch}")
+ set_property(GLOBAL APPEND PROPERTY IndexStoreDB_EXPORTS IndexStoreDB)
+-- 
+2.54.0
+

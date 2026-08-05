@@ -1,0 +1,15 @@
+External Clang: link clangBasic from swiftBasic so tools like swift-scan-test
+resolve DarwinSDKInfo::RelatedTargetVersionMapping::map.
+
+--- a/lib/Basic/CMakeLists.txt
++++ b/lib/Basic/CMakeLists.txt
+@@ -103,7 +103,8 @@
+   ${UUID_INCLUDE})
+ 
+ target_link_libraries(swiftBasic PUBLIC
+-  swiftDemangling)
++  swiftDemangling
++  clangBasic)
+ target_link_libraries(swiftBasic PRIVATE
+   ${UUID_LIBRARIES})
+ 
