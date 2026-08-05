@@ -7,13 +7,13 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "testscript";
-  version = "1.15.0";
+  version = "1.16.0";
 
   src = fetchFromGitHub {
     owner = "rogpeppe";
     repo = "go-internal";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JIeEhuqWEGaikAQ1F/mFvtCBmot6tKNv4frhbeewcxk=";
+    hash = "sha256-AM1B8kadJ8LeZFPf2rFVF2dh7y9Ia0vYcvrTBj2i53M=";
   };
 
   vendorHash = "sha256-WoRmZbYYpwVVetlxJDjUu9jGgwLXUD3/PnUF6ksUT70=";
