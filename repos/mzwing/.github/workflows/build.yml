@@ -225,13 +225,13 @@ jobs:
     - name: Enable Cachix uploads for remote builds
       run: sudo sh -c "cat '${CACHIX_DAEMON_DIR}/nix.conf' >> /etc/nix/nix.conf"
 
-    - name: Compute weekly compile cache key
-      id: cachekey
-      run: echo "week=$(date +%Y-%U)" >>"${GITHUB_OUTPUT}"
-
     - name: Prepare compile cache directory
       run: |
         sudo mkdir -p /opt/nur-ci-compile-cache/sccache /opt/nur-ci-compile-cache/gocache
+        # The cache restore tarball is extracted as the runner user, which
+        # must own these directories to chmod/utime them. The post-restore
+        # step re-opens permissions for the nixbld build users.
+        sudo chown -R "$(id -u):$(id -g)" /opt/nur-ci-compile-cache
         sudo chmod -R 777 /opt/nur-ci-compile-cache
         # Remote builds via ssh-ng read /etc/nix/nix.conf per session, so no
         # daemon restart is needed (and macOS builds are unsandboxed anyway).
@@ -239,11 +239,14 @@ jobs:
         # the appended Cachix daemon config.
         printf '\nextra-sandbox-paths = /opt/nur-ci-compile-cache\n' | sudo tee -a /etc/nix/nix.conf
 
+    # The key is unique per builder per run so saves never race and a bad
+    # cache can never block a recurring slot; restores pick the most recent
+    # cache for the same system (i.e. usually yesterday's, given daily runs).
     - name: Restore compile cache
       uses: actions/cache/restore@v6
       with:
         path: /opt/nur-ci-compile-cache
-        key: compile-cache-${{ matrix.system }}-${{ steps.cachekey.outputs.week }}
+        key: compile-cache-${{ matrix.system }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.id }}
         restore-keys: |
           compile-cache-${{ matrix.system }}-
 
@@ -293,13 +296,11 @@ jobs:
 
     - name: Save compile cache
       if: always()
-      # Two builders per system share one weekly cache key; the loser of the
-      # save race is allowed to fail silently.
       continue-on-error: true
       uses: actions/cache/save@v6
       with:
         path: /opt/nur-ci-compile-cache
-        key: compile-cache-${{ matrix.system }}-${{ steps.cachekey.outputs.week }}
+        key: compile-cache-${{ matrix.system }}-${{ github.run_id }}-${{ github.run_attempt }}-${{ matrix.id }}
 
   coordinator:
     name: Distributed build coordinator
