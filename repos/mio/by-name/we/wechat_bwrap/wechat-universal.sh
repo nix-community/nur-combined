@@ -244,6 +244,7 @@ try_start() {
         --bind-try "${XDG_RUNTIME_DIR}/pipewire-0-manager"{,}
     )
 
+@appearancePreloadBlock@
     # Optional host folders for send-file (Nix: bindDownloads / bindDesktop /
     # bindDocuments). Resolved on the host; bind-try after HOME remap. Extra
     # paths: ~/.config/wechat-universal/binds.list or --bind.
