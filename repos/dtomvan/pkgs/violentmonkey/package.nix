@@ -84,6 +84,7 @@ buildFirefoxXpiAddon {
     description = "Violentmonkey provides userscripts support for browsers. It works on browsers with WebExtensions support";
     homepage = "https://github.com/violentmonkey/violentmonkey";
     license = lib.licenses.mit;
+    broken = true;
     maintainers = with lib.maintainers; [ dtomvan ];
     platforms = lib.platforms.all;
     mozPermissions = [
