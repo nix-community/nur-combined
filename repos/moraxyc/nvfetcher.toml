@@ -38,15 +38,6 @@ extract = ["web/package-lock.json", "web/package.json"]
 src.github = "Willxup/cpa-usage-keeper"
 fetch.url = "file:///dev/null"
 
-[cronet-go]
-src.git = "https://github.com/SagerNet/cronet-go"
-fetch.github = "SagerNet/cronet-go"
-git.fetchSubmodules = true
-
-[cronet-go-stable]
-src.github = "SagerNet/cronet-go"
-fetch.url = "file:///dev/null"
-
 [dae]
 src.git = "https://github.com/daeuniverse/dae.git"
 fetch.github = "daeuniverse/dae"
@@ -219,6 +210,16 @@ fetch.github = "sipeed/picoclaw"
 src.git = "https://github.com/charmedlabs/pixy2"
 fetch.github = "charmedlabs/pixy2"
 
+[shard]
+src.git = "https://github.com/Th0rgal/shard.git"
+fetch.github = "Th0rgal/shard"
+cargo_lock = ['Cargo.lock']
+extract = ["desktop/package.json", "desktop/package-lock.json"]
+
+[shard-stable]
+src.github = "Th0rgal/shard"
+fetch.url = "file:///dev/null"
+
 [shlink]
 src.github = "shlinkio/shlink"
 fetch.github = "shlinkio/shlink"
@@ -248,10 +249,5 @@ cargo_lock = ['Cargo.lock']
 [whois42d-ng-stable]
 src.github = "moraxyc/whois42d-ng"
 fetch.url = "file:///dev/null"
-
-[zsh-patina]
-src.github = "michel-kraemer/zsh-patina"
-fetch.github = "michel-kraemer/zsh-patina"
-cargo_lock = ['Cargo.lock']
 
 # keep-sorted end

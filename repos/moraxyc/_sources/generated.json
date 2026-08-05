@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-glquKiTt4ac3u232kScAAMpU_6117pXFAYoqC4pEjNo=/backend/Cargo.lock",
+                "sha256-Kz_9Y4AEgtYKnnqmcnD73RcLQWBBkUAXsqbFkEKerFk=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -127,12 +127,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "9c1926dcc9d20c15df3c42c3d09137e14cb561bb",
-            "sha256": "sha256-glquKiTt4ac3u232kScAAMpU/6117pXFAYoqC4pEjNo=",
+            "rev": "57cba536fcb41c3b8260edfec75368afd39418f5",
+            "sha256": "sha256-Kz/9Y4AEgtYKnnqmcnD73RcLQWBBkUAXsqbFkEKerFk=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9c1926dcc9d20c15df3c42c3d09137e14cb561bb"
+        "version": "57cba536fcb41c3b8260edfec75368afd39418f5"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -153,8 +153,8 @@
         "cargoLock": null,
         "date": "2026-08-05",
         "extract": {
-            "web/package-lock.json": "sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=/web/package-lock.json",
-            "web/package.json": "sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=/web/package.json"
+            "web/package-lock.json": "sha256-s+ZJKteM2S2WWltk0zsXhSs8yha6ok+dbBcDX7EA1Ak=/web/package-lock.json",
+            "web/package.json": "sha256-s+ZJKteM2S2WWltk0zsXhSs8yha6ok+dbBcDX7EA1Ak=/web/package.json"
         },
         "name": "cpa-usage-keeper",
         "passthru": null,
@@ -166,12 +166,12 @@
             "name": null,
             "owner": "Willxup",
             "repo": "cpa-usage-keeper",
-            "rev": "13e79185ea72d905d66326c8360c551597176770",
-            "sha256": "sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=",
+            "rev": "2750c313a83bf18acab522793957feb061fc81b3",
+            "sha256": "sha256-s+ZJKteM2S2WWltk0zsXhSs8yha6ok+dbBcDX7EA1Ak=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "13e79185ea72d905d66326c8360c551597176770"
+        "version": "2750c313a83bf18acab522793957feb061fc81b3"
     },
     "cpa-usage-keeper-stable": {
         "cargoLock": null,
@@ -187,42 +187,6 @@
             "url": "file:///dev/null"
         },
         "version": "v1.14.2"
-    },
-    "cronet-go": {
-        "cargoLock": null,
-        "date": "2026-07-12",
-        "extract": null,
-        "name": "cronet-go",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": true,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "SagerNet",
-            "repo": "cronet-go",
-            "rev": "617d38f41f935b46a68f550d9add2e38abb3f168",
-            "sha256": "sha256-UK7mv0TuhJX4y64DhH49t5mgZFGhMx4Viy/chulKD4s=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "617d38f41f935b46a68f550d9add2e38abb3f168"
-    },
-    "cronet-go-stable": {
-        "cargoLock": null,
-        "date": null,
-        "extract": null,
-        "name": "cronet-go-stable",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "name": null,
-            "sha256": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
-            "type": "url",
-            "url": "file:///dev/null"
-        },
-        "version": "v148.0.7778.96-1"
     },
     "dae": {
         "cargoLock": null,
@@ -1007,6 +971,50 @@
         },
         "version": "d7c38d49ae8071b58e46f5b35eda927dd2b7c621"
     },
+    "shard": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-Mn8sR07ZRb+NFvd5sAPPnC_Pa2rWVDXgQKjGywVglNA=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-06-01",
+        "extract": {
+            "desktop/package-lock.json": "sha256-Mn8sR07ZRb+NFvd5sAPPnC_Pa2rWVDXgQKjGywVglNA=/desktop/package-lock.json",
+            "desktop/package.json": "sha256-Mn8sR07ZRb+NFvd5sAPPnC_Pa2rWVDXgQKjGywVglNA=/desktop/package.json"
+        },
+        "name": "shard",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Th0rgal",
+            "repo": "shard",
+            "rev": "1368a10a29ff948921ce8007de8ce8778170227a",
+            "sha256": "sha256-Mn8sR07ZRb+NFvd5sAPPnC/Pa2rWVDXgQKjGywVglNA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1368a10a29ff948921ce8007de8ce8778170227a"
+    },
+    "shard-stable": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "shard-stable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+            "type": "url",
+            "url": "file:///dev/null"
+        },
+        "version": "v0.1.25"
+    },
     "shlink": {
         "cargoLock": null,
         "date": null,
@@ -1152,31 +1160,5 @@
             "url": "file:///dev/null"
         },
         "version": "v2.1.0"
-    },
-    "zsh-patina": {
-        "cargoLock": {
-            "Cargo.lock": [
-                "sha256-WVlv+bYFTQ3RG3m2NnG13kMoslXzcPr8CpFWwAOcNBA=/Cargo.lock",
-                {}
-            ]
-        },
-        "date": null,
-        "extract": null,
-        "name": "zsh-patina",
-        "passthru": null,
-        "pinned": false,
-        "src": {
-            "deepClone": false,
-            "fetchSubmodules": false,
-            "leaveDotGit": false,
-            "name": null,
-            "owner": "michel-kraemer",
-            "repo": "zsh-patina",
-            "rev": "1.9.0",
-            "sha256": "sha256-WVlv+bYFTQ3RG3m2NnG13kMoslXzcPr8CpFWwAOcNBA=",
-            "sparseCheckout": [],
-            "type": "github"
-        },
-        "version": "1.9.0"
     }
 }

@@ -65,16 +65,16 @@
   };
   clash-nyanpasu = {
     pname = "clash-nyanpasu";
-    version = "9c1926dcc9d20c15df3c42c3d09137e14cb561bb";
+    version = "57cba536fcb41c3b8260edfec75368afd39418f5";
     src = fetchFromGitHub {
       owner = "libnyanpasu";
       repo = "clash-nyanpasu";
-      rev = "9c1926dcc9d20c15df3c42c3d09137e14cb561bb";
+      rev = "57cba536fcb41c3b8260edfec75368afd39418f5";
       fetchSubmodules = false;
-      sha256 = "sha256-glquKiTt4ac3u232kScAAMpU/6117pXFAYoqC4pEjNo=";
+      sha256 = "sha256-Kz/9Y4AEgtYKnnqmcnD73RcLQWBBkUAXsqbFkEKerFk=";
     };
     cargoLock."backend/Cargo.lock" = {
-      lockFile = ./. + "/sha256-glquKiTt4ac3u232kScAAMpU_6117pXFAYoqC4pEjNo=/backend/Cargo.lock";
+      lockFile = ./. + "/sha256-Kz_9Y4AEgtYKnnqmcnD73RcLQWBBkUAXsqbFkEKerFk=/backend/Cargo.lock";
       outputHashes = {
         "delay_timer-0.11.6" = "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=";
         "auto-launch-0.5.0" = "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=";
@@ -100,42 +100,22 @@
   };
   cpa-usage-keeper = {
     pname = "cpa-usage-keeper";
-    version = "13e79185ea72d905d66326c8360c551597176770";
+    version = "2750c313a83bf18acab522793957feb061fc81b3";
     src = fetchFromGitHub {
       owner = "Willxup";
       repo = "cpa-usage-keeper";
-      rev = "13e79185ea72d905d66326c8360c551597176770";
+      rev = "2750c313a83bf18acab522793957feb061fc81b3";
       fetchSubmodules = false;
-      sha256 = "sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=";
+      sha256 = "sha256-s+ZJKteM2S2WWltk0zsXhSs8yha6ok+dbBcDX7EA1Ak=";
     };
     extract = {
-      "web/package.json" = ./. + "/sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=/web/package.json";
-      "web/package-lock.json" = ./. + "/sha256-D+VwD8u0i+RnL5yphVBQOBNEmiIwK97xFIXOs6oDylE=/web/package-lock.json";
+      "web/package.json" = ./. + "/sha256-s+ZJKteM2S2WWltk0zsXhSs8yha6ok+dbBcDX7EA1Ak=/web/package.json";
+      "web/package-lock.json" = ./. + "/sha256-s+ZJKteM2S2WWltk0zsXhSs8yha6ok+dbBcDX7EA1Ak=/web/package-lock.json";
     };date = "2026-08-05";
   };
   cpa-usage-keeper-stable = {
     pname = "cpa-usage-keeper-stable";
     version = "v1.14.2";
-    src = fetchurl {
-      url = "file:///dev/null";
-      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
-    };
-  };
-  cronet-go = {
-    pname = "cronet-go";
-    version = "617d38f41f935b46a68f550d9add2e38abb3f168";
-    src = fetchFromGitHub {
-      owner = "SagerNet";
-      repo = "cronet-go";
-      rev = "617d38f41f935b46a68f550d9add2e38abb3f168";
-      fetchSubmodules = true;
-      sha256 = "sha256-UK7mv0TuhJX4y64DhH49t5mgZFGhMx4Viy/chulKD4s=";
-    };
-    date = "2026-07-12";
-  };
-  cronet-go-stable = {
-    pname = "cronet-go-stable";
-    version = "v148.0.7778.96-1";
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
@@ -590,6 +570,35 @@
     };
     date = "2024-07-17";
   };
+  shard = {
+    pname = "shard";
+    version = "1368a10a29ff948921ce8007de8ce8778170227a";
+    src = fetchFromGitHub {
+      owner = "Th0rgal";
+      repo = "shard";
+      rev = "1368a10a29ff948921ce8007de8ce8778170227a";
+      fetchSubmodules = false;
+      sha256 = "sha256-Mn8sR07ZRb+NFvd5sAPPnC/Pa2rWVDXgQKjGywVglNA=";
+    };
+    extract = {
+      "desktop/package-lock.json" = ./. + "/sha256-Mn8sR07ZRb+NFvd5sAPPnC_Pa2rWVDXgQKjGywVglNA=/desktop/package-lock.json";
+      "desktop/package.json" = ./. + "/sha256-Mn8sR07ZRb+NFvd5sAPPnC_Pa2rWVDXgQKjGywVglNA=/desktop/package.json";
+    };cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-Mn8sR07ZRb+NFvd5sAPPnC_Pa2rWVDXgQKjGywVglNA=/Cargo.lock";
+      outputHashes = {
+        
+      };
+    };
+    date = "2026-06-01";
+  };
+  shard-stable = {
+    pname = "shard-stable";
+    version = "v0.1.25";
+    src = fetchurl {
+      url = "file:///dev/null";
+      sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
+    };
+  };
   shlink = {
     pname = "shlink";
     version = "v5.1.5";
@@ -672,23 +681,6 @@
     src = fetchurl {
       url = "file:///dev/null";
       sha256 = "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=";
-    };
-  };
-  zsh-patina = {
-    pname = "zsh-patina";
-    version = "1.9.0";
-    src = fetchFromGitHub {
-      owner = "michel-kraemer";
-      repo = "zsh-patina";
-      rev = "1.9.0";
-      fetchSubmodules = false;
-      sha256 = "sha256-WVlv+bYFTQ3RG3m2NnG13kMoslXzcPr8CpFWwAOcNBA=";
-    };
-    cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-WVlv+bYFTQ3RG3m2NnG13kMoslXzcPr8CpFWwAOcNBA=/Cargo.lock";
-      outputHashes = {
-        
-      };
     };
   };
 }
