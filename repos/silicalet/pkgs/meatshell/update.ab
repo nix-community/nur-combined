@@ -1,0 +1,81 @@
+import { env_var_load } from "std/env"
+
+main (args) {
+    let system = "x86_64-linux"
+    if len(args) > 1 {
+        system = args[1]
+    }
+
+    if system != "x86_64-linux" and system != "aarch64-linux" {
+        echo("error: unsupported architecture: {system}")
+        exit(1)
+    }
+
+    const package = "meatshell-bin"
+    const github_repo = "yituorou/meatshell"
+    const repo_root = $ git rev-parse --show-toplevel $?
+    const release_file = $ mktemp $?
+    const github_token = env_var_load("GITHUB_TOKEN", "/dev/null")
+
+    if github_token == "" {
+        $ curl --fail --silent --show-error --location \
+            --retry 5 --retry-all-errors --retry-delay 2 \
+            "https://api.github.com/repos/{github_repo}/releases/latest" \
+            --output {release_file} $?
+    } else {
+        $ curl --fail --silent --show-error --location \
+            --retry 5 --retry-all-errors --retry-delay 2 \
+            --header "Authorization: Bearer {github_token}" \
+            "https://api.github.com/repos/{github_repo}/releases/latest" \
+            --output {release_file} $?
+    }
+
+    const version = $ jq -er '.tag_name | sub("^v"; "")' {release_file} $?
+    $ printf '%s\n' {version} | grep -Eq '^[0-9][0-9A-Za-z._+-]*\$' $
+    failed {
+        echo("error: invalid release version: {version}")
+        exit(1)
+    }
+
+    let asset = "meatshell-v{version}-linux-x86_64.AppImage"
+    if system == "aarch64-linux" {
+        asset = "meatshell-v{version}-linux-aarch64.tar.gz"
+    }
+
+    const url = $ jq -er --arg asset {asset} \
+        '.assets[] | select(.name == \$asset) | .browser_download_url' \
+        {release_file} $?
+    const digest = $ jq -r --arg asset {asset} \
+        '.assets[] | select(.name == \$asset) | .digest // empty' \
+        {release_file} $?
+    let hash = ""
+
+    if digest != "" {
+        const digest_hex = $ printf '%s\n' {digest} | sed 's/^sha256://' $?
+        hash = $ nix hash convert --hash-algo sha256 --to sri {digest_hex} $?
+    } else {
+        hash = $ nix store prefetch-file --json {url} | jq -er '.hash' $?
+    }
+
+    const source_file = "{repo_root}/pkgs/meatshell/sources/{system}.nix"
+    $ sed -i \
+        -e 's|^  version = ".*";|  version = "{version}";|' \
+        -e 's|^  hash = ".*";|  hash = "{hash}";|' \
+        {source_file} $?
+    $ rm -f {release_file} $?
+
+    echo("Updated {package} for {system} to {version}")
+    $ nix eval --raw \
+        "path:{repo_root}#packages.{system}.{package}.drvPath" \
+        > /dev/null $?
+
+    const current_system = $ nix eval --impure --raw \
+        --expr builtins.currentSystem $?
+    if system == current_system {
+        $ nix build \
+            "path:{repo_root}#packages.{system}.{package}" \
+            --no-link $?
+    } else {
+        echo("Skipping build for non-native system {system} on {current_system}")
+    }
+}

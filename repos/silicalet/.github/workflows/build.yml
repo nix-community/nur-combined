@@ -36,27 +36,31 @@ jobs:
         run: |
           nix eval --json .#packages.x86_64-linux \
             --apply 'packages: builtins.attrNames (builtins.removeAttrs packages [ "attic-cache-image" ])'
+          nix eval --json .#packages.aarch64-linux \
+            --apply 'packages: builtins.attrNames (builtins.removeAttrs packages [ "attic-cache-image" ])'
 
   build:
-    name: Build ${{ matrix.package }}
+    name: Build ${{ matrix.package }} (${{ matrix.system }})
     needs: evaluate
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     timeout-minutes: 330
     strategy:
       fail-fast: false
       max-parallel: 10
       matrix:
-        package:
-          - amber-lsp
-          - code996
-          - dnspick
-          - ghost-downloader-3
-          - ipgw
-          - meatshell-bin
-          - nyaterm-bin
-          - quien
-          - seekey
-          - uipro-cli
+        include:
+          - { package: amber-lsp, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: code996, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: dnspick, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: ghost-downloader-3, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: ipgw, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: meatshell-bin, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: nyaterm-bin, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: quien, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: seekey, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: uipro-cli, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: meatshell-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
+          - { package: nyaterm-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
 
     steps:
       - name: Checkout repository
@@ -72,7 +76,11 @@ jobs:
             extra-trusted-public-keys = nur:aQlY5sfibsfPJgLVG4yMCrJLB4+RJ1vaebK4sWl74K4= nur-pr:jUrGaS3si2esbX9X2BvhP7mpx2Wyf3Fy3SCC+JQ7E58=
 
       - name: Build package
-        run: nix build ".#${{ matrix.package }}" --out-link result --show-trace
+        run: >-
+          nix build
+          ".#packages.${{ matrix.system }}.${{ matrix.package }}"
+          --out-link result
+          --show-trace
 
       # Cache uploads are temporarily disabled while the Attic server is
       # being reworked.

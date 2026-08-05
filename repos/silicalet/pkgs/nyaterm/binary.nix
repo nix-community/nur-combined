@@ -6,20 +6,28 @@
   freetype,
   glib-networking,
   libayatana-appindicator,
-  nix-update-script,
   openssl,
+  stdenv,
   udev,
   webkitgtk_4_1,
 }:
 
-appimageTools.wrapType2 rec {
+let
   pname = "nyaterm";
-  version = "1.2.0";
-
-  src = fetchurl {
-    url = "https://github.com/nyakang/nyaterm/releases/download/v${version}/NyaTerm_${version}_linux_x64.AppImage";
-    hash = "sha256-YmDVmVlaPvWiHTP16rmSYFrcjmqvlcHImeyTsZH7qnI=";
+  sources = {
+    x86_64-linux = import ./sources/x86_64-linux.nix;
+    aarch64-linux = import ./sources/aarch64-linux.nix;
   };
+  source =
+    sources.${stdenv.hostPlatform.system}
+      or (throw "nyaterm-bin is unsupported on ${stdenv.hostPlatform.system}");
+  inherit (source) version;
+  src = fetchurl {
+    inherit (source) url hash;
+  };
+in
+appimageTools.wrapType2 {
+  inherit pname version src;
 
   extraPkgs = _: [
     fontconfig
@@ -51,10 +59,6 @@ appimageTools.wrapType2 rec {
       fi
     '';
 
-  passthru.updateScript = nix-update-script {
-    extraArgs = [ "--use-github-releases" ];
-  };
-
   meta = {
     description = "Modern remote terminal workspace with SSH, SFTP and AI assistance";
     homepage = "https://github.com/nyakang/nyaterm";
@@ -62,6 +66,6 @@ appimageTools.wrapType2 rec {
     license = lib.licenses.mit;
     sourceProvenance = [ lib.sourceTypes.binaryNativeCode ];
     mainProgram = "nyaterm";
-    platforms = [ "x86_64-linux" ];
+    platforms = builtins.attrNames sources;
   };
 }

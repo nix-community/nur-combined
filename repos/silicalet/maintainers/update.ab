@@ -2,6 +2,8 @@
 
 main (args) {
     let packages = [Text]
+    let arch = "x86_64-linux"
+    let expect_arch = false
     const default_packages = [
         "amber-lsp",
         "code996",
@@ -13,10 +15,9 @@ main (args) {
         "quien",
         "uipro-cli",
     ]
-
     if len(args) == 1 {
-        echo("Usage: nur-packages-update <package>...")
-        echo("       nur-packages-update --all")
+        echo("Usage: nur-packages-update [--arch <system>] <package>...")
+        echo("       nur-packages-update [--arch <system>] --all")
         echo("       nur-packages-update --list")
         echo("")
         echo("Available packages:")
@@ -26,36 +27,67 @@ main (args) {
         exit(0)
     }
 
-    if len(args) == 2 {
-        if args[1] == "--help" or args[1] == "-h" {
-            echo("Usage: nur-packages-update <package>...")
-            echo("       nur-packages-update --all")
+    for index, arg in args {
+        if index > 0 {
+            if {
+                expect_arch {
+                    arch = arg
+                    expect_arch = false
+                }
+                arg == "--arch" {
+                    expect_arch = true
+                }
+                else {
+                    packages += [arg]
+                }
+            }
+        }
+    }
+
+    if expect_arch {
+        echo("error: --arch requires a system")
+        exit(1)
+    }
+
+    if arch != "x86_64-linux" and arch != "aarch64-linux" {
+        echo("error: unsupported architecture: {arch}")
+        exit(1)
+    }
+
+    if len(packages) == 1 {
+        if packages[0] == "--help" or packages[0] == "-h" {
+            echo("Usage: nur-packages-update [--arch <system>] <package>...")
+            echo("       nur-packages-update [--arch <system>] --all")
             echo("       nur-packages-update --list")
             exit(0)
         }
 
-        if args[1] == "--list" {
+        if packages[0] == "--list" {
             for package in default_packages {
                 echo(package)
             }
             exit(0)
         }
 
-        if args[1] == "--all" {
+        if packages[0] == "--all" {
             packages = default_packages
-        } else {
-            packages += [args[1]]
-        }
-    } else {
-        for index, arg in args {
-            if index > 0 {
-                packages += [arg]
-            }
         }
     }
 
     for package in packages {
-        echo("==> Updating {package}")
-        $ nix-update {package} --flake --build --format --use-github-releases $?
+        const package_updater = "nur-update-{package}"
+        let has_package_updater = false
+        $ command -v {package_updater} > /dev/null 2>&1 $
+        succeeded {
+            has_package_updater = true
+        }
+
+        if has_package_updater {
+            echo("==> Updating {package} for {arch}")
+            $ {package_updater} {arch} $?
+        } else {
+            echo("==> Updating {package}")
+            $ nix-update {package} --flake --build --format --use-github-releases $?
+        }
     }
 }

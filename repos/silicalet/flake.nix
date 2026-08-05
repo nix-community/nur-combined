@@ -35,6 +35,22 @@
         system:
         let
           pkgs = pkgsFor system;
+          packageUpdaterNames = builtins.filter (name: builtins.pathExists (./pkgs + "/${name}/update.ab")) (
+            builtins.attrNames (builtins.readDir ./pkgs)
+          );
+          packageUpdaters = map (
+            name:
+            pkgs.runCommand "nur-update-${name}-bin"
+              {
+                nativeBuildInputs = [ pkgs.amber-lang ];
+              }
+              ''
+                mkdir -p "$out/bin"
+                amber build \
+                  ${./pkgs + "/${name}/update.ab"} \
+                  "$out/bin/nur-update-${name}-bin"
+              ''
+          ) packageUpdaterNames;
           update =
             pkgs.runCommand "nur-packages-update"
               {
@@ -49,10 +65,17 @@
                 wrapProgram "$out/bin/nur-packages-update" \
                   --prefix PATH : ${
                     pkgs.lib.makeBinPath [
+                      pkgs.coreutils
+                      pkgs.curl
                       pkgs.git
+                      pkgs.gnugrep
+                      pkgs.gnused
+                      pkgs.jq
                       pkgs.nix
                       pkgs.nix-update
                     ]
+                    + ":"
+                    + pkgs.lib.makeBinPath packageUpdaters
                   }
               '';
         in
