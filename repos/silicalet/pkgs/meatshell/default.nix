@@ -43,13 +43,13 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "meatshell";
-  version = "0.6.8";
+  version = "0.6.10";
 
   src = fetchFromGitHub {
     owner = "yituorou";
     repo = "meatshell";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-GdCXJHcdP0z6Yo7cbgASgNiS2PFIW4mOtxs58QFZ1do=";
+    hash = "sha256-wJpbKPVa8TCMVmXV2M+Byjs2SCoOowrXy5aRD8OG5DM=";
   };
 
   cargoLock.lockFile = "${finalAttrs.src}/Cargo.lock";

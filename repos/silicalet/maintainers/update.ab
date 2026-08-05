@@ -6,24 +6,48 @@ let default_packages = [
     "dnspick",
     "ghost-downloader-3",
     "ipgw",
-    "meatshell",
-    "nyaterm",
+    "meatshell-x86_64-bin",
+    "nyaterm-x86_64-bin",
     "quien",
     "uipro-cli",
 ]
 
 main (args) {
-    let packages = default_packages
+    let packages = [Text]
 
-    if len(args) == 2 and args[1] == "--list" {
-        for package in packages {
-            echo(package)
+    if len(args) == 1 {
+        echo("Usage: nur-packages-update <package>...")
+        echo("       nur-packages-update --all")
+        echo("       nur-packages-update --list")
+        echo("")
+        echo("Available packages:")
+        for package in default_packages {
+            echo("  {package}")
         }
         exit(0)
     }
 
-    if len(args) > 1 {
-        packages = [Text]
+    if len(args) == 2 {
+        if args[1] == "--help" or args[1] == "-h" {
+            echo("Usage: nur-packages-update <package>...")
+            echo("       nur-packages-update --all")
+            echo("       nur-packages-update --list")
+            exit(0)
+        }
+
+        if args[1] == "--list" {
+            for package in default_packages {
+                echo(package)
+            }
+            exit(0)
+        }
+
+        if args[1] == "--all" {
+            packages = default_packages
+        } else {
+            packages += [args[1]]
+        }
+    } else {
         for index, arg in args {
             if index > 0 {
                 packages += [arg]
@@ -33,6 +57,6 @@ main (args) {
 
     for package in packages {
         echo("==> Updating {package}")
-        $ nix-update {package} --flake --build --format $?
+        $ nix-update {package} --flake --build --format --use-github-releases $?
     }
 }

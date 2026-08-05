@@ -33,7 +33,9 @@
   ghost-downloader-3 = pkgs.callPackage ./pkgs/ghost-downloader-3 { };
   ipgw = pkgs.callPackage ./pkgs/ipgw { };
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
+  meatshell-x86_64-bin = pkgs.callPackage ./pkgs/meatshell/x86_64-bin.nix { };
   nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
+  nyaterm-x86_64-bin = pkgs.callPackage ./pkgs/nyaterm/x86_64-bin.nix { };
   quien = pkgs.callPackage ./pkgs/quien { };
   seekey = pkgs.callPackage ./pkgs/seekey { };
   uipro-cli = pkgs.callPackage ./pkgs/uipro-cli { };

@@ -52,6 +52,8 @@ jobs:
           - dnspick
           - ghost-downloader-3
           - ipgw
+          - meatshell-x86_64-bin
+          - nyaterm-x86_64-bin
           - quien
           - seekey
           - uipro-cli
@@ -72,29 +74,31 @@ jobs:
       - name: Build package
         run: nix build ".#${{ matrix.package }}" --out-link result --show-trace
 
-      - name: Upload PR closure to staging Attic
-        if: >-
-          github.event_name == 'pull_request' &&
-          github.event.pull_request.head.repo.full_name == github.repository &&
-          github.actor != 'dependabot[bot]'
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_PR_TOKEN }}
-        run: |
-          test -n "$ATTIC_TOKEN"
-          nixpkgs_rev="$(jq -er '.nodes.nixpkgs.locked.rev' flake.lock)"
-          attic_installable="github:NixOS/nixpkgs/${nixpkgs_rev}#attic-client"
-          nix shell "$attic_installable" -c attic login --set-default \
-            github-actions https://cache.mr-why.cn "$ATTIC_TOKEN"
-          nix shell "$attic_installable" -c attic push -j 2 nur-pr ./result
+      # Cache uploads are temporarily disabled while the Attic server is
+      # being reworked.
+      # - name: Upload PR closure to staging Attic
+      #   if: >-
+      #     github.event_name == 'pull_request' &&
+      #     github.event.pull_request.head.repo.full_name == github.repository &&
+      #     github.actor != 'dependabot[bot]'
+      #   env:
+      #     ATTIC_TOKEN: ${{ secrets.ATTIC_PR_TOKEN }}
+      #   run: |
+      #     test -n "$ATTIC_TOKEN"
+      #     nixpkgs_rev="$(jq -er '.nodes.nixpkgs.locked.rev' flake.lock)"
+      #     attic_installable="github:NixOS/nixpkgs/${nixpkgs_rev}#attic-client"
+      #     nix shell "$attic_installable" -c attic login --set-default \
+      #       github-actions https://cache.mr-why.cn "$ATTIC_TOKEN"
+      #     nix shell "$attic_installable" -c attic push -j 2 nur-pr ./result
 
-      - name: Upload main closure to Attic
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        env:
-          ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
-        run: |
-          test -n "$ATTIC_TOKEN"
-          nixpkgs_rev="$(jq -er '.nodes.nixpkgs.locked.rev' flake.lock)"
-          attic_installable="github:NixOS/nixpkgs/${nixpkgs_rev}#attic-client"
-          nix shell "$attic_installable" -c attic login --set-default \
-            github-actions https://cache.mr-why.cn "$ATTIC_TOKEN"
-          nix shell "$attic_installable" -c attic push -j 2 nur ./result
+      # - name: Upload main closure to Attic
+      #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      #   env:
+      #     ATTIC_TOKEN: ${{ secrets.ATTIC_TOKEN }}
+      #   run: |
+      #     test -n "$ATTIC_TOKEN"
+      #     nixpkgs_rev="$(jq -er '.nodes.nixpkgs.locked.rev' flake.lock)"
+      #     attic_installable="github:NixOS/nixpkgs/${nixpkgs_rev}#attic-client"
+      #     nix shell "$attic_installable" -c attic login --set-default \
+      #       github-actions https://cache.mr-why.cn "$ATTIC_TOKEN"
+      #     nix shell "$attic_installable" -c attic push -j 2 nur ./result
