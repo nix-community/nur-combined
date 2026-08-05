@@ -13,7 +13,8 @@
 # - Related REPL test fixes: github:booxter/nixpkgs/fix-swift-repl
 # - Local: 0011-link-clangBasic-from-swiftBasic.patch (DarwinSDKInfo with external Clang)
 #
-# Attribute `jen20` is the assembled `swift` toolchain. Full set: `jen20.passthru.swiftPackages`.
+# Attribute `swift6-jen20` is the assembled `swift` toolchain.
+# Full set: `swift6-jen20.passthru.swiftPackages`.
 
 {
   lib,

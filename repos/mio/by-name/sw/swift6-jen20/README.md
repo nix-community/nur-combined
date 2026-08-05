@@ -1,6 +1,6 @@
-# jen20 — Swift 6.2.4 (nixpkgs WIP)
+# swift6-jen20 — Swift 6.2.4 (nixpkgs WIP)
 
-Swift **6.2.4** packaged from the Nixpkgs Swift Matrix WIP, not from nixpkgs `master` (still on 5.10.x).
+Swift **6.2.4** packaged from the Nixpkgs Swift Matrix WIP, not from nixpkgs `master` (still on 5.10.x). Attribute name keeps the Matrix nick (`jen20`) for provenance while making clear this is a Swift 6 toolchain.
 
 ## Sources
 
@@ -19,10 +19,10 @@ Local edits vs upstream snapshot: drop LLDB Debug/MSan WIP flags from the mk2 ti
 
 ```nix
 # toolchain
-nur.repos.mio.jen20
+nur.repos.mio.swift6-jen20
 
 # package set
-nur.repos.mio.jen20.passthru.swiftPackages
+nur.repos.mio.swift6-jen20.passthru.swiftPackages
 ```
 
 Expect long bootstrap builds. Upstream still iterating (stdlib layout, REPL module paths, eventual Swift 6.3 bootstrap). Matrix channel topic tracks Darwin/Linux status and the live WIP branch.
