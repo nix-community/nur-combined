@@ -93,7 +93,8 @@ try_start() {
     # wechat-universal only supports xcb
     export QT_QPA_PLATFORM=xcb \
         QT_AUTO_SCREEN_SCALE_FACTOR=1 \
-        PATH="/sandbox:${PATH}"
+        PATH="/sandbox:${PATH}" \
+        PULSE_SERVER="${PULSE_SERVER:-unix:${XDG_RUNTIME_DIR}/pulse/native}"
 
     if [[ -z "${WECHAT_IME_WORKAROUND}" || "${WECHAT_IME_WORKAROUND}" == 'auto' ]]; then
         case "${XMODIFIERS}" in 
@@ -185,7 +186,9 @@ try_start() {
         # /dev
         --dev /dev
         --dev-bind /dev/dri{,}
-        --tmpfs /dev/shm
+        # Private tmpfs /dev/shm breaks Pulse/VLC voice playback; use host shm.
+        --dev-bind /dev/shm{,}
+        --dev-bind-try /dev/snd{,}
 
         # /proc
         --proc /proc
@@ -227,13 +230,18 @@ try_start() {
         --ro-bind-try "${HOME}/.local/share/fonts"{,}
         --ro-bind-try "${HOME}/.icons"{,}
         --ro-bind-try "${HOME}/.local/share/icons"{,}
+        # Fake $HOME hides the Pulse cookie; overlay host config after remap.
+        --ro-bind-try "${HOME}/.config/pulse"{,}
+        --ro-bind-try "${HOME}/.pulse"{,}
 
         # /run
         --dev-bind /run/dbus{,}
         --ro-bind-try /run/systemd/userdb{,}
         --ro-bind-try "${XAUTHORITY}"{,}
         --ro-bind "${DBUS_SESSION_BUS_PATH}"{,}
-        --ro-bind "${XDG_RUNTIME_DIR}/pulse"{,}
+        --bind "${XDG_RUNTIME_DIR}/pulse"{,}
+        --bind-try "${XDG_RUNTIME_DIR}/pipewire-0"{,}
+        --bind-try "${XDG_RUNTIME_DIR}/pipewire-0-manager"{,}
     )
 
     # Optional host folders for send-file (Nix: bindDownloads / bindDesktop /

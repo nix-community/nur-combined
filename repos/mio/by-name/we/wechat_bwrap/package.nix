@@ -87,7 +87,7 @@ stdenv.mkDerivation {
       --replace-fail 'PATH="/sandbox:''${PATH}"' 'PATH="/sandbox:''${PATH}" LD_LIBRARY_PATH="/usr/lib:/usr/lib64"' \
       --replace-fail '--dev-bind /run/dbus{,}' '--dev-bind-try /run/dbus{,}' \
       --replace-fail '--ro-bind "''${DBUS_SESSION_BUS_PATH}"{,}' '--ro-bind-try "''${DBUS_SESSION_BUS_PATH}"{,}' \
-      --replace-fail '--ro-bind "''${XDG_RUNTIME_DIR}/pulse"{,}' '--ro-bind-try "''${XDG_RUNTIME_DIR}/pulse"{,}' \
+      --replace-fail '--bind "''${XDG_RUNTIME_DIR}/pulse"{,}' '--bind-try "''${XDG_RUNTIME_DIR}/pulse"{,}' \
       --replace-fail '@bindDownloads@' '${if bindDownloads then "1" else "0"}' \
       --replace-fail '@bindDesktop@' '${if bindDesktop then "1" else "0"}' \
       --replace-fail '@bindDocuments@' '${if bindDocuments then "1" else "0"}' \
