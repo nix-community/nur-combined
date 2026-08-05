@@ -28,14 +28,14 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "1.0.0-20260801";
+  version = "1.0.0-20260805";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
-    rev = "5c524eb242dafb7a0565ae8ac286244244109022"; # No releases yet
+    rev = "75b4301ce12ffb62a556753b32a99642ae0cd831"; # No releases yet
     fetchSubmodules = false;
-    hash = "sha256-HPgdsZOz3141Aa400T9k1ZYk3oMqTQYHgZKr7IRaktk=";
+    hash = "sha256-JyQz22D2u1bINqlaFFjnKv68uXykA7tZ+CIZWYtpHSw=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -46,7 +46,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 4;
-    hash = "sha256-pDdHJlDro5/QDSZbf45t3muwwLW8Iq2bSm9zqfWYP6A=";
+    hash = "sha256-DvRu6IZnNaAT/VYhZczjq7OQykJHU3CIH6yxnnNL0NA=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
