@@ -52,15 +52,15 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "7c3177b4046fb3fa721e07ad2f8e1787c379f369";
+    version = "4eaa6ace31d7129d4489ab083aa18e2da62ae501";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "7c3177b4046fb3fa721e07ad2f8e1787c379f369";
+      rev = "4eaa6ace31d7129d4489ab083aa18e2da62ae501";
       fetchSubmodules = true;
-      sha256 = "sha256-e8gjEgC5ZBrHigvm/b418FYaaBJJzCnguEq2uLTmuRg=";
+      sha256 = "sha256-IA5Za4uSDQrDm7Tixo0E8AJ5TZT9z1v2w3+HjH8K3L4=";
     };
-    date = "2026-08-04";
+    date = "2026-08-05";
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
