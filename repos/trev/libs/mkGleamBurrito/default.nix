@@ -4,9 +4,6 @@
   fetchFromGitHub,
   gleam,
   beamPackages,
-  erlang,
-  elixir,
-  rebar3,
   zig,
   zig_0_13 ? null,
   p7zip,
@@ -89,9 +86,9 @@ lib.makeOverridable (
     pname ? null,
     version ? null,
     # Override Erlang/Elixir toolchain
-    erlangPackage ? erlang,
-    rebar3Package ? rebar3,
-    elixirPackage ? elixir,
+    erlangPackage ? beamPackages.erlang,
+    rebar3Package ? beamPackages.rebar3,
+    elixirPackage ? beamPackages.elixir,
     gleamPackage ? gleam,
     zigPackage ? (if zig_0_13 != null then zig_0_13 else zig),
     # Burrito target selection
