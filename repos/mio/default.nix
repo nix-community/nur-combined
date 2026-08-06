@@ -142,15 +142,13 @@ with (import ./private.nix { inherit pkgs; });
           pkgs.symlinkJoin {
             name = "pkgscache";
             paths = with self; [
-              self.materialgram_patched
-              self.telegram-desktop_patched
               cb
               beammp-launcher
               mdbook-generate-summary
               #betterbird
               ghidra_hidpi
               prismlauncher-diegiwg
-              android-translation-layer
+              android-translation-layer_patched
               #pake # started failing recently
               cider
               rocksmith2tab
