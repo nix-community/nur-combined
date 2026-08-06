@@ -24,6 +24,14 @@ buildGoModule rec {
 
   postInstall = ''
     install -Dm644 LICENSE README.md -t $out/share/doc/gryph
+
+    # Agent plugin sources with the __GRYPH_COMMAND__ placeholder left intact,
+    # for consumers (e.g. the gryph Home Manager module) that install hooks
+    # declaratively instead of running `gryph install`.
+    install -Dm644 \
+      agent/opencode/plugin.js \
+      agent/piagent/plugin.ts \
+      -t $out/share/gryph
   '';
 
   doInstallCheck = true;
@@ -36,6 +44,10 @@ buildGoModule rec {
 
     test -f $out/share/doc/gryph/LICENSE
     test -f $out/share/doc/gryph/README.md
+    test -f $out/share/gryph/plugin.js
+    test -f $out/share/gryph/plugin.ts
+    grep -qF '__GRYPH_COMMAND__' $out/share/gryph/plugin.js
+    grep -qF '__GRYPH_COMMAND__' $out/share/gryph/plugin.ts
 
     runHook postInstallCheck
   '';

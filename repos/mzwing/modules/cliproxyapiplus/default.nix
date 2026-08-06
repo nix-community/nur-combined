@@ -52,7 +52,8 @@
         ${lib.escapeShellArg settingsFile} \
         "$config_state" \
         "$config_backup"${lib.concatMapStrings (path: " \\
-        --api-key-file ${lib.escapeShellArg path}") cfg.apiKeysPaths}
+        --api-key-file ${lib.escapeShellArg path}") cfg.apiKeysPaths}${lib.optionalString (cfg.remoteSecretKeyPath != null) " \\
+        --secret-key-file ${lib.escapeShellArg cfg.remoteSecretKeyPath}"}
 
       cd -- "$data_dir"
       exec ${lib.escapeShellArg (lib.getExe cfg.package)} \
@@ -122,6 +123,24 @@
       '';
     };
 
+    remoteSecretKeyPath = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      example = "/run/secrets/cliproxyapiplus-remote-secret-key";
+      description = ''
+        External file (outside the Nix store) containing the Management API
+        secret key. It is read at every service start; the first non-blank,
+        non-comment line, with leading and trailing whitespace trimmed,
+        becomes `remote-management.secret-key` of the writable
+        `config.yaml`. Symbolic links are followed, so sops-nix and agenix
+        secrets can be used. A missing, unreadable, or effectively empty
+        file aborts the service start. This option is mutually exclusive
+        with `settings.remote-management.secret-key`. Changes to the file
+        take effect on the next service restart. The service account must
+        have read permission on the file.
+      '';
+    };
+
     env = lib.mkOption {
       type = lib.types.attrsOf lib.types.str;
       default = {};
@@ -162,6 +181,20 @@
       {
         assertion = builtins.all (path: lib.hasPrefix "/" path && !isInStore path) cfg.apiKeysPaths;
         message = "services.cliproxyapiplus.apiKeysPaths entries must be absolute paths outside the Nix store";
+      }
+      {
+        assertion =
+          cfg.remoteSecretKeyPath
+          == null
+          || !(cfg.settings ? "remote-management" && cfg.settings."remote-management" ? "secret-key");
+        message = "services.cliproxyapiplus.remoteSecretKeyPath and services.cliproxyapiplus.settings.remote-management.secret-key are mutually exclusive";
+      }
+      {
+        assertion =
+          cfg.remoteSecretKeyPath
+          == null
+          || (lib.hasPrefix "/" cfg.remoteSecretKeyPath && !isInStore cfg.remoteSecretKeyPath);
+        message = "services.cliproxyapiplus.remoteSecretKeyPath must be an absolute path outside the Nix store";
       }
     ];
   };

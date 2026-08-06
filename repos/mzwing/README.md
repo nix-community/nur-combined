@@ -26,6 +26,12 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `cliproxyapiplus` | [Usage](docs/modules/cliproxyapiplus.md) |
 | `pumpkin` | [Usage](docs/modules/pumpkin.md) |
 
+## Home Manager modules
+
+| Modules | Documentation |
+| --- | --- |
+| `gryph` | [Usage](docs/modules/gryph.md) |
+
 ## nix-darwin modules
 
 | Modules | Documentation |

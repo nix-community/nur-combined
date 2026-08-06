@@ -61,21 +61,34 @@ def load_yaml_mapping(path: Path, description: str) -> dict[str, Any]:
     return value
 
 
+def read_key_lines(path: Path, description: str) -> list[str]:
+    if not path.exists() or not path.is_file():
+        raise ConfigError(f"{description} is not a readable regular file: {path}")
+    lines: list[str] = []
+    try:
+        with path.open("r", encoding="utf-8") as file:
+            for line in file:
+                stripped = line.strip()
+                if not stripped or stripped.startswith("#"):
+                    continue
+                lines.append(stripped)
+    except (OSError, UnicodeError) as error:
+        raise ConfigError(f"could not read {description} {path}: {error}") from error
+    return lines
+
+
 def load_api_keys(paths: list[Path]) -> list[str]:
     keys: list[str] = []
     for path in paths:
-        if not path.exists() or not path.is_file():
-            raise ConfigError(f"API key file is not a readable regular file: {path}")
-        try:
-            with path.open("r", encoding="utf-8") as file:
-                for line in file:
-                    stripped = line.strip()
-                    if not stripped or stripped.startswith("#"):
-                        continue
-                    keys.append(stripped)
-        except (OSError, UnicodeError) as error:
-            raise ConfigError(f"could not read API key file {path}: {error}") from error
+        keys.extend(read_key_lines(path, "API key file"))
     return keys
+
+
+def load_secret_key(path: Path) -> str:
+    lines = read_key_lines(path, "remote management secret key file")
+    if not lines:
+        raise ConfigError(f"remote management secret key file contains no key: {path}")
+    return lines[0]
 
 
 def load_runtime_config(path: Path) -> dict[str, Any]:
@@ -280,6 +293,13 @@ def parse_arguments() -> argparse.Namespace:
         dest="api_key_files",
         help="External file with one API key per line (repeatable, order preserved)",
     )
+    parser.add_argument(
+        "--secret-key-file",
+        type=Path,
+        default=None,
+        dest="secret_key_file",
+        help="External file containing the remote management secret key (first non-blank, non-comment line)",
+    )
     return parser.parse_args()
 
 
@@ -311,6 +331,15 @@ def main() -> int:
             api_keys = load_api_keys(arguments.api_key_files)
             runtime["api-keys"] = api_keys
             managed_paths.add(("api-keys",))
+
+        if arguments.secret_key_file is not None:
+            secret_key = load_secret_key(arguments.secret_key_file)
+            remote_management = runtime.get("remote-management")
+            if not isinstance(remote_management, dict):
+                remote_management = {}
+                runtime["remote-management"] = remote_management
+            remote_management["secret-key"] = secret_key
+            managed_paths.add(("remote-management", "secret-key"))
 
         managed_path_list = sorted(managed_paths)
 

@@ -39,6 +39,8 @@ The NixOS module uses a systemd system service and the dedicated `cliproxyapiplu
 
     # Mutually exclusive with settings.api-keys; read at every start.
     # apiKeysPaths = ["/run/secrets/cliproxyapiplus-api-keys"];
+    # Mutually exclusive with settings.remote-management.secret-key.
+    # remoteSecretKeyPath = "/run/secrets/cliproxyapiplus-remote-secret-key";
 
     env.EXAMPLE = "example";
     extraArgs = ["--local-model"];
@@ -96,6 +98,8 @@ The module does not open firewall ports automatically. Open the configured liste
 
     # Mutually exclusive with settings.api-keys; read at every start.
     # apiKeysPaths = ["/run/secrets/cliproxyapiplus-api-keys"];
+    # Mutually exclusive with settings.remote-management.secret-key.
+    # remoteSecretKeyPath = "/run/secrets/cliproxyapiplus-remote-secret-key";
 
     env.EXAMPLE = "example";
     extraArgs = ["--local-model"];
@@ -168,6 +172,14 @@ Before every start the module reads the files in the listed order and merges the
 `apiKeysPaths` is mutually exclusive with `settings.api-keys`; setting both fails the system evaluation. Every path must be absolute and outside the Nix store. Removing `apiKeysPaths` again removes the formerly managed `api-keys` value from `config.yaml` on the next start.
 
 Changes to these files do not restart the service automatically; restart it to pick up new keys. The `cliproxyapiplus` (NixOS) or `_cliproxyapiplus` (nix-darwin) service account must be able to read the files.
+
+The Management API secret key can be kept out of the Nix store the same way:
+
+```nix
+services.cliproxyapiplus.remoteSecretKeyPath = "/run/secrets/cliproxyapiplus-remote-secret-key";
+```
+
+The file uses the same line rules as API key files; the first non-blank, non-comment line becomes `remote-management.secret-key`. A missing, unreadable, or effectively empty file aborts the service start. `remoteSecretKeyPath` is mutually exclusive with `settings.remote-management.secret-key`, and removing it again removes the formerly managed `secret-key` value on the next start.
 
 Values written directly through CLIProxyAPIPlus's management API can remain outside the Nix store as long as their paths are not also declared in `settings`.
 
