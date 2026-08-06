@@ -1,5 +1,6 @@
 { vaculib, ... }: {
-  systemd.tmpfiles.settings.whatever."/var/static-sites".d = {
+  environment.persistence."/persistent".directories = [ {
+    directory = "/var/static-sites";
     user = "shelvacu";
     group = "root";
     mode = vaculib.accessModeStr {
@@ -13,7 +14,7 @@
         execute = true;
       };
     };
-  };
+  } ];
 
   services.caddy.virtualHosts = {
     "inv6.shelvacu.com" = {
