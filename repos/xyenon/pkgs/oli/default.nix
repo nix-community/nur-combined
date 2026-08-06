@@ -11,12 +11,12 @@ rustPlatform.buildRustPackage {
   __structuredAttrs = true;
 
   pname = "oli";
-  version = "0-unstable-2026-07-28";
+  version = "0-unstable-2026-08-05";
   src = fetchFromGitHub {
     owner = "apache";
     repo = "opendal-oli";
-    rev = "189322fc37a4407827f0f39de2c65ccc88f9c287";
-    hash = "sha256-bDn+lM3NWLpUqg9pYai/OxMYi9o1dghQBtQ6IGb2tJo=";
+    rev = "6228e7747a1edc90cafa5619c576416c2f1bf734";
+    hash = "sha256-9BIKWT/CTcbIqBbBavyJYSAROL9vYnDDrGkXDP1OVA8=";
   };
 
   postPatch = ''
