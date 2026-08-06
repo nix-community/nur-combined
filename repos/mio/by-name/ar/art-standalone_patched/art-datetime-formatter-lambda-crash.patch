@@ -70,3 +70,109 @@ diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuil
      };
  
      /**
+--- a/libcore/ojluni/src/main/java/java/time/temporal/TemporalQueries.java
++++ b/libcore/ojluni/src/main/java/java/time/temporal/TemporalQueries.java
+@@ -341,58 +341,82 @@
+     /**
+      * A strict query for the {@code ZoneId}.
+      */
+-    static final TemporalQuery<ZoneId> ZONE_ID = (temporal) ->
+-        temporal.query(TemporalQueries.ZONE_ID);
++    static final TemporalQuery<ZoneId> ZONE_ID = new TemporalQuery<ZoneId>() {
++        @Override
++        public ZoneId queryFrom(TemporalAccessor temporal) {
++            return temporal.query(TemporalQueries.ZONE_ID);
++        }
++    };
+ 
+     /**
+      * A query for the {@code Chronology}.
+      */
+-    static final TemporalQuery<Chronology> CHRONO = (temporal) ->
+-        temporal.query(TemporalQueries.CHRONO);
++    static final TemporalQuery<Chronology> CHRONO = new TemporalQuery<Chronology>() {
++        @Override
++        public Chronology queryFrom(TemporalAccessor temporal) {
++            return temporal.query(TemporalQueries.CHRONO);
++        }
++    };
+ 
+     /**
+      * A query for the smallest supported unit.
+      */
+-    static final TemporalQuery<TemporalUnit> PRECISION = (temporal) ->
+-        temporal.query(TemporalQueries.PRECISION);
++    static final TemporalQuery<TemporalUnit> PRECISION = new TemporalQuery<TemporalUnit>() {
++        @Override
++        public TemporalUnit queryFrom(TemporalAccessor temporal) {
++            return temporal.query(TemporalQueries.PRECISION);
++        }
++    };
+ 
+     //-----------------------------------------------------------------------
+     /**
+      * A query for {@code ZoneOffset} returning null if not found.
+      */
+-    static final TemporalQuery<ZoneOffset> OFFSET = (temporal) -> {
+-        if (temporal.isSupported(OFFSET_SECONDS)) {
+-            return ZoneOffset.ofTotalSeconds(temporal.get(OFFSET_SECONDS));
++    static final TemporalQuery<ZoneOffset> OFFSET = new TemporalQuery<ZoneOffset>() {
++        @Override
++        public ZoneOffset queryFrom(TemporalAccessor temporal) {
++            if (temporal.isSupported(OFFSET_SECONDS)) {
++                return ZoneOffset.ofTotalSeconds(temporal.get(OFFSET_SECONDS));
++            }
++            return null;
+         }
+-        return null;
+     };
+ 
+     /**
+      * A lenient query for the {@code ZoneId}, falling back to the {@code ZoneOffset}.
+      */
+-    static final TemporalQuery<ZoneId> ZONE = (temporal) -> {
+-        ZoneId zone = temporal.query(ZONE_ID);
+-        return (zone != null ? zone : temporal.query(OFFSET));
++    static final TemporalQuery<ZoneId> ZONE = new TemporalQuery<ZoneId>() {
++        @Override
++        public ZoneId queryFrom(TemporalAccessor temporal) {
++            ZoneId zone = temporal.query(ZONE_ID);
++            return (zone != null ? zone : temporal.query(OFFSET));
++        }
+     };
+ 
+     /**
+      * A query for {@code LocalDate} returning null if not found.
+      */
+-    static final TemporalQuery<LocalDate> LOCAL_DATE = (temporal) -> {
+-        if (temporal.isSupported(EPOCH_DAY)) {
+-            return LocalDate.ofEpochDay(temporal.getLong(EPOCH_DAY));
++    static final TemporalQuery<LocalDate> LOCAL_DATE = new TemporalQuery<LocalDate>() {
++        @Override
++        public LocalDate queryFrom(TemporalAccessor temporal) {
++            if (temporal.isSupported(EPOCH_DAY)) {
++                return LocalDate.ofEpochDay(temporal.getLong(EPOCH_DAY));
++            }
++            return null;
+         }
+-        return null;
+     };
+ 
+     /**
+      * A query for {@code LocalTime} returning null if not found.
+      */
+-    static final TemporalQuery<LocalTime> LOCAL_TIME = (temporal) -> {
+-        if (temporal.isSupported(NANO_OF_DAY)) {
+-            return LocalTime.ofNanoOfDay(temporal.getLong(NANO_OF_DAY));
++    static final TemporalQuery<LocalTime> LOCAL_TIME = new TemporalQuery<LocalTime>() {
++        @Override
++        public LocalTime queryFrom(TemporalAccessor temporal) {
++            if (temporal.isSupported(NANO_OF_DAY)) {
++                return LocalTime.ofNanoOfDay(temporal.getLong(NANO_OF_DAY));
++            }
++            return null;
+         }
+-        return null;
+     };
+ 
+ }

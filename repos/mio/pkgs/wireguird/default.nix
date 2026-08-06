@@ -135,24 +135,34 @@ stdenv.mkDerivation {
     gsettings-desktop-schemas
   ];
 
-  dontUnpack = true;
-  dontBuild = true;
+  unpackPhase = "true";
+
+  buildPhase = ''
+    cat <<'EOF' > wrapper.c
+    #include <sys/prctl.h>
+    #include <unistd.h>
+    int main(int argc, char **argv) {
+        // The capability wrapper marks the process non-dumpable; the kernel then
+        // denies /proc/<pid>/root to xdg-desktop-portal, breaking GTK dark mode.
+        // Re-enable dumpable so the portal can read our settings.
+        prctl(PR_SET_DUMPABLE, 1, 0, 0, 0);
+        execv("${wireguird-unwrapped}/bin/wireguird", argv);
+        return 1;
+    }
+    EOF
+    $CC -O2 wrapper.c -o wireguird-dumpable
+  '';
 
   installPhase = ''
-    mkdir -p "$out/bin" "$out/share/applications"
+    mkdir -p "$out/bin" "$out/libexec" "$out/share/applications"
     ln -s ${wireguird-unwrapped}/share/icons "$out/share/icons"
     ln -s ${wireguird-unwrapped}/share/wireguird "$out/share/wireguird"
 
+    install -Dm755 wireguird-dumpable "$out/libexec/wireguird-dumpable"
+
     # Runs as the logged-in user. On NixOS, programs.wireguird installs
     # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
-    # Known: GTK prints "Failed to read portal settings: … Unable to open
-    # /proc/<pid>/root" on launch. The capability wrapper marks the process
-    # non-dumpable, so the kernel denies /proc/<pid>/root to
-    # xdg-desktop-portal. GTK falls back to its native settings path and
-    # continues working. Do NOT suppress this via GTK_USE_PORTAL=0: the portal
-    # is also how GTK picks up the KDE Plasma color-scheme (dark mode), so
-    # disabling it breaks dark mode for GTK apps.
-    makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/bin/wireguird" \
+    makeWrapper "$out/libexec/wireguird-dumpable" "$out/bin/wireguird" \
       "''${gappsWrapperArgs[@]}" \
       --prefix PATH : ${wireguardToolPath}
 
