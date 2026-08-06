@@ -2,6 +2,8 @@ From: Developer
 Date: Thu, 06 Aug 2026
 Subject: [PATCH] fix bitmap unlock to prevent recycle crashes
 
+API: https://developer.android.com/ndk/reference/group/bitmap#androidbitmap_unlockpixels
+
 diff --git a/src/libandroid/bitmap.c b/src/libandroid/bitmap.c
 index 7a81d8eb..7a27bd33 100644
 --- a/src/libandroid/bitmap.c

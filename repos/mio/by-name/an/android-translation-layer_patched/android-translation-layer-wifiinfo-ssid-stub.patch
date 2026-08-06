@@ -1,10 +1,10 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Author <author@example.com>
-Date: Thu, 6 Aug 2026 00:00:00 +0000
-Subject: [PATCH] fix: add getSSID stub to WifiInfo
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] add getSSID stub to WifiInfo to prevent F-Droid crashes
 
 F-Droid crashes because it expects `getSSID()` to exist in `android.net.wifi.WifiInfo`.
 Return `"<unknown ssid>"` which is the default for AOSP when SSID is not available.
+API: https://developer.android.com/reference/android/net/wifi/WifiInfo#getSSID()
 
 ---
  src/api-impl/android/net/wifi/WifiInfo.java | 4 ++++
