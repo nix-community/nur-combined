@@ -32,6 +32,7 @@
       ./android-translation-layer-gtk-native-check.patch
       ./android-translation-layer-gtk-measure-zero.patch
       ./android-translation-layer-drawlines-bounds.patch
+      ./android-translation-layer-mr248-ads-stubs.patch
     ];
     postInstall = (old.postInstall or "") + ''
       mkdir -p $out/etc/security

@@ -14,13 +14,13 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bionic-translation";
-  version = "0-unstable-2026-08-03";
+  version = "0-unstable-2026-08-06";
 
   src = fetchFromGitLab {
     owner = "android_translation_layer";
     repo = "bionic_translation";
-    rev = "484b1b05795784a5a57dbd4ffad21a3e680a33b2";
-    hash = "sha256-43VJPhN8/J/pJr8mdV9/n+hrVZLzh7aQhAJ8cT53BHc=";
+    rev = "ef588129f1b505e62de8750793e44aba98817a98";
+    hash = "sha256-QrDjjovxwxMujjGpseifkoSnTMkXNv5OXigvfIJLR9I=";
   };
 
   nativeBuildInputs = [

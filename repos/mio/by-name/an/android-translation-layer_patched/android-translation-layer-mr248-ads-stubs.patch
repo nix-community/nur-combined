@@ -1,0 +1,94 @@
+From 66d245d6e64b70f8830a7e460ef89f3dcb3f4b75 Mon Sep 17 00:00:00 2001
+From: Hugo Posnic <hugo.posnic@protonmail.com>
+Date: Sun, 1 Mar 2026 19:07:30 +0100
+Subject: [PATCH] Some ads implementations
+
+---
+ src/api-impl-jni/os/android_os_Process.c      |  5 ++++
+ .../android/content/pm/PackageInstaller.java  |  6 ++++
+ src/api-impl/android/os/Debug.java            |  6 ++++
+ .../ads/identifier/AdvertisingIdClient.java   | 28 +++++++++++++++++++
+ .../DynamiteMeasurementManager.java           | 20 +++++++++++++
+ src/api-impl/meson.build                      |  2 ++
+ 6 files changed, 67 insertions(+)
+ create mode 100644 src/api-impl/com/google/android/gms/ads/identifier/AdvertisingIdClient.java
+ create mode 100644 src/api-impl/com/google/android/gms/ads/measurement/DynamiteMeasurementManager.java
+
+
+
+diff --git a/src/api-impl/com/google/android/gms/ads/identifier/AdvertisingIdClient.java b/src/api-impl/com/google/android/gms/ads/identifier/AdvertisingIdClient.java
+new file mode 100644
+index 00000000..f98bfc9c
+--- /dev/null
++++ b/src/api-impl/com/google/android/gms/ads/identifier/AdvertisingIdClient.java
+@@ -0,0 +1,28 @@
++package com.google.android.gms.ads.identifier;
++
++import android.content.Context;
++
++public class AdvertisingIdClient {
++
++	public static Info getAdvertisingIdInfo(Context context) {
++		return new Info("00000000-0000-0000-0000-000000000000", false);
++	}
++
++	public static class Info {
++		private final String id;
++		private final boolean isLimitAdTrackingEnabled;
++
++		public Info(String id, boolean isLimitAdTrackingEnabled) {
++			this.id = id;
++			this.isLimitAdTrackingEnabled = isLimitAdTrackingEnabled;
++		}
++
++		public String getId() {
++			return id;
++		}
++
++		public boolean isLimitAdTrackingEnabled() {
++			return isLimitAdTrackingEnabled;
++		}
++	}
++}
+diff --git a/src/api-impl/com/google/android/gms/ads/measurement/DynamiteMeasurementManager.java b/src/api-impl/com/google/android/gms/ads/measurement/DynamiteMeasurementManager.java
+new file mode 100644
+index 00000000..749fa4f5
+--- /dev/null
++++ b/src/api-impl/com/google/android/gms/ads/measurement/DynamiteMeasurementManager.java
+@@ -0,0 +1,20 @@
++package com.google.android.gms.ads.measurement;
++
++import android.os.IBinder;
++import android.os.IInterface;
++import android.os.Parcel;
++
++public class DynamiteMeasurementManager implements IBinder {
++	public void initialize() {
++	}
++
++	@Override
++	public boolean transact(int code, Parcel data, Parcel reply, int flags) {
++		return true;
++	}
++
++	@Override
++	public IInterface queryLocalInterface(String descriptor) {
++		return null;
++	}
++}
+diff --git a/src/api-impl/meson.build b/src/api-impl/meson.build
+index ac538dc7..be03b69a 100644
+--- a/src/api-impl/meson.build
++++ b/src/api-impl/meson.build
+@@ -742,6 +742,8 @@ srcs = [
+ 	'com/google/android/gles_jni/EGLImpl.java',
+ 	'com/google/android/gles_jni/EGLSurfaceImpl.java',
+ 	'com/google/android/gles_jni/GLImpl.java',
++	'com/google/android/gms/ads/identifier/AdvertisingIdClient.java',
++	'com/google/android/gms/ads/measurement/DynamiteMeasurementManager.java',
+ 	'com/google/android/vending/expansion/downloader/IDownloaderClient.java',
+ 	'com/google/android/vending/expansion/downloader/impl/DownloaderService.java',
+ 	'com/google/android/vending/licensing/LicenseChecker.java',
+-- 
+GitLab
+
