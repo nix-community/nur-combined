@@ -2,6 +2,7 @@
   fetchFromGitHub,
   lib,
   nodejs,
+  pandoc,
   rustPlatform,
   stdenvNoCC,
   tree-sitter,
@@ -9,12 +10,12 @@
 }:
 
 let
-  version = "0.16.0";
+  version = "0.17.1";
   src = fetchFromGitHub {
     owner = "wrvsrx";
     repo = "plumb";
     tag = version;
-    hash = "sha256-jpRlh5pJKI8UMAPYregEQVIP23u+6EvujCIAFzSXcxE=";
+    hash = "sha256-aEPx+pL051SKq6iqGO1gCE1IqGQly5pQL7cKatULjmA=";
   };
 
   generatedSource = stdenvNoCC.mkDerivation {
@@ -64,7 +65,9 @@ rustPlatform.buildRustPackage {
   pname = "plumb";
   inherit version src;
 
-  cargoHash = "sha256-jx4izqbswLYJDhfrqA5HTouZWx0KTVoY1pjJjoCd0dk=";
+  cargoHash = "sha256-csDLkHeP2IOtSBWuEbAjknD03I+5txD2EdhOptWGdbk=";
+
+  nativeCheckInputs = [ pandoc ];
 
   postInstall = ''
     mkdir -p $out/share/plumb

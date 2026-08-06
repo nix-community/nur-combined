@@ -27,9 +27,6 @@ let
     ptrace-time-hook = callPackage ./ptrace-time-hook { source = sources.ptrace-time-hook; };
 
     # override packages
-    neovim-unwrapped = callPackage ./neovim-unwrapped {
-      inherit (prev) neovim-unwrapped;
-    };
     pam_ssh_agent_auth = callPackage ./pam_ssh_agent_auth { inherit (prev) pam_ssh_agent_auth; };
     xclip = callPackage ./xclip {
       inherit (prev) xclip;
