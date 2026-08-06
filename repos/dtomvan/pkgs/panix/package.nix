@@ -2,6 +2,7 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
+  fetchpatch,
   nix-update-script,
 }:
 
@@ -16,6 +17,13 @@ buildGoModule (finalAttrs: {
     tag = "v${finalAttrs.version}";
     hash = "sha256-4bbFpHqjQbBReUm7qV2MRJJfh0nsU7ssHofpoP7eqS8=";
   };
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/mihakrumpestar/panix/commit/c50512b25589bcc30a8682f543d688a75e1bc556.patch";
+      hash = "sha256-dwvx58GY9I4EhNiml6BquEb/CxbwR5owpMBGpzb2tWM=";
+    })
+  ];
 
   subPackages = [ "cmd/panix" ];
 
