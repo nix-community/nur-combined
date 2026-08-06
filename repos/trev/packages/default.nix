@@ -35,5 +35,6 @@ in
   xdg-desktop-portal-luminous = pkgs.callPackage ./xdg-desktop-portal-luminous { };
   zig-protobuf = pkgs.callPackage ./zig-protobuf { };
 }
+// import ./beam.nix { inherit (pkgs) beamPackages; }
 // (if includeFlakePackages then import ./get-flake.nix { inherit system pkgs; } else { })
 // import ./python.nix { pythonPackages = pkgs.python3Packages; }

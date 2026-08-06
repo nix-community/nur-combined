@@ -10,9 +10,12 @@ let
   pythonPackagesExtensions = prev.pythonPackagesExtensions ++ [
     (pythonPackages: _: import ../packages/python.nix { inherit pythonPackages; })
   ];
+
+  beamPackages =
+    prev.beamPackages // import ../packages/beam.nix { beamPackages = prev.beamPackages; };
 in
 prev
 // packages
 // {
-  inherit pythonPackagesExtensions;
+  inherit pythonPackagesExtensions beamPackages;
 }

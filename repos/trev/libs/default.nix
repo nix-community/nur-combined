@@ -13,5 +13,6 @@
   mkApps = pkgs.callPackage ./mkApps { };
   mkChecks = pkgs.callPackage ./mkChecks { };
   mkFlake = pkgs.callPackage ./mkFlake { };
+  mkGleamBurrito = pkgs.callPackage ./mkGleamBurrito { };
   mkImage = pkgs.callPackage ./mkImage { };
 }
