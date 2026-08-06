@@ -2,8 +2,7 @@
   lib,
   stdenv,
   wechat,
-  dbus,
-  pkg-config,
+  wechat_appearance_plugin,
   makeWrapper,
   copyDesktopItems,
   makeDesktopItem,
@@ -13,32 +12,21 @@ stdenv.mkDerivation {
   pname = "wechat-patched";
   version = wechat.version;
 
-  src = ./.;
+  dontUnpack = true;
 
   nativeBuildInputs = [
     makeWrapper
     copyDesktopItems
-    pkg-config
   ];
-
-  buildInputs = [ dbus ];
-
-  buildPhase = ''
-    runHook preBuild
-    $CC -shared -fPIC -O2 -Wall -Wextra \
-      $(pkg-config --cflags dbus-1) \
-      -o libwechat_appearance.so libwechat_appearance.c \
-      $(pkg-config --libs dbus-1) -lpthread
-    runHook postBuild
-  '';
 
   installPhase = ''
     runHook preInstall
-    install -Dm755 libwechat_appearance.so $out/lib/libwechat_appearance.so
+
+    mkdir -p $out/bin
 
     # Wrap nixpkgs wechat (FHS) so LD_PRELOAD is set for the real binary.
     makeWrapper ${lib.getExe wechat} $out/bin/wechat \
-      --prefix LD_PRELOAD : "$out/lib/libwechat_appearance.so"
+      --prefix LD_PRELOAD : "${wechat_appearance_plugin}/lib/libwechat_appearance.so"
 
     ln -s wechat $out/bin/wechat-patched
 

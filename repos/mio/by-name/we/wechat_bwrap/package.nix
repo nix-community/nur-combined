@@ -12,9 +12,9 @@
   bindDownloads ? true,
   bindDesktop ? false,
   bindDocuments ? false,
-  # LD_PRELOAD libwechat_appearance.so (from wechat_patched). Opt-in.
+  # LD_PRELOAD libwechat_appearance.so (from wechat_appearance_plugin). Opt-in.
   followSystemAppearance ? false,
-  wechat_patched,
+  wechat_appearance_plugin,
 }:
 
 stdenv.mkDerivation {
@@ -99,7 +99,7 @@ stdenv.mkDerivation {
       --replace-fail '@appearancePreloadBlock@' ${
         lib.escapeShellArg (
           if followSystemAppearance then
-            "\n    # LD_PRELOAD follow-system appearance (wechat_patched).\n        BWRAP_ARGS+=(--setenv LD_PRELOAD \"${wechat_patched}/lib/libwechat_appearance.so\${LD_PRELOAD:+:$LD_PRELOAD}\")\n"
+            "\n    # LD_PRELOAD follow-system appearance (wechat_appearance_plugin).\n        BWRAP_ARGS+=(--setenv LD_PRELOAD \"${wechat_appearance_plugin}/lib/libwechat_appearance.so\${LD_PRELOAD:+:$LD_PRELOAD}\")\n"
           else
             ""
         )
