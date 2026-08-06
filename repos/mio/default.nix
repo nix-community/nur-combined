@@ -149,6 +149,7 @@ with (import ./private.nix { inherit pkgs; });
               #betterbird
               ghidra_hidpi
               prismlauncher-diegiwg
+              android-translation-layer
               #pake # started failing recently
               cider
               rocksmith2tab

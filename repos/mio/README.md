@@ -82,6 +82,9 @@ files are copied from following locations. some are modified in this repo and so
 + beammp-launcher nixpkgs commit 68990df0529b74cde8b63cd1d5f5f5550e630a0c
 + cacert_3108 <https://github.com/NixOS/nixpkgs/blob/9a9ab6b9242c4526f04abeeef99b8de1d7af1fea/pkgs/data/misc/cacert/default.nix>
 + <https://github.com/emmanuelrosa/erosanix/tree/master/pkgs/mkwindowsapp> commit 464f070d952afff764d82041d371cfee3e689d2a mkwindowsapp mkwindowsapp-tools line.nix hooks lib pkgs/wineshell
++ android-translation-layer (`by-name/an/android-translation-layer/`) — nixpkgs commit 104240a772428cc2e20d8fd86c9ddbb886bbaff2 (then updated to latest upstream)
++ bionic-translation (`by-name/bi/bionic-translation/`) — nixpkgs commit 104240a772428cc2e20d8fd86c9ddbb886bbaff2 (then updated to latest upstream)
++ art-standalone (`by-name/ar/art-standalone/`) — nixpkgs commit 104240a772428cc2e20d8fd86c9ddbb886bbaff2 (then updated to latest upstream)
 + local-ai nixpkgs commit 7377f649a8671844d42dde9ea739961f06ce7edf
 + <https://github.com/maydayv7/dotfiles/raw/refs/heads/stable/packages/wine/notepad++.nix>
 + rclone-ui nixpkgs commit df70bd515ec9175798339adf2ae6a22052d86577
