@@ -1,0 +1,12 @@
+diff --git a/libcore/ojluni/src/main/java/sun/security/jca/Providers.java b/libcore/ojluni/src/main/java/sun/security/jca/Providers.java
+index e60c3e3ba8..ec66dcb8f1 100644
+--- a/libcore/ojluni/src/main/java/sun/security/jca/Providers.java
++++ b/libcore/ojluni/src/main/java/sun/security/jca/Providers.java
+@@ -104,6 +104,7 @@ public class Providers {
+         "com.android.org.bouncycastle.jce.provider.BouncyCastleProvider",
+         "org.apache.harmony.security.provider.crypto.CryptoProvider", // we need SecureRandom
+         "com.wolfssl.provider.jsse.WolfSSLProvider",
++        "dummy.provider.to.dodge.dx.excess.write.bug",
+         // END Android-changed: Use Conscrypt and BC, not the sun.security providers.
+         BACKUP_PROVIDER_CLASSNAME,
+     };
