@@ -30,6 +30,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "freesmlauncher-unwrapped";
   version = "2.2.2";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "FreesmTeam";
     repo = "FreesmLauncher";

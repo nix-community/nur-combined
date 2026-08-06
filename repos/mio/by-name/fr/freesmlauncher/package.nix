@@ -61,6 +61,9 @@ symlinkJoin {
   pname = "freesmlauncher";
   inherit (freesmlauncher') version;
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   paths = [ freesmlauncher' ];
 
   nativeBuildInputs = [
