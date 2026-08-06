@@ -18,13 +18,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wolfssl-${variant}";
-  version = "5.9.1";
+  version = "5.9.2";
 
   src = fetchFromGitHub {
     owner = "wolfSSL";
     repo = "wolfssl";
     tag = "v${finalAttrs.version}-stable";
-    hash = "sha256-FyEb94hsO2BaTEi1CJRfCsUiT1xyWCzu7Uys81g2CBE=";
+    hash = "sha256-BKzmTkNWpBhYNBuMdzeL4XDZI/rXO1NrLkfwmwFcNng=";
   };
 
   postPatch = ''
