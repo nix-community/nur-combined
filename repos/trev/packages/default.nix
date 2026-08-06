@@ -22,6 +22,7 @@ in
   go-over = pkgs.callPackage ./go-over { inherit (libs) gleamErlangHook gleamFetchDeps; };
   helium = pkgs.callPackage ./helium { };
   igsc = pkgs.callPackage ./igsc { };
+  kotlin-lsp = pkgs.callPackage ./kotlin-lsp { };
   libvmaf = pkgs.callPackage ./libvmaf { };
   libwtf = pkgs.callPackage ./libwtf { };
   nix-scan = pkgs.callPackage ./nix-scan { };
