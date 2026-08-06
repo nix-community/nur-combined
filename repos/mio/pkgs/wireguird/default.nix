@@ -147,6 +147,7 @@ stdenv.mkDerivation {
     # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
     makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/bin/wireguird" \
       "''${gappsWrapperArgs[@]}" \
+      --set GTK_USE_PORTAL 0 \
       --prefix PATH : ${wireguardToolPath}
 
     install -Dm644 /dev/stdin "$out/share/applications/wireguird.desktop" <<EOF
