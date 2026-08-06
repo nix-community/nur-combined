@@ -39,10 +39,19 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-cNb7sIx7YIoVcamG6/cCFAdELSAm/N0OFBaJ1imJDQk=";
   };
 
+  openh264Src = fetchzip {
+    url = "https://github.com/cisco/openh264/archive/refs/tags/v2.4.1.tar.gz";
+    hash = "sha256-ai7lcGcQQqpsLGSwHkSs7YAoEfGCIbxdClO6JpGA+MI=";
+  };
+
+  opensslSrc = fetchzip {
+    url = "https://github.com/openssl/openssl/archive/refs/tags/OpenSSL_1_1_1s.tar.gz";
+    hash = "sha256-HPiUGzF9j9TS5nr0tqg01EZuN6upO1FblbbKmDp2GJo=";
+  };
+
   src = stdenvNoCC.mkDerivation {
     name = "telegram-mac-source";
     outputHashMode = "recursive";
-    outputHashAlgo = "sha256";
     outputHash = "sha256-jBDhtqNNN0/m5C3fmtAmiLG0dAPMU5uf9yn0IkpfqRk=";
 
     nativeBuildInputs = [
@@ -74,7 +83,6 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   spmDeps = stdenvNoCC.mkDerivation {
     name = "telegram-mac-spm";
     outputHashMode = "recursive";
-    outputHashAlgo = "sha256";
     outputHash = "sha256-2MxwU1tNz3oCCwRSNvSS5hRSWZd87gtlJDQfN7TFwaQ=";
 
     inherit (finalAttrs) src;
@@ -151,6 +159,14 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     mkdir -p submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1
     cp -r ${finalAttrs.ffmpegSrc}/* submodules/telegram-ios/submodules/ffmpeg/Sources/FFMpeg/ffmpeg-7.1/
 
+    # Copy OpenH264 source to a safe place (Xcode might clean the build directory)
+    mkdir -p core-xprojects/OpenH264/openh264_src
+    cp -r ${finalAttrs.openh264Src}/* core-xprojects/OpenH264/openh264_src/
+
+    # Copy OpenSSL source to a safe place
+    mkdir -p core-xprojects/openssl_src
+    cp -r ${finalAttrs.opensslSrc}/* core-xprojects/openssl_src/
+
     # Prefer macOS BSD ln/tar over Nix GNU tools (scripts use ln -sfh, tar-on-zip).
     # Keep GNU cp: BSD cp -a dir/ dest/ copies contents, while GNU nests as dest/dir/,
     # and libopus/webrtc include paths are tuned for the GNU layout.
@@ -184,6 +200,16 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
     substituteInPlace core-xprojects/Mozjpeg/Mozjpeg/build.sh \
       --replace-fail 'mozjpeg/" "''${BUILD_DIR}build/"' 'mozjpeg/"/. "''${BUILD_DIR}build/"'
+
+    # Patch OpenH264 build script to use prefetched source instead of git clone
+    substituteInPlace core-xprojects/OpenH264/OpenH264/build.sh \
+      --replace-fail 'git clone -b v2.4.1 https://github.com/cisco/openh264.git ''${BUILD_DIR}/openh264' \
+                     'cp -R "$(dirname "''${BUILD_DIR}")/openh264_src" "''${BUILD_DIR}/openh264" && chmod -R u+w "''${BUILD_DIR}/openh264"'
+
+    # Patch OpenSSL build script to use prefetched source instead of git clone
+    substituteInPlace core-xprojects/openssl/OpenSSLEncryption/build.sh \
+      --replace-fail 'git clone -b OpenSSL_1_1_1-stable https://github.com/openssl/openssl build/''${NAME}' \
+                     'cp -R ../openssl_src build/''${NAME} && chmod -R u+w build/''${NAME}'
 
     # GNU cp nests libopus headers at .../include/opus/include/; match that here.
     substituteInPlace core-xprojects/webrtc/webrtc.xcodeproj/project.pbxproj \
