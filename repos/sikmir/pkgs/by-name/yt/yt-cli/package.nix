@@ -9,14 +9,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "yt-cli";
-  version = "0.24.7";
+  version = "0.25.1";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "ryancheley";
     repo = "yt-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-stkwJsioxZgWJ2sNrFkEIl6ZX9l+CNDQdpnH7ZPuuuw=";
+    hash = "sha256-niOyM9VQ+xHddOiI0U60m5zDYlZV3eMtvnbLC+acWvg=";
   };
 
   build-system = with python3Packages; [ hatchling ];

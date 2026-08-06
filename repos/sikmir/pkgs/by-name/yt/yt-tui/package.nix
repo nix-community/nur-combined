@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "yt-tui";
-  version = "0.7.8";
+  version = "0.7.9";
 
   __structuredAttrs = true;
 
@@ -14,7 +14,7 @@ buildGoModule (finalAttrs: {
     owner = "nospor";
     repo = "yt-tui";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-RMjovk7DrqlW0mxLQCe4AWxhq8gr/vsjE7uAu/M5g3s=";
+    hash = "sha256-65XUTtPBnUNnQYju/x71KuxDadzl2gWJSt3/aEfsfuU=";
   };
 
   vendorHash = "sha256-5/BqDP8b9XNqwbh/0d9Vsyi0lg8JmjcDk6CYkLdAXvM=";
