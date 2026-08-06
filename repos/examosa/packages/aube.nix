@@ -10,10 +10,12 @@
   rustc,
   usage,
   zstd,
+  nix-update-script,
+  writableTmpDirAsHomeHook,
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "aube";
-  version = "1.26.0";
+  version = "1.34.0";
 
   __structuredAttrs = true;
 
@@ -21,10 +23,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "endevco";
     repo = "aube";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bQDDLgO5dG9kMF9VDnHGwuMZjWrbNT5Ia90rJrERDaE=";
+    hash = "sha256-PssbSDMHdDN1QVuwE4H2f5Hhy7yU6sv7EYjJmth/fQ8=";
   };
 
-  cargoHash = "sha256-L9UiSO9UL8kBOebFXrZqbIJ/V4tobl1NYAdlktmX2lY=";
+  cargoHash = "sha256-e7fJRDqyJH9dF0nhJQJeISd2P1UheKKBm7A7bLlDhvg=";
 
   nativeBuildInputs = [
     cmakeMinimal
@@ -37,7 +39,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   postPatch = ''
-    substituteInPlace ./crates/aube-lockfile/src/io.rs \
+    substituteInPlace ./crates/aube-lockfile/src/io.rs ./crates/aube/src/commands/version.rs \
       --replace-fail '"git"' '"${lib.getExe gitMinimal}"'
 
     substituteInPlace ./crates/aube/src/commands/completion.rs \
@@ -46,6 +48,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   nativeCheckInputs = [
     cacert
+    writableTmpDirAsHomeHook
   ];
 
   # tests mutate AUBE_DISABLE_TLS_TICKET_CACHE and assume serial execution
@@ -75,6 +78,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     JDX_USAGE_BIN = lib.getExe usage;
     ZSTD_SYS_USE_PKG_CONFIG = true;
   };
+
+  passthru.updateScript = nix-update-script {extraArgs = ["--use-github-releases"];};
 
   meta = {
     broken = lib.versionOlder rustc.version "1.93";

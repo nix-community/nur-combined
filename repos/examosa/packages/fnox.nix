@@ -5,6 +5,7 @@
   fetchFromGitHub,
   installShellFiles,
   nix-update-script,
+  perl,
   pkg-config,
   dbus,
   udev,
@@ -25,10 +26,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoHash = "sha256-ImD2PEtoTW1ktNpSzGO0ENyXQ/A4f0ydHqZhSIgNroE=";
 
-  nativeBuildInputs = [
-    installShellFiles
-    pkg-config
-  ];
+  nativeBuildInputs =
+    [
+      installShellFiles
+      pkg-config
+    ]
+    ++ lib.optional stdenv.hostPlatform.isLinux perl;
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [dbus udev];
 
