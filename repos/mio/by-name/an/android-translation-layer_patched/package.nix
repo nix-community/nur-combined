@@ -10,5 +10,6 @@
     ./android-translation-layer-fdroid-stub.patch
     ./android-translation-layer-context-stub.patch
     ./android-translation-layer-newpipe-esc-stub.patch
+    ./android-translation-layer-newpipe-red-layer.patch
   ];
 })

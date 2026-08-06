@@ -1,0 +1,72 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] fix DateTimeFormatterBuilder and DateTimeFormatter BootstrapMethodError crash during <clinit> (https://gitlab.com/android_translation_layer/android_translation_layer/-/issues/89)
+
+Bug: During class initialization, static lambdas use invokedynamic which fails if the lambda metafactory is uninitialized or in a circular dependency, throwing BootstrapMethodError.
+Fix: Use traditional anonymous inner classes instead of lambdas for static final fields.
+
+diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatter.java b/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatter.java
+--- a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatter.java
++++ b/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatter.java
+@@ -1308,12 +1308,15 @@ public final class DateTimeFormatter {
+     public static final TemporalQuery<Period> parsedExcessDays() {
+         return PARSED_EXCESS_DAYS;
+     }
+-    private static final TemporalQuery<Period> PARSED_EXCESS_DAYS = t -> {
+-        if (t instanceof Parsed) {
+-            return ((Parsed) t).excessDays;
+-        } else {
+-            return Period.ZERO;
+-        }
++    private static final TemporalQuery<Period> PARSED_EXCESS_DAYS = new TemporalQuery<Period>() {
++        @Override
++        public Period queryFrom(java.time.temporal.TemporalAccessor t) {
++            if (t instanceof Parsed) {
++                return ((Parsed) t).excessDays;
++            } else {
++                return Period.ZERO;
++            }
++        }
+     };
+ 
+     /**
+@@ -1349,11 +1352,14 @@ public final class DateTimeFormatter {
+     public static final TemporalQuery<Boolean> parsedLeapSecond() {
+         return PARSED_LEAP_SECOND;
+     }
+-    private static final TemporalQuery<Boolean> PARSED_LEAP_SECOND = t -> {
+-        if (t instanceof Parsed) {
+-            return ((Parsed) t).leapSecond;
+-        } else {
+-            return Boolean.FALSE;
+-        }
++    private static final TemporalQuery<Boolean> PARSED_LEAP_SECOND = new TemporalQuery<Boolean>() {
++        @Override
++        public Boolean queryFrom(java.time.temporal.TemporalAccessor t) {
++            if (t instanceof Parsed) {
++                return ((Parsed) t).leapSecond;
++            } else {
++                return Boolean.FALSE;
++            }
++        }
+     };
+ 
+diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuilder.java b/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuilder.java
+--- a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuilder.java
++++ b/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuilder.java
+@@ -157,9 +157,12 @@ public final class DateTimeFormatterBuilder {
+     /**
+      * Query for a time-zone that is region-only.
+      */
+-    private static final TemporalQuery<ZoneId> QUERY_REGION_ONLY = (temporal) -> {
+-        ZoneId zone = temporal.query(TemporalQueries.zoneId());
+-        return (zone != null && zone instanceof ZoneOffset == false ? zone : null);
++    private static final TemporalQuery<ZoneId> QUERY_REGION_ONLY = new TemporalQuery<ZoneId>() {
++        @Override
++        public ZoneId queryFrom(java.time.temporal.TemporalAccessor temporal) {
++            ZoneId zone = temporal.query(TemporalQueries.zoneId());
++            return (zone != null && zone instanceof ZoneOffset == false ? zone : null);
++        }
+     };
+ 
+     /**

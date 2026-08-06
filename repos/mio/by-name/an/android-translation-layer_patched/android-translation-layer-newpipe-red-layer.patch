@@ -1,0 +1,42 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] fix NewPipe red video layer by making Window.setStatusBarColor store state (https://gitlab.com/android_translation_layer/android_translation_layer/-/issues/66)
+
+Bug: Window.getStatusBarColor() returned hardcoded 0xFFFF0000 (red), and
+setStatusBarColor() discarded the value. NewPipe calls setStatusBarColor(Color.TRANSPARENT)
+when entering fullscreen and then reads the color back — getting red and rendering a
+red overlay on top of the video area.
+
+Fix: Store the color in a private field, defaulting to 0xFF000000 (black), and
+return the stored color from getStatusBarColor().
+
+--- a/src/api-impl/android/view/Window.java
++++ b/src/api-impl/android/view/Window.java
+@@ -38,6 +38,7 @@
+ 
+ 	private Window.Callback callback;
+ 	private Context context;
++	private int statusBarColor = 0xFF000000;
+ 
+ 	public Window(Context context, Window.Callback callback) {
+ 		this.callback = callback;
+@@ -119,7 +120,9 @@
+ 
+ 	public void takeSurface(SurfaceHolder.Callback2 callback) {}
+ 
+-	public void setStatusBarColor(int color) {}
++	public void setStatusBarColor(int color) {
++		this.statusBarColor = color;
++	}
+ 
+ 	public void setNavigationBarColor(int color) {}
+ 
+@@ -145,7 +148,7 @@
+ 		setBackgroundDrawable(context.getDrawable(resId));
+ 	}
+ 
+-	public int getStatusBarColor() { return 0xFFFF0000; }
++	public int getStatusBarColor() { return this.statusBarColor; }
+ 
+ 	public Context getContext() {
+ 		return context;

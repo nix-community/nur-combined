@@ -12,7 +12,7 @@ index e60c3e3ba8..ec66dcb8f1 100644
          "com.android.org.bouncycastle.jce.provider.BouncyCastleProvider",
          "org.apache.harmony.security.provider.crypto.CryptoProvider", // we need SecureRandom
          "com.wolfssl.provider.jsse.WolfSSLProvider",
-+        "dummy.provider.to.dodge.dx.excess.write.bug",
++        "dummy.provider.to.dodge.dx.excess.write.bu",
          // END Android-changed: Use Conscrypt and BC, not the sun.security providers.
          BACKUP_PROVIDER_CLASSNAME,
      };
