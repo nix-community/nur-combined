@@ -616,23 +616,23 @@
   },
   {
     "pname": "SkiaSharp",
-    "version": "4.151.0",
-    "hash": "sha256-fkVTi54RULQEaAaXL2GNMhUlJxCaXUh/XeyA9PbzAZ8="
+    "version": "4.151.1",
+    "hash": "sha256-LR/u8j8o5VhkythEn3tgq/XW2xqmHsB674N+ng6u5z4="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Linux.NoDependencies",
-    "version": "4.151.0",
-    "hash": "sha256-m4A7qeFVLQ63jtMh8c9Bt1VkF2ERUPAIoDKUYybs++4="
+    "version": "4.151.1",
+    "hash": "sha256-8zqhEf9CQc+MsDeXEB3vwOWq3rHWuwCAd3iFQ/uLApo="
   },
   {
     "pname": "SkiaSharp.NativeAssets.macOS",
-    "version": "4.151.0",
-    "hash": "sha256-9+bJa/kpaWMPvpm0BqL4zfltfRqOMpt97tCUkwhGN6g="
+    "version": "4.151.1",
+    "hash": "sha256-nt58+/t4OynYqY99sjOxsQwDLJF88nD8Z+Wwj5DavdU="
   },
   {
     "pname": "SkiaSharp.NativeAssets.Win32",
-    "version": "4.151.0",
-    "hash": "sha256-wD9RbquADVnxrAoRbJN0GvjiXm2YEwcQxKx8OoWXDqk="
+    "version": "4.151.1",
+    "hash": "sha256-pulHlVVEDtj9MO5zeEcBRFIYR66keeHv2IXzyAE/5Fg="
   },
   {
     "pname": "SQLitePCLRaw.bundle_e_sqlite3",
