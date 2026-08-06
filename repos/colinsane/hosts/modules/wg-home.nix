@@ -96,6 +96,7 @@ in
     # - `sane-vpn do wg-home THING` to route select traffic through servo
     sane.vpn.wg-home = lib.mkIf cfg.routeThroughServo {
       id = 51;
+      mtu = 1328;
       endpoint = config.sane.hosts.by-name."servo".wg-home.endpoint;
       keepalive = true;
       publicKey = config.sane.hosts.by-name."servo".wg-home.pubkey;

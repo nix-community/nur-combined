@@ -109,6 +109,10 @@ let
           dns servers to use for traffic associated with this VPN.
         '';
       };
+      mtu = mkOption {
+        type = types.nullOr types.int;
+        default = null;
+      };
       privateKeyFile = mkOption {
         type = types.either types.str types.path;
         description = ''
@@ -126,7 +130,19 @@ let
       priorityFwMark = config.id + 300;
     };
   });
-  mkVpnConfig = name: { addrV4, dns, endpoint, fwmark, id, keepalive, privateKeyFile, publicKey, subnetV4, ... }: {
+  mkVpnConfig = name: {
+    addrV4,
+    dns,
+    endpoint,
+    fwmark,
+    id,
+    keepalive,
+    mtu,
+    privateKeyFile,
+    publicKey,
+    subnetV4,
+    ...
+  }: {
     assertions = [
       {
         assertion = (lib.count (c: c.id == id) (builtins.attrValues cfg)) == 1;
@@ -139,6 +155,8 @@ let
       netdevConfig = {
         Kind = "wireguard";
         Name = name;
+      } // lib.optionalAttrs (mtu != null) {
+        MTUBytes = mtu;
       };
       wireguardConfig = {
         FirewallMark = fwmark;

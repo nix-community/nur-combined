@@ -290,16 +290,21 @@ output $out_projector {
 }
 
 ## DESKO
-output $out_desko_samsung {
+output "Unknown Unknown Unknown" {
+  # motherboard VGA output (shared with BMC/BIOS)
   pos 0,0
+  res 1024x768
+}
+output $out_desko_samsung {
+  pos 1024,0
   res 1920x1080
 }
 output $out_desko_lg {
-  pos 1920,0
+  pos 2944,0
   res 3440x1440
 }
 output $out_desko_boox {
-  pos 5360,0
+  pos 6384,0
   res 3200x1800
 }
 
