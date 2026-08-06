@@ -1,0 +1,15 @@
+--- src/libandroid/bitmap.c
++++ src/libandroid/bitmap.c
+@@ -67,9 +67,11 @@
+ 	}
+ 	GdkTexture *texture = gdk_memory_texture_new(width, height, format, bytes, stride);
+ 	g_bytes_unref(bytes);
+-	(*env)->CallVoidMethod(env, bitmap, _METHOD(_CLASS(bitmap), "recycle", "()V"));
++	jclass bitmap_class = _CLASS(bitmap);
++	jmethodID native_recycle_method = _STATIC_METHOD(bitmap_class, "native_recycle", "(JJ)V");
++	(*env)->CallStaticVoidMethod(env, bitmap_class, native_recycle_method, _GET_LONG_FIELD(bitmap, "texture"), _GET_LONG_FIELD(bitmap, "snapshot"));
+ 	_SET_LONG_FIELD(bitmap, "texture", _INTPTR(texture));
+ 	_SET_LONG_FIELD(bitmap, "bytes", 0);
++	_SET_LONG_FIELD(bitmap, "snapshot", 0);
+ 	return ANDROID_BITMAP_RESULT_SUCCESS;
+ }

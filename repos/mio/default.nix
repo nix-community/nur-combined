@@ -93,6 +93,11 @@ with (import ./private.nix { inherit pkgs; });
       patches = (old.patches or [ ]) ++ [ ./patches/ghidra-ui-scale.patch ];
     })
   );
+  android-translation-layer_patched = v3override (
+    (import ./packages.nix { inherit pkgs no-ifd; }).android-translation-layer.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./patches/android-translation-layer-bitmap-unlock.patch ];
+    })
+  );
 
   cached-set =
     let
