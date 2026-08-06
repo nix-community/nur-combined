@@ -137,6 +137,8 @@ stdenv.mkDerivation {
 
   unpackPhase = "true";
 
+  dontWrapGApps = true;
+
   buildPhase = ''
     cat <<'EOF' > wrapper.c
     #include <sys/prctl.h>
