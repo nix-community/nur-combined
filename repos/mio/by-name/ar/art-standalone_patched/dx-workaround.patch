@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] fix 'excess write of 8' dx compiler bug by offsetting string pool
+
+Bug: When building `core-oj-hostdex` with `wolfssl` included, `dx` fails with "excess write of 8". This adds a dummy string to shift the string pool and workaround the `dx` calculation bug.
+
 diff --git a/libcore/ojluni/src/main/java/sun/security/jca/Providers.java b/libcore/ojluni/src/main/java/sun/security/jca/Providers.java
 index e60c3e3ba8..ec66dcb8f1 100644
 --- a/libcore/ojluni/src/main/java/sun/security/jca/Providers.java

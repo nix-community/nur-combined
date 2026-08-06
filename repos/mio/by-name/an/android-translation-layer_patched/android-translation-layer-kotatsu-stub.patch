@@ -2,6 +2,9 @@ From: Developer
 Date: Thu, 06 Aug 2026
 Subject: [PATCH] add Kotatsu SearchRecentSuggestions stub
 
+Fixes: https://gitlab.com/android_translation_layer/android_translation_layer/-/issues/112
+API: https://developer.android.com/reference/android/provider/SearchRecentSuggestions
+
 diff --git a/src/api-impl/android/provider/SearchRecentSuggestions.java b/src/api-impl/android/provider/SearchRecentSuggestions.java
 new file mode 100644
 index 00000000..315ee36c

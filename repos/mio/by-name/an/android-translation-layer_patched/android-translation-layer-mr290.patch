@@ -3,6 +3,8 @@ From: =?UTF-8?q?Jo=C3=A3o=20Lucas=20Farias?= <jlalmeida.farias@gmail.com>
 Date: Wed, 5 Aug 2026 10:25:36 -0300
 Subject: [PATCH] api-impl: add misc stubs to make aegis work
 
+MR: https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/290
+
 ---
  src/api-impl/android/app/ContextImpl.java         |  3 +++
  .../android/content/pm/PackageManager.java        |  8 ++++++++
