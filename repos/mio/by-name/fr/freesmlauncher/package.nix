@@ -132,12 +132,22 @@ symlinkJoin {
 
     in
     [
-      "--set" "NIX_LAUNCHER_WRAPPER" "${placeholder "out"}/bin/freesmlauncher"
-      "--prefix" "FREESMLAUNCHER_JAVA_PATHS" ":" "${lib.makeSearchPath "bin/java" jdks}"
+      "--set"
+      "NIX_LAUNCHER_WRAPPER"
+      "${placeholder "out"}/bin/freesmlauncher"
+      "--prefix"
+      "FREESMLAUNCHER_JAVA_PATHS"
+      ":"
+      "${lib.makeSearchPath "bin/java" jdks}"
     ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
-      "--set" "LD_LIBRARY_PATH" "${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
-      "--prefix" "PATH" ":" "${lib.makeBinPath runtimePrograms}"
+      "--set"
+      "LD_LIBRARY_PATH"
+      "${addDriverRunpath.driverLink}/lib:${lib.makeLibraryPath runtimeLibs}"
+      "--prefix"
+      "PATH"
+      ":"
+      "${lib.makeBinPath runtimePrograms}"
     ];
 
   meta = {
