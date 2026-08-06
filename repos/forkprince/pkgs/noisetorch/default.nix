@@ -3,17 +3,38 @@
   buildGoModule,
   lib,
 }:
-buildGoModule (finalAttrs: {
-  pname = "NoiseTorch";
-  version = "5200d8d0c71d9682256d71b87c3aa625febc08f9";
+let
+  mainRev = "5200d8d0c71d9682256d71b87c3aa625febc08f9";
 
-  src = fetchFromGitHub {
+  mainSrc = fetchFromGitHub {
     owner = "ForkPrince";
     repo = "NoiseTorch";
-    rev = "5200d8d0c71d9682256d71b87c3aa625febc08f9";
-    hash = "sha256-WttsCMO43e+BPIcE4pbnvdC3OI00N4x0KnaMcAHOwbU=";
-    fetchSubmodules = true;
+    rev = mainRev;
+    hash = "sha256-D5us2S/2+aqBTsom+e/lTd5Xg1Vw01XOI0d9YUmEC1M=";
+    fetchSubmodules = false;
   };
+
+  ringbufSrc = fetchFromGitHub {
+    owner = "noisetorch";
+    repo = "c-ringbuf";
+    rev = "2037560fb90dea5d2538611d983964d790bdbac2";
+    hash = "sha256-LWX85C1nbUDqOolWDixn91YKsARNTVzO3PoYF7auw84=";
+    fetchSubmodules = false;
+  };
+
+  rnnoiseSrc = fetchFromGitHub {
+    owner = "noisetorch";
+    repo = "rnnoise";
+    rev = "1cbdbcf1283499bbb2230a6b0f126eb9b236defd";
+    hash = "sha256-i+dTZrxgecKrLz4d96Qy+pzARb1ZvTCISm4hv+v7Gfg=";
+    fetchSubmodules = false;
+  };
+in
+buildGoModule (finalAttrs: {
+  pname = "NoiseTorch";
+  version = mainRev;
+
+  src = mainSrc;
 
   vendorHash = null;
 
@@ -29,6 +50,10 @@ buildGoModule (finalAttrs: {
   subPackages = [ "." ];
 
   preBuild = ''
+    mkdir -p c
+    cp -r "${ringbufSrc}/." c/c-ringbuf/
+    cp -r "${rnnoiseSrc}/." c/rnnoise/
+    chmod -R u+w c/c-ringbuf c/rnnoise
     make -C c/ladspa/
     go generate
     rm  ./scripts/*
