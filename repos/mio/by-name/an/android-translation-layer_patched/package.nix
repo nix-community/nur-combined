@@ -27,6 +27,7 @@
       ./android-translation-layer-wifiinfo-ssid-stub.patch
       ./android-translation-layer-apk-sourcedir.patch
       ./android-translation-layer-wifi-ap-stub.patch
+      ./android-translation-layer-system-app-certs.patch
     ];
     postInstall = (old.postInstall or "") + ''
       mkdir -p $out/etc/security

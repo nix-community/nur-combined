@@ -1,0 +1,11 @@
+--- a/src/api-impl/android/atl/ATLLoadedApp.java
++++ b/src/api-impl/android/atl/ATLLoadedApp.java
+@@ -69,7 +69,7 @@
+ 		} catch (XmlPullParserException | IOException e) {
+ 			throw new RuntimeException(outError[0], e);
+ 		}
+-		packageParser.collectCertificates(pkg, PackageParser.PARSE_IS_SYSTEM);
++		// Skip collectCertificates for the system package - it has no real APK on disk
+ 		return system_application = new ATLLoadedApp(resources,
+ 		                                             ATLLoadedApp.class.getClassLoader(), pkg);
+ 	}
