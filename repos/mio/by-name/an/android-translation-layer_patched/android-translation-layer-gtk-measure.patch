@@ -1,0 +1,99 @@
+diff -ur atl_patch_clean.orig/util.c atl_patch_clean/util.c
+--- a/src/api-impl-jni/util.c	1970-01-01 10:00:01.000000000 +1000
++++ b/src/api-impl-jni/util.c	2026-08-07 09:21:30.982322860 +1000
+@@ -195,7 +195,7 @@
+ 		G_GNUC_END_IGNORE_DEPRECATIONS
+ 		/* this clears resize request, which seems to be necessary in some cases */
+ 		gtk_widget_get_request_mode(widget);
+-		gtk_widget_size_allocate(widget, &allocation, gtk_widget_get_baseline(widget));
++		atl_safe_gtk_widget_size_allocate(widget, &allocation, gtk_widget_get_baseline(widget));
+ 		// maybe we should schedule a call to queue_queue_allocate, but that causes problems in composeUI apps.
+ 
+ 		/* the problematic flags get set all the way up the hierarchy */
+@@ -367,3 +367,11 @@
+ 			return NULL;
+ 	}
+ }
++
++void atl_safe_gtk_widget_size_allocate(GtkWidget *widget, const GtkAllocation *allocation, int baseline)
++{
++	int min, nat;
++	gtk_widget_measure(widget, GTK_ORIENTATION_HORIZONTAL, allocation->height, &min, &nat, NULL, NULL);
++	gtk_widget_measure(widget, GTK_ORIENTATION_VERTICAL, allocation->width, &min, &nat, NULL, NULL);
++	gtk_widget_size_allocate(widget, allocation, baseline);
++}
+diff -ur atl_patch_clean.orig/util.h atl_patch_clean/util.h
+--- a/src/api-impl-jni/util.h	1970-01-01 10:00:01.000000000 +1000
++++ b/src/api-impl-jni/util.h	2026-08-07 09:21:30.983322859 +1000
+@@ -55,6 +55,7 @@
+ void atl_safe_gtk_label_set_text(GtkLabel *label, const char *str);
+ void atl_safe_gtk_widget_set_visible(GtkWidget *widget, gboolean visible);
+ void atl_safe_gtk_widget_queue_allocate(GtkWidget *widget);
++void atl_safe_gtk_widget_size_allocate(GtkWidget *widget, const GtkAllocation *allocation, int baseline);
+ void atl_safe_gtk_widget_queue_resize(GtkWidget *widget);
+ 
+ #define INTENT_G_VARIANT_TYPE_STRING "(sssa{sv}s)" // (action, className, data, extras, sender_dbus_name)
+diff -ur atl_patch_clean.orig/views/AndroidLayout.c atl_patch_clean/views/AndroidLayout.c
+--- a/src/api-impl-jni/views/AndroidLayout.c	1970-01-01 10:00:01.000000000 +1000
++++ b/src/api-impl-jni/views/AndroidLayout.c	2026-08-07 09:21:30.977322863 +1000
+@@ -138,7 +138,7 @@
+ 	if (ATL_IS_ANDROID_LAYOUT(gtk_widget_get_layout_manager(widget))) {
+ 		AndroidLayout *layout = ATL_ANDROID_LAYOUT(gtk_widget_get_layout_manager(widget));
+ 		if (!layout->needs_allocation && (layout->real_width || layout->real_height))
+-			gtk_widget_size_allocate(widget, &(GtkAllocation){.x = 0, .y = 0, .width = layout->real_width, .height = layout->real_height}, 0);
++			atl_safe_gtk_widget_size_allocate(widget, &(GtkAllocation){.x = 0, .y = 0, .width = layout->real_width, .height = layout->real_height}, 0);
+ 		layout->needs_allocation = true;
+ 	}
+ }
+diff -ur atl_patch_clean.orig/views/android_view_View.c atl_patch_clean/views/android_view_View.c
+--- a/src/api-impl-jni/views/android_view_View.c	1970-01-01 10:00:01.000000000 +1000
++++ b/src/api-impl-jni/views/android_view_View.c	2026-08-07 09:21:30.979322862 +1000
+@@ -412,7 +412,7 @@
+ 	}
+ 
+ 	if (!wrapper->needs_allocation && (wrapper->real_width || wrapper->real_height))
+-		gtk_widget_size_allocate(GTK_WIDGET(wrapper), &(GtkAllocation){.x = 0, .y = 0, .width = wrapper->real_width, .height = wrapper->real_height}, 0);
++		atl_safe_gtk_widget_size_allocate(GTK_WIDGET(wrapper), &(GtkAllocation){.x = 0, .y = 0, .width = wrapper->real_width, .height = wrapper->real_height}, 0);
+ 
+ 	wrapper->needs_allocation = true;
+ 	gtk_widget_set_overflow(GTK_WIDGET(wrapper), GTK_OVERFLOW_HIDDEN);
+@@ -726,7 +726,7 @@
+ 		allocation.y += _GET_FLOAT_FIELD(wrapper->jobj, "translationY");
+ 	}
+ 
+-	gtk_widget_size_allocate(widget, &allocation, -1);
++	atl_safe_gtk_widget_size_allocate(widget, &allocation, -1);
+ }
+ 
+ JNIEXPORT void JNICALL Java_android_view_View_native_1requestLayout(JNIEnv *env, jobject this, jlong widget_ptr)
+diff -ur atl_patch_clean.orig/widgets/WrapperWidget.c atl_patch_clean/widgets/WrapperWidget.c
+--- a/src/api-impl-jni/widgets/WrapperWidget.c	1970-01-01 10:00:01.000000000 +1000
++++ b/src/api-impl-jni/widgets/WrapperWidget.c	2026-08-07 09:21:30.980322861 +1000
+@@ -149,7 +149,7 @@
+ 	if (wrapper->computeScroll_method) {
+ 		// The child needs to know its size before calling computeScroll, so we allocate it twice.
+ 		// second allocate will not trigger onLayout, because of unchanged size
+-		gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
++		atl_safe_gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
+ 
+ 		JNIEnv *env;
+ 		(*wrapper->jvm)->GetEnv(wrapper->jvm, (void **)&env, JNI_VERSION_1_6);
+@@ -169,14 +169,14 @@
+ 				atl_safe_gtk_widget_queue_allocate(wrapper->child);
+ 		}
+ 		if (layout->needs_allocation)
+-			gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
++			atl_safe_gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
+ 		else
+-			gtk_widget_size_allocate(wrapper->child, &(GtkAllocation){.x = allocation.x, .y = allocation.y}, baseline);
++			atl_safe_gtk_widget_size_allocate(wrapper->child, &(GtkAllocation){.x = allocation.x, .y = allocation.y}, baseline);
+ 	} else {
+-		gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
++		atl_safe_gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
+ 	}
+ 	if (wrapper->background)
+-		gtk_widget_size_allocate(wrapper->background, &allocation, baseline);
++		atl_safe_gtk_widget_size_allocate(wrapper->background, &allocation, baseline);
+ }
+ 
+ /* this is used to avoid queing layout changes in the middle of snapshotting */
