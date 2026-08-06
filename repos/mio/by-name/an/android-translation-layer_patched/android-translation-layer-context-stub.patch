@@ -1,0 +1,48 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] throw ActivityNotFoundException instead of ignoring unhandled intents (https://gitlab.com/android_translation_layer/android_translation_layer/-/issues/65)
+
+diff --git a/src/api-impl/android/app/ContextImpl.java b/src/api-impl/android/app/ContextImpl.java
+index d3dad607..8d7364dc 100644
+--- a/src/api-impl/android/app/ContextImpl.java
++++ b/src/api-impl/android/app/ContextImpl.java
+@@ -7,6 +7,7 @@ import android.app.job.JobScheduler;
+ import android.atl.ATLLoadedApp;
+ import android.atl.ATLLoadedAppManager;
+ import android.bluetooth.BluetoothManager;
++import android.content.ActivityNotFoundException;
+ import android.content.*;
+ import android.content.pm.ApplicationInfo;
+ import android.content.pm.PackageParser;
+@@ -332,10 +333,10 @@ public final class ContextImpl extends Context {
+ 				}
+ 			}
+ 		}
+-		if (className == null) {
+-			Slog.w(TAG, "startActivity: intent could not be handled.");
+-			return;
+-		}
++			if (className == null) {
++				Slog.w(TAG, "startActivity: intent could not be handled.");
++				throw new ActivityNotFoundException("No Activity found to handle Intent " + intent);
++			}
+ 		final String className_ = className;
+ 		final Intent intent_ = intent;
+ 		new Handler(Looper.getMainLooper()).post(new Runnable() {
+diff --git a/src/api-impl/android/content/ActivityNotFoundException.java b/src/api-impl/android/content/ActivityNotFoundException.java
+index 1febd577..c4f07691 100644
+--- a/src/api-impl/android/content/ActivityNotFoundException.java
++++ b/src/api-impl/android/content/ActivityNotFoundException.java
+@@ -1,4 +1,11 @@
+ package android.content;
+ 
+-public class ActivityNotFoundException extends Exception {
++public class ActivityNotFoundException extends RuntimeException {
++    public ActivityNotFoundException() {
++        super();
++    }
++
++    public ActivityNotFoundException(String name) {
++        super(name);
++    }
+ }

@@ -1,0 +1,21 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] fix newpipe stuck issue by handling ESC and BACK keys (https://gitlab.com/android_translation_layer/android_translation_layer/-/issues/79)
+
+diff --git a/src/api-impl/android/app/Activity.java b/src/api-impl/android/app/Activity.java
+index c0cb3e0d..b3469208 100644
+--- a/src/api-impl/android/app/Activity.java
++++ b/src/api-impl/android/app/Activity.java
+@@ -638,6 +638,12 @@ public class Activity extends ContextThemeWrapper implements Window.Callback, La
+ 	}
+ 
+ 	public boolean dispatchKeyEvent(KeyEvent event) {
++		if (event.getAction() == KeyEvent.ACTION_UP) {
++			if (event.getKeyCode() == KeyEvent.KEYCODE_BACK || event.getKeyCode() == 111 /* KEYCODE_ESCAPE */) {
++				onBackPressed();
++				return true;
++			}
++		}
+ 		return false;
+ 	}
+ 
