@@ -29,6 +29,8 @@
       ./android-translation-layer-wifi-ap-stub.patch
       ./android-translation-layer-system-app-certs.patch
       ./android-translation-layer-gtk-measure.patch
+      ./android-translation-layer-gtk-native-check.patch
+      ./android-translation-layer-gtk-measure-zero.patch
       ./android-translation-layer-drawlines-bounds.patch
     ];
     postInstall = (old.postInstall or "") + ''

@@ -1,0 +1,32 @@
+--- a/src/api-impl-jni/views/android_view_View.c
++++ b/src/api-impl-jni/views/android_view_View.c
+@@ -141,6 +141,8 @@
+ 	double off_y;
+ 
+ 	GtkWidget *window = GTK_WIDGET(gtk_widget_get_native(widget));
++	if (!window)
++		return;
+ 	gtk_native_get_surface_transform(GTK_NATIVE(window), &off_x, &off_y);
+ 	ret = gtk_widget_compute_point(window, widget, &GRAPHENE_POINT_INIT(*x - off_x, *y - off_y), &p);
+ 	assert(ret);
+@@ -796,6 +798,8 @@
+ 	double off_y;
+ 	gboolean ret;
+ 	GtkWidget *window = GTK_WIDGET(gtk_widget_get_native(widget));
++	if (!window)
++		return false;
+ 	gtk_native_get_surface_transform(GTK_NATIVE(window), &off_x, &off_y);
+ 	ret = gtk_widget_compute_point(widget, window, &point_in, &point_out);
+ 	if (!ret)
+--- a/src/libandroid/native_window.c
++++ b/src/libandroid/native_window.c
+@@ -277,6 +277,9 @@
+ 	height = gtk_widget_get_height(surface_view_widget);
+ 
+ 	// get position of the SurfaceView widget wrt the toplevel window
++	window = GTK_WIDGET(gtk_widget_get_native(surface_view_widget));
++	if (!window)
++		return NULL;
+ 	ret = gtk_widget_compute_point(surface_view_widget, window, &GRAPHENE_POINT_INIT(0, 0), &pos);
+ 	assert(ret);
+ 	// compensate for offset between the widget coordinates and the surface coordinates
