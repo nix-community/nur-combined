@@ -1,0 +1,7 @@
+--- a/src/api-impl-jni/graphics/android_atl_GskCanvas.c
++++ b/src/api-impl-jni/graphics/android_atl_GskCanvas.c
+@@ -116,3 +116,3 @@
+ 	jfloat *points = (*env)->GetFloatArrayElements(env, points_arr, NULL);
+-	for (int i = offset; i < count; i++)
++	for (int i = offset; i < offset + count - 3; i += 4)
+ 		Java_android_atl_GskCanvas_native_1drawLine(env, this_class, snapshot_ptr, points[i + 0], points[i + 1], points[i + 2], points[i + 3], paint_ptr);
