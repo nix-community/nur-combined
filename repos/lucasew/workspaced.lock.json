@@ -109,6 +109,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:firecrawl/anydoc",
+      "depName": "firecrawl/anydoc",
+      "currentValue": "v0.1.6",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:getsops/sops",
       "depName": "getsops/sops",
       "currentValue": "v3.13.2",
@@ -204,7 +211,7 @@
       "kind": "tool",
       "ref": "github:lucasew/refactree",
       "depName": "lucasew/refactree",
-      "currentValue": "0.9.3",
+      "currentValue": "0.10.0",
       "datasource": "github-releases"
     },
     {

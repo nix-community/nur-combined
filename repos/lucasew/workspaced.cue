@@ -250,6 +250,11 @@ workspaced: {
 			global: true
 			bins: ["acast"]
 		}
+		anydoc: {
+			ref: "github:firecrawl/anydoc"
+			global: true
+			bins: ["anydoc"]
+		}
 	}
 
 	modules: {
