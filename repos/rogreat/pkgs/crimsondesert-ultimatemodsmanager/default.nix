@@ -12,12 +12,12 @@
   xvfb,
 }:
 let
-  version = "3.8.0";
+  version = "3.10.0";
   src = fetchFromGitHub {
     owner = "faisalkindi";
     repo = "CrimsonDesert-UltimateModsManager";
     tag = "v${version}";
-    hash = "sha256-nvMltOn5RTnqCPgqzywYtcb9NL92NeulytSkCMgDYCY=";
+    hash = "sha256-zNBALrgflQ9YXYoHgS+rjM5/1JweBncBnJ5U6DTnTtQ=";
   };
 
   cdumm-native = python3Packages.buildPythonPackage (finalAttrs: {
@@ -90,18 +90,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   ]);
 
   disabledTestPaths = [
-    # Fail
-    "tests/test_game_index.py::test_extract_reresolves_paz_under_game_dir"
-    "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent"
-    "tests/test_statusinfo_writer.py::test_validate_intents_accepts_stat_level_data"
-    "tests/test_statusinfo_writer.py::test_end_to_end_cdmod_to_byte_change"
-    "tests/test_schema_verify.py"
-  ];
-
-  disabledTests = [
-    # Slow
-    "test_format3"
-    "test_iteminfo"
+    "tests/test_game_index.py::test_extract_reresolves_paz_under_game_dir" # Failed
+    "tests/test_iteminfo_native_apply_e2e.py::test_format3_unknown_key_skipped_gracefully" # Slow
+    "tests/test_schema_verify.py" # All Failed
+    "tests/test_script_import_consent_gate.py::test_script_import_runs_with_consent" # Failed
   ];
 
   disabledTestMarks = [
