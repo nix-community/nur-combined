@@ -89,6 +89,12 @@
       ];
       webInterface = true;
     };
+    pcscd = {
+      enable = true;
+    };
+    # Using oo7 instead of Niri upstream default of gnome-keyring
+    oo7.enable = true;
+    gnome.gnome-keyring.enable = false;
 
     # blueman.enable = true;
   };

@@ -12,9 +12,6 @@
       ly.enable = true;
       ly.x11Support = false;
     };
-    services.gnome = {
-      gnome-keyring.enable = true;
-    };
     programs.kdeconnect = {
       enable = true;
       package = pkgs.valent;

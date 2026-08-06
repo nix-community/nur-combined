@@ -21,7 +21,8 @@
     wg-vpn = {
       autostart = false;
       address = [
-        "172.11.0.3/32"
+        "172.20.0.3/32"
+        "fd10:cafe::3/128"
       ];
       mtu = 1420;
       # table = "1145";
@@ -33,18 +34,18 @@
           ];
           endpoint = "10.134.53.86:20243";
           persistentKeepalive = 25;
-          publicKey = "eIbVZ6xaoA0gu7tuOV7IsC8UiE2pmhb1u62zD5Jh3mY=";
+          publicKey = "4kUglMcTKTLJ0UgrSUoFDM39D0Csawh8qX02ryU9kXA=";
         }
       ];
       privateKeyFile = config.vaultix.secrets.wg.path;
-      #postUp = ''
-      #  ip rule add fwmark 0x800/0x800 table 1145
-      #  ip -6 rule add fwmark 0x800/0x800 table 1145
-      #'';
-      #postDown = ''
-      #  ip rule del fwmark 0x800/0x800 table 1145
-      #  ip -6 rule del fwmark 0x800/0x800 table 1145
-      #'';
+      # postUp = ''
+      #   ip rule add fwmark 0x800/0x800 table 1145
+      #   ip -6 rule add fwmark 0x800/0x800 table 1145
+      # '';
+      # postDown = ''
+      #   ip rule del fwmark 0x800/0x800 table 1145
+      #   ip -6 rule del fwmark 0x800/0x800 table 1145
+      # '';
     };
   };
   services.zerotierone = {
@@ -53,17 +54,4 @@
   };
   programs.openvpn3.enable = true;
   services.resolved.enable = true;
-  programs.ssh.knownHosts = {
-    nixbuild = {
-      hostNames = [ "eu.nixbuild.net" ];
-      publicKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPIQCZc54poJ8vqawd8TraNryQeJnvH1eLpIDgbiqymM";
-    };
-  };
-  programs.ssh.extraConfig = ''
-    Host eu.nixbuild.net
-      PubkeyAcceptedKeyTypes ssh-ed25519
-      ServerAliveInterval 60
-      IPQoS throughput
-      IdentityFile /etc/ssh/ssh_host_ed25519_key
-  '';
 }

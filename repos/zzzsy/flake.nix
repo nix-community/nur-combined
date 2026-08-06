@@ -18,7 +18,10 @@
     noctalia.url = "github:noctalia-dev/noctalia-shell";
     noctalia.inputs.nixpkgs.follows = "nixpkgs";
     vaultix.url = "github:milieuim/vaultix";
-    direnv-instant.url = "github:Mic92/direnv-instant";
+    dae.url = "github:daeuniverse/flake.nix";
+    mark-shot.url = "github:jswysnemc/mark-shot";
+    mark-shot.inputs.nixpkgs.follows = "nixpkgs";
+    fcitx5-vinput.url = "github:xifan2333/fcitx5-vinput";
 
     nvfetcher.url = "github:berberman/nvfetcher";
     nvfetcher.inputs.nixpkgs.follows = "nixpkgs";

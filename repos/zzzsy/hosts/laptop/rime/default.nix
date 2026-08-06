@@ -7,6 +7,7 @@
       (fcitx5-rime.override {
         rimeDataPkgs = [ (pkgs.my.rime-ice.override { enableUnihan = true; }) ];
       })
+      fcitx5-vinput
     ];
   };
 }

@@ -59,9 +59,6 @@
     nix-direnv.enable = true;
     enableFishIntegration = false;
   };
-  programs.direnv-instant = {
-    enable = true;
-  };
 
   programs.zoxide = {
     enable = true;

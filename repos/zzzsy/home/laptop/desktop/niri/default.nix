@@ -12,12 +12,13 @@
     imagemagick
     gpu-screen-recorder
     evtest
-    # noctalia-shell
+    mark-shot
+    grim
   ];
-  # ++ [ inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default ];
   xdg.enable = true;
   xdg.portal = with pkgs; {
     enable = true;
+    config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
     configPackages = [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome

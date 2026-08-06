@@ -4,3 +4,4 @@ secret_*
 .pre-commit-config.yaml
 /secrets/key.txt
 .direnv
+

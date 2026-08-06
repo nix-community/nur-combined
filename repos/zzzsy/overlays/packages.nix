@@ -7,6 +7,8 @@ let
 in
 {
   zen-browser = inputs.zen-browser.packages.${system}.twilight;
+  mark-shot = inputs.mark-shot.packages.${system}.default;
   noctalia-shell = inputs.noctalia.packages.${system}.default;
+  fcitx5-vinput = inputs.fcitx5-vinput.packages."${system}".default;
   inherit my;
 }

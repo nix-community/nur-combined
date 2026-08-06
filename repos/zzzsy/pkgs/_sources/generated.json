@@ -1,7 +1,7 @@
 {
     "dae": {
         "cargoLock": null,
-        "date": "2026-05-06",
+        "date": "2026-07-17",
         "extract": null,
         "name": "dae",
         "passthru": null,
@@ -13,16 +13,16 @@
             "name": null,
             "owner": "daeuniverse",
             "repo": "dae",
-            "rev": "c7e02968f8baa425798b05dd4ab4142e3c20f568",
-            "sha256": "sha256-61yNOhRPSH5+Y4Y7G1hi3OHxkTBa4FpaA5JRUYIQETE=",
+            "rev": "09c6c8cadda8250fb5bc85d4b40510a9544b6235",
+            "sha256": "sha256-Y3EhoiB566e5Nwnzs5qkUGR4h201M78Vi3FmBxb67Hg=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "c7e02968f8baa425798b05dd4ab4142e3c20f568"
+        "version": "09c6c8cadda8250fb5bc85d4b40510a9544b6235"
     },
     "firefox-gnome-theme": {
         "cargoLock": null,
-        "date": "2026-05-08",
+        "date": "2026-07-09",
         "extract": null,
         "name": "firefox-gnome-theme",
         "passthru": null,
@@ -34,12 +34,12 @@
             "name": null,
             "owner": "rafaelmardojai",
             "repo": "firefox-gnome-theme",
-            "rev": "7f81880cdb6278703221d26a25aefed9561c8904",
-            "sha256": "sha256-ci4vHnWYfLEwImOmhHkLwuToebVi76O+7C0zCxUIzUw=",
+            "rev": "5602ed62d638142c1ab31dccd01dfbfb28841225",
+            "sha256": "sha256-ptl5aRlCv9/uRSv2u8Hq8UFVFeZ6Q/bT049bpqNgc3w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "7f81880cdb6278703221d26a25aefed9561c8904"
+        "version": "5602ed62d638142c1ab31dccd01dfbfb28841225"
     },
     "iosevka-zt": {
         "cargoLock": null,
@@ -85,16 +85,16 @@
             "name": null,
             "owner": "Fitzgerald-Porthmouth-Koenigsegg",
             "repo": "Plangothic-Project",
-            "rev": "V2.9.5792",
-            "sha256": "sha256-Ftm5ut34Tinqs3NKiGTNvZdm/wjjnPf+AHVinT/qb/o=",
+            "rev": "V2.9.5795",
+            "sha256": "sha256-7Y18HcCvwWTX5CWguLuo6Z+l/tcTfKmblZ5st/TL6TI=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "V2.9.5792"
+        "version": "V2.9.5795"
     },
     "rime-ice": {
         "cargoLock": null,
-        "date": "2026-05-06",
+        "date": "2026-07-20",
         "extract": null,
         "name": "rime-ice",
         "passthru": null,
@@ -106,11 +106,11 @@
             "name": null,
             "owner": "iDvel",
             "repo": "rime-ice",
-            "rev": "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d",
-            "sha256": "sha256-eKHGJ8oioBncKntA8kuDuH6qXFfMHFwXJuUBlkCLn4w=",
+            "rev": "b681a34f788795034b3b288830f4861980bc8b0d",
+            "sha256": "sha256-kqn3c5qAotPmItFQURrGtWIko4vQPNqH7S3d1t4nwwU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "5f130b4fbc9a228dea9c9ad25597d4bab284ee1d"
+        "version": "b681a34f788795034b3b288830f4861980bc8b0d"
     }
 }

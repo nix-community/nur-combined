@@ -131,6 +131,8 @@ let
     wechat
     # antigravity
     llm-agents.codex
+    llm-agents.claude-code
+    llm-agents.pi
     qq
     #ghostty
 

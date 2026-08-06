@@ -31,12 +31,14 @@
         # "https://mirror.sjtu.edu.cn/nix-channels/store"
         "https://mirrors.ustc.edu.cn/nix-channels/store"
         "https://cache.numtide.com"
+        "https://fcitx5-vinput.cachix.org"
       ];
       trusted-public-keys = [
         "zzzsy.cachix.org-1:rfEIzz0YKP22ZHebgdLVe65S1p3iVB1RUtPMGrIC+DU="
         "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
         "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
         "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
+        "fcitx5-vinput.cachix.org-1:XpX3AA6+dDIX4qJhb1QM7sbTwX6/qSlGvW8Z5NK6XdU="
       ];
     };
   };

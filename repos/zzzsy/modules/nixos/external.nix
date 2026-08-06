@@ -5,5 +5,6 @@
     inputs.preservation.nixosModules.default
     inputs.vaultix.nixosModules.default
     inputs.fast-nix-gc.nixosModules.default
+    inputs.dae.nixosModules.dae
   ];
 }

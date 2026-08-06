@@ -10,7 +10,7 @@ buildGoLatestModule (finalAttrs: {
 
   version = "unstable-${finalAttrs.date}";
 
-  vendorHash = "sha256-Bf2OgF3+dOC2LiD/2Y+g+tfc07ZctdRH/BAUO23fX6k=";
+  vendorHash = "sha256-6LftE/bxVL5pDKWmFtdHyaCDcs5j6DcITufQGXKiIWM=";
 
   proxyVendor = true;
 
@@ -19,6 +19,7 @@ buildGoLatestModule (finalAttrs: {
   hardeningDisable = [ "zerocallusedregs" ];
 
   env.VERSION = finalAttrs.version;
+  env.GOEXPERIMENT = "newinliner,simd";
 
   buildPhase = ''
     make CFLAGS="-D__REMOVE_BPF_PRINTK -fno-stack-protector -Wno-unused-command-line-argument" \
@@ -28,12 +29,6 @@ buildGoLatestModule (finalAttrs: {
 
   # network required
   doCheck = false;
-
-  postInstall = ''
-    install -Dm444 install/dae.service $out/lib/systemd/system/dae.service
-    substituteInPlace $out/lib/systemd/system/dae.service \
-      --replace /usr/bin/dae $out/bin/dae
-  '';
 
   meta = with lib; {
     description = "A Linux high-performance transparent proxy solution based on eBPF";

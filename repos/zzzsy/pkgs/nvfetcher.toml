@@ -23,4 +23,4 @@ fetch.url = "https://github.com/lxgw/LxgwWenKai-Screen/releases/download/$ver/LX
 [dae]
 src.git = "https://github.com/daeuniverse/dae"
 fetch.github = "daeuniverse/dae"
-git.fetchSubmodules = true
+fetch.fetchSubmodules = true
