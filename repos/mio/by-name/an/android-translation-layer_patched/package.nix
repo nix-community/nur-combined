@@ -2,6 +2,7 @@
   android-translation-layer,
   art-standalone_patched,
   cacert,
+  fetchpatch,
 }:
 
 (android-translation-layer.override {
@@ -11,7 +12,10 @@
     patches = (old.patches or [ ]) ++ [
       ./android-translation-layer-bitmap-unlock.patch
       ./android-translation-layer-kotatsu-stub.patch
-      ./android-translation-layer-mr290.patch
+      (fetchpatch {
+        url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/290.patch";
+        hash = "sha256-pDN/2s6k4T4A1EGqIhFZGTH/PwvmsDJAr0BBQmFpxG0=";
+      })
       ./android-translation-layer-fdroid-stub.patch
       ./android-translation-layer-context-stub.patch
       ./android-translation-layer-newpipe-esc-stub.patch

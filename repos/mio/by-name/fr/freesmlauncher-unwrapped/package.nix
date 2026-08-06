@@ -62,6 +62,7 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     cmark
+    kdePackages.extra-cmake-modules
     kdePackages.qtbase
     kdePackages.qtnetworkauth
     libarchive
