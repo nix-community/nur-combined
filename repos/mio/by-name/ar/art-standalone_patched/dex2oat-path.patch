@@ -1,0 +1,13 @@
+--- a/art/runtime/runtime.cc
++++ b/art/runtime/runtime.cc
+@@ -801,9 +801,5 @@
+   const char* android_root = getenv("ANDROID_ROOT");
+   if(!android_root) // search in $PATH by default
+     return dex2oat_name;
+-  else { // if ANDROID_ROOT is set, use the binary from there
+-    std::string compiler_executable(GetAndroidRoot());
+-    compiler_executable += dex2oat_name;
+-    return compiler_executable;
+-  }
++  return dex2oat_name;
+ }

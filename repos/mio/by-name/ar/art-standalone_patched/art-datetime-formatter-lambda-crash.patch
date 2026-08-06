@@ -73,7 +73,7 @@ diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuil
 --- a/libcore/ojluni/src/main/java/java/time/temporal/TemporalQueries.java
 +++ b/libcore/ojluni/src/main/java/java/time/temporal/TemporalQueries.java
 @@ -341,58 +341,82 @@
-     /**
+      /**
       * A strict query for the {@code ZoneId}.
       */
 -    static final TemporalQuery<ZoneId> ZONE_ID = (temporal) ->
@@ -81,7 +81,7 @@ diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuil
 +    static final TemporalQuery<ZoneId> ZONE_ID = new TemporalQuery<ZoneId>() {
 +        @Override
 +        public ZoneId queryFrom(TemporalAccessor temporal) {
-+            return temporal.query(TemporalQueries.ZONE_ID);
++            return temporal.query(this);
 +        }
 +    };
  
@@ -93,7 +93,7 @@ diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuil
 +    static final TemporalQuery<Chronology> CHRONO = new TemporalQuery<Chronology>() {
 +        @Override
 +        public Chronology queryFrom(TemporalAccessor temporal) {
-+            return temporal.query(TemporalQueries.CHRONO);
++            return temporal.query(this);
 +        }
 +    };
  
@@ -105,7 +105,7 @@ diff --git a/libcore/ojluni/src/main/java/java/time/format/DateTimeFormatterBuil
 +    static final TemporalQuery<TemporalUnit> PRECISION = new TemporalQuery<TemporalUnit>() {
 +        @Override
 +        public TemporalUnit queryFrom(TemporalAccessor temporal) {
-+            return temporal.query(TemporalQueries.PRECISION);
++            return temporal.query(this);
 +        }
 +    };
  
