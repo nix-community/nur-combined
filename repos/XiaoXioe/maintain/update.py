@@ -11,44 +11,44 @@ PACKAGES = {
     "binance": {
         "type": "custom_deb",
         "url": "https://download.binance.com/electron-desktop/linux/production/binance-amd64-linux.deb",
-        "file": "pkgs/binance/default.nix",
+        "file": "pkgs/by-name/bi/binance/package.nix",
     },
     "disbox": {
         "type": "github_release",
         "repo": "naufal-backup/disbox",
         "url_template": "https://github.com/naufal-backup/disbox/releases/download/v{version}/Disbox-Linux-x64.AppImage",
-        "file": "pkgs/disbox/default.nix",
+        "file": "pkgs/by-name/di/disbox/package.nix",
     },
     "ghost-downloader-3": {
         "type": "github_release",
         "repo": "XiaoYouChR/Ghost-Downloader-3",
         "url_template": "https://github.com/XiaoYouChR/Ghost-Downloader-3/archive/v{version}.tar.gz",
         "unpack": True,
-        "file": "pkgs/ghost-downloader-3/default.nix",
+        "file": "pkgs/by-name/gh/ghost-downloader-3/package.nix",
     },
     "streambert": {
         "type": "github_release",
         "repo": "truelockmc/streambert",
         "url_template": "https://github.com/truelockmc/streambert/releases/download/{version}/streambert_{version}_amd64.deb",
-        "file": "pkgs/streambert/default.nix",
+        "file": "pkgs/by-name/st/streambert/package.nix",
     },
     "teldrive": {
         "type": "github_release",
         "repo": "tgdrive/teldrive",
         "url_template": "https://github.com/tgdrive/teldrive/releases/download/{version}/teldrive-{version}-linux-amd64.tar.gz",
-        "file": "pkgs/teldrive/default.nix",
+        "file": "pkgs/by-name/te/teldrive/package.nix",
     },
     "uabea": {
         "type": "github_release",
         "repo": "nesrak1/UABEA",
         "url_template": "https://github.com/nesrak1/UABEA/releases/download/v{version}/uabea-ubuntu.zip",
-        "file": "pkgs/uabea/default.nix",
+        "file": "pkgs/by-name/ua/uabea/package.nix",
     },
     "vimmdl": {
         "type": "github_commit",
         "repo": "devvratmiglani/Vimmdl",
         "branch": "main",
-        "file": "pkgs/vimmdl/default.nix",
+        "file": "pkgs/by-name/vi/vimmdl/package.nix",
     },
 }
 
