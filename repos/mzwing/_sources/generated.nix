@@ -39,6 +39,17 @@
       sha256 = "sha256-WMhO/mXhESsXbo1pY09f/ti3a5TZNDqg5w9xVPBThzw=";
     };
   };
+  codegraph = {
+    pname = "codegraph";
+    version = "v1.5.0";
+    src = fetchFromGitHub {
+      owner = "colbymchenry";
+      repo = "codegraph";
+      rev = "v1.5.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-PPPOp4goz154esdUJYMu20Lby3QObsEt5z5k+9CSjwk=";
+    };
+  };
   gryph = {
     pname = "gryph";
     version = "v0.7.0";
@@ -52,13 +63,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "0b7e093c58c567aaa2efcfad2df618ab4d7b2115";
+    version = "caf954d17043e1f618f4afe254cbcd479492d80b";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "0b7e093c58c567aaa2efcfad2df618ab4d7b2115";
+      rev = "caf954d17043e1f618f4afe254cbcd479492d80b";
       fetchSubmodules = true;
-      sha256 = "sha256-cxCiT+flGPrzd/UzxfobniNqg0A+90K3r6ufaQwF0ic=";
+      sha256 = "sha256-0RHEp4HZMzoLdOpA3p/3LKTAnIu6i0zIEcNfGQqlrhQ=";
     };
     date = "2026-08-06";
   };

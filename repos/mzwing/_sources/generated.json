@@ -62,6 +62,27 @@
         },
         "version": "v7.2.116-5"
     },
+    "codegraph": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "codegraph",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "colbymchenry",
+            "repo": "codegraph",
+            "rev": "v1.5.0",
+            "sha256": "sha256-PPPOp4goz154esdUJYMu20Lby3QObsEt5z5k+9CSjwk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.5.0"
+    },
     "gryph": {
         "cargoLock": null,
         "date": null,
@@ -97,12 +118,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "0b7e093c58c567aaa2efcfad2df618ab4d7b2115",
-            "sha256": "sha256-cxCiT+flGPrzd/UzxfobniNqg0A+90K3r6ufaQwF0ic=",
+            "rev": "caf954d17043e1f618f4afe254cbcd479492d80b",
+            "sha256": "sha256-0RHEp4HZMzoLdOpA3p/3LKTAnIu6i0zIEcNfGQqlrhQ=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "0b7e093c58c567aaa2efcfad2df618ab4d7b2115"
+        "version": "caf954d17043e1f618f4afe254cbcd479492d80b"
     },
     "sing-box-alpha": {
         "cargoLock": null,
