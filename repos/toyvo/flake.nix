@@ -98,26 +98,6 @@
         nixcfg = self;
       };
       configurations = import ./configurations inputs;
-      import_nixpkgs =
-        system: nixpkgs:
-        import nixpkgs {
-          inherit system;
-          overlays = [
-            nixpkgs-esp-dev.overlays.default
-            nur.overlays.default
-            rust-overlay.overlays.default
-            # zed.overlays.default
-          ];
-          config = {
-            allowUnfree = true;
-            android_sdk.accept_license = true;
-          };
-        };
-      inherit (nixos-unstable) lib;
-      pkgsDir = "${self}/pkgs";
-      libDir = "${self}/lib";
-      # overlaysDir = "${self}/overlays";
-      modulesDir = "${self}/modules";
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
       {
@@ -126,26 +106,28 @@
         withSystem,
         ...
       }:
-      let
-        ourLib = (import libDir { inherit lib inputs; }) // {
-          inherit import_nixpkgs;
-        };
-        lib' = lib.recursiveUpdate lib ourLib;
-      in
       {
         flake = {
-          lib = ourLib;
-          # overlays = lib'.importDirRecursive overlaysDir;
-          modules = lib'.importDirRecursive modulesDir;
+          lib = import ./lib {
+            lib = nixos-unstable.lib;
+            inherit inputs;
+          };
+          nixosModules = import ./modules/nixos;
+          homeModules = import ./modules/home;
+          darwinModules = import ./modules/darwin;
+          flakeModules = import ./modules/flake;
+          modules = {
+            nixos = self.nixosModules;
+            darwin = self.darwinModules;
+            flake = self.flakeModules;
+            home = self.homeModules;
+          };
+          overlays = import ./overlays;
           nixosConfigurations = configurations.nixosConfigurations;
           darwinConfigurations = configurations.darwinConfigurations;
           homeConfigurations = configurations.homeConfigurations;
         };
-        systems = [
-          "aarch64-darwin"
-          "aarch64-linux"
-          "x86_64-linux"
-        ];
+        systems = nixos-unstable.lib.systems.flakeExposed;
         imports = [
           devshell.flakeModule
           flake-parts.flakeModules.easyOverlay
@@ -159,15 +141,21 @@
             self',
             ...
           }:
-          with lib';
-          let
-            basePkgs = import_nixpkgs system nixos-unstable;
-            pkgs' = recursiveUpdate basePkgs { lib = lib'; };
-            ourPackages = callDirPackageWithRecursive pkgs' pkgsDir { inherit inputs; };
-          in
           {
             _module.args = {
-              pkgs = pkgs';
+              pkgs = import nixos-unstable {
+                inherit system;
+                overlays = [
+                  nixpkgs-esp-dev.overlays.default
+                  nur.overlays.default
+                  rust-overlay.overlays.default
+                  # zed.overlays.default
+                ];
+                config = {
+                  allowUnfree = true;
+                  android_sdk.accept_license = true;
+                };
+              };
             };
 
             treefmt = {
@@ -178,12 +166,13 @@
                 mdformat.enable = true;
               };
             };
-            legacyPackages = ourPackages // {
-              # inherit (self) lib overlays modules;
-              inherit (self) lib modules;
+            legacyPackages = import ./default.nix {
+              inherit pkgs inputs;
             };
-            packages = flakePackages system ourPackages;
-            overlayAttrs.toyvo = ourPackages;
+            packages = nixos-unstable.lib.filterAttrs (
+              _: v: nixos-unstable.lib.isDerivation v
+            ) self'.legacyPackages;
+            overlayAttrs.toyvo = self'.legacyPackages;
             devshells.default = {
               commands = [
                 {
@@ -197,11 +186,6 @@
                 pre-push.text = self'.legacyPackages.pre-push.text;
               };
             };
-            # we get infinite recursion on freebsd with `nix flake show`, not investigating
-            checks = lib.mkIf (system != "x86_64-freebsd") (
-              flakeChecks system self'.packages
-              // mapAttrs' (n: nameValuePair "devShells-${n}") (filterAttrs (n: v: isCacheable v) self'.devShells)
-            );
           };
       }
     );

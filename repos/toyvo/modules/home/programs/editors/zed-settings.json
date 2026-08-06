@@ -15,6 +15,7 @@
     },
     "claude-acp": {
       "default_config_options": {
+        "mode": "bypassPermissions",
         "model": "sonnet"
       },
       "type": "registry"
@@ -64,7 +65,7 @@
       "max_output_tokens": 512
     }
   },
-  "format_on_save": "on",
+  "format_on_save": "modifications_if_available",
   "formatter": [
     {
       "language_server": {

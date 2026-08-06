@@ -6,9 +6,8 @@ self: super:
 let
   nurAttrs = import ./default.nix { pkgs = super; };
 in
-with super.lib;
-with nurAttrs.lib;
-with builtins;
-listToAttrs (
-  map (n: nameValuePair n nurAttrs.${n}) (filter (n: !isReserved n) (attrNames nurAttrs))
+builtins.listToAttrs (
+  map (n: super.nameValuePair n nurAttrs.${n}) (
+    builtins.filter (n: !nurAttrs.lib.isReserved n) (builtins.attrNames nurAttrs)
+  )
 )
