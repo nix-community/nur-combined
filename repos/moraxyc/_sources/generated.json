@@ -100,7 +100,7 @@
     "clash-nyanpasu": {
         "cargoLock": {
             "backend/Cargo.lock": [
-                "sha256-Kz_9Y4AEgtYKnnqmcnD73RcLQWBBkUAXsqbFkEKerFk=/backend/Cargo.lock",
+                "sha256-tWQhyBuFj_FJGmZZnj9gf20vOAZRmdUO0qj8bGcj50w=/backend/Cargo.lock",
                 {
                     "auto-launch-0.5.0": "sha256-+Pqd9cgp6alJdoBZFX5/35cc77Ay4RRQUE3Xhnm4Sfs=",
                     "delay_timer-0.11.6": "sha256-Cf2u71+12mQ227Q382cF5WkK9E8wxrJnWDcTq2jX/Gk=",
@@ -115,7 +115,7 @@
                 }
             ]
         },
-        "date": "2026-08-05",
+        "date": "2026-08-06",
         "extract": null,
         "name": "clash-nyanpasu",
         "passthru": null,
@@ -127,12 +127,12 @@
             "name": null,
             "owner": "libnyanpasu",
             "repo": "clash-nyanpasu",
-            "rev": "57cba536fcb41c3b8260edfec75368afd39418f5",
-            "sha256": "sha256-Kz/9Y4AEgtYKnnqmcnD73RcLQWBBkUAXsqbFkEKerFk=",
+            "rev": "9e7001ec2dd73e9a504b0ccc35d9f49963b29fd2",
+            "sha256": "sha256-tWQhyBuFj/FJGmZZnj9gf20vOAZRmdUO0qj8bGcj50w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "57cba536fcb41c3b8260edfec75368afd39418f5"
+        "version": "9e7001ec2dd73e9a504b0ccc35d9f49963b29fd2"
     },
     "clash-nyanpasu-stable": {
         "cargoLock": null,
@@ -533,7 +533,7 @@
     },
     "loyalsoldier-geoip": {
         "cargoLock": null,
-        "date": "2026-07-30",
+        "date": "2026-08-06",
         "extract": null,
         "name": "loyalsoldier-geoip",
         "passthru": null,
@@ -545,12 +545,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "geoip",
-            "rev": "d57a38b3e88abe4c93a50a2eb5d55f59fe7607aa",
-            "sha256": "sha256-isdz7LnsDAFIg1PvCCss1C/p5I0IKuNw60ayLeZ+ol0=",
+            "rev": "f2ea0d917fc0cf235bc6ac9045794662ba1b70f3",
+            "sha256": "sha256-/QgK4cUv3kFaiDWoeDVcp/dmWpQeLiftizDvcYl7bqE=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "d57a38b3e88abe4c93a50a2eb5d55f59fe7607aa"
+        "version": "f2ea0d917fc0cf235bc6ac9045794662ba1b70f3"
     },
     "manpage-zh": {
         "cargoLock": null,
@@ -617,7 +617,7 @@
     },
     "meta-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-04",
+        "date": "2026-08-05",
         "extract": null,
         "name": "meta-rules-dat",
         "passthru": null,
@@ -629,12 +629,12 @@
             "name": null,
             "owner": "MetaCubeX",
             "repo": "meta-rules-dat",
-            "rev": "f9bd98d01967899502f77e84eeccaca5d0e0e245",
-            "sha256": "sha256-KNcbrRiXqJyCHInothxC1aB1utd+Yf2M26ZA199ThLc=",
+            "rev": "4eb8697f2a02a6b73b67c07eacd5514cfae48444",
+            "sha256": "sha256-167QxToVzEsdLdP3D//NMxeAVDoZJj81HAsbVY944rM=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "f9bd98d01967899502f77e84eeccaca5d0e0e245"
+        "version": "4eb8697f2a02a6b73b67c07eacd5514cfae48444"
     },
     "metacubex-geo": {
         "cargoLock": null,
@@ -1101,7 +1101,7 @@
     },
     "v2ray-rules-dat": {
         "cargoLock": null,
-        "date": "2026-08-04",
+        "date": "2026-08-05",
         "extract": null,
         "name": "v2ray-rules-dat",
         "passthru": null,
@@ -1113,12 +1113,12 @@
             "name": null,
             "owner": "Loyalsoldier",
             "repo": "v2ray-rules-dat",
-            "rev": "1102b24d9a260f18b46dabf181f2652b2f74c833",
-            "sha256": "sha256-t3HKR1w/HEczro4ws0yMAVX/1zvRMlVtfZj7REDJNDs=",
+            "rev": "9436dbe898751b65a9ccdb45e70ff0c18638ff33",
+            "sha256": "sha256-gotoenOz41fsHz4+6P7ikxB6Hv1Gnl5GN9Hn0OCHaew=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "1102b24d9a260f18b46dabf181f2652b2f74c833"
+        "version": "9436dbe898751b65a9ccdb45e70ff0c18638ff33"
     },
     "whois42d-ng": {
         "cargoLock": {
