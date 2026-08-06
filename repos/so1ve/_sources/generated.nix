@@ -32,16 +32,16 @@
   };
   winboat = {
     pname = "winboat";
-    version = "4fefd6da554fe80b0fc9da7a5dd8355371e1d3fd";
+    version = "8cff1ac3e7b35fe41235856ab98800b2281cac57";
     src = fetchgit {
       url = "https://github.com/TibixDev/winboat.git";
-      rev = "4fefd6da554fe80b0fc9da7a5dd8355371e1d3fd";
+      rev = "8cff1ac3e7b35fe41235856ab98800b2281cac57";
       fetchSubmodules = false;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-kutFvwpnh4zNnEFMzj1MQtpfFy2P+4TpiDqPBZqVam4=";
+      sha256 = "sha256-8Q4INSbmuNZxqTLLK2HpBc6/MatfmAg2rZ6xzSCpm1o=";
     };
-    date = "2026-07-31";
+    date = "2026-08-06";
   };
 }
