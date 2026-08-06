@@ -35,7 +35,7 @@
 #     that declares the argument. `extraArgs.<name>` is an explicit
 #     exception table that overrides auto-injection for a single package
 #     (e.g. typenix-vscode's `source` is sources.typenix).
-#     `sources` defaults to the repository's ../_sources/generated.nix.
+#     `sources` defaults to the repository's _sources (via ./sources.nix).
 #
 #     NOTE: rule 2 takes precedence over nixpkgs resolution, so adding a
 #     local package whose name collides with a nixpkgs argument used by
@@ -49,7 +49,9 @@
 {lib}: let
   # Anchored at this file's location (internal/) so callers don't need to
   # thread the repository root through.
-  defaultSources = pkgs: pkgs.callPackage ../_sources/generated.nix {};
+  # Goes through ./sources.nix so sources that are read at evaluation time
+  # (crane) use evaluation-time fetches instead of FODs; see that file.
+  defaultSources = pkgs: import ./sources.nix {inherit pkgs;};
 
   # Names of first-level subdirectories of dir that contain a default.nix.
   packageDirs = dir: let

@@ -15,7 +15,7 @@
   craneLib ? null,
 }: let
   discover = import ./internal/discover.nix {inherit (pkgs) lib;};
-  sources = pkgs.callPackage ./_sources/generated.nix {};
+  sources = import ./internal/sources.nix {inherit pkgs;};
   # Packages under pkgs/ are wired automatically; see internal/discover.nix
   # for the argument injection rules and the exception table semantics.
   packages = discover.packages {
