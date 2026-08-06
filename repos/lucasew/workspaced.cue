@@ -245,6 +245,11 @@ workspaced: {
 			global: true
 			bins: ["nh"]
 		}
+		asciinema: {
+			ref: "github:gvcgo/asciinema"
+			global: true
+			bins: ["acast"]
+		}
 	}
 
 	modules: {

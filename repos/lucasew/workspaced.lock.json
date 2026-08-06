@@ -123,6 +123,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:gvcgo/asciinema",
+      "depName": "gvcgo/asciinema",
+      "currentValue": "v0.4.0",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:hashicorp/terraform",
       "depName": "hashicorp/terraform",
       "currentValue": "v1.15.7",
