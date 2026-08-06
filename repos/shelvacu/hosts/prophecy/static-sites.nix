@@ -24,7 +24,9 @@
         file_server
         @spa {
             not path /static/*
-            not file
+            not path /index.html
+            not path /manifest.json
+            not path /sw.js
         }
         rewrite @spa /index.html
       '';
