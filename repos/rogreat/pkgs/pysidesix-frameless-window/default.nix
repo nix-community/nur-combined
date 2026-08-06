@@ -8,13 +8,13 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "pysidesix-frameless-window";
-  version = "0.8.1";
+  version = "0.8.2";
   pyproject = true;
 
   src = fetchPypi {
     inherit (finalAttrs) version;
     pname = "pysidesix_frameless_window";
-    hash = "sha256-le76ZKvayp1zC8CX/TnizQfTRDpHoWRcyTagB2mW180=";
+    hash = "sha256-PLv4r9OQ2p6kP8l9SjpCxTaq8I0kSnIrEU7/AFS3/ww=";
   };
 
   build-system = [ setuptools ];

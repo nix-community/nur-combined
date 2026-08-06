@@ -9,7 +9,6 @@
   libnotify,
   p7zip,
   python3Packages,
-  runtimeShell,
   unrar-free,
   webp-pixbuf-loader,
   wrapGAppsHook4,
@@ -17,14 +16,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "native-open-mod-manager";
-  version = "0.10.1";
+  version = "0.11.0";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "Allexio";
     repo = "nomm";
     tag = finalAttrs.version;
-    hash = "sha256-0+374FbaTkAjXf2+anZtckz/Ozz/B47UQVRCQTZCqus=";
+    hash = "sha256-MNnmzAAugyWARcWgC9q/INN2fH4NhJ7JOIh5Xnr5A0s=";
   };
 
   nativeBuildInputs = [
@@ -61,13 +60,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p $out/bin
-    cat << EOF > $out/bin/nomm
-    #!${runtimeShell}
-    exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/main.py "\$@"
-    EOF
-    chmod +x $out/bin/nomm
-
     install -D build/flatpak/com.nomm.Nomm.desktop $out/share/applications/com.nomm.Nomm.desktop
     install -D build/flatpak/com.nomm.Nomm.metainfo.xml $out/share/metainfo/com.nomm.Nomm.metainfo.xml
     install -D assets/nomm.png $out/share/icons/hicolor/64x64/apps/com.nomm.Nomm.png
@@ -91,16 +83,19 @@ python3Packages.buildPythonApplication (finalAttrs: {
     runHook postInstall
   '';
 
+  dontWrapGApps = true;
+
   preFixup = ''
-    gappsWrapperArgs+=(
-        --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
-        --set PATH "${
+    makeWrapper ${python3Packages.python.interpreter} $out/bin/nomm \
+        --add-flags "-m main" \
+        ''${gappsWrapperArgs[@]} \
+        --set PYTHONPATH $out/${python3Packages.python.sitePackages}:$PYTHONPATH \
+        --set PATH ${
           lib.makeBinPath [
             glib.dev # glib-compile-resources
             p7zip # 7z
           ]
-        }"
-    )
+        }
   '';
 
   # no tests

@@ -8,7 +8,6 @@
   pyside6-fluent-widgets,
   python3Packages,
   qt6,
-  runtimeShell,
   rustPlatform,
   xvfb,
 }:
@@ -130,13 +129,6 @@ python3Packages.buildPythonApplication (finalAttrs: {
   '';
 
   postInstall = ''
-    mkdir $out/bin
-    cat << EOF > $out/bin/cdumm
-    #!${runtimeShell}
-    exec ${python3Packages.python.interpreter} $out/${python3Packages.python.sitePackages}/cdumm/main.py "\$@"
-    EOF
-    chmod +x $out/bin/cdumm
-
     cp -a src/cdumm/translations $out/${python3Packages.python.sitePackages}/cdumm
     cp -a schemas $out/${python3Packages.python.sitePackages}
     cp -a field_schema $out/${python3Packages.python.sitePackages}
@@ -152,7 +144,10 @@ python3Packages.buildPythonApplication (finalAttrs: {
   dontWrapQtApps = true;
 
   preFixup = ''
-    wrapQtApp $out/bin/cdumm --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
+    makeWrapper ${python3Packages.python.interpreter} $out/bin/cdumm \
+        --add-flags "-m cdumm.main" \
+        ''${qtWrapperArgs[@]} \
+        --set PYTHONPATH "$out/${python3Packages.python.sitePackages}:$PYTHONPATH"
   '';
 
   meta = {

@@ -16,14 +16,14 @@
 
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "amethyst-mod-manager";
-  version = "2.0.5";
+  version = "2.1.0";
   pyproject = false;
 
   src = fetchFromGitHub {
     owner = "ChrisDKN";
     repo = "Amethyst-Mod-Manager";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TR2dLZ+7gHSO8eosskCKg5JP9b/2MCZQingd3psFK8M=";
+    hash = "sha256-mkhrlBIiH2xbFWEwx7GE6dODVqTI+hjjgL+JVIkHAjs=";
   };
 
   nativeBuildInputs = [
