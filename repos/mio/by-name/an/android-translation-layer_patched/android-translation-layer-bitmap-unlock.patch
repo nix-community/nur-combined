@@ -1,6 +1,12 @@
---- src/libandroid/bitmap.c
-+++ src/libandroid/bitmap.c
-@@ -67,9 +67,11 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] fix bitmap unlock to prevent recycle crashes
+
+diff --git a/src/libandroid/bitmap.c b/src/libandroid/bitmap.c
+index 7a81d8eb..7a27bd33 100644
+--- a/src/libandroid/bitmap.c
++++ b/src/libandroid/bitmap.c
+@@ -67,8 +67,11 @@ int AndroidBitmap_unlockPixels(JNIEnv *env, jobject bitmap)
  	}
  	GdkTexture *texture = gdk_memory_texture_new(width, height, format, bytes, stride);
  	g_bytes_unref(bytes);

@@ -1,0 +1,48 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] add Kotatsu SearchRecentSuggestions stub
+
+diff --git a/src/api-impl/android/provider/SearchRecentSuggestions.java b/src/api-impl/android/provider/SearchRecentSuggestions.java
+new file mode 100644
+index 00000000..315ee36c
+--- /dev/null
++++ b/src/api-impl/android/provider/SearchRecentSuggestions.java
+@@ -0,0 +1,38 @@
++package android.provider;
++
++import android.content.Context;
++import android.content.ContentResolver;
++
++public class SearchRecentSuggestions {
++    public final static int QUERIES_PROJECTION_1LINE_INDEX = 1;
++    public final static int QUERIES_PROJECTION_2LINE_INDEX = 2;
++    public final static int QUERIES_PROJECTION_DATE_INDEX = 1;
++    public final static int QUERIES_PROJECTION_DISPLAY1_INDEX = 3;
++    public final static int QUERIES_PROJECTION_DISPLAY2_INDEX = 4;
++    public final static int QUERIES_PROJECTION_QUERY_INDEX = 2;
++    public final static String[] QUERIES_PROJECTION_1LINE = new String[] {
++            "_id",
++            "date",
++            "query",
++            "display1"
++    };
++    public final static String[] QUERIES_PROJECTION_2LINE = new String[] {
++            "_id",
++            "date",
++            "query",
++            "display1",
++            "display2"
++    };
++
++    public SearchRecentSuggestions(Context context, String authority, int mode) {
++    }
++
++    public void clearHistory() {
++    }
++
++    public void saveRecentQuery(String queryString, String line2) {
++    }
++
++    protected void truncateHistory(ContentResolver cr, int maxEntries) {
++    }
++}

@@ -1,0 +1,27 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] add F-Droid Settings.System.canWrite stub
+
+diff --git a/src/api-impl/android/provider/Settings.java b/src/api-impl/android/provider/Settings.java
+index e19bdde0..08d15fdd 100644
+--- a/src/api-impl/android/provider/Settings.java
++++ b/src/api-impl/android/provider/Settings.java
+@@ -2,6 +2,7 @@ package android.provider;
+ 
+ import android.content.ContentResolver;
+ import android.net.Uri;
++import android.content.Context;
+ import android.util.AndroidException;
+ import android.util.Slog;
+ 
+@@ -97,6 +98,10 @@ public class Settings {
+ 			return Uri.withAppendedPath(CONTENT_URI, name);
+ 		}
+ 
++		public static boolean canWrite(Context context) {
++			return true;
++		}
++
+ 		protected static Integer getIntOrNull(ContentResolver cr, String key) {
+ 			switch (key) {
+ 				case "accelerometer_rotation":

@@ -1,0 +1,313 @@
+From 7a92d9896c94ad0dadb60e65413c9d071bc20e58 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jo=C3=A3o=20Lucas=20Farias?= <jlalmeida.farias@gmail.com>
+Date: Wed, 5 Aug 2026 10:25:36 -0300
+Subject: [PATCH] api-impl: add misc stubs to make aegis work
+
+---
+ src/api-impl/android/app/ContextImpl.java         |  3 +++
+ .../android/content/pm/PackageManager.java        |  8 ++++++++
+ .../android/content/pm/PackageParser.java         |  5 +++++
+ .../android/graphics/drawable/LayerDrawable.java  | 15 +++++++++++++++
+ .../hardware/fingerprint/FingerprintManager.java  |  7 +++++++
+ src/api-impl/android/provider/Settings.java       |  8 ++++++++
+ src/api-impl/android/view/ViewGroup.java          |  3 +++
+ .../android/view/animation/Animation.java         |  9 ++++++++-
+ .../android/view/animation/AnimationUtils.java    |  4 ++++
+ .../view/animation/LayoutAnimationController.java |  7 +++++++
+ .../view/inputmethod/InputMethodManager.java      |  2 ++
+ src/api-impl/android/widget/LinearLayout.java     |  2 +-
+ src/api-impl/android/widget/PopupWindow.java      |  2 ++
+ src/api-impl/meson.build                          |  1 +
+ 14 files changed, 74 insertions(+), 2 deletions(-)
+ create mode 100644 src/api-impl/android/hardware/fingerprint/FingerprintManager.java
+ create mode 100644 src/api-impl/android/view/animation/LayoutAnimationController.java
+
+diff --git a/src/api-impl/android/app/ContextImpl.java b/src/api-impl/android/app/ContextImpl.java
+index d3dad607..210377fc 100644
+--- a/src/api-impl/android/app/ContextImpl.java
++++ b/src/api-impl/android/app/ContextImpl.java
+@@ -16,6 +16,7 @@ import android.hardware.SensorManager;
+ import android.hardware.camera2.CameraManager;
+ import android.hardware.display.ColorDisplayManager;
+ import android.hardware.display.DisplayManager;
++import android.hardware.fingerprint.FingerprintManager;
+ import android.hardware.input.InputManager;
+ import android.hardware.usb.UsbManager;
+ import android.location.LocationManager;
+@@ -204,6 +205,8 @@ public final class ContextImpl extends Context {
+ 				return new SearchManager();
+ 			case "storage":
+ 				return new StorageManager();
++			case "fingerprint":
++				return new FingerprintManager();
+ 			default:
+ 				Slog.e(TAG, "!!!!!!! getSystemService: case >" + name + "< is not implemented yet");
+ 				return null;
+diff --git a/src/api-impl/android/content/pm/PackageManager.java b/src/api-impl/android/content/pm/PackageManager.java
+index 8123836f..a1134524 100644
+--- a/src/api-impl/android/content/pm/PackageManager.java
++++ b/src/api-impl/android/content/pm/PackageManager.java
+@@ -16,6 +16,7 @@
+ 
+ package android.content.pm;
+ 
++import android.Manifest;
+ import android.annotation.NonNull;
+ import android.annotation.SdkConstant;
+ import android.annotation.SdkConstant.SdkConstantType;
+@@ -1272,6 +1273,9 @@ public class PackageManager {
+ 	@SdkConstant(SdkConstantType.FEATURE)
+ 	public static final String FEATURE_WATCH = "android.hardware.type.watch";
+ 
++	@SdkConstant(SdkConstantType.FEATURE)
++	public static final String FEATURE_ROTARY_ENCODER_LOW_RES = "android.hardware.rotaryencoder.lowres";
++
+ 	/**
+ 	 * Action to external storage service to clean out removed apps.
+ 	 * @hide
+@@ -1889,6 +1893,8 @@ public class PackageManager {
+ 					return PERMISSION_GRANTED;
+ 				else
+ 					return PERMISSION_DENIED;
++			case Manifest.permission.ACCESS_NETWORK_STATE:
++				return PERMISSION_GRANTED;
+ 			default:
+ 				System.out.println("PackageManager.checkPermission: >" + permName + "< not handled\n");
+ 				return PERMISSION_DENIED;
+@@ -2193,6 +2199,8 @@ public class PackageManager {
+ 				return System.getenv("ATL_IS_TELEVISION") != null;
+ 			case FEATURE_WATCH:
+ 				return System.getenv("ATL_IS_WATCH") != null;
++			case FEATURE_ROTARY_ENCODER_LOW_RES:
++				return false;
+ 			default:
+ 				Slog.e(TAG, "!!!!!!! hasSystemFeature: case >" + name + "< is not implemented yet");
+ 				return false;
+diff --git a/src/api-impl/android/content/pm/PackageParser.java b/src/api-impl/android/content/pm/PackageParser.java
+index 5344f905..ee85a672 100644
+--- a/src/api-impl/android/content/pm/PackageParser.java
++++ b/src/api-impl/android/content/pm/PackageParser.java
+@@ -1326,6 +1326,11 @@ public class PackageParser {
+ 				mParseError = PackageManager.INSTALL_PARSE_FAILED_MANIFEST_MALFORMED;
+ 				return null;
+ 
++			} else if (tagName.equals("queries")) {
++				// Just skip this tag
++				XmlUtils.skipCurrentTag(parser);
++				continue;
++
+ 			} else {
+ 				Slog.w(TAG, "Unknown element under <manifest>: " + parser.getName() + " at " + mArchiveSourcePath + " " + parser.getPositionDescription());
+ 				XmlUtils.skipCurrentTag(parser);
+diff --git a/src/api-impl/android/graphics/drawable/LayerDrawable.java b/src/api-impl/android/graphics/drawable/LayerDrawable.java
+index a2ced51f..ec4af595 100644
+--- a/src/api-impl/android/graphics/drawable/LayerDrawable.java
++++ b/src/api-impl/android/graphics/drawable/LayerDrawable.java
+@@ -24,6 +24,7 @@ import android.graphics.ColorFilter;
+ //import android.graphics.PixelFormat;
+ import android.graphics.Rect;
+ import android.util.AttributeSet;
++import android.view.Gravity;
+ import android.view.View;
+ import java.io.IOException;
+ import org.xmlpull.v1.XmlPullParser;
+@@ -327,6 +328,17 @@ public class LayerDrawable extends Drawable implements Drawable.Callback {
+ 		childDrawable.mInsetB = b;
+ 	}
+ 
++	public void setLayerSize(int index, int w, int h) {
++		final ChildDrawable childDrawable = mLayerState.mChildren[index];
++		childDrawable.mWidth = w;
++		childDrawable.mHeight = h;
++	}
++
++	public void setLayerGravity(int index, int gravity) {
++		final ChildDrawable childDrawable = mLayerState.mChildren[index];
++		childDrawable.mGravity = gravity;
++	}
++
+ 	// overrides from Drawable.Callback
+ 
+ 	public void invalidateDrawable(Drawable who) {
+@@ -640,6 +652,9 @@ public class LayerDrawable extends Drawable implements Drawable.Callback {
+ 	static class ChildDrawable {
+ 		public Drawable mDrawable;
+ 		public int mInsetL, mInsetT, mInsetR, mInsetB;
++		public int mWidth = -1;
++		public int mHeight = -1;
++		public int mGravity = Gravity.NO_GRAVITY;
+ 		public int mId;
+ 	}
+ 
+diff --git a/src/api-impl/android/hardware/fingerprint/FingerprintManager.java b/src/api-impl/android/hardware/fingerprint/FingerprintManager.java
+new file mode 100644
+index 00000000..41f9b79d
+--- /dev/null
++++ b/src/api-impl/android/hardware/fingerprint/FingerprintManager.java
+@@ -0,0 +1,7 @@
++package android.hardware.fingerprint;
++
++public class FingerprintManager {
++	public boolean isHardwareDetected() {
++		return false;
++	}
++}
+diff --git a/src/api-impl/android/provider/Settings.java b/src/api-impl/android/provider/Settings.java
+index e19bdde0..966e8119 100644
+--- a/src/api-impl/android/provider/Settings.java
++++ b/src/api-impl/android/provider/Settings.java
+@@ -158,6 +158,10 @@ public class Settings {
+ 
+ 	public static final class Global extends NameValueTable {
+ 		private final static String TAG = "Settings$Global";
++
++		public static final String AUTO_TIME = "auto_time";
++		public static final String TRANSITION_ANIMATION_SCALE = "transition_animation_scale";
++
+ 		public static final Uri CONTENT_URI = Uri.parse("content://settings/global");
+ 
+ 		public static Uri getUriFor(String name) {
+@@ -174,6 +178,8 @@ public class Settings {
+ 
+ 		protected static Integer getIntOrNull(ContentResolver content_resolver, String key) {
+ 			switch (key) {
++				case AUTO_TIME:
++					return 1;
+ 				default:
+ 					Slog.w(TAG, "!!!! getInt: unknown key: >" + key + "<");
+ 					return null;
+@@ -202,6 +208,8 @@ public class Settings {
+ 			switch (key) {
+ 				case "animator_duration_scale":
+ 					return 1.f;
++				case TRANSITION_ANIMATION_SCALE:
++					return 0.0f;
+ 				default:
+ 					Slog.w(TAG, "!!!! getFloat: unknown key: >" + key + "<");
+ 					return null;
+diff --git a/src/api-impl/android/view/ViewGroup.java b/src/api-impl/android/view/ViewGroup.java
+index 1de08843..f6038d59 100644
+--- a/src/api-impl/android/view/ViewGroup.java
++++ b/src/api-impl/android/view/ViewGroup.java
+@@ -10,6 +10,7 @@ import android.graphics.Canvas;
+ import android.graphics.Rect;
+ import android.util.AttributeSet;
+ import android.util.Slog;
++import android.view.animation.LayoutAnimationController;
+ import java.util.ArrayList;
+ import java.util.Comparator;
+ import java.util.Iterator;
+@@ -718,4 +719,6 @@ public class ViewGroup extends View implements ViewParent, ViewManager {
+ 	}
+ 
+ 	public void scheduleLayoutAnimation() {}
++
++	public void setLayoutAnimation(LayoutAnimationController controller) {}
+ }
+diff --git a/src/api-impl/android/view/animation/Animation.java b/src/api-impl/android/view/animation/Animation.java
+index c9c09b0c..303149ed 100644
+--- a/src/api-impl/android/view/animation/Animation.java
++++ b/src/api-impl/android/view/animation/Animation.java
+@@ -3,6 +3,7 @@ package android.view.animation;
+ import android.os.Handler;
+ 
+ public class Animation {
++	private long duration;
+ 
+ 	public interface AnimationListener {
+ 		public void onAnimationEnd(Animation animation);
+@@ -12,7 +13,13 @@ public class Animation {
+ 
+ 	private AnimationListener listener;
+ 
+-	public void setDuration(long durationMillis) {}
++	public long getDuration() {
++		return this.duration;
++	}
++
++	public void setDuration(long durationMillis) {
++		this.duration = durationMillis;
++	}
+ 
+ 	public void setInterpolator(Interpolator i) {}
+ 
+diff --git a/src/api-impl/android/view/animation/AnimationUtils.java b/src/api-impl/android/view/animation/AnimationUtils.java
+index 4dc2d587..748c5af5 100644
+--- a/src/api-impl/android/view/animation/AnimationUtils.java
++++ b/src/api-impl/android/view/animation/AnimationUtils.java
+@@ -12,4 +12,8 @@ public class AnimationUtils {
+ 	public static Interpolator loadInterpolator(Context context, int dummy) {
+ 		return null;
+ 	}
++
++	public static LayoutAnimationController loadLayoutAnimation(Context context, int id) {
++		return new LayoutAnimationController();
++	}
+ }
+diff --git a/src/api-impl/android/view/animation/LayoutAnimationController.java b/src/api-impl/android/view/animation/LayoutAnimationController.java
+new file mode 100644
+index 00000000..240f3fe0
+--- /dev/null
++++ b/src/api-impl/android/view/animation/LayoutAnimationController.java
+@@ -0,0 +1,7 @@
++package android.view.animation;
++
++public class LayoutAnimationController {
++	public Animation getAnimation() {
++		return new Animation();
++	}
++}
+diff --git a/src/api-impl/android/view/inputmethod/InputMethodManager.java b/src/api-impl/android/view/inputmethod/InputMethodManager.java
+index 085ff966..bf182a07 100644
+--- a/src/api-impl/android/view/inputmethod/InputMethodManager.java
++++ b/src/api-impl/android/view/inputmethod/InputMethodManager.java
+@@ -18,6 +18,8 @@ public class InputMethodManager {
+ 		return false;
+ 	}
+ 
++	public void toggleSoftInput(int showFlags, int hideFlags) {}
++
+ 	public boolean showSoftInput(View view, int flags) {
+ 		if (view == activeView) {
+ 			return nativeShowSoftInput(im_context, view.widget, null, 0);
+diff --git a/src/api-impl/android/widget/LinearLayout.java b/src/api-impl/android/widget/LinearLayout.java
+index 4a1f9cbd..9989f199 100644
+--- a/src/api-impl/android/widget/LinearLayout.java
++++ b/src/api-impl/android/widget/LinearLayout.java
+@@ -1537,7 +1537,7 @@ public class LinearLayout extends ViewGroup {
+ 				switch (gravity & Gravity.VERTICAL_GRAVITY_MASK) {
+ 					case Gravity.TOP:
+ 						childTop = paddingTop + lp.topMargin;
+-						if (childBaseline != -1) {
++						if (childBaseline != -1 && null != maxAscent) {
+ 							childTop += maxAscent[INDEX_TOP] - childBaseline;
+ 						}
+ 						break;
+diff --git a/src/api-impl/android/widget/PopupWindow.java b/src/api-impl/android/widget/PopupWindow.java
+index bcf1ad1d..41847d95 100644
+--- a/src/api-impl/android/widget/PopupWindow.java
++++ b/src/api-impl/android/widget/PopupWindow.java
+@@ -175,6 +175,8 @@ public class PopupWindow {
+ 
+ 	public void setSoftInputMode(int mode) {}
+ 
++	public void setClipToScreenEnabled(boolean enabled) {}
++
+ 	protected native long native_constructor();
+ 	protected native void native_setContentView(long widget, long contentView);
+ 	protected native void native_showAsDropDown(long widget, long anchor, int xoff, int yoff, int gravity);
+diff --git a/src/api-impl/meson.build b/src/api-impl/meson.build
+index 20d2490e..b5c9c39f 100644
+--- a/src/api-impl/meson.build
++++ b/src/api-impl/meson.build
+@@ -312,6 +312,7 @@ srcs = [
+ 	'android/hardware/camera2/CameraManager.java',
+ 	'android/hardware/display/ColorDisplayManager.java',
+ 	'android/hardware/display/DisplayManager.java',
++	'android/hardware/fingerprint/FingerprintManager.java',
+ 	'android/hardware/input/InputManager.java',
+ 	'android/hardware/usb/UsbManager.java',
+ 	'android/inputmethodservice/AbstractInputMethodService.java',
+-- 
+GitLab
+
