@@ -115,6 +115,8 @@ lib.makeOverridable (
 
     srcPname = if isDrv && src ? pname then src.pname else null;
     srcVersion = if isDrv && src ? version then src.version else null;
+    srcMainProgram =
+      if isDrv && src ? meta && src.meta ? mainProgram then src.meta.mainProgram else null;
 
     # Parse Gleam metadata from gleam.toml at evaluation time
     gleamToml = fromTOML (builtins.readFile (srcPath + "/gleam.toml"));
@@ -146,6 +148,7 @@ lib.makeOverridable (
         srcVersion
       else
         gleamToml.version;
+    finalMainProgram = if srcMainProgram != null then srcMainProgram else finalPname;
 
     currentTarget =
       let
@@ -407,9 +410,9 @@ lib.makeOverridable (
           exit 1
         fi
 
-        # Provide pname alias if it differs from appName (e.g., pname uses dashes)
-        if [ "${finalPname}" != "${appName}" ]; then
-          ln -sf "${appName}" "$out/bin/${finalPname}"
+        # Provide mainProgram alias if it differs from appName (e.g., pname uses dashes)
+        if [ "${finalMainProgram}" != "${appName}" ]; then
+          ln -sf "${appName}" "$out/bin/${finalMainProgram}"
         fi
 
         runHook postInstall
