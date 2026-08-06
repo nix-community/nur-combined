@@ -1,0 +1,13 @@
+--- a/src/api-impl/android/atl/ATLLoadedApp.java
++++ b/src/api-impl/android/atl/ATLLoadedApp.java
+@@ -120,6 +120,9 @@
+ 		if (play_services.contains(pkg.packageName)) {
+ 			ATLSigHelper.addGMSSignatures(pkg);
+ 		}
++		// Set sourceDir so Context.getPackageCodePath() returns the real APK path
++		pkg.applicationInfo.sourceDir = mainApk;
++		pkg.applicationInfo.publicSourceDir = mainApk;
+ 		return new ATLLoadedApp(resources, classLoader, pkg);
+ 	}
+ 
+

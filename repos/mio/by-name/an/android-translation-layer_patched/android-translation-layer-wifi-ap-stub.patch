@@ -1,0 +1,41 @@
+--- a/src/api-impl/android/net/wifi/WifiManager.java
++++ b/src/api-impl/android/net/wifi/WifiManager.java
+@@ -34,4 +34,26 @@
+ 	public boolean isWifiEnabled() {
+ 		return false;
+ 	}
++
++	/** Hidden API: Wi-Fi AP (hotspot) state constants */
++	public static final int WIFI_AP_STATE_DISABLING = 10;
++	public static final int WIFI_AP_STATE_DISABLED  = 11;
++	public static final int WIFI_AP_STATE_ENABLING  = 12;
++	public static final int WIFI_AP_STATE_ENABLED   = 13;
++	public static final int WIFI_AP_STATE_FAILED    = 14;
++
++	/** Hidden API used by WifiApControl via reflection - hotspot is not supported on Linux */
++	public int getWifiApState() {
++		return WIFI_AP_STATE_DISABLED;
++	}
++
++	/** Hidden API used by WifiApControl via reflection - hotspot is not supported on Linux */
++	public boolean setWifiApEnabled(WifiConfiguration wifiConfig, boolean enabled) {
++		return false;
++	}
++
++	/** Hidden API used by WifiApControl via reflection - hotspot is not supported on Linux */
++	public boolean isWifiApEnabled() {
++		return false;
++	}
+ }
+--- /dev/null
++++ b/src/api-impl/android/net/wifi/WifiConfiguration.java
+@@ -0,0 +1,9 @@
++package android.net.wifi;
++
++/** Stub for WifiConfiguration - Wi-Fi hotspot/AP is not supported on Linux */
++public class WifiConfiguration {
++	public String SSID;
++	public String preSharedKey;
++	public int apBand;
++	public int apChannel;
++}

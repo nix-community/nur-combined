@@ -16,11 +16,17 @@
         url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/290.patch";
         hash = "sha256-pDN/2s6k4T4A1EGqIhFZGTH/PwvmsDJAr0BBQmFpxG0=";
       })
+      (fetchpatch {
+        url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/251.patch";
+        hash = "sha256-c0Vsly+ScZmhrsRl7tKGIY4wLlIkR6UaGANIYWosF4k=";
+      })
       ./android-translation-layer-fdroid-stub.patch
       ./android-translation-layer-context-stub.patch
       ./android-translation-layer-newpipe-esc-stub.patch
       ./android-translation-layer-newpipe-red-layer.patch
       ./android-translation-layer-wifiinfo-ssid-stub.patch
+      ./android-translation-layer-apk-sourcedir.patch
+      ./android-translation-layer-wifi-ap-stub.patch
     ];
     postInstall = (old.postInstall or "") + ''
       mkdir -p $out/etc/security
