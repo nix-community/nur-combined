@@ -13,13 +13,13 @@
 
 beamPackages.buildMix rec {
   name = "finch";
-  version = "0.19.0";
+  version = "0.23.0";
 
   src = fetchFromGitHub {
     owner = "sneako";
     repo = "finch";
     rev = "v${version}";
-    hash = "sha256-ZCA/+qdqIA0wh+FL0Ra+ycvOWGPAx3Bw8X7CtCzxdPU=";
+    hash = "sha256-lMwMeaa5aSe3JQCTCEWdlbiXnqX8tNvRGk5ITMi+Oqc=";
   };
 
   beamDeps = [

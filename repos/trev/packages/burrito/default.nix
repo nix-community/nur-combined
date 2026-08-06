@@ -10,13 +10,13 @@
 
 beamPackages.buildMix rec {
   name = "burrito";
-  version = "1.2.0";
+  version = "1.6.0";
 
   src = fetchFromGitHub {
     owner = "burrito-elixir";
     repo = "burrito";
     rev = "v${version}";
-    hash = "sha256-fQNTqrHDltW/a4yxERhjqm7xD1IJWkgg4xD3doQLk74=";
+    hash = "sha256-N4hvGwQKvfGrCi/tmB0pCNmo574equWfcRt66J8+n/4=";
   };
 
   beamDeps = [
