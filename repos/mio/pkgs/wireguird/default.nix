@@ -145,6 +145,10 @@ stdenv.mkDerivation {
 
     # Runs as the logged-in user. On NixOS, programs.wireguird installs
     # cap_net_admin wrappers in /run/wrappers/bin (wireguird, wg-quick, wg).
+    # GTK_USE_PORTAL=0: the capability wrapper marks the process non-dumpable;
+    # the kernel then denies /proc/<pid>/root to xdg-desktop-portal, which
+    # responds with AccessDenied and produces a Gdk-WARNING on every launch.
+    # Disabling the portal makes GTK fall back to its native settings path.
     makeWrapper "${wireguird-unwrapped}/bin/wireguird" "$out/bin/wireguird" \
       "''${gappsWrapperArgs[@]}" \
       --set GTK_USE_PORTAL 0 \
