@@ -1008,9 +1008,6 @@
         "minion3665": {
             "url": "https://github.com/minion3665/nurpkgs"
         },
-        "mio": {
-            "url": "https://github.com/mio-19/nurpkgs"
-        },
         "misterio": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~misterio/nix-config"
