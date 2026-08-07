@@ -28,15 +28,15 @@
   };
   emacs-plus = {
     pname = "emacs-plus";
-    version = "0cd4d424b3eb00ae6c9de3a1360663d1e1be827d";
+    version = "69be723e1563ead7fdb19fdabc9d50e8338c22bb";
     src = fetchFromGitHub {
       owner = "d12frosted";
       repo = "homebrew-emacs-plus";
-      rev = "0cd4d424b3eb00ae6c9de3a1360663d1e1be827d";
+      rev = "69be723e1563ead7fdb19fdabc9d50e8338c22bb";
       fetchSubmodules = false;
-      sha256 = "sha256-qkq2nmMA6nG0hrhjSc03WMh5bzaNRNWHqN+zkrF2adk=";
+      sha256 = "sha256-QMrf7teRlE5afs37ruFNuI7W+FLK31h62K/K8+uuKZc=";
     };
-    date = "2026-08-05";
+    date = "2026-08-06";
   };
   hammerspoon = {
     pname = "hammerspoon";
@@ -60,13 +60,13 @@
   };
   playwright-cli = {
     pname = "playwright-cli";
-    version = "v0.1.17";
+    version = "v0.1.18";
     src = fetchFromGitHub {
       owner = "microsoft";
       repo = "playwright-cli";
-      rev = "v0.1.17";
+      rev = "v0.1.18";
       fetchSubmodules = false;
-      sha256 = "sha256-tc/2Qck3mm6BqWTu2lvvfsM0/BHO/Z0ZvCdFZ7QQqKI=";
+      sha256 = "sha256-E/AzDJhD12PWSaA3iRY+hloPsSWnAw18gTa/ItVhr3E=";
     };
   };
   qmk-toolbox = {
@@ -119,10 +119,10 @@
   };
   zen-browser = {
     pname = "zen-browser";
-    version = "1.21.10b";
+    version = "1.21.11b";
     src = fetchurl {
-      url = "https://github.com/zen-browser/desktop/releases/download/1.21.10b/zen.macos-universal.dmg";
-      sha256 = "sha256-Mk4WTPl3TgRj+IxSPcuVhxcys3k2gQp+0f7jZM/owjY=";
+      url = "https://github.com/zen-browser/desktop/releases/download/1.21.11b/zen.macos-universal.dmg";
+      sha256 = "sha256-Kgp90tjtFExp605geAoWl6tshJ/ZH/ROcdW3El6h7QA=";
     };
   };
 }
