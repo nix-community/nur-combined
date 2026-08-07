@@ -27,18 +27,20 @@ let
       ) (builtins.head lists) (builtins.tail lists)
     )
       (builtins.map (p: p.meta.platforms or lib.platforms.all) ps);
-in
-{
-  # Add your library functions here
-  #
-  # hexint = x: hexvals.${toLower x};
-  maintainers.toyvo = {
+
+  toyvo = {
     name = "Collin Diekvoss";
     email = "Collin@Diekvoss.com";
     matrix = "@toyvo:matrix.org";
     github = "ToyVo";
     githubId = 5168912;
   };
+in
+{
+  # Add your library functions here
+  #
+  # hexint = x: hexvals.${toLower x};
+  maintainers.toyvo = toyvo;
 
   isReserved =
     n:
@@ -86,7 +88,7 @@ in
         meta = package.meta // {
           description = "${package.meta.description or binaryName} with bundled configuration";
           platforms = platformsOf ([ package ] ++ runtimeDeps);
-          maintainers = with lib.maintainers; [ toyvo ];
+          maintainers = [ toyvo ];
         };
       }
       ''
