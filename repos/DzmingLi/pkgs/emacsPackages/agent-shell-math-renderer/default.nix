@@ -4,24 +4,23 @@
   fetchFromGitHub,
 }:
 
-## alberti42/agent-shell-math-renderer: render LaTeX from Agent Shell's
-## streaming Markdown through the public render-hook API.  The runtime TeX
-## toolchain (`latex' + `dvisvgm') belongs in the consumer configuration so
-## users can choose its size and package set independently of this Elisp.
+## alberti42/agent-shell-math-renderer: detect LaTeX in Agent Shell's
+## streaming Markdown and delegate compilation to latex-to-svg-backend.
 emacsPackages.trivialBuild {
   pname = "agent-shell-math-renderer";
-  version = "0.1.0-unstable-2026-07-24";
+  version = "0.3.1-unstable-2026-08-03";
 
   src = fetchFromGitHub {
     owner = "alberti42";
     repo = "agent-shell-math-renderer";
-    rev = "d2dac88e27ae9a2da66bcbc68808bb6217c347ab";
-    hash = "sha256-GzDPZumhXbbEPvtWyjVZ5Dkqt7EUof3yyZ9qF9kqOWw=";
+    rev = "ce7c91efe693aed197e7bc63afa263f6f0d26c11";
+    hash = "sha256-iM3b03qmYUqoHFDRnTJDmT8wxMxTPRz6I/LZZMEPpr8=";
   };
 
-  patches = [ ./direct-process-pipeline.patch ];
-
-  packageRequires = [ emacsPackages.agent-shell ];
+  packageRequires = [
+    emacsPackages.agent-shell
+    emacsPackages.latex-to-svg-backend
+  ];
 
   doCheck = true;
   checkPhase = ''
