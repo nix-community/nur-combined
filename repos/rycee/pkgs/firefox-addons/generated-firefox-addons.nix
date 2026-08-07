@@ -1636,10 +1636,10 @@
     };
     "capital-one-eno" = buildMozillaXpiAddon {
       pname = "capital-one-eno";
-      version = "5.5.1";
+      version = "6.0.0";
       addonId = "{4d5b7a5e-5232-9e45-97f4-f8e1ca2626e5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4614135/capital_one_eno-5.5.1.xpi";
-      sha256 = "746b64f8de71248e63fbecb1cfc826c40177228c7bbdf9876a5a97042f23a660";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4915136/capital_one_eno-6.0.0.xpi";
+      sha256 = "2266b7afb9f846c26bedb105336ec535184696f854a0a70a2622faf40c14c680";
       meta = with lib;
       {
         homepage = "https://www.capitalone.com/applications/eno/virtualnumbers/";
@@ -3092,10 +3092,10 @@
     };
     "decentraleyes" = buildMozillaXpiAddon {
       pname = "decentraleyes";
-      version = "3.0.1";
+      version = "3.0.2";
       addonId = "jid1-BoFifL9Vbdl2zQ@jetpack";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4785399/decentraleyes-3.0.1.xpi";
-      sha256 = "a0b6701636c7e1a44dc756b0e71d03f94d40e5f16787cf2c2306688bd0e249b9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4943310/decentraleyes-3.0.2.xpi";
+      sha256 = "e749d0d1985b579332b36aa00d43bd11c9e820b1375701657cf9aceedbb47581";
       meta = with lib;
       {
         homepage = "https://decentraleyes.org";
@@ -7569,10 +7569,10 @@
     };
     "keeper-password-manager" = buildMozillaXpiAddon {
       pname = "keeper-password-manager";
-      version = "17.10.1";
+      version = "18.0.0";
       addonId = "KeeperFFStoreExtension@KeeperSecurityInc";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4842127/keeper_password_manager-17_FYTlXOu.10.1.xpi";
-      sha256 = "e37a932e5f2d04d141d49cfe20634a3efe39f75dee2e06948f47f19b16834f3e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4870166/keeper_password_manager-18_00Xp3p1.0.0.xpi";
+      sha256 = "2a79bd013ebbf03557b42c04b904f456028932e4d4fd1a4f87f4061bad23a4b7";
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
@@ -8497,10 +8497,10 @@
     };
     "lichess-tools-by-siderite" = buildMozillaXpiAddon {
       pname = "lichess-tools-by-siderite";
-      version = "2.4.227";
+      version = "2.4.228";
       addonId = "{052ad9f9-a99a-483b-bd8b-67e1a7065548}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928849/lichess_tools_by_siderite-2.4.227.xpi";
-      sha256 = "125625b69ee4602192f87292987828b8409eedd9019ffcdbae35187ee0a7543b";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4941522/lichess_tools_by_siderite-2.4.228.xpi";
+      sha256 = "d9a0dcad98bb236390ba914f0231de2561b3e0fa392605890660b63e71af3af0";
       meta = with lib;
       {
         homepage = "https://siderite.dev/LiChessTools/";
@@ -14001,16 +14001,16 @@
     };
     "skip-redirect" = buildMozillaXpiAddon {
       pname = "skip-redirect";
-      version = "2.3.6";
+      version = "3.0.0";
       addonId = "skipredirect@sblask";
-      url = "https://addons.mozilla.org/firefox/downloads/file/3920533/skip_redirect-2.3.6.xpi";
-      sha256 = "dbe8950245c1f475c5c1c6daab89c79b83ba4680621c91e80f15be7b09b618ae";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4926851/skip_redirect-3.0.0.xpi";
+      sha256 = "0ac20d39dda5f6657fdb72883c7a225173bfa3e64569cd47375ddab88fbe6665";
       meta = with lib;
       {
         description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
         license = licenses.mit;
         mozPermissions = [
-          "<all_urls>"
+          "alarms"
           "clipboardWrite"
           "contextMenus"
           "notifications"
@@ -15136,10 +15136,10 @@
     };
     "toggl-button-time-tracker" = buildMozillaXpiAddon {
       pname = "toggl-button-time-tracker";
-      version = "4.11.18";
+      version = "4.11.19";
       addonId = "toggl-button@toggl.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4938493/toggl_button_time_tracker-4.11.18.xpi";
-      sha256 = "757629b698728e22b5f4c4d554400962ec3e2f0caed7b86e9c1f315e4b121f5e";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4942038/toggl_button_time_tracker-4.11.19.xpi";
+      sha256 = "679aba256327255236ea8a2f1eae276ddfd35f211af16788cd1b31d5a11c5421";
       meta = with lib;
       {
         homepage = "https://toggl.com/track/";
@@ -17879,10 +17879,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.3";
+      version = "18.8.6";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4939414/youtube_subscription_groups-18.8.3.xpi";
-      sha256 = "cebfa0f281c788bd34d990e996980710c6dadec3cac76c045a3205e75746b0e7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4941860/youtube_subscription_groups-18.8.6.xpi";
+      sha256 = "85aa9355a45c354d21859d9d0e8efffd665175bc6c195eb8eb78bc994392a883";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
