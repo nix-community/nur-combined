@@ -110,7 +110,7 @@ in with pythonPackages; buildPythonPackage rec {
     install -D main.py $out/share/weechat/matrix.py
   '';
 
-  meta.broken = python.isPy2;
+  meta.broken = python.isPy2 or false;
   passthru = {
     inherit (weechat-matrix) scripts;
     inherit matrix-nio;

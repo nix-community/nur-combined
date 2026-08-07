@@ -69,5 +69,7 @@
 
     passthru.scripts = [ pname ];
   };
-  weechat-matrix = { python3Packages, weechat-matrix }: python3Packages.weechat-matrix or weechat-matrix;
+  weechat-matrix = { python3Packages, weechat-matrix }: python3Packages.weechat-matrix or (weechat-matrix.overrideAttrs {
+    inherit python3Packages;
+  });
 }

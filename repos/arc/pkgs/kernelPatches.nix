@@ -37,16 +37,29 @@
         sha256 = "sha256-I7WZJ7hwOcV9wNw5Ub9u2sIY+pvWzQItsKnMx9vPJ7s=";
         lite = true;
       };
+      "7.1" = {
+        versionRange = "6.16+";
+        sha256 = "sha256-lXQHRL5oUParA7jiP86gusKa6YQkTxDGSr7sbnfaxko=";
+        lite = true;
+        # compensate for 8b793a92d862c89055daa97ffa61a6929cf732f9 and 2bebd986eddb31f9ff1e02e9245a318036280759
+        postFetch = ''
+          sed -i $out \
+            -e 's/MELAN || M486SX || M486 || //' \
+            -e 's/ if X86_32 && X86_CX8$//' \
+            -e 's/-331,12 +742,12/-331,11 +742,11/' -e '/^ \tdefault "4"$/d'
+        '';
+      };
     };
-    doSrc = v: { versionRange, sha256, ... }@src: fetchpatch {
+    doSrc = v: { versionRange, sha256, postFetch ? null, ... }@src: fetchpatch {
       name = name + "-${versionRange}.patch";
       url = patchUrl v src;
       inherit sha256;
+      ${if postFetch != null then "postFetch" else null} = postFetch;
     };
     rev = src: if src ? lite
       then "a814e64f4f871a9e4ed74026cfae9bc24fb166ce"
       else "c409515574bd4d69af45ad74d4e7ba7151010516";
-    filename = { versionRange, sha256, lite ? false }@src: let
+    filename = { versionRange, lite ? false, ... }@src: let
       range = lib.replaceStrings [ "+" ] [ "%2B" ] versionRange;
     in if ! src ? lite
       then "more-uarches-for-kernel-${range}.patch"
@@ -67,7 +80,9 @@
       then srcs."6.8-rc4"
       else if lib.versionOlder linux.version "6.16"
       then srcs."6.15-rc1"
-      else srcs."6.16";
+      else if lib.versionOlder linux.version "7.1"
+      then srcs."6.16"
+      else srcs."7.1";
     extraConfig = let
       archconfig = if kernelArch != null then kernelArch else {
         barcelona = "MBARCELONA";
