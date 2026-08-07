@@ -12,6 +12,12 @@
 [pull]
 	rebase = true
 
+[gc]
+	auto = 0
+
+[maintenance]
+	auto = false
+
 [alias]
 	checkpoint = commit -m "checkpoint"
     # Difftastic aliases, so `git dlog -p` is `git log -p`
