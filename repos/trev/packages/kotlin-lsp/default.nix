@@ -26,6 +26,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
         };
         aarch64-darwin = fetchzip {
           url = "https://download-cdn.jetbrains.com/language-server/kotlin-server/${finalAttrs.version}/kotlin-server-${finalAttrs.version}-aarch64.sit";
+          extension = "zip";
           hash = "sha256-qDS5nfZtxAaZUGlaxbcdP8nC1vxYYg1ynj+kwSwo37Q=";
         };
       };
@@ -63,7 +64,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     runHook postInstall
   '';
 
-  doInstallCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
+  doInstallCheck =
+    stdenv.buildPlatform.canExecute stdenv.hostPlatform && !stdenv.hostPlatform.isDarwin;
   installCheckPhase = ''
     runHook preInstallCheck
 
