@@ -34,6 +34,8 @@
       ./android-translation-layer-drawlines-bounds.patch
       ./android-translation-layer-mr248-ads-stubs.patch
       ./android-translation-layer-microg-poc.patch
+      ./android-translation-layer-gms-startservice-poc.patch
+      ./android-translation-layer-gms-availability-stub.patch
     ];
     postInstall = (old.postInstall or "") + ''
       mkdir -p $out/etc/security

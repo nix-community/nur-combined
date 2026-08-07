@@ -1,0 +1,52 @@
+--- a/src/api-impl/android/content/Context.java
++++ b/src/api-impl/android/content/Context.java
+@@ -376,6 +376,7 @@
+ 	public abstract void sendOrderedBroadcast(Intent intent, String receiverPermission, BroadcastReceiver resultReceiver, Handler scheduler, int initialCode, String initialData, Bundle initialExtras);
+ 
+ 	public abstract ComponentName startService(Intent intent);
++	public abstract ComponentName startForegroundService(Intent intent);
+ 
+ 	public abstract boolean stopService(Intent intent);
+ 
+--- a/src/api-impl/android/content/ContextWrapper.java
++++ b/src/api-impl/android/content/ContextWrapper.java
+@@ -65,6 +65,11 @@
+ 	public ComponentName startService(Intent intent) {
+ 		return this.baseContext.startService(intent);
+ 	}
++	
++	@Override
++	public ComponentName startForegroundService(Intent intent) {
++		return this.baseContext.startForegroundService(intent);
++	}
+ 
+ 	@Override
+ 	public boolean stopService(Intent intent) {
+--- a/src/api-impl/android/app/ContextImpl.java
++++ b/src/api-impl/android/app/ContextImpl.java
+@@ -233,6 +233,11 @@
+ 		return this.atl_loaded_app.class_loader;
+ 	}
+ 
++	@Override
++	public ComponentName startForegroundService(Intent intent) {
++		return startService(intent);
++	}
++
+ 	public ComponentName startService(Intent intent) {
+ 		// Newer applications use a Messenger instead of a BroadcastReceiver for the GCM token return Intent.
+ 		// To support new and old apps with a common interface, we wrap the Messenger in a BroadcastReceiver
+@@ -248,6 +253,13 @@
+ 				}
+ 			}, new IntentFilter("com.google.android.c2dm.intent.REGISTRATION"));
+ 		}
++
++		String pkg = intent.getPackage();
++		String action = intent.getAction();
++		if ((pkg != null && pkg.equals("com.google.android.gms")) || (action != null && action.startsWith("com.google.android.gms."))) {
++			return new ComponentName("com.google.android.gms", "com.google.android.gms.DummyService");
++		}
++
+ 		ATLLoadedApp targetApp = this.atl_get_intent_target(intent);
+ 		if (targetApp == null) {
+ 			// External package. Try to start using DBus Action
