@@ -21,8 +21,8 @@ env:
   CACHE_NAME: mzwing
   BUILDER_PREFIX: nur-b-${{ github.run_id }}-${{ github.run_attempt }}
   # Enable the persistent GOCACHE compile cache in ci/default.nix (impure
-  # eval only). Rust packages are cached via crane instead. Set to "0" to
-  # fall back to plain builds.
+  # eval only). Rust dependency crates are separate cached derivations
+  # (crate2nix). Set to "0" to fall back to plain builds.
   NUR_COMPILE_CACHE: "1"
 
 jobs:
@@ -43,8 +43,8 @@ jobs:
         extra_nix_config: |
           accept-flake-config = false
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian https://attic-server-fly.fly.dev/apeiria
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc= apeiria:G1JGqltaAX0EV+z8fjzO2DD72wjuT23yf4A/WNhMQKE=
 
     - name: Restore Nix store
       uses: nix-community/cache-nix-action@v7
@@ -91,8 +91,8 @@ jobs:
         extra_nix_config: |
           accept-flake-config = false
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian https://attic-server-fly.fly.dev/apeiria
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc= apeiria:G1JGqltaAX0EV+z8fjzO2DD72wjuT23yf4A/WNhMQKE=
 
     - name: Configure Cachix build daemon
       uses: cachix/cachix-action@v17
@@ -204,8 +204,8 @@ jobs:
           accept-flake-config = false
           access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
           max-jobs = 0
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://nix-community.cachix.org
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=
+          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian https://attic-server-fly.fly.dev/apeiria
+          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc= apeiria:G1JGqltaAX0EV+z8fjzO2DD72wjuT23yf4A/WNhMQKE=
 
     - name: Configure Cachix for pulls
       uses: cachix/cachix-action@v17
@@ -288,7 +288,7 @@ jobs:
             --print-out-paths \
             --max-jobs 0 |
             while IFS= read -r path; do
-              printf -- '- `%s`\n' "${path}"
+              printf -- "- \`%s\`\n" "${path}"
             done
         } >>"${GITHUB_STEP_SUMMARY}"
 

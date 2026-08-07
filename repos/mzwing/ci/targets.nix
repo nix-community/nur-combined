@@ -13,8 +13,7 @@ in
   builtins.concatMap (
     system: let
       pkgs = flake.inputs.nixpkgs.legacyPackages.${system};
-      craneLib = flake.inputs.crane.mkLib pkgs;
     in
-      (import ./. {inherit pkgs craneLib;}).cacheTargets
+      (import ./. {inherit pkgs;}).cacheTargets
   )
   systems

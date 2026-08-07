@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false
+  },
+  "include": ["**/*.nix"],
+  "exclude": [".devenv", ".direnv", "result", "node_modules"]
+}

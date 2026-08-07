@@ -23,21 +23,25 @@
 #     (builtins.functionArgs), using the following precedence:
 #       1. an argument named `source` whose package name exists in `sources`
 #          receives sources.<package name>;
-#       2. an argument matching another package in this set receives that
+#       2. an argument named `pkgs` receives the package set itself (needed
+#          by crate2nix-generated Cargo.nix files, which take the whole
+#          package set as an argument; without this their default would
+#          `import <nixpkgs>`, failing under pure evaluation);
+#       3. an argument matching another package in this set receives that
 #          package (lazy recursion, e.g. typenix-vscode -> typenix);
-#       3. an argument matching a key of `sources` receives that source
+#       4. an argument matching a key of `sources` receives that source
 #          (e.g. typenix's tree-sitter-nix);
-#       4. an argument matching a key of `inject` receives that value
-#          (uniform repo-wide injection, e.g. craneLib);
-#       5. everything else is left for callPackage to resolve from nixpkgs
+#       5. an argument matching a key of `inject` receives that value
+#          (uniform repo-wide injection);
+#       6. everything else is left for callPackage to resolve from nixpkgs
 #          (e.g. sing-box).
 #     `inject` maps argument names to values and applies to every package
 #     that declares the argument. `extraArgs.<name>` is an explicit
 #     exception table that overrides auto-injection for a single package
 #     (e.g. typenix-vscode's `source` is sources.typenix).
-#     `sources` defaults to the repository's _sources (via ./sources.nix).
+#     `sources` defaults to the repository's _sources.
 #
-#     NOTE: rule 2 takes precedence over nixpkgs resolution, so adding a
+#     NOTE: rule 3 takes precedence over nixpkgs resolution, so adding a
 #     local package whose name collides with a nixpkgs argument used by
 #     another package (e.g. a local `sing-box`) shadows it; use `extraArgs`
 #     to wire such cases explicitly.
@@ -49,9 +53,7 @@
 {lib}: let
   # Anchored at this file's location (internal/) so callers don't need to
   # thread the repository root through.
-  # Goes through ./sources.nix so sources that are read at evaluation time
-  # (crane) use evaluation-time fetches instead of FODs; see that file.
-  defaultSources = pkgs: import ./sources.nix {inherit pkgs;};
+  defaultSources = pkgs: pkgs.callPackage ../_sources/generated.nix {};
 
   # Names of first-level subdirectories of dir that contain a default.nix.
   packageDirs = dir: let
@@ -75,12 +77,15 @@
       fargs = builtins.functionArgs (import (dir + "/${name}/default.nix"));
       shouldInject = arg:
         (arg == "source" && builtins.hasAttr name sources)
+        || arg == "pkgs"
         || builtins.hasAttr arg result
         || builtins.hasAttr arg sources
         || builtins.hasAttr arg inject;
       valueFor = arg:
         if arg == "source" && builtins.hasAttr name sources
         then builtins.getAttr name sources
+        else if arg == "pkgs"
+        then pkgs
         else if builtins.hasAttr arg result
         then builtins.getAttr arg result
         else if builtins.hasAttr arg sources

@@ -13,11 +13,10 @@
 # environment of an impure evaluation), source-built Go packages are
 # wrapped with a persistent GOCACHE directory mounted into the CI
 # builders' Nix sandbox. This is meant for CI only; local builds are
-# unaffected. (Rust packages use crane for caching instead; see
-# default.nix.)
+# unaffected. (Rust packages are built with crate2nix, so their dependency
+# crates are separate derivations and cached individually.)
 {
   pkgs ? import <nixpkgs> {},
-  craneLib ? null,
   compileCache ? (builtins.getEnv "NUR_COMPILE_CACHE") == "1",
 }:
 with builtins; let
@@ -119,7 +118,7 @@ with builtins; let
       }
     else entry;
 
-  nurAttrs = import ../default.nix {inherit pkgs craneLib;};
+  nurAttrs = import ../default.nix {inherit pkgs;};
   nurEntries = map applyCompileCache (flattenPkgs [] (removeAttrs nurAttrs reservedNames));
 in rec {
   buildEntries = filter (entry: isBuildable entry.package) nurEntries;

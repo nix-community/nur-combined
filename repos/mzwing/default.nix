@@ -6,22 +6,14 @@
 # Having pkgs default to <nixpkgs> is fine though, and it lets you use short
 # commands such as:
 #     nix-build -A mypackage
-{
-  pkgs ? import <nixpkgs> {},
-  # When provided (the flake wires in inputs.crane), the Rust packages are
-  # built with crane in two layers so dependency builds are cached across
-  # version bumps. Consumers importing this file with plain nixpkgs get
-  # regular buildRustPackage builds instead.
-  craneLib ? null,
-}: let
+{pkgs ? import <nixpkgs> {}}: let
   discover = import ./internal/discover.nix {inherit (pkgs) lib;};
-  sources = import ./internal/sources.nix {inherit pkgs;};
+  sources = pkgs.callPackage ./_sources/generated.nix {};
   # Packages under pkgs/ are wired automatically; see internal/discover.nix
   # for the argument injection rules and the exception table semantics.
   packages = discover.packages {
     inherit pkgs sources;
     dir = ./pkgs;
-    inject = pkgs.lib.optionalAttrs (craneLib != null) {inherit craneLib;};
     extraArgs = {
       typenix-vscode = {source = sources.typenix;};
     };

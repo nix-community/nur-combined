@@ -1,9 +1,8 @@
 {
   lib,
   stdenv,
+  pkgs,
   buildNpmPackage,
-  rustPlatform,
-  craneLib ? null,
   nodejs_22,
   makeWrapper,
   source ? null,
@@ -11,68 +10,43 @@
   inherit (source) src;
   version = lib.removePrefix "v" source.version;
 
+  # The native tree-sitter extraction kernel (a napi cdylib), built with
+  # crate2nix from _sources/pkgs/codegraph/Cargo.nix. The Cargo.nix is
+  # generated with `crate2nix generate -f codegraph-kernel/Cargo.toml` at
+  # the upstream source root by the update script (scripts/package-updates)
+  # and committed to this repository; building it needs no crate2nix, only
+  # nixpkgs' buildRustCrate.
   kernel = let
-    pname = "codegraph-kernel";
-
-    installKernel = ''
-      install -Dm755 \
-        target/release/libcodegraph_kernel${stdenv.hostPlatform.extensions.sharedLibrary} \
-        $out/lib/codegraph-kernel.node
-    '';
+    cargoNix = import ../../_sources/pkgs/codegraph/Cargo.nix {
+      inherit pkgs;
+      defaultCrateOverrides =
+        pkgs.defaultCrateOverrides
+        // {
+          codegraph-kernel = attrs: {
+            # The generated file points src at ./codegraph-kernel relative to
+            # the committed Cargo.nix, which does not exist in this
+            # repository; that path thunk is never forced once src is
+            # overridden here.
+            src = source.src + "/codegraph-kernel";
+          };
+        };
+    };
   in
-    if craneLib == null
-    then
-      # Fallback for consumers without crane (e.g. importing this repository's
-      # default.nix with plain nixpkgs): a regular single-layer build.
-      rustPlatform.buildRustPackage {
-        inherit pname version src;
+    cargoNix.rootCrate.build.overrideAttrs (old: {
+      name = "codegraph-kernel-${version}";
 
-        sourceRoot = "${src.name}/codegraph-kernel";
+      # Ship the cdylib as a Node native module. buildRustCrate installs
+      # shared libraries into its "lib" output.
+      installPhase = ''
+        runHook preInstall
 
-        cargoLock.lockFile = src + "/codegraph-kernel/Cargo.lock";
+        install -Dm755 \
+          "$lib/lib/libcodegraph_kernel${stdenv.hostPlatform.extensions.sharedLibrary}" \
+          $out/lib/codegraph-kernel.node
 
-        doCheck = false;
-
-        installPhase = ''
-          runHook preInstall
-
-          ${installKernel}
-
-          runHook postInstall
-        '';
-      }
-    else let
-      commonArgs = {
-        inherit pname src;
-
-        postUnpack = ''
-          sourceRoot="$sourceRoot/codegraph-kernel"
-        '';
-
-        cargoLock = src + "/codegraph-kernel/Cargo.lock";
-
-        doCheck = false;
-      };
-      # Dependencies only. The version is deliberately constant so this layer
-      # is rebuilt only when Cargo.lock or the toolchain changes, never on an
-      # upstream version bump.
-      cargoArtifacts = craneLib.buildDepsOnly (commonArgs
-        // {
-          version = "0";
-        });
-    in
-      craneLib.buildPackage (commonArgs
-        // {
-          inherit version cargoArtifacts;
-
-          installPhaseCommand = ''
-            runHook preInstall
-
-            ${installKernel}
-
-            runHook postInstall
-          '';
-        });
+        runHook postInstall
+      '';
+    });
 
   pkgDir = "$out/lib/node_modules/@colbymchenry/codegraph";
 in

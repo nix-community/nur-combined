@@ -1,13 +1,9 @@
 {
   description = "Mzwing's NUR packages";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-  # Used to build the Rust packages in two layers (dependencies vs. the
-  # package itself) so dependency builds are cached across version bumps.
-  inputs.crane.url = "github:ipetkov/crane";
   outputs = {
     self,
     nixpkgs,
-    crane,
   }: let
     supportedSystems = import ./internal/systems.nix;
     forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -15,10 +11,7 @@
     legacyPackages = forAllSystems (system: let
       pkgs = import nixpkgs {inherit system;};
     in
-      import ./default.nix {
-        inherit pkgs;
-        craneLib = crane.mkLib pkgs;
-      });
+      import ./default.nix {inherit pkgs;});
     packages = forAllSystems (system: let
       platform = nixpkgs.legacyPackages.${system}.stdenv.hostPlatform;
     in
