@@ -17,7 +17,9 @@
 
   withOpenVINO ? false,
 }:
-
+let
+  ort = if withOpenVINO then onnxruntime.override { openvinoSupport = true; } else onnxruntime;
+in
 rustPlatform.buildRustPackage (finalAttrs: {
   inherit (source) pname version src;
 
@@ -35,7 +37,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gst_all_1.gstreamer
     gst_all_1.gst-plugins-base
 
-    onnxruntime
+    ort
     opencv
     openssl
     tpm2-tss
@@ -43,7 +45,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   env = {
     ORT_STRATEGY = "system";
-    ORT_LIB_LOCATION = "${lib.getLib onnxruntime}/lib";
+    ORT_LIB_LOCATION = "${lib.getLib ort}/lib";
     ORT_PREFER_DYNAMIC_LINK = "1";
   };
 
