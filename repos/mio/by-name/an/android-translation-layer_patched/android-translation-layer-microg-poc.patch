@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] intercept GMS bindService
+
+Return a dummy binder object when apps attempt to bind to Google Play Services.
+
 --- a/src/api-impl/android/app/ContextImpl.java
 +++ b/src/api-impl/android/app/ContextImpl.java
 @@ -259,6 +259,25 @@

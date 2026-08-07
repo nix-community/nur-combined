@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] stub core Firebase classes
+
+Prevent startup crashes by adding dummy implementations of FirebaseApp, FirebaseAnalytics, FirebaseOptions, and FirebaseMessaging.
+
 diff -urN a/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java b/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java
 --- a/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java	1970-01-01 10:00:00.000000000 +1000
 +++ b/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java	2026-08-07 19:50:44.320147345 +1000
@@ -54,5 +60,5 @@ diff -urN a/src/api-impl/com/google/firebase/messaging/FirebaseMessaging.java b/
 +    public static FirebaseMessaging getInstance() { return INSTANCE; }
 +    public boolean isAutoInitEnabled() { return false; }
 +    public void setAutoInitEnabled(boolean enable) {}
-+    public Object getToken() { return com.google.android.gms.tasks.Tasks.forResult("dummy-token"); }
++    public com.google.android.gms.tasks.Task<String> getToken() { return com.google.android.gms.tasks.Tasks.forResult("dummy-token"); }
 +}

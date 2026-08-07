@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] stub GoogleApiClient and FirebaseCrashlytics
+
+Bypass initialization crashes for legacy connection clients and standard crashlytics integrations.
+
 diff -urN a/src/api-impl/com/google/android/gms/common/api/GoogleApiClient.java b/src/api-impl/com/google/android/gms/common/api/GoogleApiClient.java
 --- a/src/api-impl/com/google/android/gms/common/api/GoogleApiClient.java	1970-01-01 10:00:00.000000000 +1000
 +++ b/src/api-impl/com/google/android/gms/common/api/GoogleApiClient.java	2026-08-07 19:52:47.471113684 +1000

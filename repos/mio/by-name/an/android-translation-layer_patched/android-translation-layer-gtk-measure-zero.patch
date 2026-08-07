@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] set minimum size to zero during GTK measure
+
+Allow GTK windows to shrink properly on the desktop.
+
 --- a/src/api-impl-jni/widgets/WrapperWidget.c
 +++ b/src/api-impl-jni/widgets/WrapperWidget.c
 @@ -128,7 +128,8 @@

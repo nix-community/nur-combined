@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] stub hidden WifiManager AP methods
+
+Provide fallback returns for hidden Wifi AP methods accessed via reflection.
+
 --- a/src/api-impl/android/net/wifi/WifiManager.java
 +++ b/src/api-impl/android/net/wifi/WifiManager.java
 @@ -34,4 +34,26 @@

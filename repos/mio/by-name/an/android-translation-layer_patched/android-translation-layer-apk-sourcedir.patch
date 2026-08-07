@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] set ApplicationInfo sourceDir fields
+
+Ensure Context.getPackageCodePath() returns the correct base APK path instead of failing on Linux.
+
 --- a/src/api-impl/android/atl/ATLLoadedApp.java
 +++ b/src/api-impl/android/atl/ATLLoadedApp.java
 @@ -120,6 +120,9 @@

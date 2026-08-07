@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] stub GoogleApiAvailability
+
+Pretend that Google Play Services is available and up-to-date to bypass fatal app dependency checks.
+
 diff -urN a/src/api-impl/com/google/android/gms/common/ConnectionResult.java b/src/api-impl/com/google/android/gms/common/ConnectionResult.java
 --- a/src/api-impl/com/google/android/gms/common/ConnectionResult.java	1970-01-01 10:00:00.000000000 +1000
 +++ b/src/api-impl/com/google/android/gms/common/ConnectionResult.java	2026-08-07 19:48:56.685998692 +1000

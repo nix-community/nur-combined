@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] stub FusedLocationProviderClient
+
+Prevent location-related crashes by instantly resolving location Tasks to null.
+
 diff -urN a/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java b/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java
 --- a/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java	1970-01-01 10:00:00.000000000 +1000
 +++ b/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java	2026-08-07 19:57:16.412785549 +1000

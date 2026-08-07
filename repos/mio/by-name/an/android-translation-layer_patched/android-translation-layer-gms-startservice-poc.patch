@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] intercept GMS startService and add startForegroundService
+
+Return dummy ComponentNames for GMS services and add missing startForegroundService to prevent daemon-lookup crashes.
+
 --- a/src/api-impl/android/content/Context.java
 +++ b/src/api-impl/android/content/Context.java
 @@ -376,6 +376,7 @@

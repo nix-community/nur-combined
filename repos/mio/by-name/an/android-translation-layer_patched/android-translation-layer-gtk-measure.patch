@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] use safe size allocate for GTK4
+
+Ensure widgets are measured before they are allocated to comply with GTK4 geometry management requirements.
+
 diff -ur atl_patch_clean.orig/util.c atl_patch_clean/util.c
 --- a/src/api-impl-jni/util.c	1970-01-01 10:00:01.000000000 +1000
 +++ b/src/api-impl-jni/util.c	2026-08-07 09:21:30.982322860 +1000

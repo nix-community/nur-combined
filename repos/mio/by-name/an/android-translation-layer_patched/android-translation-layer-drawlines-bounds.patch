@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] fix out of bounds read in GskCanvas drawLines
+
+Ensure the float array loop doesn't exceed the bounds of the provided points array, preventing native crashes.
+
 --- a/src/api-impl-jni/graphics/android_atl_GskCanvas.c
 +++ b/src/api-impl-jni/graphics/android_atl_GskCanvas.c
 @@ -116,3 +116,3 @@

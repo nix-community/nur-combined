@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] skip collectCertificates for system app
+
+Prevent parser crashes since the ATL system package doesn't have a real APK on disk to sign.
+
 --- a/src/api-impl/android/atl/ATLLoadedApp.java
 +++ b/src/api-impl/android/atl/ATLLoadedApp.java
 @@ -69,7 +69,7 @@

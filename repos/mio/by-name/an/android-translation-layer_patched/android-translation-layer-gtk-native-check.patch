@@ -1,3 +1,9 @@
+From: Developer
+Date: Thu, 06 Aug 2026
+Subject: [PATCH] check for null native window
+
+Prevent segfaults by returning early if gtk_widget_get_native() returns NULL before the view is attached to the window.
+
 --- a/src/api-impl-jni/views/android_view_View.c
 +++ b/src/api-impl-jni/views/android_view_View.c
 @@ -141,6 +141,8 @@
