@@ -25,8 +25,9 @@ env:
   # (`nix key generate-secret --key-name nur-ci-cache-1` for the secret,
   # `nix key convert-secret-to-public` for this value). Builders use it to
   # verify paths served by the central builder store cache (the "cache"
-  # job). If the secret is missing, both sides skip the builder store
-  # cache gracefully.
+  # job). The cache is mandatory: if the secret or this public key is
+  # missing/misconfigured, the run fails fast instead of degrading to
+  # cache-less builds.
   NUR_CI_CACHE_SIGNING_PUBLIC_KEY: nur-ci-cache-1:HPv21XHoMOnVhECgBAg1LOAHABVwfmrkER3TTX8h9VM=
 
 jobs:
@@ -127,8 +128,8 @@ jobs:
       run: |
         set -euo pipefail
         if [[ ! "${NUR_CI_CACHE_SIGNING_PUBLIC_KEY}" =~ ^nur-ci-cache-1:[A-Za-z0-9+/]{43}=$ ]]; then
-          echo '::warning::NUR_CI_CACHE_SIGNING_PUBLIC_KEY is not configured; builds will not use the builder store cache.'
-          exit 0
+          echo '::error::NUR_CI_CACHE_SIGNING_PUBLIC_KEY is not configured.'
+          exit 1
         fi
         sudo tee /etc/nix/push-to-builder-cache >/dev/null <<EOF
         #!/bin/sh
@@ -214,26 +215,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v7
 
-    # Without the signing key secret and its public key configured, the
-    # job degrades to a no-op and builders simply fall back to the
-    # upstream caches (they skip the cache configuration as well).
+    # The signing key pair is mandatory: without it the builders cannot
+    # trust paths from the cache, so fail fast instead of degrading to
+    # cache-less builds.
     - name: Check builder cache prerequisites
-      id: preflight
       env:
         SIGNING_KEY: ${{ secrets.NUR_CI_CACHE_SIGNING_KEY }}
       shell: bash
       run: |
         set -euo pipefail
-        ok=true
         if [[ -z "${SIGNING_KEY}" ]]; then
-          echo '::warning::Secret NUR_CI_CACHE_SIGNING_KEY is not set; skipping the builder store cache.'
-          ok=false
+          echo '::error::Secret NUR_CI_CACHE_SIGNING_KEY is not set.'
+          exit 1
         fi
         if [[ ! "${NUR_CI_CACHE_SIGNING_PUBLIC_KEY}" =~ ^nur-ci-cache-1:[A-Za-z0-9+/]{43}=$ ]]; then
-          echo '::warning::NUR_CI_CACHE_SIGNING_PUBLIC_KEY is not configured; skipping the builder store cache.'
-          ok=false
+          echo '::error::NUR_CI_CACHE_SIGNING_PUBLIC_KEY is not configured.'
+          exit 1
         fi
-        echo "enabled=${ok}" >>"${GITHUB_OUTPUT}"
 
     - name: Maximize Nix disk space
       uses: wimpysworld/nothing-but-nix@v10
@@ -259,7 +257,6 @@ jobs:
     # never block a recurring slot; restores pick the most recent cache
     # (usually yesterday's, given daily runs).
     - name: Restore builder store cache
-      if: steps.preflight.outputs.enabled == 'true'
       uses: nix-community/cache-nix-action/restore@v7
       with:
         primary-key: nix-builder-store-${{ github.run_id }}-${{ github.run_attempt }}
@@ -268,11 +265,9 @@ jobs:
     # Same as the step of the config job: keep stale root-owned lock files
     # out of the tarball written by the "Save builder store cache" step.
     - name: Remove stale Nix store lock files
-      if: steps.preflight.outputs.enabled == 'true'
       run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
 
     - name: Write cache signing key
-      if: steps.preflight.outputs.enabled == 'true'
       env:
         SIGNING_KEY: ${{ secrets.NUR_CI_CACHE_SIGNING_KEY }}
       run: |
@@ -280,7 +275,6 @@ jobs:
         sudo chmod 600 /etc/nix/cache-key.pem
 
     - name: Join cache network
-      if: steps.preflight.outputs.enabled == 'true'
       uses: tailscale/github-action@v4
       env:
         TAILSCALE_SSH_DEFAULT_PATH: /nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -298,7 +292,6 @@ jobs:
     # builders" step has `if: always()`); the deadline is only a backstop
     # for a cancelled or crashed coordinator.
     - name: Serve builders and sign pushed paths
-      if: steps.preflight.outputs.enabled == 'true'
       shell: bash
       run: |
         set -euo pipefail
@@ -328,7 +321,6 @@ jobs:
     # lists closure paths that are not present locally, so only existing
     # paths are rooted.
     - name: Garbage-collect stale store paths
-      if: steps.preflight.outputs.enabled == 'true'
       shell: bash
       run: |
         set -euo pipefail
@@ -355,7 +347,7 @@ jobs:
     # (protected by purge-primary-key) and the one it was restored from
     # (restoring refreshes its last-accessed time).
     - name: Save builder store cache
-      if: always() && steps.preflight.outputs.enabled == 'true'
+      if: always()
       uses: nix-community/cache-nix-action/save@v7
       with:
         primary-key: nix-builder-store-${{ github.run_id }}-${{ github.run_attempt }}
@@ -416,7 +408,7 @@ jobs:
 
         sudo mkdir -p /etc/ssh/ssh_config.d
         sudo tee /etc/ssh/ssh_config.d/nur-ci-builders.conf >/dev/null <<'EOF'
-        Host nur-b-*
+        Host nur-b-* nur-cache-*
           StrictHostKeyChecking no
           UserKnownHostsFile /dev/null
           BatchMode yes
@@ -451,6 +443,31 @@ jobs:
         max-jobs = 0
         EOF
         sudo systemctl restart nix-daemon.service
+
+        # The builder store cache joins the tailnet in parallel (cache
+        # job). Nix marks a substituter as failed for the rest of the
+        # session after one failed connection, so make sure the builders
+        # can reach the cache before building starts. Probe the exact
+        # path the builds use — a builder SSHing to the cache — through
+        # the first builder, and fail fast if it never comes up.
+        first_builder="${BUILDER_PREFIX}-$(jq -r '.include[0].id' <<<"${BUILDERS}")"
+        cache_ok=false
+        for _ in {1..24}; do
+          if ssh -n "root@${first_builder}" \
+            "ssh -o ConnectTimeout=5 root@${CACHE_HOST} true" 2>/dev/null; then
+            cache_ok=true
+            break
+          fi
+          sleep 5
+        done
+        if [[ "${cache_ok}" != true ]]; then
+          # Surface the underlying ssh error (DNS / timeout / ACL / ...)
+          # so the failure is diagnosable from the log alone.
+          err="$(ssh -n "root@${first_builder}" \
+            "ssh -o ConnectTimeout=5 root@${CACHE_HOST} true" 2>&1 || true)"
+          echo "::error::Builders cannot reach the builder store cache via SSH. Last error: ${err}"
+          exit 1
+        fi
 
     - name: Build package outputs
       if: needs.config.outputs.targets != '[]'

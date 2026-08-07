@@ -54,6 +54,21 @@ in
     # crate2nix names the derivation rust_autocli-<crate version>.
     name = "${pname}-${version}";
 
+    # buildRustCrate unconditionally splits crate artifacts into "out" and
+    # "lib" outputs. The "lib" artifacts and the installed binary end up
+    # embedding each other's store paths, which Nix rejects as an output
+    # reference cycle ("cycle detected ... in the references of output
+    # 'lib' from output 'out'"). autocli-cli is a bin-only crate and this
+    # is a leaf application package — nothing consumes the rlib — so
+    # collapse to a single output with a bins-only install phase.
+    outputs = ["out"];
+    installPhase = ''
+      runHook preInstall
+      mkdir -p $out/bin
+      cp -rP target/bin/* $out/bin/
+      runHook postInstall
+    '';
+
     nativeBuildInputs =
       (old.nativeBuildInputs or [])
       ++ [installShellFiles]
