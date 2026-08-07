@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://victoriametrics.github.io/helm-charts";
   chart = "victoria-metrics-k8s-stack";
-  version = "0.89.0";
-  hash = "sha256-ZzbM5d6bl/nmUXxOL4JR1cCGt3AGj/VdriVpKhJH7tU=";
+  version = "0.90.1";
+  hash = "sha256-k8VBJFqu8nNw2t0IjCdBPzphEiLRvAzAF7ZqwYVMqZQ=";
 
   meta = {
     description = "Helm chart for Kubernetes monitoring with the VictoriaMetrics operator, Grafana dashboards, ServiceScrapes and VMRules";

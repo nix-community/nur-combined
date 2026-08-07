@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://nats-io.github.io/k8s/helm/charts";
   chart = "nats";
-  version = "2.14.2";
-  hash = "sha256-X5sLK/cOg77H54rxxXENRa3WEH6uLIEkln91IU3YfuI=";
+  version = "2.14.4";
+  hash = "sha256-jTG4ce2LidtZ35hM4VjfMghbzc3Ji2dirwtBNM4eJCI=";
 
   meta = {
     description = "Helm chart for NATS, a cloud native messaging system";
