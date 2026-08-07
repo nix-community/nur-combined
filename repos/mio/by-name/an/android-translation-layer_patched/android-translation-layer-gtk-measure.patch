@@ -16,17 +16,29 @@ diff -ur atl_patch_clean.orig/util.c atl_patch_clean/util.c
  		// maybe we should schedule a call to queue_queue_allocate, but that causes problems in composeUI apps.
  
  		/* the problematic flags get set all the way up the hierarchy */
-@@ -367,3 +367,11 @@
+@@ -367,3 +367,23 @@
  			return NULL;
  	}
  }
 +
 +void atl_safe_gtk_widget_size_allocate(GtkWidget *widget, const GtkAllocation *allocation, int baseline)
 +{
-+	int min, nat;
-+	gtk_widget_measure(widget, GTK_ORIENTATION_HORIZONTAL, allocation->height, &min, &nat, NULL, NULL);
-+	gtk_widget_measure(widget, GTK_ORIENTATION_VERTICAL, allocation->width, &min, &nat, NULL, NULL);
-+	gtk_widget_size_allocate(widget, allocation, baseline);
++	int min_w, nat_w, min_h, nat_h;
++	gtk_widget_measure(widget, GTK_ORIENTATION_HORIZONTAL, -1, &min_w, &nat_w, NULL, NULL);
++	gtk_widget_measure(widget, GTK_ORIENTATION_VERTICAL, -1, &min_h, &nat_h, NULL, NULL);
++
++	GtkAllocation safe_alloc = *allocation;
++	if (safe_alloc.width < min_w) safe_alloc.width = min_w;
++	if (safe_alloc.height < min_h) safe_alloc.height = min_h;
++
++	// Measure again with the safe bounds to satisfy height-for-width or width-for-height
++	gtk_widget_measure(widget, GTK_ORIENTATION_HORIZONTAL, safe_alloc.height, &min_w, &nat_w, NULL, NULL);
++	if (safe_alloc.width < min_w) safe_alloc.width = min_w;
++
++	gtk_widget_measure(widget, GTK_ORIENTATION_VERTICAL, safe_alloc.width, &min_h, &nat_h, NULL, NULL);
++	if (safe_alloc.height < min_h) safe_alloc.height = min_h;
++
++	gtk_widget_size_allocate(widget, &safe_alloc, baseline);
 +}
 diff -ur atl_patch_clean.orig/util.h atl_patch_clean/util.h
 --- a/src/api-impl-jni/util.h	1970-01-01 10:00:01.000000000 +1000
