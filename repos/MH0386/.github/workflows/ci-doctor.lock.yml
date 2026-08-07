@@ -57,7 +57,6 @@
 #   - ghcr.io/github/gh-aw-mcpg:v0.4.8@sha256:38bbea36cdb46a3c9d04d1db05e672966f5239b431a2022eb35881688e5721d8
 #   - ghcr.io/github/gh-aw-node@sha256:0d9f1fb5fd6610c0ac1f5194a38e45a8a1e81f8a390d5142d8e4e6f26a4b3196
 #   - ghcr.io/github/github-mcp-server:v1.8.0@sha256:d5a18c04b92714c309eb46a2305087e91a4dbd80420f6e462656699f95093520
-
 name: "CI Failure Doctor"
 on:
   workflow_run:
@@ -70,22 +69,18 @@ on:
       - Build and populate cache
       - Update NUR packages
       - GitHub Agentic Workflows Compile
-
 permissions: {}
-
 concurrency:
   group: "gh-aw-${{ github.workflow }}"
-
 run-name: "CI Failure Doctor"
-
 jobs:
   activation:
     needs: pre_activation
     # zizmor: ignore[dangerous-triggers] - workflow_run trigger is secured with role and fork validation
     if: >
-      (needs.pre_activation.outputs.activated == 'true' && (github.event.workflow_run.conclusion == 'failure')) &&
-      (github.event_name != 'workflow_run' || github.event.workflow_run.repository.id == github.repository_id &&
-      (!(github.event.workflow_run.repository.fork)))
+      (needs.pre_activation.outputs.activated == 'true' && (github.event.workflow_run.conclusion == 'failure')) && (github.event_name
+      != 'workflow_run' || github.event.workflow_run.repository.id == github.repository_id && (!(github.event.workflow_run.repository.fork)))
+
     runs-on: ubuntu-slim
     permissions:
       actions: read
@@ -96,10 +91,13 @@ jobs:
     outputs:
       comment_id: ""
       comment_repo: ""
-      daily_ai_credits_exceeded: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_exceeded == 'true' }}
-      daily_ai_credits_guardrail_status: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_guardrail_status || '' }}
+      daily_ai_credits_exceeded: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_exceeded == 'true'
+        }}
+      daily_ai_credits_guardrail_status: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_guardrail_status
+        || '' }}
       daily_ai_credits_threshold: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_threshold || '' }}
-      daily_ai_credits_total_effective_tokens: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_total_effective_tokens || '' }}
+      daily_ai_credits_total_effective_tokens: ${{ steps.daily-effective-workflow-guardrail.outputs.daily_ai_credits_total_effective_tokens
+        || '' }}
       engine_id: ${{ steps.generate_aw_info.outputs.engine_id }}
       lockdown_check_failed: ${{ steps.generate_aw_info.outputs.lockdown_check_failed == 'true' }}
       model: ${{ steps.generate_aw_info.outputs.model }}
@@ -117,7 +115,8 @@ jobs:
           destination: ${{ runner.temp }}/gh-aw/actions
           job-name: ${{ github.job }}
           trace-id: ${{ needs.pre_activation.outputs.setup-trace-id }}
-          parent-span-id: ${{ needs.pre_activation.outputs.setup-parent-span-id || needs.pre_activation.outputs.setup-span-id }}
+          parent-span-id: ${{ needs.pre_activation.outputs.setup-parent-span-id || needs.pre_activation.outputs.setup-span-id
+            }}
           safe-output-artifact-client: ${{ env.GH_AW_MAX_DAILY_AI_CREDITS != '' }}
         env:
           GH_AW_SETUP_WORKFLOW_NAME: "CI Failure Doctor"
@@ -259,10 +258,17 @@ jobs:
         env:
           GH_AW_PROMPT: /tmp/gh-aw/aw-prompts/prompt.txt
           GH_AW_SAFE_OUTPUTS: ${{ runner.temp }}/gh-aw/safeoutputs/outputs.jsonl
-          GH_AW_EXPR_1A3A194A: ${{ github.event.discussion.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_type == 'discussion' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_number) }}
-          GH_AW_EXPR_463A214A: ${{ github.event.pull_request.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_type == 'pull_request' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_number) }}
-          GH_AW_EXPR_802A9F6A: ${{ github.event.issue.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_type == 'issue' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_number) }}
-          GH_AW_EXPR_FF1D34CE: ${{ github.event.comment.id || fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').comment_id }}
+          GH_AW_EXPR_1A3A194A: ${{ github.event.discussion.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_type == 'discussion' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_number) }}
+          GH_AW_EXPR_463A214A: ${{ github.event.pull_request.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_type == 'pull_request' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_number) }}
+          GH_AW_EXPR_802A9F6A: ${{ github.event.issue.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_type == 'issue' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_number) }}
+          GH_AW_EXPR_FF1D34CE: ${{ github.event.comment.id || fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').comment_id }}
           GH_AW_GITHUB_ACTOR: ${{ github.actor }}
           GH_AW_GITHUB_EVENT_WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
           GH_AW_GITHUB_EVENT_WORKFLOW_RUN_EVENT: ${{ github.event.workflow_run.event }}
@@ -352,10 +358,17 @@ jobs:
           GH_AW_ALLOWED_EXTENSIONS: ''
           GH_AW_CACHE_DESCRIPTION: ''
           GH_AW_CACHE_DIR: '/tmp/gh-aw/cache-memory/'
-          GH_AW_EXPR_1A3A194A: ${{ github.event.discussion.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_type == 'discussion' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_number) }}
-          GH_AW_EXPR_463A214A: ${{ github.event.pull_request.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_type == 'pull_request' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_number) }}
-          GH_AW_EXPR_802A9F6A: ${{ github.event.issue.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_type == 'issue' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').item_number) }}
-          GH_AW_EXPR_FF1D34CE: ${{ github.event.comment.id || fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context || '{}').comment_id }}
+          GH_AW_EXPR_1A3A194A: ${{ github.event.discussion.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_type == 'discussion' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_number) }}
+          GH_AW_EXPR_463A214A: ${{ github.event.pull_request.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_type == 'pull_request' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_number) }}
+          GH_AW_EXPR_802A9F6A: ${{ github.event.issue.number || (fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_type == 'issue' && fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').item_number) }}
+          GH_AW_EXPR_FF1D34CE: ${{ github.event.comment.id || fromJSON(github.event.inputs.aw_context || github.event.client_payload.aw_context
+            || '{}').comment_id }}
           GH_AW_GITHUB_ACTOR: ${{ github.actor }}
           GH_AW_GITHUB_EVENT_WORKFLOW_RUN_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
           GH_AW_GITHUB_EVENT_WORKFLOW_RUN_EVENT: ${{ github.event.workflow_run.event }}
@@ -428,7 +441,6 @@ jobs:
             /tmp/gh-aw/.codex/skills
           if-no-files-found: ignore
           retention-days: 1
-
   agent:
     needs: activation
     if: needs.activation.outputs.daily_ai_credits_exceeded != 'true'
@@ -580,7 +592,12 @@ jobs:
           GH_AW_SKILL_DIR: ".codex/skills"
         run: bash "${RUNNER_TEMP}/gh-aw/actions/restore_inline_skills.sh"
       - name: Download container images
-        run: bash "${RUNNER_TEMP}/gh-aw/actions/download_docker_images.sh" ghcr.io/github/gh-aw-firewall/agent:0.27.44@sha256:0d727725c737b58c7bdf51f640cffb928385ec46517e0917c7f1a02f1bada8b4 ghcr.io/github/gh-aw-firewall/api-proxy:0.27.44@sha256:b50fbadba138f6e9aba94aca09711335c489bb3b15861220cb66f6092e042dc7 ghcr.io/github/gh-aw-firewall/cli-proxy:0.27.44@sha256:c064d15974f7c933ec7d3f7b4038f4fd203547b3154bdc821afd379144887eff ghcr.io/github/gh-aw-firewall/squid:0.27.44@sha256:83e48bbe12c634be8c228a576832fe45f66c529ac3659db92bddbcf2eeb6d627 ghcr.io/github/gh-aw-mcpg:v0.4.8@sha256:38bbea36cdb46a3c9d04d1db05e672966f5239b431a2022eb35881688e5721d8 ghcr.io/github/gh-aw-node@sha256:0d9f1fb5fd6610c0ac1f5194a38e45a8a1e81f8a390d5142d8e4e6f26a4b3196 ghcr.io/github/github-mcp-server:v1.8.0@sha256:d5a18c04b92714c309eb46a2305087e91a4dbd80420f6e462656699f95093520
+        run: bash "${RUNNER_TEMP}/gh-aw/actions/download_docker_images.sh" ghcr.io/github/gh-aw-firewall/agent:0.27.44@sha256:0d727725c737b58c7bdf51f640cffb928385ec46517e0917c7f1a02f1bada8b4
+          ghcr.io/github/gh-aw-firewall/api-proxy:0.27.44@sha256:b50fbadba138f6e9aba94aca09711335c489bb3b15861220cb66f6092e042dc7
+          ghcr.io/github/gh-aw-firewall/cli-proxy:0.27.44@sha256:c064d15974f7c933ec7d3f7b4038f4fd203547b3154bdc821afd379144887eff
+          ghcr.io/github/gh-aw-firewall/squid:0.27.44@sha256:83e48bbe12c634be8c228a576832fe45f66c529ac3659db92bddbcf2eeb6d627
+          ghcr.io/github/gh-aw-mcpg:v0.4.8@sha256:38bbea36cdb46a3c9d04d1db05e672966f5239b431a2022eb35881688e5721d8 ghcr.io/github/gh-aw-node@sha256:0d9f1fb5fd6610c0ac1f5194a38e45a8a1e81f8a390d5142d8e4e6f26a4b3196
+          ghcr.io/github/github-mcp-server:v1.8.0@sha256:d5a18c04b92714c309eb46a2305087e91a4dbd80420f6e462656699f95093520
       - name: Generate Safe Outputs Config
         run: |
           mkdir -p "${RUNNER_TEMP}/gh-aw/safeoutputs"
@@ -903,7 +920,8 @@ jobs:
           GITHUB_GRAPHQL_URL: ${{ env.GITHUB_GRAPHQL_URL }}
           GITHUB_COPILOT_BASE_URL: ${{ env.GITHUB_COPILOT_BASE_URL }}
           GH_AW_NETWORK_ISOLATION: 'true'
-          CLI_PROXY_POLICY: '{"allow-only":{"repos":"${{ steps.determine-automatic-lockdown.outputs.repos }}","min-integrity":"${{ steps.determine-automatic-lockdown.outputs.min_integrity }}"}}'
+          CLI_PROXY_POLICY: '{"allow-only":{"repos":"${{ steps.determine-automatic-lockdown.outputs.repos }}","min-integrity":"${{
+            steps.determine-automatic-lockdown.outputs.min_integrity }}"}}'
           CLI_PROXY_IMAGE: 'ghcr.io/github/gh-aw-mcpg:v0.4.8'
         run: |
           bash "${RUNNER_TEMP}/gh-aw/actions/start_cli_proxy.sh"
@@ -955,8 +973,10 @@ jobs:
           GIT_COMMITTER_NAME: github-actions[bot]
           OPENAI_API_KEY: ${{ secrets.CODEX_API_KEY || secrets.OPENAI_API_KEY }}
           RUNNER_TEMP: ${{ runner.temp }}
-          RUST_LOG: ${{ runner.debug == 1 && 'trace,hyper_util=info,mio=info,reqwest=info,os_info=info,codex_otel=warn,codex_core=debug,ocodex_exec=debug' || 'warn' }}
-          TRACEPARENT: ${{ env.GITHUB_AW_OTEL_TRACE_ID != '' && env.GITHUB_AW_OTEL_PARENT_SPAN_ID != '' && format('00-{0}-{1}-01', env.GITHUB_AW_OTEL_TRACE_ID, env.GITHUB_AW_OTEL_PARENT_SPAN_ID) || '' }}
+          RUST_LOG: ${{ runner.debug == 1 && 'trace,hyper_util=info,mio=info,reqwest=info,os_info=info,codex_otel=warn,codex_core=debug,ocodex_exec=debug'
+            || 'warn' }}
+          TRACEPARENT: ${{ env.GITHUB_AW_OTEL_TRACE_ID != '' && env.GITHUB_AW_OTEL_PARENT_SPAN_ID != '' && format('00-{0}-{1}-01',
+            env.GITHUB_AW_OTEL_TRACE_ID, env.GITHUB_AW_OTEL_PARENT_SPAN_ID) || '' }}
       - name: Stop CLI Proxy
         if: always()
         continue-on-error: true
@@ -1119,7 +1139,6 @@ jobs:
             /tmp/gh-aw/sandbox/firewall/audit/
             /tmp/gh-aw/sandbox/firewall/awf-reflect.json
           if-no-files-found: ignore
-
   conclusion:
     needs:
       - activation
@@ -1128,9 +1147,10 @@ jobs:
       - safe_outputs
       - update_cache_memory
     if: >
-      always() && (needs.agent.result != 'skipped' || needs.activation.outputs.lockdown_check_failed == 'true' ||
-      needs.activation.outputs.oauth_token_check_failed == 'true' || needs.activation.outputs.stale_lock_file_failed == 'true' ||
-      needs.activation.outputs.secret_verification_result == 'failed' || needs.activation.outputs.daily_ai_credits_exceeded == 'true')
+      always() && (needs.agent.result != 'skipped' || needs.activation.outputs.lockdown_check_failed == 'true' || needs.activation.outputs.oauth_token_check_failed
+      == 'true' || needs.activation.outputs.stale_lock_file_failed == 'true' || needs.activation.outputs.secret_verification_result
+      == 'failed' || needs.activation.outputs.daily_ai_credits_exceeded == 'true')
+
     runs-on: ubuntu-slim
     permissions:
       actions: read
@@ -1354,7 +1374,8 @@ jobs:
           GH_AW_OAUTH_TOKEN_CHECK_FAILED: ${{ needs.activation.outputs.oauth_token_check_failed }}
           GH_AW_STALE_LOCK_FILE_FAILED: ${{ needs.activation.outputs.stale_lock_file_failed }}
           GH_AW_DAILY_AI_CREDITS_EXCEEDED: ${{ needs.activation.outputs.daily_ai_credits_exceeded }}
-          GH_AW_DAILY_AI_CREDITS_TOTAL_EFFECTIVE_TOKENS: ${{ needs.activation.outputs.daily_ai_credits_total_effective_tokens }}
+          GH_AW_DAILY_AI_CREDITS_TOTAL_EFFECTIVE_TOKENS: ${{ needs.activation.outputs.daily_ai_credits_total_effective_tokens
+            }}
           GH_AW_DAILY_AI_CREDITS_THRESHOLD: ${{ needs.activation.outputs.daily_ai_credits_threshold }}
           GH_AW_GROUP_REPORTS: "false"
           GH_AW_FAILURE_REPORT_AS_ISSUE: "true"
@@ -1389,7 +1410,6 @@ jobs:
             setupGlobals(core, github, context, exec, io, getOctokit);
             const { main } = require('${{ runner.temp }}/gh-aw/actions/report_failed_jobs.cjs');
             await main();
-
   detection:
     needs:
       - activation
@@ -1492,7 +1512,10 @@ jobs:
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         env:
           WORKFLOW_NAME: "CI Failure Doctor"
-          WORKFLOW_DESCRIPTION: "This workflow is an automated CI failure investigator that triggers when monitored workflows fail.\nPerforms deep analysis of GitHub Actions workflow failures to identify root causes,\npatterns, and provide actionable remediation steps. Analyzes logs, error messages,\nand workflow configuration to help diagnose and resolve CI issues efficiently."
+          WORKFLOW_DESCRIPTION: "This workflow is an automated CI failure investigator that triggers when monitored workflows
+            fail.\nPerforms deep analysis of GitHub Actions workflow failures to identify root causes,\npatterns, and provide
+            actionable remediation steps. Analyzes logs, error messages,\nand workflow configuration to help diagnose and
+            resolve CI issues efficiently."
           HAS_PATCH: ${{ needs.agent.outputs.has_patch }}
           GH_AW_DETECTION_CONTINUE_ON_ERROR: "true"
         with:
@@ -1518,7 +1541,10 @@ jobs:
       - name: Install AWF binary
         run: bash "${RUNNER_TEMP}/gh-aw/actions/install_awf_binary.sh" v0.27.44
       - name: Download container images
-        run: bash "${RUNNER_TEMP}/gh-aw/actions/download_docker_images.sh" ghcr.io/github/gh-aw-firewall/agent:0.27.44@sha256:0d727725c737b58c7bdf51f640cffb928385ec46517e0917c7f1a02f1bada8b4 ghcr.io/github/gh-aw-firewall/api-proxy:0.27.44@sha256:b50fbadba138f6e9aba94aca09711335c489bb3b15861220cb66f6092e042dc7 ghcr.io/github/gh-aw-firewall/squid:0.27.44@sha256:83e48bbe12c634be8c228a576832fe45f66c529ac3659db92bddbcf2eeb6d627 ghcr.io/github/gh-aw-mcpg:v0.4.8@sha256:38bbea36cdb46a3c9d04d1db05e672966f5239b431a2022eb35881688e5721d8
+        run: bash "${RUNNER_TEMP}/gh-aw/actions/download_docker_images.sh" ghcr.io/github/gh-aw-firewall/agent:0.27.44@sha256:0d727725c737b58c7bdf51f640cffb928385ec46517e0917c7f1a02f1bada8b4
+          ghcr.io/github/gh-aw-firewall/api-proxy:0.27.44@sha256:b50fbadba138f6e9aba94aca09711335c489bb3b15861220cb66f6092e042dc7
+          ghcr.io/github/gh-aw-firewall/squid:0.27.44@sha256:83e48bbe12c634be8c228a576832fe45f66c529ac3659db92bddbcf2eeb6d627
+          ghcr.io/github/gh-aw-mcpg:v0.4.8@sha256:38bbea36cdb46a3c9d04d1db05e672966f5239b431a2022eb35881688e5721d8
       - name: Start MCP Gateway
         id: start-mcp-gateway
         env:
@@ -1644,8 +1670,10 @@ jobs:
           GIT_COMMITTER_NAME: github-actions[bot]
           OPENAI_API_KEY: ${{ secrets.CODEX_API_KEY || secrets.OPENAI_API_KEY }}
           RUNNER_TEMP: ${{ runner.temp }}
-          RUST_LOG: ${{ runner.debug == 1 && 'trace,hyper_util=info,mio=info,reqwest=info,os_info=info,codex_otel=warn,codex_core=debug,ocodex_exec=debug' || 'warn' }}
-          TRACEPARENT: ${{ env.GITHUB_AW_OTEL_TRACE_ID != '' && env.GITHUB_AW_OTEL_PARENT_SPAN_ID != '' && format('00-{0}-{1}-01', env.GITHUB_AW_OTEL_TRACE_ID, env.GITHUB_AW_OTEL_PARENT_SPAN_ID) || '' }}
+          RUST_LOG: ${{ runner.debug == 1 && 'trace,hyper_util=info,mio=info,reqwest=info,os_info=info,codex_otel=warn,codex_core=debug,ocodex_exec=debug'
+            || 'warn' }}
+          TRACEPARENT: ${{ env.GITHUB_AW_OTEL_TRACE_ID != '' && env.GITHUB_AW_OTEL_PARENT_SPAN_ID != '' && format('00-{0}-{1}-01',
+            env.GITHUB_AW_OTEL_TRACE_ID, env.GITHUB_AW_OTEL_PARENT_SPAN_ID) || '' }}
       - name: Parse threat detection token usage for step summary
         id: parse_detection_token_usage
         if: always()
@@ -1698,7 +1726,6 @@ jobs:
                 core.setFailed(msg);
               }
             }
-
   pre_activation:
     if: github.event.workflow_run.conclusion == 'failure'
     runs-on: ubuntu-slim
@@ -1736,7 +1763,6 @@ jobs:
             setupGlobals(core, github, context, exec, io, getOctokit);
             const { main } = require('${{ runner.temp }}/gh-aw/actions/check_membership.cjs');
             await main();
-
   safe_outputs:
     needs:
       - activation
@@ -1827,7 +1853,8 @@ jobs:
           GH_AW_ALLOWED_DOMAINS: "*.githubusercontent.com,127.0.0.1,172.30.0.1,::1,api.github.com,api.openai.com,api.snapcraft.io,app.renovatebot.com,appveyor.com,archive.ubuntu.com,azure.archive.ubuntu.com,badgen.net,chatgpt.com,circleci.com,codacy.com,codeclimate.com,codecov.io,codeload.github.com,coveralls.io,crl.geotrust.com,crl.globalsign.com,crl.identrust.com,crl.sectigo.com,crl.thawte.com,crl.usertrust.com,crl.verisign.com,crl3.digicert.com,crl4.digicert.com,crls.ssl.com,deepsource.io,docs.github.com,drone.io,github-cloud.githubusercontent.com,github-cloud.s3.amazonaws.com,github.blog,github.com,github.githubassets.com,host.docker.internal,img.shields.io,json-schema.org,json.schemastore.org,keyserver.ubuntu.com,lfs.github.com,localhost,objects.githubusercontent.com,ocsp.digicert.com,ocsp.geotrust.com,ocsp.globalsign.com,ocsp.identrust.com,ocsp.sectigo.com,ocsp.ssl.com,ocsp.thawte.com,ocsp.usertrust.com,ocsp.verisign.com,openai.com,packagecloud.io,packages.cloud.google.com,packages.microsoft.com,patch-diff.githubusercontent.com,patchdiff.githubusercontent.com,ppa.launchpad.net,raw.githubusercontent.com,readthedocs.io,readthedocs.org,renovatebot.com,s.symcb.com,s.symcd.com,security.ubuntu.com,semaphoreci.com,shields.io,snyk.io,sonarcloud.io,sonarqube.com,travis-ci.com,ts-crl.ws.symantec.com,ts-ocsp.ws.symantec.com,www.googleapis.com"
           GITHUB_SERVER_URL: ${{ github.server_url }}
           GITHUB_API_URL: ${{ github.api_url }}
-          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"automation\",\"ci\"],\"max\":1,\"title_prefix\":\"[ci-doctor] \"},\"create_report_incomplete_issue\":{},\"missing_data\":{},\"missing_tool\":{},\"noop\":{\"max\":1,\"report-as-issue\":\"false\"},\"report_incomplete\":{}}"
+          GH_AW_SAFE_OUTPUTS_HANDLER_CONFIG: "{\"add_comment\":{\"max\":1},\"create_issue\":{\"labels\":[\"automation\",\"ci\"],\"max\":1,\"title_prefix\":\"[ci-doctor]
+            \"},\"create_report_incomplete_issue\":{},\"missing_data\":{},\"missing_tool\":{},\"noop\":{\"max\":1,\"report-as-issue\":\"false\"},\"report_incomplete\":{}}"
         with:
           github-token: ${{ secrets.GH_AW_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
           script: |
@@ -1844,7 +1871,6 @@ jobs:
             /tmp/gh-aw/safe-output-items.jsonl
             /tmp/gh-aw/temporary-id-map.json
           if-no-files-found: ignore
-
   update_cache_memory:
     needs:
       - activation
