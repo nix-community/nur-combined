@@ -293,6 +293,38 @@
     };
     date = "2019-02-18";
   };
+  cleanuparr = {
+    pname = "cleanuparr";
+    version = "v2.10.3";
+    src = fetchFromGitHub {
+      owner = "Cleanuparr";
+      repo = "Cleanuparr";
+      tag = "v2.10.3";
+      hash = "sha256-ViLvjKItlgvE77aVUmUt1LNofHpPlDoGDZl1Dn2EiZQ=";
+    };
+  };
+  cleanuparr-flm-qbittorrent = {
+    pname = "cleanuparr-flm-qbittorrent";
+    version = "b36a3ca40c83776f9f1b86a56e46ae718e2cf96f";
+    src = fetchFromGitHub {
+      owner = "Cleanuparr";
+      repo = "qbittorrent-net-client";
+      rev = "b36a3ca40c83776f9f1b86a56e46ae718e2cf96f";
+      hash = "sha256-33M+j8Phukwa5R7zo5Nuc/rSb2Dv2JYfTcXZMkFu7jw=";
+    };
+    date = "2026-05-09";
+  };
+  cleanuparr-flm-transmission = {
+    pname = "cleanuparr-flm-transmission";
+    version = "1d2548c3c888a2d8b0a2bf4fbefe2f91e981e263";
+    src = fetchFromGitHub {
+      owner = "Cleanuparr";
+      repo = "Transmission.API.RPC";
+      rev = "1d2548c3c888a2d8b0a2bf4fbefe2f91e981e263";
+      hash = "sha256-JFmTyRzHN3fDdZOoeFz89fk7kroT33tceoUpVBoWS5g=";
+    };
+    date = "2025-03-25";
+  };
   click-loglevel = {
     pname = "click-loglevel";
     version = "v0.7.0";

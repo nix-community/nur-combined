@@ -563,6 +563,69 @@
         },
         "version": "fecf00339545d2819224333cc506d5aa22ae8008"
     },
+    "cleanuparr": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "cleanuparr",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Cleanuparr",
+            "repo": "Cleanuparr",
+            "rev": "v2.10.3",
+            "sha256": "sha256-ViLvjKItlgvE77aVUmUt1LNofHpPlDoGDZl1Dn2EiZQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.10.3"
+    },
+    "cleanuparr-flm-qbittorrent": {
+        "cargoLock": null,
+        "date": "2026-05-09",
+        "extract": null,
+        "name": "cleanuparr-flm-qbittorrent",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Cleanuparr",
+            "repo": "qbittorrent-net-client",
+            "rev": "b36a3ca40c83776f9f1b86a56e46ae718e2cf96f",
+            "sha256": "sha256-33M+j8Phukwa5R7zo5Nuc/rSb2Dv2JYfTcXZMkFu7jw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b36a3ca40c83776f9f1b86a56e46ae718e2cf96f"
+    },
+    "cleanuparr-flm-transmission": {
+        "cargoLock": null,
+        "date": "2025-03-25",
+        "extract": null,
+        "name": "cleanuparr-flm-transmission",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Cleanuparr",
+            "repo": "Transmission.API.RPC",
+            "rev": "1d2548c3c888a2d8b0a2bf4fbefe2f91e981e263",
+            "sha256": "sha256-JFmTyRzHN3fDdZOoeFz89fk7kroT33tceoUpVBoWS5g=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "1d2548c3c888a2d8b0a2bf4fbefe2f91e981e263"
+    },
     "click-loglevel": {
         "cargoLock": null,
         "date": null,
