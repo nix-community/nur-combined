@@ -337,12 +337,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.121";
+    version = "v7.2.123";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.121";
-      hash = "sha256-clksOlN5FyKhf7hymE7EtgUN2v5BWSg6tm1Sdfczrc4=";
+      tag = "v7.2.123";
+      hash = "sha256-N7dmlOfEqJsr2uPhvwuJBDQixVZT92HnfsjiFU93vxE=";
     };
   };
   cockpy = {
@@ -650,12 +650,12 @@
   };
   easycli = {
     pname = "easycli";
-    version = "v0.2.15";
+    version = "v0.2.16";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "EasyCLI";
-      tag = "v0.2.15";
-      hash = "sha256-egcyAs9hncN8dkTxBCUl9dtsQ/DmoQ8eQ6+KMRHIg5c=";
+      tag = "v0.2.16";
+      hash = "sha256-QYbYwIZyWCN5lGBwXXQI9dfCAdS2XVjTuG1CbPxsrVs=";
     };
   };
   edge-tts = {
@@ -865,26 +865,26 @@
   };
   geolite2-asn = {
     pname = "geolite2-asn";
-    version = "2026.08.04";
+    version = "2026.08.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.04/GeoLite2-ASN.mmdb";
-      hash = "sha256-3d2M1RM8yA58rz6NHh946yx/dT4raY+kfzJtCgr7v+o=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.07/GeoLite2-ASN.mmdb";
+      hash = "sha256-DiASrAbyakgwI7n9mTPEWNPRqB9d1DmPMs8CrPAGW88=";
     };
   };
   geolite2-city = {
     pname = "geolite2-city";
-    version = "2026.08.04";
+    version = "2026.08.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.04/GeoLite2-City.mmdb";
-      hash = "sha256-bmaEyrBOu6EMHqn0pEMXXKD/CA4lXoT57wNQUXWCZX4=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.07/GeoLite2-City.mmdb";
+      hash = "sha256-XDIgbNmmfTuJlejKAQGRqALpywbTwImWPwi1Xesb2SE=";
     };
   };
   geolite2-country = {
     pname = "geolite2-country";
-    version = "2026.08.04";
+    version = "2026.08.07";
     src = fetchurl {
-      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.04/GeoLite2-Country.mmdb";
-      hash = "sha256-0Y8TkBT/Md0LAF4WoVWEnA0mtZxl2ceRaKeA2igYk2Q=";
+      url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/2026.08.07/GeoLite2-Country.mmdb";
+      hash = "sha256-tPYk4UEcKHAdckUDuNFe1Jl95wy26gXW8Rv1cupVIkA=";
     };
   };
   glauth = {
@@ -1232,14 +1232,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "4e1183aaa34b0d0d52413c49f269f909b505e0cf";
+    version = "241f638ad2f1023877d6d237007c2cccc6633083";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "4e1183aaa34b0d0d52413c49f269f909b505e0cf";
-      hash = "sha256-TN4g0IJ/s+qZqklpHYlBSpr+YT5+m21pWxKA0FZ4pjw=";
+      rev = "241f638ad2f1023877d6d237007c2cccc6633083";
+      hash = "sha256-KuDGuWtXGn+zwfpPNDifiLlsRNhgUB+cr/+G9x3Afps=";
     };
-    date = "2026-08-06";
+    date = "2026-08-07";
   };
   libqcef = {
     pname = "libqcef";
@@ -1494,12 +1494,12 @@
   };
   new-api = {
     pname = "new-api";
-    version = "v1.0.0-rc.23";
+    version = "v1.0.0-rc.24";
     src = fetchFromGitHub {
       owner = "QuantumNous";
       repo = "new-api";
-      tag = "v1.0.0-rc.23";
-      hash = "sha256-uZe//07GuM2tjW5fgM8eL4/XhoVAmfdHZioVd4LnOXE=";
+      tag = "v1.0.0-rc.24";
+      hash = "sha256-yhcypzBF6kyZQeexMUPmP898nrSjRRG1RkXKiijrIGQ=";
     };
   };
   nft-fullcone = {
@@ -2176,23 +2176,23 @@
   };
   rtpengine = {
     pname = "rtpengine";
-    version = "f8ee3c11852b8babb4f61e8e46cc6d3347dd4303";
+    version = "29be0f9c5f7d35952d513400cc73c8f4b1ba7f18";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      rev = "f8ee3c11852b8babb4f61e8e46cc6d3347dd4303";
-      hash = "sha256-i3UC9ZZVihvijEnBGJgMAiryuEecZMLSIY73moIRyCA=";
+      rev = "29be0f9c5f7d35952d513400cc73c8f4b1ba7f18";
+      hash = "sha256-i80D+Jf1MGBe3cfzpvE4iZ0OvY6rkJu7zQ8dC79v18c=";
     };
-    date = "2026-08-05";
+    date = "2026-08-07";
   };
   rtpengine-stable = {
     pname = "rtpengine-stable";
-    version = "mr13.5.1.25";
+    version = "mr14.1.1.21";
     src = fetchFromGitHub {
       owner = "sipwise";
       repo = "rtpengine";
-      tag = "mr13.5.1.25";
-      hash = "sha256-YaRLoors0agCpMdv8ZVUphhnGeS61Azk3QlAx8kVDFo=";
+      tag = "mr14.1.1.21";
+      hash = "sha256-ocIkzuFKF+BAbYWSdAPZSvwEX8MoacsViEdH6/BEiho=";
     };
   };
   runpod = {
@@ -2435,15 +2435,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "3c5a64bde510b63d883c23e76dc0a9ae826a0961";
+    version = "22556ebaa8e4e63bf37b3593e4cfa63781d84617";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "3c5a64bde510b63d883c23e76dc0a9ae826a0961";
+      rev = "22556ebaa8e4e63bf37b3593e4cfa63781d84617";
       fetchSubmodules = true;
-      hash = "sha256-EPXEW3gRNyVln0W0Tine4nnb0ibd4Mb7gxhP7Ge573U=";
+      hash = "sha256-+R8UbrM92Z2+x7ZxypfF/5+A/PgLPl+qEkqSK/h/znY=";
     };
-    date = "2026-08-06";
+    date = "2026-08-07";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
