@@ -1,5 +1,5 @@
---- a/src/global/Configs.cpp	2026-06-20 20:18:57.483705900 +0300
-+++ b/src/global/Configs.cpp	2026-06-20 20:55:57.549065039 +0300
+--- a/src/global/Configs.cpp
++++ b/src/global/Configs.cpp
 @@ -45,6 +45,16 @@
      }
  
@@ -33,9 +33,9 @@
          isAdminCache = admin;
          return admin;
      }
---- a/src/ui/mainwindow.cpp	2026-06-20 20:18:57.484705875 +0300
-+++ b/src/ui/mainwindow.cpp	2026-06-20 20:38:21.629149675 +0300
-@@ -210,8 +210,7 @@
+--- a/src/ui/mainWindow/mainwindow_setup.cpp
++++ b/src/ui/mainWindow/mainwindow_setup.cpp
+@@ -207,8 +207,7 @@
      runOnNewThread([=, this] {GetDeviceDetails(); });
  
      // Prepare core
@@ -45,7 +45,9 @@
  
      bool coreDebugMode = (Configs::dataManager->settingsRepo->log_level == "debug");
  
-@@ -1568,6 +1567,11 @@
+--- a/src/ui/mainWindow/mainwindow_system.cpp
++++ b/src/ui/mainWindow/mainwindow_system.cpp
+@@ -193,6 +193,11 @@
          return true;
      }
      if (Configs::IsAdmin()) return true;
@@ -57,8 +59,8 @@
  #ifdef Q_OS_LINUX
      if (!Linux_HavePkexec()) {
          MessageBoxWarning(software_name, "Please install \"pkexec\" first.");
---- a/src/sys/linux/AutoRun.cpp	2026-06-20 20:18:57.485705850 +0300
-+++ b/src/sys/linux/AutoRun.cpp	2026-06-20 20:38:21.629280252 +0300
+--- a/src/sys/linux/AutoRun.cpp
++++ b/src/sys/linux/AutoRun.cpp
 @@ -31,18 +31,9 @@
      QString desktopFileLocation = userAutoStartPath + appName + QLatin1String(".desktop");
      QStringList appCmdList;
