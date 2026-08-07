@@ -1,76 +1,94 @@
 # Spektrafilm film & print data pack for the darktable spektrafilm module.
 #
 # The darktable spektrafilm IOP reads its spectral LUT + film/paper profiles at
-# runtime from <darktable config dir>/spektrafilm/ :
+# runtime from a pack directory holding:
 #   pack.json, spectra_lut.f32, profiles/*.json
-# (see sf_pack_dir() / dt_loc_get_user_config_dir() in src/iop/spektrafilm.c —
-# it only looks in the user config dir, never in the install datadir).
+# (see sf_pack_load() / src/common/spektra_fetch.c). darktable can now download
+# this pack itself from within the UI, but we bundle it declaratively so it works
+# offline and reproducibly, byte-identical to what the download would install.
 #
-# The July 29 PR commits switched the spectral upsampling LUT to the upstream
-# float16 format, so the older published Arecsu zip is stale. Generate the pack
-# reproducibly from this flake's pinned Python spektrafilm package and the
-# exporter script posted in the pixls.us thread.
+# We mirror the *canonical published pack repository* rather than regenerating
+# the pack from the Python `spektrafilm` package. The module's in-UI downloader
+# reads it from:
+#   https://raw.githubusercontent.com/<repo>/<ref>/manifest.json
+#   https://raw.githubusercontent.com/<repo>/<ref>/<base>/{pack.json,spectra_lut.f32,profiles/*}
+# (defaults: repo = piratenpanda/darktable-spektrafilm, ref = main). Fetching the
+# same repo at a pinned commit guarantees the pack's LUT hash matches what edits
+# made against this darktable build record, which regenerating from a possibly
+# differently-versioned Python package would not.
+#
+# The manifest's single default pack, pinned below:
+#   lut_id  = irradiance_xy_tc@0.3.3
+#   lut_hash = 565f4ec4        (also the spectra_lut.f32 header hash, LE @ byte 28)
+#   base    = packs/0.3.3      (subdir in the repo holding the pack files)
+#   pack_format = 2            (SFS2 v2 raw float16 — matches the module's reader)
+#
+# `lutHash` is exposed via passthru so callers can place this at the exact path
+# the module scans, ~/.config/darktable/spektrafilm/packs/<lutHash>/ .
 {
   lib,
   runCommand,
-  fetchurl,
-  python3,
-  spektrafilm,
-  darktableSpektrafilmRev ? "1a6bbf4c1cc0dac32311e67307e9ed1c1beaf6ff",
+  fetchFromGitHub,
+
+  # Pinned pack repo. Bump `rev`/`hash` together with `base`/`lutHash` when the
+  # published manifest changes (see SPEKTRAFILM-UPGRADE-NOTES.md).
+  repoOwner ? "piratenpanda",
+  repoName ? "darktable-spektrafilm",
+  rev ? "d32583b041ac253226f334379758c9a5830df442",
+  hash ? "sha256-WVV/906VYPDoj77cjUVp6RWzuEhRWnuzGY6ypAdjjU4=",
+  base ? "packs/0.3.3",
+  lutHash ? "565f4ec4",
+  spektrafilmVersion ? "0.3.3",
+  packFormat ? 2,
 }:
 
 let
-  exporter = fetchurl {
-    name = "spektrafilm_export_data-2026-07-29.py";
-    url = "https://pixls-discuss.s3.dualstack.us-east-1.amazonaws.com/original/3X/0/d/0df15c93a547b6158c5935557832df23f0ffb5ab.py";
-    hash = "sha256-bNzhceTxp303v/obGZVoLaFzXc2ShNqVFAyE+BDFMBs=";
+  repo = fetchFromGitHub {
+    owner = repoOwner;
+    repo = repoName;
+    inherit rev hash;
   };
-
-  pythonEnv = python3.withPackages (_: [ spektrafilm ]);
 in
-runCommand "spektrafilm-data-pack-${spektrafilm.version}"
+runCommand "spektrafilm-data-pack-${spektrafilmVersion}"
   {
-    nativeBuildInputs = [ pythonEnv ];
     passthru = {
-      inherit darktableSpektrafilmRev exporter;
-      exporterHash = "sha256-bNzhceTxp303v/obGZVoLaFzXc2ShNqVFAyE+BDFMBs=";
+      inherit lutHash spektrafilmVersion packFormat base;
+      packRepo = repo;
+      packRev = rev;
+    };
+    meta = {
+      description =
+        "Spektrafilm spectral data pack (film + paper profiles) for darktable's spektrafilm module";
+      homepage = "https://github.com/${repoOwner}/${repoName}";
+      platforms = lib.platforms.all;
     };
   }
   ''
-    export NUMBA_DISABLE_JIT=1
-    export NUMBA_CACHE_DIR=$TMPDIR/numba-cache
-    python ${exporter} -o "$out"
+    src="${repo}/${base}"
+    if [ ! -f "$src/pack.json" ] || [ ! -f "$src/spectra_lut.f32" ]; then
+      echo "pack files not found under ${base} in ${repoOwner}/${repoName}" >&2
+      exit 1
+    fi
 
-    python - "$out" <<'PY'
-    import hashlib
-    import json
-    import pathlib
-    import struct
-    import sys
+    mkdir -p "$out"
+    cp -r "$src"/. "$out"/
 
-    out = pathlib.Path(sys.argv[1])
-    pack = json.loads((out / "pack.json").read_text())
-    if pack.get("spektrafilm_version") != "${spektrafilm.version}":
-        raise SystemExit("unexpected spektrafilm_version in pack.json")
-
-    profiles = sorted((out / "profiles").glob("*.json"))
-    if len(profiles) < 30:
-        raise SystemExit(f"unexpectedly few profiles: {len(profiles)}")
-
-    lut_path = out / "spectra_lut.f32"
-    data = lut_path.read_bytes()
-    if data[:4] != b"SFS2":
-        raise SystemExit("expected new SFS2 float16 LUT header")
-    header_version = struct.unpack_from("<i", data, 4)[0]
-    dims = struct.unpack_from("<iii", data, 8)
-    dtype = struct.unpack_from("<i", data, 20)[0]
-    if header_version != 2 or dtype != 1:
-        raise SystemExit(f"unexpected LUT header: version={header_version} dtype={dtype}")
-    if dims[0] != dims[1] or dims[2] < 70:
-        raise SystemExit(f"unexpected LUT dimensions: {dims}")
-
-    (out / "spectra_lut.f32.sha256").write_text(hashlib.sha256(data).hexdigest() + "\n")
-    (out / "generated-darktable-rev").write_text("${darktableSpektrafilmRev}\n")
-    (out / "exporter.sha256").write_text("sha256-bNzhceTxp303v/obGZVoLaFzXc2ShNqVFAyE+BDFMBs=\n")
-    PY
+    # Sanity: the spectra_lut.f32 header must carry lut_hash 0x${lutHash}.
+    # Header is: magic 'SFS2' (4) | int32 version (4) | int32 dims[3] (12) |
+    # int32 dtype (4) | uint32 lut_hash (4) | int32 id_len ..., so the LUT hash
+    # is the little-endian uint32 at byte offset 24. Guards against a pack rev /
+    # lutHash mismatch that would leave the module unable to resolve this pack.
+    magic=$(head -c 4 "$out/spectra_lut.f32")
+    if [ "$magic" != "SFS2" ]; then
+      echo "unexpected spectra_lut.f32 magic: '$magic' (expected SFS2)" >&2
+      exit 1
+    fi
+    got=$(od -An -tx1 -j24 -N4 "$out/spectra_lut.f32" | tr -d ' \n')
+    # bytes are little-endian; reverse to compare against the big-endian hex hash
+    want="${lutHash}"
+    rev_want="''${want:6:2}''${want:4:2}''${want:2:2}''${want:0:2}"
+    if [ "$got" != "$rev_want" ]; then
+      echo "spectra_lut.f32 hash mismatch: header=$got expected(LE)=$rev_want for lutHash=${lutHash}" >&2
+      exit 1
+    fi
   ''

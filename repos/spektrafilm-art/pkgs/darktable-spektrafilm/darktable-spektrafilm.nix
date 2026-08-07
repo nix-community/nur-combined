@@ -33,9 +33,15 @@
 let
   wrapDataPack = spektrafilmDataPack != null;
   wrapAiModels = withAi && darktableAiModels != null;
+  # Link the pack into darktable's *download-cache* layout, packs/<lut_hash>/,
+  # rather than the top-level spektrafilm/ dir. The module resolves either
+  # (src/common/spektra_fetch.c), but linking only the hashed leaf keeps
+  # spektrafilm/ itself a normal writable dir, so darktable's own in-UI pack
+  # download still works for other tables. The leaf is a read-only store symlink,
+  # which the resolver is happy to read.
   wrapperArgs =
     lib.optionals wrapDataPack [
-      ''--run 'darktable_config_home="''${XDG_CONFIG_HOME:-''${HOME:+$HOME/.config}}"; spektrafilm_pack_dir="$darktable_config_home/darktable/spektrafilm"; if [ -n "$darktable_config_home" ]; then mkdir -p "$darktable_config_home/darktable"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi' ''
+      ''--run 'darktable_config_home="''${XDG_CONFIG_HOME:-''${HOME:+$HOME/.config}}"; spektrafilm_packs_dir="$darktable_config_home/darktable/spektrafilm/packs"; spektrafilm_pack_dir="$spektrafilm_packs_dir/${spektrafilmDataPack.lutHash}"; if [ -n "$darktable_config_home" ]; then mkdir -p "$spektrafilm_packs_dir"; if [ -L "$spektrafilm_pack_dir" ] || [ ! -e "$spektrafilm_pack_dir" ]; then ln -sfn ${spektrafilmDataPack} "$spektrafilm_pack_dir"; fi; fi' ''
     ]
     ++ lib.optionals wrapAiModels [
       ''--run 'darktable_data_home="''${XDG_DATA_HOME:-''${HOME:+$HOME/.local/share}}"; darktable_models_dir="$darktable_data_home/darktable/models"; if [ -n "$darktable_data_home" ]; then mkdir -p "$darktable_data_home/darktable"; if [ -L "$darktable_models_dir" ] || [ ! -e "$darktable_models_dir" ]; then ln -sfn ${darktableAiModels} "$darktable_models_dir"; fi; fi' ''
@@ -44,19 +50,24 @@ let
     pname = "darktable-spektrafilm";
     # Tracks a moving PR branch head, not a tagged release, so
     # the datestamp keeps the store path honest. Bump it together with src.rev.
-    version = "5.8.0-unstable-2026-07-29";
+    version = "5.8.0-unstable-2026-08-05";
 
     src = fetchFromGitHub {
       owner = "piratenpanda";
       repo = "darktable";
-      rev = "1a6bbf4c1cc0dac32311e67307e9ed1c1beaf6ff"; # darktable-org/darktable#21534 head
+      # darktable-org/darktable#21534 head (== branch `spektrafilm`), rebased on
+      # master 2026-08-04 so it builds standalone. Verify with:
+      #   git ls-remote https://github.com/piratenpanda/darktable refs/pull/21534/head
+      rev = "37ac235fffc86dc0cb20ad3f4ef5a7f46a1f8384";
       fetchSubmodules = true;
-      hash = "sha256-JCWPz++TEZdiM07AtAQRVeFIhRZQ4y46Tb4ugle6HO4=";
+      hash = "sha256-qo0DNzewtQS//myw3FcLydHjARXZ+0pppr5gKjpgVcI=";
     };
 
-    patches = (old.patches or [ ]) ++ [
-      ./fix-spektrafilm-toggle-helpers.patch
-    ];
+    # No local patches: the toggle-helper shim we used to carry is now obsolete —
+    # dt_bauhaus_toggle_set{,_default} are declared in src/bauhaus/bauhaus.h
+    # upstream and spektrafilm.c includes it, so a local static-inline redefinition
+    # would fail to compile.
+    patches = (old.patches or [ ]);
 
     # fetchFromGitHub strips .git, so darktable's `git describe` version detection
     # would fall back to "unknown-version". Feed the real version to CMake instead

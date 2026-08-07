@@ -41,10 +41,11 @@ let
   };
 
   spektrafilm-python = spektrafilm-pkgs.python3.withPackages (ps: with ps; [ numpy scipy spektrafilm ]) ;
+  # Mirrors the canonical published pack repo (pinned), byte-identical to what
+  # darktable's in-UI downloader installs. No longer generated from the Python
+  # spektrafilm package. Exposes `.lutHash` for placement under packs/<hash>/.
   spektrafilmDataPack =
-    pkgs.callPackage ./pkgs/darktable-spektrafilm/data-pack.nix {
-      spektrafilm = spektrafilm-pkgs.python3Packages.spektrafilm;
-    };
+    pkgs.callPackage ./pkgs/darktable-spektrafilm/data-pack.nix { };
   darktableAiModels =
     pkgs.callPackage ./pkgs/darktable-spektrafilm/ai-models.nix { };
   spektrafilmArtBase = (pkgs.art.overrideAttrs (oldAttrs: {
