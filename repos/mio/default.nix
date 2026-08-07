@@ -159,3 +159,6 @@ with (import ./private.nix { inherit pkgs; });
         );
       };
 }
+// lib.optionalAttrs no-ifd {
+  brave-origin = null;
+}
