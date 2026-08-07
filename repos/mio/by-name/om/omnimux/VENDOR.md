@@ -61,6 +61,7 @@ Rough chronological / thematic summary of edits under this vendor tree:
 ### Hyperlinks
 
 - `links.rs`: OSC 8 cell URI or plain `http(s)://` under the click point.
+- `is_browser_url` loosened to allow custom URI schemas (e.g., `file://`, `urn:`) while blocking dangerous protocols like `javascript:`.
 - `with_link_click_callback` + Cmd (macOS) / Ctrl (Linux) + left click in `on_mouse_down`.
 - Changes the cursor to a pointing hand when hovering over a valid link while holding Cmd/Ctrl.
 
