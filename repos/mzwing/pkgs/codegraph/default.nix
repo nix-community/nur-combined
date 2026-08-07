@@ -35,16 +35,13 @@
     cargoNix.rootCrate.build.overrideAttrs (old: {
       name = "codegraph-kernel-${version}";
 
-      # Ship the cdylib as a Node native module. buildRustCrate installs
-      # shared libraries into its "lib" output.
-      installPhase = ''
-        runHook preInstall
-
+      # Ship the cdylib as a Node native module. Runs at the end of
+      # buildRustCrate's own installPhase, which installs shared libraries
+      # into the "lib" output first.
+      postInstall = ''
         install -Dm755 \
           "$lib/lib/libcodegraph_kernel${stdenv.hostPlatform.extensions.sharedLibrary}" \
           $out/lib/codegraph-kernel.node
-
-        runHook postInstall
       '';
     });
 
