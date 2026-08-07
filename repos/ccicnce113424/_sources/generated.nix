@@ -65,21 +65,21 @@
   };
   fast-nix-gc = {
     pname = "fast-nix-gc";
-    version = "aac5e3118db566939338569d3e13c75a9fd5eb84";
+    version = "0243fbc569251eea46894e681e2c86eed7185c46";
     src = fetchFromGitHub {
       owner = "Mic92";
       repo = "fast-nix-gc";
-      rev = "aac5e3118db566939338569d3e13c75a9fd5eb84";
+      rev = "0243fbc569251eea46894e681e2c86eed7185c46";
       fetchSubmodules = false;
-      sha256 = "sha256-gRV5McxnehAfu64D2qQ5iMoM39JkjDRlhMB+2xjTZjs=";
+      sha256 = "sha256-Hdq1fQGzztcxC5X3O2bD62FV3lQPEPaB4w9lwS1fH90=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-gRV5McxnehAfu64D2qQ5iMoM39JkjDRlhMB+2xjTZjs=/Cargo.lock";
+      lockFile = ./. + "/sha256-Hdq1fQGzztcxC5X3O2bD62FV3lQPEPaB4w9lwS1fH90=/Cargo.lock";
       outputHashes = {
         "harmonia-file-core-3.1.0" = "sha256-YklzRujFo5lvFsdLoedE6OL6OvSwNk/nfwlGxulyTS4=";
       };
     };
-    date = "2026-07-30";
+    date = "2026-08-06";
   };
   flake-linter = {
     pname = "flake-linter";
@@ -261,15 +261,15 @@
   };
   nix-auth = {
     pname = "nix-auth";
-    version = "b0f8deb1efcb498b4f02189eaa893674603ccf99";
+    version = "d43fad3e926493db26d915aba7c0284606e07782";
     src = fetchFromGitHub {
       owner = "numtide";
       repo = "nix-auth";
-      rev = "b0f8deb1efcb498b4f02189eaa893674603ccf99";
+      rev = "d43fad3e926493db26d915aba7c0284606e07782";
       fetchSubmodules = false;
-      sha256 = "sha256-AUujtI5lTvkCaIFNXyf6+fgH5fZFCnapd0C+KutSBpc=";
+      sha256 = "sha256-PHKMqGwfwniAHlbuZl5CUg1bEoSeIGUJHXwzHpHOQeA=";
     };
-    date = "2026-08-02";
+    date = "2026-08-06";
   };
   ntfsprogs-plus = {
     pname = "ntfsprogs-plus";
@@ -371,21 +371,21 @@
   };
   splayer-next-dev = {
     pname = "splayer-next-dev";
-    version = "09d2a8c4099ca804dea7c40f8f2ca68102d89313";
+    version = "9cfb16babd5f41dd3d04aaae73dd1b992d4130af";
     src = fetchFromGitHub {
       owner = "SPlayer-Dev";
       repo = "SPlayer-Next";
-      rev = "09d2a8c4099ca804dea7c40f8f2ca68102d89313";
+      rev = "9cfb16babd5f41dd3d04aaae73dd1b992d4130af";
       fetchSubmodules = false;
-      sha256 = "sha256-lL4wmxVudO2p5JYAR2t0iSszbq56lrg4snRuvn9idwc=";
+      sha256 = "sha256-ZGDUryqR2QOu+PRqK0yPUoGEE9y2rDV/E1kYduYWAYA=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-lL4wmxVudO2p5JYAR2t0iSszbq56lrg4snRuvn9idwc=/Cargo.lock";
+      lockFile = ./. + "/sha256-ZGDUryqR2QOu+PRqK0yPUoGEE9y2rDV_E1kYduYWAYA=/Cargo.lock";
       outputHashes = {
         
       };
     };
-    date = "2026-08-05";
+    date = "2026-08-06";
   };
   svt-av1-essential = {
     pname = "svt-av1-essential";
