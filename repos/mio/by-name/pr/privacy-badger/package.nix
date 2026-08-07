@@ -6,13 +6,13 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "privacy-badger";
-  version = "2026.6.16";
+  version = "2026.8.7";
 
   src = fetchFromGitHub {
     owner = "EFForg";
     repo = "privacybadger";
     tag = "release-${finalAttrs.version}";
-    hash = "sha256-yWYtc++yKhbW9nt4qsAc8164aKvcf1wj/fIOFk2hEqc=";
+    hash = "sha256-pLkJoiLU+clsoHOtPXSxSbsD0t03oAqbib5B6feU3tw=";
   };
 
   dontBuild = true;
