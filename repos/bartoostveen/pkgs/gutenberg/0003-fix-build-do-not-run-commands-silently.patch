@@ -1,0 +1,214 @@
+From e5565e2f4612b7e15e7f992c38741640e31e45d9 Mon Sep 17 00:00:00 2001
+From: Bart Oostveen <bart@bartoostveen.nl>
+Date: Mon, 6 Jul 2026 23:25:15 +0200
+Subject: [PATCH 3/5] fix(build): do not run commands silently
+
+---
+ tools/build-scripts/build.mjs | 145 ++++++++++------------------------
+ 1 file changed, 42 insertions(+), 103 deletions(-)
+
+diff --git a/tools/build-scripts/build.mjs b/tools/build-scripts/build.mjs
+index 7c5346e4fd4..159b2d673d6 100644
+--- a/tools/build-scripts/build.mjs
++++ b/tools/build-scripts/build.mjs
+@@ -3,75 +3,39 @@
+ /**
+  * External dependencies
+  */
+-import spawn from 'cross-spawn';
+ import { fileURLToPath } from 'url';
+ import { parseArgs } from 'util';
+ import path from 'path';
++import { spawn } from 'child_process';
+ 
+ const __dirname = path.dirname( fileURLToPath( import.meta.url ) );
+ const ROOT_DIR = path.resolve( __dirname, '../..' );
+ 
+-/**
+- * Execute a command and return a promise.
+- *
+- * @param {string}   command Command to execute.
+- * @param {string[]} args    Command arguments.
+- * @param {Object}   options Spawn options.
+- * @return {Promise<void>} Promise that resolves when command completes.
+- */
+ function exec( command, args = [], options = {} ) {
+-	const silent = options.silent || false;
+-	const spawnOptions = { ...options };
+-	delete spawnOptions.silent;
+-
+ 	return new Promise( ( resolve, reject ) => {
+-		const childOptions = {
++		const child = spawn( command, args, {
++			stdio: 'inherit',
+ 			cwd: ROOT_DIR,
+-			stdio: silent ? 'pipe' : 'inherit',
+-			...spawnOptions,
+-		};
++			...options,
++		} );
+ 
+-		const child = spawn( command, args, childOptions );
+-
+-		// If silent, capture output to show only on error
+-		let stdout = '';
+-		let stderr = '';
+-
+-		if ( silent ) {
+-			if ( child.stdout ) {
+-				child.stdout.on( 'data', ( data ) => {
+-					stdout += data.toString();
+-				} );
+-			}
+-			if ( child.stderr ) {
+-				child.stderr.on( 'data', ( data ) => {
+-					stderr += data.toString();
+-				} );
+-			}
+-		}
+-
+-		child.on( 'exit', ( code ) => {
++		child.on( 'close', ( code ) => {
+ 			if ( code === 0 ) {
+ 				resolve();
+ 			} else {
+-				// On error, show captured output if it was silent
+-				if ( silent && ( stdout || stderr ) ) {
+-					if ( stdout ) {
+-						process.stdout.write( stdout );
+-					}
+-					if ( stderr ) {
+-						process.stderr.write( stderr );
+-					}
+-				}
+ 				reject(
+ 					new Error(
+-						`Command failed: ${ command } ${ args.join( ' ' ) }`
++						`Command "${ command } ${ args.join(
++							' '
++						) }" failed with exit code ${ code }`
+ 					)
+ 				);
+ 			}
+ 		} );
+ 
+-		child.on( 'error', reject );
++		child.on( 'error', ( err ) => {
++			reject( err );
++		} );
+ 	} );
+ }
+ 
+@@ -92,45 +56,8 @@ async function build() {
+ 	const startTime = Date.now();
+ 
+ 	try {
+-		/*
+-		 * Step 0: Verify node_modules is in sync with package-lock.json.
+-		 *
+-		 * GUTENBERG_CHECK_INSTALLED_DEPS controls when this runs:
+-		 *   - `BEFORE_BUILD` (default): pre-build gate.
+-		 *   - `NEVER`: skip entirely (sticky opt-out for power users).
+-		 */
+-		if ( process.env.GUTENBERG_CHECK_INSTALLED_DEPS === 'NEVER' ) {
+-			console.log(
+-				'🔍 Skipping dependency check (GUTENBERG_CHECK_INSTALLED_DEPS=NEVER).'
+-			);
+-		} else {
+-			console.log( '🔍 Checking dependencies...' );
+-			await exec( 'npm', [
+-				'run',
+-				'check-installed-deps',
+-				'--workspace',
+-				'@wordpress/validation-tools',
+-				'--silent',
+-			] ).catch( () => {
+-				throw new Error(
+-					'Run `npm install` to update, or set GUTENBERG_CHECK_INSTALLED_DEPS=NEVER to skip this check.'
+-				);
+-			} );
+-		}
+-
+-		console.log( '\n🧹 Cleaning packages...' );
+-		await exec(
+-			'node',
+-			[ path.join( __dirname, 'clean.mjs' ), '--packages' ],
+-			{ silent: true }
+-		);
+-
+ 		console.log( '\n📦 Building workspaces...' );
+-		await exec(
+-			'npm',
+-			[ 'run', '--if-present', '--workspaces', '--silent', 'build' ],
+-			{ silent: true }
+-		);
++		await exec( 'npm', [ 'run', '--if-present', '--workspaces', 'build' ] );
+ 
+ 		// This must happen before TypeScript compilation because some packages
+ 		// (like vips) have source files that import from generated worker-code.ts
+@@ -168,9 +95,20 @@ async function build() {
+ 		const buildArgs = process.argv
+ 			.slice( 2 )
+ 			.filter( ( arg ) => arg !== '--skip-types' );
+-		await exec( 'wp-build', buildArgs, {
+-			env: { ...process.env, NODE_ENV: 'production' },
+-		} );
++		await exec(
++			'node',
++			[
++				path.join(
++					ROOT_DIR,
++					'node_modules/@wordpress/build/lib/build.mjs'
++				),
++				...buildArgs,
++			],
++			{
++				stdio: 'inherit',
++				env: { ...process.env, NODE_ENV: 'production' },
++			}
++		);
+ 
+ 		console.log( '\n📦 Building blocks manifests...' );
+ 		const blocksDirs = [
+@@ -188,23 +126,24 @@ async function build() {
+ 			},
+ 		];
+ 		for ( const { input, output } of blocksDirs ) {
+-			await exec(
+-				'wp-scripts',
+-				[
+-					'build-blocks-manifest',
+-					`--input=${ input }`,
+-					`--output=${ output }`,
+-				],
+-				{ silent: true }
+-			);
++			await exec( 'node', [
++				path.join(
++					ROOT_DIR,
++					'node_modules/@wordpress/scripts/bin/wp-scripts.js'
++				),
++				'build-blocks-manifest',
++				`--input=${ input }`,
++				`--output=${ output }`,
++			] );
+ 		}
+ 
+ 		console.log( '\n📦 Building workspace :wp targets...' );
+-		await exec(
+-			'npm',
+-			[ 'run', '--if-present', '--workspaces', '--silent', 'build:wp' ],
+-			{ silent: true }
+-		);
++		await exec( 'npm', [
++			'run',
++			'--if-present',
++			'--workspaces',
++			'build:wp',
++		] );
+ 
+ 		const totalTime = Date.now() - startTime;
+ 		console.log(
+-- 
+2.55.0
+

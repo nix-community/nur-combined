@@ -1,0 +1,19 @@
+name: check nur eval
+on:
+  push:
+  pull_request:
+jobs:
+  check:
+    runs-on: [native-x86_64-linux, bigger-parallel]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - run: |
+          # https://github.com/nix-community/NUR#local-evaluation-check
+          nix-env -f . -qa \* --meta \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path --show-trace \
+            -I nixpkgs=$(nix eval --raw .#inputs.nixpkgs.outPath) \
+            -I ./ \
+            --json | jq -r 'values | .[].name'

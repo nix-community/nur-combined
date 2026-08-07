@@ -1,0 +1,27 @@
+From 5505853f618ec2543d7dd89bb80b2aa2cd884f46 Mon Sep 17 00:00:00 2001
+From: Bart Oostveen <bart@bartoostveen.nl>
+Date: Sun, 2 Aug 2026 11:53:02 +0200
+Subject: [PATCH] tauri: do not regenerate typescript bindings
+
+The frontend gets built in a separate package with up-to-date typescript bindings.
+---
+ build.rs | 3 ---
+ 1 file changed, 3 deletions(-)
+
+diff --git a/build.rs b/build.rs
+index d4624f92b..adeaaa3af 100644
+--- a/build.rs
++++ b/build.rs
+@@ -58,9 +58,6 @@ fn main() {
+         println!("cargo:rustc-link-arg=-fuse-ld=lld");
+     }
+ 
+-    tauri_typegen::BuildSystem::generate_at_build_time()
+-        .expect("Failed to generate TypeScript bindings");
+-
+     // tauri-build fails on permissions from missing plugins, so only glob the
+     // updater capability file when the `updater` feature is on.
+     #[cfg(feature = "updater")]
+-- 
+2.55.0
+

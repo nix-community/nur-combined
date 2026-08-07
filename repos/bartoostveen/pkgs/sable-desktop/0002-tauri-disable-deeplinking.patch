@@ -1,0 +1,32 @@
+From 7843071a9a30b141239ce94067bf71db83d8ec47 Mon Sep 17 00:00:00 2001
+From: Bart Oostveen <bart@bartoostveen.nl>
+Date: Sun, 2 Aug 2026 13:03:05 +0200
+Subject: [PATCH 2/2] tauri: disable deeplinking
+
+---
+ src/lib.rs | 9 ---------
+ 1 file changed, 9 deletions(-)
+
+diff --git a/src/lib.rs b/src/lib.rs
+index 7fcfe176c..362699ad1 100644
+--- a/src/lib.rs
++++ b/src/lib.rs
+@@ -379,15 +379,6 @@ pub fn run() {
+ 
+             network::native_upload::cleanup_uploads(app.handle());
+ 
+-            #[cfg(any(target_os = "linux", all(debug_assertions, windows)))]
+-            {
+-                use tauri_plugin_deep_link::DeepLinkExt;
+-                app.deep_link().register_all()?;
+-            }
+-
+-            #[cfg(all(feature = "cef", target_os = "linux"))]
+-            deep_link_ipc::drain_pending_urls(app.handle());
+-
+             show_or_create_main_window(app.handle())?;
+ 
+             // Failsafe: if the frontend never calls show() (hung webview), force-show
+-- 
+2.55.0
+
