@@ -19,11 +19,23 @@ let
     hash = "sha256-k3jtrJCxLx8nq1R70CtZWFyNVXEa5Ltw0MgdA0qFVXA=";
   };
 
+  macmon = rustPlatform.buildRustPackage {
+    pname = "macmon";
+    version = "git";
+    src = fetchFromGitHub {
+      owner = "vladkens";
+      repo = "macmon";
+      rev = "a1cd06b6cc0d5e61db24fd8832e74cd992097a7d";
+      hash = "sha256-wcq4PUXK44XfUKOZKl32u8LpOxXpSbUUfItQGwS2Zso=";
+    };
+    cargoHash = "sha256-Epj3L+db1flGNK5y6yfSig8piEiXTz15lPo/FNkqlkA=";
+  };
+
   exo_pyo3_bindings = python313Packages.buildPythonPackage {
     pname = "exo-pyo3-bindings";
     version = "0.2.1";
     inherit src;
-    
+
     cargoDeps = rustPlatform.fetchCargoVendor {
       inherit src;
       hash = "sha256-gwOdA2sHz8n4GfNjK+OYmttXUTle4WYmAE2Y0KXYrwg=";
@@ -40,7 +52,10 @@ let
       apple-sdk_15
     ];
 
-    maturinBuildFlags = [ "-m" "rust/exo_pyo3_bindings/Cargo.toml" ];
+    maturinBuildFlags = [
+      "-m"
+      "rust/exo_pyo3_bindings/Cargo.toml"
+    ];
   };
 
 in
@@ -114,8 +129,18 @@ python313Packages.buildPythonApplication {
   '';
 
   makeWrapperArgs = [
-    "--set" "EXO_RESOURCES_DIR" "$out/share/exo/resources"
-    "--set" "EXO_DASHBOARD_DIR" "$out/share/exo/dashboard"
+    "--set"
+    "EXO_RESOURCES_DIR"
+    "$out/share/exo/resources"
+    "--set"
+    "EXO_DASHBOARD_DIR"
+    "$out/share/exo/dashboard"
+  ]
+  ++ lib.optionals stdenv.hostPlatform.isDarwin [
+    "--prefix"
+    "PATH"
+    ":"
+    "${macmon}/bin"
   ];
 
   meta = with lib; {
