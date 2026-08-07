@@ -30,13 +30,13 @@ let
       # Overriding to match 7.2.1 requirement from pyproject
       edge-tts-7 = self.buildPythonPackage rec {
         pname = "edge-tts";
-        version = "7.2.7";
+        version = "7.2.8";
         pyproject = true;
         src = fetchFromGitHub {
           owner = "rany2";
           repo = "edge-tts";
           rev = "${version}";
-          hash = "sha256-KlQJ9U5RgifpqVKw5BrPwBFJYZHKibMUlyb3aX+4qf8=";
+          hash = "sha256-Zjng/7ALTjmDS4ubSFWoBJQ8TNsc2Ijl9V3jSyKifMc=";
         };
         build-system = [ self.setuptools ];
         dependencies = [
@@ -204,6 +204,7 @@ python.pkgs.buildPythonApplication rec {
   pythonRelaxDeps = [
     "certifi"
     "pillow"
+    "edge-tts"
   ];
 
   dependencies = with python.pkgs; [
