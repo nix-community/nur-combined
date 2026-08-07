@@ -1,35 +1,92 @@
 {
   lib,
-  stdenvNoCC,
-  fetchurl,
-  _7zz,
+  stdenv,
+  python313Packages,
+  fetchFromGitHub,
+  rustPlatform,
 }:
 
-stdenvNoCC.mkDerivation rec {
+let
   pname = "exo";
   version = "1.0.71";
 
-  src = fetchurl {
-    url = "https://github.com/exo-explore/exo/releases/download/v${version}/EXO-${version}.dmg";
-    hash = "sha256-vIGiPsZHqZXF+CN4V+dJvD3nuo7EDyqrOYhsGgS+qsc=";
+  src = fetchFromGitHub {
+    owner = "exo-explore";
+    repo = "exo";
+    rev = "v${version}";
+    hash = "sha256-k3jtrJCxLx8nq1R70CtZWFyNVXEa5Ltw0MgdA0qFVXA=";
   };
 
-  nativeBuildInputs = [ _7zz ];
+  exo_pyo3_bindings = python313Packages.buildPythonPackage {
+    pname = "exo-pyo3-bindings";
+    version = "0.2.1";
+    inherit src;
+    
+    cargoDeps = rustPlatform.fetchCargoVendor {
+      inherit src;
+      hash = "sha256-gwOdA2sHz8n4GfNjK+OYmttXUTle4WYmAE2Y0KXYrwg=";
+    };
 
-  unpackPhase = ''
-    7zz x $src
+    pyproject = true;
+    build-system = [ rustPlatform.maturinBuildHook ];
+
+    nativeBuildInputs = [
+      rustPlatform.cargoSetupHook
+    ];
+
+    maturinBuildFlags = [ "-m" "rust/exo_pyo3_bindings/Cargo.toml" ];
+  };
+
+in
+python313Packages.buildPythonApplication {
+  inherit pname version src;
+
+  pyproject = true;
+
+  build-system = [
+    python313Packages.hatchling
+  ];
+
+  dependencies = with python313Packages; [
+    aiofiles
+    aiohttp
+    pydantic
+    fastapi
+    filelock
+    rustworkx
+    huggingface-hub
+    psutil
+    loguru
+    exo_pyo3_bindings
+    anyio
+    mlx
+    mlx-lm
+    tiktoken
+    hypercorn
+    openai-harmony
+    httpx
+    tomlkit
+    mflux
+    python-multipart
+    msgspec
+    zstandard
+    mlx-vlm
+    transformers
+  ];
+
+  prePatch = ''
+    substituteInPlace pyproject.toml \
+      --replace-fail 'requires = ["uv_build>=0.8.9,<0.9.0"]' 'requires = ["hatchling"]' \
+      --replace-fail 'build-backend = "uv_build"' 'build-backend = "hatchling.build"' \
+      --replace-fail '"types-aiofiles>=24.1.0.20250708",' "" \
+      --replace-fail '"anyio==4.11.0",' '"anyio",' \
+      --replace-fail '"mflux==0.17.2; sys_platform == '"'darwin'"'",' '"mflux; sys_platform == '"'darwin'"'",' \
+      --replace-fail '"mlx==0.31.2; sys_platform == '"'darwin'"'",' '"mlx; sys_platform == '"'darwin'"'",' \
+      --replace-fail '"transformers>=5.0.0,<5.4.0",' '"transformers>=5.0.0",'
   '';
 
-  sourceRoot = ".";
-
-  installPhase = ''
-    runHook preInstall
-
-    mkdir -p $out/Applications
-    cp -r "Exo.app" $out/Applications/ 2>/dev/null || cp -r *.app $out/Applications/
-
-    runHook postInstall
-  '';
+  # Disable tests since they might require network or GPU
+  doCheck = false;
 
   meta = with lib; {
     description = "Run your own AI cluster at home with everyday devices";
