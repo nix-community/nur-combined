@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "gh-audit";
-    rev = "92fe271649b1b711f225f7dc0d3689ab15a8242d";
-    hash = "sha256-Sl3ff2RgG6AYvS94KeDRKSEUjsUTdqMkcVFhJyBYmmw=";
+    rev = "23fbef9537bc70cd854250b5520c2b5447903c28";
+    hash = "sha256-xuhMp6bfW3RoyqloNhfcq2KniB1QZevCkJm7t7GC8jg=";
   };
 
   build-system = with python3Packages; [

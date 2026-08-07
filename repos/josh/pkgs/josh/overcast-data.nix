@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "overcast-data";
-    rev = "2b62995f47a19f69c4d19439c4159bd302342ee3";
-    hash = "sha256-ekOs56trNo9uWNNf70/qYX5PI8HuVhcpszlU2pPz1Tg=";
+    rev = "c0393fb827d4b5261b704a9fad03314c6f0e99f9";
+    hash = "sha256-S3i/9/iXH0AQVlGVeL2vaE906OvBylChkXy7ylSzLw0=";
   };
 
   build-system = with python3Packages; [
