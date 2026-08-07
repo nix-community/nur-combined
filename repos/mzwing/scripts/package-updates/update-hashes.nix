@@ -4,8 +4,7 @@
   # the builder injected by internal/discover.nix: nixpkgs ships v1.7.0,
   # whose CLI lacks `generate --with-deps` (build cache priming, added on
   # master together with the go-cache-env builder support).
-  gomod2nixSource = (pkgs.callPackage ../../_sources/generated.nix {}).gomod2nix.src;
-  gomod2nix = (pkgs.extend (import (gomod2nixSource + "/overlay.nix"))).gomod2nix;
+  gomod2nix = (pkgs.extend (import ((import ../../internal/gomod2nix.nix) + "/overlay.nix"))).gomod2nix;
   script = pkgs.writeShellApplication {
     name = "update-package-hashes";
     runtimeInputs = [

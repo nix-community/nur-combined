@@ -1,17 +1,19 @@
 {
   lib,
-  buildGo126Module,
+  buildGoApplication,
   source,
   tree-sitter-nix,
 }:
-buildGo126Module {
+buildGoApplication {
   inherit (source) pname src;
   version = "0-unstable-${source.date}";
 
-  vendorHash = "sha256-dBeHvSWuiCoAMezWx0VXstrATvmTILv183o2jWnc058=";
+  modules = ./gomod2nix.toml;
 
-  # CGO is needed for tree-sitter-nix
-  env.CGO_ENABLED = "1";
+  # CGO is needed for tree-sitter-nix. Top-level (not env.*) so gomod2nix's
+  # go-cache-env derivation builds its dependency cache with the same CGO
+  # setting as the main build.
+  CGO_ENABLED = "1";
 
   subPackages = ["cmd/tsgo"];
 

@@ -59,15 +59,15 @@
   defaultSources = pkgs: pkgs.callPackage ../_sources/generated.nix {};
 
   # Repo-wide injected arguments (rule 5 above). `buildGoApplication` is
-  # gomod2nix's builder; the gomod2nix source is pinned by nvfetcher so
-  # this works for flake and non-flake consumers alike. The overlay is
-  # needed (not a bare callPackage of builder/) because the builder takes
-  # the gomod2nix CLI itself as an argument, which nixpkgs no longer
-  # provides. Lazy: the overlay is only evaluated when a package actually
-  # declares the argument.
+  # gomod2nix's builder; the gomod2nix source is pinned by nvfetcher and
+  # fetched at evaluation time (see gomod2nix.nix for why this is not the
+  # nvfetcher FOD), so this works for flake and non-flake consumers alike.
+  # The overlay is needed (not a bare callPackage of builder/) because the
+  # builder takes the gomod2nix CLI itself as an argument, which nixpkgs
+  # no longer provides. Lazy: the overlay is only evaluated when a package
+  # actually declares the argument.
   defaultInject = pkgs: let
-    gomod2nixSrc = (defaultSources pkgs).gomod2nix.src;
-    overlaid = pkgs.extend (import (gomod2nixSrc + "/overlay.nix"));
+    overlaid = pkgs.extend (import ((import ./gomod2nix.nix) + "/overlay.nix"));
   in {
     buildGoApplication = overlaid.buildGoApplication;
   };

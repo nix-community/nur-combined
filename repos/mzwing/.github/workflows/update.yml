@@ -50,6 +50,15 @@ jobs:
         restore-prefixes-first-match: nix-update-
         gc-max-store-size-linux: 4G
 
+    # Builds or substitutions interrupted in earlier runs (e.g. job
+    # timeouts) leave root-owned <path>.lock files in /nix/store. They ride
+    # along in the restored store cache, and the unprivileged tar of the
+    # post-run store save cannot read them ("Cannot open: Permission
+    # denied"). No nix process is running at this point, so any lock file
+    # present is stale by definition.
+    - name: Remove stale Nix store lock files
+      run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
+
     - name: Restore nvfetcher database
       uses: actions/cache@v6
       with:

@@ -1,0 +1,111 @@
+schema = 3
+cachePackages = [
+  'github.com/dlclark/regexp2',
+  'github.com/dlclark/regexp2/syntax',
+  'github.com/go-json-experiment/json',
+  'github.com/go-json-experiment/json/jsontext',
+  'github.com/google/go-cmp/cmp',
+  'github.com/google/go-cmp/cmp/cmpopts',
+  'github.com/matryer/moq',
+  'github.com/matryer/moq/pkg/moq',
+  'github.com/peter-evans/patience',
+  'github.com/smacker/go-tree-sitter',
+  'github.com/zeebo/xxh3',
+  'golang.org/x/mod/modfile',
+  'golang.org/x/mod/module',
+  'golang.org/x/mod/semver',
+  'golang.org/x/sync/errgroup',
+  'golang.org/x/sync/semaphore',
+  'golang.org/x/sys/unix',
+  'golang.org/x/term',
+  'golang.org/x/text/collate',
+  'golang.org/x/text/language',
+  'golang.org/x/text/transform',
+  'golang.org/x/text/unicode/norm',
+  'golang.org/x/tools/cmd/stringer',
+  'golang.org/x/tools/go/ast/astutil',
+  'golang.org/x/tools/go/ast/edge',
+  'golang.org/x/tools/go/ast/inspector',
+  'golang.org/x/tools/go/gcexportdata',
+  'golang.org/x/tools/go/packages',
+  'golang.org/x/tools/go/types/objectpath',
+  'golang.org/x/tools/go/types/typeutil',
+  'golang.org/x/tools/imports',
+  'gotest.tools/v3/assert',
+  'gotest.tools/v3/assert/cmp',
+  'mvdan.cc/gofumpt',
+  'mvdan.cc/gofumpt/format'
+]
+
+[mod]
+  [mod.'github.com/Microsoft/go-winio']
+    version = 'v0.6.2'
+    hash = 'sha256-tVNWDUMILZbJvarcl/E7tpSnkn7urqgSHa2Eaka5vSU='
+
+  [mod.'github.com/dlclark/regexp2']
+    version = 'v1.11.5'
+    hash = 'sha256-jN5+2ED+YbIoPIuyJ4Ou5pqJb2w1uNKzp5yTjKY6rEQ='
+
+  [mod.'github.com/go-json-experiment/json']
+    version = 'v0.0.0-20260214004413-d219187c3433'
+    hash = 'sha256-vOLLSyGxF/r77Y/NYFG8+C2118yTHiBnUsgP4pqxyKk='
+
+  [mod.'github.com/google/go-cmp']
+    version = 'v0.7.0'
+    hash = 'sha256-JbxZFBFGCh/Rj5XZ1vG94V2x7c18L8XKB0N9ZD5F2rM='
+
+  [mod.'github.com/klauspost/cpuid/v2']
+    version = 'v2.2.10'
+    hash = 'sha256-o21Tk5sD7WhhLUoqSkymnjLbzxl0mDJCTC1ApfZJrC0='
+
+  [mod.'github.com/matryer/moq']
+    version = 'v0.6.0'
+    hash = 'sha256-6RCs0jUUJfhVN6tXmyHrFj8Ywatjrsme3dMpKhE09PY='
+
+  [mod.'github.com/nix-community/tree-sitter-nix']
+    version = 'v0.3.0'
+    hash = 'sha256-VNOPzeyhh/0jHzK0bwEX1kwSIUGoSlCXGhgjHbYvWKk='
+
+  [mod.'github.com/peter-evans/patience']
+    version = 'v0.3.0'
+    hash = 'sha256-4C0xHV52+y5hTxHUheZcS5b0eNIcXeWrupMSyPu5Rqg='
+
+  [mod.'github.com/smacker/go-tree-sitter']
+    version = 'v0.0.0-20240827094217-dd81d9e9be82'
+    hash = 'sha256-bfRu7214d0u9uCXPfnygvMAAb31+cSxzUFZ3gyxNx/8='
+
+  [mod.'github.com/zeebo/xxh3']
+    version = 'v1.1.0'
+    hash = 'sha256-UuyNDofnjry9qKddcVhkTZFYUXgCYoLuKmCoOcyd504='
+
+  [mod.'golang.org/x/mod']
+    version = 'v0.33.0'
+    hash = 'sha256-NR+ZSeQKbfVP4Cu/SlNIivMa+c1OMyOSMxLSjX+LZJI='
+
+  [mod.'golang.org/x/sync']
+    version = 'v0.19.0'
+    hash = 'sha256-RbRZ+sKZUurOczGhhzOoY/sojTlta3H9XjL4PXX/cno='
+
+  [mod.'golang.org/x/sys']
+    version = 'v0.41.0'
+    hash = 'sha256-owjs3/IzAKfFlIz1U1fiHSfl2+bTUhaXTyWEjL5SWHk='
+
+  [mod.'golang.org/x/term']
+    version = 'v0.40.0'
+    hash = 'sha256-tu8USqDmcWfwery/+xti/BdUpNLbMNmZeghBNDsj1fQ='
+
+  [mod.'golang.org/x/text']
+    version = 'v0.34.0'
+    hash = 'sha256-wGKd1JkeiFROibvo2kkAuQ7JajSIfV4utGaoGbTQhQM='
+
+  [mod.'golang.org/x/tools']
+    version = 'v0.42.0'
+    hash = 'sha256-JTwzoJeqCW5aphjQR0SItRGov7dKVbFk3a4V2U2+vd4='
+
+  [mod.'gotest.tools/v3']
+    version = 'v3.5.2'
+    hash = 'sha256-eAxnRrF2bQugeFYzGLOr+4sLyCPOpaTWpoZsIKNP1WE='
+
+  [mod.'mvdan.cc/gofumpt']
+    version = 'v0.9.2'
+    hash = 'sha256-xy9JvU0Zvt8iAFc6nETC2STNrHJ+uUsqYlREkN93pxg='

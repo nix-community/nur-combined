@@ -57,6 +57,13 @@ jobs:
         restore-prefixes-first-match: nix-config-
         gc-max-store-size-linux: 2G
 
+    # Interrupted builds or substitutions from earlier runs leave
+    # root-owned <path>.lock files in /nix/store (see the same step in
+    # update.yml); they break the unprivileged tar of the post-run store
+    # save. Any lock file present at this point is stale by definition.
+    - name: Remove stale Nix store lock files
+      run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
+
     - name: Configure Cachix for pulls
       uses: cachix/cachix-action@v17
       with:
@@ -257,6 +264,12 @@ jobs:
       with:
         primary-key: nix-builder-store-${{ github.run_id }}-${{ github.run_attempt }}
         restore-prefixes-first-match: nix-builder-store-
+
+    # Same as the step of the config job: keep stale root-owned lock files
+    # out of the tarball written by the "Save builder store cache" step.
+    - name: Remove stale Nix store lock files
+      if: steps.preflight.outputs.enabled == 'true'
+      run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
 
     - name: Write cache signing key
       if: steps.preflight.outputs.enabled == 'true'
