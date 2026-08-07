@@ -267,6 +267,9 @@
         "bandithedoge": {
             "url": "https://github.com/bandithedoge/nur-packages"
         },
+        "bartoostveen": {
+            "url": "https://github.com/bartoostveen/nix-packages"
+        },
         "bb010g": {
             "url": "https://github.com/bb010g/nur-packages"
         },
