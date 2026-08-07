@@ -168,12 +168,38 @@ jobs:
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:nur-ci-builder
         hostname: ${{ env.BUILDER_PREFIX }}-${{ matrix.id }}
-        args: --ssh --accept-dns=false
+        args: --ssh
         version: latest
 
+    # With DNS accepted, the tailscale action replaces the macOS runner's
+    # system DNS with quad100 and the runner loses public internet
+    # access. Reset it back to DHCP. This also drops MagicDNS, hence the
+    # /etc/hosts pin below.
     - name: Restore macOS runner DNS
       if: endsWith(matrix.system, '-darwin')
       run: sudo networksetup -setdnsservers Ethernet empty
+
+    # macOS only: with MagicDNS gone (see above), ssh-ng://root@${CACHE_HOST}
+    # would not resolve. Linux builders resolve it via split DNS. Discover
+    # the cache node's tailnet IP from the local tailscaled and pin it in
+    # /etc/hosts for the substituter and the post-build hook.
+    - name: Resolve builder store cache address
+      if: endsWith(matrix.system, '-darwin')
+      shell: bash
+      run: |
+        set -euo pipefail
+        cache_ip=""
+        for _ in {1..36}; do
+          cache_ip="$(sudo tailscale status --json | jq -r --arg host "${CACHE_HOST}" \
+            '[.Peer[]? | select(.HostName == $host) | .TailscaleIPs[0]] | first // empty')"
+          [[ -n "${cache_ip}" ]] && break
+          sleep 5
+        done
+        if [[ -z "${cache_ip}" ]]; then
+          echo '::error::The builder store cache node did not appear on the tailnet within 3 minutes.'
+          exit 1
+        fi
+        printf '%s %s\n' "${cache_ip}" "${CACHE_HOST}" | sudo tee -a /etc/hosts
 
     - name: Wait for distributed builds
       shell: bash
@@ -283,7 +309,7 @@ jobs:
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:nur-ci-cache
         hostname: ${{ env.CACHE_HOST }}
-        args: --ssh --accept-dns=false
+        args: --ssh
         version: latest
 
     # Paths pushed by builders arrive unsigned, so sign them periodically
