@@ -16,6 +16,7 @@ let
           type = types.str;
           description = "Path to the guest rootfs directory on the host.";
           example = "/vms/my-vm/root";
+          default = "/vms/${name}/root";
         };
         mac = mkOption {
           type = types.str;
@@ -97,6 +98,7 @@ let
             description = "virtiofsd rootfs for ${vmName}";
             before = [ qemuUnit ];
             requiredBy = [ qemuUnit ];
+            unitConfig.AssertPathExists = vmCfg.rootDir;
             serviceConfig = {
               ExecStart = "${pkgs.virtiofsd}/bin/virtiofsd --socket-path ${virtiofsdSocket} --shared-dir ${vmCfg.rootDir} --cache always";
               # virtiofsd has no sd_notify support, so Type=notify would hang
@@ -188,6 +190,10 @@ let
                 -nographic \
                 -no-reboot
             '';
+
+            unitConfig.AssertPathExists = [
+              "${vmCfg.rootDir}/nix/var/nix/profiles/system"
+            ];
 
             serviceConfig = {
               Type = "simple";

@@ -11,7 +11,6 @@
   };
 
   vacu.qemuVMs.vavm = {
-    rootDir = "/vms/vavm/root";
     mac = "52:54:00:78:50:02";
     address = "10.78.77.2";
     baseMem = 4096;
@@ -20,8 +19,16 @@
     cpus = 4;
   };
 
+  vacu.qemuVMs.savm = {
+    mac = "11:cc:58:c8:85:36";
+    address = "10.78.77.4";
+    baseMem = 4096;
+    maxMem = 16384;
+    dimmSlots = 4;
+    cpus = 4;
+  };
+
   vacu.qemuVMs.quasar2 = {
-    rootDir = "/vms/quasar2/root";
     mac = "fc:49:81:42:20:38";
     address = "10.78.77.3";
     baseMem = 1024;
