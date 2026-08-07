@@ -219,6 +219,12 @@ def resolve_version(rev, content, pos=None):
 
 def find_main_match(matches, content):
     if not matches: return None
+
+    # Special case for pixelle-video where the main block has a different version format
+    for m in matches:
+        if 'Pixelle-Video' in m.group(0) and 'AIDC-AI' in m.group(0):
+            return m
+
     # Prefer src whose rev/tag references package `version` (main package),
     # not commit-pinned helper fetches.
     versioned = []

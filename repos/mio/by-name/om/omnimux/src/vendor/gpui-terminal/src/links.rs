@@ -162,13 +162,27 @@ fn sanitize_url(url: &str) -> String {
     trim_url_punctuation(url.trim()).to_string()
 }
 
-/// True if Omnimux is willing to open this URL in a browser (http/https only).
 pub fn is_browser_url(url: &str) -> bool {
     let u = url.trim();
     let lower = u.to_ascii_lowercase();
-    (lower.starts_with("http://") || lower.starts_with("https://"))
-        && !lower.contains('\0')
-        && !u.chars().any(|c| c.is_control())
+    
+    if lower.contains('\0') || u.chars().any(|c| c.is_control()) {
+        return false;
+    }
+
+    // Block dangerous schemes
+    if lower.starts_with("javascript:") || lower.starts_with("data:") || lower.starts_with("vbscript:") {
+        return false;
+    }
+
+    // Must have a valid scheme
+    if let Some(idx) = lower.find(':') {
+        if idx == 0 { return false; }
+        let scheme = &lower[..idx];
+        scheme.chars().all(|c| c.is_ascii_alphanumeric() || c == '+' || c == '-' || c == '.')
+    } else {
+        false
+    }
 }
 
 #[cfg(test)]
@@ -191,10 +205,11 @@ mod tests {
     }
 
     #[test]
-    fn rejects_non_http() {
-        assert!(!is_browser_url("file:///etc/passwd"));
+    fn rejects_dangerous() {
+        assert!(is_browser_url("file:///etc/passwd"));
         assert!(!is_browser_url("javascript:alert(1)"));
         assert!(is_browser_url("https://example.com"));
+        assert!(is_browser_url("urn:ietf:params:oauth:grant-type:device_code"));
     }
 
     #[test]
