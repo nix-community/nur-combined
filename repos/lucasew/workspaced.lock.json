@@ -260,6 +260,13 @@
     },
     {
       "kind": "tool",
+      "ref": "github:prefix-dev/pixi",
+      "depName": "prefix-dev/pixi",
+      "currentValue": "v0.76.1",
+      "datasource": "github-releases"
+    },
+    {
+      "kind": "tool",
       "ref": "github:rclone/rclone",
       "depName": "rclone/rclone",
       "currentValue": "v1.74.3",

@@ -255,6 +255,11 @@ workspaced: {
 			global: true
 			bins: ["anydoc"]
 		}
+		pixi: {
+			ref: "github:prefix-dev/pixi"
+			global: true
+			bins: ["pixi"]
+		}
 	}
 
 	modules: {
