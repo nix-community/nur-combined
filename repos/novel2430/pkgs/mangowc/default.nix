@@ -17,7 +17,7 @@
   enableXWayland ? true,
   meson,
   ninja,
-  scenefx,
+  scenefx_0_4,
   wlroots_0_19,
   libGL,
   cmake,
@@ -25,27 +25,6 @@
   libgbm,
 }: let
   pname = "mango";
-  scenefx-0-4-1 = scenefx.overrideAttrs (old: {
-    version = "0.4.1";
-    src = fetchFromGitHub {
-      owner = "wlrfx";
-      repo = "scenefx";
-      tag = "0.4.1";
-      hash = "sha256-XD5EcquaHBg5spsN06fPHAjVCb1vOMM7oxmjZZ/PxIE=";
-    };
-    buildInputs = [
-      libdrm
-      libGL
-      libxkbcommon
-      libgbm
-      libxcb
-      xcbutilwm
-      pixman
-      wayland
-      wayland-protocols
-      wlroots_0_19
-    ];
-  });
 in
   stdenv.mkDerivation rec {
     inherit pname;
@@ -76,7 +55,7 @@ in
         wayland
         wayland-protocols
         wlroots_0_19
-        scenefx-0-4-1
+        scenefx_0_4
         libGL
       ]
       ++ lib.optionals enableXWayland [

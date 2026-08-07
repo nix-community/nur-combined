@@ -28,7 +28,9 @@
   };
   shotcut-bin = pkgs.callPackage ./pkgs/shotcut {};
   hmcl = pkgs.callPackage ./pkgs/hmcl {};
-  mangowc = pkgs.callPackage ./pkgs/mangowc {};
+  mangowc = pkgs.callPackage ./pkgs/mangowc {
+    scenefx_0_4 = pkgs.callPackage ./pkgs/scenefx_0_4 { inherit (pkgs) wlroots_0_19; };
+  };
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
 }

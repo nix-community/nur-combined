@@ -38,18 +38,18 @@
 , libXxf86vm
 }:
 let
-  pname = "zen-browser-bin";
-  version = "1.21.8b";
+  pname = "zen-browser";
+  version = "1.21.12b";
   _pname = "zen-browser";
 
   src = fetchurl {
     url = "https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux-x86_64.tar.xz";
-    hash = "sha256-BaNmV+TJ2+cA5UouOUH3r0ZWq74zBpCqdNjPeTrzlvQ=";
+    hash = "sha256-R+FJK+3KWuQUL1SiIFWeC+96eE+1MJCPYFnadm0WIi8=";
   };
 
   libs = [
     dbus-glib
-    gtk3 
+    gtk3
     nss
     systemd
     ffmpeg_7-headless
@@ -133,6 +133,7 @@ stdenv.mkDerivation{
     # wrapper
     makeWrapper $out/opt/zen/zen-bin $out/bin/${_pname} \
       --set MOZ_LEGACY_PROFILES 1 \
+      --set MOZ_ENABLE_WAYLAND 0 \
       --run "mkdir -p \$HOME/.config/zen-browser" \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath libs} \
       --add-flags "-profile \$HOME/.config/zen-browser";

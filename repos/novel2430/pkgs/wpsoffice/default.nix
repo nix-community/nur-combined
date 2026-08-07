@@ -29,8 +29,11 @@
 , libXdamage
 , libXtst
 , libXv
+, libxml2_13
 # For wpscloudsvr wrapper
 , libappindicator-gtk3
+, curl
+, cacert
 
 , useCn ? false
 }:
@@ -45,6 +48,11 @@ let
       url = "mirror://savannah/freetype/freetype-2.13.0.tar.xz";
       hash = "sha256-XuI6vQR2NsJLLUPGYl3K/GZmHRrKZN7J4NBd8pWSYkw=";
     };
+    patches = [
+      # Original Freetype patches from nixpkgs
+      ./enable-subpixel-rendering.patch
+      ./enable-table-validation.patch
+    ];
   });
   libtiff-wps = libtiff.overrideAttrs (old: {
     pname = "libtiff";
@@ -80,33 +88,40 @@ let
     url = "https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${lib.last (lib.splitString "." ver-un)}/wps-office_${ver-un}.XA_amd64.deb";
     hash = "sha256-/mMmIQ9p2U79vycokU0pMDa+ORuTphT1jNDh/x1JI7M=";
   };
-  getSourceUrl = { pkgver, arch }:
-    let
-      baseUrl = "https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/${lib.last (lib.splitString "." pkgver)}/wps-office_${pkgver}_${arch}.deb";
-      uri = builtins.replaceStrings ["https://wps-linux-personal.wpscdn.cn"] [""] baseUrl;
-      secrityKey = "7f8faaaa468174dc1c9cd62e5f218a5b";
-      timestamp10 = builtins.toString (builtins.currentTime);
-      md5hash = builtins.hashString "md5" "${secrityKey}${uri}${timestamp10}";
-    in
-      "${baseUrl}?t=${timestamp10}&k=${md5hash}";
+
   ver-cn = "12.1.0.17900";
-  wpsoffice-cn =  fetchurl {
-    url = getSourceUrl {pkgver=ver-cn; arch="amd64";};
-    hash = "sha256-RnJvu3J0N9z2Vt1w2rzBmLTUzizd06j53rBOSZyxwpg=";
-    name = "wps-office_${ver-cn}_amd64.deb";
-  };
+    wpsoffice-cn = stdenv.mkDerivation {
+      name = "wps-office_${ver-cn}_amd64.deb";
+      nativeBuildInputs = [ curl cacert ];
+
+      outputHashMode = "flat";
+      outputHashAlgo = "sha256";
+      outputHash = "sha256-RnJvu3J0N9z2Vt1w2rzBmLTUzizd06j53rBOSZyxwpg=";
+
+      SSL_CERT_FILE = "${cacert}/etc/ssl/certs/ca-bundle.crt";
+
+      buildCommand = ''
+        uri="/wps/download/ep/Linux2023/${lib.last (lib.splitString "." ver-cn)}/wps-office_${ver-cn}_amd64.deb"
+        secrityKey="7f8faaaa468174dc1c9cd62e5f218a5b"
+        timestamp10=$(date +%s)
+        md5hash=$(printf '%s' "''${secrityKey}''${uri}''${timestamp10}" | md5sum | cut -d' ' -f1)
+
+        curl -fL -o "$out" \
+          "https://wps-linux-personal.wpscdn.cn''${uri}?t=''${timestamp10}&k=''${md5hash}"
+      '';
+    };
 
 in
 stdenv.mkDerivation rec {
   pname = "wpsoffice";
-  version = 
+  version =
       if useCn then
         ver-cn
       else
         ver-un
       ;
 
-  src = 
+  src =
       if useCn then
         wpsoffice-cn
       else
@@ -138,6 +153,7 @@ stdenv.mkDerivation rec {
     libXv
     libusb1
     libappindicator-gtk3
+    libxml2_13
   ];
 
   dontWrapQtApps = true;
