@@ -302,12 +302,15 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
+        # sudo resets PATH to secure_path, which does not contain the Nix
+        # profile; resolve absolute paths before elevating.
+        nix_bin="$(command -v nix)"
         deadline=$(( $(date +%s) + 350 * 60 ))
         sign_due=0
         until [[ -e /tmp/cache_done ]]; do
           now="$(date +%s)"
           if (( now >= sign_due )); then
-            sudo nix store sign --all --key-file /etc/nix/cache-key.pem
+            sudo "$nix_bin" store sign --all --key-file /etc/nix/cache-key.pem
             sign_due=$(( now + 60 ))
           fi
           if (( now >= deadline )); then
@@ -316,7 +319,7 @@ jobs:
           fi
           sleep 15
         done
-        sudo nix store sign --all --key-file /etc/nix/cache-key.pem
+        sudo "$nix_bin" store sign --all --key-file /etc/nix/cache-key.pem
 
     # Keep only store paths related to the current lock: register the
     # build-time closure of every cached package (all systems) as GC
@@ -341,8 +344,9 @@ jobs:
         echo "Rooting $(wc -l < /tmp/nur-root-set.txt) of $(wc -l < /tmp/nur-keep-set.txt) closure paths."
         sudo xargs -a /tmp/nur-root-set.txt -r -n 100 ln -sfn -t /nix/var/nix/gcroots/nur-ci-cache --
         echo 'Paths that will be deleted:'
-        sudo nix-collect-garbage --dry-run
-        sudo nix-collect-garbage
+        # Same sudo/secure_path caveat as the signing step above.
+        sudo "$(command -v nix-collect-garbage)" --dry-run
+        sudo "$(command -v nix-collect-garbage)"
         echo "Store size after GC: $(du -sh /nix/store | cut -f1)"
 
     # Save even when the build failed: paths pushed by builders before

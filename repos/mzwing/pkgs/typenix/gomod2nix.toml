@@ -6,6 +6,7 @@ cachePackages = [
   'github.com/go-json-experiment/json/jsontext',
   'github.com/google/go-cmp/cmp',
   'github.com/google/go-cmp/cmp/cmpopts',
+  'github.com/klauspost/cpuid/v2',
   'github.com/matryer/moq',
   'github.com/matryer/moq/pkg/moq',
   'github.com/peter-evans/patience',
