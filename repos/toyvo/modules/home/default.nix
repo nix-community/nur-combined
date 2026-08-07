@@ -3,12 +3,13 @@
   #
   # my-module = ./my-module;
   default =
-    { lib, ... }:
+    { lib, inputs, ... }:
     {
       imports = [
         ./session.nix
         ./shells.nix
         ./sops.nix
+        ./catppuccin.nix
         ./programs/bat.nix
         ./programs/editors/helix.nix
         ./programs/editors/ideavim.nix
@@ -39,6 +40,7 @@
       options.nixcfg.gui.enable = lib.mkEnableOption "GUI Applications";
     };
   session = ./session.nix;
+  catppuccin = ./catppuccin.nix;
   shells = ./shells.nix;
   sops = ./sops.nix;
   bat = ./programs/bat.nix;

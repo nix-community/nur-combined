@@ -26,6 +26,20 @@
       url = "github:catppuccin/starship/5906cc369dd8207e063c0e6e2d27bd0c0b567cb8";
       flake = false;
     };
+    # Same IFD workaround as catppuccin-starship, for rio. Rev mirrors
+    # catppuccin/nix's pkgs/sources.json.
+    catppuccin-rio = {
+      url = "github:catppuccin/rio/4d37b8334a3e8f853fc6543dc2a60c295a66ddca";
+      flake = false;
+    };
+    # Same IFD workaround, for the palette (NixOS tty module reads
+    # palette.json at eval time). Rev mirrors catppuccin/nix's
+    # pkgs/sources.json.
+    catppuccin-palette = {
+      url = "github:catppuccin/palette/07d02aa110ef9eb7e7427afca5c73ba9cf7f8ebd";
+      flake = false;
+    };
+    deploy-rs.url = "github:serokell/deploy-rs";
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixos-unstable";
@@ -82,6 +96,7 @@
 
   outputs =
     flake_inputs@{
+      deploy-rs,
       devshell,
       flake-parts,
       nixpkgs-esp-dev,
@@ -126,6 +141,14 @@
           nixosConfigurations = configurations.nixosConfigurations;
           darwinConfigurations = configurations.darwinConfigurations;
           homeConfigurations = configurations.homeConfigurations;
+
+          deploy.nodes.nas = {
+            hostname = "nas";
+            profiles.system = {
+              user = "toyvo";
+              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nas;
+            };
+          };
         };
         systems = nixos-unstable.lib.systems.flakeExposed;
         imports = [
@@ -136,6 +159,7 @@
         perSystem =
           {
             config,
+            lib,
             pkgs,
             system,
             self',
@@ -169,9 +193,7 @@
             legacyPackages = import ./default.nix {
               inherit pkgs inputs;
             };
-            packages = nixos-unstable.lib.filterAttrs (
-              _: v: nixos-unstable.lib.isDerivation v
-            ) self'.legacyPackages;
+            packages = lib.filterAttrs (_: v: lib.isDerivation v) self'.legacyPackages;
             overlayAttrs.toyvo = self'.legacyPackages;
             devshells.default = {
               commands = [
@@ -186,6 +208,21 @@
                 pre-push.text = self'.legacyPackages.pre-push.text;
               };
             };
+
+            checks =
+              builtins.listToAttrs (
+                map
+                  (n: lib.nameValuePair (lib.removePrefix "/nix/store/" (lib.strings.unsafeDiscardStringContext n)) n)
+                  (
+                    builtins.filter (
+                      p: self.lib.isBuildable p && self.lib.isCacheable p && self.lib.forSystem system p
+                    ) (builtins.concatMap self.lib.outputsOf (self.lib.flattenPkgs self'.packages))
+                  )
+              )
+              // lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
+                lib.filterAttrs (n: v: self.lib.isCacheable v) self'.devShells
+              );
+
           };
       }
     );

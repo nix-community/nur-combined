@@ -113,10 +113,14 @@ stdenv.mkDerivation {
     '';
     homepage = "https://vintagestory.at/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    platforms = [
-      "x86_64-linux"
-    ]
-    ++ lib.optionals (versionAtLeast version "1.18.0") [ "aarch64-linux" ];
+    platforms = lib.platformsOf [
+      dotnet-runtime
+      {
+        meta.platform = (
+          [ "x86_64-linux" ] ++ lib.optionals (versionAtLeast version "1.18.0") [ "aarch64-linux" ]
+        );
+      }
+    ];
     maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "VintagestoryServer";
   };

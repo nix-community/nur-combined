@@ -12,20 +12,55 @@
   inputs ? { },
 }:
 let
-  lib = import ./lib {
+  inherit (pkgs) lib;
+  ourLib = import ./lib {
     inherit (pkgs) lib;
     inherit inputs;
   }; # functions
+  lib' = pkgs.lib.recursiveUpdate pkgs.lib ourLib; # functions
+  # nixpkgs lib extended with repo maintainers, so packages can use
+  # `with lib.maintainers; [ toyvo ];`
+  callPackage =
+    ep:
+    pkgs.newScope { lib = lib'; } ep {
+      lib = lib';
+      inherit inputs;
+    };
   nixosModules = import ./modules/nixos; # NixOS modules
   homeModules = import ./modules/home; # Home Manager modules
   darwinModules = import ./modules/darwin; # nix-darwin modules
   flakeModules = import ./modules/flake; # flake-parts modules
+
+  VintagestoryServers = callPackage ./pkgs/VintagestoryServers;
+  purpurServers = callPackage ./pkgs/purpurServers;
+  neoforgeServers = callPackage ./pkgs/neoforgeServers;
+  papermcServers = callPackage ./pkgs/papermcServers;
+  fabricServers = callPackage ./pkgs/fabricServers;
+  packages = {
+    jellyfin-plugin-ldap-authentication = callPackage ./pkgs/jellyfin-plugin-ldap-authentication;
+    mcsmanager = callPackage ./pkgs/mcsmanager;
+    network-inventory = callPackage ./pkgs/network-inventory;
+    pre-commit = callPackage ./pkgs/pre-commit;
+    technitium-exporter = callPackage ./pkgs/technitium-exporter;
+    toyvo-neovim = callPackage ./pkgs/toyvo-neovim;
+    libpcpnatpmp = callPackage ./pkgs/libpcpnatpmp;
+    pre-push = callPackage ./pkgs/pre-push;
+    setup-sops = callPackage ./pkgs/setup-sops;
+    toyvo-helix = callPackage ./pkgs/toyvo-helix;
+    # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  }
+  // VintagestoryServers
+  // purpurServers
+  // neoforgeServers
+  // papermcServers
+  // papermcServers
+  // fabricServers;
 in
 {
   # The `lib`, `overlays`, `nixosModules`, `homeModules`,
   # `darwinModules` and `flakeModules` names are special
+  lib = ourLib;
   inherit
-    lib
     nixosModules
     homeModules
     darwinModules
@@ -38,30 +73,7 @@ in
     flake = flakeModules;
   };
   overlays = import ./overlays; # nixpkgs overlays
-
-  example-package = pkgs.callPackage ./pkgs/example-package { };
-  jellyfin-plugin-ldap-authentication =
-    pkgs.callPackage ./pkgs/jellyfin-plugin-ldap-authentication
-      { };
-  mcsmanager = pkgs.callPackage ./pkgs/mcsmanager { };
-  network-inventory = pkgs.callPackage ./pkgs/network-inventory { };
-  pre-commit = pkgs.callPackage ./pkgs/pre-commit { };
-  purpurServers = pkgs.callPackage ./pkgs/purpurServers { };
-  technitium-exporter = pkgs.callPackage ./pkgs/technitium-exporter { };
-  toyvo-neovim = pkgs.callPackage ./pkgs/toyvo-neovim {
-    lib = pkgs.lib // lib;
-    inherit inputs;
-  };
-  fabricServers = pkgs.callPackage ./pkgs/fabricServers { };
-  libpcpnatpmp = pkgs.callPackage ./pkgs/libpcpnatpmp { };
-  neoforgeServers = pkgs.callPackage ./pkgs/neoforgeServers { };
-  papermcServers = pkgs.callPackage ./pkgs/papermcServers { };
-  pre-push = pkgs.callPackage ./pkgs/pre-push { };
-  setup-sops = pkgs.callPackage ./pkgs/setup-sops { };
-  toyvo-helix = pkgs.callPackage ./pkgs/toyvo-helix {
-    lib = pkgs.lib // lib;
-  };
-  VintagestoryServers = pkgs.callPackage ./pkgs/VintagestoryServers { };
-  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
-  # ...
 }
+// lib.filterAttrs (
+  _: v: lib.isDerivation v && ourLib.forSystem pkgs.stdenv.hostPlatform.system v
+) packages

@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
@@ -37,6 +38,10 @@ in
         flavor = flavor;
       };
       plymouth.enable = true;
+      # Avoid IFD: tty module imports palette.json from the whiskers-built
+      # package at eval time, which cannot be built when evaluating for a
+      # foreign platform. Use the raw port source instead.
+      sources.palette = "${inputs.catppuccin-palette}";
     };
 
     console.useXkbConfig = true;

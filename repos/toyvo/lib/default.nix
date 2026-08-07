@@ -18,6 +18,15 @@ let
           [ ];
     in
     builtins.concatMap f (builtins.attrValues s);
+  platformsOf =
+    ps:
+    (
+      lists:
+      builtins.foldl' (
+        list1: list2: builtins.filter (x: builtins.elem x list2) list1
+      ) (builtins.head lists) (builtins.tail lists)
+    )
+      (builtins.map (p: p.meta.platforms or lib.platforms.all) ps);
 in
 {
   # Add your library functions here
@@ -49,7 +58,7 @@ in
     !(p.meta.broken or false) && builtins.all (license: license.free or true) licenseList;
   isCacheable = p: !(p.preferLocalBuild or false);
 
-  inherit shouldRecurseForDerivations flattenPkgs;
+  inherit shouldRecurseForDerivations flattenPkgs platformsOf;
 
   outputsOf = p: map (o: p.${o}) p.outputs;
 
@@ -76,6 +85,8 @@ in
         nativeBuildInputs = [ pkgs.makeWrapper ];
         meta = package.meta // {
           description = "${package.meta.description or binaryName} with bundled configuration";
+          platforms = platformsOf ([ package ] ++ runtimeDeps);
+          maintainers = with lib.maintainers; [ toyvo ];
         };
       }
       ''

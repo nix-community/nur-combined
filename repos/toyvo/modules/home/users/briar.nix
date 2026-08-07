@@ -1,18 +1,19 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
   cfg = config.nixcfg;
 in
 {
+  imports = [ ../catppuccin.nix ];
+
   options.nixcfg.users.briar.enable = lib.mkEnableOption "Enable briar profile";
 
   config = lib.mkIf cfg.users.briar.enable {
     catppuccin = {
-      enable = true;
-      autoEnable = true;
       flavor = "latte";
       accent = "pink";
     };

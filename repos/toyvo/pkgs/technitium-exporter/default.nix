@@ -2,6 +2,7 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  pkgs,
   ...
 }:
 
@@ -24,5 +25,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/ToyVo/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "technitium-exporter";
+    platforms = lib.platformsOf (propagatedBuildInputs ++ [ pkgs.gts ]);
+    maintainers = with lib.maintainers; [ toyvo ];
   };
 }

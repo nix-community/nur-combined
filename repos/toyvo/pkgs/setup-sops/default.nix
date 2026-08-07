@@ -18,5 +18,7 @@ writeShellScriptBin "setup-sops" ''
     homepage = "https://github.com/ToyVoDev/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "setup-sops";
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ toyvo ];
   };
 }

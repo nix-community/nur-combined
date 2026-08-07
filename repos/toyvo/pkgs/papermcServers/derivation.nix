@@ -49,7 +49,10 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://papermc.io/";
     sourceProvenance = with lib.sourceTypes; [ binaryBytecode ];
     license = lib.licenses.gpl3Only;
-    platforms = lib.platforms.unix;
+    platforms = lib.platformsOf [
+      jre
+      { meta.platform = lib.platforms.unix; }
+    ];
     maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "minecraft-server";
   };

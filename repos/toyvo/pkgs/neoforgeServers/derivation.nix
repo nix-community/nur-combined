@@ -52,7 +52,10 @@ stdenv.mkDerivation {
     homepage = "https://neoforged.net/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.lgpl21;
-    platforms = platforms.unix;
+    platforms = lib.platformsOf [
+      jre
+      { meta.platform = platforms.unix; }
+    ];
     maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "minecraft-server";
   };

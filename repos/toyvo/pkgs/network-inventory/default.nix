@@ -1,6 +1,7 @@
 {
   lib,
   python3Packages,
+  pkgs,
   ...
 }:
 
@@ -22,5 +23,7 @@ python3Packages.buildPythonApplication rec {
     homepage = "https://github.com/ToyVo/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "network-inventory";
+    platforms = lib.platformsOf (propagatedBuildInputs ++ [ pkgs.gts ]);
+    maintainers = with lib.maintainers; [ toyvo ];
   };
 }

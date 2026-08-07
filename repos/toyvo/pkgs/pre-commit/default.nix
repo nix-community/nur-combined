@@ -24,5 +24,7 @@ writeShellScriptBin "pre-commit" ''
     homepage = "https://github.com/ToyVoDev/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "pre-commit";
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ toyvo ];
   };
 }

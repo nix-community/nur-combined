@@ -51,7 +51,17 @@ stdenv.mkDerivation {
     homepage = "https://fabricmc.net/";
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     license = licenses.asl20;
-    platforms = platforms.unix;
+    platforms =
+      (
+        lists:
+        builtins.foldl' (
+          list1: list2: builtins.filter (x: builtins.elem x list2) list1
+        ) (builtins.head lists) (builtins.tail lists)
+      )
+        [
+          jre.meta.platforms
+          platforms.unix
+        ];
     maintainers = with lib.maintainers; [ toyvo ];
     mainProgram = "minecraft-server";
   };

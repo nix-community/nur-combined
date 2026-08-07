@@ -19,5 +19,7 @@ writeShellScriptBin "pre-push" ''
     homepage = "https://github.com/ToyVoDev/nixcfg";
     license = lib.licenses.mit;
     mainProgram = "pre-push";
+    platforms = lib.platforms.unix;
+    maintainers = with lib.maintainers; [ toyvo ];
   };
 }

@@ -8,12 +8,12 @@ let
   cfg = config.nixcfg;
 in
 {
+  imports = [ ../catppuccin.nix ];
+
   options.nixcfg.users.chloe.enable = lib.mkEnableOption "Enable chloe profile";
 
   config = lib.mkIf cfg.users.chloe.enable {
     catppuccin = {
-      enable = true;
-      autoEnable = true;
       flavor = "latte";
       accent = "pink";
     };
