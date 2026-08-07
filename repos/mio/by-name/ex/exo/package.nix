@@ -4,6 +4,8 @@
   python313Packages,
   fetchFromGitHub,
   rustPlatform,
+  darwin,
+  apple-sdk_15 ? null,
 }:
 
 let
@@ -32,6 +34,10 @@ let
 
     nativeBuildInputs = [
       rustPlatform.cargoSetupHook
+    ];
+
+    buildInputs = lib.optionals (stdenv.hostPlatform.isDarwin && apple-sdk_15 != null) [
+      apple-sdk_15
     ];
 
     maturinBuildFlags = [ "-m" "rust/exo_pyo3_bindings/Cargo.toml" ];
@@ -83,10 +89,24 @@ python313Packages.buildPythonApplication {
       --replace-fail '"mflux==0.17.2; sys_platform == '"'darwin'"'",' '"mflux; sys_platform == '"'darwin'"'",' \
       --replace-fail '"mlx==0.31.2; sys_platform == '"'darwin'"'",' '"mlx; sys_platform == '"'darwin'"'",' \
       --replace-fail '"transformers>=5.0.0,<5.4.0",' '"transformers>=5.0.0",'
+
+    substituteInPlace src/exo/utils/channels.py \
+      --replace-fail 'MemoryObjectStreamState' '_MemoryObjectStreamState'
   '';
 
   # Disable tests since they might require network or GPU
   doCheck = false;
+
+  postInstall = ''
+    mkdir -p $out/share/exo/dashboard
+    touch $out/share/exo/dashboard/index.html
+    cp -r resources $out/share/exo/
+  '';
+
+  makeWrapperArgs = [
+    "--set" "EXO_RESOURCES_DIR" "$out/share/exo/resources"
+    "--set" "EXO_DASHBOARD_DIR" "$out/share/exo/dashboard"
+  ];
 
   meta = with lib; {
     description = "Run your own AI cluster at home with everyday devices";

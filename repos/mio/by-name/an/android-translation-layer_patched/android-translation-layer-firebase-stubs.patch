@@ -1,0 +1,57 @@
+diff -urN a/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java b/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java
+--- a/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/firebase/analytics/FirebaseAnalytics.java	2026-08-07 19:50:44.320147345 +1000
+@@ -0,0 +1,14 @@
++package com.google.firebase.analytics;
++import android.content.Context;
++import android.os.Bundle;
++public final class FirebaseAnalytics {
++    private static FirebaseAnalytics INSTANCE;
++    private FirebaseAnalytics() {}
++    public static FirebaseAnalytics getInstance(Context context) {
++        if (INSTANCE == null) INSTANCE = new FirebaseAnalytics();
++        return INSTANCE;
++    }
++    public void logEvent(String name, Bundle params) {}
++    public void setUserId(String id) {}
++    public void setUserProperty(String name, String value) {}
++}
+diff -urN a/src/api-impl/com/google/firebase/FirebaseApp.java b/src/api-impl/com/google/firebase/FirebaseApp.java
+--- a/src/api-impl/com/google/firebase/FirebaseApp.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/firebase/FirebaseApp.java	2026-08-07 19:50:44.318147361 +1000
+@@ -0,0 +1,13 @@
++package com.google.firebase;
++import android.content.Context;
++import java.util.Collections;
++import java.util.List;
++public class FirebaseApp {
++    private static final FirebaseApp INSTANCE = new FirebaseApp();
++    protected FirebaseApp() {}
++    public static FirebaseApp getInstance() { return INSTANCE; }
++    public static FirebaseApp initializeApp(Context context) { return INSTANCE; }
++    public static FirebaseApp initializeApp(Context context, FirebaseOptions options) { return INSTANCE; }
++    public static FirebaseApp initializeApp(Context context, FirebaseOptions options, String name) { return INSTANCE; }
++    public static List<FirebaseApp> getApps(Context context) { return Collections.singletonList(INSTANCE); }
++}
+diff -urN a/src/api-impl/com/google/firebase/FirebaseOptions.java b/src/api-impl/com/google/firebase/FirebaseOptions.java
+--- a/src/api-impl/com/google/firebase/FirebaseOptions.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/firebase/FirebaseOptions.java	2026-08-07 19:50:44.316147377 +1000
+@@ -0,0 +1,6 @@
++package com.google.firebase;
++import android.content.Context;
++public final class FirebaseOptions {
++    private FirebaseOptions() {}
++    public static FirebaseOptions fromResource(Context context) { return new FirebaseOptions(); }
++}
+diff -urN a/src/api-impl/com/google/firebase/messaging/FirebaseMessaging.java b/src/api-impl/com/google/firebase/messaging/FirebaseMessaging.java
+--- a/src/api-impl/com/google/firebase/messaging/FirebaseMessaging.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/firebase/messaging/FirebaseMessaging.java	2026-08-07 19:50:44.321147337 +1000
+@@ -0,0 +1,8 @@
++package com.google.firebase.messaging;
++import android.content.Context;
++public class FirebaseMessaging {
++    private static final FirebaseMessaging INSTANCE = new FirebaseMessaging();
++    public static FirebaseMessaging getInstance() { return INSTANCE; }
++    public boolean isAutoInitEnabled() { return false; }
++    public void setAutoInitEnabled(boolean enable) {}
++}
