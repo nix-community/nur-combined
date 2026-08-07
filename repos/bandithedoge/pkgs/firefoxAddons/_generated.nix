@@ -220,10 +220,10 @@
   };
   "auto-tab-discard" = buildMozillaXpiAddon {
     pname = "auto-tab-discard";
-    version = "0.6.7";
+    version = "0.6.9.1";
     addonId = "{c2c003ee-bd69-42a2-b0e9-6f34222cb046}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4045009/auto_tab_discard-0.6.7.xpi";
-    sha256 = "89e59b8603c444258c89a507d7126be52ad7a35e4f7b8cfbca039b746f70b5d5";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4939638/auto_tab_discard-0.6.9.1.xpi";
+    sha256 = "babc34119d8ace6ecc4e9affb6cf68c638d25a68f63bf028f720d6029364cccb";
     meta = with lib; {
       homepage = "https://webextension.org/listing/tab-discard.html";
       description = "Increase browser speed and reduce memory load and when you have numerous open tabs.";
@@ -234,7 +234,7 @@
         "contextMenus"
         "notifications"
         "alarms"
-        "*://*/*"
+        "scripting"
         "<all_urls>"
       ];
       platforms = platforms.all;
@@ -848,10 +848,10 @@
   };
   "nexusmods-advance" = buildMozillaXpiAddon {
     pname = "nexusmods-advance";
-    version = "0.26.85";
+    version = "0.26.86";
     addonId = "NexusModsAdvance@Caiota";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4896160/nexusmods_advance-0.26.85.xpi";
-    sha256 = "7d454c85fbc38f56de5a1d0212240fabbd08506da00f09ae67c8d37bf921788f";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4934055/nexusmods_advance-0.26.86.xpi";
+    sha256 = "b81e189af76a2b6c2869dd3fc938a63bb97cfc8c2ccc57fd82cafd276e4cf1fa";
     meta = with lib; {
       description = "Enhance your browsing experience on the NexusMods site and manage your mods directly through the browser!";
       license = licenses.mpl20;
@@ -1468,15 +1468,15 @@
   };
   "skip-redirect" = buildMozillaXpiAddon {
     pname = "skip-redirect";
-    version = "2.3.6";
+    version = "3.0.0";
     addonId = "skipredirect@sblask";
-    url = "https://addons.mozilla.org/firefox/downloads/file/3920533/skip_redirect-2.3.6.xpi";
-    sha256 = "dbe8950245c1f475c5c1c6daab89c79b83ba4680621c91e80f15be7b09b618ae";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4926851/skip_redirect-3.0.0.xpi";
+    sha256 = "0ac20d39dda5f6657fdb72883c7a225173bfa3e64569cd47375ddab88fbe6665";
     meta = with lib; {
       description = "Some web pages use intermediary pages before redirecting to a final page. This add-on tries to extract the final url from the intermediary url and goes there straight away if successful.";
       license = licenses.mit;
       mozPermissions = [
-        "<all_urls>"
+        "alarms"
         "clipboardWrite"
         "contextMenus"
         "notifications"
@@ -1586,10 +1586,10 @@
   };
   "stylus" = buildMozillaXpiAddon {
     pname = "stylus";
-    version = "2.4.8";
+    version = "2.4.9";
     addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4907275/styl_us-2.4.8.xpi";
-    sha256 = "455426890a38bd3ee511000112ece51675f8bbc21e988be2170c3ae6900cbedf";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4934380/styl_us-2.4.9.xpi";
+    sha256 = "7108b8d5b600d9d35caee46c50416b296721683d3497c572e029e84f7e42afb7";
     meta = with lib; {
       homepage = "https://add0n.com/stylus.html";
       description = "Redesign your favorite websites with Stylus, an actively developed and community driven userstyles manager. Easily install custom themes from popular online repositories, or create, edit, and manage your own personalized CSS stylesheets.";
@@ -1703,10 +1703,10 @@
   };
   "ublock-origin" = buildMozillaXpiAddon {
     pname = "ublock-origin";
-    version = "1.72.2";
+    version = "1.73.0";
     addonId = "uBlock0@raymondhill.net";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4888680/ublock_origin-1.72.2.xpi";
-    sha256 = "40c315b0da7871868155ecfae7a50a58dfa0920aebd865e008214986f1b7c578";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4940584/ublock_origin-1.73.0.xpi";
+    sha256 = "bccc51a773150af4af6e1fd62c7bfdeb7238b79ff2381b998fa9f2e38f64786a";
     meta = with lib; {
       homepage = "https://github.com/gorhill/uBlock#ublock-origin";
       description = "Finally, an efficient wide-spectrum content blocker. Easy on CPU and memory.";

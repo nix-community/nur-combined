@@ -8,16 +8,16 @@
 {
   fastcrw = {
     pname = "fastcrw";
-    version = "v0.28.0";
+    version = "v0.29.0";
     src = fetchFromGitHub {
       owner = "us";
       repo = "crw";
-      rev = "v0.28.0";
+      rev = "v0.29.0";
       fetchSubmodules = false;
-      sha256 = "sha256-yA+gwIh9c/KaMg9KDzLHN1W3IHyxFB0c+MwJ2trZceA=";
+      sha256 = "sha256-oYIyWr22OiiTQ3/Z18D9kzAhNM+gruuoKqRckBprXP4=";
     };
     cargoLock."Cargo.lock" = {
-      lockFile = ./. + "/sha256-yA+gwIh9c_KaMg9KDzLHN1W3IHyxFB0c+MwJ2trZceA=/Cargo.lock";
+      lockFile = ./. + "/sha256-oYIyWr22OiiTQ3_Z18D9kzAhNM+gruuoKqRckBprXP4=/Cargo.lock";
       outputHashes = {
         
       };

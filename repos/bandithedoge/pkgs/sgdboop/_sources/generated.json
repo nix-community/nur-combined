@@ -13,11 +13,11 @@
             "name": null,
             "owner": "SteamGridDB",
             "repo": "SGDBoop",
-            "rev": "v1.4.1",
-            "sha256": "sha256-KN/xRlBlh176Me+z6ZzDGC9ZElTUj8BM4mH4d0YCwhk=",
+            "rev": "v1.4.3",
+            "sha256": "sha256-l4l5CWupL/V/qlnFZIgqUBagc5qg0DDv/zz2yc0mtng=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.4.1"
+        "version": "v1.4.3"
     }
 }

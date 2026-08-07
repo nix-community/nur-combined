@@ -110,7 +110,7 @@
         "extract": null,
         "name": "lua-resty-mpd",
         "passthru": null,
-        "pinned": false,
+        "pinned": true,
         "src": {
             "sha256": "sha256-myGOgzqQOCWzL6bwqzRhfReRPdHrFKTb89H/bRmIZD8=",
             "type": "tarball",

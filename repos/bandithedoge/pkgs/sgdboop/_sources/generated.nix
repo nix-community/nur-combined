@@ -8,13 +8,13 @@
 {
   sgdboop = {
     pname = "sgdboop";
-    version = "v1.4.1";
+    version = "v1.4.3";
     src = fetchFromGitHub {
       owner = "SteamGridDB";
       repo = "SGDBoop";
-      rev = "v1.4.1";
+      rev = "v1.4.3";
       fetchSubmodules = false;
-      sha256 = "sha256-KN/xRlBlh176Me+z6ZzDGC9ZElTUj8BM4mH4d0YCwhk=";
+      sha256 = "sha256-l4l5CWupL/V/qlnFZIgqUBagc5qg0DDv/zz2yc0mtng=";
     };
   };
 }

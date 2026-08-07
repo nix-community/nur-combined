@@ -52,20 +52,20 @@
   };
   yabridge = {
     pname = "yabridge";
-    version = "48ea9749b682c48875366134a42073d6b3d0a8c4";
+    version = "b580a9f7fc46509767ca156d4f92872552b9e571";
     src = fetchFromGitHub {
       owner = "robbert-vdh";
       repo = "yabridge";
-      rev = "48ea9749b682c48875366134a42073d6b3d0a8c4";
+      rev = "b580a9f7fc46509767ca156d4f92872552b9e571";
       fetchSubmodules = false;
-      sha256 = "sha256-J3qyTNMyMqDpc2pijJn4E9Q1ZYUOQ5JIEeq4ueMmrII=";
+      sha256 = "sha256-TiKiyE3GZYCX1+vooHdD03fAhNQPAA1IzTfkG++I7TY=";
     };
     cargoLock."tools/yabridgectl/Cargo.lock" = {
-      lockFile = ./. + "/sha256-J3qyTNMyMqDpc2pijJn4E9Q1ZYUOQ5JIEeq4ueMmrII=/tools/yabridgectl/Cargo.lock";
+      lockFile = ./. + "/sha256-TiKiyE3GZYCX1+vooHdD03fAhNQPAA1IzTfkG++I7TY=/tools/yabridgectl/Cargo.lock";
       outputHashes = {
         "reflink-0.1.3" = "sha256-1o5d/mepjbDLuoZ2/49Bi6sFgVX4WdCuhGJkk8ulhcI=";
       };
     };
-    date = "2026-04-28";
+    date = "2026-08-02";
   };
 }
