@@ -1,5 +1,5 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 36ac49a..37e289f 100644
+index 94b0390..6888a49 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
@@ -27,7 +27,7 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index f250b49..1ce721c 100644
+index 30706f6..c0308d6 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
@@ -43,7 +43,7 @@ index f250b49..1ce721c 100644
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-@@ -1259,6 +1265,12 @@ packages:
+@@ -1282,6 +1288,12 @@ packages:
        vite:
          optional: true
  
@@ -56,7 +56,7 @@ index f250b49..1ce721c 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1266,6 +1278,10 @@ packages:
+@@ -1289,6 +1301,10 @@ packages:
      resolution: {integrity: sha512-xLVRHAI9Jw6L/NrlK6s1mXCvbFwzk5INEL4i3By4jW9yjIMchJ+JGSw4WgFpiLlcoBuR/qIMmSn6te/Jozuybg==}
      engines: {node: '>=20.0.0'}
  
@@ -67,7 +67,7 @@ index f250b49..1ce721c 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -4569,6 +4585,11 @@ packages:
+@@ -4608,6 +4624,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -79,7 +79,84 @@ index f250b49..1ce721c 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7715,6 +7736,16 @@ snapshots:
+@@ -6701,14 +6722,14 @@ snapshots:
+   '@babel/core@7.29.7(supports-color@10.2.2)':
+     dependencies:
+       '@babel/code-frame': 7.29.7
+-      '@babel/generator': 7.29.7
++      '@babel/generator': 7.29.8
+       '@babel/helper-compilation-targets': 7.29.7
+       '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
+       '@babel/helpers': 7.29.7
+-      '@babel/parser': 7.29.7
++      '@babel/parser': 7.29.8
+       '@babel/template': 7.29.7
+-      '@babel/traverse': 7.29.7(supports-color@10.2.2)
+-      '@babel/types': 7.29.7
++      '@babel/traverse': 7.29.8(supports-color@10.2.2)
++      '@babel/types': 7.29.8
+       '@jridgewell/remapping': 2.3.5
+       convert-source-map: 2.0.0
+       debug: 4.4.3(supports-color@10.2.2)
+@@ -6750,7 +6771,7 @@ snapshots:
+     dependencies:
+       '@babel/compat-data': 7.29.7
+       '@babel/helper-validator-option': 7.29.7
+-      browserslist: 4.28.6
++      browserslist: 4.28.7
+       lru-cache: 5.1.1
+       semver: 6.3.1
+ 
+@@ -6798,8 +6819,8 @@ snapshots:
+ 
+   '@babel/helper-module-imports@7.29.7(supports-color@10.2.2)':
+     dependencies:
+-      '@babel/traverse': 7.29.7(supports-color@10.2.2)
+-      '@babel/types': 7.29.7
++      '@babel/traverse': 7.29.8(supports-color@10.2.2)
++      '@babel/types': 7.29.8
+     transitivePeerDependencies:
+       - supports-color
+ 
+@@ -6808,7 +6829,7 @@ snapshots:
+       '@babel/core': 7.29.0(supports-color@10.2.2)
+       '@babel/helper-module-imports': 7.29.7(supports-color@10.2.2)
+       '@babel/helper-validator-identifier': 7.29.7
+-      '@babel/traverse': 7.29.7(supports-color@10.2.2)
++      '@babel/traverse': 7.29.8(supports-color@10.2.2)
+     transitivePeerDependencies:
+       - supports-color
+ 
+@@ -6817,7 +6838,7 @@ snapshots:
+       '@babel/core': 7.29.7(supports-color@10.2.2)
+       '@babel/helper-module-imports': 7.29.7(supports-color@10.2.2)
+       '@babel/helper-validator-identifier': 7.29.7
+-      '@babel/traverse': 7.29.7(supports-color@10.2.2)
++      '@babel/traverse': 7.29.8(supports-color@10.2.2)
+     transitivePeerDependencies:
+       - supports-color
+ 
+@@ -6873,7 +6894,7 @@ snapshots:
+   '@babel/helpers@7.29.7':
+     dependencies:
+       '@babel/template': 7.29.7
+-      '@babel/types': 7.29.7
++      '@babel/types': 7.29.8
+ 
+   '@babel/parser@7.29.0':
+     dependencies:
+@@ -7388,8 +7409,8 @@ snapshots:
+   '@babel/template@7.29.7':
+     dependencies:
+       '@babel/code-frame': 7.29.7
+-      '@babel/parser': 7.29.7
+-      '@babel/types': 7.29.7
++      '@babel/parser': 7.29.8
++      '@babel/types': 7.29.8
+ 
+   '@babel/traverse@7.29.0(supports-color@10.2.2)':
+     dependencies:
+@@ -7790,6 +7811,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -96,7 +173,7 @@ index f250b49..1ce721c 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7729,6 +7760,16 @@ snapshots:
+@@ -7804,6 +7835,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -113,7 +190,7 @@ index f250b49..1ce721c 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10756,6 +10797,8 @@ snapshots:
+@@ -10845,6 +10886,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
@@ -122,3 +199,12 @@ index f250b49..1ce721c 100644
    flatted@3.4.2: {}
  
    formatly@0.3.0:
+@@ -11977,7 +12020,7 @@ snapshots:
+ 
+   prettier-plugin-ember-template-tag@2.1.6(prettier@3.8.5)(supports-color@10.2.2):
+     dependencies:
+-      '@babel/traverse': 7.29.7(supports-color@10.2.2)
++      '@babel/traverse': 7.29.8(supports-color@10.2.2)
+       content-tag: 4.2.0
+       prettier: 3.8.5
+     transitivePeerDependencies:
