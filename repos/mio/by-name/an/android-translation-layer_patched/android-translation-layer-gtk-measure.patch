@@ -54,7 +54,16 @@ diff -ur atl_patch_clean.orig/util.h atl_patch_clean/util.h
 diff -ur atl_patch_clean.orig/views/AndroidLayout.c atl_patch_clean/views/AndroidLayout.c
 --- a/src/api-impl-jni/views/AndroidLayout.c	1970-01-01 10:00:01.000000000 +1000
 +++ b/src/api-impl-jni/views/AndroidLayout.c	2026-08-07 09:21:30.977322863 +1000
-@@ -138,7 +138,7 @@
+@@ -62,6 +62,8 @@
+ 	if (*natural < *minimum)
+ 		*natural = *minimum;
+ 
++	*minimum = 0; // Prevent GTK4 crashes when Android allocates smaller sizes
++
+ 	*minimum_baseline = -1;
+ 	*natural_baseline = -1;
+ }
+@@ -138,7 +140,7 @@
  	if (ATL_IS_ANDROID_LAYOUT(gtk_widget_get_layout_manager(widget))) {
  		AndroidLayout *layout = ATL_ANDROID_LAYOUT(gtk_widget_get_layout_manager(widget));
  		if (!layout->needs_allocation && (layout->real_width || layout->real_height))
@@ -87,7 +96,22 @@ diff -ur atl_patch_clean.orig/views/android_view_View.c atl_patch_clean/views/an
 diff -ur atl_patch_clean.orig/widgets/WrapperWidget.c atl_patch_clean/widgets/WrapperWidget.c
 --- a/src/api-impl-jni/widgets/WrapperWidget.c	1970-01-01 10:00:01.000000000 +1000
 +++ b/src/api-impl-jni/widgets/WrapperWidget.c	2026-08-07 09:21:30.980322861 +1000
-@@ -149,7 +149,7 @@
+@@ -125,9 +125,12 @@
+ {
+ 	WrapperWidget *wrapper = WRAPPER_WIDGET(widget);
+ 	gtk_widget_measure(wrapper->child, orientation, for_size, minimum, natural, minimum_baseline, natural_baseline);
++	
++	*minimum = 0; // Prevent GTK4 crashes when Android allocates smaller sizes
++	
+ 	if (orientation == GTK_ORIENTATION_HORIZONTAL && (wrapper->layout_width > 0)) {
+-		*minimum = *natural = wrapper->layout_width;
++		*natural = wrapper->layout_width;
+ 	} else if (orientation == GTK_ORIENTATION_VERTICAL && (wrapper->layout_height > 0)) {
+-		*minimum = *natural = wrapper->layout_height;
++		*natural = wrapper->layout_height;
+ 	}
+ }
+@@ -149,7 +152,7 @@
  	if (wrapper->computeScroll_method) {
  		// The child needs to know its size before calling computeScroll, so we allocate it twice.
  		// second allocate will not trigger onLayout, because of unchanged size
@@ -96,7 +120,7 @@ diff -ur atl_patch_clean.orig/widgets/WrapperWidget.c atl_patch_clean/widgets/Wr
  
  		JNIEnv *env;
  		(*wrapper->jvm)->GetEnv(wrapper->jvm, (void **)&env, JNI_VERSION_1_6);
-@@ -169,14 +169,14 @@
+@@ -169,14 +172,14 @@
  				atl_safe_gtk_widget_queue_allocate(wrapper->child);
  		}
  		if (layout->needs_allocation)
