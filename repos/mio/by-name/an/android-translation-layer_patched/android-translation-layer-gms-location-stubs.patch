@@ -1,0 +1,74 @@
+diff -urN a/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java b/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java
+--- a/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/android/gms/location/FusedLocationProviderClient.java	2026-08-07 19:57:16.412785549 +1000
+@@ -0,0 +1,16 @@
++package com.google.android.gms.location;
++import android.location.Location;
++import android.os.Looper;
++import com.google.android.gms.tasks.Task;
++import com.google.android.gms.tasks.Tasks;
++public class FusedLocationProviderClient {
++    public Task<Location> getLastLocation() {
++        return Tasks.forResult(null); // Just return null for now to avoid crashes
++    }
++    public Task<Void> requestLocationUpdates(LocationRequest request, LocationCallback callback, Looper looper) {
++        return Tasks.forResult(null);
++    }
++    public Task<Void> removeLocationUpdates(LocationCallback callback) {
++        return Tasks.forResult(null);
++    }
++}
+diff -urN a/src/api-impl/com/google/android/gms/location/LocationCallback.java b/src/api-impl/com/google/android/gms/location/LocationCallback.java
+--- a/src/api-impl/com/google/android/gms/location/LocationCallback.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/android/gms/location/LocationCallback.java	2026-08-07 19:57:16.410785566 +1000
+@@ -0,0 +1,5 @@
++package com.google.android.gms.location;
++public abstract class LocationCallback {
++    public void onLocationResult(LocationResult result) {}
++    public void onLocationAvailability(Object availability) {}
++}
+diff -urN a/src/api-impl/com/google/android/gms/location/LocationRequest.java b/src/api-impl/com/google/android/gms/location/LocationRequest.java
+--- a/src/api-impl/com/google/android/gms/location/LocationRequest.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/android/gms/location/LocationRequest.java	2026-08-07 19:57:16.407785592 +1000
+@@ -0,0 +1,13 @@
++package com.google.android.gms.location;
++public final class LocationRequest {
++    public static final int PRIORITY_HIGH_ACCURACY = 100;
++    public static final int PRIORITY_BALANCED_POWER_ACCURACY = 102;
++    public static final int PRIORITY_LOW_POWER = 104;
++    public static final int PRIORITY_NO_POWER = 105;
++    
++    public LocationRequest() {}
++    public static LocationRequest create() { return new LocationRequest(); }
++    public LocationRequest setPriority(int priority) { return this; }
++    public LocationRequest setInterval(long millis) { return this; }
++    public LocationRequest setFastestInterval(long millis) { return this; }
++}
+diff -urN a/src/api-impl/com/google/android/gms/location/LocationResult.java b/src/api-impl/com/google/android/gms/location/LocationResult.java
+--- a/src/api-impl/com/google/android/gms/location/LocationResult.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/android/gms/location/LocationResult.java	2026-08-07 19:57:16.409785575 +1000
+@@ -0,0 +1,9 @@
++package com.google.android.gms.location;
++import android.location.Location;
++import java.util.Collections;
++import java.util.List;
++public final class LocationResult {
++    public static LocationResult create(List<Location> locations) { return new LocationResult(); }
++    public Location getLastLocation() { return null; }
++    public List<Location> getLocations() { return Collections.emptyList(); }
++}
+diff -urN a/src/api-impl/com/google/android/gms/location/LocationServices.java b/src/api-impl/com/google/android/gms/location/LocationServices.java
+--- a/src/api-impl/com/google/android/gms/location/LocationServices.java	1970-01-01 10:00:00.000000000 +1000
++++ b/src/api-impl/com/google/android/gms/location/LocationServices.java	2026-08-07 19:57:16.413785540 +1000
+@@ -0,0 +1,11 @@
++package com.google.android.gms.location;
++import android.content.Context;
++import com.google.android.gms.common.api.GoogleApiClient;
++public class LocationServices {
++    public static final Object API = new Object();
++    public static FusedLocationProviderClient getFusedLocationProviderClient(Context context) {
++        return new FusedLocationProviderClient();
++    }
++    @Deprecated
++    public static Object FusedLocationApi = new Object();
++}

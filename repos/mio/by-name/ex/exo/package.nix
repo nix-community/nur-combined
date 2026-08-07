@@ -53,6 +53,21 @@ python313Packages.buildPythonApplication {
     python313Packages.hatchling
   ];
 
+  nativeBuildInputs = [
+    python313Packages.pythonRelaxDepsHook
+  ];
+
+  pythonRemoveDeps = [
+    "types-aiofiles"
+  ];
+
+  pythonRelaxDeps = [
+    "anyio"
+    "mflux"
+    "mlx"
+    "transformers"
+  ];
+
   dependencies = with python313Packages; [
     aiofiles
     aiohttp
@@ -83,12 +98,7 @@ python313Packages.buildPythonApplication {
   prePatch = ''
     substituteInPlace pyproject.toml \
       --replace-fail 'requires = ["uv_build>=0.8.9,<0.9.0"]' 'requires = ["hatchling"]' \
-      --replace-fail 'build-backend = "uv_build"' 'build-backend = "hatchling.build"' \
-      --replace-fail '"types-aiofiles>=24.1.0.20250708",' "" \
-      --replace-fail '"anyio==4.11.0",' '"anyio",' \
-      --replace-fail '"mflux==0.17.2; sys_platform == '"'darwin'"'",' '"mflux; sys_platform == '"'darwin'"'",' \
-      --replace-fail '"mlx==0.31.2; sys_platform == '"'darwin'"'",' '"mlx; sys_platform == '"'darwin'"'",' \
-      --replace-fail '"transformers>=5.0.0,<5.4.0",' '"transformers>=5.0.0",'
+      --replace-fail 'build-backend = "uv_build"' 'build-backend = "hatchling.build"'
 
     substituteInPlace src/exo/utils/channels.py \
       --replace-fail 'MemoryObjectStreamState' '_MemoryObjectStreamState'
@@ -111,8 +121,9 @@ python313Packages.buildPythonApplication {
   meta = with lib; {
     description = "Run your own AI cluster at home with everyday devices";
     homepage = "https://github.com/exo-explore/exo";
+    changelog = "https://github.com/exo-explore/exo/releases/tag/v${version}";
     license = licenses.asl20;
-    platforms = [ "x86_64-darwin" "aarch64-darwin" ];
+    platforms = lib.platforms.darwin;
     mainProgram = "exo";
   };
 }

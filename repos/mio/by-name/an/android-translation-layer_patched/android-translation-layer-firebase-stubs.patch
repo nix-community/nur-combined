@@ -54,4 +54,5 @@ diff -urN a/src/api-impl/com/google/firebase/messaging/FirebaseMessaging.java b/
 +    public static FirebaseMessaging getInstance() { return INSTANCE; }
 +    public boolean isAutoInitEnabled() { return false; }
 +    public void setAutoInitEnabled(boolean enable) {}
++    public Object getToken() { return com.google.android.gms.tasks.Tasks.forResult("dummy-token"); }
 +}
