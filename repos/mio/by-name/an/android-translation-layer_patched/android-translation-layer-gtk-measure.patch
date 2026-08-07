@@ -92,7 +92,7 @@ diff -ur atl_patch_clean.orig/widgets/WrapperWidget.c atl_patch_clean/widgets/Wr
 +			atl_safe_gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
  		else
 -			gtk_widget_size_allocate(wrapper->child, &(GtkAllocation){.x = allocation.x, .y = allocation.y}, baseline);
-+			atl_safe_gtk_widget_size_allocate(wrapper->child, &(GtkAllocation){.x = allocation.x, .y = allocation.y}, baseline);
++			atl_safe_gtk_widget_size_allocate(wrapper->child, &(GtkAllocation){.x = allocation.x, .y = allocation.y, .width = gtk_widget_get_width(wrapper->child), .height = gtk_widget_get_height(wrapper->child)}, baseline);
  	} else {
 -		gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
 +		atl_safe_gtk_widget_size_allocate(wrapper->child, &allocation, baseline);
