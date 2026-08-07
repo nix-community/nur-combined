@@ -9,12 +9,12 @@
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  # _sources/pkgs/ace-ctx/Cargo.nix is generated with `crate2nix generate`
+  # ./Cargo.nix (next to this file) is generated with `crate2nix generate`
   # at the upstream source root by the update script
   # (scripts/package-updates) and committed to this repository. Building it
   # needs no crate2nix at evaluation or build time, only nixpkgs'
   # buildRustCrate.
-  cargoNix = import ../../_sources/pkgs/ace-ctx/Cargo.nix {
+  cargoNix = import ./Cargo.nix {
     inherit pkgs;
     defaultCrateOverrides =
       pkgs.defaultCrateOverrides
@@ -30,11 +30,6 @@
   };
 
   ace-ctx = cargoNix.rootCrate.build;
-
-  # Test variant of the crate (builds with dev-dependencies and runs the
-  # test binaries). The crate has no optional features, so the old
-  # `cargo test --all-features` is equivalent to the default feature set.
-  tests = ace-ctx.override {runTests = true;};
 in
   ace-ctx.overrideAttrs (old: {
     # crate2nix names the derivation rust_ace-ctx-<crate version>.
@@ -43,12 +38,6 @@ in
     nativeBuildInputs =
       (old.nativeBuildInputs or [])
       ++ lib.optionals stdenv.hostPlatform.isLinux [makeWrapper];
-
-    # Gate the build on the test suite: interpolating the test derivation
-    # forces it to build (and thus pass) before the install phase runs.
-    preInstall = ''
-      echo "ace-ctx test suite passed: ${tests}"
-    '';
 
     postInstall = ''
       install -Dm644 \

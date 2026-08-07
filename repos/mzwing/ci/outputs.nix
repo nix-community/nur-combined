@@ -5,8 +5,7 @@
 #
 #   BUILD_SYSTEMS='["x86_64-linux"]' nix build --impure --file ci/outputs.nix
 #
-# --impure is required for BUILD_SYSTEMS itself, and because ci/default.nix
-# reads NUR_COMPILE_CACHE from the environment.
+# --impure is required for BUILD_SYSTEMS itself.
 let
   flake = builtins.getFlake "path:${toString ../.}";
   systems = builtins.fromJSON (builtins.getEnv "BUILD_SYSTEMS");

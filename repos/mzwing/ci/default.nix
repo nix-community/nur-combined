@@ -9,16 +9,12 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 #
-# When `compileCache` is enabled (or NUR_COMPILE_CACHE=1 is set in the
-# environment of an impure evaluation), source-built Go packages are
-# wrapped with a persistent GOCACHE directory mounted into the CI
-# builders' Nix sandbox. This is meant for CI only; local builds are
-# unaffected. (Rust packages are built with crate2nix, so their dependency
-# crates are separate derivations and cached individually.)
-{
-  pkgs ? import <nixpkgs> {},
-  compileCache ? (builtins.getEnv "NUR_COMPILE_CACHE") == "1",
-}:
+# Dependency build caches live in the Nix store: Rust packages are built
+# with crate2nix (each dependency crate is a separate derivation) and Go
+# packages with gomod2nix (pre-compiled dependencies in the go-cache-env
+# derivation), so CI persists them through the builder store cache like
+# any other intermediate derivation.
+{pkgs ? import <nixpkgs> {}}:
 with builtins; let
   reservedNames = [
     "lib"
@@ -82,44 +78,8 @@ with builtins; let
     outputPath = entry.output.outPath;
   };
 
-  compileCacheDir = "/opt/nur-ci-compile-cache";
-  goCachedNames = ["cliproxyapiplus" "sing-box-alpha" "sing-box-beta"];
-
-  applyCompileCache = entry: let
-    name = concatStringsSep "." entry.attrPath;
-  in
-    if !compileCache
-    then entry
-    else if elem name goCachedNames
-    then
-      entry
-      // {
-        package = entry.package.overrideAttrs (old: {
-          # This must go in postConfigure, not preBuild: buildGoModule's
-          # goModules FOD inherits preBuild (and would fail with world-
-          # writable output due to umask 000), while postConfigure is not
-          # inherited and still runs after configurePhase's default
-          # GOCACHE export, so our value wins.
-          postConfigure =
-            (old.postConfigure or "")
-            + ''
-              umask 000
-              export GOCACHE=${compileCacheDir}/gocache
-              mkdir -p "$GOCACHE"
-            '';
-          # See the Rust branch above.
-          postFixup =
-            (old.postFixup or "")
-            + ''
-              find "$out" -type f -exec chmod go-w {} +
-              find "$out" -type d -exec chmod go-w {} +
-            '';
-        });
-      }
-    else entry;
-
   nurAttrs = import ../default.nix {inherit pkgs;};
-  nurEntries = map applyCompileCache (flattenPkgs [] (removeAttrs nurAttrs reservedNames));
+  nurEntries = flattenPkgs [] (removeAttrs nurAttrs reservedNames);
 in rec {
   buildEntries = filter (entry: isBuildable entry.package) nurEntries;
   cacheEntries = filter (entry: isCacheable entry.package) buildEntries;

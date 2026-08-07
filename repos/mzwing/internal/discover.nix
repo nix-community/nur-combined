@@ -32,7 +32,10 @@
 #       4. an argument matching a key of `sources` receives that source
 #          (e.g. typenix's tree-sitter-nix);
 #       5. an argument matching a key of `inject` receives that value
-#          (uniform repo-wide injection);
+#          (uniform repo-wide injection; by default this provides
+#          `buildGoApplication`, the gomod2nix builder from the nvfetcher-
+#          pinned gomod2nix source — nixpkgs ships the gomod2nix CLI but
+#          not its builder);
 #       6. everything else is left for callPackage to resolve from nixpkgs
 #          (e.g. sing-box).
 #     `inject` maps argument names to values and applies to every package
@@ -55,6 +58,20 @@
   # thread the repository root through.
   defaultSources = pkgs: pkgs.callPackage ../_sources/generated.nix {};
 
+  # Repo-wide injected arguments (rule 5 above). `buildGoApplication` is
+  # gomod2nix's builder; the gomod2nix source is pinned by nvfetcher so
+  # this works for flake and non-flake consumers alike. The overlay is
+  # needed (not a bare callPackage of builder/) because the builder takes
+  # the gomod2nix CLI itself as an argument, which nixpkgs no longer
+  # provides. Lazy: the overlay is only evaluated when a package actually
+  # declares the argument.
+  defaultInject = pkgs: let
+    gomod2nixSrc = (defaultSources pkgs).gomod2nix.src;
+    overlaid = pkgs.extend (import (gomod2nixSrc + "/overlay.nix"));
+  in {
+    buildGoApplication = overlaid.buildGoApplication;
+  };
+
   # Names of first-level subdirectories of dir that contain a default.nix.
   packageDirs = dir: let
     entries = builtins.readDir dir;
@@ -70,7 +87,7 @@
     pkgs,
     dir,
     sources ? defaultSources pkgs,
-    inject ? {},
+    inject ? defaultInject pkgs,
     extraArgs ? {},
   }: let
     autoArgsFor = name: let

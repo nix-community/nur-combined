@@ -17,9 +17,9 @@ sing-box.overrideAttrs (_finalAttrs: previousAttrs: {
     // {
       changelog = "https://github.com/SagerNet/sing-box/releases/tag/${source.version}";
       maintainers = [
-      {
-        name = "mzwing";
-      }
-    ];
+        {
+          name = "mzwing";
+        }
+      ];
     };
 })

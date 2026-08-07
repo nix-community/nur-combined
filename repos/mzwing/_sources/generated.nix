@@ -50,6 +50,18 @@
       sha256 = "sha256-PPPOp4goz154esdUJYMu20Lby3QObsEt5z5k+9CSjwk=";
     };
   };
+  gomod2nix = {
+    pname = "gomod2nix";
+    version = "1201ddd1279c35497754f016ef33d5e060f3da8d";
+    src = fetchFromGitHub {
+      owner = "nix-community";
+      repo = "gomod2nix";
+      rev = "1201ddd1279c35497754f016ef33d5e060f3da8d";
+      fetchSubmodules = false;
+      sha256 = "sha256-yBz9Ozd5Wb56i3e3cHZ8WcbzCQ9RlVaiW18qDYA/AzA=";
+    };
+    date = "2026-02-08";
+  };
   gryph = {
     pname = "gryph";
     version = "v0.7.0";

@@ -1,17 +1,19 @@
 {
   lib,
-  buildGoModule,
+  buildGoApplication,
   source,
 }:
-buildGoModule rec {
+buildGoApplication rec {
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  vendorHash = "sha256-H0YVTdYOfNyOgWmqqUetcFpy2afIjc6UHpbdyKGFRGc=";
+  modules = ./gomod2nix.toml;
 
   subPackages = ["cmd/gryph"];
 
-  env.CGO_ENABLED = "0";
+  # Top-level (not env.*) so gomod2nix's go-cache-env derivation builds
+  # its dependency cache with the same CGO setting as the main build.
+  CGO_ENABLED = "0";
 
   ldflags = [
     "-s"

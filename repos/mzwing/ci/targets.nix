@@ -3,9 +3,6 @@
 # .github/workflows/build.yml:
 #
 #   nix eval --json --impure --file ci/targets.nix
-#
-# --impure is required because ci/default.nix reads NUR_COMPILE_CACHE from
-# the environment (which changes output paths when enabled).
 let
   flake = builtins.getFlake "path:${toString ../.}";
   systems = import ../internal/systems.nix;

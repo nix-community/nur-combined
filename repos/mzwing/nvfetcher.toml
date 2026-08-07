@@ -18,6 +18,11 @@ fetch.github = "colbymchenry/codegraph"
 src.github_tag = "colbymchenry/codegraph"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[gomod2nix]
+src.git = "https://github.com/nix-community/gomod2nix"
+src.branch = "master"
+fetch.github = "nix-community/gomod2nix"
+
 [gryph]
 fetch.github = "safedep/gryph"
 src.github_tag = "safedep/gryph"

@@ -1,20 +1,22 @@
 {
   lib,
   stdenv,
-  buildGoModule,
+  buildGoApplication,
   source,
   makeWrapper,
   xdg-utils,
 }:
-buildGoModule rec {
+buildGoApplication rec {
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
 
-  vendorHash = "sha256-OwbE1gz2Kc/bbobk2sDeyWmdweGJvOrDJWVsszKxYrk=";
+  modules = ./gomod2nix.toml;
 
   subPackages = ["cmd/server"];
 
-  env.CGO_ENABLED = "1";
+  # Top-level (not env.*) so gomod2nix's go-cache-env derivation builds
+  # its dependency cache with the same CGO setting as the main build.
+  CGO_ENABLED = "1";
 
   ldflags = [
     "-s"

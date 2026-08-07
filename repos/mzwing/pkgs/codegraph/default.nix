@@ -11,13 +11,13 @@
   version = lib.removePrefix "v" source.version;
 
   # The native tree-sitter extraction kernel (a napi cdylib), built with
-  # crate2nix from _sources/pkgs/codegraph/Cargo.nix. The Cargo.nix is
+  # crate2nix from ./Cargo.nix next to this file. The Cargo.nix is
   # generated with `crate2nix generate -f codegraph-kernel/Cargo.toml` at
   # the upstream source root by the update script (scripts/package-updates)
   # and committed to this repository; building it needs no crate2nix, only
   # nixpkgs' buildRustCrate.
   kernel = let
-    cargoNix = import ../../_sources/pkgs/codegraph/Cargo.nix {
+    cargoNix = import ./Cargo.nix {
       inherit pkgs;
       defaultCrateOverrides =
         pkgs.defaultCrateOverrides
