@@ -1,0 +1,28 @@
+--- a/src/api-impl/android/app/ContextImpl.java
++++ b/src/api-impl/android/app/ContextImpl.java
+@@ -259,6 +259,25 @@
+ 
+ 	@Override
+ 	public boolean bindService(Intent intent, ServiceConnection serviceConnection, int flags) {
++		String pkg = intent.getPackage();
++		String action = intent.getAction();
++		if ((pkg != null && pkg.equals("com.google.android.gms")) || 
++		    (action != null && action.startsWith("com.google.android.gms."))) {
++			android.util.Slog.i(TAG, "MicroG PoC: Intercepted bindService for GMS: " + intent);
++			
++			final android.content.ComponentName name = intent.getComponent();
++			final android.os.IBinder binder = new android.os.Binder();
++			
++			// Simulate async service connection
++			new android.os.Handler(android.os.Looper.getMainLooper()).post(new Runnable() {
++				@Override
++				public void run() {
++					serviceConnection.onServiceConnected(name, binder);
++				}
++			});
++			return true;
++		}
++
+ 		ATLLoadedApp targetApp = this.atl_get_intent_target(intent);
+ 		if (targetApp == null) {
+ 			return false;
