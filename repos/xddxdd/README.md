@@ -89,7 +89,7 @@ Or, use variables from this repository in case I change them:
 |  | `calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
 |  | `click-loglevel` | [click-loglevel](https://github.com/jwodder/click-loglevel) | 0.7.0 | Log level parameter type for Click |
-|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.120 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.121 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `comp128` | [comp128](https://github.com/Takuto88/comp128-python) | 1.0.0 | Python implementation of the Comp128 v1-3 GSM authentication algorithms |
 |  | `cryptodev-unstable` | [cryptodev-linux](http://cryptodev-linux.org/) | 1.14-unstable-2025-11-03 | Device that allows access to Linux kernel cryptographic drivers |
@@ -98,7 +98,7 @@ Or, use variables from this repository in case I change them:
 |  | `datarecorder` | [datarecorder](https://github.com/g1879/DataRecorder) | 3.6.2 | Python-based toolkit to record data into files |
 |  | `dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-08 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
-|  | `deeplx` | [deeplx](https://deeplx.owo.network) | 1.2.3 | Powerful Free DeepL API, No Token Required |
+|  | `deeplx` | [deeplx](https://deeplx.owo.network) | 1.2.4 | Powerful Free DeepL API, No Token Required |
 | `x86_64-linux` | `dingtalk` | [dingtalk](https://www.dingtalk.com/) | 8.1.0.6021101 | Enterprise communication and collaboration platform developed by Alibaba Group |
 |  | `dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `download-kit` | [downloadkit](https://github.com/g1879/DownloadKit) | 2.0.7 | Simple to use multi-threaded download toolkit |
@@ -160,7 +160,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-07-27 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-08-06 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.6 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
@@ -253,7 +253,7 @@ Or, use variables from this repository in case I change them:
 |  | `tqdm-loggable` | [tqdm-loggable](https://pypi.org/project/tqdm-loggable/) | 0-unstable-2026-03-16 | TQDM progress bar helpers for logging and other headless application |
 |  | `uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-08-05 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-08-06 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -265,7 +265,7 @@ Or, use variables from this repository in case I change them:
 |  | `vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-08-05 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | 1113-unstable-2023-07-28 | KMS Emulator in C |
 |  | `vuetorrent-backend` | [vuetorrent-backend](https://github.com/VueTorrent/vuetorrent-backend) | 2.7.3 | Simple backend service to store configuration server-side |
-|  | `waline` | [waline](https://github.com/walinejs/waline) | 1.41.3 | Server for the Waline comment system |
+|  | `waline` | [waline](https://github.com/walinejs/waline) | 1.41.4 | Server for the Waline comment system |
 |  | `wechat-uos-sandboxed` | [wechat-uos](https://weixin.qq.com/) | 4.1.1.7 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
@@ -1327,11 +1327,11 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.buname` | [buname](https://github.com/dramforever/buname) | 0-unstable-2025-09-18 | Uname wrapper that renumbers Linux versions as if 2.6 never ended |
 |  | `uncategorized.calibre-cops` | [calibre-cops](http://blog.slucas.fr/en/oss/calibre-opds-php-server) | 4.5.2 | Web-based light alternative to Calibre content server / Calibre2OPDS to serve ebooks |
 |  | `uncategorized.cardpointers-cli` | [cardpointers-cli](https://github.com/cardpointers/cli) | 1.0.7 | Credit card rewards CLI for CardPointers |
-|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.120 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
+|  | `uncategorized.cliproxyapi` | [cliproxyapi](https://github.com/router-for-me/CLIProxyAPI) | 7.2.121 | Wrap Gemini CLI, Antigravity, ChatGPT Codex, Claude Code, Qwen Code, iFlow as an OpenAI/Gemini/Claude/Codex compatible API service |
 |  | `uncategorized.cockpy` | [cockpy](https://github.com/Hiro420/CockPY) | 0-unstable-2024-09-07 | Public and open source version of the cbt2 ps I'm working on |
 |  | `uncategorized.dbip-lite` | [dbip-lite](https://db-ip.com/db/lite.php) | 2026-08 | DBIP's Lite GeoIP Country, City, and ASN databases |
 |  | `uncategorized.decluttarr` | [decluttarr](https://github.com/ManiMatter/decluttarr) | 1.50.2 | Watches radarr, sonarr, lidarr and readarr download queues and removes downloads if they become stalled or no longer needed |
-|  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.2.3 | Powerful Free DeepL API, No Token Required |
+|  | `uncategorized.deeplx` | [deeplx](https://deeplx.owo.network) | 1.2.4 | Powerful Free DeepL API, No Token Required |
 | `x86_64-linux` | `uncategorized.dingtalk` | [dingtalk](https://www.dingtalk.com/) | 8.1.0.6021101 | Enterprise communication and collaboration platform developed by Alibaba Group |
 |  | `uncategorized.dn42-pingfinder` | [dn42-pingfinder](https://git.dn42.dev/dn42/pingfinder/src/branch/master/clients) | 1.2.1-unstable-2022-11-06 | DN42 Pingfinder |
 |  | `uncategorized.drone-file-secret` | [drone-file-secret](https://github.com/xddxdd/drone-file-secret) | 0-unstable-2023-06-25 | Secret provider for Drone CI that reads secrets from a given folder |
@@ -1379,7 +1379,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.libcrystalhd` | [libcrystalhd](https://launchpad.net/ubuntu/+source/crystalhd) | 0-unstable-2021-01-26 | Broadcom Crystal HD Hardware Decoder (BCM70012/70015) userspace library |
 |  | `uncategorized.libnftnl-fullcone` | [libnftnl](https://netfilter.org/projects/libnftnl/) | 1.3.1 | Userspace library providing a low-level netlink API to the in-kernel nf_tables subsystem |
 |  | `uncategorized.liboqs` | [liboqs](https://openquantumsafe.org) | 0.16.0 | C library for prototyping and experimenting with quantum-resistant cryptography |
-|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-07-27 | C library for prototyping and experimenting with quantum-resistant cryptography |
+|  | `uncategorized.liboqs-unstable` | [liboqs](https://openquantumsafe.org) | 0-unstable-2026-08-06 | C library for prototyping and experimenting with quantum-resistant cryptography |
 |  | `uncategorized.lightpanda` | [lightpanda](https://lightpanda.io) | 0.3.6 | Headless browser designed for AI and automation |
 | `x86_64-linux` | `uncategorized.linguaspark-server` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
 | `x86_64-linux` | `uncategorized.linguaspark-server-x86-64-v3` | [linguaspark-server](https://github.com/LinguaSpark/server) | 0-unstable-2026-07-19 | Lightweight multilingual translation service powered by the pure Rust LinguaSpark inference engine, compatible with multiple translation frontend APIs |
@@ -1449,7 +1449,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.tel42verifier` | [tel42verifier](https://github.com/strexp/tel42verifier) | 0.0.3 | Multi-domain ENUM-based Caller ID verifier for Asterisk |
 |  | `uncategorized.uesave` | [uesave](https://github.com/trumank/uesave-rs) | 0.7.1 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS) |
 |  | `uncategorized.uesave-0_3_0` | [uesave](https://github.com/trumank/uesave-rs) | 0.3.0 | Library for reading and writing Unreal Engine save files (commonly referred to as GVAS), older version that works with Palworld |
-|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-08-05 | Unifies the management of LLM APIs across multiple backend services |
+|  | `uncategorized.uni-api` | [uni-api](https://github.com/yym68686/uni-api) | 0-unstable-2026-08-06 | Unifies the management of LLM APIs across multiple backend services |
 | `x86_64-linux` | `uncategorized.unigine-heaven` | [unigine-heaven](https://benchmark.unigine.com/heaven) | 4.0 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-sanctuary` | [unigine-sanctuary](https://benchmark.unigine.com/sanctuary) | 2.3 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
 | `x86_64-linux` | `uncategorized.unigine-superposition` | [unigine-superposition](https://benchmark.unigine.com/superposition) | 1.1 | Extreme performance and stability test for PC hardware: video card, power supply, cooling system |
@@ -1461,7 +1461,7 @@ Or, use variables from this repository in case I change them:
 |  | `uncategorized.vk-hdr-layer` | [vk-hdr-layer](https://github.com/Zamundaaa/VK_hdr_layer) | 0-unstable-2026-08-05 | Vulkan layer utilizing a small color management / HDR protocol for experimentation |
 |  | `uncategorized.vlmcsd` | [vlmcsd](https://github.com/Wind4/vlmcsd) | 1113-unstable-2023-07-28 | KMS Emulator in C |
 |  | `uncategorized.vuetorrent-backend` | [vuetorrent-backend](https://github.com/VueTorrent/vuetorrent-backend) | 2.7.3 | Simple backend service to store configuration server-side |
-|  | `uncategorized.waline` | [waline](https://github.com/walinejs/waline) | 1.41.3 | Server for the Waline comment system |
+|  | `uncategorized.waline` | [waline](https://github.com/walinejs/waline) | 1.41.4 | Server for the Waline comment system |
 |  | `uncategorized.wechat-uos-sandboxed` | [wechat-uos](https://weixin.qq.com/) | 4.1.1.7 | WeChat desktop with sandbox enabled ($HOME/Documents/WeChat_Data) (Adapted from https://aur.archlinux.org/packages/wechat-uos-bwrap) |
 | `x86_64-linux` | `uncategorized.wine-wechat` | [wine-wechat](https://weixin.qq.com/) | 3.9.12.57 | Wine WeChat x64 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |
 | `x86_64-linux` | `uncategorized.wine-wechat-x86` | [wine-wechat-x86](https://weixin.qq.com/) | 3.9.12.56 | Wine WeChat x86 (Packaging script adapted from https://aur.archlinux.org/packages/deepin-wine-wechat) |

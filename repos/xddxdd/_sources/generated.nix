@@ -305,12 +305,12 @@
   };
   cliproxyapi = {
     pname = "cliproxyapi";
-    version = "v7.2.120";
+    version = "v7.2.121";
     src = fetchFromGitHub {
       owner = "router-for-me";
       repo = "CLIProxyAPI";
-      tag = "v7.2.120";
-      hash = "sha256-4B/M1VKVvKPy9TVyCgOPfP1lQASscVT784q4chL8nWE=";
+      tag = "v7.2.121";
+      hash = "sha256-clksOlN5FyKhf7hymE7EtgUN2v5BWSg6tm1Sdfczrc4=";
     };
   };
   cockpy = {
@@ -473,12 +473,12 @@
   };
   deeplx = {
     pname = "deeplx";
-    version = "v1.2.3";
+    version = "v1.2.4";
     src = fetchFromGitHub {
       owner = "OwO-Network";
       repo = "DeepLX";
-      tag = "v1.2.3";
-      hash = "sha256-SDyE2JnnrBJE9cGJZYxT6UppDTaCCaD/dX1tdTvlxxY=";
+      tag = "v1.2.4";
+      hash = "sha256-7WuuO80CtmK4Zd8tI2VR0xH8votIz6AplJVoM58LU/w=";
     };
   };
   dingtalk = {
@@ -1200,14 +1200,14 @@
   };
   liboqs-unstable = {
     pname = "liboqs-unstable";
-    version = "9d20051143544daa348bc0bbdcef5ef121e385d3";
+    version = "4e1183aaa34b0d0d52413c49f269f909b505e0cf";
     src = fetchFromGitHub {
       owner = "open-quantum-safe";
       repo = "liboqs";
-      rev = "9d20051143544daa348bc0bbdcef5ef121e385d3";
-      hash = "sha256-pyUJMxOZA+gTSwWZu7ZbA8cNisI9OaX9MGjgC4+gDes=";
+      rev = "4e1183aaa34b0d0d52413c49f269f909b505e0cf";
+      hash = "sha256-TN4g0IJ/s+qZqklpHYlBSpr+YT5+m21pWxKA0FZ4pjw=";
     };
-    date = "2026-07-27";
+    date = "2026-08-06";
   };
   libqcef = {
     pname = "libqcef";
@@ -1527,14 +1527,14 @@
   };
   nginx-module-vts = {
     pname = "nginx-module-vts";
-    version = "8c4d5455cd9f961c792e30814f1498498f1418bb";
+    version = "14a4aed08156442530d4a3061ca1aea302019e8d";
     src = fetchFromGitHub {
       owner = "vozlt";
       repo = "nginx-module-vts";
-      rev = "8c4d5455cd9f961c792e30814f1498498f1418bb";
-      hash = "sha256-3OZzvVh83csqPKp5jOxlA908X7FPniF7aYtw0uewUj4=";
+      rev = "14a4aed08156442530d4a3061ca1aea302019e8d";
+      hash = "sha256-hwbTkCsPoMhR+v9lfet6mxgC6gakgLyYGu1zk68yxK8=";
     };
-    date = "2026-08-03";
+    date = "2026-08-06";
   };
   nginx-njs = {
     pname = "nginx-njs";
@@ -2403,15 +2403,15 @@
   };
   uni-api = {
     pname = "uni-api";
-    version = "423e8d078bad8f9fb46fb27ee16bd9ba5bf207b2";
+    version = "3c5a64bde510b63d883c23e76dc0a9ae826a0961";
     src = fetchFromGitHub {
       owner = "yym68686";
       repo = "uni-api";
-      rev = "423e8d078bad8f9fb46fb27ee16bd9ba5bf207b2";
+      rev = "3c5a64bde510b63d883c23e76dc0a9ae826a0961";
       fetchSubmodules = true;
-      hash = "sha256-i8y547BSHy9e1nUAEiZnQ+TYwhhmjAy5pzD6El7EAfs=";
+      hash = "sha256-EPXEW3gRNyVln0W0Tine4nnb0ibd4Mb7gxhP7Ge573U=";
     };
-    date = "2026-08-05";
+    date = "2026-08-06";
   };
   unigine-heaven = {
     pname = "unigine-heaven";
@@ -2536,10 +2536,10 @@
   };
   waline = {
     pname = "waline";
-    version = "1.41.3";
+    version = "1.41.4";
     src = fetchurl {
-      url = "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.3.tgz";
-      hash = "sha256-JwOMSnQQ/sNLuXI5m9BSbCTsOJnIwxLVviXw/HUtFa0=";
+      url = "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.4.tgz";
+      hash = "sha256-7zU5WOzvftX0gdok1eYgTQ/CuCIEEle/ZC2oxqvmUng=";
     };
   };
   wechat-uos = {

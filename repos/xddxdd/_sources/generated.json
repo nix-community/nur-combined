@@ -598,12 +598,12 @@
             "name": null,
             "owner": "router-for-me",
             "repo": "CLIProxyAPI",
-            "rev": "v7.2.120",
-            "sha256": "sha256-4B/M1VKVvKPy9TVyCgOPfP1lQASscVT784q4chL8nWE=",
+            "rev": "v7.2.121",
+            "sha256": "sha256-clksOlN5FyKhf7hymE7EtgUN2v5BWSg6tm1Sdfczrc4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.120"
+        "version": "v7.2.121"
     },
     "cockpy": {
         "cargoLock": null,
@@ -924,12 +924,12 @@
             "name": null,
             "owner": "OwO-Network",
             "repo": "DeepLX",
-            "rev": "v1.2.3",
-            "sha256": "sha256-SDyE2JnnrBJE9cGJZYxT6UppDTaCCaD/dX1tdTvlxxY=",
+            "rev": "v1.2.4",
+            "sha256": "sha256-7WuuO80CtmK4Zd8tI2VR0xH8votIz6AplJVoM58LU/w=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.2.3"
+        "version": "v1.2.4"
     },
     "dingtalk": {
         "cargoLock": null,
@@ -2340,7 +2340,7 @@
     },
     "liboqs-unstable": {
         "cargoLock": null,
-        "date": "2026-07-27",
+        "date": "2026-08-06",
         "extract": null,
         "name": "liboqs-unstable",
         "passthru": null,
@@ -2352,12 +2352,12 @@
             "name": null,
             "owner": "open-quantum-safe",
             "repo": "liboqs",
-            "rev": "9d20051143544daa348bc0bbdcef5ef121e385d3",
-            "sha256": "sha256-pyUJMxOZA+gTSwWZu7ZbA8cNisI9OaX9MGjgC4+gDes=",
+            "rev": "4e1183aaa34b0d0d52413c49f269f909b505e0cf",
+            "sha256": "sha256-TN4g0IJ/s+qZqklpHYlBSpr+YT5+m21pWxKA0FZ4pjw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "9d20051143544daa348bc0bbdcef5ef121e385d3"
+        "version": "4e1183aaa34b0d0d52413c49f269f909b505e0cf"
     },
     "libqcef": {
         "cargoLock": null,
@@ -2982,7 +2982,7 @@
     },
     "nginx-module-vts": {
         "cargoLock": null,
-        "date": "2026-08-03",
+        "date": "2026-08-06",
         "extract": null,
         "name": "nginx-module-vts",
         "passthru": null,
@@ -2994,12 +2994,12 @@
             "name": null,
             "owner": "vozlt",
             "repo": "nginx-module-vts",
-            "rev": "8c4d5455cd9f961c792e30814f1498498f1418bb",
-            "sha256": "sha256-3OZzvVh83csqPKp5jOxlA908X7FPniF7aYtw0uewUj4=",
+            "rev": "14a4aed08156442530d4a3061ca1aea302019e8d",
+            "sha256": "sha256-hwbTkCsPoMhR+v9lfet6mxgC6gakgLyYGu1zk68yxK8=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "8c4d5455cd9f961c792e30814f1498498f1418bb"
+        "version": "14a4aed08156442530d4a3061ca1aea302019e8d"
     },
     "nginx-njs": {
         "cargoLock": null,
@@ -4709,7 +4709,7 @@
     },
     "uni-api": {
         "cargoLock": null,
-        "date": "2026-08-05",
+        "date": "2026-08-06",
         "extract": null,
         "name": "uni-api",
         "passthru": null,
@@ -4721,12 +4721,12 @@
             "name": null,
             "owner": "yym68686",
             "repo": "uni-api",
-            "rev": "423e8d078bad8f9fb46fb27ee16bd9ba5bf207b2",
-            "sha256": "sha256-i8y547BSHy9e1nUAEiZnQ+TYwhhmjAy5pzD6El7EAfs=",
+            "rev": "3c5a64bde510b63d883c23e76dc0a9ae826a0961",
+            "sha256": "sha256-EPXEW3gRNyVln0W0Tine4nnb0ibd4Mb7gxhP7Ge573U=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "423e8d078bad8f9fb46fb27ee16bd9ba5bf207b2"
+        "version": "3c5a64bde510b63d883c23e76dc0a9ae826a0961"
     },
     "unigine-heaven": {
         "cargoLock": null,
@@ -4974,11 +4974,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-JwOMSnQQ/sNLuXI5m9BSbCTsOJnIwxLVviXw/HUtFa0=",
+            "sha256": "sha256-7zU5WOzvftX0gdok1eYgTQ/CuCIEEle/ZC2oxqvmUng=",
             "type": "url",
-            "url": "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.3.tgz"
+            "url": "https://registry.npmjs.org/@waline/vercel/-/vercel-1.41.4.tgz"
         },
-        "version": "1.41.3"
+        "version": "1.41.4"
     },
     "wechat-uos": {
         "cargoLock": null,
