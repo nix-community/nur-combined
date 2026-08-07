@@ -19,10 +19,10 @@
   };
   lsp-tree-sitter = {
     pname = "lsp-tree-sitter";
-    version = "0.2.16";
+    version = "0.2.17";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.16.tar.gz";
-      sha256 = "sha256-pnF7s+1Jbh7B9H75IMDTukL6l0ToTGmlvgde8Gs27Fc=";
+      url = "https://pypi.org/packages/source/l/lsp_tree_sitter/lsp_tree_sitter-0.2.17.tar.gz";
+      sha256 = "sha256-eAHuCcw5VJ9ygOMe+ysnnPA8FBxFRIKV5jDd3HAhxW8=";
     };
   };
   manpager = {
@@ -62,10 +62,10 @@
   };
   requirements-language-server = {
     pname = "requirements-language-server";
-    version = "0.1.3";
+    version = "0.1.4";
     src = fetchurl {
-      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.3.tar.gz";
-      sha256 = "sha256-6YPfGtRll/pTVA2+AvGJHXEXYPfKnXhuxE4iJt3hZyQ=";
+      url = "https://pypi.org/packages/source/r/requirements_language_server/requirements_language_server-0.1.4.tar.gz";
+      sha256 = "sha256-OlNS3zes1fPnucGI556RaeerTmkVxR4woZ8sA6ngOPs=";
     };
   };
   sublime-syntax-language-server = {
