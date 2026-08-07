@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "gh-audit";
-  version = "0.2.0-unstable-2026-08-05";
+  version = "0.2.0-unstable-2026-08-07";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "gh-audit";
-    rev = "23fbef9537bc70cd854250b5520c2b5447903c28";
-    hash = "sha256-xuhMp6bfW3RoyqloNhfcq2KniB1QZevCkJm7t7GC8jg=";
+    rev = "fcc3d12d34a2c8ea0544baea2332aa51ef2964ab";
+    hash = "sha256-S/+kAJLwEB/WYURl0Z00oyLdPe3wJpxUS3jcVSrtU3Q=";
   };
 
   build-system = with python3Packages; [
