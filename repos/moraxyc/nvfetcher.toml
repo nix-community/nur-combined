@@ -69,6 +69,15 @@ src.github = "ferstar/gestures"
 fetch.github = "ferstar/gestures"
 cargo_lock = ["Cargo.lock"]
 
+[gaze]
+src.git = "https://github.com/GunduLabs/gaze.git"
+fetch.github = "GunduLabs/gaze"
+cargo_lock = ['Cargo.lock']
+
+[gaze-stable]
+src.github = "GunduLabs/gaze"
+fetch.url = "file:///dev/null"
+
 [geolite2-asn]
 src.github = "P3TERX/GeoLite.mmdb"
 fetch.url = "https://github.com/P3TERX/GeoLite.mmdb/releases/download/$ver/GeoLite2-ASN.mmdb"
