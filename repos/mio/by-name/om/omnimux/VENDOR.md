@@ -151,5 +151,6 @@ This directory contains a vendored copy of `gpui-component` version 0.5.1 from c
 ## Local Patches:
 - **`src/window_border.rs`**: Modified `on_mouse_down` and the hover handler to return early if `window.is_maximized()`. This prevents the resize icon from appearing on the edges of the screen when the window is maximized.
 - **`src/table/state.rs` & `src/tree.rs`**: Adjusted `track_scroll` to pass `&UniformListScrollHandle` instead of an owned `UniformListScrollHandle`, ensuring compatibility with the updated `gpui-ce` API.
+- **`src/theme/default-theme.json`**: Fixed `drag_border` typo (to `drag.border`) so that it parses correctly, and increased `drop_target.background` opacity in dark mode to improve visibility for tab drag indicators.
 
 We use this vendored version so we can use it with our custom `gpui-ce` base.

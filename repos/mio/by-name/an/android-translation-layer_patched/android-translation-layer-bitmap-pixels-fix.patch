@@ -1,30 +1,6 @@
-diff --git a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
---- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c
-+++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
-@@ -111,7 +111,10 @@
- 		exit(1);
- 	}
- 	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
--	gdk_texture_download(texture, (guchar *)(array + offset), stride * 4);
-+	GdkTextureDownloader *downloader = gdk_texture_downloader_new(texture);
-+	gdk_texture_downloader_set_format(downloader, GDK_MEMORY_B8G8R8A8);
-+	gdk_texture_downloader_download_into(downloader, (guchar *)(array + offset), stride * 4);
-+	gdk_texture_downloader_free(downloader);
- 	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
- }
- 
-@@ -148,7 +151,7 @@
- 	memcpy(data, array + offset, height * stride * 4);
- 	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
- 	GBytes *bytes = g_bytes_new_take(data, height * stride * 4);
--	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8A8, bytes, stride * 4);
-+	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_B8G8R8A8, bytes, stride * 4);
- 	g_bytes_unref(bytes);
- 	gtk_snapshot_append_texture(snapshot, texture, &GRAPHENE_RECT_INIT(x, y, width, height));
- 	g_object_unref(texture);
-diff --git a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/graphics/Bitmap.java
---- a/src/api-impl/android/graphics/Bitmap.java
-+++ b/src/api-impl/android/graphics/Bitmap.java
+diff -ur a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/graphics/Bitmap.java
+--- a/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:16:49.757497161 +1000
++++ b/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:16:49.795496944 +1000
 @@ -91,7 +91,9 @@
  	}
  
@@ -36,3 +12,49 @@ diff --git a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/gr
  	}
  
  	public static Bitmap createBitmap(Bitmap src) {
+diff -ur a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
+--- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:16:49.755497173 +1000
++++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:16:49.794496949 +1000
+@@ -112,7 +112,17 @@
+ 		exit(1);
+ 	}
+ 	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
+-	gdk_texture_download(texture, (guchar *)(array + offset), stride * 4);
++	uint8_t *tmp = g_malloc0(height * stride * 4);
++	gdk_texture_download(texture, tmp, stride * 4);
++	uint32_t *dst = (uint32_t *)(array + offset);
++	for (int i = 0; i < height * stride; i++) {
++		uint32_t b = tmp[i * 4 + 0]; // GDK_MEMORY_DEFAULT is BGRA
++		uint32_t g = tmp[i * 4 + 1];
++		uint32_t r = tmp[i * 4 + 2];
++		uint32_t a = tmp[i * 4 + 3];
++		// GTK returns pre-multiplied alpha. We should unpremultiply it for Android,
++		// but if we don't, at least the color channels must be in the right place!
++		if (a > 0 && a < 255) {
++			r = (r * 255) / a;
++			g = (g * 255) / a;
++			b = (b * 255) / a;
++		}
++		dst[i] = (a << 24) | (r << 16) | (g << 8) | (b << 0);
++	}
++	g_free(tmp);
+ 	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
+ }
+ 
+@@ -146,7 +156,15 @@
+ 	GtkSnapshot *snapshot = GTK_SNAPSHOT(_PTR(snapshot_ptr));
+ 	gpointer data = g_malloc0(height * stride * 4);
+ 	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
+-	memcpy(data, array + offset, height * stride * 4);
++	uint32_t *src = (uint32_t *)(array + offset);
++	uint8_t *dst = (uint8_t *)data;
++	for (int i = 0; i < height * stride; i++) {
++		uint32_t color = src[i];
++		*dst++ = (color >> 16) & 0xFF;
++		*dst++ = (color >> 8) & 0xFF;
++		*dst++ = (color >> 0) & 0xFF;
++		*dst++ = (color >> 24) & 0xFF;
++	}
+ 	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
+ 	GBytes *bytes = g_bytes_new_take(data, height * stride * 4);
+ 	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8A8, bytes, stride * 4);
