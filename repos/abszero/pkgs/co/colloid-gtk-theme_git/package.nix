@@ -1,7 +1,7 @@
 { colloid-gtk-theme, fetchFromGitHub }:
 colloid-gtk-theme.overrideAttrs (
   final: prev: {
-    version = "2025-07-31-unstable-2026-08-07";
+    version = "2026-08-08-unstable-2026-08-07";
     src = fetchFromGitHub {
       owner = "vinceliuice";
       repo = "Colloid-gtk-theme";
