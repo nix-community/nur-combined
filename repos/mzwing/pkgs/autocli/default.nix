@@ -62,6 +62,10 @@ in
     # is a leaf application package — nothing consumes the rlib — so
     # collapse to a single output with a bins-only install phase.
     outputs = ["out"];
+    # outputDev must follow: buildRustCrate points it at the (now
+    # nonexistent) "lib" output, and stdenv's multiple-outputs hook
+    # expands the corresponding variables during fixup.
+    outputDev = ["out"];
     installPhase = ''
       runHook preInstall
       mkdir -p $out/bin
