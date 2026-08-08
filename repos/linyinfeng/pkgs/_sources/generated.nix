@@ -587,17 +587,17 @@
   };
   v86 = {
     pname = "v86";
-    version = "2f1346b0e7d88d4cbbbcc05fe15b4e369c3de23f";
+    version = "6eda8ff53a7d2e0e6e3edb3c43b0a4757dcf24a6";
     src = fetchgit {
       url = "https://github.com/copy/v86.git";
-      rev = "2f1346b0e7d88d4cbbbcc05fe15b4e369c3de23f";
+      rev = "6eda8ff53a7d2e0e6e3edb3c43b0a4757dcf24a6";
       fetchSubmodules = true;
       deepClone = false;
       leaveDotGit = false;
       sparseCheckout = [ ];
-      sha256 = "sha256-tIiW8IQaDtTlE2QxjMr7bBNnma/gVgzw6EjSVvItbbU=";
+      sha256 = "sha256-g84sDOHh2Mhu6Hu2n/ES5iIwBGc9xEQI8sLi/18HzS0=";
     };
-    date = "2026-07-05";
+    date = "2026-08-08";
   };
   vlmcsd = {
     pname = "vlmcsd";
