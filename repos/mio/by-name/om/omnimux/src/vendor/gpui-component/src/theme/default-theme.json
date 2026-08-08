@@ -232,7 +232,7 @@
         "description_list_label.background": "#171717",
         "description_list_label.foreground": "#f5f5f5",
         "drag_border": "#3b82f6",
-        "drop_target.background": "#3b82f619",
+        "drop_target.background": "#3b82f640",
         "foreground": "#fafafa",
         "info.background": "#0c4a6e",
         "info.active.background": "#0a3c5a",
