@@ -1579,6 +1579,8 @@ pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
 
   browsertrix-crawler = callPackage ./vendor/Skyb0rg007/packages/NixOS/pkgs/by-name/browsertrix-crawler/package.nix { };
 
+  circle-so-scraper = python3Packages.callPackage ./pkgs/by-name/ci/circle-so-scraper/package.nix { };
+
 }
 
 # based on https://github.com/dtzWill/nur-packages
