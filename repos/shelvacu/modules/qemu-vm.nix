@@ -20,8 +20,19 @@ let
         };
         mac = mkOption {
           type = types.str;
-          description = "MAC address for the guest virtio-net NIC.";
+          description = ''
+            MAC address for the guest virtio-net NIC. Defaults to a unicast,
+            locally-administered address derived from `address`
+            (02:00:<ip-bytes-in-hex>), so it is unique per guest, stable, and
+            can never land on the multicast bit. Rarely needs to be set.
+          '';
           example = "52:54:00:12:34:56";
+          default =
+            let
+              octets = lib.splitString "." config.address;
+              hexPair = n: lib.toLower (lib.fixedWidthString 2 "0" (lib.toHexString (lib.toInt n)));
+            in
+            "02:00:${lib.concatMapStringsSep ":" hexPair octets}";
         };
         address = mkOption {
           type = types.str;
@@ -191,9 +202,7 @@ let
                 -no-reboot
             '';
 
-            unitConfig.AssertPathExists = [
-              "${vmCfg.rootDir}/nix/var/nix/profiles/system"
-            ];
+            unitConfig.AssertPathExists = [ "${vmCfg.rootDir}/nix/var/nix/profiles/system" ];
 
             serviceConfig = {
               Type = "simple";
@@ -297,5 +306,21 @@ in
     systemd.services = vmServices;
 
     environment.systemPackages = vmPackages;
+
+    # A guest NIC MAC must be unicast (I/G bit clear) and should be
+    # locally-administered (U/L bit set) since these are made-up addresses.
+    # The low bit of the first octet is the multicast bit — a value like
+    # 11:cc:.. silently breaks host->guest ARP. The derived default always
+    # satisfies this; the assertion only guards hand-set overrides.
+    assertions = lib.mapAttrsToList (
+      vmName: vmCfg:
+      let
+        firstOctet = lib.fromHexString (builtins.head (lib.splitString ":" vmCfg.mac));
+      in
+      {
+        assertion = lib.bitAnd firstOctet 1 == 0 && lib.bitAnd firstOctet 2 == 2;
+        message = "vacu.qemuVMs.${vmName}.mac (${vmCfg.mac}) must be a unicast, locally-administered address: the first octet must have the multicast bit (0x01) clear and the locally-administered bit (0x02) set (i.e. end in 2, 6, A, or E).";
+      }
+    ) cfg;
   };
 }

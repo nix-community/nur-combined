@@ -52,15 +52,25 @@ in
           Table = tunnelName;
         }
       ];
-      routingPolicyRules = [
-        {
+      # systemd's [RoutingPolicyRule] To= is single-valued (last line wins), so
+      # a list of subnets must become one rule per subnet — otherwise only the
+      # last subnet keeps its traffic in the main table and the rest fall
+      # through to the tunnel table (breaking e.g. VM->doofStatic4 replies).
+      # Explicit priorities keep the per-subnet main-table exceptions ahead of
+      # the catch-all tunnel rule.
+      routingPolicyRules = (
+        map (subnet: {
           From = "${cfg.ips.doofStatic4}/32";
-          To = cfg.ips.t2dSubnets;
+          To = subnet;
           Table = "main";
-        }
+          Priority = 100;
+        }) cfg.ips.t2dSubnets
+      )
+      ++ [
         {
           From = "${cfg.ips.doofStatic4}/32";
           Table = tunnelName;
+          Priority = 200;
         }
       ];
     };
