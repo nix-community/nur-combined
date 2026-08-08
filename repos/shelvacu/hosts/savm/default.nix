@@ -16,7 +16,7 @@
     openssh.authorizedKeys.keys = lib.attrValues config.vacu.ssh.authorizedKeys;
   };
 
-  system.stateVersion = "26.05";
+  system.stateVersion = "25.11";
 
   vacuvmGuest.ip = "10.78.77.4";
 

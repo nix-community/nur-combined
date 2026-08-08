@@ -37,6 +37,8 @@ in
     };
     networking.useNetworkd = true;
     systemd.network.enable = true;
+    
+    boot.kernel.sysctl."net.ipv4.conf.br-main.proxy_arp" = 1;
 
     systemd.network.networks."00-lan" = {
       bridge = [ bridge ];
