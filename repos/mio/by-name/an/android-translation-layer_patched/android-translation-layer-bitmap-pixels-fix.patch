@@ -1,0 +1,38 @@
+diff --git a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
+--- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c
++++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
+@@ -111,7 +111,10 @@
+ 		exit(1);
+ 	}
+ 	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
+-	gdk_texture_download(texture, (guchar *)(array + offset), stride * 4);
++	GdkTextureDownloader *downloader = gdk_texture_downloader_new(texture);
++	gdk_texture_downloader_set_format(downloader, GDK_MEMORY_B8G8R8A8);
++	gdk_texture_downloader_download_into(downloader, (guchar *)(array + offset), stride * 4);
++	gdk_texture_downloader_free(downloader);
+ 	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
+ }
+ 
+@@ -148,7 +151,7 @@
+ 	memcpy(data, array + offset, height * stride * 4);
+ 	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
+ 	GBytes *bytes = g_bytes_new_take(data, height * stride * 4);
+-	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8A8, bytes, stride * 4);
++	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_B8G8R8A8, bytes, stride * 4);
+ 	g_bytes_unref(bytes);
+ 	gtk_snapshot_append_texture(snapshot, texture, &GRAPHENE_RECT_INIT(x, y, width, height));
+ 	g_object_unref(texture);
+diff --git a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/graphics/Bitmap.java
+--- a/src/api-impl/android/graphics/Bitmap.java
++++ b/src/api-impl/android/graphics/Bitmap.java
+@@ -91,7 +91,9 @@
+ 	}
+ 
+ 	public static Bitmap createBitmap(int[] colors, int width, int height, Config config) {
+-		return createBitmap(width, height, config);
++		Bitmap bitmap = createBitmap(width, height, config);
++		bitmap.setPixels(colors, 0, width, 0, 0, width, height);
++		return bitmap;
+ 	}
+ 
+ 	public static Bitmap createBitmap(Bitmap src) {
