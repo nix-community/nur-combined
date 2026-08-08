@@ -41,6 +41,9 @@
   "smart-paste": {
     "description": "Paste files into the hovered directory or to the CWD if hovering over a file"
   },
+  "term-cwd": {
+    "description": "Inform terminal about current directory change by sending OSC code"
+  },
   "toggle-pane": {
     "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and preview"
   },

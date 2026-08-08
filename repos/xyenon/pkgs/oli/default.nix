@@ -11,19 +11,19 @@ rustPlatform.buildRustPackage {
   __structuredAttrs = true;
 
   pname = "oli";
-  version = "0-unstable-2026-08-05";
+  version = "0-unstable-2026-08-07";
   src = fetchFromGitHub {
     owner = "apache";
     repo = "opendal-oli";
-    rev = "6228e7747a1edc90cafa5619c576416c2f1bf734";
-    hash = "sha256-9BIKWT/CTcbIqBbBavyJYSAROL9vYnDDrGkXDP1OVA8=";
+    rev = "3d6e427e8c0c92aec1430e2f4bbb777e4e08d81e";
+    hash = "sha256-X6QOFs94jOQeZySmSyWP3VVgPyWNC8ihW2IFu9loKR0=";
   };
 
   postPatch = ''
     substituteInPlace tests/integration/edit.rs --replace-fail '#!/bin/bash' '#!${runtimeShell}'
   '';
 
-  cargoHash = "sha256-VM4Vbv3kPAioe1z5JscAgVcytQFBOeQ7ewlJIDlDHTM=";
+  cargoHash = "sha256-58pYGU1XwP3AsEugeXuqPmPuXGXSwVz/Aq7KaKAfNtQ=";
 
   nativeCheckInputs = [ cacert ];
 
