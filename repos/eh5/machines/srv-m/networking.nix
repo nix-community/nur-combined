@@ -40,6 +40,11 @@ in
     "net.ipv4.udp_wmem_min" = 8192;
   };
 
+  # prefer IPv4
+  networking.getaddrinfo.precedence = {
+    "::ffff:0:0/96" = 100;
+  };
+
   networking.firewall.enable = false;
   networking.nftables = {
     enable = true;

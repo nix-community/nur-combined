@@ -25,8 +25,8 @@ buildGoModule (finalAttrs: {
   proxyVendor = true;
   
   patches = [
-    ./0001-fix-control-fix-dns.ipversion_prefer-regression.patch
-    ./0002-fix-control-remove-possible-AI-slop.patch
+    ./0001-fix-control-revert-dns.ipversion_prefer-to-the-previ.patch
+    ./0002-chore-control-cleanup-unused-rfc8305-implementation.patch
   ];
 
   nativeBuildInputs = [ clang ];

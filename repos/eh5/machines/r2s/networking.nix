@@ -61,6 +61,11 @@ in
     "net.netfilter.nf_conntrack_tcp_timeout_established" = 600;
     "net.netfilter.nf_conntrack_tcp_timeout_time_wait" = 5;
   };
+  
+  # prefer IPv4
+  networking.getaddrinfo.precedence = {
+    "::ffff:0:0/96" = 100;
+  };
 
   services.timesyncd.settings.Time = {
     PollIntervalMinSec = 16;

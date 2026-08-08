@@ -1,7 +1,7 @@
-From 3664d004601861e89a7f5d72bb8700530e321bb1 Mon Sep 17 00:00:00 2001
+From fe252ae801cf76746d254b3f94d93b2b72dc3c28 Mon Sep 17 00:00:00 2001
 From: Huang-Huang Bao <i@eh5.me>
 Date: Sun, 2 Aug 2026 21:16:54 +0800
-Subject: [PATCH 2/2] fix(control): remove possible AI slop
+Subject: [PATCH 2/2] chore(control): cleanup unused rfc8305 implementation
 
 ---
  control/dns_control.go                   |  78 -----------
@@ -13,7 +13,7 @@ Subject: [PATCH 2/2] fix(control): remove possible AI slop
  delete mode 100644 control/dns_preference_wait_test.go
 
 diff --git a/control/dns_control.go b/control/dns_control.go
-index 202f429..ed50791 100644
+index 5d31c8c..8378031 100644
 --- a/control/dns_control.go
 +++ b/control/dns_control.go
 @@ -127,11 +127,6 @@ type dnsControllerStore struct {

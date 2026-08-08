@@ -1,14 +1,16 @@
-From 90b373e841885b49ac1ea6ccf06f79639199ba98 Mon Sep 17 00:00:00 2001
+From 59b24095bbc0e6693e36834b56d85e1ad6c4fa01 Mon Sep 17 00:00:00 2001
 From: Huang-Huang Bao <i@eh5.me>
 Date: Sun, 2 Aug 2026 21:14:04 +0800
-Subject: [PATCH 1/2] fix(control): fix dns.ipversion_prefer regression
+Subject: [PATCH 1/2] fix(control): revert dns.ipversion_prefer to the previous
+ behaviour
 
+Drop rfc8305 implementation as it's not working well with glibc getaddrinfo, which will always prefer IPv6 AAAA record.
 ---
- control/dns_control.go | 141 ++++++++++++++---------------------------
- 1 file changed, 49 insertions(+), 92 deletions(-)
+ control/dns_control.go | 143 ++++++++++++++---------------------------
+ 1 file changed, 50 insertions(+), 93 deletions(-)
 
 diff --git a/control/dns_control.go b/control/dns_control.go
-index d5bf872..202f429 100644
+index d5bf872..5d31c8c 100644
 --- a/control/dns_control.go
 +++ b/control/dns_control.go
 @@ -10,6 +10,7 @@ import (
@@ -135,10 +137,12 @@ index d5bf872..202f429 100644
  //
  // Renamed from HandleWithResponseWriter_ to internal to avoid recursion loop with SF.
  func (c *DnsController) handleWithResponseWriterInternal(ctx context.Context, dnsMessage *dnsmessage.Msg, req *udpRequest, responseWriter dnsmessage.ResponseWriter, upstreamIndex consts.DnsRequestOutboundIndex, upstream *dns.Upstream, responseCacheKey string, baseCacheKey string) (err error) {
-@@ -2365,8 +2282,10 @@ func (c *DnsController) handleWithResponseWriterInternal(ctx context.Context, dn
+@@ -2364,9 +2281,11 @@ func (c *DnsController) handleWithResponseWriterInternal(ctx context.Context, dn
+ 		return fmt.Errorf("DNS request expected but DNS response received")
  	}
  
- 	// Get qtype for preference handling (RFC 8305 Happy Eyeballs).
+-	// Get qtype for preference handling (RFC 8305 Happy Eyeballs).
++	// Get qtype for preference handling
 +	var qname string
  	var qtype uint16
  	if len(dnsMessage.Question) != 0 {
