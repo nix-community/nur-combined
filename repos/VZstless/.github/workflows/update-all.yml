@@ -1,0 +1,14 @@
+name: Typst-pdf converter
+
+on:
+  schedule:
+    - cron: "0 2 * * *"  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v6
+      - uses: DeterminateSystems/nix-installer-action@main
+      - run: nix run .#update -- --arg skip-prompt true
