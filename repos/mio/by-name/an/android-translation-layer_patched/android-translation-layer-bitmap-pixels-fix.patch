@@ -1,6 +1,6 @@
 diff -ur a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/graphics/Bitmap.java
---- a/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:16:49.757497161 +1000
-+++ b/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:16:49.795496944 +1000
+--- a/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:47:01.549520146 +1000
++++ b/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:47:01.573520015 +1000
 @@ -91,7 +91,9 @@
  	}
  
@@ -13,9 +13,9 @@ diff -ur a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/grap
  
  	public static Bitmap createBitmap(Bitmap src) {
 diff -ur a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
---- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:16:49.755497173 +1000
-+++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:16:49.794496949 +1000
-@@ -112,7 +112,17 @@
+--- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:47:01.547520157 +1000
++++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:47:01.573520015 +1000
+@@ -112,7 +112,22 @@
  		exit(1);
  	}
  	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
@@ -24,24 +24,22 @@ diff -ur a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jn
 +	gdk_texture_download(texture, tmp, stride * 4);
 +	uint32_t *dst = (uint32_t *)(array + offset);
 +	for (int i = 0; i < height * stride; i++) {
-+		uint32_t b = tmp[i * 4 + 0]; // GDK_MEMORY_DEFAULT is BGRA
-+		uint32_t g = tmp[i * 4 + 1];
-+		uint32_t r = tmp[i * 4 + 2];
-+		uint32_t a = tmp[i * 4 + 3];
-+		// GTK returns pre-multiplied alpha. We should unpremultiply it for Android,
-+		// but if we don't, at least the color channels must be in the right place!
-+		if (a > 0 && a < 255) {
-+			r = (r * 255) / a;
-+			g = (g * 255) / a;
-+			b = (b * 255) / a;
++		uint32_t b_c = tmp[i * 4 + 0];
++		uint32_t g_c = tmp[i * 4 + 1];
++		uint32_t r_c = tmp[i * 4 + 2];
++		uint32_t a_c = tmp[i * 4 + 3];
++		if (a_c > 0 && a_c < 255) {
++			r_c = (r_c * 255) / a_c;
++			g_c = (g_c * 255) / a_c;
++			b_c = (b_c * 255) / a_c;
 +		}
-+		dst[i] = (a << 24) | (r << 16) | (g << 8) | (b << 0);
++		dst[i] = (a_c << 24) | (r_c << 16) | (g_c << 8) | (b_c << 0);
 +	}
 +	g_free(tmp);
  	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
  }
  
-@@ -146,7 +156,15 @@
+@@ -146,7 +161,15 @@
  	GtkSnapshot *snapshot = GTK_SNAPSHOT(_PTR(snapshot_ptr));
  	gpointer data = g_malloc0(height * stride * 4);
  	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
