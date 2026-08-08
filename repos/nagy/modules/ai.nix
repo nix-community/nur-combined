@@ -1,9 +1,13 @@
 { config, pkgs, ... }:
 
+let
+  llmAgentsPkgs = (builtins.getFlake "github:numtide/llm-agents.nix").packages.x86_64-linux;
+in
 {
 
   environment.systemPackages = [
-    pkgs.pi-coding-agent
+    llmAgentsPkgs.pi-coding-agent
+    llmAgentsPkgs.omp
   ];
 
   environment.sessionVariables = {

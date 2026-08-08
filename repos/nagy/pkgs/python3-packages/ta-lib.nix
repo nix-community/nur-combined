@@ -10,30 +10,18 @@
   build,
 }:
 
-let
-  # until https://github.com/NixOS/nixpkgs/pull/370195 is not merged
-  ta-lib = pkgs.ta-lib.overrideAttrs rec {
-    version = "0.6.2";
-    src = pkgs.fetchFromGitHub {
-      owner = "TA-Lib";
-      repo = "ta-lib";
-      rev = "v${version}";
-      sha256 = "sha256-asTNJIdIq2pxQ0Lz+rbyDVBpghlsQqqvPy1HFi8BbN0=";
-    };
-  };
-in
 buildPythonPackage rec {
   pname = "ta-lib";
-  version = "0.6.8";
+  version = "0.7.1";
   pyproject = true;
 
   src = fetchPypi {
     pname = "ta_lib";
     inherit version;
-    hash = "sha256-OpGVKZ3519Km6dFr69a3BrDqmeS4cYZMSwNMJXfiGnc=";
+    hash = "sha256-0o7CgtWClMbtPGBMOxHMO1hDzt2EvzgxxRLKQTnQyvQ=";
   };
 
-  buildInputs = [ ta-lib ];
+  buildInputs = [ pkgs.ta-lib ];
 
   build-system = [
     cython
