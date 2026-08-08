@@ -1,4 +1,4 @@
-{ lib, flutter, rustPlatform, cargo, rustc, pkg-config, cmake, ninja, clang, gtk3, glib, pcre2 }:
+{ lib, flutter, rustPlatform, cargo, rustc, pkg-config, cmake, ninja, clang }:
 
 flutter.buildFlutterApplication {
   pname = "uplink";
@@ -13,10 +13,6 @@ flutter.buildFlutterApplication {
 
   nativeBuildInputs = [
     cargo rustc pkg-config cmake ninja rustPlatform.cargoSetupHook clang
-  ];
-  
-  buildInputs = [
-    gtk3 glib pcre2
   ];
   
   preBuild = ''
@@ -34,31 +30,20 @@ flutter.buildFlutterApplication {
       
       cat << 'EOF' > ./rinf_patched/cargokit/run_build_tool.sh
 #!/bin/sh
-set -ex
+set -e
 if [ "$1" = "build-cmake" ]; then
     MANIFEST="$CARGOKIT_MANIFEST_DIR/Cargo.toml"
-    export CARGO_TARGET_DIR="$CARGOKIT_MANIFEST_DIR/../../target"
     if [ "$CARGOKIT_CONFIGURATION" = "Release" ]; then
         cargo build --manifest-path "$MANIFEST" --release
-        cp -v "$CARGO_TARGET_DIR/release/libhub.so" "$CARGOKIT_OUTPUT_DIR/libhub.so"
     else
         cargo build --manifest-path "$MANIFEST"
-        cp -v "$CARGO_TARGET_DIR/debug/libhub.so" "$CARGOKIT_OUTPUT_DIR/libhub.so"
     fi
+    find /build -name libhub.so -exec cp {} "$CARGOKIT_OUTPUT_DIR/" \;
 fi
 EOF
       chmod +x ./rinf_patched/cargokit/run_build_tool.sh
       sed -i "s|$RINF_PATH|$(pwd)/rinf_patched|g" .dart_tool/package_config.json
     fi
-  '';
-
-  postBuild = ''
-    cargo build -p uplink_cli --release
-  '';
-
-  postInstall = ''
-    mkdir -p $out/bin
-    cp target/release/uplink_cli $out/bin/uplink_cli
   '';
 
   dontUseCmakeConfigure = true;
