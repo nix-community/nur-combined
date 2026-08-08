@@ -52,6 +52,15 @@ EOF
     fi
   '';
 
+  postBuild = ''
+    cargo build -p uplink_cli --release
+  '';
+
+  postInstall = ''
+    mkdir -p $out/bin
+    cp target/release/uplink_cli $out/bin/uplink_cli
+  '';
+
   dontUseCmakeConfigure = true;
 
   meta = with lib; {
