@@ -275,7 +275,11 @@ eachSystemOp (
             lib.optionalAttrs
               (!lib.isDerivation flake.${key} || lib.meta.availableOn packages.stdenv.hostPlatform flake.${key})
               {
-                ${system} = flake.${key};
+                ${system} =
+                  if key == "checks" then
+                    lib.filterAttrs (_: check: lib.meta.availableOn packages.stdenv.hostPlatform check) flake.${key}
+                  else
+                    flake.${key};
               };
       }
   ) attrs (builtins.attrNames flake)
