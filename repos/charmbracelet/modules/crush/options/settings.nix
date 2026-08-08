@@ -184,7 +184,7 @@ lib.mkOption {
 
               timeout = lib.mkOption {
                 type = lib.types.nullOr lib.types.int;
-                default = 15;
+                default = 10;
                 description = "Timeout in seconds for MCP server connections";
               };
 
