@@ -81,8 +81,8 @@
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.27",
-    "hash": "sha256-P3uYhyxqH5CIW7NiOCl9gMVqm2eqj0M2Q+fzMjwvqRc="
+    "version": "10.0.29",
+    "hash": "sha256-vre0RHq4MCM8urAvLcAAOzIxg46G/v2zFjvi6vg9t1g="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
