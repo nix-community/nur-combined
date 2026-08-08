@@ -1,0 +1,48 @@
+--- a/Telegram/cmake/telegram_apple_swift_runtime.cmake
++++ b/Telegram/cmake/telegram_apple_swift_runtime.cmake
+@@ -9,29 +9,29 @@
+         return()
+     endif()
+ 
+-    execute_process(
+-        COMMAND xcode-select -p
+-        OUTPUT_VARIABLE DEVELOPER_DIR
+-        OUTPUT_STRIP_TRAILING_WHITESPACE
+-    )
++    if (NOT DEFINED ENV{NIX_SWIFT_LIB_DIR})
++        message(FATAL_ERROR "NIX_SWIFT_LIB_DIR must be set to the Nix Swift library directory")
++    endif()
++    if (NOT DEFINED ENV{SDKROOT})
++        message(FATAL_ERROR "SDKROOT must be set so Apple Swift overlays can be found")
++    endif()
++    set(SWIFT_LIB_DIR "$ENV{NIX_SWIFT_LIB_DIR}")
++    set(SWIFT_APPLE_LIB_DIR "$ENV{SDKROOT}/usr/lib/swift")
+ 
+-    set(SWIFT_LIB_DIR
+-        "${DEVELOPER_DIR}/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx")
+-
+     target_link_options(${target_name}
+     PRIVATE
+         "-L${SWIFT_LIB_DIR}"
++        "-L${SWIFT_APPLE_LIB_DIR}"
++        "-Wl,-rpath,${SWIFT_LIB_DIR}"
+         "-Wl,-rpath,/usr/lib/swift"
+         "-Wl,-rpath,@executable_path/../Frameworks"
+     )
+ 
+     add_custom_command(TARGET ${target_name} POST_BUILD
+-        COMMAND mkdir -p $<TARGET_FILE_DIR:${target_name}>/../Frameworks
+-        COMMAND xcrun swift-stdlib-tool
+-            --copy
+-            --platform macosx
+-            --scan-executable $<TARGET_FILE:${target_name}>
+-            --destination $<TARGET_FILE_DIR:${target_name}>/../Frameworks
++        COMMAND ${CMAKE_COMMAND} -E make_directory
++            "$<TARGET_FILE_DIR:${target_name}>/../Frameworks"
++        COMMAND /bin/bash -c
++            "shopt -s nullglob; for f in \"${SWIFT_LIB_DIR}\"/libswift*.dylib \"${SWIFT_LIB_DIR}\"/libSwift*.dylib; do cp -f \"$f\" \"$<TARGET_FILE_DIR:${target_name}>/../Frameworks/\"; done"
+         VERBATIM
+     )
+-endfunction()
+\ No newline at end of file
++endfunction()

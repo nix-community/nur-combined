@@ -1,0 +1,159 @@
+diff -Naur a/Telegram/SourceFiles/data/components/sponsored_messages.cpp b/Telegram/SourceFiles/data/components/sponsored_messages.cpp
+--- a/Telegram/SourceFiles/data/components/sponsored_messages.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/data/components/sponsored_messages.cpp	2026-07-19 11:31:17
+@@ -239,26 +239,26 @@
+ }
+ 
+ bool SponsoredMessages::canHaveFor(not_null<History*> history) const {
+-	if (history->peer->isChannel()) {
+-		return true;
+-	} else if (const auto user = history->peer->asUser()) {
+-		return user->isBot();
+-	}
+ 	return false;
++		//return true;
++	//} else if (const auto user = history->peer->asUser()) {
++		//return user->isBot();
++	//}
++	//return false;
+ }
+ 
+ bool SponsoredMessages::canHaveFor(not_null<HistoryItem*> item) const {
+-	return item->history()->peer->isBroadcast()
+-		&& item->isRegular();
++	return false;
++		//&& item->isRegular();
+ }
+ 
+ bool SponsoredMessages::isTopBarFor(not_null<History*> history) const {
+-	if (peerIsUser(history->peer->id)) {
+-		if (const auto user = history->peer->asUser()) {
+-			return user->isBot();
+-		}
+-	}
+ 	return false;
++		//if (const auto user = history->peer->asUser()) {
++			//return user->isBot();
++		//}
++	//}
++	//return false;
+ }
+ 
+ void SponsoredMessages::request(not_null<History*> history, Fn<void()> done) {
+diff -Naur a/Telegram/SourceFiles/data/data_channel.cpp b/Telegram/SourceFiles/data/data_channel.cpp
+--- a/Telegram/SourceFiles/data/data_channel.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/data/data_channel.cpp	2026-07-19 11:31:17
+@@ -1109,7 +1109,7 @@
+ }
+ 
+ TimeId ChannelData::invitePeekExpires() const {
+-	return _invitePeek ? _invitePeek->expires : 0;
++	return 0; // _invitePeek ? _invitePeek->expires : 0;
+ }
+ 
+ QString ChannelData::invitePeekHash() const {
+diff -Naur a/Telegram/SourceFiles/data/data_story.cpp b/Telegram/SourceFiles/data/data_story.cpp
+--- a/Telegram/SourceFiles/data/data_story.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/data/data_story.cpp	2026-07-19 11:31:17
+@@ -420,12 +420,12 @@
+ }
+ 
+ bool Story::canDownloadIfPremium() const {
+-	return !forbidsForward() || _peer->isSelf();
++	return true;
+ }
+ 
+ bool Story::canDownloadChecked() const {
+-	return _peer->isSelf()
+-		|| (canDownloadIfPremium() && _peer->session().premium());
++	return true;
++		//|| (canDownloadIfPremium() && _peer->session().premium());
+ }
+ 
+ bool Story::canShare() const {
+diff -Naur a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
+--- a/Telegram/SourceFiles/history/history_inner_widget.cpp	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/history/history_inner_widget.cpp	2026-07-19 11:31:17
+@@ -817,18 +817,18 @@
+ }
+ 
+ bool HistoryInner::hasSelectRestriction() const {
+-	if (_chooseForReportReason.has_value()) {
+-		return false;
+-	} else if (session().frozen()) {
+-		return true;
+-	} else if (!_sharingDisallowed.current()) {
+-		return false;
+-	} else if (const auto chat = _peer->asChat()) {
+-		return !chat->canDeleteMessages();
+-	} else if (const auto channel = _peer->asChannel()) {
+-		return !channel->canDeleteMessages();
+-	}
+-	return true;
++	return false;
++		//return false;
++	//} else if (session().frozen()) {
++		//return true;
++	//} else if (!_sharingDisallowed.current()) {
++		//return false;
++	//} else if (const auto chat = _peer->asChat()) {
++		//return !chat->canDeleteMessages();
++	//} else if (const auto channel = _peer->asChannel()) {
++		//return !channel->canDeleteMessages();
++	//}
++	//return true;
+ }
+ 
+ void HistoryInner::messagesReceived(
+@@ -3831,7 +3831,7 @@
+ }
+ 
+ bool HistoryInner::hasCopyRestriction(HistoryItem *item) const {
+-	return !_peer->allowsForwarding() || (item && item->forbidsForward());
++	return false;
+ }
+ 
+ bool HistoryInner::hasCopyMediaRestriction(
+@@ -3864,17 +3864,17 @@
+ }
+ 
+ bool HistoryInner::hasCopyRestrictionForSelected() const {
+-	if (hasCopyRestriction()) {
+-		return true;
+-	}
+-	for (const auto &item : _selected) {
+-		if (item && item->forbidsForward()) {
+-			return true;
+-		}
+-	}
+-	return hasSelectedText()
+-		&& _selectedTextItem
+-		&& _selectedTextItem->forbidsForward();
++	return false;
++		//return true;
++	//}
++	//for (const auto &item : _selected) {
++		//if (item && item->forbidsForward()) {
++			//return true;
++		//}
++	//}
++	//return hasSelectedText()
++		//&& _selectedTextItem
++		//&& _selectedTextItem->forbidsForward();
+ }
+ 
+ bool HistoryInner::showCopyRestrictionForSelected() {
+diff -Naur a/Telegram/SourceFiles/main/main_domain.h b/Telegram/SourceFiles/main/main_domain.h
+--- a/Telegram/SourceFiles/main/main_domain.h	1970-01-01 12:00:01
++++ b/Telegram/SourceFiles/main/main_domain.h	2026-07-19 11:31:17
+@@ -31,8 +31,8 @@
+ 		std::unique_ptr<Account> account;
+ 	};
+ 
+-	static constexpr auto kMaxAccounts = 30;
+-	static constexpr auto kPremiumMaxAccounts = kMaxAccounts + 3;
++	static constexpr auto kMaxAccounts = 255;
++	static constexpr auto kPremiumMaxAccounts = 255;
+ 
+ 	explicit Domain(const QString &dataName);
+ 	~Domain();
