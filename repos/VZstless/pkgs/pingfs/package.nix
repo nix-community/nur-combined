@@ -4,6 +4,7 @@
   fetchFromGitHub,
   fuse,
   pkg-config,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -34,6 +35,8 @@ stdenv.mkDerivation (finalAttrs: {
       $out/bin/pingfs
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Stores your data in ICMP ping packets";

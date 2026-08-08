@@ -2,6 +2,7 @@
   lib,
   rustPlatform,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
@@ -16,6 +17,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   };
 
   cargoHash = "sha256-gUVGUkJW5KwJd7rFi6C/4hj2pjChGvKLQNQjQwX3zsg=";
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Global DNS propagation checker TUI";

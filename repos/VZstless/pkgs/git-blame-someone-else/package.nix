@@ -2,6 +2,7 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
@@ -25,6 +26,8 @@ stdenv.mkDerivation (finalAttrs: {
       $out/bin/git-blame-someone-else
     runHook postInstall
   '';
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Blame someone else for your bad code";

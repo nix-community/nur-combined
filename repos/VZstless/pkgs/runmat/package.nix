@@ -7,20 +7,21 @@
   openssl,
   hdf5,
   cmake,
+  nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "runmat";
-  version = "0.6.0";
+  version = "0.6.1";
 
   src = fetchFromGitHub {
     owner = "runmat-org";
     repo = "runmat";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-bc17TPg69vQeCa1m9Ni6P1Md5/v1oq2k2Oh59mf+ElE=";
+    hash = "sha256-8oKRWjLaMotTUr6uERsoGj3WF8e3dKTsN1sQkCRQLmo=";
   };
 
-  cargoHash = "sha256-Fg91vcZyVuk5hVGRnLs+KqJtIqagEeHDJ9P9svqRrjE=";
+  cargoHash = "sha256-IuMEYnAqdz6h65OnVaeprqaqqI83OIQgCgzvsTE/N80=";
 
   nativeBuildInputs = [
     pkg-config
@@ -34,6 +35,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   doCheck = false;
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Open-source runtime for math. MATLAB syntax";
