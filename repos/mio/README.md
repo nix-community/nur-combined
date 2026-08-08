@@ -120,3 +120,4 @@ While Python 3.8 reached End-Of-Life in October 2024 and is removed from modern 
 ## Vendored Packages
 
 * `wolfssl`: Copied from Nixpkgs commit `3040774c2f99756cc03c28dd78bbcb2bbd4e73f9` (the revision immediately before it was dropped from the tree), to support JNI for `art-standalone_patched`.
+* `python27`: Copied from Nixpkgs commit `55280fa56481cd71b53545171eb9ec5ab44c3795` (the revision immediately before cpython 2.7 and its helpers were moved to resholve and subsequently removed from the top-level). It was removed in commit `e6871d9800efed3395535a879e323b546d96feab` (PR #516241).

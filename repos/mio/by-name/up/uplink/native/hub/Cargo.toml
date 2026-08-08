@@ -19,10 +19,12 @@ wildcard_imports = "deny"
 [dependencies]
 rinf = "8.10.0"
 serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.111"
 tokio = { version = "1.45.0", features = ["rt", "macros", "time"] }
 async-trait = "0.1.87"
 messages = "0.3.1"
 reqwest = { version = "0.13.4", features = ["multipart", "json"] }
+uplink_core = { version = "0.1.0", path = "../uplink_core" }
 
 # Uncomment below to target the web.
 # tokio_with_wasm = { version = "0.8.5", features = ["rt", "macros", "time"] }

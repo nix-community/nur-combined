@@ -17,6 +17,9 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
+            config.permittedInsecurePackages = [
+              "python-2.7.18"
+            ];
           };
           no-ifd = false;
         }

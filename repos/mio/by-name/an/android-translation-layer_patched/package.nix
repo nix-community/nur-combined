@@ -35,6 +35,7 @@
       ./android-translation-layer-gtk-measure.patch
       ./android-translation-layer-wrapper-measure-fix.patch
       ./android-translation-layer-gtk-native-check.patch
+      ./android-translation-layer-media-data-source.patch
       ./android-translation-layer-drawlines-bounds.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
       ./android-translation-layer-bitmap-factory-null-pixbuf.patch

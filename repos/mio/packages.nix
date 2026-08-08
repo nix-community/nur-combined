@@ -45,6 +45,7 @@ let
 in
 byName
 // (with byName; rec {
+  python27 = pkgs.callPackage ./pkgs/python27/package.nix { };
   wireguird = goV3OverrideAttrs (pkgs.callPackage ./pkgs/wireguird { });
   graphene-hardened-malloc = v3overrideAttrs pkgs.graphene-hardened-malloc;
 

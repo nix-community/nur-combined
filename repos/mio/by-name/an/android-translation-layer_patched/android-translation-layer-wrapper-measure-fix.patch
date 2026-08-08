@@ -1,0 +1,16 @@
+--- a/src/api-impl-jni/widgets/WrapperWidget.c
++++ b/src/api-impl-jni/widgets/WrapperWidget.c
+@@ -129,6 +129,13 @@
+ 	} else if (orientation == GTK_ORIENTATION_VERTICAL && (wrapper->layout_height > 0)) {
+ 		*minimum = *natural = wrapper->layout_height;
+ 	}
++
++	if (minimum_baseline && *minimum_baseline > *minimum) {
++		*minimum_baseline = -1;
++	}
++	if (natural_baseline && *natural_baseline > *natural) {
++		*natural_baseline = -1;
++	}
+ }
+ 
+ void wrapper_widget_allocate(GtkWidget *widget, int width, int height, int baseline)
