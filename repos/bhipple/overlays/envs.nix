@@ -73,9 +73,9 @@ in
       self.tree
       self.unzip
       self.wget
-      self.xorg.xev
-      self.xorg.xeyes
-      self.xorg.xmodmap
+      self.xev
+      self.xeyes
+      self.xmodmap
       self.zellij
       self.zoxide
       self.zsh
