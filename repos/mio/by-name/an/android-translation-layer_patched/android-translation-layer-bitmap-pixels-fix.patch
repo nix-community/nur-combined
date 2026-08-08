@@ -1,6 +1,6 @@
-diff -ur a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/graphics/Bitmap.java
---- a/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:47:01.549520146 +1000
-+++ b/src/api-impl/android/graphics/Bitmap.java	2026-08-08 16:47:01.573520015 +1000
+diff -ur src/src/api-impl/android/graphics/Bitmap.java src_patched/src/api-impl/android/graphics/Bitmap.java
+--- src/src/api-impl/android/graphics/Bitmap.java	2026-08-08 19:49:50.681553623 +1000
++++ src_patched/src/api-impl/android/graphics/Bitmap.java	2026-08-08 19:49:59.612504039 +1000
 @@ -91,7 +91,9 @@
  	}
  
@@ -12,9 +12,9 @@ diff -ur a/src/api-impl/android/graphics/Bitmap.java b/src/api-impl/android/grap
  	}
  
  	public static Bitmap createBitmap(Bitmap src) {
-diff -ur a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jni/graphics/android_graphics_Bitmap.c
---- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:47:01.547520157 +1000
-+++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 16:47:01.573520015 +1000
+diff -ur src/src/api-impl-jni/graphics/android_graphics_Bitmap.c src_patched/src/api-impl-jni/graphics/android_graphics_Bitmap.c
+--- src/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 19:49:50.730553350 +1000
++++ src_patched/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 19:49:59.612504039 +1000
 @@ -112,7 +112,22 @@
  		exit(1);
  	}
@@ -39,7 +39,7 @@ diff -ur a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jn
  	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
  }
  
-@@ -146,7 +161,15 @@
+@@ -146,10 +161,27 @@
  	GtkSnapshot *snapshot = GTK_SNAPSHOT(_PTR(snapshot_ptr));
  	gpointer data = g_malloc0(height * stride * 4);
  	jint *array = (*env)->GetIntArrayElements(env, pixels, NULL);
@@ -48,11 +48,24 @@ diff -ur a/src/api-impl-jni/graphics/android_graphics_Bitmap.c b/src/api-impl-jn
 +	uint8_t *dst = (uint8_t *)data;
 +	for (int i = 0; i < height * stride; i++) {
 +		uint32_t color = src[i];
-+		*dst++ = (color >> 16) & 0xFF;
-+		*dst++ = (color >> 8) & 0xFF;
-+		*dst++ = (color >> 0) & 0xFF;
-+		*dst++ = (color >> 24) & 0xFF;
++		uint32_t a = (color >> 24) & 0xFF;
++		uint32_t r = (color >> 16) & 0xFF;
++		uint32_t g = (color >> 8) & 0xFF;
++		uint32_t b = (color >> 0) & 0xFF;
++		if (a > 0 && a < 255) {
++			r = (r * a) / 255;
++			g = (g * a) / 255;
++			b = (b * a) / 255;
++		}
++		*dst++ = b;
++		*dst++ = g;
++		*dst++ = r;
++		*dst++ = a;
 +	}
  	(*env)->ReleaseIntArrayElements(env, pixels, array, 0);
  	GBytes *bytes = g_bytes_new_take(data, height * stride * 4);
- 	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8A8, bytes, stride * 4);
+-	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_R8G8B8A8, bytes, stride * 4);
++	GdkTexture *texture = gdk_memory_texture_new(width, height, GDK_MEMORY_DEFAULT, bytes, stride * 4);
+ 	g_bytes_unref(bytes);
+ 	gtk_snapshot_append_texture(snapshot, texture, &GRAPHENE_RECT_INIT(x, y, width, height));
+ 	g_object_unref(texture);
