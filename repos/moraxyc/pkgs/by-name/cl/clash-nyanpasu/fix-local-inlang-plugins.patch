@@ -1,11 +1,11 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 94b0390..6888a49 100644
+index 920d65d..c80bfea 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.509",
+     "@iconify/json": "2.2.511",
 +    "@inlang/plugin-m-function-matcher": "^2.2.9",
 +    "@inlang/plugin-message-format": "^4.4.1",
      "@monaco-editor/react": "4.7.0",
@@ -27,13 +27,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 30706f6..c0308d6 100644
+index 62fd317..c400794 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.509
-         version: 2.2.509
+         specifier: 2.2.511
+         version: 2.2.511
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.9
 +        version: 2.2.9
@@ -79,83 +79,6 @@ index 30706f6..c0308d6 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -6701,14 +6722,14 @@ snapshots:
-   '@babel/core@7.29.7(supports-color@10.2.2)':
-     dependencies:
-       '@babel/code-frame': 7.29.7
--      '@babel/generator': 7.29.7
-+      '@babel/generator': 7.29.8
-       '@babel/helper-compilation-targets': 7.29.7
-       '@babel/helper-module-transforms': 7.29.7(@babel/core@7.29.7(supports-color@10.2.2))(supports-color@10.2.2)
-       '@babel/helpers': 7.29.7
--      '@babel/parser': 7.29.7
-+      '@babel/parser': 7.29.8
-       '@babel/template': 7.29.7
--      '@babel/traverse': 7.29.7(supports-color@10.2.2)
--      '@babel/types': 7.29.7
-+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
-+      '@babel/types': 7.29.8
-       '@jridgewell/remapping': 2.3.5
-       convert-source-map: 2.0.0
-       debug: 4.4.3(supports-color@10.2.2)
-@@ -6750,7 +6771,7 @@ snapshots:
-     dependencies:
-       '@babel/compat-data': 7.29.7
-       '@babel/helper-validator-option': 7.29.7
--      browserslist: 4.28.6
-+      browserslist: 4.28.7
-       lru-cache: 5.1.1
-       semver: 6.3.1
- 
-@@ -6798,8 +6819,8 @@ snapshots:
- 
-   '@babel/helper-module-imports@7.29.7(supports-color@10.2.2)':
-     dependencies:
--      '@babel/traverse': 7.29.7(supports-color@10.2.2)
--      '@babel/types': 7.29.7
-+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
-+      '@babel/types': 7.29.8
-     transitivePeerDependencies:
-       - supports-color
- 
-@@ -6808,7 +6829,7 @@ snapshots:
-       '@babel/core': 7.29.0(supports-color@10.2.2)
-       '@babel/helper-module-imports': 7.29.7(supports-color@10.2.2)
-       '@babel/helper-validator-identifier': 7.29.7
--      '@babel/traverse': 7.29.7(supports-color@10.2.2)
-+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
-     transitivePeerDependencies:
-       - supports-color
- 
-@@ -6817,7 +6838,7 @@ snapshots:
-       '@babel/core': 7.29.7(supports-color@10.2.2)
-       '@babel/helper-module-imports': 7.29.7(supports-color@10.2.2)
-       '@babel/helper-validator-identifier': 7.29.7
--      '@babel/traverse': 7.29.7(supports-color@10.2.2)
-+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
-     transitivePeerDependencies:
-       - supports-color
- 
-@@ -6873,7 +6894,7 @@ snapshots:
-   '@babel/helpers@7.29.7':
-     dependencies:
-       '@babel/template': 7.29.7
--      '@babel/types': 7.29.7
-+      '@babel/types': 7.29.8
- 
-   '@babel/parser@7.29.0':
-     dependencies:
-@@ -7388,8 +7409,8 @@ snapshots:
-   '@babel/template@7.29.7':
-     dependencies:
-       '@babel/code-frame': 7.29.7
--      '@babel/parser': 7.29.7
--      '@babel/types': 7.29.7
-+      '@babel/parser': 7.29.8
-+      '@babel/types': 7.29.8
- 
-   '@babel/traverse@7.29.0(supports-color@10.2.2)':
-     dependencies:
 @@ -7790,6 +7811,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
@@ -199,12 +122,3 @@ index 30706f6..c0308d6 100644
    flatted@3.4.2: {}
  
    formatly@0.3.0:
-@@ -11977,7 +12020,7 @@ snapshots:
- 
-   prettier-plugin-ember-template-tag@2.1.6(prettier@3.8.5)(supports-color@10.2.2):
-     dependencies:
--      '@babel/traverse': 7.29.7(supports-color@10.2.2)
-+      '@babel/traverse': 7.29.8(supports-color@10.2.2)
-       content-tag: 4.2.0
-       prettier: 3.8.5
-     transitivePeerDependencies:
