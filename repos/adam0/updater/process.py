@@ -34,8 +34,7 @@ def run(
         actual,
         cwd=cwd,
         text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
+        capture_output=True,
         check=False,
     )
     logger.info("command exited %d: %s", result.returncode, " ".join(actual))

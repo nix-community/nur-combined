@@ -3,6 +3,7 @@ from __future__ import annotations
 import shutil
 import tempfile
 from pathlib import Path
+from typing import Self
 
 from .process import ROOT, run
 
@@ -15,7 +16,7 @@ class FileTransaction:
         self._backups: dict[Path, Path] = {}
         self.before_diff = git_changed_files()
 
-    def __enter__(self) -> FileTransaction:
+    def __enter__(self) -> Self:
         self._tmpdir = Path(tempfile.mkdtemp(prefix="update-package-"))
         for path in self._snapshot_files:
             backup = self._tmpdir / str(path.relative_to(ROOT)).replace("/", "__")

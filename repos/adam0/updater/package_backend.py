@@ -187,7 +187,13 @@ def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> None:
     ]
 
     for pattern, replacement, fake_pattern, final_template in replacements:
-        text, count = re.subn(pattern, replacement, ref.file_path.read_text(), count=1, flags=re.S)
+        text, count = re.subn(
+            pattern,
+            replacement,
+            ref.file_path.read_text(),
+            count=1,
+            flags=re.DOTALL,
+        )
         if not count:
             continue
         ref.file_path.write_text(text)
@@ -195,12 +201,12 @@ def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> None:
         got_hash = _last_got_hash(ref, timeout=timeout)
         updated, count = re.subn(
             fake_pattern,
-            lambda found: final_template.format(
+            lambda found, final_template=final_template, got_hash=got_hash: final_template.format(
                 prefix=found.group(1) if found.groups() else "", hash=got_hash
             ),
             refreshed,
             count=1,
-            flags=re.S,
+            flags=re.DOTALL,
         )
         if count:
             ref.file_path.write_text(updated)
@@ -208,7 +214,11 @@ def _refresh_dependency_hashes(ref: PackageRef, *, timeout: str | None) -> None:
 
 def _last_got_hash(ref: PackageRef, *, timeout: str | None) -> str:
     result = _build_with_fake_hash(ref, timeout=timeout)
-    match = re.search(r"^\s*got:\s*(sha256-[A-Za-z0-9+/=]+)$", result.stderr + result.stdout, re.M)
+    match = re.search(
+        r"^\s*got:\s*(sha256-[A-Za-z0-9+/=]+)$",
+        result.stderr + result.stdout,
+        re.MULTILINE,
+    )
     if not match:
         raise CommandError(["refresh-dependency-hash", ref.attr_path], result)
     return match.group(1)
