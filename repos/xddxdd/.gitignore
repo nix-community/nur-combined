@@ -9,3 +9,4 @@ trace.txt*
 update-git-commits.txt
 *.cmp
 *.fetchlog
+__pycache__/

@@ -52,15 +52,6 @@ jobs:
             build-dir = /nix/tmpdir
             log-lines = 25
 
-      - name: Cache Nvfetcher Database
-        id: cache-nvfetcher
-        uses: actions/cache@v6
-        with:
-          path: ~/.local/share/nvfetcher
-          key: nvfetcher-${{ github.sha }}
-          restore-keys: |
-            nvfetcher-
-
       - name: Build nix packages
         run: |
           cat > secrets.toml <<EOF

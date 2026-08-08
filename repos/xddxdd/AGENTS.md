@@ -127,16 +127,26 @@ appimageTools.wrapType2 {
 
 ## 源码管理
 
-### nvfetcher 使用
+### 源码更新工具
 
-- 本仓库使用 nvfetcher 管理源码版本更新
-- 配置文件位于 `nvfetcher.toml`
+- 本仓库使用 Python 版 `update-sources`（`tools/update_sources.py`）管理源码版本更新，它是 nvfetcher 的替代品
+- 配置文件位于 `nvfetcher.toml`（格式与 nvfetcher 完全兼容）
+- devshell 中通过 `update-sources` 命令调用，也可直接 `./tools/update_sources.py` 运行（带 nix-shell shebang，自动拉取 `nvchecker`/`nix`/`nix-prefetch-scripts`/`nix-prefetch-docker`/`git` 依赖）。CI 的 `auto-update` 流程通过 `nix run .#update` 调用它
+- 原版 Haskell `nvfetcher` 命令仍保留，供特殊场景使用
+
+### update-sources（Python 版 nvfetcher 替代品）
+
+- 与上游 nvfetcher 的区别：
+  - 版本检查复用同一套 `nvchecker`，且支持 **所有** nvchecker 源类型。nvfetcher 内置映射的源用 `src.<源名>` 形式；其余源在运行时从已安装的 `nvchecker_source` 包动态发现（新增源无需改代码），可直接写 `src.<源名> = ...`（当值的键名与源名一致时）或用显式形式 `src.source = "apt"; src.ppa = ...; src.suite = ...` 把 nvchecker 原生键原样透传
+  - 读写相同的 `nvfetcher.toml` 与 `_sources/generated.{nix,json}` 格式，输出按包名排序，**已内置** 原 `tools/postprocess_nvfetcher.py` 的处理（`hash`/`tag`、去除默认字段），因此 `update-sources` 命令后无需再跑 postprocess
+  - **任何单个包失败（nvchecker 报错或 prefetch 报错）时保留 `generated.json` 中的现有条目**，而不是整体失败或从输出中删除
+- CLI 选项与 nvfetcher 一致：`-c`（配置）、`-o`（输出目录，默认 `_sources`）、`-f`（正则过滤）、`-k`（keyfile）、`-j`（并行度）、`-t`（重试）、`--force`（强制重新拉取）
 
 ### 更新源码
 
-- 修改 `nvfetcher.toml` 后运行 nvfetcher 时，必须指定包名：`nvfetcher -f package-name`
-- `-f` 参数接受的是正则表达式，不是多个独立参数。要匹配多个包，使用正则如 `nvfetcher -f 'package-one|package-two'`
-- 禁止运行不带包名的 `nvfetcher` 命令
+- 修改 `nvfetcher.toml` 后运行 update-sources 时，必须指定包名：`update-sources -f package-name`
+- `-f` 参数接受的是正则表达式，不是多个独立参数。要匹配多个包，使用正则如 `update-sources -f 'package-one|package-two'`
+- 禁止运行不带包名的 `update-sources` 命令
 
 ### stable/unstable 双源模式
 

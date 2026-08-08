@@ -165,10 +165,10 @@
   };
   bifrost = {
     pname = "bifrost";
-    version = "1.6.8";
+    version = "1.6.9";
     src = fetchurl {
-      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.8.tar.gz";
-      hash = "sha256-M5t0ZyU4TVYJSr5gxF9lrcs3c7SqZJWokcqBZd1i4Pc=";
+      url = "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.9.tar.gz";
+      hash = "sha256-LqoJIlI9lx6KOfKv1Y/dcQ+6FDTPsObzjpzgACQl/OI=";
     };
   };
   bilibili = {

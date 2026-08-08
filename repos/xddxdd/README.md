@@ -76,7 +76,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.6.0 | Baidu Netdisk |
 |  | `baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-06-18 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
-|  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.8 | High-performance AI gateway with unified OpenAI-compatible API |
+|  | `bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.9 | High-performance AI gateway with unified OpenAI-compatible API |
 |  | `bilibili` | [bilibili](https://app.bilibili.com/) | 1.18.0-1 | Desktop client for Bilibili |
 |  | `bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.9 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |
@@ -1316,7 +1316,7 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `uncategorized.baidunetdisk` | [baidunetdisk](https://pan.baidu.com/) | 8.6.0 | Baidu Netdisk |
 |  | `uncategorized.baidupcs-go` | [baidupcs-go](https://github.com/qjfoidnh/BaiduPCS-Go) | 4.0.1-unstable-2026-06-18 | Baidu Netdisk commandline client, mimicking Linux shell file handling commands |
 | `x86_64-linux` | `uncategorized.bambu-studio-bin` | [bambu-studio-bin](https://github.com/bambulab/BambuStudio) | 02.05.02.51 | PC Software for BambuLab and other 3D printers |
-|  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.8 | High-performance AI gateway with unified OpenAI-compatible API |
+|  | `uncategorized.bifrost` | [bifrost](https://github.com/maximhq/bifrost) | 1.6.9 | High-performance AI gateway with unified OpenAI-compatible API |
 |  | `uncategorized.bilibili` | [bilibili](https://app.bilibili.com/) | 1.18.0-1 | Desktop client for Bilibili |
 |  | `uncategorized.bin-cpuflags-x86` | [bin-cpuflags-x86](https://github.com/HanabishiRecca/bin-cpuflags-x86) | 1.0.9 | Small CLI tool to detect CPU flags (instruction sets) of X86 binaries |
 |  | `uncategorized.bird-lg-go` | [bird-lg-go](https://github.com/xddxdd/bird-lg-go) | 1.4.8 | BIRD looking glass in Go, for better maintainability, easier deployment & smaller memory footprint |

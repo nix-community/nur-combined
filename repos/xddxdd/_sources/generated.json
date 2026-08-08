@@ -314,11 +314,11 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-M5t0ZyU4TVYJSr5gxF9lrcs3c7SqZJWokcqBZd1i4Pc=",
+            "sha256": "sha256-LqoJIlI9lx6KOfKv1Y/dcQ+6FDTPsObzjpzgACQl/OI=",
             "type": "url",
-            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.8.tar.gz"
+            "url": "https://github.com/maximhq/bifrost/archive/refs/tags/transports/v1.6.9.tar.gz"
         },
-        "version": "1.6.8"
+        "version": "1.6.9"
     },
     "bilibili": {
         "cargoLock": null,
