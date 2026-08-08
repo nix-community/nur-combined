@@ -4,6 +4,7 @@
   fetchFromGitHub,
   lib,
   rustPlatform,
+  rustc,
   # keep-sorted end
 }:
 rustPlatform.buildRustPackage {
@@ -30,6 +31,7 @@ rustPlatform.buildRustPackage {
 
   meta = {
     # keep-sorted start
+    broken = lib.versionOlder rustc.version "1.92";
     description = "Small, fast, and Lua-scriptable coding agent (development version)";
     homepage = "https://github.com/leonardcser/smelt";
     license = lib.licenses.mit;
