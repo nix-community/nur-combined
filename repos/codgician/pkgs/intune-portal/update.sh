@@ -16,7 +16,7 @@ old_version=$(sed -nE 's/^[[:space:]]*version = "([^"]+)";.*/\1/p' "$path")
 # so inspect every published Ubuntu repository and update both fields together.
 mapfile -t ubuntu_versions < <(
     curl -fsSL "$repository_root/" \
-        | sed -nE 's@.*href="([0-9]+\.[0-9]+)/".*@\1@p' \
+        | sed -nE 's@.*href="\./?([0-9]+\.[0-9]+)/".*@\1@p' \
         | sort -Vr
 )
 
@@ -38,7 +38,7 @@ for ubuntu_version in "${ubuntu_versions[@]}"; do
         fi
     done < <(
         printf '%s\n' "$package_index" \
-            | sed -nE 's@.*href="intune-portal_([^"]+)_amd64\.deb".*@\1@p'
+            | sed -nE 's@.*href="\./?intune-portal_([^"]+)_amd64\.deb".*@\1@p'
     )
 done
 
