@@ -6,7 +6,7 @@ in
 {
 
   environment.systemPackages = [
-    llmAgentsPkgs.pi-coding-agent
+    llmAgentsPkgs.pi
     llmAgentsPkgs.omp
   ];
 
