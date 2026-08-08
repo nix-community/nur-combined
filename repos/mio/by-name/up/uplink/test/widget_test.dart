@@ -18,6 +18,8 @@ void main() {
     // Verify that our title and buttons are present.
     expect(find.text('Uplink Pastebin'), findsOneWidget);
     expect(find.text('Upload Text'), findsOneWidget);
+    expect(find.text('Upload Image'), findsOneWidget);
+    expect(find.text('Upload File'), findsOneWidget);
     expect(find.byType(TextField), findsOneWidget);
   });
 }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
+import 'dart:typed_data';
 import 'src/bindings/bindings.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initializeRust();
   runApp(const MyApp());
 }
 
@@ -53,9 +53,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _uploadFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.pickFiles();
     if (result != null && result.files.single.path != null) {
-      UploadFileRequest(path: result.files.single.path!).sendSignalToRust();
+      final file = File(result.files.single.path!);
+      final bytes = await file.readAsBytes();
+      final filename = result.files.single.name;
+      UploadFileRequest(filename: filename).sendSignalToRust(bytes);
     }
   }
 
