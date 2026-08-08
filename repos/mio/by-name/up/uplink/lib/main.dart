@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'dart:typed_data';
-import 'package:flutter/services.dart';
-import 'package:pasteboard/pasteboard.dart';
 import 'src/bindings/bindings.dart';
 
 void main() async {
@@ -37,7 +35,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    HardwareKeyboard.instance.addHandler(_keyHandler);
     UploadTextResponse.rustSignalStream.listen((event) {
       setState(() {
         _status = event.message.url ?? event.message.error ?? '';
@@ -49,29 +46,6 @@ class _MyHomePageState extends State<MyHomePage> {
         _status = event.message.url ?? event.message.error ?? '';
       });
     });
-  }
-
-  @override
-  void dispose() {
-    HardwareKeyboard.instance.removeHandler(_keyHandler);
-    super.dispose();
-  }
-
-  bool _keyHandler(KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.keyV) {
-      if (HardwareKeyboard.instance.isControlPressed || HardwareKeyboard.instance.isMetaPressed) {
-        _handlePaste();
-      }
-    }
-    return false;
-  }
-
-  Future<void> _handlePaste() async {
-    final imageBytes = await Pasteboard.image;
-    if (imageBytes != null && imageBytes.isNotEmpty) {
-      setState(() => _status = "Uploading pasted image...");
-      UploadFileRequest(filename: "pasted_image.png").sendSignalToRust(imageBytes);
-    }
   }
 
   void _uploadText() {

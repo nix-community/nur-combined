@@ -37,7 +37,6 @@ dependencies:
   rinf: ^8.10.0
   file_picker: ^11.0.3
   tuple: ^2.0.2
-  pasteboard: ^0.5.0
 
 dev_dependencies:
   flutter_test:
