@@ -15,13 +15,13 @@
 }:
 
 let
-  version = "2.2.6";
+  version = "2.2.7";
 
   src = fetchFromGitHub {
     owner = "Predidit";
     repo = "Kazumi";
     tag = version;
-    hash = "sha256-a2N9ucF+KNHmQ7hnL9GPOLYM4S9DEFlQ0I9mzLM5eEU=";
+    hash = "sha256-YdYGA/7muG25r8iK76rGAB+Dlm68hV5r76dua+iPgYc=";
   };
 in
 flutter.buildFlutterApplication {
@@ -85,10 +85,6 @@ flutter.buildFlutterApplication {
     # Fix compatibility issues with Flutter 3.24+ breaking API changes
     substituteInPlace lib/pages/plugin_editor/plugin_view_page.dart \
       --replace-fail "onReorderItem:" "onReorder:"
-
-    substituteInPlace lib/bean/dialog/material_bottom_sheet.dart \
-      --replace-fail 'TabBarScrollController' 'ScrollController' \
-      --replace-fail 'scrollController: _scrollController,' ""
 
     # Disable Bangumi proxy by default
     substituteInPlace lib/services/storage/settings_keys.dart \
