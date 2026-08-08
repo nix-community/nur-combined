@@ -2,6 +2,7 @@
   android-translation-layer,
   art-standalone_patched,
   cacert,
+  webp-pixbuf-loader,
   fetchpatch,
 }:
 
@@ -9,6 +10,9 @@
   art-standalone = art-standalone_patched;
 }).overrideAttrs
   (old: {
+        buildInputs = (old.buildInputs or [ ]) ++ [
+      webp-pixbuf-loader
+    ];
     patches = (old.patches or [ ]) ++ [
       ./android-translation-layer-bitmap-unlock.patch
       ./android-translation-layer-kotatsu-stub.patch
