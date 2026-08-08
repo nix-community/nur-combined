@@ -39,6 +39,7 @@ let
       module = /${vacuRoot}/hosts/installer/iso.nix;
       readOnlyPkgs = false;
     };
+    savm = { };
     shel-installer-pxe = {
       module = /${vacuRoot}/hosts/installer/pxe.nix;
       readOnlyPkgs = false;
