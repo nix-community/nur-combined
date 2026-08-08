@@ -36,6 +36,7 @@
       ./android-translation-layer-gtk-native-check.patch
       ./android-translation-layer-drawlines-bounds.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
+    ./android-translation-layer-paint-color-filter-swap.patch
       ./android-translation-layer-cairo-fallback.patch
       ./android-translation-layer-mr248-ads-stubs.patch
       ./android-translation-layer-microg-poc.patch
