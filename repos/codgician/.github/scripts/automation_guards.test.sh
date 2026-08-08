@@ -67,6 +67,51 @@ if .github/scripts/validate_package_source.sh "$tmpdir/package" >/dev/null 2>&1;
   exit 1
 fi
 
+mkdir -p "$tmpdir/bin"
+cat > "$tmpdir/bin/nix" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+
+case ${1-} in
+  eval)
+    printf '%s\n' "${MOCK_NIX_TESTS_JSON:?}"
+    ;;
+  build)
+    printf '%s\n' "$@" > "${MOCK_NIX_BUILD_ARGS:?}"
+    ;;
+  *)
+    echo "Unexpected mocked nix command: ${1-}" >&2
+    exit 1
+    ;;
+esac
+EOF
+chmod +x "$tmpdir/bin/nix"
+
+build_args_file="$tmpdir/build-args"
+PATH="$tmpdir/bin:$PATH" \
+  MOCK_NIX_TESTS_JSON='["/nix/store/first-test.drv","/nix/store/second-test.drv"]' \
+  MOCK_NIX_BUILD_ARGS="$build_args_file" \
+  .github/scripts/run_smoke_test.sh fixture /nix/store/fixture none
+mapfile -t build_args < "$build_args_file"
+if (( ${#build_args[@]} != 4 )) \
+  || [[ "${build_args[0]}" != build ]] \
+  || [[ "${build_args[1]}" != --no-link ]] \
+  || [[ "${build_args[2]}" != /nix/store/first-test.drv ]] \
+  || [[ "${build_args[3]}" != /nix/store/second-test.drv ]]; then
+  echo 'Package test harness did not build every declared test' >&2
+  exit 1
+fi
+
+rm -f "$build_args_file"
+PATH="$tmpdir/bin:$PATH" \
+  MOCK_NIX_TESTS_JSON='[]' \
+  MOCK_NIX_BUILD_ARGS="$build_args_file" \
+  .github/scripts/run_smoke_test.sh fixture /nix/store/fixture none
+if [[ -e "$build_args_file" ]]; then
+  echo 'Package test harness invoked nix build without declared tests' >&2
+  exit 1
+fi
+
 models=$(PACKAGE=pi-guard-test DENDRO_API_KEY=test .github/scripts/run_pi_agent.sh --check)
 if [[ "$models" != *dendro* || "$models" != *grok-4.5* ]]; then
   echo 'Pinned Pi environment did not load the Dendro model' >&2

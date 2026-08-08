@@ -6,17 +6,32 @@ package=${1:?package is required}
 output=${2:?output path is required}
 main_program=${3:-none}
 
-has_smoke=$(nix eval --json ".#$package" --apply 'p: p ? tests.smoke')
-case "$has_smoke" in
-  true)
-    exec nix build --no-link ".#$package.tests.smoke"
-    ;;
-  false) ;;
-  *)
-    echo "Could not determine whether $package provides tests.smoke" >&2
-    exit 1
-    ;;
-esac
+test_drvs_json=$(nix eval --json ".#$package" --apply '
+  p:
+  let
+    collect =
+      value:
+      if builtins.isAttrs value && (value.type or null) == "derivation" then
+        [ value.drvPath ]
+      else if builtins.isAttrs value then
+        builtins.concatLists (builtins.map collect (builtins.attrValues value))
+      else
+        throw "passthru.tests must contain only derivations or nested test attribute sets";
+  in
+  if p ? tests then collect p.tests else [ ]
+')
+test_count=$(jq -er '
+  if type == "array" and all(.[]; type == "string" and endswith(".drv"))
+  then length
+  else error("package test evaluation did not return derivation paths")
+  end
+' <<< "$test_drvs_json")
+
+if (( test_count > 0 )); then
+  mapfile -t test_drvs < <(jq -r '.[]' <<< "$test_drvs_json")
+  nix build --no-link "${test_drvs[@]}"
+  exit 0
+fi
 
 if [[ "$main_program" == "none" ]]; then
   exit 0

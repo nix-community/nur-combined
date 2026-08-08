@@ -10,10 +10,10 @@ Create or repair `pkgs/<package>/`. For an initial request, read `.ai-state/requ
 - Prefer buildable source. Use an upstream binary only when no practical source build exists, and declare accurate `meta.sourceProvenance`.
 - Use immutable sources and real hashes. Match upstream manifests, lockfiles, dependencies, and build flags; the Nix build must not fetch from the network.
 - Provide accurate `meta`: description, homepage, changelog when available, license, provenance, supported platforms, `maintainers = with lib.maintainers; [ codgician ];`, and `mainProgram` when applicable. `x86_64-linux` must be supported.
-- Add `passthru.tests.smoke` as a small deterministic offline check. For a CLI, exercise version or help output; for a long-running service, start it on loopback, probe readiness, and stop it cleanly.
+- Add at least one small deterministic offline check under `passthru.tests`; use a descriptive test name. For a CLI, exercise version or help output; for a long-running service, start it on loopback, probe readiness, and stop it cleanly.
 - Add an idempotent `passthru.updateScript` that discovers stable releases and updates every related version and hash.
 - Prefer `nix-update-script`; use `gitUpdater` when only tag prefix or suffix handling is needed. Create a custom updater only after testing both and proving they cannot satisfy that contract, and document the concrete limitation in a comment.
-- Run the updater, build, and relevant smoke check. Finish with a package-only diff that passes those checks.
+- Run the updater, build, and every declared package test. Finish with a package-only diff that passes those checks.
 
 ## Boundaries
 
@@ -23,4 +23,4 @@ Create or repair `pkgs/<package>/`. For an initial request, read `.ai-state/requ
 - Runner credentials are only for configured AI services. Never inspect, expose, forward, or reference them in repository files or commands.
 - Do not use `--impure`, disable the Nix sandbox, allow build-time network access, guess hashes, weaken integrity checks, or disable tests merely to pass.
 
-If a complete reproducible package is impossible, explain the concrete blocker and do not fabricate hashes, metadata, dependencies, or a partial success. The workflow independently validates scope, updater idempotence, build, metadata, and smoke behavior.
+If a complete reproducible package is impossible, explain the concrete blocker and do not fabricate hashes, metadata, dependencies, or a partial success. The workflow independently validates scope, updater idempotence, build, metadata, and package tests.
