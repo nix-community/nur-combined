@@ -33,6 +33,7 @@
       ./android-translation-layer-wifi-ap-stub.patch
       ./android-translation-layer-system-app-certs.patch
       ./android-translation-layer-gtk-measure.patch
+      ./android-translation-layer-wrapper-measure-fix.patch
       ./android-translation-layer-gtk-native-check.patch
       ./android-translation-layer-drawlines-bounds.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
