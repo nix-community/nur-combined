@@ -17,6 +17,7 @@
   zen-browser = pkgs.callPackage ./pkgs/zen-browser {};
   tabby = pkgs.callPackage ./pkgs/tabby {};
   hyper = pkgs.callPackage ./pkgs/hyper {};
+  opennow = pkgs.callPackage ./pkgs/opennow {};
   where-is-my-sddm-theme = pkgs.callPackage ./pkgs/where-is-my-sddm-theme {};
 
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
