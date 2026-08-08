@@ -1,0 +1,29 @@
+--- a/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 15:42:26.071001135 +1000
++++ b/src/api-impl-jni/graphics/android_graphics_Bitmap.c	2026-08-08 15:43:05.586509303 +1000
+@@ -30,26 +30,8 @@
+ 	if (node) {
+ 		graphene_rect_t bounds = GRAPHENE_RECT_INIT(0, 0, width, height);
+ 		GskRenderer *renderer;
+-		if (g_thread_self() == main_thread_id) {
+-			GObject *default_display = G_OBJECT(gdk_display_get_default());
+-			while (default_display->ref_count < 100)
+-				g_object_ref(default_display); // workaround for https://gitlab.gnome.org/GNOME/gtk/-/issues/7848
+-			if (!off_screen_display) {
+-				off_screen_display = gdk_display_open(NULL);
+-				// Create and destroy a dummy surface to get the renderer type
+-				GdkSurface *surface = gdk_surface_new_toplevel(off_screen_display);
+-				GskRenderer *renderer = gsk_renderer_new_for_surface(surface);
+-				renderer_type = G_OBJECT_TYPE(renderer);
+-				gsk_renderer_unrealize(renderer);
+-				g_object_unref(renderer);
+-				gdk_surface_destroy(surface);
+-			}
+-			renderer = g_object_new(renderer_type, NULL);
+-			gsk_renderer_realize_for_display(renderer, off_screen_display, NULL);
+-		} else {
+ 			renderer = gsk_cairo_renderer_new();
+ 			gsk_renderer_realize(renderer, NULL, NULL);
+-		}
+ 		texture = gsk_renderer_render_texture(renderer, node, &bounds);
+ 		gsk_render_node_unref(node);
+ 		gsk_renderer_unrealize(renderer);
