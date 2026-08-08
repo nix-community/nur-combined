@@ -7,11 +7,11 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-VHDyiSrBAR4LcpqgGAtu8cwFhKSCJ6yx4zl/gBgxfGg=",
+            "sha256": "sha256-bcf3Qd8od8RoOgeQGtCOFXIxSmConZeHD3uJPKKrbEA=",
             "type": "tarball",
-            "url": "https://github.com/imputnet/helium-linux/releases/download/0.15.2.1/helium-0.15.2.1-arm64_linux.tar.xz"
+            "url": "https://github.com/imputnet/helium-linux/releases/download/0.15.3.1/helium-0.15.3.1-arm64_linux.tar.xz"
         },
-        "version": "0.15.2.1"
+        "version": "0.15.3.1"
     },
     "helium-bin-x86_64": {
         "cargoLock": null,
@@ -21,10 +21,10 @@
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-hhNnIQIfv9Qcrg2kzepSE8AME7Y70GkM0ELssEtV+F8=",
+            "sha256": "sha256-6bBMDcKnhjXrJi8JGL3tY/LrjTfKGM0ZS7ktuOVaZ1E=",
             "type": "tarball",
-            "url": "https://github.com/imputnet/helium-linux/releases/download/0.15.2.1/helium-0.15.2.1-x86_64_linux.tar.xz"
+            "url": "https://github.com/imputnet/helium-linux/releases/download/0.15.3.1/helium-0.15.3.1-x86_64_linux.tar.xz"
         },
-        "version": "0.15.2.1"
+        "version": "0.15.3.1"
     }
 }

@@ -9,9 +9,9 @@
       },
       "branch": "main",
       "submodules": false,
-      "revision": "3d353c4d57198ae91a93c5f9d1c7345a5bcb7f84",
-      "url": "https://github.com/AnirudhG07/archivemount.yazi/archive/3d353c4d57198ae91a93c5f9d1c7345a5bcb7f84.tar.gz",
-      "hash": "sha256-MzEXnwT2QAX0aJZX/k03mVDi11N4Lboy01EWMWH54qY="
+      "revision": "73027118bb26ce290bebc9d38fe72a14469d9ec2",
+      "url": "https://github.com/AnirudhG07/archivemount.yazi/archive/73027118bb26ce290bebc9d38fe72a14469d9ec2.tar.gz",
+      "hash": "sha256-I5z7h5gm8zME4wKXbt1pFsDf6HzdJS+tkd6QqnVh2R8="
     },
     "augment-command.yazi": {
       "type": "Git",

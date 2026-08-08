@@ -911,10 +911,10 @@
   };
   "privacy-badger" = buildMozillaXpiAddon {
     pname = "privacy-badger";
-    version = "2026.6.16";
+    version = "2026.8.7";
     addonId = "jid1-MnnxcxisBPnSXQ@jetpack";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4854040/privacy_badger17-2026.6.16.xpi";
-    sha256 = "060860a601993fd7c505de9873c5f47adb3e568af1894dc2460b071aa5a32308";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4944345/privacy_badger17-2026.8.7.xpi";
+    sha256 = "27885c1a80a00f8a293817feefb390addeb40ac4fa24a4ef3b56c9333c93d053";
     meta = with lib; {
       homepage = "https://privacybadger.org/";
       description = "Automatically learns to block hidden trackers. Made by the leading digital rights nonprofit EFF to stop companies from spying on you.";
@@ -1741,10 +1741,10 @@
   };
   "violentmonkey" = buildMozillaXpiAddon {
     pname = "violentmonkey";
-    version = "2.46.0";
+    version = "2.47.0";
     addonId = "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4926076/violentmonkey-2.46.0.xpi";
-    sha256 = "c6952513d77911ac9f717cfb32fe63628e4bed31ef96b12ffa92e09e333e31ff";
+    url = "https://addons.mozilla.org/firefox/downloads/file/4941753/violentmonkey-2.47.0.xpi";
+    sha256 = "cce81b8ae7064e7d70a805f61e73190fbd546bdd3c78483d3b702be003b1316f";
     meta = with lib; {
       homepage = "https://violentmonkey.github.io/";
       description = "Userscript support for browsers, open source.";
