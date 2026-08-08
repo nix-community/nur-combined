@@ -1,0 +1,11 @@
+--- a/src/api-impl/android/content/res/ColorStateList.java
++++ b/src/api-impl/android/content/res/ColorStateList.java
+@@ -369,7 +369,7 @@
+ 			final TypedArray a = Resources.obtainAttributes(r, theme, attrs,
+ 			                                                R.styleable.ColorStateListItem);
+ 			final int[] themeAttrs = a.extractThemeAttrs();
+-			final int baseColor = a.getColor(R.styleable.ColorStateListItem_color, Color.MAGENTA);
++			final int baseColor = a.getColor(R.styleable.ColorStateListItem_color, Color.TRANSPARENT);
+ 			final float alphaMod = a.getFloat(R.styleable.ColorStateListItem_alpha, 1.0f);
+ 			final float lStar = a.getFloat(R.styleable.ColorStateListItem_lStar, -1.0f);
+ 
