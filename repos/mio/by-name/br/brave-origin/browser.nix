@@ -4,22 +4,52 @@
   fetchFromGitHub,
   fetchgit,
   fetchNpmDeps,
+  fetchzip,
   gclient2nix,
   nodejs,
   git,
   prefetch-npm-deps,
   makeWrapper,
-  patchelf,
-  vulkan-loader,
-  pciutils,
-  libGL,
+  patchelf ? null,
+  vulkan-loader ? null,
+  pciutils ? null,
+  libGL ? null,
   buildPackages,
   pkgsBuildBuild,
   pkgsBuildHost,
   stdenv,
   symlinkJoin,
+  apple-sdk ? null,
+  apple-sdk_15 ? null,
+  xcbuild ? null,
 }:
 let
+  inherit (stdenv) hostPlatform;
+  isLinux = hostPlatform.isLinux;
+  isDarwin = hostPlatform.isDarwin;
+
+  # CIPD chromium/gpu/angle-metal-shader-libraries (DEPS checkout_mac).
+  angleMetalShaders =
+    if isDarwin then
+      fetchzip {
+        url = "https://chrome-infra-packages.appspot.com/dl/chromium/gpu/angle-metal-shader-libraries/+/S0FPOVKrgaiqyuR20SSHiPorLgYez29bfwEdKBobUMMC";
+        # CIPD URLs have no file extension; tell fetchzip this is a zip.
+        extension = "zip";
+        hash = "sha256-0HLYSAtB+/ACOT5rFzZfpBJef84HKejnXgF+3idQi7U=";
+        stripRoot = false;
+      }
+    else
+      null;
+
+  darwinDevtools =
+    if isDarwin then
+      pkgs.callPackage ./darwin-devtools.nix {
+        apple-sdk = pkgs.apple-sdk_15;
+        bootstrap_cmds = pkgs.darwin.bootstrap_cmds;
+      }
+    else
+      null;
+
   sources = import ./source.nix {
     inherit
       lib
@@ -33,9 +63,26 @@ let
 
   chromiumInfo = sources.chromiumInfo;
 
-  chromiumDrv = pkgs.chromium.override {
+  mkChromiumDerivation = pkgs.callPackage ./mk-chromium.nix {
     upstream-info = chromiumInfo;
   };
+
+  xcodeShims =
+    if isDarwin then
+      pkgs.callPackage ./xcode-shims.nix {
+        apple-sdk = pkgs.apple-sdk_15;
+        developerDir = darwinDevtools;
+        inherit (pkgs) xcbuild;
+      }
+    else
+      null;
+
+  targetCpu =
+    {
+      "x86_64" = "x64";
+      "aarch64" = "arm64";
+    }
+    .${hostPlatform.parsed.cpu.name};
 
   rustTools = symlinkJoin {
     name = "brave-origin-rustTools";
@@ -51,6 +98,7 @@ let
     name = "brave-origin-llvmCcAndBintools";
     paths = [
       buildPackages.rustc.llvmPackages.llvm
+      buildPackages.rustc.llvmPackages.lld
       buildPackages.rustc.llvmPackages.stdenv.cc
     ];
   };
@@ -75,21 +123,15 @@ let
   '';
 
 in
-chromiumDrv.passthru.mkDerivation (base: rec {
+mkChromiumDerivation (base: rec {
   pname = "brave-origin";
   inherit (sources.lock) version;
 
   packageName = "brave-origin";
 
-  buildTargets = [
-    "brave"
-    "chrome_sandbox"
-  ];
+  buildTargets = [ "brave" ] ++ lib.optionals isLinux [ "chrome_sandbox" ];
 
-  outputs = [
-    "out"
-    "sandbox"
-  ];
+  outputs = [ "out" ] ++ lib.optionals isLinux [ "sandbox" ];
 
   sandboxExecutableName = "__brave-origin-suid-sandbox";
 
@@ -98,14 +140,29 @@ chromiumDrv.passthru.mkDerivation (base: rec {
     nodejs
     git
     makeWrapper
-    patchelf
+  ] ++ lib.optionals isLinux [ patchelf ] ++ lib.optionals isDarwin [
+    xcodeShims
+    xcbuild
+    pkgs.darwin.bootstrap_cmds
   ];
 
   postUnpack = (base.postUnpack or "") + ''
     ${overlayInstallCommands}
     mkdir -p src/brave/vendor
-    ln -sfn ${sources.depotTools} src/brave/vendor/depot_tools
-
+    # Writable depot_tools copy so we can stub CIPD python bootstrap for nix.
+    rm -rf src/brave/vendor/depot_tools
+    cp -a ${sources.depotTools}/. src/brave/vendor/depot_tools/
+    chmod -R u+w src/brave/vendor/depot_tools
+    mkdir -p src/brave/vendor/depot_tools/nix-python
+    ln -sfn ${lib.getExe buildPackages.python3} src/brave/vendor/depot_tools/nix-python/python3
+    ln -sfn ${lib.getExe buildPackages.python3} src/brave/vendor/depot_tools/nix-python/python
+    printf '%s\n' 'nix-python' > src/brave/vendor/depot_tools/python3_bin_reldir.txt
+  ''
+  + lib.optionalString isDarwin ''
+    mkdir -p src/ui/gl/resources/angle-metal
+    cp -f ${angleMetalShaders}/gpu_shader_cache.bin src/ui/gl/resources/angle-metal/
+  ''
+  + ''
     # fetchFromGitHub drops .git; Brave's WDP action lists .git/HEAD as an input.
     mkdir -p src/brave/vendor/web-discovery-project/.git
     echo "${sources.webDiscoveryProjectRev}" > src/brave/vendor/web-discovery-project/.git/HEAD
@@ -192,21 +249,119 @@ chromiumDrv.passthru.mkDerivation (base: rec {
   '';
 
   # npmConfigHook installs Chromium third_party/node; keep Brave npm from postUnpack.
-  postPatch = (base.postPatch or "") + ''
+  postPatch = (base.postPatch or "") + lib.optionalString stdenv.isDarwin ''
+    # posix_spawn_file_actions_addchdir is the POSIX name; macOS only has the _np suffix.
+    substituteInPlace base/process/launch_mac.cc \
+      --replace-fail 'posix_spawn_file_actions_addchdir(' 'posix_spawn_file_actions_addchdir_np('
+    # kCGImageByteOrder32Host is not declared in the macOS SDK headers we use;
+    # modern macOS is always little-endian so the replacement is correct.
+    substituteInPlace skia/ext/skia_utils_mac.mm \
+        third_party/blink/renderer/platform/mac/graphics_context_canvas.mm \
+      --replace-fail 'kCGImageByteOrder32Host' 'kCGImageByteOrder32Little'
+    # anyAppleOS is a future availability platform name not recognised by our SDK.
+    substituteInPlace net/base/apple/url_conversions.mm \
+      --replace-fail 'anyAppleOS 27.0' 'macOS 14.0'
+    # NSScreen.CGDirectDisplayID is a macOS 26+ SDK property; use the classic
+    # deviceDescription dictionary key which works on all macOS versions.
+    substituteInPlace ui/display/mac/screen_utils_mac.mm \
+      --replace-fail 'screen.CGDirectDisplayID' '[[[screen deviceDescription] objectForKey:@"NSScreenNumber"] unsignedIntValue]'
+    # NSGlassEffectView is a private class not declared in SDK headers;
+    # look it up dynamically so the compiler does not reject the reference.
+    substituteInPlace components/remote_cocoa/app_shim/native_widget_ns_window_bridge.mm \
+      --replace-fail '[NSGlassEffectView class]' 'NSClassFromString(@"NSGlassEffectView")'
+  ''
+  + ''
+
     # nixpkgs chromium already links rustc here for M149+; Brave's
     # tools/crates/build_crate.gni also requires cargo as an action input.
     mkdir -p third_party/rust-toolchain/bin
     ln -sfn "${buildPackages.rustc}/bin/rustc" third_party/rust-toolchain/bin/rustc
     ln -sfn "${lib.getExe' buildPackages.cargo "cargo"}" third_party/rust-toolchain/bin/cargo
 
+    # tools/crates/vendor and wasm vendor restores...
     # patchShebangs rewrites vendored crate sources and breaks `cargo --frozen`
     # checksums used by //brave/tools/crates and //brave/third_party/wasm.
     rm -rf brave/tools/crates/vendor
-    cp -a "${sources.braveCore}/tools/crates/vendor" brave/tools/crates/
+    cp -a "${sources.braveCore}/tools/crates/vendor" brave/tools/crates
     chmod -R u+w brave/tools/crates/vendor
     rm -rf brave/third_party/wasm/vendor
-    cp -a "${sources.braveCore}/third_party/wasm/vendor" brave/third_party/wasm/
+    cp -a "${sources.braveCore}/third_party/wasm/vendor" brave/third_party/wasm
     chmod -R u+w brave/third_party/wasm/vendor
+  ''
+  + lib.optionalString isDarwin ''
+    # nix cc-wrapper rejects --target=*-apple-macos; Chromium emits that triple.
+    # Prefer apple-darwin so any remaining wrapped tools agree with the host.
+    substituteInPlace build/config/mac/BUILD.gn \
+      --replace-fail '--target=$clang_arch-apple-macos' '--target=$clang_arch-apple-darwin'
+
+    # Chromium's pkg-config.py returns empty results on non-Linux so Linux
+    # unbundle shims (libxml/flac/...) get no -isystem/-l flags on Darwin.
+    substituteInPlace build/config/linux/pkg-config.py \
+      --replace-fail 'if "linux" not in sys.platform:' 'if "linux" not in sys.platform and "darwin" not in sys.platform:'
+
+    # On Mac, sysroot is the SDK path. pkg-config.py's RewritePath then wrongly
+    # maps /nix/store/... -> $SDK/nix/store/.... Keep nix store paths absolute.
+    python3 - <<'PY'
+from pathlib import Path
+p = Path("build/config/linux/pkg-config.py")
+text = p.read_text()
+old = "def RewritePath(path, strip_prefix, sysroot):"
+new = "def RewritePath(path, strip_prefix, sysroot):\n  if path.startswith('/nix/'):\n    return path"
+p.write_text(text.replace(old, new, 1))
+PY
+
+    # With -isysroot, Darwin clang remaps absolute -isystem/-L under the SDK.
+    # Always rebase pkg-config paths to the build dir so they stay outside
+    # the sysroot (same as Chromium does when use_sysroot is true).
+    python3 - <<'PY'
+from pathlib import Path
+p = Path("build/config/linux/pkg_config.gni")
+text = p.read_text()
+old = "if (_pkg_config_requires_abs_path && (use_sysroot || use_remoteexec)) {"
+new = "if (_pkg_config_requires_abs_path) {"
+if old not in text:
+    raise SystemExit(f"{p}: expected rebase condition not found")
+text = text.replace(old, new, 1)
+old_libs = """    if (!defined(invoker.ignore_libs) || !invoker.ignore_libs) {
+      libs = pkgresult[2]
+      lib_dirs = pkgresult[3]
+    }"""
+# GN forbids reassigning a nonempty list; build lib_dirs from scratch.
+new_libs = """    if (!defined(invoker.ignore_libs) || !invoker.ignore_libs) {
+      libs = pkgresult[2]
+      lib_dirs = []
+      foreach(_lib_dir, pkgresult[3]) {
+        if (_pkg_config_requires_abs_path) {
+          lib_dirs += [ rebase_path(_lib_dir, root_build_dir) ]
+        } else {
+          lib_dirs += [ _lib_dir ]
+        }
+      }
+    }"""
+if old_libs not in text:
+    raise SystemExit(f"{p}: expected lib_dirs block not found")
+p.write_text(text.replace(old_libs, new_libs, 1))
+print(f"patched {p} for Darwin pkg-config path rebasing")
+PY
+
+    # wasm-opt-sys's cc::Build::is_flag_supported("-std=c++17") falsely fails under
+    # nix's clang wrapper in the Chromium build env; skip the probe and refresh
+    # the cargo-frozen file checksum.
+    substituteInPlace brave/tools/crates/vendor/wasm-opt-sys/build.rs \
+      --replace-fail 'if !builder.is_flag_supported(cxx17_flag)?' 'if false && !builder.is_flag_supported(cxx17_flag)?'
+    python3 - <<'PY'
+from pathlib import Path
+import hashlib, json
+root = Path("brave/tools/crates/vendor/wasm-opt-sys")
+checksum_path = root / ".cargo-checksum.json"
+data = json.loads(checksum_path.read_text())
+rel = "build.rs"
+data["files"][rel] = hashlib.sha256((root / rel).read_bytes()).hexdigest()
+checksum_path.write_text(json.dumps(data, separators=(",", ":"), sort_keys=True) + "\n")
+print(f"updated {checksum_path} files[{rel}]={data['files'][rel]}")
+PY
+  ''
+  + ''
 
     # wasm-pack runs `cargo metadata` without --config/--frozen, and Cargo
     # config discovery walks from out/Release. Place a source-root config so
@@ -227,9 +382,10 @@ chromiumDrv.passthru.mkDerivation (base: rec {
     p = Path("brave/BUILD.gn")
     text = p.read_text()
     needle = '"//chrome/installer/linux:$linux_channel",'
-    if needle not in text:
-        raise SystemExit(f"expected {needle!r} in {p}")
-    p.write_text(text.replace(needle, f"# nixpkgs: skipped {needle}", 1))
+    if needle in text:
+        p.write_text(text.replace(needle, f"# nixpkgs: skipped {needle}", 1))
+    else:
+        print(f"{p}: installer/linux dep already absent (ok)")
     PY
 
     # Ensure Brave's v8 patches take effect. GitPatcher expects a nested
@@ -439,7 +595,22 @@ chromiumDrv.passthru.mkDerivation (base: rec {
 
     libExecPath="$out/libexec/${packageName}"
 
-    python3 build/linux/unbundle/replace_gn_files.py --system-libraries flac libjpeg libxml libxslt
+    ${lib.optionalString isLinux ''
+      python3 build/linux/unbundle/replace_gn_files.py --system-libraries flac libjpeg libxml libxslt
+    ''}
+    ${lib.optionalString isDarwin ''
+      # Chromium source from nixpkgs omits bundled flac/etc. (Linux unbundles them).
+      # Use the same system-library shims on Darwin via pkg-config.
+      python3 build/linux/unbundle/replace_gn_files.py --system-libraries flac libjpeg libxml libxslt
+      export SDKROOT="${darwinDevtools}/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk"
+      export DEVELOPER_DIR="${darwinDevtools}"
+      # Prefer bootstrap_cmds (mig) before toolchain stubs; keep xcode shims.
+      export PATH="${darwinDevtools}/bootstrap_cmds/bin:${darwinDevtools}/Toolchains/XcodeDefault.xctoolchain/usr/bin:${xcodeShims}/bin:$PATH"
+      # Leave mac_sdk_path unset: with use_system_xcode, Chromium's
+      # //build/config/apple/sdk_info.py symlinks the SDK under
+      # $root_build_dir/sdk/xcode_links so //build/config/mac:sdk_inputs can
+      # declare .defs files as outputs inside the build directory.
+    ''}
 
     mkdir -p out/Release
     cat > out/Release/args.gn <<EOF
@@ -451,7 +622,7 @@ chromiumDrv.passthru.mkDerivation (base: rec {
     is_official_build = true
     is_debug = false
     is_component_build = false
-    target_cpu = "x64"
+    target_cpu = "${targetCpu}"
     # Brave stable is the empty string; "release" is not a valid channel name.
     brave_channel = ""
     enable_hangout_services_extension = false
@@ -463,17 +634,49 @@ chromiumDrv.passthru.mkDerivation (base: rec {
     service_key_search = "nixpkgs-brave-origin-placeholder"
     service_key_aichat = "nixpkgs-brave-origin-placeholder"
 
-    # nixpkgs unbundle / toolchain (from chromium/common.nix)
-    custom_toolchain = "//build/toolchain/linux/unbundle:default"
-    host_toolchain = "//build/toolchain/linux/unbundle:default"
-    host_pkg_config = "${pkgsBuildBuild.pkg-config}/bin/pkg-config"
-    pkg_config = "${pkgsBuildHost.pkg-config}/bin/${stdenv.cc.targetPrefix}pkg-config"
-    use_sysroot = false
+    ${
+      if isLinux then
+        ''
+          custom_toolchain = "//build/toolchain/linux/unbundle:default"
+          host_toolchain = "//build/toolchain/linux/unbundle:default"
+          host_pkg_config = "${pkgsBuildBuild.pkg-config}/bin/pkg-config"
+          pkg_config = "${pkgsBuildHost.pkg-config}/bin/${stdenv.cc.targetPrefix}pkg-config"
+          use_sysroot = false
+          use_gio = true
+          use_cups = true
+          use_pulseaudio = true
+          link_pulseaudio = true
+          rtc_use_pipewire = true
+        ''
+      else
+        ''
+          use_system_xcode = true
+          use_sysroot = false
+          use_gio = false
+          use_cups = false
+          rtc_use_pipewire = false
+          enable_stripping = false
+          # Skip CIPD Sparkle binaries (not fetched by gclient2nix); nix users update via nix.
+          enable_sparkle = false
+          host_pkg_config = "${pkgsBuildBuild.pkg-config}/bin/pkg-config"
+          pkg_config = "${pkgsBuildHost.pkg-config}/bin/pkg-config"
+          # nixpkgs ld64.lld is older than Chromium's hermetic LLD (no --read-workers).
+          enable_lld_read_workers = false
+          # Avoid hermetic tools/clang/dsymutil (not in chromium src tarball).
+          enable_dsyms = false
+          # Match nixpkgs Darwin stdenv (libraries are built with minos 14.0).
+          mac_deployment_target = "14.0"
+          mac_min_system_version = "14.0"
+          # Metal toolchain (`xcrun metal`) is not in apple-sdk; keep GL backend.
+          angle_enable_metal = false
+        ''
+    }
+
     treat_warnings_as_errors = false
     clang_use_chrome_plugins = false
     symbol_level = 0
     blink_symbol_level = 0
-    use_system_libffi = true
+    ${lib.optionalString isLinux "use_system_libffi = true"}
     clang_warning_suppression_file = ""
     clang_base_path = "${llvmCcAndBintools}"
     use_clang_modules = false
@@ -481,13 +684,8 @@ chromiumDrv.passthru.mkDerivation (base: rec {
     chrome_pgo_phase = 0
     disable_fieldtrial_testing_config = true
     google_api_key = "AIzaSyDGi15Zwl11UNe6Y-5XW_upsfyw31qwZPI"
-    use_gio = true
     use_qt5 = false
     use_qt6 = false
-    use_cups = true
-    use_pulseaudio = true
-    link_pulseaudio = true
-    rtc_use_pipewire = true
 
     # Use nixpkgs Rust instead of //third_party/rust-toolchain
     enable_rust = true
@@ -519,31 +717,61 @@ chromiumDrv.passthru.mkDerivation (base: rec {
   installPhase = ''
     runHook preInstall
 
-    mkdir -p "$libExecPath"
-    cp -v "$buildPath/"*.so "$buildPath/"*.pak "$buildPath/"*.bin "$libExecPath/" 2>/dev/null || true
-    cp -v "$buildPath/libvulkan.so.1" "$libExecPath/" 2>/dev/null || true
-    cp -v "$buildPath/vk_swiftshader_icd.json" "$libExecPath/" 2>/dev/null || true
-    cp -v "$buildPath/icudtl.dat" "$libExecPath/"
-    cp -vLR "$buildPath/locales" "$buildPath/resources" "$libExecPath/"
-    cp -v "$buildPath/chrome_crashpad_handler" "$libExecPath/"
-    cp -v "$buildPath/brave" "$libExecPath/brave-origin"
+    ${
+      if isLinux then
+        ''
+          mkdir -p "$libExecPath"
+          cp -v "$buildPath/"*.so "$buildPath/"*.pak "$buildPath/"*.bin "$libExecPath/" 2>/dev/null || true
+          cp -v "$buildPath/libvulkan.so.1" "$libExecPath/" 2>/dev/null || true
+          cp -v "$buildPath/vk_swiftshader_icd.json" "$libExecPath/" 2>/dev/null || true
+          cp -v "$buildPath/icudtl.dat" "$libExecPath/"
+          cp -vLR "$buildPath/locales" "$buildPath/resources" "$libExecPath/"
+          cp -v "$buildPath/chrome_crashpad_handler" "$libExecPath/"
+          cp -v "$buildPath/brave" "$libExecPath/brave-origin"
 
-    if [ -n "$(find "$buildPath/swiftshader/" -maxdepth 1 -name '*.so' -print -quit 2>/dev/null)" ]; then
-      mkdir -p "$libExecPath/swiftshader"
-      cp -v "$buildPath/swiftshader/"*.so "$libExecPath/swiftshader/"
-    fi
+          if [ -n "$(find "$buildPath/swiftshader/" -maxdepth 1 -name '*.so' -print -quit 2>/dev/null)" ]; then
+            mkdir -p "$libExecPath/swiftshader"
+            cp -v "$buildPath/swiftshader/"*.so "$libExecPath/swiftshader/"
+          fi
 
-    mkdir -p "$sandbox/bin"
-    cp -v "$buildPath/chrome_sandbox" "$sandbox/bin/${sandboxExecutableName}"
+          mkdir -p "$sandbox/bin"
+          cp -v "$buildPath/chrome_sandbox" "$sandbox/bin/${sandboxExecutableName}"
 
-    mkdir -p "$out/bin"
-    makeWrapper "$libExecPath/brave-origin" "$out/bin/brave-origin" \
-      --set CHROME_DEVEL_SANDBOX "$sandbox/bin/${sandboxExecutableName}"
+          mkdir -p "$out/bin"
+          makeWrapper "$libExecPath/brave-origin" "$out/bin/brave-origin" \
+            --set CHROME_DEVEL_SANDBOX "$sandbox/bin/${sandboxExecutableName}"
+        ''
+      else
+        ''
+          mkdir -p "$out/Applications" "$out/bin"
+          appSource=
+          for candidate in \
+            "$buildPath/Brave Browser.app" \
+            "$buildPath/Brave Origin.app" \
+            "$buildPath/"*.app
+          do
+            if [ -d "$candidate" ]; then
+              appSource="$candidate"
+              break
+            fi
+          done
+          if [ -z "$appSource" ]; then
+            echo "error: no .app bundle found under $buildPath" >&2
+            ls -la "$buildPath" >&2 || true
+            exit 1
+          fi
+          cp -R "$appSource" "$out/Applications/Brave Origin.app"
+          makeWrapper "$out/Applications/Brave Origin.app/Contents/MacOS/Brave Origin" \
+            "$out/bin/brave-origin" \
+            || makeWrapper "$(find "$out/Applications/Brave Origin.app/Contents/MacOS" -type f -perm -111 | head -1)" \
+              "$out/bin/brave-origin"
+        ''
+    }
 
     runHook postInstall
   '';
 
-  postFixup = (base.postFixup or "") + ''
+  postFixup = (base.postFixup or "") + lib.optionalString isLinux ''
     for chromiumBinary in "$libExecPath/brave-origin" "$libExecPath/libGLESv2.so"; do
       if [ -f "$chromiumBinary" ]; then
         patchelf \
@@ -571,7 +799,7 @@ chromiumDrv.passthru.mkDerivation (base: rec {
     description = "Privacy-oriented Brave Origin browser built from source";
     homepage = "https://github.com/brave/brave-browser";
     license = lib.licenses.mpl20;
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     mainProgram = "brave-origin";
     sourceProvenance = with lib.sourceTypes; [ fromSource ];
     timeout = 172800;
