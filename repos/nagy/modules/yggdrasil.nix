@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  modulesPath,
   ...
 }:
 
@@ -35,6 +36,11 @@ let
       '';
 in
 {
+
+  imports = [
+    "${modulesPath}/virtualisation/qemu-vm.nix"
+  ];
+
   options = {
     nagy.yggdrasil.addressOutput = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
