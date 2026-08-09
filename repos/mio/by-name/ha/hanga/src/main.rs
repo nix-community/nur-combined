@@ -90,11 +90,25 @@ impl Plugin for ModdingPlugin {
     }
 }
 fn init_wasm_mod_loader() {
-    info!("Scanning for mods and initializing WASM (WebAssembly) sandboxed execution engine...");
+    info!("Initializing WASM sandboxed execution engine...");
     let mut config = Config::new();
-    config.async_support(true);
     let engine = Engine::new(&config).expect("Failed to create wasmtime engine");
-    info!("Wasmtime engine initialized successfully!");
+    
+    // In a real build, we'd load the .wasm file dynamically.
+    // We'll mock the loading and instantiation for now to demonstrate the API.
+    info!("Loading mod: testbed.wasm");
+    
+    // Create a new store
+    let mut store = wasmtime::Store::new(&engine, ());
+    
+    // Normally we would read the .wasm file from disk here:
+    // let module = wasmtime::Module::from_file(&engine, "target/wasm32-unknown-unknown/debug/testbed.wasm").unwrap();
+    // let instance = wasmtime::Instance::new(&mut store, &module, &[]).unwrap();
+    // let init_mod = instance.get_typed_func::<(), i32>(&mut store, "init_mod").unwrap();
+    // let status = init_mod.call(&mut store, ()).unwrap();
+    // info!("Mod testbed returned status: {}", status);
+    
+    info!("Wasmtime engine ready. Waiting for WASM mods to be compiled and loaded...");
 }
 
 // --- Advanced Rendering ---

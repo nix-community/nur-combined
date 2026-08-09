@@ -1,3 +1,9 @@
+[workspace]
+members = [
+    ".",
+    "mods/testbed", "mods/urban_chaos",
+]
+
 [package]
 name = "hanga"
 version = "0.1.0"
