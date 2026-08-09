@@ -2,6 +2,8 @@ use bevy::prelude::*;
 use wasmtime::{Engine, Config};
 use bevy_voxel_world::prelude::*;
 use avian3d::prelude::*;
+use std::io::{self, BufRead};
+use std::sync::{mpsc::{channel, Receiver}, Mutex};
 
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
@@ -67,13 +69,26 @@ fn main() {
 
     let mut app = App::new();
 
+    let (tx, rx) = channel();
+
     if is_headless {
         info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
         app.add_plugins(MinimalPlugins);
     } else if is_text_client {
         info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
         app.add_plugins(MinimalPlugins);
-        // We would add our accessibility text I/O plugin here
+        app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
+        app.add_systems(Update, read_terminal_input);
+
+        // Spawn background thread to constantly read stdin without freezing the game
+        std::thread::spawn(move || {
+            let stdin = io::stdin();
+            for line in stdin.lock().lines() {
+                if let Ok(line) = line {
+                    let _ = tx.send(line);
+                }
+            }
+        });
     } else if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
         app.add_plugins(MinimalPlugins);
@@ -104,6 +119,11 @@ fn main() {
         .add_message::<ProposedAction>()
         .add_systems(Update, (generate_voxel_colliders, player_movement, player_interaction, validate_incoming_actions))
         .run();
+}
+
+#[derive(Resource)]
+pub struct StdinReceiver {
+    pub rx: Mutex<Receiver<String>>,
 }
 
 #[derive(Component)]
@@ -411,4 +431,45 @@ impl Plugin for EconomicSimulationPlugin {
 }
 fn init_macro_economy() {
     info!("Simulating global supply chains and dynamic market fluctuations...");
+}
+
+/// Polls the standard input channel non-blockingly and parses text commands
+fn read_terminal_input(
+    receiver: Res<StdinReceiver>,
+    mut query: Query<(Entity, &mut Transform, &mut LinearVelocity), With<Player>>,
+    mut events: MessageWriter<ProposedAction>,
+) {
+    if let Ok(rx) = receiver.rx.lock() {
+        while let Ok(line) = rx.try_recv() {
+            let command = line.trim().to_lowercase();
+        
+        if command.starts_with("move forward") {
+            if let Some((_, mut transform, mut velocity)) = query.iter_mut().next() {
+                let forward = transform.forward();
+                velocity.x = forward.x * 10.0;
+                velocity.z = forward.z * 10.0;
+                println!("System: Moving forward.");
+            }
+        } else if command.starts_with("break block") {
+            if let Some((player_entity, transform, _)) = query.iter_mut().next() {
+                let forward_pos = transform.translation + (transform.forward() * 2.0);
+                let voxel_pos = IVec3::new(
+                    forward_pos.x.round() as i32,
+                    forward_pos.y.round() as i32,
+                    forward_pos.z.round() as i32,
+                );
+                
+                events.write(ProposedAction::BreakBlock {
+                    player_entity,
+                    voxel_pos,
+                });
+                println!("System: Attempting to break block at {:?}", voxel_pos);
+            }
+        } else if command.starts_with("look") {
+             println!("System: You are standing in a generated voxel city. Type 'move forward' or 'break block'.");
+        } else {
+             println!("System: Unknown command '{}'.", command);
+        }
+    }
+    }
 }
