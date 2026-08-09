@@ -8,12 +8,12 @@
 in
   pkgs.buildNpmPackage rec {
     pname = "obsidian-hider";
-    version = "1.7.0";
+    version = "1.7.1";
 
     src = pkgs.fetchFromGitHub {
       inherit owner repo;
       rev = version;
-      sha256 = "sha256-U3TeeVmpS+mmHupdmRa3Jt0j9JP9OTI+YOPQkHbnNQ0=";
+      sha256 = "sha256-1llq4TPpI/mUIZAyyUSETq4WgUL0uSDO8Nrfx2aWyIE=";
     };
 
     npmDepsHash = "sha256-TEIR0hMvk3p5cAlBJ4B8kxbCjhjMHz5tP03X0vKpPMc=";
