@@ -41,11 +41,52 @@ impl VoxelWorldConfig for DefaultWorld {
     }
 }
 
+#[derive(Resource, Default)]
+struct TrustLedger {
+    /// Maps a Peer ID (Entity) to a trust score (1.0 = perfect, < 0.0 = untrusted)
+    peer_scores: std::collections::HashMap<Entity, f32>,
+}
+
+#[derive(Resource, Default)]
+struct CheatMode(bool);
+
+impl TrustLedger {
+    fn penalize(&mut self, peer: Entity, penalty: f32) {
+        let score = self.peer_scores.entry(peer).or_insert(1.0);
+        *score -= penalty;
+        warn!("Peer {:?} penalized by {}. New trust score: {}", peer, penalty, score);
+    }
+}
+
 fn main() {
-    App::new()
-        .add_plugins(DefaultPlugins)
-        // Add all basic feature plugins for the mega-game
-        .add_plugins((
+    let args: Vec<String> = std::env::args().collect();
+    let is_headless = args.contains(&"--headless".to_string());
+    let is_cheater = args.contains(&"--cheat".to_string());
+    let is_text_client = args.contains(&"--text-client".to_string());
+    let is_agent_client = args.contains(&"--agent-client".to_string());
+
+    let mut app = App::new();
+
+    if is_headless {
+        info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
+        app.add_plugins(MinimalPlugins);
+    } else if is_text_client {
+        info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
+        app.add_plugins(MinimalPlugins);
+        // We would add our accessibility text I/O plugin here
+    } else if is_agent_client {
+        info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
+        app.add_plugins(MinimalPlugins);
+        // We would add our structured data I/O plugin here
+    } else {
+        app.add_plugins(DefaultPlugins);
+    }
+
+    if is_cheater {
+        warn!("Starting Hanga in CHEAT MODE (Will intentionally broadcast fraudulent packets)");
+    }
+
+    app.add_plugins((
             VoxelWorldPlugin::with_config(DefaultWorld),
             LuantiPlugin,
             PhysicsPlugins::default(),
@@ -57,9 +98,11 @@ fn main() {
             AiStorytellerPlugin,
             EconomicSimulationPlugin,
         ))
+        .init_resource::<TrustLedger>()
+        .insert_resource(CheatMode(is_cheater))
         .add_systems(Startup, setup)
-        .add_event::<ProposedAction>()
-        .add_systems(Update, (generate_voxel_colliders, player_movement, validate_incoming_actions))
+        .add_message::<ProposedAction>()
+        .add_systems(Update, (generate_voxel_colliders, player_movement, player_interaction, validate_incoming_actions))
         .run();
 }
 
@@ -67,7 +110,7 @@ fn main() {
 struct Player;
 
 /// Represents an optimistic action broadcasted by a P2P client over WebRTC
-#[derive(Event, Debug)]
+#[derive(Message, Debug)]
 enum ProposedAction {
     BreakBlock {
         player_entity: Entity,
@@ -82,11 +125,9 @@ fn setup(mut commands: Commands) {
 
     // Spawn a 3D Player with physics
     commands.spawn((
+        Camera3d::default(),
+        Transform::from_xyz(490.0, 50.0, 490.0).looking_at(Vec3::new(500.0, 50.0, 500.0), Vec3::Y),
         Player,
-        Camera3dBundle {
-            transform: Transform::from_xyz(490.0, 50.0, 490.0).looking_at(Vec3::new(500.0, 50.0, 500.0), Vec3::Y),
-            ..default()
-        },
         RigidBody::Dynamic,
         Collider::capsule(0.4, 1.0),
         LinearVelocity::default(),
@@ -98,28 +139,53 @@ fn setup(mut commands: Commands) {
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
 fn validate_incoming_actions(
-    mut events: EventReader<ProposedAction>,
+    mut commands: Commands,
+    mut events: MessageReader<ProposedAction>,
     player_query: Query<&Transform, With<Player>>,
+    mut voxel_world: VoxelWorld<DefaultWorld>,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
+    mut trust_ledger: ResMut<TrustLedger>,
 ) {
     for action in events.read() {
         match action {
-            ProposedAction::BreakBlock { player_entity, voxel_pos } => {
+            &ProposedAction::BreakBlock { player_entity, voxel_pos } => {
                 // VERIFICATION RULE 1: Does the player actually exist?
-                if let Ok(transform) = player_query.get(*player_entity) {
+                if let Ok(transform) = player_query.get(player_entity) {
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
                     // VERIFICATION RULE 2: Is the player close enough? (e.g. 10 meters)
                     let distance = player_pos.distance(target_pos);
                     if distance > 10.0 {
+                        trust_ledger.penalize(player_entity, 0.2); // Severe penalty for impossible physical action
                         warn!("FRAUD DETECTED: Player {:?} tried to break a block {} meters away! Action Rejected.", player_entity, distance);
                         continue; // Reject the action (Rollback)
                     }
 
                     // If it passes all checks, execute it!
-                    info!("Action Verified! Player {:?} successfully broke block at {:?}", player_entity, voxel_pos);
-                    // TODO: Call bevy_voxel_world.set_voxel(voxel_pos, WorldVoxel::Unset) here
+                    info!("Action Verified! Fracturing block at {:?}", voxel_pos);
+                    
+                    // 1. Remove the voxel from the static optimized terrain mesh
+                    voxel_world.set_voxel(voxel_pos, WorldVoxel::Unset);
+                    
+                    // 2. Spawn a dynamic physical debris chunk in its exact place (Teardown effect)
+                    commands.spawn((
+                        Mesh3d(meshes.add(Cuboid::from_size(Vec3::splat(1.0)))),
+                        MeshMaterial3d(materials.add(Color::srgb(0.5, 0.5, 0.5))),
+                        Transform::from_translation(target_pos),
+                        RigidBody::Dynamic,
+                        Collider::cuboid(1.0, 1.0, 1.0),
+                        // Give it a tiny push outwards
+                        LinearVelocity(Vec3::new(
+                            (target_pos.x - player_pos.x).signum() * 5.0,
+                            2.0,
+                            (target_pos.z - player_pos.z).signum() * 5.0
+                        )),
+                    ));
                 } else {
+                    // Penalty for spoofing an entity ID
+                    trust_ledger.penalize(player_entity, 1.0); 
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
                 }
             }
@@ -164,6 +230,40 @@ fn player_movement(
         // Simple jump
         if keyboard_input.just_pressed(KeyCode::Space) {
             velocity.y = 5.0;
+        }
+    }
+}
+
+/// Allows the player to click and fracture blocks
+fn player_interaction(
+    mouse_input: Res<ButtonInput<MouseButton>>,
+    mut events: MessageWriter<ProposedAction>,
+    query: Query<(Entity, &Transform), With<Player>>,
+    cheat_mode: Res<CheatMode>,
+) {
+    if mouse_input.just_pressed(MouseButton::Left) {
+        if let Some((player_entity, transform)) = query.iter().next() {
+            let forward_pos = if cheat_mode.0 {
+                // CHEAT: Try to destroy a block 50 meters away! (Out of reach)
+                warn!("CHEAT MODE: Attempting to illegally destroy a block far away...");
+                transform.translation + (transform.forward() * 50.0)
+            } else {
+                // NORMAL: Break block immediately in front (2 meters)
+                transform.translation + (transform.forward() * 2.0)
+            };
+            
+            let voxel_pos = IVec3::new(
+                forward_pos.x.round() as i32,
+                forward_pos.y.round() as i32,
+                forward_pos.z.round() as i32,
+            );
+
+            // Optimistically broadcast the action
+            events.write(ProposedAction::BreakBlock {
+                player_entity,
+                voxel_pos,
+            });
+            info!("Player sent BreakBlock request at {:?}", voxel_pos);
         }
     }
 }
