@@ -8,7 +8,7 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "github-readme-stats";
-  version = "0-unstable-2026-05-19";
+  version = "1.1.6-unstable-2026-05-19";
 
   __structuredAttrs = true;
   strictDeps = true;
