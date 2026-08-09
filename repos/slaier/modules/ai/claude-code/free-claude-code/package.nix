@@ -19,14 +19,14 @@ python.pkgs.buildPythonPackage {
   # --flake -u` runs the passthru.updateScript below, which bumps `rev`/`hash`
   # to the latest commit on the default branch and then rewrites `version` to
   # the real version read from that commit's pyproject.toml.
-  version = "4.16.2";
+  version = "4.17.4";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "Alishahryar1";
     repo = "free-claude-code";
-    rev = "80b15dfe62ec0d142d3d63a0f5b1866df80afec4";
-    hash = "sha256-gBGfnmiqmfuVF+v0eA85WsRMXkXsb4p39VkGgBfv5rg=";
+    rev = "554c7d978779d8cf83ec5428c39b3e05f2c3be3b";
+    hash = "sha256-StR2egXQGHlm3WuJlzJAeYpC+Bl6wzW4kX9Gw6Lm6OE=";
   };
 
   build-system = [ python.pkgs.hatchling ];
@@ -71,7 +71,7 @@ python.pkgs.buildPythonPackage {
   passthru.updateScript = writeShellScript "update-free-claude-code" ''
     set -euo pipefail
 
-    pkgfile="modules/ai/free-claude-code/package.nix"
+    pkgfile="modules/ai/claude-code/free-claude-code/package.nix"
 
     current_rev=$(${lib.getExe gnugrep} -oP 'rev = "\K[0-9a-f]{40}' "$pkgfile")
     # Buffer the full response first: grepping a curl pipe with -m/head closes

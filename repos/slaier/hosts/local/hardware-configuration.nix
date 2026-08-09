@@ -35,7 +35,9 @@
     "amdgpu.ppfeaturemask=0xfffd7fff"
     "amdgpu.aspm=0"
     "amdgpu.runpm=0"
+    "amdgpu.gpu_recovery=1"
     "zswap.enabled=1"
+    "nmi_watchdog=1"
     "threadirqs"
   ];
 
