@@ -194,10 +194,10 @@
   "cpp": {
     "nurl": {
       "args": {
-        "hash": "sha256-yU1bwDhwcqeKrho0bo4qclqDDm1EuZWHENI2PNYnxVs=",
+        "hash": "sha256-x3gDJ7/lukdOwfRFKrHZqV2zZ3Buqel5GcfbFnxStLU=",
         "owner": "tree-sitter",
         "repo": "tree-sitter-cpp",
-        "rev": "56455f4245baf4ea4e0881c5169de69d7edd5ae7"
+        "rev": "8b5b49eb196bec7040441bee33b2c9a4838d6967"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -459,10 +459,10 @@
   "nix": {
     "nurl": {
       "args": {
-        "hash": "sha256-a47NIFe5QrAUTWHT2GFUwPxQoCy2EZ0NfLjzjpAgHDQ=",
-        "owner": "nix-community",
+        "hash": "sha256-n3sQz0LhDCdoza4bmXHGvZWROyUpYO7u+00/w7bsO/I=",
+        "owner": "numtide",
         "repo": "tree-sitter-nix",
-        "rev": "69fbfb02896cdd27cb7ff3cd61f7f3f6bde4f017"
+        "rev": "70f34e95e30b7ebcc40815d4385d68576c4a15cd"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -483,10 +483,10 @@
   "rshtml": {
     "nurl": {
       "args": {
-        "hash": "sha256-bM8r4G5Y9bP1tOKtks9+Mydtj1eprQvyL8nMu09l5i8=",
+        "hash": "sha256-7RzjvJEMhtWDRnaoLki7FjTK9Y7+ZECE5gIqGUlx6DE=",
         "owner": "rshtml",
         "repo": "tree-sitter-rshtml",
-        "rev": "89ae0f3a5e221a83aad243def85e822616d3b3c2"
+        "rev": "a1499c58d4692ec5bc0faed790b4e90ab0fb8996"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -651,10 +651,10 @@
   "beancount": {
     "nurl": {
       "args": {
-        "hash": "sha256-WtZ3FindaePKbtlnilK9KkOoPxBaxRKNVM+8D52DtBE=",
+        "hash": "sha256-UJ8bswQJB7UYspNKLWaEXMOR4XlKVHfd7rvV5iaA5Tw=",
         "owner": "polarmutex",
         "repo": "tree-sitter-beancount",
-        "rev": "f3741a3a68ade59ec894ed84a64673494d2ba8f3"
+        "rev": "429cff869513cf9e34a2cf604fbfaaedc467e809"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -736,10 +736,10 @@
   "svelte": {
     "nurl": {
       "args": {
-        "hash": "sha256-N8PEw7m5BGYgpi/iTrS9GXmhQKAUlQ7/4bCvq72DwVo=",
+        "hash": "sha256-qEzK2sPmSFYBNMeLR7KNwReOkx3LIytUFbuF1BMFZsw=",
         "owner": "themixednuts",
         "repo": "tree-sitter-htmlx",
-        "rev": "80c3e698ec7379772c7f2aecb9b4b4c4ac52ff0b"
+        "rev": "c9b9cc35709fff494a3a9e41cd9471b633649e45"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1302,10 +1302,10 @@
   "solidity": {
     "nurl": {
       "args": {
-        "hash": "sha256-Tt8lXaHrRFbbATUoWK+Y9FZohY1IeDTCXaaom4yZYb4=",
+        "hash": "sha256-tv78h5m5g+O16i6ZkQX4Ozh5pM47Xd7wCc3Owo3awzs=",
         "owner": "JoranHonig",
         "repo": "tree-sitter-solidity",
-        "rev": "f7f5251a3f5b1d04f0799b3571b12918af177fc8"
+        "rev": "048fe686cb1fde267243739b8bdbec8fc3a55272"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1314,10 +1314,10 @@
   "gleam": {
     "nurl": {
       "args": {
-        "hash": "sha256-GIikbo8N2bmUa8wddpAgTHeejCInoEY8HxGDbuYq/zQ=",
+        "hash": "sha256-BeLkPEsigTKZxWZHx9qPtcREtgpiP5EkiHFyNqgrKyI=",
         "owner": "gleam-lang",
         "repo": "tree-sitter-gleam",
-        "rev": "dae1551a9911b24f41d876c23f2ab05ece0a9d4c"
+        "rev": "c610c282ef73f830d80c1f0999dce8e83f024ef5"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1338,10 +1338,10 @@
   "robot": {
     "nurl": {
       "args": {
-        "hash": "sha256-bgOn0CeA/Bc5x20sVLW2IjG83k2QkGtCsvyrwT7kMQ4=",
+        "hash": "sha256-BtkSJpR+eGl0VHZ59mf17hCS92ZfGWUoPCbCTUUE2kg=",
         "owner": "Hubro",
         "repo": "tree-sitter-robot",
-        "rev": "0f010f439e7873db42d3aabae8a48a8f61a89910"
+        "rev": "93c48ca74274a60688a3beda7f6c8ae3145efce7"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1410,10 +1410,10 @@
   "sql": {
     "nurl": {
       "args": {
-        "hash": "sha256-O2FkTwt/I+tOXtpMbsxkgU+v64Ie9fh73ZZRm3E83no=",
+        "hash": "sha256-VP9W8X+S51oEAc2MMl5ALf7aglYZ2Ai38MGSo/FOL98=",
         "owner": "DerekStride",
         "repo": "tree-sitter-sql",
-        "rev": "86e3d03837d282544439620eb74d224586074b8b"
+        "rev": "851e9cb257ba7c66cc8c14214a31c44d2f1e954e"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1539,13 +1539,13 @@
     },
     "subpath": null
   },
-  "sshclientconfig": {
+  "ssh_client_config": {
     "nurl": {
       "args": {
-        "hash": "sha256-Ujl/3Ti/W6SBft1l4g8FsDEyLGSyLzFPzE/8pn37e70=",
+        "hash": "sha256-jluMtWRFuyG8WGiVn1ge2NfSdRIq8zqS1R12AG/Imtc=",
         "owner": "metio",
         "repo": "tree-sitter-ssh-client-config",
-        "rev": "e45c6d5c71657344d4ecaf87dafae7736f776c57"
+        "rev": "4abd07dc3884124d60e37e1f2dd98a1676859ae0"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1650,10 +1650,10 @@
   "clojure": {
     "nurl": {
       "args": {
-        "hash": "sha256-tr1DJWqX5cXvWnA5D8M0Pqp1UM36EYnHdus/oMnOCEM=",
+        "hash": "sha256-jokekIuuQLx5UtuPs4XAI+euispeFCwSQByVKVelrC4=",
         "owner": "sogaiu",
         "repo": "tree-sitter-clojure",
-        "rev": "e57c569ae332ca365da623712ae1f50f84daeae2"
+        "rev": "e43eff80d17cf34852dcd92ca5e6986d23a7040f"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -1734,10 +1734,10 @@
   "slint": {
     "nurl": {
       "args": {
-        "hash": "sha256-ugdB7gN3zTAGLm9Jk2hjuuZWxIYxEWYXW72qLpXM+1Q=",
+        "hash": "sha256-CeNOS8u3kKkD5+3OyFyGq0MOWYF0lPrqlsZ6Jii7dvE=",
         "owner": "slint-ui",
         "repo": "tree-sitter-slint",
-        "rev": "68b25244cec6eb9d7f8f790ef781c29c822d8f84"
+        "rev": "f94f96ce093ec153f037228ac2fac5f1a3cd9ac6"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2142,10 +2142,10 @@
   "gas": {
     "nurl": {
       "args": {
-        "hash": "sha256-HyLNnmK4jud2Ndkc+5MY9MlASh/ehPA/eQATsCVGcUw=",
+        "hash": "sha256-Fm0KxYLJpcfKPwo4HPx6pNeDrIOQAMBXirkSB7R9c+A=",
         "owner": "sirius94",
         "repo": "tree-sitter-gas",
-        "rev": "60f443646b20edee3b7bf18f3a4fb91dc214259a"
+        "rev": "5d6c0a0b4d7b6f35913906ba922fe38064a9bede"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2274,10 +2274,10 @@
   "just": {
     "nurl": {
       "args": {
-        "hash": "sha256-vn4YerjgEn0oVwMYXRb8Kp+Li4e9jQ0s9DbFEnj45+U=",
+        "hash": "sha256-ZKgn869O3eB5SmVilhxB9GQe9vCGXckJbWFKYnPtDD8=",
         "owner": "poliorcetics",
         "repo": "tree-sitter-just",
-        "rev": "f749ec853adcacc5f14e9ec375f244104e033d88"
+        "rev": "00859eebfb774d371af174ea1e582d46e697b469"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2490,10 +2490,10 @@
   "templ": {
     "nurl": {
       "args": {
-        "hash": "sha256-Dy/6XxrAUrLwcYTYOhLAU6iZb8c5XgplB/AdZbq0S9c=",
+        "hash": "sha256-dL8RYzGRXpdIa2/aze5GNg7/Kq+I5IZKqgbW2qKv2EU=",
         "owner": "vrischmann",
         "repo": "tree-sitter-templ",
-        "rev": "47594c5cbef941e6a3ccf4ddb934a68cf4c68075"
+        "rev": "68d6707ed20159ae7525241b8161c126dc1c620c"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2706,10 +2706,10 @@
   "glimmer": {
     "nurl": {
       "args": {
-        "hash": "sha256-CxoHlnIYRviu9VgD6w8cElmSQKdqb27vxSZh8DZiHuY=",
+        "hash": "sha256-AW+jd1Kl3krTgnPc8NoXfSM91fOan/wIB/mo/feWj74=",
         "owner": "ember-tooling",
         "repo": "tree-sitter-glimmer",
-        "rev": "5dc6d1040e8ff8978ff3680e818d85447bbc10aa"
+        "rev": "88af85568bde3b91acb5d4c352ed094d0c1f9d84"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -2911,10 +2911,10 @@
     "nurl": {
       "args": {
         "domain": "codeberg.org",
-        "hash": "sha256-2Re/9TXRNLVmbq7iAFVgTj4Xt1P1yXjlWaLdNHC8ePU=",
+        "hash": "sha256-FtzYqeurwXBtO0gyc8zwh3/qc2MRyce7yr+uLZiY0xc=",
         "owner": "spade-lang",
         "repo": "tree-sitter-spade",
-        "rev": "996aaabea9a9fbe498ae0876356028a78e6ef8db"
+        "rev": "4eb2fc0173e48564421721f8e4f25a0fde89ac70"
       },
       "fetcher": "fetchFromGitea"
     },
@@ -3067,10 +3067,10 @@
   "ink": {
     "nurl": {
       "args": {
-        "hash": "sha256-aVSaj9cS0fHRp6SIfjSL2FiZmchL5OksRbKVC8eCAxo=",
-        "owner": "rhizoome",
+        "hash": "sha256-qbGyhza2/KodyXA+8aVp74DPNyjcuFU9oqVWLt/66WE=",
+        "owner": "wldmr",
         "repo": "tree-sitter-ink",
-        "rev": "8486e9b1627b0bc6b2deb9ee8102277a7c1281ac"
+        "rev": "632072bab485ab4c705c39cb9aae9eaeac6893ba"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -3211,10 +3211,10 @@
   "caddyfile": {
     "nurl": {
       "args": {
-        "hash": "sha256-bLWItZ8axo4i6q8fej64bs40mVBNKRFWGdq1zII5oHc=",
+        "hash": "sha256-piaKIUZDc4wJOW6O1enO6J1Jg4g3Rlj+HJy6aImIigo=",
         "owner": "caddyserver",
         "repo": "tree-sitter-caddyfile",
-        "rev": "683332a6430675abfd9867201ef47b2b99bdb266"
+        "rev": "15437433b7deec0f0431fb4a5bedb64ecae01513"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -3332,12 +3332,12 @@
   "slisp": {
     "nurl": {
       "args": {
-        "hash": "sha256-ciolUtCf2e7VXmSIR8Zk4fQAGCeHoIQekYi2LVq7Hpg=",
-        "owner": "xenogenics",
+        "hash": "sha256-xx+g85kEmRNOIHynAvNOZPq2YAcArOMHvM24RUR8iio=",
+        "owner": "~xguerin",
         "repo": "tree-sitter-slisp",
-        "rev": "29f9c6707ce9dfc2fc915d175ec720b207f179f3"
+        "rev": "e14f62169145d9661c1ab16790f527770d157bb8"
       },
-      "fetcher": "fetchFromGitHub"
+      "fetcher": "fetchFromSourcehut"
     },
     "subpath": null
   },
@@ -3408,6 +3408,18 @@
         "owner": "rockorager",
         "repo": "tree-sitter-scfg",
         "rev": "d850fd470445d73de318a21d734d1e09e29b773c"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "sgf": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-40gUZfJH3QhvxALwr4bUryIo7IXwMF2HNsNk1SrpGHs=",
+        "owner": "lykahb",
+        "repo": "tree-sitter-sgf",
+        "rev": "b7e0fb713b29495722e056fdc3dc4f889f6d6ed2"
       },
       "fetcher": "fetchFromGitHub"
     },
@@ -3536,6 +3548,18 @@
     },
     "subpath": null
   },
+  "moonbit": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-JiQNymLy6BSBQKFbinud4uxVOOu5gvCrTBQiJFRJu0c=",
+        "owner": "moonbitlang",
+        "repo": "tree-sitter-moonbit",
+        "rev": "36191d7fe4ec4298c8c1f251af6a82939f8e9a67"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
   "concerto": {
     "nurl": {
       "args": {
@@ -3543,6 +3567,78 @@
         "owner": "accordproject",
         "repo": "concerto-tree-sitter",
         "rev": "920ba23ea93af56b19dfc38fcddf80b3ddc62685"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "puppet": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-bO5g5AdhzpB13yHklpAndUHIX7Rvd7OMjH0Ds2ATA6Q=",
+        "owner": "tree-sitter-grammars",
+        "repo": "tree-sitter-puppet",
+        "rev": "15f192929b7d317f5914de2b4accd37b349182a6"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "p": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-tZIXecoXYsxpc5i/nF7DhD/0W3ElzcuyY6dnXgMbFWU=",
+        "owner": "battesonb",
+        "repo": "tree-sitter-p",
+        "rev": "701dcc1c72f425f78bc128d2b8031686a60ae058"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "xwiki": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-iGb8r2zNoYiOKhI63ck45RmeeEke0+FyCGSKtqY46rE=",
+        "owner": "battesonb",
+        "repo": "tree-sitter-xwiki",
+        "rev": "58010c62c63fabbf5a94762bfa8849d4733d1f6c"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "varlink": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-VGFzf3xMLBcHGTGcWQlK9zE3I+wgw3bF0ZMvI98jjn0=",
+        "owner": "bachorp",
+        "repo": "tree-sitter-varlink",
+        "rev": "a80ecffda60b28612cbda652e38d97c1d8b90568"
+      },
+      "fetcher": "fetchFromGitHub"
+    },
+    "subpath": null
+  },
+  "metamath": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-nmigwfHYceqGxUsyselG6zXZDlsjziXc43YedNcSt0U=",
+        "owner": "~m4dh0rs3",
+        "repo": "tree-sitter-metamath",
+        "rev": "d6a57b0ddb4feba4a88f8cbb2f497b718e0c5c1d"
+      },
+      "fetcher": "fetchFromSourcehut"
+    },
+    "subpath": null
+  },
+  "batch": {
+    "nurl": {
+      "args": {
+        "hash": "sha256-c3z2EbwtKs+/2DErpMA0EsCglzIvIxXErnHRDW51J70=",
+        "owner": "wharflab",
+        "repo": "tree-sitter-batch",
+        "rev": "5fc5f54267ef9a78e7a5319b80e092194252aabf"
       },
       "fetcher": "fetchFromGitHub"
     },
