@@ -363,7 +363,7 @@ rec {
           }
           {
             name = "ctr";
-            packageId = "ctr 0.9.2";
+            packageId = "ctr";
           }
           {
             name = "ghash";
@@ -1522,7 +1522,7 @@ rec {
           }
           {
             name = "ctr";
-            packageId = "ctr 0.9.2";
+            packageId = "ctr";
             usesDefaultFeatures = false;
           }
           {
@@ -1847,11 +1847,6 @@ rec {
         ];
         dependencies = [
           {
-            name = "block-buffer";
-            packageId = "block-buffer 0.12.1";
-            optional = true;
-          }
-          {
             name = "crypto-common";
             packageId = "crypto-common 0.2.2";
             rename = "common";
@@ -1871,7 +1866,6 @@ rec {
           "stream-wrapper" = [ "block-buffer" ];
           "zeroize" = [ "dep:zeroize" "common/zeroize" "block-buffer?/zeroize" ];
         };
-        resolvedDefaultFeatures = [ "block-buffer" "stream-wrapper" ];
       };
       "clap" = rec {
         crateName = "clap";
@@ -3600,35 +3594,7 @@ rec {
           "tests-openssl" = [ "openssl" ];
         };
       };
-      "ctr 0.10.1" = rec {
-        crateName = "ctr";
-        version = "0.10.1";
-        edition = "2024";
-        sha256 = "088z8sa9aw7ij1sy4hlpxz20jhffnsfiwmsdysb2a29pnb2a3b5s";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher 0.5.2";
-            features = [ "stream-wrapper" ];
-          }
-        ];
-        devDependencies = [
-          {
-            name = "cipher";
-            packageId = "cipher 0.5.2";
-            features = [ "dev" ];
-          }
-        ];
-        features = {
-          "alloc" = [ "cipher/alloc" ];
-          "block-padding" = [ "cipher/block-padding" ];
-          "zeroize" = [ "cipher/zeroize" ];
-        };
-      };
-      "ctr 0.9.2" = rec {
+      "ctr" = rec {
         crateName = "ctr";
         version = "0.9.2";
         edition = "2021";
@@ -4650,7 +4616,7 @@ rec {
           }
           {
             name = "hkdf";
-            packageId = "hkdf 0.12.4";
+            packageId = "hkdf";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -4754,12 +4720,6 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "hkdf";
-            packageId = "hkdf 0.13.0";
-            optional = true;
-            usesDefaultFeatures = false;
-          }
-          {
             name = "hybrid-array";
             packageId = "hybrid-array";
             rename = "array";
@@ -4810,7 +4770,7 @@ rec {
           "serde" = [ "dep:serdect" "alloc" "pkcs8" "sec1/serde" ];
           "std" = [ "alloc" "pkcs8?/std" "sec1?/std" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "arithmetic" "digest" "ecdh" "ff" "getrandom" "group" "pkcs8" "sec1" "std" ];
+        resolvedDefaultFeatures = [ "alloc" "arithmetic" "digest" "ff" "getrandom" "group" "pkcs8" "sec1" "std" ];
       };
       "embedded-io 0.4.0" = rec {
         crateName = "embedded-io";
@@ -6202,7 +6162,7 @@ rec {
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" ];
       };
-      "hkdf 0.12.4" = rec {
+      "hkdf" = rec {
         crateName = "hkdf";
         version = "0.12.4";
         edition = "2018";
@@ -6218,24 +6178,6 @@ rec {
         ];
         features = {
           "std" = [ "hmac/std" ];
-        };
-      };
-      "hkdf 0.13.0" = rec {
-        crateName = "hkdf";
-        version = "0.13.0";
-        edition = "2024";
-        sha256 = "061halz93gjbshffck2xzrrz9rmkch95rvwn5ipqd2y6433jdaja";
-        authors = [
-          "RustCrypto Developers"
-        ];
-        dependencies = [
-          {
-            name = "hmac";
-            packageId = "hmac 0.13.0";
-          }
-        ];
-        features = {
-          "kdf" = [ "dep:kdf" ];
         };
       };
       "hmac 0.12.1" = rec {
@@ -9149,7 +9091,7 @@ rec {
           "std" = [ "alloc" "ecdsa-core?/std" "elliptic-curve/std" "getrandom" "primeorder?/std" ];
           "test-vectors" = [ "hex-literal" ];
         };
-        resolvedDefaultFeatures = [ "alloc" "arithmetic" "digest" "ecdh" "ecdsa" "ecdsa-core" "getrandom" "pkcs8" "sha2" "sha384" "std" ];
+        resolvedDefaultFeatures = [ "alloc" "arithmetic" "digest" "ecdsa" "ecdsa-core" "getrandom" "pkcs8" "sha2" "sha384" "std" ];
       };
       "page_size" = rec {
         crateName = "page_size";
@@ -11140,11 +11082,6 @@ rec {
             usesDefaultFeatures = false;
           }
           {
-            name = "ctr";
-            packageId = "ctr 0.10.1";
-            usesDefaultFeatures = false;
-          }
-          {
             name = "flate2";
             packageId = "flate2";
             usesDefaultFeatures = false;
@@ -11185,12 +11122,6 @@ rec {
             packageId = "serde";
             usesDefaultFeatures = false;
             features = [ "derive" "std" "derive" ];
-          }
-          {
-            name = "sha2";
-            packageId = "sha2 0.11.0";
-            usesDefaultFeatures = false;
-            features = [ "oid" ];
           }
           {
             name = "thiserror";
@@ -11270,7 +11201,7 @@ rec {
             name = "p384";
             packageId = "p384 0.14.0";
             usesDefaultFeatures = false;
-            features = [ "std" "arithmetic" "pkcs8" "ecdh" "ecdsa" "ecdh" ];
+            features = [ "std" "arithmetic" "pkcs8" "ecdsa" ];
           }
           {
             name = "proc-macro2";
@@ -11349,6 +11280,14 @@ rec {
             packageId = "uuid";
             usesDefaultFeatures = false;
             features = [ "serde" "v3" "v4" "std" ];
+          }
+        ];
+        devDependencies = [
+          {
+            name = "criterion";
+            packageId = "criterion";
+            usesDefaultFeatures = false;
+            features = [ "html_reports" ];
           }
         ];
         features = {
@@ -18581,7 +18520,7 @@ rec {
           }
           {
             name = "ctr";
-            packageId = "ctr 0.9.2";
+            packageId = "ctr";
           }
           {
             name = "hmac";
