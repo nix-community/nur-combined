@@ -112,40 +112,10 @@ jobs:
     # via ssh-ng read /etc/nix/nix.conf per session, so no daemon restart
     # is needed.
     - name: Configure builder store cache
-      shell: bash
-      run: |
-        set -euo pipefail
-        if [[ ! "${NUR_CI_CACHE_SIGNING_PUBLIC_KEY}" =~ ^nur-ci-cache-1:[A-Za-z0-9+/]{43}=$ ]]; then
-          echo '::error::NUR_CI_CACHE_SIGNING_PUBLIC_KEY is not configured.'
-          exit 1
-        fi
-        sudo tee /etc/nix/push-to-builder-cache >/dev/null <<EOF
-        #!/bin/sh
-        # Push every locally built path to the central builder store
-        # cache. Only the exact outputs are exported (not their closure):
-        # upstream dependencies stay fetchable from the upstream caches.
-        export PATH=/nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-        nix-store --export \$OUT_PATHS |
-          ssh root@${CACHE_HOST} nix-store --import ||
-          true
-        EOF
-        sudo chmod 755 /etc/nix/push-to-builder-cache
-        sudo tee -a /etc/ssh/ssh_config >/dev/null <<EOF
-
-        Host ${CACHE_HOST}
-          StrictHostKeyChecking no
-          UserKnownHostsFile /dev/null
-          ConnectTimeout 10
-          BatchMode yes
-          LogLevel ERROR
-        EOF
-        sudo tee -a /etc/nix/nix.conf >/dev/null <<EOF
-
-        extra-substituters = ssh-ng://root@${CACHE_HOST}
-        extra-trusted-public-keys = ${NUR_CI_CACHE_SIGNING_PUBLIC_KEY}
-        post-build-hook = /etc/nix/push-to-builder-cache
-        connect-timeout = 5
-        EOF
+      uses: mzwing/nix-config/.github/actions/setup-builder-store-cache@master
+      with:
+        cache-host: ${{ env.CACHE_HOST }}
+        signing-public-key: ${{ env.NUR_CI_CACHE_SIGNING_PUBLIC_KEY }}
 
     # The action restores the macOS runner's DNS after joining (with
     # DNS accepted, the tailscale action replaces the system DNS with
@@ -162,26 +132,12 @@ jobs:
         args: --ssh
 
     # macOS only: with MagicDNS gone (see above), ssh-ng://root@${CACHE_HOST}
-    # would not resolve. Linux builders resolve it via split DNS. Discover
-    # the cache node's tailnet IP from the local tailscaled and pin it in
-    # /etc/hosts for the substituter and the post-build hook.
+    # would not resolve. Linux builders resolve it via split DNS.
     - name: Resolve builder store cache address
       if: endsWith(matrix.system, '-darwin')
-      shell: bash
-      run: |
-        set -euo pipefail
-        cache_ip=""
-        for _ in {1..36}; do
-          cache_ip="$(sudo tailscale status --json | jq -r --arg host "${CACHE_HOST}" \
-            '[.Peer[]? | select(.HostName == $host) | .TailscaleIPs[0]] | first // empty')"
-          [[ -n "${cache_ip}" ]] && break
-          sleep 5
-        done
-        if [[ -z "${cache_ip}" ]]; then
-          echo '::error::The builder store cache node did not appear on the tailnet within 3 minutes.'
-          exit 1
-        fi
-        printf '%s %s\n' "${cache_ip}" "${CACHE_HOST}" | sudo tee -a /etc/hosts
+      uses: mzwing/nix-config/.github/actions/pin-tailnet-peer-address@master
+      with:
+        hostname: ${{ env.CACHE_HOST }}
 
     - name: Wait for distributed builds
       uses: mzwing/nix-config/.github/actions/wait-for-distributed-builds@master
@@ -208,24 +164,6 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v7
 
-    # The signing key pair is mandatory: without it the builders cannot
-    # trust paths from the cache, so fail fast instead of degrading to
-    # cache-less builds.
-    - name: Check builder cache prerequisites
-      env:
-        SIGNING_KEY: ${{ secrets.NUR_CI_CACHE_SIGNING_KEY }}
-      shell: bash
-      run: |
-        set -euo pipefail
-        if [[ -z "${SIGNING_KEY}" ]]; then
-          echo '::error::Secret NUR_CI_CACHE_SIGNING_KEY is not set.'
-          exit 1
-        fi
-        if [[ ! "${NUR_CI_CACHE_SIGNING_PUBLIC_KEY}" =~ ^nur-ci-cache-1:[A-Za-z0-9+/]{43}=$ ]]; then
-          echo '::error::NUR_CI_CACHE_SIGNING_PUBLIC_KEY is not configured.'
-          exit 1
-        fi
-
     - name: Maximize Nix disk space
       uses: wimpysworld/nothing-but-nix@v10
       with:
@@ -251,13 +189,6 @@ jobs:
     - name: Remove stale Nix store lock files
       run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
 
-    - name: Write cache signing key
-      env:
-        SIGNING_KEY: ${{ secrets.NUR_CI_CACHE_SIGNING_KEY }}
-      run: |
-        printf '%s\n' "${SIGNING_KEY}" | sudo tee /etc/nix/cache-key.pem >/dev/null
-        sudo chmod 600 /etc/nix/cache-key.pem
-
     - name: Join cache network
       uses: mzwing/nix-config/.github/actions/join-ci-tailnet@master
       with:
@@ -267,60 +198,26 @@ jobs:
         hostname: ${{ env.CACHE_HOST }}
         args: --ssh
 
-    # Paths pushed by builders arrive unsigned, so sign them periodically
-    # to make them substitutable for the other builders. The coordinator
-    # touches /tmp/cache_done when the run is over (its "Release remote
-    # builders" step has `if: always()`); the deadline is only a backstop
-    # for a cancelled or crashed coordinator.
+    # Validates the signing key pair (mandatory — without it the
+    # builders cannot trust paths from the cache, so fail fast instead of
+    # degrading to cache-less builds), installs the secret key, then
+    # signs the paths pushed by builders until the coordinator signals
+    # completion (/tmp/cache_done, touched by its release-remote-builders
+    # step with `if: always()`).
     - name: Serve builders and sign pushed paths
-      shell: bash
-      run: |
-        set -euo pipefail
-        # sudo resets PATH to secure_path, which does not contain the Nix
-        # profile; resolve absolute paths before elevating.
-        nix_bin="$(command -v nix)"
-        deadline=$(( $(date +%s) + 350 * 60 ))
-        sign_due=0
-        until [[ -e /tmp/cache_done ]]; do
-          now="$(date +%s)"
-          if (( now >= sign_due )); then
-            sudo "$nix_bin" store sign --all --key-file /etc/nix/cache-key.pem
-            sign_due=$(( now + 60 ))
-          fi
-          if (( now >= deadline )); then
-            echo 'Timed out waiting for the coordinator to signal completion; continuing anyway.'
-            break
-          fi
-          sleep 15
-        done
-        sudo "$nix_bin" store sign --all --key-file /etc/nix/cache-key.pem
+      uses: mzwing/nix-config/.github/actions/serve-builder-store-cache@master
+      with:
+        signing-key: ${{ secrets.NUR_CI_CACHE_SIGNING_KEY }}
+        signing-public-key: ${{ env.NUR_CI_CACHE_SIGNING_PUBLIC_KEY }}
 
     # Keep only store paths related to the current lock: register the
-    # build-time closure of every cached package (all systems) as GC
-    # roots, then collect everything else — stale crates, FODs and
-    # packages from previous locks. `nix-store --query --requisites`
-    # lists closure paths that are not present locally, so only existing
-    # paths are rooted.
+    # build-time closure of every cached package (ci/drvs.nix, all
+    # systems) as GC roots, then collect everything else — stale crates,
+    # FODs and packages from previous locks.
     - name: Garbage-collect stale store paths
-      shell: bash
-      run: |
-        set -euo pipefail
-        echo "Store size before GC: $(du -sh /nix/store | cut -f1)"
-        nix eval --json --impure --file ci/drvs.nix | jq -r '.[]' > /tmp/nur-drvs.txt
-        xargs nix-store --query --requisites --include-outputs < /tmp/nur-drvs.txt |
-          sort --unique > /tmp/nur-keep-set.txt
-        sudo rm -rf /nix/var/nix/gcroots/nur-ci-cache
-        sudo install -d /nix/var/nix/gcroots/nur-ci-cache
-        while IFS= read -r path; do
-          [[ -e "${path}" ]] && printf '%s\n' "${path}"
-        done < /tmp/nur-keep-set.txt > /tmp/nur-root-set.txt
-        echo "Rooting $(wc -l < /tmp/nur-root-set.txt) of $(wc -l < /tmp/nur-keep-set.txt) closure paths."
-        sudo xargs -a /tmp/nur-root-set.txt -r -n 100 ln -sfn -t /nix/var/nix/gcroots/nur-ci-cache --
-        echo 'Paths that will be deleted:'
-        # Same sudo/secure_path caveat as the signing step above.
-        sudo "$(command -v nix-collect-garbage)" --dry-run
-        sudo "$(command -v nix-collect-garbage)"
-        echo "Store size after GC: $(du -sh /nix/store | cut -f1)"
+      uses: mzwing/nix-config/.github/actions/gc-store-to-build-closure@master
+      with:
+        gcroots-name: nur-ci-cache
 
     # Save even when the build failed: paths pushed by builders before
     # the failure (e.g. crate2nix crates) are still valid cache entries.
@@ -369,6 +266,18 @@ jobs:
         tags: tag:nur-ci-coordinator
         hostname: nur-c-${{ github.run_id }}-${{ github.run_attempt }}
 
+    # The coordinator substitutes locally built runtime dependencies
+    # from the builder store cache when assembling the Cachix push
+    # closure (they are not uploaded to Cachix by the builders). Runs
+    # before the nix-daemon restart in "Configure remote builders" so
+    # the daemon picks up the new substituter.
+    - name: Configure builder store cache substituter
+      uses: mzwing/nix-config/.github/actions/setup-builder-store-cache@master
+      with:
+        cache-host: ${{ env.CACHE_HOST }}
+        signing-public-key: ${{ env.NUR_CI_CACHE_SIGNING_PUBLIC_KEY }}
+        post-build-hook: 'false'
+
     - name: Configure remote builders
       if: needs.config.outputs.has_builds == 'true'
       uses: mzwing/nix-config/.github/actions/setup-remote-builders@master
@@ -378,36 +287,14 @@ jobs:
         ssh-host-pattern: "nur-b-* nur-cache-*"
 
     # The builder store cache joins the tailnet in parallel (cache
-    # job). Nix marks a substituter as failed for the rest of the
-    # session after one failed connection, so make sure the builders
-    # can reach the cache before building starts. Probe the exact
-    # path the builds use — a builder SSHing to the cache — through
-    # the first builder, and fail fast if it never comes up.
+    # job); make sure it is reachable — directly and through the first
+    # builder — before building starts.
     - name: Check builder store cache reachability
-      if: needs.config.outputs.has_builds == 'true'
-      env:
-        BUILDERS: ${{ needs.config.outputs.builders }}
-      shell: bash
-      run: |
-        set -euo pipefail
-        first_builder="${BUILDER_PREFIX}-$(jq -r '.include[0].id' <<<"${BUILDERS}")"
-        cache_ok=false
-        for _ in {1..24}; do
-          if ssh -n "root@${first_builder}" \
-            "ssh -o ConnectTimeout=5 root@${CACHE_HOST} true" 2>/dev/null; then
-            cache_ok=true
-            break
-          fi
-          sleep 5
-        done
-        if [[ "${cache_ok}" != true ]]; then
-          # Surface the underlying ssh error (DNS / timeout / ACL / ...)
-          # so the failure is diagnosable from the log alone.
-          err="$(ssh -n "root@${first_builder}" \
-            "ssh -o ConnectTimeout=5 root@${CACHE_HOST} true" 2>&1 || true)"
-          echo "::error::Builders cannot reach the builder store cache via SSH. Last error: ${err}"
-          exit 1
-        fi
+      uses: mzwing/nix-config/.github/actions/check-builder-store-cache-reachability@master
+      with:
+        cache-host: ${{ env.CACHE_HOST }}
+        builders-json: ${{ needs.config.outputs.builders }}
+        builder-prefix: ${{ env.BUILDER_PREFIX }}
 
     - name: Build package outputs
       if: needs.config.outputs.targets != '[]'
@@ -443,14 +330,10 @@ jobs:
     # dependencies", bloating the public cache with intermediates.
     # Thanks to --keep-going the build step also produces the succeeded
     # outputs when other packages fail, so this runs on red builds too
-    # (!cancelled) and publishes the partial result. `cachix push`
-    # always uploads the runtime closure of the given paths, so runtime
-    # dependencies that are not already present in the cache are
-    # uploaded the first time.
-    - name: Push final outputs to Cachix
+    # (!cancelled) and publishes the partial result.
+    - name: Assemble Cachix push set
       if: '!cancelled()'
       env:
-        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
         TARGETS: ${{ needs.config.outputs.targets }}
       shell: bash
       run: |
@@ -459,46 +342,25 @@ jobs:
           > /tmp/out-targets.txt
         grep '^/nix/store/' /tmp/built-outputs.txt 2>/dev/null \
           | grep -Fxf /tmp/out-targets.txt > /tmp/push-outputs.txt || true
-        if [[ ! -s /tmp/push-outputs.txt ]]; then
-          echo 'Nothing to push.'
-          exit 0
-        fi
-        # Remote builds copy back only the outputs, while `cachix push`
-        # needs every closure path locally to be able to upload it.
-        # Substitute the missing runtime dependencies from the upstream
-        # caches; iterate because the references of a path become known
-        # only once the path itself has been realised.
-        mapfile -t outputs < /tmp/push-outputs.txt
-        previous=-1
-        while true; do
-          nix-store --query --requisites "${outputs[@]}" | sort --unique > /tmp/push-closure.txt
-          count="$(wc -l < /tmp/push-closure.txt)"
-          [[ "${count}" == "${previous}" ]] && break
-          # --add-root keeps the realised closure alive until the push
-          # below finishes (one root per path: /tmp/nur-push-root,
-          # /tmp/nur-push-root-2, ...). Without it a concurrent GC could
-          # collect paths between realise and push.
-          xargs nix-store --realise --add-root /tmp/nur-push-root < /tmp/push-closure.txt >/dev/null
-          previous="${count}"
-        done
-        echo "Pushing ${#outputs[@]} outputs (closure: ${count} paths) to ${CACHE_NAME}."
-        xargs cachix push "${CACHE_NAME}" < /tmp/push-outputs.txt
-        rm -f /tmp/nur-push-root*
 
+    - name: Push final outputs to Cachix
+      if: '!cancelled()'
+      uses: mzwing/nix-config/.github/actions/push-store-closure-to-cachix@master
+      env:
+        CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      with:
+        cachix-name: ${{ env.CACHE_NAME }}
+        paths-file: /tmp/push-outputs.txt
+
+    # Also signals the builder store cache machine that the run is over
+    # (/tmp/cache_done, via the cache-host input).
     - name: Release remote builders
       if: always() && needs.config.outputs.has_builds == 'true'
       uses: mzwing/nix-config/.github/actions/release-remote-builders@master
       with:
         builders-json: ${{ needs.config.outputs.builders }}
         builder-prefix: ${{ env.BUILDER_PREFIX }}
-
-    # Signal the builder store cache machine that the run is over.
-    - name: Signal builder store cache shutdown
-      if: always() && needs.config.outputs.has_builds == 'true'
-      shell: bash
-      run: |
-        ssh -n -o ConnectTimeout=5 "root@${CACHE_HOST}" \
-          'touch /tmp/cache_done' || true
+        cache-host: ${{ env.CACHE_HOST }}
 
     - name: Trigger NUR update
       if: success()
