@@ -171,8 +171,8 @@
             "url": "https://github.com/Redrield/nurpkgs"
         },
         "Rhys-T": {
-            "rev": "cfb4d21c89ba0734db775718b629c48a29f743ed",
-            "sha256": "1rrgjl81zln92nfjsxagfmpz7df73hn1xdvibzyal0pyvw6z3liv",
+            "rev": "4ac52803910b560e83330baa53a55c5325887c45",
+            "sha256": "1yq754067g08dy2y2p7522lr4zz1yykxmrlllhidkqizs7b4icq6",
             "url": "https://github.com/Rhys-T/nur-packages"
         },
         "RossSmyth": {
@@ -427,8 +427,8 @@
             "url": "https://github.com/bandithedoge/nur-packages"
         },
         "bartoostveen": {
-            "rev": "ebaef73aaf289e8c6f7b76a9d1bccdd91ebcd102",
-            "sha256": "08l6fb46a40xgqs6kfpb77cq27vfdcwqn2gdz0ykj8hvkx5nmvp7",
+            "rev": "4ac1aa777d3ae8a62cf79c52c4c4683686774c0e",
+            "sha256": "1hharxzw8wj1fcxa9hi9i0niyfkmf12jl93cv9rvrsq97mzivk6h",
             "url": "https://github.com/bartoostveen/nix-packages"
         },
         "bb010g": {
@@ -1632,8 +1632,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "dc875bdfc7afb19740f3fb713f88d6bb1fd36ace",
-            "sha256": "0z73w0v7dsiwv2n2sxxmxjqr1kvqghv3dbz4pmcb3b475mkzlv01",
+            "rev": "93442f63ded5f6d43df897e53c3b894d0b32ba91",
+            "sha256": "0z9sqji4l7xgdwlf5cvp0m2cvgi1r46irpambpd3ki1sm0hkyzl0",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
