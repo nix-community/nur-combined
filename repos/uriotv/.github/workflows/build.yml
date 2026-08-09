@@ -17,7 +17,31 @@ on:
     - cron:  '51 2 * * *'
   workflow_dispatch:
 jobs:
+  test-update-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Run update script tests
+        run: ./tests/run-tests.sh
+
+  # Ensure tests pass before allowing merge
+  test-gate:
+    runs-on: ubuntu-latest
+    needs: test-update-scripts
+    if: always()
+    steps:
+      - name: Check test results
+        run: |
+          if [ "${{ needs.test-update-scripts.result }}" != "success" ]; then
+            echo "::error::Update script tests failed! Merge is blocked."
+            exit 1
+          fi
+          echo "✓ All update script tests passed"
+
   tests:
+    needs: test-gate
     strategy:
       matrix:
         # Set this to notify the global nur package registry that changes are
