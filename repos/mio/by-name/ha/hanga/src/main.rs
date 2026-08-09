@@ -1,13 +1,20 @@
 use bevy::prelude::*;
-use wasmtime::{Engine, Config};
+use wasmtime::{Engine, Config, Module, Store, Instance, TypedFunc};
 use bevy_voxel_world::prelude::*;
 use avian3d::prelude::*;
 use std::io::{self, BufRead};
-use std::sync::{mpsc::{channel, Receiver}, Mutex};
+use std::sync::{mpsc::{channel, Receiver}, Mutex, OnceLock};
 use serde::{Serialize, Deserialize};
 
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
+
+static WASM_ENGINE: OnceLock<Engine> = OnceLock::new();
+static WASM_MODULE: OnceLock<Module> = OnceLock::new();
+
+thread_local! {
+    static WASM_INSTANCE: std::cell::RefCell<Option<(Store<()>, TypedFunc<(i32, i32, i32), i32>)>> = std::cell::RefCell::new(None);
+}
 
 impl VoxelWorldConfig for DefaultWorld {
     type MaterialIndex = u8;
@@ -16,29 +23,35 @@ impl VoxelWorldConfig for DefaultWorld {
     fn voxel_lookup_delegate(&self) -> VoxelLookupDelegate<Self::MaterialIndex> {
         Box::new(|_chunk_pos, _lod, _chunk_data| {
             Box::new(|pos, _voxel| {
-                // TODO: Pipe this through `wasmtime` thread pool to call `query_voxel` in `urban_chaos.wasm`
-                // For MVP, we mirror the WASM layout generator logic here directly:
-                if pos.y < 0 {
-                    return WorldVoxel::Solid(1); // Concrete base
-                }
-                
-                let dx = (pos.x - 500).abs();
-                let dz = (pos.z - 500).abs();
-
-                if dx < 50 && dz < 50 {
-                    if pos.y < 100 {
-                        if dx == 49 || dz == 49 {
-                            return WorldVoxel::Solid(3); // Glass
+                WASM_INSTANCE.with(|instance_ref| {
+                    let mut instance_opt = instance_ref.borrow_mut();
+                    if instance_opt.is_none() {
+                        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                            let mut store = Store::new(engine, ());
+                            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                                if let Ok(func) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "query_voxel") {
+                                    *instance_opt = Some((store, func));
+                                }
+                            }
                         }
-                        return WorldVoxel::Solid(1); // Concrete
                     }
-                }
+                    
+                    if let Some((store, func)) = instance_opt.as_mut() {
+                        if let Ok(voxel_type) = func.call(store, (pos.x, pos.y, pos.z)) {
+                            if voxel_type == 0 {
+                                return WorldVoxel::Unset;
+                            } else {
+                                return WorldVoxel::Solid(voxel_type as u8);
+                            }
+                        }
+                    }
 
-                if pos.y == 0 && pos.z == 500 {
-                    return WorldVoxel::Solid(2); // Asphalt road
-                }
-
-                WorldVoxel::Unset // Air
+                    // Fallback if WASM module fails or isn't loaded
+                    if pos.y < 0 {
+                        return WorldVoxel::Solid(1); // Concrete base
+                    }
+                    WorldVoxel::Unset // Air
+                })
             })
         })
     }
@@ -385,20 +398,19 @@ fn init_wasm_mod_loader() {
     let config = Config::new();
     let engine = Engine::new(&config).expect("Failed to create wasmtime engine");
     
-    // In a real build, we'd load the .wasm file dynamically.
-    // We'll mock the loading and instantiation for now to demonstrate the API.
-    info!("Loading mod: testbed.wasm");
+    info!("Loading mod: urban_chaos.wasm");
     
-    // Create a new store
+    // Create a new store (this is just to verify the module loads, we create per-thread stores later)
     let _store = wasmtime::Store::new(&engine, ());
     
     // Normally we would read the .wasm file from disk here:
-    // let module = wasmtime::Module::from_file(&engine, "target/wasm32-unknown-unknown/debug/testbed.wasm").unwrap();
-    // let instance = wasmtime::Instance::new(&mut store, &module, &[]).unwrap();
-    // let init_mod = instance.get_typed_func::<(), i32>(&mut store, "init_mod").unwrap();
-    // let status = init_mod.call(&mut store, ()).unwrap();
-    // info!("Mod testbed returned status: {}", status);
-    
+    if let Ok(module) = wasmtime::Module::from_file(&engine, "mods/urban_chaos/target/wasm32-unknown-unknown/debug/urban_chaos.wasm") {
+        WASM_ENGINE.set(engine).unwrap_or(());
+        WASM_MODULE.set(module).unwrap_or(());
+        info!("Mod urban_chaos loaded successfully into worker pool");
+    } else {
+        warn!("Failed to load urban_chaos.wasm. Using fallback voxel generator.");
+    }
     info!("Wasmtime engine ready. Waiting for WASM mods to be compiled and loaded...");
 }
 
