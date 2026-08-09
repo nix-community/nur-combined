@@ -7,3 +7,6 @@ edition = "2024"
 crate-type = ["cdylib"]
 
 [dependencies]
+
+[dev-dependencies]
+kani = "0.1.0"

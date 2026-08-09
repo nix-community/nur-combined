@@ -74,13 +74,38 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _handlePaste() async {
-    final imageBytes = await Pasteboard.image;
-    if (imageBytes != null && imageBytes.isNotEmpty) {
-      UploadFileRequest(filename: 'pasted_image.png').sendSignalToRust(imageBytes);
+    setState(() {
+      _status = 'Reading clipboard...';
+    });
+    try {
+      final imageBytes = await Pasteboard.image;
+      if (imageBytes != null && imageBytes.isNotEmpty) {
+        setState(() {
+          _status = 'Uploading pasted image...';
+        });
+        UploadFileRequest(filename: 'pasted_image.png').sendSignalToRust(imageBytes);
+      } else {
+        setState(() {
+          _status = 'No image found on clipboard!';
+        });
+      }
+    } catch (e) {
+      setState(() {
+        _status = 'Clipboard error: $e';
+      });
     }
   }
 
   void _uploadText() {
+    if (_textController.text.trim().isEmpty) {
+      setState(() {
+        _status = 'Please enter some text first.';
+      });
+      return;
+    }
+    setState(() {
+      _status = 'Uploading text...';
+    });
     UploadTextRequest(text: _textController.text).sendSignalToRust();
   }
 
@@ -89,6 +114,9 @@ class _MyHomePageState extends State<MyHomePage> {
       type: imageOnly ? FileType.image : FileType.any,
     );
     if (result != null && result.files.single.path != null) {
+      setState(() {
+        _status = 'Uploading file...';
+      });
       final file = File(result.files.single.path!);
       final bytes = await file.readAsBytes();
       final filename = result.files.single.name;
@@ -111,14 +139,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(24.0),
+            padding: const EdgeInsets.all(16.0),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),
               child: Card(
                 elevation: 4,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
                 child: Padding(
-                  padding: const EdgeInsets.all(32.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -182,9 +210,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ],
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 24),
+                      TextButton.icon(
+                        onPressed: _handlePaste,
+                        icon: const Icon(Icons.paste, size: 16, color: Colors.grey),
+                        label: const Text('Paste Image from Clipboard', style: TextStyle(color: Colors.grey)),
+                      ),
                       const Text(
-                        "Tip: You can press Ctrl+V anywhere to paste and upload an image!",
+                        "Tip: Desktop users can press Ctrl+V anywhere!",
                         style: TextStyle(color: Colors.grey, fontSize: 12),
                         textAlign: TextAlign.center,
                       ),

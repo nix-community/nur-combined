@@ -9,6 +9,36 @@ struct DefaultWorld;
 impl VoxelWorldConfig for DefaultWorld {
     type MaterialIndex = u8;
     type ChunkUserBundle = ();
+    
+    fn voxel_lookup_delegate(&self) -> VoxelLookupDelegate<Self::MaterialIndex> {
+        Box::new(|_chunk_pos, _lod, _chunk_data| {
+            Box::new(|pos, _voxel| {
+                // TODO: Pipe this through `wasmtime` thread pool to call `query_voxel` in `urban_chaos.wasm`
+                // For MVP, we mirror the WASM layout generator logic here directly:
+                if pos.y < 0 {
+                    return WorldVoxel::Solid(1); // Concrete base
+                }
+                
+                let dx = (pos.x - 500).abs();
+                let dz = (pos.z - 500).abs();
+
+                if dx < 50 && dz < 50 {
+                    if pos.y < 100 {
+                        if dx == 49 || dz == 49 {
+                            return WorldVoxel::Solid(3); // Glass
+                        }
+                        return WorldVoxel::Solid(1); // Concrete
+                    }
+                }
+
+                if pos.y == 0 && pos.z == 500 {
+                    return WorldVoxel::Solid(2); // Asphalt road
+                }
+
+                WorldVoxel::Unset // Air
+            })
+        })
+    }
 }
 
 fn main() {
@@ -28,13 +58,93 @@ fn main() {
             EconomicSimulationPlugin,
         ))
         .add_systems(Startup, setup)
+        .add_systems(Update, (generate_voxel_colliders, player_movement))
         .run();
 }
 
+#[derive(Component)]
+struct Player;
+
 fn setup(mut commands: Commands) {
-    commands.spawn(Camera2d);
     info!("Hanga: Minecraft + Luanti + Teardown + GTA + P2P Multiplayer + Modding is starting!");
     info!("Hanga fully loaded with all basic features!");
+
+    // Spawn a 3D Player with physics
+    commands.spawn((
+        Player,
+        Camera3dBundle {
+            transform: Transform::from_xyz(490.0, 50.0, 490.0).looking_at(Vec3::new(500.0, 50.0, 500.0), Vec3::Y),
+            ..default()
+        },
+        RigidBody::Dynamic,
+        Collider::capsule(0.4, 1.0),
+        LinearVelocity::default(),
+        AngularVelocity::default(),
+        // Lock rotations so the capsule doesn't tip over
+        LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+    ));
+}
+
+/// Very basic first person controller for MVP
+fn player_movement(
+    keyboard_input: Res<ButtonInput<KeyCode>>,
+    mut query: Query<(&Transform, &mut LinearVelocity), With<Player>>,
+) {
+    if let Ok((transform, mut velocity)) = query.get_single_mut() {
+        let mut direction = Vec3::ZERO;
+        
+        let forward = transform.forward();
+        let right = transform.right();
+
+        if keyboard_input.pressed(KeyCode::KeyW) {
+            direction += *forward;
+        }
+        if keyboard_input.pressed(KeyCode::KeyS) {
+            direction -= *forward;
+        }
+        if keyboard_input.pressed(KeyCode::KeyD) {
+            direction += *right;
+        }
+        if keyboard_input.pressed(KeyCode::KeyA) {
+            direction -= *right;
+        }
+
+        // Flatten movement to XZ plane
+        direction.y = 0.0;
+        let direction = direction.normalize_or_zero();
+        
+        let speed = 10.0;
+        
+        // Apply movement velocity, keeping existing gravity (y-axis)
+        velocity.x = direction.x * speed;
+        velocity.z = direction.z * speed;
+        
+        // Simple jump
+        if keyboard_input.just_pressed(KeyCode::Space) {
+            velocity.y = 5.0;
+        }
+    }
+}
+
+/// Bridges `bevy_voxel_world` meshes into `avian3d` physics colliders dynamically.
+fn generate_voxel_colliders(
+    mut commands: Commands,
+    query: Query<(Entity, &Mesh3d), Added<Mesh3d>>,
+    meshes: Res<Assets<Mesh>>,
+) {
+    for (entity, mesh3d) in query.iter() {
+        // If the mesh is fully loaded and available in assets
+        if let Some(mesh) = meshes.get(&mesh3d.0) {
+            // Generate a highly accurate trimesh collider for the voxel chunk
+            if let Some(collider) = Collider::trimesh_from_mesh(mesh) {
+                // Attach the collider and make the chunk a static rigid body
+                commands.entity(entity).insert((
+                    collider,
+                    RigidBody::Static,
+                ));
+            }
+        }
+    }
 }
 
 // Minecraft features are now powered by bevy_voxel_world
@@ -83,7 +193,7 @@ impl Plugin for ModdingPlugin {
 }
 fn init_wasm_mod_loader() {
     info!("Initializing WASM sandboxed execution engine...");
-    let mut config = Config::new();
+    let config = Config::new();
     let engine = Engine::new(&config).expect("Failed to create wasmtime engine");
     
     // In a real build, we'd load the .wasm file dynamically.

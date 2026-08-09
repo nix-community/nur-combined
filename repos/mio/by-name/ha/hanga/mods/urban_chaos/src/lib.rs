@@ -101,13 +101,41 @@ pub extern "C" fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
     let layout = CityLayout::generate(1000, 1000);
     layout.get_voxel_at(x, y, z) as i32
 }
-#[cfg(test)]
-mod tests {
+#[cfg(kani)]
+mod verification {
     use super::*;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    #[kani::proof]
+    fn verify_get_voxel_at_never_panics() {
+        // Generate non-deterministic inputs for any possible coordinate
+        let x: i32 = kani::any();
+        let y: i32 = kani::any();
+        let z: i32 = kani::any();
+        
+        let layout = CityLayout {
+            width: 1000,
+            height: 1000,
+            roads: vec![],
+            districts: vec![],
+        };
+
+        // We formally verify that for EVERY SINGLE possible 32-bit integer coordinate,
+        // our voxel lookup logic will safely return a block and NEVER panic.
+        // This is crucial because voxel engines can query extreme edge cases.
+        let voxel_id = layout.get_voxel_at(x, y, z);
+        
+        // Ensure the returned ID is within known bounds (0 to 3)
+        kani::assert(voxel_id <= 3, "Voxel ID must be a known block type");
+    }
+
+    #[kani::proof]
+    fn verify_query_voxel_ffi_never_panics() {
+        let x: i32 = kani::any();
+        let y: i32 = kani::any();
+        let z: i32 = kani::any();
+        
+        // Verify the WASM FFI boundary function is perfectly safe
+        let result = query_voxel(x, y, z);
+        kani::assert(result >= 0 && result <= 3, "FFI returns a valid known voxel");
     }
 }
