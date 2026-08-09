@@ -67,8 +67,15 @@
     };
     "teever" = {
       primaryIp = "10.78.79.3";
-      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFF45xYVopkdGFpP9dKKyvdrTtejld1VwkN7t7Nnx7YS root@teever";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFF45xYVopkdGFpP9dKKyvdrTtejld1VwkN7t7Nnx7YS";
       ssh.aliases = [ "tvr" ];
+    };
+
+    #javavacu hosts
+    "jv-tiebreak" = {
+      altNames = [ "jv-tiebreaker" "jvtb" ];
+      primaryIp = "45.63.36.113";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBeABuK70NGsVFqaOgDDdmwaweUJ2GeQYP/Bbd9+oq20";
     };
 
     #personal hosts
