@@ -19,6 +19,7 @@ in {
   moegi-nvim = callPackage ./pkgs/moegi-nvim {};
   prequery-preprocess = callPackage ./pkgs/prequery-preprocess {};
   prettier-inogai = callPackage ./pkgs/prettier-inogai {};
+  pi-web = callPackage ./pkgs/pi-web {};
   ray-raycast = callPackage ./pkgs/ray-raycast {};
   winterm-rs = callPackage ./pkgs/winterm-rs {};
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
