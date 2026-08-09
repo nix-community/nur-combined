@@ -22,6 +22,7 @@ let
     convertHash
     filterAttrs
     fixedWidthString
+    foldl'
     fromHexString
     functionArgs
     genList
@@ -31,6 +32,7 @@ let
     intersectAttrs
     isFunction
     isPath
+    isString
     isType
     length
     listToAttrs
@@ -184,6 +186,20 @@ in
         firstChar = substring 0 1 path';
       in
       if firstChar == "/" then path' else root + "/${path'}";
+
+  resolveFlakeLockNodeName =
+    lock:
+    let
+      resolveNodeName =
+        inputSpec:
+        if isString inputSpec then
+          inputSpec
+        else
+          foldl' (
+            nodeName: inputName: resolveNodeName lock.nodes.${nodeName}.inputs.${inputName}
+          ) lock.root inputSpec;
+    in
+    resolveNodeName;
 
   storePathName = path: substring 33 (-1) (baseNameOf path);
 
