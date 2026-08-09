@@ -72,18 +72,28 @@ jobs:
         nix profile add nixpkgs#devenv
         devenv update
 
-    - name: Update sources and dependency hashes
+    - name: Update sources, lockfiles and dependency hashes
       shell: bash
       run: |
         set -euo pipefail
         trap 'rm -f secrets.toml' EXIT
+
+        # nothing-but-nix cleaves almost all disk into the /nix mount
+        # (runner-writable) and leaves / with ~1G. The gomod2nix module
+        # downloads (and crate2nix's cargo registry) overflow / unless
+        # their caches live on the big mount.
+        export GOMODCACHE=/nix/var/tmp/gomodcache
+        export CARGO_HOME=/nix/var/tmp/cargo
+        mkdir -p "$GOMODCACHE" "$CARGO_HOME"
 
         cat >secrets.toml <<EOF
         [keys]
         github = "${{ secrets.GITHUB_TOKEN }}"
         EOF
 
-        nix run .#update
+        nix run .#update-sources
+
+        nix run .#update-lockfiles
 
         nix run .#update-hashes
 
