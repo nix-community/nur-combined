@@ -8,15 +8,15 @@
 {
   macos-ime = {
     pname = "macos-ime";
-    version = "f821b1b0b5405ed07f437d912bbf06f1acd67236";
+    version = "edfad106ca213e7de32f82a7e3b497294ff5fefa";
     src = fetchFromGitHub {
       owner = "ryota2357";
       repo = "macos-ime";
-      rev = "f821b1b0b5405ed07f437d912bbf06f1acd67236";
+      rev = "edfad106ca213e7de32f82a7e3b497294ff5fefa";
       fetchSubmodules = false;
-      sha256 = "sha256-dJ0wurfz4yxM8PbtGch5VT6tXfHMiI1N6/qXne3yY5c=";
+      sha256 = "sha256-LHnD5DNJQEKnIbSZBI/TqW0Uv2qUcH/NJ8diPK+UOVY=";
     };
-    date = "2026-04-14";
+    date = "2026-06-07";
   };
   mical = {
     pname = "mical";
@@ -37,22 +37,22 @@
   };
   pleckjp-font = {
     pname = "pleckjp-font";
-    version = "v2.1.2";
+    version = "v2.2.0";
     src = fetchurl {
-      url = "https://github.com/ryota2357/PleckJP/releases/download/v2.1.2/PleckJP_v2.1.2.zip";
-      sha256 = "sha256-h7iW/arXNQZuW+9OpKdAWF9FtjSyi9/DLIuyuE1ckCY=";
+      url = "https://github.com/ryota2357/PleckJP/releases/download/v2.2.0/PleckJP_v2.2.0.zip";
+      sha256 = "sha256-WjaoZKuILopBRlMQhcTDvafHLY4dYf2dVz1wysTSvms=";
     };
   };
   vm_stat2 = {
     pname = "vm_stat2";
-    version = "1ad0d07ae4a64c7788fab580eaf247cbe8d01b3b";
+    version = "27b8d46cabcf749896594ae03339d602f6d13d7f";
     src = fetchFromGitHub {
       owner = "ryota2357";
       repo = "vm_stat2";
-      rev = "1ad0d07ae4a64c7788fab580eaf247cbe8d01b3b";
+      rev = "27b8d46cabcf749896594ae03339d602f6d13d7f";
       fetchSubmodules = false;
-      sha256 = "sha256-dBD8DzcwJWioiJaOxnrhFd8dQdozjKPG12v7QO4LcF8=";
+      sha256 = "sha256-R44s641ahevrNnMuiYd5Bg/+VJjQVXqtu1l3T9XDiLk=";
     };
-    date = "2026-04-14";
+    date = "2026-06-07";
   };
 }
