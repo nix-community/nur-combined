@@ -133,6 +133,16 @@ in
 {
   options.nagy.emacs = {
 
+    useEmacsOverlay = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = ''
+        Whether to apply the nix-community/emacs-overlay via
+        `nixpkgs.overlays`.  Provides newer emacs packages than
+        nixpkgs.
+      '';
+    };
+
     packageDirectories = lib.mkOption {
       type = listOf path;
       default = [ ];
@@ -175,6 +185,17 @@ in
   };
 
   config = {
+
+    nixpkgs.overlays = lib.mkIf cfg.useEmacsOverlay [
+      (import (
+        builtins.fetchTarball {
+          # updated 2026-08-08
+          # to update: curl -s https://api.github.com/repos/nix-community/emacs-overlay/commits/master | head -2
+          url = "https://github.com/nix-community/emacs-overlay/archive/77dea4962acf3d4b365a87deacf1c05ed328805a.tar.gz";
+        }
+      ))
+    ];
+
     services.emacs = {
       package = customEmacsPackages.emacs;
     };
