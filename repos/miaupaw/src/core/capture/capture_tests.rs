@@ -142,18 +142,17 @@ fn test_roundtrip_fractional_scale() {
 }
 
 #[test]
-fn test_negative_origin_min_origin_and_logical_coords_for() {
+fn test_negative_origin_logical_coords_for() {
     // Left monitor anchored at -1920 — the real "secondary on the left" layout.
     let canvas = PhysicalCanvas::build(vec![
         tile(0x111111, 1920, 1080, (-1920, 0), 1920, 1080),
         tile(0x222222, 1920, 1080, (0, 0), 1920, 1080),
     ]);
 
-    assert_eq!(canvas.min_origin(), (-1920, 0));
-
-    // Per-tile-physical deck → desktop-relative logical (grim/slurp convention).
+    // Per-tile-physical deck → absolute compositor logical: the layout origin
+    // is NOT subtracted, negative values surface verbatim (grim/slurp space).
     let coords = canvas.logical_coords_for(&[(0, 10, 10), (1, 5, 5)]);
-    assert_eq!(coords, vec![(10, 10), (1925, 5)]);
+    assert_eq!(coords, vec![(-1910, 10), (5, 5)]);
 }
 
 #[test]

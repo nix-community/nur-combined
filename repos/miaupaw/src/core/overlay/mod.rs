@@ -76,7 +76,7 @@ pub struct Pick {
 /// ordering left to get wrong.
 pub struct SessionResult {
     pub colors: Vec<Rgba<u8>>,
-    /// Logical (desktop-relative) view — derived from phys_coords via canvas.
+    /// Absolute-logical view (compositor space) — derived from phys_coords via canvas.
     pub coords: Vec<(i32, i32)>,
     /// Per-tile physical (monitor_idx, phys_x, phys_y) — source of truth.
     pub phys_coords: Vec<(usize, i32, i32)>,
@@ -272,7 +272,8 @@ impl OverlayApp {
         backend_name: String,
         scale_factor: f64,
     ) -> Self {
-        Self::new(PhysicalCanvas::from_single(capture, output), config, font_data, hud_font_data, backend_name, scale_factor)
+        // X11-root path only — the root window's origin is (0,0) by protocol.
+        Self::new(PhysicalCanvas::from_single(capture, output, (0, 0)), config, font_data, hud_font_data, backend_name, scale_factor)
     }
 
     /// Updates the physical mouse position from OS connectors.
@@ -562,8 +563,7 @@ impl OverlayApp {
                     let color = self.sample_aim_color(x as u32, y as u32);
                     // aim_pos = per-tile physical of the active tile —
                     // store as-is. Logical view derives on the way out in
-                    // `take_session()` (canvas physical_to_logical +
-                    // min_origin shift).
+                    // `take_session()` (canvas physical_to_logical).
                     self.deck.push(Pick {
                         color,
                         tile: self.canvas.active_idx,

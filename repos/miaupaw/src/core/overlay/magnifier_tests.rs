@@ -17,6 +17,7 @@ fn canvas_400() -> PhysicalCanvas {
     PhysicalCanvas::from_single(
         ScreenCapture { xrgb_buffer: vec![0x808080; 400 * 400], width: 400, height: 400 },
         None,
+        (0, 0),
     )
 }
 

@@ -20,7 +20,7 @@ fn app_with_fill(fill: u32) -> OverlayApp {
         width: 100,
         height: 100,
     };
-    let canvas = PhysicalCanvas::from_single(capture, None);
+    let canvas = PhysicalCanvas::from_single(capture, None, (0, 0));
     OverlayApp::new(
         canvas,
         Config::default(),

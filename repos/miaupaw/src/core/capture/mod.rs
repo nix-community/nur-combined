@@ -104,8 +104,16 @@ impl PhysicalCanvas {
     }
 
     /// Create a canvas from a single full-desktop capture (Portal, X11, KWin).
+    ///
+    /// `origin` — absolute logical position of the capture's top-left corner
+    /// in compositor space. A fused capture covers the union of all outputs
+    /// starting at the layout's min origin, and losing that origin here would
+    /// silently re-anchor the CLI coord contract to the canvas corner.
+    /// X11 root passes (0, 0) — correct by protocol, the root window IS the
+    /// origin. Portal-without-Wayland passes (0, 0) as best effort — no
+    /// layout metadata is available on that path.
     #[cfg(unix)]
-    pub fn from_single(capture: ScreenCapture, output: Option<wayland_client::protocol::wl_output::WlOutput>) -> Self {
+    pub fn from_single(capture: ScreenCapture, output: Option<wayland_client::protocol::wl_output::WlOutput>, origin: (i32, i32)) -> Self {
         let logical_w = capture.width as i32;
         let logical_h = capture.height as i32;
         Self {
@@ -116,7 +124,7 @@ impl PhysicalCanvas {
                 // per-output names — empty here, surfaced as "-" by --monitors.
                 name: String::new(),
                 scale: 1.0,
-                logical_pos: (0, 0),
+                logical_pos: origin,
                 logical_w,
                 logical_h,
                 transform: wl_output::Transform::Normal,
@@ -126,8 +134,13 @@ impl PhysicalCanvas {
     }
 
     /// Create a canvas from a single full-desktop capture (Windows / headless).
+    ///
+    /// `origin` — top-left of the virtual screen (`SM_XVIRTUALSCREEN/Y`),
+    /// which is negative when a monitor sits left of / above the primary.
+    /// Keeps the GDI single-tile canvas in the same absolute space as the
+    /// per-output DXGI tier (`DesktopCoordinates`).
     #[cfg(windows)]
-    pub fn from_single(capture: ScreenCapture) -> Self {
+    pub fn from_single(capture: ScreenCapture, origin: (i32, i32)) -> Self {
         let logical_w = capture.width as i32;
         let logical_h = capture.height as i32;
         Self {
@@ -135,7 +148,7 @@ impl PhysicalCanvas {
                 capture,
                 name: String::new(),
                 scale: 1.0,
-                logical_pos: (0, 0),
+                logical_pos: origin,
                 logical_w,
                 logical_h,
             }],
@@ -184,11 +197,13 @@ impl PhysicalCanvas {
         None
     }
 
-    /// Sample a pixel using **absolute logical** coordinates (compositor space).
+    /// Sample a pixel using **absolute logical** coordinates (compositor
+    /// space, `tile.logical_pos` verbatim).
     ///
     /// Unlike `sample()` which takes local-physical coords relative to the
-    /// active tile, this accepts the coordinates a user would see: (0,0) is
-    /// the top-left of the leftmost monitor. Used by `--pixel X,Y`.
+    /// active tile, this accepts compositor-layout coordinates — the same
+    /// numbers grim/slurp/hyprctl speak. This IS the `--pixel X,Y` contract:
+    /// no origin shift between the CLI boundary and this lookup.
     pub fn sample_logical(&self, logical_x: i32, logical_y: i32) -> Option<u32> {
         for tile in &self.tiles {
             if logical_x >= tile.logical_pos.0 && logical_x < tile.logical_pos.0 + tile.logical_w &&
@@ -242,20 +257,15 @@ impl PhysicalCanvas {
         ))
     }
 
-    /// Batch convert per-tile-physical coords to desktop-relative logical
-    /// form (the public `--pixel X,Y` contract). Used by the overlay's
+    /// Batch convert per-tile-physical coords to absolute logical form
+    /// (the public `--pixel X,Y` contract). Used by the overlay's
     /// `logical_coords()` derive path — phys_coord_deck is single source
     /// of truth, logical view is computed at read time.
     /// Conversion failure (bad monitor index) falls through with (x, y)
     /// untouched — defensive; shouldn't trigger on well-formed input.
     pub fn logical_coords_for(&self, phys: &[(usize, i32, i32)]) -> Vec<(i32, i32)> {
-        let (ox, oy) = self.min_origin();
         phys.iter()
-            .map(|&(idx, x, y)| {
-                self.physical_to_logical(idx, x, y)
-                    .map(|(lx, ly)| (lx - ox, ly - oy))
-                    .unwrap_or((x, y))
-            })
+            .map(|&(idx, x, y)| self.physical_to_logical(idx, x, y).unwrap_or((x, y)))
             .collect()
     }
 
@@ -328,20 +338,6 @@ impl PhysicalCanvas {
             ((packed >> 8) & 0xFF) as u8,
             (packed & 0xFF) as u8,
         )
-    }
-
-    /// Top-left of the desktop bounding box in global logical space.
-    ///
-    /// Compositors may anchor outputs at a non-zero origin (e.g. a single
-    /// monitor reported at x=1920). CLI `--pixel X,Y` is desktop-relative
-    /// (origin = leftmost/topmost monitor, like grim/slurp), so callers add
-    /// this offset before [`Self::sample_vector`]. The daemon keeps absolute
-    /// coords for per-monitor overlay placement — hence this is opt-in, not
-    /// baked into the canvas.
-    pub fn min_origin(&self) -> (i32, i32) {
-        let min_x = self.tiles.iter().map(|t| t.logical_pos.0).min().unwrap_or(0);
-        let min_y = self.tiles.iter().map(|t| t.logical_pos.1).min().unwrap_or(0);
-        (min_x, min_y)
     }
 
     /// The tile where the overlay surface lives.
@@ -604,7 +600,14 @@ pub fn capture_all_outputs(
 
     log_warn("Tier3: split heuristic rejected — single-tile fallback (smoosh likely)");
     let output = output_meta.first().map(|m| m.output.clone());
-    Ok(PhysicalCanvas::from_single(capture, output))
+    // The fused capture starts at the layout's min origin — carry it into
+    // the tile so absolute CLI coords keep working (KWin single / Spectacle
+    // on an offset layout).
+    let origin = (
+        output_meta.iter().map(|m| m.logical_pos.0).min().unwrap_or(0),
+        output_meta.iter().map(|m| m.logical_pos.1).min().unwrap_or(0),
+    );
+    Ok(PhysicalCanvas::from_single(capture, output, origin))
 }
 
 /// Attempt to slice a virtual-desktop capture (XDG Portal / KWin single /

@@ -38,9 +38,10 @@ impl Default for RelaySet {
     }
 }
 
-/// Probe-input coordinate. Logical = compositor desktop-relative (default,
-/// matches grim/slurp). Physical = per-tile with a monitor-index tag, opt-in
-/// via the `N:X,Y` syntax. PhysicalDefaulted = intermediate state when `--phys`
+/// Probe-input coordinate. Logical = absolute compositor space (default,
+/// the same numbers grim/slurp/hyprctl speak; virtual-screen coords on
+/// Windows). Physical = per-tile with a monitor-index tag, opt-in via the
+/// `N:X,Y` syntax. PhysicalDefaulted = intermediate state when `--phys`
 /// is set but `N:` is omitted; the monitor is resolved at runtime once the
 /// canvas is known (single-monitor → 0, multi-monitor → error with help).
 #[derive(Clone, Copy, Debug)]
@@ -63,23 +64,23 @@ impl PixelCoord {
 }
 
 /// Render a coord in the form the user requested at emit time: `phys=true`
-/// → `N:X,Y` (per-tile physical); `phys=false` → `X,Y` (logical
-/// desktop-relative). Identity when input form already matches; converts
-/// via canvas tile lookup otherwise.
+/// → `N:X,Y` (per-tile physical); `phys=false` → `X,Y` (absolute logical).
+/// Identity when input form already matches; converts via canvas tile
+/// lookup otherwise.
 ///
-/// `min_origin` matters: CLI logical coords are desktop-relative
-/// (origin = top-left of the leftmost monitor, grim/slurp convention),
-/// but `logical_to_physical` / `physical_to_logical` work in compositor-
-/// absolute space (where `tile.logical_pos` lives). The shift bridges
-/// the two. Off-canvas / mid-flight conversion failures emit a stderr
-/// warning + fall back to the input form so the caller sees the mix
-/// (no silent emit corruption).
+/// INVARIANT: every mode that prints coordinates goes through this fn —
+/// the single exit point of the coord contract. CLI logical space IS the
+/// compositor's absolute logical space (`tile.logical_pos` verbatim, the
+/// grim/slurp convention; virtual-screen coords on Windows) — no origin
+/// shift on either side. A future `--origin` key plugs in here and at
+/// the input-resolve boundary, nowhere else. Off-canvas / mid-flight
+/// conversion failures emit a stderr warning + fall back to the input
+/// form so the caller sees the mix (no silent emit corruption).
 pub fn render_coord(canvas: &core::capture::PhysicalCanvas, coord: PixelCoord, phys: bool) -> PixelCoord {
-    let (ox, oy) = canvas.min_origin();
     if phys {
         match coord {
             PixelCoord::Logical(x, y) => canvas
-                .logical_to_physical(x + ox, y + oy)
+                .logical_to_physical(x, y)
                 .map(|(idx, px, py)| PixelCoord::Physical(idx, px, py))
                 .unwrap_or_else(|| {
                     eprintln!(
@@ -96,7 +97,7 @@ pub fn render_coord(canvas: &core::capture::PhysicalCanvas, coord: PixelCoord, p
         match coord {
             PixelCoord::Physical(idx, x, y) => canvas
                 .physical_to_logical(idx, x, y)
-                .map(|(lx, ly)| PixelCoord::Logical(lx - ox, ly - oy))
+                .map(|(lx, ly)| PixelCoord::Logical(lx, ly))
                 .unwrap_or_else(|| {
                     eprintln!(
                         "warning: cannot convert physical {}:{},{} to logical (bad monitor index?); emitting input form",
@@ -247,7 +248,7 @@ pub fn parse_args() -> Result<(Mode, bool, Option<std::path::PathBuf>)> {
             // Canonical short = `--ph`, canonical long = `--physical`.
             // `--phys` kept as an undocumented alias (was the short form
             // before; alias avoids breaking habits / pinned references).
-            // Default off → logical (compositor desktop-relative, grim/slurp).
+            // Default off → logical (absolute compositor space, grim/slurp).
             Long("ph") | Long("phys") | Long("physical") => phys = true,
             Short('f') | Long("format") => {
                 format = Some(parser.value()?.parse()?);
@@ -392,18 +393,20 @@ pub fn print_help() {
     println!();
     println!("  {}", "Probe (--pixel / --pixels / --stdin / --history / --monitors):".cyan().bold());
     println!("    No daemon, no overlay. Direct: source → format → relays → exit.");
-    println!("    Coords are desktop-relative LOGICAL by default (origin = top-left of");
-    println!("    the leftmost monitor, like grim/slurp). Opt-in PHYSICAL per-tile with");
-    println!("    `N:X,Y` syntax (N = monitor index from --monitors).");
+    println!("    Coords are absolute LOGICAL by default — compositor space, the same");
+    println!("    numbers grim/slurp/hyprctl speak (virtual-screen coords on Windows).");
+    println!("    Opt-in PHYSICAL per-tile with `N:X,Y` syntax (N = monitor index");
+    println!("    from --monitors).");
     println!();
-    println!("    --pixels:  atomic — any out-of-bounds aborts (exit 2).");
-    println!("    --stdin:   snapshot by default (ONE capture / N lines); --realtime/");
-    println!("               --rt opts into fresh capture per line.");
-    println!("    --history: reads disk (no capture). -n N overrides config.history.show");
-    println!("               (-n 0 = all up to history.size). Chronological — newest is");
-    println!("               the last line.");
+    println!("    --pixels:   atomic — any out-of-bounds aborts (exit 2).");
+    println!("    --stdin:    snapshot by default (ONE capture / N lines); --realtime/");
+    println!("                --rt opts into fresh capture per line.");
+    println!("    --history:  reads disk (no capture). -n N overrides config.history.show");
+    println!("                (-n 0 = all up to history.size). Chronological — newest is");
+    println!("                the last line.");
     println!("    --monitors: lists canvas layout — `index<TAB>name<TAB>WxH<TAB>X,Y<TAB>scale`");
-    println!("               (logical dims/position). Diagnostic primitive for scripts.");
+    println!("                (absolute logical dims/position — plugs straight into --pixel).");
+    println!("                A `# coords:` header names the space. Diagnostic primitive.");
     println!();
 
     //    OPTIONS: compose across modes; flag→mode hint in parens.

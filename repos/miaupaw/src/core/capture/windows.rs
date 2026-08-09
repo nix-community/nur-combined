@@ -236,7 +236,7 @@ pub fn capture_gdi() -> Result<PhysicalCanvas> {
             xrgb_buffer: pixels,
             width,
             height,
-        }))
+        }, (x, y)))
     }
 }
 

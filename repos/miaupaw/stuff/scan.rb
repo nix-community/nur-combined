@@ -70,19 +70,15 @@ selected =
     [monitors[idx]]
   end
 
-# Global min_origin (matches ie-r's min_origin shift on --pixel/--stdin input).
-global_min_x = monitors.map { |m| m[:x] }.min
-global_min_y = monitors.map { |m| m[:y] }.min
-
-# Bounding box of selection in LOGICAL coords, then translated to
-# desktop-relative (what --stdin consumes after min_origin shift).
+# Bounding box of selection in absolute LOGICAL coords — exactly what
+# --stdin consumes (same space --monitors prints; no origin arithmetic).
 sel_min_x = selected.map { |m| m[:x] }.min
 sel_min_y = selected.map { |m| m[:y] }.min
 sel_max_x = selected.map { |m| m[:x] + m[:w] }.max
 sel_max_y = selected.map { |m| m[:y] + m[:h] }.max
 
-scan_x_start = sel_min_x - global_min_x
-scan_y_start = sel_min_y - global_min_y
+scan_x_start = sel_min_x
+scan_y_start = sel_min_y
 scan_w       = sel_max_x - sel_min_x
 scan_h       = sel_max_y - sel_min_y
 
@@ -92,7 +88,7 @@ cols = opts[:width]
 lines = opts[:lines] || [(cols * scan_h.to_f / scan_w / 2).round, 1].max
 rows  = lines * 2
 
-# ── 3. Generate coord grid (desktop-relative, resilient to OOB) ───────
+# ── 3. Generate coord grid (absolute logical, resilient to OOB) ───────
 coords = String.new(capacity: cols * rows * 14)
 rows.times do |r|
   y = scan_y_start + (r * (scan_h - 1).to_f / [rows - 1, 1].max).round

@@ -95,17 +95,18 @@ fn test_render_coord_converts_both_ways() {
 }
 
 #[test]
-fn test_render_coord_honours_min_origin() {
-    // Monitor anchored at (-100, 0): CLI coords are desktop-relative, the
-    // conversion must route through the min_origin shift (fix 5528bc1).
+fn test_render_coord_stays_absolute_on_offset_origin() {
+    // Monitor anchored at (-100, 0): CLI logical coords are absolute
+    // compositor space — the layout origin does NOT shift the conversion
+    // (2026-08-09 contract, artifacts/2026.08.09/coords-investigation.md).
     let canvas = canvas_scale2_at((-100, 0));
     assert!(matches!(
-        render_coord(&canvas, PixelCoord::Logical(10, 10), true),
+        render_coord(&canvas, PixelCoord::Logical(-90, 10), true),
         PixelCoord::Physical(0, 20, 20)
     ));
     assert!(matches!(
         render_coord(&canvas, PixelCoord::Physical(0, 20, 20), false),
-        PixelCoord::Logical(10, 10)
+        PixelCoord::Logical(-90, 10)
     ));
 }
 
@@ -124,4 +125,34 @@ fn test_coord_input_string_roundtrip() {
     assert_eq!(PixelCoord::Logical(3, 4).as_input_string(), "3,4");
     assert_eq!(PixelCoord::Physical(1, 3, 4).as_input_string(), "1:3,4");
     assert_eq!(PixelCoord::PhysicalDefaulted(3, 4).as_input_string(), "?:3,4");
+}
+
+/// Cross-mode contract: a row printed by `--monitors` must re-parse as `--pixel`
+/// input and land exactly on its monitor's top-left pixel. This is the test that
+/// would have caught the original coord defect — `run_monitors` printed raw
+/// compositor positions while `--pixel` consumed canvas-shifted ones, and every
+/// single-mode test still passed.
+#[test]
+fn test_monitors_row_feeds_back_into_pixel_input() {
+    for origin in [(0, 0), (1920, 0), (-1820, -200)] {
+        let canvas = canvas_scale2_at(origin);
+        let row = crate::probe::monitor_row(0, &canvas.tiles[0], &canvas);
+
+        let fields: Vec<&str> = row.split('\t').collect();
+        assert_eq!(fields.len(), 6, "row shape changed: {row:?}");
+
+        // The X,Y field must parse with the very same parser user input goes through.
+        let coord = parse_pixel_coords(fields[3], false)
+            .unwrap_or_else(|e| panic!("printed coord {:?} is not valid input: {e}", fields[3]));
+
+        let PixelCoord::Logical(x, y) = coord else {
+            panic!("--monitors must print logical coords, got {coord:?}");
+        };
+
+        assert_eq!(
+            canvas.logical_to_physical(x, y),
+            Some((0, 0, 0)),
+            "origin {origin:?}: printed {x},{y} must resolve to tile 0 local (0,0)"
+        );
+    }
 }

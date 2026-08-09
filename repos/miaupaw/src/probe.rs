@@ -123,11 +123,14 @@ impl Capturer {
             UnixCapturer::Wayland(ctx) => ctx.capture(),
             UnixCapturer::X11 => {
                 let cap = connectors::x11::capture_x11_root()?;
-                Ok(capture::PhysicalCanvas::from_single(cap, None))
+                // X11 root starts at (0,0) by protocol — origin is exact.
+                Ok(capture::PhysicalCanvas::from_single(cap, None, (0, 0)))
             }
             UnixCapturer::Portal(d) => {
                 let cap = capture::portal::capture_screen(d.as_ref())?;
-                Ok(capture::PhysicalCanvas::from_single(cap, None))
+                // No Wayland connection on this tier → no layout metadata;
+                // (0,0) is best effort (wrong only on offset layouts).
+                Ok(capture::PhysicalCanvas::from_single(cap, None, (0, 0)))
             }
         }
     }
@@ -295,12 +298,15 @@ pub fn finish_pick(
 /// (cheap, ≈20-50ms on Wayland WLR/X11) — the metadata is harvested as a
 /// side-effect, no separate metadata-only path needed.
 ///
-/// TSV format (one row per monitor):
+/// TSV format (a `#`-prefixed header line, then one row per monitor):
 /// ```text
-/// index<TAB>name<TAB>WxH<TAB>X,Y<TAB>scale
+/// # coords: absolute logical (compositor space)
+/// index<TAB>name<TAB>WxH<TAB>X,Y<TAB>scale<TAB>transform
 /// ```
-/// — `WxH` and `X,Y` are LOGICAL (post-scale) dimensions/position, matching
-/// what `--pixel X,Y` consumes as desktop-relative input.
+/// — `WxH` and `X,Y` are absolute LOGICAL (post-scale) dimensions/position
+/// in compositor space — directly substitutable into `--pixel X,Y`.
+/// The header names the coord space so scripts (and agents) never have to
+/// guess it; TSV consumers skip `#` lines.
 /// — `name` is the compositor's output name (e.g. `DP-2`, `eDP-1` on
 /// Wayland; `\\.\DISPLAY1` on Win32). Empty `-` placeholder for fused
 /// single-tile backends (Portal, X11 root capture).
@@ -312,22 +318,44 @@ pub fn run_monitors(relays: RelaySet) -> Result<()> {
     let canvas = capturer.capture()?;
 
     if relays.stdout {
+        println!("{}", MONITORS_HEADER);
         for (idx, tile) in canvas.tiles.iter().enumerate() {
-            let name = if tile.name.is_empty() { "-" } else { tile.name.as_str() };
-            let transform = tile_transform_str(tile);
-            println!(
-                "{}\t{}\t{}x{}\t{},{}\t{:.2}\t{}",
-                idx,
-                name,
-                tile.logical_w, tile.logical_h,
-                tile.logical_pos.0, tile.logical_pos.1,
-                tile.scale,
-                transform,
-            );
+            println!("{}", monitor_row(idx, tile, &canvas));
         }
     }
     flush_std();
     Ok(())
+}
+
+/// Self-describing header of the `--monitors` TSV. Consumers skip `#` lines.
+pub(crate) const MONITORS_HEADER: &str = "# coords: absolute logical (compositor space)";
+
+/// One `--monitors` row. Pure (no I/O) so the round-trip contract
+/// «printed coord re-parses as `--pixel` input» is testable — see
+/// `test_monitors_row_feeds_back_into_pixel_input`.
+pub(crate) fn monitor_row(
+    idx: usize,
+    tile: &capture::MonitorTile,
+    canvas: &capture::PhysicalCanvas,
+) -> String {
+    let name = if tile.name.is_empty() { "-" } else { tile.name.as_str() };
+    let transform = tile_transform_str(tile);
+    // Coord invariant: every printed coordinate exits through render_coord —
+    // identity today, the future `--origin` key's single hook tomorrow.
+    let pos = crate::cli::render_coord(
+        canvas,
+        crate::cli::PixelCoord::Logical(tile.logical_pos.0, tile.logical_pos.1),
+        false,
+    );
+    format!(
+        "{}\t{}\t{}x{}\t{}\t{:.2}\t{}",
+        idx,
+        name,
+        tile.logical_w, tile.logical_h,
+        pos.as_input_string(),
+        tile.scale,
+        transform,
+    )
 }
 
 /// Compositor's orientation tag for a tile. Unix reports the real Wayland
@@ -530,7 +558,6 @@ pub fn run_pixels(coords: Vec<PixelCoord>, format_key: Option<String>, float_pre
 
     let mut capturer = Capturer::new()?;
     let canvas = capturer.capture()?;
-    let (ox, oy) = canvas.min_origin();
     // aim_radius = average.max(1)/2 — matches magnifier.rs convention
     // (side-length N → (2r+1)² area, where r = N/2; 1 → 0 → single pixel).
     let aim_radius = average.map(|n| n.max(1) as i32 / 2).unwrap_or(0);
@@ -545,13 +572,12 @@ pub fn run_pixels(coords: Vec<PixelCoord>, format_key: Option<String>, float_pre
     };
 
     // Sample each coord through its native space: Logical → sample_vector
-    // (logical-shifted lookup, tile + scale conversion under the hood);
+    // (absolute-logical lookup, tile + scale conversion under the hood);
     // Physical → sample_in_tile_average (direct buffer read on the named
     // monitor). Both honour the same aim_radius semantics.
     let sampled: Vec<Option<u32>> = coords.iter().map(|c| match *c {
         PixelCoord::Logical(x, y) => {
-            let shifted = [(x + ox, y + oy)];
-            canvas.sample_vector(&shifted, aim_radius).into_iter().next().flatten()
+            canvas.sample_vector(&[(x, y)], aim_radius).into_iter().next().flatten()
         }
         PixelCoord::Physical(idx, x, y) => {
             canvas.sample_in_tile_average(idx, x, y, aim_radius)
@@ -678,12 +704,11 @@ pub fn run_stdin(format_key: Option<String>, float_precision: Option<usize>, rel
             Some(c) => c,
             None => continue,
         };
-        // Sample via native space for this coord. Logical → desktop-shifted
+        // Sample via native space for this coord. Logical → absolute-logical
         // lookup; Physical → direct buffer read on the named monitor.
         let px_opt = match coord {
             PixelCoord::Logical(x, y) => {
-                let (ox, oy) = canvas.min_origin();
-                canvas.sample_vector(&[(x + ox, y + oy)], aim_radius).into_iter().next().flatten()
+                canvas.sample_vector(&[(x, y)], aim_radius).into_iter().next().flatten()
             }
             PixelCoord::Physical(idx, x, y) => {
                 canvas.sample_in_tile_average(idx, x, y, aim_radius)

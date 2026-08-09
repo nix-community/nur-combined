@@ -71,16 +71,19 @@ relay → exit, fast (≈20-50ms typical on Wayland WLR/X11).
 
 | Flag | What it samples |
 |---|---|
-| `--pixel X,Y` | One screen pixel at desktop-relative coordinates |
+| `--pixel X,Y` | One screen pixel at absolute logical coordinates |
 | `--pixels "X,Y;X,Y;..."` | Batch: one capture, N samples (atomic) |
 | `--stdin` | Streams coords from stdin, one `X,Y` per line |
 | `--history` | Reads saved colour history from disk |
 | `--monitors` | Lists monitor layout as TSV (diagnostic) |
 
-Coordinates default to **logical desktop-relative**: origin = top-left of
-the leftmost monitor, just like `grim` / `slurp`. So `--pixel 0,0` always
-samples the upper-left corner of your desktop regardless of how
-compositors anchor specific outputs.
+Coordinates default to **absolute logical** — the compositor's own layout
+space, the same numbers `grim`, `slurp` and `hyprctl cursorpos` speak
+(virtual-screen coordinates on Windows). Whatever a neighbouring tool
+reports plugs straight into `--pixel`, including the rows printed by
+`ie-r --monitors`. On layouts where the compositor anchors the leftmost
+monitor away from zero, coordinates simply follow the layout — negative
+values are legal input.
 
 **Per-tile physical opt-in** — same `--pixel`/`--pixels`/`--stdin` flags
 accept the form `N:X,Y`, where `N` is the monitor index from
@@ -89,7 +92,7 @@ scales (`X,Y` rounds at the logical↔physical boundary) or when scripts
 already work in raw buffer space.
 
 ```bash
-ie-r --pixel 100,200          # logical (desktop-relative)
+ie-r --pixel 100,200          # absolute logical (compositor space)
 ie-r --pixel 0:100,200        # physical, monitor 0
 cat coords.txt | ie-r --stdin # each line may use either form
 ```
@@ -152,9 +155,11 @@ printf "10,10\n0:50,50\n" | ie-r --stdin --with-coords --ph -f hex
   menu, where orientation is host-dependent).
 
 - **`--monitors`** dumps `index<TAB>name<TAB>WxH<TAB>X,Y<TAB>scale<TAB>transform`
-  per monitor (logical coordinates). Diagnostic primitive for shell
-  scripts that need layout info — see `stuff/scan.rb` for a
-  multi-monitor scanner that uses it.
+  per monitor, preceded by a self-describing `# coords: absolute logical`
+  header line (skip `#`-prefixed lines when parsing). Positions are
+  absolute logical — each row's `X,Y` plugs straight into `--pixel`.
+  Diagnostic primitive for shell scripts that need layout info — see
+  `stuff/scan.rb` for a multi-monitor scanner that uses it.
 
 ---
 
