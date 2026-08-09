@@ -1,13 +1,12 @@
 {
   blink-cmp,
-  fetchFromGitHub,
+  fetchpatch,
 }:
 blink-cmp.overrideAttrs (oldAttrs: {
-  version = "${oldAttrs.version}-unstable-2026-08-10";
-  src = fetchFromGitHub {
-    owner = "wrvsrx";
-    repo = "blink.cmp";
-    rev = "dac4aa1b1816076b6f8efc8cb18312c3fb513369";
-    hash = "sha256-AwAVUTYYnABQaBy+ROtZaPF7f3WcD5eUkpYz+GRNeQM=";
-  };
+  patches = (oldAttrs.patches or [ ]) ++ [
+    (fetchpatch {
+      url = "https://github.com/wrvsrx/blink.cmp/commit/6115aaf11710ba9c6ebf552fdea18d4bdbd6f9c1.patch";
+      hash = "sha256-nDkcWdHYUVYhPB+h69N40MWXlfQjxspN553otoyhIGM=";
+    })
+  ];
 })

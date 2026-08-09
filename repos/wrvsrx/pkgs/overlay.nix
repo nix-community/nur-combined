@@ -38,6 +38,7 @@ let
       inherit (final) librime;
     };
     niri = callPackage ./niri { inherit (prev) niri; };
+    neovim-unwrapped = callPackage ./neovim-unwrapped { inherit (prev) neovim-unwrapped; };
     iwe = callPackage ./iwe { };
     wl-uinput-proxy = callPackage ./wl-uinput-proxy { };
     djot-tools = callPackage ./djot-tools { };
