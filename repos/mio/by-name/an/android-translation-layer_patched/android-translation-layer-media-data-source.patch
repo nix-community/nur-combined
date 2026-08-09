@@ -1,6 +1,6 @@
 --- /dev/null
 +++ b/src/api-impl/android/media/MediaDataSource.java
-@@ -0,0 +1,12 @@
+@@ -0,0 +1,13 @@
 +package android.media;
 +
 +import java.io.Closeable;
@@ -14,3 +14,13 @@
 +
 +    public abstract long getSize() throws IOException;
 +}
+--- a/src/api-impl/meson.build
++++ b/src/api-impl/meson.build
+@@ -340,6 +340,7 @@
+ 	'android/media/MediaRecorder.java',
+ 	'android/media/MediaRouter.java',
+ 	'android/media/MediaScannerConnection.java',
++	'android/media/MediaDataSource.java',
+ 	'android/media/Ringtone.java',
+ 	'android/media/RingtoneManager.java',
+ 	'android/media/SoundPool.java',
