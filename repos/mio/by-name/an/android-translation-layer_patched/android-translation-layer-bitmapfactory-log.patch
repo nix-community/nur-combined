@@ -1,5 +1,5 @@
---- a/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c
-+++ b/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c
+--- a/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c	2026-08-09 16:50:37.593321259 +1000
++++ b/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c	2026-08-09 16:50:37.600321217 +1000
 @@ -58,8 +58,18 @@
  {
  	GInputStream *stream = java_input_stream_new(env, is, storage);
