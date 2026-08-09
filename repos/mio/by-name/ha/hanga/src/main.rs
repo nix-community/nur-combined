@@ -4,6 +4,7 @@ use bevy_voxel_world::prelude::*;
 use avian3d::prelude::*;
 use std::io::{self, BufRead};
 use std::sync::{mpsc::{channel, Receiver}, Mutex};
+use serde::{Serialize, Deserialize};
 
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
@@ -92,7 +93,18 @@ fn main() {
     } else if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
         app.add_plugins(MinimalPlugins);
-        // We would add our structured data I/O plugin here
+        app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
+        app.add_systems(Update, read_agent_input);
+
+        // Spawn background thread to constantly read stdin without freezing the game
+        std::thread::spawn(move || {
+            let stdin = io::stdin();
+            for line in stdin.lock().lines() {
+                if let Ok(line) = line {
+                    let _ = tx.send(line);
+                }
+            }
+        });
     } else {
         app.add_plugins(DefaultPlugins);
     }
@@ -124,6 +136,21 @@ fn main() {
 #[derive(Resource)]
 pub struct StdinReceiver {
     pub rx: Mutex<Receiver<String>>,
+}
+
+#[derive(Serialize, Deserialize, Debug)]
+#[serde(tag = "action")]
+enum AgentCommand {
+    MoveForward,
+    BreakBlock { pos: [i32; 3] },
+    Look,
+}
+
+#[derive(Serialize, Debug)]
+struct AgentObservation {
+    status: String,
+    player_pos: [f32; 3],
+    trust_score: f32,
 }
 
 #[derive(Component)]
@@ -471,5 +498,59 @@ fn read_terminal_input(
              println!("System: Unknown command '{}'.", command);
         }
     }
+    }
+}
+
+/// Polls standard input for JSON commands specifically for LLM Agents
+fn read_agent_input(
+    receiver: Res<StdinReceiver>,
+    mut query: Query<(Entity, &mut Transform, &mut LinearVelocity), With<Player>>,
+    mut events: MessageWriter<ProposedAction>,
+    trust_ledger: Res<TrustLedger>,
+) {
+    if let Ok(rx) = receiver.rx.lock() {
+        while let Ok(line) = rx.try_recv() {
+            if let Ok(command) = serde_json::from_str::<AgentCommand>(&line) {
+                match command {
+                    AgentCommand::MoveForward => {
+                        if let Some((_, mut transform, mut velocity)) = query.iter_mut().next() {
+                            let forward = transform.forward();
+                            velocity.x = forward.x * 10.0;
+                            velocity.z = forward.z * 10.0;
+                        }
+                    }
+                    AgentCommand::BreakBlock { pos } => {
+                        if let Some((player_entity, _, _)) = query.iter_mut().next() {
+                            events.write(ProposedAction::BreakBlock {
+                                player_entity,
+                                voxel_pos: IVec3::new(pos[0], pos[1], pos[2]),
+                            });
+                        }
+                    }
+                    AgentCommand::Look => {
+                        if let Some((entity, transform, _)) = query.iter_mut().next() {
+                            let score = trust_ledger.peer_scores.get(&entity).copied().unwrap_or(100.0);
+                            let obs = AgentObservation {
+                                status: "ok".into(),
+                                player_pos: [transform.translation.x, transform.translation.y, transform.translation.z],
+                                trust_score: score,
+                            };
+                            if let Ok(json) = serde_json::to_string(&obs) {
+                                println!("{}", json);
+                            }
+                        }
+                    }
+                }
+            } else {
+                let err = AgentObservation {
+                    status: "error: invalid json".into(),
+                    player_pos: [0.0, 0.0, 0.0],
+                    trust_score: 0.0,
+                };
+                if let Ok(json) = serde_json::to_string(&err) {
+                    println!("{}", json);
+                }
+            }
+        }
     }
 }
