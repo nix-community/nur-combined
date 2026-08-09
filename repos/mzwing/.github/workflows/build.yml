@@ -520,22 +520,31 @@ jobs:
             done
         } >>"${GITHUB_STEP_SUMMARY}"
 
-    # Only final package outputs are pushed to Cachix; build-time
-    # dependencies (crate2nix crates, goModules FODs, ...) live in the
-    # builder store cache instead. Thanks to --keep-going the build step
-    # also produces the succeeded outputs when other packages fail, so
-    # this runs on red builds too (!cancelled) and publishes the partial
-    # result. `cachix push` always uploads the runtime closure of the
-    # given paths, so runtime dependencies that are not already present
-    # in the cache are uploaded the first time.
+    # Only the 'out' outputs of final packages are pushed to Cachix;
+    # everything else (crate2nix crates, goModules FODs, ...) lives in
+    # the builder store cache. Auxiliary outputs like crate2nix's '-lib'
+    # must NOT be pushed: their nix-support/propagated-build-inputs and
+    # lib/link files reference the entire crate graph, and `cachix push`
+    # would upload that whole build-time closure as "runtime
+    # dependencies", bloating the public cache with intermediates.
+    # Thanks to --keep-going the build step also produces the succeeded
+    # outputs when other packages fail, so this runs on red builds too
+    # (!cancelled) and publishes the partial result. `cachix push`
+    # always uploads the runtime closure of the given paths, so runtime
+    # dependencies that are not already present in the cache are
+    # uploaded the first time.
     - name: Push final outputs to Cachix
       if: '!cancelled()'
       env:
         CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+        TARGETS: ${{ needs.config.outputs.targets }}
       shell: bash
       run: |
         set -euo pipefail
-        grep '^/nix/store/' /tmp/built-outputs.txt > /tmp/push-outputs.txt || true
+        jq -r '.[] | select(.outputName == "out") | .outputPath' <<<"${TARGETS}" \
+          > /tmp/out-targets.txt
+        grep '^/nix/store/' /tmp/built-outputs.txt 2>/dev/null \
+          | grep -Fxf /tmp/out-targets.txt > /tmp/push-outputs.txt || true
         if [[ ! -s /tmp/push-outputs.txt ]]; then
           echo 'Nothing to push.'
           exit 0
@@ -551,11 +560,16 @@ jobs:
           nix-store --query --requisites "${outputs[@]}" | sort --unique > /tmp/push-closure.txt
           count="$(wc -l < /tmp/push-closure.txt)"
           [[ "${count}" == "${previous}" ]] && break
-          xargs nix-store --realise < /tmp/push-closure.txt >/dev/null
+          # --add-root keeps the realised closure alive until the push
+          # below finishes (one root per path: /tmp/nur-push-root,
+          # /tmp/nur-push-root-2, ...). Without it a concurrent GC could
+          # collect paths between realise and push.
+          xargs nix-store --realise --add-root /tmp/nur-push-root < /tmp/push-closure.txt >/dev/null
           previous="${count}"
         done
         echo "Pushing ${#outputs[@]} outputs (closure: ${count} paths) to ${CACHE_NAME}."
         xargs cachix push "${CACHE_NAME}" < /tmp/push-outputs.txt
+        rm -f /tmp/nur-push-root*
 
     - name: Release remote builders
       if: always() && needs.config.outputs.has_builds == 'true'

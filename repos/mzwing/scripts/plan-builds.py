@@ -2,12 +2,20 @@
 """Plan distributed package builds for .github/workflows/build.yml.
 
 Reads ALL_TARGETS (a JSON array of {name, system, outputName, outputPath})
-from the environment, probes the binary caches for each output path,
-validates .github/builders.json, and writes these outputs to GITHUB_OUTPUT:
+from the environment, keeps only the 'out' outputs, probes the binary
+caches for each remaining output path, validates .github/builders.json,
+and writes these outputs to GITHUB_OUTPUT:
 
   targets     JSON array of targets not found in any binary cache
   builders    {"include": [...]} matrix for the builder job
   has_builds  "true" if any target needs building, otherwise "false"
+
+Non-'out' outputs are excluded from planning on purpose: they are
+realised by the same derivation build as 'out' and reach the builder
+store cache through the post-build hook, but they are never pushed to
+the public caches (their closures would drag the entire build-time
+dependency graph into Cachix). Probing for them would therefore always
+miss and schedule a perpetual no-op build.
 """
 
 from __future__ import annotations
@@ -92,6 +100,9 @@ def load_builder_pools() -> list[dict[str, Any]]:
 def main() -> None:
     all_targets: list[dict[str, str]] = json.loads(os.environ["ALL_TARGETS"])
     pools = load_builder_pools()
+
+    # See the module docstring: only 'out' outputs are planned.
+    all_targets = [t for t in all_targets if t["outputName"] == "out"]
 
     probe = partial(is_cached, caches=cache_urls())
     with ThreadPoolExecutor() as executor:

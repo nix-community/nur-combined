@@ -4,14 +4,14 @@
     "idPrefix": "linux-x86-64",
     "runner": "ubuntu-latest",
     "count": 2,
-    "maxJobs": 3
+    "maxJobs": 5
   },
   {
     "system": "aarch64-linux",
     "idPrefix": "linux-arm64",
     "runner": "ubuntu-24.04-arm",
     "count": 2,
-    "maxJobs": 3
+    "maxJobs": 5
   },
   {
     "system": "aarch64-darwin",
