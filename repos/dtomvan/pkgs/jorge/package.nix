@@ -2,12 +2,11 @@
   lib,
   buildGoModule,
   fetchFromGitHub,
-  fetchpatch2,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "jorge";
-  version = "0.10.1";
+  version = "0.10.1-unstable-2026-08-09";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -15,24 +14,16 @@ buildGoModule (finalAttrs: {
   src = fetchFromGitHub {
     owner = "facundoolano";
     repo = "jorge";
-    tag = finalAttrs.version;
-    hash = "sha256-AP1KDEIW8nI97+OuFJIJv6bFsT8c5x5kRNGfcyIvQGg=";
+    rev = "ce46857630d9232ab360fc104e3e87f80715d137";
+    hash = "sha256-YtThvdRH/IBXwikCuVL8V90myT8gOIZl3cC/NWhiSuQ=";
   };
-
-  patches = [
-    (fetchpatch2 {
-      url = "https://github.com/dtomvan/jorge/commit/f26d32cb5795e9354ee67fb712883e0e1cfdc647.patch";
-      hash = "sha256-72gEbFxKSFBJsmvGOBE4J6dDbjBTpWa+unswrP0k7Ic=";
-    })
-    ./hl-css-classes.patch
-  ];
 
   vendorHash = "sha256-8i9bNQacuAk8VJkDRCcIBfaOKHjPpve5wJRMxpbOs2c=";
 
   ldflags = [ "-s" ];
 
   meta = {
-    description = "A personal site generator with org-mode support";
+    description = "Personal site generator with org-mode support";
     homepage = "https://github.com/facundoolano/jorge";
     license = lib.licenses.gpl3Only;
     maintainers = with lib.maintainers; [ dtomvan ];

@@ -1,29 +1,25 @@
 {
   lib,
+  stdenv,
   buildGoModule,
   fetchFromGitHub,
-  fetchpatch,
+  installShellFiles,
   nix-update-script,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "panix";
-  version = "0.9.0";
+  version = "0.9.0-unstable-2026-08-09";
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "mihakrumpestar";
     repo = "panix";
-    tag = "v${finalAttrs.version}";
-    hash = "sha256-4bbFpHqjQbBReUm7qV2MRJJfh0nsU7ssHofpoP7eqS8=";
+    rev = "323a8f82a58c1347afc4cc45a4bd54ac2f2d9509";
+    hash = "sha256-vpdO5fBYQ+OhXiMMkjjWmF/dxhxa8D9ulAmsSA43k6Q=";
   };
 
-  patches = [
-    (fetchpatch {
-      url = "https://github.com/mihakrumpestar/panix/commit/c50512b25589bcc30a8682f543d688a75e1bc556.patch";
-      hash = "sha256-dwvx58GY9I4EhNiml6BquEb/CxbwR5owpMBGpzb2tWM=";
-    })
-  ];
+  nativeBuildInputs = [ installShellFiles ];
 
   subPackages = [ "cmd/panix" ];
 
@@ -35,12 +31,20 @@ buildGoModule (finalAttrs: {
 
   env.CGO_ENABLED = 0;
 
-  vendorHash = "sha256-Ltftb6r6w/F1eXu3KZd0rMHwdKl5wzMPlLd0bg72Pds=";
+  vendorHash = "sha256-q9pUwV9JGYNIDTemgu28eG2SBH2mNQ2BQO/u73f42xM=";
+
+  postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''
+    # using process substitution
+    installShellCompletion --cmd panix \
+      --bash <($out/bin/panix completion -c bash) \
+      --fish <($out/bin/panix completion -c fish) \
+      --zsh <($out/bin/panix completion -c zsh)
+  '';
 
   passthru.updateScript = nix-update-script { };
 
   meta = {
-    description = "Universal NixOS Deployment Tool - inspect, bootstrap, build, transfer, secrets, activate, rollback";
+    description = "Universal Nix deployment tool";
     homepage = "https://github.com/mihakrumpestar/panix";
     changelog = "https://github.com/mihakrumpestar/panix/blob/v${finalAttrs.version}/CHANGELOG.md";
     license = lib.licenses.agpl3Only;
