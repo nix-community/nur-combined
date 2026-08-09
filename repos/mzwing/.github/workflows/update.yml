@@ -78,13 +78,15 @@ jobs:
         set -euo pipefail
         trap 'rm -f secrets.toml' EXIT
 
-        # nothing-but-nix cleaves almost all disk into the /nix mount
-        # (runner-writable) and leaves / with ~1G. The gomod2nix module
-        # downloads (and crate2nix's cargo registry) overflow / unless
-        # their caches live on the big mount.
+        # nothing-but-nix cleaves almost all disk into the /nix mount and
+        # leaves / with ~1G. The gomod2nix module downloads (and
+        # crate2nix's cargo registry) overflow / unless their caches live
+        # on the big mount. /nix itself is root-owned, so create the
+        # directories with sudo first.
         export GOMODCACHE=/nix/var/tmp/gomodcache
         export CARGO_HOME=/nix/var/tmp/cargo
-        mkdir -p "$GOMODCACHE" "$CARGO_HOME"
+        sudo mkdir -p "$GOMODCACHE" "$CARGO_HOME"
+        sudo chown "$(id -u):$(id -g)" "$GOMODCACHE" "$CARGO_HOME"
 
         cat >secrets.toml <<EOF
         [keys]
