@@ -67,52 +67,107 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Uplink Pastebin')),
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: const Text('Uplink Pastebin', style: TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black87,
+      ),
       body: Center(
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(24.0),
             child: ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 600),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextField(
-                    controller: _textController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Text to Paste',
-                    ),
-                    maxLines: 5,
-                  ),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    alignment: WrapAlignment.center,
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      ElevatedButton(
-                        onPressed: _uploadText, 
-                        child: const Text('Upload Text')
+                      const Icon(Icons.cloud_upload_outlined, size: 64, color: Colors.blueAccent),
+                      const SizedBox(height: 24),
+                      TextField(
+                        controller: _textController,
+                        decoration: InputDecoration(
+                          hintText: 'Type or paste text here...',
+                          filled: true,
+                          fillColor: Colors.grey[50],
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(16),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.all(20),
+                        ),
+                        maxLines: 5,
+                        minLines: 3,
                       ),
-                      ElevatedButton(
-                        onPressed: () => _uploadFile(imageOnly: true), 
-                        child: const Text('Upload Image')
+                      const SizedBox(height: 24),
+                      Wrap(
+                        spacing: 12.0,
+                        runSpacing: 12.0,
+                        alignment: WrapAlignment.center,
+                        children: [
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            ),
+                            onPressed: _uploadText, 
+                            icon: const Icon(Icons.text_fields),
+                            label: const Text('Upload Text'),
+                          ),
+                          ElevatedButton.icon(
+                            style: ElevatedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            ),
+                            onPressed: () => _uploadFile(imageOnly: true), 
+                            icon: const Icon(Icons.image),
+                            label: const Text('Upload Image'),
+                          ),
+                          OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                            ),
+                            onPressed: () => _uploadFile(imageOnly: false), 
+                            icon: const Icon(Icons.insert_drive_file),
+                            label: const Text('Upload File'),
+                          ),
+                        ],
                       ),
-                      ElevatedButton(
-                        onPressed: () => _uploadFile(imageOnly: false), 
-                        child: const Text('Upload File')
+                      if (_status.isNotEmpty) ...[
+                        const SizedBox(height: 32),
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: Colors.blue.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: SelectableText(
+                            _status, 
+                            style: const TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.w500),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ],
+                      const SizedBox(height: 16),
+                      const Text(
+                        "Tip: You can press Ctrl+V anywhere to paste and upload an image!",
+                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
-                  const SizedBox(height: 32),
-                  SelectableText(
-                    _status, 
-                    style: const TextStyle(fontSize: 16, color: Colors.blue),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
+                ),
               ),
             ),
           ),
