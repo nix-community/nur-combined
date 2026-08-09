@@ -10,7 +10,7 @@
   art-standalone = art-standalone_patched;
 }).overrideAttrs
   (old: {
-        buildInputs = (old.buildInputs or [ ]) ++ [
+    buildInputs = (old.buildInputs or [ ]) ++ [
       webp-pixbuf-loader
     ];
     patches = (old.patches or [ ]) ++ [

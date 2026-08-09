@@ -14,12 +14,7 @@
 let
   inherit (stdenv) hostPlatform;
   # Important: do not touch pkgs.<linux-only> on Darwin (eager arg eval).
-  linux =
-    name: pkg:
-    if hostPlatform.isDarwin then
-      null
-    else
-      pkg;
+  linux = name: pkg: if hostPlatform.isDarwin then null else pkg;
 
   chromiumVersionAtLeast = min-version: lib.versionAtLeast upstream-info.version min-version;
   versionRange =

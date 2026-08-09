@@ -286,7 +286,6 @@ let
     ) chromiumDeps
   );
 
-
   commonBuildDeps = [
     (buildPackages.libopus.override { withCustomModes = true; })
     bzip2
@@ -1031,14 +1030,14 @@ let
         buildCommand = target: ''
           TERM=dumb ninja -C "${buildPath}" -j$NIX_BUILD_CORES "${target}"
           ${lib.optionalString isLinuxHost ''
-          bash -s << EOL
-          (
-            source remoting/host/installer/linux//installer.include
-            PACKAGE=$packageName
-            MENUNAME="Chromium"
-            process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
-          )
-          EOL
+            bash -s << EOL
+            (
+              source remoting/host/installer/linux//installer.include
+              PACKAGE=$packageName
+              MENUNAME="Chromium"
+              process_template chrome/app/resources/manpage.1.in "${buildPath}/chrome.1"
+            )
+            EOL
           ''}
         '';
         targets = extraAttrs.buildTargets or [ ];

@@ -1,4 +1,9 @@
-{ lib, rustPlatform, pkg-config, openssl }:
+{
+  lib,
+  rustPlatform,
+  pkg-config,
+  openssl,
+}:
 
 rustPlatform.buildRustPackage {
   pname = "uplink-cli";
@@ -20,7 +25,7 @@ rustPlatform.buildRustPackage {
     description = "Uplink - Cross-platform pastebin CLI tool";
     homepage = "https://github.com/example/uplink";
     license = licenses.mit;
-    maintainers = [];
+    maintainers = [ ];
     mainProgram = "uplink_cli";
   };
 }

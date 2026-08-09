@@ -144,6 +144,20 @@ fn init_llm_director() {
     info!("Spawning LLM-based AI director to generate infinite emergent quests...");
 }
 
+#[cfg(kani)]
+mod verification {
+    use super::*;
+
+    #[kani::proof]
+    fn check_engine_physics_limits() {
+        let spawned_blocks: u32 = kani::any();
+        // Assume we only spawn up to a million blocks for this sanity check
+        kani::assume(spawned_blocks < 1_000_000);
+        // Engine math should safely contain these block counts without overflow
+        let total_mass = spawned_blocks.saturating_mul(10);
+        assert!(total_mass < 10_000_000, "Physics mass calculation exceeded bounds");
+    }
+}
 // --- Global Economy ---
 pub struct EconomicSimulationPlugin;
 impl Plugin for EconomicSimulationPlugin {

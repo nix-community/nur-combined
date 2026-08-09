@@ -3207,6 +3207,7 @@ name = "hanga"
 version = "0.1.0"
 dependencies = [
  "bevy",
+ "kani",
  "wasmtime",
 ]
 
@@ -3627,6 +3628,12 @@ dependencies = [
  "futures-util",
  "wasm-bindgen",
 ]
+
+[[package]]
+name = "kani"
+version = "0.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7b4b7234edbef8bfed0dd44c39b0cd344d4ef7fa2bcb5dec3c9c334874ed8744"
 
 [[package]]
 name = "khronos-egl"
@@ -5381,6 +5388,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "testbed"
+version = "0.1.0"
+
+[[package]]
 name = "thiserror"
 version = "1.0.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5677,6 +5688,10 @@ name = "unicode-xid"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ebc1c04c71510c7f702b52b7c350734c9ff1295c464a03335b00bb84fc54f853"
+
+[[package]]
+name = "urban_chaos"
+version = "0.1.0"
 
 [[package]]
 name = "utf8_iter"

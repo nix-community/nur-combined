@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage {
     wayland
     libxkbcommon
   ];
-  
+
   env.LD_LIBRARY_PATH = lib.makeLibraryPath [
     vulkan-loader
     wayland

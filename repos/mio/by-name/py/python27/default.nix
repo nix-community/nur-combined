@@ -148,7 +148,6 @@ let
     # * https://github.com/python/cpython/commit/e6b247c8e524
     ./no-win64-workaround.patch
 
-
   ]
   ++ lib.optionals (x11Support && stdenv.hostPlatform.isDarwin) [
     ./use-correct-tcl-tk-on-darwin.patch
