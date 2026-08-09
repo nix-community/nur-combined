@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use wasmtime::{Engine, Config};
 
 fn main() {
     App::new()
@@ -85,11 +86,15 @@ fn init_p2p_mesh() {
 pub struct ModdingPlugin;
 impl Plugin for ModdingPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_lua_mod_loader);
+        app.add_systems(Startup, init_wasm_mod_loader);
     }
 }
-fn init_lua_mod_loader() {
-    info!("Scanning for mods and initializing Lua scripting engine...");
+fn init_wasm_mod_loader() {
+    info!("Scanning for mods and initializing WASM (WebAssembly) sandboxed execution engine...");
+    let mut config = Config::new();
+    config.async_support(true);
+    let engine = Engine::new(&config).expect("Failed to create wasmtime engine");
+    info!("Wasmtime engine initialized successfully!");
 }
 
 // --- Advanced Rendering ---
