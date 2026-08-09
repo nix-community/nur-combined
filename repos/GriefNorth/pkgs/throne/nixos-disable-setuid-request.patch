@@ -17,22 +17,6 @@
          auto fn = QApplication::applicationDirPath() + "/ThroneCore";
  #ifdef Q_OS_WIN
          fn += ".exe";
-@@ -89,9 +99,14 @@
-         Configs::dataManager->settingsRepo->windows_set_admin = admin;
- #else
-         bool ok;
--        auto isPrivileged = API::defaultClient->IsPrivileged(&ok);
-+        auto isPrivileged = false;
-+        ok = false;
-+        if (API::defaultClient != nullptr) {
-+            isPrivileged = API::defaultClient->IsPrivileged(&ok);
-+        }
-         admin = ok && isPrivileged;
- #endif
-+        if (!admin && !ok) return false;
-         isAdminCache = admin;
-         return admin;
-     }
 --- a/src/ui/mainWindow/mainwindow_setup.cpp
 +++ b/src/ui/mainWindow/mainwindow_setup.cpp
 @@ -207,8 +207,7 @@
