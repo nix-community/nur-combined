@@ -345,7 +345,7 @@ workspaced: {
 	}
 	lazy_tools: {
 		helium_browser: {
-			ref: "github:imputnet/helium-linux"
+			ref: "helium-browser"
 			global: true
 			bins: ["helium"]
 		}

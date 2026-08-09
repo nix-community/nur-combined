@@ -31,3 +31,42 @@ exec "{{ home }}/.local/bin/workspaced" open lazy --home --bin "{{ . }}" "{{ $re
         {{- end }}
     {{- end }}
 {{- end }}
+
+{{- /* agent-browser: bunx CLI + the borderless webapp Chromium (browser.webapp). */ -}}
+{{- if not isPhone }}
+{{- $webappBin := .root.browser.webapp }}
+{{- $webappRef := "" }}
+{{- range $name, $tool := .root.lazy_tools }}
+	{{- range $tool.bins }}
+		{{- if eq . $webappBin }}
+			{{- $webappRef = $tool.ref }}
+			{{- if not $webappRef }}{{ $webappRef = $name }}{{ end }}
+		{{- end }}
+	{{- end }}
+{{- end }}
+{{- file "agent-browser" "0755" }}
+#!/usr/bin/env bash
+set -euo pipefail
+
+_ws="{{ home }}/.local/bin/workspaced"
+if [[ -z "${AGENT_BROWSER_EXECUTABLE_PATH:-}" ]]; then
+	export AGENT_BROWSER_EXECUTABLE_PATH="$("$_ws" tool which "{{ $webappRef }}" "{{ $webappBin }}")"
+fi
+
+_bun="$("$_ws" tool which "{{ $.root.lazy_tools.bun.ref }}" bun)"
+
+# bun x prefers a same-named PATH binary; drop this shim so we get the npm package.
+_self="$(readlink -f "$0")"
+_path=""
+IFS=: read -ra _parts <<< "${PATH}"
+for _p in "${_parts[@]}"; do
+	if [[ -x "${_p}/agent-browser" ]] && [[ "$(readlink -f "${_p}/agent-browser")" == "${_self}" ]]; then
+		continue
+	fi
+	_path="${_path:+${_path}:}${_p}"
+done
+export PATH="${_path}"
+
+exec "${_bun}" x agent-browser "$@"
+{{- endfile }}
+{{- end }}
