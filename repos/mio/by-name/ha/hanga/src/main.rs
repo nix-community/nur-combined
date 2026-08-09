@@ -58,12 +58,23 @@ fn main() {
             EconomicSimulationPlugin,
         ))
         .add_systems(Startup, setup)
-        .add_systems(Update, (generate_voxel_colliders, player_movement))
+        .add_event::<ProposedAction>()
+        .add_systems(Update, (generate_voxel_colliders, player_movement, validate_incoming_actions))
         .run();
 }
 
 #[derive(Component)]
 struct Player;
+
+/// Represents an optimistic action broadcasted by a P2P client over WebRTC
+#[derive(Event, Debug)]
+enum ProposedAction {
+    BreakBlock {
+        player_entity: Entity,
+        voxel_pos: IVec3,
+    },
+    // We can add things like: SpawnCar, DealDamage, etc.
+}
 
 fn setup(mut commands: Commands) {
     info!("Hanga: Minecraft + Luanti + Teardown + GTA + P2P Multiplayer + Modding is starting!");
@@ -85,12 +96,43 @@ fn setup(mut commands: Commands) {
     ));
 }
 
+/// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
+fn validate_incoming_actions(
+    mut events: EventReader<ProposedAction>,
+    player_query: Query<&Transform, With<Player>>,
+) {
+    for action in events.read() {
+        match action {
+            ProposedAction::BreakBlock { player_entity, voxel_pos } => {
+                // VERIFICATION RULE 1: Does the player actually exist?
+                if let Ok(transform) = player_query.get(*player_entity) {
+                    let player_pos = transform.translation;
+                    let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
+                    
+                    // VERIFICATION RULE 2: Is the player close enough? (e.g. 10 meters)
+                    let distance = player_pos.distance(target_pos);
+                    if distance > 10.0 {
+                        warn!("FRAUD DETECTED: Player {:?} tried to break a block {} meters away! Action Rejected.", player_entity, distance);
+                        continue; // Reject the action (Rollback)
+                    }
+
+                    // If it passes all checks, execute it!
+                    info!("Action Verified! Player {:?} successfully broke block at {:?}", player_entity, voxel_pos);
+                    // TODO: Call bevy_voxel_world.set_voxel(voxel_pos, WorldVoxel::Unset) here
+                } else {
+                    warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
+                }
+            }
+        }
+    }
+}
+
 /// Very basic first person controller for MVP
 fn player_movement(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mut query: Query<(&Transform, &mut LinearVelocity), With<Player>>,
 ) {
-    if let Ok((transform, mut velocity)) = query.get_single_mut() {
+    if let Some((transform, mut velocity)) = query.iter_mut().next() {
         let mut direction = Vec3::ZERO;
         
         let forward = transform.forward();

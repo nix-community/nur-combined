@@ -5,9 +5,11 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'src/bindings/bindings.dart';
 import 'package:pasteboard/pasteboard.dart';
+import 'package:rinf/rinf.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeRust(assignRustSignal);
   runApp(const MyApp());
 }
 
