@@ -1,11 +1,11 @@
 diff --git a/frontend/nyanpasu/package.json b/frontend/nyanpasu/package.json
-index 920d65d..c80bfea 100644
+index ac31eda..35ca3e4 100644
 --- a/frontend/nyanpasu/package.json
 +++ b/frontend/nyanpasu/package.json
 @@ -52,6 +52,8 @@
    "devDependencies": {
      "@csstools/normalize.css": "12.1.1",
-     "@iconify/json": "2.2.511",
+     "@iconify/json": "2.2.512",
 +    "@inlang/plugin-m-function-matcher": "^2.2.9",
 +    "@inlang/plugin-message-format": "^4.4.1",
      "@monaco-editor/react": "4.7.0",
@@ -27,13 +27,13 @@ index cb96b35..3777c63 100644
    "plugin.inlang.messageFormat": {
      "pathPattern": "./messages/{locale}.json"
 diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
-index 62fd317..c400794 100644
+index f63f478..2da271f 100644
 --- a/pnpm-lock.yaml
 +++ b/pnpm-lock.yaml
 @@ -239,6 +239,12 @@ importers:
        '@iconify/json':
-         specifier: 2.2.511
-         version: 2.2.511
+         specifier: 2.2.512
+         version: 2.2.512
 +      '@inlang/plugin-m-function-matcher':
 +        specifier: ^2.2.9
 +        version: 2.2.9
@@ -43,7 +43,7 @@ index 62fd317..c400794 100644
        '@monaco-editor/react':
          specifier: 4.7.0
          version: 4.7.0(monaco-editor@0.55.1)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
-@@ -1282,6 +1288,12 @@ packages:
+@@ -1278,6 +1284,12 @@ packages:
        vite:
          optional: true
  
@@ -56,7 +56,7 @@ index 62fd317..c400794 100644
    '@inlang/recommend-sherlock@0.2.1':
      resolution: {integrity: sha512-ckv8HvHy/iTqaVAEKrr+gnl+p3XFNwe5D2+6w6wJk2ORV2XkcRkKOJ/XsTUJbPSiyi4PI+p+T3bqbmNx/rDUlg==}
  
-@@ -1289,6 +1301,10 @@ packages:
+@@ -1285,6 +1297,10 @@ packages:
      resolution: {integrity: sha512-xLVRHAI9Jw6L/NrlK6s1mXCvbFwzk5INEL4i3By4jW9yjIMchJ+JGSw4WgFpiLlcoBuR/qIMmSn6te/Jozuybg==}
      engines: {node: '>=20.0.0'}
  
@@ -67,7 +67,7 @@ index 62fd317..c400794 100644
    '@jridgewell/gen-mapping@0.3.12':
      resolution: {integrity: sha512-OuLGC46TjB5BbN1dH8JULVVZY4WTdkF7tV9Ys6wLL1rubZnCMstOhNHueU5bLCrnRuDhKPDM4g6sw4Bel5Gzqg==}
  
-@@ -4608,6 +4624,11 @@ packages:
+@@ -4604,6 +4620,11 @@ packages:
    flat-cache@6.1.22:
      resolution: {integrity: sha512-N2dnzVJIphnNsjHcrxGW7DePckJ6haPrSFqpsBUhHYgwtKGVq4JrBGielEGD2fCVnsGm1zlBVZ8wGhkyuetgug==}
  
@@ -79,7 +79,7 @@ index 62fd317..c400794 100644
    flatted@3.4.2:
      resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
  
-@@ -7790,6 +7811,16 @@ snapshots:
+@@ -7781,6 +7802,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -96,7 +96,7 @@ index 62fd317..c400794 100644
    '@inlang/recommend-sherlock@0.2.1':
      dependencies:
        comment-json: 4.5.0
-@@ -7804,6 +7835,16 @@ snapshots:
+@@ -7795,6 +7826,16 @@ snapshots:
      transitivePeerDependencies:
        - babel-plugin-macros
  
@@ -113,7 +113,7 @@ index 62fd317..c400794 100644
    '@jridgewell/gen-mapping@0.3.12':
      dependencies:
        '@jridgewell/sourcemap-codec': 1.5.5
-@@ -10845,6 +10886,8 @@ snapshots:
+@@ -10836,6 +10877,8 @@ snapshots:
        flatted: 3.4.2
        hookified: 1.15.1
  
