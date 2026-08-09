@@ -4,14 +4,14 @@
 
 sing-box.overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-beta.9";
+  version = "1.14.0-beta.10";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-qUP0r6TQnb/ae+gfIwdnUtbWiYi9sNdK3Prh/qC3wT4=";
+    hash = "sha256-dEoQAj7VOi2T9j2kEkscmzv/wOVBYZaWD3aCiilK9rs=";
   };
 
-  vendorHash = "sha256-Oxcl4YvPEQFhsljUFqQ9GJRkOz6OHlfuN3tA7eLeB8Y=";
+  vendorHash = "sha256-l5vNu/JhZRLvXyD2sWPS4qVaTSgmzDQadsNwwF4Ucnw=";
 
   tags = previousAttrs.tags ++ [
     "with_cloudflared"
