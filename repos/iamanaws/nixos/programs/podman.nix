@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   virtualisation = {
     oci-containers = {

@@ -28,59 +28,56 @@ with lib;
 
     users =
       let
-        userSpecType = types.submodule (
-          { ... }:
-          {
-            options = {
-              name = mkOption {
+        userSpecType = types.submodule {
+          options = {
+            name = mkOption {
+              type = types.str;
+              description = "Username to provision.";
+            };
+
+            groups = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+              description = "Groups to add the user to (host-local).";
+            };
+
+            # NixOS-only in practice; ignored on Darwin by the builder.
+            packages = mkOption {
+              type = types.listOf types.package;
+              default = [ ];
+              description = "Extra packages to add to `users.users.<name>.packages` (host-local, NixOS only).";
+            };
+
+            sshKey = mkOption {
+              type = types.str;
+              default = "";
+              description = "SSH public key for `openssh.authorizedKeys.keys`.";
+            };
+
+            homeManager = {
+              enable = mkOption {
+                type = types.bool;
+                default = true;
+                description = "Whether to auto-add this user to `home-manager.users`.";
+              };
+
+              module = mkOption {
                 type = types.str;
-                description = "Username to provision.";
-              };
+                default = "auto";
+                description = ''
+                  Which home-manager module to import for this user.
 
-              groups = mkOption {
-                type = types.listOf types.str;
-                default = [ ];
-                description = "Groups to add the user to (host-local).";
-              };
-
-              # NixOS-only in practice; ignored on Darwin by the builder.
-              packages = mkOption {
-                type = types.listOf types.package;
-                default = [ ];
-                description = "Extra packages to add to `users.users.<name>.packages` (host-local, NixOS only).";
-              };
-
-              sshKey = mkOption {
-                type = types.str;
-                default = "";
-                description = "SSH public key for `openssh.authorizedKeys.keys`.";
-              };
-
-              homeManager = {
-                enable = mkOption {
-                  type = types.bool;
-                  default = true;
-                  description = "Whether to auto-add this user to `home-manager.users`.";
-                };
-
-                module = mkOption {
-                  type = types.str;
-                  default = "auto";
-                  description = ''
-                    Which home-manager module to import for this user.
-
-                    Supported values:
-                    - "auto" (default): prefer `home/users/<user>/nixos` (or `/darwin`) if present, else `home/users/<user>`
-                    - "default": use `home/users/<user>`
-                    - "nixos": use `home/users/<user>/nixos`
-                    - "darwin": use `home/users/<user>/darwin`
-                    - "<os>/<subpath>": e.g. "nixos/pwnbox" → `home/users/<user>/nixos/pwnbox`
-                  '';
-                };
+                  Supported values:
+                  - "auto" (default): prefer `home/users/<user>/nixos` (or `/darwin`) if present, else `home/users/<user>`
+                  - "default": use `home/users/<user>`
+                  - "nixos": use `home/users/<user>/nixos`
+                  - "darwin": use `home/users/<user>/darwin`
+                  - "<os>/<subpath>": e.g. "nixos/pwnbox" → `home/users/<user>/nixos/pwnbox`
+                '';
               };
             };
-          }
-        );
+          };
+        };
       in
       mkOption {
         type = types.listOf (types.either types.str userSpecType);

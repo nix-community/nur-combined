@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   # Shell Aliases
   home.shellAliases = {

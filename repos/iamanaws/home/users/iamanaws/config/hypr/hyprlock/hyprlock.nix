@@ -1,5 +1,3 @@
-{ ... }:
-
 let
   # Load base configuration dynamically
   minimal = import ./config/minimal.nix;

@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   imports = [ ../../shared/services/flatpak.nix ];
 

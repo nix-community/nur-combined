@@ -1,5 +1,3 @@
-{ ... }:
-
 {
   nix-homebrew = {
     # User owning the Homebrew prefix
