@@ -73,11 +73,6 @@
 
     #personal hosts
     # keep-sorted start block=yes
-    agent = {
-      altNames = [ "agent-vm" "vacu-agent-vm" ];
-      primaryIp = "10.78.77.2";
-      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpQF6K3Zqxc0vlEgrJWCEkcIpWkBbR6ks6TA3Q5lc6B";
-    };
     awoo = {
       primaryIp = "45.142.157.71";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOQaDjjfSK8jnk9aFIiYH9LZO4nLY/oeAc7BKIPUXMh1";
@@ -156,11 +151,22 @@
       ssh.aliases = [ "rip" ];
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIICpAw20x1yB/sCJ6OFMb4VcuTwnRqvDbJDCoQDkO2Td";
     };
+    savm = {
+      primaryIp = "10.78.77.4";
+      ssh.username = "agent";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBIGkax9O+IowEk4cT7XXNF9nwcKORgt71332TatdDk9";
+    };
     solis = {
       altNames = [ "solis.dis8.net" ];
       primaryIp = "143.20.185.171";
       wireguardKey = "S3rZ0vzDm4J5uTkdkL4/RvWbOWKsLkIfTeTBa+TDjzk=";
       ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPhFKmRMfk+4Xx96Jwt6S9/ikC0cm4ukeO8hjpZDj+9n";
+    };
+    vavm = {
+      altNames = [ "agent" "agent-vm" "vacu-agent-vm" ];
+      primaryIp = "10.78.77.2";
+      ssh.username = "agent";
+      ssh.keys = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBpQF6K3Zqxc0vlEgrJWCEkcIpWkBbR6ks6TA3Q5lc6B";
     };
     # keep-sorted end
   };
