@@ -1,0 +1,16 @@
+--- a/src/api-impl-jni/views/android_view_View.c
++++ b/src/api-impl-jni/views/android_view_View.c
+@@ -878,7 +878,12 @@
+ JNIEXPORT void JNICALL Java_android_view_View_nativeSetFullscreen(JNIEnv *env, jobject this, jlong widget_ptr, jboolean fullscreen)
+ {
+ 	GtkWidget *widget = GTK_WIDGET(_PTR(widget_ptr));
+-	GtkWindow *window = GTK_WINDOW(gtk_widget_get_native(widget));
++	GtkNative *native = gtk_widget_get_native(widget);
++	if (!native || !GTK_IS_WINDOW(native)) {
++		printf("blocking fullscreen request, because window is not ready\n");
++		return;
++	}
++	GtkWindow *window = GTK_WINDOW(native);
+ 	if (fullscreen) {
+ 		if (gtk_window_is_maximized(window)) {
+ 			gtk_window_fullscreen(window);
