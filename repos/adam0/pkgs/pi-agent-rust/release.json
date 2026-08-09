@@ -1,0 +1,17 @@
+{
+  "version": "0.1.23",
+  "hashes": {
+    "aarch64-linux": "sha256-phwfnTBSx921wnpmALB5OBU4ZOu9ubLz4SBMF+xfupU=",
+    "x86_64-linux": "sha256-OG2xlf5mLtUkNmtW5ZC0VEnwLZGHWFIXGT12OCKhmvs="
+  },
+  "updater": {
+    "type": "github-release-assets",
+    "owner": "Dicklesworthstone",
+    "repo": "pi_agent_rust",
+    "tagPrefix": "v",
+    "assets": {
+      "aarch64-linux": "pi-linux-arm64.tar.xz",
+      "x86_64-linux": "pi-linux-amd64.tar.xz"
+    }
+  }
+}
