@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 import 'dart:io';
 import 'dart:typed_data';
 import 'src/bindings/bindings.dart';
+import 'package:pasteboard/pasteboard.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,6 +48,36 @@ class _MyHomePageState extends State<MyHomePage> {
         _status = event.message.url ?? event.message.error ?? '';
       });
     });
+    
+    HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+  }
+
+  @override
+  void dispose() {
+    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    _textController.dispose();
+    super.dispose();
+  }
+
+  bool _handleKeyEvent(KeyEvent event) {
+    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.keyV) {
+      final isControlPressed = HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft) ||
+                               HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlRight) ||
+                               HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||
+                               HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaRight);
+      if (isControlPressed) {
+        _handlePaste();
+        return false; // let it propagate just in case
+      }
+    }
+    return false;
+  }
+
+  Future<void> _handlePaste() async {
+    final imageBytes = await Pasteboard.image;
+    if (imageBytes != null && imageBytes.isNotEmpty) {
+      UploadFileRequest(filename: 'pasted_image.png').sendSignalToRust(imageBytes);
+    }
   }
 
   void _uploadText() {
@@ -121,17 +153,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             ),
                             onPressed: _uploadText, 
-                            icon: const Icon(Icons.text_fields),
+                            icon: const Icon(Icons.cloud_upload),
                             label: const Text('Upload Text'),
-                          ),
-                          ElevatedButton.icon(
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                            ),
-                            onPressed: () => _uploadFile(imageOnly: true), 
-                            icon: const Icon(Icons.image),
-                            label: const Text('Upload Image'),
                           ),
                           OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
@@ -140,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             onPressed: () => _uploadFile(imageOnly: false), 
                             icon: const Icon(Icons.insert_drive_file),
-                            label: const Text('Upload File'),
+                            label: const Text('Select File to Upload'),
                           ),
                         ],
                       ),

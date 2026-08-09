@@ -24,3 +24,16 @@
  	'android/media/Ringtone.java',
  	'android/media/RingtoneManager.java',
  	'android/media/SoundPool.java',
+--- a/src/api-impl/android/media/MediaMetadataRetriever.java.bak	2026-08-09 16:07:00.584648826 +1000
++++ b/src/api-impl/android/media/MediaMetadataRetriever.java	2026-08-09 16:07:09.199647810 +1000
+@@ -23,6 +23,10 @@
+ 		mediaPlayer.setDataSource(path);
+ 	}
+ 
++	public void setDataSource(MediaDataSource dataSource) {
++		mediaPlayer = new MediaPlayer();
++	}
++
+ 	public byte[] getEmbeddedPicture() {
+ 		return null;
+ 	}

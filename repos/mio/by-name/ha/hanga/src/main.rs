@@ -1,14 +1,24 @@
 use bevy::prelude::*;
 use wasmtime::{Engine, Config};
+use bevy_voxel_world::prelude::*;
+use avian3d::prelude::*;
+
+#[derive(Resource, Clone, Default)]
+struct DefaultWorld;
+
+impl VoxelWorldConfig for DefaultWorld {
+    type MaterialIndex = u8;
+    type ChunkUserBundle = ();
+}
 
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         // Add all basic feature plugins for the mega-game
         .add_plugins((
-            MinecraftPlugin,
+            VoxelWorldPlugin::with_config(DefaultWorld),
             LuantiPlugin,
-            TeardownPlugin,
+            PhysicsPlugins::default(),
             GtaPlugin,
             DistributedMultiplayerPlugin,
             ModdingPlugin,
@@ -27,16 +37,7 @@ fn setup(mut commands: Commands) {
     info!("Hanga fully loaded with all basic features!");
 }
 
-// --- Minecraft Features ---
-pub struct MinecraftPlugin;
-impl Plugin for MinecraftPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_voxel_chunks);
-    }
-}
-fn init_voxel_chunks() {
-    info!("Initializing infinite voxel world generation...");
-}
+// Minecraft features are now powered by bevy_voxel_world
 
 // --- Luanti Features ---
 pub struct LuantiPlugin;
@@ -49,16 +50,7 @@ fn init_luanti_engine() {
     info!("Loading Luanti-compatible node definitions and modding API...");
 }
 
-// --- Teardown Features ---
-pub struct TeardownPlugin;
-impl Plugin for TeardownPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_destruction_physics);
-    }
-}
-fn init_destruction_physics() {
-    info!("Setting up soft-body and rigid-body voxel destruction physics...");
-}
+// Teardown features are now powered by avian3d
 
 // --- GTA Features ---
 pub struct GtaPlugin;
@@ -99,7 +91,7 @@ fn init_wasm_mod_loader() {
     info!("Loading mod: testbed.wasm");
     
     // Create a new store
-    let mut store = wasmtime::Store::new(&engine, ());
+    let _store = wasmtime::Store::new(&engine, ());
     
     // Normally we would read the .wasm file from disk here:
     // let module = wasmtime::Module::from_file(&engine, "target/wasm32-unknown-unknown/debug/testbed.wasm").unwrap();
