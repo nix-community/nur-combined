@@ -3340,6 +3340,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "glam"
+version = "0.33.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7360bd2cd76e0cd9032d42cf2922155cecea2685b0cfa4630c3246df030bcfd6"
+dependencies = [
+ "bytemuck",
+]
+
+[[package]]
 name = "glam_matrix_extras"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3488,7 +3497,10 @@ dependencies = [
  "avian3d",
  "bevy",
  "bevy_voxel_world",
+ "crossbeam-channel",
  "kani",
+ "serde",
+ "serde_json",
  "wasmtime",
 ]
 
@@ -4729,7 +4741,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3194269f7697a676e6b6d93b3a8c9558727ce8f2425c6fdd01b6e364fdbbdb2e"
 dependencies = [
  "bytemuck",
- "glam 0.32.1",
+ "glam 0.33.3",
  "half",
  "log",
  "rdst",
@@ -5061,9 +5073,9 @@ dependencies = [
 
 [[package]]
 name = "portable-atomic"
-version = "1.14.0"
+version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3d20d5497ef88037a52ff98267d066e7f11fcc5e99bbfbd58a42336193aacec3"
+checksum = "05c8b63e8d9609db387f0324918f81d68fe27748f084ef092fb35954d0539a85"
 
 [[package]]
 name = "portable-atomic-util"

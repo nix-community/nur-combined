@@ -11618,7 +11618,44 @@ rec {
           "speedy" = [ "dep:speedy" ];
           "zerocopy" = [ "dep:zerocopy" "dep:zerocopy-derive" ];
         };
-        resolvedDefaultFeatures = [ "approx" "bytemuck" "default" "encase" "nostd-libm" "rand" "serde" "std" ];
+        resolvedDefaultFeatures = [ "approx" "bytemuck" "encase" "nostd-libm" "rand" "serde" "std" ];
+      };
+      "glam 0.33.3" = rec {
+        crateName = "glam";
+        version = "0.33.3";
+        edition = "2021";
+        sha256 = "1mng1c1xyiij1iis9kxhhlkfmv2w2li2kks25l1xj33fswnbsq3k";
+        dependencies = [
+          {
+            name = "bytemuck";
+            packageId = "bytemuck";
+            optional = true;
+            usesDefaultFeatures = false;
+            features = [ "derive" "aarch64_simd" "wasm_simd" ];
+          }
+        ];
+        features = {
+          "all-types" = [ "float-types" "integer-types" "size-types" ];
+          "approx" = [ "dep:approx" ];
+          "arbitrary" = [ "dep:arbitrary" ];
+          "bytecheck" = [ "rkyv/bytecheck" ];
+          "bytemuck" = [ "dep:bytemuck" ];
+          "core-simd" = [ "bytemuck?/nightly_portable_simd" ];
+          "default" = [ "std" "all-types" ];
+          "encase" = [ "dep:encase" ];
+          "float-types" = [ "f64" ];
+          "integer-types" = [ "i8" "u8" "i16" "u16" "i32" "u32" "i64" "u64" ];
+          "libm" = [ "dep:libm" ];
+          "mint" = [ "dep:mint" ];
+          "nostd-libm" = [ "dep:libm" ];
+          "rand" = [ "dep:rand" ];
+          "rkyv" = [ "dep:rkyv" ];
+          "serde" = [ "dep:serde_core" ];
+          "size-types" = [ "isize" "usize" ];
+          "speedy" = [ "dep:speedy" ];
+          "zerocopy" = [ "dep:zerocopy" "dep:zerocopy-derive" ];
+        };
+        resolvedDefaultFeatures = [ "all-types" "bytemuck" "default" "f64" "float-types" "i16" "i32" "i64" "i8" "integer-types" "isize" "size-types" "std" "u16" "u32" "u64" "u8" "usize" ];
       };
       "glam_matrix_extras" = rec {
         crateName = "glam_matrix_extras";
@@ -12119,6 +12156,19 @@ rec {
           {
             name = "bevy_voxel_world";
             packageId = "bevy_voxel_world";
+          }
+          {
+            name = "crossbeam-channel";
+            packageId = "crossbeam-channel";
+          }
+          {
+            name = "serde";
+            packageId = "serde";
+            features = [ "derive" ];
+          }
+          {
+            name = "serde_json";
+            packageId = "serde_json";
           }
           {
             name = "wasmtime";
@@ -17203,7 +17253,7 @@ rec {
           }
           {
             name = "glam";
-            packageId = "glam 0.32.1";
+            packageId = "glam 0.33.3";
             features = [ "bytemuck" ];
           }
           {
@@ -18271,9 +18321,9 @@ rec {
       };
       "portable-atomic" = rec {
         crateName = "portable-atomic";
-        version = "1.14.0";
+        version = "1.15.0";
         edition = "2018";
-        sha256 = "1hyfma9n2cs2ibazpfwrbv61zwg7cv86g0pr5yjkg07qgr4xa81x";
+        sha256 = "11csag858ndk5w4yz17h91vy53ynh67r2903gwwdn2cnilzbdj05";
         libName = "portable_atomic";
         features = {
           "critical-section" = [ "dep:critical-section" ];

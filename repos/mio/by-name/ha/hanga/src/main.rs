@@ -197,6 +197,16 @@ fn setup(mut commands: Commands) {
     ));
 }
 
+/// Pure function to validate if a block-break action is within physical limits.
+/// Extracted so Kani can mathematically verify its safety without the heavy ECS.
+pub fn is_action_physically_possible(px: f32, py: f32, pz: f32, tx: f32, ty: f32, tz: f32, max_dist: f32) -> bool {
+    let dx = px - tx;
+    let dy = py - ty;
+    let dz = pz - tz;
+    let dist_sq = dx * dx + dy * dy + dz * dz;
+    dist_sq <= (max_dist * max_dist)
+}
+
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
 fn validate_incoming_actions(
     mut commands: Commands,
@@ -217,7 +227,11 @@ fn validate_incoming_actions(
                     
                     // VERIFICATION RULE 2: Is the player close enough? (e.g. 10 meters)
                     let distance = player_pos.distance(target_pos);
-                    if distance > 10.0 {
+                    if !is_action_physically_possible(
+                        player_pos.x, player_pos.y, player_pos.z,
+                        target_pos.x, target_pos.y, target_pos.z,
+                        10.0
+                    ) {
                         trust_ledger.penalize(player_entity, 0.2); // Severe penalty for impossible physical action
                         warn!("FRAUD DETECTED: Player {:?} tried to break a block {} meters away! Action Rejected.", player_entity, distance);
                         continue; // Reject the action (Rollback)
@@ -470,6 +484,63 @@ impl Plugin for EconomicSimulationPlugin {
 }
 fn init_macro_economy() {
     info!("Simulating global supply chains and dynamic market fluctuations...");
+}
+
+#[cfg(kani)]
+mod verification {
+    use super::*;
+
+    #[kani::proof]
+    fn verify_trust_score_penalization() {
+        let mut ledger = TrustLedger::default();
+        
+        // Use non-deterministic values for the test
+        let raw_entity: u32 = kani::any();
+        let entity = Entity::from_raw(raw_entity);
+        
+        let penalty: f32 = kani::any();
+        // Constrain the penalty to valid bounds
+        kani::assume(penalty >= 0.0 && penalty <= 1.0);
+        
+        ledger.penalize(entity, penalty);
+        let score = ledger.peer_scores.get(&entity).unwrap();
+        
+        // Ensure the formal property holds: score correctly drops from 1.0
+        assert!(*score == 1.0 - penalty, "Trust score should exactly reflect the applied penalty");
+    }
+
+    #[kani::proof]
+    fn verify_action_validator_distance() {
+        // We verify that if an action is deemed possible by our anti-cheat validator, 
+        // its axial distance must not exceed max_dist. This guarantees hackers cannot 
+        // exploit the state machine by teleporting block-breaking events.
+        let px: f32 = kani::any();
+        let py: f32 = kani::any();
+        let pz: f32 = kani::any();
+        let tx: f32 = kani::any();
+        let ty: f32 = kani::any();
+        let tz: f32 = kani::any();
+        let max_dist: f32 = 10.0;
+        
+        kani::assume(px.is_finite() && py.is_finite() && pz.is_finite());
+        kani::assume(tx.is_finite() && ty.is_finite() && tz.is_finite());
+        
+        // To avoid floating point overflow when squaring in the pure function:
+        kani::assume((px - tx).abs() < 1000.0);
+        kani::assume((py - ty).abs() < 1000.0);
+        kani::assume((pz - tz).abs() < 1000.0);
+
+        let possible = is_action_physically_possible(px, py, pz, tx, ty, tz, max_dist);
+        
+        if possible {
+            // A fundamental mathematical guarantee of our Anti-Cheat logic: 
+            // if Euclidean distance <= 10.0, then no single axis difference can be > 10.0.
+            // If this fails, our engine allows fraudulent packets through!
+            assert!((px - tx).abs() <= max_dist, "X axis distance exceeded maximum");
+            assert!((py - ty).abs() <= max_dist, "Y axis distance exceeded maximum");
+            assert!((pz - tz).abs() <= max_dist, "Z axis distance exceeded maximum");
+        }
+    }
 }
 
 /// Polls the standard input channel non-blockingly and parses text commands
