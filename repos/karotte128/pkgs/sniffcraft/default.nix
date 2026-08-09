@@ -13,8 +13,8 @@ stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "adepierre";
     repo = "SniffCraft";
-    rev = "3017a013b1a71a8465275c7463a2cc1f15535c16";
-    hash = "sha256-zQzbRDfwr2EYLwi24pV6wanndPzAd7tDJM0V/D2Q9Sw=";
+    rev = "e7b7a6aeff1e95467204d11acd36deb932b699b6";
+    hash = "sha256-16Xvccz6kEpUuYoJDAIfPgHbrwbst+icZsxRUHNbTgc=";
     fetchSubmodules = true;
   };
 
