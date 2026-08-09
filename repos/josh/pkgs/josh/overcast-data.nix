@@ -8,7 +8,7 @@
 }:
 python3Packages.buildPythonApplication (finalAttrs: {
   pname = "overcast-data";
-  version = "0-unstable-2026-08-05";
+  version = "0-unstable-2026-08-09";
 
   pyproject = true;
   __structuredAttrs = true;
@@ -16,8 +16,8 @@ python3Packages.buildPythonApplication (finalAttrs: {
   src = fetchFromGitHub {
     owner = "josh";
     repo = "overcast-data";
-    rev = "c0393fb827d4b5261b704a9fad03314c6f0e99f9";
-    hash = "sha256-S3i/9/iXH0AQVlGVeL2vaE906OvBylChkXy7ylSzLw0=";
+    rev = "0dd02e9dab44a0b112137d39048b60eab0727690";
+    hash = "sha256-kNKf/rwlbkj5gTXrguYsPtVgaBcFss3yHvHNKC8ir6M=";
   };
 
   build-system = with python3Packages; [
