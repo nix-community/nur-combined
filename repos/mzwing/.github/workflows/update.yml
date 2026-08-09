@@ -34,30 +34,28 @@ jobs:
       with:
         hatchet-protocol: cleave
 
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
+    - name: Set up Nix
+      uses: mzwing/nix-config/.github/actions/setup-nix@master
       with:
-        extra_nix_config: |
-          accept-flake-config = false
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        install-devenv: 'true'
 
+    # Shared with the "Restore Nix store" step of build.yml: one cache
+    # family (nix-ci-) for both jobs. The key must hash the union of
+    # both jobs' lock inputs and use the same gc size. The action also
+    # removes stale root-owned store lock files (left behind by builds
+    # or substitutions interrupted in earlier runs; they ride along in
+    # the restored store cache and break the unprivileged tar of the
+    # post-run store save) and purges stale cache entries in the post
+    # (save) phase: keep at most the entry just saved (protected by
+    # purge-primary-key: never) and the one it was restored from
+    # (restore refreshes its last-accessed time).
     - name: Restore Nix store
-      uses: nix-community/cache-nix-action@v7
+      uses: mzwing/nix-config/.github/actions/restore-nix-store@master
       with:
-        primary-key: nix-update-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
-        restore-prefixes-first-match: nix-update-
+        primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
+        restore-prefix: nix-ci-
         gc-max-store-size-linux: 4G
-
-    # Builds or substitutions interrupted in earlier runs (e.g. job
-    # timeouts) leave root-owned <path>.lock files in /nix/store. They ride
-    # along in the restored store cache, and the unprivileged tar of the
-    # post-run store save cannot read them ("Cannot open: Permission
-    # denied"). No nix process is running at this point, so any lock file
-    # present is stale by definition.
-    - name: Remove stale Nix store lock files
-      run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
 
     - name: Restore nvfetcher database
       uses: actions/cache@v6
@@ -68,9 +66,7 @@ jobs:
           nvfetcher-
 
     - name: Update devenv inputs
-      run: |
-        nix profile add nixpkgs#devenv
-        devenv update
+      run: devenv update
 
     - name: Update sources, lockfiles and dependency hashes
       shell: bash
@@ -102,32 +98,24 @@ jobs:
         rm -f secrets.toml
         trap - EXIT
 
-    - name: Commit changes
-      id: commit
-      shell: bash
-      run: |
-        set -euo pipefail
-
-        git config user.name 'github-actions[bot]'
-        git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-        git add -- devenv.lock flake.lock _sources pkgs
-
-        if git diff --cached --quiet; then
-          echo 'changed=false' >>"${GITHUB_OUTPUT}"
-          exit 0
-        fi
-
-        git commit -m 'chore: update packages'
-        echo 'changed=true' >>"${GITHUB_OUTPUT}"
-
-    - name: Push changes
-      if: steps.commit.outputs.changed == 'true'
-      uses: ad-m/github-push-action@master
+    - name: Commit and push changes
+      uses: mzwing/nix-config/.github/actions/commit-and-push@master
       with:
-        branch: ${{ github.ref }}
+        paths: devenv.lock flake.lock _sources pkgs
+        message: 'chore: update packages'
+        trigger-workflow: build.yml
+        github-token: ${{ github.token }}
 
-    - name: Trigger distributed package build
-      if: steps.commit.outputs.changed == 'true'
+    # actions/cache has no built-in purge, so prune old nvfetcher
+    # databases manually: keep only the newest entry (the one the
+    # restore step above picked); the post-job save then adds the new
+    # one, leaving at most two nvfetcher caches around.
+    - name: Purge old nvfetcher caches
+      if: always()
       env:
         GH_TOKEN: ${{ github.token }}
-      run: gh workflow run build.yml --ref ${{ github.ref }}
+      run: |
+        set -euo pipefail
+        gh cache list --limit 100 --json id,key,createdAt |
+          jq -r '[.[] | select(.key | startswith("nvfetcher-"))] | sort_by(.createdAt) | .[:-1][] | .id' |
+          xargs -r -n 1 gh cache delete

@@ -8,6 +8,8 @@ on:
       - 'pkgs/**'
       - '_sources/**'
       - 'nvfetcher.toml'
+      - '.github/workflows/update.yml'
+      - '.github/workflows/tests.yml'
   workflow_dispatch:
 
 permissions:
@@ -34,6 +36,10 @@ jobs:
   config:
     name: Plan package builds
     runs-on: ubuntu-latest
+    permissions:
+      # actions: write is required to purge expired cache entries.
+      actions: write
+      contents: read
     outputs:
       builders: ${{ steps.plan.outputs.builders }}
       has_builds: ${{ steps.plan.outputs.has_builds }}
@@ -42,37 +48,28 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v7
 
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
+    - name: Set up Nix
+      uses: mzwing/nix-config/.github/actions/setup-nix@master
       with:
-        extra_nix_config: |
-          accept-flake-config = false
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        cachix-name: ${{ env.CACHE_NAME }}
 
+    # Shared with the "Restore Nix store" step of update.yml: one cache
+    # family (nix-ci-) for both jobs, so the config job can restore the
+    # warm cache saved by the daily update run (which always precedes
+    # package builds). The key must hash the union of both jobs' lock
+    # inputs and use the same gc size. The action also removes stale
+    # root-owned store lock files (left behind by interrupted builds or
+    # substitutions of earlier runs; they break the unprivileged tar of
+    # the post-run store save) and purges stale cache entries in the
+    # post (save) phase: keep at most the entry just saved (protected
+    # by purge-primary-key: never) and the one it was restored from.
     - name: Restore Nix store
-      uses: nix-community/cache-nix-action@v7
+      uses: mzwing/nix-config/.github/actions/restore-nix-store@master
       with:
-        primary-key: nix-config-${{ hashFiles('flake.lock') }}
-        restore-prefixes-first-match: nix-config-
-        gc-max-store-size-linux: 2G
-
-    # Interrupted builds or substitutions from earlier runs leave
-    # root-owned <path>.lock files in /nix/store (see the same step in
-    # update.yml); they break the unprivileged tar of the post-run store
-    # save. Any lock file present at this point is stale by definition.
-    - name: Remove stale Nix store lock files
-      run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
-
-    - name: Configure Cachix for pulls
-      uses: cachix/cachix-action@v17
-      with:
-        name: ${{ env.CACHE_NAME }}
-        skipPush: true
-
-    - name: Check flake evaluation
-      run: nix flake check --all-systems --no-build --no-write-lock-file --show-trace
+        primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
+        restore-prefix: nix-ci-
+        gc-max-store-size-linux: 4G
 
     - name: Evaluate supported packages
       id: evaluate
@@ -97,25 +94,16 @@ jobs:
       fail-fast: false
       matrix: ${{ fromJSON(needs.config.outputs.builders) }}
     steps:
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
-      with:
-        extra_nix_config: |
-          accept-flake-config = false
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
-
     # Cachix is pull-only on builders: only final package outputs are
     # pushed there, by the coordinator. Locally built paths (crate2nix
     # crates, goModules FODs, ...) go to the central builder store cache
     # instead (see the "cache" job), which also keeps the Cachix write
     # token off the unsandboxed macOS builders.
-    - name: Configure Cachix for pulls
-      uses: cachix/cachix-action@v17
+    - name: Set up Nix
+      uses: mzwing/nix-config/.github/actions/setup-nix@master
       with:
-        name: ${{ env.CACHE_NAME }}
-        skipPush: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        cachix-name: ${{ env.CACHE_NAME }}
 
     # The builder store cache is a plain ssh-ng store on the tailnet (no
     # server software needed). Every locally built path is exported there
@@ -159,25 +147,19 @@ jobs:
         connect-timeout = 5
         EOF
 
+    # The action restores the macOS runner's DNS after joining (with
+    # DNS accepted, the tailscale action replaces the system DNS with
+    # quad100 and the runner loses public internet access, so it is
+    # reset back to DHCP). This also drops MagicDNS, hence the
+    # /etc/hosts pin below.
     - name: Join builder network
-      uses: tailscale/github-action@v4
-      env:
-        TAILSCALE_SSH_DEFAULT_PATH: /nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+      uses: mzwing/nix-config/.github/actions/join-ci-tailnet@master
       with:
         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:nur-ci-builder
         hostname: ${{ env.BUILDER_PREFIX }}-${{ matrix.id }}
         args: --ssh
-        version: latest
-
-    # With DNS accepted, the tailscale action replaces the macOS runner's
-    # system DNS with quad100 and the runner loses public internet
-    # access. Reset it back to DHCP. This also drops MagicDNS, hence the
-    # /etc/hosts pin below.
-    - name: Restore macOS runner DNS
-      if: endsWith(matrix.system, '-darwin')
-      run: sudo networksetup -setdnsservers Ethernet empty
 
     # macOS only: with MagicDNS gone (see above), ssh-ng://root@${CACHE_HOST}
     # would not resolve. Linux builders resolve it via split DNS. Discover
@@ -202,22 +184,7 @@ jobs:
         printf '%s %s\n' "${cache_ip}" "${CACHE_HOST}" | sudo tee -a /etc/hosts
 
     - name: Wait for distributed builds
-      shell: bash
-      run: |
-        for _ in {1..120}; do
-          if [[ -e /tmp/builder_claimed ]]; then
-            while true; do
-              echo 'Building...'
-              for _ in {1..12}; do
-                [[ -e /tmp/builder_done ]] && exit 0
-                sleep 5
-              done
-            done
-          fi
-          sleep 5
-        done
-        echo 'Coordinator did not claim this builder within 10 minutes.' >&2
-        exit 1
+      uses: mzwing/nix-config/.github/actions/wait-for-distributed-builds@master
 
   # Central store cache for the builders: a plain ssh-ng store on the
   # tailnet. Builders push every locally built path here via their
@@ -264,20 +231,11 @@ jobs:
       with:
         hatchet-protocol: cleave
 
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
+    - name: Set up Nix
+      uses: mzwing/nix-config/.github/actions/setup-nix@master
       with:
-        extra_nix_config: |
-          accept-flake-config = false
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
-
-    - name: Configure Cachix for pulls
-      uses: cachix/cachix-action@v17
-      with:
-        name: ${{ env.CACHE_NAME }}
-        skipPush: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        cachix-name: ${{ env.CACHE_NAME }}
 
     # The key is unique per run so saves never race and a bad cache can
     # never block a recurring slot; restores pick the most recent cache
@@ -301,16 +259,13 @@ jobs:
         sudo chmod 600 /etc/nix/cache-key.pem
 
     - name: Join cache network
-      uses: tailscale/github-action@v4
-      env:
-        TAILSCALE_SSH_DEFAULT_PATH: /nix/var/nix/profiles/default/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+      uses: mzwing/nix-config/.github/actions/join-ci-tailnet@master
       with:
         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:nur-ci-cache
         hostname: ${{ env.CACHE_HOST }}
         args: --ssh
-        version: latest
 
     # Paths pushed by builders arrive unsigned, so sign them periodically
     # to make them substitutable for the other builders. The coordinator
@@ -398,84 +353,43 @@ jobs:
       with:
         hatchet-protocol: cleave
 
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
+    - name: Set up Nix
+      uses: mzwing/nix-config/.github/actions/setup-nix@master
       with:
-        extra_nix_config: |
-          accept-flake-config = false
-          access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-          max-jobs = 0
-          substituters = https://mzwing.cachix.org https://cache.nixos.org https://cache.nixos-cuda.org https://nix-community.cachix.org https://attic.xuyh0120.win/lantian
-          trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= mzwing.cachix.org-1:tOO3NqAwrXyPCnecEl/0wXwparCRksM5TeuS/wZK+KA= cache.nixos-cuda.org:74DUi4Ye579gUqzH4ziL9IyiJBlDpMRn9MBN8oNan9M= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc=
-
-    - name: Configure Cachix for pulls
-      uses: cachix/cachix-action@v17
-      with:
-        name: ${{ env.CACHE_NAME }}
-        skipPush: true
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        cachix-name: ${{ env.CACHE_NAME }}
+        max-jobs: '0'
 
     - name: Join coordinator network
       if: needs.config.outputs.has_builds == 'true'
-      uses: tailscale/github-action@v4
+      uses: mzwing/nix-config/.github/actions/join-ci-tailnet@master
       with:
         oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
         oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
         tags: tag:nur-ci-coordinator
         hostname: nur-c-${{ github.run_id }}-${{ github.run_attempt }}
-        version: latest
 
     - name: Configure remote builders
+      if: needs.config.outputs.has_builds == 'true'
+      uses: mzwing/nix-config/.github/actions/setup-remote-builders@master
+      with:
+        builders-json: ${{ needs.config.outputs.builders }}
+        builder-prefix: ${{ env.BUILDER_PREFIX }}
+        ssh-host-pattern: "nur-b-* nur-cache-*"
+
+    # The builder store cache joins the tailnet in parallel (cache
+    # job). Nix marks a substituter as failed for the rest of the
+    # session after one failed connection, so make sure the builders
+    # can reach the cache before building starts. Probe the exact
+    # path the builds use — a builder SSHing to the cache — through
+    # the first builder, and fail fast if it never comes up.
+    - name: Check builder store cache reachability
       if: needs.config.outputs.has_builds == 'true'
       env:
         BUILDERS: ${{ needs.config.outputs.builders }}
       shell: bash
       run: |
         set -euo pipefail
-
-        sudo mkdir -p /etc/ssh/ssh_config.d
-        sudo tee /etc/ssh/ssh_config.d/nur-ci-builders.conf >/dev/null <<'EOF'
-        Host nur-b-* nur-cache-*
-          StrictHostKeyChecking no
-          UserKnownHostsFile /dev/null
-          BatchMode yes
-          LogLevel ERROR
-        EOF
-        sudo tee /etc/nix/machines </dev/null
-
-        while IFS=$'\t' read -r id system max_jobs; do
-          builder="${BUILDER_PREFIX}-${id}"
-          connected=false
-          for _ in {1..120}; do
-            if ssh -n -o ConnectTimeout=5 "root@${builder}" true 2>/dev/null; then
-              connected=true
-              break
-            fi
-            sleep 5
-          done
-          if [[ "${connected}" != true ]]; then
-            printf 'Builder %s did not become reachable within 10 minutes.\n' "${builder}" >&2
-            exit 1
-          fi
-
-          ssh -n "root@${builder}" 'touch /tmp/builder_claimed'
-          printf 'ssh-ng://root@%s %s - %s 1 big-parallel,benchmark\n' \
-            "${builder}" "${system}" "${max_jobs}" |
-            sudo tee -a /etc/nix/machines >/dev/null
-        done < <(jq -r '.include[] | [.id, .system, .maxJobs] | @tsv' <<<"${BUILDERS}")
-
-        sudo tee -a /etc/nix/nix.conf >/dev/null <<'EOF'
-        builders = @/etc/nix/machines
-        builders-use-substitutes = true
-        max-jobs = 0
-        EOF
-        sudo systemctl restart nix-daemon.service
-
-        # The builder store cache joins the tailnet in parallel (cache
-        # job). Nix marks a substituter as failed for the rest of the
-        # session after one failed connection, so make sure the builders
-        # can reach the cache before building starts. Probe the exact
-        # path the builds use — a builder SSHing to the cache — through
-        # the first builder, and fail fast if it never comes up.
         first_builder="${BUILDER_PREFIX}-$(jq -r '.include[0].id' <<<"${BUILDERS}")"
         cache_ok=false
         for _ in {1..24}; do
@@ -573,15 +487,16 @@ jobs:
 
     - name: Release remote builders
       if: always() && needs.config.outputs.has_builds == 'true'
-      env:
-        BUILDERS: ${{ needs.config.outputs.builders }}
+      uses: mzwing/nix-config/.github/actions/release-remote-builders@master
+      with:
+        builders-json: ${{ needs.config.outputs.builders }}
+        builder-prefix: ${{ env.BUILDER_PREFIX }}
+
+    # Signal the builder store cache machine that the run is over.
+    - name: Signal builder store cache shutdown
+      if: always() && needs.config.outputs.has_builds == 'true'
       shell: bash
       run: |
-        while IFS= read -r id; do
-          ssh -n -o ConnectTimeout=5 "root@${BUILDER_PREFIX}-${id}" \
-            'touch /tmp/builder_done' || true
-        done < <(jq -r '.include[].id' <<<"${BUILDERS}")
-        # Signal the builder store cache machine that the run is over.
         ssh -n -o ConnectTimeout=5 "root@${CACHE_HOST}" \
           'touch /tmp/cache_done' || true
 

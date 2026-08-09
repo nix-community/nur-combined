@@ -1,0 +1,70 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    name: Test flake and workflows
+    runs-on: ubuntu-latest
+    permissions:
+      # actions: write is required to purge expired cache entries.
+      actions: write
+      contents: read
+    defaults:
+      run:
+        shell: devenv shell bash -- -e {0}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Nix
+        uses: mzwing/nix-config/.github/actions/setup-nix@master
+        with:
+          cachix-pull: 'false'
+          install-devenv: 'true'
+
+      # Shared with the "Restore Nix store" steps of build.yml and
+      # update.yml: one cache family (nix-ci-) for all jobs. The key
+      # must hash the union of all jobs' lock inputs and use the same
+      # gc size.
+      - name: Restore Nix store
+        uses: mzwing/nix-config/.github/actions/restore-nix-store@master
+        with:
+          primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
+          restore-prefix: nix-ci-
+          gc-max-store-size-linux: 4G
+
+      # No --no-build: evaluating the packages requires realising the
+      # fetched package sources (gomod2nix applies builtins.path to the
+      # fetched src at evaluation time). Those source paths live in the
+      # warm nix-ci- store cache saved by the update runs, but on a cold
+      # cache --no-build turns their absence into an evaluation error.
+      # The flake has no checks output, so nothing else gets built.
+      - name: Check flake
+        run: nix flake check --all-systems --no-write-lock-file --show-trace
+
+      - name: Type-check Nix
+        run: typenix --noEmit
+
+      - name: Lint GitHub Actions
+        run: actionlint
+
+      - name: Lint Python scripts
+        run: |
+          ruff format --check scripts/
+          ruff check scripts/
+          ty check scripts/
+
+      # Generated files (nvfetcher's _sources/generated.nix and
+      # crate2nix's pkgs/*/Cargo.nix) do not follow the alejandra style
+      # and are excluded from the check.
+      - name: Check formatting
+        run: git ls-files '*.nix' ':!:_sources/generated.nix' ':!:pkgs/*/Cargo.nix' | xargs alejandra --check
