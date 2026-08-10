@@ -843,10 +843,10 @@
     };
     "automatic-dark" = buildMozillaXpiAddon {
       pname = "automatic-dark";
-      version = "1.4.2";
+      version = "1.4.3";
       addonId = "{9ed7d361-ccd9-4cad-9846-977da2651fb5}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4922267/automatic_dark-1.4.2.xpi";
-      sha256 = "d060ce0fa652dcb5ebb2dc0d4b88491759969b5132999cb34416d9b4a3e535f1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4947744/automatic_dark-1.4.3.xpi";
+      sha256 = "ec7283505f938c55ada35fe29c8aff63118ab07e77d5deb3baee10dadb6aae25";
       meta = with lib;
       {
         homepage = "https://github.com/skhzhang/time-based-themes/";
@@ -951,10 +951,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.12";
+      version = "2.0.13";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4910262/batchcamp-2.0.12.xpi";
-      sha256 = "344a31a8cf7827c3eb9b36cf769d339f03124439595f7c68b0736ec1c525fab1";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4948413/batchcamp-2.0.13.xpi";
+      sha256 = "c6687f4853529e2544fd6d3e33f3f5f947890cd1eb7253e413705905f1dbb480";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -4710,10 +4710,10 @@
     };
     "geo-spoof" = buildMozillaXpiAddon {
       pname = "geo-spoof";
-      version = "2.1.3";
+      version = "2.1.4";
       addonId = "{a8f7e9c2-4d3b-4a1e-9f8c-7b6d5e4a3c2b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4946216/geo_spoof-2.1.3.xpi";
-      sha256 = "1f893ea1b059b6b7baa23836d04a30ba9050a1ac83fb88e76e804c1fa7340593";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4948056/geo_spoof-2.1.4.xpi";
+      sha256 = "6e2bb9fb1725272b1a5b1ab5330d9b473f1ed61ed22f1d29d43de8c054f2904f";
       meta = with lib;
       {
         homepage = "https://www.geospoof.com";
@@ -11015,10 +11015,10 @@
     };
     "onetab" = buildMozillaXpiAddon {
       pname = "onetab";
-      version = "2.18";
+      version = "2.19";
       addonId = "extension@one-tab.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4883428/onetab-2.18.xpi";
-      sha256 = "f5c6c81fb324608600f2a6b80af0bb813491b0419a0c28fad52f3c624b4b091c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4948072/onetab-2.19.xpi";
+      sha256 = "3aab9eda39cb7b1cfc0267d2b2732f877f7df7dd44432b6bafd99f77ac4b0b4b";
       meta = with lib;
       {
         homepage = "https://www.one-tab.com";
@@ -14443,10 +14443,10 @@
     };
     "stylus" = buildMozillaXpiAddon {
       pname = "stylus";
-      version = "2.4.9";
+      version = "2.4.10";
       addonId = "{7a7a4a92-a2a0-41d1-9fd7-1e92480d612d}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4934380/styl_us-2.4.9.xpi";
-      sha256 = "7108b8d5b600d9d35caee46c50416b296721683d3497c572e029e84f7e42afb7";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4947910/styl_us-2.4.10.xpi";
+      sha256 = "907c1ebcfeaaa78890ef82ebb1a004f8e607fe482095165cd1b8309373112129";
       meta = with lib;
       {
         homepage = "https://add0n.com/stylus.html";
@@ -17880,10 +17880,10 @@
     };
     "youtube-subscription-groups" = buildMozillaXpiAddon {
       pname = "youtube-subscription-groups";
-      version = "18.8.6";
+      version = "18.8.7";
       addonId = "danabok16@gmail.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4941860/youtube_subscription_groups-18.8.6.xpi";
-      sha256 = "85aa9355a45c354d21859d9d0e8efffd665175bc6c195eb8eb78bc994392a883";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4947537/youtube_subscription_groups-18.8.7.xpi";
+      sha256 = "0347c0711f2463e516f13a9c1a460666330941c34310d667ff3f677f1c7dbd5b";
       meta = with lib;
       {
         homepage = "https://pockettube.io";
