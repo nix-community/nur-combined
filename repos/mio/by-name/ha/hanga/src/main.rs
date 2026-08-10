@@ -185,7 +185,7 @@ pub struct Vehicle;
 pub struct InVehicle(pub Entity);
 
 /// Represents an optimistic action broadcasted by a P2P client over WebRTC
-#[derive(Message, Debug)]
+#[derive(Message, Debug, Serialize, Deserialize, Clone)]
 enum ProposedAction {
     BreakBlock {
         player_entity: Entity,
@@ -624,12 +624,45 @@ fn init_p2p_mesh(mut commands: Commands) {
     commands.insert_resource(P2pSocket(socket));
 }
 
-fn handle_p2p_connections(mut socket: Option<ResMut<P2pSocket>>) {
+fn handle_p2p_connections(
+    mut socket: Option<ResMut<P2pSocket>>,
+    mut event_reader: MessageReader<ProposedAction>,
+    mut event_writer: MessageWriter<ProposedAction>,
+    players: Query<Entity, With<Player>>,
+) {
+    let local_player = players.iter().next();
     if let Some(mut socket) = socket {
         for (peer, new_state) in socket.0.update_peers() {
             match new_state {
                 matchbox_socket::PeerState::Connected => info!("P2P Peer {:?} connected!", peer),
                 matchbox_socket::PeerState::Disconnected => info!("P2P Peer {:?} disconnected!", peer),
+            }
+        }
+        
+        // Receive network messages
+        for (peer_id, packet) in socket.0.channel_mut(0).receive() {
+            if let Ok(action) = bincode::deserialize::<ProposedAction>(&packet) {
+                // Write it to ECS so validate_incoming_actions processes it!
+                event_writer.write(action);
+            }
+        }
+
+        // Broadcast local messages
+        for action in event_reader.read() {
+            let is_local = match action {
+                ProposedAction::BreakBlock { player_entity, .. } => Some(*player_entity) == local_player,
+                ProposedAction::PlaceBlock { player_entity, .. } => Some(*player_entity) == local_player,
+                ProposedAction::EnterVehicle { player_entity, .. } => Some(*player_entity) == local_player,
+            };
+
+            if is_local {
+                if let Ok(packet) = bincode::serialize(action) {
+                    let peers: Vec<_> = socket.0.connected_peers().collect();
+                    let packet_boxed = packet.into_boxed_slice();
+                    for peer in peers {
+                        socket.0.channel_mut(0).send(packet_boxed.clone(), peer);
+                    }
+                }
             }
         }
     }
