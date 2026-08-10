@@ -1,0 +1,60 @@
+{ treefmt-nix, nixfmt-rs, ... }:
+{
+  imports = [ treefmt-nix.flakeModule ];
+
+  perSystem =
+    {
+      config,
+      pkgs,
+      system,
+      ...
+    }:
+    {
+      treefmt = {
+        flakeFormatter = false;
+        projectRootFile = "flake.nix";
+
+        settings = {
+          formatter.deadnix.excludes = [ "**/composer2nix/**" ];
+          global.excludes = [
+            "**/_sources/**"
+            "_sources/**"
+            "**/deps.nix"
+            "*.age"
+          ];
+        };
+
+        programs = {
+          actionlint.enable = true;
+          black.enable = true;
+          deadnix = {
+            enable = true;
+            no-lambda-arg = true;
+          };
+          dos2unix.enable = true;
+          formatjson5.enable = true;
+          isort.enable = true;
+          keep-sorted.enable = true;
+          # # Disable for unable to handle multiple scripts with same name
+          # mypy.enable = true;
+          nixfmt = {
+            enable = true;
+            package = nixfmt-rs.packages.${system}.default;
+          };
+          shfmt.enable = true;
+          statix.enable = true;
+          toml-sort.enable = true;
+        };
+
+        settings.formatter.dos2unix.excludes = [ "*.reg" ];
+      };
+
+      formatter = pkgs.writeShellScriptBin "treefmt-auto" ''
+        for i in {1..5}; do
+          echo "Running treefmt for the ''${i}th time"
+          ${pkgs.lib.getExe config.treefmt.build.wrapper} --clear-cache --fail-on-change "$@" && exit 0
+        done
+        exit $?
+      '';
+    };
+}

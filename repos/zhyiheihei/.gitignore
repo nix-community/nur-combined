@@ -1,0 +1,12 @@
+result
+result*
+trace.txt*
+.gcroots
+.vscode
+.direnv
+*.log
+.pre-commit-config.yaml
+update-git-commits.txt
+*.cmp
+*.fetchlog
+__pycache__/

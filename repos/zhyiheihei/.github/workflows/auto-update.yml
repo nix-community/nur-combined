@@ -1,0 +1,76 @@
+name: 'Auto update packages'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '13 20 * * *'
+permissions:
+  actions: write
+  contents: write
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+    env:
+      GIT_SSL_NO_VERIFY: 'true'
+    steps:
+      - name: Maximize build space
+        uses: easimon/maximize-build-space@master
+        with:
+          root-reserve-mb: 8192
+          temp-reserve-mb: 1024
+          swap-size-mb: 4096
+          build-mount-path: '/nix'
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
+          remove-codeql: 'true'
+          remove-docker-images: 'true'
+
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v4
+        with:
+          image: tonistiigi/binfmt:latest
+          platforms: all
+
+      - name: Create nix daemon tmpdir path
+        run: |
+          sudo mkdir -p /nix/tmpdir
+          sudo chown "$(whoami)" /nix/tmpdir
+
+      - name: Install nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+          extra_nix_config: |
+            experimental-features = nix-command flakes ca-derivations
+            extra-experimental-features = nix-command flakes ca-derivations
+            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+            extra-platforms = i686-linux aarch64-linux arm-linux
+            build-dir = /nix/tmpdir
+            log-lines = 25
+
+      - name: Update sources
+        run: |
+          cat > secrets.toml <<EOF
+          [keys]
+          github = "${{ secrets.GITHUB_TOKEN }}"
+          EOF
+
+          sudo mkdir -p /nix/tmpdir2
+          sudo chown "$(whoami)" /nix/tmpdir2
+          export TMPDIR=/nix/tmpdir2
+
+          nix run .#update
+          nix run .#update-hashes
+
+          rm -f secrets.toml
+
+      - name: Commit back to repository
+        uses: stefanzweifel/git-auto-commit-action@v7
+        with:
+          commit_message: 'auto: update packages'
+          commit_user_name: 'zhyiheihei-bot'
+          commit_user_email: 'zhyiheihei-bot@users.noreply.github.com'

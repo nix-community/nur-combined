@@ -1,0 +1,109 @@
+_: {
+  perSystem =
+    {
+      lib,
+      pkgs,
+      ...
+    }:
+    let
+      mkCICommand = pkgsAttr: ''
+        tools/auto_build.py ${pkgsAttr} "$@"
+      '';
+    in
+    {
+      commands = rec {
+        ci = mkCICommand "ciPackages";
+        ci-cuda = mkCICommand "ciPackagesWithCuda";
+
+        nvfetcher = ''
+          set -euo pipefail
+          KEY_FLAG=""
+          [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
+          [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
+          export PYTHONPATH=${pkgs.python3Packages.packaging}/lib/python${pkgs.python3.pythonVersion}/site-packages:''${PYTHONPATH:-}
+          ${lib.getExe pkgs.nvfetcher} $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+
+          python3 tools/postprocess_nvfetcher.py
+
+          ${readme}
+        '';
+
+        # Python reimplementation of nvfetcher (tools/update_sources.py).  Uses
+        # nvchecker for version checking, supports the same nvfetcher.toml /
+        # _sources/generated.{nix,json} format (postprocessing already built
+        # in, so no postprocess step needed), and keeps the existing entry on
+        # any per-package failure instead of aborting or dropping it.  Runtime
+        # deps are pulled in by the script's nix-shell shebang.
+        update-sources = ''
+          set -euo pipefail
+          KEY_FLAG=""
+          [ -f "$HOME/Secrets/nvfetcher.toml" ] && KEY_FLAG="$KEY_FLAG -k $HOME/Secrets/nvfetcher.toml"
+          [ -f "secrets.toml" ] && KEY_FLAG="$KEY_FLAG -k secrets.toml"
+          ./tools/update_sources.py $KEY_FLAG -c nvfetcher.toml -o _sources "$@"
+
+          ${readme}
+        '';
+
+        nur-check = ''
+          set -euo pipefail
+          TMPDIR=$(mktemp -d)
+          FLAKEDIR=$(pwd)
+
+          git clone --depth=1 https://github.com/nix-community/NUR.git "$TMPDIR"
+          cd "$TMPDIR/ci"
+          nix flake update
+          cd "$TMPDIR"
+          sed -i "s/-p python3 /-p python311 /g" "$TMPDIR/bin/nur"
+
+          cp ${../../repos.json} repos.json
+          rm -f repos.json.lock
+
+          bin/nur update
+          bin/nur eval "$FLAKEDIR"
+
+          git clone --single-branch --depth=1 "https://github.com/nix-community/nur-combined.git"
+          cp repos.json repos.json.lock nur-combined/
+          bin/nur index nur-combined > index.json
+
+          cd "$FLAKEDIR"
+          rm -rf "$TMPDIR"
+        '';
+
+        readme = ''
+          set -euo pipefail
+          nix build --show-trace .#_meta.readme
+          cat result > README.md
+        '';
+
+        trace = ''
+          rm -rf trace.txt*
+          strace -ff --trace=%file -o trace.txt "$@"
+        '';
+
+        update = ''
+          set -euo pipefail
+          export LANG=en_US.UTF-8
+          nix flake update
+          ${update-sources}
+          for S in $(find pkgs/ -name update.\*); do
+            echo "Executing $S"
+            chmod +x "$S"
+            "$S"
+          done
+          ${readme}
+        '';
+
+        update-hashes = ''
+          # Only check hashes that are not src hashes
+          ATTRS=$(find pkgs -name '*.nix' -print0 2>/dev/null \
+            | xargs -0 grep -l "Hash = \"sha256-" 2>/dev/null \
+            | xargs -r dirname | sort | uniq | xargs -n1 basename)
+
+          for ATTR in $ATTRS; do
+            echo "Updating $ATTR"
+            ${lib.getExe pkgs.nix-update} --flake "$ATTR" --version skip
+          done
+        '';
+      };
+    };
+}

@@ -1,0 +1,91 @@
+[aioshutil]
+fetch.github = "kumaraditya303/aioshutil"
+src.github_tag = "kumaraditya303/aioshutil"
+
+[cn2an]
+fetch.pypi = "cn2an"
+src.pypi = "cn2an"
+
+[docker-proxy]
+fetch.github = "dqzboy/Docker-Proxy"
+src.github = "dqzboy/Docker-Proxy"
+
+[docker-proxy-hubcmdui]
+fetch.github = "dqzboy/Docker-Proxy"
+src.github = "dqzboy/Docker-Proxy"
+
+[filecodebox]
+fetch.github = "vastsa/FileCodeBox"
+src.github = "vastsa/FileCodeBox"
+
+[filecodebox-frontend]
+fetch.git = "https://github.com/vastsa/FileCodeBoxFronted.git"
+src.git = "https://github.com/vastsa/FileCodeBoxFronted.git"
+
+[jieba-next]
+fetch.github = "mxcoras/jieba-next"
+src.github_tag = "mxcoras/jieba-next"
+
+[moviepilot]
+fetch.github = "jxxghp/MoviePilot"
+src.github = "jxxghp/MoviePilot"
+
+[moviepilot-frontend]
+fetch.url = "https://github.com/jxxghp/MoviePilot-Frontend/releases/download/$ver/dist.zip"
+src.github_tag = "jxxghp/MoviePilot-Frontend"
+src.include_regex = "^v2\\.\\d+\\.\\d+$"
+
+[moviepilot-resources]
+fetch.git = "https://github.com/jxxghp/MoviePilot-Resources"
+src.git = "https://github.com/jxxghp/MoviePilot-Resources"
+src.branch = "main"
+
+[nexus-media]
+fetch.github = "linyuan0213/nexus-media"
+src.github = "linyuan0213/nexus-media"
+
+[nexus-media-web]
+fetch.github = "linyuan0213/nexus-media-web"
+src.github = "linyuan0213/nexus-media-web"
+
+[pinyin2hanzi]
+fetch.pypi = "Pinyin2Hanzi"
+src.pypi = "Pinyin2Hanzi"
+
+[proces]
+fetch.pypi = "proces"
+src.pypi = "proces"
+
+[pyromark]
+fetch.github = "monosans/pyromark"
+src.github = "monosans/pyromark"
+
+[sun-panel]
+fetch.github = "hslr-s/sun-panel"
+src.github = "hslr-s/sun-panel"
+
+[telegramify-markdown]
+fetch.github = "sudoskys/telegramify-markdown"
+src.github = "sudoskys/telegramify-markdown"
+
+[torrentool]
+fetch.github = "idlesign/torrentool"
+src.github_tag = "idlesign/torrentool"
+
+[vaults3-linux-amd64]
+fetch.url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v$ver/vaults3-linux-amd64.tar.gz"
+src.github = "Kodiqa-Solutions/VaultS3"
+src.prefix = "v"
+
+[vaults3-linux-arm64]
+fetch.url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v$ver/vaults3-linux-arm64.tar.gz"
+src.github = "Kodiqa-Solutions/VaultS3"
+src.prefix = "v"
+
+[vertex]
+fetch.github = "vertex-center/vertex"
+src.github = "vertex-center/vertex"
+
+[zhconv-rs]
+fetch.github = "Gowee/zhconv-rs"
+src.github = "Gowee/zhconv-rs"
