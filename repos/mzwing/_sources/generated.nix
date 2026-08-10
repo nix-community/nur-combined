@@ -52,15 +52,15 @@
   };
   gomod2nix = {
     pname = "gomod2nix";
-    version = "1201ddd1279c35497754f016ef33d5e060f3da8d";
+    version = "bbc0893e5708955f9da230e88a20562d67fa325e";
     src = fetchFromGitHub {
-      owner = "nix-community";
+      owner = "mzwing";
       repo = "gomod2nix";
-      rev = "1201ddd1279c35497754f016ef33d5e060f3da8d";
+      rev = "bbc0893e5708955f9da230e88a20562d67fa325e";
       fetchSubmodules = false;
-      sha256 = "sha256-yBz9Ozd5Wb56i3e3cHZ8WcbzCQ9RlVaiW18qDYA/AzA=";
+      sha256 = "sha256-NqK8A/MUJpcy61I3dNnqdgnm3Zq3fupitejMWqvoDec=";
     };
-    date = "2026-02-08";
+    date = "2026-08-10";
   };
   gryph = {
     pname = "gryph";
