@@ -2,27 +2,26 @@
   lib,
   stdenv,
   python3,
+  esptool,
   fetchFromGitHub,
 }:
 
 stdenv.mkDerivation {
   pname = "esp32knife";
-  version = "0-unstable-2024-05-16";
+  version = "2.0.1";
 
   src = fetchFromGitHub {
     owner = "BlackVS";
     repo = "esp32knife";
-    rev = "ec38a7bf2b5be96658ff288dbc024911dff4e8b6";
-    hash = "sha256-M2WTYayq0v+UUYCerBxB7baMD8GCWHJXZ+kDeq7rBCc=";
+    rev = "v2.0.1";
+    hash = "sha256-uXZugqhGFZwCYyqnjiuWLsg33bsYrEzBZtpuX4mP4HI=";
   };
 
   nativeBuildInputs = [
     (python3.withPackages (py: [
-      py.pyserial
-      py.ecdsa
-      py.reedsolo
-      py.cryptography
       py.hexdump
+      (py.toPythonModule esptool)
+      (py.callPackage ../python3-packages/makeelf.nix { })
     ]))
   ];
 
