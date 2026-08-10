@@ -10,12 +10,12 @@
 }:
 
 let
-  version = "0.20.2";
+  version = "0.21.0";
   src = fetchFromGitHub {
     owner = "wrvsrx";
     repo = "plumb";
     tag = version;
-    hash = "sha256-BfIOhDMsqVVOQQa1fMAIHVu6AmshKjJcxlQOKbf5w+8=";
+    hash = "sha256-2NhpaNLTWSG8XI1BkUyEtwXk1ApRGAmZ+2DcceC8Btg=";
   };
 
   generatedSource = stdenvNoCC.mkDerivation {
@@ -65,7 +65,7 @@ rustPlatform.buildRustPackage {
   pname = "plumb";
   inherit version src;
 
-  cargoHash = "sha256-whjuyuQ628/DQUBac36tFqRjGj7mB02Kvv4ghrLHdjQ=";
+  cargoHash = "sha256-BlB37dNrUC9USwklFw09RM/BNDjrNmmd6AeQiPUuxi4=";
 
   nativeCheckInputs = [ pandoc ];
 
