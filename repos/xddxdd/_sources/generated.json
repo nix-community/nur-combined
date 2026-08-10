@@ -2077,7 +2077,7 @@
             "owner": "feder-cr",
             "repo": "firefox_antidetect_patch",
             "rev": "firefox-18",
-            "sha256": "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=",
+            "sha256": "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -4103,6 +4103,27 @@
             "type": "github"
         },
         "version": "v1.3.0"
+    },
+    "resin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "resin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "Resinat",
+            "repo": "Resin",
+            "rev": "v1.2.0",
+            "sha256": "sha256-tqSuYZce0uq9gVSstNLPlSyJPGWwYrfvCEgAyXiek4c=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.2.0"
     },
     "rime-aurora-pinyin": {
         "cargoLock": null,

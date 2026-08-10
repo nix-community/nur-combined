@@ -1068,7 +1068,7 @@
       owner = "feder-cr";
       repo = "firefox_antidetect_patch";
       tag = "firefox-18";
-      hash = "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=";
+      hash = "sha256-f31Djr7aj8/XthYJZ0vSeUBtXYKEw02chKY+qMCTbpE=";
     };
   };
   it-tools = {
@@ -2094,6 +2094,16 @@
       repo = "py-rcon";
       tag = "v1.3.0";
       hash = "sha256-IsbGSUXaayO8gfslfo2oIforjy5TW6xVdCDOXT2VmjQ=";
+    };
+  };
+  resin = {
+    pname = "resin";
+    version = "v1.2.0";
+    src = fetchFromGitHub {
+      owner = "Resinat";
+      repo = "Resin";
+      tag = "v1.2.0";
+      hash = "sha256-tqSuYZce0uq9gVSstNLPlSyJPGWwYrfvCEgAyXiek4c=";
     };
   };
   rime-aurora-pinyin = {

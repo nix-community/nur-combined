@@ -121,14 +121,12 @@ def substitute_nvfetcher_references(
     # Step 3: replace direct references to sources.xxx
     # Do not include pname since only case this will happen is multi source for multiarch packages
     def replace_direct_reference_entire_obj(match: re.Match[str]) -> str:
-        result = textwrap.dedent(
-            f"""
-                rec {{
-                    version = {ref_value.version};
-                    src = {ref_value.src_with_version_replacement(use_final_attrs)};
-                }}
-            """
-        ).strip()
+        result = textwrap.dedent(f"""
+            rec {{
+                version = {ref_value.version};
+                src = {ref_value.src_with_version_replacement(use_final_attrs)};
+            }}
+        """).strip()
         return match[1] + result + match[2]
 
     regex = r"^([^#]+)sources\." + ref_name + r"(\s+)"
