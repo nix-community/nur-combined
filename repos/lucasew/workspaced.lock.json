@@ -197,14 +197,14 @@
       "depName": "lewtec/skills",
       "packageName": "https://github.com/lewtec/skills",
       "currentValue": "master",
-      "currentDigest": "387b6ee637257fc49633f269fa23b28bfc144cfa",
+      "currentDigest": "d105956542db3fbb7fddba5ae2b79081661ae4ca",
       "datasource": "git-refs"
     },
     {
       "kind": "tool",
       "ref": "github:lucasew/refactree",
       "depName": "lucasew/refactree",
-      "currentValue": "0.10.0",
+      "currentValue": "0.10.2",
       "datasource": "github-releases"
     },
     {
