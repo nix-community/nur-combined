@@ -75,43 +75,70 @@ impl CityLayout {
             return 1; // Solid bedrock/concrete base
         }
 
-        // If it's a road line (every 100 blocks), it's asphalt (2)
-        // Let's make roads 6 blocks wide
-        let is_road_x = (x % 100).abs() < 3;
-        let is_road_z = (z % 100).abs() < 3;
+        // Road grid every 100 blocks, road is 6 blocks wide, sidewalks are 2 blocks wide
+        let mod_x = (x % 100).abs();
+        let mod_z = (z % 100).abs();
         
-        if y == 0 && (is_road_x || is_road_z) {
-            return 2; // Asphalt road
+        let is_road_x = mod_x < 3;
+        let is_road_z = mod_z < 3;
+        let is_sidewalk_x = mod_x >= 3 && mod_x < 5;
+        let is_sidewalk_z = mod_z >= 3 && mod_z < 5;
+        
+        if y == 0 {
+            if is_road_x || is_road_z {
+                return 2; // Asphalt road
+            }
+            if is_sidewalk_x || is_sidewalk_z {
+                return 4; // Sidewalk (Concrete)
+            }
         }
 
         // Generate buildings inside the grid cells
-        // Center of the cell is at x - (x%100) + 50
         let cell_x = x - (x % 100) + 50;
         let cell_z = z - (z % 100) + 50;
+        
+        // Pseudo-random number for cell variance
+        let prng = (cell_x.abs() * 73 + cell_z.abs() * 37) % 100;
+        let is_park = prng < 15; // 15% chance for a park block
+
+        if y == 0 && is_park {
+            return 5; // Grass
+        }
 
         // Simple distance to center of city to determine height (downtown is taller)
         let dist_to_center = ((cell_x - (self.width / 2) as i32).pow(2) + (cell_z - (self.height / 2) as i32).pow(2)) as f32;
         let dist_to_center = dist_to_center.sqrt();
         
         let max_height = if dist_to_center < 300.0 {
-            100 // Downtown skyscrapers
+            60 + (prng % 60) // Downtown skyscrapers (60-119)
         } else if dist_to_center < 600.0 {
-            40 // Commercial / Industrial
+            20 + (prng % 30) // Commercial / Industrial (20-49)
         } else {
-            15 // Suburbs
+            10 + (prng % 10) // Suburbs (10-19)
         };
 
-        // Building footprint (40x40 inside the 100x100 cell, so it's surrounded by grass/sidewalk)
+        // Building footprint
         let local_x = (x - cell_x).abs();
         let local_z = (z - cell_z).abs();
+        
+        // Building shape variance
+        let mut footprint = 20;
+        if prng % 3 == 0 && local_x > 10 && local_z < 10 {
+            // L-Shape carving
+            footprint = 0; 
+        }
 
-        if local_x < 20 && local_z < 20 {
+        if !is_park && local_x < footprint && local_z < footprint {
             if y < max_height {
                 // Glass walls for downtown, concrete for others
-                if max_height > 50 && (local_x == 19 || local_z == 19) {
+                if max_height > 50 && (local_x == footprint - 1 || local_z == footprint - 1) {
                     return 3; // Glass
                 }
                 return 1; // Concrete
+            }
+            // Add a small antenna on top of some buildings
+            if y >= max_height && y < max_height + 5 && local_x == 0 && local_z == 0 && prng % 2 == 0 {
+                return 1; // Antenna pole
             }
         }
 
@@ -122,36 +149,43 @@ impl CityLayout {
 /// WASM exported function that the engine calls to get block data
 #[unsafe(no_mangle)]
 pub extern "C" fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
-    // In a real implementation, the layout would be cached globally
-    // We instantiate it here just for the API mockup
     let layout = CityLayout::generate(1000, 1000);
     layout.get_voxel_at(x, y, z) as i32
 }
 
-/// WASM exported function to compute Cop AI X velocity
+/// WASM exported function to compute Cop AI velocity
 #[unsafe(no_mangle)]
 pub extern "C" fn compute_cop_vx(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
     let dx = px - cx;
     let dz = pz - cz;
     let len = (dx * dx + dz * dz).sqrt();
-    if len == 0.0 {
-        return 0.0;
+    if len < 2.0 {
+        return 0.0; // Arrest distance!
     }
-    // 5 m/s chase speed
-    (dx / len) * 5.0
+    (dx / len) * 8.0 // Sprint at 8 m/s
 }
 
-/// WASM exported function to compute Cop AI Z velocity
 #[unsafe(no_mangle)]
 pub extern "C" fn compute_cop_vz(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
     let dx = px - cx;
     let dz = pz - cz;
     let len = (dx * dx + dz * dz).sqrt();
-    if len == 0.0 {
+    if len < 2.0 {
         return 0.0;
     }
-    // 5 m/s chase speed
-    (dz / len) * 5.0
+    (dz / len) * 8.0
+}
+
+/// WASM exported function to compute Civilian Pedestrian AI velocity (wandering)
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_pedestrian_vx(px: f32, pz: f32, time_sec: f32) -> f32 {
+    // Wander using a sine wave based on time and their unique position
+    (time_sec + px).sin() * 2.0
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_pedestrian_vz(px: f32, pz: f32, time_sec: f32) -> f32 {
+    (time_sec + pz).cos() * 2.0
 }
 
 /// WASM exported function to calculate wanted level logic
