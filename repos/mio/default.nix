@@ -149,8 +149,8 @@ with (import ./private.nix { inherit pkgs; });
               ghidra_hidpi
               prismlauncher-diegiwg
               android-translation-layer_patched
-              #pake # started failing recently
-              cider
+              pake # started failing recently
+              #cider # started failing recently
               rocksmith2tab
               darling
               supertuxkart-evolution
