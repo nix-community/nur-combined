@@ -93,8 +93,6 @@ jobs:
 
         nix run .#update-lockfiles
 
-        nix run .#update-lockfiles cliproxyapiplus gryph typenix
-
         nix run .#update-hashes
 
         rm -f secrets.toml
