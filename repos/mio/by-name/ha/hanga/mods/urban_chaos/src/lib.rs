@@ -1,4 +1,4 @@
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn init_mod() -> i32 {
     // This is the Urban Chaos mod initializing!
     // We run the layout generator to prep the city grid.
@@ -94,12 +94,49 @@ impl CityLayout {
 }
 
 /// WASM exported function that the engine calls to get block data
-#[no_mangle]
+#[unsafe(no_mangle)]
 pub extern "C" fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
     // In a real implementation, the layout would be cached globally
     // We instantiate it here just for the API mockup
     let layout = CityLayout::generate(1000, 1000);
     layout.get_voxel_at(x, y, z) as i32
+}
+
+/// WASM exported function to compute Cop AI X velocity
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_cop_vx(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    let dx = px - cx;
+    let dz = pz - cz;
+    let len = (dx * dx + dz * dz).sqrt();
+    if len == 0.0 {
+        return 0.0;
+    }
+    // 5 m/s chase speed
+    (dx / len) * 5.0
+}
+
+/// WASM exported function to compute Cop AI Z velocity
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_cop_vz(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    let dx = px - cx;
+    let dz = pz - cz;
+    let len = (dx * dx + dz * dz).sqrt();
+    if len == 0.0 {
+        return 0.0;
+    }
+    // 5 m/s chase speed
+    (dz / len) * 5.0
+}
+
+/// WASM exported function to calculate wanted level logic
+#[unsafe(no_mangle)]
+pub extern "C" fn calculate_wanted_level(action_type: i32, current_level: i32) -> i32 {
+    match action_type {
+        1 => current_level + 1, // BreakBlock = minor offense
+        2 => current_level,     // PlaceBlock = no offense
+        3 => current_level + 3, // EnterVehicle = grand theft auto!
+        _ => current_level,
+    }
 }
 #[cfg(kani)]
 mod verification {

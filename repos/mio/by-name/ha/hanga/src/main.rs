@@ -293,9 +293,21 @@ fn validate_incoming_actions(
                         )),
                     ));
 
-                    // GTA LOGIC: Vandalism detected! Increase wanted level and spawn cops!
-                    wanted_level.0 = (wanted_level.0 + 1).min(5);
-                    info!("CRIME REPORTED! Player {:?} Wanted Level is now {} stars!", player_entity, wanted_level.0);
+                    // Execute the WASM Mod's business logic for Wanted Level
+                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(calc_wanted) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "calculate_wanted_level") {
+                                if let Ok(new_level) = calc_wanted.call(&mut store, (1, wanted_level.0 as i32)) {
+                                    wanted_level.0 = (new_level as u8).min(5);
+                                    info!("WASM Mod evaluated CRIME! Wanted Level is now {} stars!", wanted_level.0);
+                                }
+                            }
+                        }
+                    } else {
+                        wanted_level.0 = (wanted_level.0 + 1).min(5);
+                        info!("CRIME REPORTED (Fallback)! Player {:?} Wanted Level is now {} stars!", player_entity, wanted_level.0);
+                    }
                     
                     // Spawn a cop to chase the player
                     if wanted_level.0 > 0 {
@@ -320,7 +332,7 @@ fn validate_incoming_actions(
             }
             &ProposedAction::PlaceBlock { player_entity, voxel_pos, voxel_type } => {
                 // VERIFICATION RULE 1: Does the player actually exist?
-                if let Ok((transform, _)) = player_query.get_mut(player_entity) {
+                if let Ok((transform, mut wanted_level)) = player_query.get_mut(player_entity) {
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
@@ -340,15 +352,43 @@ fn validate_incoming_actions(
                     
                     // Add the voxel to the world
                     voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(voxel_type));
+                    
+                    // WASM logic for Wanted Level
+                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(calc_wanted) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "calculate_wanted_level") {
+                                if let Ok(new_level) = calc_wanted.call(&mut store, (2, wanted_level.0 as i32)) {
+                                    wanted_level.0 = (new_level as u8).min(5);
+                                }
+                            }
+                        }
+                    }
                 } else {
                     trust_ledger.penalize(player_entity, 1.0); 
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
                 }
             }
             &ProposedAction::EnterVehicle { player_entity, vehicle_entity } => {
-                if let Ok((transform, _)) = player_query.get_mut(player_entity) {
+                if let Ok((_transform, mut wanted_level)) = player_query.get_mut(player_entity) {
                     commands.entity(player_entity).insert(InVehicle(vehicle_entity));
                     info!("Player {:?} entered vehicle {:?}", player_entity, vehicle_entity);
+                    
+                    // WASM logic for Wanted Level
+                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(calc_wanted) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "calculate_wanted_level") {
+                                if let Ok(new_level) = calc_wanted.call(&mut store, (3, wanted_level.0 as i32)) {
+                                    wanted_level.0 = (new_level as u8).min(5);
+                                    info!("WASM Mod evaluated GRAND THEFT AUTO! Wanted Level is now {} stars!", wanted_level.0);
+                                }
+                            }
+                        }
+                    } else {
+                        wanted_level.0 = (wanted_level.0 + 3).min(5);
+                        info!("CRIME REPORTED (Fallback)! Player {:?} Wanted Level is now {} stars!", player_entity, wanted_level.0);
+                    }
                 }
             }
         }
@@ -478,20 +518,45 @@ fn init_city_simulation() {
     info!("Spawning NPC AI, traffic systems, and wanted level mechanics...");
 }
 
-/// Simple AI logic for cops to chase the player
+/// AI logic for cops to chase the player, entirely powered by the WASM mod!
 fn cop_ai_chase(
     mut cops: Query<(&Transform, &mut LinearVelocity), With<CopAi>>,
     players: Query<&Transform, (With<Player>, Without<CopAi>)>,
 ) {
     if let Some(player_transform) = players.iter().next() {
         let p_pos = player_transform.translation;
-        for (cop_transform, mut velocity) in cops.iter_mut() {
-            let c_pos = cop_transform.translation;
-            let dir = (p_pos - c_pos).normalize_or_zero();
-            
-            // Move towards player along X and Z
-            velocity.x = dir.x * 5.0; // 5 m/s chase speed
-            velocity.z = dir.z * 5.0;
+        
+        // Grab the WASM Engine and Module from the globals
+        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+            // In a production engine, this Store & Instance would be heavily cached per-thread.
+            // For the prototype boundary test, we instantiate it here.
+            let mut store = Store::new(engine, ());
+            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                if let (Ok(compute_vx), Ok(compute_vz)) = (
+                    instance.get_typed_func::<(f32, f32, f32, f32), f32>(&mut store, "compute_cop_vx"),
+                    instance.get_typed_func::<(f32, f32, f32, f32), f32>(&mut store, "compute_cop_vz")
+                ) {
+                    for (cop_transform, mut velocity) in cops.iter_mut() {
+                        let c_pos = cop_transform.translation;
+                        
+                        // Execute the WASM Mod's business logic
+                        if let Ok(vx) = compute_vx.call(&mut store, (c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
+                            velocity.x = vx;
+                        }
+                        if let Ok(vz) = compute_vz.call(&mut store, (c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
+                            velocity.z = vz;
+                        }
+                    }
+                }
+            }
+        } else {
+            // Fallback if WASM is not loaded yet
+            for (cop_transform, mut velocity) in cops.iter_mut() {
+                let c_pos = cop_transform.translation;
+                let dir = (p_pos - c_pos).normalize_or_zero();
+                velocity.x = dir.x * 5.0;
+                velocity.z = dir.z * 5.0;
+            }
         }
     }
 }
