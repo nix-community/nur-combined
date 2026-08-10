@@ -22,12 +22,18 @@ let
     }
   ) { };
 
-  rustNightlyVersion = "2023-08-18";
+  rustNightlyVersion = "2023-10-01";
 
   # drg-mint-notag pins `nightly-2023-08-18` (see upstream rust-toolchain.toml) and hasn't been
   # updated since. That date has been pruned from the manifests bundled with the rust-overlay
   # subtree above (it only keeps ~2 years of nightlies), so build the toolchain straight from
   # the (permanently archived) upstream rustup manifest instead of `rust-bin.nightly.<date>`.
+  #
+  # Slightly newer than the pinned date: some dependencies (e.g. `termtree` 0.5.1) require
+  # rustc >= 1.74, while nightly-2023-08-18 is still 1.73.0-nightly. This is the *last* nightly
+  # of the 1.74 cycle on purpose: crates that feature-detect via the reported version (serde's
+  # build script and friends) assume everything stabilized in 1.74 is present, which only holds
+  # near the end of the cycle.
   #
   # Uses `builtins.fetchurl` (not `pkgs.fetchurl`) on purpose: `buildRustPackage` forces
   # `rustc.targetPlatforms` just to compute `meta.platforms`, so anything that reads this
@@ -40,7 +46,7 @@ let
     builtins.readFile (
       builtins.fetchurl {
         url = "https://static.rust-lang.org/dist/${rustNightlyVersion}/channel-rust-nightly.toml";
-        sha256 = "sha256-5MYkrP1Q3Wz2BoBd/+FpAGlmgAbW9YGBCIYWUpDgs38=";
+        sha256 = "sha256-aMPg5IYBoK4GAqa0/6axConww2zDJUxU1aQIOq7Da9I=";
       }
     )
   );
@@ -79,16 +85,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "drg-mint-notag";
-  version = "0.3.3";
+  version = "0.3.4";
 
   src = fetchFromGitHub {
     owner = "Strappazzon";
     repo = "drg-mint-notag";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+iOQ544UIXNpXZWeof49F3m9byeXwJKAui7JIsRWKHA=";
+    hash = "sha256-hXMMxryQb/pzuHUdJ0NyyUPb51omYdGYV8hItIOFT9w=";
   };
 
-  cargoHash = "sha256-X3y7X9jh8XjSTu3ErFto7Kk+nZc5//8pAmbhfVDgHJc=";
+  cargoHash = "sha256-QGjZLgEDf4QtpRjJRCEfBukVEeQcCDgvQDWM/HZB6vE=";
 
   env = {
     # Necessary for cross compiled build scripts, otherwise it will build as ELF format
