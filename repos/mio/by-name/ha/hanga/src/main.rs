@@ -547,11 +547,40 @@ pub struct GtaPlugin;
 impl Plugin for GtaPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_city_simulation);
-        app.add_systems(Update, cop_ai_chase);
+        app.add_systems(Update, (cop_ai_chase, vehicle_collision_damage));
     }
 }
 fn init_city_simulation() {
     info!("Spawning NPC AI, traffic systems, and wanted level mechanics...");
+}
+
+fn vehicle_collision_damage(
+    mut events: MessageWriter<ProposedAction>,
+    query: Query<(Entity, &Transform, &LinearVelocity, Option<&InVehicle>), With<Player>>,
+    voxel_world: VoxelWorld<DefaultWorld>,
+) {
+    for (player_entity, transform, velocity, in_vehicle) in query.iter() {
+        if in_vehicle.is_some() {
+            let speed = velocity.length();
+            if speed > 15.0 {
+                let dir = velocity.normalize_or_zero();
+                if dir == Vec3::ZERO { continue; }
+                
+                // Raycast ahead of the vehicle to find blocks to destroy
+                for i in 2..=4 {
+                    let check_pos = transform.translation + dir * (i as f32);
+                    let voxel_pos = IVec3::new(check_pos.x.round() as i32, check_pos.y.round() as i32, check_pos.z.round() as i32);
+                    if voxel_world.get_voxel(voxel_pos) != WorldVoxel::Unset {
+                        events.write(ProposedAction::BreakBlock {
+                            player_entity,
+                            voxel_pos,
+                        });
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /// AI logic for cops to chase the player, entirely powered by the WASM mod!
