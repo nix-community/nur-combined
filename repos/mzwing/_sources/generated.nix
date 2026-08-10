@@ -73,6 +73,17 @@
       sha256 = "sha256-be4ybYX1BepEJ6T2ORHsC523jdzq6Oy/u6LD1zw6iNU=";
     };
   };
+  haru = {
+    pname = "haru";
+    version = "v1.0.3";
+    src = fetchFromGitHub {
+      owner = "HyacinthHaru";
+      repo = "haru";
+      rev = "v1.0.3";
+      fetchSubmodules = false;
+      sha256 = "sha256-2GZI13CtMYIW4ycurDpIfLeG3YLxy3nhLFptRlCqMj8=";
+    };
+  };
   hfd = {
     pname = "hfd";
     version = "dcc19a065877cb1c75d22b7c5662845e8c8df203";
