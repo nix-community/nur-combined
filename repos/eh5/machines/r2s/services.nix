@@ -25,10 +25,10 @@ in
       # "command_line"
       "template"
       "profiler"
+      "midea"
     ];
     customComponents =
       (with pkgs.home-assistant-custom-components; [
-        midea_ac_lan
       ])
       ++ (with pkgs; [ home-assistant-heweather ]);
   };
@@ -38,16 +38,15 @@ in
     "script ui" = "!include scripts.yaml";
   };
 
-  services.home-assistant.package =
-    (pkgs.home-assistant.overrideAttrs (_: {
-      doInstallCheck = false;
-    })).override
-      {
-        packageOverrides = final: prev: {
-          paho-mqtt = prev.paho-mqtt.overridePythonAttrs {
-            doCheck = false;
-          };
-        };
-      };
-
+  # services.home-assistant.package =
+  #   (pkgs.home-assistant.overrideAttrs (_: {
+  #     doInstallCheck = false;
+  #   })).override
+  #     {
+  #       packageOverrides = final: prev: {
+  #         paho-mqtt = prev.paho-mqtt.overridePythonAttrs {
+  #           doCheck = false;
+  #         };
+  #       };
+  #     };
 }
