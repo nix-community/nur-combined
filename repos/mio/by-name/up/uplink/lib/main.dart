@@ -205,10 +205,27 @@ class _MyHomePageState extends State<MyHomePage> {
                             color: Colors.blue.withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: SelectableText(
-                            _status, 
-                            style: const TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.w500),
-                            textAlign: TextAlign.center,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: SelectableText(
+                                  _status, 
+                                  style: const TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.w500),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                              if (_status.startsWith('http'))
+                                IconButton(
+                                  icon: const Icon(Icons.copy, color: Colors.blue),
+                                  tooltip: 'Copy link',
+                                  onPressed: () {
+                                    Clipboard.setData(ClipboardData(text: _status));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(content: Text('Link copied to clipboard!')),
+                                    );
+                                  },
+                                ),
+                            ],
                           ),
                         ),
                       ],
