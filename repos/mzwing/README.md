@@ -14,6 +14,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
 | `gryph` | [Usage](https://github.com/safedep/gryph) |
+| `hfd` | [Usage](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) |
 | `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
 | `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |

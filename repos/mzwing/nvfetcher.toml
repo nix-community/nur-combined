@@ -28,6 +28,11 @@ fetch.github = "safedep/gryph"
 src.github_tag = "safedep/gryph"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[hfd]
+src.git = "https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f.git"
+src.branch = "main"
+fetch.git = "https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f.git"
+
 [pumpkin]
 src.git = "https://github.com/Pumpkin-MC/Pumpkin"
 src.branch = "master"
