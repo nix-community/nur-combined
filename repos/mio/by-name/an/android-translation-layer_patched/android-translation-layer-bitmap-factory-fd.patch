@@ -1,0 +1,36 @@
+--- a/src/api-impl/android/graphics/BitmapFactory.java	2026-08-08 19:49:50.681553623 +1000
++++ b/src/api-impl/android/graphics/BitmapFactory.java	2026-08-10 11:32:30.289829107 +1000
+@@ -18,7 +18,10 @@
+ 
+ import android.content.res.Resources;
+ import android.content.res.Resources.NotFoundException;
++import android.os.Build;
+ import android.os.Trace;
++import android.system.Os;
++import android.system.OsConstants;
+ import android.util.DisplayMetrics;
+ import android.util.Log;
+ import android.util.TypedValue;
+@@ -636,13 +639,19 @@
+ 			//if (nativeIsSeekable(fd)) {
+ 			//	bm = nativeDecodeFileDescriptor(fd, outPadding, opts);
+ 			//} else {
++			long currentOffset = -1;
++			try {
++				currentOffset = android.system.Os.lseek(fd, 0, android.system.OsConstants.SEEK_CUR);
++			} catch (Throwable t) { /* ignore */ }
++
+ 			FileInputStream fis = new FileInputStream(fd);
+ 			try {
+ 				bm = decodeStreamInternal(fis, outPadding, opts);
+ 			} finally {
+-				try {
+-					fis.close();
+-				} catch (Throwable t) { /* ignore */
++				if (currentOffset != -1) {
++					try {
++						android.system.Os.lseek(fd, currentOffset, android.system.OsConstants.SEEK_SET);
++					} catch (Throwable t) { /* ignore */ }
+ 				}
+ 			}
+ 			//}

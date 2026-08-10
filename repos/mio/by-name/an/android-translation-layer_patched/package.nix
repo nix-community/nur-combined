@@ -4,12 +4,16 @@
   cacert,
   webp-pixbuf-loader,
   fetchpatch,
+  wrapGAppsHook4,
 }:
 
 (android-translation-layer.override {
   art-standalone = art-standalone_patched;
 }).overrideAttrs
   (old: {
+    nativeBuildInputs = (old.nativeBuildInputs or [ ]) ++ [
+      wrapGAppsHook4
+    ];
     buildInputs = (old.buildInputs or [ ]) ++ [
       webp-pixbuf-loader
     ];
@@ -40,6 +44,7 @@
       ./android-translation-layer-drawlines-bounds.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
       ./android-translation-layer-bitmap-factory-null-pixbuf.patch
+      ./android-translation-layer-bitmap-factory-fd.patch
       ./android-translation-layer-color-state-list-magenta.patch
       ./android-translation-layer-paint-color-filter-matrix.patch
       ./android-translation-layer-cairo-fallback.patch

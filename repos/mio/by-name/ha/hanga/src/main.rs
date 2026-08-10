@@ -399,20 +399,26 @@ fn validate_incoming_actions(
 fn player_movement(
     keyboard_input: Res<ButtonInput<KeyCode>>,
     mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
-    mut vehicles: Query<(&Transform, &mut LinearVelocity), (With<Vehicle>, Without<Player>)>,
+    mut vehicles: Query<(&Transform, &mut LinearVelocity, &mut AngularVelocity), (With<Vehicle>, Without<Player>)>,
 ) {
     if let Some((mut player_transform, mut player_velocity, in_vehicle)) = players.iter_mut().next() {
         let mut direction = Vec3::ZERO;
+        let mut rotation_y = 0.0;
         
-        let (forward, right, mut target_velocity, v_pos) = if let Some(InVehicle(vehicle_entity)) = in_vehicle {
-            if let Ok((v_transform, v_velocity)) = vehicles.get_mut(*vehicle_entity) {
-                (v_transform.forward(), v_transform.right(), Some(v_velocity), Some(v_transform.translation))
+        let mut target_vehicle: Option<(&mut LinearVelocity, &mut AngularVelocity, Vec3)> = None;
+        let forward = if let Some(InVehicle(vehicle_entity)) = in_vehicle {
+            if let Ok((v_transform, v_velocity, v_angular)) = vehicles.get_mut(*vehicle_entity) {
+                let fwd = v_transform.forward();
+                target_vehicle = Some((v_velocity, v_angular, v_transform.translation));
+                fwd
             } else {
-                (player_transform.forward(), player_transform.right(), None, None)
+                player_transform.forward()
             }
         } else {
-            (player_transform.forward(), player_transform.right(), None, None)
+            player_transform.forward()
         };
+
+        let right = player_transform.right();
 
         if keyboard_input.pressed(KeyCode::KeyW) {
             direction += *forward;
@@ -421,38 +427,50 @@ fn player_movement(
             direction -= *forward;
         }
         if keyboard_input.pressed(KeyCode::KeyD) {
-            direction += *right;
+            if target_vehicle.is_some() {
+                rotation_y -= 1.0; // Steer right
+            } else {
+                direction += *right;
+            }
         }
         if keyboard_input.pressed(KeyCode::KeyA) {
-            direction -= *right;
+            if target_vehicle.is_some() {
+                rotation_y += 1.0; // Steer left
+            } else {
+                direction -= *right;
+            }
         }
 
         // Flatten movement to XZ plane
         direction.y = 0.0;
         let direction = direction.normalize_or_zero();
         
-        let speed = if in_vehicle.is_some() { 25.0 } else { 10.0 }; // Vehicles are faster!
-        
         // Apply movement velocity, keeping existing gravity (y-axis)
-        if let Some(mut v_vel) = target_velocity {
+        if let Some((mut v_vel, mut v_ang, v_pos)) = target_vehicle {
+            let speed = 25.0; // Vehicles are faster!
             v_vel.x = direction.x * speed;
             v_vel.z = direction.z * speed;
+            v_ang.y = rotation_y * 2.0; // Apply steering rotation
             
             // Sync player position and velocity to match the vehicle (for the camera)
-            if let Some(pos) = v_pos {
-                player_transform.translation = pos;
-            }
+            player_transform.translation = v_pos;
             player_velocity.x = v_vel.x;
             player_velocity.z = v_vel.z;
             player_velocity.y = v_vel.y;
         } else {
+            let speed = 10.0;
             player_velocity.x = direction.x * speed;
             player_velocity.z = direction.z * speed;
+            
+            // Player turning camera is usually handled by mouse look, so we just let them strafe with A/D on foot.
             
             // Simple jump (only when on foot)
             if keyboard_input.just_pressed(KeyCode::Space) {
                 player_velocity.y = 5.0;
             }
+        }
+    }
+}
         }
     }
 }
