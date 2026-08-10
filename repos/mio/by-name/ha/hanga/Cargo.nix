@@ -4597,7 +4597,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand";
+            packageId = "rand 0.10.2";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -4636,7 +4636,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand";
+            packageId = "rand 0.10.2";
           }
         ];
         features = {
@@ -7023,7 +7023,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand";
+            packageId = "rand 0.10.2";
           }
           {
             name = "weak-table";
@@ -7373,7 +7373,30 @@ rec {
         };
         resolvedDefaultFeatures = [ "default" "serialize" ];
       };
-      "bit-set" = rec {
+      "bit-set 0.8.0" = rec {
+        crateName = "bit-set";
+        version = "0.8.0";
+        edition = "2015";
+        sha256 = "18riaa10s6n59n39vix0cr7l2dgwdhcpbcm97x1xbyfp1q47x008";
+        libName = "bit_set";
+        authors = [
+          "Alexis Beingessner <a.beingessner@gmail.com>"
+        ];
+        dependencies = [
+          {
+            name = "bit-vec";
+            packageId = "bit-vec 0.8.0";
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "default" = [ "std" ];
+          "serde" = [ "dep:serde" "bit-vec/serde" ];
+          "std" = [ "bit-vec/std" ];
+        };
+        resolvedDefaultFeatures = [ "default" "std" ];
+      };
+      "bit-set 0.9.1" = rec {
         crateName = "bit-set";
         version = "0.9.1";
         edition = "2021";
@@ -7385,7 +7408,7 @@ rec {
         dependencies = [
           {
             name = "bit-vec";
-            packageId = "bit-vec";
+            packageId = "bit-vec 0.9.1";
             usesDefaultFeatures = false;
           }
         ];
@@ -7400,7 +7423,28 @@ rec {
           "std" = [ "bit-vec/std" ];
         };
       };
-      "bit-vec" = rec {
+      "bit-vec 0.8.0" = rec {
+        crateName = "bit-vec";
+        version = "0.8.0";
+        edition = "2015";
+        sha256 = "1xxa1s2cj291r7k1whbxq840jxvmdsq9xgh7bvrxl46m80fllxjy";
+        libName = "bit_vec";
+        authors = [
+          "Alexis Beingessner <a.beingessner@gmail.com>"
+        ];
+        features = {
+          "borsh" = [ "dep:borsh" ];
+          "borsh_std" = [ "borsh/std" ];
+          "default" = [ "std" ];
+          "miniserde" = [ "dep:miniserde" ];
+          "nanoserde" = [ "dep:nanoserde" ];
+          "serde" = [ "dep:serde" ];
+          "serde_no_std" = [ "serde/alloc" ];
+          "serde_std" = [ "std" "serde/std" ];
+        };
+        resolvedDefaultFeatures = [ "default" "std" ];
+      };
+      "bit-vec 0.9.1" = rec {
         crateName = "bit-vec";
         version = "0.9.1";
         edition = "2021";
@@ -7982,7 +8026,7 @@ rec {
           }
           {
             name = "rand_core";
-            packageId = "rand_core";
+            packageId = "rand_core 0.10.1";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -11226,6 +11270,7 @@ rec {
         features = {
           "wasm_js" = [ "dep:wasm-bindgen" "dep:js-sys" ];
         };
+        resolvedDefaultFeatures = [ "std" ];
       };
       "getrandom 0.4.3" = rec {
         crateName = "getrandom";
@@ -11303,7 +11348,7 @@ rec {
           }
           {
             name = "rand_core";
-            packageId = "rand_core";
+            packageId = "rand_core 0.10.1";
             optional = true;
           }
           {
@@ -11590,7 +11635,7 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand";
+            packageId = "rand 0.10.2";
             optional = true;
             usesDefaultFeatures = false;
           }
@@ -12179,6 +12224,10 @@ rec {
           {
             name = "kani";
             packageId = "kani";
+          }
+          {
+            name = "proptest";
+            packageId = "proptest";
           }
         ];
 
@@ -14176,7 +14225,7 @@ rec {
           }
           {
             name = "bit-set";
-            packageId = "bit-set";
+            packageId = "bit-set 0.9.1";
             usesDefaultFeatures = false;
           }
           {
@@ -18460,6 +18509,27 @@ rec {
         ];
 
       };
+      "ppv-lite86" = rec {
+        crateName = "ppv-lite86";
+        version = "0.2.21";
+        edition = "2021";
+        sha256 = "1abxx6qz5qnd43br1dd9b2savpihzjza8gb4fbzdql1gxp2f7sl5";
+        libName = "ppv_lite86";
+        authors = [
+          "The CryptoCorrosion Contributors"
+        ];
+        dependencies = [
+          {
+            name = "zerocopy";
+            packageId = "zerocopy";
+            features = [ "simd" ];
+          }
+        ];
+        features = {
+          "default" = [ "std" ];
+        };
+        resolvedDefaultFeatures = [ "simd" "std" ];
+      };
       "presser" = rec {
         crateName = "presser";
         version = "0.3.1";
@@ -18609,6 +18679,90 @@ rec {
           "tracy-client" = [ "dep:tracy-client" ];
         };
       };
+      "proptest" = rec {
+        crateName = "proptest";
+        version = "1.11.0";
+        edition = "2021";
+        sha256 = "0i27rr5drw4ic8hjzx6i1c6q8s7kmsgpfmzy4m80ys2c6k1gqiab";
+        authors = [
+          "Jason Lingle"
+        ];
+        dependencies = [
+          {
+            name = "bit-set";
+            packageId = "bit-set 0.8.0";
+            optional = true;
+          }
+          {
+            name = "bit-vec";
+            packageId = "bit-vec 0.8.0";
+            optional = true;
+          }
+          {
+            name = "bitflags";
+            packageId = "bitflags 2.13.1";
+          }
+          {
+            name = "num-traits";
+            packageId = "num-traits";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "rand";
+            packageId = "rand 0.9.5";
+            usesDefaultFeatures = false;
+            features = [ "alloc" ];
+          }
+          {
+            name = "rand_chacha";
+            packageId = "rand_chacha";
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "rand_xorshift";
+            packageId = "rand_xorshift";
+          }
+          {
+            name = "regex-syntax";
+            packageId = "regex-syntax";
+            optional = true;
+          }
+          {
+            name = "rusty-fork";
+            packageId = "rusty-fork";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "tempfile";
+            packageId = "tempfile";
+            optional = true;
+          }
+          {
+            name = "unarray";
+            packageId = "unarray";
+          }
+        ];
+        features = {
+          "attr-macro" = [ "proptest-macro" ];
+          "bit-set" = [ "dep:bit-set" "dep:bit-vec" ];
+          "default" = [ "std" "fork" "timeout" "bit-set" ];
+          "default-code-coverage" = [ "std" "fork" "timeout" "bit-set" ];
+          "fork" = [ "std" "rusty-fork" "tempfile" ];
+          "handle-panics" = [ "std" ];
+          "hardware-rng" = [ "x86" ];
+          "no_std" = [ "num-traits/libm" ];
+          "proptest-macro" = [ "dep:proptest-macro" ];
+          "regex-syntax" = [ "dep:regex-syntax" ];
+          "rusty-fork" = [ "dep:rusty-fork" ];
+          "std" = [ "rand/std" "rand/os_rng" "regex-syntax" "num-traits/std" ];
+          "tempfile" = [ "dep:tempfile" ];
+          "timeout" = [ "fork" "rusty-fork/timeout" ];
+          "unstable" = [ "f16" ];
+          "x86" = [ "dep:x86" ];
+        };
+        resolvedDefaultFeatures = [ "bit-set" "default" "fork" "regex-syntax" "rusty-fork" "std" "tempfile" "timeout" ];
+      };
       "pulley-interpreter" = rec {
         crateName = "pulley-interpreter";
         version = "47.0.3";
@@ -18679,6 +18833,18 @@ rec {
         sha256 = "1slrnbxd0nc96sny6x50ss1sm9ci0gig0fp1w8mw0pkgm5prapfm";
         authors = [
           "Radzivon Bartoshyk"
+        ];
+
+      };
+      "quick-error" = rec {
+        crateName = "quick-error";
+        version = "1.2.3";
+        edition = "2015";
+        sha256 = "1q6za3v78hsspisc197bg3g7rpc989qycy8ypr8ap8igv10ikl51";
+        libName = "quick_error";
+        authors = [
+          "Paul Colomiets <paul@colomiets.name>"
+          "Colin Kiegel <kiegel@gmx.de>"
         ];
 
       };
@@ -18761,7 +18927,7 @@ rec {
         ];
 
       };
-      "rand" = rec {
+      "rand 0.10.2" = rec {
         crateName = "rand";
         version = "0.10.2";
         edition = "2024";
@@ -18785,7 +18951,7 @@ rec {
           }
           {
             name = "rand_core";
-            packageId = "rand_core";
+            packageId = "rand_core 0.10.1";
             usesDefaultFeatures = false;
           }
         ];
@@ -18800,7 +18966,76 @@ rec {
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" "std_rng" "sys_rng" "thread_rng" ];
       };
-      "rand_core" = rec {
+      "rand 0.9.5" = rec {
+        crateName = "rand";
+        version = "0.9.5";
+        edition = "2021";
+        sha256 = "0hbvllk8g28mqjld6hqmckk69w296qpzg95whm3didsyg46ivvxr";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
+        dependencies = [
+          {
+            name = "rand_chacha";
+            packageId = "rand_chacha";
+            optional = true;
+            usesDefaultFeatures = false;
+          }
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.9.5";
+            usesDefaultFeatures = false;
+          }
+        ];
+        features = {
+          "default" = [ "std" "std_rng" "os_rng" "small_rng" "thread_rng" ];
+          "os_rng" = [ "rand_core/os_rng" ];
+          "serde" = [ "dep:serde" "rand_core/serde" ];
+          "std" = [ "rand_core/std" "rand_chacha?/std" "alloc" ];
+          "std_rng" = [ "dep:rand_chacha" ];
+          "thread_rng" = [ "std" "std_rng" "os_rng" ];
+        };
+        resolvedDefaultFeatures = [ "alloc" "os_rng" "std" ];
+      };
+      "rand_chacha" = rec {
+        crateName = "rand_chacha";
+        version = "0.9.0";
+        edition = "2021";
+        sha256 = "1jr5ygix7r60pz0s1cv3ms1f6pd1i9pcdmnxzzhjc3zn3mgjn0nk";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+          "The CryptoCorrosion Contributors"
+        ];
+        dependencies = [
+          {
+            name = "ppv-lite86";
+            packageId = "ppv-lite86";
+            usesDefaultFeatures = false;
+            features = [ "simd" ];
+          }
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.9.5";
+          }
+        ];
+        devDependencies = [
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.9.5";
+            features = [ "os_rng" ];
+          }
+        ];
+        features = {
+          "default" = [ "std" ];
+          "os_rng" = [ "rand_core/os_rng" ];
+          "serde" = [ "dep:serde" ];
+          "std" = [ "ppv-lite86/std" "rand_core/std" ];
+        };
+        resolvedDefaultFeatures = [ "std" ];
+      };
+      "rand_core 0.10.1" = rec {
         crateName = "rand_core";
         version = "0.10.1";
         edition = "2024";
@@ -18809,6 +19044,29 @@ rec {
           "The Rand Project Developers"
         ];
 
+      };
+      "rand_core 0.9.5" = rec {
+        crateName = "rand_core";
+        version = "0.9.5";
+        edition = "2021";
+        sha256 = "0g6qc5r3f0hdmz9b11nripyp9qqrzb0xqk9piip8w8qlvqkcibvn";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
+        dependencies = [
+          {
+            name = "getrandom";
+            packageId = "getrandom 0.3.4";
+            optional = true;
+          }
+        ];
+        features = {
+          "os_rng" = [ "dep:getrandom" ];
+          "serde" = [ "dep:serde" ];
+          "std" = [ "getrandom?/std" ];
+        };
+        resolvedDefaultFeatures = [ "os_rng" "std" ];
       };
       "rand_distr" = rec {
         crateName = "rand_distr";
@@ -18827,14 +19085,14 @@ rec {
           }
           {
             name = "rand";
-            packageId = "rand";
+            packageId = "rand 0.10.2";
             usesDefaultFeatures = false;
           }
         ];
         devDependencies = [
           {
             name = "rand";
-            packageId = "rand";
+            packageId = "rand 0.10.2";
           }
         ];
         features = {
@@ -18845,6 +19103,25 @@ rec {
           "std_math" = [ "num-traits/std" ];
         };
         resolvedDefaultFeatures = [ "alloc" "default" "std" ];
+      };
+      "rand_xorshift" = rec {
+        crateName = "rand_xorshift";
+        version = "0.4.0";
+        edition = "2021";
+        sha256 = "0njsn25pis742gb6b89cpq7jp48v9n23a9fvks10yczwks8n4fai";
+        authors = [
+          "The Rand Project Developers"
+          "The Rust Project Developers"
+        ];
+        dependencies = [
+          {
+            name = "rand_core";
+            packageId = "rand_core 0.9.5";
+          }
+        ];
+        features = {
+          "serde" = [ "dep:serde" ];
+        };
       };
       "range-alloc" = rec {
         crateName = "range-alloc";
@@ -19857,6 +20134,41 @@ rec {
           "David Tolnay <dtolnay@gmail.com>"
         ];
 
+      };
+      "rusty-fork" = rec {
+        crateName = "rusty-fork";
+        version = "0.3.1";
+        edition = "2018";
+        sha256 = "1qkf9rvz2irb1wlbkrhrns8n9hnax48z1lgql5nqyr2fyagzfsyc";
+        libName = "rusty_fork";
+        authors = [
+          "Jason Lingle"
+        ];
+        dependencies = [
+          {
+            name = "fnv";
+            packageId = "fnv";
+          }
+          {
+            name = "quick-error";
+            packageId = "quick-error";
+          }
+          {
+            name = "tempfile";
+            packageId = "tempfile";
+          }
+          {
+            name = "wait-timeout";
+            packageId = "wait-timeout";
+            optional = true;
+          }
+        ];
+        features = {
+          "default" = [ "timeout" ];
+          "timeout" = [ "wait-timeout" ];
+          "wait-timeout" = [ "dep:wait-timeout" ];
+        };
+        resolvedDefaultFeatures = [ "timeout" "wait-timeout" ];
       };
       "ruzstd" = rec {
         crateName = "ruzstd";
@@ -22060,6 +22372,13 @@ rec {
           "typewit_proc_macros" = [ "dep:typewit_proc_macros" ];
         };
       };
+      "unarray" = rec {
+        crateName = "unarray";
+        version = "0.1.4";
+        edition = "2018";
+        sha256 = "154smf048k84prsdgh09nkm2n0w0336v84jd4zikyn6v6jrqbspa";
+
+      };
       "unicode-ident" = rec {
         crateName = "unicode-ident";
         version = "1.0.24";
@@ -22318,6 +22637,25 @@ rec {
           "voracious_multithread" = [ "rayon" ];
         };
         resolvedDefaultFeatures = [ "rayon" "voracious_multithread" ];
+      };
+      "wait-timeout" = rec {
+        crateName = "wait-timeout";
+        version = "0.2.1";
+        edition = "2015";
+        crateBin = [];
+        sha256 = "04azqv9mnfxgvnc8j2wp362xraybakh2dy1nj22gj51rdl93pb09";
+        libName = "wait_timeout";
+        authors = [
+          "Alex Crichton <alex@alexcrichton.com>"
+        ];
+        dependencies = [
+          {
+            name = "libc";
+            packageId = "libc";
+            target = { target, features }: (target."unix" or false);
+          }
+        ];
+
       };
       "walkdir" = rec {
         crateName = "walkdir";
@@ -24981,12 +25319,12 @@ rec {
           }
           {
             name = "bit-set";
-            packageId = "bit-set";
+            packageId = "bit-set 0.9.1";
             usesDefaultFeatures = false;
           }
           {
             name = "bit-vec";
-            packageId = "bit-vec";
+            packageId = "bit-vec 0.9.1";
             usesDefaultFeatures = false;
           }
           {
@@ -25227,7 +25565,7 @@ rec {
           }
           {
             name = "bit-set";
-            packageId = "bit-set";
+            packageId = "bit-set 0.9.1";
             optional = true;
             usesDefaultFeatures = false;
             target = { target, features }: (target."windows" or false);

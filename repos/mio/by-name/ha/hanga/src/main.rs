@@ -167,7 +167,13 @@ struct AgentObservation {
 }
 
 #[derive(Component)]
-struct Player;
+pub struct Player;
+
+#[derive(Component)]
+pub struct WantedLevel(pub u8);
+
+#[derive(Component)]
+pub struct CopAi;
 
 /// Represents an optimistic action broadcasted by a P2P client over WebRTC
 #[derive(Message, Debug)]
@@ -194,6 +200,7 @@ fn setup(mut commands: Commands) {
         AngularVelocity::default(),
         // Lock rotations so the capsule doesn't tip over
         LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+        WantedLevel(0), // GTA Wanted Level starts at 0
     ));
 }
 
@@ -211,7 +218,7 @@ pub fn is_action_physically_possible(px: f32, py: f32, pz: f32, tx: f32, ty: f32
 fn validate_incoming_actions(
     mut commands: Commands,
     mut events: MessageReader<ProposedAction>,
-    player_query: Query<&Transform, With<Player>>,
+    mut player_query: Query<(&Transform, &mut WantedLevel), With<Player>>,
     mut voxel_world: VoxelWorld<DefaultWorld>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
@@ -221,7 +228,7 @@ fn validate_incoming_actions(
         match action {
             &ProposedAction::BreakBlock { player_entity, voxel_pos } => {
                 // VERIFICATION RULE 1: Does the player actually exist?
-                if let Ok(transform) = player_query.get(player_entity) {
+                if let Ok((transform, mut wanted_level)) = player_query.get_mut(player_entity) {
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
@@ -252,11 +259,31 @@ fn validate_incoming_actions(
                         Collider::cuboid(1.0, 1.0, 1.0),
                         // Give it a tiny push outwards
                         LinearVelocity(Vec3::new(
-                            (target_pos.x - player_pos.x).signum() * 5.0,
-                            2.0,
-                            (target_pos.z - player_pos.z).signum() * 5.0
+                            (player_pos.x - target_pos.x) * -2.0,
+                            5.0,
+                            (player_pos.z - target_pos.z) * -2.0,
                         )),
                     ));
+
+                    // GTA LOGIC: Vandalism detected! Increase wanted level and spawn cops!
+                    wanted_level.0 = (wanted_level.0 + 1).min(5);
+                    info!("CRIME REPORTED! Player {:?} Wanted Level is now {} stars!", player_entity, wanted_level.0);
+                    
+                    // Spawn a cop to chase the player
+                    if wanted_level.0 > 0 {
+                        let cop_pos = target_pos + Vec3::new(5.0, 2.0, 5.0); // Spawn nearby
+                        commands.spawn((
+                            Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                            MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))), // Blue cops
+                            Transform::from_translation(cop_pos),
+                            RigidBody::Dynamic,
+                            Collider::capsule(0.4, 1.0),
+                            LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                            LinearVelocity::default(),
+                            CopAi,
+                        ));
+                        info!("Cop dispatched to location {:?}", cop_pos);
+                    }
                 } else {
                     // Penalty for spoofing an entity ID
                     trust_ledger.penalize(player_entity, 1.0); 
@@ -383,10 +410,29 @@ pub struct GtaPlugin;
 impl Plugin for GtaPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_city_simulation);
+        app.add_systems(Update, cop_ai_chase);
     }
 }
 fn init_city_simulation() {
     info!("Spawning NPC AI, traffic systems, and wanted level mechanics...");
+}
+
+/// Simple AI logic for cops to chase the player
+fn cop_ai_chase(
+    mut cops: Query<(&Transform, &mut LinearVelocity), With<CopAi>>,
+    players: Query<&Transform, (With<Player>, Without<CopAi>)>,
+) {
+    if let Some(player_transform) = players.iter().next() {
+        let p_pos = player_transform.translation;
+        for (cop_transform, mut velocity) in cops.iter_mut() {
+            let c_pos = cop_transform.translation;
+            let dir = (p_pos - c_pos).normalize_or_zero();
+            
+            // Move towards player along X and Z
+            velocity.x = dir.x * 5.0; // 5 m/s chase speed
+            velocity.z = dir.z * 5.0;
+        }
+    }
 }
 
 // --- Distributed Multiplayer (P2P) ---
@@ -539,6 +585,53 @@ mod verification {
             assert!((px - tx).abs() <= max_dist, "X axis distance exceeded maximum");
             assert!((py - ty).abs() <= max_dist, "Y axis distance exceeded maximum");
             assert!((pz - tz).abs() <= max_dist, "Z axis distance exceeded maximum");
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use proptest::prelude::*;
+
+    proptest! {
+        #[test]
+        fn test_action_validator_distance(
+            px in -1000.0f32..1000.0,
+            py in -1000.0f32..1000.0,
+            pz in -1000.0f32..1000.0,
+            tx in -1000.0f32..1000.0,
+            ty in -1000.0f32..1000.0,
+            tz in -1000.0f32..1000.0,
+        ) {
+            let max_dist = 10.0;
+            let possible = is_action_physically_possible(px, py, pz, tx, ty, tz, max_dist);
+            
+            if possible {
+                // Property: If the Euclidean distance is valid, no individual axis 
+                // difference can be greater than the max distance.
+                assert!((px - tx).abs() <= max_dist, "X axis distance exceeded maximum");
+                assert!((py - ty).abs() <= max_dist, "Y axis distance exceeded maximum");
+                assert!((pz - tz).abs() <= max_dist, "Z axis distance exceeded maximum");
+            }
+        }
+        
+        #[test]
+        fn test_trust_ledger_penalization(
+            initial_score in 0.0f32..10.0,
+            penalty in 0.0f32..1.0,
+        ) {
+            let mut ledger = TrustLedger::default();
+            let entity = Entity::from_raw(42);
+            
+            // Set an initial score (simulate a peer that already has a score)
+            ledger.peer_scores.insert(entity, initial_score);
+            ledger.penalize(entity, penalty);
+            
+            let final_score = ledger.peer_scores.get(&entity).unwrap();
+            
+            // Property: The final score must exactly equal initial_score - penalty
+            prop_assert_eq!(*final_score, initial_score - penalty);
         }
     }
 }

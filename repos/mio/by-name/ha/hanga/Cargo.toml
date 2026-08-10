@@ -20,3 +20,4 @@ crossbeam-channel = "0.5.11"
 
 [dev-dependencies]
 kani = "0.0.1"
+proptest = "1.5.0"
