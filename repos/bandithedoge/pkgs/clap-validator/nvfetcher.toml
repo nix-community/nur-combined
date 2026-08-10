@@ -1,0 +1,4 @@
+[clap-validator]
+src.github = "free-audio/clap-validator"
+fetch.github = "free-audio/clap-validator"
+cargo_lock = ["Cargo.lock"]

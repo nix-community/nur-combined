@@ -1,0 +1,4 @@
+[clap-host]
+src.git = "https://github.com/free-audio/clap-host.git"
+fetch.git = "https://github.com/free-audio/clap-host.git"
+git.fetchSubmodules = true

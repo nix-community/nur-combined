@@ -1,0 +1,22 @@
+{
+    "clap-host": {
+        "cargoLock": null,
+        "date": "2026-06-18",
+        "extract": null,
+        "name": "clap-host",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "c8ce3ee3800fc605d31ffb077991004f26e8cb03",
+            "sha256": "sha256-5QHY967WeSJt0k5YKa8/qor9TGRh6b22yVeD+zCbb44=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://github.com/free-audio/clap-host.git"
+        },
+        "version": "c8ce3ee3800fc605d31ffb077991004f26e8cb03"
+    }
+}
