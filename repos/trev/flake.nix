@@ -101,17 +101,20 @@
           default = pkgs.mkShell {
             shellHook = (pkgs.callPackage ./packages/shellhook { }).ref;
             packages = with pkgs; [
-              # lint
-              nil
+              # nix
               nixd
+              nixfmt
+
+              # shell
               shellcheck
 
-              # format
-              nixfmt
-              oxfmt
-              treefmt
+              vscode-json-languageserver # json
+              yaml-language-server # yaml
+              tombi # toml
+              oxfmt # format
 
               # util
+              treefmt
               nix-init
               nix-update
               gh
