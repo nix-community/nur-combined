@@ -3,6 +3,7 @@
   art-standalone_patched,
   cacert,
   webp-pixbuf-loader,
+  gdk-pixbuf,
   fetchpatch,
   wrapGAppsHook4,
 }:
@@ -63,7 +64,11 @@
       ln -s ${cacert.unbundled}/etc/ssl/certs $out/etc/security/cacerts
     '';
     postFixup = (old.postFixup or "") + ''
+      mkdir -p $out/lib/gdk-pixbuf-2.0/2.10.0
+      GDK_PIXBUF_MODULEDIR=${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+
       wrapProgram $out/bin/android-translation-layer \
-        --set ANDROID_ROOT $out
+        --set ANDROID_ROOT $out \
+        --set GDK_PIXBUF_MODULE_FILE $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
     '';
   })
