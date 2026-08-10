@@ -15,4 +15,5 @@
   overlays = import ./overlays; # nixpkgs overlays
 
   gcc-tricore-embedded = pkgs.callPackage ./pkgs/gcc-tricore-embedded { };
+  gcc-powerpc-eabivle = pkgs.callPackage ./pkgs/gcc-powerpc-eabivle { };
 }

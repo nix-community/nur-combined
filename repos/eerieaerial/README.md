@@ -8,6 +8,8 @@ Repository itself is located at: [https://github.com/eerieaerial/nur-packages](h
 
 - [gcc-tricore-embedded](pkgs/gcc-tricore-embedded) - Official pre-compiled Tricore GCC toolchain from Infineon. ZIP-file should be downloaded manually from the Infineon website, login is not required. In future will be supplanted by a version built from sources. 
 
+- [gcc-powerpc-eabivle](pkgs/gcc-tricore-embedded) - Official pre-compiled PowerPC GCC toolchain from NXP. ZIP-file should be downloaded manually from the NXP website, after registering. In future will be supplanted by a version built from sources. 
+
 <!-- Remove this if you don't use github actions -->
 ![Build and populate cache](https://github.com/<YOUR-GITHUB-USER>/nur-packages/workflows/Build%20and%20populate%20cache/badge.svg)
 
