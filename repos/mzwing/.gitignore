@@ -18,3 +18,5 @@ devenv.local.yaml
 .pre-commit-config.yaml
 
 TODO
+
+.codegraph/

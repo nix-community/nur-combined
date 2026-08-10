@@ -23,9 +23,9 @@ in
     # The `lib`, `overlays`, `nixosModules`, `homeModules`,
     # `darwinModules` and `flakeModules` names are special
     lib = import ./lib {inherit pkgs;}; # functions
-    nixosModules = import ./nixos-modules {inherit (pkgs) lib;}; # NixOS modules
-    homeModules = import ./home-modules {inherit (pkgs) lib;}; # Home Manager modules
-    darwinModules = import ./darwin-modules {inherit (pkgs) lib;}; # nix-darwin modules
+    nixosModules = import ./nixos-modules; # NixOS modules
+    homeModules = import ./home-modules; # Home Manager modules
+    darwinModules = import ./darwin-modules; # nix-darwin modules
     # flakeModules = { }; # flake-parts modules
     overlays = import ./overlays; # nixpkgs overlays
 

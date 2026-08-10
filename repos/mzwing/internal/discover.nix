@@ -53,7 +53,10 @@
 #     Build a single package from ../pkgs/<name> with the same auto-injection
 #     rules (lazy: only the requested package is built). Used by modules/ to
 #     construct their default packages without duplicating the wiring.
-{lib}: let
+# Some entry points (subdirs, packages, package) only use builtins and work
+# with lib = null; the module indexes rely on that so they stay importable
+# without pkgs (see the note in nixos-modules/default.nix).
+{lib ? null}: let
   # Anchored at this file's location (internal/) so callers don't need to
   # thread the repository root through.
   defaultSources = pkgs: pkgs.callPackage ../_sources/generated.nix {};

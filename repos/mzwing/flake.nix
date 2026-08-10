@@ -21,9 +21,9 @@
     apps.x86_64-linux = import ./scripts {
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
     };
-    nixosModules = import ./nixos-modules {lib = nixpkgs.lib;};
-    homeModules = import ./home-modules {lib = nixpkgs.lib;};
-    darwinModules = import ./darwin-modules {lib = nixpkgs.lib;};
+    nixosModules = import ./nixos-modules;
+    homeModules = import ./home-modules;
+    darwinModules = import ./darwin-modules;
     # flakeModules = import ./flake-modules;
   };
 }

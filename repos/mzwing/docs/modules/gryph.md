@@ -16,7 +16,7 @@ Unlike `gryph install` (which imperatively rewrites your agents' config files), 
   ...
 }: {
   imports = [
-    inputs.nur.repos.mzwing.modules.home.gryph
+    inputs.nur.repos.mzwing.modules.homeManager.gryph
   ];
 
   programs.gryph = {
