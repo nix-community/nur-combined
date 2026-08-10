@@ -10,6 +10,7 @@
 }:
 {
   imports = [
+    ../../../modules/os/security.nix
     inputs.home-manager.nixosModules.default
     inputs.nix-index-database.nixosModules.nix-index
     inputs.nixos-avf.nixosModules.avf
@@ -30,6 +31,7 @@
     sharedModules = [ ./home.nix ];
   };
   avf.defaultUser = "toyvo";
+  nixcfg.security.enable = true;
   networking = {
     hostName = "pixel10a";
     wireguard.interfaces.wg0 = {

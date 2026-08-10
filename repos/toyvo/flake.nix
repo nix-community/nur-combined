@@ -113,6 +113,31 @@
         nixcfg = self;
       };
       configurations = import ./configurations inputs;
+      # deployChecks is not platform-aware: it generates checks covering every
+      # node in self.deploy, and those check derivations embed the outPaths of
+      # every node's profile (via builtins.toJSON string context / script
+      # interpolation), so they depend on *realizing* every profile path.
+      # Without filtering, `nix flake check` on any host would try to build
+      # all nodes' toplevels locally, failing on platform mismatches
+      # (e.g. building x86_64-linux NixOS toplevels on aarch64-darwin).
+      #
+      # We therefore filter nodes to only those matching the check system.
+      #
+      # NOTE: if remote builders for all platforms are ever configured (e.g. a
+      # linux builder on darwin hosts), this filter could be dropped so that a
+      # single host validates every node. Until then, keep it.
+      deploy-rs-checks = builtins.mapAttrs (
+        system: deployLib:
+        deployLib.deployChecks (
+          self.deploy
+          // {
+            nodes = nixos-unstable.lib.filterAttrs (
+              _: node:
+              nixos-unstable.lib.all (profile: profile.path.system == system) (builtins.attrValues node.profiles)
+            ) self.deploy.nodes;
+          }
+        )
+      ) deploy-rs.lib;
     in
     flake-parts.lib.mkFlake { inherit inputs; } (
       {
@@ -142,11 +167,146 @@
           darwinConfigurations = configurations.darwinConfigurations;
           homeConfigurations = configurations.homeConfigurations;
 
-          deploy.nodes.nas = {
-            hostname = "nas";
-            profiles.system = {
-              user = "toyvo";
-              path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nas;
+          deploy.nodes = {
+            HP-Envy = {
+              hostname = "HP-Envy";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.HP-Envy;
+              };
+            };
+            HP-ZBook = {
+              hostname = "HP-ZBook";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.HP-ZBook;
+              };
+            };
+            MacBook-Pro = {
+              hostname = "MacBook-Pro";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-darwin.activate.darwin self.darwinConfigurations.MacBook-Pro;
+              };
+            };
+            MacMini-M1 = {
+              hostname = "MacMini-M1";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-darwin.activate.darwin self.darwinConfigurations.MacMini-M1;
+              };
+            };
+            MacBook-Pro-NixOS = {
+              hostname = "MacBook-Pro-NixOS";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.MacBook-Pro-NixOS;
+              };
+            };
+            nas = {
+              hostname = "nas";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nas;
+              };
+            };
+            oracle-cloud-nixos = {
+              hostname = "oracle-cloud-nixos";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.oracle-cloud-nixos;
+              };
+            };
+            PineBook-Pro = {
+              hostname = "PineBook-Pro";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.PineBook-Pro;
+              };
+            };
+            pixel10a = {
+              hostname = "pixel10a";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.pixel10a;
+              };
+            };
+            Protectli = {
+              hostname = "Protectli";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.Protectli;
+              };
+            };
+            router = {
+              hostname = "router";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.router;
+              };
+            };
+            rpi4b4a = {
+              hostname = "rpi4b4a";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b4a;
+              };
+            };
+            rpi4b8a = {
+              hostname = "rpi4b8a";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b8a;
+              };
+            };
+            rpi4b8b = {
+              hostname = "rpi4b8b";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b8b;
+              };
+            };
+            rpi4b8c = {
+              hostname = "rpi4b8c";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi4b8c;
+              };
+            };
+            steamdeck = {
+              hostname = "steamdeck";
+              profiles.system = {
+                user = "deck";
+                path = deploy-rs.lib.x86_64-linux.activate.home-manager self.homeConfigurations."deck@steamdeck";
+              };
+            };
+            steamdeck-nixos = {
+              hostname = "steamdeck-nixos";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.steamdeck-nixos;
+              };
+            };
+            Thinkpad = {
+              hostname = "Thinkpad";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.Thinkpad;
+              };
+            };
+            utm = {
+              hostname = "utm";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.utm;
+              };
+            };
+            wsl = {
+              hostname = "wsl";
+              profiles.system = {
+                user = "toyvo";
+                path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.wsl;
+              };
             };
           };
         };
@@ -221,8 +381,8 @@
               )
               // lib.mapAttrs' (n: lib.nameValuePair "devShells-${n}") (
                 lib.filterAttrs (n: v: self.lib.isCacheable v) self'.devShells
-              );
-
+              )
+              // (deploy-rs-checks.${system} or { });
           };
       }
     );

@@ -112,6 +112,7 @@ stdenv.mkDerivation {
       Vintage Story is an uncompromising wilderness survival sandbox game inspired by eldritch horror themes. Find yourself in a ruined world reclaimed by nature and permeated by unnerving temporal disturbances. Relive the advent of human civilization, or take your own path.
     '';
     homepage = "https://vintagestory.at/";
+    license = licenses.unfree;
     sourceProvenance = with sourceTypes; [ binaryBytecode ];
     platforms = lib.platformsOf [
       dotnet-runtime

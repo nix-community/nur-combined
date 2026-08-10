@@ -67,5 +67,6 @@
     };
   };
   services.desktopManager.cosmic.enable = true;
+  hardware.asahi.enable = true;
   hardware.asahi.peripheralFirmwareDirectory = ./firmware;
 }

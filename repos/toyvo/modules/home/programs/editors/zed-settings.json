@@ -11,6 +11,9 @@
   },
   "agent_servers": {
     "pi-acp": {
+      "default_config_options": {
+        "model": "opencode-go/kimi-k3"
+      },
       "type": "registry"
     },
     "claude-acp": {

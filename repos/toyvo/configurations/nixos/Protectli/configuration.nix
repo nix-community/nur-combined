@@ -308,7 +308,7 @@ in
           Name = "br0.${guestVlanId}";
           Kind = "vlan";
         };
-        vlanConfig.Id = lib.string.toInt guestVlanId;
+        vlanConfig.Id = lib.strings.toInt guestVlanId;
       };
       netdevs."br0.${iotVlanId}" = {
         netdevConfig = {

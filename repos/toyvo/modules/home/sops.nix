@@ -2,12 +2,15 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 let
   cfg = config.nixcfg.sops-home;
 in
 {
+  imports = [ inputs.sops-nix.homeManagerModules.sops ];
+
   options.nixcfg.sops-home.enable = lib.mkEnableOption "sops-nix home configuration";
 
   config = lib.mkIf cfg.enable {
