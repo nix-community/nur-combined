@@ -1,0 +1,9 @@
+--- a/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c
++++ b/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c
+@@ -58,6 +58,7 @@
+ JNIEXPORT jlong JNICALL Java_android_graphics_BitmapFactory_nativeDecodeStream(JNIEnv *env, jclass, jobject is, jbyteArray storage, jobject outPadding, jobject opts)
+ {
++	printf("GDK_PIXBUF_MODULE_FILE = %s\n", getenv("GDK_PIXBUF_MODULE_FILE"));
+ 	GInputStream *stream = java_input_stream_new(env, is, storage);
+ 
+ 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_stream(stream, NULL, NULL);

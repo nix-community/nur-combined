@@ -47,6 +47,7 @@
       ./android-translation-layer-bitmap-pixels-fix.patch
       ./android-translation-layer-bitmap-factory-null-pixbuf.patch
       ./android-translation-layer-bitmap-factory-fd.patch
+      ./android-translation-layer-env-test.patch
       ./android-translation-layer-color-state-list-magenta.patch
       ./android-translation-layer-paint-color-filter-matrix.patch
       ./android-translation-layer-cairo-fallback.patch
