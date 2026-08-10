@@ -409,7 +409,7 @@ fn player_movement(
         let forward = if let Some(InVehicle(vehicle_entity)) = in_vehicle {
             if let Ok((v_transform, v_velocity, v_angular)) = vehicles.get_mut(*vehicle_entity) {
                 let fwd = v_transform.forward();
-                target_vehicle = Some((v_velocity, v_angular, v_transform.translation));
+                target_vehicle = Some((v_velocity.into_inner(), v_angular.into_inner(), v_transform.translation));
                 fwd
             } else {
                 player_transform.forward()
@@ -468,9 +468,6 @@ fn player_movement(
             if keyboard_input.just_pressed(KeyCode::Space) {
                 player_velocity.y = 5.0;
             }
-        }
-    }
-}
         }
     }
 }
