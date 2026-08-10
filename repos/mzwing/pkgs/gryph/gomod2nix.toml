@@ -1,116 +1,4 @@
-schema = 3
-cachePackages = [
-  'ariga.io/atlas/schemahcl',
-  'ariga.io/atlas/sql/migrate',
-  'ariga.io/atlas/sql/mysql',
-  'ariga.io/atlas/sql/postgres',
-  'ariga.io/atlas/sql/schema',
-  'ariga.io/atlas/sql/sqlclient',
-  'ariga.io/atlas/sql/sqlite',
-  'ariga.io/atlas/sql/sqlspec',
-  'ariga.io/atlas/sql/sqltool',
-  'entgo.io/ent',
-  'entgo.io/ent/dialect',
-  'entgo.io/ent/dialect/entsql',
-  'entgo.io/ent/dialect/sql',
-  'entgo.io/ent/dialect/sql/schema',
-  'entgo.io/ent/dialect/sql/sqlgraph',
-  'entgo.io/ent/dialect/sql/sqljson',
-  'entgo.io/ent/entql',
-  'entgo.io/ent/schema',
-  'entgo.io/ent/schema/edge',
-  'entgo.io/ent/schema/field',
-  'entgo.io/ent/schema/index',
-  'github.com/agext/levenshtein',
-  'github.com/apparentlymart/go-textseg/v15/textseg',
-  'github.com/aymanbagabas/go-osc52/v2',
-  'github.com/bmatcuk/doublestar',
-  'github.com/charmbracelet/bubbletea',
-  'github.com/charmbracelet/lipgloss',
-  'github.com/charmbracelet/x/ansi',
-  'github.com/charmbracelet/x/ansi/parser',
-  'github.com/charmbracelet/x/term',
-  'github.com/clipperhouse/displaywidth',
-  'github.com/clipperhouse/stringish',
-  'github.com/clipperhouse/uax29/v2/graphemes',
-  'github.com/davecgh/go-spew/spew',
-  'github.com/dustin/go-humanize',
-  'github.com/fsnotify/fsnotify',
-  'github.com/go-openapi/inflect',
-  'github.com/go-viper/mapstructure/v2',
-  'github.com/google/go-cmp/cmp',
-  'github.com/google/uuid',
-  'github.com/hashicorp/hcl/v2',
-  'github.com/hashicorp/hcl/v2/ext/customdecode',
-  'github.com/hashicorp/hcl/v2/ext/tryfunc',
-  'github.com/hashicorp/hcl/v2/gohcl',
-  'github.com/hashicorp/hcl/v2/hclparse',
-  'github.com/hashicorp/hcl/v2/hclsyntax',
-  'github.com/hashicorp/hcl/v2/hclwrite',
-  'github.com/hashicorp/hcl/v2/json',
-  'github.com/lucasb-eyer/go-colorful',
-  'github.com/mattn/go-isatty',
-  'github.com/mattn/go-runewidth',
-  'github.com/mitchellh/go-wordwrap',
-  'github.com/muesli/ansi',
-  'github.com/muesli/ansi/compressor',
-  'github.com/muesli/cancelreader',
-  'github.com/muesli/termenv',
-  'github.com/pelletier/go-toml/v2',
-  'github.com/pelletier/go-toml/v2/unstable',
-  'github.com/pmezard/go-difflib/difflib',
-  'github.com/remyoudompheng/bigfft',
-  'github.com/rivo/uniseg',
-  'github.com/safedep/dry/log',
-  'github.com/sagikazarmark/locafero',
-  'github.com/sourcegraph/conc',
-  'github.com/sourcegraph/conc/panics',
-  'github.com/sourcegraph/conc/pool',
-  'github.com/spf13/afero',
-  'github.com/spf13/afero/mem',
-  'github.com/spf13/cast',
-  'github.com/spf13/cobra',
-  'github.com/spf13/pflag',
-  'github.com/spf13/viper',
-  'github.com/stretchr/testify/assert',
-  'github.com/stretchr/testify/assert/yaml',
-  'github.com/stretchr/testify/require',
-  'github.com/subosito/gotenv',
-  'github.com/zclconf/go-cty-yaml',
-  'github.com/zclconf/go-cty/cty',
-  'github.com/zclconf/go-cty/cty/convert',
-  'github.com/zclconf/go-cty/cty/ctystrings',
-  'github.com/zclconf/go-cty/cty/function',
-  'github.com/zclconf/go-cty/cty/function/stdlib',
-  'github.com/zclconf/go-cty/cty/gocty',
-  'github.com/zclconf/go-cty/cty/json',
-  'github.com/zclconf/go-cty/cty/set',
-  'go.uber.org/multierr',
-  'go.uber.org/zap',
-  'go.uber.org/zap/buffer',
-  'go.uber.org/zap/zapcore',
-  'go.yaml.in/yaml/v3',
-  'golang.org/x/exp/constraints',
-  'golang.org/x/mod/semver',
-  'golang.org/x/sync/errgroup',
-  'golang.org/x/sys/unix',
-  'golang.org/x/term',
-  'golang.org/x/text/encoding',
-  'golang.org/x/text/encoding/unicode',
-  'golang.org/x/text/runes',
-  'golang.org/x/text/transform',
-  'golang.org/x/text/unicode/norm',
-  'gopkg.in/natefinch/lumberjack.v2',
-  'gopkg.in/yaml.v3',
-  'modernc.org/libc',
-  'modernc.org/libc/sys/types',
-  'modernc.org/libc/uuid/uuid',
-  'modernc.org/mathutil',
-  'modernc.org/memory',
-  'modernc.org/sqlite',
-  'modernc.org/sqlite/lib',
-  'modernc.org/sqlite/vtab'
-]
+schema = 4
 
 [mod]
   [mod.'ariga.io/atlas']
@@ -364,3 +252,480 @@ cachePackages = [
   [mod.'modernc.org/sqlite']
     version = 'v1.44.3'
     hash = 'sha256-wt4KspxT+VM+aQ7SA2fyZMkV91YkolYF9Me6/MOO4/Y='
+
+[cacheModules]
+  [cacheModules.'ariga.io/atlas']
+    packages = [
+      'ariga.io/atlas/schemahcl',
+      'ariga.io/atlas/sql/migrate',
+      'ariga.io/atlas/sql/mysql',
+      'ariga.io/atlas/sql/postgres',
+      'ariga.io/atlas/sql/schema',
+      'ariga.io/atlas/sql/sqlclient',
+      'ariga.io/atlas/sql/sqlite',
+      'ariga.io/atlas/sql/sqlspec',
+      'ariga.io/atlas/sql/sqltool'
+    ]
+    deps = [
+      'github.com/bmatcuk/doublestar',
+      'github.com/go-openapi/inflect',
+      'github.com/hashicorp/hcl/v2',
+      'github.com/zclconf/go-cty',
+      'github.com/zclconf/go-cty-yaml'
+    ]
+
+  [cacheModules.'entgo.io/ent']
+    packages = [
+      'entgo.io/ent',
+      'entgo.io/ent/dialect',
+      'entgo.io/ent/dialect/entsql',
+      'entgo.io/ent/dialect/sql',
+      'entgo.io/ent/dialect/sql/schema',
+      'entgo.io/ent/dialect/sql/sqlgraph',
+      'entgo.io/ent/dialect/sql/sqljson',
+      'entgo.io/ent/entql',
+      'entgo.io/ent/schema',
+      'entgo.io/ent/schema/edge',
+      'entgo.io/ent/schema/field',
+      'entgo.io/ent/schema/index'
+    ]
+    deps = [
+      'ariga.io/atlas',
+      'github.com/google/uuid'
+    ]
+
+  [cacheModules.'github.com/agext/levenshtein']
+    packages = [
+      'github.com/agext/levenshtein'
+    ]
+
+  [cacheModules.'github.com/apparentlymart/go-textseg/v15']
+    packages = [
+      'github.com/apparentlymart/go-textseg/v15/textseg'
+    ]
+
+  [cacheModules.'github.com/aymanbagabas/go-osc52/v2']
+    packages = [
+      'github.com/aymanbagabas/go-osc52/v2'
+    ]
+
+  [cacheModules.'github.com/bmatcuk/doublestar']
+    packages = [
+      'github.com/bmatcuk/doublestar'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/bubbletea']
+    packages = [
+      'github.com/charmbracelet/bubbletea'
+    ]
+    deps = [
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/muesli/ansi',
+      'github.com/muesli/cancelreader',
+      'golang.org/x/sync'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/lipgloss']
+    packages = [
+      'github.com/charmbracelet/lipgloss'
+    ]
+    deps = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/muesli/termenv',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/ansi']
+    packages = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/ansi/parser'
+    ]
+    deps = [
+      'github.com/clipperhouse/displaywidth',
+      'github.com/clipperhouse/uax29/v2',
+      'github.com/lucasb-eyer/go-colorful',
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/term']
+    packages = [
+      'github.com/charmbracelet/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/displaywidth']
+    packages = [
+      'github.com/clipperhouse/displaywidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/stringish',
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/stringish']
+    packages = [
+      'github.com/clipperhouse/stringish'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/uax29/v2']
+    packages = [
+      'github.com/clipperhouse/uax29/v2/graphemes'
+    ]
+    deps = [
+      'github.com/clipperhouse/stringish'
+    ]
+
+  [cacheModules.'github.com/davecgh/go-spew']
+    packages = [
+      'github.com/davecgh/go-spew/spew'
+    ]
+
+  [cacheModules.'github.com/dustin/go-humanize']
+    packages = [
+      'github.com/dustin/go-humanize'
+    ]
+
+  [cacheModules.'github.com/fsnotify/fsnotify']
+    packages = [
+      'github.com/fsnotify/fsnotify'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/go-openapi/inflect']
+    packages = [
+      'github.com/go-openapi/inflect'
+    ]
+
+  [cacheModules.'github.com/go-viper/mapstructure/v2']
+    packages = [
+      'github.com/go-viper/mapstructure/v2'
+    ]
+
+  [cacheModules.'github.com/google/go-cmp']
+    packages = [
+      'github.com/google/go-cmp/cmp'
+    ]
+
+  [cacheModules.'github.com/google/uuid']
+    packages = [
+      'github.com/google/uuid'
+    ]
+
+  [cacheModules.'github.com/hashicorp/hcl/v2']
+    packages = [
+      'github.com/hashicorp/hcl/v2',
+      'github.com/hashicorp/hcl/v2/ext/customdecode',
+      'github.com/hashicorp/hcl/v2/ext/tryfunc',
+      'github.com/hashicorp/hcl/v2/gohcl',
+      'github.com/hashicorp/hcl/v2/hclparse',
+      'github.com/hashicorp/hcl/v2/hclsyntax',
+      'github.com/hashicorp/hcl/v2/hclwrite',
+      'github.com/hashicorp/hcl/v2/json'
+    ]
+    deps = [
+      'github.com/agext/levenshtein',
+      'github.com/apparentlymart/go-textseg/v15',
+      'github.com/google/go-cmp',
+      'github.com/mitchellh/go-wordwrap',
+      'github.com/zclconf/go-cty'
+    ]
+
+  [cacheModules.'github.com/lucasb-eyer/go-colorful']
+    packages = [
+      'github.com/lucasb-eyer/go-colorful'
+    ]
+
+  [cacheModules.'github.com/mattn/go-isatty']
+    packages = [
+      'github.com/mattn/go-isatty'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/mattn/go-runewidth']
+    packages = [
+      'github.com/mattn/go-runewidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/mitchellh/go-wordwrap']
+    packages = [
+      'github.com/mitchellh/go-wordwrap'
+    ]
+
+  [cacheModules.'github.com/muesli/ansi']
+    packages = [
+      'github.com/muesli/ansi',
+      'github.com/muesli/ansi/compressor'
+    ]
+    deps = [
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/muesli/cancelreader']
+    packages = [
+      'github.com/muesli/cancelreader'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/muesli/termenv']
+    packages = [
+      'github.com/muesli/termenv'
+    ]
+    deps = [
+      'github.com/aymanbagabas/go-osc52/v2',
+      'github.com/lucasb-eyer/go-colorful',
+      'github.com/mattn/go-isatty',
+      'github.com/rivo/uniseg',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/pelletier/go-toml/v2']
+    packages = [
+      'github.com/pelletier/go-toml/v2',
+      'github.com/pelletier/go-toml/v2/unstable'
+    ]
+
+  [cacheModules.'github.com/pmezard/go-difflib']
+    packages = [
+      'github.com/pmezard/go-difflib/difflib'
+    ]
+
+  [cacheModules.'github.com/remyoudompheng/bigfft']
+    packages = [
+      'github.com/remyoudompheng/bigfft'
+    ]
+
+  [cacheModules.'github.com/rivo/uniseg']
+    packages = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/safedep/dry']
+    packages = [
+      'github.com/safedep/dry/log'
+    ]
+    deps = [
+      'go.uber.org/zap',
+      'gopkg.in/natefinch/lumberjack.v2'
+    ]
+
+  [cacheModules.'github.com/sagikazarmark/locafero']
+    packages = [
+      'github.com/sagikazarmark/locafero'
+    ]
+    deps = [
+      'github.com/sourcegraph/conc',
+      'github.com/spf13/afero'
+    ]
+
+  [cacheModules.'github.com/sourcegraph/conc']
+    packages = [
+      'github.com/sourcegraph/conc',
+      'github.com/sourcegraph/conc/panics',
+      'github.com/sourcegraph/conc/pool'
+    ]
+
+  [cacheModules.'github.com/spf13/afero']
+    packages = [
+      'github.com/spf13/afero',
+      'github.com/spf13/afero/mem'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/spf13/cast']
+    packages = [
+      'github.com/spf13/cast'
+    ]
+
+  [cacheModules.'github.com/spf13/cobra']
+    packages = [
+      'github.com/spf13/cobra'
+    ]
+    deps = [
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/spf13/pflag']
+    packages = [
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/spf13/viper']
+    packages = [
+      'github.com/spf13/viper'
+    ]
+    deps = [
+      'github.com/fsnotify/fsnotify',
+      'github.com/go-viper/mapstructure/v2',
+      'github.com/sagikazarmark/locafero',
+      'github.com/spf13/afero',
+      'github.com/spf13/cast',
+      'github.com/spf13/pflag'
+    ]
+
+  [cacheModules.'github.com/stretchr/testify']
+    packages = [
+      'github.com/stretchr/testify/assert',
+      'github.com/stretchr/testify/assert/yaml',
+      'github.com/stretchr/testify/require'
+    ]
+    deps = [
+      'github.com/davecgh/go-spew',
+      'github.com/pmezard/go-difflib',
+      'gopkg.in/yaml.v3'
+    ]
+
+  [cacheModules.'github.com/subosito/gotenv']
+    packages = [
+      'github.com/subosito/gotenv'
+    ]
+    deps = [
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/zclconf/go-cty']
+    packages = [
+      'github.com/zclconf/go-cty/cty',
+      'github.com/zclconf/go-cty/cty/convert',
+      'github.com/zclconf/go-cty/cty/ctystrings',
+      'github.com/zclconf/go-cty/cty/function',
+      'github.com/zclconf/go-cty/cty/function/stdlib',
+      'github.com/zclconf/go-cty/cty/gocty',
+      'github.com/zclconf/go-cty/cty/json',
+      'github.com/zclconf/go-cty/cty/set'
+    ]
+    deps = [
+      'github.com/apparentlymart/go-textseg/v15',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/zclconf/go-cty-yaml']
+    packages = [
+      'github.com/zclconf/go-cty-yaml'
+    ]
+    deps = [
+      'github.com/zclconf/go-cty'
+    ]
+
+  [cacheModules.'go.uber.org/multierr']
+    packages = [
+      'go.uber.org/multierr'
+    ]
+
+  [cacheModules.'go.uber.org/zap']
+    packages = [
+      'go.uber.org/zap',
+      'go.uber.org/zap/buffer',
+      'go.uber.org/zap/zapcore'
+    ]
+    deps = [
+      'go.uber.org/multierr'
+    ]
+
+  [cacheModules.'go.yaml.in/yaml/v3']
+    packages = [
+      'go.yaml.in/yaml/v3'
+    ]
+
+  [cacheModules.'golang.org/x/exp']
+    packages = [
+      'golang.org/x/exp/constraints'
+    ]
+
+  [cacheModules.'golang.org/x/mod']
+    packages = [
+      'golang.org/x/mod/semver'
+    ]
+
+  [cacheModules.'golang.org/x/sync']
+    packages = [
+      'golang.org/x/sync/errgroup'
+    ]
+
+  [cacheModules.'golang.org/x/sys']
+    packages = [
+      'golang.org/x/sys/unix'
+    ]
+
+  [cacheModules.'golang.org/x/term']
+    packages = [
+      'golang.org/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/text']
+    packages = [
+      'golang.org/x/text/encoding',
+      'golang.org/x/text/encoding/unicode',
+      'golang.org/x/text/runes',
+      'golang.org/x/text/transform',
+      'golang.org/x/text/unicode/norm'
+    ]
+
+  [cacheModules.'gopkg.in/natefinch/lumberjack.v2']
+    packages = [
+      'gopkg.in/natefinch/lumberjack.v2'
+    ]
+
+  [cacheModules.'gopkg.in/yaml.v3']
+    packages = [
+      'gopkg.in/yaml.v3'
+    ]
+
+  [cacheModules.'modernc.org/libc']
+    packages = [
+      'modernc.org/libc',
+      'modernc.org/libc/sys/types',
+      'modernc.org/libc/uuid/uuid'
+    ]
+    deps = [
+      'github.com/dustin/go-humanize',
+      'github.com/google/uuid',
+      'golang.org/x/exp',
+      'golang.org/x/sys',
+      'modernc.org/mathutil',
+      'modernc.org/memory'
+    ]
+
+  [cacheModules.'modernc.org/mathutil']
+    packages = [
+      'modernc.org/mathutil'
+    ]
+    deps = [
+      'github.com/remyoudompheng/bigfft'
+    ]
+
+  [cacheModules.'modernc.org/memory']
+    packages = [
+      'modernc.org/memory'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'modernc.org/sqlite']
+    packages = [
+      'modernc.org/sqlite',
+      'modernc.org/sqlite/lib',
+      'modernc.org/sqlite/vtab'
+    ]
+    deps = [
+      'golang.org/x/sys',
+      'modernc.org/libc'
+    ]

@@ -1,325 +1,4 @@
-schema = 3
-cachePackages = [
-  'cloud.google.com/go/compute/metadata',
-  'github.com/ProtonMail/go-crypto/bitcurves',
-  'github.com/ProtonMail/go-crypto/brainpool',
-  'github.com/ProtonMail/go-crypto/eax',
-  'github.com/ProtonMail/go-crypto/ocb',
-  'github.com/ProtonMail/go-crypto/openpgp',
-  'github.com/ProtonMail/go-crypto/openpgp/aes/keywrap',
-  'github.com/ProtonMail/go-crypto/openpgp/armor',
-  'github.com/ProtonMail/go-crypto/openpgp/ecdh',
-  'github.com/ProtonMail/go-crypto/openpgp/ecdsa',
-  'github.com/ProtonMail/go-crypto/openpgp/ed25519',
-  'github.com/ProtonMail/go-crypto/openpgp/ed448',
-  'github.com/ProtonMail/go-crypto/openpgp/eddsa',
-  'github.com/ProtonMail/go-crypto/openpgp/elgamal',
-  'github.com/ProtonMail/go-crypto/openpgp/errors',
-  'github.com/ProtonMail/go-crypto/openpgp/packet',
-  'github.com/ProtonMail/go-crypto/openpgp/s2k',
-  'github.com/ProtonMail/go-crypto/openpgp/x25519',
-  'github.com/ProtonMail/go-crypto/openpgp/x448',
-  'github.com/andybalholm/brotli',
-  'github.com/atotto/clipboard',
-  'github.com/aymanbagabas/go-osc52/v2',
-  'github.com/cespare/xxhash/v2',
-  'github.com/charmbracelet/bubbles/cursor',
-  'github.com/charmbracelet/bubbles/key',
-  'github.com/charmbracelet/bubbles/runeutil',
-  'github.com/charmbracelet/bubbles/textinput',
-  'github.com/charmbracelet/bubbles/viewport',
-  'github.com/charmbracelet/bubbletea',
-  'github.com/charmbracelet/colorprofile',
-  'github.com/charmbracelet/lipgloss',
-  'github.com/charmbracelet/x/ansi',
-  'github.com/charmbracelet/x/ansi/parser',
-  'github.com/charmbracelet/x/cellbuf',
-  'github.com/charmbracelet/x/term',
-  'github.com/clipperhouse/displaywidth',
-  'github.com/clipperhouse/stringish',
-  'github.com/clipperhouse/uax29/v2/graphemes',
-  'github.com/cloudflare/circl/dh/x25519',
-  'github.com/cloudflare/circl/dh/x448',
-  'github.com/cloudflare/circl/ecc/goldilocks',
-  'github.com/cloudflare/circl/math',
-  'github.com/cloudflare/circl/math/fp25519',
-  'github.com/cloudflare/circl/math/fp448',
-  'github.com/cloudflare/circl/math/mlsbset',
-  'github.com/cloudflare/circl/sign',
-  'github.com/cloudflare/circl/sign/ed25519',
-  'github.com/cloudflare/circl/sign/ed448',
-  'github.com/dlclark/regexp2/v2',
-  'github.com/dlclark/regexp2/v2/helpers',
-  'github.com/dlclark/regexp2/v2/syntax',
-  'github.com/emirpasic/gods/containers',
-  'github.com/emirpasic/gods/lists',
-  'github.com/emirpasic/gods/lists/arraylist',
-  'github.com/emirpasic/gods/trees',
-  'github.com/emirpasic/gods/trees/binaryheap',
-  'github.com/emirpasic/gods/utils',
-  'github.com/fsnotify/fsnotify',
-  'github.com/fxamacker/cbor/v2',
-  'github.com/gabriel-vasile/mimetype',
-  'github.com/gin-contrib/sse',
-  'github.com/gin-gonic/gin',
-  'github.com/gin-gonic/gin/binding',
-  'github.com/gin-gonic/gin/render',
-  'github.com/go-git/gcfg/v2',
-  'github.com/go-git/gcfg/v2/scanner',
-  'github.com/go-git/gcfg/v2/token',
-  'github.com/go-git/gcfg/v2/types',
-  'github.com/go-git/go-billy/v6',
-  'github.com/go-git/go-billy/v6/helper/chroot',
-  'github.com/go-git/go-billy/v6/helper/polyfill',
-  'github.com/go-git/go-billy/v6/osfs',
-  'github.com/go-git/go-billy/v6/util',
-  'github.com/go-git/go-git/v6',
-  'github.com/go-git/go-git/v6/config',
-  'github.com/go-git/go-git/v6/plumbing',
-  'github.com/go-git/go-git/v6/plumbing/cache',
-  'github.com/go-git/go-git/v6/plumbing/client',
-  'github.com/go-git/go-git/v6/plumbing/color',
-  'github.com/go-git/go-git/v6/plumbing/filemode',
-  'github.com/go-git/go-git/v6/plumbing/format/config',
-  'github.com/go-git/go-git/v6/plumbing/format/diff',
-  'github.com/go-git/go-git/v6/plumbing/format/gitignore',
-  'github.com/go-git/go-git/v6/plumbing/format/idxfile',
-  'github.com/go-git/go-git/v6/plumbing/format/index',
-  'github.com/go-git/go-git/v6/plumbing/format/objfile',
-  'github.com/go-git/go-git/v6/plumbing/format/packfile',
-  'github.com/go-git/go-git/v6/plumbing/format/packfile/util',
-  'github.com/go-git/go-git/v6/plumbing/format/pktline',
-  'github.com/go-git/go-git/v6/plumbing/format/reflog',
-  'github.com/go-git/go-git/v6/plumbing/format/revfile',
-  'github.com/go-git/go-git/v6/plumbing/hash',
-  'github.com/go-git/go-git/v6/plumbing/object',
-  'github.com/go-git/go-git/v6/plumbing/protocol',
-  'github.com/go-git/go-git/v6/plumbing/protocol/capability',
-  'github.com/go-git/go-git/v6/plumbing/protocol/packp',
-  'github.com/go-git/go-git/v6/plumbing/protocol/packp/sideband',
-  'github.com/go-git/go-git/v6/plumbing/revlist',
-  'github.com/go-git/go-git/v6/plumbing/storer',
-  'github.com/go-git/go-git/v6/plumbing/transport',
-  'github.com/go-git/go-git/v6/plumbing/transport/file',
-  'github.com/go-git/go-git/v6/plumbing/transport/git',
-  'github.com/go-git/go-git/v6/plumbing/transport/http',
-  'github.com/go-git/go-git/v6/plumbing/transport/ssh',
-  'github.com/go-git/go-git/v6/plumbing/transport/ssh/knownhosts',
-  'github.com/go-git/go-git/v6/plumbing/transport/ssh/sshagent',
-  'github.com/go-git/go-git/v6/storage',
-  'github.com/go-git/go-git/v6/storage/filesystem',
-  'github.com/go-git/go-git/v6/storage/filesystem/dotgit',
-  'github.com/go-git/go-git/v6/storage/memory',
-  'github.com/go-git/go-git/v6/utils/binary',
-  'github.com/go-git/go-git/v6/utils/convert',
-  'github.com/go-git/go-git/v6/utils/diff',
-  'github.com/go-git/go-git/v6/utils/ioutil',
-  'github.com/go-git/go-git/v6/utils/merkletrie',
-  'github.com/go-git/go-git/v6/utils/merkletrie/filesystem',
-  'github.com/go-git/go-git/v6/utils/merkletrie/index',
-  'github.com/go-git/go-git/v6/utils/merkletrie/noder',
-  'github.com/go-git/go-git/v6/utils/sync',
-  'github.com/go-git/go-git/v6/utils/trace',
-  'github.com/go-git/go-git/v6/x/plugin',
-  'github.com/go-git/go-git/v6/x/plugin/config',
-  'github.com/go-git/go-git/v6/x/plugin/zlib',
-  'github.com/go-git/go-git/v6/x/storage',
-  'github.com/go-playground/locales',
-  'github.com/go-playground/locales/currency',
-  'github.com/go-playground/universal-translator',
-  'github.com/go-playground/validator/v10',
-  'github.com/google/uuid',
-  'github.com/gorilla/websocket',
-  'github.com/jackc/pgpassfile',
-  'github.com/jackc/pgservicefile',
-  'github.com/jackc/pgx/v5',
-  'github.com/jackc/pgx/v5/pgconn',
-  'github.com/jackc/pgx/v5/pgconn/ctxwatch',
-  'github.com/jackc/pgx/v5/pgproto3',
-  'github.com/jackc/pgx/v5/pgtype',
-  'github.com/jackc/pgx/v5/pgxpool',
-  'github.com/jackc/pgx/v5/stdlib',
-  'github.com/jackc/puddle/v2',
-  'github.com/joho/godotenv',
-  'github.com/json-iterator/go',
-  'github.com/kevinburke/ssh_config',
-  'github.com/klauspost/compress',
-  'github.com/klauspost/compress/fse',
-  'github.com/klauspost/compress/huff0',
-  'github.com/klauspost/compress/s2',
-  'github.com/klauspost/compress/zstd',
-  'github.com/klauspost/cpuid/v2',
-  'github.com/leodido/go-urn',
-  'github.com/leodido/go-urn/scim/schema',
-  'github.com/lucasb-eyer/go-colorful',
-  'github.com/mattn/go-isatty',
-  'github.com/mattn/go-runewidth',
-  'github.com/minio/md5-simd',
-  'github.com/minio/minio-go/v7',
-  'github.com/minio/minio-go/v7/pkg/credentials',
-  'github.com/minio/minio-go/v7/pkg/encrypt',
-  'github.com/minio/minio-go/v7/pkg/lifecycle',
-  'github.com/minio/minio-go/v7/pkg/notification',
-  'github.com/minio/minio-go/v7/pkg/replication',
-  'github.com/minio/minio-go/v7/pkg/s3utils',
-  'github.com/minio/minio-go/v7/pkg/set',
-  'github.com/minio/minio-go/v7/pkg/signer',
-  'github.com/minio/minio-go/v7/pkg/sse',
-  'github.com/minio/minio-go/v7/pkg/tags',
-  'github.com/minio/sha256-simd',
-  'github.com/modern-go/concurrent',
-  'github.com/modern-go/reflect2',
-  'github.com/muesli/ansi',
-  'github.com/muesli/ansi/compressor',
-  'github.com/muesli/cancelreader',
-  'github.com/muesli/termenv',
-  'github.com/pelletier/go-toml/v2',
-  'github.com/pelletier/go-toml/v2/unstable',
-  'github.com/pierrec/xxHash/xxHash64',
-  'github.com/pion/datachannel',
-  'github.com/pion/dtls/v3',
-  'github.com/pion/dtls/v3/pkg/crypto/ccm',
-  'github.com/pion/dtls/v3/pkg/crypto/ciphersuite',
-  'github.com/pion/dtls/v3/pkg/crypto/clientcertificate',
-  'github.com/pion/dtls/v3/pkg/crypto/elliptic',
-  'github.com/pion/dtls/v3/pkg/crypto/fingerprint',
-  'github.com/pion/dtls/v3/pkg/crypto/hash',
-  'github.com/pion/dtls/v3/pkg/crypto/prf',
-  'github.com/pion/dtls/v3/pkg/crypto/signature',
-  'github.com/pion/dtls/v3/pkg/crypto/signaturehash',
-  'github.com/pion/dtls/v3/pkg/net',
-  'github.com/pion/dtls/v3/pkg/protocol',
-  'github.com/pion/dtls/v3/pkg/protocol/alert',
-  'github.com/pion/dtls/v3/pkg/protocol/extension',
-  'github.com/pion/dtls/v3/pkg/protocol/handshake',
-  'github.com/pion/dtls/v3/pkg/protocol/recordlayer',
-  'github.com/pion/ice/v4',
-  'github.com/pion/interceptor',
-  'github.com/pion/interceptor/pkg/flexfec',
-  'github.com/pion/interceptor/pkg/flexfec/util',
-  'github.com/pion/interceptor/pkg/nack',
-  'github.com/pion/interceptor/pkg/report',
-  'github.com/pion/interceptor/pkg/rfc8888',
-  'github.com/pion/interceptor/pkg/stats',
-  'github.com/pion/interceptor/pkg/twcc',
-  'github.com/pion/logging',
-  'github.com/pion/mdns/v2',
-  'github.com/pion/randutil',
-  'github.com/pion/rtcp',
-  'github.com/pion/rtp',
-  'github.com/pion/rtp/codecs',
-  'github.com/pion/rtp/codecs/av1/obu',
-  'github.com/pion/rtp/codecs/vp9',
-  'github.com/pion/sctp',
-  'github.com/pion/sdp/v3',
-  'github.com/pion/srtp/v3',
-  'github.com/pion/stun/v3',
-  'github.com/pion/transport/v4',
-  'github.com/pion/transport/v4/deadline',
-  'github.com/pion/transport/v4/netctx',
-  'github.com/pion/transport/v4/packetio',
-  'github.com/pion/transport/v4/replaydetector',
-  'github.com/pion/transport/v4/reuseport',
-  'github.com/pion/transport/v4/stdnet',
-  'github.com/pion/transport/v4/utils/xor',
-  'github.com/pion/transport/v4/vnet',
-  'github.com/pion/turn/v5',
-  'github.com/pion/webrtc/v4',
-  'github.com/pion/webrtc/v4/pkg/media',
-  'github.com/pion/webrtc/v4/pkg/rtcerr',
-  'github.com/pjbgf/sha1cd',
-  'github.com/pjbgf/sha1cd/ubc',
-  'github.com/pkg/browser',
-  'github.com/redis/go-redis/v9',
-  'github.com/redis/go-redis/v9/auth',
-  'github.com/redis/go-redis/v9/maintnotifications',
-  'github.com/redis/go-redis/v9/push',
-  'github.com/refraction-networking/utls',
-  'github.com/refraction-networking/utls/dicttls',
-  'github.com/rivo/uniseg',
-  'github.com/rs/xid',
-  'github.com/sergi/go-diff/diffmatchpatch',
-  'github.com/sirupsen/logrus',
-  'github.com/sirupsen/logrus/hooks/test',
-  'github.com/tidwall/gjson',
-  'github.com/tidwall/match',
-  'github.com/tidwall/pretty',
-  'github.com/tidwall/sjson',
-  'github.com/tiktoken-go/tokenizer',
-  'github.com/tiktoken-go/tokenizer/codec',
-  'github.com/ugorji/go/codec',
-  'github.com/wlynxg/anet',
-  'github.com/x448/float16',
-  'github.com/xo/terminfo',
-  'go.uber.org/atomic',
-  'golang.org/x/crypto/argon2',
-  'golang.org/x/crypto/bcrypt',
-  'golang.org/x/crypto/blake2b',
-  'golang.org/x/crypto/blowfish',
-  'golang.org/x/crypto/cast5',
-  'golang.org/x/crypto/chacha20',
-  'golang.org/x/crypto/chacha20poly1305',
-  'golang.org/x/crypto/cryptobyte',
-  'golang.org/x/crypto/cryptobyte/asn1',
-  'golang.org/x/crypto/curve25519',
-  'golang.org/x/crypto/hkdf',
-  'golang.org/x/crypto/sha3',
-  'golang.org/x/crypto/ssh',
-  'golang.org/x/crypto/ssh/agent',
-  'golang.org/x/crypto/ssh/knownhosts',
-  'golang.org/x/net/bpf',
-  'golang.org/x/net/context',
-  'golang.org/x/net/dns/dnsmessage',
-  'golang.org/x/net/html',
-  'golang.org/x/net/html/atom',
-  'golang.org/x/net/http/httpguts',
-  'golang.org/x/net/http2',
-  'golang.org/x/net/http2/h2c',
-  'golang.org/x/net/http2/hpack',
-  'golang.org/x/net/idna',
-  'golang.org/x/net/ipv4',
-  'golang.org/x/net/ipv6',
-  'golang.org/x/net/proxy',
-  'golang.org/x/net/publicsuffix',
-  'golang.org/x/oauth2',
-  'golang.org/x/oauth2/authhandler',
-  'golang.org/x/oauth2/google',
-  'golang.org/x/oauth2/google/externalaccount',
-  'golang.org/x/oauth2/jws',
-  'golang.org/x/oauth2/jwt',
-  'golang.org/x/sync/errgroup',
-  'golang.org/x/sync/semaphore',
-  'golang.org/x/sync/singleflight',
-  'golang.org/x/sys/cpu',
-  'golang.org/x/sys/unix',
-  'golang.org/x/term',
-  'golang.org/x/text/cases',
-  'golang.org/x/text/language',
-  'golang.org/x/text/runes',
-  'golang.org/x/text/secure/bidirule',
-  'golang.org/x/text/secure/precis',
-  'golang.org/x/text/transform',
-  'golang.org/x/text/unicode/bidi',
-  'golang.org/x/text/unicode/norm',
-  'golang.org/x/text/width',
-  'golang.org/x/time/rate',
-  'google.golang.org/protobuf/encoding/protojson',
-  'google.golang.org/protobuf/encoding/prototext',
-  'google.golang.org/protobuf/encoding/protowire',
-  'google.golang.org/protobuf/proto',
-  'google.golang.org/protobuf/reflect/protodesc',
-  'google.golang.org/protobuf/reflect/protoreflect',
-  'google.golang.org/protobuf/reflect/protoregistry',
-  'google.golang.org/protobuf/runtime/protoiface',
-  'google.golang.org/protobuf/runtime/protoimpl',
-  'google.golang.org/protobuf/types/descriptorpb',
-  'google.golang.org/protobuf/types/dynamicpb',
-  'google.golang.org/protobuf/types/gofeaturespb',
-  'google.golang.org/protobuf/types/known/structpb',
-  'gopkg.in/ini.v1',
-  'gopkg.in/natefinch/lumberjack.v2',
-  'gopkg.in/yaml.v3'
-]
+schema = 4
 
 [mod]
   [mod.'cloud.google.com/go/compute/metadata']
@@ -773,3 +452,987 @@ cachePackages = [
   [mod.'gopkg.in/yaml.v3']
     version = 'v3.0.1'
     hash = 'sha256-FqL9TKYJ0XkNwJFnq9j0VvJ5ZUU1RvH/52h/f5bkYAU='
+
+[cacheModules]
+  [cacheModules.'cloud.google.com/go/compute/metadata']
+    packages = [
+      'cloud.google.com/go/compute/metadata'
+    ]
+
+  [cacheModules.'github.com/ProtonMail/go-crypto']
+    packages = [
+      'github.com/ProtonMail/go-crypto/bitcurves',
+      'github.com/ProtonMail/go-crypto/brainpool',
+      'github.com/ProtonMail/go-crypto/eax',
+      'github.com/ProtonMail/go-crypto/ocb',
+      'github.com/ProtonMail/go-crypto/openpgp',
+      'github.com/ProtonMail/go-crypto/openpgp/aes/keywrap',
+      'github.com/ProtonMail/go-crypto/openpgp/armor',
+      'github.com/ProtonMail/go-crypto/openpgp/ecdh',
+      'github.com/ProtonMail/go-crypto/openpgp/ecdsa',
+      'github.com/ProtonMail/go-crypto/openpgp/ed25519',
+      'github.com/ProtonMail/go-crypto/openpgp/ed448',
+      'github.com/ProtonMail/go-crypto/openpgp/eddsa',
+      'github.com/ProtonMail/go-crypto/openpgp/elgamal',
+      'github.com/ProtonMail/go-crypto/openpgp/errors',
+      'github.com/ProtonMail/go-crypto/openpgp/packet',
+      'github.com/ProtonMail/go-crypto/openpgp/s2k',
+      'github.com/ProtonMail/go-crypto/openpgp/x25519',
+      'github.com/ProtonMail/go-crypto/openpgp/x448'
+    ]
+    deps = [
+      'github.com/cloudflare/circl',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/andybalholm/brotli']
+    packages = [
+      'github.com/andybalholm/brotli'
+    ]
+
+  [cacheModules.'github.com/atotto/clipboard']
+    packages = [
+      'github.com/atotto/clipboard'
+    ]
+
+  [cacheModules.'github.com/aymanbagabas/go-osc52/v2']
+    packages = [
+      'github.com/aymanbagabas/go-osc52/v2'
+    ]
+
+  [cacheModules.'github.com/cespare/xxhash/v2']
+    packages = [
+      'github.com/cespare/xxhash/v2'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/bubbles']
+    packages = [
+      'github.com/charmbracelet/bubbles/cursor',
+      'github.com/charmbracelet/bubbles/key',
+      'github.com/charmbracelet/bubbles/runeutil',
+      'github.com/charmbracelet/bubbles/textinput',
+      'github.com/charmbracelet/bubbles/viewport'
+    ]
+    deps = [
+      'github.com/atotto/clipboard',
+      'github.com/charmbracelet/bubbletea',
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/mattn/go-runewidth',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/bubbletea']
+    packages = [
+      'github.com/charmbracelet/bubbletea'
+    ]
+    deps = [
+      'github.com/charmbracelet/lipgloss',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/muesli/ansi',
+      'github.com/muesli/cancelreader'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/colorprofile']
+    packages = [
+      'github.com/charmbracelet/colorprofile'
+    ]
+    deps = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/xo/terminfo'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/lipgloss']
+    packages = [
+      'github.com/charmbracelet/lipgloss'
+    ]
+    deps = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/cellbuf',
+      'github.com/muesli/termenv',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/ansi']
+    packages = [
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/ansi/parser'
+    ]
+    deps = [
+      'github.com/clipperhouse/displaywidth',
+      'github.com/clipperhouse/uax29/v2',
+      'github.com/lucasb-eyer/go-colorful',
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/cellbuf']
+    packages = [
+      'github.com/charmbracelet/x/cellbuf'
+    ]
+    deps = [
+      'github.com/charmbracelet/colorprofile',
+      'github.com/charmbracelet/x/ansi',
+      'github.com/charmbracelet/x/term',
+      'github.com/mattn/go-runewidth',
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/charmbracelet/x/term']
+    packages = [
+      'github.com/charmbracelet/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/displaywidth']
+    packages = [
+      'github.com/clipperhouse/displaywidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/stringish',
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/stringish']
+    packages = [
+      'github.com/clipperhouse/stringish'
+    ]
+
+  [cacheModules.'github.com/clipperhouse/uax29/v2']
+    packages = [
+      'github.com/clipperhouse/uax29/v2/graphemes'
+    ]
+    deps = [
+      'github.com/clipperhouse/stringish'
+    ]
+
+  [cacheModules.'github.com/cloudflare/circl']
+    packages = [
+      'github.com/cloudflare/circl/dh/x25519',
+      'github.com/cloudflare/circl/dh/x448',
+      'github.com/cloudflare/circl/ecc/goldilocks',
+      'github.com/cloudflare/circl/math',
+      'github.com/cloudflare/circl/math/fp25519',
+      'github.com/cloudflare/circl/math/fp448',
+      'github.com/cloudflare/circl/math/mlsbset',
+      'github.com/cloudflare/circl/sign',
+      'github.com/cloudflare/circl/sign/ed25519',
+      'github.com/cloudflare/circl/sign/ed448'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/dlclark/regexp2/v2']
+    packages = [
+      'github.com/dlclark/regexp2/v2',
+      'github.com/dlclark/regexp2/v2/helpers',
+      'github.com/dlclark/regexp2/v2/syntax'
+    ]
+
+  [cacheModules.'github.com/emirpasic/gods']
+    packages = [
+      'github.com/emirpasic/gods/containers',
+      'github.com/emirpasic/gods/lists',
+      'github.com/emirpasic/gods/lists/arraylist',
+      'github.com/emirpasic/gods/trees',
+      'github.com/emirpasic/gods/trees/binaryheap',
+      'github.com/emirpasic/gods/utils'
+    ]
+
+  [cacheModules.'github.com/fsnotify/fsnotify']
+    packages = [
+      'github.com/fsnotify/fsnotify'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/fxamacker/cbor/v2']
+    packages = [
+      'github.com/fxamacker/cbor/v2'
+    ]
+    deps = [
+      'github.com/x448/float16'
+    ]
+
+  [cacheModules.'github.com/gabriel-vasile/mimetype']
+    packages = [
+      'github.com/gabriel-vasile/mimetype'
+    ]
+
+  [cacheModules.'github.com/gin-contrib/sse']
+    packages = [
+      'github.com/gin-contrib/sse'
+    ]
+
+  [cacheModules.'github.com/gin-gonic/gin']
+    packages = [
+      'github.com/gin-gonic/gin',
+      'github.com/gin-gonic/gin/binding',
+      'github.com/gin-gonic/gin/render'
+    ]
+    deps = [
+      'github.com/gin-contrib/sse',
+      'github.com/go-playground/validator/v10',
+      'github.com/mattn/go-isatty',
+      'github.com/pelletier/go-toml/v2',
+      'github.com/ugorji/go/codec',
+      'golang.org/x/net',
+      'google.golang.org/protobuf',
+      'gopkg.in/yaml.v3'
+    ]
+
+  [cacheModules.'github.com/go-git/gcfg/v2']
+    packages = [
+      'github.com/go-git/gcfg/v2',
+      'github.com/go-git/gcfg/v2/scanner',
+      'github.com/go-git/gcfg/v2/token',
+      'github.com/go-git/gcfg/v2/types'
+    ]
+
+  [cacheModules.'github.com/go-git/go-billy/v6']
+    packages = [
+      'github.com/go-git/go-billy/v6',
+      'github.com/go-git/go-billy/v6/helper/chroot',
+      'github.com/go-git/go-billy/v6/helper/polyfill',
+      'github.com/go-git/go-billy/v6/osfs',
+      'github.com/go-git/go-billy/v6/util'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/go-git/go-git/v6']
+    packages = [
+      'github.com/go-git/go-git/v6',
+      'github.com/go-git/go-git/v6/config',
+      'github.com/go-git/go-git/v6/plumbing',
+      'github.com/go-git/go-git/v6/plumbing/cache',
+      'github.com/go-git/go-git/v6/plumbing/client',
+      'github.com/go-git/go-git/v6/plumbing/color',
+      'github.com/go-git/go-git/v6/plumbing/filemode',
+      'github.com/go-git/go-git/v6/plumbing/format/config',
+      'github.com/go-git/go-git/v6/plumbing/format/diff',
+      'github.com/go-git/go-git/v6/plumbing/format/gitignore',
+      'github.com/go-git/go-git/v6/plumbing/format/idxfile',
+      'github.com/go-git/go-git/v6/plumbing/format/index',
+      'github.com/go-git/go-git/v6/plumbing/format/objfile',
+      'github.com/go-git/go-git/v6/plumbing/format/packfile',
+      'github.com/go-git/go-git/v6/plumbing/format/packfile/util',
+      'github.com/go-git/go-git/v6/plumbing/format/pktline',
+      'github.com/go-git/go-git/v6/plumbing/format/reflog',
+      'github.com/go-git/go-git/v6/plumbing/format/revfile',
+      'github.com/go-git/go-git/v6/plumbing/hash',
+      'github.com/go-git/go-git/v6/plumbing/object',
+      'github.com/go-git/go-git/v6/plumbing/protocol',
+      'github.com/go-git/go-git/v6/plumbing/protocol/capability',
+      'github.com/go-git/go-git/v6/plumbing/protocol/packp',
+      'github.com/go-git/go-git/v6/plumbing/protocol/packp/sideband',
+      'github.com/go-git/go-git/v6/plumbing/revlist',
+      'github.com/go-git/go-git/v6/plumbing/storer',
+      'github.com/go-git/go-git/v6/plumbing/transport',
+      'github.com/go-git/go-git/v6/plumbing/transport/file',
+      'github.com/go-git/go-git/v6/plumbing/transport/git',
+      'github.com/go-git/go-git/v6/plumbing/transport/http',
+      'github.com/go-git/go-git/v6/plumbing/transport/ssh',
+      'github.com/go-git/go-git/v6/plumbing/transport/ssh/knownhosts',
+      'github.com/go-git/go-git/v6/plumbing/transport/ssh/sshagent',
+      'github.com/go-git/go-git/v6/storage',
+      'github.com/go-git/go-git/v6/storage/filesystem',
+      'github.com/go-git/go-git/v6/storage/filesystem/dotgit',
+      'github.com/go-git/go-git/v6/storage/memory',
+      'github.com/go-git/go-git/v6/utils/binary',
+      'github.com/go-git/go-git/v6/utils/convert',
+      'github.com/go-git/go-git/v6/utils/diff',
+      'github.com/go-git/go-git/v6/utils/ioutil',
+      'github.com/go-git/go-git/v6/utils/merkletrie',
+      'github.com/go-git/go-git/v6/utils/merkletrie/filesystem',
+      'github.com/go-git/go-git/v6/utils/merkletrie/index',
+      'github.com/go-git/go-git/v6/utils/merkletrie/noder',
+      'github.com/go-git/go-git/v6/utils/sync',
+      'github.com/go-git/go-git/v6/utils/trace',
+      'github.com/go-git/go-git/v6/x/plugin',
+      'github.com/go-git/go-git/v6/x/plugin/config',
+      'github.com/go-git/go-git/v6/x/plugin/zlib',
+      'github.com/go-git/go-git/v6/x/storage'
+    ]
+    deps = [
+      'github.com/ProtonMail/go-crypto',
+      'github.com/emirpasic/gods',
+      'github.com/go-git/gcfg/v2',
+      'github.com/go-git/go-billy/v6',
+      'github.com/kevinburke/ssh_config',
+      'github.com/pjbgf/sha1cd',
+      'github.com/sergi/go-diff',
+      'golang.org/x/crypto',
+      'golang.org/x/net',
+      'golang.org/x/sync'
+    ]
+
+  [cacheModules.'github.com/go-playground/locales']
+    packages = [
+      'github.com/go-playground/locales',
+      'github.com/go-playground/locales/currency'
+    ]
+
+  [cacheModules.'github.com/go-playground/universal-translator']
+    packages = [
+      'github.com/go-playground/universal-translator'
+    ]
+    deps = [
+      'github.com/go-playground/locales'
+    ]
+
+  [cacheModules.'github.com/go-playground/validator/v10']
+    packages = [
+      'github.com/go-playground/validator/v10'
+    ]
+    deps = [
+      'github.com/gabriel-vasile/mimetype',
+      'github.com/go-playground/universal-translator',
+      'github.com/leodido/go-urn',
+      'golang.org/x/crypto',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/google/uuid']
+    packages = [
+      'github.com/google/uuid'
+    ]
+
+  [cacheModules.'github.com/gorilla/websocket']
+    packages = [
+      'github.com/gorilla/websocket'
+    ]
+
+  [cacheModules.'github.com/jackc/pgpassfile']
+    packages = [
+      'github.com/jackc/pgpassfile'
+    ]
+
+  [cacheModules.'github.com/jackc/pgservicefile']
+    packages = [
+      'github.com/jackc/pgservicefile'
+    ]
+
+  [cacheModules.'github.com/jackc/pgx/v5']
+    packages = [
+      'github.com/jackc/pgx/v5',
+      'github.com/jackc/pgx/v5/pgconn',
+      'github.com/jackc/pgx/v5/pgconn/ctxwatch',
+      'github.com/jackc/pgx/v5/pgproto3',
+      'github.com/jackc/pgx/v5/pgtype',
+      'github.com/jackc/pgx/v5/pgxpool',
+      'github.com/jackc/pgx/v5/stdlib'
+    ]
+    deps = [
+      'github.com/jackc/pgpassfile',
+      'github.com/jackc/pgservicefile',
+      'github.com/jackc/puddle/v2',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'github.com/jackc/puddle/v2']
+    packages = [
+      'github.com/jackc/puddle/v2'
+    ]
+    deps = [
+      'golang.org/x/sync'
+    ]
+
+  [cacheModules.'github.com/joho/godotenv']
+    packages = [
+      'github.com/joho/godotenv'
+    ]
+
+  [cacheModules.'github.com/json-iterator/go']
+    packages = [
+      'github.com/json-iterator/go'
+    ]
+    deps = [
+      'github.com/modern-go/concurrent',
+      'github.com/modern-go/reflect2'
+    ]
+
+  [cacheModules.'github.com/kevinburke/ssh_config']
+    packages = [
+      'github.com/kevinburke/ssh_config'
+    ]
+
+  [cacheModules.'github.com/klauspost/compress']
+    packages = [
+      'github.com/klauspost/compress',
+      'github.com/klauspost/compress/fse',
+      'github.com/klauspost/compress/huff0',
+      'github.com/klauspost/compress/s2',
+      'github.com/klauspost/compress/zstd'
+    ]
+
+  [cacheModules.'github.com/klauspost/cpuid/v2']
+    packages = [
+      'github.com/klauspost/cpuid/v2'
+    ]
+
+  [cacheModules.'github.com/leodido/go-urn']
+    packages = [
+      'github.com/leodido/go-urn',
+      'github.com/leodido/go-urn/scim/schema'
+    ]
+
+  [cacheModules.'github.com/lucasb-eyer/go-colorful']
+    packages = [
+      'github.com/lucasb-eyer/go-colorful'
+    ]
+
+  [cacheModules.'github.com/mattn/go-isatty']
+    packages = [
+      'github.com/mattn/go-isatty'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/mattn/go-runewidth']
+    packages = [
+      'github.com/mattn/go-runewidth'
+    ]
+    deps = [
+      'github.com/clipperhouse/uax29/v2'
+    ]
+
+  [cacheModules.'github.com/minio/md5-simd']
+    packages = [
+      'github.com/minio/md5-simd'
+    ]
+    deps = [
+      'github.com/klauspost/cpuid/v2'
+    ]
+
+  [cacheModules.'github.com/minio/minio-go/v7']
+    packages = [
+      'github.com/minio/minio-go/v7',
+      'github.com/minio/minio-go/v7/pkg/credentials',
+      'github.com/minio/minio-go/v7/pkg/encrypt',
+      'github.com/minio/minio-go/v7/pkg/lifecycle',
+      'github.com/minio/minio-go/v7/pkg/notification',
+      'github.com/minio/minio-go/v7/pkg/replication',
+      'github.com/minio/minio-go/v7/pkg/s3utils',
+      'github.com/minio/minio-go/v7/pkg/set',
+      'github.com/minio/minio-go/v7/pkg/signer',
+      'github.com/minio/minio-go/v7/pkg/sse',
+      'github.com/minio/minio-go/v7/pkg/tags'
+    ]
+    deps = [
+      'github.com/google/uuid',
+      'github.com/json-iterator/go',
+      'github.com/klauspost/compress',
+      'github.com/minio/md5-simd',
+      'github.com/minio/sha256-simd',
+      'github.com/rs/xid',
+      'golang.org/x/crypto',
+      'golang.org/x/net',
+      'gopkg.in/ini.v1'
+    ]
+
+  [cacheModules.'github.com/minio/sha256-simd']
+    packages = [
+      'github.com/minio/sha256-simd'
+    ]
+    deps = [
+      'github.com/klauspost/cpuid/v2'
+    ]
+
+  [cacheModules.'github.com/modern-go/concurrent']
+    packages = [
+      'github.com/modern-go/concurrent'
+    ]
+
+  [cacheModules.'github.com/modern-go/reflect2']
+    packages = [
+      'github.com/modern-go/reflect2'
+    ]
+
+  [cacheModules.'github.com/muesli/ansi']
+    packages = [
+      'github.com/muesli/ansi',
+      'github.com/muesli/ansi/compressor'
+    ]
+    deps = [
+      'github.com/mattn/go-runewidth'
+    ]
+
+  [cacheModules.'github.com/muesli/cancelreader']
+    packages = [
+      'github.com/muesli/cancelreader'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/muesli/termenv']
+    packages = [
+      'github.com/muesli/termenv'
+    ]
+    deps = [
+      'github.com/aymanbagabas/go-osc52/v2',
+      'github.com/lucasb-eyer/go-colorful',
+      'github.com/mattn/go-isatty',
+      'github.com/rivo/uniseg',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/pelletier/go-toml/v2']
+    packages = [
+      'github.com/pelletier/go-toml/v2',
+      'github.com/pelletier/go-toml/v2/unstable'
+    ]
+
+  [cacheModules.'github.com/pierrec/xxHash']
+    packages = [
+      'github.com/pierrec/xxHash/xxHash64'
+    ]
+
+  [cacheModules.'github.com/pion/datachannel']
+    packages = [
+      'github.com/pion/datachannel'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/sctp'
+    ]
+
+  [cacheModules.'github.com/pion/dtls/v3']
+    packages = [
+      'github.com/pion/dtls/v3',
+      'github.com/pion/dtls/v3/pkg/crypto/ccm',
+      'github.com/pion/dtls/v3/pkg/crypto/ciphersuite',
+      'github.com/pion/dtls/v3/pkg/crypto/clientcertificate',
+      'github.com/pion/dtls/v3/pkg/crypto/elliptic',
+      'github.com/pion/dtls/v3/pkg/crypto/fingerprint',
+      'github.com/pion/dtls/v3/pkg/crypto/hash',
+      'github.com/pion/dtls/v3/pkg/crypto/prf',
+      'github.com/pion/dtls/v3/pkg/crypto/signature',
+      'github.com/pion/dtls/v3/pkg/crypto/signaturehash',
+      'github.com/pion/dtls/v3/pkg/net',
+      'github.com/pion/dtls/v3/pkg/protocol',
+      'github.com/pion/dtls/v3/pkg/protocol/alert',
+      'github.com/pion/dtls/v3/pkg/protocol/extension',
+      'github.com/pion/dtls/v3/pkg/protocol/handshake',
+      'github.com/pion/dtls/v3/pkg/protocol/recordlayer'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/transport/v4',
+      'golang.org/x/crypto'
+    ]
+
+  [cacheModules.'github.com/pion/ice/v4']
+    packages = [
+      'github.com/pion/ice/v4'
+    ]
+    deps = [
+      'github.com/google/uuid',
+      'github.com/pion/dtls/v3',
+      'github.com/pion/logging',
+      'github.com/pion/mdns/v2',
+      'github.com/pion/randutil',
+      'github.com/pion/stun/v3',
+      'github.com/pion/transport/v4',
+      'github.com/pion/turn/v5',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/pion/interceptor']
+    packages = [
+      'github.com/pion/interceptor',
+      'github.com/pion/interceptor/pkg/flexfec',
+      'github.com/pion/interceptor/pkg/flexfec/util',
+      'github.com/pion/interceptor/pkg/nack',
+      'github.com/pion/interceptor/pkg/report',
+      'github.com/pion/interceptor/pkg/rfc8888',
+      'github.com/pion/interceptor/pkg/stats',
+      'github.com/pion/interceptor/pkg/twcc'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/rtcp',
+      'github.com/pion/rtp'
+    ]
+
+  [cacheModules.'github.com/pion/logging']
+    packages = [
+      'github.com/pion/logging'
+    ]
+
+  [cacheModules.'github.com/pion/mdns/v2']
+    packages = [
+      'github.com/pion/mdns/v2'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/pion/randutil']
+    packages = [
+      'github.com/pion/randutil'
+    ]
+
+  [cacheModules.'github.com/pion/rtcp']
+    packages = [
+      'github.com/pion/rtcp'
+    ]
+
+  [cacheModules.'github.com/pion/rtp']
+    packages = [
+      'github.com/pion/rtp',
+      'github.com/pion/rtp/codecs',
+      'github.com/pion/rtp/codecs/av1/obu',
+      'github.com/pion/rtp/codecs/vp9'
+    ]
+    deps = [
+      'github.com/pion/randutil'
+    ]
+
+  [cacheModules.'github.com/pion/sctp']
+    packages = [
+      'github.com/pion/sctp'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/randutil',
+      'github.com/pion/transport/v4'
+    ]
+
+  [cacheModules.'github.com/pion/sdp/v3']
+    packages = [
+      'github.com/pion/sdp/v3'
+    ]
+    deps = [
+      'github.com/pion/randutil'
+    ]
+
+  [cacheModules.'github.com/pion/srtp/v3']
+    packages = [
+      'github.com/pion/srtp/v3'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/rtcp',
+      'github.com/pion/rtp',
+      'github.com/pion/transport/v4'
+    ]
+
+  [cacheModules.'github.com/pion/stun/v3']
+    packages = [
+      'github.com/pion/stun/v3'
+    ]
+    deps = [
+      'github.com/pion/dtls/v3',
+      'github.com/pion/logging',
+      'github.com/pion/transport/v4'
+    ]
+
+  [cacheModules.'github.com/pion/transport/v4']
+    packages = [
+      'github.com/pion/transport/v4',
+      'github.com/pion/transport/v4/deadline',
+      'github.com/pion/transport/v4/netctx',
+      'github.com/pion/transport/v4/packetio',
+      'github.com/pion/transport/v4/replaydetector',
+      'github.com/pion/transport/v4/reuseport',
+      'github.com/pion/transport/v4/stdnet',
+      'github.com/pion/transport/v4/utils/xor',
+      'github.com/pion/transport/v4/vnet'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/wlynxg/anet',
+      'golang.org/x/sys',
+      'golang.org/x/time'
+    ]
+
+  [cacheModules.'github.com/pion/turn/v5']
+    packages = [
+      'github.com/pion/turn/v5'
+    ]
+    deps = [
+      'github.com/pion/logging',
+      'github.com/pion/randutil',
+      'github.com/pion/stun/v3',
+      'github.com/pion/transport/v4'
+    ]
+
+  [cacheModules.'github.com/pion/webrtc/v4']
+    packages = [
+      'github.com/pion/webrtc/v4',
+      'github.com/pion/webrtc/v4/pkg/media',
+      'github.com/pion/webrtc/v4/pkg/rtcerr'
+    ]
+    deps = [
+      'github.com/pion/datachannel',
+      'github.com/pion/dtls/v3',
+      'github.com/pion/ice/v4',
+      'github.com/pion/interceptor',
+      'github.com/pion/logging',
+      'github.com/pion/randutil',
+      'github.com/pion/rtcp',
+      'github.com/pion/rtp',
+      'github.com/pion/sctp',
+      'github.com/pion/sdp/v3',
+      'github.com/pion/srtp/v3',
+      'github.com/pion/stun/v3',
+      'github.com/pion/transport/v4',
+      'golang.org/x/net'
+    ]
+
+  [cacheModules.'github.com/pjbgf/sha1cd']
+    packages = [
+      'github.com/pjbgf/sha1cd',
+      'github.com/pjbgf/sha1cd/ubc'
+    ]
+    deps = [
+      'github.com/klauspost/cpuid/v2'
+    ]
+
+  [cacheModules.'github.com/pkg/browser']
+    packages = [
+      'github.com/pkg/browser'
+    ]
+
+  [cacheModules.'github.com/redis/go-redis/v9']
+    packages = [
+      'github.com/redis/go-redis/v9',
+      'github.com/redis/go-redis/v9/auth',
+      'github.com/redis/go-redis/v9/maintnotifications',
+      'github.com/redis/go-redis/v9/push'
+    ]
+
+  [cacheModules.'github.com/refraction-networking/utls']
+    packages = [
+      'github.com/refraction-networking/utls',
+      'github.com/refraction-networking/utls/dicttls'
+    ]
+    deps = [
+      'github.com/andybalholm/brotli',
+      'github.com/klauspost/compress',
+      'golang.org/x/crypto',
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/rivo/uniseg']
+    packages = [
+      'github.com/rivo/uniseg'
+    ]
+
+  [cacheModules.'github.com/rs/xid']
+    packages = [
+      'github.com/rs/xid'
+    ]
+
+  [cacheModules.'github.com/sergi/go-diff']
+    packages = [
+      'github.com/sergi/go-diff/diffmatchpatch'
+    ]
+
+  [cacheModules.'github.com/sirupsen/logrus']
+    packages = [
+      'github.com/sirupsen/logrus',
+      'github.com/sirupsen/logrus/hooks/test'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'github.com/tidwall/gjson']
+    packages = [
+      'github.com/tidwall/gjson'
+    ]
+    deps = [
+      'github.com/tidwall/match',
+      'github.com/tidwall/pretty'
+    ]
+
+  [cacheModules.'github.com/tidwall/match']
+    packages = [
+      'github.com/tidwall/match'
+    ]
+
+  [cacheModules.'github.com/tidwall/pretty']
+    packages = [
+      'github.com/tidwall/pretty'
+    ]
+
+  [cacheModules.'github.com/tidwall/sjson']
+    packages = [
+      'github.com/tidwall/sjson'
+    ]
+    deps = [
+      'github.com/tidwall/gjson'
+    ]
+
+  [cacheModules.'github.com/tiktoken-go/tokenizer']
+    packages = [
+      'github.com/tiktoken-go/tokenizer',
+      'github.com/tiktoken-go/tokenizer/codec'
+    ]
+    deps = [
+      'github.com/dlclark/regexp2/v2'
+    ]
+
+  [cacheModules.'github.com/ugorji/go/codec']
+    packages = [
+      'github.com/ugorji/go/codec'
+    ]
+
+  [cacheModules.'github.com/wlynxg/anet']
+    packages = [
+      'github.com/wlynxg/anet'
+    ]
+
+  [cacheModules.'github.com/x448/float16']
+    packages = [
+      'github.com/x448/float16'
+    ]
+
+  [cacheModules.'github.com/xo/terminfo']
+    packages = [
+      'github.com/xo/terminfo'
+    ]
+
+  [cacheModules.'go.uber.org/atomic']
+    packages = [
+      'go.uber.org/atomic'
+    ]
+
+  [cacheModules.'golang.org/x/crypto']
+    packages = [
+      'golang.org/x/crypto/argon2',
+      'golang.org/x/crypto/bcrypt',
+      'golang.org/x/crypto/blake2b',
+      'golang.org/x/crypto/blowfish',
+      'golang.org/x/crypto/cast5',
+      'golang.org/x/crypto/chacha20',
+      'golang.org/x/crypto/chacha20poly1305',
+      'golang.org/x/crypto/cryptobyte',
+      'golang.org/x/crypto/cryptobyte/asn1',
+      'golang.org/x/crypto/curve25519',
+      'golang.org/x/crypto/hkdf',
+      'golang.org/x/crypto/sha3',
+      'golang.org/x/crypto/ssh',
+      'golang.org/x/crypto/ssh/agent',
+      'golang.org/x/crypto/ssh/knownhosts'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/net']
+    packages = [
+      'golang.org/x/net/bpf',
+      'golang.org/x/net/context',
+      'golang.org/x/net/dns/dnsmessage',
+      'golang.org/x/net/html',
+      'golang.org/x/net/html/atom',
+      'golang.org/x/net/http/httpguts',
+      'golang.org/x/net/http2',
+      'golang.org/x/net/http2/h2c',
+      'golang.org/x/net/http2/hpack',
+      'golang.org/x/net/idna',
+      'golang.org/x/net/ipv4',
+      'golang.org/x/net/ipv6',
+      'golang.org/x/net/proxy',
+      'golang.org/x/net/publicsuffix'
+    ]
+    deps = [
+      'golang.org/x/sys',
+      'golang.org/x/text'
+    ]
+
+  [cacheModules.'golang.org/x/oauth2']
+    packages = [
+      'golang.org/x/oauth2',
+      'golang.org/x/oauth2/authhandler',
+      'golang.org/x/oauth2/google',
+      'golang.org/x/oauth2/google/externalaccount',
+      'golang.org/x/oauth2/jws',
+      'golang.org/x/oauth2/jwt'
+    ]
+    deps = [
+      'cloud.google.com/go/compute/metadata'
+    ]
+
+  [cacheModules.'golang.org/x/sync']
+    packages = [
+      'golang.org/x/sync/errgroup',
+      'golang.org/x/sync/semaphore',
+      'golang.org/x/sync/singleflight'
+    ]
+
+  [cacheModules.'golang.org/x/sys']
+    packages = [
+      'golang.org/x/sys/cpu',
+      'golang.org/x/sys/unix'
+    ]
+
+  [cacheModules.'golang.org/x/term']
+    packages = [
+      'golang.org/x/term'
+    ]
+    deps = [
+      'golang.org/x/sys'
+    ]
+
+  [cacheModules.'golang.org/x/text']
+    packages = [
+      'golang.org/x/text/cases',
+      'golang.org/x/text/language',
+      'golang.org/x/text/runes',
+      'golang.org/x/text/secure/bidirule',
+      'golang.org/x/text/secure/precis',
+      'golang.org/x/text/transform',
+      'golang.org/x/text/unicode/bidi',
+      'golang.org/x/text/unicode/norm',
+      'golang.org/x/text/width'
+    ]
+
+  [cacheModules.'golang.org/x/time']
+    packages = [
+      'golang.org/x/time/rate'
+    ]
+
+  [cacheModules.'google.golang.org/protobuf']
+    packages = [
+      'google.golang.org/protobuf/encoding/protojson',
+      'google.golang.org/protobuf/encoding/prototext',
+      'google.golang.org/protobuf/encoding/protowire',
+      'google.golang.org/protobuf/proto',
+      'google.golang.org/protobuf/reflect/protodesc',
+      'google.golang.org/protobuf/reflect/protoreflect',
+      'google.golang.org/protobuf/reflect/protoregistry',
+      'google.golang.org/protobuf/runtime/protoiface',
+      'google.golang.org/protobuf/runtime/protoimpl',
+      'google.golang.org/protobuf/types/descriptorpb',
+      'google.golang.org/protobuf/types/dynamicpb',
+      'google.golang.org/protobuf/types/gofeaturespb',
+      'google.golang.org/protobuf/types/known/structpb'
+    ]
+
+  [cacheModules.'gopkg.in/ini.v1']
+    packages = [
+      'gopkg.in/ini.v1'
+    ]
+
+  [cacheModules.'gopkg.in/natefinch/lumberjack.v2']
+    packages = [
+      'gopkg.in/natefinch/lumberjack.v2'
+    ]
+
+  [cacheModules.'gopkg.in/yaml.v3']
+    packages = [
+      'gopkg.in/yaml.v3'
+    ]
