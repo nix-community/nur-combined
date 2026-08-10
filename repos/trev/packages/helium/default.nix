@@ -19,6 +19,8 @@ in
 appimageTools.wrapType2 {
   inherit pname version src;
 
+  extraPkgs = pkgs: [ pkgs.libva ];
+
   extraInstallCommands = ''
     install -m 444 -D ${contents}/helium.desktop $out/share/applications/helium.desktop
     install -m 444 -D ${contents}/usr/share/icons/hicolor/256x256/apps/helium.png \
