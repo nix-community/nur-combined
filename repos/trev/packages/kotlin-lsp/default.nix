@@ -85,8 +85,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     extraArgs = [
       "--url"
       "https://github.com/Kotlin/kotlin-lsp"
-      "--version-regex"
-      "kotlin-lsp/v(.*)"
+      "--version-regex='kotlin-lsp/v(.*)'"
       "--commit"
       finalAttrs.pname
     ];
