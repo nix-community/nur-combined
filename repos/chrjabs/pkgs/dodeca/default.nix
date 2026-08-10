@@ -10,6 +10,9 @@
   cmake,
   buildWasmBindgenCli,
   fetchCrate,
+  pnpm,
+  writableTmpDirAsHomeHook,
+  binaryen,
 }:
 let
   wasm-bindgen-cli = buildWasmBindgenCli rec {
@@ -52,19 +55,19 @@ let
 in
 rustPlatform.buildRustPackage rec {
   pname = "dodeca";
-  version = "0.13.0";
+  version = "0.17.0";
 
   src = fetchFromGitHub {
     owner = "bearcove";
     repo = "dodeca";
     tag = "v${version}";
-    hash = "sha256-c6JQZLNOt4rmkNVlElALzl4Ph9+bzHpzesxUJDzM/QI=";
+    hash = "sha256-W6wiqbVE0HUPD/dTtE3v9vJxruVoXt3nDhcP1g5/xjc=";
   };
 
-  cargoHash = "sha256-mN+zt90vmUhiB1vKVepCYzhObTrIBT+uOh9Dhq1t/O8=";
+  cargoHash = "sha256-jhIhgO+ccrqIJzWti/C4MmVF5Mqslebut2hjTkHSFJ8=";
 
-  cargoPatches = [
-    ./patch-dependencies.patch
+  patches = [
+    ./fix-duplicate-wasm-log.patch
   ];
 
   buildInputs = [ openssl ];
@@ -74,28 +77,21 @@ rustPlatform.buildRustPackage rec {
     rustc.llvmPackages.lld
     pkg-config
     cmake
+    pnpm
+    writableTmpDirAsHomeHook
+    binaryen
   ];
 
   buildPhase = ''
     runHook preBuild
 
     echo "Building WASM..."
-    cargo build -j "$NIX_BUILD_CORES" -p dodeca-devtools --target wasm32-unknown-unknown --release
-    wasm-bindgen --target web --out-dir crates/dodeca-devtools/pkg target/wasm32-unknown-unknown/release/dodeca_devtools.wasm
+    wasm-pack build --target web crates/dodeca-devtools
+    wasm-pack build --target web crates/dodeca-search-wasm
 
-    echo "Building ddc..."
-    cargo build -j "$NIX_BUILD_CORES" --release -p dodeca
-
-    echo "Building cells..."
-    cargo build -j "$NIX_BUILD_CORES" --release \
-        ${lib.strings.concatMapStringsSep " \\\n    " (
-          cell: "-p cell-${cell} --bin ddc-cell-${cell}"
-        ) cells}
-
-    runHook postBuild
+    echo "Building dodeca workspace..."
+    cargo build -j "$NIX_BUILD_CORES" --release
   '';
-
-  doCheck = false;
 
   installPhase = ''
     runHook preInstall
@@ -104,15 +100,14 @@ rustPlatform.buildRustPackage rec {
 
     cp "target/release/ddc" $out/bin/
 
-    ${lib.strings.concatMapStringsSep "\n" (
-      cell: "cp \"target/release/ddc-cell-${cell}\" $out/bin/"
-    ) cells}
+    mkdir -p $out/devtools
+    cp -R crates/dodeca-devtools/pkg $out/devtools/
 
     runHook postInstall
   '';
 
   meta = {
-    description = "A salsa-infused static site generator ";
+    description = "A query-system-based static site generator";
     homepage = "https://dodeca.bearcove.eu/";
     changelog = "github.com/bearcove/dodeca/blob/${src.rev}/CHANGELOG.md";
     license = with lib.licenses; [

@@ -1,0 +1,12 @@
+diff --git a/libs/hotmeal/hotmeal-wasm/src/lib.rs b/libs/hotmeal/hotmeal-wasm/src/lib.rs
+index c51113fde5..b769380828 100644
+--- a/libs/hotmeal/hotmeal-wasm/src/lib.rs
++++ b/libs/hotmeal/hotmeal-wasm/src/lib.rs
+@@ -975,7 +975,6 @@
+ }
+ 
+ /// Log a message to the browser console.
+-#[wasm_bindgen]
+ pub fn log(msg: &str) {
+     web_sys::console::log_1(&JsValue::from_str(msg));
+ }
