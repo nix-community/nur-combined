@@ -8,7 +8,7 @@ pub async fn upload_text_paste_rs(text: &str) -> Result<String, String> {
 }
 
 pub async fn upload_text_0x0(text: &str) -> Result<String, String> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().user_agent("curl/8.4.0").build().unwrap();
     let part = reqwest::multipart::Part::text(text.to_owned()).file_name("paste.txt");
     let form = reqwest::multipart::Form::new().part("file", part);
     match client.post("https://0x0.st").multipart(form).send().await {
@@ -35,7 +35,7 @@ pub async fn upload_text(text: &str) -> Result<String, String> {
 }
 
 pub async fn upload_file_catbox(filename: &str, data: &[u8]) -> Result<String, String> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().user_agent("curl/8.4.0").build().unwrap();
     let part = reqwest::multipart::Part::bytes(data.to_vec()).file_name(filename.to_owned());
     let form = reqwest::multipart::Form::new()
         .text("reqtype", "fileupload")
@@ -49,7 +49,7 @@ pub async fn upload_file_catbox(filename: &str, data: &[u8]) -> Result<String, S
 }
 
 pub async fn upload_file_0x0(filename: &str, data: &[u8]) -> Result<String, String> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().user_agent("curl/8.4.0").build().unwrap();
     let part = reqwest::multipart::Part::bytes(data.to_vec()).file_name(filename.to_owned());
     let form = reqwest::multipart::Form::new().part("file", part);
 
@@ -61,7 +61,7 @@ pub async fn upload_file_0x0(filename: &str, data: &[u8]) -> Result<String, Stri
 }
 
 pub async fn upload_file_uguu(filename: &str, data: &[u8]) -> Result<String, String> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().user_agent("curl/8.4.0").build().unwrap();
     let part = reqwest::multipart::Part::bytes(data.to_vec()).file_name(filename.to_owned());
     let form = reqwest::multipart::Form::new().part("files[]", part);
 
@@ -84,7 +84,7 @@ pub async fn upload_file_uguu(filename: &str, data: &[u8]) -> Result<String, Str
 }
 
 pub async fn upload_file_pasteboard(filename: &str, data: &[u8]) -> Result<String, String> {
-    let client = reqwest::Client::new();
+    let client = reqwest::Client::builder().user_agent("curl/8.4.0").build().unwrap();
     let part = reqwest::multipart::Part::bytes(data.to_vec()).file_name(filename.to_owned());
     let form = reqwest::multipart::Form::new().part("file", part);
 

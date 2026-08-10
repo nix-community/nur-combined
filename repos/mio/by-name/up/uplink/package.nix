@@ -11,6 +11,7 @@
   gtk3,
   glib,
   pcre2,
+  wrapGAppsHook3,
 }:
 
 flutter.buildFlutterApplication {
@@ -32,6 +33,7 @@ flutter.buildFlutterApplication {
     ninja
     rustPlatform.cargoSetupHook
     clang
+    wrapGAppsHook3
   ];
 
   buildInputs = [

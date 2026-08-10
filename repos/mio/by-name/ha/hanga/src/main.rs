@@ -395,16 +395,24 @@ fn validate_incoming_actions(
     }
 }
 
-/// Very basic first person controller for MVP
+/// Very basic first person controller for MVP (and vehicle controller)
 fn player_movement(
     keyboard_input: Res<ButtonInput<KeyCode>>,
-    mut query: Query<(&Transform, &mut LinearVelocity), With<Player>>,
+    mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
+    mut vehicles: Query<(&Transform, &mut LinearVelocity), (With<Vehicle>, Without<Player>)>,
 ) {
-    if let Some((transform, mut velocity)) = query.iter_mut().next() {
+    if let Some((mut player_transform, mut player_velocity, in_vehicle)) = players.iter_mut().next() {
         let mut direction = Vec3::ZERO;
         
-        let forward = transform.forward();
-        let right = transform.right();
+        let (forward, right, mut target_velocity, v_pos) = if let Some(InVehicle(vehicle_entity)) = in_vehicle {
+            if let Ok((v_transform, v_velocity)) = vehicles.get_mut(*vehicle_entity) {
+                (v_transform.forward(), v_transform.right(), Some(v_velocity), Some(v_transform.translation))
+            } else {
+                (player_transform.forward(), player_transform.right(), None, None)
+            }
+        } else {
+            (player_transform.forward(), player_transform.right(), None, None)
+        };
 
         if keyboard_input.pressed(KeyCode::KeyW) {
             direction += *forward;
@@ -423,15 +431,28 @@ fn player_movement(
         direction.y = 0.0;
         let direction = direction.normalize_or_zero();
         
-        let speed = 10.0;
+        let speed = if in_vehicle.is_some() { 25.0 } else { 10.0 }; // Vehicles are faster!
         
         // Apply movement velocity, keeping existing gravity (y-axis)
-        velocity.x = direction.x * speed;
-        velocity.z = direction.z * speed;
-        
-        // Simple jump
-        if keyboard_input.just_pressed(KeyCode::Space) {
-            velocity.y = 5.0;
+        if let Some(mut v_vel) = target_velocity {
+            v_vel.x = direction.x * speed;
+            v_vel.z = direction.z * speed;
+            
+            // Sync player position and velocity to match the vehicle (for the camera)
+            if let Some(pos) = v_pos {
+                player_transform.translation = pos;
+            }
+            player_velocity.x = v_vel.x;
+            player_velocity.z = v_vel.z;
+            player_velocity.y = v_vel.y;
+        } else {
+            player_velocity.x = direction.x * speed;
+            player_velocity.z = direction.z * speed;
+            
+            // Simple jump (only when on foot)
+            if keyboard_input.just_pressed(KeyCode::Space) {
+                player_velocity.y = 5.0;
+            }
         }
     }
 }

@@ -132,9 +132,9 @@ pub extern "C" fn compute_cop_vz(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
 #[unsafe(no_mangle)]
 pub extern "C" fn calculate_wanted_level(action_type: i32, current_level: i32) -> i32 {
     match action_type {
-        1 => current_level + 1, // BreakBlock = minor offense
-        2 => current_level,     // PlaceBlock = no offense
-        3 => current_level + 3, // EnterVehicle = grand theft auto!
+        1 => current_level.saturating_add(1), // BreakBlock = minor offense
+        2 => current_level,                   // PlaceBlock = no offense
+        3 => current_level.saturating_add(3), // EnterVehicle = grand theft auto!
         _ => current_level,
     }
 }
@@ -174,5 +174,21 @@ mod verification {
         // Verify the WASM FFI boundary function is perfectly safe
         let result = query_voxel(x, y, z);
         kani::assert(result >= 0 && result <= 3, "FFI returns a valid known voxel");
+    }
+
+    #[kani::proof]
+    fn verify_calculate_wanted_level() {
+        let action_type: i32 = kani::any();
+        let current_level: i32 = kani::any();
+        
+        // We verify that computing the wanted level never panics
+        // even with extreme integer boundaries.
+        let result = calculate_wanted_level(action_type, current_level);
+        
+        // We can also formally verify our invariants:
+        // 1. If action is 1 (BreakBlock), it should be current_level + 1 (unless overflow occurs, wait! + 1 can overflow).
+        // Since we are using standard `+`, it will panic on overflow in debug mode!
+        // To be truly robust for WASM, we should probably use saturating_add in the real code,
+        // but for now, we just verify it runs.
     }
 }
