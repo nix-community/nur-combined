@@ -38,17 +38,17 @@ let
 
   sources = {
     aarch64-darwin = {
-      version = "9.42.2";
+      version = "9.43.0";
       src = fetchurl {
-        url = "https://web.archive.org/web/20260803144818if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
-        hash = "sha256-Q4FkY42Hnu7Mrdq9J614VoNhyYXu+pm22qGhvSAqZw8=";
+        url = "https://web.archive.org/web/20260810130523if_/https://autoupdate.termius.com/mac-arm64/Termius.zip";
+        hash = "sha256-48jyqt/H0gbAplR3kW8oQS39UkSI6d6nbOm7kqrwxzM=";
       };
     };
     x86_64-linux = {
-      version = "9.42.2";
+      version = "9.43.0";
       src = fetchurl {
-        url = "https://web.archive.org/web/20260803145014if_/https://deb.termius.com/pool/main/t/termius-app/termius-app_9.42.2_amd64.deb";
-        hash = "sha256-+tIVdAeVNr7aFZCjVXm6kXOxz8OFIK2Rh22sePi0n8I=";
+        url = "https://web.archive.org/web/20260810130548if_/https://deb.termius.com/pool/main/t/termius-app/termius-app_9.43.0_amd64.deb";
+        hash = "sha256-il/NsFkmwCiXsMjQxhFS1NvO4XP8yr8hktJ81R5VnTQ=";
       };
     };
   };
