@@ -4,16 +4,9 @@ use std::time::Duration;
 
 #[test]
 fn test_agent_client_interaction() {
-    // Build the binary first to ensure it's up to date and we don't time out waiting for it
-    let status = Command::new("cargo")
-        .args(["build"])
-        .status()
-        .expect("Failed to build project");
-    assert!(status.success());
-
-    // Spawn the agent client
-    let mut child = Command::new("cargo")
-        .args(["run", "--", "--agent-client"])
+    // Spawn the agent client directly (avoids cargo run deadlock during cargo test)
+    let mut child = Command::new(env!("CARGO_BIN_EXE_hanga"))
+        .args(["--agent-client"])
         .stdin(Stdio::piped())
         .stdout(Stdio::piped())
         .spawn()
@@ -26,8 +19,8 @@ fn test_agent_client_interaction() {
     std::thread::sleep(Duration::from_secs(2));
 
     // Send a Look command
-    let look_command = r#"{"action": "Look"}\n"#;
-    stdin.write_all(look_command.as_bytes()).expect("Failed to write to stdin");
+    let look_command = b"{\"action\": \"Look\"}\n";
+    stdin.write_all(look_command).expect("Failed to write to stdin");
     stdin.flush().expect("Failed to flush stdin");
 
     // Give it a moment to process and print the observation
@@ -45,13 +38,13 @@ fn test_agent_client_interaction() {
     assert!(output.contains("\"trust_score\":"));
 
     // Send a MoveForward command
-    let move_command = r#"{"action": "MoveForward"}\n"#;
-    stdin.write_all(move_command.as_bytes()).expect("Failed to write to stdin");
+    let move_command = b"{\"action\": \"MoveForward\"}\n";
+    stdin.write_all(move_command).expect("Failed to write to stdin");
     stdin.flush().expect("Failed to flush stdin");
 
     // Send another Look command
-    let look_command2 = r#"{"action": "Look"}\n"#;
-    stdin.write_all(look_command2.as_bytes()).expect("Failed to write to stdin");
+    let look_command2 = b"{\"action\": \"Look\"}\n";
+    stdin.write_all(look_command2).expect("Failed to write to stdin");
     stdin.flush().expect("Failed to flush stdin");
 
     std::thread::sleep(Duration::from_millis(500));

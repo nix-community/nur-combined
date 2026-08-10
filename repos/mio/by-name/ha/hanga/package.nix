@@ -8,6 +8,8 @@
   xorg,
   wayland,
   libxkbcommon,
+  mesa,
+  xvfb-run,
 }:
 
 rustPlatform.buildRustPackage {
@@ -42,7 +44,22 @@ rustPlatform.buildRustPackage {
     libxkbcommon
     alsa-lib
     udev
+    mesa
   ];
+
+  nativeCheckInputs = [
+    xvfb-run
+    mesa.drivers
+  ];
+
+  checkPhase = ''
+    runHook preCheck
+    export WGPU_BACKEND=vulkan
+    export VK_ICD_FILENAMES=${mesa.drivers}/share/vulkan/icd.d/lvp_icd.x86_64.json
+    export LIBGL_ALWAYS_SOFTWARE=1
+    xvfb-run -a cargo test --release
+    runHook postCheck
+  '';
 
   meta = {
     description = "Hanga: Minecraft + Luanti + Teardown + GTA at the same time";

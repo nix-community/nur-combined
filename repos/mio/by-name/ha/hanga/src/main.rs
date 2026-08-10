@@ -88,10 +88,10 @@ fn main() {
 
     if is_headless {
         info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
-        app.add_plugins(MinimalPlugins);
+        app.add_plugins(DefaultPlugins);
     } else if is_text_client {
         info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
-        app.add_plugins(MinimalPlugins);
+        app.add_plugins(DefaultPlugins);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_terminal_input);
 
@@ -106,7 +106,7 @@ fn main() {
         });
     } else if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
-        app.add_plugins(MinimalPlugins);
+        app.add_plugins(DefaultPlugins);
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_agent_input);
 
@@ -631,7 +631,7 @@ pub struct DistributedMultiplayerPlugin;
 impl Plugin for DistributedMultiplayerPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_p2p_mesh);
-        app.add_systems(Update, handle_p2p_connections);
+        app.add_systems(Update, (handle_p2p_receive, handle_p2p_broadcast));
     }
 }
 #[derive(Resource)]
@@ -653,13 +653,10 @@ fn init_p2p_mesh(mut commands: Commands) {
     commands.insert_resource(P2pSocket(socket));
 }
 
-fn handle_p2p_connections(
+fn handle_p2p_receive(
     mut socket: Option<ResMut<P2pSocket>>,
-    mut event_reader: MessageReader<ProposedAction>,
     mut event_writer: MessageWriter<ProposedAction>,
-    players: Query<Entity, With<Player>>,
 ) {
-    let local_player = players.iter().next();
     if let Some(mut socket) = socket {
         for (peer, new_state) in socket.0.update_peers() {
             match new_state {
@@ -675,7 +672,16 @@ fn handle_p2p_connections(
                 event_writer.write(action);
             }
         }
+    }
+}
 
+fn handle_p2p_broadcast(
+    mut socket: Option<ResMut<P2pSocket>>,
+    mut event_reader: MessageReader<ProposedAction>,
+    players: Query<Entity, With<Player>>,
+) {
+    let local_player = players.iter().next();
+    if let Some(mut socket) = socket {
         // Broadcast local messages
         for action in event_reader.read() {
             let is_local = match action {
@@ -893,7 +899,7 @@ mod tests {
             penalty in 0.0f32..1.0,
         ) {
             let mut ledger = TrustLedger::default();
-            let entity = Entity::from_raw(42);
+            let entity = Entity::from_raw_u32(42).unwrap();
             
             // Set an initial score (simulate a peer that already has a score)
             ledger.peer_scores.insert(entity, initial_score);
