@@ -4,13 +4,13 @@
 
 stdenv.mkDerivation rec {
   pname = "eve";
-  version = "unstable-2026-06-29";
+  version = "unstable-2026-08-07";
 
   src = fetchFromGitHub {
     owner = "jfalcou";
     repo = "eve";
-    rev = "39a07c77527ded5aa00468d7a7daec2c7ca6caad";
-    sha256 = "sha256-sS5fmLEvZNNQvBAA+1m8axOOJWr6jjOm1O9D/WAQuKU=";
+    rev = "15caeecf12b41aee0aeb0839d3110700fb2a3396";
+    sha256 = "sha256-eA6AwY8JW3BALymrziHxREegGH8XcSioHTJeCbeO9F4=";
   };
 
   nativeBuildInputs = [ cmake ];
