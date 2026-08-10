@@ -19,6 +19,7 @@
     ];
     patches = (old.patches or [ ]) ++ [
       ./android-translation-layer-bitmap-unlock.patch
+      ./android-translation-layer-debug.patch
       ./android-translation-layer-kotatsu-stub.patch
       (fetchpatch {
         url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/290.patch";

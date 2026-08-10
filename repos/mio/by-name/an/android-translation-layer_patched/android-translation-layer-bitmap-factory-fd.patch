@@ -1,36 +1,37 @@
---- a/src/api-impl/android/graphics/BitmapFactory.java	2026-08-08 19:49:50.681553623 +1000
-+++ b/src/api-impl/android/graphics/BitmapFactory.java	2026-08-10 11:32:30.289829107 +1000
-@@ -18,7 +18,10 @@
+--- a/src/api-impl/android/graphics/BitmapFactory.java
++++ b/src/api-impl/android/graphics/BitmapFactory.java
+@@ -633,25 +633,24 @@
  
- import android.content.res.Resources;
- import android.content.res.Resources.NotFoundException;
-+import android.os.Build;
- import android.os.Trace;
-+import android.system.Os;
-+import android.system.OsConstants;
- import android.util.DisplayMetrics;
- import android.util.Log;
- import android.util.TypedValue;
-@@ -636,13 +639,19 @@
- 			//if (nativeIsSeekable(fd)) {
- 			//	bm = nativeDecodeFileDescriptor(fd, outPadding, opts);
- 			//} else {
-+			long currentOffset = -1;
-+			try {
-+				currentOffset = android.system.Os.lseek(fd, 0, android.system.OsConstants.SEEK_CUR);
-+			} catch (Throwable t) { /* ignore */ }
-+
- 			FileInputStream fis = new FileInputStream(fd);
+ 		Trace.traceBegin(Trace.TRACE_TAG_GRAPHICS, "decodeFileDescriptor");
+ 		try {
+-			//if (nativeIsSeekable(fd)) {
+-			//	bm = nativeDecodeFileDescriptor(fd, outPadding, opts);
+-			//} else {
+-			FileInputStream fis = new FileInputStream(fd);
  			try {
++				long offset = android.system.Os.lseek(fd, 0, android.system.OsConstants.SEEK_CUR);
++				FileInputStream fis = new FileInputStream(fd);
  				bm = decodeStreamInternal(fis, outPadding, opts);
- 			} finally {
+-			} finally {
 -				try {
 -					fis.close();
 -				} catch (Throwable t) { /* ignore */
-+				if (currentOffset != -1) {
-+					try {
-+						android.system.Os.lseek(fd, currentOffset, android.system.OsConstants.SEEK_SET);
-+					} catch (Throwable t) { /* ignore */ }
- 				}
+-				}
++				android.system.Os.lseek(fd, offset, android.system.OsConstants.SEEK_SET);
++			} catch (Exception e) {
++				bm = null;
  			}
- 			//}
+-			//}
+ 
+ 			if (bm == null && opts != null && opts.inBitmap != null) {
+ 				throw new IllegalArgumentException("Problem decoding into existing bitmap");
+ 			}
+ 
+ 			setDensityFromOptions(bm, opts);
++			if (bm != null && opts != null) {
++				opts.outWidth = bm.getWidth();
++				opts.outHeight = bm.getHeight();
++			}
+ 		} finally {
+ 			Trace.traceEnd(Trace.TRACE_TAG_GRAPHICS);
+ 		}

@@ -1,0 +1,14 @@
+--- a/src/api-impl/android/graphics/BitmapFactory.java
++++ b/src/api-impl/android/graphics/BitmapFactory.java
+@@ -594,6 +594,11 @@
+ 		byte [] tempStorage = null;
+ 		if (opts != null) tempStorage = opts.inTempStorage;
+ 		if (tempStorage == null) tempStorage = new byte[DECODE_BUFFER_SIZE];
++		
++		android.util.Log.d("BitmapFactory", "nativeDecodeStream called! tempStorage size: " + tempStorage.length);
++		if (opts != null) {
++			android.util.Log.d("BitmapFactory", "opts.inJustDecodeBounds: " + opts.inJustDecodeBounds);
++		}
+ 		return nativeDecodeStream(is, tempStorage, outPadding, opts);
+ 	}
+ 
