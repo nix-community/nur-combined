@@ -15,7 +15,7 @@
 
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "cloudnet";
-  version = "4.0.0-RC16";
+  version = "4.0.0-RC17";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   src = fetchzip {
     url = "https://github.com/CloudNetService/CloudNet/releases/download/${finalAttrs.version}/CloudNet.zip";
     stripRoot = false;
-    hash = "sha256-XRfsTOq3Bw+jsuWt4boIcQfd2Ek++vPwCzpZMcmBI2c=";
+    hash = "sha256-OpN76OQj9ZSnI65CRqtVXN/VtPzSYt6iP88b+/7/rKI=";
   };
 
   nativeBuildInputs = [ makeBinaryWrapper ];

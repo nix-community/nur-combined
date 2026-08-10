@@ -1,17 +1,20 @@
 {
   sing-box,
+
+  # buildInputs
+  cronet-go-beta,
 }:
 
-sing-box.overrideAttrs (previousAttrs: {
+(sing-box.override { cronet-go = cronet-go-beta; }).overrideAttrs (previousAttrs: {
   pname = previousAttrs.pname + "-beta";
-  version = "1.14.0-beta.10";
+  version = "1.14.0-beta.13";
   __structuredAttrs = true;
 
   src = previousAttrs.src.override {
-    hash = "sha256-dEoQAj7VOi2T9j2kEkscmzv/wOVBYZaWD3aCiilK9rs=";
+    hash = "sha256-8iX4cN6wKPCd70r/82gVdSO/9YiGUqu8TOQHdgnW860=";
   };
 
-  vendorHash = "sha256-l5vNu/JhZRLvXyD2sWPS4qVaTSgmzDQadsNwwF4Ucnw=";
+  vendorHash = "sha256-DF2eegNt5i/ymmJzef2vKQ9djbTUP3n8d5YxMqd8td0=";
 
   tags = previousAttrs.tags ++ [
     "with_cloudflared"
