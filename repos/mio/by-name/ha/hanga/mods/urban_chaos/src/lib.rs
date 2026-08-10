@@ -47,45 +47,71 @@ impl CityLayout {
         }
     }
 
-    fn generate_l_system_roads(_width: u32, _height: u32) -> Vec<Road> {
-        // TODO: Expand L-System branching logic
-        vec![Road { start: (0, 500), end: (1000, 500) }]
+    fn generate_l_system_roads(width: u32, height: u32) -> Vec<Road> {
+        let mut roads = Vec::new();
+        // Generate a grid of roads every 100 blocks
+        for x in (0..width).step_by(100) {
+            roads.push(Road { start: (x, 0), end: (x, height) });
+        }
+        for z in (0..height).step_by(100) {
+            roads.push(Road { start: (0, z), end: (width, z) });
+        }
+        roads
     }
 
-    fn generate_voronoi_districts(_width: u32, _height: u32) -> Vec<District> {
-        // TODO: Expand Voronoi cell calculation
-        vec![District { center: (500, 500), district_type: DistrictType::Downtown }]
+    fn generate_voronoi_districts(width: u32, height: u32) -> Vec<District> {
+        let mut districts = Vec::new();
+        // Just plop a downtown in the center, and suburban around it
+        districts.push(District { center: (width / 2, height / 2), district_type: DistrictType::Downtown });
+        districts.push(District { center: (width / 4, height / 4), district_type: DistrictType::Suburban });
+        districts.push(District { center: (width * 3 / 4, height * 3 / 4), district_type: DistrictType::Industrial });
+        districts
     }
 
     /// Queries the 3D voxel type at a specific coordinate based on the 2D layout.
-    /// Returns 0 for Air, 1 for Concrete, 2 for Asphalt (road), etc.
     pub fn get_voxel_at(&self, x: i32, y: i32, z: i32) -> u8 {
         // Ground plane
         if y < 0 {
             return 1; // Solid bedrock/concrete base
         }
 
-        // Extremely naive building extrusion for "Downtown"
-        // If we are in the center of the downtown district (within 50 blocks)
-        // extrude a skyscraper up to y=100
-        let dx = (x - 500).abs();
-        let dz = (z - 500).abs();
-
-        if dx < 50 && dz < 50 {
-            // Skyscraper bounds
-            if y < 100 {
-                // If it's on the edge of the 50x50 area, make it a glass wall (type 3)
-                if dx == 49 || dz == 49 {
-                    return 3; // Glass
-                }
-                return 1; // Concrete inner structure
-            }
+        // If it's a road line (every 100 blocks), it's asphalt (2)
+        // Let's make roads 6 blocks wide
+        let is_road_x = (x % 100).abs() < 3;
+        let is_road_z = (z % 100).abs() < 3;
+        
+        if y == 0 && (is_road_x || is_road_z) {
+            return 2; // Asphalt road
         }
 
-        // Road generation (naive)
-        if y == 0 {
-            if z == 500 {
-                return 2; // Asphalt road running along z=500
+        // Generate buildings inside the grid cells
+        // Center of the cell is at x - (x%100) + 50
+        let cell_x = x - (x % 100) + 50;
+        let cell_z = z - (z % 100) + 50;
+
+        // Simple distance to center of city to determine height (downtown is taller)
+        let dist_to_center = ((cell_x - (self.width / 2) as i32).pow(2) + (cell_z - (self.height / 2) as i32).pow(2)) as f32;
+        let dist_to_center = dist_to_center.sqrt();
+        
+        let max_height = if dist_to_center < 300.0 {
+            100 // Downtown skyscrapers
+        } else if dist_to_center < 600.0 {
+            40 // Commercial / Industrial
+        } else {
+            15 // Suburbs
+        };
+
+        // Building footprint (40x40 inside the 100x100 cell, so it's surrounded by grass/sidewalk)
+        let local_x = (x - cell_x).abs();
+        let local_z = (z - cell_z).abs();
+
+        if local_x < 20 && local_z < 20 {
+            if y < max_height {
+                // Glass walls for downtown, concrete for others
+                if max_height > 50 && (local_x == 19 || local_z == 19) {
+                    return 3; // Glass
+                }
+                return 1; // Concrete
             }
         }
 
@@ -136,6 +162,32 @@ pub extern "C" fn calculate_wanted_level(action_type: i32, current_level: i32) -
         2 => current_level,                   // PlaceBlock = no offense
         3 => current_level.saturating_add(3), // EnterVehicle = grand theft auto!
         _ => current_level,
+    }
+}
+
+/// WASM exported function for dynamic economy pricing
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
+    if supply == 0 {
+        return base_price * 10;
+    }
+    // Simple dynamic pricing model
+    let price = (base_price * demand) / supply;
+    price.max(1) // Price never drops below 1
+}
+
+/// WASM exported function for AI storyteller event generation
+#[unsafe(no_mangle)]
+pub extern "C" fn generate_story_event(player_level: i32) -> i32 {
+    // 0 = peaceful day
+    // 1 = small bandit raid
+    // 2 = alien invasion
+    if player_level < 5 {
+        return 0; // Peaceful
+    } else if player_level < 20 {
+        return 1; // Bandits
+    } else {
+        return 2; // Aliens
     }
 }
 #[cfg(kani)]

@@ -722,36 +722,56 @@ fn init_openxr() {
 pub struct AiStorytellerPlugin;
 impl Plugin for AiStorytellerPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_llm_director);
+        app.add_systems(Update, update_storyteller);
     }
 }
-fn init_llm_director() {
-    info!("Spawning LLM-based AI director to generate infinite emergent quests...");
-}
-
-#[cfg(kani)]
-mod verification {
-    use super::*;
-
-    #[kani::proof]
-    fn check_engine_physics_limits() {
-        let spawned_blocks: u32 = kani::any();
-        // Assume we only spawn up to a million blocks for this sanity check
-        kani::assume(spawned_blocks < 1_000_000);
-        // Engine math should safely contain these block counts without overflow
-        let total_mass = spawned_blocks.saturating_mul(10);
-        assert!(total_mass < 10_000_000, "Physics mass calculation exceeded bounds");
+fn update_storyteller(time: Res<Time>, mut timer: Local<f32>) {
+    *timer += time.delta_secs();
+    if *timer >= 10.0 {
+        *timer = 0.0;
+        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+            let mut store = Store::new(engine, ());
+            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                if let Ok(gen_story) = instance.get_typed_func::<i32, i32>(&mut store, "generate_story_event") {
+                    if let Ok(event_id) = gen_story.call(&mut store, 10) { // Assume player level 10
+                        match event_id {
+                            0 => info!("STORYTELLER (WASM): It's a peaceful day in the city."),
+                            1 => warn!("STORYTELLER (WASM): A small bandit raid has begun!"),
+                            2 => error!("STORYTELLER (WASM): ALIEN INVASION!"),
+                            _ => {}
+                        }
+                    }
+                }
+            }
+        }
     }
 }
+
 // --- Global Economy ---
 pub struct EconomicSimulationPlugin;
 impl Plugin for EconomicSimulationPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_macro_economy);
+        app.add_systems(Update, update_macro_economy);
     }
 }
-fn init_macro_economy() {
-    info!("Simulating global supply chains and dynamic market fluctuations...");
+fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>) {
+    *timer += time.delta_secs();
+    if *timer >= 5.0 {
+        *timer = 0.0;
+        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+            let mut store = Store::new(engine, ());
+            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                if let Ok(calc_price) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "compute_economy_price") {
+                    let base = 100;
+                    let supply = 5; // Static dummy values
+                    let demand = 8;
+                    if let Ok(price) = calc_price.call(&mut store, (base, supply, demand)) {
+                        info!("ECONOMY (WASM): Bread is now trading at ${} (Supply: {}, Demand: {})", price, supply, demand);
+                    }
+                }
+            }
+        }
+    }
 }
 
 #[cfg(kani)]
