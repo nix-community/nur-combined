@@ -125,6 +125,26 @@
         },
         "version": "v0.7.0"
     },
+    "hfd": {
+        "cargoLock": null,
+        "date": "2026-06-22",
+        "extract": null,
+        "name": "hfd",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "rev": "dcc19a065877cb1c75d22b7c5662845e8c8df203",
+            "sha256": "sha256-uy6HUlf4czUX0NyU+Rgu+4XPfUWQlIRD7cTe3XKZet0=",
+            "sparseCheckout": [],
+            "type": "git",
+            "url": "https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f.git"
+        },
+        "version": "dcc19a065877cb1c75d22b7c5662845e8c8df203"
+    },
     "pumpkin": {
         "cargoLock": null,
         "date": "2026-08-10",
@@ -139,12 +159,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "366c9cb3234fd4a9e41c53c07c5c2c084ff473a3",
-            "sha256": "sha256-viB6p5AEtPobfQgIl83SqiUPSDAmjmbukm+uncdfqSs=",
+            "rev": "2ffe470e2e64aef592c3c702dfa81bb8fe096b07",
+            "sha256": "sha256-viyLeEeopw1pH5NyG6pVVigRs3TzXkIV1NO2dJO2sWw=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "366c9cb3234fd4a9e41c53c07c5c2c084ff473a3"
+        "version": "2ffe470e2e64aef592c3c702dfa81bb8fe096b07"
     },
     "sing-box-alpha": {
         "cargoLock": null,
