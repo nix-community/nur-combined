@@ -93,6 +93,27 @@
     }
   },
   {
+    "id": "pokee-isaac",
+    "name": "Pokee-Isaac 28B",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 7.5e-05,
+      "completion": 1.0,
+      "currency": "USD",
+      "prompt": 0.15,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 10000000,
+    "max_output_tokens": 60000,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text"
+      ]
+    }
+  },
+  {
     "id": "poolside/laguna-s-2.1",
     "name": "Laguna S 2.1",
     "pricing": {
@@ -195,6 +216,54 @@
       "input_modalities": [
         "text",
         "image"
+      ]
+    }
+  },
+  {
+    "id": "meta/muse-spark-1.2-contributor",
+    "name": "Muse Spark 1.2 Contributor (Data Used for Training)",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 2e-06,
+      "completion": 0.2,
+      "currency": "USD",
+      "prompt": 0.1,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio"
+      ]
+    }
+  },
+  {
+    "id": "meta/muse-spark-1.2",
+    "name": "Muse Spark 1.2",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00015,
+      "completion": 4.25,
+      "currency": "USD",
+      "prompt": 1.25,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 1000000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": true
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video",
+        "audio"
       ]
     }
   },
@@ -6691,7 +6760,7 @@
     "id": "deepseek/deepseek-v4-flash-latest",
     "name": "DeepSeek V4 Flash Latest",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.8e-06,
+      "cacheReadInputPer1kTokens": 1.4e-05,
       "completion": 0.28,
       "currency": "USD",
       "prompt": 0.14,
@@ -6733,7 +6802,7 @@
     "id": "deepseek/deepseek-v4-flash-0731-cheaper",
     "name": "DeepSeek V4 Flash 0731 Cheaper",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.8e-06,
+      "cacheReadInputPer1kTokens": 1.4e-05,
       "completion": 0.28,
       "currency": "USD",
       "prompt": 0.14,
@@ -6754,7 +6823,7 @@
     "id": "deepseek/deepseek-v4-flash-0731-cheaper:thinking",
     "name": "DeepSeek V4 Flash 0731 Cheaper (Thinking)",
     "pricing": {
-      "cacheReadInputPer1kTokens": 2.8e-06,
+      "cacheReadInputPer1kTokens": 1.4e-05,
       "completion": 0.28,
       "currency": "USD",
       "prompt": 0.14,
@@ -7013,6 +7082,29 @@
   {
     "id": "qwen3.8-max",
     "name": "Qwen3.8 Max",
+    "pricing": {
+      "cacheReadInputPer1kTokens": 0.00025,
+      "completion": 6.0,
+      "currency": "USD",
+      "prompt": 2.0,
+      "unit": "per_million_tokens"
+    },
+    "context_length": 991000,
+    "max_output_tokens": 65536,
+    "capabilities": {
+      "reasoning": false
+    },
+    "architecture": {
+      "input_modalities": [
+        "text",
+        "image",
+        "video"
+      ]
+    }
+  },
+  {
+    "id": "qwen3.8-max:thinking",
+    "name": "Qwen3.8 Max Thinking",
     "pricing": {
       "cacheReadInputPer1kTokens": 0.00025,
       "completion": 6.0,
@@ -13173,28 +13265,6 @@
     }
   },
   {
-    "id": "baidu/ernie-4.5-vl-28b-a3b",
-    "name": "ERNIE 4.5 VL 28B",
-    "pricing": {
-      "cacheReadInputPer1kTokens": 7e-05,
-      "completion": 0.56,
-      "currency": "USD",
-      "prompt": 0.14,
-      "unit": "per_million_tokens"
-    },
-    "context_length": 32768,
-    "max_output_tokens": 16384,
-    "capabilities": {
-      "reasoning": false
-    },
-    "architecture": {
-      "input_modalities": [
-        "text",
-        "image"
-      ]
-    }
-  },
-  {
     "id": "deepseek/deepseek-prover-v2-671b",
     "name": "DeepSeek Prover v2 671B",
     "pricing": {
@@ -13261,10 +13331,10 @@
     "id": "inclusionai/ling-3.0-flash",
     "name": "Ling 3.0 Flash",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.2e-05,
-      "completion": 0.18,
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.22,
       "currency": "USD",
-      "prompt": 0.06,
+      "prompt": 0.075,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,
@@ -13282,10 +13352,10 @@
     "id": "inclusionai/ling-3.0-flash:thinking",
     "name": "Ling 3.0 Flash Thinking",
     "pricing": {
-      "cacheReadInputPer1kTokens": 1.2e-05,
-      "completion": 0.18,
+      "cacheReadInputPer1kTokens": 1.5e-05,
+      "completion": 0.22,
       "currency": "USD",
-      "prompt": 0.06,
+      "prompt": 0.075,
       "unit": "per_million_tokens"
     },
     "context_length": 262144,

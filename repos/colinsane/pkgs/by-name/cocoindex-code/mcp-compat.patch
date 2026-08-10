@@ -1,0 +1,35 @@
+--- a/src/cocoindex_code/server.py
++++ b/src/cocoindex_code/server.py
+@@ -14,10 +14,9 @@
+ import os
+ from pathlib import Path
+ 
+-from mcp.server.mcpserver import MCPServer
++from mcp.server.fastmcp import FastMCP
+ from pydantic import BaseModel, Field
+ 
+-from ._version import __version__
+ from .settings import DaemonSettings, load_user_settings
+ 
+ _MCP_INSTRUCTIONS = (
+@@ -59,9 +58,9 @@
+ # === Daemon-backed MCP server factory ===
+ 
+ 
+-def create_mcp_server(project_root: str) -> MCPServer:
++def create_mcp_server(project_root: str) -> FastMCP:
+     """Create a lightweight MCP server that delegates to the daemon."""
+-    mcp = MCPServer("cocoindex-code", instructions=_MCP_INSTRUCTIONS, version=__version__)
++    mcp = FastMCP("cocoindex-code", instructions=_MCP_INSTRUCTIONS)
+ 
+     @mcp.tool(
+         name="search",
+@@ -205,7 +204,7 @@
+ 
+ 
+ # Keep the old `mcp` global for backward compatibility in __init__.py
+-mcp: MCPServer | None = None
++mcp: FastMCP | None = None
+ 
+ 
+ # === Backward-compatible entry point ===

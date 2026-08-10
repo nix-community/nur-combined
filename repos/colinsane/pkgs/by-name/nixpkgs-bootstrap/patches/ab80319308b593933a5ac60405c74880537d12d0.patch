@@ -1,0 +1,41 @@
+From ab80319308b593933a5ac60405c74880537d12d0 Mon Sep 17 00:00:00 2001
+From: Colin <colin@uninsane.org>
+Date: Sun, 9 Aug 2026 02:14:07 +0000
+Subject: [PATCH] mesa-libclc: fix cross compilation
+
+fixes `nix-build -A pkgsCross.aarch64-multiplatform.mesa-libclc`
+and `pkgsCross.aarch64-multiplatform.mesa`, by extension.
+---
+ pkgs/by-name/me/mesa-libclc/package.nix | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/pkgs/by-name/me/mesa-libclc/package.nix b/pkgs/by-name/me/mesa-libclc/package.nix
+index 9bc61617264ecb256fd97064cb495b069556ea28..fdde47f293c398376421c727adb9ccc717f6e990 100644
+--- a/pkgs/by-name/me/mesa-libclc/package.nix
++++ b/pkgs/by-name/me/mesa-libclc/package.nix
+@@ -3,20 +3,20 @@
+   stdenv,
+   fetchFromGitLab,
+   buildEnv,
++  buildPackages,
+   cmake,
+   llvmPackages_22,
+   mesa,
+-  spirv-llvm-translator,
+ }:
+ let
+-  spirv-llvm-translator' = spirv-llvm-translator.override {
+-    inherit (llvmPackages_22) llvm;
++  spirv-llvm-translator' = buildPackages.spirv-llvm-translator.override {
++    inherit (buildPackages.llvmPackages_22) llvm;
+   };
+   tools = buildEnv {
+     name = "mesa-libclc-tools";
+     paths = [
+-      llvmPackages_22.clang-unwrapped
+-      llvmPackages_22.llvm
++      buildPackages.llvmPackages_22.clang-unwrapped
++      buildPackages.llvmPackages_22.llvm
+     ];
+     pathsToLink = [ "/bin" ];
+   };

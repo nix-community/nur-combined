@@ -10,18 +10,21 @@
 
 python3.pkgs.buildPythonApplication (finalAttrs: {
   pname = "cocoindex-code";
-  version = "0.2.39";
+  version = "0.2.41";
   pyVersion = "1.0.0.dev20260625";
 
   src = fetchFromGitHub {
     owner = "cocoindex-io";
     repo = "cocoindex-code";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-clnb74lILf7Ap4mXarU7KSyN5/+iCmnbZD7p933sDGA=";
-    leaveDotGit = true;  #< TODO: try this
+    hash = "sha256-cnPe7u7PjY1BWF9YTvYueY8BfqWVWW6JhJQivuVxc2Y=";
+    leaveDotGit = true;
   };
 
-  patches = [ ./find-ccc-from-path.patch ];
+  patches = [
+    ./find-ccc-from-path.patch
+    ./mcp-compat.patch
+  ];
 
   pyproject = true;
 
@@ -32,7 +35,8 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
 
   dependencies = [
     cocoindex
-  ] ++ (with python3.pkgs; [
+  ]
+  ++ (with python3.pkgs; [
     litellm
     mcp
     sqlite-vec
@@ -56,6 +60,7 @@ python3.pkgs.buildPythonApplication (finalAttrs: {
     "cocoindex"
     "einops"
     "mcp"
+    "pathspec"
     "pydantic"
     "sqlite-vec"
   ];

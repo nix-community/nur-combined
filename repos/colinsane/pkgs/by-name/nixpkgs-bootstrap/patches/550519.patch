@@ -1,0 +1,471 @@
+From 8820b84c40fc5e6541ff5e0a3e6eb0658aee96a1 Mon Sep 17 00:00:00 2001
+From: K900 <me@0upti.me>
+Date: Sat, 8 Aug 2026 18:36:46 +0300
+Subject: [PATCH] Revert "nixos/seerr: use lib.mkStateRevisionOption"
+
+---
+ .../development/state-revision.section.md     |  57 --------
+ .../development/writing-modules.chapter.md    |   1 -
+ nixos/doc/manual/redirects.json               |   3 -
+ nixos/lib/utils.nix                           | 124 ------------------
+ nixos/modules/misc/version.nix                |  24 ----
+ nixos/modules/services/misc/seerr.nix         |  24 +---
+ nixos/tests/all-tests.nix                     |   3 +-
+ nixos/tests/moduleStateRevisions.nix          |  25 ----
+ nixos/tests/utils/default.nix                 |   6 +-
+ nixos/tests/utils/mkStateRevisionOption.nix   |  39 ------
+ 10 files changed, 5 insertions(+), 301 deletions(-)
+ delete mode 100644 nixos/doc/manual/development/state-revision.section.md
+ delete mode 100644 nixos/tests/moduleStateRevisions.nix
+ delete mode 100644 nixos/tests/utils/mkStateRevisionOption.nix
+
+diff --git a/nixos/doc/manual/development/state-revision.section.md b/nixos/doc/manual/development/state-revision.section.md
+deleted file mode 100644
+index 8a8f13aeda74b245dd9e8b4d34b538efdc2b4ebf..0000000000000000000000000000000000000000
+--- a/nixos/doc/manual/development/state-revision.section.md
++++ /dev/null
+@@ -1,57 +0,0 @@
+-# State revision {#sec-state-revision}
+-
+-NixOS includes a {option}`system.stateVersion` option, used by some modules for a
+-variety of reasons related to non-backward-compatible changes to software or
+-the module itself.
+-Module authors are discouraged from adding new uses of
+-{option}`system.stateVersion` to their module.
+-
+-However, when the alternatives are impractical, modules that wish to consume
+-{option}`system.stateVersion` should instead define their own `stateRevision`
+-option using `utils.mkStateRevisionOption`.
+-There should be no uses of `config.system.stateVersion` directly in the module.
+-
+-(Note the name difference: the {option}`system.stateVersion` option, with a V,
+-takes a value that looks like "YY.MM".
+-A `stateRevision` option, with an R, takes a non-negative integer value.)
+-
+-Modules should also add the value of their `stateRevision` option to
+-`system.moduleStateRevisions."your.module.stateRevision"`, when the module is
+-enabled.
+-This is a purely informative option that exists to help describe the effects of
+-changing {option}`system.stateVersion`.
+-
+-Example:
+-
+-```nix
+-{
+-  lib,
+-  config,
+-  utils,
+-  ...
+-}:
+-let
+-  cfg = config.services.whatever;
+-in
+-{
+-  options.services.whatever = {
+-    enable = lib.mkEnableOption "whatever, a service that does whatever";
+-    stateRevision = utils.mkStateRevisionOption {
+-      descriptionName = "the whatever service";
+-      migrations = {
+-        "26.05" = "Rename `/var/lib/old_name` to `/var/lib/new_name`.";
+-      };
+-    };
+-  };
+-
+-  config = lib.mkIf cfg.enable {
+-    systemd.services.whatever = {
+-      # ...
+-      serviceConfig.StateDirectory = if cfg.stateRevision < 1 then "old_name" else "new_name";
+-    };
+-
+-    # Important: this is inside the `lib.mkIf cfg.enable`
+-    system.moduleStateRevisions."services.whatever.stateRevision" = cfg.stateRevision;
+-  };
+-}
+-```
+diff --git a/nixos/doc/manual/development/writing-modules.chapter.md b/nixos/doc/manual/development/writing-modules.chapter.md
+index 626834fc3e6654c792486a60d7d0cf6073b02823..a58ebb1709ab9f4b9773bfb5998688fde90c1bc5 100644
+--- a/nixos/doc/manual/development/writing-modules.chapter.md
++++ b/nixos/doc/manual/development/writing-modules.chapter.md
+@@ -220,5 +220,4 @@ importing-modules.section.md
+ replace-modules.section.md
+ freeform-modules.section.md
+ settings-options.section.md
+-state-revision.section.md
+ ```
+diff --git a/nixos/doc/manual/redirects.json b/nixos/doc/manual/redirects.json
+index 36c508d901ba989b93636292b293ca2a719614b0..28db6d9841c352910aeb60fb9e888656e3e020b7 100644
+--- a/nixos/doc/manual/redirects.json
++++ b/nixos/doc/manual/redirects.json
+@@ -235,9 +235,6 @@
+   "sec-override-nixos-test": [
+     "index.html#sec-override-nixos-test"
+   ],
+-  "sec-state-revision": [
+-    "index.html#sec-state-revision"
+-  ],
+   "sec-wireless-declarative": [
+     "index.html#sec-wireless-declarative"
+   ],
+diff --git a/nixos/lib/utils.nix b/nixos/lib/utils.nix
+index 964ca580ce1a7dce35e4a0f5aa5ed39d1948816e..487b20f53d8c3dfe63ac34d0f0224618b5a89277 100644
+--- a/nixos/lib/utils.nix
++++ b/nixos/lib/utils.nix
+@@ -6,10 +6,8 @@
+ 
+ let
+   inherit (lib)
+-    all
+     any
+     attrNames
+-    concatImapStringsSep
+     concatMapStringsSep
+     concatStringsSep
+     elem
+@@ -29,11 +27,8 @@ let
+     isList
+     isPath
+     isString
+-    length
+     listToAttrs
+-    literalMD
+     mapAttrs
+-    mkOption
+     nameValuePair
+     optionalString
+     removePrefix
+@@ -41,10 +36,8 @@ let
+     splitString
+     stringToCharacters
+     types
+-    versionOlder
+     ;
+ 
+-  inherit (lib.lists) findFirstIndex;
+   inherit (lib.strings) toJSON escapeC;
+ in
+ 
+@@ -611,123 +604,6 @@ let
+         lib.listToAttrs
+       ];
+     };
+-
+-    /**
+-      Creates a per-module `stateRevision` option that takes an int value, with a
+-      default that is derived from `system.stateVersion`.
+-
+-      # Inputs
+-
+-      `descriptionName`
+-      : A human-friendly name for your module, used for the description of the
+-        created option.
+-
+-      `migrations`
+-      : Attribute set that maps from values of `system.stateVersion`
+-        (representing the breakpoints at which the default value of this option
+-        will change) to Markdown instructions to users for manually migrating
+-        their data to this breakpoint. The migration instructions will be
+-        included in the NixOS documentation for this option. (These instructions
+-        must only contain Markdown inlines, because they will be rendered in a
+-        table. In particular, lists will not render correctly.)
+-
+-        `migrations` will also be exposed as an attribute on the result.
+-
+-      # Examples
+-      :::{.example}
+-      ## `lib.options.mkStateRevisionOption` usage example
+-
+-      ```nix
+-      exampleModule =
+-        { lib, config, utils, ... }:
+-        {
+-          options.services.whatever = {
+-            stateRevision = utils.mkStateRevisionOption {
+-              descriptionName = "the whatever service";
+-              migrations = {
+-                "26.05" = "Rename `/var/lib/old_name` to `/var/lib/new_name`.";
+-                "26.11" = "Run the `upgrade_whatever` utility.";
+-                };
+-              };
+-            };
+-          };
+-        }
+-
+-      (pkgs.nixos [
+-        exampleModule
+-        { system.stateVersion = "25.11"; }
+-      ]).config.services.whatever.stateRevision # => 0
+-      (pkgs.nixos [
+-        exampleModule
+-        { system.stateVersion = "26.05"; }
+-      ]).config.services.whatever.stateRevision # => 1
+-      (pkgs.nixos [
+-        exampleModule
+-        { system.stateVersion = "27.05"; }
+-      ]).config.services.whatever.stateRevision # => 2
+-      ```
+-
+-      :::
+-
+-      Modules should use this function when they change how data managed by the
+-      module is persisted on the system between NixOS releases.
+-
+-      The default value of the option will be the number of attributes in the
+-      `migrations` parameter with name less than or equal to the value of
+-      `system.stateVersion`.
+-
+-      When using this function, don't forget to add the option's value to
+-      `system.moduleStateRevisions."your.module.stateRevision"` when your module is
+-      enabled.
+-    */
+-    mkStateRevisionOption =
+-      {
+-        descriptionName,
+-        migrations,
+-      }:
+-      let
+-        versions = attrNames migrations;
+-        maxVal = length versions;
+-      in
+-      assert all (v: builtins.match "[0-9]{2}\\.[0-9]{2}" v != null) versions;
+-      mkOption {
+-        type = types.ints.between 0 maxVal;
+-        description = ''
+-          This option versions the format of state persisted by
+-          ${descriptionName}. Its default value depends on the value of
+-          {option}`system.stateVersion`.
+-
+-          Users who wish to increment this option will need to take manual
+-          migration steps to preserve their data. **If you perform these
+-          migrations, rolling back to an older generation will require also
+-          reversing the migrations to the state expected by that generation.**
+-          The migrations needed to advance to each value of this option are as
+-          follows (perform all instructions after the row for the current
+-          `stateRevision`, up to and including the row for the new
+-          `stateRevision`):
+-
+-          | `stateRevision` | Migration instructions |
+-          |-----------------|------------------------|
+-          | 0               | (none)                 |
+-          ${concatImapStringsSep "\n" (
+-            v: sv: "| ${toString v} | ${replaceStrings [ "\n" ] [ " " ] migrations.${sv}} |"
+-          ) versions}
+-
+-          Note that you do **not** need to change {option}`system.stateVersion`
+-          in order to update this option. {option}`system.stateVersion` only
+-          determines the default value of this option. Most users should not
+-          change {option}`system.stateVersion` at all.
+-        '';
+-        default = findFirstIndex (versionOlder config.system.stateVersion) maxVal versions;
+-        defaultText = literalMD ''
+-          If {option}`system.stateVersion` is:
+-          ${concatImapStringsSep "\n" (v: sv: "* &lt;${sv}: ${toString (v - 1)}") versions}
+-          * otherwise: ${toString maxVal}
+-        '';
+-      }
+-      // {
+-        inherit migrations;
+-      };
+   };
+ in
+ utils
+diff --git a/nixos/modules/misc/version.nix b/nixos/modules/misc/version.nix
+index 6270eb663db8ad7400d6f4348d5e51b53c07a0a5..b61e00d647b2b27eb49744bf545644e98ec52556 100644
+--- a/nixos/modules/misc/version.nix
++++ b/nixos/modules/misc/version.nix
+@@ -254,30 +254,6 @@ in
+       '';
+     };
+ 
+-    moduleStateRevisions = mkOption {
+-      type =
+-        let
+-          baseType = types.attrsOf types.ints.unsigned;
+-          isStateRevisionOption = x: lib.isOption x && x ? migrations;
+-        in
+-        types.addCheck baseType (
+-          attrs:
+-          builtins.all (
+-            attrPath: isStateRevisionOption (lib.attrByPath (lib.splitString "." attrPath) null options)
+-          ) (builtins.attrNames attrs)
+-        )
+-        // {
+-          description = "${baseType.description}, in which every attribute name is the path to an option created with mkStateRevisionOption";
+-        };
+-      default = { };
+-      internal = true;
+-      description = ''
+-        NixOS modules should set attributes on this option. Users should leave
+-        it alone. Future tooling may use it to determine the consequences of
+-        updating {option}`system.stateVersion`.
+-      '';
+-    };
+-
+     configurationRevision = mkOption {
+       type = types.nullOr types.str;
+       default = null;
+diff --git a/nixos/modules/services/misc/seerr.nix b/nixos/modules/services/misc/seerr.nix
+index e194216e1fc7398837afca520edc92f0b1be0d96..fc91fd8ba30dbbb586df7d50853eb4b174d9af99 100644
+--- a/nixos/modules/services/misc/seerr.nix
++++ b/nixos/modules/services/misc/seerr.nix
+@@ -2,14 +2,13 @@
+   config,
+   pkgs,
+   lib,
+-  utils,
+   ...
+ }:
+ let
+   cfg = config.services.seerr;
+-  # 26.05 introduced a breaking change which is guarded behind stateRevision to
+-  # avoid breaking users.
+-  useNewConfigLocation = cfg.stateRevision >= 1;
++  # 26.05 introduced a breaking change which is guarded behind stateVersion to avoid
++  # breaking users.
++  useNewConfigLocation = lib.versionAtLeast config.system.stateVersion "26.05";
+ in
+ {
+   imports = [
+@@ -40,23 +39,8 @@ in
+     configDir = lib.mkOption {
+       type = lib.types.path;
+       default = if useNewConfigLocation then "/var/lib/seerr/" else "/var/lib/jellyseerr/config";
+-      defaultText = lib.literalMD "{file}`/var/lib/seerr` (or {file}`/var/lib/jellyseerr/config` if {option}`services.seerr.stateRevision` < 1)";
+       description = "Config data directory";
+     };
+-
+-    stateRevision = utils.mkStateRevisionOption {
+-      descriptionName = "Seerr";
+-      migrations = {
+-        "26.05" = ''
+-          Move {file}`/var/lib/private/jellyseerr/config` to
+-          {file}`/var/lib/private/seerr`, if you have not set
+-          {option}`services.seerr.configDir`. (If you have set
+-          {option}`services.seerr.configDir`, you should also have forced
+-          {option}`systemd.services.seerr.serviceConfig.StateDirectory`, and in
+-          that case `stateRevision` does not affect your configuration.)
+-        '';
+-      };
+-    };
+   };
+ 
+   config = lib.mkIf cfg.enable {
+@@ -97,7 +81,5 @@ in
+     networking.firewall = lib.mkIf cfg.openFirewall {
+       allowedTCPPorts = [ cfg.port ];
+     };
+-
+-    system.moduleStateRevisions."services.seerr.stateRevision" = cfg.stateRevision;
+   };
+ }
+diff --git a/nixos/tests/all-tests.nix b/nixos/tests/all-tests.nix
+index fe00d1460afe225c9e51d085b22e8e2724a7cfe5..f9a730ac833c2e7b010ec2582df2d6f8d1a1f1db 100644
+--- a/nixos/tests/all-tests.nix
++++ b/nixos/tests/all-tests.nix
+@@ -1057,7 +1057,6 @@ in
+   modularService = pkgs.callPackage ../modules/system/service/systemd/test.nix {
+     inherit evalSystem;
+   };
+-  moduleStateRevisions = pkgs.callPackage ./moduleStateRevisions.nix { };
+   molly-brown = runTest ./molly-brown.nix;
+   mollysocket = runTest ./mollysocket.nix;
+   monado = runTest ./monado.nix;
+@@ -1839,7 +1838,7 @@ in
+   userborn-mutable-users = runTest ./userborn-mutable-users.nix;
+   userborn-static = runTest ./userborn-static.nix;
+   ustreamer = runTest ./ustreamer.nix;
+-  utils = pkgs.callPackage ./utils { inherit runTest; };
++  utils = import ./utils { inherit runTest; };
+   uwsgi = runTest ./uwsgi.nix;
+   v2ray = runTest ./v2ray.nix;
+   varnish80 = runTest {
+diff --git a/nixos/tests/moduleStateRevisions.nix b/nixos/tests/moduleStateRevisions.nix
+deleted file mode 100644
+index 3bce4c31248811c3150c4c1796ecd1814a411942..0000000000000000000000000000000000000000
+--- a/nixos/tests/moduleStateRevisions.nix
++++ /dev/null
+@@ -1,25 +0,0 @@
+-{
+-  lib,
+-  emptyFile,
+-  nixos,
+-}:
+-let
+-  evalModuleStateRevisions =
+-    cfg:
+-    (nixos [
+-      { system.stateVersion = lib.trivial.release; }
+-      cfg
+-    ]).config.system.moduleStateRevisions;
+-
+-  # For modules that follow the <module>.enable, <module>.stateRevision pattern:
+-  testModule =
+-    path:
+-    evalModuleStateRevisions (lib.setAttrByPath path { enable = true; })
+-    ? "${builtins.concatStringsSep "." path}.stateRevision";
+-in
+-assert evalModuleStateRevisions { } == { };
+-assert testModule [
+-  "services"
+-  "seerr"
+-];
+-emptyFile
+diff --git a/nixos/tests/utils/default.nix b/nixos/tests/utils/default.nix
+index fdcf766ffbac9c96036da5ba3f075f6ffc21419b..a7c5f242c82263e0f2a1f667b41f92a689ce4ec3 100644
+--- a/nixos/tests/utils/default.nix
++++ b/nixos/tests/utils/default.nix
+@@ -1,9 +1,5 @@
+-{
+-  callPackage,
+-  runTest,
+-}:
++{ runTest }:
+ 
+ {
+   genJqSecretsReplacement = runTest ./genJqSecretsReplacement.nix;
+-  mkStateRevisionOption = callPackage ./mkStateRevisionOption.nix { };
+ }
+diff --git a/nixos/tests/utils/mkStateRevisionOption.nix b/nixos/tests/utils/mkStateRevisionOption.nix
+deleted file mode 100644
+index b32a27cec2668ebd2d4084a621dabaa3017e529a..0000000000000000000000000000000000000000
+--- a/nixos/tests/utils/mkStateRevisionOption.nix
++++ /dev/null
+@@ -1,39 +0,0 @@
+-{
+-  emptyFile,
+-  nixos,
+-}:
+-let
+-  result = nixos (
+-    { utils, ... }:
+-    {
+-      options = {
+-        stateRevision1 = utils.mkStateRevisionOption {
+-          descriptionName = "...";
+-          migrations = {
+-            "27.05" = "...";
+-          };
+-        };
+-        stateRevision2 = utils.mkStateRevisionOption {
+-          descriptionName = "...";
+-          migrations = {
+-            "26.11" = "...";
+-          };
+-        };
+-        stateRevision3 = utils.mkStateRevisionOption {
+-          descriptionName = "...";
+-          migrations = {
+-            "24.05" = "...";
+-            "27.05" = "...";
+-          };
+-        };
+-      };
+-      config.system.stateVersion = "26.11";
+-    }
+-  );
+-  inherit (result) config options;
+-in
+-assert config.stateRevision1 == 0;
+-assert config.stateRevision2 == 1;
+-assert config.stateRevision3 == 1;
+-assert options.stateRevision1.migrations == { "27.05" = "..."; };
+-emptyFile

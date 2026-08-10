@@ -1,7 +1,6 @@
 --- a/src/cocoindex_code/client.py
 +++ b/src/cocoindex_code/client.py
-@@ -449,6 +449,10 @@ def start_daemon() -> subprocess.Popen[bytes]:
- def _find_ccc_executable() -> str | None:
+@@ -580,6 +580,10 @@ def _find_ccc_executable() -> str | None:
      """Find the ccc executable in PATH or the same directory as python."""
 +    import shutil
 +    ccc = shutil.which("ccc")

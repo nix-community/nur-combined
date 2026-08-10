@@ -58,23 +58,7 @@ in
       # see `outgoing_answer_a`: in linphone's this already calls the user's callback; in Freeswitch there's a code branch which leaves the caller hanging.
       sofia_sip = pkgs.sofia-sip-bc;
     }).overrideAttrs (prevAttrs: {
-      patches = (prevAttrs.patches or []) ++ lib.optionals pkgs.stdenv.hostPlatform.isGnu [
-        (pkgs.fetchurl {
-          # XXX(2026-05-23): musl doesn't require this and in fact BREAKS with this applied,
-          #                  however glibc systems do still require it.
-          # XXX(2026-01-26): fix crash-on-launch:
-          # > *** buffer overflow detected ***: terminated
-          #
-          # context:
-          # - <https://gitlab.gnome.org/GNOME/calls/-/issues/724>
-          name = "network-watch-avoid-crash-with-fortified-sources";
-          url = "https://gitlab.gnome.org/GNOME/calls/-/merge_requests/813.patch?diff_id=1551345";
-          hash = "sha256-7iIsx4a+yPS/fCFQhFh/csbuXR22dXwcAZWWW9IMS5I=";
-          # name = "calls-network-watch-Fix-buffer-overflow-in-req_route-functions";
-          # url = "https://src.fedoraproject.org/rpms/calls/raw/rawhide/f/807.patch";
-          # hash = "sha256-BTN2yjYjKRYiR6g4FEpdr9b/2k9ENHv9+A1meifW5+w=";
-        })
-      ] ++ [
+      patches = [
         (pkgs.fetchpatch {
           # usability improvement... ties the UI visibility to the connection state, so if the UI is gone, then i can't receive calls (and will hopefully notice that more easily!)
           # TODO: see about a more maintainable solution:

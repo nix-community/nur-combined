@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "edb-context-viewer";
-  version = "0.20.1";
+  version = "0.21.1";
 
   src = fetchFromGitHub {
     owner = "agnishcc";
     repo = "pi-extention-monorepo";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-xaLedYhMSVesZI+23Y6j5eTnjyqG4A/1lNyjpewU/68=";
+    hash = "sha256-znpsbj0V9p9hcVull+FmQ8U0J4skokFavvI2Gc2KFWI=";
   };
 
   # it has no external dependencies, so we actually only need src.
