@@ -45,7 +45,7 @@ let
 
     npmDeps = fetchNpmDeps {
       inherit (finalAttrs) src;
-      hash = "sha256-qKmzuKmkx8W7IRLDWXtmCYoXhOnREypdvOnvMUt5FUg=";
+      hash = "sha256-wIlCxaFULYP9uE0VxELIFBSL2dnxbLGy9e5tYRkUrbA=";
     };
 
     nativeBuildInputs = [

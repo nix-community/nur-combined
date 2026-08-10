@@ -12,7 +12,7 @@ buildPythonPackage rec {
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit pname version src;
-    hash = "sha256-kB6uw1+ZkKKI+IWzRICaBTd2GoKRep4MybMcEB/DNec=";
+    hash = "sha256-x9wgl4i7Oi2s+Xm3IucJjrGi+RHlXAS85nwyZp/wBZc=";
     nativeBuildInputs = [ cargo ];
     postPatch = ''
       cargo generate-lockfile
