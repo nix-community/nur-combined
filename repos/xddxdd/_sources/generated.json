@@ -1265,7 +1265,7 @@
             "owner": "router-for-me",
             "repo": "EasyCLI",
             "rev": "v0.2.16",
-            "sha256": "sha256-QYbYwIZyWCN5lGBwXXQI9dfCAdS2XVjTuG1CbPxsrVs=",
+            "sha256": "sha256-qh7BAJ9vF0fmr0MQ2esTsI7PRlas8CXhOaMYS118rGY=",
             "sparseCheckout": [],
             "type": "github"
         },
@@ -2061,6 +2061,27 @@
             "url": "https://github.com/share121/inter-knot/releases/download/v2.16.9+36/inter_knot_linux.zip"
         },
         "version": "v2.16.9+36"
+    },
+    "invisible-firefox": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "invisible-firefox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "feder-cr",
+            "repo": "firefox_antidetect_patch",
+            "rev": "firefox-18",
+            "sha256": "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "firefox-18"
     },
     "it-tools": {
         "cargoLock": null,

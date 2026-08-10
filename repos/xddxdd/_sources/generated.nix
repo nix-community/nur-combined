@@ -655,7 +655,7 @@
       owner = "router-for-me";
       repo = "EasyCLI";
       tag = "v0.2.16";
-      hash = "sha256-QYbYwIZyWCN5lGBwXXQI9dfCAdS2XVjTuG1CbPxsrVs=";
+      hash = "sha256-qh7BAJ9vF0fmr0MQ2esTsI7PRlas8CXhOaMYS118rGY=";
     };
   };
   edge-tts = {
@@ -1059,6 +1059,16 @@
     src = fetchurl {
       url = "https://github.com/share121/inter-knot/releases/download/v2.16.9+36/inter_knot_linux.zip";
       hash = "sha256-0+rYXM7kS1iHcc/NpHEFKtYDoLKET5XWhmA7Keh71lk=";
+    };
+  };
+  invisible-firefox = {
+    pname = "invisible-firefox";
+    version = "firefox-18";
+    src = fetchFromGitHub {
+      owner = "feder-cr";
+      repo = "firefox_antidetect_patch";
+      tag = "firefox-18";
+      hash = "sha256-YJ+B540o17ItUoxM6CytoCdgBiy7ie9sdToEqLt97fE=";
     };
   };
   it-tools = {
