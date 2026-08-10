@@ -8,13 +8,13 @@
 tmuxPlugins.mkTmuxPlugin rec {
   pluginName = "tmux-powerkit";
   rtpFilePath = "tmux-powerkit.tmux";
-  version = "7.0.1";
+  version = "7.0.2";
 
   src = fetchFromGitHub {
     owner = "fabioluciano";
     repo = "tmux-powerkit";
     tag = "v${version}";
-    hash = "sha256-0Ri5S195hPP8xqOVA1h+txwadnjY9slnwCsXQAzrf4o=";
+    hash = "sha256-o1JzVZHHItBVrmWEg4xtEL5JLF/75BF+pgyd5mXBEpg=";
   };
 
   meta = {
