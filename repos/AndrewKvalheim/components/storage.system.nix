@@ -26,7 +26,7 @@ in
 
   # /
   fileSystems."/".options = [
-    "compress=zstd:2"
+    "compress=zstd"
     "discard=async"
     "noatime"
     "x-systemd.device-timeout=infinity" # Await LUKS prompt

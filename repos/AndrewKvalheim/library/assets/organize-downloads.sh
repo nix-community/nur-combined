@@ -40,7 +40,7 @@ intake() { local path="$1"
   [[ "$path" != *'⏳️ '* ]] || exit 1
   local intaken_path="${path%/*}/⏳️ ${path##*/}"
 
-  while [[ -n "$(find "$path" -newermt '1 second ago')" ]]; do sleep '1s'; done
+  while [[ -e "$path.part" || -n "$(find "$path" -newermt '1 second ago')" ]]; do sleep '1s'; done
   strict_mv "$path" "$intaken_path"
   process "$intaken_path" & disown
 }

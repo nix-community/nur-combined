@@ -66,6 +66,7 @@ specify {
   jj-dynamic-default-description = any;
   josm-imagery-used = any;
   journal-brief = any;
+  jujutsu.version = "≥0.44"; # Tag tracking
   just-local = any;
   kitty.patch = ./library/assets/kitty_paperwm.patch; # Workaround for paperwm/PaperWM#943
   libgtop.patch = ./library/assets/libgtop_ignores.patch; # Workaround for GNOME/gnome-system-monitor#342

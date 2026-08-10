@@ -404,6 +404,7 @@ in
     js = "jj commit --interactive";
     jt = "jj tug";
     jtp = "jj tug && jj git push";
+    lsmnt = "findmnt --real";
     n = "numbat";
     np = "nix-shell --packages";
     rebase = "git rebase --autostash --autosquash --interactive";

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -Eeuo pipefail
 
-[[ -n "${SUDO_USER:-}" ]] || exec sudo --prompt "[sudo ${0##*/}] password for %p: " "$0" "$@"
-udo() { runuser --user "$SUDO_USER" -- env XDG_RUNTIME_DIR="/run/user/$SUDO_UID" "$@"; }
+[[ -n "${SUDO_USER:-}" ]] || exec sudo SUDO_USER_XRD="$XDG_RUNTIME_DIR" "$0" "$@"
+udo() { runuser --user "$SUDO_USER" -- env XDG_RUNTIME_DIR="$SUDO_USER_XRD" "$@"; }
 
 # Ephemeral data
 docker system prune --force --volumes

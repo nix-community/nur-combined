@@ -201,6 +201,7 @@ Catan
 cavif
 CCache
 CDN
+Celeron
 CenturyLink
 Certbot
 CfP
@@ -208,6 +209,7 @@ CFP
 CFPs
 cgroup
 cgroups
+changelog
 changeset
 changesets
 CHDK
@@ -404,6 +406,7 @@ downsample
 downthread
 downvote
 downvoted
+draggable
 drey
 drivable
 DRM
@@ -429,6 +432,7 @@ ellipsized
 Elrond
 Elwha
 embryophytes
+eMMC
 emptiable
 endianness
 Engramish
@@ -824,6 +828,7 @@ luthier
 Luxon
 LVM
 LXC
+LXDE
 Lynnwood
 macaron
 macarons
@@ -856,6 +861,7 @@ Melakwa
 melanogaster
 melatonin
 Melrose
+memantine
 Memtest86
 mentee
 mentees
@@ -1626,6 +1632,7 @@ unhold
 UniFi
 unignore
 unindented
+uninsightful
 uninvite
 unlinked
 unmanageably

@@ -1,4 +1,5 @@
 { fetchFromGitHub
+, fetchpatch2
 , lib
 , makeBinaryWrapper
 , nix-update-script
@@ -7,15 +8,13 @@
 , writeShellScriptBin
 
   # Dependencies
-, git
 , gradle_9
 , temurin-bin-17
 }:
 
 let
   inherit (builtins) match;
-  inherit (lib) concatStrings escapeShellArg escapeShellArgs licenses versionAtLeast;
-  inherit (lib.trivial) release;
+  inherit (lib) concatStrings escapeShellArg escapeShellArgs licenses;
 
   # Workaround for NixOS/nixpkgs#8567
   fakeGitCommands = [
@@ -33,7 +32,7 @@ let
 in
 stdenv.mkDerivation (chunker: {
   pname = "chunker";
-  version = "1.18.1";
+  version = "1.19.1";
   meta = {
     description = "Convert Minecraft worlds between game versions";
     homepage = "https://www.chunker.app/";
@@ -47,13 +46,17 @@ stdenv.mkDerivation (chunker: {
     owner = "HiveGamesOSS";
     repo = "Chunker";
     rev = "refs/tags/${chunker.version}";
-  } // (if (versionAtLeast release "26.05") then {
     postCheckout = fakeGitInit;
-    hash = "sha256-R+ZzlmqgLe4GlY9M2l1gosAxspZye/GyTBIgpEQh+To=";
-  } else {
-    leaveDotGit = true;
-    hash = "sha256-pelYD/4mHk68UjmJsjokq3ymKUfZJgD5v98P5WXqbwA=";
-  }));
+    hash = "sha256-dE79a5o+31hSRA+8G9RqqYKwXy3V7DycQ3Cd7PETLJw=";
+  });
+
+  patches = [
+    # Pending HiveGamesOSS/Chunker#2483 (resolves “Could not find com.android.tools:r8:9.1.31” via GradleUp/shadow#2101)
+    (fetchpatch2 {
+      url = "https://github.com/HiveGamesOSS/Chunker/commit/df3cbd4ecfdcfa55178a10b7cfd13c38b026947e.patch";
+      hash = "sha256-Y11lh/JEqxsIV8E0KLxeJXf7qmtrWQTA9L60qKXdgcQ=";
+    })
+  ];
 
   mitmCache =
     let tag = "gradle${concatStrings (match "([[:digit:]]+)\\.([[:digit:]]+).*" gradle_9.version)}"; in
@@ -62,8 +65,7 @@ stdenv.mkDerivation (chunker: {
       data = ./assets/chunker-deps-${tag}.json; # To generate, run `$(nix-build --pure '<nixpkgs>' --attr 'chunker.mitmCache.updateScript')`
     };
 
-  nativeBuildInputs = [ gradle_9 makeBinaryWrapper ]
-    ++ [ (if (versionAtLeast release "26.05") then fakeGit else git) ];
+  nativeBuildInputs = [ fakeGit gradle_9 makeBinaryWrapper ];
   gradleFlags = [ "-Dorg.gradle.java.home=${temurin-bin-17}" ];
 
   installPhase = ''
