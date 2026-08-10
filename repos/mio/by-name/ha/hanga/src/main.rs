@@ -4,7 +4,8 @@ use bevy_voxel_world::prelude::*;
 use avian3d::prelude::*;
 use std::io::{self, BufRead};
 use std::sync::{mpsc::{channel, Receiver}, Mutex, OnceLock};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
+use matchbox_socket::WebRtcSocket;
 
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
@@ -157,6 +158,7 @@ enum AgentCommand {
     MoveForward,
     BreakBlock { pos: [i32; 3] },
     PlaceBlock { pos: [i32; 3], voxel_type: u8 },
+    EnterVehicle,
     Look,
 }
 
@@ -176,6 +178,12 @@ pub struct WantedLevel(pub u8);
 #[derive(Component)]
 pub struct CopAi;
 
+#[derive(Component)]
+pub struct Vehicle;
+
+#[derive(Component)]
+pub struct InVehicle(pub Entity);
+
 /// Represents an optimistic action broadcasted by a P2P client over WebRTC
 #[derive(Message, Debug)]
 enum ProposedAction {
@@ -187,6 +195,10 @@ enum ProposedAction {
         player_entity: Entity,
         voxel_pos: IVec3,
         voxel_type: u8,
+    },
+    EnterVehicle {
+        player_entity: Entity,
+        vehicle_entity: Entity,
     },
     // We can add things like: SpawnCar, DealDamage, etc.
 }
@@ -207,6 +219,16 @@ fn setup(mut commands: Commands) {
         // Lock rotations so the capsule doesn't tip over
         LockedAxes::new().lock_rotation_x().lock_rotation_z(),
         WantedLevel(0), // GTA Wanted Level starts at 0
+    ));
+
+    // Spawn a GTA-style Vehicle
+    commands.spawn((
+        Vehicle,
+        Transform::from_xyz(500.0, 50.0, 495.0), // Spawn nearby
+        RigidBody::Dynamic,
+        Collider::cuboid(2.0, 1.5, 4.0), // Car dimensions
+        LinearVelocity::default(),
+        AngularVelocity::default(),
     ));
 }
 
@@ -321,6 +343,12 @@ fn validate_incoming_actions(
                 } else {
                     trust_ledger.penalize(player_entity, 1.0); 
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
+                }
+            }
+            &ProposedAction::EnterVehicle { player_entity, vehicle_entity } => {
+                if let Ok((transform, _)) = player_query.get_mut(player_entity) {
+                    commands.entity(player_entity).insert(InVehicle(vehicle_entity));
+                    info!("Player {:?} entered vehicle {:?}", player_entity, vehicle_entity);
                 }
             }
         }
@@ -473,10 +501,37 @@ pub struct DistributedMultiplayerPlugin;
 impl Plugin for DistributedMultiplayerPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_p2p_mesh);
+        app.add_systems(Update, handle_p2p_connections);
     }
 }
-fn init_p2p_mesh() {
-    info!("Connecting to distributed P2P mesh network (No central server!)...");
+#[derive(Resource)]
+struct P2pSocket(WebRtcSocket);
+
+fn init_p2p_mesh(mut commands: Commands) {
+    info!("Connecting to distributed P2P mesh network via WebRTC (No central server!)...");
+    let room_url = "ws://localhost:3536/hanga_room";
+    let (socket, message_loop) = WebRtcSocket::builder(room_url)
+        .add_reliable_channel()
+        .build();
+
+    // Spawn the message loop on a background thread instead of Bevy ECS
+    // since we don't have bevy_matchbox's RunMessageLoop.
+    std::thread::spawn(move || {
+        futures::executor::block_on(message_loop);
+    });
+    
+    commands.insert_resource(P2pSocket(socket));
+}
+
+fn handle_p2p_connections(mut socket: Option<ResMut<P2pSocket>>) {
+    if let Some(mut socket) = socket {
+        for (peer, new_state) in socket.0.update_peers() {
+            match new_state {
+                matchbox_socket::PeerState::Connected => info!("P2P Peer {:?} connected!", peer),
+                matchbox_socket::PeerState::Disconnected => info!("P2P Peer {:?} disconnected!", peer),
+            }
+        }
+    }
 }
 
 // --- Modding Support ---
@@ -717,6 +772,17 @@ fn read_terminal_input(
                 });
                 println!("System: Attempting to place block at {:?}", voxel_pos);
             }
+        } else if command.starts_with("enter vehicle") {
+            // Find a nearby vehicle
+            let mut found_vehicle: Option<Entity> = None;
+            // (In a real game we would query the distance to vehicles)
+            // For now just pretend we send the action
+            if let Some((player_entity, _, _)) = query.iter().next() {
+                // Fake vehicle entity for prototype
+                let vehicle_entity = Entity::from_raw_u32(999).unwrap();
+                events.write(ProposedAction::EnterVehicle { player_entity, vehicle_entity });
+                println!("System: Attempting to hijack vehicle!");
+            }
         } else if command.starts_with("look") {
              println!("System: You are standing in a generated voxel city. Type 'move forward' or 'break block'.");
         } else {
@@ -759,6 +825,12 @@ fn read_agent_input(
                                 voxel_pos: IVec3::new(pos[0], pos[1], pos[2]),
                                 voxel_type,
                             });
+                        }
+                    }
+                    AgentCommand::EnterVehicle => {
+                        if let Some((player_entity, _, _)) = query.iter_mut().next() {
+                            let vehicle_entity = Entity::from_raw_u32(999).unwrap();
+                            events.write(ProposedAction::EnterVehicle { player_entity, vehicle_entity });
                         }
                     }
                     AgentCommand::Look => {
