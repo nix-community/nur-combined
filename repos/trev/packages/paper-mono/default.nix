@@ -228,7 +228,11 @@ stdenvNoCC.mkDerivation (finalAttrs: {
   '';
 
   passthru.updateScript = nix-update-script {
-    extraArgs = [ "--version=branch=coding-ligatures" ];
+    extraArgs = [
+      "--version=branch=coding-ligatures"
+      "--commit"
+      finalAttrs.pname
+    ];
   };
 
   meta = {
