@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  modulesPath,
   ...
 }:
 
@@ -36,11 +35,6 @@ let
       '';
 in
 {
-
-  imports = [
-    "${modulesPath}/virtualisation/qemu-vm.nix"
-  ];
-
   options = {
     nagy.yggdrasil.addressOutput = lib.mkOption {
       type = lib.types.nullOr lib.types.str;
@@ -99,7 +93,9 @@ in
             "tls://ygg.mkg20001.io:443"
           ])
           ++ (lib.optionals (
-            config.virtualisation ? qemu && config.virtualisation.qemu.guestAgent.enable == true
+            config.virtualisation ? qemu
+            && config.virtualisation.qemu ? guestAgent
+            && config.virtualisation.qemu.guestAgent.enable == true
           ) [ "vsock://host:1234" ]);
       }
       // (lib.optionalAttrs (config.nagy.yggdrasil.privatekeyEntropy != null) {
