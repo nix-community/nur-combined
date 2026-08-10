@@ -156,6 +156,7 @@ pub struct StdinReceiver {
 enum AgentCommand {
     MoveForward,
     BreakBlock { pos: [i32; 3] },
+    PlaceBlock { pos: [i32; 3], voxel_type: u8 },
     Look,
 }
 
@@ -181,6 +182,11 @@ enum ProposedAction {
     BreakBlock {
         player_entity: Entity,
         voxel_pos: IVec3,
+    },
+    PlaceBlock {
+        player_entity: Entity,
+        voxel_pos: IVec3,
+        voxel_type: u8,
     },
     // We can add things like: SpawnCar, DealDamage, etc.
 }
@@ -286,6 +292,33 @@ fn validate_incoming_actions(
                     }
                 } else {
                     // Penalty for spoofing an entity ID
+                    trust_ledger.penalize(player_entity, 1.0); 
+                    warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
+                }
+            }
+            &ProposedAction::PlaceBlock { player_entity, voxel_pos, voxel_type } => {
+                // VERIFICATION RULE 1: Does the player actually exist?
+                if let Ok((transform, _)) = player_query.get_mut(player_entity) {
+                    let player_pos = transform.translation;
+                    let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
+                    
+                    // VERIFICATION RULE 2: Is the player close enough?
+                    let distance = player_pos.distance(target_pos);
+                    if !is_action_physically_possible(
+                        player_pos.x, player_pos.y, player_pos.z,
+                        target_pos.x, target_pos.y, target_pos.z,
+                        10.0
+                    ) {
+                        trust_ledger.penalize(player_entity, 0.2);
+                        warn!("FRAUD DETECTED: Player {:?} tried to place a block {} meters away! Action Rejected.", player_entity, distance);
+                        continue;
+                    }
+
+                    info!("Action Verified! Placing block at {:?}", voxel_pos);
+                    
+                    // Add the voxel to the world
+                    voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(voxel_type));
+                } else {
                     trust_ledger.penalize(player_entity, 1.0); 
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
                 }
@@ -668,6 +701,22 @@ fn read_terminal_input(
                 });
                 println!("System: Attempting to break block at {:?}", voxel_pos);
             }
+        } else if command.starts_with("place block") {
+            if let Some((player_entity, transform, _)) = query.iter_mut().next() {
+                let forward_pos = transform.translation + (transform.forward() * 2.0);
+                let voxel_pos = IVec3::new(
+                    forward_pos.x.round() as i32,
+                    forward_pos.y.round() as i32,
+                    forward_pos.z.round() as i32,
+                );
+                
+                events.write(ProposedAction::PlaceBlock {
+                    player_entity,
+                    voxel_pos,
+                    voxel_type: 2, // Place dirt by default
+                });
+                println!("System: Attempting to place block at {:?}", voxel_pos);
+            }
         } else if command.starts_with("look") {
              println!("System: You are standing in a generated voxel city. Type 'move forward' or 'break block'.");
         } else {
@@ -700,6 +749,15 @@ fn read_agent_input(
                             events.write(ProposedAction::BreakBlock {
                                 player_entity,
                                 voxel_pos: IVec3::new(pos[0], pos[1], pos[2]),
+                            });
+                        }
+                    }
+                    AgentCommand::PlaceBlock { pos, voxel_type } => {
+                        if let Some((player_entity, _, _)) = query.iter_mut().next() {
+                            events.write(ProposedAction::PlaceBlock {
+                                player_entity,
+                                voxel_pos: IVec3::new(pos[0], pos[1], pos[2]),
+                                voxel_type,
                             });
                         }
                     }
