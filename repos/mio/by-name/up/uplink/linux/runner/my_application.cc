@@ -73,6 +73,36 @@ static void my_application_activate(GApplication* application) {
                            self);
   gtk_widget_realize(GTK_WIDGET(view));
 
+  // Add MethodChannel for setting GTK dark theme
+  g_autoptr(FlStandardMethodCodec) codec = fl_standard_method_codec_new();
+  g_autoptr(FlMethodChannel) channel = fl_method_channel_new(
+      fl_engine_get_binary_messenger(fl_view_get_engine(view)),
+      "app.uplink/theme",
+      FL_METHOD_CODEC(codec));
+
+  fl_method_channel_set_method_call_handler(
+      channel,
+      [](FlMethodChannel* channel, FlMethodCall* method_call, gpointer user_data) {
+        const gchar* name = fl_method_call_get_name(method_call);
+        if (g_strcmp0(name, "setTheme") == 0) {
+          FlValue* args = fl_method_call_get_args(method_call);
+          if (args && fl_value_get_type(args) == FL_VALUE_TYPE_MAP) {
+            FlValue* dark_val = fl_value_lookup_string(args, "dark");
+            if (dark_val && fl_value_get_type(dark_val) == FL_VALUE_TYPE_BOOL) {
+              bool dark = fl_value_get_bool(dark_val);
+              GtkSettings* settings = gtk_settings_get_default();
+              g_object_set(settings, "gtk-application-prefer-dark-theme", dark ? TRUE : FALSE, nullptr);
+            }
+          }
+          g_autoptr(FlMethodResponse) response = FL_METHOD_RESPONSE(fl_method_success_response_new(nullptr));
+          fl_method_call_respond(method_call, response, nullptr);
+        } else {
+          g_autoptr(FlMethodResponse) response = FL_METHOD_RESPONSE(fl_method_not_implemented_response_new());
+          fl_method_call_respond(method_call, response, nullptr);
+        }
+      },
+      nullptr, nullptr);
+
   fl_register_plugins(FL_PLUGIN_REGISTRY(view));
 
   gtk_widget_grab_focus(GTK_WIDGET(view));

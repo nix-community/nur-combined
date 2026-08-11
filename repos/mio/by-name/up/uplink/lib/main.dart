@@ -45,9 +45,10 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   final TextEditingController _textController = TextEditingController();
   String _status = '';
+  bool _isUploading = false;
 
   @override
   void initState() {
@@ -55,20 +56,40 @@ class _MyHomePageState extends State<MyHomePage> {
     UploadTextResponse.rustSignalStream.listen((event) {
       setState(() {
         _status = event.message.url ?? event.message.error ?? '';
+        _isUploading = false;
       });
     });
 
     UploadFileResponse.rustSignalStream.listen((event) {
       setState(() {
         _status = event.message.url ?? event.message.error ?? '';
+        _isUploading = false;
       });
     });
     
     HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+    
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _updateLinuxTheme();
+    });
+  }
+
+  @override
+  void didChangePlatformBrightness() {
+    _updateLinuxTheme();
+  }
+
+  void _updateLinuxTheme() {
+    if (!kIsWeb && Platform.isLinux) {
+      final brightness = PlatformDispatcher.instance.platformBrightness;
+      const MethodChannel('app.uplink/theme').invokeMethod('setTheme', {'dark': brightness == Brightness.dark});
+    }
   }
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
     _textController.dispose();
     super.dispose();
@@ -89,7 +110,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> _handlePaste() async {
+    if (_isUploading) return;
     setState(() {
+      _isUploading = true;
       _status = 'Reading clipboard...';
     });
     try {
@@ -102,16 +125,19 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         setState(() {
           _status = 'No image found on clipboard!';
+          _isUploading = false;
         });
       }
     } catch (e) {
       setState(() {
         _status = 'Clipboard error: $e';
+        _isUploading = false;
       });
     }
   }
 
   void _uploadText() {
+    if (_isUploading) return;
     if (_textController.text.trim().isEmpty) {
       setState(() {
         _status = 'Please enter some text first.';
@@ -119,17 +145,20 @@ class _MyHomePageState extends State<MyHomePage> {
       return;
     }
     setState(() {
+      _isUploading = true;
       _status = 'Uploading text...';
     });
     UploadTextRequest(text: _textController.text).sendSignalToRust();
   }
 
   Future<void> _uploadFile({bool imageOnly = false}) async {
+    if (_isUploading) return;
     FilePickerResult? result = await FilePicker.pickFiles(
       type: imageOnly ? FileType.image : FileType.any,
     );
     if (result != null && result.files.single.path != null) {
       setState(() {
+        _isUploading = true;
         _status = 'Uploading file...';
       });
       final file = File(result.files.single.path!);
