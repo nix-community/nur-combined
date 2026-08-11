@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'src/bindings/bindings.dart';
 import 'package:pasteboard/pasteboard.dart';
 import 'package:rinf/rinf.dart';
+import 'package:share_plus/share_plus.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -214,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   textAlign: TextAlign.center,
                                 ),
                               ),
-                              if (_status.startsWith('http'))
+                              if (_status.startsWith('http')) ...[
                                 IconButton(
                                   icon: const Icon(Icons.copy, color: Colors.blue),
                                   tooltip: 'Copy link',
@@ -225,6 +226,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     );
                                   },
                                 ),
+                                IconButton(
+                                  icon: const Icon(Icons.share, color: Colors.blue),
+                                  tooltip: 'Share link',
+                                  onPressed: () {
+                                    Share.share(_status);
+                                  },
+                                ),
+                              ],
                             ],
                           ),
                         ),
