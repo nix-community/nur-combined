@@ -10,6 +10,7 @@
   libxkbcommon,
   mesa,
   xvfb-run,
+  makeWrapper,
 }:
 
 rustPlatform.buildRustPackage {
@@ -24,6 +25,8 @@ rustPlatform.buildRustPackage {
 
   nativeBuildInputs = [
     pkg-config
+    rustPlatform.bindgenHook
+    makeWrapper
   ];
 
   buildInputs = [
@@ -59,6 +62,11 @@ rustPlatform.buildRustPackage {
     export LIBGL_ALWAYS_SOFTWARE=1
     xvfb-run -a cargo test --release
     runHook postCheck
+  '';
+
+  postInstall = ''
+    wrapProgram $out/bin/hanga \
+      --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader wayland libxkbcommon alsa-lib udev mesa ]}
   '';
 
   meta = {
