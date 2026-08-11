@@ -176,10 +176,10 @@ struct AgentObservation {
 pub struct Player;
 
 #[derive(Component)]
-pub struct WantedLevel(pub u8);
+pub struct ModState(pub u32);
 
 #[derive(Component)]
-pub struct CopAi;
+pub struct AgentAi(pub u32);
 
 #[derive(Component)]
 pub struct Vehicle;
@@ -193,6 +193,11 @@ enum ProposedAction {
     BreakBlock {
         player_entity: Entity,
         voxel_pos: IVec3,
+    },
+    Explosion {
+        player_entity: Entity,
+        center_pos: IVec3,
+        radius: f32,
     },
     PlaceBlock {
         player_entity: Entity,
@@ -221,7 +226,7 @@ fn setup(mut commands: Commands) {
         AngularVelocity::default(),
         // Lock rotations so the capsule doesn't tip over
         LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-        WantedLevel(0), // GTA Wanted Level starts at 0
+        ModState(0), // Initial mod state starts at 0
     ));
 
     // Spawn a GTA-style Vehicle for the player
@@ -262,7 +267,7 @@ pub fn is_action_physically_possible(px: f32, py: f32, pz: f32, tx: f32, ty: f32
 fn validate_incoming_actions(
     mut commands: Commands,
     mut events: MessageReader<ProposedAction>,
-    mut player_query: Query<(&Transform, &mut WantedLevel), With<Player>>,
+    mut player_query: Query<(&Transform, &mut ModState), With<Player>>,
     mut voxel_world: VoxelWorld<DefaultWorld>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
@@ -272,7 +277,7 @@ fn validate_incoming_actions(
         match action {
             &ProposedAction::BreakBlock { player_entity, voxel_pos } => {
                 // VERIFICATION RULE 1: Does the player actually exist?
-                if let Ok((transform, mut wanted_level)) = player_query.get_mut(player_entity) {
+                if let Ok((transform, mut mod_state)) = player_query.get_mut(player_entity) {
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
@@ -309,36 +314,39 @@ fn validate_incoming_actions(
                         )),
                     ));
 
-                    // Execute the WASM Mod's business logic for Wanted Level
+                    // Execute the WASM Mod's business logic for Mod State
                     if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
                         let mut store = Store::new(engine, ());
                         if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(calc_wanted) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "calculate_wanted_level") {
-                                if let Ok(new_level) = calc_wanted.call(&mut store, (1, wanted_level.0 as i32)) {
-                                    wanted_level.0 = (new_level as u8).min(5);
-                                    info!("WASM Mod evaluated CRIME! Wanted Level is now {} stars!", wanted_level.0);
+                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
+                                if let Ok(new_state) = mod_evaluate.call(&mut store, (1, mod_state.0 as i32)) {
+                                    let old_state = mod_state.0;
+                                    mod_state.0 = new_state as u32;
+                                    info!("WASM Mod evaluated action! State is now {}", mod_state.0);
+                                    
+                                    if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
+                                        if let Ok(ai_type) = should_spawn.call(&mut store, (1, old_state as i32, mod_state.0 as i32)) {
+                                            if ai_type > 0 {
+                                                let spawn_pos = target_pos + Vec3::new(5.0, 2.0, 5.0);
+                                                commands.spawn((
+                                                    Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                                                    MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
+                                                    Transform::from_translation(spawn_pos),
+                                                    RigidBody::Dynamic,
+                                                    Collider::capsule(0.4, 1.0),
+                                                    LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                                                    LinearVelocity::default(),
+                                                    AgentAi(ai_type as u32),
+                                                ));
+                                                info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     } else {
-                        wanted_level.0 = (wanted_level.0 + 1).min(5);
-                        info!("CRIME REPORTED (Fallback)! Player {:?} Wanted Level is now {} stars!", player_entity, wanted_level.0);
-                    }
-                    
-                    // Spawn a cop to chase the player
-                    if wanted_level.0 > 0 {
-                        let cop_pos = target_pos + Vec3::new(5.0, 2.0, 5.0); // Spawn nearby
-                        commands.spawn((
-                            Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
-                            MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))), // Blue cops
-                            Transform::from_translation(cop_pos),
-                            RigidBody::Dynamic,
-                            Collider::capsule(0.4, 1.0),
-                            LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-                            LinearVelocity::default(),
-                            CopAi,
-                        ));
-                        info!("Cop dispatched to location {:?}", cop_pos);
+                        mod_state.0 = mod_state.0 + 1;
                     }
                 } else {
                     // Penalty for spoofing an entity ID
@@ -346,9 +354,84 @@ fn validate_incoming_actions(
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
                 }
             }
+            &ProposedAction::Explosion { player_entity, center_pos, radius } => {
+                if let Ok((transform, mut mod_state)) = player_query.get_mut(player_entity) {
+                    let player_pos = transform.translation;
+                    let target_pos = Vec3::new(center_pos.x as f32, center_pos.y as f32, center_pos.z as f32);
+                    
+                    if !is_action_physically_possible(
+                        player_pos.x, player_pos.y, player_pos.z,
+                        target_pos.x, target_pos.y, target_pos.z,
+                        30.0 // RPG rocket range
+                    ) {
+                        trust_ledger.penalize(player_entity, 0.5);
+                        continue;
+                    }
+
+                    info!("Action Verified! MASSIVE EXPLOSION at {:?}", center_pos);
+                    
+                    let iradius = radius.ceil() as i32;
+                    for x in -iradius..=iradius {
+                        for y in -iradius..=iradius {
+                            for z in -iradius..=iradius {
+                                let offset = IVec3::new(x, y, z);
+                                if offset.as_vec3().length() <= radius {
+                                    let v_pos = center_pos + offset;
+                                    if voxel_world.get_voxel(v_pos) != WorldVoxel::Unset {
+                                        voxel_world.set_voxel(v_pos, WorldVoxel::Unset);
+                                        commands.spawn((
+                                            Mesh3d(meshes.add(Cuboid::from_size(Vec3::splat(1.0)))),
+                                            MeshMaterial3d(materials.add(Color::srgb(0.8, 0.3, 0.1))),
+                                            Transform::from_translation(Vec3::new(v_pos.x as f32, v_pos.y as f32, v_pos.z as f32)),
+                                            RigidBody::Dynamic,
+                                            Collider::cuboid(1.0, 1.0, 1.0),
+                                            LinearVelocity(offset.as_vec3().normalize_or_zero() * 15.0),
+                                        ));
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Execute the WASM Mod's business logic for Mod State
+                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
+                                if let Ok(new_state) = mod_evaluate.call(&mut store, (4, mod_state.0 as i32)) {
+                                    let old_state = mod_state.0;
+                                    mod_state.0 = new_state as u32;
+                                    info!("WASM Mod evaluated action! State is now {}", mod_state.0);
+                                    
+                                    if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
+                                        if let Ok(ai_type) = should_spawn.call(&mut store, (4, old_state as i32, mod_state.0 as i32)) {
+                                            if ai_type > 0 {
+                                                let spawn_pos = target_pos + Vec3::new(5.0, 2.0, 5.0);
+                                                commands.spawn((
+                                                    Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                                                    MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
+                                                    Transform::from_translation(spawn_pos),
+                                                    RigidBody::Dynamic,
+                                                    Collider::capsule(0.4, 1.0),
+                                                    LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                                                    LinearVelocity::default(),
+                                                    AgentAi(ai_type as u32),
+                                                ));
+                                                info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        mod_state.0 = 5;
+                    }
+                }
+            }
             &ProposedAction::PlaceBlock { player_entity, voxel_pos, voxel_type } => {
                 // VERIFICATION RULE 1: Does the player actually exist?
-                if let Ok((transform, mut wanted_level)) = player_query.get_mut(player_entity) {
+                if let Ok((transform, mut mod_state)) = player_query.get_mut(player_entity) {
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
@@ -369,13 +452,13 @@ fn validate_incoming_actions(
                     // Add the voxel to the world
                     voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(voxel_type));
                     
-                    // WASM logic for Wanted Level
+                    // Execute the WASM Mod's business logic for Mod State
                     if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
                         let mut store = Store::new(engine, ());
                         if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(calc_wanted) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "calculate_wanted_level") {
-                                if let Ok(new_level) = calc_wanted.call(&mut store, (2, wanted_level.0 as i32)) {
-                                    wanted_level.0 = (new_level as u8).min(5);
+                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
+                                if let Ok(new_state) = mod_evaluate.call(&mut store, (2, mod_state.0 as i32)) {
+                                    mod_state.0 = new_state as u32;
                                 }
                             }
                         }
@@ -386,24 +469,42 @@ fn validate_incoming_actions(
                 }
             }
             &ProposedAction::EnterVehicle { player_entity, vehicle_entity } => {
-                if let Ok((_transform, mut wanted_level)) = player_query.get_mut(player_entity) {
+                if let Ok((_transform, mut mod_state)) = player_query.get_mut(player_entity) {
                     commands.entity(player_entity).insert(InVehicle(vehicle_entity));
                     info!("Player {:?} entered vehicle {:?}", player_entity, vehicle_entity);
                     
-                    // WASM logic for Wanted Level
+                    // Execute the WASM Mod's business logic for Mod State
                     if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
                         let mut store = Store::new(engine, ());
                         if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(calc_wanted) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "calculate_wanted_level") {
-                                if let Ok(new_level) = calc_wanted.call(&mut store, (3, wanted_level.0 as i32)) {
-                                    wanted_level.0 = (new_level as u8).min(5);
-                                    info!("WASM Mod evaluated GRAND THEFT AUTO! Wanted Level is now {} stars!", wanted_level.0);
+                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
+                                if let Ok(new_state) = mod_evaluate.call(&mut store, (3, mod_state.0 as i32)) {
+                                    let old_state = mod_state.0;
+                                    mod_state.0 = new_state as u32;
+                                    info!("WASM Mod evaluated action! State is now {}", mod_state.0);
+                                    
+                                    if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
+                                        if let Ok(ai_type) = should_spawn.call(&mut store, (3, old_state as i32, mod_state.0 as i32)) {
+                                            if ai_type > 0 {
+                                                let spawn_pos = _transform.translation + Vec3::new(5.0, 2.0, 5.0);
+                                                commands.spawn((
+                                                    Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                                                    MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
+                                                    Transform::from_translation(spawn_pos),
+                                                    RigidBody::Dynamic,
+                                                    Collider::capsule(0.4, 1.0),
+                                                    LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                                                    LinearVelocity::default(),
+                                                    AgentAi(ai_type as u32),
+                                                ));
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
                     } else {
-                        wanted_level.0 = (wanted_level.0 + 3).min(5);
-                        info!("CRIME REPORTED (Fallback)! Player {:?} Wanted Level is now {} stars!", player_entity, wanted_level.0);
+                        mod_state.0 = mod_state.0 + 3;
                     }
                 }
             }
@@ -520,6 +621,24 @@ fn player_interaction(
             info!("Player sent BreakBlock request at {:?}", voxel_pos);
         }
     }
+    
+    if mouse_input.just_pressed(MouseButton::Right) {
+        if let Some((player_entity, transform)) = query.iter().next() {
+            let forward_pos = transform.translation + (transform.forward() * 15.0);
+            let voxel_pos = IVec3::new(
+                forward_pos.x.round() as i32,
+                forward_pos.y.round() as i32,
+                forward_pos.z.round() as i32,
+            );
+
+            events.write(ProposedAction::Explosion {
+                player_entity,
+                center_pos: voxel_pos,
+                radius: 4.0, // 4-block radius explosion!
+            });
+            info!("Player fired RPG (Explosion) at {:?}", voxel_pos);
+        }
+    }
 }
 
 /// Bridges `bevy_voxel_world` meshes into `avian3d` physics colliders dynamically.
@@ -563,7 +682,7 @@ pub struct GtaPlugin;
 impl Plugin for GtaPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_city_simulation);
-        app.add_systems(Update, (cop_ai_chase, vehicle_collision_damage, vehicle_traffic_system));
+        app.add_systems(Update, (agent_ai_tick, vehicle_collision_damage, vehicle_traffic_system));
     }
 }
 fn init_city_simulation() {
@@ -611,44 +730,34 @@ fn vehicle_traffic_system(
     }
 }
 
-/// AI logic for cops to chase the player, entirely powered by the WASM mod!
-fn cop_ai_chase(
-    mut cops: Query<(&Transform, &mut LinearVelocity), With<CopAi>>,
-    players: Query<&Transform, (With<Player>, Without<CopAi>)>,
+/// AI logic for all agents, entirely powered by the WASM mod!
+fn agent_ai_tick(
+    mut agents: Query<(&Transform, &mut LinearVelocity, &AgentAi)>,
+    players: Query<&Transform, (With<Player>, Without<AgentAi>)>,
 ) {
     if let Some(player_transform) = players.iter().next() {
         let p_pos = player_transform.translation;
         
         // Grab the WASM Engine and Module from the globals
         if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-            // In a production engine, this Store & Instance would be heavily cached per-thread.
-            // For the prototype boundary test, we instantiate it here.
             let mut store = Store::new(engine, ());
             if let Ok(instance) = Instance::new(&mut store, module, &[]) {
                 if let (Ok(compute_vx), Ok(compute_vz)) = (
-                    instance.get_typed_func::<(f32, f32, f32, f32), f32>(&mut store, "compute_cop_vx"),
-                    instance.get_typed_func::<(f32, f32, f32, f32), f32>(&mut store, "compute_cop_vz")
+                    instance.get_typed_func::<(i32, f32, f32, f32, f32), f32>(&mut store, "compute_agent_vx"),
+                    instance.get_typed_func::<(i32, f32, f32, f32, f32), f32>(&mut store, "compute_agent_vz")
                 ) {
-                    for (cop_transform, mut velocity) in cops.iter_mut() {
-                        let c_pos = cop_transform.translation;
+                    for (agent_transform, mut velocity, agent) in agents.iter_mut() {
+                        let c_pos = agent_transform.translation;
                         
-                        // Execute the WASM Mod's business logic
-                        if let Ok(vx) = compute_vx.call(&mut store, (c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
+                        // Execute the WASM Mod's generic AI logic
+                        if let Ok(vx) = compute_vx.call(&mut store, (agent.0 as i32, c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
                             velocity.x = vx;
                         }
-                        if let Ok(vz) = compute_vz.call(&mut store, (c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
+                        if let Ok(vz) = compute_vz.call(&mut store, (agent.0 as i32, c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
                             velocity.z = vz;
                         }
                     }
                 }
-            }
-        } else {
-            // Fallback if WASM is not loaded yet
-            for (cop_transform, mut velocity) in cops.iter_mut() {
-                let c_pos = cop_transform.translation;
-                let dir = (p_pos - c_pos).normalize_or_zero();
-                velocity.x = dir.x * 5.0;
-                velocity.z = dir.z * 5.0;
             }
         }
     }
@@ -714,6 +823,7 @@ fn handle_p2p_broadcast(
         for action in event_reader.read() {
             let is_local = match action {
                 ProposedAction::BreakBlock { player_entity, .. } => Some(*player_entity) == local_player,
+                ProposedAction::Explosion { player_entity, .. } => Some(*player_entity) == local_player,
                 ProposedAction::PlaceBlock { player_entity, .. } => Some(*player_entity) == local_player,
                 ProposedAction::EnterVehicle { player_entity, .. } => Some(*player_entity) == local_player,
             };
@@ -991,7 +1101,7 @@ fn read_terminal_input(
             }
         } else if command.starts_with("enter vehicle") {
             // Find a nearby vehicle
-            let mut found_vehicle: Option<Entity> = None;
+            let _found_vehicle: Option<Entity> = None;
             // (In a real game we would query the distance to vehicles)
             // For now just pretend we send the action
             if let Some((player_entity, _, _)) = query.iter().next() {
@@ -1021,7 +1131,7 @@ fn read_agent_input(
             if let Ok(command) = serde_json::from_str::<AgentCommand>(&line) {
                 match command {
                     AgentCommand::MoveForward => {
-                        if let Some((_, mut transform, mut velocity)) = query.iter_mut().next() {
+                        if let Some((_, transform, mut velocity)) = query.iter_mut().next() {
                             let forward = transform.forward();
                             velocity.x = forward.x * 10.0;
                             velocity.z = forward.z * 10.0;

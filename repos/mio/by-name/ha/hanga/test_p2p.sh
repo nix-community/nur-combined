@@ -12,7 +12,7 @@ nix build .#hanga
 
 export WGPU_BACKEND=vulkan
 export LIBGL_ALWAYS_SOFTWARE=1
-export VK_ICD_FILENAMES=$(nix build --no-link --print-out-paths nixpkgs#mesa.drivers)/share/vulkan/icd.d/lvp_icd.x86_64.json
+export VK_ICD_FILENAMES=$(nix build --no-link --print-out-paths nixpkgs#mesa)/share/vulkan/icd.d/lvp_icd.x86_64.json
 
 echo "Starting Client 1 (Headless)..."
 nix run nixpkgs#xvfb-run -- -a ./result/bin/hanga --headless &

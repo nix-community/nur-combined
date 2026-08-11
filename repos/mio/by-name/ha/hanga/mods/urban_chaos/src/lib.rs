@@ -153,50 +153,54 @@ pub extern "C" fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
     layout.get_voxel_at(x, y, z) as i32
 }
 
-/// WASM exported function to compute Cop AI velocity
+/// WASM exported function to evaluate arbitrary actions and return a new state
 #[unsafe(no_mangle)]
-pub extern "C" fn compute_cop_vx(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    let dx = px - cx;
-    let dz = pz - cz;
-    let len = (dx * dx + dz * dz).sqrt();
-    if len < 2.0 {
-        return 0.0; // Arrest distance!
-    }
-    (dx / len) * 8.0 // Sprint at 8 m/s
-}
-
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_cop_vz(cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    let dx = px - cx;
-    let dz = pz - cz;
-    let len = (dx * dx + dz * dz).sqrt();
-    if len < 2.0 {
-        return 0.0;
-    }
-    (dz / len) * 8.0
-}
-
-/// WASM exported function to compute Civilian Pedestrian AI velocity (wandering)
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_pedestrian_vx(px: f32, pz: f32, time_sec: f32) -> f32 {
-    // Wander using a sine wave based on time and their unique position
-    (time_sec + px).sin() * 2.0
-}
-
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_pedestrian_vz(px: f32, pz: f32, time_sec: f32) -> f32 {
-    (time_sec + pz).cos() * 2.0
-}
-
-/// WASM exported function to calculate wanted level logic
-#[unsafe(no_mangle)]
-pub extern "C" fn calculate_wanted_level(action_type: i32, current_level: i32) -> i32 {
+pub extern "C" fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
+    // In our Urban Chaos mod, state is the Wanted Level (0-5)
     match action_type {
-        1 => current_level.saturating_add(1), // BreakBlock = minor offense
-        2 => current_level,                   // PlaceBlock = no offense
-        3 => current_level.saturating_add(3), // EnterVehicle = grand theft auto!
-        _ => current_level,
+        1 => current_state.saturating_add(1).min(5), // BreakBlock = minor offense
+        2 => current_state,                          // PlaceBlock = no offense
+        3 => current_state.saturating_add(3).min(5), // EnterVehicle = grand theft auto!
+        4 => 5,                                      // Explosion = terrorism! 5 stars immediately!
+        _ => current_state,
     }
+}
+
+/// Returns the AI type to spawn (0 = none, 1 = Cop, etc)
+#[unsafe(no_mangle)]
+pub extern "C" fn mod_should_spawn_agent(action_type: i32, old_state: i32, new_state: i32) -> i32 {
+    // If our wanted level increased and is > 0, spawn a Cop (Agent Type 1)
+    if new_state > old_state && new_state > 0 {
+        return 1;
+    }
+    0
+}
+
+/// Generic AI velocity computation
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    if ai_type == 1 {
+        // Cop AI: chase player
+        let dx = px - cx;
+        let dz = pz - cz;
+        let len = (dx * dx + dz * dz).sqrt();
+        if len < 2.0 { return 0.0; }
+        return (dx / len) * 8.0;
+    }
+    0.0
+}
+
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    if ai_type == 1 {
+        // Cop AI: chase player
+        let dx = px - cx;
+        let dz = pz - cz;
+        let len = (dx * dx + dz * dz).sqrt();
+        if len < 2.0 { return 0.0; }
+        return (dz / len) * 8.0;
+    }
+    0.0
 }
 
 /// WASM exported function for dynamic economy pricing
