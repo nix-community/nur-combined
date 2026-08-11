@@ -38,6 +38,7 @@ let
     "pyromark"
     "sublinkpro"
     "sun-panel"
+    "tachidesk-server"
     "telegramify-markdown"
     "tortoise-orm"
     "vaults3"
