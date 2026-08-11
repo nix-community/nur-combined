@@ -68,10 +68,6 @@ src.github = "hslr-s/sun-panel"
 fetch.github = "sudoskys/telegramify-markdown"
 src.github = "sudoskys/telegramify-markdown"
 
-[torrentool]
-fetch.github = "idlesign/torrentool"
-src.github_tag = "idlesign/torrentool"
-
 [vaults3-linux-amd64]
 fetch.url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v$ver/vaults3-linux-amd64.tar.gz"
 src.github = "Kodiqa-Solutions/VaultS3"
