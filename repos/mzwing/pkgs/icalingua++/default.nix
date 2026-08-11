@@ -20,7 +20,7 @@
   # value in place). fetchPnpmDeps passes --force to pnpm install, so
   # optional dependencies of every platform are vendored and a single
   # hash covers both x86_64-linux and aarch64-linux.
-  pnpmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  pnpmDepsHash = "sha256-/SX3bUNUv/QPGu8/c/glk0KBtre87h1OXdQvHXbDss8=";
 in
   stdenv.mkDerivation {
     inherit pname src version;
