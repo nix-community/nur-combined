@@ -108,6 +108,26 @@
         "type": "github"
       }
     },
+    "nur-milahu": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786189267,
+        "narHash": "sha256-SiG80z8+VNCLroChCZ+iGWGpL9ibkzIa9xgfjKK4muM=",
+        "owner": "milahu",
+        "repo": "nur-packages",
+        "rev": "06b2ac92f46b2c7d1446fce35a79e669795dfe6d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "milahu",
+        "repo": "nur-packages",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks-nix": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -135,6 +155,7 @@
         "flake-parts": "flake-parts",
         "nixfmt-rs": "nixfmt-rs",
         "nixpkgs": "nixpkgs",
+        "nur-milahu": "nur-milahu",
         "pre-commit-hooks-nix": "pre-commit-hooks-nix",
         "treefmt-nix": "treefmt-nix"
       }
