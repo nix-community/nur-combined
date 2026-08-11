@@ -240,12 +240,6 @@
             "sha256": "06f7wvn5jdg0bm8lmw2m2k32g3f8kdcppnvfrkdhc8kc8ywp3gpn",
             "url": "https://github.com/adam01110/nur"
         },
-        "af-nur": {
-            "rev": "c9828621bf3412c872a4159c460e474ad7517e10",
-            "sha256": "0rbqmlhlq6j3qv0jasj1as05ahhnnr0hkwmgvfrwskw3j6d2avnp",
-            "submodules": true,
-            "url": "https://github.com/AstralFlare-owo/nur-packages"
-        },
         "afreakk": {
             "rev": "cd39709f7c3894997c1c75f7e6c65b82b7fb3fd7",
             "sha256": "028dld733wbywh7flb305njhvawgwv8l4wwrv70pfmnqifilf5rw",
