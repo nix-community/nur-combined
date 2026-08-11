@@ -6,6 +6,9 @@
 
 let
   inherit (lib) makeScope newScope;
+  inherit (import ./utilities.lib.nix { inherit lib; }) requireBig;
+
+  iosevka' = requireBig iosevka;
 
   base = {
     widths = {
@@ -75,7 +78,7 @@ let
   };
 in
 makeScope newScope (_: {
-  proportional = iosevka.override {
+  proportional = iosevka'.override {
     set = "CustomProportional";
     privateBuildPlan = base // {
       family = "Iosevka Custom Proportional";
@@ -84,7 +87,7 @@ makeScope newScope (_: {
     };
   };
 
-  mono = iosevka.override {
+  mono = iosevka'.override {
     set = "CustomMono";
     privateBuildPlan = base // {
       family = "Iosevka Custom Mono";
@@ -92,7 +95,7 @@ makeScope newScope (_: {
     };
   };
 
-  term = iosevka.override {
+  term = iosevka'.override {
     set = "CustomTerm";
     privateBuildPlan = base // {
       family = "Iosevka Custom Term";

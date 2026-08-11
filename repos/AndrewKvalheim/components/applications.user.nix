@@ -11,6 +11,7 @@ let
   inherit (pkgs.writers) writeTOML;
   inherit (system) nix systemd;
   inherit (system.virtualisation) docker;
+  inherit (import ../library/utilities.lib.nix { inherit lib; }) requireBig;
 
   palette = import ../library/palette.lib.nix { inherit lib pkgs; };
 in
@@ -231,7 +232,7 @@ in
 
       # Video
       constrict
-      (ffmpeg.override { withUnfree = true; withFdkAac = true; })
+      (requireBig (ffmpeg.override { withUnfree = true; withFdkAac = true; }))
       guvcview
       v4l-utils
       vivictpp

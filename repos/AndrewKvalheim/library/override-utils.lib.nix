@@ -56,6 +56,7 @@ let
     , ccache ? false
 
       # Package attribute overlay
+    , big ? false
     , broken ? null
     , gappsWrapperArgs ? null
     , overlay ? null
@@ -75,9 +76,12 @@ let
         // optionalAttrs ccache { stdenv = ccacheStdenv; };
 
       # Dependent parameters
-      overlay' = if broken == null && overlay == null then null else
+      overlay' = if ! big && broken == null && overlay == null then null else
       composeOverrides
-        (a: recursiveUpdate a { meta.broken = a.meta.broken or false || (defaultTo (const false) broken) a; })
+        (a: recursiveUpdate a {
+          meta.broken = a.meta.broken or false || (defaultTo (const false) broken) a;
+          requiredSystemFeatures = a.requiredSystemFeatures or [ ] ++ (optional big "big-parallel");
+        })
         (defaultTo (const { }) overlay);
 
       # Mode

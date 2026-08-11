@@ -51,6 +51,7 @@ in
       };
 
       features = with host.metrics; {
+        big = mkOption { type = bool; default = cpuMarkMulti >= 10000 && ramGb >= 8; };
         llm = mkOption { type = bool; default = vramGb >= 8; };
         vm = mkOption { type = bool; default = cpuMarkMulti >= 10000 && ramGb >= 8; };
       };

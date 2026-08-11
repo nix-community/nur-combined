@@ -129,6 +129,14 @@ specify {
 }
 ```
 
+Require a big build machine:
+
+```nix
+specify {
+  hello.big = true;
+}
+```
+
 Modify arbitrary attributes:
 
 ```nix

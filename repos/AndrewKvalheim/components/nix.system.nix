@@ -1,8 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, options, pkgs, ... }:
 
 let
+  inherit (config) host;
   inherit (config.programs) ccache;
-  inherit (lib) escapeShellArg getExe makeBinPath;
+  inherit (lib) escapeShellArg getExe makeBinPath mkForce mkIf subtractLists;
+
+  defaultSystemFeatures = (options.nix.settings.type.getSubOptions [ ]).system-features.default;
 in
 {
   # Daemon
@@ -41,6 +44,8 @@ in
   nix.settings.extra-sandbox-paths = [ ccache.cacheDir ];
 
   # Distributed build
+  nix.settings.system-features = mkIf (! host.features.big)
+    (mkForce (subtractLists [ "big-parallel" ] defaultSystemFeatures));
   nix.distributedBuilds = true;
   nix.settings.builders-use-substitutes = true;
   nix.buildMachines = [{

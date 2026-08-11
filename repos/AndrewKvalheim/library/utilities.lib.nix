@@ -147,6 +147,8 @@ rec {
 
   printablePad = width: placeholder: text: text + replicate (max 0 (width - printableLength text)) placeholder;
 
+  requireBig = p: p.overrideAttrs (a: { requiredSystemFeatures = a.requiredSystemFeatures or [ ] ++ [ "big-parallel" ]; });
+
   rgbToHex = { r, g, b }:
     let f = x: fixedWidthNumber 2 (toHexString (round (x * 255)));
     in "#${f r}${f g}${f b}";

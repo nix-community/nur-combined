@@ -52,15 +52,15 @@ specify {
   git-diff-image = any;
   git-diff-minecraft = any;
   git-remote = any;
-  gnome-shell = { patch = [ ./library/assets/gnome-shell_accent-color.patch ./library/assets/gnome-shell_screenshot-location.patch ]; ccache = true; }; # Pending GNOME/gnome-shell#5370
+  gnome-shell = { patch = [ ./library/assets/gnome-shell_accent-color.patch ./library/assets/gnome-shell_screenshot-location.patch ]; big = true; ccache = true; }; # Pending GNOME/gnome-shell#5370
   gnomeExtensions.launcher.patch = [ ./library/assets/gnome-extension-launcher_icon.patch ./library/assets/gnome-extension-launcher_hide-settings.patch ./library/assets/gnome-extension-launcher_gnome-50.patch /* Pending hedgieinsocks/gnome-extension-launcher#14 */ ];
   gopass-await = any;
   gopass-env = any;
   gopass-ydotool = any;
   gpx-reduce = any;
-  htop.patch = ./library/assets/htop_colors.patch; # htop-dev/htop#1416
+  htop = { patch = ./library/assets/htop_colors.patch; big = true; }; # htop-dev/htop#1416
   incremental-compress = any;
-  inkscape = { patch = ./library/assets/inkscape_png-no-comment.patch; ccache = true; dontEval = true /* FIXME: infinite recursion */; }; # inkscape/inkscape!7193
+  inkscape = { patch = ./library/assets/inkscape_png-no-comment.patch; big = true; ccache = true; dontEval = true /* FIXME: infinite recursion */; }; # inkscape/inkscape!7193
   iosevka-custom = any;
   iptables_exporter = any;
   jj-dynamic-default-description = any;
@@ -68,8 +68,8 @@ specify {
   journal-brief = any;
   jujutsu.version = "≥0.44"; # Tag tracking
   just-local = any;
-  kitty.patch = ./library/assets/kitty_paperwm.patch; # Workaround for paperwm/PaperWM#943
-  libgtop.patch = ./library/assets/libgtop_ignores.patch; # Workaround for GNOME/gnome-system-monitor#342
+  kitty = { patch = ./library/assets/kitty_paperwm.patch; big = true; }; # Workaround for paperwm/PaperWM#943
+  libgtop = { patch = ./library/assets/libgtop_ignores.patch; big = true; }; # Workaround for GNOME/gnome-system-monitor#342
   little-a-map = any;
   losslesscut-bin.args = [ "--disable-networking" ];
   mark-applier = any;
