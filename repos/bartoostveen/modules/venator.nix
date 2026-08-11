@@ -216,7 +216,7 @@ in
       description = "Matrix Venator - versatile capital Matrix homeserver written from scratch in mautrix-go";
       wantedBy = [ "multi-user.target" ];
       wants = [ "network-online.target" ];
-      after = [ "network-online.target" ];
+      after = [ "network-online.target" ] ++ optional cfg.configurePostgres "postgresql.target";
       requires = optional cfg.configurePostgres "postgresql.target";
       serviceConfig = {
         Type = "notify-reload";

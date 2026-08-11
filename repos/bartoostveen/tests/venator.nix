@@ -42,7 +42,7 @@ in
             import asyncio
 
             from mautrix.client import Client
-            from mautrix.types import EventType, RoomFilter
+            from mautrix.types import EventType, RoomFilter, Filter
 
 
             async def main() -> None:
@@ -79,7 +79,7 @@ in
                     received.set()
 
                 client.add_event_handler(EventType.ROOM_MESSAGE, on_message)
-                sync_task = client.start(RoomFilter(rooms=[room_id]))
+                sync_task = client.start(Filter(room=RoomFilter(rooms=[room_id])))
 
                 await client.send_text(room_id, msg)
 
@@ -118,9 +118,8 @@ in
     # with subtest("ensure federation works"):
     #     client.succeed("curl --fail http://server:${toString port}/_matrix/federation/v1/version")
 
-    # TODO: does not pass entirely yet because of server being a huge WIP
-    # with subtest("ensure sending messages is possible"):
-    #     client.succeed("do_test >&2")
+    with subtest("ensure sending messages is possible"):
+        client.succeed("do_test >&2")
   '';
 
   meta.maintainers = with lib.maintainers; [
