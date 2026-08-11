@@ -34,22 +34,31 @@
   ];
 
   # Prebuilt Skia consumed by skia-bindings through SKIA_BINARIES_URL
-  # (file:// URLs are supported). The tarball name embeds the
-  # skia-bindings crate version (the release tag, 0.99.0), the upstream
-  # skia commit (a25a0fdb7d90429aa2d1) and the feature key slint's skia
-  # renderer enables on Linux (gl-jpegd-jpege-pdf-textlayout-vulkan); all
-  # three must be updated together whenever a regenerated Cargo.nix bumps
-  # skia-bindings (assets: https://github.com/rust-skia/skia-binaries/releases).
-  skiaBinaries = {
-    x86_64-linux = pkgs.fetchurl {
-      url = "https://github.com/rust-skia/skia-binaries/releases/download/0.99.0/skia-binaries-a25a0fdb7d90429aa2d1-x86_64-unknown-linux-gnu-gl-jpegd-jpege-pdf-textlayout-vulkan.tar.gz";
-      hash = "sha256-CX5413XJFW3EsHC5zKcAjbq1h1E+yxkkuvTPliDzEZs=";
-    };
-    aarch64-linux = pkgs.fetchurl {
-      url = "https://github.com/rust-skia/skia-binaries/releases/download/0.99.0/skia-binaries-a25a0fdb7d90429aa2d1-aarch64-unknown-linux-gnu-gl-jpegd-jpege-pdf-textlayout-vulkan.tar.gz";
-      sha256 = "ffe0e2e22113c0eee5699187943e24bec8bc85b13411102101fee132ac96f42b";
-    };
+  # (file:// URLs are supported). URL and hash are coupled — the tarball
+  # name embeds the skia-bindings crate version (the release tag), the
+  # upstream skia commit and the feature key of the enabled Linux
+  # features — so they live in ./pins.json, which is kept in sync with
+  # the regenerated Cargo.nix by this package's passthru.pinUpdater
+  # (`nix run .#update-pins`, assets:
+  # https://github.com/rust-skia/skia-binaries/releases). The tarballs
+  # are static .a archives, so no patchelf/FHS handling is needed.
+  pins = lib.importJSON ./pins.json;
+
+  # Nix system -> Rust target triple used in the release asset names.
+  skiaTargets = {
+    x86_64-linux = "x86_64-unknown-linux-gnu";
+    aarch64-linux = "aarch64-unknown-linux-gnu";
   };
+
+  skiaBinaries =
+    lib.mapAttrs (
+      system: target:
+        pkgs.fetchurl {
+          url = "https://github.com/rust-skia/skia-binaries/releases/download/${pins.skia.version}/skia-binaries-${pins.skia.commit}-${target}-${pins.skia.features}.tar.gz";
+          hash = pins.skia.hashes.${system};
+        }
+    )
+    skiaTargets;
 
   # ./Cargo.nix (next to this file) is generated with `crate2nix generate`
   # at the upstream source root by the update script
@@ -78,6 +87,21 @@
           buildInputs = (attrs.buildInputs or []) ++ linuxDesktopLibraries;
           # build.rs reads this instead of probing git inside the sandbox.
           env.WSRX_GIT_VERSION = version;
+        };
+
+        # Environment variables Cargo provides but buildRustCrate does
+        # not. CARGO_CRATE_NAME is the underscore-normalized crate name;
+        # build-target 0.8.0 reads it with env!() at compile time.
+        build-target = attrs: {
+          env.CARGO_CRATE_NAME = "build_target";
+        };
+        # Cargo always exports CARGO_ENCODED_RUSTFLAGS to build scripts,
+        # even when no extra rustflags are configured; buildRustCrate
+        # does not, and av-scenechange's build.rs unwraps it. The empty
+        # string accurately encodes the absent rustflags and lets the
+        # rav1e -> ravif -> image dependency chain build.
+        av-scenechange = attrs: {
+          env.CARGO_ENCODED_RUSTFLAGS = "";
         };
 
         # Use the prebuilt Skia binaries (the fetchurl FODs above)
@@ -143,6 +167,38 @@ in
       wrapProgram $out/bin/wsrx-desktop \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath linuxDesktopLibraries}
     '';
+
+    passthru =
+      (old.passthru or {})
+      // {
+        # Package pin updater, run by the generic `nix run .#update-pins`
+        # pipeline from the repository root. It derives the Skia
+        # version/commit/feature key from the committed Cargo.nix and
+        # rewrites ./pins.json (URL and hash must change together, so
+        # this is not handled by update-hashes/nix-update). See
+        # scripts/package-updates/README.md for the interface contract.
+        pinUpdater = pkgs.writeShellApplication {
+          name = "wsrx-desktop-update-pins";
+          runtimeInputs = with pkgs; [
+            coreutils
+            curl
+            gawk
+            gnugrep
+            jq
+            nix
+          ];
+          # The shared helper library is injected by path; shellcheck
+          # cannot follow it (SC1090/SC1091) and does not see runtimeEnv
+          # variables as assigned (SC2154).
+          excludeShellChecks = [
+            "SC1090"
+            "SC1091"
+            "SC2154"
+          ];
+          runtimeEnv.PIN_UTILS = ../../scripts/package-updates/lib/pin-utils.sh;
+          text = builtins.readFile ./update-pins.sh;
+        };
+      };
 
     # The GUI binary is not executed here: it needs a display.
     doInstallCheck = true;

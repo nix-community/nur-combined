@@ -29,10 +29,10 @@ in
     # variant): only app.asar is shipped and nixpkgs' electron runs it.
     # Upstream pins electron 38, which nixpkgs has already removed (39/40
     # are flagged EOL/insecure), so the default nixpkgs electron is used
-    # instead. The only native module (better-sqlite3) is compiled against
-    # this very electron's headers below, so the ABI always matches; the
-    # risk profile is limited to upstream app code vs. newer Electron
-    # runtime behavior.
+    # instead. The only native module (sqlite3) is an N-API module
+    # compiled against this very electron's headers below, so it loads
+    # under any recent Electron regardless of ABI; the risk profile is
+    # limited to upstream app code vs. newer Electron runtime behavior.
     pnpmDeps = fetchPnpmDeps {
       inherit pname version src;
       pnpm = pnpm_10;
@@ -54,10 +54,12 @@ in
       ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
 
       # pnpmConfigHook installs with --ignore-scripts, so nothing builds
-      # the native better-sqlite3 module; the explicit node-gyp rebuild in
-      # preBuild is its only producer. These variables make node-gyp work
-      # offline against the Electron headers shipped by nixpkgs' electron
-      # package (electron.headers), yielding an Electron-ABI .node.
+      # the native sqlite3 module; the explicit node-pre-gyp rebuild in
+      # preBuild is its only producer. These variables make the node-gyp
+      # that node-pre-gyp shells out to work offline against the Electron
+      # headers shipped by nixpkgs' electron package (electron.headers).
+      # sqlite3 is an N-API module (binary.napi_versions), so the result
+      # is not tied to a specific Electron ABI.
       npm_config_runtime = "electron";
       npm_config_target = electron.version;
       npm_config_nodedir = "${electron.headers}";
@@ -66,9 +68,22 @@ in
     preBuild = ''
       # Upstream .npmrc sets node-linker=hoisted + shamefully-hoist, so
       # everything lives in a flat root node_modules (which upstream's own
-      # scripts, e.g. deps:armv7l, also rely on).
-      pushd node_modules/better-sqlite3
-      node ../node-gyp/bin/node-gyp.js rebuild --release
+      # scripts, e.g. deps:woa:sqlite3, also rely on).
+      #
+      # Build sqlite3's native module from source through its own
+      # @mapbox/node-pre-gyp (hoisted to the root node_modules) instead
+      # of bare node-gyp: node-pre-gyp expands the N-API build versions
+      # declared in sqlite3's binary.napi_versions, injects module_path
+      # and the other gyp variables its binding.gyp needs, and the
+      # action_after_build target then copies node_sqlite3.node into
+      # lib/binding/napi-v*-linux-*-<arch>/, which is exactly where the
+      # runtime node-pre-gyp lookup expects it. No prebuilt binary is
+      # downloaded and no Node/Electron ABI is hardcoded. node-pre-gyp
+      # finds node-gyp next to the npm bundled with nixpkgs' nodejs, so
+      # the compile stays offline in the sandbox (headers come from
+      # npm_config_nodedir above).
+      pushd node_modules/sqlite3
+      node ../@mapbox/node-pre-gyp/bin/node-pre-gyp rebuild
       popd
     '';
 
@@ -81,7 +96,7 @@ in
       # offline (no Electron zip download); --dir only produces the
       # unpacked directory, so no AppImage/fpm tooling is fetched either.
       # Upstream's afterPack.cjs fixes pnpm-hoisting-induced missing deps
-      # inside the asar and unpacks *.node (better-sqlite3) automatically.
+      # inside the asar and unpacks *.node (sqlite3) automatically.
       pnpm run build:ci
       pnpm exec electron-builder --dir \
         -c.electronDist=${electron.dist} \
@@ -125,9 +140,9 @@ in
 
       # The native module must have been unpacked from the asar (the asar
       # cannot host .node files) and must load under the runtime
-      # Electron's Node ABI. ELECTRON_RUN_AS_NODE turns electron into a
-      # plain Node.js runtime, so this works headless in the sandbox.
-      node_module="$(find $out/lib/icalingua/app.asar.unpacked -name 'better_sqlite3.node' | head -n1)"
+      # Electron. ELECTRON_RUN_AS_NODE turns electron into a plain Node.js
+      # runtime, so this works headless in the sandbox.
+      node_module="$(find $out/lib/icalingua/app.asar.unpacked -name 'node_sqlite3.node' | head -n1)"
       test -n "$node_module"
       ELECTRON_RUN_AS_NODE=1 ${lib.getExe electron} -e "require('$node_module')"
 

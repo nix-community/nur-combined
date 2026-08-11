@@ -69,8 +69,13 @@ jobs:
     - name: Update devenv inputs
       run: devenv update
 
-    - name: Update sources, lockfiles and dependency hashes
+    - name: Update sources, lockfiles, pins and dependency hashes
       shell: bash
+      env:
+        # Read-only API token for update-pins' GitHub Release queries;
+        # shared runner IPs hit the anonymous rate limit easily. The
+        # public API remains usable without a token for local runs.
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
         set -euo pipefail
         trap 'rm -f secrets.toml' EXIT
@@ -94,6 +99,8 @@ jobs:
 
         nix run .#update-lockfiles
 
+        nix run .#update-pins
+
         nix run .#update-hashes
 
         rm -f secrets.toml
@@ -111,7 +118,7 @@ jobs:
       run: |
         set -euo pipefail
         sudo install -d /nix/var/nix/gcroots/nur-ci-update
-        for app in update-sources update-lockfiles update-hashes; do
+        for app in update-sources update-lockfiles update-pins update-hashes; do
           program="$(nix eval --raw ".#apps.x86_64-linux.${app}.program")"
           [[ -e "${program}" ]] || continue
           sudo ln -sfn "${program}" "/nix/var/nix/gcroots/nur-ci-update/${app}"

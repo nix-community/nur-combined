@@ -1,0 +1,11 @@
+{
+  "skia": {
+    "commit": "a25a0fdb7d90429aa2d1",
+    "features": "gl-jpegd-jpege-pdf-textlayout-vulkan",
+    "hashes": {
+      "aarch64-linux": "sha256-/+Di4iETwO7laZGHlD4kvsi8hbE0ERAhAf7hMqyW9Cs=",
+      "x86_64-linux": "sha256-CX5413XJFW3EsHC5zKcAjbq1h1E+yxkkuvTPliDzEZs="
+    },
+    "version": "0.99.0"
+  }
+}

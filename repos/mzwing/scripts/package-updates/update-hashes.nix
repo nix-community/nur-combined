@@ -1,3 +1,10 @@
+# Scope boundary: this app only refreshes vendored dependency hashes
+# whose fetch URL is static (vendorHash, pnpmDepsHash, ...), recomputed by
+# nix-update from the already-updated sources/lockfiles. Pins whose URL
+# and hash must change together (e.g. wsrx-desktop's Skia prebuilts in
+# pins.json) are NOT handled here — they are owned by the package's
+# passthru.pinUpdater and the update-pins app (./update-pins.nix), which
+# runs one stage earlier. See ./README.md.
 {pkgs}: let
   system = pkgs.stdenv.hostPlatform.system;
   script = pkgs.writeShellApplication {
