@@ -81,8 +81,8 @@
   },
   {
     "pname": "Aiursoft.DbTools.Sqlite",
-    "version": "10.0.30",
-    "hash": "sha256-EQm7HxJzOO6b+okZd8epjJtfeI2FISd+2lctWE+bdSo="
+    "version": "10.0.31",
+    "hash": "sha256-MtMEs/ZdkkVWSVacESYzRkQCHUdKL4puLOAiKADU7Gs="
   },
   {
     "pname": "Aiursoft.DbTools.Switchable",
@@ -635,14 +635,24 @@
     "hash": "sha256-pulHlVVEDtj9MO5zeEcBRFIYR66keeHv2IXzyAE/5Fg="
   },
   {
+    "pname": "SQLite",
+    "version": "3.53.4",
+    "hash": "sha256-VkHrWOiEKf1z0J/ClL2qYQpumQmfQUHekSpeSqbXc8o="
+  },
+  {
     "pname": "SQLitePCLRaw.bundle_e_sqlite3",
     "version": "2.1.11",
     "hash": "sha256-kWRapMTVEfcc0DxnI9Ai1+RwAAcR2+HUu+WF+OeLJCs="
   },
   {
     "pname": "SQLitePCLRaw.bundle_e_sqlite3",
-    "version": "2.1.12",
-    "hash": "sha256-qaBua1oxP27zZ1+RmX0BKt7/6KqeH/1p7Uak5oWwVOE="
+    "version": "3.0.5",
+    "hash": "sha256-4yXOYahryjgfvTVIcmRIHhxqOWY1Rv7IIDX6ZhGYwqE="
+  },
+  {
+    "pname": "SQLitePCLRaw.config.e_sqlite3",
+    "version": "3.0.5",
+    "hash": "sha256-HDkIERpKFOiYg5g2vqnE2jkO3GabKXxATekkIqvuOrE="
   },
   {
     "pname": "SQLitePCLRaw.core",
@@ -651,18 +661,13 @@
   },
   {
     "pname": "SQLitePCLRaw.core",
-    "version": "2.1.12",
-    "hash": "sha256-rwaQQTj/ptyVpZkTPWTSVHFtb6zHVDprO5EHk9rp3KU="
-  },
-  {
-    "pname": "SQLitePCLRaw.lib.e_sqlite3",
-    "version": "2.1.12",
-    "hash": "sha256-SiLAL/z0iXkpA88mPe+fzidzlxaIP5ZfC17v8WN0MKw="
+    "version": "3.0.5",
+    "hash": "sha256-dHa0uOBn2IxMtZijGJO1EQN7iOBcKNUk9LRDP+n2kEg="
   },
   {
     "pname": "SQLitePCLRaw.provider.e_sqlite3",
-    "version": "2.1.12",
-    "hash": "sha256-3ysycZkuXXGRhsRnHjz0+GWAl8FUy81BSUq1lMWZdZU="
+    "version": "3.0.5",
+    "hash": "sha256-EMbT2qxDK7OC3aBsNeX3/8zjYYeSFBvZFlZSfwbvWyU="
   },
   {
     "pname": "System.CodeDom",
