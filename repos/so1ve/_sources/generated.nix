@@ -44,4 +44,15 @@
     };
     date = "2026-08-06";
   };
+  yanhekt-autoslides = {
+    pname = "yanhekt-autoslides";
+    version = "v4.4.1";
+    src = fetchFromGitHub {
+      owner = "BIT-Admin";
+      repo = "Yanhekt-AutoSlides";
+      rev = "v4.4.1";
+      fetchSubmodules = false;
+      sha256 = "sha256-Db6djIaTupYKFzZ+alpsjaGxoqJbmULL5uedxqNq1pI=";
+    };
+  };
 }

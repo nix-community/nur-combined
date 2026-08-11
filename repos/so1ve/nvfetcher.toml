@@ -16,6 +16,10 @@ src.from_pattern = "v(.*)"
 src.to_pattern = "\\1"
 fetch.url = "https://github.com/so1ve/maple-font/releases/download/v$ver/RMapleMono-NF-CN.zip"
 
+[yanhekt-autoslides]
+src.github = "BIT-Admin/Yanhekt-AutoSlides"
+fetch.github = "BIT-Admin/Yanhekt-AutoSlides"
+
 [winboat]
 src.git = "https://github.com/TibixDev/winboat.git"
 src.branch = "main"

@@ -62,6 +62,27 @@
             "type": "git",
             "url": "https://github.com/TibixDev/winboat.git"
         },
-        "version": "8cff1ac3e7b35fe41235856ab98800b2281cac57"
+        "version": "4fefd6da554fe80b0fc9da7a5dd8355371e1d3fd"
+    },
+    "yanhekt-autoslides": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "yanhekt-autoslides",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "BIT-Admin",
+            "repo": "Yanhekt-AutoSlides",
+            "rev": "v4.4.1",
+            "sha256": "sha256-Db6djIaTupYKFzZ+alpsjaGxoqJbmULL5uedxqNq1pI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v4.4.1"
     }
 }
