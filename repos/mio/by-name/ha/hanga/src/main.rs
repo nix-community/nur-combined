@@ -152,7 +152,10 @@ pub struct StdinReceiver {
     pub rx: Mutex<Receiver<String>>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Component)]
+struct VehicleAi;
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(tag = "action")]
 enum AgentCommand {
     MoveForward,
@@ -221,7 +224,7 @@ fn setup(mut commands: Commands) {
         WantedLevel(0), // GTA Wanted Level starts at 0
     ));
 
-    // Spawn a GTA-style Vehicle
+    // Spawn a GTA-style Vehicle for the player
     commands.spawn((
         Vehicle,
         Transform::from_xyz(500.0, 50.0, 495.0), // Spawn nearby
@@ -230,6 +233,19 @@ fn setup(mut commands: Commands) {
         LinearVelocity::default(),
         AngularVelocity::default(),
     ));
+
+    // Spawn autonomous Traffic Vehicles
+    for i in 0..5 {
+        commands.spawn((
+            Vehicle,
+            VehicleAi, // Marked as AI controlled
+            Transform::from_xyz(510.0 + (i as f32 * 10.0), 50.0, 495.0),
+            RigidBody::Dynamic,
+            Collider::cuboid(2.0, 1.5, 4.0),
+            LinearVelocity::default(),
+            AngularVelocity::default(),
+        ));
+    }
 }
 
 /// Pure function to validate if a block-break action is within physical limits.
@@ -547,7 +563,7 @@ pub struct GtaPlugin;
 impl Plugin for GtaPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(Startup, init_city_simulation);
-        app.add_systems(Update, (cop_ai_chase, vehicle_collision_damage));
+        app.add_systems(Update, (cop_ai_chase, vehicle_collision_damage, vehicle_traffic_system));
     }
 }
 fn init_city_simulation() {
@@ -580,6 +596,18 @@ fn vehicle_collision_damage(
                 }
             }
         }
+    }
+}
+
+fn vehicle_traffic_system(
+    mut vehicles: Query<(&Transform, &mut LinearVelocity), With<VehicleAi>>,
+) {
+    for (transform, mut velocity) in vehicles.iter_mut() {
+        // Simple traffic AI: just drive forward in the direction it's facing
+        let forward = transform.forward();
+        // Constant speed of 10 m/s
+        velocity.x = forward.x * 10.0;
+        velocity.z = forward.z * 10.0;
     }
 }
 
