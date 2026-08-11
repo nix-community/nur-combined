@@ -17,13 +17,14 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "sublinkpro";
   inherit (source) version src;
 
+  dontUnpack = true;
   dontConfigure = true;
   dontBuild = true;
 
   installPhase = ''
     runHook preInstall
 
-    install -D -m 0755 sublinkPro-linux-${arch} $out/bin/sublinkpro
+    install -D -m 0755 $src $out/bin/sublinkpro
 
     runHook postInstall
   '';
