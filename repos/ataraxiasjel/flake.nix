@@ -88,6 +88,7 @@
         lib = import ./lib;
         overlays = import ./overlays;
         nixosModules = import ./modules;
+        homeManagerModules = import ./modules/home-manager;
       };
     };
 

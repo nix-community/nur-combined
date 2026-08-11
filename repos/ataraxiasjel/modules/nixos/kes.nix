@@ -68,7 +68,8 @@ in
         SendSIGKILL = "no";
         TasksMax = "infinity";
         TimeoutStopSec = "infinity";
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+      }
+      // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
 
     users.groups.kes = { };

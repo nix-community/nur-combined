@@ -102,7 +102,8 @@ in
       environment = {
         OCIS_CONFIG_DIR = cfg.configDir;
         OCIS_BASE_DATA_PATH = cfg.baseDataPath;
-      } // cfg.environment;
+      }
+      // cfg.environment;
       script = ''
         ${lib.optionalString (cfg.settings != { }) "${linkConfigs environment.OCIS_CONFIG_DIR}"}
         if [ ! -f "$OCIS_CONFIG_DIR/ocis.yaml" ]; then
@@ -125,7 +126,8 @@ in
         StateDirectory = "ocis";
         User = "ocis";
         Group = "ocis";
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+      }
+      // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
 
     systemd.services.ocis-server = {
@@ -137,7 +139,8 @@ in
         OCIS_BASE_DATA_PATH = cfg.baseDataPath;
         OCIS_URL = "https://localhost:9200";
         PROXY_HTTP_ADDR = "127.0.0.1:9200";
-      } // cfg.environment;
+      }
+      // cfg.environment;
       serviceConfig = {
         Type = "simple";
         Restart = "always";
@@ -145,7 +148,8 @@ in
         User = "ocis";
         Group = "ocis";
         LimitNOFILE = 65536;
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+      }
+      // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
 
     environment.systemPackages = [ cfg.package ];

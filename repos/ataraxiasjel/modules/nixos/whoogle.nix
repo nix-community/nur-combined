@@ -47,7 +47,8 @@ in
       path = [ cfg.package ];
       environment = {
         CONFIG_VOLUME = "/var/lib/whoogle-search";
-      } // cfg.environment;
+      }
+      // cfg.environment;
       script = "whoogle-search --host ${cfg.listenAddress} --port ${toString cfg.listenPort}";
       serviceConfig = {
         Type = "simple";
@@ -72,7 +73,8 @@ in
         RestrictRealtime = true;
         RestrictSUIDSGID = true;
         UMask = "0007";
-      } // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
+      }
+      // optionalAttrs (cfg.environmentFile != null) { EnvironmentFile = cfg.environmentFile; };
     };
 
     users.groups.whoogle-search = { };

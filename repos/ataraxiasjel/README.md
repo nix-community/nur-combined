@@ -8,34 +8,40 @@
 
 ## Modules
 
-* [authentik](https://goauthentik.io/), open-source Identity Provider focused on flexibility and versatility. Available as [services.authentik](modules/authentik.nix).
+* [authentik](https://goauthentik.io/), open-source Identity Provider focused on flexibility and versatility. Available as [services.authentik](modules/nixos/authentik.nix).
 
-* [endfield-daily](https://github.com/AtaraxiaSjel), daily check-in bot for Arknights: Endfield. Available as [services.endfield-daily](modules/endfield.nix).
+* [endfield-daily](https://github.com/AtaraxiaSjel), daily check-in bot for Arknights: Endfield. Available as [services.endfield-daily](modules/nixos/endfield.nix).
 
-* [homepage](https://gethomepage.dev/), a modern, fully static, fast, secure fully proxied, highly customizable application dashboard. Available as [services.homepage-dashboard](modules/homepage.nix).
+* [homepage](https://gethomepage.dev/), a modern, fully static, fast, secure fully proxied, highly customizable application dashboard. Available as [services.homepage-dashboard](modules/nixos/homepage.nix).
 Disables NixOS's homepage-dashboard service.
 
-* [hoyolab-claim-bot](https://github.com/AtaraxiaSjel/hoyolab-claim-bot/), hoyolab daily claim bot for Hoyoverse games. Available as [services.hoyolab-claim-bot](modules/hoyolab.nix).
+* [hoyolab-claim-bot](https://github.com/AtaraxiaSjel/hoyolab-claim-bot/), hoyolab daily claim bot for Hoyoverse games. Available as [services.hoyolab-claim-bot](modules/nixos/hoyolab.nix).
 
-* [kes](https://github.com/minio/kes), Key Managament Server for Object Storage and more. Available as [services.kes](modules/kes.nix).
+* [kes](https://github.com/minio/kes), Key Managament Server for Object Storage and more. Available as [services.kes](modules/nixos/kes.nix).
 
-* [ocis](https://owncloud.dev/ocis/), ownCloud Infinite Scale - the modern file-sync and share platform. Available as [services.ocis](modules/ocis.nix).
+* [mcp-gateway](https://github.com/MikkoParkkola/mcp-gateway), Universal MCP Gateway - single-port multiplexing with Meta-MCP for ~95% context token savings. Available as [services.mcp-gateway](modules/nixos/mcp-gateway.nix).
+
+* [ocis](https://owncloud.dev/ocis/), ownCloud Infinite Scale - the modern file-sync and share platform. Available as [services.ocis](modules/nixos/ocis.nix).
 Package [ocis-bin](pkgs/ocis-bin/) included in this repo. Until [#230190](https://github.com/NixOS/nixpkgs/issues/230190) not resolved ocis-bin derivation pulls pre-built binary from [ocis repo](https://github.com/owncloud/ocis).
 
-* [prometheus-podman-exporter](https://github.com/containers/prometheus-podman-exporter), Prometheus exporter for podman environments. Available as [services.prometheus.exporters.podman](modules/prometheus-exporters/podman.nix).
+* [prometheus-podman-exporter](https://github.com/containers/prometheus-podman-exporter), Prometheus exporter for podman environments. Available as [services.prometheus.exporters.podman](modules/nixos/prometheus-exporters/podman.nix).
 
-* [rinetd](https://github.com/samhocevar/rinetd), TCP/UDP port redirector. Available as [services.rinetd](modules/rinetd.nix).
+* [rinetd](https://github.com/samhocevar/rinetd), TCP/UDP port redirector. Available as [services.rinetd](modules/nixos/rinetd.nix).
 
-* [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/rustic.nix).
+* [rustic](https://github.com/rustic-rs/rustic), rustic - fast, encrypted, and deduplicated backups powered by Rust. Available as [services.rustic](modules/nixos/rustic.nix).
 Usage [example](https://github.com/AtaraxiaSjel/nixos-config/tree/master/machines/Home-Hypervisor/backups.nix)
 
-* [syncyomi](https://github.com/syncyomi/syncyomi/), an open-source project crafted to provide a seamless synchronization experience for TachiyomiSY. Available as [services.syncyomi](modules/syncyomi.nix).
+* [syncyomi](https://github.com/syncyomi/syncyomi/), an open-source project crafted to provide a seamless synchronization experience for TachiyomiSY. Available as [services.syncyomi](modules/nixos/syncyomi.nix).
 
-* [telemt](https://github.com/telemt/lelemt/), MTProxy for Telegram on Rust + Tokio. Available as [services.telemt](modules/telemt.nix).
+* [telemt](https://github.com/telemt/lelemt/), MTProxy for Telegram on Rust + Tokio. Available as [services.telemt](modules/nixos/telemt.nix).
 
-* [wopiserver](https://github.com/benbusby/whoogle-search/), a self-hosted, ad-free, privacy-respecting metasearch engine. Available as [services.services.whoogle-search](modules/whoogle.nix).
+* [wopiserver](https://github.com/benbusby/whoogle-search/), a self-hosted, ad-free, privacy-respecting metasearch engine. Available as [services.services.whoogle-search](modules/nixos/whoogle.nix).
 
-* [wopiserver](https://github.com/cs3org/wopiserver/), a vendor-neutral application gateway compatible with the WOPI specifications. Available as [services.wopiserver](modules/wopiserver.nix).
+* [wopiserver](https://github.com/cs3org/wopiserver/), a vendor-neutral application gateway compatible with the WOPI specifications. Available as [services.wopiserver](modules/nixos/wopiserver.nix).
+
+## Home-manager modules
+
+* [mcp-gateway](https://github.com/MikkoParkkola/mcp-gateway), Universal MCP Gateway - single-port multiplexing with Meta-MCP for ~95% context token savings. Available as [services.mcp-gateway](modules/home-manager/mcp-gateway.nix).
 
 ## Overlays
 
