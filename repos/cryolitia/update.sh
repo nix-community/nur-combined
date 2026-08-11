@@ -1,4 +1,0 @@
-#! /usr/bin/env -S nix shell nixpkgs#nix-update nixpkgs#nixfmt-rfc-style --command bash
-
-nix-update --commit --format --flake get-lrc
-nix-update --commit --format --flake mdbook-typst-pdf
