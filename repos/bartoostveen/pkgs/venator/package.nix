@@ -12,7 +12,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "venator";
-  version = "0.1.0a2-unstable-2026-08-07";
+  version = "0.1.0a2-unstable-2026-08-11";
 
   __structuredAttrs = true;
   strictDeps = true;
@@ -21,8 +21,8 @@ buildGoModule (finalAttrs: {
     domain = "codeberg.org";
     owner = "matrix-venator";
     repo = "venator";
-    rev = "16d72bc6bf5ed27c592163b7fb9acc81ca4fdb48";
-    hash = "sha256-1iIZ7/23XXfRHVFhT5SyyIEMCVRkfNUcBF8dzZCJqPo=";
+    rev = "26b71f6ded669f76a21f44c3cabbfc4d72a77c9b";
+    hash = "sha256-PdIMm0GtZtnYNILMQHUW9yxHGKeYAuL8qftrUJ1Pzmo=";
   };
 
   vendorHash = "sha256-SMHhDTNkknJ6OawlyZ53uZhjYIDtL9LjbTg/dZ4VJkI=";
