@@ -1,0 +1,37 @@
+--- a/subdl.py
++++ b/subdl.py
+@@ -307,13 +307,16 @@
+     if options.filter:
+         s = filtersub(s)
+     if options.utf8:
+-        import chardet
+-        result = chardet.detect(s)
+-        if not result["encoding"] in {"ascii", "utf-8"}:
+-            print(f"Found encoding {result['encoding']} with a confidence of {result['confidence']*100:.2f}%. Converting to utf8.")
++        import magic
++        result = magic.detect_from_content(s)
++        if not result.encoding in {"us-ascii", "utf-8"}:
++            print(f"Found encoding {result['encoding']}. Converting to utf8.")
+             # separate lines for easier debugging
+-            s = s.decode(result["encoding"]) # bytes -> str
+-            s = s.encode("utf8") # str -> bytes
++            try:
++                s = s.decode(result.encoding).encode("utf8") # bytes -> str -> bytes
++            except UnicodeDecodeError as err:
++                print(f"failed to convert to utf8: {destfilename}: {err}")
++                # keep original encoding of file
+     writefile(destfilename, s)
+     print("done, wrote %d bytes."% (len(s)), file=sys.stderr)
+ 
+@@ -436,9 +439,9 @@
+         elif option == '--utf8':
+             options.utf8 = True
+             try:
+-                import chardet
++                import magic
+             except ModuleNotFoundError:
+-                sys.stderr.write("Error: The --utf8 option requires the chardet module from https://pypi.org/project/chardet/ - Hint: pip install chardet\n")
++                sys.stderr.write("Error: The --utf8 option requires the python-magic module from https://pypi.org/project/python-magic/ - Hint: pip install python-magic\n")
+                 sys.exit(1)
+         elif option == '--list-languages':
+             ListLanguages()

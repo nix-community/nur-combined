@@ -1,0 +1,13 @@
+https://media.ccc.de/v/nixcon-2023-36467-compiling-to-nix-a-quick-overview
+https://dhall-lang.org/
+https://github.com/purenix-org/purenix
+  transpile purescript to nix
+  Nix backend for PureScript. Transpile PureScript code to Nix.
+  A typical example is parsing of configuration files
+  Long-running programs may run out of memory due to the lack of garbage collection and tail recursion.
+  If you end up writing long-running programs, like a parser that needs to process very large files,
+  you might have to rewrite it in a way that minimizes recursion and allocation.
+  https://github.com/cdepillabout/cabal2nixWithoutIFD
+  https://github.com/purescript/purescript
+  https://discourse.purescript.org/t/initial-release-of-purescript-language-cst-parser/2131/5
+  https://pursuit.purescript.org/packages/purescript-parsing/6.0.2/docs/Text.Parsing.Parser.Combinators

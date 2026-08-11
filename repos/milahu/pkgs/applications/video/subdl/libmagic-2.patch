@@ -1,0 +1,17 @@
+--- a/subdl.py
++++ b/subdl.py
+@@ -310,12 +310,12 @@
+         import magic
+         result = magic.detect_from_content(s)
+         if not result.encoding in {"us-ascii", "utf-8"}:
+-            print(f"Found encoding {result['encoding']}. Converting to utf8.")
++            print(f"Found encoding {result.encoding}. Converting to utf8.")
+             # separate lines for easier debugging
+             try:
+                 s = s.decode(result.encoding).encode("utf8") # bytes -> str -> bytes
+             except UnicodeDecodeError as err:
+-                print(f"failed to convert to utf8: {destfilename}: {err}")
++                print(f"failed to convert to utf8 from {result.encoding}: {destfilename}: {err}")
+                 # keep original encoding of file
+     writefile(destfilename, s)
+     print("done, wrote %d bytes."% (len(s)), file=sys.stderr)

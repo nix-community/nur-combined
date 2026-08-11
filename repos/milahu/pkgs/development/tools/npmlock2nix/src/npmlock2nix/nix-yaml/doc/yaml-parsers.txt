@@ -1,0 +1,18 @@
+https://stackoverflow.com/questions/25579840/is-there-an-antlr4-grammar-for-yaml
+
+The YAML specification contains a BNF grammar. Bear in mind that according to this document, fully correct YAML is context-sensitive and not parseable by parser-generators, so your grammar will have to describe a context-free superset.
+
+https://yaml.org/spec/1.2/spec.html
+
+
+
+https://yaml.org/
+
+  Haskell:
+  - HsYAML         # YAML 1.2 implementation in pure Haskell (YTS)
+  - YamlReference  # Haskell 1.2 reference parser
+  - yaml           # YAML 1.1 Haskell framework (based on libyaml)
+
+https://hackage.haskell.org/package/HsYAML
+
+https://hackage.haskell.org/package/YamlReference

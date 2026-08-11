@@ -1,0 +1,47 @@
+commit 5e53d2f15177396860644a1765a218112849f679
+Author: Milan Hauth <milahu@gmail.com>
+Date:   Mon Sep 4 17:03:04 2023 +0200
+
+    fix import for PyPDF2 3
+
+diff --git a/krop/pdfcropper.py b/krop/pdfcropper.py
+index ae38610..7f0f496 100644
+--- a/krop/pdfcropper.py
++++ b/krop/pdfcropper.py
+@@ -278,7 +278,7 @@ if '--use-pikepdf' in sys.argv:
+ # use PyPDF2 if requested
+ if '--use-pypdf2' in sys.argv:
+     try:
+-        from PyPDF2 import PdfFileReader as PdfReader, PdfFileWriter as PdfWriter
++        from PyPDF2 import PdfReader, PdfWriter
+         lib_crop = PYPDF2
+     except ImportError:
+         print("PyPDF2 was requested but failed to load.", file=sys.stderr)
+@@ -294,7 +294,7 @@ if not lib_crop:
+     # otherwise use PyPDF2
+     if not lib_crop:
+         try:
+-            from PyPDF2 import PdfFileReader as PdfReader, PdfFileWriter as PdfWriter
++            from PyPDF2 import PdfReader, PdfWriter
+             lib_crop = PYPDF2
+         except ImportError:
+             pass
+@@ -334,11 +334,15 @@ elif lib_crop == PIKEPDF:
+     PdfFile = PikePdfFile
+     PdfCropper = PikePdfCropper
+     print("Using pikepdf for cropping.", file=sys.stderr)
+-elif lib_crop == PYPDF1 or lib_crop == PYPDF2:
+-    # PyPDF2 and the old pyPdf use a naming scheme different from the new pypdf
++elif lib_crop == PYPDF1:
++    # old pyPdf has camelCase API, new pypdf has snake_case API
+     PdfFile = PyPdfOldFile
+     PdfCropper = PyPdfOldCropper
+-    print("Using " + (lib_crop == PYPDF2 and "PyPDF2" or "pyPdf") + " for cropping.", file=sys.stderr)
++    print("Using pyPdf for cropping.", file=sys.stderr)
++elif lib_crop == PYPDF2:
++    PdfFile = PyPdfFile
++    PdfCropper = PyPdfCropper
++    print("Using PyPDF2 for cropping.", file=sys.stderr)
+ else:
+     PdfFile = PyPdfFile
+     PdfCropper = PyPdfCropper

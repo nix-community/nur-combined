@@ -1,0 +1,20 @@
+{
+  "org.jetbrains:dummy:0.1.2": {
+    "dummy-0.1.2-javadoc.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/jetbrains/dummy/0.1.2/dummy-0.1.2-javadoc.jar",
+      "hash": "sha256-VKSq9XAfCAL64HOpAw9Cz3u1KxCJG/plFoXlYGpsT38="
+    },
+    "dummy-0.1.2-sources.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/jetbrains/dummy/0.1.2/dummy-0.1.2-sources.jar",
+      "hash": "sha256-P6wF/AUXB4XcW/Yd+E2MsEYQuaLrlAjU9ZCFwl5LpV4="
+    },
+    "dummy-0.1.2.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/jetbrains/dummy/0.1.2/dummy-0.1.2.jar",
+      "hash": "sha256-cNf6E8g94h1RzuCgeERYjfMYK/FtuxULAmgZ2NbrZHE="
+    },
+    "dummy-0.1.2.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/jetbrains/dummy/0.1.2/dummy-0.1.2.pom",
+      "hash": "sha256-yAJfpJPhPhaxEwVdOL3zzK0JopTGuV3djT44MWsz1z4="
+    }
+  }
+}

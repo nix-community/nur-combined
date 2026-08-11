@@ -1,0 +1,38 @@
+{
+    "nix-pre-commit-hooks": {
+        "branch": "master",
+        "description": "Seamless integration of https://pre-commit.com git hooks with Nix.",
+        "homepage": "",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "1303a1a76e9eb074075bfe566518c413f6fc104e",
+        "sha256": "0nhp1bym29hlcxic7x7jqgqsq60bqzfxd5zbylpsafmdnam1dfrk",
+        "type": "tarball",
+        "url": "https://github.com/cachix/pre-commit-hooks.nix/archive/1303a1a76e9eb074075bfe566518c413f6fc104e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nixpkgs": {
+        "branch": "nixos-unstable",
+        "description": "Nix Packages collection",
+        "homepage": "",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c5ed8beb478a8ca035f033f659b60c89500a3034",
+        "sha256": "0i4dxvnz7myn90kfqv8l5nvsk1k6lgmhg1xfags2h5bazyb0rr4c",
+        "type": "tarball",
+        "url": "https://github.com/nixos/nixpkgs/archive/c5ed8beb478a8ca035f033f659b60c89500a3034.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "smoke": {
+        "branch": "main",
+        "description": "Runs tests against anything, using command-line arguments, STDIN, STDOUT and STDERR.",
+        "homepage": "",
+        "owner": "SamirTalwar",
+        "repo": "smoke",
+        "rev": "61bb7c05bbbaa80df516adfcc60240889ed43fd1",
+        "sha256": "1axg8cm18w41f4s7ph8qyarrdzazph87b1sb149hbxkpf2ckhahx",
+        "type": "tarball",
+        "url": "https://github.com/SamirTalwar/smoke/archive/61bb7c05bbbaa80df516adfcc60240889ed43fd1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

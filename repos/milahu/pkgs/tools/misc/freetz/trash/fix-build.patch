@@ -1,0 +1,24 @@
+diff --git a/make/include/600-macros.mk b/make/include/600-macros.mk
+index 49f4be8..3998c83 100644
+--- a/make/include/600-macros.mk
++++ b/make/include/600-macros.mk
+@@ -12,6 +12,7 @@ ifneq ($($(PKG)_BUILD_PREREQ),)
+ 	for fv in $($(PKG)_BUILD_PREREQ); do \
+ 		f=$$$$(echo $$$$fv | cut -d ':' -f 1); \
+ 		v=$$$$(echo $$$$fv | cut -d ':' -sf 2 | sed -e 's,[.],[.],g'); \
++		echo make/include/600-macros.mk: checking tool $$$$f; \
+ 		if ! which $$$$f >/dev/null 2>&1; then \
+ 			MISSING_PREREQ="$$$$MISSING_PREREQ $$$$f"; \
+ 		elif [ -n "$$$$v" ] && ! $$$$f --version 2>&1 | grep -q "$$$$v"; then \
+diff --git a/tools/prerequisites b/tools/prerequisites
+index 36880ed..cdb7854 100755
+--- a/tools/prerequisites
++++ b/tools/prerequisites
+@@ -22,6 +22,7 @@ check_requisite() {
+ 			ldconfig -p | grep -v 'x86-64' | grep -Eq "^[[:space:]]*$1(\.[01])* "
+ 			;;
+ 		header)
++			return 0
+ 			[ -n "$(find /usr/include/ /usr/local/include/ -path "*/$1" 2>/dev/null)" ]
+ 			;;
+ 		*)

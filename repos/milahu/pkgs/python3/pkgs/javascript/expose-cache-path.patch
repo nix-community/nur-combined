@@ -1,0 +1,72 @@
+--- a/src/javascript/js/deps.js
++++ b/src/javascript/js/deps.js
+@@ -4,9 +4,10 @@
+ const { pathToFileURL } = require('url')
+ 
+ const NODE_PM = process.env.NODE_PM || 'npm'
+-const PACKAGE_PATH = join(__dirname, 'package.json')
+-const LOCK_PATH = join(__dirname, NODE_PM === 'npm' ? 'package-lock.json' : 'yarn.lock')
+-const MOD_PATH = join(__dirname, 'node_modules')
++const CACHE_PATH = process.env.JS_PY_BRIDGE_CACHE || ((process.env.HOME || '') + '/.cache/js-py-bridge')
++const PACKAGE_PATH = join(CACHE_PATH, 'package.json')
++const LOCK_PATH = join(CACHE_PATH, NODE_PM === 'npm' ? 'package-lock.json' : 'yarn.lock')
++const MOD_PATH = join(CACHE_PATH, 'node_modules')
+ const log = (...what) => console.log('\x1b[1m', ...what, '\x1b[0m')
+ 
+ class PackageManager {
+@@ -21,12 +22,14 @@
+     try {
+       this.installed = JSON.parse(fs.readFileSync(PACKAGE_PATH))
+     } catch (e) {
++      fs.mkdirSync(CACHE_PATH, { recursive: true })
+       fs.writeFileSync(PACKAGE_PATH, '{\n\t"name": "js-modules",\n\t"description": "This folder holds the installed JS deps",\n\t"dependencies": {}\n}')
+       this.installed = JSON.parse(fs.readFileSync(PACKAGE_PATH))
+     }
+   }
+ 
+   save () {
++    fs.mkdirSync(CACHE_PATH, { recursive: true })
+     fs.writeFileSync(PACKAGE_PATH, JSON.stringify(this.installed, null, 2))
+   }
+ 
+@@ -75,9 +78,9 @@
+         // work, since it will not actually save that into the Package Lock/JSON file. So we must first
+         // put `latest` into the package.json, then run npm install to persist the `latest` version.
+         this.setInstalledVersion(name, 'latest')
+-        cp.execSync(`${NODE_PM} install`, { stdio: 'inherit', cwd: __dirname })
++        cp.execSync(`${NODE_PM} install`, { stdio: 'inherit', cwd: CACHE_PATH })
+       } else {
+-        cp.execSync(`${NODE_PM} install ${internalName}@npm:${name}@${version}`, { stdio: 'inherit', cwd: __dirname })
++        cp.execSync(`${NODE_PM} install ${internalName}@npm:${name}@${version}`, { stdio: 'inherit', cwd: CACHE_PATH })
+       }
+ 
+       process.stderr.write('\n\n')
+--- a/src/javascript/connection.py
++++ b/src/javascript/connection.py
+@@ -137,9 +137,18 @@ def readAll():
+ def com_io():
+     global proc, stdout_thread
+     try:
++        env = dict(os.environ)
++        cache_env_name = "JS_PY_BRIDGE_CACHE"
++        if cache_env_name in os.environ:
++            node_path = os.environ[cache_env_name]
++            if node_path:
++                # append "/node_modules" to each path
++                node_path = node_path.replace(":", "/node_modules:") + "/node_modules"
++            env["NODE_PATH"] = node_path
+         if os.name == 'nt' and 'idlelib.run' in sys.modules:
+             proc = subprocess.Popen(
+                 [NODE_BIN, dn + "/js/bridge.js"],
++                env=env,
+                 stdin=subprocess.PIPE,
+                 stdout=stdout,
+                 stderr=subprocess.PIPE,
+@@ -148,6 +157,7 @@ def com_io():
+         else:
+             proc = subprocess.Popen(
+                 [NODE_BIN, dn + "/js/bridge.js"],
++                env=env,
+                 stdin=subprocess.PIPE,
+                 stdout=stdout,
+                 stderr=subprocess.PIPE

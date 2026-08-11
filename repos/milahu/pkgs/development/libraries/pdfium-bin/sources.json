@@ -1,0 +1,65 @@
+{
+  "version": "5961",
+  "sources": {
+    "pdfium-linux-arm.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-linux-arm.tgz",
+      "hash": "sha256-Ib0BlZaxmofau2zm1c8CPFpRkwMT8pbf1sYfTvNQ5Lo="
+    },
+    "pdfium-linux-arm64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-linux-arm64.tgz",
+      "hash": "sha256-QhfIM3ZdWq1/ZS+JvxTw4hZsJt0/Lz1xroUsj4goDgg="
+    },
+    "pdfium-linux-x64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-linux-x64.tgz",
+      "hash": "sha256-9FM1qxdwwf5a4qBikvt7pN5FOUXJ57zLPZhyNAQm5E4="
+    },
+    "pdfium-linux-x86.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-linux-x86.tgz",
+      "hash": "sha256-O9GBXLFwddXzvwZEzkHFSuxIZ4yMEZhIkeORaXNHC4k="
+    },
+    "pdfium-mac-arm64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-mac-arm64.tgz",
+      "hash": "sha256-0pLblHcluzwmha00/T2MBl0CvYduvtb5JoyTDCLgeR0="
+    },
+    "pdfium-mac-univ.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-mac-univ.tgz",
+      "hash": "sha256-MJj+naMXTwcbvAlEN35YMwSUo5YENh9bfJuPF7QKm2s="
+    },
+    "pdfium-mac-x64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-mac-x64.tgz",
+      "hash": "sha256-bZtFbirBBWNHhAAEPO0VYPZ3Yqpl/PUWxH3Ft8J35DY="
+    },
+    "pdfium-v8-linux-arm.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-linux-arm.tgz",
+      "hash": "sha256-tpbgdCGNo9e9Gt9dkZ5Ug92CzNnKmusI6ddp8YPTS7Y="
+    },
+    "pdfium-v8-linux-arm64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-linux-arm64.tgz",
+      "hash": "sha256-wo15JjEUgS/YEdMBVKLByuYYbx0vLEgYHkGCLzuKb0U="
+    },
+    "pdfium-v8-linux-x64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-linux-x64.tgz",
+      "hash": "sha256-+fyWT9kXSk/o7sEMQ3glNo18o9JY1D5x7Zx/tWb/jyE="
+    },
+    "pdfium-v8-linux-x86.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-linux-x86.tgz",
+      "hash": "sha256-9Su5onwPOC4i2B1LZcnjEL0WO0XxD+0J8TLOLCD3F5s="
+    },
+    "pdfium-v8-mac-arm64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-mac-arm64.tgz",
+      "hash": "sha256-TINwI0SAKfn1H27F6PmdP2wDbxTBZMsBef997eF7tlQ="
+    },
+    "pdfium-v8-mac-univ.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-mac-univ.tgz",
+      "hash": "sha256-X/qMBEJm5Zvapj7zmT/hXzqDC6KquSA8NpL8uw8QbVs="
+    },
+    "pdfium-v8-mac-x64.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-v8-mac-x64.tgz",
+      "hash": "sha256-P8NgE2W7VqcEn59BGBO12l0+R/EjIybwj6oqpK4QOPU="
+    },
+    "pdfium-wasm.tgz": {
+      "url": "https://github.com/bblanchon/pdfium-binaries/releases/download/chromium%2F5961/pdfium-wasm.tgz",
+      "hash": "sha256-pE5TGJoTNaCdIwq4jFLrNXL35G7J0til+1X/apPMh3k="
+    }
+  }
+}

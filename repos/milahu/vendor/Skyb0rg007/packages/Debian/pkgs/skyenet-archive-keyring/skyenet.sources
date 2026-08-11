@@ -1,0 +1,5 @@
+Types: deb deb-src
+URIs: http://apt.soss.website/
+Suites: noble plucky
+Components: main
+Signed-By: /usr/share/keyrings/skyenet-archive-keyring.gpg

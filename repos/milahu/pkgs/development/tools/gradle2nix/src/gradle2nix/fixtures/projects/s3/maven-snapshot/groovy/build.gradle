@@ -1,0 +1,17 @@
+plugins {
+    id('java')
+}
+
+repositories {
+    maven {
+        url "s3://repositories/m2"
+        credentials(AwsCredentials) {
+            accessKey "foo"
+            secretKey "bar"
+        }
+    }
+}
+
+dependencies {
+    implementation("org.apache:test-SNAPSHOT1:2.0.0-SNAPSHOT")
+}

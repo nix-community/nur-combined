@@ -1,0 +1,27 @@
+{
+  "name": "pnpm-install-only",
+  "version": "0.0.3",
+  "description": "minimal implementation of 'pnpm install'",
+  "main": "src/index.js",
+  "type": "module",
+  "keywords": [
+    "npm",
+    "package manager",
+    "npm install",
+    "pnpm install",
+    "minimal",
+    "small",
+    "offline",
+    "embedded",
+    "ci",
+    "clean install",
+    "pnpm",
+    "minimal pnpm"
+  ],
+  "license": "MIT",
+  "repository": "https://github.com/milahu/npm-install-only",
+  "dependencies": {
+    "snyk-nodejs-lockfile-parser": "github:milahu/nodejs-lockfile-parser",
+    "which": "^3.0.1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "source-patching",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "custom-hello-world": "^1.0.0"
+  }
+}

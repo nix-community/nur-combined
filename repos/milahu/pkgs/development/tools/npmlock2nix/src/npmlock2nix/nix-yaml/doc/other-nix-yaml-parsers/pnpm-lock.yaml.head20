@@ -1,0 +1,38 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+overrides:
+  app-builder-lib@24.8.0: patch:app-builder-lib@npm%3A24.8.0#./.yarn/patches/app-builder-lib-npm-24.8.0-51e1f5cd3f.patch
+
+dependencies:
+  '@electron/remote':
+    specifier: ^2.0.10
+    version: 2.1.2(electron@27.3.11)
+  '@octokit/core':
+    specifier: '5'
+    version: 5.2.0
+
+packages:
+
+  /7zip-bin@5.2.0:
+    resolution: {integrity: sha512-ukTPVhqG4jNzMro2qA9HSCSSVJN3aN7tlb+hfqYCt3ER0yWroeA2VR38MNrOHLQ/cVj+DaIMad0kFCtWWowh/A==}
+    dev: true
+
+  /@ampproject/remapping@2.3.0:
+    resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
+    engines: {node: '>=6.0.0'}
+    dependencies:
+      '@jridgewell/gen-mapping': 0.3.5
+      '@jridgewell/trace-mapping': 0.3.25
+    dev: true
+
+  /@babel/code-frame@7.24.2:
+    resolution: {integrity: sha512-y5+tLQyV8pg3fsiln67BVLD1P13Eg4lh5RW9mF0zUuvLrv9uIQ4MCL+CRT+FTsBlBjcIan6PGsLcBN0m3ClUyQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      '@babel/highlight': 7.24.5
+      picocolors: 1.0.0
+    dev: true

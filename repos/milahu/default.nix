@@ -1,0 +1,1588 @@
+# This file describes your repository contents.
+# It should return a set of nix derivations
+# and optionally the special attributes `lib`, `modules` and `overlays`.
+# It should NOT import <nixpkgs>. Instead, you should take pkgs as an argument.
+# Having pkgs default to <nixpkgs> is fine though, and it lets you use short
+# commands such as:
+#     nix-build -A mypackage
+
+{
+  pkgs ? import <nixpkgs> { },
+  config ? null,
+}:
+
+# if true then throw "test5" else
+
+let _pkgs = pkgs; in
+
+let
+  pkgs =
+  # use system nixpkgs
+  if true then _pkgs else
+  # if true then builtins.trace "nur.repos.milahu: using system nixpkgs" _pkgs else # debug
+  # if true then builtins.trace "nur.repos.milahu: using system nixpkgs ${<nixpkgs>}" _pkgs else # debug impure
+  # pin nixpkgs
+  # fixme: this breaks unfree packages
+  # error: Refusing to evaluate package 'brother-hll5100dn-lpr-3.5.1-1' in /nix/store/8ax444vhz7dyrqqf4v641x451w6a97r0-source/pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix:139 because it has an unfree license (‘unfree’)
+  (
+    # pin nixpkgs to use cached pytorch
+    # https://wiki.nixos.org/wiki/FAQ/Pinning_Nixpkgs
+    # https://hydra.nixos-cuda.org/job/nixos-cuda/channel-unstable/python3Packages.torch.x86_64-linux
+    let rev = "657e2fa0760e27167cdacb1ec5d84782be312013"; sha256 = "0aappfv34kdv70y1k9kqql80g01fvl0bxyj5rd8df35fdcijnwvw"; in # 2026-05-21
+    # let rev = ""; sha256 = ""; in
+    builtins.trace "nur.repos.milahu: using pinned nixpkgs ${rev}"
+    import (fetchTarball {
+      url = "https://github.com/NixOS/nixpkgs/archive/${rev}.tar.gz";
+      inherit sha256;
+    }) {
+      config.cudaSupport = true;
+    }
+  );
+in
+
+pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in rec {
+
+  # library functions
+  lib = pkgs.lib // (import ./lib { inherit pkgs; });
+
+  # NixOS modules
+  modules = import ./modules;
+
+  # nixpkgs overlays
+  overlays = import ./overlays;
+
+  #spotify-adblock-linux = callPackage ./pkgs/spotify-adblock-linux { };
+
+  spotify-adblock = callPackage ./pkgs/spotify-adblock/spotify-adblock.nix { };
+
+  # FIXME Function called without required argument "electron_11"
+  # aether-server = pkgs.libsForQt5.callPackage ./pkgs/aether-server/default.nix { };
+
+  archive-org-downloader = python3.pkgs.callPackage ./pkgs/archive-org-downloader/default.nix { };
+
+  rpl = python3.pkgs.callPackage ./pkgs/rpl/default.nix { };
+
+  svn2github = callPackage ./pkgs/svn2github/default.nix { };
+
+  recaf-bin = callPackage ./pkgs/recaf-bin/default.nix { };
+
+  github-downloader = callPackage ./pkgs/github-downloader/default.nix { };
+
+  # FIXME Function called without required argument "writeReferencesToFile"
+  # oci-image-generator = callPackage ./pkgs/oci-image-generator-nixos/default.nix { };
+
+  /*
+  linux-firecracker = callPackage ./pkgs/linux-firecracker { };
+  FIXME eval error
+    linuxManualConfig
+
+    error: cannot import '/nix/store/wncs0mpydwbj89bljzfldk5vij0dalwy-config.nix', since path '/nix/store/ngggbr62d4nk754m3bj3s5fy11j1ginn-config.nix.drv' is not valid
+
+           at /nix/store/hlzqh8yqzrzp2knrrndf9133k6hxsbjv-source/pkgs/os-specific/linux/kernel/manual-config.nix:7:28:
+
+                6| let
+                7|   readConfig = configfile: import (runCommand "config.nix" {} ''
+                 |                            ^
+  */
+
+  # FIXME gnome.gtk is missing
+  #hazel-editor = callPackage ./pkgs/hazel-editor { };
+
+  brother-hll3210cw = callPackage ./pkgs/brother-hll3210cw { };
+
+  rasterview = callPackage ./pkgs/rasterview { };
+
+  srtgen = callPackage ./pkgs/srtgen { };
+
+  gaupol = python3.pkgs.callPackage ./pkgs/gaupol/gaupol.nix { };
+
+  autosub-by-abhirooptalasila = python3.pkgs.callPackage ./pkgs/autosub-by-abhirooptalasila/autosub.nix { };
+
+  proftpd = callPackage ./pkgs/proftpd/proftpd.nix { };
+
+  pyload = python3.pkgs.pyload;
+  #pyload = python3Packages.pyload;
+
+  speedtest-cli = python3.pkgs.speedtest-cli;
+
+  rose = callPackage ./pkgs/rose/rose.nix { };
+
+  tg-archive = python3.pkgs.callPackage ./pkgs/tg-archive/tg-archive.nix { };
+
+  jaq = callPackage ./pkgs/jaq/jaq.nix { };
+
+  # FIXME error: attribute 'gtk' missing
+  #aegisub = pkgs.libsForQt5.callPackage ./pkgs/aegisub/aegisub.nix { };
+
+  # example-package = callPackage ./pkgs/example-package { };
+  # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
+  # ...
+
+  redis-commander = callPackage ./pkgs/redis-commander/redis-commander.nix { };
+
+  yacy = callPackage ./pkgs/yacy/yacy.nix { };
+
+  flutter-engine = callPackage ./pkgs/flutter-engine/flutter-engine.nix { };
+
+  libalf = callPackage ./pkgs/libalf/libalf.nix { };
+
+  # alias: python3.pkgs -> python3Packages
+  # no: error: attribute 'newScope' missing
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+  #python3 = lib.recurseIntoAttrs ((({
+  python3 = lib.recurseIntoAttrs (((pkgs.python3 // {
+    pkgs = python3Packages;
+  })));
+
+  #python3 = lib.recurseIntoAttrs (((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.newScope ((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope ((pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; (pkgs.python3 // {
+  #python3 = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.newScope (self: with self; ({
+
+    # fix: error: attribute 'sitePackages' missing: python3.sitePackages
+    #sitePackages = "lib/python${pkgs.python3.pythonVersion}/site-packages";
+
+    # FIXME scope with new callPackage
+    #pkgs = (pkgs.python3.pkgs or {}) // ({
+    # error: attribute 'buildPythonApplication' missing: python3.pkgs.buildPythonApplication
+    #pkgs = (pkgs.python3.pkgs or {}) // lib.makeScope pkgs.newScope (self: with self; {
+    # https://github.com/NixOS/nixpkgs/commit/632c4f2c9ba1f88cd5662da7bedf2ca5f0cda4a9 # add scope
+    #pkgs = (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = lib.recurseIntoAttrs (lib.makeScope pkgs.newScope (self: with self; (pkgs.python3.pkgs or {}) // {
+    #pkgs = lib.recurseIntoAttrs (lib.makeScope pkgs.python3.pkgs.newScope (self: with self; (pkgs.python3.pkgs // {
+
+  # TODO better?
+  #python3Packages = lib.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; (pkgs.python3.pkgs // {
+  #python3Packages = lib.recurseIntoAttrs (lib.makeScope pkgs.python3Packages.newScope (self: with self; ({
+  python3Packages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in ({
+  #python3Packages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.python3Packages.newScope (self: let inherit (self) callPackage; in (pkgs.python3Packages // {
+
+      # fix: error: attribute 'buildPythonPackage' missing: python3.pkgs.buildPythonPackage
+      #python3 = pkgs.python3;
+      python3 = pkgs.python3 // {
+        # fix recursion
+        #pkgs = self;
+        # fix: error: undefined variable 'setuptools'
+        pkgs = pkgs.python3.pkgs // self;
+      };
+
+      # fix: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
+      buildPythonPackage = pkgs.python3.pkgs.buildPythonPackage;
+      # fix: error: attribute 'buildPythonApplication' missing
+      buildPythonApplication = pkgs.python3.pkgs.buildPythonApplication;
+
+      # fix recursion
+      #python3.pkgs = self;
+      python3Packages = self;
+
+      # fix: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
+      # no:
+      #callPackage = self.callPackage;
+
+      # FIXME: error: evaluation aborted with the following error message: 'Function called without required argument "buildPythonPackage" at /run/user/1000/tmp.Z1u4CqXj61-nur-eval-test/repo/pkgs/python3/pkgs/aalpy/aalpy.nix:2'
+      aalpy = callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+      # ok:
+      #aalpy = self.callPackage ./pkgs/python3/pkgs/aalpy/aalpy.nix { };
+
+      auditok = callPackage ./pkgs/python3/pkgs/auditok/auditok.nix { };
+
+      pysubs2 = callPackage ./pkgs/python3/pkgs/pysubs2/pysubs2.nix { };
+
+      # TODO move
+      #ffsubsync = callPackage ./pkgs/python3/pkgs/ffsubsync/ffsubsync.nix { };
+      ffsubsync = callPackage ./pkgs/applications/video/ffsubsync/ffsubsync.nix { };
+
+      ete3 = callPackage ./pkgs/python3/pkgs/ete3/ete3.nix { };
+
+      faust-cchardet = callPackage ./pkgs/python3/pkgs/faust-cchardet/faust-cchardet.nix { };
+
+      pocketsphinx = callPackage ./pkgs/python3/pkgs/pocketsphinx/pocketsphinx.nix {
+        pkgs = pkgs // {
+          # fix: error: pocketsphinx has been removed: unmaintained
+          inherit pocketsphinx;
+        };
+      };
+
+      speechrecognition = callPackage ./pkgs/python3/pkgs/speechrecognition/speechrecognition.nix { };
+
+      tpot = callPackage ./pkgs/python3/pkgs/tpot/tpot.nix {
+        # FIXME scope
+        update-checker = callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
+      };
+
+      update-checker = callPackage ./pkgs/python3/pkgs/update-checker/update-checker.nix { };
+
+      pydot-ng = callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+
+      dcase-util = callPackage ./pkgs/python3/pkgs/dcase-util/dcase-util.nix {
+        # FIXME scope
+        pydot-ng = callPackage ./pkgs/python3/pkgs/pydot-ng/pydot-ng.nix { };
+      };
+
+      # nix-build . -A python3.pkgs.libarchive-c
+      # https://github.com/NixOS/nixpkgs/pull/241606
+      # python310Packages.libarchive-c: 4.0 -> 5.0
+      libarchive-c = callPackage ./pkgs/python3/pkgs/libarchive-c/libarchive-c.nix {
+        libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
+      };
+
+      # fix flask: ERROR: Could not find a version that satisfies the requirement blinker>=1.6.2
+      # nix-init ./pkgs/python3/pkgs/blinker/blinker.nix --url https://github.com/pallets-eco/blinker
+      blinker = callPackage ./pkgs/python3/pkgs/blinker/blinker.nix { };
+
+      # fix flask: ERROR: Could not find a version that satisfies the requirement Werkzeug>=2.3.3
+      # nix-init ./pkgs/python3/pkgs/werkzeug/werkzeug.nix --url https://github.com/pallets/werkzeug
+      # werkzeug = callPackage ./pkgs/python3/pkgs/werkzeug/werkzeug.nix { };
+
+      # https://github.com/NixOS/nixpkgs/pull/245320
+      # python3Packages.flask: 2.2.5 -> 2.3.2
+      # nix-init pkgs/python3/pkgs/flask/flask.nix --url https://github.com/pallets/flask
+      # FIXME use python3.pkgs.werkzeug from this scope
+      #flask = callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+      # flask = self.callPackage ./pkgs/python3/pkgs/flask/flask.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-caching/flask-caching.nix --url https://github.com/pallets-eco/flask-caching
+      # FIXME: ERROR: Could not find a version that satisfies the requirement Flask<3 (from flask-caching) (from versions: none)
+      # update?
+      # flask-caching = callPackage ./pkgs/python3/pkgs/flask-caching/flask-caching.nix { };
+
+      # no: nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://github.com/colour-science/flask-compress
+      # fix: LookupError: setuptools-scm was unable to detect version for /build/source.
+      # Make sure you're either building from a fully intact git repository or PyPI tarballs. Most other sources (such as GitHub's tarballs, a git checkout without the .git folder) don't contain the necessary metadata and will not work.
+      # nix-init pkgs/python3/pkgs/flask-compress/flask-compress.nix --url https://pypi.org/project/flask-compress
+      # flask-compress = callPackage ./pkgs/python3/pkgs/flask-compress/flask-compress.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-session/flask-session.nix --url https://github.com/pallets-eco/flask-session
+      # flask-session = callPackage ./pkgs/python3/pkgs/flask-session/flask-session.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-babel/flask-babel.nix --url https://github.com/python-babel/flask-babel
+      # flask-babel = callPackage ./pkgs/python3/pkgs/flask-babel/flask-babel.nix { };
+
+      # nix-init pkgs/python3/pkgs/flask-session2/flask-session2.nix --url https://github.com/christopherpickering/flask-session2
+      # flask-session2 = callPackage ./pkgs/python3/pkgs/flask-session2/flask-session2.nix { };
+
+      pyjsparser = callPackage ./pkgs/python3/pkgs/pyjsparser/pyjsparser.nix { };
+
+      js2py = callPackage ./pkgs/python3/pkgs/js2py/js2py.nix { };
+
+      # python3.pkgs.pyload
+      #pyload = callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
+      pyload = python3.pkgs.callPackage ./pkgs/python3/pkgs/pyload/pyload.nix { };
+
+      git-filter-repo = callPackage ./pkgs/development/python-modules/git-filter-repo/git-filter-repo.nix { };
+
+      some = callPackage ./pkgs/python3/pkgs/some/some.nix { };
+
+      chromium-depot-tools = callPackage ./pkgs/build-support/chromium-depot-tools/chromium-depot-tools.nix { };
+
+      stt = callPackage ./pkgs/python3/pkgs/stt/stt.nix { };
+
+      webdataset = callPackage ./pkgs/python3/pkgs/webdataset/webdataset.nix { };
+
+      plasma-disassembler = python3.pkgs.callPackage ./pkgs/development/tools/analysis/plasma-disassembler/plasma-disassembler.nix {
+        capstone-system = pkgs.capstone;
+      };
+
+      argostranslate_2 = callPackage ./pkgs/python3/pkgs/argostranslate/argostranslate_2.nix {
+        ctranslate2-cpp = pkgs.ctranslate2;
+      };
+
+      gnumake-tokenpool = callPackage ./pkgs/python3/pkgs/gnumake-tokenpool { };
+
+      chromecontroller = callPackage ./pkgs/python3/pkgs/chromecontroller/chromecontroller.nix { };
+
+      browser-debugger-tools = callPackage ./pkgs/python3/pkgs/browser-debugger-tools/browser-debugger-tools.nix { };
+
+      pychrome = callPackage ./pkgs/python3/pkgs/pychrome/pychrome.nix { };
+
+      pychromedevtools = callPackage ./pkgs/python3/pkgs/pychromedevtools/pychromedevtools.nix { };
+
+      speedtest-cli = callPackage ./pkgs/python3/pkgs/speedtest-cli/speedtest-cli.nix { };
+
+      cdp-socket = callPackage ./pkgs/python3/pkgs/cdp-socket/cdp-socket.nix { };
+
+      selenium-driverless = callPackage ./pkgs/python3/pkgs/selenium-driverless/selenium-driverless.nix { };
+
+      aiohttp-chromium = callPackage ./pkgs/python3/pkgs/aiohttp-chromium/aiohttp-chromium.nix { };
+
+      undetected-chromedriver = callPackage ./pkgs/python3/pkgs/undetected-chromedriver/undetected-chromedriver.nix {
+        # FIXME scope: error: attribute 'undetected-chromedriver' missing
+        #pkgs-undetected-chromedriver = pkgs.undetected-chromedriver;
+        pkgs-undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
+      };
+
+      flaresolverr = callPackage ./pkgs/python3/pkgs/flaresolverr/flaresolverr.nix {
+        chromium = pkgs.ungoogled-chromium;
+        #chromium = pkgs.google-chrome;
+      };
+
+      aeneas = callPackage ./pkgs/python3/pkgs/aeneas/aeneas.nix { };
+
+      javascript = callPackage ./pkgs/python3/pkgs/javascript/javascript.nix { };
+
+      botasaurus-proxy-authentication = callPackage ./pkgs/python3/pkgs/botasaurus-proxy-authentication/botasaurus-proxy-authentication.nix {
+        # FIXME scope
+        npmlock2nix = nodePackages.npmlock2nix;
+      };
+
+      botasaurus = callPackage ./pkgs/python3/pkgs/botasaurus/botasaurus.nix {
+        # FIXME scope
+        npmlock2nix = nodePackages.npmlock2nix;
+        chromium = pkgs.ungoogled-chromium;
+      };
+
+      selenium = callPackage ./pkgs/python3/pkgs/selenium/selenium.nix { };
+
+      crx3 = callPackage ./pkgs/python3/pkgs/crx3/crx3.nix { };
+
+      /*
+      # LTS in extended support phase
+      django_3 = callPackage ./pkgs/development/python-modules/django/3.nix { };
+
+      # LTS with mainsteam support
+      django = self.django_4;
+      django_4 = callPackage ./pkgs/development/python-modules/django/4.nix { };
+
+      # Pre-release
+      django_5 = callPackage ./pkgs/development/python-modules/django/5.nix { };
+      */
+
+      fritap = callPackage ./pkgs/python3/pkgs/fritap/fritap.nix { };
+
+      camel-snake-pep8 = callPackage ./pkgs/python3/pkgs/camel-snake-pep8/camel-snake-pep8.nix { };
+
+      tree-sitter-languages = throw "tree-sitter-languages is broken and has been removed in favor of tree-sitter-language-pack";
+
+      stream-zip = callPackage ./pkgs/python3/pkgs/stream-zip/stream-zip.nix { };
+
+      pygubu = callPackage ./pkgs/python3/pkgs/pygubu/pygubu.nix { };
+
+      pygubu-designer = callPackage ./pkgs/python3/pkgs/pygubu-designer/pygubu-designer.nix { };
+
+      pkg-metadata = callPackage ./pkgs/python3/pkgs/pkg-metadata { };
+
+      get-pip = callPackage ./pkgs/python3/pkgs/get-pip { };
+
+      wenv = callPackage ./pkgs/python3/pkgs/wenv { };
+
+      zugbruecke = callPackage ./pkgs/python3/pkgs/zugbruecke { };
+
+      parse-helptext = callPackage ./pkgs/python3/pkgs/parse-helptext { };
+
+      spiralpy = callPackage ./pkgs/python3/pkgs/spiralpy {
+        # FIXME scope
+        inherit spiral;
+      };
+
+      vncdotool = callPackage ./pkgs/python3/pkgs/vncdotool { };
+
+      guibot = callPackage ./pkgs/python3/pkgs/guibot { };
+
+      noisereduce = callPackage ./pkgs/python3/pkgs/noisereduce { };
+
+      audalign = callPackage ./pkgs/python3/pkgs/audalign { };
+
+      restview = callPackage ./pkgs/python3/pkgs/restview { };
+
+      stpl = callPackage ./pkgs/python3/pkgs/stpl { };
+
+      syncstart = callPackage ./pkgs/python3/pkgs/syncstart { };
+
+      scikits-audiolab = callPackage ./pkgs/python3/pkgs/scikits-audiolab { };
+
+      tor2web = callPackage ./pkgs/python3/pkgs/tor2web { };
+
+      aia = callPackage ./pkgs/python3/pkgs/aia { };
+
+      decord = callPackage ./pkgs/python3/pkgs/decord { };
+
+      vidgear = callPackage ./pkgs/python3/pkgs/vidgear { };
+
+      bencode2 = callPackage ./pkgs/python3/pkgs/bencode2 { };
+
+      rtorrent-rpc = callPackage ./pkgs/python3/pkgs/rtorrent-rpc { };
+
+      codefind = callPackage ./pkgs/python3/pkgs/codefind { };
+
+      varname = callPackage ./pkgs/python3/pkgs/varname { };
+
+      giving = callPackage ./pkgs/python3/pkgs/giving { };
+
+      ovld = callPackage ./pkgs/python3/pkgs/ovld { };
+
+      jurigged = callPackage ./pkgs/python3/pkgs/jurigged { };
+
+      reloading = callPackage ./pkgs/python3/pkgs/reloading { };
+
+      tbselenium = callPackage ./pkgs/python3/pkgs/tbselenium { };
+
+      python-bidi = callPackage ./pkgs/python3/pkgs/python-bidi { };
+
+      hocr-tools = callPackage ./pkgs/python3/pkgs/hocr-tools { };
+
+      # roman in nixpkgs is outdated
+      roman = callPackage ./pkgs/python3/pkgs/roman { };
+
+      archive-hocr-tools = callPackage ./pkgs/python3/pkgs/archive-hocr-tools { };
+
+      archive-pdf-tools = callPackage ./pkgs/python3/pkgs/archive-pdf-tools { };
+
+      ruff = callPackage ./pkgs/python3/pkgs/ruff {
+        pkgs-ruff = pkgs.ruff;
+      };
+
+      openapi-python-client = callPackage ./pkgs/python3/pkgs/openapi-python-client { };
+
+      gitea-client = callPackage ./pkgs/python3/pkgs/gitea-client { };
+
+      webvtt-py = callPackage ./pkgs/python3/pkgs/webvtt-py { };
+
+      vtt2clean-srt = callPackage ./pkgs/python3/pkgs/vtt2clean-srt { };
+
+      flatbencode = callPackage ./pkgs/python3/pkgs/flatbencode { };
+
+      torf = callPackage ./pkgs/python3/pkgs/torf { };
+
+      torrentool = callPackage ./pkgs/python3/pkgs/torrentool { };
+
+      django-avatar = callPackage ./pkgs/python3/pkgs/django-avatar { };
+
+      django-js-error-hook = callPackage ./pkgs/python3/pkgs/django-js-error-hook { };
+
+      django-npm-mjs = callPackage ./pkgs/python3/pkgs/django-npm-mjs { };
+
+      django-loginas = callPackage ./pkgs/python3/pkgs/django-loginas { };
+
+      django-channels-presence-4_0 = callPackage ./pkgs/python3/pkgs/django-channels-presence-4_0 { };
+
+      prosemirror = callPackage ./pkgs/python3/pkgs/prosemirror { };
+
+      rs-chardet = callPackage ./pkgs/python3/pkgs/rs-chardet { };
+
+      ffmpegio = callPackage ./pkgs/python3/pkgs/ffmpegio { };
+
+      pytrakt = callPackage ./pkgs/python3/pkgs/pytrakt { };
+
+      traktexport = callPackage ./pkgs/python3/pkgs/traktexport { };
+
+      gostcrypto = callPackage ./pkgs/python3/pkgs/gostcrypto { };
+
+      tigerhash = callPackage ./pkgs/python3/pkgs/tigerhash { };
+
+      ripemd = callPackage ./pkgs/python3/pkgs/ripemd { };
+
+      hashbase = callPackage ./pkgs/python3/pkgs/hashbase { };
+
+      mfusepy = callPackage ./pkgs/development/python-modules/mfusepy { };
+
+      ratarmountcore = callPackage ./pkgs/development/python-modules/ratarmountcore { };
+
+      ratarmount = callPackage ./pkgs/development/python-modules/ratarmount { };
+
+      kaitaistruct = callPackage ./pkgs/development/python-modules/kaitaistruct { };
+
+      python-ext4 = callPackage ./pkgs/development/python-modules/python-ext4 { };
+
+      pysquashfsimage = callPackage ./pkgs/development/python-modules/pysquashfsimage { };
+
+      lzmaffi = callPackage ./pkgs/development/python-modules/lzmaffi { };
+
+      fs = callPackage ./pkgs/development/python-modules/fs { };
+
+      tempcache = callPackage ./pkgs/development/python-modules/tempcache { };
+
+      make_playlist = callPackage ./pkgs/development/python-modules/make_playlist { };
+
+      repro-zipfile = callPackage ./pkgs/development/python-modules/repro-zipfile { };
+
+      rpzip = callPackage ./pkgs/development/python-modules/rpzip { };
+
+      browsermob-proxy = callPackage ./pkgs/development/python-modules/browsermob-proxy {
+        # FIXME scope pkgs.browsermob-proxy
+        pkgs-browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
+      };
+
+      qtermwidget = callPackage ./pkgs/development/python-modules/qtermwidget {
+        # FIXME scope
+        pkgs-qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget {
+          lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
+        };
+      };
+
+      pyside6-stubs = callPackage ./pkgs/development/python-modules/pyside6-stubs { };
+
+      largestinteriorrectangle = callPackage ./pkgs/python3/pkgs/largestinteriorrectangle { };
+
+      stitching = callPackage ./pkgs/python3/pkgs/stitching { };
+
+      tuspy = callPackage ./pkgs/python3/pkgs/tuspy { };
+
+      ebutt2srt = callPackage ./pkgs/python3/pkgs/ebutt2srt { };
+
+      tree-sitter = callPackage ./pkgs/development/python-modules/tree-sitter { };
+
+      bencode-rs = callPackage ./pkgs/development/python-modules/bencode-rs { };
+
+      torrent-models = callPackage ./pkgs/development/python-modules/torrent-models { };
+
+      hocr-editor-qt = callPackage ./pkgs/python3/pkgs/hocr-editor-qt {
+        # fix: Found duplicated packages in closure for dependency 'tree_sitter'
+        tree-sitter = pkgs.python3.pkgs.tree-sitter;
+      };
+
+      pysqlcipher3 = callPackage ./pkgs/development/python-modules/pysqlcipher3 { };
+
+      sqlcipher-password-cracker-opencl = callPackage ./pkgs/development/python-modules/sqlcipher-password-cracker-opencl { };
+
+      btcache = callPackage ./pkgs/development/python-modules/btcache {
+        # https://github.com/milahu/nixpkgs/issues/95
+        # fix: missing python distinfo files
+        libtorrent-rasterbar =
+          (pkgs.python3Packages.toPythonModule (libtorrent-rasterbar-2_0_x.override { python3 = pkgs.python3; })).python;
+      };
+
+      deluge-ltconfig = callPackage ./pkgs/development/python-modules/deluge-ltconfig { };
+
+      robobrowser = callPackage ./pkgs/python3/pkgs/robobrowser { };
+
+      libgen-uploader = callPackage ./pkgs/python3/pkgs/libgen-uploader { };
+
+      opensubtitlescom = callPackage ./pkgs/python3/pkgs/opensubtitlescom { };
+
+      beaker-py = callPackage ./pkgs/python3/pkgs/beaker-py { };
+
+      petname = callPackage ./pkgs/python3/pkgs/petname { };
+
+      pytest-sphinx = callPackage ./pkgs/python3/pkgs/pytest-sphinx { };
+
+      types-cachetools = callPackage ./pkgs/python3/pkgs/types-cachetools { };
+
+      cached-path = callPackage ./pkgs/python3/pkgs/cached-path { };
+
+      lingua-language-detector = callPackage ./pkgs/python3/pkgs/lingua-language-detector { };
+
+      olmocr = callPackage ./pkgs/python3/pkgs/olmocr { };
+
+      nose = callPackage ./pkgs/development/python-modules/nose { };
+
+      pycodec2 = callPackage ./pkgs/development/python-modules/pycodec2 { };
+
+      lxst = callPackage ./pkgs/development/python-modules/lxst { };
+
+      sideband = callPackage ./pkgs/development/python-modules/sideband { };
+
+      reticulum-meshchat = callPackage ./pkgs/development/python-modules/reticulum-meshchat { };
+
+      lxmfy = callPackage ./pkgs/development/python-modules/lxmfy { };
+
+      reticulum-meshchatx = callPackage ./pkgs/development/python-modules/reticulum-meshchatx { };
+
+      pre-commit = callPackage ./pkgs/development/python-modules/pre-commit { };
+
+      surya-ocr = callPackage ./pkgs/development/python-modules/surya-ocr { };
+
+      asyncio-gevent = callPackage ./pkgs/development/python-modules/asyncio-gevent { };
+
+      aio-udp-server = callPackage ./pkgs/development/python-modules/aio-udp-server { };
+
+      py3-bencode = callPackage ./pkgs/development/python-modules/py3-bencode { };
+
+      aio-krpc-server = callPackage ./pkgs/development/python-modules/aio-krpc-server { };
+
+      aio-btdht = callPackage ./pkgs/development/python-modules/aio-btdht { };
+
+      validate-pyproject = callPackage ./pkgs/development/python-modules/validate-pyproject { };
+
+      cibuildwheel = callPackage ./pkgs/development/python-modules/cibuildwheel { };
+
+      doxapy = callPackage ./pkgs/development/python-modules/doxapy { };
+
+      binarize-pdf = callPackage ./pkgs/development/python-modules/binarize-pdf { };
+
+      ten-vad = callPackage ./pkgs/development/python-modules/ten-vad { };
+
+      deepgram-captions = callPackage ./pkgs/development/python-modules/deepgram-captions { };
+
+      deepgram-sdk = callPackage ./pkgs/development/python-modules/deepgram-sdk { };
+
+      zhconv = callPackage ./pkgs/development/python-modules/zhconv { };
+
+      pyvideotrans = callPackage ./pkgs/development/python-modules/pyvideotrans { };
+
+      diffq = callPackage ./pkgs/development/python-modules/diffq { };
+
+      treetable = callPackage ./pkgs/development/python-modules/treetable { };
+
+      dora-search = callPackage ./pkgs/development/python-modules/dora-search { };
+
+      musdb = callPackage ./pkgs/development/python-modules/musdb { };
+
+      museval = callPackage ./pkgs/development/python-modules/museval { };
+
+      stempeg = callPackage ./pkgs/development/python-modules/stempeg { };
+
+      openunmix = callPackage ./pkgs/development/python-modules/openunmix { };
+
+      demucs = callPackage ./pkgs/development/python-modules/demucs { };
+
+      conformer = callPackage ./pkgs/development/python-modules/conformer { };
+
+      praat-parselmouth = callPackage ./pkgs/development/python-modules/praat-parselmouth { };
+
+      pyloudnorm = callPackage ./pkgs/development/python-modules/pyloudnorm { };
+
+      pyrubberband = callPackage ./pkgs/development/python-modules/pyrubberband { };
+
+      sox = callPackage ./pkgs/development/python-modules/sox { };
+
+      resemble-perth = callPackage ./pkgs/development/python-modules/resemble-perth { };
+
+      s3tokenizer = callPackage ./pkgs/development/python-modules/s3tokenizer { };
+
+      chatterbox-tts = callPackage ./pkgs/development/python-modules/chatterbox-tts { };
+
+      videopython = callPackage ./pkgs/development/python-modules/videopython { };
+
+      local-llm-pdf-ocr = callPackage ./pkgs/development/python-modules/local-llm-pdf-ocr { };
+
+      dukpy = callPackage ./pkgs/development/python-modules/dukpy { };
+
+      flask-themes2 = callPackage ./pkgs/development/python-modules/flask-themes2 { };
+
+      mini-racer = callPackage ./pkgs/development/python-modules/mini-racer {
+        # FIXME scope
+        v8 = callPackage ./pkgs/development/libraries/v8 { };
+      };
+
+      aia-chaser = callPackage ./pkgs/development/python-modules/aia-chaser { };
+
+      pycurl = callPackage ./pkgs/development/python-modules/pycurl { };
+
+      pdf-ocr-editor = callPackage ./pkgs/development/python-modules/pdf-ocr-editor { };
+
+      chandra-ocr = callPackage ./pkgs/development/python-modules/chandra-ocr { };
+
+      libfmp = callPackage ./pkgs/development/python-modules/libfmp { };
+
+      music21 = callPackage ./pkgs/development/python-modules/music21 { };
+
+      pretty-midi = callPackage ./pkgs/development/python-modules/pretty-midi { };
+
+      synctoolbox = callPackage ./pkgs/development/python-modules/synctoolbox { };
+
+      kobo-book-downloader = callPackage ./pkgs/development/python-modules/kobo-book-downloader { };
+
+      python-fontconfig = callPackage ./pkgs/development/python-modules/python-fontconfig { };
+
+      epub-meta = callPackage ./pkgs/development/python-modules/epub-meta { };
+
+      epub-toc = callPackage ./pkgs/development/python-modules/epub-toc { };
+
+      pyexiv2 = callPackage ./pkgs/development/python-modules/pyexiv2 {
+        pkgs-exiv2 = pkgs.exiv2;
+      };
+
+      securedrop = callPackage ./pkgs/development/python-modules/securedrop { };
+
+      nvgpu = callPackage ./pkgs/development/python-modules/nvgpu { };
+
+      llm-aided-ocr = callPackage ./pkgs/development/python-modules/llm-aided-ocr { };
+
+      fsindex = callPackage ./pkgs/development/python-modules/fsindex { };
+
+    #}))); # python3.pkgs
+
+  #}))); # python3
+
+  }))); # python3Packages
+
+  bazel_2 = callPackage ./pkgs/development/tools/build-managers/bazel/bazel_2/bazel_2.nix {
+    inherit (pkgs.darwin) cctools;
+    inherit (pkgs.darwin.apple_sdk.frameworks) Foundation CoreFoundation CoreServices;
+    buildJdk = pkgs.jdk11_headless;
+    buildJdkName = "java11";
+    runJdk = pkgs.jdk11_headless;
+    stdenv = if pkgs.stdenv.cc.isClang then pkgs.llvmPackages.stdenv else pkgs.gcc10StdenvCompat;
+    bazel_self = bazel_2;
+  };
+
+  plasma-disassembler = python3Packages.plasma-disassembler;
+
+  chromium-depot-tools = python3Packages.chromium-depot-tools;
+
+  flaresolverr = python3Packages.flaresolverr;
+
+  hocr-tools = python3Packages.hocr-tools;
+
+  vtt2clean-srt = python3Packages.vtt2clean-srt;
+
+  traktexport = python3Packages.traktexport;
+
+  ratarmount = python3Packages.ratarmount;
+
+  archive-hocr-tools = python3Packages.archive-hocr-tools;
+
+  ebutt2srt = python3Packages.ebutt2srt;
+
+  hocr-editor-qt = python3Packages.hocr-editor-qt;
+
+  olmocr = python3Packages.olmocr;
+
+  sqlcipher-password-cracker-opencl = python3Packages.sqlcipher-password-cracker-opencl;
+
+  reticulum-meshchat = python3Packages.reticulum-meshchat;
+
+  reticulum-meshchatx = python3Packages.reticulum-meshchatx;
+
+  binarize-pdf = python3Packages.binarize-pdf;
+
+  kobo-book-downloader = python3Packages.kobo-book-downloader;
+
+  epub-toc = python3Packages.epub-toc;
+
+  fsindex = python3Packages.fsindex;
+
+  deno = pkgs.deno // {
+    pkgs = (pkgs.deno.pkgs or {}) // (
+      callPackage ./pkgs/deno/pkgs { }
+    );
+  };
+
+  caramel = callPackage ./pkgs/caramel/caramel.nix {
+    # latest supported version is ocaml 4.11
+    # https://github.com/AbstractMachinesLab/caramel/issues/105
+    ocamlPackages = pkgs.ocaml-ng.ocamlPackages_4_11;
+  };
+
+  brother-hll6400dw = callPackage ./pkgs/misc/cups/drivers/brother/hll6400dw/hll6400dw.nix { };
+
+  brother-hll5100dn = callPackage ./pkgs/misc/cups/drivers/brother/hll5100dn/hll5100dn.nix { };
+
+  nix-gitignore = callPackage ./pkgs/build-support/nix-gitignore/nix-gitignore.nix { };
+
+  # mvn2nix
+  inherit (callPackage ./pkgs/development/tools/mvn2nix/mvn2nix.nix { })
+    mvn2nix
+    mvn2nix-bootstrap
+    buildMavenRepository
+    buildMavenRepositoryFromLockFile
+  ;
+
+  # TODO
+  #xi = callPackages ./pkgs/xi { };
+
+  subdl = python3.pkgs.callPackage ./pkgs/applications/video/subdl/subdl.nix { };
+
+  # TODO callPackages? seems to be no difference (singular vs plural)
+  #inherit (callPackages ./pkgs/development/tools/parsing/antlr/4.nix { })
+  inherit (callPackage ./pkgs/development/tools/parsing/antlr/4.nix { })
+    antlr4_8
+    antlr4_9
+    antlr4_10
+    antlr4_11
+    antlr4_12
+  ;
+
+  antlr4 = antlr4_12;
+
+  antlr = antlr4;
+
+  turbobench = callPackage ./pkgs/tools/compression/turbobench/turbobench.nix { };
+
+  kindle = kindle_1_23_50133;
+  kindle_latest = kindle_1_40_65535;
+
+  kindle_1_14_43029 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.14.43029"; };
+  kindle_1_14_1_43029 = kindle_1_14_43029;
+  kindle_1_14_1 = kindle_1_14_43029;
+
+  kindle_1_15_43061 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.15.43061"; };
+  kindle_1_15_0_43061 = kindle_1_15_43061;
+  kindle_1_15_0 = kindle_1_15_43061;
+
+  kindle_1_16_44025 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.16.44025"; };
+  kindle_1_16_0_44025 = kindle_1_16_44025;
+  kindle_1_16_0 = kindle_1_16_44025;
+
+  kindle_1_17_44170 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.17.44170"; };
+  kindle_1_17_0_44170 = kindle_1_17_44170;
+  kindle_1_17_0 = kindle_1_17_44170;
+
+  kindle_1_17_44183 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.17.44183"; };
+  kindle_1_17_1_44183 = kindle_1_17_44183;
+  kindle_1_17_1 = kindle_1_17_44183;
+
+  kindle_1_20_47037 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.20.47037"; };
+  kindle_1_20_1_47037 = kindle_1_20_47037;
+  kindle_1_20_1 = kindle_1_20_47037;
+
+  kindle_1_21_48017 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.21.48017"; };
+  kindle_1_21_0_48017 = kindle_1_21_48017;
+  kindle_1_21_0 = kindle_1_21_48017;
+
+  kindle_1_23_50133 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.23.50133"; };
+  kindle_1_23_1_50133 = kindle_1_23_50133;
+  kindle_1_23_1 = kindle_1_23_50133;
+
+  kindle_1_24_51068 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.24.51068"; };
+  kindle_1_24_3_51068 = kindle_1_24_51068;
+  kindle_1_24_3 = kindle_1_24_51068;
+
+  kindle_1_25_52064 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.25.52064"; };
+  kindle_1_25_1_52064 = kindle_1_25_52064;
+  kindle_1_25_1 = kindle_1_25_52064;
+
+  kindle_1_26_55076 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.26.55076"; };
+  kindle_1_26_0_55076 = kindle_1_26_55076;
+  kindle_1_26_0 = kindle_1_26_55076;
+
+  kindle_1_28_57030 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.28.57030"; };
+  kindle_1_28_0_57030 = kindle_1_28_57030;
+  kindle_1_28_0 = kindle_1_28_57030;
+
+  kindle_1_32_61109 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.32.61109"; };
+  kindle_1_32_0_61109 = kindle_1_32_61109;
+  kindle_1_32_0 = kindle_1_32_61109;
+
+  kindle_1_34_63103 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.34.63103"; };
+  kindle_1_34_1_63103 = kindle_1_34_63103;
+  kindle_1_34_1 = kindle_1_34_63103;
+
+  kindle_1_39_65323 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.39.65323"; };
+  kindle_1_39_1_65323 = kindle_1_39_65323;
+  kindle_1_39_1 = kindle_1_39_65323;
+
+  kindle_1_39_65383 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.39.65383"; };
+  kindle_1_39_2_65383 = kindle_1_39_65383;
+  kindle_1_39_2 = kindle_1_39_65383;
+
+  kindle_1_40_65415 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.40.65415"; };
+  kindle_1_40_0_65415 = kindle_1_40_65415;
+  kindle_1_40_0 = kindle_1_40_65415;
+
+  kindle_1_40_65535 = callPackage ./pkgs/applications/misc/kindle/kindle.nix { version = "1.40.65535"; };
+  kindle_1_40_1_65535 = kindle_1_40_65535;
+  kindle_1_40_1 = kindle_1_40_65535;
+
+  lzturbo = callPackage ./pkgs/tools/compression/lzturbo/lzturbo.nix { };
+
+  netgear-telnetenable = python3.pkgs.callPackage ./pkgs/tools/networking/netgear-telnetenable/netgear-telnetenable.nix { };
+
+  cmix = callPackage ./pkgs/tools/compression/cmix/cmix.nix { };
+
+  # already in nixpkgs
+  #kaitai-struct-compiler = callPackage ./pkgs/development/tools/parsing/kaitai-struct-compiler/kaitai-struct-compiler.nix { };
+
+  ffsubsync = python3.pkgs.ffsubsync;
+
+  surge-filesharing = callPackage ./pkgs/applications/networking/p2p/surge-filesharing/surge-filesharing.nix { };
+
+  tribler = python3.pkgs.callPackage ./pkgs/applications/networking/p2p/tribler/tribler.nix { };
+
+  # pocketsphinx was removed in https://github.com/NixOS/nixpkgs/pull/170124
+  # based on update in closed PR https://github.com/NixOS/nixpkgs/pull/169609
+
+  # pkgs/development/libraries/pocketsphinx/default.nix
+  # https://github.com/armeenm/nixpkgs/blob/5e826bad51e25f7b8e20e242964ec0e76e147f82/pkgs/development/libraries/pocketsphinx/default.nix
+  pocketsphinx = callPackage ./pkgs/development/libraries/pocketsphinx/pocketsphinx.nix { };
+
+  # https://github.com/cmusphinx/sphinxbase
+  # SphinxBase has been integrated into PocketSphinx
+  #sphinxbase = callPackage ./pkgs/development/libraries/sphinxbase/sphinxbase.nix { };
+
+  mediawiki-scraper-2 = python3.pkgs.callPackage ./pkgs/tools/networking/mediawiki-scraper-2/mediawiki-scraper-2.nix { };
+
+  mediawiki-scraper = python3.pkgs.callPackage ./pkgs/tools/networking/mediawiki-scraper/mediawiki-scraper.nix { };
+
+  mediawiki-dump2html = callPackage ./pkgs/development/tools/mediawiki-dump2html/mediawiki-dump2html.nix { };
+
+  mediawiki2html = python3.pkgs.callPackage ./pkgs/development/tools/mediawiki2html/mediawiki2html.nix { };
+
+  pandoc-bin = pkgs.haskellPackages.callPackage ./pkgs/development/tools/pandoc-bin/pandoc-bin.nix { };
+
+  mwdumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
+  mediawiki-dumper = callPackage ./pkgs/mwdumper/mwdumper.nix { };
+
+  pdfjam = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam.nix { };
+  pdfjam-extras = callPackage ./pkgs/tools/typesetting/pdfjam/pdfjam-extras.nix { };
+
+  pdfselect = callPackage ./pkgs/tools/typesetting/pdfselect/pdfselect.nix { };
+
+  curl-with-allow-dot-onion = (pkgs.curl.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or []) ++ [
+      # add support for CURL_ALLOW_DOT_ONION=1
+      # fix: I want to resolve onion addresses
+      # https://github.com/curl/curl/discussions/11125
+      (pkgs.fetchurl {
+        url = "https://github.com/curl/curl/pull/11236.patch";
+        sha256 = "sha256-7UMLiUJEZglACu5oF4A5CTKbFyJptmpulYGJmIgP/Wc=";
+      })
+    ];
+  }));
+
+  git-with-allow-dot-onion = (pkgs.git.override {
+    curl = curl-with-allow-dot-onion;
+  });
+
+  radicle = callPackage ./pkgs/applications/version-management/radicle/radicle.nix { };
+
+  radicle-httpd = radicle.overrideAttrs (oldAttrs: {
+    pname = "radicle-httpd";
+    buildAndTestSubdir = "radicle-httpd";
+  });
+
+  radicle-interface = callPackage ./pkgs/applications/version-management/radicle-interface/radicle-interface.nix { };
+
+  radicle-bin = callPackage ./pkgs/applications/version-management/radicle/radicle-bin.nix { };
+
+  cargo2nix = callPackage ./pkgs/development/tools/rust/cargo2nix/cargo2nix.nix { };
+
+  unarr = callPackage ./pkgs/tools/archivers/unarr/unarr.nix { };
+
+  zip-with-bzip2 = callPackage ./pkgs/tools/archivers/zip { };
+
+  # https://github.com/NixOS/nixpkgs/pull/244713
+  # libarchive: 3.6.2 -> 3.7.0
+  libarchive = callPackage ./pkgs/development/libraries/libarchive/libarchive.nix { };
+
+  git-filter-repo = python3.pkgs.git-filter-repo;
+
+  # nix-init ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix --url https://github.com/marakoss/tap-bpm-cli
+  tap-bpm-cli = callPackage ./pkgs/applications/audio/tap-bpm-cli/tap-bpm-cli.nix { };
+
+  # https://github.com/NixOS/nixpkgs/pull/158152 # gh2md: init at 2.0.0
+  # https://github.com/NixOS/nixpkgs/blob/master/pkgs/tools/backup/gh2md/default.nix
+  gh2md = python3.pkgs.callPackage ./pkgs/tools/backup/gh2md/gh2md.nix { };
+
+  nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+
+  nodePackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (self: let inherit (self) callPackage; in ({
+
+    cowsay = callPackage ./pkgs/node/pkgs/cowsay/cowsay.nix { };
+
+    npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+      # FIXME scope
+      pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
+        # bootstrap npmlock2nix without pnpm-install-only
+        npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+          pnpm-install-only = null;
+          # fix: nodejs.src: error: attribute 'src' missing
+          nodejs = pkgs.nodejs-slim;
+        };
+      };
+      # FIXME scope
+      nodejs-hide-symlinks = callPackage ./pkgs/development/web/nodejs-hide-symlinks/nodejs-hide-symlinks.nix { };
+      # fix: nodejs.src: error: attribute 'src' missing
+      nodejs = pkgs.nodejs-slim;
+    };
+
+    pnpm-install-only = callPackage ./pkgs/node/pkgs/pnpm-install-only/pnpm-install-only.nix {
+      # bootstrap npmlock2nix without pnpm-install-only
+      npmlock2nix = callPackage ./pkgs/development/tools/npmlock2nix/npmlock2nix.nix {
+        pnpm-install-only = null;
+        # fix: nodejs.src: error: attribute 'src' missing
+        nodejs = pkgs.nodejs-slim;
+      };
+    };
+
+    gittorrent = callPackage ./pkgs/node-pkgs/gittorrent/gittorrent.nix { };
+
+    js2nix = callPackage ./pkgs/development/tools/js2nix { };
+
+    isolated-vm = callPackage ./pkgs/node/pkgs/isolated-vm { };
+
+  })));
+
+  inherit (nodePackages)
+    npmlock2nix
+    gittorrent
+    js2nix
+  ;
+
+  fontforge-dev = pkgs.fontforge.overrideAttrs (oldAttrs: {
+    version = oldAttrs.version + "-dev";
+    dontBuild = true;
+    # install fontforge-config.h and fontforge-version-extras.h
+    installPhase = ''
+      mkdir -p $out/include
+      cp inc/*.h $out/include
+    '';
+    meta = oldAttrs.meta // {
+      description = "fontforge include files: /include/fontforge-config.h and /include/fontforge-version-extras.h";
+    };
+  });
+
+  # https://github.com/NixOS/nixpkgs/commits/master/pkgs/tools/security/tor/torsocks.nix
+  torsocks = callPackage ./pkgs/tools/security/tor/torsocks.nix { };
+
+  pdfium = callPackage ./pkgs/development/libraries/pdfium/pdfium.nix { };
+
+  pdfium-bin = callPackage ./pkgs/development/libraries/pdfium-bin/pdfium-bin.nix { };
+
+  pdfium-reader = callPackage ./pkgs/applications/office/pdfium-reader/pdfium-reader.nix {
+    # TODO remove
+    pdfium = pdfium-bin;
+  };
+
+  gclient = callPackage ./pkgs/build-support/gclient/gclient.nix { };
+
+  # based on nixpkgs/pkgs/build-support/fetchipfs/default.nix
+  fetchipfs = callPackage ./pkgs/build-support/fetchipfs/fetchipfs.nix { };
+
+  # FIXME error: undefined variable 'pyqt5'
+  #krop = callPackage ./pkgs/applications/graphics/krop/krop.nix { };
+  krop = pkgs.callPackage ./pkgs/applications/graphics/krop/krop.nix { };
+
+  sevenzip = sevenzip_23_01;
+
+  sevenzip_23_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_23_01.nix { };
+
+  sevenzip_22_01 = callPackage ./pkgs/tools/archivers/sevenzip/sevenzip_22_01.nix { };
+
+  nmake2msbuild = callPackage ./pkgs/development/tools/nmake2msbuild/nmake2msbuild.nix { };
+
+  fuse-zip = callPackage ./pkgs/tools/filesystems/fuse-zip/fuse-zip.nix { };
+
+  # FIXME Function called without required argument "addOpenGLRunpath"
+  /*
+  ffmpeg-full = callPackage ./pkgs/development/libraries/ffmpeg/6.nix {
+    inherit (pkgs.darwin.apple_sdk.frameworks)
+      Cocoa CoreServices CoreAudio CoreMedia AVFoundation MediaToolbox
+      VideoDecodeAcceleration VideoToolbox;
+    ffmpegVariant = "full";
+  };
+  */
+
+  dtmfdial = callPackage ./pkgs/tools/networking/dtmfdial/dtmfdial.nix { };
+
+  # this packages is called "fdkaac" on github, debian, archlinux, ...
+  # the library is called "fdk_aac", so better rename that to "libfdk_aac"
+  fdkaac = pkgs.fdk-aac-encoder;
+
+  cortile = callPackage ./pkgs/applications/window-managers/cortile/cortile.nix { };
+
+  ragnar = callPackage ./pkgs/applications/window-managers/ragnar/ragnar.nix { };
+
+  #wingo = callPackage ./pkgs/applications/window-managers/wingo/wingo.nix { };
+
+  buster-client = callPackage ./pkgs/tools/X11/buster-client/buster-client.nix { };
+
+  buster-client-setup = callPackage ./pkgs/tools/X11/buster-client/buster-client-setup.nix { };
+
+  buster-client-setup-cli = callPackage ./pkgs/tools/X11/buster-client/buster-client-setup-cli.nix { };
+
+  wzshiming-bridge = callPackage ./pkgs/tools/networking/wzshiming/wzshiming-bridge.nix { };
+
+  wzshiming-socks5 = callPackage ./pkgs/tools/networking/wzshiming/wzshiming-socks5.nix { };
+
+  undetected-chromedriver = callPackage ./pkgs/development/tools/selenium/chromedriver/undetected-chromedriver.nix { };
+
+  perlPackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.perlPackages.newScope (self: let inherit (self) callPackage; in ({
+
+    AptPkg = callPackage ./pkgs/perl/pkgs/apt-pkg/apt-pkg.nix { };
+
+  }))); # perlPackages
+
+  apt = callPackage ./pkgs/tools/package-management/apt/apt.nix {
+    # fix: error: attribute 'perl' missing at perlPackages.perl
+    # FIXME scope
+    perlPackages = pkgs.perlPackages; # // { perl = pkgs.perl; };
+  };
+
+  apt-init-config = callPackage ./pkgs/tools/package-management/apt-init-config/apt-init-config.nix { };
+
+  apt-file = perlPackages.callPackage ./pkgs/tools/package-management/apt-file/apt-file.nix { };
+
+  e9patch = callPackage ./pkgs/development/tools/e9patch/e9patch.nix { };
+
+  sqlite-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {
+    sqliteBranch = "reuse-schema";
+  };
+
+  sqlite-interactive-reuse-schema = callPackage ./pkgs/development/libraries/sqlite {
+    interactive = true;
+    sqliteBranch = "reuse-schema";
+  };
+
+  /*
+  tree-sitter = pkgs.makeOverridable (callPackage ./pkgs/development/tools/parsing/tree-sitter) {
+    inherit (pkgs.darwin.apple_sdk.frameworks) Security CoreServices;
+  };
+  */
+
+  vdhcoapp = callPackage ./pkgs/tools/video/vdhcoapp { };
+
+  mpv-downmix-gui = python3.pkgs.callPackage ./pkgs/tools/video/mpv-downmix-gui/mpv-downmix-gui.nix { };
+
+  zenity = callPackage ./pkgs/development/tools/misc/zenity/zenity.nix { };
+
+  writable-nix-store = callPackage ./pkgs/development/tools/misc/writable-nix-store { };
+
+  # FIXME Function called without required argument "llvmPackages_10"
+  # s2e = callPackage ./pkgs/development/libraries/s2e { };
+
+  fetchtorrent = callPackage ./pkgs/build-support/fetchtorrent {
+    # this was removed from nixpkgs
+    # TODO how is this solved now in nixpkgs
+    transmission_noSystemd = pkgs.transmission.override { enableSystemd = false; };
+  };
+
+  # FIXME Function called without required argument "torrenttools"
+  # fetchtorrent-aria = callPackage ./pkgs/build-support/fetchtorrent-aria { };
+
+  qaac = qaac-bwrap;
+  qaac-bwrap = callPackage ./pkgs/applications/audio/qaac/bwrap.nix { };
+  qaac-unwrapped = callPackage ./pkgs/applications/audio/qaac/unwrapped.nix { };
+
+  spiral = callPackage ./pkgs/development/compilers/spiral { };
+
+  redasm = callPackage ./pkgs/development/tools/analysis/redasm { };
+
+  /*
+  opensshPackages = pkgs.dontRecurseIntoAttrs (callPackage ./pkgs/tools/networking/openssh {});
+
+  openssh = opensshPackages.openssh.override {
+    etcDir = "/etc/ssh";
+  };
+  */
+
+  fritzbox-reconnect = python3.pkgs.callPackage ./pkgs/tools/networking/fritzbox-reconnect { };
+
+  nix-build-debug = callPackage ./pkgs/development/tools/nix-build-debug { };
+
+  courgette = callPackage ./pkgs/tools/compression/courgette { };
+
+  advanced-microcode-patching-shiva = callPackage ./pkgs/development/tools/analysis/advanced-microcode-patching-shiva { };
+
+  wine-nocheckowner = callPackage ./pkgs/applications/emulators/wine/nocheckowner.nix { };
+
+  # fix: browse files for file upload makes tor browser hang with periodic flashes
+  # https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/42561
+  tor-browser_13_0_13 = callPackage ./pkgs/applications/networking/browsers/tor-browser { };
+
+  bash2py = callPackage ./pkgs/development/tools/bash2py { };
+
+  cert-chain-resolver = cert-chain-resolver-bash;
+
+  cert-chain-resolver-go = callPackage ./pkgs/tools/networking/cert-chain-resolver { };
+
+  cert-chain-resolver-bash = callPackage ./pkgs/tools/networking/cert-chain-resolver/bash.nix { };
+
+  yt-dlp = python3.pkgs.callPackage ./pkgs/tools/misc/yt-dlp { };
+
+  swissfileknife = callPackage ./pkgs/tools/misc/swissfileknife { };
+
+  # https://github.com/milahu/nixpkgs/issues/57
+  # squashfsTools: rename to squashfs-tools
+  squashfs-tools = pkgs.squashfsTools;
+
+  pseudo = callPackage ./pkgs/tools/virtualization/pseudo { };
+
+  lunzip = callPackage ./pkgs/tools/archivers/lunzip { };
+
+  kconfig = callPackage ./pkgs/development/tools/kconfig { };
+
+  freetz-tools = freetzPackages.freetz-tools;
+
+  freetz = {
+    pkgs = freetzPackages;
+  };
+
+  freetzPackages = lib.recurseIntoAttrs (pkgs.lib.makeScope pkgs.newScope (freetzPackagesSelf: let inherit (freetzPackagesSelf) callPackage; in ({
+
+    freetz = callPackage ./pkgs/tools/misc/freetz/pkgs/freetz { };
+
+    freetz-tools = callPackage ./pkgs/tools/misc/freetz/pkgs/freetz-tools {
+      # FIXME scope
+      pseudo = callPackage ./pkgs/tools/virtualization/pseudo { };
+      lunzip = callPackage ./pkgs/tools/archivers/lunzip { };
+    };
+
+    kconfig = callPackage ./pkgs/tools/misc/freetz/pkgs/kconfig { };
+
+    imagename2id = callPackage ./pkgs/tools/misc/freetz/pkgs/imagename2id { };
+
+    visualise-make = callPackage ./pkgs/tools/misc/freetz/pkgs/visualise-make { };
+
+    swissfileknife = self.swissfileknife;
+
+    tichksum = callPackage ./pkgs/tools/misc/freetz/pkgs/tichksum { };
+
+    lzma2eva = callPackage ./pkgs/tools/misc/freetz/pkgs/lzma2eva { };
+
+    find-squashfs = callPackage ./pkgs/tools/misc/freetz/pkgs/find-squashfs { };
+
+    squashfs-tools-avm-le = callPackage ./pkgs/tools/misc/freetz/pkgs/squashfs-tools-avm {
+      targetEndianness = "LE";
+      # FIXME scope
+      squashfs-tools = pkgs.squashfsTools;
+    };
+
+    squashfs-tools-avm-be = callPackage ./pkgs/tools/misc/freetz/pkgs/squashfs-tools-avm {
+      targetEndianness = "BE";
+      # FIXME scope
+      squashfs-tools = pkgs.squashfsTools;
+    };
+
+    yf-akcarea = callPackage ./pkgs/tools/misc/freetz/pkgs/yf-akcarea { };
+
+  }))); # freetzPackages
+
+  crawlab = callPackage ./pkgs/tools/networking/crawlab { };
+
+  audioalign = callPackage ./pkgs/applications/audio/audioalign { };
+
+  gradle2nix = callPackage ./pkgs/development/tools/gradle2nix { };
+
+  gradle_8_6 = callPackage (import ./pkgs/development/tools/build-managers/gradle/8.6.nix {
+    inherit (pkgs) jdk11 jdk17 jdk21;
+  }).gradle_8 { };
+
+  grpc-java = grpc-java-bin;
+
+  # source build
+  # lockfile is missing
+  #grpc-java-src = callPackage ./pkgs/development/tools/grpc-java { };
+  # requires grpc-java-src
+  #grpc-java-src-lockfile = callPackage ./pkgs/development/tools/grpc-java/lockfile.nix { };
+
+  # binary build
+  grpc-java-bin = callPackage ./pkgs/development/tools/grpc-java/bin.nix { };
+
+  haveno = callPackage ./pkgs/applications/blockchains/haveno { };
+  haveno-lockfile = callPackage ./pkgs/applications/blockchains/haveno/lockfile.nix { };
+
+  protobuf3_20 = callPackage ./pkgs/development/libraries/protobuf/3.20.nix {
+    abseil-cpp = pkgs.abseil-cpp_202103;
+  };
+
+  protobuf3_19_1 = callPackage ./pkgs/development/libraries/protobuf/3.19.1.nix {
+    abseil-cpp = pkgs.abseil-cpp_202103;
+  };
+
+  protobuf3_19_6 = callPackage ./pkgs/development/libraries/protobuf/3.19.6.nix {
+    abseil-cpp = pkgs.abseil-cpp_202103;
+  };
+
+  # FIXME Function called without required argument "litecoind"
+  /*
+  basicswap = pkgs.python3.pkgs.callPackage ./pkgs/applications/blockchains/basicswap {
+    # FIXME scope
+    inherit nano-node;
+  };
+  */
+
+  asmr = callPackage ./pkgs/applications/blockchains/asmr { };
+
+  cpptoml-cryptocode = callPackage ./pkgs/development/libraries/cpptoml-cryptocode { };
+
+  nano-node = pkgs.libsForQt5.callPackage ./pkgs/applications/blockchains/nano-node {
+    # FIXME scope
+    inherit cpptoml-cryptocode;
+  };
+
+  nano-node_26_0 = callPackage ./pkgs/applications/blockchains/nano-node/26.0.nix { };
+
+  diskhash = callPackage ./pkgs/applications/blockchains/diskhash { };
+
+  imagemagick-scripts = callPackage ./pkgs/applications/graphics/imagemagick-scripts { };
+
+  trusearch = callPackage ./pkgs/applications/networking/p2p/trusearch { };
+
+  nano-vanity = callPackage ./pkgs/applications/blockchains/nano-vanity { };
+
+  libcups = callPackage ./pkgs/applications/printing/libcups { };
+
+  pdfio = callPackage ./pkgs/applications/printing/pdfio { };
+
+  ppm2pwg = callPackage ./pkgs/applications/printing/ppm2pwg { };
+
+  prometheus-qbittorrent-exporter = callPackage ./pkgs/servers/monitoring/prometheus/qbittorrent-exporter.nix {
+    # FIXME scope
+    # fix: error: attribute 'pdm-backend' missing @ python3.pkgs.pdm-backend
+    python3 = pkgs.python3;
+  };
+
+  log4c = callPackage ./pkgs/development/libraries/log4c { };
+
+  streamtuner2 = callPackage ./pkgs/applications/audio/streamtuner2 {
+    # FIXME scope
+    inherit (pkgs) python3;
+  };
+
+  waydroid = callPackage ./pkgs/os-specific/linux/waydroid {
+    # FIXME scope
+    inherit (pkgs) python3Packages;
+  };
+
+  parsyncfp2 = callPackage ./pkgs/applications/networking/sync/parsyncfp2 {
+    # FIXME scope
+    perlPackages = pkgs.perlPackages;
+  };
+
+  vanitygpg = callPackage ./pkgs/tools/security/vanitygpg { };
+
+  vineflower = callPackage ./pkgs/development/tools/analysis/vineflower { };
+
+  cudominer = callPackage ./pkgs/applications/blockchains/cudominer { };
+
+  progminer = callPackage ./pkgs/applications/blockchains/progminer { };
+
+  prometheus-script-exporter = callPackage ./pkgs/servers/monitoring/prometheus/script-exporter.nix { };
+
+  git-bug = callPackage ./pkgs/applications/version-management/git-bug { };
+
+  gns3Packages = pkgs.dontRecurseIntoAttrs (pkgs.callPackage ./pkgs/applications/networking/gns3 { });
+  gns3-gui = gns3Packages.guiStable;
+  gns3-server = gns3Packages.serverStable;
+
+  fuse-nfs = callPackage ./pkgs/tools/filesystems/fuse-nfs { };
+
+  stream-unrar = callPackage ./pkgs/tools/archivers/stream-unrar { };
+
+  # libtorrent-rasterbar = callPackage ./pkgs/development/libraries/libtorrent-rasterbar { };
+
+  qbittorrent = callPackage ./pkgs/applications/networking/p2p/qbittorrent { };
+
+  qbittorrent-nox = callPackage ./pkgs/applications/networking/p2p/qbittorrent {
+    guiSupport = false;
+  };
+
+  # debug 100% cpu load
+  # https://github.com/arvidn/libtorrent/issues/7894
+  # https://github.com/arvidn/libtorrent/issues/7535
+  # still an issue after
+  # https://github.com/arvidn/libtorrent/pull/7950
+  qbittorrent-debug = pkgs.enableDebugging (callPackage ./pkgs/applications/networking/p2p/qbittorrent {
+    libtorrent-rasterbar = pkgs.enableDebugging (callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_1_x/package.nix { });
+  });
+
+  test-fchmodat2 = callPackage ./pkgs/test/test-fchmodat2 { };
+
+  gtk-gnutella = callPackage ./pkgs/tools/networking/p2p/gtk-gnutella { };
+
+  wireshare = callPackage ./pkgs/applications/networking/p2p/wireshare { };
+
+  patchelf_pr_118 = callPackage ./pkgs/development/tools/misc/patchelf/pr_118.nix { };
+
+  voe-dl = pkgs.python3.pkgs.callPackage ./pkgs/tools/misc/voe-dl { };
+
+  nginx = nginxStable;
+
+  nginxStable = callPackage ./pkgs/servers/http/nginx/stable.nix {
+    withPerl = false;
+    # We don't use `with` statement here on purpose!
+    # See https://github.com/NixOS/nixpkgs/pull/10474#discussion_r42369334
+    modules = [
+      pkgs.nginxModules.rtmp
+      # pkgs.nginxModules.dav
+      nginxModules.dav
+      pkgs.nginxModules.moreheaders
+    ];
+  };
+
+  nginxModules = lib.recurseIntoAttrs {
+
+    cgi = callPackage ./pkgs/servers/http/nginx/modules/cgi.nix { };
+
+    markdown_filter = callPackage ./pkgs/servers/http/nginx/modules/markdown_filter.nix { };
+
+    dav = callPackage ./pkgs/servers/http/nginx/modules/dav.nix { };
+
+    tree_sitter_filter = callPackage ./pkgs/servers/http/nginx/modules/tree_sitter_filter.nix { };
+
+  };
+
+  bbcode = callPackage ./pkgs/development/libraries/bbcode { };
+
+  nym-wallet-bin = callPackage ./pkgs/tools/security/nym/nym-wallet-bin.nix { };
+
+  # findimagedupes = callPackage ./pkgs/tools/graphics/findimagedupes { };
+  # fix: error: undefined variable 'DBFile' at perlPackages.DBFile
+  # FIXME scope
+  findimagedupes = pkgs.callPackage ./pkgs/tools/graphics/findimagedupes { };
+
+  tarindexer = callPackage ./pkgs/tools/compression/tarindexer { };
+
+  kaitai-struct-compiler = callPackage ./pkgs/by-name/ka/kaitai-struct-compiler/package.nix { };
+
+  srcml = callPackage ./pkgs/development/tools/srcml { };
+
+  gumtree = callPackage ./pkgs/development/tools/gumtree { };
+
+  mkSbtDerivation = callPackage ./pkgs/development/tools/sbt-derivation { };
+
+  xtdb = callPackage ./pkgs/servers/sql/xtdb { };
+
+  nix-editor = callPackage ./pkgs/development/tools/nix-editor { };
+
+  browsermob-proxy-bin = callPackage ./pkgs/development/tools/browsermob-proxy/bin.nix { };
+
+  browsermob-proxy = callPackage ./pkgs/development/tools/browsermob-proxy { };
+
+  scribeocr = callPackage ./pkgs/tools/misc/scribeocr { };
+
+  gImageReader = callPackage ./pkgs/by-name/gi/gImageReader/package.nix { };
+
+  gImageReader-qt = pkgs.qt6Packages.callPackage ./pkgs/by-name/gi/gImageReader/package.nix {
+    withQt6 = true;
+  };
+
+  hocr-editor-cs = callPackage ./pkgs/tools/misc/hocr-editor-cs { };
+
+  lxqt-build-tools = callPackage ./pkgs/development/tools/lxqt-build-tools { };
+
+  qtermwidget = callPackage ./pkgs/development/libraries/qtermwidget { };
+
+  i2pd-tools = callPackage ./pkgs/by-name/i2/i2pd-tools/package.nix { };
+
+  i2pd = callPackage ./pkgs/by-name/i2/i2pd/package.nix { };
+
+  qbittorrent-nova-killer = python3.pkgs.callPackage ./pkgs/by-name/qb/qbittorrent-nova-killer/package.nix { };
+
+  httpdirfs = callPackage ./pkgs/by-name/ht/httpdirfs/package.nix { };
+
+  matroska-foundation = callPackage ./pkgs/by-name/ma/matroska-foundation/package.nix { };
+
+  mkvalidator = callPackage ./pkgs/by-name/mk/mkvalidator/package.nix { };
+
+  mkclean = callPackage ./pkgs/by-name/mk/mkclean/package.nix { };
+
+  libtorrent-rasterbar-2_0_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_0_x/package.nix { };
+
+  libtorrent-rasterbar-2_1_x = callPackage ./pkgs/by-name/li/libtorrent-rasterbar-2_1_x/package.nix { };
+
+  libtorrent-rasterbar = libtorrent-rasterbar-2_1_x;
+
+  # FIXME NUR CI fails to eval this: pkgsWithOverlay = import <nixpkgs> { ... }
+  # rqbit = callPackage ./pkgs/by-name/rq/rqbit/package.nix { };
+
+  anacrolix-torrent = callPackage ./pkgs/by-name/an/anacrolix-torrent/package.nix { };
+
+  torr-server = callPackage ./pkgs/by-name/to/torr-server/package.nix { };
+
+  distribyted = callPackage ./pkgs/by-name/di/distribyted/package.nix { };
+
+  simple-torrent = callPackage ./pkgs/by-name/si/simple-torrent/package.nix { };
+
+  torrentfs = callPackage ./pkgs/by-name/to/torrentfs/package.nix { };
+
+  confluence = callPackage ./pkgs/by-name/co/confluence/package.nix { };
+
+  cloud-torrent = callPackage ./pkgs/by-name/cl/cloud-torrent/package.nix { };
+
+  bittorrent-bootstrap-dht = callPackage ./pkgs/by-name/bi/bittorrent-bootstrap-dht/package.nix { };
+
+  exactimage = callPackage ./pkgs/by-name/ex/exactimage/package.nix { };
+
+  bookpipeline = callPackage ./pkgs/by-name/bo/bookpipeline/package.nix { };
+
+  thorium-reader = callPackage ./pkgs/by-name/th/thorium-reader/package.nix { };
+
+  nix-hell = callPackage ./pkgs/by-name/ni/nix-hell/package.nix { };
+
+  monero-gui-tor = callPackage ./pkgs/by-name/mo/monero-gui-tor/package.nix { };
+
+  # get the latest version of two versions of a package
+  getLatestVersion2 = p1: p2: (
+    if (builtins.compareVersions p1.version p2.version) == -1
+    then (
+      # builtins.trace "getLatestVersion2: p2: ${p2.name} > ${p1.name}"
+      p2
+    )
+    else (
+      # builtins.trace "getLatestVersion2: p1: ${p1.name} >= ${p2.name}"
+      p1
+    )
+  );
+
+  session-desktop = getLatestVersion2 pkgs.session-desktop (callPackage ./pkgs/by-name/se/session-desktop/package.nix { });
+
+  swig2 = callPackage ./pkgs/development/tools/misc/swig/2.x.nix { };
+
+  briar-desktop-bin = getLatestVersion2 pkgs.briar-desktop (callPackage ./pkgs/by-name/br/briar-desktop-bin/package.nix { });
+
+  inherit
+    (pkgs.callPackages ./pkgs/development/libraries/botan {
+      # botan3 only sensibly works with libcxxStdenv when building static binaries
+      stdenv = if pkgs.stdenv.hostPlatform.isStatic then pkgs.buildPackages.libcxxStdenv else pkgs.stdenv;
+    })
+    botan2
+    botan3
+    ;
+
+  retroshare = getLatestVersion2 pkgs.retroshare (pkgs.libsForQt5.callPackage ./pkgs/applications/networking/p2p/retroshare {
+    inherit botan2;
+  });
+
+  ricochet-refresh = getLatestVersion2 pkgs.ricochet-refresh (callPackage ./pkgs/by-name/ri/ricochet-refresh/package.nix { });
+
+  zeronet-conservancy = getLatestVersion2 pkgs.zeronet-conservancy (python3.pkgs.callPackage ./pkgs/applications/networking/p2p/zeronet-conservancy { });
+
+  project-nomad = callPackage ./pkgs/by-name/pr/project-nomad/package.nix { };
+
+  espeak-ng = callPackage ./pkgs/by-name/es/espeak-ng/package.nix { };
+
+  nixVersions = pkgs.lib.recurseIntoAttrs (
+    pkgs.callPackage ./pkgs/tools/package-management/nix {
+      # storeDir = config.nix.storeDir or "/nix/store";
+      # stateDir = config.nix.stateDir or "/nix/var";
+      # fix: error: undefined variable 'config'
+      storeDir = "/nix/store";
+      stateDir = "/nix/var";
+    }
+  );
+
+  nix = nixVersions.stable;
+
+  v8 = callPackage ./pkgs/development/libraries/v8 { };
+
+  lingua-rs = callPackage ./pkgs/by-name/li/lingua-rs/package.nix { };
+
+  losslesscut = callPackage ./pkgs/by-name/lo/losslesscut/package.nix { };
+
+  webcrack = callPackage ./pkgs/by-name/we/webcrack/package.nix { };
+
+  pnpm-better-sqlite3 = callPackage ./pkgs/by-name/pn/pnpm-better-sqlite3/package.nix { };
+
+  keyviz = callPackage ./pkgs/by-name/ke/keyviz/package.nix { };
+
+  har-extractor = callPackage ./pkgs/by-name/ha/har-extractor/package.nix { };
+
+  ffmpeg-malicious = callPackage ./pkgs/by-name/ff/ffmpeg-malicious/package.nix { };
+
+  vobsub2srt = callPackage ./pkgs/by-name/vo/vobsub2srt/package.nix { };
+
+  flatcv = callPackage ./pkgs/by-name/fl/flatcv/package.nix { };
+
+  inherit
+    ({
+      zfs_2_3 = callPackage ./pkgs/os-specific/linux/zfs/2_3.nix {
+        configFile = "user";
+      };
+      zfs_2_4 = callPackage ./pkgs/os-specific/linux/zfs/2_4.nix {
+        configFile = "user";
+      };
+      zfs_unstable = callPackage ./pkgs/os-specific/linux/zfs/unstable.nix {
+        configFile = "user";
+      };
+    })
+    zfs_2_3
+    zfs_2_4
+    zfs_unstable
+    ; 
+  zfs = zfs_2_4;
+
+  embed-pdf-fonts = callPackage ./pkgs/by-name/em/embed-pdf-fonts/package.nix { };
+
+  browsertrix-crawler = callPackage ./vendor/Skyb0rg007/packages/NixOS/pkgs/by-name/browsertrix-crawler/package.nix { };
+
+  circle-so-scraper = python3Packages.callPackage ./pkgs/by-name/ci/circle-so-scraper/package.nix { };
+
+}
+
+# based on https://github.com/dtzWill/nur-packages
+#// (callPackages ./pkgs/xi { })
+)

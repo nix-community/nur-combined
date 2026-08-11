@@ -1,0 +1,39 @@
+#!/usr/bin/env node
+
+// @ts-check
+const optimist = require("optimist");
+const writeNixExpr = require('../lib/print');
+
+/**
+ * Parses CLI arguments and invoke an appropriate handler for the task.
+ */
+async function main() {
+  const argv = optimist
+    .usage(
+      `Usage:
+
+  js2nix -l ./yarn.lock -o ./yarn.lock.nix
+
+Generate nix expression of node modules for given yarn.lock file.`
+    )
+    .options("lock", {
+      alias: "l",
+      demand: 'true',
+      describe: "relative yarn.lock file path",
+    })
+    .options("out", {
+      alias: "o",
+      demand: 'true',
+      describe: "output file path",
+    }).argv;
+
+  return writeNixExpr({
+    lock: argv.lock,
+    out: argv.out,
+  });
+}
+
+main().catch(e => {
+  process.stderr.write(e.toString());
+  process.exit(1);
+})

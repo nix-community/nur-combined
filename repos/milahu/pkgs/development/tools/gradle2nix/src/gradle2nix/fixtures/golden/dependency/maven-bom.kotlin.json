@@ -1,0 +1,44 @@
+{
+  "io.micrometer:micrometer-bom:1.5.1": {
+    "micrometer-bom-1.5.1.pom": {
+      "url": "http://0.0.0.0:8989/m2/io/micrometer/micrometer-bom/1.5.1/micrometer-bom-1.5.1.pom",
+      "hash": "sha256-K/qF6ds8ck5sWvelJBYk+w+K04oQpT/4BtY57WVLRUI="
+    }
+  },
+  "io.micrometer:micrometer-core:1.5.1": {
+    "micrometer-core-1.5.1.jar": {
+      "url": "http://0.0.0.0:8989/m2/io/micrometer/micrometer-core/1.5.1/micrometer-core-1.5.1.jar",
+      "hash": "sha256-DtgVYBDVGDBWMwSfeKC6O+fwqd+N2q4eTizJgQ1wfI8="
+    },
+    "micrometer-core-1.5.1.pom": {
+      "url": "http://0.0.0.0:8989/m2/io/micrometer/micrometer-core/1.5.1/micrometer-core-1.5.1.pom",
+      "hash": "sha256-Cb4KaUHaOvdOz7VpDax6kJKuT2KWY5Ci73foX2xl6xw="
+    }
+  },
+  "org.hdrhistogram:HdrHistogram:2.1.12": {
+    "HdrHistogram-2.1.12.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.jar",
+      "hash": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+    },
+    "HdrHistogram-2.1.12.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/hdrhistogram/HdrHistogram/2.1.12/HdrHistogram-2.1.12.pom",
+      "hash": "sha256-f7PnkMFU0bXiMXC7jL9/cO8ICa8XIp8dywENd5llEIA="
+    }
+  },
+  "org.latencyutils:LatencyUtils:2.0.3": {
+    "LatencyUtils-2.0.3.jar": {
+      "url": "http://0.0.0.0:8989/m2/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.jar",
+      "hash": "sha256-47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+    },
+    "LatencyUtils-2.0.3.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/latencyutils/LatencyUtils/2.0.3/LatencyUtils-2.0.3.pom",
+      "hash": "sha256-jwwBU3kLhK9sCTFtVpvRBu4PAIuTk+gLpHj1v2Vziig="
+    }
+  },
+  "org.sonatype.oss:oss-parent:7": {
+    "oss-parent-7.pom": {
+      "url": "http://0.0.0.0:8989/m2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom",
+      "hash": "sha256-tR+IZ8kranIkmVV/w6H96ne9+e9XRyL+kM5DailVlFQ="
+    }
+  }
+}

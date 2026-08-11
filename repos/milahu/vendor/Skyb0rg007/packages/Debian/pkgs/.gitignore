@@ -1,0 +1,11 @@
+golang-github-biezhi-gorm-paginator/*
+!golang-github-biezhi-gorm-paginator/debian
+golang-github-biezhi-gorm-paginator-pagination/*
+!golang-github-biezhi-gorm-paginator-pagination/debian
+pwngrid/*
+!pwngrid/debian
+pwnagotchi/*
+!pwnagotchi/debian
+*.gpg
+*.build
+_build

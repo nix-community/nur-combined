@@ -1,0 +1,143 @@
+{ lib
+, stdenv
+, fetchFromGitHub
+, fetchurl
+, autoconf
+, automake
+# see also
+# use 'command -v' instead of 'which'
+# https://github.com/Freetz-NG/freetz-ng/pull/775
+, which
+, wget # TODO remove
+, bison
+, flex
+, gettext
+, git
+, libtool
+, perl
+, pkg-config
+, subversion
+, unzip
+, ncurses
+, zlib
+, libcap
+, acl
+, linux_6_2
+}:
+
+stdenv.mkDerivation rec {
+  pname = "freetz";
+  version = "23030";
+
+  src = fetchFromGitHub {
+    owner = "Freetz-NG";
+    repo = "freetz-ng";
+    rev = "ng${version}";
+    hash = "sha256-Uw42TYDq4XXmxYOqB0iWCeRyylkQDG0R4EK64vjiD8U=";
+  };
+
+  linuxTarball = linux_6_2.src;
+
+  patches = [
+    ./fix-build.patch
+  ];
+
+  #VER = version;
+  RH = version; # override default "UNKNOWN"
+
+  # TODO patchShebangs: patch only some scripts? for example in tools/
+  # TODO patchShebangs: restore output = remove ">/dev/null"
+  preBuild = ''
+    patchShebangs . >/dev/null
+
+    export HOME=$TMP
+
+    set -x # debug
+
+    pwd
+    ls
+
+    if false; then
+      echo creating tools/kconfig
+      mkdir -p tools/kconfig
+      tar xf $kconfigTarball -C tools/kconfig --strip-components=1
+      ls -A tools/kconfig
+
+      echo creating $TOOLS_SOURCE_DIR/kconfig-v$linuxAbiVersion
+      tar xf $kconfigTarball -C $TOOLS_SOURCE_DIR
+      ls -A $TOOLS_SOURCE_DIR
+      ls -A $TOOLS_SOURCE_DIR/*
+    fi
+
+    export TOOLS_SOURCE_DIR=$(pwd)/source/host-tools
+    mkdir -p $TOOLS_SOURCE_DIR
+
+    # example: $(call TOOLS_INIT, v6.2)
+    # -> linuxAbiVersion=6.2
+    linuxAbiVersion=$(cat make/host-tools/kconfig-host/kconfig-host.mk | head -n1 | sed -E 's/^.* v([0-9]+\.[0-9]+)\)$/\1/')
+    echo parsed linux abi version: $linuxAbiVersion
+    echo FIXME assert version match with linux.src
+
+    if ! echo $linuxTarball | grep -q -w -F "linux-$linuxAbiVersion.tar"; then
+      echo error: wrong version of linuxTarball
+      echo actual linuxTarball: $linuxTarball
+      echo expected substring: linux-$linuxAbiVersion.tar
+      echo please fix this freetz.nix file
+      exit 1
+    fi
+
+    linux_files=$(cat make/host-tools/kconfig-host/kconfig-host.mk | grep -F '$(PKG)_SITE:=git_archive@git://repo.or.cz/linux.git,' | cut -d, -f2- | tr , '\n')
+    linux_files=$(echo "$linux_files" | sed "s|^|linux-$linuxAbiVersion/|")
+    linux_files_dst=$TOOLS_SOURCE_DIR/kconfig-v$linuxAbiVersion
+    echo unpacking linux files to $linux_files_dst:
+    printf "  %s\n" $linux_files
+    mkdir -p $linux_files_dst
+    tar xf $linuxTarball -C $linux_files_dst --strip-components=1 $linux_files
+    set +x
+    substituteInPlace make/host-tools/kconfig-host/kconfig-host.mk \
+      --replace '$(TOOLS_SOURCE_DOWNLOAD)' "" \
+      --replace '$(TOOLS_UNPACKED)' ""
+    set -x
+    touch $TOOLS_SOURCE_DIR/kconfig-v$linuxAbiVersion/.unpacked
+    chmod -w $TOOLS_SOURCE_DIR/kconfig-v$linuxAbiVersion/.unpacked
+    stat $TOOLS_SOURCE_DIR/kconfig-v$linuxAbiVersion/.unpacked
+    echo "FIXME make[1]: *** No rule to make target '/build/source/source/host-tools/kconfig-v6.2/.unpacked', needed by '/build/source/source/host-tools/kconfig-v6.2/scripts/kconfig/mconf'.  Stop."
+  '';
+
+  makeFlags = [
+    "RH=${version}" # override default version "UNKNOWN"
+  ];
+
+  buildInputs = [
+    autoconf # autoreconf
+    automake
+    which
+    wget # TODO remove
+    bison
+    flex
+    gettext
+    git
+    libtool
+    perl
+    pkg-config
+    subversion # svn
+    unzip
+    /*
+ERROR: The header file 'ncurses.h' was not found in /usr/(local/)include
+ERROR: The header file 'zlib.h' was not found in /usr/(local/)include
+ERROR: The header file 'sys/acl.h' was not found in /usr/(local/)include
+ERROR: The header file 'sys/capability.h' was not found in /usr/(local/)include
+    */
+    ncurses
+    zlib
+    libcap # sys/capability.h
+    acl # sys/acl.h
+  ];
+
+  meta = with lib; {
+    description = "firmware modification for AVM devices like FRITZ!Box";
+    homepage = "https://github.com/Freetz-NG/freetz-ng";
+    license = licenses.gpl2Only;
+    maintainers = with maintainers; [ ];
+  };
+}

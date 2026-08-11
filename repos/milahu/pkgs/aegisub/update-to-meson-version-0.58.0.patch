@@ -1,0 +1,24 @@
+From 3512c9f92952fe839eb9cb1bb860f44f57588a3f Mon Sep 17 00:00:00 2001
+From: Milan Hauth <milahu@gmail.com>
+Date: Mon, 27 Jun 2022 19:57:47 +0200
+Subject: [PATCH] update to meson version >=0.58.0
+
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 6b22c3c..da56c66 100644
+--- a/meson.build
++++ b/meson.build
+@@ -1,6 +1,6 @@
+ project('Aegisub', ['c', 'cpp'],
+         license: 'BSD-3-Clause',
+-        meson_version: '>=0.56.1',
++        meson_version: '>=0.58.0',
+         default_options: ['cpp_std=c++14', 'buildtype=debugoptimized'],
+         version: '3.2.2')
+ 
+-- 
+2.36.1
+

@@ -1,0 +1,55 @@
+From 9fb8459800e43e35a9e358ba871086242258d733 Mon Sep 17 00:00:00 2001
+From: Milan Hauth <milahu@gmail.com>
+Date: Wed, 20 Sep 2023 16:18:37 +0200
+Subject: [PATCH] fix strncpy warnings
+
+---
+ src/common/config-file.c | 4 ++--
+ tests/utils/fixtures.h   | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/src/common/config-file.c b/src/common/config-file.c
+index 7cd89f4..b330b44 100644
+--- a/src/common/config-file.c
++++ b/src/common/config-file.c
+@@ -329,7 +329,7 @@ int conf_file_set_socks5_user(const char *username,
+ 		goto error;
+ 	}
+ 
+-	strncpy(config->conf_file.socks5_username, username, strlen(username));
++	strncpy(config->conf_file.socks5_username, username, sizeof(config->conf_file.socks5_username));
+ 	if (++both_socks5_pass_user_set == 2) {
+ 		config->socks5_use_auth = 1;
+ 	}
+@@ -361,7 +361,7 @@ int conf_file_set_socks5_pass(const char *password,
+ 		goto error;
+ 	}
+ 
+-	strncpy(config->conf_file.socks5_password, password, strlen(password));
++	strncpy(config->conf_file.socks5_password, password, sizeof(config->conf_file.socks5_password));
+ 	if (++both_socks5_pass_user_set == 2) {
+ 		config->socks5_use_auth = 1;
+ 	}
+diff --git a/tests/utils/fixtures.h b/tests/utils/fixtures.h
+index bbcd2f5..a5a02cb 100644
+--- a/tests/utils/fixtures.h
++++ b/tests/utils/fixtures.h
+@@ -30,11 +30,11 @@
+ static const char *fixture_path(const char *base, const char *filename)
+ {
+ 	static char path[1024];
+-	size_t path_len;
++	size_t base_len;
+ 
+-	path_len = strlen(base);
+-	strncpy(path, base, path_len);
+-	strncpy(path + path_len, filename, sizeof(path) - path_len);
++	base_len = strlen(base);
++	strncpy(path, base, sizeof(path));
++	strncpy(path + base_len, filename, sizeof(path) - base_len - 1);
+ 
+ 	return path;
+ }
+-- 
+2.41.0
+

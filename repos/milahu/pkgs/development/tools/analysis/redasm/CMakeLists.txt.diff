@@ -1,0 +1,19 @@
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -46,6 +46,7 @@
+                               "KDDockWidgets_UNITY_BUILD OFF")
+ endif()
+ 
++if(false)
+ CPMAddPackage(
+     NAME KDDockWidgets
+     GIT_REPOSITORY https://github.com/KDAB/KDDockWidgets
+@@ -53,6 +54,8 @@
+     OPTIONS ${KDDOCKWIDGETS_OPTIONS}
+     EXCLUDE_FROM_ALL ON
+     )
++endif()
++add_subdirectory(KDDockWidgets)
+ 
+ add_subdirectory(libs/qhexview EXCLUDE_FROM_ALL)
+ add_subdirectory(LibREDasm)

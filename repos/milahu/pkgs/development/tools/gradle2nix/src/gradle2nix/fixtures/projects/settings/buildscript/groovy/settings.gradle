@@ -1,0 +1,11 @@
+buildscript {
+    repositories {
+        maven {
+            url System.getProperty("org.nixos.gradle2nix.m2")
+            allowInsecureProtocol true
+        }
+    }
+    dependencies {
+        classpath 'org.apache:test:1.0.0'
+    }
+}

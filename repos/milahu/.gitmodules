@@ -1,0 +1,21 @@
+[submodule "pkgs/development/tools/js2nix/src/js2nix"]
+	path = pkgs/development/tools/js2nix
+	url = https://github.com/canva-public/js2nix
+[submodule "pkgs/development/tools/npmlock2nix/src/npmlock2nix"]
+	path = pkgs/development/tools/npmlock2nix/src/npmlock2nix
+	url = https://github.com/milahu/npmlock2nix
+[submodule "lib/src/nix-yaml"]
+	path = lib/src/nix-yaml
+	url = https://github.com/milahu/nix-yaml
+[submodule "pkgs/development/tools/mvn2nix/src/mvn2nix"]
+	path = pkgs/development/tools/mvn2nix/src/mvn2nix
+	url = https://github.com/milahu/mvn2nix
+[submodule "pkgs/development/tools/gradle2nix/src/gradle2nix"]
+	path = pkgs/development/tools/gradle2nix/src/gradle2nix
+	url = https://github.com/tadfisher/gradle2nix
+[submodule "pkgs/development/tools/sbt-derivation/src/sbt-derivation"]
+	path = pkgs/development/tools/sbt-derivation/src/sbt-derivation
+	url = https://github.com/zaninime/sbt-derivation
+[submodule "vendor/Skyb0rg007/packages"]
+	path = vendor/Skyb0rg007/packages
+	url = https://github.com/Skyb0rg007/packages

@@ -1,0 +1,146 @@
+
+on:
+  workflow_dispatch: ~
+  # push:
+  #   paths:
+  #     - 'Debian/**'
+  #     - '.github/workflows/build-apt.yml'
+
+jobs:
+  build-apt:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-24.04
+          # - ubuntu-24.04-arm
+    runs-on: ${{ matrix.os }}
+    # permissions:
+    #   id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Install generic dependencies
+        run: |
+          sudo apt install -y build-essential dpkg-dev devscripts reprepro
+
+        # python3-file-read-backwards was added in Ubuntu 24.10
+      - name: Download and install python3-file-read-backwards
+        run: |
+          mkdir -p Debian/pkgs/_build
+          cd Debian/pkgs/_build || exit 1
+          pkg="file-read-backwards"
+          vsn="3.2.0-1"
+          base="http://archive.ubuntu.com/ubuntu/pool/universe"
+          wget "$base/${pkg:0:1}/$pkg/python3-${pkg}_${vsn}_all.deb"
+          sudo apt install -y "./python3-${pkg}_${vsn}_all.deb"
+
+        # skyenet-archive-keyring
+      - name: Install skyenet-archive-keyring dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/skyenet-archive-keyring
+      - name: Build skyenet-archive-keyring
+        run: |
+          cd Debian/pkgs/skyenet-archive-keyring || exit 1
+          dpkg-buildpackage --no-sign
+
+        # gorm-paginator
+      - name: Install gorm-paginator dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/golang-github-biezhi-gorm-paginator
+      - name: Build gorm-paginator
+        run: |
+          cd Debian/pkgs || exit 1
+          ./build.sh golang-github-biezhi-gorm-paginator
+      - name: Install gorm-paginator
+        run: |
+          sudo apt install -y ./Debian/pkgs/_build/golang-github-biezhi-gorm-paginator-dev_*.deb
+
+        # pwngrid
+      - name: Install pwngrid dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/pwngrid
+      - name: Build pwngrid
+        run: |
+          cd Debian/pkgs || exit 1
+          ./build.sh pwngrid
+      - name: Install pwngrid
+        run: |
+          sudo apt install -y ./Debian/pkgs/_build/pwngrid_*.deb
+
+        # pwnagotchi
+      - name: Install pwnagotchi dependencies
+        run: |
+          sudo apt build-dep -y ./Debian/pkgs/pwnagotchi
+      - name: Build pwnagotchi
+        run: |
+          cd Debian/pkgs || exit 1
+          ./build.sh pwnagotchi
+      - name: Install pwnagotchi
+        run: |
+          sudo apt install -y ./Debian/pkgs/_build/pwnagotchi_*.deb
+
+      # - uses: sigstore/gh-action-sigstore-python@v3.0.0
+      #   with:
+      #     inputs: |
+      #       Debian/pkgs/_build/*.deb
+      #       Debian/pkgs/_build/*.buildinfo
+      #       Debian/pkgs/_build/*.dsc
+      #       Debian/pkgs/_build/*.changes
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: Packaging outputs for ${{ matrix.os }}
+          path: |
+            Debian/pkgs/_build/*.deb
+            Debian/pkgs/_build/*.buildinfo
+            Debian/pkgs/_build/*.dsc
+            Debian/pkgs/_build/*.changes
+
+      - name: Import gpg signing key
+        run: |
+          gpg --batch --import <<<"$APT_SIGNING_KEY"
+        env:
+          APT_SIGNING_KEY: ${{ secrets.APT_SIGNING_KEY }}
+      - name: Initialize the APT repository
+        run: |
+          reprepro -b Debian/repo createsymlinks
+          reprepro -b Debian/repo export
+      - name: Add packages to APT repository
+        run: |
+          reprepro -b Debian/repo includedeb noble Debian/pkgs/_build/python3-file-read-backwards_*_all.deb
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/golang-github-biezhi-gorm-paginator_*_*.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwnagotchi_*_*.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/_build/pwngrid_*_*.changes
+          reprepro -b Debian/repo include noble Debian/pkgs/skyenet-archive-keyring_*_*.changes
+
+      - name: Delete repo directories that shouldn't be hosted
+        run: |
+          rm -rf Debian/repo/{conf,db}
+      - name: Generate directory listings
+        run: |
+          Debian/scripts/generate-indices.sh Debian/repo
+      - name: Upload repository as artifact
+        id: apt_repo_deployment
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: Debian/repo
+
+  deploy-apt:
+    environment:
+      name: github-pages
+      url: ${{ steps.apt_repo_deployment.outputs.page_url }}
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    runs-on: ubuntu-latest
+    needs: build-apt
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+      - name: Deploy to GitHub Pages
+        id: apt_repo_deployment
+        uses: actions/deploy-pages@v5

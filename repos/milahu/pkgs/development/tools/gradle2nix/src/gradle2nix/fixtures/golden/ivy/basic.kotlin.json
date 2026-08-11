@@ -1,0 +1,22 @@
+{
+  "org.opendof.core-java:dof-cipher-sms4:1.0": {
+    "dof-cipher-sms4-1.0.jar": {
+      "url": "https://asset.opendof.org/artifact/org.opendof.core-java/dof-cipher-sms4/1.0/jars/dof-cipher-sms4-1.0.jar",
+      "hash": "sha256-/Joo51NA6nBPEwFuFcnDc10JQZDE8P3jF3P4gl0vpMA="
+    },
+    "ivy-1.0.xml": {
+      "url": "https://asset.opendof.org/ivy2/org.opendof.core-java/dof-cipher-sms4/1.0/ivy.xml",
+      "hash": "sha256-rh+pQpXqPP/cmBD8slvwMrKlWCUb3JNzW3l58hd7oJ8="
+    }
+  },
+  "org.opendof.core-java:dof-oal:7.0.2": {
+    "dof-oal-7.0.2.jar": {
+      "url": "https://asset.opendof.org/artifact/org.opendof.core-java/dof-oal/7.0.2/jars/dof-oal-7.0.2.jar",
+      "hash": "sha256-u+FUhQGBA8MRl28mXMTSnZ2HY2ysPHq7h9lANmHBK40="
+    },
+    "ivy-7.0.2.xml": {
+      "url": "https://asset.opendof.org/ivy2/org.opendof.core-java/dof-oal/7.0.2/ivy.xml",
+      "hash": "sha256-KZoUVyoDcfH/B/9V1SVqNiA/XIb3zlwoJkjb/jD+xig="
+    }
+  }
+}

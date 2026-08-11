@@ -1,0 +1,66 @@
+diff --git a/apt-file b/apt-file
+index 74d40a5..ccf1742 100755
+--- a/apt-file
++++ b/apt-file
+@@ -40,6 +40,9 @@ use File::Basename;
+ use AptPkg::Config '$_config';
+ use List::Util qw/any none uniq/;
+ use Time::HiRes qw(gettimeofday tv_interval);
++use Cwd 'abs_path';
++use File::Copy;
++use File::Which;
+ 
+ my ($Conf, @apt_options);
+ my $time_baseline = [gettimeofday()];
+@@ -111,7 +114,26 @@ sub reverse_hash($) {
+     return $ret;
+ }
+ 
++sub install_apt_file_conf () {
++    # this is needed on nixos linux
++    # to run apt either with a system-wide /etc/apt/
++    # or with a user-owned $HOME/.config/apt/ config dir
++    my $dir_etc_parts = $_config->get_file('Dir::Etc::parts');
++    debug(1, "Dir::Etc::parts is set to $dir_etc_parts");
++    my $dst_apt_file_conf_path = $dir_etc_parts . "/50apt-file.conf";
++    if (-e $dst_apt_file_conf_path) {
++        debug(1, "Found existing $dst_apt_file_conf_path");
++        return;
++    }
++    debug(1, "Installing $dst_apt_file_conf_path");
++    my $src_apt_file_conf_path = dirname(dirname(abs_path(__FILE__))) . "/etc/apt/apt.conf.d/50apt-file.conf";
++    debug(1, "Copying $src_apt_file_conf_path to $dst_apt_file_conf_path");
++    copy($src_apt_file_conf_path, $dst_apt_file_conf_path)
++      or error('Cannot install $dst_apt_file_conf_path');
++}
++
+ sub fetch_files ($) {
++    install_apt_file_conf();
+     my @cmd = ('apt', @apt_options, 'update');
+     $cmd[0] = 'apt-get' if not -t STDOUT;
+     debug(1, "Running @cmd");
+@@ -196,10 +218,23 @@ sub open_data_pipeline {
+         my ($to_cat, $dead_pid, $failed_cmd, $cat_pid, $sed_pid, %pid_table);
+         my $sub_proc_error = 0;
+         my $grep_pattern = $Conf->{grep_pattern} // '.';
++
++        # this is needed on nixos
++        # where the apt-helper is installed as
++        # ${apt}/libexec/apt/apt-helper
++        # debian: /usr/lib/apt/apt-helper
++        my $apt_path = which 'apt';
++        debug(1, "apt_path = $apt_path");
++        my $apt_prefix = dirname(dirname($apt_path));
++        # TODO try /lib and /libexec
++        my $libexec_dir = "/libexec";
++        my $apt_helper_path = dirname(dirname($apt_path)) . $libexec_dir . "/apt/apt-helper";
++        debug(1, "apt_helper_path = $apt_helper_path");
++
+         my @cat_cmd = (
+             'xargs',
+             '-0r',
+-            '/usr/lib/apt/apt-helper',
++            $apt_helper_path,
+             @apt_options,
+             'cat-file'
+         );

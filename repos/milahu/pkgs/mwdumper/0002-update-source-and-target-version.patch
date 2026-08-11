@@ -1,0 +1,28 @@
+From 2c2bbea2a2b90dbdcd54c7039d907348e62fa652 Mon Sep 17 00:00:00 2001
+From: Milan Hauth <milahu@gmail.com>
+Date: Sun, 2 Jul 2023 16:13:19 +0200
+Subject: [PATCH 2/3] update source and target version
+
+---
+ pom.xml | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/pom.xml b/pom.xml
+index fd0b51e..07c1a74 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -99,9 +99,8 @@
+         <artifactId>maven-compiler-plugin</artifactId>
+         <version>2.5.1</version>
+         <configuration>
+-          <source>1.6</source>
+-          <!-- enable assertions -->
+-          <target>1.6</target>
++          <source>1.8</source>
++          <target>1.8</target>
+         </configuration>
+       </plugin>
+       <plugin>
+-- 
+2.41.0
+

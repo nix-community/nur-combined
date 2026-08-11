@@ -1,0 +1,22 @@
+Description: Modify PyCryptodome imports
+ PyCryptodome is usually installed with the same import path as PyCrypto
+ to behave as a drop-in replacement.
+ The APT package avoids the conflict and uses an alternative path.
+Author: Skye Soss <skyler.soss@gmail.com>
+Last-Update: 2025-08-13
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+Index: pwnagotchi-2.9.5.3/pwnagotchi/identity.py
+===================================================================
+--- pwnagotchi-2.9.5.3.orig/pwnagotchi/identity.py
++++ pwnagotchi-2.9.5.3/pwnagotchi/identity.py
+@@ -1,6 +1,6 @@
+-from Crypto.Signature import PKCS1_PSS
+-from Crypto.PublicKey import RSA
+-import Crypto.Hash.SHA256 as SHA256
++from Cryptodome.Signature import PKCS1_PSS
++from Cryptodome.PublicKey import RSA
++import Cryptodome.Hash.SHA256 as SHA256
+ import base64
+ import hashlib
+ import os

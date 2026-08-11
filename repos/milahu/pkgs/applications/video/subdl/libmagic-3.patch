@@ -1,0 +1,11 @@
+--- a/subdl.py
++++ b/subdl.py
+@@ -309,7 +309,7 @@
+     if options.utf8:
+         import magic
+         result = magic.detect_from_content(s)
+-        if not result.encoding in {"us-ascii", "utf-8"}:
++        if not result.encoding in {"us-ascii", "utf-8", "unknown-8bit", "binary"}:
+             print(f"Found encoding {result.encoding}. Converting to utf8.")
+             # separate lines for easier debugging
+             try:

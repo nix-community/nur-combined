@@ -1,0 +1,105 @@
+From a1651fc0ae642c1fc33d1195381de7e18be63e03 Mon Sep 17 00:00:00 2001
+From: Milan Hauth <milahu@gmail.com>
+Date: Mon, 27 Jun 2022 15:18:02 +0200
+Subject: [PATCH] fix configure: find boost on nix
+
+https://github.com/TypesettingTools/Aegisub/issues/151
+---
+ meson.build                         | 34 +++++++++++++++++++++++------
+ subprojects/luabins/src/meson.build |  2 +-
+ 2 files changed, 28 insertions(+), 8 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 433ca01..6b22c3c 100644
+--- a/meson.build
++++ b/meson.build
+@@ -78,8 +78,14 @@ cc = meson.get_compiler('c')
+ deps += cc.find_library('m', required: false)
+ deps += cc.find_library('dl', required: false)
+ 
+-iconv_dep = cc.find_library('iconv', required: false)
+-if not (iconv_dep.found() or cc.has_function('iconv_open'))
++iconv_found = false
++iconv_dep = []
++if host_machine.system() != 'linux'
++    # darwin has libiconv. windows?
++    iconv_dep = cc.find_library('iconv', required: false)
++    iconv_found = iconv_dep.found()
++endif
++if not (iconv_found or cc.has_function('iconv_open')) # linux has iconv_open in libc
+     iconv_sp = subproject('iconv') # this really needs to be replaced with a proper port
+     iconv_dep = iconv_sp.get_variable('libiconv_dep')
+ endif
+@@ -88,6 +94,19 @@ deps += iconv_dep
+ deps += dependency('libass', version: '>=0.9.7',
+                    fallback: ['libass', 'libass_dep'])
+ 
++boost_dep = [
++    cc.find_library('boost_system'),
++    cc.find_library('boost_chrono'),
++    cc.find_library('boost_filesystem'),
++    cc.find_library('boost_thread'),
++    cc.find_library('boost_locale'),
++    cc.find_library('boost_regex'),
++]
++
++# FIXME Run-time dependency Boost (missing: chrono, filesystem, locale, regex, system, thread) found: NO 
++# https://unix.stackexchange.com/questions/408963
++# without modules: undefined reference to `boost::filesystem::path::operator/=
++if false
+ boost_modules = ['chrono', 'filesystem', 'thread', 'locale', 'regex']
+ if not get_option('local_boost')
+     boost_dep = dependency('boost', version: '>=1.50.0',
+@@ -103,6 +122,7 @@ if get_option('local_boost') or not boost_dep.found()
+         boost_dep += boost.get_variable('boost_' + module + '_dep')
+     endforeach
+ endif
++endif # if false
+ 
+ deps += boost_dep
+ if host_machine.system() == 'windows'
+@@ -276,9 +296,9 @@ int main(void)
+ 
+     if luajit_test.returncode() == 1
+         if get_option('system_luajit')
+-            error('System luajit found but not compiled in 5.2 mode')
++            error('System luajit found but not compiled in lua-5.2 mode')
+         else
+-            message('System luajit found but not compiled in 5.2 mode; using built-in luajit')
++            message('System luajit found but not compiled in lua-5.2 mode; using built-in luajit')
+         endif
+     else
+         deps += luajit
+@@ -291,8 +311,6 @@ if not deps.contains(luajit)
+     luajit_sp = subproject('luajit')
+     luajit_inc = luajit_sp.get_variable('src_inc')
+     deps += luajit_sp.get_variable('luajit_dep')
+-else
+-    luajit_inc = include_directories(luajit.get_variable('includedir'))
+ endif
+ subdir('subprojects/luabins/src')
+ 
+@@ -332,7 +350,9 @@ subdir('libaegisub')
+ subdir('packages')
+ subdir('po')
+ subdir('src')
+-subdir('tests')
++
++# TODO enable/disable test via command line option
++#subdir('tests')
+ 
+ aegisub_cpp_pch = ['src/include/agi_pre.h']
+ aegisub_c_pch = ['src/include/agi_pre_c.h']
+diff --git a/subprojects/luabins/src/meson.build b/subprojects/luabins/src/meson.build
+index 3861eb6..6543f85 100644
+--- a/subprojects/luabins/src/meson.build
++++ b/subprojects/luabins/src/meson.build
+@@ -8,4 +8,4 @@ luabins_src = files(
+     'write.c',
+ )
+ 
+-libluabins = static_library('luabins', luabins_src, include_directories: luajit_inc)
++libluabins = static_library('luabins', luabins_src, dependencies: [luajit])
+-- 
+2.36.1
+

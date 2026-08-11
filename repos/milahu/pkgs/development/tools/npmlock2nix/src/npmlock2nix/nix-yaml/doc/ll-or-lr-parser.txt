@@ -1,0 +1,3 @@
+https://stackoverflow.com/questions/5975741/what-is-the-difference-between-ll-and-lr-parsing
+
+At a high level, the difference between LL parsing and LR parsing is that LL parsers begin at the start symbol and try to apply productions to arrive at the target string, whereas LR parsers begin at the target string and try to arrive back at the start symbol.

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.jetbrains</groupId>
+    <artifactId>dummy</artifactId>
+    <version>0.1.2</version>
+
+    <name>Dummy Project</name>
+    <description>
+        This is dummy project created to test bazel rules for sonatype publishing.
+    </description>
+    <url>https://www.jetbrains.com/</url>
+
+    <dependencies>
+        
+    </dependencies>
+    <developers>
+        <developer>
+            <id>andrefmrocha</id>
+            <name>Andre Rocha</name>
+            <url>https://andrefmrocha.me</url>
+        </developer>
+    </developers>
+    <licenses>
+        <license>
+            <name>Apache 2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <scm>
+        <connection>scm:git:github.com/andrefmrocha/Dummy-Project.git</connection>
+        <developerConnection>scm:git:git@github.com:andrefmrocha/Dummy-Project.git</developerConnection>
+        <url>https://github.com/andrefmrocha/Dummy-Project</url>
+    </scm>
+</project>

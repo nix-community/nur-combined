@@ -1,0 +1,24 @@
+From 1fa9c38d593204a7199b1a80f2824c02c8ba7397 Mon Sep 17 00:00:00 2001
+From: Milan Hauth <milahu@gmail.com>
+Date: Mon, 27 Jun 2022 20:04:23 +0200
+Subject: [PATCH] disable tests
+
+---
+ meson.build | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 433ca01..43189fb 100644
+--- a/meson.build
++++ b/meson.build
+@@ -332,7 +332,6 @@ subdir('libaegisub')
+ subdir('packages')
+ subdir('po')
+ subdir('src')
+-subdir('tests')
+ 
+ aegisub_cpp_pch = ['src/include/agi_pre.h']
+ aegisub_c_pch = ['src/include/agi_pre_c.h']
+-- 
+2.36.1
+

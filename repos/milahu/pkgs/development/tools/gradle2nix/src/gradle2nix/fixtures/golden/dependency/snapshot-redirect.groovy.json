@@ -1,0 +1,80 @@
+{
+  "com.eclipsesource.minimal-json:minimal-json:0.9.1": {
+    "minimal-json-0.9.1.jar": {
+      "url": "https://repo.maven.apache.org/maven2/com/eclipsesource/minimal-json/minimal-json/0.9.1/minimal-json-0.9.1.jar",
+      "hash": "sha256-pvRb7vRcTbyODylD0CuzTZ2btyDUoX1NwfChHNHvWFg="
+    },
+    "minimal-json-0.9.1.pom": {
+      "url": "https://repo.maven.apache.org/maven2/com/eclipsesource/minimal-json/minimal-json/0.9.1/minimal-json-0.9.1.pom",
+      "hash": "sha256-Xb0I7Og8f0XxOeis+0S+gUv4NugvuGAEdvwMuR2awUM="
+    }
+  },
+  "com.github.anuken:packr:-SNAPSHOT": {
+    "packr--SNAPSHOT.jar": {
+      "url": "https://jitpack.io/com/github/anuken/packr/-SNAPSHOT/packr--packr-1.2-g034efe5-114.jar",
+      "hash": "sha256-XrfVZLc7efr2n3Bz6mOw8DkRI0T8rU8B/MKUMVDl71w="
+    },
+    "packr--SNAPSHOT.pom": {
+      "url": "https://jitpack.io/com/github/anuken/packr/-SNAPSHOT/packr--packr-1.2-g034efe5-114.pom",
+      "hash": "sha256-xP28J7blX1IzuJxD4u/wy1ZbwAT5RAajBcpBWs1fAxU="
+    }
+  },
+  "com.lexicalscope.jewelcli:jewelcli:0.8.9": {
+    "jewelcli-0.8.9.jar": {
+      "url": "https://repo.maven.apache.org/maven2/com/lexicalscope/jewelcli/jewelcli/0.8.9/jewelcli-0.8.9.jar",
+      "hash": "sha256-edo0/mgFGCboBtIUgBL7NIHJ5pc4ipG9RMwl1piBAvM="
+    },
+    "jewelcli-0.8.9.pom": {
+      "url": "https://repo.maven.apache.org/maven2/com/lexicalscope/jewelcli/jewelcli/0.8.9/jewelcli-0.8.9.pom",
+      "hash": "sha256-eTF2d4p/6F9cw1QWZQhjpG1Es5CJKI1+DkiheuCZHMQ="
+    }
+  },
+  "com.lexicalscope.jewelcli:jewelcli-parent:0.8.9": {
+    "jewelcli-parent-0.8.9.pom": {
+      "url": "https://repo.maven.apache.org/maven2/com/lexicalscope/jewelcli/jewelcli-parent/0.8.9/jewelcli-parent-0.8.9.pom",
+      "hash": "sha256-+K7AtECUZHhdpChr8qutNwSH30dSEVRwb+728brQ9Is="
+    }
+  },
+  "org.slf4j:slf4j-api:1.6.6": {
+    "slf4j-api-1.6.6.jar": {
+      "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.jar",
+      "hash": "sha256-Q0VrLuMVKanFEtWB5T4oXGX+3ewgSiwUaUXgMrB4ELo="
+    },
+    "slf4j-api-1.6.6.pom": {
+      "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-api/1.6.6/slf4j-api-1.6.6.pom",
+      "hash": "sha256-cxmZMiteIokinNntRiTJQexXG3xh0qJ9alB+9zuXyho="
+    }
+  },
+  "org.slf4j:slf4j-parent:1.6.6": {
+    "slf4j-parent-1.6.6.pom": {
+      "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-parent/1.6.6/slf4j-parent-1.6.6.pom",
+      "hash": "sha256-QrjCR2CP2OENW2Zs98gKW1nSseEoRQ97bZ0sIM+2sxs="
+    }
+  },
+  "org.slf4j:slf4j-simple:1.6.6": {
+    "slf4j-simple-1.6.6.jar": {
+      "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.6.6/slf4j-simple-1.6.6.jar",
+      "hash": "sha256-Xpfxe7h5v9RDOlHGnjyS/iIQfG/8e8oiRIHy5YmEbgg="
+    },
+    "slf4j-simple-1.6.6.pom": {
+      "url": "https://repo.maven.apache.org/maven2/org/slf4j/slf4j-simple/1.6.6/slf4j-simple-1.6.6.pom",
+      "hash": "sha256-6eV8yFljFwnFUrbskwj+m6FUncWK7ZA5p+UFzeKrUbM="
+    }
+  },
+  "org.sonatype.oss:oss-parent:7": {
+    "oss-parent-7.pom": {
+      "url": "https://repo.maven.apache.org/maven2/org/sonatype/oss/oss-parent/7/oss-parent-7.pom",
+      "hash": "sha256-tR+IZ8kranIkmVV/w6H96ne9+e9XRyL+kM5DailVlFQ="
+    }
+  },
+  "org.zeroturnaround:zt-zip:1.10": {
+    "zt-zip-1.10.jar": {
+      "url": "https://repo.maven.apache.org/maven2/org/zeroturnaround/zt-zip/1.10/zt-zip-1.10.jar",
+      "hash": "sha256-Vw46sIh5Ok9QLaGJtyutlgzwiqWaFxyDzwj0du1ELBk="
+    },
+    "zt-zip-1.10.pom": {
+      "url": "https://repo.maven.apache.org/maven2/org/zeroturnaround/zt-zip/1.10/zt-zip-1.10.pom",
+      "hash": "sha256-tsgm40wVcdupU51FIac34FxJmuQOi50BgbYLFdbVCns="
+    }
+  }
+}

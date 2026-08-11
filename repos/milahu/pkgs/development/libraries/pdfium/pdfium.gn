@@ -1,0 +1,26 @@
+# Copyright 2016 The PDFium Authors
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# TODO(crbug.com/pdfium/1932): Switch back to //build/config/BUILDCONFIG.gn if
+# appropriate.
+buildconfig = "//build_overrides/BUILDCONFIG.gn"
+
+# The python interpreter to use by default. On Windows, this will look
+# for python3.exe and python3.bat.
+script_executable = "python3"
+
+default_args = {
+  # Required for the Fuchsia SDK
+  fuchsia_target_api_level = 11
+
+  # PDFs only need to run JavaScript.
+  v8_enable_webassembly = false
+
+  # Turns on compiler optimizations in V8 in Debug build.
+  v8_optimized_debug = true
+
+  # PDFium is currently incompatible with the V8 Sandbox.
+  # See https://crbug.com/v8/13014 for details.
+  v8_enable_sandbox = false
+}

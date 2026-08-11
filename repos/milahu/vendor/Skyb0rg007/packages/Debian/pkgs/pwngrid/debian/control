@@ -1,0 +1,35 @@
+Source: pwngrid
+Section: golang
+Priority: optional
+Maintainer: Skye Soss <skyler.soss@gmail.com>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-golang,
+               golang-any,
+               golang-github-evilsocket-islazy-dev,
+               golang-github-go-chi-chi-dev,
+               golang-github-go-chi-cors-dev,
+               golang-github-golang-jwt-jwt-v5-dev,
+               golang-github-gopacket-gopacket-dev,
+               golang-github-jinzhu-gorm-dev,
+               golang-github-joho-godotenv-dev,
+               golang-github-biezhi-gorm-paginator-dev,
+               libpcap0.8-dev,
+Testsuite: autopkgtest-pkg-go
+Standards-Version: 4.7.0
+Vcs-Browser: https://github.com/jayofelony/pwngrid
+Vcs-Git: https://github.com/jayofelony/pwngrid.git
+Homepage: https://github.com/jayofelony/pwngrid
+XS-Go-Import-Path: github.com/jayofelony/pwngrid
+
+Package: pwngrid
+Section: net
+Architecture: any
+Depends: ${misc:Depends},
+Static-Built-Using: ${misc:Static-Built-Using}
+Description: API server for pwnagotchi.ai (program)
+ PwnGRID
+ .
+ This is the API server for https://pwnagotchi.ai/
+ (https://pwnagotchi.ai/)
+

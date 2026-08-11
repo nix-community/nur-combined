@@ -1,0 +1,21 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: "Run tests in ${{ matrix.suite }}"
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        suite: [version-matrix, archival, misc]
+
+    steps:
+      - uses: cachix/install-nix-action@v18
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - run: nix run '.#test-runner' -- $PWD "tests/${{ matrix.suite }}.bats"

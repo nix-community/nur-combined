@@ -1,0 +1,13 @@
+diff --git a/script/build.ts b/script/build.ts
+index c9926d4..31cbc87 100644
+--- a/script/build.ts
++++ b/script/build.ts
+@@ -39,6 +39,8 @@ async function spawn<T extends Deno.SpawnOptions>(
+   exit ??= ExitType.Never;
+   log ??= LogType.Always;
+ 
++  console.log(`Running "${cmd} ${(opts?.args ?? []).join(" ")}"`);
++
+   const result = await Deno.spawn(cmd, opts);
+ 
+   const stdout = decoder.decode(result.stdout!);

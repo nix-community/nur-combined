@@ -1,0 +1,11 @@
+{
+  "name": "in-bundle-dependency",
+  "version": "1.0.0",
+  "scripts": {
+  },
+  "devDependencies": {
+  },
+  "dependencies": {
+    "vega-embed": "6.20.8"
+  }
+}

@@ -1,0 +1,661 @@
+.PP
+\f[B]MWDumper\f[R] is a tool written in Java for extracting sets of
+pages from a MediaWiki dump file.
+For example, it can load \f[B]Wikipedia\[aq]s
+content (https://en.wikipedia.org/wiki/Wikipedia:Database_download)\f[R]
+into MediaWiki.
+.PP
+MWDumper can read MediaWiki XML export dumps (version 0.3, minus
+uploads), perform optional filtering, and output back to XML or to SQL
+statements to add things directly to a database in 1.4 or 1.5 schema.
+While this can be used to import XML dumps into a MediaWiki database, it
+might not be the best choice for small imports (say, 100 pages or less).
+See Manual:Importing XML dumps for an overview.
+.SS Where to find it
+.PP
+To import current XML export dumps, you\[aq]ll need an up-to-date build
+of MWDumper...
+.PP
+You can build an up to date MWDumper from
+source (https://gerrit.wikimedia.org/g/mediawiki/tools/mwdumper/%2B/HEAD/).
+\f[I](See #How to build MWDumper from source, below).\f[R]
+.PP
+If you have Docker and do not want to build it yourself, you can use the
+following Docker image which does it for you:
+<https://hub.docker.com/r/ueland/mwdumper/>
+.SS Usage
+.SS Prerequisites for imports via MWDumper
+.PP
+Before using mwdumper, your page, text, revision and redirect tables
+must be empty.
+To empty them, do this (note that this will wipe out an existing wiki):
+.IP \[bu] 2
+In SQL:
+\f[V]USE\f[R]\f[V] \f[R]\f[V]wikidb\f[R]\f[V];\f[R]\f[V] \f[R]\f[V]TRUNCATE\f[R]\f[V] \f[R]\f[V]TABLE\f[R]\f[V] \f[R]\f[V]page\f[R]\f[V];\f[R]\f[V] \f[R]\f[V]TRUNCATE\f[R]\f[V] \f[R]\f[V]TABLE\f[R]\f[V] \f[R]\f[V]text\f[R]\f[V];\f[R]\f[V] \f[R]\f[V]TRUNCATE\f[R]\f[V] \f[R]\f[V]TABLE\f[R]\f[V] \f[R]\f[V]revision\f[R]\f[V];\f[R]\f[V] \f[R]\f[V]TRUNCATE\f[R]\f[V] \f[R]\f[V]TABLE\f[R]\f[V] \f[R]\f[V]redirect\f[R]\f[V];\f[R]
+.IP \[bu] 2
+In maintenance directory: \f[V]php rebuildall.php\f[R]
+.SS Import dump files with MWDumper
+.PP
+Sample command line for a direct database import:
+.IP
+.nf
+\f[C]
+  java -jar mwdumper.jar --format=sql:1.25 pages_full.xml.bz2 |
+    mysql -u <username> -p <databasename>
+\f[R]
+.fi
+.PP
+or
+.IP
+.nf
+\f[C]
+  cd mwdumper/src
+  javac org/mediawiki/dumper/Dumper.java
+  cd ..
+  java -classpath ./src org.mediawiki.dumper.Dumper --format=sql:1.25 pages_full.xml.bz2 |
+    mysql -u <username> -p <databasename>
+
+Note: javac org/mediawiki/dumper/Dumper.java will throw errors and this will have to be debugged
+     ./org/mediawiki/dumper/filters/predicates/AdHocListFilter.java:5: error: 
+     package com.google.common.base does not exist
+     import com.google.common.base.Splitter;
+ 
+\f[R]
+.fi
+A third party developer (https://github.com/bcollier) has added features
+to output in a tab delimited format for processing large dumps.
+The compiled version is
+mwdumper.jar (https://github.com/bcollier/mwdumper/blob/master/build/mwdumper.jar)
+and the code for the project is
+mwdumper (https://github.com/bcollier/mwdumper).
+To use the update you have to specify a separate output file for pages
+since you don\[aq]t want to have the two tab delimited output files
+dumped together.
+This was done specifically for processing the large Wikipedia Dumps
+using Hadoop.
+Usage is shown below:
+.IP
+.nf
+\f[C]
+cat train.xml | java -jar mwdumper.jar --format=flatfile:pages_output_file.txt - --quiet > train.txt
+\f[R]
+.fi
+.PP
+Hint: The tables \f[V]page\f[R], \f[V]revision\f[R], \f[V]text\f[R] must
+be empty for a successful import.
+This command will keep going even if MySQL reports an error.
+This is probably not what you want - if you use the direct connection to
+MySQL, the import will stop when errors occur.
+If you \f[V]nohup\f[R] a \f[V]mwdumper\f[R] command, be sure to use the
+\f[V]--quiet\f[R] option.
+.SS A note on character encoding
+.PP
+Make sure the database is expecting utf8-encoded text.
+If the database is expecting latin1 encoded text (which MySQL does by
+default), you\[aq]ll get invalid characters in your tables if you use
+the output of mwdumper directly.
+One way to do this is to pass \f[V]--default-character-set=utf8\f[R] to
+MySQL in the above sample command.
+.PP
+If you want to use the output of mwdumper in a JDBC URL, you should use
+set \f[V]characterEncoding=utf8\f[R] in the query string.
+.PP
+Also make sure that your MediaWiki tables use CHARACTER
+SET=binary (https://dev.mysql.com/doc/refman/8.0/en/charset-table.html).
+Otherwise, you may get error messages like
+\f[V]Duplicate entry in UNIQUE Key \[aq]name_title\[aq]\f[R] because
+MySQL fails to distinguish certain characters.
+.SS Complex filtering
+.PP
+You can also do complex filtering to produce multiple output files:
+.IP
+.nf
+\f[C]
+  java -jar mwdumper.jar \[rs]
+    --output=bzip2:pages_public.xml.bz2 \[rs]
+      --format=xml \[rs]
+      --filter=notalk \[rs]
+      --filter=namespace:\[rs]!NS_USER \[rs]
+      --filter=latest \[rs]
+    --output=bzip2:pages_current.xml.bz2 \[rs]
+      --format=xml \[rs]
+      --filter=latest \[rs]
+    --output=gzip:pages_full_1.25.sql.gz \[rs]
+      --format=sql:1.25 \[rs]
+    --output=gzip:pages_full_1.5.sql.gz \[rs]
+      --format=sql:1.5 \[rs]
+    --output=gzip:pages_full_1.4.sql.gz \[rs]
+      --format=sql:1.4 \[rs]
+    pages_full.xml.gz
+\f[R]
+.fi
+.PP
+A bare parameter will be interpreted as a file to read XML input from;
+if \[dq]-\[dq] or none is given, input will be read from stdin.
+Input files with \[dq].gz\[dq] or \[dq].bz2\[dq] extensions will be
+decompressed as gzip and bzip2 streams, respectively.
+.PP
+Internal decompression of 7-zip .7z files is not yet supported; you can
+pipe such files through p7zip\[aq]s 7za:
+.IP
+.nf
+\f[C]
+  7za e -so pages_full.xml.7z |
+    java -jar mwdumper.jar --format=sql:1.25 |
+    mysql -u <username> -p <databasename>
+\f[R]
+.fi
+.PP
+Defaults if no parameters are given:
+.IP \[bu] 2
+read uncompressed XML from stdin
+.IP \[bu] 2
+write uncompressed XML to stdout
+.IP \[bu] 2
+no filtering
+.PP
+.PD 0
+.P
+.PD
+.SS Output sinks
+.PP
+.TS
+tab(@);
+lw(35.0n) lw(35.0n).
+T{
+--output=stdout
+T}@T{
+Send uncompressed XML or SQL output to stdout for piping.
+.PD 0
+.P
+.PD
+.PP
+(May have charset issues.)
+This is the default if no output is specified.
+T}
+T{
+--output=file:<filename.xml>
+T}@T{
+Write uncompressed output to a file.
+T}
+T{
+--output=gzip:<filename.xml.gz>
+T}@T{
+Write compressed output to a file.
+T}
+T{
+--output=bzip2:<filename.xml.bz2>
+T}@T{
+Write compressed output to a file.
+T}
+T{
+--output=mysql:<jdbc url>
+T}@T{
+Valid only for SQL format output; opens a connection to the MySQL server
+and sends commands to it directly.
+.PD 0
+.P
+.PD
+.PP
+This will look something like:
+.PD 0
+.P
+.PD
+mysql://localhost/databasename?user=<username>&password=<password>
+T}
+.TE
+.SS Output formats
+.IP
+.nf
+\f[C]
+  --format=xml
+      Output back to MediaWiki\[aq]s XML export format; use this for filtering dumps for limited import. Output should be idempotent.
+  --format=sql:1.4
+      SQL statements formatted for bulk import in MediaWiki 1.4\[aq]s schema.
+  --format=sql:1.5
+      SQL statements formatted for bulk import in MediaWiki 1.5\[aq]s schema.
+      Both SQL schema versions currently require that the table structure be already set up in an empty database; use maintenance/tables.sql from the MediaWiki distribution.
+  --format=sql:1.25
+     SQL statements formatted for bulk import in MediaWiki 1.25\[aq]s schema.
+\f[R]
+.fi
+.SS Filter actions
+.IP
+.nf
+\f[C]
+  --filter=latest
+      Skips all but the last revision listed for each page.
+      FIXME: currently this pays no attention to the timestamp or
+      revision number, but simply the order of items in the dump.
+      This may or may not be strictly correct.
+  --filter=list:<list-filename>
+      Excludes all pages whose titles do not appear in the given file.
+      Use one title per line; blanks and lines starting with # are
+      ignored. Talk and subject pages of given titles are both matched.
+  --filter=exactlist:<list-filename>
+      As above, but does not try to match associated talk/subject pages.
+  --filter=namespace:[!]<NS_KEY,NS_OTHERKEY,100,...>
+      Includes only pages in (or not in, with \[dq]!\[dq]) the given namespaces.
+      You can use the NS_* constant names or the raw numeric keys.
+  --filter=notalk
+      Excludes all talk pages from output (including custom namespaces)
+  --filter=titlematch:<regex>
+      Excludes all pages whose titles do not match the regex.
+\f[R]
+.fi
+.SS Misc options
+.IP
+.nf
+\f[C]
+  --progress=<n>
+      Change progress reporting interval from the default 1000 revisions.
+  --quiet
+      Don\[aq]t send any progress output to stderr. Recommended when running under nohup.
+\f[R]
+.fi
+.SS Direct connection to MySQL
+.SS Example of using mwdumper with a direct connection to MySQL
+.IP
+.nf
+\f[C]
+java -server -classpath mysql-connector-java-3.1.11/mysql-connector-java-3.1.11-bin.jar:mwdumper.jar \[rs]
+   org.mediawiki.dumper.Dumper --output=mysql://127.0.0.1/testwiki?user=wiki\[rs]&password=wiki \[rs]
+   --format=sql:1.25 20051020_pages_articles.xml.bz2
+\f[R]
+.fi
+* You will need the mysql-connector JDBC
+driver (https://www.mysql.com/products/connector/).
+On Ubuntu this comes in package \f[B]libmysql-java\f[R] and is installed
+at \f[V]/usr/share/java/mysql-connector-java.jar\f[R].
+.IP \[bu] 2
+The JRE does not allow you to mix the -jar and -classpath arguments
+(hence the different command structure).
+.IP \[bu] 2
+The --output argument must before the --format argument.
+.IP \[bu] 2
+The ampersand in the MySQL URI must be escaped on Unix-like systems.
+.PP
+.PD 0
+.P
+.PD
+.SS Example of using mwdumper with a direct connection to MySQL on WindowsXP
+.PP
+Had problems with the example above...
+this following example works better on XP....
+.PP
+1.Create a batch file with the following text.
+.IP
+.nf
+\f[C]
+set class=mwdumper.jar;mysql-connector-java-3.1.12/mysql-connector-java-3.1.12-bin.jar
+set data=\[dq]C:\[rs]Documents and Settings\[rs]All Users.WINDOWS\[rs]Documents\[rs]en.wiki\[rs]enwiki-20060207-pages-articles.xml.bz2\[dq]
+java -client -classpath %class% org.mediawiki.dumper.Dumper \[dq]--output=mysql://127.0.0.1/wikidb?user=<username>&password=<password>&characterEncoding=UTF8\[dq] \[dq]--format=sql:1.25\[dq] %data%
+pause
+\f[R]
+.fi
+.PP
+2.Download the mysql-connector-java-3.1.12-bin.jar and mwdumper.jar
+.PP
+3.Run the batch file.
+#It still reports a problem with the import files, \[dq]duplicate
+key\[dq]...
+.IP "1." 3
+The class path separator is a\ ; (semi-colon) in this example; different
+from the example above.
+.PP
+The \[dq]duplicate key\[dq] error may result from the page, revision and
+text tables in the database not being empty, or from character encoding
+problems.
+See A note on character encoding.
+.SS Performance Tips
+.PP
+\f[I]Please elaborate on these tips if you can.\f[R]
+.PP
+To speed up importing into a database, you might try the following:
+.SS Remove indexes and auto-increment fields
+.PP
+Temporarily remove all indexes and auto_increment fields from the
+following tables: page, revision and text.
+This gives a tremendous speed bump, because MySQL will otherwise be
+updating these indexes after each insert.
+.PP
+Don\[aq]t forget to recreate the indexes afterwards.
+.IP "1." 3
+Remove indexes:
+.RS 4
+.IP \[bu] 2
+You can use the procedure from
+<http://www.javaquery.com/2014/03/mysql-queries-to-show-all-database.html>
+to remove indexes.
+Execute multiple times and check with \[dq]show index from page\[dq],
+etc.
+if the indexes are removed.
+See also the drop index statements below.
+.RE
+.IP "2." 3
+Remove primary keys: In MySQL execute:
+.RS 4
+.IP \[bu] 2
+alter table revision drop primary key;
+.IP \[bu] 2
+alter table text drop primary key;
+.IP \[bu] 2
+alter table page drop primary key;
+.RE
+.IP "3." 3
+Remove auto increment fields: In MySQL execute:
+.RS 4
+.IP \[bu] 2
+alter table revision change rev_id rev_id int(10) unsigned not null;
+.IP \[bu] 2
+alter table text change old_id old_id int(10) unsigned not null;
+.IP \[bu] 2
+alter table page change page_id page_id int(10) unsigned not null;
+.RE
+It will take a long time to recreate all the removed data.
+.SS Set -server option
+.PP
+Java\[aq]s -server option may significantly increase performance on some
+versions of Sun\[aq]s JVM for large files.
+(Not all installations will have this available.)
+.SS Increase MySQL\[aq]s innodb_log_file_size
+.PP
+Increase MySQL\[aq]s innodb_log_file_size in /etc/mysql/my.cnf.
+The default is as little as 5mb, but you can improve performance
+dramatically by increasing this to reduce the number of disk writes.
+innodb_log_file_size=64M is
+commonly (https://www.percona.com/blog/2008/11/21/how-to-calculate-a-good-innodb-log-file-size/)
+a good log size; too large of a size may
+increase (https://www.percona.com/blog/2016/05/31/what-is-a-big-innodb_log_file_size/)
+recovery time more than is desirable.
+.PP
+Shut down the server cleanly, and move
+away (https://www.percona.com/blog/2011/07/09/how-to-change-innodb_log_file_size-safely/)
+(don\[aq]t delete) the log files, which are in /var/lib/mysql and named
+ib_logfile0, ib_logfile1, and so on.
+Change the innodb_log_file_size setting.
+Then restart the server.
+Test to see if the server is working; if all is well, you can delete the
+log files you moved.
+.SS Disable the binary log
+.PP
+If you don\[aq]t need it, disable the binary log (log-bin option) during
+the import.
+On a standalone machine this is just wasteful, writing a second copy of
+every query that you\[aq]ll never use.
+.PP
+To test if binary log is enabled via SQL command, issue the following
+statement:
+.IP
+.nf
+\f[C]
+SHOW VARIABLES LIKE \[aq]log_bin\[aq];
+\f[R]
+.fi
+.SS More tips in the MySQL reference manual
+.PP
+Various other wacky tips can be found in the MySQL reference
+manual (https://dev.mysql.com/doc/refman/8.0/en/optimizing-server.html).
+If you find any useful ones, please write about them here.
+.SS Troubleshooting
+.PP
+If strange XML errors are encountered under Java 1.4, try 1.5:
+.IP \[bu] 2
+<http://java.sun.com/j2se/1.5.0/download.jsp>
+.IP \[bu] 2
+<http://www.apple.com/downloads/macosx/apple/java2se50release1.html>
+.PP
+If mwdumper gives \f[B]java.lang.IllegalArgumentException: Invalid
+contributor\f[R] exception, see task
+T20328 (https://phabricator.wikimedia.org/T20328).
+.PP
+If it gives \f[B]java.lang.OutOfMemoryError: Java heap space\f[R]
+exception, run it with larger heap size, for example
+\f[V]java -Xms128m -Xmx1000m -jar mwdumper.jar ...\f[R] (first is
+starting, second maximum size) (task
+T23937 (https://phabricator.wikimedia.org/T23937))
+.PP
+If an error is thrown with a reference to page_counter being missing,
+use the \f[V]--format=sql:1.25\f[R] parameter.
+Alternatively, you can create a page_counter column on the page table.
+.PP
+Importing XML dumps from old MediaWiki versions may give errors of
+\[dq]Column \[aq]rev_sha1\[aq] cannot be null\[dq].
+You\[aq]ll need to change the column to accept null values, and run
+populateRevisionSha1.php afterwards.
+.SS How to build MWDumper from source
+.PP
+You can build MWDumper from
+source (https://gerrit.wikimedia.org/g/mediawiki/tools/mwdumper/%2B/HEAD/)
+and let Maven (https://en.wikipedia.org/wiki/Apache_Maven) sort out the
+dependencies.
+Just:
+.IP
+.nf
+\f[C]
+git clone https://phabricator.wikimedia.org/diffusion/MWDU/mwdumper.git
+cd mwdumper
+mvn compile
+mvn package
+\f[R]
+.fi
+.PP
+It should generate the \f[V]mwdumper<version number>.jar\f[R] file (for
+example \f[V]mwdumper-1.25.jar\f[R]) on the folder named
+\f[V]target\f[R].
+.PP
+Note that usage examples on this page use \f[V]class=mwdumper.jar\f[R],
+so you should either rename the file to mwdumper.jar, or use
+\f[V]class=mwdumper-1.25.jar\f[R] instead.
+.SS Programming
+.SS Reporting bugs
+.PP
+Bugs can be reported in the Wikimedia bug
+tracker (https://phabricator.wikimedia.org/maniphest/task/edit/form/1/?projects=Utilities-mwDumper).
+.SS Change history (abbreviated)
+.IP \[bu] 2
+2016-04-23: Updated Xerces library to fix intermittent UTF-8 breakage
+.IP \[bu] 2
+\&...
+various bug fixes ...
+.IP \[bu] 2
+\&...
+build system changed to Maven ...
+.IP \[bu] 2
+\&...
+various bug fixes ...
+.IP \[bu] 2
+2005-10-25: Switched SqlWriter.sqlEscape back to less memory-hungry
+StringBuffer
+.IP \[bu] 2
+2005-10-24: Fixed SQL output in non-UTF-8 locales
+.IP \[bu] 2
+2005-10-21: Applied more speedup patches from Folke
+.IP \[bu] 2
+2005-10-11: SQL direct connection, GUI work begins
+.IP \[bu] 2
+2005-10-10: Applied speedup patches from Folke Behrens
+.IP \[bu] 2
+2005-10-05: Use bulk inserts in SQL mode
+.IP \[bu] 2
+2005-09-29: Converted from C# to Java
+.IP \[bu] 2
+2005-08-27: Initial extraction code
+.SS Todo
+.IP \[bu] 2
+Add some more junit tests
+.IP \[bu] 2
+Include table initialization in SQL output
+.IP \[bu] 2
+Allow use of table prefixes in SQL output
+.IP \[bu] 2
+Ensure that titles and other bits are validated correctly.
+.IP \[bu] 2
+Test XML input for robustness
+.IP \[bu] 2
+Provide filter to strip ID numbers
+.IP \[bu] 2
+<siteinfo> is technically optional; live without it and use default
+namespaces
+.IP \[bu] 2
+GUI frontend(s)
+.IP \[bu] 2
+Port to Python?\ ;)
+.SS Alternate method of loading a huge wiki
+.PP
+.TS
+tab(@);
+lw(35.0n) lw(35.0n).
+T{
+MediaWiki version:
+T}@T{
+\[>=] 1.32
+T}
+.TE
+.PP
+\f[I]Warning: This method takes days to run.\f[R]
+.PP
+If you have to load a huge wiki this might help...
+.PP
+Below is a set of instructions that makes loading a large wiki less
+error prone and \f[I]maybe\f[R] a bit faster.
+It is not a script but rather a set of commands you can copy into bash
+(running in a screen session.)
+You\[aq]ll have to babysit and customize the process for your needs.
+.PP
+.TS
+tab(@);
+l l.
+T{
+[IMAGE: Warning] \f[B]Warning:\f[R]
+T}@T{
+Those commands drop several indices and then re-adds them again after
+the import.
+However, the index definition is from a specific MediaWiki version,
+which may not match your current version of MediaWiki.
+Use this method if you know what are you doing, and check if index
+definitions are correct.
+T}
+.TE
+.IP
+.nf
+\f[C]
+# Dump SQL to disk in even sized chunks.  This takes about 80 Gb of hard drive space and 3 hours for enwiki.
+# Setup the db to receive the chunks.  This takes a few seconds.
+# Import the chunks.  This takes a few days for enwiki.
+# Rebuild the DB.  This takes another day for enwiki.
+# Run standard post import cleanup.  I haven\[aq]t finished this step successfully yet but some of it can be skipped I think.
+
+export DUMP_PREFIX=/public/datasets/public/enwiki/20130604/enwiki-20130604
+export DIR_ROOT=/data/project/dump
+export DIR=${DIR_ROOT}/enwiki
+export EXPORT_PROCESSES=4
+export IMPORT_PROCESSES=4
+export DB=enwiki2
+export EXPORT_FILE_SIZE=5
+export EXPORT_FILE_SUFFIX_LENGTH=8
+export LOG=\[ti]/log
+
+bash -c \[aq]sleep 1 && echo y\[aq] | mysqladmin drop ${DB} -u root
+sudo rm -rf ${DIR}
+rm -rf ${LOG}
+
+sudo mkdir -p ${DIR}
+sudo chown -R ${USER} ${DIR_ROOT}
+mkdir -p ${LOG}
+
+# Dump SQL to disk in even sized chunks.
+# Sort by size descending to keep as many threads as possible hopping.
+# uconv cleans up UTF-8 errors in the source files.
+# grep removes BEGIN and COMMIT statements that mwdumper thinks are good, but I do better below
+sudo apt-get install openjdk-7-jdk libicu-dev -y #jdk for mwdumper and libicu-dev for uconv
+ls -1S ${DUMP_PREFIX}-pages-meta-current*.xml-p* |
+  xargs -I{} -P${EXPORT_PROCESSES} -t bash -c \[aq]
+  mkdir -p ${DIR}/$(basename {})
+  cd ${DIR}/$(basename {})
+  bunzip2 -c {} |
+    uconv -f UTF-8 -t ascii --callback escape-xml-dec -v 2> ${LOG}/$(basename {}).uconv |
+    java -jar \[ti]/mwdumper-1.16.jar --format=sql:1.25 2> ${LOG}/$(basename {}).mwdumper |
+    grep INSERT |
+    split -l ${EXPORT_FILE_SIZE} -a ${EXPORT_FILE_SUFFIX_LENGTH} 2> ${LOG}/$(basename {}).split
+  \[aq]
+
+# Setup the db to receive the chunks.
+mysqladmin create ${DB} --default-character-set=utf8 -u root
+mysql -u root ${DB} < /srv/mediawiki/maintenance/tables.sql
+mysql -u root ${DB} <<HERE
+ALTER TABLE page
+  CHANGE page_id page_id INTEGER UNSIGNED,
+  DROP INDEX name_title,
+  DROP INDEX page_random,
+  DROP INDEX page_len,
+  DROP INDEX page_redirect_namespace_len;
+ALTER TABLE revision 
+  CHANGE rev_id rev_id INTEGER UNSIGNED,
+  DROP INDEX rev_page_id,
+  DROP INDEX rev_timestamp,
+  DROP INDEX page_timestamp,
+  DROP INDEX user_timestamp,
+  DROP INDEX usertext_timestamp,
+  DROP INDEX page_user_timestamp;
+ALTER TABLE text
+  CHANGE old_id old_id INTEGER UNSIGNED;
+HERE
+
+# Import the chunks
+# Each chunk is wrapped in a transaction and if the import succeeds the chunk is removed from disk.
+# This means you should be able to safely ctrl-c the process at any time and rerun this block and
+# it\[aq]ll pick up where it left off.  The worst case scenario is you\[aq]ll get some chunk that was added
+# but not deleted and you\[aq]ll see mysql duplicate key errors.  Or something like that.  Anyway, if you
+# are reading this you are a big boy and can figure out how clean up the database or remove the file.
+echo \[aq]BEGIN;\[aq] > ${DIR_ROOT}/BEGIN
+echo \[aq]COMMIT;\[aq] > ${DIR_ROOT}/COMMIT
+find ${DIR} -type f |
+  sort -R |
+  xargs -I{} -P${IMPORT_PROCESSES} -t bash -c \[aq]
+    cat ${DIR_ROOT}/BEGIN {} ${DIR_ROOT}/COMMIT | mysql -u root ${DB} &&
+    rm {}\[aq]
+
+# Rebuild the DB
+mysql -u root ${DB} <<HERE
+CREATE TABLE bad_page AS 
+  SELECT page_namespace, page_title, COUNT(*) AS count
+  FROM page GROUP BY page_namespace, page_title
+  HAVING count > 1;
+UPDATE page, bad_page
+  SET page.page_title = CONCAT(page.page_title, page.page_id)
+  WHERE page.page_namespace = bad_page.page_namespace AND page.page_title = bad_page.page_title;
+DROP TABLE bad_page;
+ALTER TABLE page
+  CHANGE page_id page_id INTEGER UNSIGNED AUTO_INCREMENT,
+  ADD UNIQUE INDEX name_title (page_namespace,page_title),
+  ADD INDEX page_random (page_random),
+  ADD INDEX page_len (page_len),
+  ADD INDEX page_redirect_namespace_len (page_is_redirect, page_namespace, page_len);
+ALTER TABLE revision 
+  CHANGE rev_id rev_id INTEGER UNSIGNED AUTO_INCREMENT,
+  ADD UNIQUE INDEX rev_page_id (rev_page, rev_id),
+  ADD INDEX rev_timestamp (rev_timestamp),
+  ADD INDEX page_timestamp (rev_page,rev_timestamp),
+  ADD INDEX user_timestamp (rev_user,rev_timestamp),
+  ADD INDEX usertext_timestamp (rev_user_text,rev_timestamp),
+  ADD INDEX page_user_timestamp (rev_page,rev_user,rev_timestamp);
+ALTER TABLE text
+  CHANGE old_id old_id INTEGER UNSIGNED AUTO_INCREMENT;
+HERE
+
+# Run standard post import cleanup
+cd /srv/mediawiki
+php maintenance/update.php
+\f[R]
+.fi
+.SS Notes
+.PP
+.PD 0
+.P
+.PD
+.SS See also
+.IP \[bu] 2
+Manual:Importing XML dumps
+.IP \[bu] 2
+Manual:Grabbers

@@ -1,0 +1,22 @@
+Source: golang-github-biezhi-gorm-paginator-pagination
+Priority: optional
+Section: golang
+Maintainer: Skye Soss <skye@soss.website>
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-golang,
+               golang-any,
+               golang-github-jinzhu-gorm-dev,
+               golang-github-jinzhu-inflection-dev,
+Testsuite: autopkgtest-pkg-go
+Standards-Version: 4.7.2
+Vcs-Browser: https://github.com/hellokaton/gorm-paginator
+Vcs-Git: https://github.com/hellokaton/gorm-paginator.git
+Homepage: https://github.com/hellokaton/gorm-paginator
+XS-Go-Import-Path: github.com/biezhi/gorm-paginator/pagination
+
+Package: golang-github-biezhi-gorm-paginator-pagination-dev
+Architecture: all
+Multi-Arch: foreign
+Depends: ${misc:Depends},
+Description: pagination for gorm (library)
+ This is a golang library for implementing pagination with the gorm ORM library

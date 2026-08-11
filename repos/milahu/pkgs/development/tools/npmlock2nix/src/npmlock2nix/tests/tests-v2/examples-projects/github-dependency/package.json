@@ -1,0 +1,14 @@
+{
+  "name": "github-dependency",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "leftpad": "github:tmcw/leftpad#db1442a0556c2b133627ffebf455a78a1ced64b9"
+  }
+}
