@@ -125,10 +125,8 @@
               pkgs = pkgsWithCuda;
             };
 
-            packages = lib.filterAttrs (n: v: lib.isDerivation v && !lib.hasSuffix "-patched" n) legacyPackages;
-            packagesWithCuda = lib.filterAttrs (
-              n: v: lib.isDerivation v && !lib.hasSuffix "-patched" n
-            ) legacyPackagesWithCuda;
+            packages = lib.filterAttrs (_: lib.isDerivation) legacyPackages;
+            packagesWithCuda = lib.filterAttrs (_: lib.isDerivation) legacyPackagesWithCuda;
 
             devshells.default = {
               packages = [

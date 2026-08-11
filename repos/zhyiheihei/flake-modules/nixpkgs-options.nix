@@ -58,30 +58,13 @@ in
         default = { };
       };
 
-      config = rec {
-        _module.args = lib.mapAttrs (
-          n: v:
-          lib.mkForce (
-            import packages."${n}-patched" {
-              inherit system;
-              config = {
-                inherit (v) allowUnfree permittedInsecurePackages;
-              }
-              // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
-                inherit (v) allowInsecurePredicate;
-              })
-              // v.settings;
-              inherit (v) overlays;
-            }
-          )
-        ) config.nixpkgs-options;
-
-        packages = lib.mapAttrs' (
-          n: v:
-          let
-            inherit ((import inputs.nixpkgs { inherit system; })) applyPatches;
-          in
-          lib.nameValuePair "${n}-patched" (
+      config =
+        let
+          mkPatched =
+            n: v:
+            let
+              inherit ((import inputs.nixpkgs { inherit system; })) applyPatches;
+            in
             # Skip applyPatches if no patch, to avoid IFD when unnecessary
             if v.patches != [ ] then
               applyPatches {
@@ -90,10 +73,26 @@ in
                 inherit (v) patches;
               }
             else
-              v.sourceInput
-          )
-        ) config.nixpkgs-options;
-      };
+              v.sourceInput;
+        in
+        {
+          _module.args = lib.mapAttrs (
+            n: v:
+            lib.mkForce (
+              import (mkPatched n v) {
+                inherit system;
+                config = {
+                  inherit (v) allowUnfree permittedInsecurePackages;
+                }
+                // (lib.optionalAttrs (v.allowInsecurePredicate != null) {
+                  inherit (v) allowInsecurePredicate;
+                })
+                // v.settings;
+                inherit (v) overlays;
+              }
+            )
+          ) config.nixpkgs-options;
+        };
     }
   );
 }
