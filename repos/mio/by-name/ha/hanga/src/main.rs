@@ -9,11 +9,12 @@ use matchbox_socket::WebRtcSocket;
 // Re-use pure functions from the hanga engine library (no Bevy dep there)
 use hanga::{is_action_physically_possible, clamp_mod_state, unpack_economy_params};
 
+mod mod_manager;
+use mod_manager::{ModRuntime, ModManagerPlugin, SHARED_WASM};
+
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
 
-static WASM_ENGINE: OnceLock<Engine> = OnceLock::new();
-static WASM_MODULE: OnceLock<Module> = OnceLock::new();
 
 thread_local! {
     static WASM_INSTANCE: std::cell::RefCell<Option<(Store<()>, TypedFunc<(i32, i32, i32), i32>)>> = std::cell::RefCell::new(None);
@@ -29,11 +30,13 @@ impl VoxelWorldConfig for DefaultWorld {
                 WASM_INSTANCE.with(|instance_ref| {
                     let mut instance_opt = instance_ref.borrow_mut();
                     if instance_opt.is_none() {
-                        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                            let mut store = Store::new(engine, ());
-                            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                                if let Ok(func) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "query_voxel") {
-                                    *instance_opt = Some((store, func));
+                        if let Ok(shared) = SHARED_WASM.read() {
+                            if let Some((engine, module)) = shared.as_ref() {
+                                let mut store = Store::new(engine, ());
+                                if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                                    if let Ok(func) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "query_voxel") {
+                                        *instance_opt = Some((store, func));
+                                    }
                                 }
                             }
                         }
@@ -135,7 +138,7 @@ fn main() {
             PhysicsPlugins::default(),
             GtaPlugin,
             DistributedMultiplayerPlugin,
-            ModdingPlugin,
+            ModManagerPlugin { wasm_path: "mods/urban_chaos/target/wasm32-unknown-unknown/debug/urban_chaos.wasm".into() },
             RayTracingPlugin,
             VrSupportPlugin,
             AiStorytellerPlugin,
@@ -265,6 +268,7 @@ fn validate_incoming_actions(
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut trust_ledger: ResMut<TrustLedger>,
+    mut mod_runtime: ResMut<ModRuntime>,
 ) {
     for action in events.read() {
         match action {
@@ -276,12 +280,10 @@ fn validate_incoming_actions(
                     
                     // VERIFICATION RULE 2: Is the player close enough?
                     // The MOD defines the valid range via mod_get_action_range(1).
-                    let range = if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut store, "mod_get_action_range") {
-                                f.call(&mut store, 1).unwrap_or(10.0)
-                            } else { 10.0 }
+                    let range = if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut ctx.store, "mod_get_action_range") {
+                            f.call(&mut ctx.store, 1).unwrap_or(10.0)
                         } else { 10.0 }
                     } else { 10.0 };
                     let distance = player_pos.distance(target_pos);
@@ -317,31 +319,29 @@ fn validate_incoming_actions(
                     ));
 
                     // Execute the WASM Mod's business logic for Mod State
-                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
-                                if let Ok(new_state) = mod_evaluate.call(&mut store, (1, mod_state.0 as i32)) {
-                                    let old_state = mod_state.0;
-                                    mod_state.0 = clamp_mod_state(new_state, 0, 5) as u32;
-                                    info!("WASM Mod evaluated action! State is now {}", mod_state.0);
-                                    
-                                    if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
-                                        if let Ok(ai_type) = should_spawn.call(&mut store, (1, old_state as i32, mod_state.0 as i32)) {
-                                            if ai_type > 0 {
-                                                let spawn_pos = target_pos + Vec3::new(5.0, 2.0, 5.0);
-                                                commands.spawn((
-                                                    Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
-                                                    MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
-                                                    Transform::from_translation(spawn_pos),
-                                                    RigidBody::Dynamic,
-                                                    Collider::capsule(0.4, 1.0),
-                                                    LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-                                                    LinearVelocity::default(),
-                                                    AgentAi(ai_type as u32),
-                                                ));
-                                                info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
-                                            }
+                    if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut ctx.store, "mod_evaluate_action") {
+                            if let Ok(new_state) = mod_evaluate.call(&mut ctx.store, (1, mod_state.0 as i32)) {
+                                let old_state = mod_state.0;
+                                mod_state.0 = clamp_mod_state(new_state, 0, 5) as u32;
+                                info!("WASM Mod evaluated action! State is now {}", mod_state.0);
+                                
+                                if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut ctx.store, "mod_should_spawn_agent") {
+                                    if let Ok(ai_type) = should_spawn.call(&mut ctx.store, (1, old_state as i32, mod_state.0 as i32)) {
+                                        if ai_type > 0 {
+                                            let spawn_pos = target_pos + Vec3::new(5.0, 2.0, 5.0);
+                                            commands.spawn((
+                                                Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                                                MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
+                                                Transform::from_translation(spawn_pos),
+                                                RigidBody::Dynamic,
+                                                Collider::capsule(0.4, 1.0),
+                                                LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                                                LinearVelocity::default(),
+                                                AgentAi(ai_type as u32),
+                                            ));
+                                            info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
                                         }
                                     }
                                 }
@@ -362,12 +362,10 @@ fn validate_incoming_actions(
                     let target_pos = Vec3::new(center_pos.x as f32, center_pos.y as f32, center_pos.z as f32);
                     
                     // The MOD defines the explosion range via mod_get_action_range(4).
-                    let range = if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut store, "mod_get_action_range") {
-                                f.call(&mut store, 4).unwrap_or(30.0)
-                            } else { 30.0 }
+                    let range = if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut ctx.store, "mod_get_action_range") {
+                            f.call(&mut ctx.store, 4).unwrap_or(30.0)
                         } else { 30.0 }
                     } else { 30.0 };
                     if !is_action_physically_possible(
@@ -405,31 +403,29 @@ fn validate_incoming_actions(
                     }
 
                     // Execute the WASM Mod's business logic for Mod State
-                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
-                                if let Ok(new_state) = mod_evaluate.call(&mut store, (4, mod_state.0 as i32)) {
-                                    let old_state = mod_state.0;
-                                    mod_state.0 = new_state as u32;
-                                    info!("WASM Mod evaluated action! State is now {}", mod_state.0);
-                                    
-                                    if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
-                                        if let Ok(ai_type) = should_spawn.call(&mut store, (4, old_state as i32, mod_state.0 as i32)) {
-                                            if ai_type > 0 {
-                                                let spawn_pos = target_pos + Vec3::new(5.0, 2.0, 5.0);
-                                                commands.spawn((
-                                                    Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
-                                                    MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
-                                                    Transform::from_translation(spawn_pos),
-                                                    RigidBody::Dynamic,
-                                                    Collider::capsule(0.4, 1.0),
-                                                    LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-                                                    LinearVelocity::default(),
-                                                    AgentAi(ai_type as u32),
-                                                ));
-                                                info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
-                                            }
+                    if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut ctx.store, "mod_evaluate_action") {
+                            if let Ok(new_state) = mod_evaluate.call(&mut ctx.store, (4, mod_state.0 as i32)) {
+                                let old_state = mod_state.0;
+                                mod_state.0 = new_state as u32;
+                                info!("WASM Mod evaluated action! State is now {}", mod_state.0);
+                                
+                                if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut ctx.store, "mod_should_spawn_agent") {
+                                    if let Ok(ai_type) = should_spawn.call(&mut ctx.store, (4, old_state as i32, mod_state.0 as i32)) {
+                                        if ai_type > 0 {
+                                            let spawn_pos = target_pos + Vec3::new(5.0, 2.0, 5.0);
+                                            commands.spawn((
+                                                Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                                                MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
+                                                Transform::from_translation(spawn_pos),
+                                                RigidBody::Dynamic,
+                                                Collider::capsule(0.4, 1.0),
+                                                LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                                                LinearVelocity::default(),
+                                                AgentAi(ai_type as u32),
+                                            ));
+                                            info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
                                         }
                                     }
                                 }
@@ -448,12 +444,10 @@ fn validate_incoming_actions(
                     
                     // VERIFICATION RULE 2: Is the player close enough?
                     // The MOD defines the valid range via mod_get_action_range(2).
-                    let range = if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut store, "mod_get_action_range") {
-                                f.call(&mut store, 2).unwrap_or(10.0)
-                            } else { 10.0 }
+                    let range = if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut ctx.store, "mod_get_action_range") {
+                            f.call(&mut ctx.store, 2).unwrap_or(10.0)
                         } else { 10.0 }
                     } else { 10.0 };
                     let distance = player_pos.distance(target_pos);
@@ -473,13 +467,11 @@ fn validate_incoming_actions(
                     voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(voxel_type));
                     
                     // Execute the WASM Mod's business logic for Mod State
-                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
-                                if let Ok(new_state) = mod_evaluate.call(&mut store, (2, mod_state.0 as i32)) {
-                                    mod_state.0 = new_state as u32;
-                                }
+                    if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut ctx.store, "mod_evaluate_action") {
+                            if let Ok(new_state) = mod_evaluate.call(&mut ctx.store, (2, mod_state.0 as i32)) {
+                                mod_state.0 = new_state as u32;
                             }
                         }
                     }
@@ -494,30 +486,28 @@ fn validate_incoming_actions(
                     info!("Player {:?} entered vehicle {:?}", player_entity, vehicle_entity);
                     
                     // Execute the WASM Mod's business logic for Mod State
-                    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-                        let mut store = Store::new(engine, ());
-                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                            if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
-                                if let Ok(new_state) = mod_evaluate.call(&mut store, (3, mod_state.0 as i32)) {
-                                    let old_state = mod_state.0;
-                                    mod_state.0 = new_state as u32;
-                                    info!("WASM Mod evaluated action! State is now {}", mod_state.0);
-                                    
-                                    if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
-                                        if let Ok(ai_type) = should_spawn.call(&mut store, (3, old_state as i32, mod_state.0 as i32)) {
-                                            if ai_type > 0 {
-                                                let spawn_pos = _transform.translation + Vec3::new(5.0, 2.0, 5.0);
-                                                commands.spawn((
-                                                    Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
-                                                    MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
-                                                    Transform::from_translation(spawn_pos),
-                                                    RigidBody::Dynamic,
-                                                    Collider::capsule(0.4, 1.0),
-                                                    LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-                                                    LinearVelocity::default(),
-                                                    AgentAi(ai_type as u32),
-                                                ));
-                                            }
+                    if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+                        let instance = &ctx.instance;
+                        if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut ctx.store, "mod_evaluate_action") {
+                            if let Ok(new_state) = mod_evaluate.call(&mut ctx.store, (3, mod_state.0 as i32)) {
+                                let old_state = mod_state.0;
+                                mod_state.0 = new_state as u32;
+                                info!("WASM Mod evaluated action! State is now {}", mod_state.0);
+                                
+                                if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut ctx.store, "mod_should_spawn_agent") {
+                                    if let Ok(ai_type) = should_spawn.call(&mut ctx.store, (3, old_state as i32, mod_state.0 as i32)) {
+                                        if ai_type > 0 {
+                                            let spawn_pos = _transform.translation + Vec3::new(5.0, 2.0, 5.0);
+                                            commands.spawn((
+                                                Mesh3d(meshes.add(Capsule3d::new(0.4, 1.0))),
+                                                MeshMaterial3d(materials.add(Color::srgb(0.0, 0.0, 1.0))),
+                                                Transform::from_translation(spawn_pos),
+                                                RigidBody::Dynamic,
+                                                Collider::capsule(0.4, 1.0),
+                                                LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+                                                LinearVelocity::default(),
+                                                AgentAi(ai_type as u32),
+                                            ));
                                         }
                                     }
                                 }
@@ -740,22 +730,21 @@ fn vehicle_collision_damage(
 
 fn vehicle_traffic_system(
     mut vehicles: Query<(&Transform, &mut LinearVelocity), With<VehicleAi>>,
+    mut mod_runtime: ResMut<ModRuntime>,
 ) {
     // The MOD owns traffic speed and behavior; engine only provides the forward vector.
-    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-        let mut store = Store::new(engine, ());
-        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-            if let (Ok(compute_vx), Ok(compute_vz)) = (
-                instance.get_typed_func::<(f32, f32), f32>(&mut store, "compute_traffic_vx"),
-                instance.get_typed_func::<(f32, f32), f32>(&mut store, "compute_traffic_vz"),
-            ) {
-                for (transform, mut velocity) in vehicles.iter_mut() {
-                    let fwd = transform.forward();
-                    velocity.x = compute_vx.call(&mut store, (fwd.x, fwd.z)).unwrap_or(fwd.x * 10.0);
-                    velocity.z = compute_vz.call(&mut store, (fwd.x, fwd.z)).unwrap_or(fwd.z * 10.0);
-                }
-                return;
+    if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+        let instance = &ctx.instance;
+        if let (Ok(compute_vx), Ok(compute_vz)) = (
+            instance.get_typed_func::<(f32, f32), f32>(&mut ctx.store, "compute_traffic_vx"),
+            instance.get_typed_func::<(f32, f32), f32>(&mut ctx.store, "compute_traffic_vz"),
+        ) {
+            for (transform, mut velocity) in vehicles.iter_mut() {
+                let fwd = transform.forward();
+                velocity.x = compute_vx.call(&mut ctx.store, (fwd.x, fwd.z)).unwrap_or(fwd.x * 10.0);
+                velocity.z = compute_vz.call(&mut ctx.store, (fwd.x, fwd.z)).unwrap_or(fwd.z * 10.0);
             }
+            return;
         }
     }
     // Fallback: mod not loaded, use hardcoded speed
@@ -770,28 +759,27 @@ fn vehicle_traffic_system(
 fn agent_ai_tick(
     mut agents: Query<(&Transform, &mut LinearVelocity, &AgentAi)>,
     players: Query<&Transform, (With<Player>, Without<AgentAi>)>,
+    mut mod_runtime: ResMut<ModRuntime>,
 ) {
     if let Some(player_transform) = players.iter().next() {
         let p_pos = player_transform.translation;
         
         // Grab the WASM Engine and Module from the globals
-        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-            let mut store = Store::new(engine, ());
-            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                if let (Ok(compute_vx), Ok(compute_vz)) = (
-                    instance.get_typed_func::<(i32, f32, f32, f32, f32), f32>(&mut store, "compute_agent_vx"),
-                    instance.get_typed_func::<(i32, f32, f32, f32, f32), f32>(&mut store, "compute_agent_vz")
-                ) {
-                    for (agent_transform, mut velocity, agent) in agents.iter_mut() {
-                        let c_pos = agent_transform.translation;
-                        
-                        // Execute the WASM Mod's generic AI logic
-                        if let Ok(vx) = compute_vx.call(&mut store, (agent.0 as i32, c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
-                            velocity.x = vx;
-                        }
-                        if let Ok(vz) = compute_vz.call(&mut store, (agent.0 as i32, c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
-                            velocity.z = vz;
-                        }
+        if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+            let instance = &ctx.instance;
+            if let (Ok(compute_vx), Ok(compute_vz)) = (
+                instance.get_typed_func::<(i32, f32, f32, f32, f32), f32>(&mut ctx.store, "compute_agent_vx"),
+                instance.get_typed_func::<(i32, f32, f32, f32, f32), f32>(&mut ctx.store, "compute_agent_vz")
+            ) {
+                for (agent_transform, mut velocity, agent) in agents.iter_mut() {
+                    let c_pos = agent_transform.translation;
+                    
+                    // Execute the WASM Mod's generic AI logic
+                    if let Ok(vx) = compute_vx.call(&mut ctx.store, (agent.0 as i32, c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
+                        velocity.x = vx;
+                    }
+                    if let Ok(vz) = compute_vz.call(&mut ctx.store, (agent.0 as i32, c_pos.x, c_pos.z, p_pos.x, p_pos.z)) {
+                        velocity.z = vz;
                     }
                 }
             }
@@ -877,33 +865,7 @@ fn handle_p2p_broadcast(
     }
 }
 
-// --- Modding Support ---
-pub struct ModdingPlugin;
-impl Plugin for ModdingPlugin {
-    fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_wasm_mod_loader);
-    }
-}
-fn init_wasm_mod_loader() {
-    info!("Initializing WASM sandboxed execution engine...");
-    let config = Config::new();
-    let engine = Engine::new(&config).expect("Failed to create wasmtime engine");
-    
-    info!("Loading mod: urban_chaos.wasm");
-    
-    // Create a new store (this is just to verify the module loads, we create per-thread stores later)
-    let _store = wasmtime::Store::new(&engine, ());
-    
-    // Normally we would read the .wasm file from disk here:
-    if let Ok(module) = wasmtime::Module::from_file(&engine, "mods/urban_chaos/target/wasm32-unknown-unknown/debug/urban_chaos.wasm") {
-        WASM_ENGINE.set(engine).unwrap_or(());
-        WASM_MODULE.set(module).unwrap_or(());
-        info!("Mod urban_chaos loaded successfully into worker pool");
-    } else {
-        warn!("Failed to load urban_chaos.wasm. Using fallback voxel generator.");
-    }
-    info!("Wasmtime engine ready. Waiting for WASM mods to be compiled and loaded...");
-}
+// Removed init_wasm_mod_loader and ModdingPlugin since ModManagerPlugin handles it now.
 
 // --- Advanced Rendering ---
 pub struct RayTracingPlugin;
@@ -934,27 +896,25 @@ impl Plugin for AiStorytellerPlugin {
         app.add_systems(Update, update_storyteller);
     }
 }
-fn update_storyteller(time: Res<Time>, mut timer: Local<f32>) {
+fn update_storyteller(time: Res<Time>, mut timer: Local<f32>, mut mod_runtime: ResMut<ModRuntime>) {
     *timer += time.delta_secs();
     if *timer >= 10.0 {
         *timer = 0.0;
-        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-            let mut store = Store::new(engine, ());
-            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                // Ask the MOD what player level to use for story generation.
-                let player_level = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut store, "mod_get_storyteller_level") {
-                    f.call(&mut store, ()).unwrap_or(10)
-                } else {
-                    10 // fallback if mod doesn't implement this yet
-                };
-                if let Ok(gen_story) = instance.get_typed_func::<i32, i32>(&mut store, "generate_story_event") {
-                    if let Ok(event_id) = gen_story.call(&mut store, player_level) {
-                        match event_id {
-                            0 => info!("STORYTELLER (WASM): It's a peaceful day in the city."),
-                            1 => warn!("STORYTELLER (WASM): A small bandit raid has begun!"),
-                            2 => error!("STORYTELLER (WASM): ALIEN INVASION!"),
-                            _ => {}
-                        }
+        if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+            let instance = &ctx.instance;
+            // Ask the MOD what player level to use for story generation.
+            let player_level = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut ctx.store, "mod_get_storyteller_level") {
+                f.call(&mut ctx.store, ()).unwrap_or(10)
+            } else {
+                10 // fallback if mod doesn't implement this yet
+            };
+            if let Ok(gen_story) = instance.get_typed_func::<i32, i32>(&mut ctx.store, "generate_story_event") {
+                if let Ok(event_id) = gen_story.call(&mut ctx.store, player_level) {
+                    match event_id {
+                        0 => info!("STORYTELLER (WASM): It's a peaceful day in the city."),
+                        1 => warn!("STORYTELLER (WASM): A small bandit raid has begun!"),
+                        2 => error!("STORYTELLER (WASM): ALIEN INVASION!"),
+                        _ => {}
                     }
                 }
             }
@@ -969,24 +929,22 @@ impl Plugin for EconomicSimulationPlugin {
         app.add_systems(Update, update_macro_economy);
     }
 }
-fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>) {
+fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mut mod_runtime: ResMut<ModRuntime>) {
     *timer += time.delta_secs();
     if *timer >= 5.0 {
         *timer = 0.0;
-        if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
-            let mut store = Store::new(engine, ());
-            if let Ok(instance) = Instance::new(&mut store, module, &[]) {
-                // Ask the MOD for its economic parameters — supply/demand are mod-owned.
-                let (supply, demand) = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut store, "mod_get_economy_params") {
-                    if let Ok(packed) = f.call(&mut store, ()) {
-                        unpack_economy_params(packed)
-                    } else { (5, 8) }
-                } else { (5, 8) };
-                if let Ok(calc_price) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "compute_economy_price") {
-                    let base = 100;
-                    if let Ok(price) = calc_price.call(&mut store, (base, supply, demand)) {
-                        info!("ECONOMY (WASM): Bread is now trading at ${} (Supply: {}, Demand: {})", price, supply, demand);
-                    }
+        if let Some(mut ctx) = mod_runtime.context.lock().unwrap().as_mut() {
+            let instance = &ctx.instance;
+            // Ask the MOD for its economic parameters — supply/demand are mod-owned.
+            let (supply, demand) = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut ctx.store, "mod_get_economy_params") {
+                if let Ok(packed) = f.call(&mut ctx.store, ()) {
+                    unpack_economy_params(packed)
+                } else { (5, 8) }
+            } else { (5, 8) };
+            if let Ok(calc_price) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut ctx.store, "compute_economy_price") {
+                let base = 100;
+                if let Ok(price) = calc_price.call(&mut ctx.store, (base, supply, demand)) {
+                    info!("ECONOMY (WASM): Bread is now trading at ${} (Supply: {}, Demand: {})", price, supply, demand);
                 }
             }
         }
