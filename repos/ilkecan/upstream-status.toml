@@ -1,3 +1,6 @@
+[archi]
+pr = "https://github.com/NixOS/nixpkgs/pull/550840"
+
 [bitburner]
 pr = "https://github.com/NixOS/nixpkgs/pull/542677"
 
