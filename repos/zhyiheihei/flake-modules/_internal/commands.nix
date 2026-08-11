@@ -67,6 +67,7 @@ _: {
           # ours with the locked revision so the index never evaluates stale
           # source hashes from the previous commit.
           REPO_SOURCE=$(nix-build "$TMPDIR" --no-out-link -A "repo-sources.zhyiheihei")
+          chmod -R u+w nur-combined/repos/zhyiheihei
           rm -rf nur-combined/repos/zhyiheihei
           cp -r "$REPO_SOURCE" nur-combined/repos/zhyiheihei
           bin/nur index nur-combined > index.json

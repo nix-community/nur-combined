@@ -9,6 +9,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "tachidesk-server";
   inherit (sources.tachidesk-server) version src;
 
+  dontUnpack = true;
   dontConfigure = true;
   dontBuild = true;
 
