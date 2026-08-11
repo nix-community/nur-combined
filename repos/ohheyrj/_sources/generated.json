@@ -1,0 +1,257 @@
+{
+    "balenaEtcher": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "balenaEtcher",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-sqXbFtmCU+H9dGekzUZwA8Umop4tSYKCx0dm8FHBlgY=",
+            "type": "url",
+            "url": "https://github.com/balena-io/etcher/releases/download/v2.1.2/balenaEtcher-2.1.2-arm64.dmg"
+        },
+        "version": "2.1.2"
+    },
+    "bartender5": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "bartender5",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": "Bartender5.dmg",
+            "sha256": "sha256-ojdOO1coUs41Hwz10mX7L0pV0MJLMTe8i6a79kod8p8=",
+            "type": "url",
+            "url": "https://www.macbartender.com/B2/updates/5-3-6/Bartender%205.dmg"
+        },
+        "version": "5-3-6"
+    },
+    "calibre": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "calibre",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-NngNwMrQ0bLhDYc/Gnf/cFisAC+fMR7JQeXBjH/+m68=",
+            "type": "url",
+            "url": "https://github.com/kovidgoyal/calibre/releases/download/v8.4.0/calibre-8.4.0.dmg"
+        },
+        "version": "8.4.0"
+    },
+    "chatterino": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "chatterino",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-pTAw2Ko1fcYxWhQK9j0odQPn28I1Lw2CHLs21KCbo7g=",
+            "type": "url",
+            "url": "https://chatterino.fra1.digitaloceanspaces.com/bin/2.5.3/Chatterino.dmg"
+        },
+        "version": "2.5.3"
+    },
+    "cryptomator": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "cryptomator",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ENYGW4eX2jtrokjy2FT/TJ+Iu7H/0a74O6d0QIz5FkE=",
+            "type": "url",
+            "url": "https://github.com/cryptomator/cryptomator/releases/download/1.16.2/Cryptomator-1.16.2-arm64.dmg"
+        },
+        "version": "1.16.2"
+    },
+    "garmin-basecamp": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "garmin-basecamp",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-5M209u+JpwnRl+AnOgb5lbtLNUJTjw8+R0O/yFznTgs=",
+            "type": "url",
+            "url": "https://download.garmin.com/software/BaseCampforMac_4813.dmg"
+        },
+        "version": "4813"
+    },
+    "gitkraken-cli-darwin-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gitkraken-cli-darwin-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ZC+RLoWQ1YfHlf8o7/35Gm8WwD6H9Y14x+wT+b75S58=",
+            "type": "url",
+            "url": "https://github.com/gitkraken/gk-cli/releases/download/v3.0.7/gk_3.0.7_darwin_arm64.zip"
+        },
+        "version": "3.0.7"
+    },
+    "gitkraken-cli-darwin-x86": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gitkraken-cli-darwin-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+uO3HGjFa98Mp9YFvy8JQ8naAbDdXyDRWXv2++lpc+c=",
+            "type": "url",
+            "url": "https://github.com/gitkraken/gk-cli/releases/download/v3.0.7/gk_3.0.7_darwin_amd64.zip"
+        },
+        "version": "3.0.7"
+    },
+    "handbrake": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "handbrake",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-YaV8UzEaDKI+WDZ/USE0r5lCjBSsOmJmXyRfxeRsN5E=",
+            "type": "url",
+            "url": "https://github.com/HandBrake/HandBrake/releases/download/1.9.2/HandBrake-1.9.2.dmg"
+        },
+        "version": "1.9.2"
+    },
+    "hazel": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "hazel",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-F6E3m5HvnhgMjtyQfrgUHCIQyxjg0ggBZinOxTapSNY=",
+            "type": "url",
+            "url": "https://s3.amazonaws.com/Noodlesoft/Hazel-6.0.4.dmg"
+        },
+        "version": "6.0.4"
+    },
+    "komiser-darwin-arm64": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "komiser-darwin-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-HuRn7jf2OQ7c017gWkNiPnQpIEDViAIpDSKCJXRlEZ4=",
+            "type": "url",
+            "url": "https://github.com/tailwarden/komiser/releases/download/v3.1.22/komiser_Darwin_arm64"
+        },
+        "version": "v3.1.22"
+    },
+    "komiser-darwin-x86": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "komiser-darwin-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fYzK7EEAUkaJYjnIn3Fid5Go6tdp7YRahLscebQ7iaE=",
+            "type": "url",
+            "url": "https://github.com/tailwarden/komiser/releases/download/v3.1.22/komiser_Darwin_x86_64"
+        },
+        "version": "v3.1.22"
+    },
+    "komiser-linux-x86": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "komiser-linux-x86",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-1E5Soxjx7ei3RivaFe213cbzPClekpF+TcZhDoPJ6AE=",
+            "type": "url",
+            "url": "https://github.com/tailwarden/komiser/releases/download/v3.1.22/komiser_Linux_x86_64"
+        },
+        "version": "v3.1.22"
+    },
+    "onyx-sequoia": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "onyx-sequoia",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-OdWxVShgprkj0XxNO0SwSwvdgwYVvvJxuKR/VzWYTl8=",
+            "type": "url",
+            "url": "https://www.titanium-software.fr/download/15/OnyX.dmg"
+        },
+        "version": "4.7.9"
+    },
+    "openaudible": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "openaudible",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-AHr7uOwyPhWX8Qm0X1n/eGbP5MYcCe4+wSFQyPkR9w8=",
+            "type": "url",
+            "url": "https://github.com/openaudible/openaudible/releases/download/v4.5.3/OpenAudible_4.5.3.dmg"
+        },
+        "version": "4.5.3"
+    },
+    "ps-remote-play": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "ps-remote-play",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-+iyK9RcaFLqVlRZaHMGxxlMpxkGgCuP+zzW12xOjms4=",
+            "type": "url",
+            "url": "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg"
+        },
+        "version": "8.0.0"
+    },
+    "signal-desktop": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "signal-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-uwzj5P/bZLcjrXBmtPtSBf/+CdN9e6mry2rWhuQxKks=",
+            "type": "url",
+            "url": "https://updates.signal.org/desktop/signal-desktop-mac-universal-7.56.0.dmg"
+        },
+        "version": "7.56.0"
+    }
+}

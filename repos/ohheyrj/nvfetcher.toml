@@ -1,0 +1,87 @@
+[chatterino]
+src.github = "Chatterino/chatterino2"
+src.prefix = "v"
+fetch.url = "https://chatterino.fra1.digitaloceanspaces.com/bin/$ver/Chatterino.dmg"
+
+[openaudible]
+src.github = "openaudible/openaudible"
+src.prefix = "v"
+fetch.url = "https://github.com/openaudible/openaudible/releases/download/v$ver/OpenAudible_$ver.dmg"
+
+[ps-remote-play]
+src.webpage = "https://remoteplay.dl.playstation.net/remoteplay/lang/gb"
+src.regex = "Version (\\d+\\.\\d+\\.\\d+) for Mac computer"
+fetch.url = "https://remoteplay.dl.playstation.net/remoteplay/module/mac/RemotePlayInstaller.pkg"
+
+[balenaEtcher]
+src.github = "balena-io/etcher"
+src.prefix = "v"
+fetch.url = "https://github.com/balena-io/etcher/releases/download/v$ver/balenaEtcher-$ver-arm64.dmg"
+
+[garmin-basecamp]
+src.webpage = "https://www8.garmin.com/support/download_details.jsp?id=4449"
+src.regex = "BaseCamp for Mac software version (\\d+\\.\\d+\\.\\d+)"
+src.from_pattern = "\\."
+src.to_pattern = ""
+fetch.url = "https://download.garmin.com/software/BaseCampforMac_$ver.dmg"
+
+[bartender5]
+src.webpage = "https://www.macbartender.com/Bartender5/release_notes/"
+src.regex = "Bartender (\\d+\\.\\d+\\.\\d+)"
+src.from_pattern = "\\."
+src.to_pattern = "-"
+fetch.url = "https://www.macbartender.com/B2/updates/$ver/Bartender%205.dmg"
+url.name = "Bartender5.dmg"
+
+[cryptomator]
+src.webpage = "https://cryptomator.org/downloads/#mac"
+src.regex = "Version (\\d+\\.\\d+\\.\\d+)"
+fetch.url = "https://github.com/cryptomator/cryptomator/releases/download/$ver/Cryptomator-$ver-arm64.dmg"
+
+[handbrake]
+src.github = "HandBrake/HandBrake"
+fetch.url = "https://github.com/HandBrake/HandBrake/releases/download/$ver/HandBrake-$ver.dmg"
+
+[komiser-darwin-arm64]
+src.github = "tailwarden/komiser"
+fetch.url = "https://github.com/tailwarden/komiser/releases/download/$ver/komiser_Darwin_arm64"
+
+[komiser-darwin-x86]
+src.github = "tailwarden/komiser"
+fetch.url = "https://github.com/tailwarden/komiser/releases/download/$ver/komiser_Darwin_x86_64"
+
+[komiser-linux-x86]
+src.github = "tailwarden/komiser"
+fetch.url = "https://github.com/tailwarden/komiser/releases/download/$ver/komiser_Linux_x86_64"
+
+[signal-desktop]
+src.github = "signalapp/Signal-Desktop"
+src.prefix = "v"
+fetch.url = "https://updates.signal.org/desktop/signal-desktop-mac-universal-$ver.dmg"
+
+[gitkraken-cli-darwin-arm64]
+src.github = "gitkraken/gk-cli"
+src.prefix = "v"
+fetch.url = "https://github.com/gitkraken/gk-cli/releases/download/v$ver/gk_$ver_darwin_arm64.zip"
+
+[gitkraken-cli-darwin-x86]
+src.github = "gitkraken/gk-cli"
+src.prefix = "v"
+fetch.url = "https://github.com/gitkraken/gk-cli/releases/download/v$ver/gk_$ver_darwin_amd64.zip"
+
+[hazel]
+src.webpage = "https://www.noodlesoft.com/release_notes"
+src.regex = "Version (\\d+\\.\\d+\\.\\d+)"
+fetch.url = "https://s3.amazonaws.com/Noodlesoft/Hazel-$ver.dmg"
+
+[onyx-sequoia]
+src.webpage = "https://www.titanium-software.fr/en/onyx_release.html"
+src.regex = "OnyX (\\d+\\.\\d+\\.\\d+)"
+fetch.url = "https://www.titanium-software.fr/download/15/OnyX.dmg"
+
+[calibre]
+src.github = "kovidgoyal/calibre"
+src.prefix = "version "
+src.from_pattern = "v"
+src.to_pattern = ""
+fetch.url = "https://github.com/kovidgoyal/calibre/releases/download/v$ver/calibre-$ver.dmg"
