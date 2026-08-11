@@ -99,18 +99,24 @@ jobs:
             exit 0
           fi
 
-          nix eval --json .#packages.x86_64-linux --apply builtins.attrNames \
-            | jq -r '.[]' > /tmp/pkg-names
           : > /tmp/pkg-out-paths
-          while read -r pkg; do
-            if ! nix eval --raw ".#packages.x86_64-linux.$pkg.drvPath" \
-              >/dev/null 2>&1; then
-              echo "skip $pkg (not a derivation)"
-              continue
-            fi
-            nix build --no-link --print-out-paths ".#packages.x86_64-linux.$pkg" \
-              >> /tmp/pkg-out-paths || exit 1
-          done < /tmp/pkg-names
+          for system in x86_64-linux aarch64-linux; do
+            nix eval --json ".#packages.$system" --apply builtins.attrNames \
+              | jq -r '.[]' > "/tmp/pkg-names-$system"
+            while read -r pkg; do
+              if ! nix eval --raw ".#packages.$system.$pkg.drvPath" \
+                >/dev/null 2>&1; then
+                echo "skip $system/$pkg (not a derivation)"
+                continue
+              fi
+              if nix build --no-link --print-out-paths \
+                ".#packages.$system.$pkg" >> /tmp/pkg-out-paths 2>/tmp/build-err; then
+                echo "ok $system/$pkg"
+              else
+                echo "FAIL $system/$pkg"
+              fi
+            done < "/tmp/pkg-names-$system"
+          done
 
           printf '%s' "$ATTIC_UPLOAD_KEY" > /tmp/attic-key
           nix shell nixpkgs#attic-client -c attic login --set-default lantian \

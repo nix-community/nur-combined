@@ -22,6 +22,9 @@ let
     "aarch64-linux"
   ];
 
+  # Packages smoke-tested on aarch64 LubanCat-1 (home LAN).
+  testedPackages = [ ];
+
   packageList =
     prefix: ps:
     let
@@ -33,6 +36,7 @@ let
         broken = v.meta.broken or false;
         platforms = v.meta.platforms or [ ];
         url = v.meta.homepage or null;
+        state = if builtins.elem n testedPackages then "x" else " ";
 
         supportAllPlatforms = builtins.foldl' (a: b: a && b) true (
           builtins.map (p: isTargetPlatform' p v) allPlatforms
@@ -44,7 +48,7 @@ let
       };
       metaToString =
         v:
-        "| ${lib.concatMapStringsSep " " (v: "`${v}`") v.tags} | `${v.path}` | ${
+        "| - [${v.state}] | ${lib.concatMapStringsSep " " (v: "`${v}`") v.tags} | `${v.path}` | ${
           if v.url != null then "[${v.pname}](${v.url})" else v.pname
         } | ${v.version} | ${v.description} |";
       isBadPackage = p: builtins.elem "Deprecated" p.tags || builtins.elem "Broken" p.tags;
