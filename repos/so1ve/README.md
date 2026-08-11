@@ -10,6 +10,7 @@ Ray's personal [NUR](https://github.com/nix-community/NUR) repository
 | Attribute | Documentation |
 | --- | --- |
 | `ab-download-manager` | [Usage](pkgs/ab-download-manager/README.md) |
+| `fcitx5-mellow-themes` | [Upstream](https://github.com/sanweiya/fcitx5-mellow-themes) |
 | `firefoxpwa-xwayland` | [Usage](pkgs/firefoxpwa-xwayland/README.md) |
 | `r-maple-mono-nf-cn` | [Usage](pkgs/r-maple-mono-nf-cn/README.md) |
 | `yanhekt-autoslides` | [Upstream](https://github.com/BIT-Admin/Yanhekt-AutoSlides) |
