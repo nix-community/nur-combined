@@ -115,5 +115,6 @@ jobs:
           printf '%s' "$ATTIC_UPLOAD_KEY" > /tmp/attic-key
           nix shell nixpkgs#attic-client -c attic login --set-default lantian \
             https://attic.zhyi.xin "$(cat /tmp/attic-key)"
-          nix shell nixpkgs#attic-client -c attic push lantian $(cat /tmp/pkg-out-paths)
+          mapfile -t pkg_out_paths < /tmp/pkg-out-paths
+          nix shell nixpkgs#attic-client -c attic push lantian "${pkg_out_paths[@]}"
           rm -f /tmp/attic-key
