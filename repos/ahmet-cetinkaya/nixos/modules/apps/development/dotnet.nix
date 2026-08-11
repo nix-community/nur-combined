@@ -3,6 +3,7 @@
   ...
 }: let
   dotnetSdk = pkgs.dotnetCorePackages.combinePackages [
+    pkgs.dotnetCorePackages.sdk_6_0-bin
     pkgs.dotnetCorePackages.sdk_8_0-bin
     pkgs.dotnetCorePackages.sdk_9_0-bin
     pkgs.dotnetCorePackages.sdk_10_0-bin
