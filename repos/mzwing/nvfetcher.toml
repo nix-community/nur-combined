@@ -18,6 +18,10 @@ fetch.github = "colbymchenry/codegraph"
 src.github_tag = "colbymchenry/codegraph"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[getopts-fish]
+src.github_commit = "jorgebucaran/getopts.fish"
+fetch.github = "jorgebucaran/getopts.fish"
+
 [gomod2nix]
 src.git = "https://github.com/mzwing/gomod2nix"
 src.branch = "master"
@@ -43,6 +47,10 @@ src.git = "https://github.com/Pumpkin-MC/Pumpkin"
 src.branch = "master"
 fetch.github = "Pumpkin-MC/Pumpkin"
 git.fetchSubmodules = true
+
+[replay-fish]
+src.github_commit = "jorgebucaran/replay.fish"
+fetch.github = "jorgebucaran/replay.fish"
 
 [sing-box-alpha]
 fetch.github = "SagerNet/sing-box"

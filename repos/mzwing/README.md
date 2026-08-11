@@ -13,10 +13,12 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
+| `getopts-fish` | [Usage](https://github.com/jorgebucaran/getopts.fish) |
 | `gryph` | [Usage](https://github.com/safedep/gryph) |
 | `haru` | [Usage](https://github.com/HyacinthHaru/haru) |
 | `hfd` | [Usage](https://gist.github.com/padeoe/697678ab8e528b85a2a7bddafea1fa4f) |
 | `pumpkin` | [Usage](https://github.com/Pumpkin-MC/Pumpkin) |
+| `replay-fish` | [Usage](https://github.com/jorgebucaran/replay.fish) |
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
 | `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |
 | `typenix` | [Usage](https://github.com/ryanrasti/typenix) |
