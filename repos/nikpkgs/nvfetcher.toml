@@ -1,0 +1,3 @@
+[cockpit-podman]
+src.github = "cockpit-project/cockpit-podman"
+fetch.url = "https://github.com/cockpit-project/cockpit-podman/releases/download/$ver/cockpit-podman-$ver.tar.xz"
