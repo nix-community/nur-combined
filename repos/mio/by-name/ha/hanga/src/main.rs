@@ -281,15 +281,24 @@ fn validate_incoming_actions(
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
-                    // VERIFICATION RULE 2: Is the player close enough? (e.g. 10 meters)
+                    // VERIFICATION RULE 2: Is the player close enough?
+                    // The MOD defines the valid range via mod_get_action_range(1).
+                    let range = if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut store, "mod_get_action_range") {
+                                f.call(&mut store, 1).unwrap_or(10.0)
+                            } else { 10.0 }
+                        } else { 10.0 }
+                    } else { 10.0 };
                     let distance = player_pos.distance(target_pos);
                     if !is_action_physically_possible(
                         player_pos.x, player_pos.y, player_pos.z,
                         target_pos.x, target_pos.y, target_pos.z,
-                        10.0
+                        range
                     ) {
-                        trust_ledger.penalize(player_entity, 0.2); // Severe penalty for impossible physical action
-                        warn!("FRAUD DETECTED: Player {:?} tried to break a block {} meters away! Action Rejected.", player_entity, distance);
+                        trust_ledger.penalize(player_entity, 0.2);
+                        warn!("FRAUD DETECTED: Player {:?} tried to break a block {} meters away (max {}m)! Action Rejected.", player_entity, distance, range);
                         continue; // Reject the action (Rollback)
                     }
 
@@ -359,10 +368,19 @@ fn validate_incoming_actions(
                     let player_pos = transform.translation;
                     let target_pos = Vec3::new(center_pos.x as f32, center_pos.y as f32, center_pos.z as f32);
                     
+                    // The MOD defines the explosion range via mod_get_action_range(4).
+                    let range = if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut store, "mod_get_action_range") {
+                                f.call(&mut store, 4).unwrap_or(30.0)
+                            } else { 30.0 }
+                        } else { 30.0 }
+                    } else { 30.0 };
                     if !is_action_physically_possible(
                         player_pos.x, player_pos.y, player_pos.z,
                         target_pos.x, target_pos.y, target_pos.z,
-                        30.0 // RPG rocket range
+                        range
                     ) {
                         trust_ledger.penalize(player_entity, 0.5);
                         continue;
@@ -436,14 +454,23 @@ fn validate_incoming_actions(
                     let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
                     
                     // VERIFICATION RULE 2: Is the player close enough?
+                    // The MOD defines the valid range via mod_get_action_range(2).
+                    let range = if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+                        let mut store = Store::new(engine, ());
+                        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                            if let Ok(f) = instance.get_typed_func::<i32, f32>(&mut store, "mod_get_action_range") {
+                                f.call(&mut store, 2).unwrap_or(10.0)
+                            } else { 10.0 }
+                        } else { 10.0 }
+                    } else { 10.0 };
                     let distance = player_pos.distance(target_pos);
                     if !is_action_physically_possible(
                         player_pos.x, player_pos.y, player_pos.z,
                         target_pos.x, target_pos.y, target_pos.z,
-                        10.0
+                        range
                     ) {
                         trust_ledger.penalize(player_entity, 0.2);
-                        warn!("FRAUD DETECTED: Player {:?} tried to place a block {} meters away! Action Rejected.", player_entity, distance);
+                        warn!("FRAUD DETECTED: Player {:?} tried to place a block {} meters away (max {}m)! Action Rejected.", player_entity, distance, range);
                         continue;
                     }
 
@@ -721,10 +748,26 @@ fn vehicle_collision_damage(
 fn vehicle_traffic_system(
     mut vehicles: Query<(&Transform, &mut LinearVelocity), With<VehicleAi>>,
 ) {
+    // The MOD owns traffic speed and behavior; engine only provides the forward vector.
+    if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
+        let mut store = Store::new(engine, ());
+        if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+            if let (Ok(compute_vx), Ok(compute_vz)) = (
+                instance.get_typed_func::<(f32, f32), f32>(&mut store, "compute_traffic_vx"),
+                instance.get_typed_func::<(f32, f32), f32>(&mut store, "compute_traffic_vz"),
+            ) {
+                for (transform, mut velocity) in vehicles.iter_mut() {
+                    let fwd = transform.forward();
+                    velocity.x = compute_vx.call(&mut store, (fwd.x, fwd.z)).unwrap_or(fwd.x * 10.0);
+                    velocity.z = compute_vz.call(&mut store, (fwd.x, fwd.z)).unwrap_or(fwd.z * 10.0);
+                }
+                return;
+            }
+        }
+    }
+    // Fallback: mod not loaded, use hardcoded speed
     for (transform, mut velocity) in vehicles.iter_mut() {
-        // Simple traffic AI: just drive forward in the direction it's facing
         let forward = transform.forward();
-        // Constant speed of 10 m/s
         velocity.x = forward.x * 10.0;
         velocity.z = forward.z * 10.0;
     }
@@ -905,8 +948,14 @@ fn update_storyteller(time: Res<Time>, mut timer: Local<f32>) {
         if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
             let mut store = Store::new(engine, ());
             if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                // Ask the MOD what player level to use for story generation.
+                let player_level = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut store, "mod_get_storyteller_level") {
+                    f.call(&mut store, ()).unwrap_or(10)
+                } else {
+                    10 // fallback if mod doesn't implement this yet
+                };
                 if let Ok(gen_story) = instance.get_typed_func::<i32, i32>(&mut store, "generate_story_event") {
-                    if let Ok(event_id) = gen_story.call(&mut store, 10) { // Assume player level 10
+                    if let Ok(event_id) = gen_story.call(&mut store, player_level) {
                         match event_id {
                             0 => info!("STORYTELLER (WASM): It's a peaceful day in the city."),
                             1 => warn!("STORYTELLER (WASM): A small bandit raid has begun!"),
@@ -934,10 +983,14 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>) {
         if let (Some(engine), Some(module)) = (WASM_ENGINE.get(), WASM_MODULE.get()) {
             let mut store = Store::new(engine, ());
             if let Ok(instance) = Instance::new(&mut store, module, &[]) {
+                // Ask the MOD for its economic parameters — supply/demand are mod-owned.
+                let (supply, demand) = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut store, "mod_get_economy_params") {
+                    if let Ok(packed) = f.call(&mut store, ()) {
+                        ((packed >> 16) & 0xFFFF, packed & 0xFFFF)
+                    } else { (5, 8) }
+                } else { (5, 8) };
                 if let Ok(calc_price) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "compute_economy_price") {
                     let base = 100;
-                    let supply = 5; // Static dummy values
-                    let demand = 8;
                     if let Ok(price) = calc_price.call(&mut store, (base, supply, demand)) {
                         info!("ECONOMY (WASM): Bread is now trading at ${} (Supply: {}, Demand: {})", price, supply, demand);
                     }

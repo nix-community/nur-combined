@@ -214,6 +214,51 @@ pub extern "C" fn compute_economy_price(base_price: i32, supply: i32, demand: i3
     price.max(1) // Price never drops below 1
 }
 
+/// Returns the valid player action range (anti-cheat distance) for each action type.
+/// The engine enforces this, but the MOD defines what is physically plausible in its world.
+/// action_type: 1=BreakBlock, 2=PlaceBlock, 3=EnterVehicle, 4=Explosion
+#[unsafe(no_mangle)]
+pub extern "C" fn mod_get_action_range(action_type: i32) -> f32 {
+    match action_type {
+        1 => 10.0, // BreakBlock: must be within 10m
+        2 => 10.0, // PlaceBlock: must be within 10m
+        3 => 5.0,  // EnterVehicle: must be adjacent
+        4 => 30.0, // Explosion (RPG): rocket can travel far
+        _ => 10.0,
+    }
+}
+
+/// Returns the X velocity for an autonomous traffic vehicle given its forward direction.
+/// The ENGINE provides the vehicle's forward vector; the MOD decides the speed.
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_traffic_vx(forward_x: f32, _forward_z: f32) -> f32 {
+    forward_x * 10.0 // Urban traffic speed: 10 m/s
+}
+
+/// Returns the Z velocity for an autonomous traffic vehicle given its forward direction.
+#[unsafe(no_mangle)]
+pub extern "C" fn compute_traffic_vz(_forward_x: f32, forward_z: f32) -> f32 {
+    forward_z * 10.0
+}
+
+/// Returns the 'player level' the AI Storyteller should use when generating events.
+/// The MOD owns the progression curve — the engine just calls this to ask.
+#[unsafe(no_mangle)]
+pub extern "C" fn mod_get_storyteller_level() -> i32 {
+    // In Urban Chaos, the city is always in a mid-tier chaos state (level 10).
+    // A more advanced mod could track this dynamically via shared memory.
+    10
+}
+
+/// Returns packed economic parameters: high 16 bits = supply, low 16 bits = demand.
+/// The MOD owns the city's economic model; the engine unpacks and uses the values.
+#[unsafe(no_mangle)]
+pub extern "C" fn mod_get_economy_params() -> i32 {
+    let supply: i32 = 5;
+    let demand: i32 = 8;
+    (supply << 16) | demand
+}
+
 /// WASM exported function for AI storyteller event generation
 #[unsafe(no_mangle)]
 pub extern "C" fn generate_story_event(player_level: i32) -> i32 {
