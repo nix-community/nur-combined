@@ -11,23 +11,23 @@ let
   };
   sources = algerSrc.${stdenv.hostPlatform.system};
 in
-appimageTools.wrapType2 rec {
+appimageTools.wrapAppImage (finalAttrs: {
   pname = "algermusicplayer";
-  inherit (sources) src version;
+  inherit (sources) version;
+  src = appimageTools.extract {
+    inherit (finalAttrs) pname version;
+    inherit (sources) src;
+  };
 
-  extraInstallCommands =
-    let
-      appimageContents = appimageTools.extract { inherit pname version src; };
-    in
-    ''
-      install -D ${appimageContents}/algermusicplayer.desktop $out/share/applications/algermusicplayer.desktop
-      substituteInPlace $out/share/applications/algermusicplayer.desktop \
-        --replace-fail 'Exec=AppRun' 'Exec=algermusicplayer'
+  extraInstallCommands = ''
+    install -D ${finalAttrs.src}/algermusicplayer.desktop $out/share/applications/algermusicplayer.desktop
+    substituteInPlace $out/share/applications/algermusicplayer.desktop \
+      --replace-fail 'Exec=AppRun' 'Exec=algermusicplayer'
 
-      mkdir -p $out/share/pixmaps
+    mkdir -p $out/share/pixmaps
 
-      cp -L ${appimageContents}/algermusicplayer.png $out/share/pixmaps/algermusicplayer.png
-    '';
+    cp -L ${finalAttrs.src}/algermusicplayer.png $out/share/pixmaps/algermusicplayer.png
+  '';
 
   meta = {
     description = "Third-party music player for Netease Cloud Music";
@@ -38,4 +38,4 @@ appimageTools.wrapType2 rec {
     mainProgram = "algermusicplayer";
     platforms = builtins.attrNames algerSrc;
   };
-}
+})

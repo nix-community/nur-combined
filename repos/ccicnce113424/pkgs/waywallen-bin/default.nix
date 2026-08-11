@@ -4,21 +4,21 @@
   version,
   appimageTools,
 }:
-appimageTools.wrapType2 rec {
+appimageTools.wrapAppImage (finalAttrs: {
   pname = "waywallen";
-  inherit (sources) src;
   inherit version;
 
-  extraInstallCommands =
-    let
-      appimageContents = appimageTools.extract { inherit pname version src; };
-    in
-    ''
-      install -D ${appimageContents}/org.waywallen.waywallen.desktop $out/share/applications/org.waywallen.waywallen.desktop
+  src = appimageTools.extract {
+    inherit (finalAttrs) pname version;
+    inherit (sources) src;
+  };
 
-      mkdir -p $out/share/icons
-      cp -r ${appimageContents}/usr/share/icons/hicolor $out/share/icons
-    '';
+  extraInstallCommands = ''
+    install -D ${finalAttrs.src}/org.waywallen.waywallen.desktop $out/share/applications/org.waywallen.waywallen.desktop
+
+    mkdir -p $out/share/icons
+    cp -r ${finalAttrs.src}/usr/share/icons/hicolor $out/share/icons
+  '';
 
   meta = {
     description = "Wallpaper Manager for Linux";
@@ -29,4 +29,4 @@ appimageTools.wrapType2 rec {
     sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     mainProgram = "waywallen";
   };
-}
+})
