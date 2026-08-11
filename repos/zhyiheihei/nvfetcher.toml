@@ -64,9 +64,24 @@ src.github = "monosans/pyromark"
 fetch.github = "hslr-s/sun-panel"
 src.github = "hslr-s/sun-panel"
 
+[sublinkpro-linux-amd64]
+fetch.url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v$ver/sublinkPro-linux-amd64"
+src.github = "ZeroDeng01/sublinkPro"
+src.prefix = "v"
+
+[sublinkpro-linux-arm64]
+fetch.url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v$ver/sublinkPro-linux-arm64"
+src.github = "ZeroDeng01/sublinkPro"
+src.prefix = "v"
+
 [telegramify-markdown]
 fetch.github = "sudoskys/telegramify-markdown"
 src.github = "sudoskys/telegramify-markdown"
+
+[tachidesk-server]
+fetch.url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v$ver/Suwayomi-Server-v$ver.jar"
+src.github = "Suwayomi/Suwayomi-Server"
+src.prefix = "v"
 
 [vaults3-linux-amd64]
 fetch.url = "https://github.com/Kodiqa-Solutions/VaultS3/releases/download/v$ver/vaults3-linux-amd64.tar.gz"
