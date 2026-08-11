@@ -51,7 +51,7 @@ Build artifacts are cached in the Attic binary cache:
 ## Packages
 
 <details>
-<summary>Package set: (Uncategorized) (19 packages)</summary>
+<summary>Package set: (Uncategorized) (22 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -68,8 +68,11 @@ Build artifacts are cached in the Attic binary cache:
 | - [x] |  | `proces` | [proces](https://github.com/Ailln/proces) | 0.1.7 | Text preprocess utilities |
 | - [x] |  | `pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
 | - [x] |  | `pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.9.13 | Blazingly fast Markdown parser |
+| - [ ] |  | `sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.17 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [x] |  | `sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
+| - [ ] |  | `tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.3.2243 | Self-hosted manga reader and aggregator server |
 | - [x] |  | `telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.2.0 | Convert Markdown to Telegram plain text and entities |
+| - [ ] |  | `torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [x] |  | `tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
 | - [x] |  | `vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.50 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [x] |  | `vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
@@ -78,7 +81,7 @@ Build artifacts are cached in the Attic binary cache:
 
 
 <details>
-<summary>Package set: python3Packages (10 packages)</summary>
+<summary>Package set: python3Packages (11 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -90,12 +93,13 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `python3Packages.pypika-tortoise` | [pypika-tortoise](https://github.com/tortoise/pypika-tortoise) | 0.6.5 | SQL query builder fork streamlined for tortoise-orm |
 | - [ ] |  | `python3Packages.pyromark` | [pyromark](https://github.com/monosans/pyromark) | 0.9.13 | Blazingly fast Markdown parser |
 | - [ ] |  | `python3Packages.telegramify-markdown` | [telegramify-markdown](https://github.com/sudoskys/telegramify-markdown) | 1.2.0 | Convert Markdown to Telegram plain text and entities |
+| - [ ] |  | `python3Packages.torrentool` | [torrentool](https://github.com/idlesign/torrentool) | 1.2.0 | Tool to work with torrent files |
 | - [ ] |  | `python3Packages.tortoise-orm` | [tortoise-orm](https://github.com/tortoise/tortoise-orm) | 0.25.3 | Easy async ORM for Python with relations in mind |
 | - [ ] |  | `python3Packages.zhconv-rs` | [zhconv-rs](https://github.com/Gowee/zhconv-rs) | 0.4.1 | Fast Chinese variant conversion backed by Rust |
 </details>
 
 <details>
-<summary>Package set: uncategorized (9 packages)</summary>
+<summary>Package set: uncategorized (11 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -105,8 +109,9 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.moviepilot` | [moviepilot](https://github.com/jxxghp/MoviePilot) | 2.15.5 | Media automation platform for downloads, organization, scraping and notifications |
 | - [ ] |  | `uncategorized.nexus-media` | [nexus-media](https://github.com/linyuan0213/nexus-media) | 4.4.5 | Media library manager with automated downloading, media organization and subscription workflows |
 | - [ ] |  | `uncategorized.nexus-media-web` | [nexus-media-web](https://github.com/linyuan0213/nexus-media-web) | 4.4.5 | Vue 3 web frontend for the Nexus Media media library manager |
+| - [ ] |  | `uncategorized.sublinkpro` | [sublinkpro](https://github.com/ZeroDeng01/sublinkPro) | 1.2.17 | Modern proxy subscription management panel with smart tags, speed tests and relay chains |
 | - [ ] |  | `uncategorized.sun-panel` | [sun-panel](https://github.com/hslr-s/sun-panel) | 1.8.1 | Server and NAS navigation panel, homepage, browser homepage |
+| - [ ] |  | `uncategorized.tachidesk-server` | [tachidesk-server](https://github.com/Suwayomi/Suwayomi-Server) | 2.3.2243 | Self-hosted manga reader and aggregator server |
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.50 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 </details>
-

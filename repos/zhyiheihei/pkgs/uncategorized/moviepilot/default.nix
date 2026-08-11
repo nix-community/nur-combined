@@ -2,7 +2,6 @@
   lib,
   pkgs,
   stdenv,
-  inputs,
   sources,
   makeWrapper,
   nodejs,
@@ -14,7 +13,6 @@
 let
   version = sources.moviepilot.version;
   src = sources.moviepilot.src;
-  torrentool = inputs.nur-milahu.packages.${pkgs.system}.python3Packages.torrentool;
   slackBolt = pkgs.python3Packages.slack-bolt.overridePythonAttrs (old: {
     doCheck = false;
   });
@@ -202,7 +200,7 @@ pkgs.python3Packages.buildPythonPackage rec {
       python3Packages.pinyin2hanzi
       python3Packages.proces
       python3Packages.telegramify-markdown
-      torrentool
+      python3Packages.torrentool
       python3Packages.zhconv-rs
     ];
 

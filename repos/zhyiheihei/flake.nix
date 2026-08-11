@@ -15,10 +15,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.treefmt-nix.follows = "treefmt-nix";
     };
-    nur-milahu = {
-      url = "github:milahu/nur-packages";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     pre-commit-hooks-nix = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
