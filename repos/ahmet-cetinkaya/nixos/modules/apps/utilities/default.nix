@@ -1,29 +1,4 @@
-{pkgs, ...}: let
-  androidWebcam = pkgs.writeShellScriptBin "android-webcam" ''
-    set -euo pipefail
-
-    device="''${1:-/dev/video2}"
-    shift || true
-
-    if [ ! -e "$device" ]; then
-      echo "Virtual camera device not found: $device" >&2
-      echo "Available video devices:" >&2
-      ls /dev/video* 2>/dev/null >&2 || true
-      exit 1
-    fi
-
-    # Mirror the phone camera (not the screen) into the v4l2 loopback so OBS
-    # sees a webcam feed. CAMERA_FACING (front/back/external) and CAMERA_SIZE
-    # are overridable; requires Android 12+ on the phone.
-    exec ${pkgs.scrcpy}/bin/scrcpy \
-      --v4l2-sink="$device" \
-      --video-source=camera \
-      --camera-facing="''${CAMERA_FACING:-front}" \
-      --camera-size="''${CAMERA_SIZE:-1920x1080}" \
-      --no-audio \
-      "$@"
-  '';
-in {
+{pkgs, ...}: {
   # Flatpak
   services.flatpak.packages = [
     # System Tools
@@ -76,54 +51,30 @@ in {
     cmake
     ninja
 
-    # Containers
-    docker
-    docker-compose
-    podman
-    distrobox
-    act
-
     # System Tools
-    konsave
     gparted
     openrgb-with-all-plugins
     scrcpy
-    androidWebcam
 
     # Media Tools
     ffmpeg
     imagemagick
-    tesseract
     prince-bin
-
-    # Document Conversion
-    python314Packages.markitdown
 
     # Sandbox & Networking
     bubblewrap
     socat
-
-    # Wine
-    wineWow64Packages.stable
-    winetricks
   ];
 
   # OpenRGB with all plugins for RGB hardware control
   services.hardware.openrgb = {
     enable = true;
-    motherboard = "amd";
+    motherboard = "amd"; # The workstation motherboard uses the AMD sensor/control backend.
   };
 
   systemd.services.openrgb.serviceConfig.RestartSec = 5;
 
-  # Containers
-  virtualisation.docker.enable = true;
-  virtualisation.podman.enable = true;
-
   programs.kdeconnect.enable = true;
-
-  # Shell
-  users.users.ac.shell = pkgs.zsh;
 
   environment.sessionVariables = {
     TERMINAL = "kitty";
@@ -149,7 +100,7 @@ in {
 
       shellAliases = {
         ll = "ls -l";
-        ls = "eza --icons=auto";
+        ls = "eza --icons=auto --hyperlink";
       };
     };
     starship = {

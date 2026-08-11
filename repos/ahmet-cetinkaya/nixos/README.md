@@ -9,7 +9,7 @@ A clean, modular, and flake-based NixOS configuration for my personal machines.
 - **Home Manager**: Declarative user-specific environment and dotfiles.
 - **Plasma 6**: Modern desktop environment.
 - **NVIDIA Support**: Configured for RTX 4080 Super with Wayland support.
-- **Unified Hardware Sync**: Fully synced with `/etc/nixos` for real hardware compatibility.
+- **Host-specific Hardware**: Hardware configuration is kept under `hosts/karakiz/`.
 
 ## 📂 Structure
 
@@ -20,9 +20,9 @@ A clean, modular, and flake-based NixOS configuration for my personal machines.
 ├── hosts/                # Host-specific configurations
 │   └── karakiz/          # Main desktop (Ryzen 7 7800X3D + RTX 4080 Super)
 ├── modules/              # Reusable NixOS modules
-│   ├── core/             # Boot, Network, Users, Locale, Printing, Sound
-│   ├── desktop/          # Plasma 6, NVIDIA Drivers
-│   └── apps/             # Development tools, General apps
+│   ├── core/             # Boot, Network, Users, Locale, Printing, Sound, Plasma 6, NVIDIA
+│   ├── apps/             # Development tools, AI/ML, General apps, Utilities
+│   └── configs/          # Home Manager dotfile/app configs
 ├── home/                 # Home Manager configurations
 │   └── ac/               # User 'ac' profile
 └── pkgs/                 # Custom packages
@@ -32,24 +32,38 @@ A clean, modular, and flake-based NixOS configuration for my personal machines.
 
 ### Apply Configuration
 
-To apply the configuration to the current host (`karakiz`):
+From any working directory, apply the configuration to the current host (`karakiz`):
 
 ```bash
-sudo nixos-rebuild switch --flake .#karakiz
+ac-nix-apply karakiz
+```
+
+The underlying script can also be run directly from this repository:
+
+```bash
+./scripts/apply.sh karakiz
 ```
 
 ### Update Dependencies
 
-To update the flake inputs:
+To update custom packages and flake inputs, then apply the refreshed configuration:
 
 ```bash
-nix flake update
+ac-nix-update
 ```
 
-### Check Syntax
+### Cleanup
 
-To verify the configuration without building:
+To collect unused Nix store paths and optimise the store:
 
 ```bash
-nix flake check
+ac-nix-cleanup
+```
+
+### Check Configuration
+
+To verify the configuration without building or activating it:
+
+```bash
+nix flake check --no-build
 ```

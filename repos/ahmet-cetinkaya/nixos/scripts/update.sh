@@ -16,6 +16,7 @@ usage() {
 	echo "This script:"
 	echo "  1. Runs update.sh for each custom package"
 	echo "  2. Runs nix flake update"
+	echo "  3. Rebuilds the current host so managed Bun, .NET, and uv tools update"
 	exit 1
 }
 
@@ -36,7 +37,14 @@ for pkg_dir in "${PKGS_DIR}"/*/; do
     [ -f "${pkg_dir}/update.sh" ] && update_pkg "$pkg_dir"
 done
 
-echo -e "\n🔄 Running nix flake update..."
+echo -e "\n🔄 Running nix flake update."
 (cd "$NIXOS_DIR" && nix flake update)
+
+echo -e "\n🔧 Applying the refreshed tool definitions."
+if command -v nixos-rebuild >/dev/null 2>&1; then
+  sudo nixos-rebuild switch --flake "$NIXOS_DIR#$(hostname)"
+else
+  echo "⚠️ Warning: nixos-rebuild not found; run scripts/apply.sh after updating." >&2
+fi
 
 echo -e "\n✅ Update completed successfully!"

@@ -8,7 +8,7 @@
     "io.github.nokse22.Exhibit"
 
     # 3D Printing
-    "io.github.softfever.OrcaSlicer"
+    "com.orcaslicer.OrcaSlicer"
 
     # Video Editing
     "org.kde.kdenlive"

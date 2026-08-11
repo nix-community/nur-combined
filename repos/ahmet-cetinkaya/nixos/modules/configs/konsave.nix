@@ -1,9 +1,19 @@
 {lib, ...}: {
-  home.activation.konsaveConfig = lib.mkAfter ''
+  home.activation.konsaveConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    konsave_src="$HOME/Configs/konsave"
+    konsave_dst="$HOME/.config/konsave"
+
+    if [ ! -d "$konsave_src" ]; then
+      echo "Konsave configuration directory not found: $konsave_src" >&2
+      exit 1
+    fi
+
+    if [ -e "$konsave_dst" ] && [ ! -L "$konsave_dst" ]; then
+      echo "Refusing to replace non-symlink Konsave configuration: $konsave_dst" >&2
+      exit 1
+    fi
+
     mkdir -p "$HOME/.config"
-    rm -rf "$HOME/.config/konsave"
-    mkdir -p "$HOME/Configs/konsave"
-    chmod -R u+rwX "$HOME/Configs/konsave" || true
-    ln -sfn "$HOME/Configs/konsave" "$HOME/.config/konsave"
+    ln -sfn "$konsave_src" "$konsave_dst"
   '';
 }

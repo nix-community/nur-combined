@@ -1,6 +1,5 @@
 {
   pkgs,
-  lib,
   ...
 }: let
   flutterLinuxPkgConfigPath = pkgs.lib.makeSearchPath "lib/pkgconfig" [
@@ -15,7 +14,7 @@
     pkgs.libsecret.dev
   ];
 
-  androidSdk = pkgs.androidenv.composeAndroidPackages {
+  androidSdk = pkgs.androidenv.composeAndroidPackages { # Match the Android API/build-tool levels used by current Flutter projects.
     platformVersions = [
       "34"
       "35"
@@ -28,7 +27,7 @@
       "34.0.0"
       "35.0.0"
     ];
-    includeEmulator = true;
+    includeEmulator = true; # Keep local emulator development available without a separate SDK install.
     includeSources = false;
     includeSystemImages = true;
     includeNDK = false;
@@ -46,20 +45,35 @@
         SDK_ROOT=$HOME/Android/Sdk
         mkdir -p $SDK_ROOT
 
-        # Symlink Nix-managed SDK components to a local folder
-        # This keeps things tidy and solves structural issues
+        ensure_managed_sdk_link() {
+          source="$1"
+          destination="$2"
+
+          if [ -e "$destination" ] && [ ! -L "$destination" ]; then
+            echo "Refusing to replace non-symlink Android SDK component: $destination" >&2
+            return 1
+          fi
+
+          ln -sfn "$source" "$destination"
+        }
+
+        # Symlink Nix-managed SDK components to a local folder.
         for dir in platforms platform-tools build-tools emulator system-images; do
           if [ -d "${androidSdk.androidsdk}/libexec/android-sdk/$dir" ]; then
-            rm -rf "$SDK_ROOT/$dir"
-            ln -sfn "${androidSdk.androidsdk}/libexec/android-sdk/$dir" "$SDK_ROOT/$dir"
+            ensure_managed_sdk_link "${androidSdk.androidsdk}/libexec/android-sdk/$dir" "$SDK_ROOT/$dir"
           fi
         done
 
-        # Fix cmdline-tools structure
+        # Fix cmdline-tools structure. The marker identifies the directory as
+        # managed by this script and prevents replacing a user-managed SDK.
         # Flutter probes cmdline-tools/latest/bin/sdkmanager.
         # We provide a local wrapper that always uses --sdk_root=$SDK_ROOT.
-        rm -rf "$SDK_ROOT/cmdline-tools"
+        if [ -e "$SDK_ROOT/cmdline-tools" ] && [ ! -f "$SDK_ROOT/cmdline-tools/.nix-flutter-managed" ]; then
+          echo "Refusing to replace user-managed Android SDK component: $SDK_ROOT/cmdline-tools" >&2
+          exit 1
+        fi
         mkdir -p "$SDK_ROOT/cmdline-tools"
+        touch "$SDK_ROOT/cmdline-tools/.nix-flutter-managed"
         VERSIONED_DIR=$(ls -1 "${androidSdk.androidsdk}/libexec/android-sdk/cmdline-tools" | head -n 1)
         if [ -n "$VERSIONED_DIR" ]; then
           ln -sfn "${androidSdk.androidsdk}/libexec/android-sdk/cmdline-tools/$VERSIONED_DIR" "$SDK_ROOT/cmdline-tools/$VERSIONED_DIR"
@@ -77,8 +91,7 @@
           echo "Linked cmdline-tools version $VERSIONED_DIR"
         fi
 
-        # Create writable licenses folder
-        rm -rf "$SDK_ROOT/licenses"
+        # Create writable licenses folder without deleting user-provided hashes.
         mkdir -p "$SDK_ROOT/licenses"
         if [ -d "${androidSdk.androidsdk}/libexec/android-sdk/licenses" ]; then
           cp -rL "${androidSdk.androidsdk}/libexec/android-sdk/licenses/." "$SDK_ROOT/licenses/"
@@ -111,10 +124,6 @@
         echo "Android SDK structure fixed in $SDK_ROOT"
   '';
 
-  dartTools = [
-    "rps"
-    "dart_unused_files"
-  ];
 in {
   environment = {
     systemPackages = with pkgs; [
@@ -184,40 +193,4 @@ in {
     '';
   };
 
-  home-manager.sharedModules = [
-    {
-      home.activation.dartGlobalTools = lib.mkAfter ''
-        export PATH="/run/current-system/sw/bin:$PATH"
-
-        if ! command -v dart >/dev/null 2>&1; then
-          echo "dart not found, skipping dart global tools installation."
-          exit 0
-        fi
-
-        ensure_dart_tool_latest() {
-          local tool_name="$1"
-
-          if dart pub global list | awk '{print $1}' | grep -qx "$tool_name"; then
-            echo "Updating dart global tool: $tool_name..."
-            if ! dart pub global upgrade "$tool_name"; then
-              echo "dart global tool upgrade failed: $tool_name" >&2
-            fi
-            return
-          fi
-
-          echo "Installing dart global tool: $tool_name..."
-          if ! dart pub global activate "$tool_name"; then
-            echo "dart global tool activation failed: $tool_name" >&2
-          fi
-        }
-
-        export PATH="$HOME/.pub-cache/bin:$PATH"
-
-    ${lib.concatMapStringsSep "\n" (
-        tool_name: "    ensure_dart_tool_latest \"${tool_name}\""
-      )
-      dartTools}
-      '';
-    }
-  ];
 }

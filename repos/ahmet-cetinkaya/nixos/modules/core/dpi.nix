@@ -42,11 +42,19 @@
     ip46tables -t mangle -I POSTROUTING -p tcp -m multiport --dports 2053,2083,2087,2096,8443 \
       -m connbytes --connbytes-dir=original --connbytes-mode=packets --connbytes 1:6 \
       -m mark ! --mark 0x40000000/0x40000000 -j NFQUEUE --queue-num 200 --queue-bypass
+
+    # ISP blackholes Cloudflare's 188.114.96.0/20 anycast block and there is no
+    # IPv6 uplink to fall back to, so many Cloudflare-hosted sites time out.
+    # Redirect the whole block to a reachable edge IP; anycast + SNI routing
+    # still serves the correct site regardless of which edge we land on.
+    iptables -t nat -A OUTPUT -d 188.114.96.0/20 -p tcp -j DNAT --to-destination 104.16.16.35
   '';
   networking.firewall.extraStopCommands = ''
     ip46tables -t mangle -D POSTROUTING -p tcp -m multiport --dports 2053,2083,2087,2096,8443 \
       -m connbytes --connbytes-dir=original --connbytes-mode=packets --connbytes 1:6 \
       -m mark ! --mark 0x40000000/0x40000000 -j NFQUEUE --queue-num 200 --queue-bypass 2>/dev/null || true
+
+    iptables -t nat -D OUTPUT -d 188.114.96.0/20 -p tcp -j DNAT --to-destination 104.16.16.35 2>/dev/null || true
   '';
 
   # Encrypted DNS (DoT) to prevent ISP DNS hijacking
@@ -62,7 +70,8 @@
         "8.8.4.4"
       ];
       Domains = [ "~." ];
-      DNSSEC = "false";
+      # Roll back to false if DNSSEC causes DNS resolution failures for Discord.
+      DNSSEC = "true";
       DNSOverTLS = "true";
     };
   };

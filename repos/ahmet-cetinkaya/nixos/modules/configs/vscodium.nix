@@ -1,34 +1,53 @@
 {lib, ...}: {
-  # product.json's "nameShort"/"nameLong" override makes VSCodium report
-  # itself as "Code", so it reads its user data from ~/.config/Code instead
-  # of the default ~/.config/VSCodium. The official VS Code build always
-  # reads from ~/.config/Code natively. Both editors therefore end up
-  # sharing the same settings/keybindings — the symlinks below only need to
-  # target ~/.config/Code once to cover both.
-  home.activation.vscodiumFiles = lib.mkAfter ''
+  home.activation.vscodeSettings = lib.hm.dag.entryAfter ["writeBoundary"] ''
     vs_dir="$HOME/Configs/vs-codium"
-    mkdir -p "$HOME/.config/VSCodium"
+
+    for vs_file in settings.json keybindings.json; do
+      if [ ! -f "$vs_dir/$vs_file" ]; then
+        echo "VS Code configuration file not found: $vs_dir/$vs_file" >&2
+        exit 1
+      fi
+    done
+
     mkdir -p "$HOME/.config/Code/User"
 
-    rm -rf "$HOME/.config/VSCodium/product.json" "$HOME/.config/Code/User/settings.json"
-    ln -sfn "$vs_dir/product.json" "$HOME/.config/VSCodium/product.json"
+    for vs_dst in "$HOME/.config/Code/User/settings.json"; do
+      if [ -e "$vs_dst" ] && [ ! -L "$vs_dst" ]; then
+        echo "Refusing to replace non-symlink VS Code configuration: $vs_dst" >&2
+        exit 1
+      fi
+    done
+
     ln -sfn "$vs_dir/settings.json" "$HOME/.config/Code/User/settings.json"
   '';
 
-  home.activation.vscodiumKeybindings = lib.mkAfter ''
+  home.activation.vscodeKeybindings = lib.hm.dag.entryAfter ["vscodeSettings"] ''
     vs_dir="$HOME/Configs/vs-codium"
     user_dir="$HOME/.config/Code/User"
     profiles_dir="$user_dir/profiles"
+
+    if [ ! -f "$vs_dir/keybindings.json" ]; then
+      echo "VS Code keybindings file not found: $vs_dir/keybindings.json" >&2
+      exit 1
+    fi
+
     mkdir -p "$profiles_dir"
 
-    # Default (root) profile — used until the user creates additional
-    # profiles in either editor.
-    rm -rf "$user_dir/keybindings.json"
+    # Default (root) profile — used until the user creates additional profiles.
+    if [ -e "$user_dir/keybindings.json" ] && [ ! -L "$user_dir/keybindings.json" ]; then
+      echo "Refusing to replace non-symlink VS Code keybindings: $user_dir/keybindings.json" >&2
+      exit 1
+    fi
+
     ln -sfn "$vs_dir/keybindings.json" "$user_dir/keybindings.json"
 
     for profile in "$profiles_dir"/*; do
       if [ -d "$profile" ]; then
-        rm -rf "$profile/keybindings.json"
+        if [ -e "$profile/keybindings.json" ] && [ ! -L "$profile/keybindings.json" ]; then
+          echo "Refusing to replace non-symlink VS Code profile keybindings: $profile/keybindings.json" >&2
+          exit 1
+        fi
+
         ln -sfn "$vs_dir/keybindings.json" "$profile/keybindings.json"
       fi
     done

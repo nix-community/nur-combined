@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 echo "🧹 Starting Nix cleanup..."
 
 echo "🗑️  Collecting user garbage..."

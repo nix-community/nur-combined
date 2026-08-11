@@ -31,7 +31,7 @@ in {
   ];
 
   # Firewall
-  networking.firewall.allowedTCPPorts = [
-    44040 # Allow whph app syncing port
+  networking.firewall.interfaces.eno1.allowedTCPPorts = [
+    44040 # whph syncs over the trusted wired LAN interface, not all interfaces.
   ];
 }

@@ -20,7 +20,7 @@
   # Flatpak
   services.flatpak.packages = [
     # Video Players
-    "io.mpv.Mpv"
+    "org.videolan.VLC"
     # Recording & Streaming
     "com.obsproject.Studio"
     # Streaming

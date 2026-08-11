@@ -1,22 +1,14 @@
-{pkgs, config, ...}: {
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
-
-  boot = {
-    kernelModules = ["v4l2loopback"];
-    extraModulePackages = [config.boot.kernelPackages.v4l2loopback];
-    # exclusive_caps=1 lets OBS and browsers detect the loopback as a webcam;
-    # video_nr=2 pins it to /dev/video2 so it is independent of probe order.
-    extraModprobeConfig = ''
-      options v4l2loopback video_nr=2 card_label=AndroidCam exclusive_caps=1
-    '';
-  };
 
   environment = {
     systemPackages = with pkgs; [
       icu
+      libnotify
     ];
 
-    # Forces propagation of PKG_CONFIG_PATH
+    # Forces propagation of PKG_CONFIG_PATH to expose development headers and pkg-config
+    # metadata for GTK/GLib stack; required by build systems that search for dependencies.
     extraInit = ''
       export PKG_CONFIG_PATH="${pkgs.lib.makeSearchPath "lib/pkgconfig" [
         pkgs.gtk3.dev
@@ -31,11 +23,19 @@
       ]}"
     '';
 
+    # pathsToLink merges .dev outputs into environment so pkg-config and C headers are discoverable.
     pathsToLink = ["/lib/pkgconfig" "/include"];
   };
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.auto-optimise-store = true;
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
 
+  # Let dynamically linked binaries outside the Nix store find these shared libraries.
   programs.nix-ld = {
     enable = true;
     libraries = with pkgs; [
@@ -65,5 +65,6 @@
     ];
   };
 
+  # Preserve the release used for initial installation; do not bump during upgrades.
   system.stateVersion = "26.05";
 }

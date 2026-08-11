@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Stable nixpkgs channel used for fonts.packages in modules/core/fonts.nix
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
     nur.url = "github:nix-community/NUR";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
@@ -36,36 +37,51 @@
     cachyos-settings-nix,
     ...
   } @ inputs: let
-    system = "x86_64-linux";
-  in {
-    nixosConfigurations.karakiz = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      modules = [
-        {
-          nixpkgs.hostPlatform = system;
-          nixpkgs.overlays = [
-            (import ./pkgs)
-            inputs.nur.overlays.default
-            inputs.antigravity-nix.overlays.default
-            inputs.nix-cachyos-kernel.overlays.default
+    # mkHost: Build a NixOS system configuration.
+    # Conditionally includes Home Manager only if hmUsers is non-empty.
+    mkHost = {
+      name,
+      system,
+      hmUsers ? {},
+    }:
+      nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules =
+          [
+            {
+              nixpkgs.hostPlatform = system;
+              nixpkgs.overlays = [
+                (import ./pkgs)
+                inputs.nur.overlays.default
+                inputs.antigravity-nix.overlays.default
+                inputs.nix-cachyos-kernel.overlays.default
+              ];
+            }
+            nix-flatpak.nixosModules.nix-flatpak
+            cachyos-settings-nix.nixosModules.default
+            ./hosts/${name}/default.nix
+          ]
+          ++ nixpkgs.lib.optionals (hmUsers != {}) [
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                # Use system nixpkgs for Home Manager packages instead of separate evaluation
+                useGlobalPkgs = true;
+                # Install user packages through Home Manager's user profile.
+                useUserPackages = true;
+                users = hmUsers;
+                extraSpecialArgs = {inherit inputs;};
+                # Backup existing files with .hm-backup extension before Home Manager overwrites
+                backupFileExtension = "hm-backup";
+              };
+            }
           ];
-        }
-        nix-flatpak.nixosModules.nix-flatpak
-        cachyos-settings-nix.nixosModules.default
-        ./hosts/karakiz/default.nix
-
-        # Home Manager
-        home-manager.nixosModules.home-manager
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            users.ac = import ./home/ac/default.nix;
-            extraSpecialArgs = {inherit inputs;};
-            backupFileExtension = "hm-backup";
-          };
-        }
-      ];
+      };
+  in {
+    nixosConfigurations.karakiz = mkHost {
+      name = "karakiz";
+      system = "x86_64-linux";
+      hmUsers.ac = import ./home/ac/default.nix;
     };
   };
 }

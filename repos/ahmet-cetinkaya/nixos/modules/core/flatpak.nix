@@ -1,5 +1,7 @@
 {pkgs, ...}: {
   services.flatpak.enable = true;
+  # Apply available Flatpak updates whenever this NixOS configuration activates.
+  services.flatpak.update.onActivation = true;
   services.flatpak.remotes = [
     {
       name = "flathub";

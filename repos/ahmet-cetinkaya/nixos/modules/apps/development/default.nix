@@ -1,21 +1,4 @@
 {pkgs, ...}: {
-  imports = [
-    # Languages
-    ./c-cpp.nix
-    ./javascript.nix
-    ./go.nix
-    ./dotnet.nix
-    ./java.nix
-    ./rust.nix
-    ./python.nix
-
-    # Frameworks
-    ./flutter.nix
-
-    # Game Development
-    ./godot.nix
-  ];
-
   fonts.packages = with pkgs; [
     nerd-fonts.caskaydia-cove
     nerd-fonts.fira-code
@@ -26,12 +9,8 @@
   environment.systemPackages = with pkgs; [
     # Editors
     neovim
-    vscodium-fhs
-    vscode-fhs
     zed-preview-bin
-
-    antigravity-tools-bin
-    google-antigravity-no-fhs
+    vscode-fhs
 
     # Browsers
     firefox-devedition
@@ -40,9 +19,8 @@
     git
     git-open
     gitui
+    openssl
     tea
-
-    # Agents
 
     # Formatters & Linters
     shellcheck
@@ -55,6 +33,7 @@
     statix
     deadnix
     nixfmt
+    nixd
   ];
 
   # Flatpak

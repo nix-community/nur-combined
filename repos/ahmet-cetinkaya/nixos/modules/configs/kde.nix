@@ -32,6 +32,8 @@
       kwriteconfig6 --file "$HOME/.config/ksplashrc" --group KSplash --key Engine none
       kwriteconfig6 --file "$HOME/.config/kwinrc" --group Compositing --key OpenGLIsUnsafe false
       kwriteconfig6 --file "$HOME/.config/kwinrc" --group Wayland --key EnableEarlyOutput false
+      kwriteconfig6 --file "$HOME/.config/kxkbrc" --group Layout --key LayoutList us,tr
+      kwriteconfig6 --file "$HOME/.config/kxkbrc" --group Layout --key Use --type bool true
     fi
   '';
 }

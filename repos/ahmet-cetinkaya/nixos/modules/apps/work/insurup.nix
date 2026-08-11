@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  dotnetSdk = pkgs.dotnetCorePackages.sdk_10_0-bin;
+  dotnetSdk = pkgs.dotnetCorePackages.sdk_10_0-bin; # Insurup currently targets the .NET 10 SDK.
 in {
   environment.systemPackages = with pkgs; [
     # .NET
@@ -23,18 +23,22 @@ in {
     gh
 
     # Database
-    mongodb-compass
+    # mongodb-compass  # TODO: re-enable once nixpkgs fixes wrap-gapps-hook
+    # "bad array subscript" crash on bash 5.3 (buildCommand calls
+    # wrapGAppsHook before $output is set; empty-string array subscript
+    # errors on bash 5.3+). No upstream fix as of current nixpkgs pin.
 
     # PDF generation
     wkhtmltopdf
 
-    # Containers (GUI only; connects to the native Docker Engine below)
+    # Containers
+    docker
+    docker-compose
     podman-desktop
 
     # Communication
     teams-for-linux
     slack
-    thunderbird
   ];
 
   home-manager.sharedModules = [
@@ -43,40 +47,12 @@ in {
         DOTNET_ROOT = lib.mkDefault "${dotnetSdk}/share/dotnet";
       };
 
-      # .NET global tools (e.g. the "aspire" CLI) install here.
       home.sessionPath = ["$HOME/.dotnet/tools"];
-
-      # As of .NET 9, Aspire is no longer a workload — it ships as the
-      # "Aspire.Cli" global tool plus the "Aspire.ProjectTemplates" package.
-      # The old "dotnet workload install aspire" path was removed upstream and
-      # silently fails on .NET 9+, which is why Aspire never appeared installed.
-      home.activation.dotnetAspire = lib.mkAfter ''
-        export PATH="/run/current-system/sw/bin:$HOME/.dotnet/tools:$PATH"
-        export DOTNET_ROOT="$(dirname "$(readlink -f "$(command -v dotnet)")")"
-
-        if ! command -v dotnet >/dev/null 2>&1; then
-          echo "dotnet not found, skipping Aspire installation."
-          exit 0
-        fi
-
-        if command -v aspire >/dev/null 2>&1; then
-          echo "Updating Aspire CLI..."
-          dotnet tool update -g Aspire.Cli 2>/dev/null || echo "Aspire CLI update failed" >&2
-        else
-          echo "Installing Aspire CLI..."
-          dotnet tool install -g Aspire.Cli 2>/dev/null || echo "Aspire CLI installation failed" >&2
-        fi
-
-        echo "Installing/updating Aspire project templates..."
-        dotnet new install Aspire.ProjectTemplates 2>/dev/null \
-          || echo "Aspire templates installation failed" >&2
-      '';
     }
   ];
 
-  # Docker Engine (daemon + CLI); add user to the docker group
+  # Docker Engine (daemon + CLI)
   virtualisation.docker.enable = true;
-  users.users.ac.extraGroups = ["docker"];
 
   # openfortigui needs passwordless sudo to start VPN tunnels.
   # It re-execs itself as root via QCoreApplication::applicationFilePath(),
@@ -90,7 +66,7 @@ in {
       commands = [
         {
           command = "${pkgs.openfortigui}/bin/.openfortigui-wrapped --start-vpn *";
-          options = ["NOPASSWD" "SETENV"];
+          options = ["NOPASSWD"];
         }
       ];
     }

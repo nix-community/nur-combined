@@ -2,6 +2,7 @@
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
+    # Keep 32-bit graphics libraries available for Wine, Steam, and older games.
     enable32Bit = true;
   };
 
@@ -13,20 +14,21 @@
     # Enable NVIDIA's DRM KMS (Direct Rendering Manager Kernel Mode Setting)
     # Required for proper Wayland support on NVIDIA
     "nvidia-drm.modeset=1"
+    # Provide a framebuffer console through NVIDIA DRM during display handoff.
     "nvidia-drm.fbdev=1"
-    # Disable implicit sync for better stability
+    # Keep GSP firmware disabled for the proprietary driver on this host.
     "nvidia.NVreg_EnableGpuFirmware=0"
   ];
 
   # NVIDIA/Wayland stability environment variables for KDE Plasma 6
   environment.sessionVariables = {
-    # Use GBM backend instead of EGL (more stable on NVIDIA)
+    # Select NVIDIA as the GLX vendor through GLVND.
     __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    # Enable NVIDIA's proprietary driver extensions
+    # Use the NVIDIA DRM backend for GBM clients.
     GBM_BACKEND = "nvidia-drm";
-    # Use NVIDIA as the default renderer
+    # Select NVIDIA's VA-API driver.
     LIBVA_DRIVER_NAME = "nvidia";
-    # Disable implicit sync for better stability (Plasma 6 + NVIDIA)
+    # Disable driver-side OpenGL synchronization to the display refresh.
     __GL_SYNC_TO_VBLANK = "0";
     # Required for Firefox/NVIDIA hardware acceleration
     MOZ_DISABLE_RDD_SANDBOX = "1";

@@ -53,6 +53,19 @@ in {
         default = true;
         description = "Use the LTO (Link Time Optimization) kernel variant";
       };
+
+      # Keep the generic kernel by default; hosts may select a supported CPU target.
+      march = lib.mkOption {
+        type = lib.types.enum [
+          "generic"
+          "x86_64-v2"
+          "x86_64-v3"
+          "x86_64-v4"
+          "zen4"
+        ];
+        default = "generic";
+        description = "CPU target suffix for CachyOS kernels";
+      };
     };
 
     # BBRv3 TCP congestion control. Not set by cachyos-settings-nix, so it lives
@@ -70,7 +83,23 @@ in {
         assertion = cfg.kernel.enable -> hasKernels;
         message = "cachyos.kernel.enable requires the nix-cachyos-kernel overlay (pkgs.cachyosKernels)";
       }
+      {
+        assertion =
+          !cfg.kernel.enable
+          || builtins.hasAttr "linuxPackages-cachyos-${cfg.kernel.variant}${lib.optionalString cfg.kernel.lto "-lto"}${lib.optionalString (cfg.kernel.march != "generic") "-${cfg.kernel.march}"}" pkgs.cachyosKernels;
+        message = "The selected CachyOS kernel variant, LTO mode, and CPU target are unavailable in pkgs.cachyosKernels";
+      }
     ];
+
+    boot.kernelPackages = lib.mkIf cfg.kernel.enable (
+      pkgs.cachyosKernels."linuxPackages-cachyos-${cfg.kernel.variant}${lib.optionalString cfg.kernel.lto "-lto"}${lib.optionalString (cfg.kernel.march != "generic") "-${cfg.kernel.march}"}"
+    );
+
+    boot.kernelModules = lib.mkIf cfg.bbr.enable ["tcp_bbr"];
+    boot.kernel.sysctl = lib.mkIf cfg.bbr.enable {
+      "net.core.default_qdisc" = "fq";
+      "net.ipv4.tcp_congestion_control" = "bbr";
+    };
 
     # Fetch pre-built CachyOS kernels from upstream binary cache.
     # Without this, every rebuild compiles the kernel locally.

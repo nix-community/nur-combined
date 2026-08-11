@@ -4,6 +4,9 @@ set -euo pipefail
 
 ## Apply NixOS flake configuration for a given host
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+NIXOS_DIR="$(dirname "$SCRIPT_DIR")"
+
 # Function to display usage
 usage() {
 	echo "Usage: $0 <host>"
@@ -16,9 +19,9 @@ usage() {
 	exit 1
 }
 
-# Check if host argument is provided
-if [ $# -lt 1 ]; then
-	echo "Error: Host argument is required."
+# Check if exactly one non-empty host argument is provided
+if [[ $# -ne 1 || -z "$1" ]]; then
+	echo "Error: Exactly one host argument is required."
 	echo ""
 	usage
 fi
@@ -27,6 +30,6 @@ HOST="$1"
 
 echo "🔧 Applying NixOS flake for ${HOST}..."
 
-sudo nixos-rebuild switch --flake .#"${HOST}"
+sudo nixos-rebuild switch --flake "$NIXOS_DIR#$HOST"
 
 echo "✨ NixOS flake applied successfully!"

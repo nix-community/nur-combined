@@ -1,7 +1,19 @@
 {lib, ...}: {
-  home.activation.kittyConfig = lib.mkAfter ''
+  home.activation.kittyConfig = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    kitty_src="$HOME/Configs/kitty"
+    kitty_dst="$HOME/.config/kitty"
+
+    if [ ! -d "$kitty_src" ]; then
+      echo "Kitty configuration directory not found: $kitty_src" >&2
+      exit 1
+    fi
+
+    if [ -e "$kitty_dst" ] && [ ! -L "$kitty_dst" ]; then
+      echo "Refusing to replace non-symlink Kitty configuration: $kitty_dst" >&2
+      exit 1
+    fi
+
     mkdir -p "$HOME/.config"
-    rm -rf "$HOME/.config/kitty"
-    ln -sfn "$HOME/Configs/kitty" "$HOME/.config/kitty"
+    ln -sfn "$kitty_src" "$kitty_dst"
   '';
 }
