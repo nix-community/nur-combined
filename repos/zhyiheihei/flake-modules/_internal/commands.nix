@@ -61,16 +61,19 @@ _: {
           bin/nur update
           bin/nur eval "$FLAKEDIR"
 
-          git clone --single-branch --depth=1 "https://github.com/nix-community/nur-combined.git"
-          cp repos.json repos.json.lock nur-combined/
-          # nur-combined ships a checked-in copy of every repo. Replace only
-          # ours with the locked revision so the index never evaluates stale
-          # source hashes from the previous commit.
+          # Build a minimal combined tree without nur-combined's checked-in
+          # repo copies, so the index re-fetches every locked revision instead
+          # of evaluating a stale checkout of this repository.
+          mkdir nur-index
+          cp repos.json repos.json.lock nur-index/
+          cp -r "$TMPDIR/lib" nur-index/lib
+          cp "$TMPDIR/default.nix" nur-index/default.nix
+          mkdir -p nur-index/repos
+          # Realize our locked source outside the index's restricted eval, then
+          # expose it as a local repo path so nur-index does not need IFD.
           REPO_SOURCE=$(nix-build "$TMPDIR" --no-out-link -A "repo-sources.zhyiheihei")
-          chmod -R u+w nur-combined/repos/zhyiheihei
-          rm -rf nur-combined/repos/zhyiheihei
-          cp -r "$REPO_SOURCE" nur-combined/repos/zhyiheihei
-          bin/nur index nur-combined > index.json
+          ln -s "$REPO_SOURCE" nur-index/repos/zhyiheihei
+          bin/nur index nur-index > index.json
 
           cd "$FLAKEDIR"
           rm -rf "$TMPDIR"
