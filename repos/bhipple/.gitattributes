@@ -1,1 +1,0 @@
-pkgs/talon/beta-src.nix                       filter=git-crypt diff=git-crypt
