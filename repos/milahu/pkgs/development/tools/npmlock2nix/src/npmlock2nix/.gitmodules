@@ -1,3 +1,0 @@
-[submodule "nix-yaml"]
-	path = nix-yaml
-	url = https://github.com/milahu/nix-yaml

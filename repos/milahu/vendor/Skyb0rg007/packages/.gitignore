@@ -1,9 +1,0 @@
-result*
-*.tar.[xg]z
-*.dsc
-*.deb
-*.ddeb
-*.buildinfo
-*.changes
-itp-*.txt
-/.pre-commit-config.yaml

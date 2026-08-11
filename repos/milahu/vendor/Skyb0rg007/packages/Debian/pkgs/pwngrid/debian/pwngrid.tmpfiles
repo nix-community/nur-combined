@@ -1,3 +1,0 @@
-#Type Path                   Mode User    Group   Age Argument
-d     /var/lib/pwngrid       755  pwngrid pwngrid -   -
-d     /var/lib/pwngrid/keys  700  pwngrid pwngrid -   -
