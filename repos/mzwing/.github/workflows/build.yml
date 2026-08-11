@@ -352,6 +352,18 @@ jobs:
         cachix-name: ${{ env.CACHE_NAME }}
         paths-file: /tmp/push-outputs.txt
 
+    # The post-build hook pushes are fire-and-forget; whatever they
+    # dropped would be deleted by the cache machine's GC (its keep-set
+    # only covers outputs already valid there) and rebuilt next run.
+    # Reconcile deterministically while the builders are still alive.
+    - name: Reconcile builder store cache
+      if: '!cancelled()'
+      uses: mzwing/nix-config/.github/actions/reconcile-builder-store-cache@master
+      with:
+        builders-json: ${{ needs.config.outputs.builders }}
+        builder-prefix: ${{ env.BUILDER_PREFIX }}
+        cache-host: ${{ env.CACHE_HOST }}
+
     # Also signals the builder store cache machine that the run is over
     # (/tmp/cache_done, via the cache-host input).
     - name: Release remote builders
