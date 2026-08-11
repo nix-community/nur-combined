@@ -44,6 +44,18 @@
     };
     date = "2026-08-06";
   };
+  xwayland-satellite = {
+    pname = "xwayland-satellite";
+    version = "eb92bfe4adc24c99e0ba7a31d432e5429efa9366";
+    src = fetchFromGitHub {
+      owner = "so1ve";
+      repo = "xwayland-satellite";
+      rev = "eb92bfe4adc24c99e0ba7a31d432e5429efa9366";
+      fetchSubmodules = false;
+      sha256 = "sha256-S8NLPaw754IO6heLzY4cNjW2GXY76E9TZW3glSOKDTM=";
+    };
+    date = "2026-08-12";
+  };
   yanhekt-autoslides = {
     pname = "yanhekt-autoslides";
     version = "v4.4.1";

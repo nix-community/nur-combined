@@ -17,6 +17,9 @@ in
   winboat-unstable = pkgs.callPackage ./pkgs/winboat-unstable {
     source = sources.winboat;
   };
+  xwayland-satellite = pkgs.callPackage ./pkgs/xwayland-satellite {
+    source = sources.xwayland-satellite;
+  };
 
   homeModules = import ./home-modules;
 }

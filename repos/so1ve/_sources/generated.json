@@ -64,6 +64,27 @@
         },
         "version": "4fefd6da554fe80b0fc9da7a5dd8355371e1d3fd"
     },
+    "xwayland-satellite": {
+        "cargoLock": null,
+        "date": "2026-08-12",
+        "extract": null,
+        "name": "xwayland-satellite",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "so1ve",
+            "repo": "xwayland-satellite",
+            "rev": "eb92bfe4adc24c99e0ba7a31d432e5429efa9366",
+            "sha256": "sha256-S8NLPaw754IO6heLzY4cNjW2GXY76E9TZW3glSOKDTM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "eb92bfe4adc24c99e0ba7a31d432e5429efa9366"
+    },
     "yanhekt-autoslides": {
         "cargoLock": null,
         "date": null,

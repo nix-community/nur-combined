@@ -24,3 +24,8 @@ fetch.github = "BIT-Admin/Yanhekt-AutoSlides"
 src.git = "https://github.com/TibixDev/winboat.git"
 src.branch = "main"
 fetch.git = "https://github.com/TibixDev/winboat.git"
+
+[xwayland-satellite]
+src.git = "https://github.com/so1ve/xwayland-satellite.git"
+src.branch = "fix/issue-301"
+fetch.github = "so1ve/xwayland-satellite"
