@@ -18,9 +18,10 @@
       nixpkgs.lib.filterAttrs
       (_: package: nixpkgs.lib.isDerivation package && nixpkgs.lib.meta.availableOn platform package)
       self.legacyPackages.${system});
-    apps.x86_64-linux = import ./scripts {
-      pkgs = nixpkgs.legacyPackages.x86_64-linux;
-    };
+    apps = forAllSystems (system:
+      import ./scripts {
+        pkgs = nixpkgs.legacyPackages.${system};
+      });
     nixosModules = import ./nixos-modules;
     homeModules = import ./home-modules;
     darwinModules = import ./darwin-modules;

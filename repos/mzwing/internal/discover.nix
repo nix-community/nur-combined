@@ -44,19 +44,6 @@
 #     (e.g. typenix-vscode's `source` is sources.typenix).
 #     `sources` defaults to the repository's _sources.
 #
-#     A package that declares a required `source` argument which cannot be
-#     satisfied (no nvfetcher entry under its directory name and no
-#     `extraArgs` override providing `source`) is SKIPPED with a trace
-#     warning instead of aborting the whole package set. This matters
-#     because Nix forces the flake's `packages` output for every system
-#     when evaluating any flake attribute, so one unsatisfiable `source`
-#     would otherwise break every flake command — including
-#     `nix run .#update-sources`, the very tool that regenerates the
-#     missing _sources entry (a bootstrap deadlock when adding new
-#     packages). Once the update workflow regenerates _sources, the
-#     package appears on its own. A typo'd nvfetcher key therefore shows
-#     up as a silently missing package, hence the loud trace warning.
-#
 #     NOTE: rule 3 takes precedence over nixpkgs resolution, so adding a
 #     local package whose name collides with a nixpkgs argument used by
 #     another package (e.g. a local `sing-box`) shadows it; use `extraArgs`
@@ -130,42 +117,17 @@
         value = valueFor arg;
       }) (builtins.filter shouldInject (builtins.attrNames fargs)));
 
-    # Whether `source` can be satisfied for the package: either nvfetcher
-    # pins a source under its directory name, or extraArgs provides one.
-    hasSource = name:
-      builtins.hasAttr name sources
-      || (
-        builtins.hasAttr name extraArgs
-        && builtins.hasAttr "source" (builtins.getAttr name extraArgs)
-      );
-
-    # Whether the package declares a required `source` argument
-    # (functionArgs only reports arguments without defaults).
-    needsSource = name:
-      builtins.hasAttr "source" (builtins.functionArgs (import (dir + "/${name}/default.nix")));
-
-    buildableDirs = builtins.filter (
-      name:
-        if needsSource name && !hasSource name
-        then
-          builtins.trace
-          "discover.nix: skipping package '${name}': no source named '${name}' in _sources; add it to nvfetcher.toml and run update-sources"
-          false
-        else true
-    ) (packageDirs dir);
-
     result = builtins.listToAttrs (map (name: {
-        inherit name;
-        value = pkgs.callPackage (dir + "/${name}/default.nix") (
-          autoArgsFor name
-          // (
-            if builtins.hasAttr name extraArgs
-            then builtins.getAttr name extraArgs
-            else {}
-          )
-        );
-      })
-      buildableDirs);
+      inherit name;
+      value = pkgs.callPackage (dir + "/${name}/default.nix") (
+        autoArgsFor name
+        // (
+          if builtins.hasAttr name extraArgs
+          then builtins.getAttr name extraArgs
+          else {}
+        )
+      );
+    }) (packageDirs dir));
   in
     result;
 in {
