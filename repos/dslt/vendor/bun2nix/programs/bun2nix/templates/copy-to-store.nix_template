@@ -1,0 +1,5 @@
+{%- if let Ok(options) = askama::get_value::<Options>("options") -%}
+copyPathToStore {{ options.copy_prefix }}{{ path }}
+{%- else -%}
+copyPathToStore ./{{ path }}
+{%- endif -%}

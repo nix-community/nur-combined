@@ -1,0 +1,6 @@
+node_modules
+
+# Ignore .npmrc as it may contain secrets
+# Uncomment if you want to commit a template .npmrc
+# !.npmrc.example
+.npmrc

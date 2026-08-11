@@ -1,0 +1,12 @@
+pkg
+target
+.direnv
+result
+.cache
+
+book
+node_modules
+dist
+
+.zig-cache
+zig-out

@@ -1,0 +1,49 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "test-project",
+      "dependencies": {
+        "@gitlab-examples/semantic-release-npm": "https://gitlab.com/gitlab-examples/semantic-release-npm",
+        "dayjs": "git+https://github.com/iamkun/dayjs.git",
+        "local-tarball-dep": "file:./local-tarball/dep-1.0.0.tgz",
+        "react": "^19",
+        "test-project-file-dep": "./file-dep",
+        "zod": "github:colinhacks/zod",
+        "zod-tarball": "https://registry.npmjs.org/zod/-/zod-3.21.4.tgz",
+      },
+      "devDependencies": {
+        "@types/bun": "latest",
+      },
+      "peerDependencies": {
+        "typescript": "^5",
+      },
+    },
+  },
+  "packages": {
+    "@gitlab-examples/semantic-release-npm": ["@gitlab-examples/semantic-release-npm@git+https://gitlab.com/gitlab-examples/semantic-release-npm#ee100d81f12ae315a81c2a664979a6cc1bce99a2", {}, "ee100d81f12ae315a81c2a664979a6cc1bce99a2"],
+
+    "@types/bun": ["@types/bun@1.3.3", "", { "dependencies": { "bun-types": "1.3.3" } }, "sha512-ogrKbJ2X5N0kWLLFKeytG0eHDleBYtngtlbu9cyBKFtNL3cnpDZkNdQj8flVf6WTZUX5ulI9AY1oa7ljhSrp+g=="],
+
+    "@types/node": ["@types/node@24.10.1", "", { "dependencies": { "undici-types": "~7.16.0" } }, "sha512-GNWcUTRBgIRJD5zj+Tq0fKOJ5XZajIiBroOF0yvj2bSU1WvNdYS/dn9UxwsujGW4JX06dnHyjV2y9rRaybH0iQ=="],
+
+    "bun-types": ["bun-types@1.3.3", "", { "dependencies": { "@types/node": "*" } }, "sha512-z3Xwlg7j2l9JY27x5Qn3Wlyos8YAp0kKRlrePAOjgjMGS5IG6E7Jnlx736vH9UVI4wUICwwhC9anYL++XeOgTQ=="],
+
+    "dayjs": ["dayjs@github:iamkun/dayjs#45bf6a3", {}, "iamkun-dayjs-45bf6a3"],
+
+    "local-tarball-dep": ["local-tarball-dep@./local-tarball/dep-1.0.0.tgz", {}],
+
+    "react": ["react@19.2.0", "", {}, "sha512-tmbWg6W31tQLeB5cdIBOicJDJRR2KzXsV7uSK9iNfLWQ5bIZfxuPEHp7M8wiHyHnn0DD1i7w3Zmin0FtkrwoCQ=="],
+
+    "test-project-file-dep": ["test-project-file-dep@file:file-dep", {}],
+
+    "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+
+    "undici-types": ["undici-types@7.16.0", "", {}, "sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw=="],
+
+    "zod": ["zod@github:colinhacks/zod#7dbf404", {}, "colinhacks-zod-7dbf404"],
+
+    "zod-tarball": ["zod@https://registry.npmjs.org/zod/-/zod-3.21.4.tgz", {}],
+  }
+}

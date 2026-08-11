@@ -1,0 +1,5 @@
+[install]
+linker = "isolated"
+
+# Simple URL (tokens can be in .npmrc instead)
+# "@another" = "https://registry.example.com"

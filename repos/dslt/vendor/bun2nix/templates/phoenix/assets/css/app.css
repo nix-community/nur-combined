@@ -1,0 +1,8 @@
+/* See the Tailwind configuration guide for advanced usage
+   https://tailwindcss.com/docs/configuration */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* This file is for your main application CSS */

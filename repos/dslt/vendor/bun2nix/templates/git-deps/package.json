@@ -1,0 +1,21 @@
+{
+  "name": "git-deps",
+  "version": "0.1.0",
+  "scripts": {
+    "postinstall": "bun2nix -o bun.nix"
+  },
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@gitlab-examples/semantic-release-npm": "https://gitlab.com/gitlab-examples/semantic-release-npm",
+    "dayjs": "git+https://github.com/iamkun/dayjs.git",
+    "zod": "github:colinhacks/zod"
+  }
+}

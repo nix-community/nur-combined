@@ -1,0 +1,26 @@
+{
+  "name": "bun-react-template",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.tsx",
+  "module": "src/index.tsx",
+  "scripts": {
+    "dev": "bun --hot src/index.tsx",
+    "start": "NODE_ENV=production bun src/index.tsx",
+    "build": "bun run build.ts",
+    "postinstall": "bun2nix -o bun.nix"
+  },
+  "dependencies": {
+    "bun-plugin-tailwind": "^0.1.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "@types/bun": "^1.3.2",
+    "bun2nix": "^2.0.0"
+  }
+}

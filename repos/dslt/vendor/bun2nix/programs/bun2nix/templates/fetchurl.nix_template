@@ -1,0 +1,7 @@
+fetchurl {
+    url = "{{ url }}";
+    hash = "{{ hash }}";
+{%- if let Some(n) = name %}
+    name = "{{ n }}";
+{%- endif %}
+  }

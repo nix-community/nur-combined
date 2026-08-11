@@ -1,0 +1,11 @@
+diff --git a/index.js b/index.js
+index 27f7296..1234567 100644
+--- a/index.js
++++ b/index.js
+@@ -14,3 +14,6 @@ module.exports = function(num) {
+   }
+   return false;
+ };
++
++// PATCHED BY BUN2NIX
++module.exports.PATCHED = true;

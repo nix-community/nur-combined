@@ -1,0 +1,5 @@
+fetchgit {
+    url = "{{ url }}";
+    rev = "{{ rev }}";
+    hash = "{{ hash }}";
+  }

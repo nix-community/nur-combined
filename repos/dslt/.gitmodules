@@ -1,0 +1,3 @@
+[submodule "vendor/bun2nix"]
+	path = vendor/bun2nix
+	url = https://github.com/nix-community/bun2nix

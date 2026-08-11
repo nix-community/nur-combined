@@ -1,0 +1,21 @@
+{
+  "name": "test-project",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "dependencies": {
+    "@gitlab-examples/semantic-release-npm": "https://gitlab.com/gitlab-examples/semantic-release-npm",
+    "local-tarball-dep": "file:./local-tarball/dep-1.0.0.tgz",
+    "dayjs": "git+https://github.com/iamkun/dayjs.git",
+    "react": "^19",
+    "test-project-file-dep": "./file-dep",
+    "zod": "github:colinhacks/zod",
+    "zod-tarball": "https://registry.npmjs.org/zod/-/zod-3.21.4.tgz"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
