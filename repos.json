@@ -148,6 +148,10 @@
         "adam0": {
             "url": "https://github.com/adam01110/nur"
         },
+        "af-nur": {
+            "submodules": true,
+            "url": "https://github.com/DeepslateQAQ/nur-packages"
+        },
         "afreakk": {
             "url": "https://github.com/afreakk/mynixrepo"
         },
@@ -482,6 +486,10 @@
         },
         "dschrempf": {
             "url": "https://github.com/dschrempf/nur-packages"
+        },
+        "dslt": {
+            "submodules": true,
+            "url": "https://github.com/DeepslateQAQ/nur-packages"
         },
         "dsuetin": {
             "url": "https://github.com/dani0854/nur-packages"
