@@ -63,7 +63,16 @@ rustPlatform.buildRustPackage {
     export WGPU_BACKEND=vulkan
     export VK_ICD_FILENAMES=${mesa}/share/vulkan/icd.d/lvp_icd.x86_64.json
     export LIBGL_ALWAYS_SOFTWARE=1
-    xvfb-run -a cargo test --release
+
+    # 1. Pure unit tests for the engine lib (no display / GPU required)
+    cargo test --release --lib -- --test-threads=1
+
+    # 2. Unit tests for the urban_chaos WASM mod
+    cargo test --release -p urban_chaos -- --test-threads=1
+
+    # 3. Integration tests (agent CLI test) need a display
+    xvfb-run -a cargo test --release --test '*' -- --test-threads=1
+
     runHook postCheck
   '';
 

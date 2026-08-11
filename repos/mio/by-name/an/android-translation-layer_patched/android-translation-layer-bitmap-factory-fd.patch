@@ -1,6 +1,6 @@
 --- a/src/api-impl/android/graphics/BitmapFactory.java
 +++ b/src/api-impl/android/graphics/BitmapFactory.java
-@@ -633,25 +633,24 @@
+@@ -633,25 +633,28 @@
  
  		Trace.traceBegin(Trace.TRACE_TAG_GRAPHICS, "decodeFileDescriptor");
  		try {
@@ -31,6 +31,10 @@
 +			if (bm != null && opts != null) {
 +				opts.outWidth = bm.getWidth();
 +				opts.outHeight = bm.getHeight();
++				opts.outMimeType = "image/png";
++				if (opts.inJustDecodeBounds) {
++					bm = null;
++				}
 +			}
  		} finally {
  			Trace.traceEnd(Trace.TRACE_TAG_GRAPHICS);

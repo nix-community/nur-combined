@@ -6,6 +6,8 @@ use std::io::{self, BufRead};
 use std::sync::{mpsc::{channel, Receiver}, Mutex, OnceLock};
 use serde::{Deserialize, Serialize};
 use matchbox_socket::WebRtcSocket;
+// Re-use pure functions from the hanga engine library (no Bevy dep there)
+use hanga::{is_action_physically_possible, clamp_mod_state, unpack_economy_params};
 
 #[derive(Resource, Clone, Default)]
 struct DefaultWorld;
@@ -253,15 +255,6 @@ fn setup(mut commands: Commands) {
     }
 }
 
-/// Pure function to validate if a block-break action is within physical limits.
-/// Extracted so Kani can mathematically verify its safety without the heavy ECS.
-pub fn is_action_physically_possible(px: f32, py: f32, pz: f32, tx: f32, ty: f32, tz: f32, max_dist: f32) -> bool {
-    let dx = px - tx;
-    let dy = py - ty;
-    let dz = pz - tz;
-    let dist_sq = dx * dx + dy * dy + dz * dz;
-    dist_sq <= (max_dist * max_dist)
-}
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
 fn validate_incoming_actions(
@@ -330,7 +323,7 @@ fn validate_incoming_actions(
                             if let Ok(mod_evaluate) = instance.get_typed_func::<(i32, i32), i32>(&mut store, "mod_evaluate_action") {
                                 if let Ok(new_state) = mod_evaluate.call(&mut store, (1, mod_state.0 as i32)) {
                                     let old_state = mod_state.0;
-                                    mod_state.0 = new_state as u32;
+                                    mod_state.0 = clamp_mod_state(new_state, 0, 5) as u32;
                                     info!("WASM Mod evaluated action! State is now {}", mod_state.0);
                                     
                                     if let Ok(should_spawn) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "mod_should_spawn_agent") {
@@ -986,7 +979,7 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>) {
                 // Ask the MOD for its economic parameters — supply/demand are mod-owned.
                 let (supply, demand) = if let Ok(f) = instance.get_typed_func::<(), i32>(&mut store, "mod_get_economy_params") {
                     if let Ok(packed) = f.call(&mut store, ()) {
-                        ((packed >> 16) & 0xFFFF, packed & 0xFFFF)
+                        unpack_economy_params(packed)
                     } else { (5, 8) }
                 } else { (5, 8) };
                 if let Ok(calc_price) = instance.get_typed_func::<(i32, i32, i32), i32>(&mut store, "compute_economy_price") {
@@ -1063,27 +1056,8 @@ mod tests {
     use proptest::prelude::*;
 
     proptest! {
-        #[test]
-        fn test_action_validator_distance(
-            px in -1000.0f32..1000.0,
-            py in -1000.0f32..1000.0,
-            pz in -1000.0f32..1000.0,
-            tx in -1000.0f32..1000.0,
-            ty in -1000.0f32..1000.0,
-            tz in -1000.0f32..1000.0,
-        ) {
-            let max_dist = 10.0;
-            let possible = is_action_physically_possible(px, py, pz, tx, ty, tz, max_dist);
-            
-            if possible {
-                // Property: If the Euclidean distance is valid, no individual axis 
-                // difference can be greater than the max distance.
-                assert!((px - tx).abs() <= max_dist, "X axis distance exceeded maximum");
-                assert!((py - ty).abs() <= max_dist, "Y axis distance exceeded maximum");
-                assert!((pz - tz).abs() <= max_dist, "Z axis distance exceeded maximum");
-            }
-        }
-        
+        /// Bevy-specific property: TrustLedger penalization works with arbitrary
+        /// initial scores and penalties. Tests the Bevy Entity-keyed ledger in main.rs.
         #[test]
         fn test_trust_ledger_penalization(
             initial_score in 0.0f32..10.0,
@@ -1091,14 +1065,9 @@ mod tests {
         ) {
             let mut ledger = TrustLedger::default();
             let entity = Entity::from_raw_u32(42).unwrap();
-            
-            // Set an initial score (simulate a peer that already has a score)
             ledger.peer_scores.insert(entity, initial_score);
             ledger.penalize(entity, penalty);
-            
             let final_score = ledger.peer_scores.get(&entity).unwrap();
-            
-            // Property: The final score must exactly equal initial_score - penalty
             prop_assert_eq!(*final_score, initial_score - penalty);
         }
     }

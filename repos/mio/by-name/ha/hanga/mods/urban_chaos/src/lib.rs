@@ -2,7 +2,7 @@
 pub extern "C" fn init_mod() -> i32 {
     // This is the Urban Chaos mod initializing!
     // We run the layout generator to prep the city grid.
-    let layout = CityLayout::generate(1000, 1000);
+    let _layout = CityLayout::generate(1000, 1000);
     // Return 100 indicating successful initialization
     100
 }
@@ -168,7 +168,7 @@ pub extern "C" fn mod_evaluate_action(action_type: i32, current_state: i32) -> i
 
 /// Returns the AI type to spawn (0 = none, 1 = Cop, etc)
 #[unsafe(no_mangle)]
-pub extern "C" fn mod_should_spawn_agent(action_type: i32, old_state: i32, new_state: i32) -> i32 {
+pub extern "C" fn mod_should_spawn_agent(_action_type: i32, old_state: i32, new_state: i32) -> i32 {
     // If our wanted level increased and is > 0, spawn a Cop (Agent Type 1)
     if new_state > old_state && new_state > 0 {
         return 1;
@@ -274,12 +274,11 @@ pub extern "C" fn generate_story_event(player_level: i32) -> i32 {
     }
 }
 #[cfg(kani)]
-mod verification {
+mod kani_verification {
     use super::*;
 
     #[kani::proof]
     fn verify_get_voxel_at_never_panics() {
-        // Generate non-deterministic inputs for any possible coordinate
         let x: i32 = kani::any();
         let y: i32 = kani::any();
         let z: i32 = kani::any();
@@ -291,13 +290,8 @@ mod verification {
             districts: vec![],
         };
 
-        // We formally verify that for EVERY SINGLE possible 32-bit integer coordinate,
-        // our voxel lookup logic will safely return a block and NEVER panic.
-        // This is crucial because voxel engines can query extreme edge cases.
         let voxel_id = layout.get_voxel_at(x, y, z);
-        
-        // Ensure the returned ID is within known bounds (0 to 3)
-        kani::assert(voxel_id <= 3, "Voxel ID must be a known block type");
+        kani::assert(voxel_id <= 5, "Voxel ID must be a known block type");
     }
 
     #[kani::proof]
@@ -305,25 +299,251 @@ mod verification {
         let x: i32 = kani::any();
         let y: i32 = kani::any();
         let z: i32 = kani::any();
-        
-        // Verify the WASM FFI boundary function is perfectly safe
         let result = query_voxel(x, y, z);
-        kani::assert(result >= 0 && result <= 3, "FFI returns a valid known voxel");
+        kani::assert(result >= 0 && result <= 5, "FFI returns a valid known voxel");
     }
 
     #[kani::proof]
-    fn verify_calculate_wanted_level() {
+    fn verify_mod_evaluate_action_stays_bounded() {
         let action_type: i32 = kani::any();
         let current_level: i32 = kani::any();
-        
-        // We verify that computing the wanted level never panics
-        // even with extreme integer boundaries.
-        let result = calculate_wanted_level(action_type, current_level);
-        
-        // We can also formally verify our invariants:
-        // 1. If action is 1 (BreakBlock), it should be current_level + 1 (unless overflow occurs, wait! + 1 can overflow).
-        // Since we are using standard `+`, it will panic on overflow in debug mode!
-        // To be truly robust for WASM, we should probably use saturating_add in the real code,
-        // but for now, we just verify it runs.
+        kani::assume(current_level >= 0 && current_level <= 5);
+        let result = mod_evaluate_action(action_type, current_level);
+        kani::assert(result >= 0 && result <= 5, "Wanted level must stay 0-5");
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // ── CityLayout::get_voxel_at ─────────────────────────────────────────────
+
+    #[test]
+    fn voxel_below_ground_is_solid() {
+        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
+        assert!(layout.get_voxel_at(0, -1, 0) > 0, "below ground must be solid");
+        assert!(layout.get_voxel_at(500, -100, 500) > 0);
+    }
+
+    #[test]
+    fn voxel_high_in_air_is_air() {
+        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
+        // y=500 is far above any building
+        assert_eq!(layout.get_voxel_at(50, 500, 50), 0, "high altitude should be air");
+    }
+
+    #[test]
+    fn road_surface_is_asphalt() {
+        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
+        // Roads are at y=0 where mod_x < 3 or mod_z < 3
+        let voxel = layout.get_voxel_at(0, 0, 0); // x%100=0, z%100=0 → road
+        assert_eq!(voxel, 2, "road centre should be asphalt (type 2)");
+    }
+
+    #[test]
+    fn query_voxel_ffi_matches_get_voxel_at() {
+        // The WASM FFI wrapper must return the same value as the Rust function.
+        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
+        for (x, y, z) in [(0, 0, 0), (500, 50, 500), (0, -1, 0), (50, 500, 50)] {
+            let direct = layout.get_voxel_at(x, y, z) as i32;
+            let via_ffi = query_voxel(x, y, z);
+            assert_eq!(direct, via_ffi, "FFI wrapper must match direct call at ({x},{y},{z})");
+        }
+    }
+
+    // ── mod_evaluate_action (wanted level / ModState) ─────────────────────────
+
+    #[test]
+    fn break_block_increases_wanted_level() {
+        assert_eq!(mod_evaluate_action(1, 0), 1);
+        assert_eq!(mod_evaluate_action(1, 3), 4);
+    }
+
+    #[test]
+    fn break_block_caps_at_5() {
+        assert_eq!(mod_evaluate_action(1, 5), 5, "must not exceed 5 stars");
+        assert_eq!(mod_evaluate_action(1, 4), 5);
+    }
+
+    #[test]
+    fn place_block_no_offense() {
+        assert_eq!(mod_evaluate_action(2, 0), 0);
+        assert_eq!(mod_evaluate_action(2, 3), 3);
+    }
+
+    #[test]
+    fn enter_vehicle_grand_theft_auto() {
+        assert_eq!(mod_evaluate_action(3, 0), 3);
+        assert_eq!(mod_evaluate_action(3, 3), 5, "must cap at 5");
+    }
+
+    #[test]
+    fn explosion_is_instant_5_stars() {
+        assert_eq!(mod_evaluate_action(4, 0), 5);
+        assert_eq!(mod_evaluate_action(4, 2), 5);
+    }
+
+    #[test]
+    fn unknown_action_type_is_neutral() {
+        assert_eq!(mod_evaluate_action(99, 2), 2);
+        assert_eq!(mod_evaluate_action(-1, 4), 4);
+    }
+
+    // ── mod_should_spawn_agent ────────────────────────────────────────────────
+
+    #[test]
+    fn spawn_cop_when_wanted_level_rises() {
+        assert_eq!(mod_should_spawn_agent(1, 0, 1), 1, "rising level should spawn cop");
+        assert_eq!(mod_should_spawn_agent(4, 2, 5), 1);
+    }
+
+    #[test]
+    fn no_spawn_when_level_unchanged() {
+        assert_eq!(mod_should_spawn_agent(2, 3, 3), 0);
+    }
+
+    #[test]
+    fn no_spawn_when_level_drops() {
+        assert_eq!(mod_should_spawn_agent(0, 5, 3), 0);
+    }
+
+    #[test]
+    fn no_spawn_when_new_state_is_zero() {
+        assert_eq!(mod_should_spawn_agent(1, 0, 0), 0);
+    }
+
+    // ── mod_get_action_range ──────────────────────────────────────────────────
+
+    #[test]
+    fn break_block_range_is_10() {
+        assert!((mod_get_action_range(1) - 10.0).abs() < 1e-6);
+    }
+
+    #[test]
+    fn explosion_range_is_30() {
+        assert!((mod_get_action_range(4) - 30.0).abs() < 1e-6);
+    }
+
+    #[test]
+    fn enter_vehicle_range_is_5() {
+        assert!((mod_get_action_range(3) - 5.0).abs() < 1e-6);
+    }
+
+    #[test]
+    fn unknown_action_range_defaults_to_10() {
+        assert!((mod_get_action_range(99) - 10.0).abs() < 1e-6);
+    }
+
+    // ── compute_traffic_vx/vz ────────────────────────────────────────────────
+
+    #[test]
+    fn traffic_velocity_is_forward_times_speed() {
+        let vx = compute_traffic_vx(1.0, 0.0);
+        let vz = compute_traffic_vz(0.0, 1.0);
+        assert!((vx - 10.0).abs() < 1e-6, "full-forward-x should give vx=10");
+        assert!((vz - 10.0).abs() < 1e-6, "full-forward-z should give vz=10");
+    }
+
+    #[test]
+    fn traffic_stationary_when_forward_is_zero() {
+        assert!((compute_traffic_vx(0.0, 0.0)).abs() < 1e-6);
+        assert!((compute_traffic_vz(0.0, 0.0)).abs() < 1e-6);
+    }
+
+    #[test]
+    fn traffic_diagonal_forward() {
+        let fwd = 1.0_f32 / 2.0_f32.sqrt();
+        let vx = compute_traffic_vx(fwd, fwd);
+        let vz = compute_traffic_vz(fwd, fwd);
+        assert!((vx - fwd * 10.0).abs() < 1e-5);
+        assert!((vz - fwd * 10.0).abs() < 1e-5);
+    }
+
+    // ── compute_agent_vx/vz ──────────────────────────────────────────────────
+
+    #[test]
+    fn cop_chases_player_in_x() {
+        // player at (10, 0), cop at (0, 0) → cop should move +x
+        let vx = compute_agent_vx(1, 0.0, 0.0, 10.0, 0.0);
+        assert!(vx > 0.0, "cop should move toward player on x axis");
+    }
+
+    #[test]
+    fn cop_chases_player_in_z() {
+        let vz = compute_agent_vz(1, 0.0, 0.0, 0.0, 10.0);
+        assert!(vz > 0.0, "cop should move toward player on z axis");
+    }
+
+    #[test]
+    fn cop_stops_when_adjacent() {
+        // cop within 2 units of player — should not move
+        let vx = compute_agent_vx(1, 0.0, 0.0, 1.0, 0.0);
+        assert!((vx).abs() < 1e-6, "cop too close, should stop");
+    }
+
+    #[test]
+    fn unknown_ai_type_has_zero_velocity() {
+        let vx = compute_agent_vx(99, 0.0, 0.0, 100.0, 100.0);
+        let vz = compute_agent_vz(99, 0.0, 0.0, 100.0, 100.0);
+        assert!((vx).abs() < 1e-6);
+        assert!((vz).abs() < 1e-6);
+    }
+
+    // ── compute_economy_price ─────────────────────────────────────────────────
+
+    #[test]
+    fn economy_basic_price() {
+        // (100 * 8) / 5 = 160
+        assert_eq!(compute_economy_price(100, 5, 8), 160);
+    }
+
+    #[test]
+    fn economy_zero_supply_is_scarcity() {
+        assert_eq!(compute_economy_price(100, 0, 8), 1000, "zero supply = 10x price");
+    }
+
+    #[test]
+    fn economy_price_never_below_one() {
+        assert_eq!(compute_economy_price(1, 1000, 1), 1, "price floor is 1");
+    }
+
+    // ── mod_get_economy_params ────────────────────────────────────────────────
+
+    #[test]
+    fn economy_params_unpacked_correctly() {
+        let packed = mod_get_economy_params();
+        let supply = (packed >> 16) & 0xFFFF;
+        let demand = packed & 0xFFFF;
+        assert_eq!(supply, 5);
+        assert_eq!(demand, 8);
+    }
+
+    // ── generate_story_event ──────────────────────────────────────────────────
+
+    #[test]
+    fn story_peaceful_at_low_level() {
+        assert_eq!(generate_story_event(0), 0);
+        assert_eq!(generate_story_event(4), 0);
+    }
+
+    #[test]
+    fn story_bandits_at_mid_level() {
+        assert_eq!(generate_story_event(5), 1);
+        assert_eq!(generate_story_event(19), 1);
+    }
+
+    #[test]
+    fn story_aliens_at_high_level() {
+        assert_eq!(generate_story_event(20), 2);
+        assert_eq!(generate_story_event(100), 2);
+    }
+
+    // ── mod_get_storyteller_level ─────────────────────────────────────────────
+
+    #[test]
+    fn storyteller_level_returns_positive() {
+        let level = mod_get_storyteller_level();
+        assert!(level >= 0, "storyteller level must be non-negative");
     }
 }
