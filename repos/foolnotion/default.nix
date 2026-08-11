@@ -203,6 +203,8 @@ rec {
     vectorclass-cmake = ./pkgs/vectorclass/vectorclass-cmake;
   };
 
+  velaterm = pkgs.callPackage ./pkgs/velaterm { };
+
   xad = pkgs.callPackage ./pkgs/xad { };
 
   xxhash_cpp = pkgs.callPackage ./pkgs/xxhash_cpp { };
