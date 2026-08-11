@@ -462,11 +462,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1779825579,
-        "narHash": "sha256-T9bPGL5EBxO+wbv/t7AFx1C4LdziWx4RVmJfc3Y74JI=",
+        "lastModified": 1786414277,
+        "narHash": "sha256-m9CeekaQnqX+kOBq1EuwTOCDi3doz0IiywMmCmWYJdk=",
         "owner": "captain-jean-luc",
         "repo": "most-winningest",
-        "rev": "1d6c742ac6fea1dd4b734d8e920864586617908f",
+        "rev": "6b46537918f86aaaab3fdfb3923b88a69447ed8f",
         "type": "github"
       },
       "original": {

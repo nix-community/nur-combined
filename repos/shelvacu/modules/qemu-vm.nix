@@ -95,6 +95,10 @@ let
         # into each boot; the guest has no access to it.
         bootRuntimeDir = "vacuvm-${vmName}-boot";
         bootDir = "/run/${bootRuntimeDir}";
+        # Host-only QMP control socket for the running QEMU (memory hotplug,
+        # etc.). Lives in the qemu unit's own RuntimeDirectory, so it is wiped
+        # on stop and never exposed to the guest.
+        qmpSocket = "${bootDir}/qmp.sock";
         slice = "vacuvm-${vmName}.slice";
         qemuUnit = "vacuvm-${vmName}-qemu.service";
         virtiofsdUnit = "vacuvm-${vmName}-virtiofsd.service";
@@ -191,6 +195,7 @@ let
                 -object memory-backend-memfd,id=mem0,size=${toString vmCfg.baseMem}M,share=on \
                 -numa node,memdev=mem0 \
                 -device virtio-balloon-pci \
+                -qmp unix:${qmpSocket},server=on,wait=off \
                 -chardev socket,id=virtiofs0,path=${virtiofsdSocket} \
                 -device vhost-user-fs-pci,chardev=virtiofs0,tag=rootfs \
                 -netdev tap,id=net0,ifname=${tapName},script=no,downscript=no${netdevExtra} \
