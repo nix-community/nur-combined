@@ -79,8 +79,8 @@ in
     };
     settings = {
       includeCoAuthoredBy = false;
-      model = "opus";
-      effortLevel = "xhigh";
+      model = "fable";
+      effortLevel = "low";
       permissions = {
         allow = [ ];
       };
@@ -90,10 +90,10 @@ in
 
   programs.codex = {
     enable = config.programs.claude-code.enable;
-    enableMcpIntegration = true;
+    # enableMcpIntegration = true;
     package = llmAgentPkgs.codex;
-    settings = { };
-    skills = { };
+    # settings = { };
+    # skills = { };
   };
 
   programs.git = {

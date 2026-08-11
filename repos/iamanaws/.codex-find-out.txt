@@ -1,0 +1,7 @@
+=== flake.lock home-manager keys ===
+201:    "home-manager": {
+211:        "repo": "home-manager",
+217:        "repo": "home-manager",
+532:        "home-manager": "home-manager",
+=== locate modules/programs/codex.nix ===
+/nix/store/8araik9x8wn69dj3k7x0amnjqagah9gn-source/modules/programs/codex.nix
