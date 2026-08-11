@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="u" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#e94560"/>
+      <stop offset="100%" style="stop-color:#0f3460"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="128" cy="128" r="124" fill="url(#bg)" stroke="#e94560" stroke-width="4"/>
+  <!-- Stylized 'U' letter -->
+  <path d="M 72 68 L 72 148 C 72 178 96 196 128 196 C 160 196 184 178 184 148 L 184 68"
+        fill="none" stroke="url(#u)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Accent star/sparkle -->
+  <polygon points="128,32 134,50 152,50 138,62 142,80 128,68 114,80 118,62 104,50 122,50"
+           fill="#e94560" opacity="0.8"/>
+</svg>

@@ -1,0 +1,25 @@
+--- a/xmcl-electron-app/plugins/esbuild.node.plugin.ts	2026-06-21 14:17:48.077347544 +0800
++++ b/xmcl-electron-app/plugins/esbuild.node.plugin.ts	2026-06-21 14:17:48.099478579 +0800
+@@ -54,18 +54,10 @@
+       // Files in the "NodeFile" virtual namespace call "require()" on the
+       // Files in the "node-file" virtual namespace call "require()" on the
+       // path from esbuild of the ".node" file in the output directory.
+-      build.onLoad({ filter: /.*/, namespace: 'node-file' }, (args) => {
+-        const resolved = require.resolve(args.path, {
+-          paths: [args.pluginData.resolveDir],
+-        })
+-        return ({
+-          contents: `
+-try { const path = require(${JSON.stringify(resolved)}); module.exports = typeof path === 'string' ? require(path) : path }
+-catch (e) { debugger; console.error('Fail to require native node module ' + ${JSON.stringify(args.path)}); console.error(e); }
+-        `,
+-          loader: 'js',
+-        })
+-      })
++      build.onLoad({ filter: /.*/, namespace: 'node-file' }, (_args) => ({
++        contents: 'module.exports = {};',
++        loader: 'js',
++      }))
+ 
+       // If a ".node" file is imported within a module in the "node-file" namespace, put
+       // it in the "file" namespace where esbuild's default loading behavior will handle
