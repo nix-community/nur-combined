@@ -77,6 +77,9 @@
         "LuisChDev": {
             "url": "https://github.com/LuisChDev/nur-packages"
         },
+        "MCSeekeri": {
+            "url": "https://github.com/MCSeekeri/NUR"
+        },
         "MH0386": {
             "url": "https://github.com/MH0386/nurpkgs"
         },
@@ -124,6 +127,9 @@
         },
         "XiaoXioe": {
             "url": "https://github.com/XiaoXioe/nix-custompkgs"
+        },
+        "YisuiMilena": {
+            "url": "https://github.com/YisuiDenghua/nur-apps"
         },
         "Ziyoid": {
             "url": "https://github.com/Ziyoid/nurpkgs"
@@ -326,6 +332,9 @@
         "caarlos0": {
             "url": "https://github.com/caarlos0/nur"
         },
+        "cameronyule": {
+            "url": "https://github.com/cameronyule/nurpkgs"
+        },
         "cawilliamson": {
             "url": "https://github.com/cawilliamson/nur-packages"
         },
@@ -450,6 +459,9 @@
         "demyanrogozhin": {
             "url": "https://github.com/demyanrogozhin/nur-packages"
         },
+        "detegr": {
+            "url": "https://github.com/Detegr/nur"
+        },
         "devins2518": {
             "url": "https://github.com/devins2518/nur"
         },
@@ -514,6 +526,9 @@
         },
         "edejong": {
             "url": "https://github.com/edejong/nur-packages"
+        },
+        "eerieaerial": {
+            "url": "https://github.com/eerieaerial/nur-packages"
         },
         "eeva": {
             "type": "gitea",
@@ -635,6 +650,9 @@
         },
         "goreleaser": {
             "url": "https://github.com/goreleaser/nur"
+        },
+        "grafcube": {
+            "url": "https://github.com/Grafcube/nur-packages"
         },
         "graham33": {
             "url": "https://github.com/graham33/nur-packages"
@@ -821,6 +839,9 @@
         "k3a": {
             "url": "https://github.com/k3a/nurpkgs"
         },
+        "kagura": {
+            "url": "https://github.com/icewithcola/nur-packages"
+        },
         "kakkun61": {
             "url": "https://github.com/kakkun61/nur-packages"
         },
@@ -984,6 +1005,10 @@
         "mikilio": {
             "url": "https://github.com/Mikilio/nur-packages"
         },
+        "milahu": {
+            "submodules": true,
+            "url": "https://github.com/milahu/nur-packages"
+        },
         "minegameYTB": {
             "url": "https://github.com/minegameYTB/nurpkgs-repo"
         },
@@ -1095,6 +1120,9 @@
         "nikolaizombie1": {
             "url": "https://github.com/nikolaizombie1/nur-packages"
         },
+        "nikpkgs": {
+            "url": "https://github.com/nikp123/nur-packages"
+        },
         "niky": {
             "url": "https://github.com/kyv001/niky-packages"
         },
@@ -1154,6 +1182,9 @@
         },
         "ocfox": {
             "url": "https://github.com/ocfox/nur-pkgs"
+        },
+        "ohheyrj": {
+            "url": "https://github.com/ohheyrj/nur"
         },
         "oluceps": {
             "url": "https://github.com/oluceps/nixos-config"
@@ -1272,6 +1303,9 @@
         "renesat": {
             "url": "https://github.com/renesat/nur-renesat"
         },
+        "ressu": {
+            "url": "https://github.com/ressu/nur-packages"
+        },
         "reward": {
             "url": "https://github.com/rewardenv/nur"
         },
@@ -1334,6 +1368,9 @@
         },
         "setser": {
             "url": "https://github.com/SeTSeR/nur-packages"
+        },
+        "sgo": {
+            "url": "https://github.com/stigtsp/nur"
         },
         "shados": {
             "url": "https://github.com/Shados/nur-packages"
@@ -1448,6 +1485,9 @@
         },
         "therobot2105": {
             "url": "https://github.com/therobot2105/nur-packages"
+        },
+        "theutz": {
+            "url": "https://github.com/theutz/nur-packages"
         },
         "thk": {
             "url": "https://github.com/thkoch2001/nur-packages"
@@ -1621,6 +1661,9 @@
         },
         "yellowonion": {
             "url": "https://github.com/yellowonion/nur-bcachefs"
+        },
+        "yes": {
+            "url": "https://github.com/SamLukeYes/nix-custom-packages"
         },
         "ymstnt": {
             "url": "https://github.com/ymstnt/nur-packages"
