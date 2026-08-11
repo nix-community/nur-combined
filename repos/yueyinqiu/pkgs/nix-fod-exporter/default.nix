@@ -7,13 +7,13 @@
 
 buildDotnetModule (finalAttrs: {
   pname = "nix-fod-exporter";
-  version = "0.0.1";
+  version = "0.0.2";
 
   src = fetchFromGitHub {
     owner = "yueyinqiu";
     repo = "NixFodExporter";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-vR9MoBv8TJ8SDUjx03RudJioNcNvQZjbxP55OdYzOYk=";
+    hash = "sha256-Q9nA1PrlbNLxCouGyL6iuro6whR07iK8R3VsoJSrTBU=";
     postFetch = ''
       rm -rf "$out/samples"
     '';
