@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
@@ -21,6 +22,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Uplink Pastebin',
+      theme: ThemeData(
+        brightness: Brightness.light,
+        colorSchemeSeed: Colors.blue,
+        useMaterial3: true,
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        colorSchemeSeed: Colors.blue,
+        useMaterial3: true,
+      ),
+      themeMode: ThemeMode.system,
       home: const MyHomePage(),
     );
   }
@@ -130,13 +142,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text('Uplink Pastebin', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
-        foregroundColor: Colors.black87,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -162,7 +172,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         decoration: InputDecoration(
                           hintText: 'Type or paste text here...',
                           filled: true,
-                          fillColor: Colors.grey[50],
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(16),
                             borderSide: BorderSide.none,
@@ -226,13 +235,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     );
                                   },
                                 ),
-                                IconButton(
-                                  icon: const Icon(Icons.share, color: Colors.blue),
-                                  tooltip: 'Share link',
-                                  onPressed: () {
-                                    Share.share(_status);
-                                  },
-                                ),
+                                if (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
+                                  IconButton(
+                                    icon: const Icon(Icons.share, color: Colors.blue),
+                                    tooltip: 'Share link',
+                                    onPressed: () {
+                                      Share.share(_status);
+                                    },
+                                  ),
                               ],
                             ],
                           ),

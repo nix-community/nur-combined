@@ -4,6 +4,7 @@
   cacert,
   webp-pixbuf-loader,
   gdk-pixbuf,
+  librsvg,
   fetchpatch,
   wrapGAppsHook4,
 }:
@@ -66,7 +67,8 @@
     '';
     preFixup = (old.preFixup or "") + ''
       mkdir -p $out/lib/gdk-pixbuf-2.0/2.10.0
-      GDK_PIXBUF_MODULEDIR=${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      cat ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      GDK_PIXBUF_MODULEDIR=${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
       
       gappsWrapperArgs+=(
         --set ANDROID_ROOT $out
