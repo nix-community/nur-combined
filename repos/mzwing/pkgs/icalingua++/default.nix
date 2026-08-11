@@ -139,7 +139,7 @@ in
     '';
 
     meta = {
-      description = "A client for QQ and more (fork of the deleted Icalingua), running on nixpkgs' Electron";
+      description = "A client for QQ and more";
       homepage = "https://github.com/Icalingua-plus-plus/Icalingua-plus-plus";
       changelog = "https://github.com/Icalingua-plus-plus/Icalingua-plus-plus/releases/tag/v${version}";
       license = lib.licenses.agpl3Only;

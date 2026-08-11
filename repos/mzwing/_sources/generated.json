@@ -333,5 +333,47 @@
             "type": "github"
         },
         "version": "13550ee05461121a74a6467aefc479a62026cdfc"
+    },
+    "wsrx": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wsrx",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "XDSEC",
+            "repo": "WebSocketReflectorX",
+            "rev": "0.5.17",
+            "sha256": "sha256-QUlxNN987U64RPxkPdniKGkB//NNtUXlxa5155eViuo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.5.17"
+    },
+    "wsrx-desktop": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "wsrx-desktop",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "XDSEC",
+            "repo": "WebSocketReflectorX",
+            "rev": "0.5.17",
+            "sha256": "sha256-QUlxNN987U64RPxkPdniKGkB//NNtUXlxa5155eViuo=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0.5.17"
     }
 }

@@ -191,4 +191,26 @@
     };
     date = "2026-03-11";
   };
+  wsrx = {
+    pname = "wsrx";
+    version = "0.5.17";
+    src = fetchFromGitHub {
+      owner = "XDSEC";
+      repo = "WebSocketReflectorX";
+      rev = "0.5.17";
+      fetchSubmodules = false;
+      sha256 = "sha256-QUlxNN987U64RPxkPdniKGkB//NNtUXlxa5155eViuo=";
+    };
+  };
+  wsrx-desktop = {
+    pname = "wsrx-desktop";
+    version = "0.5.17";
+    src = fetchFromGitHub {
+      owner = "XDSEC";
+      repo = "WebSocketReflectorX";
+      rev = "0.5.17";
+      fetchSubmodules = false;
+      sha256 = "sha256-QUlxNN987U64RPxkPdniKGkB//NNtUXlxa5155eViuo=";
+    };
+  };
 }

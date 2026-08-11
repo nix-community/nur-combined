@@ -10,7 +10,7 @@ fishPlugins.buildFishPlugin {
   version = "0-unstable-${source.date}";
 
   meta = {
-    description = "Run Bash commands and replay environment changes in Fish";
+    description = "Run Bash commands, replay changes in Fish";
     homepage = "https://github.com/jorgebucaran/replay.fish";
     license = lib.licenses.mit;
     maintainers = [

@@ -16,38 +16,39 @@
     defaultCrateOverrides =
       pkgs.defaultCrateOverrides
       // {
-        # The crate name is haru-cat; the binary it installs is haru.
-        haru-cat = attrs: {
-          # The generated file points src at ./. relative to the committed
-          # Cargo.nix, which is not the crate source; that path thunk is
-          # never forced once src is overridden here. Single-crate project:
-          # the crate root is the source root, so no workspace_member.
+        wsrx = attrs: {
+          # The generated file points the member's src at ./crates/wsrx
+          # relative to the committed Cargo.nix, which does not exist in
+          # this repository; that path thunk is never forced once src is
+          # overridden here. Every member builds from the full source tree
+          # (buildRustCrate cds into `workspace_member` during configure).
           src = source.src;
+          workspace_member = "crates/wsrx";
         };
       };
   };
 
-  haru = cargoNix.rootCrate.build;
+  wsrxCli = cargoNix.workspaceMembers.wsrx.build;
 in
-  haru.overrideAttrs (old: {
-    # crate2nix names the derivation rust_haru-cat-<crate version>.
+  wsrxCli.overrideAttrs (old: {
+    # crate2nix names the derivation rust_wsrx-<crate version>.
     name = "${pname}-${version}";
 
     postInstall = ''
       install -Dm644 \
         ${src}/LICENSE \
         ${src}/README.md \
-        -t $out/share/doc/haru
+        -t $out/share/doc/wsrx
     '';
 
     doInstallCheck = true;
     installCheckPhase = ''
       runHook preInstallCheck
 
-      $out/bin/haru --version | grep -F '${version}'
-      $out/bin/haru --help >/dev/null
-      test -f $out/share/doc/haru/LICENSE
-      test -f $out/share/doc/haru/README.md
+      $out/bin/wsrx --version | grep -F '${version}'
+      $out/bin/wsrx --help >/dev/null
+      test -f $out/share/doc/wsrx/LICENSE
+      test -f $out/share/doc/wsrx/README.md
 
       runHook postInstallCheck
     '';
@@ -55,11 +56,11 @@ in
     meta =
       old.meta
       // {
-        description = "A tiny cat living in your terminal";
-        homepage = "https://github.com/HyacinthHaru/haru";
-        changelog = "https://github.com/HyacinthHaru/haru/releases/tag/v${version}";
+        description = "Controlled TCP-over-WebSocket forwarding tunnel";
+        homepage = "https://github.com/XDSEC/WebSocketReflectorX";
+        changelog = "https://github.com/XDSEC/WebSocketReflectorX/releases/tag/${version}";
         license = lib.licenses.mit;
-        mainProgram = "haru";
+        mainProgram = "wsrx";
         maintainers = [
           {
             name = "mzwing";

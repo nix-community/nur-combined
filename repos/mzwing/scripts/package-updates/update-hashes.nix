@@ -56,7 +56,13 @@
       # `*Hash = "sha256-` attribute has its hashes refreshed by
       # nix-update. Packages without a _sources entry (not managed by
       # nvfetcher) count as changed: their hashes cannot be checked any
-      # other way.
+      # other way. A file still carrying the placeholder hash
+      # (lib.fakeHash) always counts as changed: the placeholder must
+      # never survive an update run. This covers newly added packages,
+      # whose source entry is typically committed in the same commit as
+      # the package itself, so the HEAD-vs-worktree comparison above
+      # reports them as unchanged and they would otherwise keep the
+      # placeholder forever.
       files="$(
         grep --recursive --files-with-matches --include='*.nix' \
           --extended-regexp '[[:alnum:]_]+Hash = "sha256-' pkgs || true
@@ -79,7 +85,7 @@
               new_entry=$(jq --compact-output --arg name "$source_name" '.[$name]' _sources/generated.json)
               if [[ "$new_entry" == "null" ]]; then
                 echo "Note: $attr has no source in _sources/generated.json; cannot detect changes, refreshing anyway" >&2
-              elif ! source_changed "$source_name"; then
+              elif ! source_changed "$source_name" && ! grep --quiet 'sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=' "$file"; then
                 echo "Skipping $attr: source unchanged"
                 continue
               fi

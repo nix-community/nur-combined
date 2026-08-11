@@ -80,3 +80,13 @@ fetch.github = "nix-community/tree-sitter-nix"
 src.git = "https://github.com/ryanrasti/typenix"
 src.branch = "main"
 fetch.github = "ryanrasti/typenix"
+
+[wsrx]
+fetch.github = "XDSEC/WebSocketReflectorX"
+src.github_tag = "XDSEC/WebSocketReflectorX"
+src.include_regex = "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+
+[wsrx-desktop]
+fetch.github = "XDSEC/WebSocketReflectorX"
+src.github_tag = "XDSEC/WebSocketReflectorX"
+src.include_regex = "^[0-9]+\\.[0-9]+\\.[0-9]+$"
