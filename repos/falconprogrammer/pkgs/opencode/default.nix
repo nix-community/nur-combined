@@ -31,12 +31,12 @@
 
   # Per-platform NAR hashes (only platforms with verified hashes listed).
   hashes = {
-    "x86_64-linux" = "sha256-ktq9s/oQjBxVHwzrPv84DfVZFTSwE0ymQbF1Wyl8qiY=";
+    "x86_64-linux" = "sha256-U6chraRBcWdEZ6Rb13t/ctVvlDwTAJF1pv9pmM6T3oY=";
   };
 in
   stdenv.mkDerivation rec {
     pname = "opencode";
-    version = "1.18.15";
+    version = "1.18.16";
 
     src = fetchzip {
       url = "https://github.com/anomalyco/opencode/releases/download/v${version}/opencode-${arch_string stdenv.hostPlatform.system}.${ext_string stdenv.hostPlatform.system}";
