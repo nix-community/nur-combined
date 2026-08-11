@@ -103,6 +103,11 @@ jobs:
             | jq -r '.[]' > /tmp/pkg-names
           : > /tmp/pkg-out-paths
           while read -r pkg; do
+            if ! nix eval --raw ".#packages.x86_64-linux.$pkg.drvPath" \
+              >/dev/null 2>&1; then
+              echo "skip $pkg (not a derivation)"
+              continue
+            fi
             nix build --no-link --print-out-paths ".#packages.x86_64-linux.$pkg" \
               >> /tmp/pkg-out-paths || exit 1
           done < /tmp/pkg-names
