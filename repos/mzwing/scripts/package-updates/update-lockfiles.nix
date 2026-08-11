@@ -112,6 +112,19 @@
           manifest_args=(-f "$(basename "$(dirname "''${manifests[0]}")")/Cargo.toml")
         fi
 
+        # Heal stale upstream lockfiles: some projects commit a
+        # Cargo.lock that is out of sync with their manifests (e.g.
+        # pumpkin), and crate2nix runs `cargo metadata --locked`, which
+        # refuses to touch the lock and fails. A plain `cargo metadata`
+        # rewrites the lock with the minimal re-resolution — no version
+        # bumps beyond what the manifests already require — keeping the
+        # generated Cargo.nix as close to upstream's pins as possible.
+        heal_args=()
+        if [[ ''${#manifest_args[@]} -gt 0 ]]; then
+          heal_args=(--manifest-path "''${manifest_args[1]}")
+        fi
+        (cd "$tmp/src" && cargo metadata --format-version 1 "''${heal_args[@]}" >/dev/null)
+
         (cd "$tmp/src" && crate2nix generate "''${manifest_args[@]}")
 
         cp "$tmp/src/Cargo.nix" "pkgs/$name/Cargo.nix"

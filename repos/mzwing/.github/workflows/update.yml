@@ -40,16 +40,17 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         install-devenv: 'true'
 
-    # Shared with the "Restore Nix store" step of build.yml: one cache
-    # family (nix-ci-) for both jobs. The key must hash the union of
-    # both jobs' lock inputs and use the same gc size. The action also
-    # removes stale root-owned store lock files (left behind by builds
-    # or substitutions interrupted in earlier runs; they ride along in
-    # the restored store cache and break the unprivileged tar of the
-    # post-run store save) and purges stale cache entries in the post
-    # (save) phase: keep at most the entry just saved (protected by
-    # purge-primary-key: never) and the one it was restored from
-    # (restore refreshes its last-accessed time).
+    # The nix-ci- store cache family has exactly ONE writer: this job.
+    # The readers (the config job of build.yml, tests.yml) restore with
+    # the nix-ci- prefix but never save — cache-nix-action skips the
+    # save on an exact primary-key hit, so whichever job saved first
+    # used to win, and its small store (no toolchain) poisoned the
+    # family. The key hashes the lock inputs; purge keeps at most the
+    # entry just saved (protected by purge-primary-key: never) and the
+    # one it was restored from (restore refreshes its last-accessed
+    # time). The action also removes stale root-owned store lock files
+    # (left behind by interrupted builds or substitutions of earlier
+    # runs; they break the unprivileged tar of the post-run store save).
     - name: Restore Nix store
       uses: mzwing/nix-config/.github/actions/restore-nix-store@master
       with:
@@ -98,6 +99,31 @@ jobs:
         rm -f secrets.toml
         trap - EXIT
 
+    # Root the update toolchain (nvfetcher, gomod2nix, crate2nix, ...)
+    # so the store GC in the save phase (gc-max-store-size-linux) cannot
+    # evict it: restored cache entries carry no gcroots, so without this
+    # every path is collectable and the daily toolchain re-download
+    # (~500 MiB) never stops. The app scripts reference the tools via
+    # runtimeInputs, so rooting the scripts roots the whole closures.
+    - name: Root the update toolchain for the store cache
+      if: always()
+      shell: bash
+      run: |
+        set -euo pipefail
+        sudo install -d /nix/var/nix/gcroots/nur-ci-update
+        for app in update-sources update-lockfiles update-hashes; do
+          program="$(nix eval --raw ".#apps.x86_64-linux.${app}.program")"
+          [[ -e "${program}" ]] || continue
+          sudo ln -sfn "${program}" "/nix/var/nix/gcroots/nur-ci-update/${app}"
+        done
+
+    # Realise the devenv shell so its tools (typenix, actionlint, ruff,
+    # ...) ride along in the saved store for the tests job. devenv
+    # registers its own gcroots for the shell, so the GC below keeps it.
+    - name: Warm the devenv shell into the store cache
+      if: always()
+      run: devenv shell -- true
+
     - name: Commit and push changes
       uses: mzwing/nix-config/.github/actions/commit-and-push@master
       with:
@@ -105,6 +131,21 @@ jobs:
         message: 'chore: update packages'
         trigger-workflow: build.yml
         github-token: ${{ github.token }}
+
+    # Prune the store deterministically before the post-run save — the
+    # same treatment as the builder store cache in build.yml: keep the
+    # build closure of the current lock (drvs, fetched sources, and any
+    # outputs present, which is what the evaluating readers need) plus
+    # everything rooted above (the update toolchain, the devenv shell),
+    # and collect the rest. Without this the entry grows until
+    # cache-nix-action's size cap triggers a `nix store gc --max`, which
+    # evicts arbitrary unrooted paths. Runs after the commit so a GC
+    # failure can never block publishing the updates.
+    - name: Garbage-collect stale store paths
+      if: always()
+      uses: mzwing/nix-config/.github/actions/gc-store-to-build-closure@master
+      with:
+        gcroots-name: nur-ci-update-closure
 
     # actions/cache has no built-in purge, so prune old nvfetcher
     # databases manually: keep only the newest entry (the one the

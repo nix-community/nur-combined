@@ -37,8 +37,6 @@ jobs:
     name: Plan package builds
     runs-on: ubuntu-latest
     permissions:
-      # actions: write is required to purge expired cache entries.
-      actions: write
       contents: read
     outputs:
       builders: ${{ steps.plan.outputs.builders }}
@@ -54,22 +52,18 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         cachix-name: ${{ env.CACHE_NAME }}
 
-    # Shared with the "Restore Nix store" step of update.yml: one cache
-    # family (nix-ci-) for both jobs, so the config job can restore the
-    # warm cache saved by the daily update run (which always precedes
-    # package builds). The key must hash the union of both jobs' lock
-    # inputs and use the same gc size. The action also removes stale
-    # root-owned store lock files (left behind by interrupted builds or
-    # substitutions of earlier runs; they break the unprivileged tar of
-    # the post-run store save) and purges stale cache entries in the
-    # post (save) phase: keep at most the entry just saved (protected
-    # by purge-primary-key: never) and the one it was restored from.
+    # Read-only reader of the nix-ci- store cache family written by
+    # the daily update.yml run (the only writer — readers must never
+    # save: cache-nix-action skips the save on an exact primary-key
+    # hit, so the first writer's store would otherwise poison the
+    # family). Restores the most recent entry via the prefix: the warm
+    # store holds the fetched package sources this job's evaluation
+    # needs.
     - name: Restore Nix store
-      uses: mzwing/nix-config/.github/actions/restore-nix-store@master
+      uses: nix-community/cache-nix-action/restore@v7
       with:
         primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
-        restore-prefix: nix-ci-
-        gc-max-store-size-linux: 4G
+        restore-prefixes-first-match: nix-ci-
 
     - name: Evaluate supported packages
       id: evaluate

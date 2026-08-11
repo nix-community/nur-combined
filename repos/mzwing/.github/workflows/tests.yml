@@ -15,8 +15,6 @@ jobs:
     name: Test flake and workflows
     runs-on: ubuntu-latest
     permissions:
-      # actions: write is required to purge expired cache entries.
-      actions: write
       contents: read
     defaults:
       run:
@@ -31,16 +29,16 @@ jobs:
           cachix-pull: 'false'
           install-devenv: 'true'
 
-      # Shared with the "Restore Nix store" steps of build.yml and
-      # update.yml: one cache family (nix-ci-) for all jobs. The key
-      # must hash the union of all jobs' lock inputs and use the same
-      # gc size.
+      # Read-only reader of the nix-ci- store cache family written by
+      # the daily update.yml run (the only writer — readers must never
+      # save: cache-nix-action skips the save on an exact primary-key
+      # hit, so the first writer's store would otherwise poison the
+      # family). Restores the most recent entry via the prefix.
       - name: Restore Nix store
-        uses: mzwing/nix-config/.github/actions/restore-nix-store@master
+        uses: nix-community/cache-nix-action/restore@v7
         with:
           primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
-          restore-prefix: nix-ci-
-          gc-max-store-size-linux: 4G
+          restore-prefixes-first-match: nix-ci-
 
       # No --no-build: evaluating the packages requires realising the
       # fetched package sources (gomod2nix applies builtins.path to the

@@ -10404,6 +10404,11 @@ rec {
         src = lib.cleanSourceWith { filter = sourceFilter;  src = ./crates/pumpkin; };
         dependencies = [
           {
+            name = "aes";
+            packageId = "aes 0.9.2";
+            usesDefaultFeatures = false;
+          }
+          {
             name = "arc-swap";
             packageId = "arc-swap";
             usesDefaultFeatures = false;

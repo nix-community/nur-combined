@@ -30,13 +30,13 @@
   };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
-    version = "v7.2.127-2";
+    version = "v7.2.127-3";
     src = fetchFromGitHub {
       owner = "kaitranntt";
       repo = "CLIProxyAPIPlus";
-      rev = "v7.2.127-2";
+      rev = "v7.2.127-3";
       fetchSubmodules = false;
-      sha256 = "sha256-fDl8kVmGeihGrI1jVgDCf7AmitzqAW3phu1VhEl0IYc=";
+      sha256 = "sha256-Rbg90C8wtNYavhPUGJfS352s+E4xRG49U8s7DicsdMY=";
     };
   };
   codegraph = {
@@ -100,36 +100,36 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "2ffe470e2e64aef592c3c702dfa81bb8fe096b07";
+    version = "4250293f424a3586f7d03330f1be3df2ed057428";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "2ffe470e2e64aef592c3c702dfa81bb8fe096b07";
+      rev = "4250293f424a3586f7d03330f1be3df2ed057428";
       fetchSubmodules = true;
-      sha256 = "sha256-viyLeEeopw1pH5NyG6pVVigRs3TzXkIV1NO2dJO2sWw=";
+      sha256 = "sha256-hXOhAU2uAowuFGU4RuU67x6oAmH0eD+OsODQnVEfBiY=";
     };
     date = "2026-08-10";
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
-    version = "v1.14.0-beta.13";
+    version = "v1.14.0-beta.14";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-beta.13";
+      rev = "v1.14.0-beta.14";
       fetchSubmodules = false;
-      sha256 = "sha256-8iX4cN6wKPCd70r/82gVdSO/9YiGUqu8TOQHdgnW860=";
+      sha256 = "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=";
     };
   };
   sing-box-beta = {
     pname = "sing-box-beta";
-    version = "v1.14.0-beta.13";
+    version = "v1.14.0-beta.14";
     src = fetchFromGitHub {
       owner = "SagerNet";
       repo = "sing-box";
-      rev = "v1.14.0-beta.13";
+      rev = "v1.14.0-beta.14";
       fetchSubmodules = false;
-      sha256 = "sha256-8iX4cN6wKPCd70r/82gVdSO/9YiGUqu8TOQHdgnW860=";
+      sha256 = "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=";
     };
   };
   tree-sitter-nix = {

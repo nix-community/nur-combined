@@ -55,12 +55,12 @@
             "name": null,
             "owner": "kaitranntt",
             "repo": "CLIProxyAPIPlus",
-            "rev": "v7.2.127-2",
-            "sha256": "sha256-fDl8kVmGeihGrI1jVgDCf7AmitzqAW3phu1VhEl0IYc=",
+            "rev": "v7.2.127-3",
+            "sha256": "sha256-Rbg90C8wtNYavhPUGJfS352s+E4xRG49U8s7DicsdMY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v7.2.127-2"
+        "version": "v7.2.127-3"
     },
     "codegraph": {
         "cargoLock": null,
@@ -180,12 +180,12 @@
             "name": null,
             "owner": "Pumpkin-MC",
             "repo": "Pumpkin",
-            "rev": "2ffe470e2e64aef592c3c702dfa81bb8fe096b07",
-            "sha256": "sha256-viyLeEeopw1pH5NyG6pVVigRs3TzXkIV1NO2dJO2sWw=",
+            "rev": "4250293f424a3586f7d03330f1be3df2ed057428",
+            "sha256": "sha256-hXOhAU2uAowuFGU4RuU67x6oAmH0eD+OsODQnVEfBiY=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "2ffe470e2e64aef592c3c702dfa81bb8fe096b07"
+        "version": "4250293f424a3586f7d03330f1be3df2ed057428"
     },
     "sing-box-alpha": {
         "cargoLock": null,
@@ -201,12 +201,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.13",
-            "sha256": "sha256-8iX4cN6wKPCd70r/82gVdSO/9YiGUqu8TOQHdgnW860=",
+            "rev": "v1.14.0-beta.14",
+            "sha256": "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.13"
+        "version": "v1.14.0-beta.14"
     },
     "sing-box-beta": {
         "cargoLock": null,
@@ -222,12 +222,12 @@
             "name": null,
             "owner": "SagerNet",
             "repo": "sing-box",
-            "rev": "v1.14.0-beta.13",
-            "sha256": "sha256-8iX4cN6wKPCd70r/82gVdSO/9YiGUqu8TOQHdgnW860=",
+            "rev": "v1.14.0-beta.14",
+            "sha256": "sha256-roTsxlazxYsFqSZoIEWVJnu7XnVEJ/1seva/gUgzpu4=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "v1.14.0-beta.13"
+        "version": "v1.14.0-beta.14"
     },
     "tree-sitter-nix": {
         "cargoLock": null,
