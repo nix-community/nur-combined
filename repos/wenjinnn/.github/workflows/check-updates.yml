@@ -23,10 +23,26 @@ jobs:
       id: check
       run: |
         chmod +x ./scripts/check-updates.sh
-        if ./scripts/check-updates.sh --json > /tmp/updates.json 2>&1; then
-          echo "updates_found=false" >> $GITHUB_OUTPUT
+        set +e
+        ./scripts/check-updates.sh --json > /tmp/updates.json
+        status=$?
+        set -e
+
+        if ! jq -e 'type == "array"' /tmp/updates.json >/dev/null; then
+          echo 'The update checker did not produce valid JSON:' >&2
+          cat /tmp/updates.json >&2
+          exit 1
+        fi
+
+        if (( status > 1 )); then
+          echo "The update checker failed with exit code ${status}" >&2
+          exit "${status}"
+        fi
+
+        if jq -e 'length > 0' /tmp/updates.json >/dev/null; then
+          echo "updates_found=true" >> "$GITHUB_OUTPUT"
         else
-          echo "updates_found=true" >> $GITHUB_OUTPUT
+          echo "updates_found=false" >> "$GITHUB_OUTPUT"
         fi
         cat /tmp/updates.json
 
@@ -57,10 +73,7 @@ jobs:
           body += 'To update these packages:\n\n';
           body += '1. For `lemminx-maven`: Update `version` and `sha256` in `pkgs/lemminx-maven/default.nix`\n';
           body += '2. For `pi-acp`: Update `version`, `hash`, and `npmDepsHash` in `pkgs/pi-acp/default.nix`\n';
-          body += '3. For `pi-packages`: Use the update script:\n';
-          body += '   ```bash\n';
-          body += '   ./pkgs/pi-packages/scripts/update-pi-package.sh <package-name> <version>\n';
-          body += '   ```\n\n';
+          body += '3. For `pi-web`: Update `version`, `hash`, `npmDepsHash`, and `pkgs/pi-web/package-lock.json`\n';
           body += '> **Note**: After updating, remember to also update the hash values by building the packages.';
 
           // Check for existing open issue

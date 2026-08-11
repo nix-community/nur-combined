@@ -6,7 +6,9 @@
 # commands such as:
 #     nix-build -A mypackage
 
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 {
   # The `lib`, `modules`, and `overlays` names are special
@@ -20,11 +22,8 @@
   lemminx-maven = pkgs.callPackage ./pkgs/lemminx-maven { };
 
   # Pi coding agent packages
-  pi-acp = pkgs.callPackage ./pkgs/pi-acp {};
-  piPackages = import ./pkgs/pi-packages {
-    inherit pkgs;
-    lib = pkgs.lib;
-  };
+  pi-acp = pkgs.callPackage ./pkgs/pi-acp { };
+  pi-web = pkgs.callPackage ./pkgs/pi-web { };
   # some-qt5-package = pkgs.libsForQt5.callPackage ./pkgs/some-qt5-package { };
   # ...
 }
