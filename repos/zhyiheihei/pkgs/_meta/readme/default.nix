@@ -36,6 +36,7 @@ let
     "proces"
     "pypika-tortoise"
     "pyromark"
+    "sublinkpro"
     "sun-panel"
     "telegramify-markdown"
     "tortoise-orm"
