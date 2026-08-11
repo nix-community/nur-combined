@@ -63,6 +63,9 @@ _: {
 
           git clone --single-branch --depth=1 "https://github.com/nix-community/nur-combined.git"
           cp repos.json repos.json.lock nur-combined/
+          # nur-combined ships a checked-in copy of every repo; drop ours so
+          # the index re-fetches the locked revision instead of a stale tree.
+          rm -rf nur-combined/repos/zhyiheihei
           bin/nur index nur-combined > index.json
 
           cd "$FLAKEDIR"
