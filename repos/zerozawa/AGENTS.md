@@ -24,7 +24,7 @@ nur/
 ├── default.nix              # main export surface
 ├── flake.nix                # flake outputs and cache config
 ├── ci.nix                   # CI package/output filtering
-├── pkgs/                    # 29 exported package definitions
+├── pkgs/                    # 30 exported package definitions
 ├── lib/                     # library helpers (currently fetchPixiv)
 ├── modules/                 # placeholder NixOS modules namespace
 ├── overlays/                # placeholder overlays namespace
@@ -52,12 +52,12 @@ Do not document modules or overlays as active features unless they have been imp
 
 ## Package Inventory Summary
 
-The repo currently exports 29 packages from `default.nix`, grouped roughly as:
+The repo currently exports 30 packages from `default.nix`, grouped roughly as:
 
 - SR Vulkan ecosystem: `sr-vulkan` and four model packages
 - Desktop readers and clients: `JMComic-qt`, `picacg-qt`, `LoveIwara`
 - Media and streaming tools: `StartLive`, `bilibili_live_tui`, `lightnovel-crawler`, `mihomo-smart`
-- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`
+- MCP and developer tools: `agentic-contract`, `codegraph`, `context-mode`, `deskbrid`, `mcp-cli`, `pctx`, `wechat-web-devtools-linux`, `wechatbot-mcp`
 - Themes and utilities: `grub-theme-yorha`, `sddm-eucalyptus-drop`, `waybar-vd`, `zsh-url-highlighter`, `mikusays`, `fortune-mod-*`
 
 Always derive exact package names from `default.nix`, not from README snippets or memory files.

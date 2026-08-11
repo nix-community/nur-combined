@@ -7,13 +7,13 @@
   ...
 }:
 stdenv.mkDerivation rec {
-  version = "1.0.940";
+  version = "1.0.941";
   pname = "fortune-mod-hitokoto";
   src = fetchFromGitHub {
     owner = "hitokoto-osc";
     repo = "sentences-bundle";
     rev = "v${version}";
-    hash = "sha256-bFSRUpmI8ddUqbGu/NdAM+gfpWr/x0xIuEOIJOAT4hs=";
+    hash = "sha256-3pfGHyCCeMQXo4E/qI8ZYNJ7KK1uphVr+yLpgH+Bowo=";
   };
   nativeBuildInputs = [
     fortune
