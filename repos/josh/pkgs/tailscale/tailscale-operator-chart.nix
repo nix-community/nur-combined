@@ -2,8 +2,8 @@
 nur.repos.josh.fetchhelm {
   url = "https://pkgs.tailscale.com/helmcharts";
   chart = "tailscale-operator";
-  version = "1.98.9";
-  hash = "sha256-Xav0I55wfaV1RbfOQP5HA2L7cU48ShJPe/Zl5JNDW8o=";
+  version = "1.102.2";
+  hash = "sha256-5P+0kv5Hc8/1V7llyo3hb1/mJNew6yK7FeHgfgetXBg=";
 
   meta = {
     description = "Helm chart for the Tailscale Kubernetes operator";
