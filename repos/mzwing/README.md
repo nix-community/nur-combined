@@ -23,6 +23,8 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | `sing-box-alpha` | [Usage](https://sing-box.sagernet.org/) |
 | `sing-box-beta` | [Usage](https://sing-box.sagernet.org/) |
 | `typenix` | [Usage](https://github.com/ryanrasti/typenix) |
+| `wsrx` | [Usage](https://github.com/xdsec/websocketreflectorx) |
+| `wsrx-desktop` | [Usage](https://github.com/xdsec/websocketreflectorx) |
 | `vscode-extensions.ryanrasti.typenix` | [Usage](https://github.com/ryanrasti/typenix) |
 
 ## NixOS modules

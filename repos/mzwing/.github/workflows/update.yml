@@ -8,6 +8,7 @@ on:
       - 'pkgs/**'
       - 'nvfetcher.toml'
       - '.github/workflows/update.yml'
+      - 'scripts/**'
   schedule:
     - cron: "23 12 * * *"
   workflow_dispatch:
