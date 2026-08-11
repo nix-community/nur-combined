@@ -83,6 +83,27 @@
         },
         "version": "v1.5.0"
     },
+    "getopts-fish": {
+        "cargoLock": null,
+        "date": "2025-04-15",
+        "extract": null,
+        "name": "getopts-fish",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jorgebucaran",
+            "repo": "getopts.fish",
+            "rev": "e6f87012692088a0a9fea426f08e83001668ce66",
+            "sha256": "sha256-vlIXBWCQrz2ZlxPhi2/+gweKnT6pcMQQ2NYlysqn7ig=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "e6f87012692088a0a9fea426f08e83001668ce66"
+    },
     "gomod2nix": {
         "cargoLock": null,
         "date": "2026-08-10",
@@ -186,6 +207,27 @@
             "type": "github"
         },
         "version": "4250293f424a3586f7d03330f1be3df2ed057428"
+    },
+    "replay-fish": {
+        "cargoLock": null,
+        "date": "2024-07-01",
+        "extract": null,
+        "name": "replay-fish",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jorgebucaran",
+            "repo": "replay.fish",
+            "rev": "d2ecacd3fe7126e822ce8918389f3ad93b14c86c",
+            "sha256": "sha256-TzQ97h9tBRUg+A7DSKeTBWLQuThicbu19DHMwkmUXdg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "d2ecacd3fe7126e822ce8918389f3ad93b14c86c"
     },
     "sing-box-alpha": {
         "cargoLock": null,

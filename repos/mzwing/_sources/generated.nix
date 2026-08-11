@@ -50,6 +50,18 @@
       sha256 = "sha256-PPPOp4goz154esdUJYMu20Lby3QObsEt5z5k+9CSjwk=";
     };
   };
+  getopts-fish = {
+    pname = "getopts-fish";
+    version = "e6f87012692088a0a9fea426f08e83001668ce66";
+    src = fetchFromGitHub {
+      owner = "jorgebucaran";
+      repo = "getopts.fish";
+      rev = "e6f87012692088a0a9fea426f08e83001668ce66";
+      fetchSubmodules = false;
+      sha256 = "sha256-vlIXBWCQrz2ZlxPhi2/+gweKnT6pcMQQ2NYlysqn7ig=";
+    };
+    date = "2025-04-15";
+  };
   gomod2nix = {
     pname = "gomod2nix";
     version = "bbc0893e5708955f9da230e88a20562d67fa325e";
@@ -109,6 +121,18 @@
       sha256 = "sha256-hXOhAU2uAowuFGU4RuU67x6oAmH0eD+OsODQnVEfBiY=";
     };
     date = "2026-08-10";
+  };
+  replay-fish = {
+    pname = "replay-fish";
+    version = "d2ecacd3fe7126e822ce8918389f3ad93b14c86c";
+    src = fetchFromGitHub {
+      owner = "jorgebucaran";
+      repo = "replay.fish";
+      rev = "d2ecacd3fe7126e822ce8918389f3ad93b14c86c";
+      fetchSubmodules = false;
+      sha256 = "sha256-TzQ97h9tBRUg+A7DSKeTBWLQuThicbu19DHMwkmUXdg=";
+    };
+    date = "2024-07-01";
   };
   sing-box-alpha = {
     pname = "sing-box-alpha";
