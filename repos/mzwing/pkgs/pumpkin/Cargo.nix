@@ -11273,6 +11273,12 @@ rec {
             usesDefaultFeatures = false;
             features = [ "serde" "v3" "v4" "std" ];
           }
+          {
+            name = "xxhash-rust";
+            packageId = "xxhash-rust";
+            usesDefaultFeatures = false;
+            features = [ "xxh64" ];
+          }
         ];
         features = {
           "default" = [ "query" ];

@@ -43,6 +43,11 @@ fetch.github = "HyacinthHaru/haru"
 src.github_tag = "HyacinthHaru/haru"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+["icalingua++"]
+fetch.github = "Icalingua-plus-plus/Icalingua-plus-plus"
+src.github_tag = "Icalingua-plus-plus/Icalingua-plus-plus"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [pumpkin]
 src.git = "https://github.com/Pumpkin-MC/Pumpkin"
 src.branch = "master"

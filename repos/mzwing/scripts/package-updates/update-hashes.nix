@@ -69,7 +69,11 @@
             is_forced "$attr" || continue
           fi
 
-          if nix eval ".#packages.${system}.$attr.pname" >/dev/null 2>&1; then
+          # Dynamic lookup via --apply: Nix's flake-fragment parser cannot
+          # address attribute names that are not plain identifiers
+          # (e.g. icalingua++; even nixpkgs' gtk+ is unreachable that
+          # way), while builtins.getAttr handles any string.
+          if nix eval ".#packages.${system}" --apply "pkgs: (builtins.getAttr \"$attr\" pkgs).pname" >/dev/null 2>&1; then
             if ! is_forced "$attr"; then
               source_name="''${source_names[$attr]:-$attr}"
               new_entry=$(jq --compact-output --arg name "$source_name" '.[$name]' _sources/generated.json)
