@@ -170,6 +170,7 @@ pkgs.python3Packages.buildPythonApplication (finalAttrs: {
     pyjwt
     pymysql
     pyquery
+    pyyaml
     pypushdeer
     python-dateutil
     python-hosts
@@ -208,6 +209,7 @@ pkgs.python3Packages.buildPythonApplication (finalAttrs: {
   postInstall = ''
     mkdir -p $out/bin $out/libexec/nexus-media $out/share/nexus-media
     cp ${finalAttrs.src}/run.py $out/libexec/nexus-media/run.py
+    cp -r ${finalAttrs.src}/src $out/libexec/nexus-media/src
     cp -r ${finalAttrs.src}/. $out/share/nexus-media/
     makeWrapper ${finalAttrs.pythonEnv.interpreter} $out/bin/nexus-media \
       --chdir $out/libexec/nexus-media \
