@@ -1355,10 +1355,10 @@
     };
     "blueprint-mcp-for-firefox" = buildMozillaXpiAddon {
       pname = "blueprint-mcp-for-firefox";
-      version = "1.9.18";
+      version = "1.9.22";
       addonId = "blueprint-mcp@railsblueprint.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4637587/blueprint_mcp_for_firefox-1.9.18.xpi";
-      sha256 = "bb154a40580aaedbe29fd032fce61e1a0a9e321f9dbe73d2d1a527a005bcab83";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4949928/blueprint_mcp_for_firefox-1.9.22.xpi";
+      sha256 = "3ce232fa66505b440e1c82548c7cc2931488cff8c0df004a2cfb5a88eb0fed89";
       meta = with lib;
       {
         description = "Give Claude Code and other AI assistants direct control of your real Firefox browser through the Model Context Protocol. Stay logged in, bypass bot detection, automate authenticated workflows.";
@@ -2914,10 +2914,10 @@
     };
     "danish-language-pack" = buildMozillaXpiAddon {
       pname = "danish-language-pack";
-      version = "154.0.20260807.95657";
+      version = "153.0.20260810.162159";
       addonId = "langpack-da@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944143/dansk_da_language_pack-154.0.20260807.95657.xpi";
-      sha256 = "465ccde16c41f9da66a756d69dd9da63b344b6143512c6712caa126d6cbc15bb";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4950190/dansk_da_language_pack-153.0.20260810.162159.xpi";
+      sha256 = "3f1fa8c47d62c1e33f1aaf6d3232c502809fa38e6d77dab21ed6d6192c7f9372";
       meta = with lib;
       {
         description = "Firefox Language Pack for Dansk (da) – Danish";
@@ -3130,10 +3130,10 @@
     };
     "deutsch-de-language-pack" = buildMozillaXpiAddon {
       pname = "deutsch-de-language-pack";
-      version = "154.0.20260807.95657";
+      version = "153.0.20260810.162159";
       addonId = "langpack-de@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944149/deutsch_de_language_pack-154.0.20260807.95657.xpi";
-      sha256 = "b2f0a1544dbdddaf6b29ea777622a45a8510d44db37ac7d3db208e9b44f55888";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4950192/deutsch_de_language_pack-153.0.20260810.162159.xpi";
+      sha256 = "3af7767b23a2adad3e8b4c10f5ffb583b07b6b0925e7ef4d3d90e6ccdae43880";
       meta = with lib;
       {
         description = "Firefox Language Pack for Deutsch (de) – German";
@@ -4629,10 +4629,10 @@
     };
     "french-language-pack" = buildMozillaXpiAddon {
       pname = "french-language-pack";
-      version = "154.0.20260807.95657";
+      version = "153.0.20260810.162159";
       addonId = "langpack-fr@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944096/francais_language_pack-154.0.20260807.95657.xpi";
-      sha256 = "5adef97e15ca2f207e16ae9394d49c22edde31aba86b18ba6b490286e97a19d4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4950228/francais_language_pack-153.0.20260810.162159.xpi";
+      sha256 = "abdbd49fae5307e1b6a55621c49290f8ffa4ec433af2e880624bc21fc3cc857d";
       meta = with lib;
       {
         description = "Firefox Language Pack for Français (fr) – French";
@@ -4666,10 +4666,10 @@
     };
     "gaidhlig-language-pack" = buildMozillaXpiAddon {
       pname = "gaidhlig-language-pack";
-      version = "154.0.20260807.95657";
+      version = "153.0.20260810.162159";
       addonId = "langpack-gd@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944145/gaidhlig_language_pack-154.0.20260807.95657.xpi";
-      sha256 = "e30de68c19d069cd027b7bda563c241d52f201ade74dc7f403530003f1d14b41";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4950279/gaidhlig_language_pack-153.0.20260810.162159.xpi";
+      sha256 = "ae78dce176d8714576179f5e4e483d8d1c244b6f164dc9230deade7311b30877";
       meta = with lib;
       {
         description = "Firefox Language Pack for Gàidhlig (gd) – Scottish Gaelic";
@@ -10739,10 +10739,10 @@
     };
     "numatrix" = buildMozillaXpiAddon {
       pname = "numatrix";
-      version = "0.0.0.8";
+      version = "0.1.2";
       addonId = "nuMatrix@arek.codes";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4719114/numatrix-0.0.0.8.xpi";
-      sha256 = "27f388ef01b6bb365944def3d8f66cf6259b6ed154b8f7c9f66d486602422d37";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4857563/numatrix-0.1.2.xpi";
+      sha256 = "da1e86e9727ae2c3b0ce5a86a9e336ddfaf0852703dee421889b7e4bbb657225";
       meta = with lib;
       {
         homepage = "https://codeberg.org/arek.codes/nuMatrix";
@@ -13462,10 +13462,10 @@
     };
     "scots-language-pack" = buildMozillaXpiAddon {
       pname = "scots-language-pack";
-      version = "154.0.20260807.95657";
+      version = "153.0.20260810.162159";
       addonId = "langpack-sco@firefox.mozilla.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4944080/scots_language_pack-154.0.20260807.95657.xpi";
-      sha256 = "83a5a595f62e61526bef622705e3901e848a4ffc222afe32c1ef3f312f80a57a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4950214/scots_language_pack-153.0.20260810.162159.xpi";
+      sha256 = "be53cc4d96e04bed221d5fff018cfb3b4287d6e9e41cd5cb06c83268050885ae";
       meta = with lib;
       {
         description = "Firefox Language Pack for Scots (sco)";
@@ -13955,10 +13955,10 @@
     };
     "simplifygmail" = buildMozillaXpiAddon {
       pname = "simplifygmail";
-      version = "3.4.8";
+      version = "3.4.9";
       addonId = "{a4c1064c-95dd-47a7-9b02-bb30213b7b29}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4928643/simplifygmail-3.4.8.xpi";
-      sha256 = "3e508d705423d03cb7e743e4e9f765a1679341430a92e53cbf1956f1c8de0ac8";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4948826/simplifygmail-3.4.9.xpi";
+      sha256 = "30a6fa077b4e9ea46191e1eb896f5acf5b8104f1baf0d6d06af94ae5b6caacd6";
       meta = with lib;
       {
         homepage = "https://simpl.fyi";
@@ -16109,10 +16109,10 @@
     };
     "user-agent-string-switcher" = buildMozillaXpiAddon {
       pname = "user-agent-string-switcher";
-      version = "0.6.7";
+      version = "0.6.8";
       addonId = "{a6c4a591-f1b2-4f03-b3ff-767e5bedf4e7}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4773733/user_agent_string_switcher-0.6.7.xpi";
-      sha256 = "979a04c9a380f10b715980935a6f3e870dfff3c8100cbe393d65b46db82ab257";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4948736/user_agent_string_switcher-0.6.8.xpi";
+      sha256 = "9f15a72db9a2ecef685186666765aeeed1c195b1caf0da79b624f466ba258e0d";
       meta = with lib;
       {
         homepage = "https://webextension.org/listing/useragent-switcher.html";
@@ -17903,10 +17903,10 @@
     };
     "youtube-suite-search-fixer" = buildMozillaXpiAddon {
       pname = "youtube-suite-search-fixer";
-      version = "10.1.1";
+      version = "10.1.2";
       addonId = "MinYT@example.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4939619/youtube_suite_search_fixer-10.1.1.xpi";
-      sha256 = "8989df40c04cc0a6e8297f51199b3650124cb8b6e8482df4167d2eda3e2fd169";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4949917/youtube_suite_search_fixer-10.1.2.xpi";
+      sha256 = "7127c25a6e808b6b53b5c805fa9d0560ea72bf6ba61e09b34183f2939842d26c";
       meta = with lib;
       {
         homepage = "https://phoennix.gitlab.io/youtubesearchfix/";
