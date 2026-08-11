@@ -120,10 +120,13 @@ in
 
       # Wayland support follows the nixpkgs electron convention: only
       # active when the user opts in via NIXOS_OZONE_WL (upstream default
-      # behavior, X11/XWayland, is otherwise unchanged).
+      # behavior, X11/XWayland, is otherwise unchanged). The \ before
+      # ''${NIXOS_OZONE_WL...} keeps the parameter expansion literal so
+      # it is evaluated by the wrapper at runtime; without it bash would
+      # expand it to empty here in the build sandbox.
       makeWrapper ${lib.getExe electron} $out/bin/icalingua \
         --add-flags "$out/lib/icalingua/app.asar" \
-        --add-flags "''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}" \
+        --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}" \
         --prefix PATH : ${lib.makeBinPath [xdg-utils]}
 
       runHook postInstall

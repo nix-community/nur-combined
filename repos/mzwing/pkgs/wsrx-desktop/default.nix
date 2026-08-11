@@ -97,10 +97,14 @@
         };
         # Cargo always exports CARGO_ENCODED_RUSTFLAGS to build scripts,
         # even when no extra rustflags are configured; buildRustCrate
-        # does not, and av-scenechange's build.rs unwraps it. The empty
-        # string accurately encodes the absent rustflags and lets the
-        # rav1e -> ravif -> image dependency chain build.
+        # does not, and the rust-av crates' build.rs files unwrap it
+        # (av-scenechange 0.14.1 build.rs:250, rav1e 0.8.1 build.rs:277).
+        # The empty string accurately encodes the absent rustflags and
+        # lets the rav1e -> ravif -> image dependency chain build.
         av-scenechange = attrs: {
+          env.CARGO_ENCODED_RUSTFLAGS = "";
+        };
+        rav1e = attrs: {
           env.CARGO_ENCODED_RUSTFLAGS = "";
         };
 
