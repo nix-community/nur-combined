@@ -54,6 +54,12 @@
       fetchSubmodules = false;
       sha256 = "sha256-S8NLPaw754IO6heLzY4cNjW2GXY76E9TZW3glSOKDTM=";
     };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-S8NLPaw754IO6heLzY4cNjW2GXY76E9TZW3glSOKDTM=/Cargo.lock";
+      outputHashes = {
+
+      };
+    };
     date = "2026-08-12";
   };
   yanhekt-autoslides = {

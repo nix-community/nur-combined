@@ -29,3 +29,4 @@ fetch.git = "https://github.com/TibixDev/winboat.git"
 src.git = "https://github.com/so1ve/xwayland-satellite.git"
 src.branch = "fix/issue-301"
 fetch.github = "so1ve/xwayland-satellite"
+cargo_lock = ["Cargo.lock"]
