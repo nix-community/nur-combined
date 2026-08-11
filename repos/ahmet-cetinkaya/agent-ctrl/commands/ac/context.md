@@ -28,6 +28,7 @@ or before adding more — to know your remaining headroom.
 
 - Run before **`/ac:index`** on large repos to confirm headroom.
 - Complements the **`strategic-compact`** technique (temporal/history) — this audit is structural (what's loaded).
+- To act on the findings, apply the **`config-gc`** skill — it garbage-collects redundant, stale, or orphaned config items this audit surfaces.
 
 ## Output
 

@@ -27,6 +27,7 @@ turning an ambiguous idea into a concrete, actionable brief through Socratic que
 ## Delegation
 
 - Runs **`/sc:brainstorm`** for the discovery dialogue.
+- Applies the **`intent-driven-development`** skill to turn the brief into scoped, verifiable acceptance criteria.
 - Hand the resulting brief to **`/ac:research`** (search-first) or **`/ac:ship`** (build it).
 - Pairs with **`/sc:design`** when the brief needs an architecture shape next.
 

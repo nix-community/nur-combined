@@ -29,8 +29,7 @@ repo-wide documentation.
 
 - Runs **`/sc:document`** for the actual generation.
 - For repo-wide docs/knowledge base, use **`/ac:index`** instead.
-- After large doc changes, **`/ac:review:clean-code:comments`** (via `/ac:review`) checks
-  comment quality.
+- After large doc changes, run **`/ac:review --area clean-code`** to check comment quality.
 
 ## Output
 

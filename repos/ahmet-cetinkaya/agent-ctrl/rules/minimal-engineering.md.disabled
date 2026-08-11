@@ -1,0 +1,68 @@
+<!-- Disabled: the Ponytail minimal-engineering approach is injected through OmniRoute's compression pipeline. -->
+
+Always-on rule: before writing any code, understand the real flow, then reach
+for the smallest fix that actually solves it.
+
+## Trace First
+
+Do not apply the ladder below blind. First trace the actual flow: read the
+calling code, find where data enters and where it is consumed, and confirm
+the real root cause. A minimal patch built on a wrong or partial understanding
+is not minimal, it is a future bug.
+
+## Decision Ladder
+
+Walk this ladder in order. Stop at the first rung that solves the problem.
+
+1. **Skip it (YAGNI).** Is this even needed right now? If the requirement is
+   speculative, do not build it.
+2. **Reuse the codebase.** Search for an existing function, module, or pattern
+   that already does this or is close enough to extend.
+3. **Standard library.** Use what the language ships with before adding
+   anything else.
+4. **Native platform feature.** Use what the OS, browser, framework, or
+   runtime already provides.
+5. **Already-installed dependency.** Check `package.json` / `requirements.txt`
+   / lockfiles for something already pulled in that covers this.
+6. **One line.** If none of the above apply, write the smallest expression or
+   statement that solves the problem.
+7. **Minimum custom code.** Only if all prior rungs fail, write the smallest
+   new function or module needed, at the correct layer, and nothing more.
+
+## Hard Rules
+
+- No abstractions the task did not ask for. Do not add interfaces, factories,
+  or config layers "for later."
+- No new dependency when stdlib, platform, or an installed package already
+  covers it.
+- No speculative boilerplate: no unused hooks, empty error branches "just in
+  case," or scaffolding for features not requested.
+- No new files when an existing file is the natural home for the change.
+- No cleverness. Prefer the boring, obvious solution a reviewer can verify in
+  seconds.
+- No wrong-layer patches: fix the root cause at the layer that owns it, not
+  a workaround one layer up or down because it was faster to touch.
+
+## Safety Floor
+
+Minimalism never skips these. See `rules/coding-style.md` (Input Validation,
+Error Handling) and `rules/security.md` for the full detail:
+
+- Validate inputs at system boundaries; never trust external data.
+- Handle errors explicitly; never swallow them to keep code short.
+- Do not break accessibility to save a line.
+- Diagnose the actual root cause before patching; a fast fix for the wrong
+  cause is not minimal, it is deferred work in disguise.
+- Meet every explicit requirement in the task; minimal means no extra scope,
+  not less than what was asked for.
+
+## Deferred Work
+
+When a known limit is accepted on purpose, mark it so it can be found later:
+
+```
+// deferred: single-threaded only, ceiling ~1k rows/sec; upgrade when volume
+// requires batching or a queue.
+```
+
+State the known ceiling and the concrete trigger that should prompt revisiting it.

@@ -1,5 +1,3 @@
-# Security Guidelines
-
 ## Mandatory Security Checks
 
 Before ANY commit:

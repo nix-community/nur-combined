@@ -1,56 +1,59 @@
 ---
 name: ac:plan-validate
-description: "Review and validate strategic plans with confidence assessment."
+description: "Red-team a strategic plan: bust assumptions, find loopholes, propose fixes, and iterate to a high-confidence hardened strategy."
 category: review
 complexity: standard
 mcp-servers: []
 personas: [red-team-strategist, devils-advocate]
 ---
 
-**Are you 100% confident in this strategy? If not, find all possible loopholes, suggest proper fixes and run this loop until you are factually 100% confident in the new strategy!**
+# `/ac:plan-validate` - Red-Team a Plan
 
----
+Adversarially validate a strategic plan. Surface every hidden assumption and loophole,
+propose concrete fixes, and iterate until confidence is high — pairs with `/ac:plan-estimate`.
 
-## 🔍 Validation Protocol
+For plans with multiple valid paths or a go/no-go fork, apply the **`council`** skill to
+stage structured disagreement between distinct voices before settling on the hardened plan.
 
-To achieve the 100% confidence requirement above, execute the following strict "Red Team" loop:
+## Usage
 
-### 1. Assumption Busting
-- Identify every hidden assumption in the plan.
-- Ask: *What breaks if this assumption is false?*
-- Check dependencies: Does this plan rely on external factors, APIs, or systems that could fail or change?
+```bash
+/ac:plan-validate [plan reference]   # a plan file, prior plan output, or pasted plan
+```
 
-### 2. Loophole & Edge-Case Identification
-- **Logical Flaws:** Are there circular dependencies or race conditions?
-- **Resource Constraints:** Will this scale? Will it run out of memory, compute, or time?
-- **Security & Scope:** Can a user abuse this? Does it introduce vulnerabilities?
+## Workflow
 
-### 3. Confidence Assessment
-- Assign a strict **Confidence Score (0-100%)**.
-- Be brutally honest. Anything less than 100% means the plan is not ready and you must continue the loop.
+Run this "Red Team" loop over the plan:
 
-### 4. Propose Fixes
-- For every loophole identified, formulate a concrete, actionable fix.
-- Do not just point out the problem; provide the architectural or logical solution.
+1. **Assumption Busting** — identify every hidden assumption; ask *what breaks if this is
+   false?* Flag reliance on external factors, APIs, or systems that could fail or change.
+2. **Loophole & Edge-Case ID** — logical flaws (circular deps, race conditions), resource
+   constraints (memory, compute, time, scale), and security/scope (abuse, vulnerabilities).
+3. **Confidence Assessment** — assign a strict **Confidence Score (0-100%)**. Be brutally
+   honest; anything below the bar means the plan is not ready.
+4. **Propose Fixes** — for every loophole, give a concrete, actionable fix (the architectural
+   or logical solution), not just the problem.
+5. **Iterate** — apply the fixes, then re-evaluate the *new* plan from Step 1. Repeat until
+   confidence is ≥95% **or** 3 iterations are reached. If still below 95% after 3 rounds,
+   stop and report the residual risks explicitly rather than looping further.
 
-### 5. Iteration
-- Apply the fixes to the plan.
-- Re-evaluate the *new* plan starting from Step 1.
-- Continue this loop internally until the confidence score reaches exactly 100%.
-
-## 📝 Output Format
-
-Once you reach 100% confidence, output your findings in the following format:
+## Output
 
 ```markdown
 # Plan Validation Report
 
-## Identified Loopholes (The Vulnerabilities)
-- List the original flaws and assumptions that were broken.
+## Confidence Score
+- Final score (e.g. 96%) and iteration count.
 
-## Proposed Fixes (The Solutions)
-- List the specific changes made to counter the loopholes.
+## Identified Loopholes
+- The original flaws and assumptions that were broken.
 
-## Hardened Strategy (100% Confident)
-- Present the final, bulletproof version of the plan.
+## Proposed Fixes
+- The specific changes made to counter each loophole.
+
+## Hardened Strategy
+- The final version of the plan.
+
+## Residual Risks
+- Anything still unresolved (empty if confidence ≥95%).
 ```

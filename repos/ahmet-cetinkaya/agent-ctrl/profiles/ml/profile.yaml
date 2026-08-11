@@ -1,8 +1,0 @@
-name: Machine Learning
-description: "Machine learning / AI — agents and skills for model training, MLOps, and applied ML."
-tags:
-  - ml
-  - ai
-  - training
-  - mlops
-  - pytorch

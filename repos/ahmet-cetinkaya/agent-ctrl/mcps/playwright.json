@@ -1,0 +1,18 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "type": "stdio",
+      "command": "bunx",
+      "args": [
+        "-y",
+        "@playwright/mcp@latest",
+        "--isolated"
+      ],
+      "env": {
+        "PLAYWRIGHT_MCP_EXECUTABLE_PATH": "${CHROMIUM_PATH}",
+        "PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS": "true"
+      },
+      "description": "Browser automation via Playwright \u2014 navigate, click, fill forms, and capture accessibility snapshots/screenshots for web testing and scraping. On NixOS, PLAYWRIGHT_MCP_EXECUTABLE_PATH points to the system chromium since the downloaded browser binary fails on the non-FHS filesystem."
+    }
+  }
+}

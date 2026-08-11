@@ -1,6 +1,13 @@
 ## ZSH Configuration for NixOS
 ## Environment variables, plugins, and startup are managed by Home Manager
 
+# Home Manager session variables (home.sessionPath / home.sessionVariables).
+# The .zshrc symlink bypasses Home Manager's own zsh integration, so PATH
+# entries declared in Nix modules only reach the shell from here.
+if [[ -f /etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh ]]; then
+  source "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
+fi
+
 # Source common configuration (keybindings, history, aliases)
 source "$HOME/Configs/zsh/common.zshrc"
 

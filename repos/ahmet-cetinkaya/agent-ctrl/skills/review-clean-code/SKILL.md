@@ -24,7 +24,11 @@ independently or together.
 | **architecture** | `architecture.md` | G1-G10 | Code structure & macro architecture |
 | **hygiene** | `hygiene.md` | G11-G20 | Code hygiene & clarity |
 | **logic** | `logic.md` | G21-G36 | Logic & design decisions |
-| **tests** | `tests.md` | T1-T9 | Test coverage & quality |
+| **tests** | `tests.md` | T1-T9 | Test code cleanliness & maintainability |
+
+Boundary: the `tests` aspect reviews existing test code hygiene only. Suite effectiveness,
+correctness, gaps, flakiness, and meaningful coverage belong to the top-level `review-tests`
+skill; select either or both independently as needed.
 
 ## How to Run
 
@@ -33,11 +37,12 @@ independently or together.
    no aspect specified, default to **all eight**.
 2. For each selected aspect, **load only that part file** (`skills/review-clean-code/<aspect>.md`)
    and apply its rules to the target files. Loading parts on demand keeps context lean.
-3. Each aspect cites specific Rule IDs and produces **Refactored Code**.
+3. Each aspect cites specific Rule IDs and produces findings with minimal refactoring examples.
 4. Aggregate all aspect outputs into a single **Clean Code Audit Report**, then return it
    (to `/ac:review` for consolidation, or directly to the user).
 
 ## Output
 
 One unified report grouped by aspect. For each finding: the violated Rule ID, the affected
-region, and the refactored code (or test code, for the `tests` aspect).
+region, and a minimal refactoring example for the existing code under review, including
+existing tests when the `tests` aspect is selected.

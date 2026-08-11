@@ -12,6 +12,9 @@ personas: []
 **Goal:** Run a comprehensive pre-submission analysis and create a **draft** Pull Request
 from the current branch to the target branch, using the GitHub CLI (`gh`).
 
+Applies the **`git-workflow`** skill for branch-naming, commit, and PR-description
+conventions, and the **`safety-guard`** skill before any push or force-update.
+
 ## Usage
 
 ```bash
@@ -32,21 +35,23 @@ the first hard failure:
 git branch --show-current
 git status --short
 git log origin/<base>..HEAD --oneline
+git log --format='%h %s' origin/<base>..HEAD --extended-regexp --grep='^(fixup!|amend!)'
 gh pr list --head <branch> --json number
 ```
 
 | Check | Condition | Action if failed |
 |---|---|---|
 | `gh` available & authed | `gh auth status` ok | **STOP**: install <https://cli.github.com/> / run `gh auth login`. |
-| Not on base branch | current branch ≠ base | **STOP**: "Switch to a feature branch first." |
+| On a feature branch | current branch ≠ base | **STOP** if on base: "Switch to a feature branch first." |
 | Clean working dir | no uncommitted changes | **STOP**: "Uncommitted changes — commit or stash first." |
 | Has commits ahead | `git log origin/<base>..HEAD` not empty | **STOP**: "No commits ahead of `<base>`. Nothing to PR." |
+| No pending fixups | no local `fixup!` or `amend!` commits | **STOP**: request confirmation to autosquash local fixups, rerun checks, then continue. |
 | No existing PR | `gh pr list --head <branch>` empty | **STOP**: "PR already exists: #<n>. `gh pr view <n> --web`." |
 | Test gate | repo test command passes (`npm test`, `pytest`, …) | **STOP** with the failure output. |
 | No merge conflicts | `git merge-tree` dry-run vs `<base>` is clean | **STOP** and list conflicting paths. |
 
 **Branch naming policy:** validate the source branch against
-`^(feat|fix|docs|style|refactor|perf|test|chore)\/[\w-]+\S$`. If it doesn't match, **WARN**
+`^(feat|fix|docs|style|refactor|perf|test|chore)\/[\w-]+$`. If it doesn't match, **WARN**
 but do not abort.
 
 ---
@@ -85,6 +90,11 @@ Reference these in the PR body if present: `.claude/prds/`, `.claude/plans/`,
 > Need to stage/commit pending work or craft a Conventional-Commit message first? Use
 > **`/sc:git`** before this phase. `/ac:pr` assumes commits already exist.
 
+Before the branch's first push, apply the `git-workflow` skill's **Local Fixup Commits** policy.
+If local `fixup!`/`amend!` commits exist, autosquash them into their targets, inspect the rewritten
+history, and rerun relevant checks, but obtain explicit user confirmation before the rebase.
+Never autosquash a published branch without explicit authorization.
+
 ```bash
 git push -u origin HEAD
 ```
@@ -104,14 +114,31 @@ If rebase conflicts occur, **STOP** and inform the user.
 **Body** — if a template was found, fill each section (keep all sections; mark "N/A" rather
 than deleting). Otherwise use:
 
+Use GitHub alert blocks when they clarify skimmable PR context: `NOTE` for useful context,
+`TIP` for optional success guidance, `IMPORTANT` for required reviewer/user information,
+`WARNING` for immediate risk, and `CAUTION` for negative consequences.
+Use Mermaid diagrams when they make architecture, data flow, state transitions, or rollout
+sequencing easier to review than prose alone.
+
 ```markdown
-### 🚀 Motivation and Context
+### 🚀 Context
 
 [Summarize the feature/fix/chore from the commit messages and branch name.]
+
+#### 🔗 Related [optional]
+
+- Closes/Fixes/Relates to #N
+- Related PR/issue: #N
+
+Do not link this PR to itself.
+
+---
 
 ### ⚙️ Implementation Details
 
 [Technical approach, key changes, relevant considerations.]
+
+---
 
 ### 📋 Checklist for Reviewer
 
@@ -120,9 +147,6 @@ than deleting). Otherwise use:
 - [ ] Documentation updated (if applicable).
 - [ ] Code quality standards met (e.g., linter passed).
 
-### 🔗 Related [optional]
-
-[Related issues/PRs with Closes/Fixes/Relates to #N. Do not link this PR to itself.]
 ```
 
 **Create:**

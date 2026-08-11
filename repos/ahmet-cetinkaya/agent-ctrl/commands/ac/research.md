@@ -3,7 +3,7 @@ name: ac:research
 description: "Research existing tools, libraries, and patterns before writing code. Applies the search-first technique and outputs an Adopt/Extend/Compose/Build recommendation."
 category: workflow
 complexity: standard
-mcp-servers: [context7, parallel-search, serena, graphify]
+mcp-servers: [context7, parallel-search, serena, codegraph]
 personas: [deep-research, architect]
 ---
 
@@ -20,8 +20,8 @@ Applies the **`search-first`** skill: never write custom code for a solved probl
 ## Workflow
 
 1. **Repo first** — search the current codebase for an existing implementation: `serena`
-   (`find_symbol`, `find_referencing_symbols`) for symbol-level lookup, and — when a
-   knowledge graph exists (`/ac:index`) — `graphify` to see what already depends on the area.
+   (`find_symbol`, `find_referencing_symbols`) for symbol-level lookup, and `codegraph` to
+   trace an existing candidate's callers/callees and the impact of extending it.
 2. **External search** — npm/PyPI, `context7` for library docs, `parallel-search` for the
    web, plus installed skills and GitHub.
 3. **Evaluate** — functionality fit, maintenance, community, docs, license, dependency weight.

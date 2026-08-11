@@ -29,6 +29,12 @@ if command -v dotnet >/dev/null 2>&1; then
   export DOTNET_ROOT="$(dirname "$(readlink -f "$(command -v dotnet)")")"
 fi
 
+# Per-directory environments from .envrc. Required for OpenCode's {env:VAR}
+# config substitution, which reads the process environment at startup.
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+
 ## Keybindings
 if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
   function zle-line-init() {

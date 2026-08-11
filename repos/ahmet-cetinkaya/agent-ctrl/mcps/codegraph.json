@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "codegraph": {
+      "type": "stdio",
+      "command": "codegraph",
+      "args": [
+        "serve",
+        "--mcp"
+      ],
+      "description": "Local SQLite code-graph exploration \u2014 AST-indexed symbol search, call paths, and blast-radius analysis across the codebase."
+    }
+  }
+}

@@ -138,6 +138,8 @@ hs_err_pid*
 *GEMINI.md
 *QWEN.md
 graphify-out/
+**/**/.omo/
+**/**/.codegraph/
 
 # Archives
 *.7z

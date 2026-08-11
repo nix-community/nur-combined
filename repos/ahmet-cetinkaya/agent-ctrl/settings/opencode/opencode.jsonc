@@ -1,0 +1,29 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [
+    "oh-my-openagent@latest",
+    "opencode-omniroute-auth@latest",
+    "@mohak34/opencode-notifier@latest",
+    "opencode-wakelock@latest",
+    "opencode-mermaid-renderer@latest"
+  ],
+  "model": "omniroute/combo/high-models",
+  "small_model": "omniroute/combo/lite-models",
+  "provider": {
+    // opencode-omniroute-auth Settings
+    "omniroute": {
+      "options": {
+        "baseURL": "${OMNIROUTE_BASE_URL}",
+        "apiMode": "chat",
+        "refreshOnList": true,
+        "modelCacheTtl": 300000,
+        "modelsDev": {
+          "enabled": true,
+          "url": "https://models.dev/api.json",
+          "timeoutMs": 1000,
+          "cacheTtl": 86400000,
+        },
+      },
+    },
+  },
+}

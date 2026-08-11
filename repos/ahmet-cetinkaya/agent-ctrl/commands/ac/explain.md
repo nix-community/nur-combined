@@ -3,7 +3,7 @@ name: ac:explain
 description: "Explain code, a concept, or system behavior with educational clarity. Minimal hub over /sc:explain; complements /ac:explore (which gathers context, not explanations)."
 category: workflow
 complexity: standard
-mcp-servers: []
+mcp-servers: [context7]
 personas: [learning-guide]
 ---
 
@@ -29,7 +29,7 @@ than explaining it.
 
 - Runs **`/sc:explain`** for the explanation.
 - For finding the relevant files first, use **`/ac:explore`**.
-- For up-to-date library/API specifics, the `docs-lookup` agent / Context7 MCP.
+- For up-to-date library/API specifics, use the **Context7 MCP**.
 
 ## Output
 

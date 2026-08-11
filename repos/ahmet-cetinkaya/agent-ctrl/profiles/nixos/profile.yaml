@@ -1,0 +1,7 @@
+name: NixOS
+description: "NixOS system management — skills for declarative configuration, installation, image building, LUKS, impermanence, VMs, and monitoring."
+tags:
+  - devops
+  - linux
+  - nixos
+  - system-management

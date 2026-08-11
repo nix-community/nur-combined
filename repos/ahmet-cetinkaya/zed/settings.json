@@ -1,5 +1,9 @@
 {
+  "minimap": {
+    "show": "always"
+  },
   "edit_predictions": {
+    "mode": "subtle",
     "provider": "codestral"
   },
   "diff_view_style": "unified",
@@ -44,15 +48,29 @@
   },
   "cursor_blink": false,
   "git": {
+    "file_diff": {
+      "show_full_file": true
+    },
     "git_gutter": "tracked_files",
   },
   "git_panel": {
-    "group_by": "status",
+    "show_count_badge": true,
+    "scrollbar": {
+
+    },
+    "entry_primary_click_action": "file_diff",
+    "file_icons": true,
+    "status_style": "label_color",
+    "group_by": "staging",
     "dock": "left",
     "sort_by_path": true,
     "tree_view": true,
   },
-  "icon_theme": "Material Icon Theme",
+  "icon_theme": {
+    "mode": "light",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme"
+  },
   "lsp": {
     "rust-analyzer": {
       "initialization_options": {
@@ -103,7 +121,11 @@
     "shell": "system",
     "working_directory": "current_project_directory",
   },
-  "theme": "VSCode Dark Modern",
+  "theme": {
+    "mode": "dark",
+    "light": "One Light",
+    "dark": "VSCode Dark Modern"
+  },
   "ui_font_size": 16,
   "vertical_scroll_margin": 0,
   "vim_mode": true,

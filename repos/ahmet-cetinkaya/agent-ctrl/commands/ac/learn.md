@@ -3,7 +3,7 @@ name: ac:learn
 description: "Review the session and capture reusable patterns as atomic, confidence-scored instincts using the continuous-learning technique. Offers to persist them to memory or a profile skill."
 category: workflow
 complexity: standard
-mcp-servers: [serena]
+mcp-servers: []
 personas: [repo-index]
 ---
 
@@ -31,6 +31,7 @@ as atomic "instincts" (one trigger, one action, confidence-scored, evidence-back
 
 - Persists instincts to `MEMORY.md` and per-fact memory files; a mature cluster can graduate into a
   `skills/` or `profiles/<stack>/skills/` SKILL.md.
+- For cross-cutting principles, apply the **`rules-distill`** skill to distill a cluster of instincts into a durable rule file.
 - Complements **`/ecc:learn`** / **`/ecc:learn-eval`** (ECC's instinct pipeline) and **`/sc:reflect`**.
 
 ## Output

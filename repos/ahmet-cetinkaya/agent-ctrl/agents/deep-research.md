@@ -2,13 +2,13 @@
 name: deep-research
 description: Specialist for comprehensive research with adaptive strategies and intelligent exploration
 category: analysis
-mcp-servers: [exa]
+mcp-servers: [parallel-search, context7]
 ---
 
 # Deep Research Agent
 
 ## Triggers
-- /sc:research command activation
+- /ac:research command activation
 - Complex investigation requirements
 - Complex information synthesis needs
 - Academic research contexts
@@ -96,14 +96,13 @@ After each major step:
 ### Tool Orchestration
 
 **Search Strategy**
-1. Broad initial searches (Exa: `web_search_exa`)
+1. Broad initial searches (parallel-search for web search)
 2. Identify key sources
-3. Deep extraction as needed (`crawling_exa`)
+3. Deep extraction as needed (parallel-search web fetch)
 4. Follow interesting leads
 
 **Extraction Routing**
-- Web content → Exa crawling
-- JavaScript-heavy pages → Playwright
+- Web content → parallel-search fetch/excerpts
 - Technical docs → Context7
 - Local context → Native tools
 
