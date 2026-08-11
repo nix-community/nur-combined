@@ -309,6 +309,51 @@
         },
         "version": "v1.8.1"
     },
+    "sublinkpro-linux-amd64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sublinkpro-linux-amd64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-STf84T349oI8ixjI5zKCQeSvs7uIUqYuM5IedCd84lM=",
+            "type": "url",
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-amd64"
+        },
+        "version": "1.2.17"
+    },
+    "sublinkpro-linux-arm64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "sublinkpro-linux-arm64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-fvLRAwcEg/aHPcOc1sq/Dx5tNB308wOxShkp1HxCEgQ=",
+            "type": "url",
+            "url": "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-arm64"
+        },
+        "version": "1.2.17"
+    },
+    "tachidesk-server": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "tachidesk-server",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-ghFBsy4XDUoC08vf7Vd+2PB70iOD/19BMuu1rkDpjdU=",
+            "type": "url",
+            "url": "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2243/Suwayomi-Server-v2.3.2243.jar"
+        },
+        "version": "2.3.2243"
+    },
     "telegramify-markdown": {
         "cargoLock": null,
         "date": null,

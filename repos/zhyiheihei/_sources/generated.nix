@@ -160,6 +160,30 @@
       hash = "sha256-tdjNcCKZadKQQ/sZuEY43rhKea5Z1zZHesq87ACSC44=";
     };
   };
+  sublinkpro-linux-amd64 = {
+    pname = "sublinkpro-linux-amd64";
+    version = "1.2.17";
+    src = fetchurl {
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-amd64";
+      hash = "sha256-STf84T349oI8ixjI5zKCQeSvs7uIUqYuM5IedCd84lM=";
+    };
+  };
+  sublinkpro-linux-arm64 = {
+    pname = "sublinkpro-linux-arm64";
+    version = "1.2.17";
+    src = fetchurl {
+      url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-arm64";
+      hash = "sha256-fvLRAwcEg/aHPcOc1sq/Dx5tNB308wOxShkp1HxCEgQ=";
+    };
+  };
+  tachidesk-server = {
+    pname = "tachidesk-server";
+    version = "2.3.2243";
+    src = fetchurl {
+      url = "https://github.com/Suwayomi/Suwayomi-Server/releases/download/v2.3.2243/Suwayomi-Server-v2.3.2243.jar";
+      hash = "sha256-ghFBsy4XDUoC08vf7Vd+2PB70iOD/19BMuu1rkDpjdU=";
+    };
+  };
   telegramify-markdown = {
     pname = "telegramify-markdown";
     version = "pypi_1.2.0";
