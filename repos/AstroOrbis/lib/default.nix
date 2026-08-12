@@ -1,4 +1,0 @@
-{ pkgs }:
-
-with pkgs.lib;
-{ }
