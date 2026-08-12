@@ -1,0 +1,25 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] ignore freed wolfSSL sessions when updating timeouts
+
+F-Droid's OkHttp hostnameVerifier sets SSLSessionContext.sessionTimeout
+on every handshake. wolfJSSE then walks the session cache and calls
+WolfSSLSession.setSessTimeout. Cached sessions whose native WOLFSSL was
+already freed throw IllegalStateException, which ACRA treats as fatal.
+
+Skip those sessions instead of aborting the handshake.
+
+--- a/external/wolfssljni/src/java/com/wolfssl/provider/jsse/WolfSSLImplementSSLSession.java
++++ b/external/wolfssljni/src/java/com/wolfssl/provider/jsse/WolfSSLImplementSSLSession.java
+@@ -552,3 +552,10 @@
+     protected void setNativeTimeout(long in) {
+-        ssl.setSessTimeout(in);
++        if (ssl == null) {
++            return;
++        }
++        try {
++            ssl.setSessTimeout(in);
++        } catch (IllegalStateException e) {
++            /* Native WOLFSSL already freed; keep walking the session cache. */
++        }
+     }

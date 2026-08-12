@@ -6,6 +6,7 @@ art-standalone.overrideAttrs (old: {
     ./dx-workaround.patch
     ./art-datetime-formatter-lambda-crash.patch
     ./dex2oat-path.patch
+    ./wolfssljni-freed-session-timeout.patch
   ];
   buildInputs = old.buildInputs ++ [ (wolfssl.override { enableJni = true; }) ];
 })
