@@ -123,13 +123,13 @@
   };
   pumpkin = {
     pname = "pumpkin";
-    version = "432f092b0f83c0578d1cb4b93d358cec64b1de21";
+    version = "7eb49e2e4d88782beb87f79eb487620aef0a083a";
     src = fetchFromGitHub {
       owner = "Pumpkin-MC";
       repo = "Pumpkin";
-      rev = "432f092b0f83c0578d1cb4b93d358cec64b1de21";
+      rev = "7eb49e2e4d88782beb87f79eb487620aef0a083a";
       fetchSubmodules = true;
-      sha256 = "sha256-7FUnS3i+vnJebX3qJpNWxFQceC3yij9IBNbcBO1Cy7Y=";
+      sha256 = "sha256-BJIWlk266rU/SVJf+O7BaPxHsM5bKU3OXicPuwZInSc=";
     };
     date = "2026-08-11";
   };
