@@ -1,5 +1,43 @@
 {
   "nodes": {
+    "deno2nix": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1771449470,
+        "narHash": "sha256-ZGKHKRB7K5aUIyJenXwOcX21F2yTXLa19q3YXQM3E48=",
+        "owner": "aMOPel",
+        "repo": "deno2nix",
+        "rev": "adb4dcea663cd61c19e01c8c36dd73db4af358a5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "aMOPel",
+        "ref": "custom-made-fetcher",
+        "repo": "deno2nix",
+        "type": "github"
+      }
+    },
+    "nix-repin": {
+      "inputs": {
+        "deno2nix": "deno2nix",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1786564119,
+        "narHash": "sha256-pMC/CmFQI6EQ8c0JJAaTdMhiyF/SFeJUPuwAfwixxy0=",
+        "owner": "so1ve",
+        "repo": "nix-repin",
+        "rev": "4202e85bfaa5702ba1a3b1e2e607b1b0564ad2d8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "so1ve",
+        "repo": "nix-repin",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1784796856,
@@ -18,6 +56,7 @@
     },
     "root": {
       "inputs": {
+        "nix-repin": "nix-repin",
         "nixpkgs": "nixpkgs"
       }
     }

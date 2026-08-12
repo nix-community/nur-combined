@@ -1,6 +1,7 @@
 {
   autoPatchelfHook,
   buildNpmPackage,
+  callPackage,
   copyDesktopItems,
   electron_41,
   ffmpeg,
@@ -8,7 +9,7 @@
   makeDesktopItem,
   makeWrapper,
   nodejs_22,
-  source,
+  source ? callPackage ./source.nix { },
   stdenv,
   which,
   zip,
@@ -19,8 +20,7 @@ let
 in
 buildNpmPackage (finalAttrs: {
   pname = "yanhekt-autoslides";
-  version = lib.removePrefix "v" source.version;
-  inherit (source) src;
+  inherit (source) version src;
 
   sourceRoot = "${finalAttrs.src.name}/autoslides";
 

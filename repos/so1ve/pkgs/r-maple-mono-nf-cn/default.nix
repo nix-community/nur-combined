@@ -1,6 +1,7 @@
 {
+  callPackage,
   lib,
-  source,
+  source ? callPackage ./source.nix { },
   stdenvNoCC,
   unzip,
 }:

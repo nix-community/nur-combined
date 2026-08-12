@@ -29,7 +29,7 @@ buildGo125Module {
     "-s"
     "-w"
     "-X main.Version=${version}"
-    "-X main.CommitHash=${lib.substring 0 7 source.src.rev}"
+    "-X main.CommitHash=${lib.substring 0 7 source.rev}"
     "-X main.BuildTimestamp=${source.date}T00:00:00"
   ];
 
@@ -72,7 +72,7 @@ buildGo125Module {
   meta = {
     description = "Guest server and updater for WinBoat";
     homepage = "https://github.com/TibixDev/winboat";
-    changelog = "https://github.com/TibixDev/winboat/commit/${source.src.rev}";
+    changelog = "https://github.com/TibixDev/winboat/commit/${source.rev}";
     license = lib.licenses.mit;
     platforms = [ "x86_64-windows" ];
   };

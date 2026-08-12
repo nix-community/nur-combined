@@ -1,16 +1,17 @@
 {
+  callPackage,
   niri,
   rustPlatform,
-  source,
+  source ? callPackage ./source.nix { },
 }:
 
 niri.overrideAttrs (previousAttrs: {
   inherit (source) src;
 
-  cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
+  cargoDeps = rustPlatform.importCargoLock (import ./cargo-lock.nix);
 
   env = previousAttrs.env // {
-    NIRI_BUILD_COMMIT = source.version;
+    NIRI_BUILD_COMMIT = source.rev;
   };
 
   meta = previousAttrs.meta // {

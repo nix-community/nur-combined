@@ -8,10 +8,17 @@
     ];
   };
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  inputs = {
+    nix-repin = {
+      url = "github:so1ve/nix-repin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+  };
 
   outputs =
     {
+      nix-repin,
       nixpkgs,
       ...
     }:
@@ -45,43 +52,10 @@
         ) (repositoryFor system)
       );
 
-      apps = forAllSystems (
-        system:
-        let
-          pkgs = pkgsFor system;
-          updatePackages = pkgs.writeShellApplication {
-            name = "update-packages";
-            runtimeInputs = [ pkgs.nvfetcher ];
-            text = ''
-              nvfetcher -c ${./nvfetcher.toml} -o _sources "$@"
-            '';
-          };
-        in
-        {
-          update = {
-            type = "app";
-            program = "${updatePackages}/bin/update-packages";
-            meta.description = "Update every package with an update script";
-          };
-        }
-      );
+      apps = forAllSystems (system: {
+        update = nix-repin.apps.${system}.default;
+      });
 
       formatter = forAllSystems (system: (pkgsFor system).nixfmt-tree);
-
-      devShells = forAllSystems (
-        system:
-        let
-          pkgs = pkgsFor system;
-        in
-        {
-          default = pkgs.mkShellNoCC {
-            packages = with pkgs; [
-              actionlint
-              nixfmt-tree
-              nvfetcher
-            ];
-          };
-        }
-      );
     };
 }

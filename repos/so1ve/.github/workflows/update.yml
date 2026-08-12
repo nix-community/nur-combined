@@ -29,12 +29,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          key_file="$RUNNER_TEMP/nvfetcher.toml"
-          trap 'rm -f "$key_file"' EXIT
-          umask 077
-          printf '[keys]\ngithub = "%s"\n' "$GITHUB_TOKEN" >"$key_file"
-          nix run .#update -- -k "$key_file"
-          git add --all -- _sources
+          nix run .#update
+          git add --all -- pkgs
 
       - name: Detect updates
         id: changes
@@ -115,6 +111,6 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add --all -- _sources
+          git add --all -- pkgs
           git commit --message "packages: update"
           git push origin "HEAD:$DEFAULT_BRANCH"

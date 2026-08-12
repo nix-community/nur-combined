@@ -1,5 +1,6 @@
 {
   bun,
+  callPackage,
   copyDesktopItems,
   docker-compose,
   electron_43,
@@ -12,7 +13,7 @@
   pkg-config,
   podman-compose,
   python3,
-  source,
+  source ? callPackage ./source.nix { },
   stdenv,
   stdenvNoCC,
   udev,
@@ -180,7 +181,7 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "winboat";
     description = "Run Windows apps on Linux with seamless integration";
     homepage = "https://github.com/TibixDev/winboat";
-    changelog = "https://github.com/TibixDev/winboat/commit/${source.src.rev}";
+    changelog = "https://github.com/TibixDev/winboat/commit/${source.rev}";
     license = lib.licenses.mit;
     platforms = [ "x86_64-linux" ];
   };
