@@ -1,0 +1,12 @@
+[
+  {
+    "pname": "CommandLineParser",
+    "version": "2.8.0",
+    "hash": "sha256-a2VoFVRCwqT7LKRELyRb9AHBEHitIS9LmWeJTaPvYtQ="
+  },
+  {
+    "pname": "NLog",
+    "version": "5.3.4",
+    "hash": "sha256-Cwr1Wu9VbOcRz3GdVKkt7lIpNwC1E4Hdb0g+qEkEr3k="
+  }
+]
