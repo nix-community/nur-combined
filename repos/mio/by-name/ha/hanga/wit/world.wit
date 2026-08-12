@@ -65,6 +65,11 @@ interface gameplay {
     contract-label: func(kind: s32, locale: string) -> string;
     /// Comma-separated locales this mod ships, e.g. "en,mi,fr,zh-TW".
     supported-locales: func() -> string;
+
+    /// Item id granted when this voxel is broken (0 = nothing).
+    loot-item: func(voxel-type: s32) -> s32;
+    /// Label for a hotbar / inventory item id.
+    item-label: func(item-id: s32, locale: string) -> string;
 }
 
 world plugin {

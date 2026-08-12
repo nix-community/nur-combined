@@ -65,6 +65,15 @@ impl Locale {
         }
     }
 
+    pub fn next(self) -> Self {
+        match self {
+            Locale::English => Locale::Maori,
+            Locale::Maori => Locale::French,
+            Locale::French => Locale::TaiwanChinese,
+            Locale::TaiwanChinese => Locale::English,
+        }
+    }
+
     pub fn from_env_and_args(args: &[String]) -> Self {
         if let Some(pair) = args.windows(2).find(|w| w[0] == "--lang" || w[0] == "--locale") {
             if let Some(locale) = Self::parse(&pair[1]) {
@@ -110,6 +119,17 @@ const UI_KEYS: &[&str] = &[
     "job_none",
     "look",
     "commands_help",
+    "menu_title",
+    "menu_play",
+    "menu_multiplayer",
+    "menu_lang",
+    "menu_quit",
+    "menu_hint",
+    "play_hint",
+    "held",
+    "hands_empty",
+    "empty_slot",
+    "hud_hotbar",
 ];
 
 fn ui_en(key: &str) -> Option<&'static str> {
@@ -125,12 +145,23 @@ fn ui_en(key: &str) -> Option<&'static str> {
         "fencing" => "Fencing loot at the city market.",
         "unknown" => "Unknown command '{cmd}'.",
         "lang_set" => "Language set to {name} ({code}).",
-        "status" => "Wanted {wanted}. Credits {credits}. {job}",
+        "status" => "Wanted {wanted}. Credits {credits}. {job}. {held}",
         "job_active" => "active job: {name} (${payout}, danger {danger})",
         "job_offer" => "offer: {name} (${payout}, danger {danger}). Type '{accept}'.",
         "job_none" => "no job",
         "look" => "{status}. Ahead is {label} at {pos}. Commands: {commands}.",
-        "commands_help" => "move forward, break block, accept job, complete job, fence, lang",
+        "commands_help" => "move forward, break block, place block, accept job, complete job, fence, lang",
+        "menu_title" => "HANGA",
+        "menu_play" => "1  Play",
+        "menu_multiplayer" => "2  Multiplayer",
+        "menu_lang" => "3  Language",
+        "menu_quit" => "4  Quit",
+        "menu_hint" => "WASD move  ·  click break  ·  F place  ·  1–8 hotbar  ·  Esc pause",
+        "play_hint" => "WASD move  ·  click break  ·  F / middle-click place  ·  1–8 hotbar  ·  Esc menu",
+        "held" => "holding {label} ×{count}",
+        "hands_empty" => "hands empty",
+        "empty_slot" => "Hotbar slot is empty.",
+        "hud_hotbar" => "{slots}",
         _ => return None,
     })
 }
@@ -148,12 +179,23 @@ fn ui_mi(key: &str) -> Option<&'static str> {
         "fencing" => "E hoko ana i ngā taonga ki te mākete.",
         "unknown" => "Whakahau tē mōhiotia '{cmd}'.",
         "lang_set" => "Kua tautuhia te reo ki {name} ({code}).",
-        "status" => "Taumata hiahiatia {wanted}. Moni {credits}. {job}",
+        "status" => "Taumata hiahiatia {wanted}. Moni {credits}. {job}. {held}",
         "job_active" => "mahi kaha: {name} (${payout}, mōrearea {danger})",
         "job_offer" => "tuku mahi: {name} (${payout}, mōrearea {danger}). Patohia '{accept}'.",
         "job_none" => "kāore he mahi",
         "look" => "{status}. Kei mua ko {label} kei {pos}. Ngā whakahau: {commands}.",
-        "commands_help" => "neke whakamua, whati poraka, whakaae mahi, whakaoti mahi, hoko taonga, reo",
+        "commands_help" => "neke whakamua, whati poraka, whakatū poraka, whakaae mahi, whakaoti mahi, hoko taonga, reo",
+        "menu_title" => "HANGA",
+        "menu_play" => "1  Tākaro",
+        "menu_multiplayer" => "2  Tuki tāngata-maha",
+        "menu_lang" => "3  Reo",
+        "menu_quit" => "4  Puta",
+        "menu_hint" => "WASD neke  ·  pāwhiri whati  ·  F whakatū  ·  1–8 pae-wera  ·  Esc okioki",
+        "play_hint" => "WASD neke  ·  pāwhiri whati  ·  F / pāwhiri-waenga whakatū  ·  1–8 pae-wera  ·  Esc tahua",
+        "held" => "e mau ana {label} ×{count}",
+        "hands_empty" => "kua takoto ngā ringa",
+        "empty_slot" => "Kua wātea te kōwae pae-wera.",
+        "hud_hotbar" => "{slots}",
         _ => return None,
     })
 }
@@ -171,12 +213,23 @@ fn ui_fr(key: &str) -> Option<&'static str> {
         "fencing" => "Revente du butin au marché.",
         "unknown" => "Commande inconnue « {cmd} ».",
         "lang_set" => "Langue définie : {name} ({code}).",
-        "status" => "Recherché {wanted}. Crédits {credits}. {job}",
+        "status" => "Recherché {wanted}. Crédits {credits}. {job}. {held}",
         "job_active" => "contrat actif : {name} ({payout} $, danger {danger})",
         "job_offer" => "offre : {name} ({payout} $, danger {danger}). Tapez « {accept} ».",
         "job_none" => "aucun contrat",
         "look" => "{status}. Devant : {label} en {pos}. Commandes : {commands}.",
-        "commands_help" => "avancer, casser un bloc, accepter le contrat, terminer le contrat, revendre, langue",
+        "commands_help" => "avancer, casser un bloc, poser un bloc, accepter le contrat, terminer le contrat, revendre, langue",
+        "menu_title" => "HANGA",
+        "menu_play" => "1  Jouer",
+        "menu_multiplayer" => "2  Multijoueur",
+        "menu_lang" => "3  Langue",
+        "menu_quit" => "4  Quitter",
+        "menu_hint" => "WASD bouger  ·  clic casser  ·  F poser  ·  1–8 barre  ·  Échap pause",
+        "play_hint" => "WASD bouger  ·  clic casser  ·  F / clic-molette poser  ·  1–8 barre  ·  Échap menu",
+        "held" => "tient {label} ×{count}",
+        "hands_empty" => "mains vides",
+        "empty_slot" => "L’emplacement de la barre est vide.",
+        "hud_hotbar" => "{slots}",
         _ => return None,
     })
 }
@@ -194,12 +247,23 @@ fn ui_zh_tw(key: &str) -> Option<&'static str> {
         "fencing" => "正在市集銷贓。",
         "unknown" => "未知指令「{cmd}」。",
         "lang_set" => "語言已設為{name}（{code}）。",
-        "status" => "通緝 {wanted}。信用點 {credits}。{job}",
+        "status" => "通緝 {wanted}。信用點 {credits}。{job}。{held}",
         "job_active" => "進行中任務：{name}（${payout}，危險 {danger}）",
         "job_offer" => "可接任務：{name}（${payout}，危險 {danger}）。輸入「{accept}」。",
         "job_none" => "沒有任務",
         "look" => "{status}。前方是{label}，位置 {pos}。指令：{commands}。",
-        "commands_help" => "前進、破壞方塊、接受任務、完成任務、銷贓、語言",
+        "commands_help" => "前進、破壞方塊、放置方塊、接受任務、完成任務、銷贓、語言",
+        "menu_title" => "HANGA",
+        "menu_play" => "1  開始遊戲",
+        "menu_multiplayer" => "2  多人連線",
+        "menu_lang" => "3  語言",
+        "menu_quit" => "4  離開",
+        "menu_hint" => "WASD 移動  ·  左鍵破壞  ·  F 放置  ·  1–8 快捷欄  ·  Esc 暫停",
+        "play_hint" => "WASD 移動  ·  左鍵破壞  ·  F／中鍵放置  ·  1–8 快捷欄  ·  Esc 選單",
+        "held" => "手持 {label} ×{count}",
+        "hands_empty" => "兩手空空",
+        "empty_slot" => "快捷欄是空的。",
+        "hud_hotbar" => "{slots}",
         _ => return None,
     })
 }
@@ -243,6 +307,8 @@ pub fn tr_label(locale: Locale, key: &str) -> String {
             "glass" => Some("karaihe"),
             "sidewalk" => Some("ara hīkoi"),
             "grass" => Some("pātītī"),
+            "tile" => Some("tāera"),
+            "rail" => Some("rerewē"),
             "unknown" => Some("tē mōhiotia"),
             "quiet streets" => Some("ngā huarahi mārie"),
             "smash-and-grab contract" => Some("kirimina pakaru-hopu"),
@@ -258,6 +324,8 @@ pub fn tr_label(locale: Locale, key: &str) -> String {
             "glass" => Some("verre"),
             "sidewalk" => Some("trottoir"),
             "grass" => Some("herbe"),
+            "tile" => Some("carrelage"),
+            "rail" => Some("rail"),
             "unknown" => Some("inconnu"),
             "quiet streets" => Some("rues calmes"),
             "smash-and-grab contract" => Some("contrat de vol à la sauvette"),
@@ -273,6 +341,8 @@ pub fn tr_label(locale: Locale, key: &str) -> String {
             "glass" => Some("玻璃"),
             "sidewalk" => Some("人行道"),
             "grass" => Some("草地"),
+            "tile" => Some("磁磚"),
+            "rail" => Some("鐵軌"),
             "unknown" => Some("未知"),
             "quiet streets" => Some("平靜的街道"),
             "smash-and-grab contract" => Some("搶劫合約"),
@@ -294,13 +364,28 @@ pub fn accept_job_cmd(locale: Locale) -> &'static str {
     }
 }
 
-pub fn format_status(locale: Locale, wanted: u32, credits: i32, job: &str) -> String {
+pub fn format_held(locale: Locale, label: &str, count: u32) -> String {
+    if label.is_empty() || count == 0 {
+        return t(locale, "hands_empty").to_string();
+    }
+    fill(
+        t(locale, "held"),
+        &[("label", label), ("count", &count.to_string())],
+    )
+}
+
+pub fn format_hotbar(locale: Locale, slots: &str) -> String {
+    fill(t(locale, "hud_hotbar"), &[("slots", slots)])
+}
+
+pub fn format_status(locale: Locale, wanted: u32, credits: i32, job: &str, held: &str) -> String {
     fill(
         t(locale, "status"),
         &[
             ("wanted", &wanted.to_string()),
             ("credits", &credits.to_string()),
             ("job", job),
+            ("held", held),
         ],
     )
 }
@@ -489,6 +574,14 @@ mod tests {
     }
 
     #[test]
+    fn locale_cycles_through_shipped_languages() {
+        assert_eq!(Locale::English.next(), Locale::Maori);
+        assert_eq!(Locale::TaiwanChinese.next(), Locale::English);
+        assert_ne!(t(Locale::French, "menu_play"), t(Locale::English, "menu_play"));
+        assert!(t(Locale::Maori, "menu_play").contains('1'));
+    }
+
+    #[test]
     fn every_locale_has_every_ui_key() {
         for locale in Locale::all() {
             for key in UI_KEYS {
@@ -517,6 +610,8 @@ mod tests {
                 "glass",
                 "sidewalk",
                 "grass",
+                "tile",
+                "rail",
                 "quiet streets",
                 "smash-and-grab contract",
                 "armored-truck heist",
@@ -564,11 +659,17 @@ mod tests {
 
     #[test]
     fn status_line_substitutes_numbers() {
-        let line = format_status(Locale::TaiwanChinese, 3, 250, "沒有任務");
+        let line = format_status(Locale::TaiwanChinese, 3, 250, "沒有任務", "兩手空空");
         assert!(line.contains("3"));
         assert!(line.contains("250"));
         assert!(line.contains("通緝"));
         assert!(line.contains("信用點"));
+        assert!(line.contains("兩手空空"));
+        assert_eq!(
+            format_held(Locale::English, "concrete", 2),
+            "holding concrete ×2"
+        );
+        assert_eq!(format_held(Locale::French, "", 0), "mains vides");
     }
 
     #[test]

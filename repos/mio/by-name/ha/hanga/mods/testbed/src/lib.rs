@@ -169,6 +169,20 @@ pub fn contract_label_for(_locale: &str, _kind: i32) -> String {
     String::new()
 }
 
+pub fn loot_item(voxel_type: i32) -> i32 {
+    match voxel_type {
+        1 | 3 => voxel_type,
+        _ => 0,
+    }
+}
+
+pub fn item_label_for(locale: &str, item_id: i32) -> String {
+    if item_id <= 0 {
+        return String::new();
+    }
+    voxel_label_for(locale, item_id)
+}
+
 impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn init_mod() {}
     fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
@@ -263,6 +277,14 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn supported_locales() -> String {
         crate::supported_locales()
     }
+
+    fn loot_item(voxel_type: i32) -> i32 {
+        crate::loot_item(voxel_type)
+    }
+
+    fn item_label(item_id: i32, locale: String) -> String {
+        crate::item_label_for(&locale, item_id)
+    }
 }
 
 export!(TestbedMod);
@@ -322,5 +344,14 @@ mod tests {
         assert_eq!(event_label_for("fr", 9), "vide");
         assert!(contract_label_for("en", 1).is_empty());
         assert_eq!(supported_locales(), "en,mi,fr,zh-TW");
+    }
+
+    #[test]
+    fn testbed_solids_drop_themselves() {
+        assert_eq!(loot_item(1), 1);
+        assert_eq!(loot_item(3), 3);
+        assert_eq!(loot_item(0), 0);
+        assert_eq!(item_label_for("en", 1), "concrete");
+        assert!(item_label_for("en", 0).is_empty());
     }
 }

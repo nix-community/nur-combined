@@ -25,14 +25,15 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Spawn positions
 - What can shatter (`can-fracture`, `fracture-spread`, `debris-impulse`)
 - Passive tick (wanted decay), ambient NPCs
-- Localized copy (`voxel-label`, `event-label`, `contract-label`, `supported-locales`)
+- Localized copy (`voxel-label`, `event-label`, `contract-label`, `item-label`, `supported-locales`)
 - Wallet / contracts (`mod-wallet-after`, `mod-offer-contract`, `mod-can-complete`)
+- Loot ids (`loot-item`) that fill the host's generic 8-slot hotbar
 
 ### Shipped mods
 
 | Mod | Purpose |
 | --- | --- |
-| `urban_chaos` | Voxel city + GTA wanted level + Teardown buildings |
+| `urban_chaos` | Voxel city + subway + GTA wanted level + Teardown buildings |
 | `testbed` | Checkerboard void for engine/debug (no wanted level) |
 
 Load with `--mod urban_chaos` (default) or `--mod testbed`.
@@ -49,7 +50,16 @@ hanga --cheat
 hanga --text-client --lang mi
 hanga --lang fr
 hanga --lang zh-TW
+hanga --play
+hanga --p2p
+hanga --p2p ws://host:3536/hanga_room
 ```
+
+`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Language / Quit). Play is
+single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a room only
+if a signaling server is already running; a refused connection stays in single-player
+instead of crashing. In-game: `1`–`8` select the hotbar, `F` / middle-click places the
+selected block, `Esc` returns to the menu.
 
 Locales: `en`, `mi` (Māori), `fr`, `zh-TW` (Taiwan Chinese). Also `HANGA_LANG` or `LANG`.
 Text-client extras: `look` / `status`, `accept job`, `complete job`, `fence`, `lang mi`.
@@ -79,4 +89,4 @@ binding the mod must be a component (`wit-bindgen` + `wasm-tools component new`,
 1. Compile mods to components in `package.nix` and install them next to the binary
 2. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
 3. Kani CI for engine + mods
-4. Crafting / inventory and subway world-gen still live in Urban Chaos
+4. Crafting recipes still live in Urban Chaos (hotbar + subway are in)

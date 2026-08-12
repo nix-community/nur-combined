@@ -78,10 +78,6 @@ impl CityLayout {
 
     /// Queries the 3D voxel type at a specific coordinate based on the 2D layout.
     pub fn get_voxel_at(&self, x: i32, y: i32, z: i32) -> u8 {
-        if y < 0 {
-            return 1; // Solid bedrock/concrete base
-        }
-
         let mod_x = (x % 100).abs();
         let mod_z = (z % 100).abs();
 
@@ -89,14 +85,46 @@ impl CityLayout {
         let is_road_z = mod_z < 3;
         let is_sidewalk_x = mod_x >= 3 && mod_x < 5;
         let is_sidewalk_z = mod_z >= 3 && mod_z < 5;
+        let is_road = is_road_x || is_road_z;
+        let is_sidewalk = (is_sidewalk_x || is_sidewalk_z) && !is_road;
 
-        if y == 0 {
-            if is_road_x || is_road_z {
-                return 2; // Asphalt road
+        if y < -12 {
+            return 1; // Deep bedrock
+        }
+
+        // Sidewalk shafts at 200 m intersections (metro access).
+        let shaft = is_sidewalk && near_period(x, 200, 5) && near_period(z, 200, 5);
+        if shaft && (-8..=0).contains(&y) {
+            if y == -8 {
+                return 6; // Station tiles
             }
-            if is_sidewalk_x || is_sidewalk_z {
-                return 4; // Sidewalk (Concrete)
+            return 0; // Access shaft
+        }
+
+        // Station hall under the same intersections.
+        let station = (is_road || is_sidewalk) && near_period(x, 200, 8) && near_period(z, 200, 8);
+        if station && (-8..=-4).contains(&y) {
+            if y == -8 {
+                return 6;
             }
+            return 0;
+        }
+
+        if is_road && (-8..-2).contains(&y) {
+            if y == -8 {
+                return 6;
+            }
+            if y == -7 && ((is_road_x && mod_x == 1) || (is_road_z && mod_z == 1)) {
+                return 7; // Rail
+            }
+            return 0;
+        }
+        if is_road && y == -2 {
+            return 1; // Street slab over the tunnel
+        }
+
+        if y < 0 {
+            return 1; // Fill under parks and buildings
         }
 
         let cell_x = x - (x % 100) + 50;
@@ -105,8 +133,16 @@ impl CityLayout {
         let prng = (cell_x.abs() * 73 + cell_z.abs() * 37) % 100;
         let is_park = prng < 15;
 
-        if y == 0 && is_park {
-            return 5; // Grass
+        if y == 0 {
+            if is_road {
+                return 2; // Asphalt
+            }
+            if is_sidewalk {
+                return 4;
+            }
+            if is_park {
+                return 5; // Grass
+            }
         }
 
         let dist_to_center = ((cell_x - (self.width / 2) as i32).pow(2)
@@ -144,6 +180,15 @@ impl CityLayout {
 
         0 // Air
     }
+}
+
+/// True when `v` is within `radius` of a multiple of `period` (wraps both ways).
+fn near_period(v: i32, period: i32, radius: i32) -> bool {
+    if period <= 0 || radius < 0 {
+        return false;
+    }
+    let r = v.rem_euclid(period);
+    r <= radius || r >= period - radius
 }
 
 static CITY: OnceLock<CityLayout> = OnceLock::new();
@@ -249,11 +294,11 @@ pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
     }
 }
 
-/// Voxel types: 0 air, 1 concrete, 2 asphalt, 3 glass, 4 sidewalk, 5 grass.
-/// Buildings (concrete/glass) shatter; roads and ground stay put.
+/// Voxel types: 0 air, 1 concrete, 2 asphalt, 3 glass, 4 sidewalk, 5 grass, 6 tile, 7 rail.
+/// Buildings and station tiles shatter; roads, rails, and ground stay put.
 pub fn can_fracture(voxel_type: i32) -> i32 {
     match voxel_type {
-        1 | 3 => 1,
+        1 | 3 | 6 => 1,
         _ => 0,
     }
 }
@@ -261,7 +306,7 @@ pub fn can_fracture(voxel_type: i32) -> i32 {
 pub fn fracture_spread(voxel_type: i32) -> i32 {
     match voxel_type {
         3 => 3, // glass shatters further
-        1 => 2, // concrete
+        1 | 6 => 2,
         _ => 0,
     }
 }
@@ -318,6 +363,8 @@ pub fn voxel_label_for(locale: &str, voxel_type: i32) -> String {
         (1, 3) => "karaihe",
         (1, 4) => "ara hīkoi",
         (1, 5) => "pātītī",
+        (1, 6) => "tāera",
+        (1, 7) => "rerewē",
         (1, _) => "tē mōhiotia",
         (2, 0) => "air",
         (2, 1) => "béton",
@@ -325,6 +372,8 @@ pub fn voxel_label_for(locale: &str, voxel_type: i32) -> String {
         (2, 3) => "verre",
         (2, 4) => "trottoir",
         (2, 5) => "herbe",
+        (2, 6) => "carrelage",
+        (2, 7) => "rail",
         (2, _) => "inconnu",
         (3, 0) => "空氣",
         (3, 1) => "混凝土",
@@ -332,6 +381,8 @@ pub fn voxel_label_for(locale: &str, voxel_type: i32) -> String {
         (3, 3) => "玻璃",
         (3, 4) => "人行道",
         (3, 5) => "草地",
+        (3, 6) => "磁磚",
+        (3, 7) => "鐵軌",
         (3, _) => "未知",
         (_, 0) => "air",
         (_, 1) => "concrete",
@@ -339,6 +390,8 @@ pub fn voxel_label_for(locale: &str, voxel_type: i32) -> String {
         (_, 3) => "glass",
         (_, 4) => "sidewalk",
         (_, 5) => "grass",
+        (_, 6) => "tile",
+        (_, 7) => "rail",
         _ => "unknown",
     }
     .into()
@@ -382,6 +435,20 @@ pub fn event_label_for(locale: &str, event_id: i32) -> String {
         _ => "unknown event",
     }
     .into()
+}
+
+pub fn loot_item(voxel_type: i32) -> i32 {
+    match voxel_type {
+        1 | 3 | 5 | 6 => voxel_type,
+        _ => 0,
+    }
+}
+
+pub fn item_label_for(locale: &str, item_id: i32) -> String {
+    if item_id <= 0 {
+        return String::new();
+    }
+    voxel_label_for(locale, item_id)
 }
 
 pub fn contract_label(kind: i32) -> String {
@@ -623,6 +690,14 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
     fn supported_locales() -> String {
         crate::supported_locales()
     }
+
+    fn loot_item(voxel_type: i32) -> i32 {
+        crate::loot_item(voxel_type)
+    }
+
+    fn item_label(item_id: i32, locale: String) -> String {
+        crate::item_label_for(&locale, item_id)
+    }
 }
 
 export!(UrbanChaosMod);
@@ -645,7 +720,7 @@ mod kani_verification {
         };
 
         let voxel_id = layout.get_voxel_at(x, y, z);
-        kani::assert(voxel_id <= 5, "Voxel ID must be a known block type");
+        kani::assert(voxel_id <= 7, "Voxel ID must be a known block type");
     }
 
     #[kani::proof]
@@ -654,7 +729,7 @@ mod kani_verification {
         let y: i32 = kani::any();
         let z: i32 = kani::any();
         let result = query_voxel(x, y, z);
-        kani::assert(result >= 0 && result <= 5, "FFI returns a valid known voxel");
+        kani::assert(result >= 0 && result <= 7, "FFI returns a valid known voxel");
     }
 
     #[kani::proof]
@@ -671,6 +746,14 @@ mod kani_verification {
         let voxel_type: i32 = kani::any();
         let result = can_fracture(voxel_type);
         kani::assert(result == 0 || result == 1, "can_fracture is 0 or 1");
+    }
+
+    #[kani::proof]
+    fn verify_loot_item_is_known_or_empty() {
+        let voxel_type: i32 = kani::any();
+        let item = loot_item(voxel_type);
+        kani::assert(item == 0 || item == voxel_type, "loot is empty or the voxel");
+        kani::assert(item >= 0 && item <= 7, "loot id stays in the type table");
     }
 
     #[kani::proof]
@@ -926,8 +1009,10 @@ mod tests {
     fn buildings_fracture_roads_do_not() {
         assert_eq!(can_fracture(1), 1);
         assert_eq!(can_fracture(3), 1);
+        assert_eq!(can_fracture(6), 1);
         assert_eq!(can_fracture(2), 0);
         assert_eq!(can_fracture(5), 0);
+        assert_eq!(can_fracture(7), 0);
         assert_eq!(can_fracture(0), 0);
     }
 
@@ -978,7 +1063,50 @@ mod tests {
     fn voxel_labels_cover_city_materials() {
         assert_eq!(voxel_label(2), "asphalt");
         assert_eq!(voxel_label(3), "glass");
+        assert_eq!(voxel_label(6), "tile");
+        assert_eq!(voxel_label(7), "rail");
         assert_eq!(voxel_label(99), "unknown");
+    }
+
+    #[test]
+    fn sidewalk_is_beside_the_road() {
+        let layout = empty_layout();
+        assert_eq!(layout.get_voxel_at(4, 0, 10), 4);
+    }
+
+    #[test]
+    fn subway_runs_under_the_street() {
+        let layout = empty_layout();
+        assert_eq!(layout.get_voxel_at(1, -8, 20), 6, "tunnel floor is tile");
+        assert_eq!(layout.get_voxel_at(1, -7, 20), 7, "centerline is rail");
+        assert_eq!(layout.get_voxel_at(0, -7, 20), 0, "tunnel air beside the rail");
+        assert_eq!(layout.get_voxel_at(0, -2, 0), 1, "slab under the asphalt");
+        assert_eq!(layout.get_voxel_at(0, -20, 0), 1, "bedrock");
+    }
+
+    #[test]
+    fn metro_shaft_and_station_at_intersection() {
+        let layout = empty_layout();
+        assert_eq!(layout.get_voxel_at(4, 0, 4), 0, "shaft opening in the sidewalk");
+        assert_eq!(layout.get_voxel_at(4, -4, 4), 0, "shaft down to the platform");
+        assert_eq!(layout.get_voxel_at(1, -8, 1), 6, "station floor");
+        assert_eq!(layout.get_voxel_at(1, -6, 1), 0, "station hall");
+    }
+
+    #[test]
+    fn loot_drops_breakable_city_blocks() {
+        assert_eq!(loot_item(1), 1);
+        assert_eq!(loot_item(3), 3);
+        assert_eq!(loot_item(6), 6);
+        assert_eq!(loot_item(5), 5);
+        assert_eq!(loot_item(2), 0);
+        assert_eq!(loot_item(7), 0);
+        assert_eq!(loot_item(0), 0);
+        assert_eq!(item_label_for("en", 6), "tile");
+        assert_eq!(item_label_for("mi", 6), "tāera");
+        assert_eq!(item_label_for("fr", 7), "rail");
+        assert_eq!(item_label_for("zh-TW", 6), "磁磚");
+        assert!(item_label_for("en", 0).is_empty());
     }
 
     #[test]
@@ -991,8 +1119,11 @@ mod tests {
     #[test]
     fn voxel_and_story_follow_locale() {
         assert_eq!(voxel_label_for("mi", 2), "huarahi tā");
+        assert_eq!(voxel_label_for("mi", 6), "tāera");
         assert_eq!(voxel_label_for("fr", 3), "verre");
+        assert_eq!(voxel_label_for("fr", 7), "rail");
         assert_eq!(voxel_label_for("zh-TW", 2), "柏油");
+        assert_eq!(voxel_label_for("zh-TW", 6), "磁磚");
         assert_eq!(voxel_label_for("de", 2), "asphalt", "unknown locale falls back to English");
         assert_eq!(event_label_for("mi", 0), "ngā huarahi mārie");
         assert_eq!(event_label_for("fr", 2), "casse de fourgon blindé");

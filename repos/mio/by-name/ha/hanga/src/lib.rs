@@ -155,6 +155,34 @@ pub fn is_connected_to_ground(
     false
 }
 
+/// Default Matchbox room. Only used when the player opts into `--p2p` or Multiplayer.
+pub const DEFAULT_P2P_URL: &str = "ws://localhost:3536/hanga_room";
+
+/// `Some(url)` if `--p2p` is present. A following non-flag argument overrides the room URL.
+pub fn parse_p2p_url(args: &[String]) -> Option<String> {
+    let mut i = 0;
+    while i < args.len() {
+        if args[i] == "--p2p" {
+            if i + 1 < args.len() && !args[i + 1].starts_with('-') {
+                return Some(args[i + 1].clone());
+            }
+            return Some(DEFAULT_P2P_URL.to_string());
+        }
+        i += 1;
+    }
+    None
+}
+
+/// Graphical `nix run` shows a menu. Headless / text / agent / `--play` / `--p2p` skip it.
+pub fn should_skip_menu(args: &[String]) -> bool {
+    args.iter().any(|a| {
+        matches!(
+            a.as_str(),
+            "--play" | "--skip-menu" | "--headless" | "--text-client" | "--agent-client" | "--p2p"
+        )
+    })
+}
+
 /// Stable fingerprint of an optimistic action (for logs / duplicate detection).
 pub fn action_fingerprint(kind: u8, x: i32, y: i32, z: i32, extra: i32) -> u64 {
     let mut h = 0xcbf29ce484222325u64;
@@ -175,6 +203,61 @@ pub fn verify_action_signature(
     claimed: u64,
 ) -> bool {
     action_fingerprint(kind, x, y, z, extra) == claimed
+}
+
+pub const INVENTORY_SLOTS: usize = 8;
+
+/// Put `item` into the first matching or empty slot. Returns false if the bag is full.
+pub fn inventory_add(items: &mut [i32], counts: &mut [u32], item: i32) -> bool {
+    if item <= 0 || items.len() != counts.len() {
+        return false;
+    }
+    for i in 0..items.len() {
+        if items[i] == item && counts[i] > 0 && counts[i] < 999 {
+            counts[i] += 1;
+            return true;
+        }
+    }
+    for i in 0..items.len() {
+        if items[i] == 0 || counts[i] == 0 {
+            items[i] = item;
+            counts[i] = 1;
+            return true;
+        }
+    }
+    false
+}
+
+/// Take one item from `selected`. Clears the slot when the count hits zero.
+pub fn inventory_take(items: &mut [i32], counts: &mut [u32], selected: usize) -> Option<i32> {
+    if selected >= items.len() || items.len() != counts.len() {
+        return None;
+    }
+    if items[selected] <= 0 || counts[selected] == 0 {
+        return None;
+    }
+    let id = items[selected];
+    counts[selected] -= 1;
+    if counts[selected] == 0 {
+        items[selected] = 0;
+    }
+    Some(id)
+}
+
+pub fn clamp_hotbar_index(index: i32) -> usize {
+    index.clamp(0, (INVENTORY_SLOTS as i32) - 1) as usize
+}
+
+/// Item currently selected on the hotbar, if the slot is occupied.
+pub fn inventory_selected(items: &[i32], counts: &[u32], selected: usize) -> Option<i32> {
+    if selected >= items.len() || items.len() != counts.len() {
+        return None;
+    }
+    if items[selected] > 0 && counts[selected] > 0 {
+        Some(items[selected])
+    } else {
+        None
+    }
 }
 
 /// Wallet / score integer owned by the mod; engine only clamps to a safe range.
@@ -499,6 +582,50 @@ mod tests {
         assert!(!contract_is_offered(0));
         assert!(contract_is_offered(1));
         assert!(contract_is_offered(2));
+    }
+
+    #[test]
+    fn inventory_stacks_then_opens_a_new_slot() {
+        let mut items = [0; INVENTORY_SLOTS];
+        let mut counts = [0u32; INVENTORY_SLOTS];
+        assert!(inventory_add(&mut items, &mut counts, 3));
+        assert!(inventory_add(&mut items, &mut counts, 3));
+        assert_eq!((items[0], counts[0]), (3, 2));
+        assert!(inventory_add(&mut items, &mut counts, 1));
+        assert_eq!((items[1], counts[1]), (1, 1));
+        assert_eq!(inventory_take(&mut items, &mut counts, 0), Some(3));
+        assert_eq!(counts[0], 1);
+        assert_eq!(inventory_take(&mut items, &mut counts, 0), Some(3));
+        assert_eq!(items[0], 0);
+        assert_eq!(inventory_take(&mut items, &mut counts, 0), None);
+    }
+
+    #[test]
+    fn hotbar_index_stays_in_range() {
+        assert_eq!(clamp_hotbar_index(-2), 0);
+        assert_eq!(clamp_hotbar_index(3), 3);
+        assert_eq!(clamp_hotbar_index(99), 7);
+        let items = [3, 0, 0, 0, 0, 0, 0, 0];
+        let counts = [2, 0, 0, 0, 0, 0, 0, 0];
+        assert_eq!(inventory_selected(&items, &counts, 0), Some(3));
+        assert_eq!(inventory_selected(&items, &counts, 1), None);
+    }
+
+    #[test]
+    fn p2p_flag_is_opt_in() {
+        assert_eq!(parse_p2p_url(&["hanga".into()]), None);
+        assert_eq!(
+            parse_p2p_url(&["hanga".into(), "--p2p".into()]),
+            Some(DEFAULT_P2P_URL.into())
+        );
+        assert_eq!(
+            parse_p2p_url(&["hanga".into(), "--p2p".into(), "ws://host/room".into()]),
+            Some("ws://host/room".into())
+        );
+        assert!(!should_skip_menu(&["hanga".into()]));
+        assert!(should_skip_menu(&["hanga".into(), "--play".into()]));
+        assert!(should_skip_menu(&["hanga".into(), "--p2p".into()]));
+        assert!(should_skip_menu(&["hanga".into(), "--headless".into()]));
     }
 }
 

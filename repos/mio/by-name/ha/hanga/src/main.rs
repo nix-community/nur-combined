@@ -10,9 +10,11 @@ use serde::{Deserialize, Serialize};
 use matchbox_socket::WebRtcSocket;
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
-    action_fingerprint, clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered,
-    fracture_offsets, is_action_physically_possible, is_connected_to_ground,
-    unpack_economy_params, verify_action_signature, voxel_has_support,
+    action_fingerprint, clamp_hotbar_index, clamp_mod_state, clamp_voxel_type, clamp_wallet,
+    contract_is_offered, fracture_offsets, inventory_add, inventory_selected, inventory_take,
+    is_action_physically_possible, is_connected_to_ground, parse_p2p_url, should_skip_menu,
+    unpack_economy_params, verify_action_signature, voxel_has_support, DEFAULT_P2P_URL,
+    INVENTORY_SLOTS,
 };
 
 mod mod_manager;
@@ -79,6 +81,50 @@ struct CheatMode(bool);
 #[derive(Resource, Clone, Copy, Default)]
 struct UiLocale(Locale);
 
+#[derive(States, Clone, Copy, PartialEq, Eq, Hash, Debug, Default)]
+enum GameMode {
+    #[default]
+    Menu,
+    Playing,
+}
+
+#[derive(Resource, Default)]
+struct P2pConfig {
+    url: Option<String>,
+}
+
+#[derive(Resource)]
+struct P2pWatch(Mutex<Receiver<String>>);
+
+#[derive(Resource)]
+struct P2pDead;
+
+#[derive(Component)]
+struct MenuRoot;
+
+#[derive(Component, Clone, Copy)]
+enum MenuAction {
+    Play,
+    Multiplayer,
+    Lang,
+    Quit,
+}
+
+#[derive(Component)]
+struct MenuLabel(&'static str);
+
+#[derive(Component)]
+struct HudRoot;
+
+#[derive(Component)]
+struct HudStatus;
+
+#[derive(Component)]
+struct HudHotbar;
+
+#[derive(Component)]
+struct HudHint;
+
 impl TrustLedger {
     fn penalize(&mut self, peer: Entity, penalty: f32) {
         let score = self.peer_scores.entry(peer).or_insert(1.0);
@@ -94,24 +140,37 @@ fn main() {
     let is_text_client = args.contains(&"--text-client".to_string());
     let is_agent_client = args.contains(&"--agent-client".to_string());
     let locale = Locale::from_env_and_args(&args);
+    let p2p_url = parse_p2p_url(&args);
+    let skip_menu = should_skip_menu(&args);
 
     let mut app = App::new();
 
     let (tx, rx) = channel();
 
-    if is_headless {
-        info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
-        app.add_plugins(DefaultPlugins.set(WindowPlugin {
+    let window_plugin = if is_headless {
+        WindowPlugin {
             primary_window: None,
             ..default()
-        }));
+        }
+    } else {
+        WindowPlugin {
+            primary_window: Some(Window {
+                title: "Hanga".into(),
+                ..default()
+            }),
+            ..default()
+        }
+    };
+
+    if is_headless {
+        info!("Starting Hanga in HEADLESS NODE mode (Persistent Server)");
+        app.add_plugins(DefaultPlugins.set(window_plugin));
     } else if is_text_client {
         info!("Starting Hanga in TEXT CLIENT mode (Screen-reader Accessible)");
-        app.add_plugins(DefaultPlugins);
+        app.add_plugins(DefaultPlugins.set(window_plugin));
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_terminal_input.after(validate_incoming_actions));
 
-        // Spawn background thread to constantly read stdin without freezing the game
         std::thread::spawn(move || {
             let stdin = io::stdin();
             for line in stdin.lock().lines() {
@@ -122,11 +181,10 @@ fn main() {
         });
     } else if is_agent_client {
         info!("Starting Hanga in AGENT CLIENT mode (LLM JSON Interface)");
-        app.add_plugins(DefaultPlugins);
+        app.add_plugins(DefaultPlugins.set(window_plugin));
         app.insert_resource(StdinReceiver { rx: Mutex::new(rx) });
         app.add_systems(Update, read_agent_input.after(validate_incoming_actions));
 
-        // Spawn background thread to constantly read stdin without freezing the game
         std::thread::spawn(move || {
             let stdin = io::stdin();
             for line in stdin.lock().lines() {
@@ -136,7 +194,7 @@ fn main() {
             }
         });
     } else {
-        app.add_plugins(DefaultPlugins);
+        app.add_plugins(DefaultPlugins.set(window_plugin));
     }
 
     if is_cheater {
@@ -156,6 +214,11 @@ fn main() {
         locale.code()
     );
 
+    app.init_state::<GameMode>();
+    if skip_menu {
+        app.insert_state(GameMode::Playing);
+    }
+
     app.add_plugins((
             VoxelWorldPlugin::with_config(DefaultWorld),
             PhysicsPlugins::default(),
@@ -169,14 +232,27 @@ fn main() {
         .init_resource::<ModOffer>()
         .insert_resource(CheatMode(is_cheater))
         .insert_resource(UiLocale(locale))
+        .insert_resource(P2pConfig { url: p2p_url })
         .add_systems(Startup, setup)
+        .add_systems(OnEnter(GameMode::Menu), spawn_main_menu)
+        .add_systems(OnExit(GameMode::Menu), despawn_main_menu)
+        .add_systems(OnEnter(GameMode::Playing), spawn_hud)
+        .add_systems(OnExit(GameMode::Playing), despawn_hud)
+        .add_systems(
+            Update,
+            (menu_keyboard, menu_buttons, refresh_menu_labels).run_if(in_state(GameMode::Menu)),
+        )
+        .add_systems(
+            Update,
+            (pause_to_menu, select_hotbar, update_hud).run_if(in_state(GameMode::Playing)),
+        )
         .add_message::<ProposedAction>()
         .add_systems(
             Update,
             (
                 generate_voxel_colliders,
-                player_movement,
-                player_interaction,
+                player_movement.run_if(in_state(GameMode::Playing)),
+                player_interaction.run_if(in_state(GameMode::Playing)),
                 validate_incoming_actions,
             )
                 .chain(),
@@ -218,6 +294,8 @@ struct AgentObservation {
     voxel_label: String,
     locale: String,
     in_vehicle: bool,
+    held_item: i32,
+    hotbar_selected: u32,
 }
 
 #[derive(Component)]
@@ -236,6 +314,24 @@ pub struct ModContract {
     pub kind: i32,
     pub payout: i32,
     pub danger: i32,
+}
+
+/// Generic hotbar. Item ids are opaque to the engine; the mod names them.
+#[derive(Component, Clone)]
+pub struct ModInventory {
+    pub items: [i32; INVENTORY_SLOTS],
+    pub counts: [u32; INVENTORY_SLOTS],
+    pub selected: usize,
+}
+
+impl Default for ModInventory {
+    fn default() -> Self {
+        Self {
+            items: [0; INVENTORY_SLOTS],
+            counts: [0; INVENTORY_SLOTS],
+            selected: 0,
+        }
+    }
 }
 
 /// Latest storyteller offer. Engine does not interpret kind.
@@ -407,7 +503,22 @@ fn setup(
         ModState(0),
         ModWallet(0),
         ModContract::default(),
+        ModInventory::default(),
     ));
+
+    commands.spawn((
+        DirectionalLight {
+            illuminance: 14_000.0,
+            shadow_maps_enabled: false,
+            ..default()
+        },
+        Transform::from_rotation(Quat::from_euler(EulerRot::XYZ, -1.05, 0.55, 0.0)),
+    ));
+    commands.spawn(AmbientLight {
+        color: Color::srgb(0.62, 0.68, 0.78),
+        brightness: 240.0,
+        ..default()
+    });
 
     let count = with_mod(&mod_runtime, |ctx| {
         ctx.bindings
@@ -673,10 +784,42 @@ fn action_range(mod_runtime: &ModRuntime, action_type: i32, fallback: f32) -> f3
 }
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
+fn grant_loot(inv: &mut ModInventory, mod_runtime: &ModRuntime, voxel_type: i32) {
+    let item = with_mod(mod_runtime, |ctx| {
+        ctx.bindings
+            .hanga_engine_gameplay()
+            .call_loot_item(&mut ctx.store, voxel_type)
+            .unwrap_or(0)
+    })
+    .unwrap_or(0);
+    if item > 0 {
+        let _ = inventory_add(&mut inv.items, &mut inv.counts, item);
+    }
+}
+
+fn consume_selected(inv: &mut ModInventory, voxel_type: i32) -> bool {
+    let Some(held) = inventory_selected(&inv.items, &inv.counts, inv.selected) else {
+        return false;
+    };
+    if held != voxel_type {
+        return false;
+    }
+    inventory_take(&mut inv.items, &mut inv.counts, inv.selected).is_some()
+}
+
 fn validate_incoming_actions(
     mut commands: Commands,
     mut events: MessageReader<ProposedAction>,
-    mut player_query: Query<(&Transform, &mut ModState, &mut ModWallet, &mut ModContract), With<Player>>,
+    mut player_query: Query<
+        (
+            &Transform,
+            &mut ModState,
+            &mut ModWallet,
+            &mut ModContract,
+            &mut ModInventory,
+        ),
+        With<Player>,
+    >,
     vehicles: Query<&Transform, (With<Vehicle>, Without<Player>)>,
     mut voxel_world: VoxelWorld<DefaultWorld>,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -693,7 +836,9 @@ fn validate_incoming_actions(
                     warn!("FRAUD DETECTED: BreakBlock signature mismatch");
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _)) = player_query.get_mut(player_entity) else {
+                let Ok((transform, mut mod_state, mut wallet, _, mut inventory)) =
+                    player_query.get_mut(player_entity)
+                else {
                     trust_ledger.penalize(player_entity, 1.0);
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
                     continue;
@@ -719,6 +864,9 @@ fn validate_incoming_actions(
                     "Action Verified fingerprint={fingerprint:#x}! Fracturing block at {:?}",
                     voxel_pos
                 );
+                if let Some(origin_type) = voxel_type_of(voxel_world.get_voxel(voxel_pos)) {
+                    grant_loot(&mut inventory, &mod_runtime, origin_type);
+                }
                 let outward = Vec3::new(
                     (player_pos.x - target_pos.x) * -0.4,
                     1.0,
@@ -751,7 +899,7 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _)) = player_query.get_mut(player_entity) else {
+                let Ok((transform, mut mod_state, mut wallet, _, _)) = player_query.get_mut(player_entity) else {
                     continue;
                 };
                 let player_pos = transform.translation;
@@ -804,7 +952,9 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _)) = player_query.get_mut(player_entity) else {
+                let Ok((transform, mut mod_state, mut wallet, _, mut inventory)) =
+                    player_query.get_mut(player_entity)
+                else {
                     trust_ledger.penalize(player_entity, 1.0);
                     warn!("FRAUD DETECTED: Action received for non-existent Player entity!");
                     continue;
@@ -826,6 +976,10 @@ fn validate_incoming_actions(
                     continue;
                 }
 
+                if !consume_selected(&mut inventory, voxel_type as i32) {
+                    info!("PlaceBlock rejected: hotbar does not hold type {voxel_type}");
+                    continue;
+                }
                 info!("Action Verified! Placing block at {:?}", voxel_pos);
                 voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(clamp_voxel_type(voxel_type as i32)));
                 apply_mod_action(
@@ -846,7 +1000,7 @@ fn validate_incoming_actions(
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, _)) = player_query.get_mut(player_entity) else {
+                let Ok((transform, mut mod_state, mut wallet, _, _)) = player_query.get_mut(player_entity) else {
                     continue;
                 };
                 let Ok(v_transform) = vehicles.get(vehicle_entity) else {
@@ -885,7 +1039,7 @@ fn validate_incoming_actions(
                     warn!("FRAUD DETECTED: Verb signature mismatch");
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, mut contract)) =
+                let Ok((transform, mut mod_state, mut wallet, mut contract, _)) =
                     player_query.get_mut(player_entity)
                 else {
                     continue;
@@ -1027,12 +1181,13 @@ fn player_movement(
 /// Allows the player to click and fracture blocks
 fn player_interaction(
     mouse_input: Res<ButtonInput<MouseButton>>,
+    keys: Res<ButtonInput<KeyCode>>,
     mut events: MessageWriter<ProposedAction>,
-    query: Query<(Entity, &Transform), With<Player>>,
+    query: Query<(Entity, &Transform, &ModInventory), With<Player>>,
     cheat_mode: Res<CheatMode>,
 ) {
     if mouse_input.just_pressed(MouseButton::Left) {
-        if let Some((player_entity, transform)) = query.iter().next() {
+        if let Some((player_entity, transform, _)) = query.iter().next() {
             let forward_pos = if cheat_mode.0 {
                 // CHEAT: Try to destroy a block 50 meters away! (Out of reach)
                 warn!("CHEAT MODE: Attempting to illegally destroy a block far away...");
@@ -1054,7 +1209,7 @@ fn player_interaction(
     }
     
     if mouse_input.just_pressed(MouseButton::Right) {
-        if let Some((player_entity, transform)) = query.iter().next() {
+        if let Some((player_entity, transform, _)) = query.iter().next() {
             let forward_pos = transform.translation + (transform.forward() * 15.0);
             let voxel_pos = IVec3::new(
                 forward_pos.x.round() as i32,
@@ -1064,6 +1219,26 @@ fn player_interaction(
 
             events.write(signed_explosion(player_entity, voxel_pos, 4.0));
             info!("Player fired RPG (Explosion) at {:?}", voxel_pos);
+        }
+    }
+
+    if keys.just_pressed(KeyCode::KeyF) || mouse_input.just_pressed(MouseButton::Middle) {
+        if let Some((player_entity, transform, inventory)) = query.iter().next() {
+            if let Some(item) = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
+            {
+                let forward_pos = transform.translation + (transform.forward() * 2.0);
+                let voxel_pos = IVec3::new(
+                    forward_pos.x.round() as i32,
+                    forward_pos.y.round() as i32,
+                    forward_pos.z.round() as i32,
+                );
+                events.write(signed_place(
+                    player_entity,
+                    voxel_pos,
+                    clamp_voxel_type(item),
+                ));
+                info!("Player sent PlaceBlock request at {:?}", voxel_pos);
+            }
         }
     }
 }
@@ -1105,7 +1280,8 @@ impl Plugin for CitySimPlugin {
                 vehicle_traffic_system,
             )
                 .chain()
-                .after(validate_incoming_actions),
+                .after(validate_incoming_actions)
+                .run_if(in_state(GameMode::Playing)),
         );
     }
 }
@@ -1277,48 +1453,94 @@ fn wanted_decay(
 pub struct DistributedMultiplayerPlugin;
 impl Plugin for DistributedMultiplayerPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Startup, init_p2p_mesh);
-        app.add_systems(Update, (handle_p2p_receive, handle_p2p_broadcast));
+        app.add_systems(OnEnter(GameMode::Playing), start_p2p_if_requested);
+        app.add_systems(
+            Update,
+            (reap_dead_p2p, handle_p2p_receive, handle_p2p_broadcast)
+                .chain()
+                .run_if(in_state(GameMode::Playing)),
+        );
     }
 }
 #[derive(Resource)]
 struct P2pSocket(WebRtcSocket);
 
-fn init_p2p_mesh(mut commands: Commands) {
-    info!("Connecting to distributed P2P mesh network via WebRTC (No central server!)...");
-    let room_url = "ws://localhost:3536/hanga_room";
+fn start_p2p_if_requested(mut commands: Commands, config: Res<P2pConfig>) {
+    let Some(room_url) = config.url.clone() else {
+        info!("Single-player: P2P off. Use Multiplayer or --p2p when a signaling server is running.");
+        return;
+    };
+    info!("Connecting to P2P mesh at {room_url}");
     let (socket, message_loop) = WebRtcSocket::builder(room_url)
         .add_reliable_channel()
         .build();
 
-    // Spawn the message loop on a background thread instead of Bevy ECS
-    // since we don't have bevy_matchbox's RunMessageLoop.
+    let (done_tx, done_rx) = channel();
     std::thread::spawn(move || {
-        let _ = futures::executor::block_on(message_loop);
+        if let Err(err) = futures::executor::block_on(message_loop) {
+            let _ = done_tx.send(err.to_string());
+        }
     });
-    
+
     commands.insert_resource(P2pSocket(socket));
+    commands.insert_resource(P2pWatch(Mutex::new(done_rx)));
+}
+
+fn reap_dead_p2p(
+    mut commands: Commands,
+    watch: Option<Res<P2pWatch>>,
+    dead: Option<Res<P2pDead>>,
+) {
+    let mut drop = dead.is_some();
+    if let Some(watch) = watch {
+        if let Ok(rx) = watch.0.lock() {
+            if let Ok(err) = rx.try_recv() {
+                warn!("P2P signaling ended ({err}). Staying in single-player.");
+                drop = true;
+            }
+        }
+    }
+    if drop {
+        commands.remove_resource::<P2pSocket>();
+        commands.remove_resource::<P2pWatch>();
+        commands.remove_resource::<P2pDead>();
+    }
 }
 
 fn handle_p2p_receive(
     socket: Option<ResMut<P2pSocket>>,
     mut event_writer: MessageWriter<ProposedAction>,
+    mut commands: Commands,
 ) {
-    if let Some(mut socket) = socket {
-        for (peer, new_state) in socket.0.update_peers() {
-            match new_state {
-                matchbox_socket::PeerState::Connected => info!("P2P Peer {:?} connected!", peer),
-                matchbox_socket::PeerState::Disconnected => info!("P2P Peer {:?} disconnected!", peer),
-            }
+    let Some(mut socket) = socket else {
+        return;
+    };
+    let peers = match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| socket.0.update_peers()))
+    {
+        Ok(peers) => peers,
+        Err(_) => {
+            warn!("P2P socket closed; dropping mesh and continuing single-player.");
+            commands.insert_resource(P2pDead);
+            return;
         }
-        
-        // Receive network messages
-        for (_peer_id, packet) in socket.0.channel_mut(0).receive() {
+    };
+    for (peer, new_state) in peers {
+        match new_state {
+            matchbox_socket::PeerState::Connected => info!("P2P Peer {:?} connected!", peer),
+            matchbox_socket::PeerState::Disconnected => info!("P2P Peer {:?} disconnected!", peer),
+        }
+    }
+
+    if let Ok(packets) = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        socket.0.channel_mut(0).receive()
+    })) {
+        for (_peer_id, packet) in packets {
             if let Ok(action) = bincode::deserialize::<ProposedAction>(&packet) {
-                // Write it to ECS so validate_incoming_actions processes it!
                 event_writer.write(action);
             }
         }
+    } else {
+        commands.insert_resource(P2pDead);
     }
 }
 
@@ -1356,7 +1578,12 @@ fn handle_p2p_broadcast(
 pub struct AiStorytellerPlugin;
 impl Plugin for AiStorytellerPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, update_storyteller.after(wanted_decay));
+        app.add_systems(
+            Update,
+            update_storyteller
+                .after(wanted_decay)
+                .run_if(in_state(GameMode::Playing)),
+        );
     }
 }
 fn update_storyteller(
@@ -1408,7 +1635,10 @@ fn update_storyteller(
 pub struct EconomicSimulationPlugin;
 impl Plugin for EconomicSimulationPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, update_macro_economy);
+        app.add_systems(
+            Update,
+            update_macro_economy.run_if(in_state(GameMode::Playing)),
+        );
     }
 }
 fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mod_runtime: Res<ModRuntime>) {
@@ -1431,6 +1661,283 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mod_runtime: Res
                 price, supply, demand
             );
         }
+    }
+}
+
+fn pause_to_menu(keys: Res<ButtonInput<KeyCode>>, mut next: ResMut<NextState<GameMode>>) {
+    if keys.just_pressed(KeyCode::Escape) {
+        info!("Paused to menu");
+        next.set(GameMode::Menu);
+    }
+}
+
+fn select_hotbar(keys: Res<ButtonInput<KeyCode>>, mut query: Query<&mut ModInventory, With<Player>>) {
+    let slot = [
+        (KeyCode::Digit1, 0),
+        (KeyCode::Digit2, 1),
+        (KeyCode::Digit3, 2),
+        (KeyCode::Digit4, 3),
+        (KeyCode::Digit5, 4),
+        (KeyCode::Digit6, 5),
+        (KeyCode::Digit7, 6),
+        (KeyCode::Digit8, 7),
+    ]
+    .into_iter()
+    .find_map(|(key, slot)| keys.just_pressed(key).then_some(slot));
+    if let Some(slot) = slot {
+        if let Some(mut inventory) = query.iter_mut().next() {
+            inventory.selected = clamp_hotbar_index(slot);
+        }
+    }
+}
+
+fn spawn_hud(mut commands: Commands, locale: Res<UiLocale>) {
+    commands
+        .spawn((
+            HudRoot,
+            Node {
+                width: Val::Percent(100.0),
+                height: Val::Percent(100.0),
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::FlexEnd,
+                align_items: AlignItems::Center,
+                padding: UiRect::all(Val::Px(14.0)),
+                row_gap: Val::Px(4.0),
+                ..default()
+            },
+        ))
+        .with_children(|parent| {
+            parent.spawn((
+                HudStatus,
+                Text::new(""),
+                TextFont {
+                    font_size: FontSize::Px(18.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.95, 0.93, 0.86)),
+            ));
+            parent.spawn((
+                HudHotbar,
+                Text::new(""),
+                TextFont {
+                    font_size: FontSize::Px(16.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.86, 0.8, 0.62)),
+            ));
+            parent.spawn((
+                HudHint,
+                Text::new(i18n::t(locale.0, "play_hint")),
+                TextFont {
+                    font_size: FontSize::Px(14.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.62, 0.64, 0.68)),
+            ));
+        });
+}
+
+fn despawn_hud(mut commands: Commands, roots: Query<Entity, With<HudRoot>>) {
+    for entity in &roots {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn update_hud(
+    locale: Res<UiLocale>,
+    players: Query<(&ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
+    offer: Res<ModOffer>,
+    mod_runtime: Res<ModRuntime>,
+    mut status: Query<&mut Text, (With<HudStatus>, Without<HudHotbar>, Without<HudHint>)>,
+    mut hotbar: Query<&mut Text, (With<HudHotbar>, Without<HudStatus>, Without<HudHint>)>,
+    mut hint: Query<&mut Text, (With<HudHint>, Without<HudStatus>, Without<HudHotbar>)>,
+) {
+    let Some((state, wallet, contract, inventory)) = players.iter().next() else {
+        return;
+    };
+    if let Some(mut text) = status.iter_mut().next() {
+        *text = Text::new(job_status_line(
+            locale.0,
+            &mod_runtime,
+            state,
+            wallet,
+            contract,
+            &offer,
+            inventory,
+        ));
+    }
+    if let Some(mut text) = hotbar.iter_mut().next() {
+        *text = Text::new(hotbar_line(locale.0, &mod_runtime, inventory));
+    }
+    if let Some(mut text) = hint.iter_mut().next() {
+        *text = Text::new(i18n::t(locale.0, "play_hint"));
+    }
+}
+
+fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>) {
+    commands
+        .spawn((
+            MenuRoot,
+            Node {
+                width: Val::Percent(100.0),
+                height: Val::Percent(100.0),
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
+                row_gap: Val::Px(10.0),
+                ..default()
+            },
+            BackgroundColor(Color::srgba(0.02, 0.03, 0.05, 0.82)),
+        ))
+        .with_children(|parent| {
+            parent.spawn((
+                Text::new(i18n::t(locale.0, "menu_title")),
+                TextFont {
+                    font_size: FontSize::Px(64.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.95, 0.85, 0.45)),
+                MenuLabel("menu_title"),
+            ));
+            parent.spawn((
+                Text::new(i18n::t(locale.0, "menu_hint")),
+                TextFont {
+                    font_size: FontSize::Px(16.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.7, 0.72, 0.75)),
+                MenuLabel("menu_hint"),
+            ));
+            for (action, key) in [
+                (MenuAction::Play, "menu_play"),
+                (MenuAction::Multiplayer, "menu_multiplayer"),
+                (MenuAction::Lang, "menu_lang"),
+                (MenuAction::Quit, "menu_quit"),
+            ] {
+                parent
+                    .spawn((
+                        Button,
+                        action,
+                        Node {
+                            width: Val::Px(320.0),
+                            height: Val::Px(48.0),
+                            justify_content: JustifyContent::Center,
+                            align_items: AlignItems::Center,
+                            margin: UiRect::top(Val::Px(6.0)),
+                            ..default()
+                        },
+                        BackgroundColor(Color::srgb(0.14, 0.17, 0.22)),
+                    ))
+                    .with_children(|btn| {
+                        btn.spawn((
+                            Text::new(i18n::t(locale.0, key)),
+                            TextFont {
+                                font_size: FontSize::Px(22.0),
+                                ..default()
+                            },
+                            TextColor(Color::WHITE),
+                            MenuLabel(key),
+                        ));
+                    });
+            }
+        });
+}
+
+fn despawn_main_menu(mut commands: Commands, roots: Query<Entity, With<MenuRoot>>) {
+    for entity in &roots {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn apply_menu_action(
+    action: MenuAction,
+    next: &mut NextState<GameMode>,
+    locale: &mut UiLocale,
+    p2p: &mut P2pConfig,
+    exit: &mut MessageWriter<AppExit>,
+) {
+    match action {
+        MenuAction::Play => {
+            info!("Starting single-player");
+            next.set(GameMode::Playing);
+        }
+        MenuAction::Multiplayer => {
+            if p2p.url.is_none() {
+                p2p.url = Some(DEFAULT_P2P_URL.to_string());
+            }
+            info!(
+                "Starting with optional P2P ({})",
+                p2p.url.as_deref().unwrap_or(DEFAULT_P2P_URL)
+            );
+            next.set(GameMode::Playing);
+        }
+        MenuAction::Lang => {
+            locale.0 = locale.0.next();
+            info!("Menu language {}", locale.0.code());
+        }
+        MenuAction::Quit => {
+            exit.write(AppExit::Success);
+        }
+    }
+}
+
+fn menu_keyboard(
+    keys: Res<ButtonInput<KeyCode>>,
+    mut next: ResMut<NextState<GameMode>>,
+    mut locale: ResMut<UiLocale>,
+    mut p2p: ResMut<P2pConfig>,
+    mut exit: MessageWriter<AppExit>,
+) {
+    let action = if keys.just_pressed(KeyCode::Digit1) || keys.just_pressed(KeyCode::Enter) {
+        Some(MenuAction::Play)
+    } else if keys.just_pressed(KeyCode::Digit2) {
+        Some(MenuAction::Multiplayer)
+    } else if keys.just_pressed(KeyCode::Digit3) {
+        Some(MenuAction::Lang)
+    } else if keys.just_pressed(KeyCode::Digit4) || keys.just_pressed(KeyCode::Escape) {
+        Some(MenuAction::Quit)
+    } else {
+        None
+    };
+    if let Some(action) = action {
+        apply_menu_action(action, &mut next, &mut locale, &mut p2p, &mut exit);
+    }
+}
+
+fn menu_buttons(
+    mut interaction: Query<
+        (&Interaction, &MenuAction, &mut BackgroundColor),
+        (Changed<Interaction>, With<Button>),
+    >,
+    mut next: ResMut<NextState<GameMode>>,
+    mut locale: ResMut<UiLocale>,
+    mut p2p: ResMut<P2pConfig>,
+    mut exit: MessageWriter<AppExit>,
+) {
+    for (interaction, action, mut bg) in &mut interaction {
+        match *interaction {
+            Interaction::Pressed => {
+                apply_menu_action(*action, &mut next, &mut locale, &mut p2p, &mut exit);
+            }
+            Interaction::Hovered => {
+                *bg = BackgroundColor(Color::srgb(0.26, 0.32, 0.42));
+            }
+            Interaction::None => {
+                *bg = BackgroundColor(Color::srgb(0.14, 0.17, 0.22));
+            }
+        }
+    }
+}
+
+fn refresh_menu_labels(
+    locale: Res<UiLocale>,
+    mut labels: Query<(&MenuLabel, &mut Text)>,
+) {
+    if !locale.is_changed() {
+        return;
+    }
+    for (label, mut text) in &mut labels {
+        *text = Text::new(i18n::t(locale.0, label.0));
     }
 }
 
@@ -1567,6 +2074,50 @@ fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: i32) -> Str
     .unwrap_or_else(|| format!("#{kind}"))
 }
 
+fn mod_item_label(mod_runtime: &ModRuntime, locale: Locale, item_id: i32) -> String {
+    if item_id <= 0 {
+        return String::new();
+    }
+    with_mod(mod_runtime, |ctx| {
+        ctx.bindings
+            .hanga_engine_gameplay()
+            .call_item_label(&mut ctx.store, item_id, locale.code())
+            .unwrap_or_default()
+    })
+    .filter(|name| !name.is_empty())
+    .map(|raw| i18n::tr_label(locale, &raw))
+    .unwrap_or_else(|| format!("#{item_id}"))
+}
+
+fn held_status(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
+    match inventory_selected(&inventory.items, &inventory.counts, inventory.selected) {
+        Some(id) => i18n::format_held(
+            locale,
+            &mod_item_label(mod_runtime, locale, id),
+            inventory.counts[inventory.selected],
+        ),
+        None => i18n::t(locale, "hands_empty").to_string(),
+    }
+}
+
+fn hotbar_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
+    let mut parts = Vec::with_capacity(INVENTORY_SLOTS);
+    for i in 0..INVENTORY_SLOTS {
+        let selected = i == inventory.selected;
+        let open = if selected { "[" } else { " " };
+        let close = if selected { "]" } else { " " };
+        let id = inventory.items[i];
+        let count = inventory.counts[i];
+        if id > 0 && count > 0 {
+            let label = mod_item_label(mod_runtime, locale, id);
+            parts.push(format!("{open}{}:{label}×{count}{close}", i + 1));
+        } else {
+            parts.push(format!("{open}{}{close}", i + 1));
+        }
+    }
+    i18n::format_hotbar(locale, &parts.join(" "))
+}
+
 fn job_status_line(
     locale: Locale,
     mod_runtime: &ModRuntime,
@@ -1574,6 +2125,7 @@ fn job_status_line(
     wallet: &ModWallet,
     contract: &ModContract,
     offer: &ModOffer,
+    inventory: &ModInventory,
 ) -> String {
     let job = if contract_is_offered(contract.kind) {
         let name = mod_contract_name(mod_runtime, locale, contract.kind);
@@ -1584,7 +2136,13 @@ fn job_status_line(
     } else {
         i18n::t(locale, "job_none").to_string()
     };
-    i18n::format_status(locale, state.0, wallet.0, &job)
+    i18n::format_status(
+        locale,
+        state.0,
+        wallet.0,
+        &job,
+        &held_status(locale, mod_runtime, inventory),
+    )
 }
 
 fn say(locale: Locale, body: &str) {
@@ -1593,7 +2151,7 @@ fn say(locale: Locale, body: &str) {
 
 fn read_terminal_input(
     receiver: Res<StdinReceiver>,
-    mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract), With<Player>>,
+    mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
@@ -1605,7 +2163,7 @@ fn read_terminal_input(
         while let Ok(line) = rx.try_recv() {
             match i18n::parse_text_command(&line) {
                 TextCommand::MoveForward => {
-                    if let Some((_, transform, mut velocity, _, _, _)) = query.iter_mut().next() {
+                    if let Some((_, transform, mut velocity, _, _, _, _)) = query.iter_mut().next() {
                         let forward = transform.forward();
                         velocity.x = forward.x * 10.0;
                         velocity.z = forward.z * 10.0;
@@ -1613,7 +2171,7 @@ fn read_terminal_input(
                     }
                 }
                 TextCommand::BreakBlock => {
-                    if let Some((player_entity, transform, _, _, _, _)) = query.iter_mut().next() {
+                    if let Some((player_entity, transform, _, _, _, _, _)) = query.iter_mut().next() {
                         let forward_pos = transform.translation + (transform.forward() * 2.0);
                         let voxel_pos = IVec3::new(
                             forward_pos.x.round() as i32,
@@ -1628,22 +2186,28 @@ fn read_terminal_input(
                     }
                 }
                 TextCommand::PlaceBlock => {
-                    if let Some((player_entity, transform, _, _, _, _)) = query.iter_mut().next() {
+                    if let Some((player_entity, transform, _, _, _, _, inventory)) = query.iter_mut().next() {
                         let forward_pos = transform.translation + (transform.forward() * 2.0);
                         let voxel_pos = IVec3::new(
                             forward_pos.x.round() as i32,
                             forward_pos.y.round() as i32,
                             forward_pos.z.round() as i32,
                         );
-                        events.write(signed_place(player_entity, voxel_pos, 2));
-                        say(
-                            locale.0,
-                            &i18n::t(locale.0, "placing").replace("{pos}", &format!("{voxel_pos:?}")),
-                        );
+                        if let Some(item) =
+                            inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
+                        {
+                            events.write(signed_place(player_entity, voxel_pos, clamp_voxel_type(item)));
+                            say(
+                                locale.0,
+                                &i18n::t(locale.0, "placing").replace("{pos}", &format!("{voxel_pos:?}")),
+                            );
+                        } else {
+                            say(locale.0, i18n::t(locale.0, "empty_slot"));
+                        }
                     }
                 }
                 TextCommand::EnterVehicle => {
-                    if let Some((player_entity, transform, _, _, _, _)) = query.iter().next() {
+                    if let Some((player_entity, transform, _, _, _, _, _)) = query.iter().next() {
                         if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles) {
                             events.write(signed_enter(player_entity, vehicle_entity));
                             say(locale.0, i18n::t(locale.0, "entering"));
@@ -1653,28 +2217,36 @@ fn read_terminal_input(
                     }
                 }
                 TextCommand::AcceptJob => {
-                    if let Some((player_entity, _, _, _, _, _)) = query.iter().next() {
+                    if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
                         events.write(signed_verb(player_entity, 5, 0));
                         say(locale.0, i18n::t(locale.0, "accepting"));
                     }
                 }
                 TextCommand::CompleteJob => {
-                    if let Some((player_entity, _, _, _, _, _)) = query.iter().next() {
+                    if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
                         events.write(signed_verb(player_entity, 6, 0));
                         say(locale.0, i18n::t(locale.0, "completing"));
                     }
                 }
                 TextCommand::Fence => {
-                    if let Some((player_entity, _, _, _, _, _)) = query.iter().next() {
+                    if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
                         events.write(signed_verb(player_entity, 7, 0));
                         say(locale.0, i18n::t(locale.0, "fencing"));
                     }
                 }
                 TextCommand::Look => {
-                    if let Some((_, transform, _, state, wallet, contract)) = query.iter().next() {
+                    if let Some((_, transform, _, state, wallet, contract, inventory)) = query.iter().next() {
                         let (pos, _ty, label) =
                             look_voxel_ahead(transform, &voxel_world, &mod_runtime, locale.0);
-                        let status = job_status_line(locale.0, &mod_runtime, state, wallet, contract, &offer);
+                        let status = job_status_line(
+                            locale.0,
+                            &mod_runtime,
+                            state,
+                            wallet,
+                            contract,
+                            &offer,
+                            inventory,
+                        );
                         say(
                             locale.0,
                             &i18n::format_look(locale.0, &status, &label, &format!("{pos:?}")),
@@ -1699,7 +2271,7 @@ fn read_terminal_input(
 /// Polls standard input for JSON commands specifically for LLM Agents
 fn read_agent_input(
     receiver: Res<StdinReceiver>,
-    mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, Option<&InVehicle>), With<Player>>,
+    mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory, Option<&InVehicle>), With<Player>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
@@ -1713,14 +2285,14 @@ fn read_agent_input(
             if let Ok(command) = serde_json::from_str::<AgentCommand>(&line) {
                 match command {
                     AgentCommand::MoveForward => {
-                        if let Some((_, transform, mut velocity, _, _, _, _)) = query.iter_mut().next() {
+                        if let Some((_, transform, mut velocity, _, _, _, _, _)) = query.iter_mut().next() {
                             let forward = transform.forward();
                             velocity.x = forward.x * 10.0;
                             velocity.z = forward.z * 10.0;
                         }
                     }
                     AgentCommand::BreakBlock { pos } => {
-                        if let Some((player_entity, _, _, _, _, _, _)) = query.iter_mut().next() {
+                        if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter_mut().next() {
                             events.write(signed_break(
                                 player_entity,
                                 IVec3::new(pos[0], pos[1], pos[2]),
@@ -1728,7 +2300,7 @@ fn read_agent_input(
                         }
                     }
                     AgentCommand::PlaceBlock { pos, voxel_type } => {
-                        if let Some((player_entity, _, _, _, _, _, _)) = query.iter_mut().next() {
+                        if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter_mut().next() {
                             events.write(signed_place(
                                 player_entity,
                                 IVec3::new(pos[0], pos[1], pos[2]),
@@ -1737,7 +2309,7 @@ fn read_agent_input(
                         }
                     }
                     AgentCommand::EnterVehicle => {
-                        if let Some((player_entity, transform, _, _, _, _, _)) = query.iter_mut().next() {
+                        if let Some((player_entity, transform, _, _, _, _, _, _)) = query.iter_mut().next() {
                             if let Some(vehicle_entity) =
                                 nearest_vehicle(transform.translation, &vehicles)
                             {
@@ -1746,22 +2318,22 @@ fn read_agent_input(
                         }
                     }
                     AgentCommand::AcceptJob => {
-                        if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
+                        if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter().next() {
                             events.write(signed_verb(player_entity, 5, 0));
                         }
                     }
                     AgentCommand::CompleteJob => {
-                        if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
+                        if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter().next() {
                             events.write(signed_verb(player_entity, 6, 0));
                         }
                     }
                     AgentCommand::Fence => {
-                        if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
+                        if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter().next() {
                             events.write(signed_verb(player_entity, 7, 0));
                         }
                     }
                     AgentCommand::Look => {
-                        if let Some((entity, transform, _, state, wallet, contract, in_vehicle)) = query.iter_mut().next() {
+                        if let Some((entity, transform, _, state, wallet, contract, inventory, in_vehicle)) = query.iter_mut().next() {
                             let score = trust_ledger.peer_scores.get(&entity).copied().unwrap_or(100.0);
                             let (_pos, voxel_ahead, voxel_label) =
                                 look_voxel_ahead(transform, &voxel_world, &mod_runtime, locale.0);
@@ -1777,6 +2349,13 @@ fn read_agent_input(
                                 voxel_label,
                                 locale: locale.0.code().into(),
                                 in_vehicle: in_vehicle.is_some(),
+                                held_item: inventory_selected(
+                                    &inventory.items,
+                                    &inventory.counts,
+                                    inventory.selected,
+                                )
+                                .unwrap_or(0),
+                                hotbar_selected: inventory.selected as u32,
                             };
                             if let Ok(json) = serde_json::to_string(&obs) {
                                 println!("{}", json);
@@ -1797,6 +2376,8 @@ fn read_agent_input(
                     voxel_label: String::new(),
                     locale: locale.0.code().into(),
                     in_vehicle: false,
+                    held_item: 0,
+                    hotbar_selected: 0,
                 };
                 if let Ok(json) = serde_json::to_string(&err) {
                     println!("{}", json);
