@@ -10,6 +10,14 @@ PKGS_IN_SUBDIR = $(patsubst %/default.nix,%,$(wildcard pkgs/*/default.nix))
 PUSH_PKGS_SINGLE_FILE = $(patsubst pkgs/%,push/%,${PKGS_SINGLE_FILE})
 PUSH_PKGS_IN_SUBDIR = $(patsubst pkgs/%,push/%,${PKGS_IN_SUBDIR})
 
+define NIX_PATHS
+$(strip
+nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixpkgs-unstable.tar.gz
+nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-unstable.tar.gz
+nixpkgs=https://github.com/NixOS/nixpkgs/archive/refs/heads/nixos-26.05.tar.gz
+)
+endef
+
 ifneq ($(shell which op),)
 OP = op plugin run --
 else
@@ -51,15 +59,16 @@ submodules:
 #: Tests changes to ensure they can update the NUR index.
 test:
 	$(info checking NUR evaluation...)
-	@env NIX_PATH= nix-env -f . -qa '*' --meta --xml \
+	@$(foreach NIX_PATH,${NIX_PATHS},echo "NIX_PATH=${NIX_PATH}"; \
+	env NIX_PATH=${NIX_PATH} nix-env -f . -qa '*' --meta --xml \
 	--allowed-uris https://static.rust-lang.org \
 	--option restrict-eval true \
 	--option allow-import-from-derivation true \
 	--drv-path \
 	--show-trace \
-	-I nixpkgs=$(shell nix-instantiate --find-file nixpkgs) \
+	-I nixpkgs=$(shell env NIX_PATH=${NIX_PATH} nix-instantiate --find-file nixpkgs) \
 	-I ./ \
-	> /dev/null && echo NUR evaluation succeeded
+	> /dev/null && echo NUR evaluation succeeded;)
 
 .PHONY: queue-refresh
 #: Requests the upstream NUR to index the packages from this repository.

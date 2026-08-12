@@ -1,15 +1,45 @@
 {
   description = "William Artero's nix user repository";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable?shallow=1";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-utils = {
+      inputs.systems.follows = "systems";
+      url = "github:numtide/flake-utils";
+    };
+    gomod2nix = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+      url = "github:nix-community/gomod2nix";
+    };
     systems.url = "github:nix-systems/default";
     treefmt-nix = {
       inputs.nixpkgs.follows = "nixpkgs";
       url = "github:numtide/treefmt-nix";
     };
-    synology-nix-installer.url = "github:sini/synology-nix-installer";
-
+    synology-nix-installer = {
+      # optimize upstream flake inputs
+      inputs.determinate.inputs = {
+        fh.inputs = {
+          fenix.follows = "synology-nix-installer/fenix";
+          naersk.follows = "synology-nix-installer/naersk";
+          nixpkgs.follows = "nixpkgs";
+        };
+      };
+      inputs.nix = {
+        inputs.nix = {
+          inputs.flake-compat.follows = "synology-nix-installer/flake-compat";
+          inputs.flake-parts.follows = "flake-parts";
+          inputs.nixpkgs.follows = "nixpkgs";
+          inputs.pre-commit-hooks = {
+            inputs.flake-utils.follows = "flake-utils";
+          };
+        };
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:sini/synology-nix-installer";
+    };
   };
 
   nixConfig = {
@@ -68,6 +98,8 @@
             overlays = [
               self.overlays.default
               inputs.synology-nix-installer.overlays.default
+              inputs.gomod2nix.overlays.default
+              self.overlays.gomod2nix
             ];
             config = { };
           };
@@ -90,6 +122,9 @@
 
           legacyPackages =
             import ./default.nix { inherit pkgs system; }
+            // lib.optionalAttrs (pkgs ? gomod2nix) {
+              inherit (pkgs) gomod2nix;
+            }
             // lib.optionalAttrs (lib.hasSuffix "-linux" system) {
               inherit (pkgs) nix-installer-static;
             };
