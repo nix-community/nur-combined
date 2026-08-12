@@ -42,6 +42,7 @@ pkgs.appimageTools.wrapType2 rec {
   '';
 
   meta = {
+    sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
     description = "Hayase - Torrent streaming made simple";
     homepage = "https://hayase.watch";
     changelog = "https://hayase.watch/changelog";

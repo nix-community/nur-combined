@@ -62,6 +62,7 @@ in
       '';
 
     meta = {
+      sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
       description = "Private, fast, and honest web browser based on Chromium";
       homepage = "https://github.com/imputnet/helium-chromium";
       changelog = "https://github.com/imputnet/helium-linux/releases/tag/${version}";
