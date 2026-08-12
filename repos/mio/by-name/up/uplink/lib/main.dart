@@ -66,9 +66,11 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         _isUploading = false;
       });
     });
-    
-    HardwareKeyboard.instance.addHandler(_handleKeyEvent);
-    
+
+    if (_isDesktop) {
+      HardwareKeyboard.instance.addHandler(_handleKeyEvent);
+    }
+
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _updateLinuxTheme();
@@ -83,52 +85,78 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   void _updateLinuxTheme() {
     if (!kIsWeb && Platform.isLinux) {
       final brightness = PlatformDispatcher.instance.platformBrightness;
-      const MethodChannel('app.uplink/theme').invokeMethod('setTheme', {'dark': brightness == Brightness.dark});
+      const MethodChannel(
+        'app.uplink/theme',
+      ).invokeMethod('setTheme', {'dark': brightness == Brightness.dark});
     }
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
-    HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    if (_isDesktop) {
+      HardwareKeyboard.instance.removeHandler(_handleKeyEvent);
+    }
     _textController.dispose();
     super.dispose();
   }
 
-  bool _handleKeyEvent(KeyEvent event) {
-    if (event is KeyDownEvent && event.logicalKey == LogicalKeyboardKey.keyV) {
-      final isControlPressed = HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlLeft) ||
-                               HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.controlRight) ||
-                               HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaLeft) ||
-                               HardwareKeyboard.instance.logicalKeysPressed.contains(LogicalKeyboardKey.metaRight);
-      if (isControlPressed) {
-        _handlePaste();
-        return false; // let it propagate just in case
-      }
+  bool get _isDesktop {
+    if (kIsWeb) return false;
+    return defaultTargetPlatform == TargetPlatform.linux ||
+        defaultTargetPlatform == TargetPlatform.macOS ||
+        defaultTargetPlatform == TargetPlatform.windows;
+  }
+
+  bool get _usesMetaForPaste => defaultTargetPlatform == TargetPlatform.macOS;
+
+  String get _pasteShortcutLabel => _usesMetaForPaste ? 'Cmd+V' : 'Ctrl+V';
+
+  bool get _isImagePasteShortcutPressed {
+    if (!_isDesktop) return false;
+    final keyboard = HardwareKeyboard.instance;
+    if (keyboard.isAltPressed || keyboard.isShiftPressed) return false;
+    if (_usesMetaForPaste) {
+      return keyboard.isMetaPressed && !keyboard.isControlPressed;
     }
+    return keyboard.isControlPressed && !keyboard.isMetaPressed;
+  }
+
+  bool _handleKeyEvent(KeyEvent event) {
+    if (event is! KeyDownEvent) return false;
+    if (event.logicalKey != LogicalKeyboardKey.keyV) return false;
+    if (!_isImagePasteShortcutPressed) return false;
+    _handlePaste(fromShortcut: true);
     return false;
   }
 
-  Future<void> _handlePaste() async {
+  Future<void> _handlePaste({bool fromShortcut = false}) async {
     if (_isUploading) return;
-    setState(() {
-      _isUploading = true;
-      _status = 'Reading clipboard...';
-    });
+    if (!fromShortcut) {
+      setState(() {
+        _isUploading = true;
+        _status = 'Reading clipboard...';
+      });
+    }
     try {
       final imageBytes = await Pasteboard.image;
+      if (!mounted) return;
       if (imageBytes != null && imageBytes.isNotEmpty) {
         setState(() {
+          _isUploading = true;
           _status = 'Uploading pasted image...';
         });
-        UploadFileRequest(filename: 'pasted_image.png').sendSignalToRust(imageBytes);
-      } else {
+        UploadFileRequest(
+          filename: 'pasted_image.png',
+        ).sendSignalToRust(imageBytes);
+      } else if (!fromShortcut) {
         setState(() {
           _status = 'No image found on clipboard!';
           _isUploading = false;
         });
       }
     } catch (e) {
+      if (fromShortcut) return;
       setState(() {
         _status = 'Clipboard error: $e';
         _isUploading = false;
@@ -172,7 +200,10 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Uplink Pastebin', style: TextStyle(fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Uplink Pastebin',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0,
         backgroundColor: Colors.transparent,
@@ -186,15 +217,24 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
               constraints: const BoxConstraints(maxWidth: 600),
               child: Card(
                 elevation: 4,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(24),
+                ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24.0,
+                    vertical: 32.0,
+                  ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Icon(Icons.cloud_upload_outlined, size: 64, color: Colors.blueAccent),
+                      const Icon(
+                        Icons.cloud_upload_outlined,
+                        size: 64,
+                        color: Colors.blueAccent,
+                      ),
                       const SizedBox(height: 24),
                       TextField(
                         controller: _textController,
@@ -218,19 +258,29 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                         children: [
                           ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
-                            onPressed: _uploadText, 
+                            onPressed: _uploadText,
                             icon: const Icon(Icons.cloud_upload),
                             label: const Text('Upload Text'),
                           ),
                           OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 24,
+                                vertical: 16,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
                             ),
-                            onPressed: () => _uploadFile(imageOnly: false), 
+                            onPressed: () => _uploadFile(imageOnly: false),
                             icon: const Icon(Icons.insert_drive_file),
                             label: const Text('Select File to Upload'),
                           ),
@@ -248,25 +298,42 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                             children: [
                               Expanded(
                                 child: SelectableText(
-                                  _status, 
-                                  style: const TextStyle(fontSize: 16, color: Colors.blue, fontWeight: FontWeight.w500),
+                                  _status,
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                   textAlign: TextAlign.center,
                                 ),
                               ),
                               if (_status.startsWith('http')) ...[
                                 IconButton(
-                                  icon: const Icon(Icons.copy, color: Colors.blue),
+                                  icon: const Icon(
+                                    Icons.copy,
+                                    color: Colors.blue,
+                                  ),
                                   tooltip: 'Copy link',
                                   onPressed: () {
-                                    Clipboard.setData(ClipboardData(text: _status));
+                                    Clipboard.setData(
+                                      ClipboardData(text: _status),
+                                    );
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(content: Text('Link copied to clipboard!')),
+                                      const SnackBar(
+                                        content: Text(
+                                          'Link copied to clipboard!',
+                                        ),
+                                      ),
                                     );
                                   },
                                 ),
-                                if (!kIsWeb && (Platform.isAndroid || Platform.isIOS))
+                                if (!kIsWeb &&
+                                    (Platform.isAndroid || Platform.isIOS))
                                   IconButton(
-                                    icon: const Icon(Icons.share, color: Colors.blue),
+                                    icon: const Icon(
+                                      Icons.share,
+                                      color: Colors.blue,
+                                    ),
                                     tooltip: 'Share link',
                                     onPressed: () {
                                       Share.share(_status);
@@ -280,14 +347,25 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
                       const SizedBox(height: 24),
                       TextButton.icon(
                         onPressed: _handlePaste,
-                        icon: const Icon(Icons.paste, size: 16, color: Colors.grey),
-                        label: const Text('Paste Image from Clipboard', style: TextStyle(color: Colors.grey)),
+                        icon: const Icon(
+                          Icons.paste,
+                          size: 16,
+                          color: Colors.grey,
+                        ),
+                        label: const Text(
+                          'Paste Image from Clipboard',
+                          style: TextStyle(color: Colors.grey),
+                        ),
                       ),
-                      const Text(
-                        "Tip: Desktop users can press Ctrl+V anywhere!",
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
-                        textAlign: TextAlign.center,
-                      ),
+                      if (_isDesktop)
+                        Text(
+                          'Tip: You can press $_pasteShortcutLabel anywhere!',
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                     ],
                   ),
                 ),
