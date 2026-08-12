@@ -16,6 +16,8 @@ rec {
         wireguird
         razer-laptop-control
         local-ai
+        toshy
+        toshy-hm
       ];
     }
   );
@@ -24,4 +26,6 @@ rec {
   wireguird = ./wireguird.nix;
   razer-laptop-control = ./razer-laptop-control.nix;
   local-ai = ../by-name/lo/local-ai/module.nix;
+  toshy = ../by-name/to/toshy/nixos-module.nix;
+  toshy-hm = ../by-name/to/toshy/hm-module.nix;
 }
