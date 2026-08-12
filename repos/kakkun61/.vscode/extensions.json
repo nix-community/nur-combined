@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "streetsidesoftware.code-spell-checker",
+    "mkhl.direnv",
+    "jnoortheen.nix-ide"
+  ]
+}
