@@ -42,10 +42,11 @@ stdenv.mkDerivation (finalAttrs: {
       pname
       version
       src
+      prePatch
       ;
     inherit pnpm;
-    fetcherVersion = 3;
-    hash = "sha256-CmgeTQ4oI+oFiU4h4kwP2/wTr2O1kWb0mPN/Q6CNctI=";
+    fetcherVersion = 4;
+    hash = "sha256-zCWX8N4VGZQirHjbseExOVdk4cjFUxJnjYwHFYbKWjM=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -85,6 +86,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   strictDeps = true;
   __structuredAttrs = true;
+
+  prePatch = ''
+    rm .npmrc
+  '';
 
   postPatch = ''
     # Workaround for https://github.com/electron/electron/issues/31121

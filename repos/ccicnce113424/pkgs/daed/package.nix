@@ -38,8 +38,8 @@ buildGoModule (finalAttrs: {
         src
         ;
       inherit pnpm;
-      fetcherVersion = 3;
-      hash = "sha256-2g/M+4XI1EM+c7W82qyfH8C7sX+Y0QACiSpn65Vei4g=";
+      fetcherVersion = 4;
+      hash = "sha256-1BBSEKV/o7aH15GV+NgbyT8cBeAUivrgfpqsl5kfCyQ=";
     };
 
     nativeBuildInputs = [

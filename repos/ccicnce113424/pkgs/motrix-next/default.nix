@@ -18,7 +18,7 @@ motrix-next.overrideAttrs (
       inherit (final) pname version src;
       inherit hash;
       pnpm = pnpm_10;
-      fetcherVersion = 3;
+      fetcherVersion = 4;
     };
     cargoHash = null;
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."src-tauri/Cargo.lock";
