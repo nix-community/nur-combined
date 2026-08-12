@@ -1,11 +1,8 @@
-#[unsafe(no_mangle)]
-pub extern "C" fn init_mod() -> i32 {
-    // This is the Urban Chaos mod initializing!
-    // We run the layout generator to prep the city grid.
-    let _layout = CityLayout::generate(1000, 1000);
-    // Return 100 indicating successful initialization
-    100
-}
+wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
+
+use std::sync::OnceLock;
+
+struct UrbanChaosMod;
 
 /// Represents the 2D skeleton of our Voxel City
 pub struct CityLayout {
@@ -33,12 +30,8 @@ pub enum DistrictType {
 
 impl CityLayout {
     pub fn generate(width: u32, height: u32) -> Self {
-        // Step 1: L-System for roads (Highways -> Streets)
         let roads = Self::generate_l_system_roads(width, height);
-        
-        // Step 2: Voronoi for Districts
         let districts = Self::generate_voronoi_districts(width, height);
-
         CityLayout {
             width,
             height,
@@ -49,41 +42,52 @@ impl CityLayout {
 
     fn generate_l_system_roads(width: u32, height: u32) -> Vec<Road> {
         let mut roads = Vec::new();
-        // Generate a grid of roads every 100 blocks
         for x in (0..width).step_by(100) {
-            roads.push(Road { start: (x, 0), end: (x, height) });
+            roads.push(Road {
+                start: (x, 0),
+                end: (x, height),
+            });
         }
         for z in (0..height).step_by(100) {
-            roads.push(Road { start: (0, z), end: (width, z) });
+            roads.push(Road {
+                start: (0, z),
+                end: (width, z),
+            });
         }
         roads
     }
 
     fn generate_voronoi_districts(width: u32, height: u32) -> Vec<District> {
-        let mut districts = Vec::new();
-        // Just plop a downtown in the center, and suburban around it
-        districts.push(District { center: (width / 2, height / 2), district_type: DistrictType::Downtown });
-        districts.push(District { center: (width / 4, height / 4), district_type: DistrictType::Suburban });
-        districts.push(District { center: (width * 3 / 4, height * 3 / 4), district_type: DistrictType::Industrial });
-        districts
+        vec![
+            District {
+                center: (width / 2, height / 2),
+                district_type: DistrictType::Downtown,
+            },
+            District {
+                center: (width / 4, height / 4),
+                district_type: DistrictType::Suburban,
+            },
+            District {
+                center: (width * 3 / 4, height * 3 / 4),
+                district_type: DistrictType::Industrial,
+            },
+        ]
     }
 
     /// Queries the 3D voxel type at a specific coordinate based on the 2D layout.
     pub fn get_voxel_at(&self, x: i32, y: i32, z: i32) -> u8 {
-        // Ground plane
         if y < 0 {
             return 1; // Solid bedrock/concrete base
         }
 
-        // Road grid every 100 blocks, road is 6 blocks wide, sidewalks are 2 blocks wide
         let mod_x = (x % 100).abs();
         let mod_z = (z % 100).abs();
-        
+
         let is_road_x = mod_x < 3;
         let is_road_z = mod_z < 3;
         let is_sidewalk_x = mod_x >= 3 && mod_x < 5;
         let is_sidewalk_z = mod_z >= 3 && mod_z < 5;
-        
+
         if y == 0 {
             if is_road_x || is_road_z {
                 return 2; // Asphalt road
@@ -93,51 +97,45 @@ impl CityLayout {
             }
         }
 
-        // Generate buildings inside the grid cells
         let cell_x = x - (x % 100) + 50;
         let cell_z = z - (z % 100) + 50;
-        
-        // Pseudo-random number for cell variance
+
         let prng = (cell_x.abs() * 73 + cell_z.abs() * 37) % 100;
-        let is_park = prng < 15; // 15% chance for a park block
+        let is_park = prng < 15;
 
         if y == 0 && is_park {
             return 5; // Grass
         }
 
-        // Simple distance to center of city to determine height (downtown is taller)
-        let dist_to_center = ((cell_x - (self.width / 2) as i32).pow(2) + (cell_z - (self.height / 2) as i32).pow(2)) as f32;
+        let dist_to_center = ((cell_x - (self.width / 2) as i32).pow(2)
+            + (cell_z - (self.height / 2) as i32).pow(2)) as f32;
         let dist_to_center = dist_to_center.sqrt();
-        
+
         let max_height = if dist_to_center < 300.0 {
-            60 + (prng % 60) // Downtown skyscrapers (60-119)
+            60 + (prng % 60)
         } else if dist_to_center < 600.0 {
-            20 + (prng % 30) // Commercial / Industrial (20-49)
+            20 + (prng % 30)
         } else {
-            10 + (prng % 10) // Suburbs (10-19)
+            10 + (prng % 10)
         };
 
-        // Building footprint
         let local_x = (x - cell_x).abs();
         let local_z = (z - cell_z).abs();
-        
-        // Building shape variance
+
         let mut footprint = 20;
         if prng % 3 == 0 && local_x > 10 && local_z < 10 {
-            // L-Shape carving
-            footprint = 0; 
+            footprint = 0;
         }
 
         if !is_park && local_x < footprint && local_z < footprint {
             if y < max_height {
-                // Glass walls for downtown, concrete for others
                 if max_height > 50 && (local_x == footprint - 1 || local_z == footprint - 1) {
                     return 3; // Glass
                 }
                 return 1; // Concrete
             }
-            // Add a small antenna on top of some buildings
-            if y >= max_height && y < max_height + 5 && local_x == 0 && local_z == 0 && prng % 2 == 0 {
+            if y >= max_height && y < max_height + 5 && local_x == 0 && local_z == 0 && prng % 2 == 0
+            {
                 return 1; // Antenna pole
             }
         }
@@ -146,133 +144,237 @@ impl CityLayout {
     }
 }
 
-/// WASM exported function that the engine calls to get block data
-#[unsafe(no_mangle)]
-pub extern "C" fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
-    let layout = CityLayout::generate(1000, 1000);
-    layout.get_voxel_at(x, y, z) as i32
+static CITY: OnceLock<CityLayout> = OnceLock::new();
+
+fn city() -> &'static CityLayout {
+    CITY.get_or_init(|| CityLayout::generate(1000, 1000))
 }
 
-/// WASM exported function to evaluate arbitrary actions and return a new state
-#[unsafe(no_mangle)]
-pub extern "C" fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
-    // In our Urban Chaos mod, state is the Wanted Level (0-5)
+// ─── Gameplay functions (called by Guest impl and by native tests) ────────────
+
+pub fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
+    city().get_voxel_at(x, y, z) as i32
+}
+
+/// Urban Chaos: state is the Wanted Level (0-5).
+pub fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
     match action_type {
-        1 => current_state.saturating_add(1).min(5), // BreakBlock = minor offense
-        2 => current_state,                          // PlaceBlock = no offense
-        3 => current_state.saturating_add(3).min(5), // EnterVehicle = grand theft auto!
-        4 => 5,                                      // Explosion = terrorism! 5 stars immediately!
+        1 => current_state.saturating_add(1).min(5), // BreakBlock
+        2 => current_state,                          // PlaceBlock
+        3 => current_state.saturating_add(3).min(5), // EnterVehicle = GTA
+        4 => 5,                                      // Explosion = 5 stars
         _ => current_state,
     }
 }
 
-/// Returns the AI type to spawn (0 = none, 1 = Cop, etc)
-#[unsafe(no_mangle)]
-pub extern "C" fn mod_should_spawn_agent(_action_type: i32, old_state: i32, new_state: i32) -> i32 {
-    // If our wanted level increased and is > 0, spawn a Cop (Agent Type 1)
+pub fn mod_should_spawn_agent(_action_type: i32, old_state: i32, new_state: i32) -> i32 {
     if new_state > old_state && new_state > 0 {
-        return 1;
+        1 // Cop
+    } else {
+        0
     }
-    0
 }
 
-/// Generic AI velocity computation
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    if ai_type == 1 {
-        // Cop AI: chase player
-        let dx = px - cx;
-        let dz = pz - cz;
-        let len = (dx * dx + dz * dz).sqrt();
-        if len < 2.0 { return 0.0; }
-        return (dx / len) * 8.0;
+pub fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    if ai_type != 1 {
+        return 0.0;
     }
-    0.0
+    let dx = px - cx;
+    let dz = pz - cz;
+    let len = (dx * dx + dz * dz).sqrt();
+    if len < 2.0 {
+        return 0.0;
+    }
+    (dx / len) * 8.0
 }
 
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    if ai_type == 1 {
-        // Cop AI: chase player
-        let dx = px - cx;
-        let dz = pz - cz;
-        let len = (dx * dx + dz * dz).sqrt();
-        if len < 2.0 { return 0.0; }
-        return (dz / len) * 8.0;
+pub fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    if ai_type != 1 {
+        return 0.0;
     }
-    0.0
+    let dx = px - cx;
+    let dz = pz - cz;
+    let len = (dx * dx + dz * dz).sqrt();
+    if len < 2.0 {
+        return 0.0;
+    }
+    (dz / len) * 8.0
 }
 
-/// WASM exported function for dynamic economy pricing
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
+pub fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
     if supply == 0 {
         return base_price * 10;
     }
-    // Simple dynamic pricing model
-    let price = (base_price * demand) / supply;
-    price.max(1) // Price never drops below 1
+    ((base_price * demand) / supply).max(1)
 }
 
-/// Returns the valid player action range (anti-cheat distance) for each action type.
-/// The engine enforces this, but the MOD defines what is physically plausible in its world.
-/// action_type: 1=BreakBlock, 2=PlaceBlock, 3=EnterVehicle, 4=Explosion
-#[unsafe(no_mangle)]
-pub extern "C" fn mod_get_action_range(action_type: i32) -> f32 {
+pub fn mod_get_action_range(action_type: i32) -> f32 {
     match action_type {
-        1 => 10.0, // BreakBlock: must be within 10m
-        2 => 10.0, // PlaceBlock: must be within 10m
-        3 => 5.0,  // EnterVehicle: must be adjacent
-        4 => 30.0, // Explosion (RPG): rocket can travel far
+        1 => 10.0,
+        2 => 10.0,
+        3 => 5.0,
+        4 => 30.0,
         _ => 10.0,
     }
 }
 
-/// Returns the X velocity for an autonomous traffic vehicle given its forward direction.
-/// The ENGINE provides the vehicle's forward vector; the MOD decides the speed.
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_traffic_vx(forward_x: f32, _forward_z: f32) -> f32 {
-    forward_x * 10.0 // Urban traffic speed: 10 m/s
+pub fn compute_traffic_vx(forward_x: f32, _forward_z: f32, blocked: bool) -> f32 {
+    if blocked {
+        0.0
+    } else {
+        forward_x * 10.0
+    }
 }
 
-/// Returns the Z velocity for an autonomous traffic vehicle given its forward direction.
-#[unsafe(no_mangle)]
-pub extern "C" fn compute_traffic_vz(_forward_x: f32, forward_z: f32) -> f32 {
-    forward_z * 10.0
+pub fn compute_traffic_vz(_forward_x: f32, forward_z: f32, blocked: bool) -> f32 {
+    if blocked {
+        0.0
+    } else {
+        forward_z * 10.0
+    }
 }
 
-/// Returns the 'player level' the AI Storyteller should use when generating events.
-/// The MOD owns the progression curve — the engine just calls this to ask.
-#[unsafe(no_mangle)]
-pub extern "C" fn mod_get_storyteller_level() -> i32 {
-    // In Urban Chaos, the city is always in a mid-tier chaos state (level 10).
-    // A more advanced mod could track this dynamically via shared memory.
+pub fn mod_get_storyteller_level() -> i32 {
     10
 }
 
-/// Returns packed economic parameters: high 16 bits = supply, low 16 bits = demand.
-/// The MOD owns the city's economic model; the engine unpacks and uses the values.
-#[unsafe(no_mangle)]
-pub extern "C" fn mod_get_economy_params() -> i32 {
+pub fn mod_get_economy_params() -> i32 {
     let supply: i32 = 5;
     let demand: i32 = 8;
     (supply << 16) | demand
 }
 
-/// WASM exported function for AI storyteller event generation
-#[unsafe(no_mangle)]
-pub extern "C" fn generate_story_event(player_level: i32) -> i32 {
-    // 0 = peaceful day
-    // 1 = small bandit raid
-    // 2 = alien invasion
+pub fn generate_story_event(player_level: i32) -> i32 {
     if player_level < 5 {
-        return 0; // Peaceful
+        0
     } else if player_level < 20 {
-        return 1; // Bandits
+        1
     } else {
-        return 2; // Aliens
+        2
     }
 }
+
+pub fn player_spawn() -> (i32, i32, i32) {
+    (490, 50, 490)
+}
+
+pub fn vehicle_spawn_count() -> i32 {
+    6
+}
+
+pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
+    if index <= 0 {
+        (500, 50, 495)
+    } else {
+        (510 + (index - 1) * 10, 50, 495)
+    }
+}
+
+/// Voxel types: 0 air, 1 concrete, 2 asphalt, 3 glass, 4 sidewalk, 5 grass.
+/// Buildings (concrete/glass) shatter; roads and ground stay put.
+pub fn can_fracture(voxel_type: i32) -> i32 {
+    match voxel_type {
+        1 | 3 => 1,
+        _ => 0,
+    }
+}
+
+pub fn fracture_spread(voxel_type: i32) -> i32 {
+    match voxel_type {
+        3 => 3, // glass shatters further
+        1 => 2, // concrete
+        _ => 0,
+    }
+}
+
+pub fn debris_impulse(action_type: i32) -> f32 {
+    match action_type {
+        4 => 15.0, // explosion
+        1 => 5.0,  // melee / pick
+        _ => 2.0,
+    }
+}
+
+impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
+    fn init_mod() {
+        let _ = city();
+    }
+
+    fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
+        crate::query_voxel(x, y, z)
+    }
+
+    fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
+        crate::mod_evaluate_action(action_type, current_state)
+    }
+
+    fn mod_should_spawn_agent(action_type: i32, old_state: i32, new_state: i32) -> i32 {
+        crate::mod_should_spawn_agent(action_type, old_state, new_state)
+    }
+
+    fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+        crate::compute_agent_vx(ai_type, cx, cz, px, pz)
+    }
+
+    fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+        crate::compute_agent_vz(ai_type, cx, cz, px, pz)
+    }
+
+    fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
+        crate::compute_economy_price(base_price, supply, demand)
+    }
+
+    fn mod_get_action_range(action_type: i32) -> f32 {
+        crate::mod_get_action_range(action_type)
+    }
+
+    fn compute_traffic_vx(forward_x: f32, forward_z: f32, blocked: bool) -> f32 {
+        crate::compute_traffic_vx(forward_x, forward_z, blocked)
+    }
+
+    fn compute_traffic_vz(forward_x: f32, forward_z: f32, blocked: bool) -> f32 {
+        crate::compute_traffic_vz(forward_x, forward_z, blocked)
+    }
+
+    fn mod_get_storyteller_level() -> i32 {
+        crate::mod_get_storyteller_level()
+    }
+
+    fn mod_get_economy_params() -> i32 {
+        crate::mod_get_economy_params()
+    }
+
+    fn generate_story_event(player_level: i32) -> i32 {
+        crate::generate_story_event(player_level)
+    }
+
+    fn player_spawn() -> (i32, i32, i32) {
+        crate::player_spawn()
+    }
+
+    fn vehicle_spawn_count() -> i32 {
+        crate::vehicle_spawn_count()
+    }
+
+    fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
+        crate::vehicle_spawn(index)
+    }
+
+    fn can_fracture(voxel_type: i32) -> i32 {
+        crate::can_fracture(voxel_type)
+    }
+
+    fn fracture_spread(voxel_type: i32) -> i32 {
+        crate::fracture_spread(voxel_type)
+    }
+
+    fn debris_impulse(action_type: i32) -> f32 {
+        crate::debris_impulse(action_type)
+    }
+}
+
+export!(UrbanChaosMod);
+
 #[cfg(kani)]
 mod kani_verification {
     use super::*;
@@ -282,7 +384,7 @@ mod kani_verification {
         let x: i32 = kani::any();
         let y: i32 = kani::any();
         let z: i32 = kani::any();
-        
+
         let layout = CityLayout {
             width: 1000,
             height: 1000,
@@ -311,48 +413,57 @@ mod kani_verification {
         let result = mod_evaluate_action(action_type, current_level);
         kani::assert(result >= 0 && result <= 5, "Wanted level must stay 0-5");
     }
+
+    #[kani::proof]
+    fn verify_can_fracture_is_boolean() {
+        let voxel_type: i32 = kani::any();
+        let result = can_fracture(voxel_type);
+        kani::assert(result == 0 || result == 1, "can_fracture is 0 or 1");
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
 
-    // ── CityLayout::get_voxel_at ─────────────────────────────────────────────
+    fn empty_layout() -> CityLayout {
+        CityLayout {
+            width: 1000,
+            height: 1000,
+            roads: vec![],
+            districts: vec![],
+        }
+    }
 
     #[test]
     fn voxel_below_ground_is_solid() {
-        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
+        let layout = empty_layout();
         assert!(layout.get_voxel_at(0, -1, 0) > 0, "below ground must be solid");
         assert!(layout.get_voxel_at(500, -100, 500) > 0);
     }
 
     #[test]
     fn voxel_high_in_air_is_air() {
-        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
-        // y=500 is far above any building
+        let layout = empty_layout();
         assert_eq!(layout.get_voxel_at(50, 500, 50), 0, "high altitude should be air");
     }
 
     #[test]
     fn road_surface_is_asphalt() {
-        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
-        // Roads are at y=0 where mod_x < 3 or mod_z < 3
-        let voxel = layout.get_voxel_at(0, 0, 0); // x%100=0, z%100=0 → road
+        let layout = empty_layout();
+        let voxel = layout.get_voxel_at(0, 0, 0);
         assert_eq!(voxel, 2, "road centre should be asphalt (type 2)");
     }
 
     #[test]
     fn query_voxel_ffi_matches_get_voxel_at() {
-        // The WASM FFI wrapper must return the same value as the Rust function.
-        let layout = CityLayout { width: 1000, height: 1000, roads: vec![], districts: vec![] };
+        let layout = empty_layout();
         for (x, y, z) in [(0, 0, 0), (500, 50, 500), (0, -1, 0), (50, 500, 50)] {
             let direct = layout.get_voxel_at(x, y, z) as i32;
             let via_ffi = query_voxel(x, y, z);
             assert_eq!(direct, via_ffi, "FFI wrapper must match direct call at ({x},{y},{z})");
         }
     }
-
-    // ── mod_evaluate_action (wanted level / ModState) ─────────────────────────
 
     #[test]
     fn break_block_increases_wanted_level() {
@@ -390,8 +501,6 @@ mod tests {
         assert_eq!(mod_evaluate_action(-1, 4), 4);
     }
 
-    // ── mod_should_spawn_agent ────────────────────────────────────────────────
-
     #[test]
     fn spawn_cop_when_wanted_level_rises() {
         assert_eq!(mod_should_spawn_agent(1, 0, 1), 1, "rising level should spawn cop");
@@ -413,8 +522,6 @@ mod tests {
         assert_eq!(mod_should_spawn_agent(1, 0, 0), 0);
     }
 
-    // ── mod_get_action_range ──────────────────────────────────────────────────
-
     #[test]
     fn break_block_range_is_10() {
         assert!((mod_get_action_range(1) - 10.0).abs() < 1e-6);
@@ -435,36 +542,37 @@ mod tests {
         assert!((mod_get_action_range(99) - 10.0).abs() < 1e-6);
     }
 
-    // ── compute_traffic_vx/vz ────────────────────────────────────────────────
-
     #[test]
     fn traffic_velocity_is_forward_times_speed() {
-        let vx = compute_traffic_vx(1.0, 0.0);
-        let vz = compute_traffic_vz(0.0, 1.0);
-        assert!((vx - 10.0).abs() < 1e-6, "full-forward-x should give vx=10");
-        assert!((vz - 10.0).abs() < 1e-6, "full-forward-z should give vz=10");
+        let vx = compute_traffic_vx(1.0, 0.0, false);
+        let vz = compute_traffic_vz(0.0, 1.0, false);
+        assert!((vx - 10.0).abs() < 1e-6);
+        assert!((vz - 10.0).abs() < 1e-6);
+    }
+
+    #[test]
+    fn traffic_stops_when_blocked() {
+        assert!((compute_traffic_vx(1.0, 0.0, true)).abs() < 1e-6);
+        assert!((compute_traffic_vz(0.0, 1.0, true)).abs() < 1e-6);
     }
 
     #[test]
     fn traffic_stationary_when_forward_is_zero() {
-        assert!((compute_traffic_vx(0.0, 0.0)).abs() < 1e-6);
-        assert!((compute_traffic_vz(0.0, 0.0)).abs() < 1e-6);
+        assert!((compute_traffic_vx(0.0, 0.0, false)).abs() < 1e-6);
+        assert!((compute_traffic_vz(0.0, 0.0, false)).abs() < 1e-6);
     }
 
     #[test]
     fn traffic_diagonal_forward() {
         let fwd = 1.0_f32 / 2.0_f32.sqrt();
-        let vx = compute_traffic_vx(fwd, fwd);
-        let vz = compute_traffic_vz(fwd, fwd);
+        let vx = compute_traffic_vx(fwd, fwd, false);
+        let vz = compute_traffic_vz(fwd, fwd, false);
         assert!((vx - fwd * 10.0).abs() < 1e-5);
         assert!((vz - fwd * 10.0).abs() < 1e-5);
     }
 
-    // ── compute_agent_vx/vz ──────────────────────────────────────────────────
-
     #[test]
     fn cop_chases_player_in_x() {
-        // player at (10, 0), cop at (0, 0) → cop should move +x
         let vx = compute_agent_vx(1, 0.0, 0.0, 10.0, 0.0);
         assert!(vx > 0.0, "cop should move toward player on x axis");
     }
@@ -477,7 +585,6 @@ mod tests {
 
     #[test]
     fn cop_stops_when_adjacent() {
-        // cop within 2 units of player — should not move
         let vx = compute_agent_vx(1, 0.0, 0.0, 1.0, 0.0);
         assert!((vx).abs() < 1e-6, "cop too close, should stop");
     }
@@ -490,11 +597,8 @@ mod tests {
         assert!((vz).abs() < 1e-6);
     }
 
-    // ── compute_economy_price ─────────────────────────────────────────────────
-
     #[test]
     fn economy_basic_price() {
-        // (100 * 8) / 5 = 160
         assert_eq!(compute_economy_price(100, 5, 8), 160);
     }
 
@@ -508,8 +612,6 @@ mod tests {
         assert_eq!(compute_economy_price(1, 1000, 1), 1, "price floor is 1");
     }
 
-    // ── mod_get_economy_params ────────────────────────────────────────────────
-
     #[test]
     fn economy_params_unpacked_correctly() {
         let packed = mod_get_economy_params();
@@ -518,8 +620,6 @@ mod tests {
         assert_eq!(supply, 5);
         assert_eq!(demand, 8);
     }
-
-    // ── generate_story_event ──────────────────────────────────────────────────
 
     #[test]
     fn story_peaceful_at_low_level() {
@@ -539,11 +639,44 @@ mod tests {
         assert_eq!(generate_story_event(100), 2);
     }
 
-    // ── mod_get_storyteller_level ─────────────────────────────────────────────
-
     #[test]
     fn storyteller_level_returns_positive() {
         let level = mod_get_storyteller_level();
         assert!(level >= 0, "storyteller level must be non-negative");
+    }
+
+    #[test]
+    fn player_spawns_in_city() {
+        let (x, y, z) = player_spawn();
+        assert_eq!((x, y, z), (490, 50, 490));
+    }
+
+    #[test]
+    fn vehicle_spawns_are_near_player() {
+        assert_eq!(vehicle_spawn_count(), 6);
+        let (x, y, z) = vehicle_spawn(0);
+        assert_eq!((x, y, z), (500, 50, 495));
+        let (x2, _, _) = vehicle_spawn(1);
+        assert_eq!(x2, 510);
+    }
+
+    #[test]
+    fn buildings_fracture_roads_do_not() {
+        assert_eq!(can_fracture(1), 1);
+        assert_eq!(can_fracture(3), 1);
+        assert_eq!(can_fracture(2), 0);
+        assert_eq!(can_fracture(5), 0);
+        assert_eq!(can_fracture(0), 0);
+    }
+
+    #[test]
+    fn glass_spreads_further_than_concrete() {
+        assert!(fracture_spread(3) > fracture_spread(1));
+        assert_eq!(fracture_spread(2), 0);
+    }
+
+    #[test]
+    fn explosion_impulse_stronger_than_melee() {
+        assert!(debris_impulse(4) > debris_impulse(1));
     }
 }

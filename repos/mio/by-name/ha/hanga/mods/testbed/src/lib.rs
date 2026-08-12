@@ -1,15 +1,182 @@
-#[no_mangle]
-pub extern "C" fn init_mod() -> i32 {
-    // This is the WASM mod returning a status code to the engine!
-    42
+//! Hanga Testbed — a debug game that exercises the engine without Urban Chaos rules.
+//!
+//! Infinite checkerboard floor, no wanted level, no cops, no economy spikes.
+//! Used to verify the WASM bridge and Teardown debris independently of city gen.
+
+wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
+
+struct TestbedMod;
+
+pub fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
+    if y < 0 {
+        return 1;
+    }
+    if y == 0 {
+        // Checkerboard: even cells concrete, odd cells glass so we can see materials.
+        return if (x.wrapping_add(z) & 1) == 0 { 1 } else { 3 };
+    }
+    0
 }
+
+pub fn mod_evaluate_action(_action_type: i32, current_state: i32) -> i32 {
+    current_state // no wanted level in the testbed
+}
+
+pub fn mod_should_spawn_agent(_action_type: i32, _old_state: i32, _new_state: i32) -> i32 {
+    0
+}
+
+pub fn compute_agent_vx(_ai_type: i32, _cx: f32, _cz: f32, _px: f32, _pz: f32) -> f32 {
+    0.0
+}
+
+pub fn compute_agent_vz(_ai_type: i32, _cx: f32, _cz: f32, _px: f32, _pz: f32) -> f32 {
+    0.0
+}
+
+pub fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
+    if supply == 0 {
+        return base_price;
+    }
+    (base_price * demand / supply).max(1)
+}
+
+pub fn mod_get_action_range(_action_type: i32) -> f32 {
+    20.0
+}
+
+pub fn compute_traffic_vx(_forward_x: f32, _forward_z: f32, _blocked: bool) -> f32 {
+    0.0
+}
+
+pub fn compute_traffic_vz(_forward_x: f32, _forward_z: f32, _blocked: bool) -> f32 {
+    0.0
+}
+
+pub fn mod_get_storyteller_level() -> i32 {
+    0
+}
+
+pub fn mod_get_economy_params() -> i32 {
+    (1 << 16) | 1
+}
+
+pub fn generate_story_event(_player_level: i32) -> i32 {
+    0
+}
+
+pub fn player_spawn() -> (i32, i32, i32) {
+    (0, 4, 0)
+}
+
+pub fn vehicle_spawn_count() -> i32 {
+    1
+}
+
+pub fn vehicle_spawn(_index: i32) -> (i32, i32, i32) {
+    (4, 2, 0)
+}
+
+pub fn can_fracture(voxel_type: i32) -> i32 {
+    if voxel_type > 0 { 1 } else { 0 }
+}
+
+pub fn fracture_spread(_voxel_type: i32) -> i32 {
+    1
+}
+
+pub fn debris_impulse(_action_type: i32) -> f32 {
+    8.0
+}
+
+impl exports::hanga::engine::gameplay::Guest for TestbedMod {
+    fn init_mod() {}
+    fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
+        crate::query_voxel(x, y, z)
+    }
+    fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
+        crate::mod_evaluate_action(action_type, current_state)
+    }
+    fn mod_should_spawn_agent(a: i32, o: i32, n: i32) -> i32 {
+        crate::mod_should_spawn_agent(a, o, n)
+    }
+    fn compute_agent_vx(t: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+        crate::compute_agent_vx(t, cx, cz, px, pz)
+    }
+    fn compute_agent_vz(t: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+        crate::compute_agent_vz(t, cx, cz, px, pz)
+    }
+    fn compute_economy_price(b: i32, s: i32, d: i32) -> i32 {
+        crate::compute_economy_price(b, s, d)
+    }
+    fn mod_get_action_range(a: i32) -> f32 {
+        crate::mod_get_action_range(a)
+    }
+    fn compute_traffic_vx(x: f32, z: f32, blocked: bool) -> f32 {
+        crate::compute_traffic_vx(x, z, blocked)
+    }
+    fn compute_traffic_vz(x: f32, z: f32, blocked: bool) -> f32 {
+        crate::compute_traffic_vz(x, z, blocked)
+    }
+    fn mod_get_storyteller_level() -> i32 {
+        crate::mod_get_storyteller_level()
+    }
+    fn mod_get_economy_params() -> i32 {
+        crate::mod_get_economy_params()
+    }
+    fn generate_story_event(level: i32) -> i32 {
+        crate::generate_story_event(level)
+    }
+    fn player_spawn() -> (i32, i32, i32) {
+        crate::player_spawn()
+    }
+    fn vehicle_spawn_count() -> i32 {
+        crate::vehicle_spawn_count()
+    }
+    fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
+        crate::vehicle_spawn(index)
+    }
+    fn can_fracture(voxel_type: i32) -> i32 {
+        crate::can_fracture(voxel_type)
+    }
+    fn fracture_spread(voxel_type: i32) -> i32 {
+        crate::fracture_spread(voxel_type)
+    }
+    fn debris_impulse(action_type: i32) -> f32 {
+        crate::debris_impulse(action_type)
+    }
+}
+
+export!(TestbedMod);
+
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
+    fn floor_is_checkerboard() {
+        assert_eq!(query_voxel(0, 0, 0), 1);
+        assert_eq!(query_voxel(1, 0, 0), 3);
+        assert_eq!(query_voxel(0, 1, 0), 0);
+        assert!(query_voxel(0, -1, 0) > 0);
+    }
+
+    #[test]
+    fn no_wanted_level_and_no_cops() {
+        assert_eq!(mod_evaluate_action(4, 0), 0);
+        assert_eq!(mod_should_spawn_agent(4, 0, 0), 0);
+    }
+
+    #[test]
+    fn everything_solid_can_fracture() {
+        assert_eq!(can_fracture(1), 1);
+        assert_eq!(can_fracture(3), 1);
+        assert_eq!(can_fracture(0), 0);
+    }
+
+    #[test]
+    fn spawn_is_above_floor() {
+        let (_x, y, _z) = player_spawn();
+        assert!(y > 0);
     }
 }

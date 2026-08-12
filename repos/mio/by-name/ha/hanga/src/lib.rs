@@ -68,6 +68,43 @@ pub fn clamp_mod_state(value: i32, min: i32, max: i32) -> i32 {
     value.clamp(min, max)
 }
 
+// ─── Teardown / fracture helpers ──────────────────────────────────────────────
+
+/// A voxel is supported if it sits below the ground plane, or the cell
+/// immediately underneath is solid. The engine supplies `below_is_solid`;
+/// the predicate is pure so it can be property-tested and Kani-checked.
+pub fn voxel_has_support(y: i32, below_is_solid: bool) -> bool {
+    y < 0 || below_is_solid
+}
+
+/// Chebyshev (chessboard) distance between two voxel cells.
+pub fn chebyshev_distance(ax: i32, ay: i32, az: i32, bx: i32, by: i32, bz: i32) -> i32 {
+    (ax - bx).abs().max((ay - by).abs()).max((az - bz).abs())
+}
+
+/// Offsets in a Chebyshev ball of `spread`, excluding the origin.
+/// The engine iterates these after a break and asks the mod what may collapse.
+pub fn fracture_offsets(spread: i32) -> Vec<(i32, i32, i32)> {
+    let spread = spread.max(0);
+    let mut out = Vec::new();
+    for x in -spread..=spread {
+        for y in -spread..=spread {
+            for z in -spread..=spread {
+                if x == 0 && y == 0 && z == 0 {
+                    continue;
+                }
+                out.push((x, y, z));
+            }
+        }
+    }
+    out
+}
+
+/// Pack a voxel type into the 0..=255 material range used by the renderer.
+pub fn clamp_voxel_type(voxel_type: i32) -> u8 {
+    voxel_type.clamp(0, 255) as u8
+}
+
 // ─── Tests ────────────────────────────────────────────────────────────────────
 
 #[cfg(test)]
@@ -256,5 +293,54 @@ mod tests {
         assert_eq!(clamp_mod_state(6, 0, 5), 5, "WASM overflow must be clamped");
         assert_eq!(clamp_mod_state(i32::MAX, 0, 5), 5);
         assert_eq!(clamp_mod_state(i32::MIN, 0, 5), 0);
+    }
+
+    // ── voxel_has_support / fracture_offsets ──────────────────────────────────
+
+    #[test]
+    fn bedrock_is_always_supported() {
+        assert!(voxel_has_support(-1, false));
+        assert!(voxel_has_support(-100, false));
+    }
+
+    #[test]
+    fn surface_unsupported_without_solid_below() {
+        assert!(!voxel_has_support(0, false));
+        assert!(!voxel_has_support(12, false));
+    }
+
+    #[test]
+    fn surface_supported_with_solid_below() {
+        assert!(voxel_has_support(0, true));
+        assert!(voxel_has_support(12, true));
+    }
+
+    #[test]
+    fn fracture_offsets_excludes_origin() {
+        let offsets = fracture_offsets(1);
+        assert!(!offsets.contains(&(0, 0, 0)));
+        assert_eq!(offsets.len(), 26); // 3^3 - 1
+    }
+
+    #[test]
+    fn fracture_offsets_zero_spread_is_empty() {
+        assert!(fracture_offsets(0).is_empty());
+        assert!(fracture_offsets(-3).is_empty());
+    }
+
+    #[test]
+    fn chebyshev_distance_matches_spread_membership() {
+        for &(a, b, c) in &[(1, 0, 0), (2, 2, 2), (0, -4, 1)] {
+            let d = chebyshev_distance(0, 0, 0, a, b, c);
+            let inside = fracture_offsets(d).contains(&(a, b, c));
+            assert!(inside, "offset ({a},{b},{c}) must be in spread {d}");
+        }
+    }
+
+    #[test]
+    fn clamp_voxel_type_bounds() {
+        assert_eq!(clamp_voxel_type(-1), 0);
+        assert_eq!(clamp_voxel_type(3), 3);
+        assert_eq!(clamp_voxel_type(300), 255);
     }
 }

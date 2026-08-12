@@ -1,0 +1,46 @@
+package hanga:engine;
+
+interface gameplay {
+    /// Initialize the mod (called once when the component is loaded).
+    init-mod: func();
+
+    /// Voxel world generation owned by the mod.
+    query-voxel: func(x: s32, y: s32, z: s32) -> s32;
+
+    /// Action validation and state owned by the mod.
+    /// action-type: 1=BreakBlock, 2=PlaceBlock, 3=EnterVehicle, 4=Explosion
+    mod-get-action-range: func(action-type: s32) -> f32;
+    mod-evaluate-action: func(action-type: s32, current-state: s32) -> s32;
+    mod-should-spawn-agent: func(action-type: s32, old-state: s32, new-state: s32) -> s32;
+
+    /// Traffic AI: engine supplies heading + whether the path is blocked.
+    compute-traffic-vx: func(fwd-x: f32, fwd-z: f32, blocked: bool) -> f32;
+    compute-traffic-vz: func(fwd-x: f32, fwd-z: f32, blocked: bool) -> f32;
+
+    /// Agent AI (cops, pedestrians, etc.)
+    compute-agent-vx: func(agent-type: s32, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
+    compute-agent-vz: func(agent-type: s32, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
+
+    /// Storyteller and economy owned by the mod.
+    mod-get-storyteller-level: func() -> s32;
+    generate-story-event: func(player-level: s32) -> s32;
+    mod-get-economy-params: func() -> s32;
+    compute-economy-price: func(base: s32, supply: s32, demand: s32) -> s32;
+
+    /// World setup owned by the mod (engine only instantiates the entities).
+    player-spawn: func() -> tuple<s32, s32, s32>;
+    vehicle-spawn-count: func() -> s32;
+    vehicle-spawn: func(index: s32) -> tuple<s32, s32, s32>;
+
+    /// Teardown rules owned by the mod.
+    /// 1 if this voxel type can become physical debris when fractured.
+    can-fracture: func(voxel-type: s32) -> s32;
+    /// Chebyshev radius of collapse around a broken voxel of this type.
+    fracture-spread: func(voxel-type: s32) -> s32;
+    /// Impulse applied to spawned debris for an action type.
+    debris-impulse: func(action-type: s32) -> f32;
+}
+
+world plugin {
+    export gameplay;
+}

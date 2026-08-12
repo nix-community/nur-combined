@@ -15,6 +15,18 @@ To use modules: (Note that system isn't defined by default in some contexts. You
   ];
 ```
 
+Toshy: NixOS module `modules.toshy` (udev, uinput, `input` group — required for the keymapper unless you already provide those) plus Home Manager module `modules.toshy-hm` (runtime + user files + systemd user services). Do not import `toshy-hm` into a NixOS `imports` list.
+
+```nix
+# NixOS
+imports = [ inputs.mio.legacyPackages.${system}.modules.toshy ];
+services.toshy = { enable = true; users = [ "yourname" ]; };
+
+# Home Manager
+imports = [ inputs.mio.legacyPackages.${system}.modules.toshy-hm ];
+services.toshy.enable = true;
+```
+
 Use without nur: add to flake.nix inputs
 
 ```

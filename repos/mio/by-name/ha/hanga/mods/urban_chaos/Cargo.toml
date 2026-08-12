@@ -4,12 +4,14 @@ version = "0.1.0"
 edition = "2024"
 
 [lib]
-crate-type = ["cdylib"]
+# rlib so host `cargo test` links; wasm builds add --crate-type cdylib
+crate-type = ["rlib"]
 
 [lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
 
 [dependencies]
+wit-bindgen = "0.60.0"
 
 [dev-dependencies]
 kani = "0.0.1"

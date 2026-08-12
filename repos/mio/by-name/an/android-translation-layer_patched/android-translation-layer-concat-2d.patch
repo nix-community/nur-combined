@@ -1,0 +1,28 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] apply canvas.concat as a 2D GSK transform
+
+gtk_snapshot_transform_matrix() always classifies the transform as
+UNKNOWN. GTK's Cairo renderer paints UNKNOWN transforms hot pink
+(#FF69B4). Android's Matrix is 2D affine, so apply it with
+gsk_transform_matrix_2d instead.
+
+--- a/src/api-impl-jni/graphics/android_atl_GskCanvas.c
++++ b/src/api-impl-jni/graphics/android_atl_GskCanvas.c
+@@ -191,4 +191,15 @@
+ 	GdkSnapshot *snapshot = GTK_SNAPSHOT(_PTR(snapshot_ptr));
+ 	graphene_matrix_t *matrix = (graphene_matrix_t *)_PTR(matrix_ptr);
+-	gtk_snapshot_transform_matrix(snapshot, matrix);
++	double xx, yx, xy, yy, dx, dy;
++	if (!graphene_matrix_to_2d(matrix, &xx, &yx, &xy, &yy, &dx, &dy)) {
++		xx = graphene_matrix_get_value(matrix, 0, 0);
++		yx = graphene_matrix_get_value(matrix, 1, 0);
++		xy = graphene_matrix_get_value(matrix, 0, 1);
++		yy = graphene_matrix_get_value(matrix, 1, 1);
++		dx = graphene_matrix_get_value(matrix, 3, 0);
++		dy = graphene_matrix_get_value(matrix, 3, 1);
++	}
++	GskTransform *transform = gsk_transform_matrix_2d(NULL, (float)xx, (float)yx, (float)xy, (float)yy, (float)dx, (float)dy);
++	gtk_snapshot_transform(snapshot, transform);
++	gsk_transform_unref(transform);
+ }

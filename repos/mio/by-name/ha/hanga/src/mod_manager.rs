@@ -1,20 +1,26 @@
-use wasmtime::{Engine, Config, Module, Store, Instance};
+use wasmtime::{Engine, Config, Store};
+use wasmtime::component::{Component, Linker};
 use bevy::prelude::*;
 use std::sync::{Arc, Mutex, RwLock};
 use std::path::{Path, PathBuf};
 use notify::{Watcher, RecursiveMode, Event};
 use crossbeam_channel::{unbounded, Receiver};
 
+wasmtime::component::bindgen!({
+    world: "plugin",
+    path: "wit",
+});
+
 /// Global reference so that worker threads (like terrain generation) can 
 /// instantiate their own stateless WASM instances for fast concurrent access.
-pub static SHARED_WASM: RwLock<Option<(Engine, Module)>> = RwLock::new(None);
+pub static SHARED_WASM: RwLock<Option<(Engine, Component)>> = RwLock::new(None);
 
 /// A persistent WASM context that holds the main Store and Instance.
 /// Used by the main thread for game logic, preserving global mod state 
 /// (e.g. static variables) between game ticks.
 pub struct MainModContext {
     pub store: Store<()>,
-    pub instance: Instance,
+    pub bindings: Plugin,
 }
 
 #[derive(Resource)]
@@ -55,23 +61,23 @@ impl ModRuntime {
     fn load_mod(path: &Path) -> Option<MainModContext> {
         let mut config = Config::new();
         config.wasm_multi_memory(true);
+        config.wasm_component_model(true);
         let engine = Engine::new(&config).ok()?;
-        let module = Module::from_file(&engine, path).ok()?;
+        let component = Component::from_file(&engine, path).ok()?;
         
         // Update the global reference for worker threads
         if let Ok(mut shared) = SHARED_WASM.write() {
-            *shared = Some((engine.clone(), module.clone()));
+            *shared = Some((engine.clone(), component.clone()));
         }
         
         let mut store = Store::new(&engine, ());
-        let instance = Instance::new(&mut store, &module, &[]).ok()?;
+        let linker = Linker::new(&engine);
+        let bindings = Plugin::instantiate(&mut store, &component, &linker).ok()?;
         
-        // Call init_mod if it exists
-        if let Ok(init) = instance.get_typed_func::<(), i32>(&mut store, "init_mod") {
-            let _ = init.call(&mut store, ());
-        }
+        // Call init_mod
+        let _ = bindings.hanga_engine_gameplay().call_init_mod(&mut store);
         
-        Some(MainModContext { store, instance })
+        Some(MainModContext { store, bindings })
     }
 }
 
@@ -79,7 +85,7 @@ pub struct ModManagerPlugin {
     pub wasm_path: String,
 }
 
-impl Plugin for ModManagerPlugin {
+impl bevy::app::Plugin for ModManagerPlugin {
     fn build(&self, app: &mut App) {
         let runtime = ModRuntime::new(Path::new(&self.wasm_path));
         app.insert_resource(runtime);

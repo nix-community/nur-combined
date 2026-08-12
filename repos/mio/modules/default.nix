@@ -17,7 +17,8 @@ rec {
         razer-laptop-control
         local-ai
         toshy
-        toshy-hm
+        # toshy-hm is a Home Manager module (home.file / systemd.user).
+        # Import modules.toshy-hm from Home Manager, not from NixOS.
       ];
     }
   );

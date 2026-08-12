@@ -8,8 +8,9 @@
 #     ${XDG_STATE_HOME:-~/.local/state}/toshy/runtime
 # where Toshy's launcher scripts resolve it via toshy-runtime-env.sh.
 #
-# After enabling the HM module, run from a checkout of the Toshy repo:
-#     ~/.local/state/toshy/runtime/bin/python ./setup_toshy.py install-user-files
+# The Home Manager module links this package at the runtime path and also
+# installs the user-level files (config tree, launchers, systemd units)
+# from $out/share/toshy, so "setup_toshy.py install-user-files" is not required.
 {
   lib,
   python3,
@@ -161,7 +162,8 @@ let
   # ---- Full environment: Toshy app deps + the keymapper ----
 
   pythonEnv = pythonPinned.withPackages (
-    ps: with ps;
+    ps:
+    with ps;
     [
       dbus-python
       lockfile
@@ -211,6 +213,7 @@ in
 runCommand "toshy-${keymapperBranch}-${version}"
   {
     nativeBuildInputs = [ makeWrapper ];
+    inherit src;
     passthru = {
       inherit src pythonEnv xwaykeyz;
     };
@@ -220,11 +223,8 @@ runCommand "toshy-${keymapperBranch}-${version}"
         Toshy is a keymapper config that makes Linux keyboard shortcuts work
         like macOS ("a Tosh"). This package provides the externally-managed
         Python runtime environment containing xwaykeyz (the keymapper) and
-        all Toshy dependencies.
-
-        After enabling the home-manager module, run from a checkout of the
-        Toshy repository:
-          ~/.local/state/toshy/runtime/bin/python ./setup_toshy.py install-user-files
+        all Toshy dependencies, plus the user-level file tree installed by
+        the home-manager module (launchers, systemd units, default config).
       '';
       homepage = "https://github.com/RedBearAK/toshy";
       license = lib.licenses.gpl3Plus;
@@ -233,12 +233,44 @@ runCommand "toshy-${keymapperBranch}-${version}"
     };
   }
   ''
-    mkdir -p $out/bin
+    mkdir -p $out/bin $out/share/toshy
     for exe_path in ${pythonEnv}/bin/*; do
         exe_name=$(basename "$exe_path")
         makeWrapper "$exe_path" "$out/bin/$exe_name" \
             --prefix GI_TYPELIB_PATH : "${giTypelibPath}" \
             --prefix XDG_DATA_DIRS : "${xdgDataDirs}" \
-            --prefix PATH : "${lib.makeBinPath [ procps glib zenity libnotify xdg-utils ]}"
+            --prefix PATH : "${
+              lib.makeBinPath [
+                procps
+                glib
+                zenity
+                libnotify
+                xdg-utils
+              ]
+            }"
     done
+
+    # Same tree "setup_toshy.py install-user-files" copies into ~/.config/toshy
+    # (minus ignored repo metadata / vendored keymapper / tests).
+    for d in \
+        assets \
+        cinnamon-extension \
+        cosmic-dbus-service \
+        default-toshy-config \
+        desktop \
+        kwin-dbus-service \
+        kwin-script \
+        scripts \
+        systemd-user-service-units \
+        toshy_common \
+        toshy_gui \
+        wlroots-dbus-service \
+        wlroots-dev
+    do
+        cp -r "$src/$d" "$out/share/toshy/"
+    done
+    cp "$src/toshy_layout_selector.py" "$src/toshy_tray.py" "$src/setup_toshy.py" "$out/share/toshy/"
+    cp "$src/default-toshy-config/toshy_config.py" "$out/share/toshy/toshy_config.py.default"
+    cp "$src/default-toshy-config/toshy_config_barebones.py" "$out/share/toshy/toshy_config_barebones.py.default"
+    chmod -R u+w "$out/share/toshy"
   ''

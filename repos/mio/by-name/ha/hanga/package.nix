@@ -67,8 +67,9 @@ rustPlatform.buildRustPackage {
     # 1. Pure unit tests for the engine lib (no display / GPU required)
     cargo test --release --lib -- --test-threads=1
 
-    # 2. Unit tests for the urban_chaos WASM mod
+    # 2. Unit tests for shipped WASM mods (gameplay lives here)
     cargo test --release -p urban_chaos -- --test-threads=1
+    cargo test --release -p testbed -- --test-threads=1
 
     # 3. Integration tests (agent CLI test) need a display
     xvfb-run -a cargo test --release --test '*' -- --test-threads=1

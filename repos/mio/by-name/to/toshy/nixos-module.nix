@@ -5,22 +5,23 @@
 # "input" group access to input devices and /dev/uinput, and "input" group
 # membership for the listed users.
 #
-# This module intentionally does NOT install any Toshy files or services.
-# Those are user-level, handled by the home-manager module (hm-module.nix)
-# and then "setup_toshy.py install-user-files" from a Toshy checkout.
-#
-# Without this module (or equivalent manual config), the xwaykeyz keymapper
-# cannot read input devices or write virtual input events, so it will fail.
+# This module is required for the keymapper to work (or you must replicate
+# the same uinput / udev / "input" group setup yourself). User-level files
+# and services are handled by the Home Manager module (hm-module.nix).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.services.toshy;
 in
 {
   options.services.toshy = {
-    enable = lib.mkEnableOption
-      "system-level support for the Toshy keymapper (udev rules, uinput, input group)";
+    enable = lib.mkEnableOption "system-level support for the Toshy keymapper (udev rules, uinput, input group)";
 
     users = lib.mkOption {
       type = lib.types.listOf lib.types.str;

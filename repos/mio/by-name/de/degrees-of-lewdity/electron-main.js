@@ -1,12 +1,11 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 
-app.setName("degrees-of-lewdity");
-
 const createWindow = () => {
   const win = new BrowserWindow({
     width: 1280,
     height: 800,
+    title: "Degrees of Lewdity",
     autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: false,
