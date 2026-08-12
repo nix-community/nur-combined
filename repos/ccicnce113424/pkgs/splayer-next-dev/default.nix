@@ -21,10 +21,5 @@ splayer-next.overrideAttrs (
       fetcherVersion = 3;
     };
     cargoDeps = rustPlatform.importCargoLock sources.cargoLock."Cargo.lock";
-
-    env.VITE_BUILD_TYPE = "dev";
-
-    strictDeps = true;
-    __structuredAttrs = true;
   }
 )

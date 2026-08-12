@@ -6,14 +6,14 @@
   fetchPnpmDeps,
   pnpmConfigHook,
   nodejs,
-  electron_41,
+  electron_43,
   rustPlatform,
   cargo,
   rustc,
   python3,
   pkg-config,
   openssl,
-  ffmpeg,
+  ffmpeg-headless,
   alsa-lib,
   makeWrapper,
   copyDesktopItems,
@@ -22,7 +22,7 @@
   removeReferencesTo,
 }:
 let
-  electron = electron_41;
+  electron = electron_43;
   pnpm = pnpm_10;
   shareDir = "$out/share/SPlayer-Next";
 in
@@ -73,19 +73,24 @@ stdenv.mkDerivation (finalAttrs: {
 
   buildInputs = [
     openssl
-    ffmpeg
+    ffmpeg-headless
     alsa-lib
-  ]
-  # make linker happy
-  ++ ffmpeg.buildInputs;
+  ];
 
-  ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-  CARGO_PROFILE_RELEASE_LTO = "false";
+  env = {
+    ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
+    FFMPEG_MODE = "system";
+  };
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   postPatch = ''
     # Workaround for https://github.com/electron/electron/issues/31121
     substituteInPlace electron/main/utils/nativeLoader.ts \
-      --replace-fail 'process.resourcesPath' "'${shareDir}/resources'";
+      --replace-fail 'process.resourcesPath' "'${shareDir}/resources'"
+
+    sed -i '/^[[:space:]]*\.atleast_version/d' "$cargoDepsCopy"/{.,*}/ffmpeg_audio_sys-*/build.rs
   '';
 
   buildPhase = ''
@@ -139,28 +144,28 @@ stdenv.mkDerivation (finalAttrs: {
 
   desktopItems = [
     (makeDesktopItem {
-      name = "splayer";
-      desktopName = "SPlayer Next";
+      name = "top.imsyy.splayer_next";
+      desktopName = "SPlayer-Next";
       exec = "SPlayer-Next %U";
       terminal = false;
       type = "Application";
       icon = "SPlayer-Next";
-      startupWMClass = "SPlayer Next";
-      comment = "A minimalist music player";
+      startupWMClass = "top.imsyy.splayer_next";
+      comment = "Cross-platform desktop music player with rich lyric support and wide audio format compatibility";
       categories = [
         "AudioVideo"
         "Audio"
         "Music"
       ];
-      # mimeTypes = [ "x-scheme-handler/orpheus" ];
-      # extraConfig.X-KDE-Protocols = "orpheus";
+      mimeTypes = [ "x-scheme-handler/orpheus" ];
+      extraConfig.X-KDE-Protocols = "orpheus";
     })
   ];
 
   passthru.updateScript = nix-update-script { extraArgs = [ "--use-github-releases" ]; };
 
   meta = {
-    description = "Simple Netease Cloud Music player";
+    description = "Cross-platform desktop music player with rich lyric support and wide audio format compatibility";
     homepage = "https://github.com/SPlayer-Dev/SPlayer-Next";
     changelog = "https://github.com/SPlayer-Dev/SPlayer-Next/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.agpl3Only;
