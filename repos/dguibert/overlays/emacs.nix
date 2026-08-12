@@ -1,16 +1,14 @@
 final: prev:
 with prev; let
   # https://gist.github.com/grahamc/2daa060dce38ad18ddfa7927e1b1a1b3
-  my-texlive = texlive.combine {
-    inherit
-      (texlive)
+  my-texlive = texliveSmall.withPackages (ps:
+    with ps; [
       scheme-medium
       wrapfig
       capt-of
       moderncv
       biblatex
-      ;
-  };
+    ]);
 
   overrides = self: super: {
     org-cv = self.trivialBuild {
