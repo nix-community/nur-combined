@@ -5,16 +5,16 @@
     "url": "https://formulae.brew.sh/api/cask/creality-print.json",
     "version_path": ".version"
   },
-  "version": "7.2.0.5226",
+  "version": "7.2.1.5476",
   "platforms": {
     "x86_64-darwin": {
-      "url": "https://github.com/CrealityOfficial/CrealityPrint/releases/download/v7.2.0/CrealityPrint-7.2.0.5226-macx-x86_64-Release.dmg",
-      "hash": "sha256-SB2/4ZsRUaIkiA9xQlqWnPq0EDZtciQh18LOyjLvT3Q=",
+      "url": "https://github.com/CrealityOfficial/CrealityPrint/releases/download/v7.2.1/CrealityPrint-7.2.1.5476-macx-x86_64-Release.dmg",
+      "hash": "sha256-W4lzbkG/GRdwiku2unpipvOzx33G8Hb542OGy9hRc7o=",
       "url_path": ".variations.tahoe.url"
     },
     "aarch64-darwin": {
-      "url": "https://github.com/CrealityOfficial/CrealityPrint/releases/download/v7.2.0/CrealityPrint-7.2.0.5226-macx-arm64-Release.dmg",
-      "hash": "sha256-JyrZcZ5NUrkGcfmBuiUuBJp6acB4cFdlhueJ0fC1MSg=",
+      "url": "https://github.com/CrealityOfficial/CrealityPrint/releases/download/v7.2.1/CrealityPrint-7.2.1.5476-macx-arm64-Release.dmg",
+      "hash": "sha256-b+XrI4otc+m8tSTXfW+4TjLaTFyVehULl/+uYUwrBxM=",
       "url_path": ".url"
     }
   }
