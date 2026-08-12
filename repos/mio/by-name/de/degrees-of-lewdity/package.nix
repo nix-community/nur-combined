@@ -9,6 +9,7 @@
   writeText,
   electron,
   nix-update-script,
+  desktopToDarwinBundle,
 }:
 
 stdenvNoCC.mkDerivation (finalAttrs: {
@@ -29,7 +30,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     tweego
     makeWrapper
     copyDesktopItems
-  ];
+  ]
+  ++ lib.optionals stdenvNoCC.hostPlatform.isDarwin [ desktopToDarwinBundle ];
 
   dontConfigure = true;
 
@@ -108,7 +110,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://gitgud.io/Vrelnir/degrees-of-lewdity";
     license = lib.licenses.cc-by-nc-sa-40;
     mainProgram = "degrees-of-lewdity";
-    platforms = lib.platforms.linux;
+    platforms = lib.platforms.linux ++ lib.platforms.darwin;
     sourceProvenance = [ lib.sourceTypes.fromSource ];
   };
 })
