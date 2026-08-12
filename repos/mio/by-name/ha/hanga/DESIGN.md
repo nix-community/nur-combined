@@ -9,9 +9,11 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 
 - Voxel meshing (`bevy_voxel_world`) and rigid-body physics (`avian3d`)
 - Window / headless / `--text-client` / `--agent-client` I/O
-- P2P transport (`matchbox`) and TrustLedger distance checks
+- Player-facing locale (`--lang` / `HANGA_LANG`): English, te reo Māori, français, 台灣中文.
+  Host UI strings live here; gameplay names are asked of the mod with that locale tag.
+- P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints
 - `wasmtime` component sandbox + hot-reload
-- Teardown *execution*: unset voxels, spawn debris, collapse unsupported neighbors
+- Teardown *execution*: unset voxels, spawn debris, collapse voxels not connected to ground
 
 Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mod** defines.
 
@@ -22,6 +24,9 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - AI velocities, traffic speed, economy, storyteller
 - Spawn positions
 - What can shatter (`can-fracture`, `fracture-spread`, `debris-impulse`)
+- Passive tick (wanted decay), ambient NPCs
+- Localized copy (`voxel-label`, `event-label`, `contract-label`, `supported-locales`)
+- Wallet / contracts (`mod-wallet-after`, `mod-offer-contract`, `mod-can-complete`)
 
 ### Shipped mods
 
@@ -41,7 +46,15 @@ hanga --headless
 hanga --text-client
 hanga --agent-client
 hanga --cheat
+hanga --text-client --lang mi
+hanga --lang fr
+hanga --lang zh-TW
 ```
+
+Locales: `en`, `mi` (Māori), `fr`, `zh-TW` (Taiwan Chinese). Also `HANGA_LANG` or `LANG`.
+Text-client extras: `look` / `status`, `accept job`, `complete job`, `fence`, `lang mi`.
+English commands always work; each locale has native aliases (`前進`, `avancer`, `titiro`, …).
+Agent JSON stays keyed in English, with `locale` + `voxel_label` on Look.
 
 Build a mod as a WASM component (host tests use `rlib`; wasm needs `cdylib`):
 
@@ -64,6 +77,6 @@ binding the mod must be a component (`wit-bindgen` + `wasm-tools component new`,
 ## Next
 
 1. Compile mods to components in `package.nix` and install them next to the binary
-2. Flood-fill support (connected-to-ground) instead of only "solid immediately below"
-3. Matchbox signaling in nix; identity / signed actions
-4. Kani CI for engine + mods
+2. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
+3. Kani CI for engine + mods
+4. Crafting / inventory and subway world-gen still live in Urban Chaos

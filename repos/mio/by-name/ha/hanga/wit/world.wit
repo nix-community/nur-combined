@@ -39,6 +39,32 @@ interface gameplay {
     fracture-spread: func(voxel-type: s32) -> s32;
     /// Impulse applied to spawned debris for an action type.
     debris-impulse: func(action-type: s32) -> f32;
+
+    /// Passive tick owned by the mod (wanted-level decay, etc.). `dt-ms` is elapsed millis.
+    mod-tick: func(current-state: s32, dt-ms: s32) -> s32;
+    /// 1 if this agent type should leave given the current mod state.
+    should-despawn-agent: func(agent-type: s32, current-state: s32) -> s32;
+
+    /// Ambient civilians / NPCs the mod wants at load (x, y, z, agent-type).
+    ambient-agent-count: func() -> s32;
+    ambient-agent-spawn: func(index: s32) -> tuple<s32, s32, s32, s32>;
+
+    /// Human-readable material name. `locale` is a BCP-47 tag (en, mi, fr, zh-TW).
+    voxel-label: func(voxel-type: s32, locale: string) -> string;
+
+    /// Mod-owned wallet / score after this action. `extra` is payout or loot type.
+    /// action-type: 5=AcceptContract, 6=CompleteContract, 7=FenceLoot
+    mod-wallet-after: func(action-type: s32, current-wallet: s32, extra: s32) -> s32;
+    /// Offered contract (kind, payout, danger). kind 0 = none.
+    mod-offer-contract: func(player-state: s32) -> tuple<s32, s32, s32>;
+    /// 1 if this verb is legal given current state + contract (kind, danger).
+    mod-can-complete: func(action-type: s32, player-state: s32, contract-kind: s32, contract-danger: s32) -> s32;
+    /// Accessibility / log label for a story or contract id.
+    event-label: func(event-id: s32, locale: string) -> string;
+    /// Name of a contract kind (0 = none) in the given locale.
+    contract-label: func(kind: s32, locale: string) -> string;
+    /// Comma-separated locales this mod ships, e.g. "en,mi,fr,zh-TW".
+    supported-locales: func() -> string;
 }
 
 world plugin {

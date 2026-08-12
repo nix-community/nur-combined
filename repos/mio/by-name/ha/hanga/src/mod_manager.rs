@@ -93,7 +93,7 @@ impl bevy::app::Plugin for ModManagerPlugin {
     }
 }
 
-fn watch_mod_changes(mut runtime: ResMut<ModRuntime>) {
+fn watch_mod_changes(runtime: ResMut<ModRuntime>) {
     let mut changed = false;
     while let Ok(event) = runtime.rx.try_recv() {
         if event.kind.is_modify() || event.kind.is_create() {

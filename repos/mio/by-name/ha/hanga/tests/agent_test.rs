@@ -36,6 +36,8 @@ fn test_agent_client_interaction() {
     // It should contain the JSON observation
     assert!(output.contains("\"status\":\"ok\""));
     assert!(output.contains("\"trust_score\":"));
+    assert!(output.contains("\"wanted_level\":"));
+    assert!(output.contains("\"voxel_ahead\":"));
 
     // Send a MoveForward command
     let move_command = b"{\"action\": \"MoveForward\"}\n";

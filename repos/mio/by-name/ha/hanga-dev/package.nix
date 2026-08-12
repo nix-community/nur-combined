@@ -5,7 +5,10 @@
   udev,
   alsa-lib,
   vulkan-loader,
-  xorg,
+  libx11,
+  libxcursor,
+  libxi,
+  libxrandr,
   wayland,
   libxkbcommon,
   makeWrapper,
@@ -28,10 +31,10 @@ cargoNix.workspaceMembers.hanga.build.override {
         udev
         alsa-lib
         vulkan-loader
-        xorg.libX11
-        xorg.libXcursor
-        xorg.libXi
-        xorg.libXrandr
+        libx11
+        libxcursor
+        libxi
+        libxrandr
         wayland
         libxkbcommon
       ];
@@ -57,7 +60,7 @@ cargoNix.workspaceMembers.hanga.build.override {
       buildInputs = (attrs.buildInputs or [ ]) ++ [ alsa-lib ];
     };
     x11-dl = attrs: {
-      buildInputs = (attrs.buildInputs or [ ]) ++ [ xorg.libX11 ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ [ libx11 ];
     };
   };
 }

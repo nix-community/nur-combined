@@ -3,6 +3,8 @@
 /// All functions here are deterministic and independently testable.
 /// The ECS systems in main.rs call these; `cargo test --lib` exercises them.
 
+pub mod i18n;
+
 // ─── Anti-cheat / Trust ──────────────────────────────────────────────────────
 
 /// Tracks P2P peer trust scores keyed by a raw u64 peer id.
@@ -103,6 +105,86 @@ pub fn fracture_offsets(spread: i32) -> Vec<(i32, i32, i32)> {
 /// Pack a voxel type into the 0..=255 material range used by the renderer.
 pub fn clamp_voxel_type(voxel_type: i32) -> u8 {
     voxel_type.clamp(0, 255) as u8
+}
+
+// ─── Connectivity (Teardown support) ──────────────────────────────────────────
+
+const FACE_NEIGHBORS: [(i32, i32, i32); 6] = [
+    (1, 0, 0),
+    (-1, 0, 0),
+    (0, 1, 0),
+    (0, -1, 0),
+    (0, 0, 1),
+    (0, 0, -1),
+];
+
+/// 6-connected flood fill: can `start` walk through solid cells to bedrock (`y < 0`)
+/// within `max_hops`? Used so cantilevers stay up if they still touch the ground.
+pub fn is_connected_to_ground(
+    start: (i32, i32, i32),
+    max_hops: u32,
+    mut is_solid: impl FnMut(i32, i32, i32) -> bool,
+) -> bool {
+    if start.1 < 0 {
+        return true;
+    }
+    if !is_solid(start.0, start.1, start.2) {
+        return false;
+    }
+    let mut seen = std::collections::HashSet::new();
+    let mut queue = std::collections::VecDeque::new();
+    seen.insert(start);
+    queue.push_back((start, 0u32));
+    while let Some(((x, y, z), hops)) = queue.pop_front() {
+        if y < 0 {
+            return true;
+        }
+        if hops >= max_hops {
+            continue;
+        }
+        for (dx, dy, dz) in FACE_NEIGHBORS {
+            let n = (x + dx, y + dy, z + dz);
+            if !seen.insert(n) {
+                continue;
+            }
+            if n.1 < 0 || is_solid(n.0, n.1, n.2) {
+                queue.push_back((n, hops + 1));
+            }
+        }
+    }
+    false
+}
+
+/// Stable fingerprint of an optimistic action (for logs / duplicate detection).
+pub fn action_fingerprint(kind: u8, x: i32, y: i32, z: i32, extra: i32) -> u64 {
+    let mut h = 0xcbf29ce484222325u64;
+    for w in [kind as u64, x as u64, y as u64, z as u64, extra as u64] {
+        h ^= w;
+        h = h.wrapping_mul(0x0000_0100_0000_01B3);
+    }
+    h
+}
+
+/// Peers reject an action whose claimed fingerprint does not match the payload.
+pub fn verify_action_signature(
+    kind: u8,
+    x: i32,
+    y: i32,
+    z: i32,
+    extra: i32,
+    claimed: u64,
+) -> bool {
+    action_fingerprint(kind, x, y, z, extra) == claimed
+}
+
+/// Wallet / score integer owned by the mod; engine only clamps to a safe range.
+pub fn clamp_wallet(value: i32) -> i32 {
+    value.clamp(0, 1_000_000)
+}
+
+/// A contract offer is live when the mod returns a non-zero kind.
+pub fn contract_is_offered(kind: i32) -> bool {
+    kind > 0
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
@@ -342,5 +424,106 @@ mod tests {
         assert_eq!(clamp_voxel_type(-1), 0);
         assert_eq!(clamp_voxel_type(3), 3);
         assert_eq!(clamp_voxel_type(300), 255);
+    }
+
+    // ── is_connected_to_ground ────────────────────────────────────────────────
+
+    #[test]
+    fn bedrock_cell_is_grounded() {
+        assert!(is_connected_to_ground((0, -1, 0), 4, |_, _, _| false));
+    }
+
+    #[test]
+    fn air_is_not_grounded() {
+        assert!(!is_connected_to_ground((0, 3, 0), 8, |_, _, _| false));
+    }
+
+    #[test]
+    fn column_standing_on_bedrock_is_grounded() {
+        let solid = |x: i32, y: i32, z: i32| x == 0 && z == 0 && (0..=3).contains(&y);
+        assert!(is_connected_to_ground((0, 3, 0), 8, solid));
+    }
+
+    #[test]
+    fn floating_block_is_not_grounded() {
+        let solid = |x: i32, y: i32, z: i32| x == 0 && z == 0 && (2..=4).contains(&y);
+        assert!(!is_connected_to_ground((0, 3, 0), 8, solid));
+    }
+
+    #[test]
+    fn cantilever_connected_sideways_stays_up() {
+        // A 1-wide arm at y=1 attached to a pillar on bedrock at x=0.
+        let solid = |x: i32, y: i32, z: i32| {
+            z == 0 && ((x == 0 && (0..=2).contains(&y)) || (x == 1 && y == 1) || (x == 2 && y == 1))
+        };
+        assert!(is_connected_to_ground((2, 1, 0), 8, solid));
+    }
+
+    #[test]
+    fn hop_limit_prevents_infinite_search() {
+        let solid = |_x: i32, y: i32, _z: i32| y >= 0;
+        assert!(!is_connected_to_ground((0, 5, 0), 2, solid));
+    }
+
+    #[test]
+    fn action_fingerprint_is_stable_and_sensitive() {
+        let a = action_fingerprint(1, 4, 5, 6, 0);
+        let b = action_fingerprint(1, 4, 5, 6, 0);
+        let c = action_fingerprint(1, 4, 5, 7, 0);
+        assert_eq!(a, b);
+        assert_ne!(a, c);
+    }
+
+    #[test]
+    fn matching_fingerprint_is_accepted() {
+        let fp = action_fingerprint(6, 10, 0, 0, 400);
+        assert!(verify_action_signature(6, 10, 0, 0, 400, fp));
+    }
+
+    #[test]
+    fn tampered_fingerprint_is_rejected() {
+        let fp = action_fingerprint(1, 2, 3, 4, 0);
+        assert!(!verify_action_signature(1, 2, 3, 4, 0, fp.wrapping_add(1)));
+        assert!(!verify_action_signature(1, 2, 3, 5, 0, fp));
+    }
+
+    #[test]
+    fn wallet_clamp_rejects_overflow_and_debt() {
+        assert_eq!(clamp_wallet(250), 250);
+        assert_eq!(clamp_wallet(-80), 0);
+        assert_eq!(clamp_wallet(i32::MAX), 1_000_000);
+    }
+
+    #[test]
+    fn contract_kind_zero_is_not_an_offer() {
+        assert!(!contract_is_offered(0));
+        assert!(contract_is_offered(1));
+        assert!(contract_is_offered(2));
+    }
+}
+
+#[cfg(kani)]
+mod kani_verification {
+    use super::*;
+
+    #[kani::proof]
+    fn verify_signature_roundtrip() {
+        let kind: u8 = kani::any();
+        let x: i32 = kani::any();
+        let y: i32 = kani::any();
+        let z: i32 = kani::any();
+        let extra: i32 = kani::any();
+        let fp = action_fingerprint(kind, x, y, z, extra);
+        kani::assert(
+            verify_action_signature(kind, x, y, z, extra, fp),
+            "fingerprint must verify against its own payload",
+        );
+    }
+
+    #[kani::proof]
+    fn verify_wallet_clamp_is_non_negative() {
+        let value: i32 = kani::any();
+        let clamped = clamp_wallet(value);
+        kani::assert(clamped >= 0 && clamped <= 1_000_000, "wallet clamp bounds");
     }
 }

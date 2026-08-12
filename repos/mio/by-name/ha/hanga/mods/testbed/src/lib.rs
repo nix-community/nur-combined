@@ -5,6 +5,8 @@
 
 wit_bindgen::generate!({ world: "plugin", path: "../../wit" });
 
+include!("../../locale.rs");
+
 struct TestbedMod;
 
 pub fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
@@ -89,6 +91,84 @@ pub fn debris_impulse(_action_type: i32) -> f32 {
     8.0
 }
 
+pub fn mod_tick(current_state: i32, _dt_ms: i32) -> i32 {
+    current_state
+}
+
+pub fn should_despawn_agent(_agent_type: i32, _current_state: i32) -> i32 {
+    0
+}
+
+pub fn ambient_agent_count() -> i32 {
+    0
+}
+
+pub fn ambient_agent_spawn(_index: i32) -> (i32, i32, i32, i32) {
+    (0, 2, 0, 2)
+}
+
+pub fn voxel_label(voxel_type: i32) -> String {
+    voxel_label_for("en", voxel_type)
+}
+
+pub fn voxel_label_for(locale: &str, voxel_type: i32) -> String {
+    let lang = locale_id(locale);
+    match (lang, voxel_type) {
+        (1, 0) => "hau",
+        (1, 1) => "raima",
+        (1, 3) => "karaihe",
+        (1, _) => "tē mōhiotia",
+        (2, 0) => "air",
+        (2, 1) => "béton",
+        (2, 3) => "verre",
+        (2, _) => "inconnu",
+        (3, 0) => "空氣",
+        (3, 1) => "混凝土",
+        (3, 3) => "玻璃",
+        (3, _) => "未知",
+        (_, 0) => "air",
+        (_, 1) => "concrete",
+        (_, 3) => "glass",
+        _ => "unknown",
+    }
+    .into()
+}
+
+pub fn mod_wallet_after(_action_type: i32, current_wallet: i32, _extra: i32) -> i32 {
+    current_wallet
+}
+
+pub fn mod_offer_contract(_player_state: i32) -> (i32, i32, i32) {
+    (0, 0, 0)
+}
+
+pub fn mod_can_complete(
+    _action_type: i32,
+    _player_state: i32,
+    _contract_kind: i32,
+    _contract_danger: i32,
+) -> i32 {
+    0
+}
+
+pub fn event_label(_event_id: i32) -> String {
+    event_label_for("en", 0)
+}
+
+pub fn event_label_for(locale: &str, _event_id: i32) -> String {
+    match locale_id(locale) {
+        1 => "korekore",
+        2 => "vide",
+        3 => "虛空",
+        _ => "void",
+    }
+    .into()
+}
+
+pub fn contract_label_for(_locale: &str, _kind: i32) -> String {
+    String::new()
+}
+
 impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn init_mod() {}
     fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
@@ -145,6 +225,44 @@ impl exports::hanga::engine::gameplay::Guest for TestbedMod {
     fn debris_impulse(action_type: i32) -> f32 {
         crate::debris_impulse(action_type)
     }
+    fn mod_tick(current_state: i32, dt_ms: i32) -> i32 {
+        crate::mod_tick(current_state, dt_ms)
+    }
+    fn should_despawn_agent(agent_type: i32, current_state: i32) -> i32 {
+        crate::should_despawn_agent(agent_type, current_state)
+    }
+    fn ambient_agent_count() -> i32 {
+        crate::ambient_agent_count()
+    }
+    fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, i32) {
+        crate::ambient_agent_spawn(index)
+    }
+    fn voxel_label(voxel_type: i32, locale: String) -> String {
+        crate::voxel_label_for(&locale, voxel_type)
+    }
+    fn mod_wallet_after(action_type: i32, current_wallet: i32, extra: i32) -> i32 {
+        crate::mod_wallet_after(action_type, current_wallet, extra)
+    }
+    fn mod_offer_contract(player_state: i32) -> (i32, i32, i32) {
+        crate::mod_offer_contract(player_state)
+    }
+    fn mod_can_complete(
+        action_type: i32,
+        player_state: i32,
+        contract_kind: i32,
+        contract_danger: i32,
+    ) -> i32 {
+        crate::mod_can_complete(action_type, player_state, contract_kind, contract_danger)
+    }
+    fn event_label(event_id: i32, locale: String) -> String {
+        crate::event_label_for(&locale, event_id)
+    }
+    fn contract_label(kind: i32, locale: String) -> String {
+        crate::contract_label_for(&locale, kind)
+    }
+    fn supported_locales() -> String {
+        crate::supported_locales()
+    }
 }
 
 export!(TestbedMod);
@@ -178,5 +296,31 @@ mod tests {
     fn spawn_is_above_floor() {
         let (_x, y, _z) = player_spawn();
         assert!(y > 0);
+    }
+
+    #[test]
+    fn testbed_has_no_ambient_or_decay() {
+        assert_eq!(ambient_agent_count(), 0);
+        assert_eq!(mod_tick(3, 8000), 3);
+        assert_eq!(voxel_label(0), "air");
+    }
+
+    #[test]
+    fn testbed_has_no_heists_or_wallet() {
+        assert_eq!(mod_offer_contract(5), (0, 0, 0));
+        assert_eq!(mod_wallet_after(6, 99, 1200), 99);
+        assert_eq!(mod_can_complete(5, 0, 1, 1), 0);
+        assert_eq!(event_label(2), "void");
+    }
+
+    #[test]
+    fn testbed_labels_follow_locale() {
+        assert_eq!(voxel_label_for("mi", 0), "hau");
+        assert_eq!(voxel_label_for("fr", 3), "verre");
+        assert_eq!(voxel_label_for("zh-TW", 1), "混凝土");
+        assert_eq!(event_label_for("zh-TW", 0), "虛空");
+        assert_eq!(event_label_for("fr", 9), "vide");
+        assert!(contract_label_for("en", 1).is_empty());
+        assert_eq!(supported_locales(), "en,mi,fr,zh-TW");
     }
 }
