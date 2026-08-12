@@ -93,6 +93,8 @@ pkgs.python3Packages.buildPythonPackage rec {
 
   postPatch = ''
     sed -i '/^import pillow_avif/d' app/api/endpoints/system.py app/chain/recommend.py
+    sed -i '/existing_paths = {route.path: route for route in app.routes}/c\    existing_paths = {route.path: route for route in app.routes if getattr(route, "path", None) is not None}' app/api/endpoints/plugin.py
+    sed -i '/route for route in app.routes if any(route.path.startswith(prefix) for prefix in prefixes)/c\        route for route in app.routes if any(getattr(route, "path", "").startswith(prefix) for prefix in prefixes)' app/api/endpoints/plugin.py
   '';
 
   dontBuild = true;
