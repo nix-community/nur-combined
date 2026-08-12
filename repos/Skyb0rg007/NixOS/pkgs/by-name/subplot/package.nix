@@ -56,7 +56,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     mainProgram = "subplot";
     homepage = "https://subplot.tech/";
     downloadPage = "https://subplot.tech/download/";
-    changelog = "https://radicle.network/nodes/${finalAttrs.src.seed}/rad%3A${finalAttrs.src.repo}/tree/${finalAttrs.src.rev}/NEWS.md";
+    changelog = "https://radicle.network/nodes/${finalAttrs.src.seed}/rad%3A${finalAttrs.src.repo}/tree/${finalAttrs.src.tag}/NEWS.md";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
