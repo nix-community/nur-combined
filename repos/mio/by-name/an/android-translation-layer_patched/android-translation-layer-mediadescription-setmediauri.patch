@@ -1,0 +1,36 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] stub MediaDescription.Builder.setMediaUri() for NewPipe
+
+NewPipe's MediaDescriptionCompat (API 23) calls Builder.setMediaUri()
+when publishing the ExoPlayer queue to MediaSession. ATL had no such
+method, so ART aborted with NoSuchMethodError.
+
+--- a/src/api-impl/android/media/MediaDescription.java
++++ b/src/api-impl/android/media/MediaDescription.java
+@@ -7,6 +7,7 @@
+ public class MediaDescription {
+ 
+ 	public Uri iconUri;
++	public Uri mediaUri;
+ 	public CharSequence title;
+ 	public CharSequence subtitle;
+ 
+@@ -37,8 +38,17 @@
+ 
+ 		public Builder setExtras(Bundle extras) { return this; }
+ 
++		public Builder setMediaUri(Uri mediaUri) {
++			description.mediaUri = mediaUri;
++			return this;
++		}
++
+ 		public MediaDescription build() {
+ 			return description;
+ 		}
+ 	}
++
++	public Uri getMediaUri() {
++		return mediaUri;
++	}
+ }

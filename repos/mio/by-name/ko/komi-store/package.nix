@@ -2,50 +2,65 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  gradle,
+  gradle_8,
   jdk21,
+  alsa-lib,
   autoPatchelfHook,
   copyDesktopItems,
-  makeDesktopItem,
-  file,
-  alsa-lib,
-  atk,
-  cairo,
   cups,
-  dbus,
-  expat,
+  file,
   fontconfig,
   freetype,
-  gdk-pixbuf,
   glib,
   gtk3,
   libGL,
-  libdrm,
-  libxkbcommon,
   libx11,
-  libxdamage,
-  libxext,
-  libxfixes,
-  libxrandr,
-  libxcb,
   libxcursor,
+  libxext,
   libxi,
   libxinerama,
+  libxkbcommon,
+  libxrandr,
   libxrender,
-  libxscrnsaver,
   libxtst,
-  mesa,
-  nspr,
-  nss,
-  pango,
+  makeDesktopItem,
+  makeWrapper,
+  nix-update-script,
+  wrapGAppsHook3,
+  zlib,
 }:
 
+let
+  jdk = jdk21;
+  gradle = gradle_8.override { java = jdk; };
+
+  # Compose native launcher + Skiko/JNA on Linux.
+  runtimeLibs = [
+    alsa-lib
+    cups
+    file
+    fontconfig
+    freetype
+    glib
+    gtk3
+    libGL
+    libx11
+    libxcursor
+    libxext
+    libxi
+    libxinerama
+    libxkbcommon
+    libxrandr
+    libxrender
+    libxtst
+    zlib
+  ];
+in
 stdenv.mkDerivation (finalAttrs: {
   pname = "komi-store";
   version = "1.9.2";
 
   strictDeps = true;
-  __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "kurikomi-labs";
@@ -54,132 +69,71 @@ stdenv.mkDerivation (finalAttrs: {
     hash = "sha256-oRGkXLoH8+bzy3NE2rdtW3qgqT2c+z2y0qmwosatAeg=";
   };
 
-  # Desktop-only build: drop Android Gradle plugins/deps (no Android SDK in nix).
+  # Desktop-only: upstream also targets Android (SDK not available in nixpkgs).
   patches = [
+    # Compose Gradle plugin artifacts live on JetBrains Space.
     ./compose-repo.patch
+    # Isolated build-logic included build has no pluginManagement.
     ./build-logic-pluginmanagement.patch
     ./disable-android-convention.patch
     ./disable-android-composeapp.patch
   ];
 
   nativeBuildInputs = [
-    gradle
-    jdk21
     autoPatchelfHook
     copyDesktopItems
+    gradle
+    jdk
+    makeWrapper
+    wrapGAppsHook3
   ];
 
-  buildInputs = [
-    file
-    alsa-lib
-    atk
-    cairo
-    cups
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    gtk3
-    libGL
-    libdrm
-    libxkbcommon
-    mesa
-    nspr
-    nss
-    pango
-    libx11
-    libxcursor
-    libxdamage
-    libxext
-    libxfixes
-    libxi
-    libxinerama
-    libxrandr
-    libxrender
-    libxscrnsaver
-    libxtst
-    libxcb
-  ];
+  buildInputs = runtimeLibs;
 
   mitmCache = gradle.fetchDeps {
+    inherit (finalAttrs) pname;
     pkg = finalAttrs.finalPackage;
     data = ./deps.json;
   };
 
   __darwinAllowLocalNetworking = true;
 
+  env.JAVA_HOME = jdk;
+
   gradleFlags = [
-    "-Dorg.gradle.java.home=${jdk21}"
+    "-Dorg.gradle.java.home=${jdk}"
     "-Dfile.encoding=utf-8"
   ];
 
   gradleBuildTask = "composeApp:createDistributable";
-  gradleUpdateTask = "composeApp:createDistributable";
+  gradleUpdateTask = finalAttrs.gradleBuildTask;
 
-  env.JAVA_HOME = jdk21;
+  # Tests are Android-oriented and need an SDK.
+  doCheck = false;
+
+  dontWrapGApps = true;
 
   installPhase = ''
     runHook preInstall
 
-    # Compose Multiplatform packageName = "Komi-Store"
-    mkdir -p $out/opt/komi-store $out/bin
-    cp -r composeApp/build/compose/binaries/main/app/Komi-Store/* $out/opt/komi-store/
-    rm -rf $out/opt/komi-store/lib/runtime
+    mkdir -p $out/lib
+    cp -a composeApp/build/compose/binaries/main/app/Komi-Store $out/lib/komi-store
 
-    cat > $out/bin/komi-store <<'EOF'
-    #!/usr/bin/env bash
-    set -euo pipefail
-
-    appdir="@out@/opt/komi-store/lib/app"
-    cfg="$appdir/Komi-Store.cfg"
-    classpath=""
-    main_class=""
-    java_opts=()
-
-    while IFS= read -r line; do
-      case "$line" in
-        app.classpath=*)
-          entry="''${line#app.classpath=}"
-          entry="''${entry//\$APPDIR/$appdir}"
-          if [ -z "$classpath" ]; then
-            classpath="$entry"
-          else
-            classpath="$classpath:$entry"
-          fi
-          ;;
-        app.mainclass=*)
-          main_class="''${line#app.mainclass=}"
-          ;;
-        java-options=*)
-          opt="''${line#java-options=}"
-          opt="''${opt//\$APPDIR/$appdir}"
-          java_opts+=("$opt")
-          ;;
-      esac
-    done < "$cfg"
-
-    if [ -z "$main_class" ]; then
-      echo "Missing main class in $cfg" >&2
-      exit 1
-    fi
-
-    exec "@jdk@/bin/java" \
-      "''${java_opts[@]}" \
-      -cp "$classpath" \
-      "$main_class" \
-      "$@"
-    EOF
-    substituteInPlace $out/bin/komi-store \
-      --replace-fail "@out@" "$out" \
-      --replace-fail "@jdk@" "${jdk21}"
-    chmod +x $out/bin/komi-store
+    # Use nixpkgs JDK instead of the bundled runtime (already patchelf'd).
+    rm -rf $out/lib/komi-store/lib/runtime
+    ln -s ${jdk}/lib/openjdk $out/lib/komi-store/lib/runtime
 
     install -Dm644 composeApp/src/jvmMain/resources/logo/app_icon.png \
       $out/share/icons/hicolor/512x512/apps/komi-store.png
 
     runHook postInstall
+  '';
+
+  # wrapGAppsHook3 + extra native search path for Skiko/JNA.
+  preFixup = ''
+    makeWrapper $out/lib/komi-store/bin/Komi-Store $out/bin/komi-store \
+      "''${gappsWrapperArgs[@]}" \
+      --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibs}"
   '';
 
   desktopItems = [
@@ -188,21 +142,27 @@ stdenv.mkDerivation (finalAttrs: {
       exec = "komi-store";
       icon = "komi-store";
       desktopName = "Komi Store";
+      genericName = "App Store";
       comment = finalAttrs.meta.description;
-      categories = [ "Development" ];
+      categories = [ "Network" ];
+      startupWMClass = "Komi-Store";
     })
   ];
+
+  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "Cross-platform app store for GitHub releases";
     homepage = "https://github.com/kurikomi-labs/komi-store";
+    changelog = "https://github.com/kurikomi-labs/komi-store/releases/tag/v${finalAttrs.version}";
     license = lib.licenses.asl20;
     maintainers = with lib.maintainers; [ mio ];
-    platforms = lib.platforms.linux;
-    mainProgram = "Komi-Store";
+    # Skiko natives in deps.json are linux-x64 only.
+    platforms = [ "x86_64-linux" ];
+    mainProgram = "komi-store";
     sourceProvenance = with lib.sourceTypes; [
       fromSource
-      binaryBytecode
+      binaryBytecode # mitm cache
     ];
   };
 })

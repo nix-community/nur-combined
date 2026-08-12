@@ -1,0 +1,45 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] stub AudioDeviceCallback for ExoPlayer / NewPipe
+
+NewPipe's ExoPlayer DefaultAudioSink.getAudioCapabilities() references
+android.media.AudioDeviceCallback (API 23). ATL had no such class, so
+playback failed with ClassNotFoundException / NoClassDefFoundError.
+
+--- a/src/api-impl/android/media/AudioManager.java
++++ b/src/api-impl/android/media/AudioManager.java
+@@ -102,4 +102,10 @@
+ 	public AudioDeviceInfo[] getDevices(int flags) {
+ 		return new AudioDeviceInfo[0];
+ 	}
++
++	public void registerAudioDeviceCallback(AudioDeviceCallback callback, android.os.Handler handler) {
++	}
++
++	public void unregisterAudioDeviceCallback(AudioDeviceCallback callback) {
++	}
+ }
+
+--- /dev/null
++++ b/src/api-impl/android/media/AudioDeviceCallback.java
+@@ -0,0 +1,9 @@
++package android.media;
++
++public abstract class AudioDeviceCallback {
++	public void onAudioDevicesAdded(AudioDeviceInfo[] addedDevices) {
++	}
++
++	public void onAudioDevicesRemoved(AudioDeviceInfo[] removedDevices) {
++	}
++}
+
+--- a/src/api-impl/meson.build
++++ b/src/api-impl/meson.build
+@@ -326,6 +326,7 @@
+ 	'android/media/AudioFormat.java',
+ 	'android/media/AudioManager.java',
+ 	'android/media/AudioDeviceInfo.java',
++	'android/media/AudioDeviceCallback.java',
+ 	'android/media/AudioRecord.java',
+ 	'android/media/AudioTimestamp.java',
+ 	'android/media/AudioTrack.java',
