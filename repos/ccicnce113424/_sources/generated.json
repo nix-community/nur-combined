@@ -596,11 +596,11 @@
     "splayer-next-dev": {
         "cargoLock": {
             "Cargo.lock": [
-                "sha256-D2Ja_ZF5hKRVy_O33mCsl0iulYUqP_qRiQLjX0tl0dM=/Cargo.lock",
+                "sha256-Y+n66YqR1QRCD8sXUVvOg0YtorlTbRCZJPTa346koUU=/Cargo.lock",
                 {}
             ]
         },
-        "date": "2026-08-11",
+        "date": "2026-08-12",
         "extract": null,
         "name": "splayer-next-dev",
         "passthru": null,
@@ -612,12 +612,12 @@
             "name": null,
             "owner": "SPlayer-Dev",
             "repo": "SPlayer-Next",
-            "rev": "20b7993b1a3d5104474e22b91eef9c26fbad6a66",
-            "sha256": "sha256-D2Ja/ZF5hKRVy/O33mCsl0iulYUqP/qRiQLjX0tl0dM=",
+            "rev": "9a7a1255ab1c6157f5326f24caff3d9f14da0d69",
+            "sha256": "sha256-Y+n66YqR1QRCD8sXUVvOg0YtorlTbRCZJPTa346koUU=",
             "sparseCheckout": [],
             "type": "github"
         },
-        "version": "20b7993b1a3d5104474e22b91eef9c26fbad6a66"
+        "version": "9a7a1255ab1c6157f5326f24caff3d9f14da0d69"
     },
     "svt-av1-essential": {
         "cargoLock": null,
