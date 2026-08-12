@@ -528,8 +528,8 @@
             "url": "https://github.com/cawilliamson/nur-packages"
         },
         "ccicnce113424": {
-            "rev": "928603b2bfc30edcdf53e8da8b43a4ff25b31ce8",
-            "sha256": "1cahmjr98wp43pc4zvnxn663yvs291w7l8arsxm23z1hgr8jfarz",
+            "rev": "bc650c7062a17d4190910b43ad45a3e1b3afdc9f",
+            "sha256": "0pdwmvnfyrs558w41l7xhdkxxhajp1kx1ky9sx00b04imb66bbhr",
             "url": "https://github.com/ccicnce113424/nix-packages"
         },
         "chagra": {
@@ -1598,8 +1598,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "819704d1b98831663dc256f659f2044f861af126",
-            "sha256": "1q9w58axhx2srka9qn31w5by9c730l887692vf0145d9fbd5wnml",
+            "rev": "50c11788d9a7fb596f07268e96484d018b318e6c",
+            "sha256": "07g63rsvsir7vf76ysw3djsmrfvr591h11k1kvvgbrrygsv8x81k",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -2677,8 +2677,8 @@
             "url": "https://github.com/lz37/nur"
         },
         "zhyiheihei": {
-            "rev": "1501090842e2a16088c914d661da0acd8e754de8",
-            "sha256": "1qd7lz9nvrwbwwakcd0nknhz0f8zq21p4c8hsiwm3lrvd3gjcq3s",
+            "rev": "aa2c29f831445dc5b65acddc0a4941488cc4ebeb",
+            "sha256": "02av220m4wf6lvz1cj55v96ryni9l4dbyayw575f64n6zbg7nf6s",
             "url": "https://github.com/zhyiheihei/zhyi-packages"
         },
         "zimeg": {
