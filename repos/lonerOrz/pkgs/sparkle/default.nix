@@ -26,10 +26,13 @@ stdenv.mkDerivation {
   inherit pname version;
 
   src = fetchurl {
-    url = "https://github.com/INKCR0W/sparkle/releases/download/${version}/sparkle-linux-${version}-${{
-      x86_64-linux = "amd64";
-      aarch64-linux = "arm64";
-    }.${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")}.deb";
+    url = "https://github.com/xishang0128/sparkle/releases/download/${version}/sparkle-linux-${version}-${
+      {
+        x86_64-linux = "amd64";
+        aarch64-linux = "arm64";
+      }
+      .${stdenv.hostPlatform.system} or (throw "Unsupported system: ${stdenv.hostPlatform.system}")
+    }.deb";
     hash = current.${stdenv.hostPlatform.system + "-hash"};
   };
 
@@ -79,12 +82,16 @@ stdenv.mkDerivation {
         callPackage ../../utils/fetch-urls.nix {
           inherit versionFile;
           versionCommand = ''
-            curl -sS https://api.github.com/repos/INKCR0W/sparkle/releases/latest \
-              | jq -r '.tag_name'
+            ${
+              (callPackage ../../utils/fetcher.nix { }).githubRelease {
+                owner = "xishang0128";
+                repo = "sparkle";
+              }
+            } | jq -r '.version'
           '';
           hashUrls = {
-            x86_64-linux = "https://github.com/INKCR0W/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-amd64.deb";
-            aarch64-linux = "https://github.com/INKCR0W/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-arm64.deb";
+            x86_64-linux = "https://github.com/xishang0128/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-amd64.deb";
+            aarch64-linux = "https://github.com/xishang0128/sparkle/releases/download/$VERSION/sparkle-linux-$VERSION-arm64.deb";
           };
         }
       )}";
@@ -92,7 +99,7 @@ stdenv.mkDerivation {
 
   meta = {
     description = "Another Mihomo GUI";
-    homepage = "https://github.com/INKCR0W/sparkle";
+    homepage = "https://github.com/xishang0128/sparkle";
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
