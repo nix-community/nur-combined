@@ -1,8 +1,8 @@
 {
   "koffi": {
-    "commit": "",
-    "hash": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
-    "version": ""
+    "commit": "485c9ccb55839c1c499864c953a4d87c1e5823a9",
+    "hash": "sha256-ZdbDDbZTdZhbur0IhtjvSyk8JuTpx8Hyo6NoCz5Jxcw=",
+    "version": "3.1.2"
   },
   "mpvRuntime": {
     "decoders": [
@@ -10,10 +10,10 @@
     ],
     "engine": "libmpv",
     "librempeg": {
-      "commit": "",
-      "hash": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+      "commit": "2582d0d180d74ffc742f437e010e8c3c1017e437",
+      "hash": "sha256-uvScjeEFevMiQjxP3VHax3XEFx4IAvjp852t9A8xh5g="
     },
     "mediaBackend": "librempeg",
-    "version": ""
+    "version": "mpv-94335ab87a.librempeg-2582d0d180.libplacebo-a7a18af88f"
   }
 }
