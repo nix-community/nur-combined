@@ -57,9 +57,11 @@ stdenv.mkDerivation (finalAttrs: {
     # Script wrapper so NIXOS_OZONE_WL expands at runtime.
     # https://github.com/NixOS/nixpkgs/issues/172583
     makeWrapper
-    copyDesktopItems
   ]
-  ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
+  ++ lib.optionals stdenv.hostPlatform.isLinux [
+    copyDesktopItems
+    autoPatchelfHook
+  ];
 
   buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ stdenv.cc.cc.lib ];
 
@@ -118,6 +120,11 @@ stdenv.mkDerivation (finalAttrs: {
       verifyInstalledRuntimeDeps(path.join(__dirname, "..", "..", "release", "app"));
     };
     EOF
+
+    # Skip Apple notarization; identity is already disabled.
+    cat > .erb/scripts/notarize.js <<'EOF'
+    exports.default = async function notarize() {};
+    EOF
   '';
 
   buildPhase = ''
@@ -151,7 +158,30 @@ stdenv.mkDerivation (finalAttrs: {
 
   installPhase = ''
     runHook preInstall
+  ''
+  + lib.optionalString stdenv.hostPlatform.isDarwin ''
+    mkdir -p $out/share/chatbox
+    appDir=
+    for d in release/build/mac*/Chatbox.app; do
+      if [ -d "$d" ]; then
+        appDir="$d"
+        break
+      fi
+    done
+    if [ -z "$appDir" ]; then
+      echo "error: Chatbox.app not found"
+      find release/build -maxdepth 4 -type d || true
+      exit 1
+    fi
+    cp -Pr --no-preserve=ownership "$appDir/Contents/Resources" $out/share/chatbox/
 
+    makeWrapper ${lib.getExe electron} $out/bin/chatbox \
+      --add-flags $out/share/chatbox/resources/app.asar \
+      --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
+      --set-default ELECTRON_IS_DEV 0 \
+      --inherit-argv0
+  ''
+  + lib.optionalString stdenv.hostPlatform.isLinux ''
     mkdir -p $out/share/chatbox
     cp -Pr --no-preserve=ownership release/build/*-unpacked/{locales,resources{,.pak}} $out/share/chatbox
 
@@ -163,11 +193,12 @@ stdenv.mkDerivation (finalAttrs: {
       --set-default ELECTRON_FORCE_IS_PACKAGED 1 \
       --set-default ELECTRON_IS_DEV 0 \
       --inherit-argv0
-
+  ''
+  + ''
     runHook postInstall
   '';
 
-  desktopItems = [
+  desktopItems = lib.optionals stdenv.hostPlatform.isLinux [
     (makeDesktopItem {
       name = "chatbox";
       exec = "chatbox %U";
@@ -199,7 +230,8 @@ stdenv.mkDerivation (finalAttrs: {
     platforms = [
       "x86_64-linux"
       "aarch64-linux"
-    ];
+    ]
+    ++ lib.platforms.darwin;
     sourceProvenance = with lib.sourceTypes; [
       fromSource
       binaryNativeCode # @libsql prebuilds, @vscode/ripgrep-universal
