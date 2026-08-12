@@ -29,6 +29,34 @@
         },
         "version": "1.10.1"
     },
+    "niri": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-F3tiXg+YPpI56ztqs3W2I1uV83KwDBKZjN5Vhz6MRUw=/Cargo.lock",
+                {
+                    "smithay-0.7.0": "sha256-2aurK1dZAD49FTYURzZuQkBM07woZB/rNymF0fuSbR8="
+                }
+            ]
+        },
+        "date": "2026-08-13",
+        "extract": null,
+        "name": "niri",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "so1ve",
+            "repo": "niri",
+            "rev": "70e155af73ddb0d0fbd94961e3a38329d2fe7f1d",
+            "sha256": "sha256-F3tiXg+YPpI56ztqs3W2I1uV83KwDBKZjN5Vhz6MRUw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "70e155af73ddb0d0fbd94961e3a38329d2fe7f1d"
+    },
     "r-maple-mono-nf-cn": {
         "cargoLock": null,
         "date": null,

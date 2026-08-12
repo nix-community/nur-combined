@@ -25,6 +25,12 @@ src.git = "https://github.com/TibixDev/winboat.git"
 src.branch = "main"
 fetch.git = "https://github.com/TibixDev/winboat.git"
 
+[niri]
+src.git = "https://github.com/so1ve/niri.git"
+src.branch = "feat/window-geometries"
+fetch.github = "so1ve/niri"
+cargo_lock = ["Cargo.lock"]
+
 [xwayland-satellite]
 src.git = "https://github.com/so1ve/xwayland-satellite.git"
 src.branch = "fix/issue-301"

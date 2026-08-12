@@ -22,6 +22,24 @@
       sha256 = "sha256-2q5TLfwHIx2uAvzjcaZrUObB70ypSnBbs7XyuZaCXuc=";
     };
   };
+  niri = {
+    pname = "niri";
+    version = "70e155af73ddb0d0fbd94961e3a38329d2fe7f1d";
+    src = fetchFromGitHub {
+      owner = "so1ve";
+      repo = "niri";
+      rev = "70e155af73ddb0d0fbd94961e3a38329d2fe7f1d";
+      fetchSubmodules = false;
+      sha256 = "sha256-F3tiXg+YPpI56ztqs3W2I1uV83KwDBKZjN5Vhz6MRUw=";
+    };
+    cargoLock."Cargo.lock" = {
+      lockFile = ./. + "/sha256-F3tiXg+YPpI56ztqs3W2I1uV83KwDBKZjN5Vhz6MRUw=/Cargo.lock";
+      outputHashes = {
+        "smithay-0.7.0" = "sha256-2aurK1dZAD49FTYURzZuQkBM07woZB/rNymF0fuSbR8=";
+      };
+    };
+    date = "2026-08-13";
+  };
   r-maple-mono-nf-cn = {
     pname = "r-maple-mono-nf-cn";
     version = "1783947872";
