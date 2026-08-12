@@ -48,3 +48,20 @@ for `x86_64-linux` or `aarch64-linux`; MeatShell uses its official ARM64 tarball
 because upstream does not publish an ARM64 AppImage.
 `cangjie` is built from the upstream source repositories, while the previous
 vendor binary package remains available as `cangjie-bin`.
+
+## Automatic updates
+
+The `Update NUR packages` GitHub Actions workflow runs every Monday at 03:17
+UTC (11:17 Asia/Shanghai) and can also be started manually. It updates the
+default package set, validates native x86_64 builds, updates the aarch64 source
+pins for binary packages, and commits successful changes directly to the
+repository's default branch.
+
+Projects with maintained binary packages use `meatshell-bin`, `neomacs-bin`,
+and `nyaterm-bin`; their source-built counterparts are intentionally excluded
+from automatic updates. The workflow uses the repository-provided
+`GITHUB_TOKEN` and therefore requires GitHub Actions to have read/write
+workflow permissions and permission to push to the default branch.
+After pushing an update, it explicitly dispatches the regular package build
+workflow because commits made with `GITHUB_TOKEN` do not trigger another
+workflow from the ordinary `push` event.

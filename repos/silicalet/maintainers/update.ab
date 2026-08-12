@@ -11,8 +11,10 @@ main (args) {
         "ghost-downloader-3",
         "ipgw",
         "meatshell-bin",
+        "neomacs-bin",
         "nyaterm-bin",
         "quien",
+        "seekey",
         "uipro-cli",
     ]
     if len(args) == 1 {

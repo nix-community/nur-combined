@@ -34,6 +34,7 @@
   ipgw = pkgs.callPackage ./pkgs/ipgw { };
   meatshell = pkgs.callPackage ./pkgs/meatshell { };
   meatshell-bin = pkgs.callPackage ./pkgs/meatshell/binary.nix { };
+  neomacs-bin = pkgs.callPackage ./pkgs/neomacs/binary.nix { };
   nyaterm = pkgs.callPackage ./pkgs/nyaterm { };
   nyaterm-bin = pkgs.callPackage ./pkgs/nyaterm/binary.nix { };
   quien = pkgs.callPackage ./pkgs/quien { };

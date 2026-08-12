@@ -1,0 +1,72 @@
+name: Update NUR packages
+
+on:
+  schedule:
+    # Mondays at 11:17 Asia/Shanghai (03:17 UTC).
+    - cron: "17 3 * * 1"
+  workflow_dispatch:
+
+permissions:
+  actions: write
+  contents: write
+
+concurrency:
+  group: nur-package-updates
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: Update packages and push
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      UPDATE_BRANCH: ${{ github.event.repository.default_branch }}
+
+    steps:
+      - name: Checkout default branch
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ env.UPDATE_BRANCH }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            access-tokens = github.com=${{ github.token }}
+            extra-substituters = https://cache.mr-why.cn/nur
+            extra-trusted-public-keys = nur:aQlY5sfibsfPJgLVG4yMCrJLB4+RJ1vaebK4sWl74K4=
+
+      - name: Update regular and x86_64 binary packages
+        run: nix run .#update -- --all
+
+      - name: Update aarch64 binary packages
+        run: >-
+          nix run .#update --
+          --arch aarch64-linux
+          meatshell-bin neomacs-bin nyaterm-bin
+
+      - name: Commit and push updates
+        id: commit
+        run: |
+          if git diff --quiet; then
+            echo "All packages are already up to date."
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git diff --check
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+          git commit -m "chore: update packages"
+          git pull --rebase origin "$UPDATE_BRANCH"
+          git push origin "HEAD:$UPDATE_BRANCH"
+          echo "updated=true" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger package builds
+        if: steps.commit.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run build.yml --ref "$UPDATE_BRANCH"

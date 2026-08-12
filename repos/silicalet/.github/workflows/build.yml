@@ -55,11 +55,13 @@ jobs:
           - { package: ghost-downloader-3, system: x86_64-linux, runner: ubuntu-latest }
           - { package: ipgw, system: x86_64-linux, runner: ubuntu-latest }
           - { package: meatshell-bin, system: x86_64-linux, runner: ubuntu-latest }
+          - { package: neomacs-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: nyaterm-bin, system: x86_64-linux, runner: ubuntu-latest }
           - { package: quien, system: x86_64-linux, runner: ubuntu-latest }
           - { package: seekey, system: x86_64-linux, runner: ubuntu-latest }
           - { package: uipro-cli, system: x86_64-linux, runner: ubuntu-latest }
           - { package: meatshell-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
+          - { package: neomacs-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
           - { package: nyaterm-bin, system: aarch64-linux, runner: ubuntu-24.04-arm }
 
     steps:

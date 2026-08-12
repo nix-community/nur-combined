@@ -8,16 +8,16 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "code996";
-  version = "1.2.0";
+  version = "1.4.0";
 
   src = fetchFromGitHub {
     owner = "hellodigua";
     repo = "code996";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+petGfuFwWR9HYVFA2XoNLo8WOciDjcLYFqmJqD0bUU=";
+    hash = "sha256-XUzfyKEHzQZu3jgky89bsoubJ3KQI2c75IP9jUWkEbc=";
   };
 
-  npmDepsHash = "sha256-miJsnztq7qsv3gHBmxUZeULRCABvvz8ORv1GL38ZGtE=";
+  npmDepsHash = "sha256-nKq580pNsdtav3rtDU8oV1xmJ1JiiFYlnpYActdwh1Y=";
   nodejs = nodejs_22;
 
   passthru.updateScript = nix-update-script { };
