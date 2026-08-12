@@ -1,0 +1,7 @@
+diff --git a/Make.params b/Make.params
+new file mode 100644
+index 0000000..a9b6f4f
+--- /dev/null
++++ b/Make.params
+@@ -0,0 +1,1 @@
++BIN_DIR=${out}/bin

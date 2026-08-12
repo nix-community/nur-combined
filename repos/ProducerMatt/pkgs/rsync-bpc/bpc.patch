@@ -1,0 +1,13 @@
+diff --git a/support/rrsync b/support/rrsync
+index 15991d6..85e158b 100644
+--- a/support/rrsync
++++ b/support/rrsync
+@@ -156,7 +156,7 @@ def main():
+     if not command:
+         die("Not invoked via sshd")
+     command = command.split(' ', 2)
+-    if command[0:1] != ['rsync']:
++    if command[0:1] != ['/run/current-system/sw/bin/rsync']:
+         die("SSH_ORIGINAL_COMMAND does not run rsync")
+     if command[1:2] != ['--server']:
+         die("--server option is not the first arg")
