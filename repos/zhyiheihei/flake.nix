@@ -2,7 +2,10 @@
   description = "zhyiheihei's NUR repository";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Pin to the last revision where our pnpm-based packages still build
+    # (pnpm_9 was removed by later nixpkgs updates). Auto-update keeps
+    # refreshing package sources while nixpkgs itself stays stable.
+    nixpkgs.url = "github:NixOS/nixpkgs/f13ff45afd1bb73e640eaa08a7066dbed07e3238";
     flake-parts.url = "github:hercules-ci/flake-parts";
 
     # keep-sorted start block=yes
