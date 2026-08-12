@@ -44,6 +44,9 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "komi-store";
   version = "1.9.2";
 
+  strictDeps = true;
+  __structuredAttrs = true;
+
   src = fetchFromGitHub {
     owner = "kurikomi-labs";
     repo = "komi-store";
@@ -194,6 +197,7 @@ stdenv.mkDerivation (finalAttrs: {
     description = "Cross-platform app store for GitHub releases";
     homepage = "https://github.com/kurikomi-labs/komi-store";
     license = lib.licenses.asl20;
+    maintainers = with lib.maintainers; [ mio ];
     platforms = lib.platforms.linux;
     mainProgram = "Komi-Store";
     sourceProvenance = with lib.sourceTypes; [
