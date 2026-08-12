@@ -1,20 +1,29 @@
+use bevy::input::mouse::AccumulatedMouseMotion;
 use bevy::prelude::*;
+use bevy::window::{CursorGrabMode, CursorOptions, PrimaryWindow};
 use wasmtime::Store;
 use wasmtime::component::Linker;
 use bevy_voxel_world::prelude::*;
 use avian3d::prelude::*;
 use std::io::{self, BufRead};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::sync::{mpsc::{channel, Receiver}, Mutex};
 use serde::{Deserialize, Serialize};
 use matchbox_socket::WebRtcSocket;
+use hanga::bindings::{
+    self, BindingSet, ACTION_ACCEPT, ACTION_BACK, ACTION_BREAK, ACTION_COMPLETE, ACTION_CRAFT,
+    ACTION_ENTER, ACTION_EXPLODE, ACTION_FENCE, ACTION_FORWARD, ACTION_JUMP, ACTION_LEFT,
+    ACTION_MENU_CONTROLS, ACTION_MENU_LANG, ACTION_MENU_MULTI, ACTION_MENU_PLAY, ACTION_MENU_QUIT,
+    ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT, ALL_ACTIONS,
+};
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
-    action_fingerprint, clamp_hotbar_index, clamp_mod_state, clamp_voxel_type, clamp_wallet,
-    contract_is_offered, fracture_offsets, inventory_add, inventory_selected, inventory_take,
-    is_action_physically_possible, is_connected_to_ground, parse_p2p_url, should_skip_menu,
-    unpack_economy_params, verify_action_signature, voxel_has_support, DEFAULT_P2P_URL,
-    INVENTORY_SLOTS,
+    action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
+    clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
+    inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
+    is_action_physically_possible, is_connected_to_ground, parse_name_catalog, parse_p2p_url,
+    should_skip_menu, unpack_economy_params, verify_action_signature, voxel_has_support,
+    DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 
 mod mod_manager;
@@ -31,7 +40,20 @@ thread_local! {
 impl VoxelWorldConfig for DefaultWorld {
     type MaterialIndex = u8;
     type ChunkUserBundle = ();
-    
+
+    fn texture_index_mapper(&self) -> TextureIndexMapperFn<Self::MaterialIndex> {
+        std::sync::Arc::new(|mat| match mat {
+            1 => [1, 1, 1],
+            2 => [2, 2, 2],
+            3 => [3, 3, 3],
+            4 => [4, 4, 4],
+            5 => [5, 5, 5],
+            6 => [6, 6, 6],
+            7 => [7, 7, 7],
+            _ => [0, 0, 0],
+        })
+    }
+
     fn voxel_lookup_delegate(&self) -> VoxelLookupDelegate<Self::MaterialIndex> {
         Box::new(|_chunk_pos, _lod, _chunk_data| {
             Box::new(|pos, _voxel| {
@@ -85,6 +107,7 @@ struct UiLocale(Locale);
 enum GameMode {
     #[default]
     Menu,
+    Controls,
     Playing,
 }
 
@@ -107,11 +130,39 @@ enum MenuAction {
     Play,
     Multiplayer,
     Lang,
+    Controls,
     Quit,
 }
 
 #[derive(Component)]
 struct MenuLabel(&'static str);
+
+#[derive(Resource, Clone)]
+struct KeyBindings(BindingSet);
+
+#[derive(Resource, Clone)]
+struct BindingsPath(PathBuf);
+
+#[derive(Resource, Default)]
+struct BindCapture {
+    action: Option<String>,
+    ignore_frames: u8,
+}
+
+#[derive(Component)]
+struct ControlsRoot;
+
+#[derive(Component, Clone, Copy)]
+struct BindRow(&'static str);
+
+#[derive(Component)]
+struct BindRowText(&'static str);
+
+#[derive(Component)]
+struct ControlsHintText;
+
+#[derive(Component)]
+struct ControlsBack;
 
 #[derive(Component)]
 struct HudRoot;
@@ -142,6 +193,9 @@ fn main() {
     let locale = Locale::from_env_and_args(&args);
     let p2p_url = parse_p2p_url(&args);
     let skip_menu = should_skip_menu(&args);
+    let bindings_path = resolve_bindings_path(&args);
+    let bindings = load_bindings(&bindings_path);
+    info!("Key bindings {}", bindings_path.display());
 
     let mut app = App::new();
 
@@ -230,21 +284,38 @@ fn main() {
         ))
         .init_resource::<TrustLedger>()
         .init_resource::<ModOffer>()
+        .init_resource::<VoxelCatalog>()
         .insert_resource(CheatMode(is_cheater))
         .insert_resource(UiLocale(locale))
         .insert_resource(P2pConfig { url: p2p_url })
+        .insert_resource(KeyBindings(bindings))
+        .insert_resource(BindingsPath(bindings_path))
+        .init_resource::<BindCapture>()
         .add_systems(Startup, setup)
         .add_systems(OnEnter(GameMode::Menu), spawn_main_menu)
         .add_systems(OnExit(GameMode::Menu), despawn_main_menu)
-        .add_systems(OnEnter(GameMode::Playing), spawn_hud)
-        .add_systems(OnExit(GameMode::Playing), despawn_hud)
+        .add_systems(OnEnter(GameMode::Controls), spawn_controls_menu)
+        .add_systems(OnExit(GameMode::Controls), despawn_controls_menu)
+        .add_systems(OnEnter(GameMode::Playing), (spawn_hud, grab_cursor))
+        .add_systems(OnExit(GameMode::Playing), (despawn_hud, release_cursor))
         .add_systems(
             Update,
             (menu_keyboard, menu_buttons, refresh_menu_labels).run_if(in_state(GameMode::Menu)),
         )
         .add_systems(
             Update,
-            (pause_to_menu, select_hotbar, update_hud).run_if(in_state(GameMode::Playing)),
+            (
+                capture_rebind,
+                controls_buttons,
+                controls_keyboard,
+                refresh_controls_labels,
+            )
+                .run_if(in_state(GameMode::Controls)),
+        )
+        .add_systems(
+            Update,
+            (pause_to_menu, select_hotbar, player_look, update_hud)
+                .run_if(in_state(GameMode::Playing)),
         )
         .add_message::<ProposedAction>()
         .add_systems(
@@ -273,7 +344,7 @@ struct VehicleAi;
 enum AgentCommand {
     MoveForward,
     BreakBlock { pos: [i32; 3] },
-    PlaceBlock { pos: [i32; 3], voxel_type: u8 },
+    PlaceBlock { pos: [i32; 3], voxel: String },
     EnterVehicle,
     Look,
     AcceptJob,
@@ -288,13 +359,13 @@ struct AgentObservation {
     trust_score: f32,
     wanted_level: u32,
     credits: i32,
-    offer_kind: i32,
-    contract_kind: i32,
-    voxel_ahead: i32,
+    offer_kind: String,
+    contract_kind: String,
+    voxel_ahead: String,
     voxel_label: String,
     locale: String,
     in_vehicle: bool,
-    held_item: i32,
+    held_item: String,
     hotbar_selected: u32,
 }
 
@@ -308,18 +379,18 @@ pub struct ModState(pub u32);
 #[derive(Component, Default)]
 pub struct ModWallet(pub i32);
 
-/// Active contract tuple from the mod: kind, payout, danger. kind 0 = none.
-#[derive(Component, Default, Clone, Copy)]
+/// Active contract tuple from the mod: kind, payout, danger. empty kind = none.
+#[derive(Component, Default, Clone)]
 pub struct ModContract {
-    pub kind: i32,
+    pub kind: String,
     pub payout: i32,
     pub danger: i32,
 }
 
-/// Generic hotbar. Item ids are opaque to the engine; the mod names them.
+/// Generic hotbar. Item names are opaque to the engine; the mod owns them.
 #[derive(Component, Clone)]
 pub struct ModInventory {
-    pub items: [i32; INVENTORY_SLOTS],
+    pub items: [String; INVENTORY_SLOTS],
     pub counts: [u32; INVENTORY_SLOTS],
     pub selected: usize,
 }
@@ -327,23 +398,33 @@ pub struct ModInventory {
 impl Default for ModInventory {
     fn default() -> Self {
         Self {
-            items: [0; INVENTORY_SLOTS],
+            items: std::array::from_fn(|_| String::new()),
             counts: [0; INVENTORY_SLOTS],
             selected: 0,
         }
     }
 }
 
+/// English voxel names in meshing-index order, loaded from the mod catalog.
+#[derive(Resource, Clone, Default)]
+pub struct VoxelCatalog(pub Vec<String>);
+
+#[derive(Component, Default)]
+struct LookYaw(f32);
+
+#[derive(Component, Default)]
+struct LookPitch(f32);
+
 /// Latest storyteller offer. Engine does not interpret kind.
-#[derive(Resource, Default, Clone, Copy)]
+#[derive(Resource, Default, Clone)]
 pub struct ModOffer {
-    pub kind: i32,
+    pub kind: String,
     pub payout: i32,
     pub danger: i32,
 }
 
 #[derive(Component)]
-pub struct AgentAi(pub u32);
+pub struct AgentAi(pub String);
 
 #[derive(Component)]
 pub struct Vehicle;
@@ -368,7 +449,7 @@ enum ProposedAction {
     PlaceBlock {
         player_entity: Entity,
         voxel_pos: IVec3,
-        voxel_type: u8,
+        voxel: String,
         fingerprint: u64,
     },
     EnterVehicle {
@@ -376,11 +457,11 @@ enum ProposedAction {
         vehicle_entity: Entity,
         fingerprint: u64,
     },
-    /// Generic mod verb (5=accept, 6=complete, 7=fence). Engine does not name the game.
+    /// Generic mod verb (accept_contract, complete_contract, fence, craft).
     Verb {
         player_entity: Entity,
-        verb: i32,
-        extra: i32,
+        verb: String,
+        extra: String,
         fingerprint: u64,
     },
 }
@@ -389,16 +470,16 @@ fn signed_break(player_entity: Entity, voxel_pos: IVec3) -> ProposedAction {
     ProposedAction::BreakBlock {
         player_entity,
         voxel_pos,
-        fingerprint: action_fingerprint(1, voxel_pos.x, voxel_pos.y, voxel_pos.z, 0),
+        fingerprint: action_fingerprint(ACTION_BREAK, voxel_pos.x, voxel_pos.y, voxel_pos.z, ""),
     }
 }
 
-fn signed_place(player_entity: Entity, voxel_pos: IVec3, voxel_type: u8) -> ProposedAction {
+fn signed_place(player_entity: Entity, voxel_pos: IVec3, voxel: &str) -> ProposedAction {
     ProposedAction::PlaceBlock {
         player_entity,
         voxel_pos,
-        voxel_type,
-        fingerprint: action_fingerprint(2, voxel_pos.x, voxel_pos.y, voxel_pos.z, voxel_type as i32),
+        voxel: voxel.to_string(),
+        fingerprint: action_fingerprint(ACTION_PLACE, voxel_pos.x, voxel_pos.y, voxel_pos.z, voxel),
     }
 }
 
@@ -407,25 +488,43 @@ fn signed_enter(player_entity: Entity, vehicle_entity: Entity) -> ProposedAction
     ProposedAction::EnterVehicle {
         player_entity,
         vehicle_entity,
-        fingerprint: action_fingerprint(3, bits, 0, 0, 0),
+        fingerprint: action_fingerprint(ACTION_ENTER, bits, 0, 0, ""),
     }
 }
 
 fn signed_explosion(player_entity: Entity, center_pos: IVec3, radius: f32) -> ProposedAction {
+    let extra = (radius as i32).to_string();
     ProposedAction::Explosion {
         player_entity,
         center_pos,
         radius,
-        fingerprint: action_fingerprint(4, center_pos.x, center_pos.y, center_pos.z, radius as i32),
+        fingerprint: action_fingerprint(
+            ACTION_EXPLODE,
+            center_pos.x,
+            center_pos.y,
+            center_pos.z,
+            &extra,
+        ),
     }
 }
 
-fn signed_verb(player_entity: Entity, verb: i32, extra: i32) -> ProposedAction {
+fn signed_verb(player_entity: Entity, verb: &str, extra: &str) -> ProposedAction {
     ProposedAction::Verb {
         player_entity,
-        verb,
-        extra,
-        fingerprint: action_fingerprint(verb as u8, extra, 0, 0, 0),
+        verb: verb.to_string(),
+        extra: extra.to_string(),
+        fingerprint: action_fingerprint(verb, 0, 0, 0, extra),
+    }
+}
+
+fn aim_from(
+    cameras: &Query<&GlobalTransform, With<VoxelWorldCamera<DefaultWorld>>>,
+    fallback: &Transform,
+) -> (Vec3, Dir3) {
+    if let Some(tf) = cameras.iter().next() {
+        (tf.translation(), tf.forward())
+    } else {
+        (fallback.translation, fallback.forward())
     }
 }
 
@@ -462,6 +561,134 @@ fn with_mod<T>(
     Some(f(ctx))
 }
 
+fn resolve_bindings_path(args: &[String]) -> PathBuf {
+    if let Some(path) = bindings::parse_bindings_path(args) {
+        return PathBuf::from(path);
+    }
+    if let Ok(path) = std::env::var("HANGA_BINDINGS") {
+        return PathBuf::from(path);
+    }
+    let base = std::env::var("XDG_CONFIG_HOME")
+        .map(PathBuf::from)
+        .or_else(|_| std::env::var("HOME").map(|home| PathBuf::from(home).join(".config")))
+        .unwrap_or_else(|_| PathBuf::from("."));
+    base.join("hanga").join("bindings.conf")
+}
+
+fn load_bindings(path: &Path) -> BindingSet {
+    let defaults = BindingSet::defaults();
+    match std::fs::read_to_string(path) {
+        Ok(text) => defaults.overlay(&bindings::parse_bindings(&text)),
+        Err(_) => {
+            persist_bindings(path, &defaults);
+            defaults
+        }
+    }
+}
+
+fn persist_bindings(path: &Path, set: &BindingSet) {
+    if let Some(dir) = path.parent() {
+        let _ = std::fs::create_dir_all(dir);
+    }
+    if let Err(err) = std::fs::write(path, bindings::format_bindings(set)) {
+        warn!("Could not save bindings to {}: {err}", path.display());
+    }
+}
+
+fn mouse_bind_name(button: MouseButton) -> String {
+    match button {
+        MouseButton::Left => "MouseLeft".into(),
+        MouseButton::Right => "MouseRight".into(),
+        MouseButton::Middle => "MouseMiddle".into(),
+        MouseButton::Back => "MouseBack".into(),
+        MouseButton::Forward => "MouseForward".into(),
+        MouseButton::Other(n) => format!("MouseOther{n}"),
+    }
+}
+
+fn mouse_from_name(name: &str) -> Option<MouseButton> {
+    match name {
+        "MouseLeft" => Some(MouseButton::Left),
+        "MouseRight" => Some(MouseButton::Right),
+        "MouseMiddle" => Some(MouseButton::Middle),
+        "MouseBack" => Some(MouseButton::Back),
+        "MouseForward" => Some(MouseButton::Forward),
+        other => other
+            .strip_prefix("MouseOther")
+            .and_then(|n| n.parse().ok())
+            .map(MouseButton::Other),
+    }
+}
+
+fn bind_active(
+    bind: &str,
+    keys: &ButtonInput<KeyCode>,
+    mouse: &ButtonInput<MouseButton>,
+    just: bool,
+) -> bool {
+    let Some(name) = bindings::canonical_bind(bind) else {
+        return false;
+    };
+    if let Some(button) = mouse_from_name(&name) {
+        return if just {
+            mouse.just_pressed(button)
+        } else {
+            mouse.pressed(button)
+        };
+    }
+    if just {
+        keys.get_just_pressed()
+            .any(|key| format!("{key:?}") == name)
+    } else {
+        keys.get_pressed().any(|key| format!("{key:?}") == name)
+    }
+}
+
+fn action_pressed(
+    keys: &ButtonInput<KeyCode>,
+    mouse: &ButtonInput<MouseButton>,
+    set: &BindingSet,
+    action: &str,
+) -> bool {
+    set.binds(action)
+        .iter()
+        .any(|bind| bind_active(bind, keys, mouse, false))
+}
+
+fn action_just_pressed(
+    keys: &ButtonInput<KeyCode>,
+    mouse: &ButtonInput<MouseButton>,
+    set: &BindingSet,
+    action: &str,
+) -> bool {
+    set.binds(action)
+        .iter()
+        .any(|bind| bind_active(bind, keys, mouse, true))
+}
+
+fn menu_caption(locale: Locale, set: &BindingSet, key: &str) -> String {
+    let action = match key {
+        "menu_play" => Some(ACTION_MENU_PLAY),
+        "menu_multiplayer" => Some(ACTION_MENU_MULTI),
+        "menu_lang" => Some(ACTION_MENU_LANG),
+        "menu_controls" => Some(ACTION_MENU_CONTROLS),
+        "menu_quit" => Some(ACTION_MENU_QUIT),
+        _ => None,
+    };
+    match action {
+        Some(action) => format!("{}  {}", set.display(action), i18n::t(locale, key)),
+        None => i18n::t(locale, key).to_string(),
+    }
+}
+
+fn bind_row_caption(locale: Locale, set: &BindingSet, action: &str) -> String {
+    format!(
+        "{}   {}",
+        i18n::t(locale, &format!("bind_{action}")),
+        set.display(action)
+    )
+}
+
 fn setup(
     mut commands: Commands,
     mut meshes: ResMut<Assets<Mesh>>,
@@ -481,6 +708,13 @@ fn setup(
             locale.0.code()
         );
     }
+    let catalog = load_voxel_catalog(&mod_runtime);
+    if catalog.0.is_empty() {
+        warn!("Mod voxel catalog is empty; place/loot will reject unknown names");
+    } else {
+        info!("Mod voxels: {}", catalog.0.join(", "));
+    }
+    commands.insert_resource(catalog);
 
     let (px, py, pz) = with_mod(&mod_runtime, |ctx| {
         ctx.bindings
@@ -491,20 +725,29 @@ fn setup(
     .unwrap_or((490, 50, 490));
     let player_pos = Vec3::new(px as f32, py as f32, pz as f32);
 
-    commands.spawn((
-        Camera3d::default(),
-        Transform::from_translation(player_pos).looking_at(player_pos + Vec3::Z * 10.0, Vec3::Y),
-        Player,
-        RigidBody::Dynamic,
-        Collider::capsule(0.4, 1.0),
-        LinearVelocity::default(),
-        AngularVelocity::default(),
-        LockedAxes::new().lock_rotation_x().lock_rotation_z(),
-        ModState(0),
-        ModWallet(0),
-        ModContract::default(),
-        ModInventory::default(),
-    ));
+    commands
+        .spawn((
+            Transform::from_translation(player_pos),
+            Player,
+            RigidBody::Dynamic,
+            Collider::capsule(0.4, 1.0),
+            LinearVelocity::default(),
+            AngularVelocity::default(),
+            LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+            ModState(0),
+            ModWallet(0),
+            ModContract::default(),
+            ModInventory::default(),
+            LookYaw(0.0),
+        ))
+        .with_children(|parent| {
+            parent.spawn((
+                Camera3d::default(),
+                VoxelWorldCamera::<DefaultWorld>::default(),
+                Transform::from_xyz(0.0, 0.55, 0.0),
+                LookPitch(0.0),
+            ));
+        });
 
     commands.spawn((
         DirectionalLight {
@@ -573,17 +816,28 @@ fn setup(
             ctx.bindings
                 .hanga_engine_gameplay()
                 .call_ambient_agent_spawn(&mut ctx.store, i)
-                .unwrap_or((0, 2, 0, 2))
+                .unwrap_or((0, 2, 0, "pedestrian".into()))
         })
-        .unwrap_or((0, 2, 0, 2));
+        .unwrap_or((0, 2, 0, "pedestrian".into()));
         spawn_agent(
             &mut commands,
             &mut meshes,
             &mut materials,
             Vec3::new(x as f32, y as f32, z as f32),
-            kind,
+            &kind,
         );
     }
+}
+
+fn load_voxel_catalog(mod_runtime: &ModRuntime) -> VoxelCatalog {
+    let csv = with_mod(mod_runtime, |ctx| {
+        ctx.bindings
+            .hanga_engine_gameplay()
+            .call_voxel_catalog(&mut ctx.store)
+            .unwrap_or_default()
+    })
+    .unwrap_or_default();
+    VoxelCatalog(parse_name_catalog(&csv))
 }
 
 fn spawn_agent(
@@ -591,11 +845,11 @@ fn spawn_agent(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
     pos: Vec3,
-    ai_type: i32,
+    kind: &str,
 ) {
-    let color = match ai_type {
-        1 => Color::srgb(0.1, 0.2, 0.9),
-        2 => Color::srgb(0.2, 0.7, 0.3),
+    let color = match kind {
+        "cop" => Color::srgb(0.1, 0.2, 0.9),
+        "pedestrian" => Color::srgb(0.2, 0.7, 0.3),
         _ => Color::srgb(0.5, 0.5, 0.5),
     };
     commands.spawn((
@@ -606,7 +860,7 @@ fn spawn_agent(
         Collider::capsule(0.4, 1.0),
         LockedAxes::new().lock_rotation_x().lock_rotation_z(),
         LinearVelocity::default(),
-        AgentAi(ai_type as u32),
+        AgentAi(kind.to_string()),
     ));
 }
 
@@ -644,30 +898,34 @@ fn teardown_fracture(
     materials: &mut Assets<StandardMaterial>,
     origin: IVec3,
     outward: Vec3,
-    action_type: i32,
+    action: &str,
+    catalog: &VoxelCatalog,
     mod_runtime: &ModRuntime,
 ) {
     let Some(origin_type) = voxel_type_of(voxel_world.get_voxel(origin)) else {
         return;
     };
+    let origin_name = catalog_name(&catalog.0, origin_type)
+        .unwrap_or("")
+        .to_string();
     let can = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_can_fracture(&mut ctx.store, origin_type)
+            .call_can_fracture(&mut ctx.store, &origin_name)
             .unwrap_or(0)
     })
     .unwrap_or(0);
     let impulse = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_debris_impulse(&mut ctx.store, action_type)
+            .call_debris_impulse(&mut ctx.store, action)
             .unwrap_or(5.0)
     })
     .unwrap_or(5.0);
     let spread = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_fracture_spread(&mut ctx.store, origin_type)
+            .call_fracture_spread(&mut ctx.store, &origin_name)
             .unwrap_or(0)
     })
     .unwrap_or(0);
@@ -691,10 +949,11 @@ fn teardown_fracture(
         let Some(ntype) = voxel_type_of(voxel_world.get_voxel(npos)) else {
             continue;
         };
+        let nname = catalog_name(&catalog.0, ntype).unwrap_or("").to_string();
         let ncan = with_mod(mod_runtime, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
-                .call_can_fracture(&mut ctx.store, ntype)
+                .call_can_fracture(&mut ctx.store, &nname)
                 .unwrap_or(0)
         })
         .unwrap_or(0);
@@ -732,29 +991,24 @@ fn apply_mod_action(
     meshes: &mut Assets<Mesh>,
     materials: &mut Assets<StandardMaterial>,
     mod_runtime: &ModRuntime,
-    action_type: i32,
+    action: &str,
     extra: i32,
     mod_state: &mut ModState,
     wallet: &mut ModWallet,
     spawn_hint: Vec3,
 ) {
-    if let Some((new_state, ai_type, new_wallet)) = with_mod(mod_runtime, |ctx| {
+    if let Some((new_state, agent, new_wallet)) = with_mod(mod_runtime, |ctx| {
         let g = ctx.bindings.hanga_engine_gameplay();
         let new_state = g
-            .call_mod_evaluate_action(&mut ctx.store, action_type, mod_state.0 as i32)
+            .call_mod_evaluate_action(&mut ctx.store, action, mod_state.0 as i32)
             .ok()?;
-        let ai_type = g
-            .call_mod_should_spawn_agent(
-                &mut ctx.store,
-                action_type,
-                mod_state.0 as i32,
-                new_state,
-            )
-            .unwrap_or(0);
+        let agent = g
+            .call_mod_should_spawn_agent(&mut ctx.store, action, mod_state.0 as i32, new_state)
+            .unwrap_or_default();
         let new_wallet = g
-            .call_mod_wallet_after(&mut ctx.store, action_type, wallet.0, extra)
+            .call_mod_wallet_after(&mut ctx.store, action, wallet.0, extra)
             .unwrap_or(wallet.0);
-        Some((new_state, ai_type, new_wallet))
+        Some((new_state, agent, new_wallet))
     })
     .flatten()
     {
@@ -762,46 +1016,46 @@ fn apply_mod_action(
         mod_state.0 = clamp_mod_state(new_state, 0, 5) as u32;
         wallet.0 = clamp_wallet(new_wallet);
         info!(
-            "WASM Mod evaluated action {}! State {} -> {}, wallet {}",
-            action_type, old_state, mod_state.0, wallet.0
+            "WASM Mod evaluated action {action}! State {} -> {}, wallet {}",
+            old_state, mod_state.0, wallet.0
         );
-        if ai_type > 0 {
+        if !agent.is_empty() {
             let spawn_pos = spawn_hint + Vec3::new(5.0, 2.0, 5.0);
-            spawn_agent(commands, meshes, materials, spawn_pos, ai_type);
-            info!("WASM Mod requested AgentAi type {} at {:?}", ai_type, spawn_pos);
+            spawn_agent(commands, meshes, materials, spawn_pos, &agent);
+            info!("WASM Mod requested AgentAi {agent} at {:?}", spawn_pos);
         }
     }
 }
 
-fn action_range(mod_runtime: &ModRuntime, action_type: i32, fallback: f32) -> f32 {
+fn action_range(mod_runtime: &ModRuntime, action: &str, fallback: f32) -> f32 {
     with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_mod_get_action_range(&mut ctx.store, action_type)
+            .call_mod_get_action_range(&mut ctx.store, action)
             .unwrap_or(fallback)
     })
     .unwrap_or(fallback)
 }
 
 /// The Anti-Cheat P2P Judge: Intercepts all optimistic actions and verifies them
-fn grant_loot(inv: &mut ModInventory, mod_runtime: &ModRuntime, voxel_type: i32) {
+fn grant_loot(inv: &mut ModInventory, mod_runtime: &ModRuntime, voxel: &str) {
     let item = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_loot_item(&mut ctx.store, voxel_type)
-            .unwrap_or(0)
+            .call_loot_item(&mut ctx.store, voxel)
+            .unwrap_or_default()
     })
-    .unwrap_or(0);
-    if item > 0 {
-        let _ = inventory_add(&mut inv.items, &mut inv.counts, item);
+    .unwrap_or_default();
+    if !item.is_empty() {
+        let _ = inventory_add(&mut inv.items, &mut inv.counts, &item);
     }
 }
 
-fn consume_selected(inv: &mut ModInventory, voxel_type: i32) -> bool {
+fn consume_selected(inv: &mut ModInventory, voxel: &str) -> bool {
     let Some(held) = inventory_selected(&inv.items, &inv.counts, inv.selected) else {
         return false;
     };
-    if held != voxel_type {
+    if held != voxel {
         return false;
     }
     inventory_take(&mut inv.items, &mut inv.counts, inv.selected).is_some()
@@ -826,12 +1080,16 @@ fn validate_incoming_actions(
     mut materials: ResMut<Assets<StandardMaterial>>,
     mut trust_ledger: ResMut<TrustLedger>,
     mut offer: ResMut<ModOffer>,
+    catalog: Res<VoxelCatalog>,
     mod_runtime: Res<ModRuntime>,
 ) {
     for action in events.read() {
         match action {
-            &ProposedAction::BreakBlock { player_entity, voxel_pos, fingerprint } => {
-                if !verify_action_signature(1, voxel_pos.x, voxel_pos.y, voxel_pos.z, 0, fingerprint) {
+            ProposedAction::BreakBlock { player_entity, voxel_pos, fingerprint } => {
+                let player_entity = *player_entity;
+                let voxel_pos = *voxel_pos;
+                let fingerprint = *fingerprint;
+                if !verify_action_signature(ACTION_BREAK, voxel_pos.x, voxel_pos.y, voxel_pos.z, "", fingerprint) {
                     trust_ledger.penalize(player_entity, 0.4);
                     warn!("FRAUD DETECTED: BreakBlock signature mismatch");
                     continue;
@@ -845,7 +1103,7 @@ fn validate_incoming_actions(
                 };
                 let player_pos = transform.translation;
                 let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
-                let range = action_range(&mod_runtime, 1, 10.0);
+                let range = action_range(&mod_runtime, ACTION_BREAK, 10.0);
                 let distance = player_pos.distance(target_pos);
                 if !is_action_physically_possible(
                     player_pos.x, player_pos.y, player_pos.z,
@@ -865,7 +1123,8 @@ fn validate_incoming_actions(
                     voxel_pos
                 );
                 if let Some(origin_type) = voxel_type_of(voxel_world.get_voxel(voxel_pos)) {
-                    grant_loot(&mut inventory, &mod_runtime, origin_type);
+                    let name = catalog_name(&catalog.0, origin_type).unwrap_or("").to_string();
+                    grant_loot(&mut inventory, &mod_runtime, &name);
                 }
                 let outward = Vec3::new(
                     (player_pos.x - target_pos.x) * -0.4,
@@ -879,7 +1138,8 @@ fn validate_incoming_actions(
                     &mut materials,
                     voxel_pos,
                     outward,
-                    1,
+                    ACTION_BREAK,
+                    &catalog,
                     &mod_runtime,
                 );
                 apply_mod_action(
@@ -887,15 +1147,20 @@ fn validate_incoming_actions(
                     &mut meshes,
                     &mut materials,
                     &mod_runtime,
-                    1,
+                    ACTION_BREAK,
                     0,
                     &mut mod_state,
                     &mut wallet,
                     target_pos,
                 );
             }
-            &ProposedAction::Explosion { player_entity, center_pos, radius, fingerprint } => {
-                if !verify_action_signature(4, center_pos.x, center_pos.y, center_pos.z, radius as i32, fingerprint) {
+            ProposedAction::Explosion { player_entity, center_pos, radius, fingerprint } => {
+                let player_entity = *player_entity;
+                let center_pos = *center_pos;
+                let radius = *radius;
+                let fingerprint = *fingerprint;
+                let extra = (radius as i32).to_string();
+                if !verify_action_signature(ACTION_EXPLODE, center_pos.x, center_pos.y, center_pos.z, &extra, fingerprint) {
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
@@ -904,7 +1169,7 @@ fn validate_incoming_actions(
                 };
                 let player_pos = transform.translation;
                 let target_pos = Vec3::new(center_pos.x as f32, center_pos.y as f32, center_pos.z as f32);
-                let range = action_range(&mod_runtime, 4, 30.0);
+                let range = action_range(&mod_runtime, ACTION_EXPLODE, 30.0);
                 if !is_action_physically_possible(
                     player_pos.x, player_pos.y, player_pos.z,
                     target_pos.x, target_pos.y, target_pos.z,
@@ -928,7 +1193,8 @@ fn validate_incoming_actions(
                                     &mut materials,
                                     center_pos + offset,
                                     offset.as_vec3().normalize_or_zero(),
-                                    4,
+                                    ACTION_EXPLODE,
+                                    &catalog,
                                     &mod_runtime,
                                 );
                             }
@@ -940,15 +1206,18 @@ fn validate_incoming_actions(
                     &mut meshes,
                     &mut materials,
                     &mod_runtime,
-                    4,
+                    ACTION_EXPLODE,
                     0,
                     &mut mod_state,
                     &mut wallet,
                     target_pos,
                 );
             }
-            &ProposedAction::PlaceBlock { player_entity, voxel_pos, voxel_type, fingerprint } => {
-                if !verify_action_signature(2, voxel_pos.x, voxel_pos.y, voxel_pos.z, voxel_type as i32, fingerprint) {
+            ProposedAction::PlaceBlock { player_entity, voxel_pos, voxel, fingerprint } => {
+                let player_entity = *player_entity;
+                let voxel_pos = *voxel_pos;
+                let fingerprint = *fingerprint;
+                if !verify_action_signature(ACTION_PLACE, voxel_pos.x, voxel_pos.y, voxel_pos.z, voxel, fingerprint) {
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
@@ -961,7 +1230,7 @@ fn validate_incoming_actions(
                 };
                 let player_pos = transform.translation;
                 let target_pos = Vec3::new(voxel_pos.x as f32, voxel_pos.y as f32, voxel_pos.z as f32);
-                let range = action_range(&mod_runtime, 2, 10.0);
+                let range = action_range(&mod_runtime, ACTION_PLACE, 10.0);
                 let distance = player_pos.distance(target_pos);
                 if !is_action_physically_possible(
                     player_pos.x, player_pos.y, player_pos.z,
@@ -976,27 +1245,34 @@ fn validate_incoming_actions(
                     continue;
                 }
 
-                if !consume_selected(&mut inventory, voxel_type as i32) {
-                    info!("PlaceBlock rejected: hotbar does not hold type {voxel_type}");
+                let Some(index) = catalog_index(&catalog.0, voxel).filter(|i| *i > 0) else {
+                    info!("PlaceBlock rejected: unknown voxel {voxel}");
+                    continue;
+                };
+                if !consume_selected(&mut inventory, voxel) {
+                    info!("PlaceBlock rejected: hotbar does not hold {voxel}");
                     continue;
                 }
-                info!("Action Verified! Placing block at {:?}", voxel_pos);
-                voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(clamp_voxel_type(voxel_type as i32)));
+                info!("Action Verified! Placing {voxel} at {:?}", voxel_pos);
+                voxel_world.set_voxel(voxel_pos, WorldVoxel::Solid(clamp_voxel_type(index as i32)));
                 apply_mod_action(
                     &mut commands,
                     &mut meshes,
                     &mut materials,
                     &mod_runtime,
-                    2,
+                    ACTION_PLACE,
                     0,
                     &mut mod_state,
                     &mut wallet,
                     target_pos,
                 );
             }
-            &ProposedAction::EnterVehicle { player_entity, vehicle_entity, fingerprint } => {
+            ProposedAction::EnterVehicle { player_entity, vehicle_entity, fingerprint } => {
+                let player_entity = *player_entity;
+                let vehicle_entity = *vehicle_entity;
+                let fingerprint = *fingerprint;
                 let bits = vehicle_entity.to_bits() as i32;
-                if !verify_action_signature(3, bits, 0, 0, 0, fingerprint) {
+                if !verify_action_signature(ACTION_ENTER, bits, 0, 0, "", fingerprint) {
                     trust_ledger.penalize(player_entity, 0.4);
                     continue;
                 }
@@ -1008,7 +1284,7 @@ fn validate_incoming_actions(
                     warn!("FRAUD DETECTED: EnterVehicle for missing vehicle {:?}", vehicle_entity);
                     continue;
                 };
-                let range = action_range(&mod_runtime, 3, 5.0);
+                let range = action_range(&mod_runtime, ACTION_ENTER, 5.0);
                 let player_pos = transform.translation;
                 let v_pos = v_transform.translation;
                 if !is_action_physically_possible(
@@ -1026,28 +1302,67 @@ fn validate_incoming_actions(
                     &mut meshes,
                     &mut materials,
                     &mod_runtime,
-                    3,
+                    ACTION_ENTER,
                     0,
                     &mut mod_state,
                     &mut wallet,
                     player_pos,
                 );
             }
-            &ProposedAction::Verb { player_entity, verb, extra, fingerprint } => {
-                if !verify_action_signature(verb as u8, extra, 0, 0, 0, fingerprint) {
+            ProposedAction::Verb { player_entity, verb, extra, fingerprint } => {
+                let player_entity = *player_entity;
+                let fingerprint = *fingerprint;
+                if !verify_action_signature(verb, 0, 0, 0, extra, fingerprint) {
                     trust_ledger.penalize(player_entity, 0.4);
                     warn!("FRAUD DETECTED: Verb signature mismatch");
                     continue;
                 }
-                let Ok((transform, mut mod_state, mut wallet, mut contract, _)) =
+                let Ok((transform, mut mod_state, mut wallet, mut contract, mut inventory)) =
                     player_query.get_mut(player_entity)
                 else {
                     continue;
                 };
-                let (kind, danger, payout) = if verb == 5 {
-                    (offer.kind, offer.danger, offer.payout)
+                if verb == ACTION_CRAFT {
+                    let Some((item_a, item_b)) = extra.split_once('+') else {
+                        info!("Craft refused: extra is not item+item");
+                        continue;
+                    };
+                    let product = with_mod(&mod_runtime, |ctx| {
+                        ctx.bindings
+                            .hanga_engine_gameplay()
+                            .call_craft_result(&mut ctx.store, item_a, item_b)
+                            .unwrap_or_default()
+                    })
+                    .unwrap_or_default();
+                    let mut items = inventory.items.clone();
+                    let mut counts = inventory.counts;
+                    if product.is_empty()
+                        || !inventory_craft_pair(&mut items, &mut counts, item_a, item_b, &product)
+                    {
+                        info!("Craft refused ({item_a}+{item_b} -> {product})");
+                        continue;
+                    }
+                    inventory.items = items;
+                    inventory.counts = counts;
+                    let hint = transform.translation;
+                    apply_mod_action(
+                        &mut commands,
+                        &mut meshes,
+                        &mut materials,
+                        &mod_runtime,
+                        verb,
+                        0,
+                        &mut mod_state,
+                        &mut wallet,
+                        hint,
+                    );
+                    info!("Crafted {product} from {item_a}+{item_b}");
+                    continue;
+                }
+                let (kind, danger, payout) = if verb == ACTION_ACCEPT {
+                    (offer.kind.clone(), offer.danger, offer.payout)
                 } else {
-                    (contract.kind, contract.danger, contract.payout)
+                    (contract.kind.clone(), contract.danger, contract.payout)
                 };
                 let allowed = with_mod(&mod_runtime, |ctx| {
                     ctx.bindings
@@ -1056,7 +1371,7 @@ fn validate_incoming_actions(
                             &mut ctx.store,
                             verb,
                             mod_state.0 as i32,
-                            kind,
+                            &kind,
                             danger,
                         )
                         .unwrap_or(0)
@@ -1066,7 +1381,7 @@ fn validate_incoming_actions(
                     info!("Mod refused verb {verb} (state {}, kind {kind}, danger {danger})", mod_state.0);
                     continue;
                 }
-                let wallet_extra = if verb == 6 { payout } else { extra };
+                let wallet_extra = if verb == ACTION_COMPLETE { payout } else { 0 };
                 let hint = transform.translation;
                 apply_mod_action(
                     &mut commands,
@@ -1079,31 +1394,70 @@ fn validate_incoming_actions(
                     &mut wallet,
                     hint,
                 );
-                match verb {
-                    5 if contract_is_offered(offer.kind) => {
-                        *contract = ModContract {
-                            kind: offer.kind,
-                            payout: offer.payout,
-                            danger: offer.danger,
-                        };
-                        *offer = ModOffer::default();
-                        info!("Player accepted contract kind {}", contract.kind);
-                    }
-                    6 => {
-                        info!("Player completed contract kind {}", contract.kind);
-                        *contract = ModContract::default();
-                    }
-                    7 => info!("Player fenced loot, wallet {}", wallet.0),
-                    _ => {}
+                if verb == ACTION_ACCEPT && contract_is_offered(&offer.kind) {
+                    *contract = ModContract {
+                        kind: offer.kind.clone(),
+                        payout: offer.payout,
+                        danger: offer.danger,
+                    };
+                    *offer = ModOffer::default();
+                    info!("Player accepted contract {}", contract.kind);
+                } else if verb == ACTION_COMPLETE {
+                    info!("Player completed contract {}", contract.kind);
+                    *contract = ModContract::default();
+                } else if verb == ACTION_FENCE {
+                    info!("Player fenced loot, wallet {}", wallet.0);
                 }
             }
         }
     }
 }
 
+fn grab_cursor(mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>) {
+    if let Some(mut cursor) = windows.iter_mut().next() {
+        cursor.grab_mode = CursorGrabMode::Locked;
+        cursor.visible = false;
+    }
+}
+
+fn release_cursor(mut windows: Query<&mut CursorOptions, With<PrimaryWindow>>) {
+    if let Some(mut cursor) = windows.iter_mut().next() {
+        cursor.grab_mode = CursorGrabMode::None;
+        cursor.visible = true;
+    }
+}
+
+fn player_look(
+    motion: Res<AccumulatedMouseMotion>,
+    mut bodies: Query<(&mut Transform, &mut LookYaw, &mut AngularVelocity), With<Player>>,
+    mut cameras: Query<(&mut Transform, &mut LookPitch), (With<LookPitch>, Without<Player>)>,
+) {
+    let Some((mut body, mut yaw, mut angular)) = bodies.iter_mut().next() else {
+        return;
+    };
+    let Some((mut cam, mut pitch)) = cameras.iter_mut().next() else {
+        return;
+    };
+    let (next_yaw, next_pitch) = apply_mouse_look(
+        yaw.0,
+        pitch.0,
+        motion.delta.x,
+        motion.delta.y,
+        LOOK_SENSITIVITY,
+    );
+    yaw.0 = next_yaw;
+    pitch.0 = next_pitch;
+    body.rotation = Quat::from_rotation_y(yaw.0);
+    angular.x = 0.0;
+    angular.z = 0.0;
+    cam.rotation = Quat::from_euler(EulerRot::YXZ, 0.0, pitch.0, 0.0);
+}
+
 /// Very basic first person controller for MVP (and vehicle controller)
 fn player_movement(
     keyboard_input: Res<ButtonInput<KeyCode>>,
+    mouse_input: Res<ButtonInput<MouseButton>>,
+    bindings: Res<KeyBindings>,
     mut players: Query<(&mut Transform, &mut LinearVelocity, Option<&InVehicle>), With<Player>>,
     mut vehicles: Query<(&Transform, &mut LinearVelocity, &mut AngularVelocity), (With<Vehicle>, Without<Player>)>,
 ) {
@@ -1126,20 +1480,20 @@ fn player_movement(
 
         let right = player_transform.right();
 
-        if keyboard_input.pressed(KeyCode::KeyW) {
+        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_FORWARD) {
             direction += *forward;
         }
-        if keyboard_input.pressed(KeyCode::KeyS) {
+        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_BACK) {
             direction -= *forward;
         }
-        if keyboard_input.pressed(KeyCode::KeyD) {
+        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_RIGHT) {
             if target_vehicle.is_some() {
                 rotation_y -= 1.0; // Steer right
             } else {
                 direction += *right;
             }
         }
-        if keyboard_input.pressed(KeyCode::KeyA) {
+        if action_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_LEFT) {
             if target_vehicle.is_some() {
                 rotation_y += 1.0; // Steer left
             } else {
@@ -1171,7 +1525,7 @@ fn player_movement(
             // Player turning camera is usually handled by mouse look, so we just let them strafe with A/D on foot.
             
             // Simple jump (only when on foot)
-            if keyboard_input.just_pressed(KeyCode::Space) {
+            if action_just_pressed(&keyboard_input, &mouse_input, &bindings.0, ACTION_JUMP) {
                 player_velocity.y = 5.0;
             }
         }
@@ -1184,17 +1538,20 @@ fn player_interaction(
     keys: Res<ButtonInput<KeyCode>>,
     mut events: MessageWriter<ProposedAction>,
     query: Query<(Entity, &Transform, &ModInventory), With<Player>>,
+    cameras: Query<&GlobalTransform, With<VoxelWorldCamera<DefaultWorld>>>,
+    vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
     cheat_mode: Res<CheatMode>,
+    mod_runtime: Res<ModRuntime>,
+    bindings: Res<KeyBindings>,
 ) {
-    if mouse_input.just_pressed(MouseButton::Left) {
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_BREAK) {
         if let Some((player_entity, transform, _)) = query.iter().next() {
+            let (origin, forward) = aim_from(&cameras, transform);
             let forward_pos = if cheat_mode.0 {
-                // CHEAT: Try to destroy a block 50 meters away! (Out of reach)
                 warn!("CHEAT MODE: Attempting to illegally destroy a block far away...");
-                transform.translation + (transform.forward() * 50.0)
+                origin + (*forward * 50.0)
             } else {
-                // NORMAL: Break block immediately in front (2 meters)
-                transform.translation + (transform.forward() * 2.0)
+                origin + (*forward * 2.0)
             };
             
             let voxel_pos = IVec3::new(
@@ -1208,9 +1565,10 @@ fn player_interaction(
         }
     }
     
-    if mouse_input.just_pressed(MouseButton::Right) {
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_EXPLODE) {
         if let Some((player_entity, transform, _)) = query.iter().next() {
-            let forward_pos = transform.translation + (transform.forward() * 15.0);
+            let (origin, forward) = aim_from(&cameras, transform);
+            let forward_pos = origin + (*forward * 15.0);
             let voxel_pos = IVec3::new(
                 forward_pos.x.round() as i32,
                 forward_pos.y.round() as i32,
@@ -1222,25 +1580,68 @@ fn player_interaction(
         }
     }
 
-    if keys.just_pressed(KeyCode::KeyF) || mouse_input.just_pressed(MouseButton::Middle) {
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_PLACE) {
         if let Some((player_entity, transform, inventory)) = query.iter().next() {
             if let Some(item) = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
             {
-                let forward_pos = transform.translation + (transform.forward() * 2.0);
+                let (origin, forward) = aim_from(&cameras, transform);
+                let forward_pos = origin + (*forward * 2.0);
                 let voxel_pos = IVec3::new(
                     forward_pos.x.round() as i32,
                     forward_pos.y.round() as i32,
                     forward_pos.z.round() as i32,
                 );
-                events.write(signed_place(
-                    player_entity,
-                    voxel_pos,
-                    clamp_voxel_type(item),
-                ));
+                events.write(signed_place(player_entity, voxel_pos, item));
                 info!("Player sent PlaceBlock request at {:?}", voxel_pos);
             }
         }
     }
+
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_ENTER) {
+        if let Some((player_entity, transform, _)) = query.iter().next() {
+            if let Some(vehicle_entity) = nearest_vehicle(transform.translation, &vehicles) {
+                events.write(signed_enter(player_entity, vehicle_entity));
+            }
+        }
+    }
+
+    if action_just_pressed(&keys, &mouse_input, &bindings.0, ACTION_CRAFT) {
+        if let Some((player_entity, _, inventory)) = query.iter().next() {
+            if let Some((a, b)) = pick_craft_pair(inventory, &mod_runtime) {
+                events.write(signed_verb(player_entity, ACTION_CRAFT, &format!("{a}+{b}")));
+            }
+        }
+    }
+}
+
+fn pick_craft_pair(inventory: &ModInventory, mod_runtime: &ModRuntime) -> Option<(String, String)> {
+    let a = inventory_selected(&inventory.items, &inventory.counts, inventory.selected)?
+        .to_string();
+    let recipe = |x: &str, y: &str| {
+        with_mod(mod_runtime, |ctx| {
+            ctx.bindings
+                .hanga_engine_gameplay()
+                .call_craft_result(&mut ctx.store, x, y)
+                .unwrap_or_default()
+        })
+        .unwrap_or_default()
+    };
+    if inventory.counts[inventory.selected] >= 2 && !recipe(&a, &a).is_empty() {
+        return Some((a.clone(), a));
+    }
+    for i in 0..INVENTORY_SLOTS {
+        if inventory.items[i].is_empty() || inventory.counts[i] == 0 {
+            continue;
+        }
+        if i == inventory.selected && inventory.counts[i] < 2 {
+            continue;
+        }
+        let b = inventory.items[i].clone();
+        if !recipe(&a, &b).is_empty() {
+            return Some((a, b));
+        }
+    }
+    None
 }
 
 /// Bridges `bevy_voxel_world` meshes into `avian3d` physics colliders dynamically.
@@ -1375,7 +1776,7 @@ fn agent_ai_tick(
                 let vx = g
                     .call_compute_agent_vx(
                         &mut ctx.store,
-                        agent.0 as i32,
+                        &agent.0,
                         c_pos.x,
                         c_pos.z,
                         p_pos.x,
@@ -1385,7 +1786,7 @@ fn agent_ai_tick(
                 let vz = g
                     .call_compute_agent_vz(
                         &mut ctx.store,
-                        agent.0 as i32,
+                        &agent.0,
                         c_pos.x,
                         c_pos.z,
                         p_pos.x,
@@ -1439,7 +1840,7 @@ fn wanted_decay(
         let drop = with_mod(&mod_runtime, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
-                .call_should_despawn_agent(&mut ctx.store, agent.0 as i32, wanted)
+                .call_should_despawn_agent(&mut ctx.store, &agent.0, wanted)
                 .unwrap_or(0)
         })
         .unwrap_or(0);
@@ -1606,15 +2007,15 @@ fn update_storyteller(
         let player_level = g.call_mod_get_storyteller_level(&mut ctx.store).unwrap_or(0);
         let event_id = g.call_generate_story_event(&mut ctx.store, player_level).ok()?;
         let label = g
-            .call_event_label(&mut ctx.store, event_id, lang)
+            .call_event_label(&mut ctx.store, &event_id, lang)
             .unwrap_or_else(|_| "event".into());
         Some((event_id, label))
     })
     .flatten()
     {
-        info!("STORYTELLER (WASM): {label} (id {event_id})");
+        info!("STORYTELLER (WASM): {label} ({event_id})");
     }
-    if !contract_is_offered(offer.kind) {
+    if !contract_is_offered(&offer.kind) {
         if let Some((kind, payout, danger)) = with_mod(&mod_runtime, |ctx| {
             ctx.bindings
                 .hanga_engine_gameplay()
@@ -1623,9 +2024,12 @@ fn update_storyteller(
         })
         .flatten()
         {
-            if contract_is_offered(kind) {
+            if contract_is_offered(&kind) {
                 *offer = ModOffer { kind, payout, danger };
-                info!("STORYTELLER (WASM): offer kind {kind} payout {payout} danger {danger}");
+                info!(
+                    "STORYTELLER (WASM): offer {} payout {payout} danger {danger}",
+                    offer.kind
+                );
             }
         }
     }
@@ -1664,29 +2068,31 @@ fn update_macro_economy(time: Res<Time>, mut timer: Local<f32>, mod_runtime: Res
     }
 }
 
-fn pause_to_menu(keys: Res<ButtonInput<KeyCode>>, mut next: ResMut<NextState<GameMode>>) {
-    if keys.just_pressed(KeyCode::Escape) {
+fn pause_to_menu(
+    keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+    bindings: Res<KeyBindings>,
+    mut next: ResMut<NextState<GameMode>>,
+) {
+    if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_PAUSE) {
         info!("Paused to menu");
         next.set(GameMode::Menu);
     }
 }
 
-fn select_hotbar(keys: Res<ButtonInput<KeyCode>>, mut query: Query<&mut ModInventory, With<Player>>) {
-    let slot = [
-        (KeyCode::Digit1, 0),
-        (KeyCode::Digit2, 1),
-        (KeyCode::Digit3, 2),
-        (KeyCode::Digit4, 3),
-        (KeyCode::Digit5, 4),
-        (KeyCode::Digit6, 5),
-        (KeyCode::Digit7, 6),
-        (KeyCode::Digit8, 7),
-    ]
-    .into_iter()
-    .find_map(|(key, slot)| keys.just_pressed(key).then_some(slot));
+fn select_hotbar(
+    keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+    bindings: Res<KeyBindings>,
+    mut query: Query<&mut ModInventory, With<Player>>,
+) {
+    let slot = (0..INVENTORY_SLOTS).find_map(|slot| {
+        let action = bindings::hotbar_action(slot)?;
+        action_just_pressed(&keys, &mouse, &bindings.0, action).then_some(slot)
+    });
     if let Some(slot) = slot {
         if let Some(mut inventory) = query.iter_mut().next() {
-            inventory.selected = clamp_hotbar_index(slot);
+            inventory.selected = clamp_hotbar_index(slot as i32);
         }
     }
 }
@@ -1774,7 +2180,7 @@ fn update_hud(
     }
 }
 
-fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>) {
+fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<KeyBindings>) {
     commands
         .spawn((
             MenuRoot,
@@ -1791,7 +2197,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>) {
         ))
         .with_children(|parent| {
             parent.spawn((
-                Text::new(i18n::t(locale.0, "menu_title")),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_title")),
                 TextFont {
                     font_size: FontSize::Px(64.0),
                     ..default()
@@ -1800,7 +2206,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>) {
                 MenuLabel("menu_title"),
             ));
             parent.spawn((
-                Text::new(i18n::t(locale.0, "menu_hint")),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint")),
                 TextFont {
                     font_size: FontSize::Px(16.0),
                     ..default()
@@ -1812,6 +2218,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>) {
                 (MenuAction::Play, "menu_play"),
                 (MenuAction::Multiplayer, "menu_multiplayer"),
                 (MenuAction::Lang, "menu_lang"),
+                (MenuAction::Controls, "menu_controls"),
                 (MenuAction::Quit, "menu_quit"),
             ] {
                 parent
@@ -1830,7 +2237,7 @@ fn spawn_main_menu(mut commands: Commands, locale: Res<UiLocale>) {
                     ))
                     .with_children(|btn| {
                         btn.spawn((
-                            Text::new(i18n::t(locale.0, key)),
+                            Text::new(menu_caption(locale.0, &bindings.0, key)),
                             TextFont {
                                 font_size: FontSize::Px(22.0),
                                 ..default()
@@ -1875,6 +2282,9 @@ fn apply_menu_action(
             locale.0 = locale.0.next();
             info!("Menu language {}", locale.0.code());
         }
+        MenuAction::Controls => {
+            next.set(GameMode::Controls);
+        }
         MenuAction::Quit => {
             exit.write(AppExit::Success);
         }
@@ -1883,18 +2293,22 @@ fn apply_menu_action(
 
 fn menu_keyboard(
     keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+    bindings: Res<KeyBindings>,
     mut next: ResMut<NextState<GameMode>>,
     mut locale: ResMut<UiLocale>,
     mut p2p: ResMut<P2pConfig>,
     mut exit: MessageWriter<AppExit>,
 ) {
-    let action = if keys.just_pressed(KeyCode::Digit1) || keys.just_pressed(KeyCode::Enter) {
+    let action = if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_PLAY) {
         Some(MenuAction::Play)
-    } else if keys.just_pressed(KeyCode::Digit2) {
+    } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_MULTI) {
         Some(MenuAction::Multiplayer)
-    } else if keys.just_pressed(KeyCode::Digit3) {
+    } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_LANG) {
         Some(MenuAction::Lang)
-    } else if keys.just_pressed(KeyCode::Digit4) || keys.just_pressed(KeyCode::Escape) {
+    } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_CONTROLS) {
+        Some(MenuAction::Controls)
+    } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_QUIT) {
         Some(MenuAction::Quit)
     } else {
         None
@@ -1931,13 +2345,221 @@ fn menu_buttons(
 
 fn refresh_menu_labels(
     locale: Res<UiLocale>,
+    bindings: Res<KeyBindings>,
     mut labels: Query<(&MenuLabel, &mut Text)>,
 ) {
-    if !locale.is_changed() {
+    if !locale.is_changed() && !bindings.is_changed() {
         return;
     }
     for (label, mut text) in &mut labels {
-        *text = Text::new(i18n::t(locale.0, label.0));
+        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0));
+    }
+}
+
+fn spawn_controls_menu(mut commands: Commands, locale: Res<UiLocale>, bindings: Res<KeyBindings>) {
+    commands
+        .spawn((
+            ControlsRoot,
+            Node {
+                width: Val::Percent(100.0),
+                height: Val::Percent(100.0),
+                flex_direction: FlexDirection::Column,
+                justify_content: JustifyContent::Center,
+                align_items: AlignItems::Center,
+                row_gap: Val::Px(4.0),
+                padding: UiRect::all(Val::Px(12.0)),
+                ..default()
+            },
+            BackgroundColor(Color::srgba(0.02, 0.03, 0.05, 0.88)),
+        ))
+        .with_children(|parent| {
+            parent.spawn((
+                Text::new(i18n::t(locale.0, "controls_title")),
+                TextFont {
+                    font_size: FontSize::Px(40.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.95, 0.85, 0.45)),
+            ));
+            parent.spawn((
+                ControlsHintText,
+                Text::new(i18n::t(locale.0, "controls_hint")),
+                TextFont {
+                    font_size: FontSize::Px(14.0),
+                    ..default()
+                },
+                TextColor(Color::srgb(0.7, 0.72, 0.75)),
+            ));
+            parent
+                .spawn(Node {
+                    width: Val::Px(520.0),
+                    max_height: Val::Px(420.0),
+                    flex_direction: FlexDirection::Column,
+                    overflow: Overflow::scroll_y(),
+                    row_gap: Val::Px(3.0),
+                    ..default()
+                })
+                .with_children(|list| {
+                    for action in ALL_ACTIONS {
+                        list.spawn((
+                            Button,
+                            BindRow(action),
+                            Node {
+                                width: Val::Percent(100.0),
+                                height: Val::Px(32.0),
+                                justify_content: JustifyContent::SpaceBetween,
+                                align_items: AlignItems::Center,
+                                padding: UiRect::horizontal(Val::Px(10.0)),
+                                ..default()
+                            },
+                            BackgroundColor(Color::srgb(0.14, 0.17, 0.22)),
+                        ))
+                        .with_children(|row| {
+                            row.spawn((
+                                BindRowText(action),
+                                Text::new(bind_row_caption(locale.0, &bindings.0, action)),
+                                TextFont {
+                                    font_size: FontSize::Px(16.0),
+                                    ..default()
+                                },
+                                TextColor(Color::WHITE),
+                            ));
+                        });
+                    }
+                });
+            parent
+                .spawn((
+                    Button,
+                    ControlsBack,
+                    Node {
+                        width: Val::Px(220.0),
+                        height: Val::Px(40.0),
+                        justify_content: JustifyContent::Center,
+                        align_items: AlignItems::Center,
+                        margin: UiRect::top(Val::Px(8.0)),
+                        ..default()
+                    },
+                    BackgroundColor(Color::srgb(0.14, 0.17, 0.22)),
+                ))
+                .with_children(|btn| {
+                    btn.spawn((
+                        Text::new(i18n::t(locale.0, "controls_back")),
+                        TextFont {
+                            font_size: FontSize::Px(20.0),
+                            ..default()
+                        },
+                        TextColor(Color::WHITE),
+                    ));
+                });
+        });
+}
+
+fn despawn_controls_menu(
+    mut commands: Commands,
+    roots: Query<Entity, With<ControlsRoot>>,
+    mut capture: ResMut<BindCapture>,
+) {
+    capture.action = None;
+    for entity in &roots {
+        commands.entity(entity).despawn();
+    }
+}
+
+fn capture_rebind(
+    mut capture: ResMut<BindCapture>,
+    mut bindings: ResMut<KeyBindings>,
+    path: Res<BindingsPath>,
+    keys: Res<ButtonInput<KeyCode>>,
+    mouse: Res<ButtonInput<MouseButton>>,
+) {
+    if capture.ignore_frames > 0 {
+        capture.ignore_frames -= 1;
+        return;
+    }
+    let Some(action) = capture.action.clone() else {
+        return;
+    };
+    if let Some(key) = keys.get_just_pressed().next() {
+        bindings.0.set_bind(&action, format!("{key:?}"));
+        persist_bindings(&path.0, &bindings.0);
+        capture.action = None;
+        return;
+    }
+    if let Some(button) = mouse.get_just_pressed().next() {
+        bindings.0.set_bind(&action, mouse_bind_name(*button));
+        persist_bindings(&path.0, &bindings.0);
+        capture.action = None;
+    }
+}
+
+fn controls_buttons(
+    mut interaction: Query<
+        (&Interaction, Option<&BindRow>, Option<&ControlsBack>, &mut BackgroundColor),
+        (Changed<Interaction>, With<Button>),
+    >,
+    mut capture: ResMut<BindCapture>,
+    mut next: ResMut<NextState<GameMode>>,
+) {
+    for (interaction, row, back, mut bg) in &mut interaction {
+        match *interaction {
+            Interaction::Pressed => {
+                if let Some(row) = row {
+                    if capture.action.as_deref() == Some(row.0) {
+                        capture.action = None;
+                    } else {
+                        capture.action = Some(row.0.to_string());
+                        capture.ignore_frames = 2;
+                    }
+                } else if back.is_some() {
+                    capture.action = None;
+                    next.set(GameMode::Menu);
+                }
+            }
+            Interaction::Hovered => {
+                *bg = BackgroundColor(Color::srgb(0.26, 0.32, 0.42));
+            }
+            Interaction::None => {
+                *bg = BackgroundColor(Color::srgb(0.14, 0.17, 0.22));
+            }
+        }
+    }
+}
+
+fn controls_keyboard(
+    keys: Res<ButtonInput<KeyCode>>,
+    capture: Res<BindCapture>,
+    mut next: ResMut<NextState<GameMode>>,
+) {
+    if capture.action.is_some() {
+        return;
+    }
+    if keys.just_pressed(KeyCode::Escape) {
+        next.set(GameMode::Menu);
+    }
+}
+
+fn refresh_controls_labels(
+    locale: Res<UiLocale>,
+    bindings: Res<KeyBindings>,
+    capture: Res<BindCapture>,
+    mut rows: Query<(&BindRowText, &mut Text), Without<ControlsHintText>>,
+    mut hint: Query<&mut Text, With<ControlsHintText>>,
+) {
+    if !locale.is_changed() && !bindings.is_changed() && !capture.is_changed() {
+        return;
+    }
+    for (row, mut text) in &mut rows {
+        *text = Text::new(bind_row_caption(locale.0, &bindings.0, row.0));
+    }
+    if let Some(mut text) = hint.iter_mut().next() {
+        *text = Text::new(if let Some(action) = &capture.action {
+            i18n::t(locale.0, "controls_waiting").replace(
+                "{action}",
+                i18n::t(locale.0, &format!("bind_{action}")),
+            )
+        } else {
+            i18n::t(locale.0, "controls_hint").to_string()
+        });
     }
 }
 
@@ -2040,9 +2662,10 @@ fn nearest_vehicle(
 fn look_voxel_ahead(
     transform: &Transform,
     voxel_world: &VoxelWorld<DefaultWorld>,
+    catalog: &VoxelCatalog,
     mod_runtime: &ModRuntime,
     locale: Locale,
-) -> (IVec3, i32, String) {
+) -> (IVec3, String, String) {
     let forward_pos = transform.translation + (transform.forward() * 2.0);
     let voxel_pos = IVec3::new(
         forward_pos.x.round() as i32,
@@ -2050,18 +2673,21 @@ fn look_voxel_ahead(
         forward_pos.z.round() as i32,
     );
     let voxel_type = voxel_type_of(voxel_world.get_voxel(voxel_pos)).unwrap_or(0);
+    let voxel = catalog_name(&catalog.0, voxel_type)
+        .unwrap_or("air")
+        .to_string();
     let raw = with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_voxel_label(&mut ctx.store, voxel_type, locale.code())
+            .call_voxel_label(&mut ctx.store, &voxel, locale.code())
             .unwrap_or_else(|_| "unknown".into())
     })
     .unwrap_or_else(|| "unknown".into());
-    (voxel_pos, voxel_type, i18n::tr_label(locale, &raw))
+    (voxel_pos, voxel, i18n::tr_label(locale, &raw))
 }
 
-fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: i32) -> String {
-    if kind <= 0 {
+fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: &str) -> String {
+    if kind.is_empty() {
         return i18n::t(locale, "job_none").to_string();
     }
     with_mod(mod_runtime, |ctx| {
@@ -2071,22 +2697,22 @@ fn mod_contract_name(mod_runtime: &ModRuntime, locale: Locale, kind: i32) -> Str
             .unwrap_or_default()
     })
     .filter(|name| !name.is_empty())
-    .unwrap_or_else(|| format!("#{kind}"))
+    .unwrap_or_else(|| kind.to_string())
 }
 
-fn mod_item_label(mod_runtime: &ModRuntime, locale: Locale, item_id: i32) -> String {
-    if item_id <= 0 {
+fn mod_item_label(mod_runtime: &ModRuntime, locale: Locale, item: &str) -> String {
+    if item.is_empty() {
         return String::new();
     }
     with_mod(mod_runtime, |ctx| {
         ctx.bindings
             .hanga_engine_gameplay()
-            .call_item_label(&mut ctx.store, item_id, locale.code())
+            .call_item_label(&mut ctx.store, item, locale.code())
             .unwrap_or_default()
     })
     .filter(|name| !name.is_empty())
     .map(|raw| i18n::tr_label(locale, &raw))
-    .unwrap_or_else(|| format!("#{item_id}"))
+    .unwrap_or_else(|| item.to_string())
 }
 
 fn held_status(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
@@ -2106,9 +2732,9 @@ fn hotbar_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventor
         let selected = i == inventory.selected;
         let open = if selected { "[" } else { " " };
         let close = if selected { "]" } else { " " };
-        let id = inventory.items[i];
+        let id = inventory.items[i].as_str();
         let count = inventory.counts[i];
-        if id > 0 && count > 0 {
+        if !id.is_empty() && count > 0 {
             let label = mod_item_label(mod_runtime, locale, id);
             parts.push(format!("{open}{}:{label}×{count}{close}", i + 1));
         } else {
@@ -2127,11 +2753,11 @@ fn job_status_line(
     offer: &ModOffer,
     inventory: &ModInventory,
 ) -> String {
-    let job = if contract_is_offered(contract.kind) {
-        let name = mod_contract_name(mod_runtime, locale, contract.kind);
+    let job = if contract_is_offered(&contract.kind) {
+        let name = mod_contract_name(mod_runtime, locale, &contract.kind);
         i18n::format_job_active(locale, &name, contract.payout, contract.danger)
-    } else if contract_is_offered(offer.kind) {
-        let name = mod_contract_name(mod_runtime, locale, offer.kind);
+    } else if contract_is_offered(&offer.kind) {
+        let name = mod_contract_name(mod_runtime, locale, &offer.kind);
         i18n::format_job_offer(locale, &name, offer.payout, offer.danger)
     } else {
         i18n::t(locale, "job_none").to_string()
@@ -2154,6 +2780,7 @@ fn read_terminal_input(
     mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
+    catalog: Res<VoxelCatalog>,
     mod_runtime: Res<ModRuntime>,
     offer: Res<ModOffer>,
     mut locale: ResMut<UiLocale>,
@@ -2196,7 +2823,7 @@ fn read_terminal_input(
                         if let Some(item) =
                             inventory_selected(&inventory.items, &inventory.counts, inventory.selected)
                         {
-                            events.write(signed_place(player_entity, voxel_pos, clamp_voxel_type(item)));
+                            events.write(signed_place(player_entity, voxel_pos, item));
                             say(
                                 locale.0,
                                 &i18n::t(locale.0, "placing").replace("{pos}", &format!("{voxel_pos:?}")),
@@ -2218,26 +2845,46 @@ fn read_terminal_input(
                 }
                 TextCommand::AcceptJob => {
                     if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
-                        events.write(signed_verb(player_entity, 5, 0));
+                        events.write(signed_verb(player_entity, ACTION_ACCEPT, ""));
                         say(locale.0, i18n::t(locale.0, "accepting"));
                     }
                 }
                 TextCommand::CompleteJob => {
                     if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
-                        events.write(signed_verb(player_entity, 6, 0));
+                        events.write(signed_verb(player_entity, ACTION_COMPLETE, ""));
                         say(locale.0, i18n::t(locale.0, "completing"));
                     }
                 }
                 TextCommand::Fence => {
                     if let Some((player_entity, _, _, _, _, _, _)) = query.iter().next() {
-                        events.write(signed_verb(player_entity, 7, 0));
+                        events.write(signed_verb(player_entity, ACTION_FENCE, ""));
                         say(locale.0, i18n::t(locale.0, "fencing"));
+                    }
+                }
+                TextCommand::Craft => {
+                    if let Some((player_entity, _, _, _, _, _, inventory)) = query.iter().next() {
+                        if let Some((a, b)) = pick_craft_pair(inventory, &mod_runtime) {
+                            events.write(signed_verb(player_entity, ACTION_CRAFT, &format!("{a}+{b}")));
+                            let la = mod_item_label(&mod_runtime, locale.0, &a);
+                            let lb = mod_item_label(&mod_runtime, locale.0, &b);
+                            let product = with_mod(&mod_runtime, |ctx| {
+                                ctx.bindings
+                                    .hanga_engine_gameplay()
+                                    .call_craft_result(&mut ctx.store, &a, &b)
+                                    .unwrap_or_default()
+                            })
+                            .unwrap_or_default();
+                            let out = mod_item_label(&mod_runtime, locale.0, &product);
+                            say(locale.0, &i18n::format_crafting(locale.0, &la, &lb, &out));
+                        } else {
+                            say(locale.0, i18n::t(locale.0, "no_recipe"));
+                        }
                     }
                 }
                 TextCommand::Look => {
                     if let Some((_, transform, _, state, wallet, contract, inventory)) = query.iter().next() {
-                        let (pos, _ty, label) =
-                            look_voxel_ahead(transform, &voxel_world, &mod_runtime, locale.0);
+                        let (pos, _name, label) =
+                            look_voxel_ahead(transform, &voxel_world, &catalog, &mod_runtime, locale.0);
                         let status = job_status_line(
                             locale.0,
                             &mod_runtime,
@@ -2274,6 +2921,7 @@ fn read_agent_input(
     mut query: Query<(Entity, &Transform, &mut LinearVelocity, &ModState, &ModWallet, &ModContract, &ModInventory, Option<&InVehicle>), With<Player>>,
     vehicles: Query<(Entity, &Transform), (With<Vehicle>, Without<Player>)>,
     voxel_world: VoxelWorld<DefaultWorld>,
+    catalog: Res<VoxelCatalog>,
     mod_runtime: Res<ModRuntime>,
     offer: Res<ModOffer>,
     locale: Res<UiLocale>,
@@ -2299,12 +2947,12 @@ fn read_agent_input(
                             ));
                         }
                     }
-                    AgentCommand::PlaceBlock { pos, voxel_type } => {
+                    AgentCommand::PlaceBlock { pos, voxel } => {
                         if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter_mut().next() {
                             events.write(signed_place(
                                 player_entity,
                                 IVec3::new(pos[0], pos[1], pos[2]),
-                                voxel_type,
+                                &voxel,
                             ));
                         }
                     }
@@ -2319,32 +2967,32 @@ fn read_agent_input(
                     }
                     AgentCommand::AcceptJob => {
                         if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter().next() {
-                            events.write(signed_verb(player_entity, 5, 0));
+                            events.write(signed_verb(player_entity, ACTION_ACCEPT, ""));
                         }
                     }
                     AgentCommand::CompleteJob => {
                         if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter().next() {
-                            events.write(signed_verb(player_entity, 6, 0));
+                            events.write(signed_verb(player_entity, ACTION_COMPLETE, ""));
                         }
                     }
                     AgentCommand::Fence => {
                         if let Some((player_entity, _, _, _, _, _, _, _)) = query.iter().next() {
-                            events.write(signed_verb(player_entity, 7, 0));
+                            events.write(signed_verb(player_entity, ACTION_FENCE, ""));
                         }
                     }
                     AgentCommand::Look => {
                         if let Some((entity, transform, _, state, wallet, contract, inventory, in_vehicle)) = query.iter_mut().next() {
                             let score = trust_ledger.peer_scores.get(&entity).copied().unwrap_or(100.0);
                             let (_pos, voxel_ahead, voxel_label) =
-                                look_voxel_ahead(transform, &voxel_world, &mod_runtime, locale.0);
+                                look_voxel_ahead(transform, &voxel_world, &catalog, &mod_runtime, locale.0);
                             let obs = AgentObservation {
                                 status: "ok".into(),
                                 player_pos: [transform.translation.x, transform.translation.y, transform.translation.z],
                                 trust_score: score,
                                 wanted_level: state.0,
                                 credits: wallet.0,
-                                offer_kind: offer.kind,
-                                contract_kind: contract.kind,
+                                offer_kind: offer.kind.clone(),
+                                contract_kind: contract.kind.clone(),
                                 voxel_ahead,
                                 voxel_label,
                                 locale: locale.0.code().into(),
@@ -2354,7 +3002,8 @@ fn read_agent_input(
                                     &inventory.counts,
                                     inventory.selected,
                                 )
-                                .unwrap_or(0),
+                                .unwrap_or("")
+                                .to_string(),
                                 hotbar_selected: inventory.selected as u32,
                             };
                             if let Ok(json) = serde_json::to_string(&obs) {
@@ -2370,13 +3019,13 @@ fn read_agent_input(
                     trust_score: 0.0,
                     wanted_level: 0,
                     credits: 0,
-                    offer_kind: 0,
-                    contract_kind: 0,
-                    voxel_ahead: 0,
+                    offer_kind: String::new(),
+                    contract_kind: String::new(),
+                    voxel_ahead: String::new(),
                     voxel_label: String::new(),
                     locale: locale.0.code().into(),
                     in_vehicle: false,
-                    held_item: 0,
+                    held_item: String::new(),
                     hotbar_selected: 0,
                 };
                 if let Ok(json) = serde_json::to_string(&err) {

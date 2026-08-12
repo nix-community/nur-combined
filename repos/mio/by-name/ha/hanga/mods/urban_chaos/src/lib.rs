@@ -30,6 +30,78 @@ pub enum DistrictType {
     Industrial,
 }
 
+/// City materials. Meshing uses the catalog index; gameplay always uses the English name.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[repr(u8)]
+pub enum Voxel {
+    Air = 0,
+    Concrete = 1,
+    Asphalt = 2,
+    Glass = 3,
+    Sidewalk = 4,
+    Grass = 5,
+    Tile = 6,
+    Rail = 7,
+}
+
+impl Voxel {
+    pub const CATALOG: &[&str] = &[
+        "air",
+        "concrete",
+        "asphalt",
+        "glass",
+        "sidewalk",
+        "grass",
+        "tile",
+        "rail",
+    ];
+
+    pub fn name(self) -> &'static str {
+        Self::CATALOG[self as usize]
+    }
+
+    pub fn index(self) -> u8 {
+        self as u8
+    }
+
+    pub fn from_name(name: &str) -> Option<Self> {
+        match name {
+            "air" => Some(Self::Air),
+            "concrete" => Some(Self::Concrete),
+            "asphalt" => Some(Self::Asphalt),
+            "glass" => Some(Self::Glass),
+            "sidewalk" => Some(Self::Sidewalk),
+            "grass" => Some(Self::Grass),
+            "tile" => Some(Self::Tile),
+            "rail" => Some(Self::Rail),
+            _ => None,
+        }
+    }
+
+    pub fn is_solid(self) -> bool {
+        self != Self::Air
+    }
+}
+
+pub const ACTION_BREAK: &str = "break";
+pub const ACTION_PLACE: &str = "place";
+pub const ACTION_ENTER: &str = "enter_vehicle";
+pub const ACTION_EXPLODE: &str = "explode";
+pub const ACTION_ACCEPT: &str = "accept_contract";
+pub const ACTION_COMPLETE: &str = "complete_contract";
+pub const ACTION_FENCE: &str = "fence";
+pub const ACTION_CRAFT: &str = "craft";
+
+pub const AGENT_COP: &str = "cop";
+pub const AGENT_PEDESTRIAN: &str = "pedestrian";
+
+pub const CONTRACT_SMASH: &str = "smash-and-grab";
+pub const CONTRACT_TRUCK: &str = "armored-truck";
+
+pub const EVENT_QUIET: &str = "quiet-streets";
+pub const EVENT_SMASH: &str = "smash-and-grab-contract";
+pub const EVENT_TRUCK: &str = "armored-truck-heist";
+
 impl CityLayout {
     pub fn generate(width: u32, height: u32) -> Self {
         let roads = Self::generate_l_system_roads(width, height);
@@ -76,8 +148,8 @@ impl CityLayout {
         ]
     }
 
-    /// Queries the 3D voxel type at a specific coordinate based on the 2D layout.
-    pub fn get_voxel_at(&self, x: i32, y: i32, z: i32) -> u8 {
+    /// Queries the 3D voxel at a specific coordinate based on the 2D layout.
+    pub fn get_voxel_at(&self, x: i32, y: i32, z: i32) -> Voxel {
         let mod_x = (x % 100).abs();
         let mod_z = (z % 100).abs();
 
@@ -89,42 +161,42 @@ impl CityLayout {
         let is_sidewalk = (is_sidewalk_x || is_sidewalk_z) && !is_road;
 
         if y < -12 {
-            return 1; // Deep bedrock
+            return Voxel::Concrete;
         }
 
         // Sidewalk shafts at 200 m intersections (metro access).
         let shaft = is_sidewalk && near_period(x, 200, 5) && near_period(z, 200, 5);
         if shaft && (-8..=0).contains(&y) {
             if y == -8 {
-                return 6; // Station tiles
+                return Voxel::Tile;
             }
-            return 0; // Access shaft
+            return Voxel::Air;
         }
 
         // Station hall under the same intersections.
         let station = (is_road || is_sidewalk) && near_period(x, 200, 8) && near_period(z, 200, 8);
         if station && (-8..=-4).contains(&y) {
             if y == -8 {
-                return 6;
+                return Voxel::Tile;
             }
-            return 0;
+            return Voxel::Air;
         }
 
         if is_road && (-8..-2).contains(&y) {
             if y == -8 {
-                return 6;
+                return Voxel::Tile;
             }
             if y == -7 && ((is_road_x && mod_x == 1) || (is_road_z && mod_z == 1)) {
-                return 7; // Rail
+                return Voxel::Rail;
             }
-            return 0;
+            return Voxel::Air;
         }
         if is_road && y == -2 {
-            return 1; // Street slab over the tunnel
+            return Voxel::Concrete;
         }
 
         if y < 0 {
-            return 1; // Fill under parks and buildings
+            return Voxel::Concrete;
         }
 
         let cell_x = x - (x % 100) + 50;
@@ -135,13 +207,13 @@ impl CityLayout {
 
         if y == 0 {
             if is_road {
-                return 2; // Asphalt
+                return Voxel::Asphalt;
             }
             if is_sidewalk {
-                return 4;
+                return Voxel::Sidewalk;
             }
             if is_park {
-                return 5; // Grass
+                return Voxel::Grass;
             }
         }
 
@@ -168,17 +240,17 @@ impl CityLayout {
         if !is_park && local_x < footprint && local_z < footprint {
             if y < max_height {
                 if max_height > 50 && (local_x == footprint - 1 || local_z == footprint - 1) {
-                    return 3; // Glass
+                    return Voxel::Glass;
                 }
-                return 1; // Concrete
+                return Voxel::Concrete;
             }
             if y >= max_height && y < max_height + 5 && local_x == 0 && local_z == 0 && prng % 2 == 0
             {
-                return 1; // Antenna pole
+                return Voxel::Concrete;
             }
         }
 
-        0 // Air
+        Voxel::Air
     }
 }
 
@@ -199,29 +271,34 @@ fn city() -> &'static CityLayout {
 
 // ─── Gameplay functions (called by Guest impl and by native tests) ────────────
 
+pub fn voxel_catalog() -> String {
+    Voxel::CATALOG.join(",")
+}
+
 pub fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
-    city().get_voxel_at(x, y, z) as i32
+    city().get_voxel_at(x, y, z).index() as i32
 }
 
 /// Urban Chaos: state is the Wanted Level (0-5).
-pub fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
-    match action_type {
-        1 => current_state.saturating_add(1).min(5), // BreakBlock
-        2 => current_state,                          // PlaceBlock
-        3 => current_state.saturating_add(3).min(5), // EnterVehicle = GTA
-        4 => 5,                                      // Explosion = 5 stars
-        5 => current_state,                          // AcceptContract
-        6 => current_state.saturating_add(1).min(5), // CompleteContract is noisy
-        7 => current_state,                          // FenceLoot when cold
+pub fn mod_evaluate_action(action: &str, current_state: i32) -> i32 {
+    match action {
+        ACTION_BREAK => current_state.saturating_add(1).min(5),
+        ACTION_PLACE => current_state,
+        ACTION_ENTER => current_state.saturating_add(3).min(5),
+        ACTION_EXPLODE => 5,
+        ACTION_ACCEPT => current_state,
+        ACTION_COMPLETE => current_state.saturating_add(1).min(5),
+        ACTION_FENCE => current_state,
+        ACTION_CRAFT => current_state,
         _ => current_state,
     }
 }
 
-pub fn mod_should_spawn_agent(_action_type: i32, old_state: i32, new_state: i32) -> i32 {
+pub fn mod_should_spawn_agent(_action: &str, old_state: i32, new_state: i32) -> String {
     if new_state > old_state && new_state > 0 {
-        1 // Cop
+        AGENT_COP.into()
     } else {
-        0
+        String::new()
     }
 }
 
@@ -232,12 +309,11 @@ pub fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
     ((base_price * demand) / supply).max(1)
 }
 
-pub fn mod_get_action_range(action_type: i32) -> f32 {
-    match action_type {
-        1 => 10.0,
-        2 => 10.0,
-        3 => 5.0,
-        4 => 30.0,
+pub fn mod_get_action_range(action: &str) -> f32 {
+    match action {
+        ACTION_BREAK | ACTION_PLACE => 10.0,
+        ACTION_ENTER => 5.0,
+        ACTION_EXPLODE => 30.0,
         _ => 10.0,
     }
 }
@@ -268,13 +344,13 @@ pub fn mod_get_economy_params() -> i32 {
     (supply << 16) | demand
 }
 
-pub fn generate_story_event(player_level: i32) -> i32 {
+pub fn generate_story_event(player_level: i32) -> String {
     if player_level < 5 {
-        0
+        EVENT_QUIET.into()
     } else if player_level < 20 {
-        1
+        EVENT_SMASH.into()
     } else {
-        2
+        EVENT_TRUCK.into()
     }
 }
 
@@ -294,27 +370,26 @@ pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
     }
 }
 
-/// Voxel types: 0 air, 1 concrete, 2 asphalt, 3 glass, 4 sidewalk, 5 grass, 6 tile, 7 rail.
 /// Buildings and station tiles shatter; roads, rails, and ground stay put.
-pub fn can_fracture(voxel_type: i32) -> i32 {
-    match voxel_type {
-        1 | 3 | 6 => 1,
+pub fn can_fracture(voxel: &str) -> i32 {
+    match voxel {
+        "concrete" | "glass" | "tile" => 1,
         _ => 0,
     }
 }
 
-pub fn fracture_spread(voxel_type: i32) -> i32 {
-    match voxel_type {
-        3 => 3, // glass shatters further
-        1 | 6 => 2,
+pub fn fracture_spread(voxel: &str) -> i32 {
+    match voxel {
+        "glass" => 3,
+        "concrete" | "tile" => 2,
         _ => 0,
     }
 }
 
-pub fn debris_impulse(action_type: i32) -> f32 {
-    match action_type {
-        4 => 15.0, // explosion
-        1 => 5.0,  // melee / pick
+pub fn debris_impulse(action: &str) -> f32 {
+    match action {
+        ACTION_EXPLODE => 15.0,
+        ACTION_BREAK => 5.0,
         _ => 2.0,
     }
 }
@@ -332,8 +407,8 @@ pub fn mod_tick(current_state: i32, dt_ms: i32) -> i32 {
 }
 
 /// Cops leave when the player is no longer wanted. Pedestrians stay.
-pub fn should_despawn_agent(agent_type: i32, current_state: i32) -> i32 {
-    if agent_type == 1 && current_state <= 0 {
+pub fn should_despawn_agent(agent: &str, current_state: i32) -> i32 {
+    if agent == AGENT_COP && current_state <= 0 {
         1
     } else {
         0
@@ -344,144 +419,162 @@ pub fn ambient_agent_count() -> i32 {
     6
 }
 
-pub fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, i32) {
+pub fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
     let i = index.max(0);
-    // Pedestrians (type 2) on the road near downtown spawn.
-    (502 + i * 8, 2, 500, 2)
+    (502 + i * 8, 2, 500, AGENT_PEDESTRIAN.into())
 }
 
-pub fn voxel_label(voxel_type: i32) -> String {
-    voxel_label_for("en", voxel_type)
+pub fn voxel_label(voxel: &str) -> String {
+    voxel_label_for("en", voxel)
 }
 
-pub fn voxel_label_for(locale: &str, voxel_type: i32) -> String {
+pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
     let lang = locale_id(locale);
-    match (lang, voxel_type) {
-        (1, 0) => "hau",
-        (1, 1) => "raima",
-        (1, 2) => "huarahi tā",
-        (1, 3) => "karaihe",
-        (1, 4) => "ara hīkoi",
-        (1, 5) => "pātītī",
-        (1, 6) => "tāera",
-        (1, 7) => "rerewē",
+    match (lang, voxel) {
+        (1, "air") => "hau",
+        (1, "concrete") => "raima",
+        (1, "asphalt") => "huarahi tā",
+        (1, "glass") => "karaihe",
+        (1, "sidewalk") => "ara hīkoi",
+        (1, "grass") => "pātītī",
+        (1, "tile") => "tāera",
+        (1, "rail") => "rerewē",
         (1, _) => "tē mōhiotia",
-        (2, 0) => "air",
-        (2, 1) => "béton",
-        (2, 2) => "asphalte",
-        (2, 3) => "verre",
-        (2, 4) => "trottoir",
-        (2, 5) => "herbe",
-        (2, 6) => "carrelage",
-        (2, 7) => "rail",
+        (2, "air") => "air",
+        (2, "concrete") => "béton",
+        (2, "asphalt") => "asphalte",
+        (2, "glass") => "verre",
+        (2, "sidewalk") => "trottoir",
+        (2, "grass") => "herbe",
+        (2, "tile") => "carrelage",
+        (2, "rail") => "rail",
         (2, _) => "inconnu",
-        (3, 0) => "空氣",
-        (3, 1) => "混凝土",
-        (3, 2) => "柏油",
-        (3, 3) => "玻璃",
-        (3, 4) => "人行道",
-        (3, 5) => "草地",
-        (3, 6) => "磁磚",
-        (3, 7) => "鐵軌",
+        (3, "air") => "空氣",
+        (3, "concrete") => "混凝土",
+        (3, "asphalt") => "柏油",
+        (3, "glass") => "玻璃",
+        (3, "sidewalk") => "人行道",
+        (3, "grass") => "草地",
+        (3, "tile") => "磁磚",
+        (3, "rail") => "鐵軌",
         (3, _) => "未知",
-        (_, 0) => "air",
-        (_, 1) => "concrete",
-        (_, 2) => "asphalt",
-        (_, 3) => "glass",
-        (_, 4) => "sidewalk",
-        (_, 5) => "grass",
-        (_, 6) => "tile",
-        (_, 7) => "rail",
+        (_, "air") => "air",
+        (_, "concrete") => "concrete",
+        (_, "asphalt") => "asphalt",
+        (_, "glass") => "glass",
+        (_, "sidewalk") => "sidewalk",
+        (_, "grass") => "grass",
+        (_, "tile") => "tile",
+        (_, "rail") => "rail",
         _ => "unknown",
     }
     .into()
 }
 
-/// Heist board: 1 = smash-and-grab, 2 = armored truck. Danger is min wanted to cash out.
-pub fn heist_for_wanted(wanted: i32) -> (i32, i32, i32) {
+/// Heist board. Danger is min wanted to cash out.
+pub fn heist_for_wanted(wanted: i32) -> (&'static str, i32, i32) {
     match wanted {
-        i if i >= 3 => (2, 1200, 4),
-        i if i >= 1 => (1, 400, 2),
-        _ => (1, 250, 1),
+        i if i >= 3 => (CONTRACT_TRUCK, 1200, 4),
+        i if i >= 1 => (CONTRACT_SMASH, 400, 2),
+        _ => (CONTRACT_SMASH, 250, 1),
     }
 }
 
-pub fn mod_offer_contract(player_state: i32) -> (i32, i32, i32) {
-    heist_for_wanted(player_state.clamp(0, 5))
+pub fn mod_offer_contract(player_state: i32) -> (String, i32, i32) {
+    let (kind, payout, danger) = heist_for_wanted(player_state.clamp(0, 5));
+    (kind.into(), payout, danger)
 }
 
-pub fn event_label(event_id: i32) -> String {
-    event_label_for("en", event_id)
+pub fn event_label(event: &str) -> String {
+    event_label_for("en", event)
 }
 
-pub fn event_label_for(locale: &str, event_id: i32) -> String {
+pub fn event_label_for(locale: &str, event: &str) -> String {
     let lang = locale_id(locale);
-    match (lang, event_id) {
-        (1, 0) => "ngā huarahi mārie",
-        (1, 1) => "kirimina pakaru-hopu",
-        (1, 2) => "keehi taraka pākaha",
+    match (lang, event) {
+        (1, EVENT_QUIET) => "ngā huarahi mārie",
+        (1, EVENT_SMASH) => "kirimina pakaru-hopu",
+        (1, EVENT_TRUCK) => "keehi taraka pākaha",
         (1, _) => "takahanga tē mōhiotia",
-        (2, 0) => "rues calmes",
-        (2, 1) => "contrat de vol à la sauvette",
-        (2, 2) => "casse de fourgon blindé",
+        (2, EVENT_QUIET) => "rues calmes",
+        (2, EVENT_SMASH) => "contrat de vol à la sauvette",
+        (2, EVENT_TRUCK) => "casse de fourgon blindé",
         (2, _) => "événement inconnu",
-        (3, 0) => "平靜的街道",
-        (3, 1) => "搶劫合約",
-        (3, 2) => "運鈔車搶案",
+        (3, EVENT_QUIET) => "平靜的街道",
+        (3, EVENT_SMASH) => "搶劫合約",
+        (3, EVENT_TRUCK) => "運鈔車搶案",
         (3, _) => "未知事件",
-        (_, 0) => "quiet streets",
-        (_, 1) => "smash-and-grab contract",
-        (_, 2) => "armored-truck heist",
+        (_, EVENT_QUIET) => "quiet streets",
+        (_, EVENT_SMASH) => "smash-and-grab contract",
+        (_, EVENT_TRUCK) => "armored-truck heist",
         _ => "unknown event",
     }
     .into()
 }
 
-pub fn loot_item(voxel_type: i32) -> i32 {
-    match voxel_type {
-        1 | 3 | 5 | 6 => voxel_type,
-        _ => 0,
+pub fn loot_item(voxel: &str) -> String {
+    match voxel {
+        "concrete" | "glass" | "grass" | "tile" => voxel.into(),
+        _ => String::new(),
     }
 }
 
-pub fn item_label_for(locale: &str, item_id: i32) -> String {
-    if item_id <= 0 {
+pub fn item_label_for(locale: &str, item: &str) -> String {
+    if item.is_empty() {
         return String::new();
     }
-    voxel_label_for(locale, item_id)
+    voxel_label_for(locale, item)
 }
 
-pub fn contract_label(kind: i32) -> String {
+/// Street recipes: two of the same scrap, or concrete+glass.
+pub fn craft_result(item_a: &str, item_b: &str) -> String {
+    let (a, b) = if item_a <= item_b {
+        (item_a, item_b)
+    } else {
+        (item_b, item_a)
+    };
+    match (a, b) {
+        ("concrete", "concrete") => "sidewalk".into(),
+        ("concrete", "glass") => "tile".into(),
+        ("grass", "grass") => "concrete".into(),
+        ("tile", "tile") => "rail".into(),
+        _ => String::new(),
+    }
+}
+
+pub fn contract_label(kind: &str) -> String {
     contract_label_for("en", kind)
 }
 
-pub fn contract_label_for(locale: &str, kind: i32) -> String {
+pub fn contract_label_for(locale: &str, kind: &str) -> String {
+    if kind.is_empty() {
+        return String::new();
+    }
     let lang = locale_id(locale);
     match (lang, kind) {
-        (_, 0) => "",
-        (1, 1) => "kirimina pakaru-hopu",
-        (1, 2) => "keehi taraka pākaha",
+        (1, CONTRACT_SMASH) => "kirimina pakaru-hopu",
+        (1, CONTRACT_TRUCK) => "keehi taraka pākaha",
         (1, _) => "mahi tē mōhiotia",
-        (2, 1) => "vol à la sauvette",
-        (2, 2) => "fourgon blindé",
+        (2, CONTRACT_SMASH) => "vol à la sauvette",
+        (2, CONTRACT_TRUCK) => "fourgon blindé",
         (2, _) => "contrat inconnu",
-        (3, 1) => "搶劫合約",
-        (3, 2) => "運鈔車搶案",
+        (3, CONTRACT_SMASH) => "搶劫合約",
+        (3, CONTRACT_TRUCK) => "運鈔車搶案",
         (3, _) => "未知任務",
-        (_, 1) => "smash-and-grab",
-        (_, 2) => "armored-truck heist",
+        (_, CONTRACT_SMASH) => "smash-and-grab",
+        (_, CONTRACT_TRUCK) => "armored-truck heist",
         _ => "unknown contract",
     }
     .into()
 }
 
 /// extra is payout for complete, unused otherwise.
-pub fn mod_wallet_after(action_type: i32, current_wallet: i32, extra: i32) -> i32 {
-    let next = match action_type {
-        1 => current_wallet.saturating_add(5),
-        3 => current_wallet.saturating_add(50),
-        6 => current_wallet.saturating_add(extra.max(0)),
-        7 => {
+pub fn mod_wallet_after(action: &str, current_wallet: i32, extra: i32) -> i32 {
+    let next = match action {
+        ACTION_BREAK => current_wallet.saturating_add(5),
+        ACTION_ENTER => current_wallet.saturating_add(50),
+        ACTION_COMPLETE => current_wallet.saturating_add(extra.max(0)),
+        ACTION_FENCE => {
             let packed = crate::mod_get_economy_params();
             let supply = (packed >> 16) & 0xFFFF;
             let demand = packed & 0xFFFF;
@@ -493,27 +586,27 @@ pub fn mod_wallet_after(action_type: i32, current_wallet: i32, extra: i32) -> i3
 }
 
 pub fn mod_can_complete(
-    action_type: i32,
+    action: &str,
     player_state: i32,
-    contract_kind: i32,
+    contract_kind: &str,
     contract_danger: i32,
 ) -> i32 {
-    match action_type {
-        5 => {
-            if contract_kind > 0 {
+    match action {
+        ACTION_ACCEPT => {
+            if !contract_kind.is_empty() {
                 1
             } else {
                 0
             }
         }
-        6 => {
-            if contract_kind > 0 && player_state >= contract_danger {
+        ACTION_COMPLETE => {
+            if !contract_kind.is_empty() && player_state >= contract_danger {
                 1
             } else {
                 0
             }
         }
-        7 => {
+        ACTION_FENCE => {
             if player_state <= 0 {
                 1
             } else {
@@ -524,9 +617,9 @@ pub fn mod_can_complete(
     }
 }
 
-pub fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    match ai_type {
-        1 => {
+pub fn compute_agent_vx(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    match agent {
+        AGENT_COP => {
             let dx = px - cx;
             let dz = pz - cz;
             let len = (dx * dx + dz * dz).sqrt();
@@ -535,8 +628,7 @@ pub fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32
             }
             (dx / len) * 8.0
         }
-        2 => {
-            // Pedestrian: stroll +X, freeze if the player is on top of them.
+        AGENT_PEDESTRIAN => {
             let dx = px - cx;
             let dz = pz - cz;
             if dx * dx + dz * dz < 2.25 {
@@ -549,9 +641,9 @@ pub fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32
     }
 }
 
-pub fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-    match ai_type {
-        1 => {
+pub fn compute_agent_vz(agent: &str, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+    match agent {
+        AGENT_COP => {
             let dx = px - cx;
             let dz = pz - cz;
             let len = (dx * dx + dz * dz).sqrt();
@@ -560,7 +652,7 @@ pub fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32
             }
             (dz / len) * 8.0
         }
-        2 => 0.0,
+        AGENT_PEDESTRIAN => 0.0,
         _ => 0.0,
     }
 }
@@ -570,32 +662,36 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
         let _ = city();
     }
 
+    fn voxel_catalog() -> String {
+        crate::voxel_catalog()
+    }
+
     fn query_voxel(x: i32, y: i32, z: i32) -> i32 {
         crate::query_voxel(x, y, z)
     }
 
-    fn mod_evaluate_action(action_type: i32, current_state: i32) -> i32 {
-        crate::mod_evaluate_action(action_type, current_state)
+    fn mod_evaluate_action(action: String, current_state: i32) -> i32 {
+        crate::mod_evaluate_action(&action, current_state)
     }
 
-    fn mod_should_spawn_agent(action_type: i32, old_state: i32, new_state: i32) -> i32 {
-        crate::mod_should_spawn_agent(action_type, old_state, new_state)
+    fn mod_should_spawn_agent(action: String, old_state: i32, new_state: i32) -> String {
+        crate::mod_should_spawn_agent(&action, old_state, new_state)
     }
 
-    fn compute_agent_vx(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-        crate::compute_agent_vx(ai_type, cx, cz, px, pz)
+    fn compute_agent_vx(agent: String, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+        crate::compute_agent_vx(&agent, cx, cz, px, pz)
     }
 
-    fn compute_agent_vz(ai_type: i32, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
-        crate::compute_agent_vz(ai_type, cx, cz, px, pz)
+    fn compute_agent_vz(agent: String, cx: f32, cz: f32, px: f32, pz: f32) -> f32 {
+        crate::compute_agent_vz(&agent, cx, cz, px, pz)
     }
 
     fn compute_economy_price(base_price: i32, supply: i32, demand: i32) -> i32 {
         crate::compute_economy_price(base_price, supply, demand)
     }
 
-    fn mod_get_action_range(action_type: i32) -> f32 {
-        crate::mod_get_action_range(action_type)
+    fn mod_get_action_range(action: String) -> f32 {
+        crate::mod_get_action_range(&action)
     }
 
     fn compute_traffic_vx(forward_x: f32, forward_z: f32, blocked: bool) -> f32 {
@@ -614,7 +710,7 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
         crate::mod_get_economy_params()
     }
 
-    fn generate_story_event(player_level: i32) -> i32 {
+    fn generate_story_event(player_level: i32) -> String {
         crate::generate_story_event(player_level)
     }
 
@@ -630,73 +726,77 @@ impl exports::hanga::engine::gameplay::Guest for UrbanChaosMod {
         crate::vehicle_spawn(index)
     }
 
-    fn can_fracture(voxel_type: i32) -> i32 {
-        crate::can_fracture(voxel_type)
+    fn can_fracture(voxel: String) -> i32 {
+        crate::can_fracture(&voxel)
     }
 
-    fn fracture_spread(voxel_type: i32) -> i32 {
-        crate::fracture_spread(voxel_type)
+    fn fracture_spread(voxel: String) -> i32 {
+        crate::fracture_spread(&voxel)
     }
 
-    fn debris_impulse(action_type: i32) -> f32 {
-        crate::debris_impulse(action_type)
+    fn debris_impulse(action: String) -> f32 {
+        crate::debris_impulse(&action)
     }
 
     fn mod_tick(current_state: i32, dt_ms: i32) -> i32 {
         crate::mod_tick(current_state, dt_ms)
     }
 
-    fn should_despawn_agent(agent_type: i32, current_state: i32) -> i32 {
-        crate::should_despawn_agent(agent_type, current_state)
+    fn should_despawn_agent(agent: String, current_state: i32) -> i32 {
+        crate::should_despawn_agent(&agent, current_state)
     }
 
     fn ambient_agent_count() -> i32 {
         crate::ambient_agent_count()
     }
 
-    fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, i32) {
+    fn ambient_agent_spawn(index: i32) -> (i32, i32, i32, String) {
         crate::ambient_agent_spawn(index)
     }
 
-    fn voxel_label(voxel_type: i32, locale: String) -> String {
-        crate::voxel_label_for(&locale, voxel_type)
+    fn voxel_label(voxel: String, locale: String) -> String {
+        crate::voxel_label_for(&locale, &voxel)
     }
 
-    fn mod_wallet_after(action_type: i32, current_wallet: i32, extra: i32) -> i32 {
-        crate::mod_wallet_after(action_type, current_wallet, extra)
+    fn mod_wallet_after(action: String, current_wallet: i32, extra: i32) -> i32 {
+        crate::mod_wallet_after(&action, current_wallet, extra)
     }
 
-    fn mod_offer_contract(player_state: i32) -> (i32, i32, i32) {
+    fn mod_offer_contract(player_state: i32) -> (String, i32, i32) {
         crate::mod_offer_contract(player_state)
     }
 
     fn mod_can_complete(
-        action_type: i32,
+        action: String,
         player_state: i32,
-        contract_kind: i32,
+        contract_kind: String,
         contract_danger: i32,
     ) -> i32 {
-        crate::mod_can_complete(action_type, player_state, contract_kind, contract_danger)
+        crate::mod_can_complete(&action, player_state, &contract_kind, contract_danger)
     }
 
-    fn event_label(event_id: i32, locale: String) -> String {
-        crate::event_label_for(&locale, event_id)
+    fn event_label(event: String, locale: String) -> String {
+        crate::event_label_for(&locale, &event)
     }
 
-    fn contract_label(kind: i32, locale: String) -> String {
-        crate::contract_label_for(&locale, kind)
+    fn contract_label(kind: String, locale: String) -> String {
+        crate::contract_label_for(&locale, &kind)
     }
 
     fn supported_locales() -> String {
         crate::supported_locales()
     }
 
-    fn loot_item(voxel_type: i32) -> i32 {
-        crate::loot_item(voxel_type)
+    fn loot_item(voxel: String) -> String {
+        crate::loot_item(&voxel)
     }
 
-    fn item_label(item_id: i32, locale: String) -> String {
-        crate::item_label_for(&locale, item_id)
+    fn item_label(item: String, locale: String) -> String {
+        crate::item_label_for(&locale, &item)
+    }
+
+    fn craft_result(item_a: String, item_b: String) -> String {
+        crate::craft_result(&item_a, &item_b)
     }
 }
 
@@ -719,8 +819,11 @@ mod kani_verification {
             districts: vec![],
         };
 
-        let voxel_id = layout.get_voxel_at(x, y, z);
-        kani::assert(voxel_id <= 7, "Voxel ID must be a known block type");
+        let voxel = layout.get_voxel_at(x, y, z);
+        kani::assert(
+            (voxel.index() as usize) < Voxel::CATALOG.len(),
+            "Voxel must be a known catalog entry",
+        );
     }
 
     #[kani::proof]
@@ -729,39 +832,78 @@ mod kani_verification {
         let y: i32 = kani::any();
         let z: i32 = kani::any();
         let result = query_voxel(x, y, z);
-        kani::assert(result >= 0 && result <= 7, "FFI returns a valid known voxel");
+        kani::assert(
+            result >= 0 && (result as usize) < Voxel::CATALOG.len(),
+            "FFI returns a valid known voxel",
+        );
     }
 
     #[kani::proof]
     fn verify_mod_evaluate_action_stays_bounded() {
-        let action_type: i32 = kani::any();
+        let action_pick: u8 = kani::any();
         let current_level: i32 = kani::any();
         kani::assume(current_level >= 0 && current_level <= 5);
-        let result = mod_evaluate_action(action_type, current_level);
+        let action = match action_pick % 9 {
+            0 => ACTION_BREAK,
+            1 => ACTION_PLACE,
+            2 => ACTION_ENTER,
+            3 => ACTION_EXPLODE,
+            4 => ACTION_ACCEPT,
+            5 => ACTION_COMPLETE,
+            6 => ACTION_FENCE,
+            7 => ACTION_CRAFT,
+            _ => "unknown",
+        };
+        let result = mod_evaluate_action(action, current_level);
         kani::assert(result >= 0 && result <= 5, "Wanted level must stay 0-5");
     }
 
     #[kani::proof]
     fn verify_can_fracture_is_boolean() {
-        let voxel_type: i32 = kani::any();
-        let result = can_fracture(voxel_type);
+        let pick: u8 = kani::any();
+        let voxel = match pick % 9 {
+            0 => "air",
+            1 => "concrete",
+            2 => "asphalt",
+            3 => "glass",
+            4 => "sidewalk",
+            5 => "grass",
+            6 => "tile",
+            7 => "rail",
+            _ => "unknown",
+        };
+        let result = can_fracture(voxel);
         kani::assert(result == 0 || result == 1, "can_fracture is 0 or 1");
     }
 
     #[kani::proof]
     fn verify_loot_item_is_known_or_empty() {
-        let voxel_type: i32 = kani::any();
-        let item = loot_item(voxel_type);
-        kani::assert(item == 0 || item == voxel_type, "loot is empty or the voxel");
-        kani::assert(item >= 0 && item <= 7, "loot id stays in the type table");
+        let pick: u8 = kani::any();
+        let voxel = Voxel::CATALOG[(pick as usize) % Voxel::CATALOG.len()];
+        let item = loot_item(voxel);
+        kani::assert(
+            item.is_empty() || item == voxel,
+            "loot is empty or the voxel",
+        );
+        kani::assert(
+            item.is_empty() || Voxel::from_name(&item).is_some(),
+            "loot name stays in the catalog",
+        );
     }
 
     #[kani::proof]
     fn verify_wallet_never_goes_negative() {
-        let action: i32 = kani::any();
+        let action_pick: u8 = kani::any();
         let wallet: i32 = kani::any();
         let extra: i32 = kani::any();
         kani::assume(wallet >= 0 && wallet <= 1_000_000);
+        let action = match action_pick % 5 {
+            0 => ACTION_BREAK,
+            1 => ACTION_ENTER,
+            2 => ACTION_COMPLETE,
+            3 => ACTION_FENCE,
+            _ => ACTION_PLACE,
+        };
         let result = mod_wallet_after(action, wallet, extra);
         kani::assert(result >= 0 && result <= 1_000_000, "wallet stays in range");
     }
@@ -783,108 +925,118 @@ mod tests {
     #[test]
     fn voxel_below_ground_is_solid() {
         let layout = empty_layout();
-        assert!(layout.get_voxel_at(0, -1, 0) > 0, "below ground must be solid");
-        assert!(layout.get_voxel_at(500, -100, 500) > 0);
+        assert!(layout.get_voxel_at(0, -1, 0).is_solid(), "below ground must be solid");
+        assert!(layout.get_voxel_at(500, -100, 500).is_solid());
     }
 
     #[test]
     fn voxel_high_in_air_is_air() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(50, 500, 50), 0, "high altitude should be air");
+        assert_eq!(layout.get_voxel_at(50, 500, 50), Voxel::Air, "high altitude should be air");
     }
 
     #[test]
     fn road_surface_is_asphalt() {
         let layout = empty_layout();
         let voxel = layout.get_voxel_at(0, 0, 0);
-        assert_eq!(voxel, 2, "road centre should be asphalt (type 2)");
+        assert_eq!(voxel, Voxel::Asphalt, "road centre should be asphalt");
     }
 
     #[test]
     fn query_voxel_ffi_matches_get_voxel_at() {
         let layout = empty_layout();
         for (x, y, z) in [(0, 0, 0), (500, 50, 500), (0, -1, 0), (50, 500, 50)] {
-            let direct = layout.get_voxel_at(x, y, z) as i32;
+            let direct = layout.get_voxel_at(x, y, z).index() as i32;
             let via_ffi = query_voxel(x, y, z);
             assert_eq!(direct, via_ffi, "FFI wrapper must match direct call at ({x},{y},{z})");
         }
     }
 
     #[test]
+    fn catalog_is_english_names_in_index_order() {
+        assert_eq!(
+            voxel_catalog(),
+            "air,concrete,asphalt,glass,sidewalk,grass,tile,rail"
+        );
+        assert_eq!(Voxel::from_name("tile"), Some(Voxel::Tile));
+        assert_eq!(Voxel::Glass.name(), "glass");
+    }
+
+    #[test]
     fn break_block_increases_wanted_level() {
-        assert_eq!(mod_evaluate_action(1, 0), 1);
-        assert_eq!(mod_evaluate_action(1, 3), 4);
+        assert_eq!(mod_evaluate_action(ACTION_BREAK, 0), 1);
+        assert_eq!(mod_evaluate_action(ACTION_BREAK, 3), 4);
     }
 
     #[test]
     fn break_block_caps_at_5() {
-        assert_eq!(mod_evaluate_action(1, 5), 5, "must not exceed 5 stars");
-        assert_eq!(mod_evaluate_action(1, 4), 5);
+        assert_eq!(mod_evaluate_action(ACTION_BREAK, 5), 5, "must not exceed 5 stars");
+        assert_eq!(mod_evaluate_action(ACTION_BREAK, 4), 5);
     }
 
     #[test]
     fn place_block_no_offense() {
-        assert_eq!(mod_evaluate_action(2, 0), 0);
-        assert_eq!(mod_evaluate_action(2, 3), 3);
+        assert_eq!(mod_evaluate_action(ACTION_PLACE, 0), 0);
+        assert_eq!(mod_evaluate_action(ACTION_PLACE, 3), 3);
     }
 
     #[test]
     fn enter_vehicle_grand_theft_auto() {
-        assert_eq!(mod_evaluate_action(3, 0), 3);
-        assert_eq!(mod_evaluate_action(3, 3), 5, "must cap at 5");
+        assert_eq!(mod_evaluate_action(ACTION_ENTER, 0), 3);
+        assert_eq!(mod_evaluate_action(ACTION_ENTER, 3), 5, "must cap at 5");
     }
 
     #[test]
     fn explosion_is_instant_5_stars() {
-        assert_eq!(mod_evaluate_action(4, 0), 5);
-        assert_eq!(mod_evaluate_action(4, 2), 5);
+        assert_eq!(mod_evaluate_action(ACTION_EXPLODE, 0), 5);
+        assert_eq!(mod_evaluate_action(ACTION_EXPLODE, 2), 5);
     }
 
     #[test]
     fn unknown_action_type_is_neutral() {
-        assert_eq!(mod_evaluate_action(99, 2), 2);
-        assert_eq!(mod_evaluate_action(-1, 4), 4);
+        assert_eq!(mod_evaluate_action("unknown", 2), 2);
+        assert_eq!(mod_evaluate_action("", 4), 4);
     }
 
     #[test]
     fn spawn_cop_when_wanted_level_rises() {
-        assert_eq!(mod_should_spawn_agent(1, 0, 1), 1, "rising level should spawn cop");
-        assert_eq!(mod_should_spawn_agent(4, 2, 5), 1);
+        assert_eq!(mod_should_spawn_agent(ACTION_BREAK, 0, 1), AGENT_COP);
+        assert_eq!(mod_should_spawn_agent(ACTION_EXPLODE, 2, 5), AGENT_COP);
     }
 
     #[test]
     fn no_spawn_when_level_unchanged() {
-        assert_eq!(mod_should_spawn_agent(2, 3, 3), 0);
+        assert!(mod_should_spawn_agent(ACTION_PLACE, 3, 3).is_empty());
     }
 
     #[test]
     fn no_spawn_when_level_drops() {
-        assert_eq!(mod_should_spawn_agent(0, 5, 3), 0);
+        assert!(mod_should_spawn_agent("", 5, 3).is_empty());
     }
 
     #[test]
     fn no_spawn_when_new_state_is_zero() {
-        assert_eq!(mod_should_spawn_agent(1, 0, 0), 0);
+        assert!(mod_should_spawn_agent(ACTION_BREAK, 0, 0).is_empty());
     }
 
     #[test]
     fn break_block_range_is_10() {
-        assert!((mod_get_action_range(1) - 10.0).abs() < 1e-6);
+        assert!((mod_get_action_range(ACTION_BREAK) - 10.0).abs() < 1e-6);
     }
 
     #[test]
     fn explosion_range_is_30() {
-        assert!((mod_get_action_range(4) - 30.0).abs() < 1e-6);
+        assert!((mod_get_action_range(ACTION_EXPLODE) - 30.0).abs() < 1e-6);
     }
 
     #[test]
     fn enter_vehicle_range_is_5() {
-        assert!((mod_get_action_range(3) - 5.0).abs() < 1e-6);
+        assert!((mod_get_action_range(ACTION_ENTER) - 5.0).abs() < 1e-6);
     }
 
     #[test]
     fn unknown_action_range_defaults_to_10() {
-        assert!((mod_get_action_range(99) - 10.0).abs() < 1e-6);
+        assert!((mod_get_action_range("unknown") - 10.0).abs() < 1e-6);
     }
 
     #[test]
@@ -918,26 +1070,26 @@ mod tests {
 
     #[test]
     fn cop_chases_player_in_x() {
-        let vx = compute_agent_vx(1, 0.0, 0.0, 10.0, 0.0);
+        let vx = compute_agent_vx(AGENT_COP, 0.0, 0.0, 10.0, 0.0);
         assert!(vx > 0.0, "cop should move toward player on x axis");
     }
 
     #[test]
     fn cop_chases_player_in_z() {
-        let vz = compute_agent_vz(1, 0.0, 0.0, 0.0, 10.0);
+        let vz = compute_agent_vz(AGENT_COP, 0.0, 0.0, 0.0, 10.0);
         assert!(vz > 0.0, "cop should move toward player on z axis");
     }
 
     #[test]
     fn cop_stops_when_adjacent() {
-        let vx = compute_agent_vx(1, 0.0, 0.0, 1.0, 0.0);
+        let vx = compute_agent_vx(AGENT_COP, 0.0, 0.0, 1.0, 0.0);
         assert!((vx).abs() < 1e-6, "cop too close, should stop");
     }
 
     #[test]
     fn unknown_ai_type_has_zero_velocity() {
-        let vx = compute_agent_vx(99, 0.0, 0.0, 100.0, 100.0);
-        let vz = compute_agent_vz(99, 0.0, 0.0, 100.0, 100.0);
+        let vx = compute_agent_vx("unknown", 0.0, 0.0, 100.0, 100.0);
+        let vz = compute_agent_vz("unknown", 0.0, 0.0, 100.0, 100.0);
         assert!((vx).abs() < 1e-6);
         assert!((vz).abs() < 1e-6);
     }
@@ -968,20 +1120,20 @@ mod tests {
 
     #[test]
     fn story_quiet_at_low_level() {
-        assert_eq!(generate_story_event(0), 0);
-        assert_eq!(generate_story_event(4), 0);
+        assert_eq!(generate_story_event(0), EVENT_QUIET);
+        assert_eq!(generate_story_event(4), EVENT_QUIET);
     }
 
     #[test]
     fn story_smash_and_grab_at_mid_level() {
-        assert_eq!(generate_story_event(5), 1);
-        assert_eq!(generate_story_event(19), 1);
+        assert_eq!(generate_story_event(5), EVENT_SMASH);
+        assert_eq!(generate_story_event(19), EVENT_SMASH);
     }
 
     #[test]
     fn story_armored_truck_at_high_level() {
-        assert_eq!(generate_story_event(20), 2);
-        assert_eq!(generate_story_event(100), 2);
+        assert_eq!(generate_story_event(20), EVENT_TRUCK);
+        assert_eq!(generate_story_event(100), EVENT_TRUCK);
     }
 
     #[test]
@@ -1007,24 +1159,24 @@ mod tests {
 
     #[test]
     fn buildings_fracture_roads_do_not() {
-        assert_eq!(can_fracture(1), 1);
-        assert_eq!(can_fracture(3), 1);
-        assert_eq!(can_fracture(6), 1);
-        assert_eq!(can_fracture(2), 0);
-        assert_eq!(can_fracture(5), 0);
-        assert_eq!(can_fracture(7), 0);
-        assert_eq!(can_fracture(0), 0);
+        assert_eq!(can_fracture("concrete"), 1);
+        assert_eq!(can_fracture("glass"), 1);
+        assert_eq!(can_fracture("tile"), 1);
+        assert_eq!(can_fracture("asphalt"), 0);
+        assert_eq!(can_fracture("grass"), 0);
+        assert_eq!(can_fracture("rail"), 0);
+        assert_eq!(can_fracture("air"), 0);
     }
 
     #[test]
     fn glass_spreads_further_than_concrete() {
-        assert!(fracture_spread(3) > fracture_spread(1));
-        assert_eq!(fracture_spread(2), 0);
+        assert!(fracture_spread("glass") > fracture_spread("concrete"));
+        assert_eq!(fracture_spread("asphalt"), 0);
     }
 
     #[test]
     fn explosion_impulse_stronger_than_melee() {
-        assert!(debris_impulse(4) > debris_impulse(1));
+        assert!(debris_impulse(ACTION_EXPLODE) > debris_impulse(ACTION_BREAK));
     }
 
     #[test]
@@ -1037,154 +1189,165 @@ mod tests {
 
     #[test]
     fn cops_despawn_when_clear_pedestrians_stay() {
-        assert_eq!(should_despawn_agent(1, 0), 1);
-        assert_eq!(should_despawn_agent(1, 2), 0);
-        assert_eq!(should_despawn_agent(2, 0), 0);
+        assert_eq!(should_despawn_agent(AGENT_COP, 0), 1);
+        assert_eq!(should_despawn_agent(AGENT_COP, 2), 0);
+        assert_eq!(should_despawn_agent(AGENT_PEDESTRIAN, 0), 0);
     }
 
     #[test]
     fn pedestrians_stroll_east_and_yield() {
-        let vx = compute_agent_vx(2, 0.0, 0.0, 100.0, 0.0);
+        let vx = compute_agent_vx(AGENT_PEDESTRIAN, 0.0, 0.0, 100.0, 0.0);
         assert!((vx - 3.0).abs() < 1e-5);
-        assert!((compute_agent_vz(2, 0.0, 0.0, 100.0, 0.0)).abs() < 1e-6);
-        assert!((compute_agent_vx(2, 0.0, 0.0, 1.0, 0.0)).abs() < 1e-6);
+        assert!((compute_agent_vz(AGENT_PEDESTRIAN, 0.0, 0.0, 100.0, 0.0)).abs() < 1e-6);
+        assert!((compute_agent_vx(AGENT_PEDESTRIAN, 0.0, 0.0, 1.0, 0.0)).abs() < 1e-6);
     }
 
     #[test]
     fn ambient_agents_are_pedestrians_on_the_street() {
         assert_eq!(ambient_agent_count(), 6);
         let (x, y, _z, kind) = ambient_agent_spawn(0);
-        assert_eq!(kind, 2);
+        assert_eq!(kind, AGENT_PEDESTRIAN);
         assert!(y < 10, "pedestrians walk the street, not rooftops");
         assert!(x >= 500);
     }
 
     #[test]
     fn voxel_labels_cover_city_materials() {
-        assert_eq!(voxel_label(2), "asphalt");
-        assert_eq!(voxel_label(3), "glass");
-        assert_eq!(voxel_label(6), "tile");
-        assert_eq!(voxel_label(7), "rail");
-        assert_eq!(voxel_label(99), "unknown");
+        assert_eq!(voxel_label("asphalt"), "asphalt");
+        assert_eq!(voxel_label("glass"), "glass");
+        assert_eq!(voxel_label("tile"), "tile");
+        assert_eq!(voxel_label("rail"), "rail");
+        assert_eq!(voxel_label("unknown"), "unknown");
     }
 
     #[test]
     fn sidewalk_is_beside_the_road() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(4, 0, 10), 4);
+        assert_eq!(layout.get_voxel_at(4, 0, 10), Voxel::Sidewalk);
     }
 
     #[test]
     fn subway_runs_under_the_street() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(1, -8, 20), 6, "tunnel floor is tile");
-        assert_eq!(layout.get_voxel_at(1, -7, 20), 7, "centerline is rail");
-        assert_eq!(layout.get_voxel_at(0, -7, 20), 0, "tunnel air beside the rail");
-        assert_eq!(layout.get_voxel_at(0, -2, 0), 1, "slab under the asphalt");
-        assert_eq!(layout.get_voxel_at(0, -20, 0), 1, "bedrock");
+        assert_eq!(layout.get_voxel_at(1, -8, 20), Voxel::Tile, "tunnel floor is tile");
+        assert_eq!(layout.get_voxel_at(1, -7, 20), Voxel::Rail, "centerline is rail");
+        assert_eq!(layout.get_voxel_at(0, -7, 20), Voxel::Air, "tunnel air beside the rail");
+        assert_eq!(layout.get_voxel_at(0, -2, 0), Voxel::Concrete, "slab under the asphalt");
+        assert_eq!(layout.get_voxel_at(0, -20, 0), Voxel::Concrete, "bedrock");
     }
 
     #[test]
     fn metro_shaft_and_station_at_intersection() {
         let layout = empty_layout();
-        assert_eq!(layout.get_voxel_at(4, 0, 4), 0, "shaft opening in the sidewalk");
-        assert_eq!(layout.get_voxel_at(4, -4, 4), 0, "shaft down to the platform");
-        assert_eq!(layout.get_voxel_at(1, -8, 1), 6, "station floor");
-        assert_eq!(layout.get_voxel_at(1, -6, 1), 0, "station hall");
+        assert_eq!(layout.get_voxel_at(4, 0, 4), Voxel::Air, "shaft opening in the sidewalk");
+        assert_eq!(layout.get_voxel_at(4, -4, 4), Voxel::Air, "shaft down to the platform");
+        assert_eq!(layout.get_voxel_at(1, -8, 1), Voxel::Tile, "station floor");
+        assert_eq!(layout.get_voxel_at(1, -6, 1), Voxel::Air, "station hall");
     }
 
     #[test]
     fn loot_drops_breakable_city_blocks() {
-        assert_eq!(loot_item(1), 1);
-        assert_eq!(loot_item(3), 3);
-        assert_eq!(loot_item(6), 6);
-        assert_eq!(loot_item(5), 5);
-        assert_eq!(loot_item(2), 0);
-        assert_eq!(loot_item(7), 0);
-        assert_eq!(loot_item(0), 0);
-        assert_eq!(item_label_for("en", 6), "tile");
-        assert_eq!(item_label_for("mi", 6), "tāera");
-        assert_eq!(item_label_for("fr", 7), "rail");
-        assert_eq!(item_label_for("zh-TW", 6), "磁磚");
-        assert!(item_label_for("en", 0).is_empty());
+        assert_eq!(loot_item("concrete"), "concrete");
+        assert_eq!(loot_item("glass"), "glass");
+        assert_eq!(loot_item("tile"), "tile");
+        assert_eq!(loot_item("grass"), "grass");
+        assert!(loot_item("asphalt").is_empty());
+        assert!(loot_item("rail").is_empty());
+        assert!(loot_item("air").is_empty());
+        assert_eq!(item_label_for("en", "tile"), "tile");
+        assert_eq!(item_label_for("mi", "tile"), "tāera");
+        assert_eq!(item_label_for("fr", "rail"), "rail");
+        assert_eq!(item_label_for("zh-TW", "tile"), "磁磚");
+        assert!(item_label_for("en", "").is_empty());
+    }
+
+    #[test]
+    fn street_crafting_is_symmetric() {
+        assert_eq!(craft_result("concrete", "concrete"), "sidewalk");
+        assert_eq!(craft_result("glass", "concrete"), "tile");
+        assert_eq!(craft_result("concrete", "glass"), "tile");
+        assert_eq!(craft_result("tile", "tile"), "rail");
+        assert_eq!(craft_result("grass", "grass"), "concrete");
+        assert!(craft_result("asphalt", "asphalt").is_empty());
+        assert!(craft_result("concrete", "rail").is_empty());
     }
 
     #[test]
     fn story_event_labels_are_heists_not_aliens() {
-        assert_eq!(event_label(0), "quiet streets");
-        assert_eq!(event_label(1), "smash-and-grab contract");
-        assert_eq!(event_label(2), "armored-truck heist");
+        assert_eq!(event_label(EVENT_QUIET), "quiet streets");
+        assert_eq!(event_label(EVENT_SMASH), "smash-and-grab contract");
+        assert_eq!(event_label(EVENT_TRUCK), "armored-truck heist");
     }
 
     #[test]
     fn voxel_and_story_follow_locale() {
-        assert_eq!(voxel_label_for("mi", 2), "huarahi tā");
-        assert_eq!(voxel_label_for("mi", 6), "tāera");
-        assert_eq!(voxel_label_for("fr", 3), "verre");
-        assert_eq!(voxel_label_for("fr", 7), "rail");
-        assert_eq!(voxel_label_for("zh-TW", 2), "柏油");
-        assert_eq!(voxel_label_for("zh-TW", 6), "磁磚");
-        assert_eq!(voxel_label_for("de", 2), "asphalt", "unknown locale falls back to English");
-        assert_eq!(event_label_for("mi", 0), "ngā huarahi mārie");
-        assert_eq!(event_label_for("fr", 2), "casse de fourgon blindé");
-        assert_eq!(event_label_for("zh-Hant", 1), "搶劫合約");
-        assert_eq!(contract_label_for("en", 1), "smash-and-grab");
-        assert_eq!(contract_label_for("zh-TW", 2), "運鈔車搶案");
+        assert_eq!(voxel_label_for("mi", "asphalt"), "huarahi tā");
+        assert_eq!(voxel_label_for("mi", "tile"), "tāera");
+        assert_eq!(voxel_label_for("fr", "glass"), "verre");
+        assert_eq!(voxel_label_for("fr", "rail"), "rail");
+        assert_eq!(voxel_label_for("zh-TW", "asphalt"), "柏油");
+        assert_eq!(voxel_label_for("zh-TW", "tile"), "磁磚");
+        assert_eq!(voxel_label_for("de", "asphalt"), "asphalt", "unknown locale falls back to English");
+        assert_eq!(event_label_for("mi", EVENT_QUIET), "ngā huarahi mārie");
+        assert_eq!(event_label_for("fr", EVENT_TRUCK), "casse de fourgon blindé");
+        assert_eq!(event_label_for("zh-Hant", EVENT_SMASH), "搶劫合約");
+        assert_eq!(contract_label_for("en", CONTRACT_SMASH), "smash-and-grab");
+        assert_eq!(contract_label_for("zh-TW", CONTRACT_TRUCK), "運鈔車搶案");
         assert_eq!(supported_locales(), "en,mi,fr,zh-TW");
     }
 
     #[test]
     fn clean_player_is_offered_an_atm_job() {
-        assert_eq!(mod_offer_contract(0), (1, 250, 1));
+        assert_eq!(mod_offer_contract(0), (CONTRACT_SMASH.into(), 250, 1));
     }
 
     #[test]
     fn high_wanted_unlocks_armored_truck() {
-        assert_eq!(mod_offer_contract(4), (2, 1200, 4));
+        assert_eq!(mod_offer_contract(4), (CONTRACT_TRUCK.into(), 1200, 4));
     }
 
     #[test]
     fn scrap_and_stolen_cars_pay_credits() {
-        assert_eq!(mod_wallet_after(1, 0, 0), 5);
-        assert_eq!(mod_wallet_after(3, 10, 0), 60);
-        assert_eq!(mod_wallet_after(2, 10, 0), 10);
+        assert_eq!(mod_wallet_after(ACTION_BREAK, 0, 0), 5);
+        assert_eq!(mod_wallet_after(ACTION_ENTER, 10, 0), 60);
+        assert_eq!(mod_wallet_after(ACTION_PLACE, 10, 0), 10);
     }
 
     #[test]
     fn completing_a_heist_pays_the_payout() {
-        assert_eq!(mod_wallet_after(6, 100, 250), 350);
-        assert_eq!(mod_wallet_after(6, 100, -50), 100, "negative extra must not drain");
+        assert_eq!(mod_wallet_after(ACTION_COMPLETE, 100, 250), 350);
+        assert_eq!(mod_wallet_after(ACTION_COMPLETE, 100, -50), 100, "negative extra must not drain");
     }
 
     #[test]
     fn fencing_uses_the_city_market() {
-        let after = mod_wallet_after(7, 0, 0);
+        let after = mod_wallet_after(ACTION_FENCE, 0, 0);
         assert_eq!(after, compute_economy_price(80, 5, 8));
         assert!(after > 0);
     }
 
     #[test]
     fn accept_needs_an_offer() {
-        assert_eq!(mod_can_complete(5, 0, 0, 0), 0);
-        assert_eq!(mod_can_complete(5, 0, 1, 1), 1);
+        assert_eq!(mod_can_complete(ACTION_ACCEPT, 0, "", 0), 0);
+        assert_eq!(mod_can_complete(ACTION_ACCEPT, 0, CONTRACT_SMASH, 1), 1);
     }
 
     #[test]
     fn complete_needs_enough_heat() {
-        assert_eq!(mod_can_complete(6, 0, 1, 1), 0);
-        assert_eq!(mod_can_complete(6, 1, 1, 1), 1);
-        assert_eq!(mod_can_complete(6, 3, 2, 4), 0);
-        assert_eq!(mod_can_complete(6, 4, 2, 4), 1);
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 0, CONTRACT_SMASH, 1), 0);
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 1, CONTRACT_SMASH, 1), 1);
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 3, CONTRACT_TRUCK, 4), 0);
+        assert_eq!(mod_can_complete(ACTION_COMPLETE, 4, CONTRACT_TRUCK, 4), 1);
     }
 
     #[test]
     fn fence_only_when_cold() {
-        assert_eq!(mod_can_complete(7, 0, 0, 0), 1);
-        assert_eq!(mod_can_complete(7, 2, 0, 0), 0);
+        assert_eq!(mod_can_complete(ACTION_FENCE, 0, "", 0), 1);
+        assert_eq!(mod_can_complete(ACTION_FENCE, 2, "", 0), 0);
     }
 
     #[test]
     fn accept_is_not_a_crime() {
-        assert_eq!(mod_evaluate_action(5, 2), 2);
+        assert_eq!(mod_evaluate_action(ACTION_ACCEPT, 2), 2);
     }
 }

@@ -4,26 +4,31 @@ interface gameplay {
     /// Initialize the mod (called once when the component is loaded).
     init-mod: func();
 
+    /// Voxel names in meshing-index order, comma-separated. Index 0 is always air.
+    /// `query-voxel` returns this catalog index (kept numeric only for the hot path).
+    voxel-catalog: func() -> string;
+
     /// Voxel world generation owned by the mod.
     query-voxel: func(x: s32, y: s32, z: s32) -> s32;
 
     /// Action validation and state owned by the mod.
-    /// action-type: 1=BreakBlock, 2=PlaceBlock, 3=EnterVehicle, 4=Explosion
-    mod-get-action-range: func(action-type: s32) -> f32;
-    mod-evaluate-action: func(action-type: s32, current-state: s32) -> s32;
-    mod-should-spawn-agent: func(action-type: s32, old-state: s32, new-state: s32) -> s32;
+    /// Action names are English identifiers, e.g. break, place, enter_vehicle, explode.
+    mod-get-action-range: func(action: string) -> f32;
+    mod-evaluate-action: func(action: string, current-state: s32) -> s32;
+    /// Empty string = spawn nobody. Otherwise an agent name such as cop.
+    mod-should-spawn-agent: func(action: string, old-state: s32, new-state: s32) -> string;
 
     /// Traffic AI: engine supplies heading + whether the path is blocked.
     compute-traffic-vx: func(fwd-x: f32, fwd-z: f32, blocked: bool) -> f32;
     compute-traffic-vz: func(fwd-x: f32, fwd-z: f32, blocked: bool) -> f32;
 
     /// Agent AI (cops, pedestrians, etc.)
-    compute-agent-vx: func(agent-type: s32, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
-    compute-agent-vz: func(agent-type: s32, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
+    compute-agent-vx: func(agent: string, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
+    compute-agent-vz: func(agent: string, cur-x: f32, cur-z: f32, target-x: f32, target-z: f32) -> f32;
 
     /// Storyteller and economy owned by the mod.
     mod-get-storyteller-level: func() -> s32;
-    generate-story-event: func(player-level: s32) -> s32;
+    generate-story-event: func(player-level: s32) -> string;
     mod-get-economy-params: func() -> s32;
     compute-economy-price: func(base: s32, supply: s32, demand: s32) -> s32;
 
@@ -33,43 +38,44 @@ interface gameplay {
     vehicle-spawn: func(index: s32) -> tuple<s32, s32, s32>;
 
     /// Teardown rules owned by the mod.
-    /// 1 if this voxel type can become physical debris when fractured.
-    can-fracture: func(voxel-type: s32) -> s32;
-    /// Chebyshev radius of collapse around a broken voxel of this type.
-    fracture-spread: func(voxel-type: s32) -> s32;
-    /// Impulse applied to spawned debris for an action type.
-    debris-impulse: func(action-type: s32) -> f32;
+    /// 1 if this voxel name can become physical debris when fractured.
+    can-fracture: func(voxel: string) -> s32;
+    /// Chebyshev radius of collapse around a broken voxel of this name.
+    fracture-spread: func(voxel: string) -> s32;
+    /// Impulse applied to spawned debris for an action name.
+    debris-impulse: func(action: string) -> f32;
 
     /// Passive tick owned by the mod (wanted-level decay, etc.). `dt-ms` is elapsed millis.
     mod-tick: func(current-state: s32, dt-ms: s32) -> s32;
-    /// 1 if this agent type should leave given the current mod state.
-    should-despawn-agent: func(agent-type: s32, current-state: s32) -> s32;
+    /// 1 if this agent name should leave given the current mod state.
+    should-despawn-agent: func(agent: string, current-state: s32) -> s32;
 
-    /// Ambient civilians / NPCs the mod wants at load (x, y, z, agent-type).
+    /// Ambient civilians / NPCs the mod wants at load (x, y, z, agent name).
     ambient-agent-count: func() -> s32;
-    ambient-agent-spawn: func(index: s32) -> tuple<s32, s32, s32, s32>;
+    ambient-agent-spawn: func(index: s32) -> tuple<s32, s32, s32, string>;
 
     /// Human-readable material name. `locale` is a BCP-47 tag (en, mi, fr, zh-TW).
-    voxel-label: func(voxel-type: s32, locale: string) -> string;
+    voxel-label: func(voxel: string, locale: string) -> string;
 
-    /// Mod-owned wallet / score after this action. `extra` is payout or loot type.
-    /// action-type: 5=AcceptContract, 6=CompleteContract, 7=FenceLoot
-    mod-wallet-after: func(action-type: s32, current-wallet: s32, extra: s32) -> s32;
-    /// Offered contract (kind, payout, danger). kind 0 = none.
-    mod-offer-contract: func(player-state: s32) -> tuple<s32, s32, s32>;
+    /// Mod-owned wallet / score after this action. `extra` is payout or unused.
+    mod-wallet-after: func(action: string, current-wallet: s32, extra: s32) -> s32;
+    /// Offered contract (kind, payout, danger). empty kind = none.
+    mod-offer-contract: func(player-state: s32) -> tuple<string, s32, s32>;
     /// 1 if this verb is legal given current state + contract (kind, danger).
-    mod-can-complete: func(action-type: s32, player-state: s32, contract-kind: s32, contract-danger: s32) -> s32;
-    /// Accessibility / log label for a story or contract id.
-    event-label: func(event-id: s32, locale: string) -> string;
-    /// Name of a contract kind (0 = none) in the given locale.
-    contract-label: func(kind: s32, locale: string) -> string;
+    mod-can-complete: func(action: string, player-state: s32, contract-kind: string, contract-danger: s32) -> s32;
+    /// Accessibility / log label for a story event name.
+    event-label: func(event: string, locale: string) -> string;
+    /// Name of a contract kind (empty = none) in the given locale.
+    contract-label: func(kind: string, locale: string) -> string;
     /// Comma-separated locales this mod ships, e.g. "en,mi,fr,zh-TW".
     supported-locales: func() -> string;
 
-    /// Item id granted when this voxel is broken (0 = nothing).
-    loot-item: func(voxel-type: s32) -> s32;
-    /// Label for a hotbar / inventory item id.
-    item-label: func(item-id: s32, locale: string) -> string;
+    /// Item name granted when this voxel is broken (empty = nothing).
+    loot-item: func(voxel: string) -> string;
+    /// Label for a hotbar / inventory item name.
+    item-label: func(item: string, locale: string) -> string;
+    /// Product of combining two item names (empty = no recipe). Order must not matter.
+    craft-result: func(item-a: string, item-b: string) -> string;
 }
 
 world plugin {

@@ -9,6 +9,7 @@ The host knows nothing about cops, wanted levels, cities, or quests.
 
 - Voxel meshing (`bevy_voxel_world`) and rigid-body physics (`avian3d`)
 - Window / headless / `--text-client` / `--agent-client` I/O
+- Player-editable key bindings (`bindings.conf` + Controls menu)
 - Player-facing locale (`--lang` / `HANGA_LANG`): English, te reo Māori, français, 台灣中文.
   Host UI strings live here; gameplay names are asked of the mod with that locale tag.
 - P2P transport (`matchbox`), TrustLedger distance checks, action fingerprints
@@ -27,7 +28,10 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 - Passive tick (wanted decay), ambient NPCs
 - Localized copy (`voxel-label`, `event-label`, `contract-label`, `item-label`, `supported-locales`)
 - Wallet / contracts (`mod-wallet-after`, `mod-offer-contract`, `mod-can-complete`)
-- Loot ids (`loot-item`) that fill the host's generic 8-slot hotbar
+- English names for voxels, items, actions, agents, contracts, and story events
+- `voxel-catalog` lists meshing-index order (`air,concrete,...`); `query-voxel` still returns that index
+- Loot names (`loot-item`) that fill the host's generic 8-slot hotbar
+- Crafting recipes (`craft-result`); the host only spends two items and adds the product
 
 ### Shipped mods
 
@@ -53,13 +57,17 @@ hanga --lang zh-TW
 hanga --play
 hanga --p2p
 hanga --p2p ws://host:3536/hanga_room
+hanga --bindings /path/to/bindings.conf
 ```
 
-`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Language / Quit). Play is
-single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a room only
-if a signaling server is already running; a refused connection stays in single-player
-instead of crashing. In-game: `1`–`8` select the hotbar, `F` / middle-click places the
-selected block, `Esc` returns to the menu.
+`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Language / Controls / Quit).
+Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a
+room only if a signaling server is already running; a refused connection stays in
+single-player instead of crashing. Mouse look is captured while playing.
+
+Key bindings default to WASD / mouse / E / C / F / 1–8 / Esc. Players can change them
+in the Controls menu or by editing `~/.config/hanga/bindings.conf` (`HANGA_BINDINGS` or
+`--bindings` override). The file is created on first launch.
 
 Locales: `en`, `mi` (Māori), `fr`, `zh-TW` (Taiwan Chinese). Also `HANGA_LANG` or `LANG`.
 Text-client extras: `look` / `status`, `accept job`, `complete job`, `fence`, `lang mi`.
@@ -89,4 +97,4 @@ binding the mod must be a component (`wit-bindgen` + `wasm-tools component new`,
 1. Compile mods to components in `package.nix` and install them next to the binary
 2. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
 3. Kani CI for engine + mods
-4. Crafting recipes still live in Urban Chaos (hotbar + subway are in)
+4. Procedural voxel palette texture; more Urban Chaos recipes / workbenches

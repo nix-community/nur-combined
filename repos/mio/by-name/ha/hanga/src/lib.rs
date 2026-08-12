@@ -3,6 +3,7 @@
 /// All functions here are deterministic and independently testable.
 /// The ECS systems in main.rs call these; `cargo test --lib` exercises them.
 
+pub mod bindings;
 pub mod i18n;
 
 // ─── Anti-cheat / Trust ──────────────────────────────────────────────────────
@@ -102,9 +103,31 @@ pub fn fracture_offsets(spread: i32) -> Vec<(i32, i32, i32)> {
     out
 }
 
-/// Pack a voxel type into the 0..=255 material range used by the renderer.
+/// Pack a voxel catalog index into the 0..=255 material range used by the renderer.
 pub fn clamp_voxel_type(voxel_type: i32) -> u8 {
     voxel_type.clamp(0, 255) as u8
+}
+
+/// Split a comma-separated name catalog. Empty fragments are dropped.
+pub fn parse_name_catalog(csv: &str) -> Vec<String> {
+    csv.split(',')
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .map(|s| s.to_string())
+        .collect()
+}
+
+/// Look up a catalog name by meshing index. Missing index → None.
+pub fn catalog_name(catalog: &[String], index: i32) -> Option<&str> {
+    catalog.get(index as usize).map(String::as_str)
+}
+
+/// Look up a catalog index by English name.
+pub fn catalog_index(catalog: &[String], name: &str) -> Option<u8> {
+    catalog
+        .iter()
+        .position(|entry| entry == name)
+        .and_then(|i| u8::try_from(i).ok())
 }
 
 // ─── Connectivity (Teardown support) ──────────────────────────────────────────
@@ -183,23 +206,35 @@ pub fn should_skip_menu(args: &[String]) -> bool {
     })
 }
 
-/// Stable fingerprint of an optimistic action (for logs / duplicate detection).
-pub fn action_fingerprint(kind: u8, x: i32, y: i32, z: i32, extra: i32) -> u64 {
-    let mut h = 0xcbf29ce484222325u64;
-    for w in [kind as u64, x as u64, y as u64, z as u64, extra as u64] {
-        h ^= w;
-        h = h.wrapping_mul(0x0000_0100_0000_01B3);
+fn fnv_mix(mut h: u64, w: u64) -> u64 {
+    h ^= w;
+    h.wrapping_mul(0x0000_0100_0000_01B3)
+}
+
+fn fingerprint_bytes(mut h: u64, bytes: &[u8]) -> u64 {
+    for b in bytes {
+        h = fnv_mix(h, *b as u64);
     }
     h
 }
 
+/// Stable fingerprint of an optimistic action (for logs / duplicate detection).
+pub fn action_fingerprint(kind: &str, x: i32, y: i32, z: i32, extra: &str) -> u64 {
+    let mut h = 0xcbf29ce484222325u64;
+    h = fingerprint_bytes(h, kind.as_bytes());
+    for w in [x as u64, y as u64, z as u64] {
+        h = fnv_mix(h, w);
+    }
+    fingerprint_bytes(h, extra.as_bytes())
+}
+
 /// Peers reject an action whose claimed fingerprint does not match the payload.
 pub fn verify_action_signature(
-    kind: u8,
+    kind: &str,
     x: i32,
     y: i32,
     z: i32,
-    extra: i32,
+    extra: &str,
     claimed: u64,
 ) -> bool {
     action_fingerprint(kind, x, y, z, extra) == claimed
@@ -208,8 +243,8 @@ pub fn verify_action_signature(
 pub const INVENTORY_SLOTS: usize = 8;
 
 /// Put `item` into the first matching or empty slot. Returns false if the bag is full.
-pub fn inventory_add(items: &mut [i32], counts: &mut [u32], item: i32) -> bool {
-    if item <= 0 || items.len() != counts.len() {
+pub fn inventory_add(items: &mut [String], counts: &mut [u32], item: &str) -> bool {
+    if item.is_empty() || items.len() != counts.len() {
         return false;
     }
     for i in 0..items.len() {
@@ -219,8 +254,8 @@ pub fn inventory_add(items: &mut [i32], counts: &mut [u32], item: i32) -> bool {
         }
     }
     for i in 0..items.len() {
-        if items[i] == 0 || counts[i] == 0 {
-            items[i] = item;
+        if items[i].is_empty() || counts[i] == 0 {
+            items[i] = item.to_string();
             counts[i] = 1;
             return true;
         }
@@ -229,17 +264,17 @@ pub fn inventory_add(items: &mut [i32], counts: &mut [u32], item: i32) -> bool {
 }
 
 /// Take one item from `selected`. Clears the slot when the count hits zero.
-pub fn inventory_take(items: &mut [i32], counts: &mut [u32], selected: usize) -> Option<i32> {
+pub fn inventory_take(items: &mut [String], counts: &mut [u32], selected: usize) -> Option<String> {
     if selected >= items.len() || items.len() != counts.len() {
         return None;
     }
-    if items[selected] <= 0 || counts[selected] == 0 {
+    if items[selected].is_empty() || counts[selected] == 0 {
         return None;
     }
-    let id = items[selected];
+    let id = items[selected].clone();
     counts[selected] -= 1;
     if counts[selected] == 0 {
-        items[selected] = 0;
+        items[selected].clear();
     }
     Some(id)
 }
@@ -248,13 +283,70 @@ pub fn clamp_hotbar_index(index: i32) -> usize {
     index.clamp(0, (INVENTORY_SLOTS as i32) - 1) as usize
 }
 
+pub const LOOK_SENSITIVITY: f32 = 0.0025;
+pub const LOOK_PITCH_LIMIT: f32 = std::f32::consts::FRAC_PI_2 - 0.02;
+
+/// Integrate mouse delta into yaw/pitch. `dx` right and `dy` down are screen-space.
+pub fn apply_mouse_look(yaw: f32, pitch: f32, dx: f32, dy: f32, sensitivity: f32) -> (f32, f32) {
+    let yaw = yaw - dx * sensitivity;
+    let pitch = (pitch - dy * sensitivity).clamp(-LOOK_PITCH_LIMIT, LOOK_PITCH_LIMIT);
+    (yaw, pitch)
+}
+
+fn inventory_remove_one(items: &mut [String], counts: &mut [u32], item: &str) -> bool {
+    if item.is_empty() || items.len() != counts.len() {
+        return false;
+    }
+    for i in 0..items.len() {
+        if items[i] == item && counts[i] > 0 {
+            counts[i] -= 1;
+            if counts[i] == 0 {
+                items[i].clear();
+            }
+            return true;
+        }
+    }
+    false
+}
+
+/// Spend one `a` and one `b` (two of the same if `a == b`) and add `result`.
+pub fn inventory_craft_pair(
+    items: &mut [String],
+    counts: &mut [u32],
+    a: &str,
+    b: &str,
+    result: &str,
+) -> bool {
+    if items.len() != counts.len() || result.is_empty() || a.is_empty() || b.is_empty() {
+        return false;
+    }
+    let mut next_items = items.to_vec();
+    let mut next_counts = counts.to_vec();
+    if !inventory_remove_one(&mut next_items, &mut next_counts, a) {
+        return false;
+    }
+    if !inventory_remove_one(&mut next_items, &mut next_counts, b) {
+        return false;
+    }
+    if !inventory_add(&mut next_items, &mut next_counts, result) {
+        return false;
+    }
+    items.clone_from_slice(&next_items);
+    counts.copy_from_slice(&next_counts);
+    true
+}
+
 /// Item currently selected on the hotbar, if the slot is occupied.
-pub fn inventory_selected(items: &[i32], counts: &[u32], selected: usize) -> Option<i32> {
+pub fn inventory_selected<'a>(
+    items: &'a [String],
+    counts: &[u32],
+    selected: usize,
+) -> Option<&'a str> {
     if selected >= items.len() || items.len() != counts.len() {
         return None;
     }
-    if items[selected] > 0 && counts[selected] > 0 {
-        Some(items[selected])
+    if !items[selected].is_empty() && counts[selected] > 0 {
+        Some(items[selected].as_str())
     } else {
         None
     }
@@ -265,9 +357,9 @@ pub fn clamp_wallet(value: i32) -> i32 {
     value.clamp(0, 1_000_000)
 }
 
-/// A contract offer is live when the mod returns a non-zero kind.
-pub fn contract_is_offered(kind: i32) -> bool {
-    kind > 0
+/// A contract offer is live when the mod returns a non-empty kind name.
+pub fn contract_is_offered(kind: &str) -> bool {
+    !kind.is_empty()
 }
 
 // ─── Tests ────────────────────────────────────────────────────────────────────
@@ -509,6 +601,16 @@ mod tests {
         assert_eq!(clamp_voxel_type(300), 255);
     }
 
+    #[test]
+    fn name_catalog_maps_english_ids() {
+        let catalog = parse_name_catalog("air, concrete, glass,");
+        assert_eq!(catalog, ["air", "concrete", "glass"]);
+        assert_eq!(catalog_name(&catalog, 1), Some("concrete"));
+        assert_eq!(catalog_index(&catalog, "glass"), Some(2));
+        assert_eq!(catalog_index(&catalog, "rail"), None);
+        assert!(parse_name_catalog("  ").is_empty());
+    }
+
     // ── is_connected_to_ground ────────────────────────────────────────────────
 
     #[test]
@@ -550,24 +652,28 @@ mod tests {
 
     #[test]
     fn action_fingerprint_is_stable_and_sensitive() {
-        let a = action_fingerprint(1, 4, 5, 6, 0);
-        let b = action_fingerprint(1, 4, 5, 6, 0);
-        let c = action_fingerprint(1, 4, 5, 7, 0);
+        let a = action_fingerprint("break", 4, 5, 6, "");
+        let b = action_fingerprint("break", 4, 5, 6, "");
+        let c = action_fingerprint("break", 4, 5, 7, "");
         assert_eq!(a, b);
         assert_ne!(a, c);
+        assert_ne!(
+            action_fingerprint("place", 4, 5, 6, "concrete"),
+            action_fingerprint("place", 4, 5, 6, "glass")
+        );
     }
 
     #[test]
     fn matching_fingerprint_is_accepted() {
-        let fp = action_fingerprint(6, 10, 0, 0, 400);
-        assert!(verify_action_signature(6, 10, 0, 0, 400, fp));
+        let fp = action_fingerprint("complete_contract", 10, 0, 0, "400");
+        assert!(verify_action_signature("complete_contract", 10, 0, 0, "400", fp));
     }
 
     #[test]
     fn tampered_fingerprint_is_rejected() {
-        let fp = action_fingerprint(1, 2, 3, 4, 0);
-        assert!(!verify_action_signature(1, 2, 3, 4, 0, fp.wrapping_add(1)));
-        assert!(!verify_action_signature(1, 2, 3, 5, 0, fp));
+        let fp = action_fingerprint("break", 2, 3, 4, "");
+        assert!(!verify_action_signature("break", 2, 3, 4, "", fp.wrapping_add(1)));
+        assert!(!verify_action_signature("break", 2, 3, 5, "", fp));
     }
 
     #[test]
@@ -578,25 +684,28 @@ mod tests {
     }
 
     #[test]
-    fn contract_kind_zero_is_not_an_offer() {
-        assert!(!contract_is_offered(0));
-        assert!(contract_is_offered(1));
-        assert!(contract_is_offered(2));
+    fn contract_kind_empty_is_not_an_offer() {
+        assert!(!contract_is_offered(""));
+        assert!(contract_is_offered("smash-and-grab"));
+        assert!(contract_is_offered("armored-truck"));
+    }
+
+    fn empty_bag() -> ([String; INVENTORY_SLOTS], [u32; INVENTORY_SLOTS]) {
+        (std::array::from_fn(|_| String::new()), [0u32; INVENTORY_SLOTS])
     }
 
     #[test]
     fn inventory_stacks_then_opens_a_new_slot() {
-        let mut items = [0; INVENTORY_SLOTS];
-        let mut counts = [0u32; INVENTORY_SLOTS];
-        assert!(inventory_add(&mut items, &mut counts, 3));
-        assert!(inventory_add(&mut items, &mut counts, 3));
-        assert_eq!((items[0], counts[0]), (3, 2));
-        assert!(inventory_add(&mut items, &mut counts, 1));
-        assert_eq!((items[1], counts[1]), (1, 1));
-        assert_eq!(inventory_take(&mut items, &mut counts, 0), Some(3));
+        let (mut items, mut counts) = empty_bag();
+        assert!(inventory_add(&mut items, &mut counts, "glass"));
+        assert!(inventory_add(&mut items, &mut counts, "glass"));
+        assert_eq!((items[0].as_str(), counts[0]), ("glass", 2));
+        assert!(inventory_add(&mut items, &mut counts, "concrete"));
+        assert_eq!((items[1].as_str(), counts[1]), ("concrete", 1));
+        assert_eq!(inventory_take(&mut items, &mut counts, 0).as_deref(), Some("glass"));
         assert_eq!(counts[0], 1);
-        assert_eq!(inventory_take(&mut items, &mut counts, 0), Some(3));
-        assert_eq!(items[0], 0);
+        assert_eq!(inventory_take(&mut items, &mut counts, 0).as_deref(), Some("glass"));
+        assert!(items[0].is_empty());
         assert_eq!(inventory_take(&mut items, &mut counts, 0), None);
     }
 
@@ -605,10 +714,56 @@ mod tests {
         assert_eq!(clamp_hotbar_index(-2), 0);
         assert_eq!(clamp_hotbar_index(3), 3);
         assert_eq!(clamp_hotbar_index(99), 7);
-        let items = [3, 0, 0, 0, 0, 0, 0, 0];
+        let mut items: [String; INVENTORY_SLOTS] = std::array::from_fn(|_| String::new());
+        items[0] = "glass".into();
         let counts = [2, 0, 0, 0, 0, 0, 0, 0];
-        assert_eq!(inventory_selected(&items, &counts, 0), Some(3));
+        assert_eq!(inventory_selected(&items, &counts, 0), Some("glass"));
         assert_eq!(inventory_selected(&items, &counts, 1), None);
+    }
+
+    #[test]
+    fn mouse_look_yaws_left_and_clamps_pitch() {
+        let (yaw, _pitch) = apply_mouse_look(0.0, 0.0, 10.0, 0.0, 0.01);
+        assert!(yaw < 0.0, "mouse right turns clockwise / look left in YXZ");
+        let (_, up) = apply_mouse_look(0.0, 0.0, 0.0, -4000.0, 0.01);
+        assert!((up - LOOK_PITCH_LIMIT).abs() < 1e-5);
+        let (_, down) = apply_mouse_look(0.0, 0.0, 0.0, 4000.0, 0.01);
+        assert!((down + LOOK_PITCH_LIMIT).abs() < 1e-5);
+    }
+
+    #[test]
+    fn craft_spends_two_and_gives_the_product() {
+        let (mut items, mut counts) = empty_bag();
+        items[0] = "concrete".into();
+        counts[0] = 2;
+        assert!(inventory_craft_pair(
+            &mut items,
+            &mut counts,
+            "concrete",
+            "concrete",
+            "sidewalk"
+        ));
+        assert_eq!((items[0].as_str(), counts[0]), ("sidewalk", 1));
+        assert!(!inventory_craft_pair(
+            &mut items,
+            &mut counts,
+            "concrete",
+            "concrete",
+            "sidewalk"
+        ));
+        items[0] = "concrete".into();
+        counts[0] = 1;
+        items[1] = "glass".into();
+        counts[1] = 1;
+        assert!(inventory_craft_pair(
+            &mut items,
+            &mut counts,
+            "concrete",
+            "glass",
+            "glass"
+        ));
+        assert_eq!(inventory_selected(&items, &counts, 0), Some("glass"));
+        assert_eq!(counts.iter().sum::<u32>(), 1);
     }
 
     #[test]
@@ -639,10 +794,21 @@ mod kani_verification {
         let x: i32 = kani::any();
         let y: i32 = kani::any();
         let z: i32 = kani::any();
-        let extra: i32 = kani::any();
-        let fp = action_fingerprint(kind, x, y, z, extra);
+        let extra: u8 = kani::any();
+        let kind_name = match kind % 4 {
+            0 => "break",
+            1 => "place",
+            2 => "explode",
+            _ => "craft",
+        };
+        let extra_name = match extra % 3 {
+            0 => "",
+            1 => "concrete",
+            _ => "glass",
+        };
+        let fp = action_fingerprint(kind_name, x, y, z, extra_name);
         kani::assert(
-            verify_action_signature(kind, x, y, z, extra, fp),
+            verify_action_signature(kind_name, x, y, z, extra_name, fp),
             "fingerprint must verify against its own payload",
         );
     }
