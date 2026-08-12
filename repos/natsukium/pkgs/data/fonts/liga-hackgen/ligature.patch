@@ -1,0 +1,42 @@
+diff --git a/ligatures.py b/ligatures.py
+index 59ec72c..894cc13 100644
+--- a/ligatures.py
++++ b/ligatures.py
+@@ -451,14 +451,6 @@ ligatures = [
+         'chars': ['less', 'slash', 'greater'],
+         'firacode_ligature_name': 'less_slash_greater.liga',
+     },
+-    {   # #{
+-        'chars': ['numbersign', 'braceleft'],
+-        'firacode_ligature_name': 'numbersign_braceleft.liga',
+-    },
+-    {   # #[
+-        'chars': ['numbersign', 'bracketleft'],
+-        'firacode_ligature_name': 'numbersign_bracketleft.liga',
+-    },
+     {   # #:
+         'chars': ['numbersign', 'colon'],
+         'firacode_ligature_name': 'numbersign_colon.liga',
+@@ -483,22 +475,10 @@ ligatures = [
+         'chars': ['numbersign', 'numbersign', 'numbersign', 'numbersign'],
+         'firacode_ligature_name': 'numbersign_numbersign_numbersign_numbersign.liga',
+     },
+-    {   # #(
+-        'chars': ['numbersign', 'parenleft'],
+-        'firacode_ligature_name': 'numbersign_parenleft.liga',
+-    },
+     {   # #?
+         'chars': ['numbersign', 'question'],
+         'firacode_ligature_name': 'numbersign_question.liga',
+     },
+-    {   # #_
+-        'chars': ['numbersign', 'underscore'],
+-        'firacode_ligature_name': 'numbersign_underscore.liga',
+-    },
+-    {   # #_(
+-        'chars': ['numbersign', 'underscore', 'parenleft'],
+-        'firacode_ligature_name': 'numbersign_underscore_parenleft.liga',
+-    },
+     {   # %%
+         'chars': ['percent', 'percent'],
+         'firacode_ligature_name': 'percent_percent.liga',

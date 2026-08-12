@@ -1,0 +1,49 @@
+name: "Update source and create PR"
+on:
+  schedule:
+    - cron:  '0 19 * * *'
+  workflow_dispatch:
+jobs:
+  updates:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Generate GitHub App Token
+      id: app-token
+      uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+      with:
+        app-id: ${{ secrets.APP_ID }}
+        private-key: ${{ secrets.APP_PRIVATE_KEY }}
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        token: ${{ steps.app-token.outputs.token }}
+        persist-credentials: false
+    - name: Install nix
+      uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c # v35
+      with:
+        nix_conf: |
+          experimental-features = nix-command flakes
+    - name: Update sources
+      run: nix run nixpkgs#nvfetcher
+    - name: Update firefox addons
+      run: nix run git+https://git.sr.ht/~rycee/mozilla-addons-to-nix pkgs/firefox-addons/{addons.json,default.nix}
+    # nvfetcher bumps the source but cannot compute npmDepsHash; refresh it here.
+    - name: Update playwright-cli npm deps hash
+      run: nix run nixpkgs#nix-update -- --flake --version=npmDeps playwright-cli
+    - name: Update readme
+      run: nix develop -c update-readme
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+      with:
+        token: ${{ steps.app-token.outputs.token }}
+        commit-message: "update source"
+        title: "update source"
+        branch: update-nvfetcher
+        sign-commits: true
+    - name: Enable auto-merge
+      if: steps.cpr.outputs.pull-request-number
+      run: |
+        gh pr merge --auto --squash "${{ steps.cpr.outputs.pull-request-number }}"
+      env:
+        GH_TOKEN: ${{ steps.app-token.outputs.token }}

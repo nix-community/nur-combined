@@ -1,0 +1,218 @@
+{
+    "claudecode-nvim": {
+        "cargoLock": null,
+        "date": "2026-06-25",
+        "extract": null,
+        "name": "claudecode-nvim",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "coder",
+            "repo": "claudecode.nvim",
+            "rev": "2390c6e45c4789072c293ac69de051d169668b29",
+            "sha256": "sha256-oMBPSRQFDmJ9Lq+ZP8vFMHaocm4sPX3D/orVMNwVXuM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2390c6e45c4789072c293ac69de051d169668b29"
+    },
+    "copyq-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "copyq-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-V1Y/ssokdRl0w1t0TKfqLFwXG8XAD1mzyDeZEodq5LE=",
+            "type": "url",
+            "url": "https://github.com/hluk/CopyQ/releases/download/v16.0.0/CopyQ-16.0.0-macos-12-m1.dmg"
+        },
+        "version": "16.0.0"
+    },
+    "emacs-plus": {
+        "cargoLock": null,
+        "date": "2026-08-11",
+        "extract": null,
+        "name": "emacs-plus",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "d12frosted",
+            "repo": "homebrew-emacs-plus",
+            "rev": "b19998b1dec042889a30216c2bdcb2d0fde3a0b3",
+            "sha256": "sha256-a2iT/mIj89y4r0GDkG7fOtgbTfCsg4EBI1TqiDk6iBs=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b19998b1dec042889a30216c2bdcb2d0fde3a0b3"
+    },
+    "hammerspoon": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "hammerspoon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-EbsckPr1Qn83x71P5+q5d0rkPh1csCDFswiNrDKEnvo=",
+            "type": "url",
+            "url": "https://github.com/Hammerspoon/hammerspoon/releases/download/1.1.1/Hammerspoon-1.1.1.zip"
+        },
+        "version": "1.1.1"
+    },
+    "paperwm-spoon": {
+        "cargoLock": null,
+        "date": "2026-08-01",
+        "extract": null,
+        "name": "paperwm-spoon",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mogenson",
+            "repo": "PaperWM.spoon",
+            "rev": "a291a40a8adb3f2986bac57f2482ba34a679850b",
+            "sha256": "sha256-FS0DobdVJ8U8S1lviNFeT0aV4GIj00ON7BCgWO0DkE8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "a291a40a8adb3f2986bac57f2482ba34a679850b"
+    },
+    "playwright-cli": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "playwright-cli",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "microsoft",
+            "repo": "playwright-cli",
+            "rev": "v0.1.18",
+            "sha256": "sha256-E/AzDJhD12PWSaA3iRY+hloPsSWnAw18gTa/ItVhr3E=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v0.1.18"
+    },
+    "qmk-toolbox": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qmk-toolbox",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-WPre2csGAQzavtksLbj3L/MrWUT6d2gTJVq7eAmpcLk=",
+            "type": "url",
+            "url": "https://github.com/qmk/qmk_toolbox/releases/download/0.3.3/QMK.Toolbox.app.zip"
+        },
+        "version": "0.3.3"
+    },
+    "qutebrowser-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "qutebrowser-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-mBcCQb8Sov4d6r/8gSC3DcjgDlVbtxLDh1HESPBJVKM=",
+            "type": "url",
+            "url": "https://github.com/qutebrowser/qutebrowser/releases/download/v3.7.0/qutebrowser-3.7.0-arm64.dmg"
+        },
+        "version": "3.7.0"
+    },
+    "skills-ref": {
+        "cargoLock": null,
+        "date": "2026-08-09",
+        "extract": null,
+        "name": "skills-ref",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "agentskills",
+            "repo": "agentskills",
+            "rev": "69ef37e9424c0a7ea9dd2293b559e43ec8176379",
+            "sha256": "sha256-9coLvkonrdbkIAf6DVvCH6rfjPuyaCA/eb1RsFBMiSg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "69ef37e9424c0a7ea9dd2293b559e43ec8176379"
+    },
+    "skkeleton": {
+        "cargoLock": null,
+        "date": "2026-07-27",
+        "extract": null,
+        "name": "skkeleton",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "vim-skk",
+            "repo": "skkeleton",
+            "rev": "cb6e529dada798929deefd879e32e418dab1c6ac",
+            "sha256": "sha256-ydZdzknNz9baKPZ5FDHY264evzZ3+50ZVi1VuhwXv4M=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "cb6e529dada798929deefd879e32e418dab1c6ac"
+    },
+    "vivaldi-darwin": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "vivaldi-darwin",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-u/+eIs4cd5YpyGswKyOqLmvO26WhdOXq92o9SU77WQY=",
+            "type": "url",
+            "url": "https://downloads.vivaldi.com/stable/Vivaldi.8.1.4087.62.universal.dmg"
+        },
+        "version": "8.1.4087.62"
+    },
+    "zen-browser": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "zen-browser",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-bufrCa4/ku9W0UNArMeUi0XXaAbSMqVN4jqM00g2Gwk=",
+            "type": "url",
+            "url": "https://github.com/zen-browser/desktop/releases/download/1.21.13b/zen.macos-universal.dmg"
+        },
+        "version": "1.21.13b"
+    }
+}
