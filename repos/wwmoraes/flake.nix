@@ -130,6 +130,6 @@
             };
         };
 
-      systems = import inputs.systems;
+      systems = inputs.nixpkgs.lib.subtractLists [ "x86_64-darwin" ] (import inputs.systems);
     });
 }

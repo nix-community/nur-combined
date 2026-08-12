@@ -37,7 +37,7 @@ configure:
 .PHONY: check
 #: Runs validations to ensure all packages build successfully.
 check:
-	nix fmt
+	nix fmt --accept-flake-config
 	nix flake check --print-build-logs --accept-flake-config
 
 .PHONY: clean
