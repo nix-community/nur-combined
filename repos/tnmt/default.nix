@@ -23,6 +23,7 @@
 
   brave-origin = pkgs.callPackage ./pkgs/brave-origin { };
   ax = pkgs.callPackage ./pkgs/ax { };
+  chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
   oneaws = pkgs.callPackage ./pkgs/oneaws { };
   kagiana = pkgs.callPackage ./pkgs/kagiana { };
   ccpocket-bridge = pkgs.callPackage ./pkgs/ccpocket-bridge { };

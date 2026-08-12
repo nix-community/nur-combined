@@ -12,6 +12,7 @@
 | [ax](./pkgs/ax) | The AI-era curl |
 | [brave-origin](./pkgs/brave-origin) | Brave Origin browser without AI, crypto, or rewards |
 | [ccpocket-bridge](./pkgs/ccpocket-bridge) | Bridge server connecting Claude Agent SDK and Codex CLI to mobile devices |
+| [chatgpt](./pkgs/chatgpt) | Official ChatGPT desktop app by OpenAI, repackaged from the upstream Linux .deb |
 | [givy](./pkgs/givy) | Local GitHub-like git viewer with a web UI |
 | [kagiana](./pkgs/kagiana) | OAuth Authenticator & Vault Certificate Getter |
 | [oneaws](./pkgs/oneaws) | CLI tool for AWS authentication via OneLogin |
