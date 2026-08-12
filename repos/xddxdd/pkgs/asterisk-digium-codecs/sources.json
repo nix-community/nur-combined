@@ -859,5 +859,35 @@
                 "version": "1.0.7"
             }
         }
+    },
+    "24": {
+        "g729a": {
+            "64": {
+                "hash": "17m5g3fpk4mga0761kqyc1zb6r8pqr5q5359vmkfg3j1yvrcq2dg",
+                "url": "https://downloads.digium.com/pub/telephony/codec_g729a/asterisk-24.0/x86-64/codec_g729a-24.0_3.1.12-x86_64.tar.gz",
+                "version": "3.1.12"
+            }
+        },
+        "opus": {
+            "64": {
+                "hash": "1z3lmz6jc4k1y1wcy3si1k37h3a6sim998mx1bplzlib010d6a2s",
+                "url": "https://downloads.digium.com/pub/telephony/codec_opus/asterisk-24.0/x86-64/codec_opus-24.0_1.3.0-x86_64.tar.gz",
+                "version": "1.3.0"
+            }
+        },
+        "silk": {
+            "64": {
+                "hash": "0g5by2aj4pq4x5kz5xvsjqrqy5szqdywl92bn08i7nxyjab2cgpq",
+                "url": "https://downloads.digium.com/pub/telephony/codec_silk/asterisk-24.0/x86-64/codec_silk-24.0_1.0.3-x86_64.tar.gz",
+                "version": "1.0.3"
+            }
+        },
+        "siren7": {
+            "64": {
+                "hash": "18g43z9qmlbw8kdj53j2dvls24krl1l6c8yplh53x0cwz3fqplds",
+                "url": "https://downloads.digium.com/pub/telephony/codec_siren7/asterisk-24.0/x86-64/codec_siren7-24.0_1.0.7-x86_64.tar.gz",
+                "version": "1.0.7"
+            }
+        }
     }
 }

@@ -284,7 +284,7 @@ Or, use variables from this repository in case I change them:
 
 
 <details>
-<summary>Package set: asteriskDigiumCodecs (75 packages)</summary>
+<summary>Package set: asteriskDigiumCodecs (79 packages)</summary>
 
 | State | Path | Name | Version | Description |
 | ----- | ---- | ---- | ------- | ----------- |
@@ -363,6 +363,10 @@ Or, use variables from this repository in case I change them:
 | `x86_64-linux` | `asteriskDigiumCodecs.23.silk` | [asterisk-23-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | Asterisk silk Codec by Digium |
 | `x86_64-linux` | `asteriskDigiumCodecs.23.siren14` | [asterisk-23-codec-siren14](https://downloads.digium.com/pub/telephony/codec_siren14/) | 1.0.7 | Asterisk siren14 Codec by Digium |
 | `x86_64-linux` | `asteriskDigiumCodecs.23.siren7` | [asterisk-23-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | Asterisk siren7 Codec by Digium |
+| `x86_64-linux` | `asteriskDigiumCodecs.24.g729a` | [asterisk-24-codec-g729a](https://downloads.digium.com/pub/telephony/codec_g729a/) | 3.1.12 | Asterisk g729a Codec by Digium |
+| `x86_64-linux` | `asteriskDigiumCodecs.24.opus` | [asterisk-24-codec-opus](https://downloads.digium.com/pub/telephony/codec_opus/) | 1.3.0 | Asterisk opus Codec by Digium |
+| `x86_64-linux` | `asteriskDigiumCodecs.24.silk` | [asterisk-24-codec-silk](https://downloads.digium.com/pub/telephony/codec_silk/) | 1.0.3 | Asterisk silk Codec by Digium |
+| `x86_64-linux` | `asteriskDigiumCodecs.24.siren7` | [asterisk-24-codec-siren7](https://downloads.digium.com/pub/telephony/codec_siren7/) | 1.0.7 | Asterisk siren7 Codec by Digium |
 </details>
 
 <details>
