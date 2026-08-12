@@ -105,6 +105,7 @@ in
       just-local
       moreutils
       trash-cli
+      udo
 
       # Data
       bobby

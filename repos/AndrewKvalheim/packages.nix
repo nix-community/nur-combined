@@ -99,6 +99,7 @@ specify {
   spf-tree = any;
   stretch-break = any;
   tile-stitch = any;
+  udo = any;
   udon = any;
   unln = any;
   vscode-extensions = namespaced {

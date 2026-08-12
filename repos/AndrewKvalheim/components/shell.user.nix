@@ -392,6 +392,7 @@ in
     gist = "git-remote gist.github.com";
     gl = "git-remote gitlab.com";
     gnome-console = "kgx";
+    gsi = "gnome-session-inhibit";
     h = "tig --all";
     hs = "home-manager switch";
     i = "jjui";

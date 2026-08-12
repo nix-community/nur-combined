@@ -8,6 +8,7 @@
 , nix
 , nom-wrappers
 , systemd
+, udo
 }:
 
 let
@@ -17,7 +18,7 @@ in
 resholve.writeScriptBin "off"
 {
   interpreter = getExe bash;
-  inputs = [ btrfs-progs docker nix nom-wrappers systemd ];
+  inputs = [ btrfs-progs docker nix nom-wrappers systemd udo ];
   execer = [
     "cannot:${getExe docker}"
     "cannot:${getExe' nix "nix-channel"}"
@@ -27,5 +28,6 @@ resholve.writeScriptBin "off"
     "cannot:${getExe' systemd "systemctl"}"
   ];
   fake.external = [ "runuser" "sudo" ]; # Pending abathur/resholve#29
+  fake.function = [ "udo" ];
 }
   (readFile ./assets/off.sh)

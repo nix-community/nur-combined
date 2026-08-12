@@ -1481,6 +1481,7 @@ subsetting
 subshell
 subshells
 Substack
+substituter
 substituters
 sudo
 sumatriptan
@@ -1536,6 +1537,7 @@ Tiananmen
 Tig
 TikTok
 Tilikum
+Tillamook
 Tillicum
 timestamping
 Tiritiri
@@ -1658,6 +1660,7 @@ unprefixed
 unproctored
 UnRAR
 unredact
+unredacted
 unredaction
 unrelatedly
 unrendered
