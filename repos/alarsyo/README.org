@@ -1,0 +1,25 @@
+#+title: NixOS configurations
+
+Configuration for my computers! You may find here system configurations for
+various services I host, as well as my dotfiles for daily programs.
+
+** Packages
+
+Various packages of mine can be found in this repo. You can easily use these
+packages from Nix by [[https://github.com/nix-community/NUR][setting up the Nix User Repository]].
+
+*** Flake
+
+If you prefer, theses packages are also exposed as a *flake* in this repo:
+
+- To list packages:
+
+#+begin_src sh
+nix flake show
+#+end_src
+
+- To install one of them:
+
+#+begin_src sh
+nix build github:alarsyo/nixos-config#$PACKAGE
+#+end_src

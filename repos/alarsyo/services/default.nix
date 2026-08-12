@@ -1,0 +1,32 @@
+{...}: {
+  imports = [
+    ./fail2ban.nix
+    ./fava.nix
+    ./forgejo
+    ./gitea
+    ./immich.nix
+    ./jellyfin.nix
+    ./journiv.nix
+    ./lohr.nix
+    ./matrix.nix
+    ./mealie.nix
+    ./media.nix
+    ./microbin.nix
+    ./miniflux.nix
+    ./monitoring.nix
+    ./navidrome.nix
+    ./nextcloud.nix
+    ./nginx.nix
+    ./paperless.nix
+    ./photoprism.nix
+    ./pipewire.nix
+    ./pleroma.nix
+    ./postgresql-backup.nix
+    ./postgresql.nix
+    ./restic-backup.nix
+    ./scribe.nix
+    ./tailscale.nix
+    ./transmission.nix
+    ./vaultwarden.nix
+  ];
+}

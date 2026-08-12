@@ -1,0 +1,17 @@
+name: "NUR"
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'pkgs/**'
+      - '.github/workflows/nur-update.yaml'
+
+jobs:
+  update-nur:
+    name: "Ping NUR repo hook"
+    runs-on: ubuntu-latest
+    steps:
+      - name: curl nur endpoint
+        run: |
+          curl -XPOST https://nur-update.nix-community.org/update?repo=alarsyo
