@@ -1,11 +1,18 @@
 {
   description = "Alxandr NUR repository";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs =
     {
       self,
       nixpkgs,
+      nur,
     }:
     let
       forAllSystems = nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed;
@@ -17,6 +24,7 @@
           pkgs = import nixpkgs {
             inherit system;
             config.allowUnfree = true;
+            overlays = [ nur.overlays.default ];
           };
         }
       );
