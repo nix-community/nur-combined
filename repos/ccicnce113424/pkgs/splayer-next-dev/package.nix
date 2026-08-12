@@ -28,13 +28,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "splayer-next";
-  version = "";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "SPlayer-Dev";
     repo = "SPlayer-Next";
     tag = "v${finalAttrs.version}";
-    hash = "";
+    hash = "sha256-D2Ja/ZF5hKRVy/O33mCsl0iulYUqP/qRiQLjX0tl0dM=";
   };
 
   pnpmDeps = fetchPnpmDeps {
@@ -45,7 +45,7 @@ stdenv.mkDerivation (finalAttrs: {
       ;
     inherit pnpm;
     fetcherVersion = 3;
-    hash = "";
+    hash = "sha256-CmgeTQ4oI+oFiU4h4kwP2/wTr2O1kWb0mPN/Q6CNctI=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
@@ -54,7 +54,7 @@ stdenv.mkDerivation (finalAttrs: {
       version
       src
       ;
-    hash = "";
+    hash = "sha256-iZtUPQ3yUomUNf6j+gV0HxcwsvjBPOVqwzwUvsP0CCY=";
   };
 
   nativeBuildInputs = [
@@ -69,6 +69,7 @@ stdenv.mkDerivation (finalAttrs: {
     makeWrapper
     copyDesktopItems
     pkg-config
+    removeReferencesTo
   ];
 
   buildInputs = [
@@ -101,22 +102,22 @@ stdenv.mkDerivation (finalAttrs: {
     # script which is disallowed.
     # What's more, we need to use headers from electron to avoid ABI mismatches.
     for f in $(find . -path '*/node_modules/better-sqlite3' -type d); do
-        (cd "$f" && (
+      (cd "$f" && (
         npm run build-release --offline --nodedir="${electron.headers}"
         rm -rf build/Release/{.deps,obj,obj.target,test_extension.node}
         find build -type f -exec \
-        ${lib.getExe removeReferencesTo} \
-        -t "${electron.headers}" {} \;
-        ))
+          remove-references-to -t "${electron.headers}" {} \;
+        )
+      )
     done
 
     pnpm build
 
     npm exec electron-builder -- \
-        --dir \
-        --config electron-builder.config.ts \
-        -c.electronDist=${electron.dist} \
-        -c.electronVersion=${electron.version}
+      --dir \
+      --config electron-builder.config.ts \
+      -c.electronDist=${electron.dist} \
+      -c.electronVersion=${electron.version}
 
     runHook postBuild
   '';
