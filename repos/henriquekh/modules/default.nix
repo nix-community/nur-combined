@@ -1,0 +1,3 @@
+{
+  quickshell = ./quickshell;
+}
