@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+cd "$SCRIPT_DIR"
+
+export DOWNLOAD_DIR="$(mktemp -d)"
+
+curl -s https://raw.githubusercontent.com/lucasew/workspaced/refs/heads/master/setup > "$DOWNLOAD_DIR/setup"
+chmod +x "$DOWNLOAD_DIR/setup"
+
+"$DOWNLOAD_DIR/setup" self-install -f
+"$DOWNLOAD_DIR/setup" home apply
+
+

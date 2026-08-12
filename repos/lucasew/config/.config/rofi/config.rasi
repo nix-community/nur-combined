@@ -1,0 +1,13 @@
+configuration {
+    modi: "window,drun,run,ssh";
+    show-icons: true;
+    icon-theme: "Papirus";
+    display-drun: "";
+    display-window: "";
+    display-combi: "";
+    drun-display-format: "{name}";
+    terminal: "alacritty";
+    font: "Fira Code 12";
+}
+
+@theme "theme"

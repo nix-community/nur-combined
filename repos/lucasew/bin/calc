@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export PYTHONPATH=$PYTHONPATH:$(sd d root)/bin/.calc
+
+exec sd shim python3 -m commoncalc "$@"

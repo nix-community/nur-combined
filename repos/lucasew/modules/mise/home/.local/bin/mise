@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v workspaced >/dev/null 2>&1; then
+	printf 'mise: workspaced not found on PATH\n' >&2
+	exit 127
+fi
+
+# Home lazy tool "mise" (registry:mise). Pins live in the home lockfile.
+exec workspaced open lazy --home --bin mise mise -- "$@"

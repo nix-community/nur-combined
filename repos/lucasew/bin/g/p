@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# alias for git push origin $branch
+
+git push origin $(git rev-parse --abbrev-ref HEAD) "$@"

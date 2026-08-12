@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# alias for git commit --ammend
+
+git commit --amend "$@"

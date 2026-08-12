@@ -1,0 +1,7 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p sshuttle
+#! vim:ft=bash
+
+# VPN all the traffic to whiterun using sshutle
+
+sshuttle --dns -vr 192.168.69.1 -x 192.168.69.0/24 0/0 --python /usr/libexec/platform-python

@@ -1,0 +1,16 @@
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
+# NixOS defaults all_compile=true (source builds). Prefer prebuilt tool binaries.
+all_compile = false
+# core:node: download official nodejs.org tarballs, do not compile Node from source.
+# Env equivalent: MISE_ALL_COMPILE=false / MISE_NODE_COMPILE=false
+node.compile = false
+
+[settings.npm]
+bun = true
+
+[settings.python]
+uv_venv_auto = true
+
+[tools]
+

@@ -1,0 +1,5 @@
+# cloud-savegame backliks, it detects this folder as a home folder lol
+.config/unity3d
+.minecraft
+AppData
+Saved Games

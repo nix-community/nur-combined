@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+TARGET="$1"
+shift
+
+# Carregar módulo no CLIENTE (local) para receber áudio
+pactl list modules short | grep -q module-native-protocol-tcp ||
+	pactl load-module module-native-protocol-tcp auth-ip-acl=100.64.0.0/10
+
+# Pegar IP local do Tailscale
+LOCAL_IP=$(tailscale ip -4)
+
+# Rodar com waypipe + redirecionar áudio do servidor pro cliente
+waypipe ssh -t -X "$TARGET" env "PULSE_SERVER=tcp:${LOCAL_IP}:4713" "$@"

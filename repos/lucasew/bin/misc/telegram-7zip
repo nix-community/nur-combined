@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# create zipped file in 1500MB volumes
+7z a -v1500m -mx0 -mm=Copy -tzip "$@"

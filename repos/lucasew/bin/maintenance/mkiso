@@ -1,0 +1,7 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i bash -p cdrkit
+set -euo pipefail
+
+ISO_IMAGE="$1"; shift
+
+mkisofs -lJR -o "$ISO_IMAGE" "$@"

@@ -1,0 +1,58 @@
+# Auto-generated from template by workspaced
+
+[global]
+alignment="left"
+always_run_script=yes
+browser="xdg-open"
+class="Dunst"
+dmenu="dmenu"
+follow="mouse"
+font="rissole 8"
+format="<b>%s</b>
+%b"
+frame_width=2
+geometry="300x60-20+48"
+hide_duplicate_count=no
+history_length=20
+horizontal_padding=5
+icon_theme=Paper
+enable_recursive_icon_lookup=true
+icon_position=left
+max_icon_size=64
+idle_threshold=120
+ignore_newline=no
+indicate_hidden=yes
+line_height=4
+markup="full"
+monitor=0
+padding=5
+separator_color="auto"
+separator_height=2
+show_age_threshold=60
+show_indicators=no
+shrink=yes
+sort=no
+stack_duplicates=no
+sticky_history=yes
+text_icon_padding=5
+title="Dunst"
+word_wrap=yes
+close="ctrl+space"
+close_all="ctrl+shift+space"
+context="ctrl+shift+period"
+history="ctrl+grave"
+
+[urgency_critical]
+background="#{{ .root.modules.base16.config.base08 }}"
+foreground="#{{ .root.modules.base16.config.base06 }}"
+timeout=10
+
+[urgency_low]
+background="#{{ .root.modules.base16.config.base01 }}"
+foreground="#{{ .root.modules.base16.config.base03 }}"
+timeout=5
+
+[urgency_normal]
+background="#{{ .root.modules.base16.config.base02 }}"
+foreground="#{{ .root.modules.base16.config.base05 }}"
+timeout=10

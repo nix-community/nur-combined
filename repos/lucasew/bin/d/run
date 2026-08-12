@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# chdir to the repo then run command
+
+cd "$(sd d root)"
+
+"$@"

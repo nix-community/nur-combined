@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec workspaced home backup run

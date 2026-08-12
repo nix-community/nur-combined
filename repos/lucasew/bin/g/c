@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# alias for git commit but the message can span through all args
+
+git commit -sm "$*"

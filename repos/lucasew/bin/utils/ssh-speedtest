@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+# /**
+#  * Tests the throughput of an SSH connection.
+#  *
+#  * This script measures the upload (TX) or download (RX) speed over SSH by
+#  * piping `dd` through the connection.
+#  *
+#  * Based on the test command provided by rsync.net customer support.
+#  *
+#  * @param mode The test mode: `rx` (receive/download) or `tx` (transmit/upload).
+#  * @param args Additional arguments passed to `ssh` (e.g., user@host).
+#  */
+
+set -eo pipefail
+
+op=""
+if (($# > 0)); then
+	op="$1"
+	shift
+fi
+
+if (($# == 0)); then
+	echo "Missing ssh args" >&2
+	exit 1
+fi
+
+case "$op" in
+rx)
+	ssh "$@" 'dd if=/dev/urandom bs=1k count=1024000' | pv | dd of=/dev/null bs=1k count=1024000
+	;;
+tx)
+	dd if=/dev/urandom bs=1k count=1024000 | pv | ssh "$@" 'dd of=/dev/null bs=1k count=1024000'
+	;;
+*)
+	echo Invalid command. Valid commands: rx tx >&2
+	;;
+esac

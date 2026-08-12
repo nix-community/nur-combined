@@ -1,0 +1,9 @@
+keys:
+  - &riverwood age19r9rjvtnqmgn0f6ttp3gv6jph5zkk7gwyxe4uxq6zug4kgm6r9wqdp28jp
+  - &whiterun age1l78qhr9hq4gr00sj7d4z58qm7e8chj705t8022y0gdqnf3pce45qdxpzva
+creation_rules:
+  - path_regex: .*
+    key_groups:
+      - age:
+        - *riverwood
+        - *whiterun

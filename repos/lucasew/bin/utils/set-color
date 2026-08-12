@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+args=()
+
+case "$1" in
+off)
+	args+=(-c 000000 -m static)
+	;;
+rgb)
+	args+=(-m rainbow)
+	;;
+*)
+	args+=(-c "$1" -m static)
+	;;
+esac
+
+for node in riverwood whiterun; do
+	ssh $node openrgb "${args[@]}" &
+done
+
+wait $(jobs -p)

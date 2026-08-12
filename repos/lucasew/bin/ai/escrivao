@@ -1,0 +1,155 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i python3 -p python3PackagesBin.transformers python3PackagesBin.torchaudio python3PackagesBin.python-telegram-bot python3PackagesBin.pyctcdecode
+#! vim: syntax=python
+
+# Telegram bot to transcribe audio files to text. Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
+
+from pathlib import Path
+from argparse import ArgumentParser
+import os
+import logging
+import gc
+import traceback
+
+logging.basicConfig(level=logging.INFO)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logger = logging.getLogger(__name__)
+
+
+from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
+import torch
+import torchaudio
+
+import telegram
+from telegram import Update
+from telegram.ext import Application, filters, MessageHandler
+from telegram.constants import ChatAction
+
+parser = ArgumentParser()
+parser.add_argument('-t', '--token', type=str, default=os.getenv('TELEGRAM_TOKEN'))
+parser.add_argument('-m', '--model', type=str, default='alefiury/wav2vec2-large-xlsr-53-coraa-brazilian-portuguese-gain-normalization')
+parser.add_argument('-c', '--cpu', action='store_true', default=not torch.cuda.is_available())
+parser.add_argument('-k', '--kenlm-model', type=Path, help="Caminho para o modelo kenlm")
+args = parser.parse_args()
+print(args)
+
+device = 'cuda' if not args.cpu else 'cpu'
+
+model = Wav2Vec2ForCTC.from_pretrained(args.model).to(device)
+processor = Wav2Vec2Processor.from_pretrained(args.model)
+
+ctc_decoder = None
+if args.kenlm_model is not None:
+    try:
+        logger.info(f"Carregando modelo kenlm de {args.kenlm_model}")
+        from pyctcdecode import build_ctcdecoder
+        vocab_dict = processor.tokenizer.get_vocab()
+        sorted_dict = {k.lower(): v for k, v in sorted(vocab_dict.items(),key=lambda item: item[1])}
+        proposed_decoder = build_ctcdecoder(
+            list(sorted_dict.keys()),
+            str(args.kenlm_model.resolve())
+        )
+        ctc_decoder = proposed_decoder 
+    except Exception as e:
+        logger.info("Erro ao carregar o modelo kenlm! Pulando...")
+        print(e)
+        traceback.print_exc()
+
+class Timestamp:
+    def __init__(self, seconds: int):
+        self.seconds = int(seconds)
+    def __str__(self):
+        minutes = self.seconds // 60
+        hours = minutes // 60
+        minutes = minutes % 60
+        seconds = self.seconds % 60
+        return f"{hours}:{minutes:02d}:{seconds:02d}"
+    def __add__(self, value):
+        return Timestamp(self.seconds + int(value))
+        
+
+INFERENCE_BLOCK_SECONDS = 5
+
+def inference(audio):
+    audio, sr = torchaudio.load(audio, normalize=False)
+    # print('audio', audio, sr)
+    audio = torchaudio.functional.resample(audio, sr, 16000); sr = 16000
+    audio = torch.mean(audio, axis=0) # convert to mono
+    # print('audio_shape', audio.shape)
+    samples = audio.shape[0]
+    block_size = sr * INFERENCE_BLOCK_SECONDS # n segundos
+    last_sample_block = samples - (samples % block_size)
+    text = ""
+    for (a, b) in zip(
+      range(0, samples, block_size),
+      [*range(block_size, samples, block_size), -1]
+     ):
+        b_candidate = b + int(sr/2)
+        if b > 0 and b_candidate <= samples:
+            b = b_candidate
+
+        audio_patch = audio[a:b]
+        features = processor(audio_patch, sampling_rate=sr, padding=True, return_tensors='pt')
+        input_values = features.input_values.to(device)
+        attention_mask = features.attention_mask.to(device)
+        predicted = []
+        with torch.no_grad():
+            logits = model(input_values, attention_mask=attention_mask).logits
+        if ctc_decoder is not None:
+            logits = logits.cpu().numpy()
+            for sample_logits in logits:
+                predicted.append(ctc_decoder.decode(sample_logits))
+        else:
+            pred_ids = torch.argmax(logits, dim=-1)
+            predicted = processor.batch_decode(pred_ids)
+        predicted = predicted[0].strip()
+        text = text.strip()
+        timestamp = Timestamp(a/sr)
+
+        cut_point = 0
+        for i in range(15):
+            if text[-i:] == predicted[:i]:
+                cut_point = i
+        print(predicted, cut_point, logits)
+        predicted = predicted[cut_point:]
+        text = f"{text}\n({timestamp}) {predicted}"
+    return f"""
+{text}
+
+Usando CTC? {"Sim" if ctc_decoder is not None else "Não"}
+
+ ~Escrivão by https://github.com/lucasew based on https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
+""".strip()
+
+async def handle_audio(update: Update, context):
+    items = [
+        update.message.audio,
+        update.message.voice
+    ]
+    for item in items:
+        if item is None:
+            continue
+        await update.message.chat.send_action(ChatAction.TYPING)
+        file = await item.get_file()
+        if file.file_size >= 20*1024*1024:
+            await update.message.reply_text("Erro: arquivo grande demais. Limite: 20MB", reply_to_message_id=update.message.id)
+            continue
+        try:
+            gc.collect()
+            text = inference(file._get_encoded_url())
+            gc.collect()
+            await update.message.reply_text(text, reply_to_message_id=update.message.id)
+            logger.info(f'audio ({update.message.chat.title}/{update.message.chat.username}-{update.message.chat.id}) {text}')
+        except Exception as e:
+            print(e)
+            traceback.print_exc()
+            await update.message.reply_text(f"Erro: {e}")
+        except torch.cuda.OutOfMemoryError as e:
+            print(e)
+            traceback.print_exc()
+            await update.message.reply_text("Erro: GPU sem memória o suficiente para realizar a inferência", reply_to_message_id=update.message.id)
+
+app = Application.builder().token(args.token).build()
+app.add_handler(MessageHandler(filters.AUDIO | filters.VOICE, handle_audio))
+app.run_polling(allowed_updates=Update.MESSAGE)
+

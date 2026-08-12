@@ -1,0 +1,302 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.1.0.json",
+  "name": "base16",
+  "author": "Workspaced",
+  "themes": [
+    {
+      "name": "Base16 workspaced",
+      "appearance": "dark",
+      "style": {
+        "border": "#{{ .root.modules.base16.config.base02 }}",
+        "border.variant": "#{{ .root.modules.base16.config.base02 }}",
+        "border.focused": null,
+        "border.selected": null,
+        "border.transparent": null,
+        "border.disabled": null,
+        "elevated_surface.background": "#{{ .root.modules.base16.config.base00 }}",
+        "surface.background": "#{{ .root.modules.base16.config.base00 }}",
+        "background": "#{{ .root.modules.base16.config.base00 }}",
+        "element.background": "#{{ .root.modules.base16.config.base01 }}",
+        "element.hover": "#{{ .root.modules.base16.config.base02 }}",
+        "element.active": null,
+        "element.selected": "#{{ .root.modules.base16.config.base02 }}",
+        "element.disabled": null,
+        "drop_target.background": "#{{ .root.modules.base16.config.base02 }}",
+        "ghost_element.background": null,
+        "ghost_element.hover": "#{{ .root.modules.base16.config.base01 }}",
+        "ghost_element.active": null,
+        "ghost_element.selected": "#{{ .root.modules.base16.config.base02 }}",
+        "ghost_element.disabled": null,
+        "text": "#{{ .root.modules.base16.config.base05 }}",
+        "text.muted": "#{{ .root.modules.base16.config.base04 }}",
+        "text.placeholder": "#{{ .root.modules.base16.config.base07 }}",
+        "text.disabled": "#{{ .root.modules.base16.config.base02 }}",
+        "text.accent": "#{{ .root.modules.base16.config.base0C }}",
+        "icon": null,
+        "icon.muted": null,
+        "icon.disabled": null,
+        "icon.placeholder": null,
+        "icon.accent": null,
+        "status_bar.background": "#{{ .root.modules.base16.config.base00 }}",
+        "title_bar.background": "#{{ .root.modules.base16.config.base00 }}",
+        "title_bar.inactive_background": "#{{ .root.modules.base16.config.base01 }}",
+        "toolbar.background": "#{{ .root.modules.base16.config.base00 }}",
+        "tab_bar.background": "#{{ .root.modules.base16.config.base00 }}",
+        "tab.inactive_background": "#{{ .root.modules.base16.config.base01 }}",
+        "tab.active_background": "#{{ .root.modules.base16.config.base00 }}",
+        "search.match_background": "#{{ .root.modules.base16.config.base02 }}",
+        "panel.background": "#{{ .root.modules.base16.config.base00 }}",
+        "panel.focused_border": "#{{ .root.modules.base16.config.base02 }}",
+        "pane.focused_border": null,
+        "scrollbar.thumb.background": "#{{ .root.modules.base16.config.base02 }}",
+        "scrollbar.thumb.hover_background": "#{{ .root.modules.base16.config.base03 }}",
+        "scrollbar.thumb.border": "#{{ .root.modules.base16.config.base02 }}6f",
+        "scrollbar.track.background": "#{{ .root.modules.base16.config.base00 }}",
+        "scrollbar.track.border": null,
+        "editor.foreground": "#{{ .root.modules.base16.config.base05 }}",
+        "editor.background": "#{{ .root.modules.base16.config.base00 }}",
+        "editor.gutter.background": "#{{ .root.modules.base16.config.base00 }}",
+        "editor.subheader.background": "#{{ .root.modules.base16.config.base00 }}",
+        "editor.active_line.background": "#{{ .root.modules.base16.config.base01 }}",
+        "editor.highlighted_line.background": null,
+        "editor.line_number": "#{{ .root.modules.base16.config.base03 }}",
+        "editor.active_line_number": "#{{ .root.modules.base16.config.base06 }}",
+        "editor.invisible": null,
+        "editor.wrap_guide": "#{{ .root.modules.base16.config.base01 }}",
+        "editor.active_wrap_guide": "#{{ .root.modules.base16.config.base03 }}",
+        "editor.document_highlight.read_background": "#{{ .root.modules.base16.config.base01 }}",
+        "editor.document_highlight.write_background": "#{{ .root.modules.base16.config.base01 }}",
+        "terminal.background": "#{{ .root.modules.base16.config.base00 }}",
+        "terminal.foreground": null,
+        "terminal.bright_foreground": null,
+        "terminal.dim_foreground": null,
+        "terminal.ansi.black": "#{{ .root.modules.base16.config.base00 }}",
+        "terminal.ansi.bright_black": "#{{ .root.modules.base16.config.base03 }}",
+        "terminal.ansi.dim_black": null,
+        "terminal.ansi.red": "#{{ .root.modules.base16.config.base08 }}",
+        "terminal.ansi.bright_red": "#{{ .root.modules.base16.config.base08 }}",
+        "terminal.ansi.dim_red": null,
+        "terminal.ansi.green": "#{{ .root.modules.base16.config.base0B }}",
+        "terminal.ansi.bright_green": "#{{ .root.modules.base16.config.base0B }}",
+        "terminal.ansi.dim_green": null,
+        "terminal.ansi.yellow": "#{{ .root.modules.base16.config.base0A }}",
+        "terminal.ansi.bright_yellow": "#{{ .root.modules.base16.config.base0A }}",
+        "terminal.ansi.dim_yellow": null,
+        "terminal.ansi.blue": "#{{ .root.modules.base16.config.base0D }}",
+        "terminal.ansi.bright_blue": "#{{ .root.modules.base16.config.base0D }}",
+        "terminal.ansi.dim_blue": null,
+        "terminal.ansi.magenta": "#{{ .root.modules.base16.config.base0E }}",
+        "terminal.ansi.bright_magenta": "#{{ .root.modules.base16.config.base0E }}",
+        "terminal.ansi.dim_magenta": null,
+        "terminal.ansi.cyan": "#{{ .root.modules.base16.config.base0C }}",
+        "terminal.ansi.bright_cyan": "#{{ .root.modules.base16.config.base0C }}",
+        "terminal.ansi.dim_cyan": null,
+        "terminal.ansi.white": "#{{ .root.modules.base16.config.base05 }}",
+        "terminal.ansi.bright_white": "#{{ .root.modules.base16.config.base07 }}",
+        "terminal.ansi.dim_white": null,
+        "link_text.hover": "#{{ .root.modules.base16.config.base0C }}",
+        "conflict": "#{{ .root.modules.base16.config.base0A }}",
+        "conflict.background": "#{{ .root.modules.base16.config.base00 }}",
+        "conflict.border": "#{{ .root.modules.base16.config.base0A }}",
+        "created": "#{{ .root.modules.base16.config.base0B }}",
+        "created.background": "#{{ .root.modules.base16.config.base00 }}",
+        "created.border": "#{{ .root.modules.base16.config.base0B }}",
+        "deleted": "#{{ .root.modules.base16.config.base08 }}",
+        "deleted.background": "#{{ .root.modules.base16.config.base00 }}",
+        "deleted.border": "#{{ .root.modules.base16.config.base08 }}",
+        "error": "#{{ .root.modules.base16.config.base08 }}",
+        "error.background": "#{{ .root.modules.base16.config.base00 }}",
+        "error.border": "#{{ .root.modules.base16.config.base08 }}",
+        "hidden": "#{{ .root.modules.base16.config.base03 }}",
+        "hidden.background": "#{{ .root.modules.base16.config.base00 }}",
+        "hidden.border": "#{{ .root.modules.base16.config.base03 }}",
+        "hint": "#{{ .root.modules.base16.config.base05 }}",
+        "hint.background": "#{{ .root.modules.base16.config.base00 }}",
+        "hint.border": "#{{ .root.modules.base16.config.base0C }}",
+        "ignored": "#{{ .root.modules.base16.config.base03 }}",
+        "ignored.background": "#{{ .root.modules.base16.config.base00 }}",
+        "ignored.border": "#{{ .root.modules.base16.config.base03 }}",
+        "info": "#{{ .root.modules.base16.config.base0C }}",
+        "info.background": "#{{ .root.modules.base16.config.base00 }}",
+        "info.border": "#{{ .root.modules.base16.config.base0C }}",
+        "modified": "#{{ .root.modules.base16.config.base0D }}",
+        "modified.background": "#{{ .root.modules.base16.config.base00 }}",
+        "modified.border": "#{{ .root.modules.base16.config.base0D }}",
+        "predictive": "#{{ .root.modules.base16.config.base03 }}",
+        "predictive.background": "#{{ .root.modules.base16.config.base01 }}",
+        "predictive.border": "#{{ .root.modules.base16.config.base02 }}",
+        "renamed": "#{{ .root.modules.base16.config.base0A }}",
+        "renamed.background": "#{{ .root.modules.base16.config.base00 }}",
+        "renamed.border": "#{{ .root.modules.base16.config.base0A }}",
+        "success": "#{{ .root.modules.base16.config.base0B }}",
+        "success.background": "#{{ .root.modules.base16.config.base00 }}",
+        "success.border": "#{{ .root.modules.base16.config.base0B }}",
+        "unreachable": "#{{ .root.modules.base16.config.base0A }}",
+        "unreachable.background": "#{{ .root.modules.base16.config.base00 }}",
+        "unreachable.border": "#{{ .root.modules.base16.config.base0A }}",
+        "warning": "#{{ .root.modules.base16.config.base0A }}",
+        "warning.background": "#{{ .root.modules.base16.config.base00 }}",
+        "warning.border": "#{{ .root.modules.base16.config.base0A }}",
+        "players": [
+          {
+            "cursor": "#{{ .root.modules.base16.config.base05 }}",
+            "selection": "#{{ .root.modules.base16.config.base02 }}",
+            "background": null
+          }
+        ],
+        "syntax": {
+          "attribute": {
+            "color": "#{{ .root.modules.base16.config.base0D }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "boolean": {
+            "color": "#{{ .root.modules.base16.config.base09 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "comment": {
+            "color": "#{{ .root.modules.base16.config.base03 }}",
+            "font_style": "italic",
+            "font_weight": null
+          },
+          "comment.doc": {
+            "color": "#{{ .root.modules.base16.config.base03 }}",
+            "font_style": "italic",
+            "font_weight": null
+          },
+          "constant": {
+            "color": "#{{ .root.modules.base16.config.base09 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "constructor": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "emphasis": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": "italic",
+            "font_weight": null
+          },
+          "emphasis.strong": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": null,
+            "font_weight": 700
+          },
+          "function": {
+            "color": "#{{ .root.modules.base16.config.base0D }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "keyword": {
+            "color": "#{{ .root.modules.base16.config.base0E }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "label": {
+            "color": "#{{ .root.modules.base16.config.base0A }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "link_text": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "link_uri": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "number": {
+            "color": "#{{ .root.modules.base16.config.base09 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "punctuation": {
+            "color": "#{{ .root.modules.base16.config.base05 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "punctuation.bracket": {
+            "color": "#{{ .root.modules.base16.config.base05 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "punctuation.delimiter": {
+            "color": "#{{ .root.modules.base16.config.base05 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "punctuation.list_marker": {
+            "color": "#{{ .root.modules.base16.config.base05 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "punctuation.special": {
+            "color": "#{{ .root.modules.base16.config.base05 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "string": {
+            "color": "#{{ .root.modules.base16.config.base0B }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "string.escape": {
+            "color": "#{{ .root.modules.base16.config.base09 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "string.regex": {
+            "color": "#{{ .root.modules.base16.config.base0B }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "string.special": {
+            "color": "#{{ .root.modules.base16.config.base0B }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "string.special.symbol": {
+            "color": "#{{ .root.modules.base16.config.base0B }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "tag": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "text.literal": {
+            "color": "#{{ .root.modules.base16.config.base0B }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "title": {
+            "color": "#{{ .root.modules.base16.config.base0A }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "type": {
+            "color": "#{{ .root.modules.base16.config.base0A }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "variable": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": null,
+            "font_weight": null
+          },
+          "variable.special": {
+            "color": "#{{ .root.modules.base16.config.base08 }}",
+            "font_style": "italic",
+            "font_weight": null
+          }
+        }
+      }
+    }
+  ]
+}

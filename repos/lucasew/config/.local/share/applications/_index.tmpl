@@ -1,0 +1,9 @@
+{{- /* Generic borderless browser launcher */ -}}
+{{- file "workspaced-webapp-borderless-browser.desktop" "0644" }}
+[Desktop Entry]
+Type=Application
+Name=Borderless Browser
+Icon=applications-internet
+Exec=sh -lc 'url="$(workspaced driver input text "URL")" && workspaced open webapp --url "$url"'
+Categories=Network;WebBrowser;
+{{- endfile }}

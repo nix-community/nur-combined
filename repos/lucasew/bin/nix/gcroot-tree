@@ -1,0 +1,7 @@
+#!/usr/bin/env -S sd nix shell
+#! nix-shell -i bash -p nix-tree
+#! vim:ft=bash
+
+# nix-tree for all gcroots
+
+nix-tree $(nix-store --gc --print-roots | awk '{print $1}' | uniq -u | while read line; do readlink $line; done | uniq -u | sed 's;\(/nix/store/[^/]*\)[^$]*;\1;g' | uniq -u)

@@ -1,0 +1,58 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i python3 -p python3PackagesBin.transformers python3PackagesBin.torchaudio
+#! vim: syntax=python
+
+# Based on: https://github.com/alefiury/SE-R_2022_Challenge_Wav2vec2
+
+from pathlib import Path
+from argparse import ArgumentParser
+
+parser = ArgumentParser()
+parser.add_argument('audio', type=Path)
+args = parser.parse_args()
+
+from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
+import torch
+import torchaudio
+
+
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
+
+model = Wav2Vec2ForCTC.from_pretrained('alefiury/wav2vec2-large-xlsr-53-coraa-brazilian-portuguese-gain-normalization').to(device)
+processor = Wav2Vec2Processor.from_pretrained('alefiury/wav2vec2-large-xlsr-53-coraa-brazilian-portuguese-gain-normalization')
+vocab_dict = processor.tokenizer.get_vocab()
+sorted_dict = {k.lower(): v for k, v in sorted(vocab_dict.items(),key=lambda item: item[1])}
+
+
+# ???
+lm = None
+# if self.lm:
+#     self.lm_decoder = build_ctcdecoder(
+#         list(self.sorted_dict.keys()),
+#         self.lm
+#     )
+
+assert args.audio.is_file(), "Audio must be a file"
+audio, sr = torchaudio.load(str(args.audio), normalize=False)
+print('audio', audio, sr)
+audio = torchaudio.functional.resample(audio, sr, 16000)
+audio = torch.mean(audio, axis=0) # convert to mono
+print('audio_shape', audio.shape)
+sr = 16000
+
+features = processor(audio, sampling_rate=sr, padding=True, return_tensors='pt')
+input_values = features.input_values.to(device)
+attention_mask = features.attention_mask.to(device)
+predicted = []
+with torch.no_grad():
+    logits = model(input_values, attention_mask=attention_mask).logits
+print(logits)
+if lm is not None:
+    logits = logits.cpu().numpy()
+    for sample_logits in logits:
+        predicted.append(lm_decoder.decode(sample_logits))
+else:
+    pred_ids = torch.argmax(logits, dim=-1)
+    predicted = processor.batch_decode(pred_ids)
+    
+print(predicted)

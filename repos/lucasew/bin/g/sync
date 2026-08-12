@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+# automatically submit local changes to a remote git repo
+
+set -eu
+
+if [ $# == 1 ]; then
+	GIT_DIR="$1"
+else
+	GIT_DIR="$(pwd)"
+fi
+
+pushd "$GIT_DIR"
+
+git add -A
+
+status="$(git status -s -b)"
+{
+	echo "git sync checkpoint"
+	echo
+	echo "$status"
+} | git commit -F - || exit 0
+
+git pull --rebase
+git push
+
+popd

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+PATH=$PATH:/run/current-system/sw/bin
+
+if [[ "$1" =~ ^[0-9]*$ ]] && [[ "$#" -gt 0 ]]; then
+	export JOB_LABEL="review #$1 $*"
+
+	# -L "$JOB_LABEL" \
+	# -L "$JOB_LABEL" \
+	ssh lucasew@whiterun \
+		ts \
+		-m \
+		sdw nix sdreview "$@"
+else
+	ssh lucasew@whiterun -- ts "$@"
+fi

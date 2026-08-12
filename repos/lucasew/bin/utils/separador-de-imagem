@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+import subprocess
+from argparse import ArgumentParser
+from pathlib import Path
+from collections import defaultdict
+
+def icat(file: Path):
+    subprocess.run(["kitty", "icat", str(file)])
+
+def select_item(*alternatives):
+    alternatives = list(alternatives)
+    alternatives.sort()
+    choices = {}
+    results = defaultdict(lambda: [])
+    for i, alternative in enumerate(alternatives):
+        choices[str(i)] = alternative
+        choices[alternative] = alternative
+        results[alternative].append(str(i))
+        results[alternative].append(alternative)
+
+    for i, alternative in enumerate(alternatives):
+        print(f"- {alternative} ({', '.join(results[alternative])})")
+    while True:
+        choice = input("Alternativa: ")
+        choice = choices.get(choice)
+        print('choice', choice)
+        if choice is not None:
+            return choice
+
+parser =ArgumentParser()
+parser.add_argument('dir', type=Path, help="Onde tá os arquivos")
+parser.add_argument('alternatives', nargs='+')
+
+args = parser.parse_args()
+
+assert args.dir.is_dir(), "Pasta dos arquivos precisa ser uma pasta"
+assert len(args.alternatives) > 1, "Pelo menos duas alternativas tem que ser especificadas"
+
+for alternative in args.alternatives:
+    (args.dir / alternative).mkdir(parents=True, exist_ok=True)
+
+for item in args.dir.iterdir():
+    if not item.is_file():
+        continue
+    icat(item)
+    print(item)
+    group = select_item(*args.alternatives)
+    item.rename(item.parent / group / item.name)

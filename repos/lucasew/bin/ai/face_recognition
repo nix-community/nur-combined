@@ -1,0 +1,81 @@
+#!/usr/bin/env -S sd nix shell
+#!nix-shell -i python3 -p python3PackagesBin.facenet-pytorch python3PackagesBin.tqdm python3PackagesBin.opencv4 python3PackagesBin.pandas python3PackagesBin.scikit-learn
+
+# The idea here is to cluster a set of images of faces
+# ~stolen~ inspired from https://pyimagesearch.com/2018/07/09/face-clustering-with-python/
+# demo dataset: https://www.kaggle.com/datasets/rawatjitesh/avengers-face-recognition
+
+import faulthandler
+faulthandler.enable()
+
+# import dlib
+# dlib.get_frontal_face_detector()
+# import face_recognition
+
+from facenet_pytorch import MTCNN, InceptionResnetV1
+from sklearn.cluster import DBSCAN
+
+import cv2
+from tqdm import tqdm
+from pathlib import Path
+import re
+import numpy as np
+import pandas as pd
+from argparse import ArgumentParser
+from sys import stderr, stdout
+import torch
+
+parser = ArgumentParser()
+parser.add_argument("images", help="Where images are stored", type=Path)
+parser.add_argument('-d', '--device', default='cuda' if torch.cuda.is_available() else 'cpu')
+
+args = parser.parse_args()
+
+device = torch.device(args.device)
+print(f"pytorch device: {device}", file=stderr)
+
+mtcnn = MTCNN(
+    image_size=160, margin=0, min_face_size=20,
+    thresholds=[0.6, 0.7, 0.7], factor=0.709, post_process=True,
+    device=device
+)
+resnet = InceptionResnetV1(pretrained='vggface2').eval().to(device)
+
+items = []
+
+for (i, image_path) in enumerate(tqdm(list(args.images.iterdir()))):
+    # if i > 30:
+    #     break
+    print(f"[*] Processing {image_path}", file=stderr)
+    image = cv2.imread(str(image_path))
+    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    x, prob = mtcnn(image, return_prob=True)
+    if x is not None:
+        gt_class = re.match("([^0-9]*)", image_path.name).groups()[0]
+        aligned = torch.stack([x]).to(device)
+        embeddings = resnet(aligned).detach().cpu()
+        print(embeddings.shape)
+        # print(image_path, prob, x.shape, embeddings.shape, embeddings)
+        items.append(dict(gt_class=gt_class, embeddings=embeddings, filename=image_path.name, predicted_class=-1))
+
+embeddings_only = np.array([ x['embeddings'][0] for x in items ])
+print(embeddings_only)
+
+clt = DBSCAN(metric='euclidean', eps=0.9)
+clt.fit(embeddings_only)
+
+df = pd.DataFrame(items)
+
+labelIDs = np.unique(clt.labels_)
+uniqueFaces = len(np.where(labelIDs > -1)[0])
+
+print("labelIDs", labelIDs, 'uniqueFaces', uniqueFaces)
+
+for labelID in labelIDs:
+    idxs = np.where(clt.labels_ == labelID)[0]
+    for idx in idxs:
+        df.loc[idx, 'predicted_class'] = labelID
+        
+print(df)
+
+df[['gt_class', 'filename', 'predicted_class']].to_csv(stdout)

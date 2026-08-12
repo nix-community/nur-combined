@@ -1,0 +1,6 @@
+# shellcheck shell=bash
+# Dotfiles root path
+export NIXCFG_ROOT_PATH="{{ dotfiles }}"
+export SD_ROOT="$NIXCFG_ROOT_PATH/bin"
+export DOTFILES="$NIXCFG_ROOT_PATH"
+PATH="$PATH:{{dotfiles}}/bin/shim"

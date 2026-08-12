@@ -1,0 +1,25 @@
+#!/usr/bin/env -S sd nix shell
+#! nix-shell -i bash -p libsForQt5.mlt
+#! vim:ft=bash
+
+# render a MELT (kdenlive) project
+
+set -eu
+
+if [ $# -lt 2 ]; then
+    echo "$0 [input_project] [output_video] [extra flags for melt]" >&2
+    exit 1
+fi
+input_project="$1"; shift
+output_video="$1"; shift
+
+flags=($@)
+
+if [ ${#flags[@]} -eq 0 ]; then
+ flags+=(ab=160k acodec=aac channels=2 crf=15 f=mp4 g=15 movflags=+faststart preset=veryslow real_time=-1 threads=0 vcodec=libx264)
+fi
+
+echo $flags
+echo ${flags[@]}
+
+melt "$input_project" -consumer avformat:"$output_video" "${flags[@]}"

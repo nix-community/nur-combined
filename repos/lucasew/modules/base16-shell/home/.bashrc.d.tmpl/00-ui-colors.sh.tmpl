@@ -1,0 +1,28 @@
+# shellcheck shell=bash
+# Apply terminal colors (generated from palette)
+function apply_colors {
+	if [[ $- == *i* ]]; then
+		printf '\033]4;0;#{{ .root.modules.base16.config.base00 }}\033\\'
+		printf '\033]4;1;#{{ .root.modules.base16.config.base08 }}\033\\'
+		printf '\033]4;2;#{{ .root.modules.base16.config.base0B }}\033\\'
+		printf '\033]4;3;#{{ .root.modules.base16.config.base0A }}\033\\'
+		printf '\033]4;4;#{{ .root.modules.base16.config.base0D }}\033\\'
+		printf '\033]4;5;#{{ .root.modules.base16.config.base0E }}\033\\'
+		printf '\033]4;6;#{{ .root.modules.base16.config.base0C }}\033\\'
+		printf '\033]4;7;#{{ .root.modules.base16.config.base05 }}\033\\'
+		printf '\033]4;8;#{{ .root.modules.base16.config.base03 }}\033\\'
+		printf '\033]4;9;#{{ .root.modules.base16.config.base08 }}\033\\'
+		printf '\033]4;10;#{{ .root.modules.base16.config.base0B }}\033\\'
+		printf '\033]4;11;#{{ .root.modules.base16.config.base0A }}\033\\'
+		printf '\033]4;12;#{{ .root.modules.base16.config.base0D }}\033\\'
+		printf '\033]4;13;#{{ .root.modules.base16.config.base0E }}\033\\'
+		printf '\033]4;14;#{{ .root.modules.base16.config.base0C }}\033\\'
+		printf '\033]4;15;#{{ .root.modules.base16.config.base07 }}\033\\'
+		printf '\033]10;#{{ .root.modules.base16.config.base05 }}\033\\'  # foreground
+		printf '\033]11;#{{ .root.modules.base16.config.base00 }}\033\\'  # background
+		printf '\033]12;#{{ .root.modules.base16.config.base05 }}\033\\'  # cursor
+	fi
+}
+
+# Apply colors on shell startup
+apply_colors

@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+# creates the stats tmux session then moves this terminal to the scratchpad
+SESSION_NAME=stats
+
+tmux new -s $SESSION_NAME -d
+
+tmux new-window -t $SESSION_NAME:420 -n htop_riverwood ssh -t riverwood htop
+tmux new-window -t $SESSION_NAME:421 -n htop_whiterun ssh -t whiterun htop
+tmux new-window -t $SESSION_NAME:422 -n nvtop_whiterun ssh -t whiterun nvtop
+tmux kill-window -t $SESSION_NAME:0 # delete initial window
+
+sd utils i3wm rpc move scratchpad # hehe boy
+
+tmux a -t $SESSION_NAME

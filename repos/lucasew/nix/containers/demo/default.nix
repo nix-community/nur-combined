@@ -1,0 +1,6 @@
+{ }:
+
+{
+  interactive = true;
+  withNix = true;
+}

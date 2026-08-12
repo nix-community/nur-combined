@@ -1,0 +1,63 @@
+[language-server.ltex-ls]
+command = "ltex-ls"
+
+[language-server.typos-lsp]
+command = "typos-lsp"
+
+# refactree — polyglot intelligence; keep last in language-servers lists
+[language-server.rft]
+command = "rft"
+args = ["lsp"]
+
+# contapila — beancount ledger language server
+[language-server.contapila]
+command = "contapila"
+args = ["lsp"]
+
+[[language]]
+name = "bash"
+language-servers = ["bash-language-server", "typos-lsp"]
+
+[[language]]
+name = "markdown"
+language-servers = ["ltex-ls", "typos-lsp"]
+
+[[language]]
+name = "nix"
+language-servers = ["nil", "typos-lsp"]
+
+[[language]]
+name = "javascript"
+language-servers = ["typescript-language-server", "typos-lsp", "rft"]
+
+[[language]]
+name = "jsx"
+language-servers = ["typescript-language-server", "typos-lsp", "rft"]
+
+[[language]]
+name = "typescript"
+language-servers = ["typescript-language-server", "typos-lsp", "rft"]
+
+[[language]]
+name = "tsx"
+language-servers = ["typescript-language-server", "typos-lsp", "rft"]
+
+[[language]]
+name = "svelte"
+language-servers = ["svelteserver", "typos-lsp", "rft"]
+
+[[language]]
+name = "astro"
+language-servers = ["astro-ls", "typos-lsp", "rft"]
+
+[[language]]
+name = "json"
+language-servers = ["vscode-json-language-server", "typos-lsp"]
+
+[[language]]
+name = "python"
+language-servers = ["jedi-language-server", "ruff", "pylsp", "typos-lsp"]
+
+[[language]]
+name = "beancount"
+language-servers = ["contapila", "typos-lsp"]

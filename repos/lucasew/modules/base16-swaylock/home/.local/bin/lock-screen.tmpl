@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+exec swaylock \
+  --color "{{ .root.modules.base16.config.base00 }}" \
+  --text-color "{{ .root.modules.base16.config.base05 }}" \
+  --text-clear-color "{{ .root.modules.base16.config.base05 }}" \
+  --text-caps-lock-color "{{ .root.modules.base16.config.base05 }}" \
+  --text-ver-color "{{ .root.modules.base16.config.base05 }}" \
+  --text-wrong-color "{{ .root.modules.base16.config.base05 }}" \
+  --layout-text-color "{{ .root.modules.base16.config.base05 }}" \
+  --ring-color "{{ .root.modules.base16.config.base01 }}" \
+  --ring-clear-color "{{ .root.modules.base16.config.base0D }}" \
+  --ring-caps-lock-color "{{ .root.modules.base16.config.base0C }}" \
+  --ring-ver-color "{{ .root.modules.base16.config.base0A }}" \
+  --ring-wrong-color "{{ .root.modules.base16.config.base08 }}" \
+  --key-hl-color "{{ .root.modules.base16.config.base06 }}" \
+  --bs-hl-color "{{ .root.modules.base16.config.base08 }}" \
+  --inside-color "00000000" \
+  --inside-clear-color "00000000" \
+  --inside-caps-lock-color "00000000" \
+  --inside-ver-color "00000000" \
+  --inside-wrong-color "00000000" \
+  --line-color "00000000" \
+  --line-clear-color "00000000" \
+  --line-caps-lock-color "00000000" \
+  --line-ver-color "00000000" \
+  --line-wrong-color "00000000" \
+  --layout-bg-color "00000000" \
+  --layout-border-color "00000000"

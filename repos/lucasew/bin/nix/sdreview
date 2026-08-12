@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# run nixpkgs-review for a PR in a systemd unit
+
+PR="$1"
+shift
+
+systemd-run \
+	--user \
+	--working-directory ~/nixpkgs \
+	-P \
+	--unit "nixpkgs-review-$PR" \
+	--collect \
+	-E PATH=/run/current-system/sw/bin:~/.nix-profile/bin \
+	-p KillSignal=SIGINT \
+	-p TimeoutStopSec=infinity \
+	\
+	sdw nix review --really \
+	\
+	pr \
+	"$PR" "$@" \
+	--no-shell \
+	--post-result \
+	--build-graph nix

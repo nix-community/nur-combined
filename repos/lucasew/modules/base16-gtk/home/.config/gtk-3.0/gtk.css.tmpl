@@ -1,0 +1,113 @@
+{{- $c := .root.modules.base16.config -}}
+{{- $base10 := or (index $c "base10") $c.base00 -}}
+{{- $base11 := or (index $c "base11") $c.base00 -}}
+{{- $base12 := or (index $c "base12") $c.base08 -}}
+{{- $base13 := or (index $c "base13") $c.base0A -}}
+{{- $base14 := or (index $c "base14") $c.base0B -}}
+{{- $base15 := or (index $c "base15") $c.base0C -}}
+{{- $base16b := or (index $c "base16") $c.base0D -}}
+{{- $base17 := or (index $c "base17") $c.base0E -}}
+/* workspaced base16-gtk — colors for adw-gtk3 / libadwaita */
+@define-color accent_color #{{ $c.base0D }};
+@define-color accent_bg_color #{{ $c.base0D }};
+@define-color accent_fg_color #{{ $c.base00 }};
+@define-color destructive_color #{{ $c.base08 }};
+@define-color destructive_bg_color #{{ $c.base08 }};
+@define-color destructive_fg_color #{{ $c.base00 }};
+@define-color success_color #{{ $c.base0B }};
+@define-color success_bg_color #{{ $c.base0B }};
+@define-color success_fg_color #{{ $c.base00 }};
+@define-color warning_color #{{ $c.base0A }};
+@define-color warning_bg_color #{{ $c.base0A }};
+@define-color warning_fg_color #{{ $c.base00 }};
+@define-color error_color #{{ $c.base08 }};
+@define-color error_bg_color #{{ $c.base08 }};
+@define-color error_fg_color #{{ $c.base00 }};
+@define-color window_bg_color #{{ $c.base00 }};
+@define-color window_fg_color #{{ $c.base05 }};
+@define-color view_bg_color #{{ $base11 }};
+@define-color view_fg_color #{{ $c.base05 }};
+@define-color headerbar_bg_color #{{ $c.base01 }};
+@define-color headerbar_fg_color #{{ $c.base05 }};
+@define-color headerbar_border_color #{{ $c.base01 }};
+@define-color headerbar_backdrop_color @window_bg_color;
+@define-color headerbar_shade_color rgba(0, 0, 0, 0.07);
+@define-color headerbar_darker_shade_color rgba(0, 0, 0, 0.07);
+@define-color sidebar_bg_color #{{ $c.base01 }};
+@define-color sidebar_fg_color #{{ $c.base05 }};
+@define-color sidebar_backdrop_color @window_bg_color;
+@define-color sidebar_shade_color rgba(0, 0, 0, 0.07);
+@define-color sidebar_border_color #{{ $c.base02 }};
+@define-color secondary_sidebar_bg_color @sidebar_bg_color;
+@define-color secondary_sidebar_fg_color @sidebar_fg_color;
+@define-color secondary_sidebar_backdrop_color @sidebar_backdrop_color;
+@define-color secondary_sidebar_shade_color @sidebar_shade_color;
+@define-color card_bg_color #{{ $c.base01 }};
+@define-color card_fg_color #{{ $c.base05 }};
+@define-color card_shade_color rgba(0, 0, 0, 0.07);
+@define-color dialog_bg_color #{{ $c.base01 }};
+@define-color dialog_fg_color #{{ $c.base05 }};
+@define-color popover_bg_color #{{ $c.base01 }};
+@define-color popover_fg_color #{{ $c.base05 }};
+@define-color popover_shade_color rgba(0, 0, 0, 0.07);
+@define-color shade_color rgba(0, 0, 0, 0.07);
+@define-color scrollbar_outline_color #{{ $c.base02 }};
+@define-color blue_1 #{{ $base16b }};
+@define-color blue_2 #{{ $c.base0D }};
+@define-color blue_3 #{{ $c.base0D }};
+@define-color blue_4 #{{ $c.base0D }};
+@define-color blue_5 #{{ $c.base0D }};
+@define-color green_1 #{{ $base14 }};
+@define-color green_2 #{{ $c.base0B }};
+@define-color green_3 #{{ $c.base0B }};
+@define-color green_4 #{{ $c.base0B }};
+@define-color green_5 #{{ $c.base0B }};
+@define-color yellow_1 #{{ $base13 }};
+@define-color yellow_2 #{{ $c.base0A }};
+@define-color yellow_3 #{{ $c.base0A }};
+@define-color yellow_4 #{{ $c.base0A }};
+@define-color yellow_5 #{{ $c.base0A }};
+@define-color orange_1 #{{ $c.base09 }};
+@define-color orange_2 #{{ $c.base09 }};
+@define-color orange_3 #{{ $c.base09 }};
+@define-color orange_4 #{{ $c.base09 }};
+@define-color orange_5 #{{ $c.base09 }};
+@define-color red_1 #{{ $base12 }};
+@define-color red_2 #{{ $c.base08 }};
+@define-color red_3 #{{ $c.base08 }};
+@define-color red_4 #{{ $c.base08 }};
+@define-color red_5 #{{ $c.base08 }};
+@define-color purple_1 #{{ $base17 }};
+@define-color purple_2 #{{ $c.base0E }};
+@define-color purple_3 #{{ $c.base0E }};
+@define-color purple_4 #{{ $c.base0E }};
+@define-color purple_5 #{{ $c.base0E }};
+@define-color brown_1 #{{ $c.base0F }};
+@define-color brown_2 #{{ $c.base0F }};
+@define-color brown_3 #{{ $c.base0F }};
+@define-color brown_4 #{{ $c.base0F }};
+@define-color brown_5 #{{ $c.base0F }};
+@define-color light_1 #{{ $c.base07 }};
+@define-color light_2 #{{ $c.base06 }};
+@define-color light_3 #{{ $c.base05 }};
+@define-color light_4 #{{ $c.base04 }};
+@define-color light_5 #{{ $c.base03 }};
+@define-color dark_1 #{{ $c.base03 }};
+@define-color dark_2 #{{ $c.base02 }};
+@define-color dark_3 #{{ $c.base01 }};
+@define-color dark_4 #{{ $base10 }};
+@define-color dark_5 #{{ $base11 }};
+@define-color borders #{{ $c.base02 }};
+@define-color theme_fg_color #{{ $c.base05 }};
+@define-color theme_bg_color #{{ $c.base00 }};
+@define-color theme_base_color #{{ $base11 }};
+@define-color theme_selected_bg_color #{{ $c.base0D }};
+@define-color theme_selected_fg_color #{{ $c.base00 }};
+@define-color theme_text_color #{{ $c.base05 }};
+@define-color link_color #{{ $c.base0D }};
+@define-color link_visited_color #{{ $c.base0E }};
+{{- $gtk := index .root.modules "base16-gtk" -}}
+{{- with $gtk }}{{ with .config.extra_css }}
+
+{{ . }}
+{{- end }}{{ end }}

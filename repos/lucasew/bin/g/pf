@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# alias for push force on the current branch and default origin
+
+sd g p -f "$@"
