@@ -20,8 +20,11 @@ in
 cargoNix.workspaceMembers.hanga.build.override {
   crateOverrides = pkgs.defaultCrateOverrides // {
     hanga = attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [ pkg-config makeWrapper ];
-      buildInputs = (attrs.buildInputs or []) ++ [
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [
+        pkg-config
+        makeWrapper
+      ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ [
         udev
         alsa-lib
         vulkan-loader
@@ -34,19 +37,27 @@ cargoNix.workspaceMembers.hanga.build.override {
       ];
       postInstall = ''
         wrapProgram $out/bin/hanga \
-          --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ vulkan-loader wayland libxkbcommon alsa-lib udev ]}
+          --prefix LD_LIBRARY_PATH : ${
+            lib.makeLibraryPath [
+              vulkan-loader
+              wayland
+              libxkbcommon
+              alsa-lib
+              udev
+            ]
+          }
       '';
     };
     wayland-sys = attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [ pkg-config ];
-      buildInputs = (attrs.buildInputs or []) ++ [ wayland ];
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkg-config ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ [ wayland ];
     };
     alsa-sys = attrs: {
-      nativeBuildInputs = (attrs.nativeBuildInputs or []) ++ [ pkg-config ];
-      buildInputs = (attrs.buildInputs or []) ++ [ alsa-lib ];
+      nativeBuildInputs = (attrs.nativeBuildInputs or [ ]) ++ [ pkg-config ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ [ alsa-lib ];
     };
     x11-dl = attrs: {
-      buildInputs = (attrs.buildInputs or []) ++ [ xorg.libX11 ];
+      buildInputs = (attrs.buildInputs or [ ]) ++ [ xorg.libX11 ];
     };
   };
 }

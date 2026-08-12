@@ -125,7 +125,7 @@ let
           hash = "sha256-IUTK+WEevUgKGBoBV+momrhgPna6XH39/zhSNB9xUo0=";
         };
       in
-      appimageTools.extractType2 {
+      appimageTools.extract {
         pname = "beam-studio-backend-contents";
         version = "2.6.8";
         src = linuxAppImage;
