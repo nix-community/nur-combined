@@ -3,7 +3,6 @@
   pkgs,
   stdenv,
   sources,
-  makeWrapper,
   nodejs,
   fetchNpmDeps,
   npmHooks,
@@ -103,7 +102,6 @@ pkgs.python3Packages.buildPythonPackage rec {
   env.PIP_INDEX_URL = "https://pypi.tuna.tsinghua.edu.cn/simple";
 
   nativeBuildInputs = [
-    makeWrapper
     unzip
   ];
 
@@ -220,12 +218,16 @@ pkgs.python3Packages.buildPythonPackage rec {
     cp -r ${resourcesDir}/. $out/share/moviepilot/app/helper/
 
     mkdir -p $out/bin
-    makeWrapper ${pkgs.python3Packages.python.interpreter} $out/bin/moviepilot \
-      --chdir $out/share/moviepilot \
-      --prefix PATH : ${lib.makeBinPath [ nodejs ]} \
-      --prefix PYTHONPATH : ${pkgs.python3Packages.makePythonPath propagatedBuildInputs} \
-      --run 'export CONFIG_DIR="''${CONFIG_DIR:-''${XDG_CONFIG_HOME:-$HOME/.config}/moviepilot}"; mkdir -p "$CONFIG_DIR"' \
-      --add-flags "-m app.cli"
+    cat > $out/bin/moviepilot <<EOF
+    #!${pkgs.bash}/bin/bash
+    export PATH="${lib.makeBinPath [ nodejs ]}:\$PATH"
+    export PYTHONPATH="${pkgs.python3Packages.makePythonPath propagatedBuildInputs}"
+    cd "$out/share/moviepilot"
+    export CONFIG_DIR="\''${CONFIG_DIR:-\''${XDG_CONFIG_HOME:-\$HOME/.config}/moviepilot}"
+    mkdir -p "\$CONFIG_DIR"
+    exec ${pkgs.python3Packages.python.interpreter} -m app.cli "\$@"
+    EOF
+    chmod +x $out/bin/moviepilot
 
     runHook postInstall
   '';
