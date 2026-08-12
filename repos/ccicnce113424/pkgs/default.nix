@@ -234,7 +234,7 @@ lib.makeScope pkgs.newScope (
       sources = fetchedSrc.splayer-kde-bar-lyc;
     };
 
-    splayer-next-dev = self.callPackage ./splayer-next-dev  {
+    splayer-next-dev = self.callPackage ./splayer-next-dev {
       inherit (lib.importJSON ./splayer-next-dev/src-info.json) hash;
       sources = fetchedSrc.splayer-next-dev;
     };
