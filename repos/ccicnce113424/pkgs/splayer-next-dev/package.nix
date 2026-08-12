@@ -103,6 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
     # What's more, we need to use headers from electron to avoid ABI mismatches.
     for f in $(find . -path '*/node_modules/better-sqlite3' -type d); do
       (cd "$f" && (
+        rm -rf prebuilds
         npm run build-release --offline --nodedir="${electron.headers}"
         rm -rf build/Release/{.deps,obj,obj.target,test_extension.node}
         find build -type f -exec \
