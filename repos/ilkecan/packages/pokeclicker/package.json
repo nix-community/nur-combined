@@ -1,7 +1,0 @@
-{
-  "name": "pokeclicker",
-  "productName": "PokeClicker",
-  "version": "@version@",
-  "main": "main.js",
-  "private": true
-}
