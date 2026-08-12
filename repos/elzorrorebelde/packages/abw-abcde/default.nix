@@ -76,7 +76,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://www.romhacking.net/utilities/1392/";
     license = licenses.unfreeRedistributable;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "abw-abcde";
   };

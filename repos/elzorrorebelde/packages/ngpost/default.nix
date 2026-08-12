@@ -55,7 +55,7 @@ stdenv.mkDerivation {
     description = "Command Line and sexy GUI Usenet poster for binaries";
     homepage = "https://github.com/mbruel/ngPost";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "ngPost";
   };

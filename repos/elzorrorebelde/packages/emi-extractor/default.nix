@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/glitch-in-the-herring/emi-extractor";
     license = licenses.mit;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "emi_extractor";
   };

@@ -72,7 +72,7 @@ maven.buildMavenPackage rec {
     homepage = "https://github.com/toruzz/TileMolester";
     changelog = "https://github.com/toruzz/TileMolester/releases";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "tilemolester";
   };

@@ -68,7 +68,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/meunierd/ppf";
     license = lib.licenses.free; # source says "Feel free to use" — no standard OSI license
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "makeppf3";
   };

@@ -65,7 +65,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/glitch-in-the-herring/bof3-text-extractor";
     license = licenses.mit;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "bof3-extractor";
   };

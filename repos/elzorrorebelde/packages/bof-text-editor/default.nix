@@ -40,7 +40,7 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/glitch-in-the-herring/bof-text-editor";
     license = licenses.mit;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "bof-text";
   };

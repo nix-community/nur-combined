@@ -60,7 +60,7 @@ stdenv.mkDerivation {
     description = "Language server for GTK CSS";
     homepage = "https://github.com/JCWasmx86/GTKCssLanguageServer";
     license = licenses.gpl3;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.linux ++ platforms.darwin;
     mainProgram = "gtkcsslanguageserver";
   };

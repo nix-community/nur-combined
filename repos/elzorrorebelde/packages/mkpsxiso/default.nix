@@ -40,7 +40,7 @@ stdenv.mkDerivation {
     '';
     homepage = "https://github.com/Lameguy64/mkpsxiso";
     license = licenses.gpl2Only;
-    maintainers = with maintainers; [ shackra ];
+    maintainers = with maintainers; [ elzorrorebelde ];
     platforms = platforms.all;
     mainProgram = "mkpsxiso";
   };
