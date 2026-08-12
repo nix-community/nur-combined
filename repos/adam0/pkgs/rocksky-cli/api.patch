@@ -1,0 +1,223 @@
+--- a/src/client.ts
++++ b/src/client.ts
+@@ -77,22 +77,11 @@
+ 
+   async scrobbles(did?: string, { skip = 0, limit = 20 } = {}) {
+     if (did) {
+-      const response = await fetch(
+-        `${ROCKSKY_API_URL}/users/${did}/scrobbles?offset=${skip}&size=${limit}`,
+-        {
+-          method: "GET",
+-          headers: {
+-            Authorization: this.token ? `Bearer ${this.token}` : undefined,
+-            "Content-Type": "application/json",
+-          },
+-        },
+-      );
+-      if (!response.ok) {
+-        throw new Error(
+-          `Failed to fetch scrobbles data: ${response.statusText}`,
+-        );
+-      }
+-      return response.json();
++      const scrobbles = await this.getActorScrobbles(did, { skip, limit });
++      return scrobbles.map((scrobble) => ({
++        ...scrobble,
++        created_at: scrobble.createdAt,
++      }));
+     }
+ 
+     const response = await fetch(
+@@ -114,7 +103,7 @@
+ 
+   async search(query: string, { size }) {
+     const response = await fetch(
+-      `${ROCKSKY_API_URL}/xrpc/app.rocksky.feed.search?query=${query}&size=${size}`,
++      `${ROCKSKY_API_URL}/xrpc/app.rocksky.feed.search?${new URLSearchParams({ query, size: String(size) })}`,
+       {
+         method: "GET",
+         headers: {
+@@ -128,7 +117,8 @@
+       throw new Error(`Failed to fetch search data: ${response.statusText}`);
+     }
+ 
+-    return response.json();
++    const data = await response.json();
++    return { ...data, hits: (data.hits || []).slice(0, size) };
+   }
+ 
+   async stats(did?: string) {
+@@ -141,12 +131,12 @@
+         const user = await this.getCurrentUser();
+         did = user.did;
+         const didPath = path.join(os.homedir(), ".rocksky");
+-        fs.promises.mkdir(didPath, { recursive: true });
++        await fs.promises.mkdir(didPath, { recursive: true });
+         await fs.promises.writeFile(didFile, did);
+       }
+     }
+ 
+-    const response = await fetch(`${ROCKSKY_API_URL}/users/${did}/stats`, {
++    const response = await fetch(`${ROCKSKY_API_URL}/xrpc/app.rocksky.stats.getStats?did=${encodeURIComponent(did)}`, {
+       method: "GET",
+       headers: {
+         "Content-Type": "application/json",
+@@ -170,25 +160,16 @@
+         const user = await this.getCurrentUser();
+         did = user.did;
+         const didPath = path.join(os.homedir(), ".rocksky");
+-        fs.promises.mkdir(didPath, { recursive: true });
++        await fs.promises.mkdir(didPath, { recursive: true });
+         await fs.promises.writeFile(didFile, did);
+       }
+     }
+ 
+-    const response = await fetch(
+-      `${ROCKSKY_API_URL}/users/${did}/artists?offset=${skip}&size=${limit}`,
+-      {
+-        method: "GET",
+-        headers: {
+-          Authorization: this.token ? `Bearer ${this.token}` : undefined,
+-          "Content-Type": "application/json",
+-        },
+-      },
+-    );
+-    if (!response.ok) {
+-      throw new Error(`Failed to fetch artists data: ${response.statusText}`);
+-    }
+-    return response.json();
++    const artists = await this.getActorArtists(did, { skip, limit });
++    return artists.map((item) => ({
++      ...item,
++      play_count: item.playCount,
++    }));
+   }
+ 
+   async getAlbums(did?: string, { skip = 0, limit = 20 } = {}) {
+@@ -201,25 +182,16 @@
+         const user = await this.getCurrentUser();
+         did = user.did;
+         const didPath = path.join(os.homedir(), ".rocksky");
+-        fs.promises.mkdir(didPath, { recursive: true });
++        await fs.promises.mkdir(didPath, { recursive: true });
+         await fs.promises.writeFile(didFile, did);
+       }
+     }
+ 
+-    const response = await fetch(
+-      `${ROCKSKY_API_URL}/users/${did}/albums?offset=${skip}&size=${limit}`,
+-      {
+-        method: "GET",
+-        headers: {
+-          Authorization: this.token ? `Bearer ${this.token}` : undefined,
+-          "Content-Type": "application/json",
+-        },
+-      },
+-    );
+-    if (!response.ok) {
+-      throw new Error(`Failed to fetch albums data: ${response.statusText}`);
+-    }
+-    return response.json();
++    const albums = await this.getActorAlbums(did, { skip, limit });
++    return albums.map((item) => ({
++      ...item,
++      play_count: item.playCount,
++    }));
+   }
+ 
+   async getTracks(did?: string, { skip = 0, limit = 20 } = {}) {
+@@ -232,25 +204,16 @@
+         const user = await this.getCurrentUser();
+         did = user.did;
+         const didPath = path.join(os.homedir(), ".rocksky");
+-        fs.promises.mkdir(didPath, { recursive: true });
++        await fs.promises.mkdir(didPath, { recursive: true });
+         await fs.promises.writeFile(didFile, did);
+       }
+     }
+ 
+-    const response = await fetch(
+-      `${ROCKSKY_API_URL}/users/${did}/tracks?offset=${skip}&size=${limit}`,
+-      {
+-        method: "GET",
+-        headers: {
+-          Authorization: this.token ? `Bearer ${this.token}` : undefined,
+-          "Content-Type": "application/json",
+-        },
+-      },
+-    );
+-    if (!response.ok) {
+-      throw new Error(`Failed to fetch tracks data: ${response.statusText}`);
+-    }
+-    return response.json();
++    const tracks = await this.getActorSongs(did, { skip, limit });
++    return tracks.map((item) => ({
++      ...item,
++      play_count: item.playCount,
++    }));
+   }
+ 
+   async scrobble(api_key, api_sig, track, artist, timestamp) {
+--- a/src/cmd/stats.ts
++++ b/src/cmd/stats.ts
+@@ -1,27 +1,10 @@
+ import chalk from "chalk";
+ import { RockskyClient } from "client";
+-import fs from "fs/promises";
+-import os from "os";
+-import path from "path";
++import { loadToken } from "lib/token";
+ import { getBorderCharacters, table } from "table";
+ 
+ export async function stats(did?: string) {
+-  const tokenPath = path.join(os.homedir(), ".rocksky", "token.json");
+-  try {
+-    await fs.access(tokenPath);
+-  } catch (err) {
+-    if (!did) {
+-      console.error(
+-        `You are not logged in. Please run ${chalk.greenBright(
+-          "`rocksky login <username>.bsky.social`"
+-        )} first.`
+-      );
+-      return;
+-    }
+-  }
+-
+-  const tokenData = await fs.readFile(tokenPath, "utf-8");
+-  const { token } = JSON.parse(tokenData);
++  const token = loadToken();
+   if (!token && !did) {
+     console.error(
+       `You are not logged in. Please run ${chalk.greenBright(
+--- a/src/cmd/nowplaying.ts
++++ b/src/cmd/nowplaying.ts
+@@ -1,26 +1,9 @@
+ import chalk from "chalk";
+ import { RockskyClient } from "client";
+-import fs from "fs/promises";
+-import os from "os";
+-import path from "path";
++import { loadToken } from "lib/token";
+ 
+ export async function nowplaying(did?: string) {
+-  const tokenPath = path.join(os.homedir(), ".rocksky", "token.json");
+-  try {
+-    await fs.access(tokenPath);
+-  } catch (err) {
+-    if (!did) {
+-      console.error(
+-        `You are not logged in. Please run ${chalk.greenBright(
+-          "`rocksky login <username>.bsky.social`"
+-        )} first.`
+-      );
+-      return;
+-    }
+-  }
+-
+-  const tokenData = await fs.readFile(tokenPath, "utf-8");
+-  const { token } = JSON.parse(tokenData);
++  const token = loadToken();
+   if (!token && !did) {
+     console.error(
+       `You are not logged in. Please run ${chalk.greenBright(
