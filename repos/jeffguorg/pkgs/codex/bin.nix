@@ -1,15 +1,9 @@
 { lib
 , stdenv
-, fetchurl
 , autoPatchelfHook
 , installShellFiles
-, makeBinaryWrapper
+, ncurses
 , sources
-, zstd
-, libcap
-, zlib
-, openssl
-, ripgrep
 , installShellCompletions ? stdenv.buildPlatform.canExecute stdenv.hostPlatform
 }:
 let
@@ -27,63 +21,40 @@ let
   else
     throw "Unsupported architecture: ${stdenv.hostPlatform.system}";
 
-  codex-bin =  sources."codex-bin-${arch}-${os}";
-in stdenv.mkDerivation rec {
+  vendorTarget = if stdenv.hostPlatform.isDarwin then
+    "${if stdenv.hostPlatform.isAarch64 then "aarch64" else "x86_64"}-apple-darwin"
+  else
+    "${if stdenv.hostPlatform.isAarch64 then "aarch64" else "x86_64"}-unknown-linux-musl";
+
+  codex-bin = sources."codex-bin-${arch}-${os}";
+in stdenv.mkDerivation {
   pname = "codex-bin";
   version = codex-bin.version;
 
   src = codex-bin.src;
 
-  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [
-    libcap
-    zlib
-    openssl
-    stdenv.cc.cc.lib
-  ];
+  buildInputs = lib.optionals stdenv.hostPlatform.isLinux [ ncurses ];
 
-  nativeBuildInputs = [
-    zstd
-    autoPatchelfHook
-    installShellFiles
-    makeBinaryWrapper
-  ];
+  nativeBuildInputs = [ installShellFiles ]
+    ++ lib.optionals stdenv.hostPlatform.isLinux [ autoPatchelfHook ];
 
   dontConfigure = true;
   dontBuild = true;
-  dontAutoPatchelf = true;
-
-  unpackPhase = ''
-    runHook preUnpack
-
-    mkdir source
-    cd source
-
-    zstd -d --stdout "$src" > codex
-    chmod +x codex
-
-    runHook postUnpack
-  '';
 
   installPhase = ''
     runHook preInstall
 
-    install -Dm755 codex $out/bin/codex
-  '' + (if stdenv.hostPlatform.isLinux then ''
-    autoPatchelf $out/bin/codex
-  '' else "") + ''
+    mkdir -p $out
+    cp -R vendor/${vendorTarget}/. $out/
 
     runHook postInstall
   '';
 
-  postFixup = ''
-    wrapProgram $out/bin/codex --prefix PATH : ${lib.makeBinPath [ ripgrep ]}
-  '';
-
   postInstall = lib.optionalString installShellCompletions ''
     installShellCompletion --cmd codex \
-      --bash <($out/bin/codex completion bash) \
-      --fish <($out/bin/codex completion fish) \
-      --zsh <($out/bin/codex completion zsh)
+      --bash <($out/bin/codex completion bash 2>/dev/null) \
+      --fish <($out/bin/codex completion fish 2>/dev/null) \
+      --zsh <($out/bin/codex completion zsh 2>/dev/null)
   '';
 
   meta = with lib; {

@@ -65,32 +65,20 @@ cargo_lock = ["codex-rs/Cargo.lock"]
 cargo_locks = ["codex-rs/Cargo.lock"]
 
 [codex-bin-amd64-linux]
-src.github = "openai/codex"
-src.use_max_tag = true
-src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
-src.prefix = "rust-v"
-fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-x86_64-unknown-linux-musl.zst"
+src.cmd = "npm view @openai/codex version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver-linux-x64.tgz"
 
 [codex-bin-arm64-linux]
-src.github = "openai/codex"
-src.use_max_tag = true
-src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
-src.prefix = "rust-v"
-fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-aarch64-unknown-linux-musl.zst"
+src.cmd = "npm view @openai/codex version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver-linux-arm64.tgz"
 
 [codex-bin-amd64-darwin]
-src.github = "openai/codex"
-src.use_max_tag = true
-src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
-src.prefix = "rust-v"
-fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-x86_64-apple-darwin.zst"
+src.cmd = "npm view @openai/codex version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver-darwin-x64.tgz"
 
 [codex-bin-arm64-darwin]
-src.github = "openai/codex"
-src.use_max_tag = true
-src.include_regex = "rust-v[0-9]+\\.[0-9]+\\.[0-9]+"
-src.prefix = "rust-v"
-fetch.url = "https://github.com/openai/codex/releases/download/rust-v$ver/codex-aarch64-apple-darwin.zst"
+src.cmd = "npm view @openai/codex version 2>/dev/null"
+fetch.url = "https://registry.npmjs.org/@openai/codex/-/codex-$ver-darwin-arm64.tgz"
 
 [dingtalk-bin-arm64]
 src.cmd = "curl -s --show-headers https://www.dingtalk.com/win/d/qd=linux_arm64 | awk -F': ' '$1~/location/{print $2}' | sed -nE 's#.*com\\.alibabainc\\.dingtalk_([0-9.]+)_.*\\.deb.*#\\1#p'"

@@ -125,9 +125,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-IyvisTGm3Pu5qIL4BQVZryxA/N+lqclFt4PxqmQNYSI=",
+            "sha256": "sha256-Q8153s3QwRDaqQoP005zUjx6EPsOTV2b8UN9kpi+CLY=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.147.0/codex-x86_64-apple-darwin.zst"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.147.0-darwin-x64.tgz"
         },
         "version": "0.147.0"
     },
@@ -140,9 +140,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kwwnZLaQOOXL1zolhnF9lwM0gizFABQCWk0YvMnIUy8=",
+            "sha256": "sha256-yWl0DPgpfkwxkFzVUe/rLJmvUIDBLCNr34JVmLJQE5o=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.147.0/codex-x86_64-unknown-linux-musl.zst"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.147.0-linux-x64.tgz"
         },
         "version": "0.147.0"
     },
@@ -155,9 +155,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-j5O0TK1Gol87YRbAsQHY/1HyAMeuVSrlN8WxJ1B/vqU=",
+            "sha256": "sha256-ST3i14jG/wHeIiMHx2cjHB5sgC1d2AhSNVD61tly9NM=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.147.0/codex-aarch64-apple-darwin.zst"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.147.0-darwin-arm64.tgz"
         },
         "version": "0.147.0"
     },
@@ -170,9 +170,9 @@
         "pinned": false,
         "src": {
             "name": null,
-            "sha256": "sha256-kc8nRcAhCaResUwOLtJpT/HPzItw5C8NOju0pQE5qTM=",
+            "sha256": "sha256-TQm/AAWXdo36BwsOfGEvD8JYrH+rNk5XAQTqYl+RhUY=",
             "type": "url",
-            "url": "https://github.com/openai/codex/releases/download/rust-v0.147.0/codex-aarch64-unknown-linux-musl.zst"
+            "url": "https://registry.npmjs.org/@openai/codex/-/codex-0.147.0-linux-arm64.tgz"
         },
         "version": "0.147.0"
     },
