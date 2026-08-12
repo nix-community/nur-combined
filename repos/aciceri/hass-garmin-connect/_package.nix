@@ -7,13 +7,13 @@
 }:
 stdenvNoCC.mkDerivation {
   pname = "hass-garmin-connect";
-  version = "3.0.14-unstable-2026-08-09";
+  version = "3.0.15-unstable-2026-08-11";
 
   src = fetchFromGitHub {
     owner = "cyberjunky";
     repo = "home-assistant-garmin_connect";
-    rev = "c848bcb87bacd34355142a2365c191fe6b41775b";
-    hash = "sha256-h8aXheDnfXFgz5c3ZeXAccUQi7InKhiiSj1Ni65zwS4=";
+    rev = "22b0889b44174c94e4d43b4268cffed2c38c6b08";
+    hash = "sha256-hX+8rUhDFIpnd3l1sproYxuASPxMw3haRHphywUPC24=";
   };
 
   # Home Assistant consumes this as a raw source tree: the config dir gets
