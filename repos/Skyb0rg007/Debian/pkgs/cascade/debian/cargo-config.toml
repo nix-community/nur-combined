@@ -1,0 +1,28 @@
+# Emitted by `cargo vendor` (see ../prepare); @VENDOR@ is substituted by
+# debian/rules. Every source cascade pulls from must be listed here, otherwise
+# cargo tries to reach the network and the offline build fails.
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/NLnetLabs/domain-kmip?branch=main"]
+git = "https://github.com/NLnetLabs/domain-kmip"
+branch = "main"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/NLnetLabs/domain?branch=main"]
+git = "https://github.com/NLnetLabs/domain"
+branch = "main"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/NLnetLabs/kmip-protocol.git?branch=next"]
+git = "https://github.com/NLnetLabs/kmip-protocol.git"
+branch = "next"
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/NLnetLabs/kmip-ttlv?branch=next"]
+git = "https://github.com/NLnetLabs/kmip-ttlv"
+branch = "next"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "@VENDOR@"

@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+
+# The crates live in vendor/, shipped as an orig-vendor component tarball by
+# ../prepare, so the build never touches the network.
+export CARGO_HOME := $(CURDIR)/debian/cargo
+export CASCADE_SKIP_VERSION_COMMIT := 1
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+
+DESTDIR := $(CURDIR)/debian/cascade
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	mkdir -p $(CARGO_HOME)
+	sed 's|@VENDOR@|$(CURDIR)/vendor|' debian/cargo-config.toml > $(CARGO_HOME)/config.toml
+
+override_dh_auto_build:
+	cargo build --release --locked --offline
+
+# The test suite needs a live signer and network namespaces.
+override_dh_auto_test:
+
+override_dh_auto_install:
+	install -D -m 0755 target/release/cascade $(DESTDIR)/usr/bin/cascade
+	install -D -m 0755 target/release/cascaded $(DESTDIR)/usr/bin/cascaded
+	install -D -m 0644 etc/config.system.toml $(DESTDIR)/etc/cascade/config.toml
+	install -d -m 0755 $(DESTDIR)/etc/cascade/policies
+	install -D -m 0644 pkg/common/cascaded.service \
+		$(DESTDIR)/usr/lib/systemd/system/cascaded.service
+
+# Upstream ships a "disable cascaded.service" preset; leave it to the admin.
+override_dh_installsystemd:
+	dh_installsystemd --no-enable
+
+override_dh_auto_clean:
+	rm -rf target debian/cargo
+
+# dh_clean deletes *.orig throughout the tree, which would eat the 273
+# Cargo.toml.orig files the vendored crates checksum themselves against.
+override_dh_clean:
+	dh_clean -X.orig

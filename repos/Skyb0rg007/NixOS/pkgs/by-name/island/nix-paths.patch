@@ -1,0 +1,16 @@
+diff --git a/assets/landlock/island-default-base.toml b/assets/landlock/island-default-base.toml
+index 971fc28..b29be26 100644
+--- a/assets/landlock/island-default-base.toml
++++ b/assets/landlock/island-default-base.toml
+@@ -17,10 +17,7 @@ scoped = ["abi.all"]
+ [[path_beneath]]
+ allowed_access = ["abi.read_execute"]
+ parent = [
+-    "/bin",
+-    "/lib",
+-    "/sbin",
+-    "/usr",
++    "/nix/store",
+ ]
+ 
+ # Safe writable devices.

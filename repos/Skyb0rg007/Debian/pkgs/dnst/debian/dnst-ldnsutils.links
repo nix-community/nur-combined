@@ -1,0 +1,6 @@
+usr/bin/dnst usr/bin/ldns-key2ds
+usr/bin/dnst usr/bin/ldns-keygen
+usr/bin/dnst usr/bin/ldns-notify
+usr/bin/dnst usr/bin/ldns-nsec3-hash
+usr/bin/dnst usr/bin/ldns-signzone
+usr/bin/dnst usr/bin/ldns-update

@@ -1,0 +1,11 @@
+skyenet-archive-keyring (1.0.1) unstable; urgency=medium
+
+  * Drop the Debian revision from the version.
+
+ -- Skye Soss <skyler.soss@gmail.com>  Mon, 10 Aug 2026 12:00:00 -0500
+
+skyenet-archive-keyring (1.0.0-1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Skye Soss <skyler.soss@gmail.com>  Fri, 15 Aug 2025 12:18:14 -0500

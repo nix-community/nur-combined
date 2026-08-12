@@ -1,0 +1,42 @@
+Source: dnst
+Section: net
+Priority: optional
+Maintainer: Skye Soss <skyler.soss@gmail.com>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               cargo,
+               rustc (>= 1.88),
+               libssl-dev,
+               pkgconf,
+Standards-Version: 4.7.2
+Vcs-Browser: https://github.com/NLnetLabs/dnst
+Vcs-Git: https://github.com/NLnetLabs/dnst.git
+Homepage: https://github.com/NLnetLabs/dnst
+
+Package: dnst
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+Description: DNS toolkit reimplementing the ldns utilities
+ dnst is a Rust reimplementation of the most important ldns example programs,
+ covering DNSSEC key generation, zone signing, NSEC3 hashing, DS record
+ creation and NOTIFY/UPDATE messages.
+ .
+ The commands are exposed as subcommands of the dnst binary, for example
+ "dnst signzone" and "dnst keygen". Install dnst-ldnsutils to reach them under
+ their original ldns-* names instead.
+
+Package: dnst-ldnsutils
+Architecture: all
+Depends: dnst (= ${source:Version}),
+         ${misc:Depends},
+Conflicts: ldnsutils
+Replaces: ldnsutils
+Description: ldns-compatible command names for dnst
+ This package provides the ldns-* command names as symlinks to dnst, which
+ switches to ldns-compatible argument parsing when invoked under them, together
+ with the matching manual pages.
+ .
+ It replaces the original ldnsutils with their dnst counterparts, for those
+ commands dnst implements: ldns-key2ds, ldns-keygen, ldns-notify,
+ ldns-nsec3-hash, ldns-signzone and ldns-update.

@@ -1,0 +1,29 @@
+Source: cascade
+Section: net
+Priority: optional
+Maintainer: Skye Soss <skyler.soss@gmail.com>
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 13),
+               dh-sequence-installsysusers,
+               cargo,
+               rustc (>= 1.88),
+               libssl-dev,
+               pkgconf,
+Standards-Version: 4.7.2
+Vcs-Browser: https://github.com/NLnetLabs/cascade
+Vcs-Git: https://github.com/NLnetLabs/cascade.git
+Homepage: https://nlnetlabs.nl/projects/cascade
+
+Package: cascade
+Architecture: any
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         dnst,
+Description: friendly DNSSEC signing pipeline
+ Cascade is a DNSSEC signing solution offering sensible defaults,
+ controllability, observability and flexibility. It receives unsigned zones
+ over AXFR/IXFR, signs them, and serves the signed result to downstream name
+ servers.
+ .
+ This package ships the cascaded daemon, the cascade command-line client and a
+ system-wide configuration under /etc/cascade.

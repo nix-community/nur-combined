@@ -1,0 +1,8 @@
+*/*
+!*/debian
+!*/upstream.json
+!*/prepare
+!skyenet-archive-keyring/*
+*.gpg
+*.build
+_build

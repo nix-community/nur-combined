@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Vendor the Rust dependencies into a "vendor" component tarball, so that the
+# source package carries every crate it needs. debcraft builds with
+# --network=none, and dnst depends on crates from git, so nothing can be
+# fetched at build time.
+set -euo pipefail
+
+tree="$1"
+comp="$2.orig-vendor.tar.gz"
+
+# The tarball name pins the upstream version, and so the Cargo.lock vendored
+# from it: an existing one is still correct, so leave it alone. It is not
+# unpacked either; debian/source/options ignores the absent vendor/.
+if [ ! -f "$comp" ]; then
+    cargo vendor --locked --manifest-path "$tree/Cargo.toml" "$tree/vendor" > /dev/null
+    tar --sort=name --mtime=@0 --owner=0 --group=0 --numeric-owner \
+        -czf "$comp" -C "$tree" vendor
+fi

@@ -1,0 +1,4 @@
+# vendor/ ships as an orig-vendor component tarball, so it is not unpacked into
+# the tree when it is already built. Without this dpkg-source reports every
+# vendored file as a deletion.
+extend-diff-ignore = "^vendor/"

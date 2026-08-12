@@ -1,0 +1,37 @@
+#!/usr/bin/make -f
+
+# The crates live in vendor/, shipped as an orig-vendor component tarball by
+# ../prepare, so the build never touches the network.
+export CARGO_HOME := $(CURDIR)/debian/cargo
+export DEB_BUILD_MAINT_OPTIONS := hardening=+all
+
+DESTDIR := $(CURDIR)/debian/dnst
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	mkdir -p $(CARGO_HOME)
+	sed 's|@VENDOR@|$(CURDIR)/vendor|' debian/cargo-config.toml > $(CARGO_HOME)/config.toml
+
+override_dh_auto_build:
+	cargo build --release --locked --offline
+
+# The test suite drives live resolvers and Stelline scenarios.
+override_dh_auto_test:
+
+# The ldns-* commands ship in dnst-ldnsutils as symlinks to dnst itself (see
+# debian/dnst-ldnsutils.links); dnst switches to ldns argument parsing based on
+# argv[0]. src/bin/ldns.rs is a test harness that takes the command as an
+# argument instead, and upstream documents it as not for packaging, so it is
+# built but not installed.
+override_dh_auto_install:
+	install -D -m 0755 target/release/dnst $(DESTDIR)/usr/bin/dnst
+
+override_dh_auto_clean:
+	rm -rf target debian/cargo
+
+# dh_clean deletes *.orig throughout the tree, which would eat the
+# Cargo.toml.orig files the vendored crates checksum themselves against.
+override_dh_clean:
+	dh_clean -X.orig
