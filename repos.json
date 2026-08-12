@@ -92,9 +92,6 @@
         "NotEvenANeko": {
             "url": "https://github.com/NotEvenANeko/nur-pkgs"
         },
-        "ProducerMatt": {
-            "url": "https://github.com/ProducerMatt/my-nur-pkgs"
-        },
         "Red-Flake": {
             "url": "https://github.com/Red-Flake/packages"
         },
@@ -219,9 +216,6 @@
             "type": "sourcehut",
             "url": "https://git.sr.ht/~artemis/artenekoverlay"
         },
-        "artturin": {
-            "url": "https://github.com/Artturin/artturin-nur"
-        },
         "artur-sannikov": {
             "url": "https://github.com/artur-sannikov/nur-packages"
         },
@@ -280,9 +274,6 @@
         },
         "bendlas": {
             "url": "https://github.com/bendlas/nur-packages"
-        },
-        "berbiche": {
-            "url": "https://github.com/berbiche/nur-packages"
         },
         "berryp": {
             "url": "https://github.com/berryp/nur-packages"
@@ -405,9 +396,6 @@
         "crazedprogrammer": {
             "file": "pkgs/nur-packages.nix",
             "url": "https://github.com/CrazedProgrammer/nix"
-        },
-        "crimsonvariable": {
-            "url": "https://github.com/crimsonvariable/nur-packages"
         },
         "crtified": {
             "url": "https://github.com/CRTified/nur-packages"
@@ -599,9 +587,6 @@
         "ftbwiki": {
             "url": "https://github.com/tomodachi94/nur-ftbwiki"
         },
-        "fuyu-no-nur": {
-            "url": "https://github.com/TahlonBrahic/fuyu-no-nur"
-        },
         "fym998": {
             "url": "https://github.com/fym998/nur-packages"
         },
@@ -780,9 +765,6 @@
         "jjjollyjim": {
             "url": "https://github.com/jjjollyjim/nur-repo"
         },
-        "jkorinth": {
-            "url": "https://github.com/jkorinth/nur-packages"
-        },
         "jleightcap": {
             "type": "sourcehut",
             "url": "https://git.sr.ht/~jleightcap/nur-packages"
@@ -899,10 +881,6 @@
         "ltpie123": {
             "url": "https://github.com/ltpie123/nur-packages"
         },
-        "lucasew": {
-            "file": "nur.nix",
-            "url": "https://github.com/lucasew/nixcfg"
-        },
         "lucasfa": {
             "url": "https://github.com/lucasfa/nur-packages"
         },
@@ -952,9 +930,6 @@
         },
         "merrkry": {
             "url": "https://github.com/merrkry/nur-packages"
-        },
-        "mgord9518": {
-            "url": "https://github.com/mgord9518/nur"
         },
         "mhuesch": {
             "url": "https://github.com/mhuesch/nur-packages"
@@ -1068,9 +1043,6 @@
         "nasirhm": {
             "url": "https://github.com/nasirhm/nasirhmpkgs"
         },
-        "natsukium": {
-            "url": "https://github.com/natsukium/nur-packages"
-        },
         "nelonn": {
             "url": "https://github.com/Nelonn/nur-packages"
         },
@@ -1130,9 +1102,6 @@
         },
         "novafacing": {
             "url": "https://github.com/novafacing/nur-packages"
-        },
-        "novel2430": {
-            "url": "https://github.com/novel2430/MyNUR"
         },
         "npkgs": {
             "url": "https://github.com/nerdypepper/npkgs"
@@ -1246,9 +1215,6 @@
         },
         "qwbarch": {
             "url": "https://github.com/qwbarch/nur-packages"
-        },
-        "raizyr": {
-            "url": "https://github.com/raizyr/nur-packages"
         },
         "rapatao": {
             "url": "https://github.com/rapatao/nur-packages"
@@ -1443,9 +1409,6 @@
             "submodules": true,
             "url": "https://github.com/Thaumy/nur-pkgs"
         },
-        "the-code-fixer-23-nur": {
-            "url": "https://github.com/louiss0/the-code-fixer-23-nur"
-        },
         "therobot2105": {
             "url": "https://github.com/therobot2105/nur-packages"
         },
@@ -1609,9 +1572,6 @@
         },
         "xonsh-xontribs": {
             "url": "https://github.com/drmikecrowe/nur-packages"
-        },
-        "xyenon": {
-            "url": "https://github.com/XYenon/nur-packages"
         },
         "yakkhini": {
             "url": "https://github.com/Yakkhini/nur-packages"
