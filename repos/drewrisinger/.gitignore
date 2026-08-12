@@ -1,0 +1,14 @@
+# Nix build files
+result
+result-*
+
+# Direnv files
+.envrc.local
+/.direnv/
+
+# artifact from auto-update/CI
+nurAttrs.json
+evaluations.json
+
+# Nix shell artifact? for CI
+env-vars
