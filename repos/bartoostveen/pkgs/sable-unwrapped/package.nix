@@ -48,6 +48,7 @@ stdenv.mkDerivation (finalAttrs: {
   buildPhase = ''
     runHook preBuild
 
+    pnpm -- config set nodeOptions "--max-old-space-size=4096"
     pnpm build
 
     runHook postBuild
