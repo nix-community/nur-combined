@@ -1,0 +1,15 @@
+{
+  "name": "Boxtron",
+  "source": {
+    "type": "github-release",
+    "repo": "dreamer/boxtron",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "boxtron.tar.xz",
+    "unpack": true
+  },
+  "version": "0.5.4",
+  "hash": "sha256-knkwNLourEp309zOmgorsdYj8lneoDSTMwsI0KCoRas="
+}

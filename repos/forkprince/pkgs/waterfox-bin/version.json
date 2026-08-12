@@ -1,0 +1,23 @@
+{
+  "name": "Waterfox",
+  "source": {
+    "type": "github-release",
+    "repo": "BrowserWorks/Waterfox",
+    "skip_prerelease": true
+  },
+  "version": "6.6.17",
+  "platforms": {
+    "x86_64-linux": {
+      "url": "https://cdn1.waterfox.net/waterfox/releases/6.6.8/Linux_x86_64/waterfox-6.6.8.tar.bz2",
+      "hash": "sha256-Vj94tSPxGxMyl6D2jgz9KBZHjjpmWAfIQeklIYztcYg="
+    },
+    "x86_64-darwin": {
+      "url": "https://cdn.waterfox.com/waterfox/releases/6.6.8/Darwin_x86_64-aarch64/Waterfox 6.6.8.dmg",
+      "hash": "sha256-Nyd7AXgowlvdsefQGejOH//d1TPxHX71j61/K+rLJNA="
+    },
+    "aarch64-darwin": {
+      "url": "https://cdn.waterfox.com/waterfox/releases/6.6.8/Darwin_x86_64-aarch64/Waterfox 6.6.8.dmg",
+      "hash": "sha256-Nyd7AXgowlvdsefQGejOH//d1TPxHX71j61/K+rLJNA="
+    }
+  }
+}

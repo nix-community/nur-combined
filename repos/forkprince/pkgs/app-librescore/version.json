@@ -1,0 +1,27 @@
+{
+  "name": "App LibreScore",
+  "source": {
+    "type": "github-release",
+    "repo": "LibreScore/app-librescore",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "6.0.23",
+  "platforms": {
+    "x86_64-linux": {
+      "file": "LibreScore.AppImage",
+      "hash": "sha256-RAxs6Qqc6nRUGeVIjUcS1cxY4j+RPqyJWMsMvEZ/JWM=",
+      "unpack": false
+    },
+    "x86_64-darwin": {
+      "file": "LibreScore.dmg",
+      "hash": "sha256-8/LqQL2dTsAYy3aIhzhlgw3BRIut6P0XduqucbPoB8Y=",
+      "unpack": false
+    },
+    "aarch64-darwin": {
+      "file": "LibreScore.dmg",
+      "hash": "sha256-8/LqQL2dTsAYy3aIhzhlgw3BRIut6P0XduqucbPoB8Y=",
+      "unpack": false
+    }
+  }
+}

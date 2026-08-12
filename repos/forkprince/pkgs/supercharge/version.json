@@ -1,0 +1,15 @@
+{
+  "name": "Supercharge",
+  "source": {
+    "type": "github-release",
+    "repo": "sindresorhus/supercharge-meta",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Supercharge.zip",
+    "unpack": false
+  },
+  "version": "1.29.4",
+  "hash": "sha256-49UPBpxMDMjlzrX2wXnUQZJZUWZ+jSRT6J5mHkVCArw="
+}

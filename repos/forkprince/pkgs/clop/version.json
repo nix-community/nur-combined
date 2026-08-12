@@ -1,0 +1,15 @@
+{
+  "name": "Clop",
+  "source": {
+    "type": "github-release",
+    "repo": "FuzzyIdeas/Clop",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Clop-{version}.dmg",
+    "unpack": false
+  },
+  "version": "3.3.3",
+  "hash": "sha256-xxbgEmeNlSwIhk5gau+nF8W+OBtoYoykFYTZXtZ+V3o="
+}

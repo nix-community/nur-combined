@@ -1,0 +1,82 @@
+From 812c92f3f683efc8adafa529034cb0b5a22ada84 Mon Sep 17 00:00:00 2001
+From: Prince527 <prince527@duck.com>
+Date: Sun, 27 Jul 2025 08:30:43 -0300
+Subject: [PATCH] fix gtk
+
+---
+ cmd/hyprpanel/util.go | 30 +++++++++++++++---------------
+ 1 file changed, 15 insertions(+), 15 deletions(-)
+
+diff --git a/cmd/hyprpanel/util.go b/cmd/hyprpanel/util.go
+index 1b2f908..75b766c 100644
+--- a/cmd/hyprpanel/util.go
++++ b/cmd/hyprpanel/util.go
+@@ -39,18 +39,24 @@ func findClient() (string, error) {
+ 
+ func findLayerShell() (string, error) {
+ 	var searchPaths []string
++
+ 	switch runtime.GOARCH {
+-	case `amd64`:
+-		searchPaths = []string{`/usr/lib/x86_64-linux-gnu/`, `/usr/lib64/`}
+-	case `arm64`:
++	case "amd64":
++		searchPaths = []string{"/usr/lib/x86_64-linux-gnu/", "/usr/lib64/"}
++	case "arm64":
+ 		searchPaths = []string{"/usr/lib/aarch64-linux-gnu/", "/usr/lib64/"}
+ 	default:
+-		return ``, fmt.Errorf("unsupported architecture: %s", runtime.GOARCH)
++		return "", fmt.Errorf("unsupported architecture: %s", runtime.GOARCH)
++	}
++
++	if envPaths := os.Getenv("LD_LIBRARY_PATH"); envPaths != "" {
++		searchPaths = append(searchPaths, strings.Split(envPaths, ":")...)
+ 	}
+ 
+ 	if path, err := findLayerShellBySearchPath(searchPaths); err == nil {
+ 		return path, nil
+ 	}
++
+ 	return findLayerShellByPkgconfig()
+ }
+ 
+@@ -61,16 +67,15 @@ func findLayerShellBySearchPath(paths []string) (string, error) {
+ 			return path, nil
+ 		}
+ 	}
+-
+-	return ``, errors.New(`could not find gtk4-layer-shell library`)
++	return "", errors.New("could not find gtk4-layer-shell library in search paths")
+ }
+ 
+ func findLayerShellByPkgconfig() (string, error) {
+-	cmd := exec.Command(`pkg-config`, `--libs-only-L`, layerShellPkg)
++	cmd := exec.Command("pkg-config", "--libs-only-L", layerShellPkg)
+ 	var stdOut, stdErr bytes.Buffer
+ 	cmd.Stdout, cmd.Stderr = &stdOut, &stdErr
+ 	if err := cmd.Run(); err != nil {
+-		return ``, fmt.Errorf("pkg-config failed finding '%s' with error %s: %s", layerShellPkg, err, stdOut.String())
++		return "", fmt.Errorf("pkg-config failed for '%s': %s - %s", layerShellPkg, err, stdErr.String())
+ 	}
+ 
+ 	outs := strings.Split(stdOut.String(), "-L")
+@@ -79,14 +84,9 @@ func findLayerShellByPkgconfig() (string, error) {
+ 		if c == "" {
+ 			continue
+ 		}
+-		g, err := findLayerShellBySearchPath([]string{c})
+-		if err != nil {
+-			return ``, err
+-		}
+-		if g != "" {
++		if g, err := findLayerShellBySearchPath([]string{c}); err == nil && g != "" {
+ 			return g, nil
+ 		}
+ 	}
+-
+-	return ``, errors.New(`pkg-config search failed`)
++	return "", errors.New("pkg-config search failed to locate gtk4-layer-shell")
+ }
+-- 
+2.49.0
+

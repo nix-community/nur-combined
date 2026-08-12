@@ -1,0 +1,15 @@
+{
+  "name": "Proton GE RTSP",
+  "source": {
+    "type": "github-release",
+    "repo": "SpookySkeletons/proton-ge-rtsp",
+    "skip_prerelease": true
+  },
+  "asset": {
+    "file": "{version}.tar.gz",
+    "unpack": true
+  },
+  "force": true,
+  "version": "proton-rtsp-11.0-20260609-1",
+  "hash": "sha256-/YrUjR/Ynb0clNpXSaSlfpnqJ76ZfTYP9LR/WHHCMgk="
+}

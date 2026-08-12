@@ -1,0 +1,14 @@
+{
+  "name": "Sublime Text",
+  "source": {
+    "type": "api",
+    "url": "https://formulae.brew.sh/api/cask/sublime-text.json",
+    "version_path": ".version",
+    "url_path": ".url"
+  },
+  "version": "4200",
+  "asset": {
+    "url": "https://download.sublimetext.com/sublime_text_build_4200_mac.zip",
+    "hash": "sha256-SDXrKl0/KyI86TonFJ82DvFYr5+N1wi29QHXCMCB0xk="
+  }
+}

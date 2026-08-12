@@ -1,0 +1,15 @@
+{
+  "name": "Equibop",
+  "source": {
+    "type": "github-release",
+    "repo": "Equicord/Equibop",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "asset": {
+    "file": "Equibop-{version}-universal-mac.zip",
+    "unpack": false
+  },
+  "version": "3.2.2",
+  "hash": "sha256-OZC2OiEd6SKgTVX0tF3N9VcMkQZqrJSjW/UyTNi4FME="
+}

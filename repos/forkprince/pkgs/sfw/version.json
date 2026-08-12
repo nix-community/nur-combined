@@ -1,0 +1,28 @@
+{
+  "name": "Socket Firewall",
+  "source": {
+    "type": "github-release",
+    "repo": "SocketDev/sfw-free",
+    "skip_prerelease": true,
+    "tag_prefix": "v"
+  },
+  "version": "1.15.0",
+  "platforms": {
+    "aarch64-linux": {
+      "file": "sfw-free-linux-arm64",
+      "hash": "sha256-VWcfpAnvPUD87masu6TXrP/4pTMtNJrUfMqAnr9HPNA="
+    },
+    "x86_64-linux": {
+      "file": "sfw-free-linux-x86_64",
+      "hash": "sha256-yANxkQqAjqXGiRbEjlRRcWqRykEc9eQi/b2BGXKbdCw="
+    },
+    "aarch64-darwin": {
+      "file": "sfw-free-macos-arm64",
+      "hash": "sha256-+kcykbi3YiD0tjbPZV6KTcAzMhRb3qOs/ZvJaIey2iA="
+    },
+    "x86_64-darwin": {
+      "file": "sfw-free-macos-x86_64",
+      "hash": "sha256-B8/MmAWBITDrygf3PFHCzZwBgbOU8lvkyWnA0xydwm8="
+    }
+  }
+}
