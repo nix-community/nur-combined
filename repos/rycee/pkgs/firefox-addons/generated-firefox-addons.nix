@@ -951,10 +951,10 @@
     };
     "batchcamp" = buildMozillaXpiAddon {
       pname = "batchcamp";
-      version = "2.0.13";
+      version = "2.1.0";
       addonId = "{d44fa1f9-1400-401d-a79e-650d466ec6d6}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4948413/batchcamp-2.0.13.xpi";
-      sha256 = "c6687f4853529e2544fd6d3e33f3f5f947890cd1eb7253e413705905f1dbb480";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4952948/batchcamp-2.1.0.xpi";
+      sha256 = "c905b293ea1860f13294f72e642c1f32f926c12947121349feff83fe55f7b923";
       meta = with lib;
       {
         homepage = "https://deejay.tools";
@@ -4772,15 +4772,15 @@
     };
     "ghostery" = buildMozillaXpiAddon {
       pname = "ghostery";
-      version = "10.5.55";
+      version = "10.5.56";
       addonId = "firefox@ghostery.com";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4940544/ghostery-10.5.55.xpi";
-      sha256 = "8256a74cd6d15bc1f27d42341d69f18452589f78cf3e5a22e4406d6855e2d1a4";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4951286/ghostery-10.5.56.xpi";
+      sha256 = "9a96ba5da05144083696682cb82bd4f2d332af0b6564caa07dded736f1e75e44";
       meta = with lib;
       {
         homepage = "http://www.ghostery.com/";
         description = "The best privacy tool and ad blocker extension for Firefox. Stop trackers, speed up websites and block ads everywhere including YouTube and Facebook.";
-        license = licenses.mpl20;
+        license = licenses.gpl3;
         mozPermissions = [
           "alarms"
           "contextMenus"
@@ -7576,7 +7576,7 @@
       meta = with lib;
       {
         homepage = "http://keepersecurity.com/";
-        description = "Protect and autofill passwords with the world's most trusted and #1 downloaded secure password manager and digital vault.";
+        description = "Keeper is the world's most trusted password manager that secures, stores and autofills your passwords, passkeys and sensitive data across all devices with best-in-class encryption and 24/7 expert support.";
         license = {
           shortName = "keeper-password-manager";
           fullName = "End-User License Agreement for Keeper® Password Manager & Digital Vault";
@@ -8447,10 +8447,10 @@
     };
     "libkey-nomad" = buildMozillaXpiAddon {
       pname = "libkey-nomad";
-      version = "1.58.0";
+      version = "1.59.0";
       addonId = "{f282d54d-83cc-45f5-b3e5-65888de1682b}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4874576/libkey_nomad-1.58.0.xpi";
-      sha256 = "13f1ed4c75d53929ef36ede22dc0cda2d46246d19cf9bc7871eea45a174c456a";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4944555/libkey_nomad-1.59.0.xpi";
+      sha256 = "5ff05b7b8322c39d7431071c8a728108fa62712f79b92f8cad8089c2ade54ee5";
       meta = with lib;
       {
         homepage = "https://thirdiron.com/libkey-nomad/";
@@ -16052,10 +16052,10 @@
     };
     "untrap-for-youtube" = buildMozillaXpiAddon {
       pname = "untrap-for-youtube";
-      version = "10.4.1";
+      version = "11.0";
       addonId = "{2662ff67-b302-4363-95f3-b050218bd72c}";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4939690/untrap_for_youtube-10.4.1.xpi";
-      sha256 = "9d211625a3880581ecc109e64c9c212feecb3583177933f360902709d1aaddb9";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4947494/untrap_for_youtube-11.0.xpi";
+      sha256 = "29bb830a0a0e60a9b03125edd88a0859cf46e7b64a7039ab6d05807056e3644c";
       meta = with lib;
       {
         homepage = "http://untrap.app";
@@ -17903,10 +17903,10 @@
     };
     "youtube-suite-search-fixer" = buildMozillaXpiAddon {
       pname = "youtube-suite-search-fixer";
-      version = "10.1.2";
+      version = "10.1.3";
       addonId = "MinYT@example.org";
-      url = "https://addons.mozilla.org/firefox/downloads/file/4949917/youtube_suite_search_fixer-10.1.2.xpi";
-      sha256 = "7127c25a6e808b6b53b5c805fa9d0560ea72bf6ba61e09b34183f2939842d26c";
+      url = "https://addons.mozilla.org/firefox/downloads/file/4951083/youtube_suite_search_fixer-10.1.3.xpi";
+      sha256 = "a479a8f4f154668c4ecde99250f441b52d9dddf872edb4905e1439cce04dc75e";
       meta = with lib;
       {
         homepage = "https://phoennix.gitlab.io/youtubesearchfix/";
