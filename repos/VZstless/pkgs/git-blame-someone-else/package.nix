@@ -7,11 +7,11 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "git-blame-someone-else";
-  version = "1.0.0";
+  version = "0-unstable-2018-01-13";
   src = fetchFromGitHub {
-    owner = "VZstless";
+    owner = "jayphelps";
     repo = "git-blame-someone-else";
-    rev = finalAttrs.version;
+    rev = "8d854c2d78cb98afdb9f5a73240e06393260b327";
     hash = "sha256-xraG1dR5Q8oDlUXARgh0ql8eRwH4bJWblJFjH1wJcys=";
   };
 
