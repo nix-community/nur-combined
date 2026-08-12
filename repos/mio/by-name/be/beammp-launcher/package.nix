@@ -20,7 +20,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "beammp-launcher";
-  version = if stdenv.isDarwin then "2.7.0-unstable-20260111" else "2.8.0";
+  version = if stdenv.isDarwin then "2.7.0-unstable-20260111" else "2.8.1";
 
   src = fetchFromGitHub (
     if stdenv.isDarwin then
@@ -37,7 +37,7 @@ stdenv.mkDerivation (finalAttrs: {
         owner = "BeamMP";
         repo = "BeamMP-Launcher";
         tag = "v${finalAttrs.version}";
-        hash = "sha256-xg6lHsfIYRC9OxrI+A7MXYCxGbZrGHb/9gR7Dno6Pwk=";
+        hash = "sha256-9zfagbDUyhUBLtZ18QNztaf1A5GMqqSa7fLAGih4y8k=";
       }
   );
 

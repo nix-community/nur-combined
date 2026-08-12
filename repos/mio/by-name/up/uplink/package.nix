@@ -12,9 +12,11 @@
   glib,
   pcre2,
   wrapGAppsHook3,
+  copyDesktopItems,
+  makeDesktopItem,
 }:
 
-flutter.buildFlutterApplication {
+flutter.buildFlutterApplication rec {
   pname = "uplink";
   version = "0.1.0";
   src = ./.;
@@ -34,6 +36,7 @@ flutter.buildFlutterApplication {
     rustPlatform.cargoSetupHook
     clang
     wrapGAppsHook3
+    copyDesktopItems
   ];
 
   buildInputs = [
@@ -77,10 +80,31 @@ flutter.buildFlutterApplication {
 
   dontUseCmakeConfigure = true;
 
+  desktopItems = [
+    (makeDesktopItem {
+      name = "uplink";
+      exec = "uplink";
+      icon = "uplink";
+      desktopName = "Uplink";
+      genericName = "Pastebin";
+      comment = "Cross-platform pastebin GUI";
+      categories = [
+        "Network"
+        "Utility"
+      ];
+      startupWMClass = "com.example.uplink";
+    })
+  ];
+
+  postInstall = ''
+    install -Dm644 assets/icon.png $out/share/icons/hicolor/512x512/apps/uplink.png
+  '';
+
   meta = with lib; {
     description = "Uplink - Cross-platform pastebin GUI app";
     homepage = "https://github.com/example/uplink";
     license = licenses.mit;
+    mainProgram = "uplink";
     maintainers = [ ];
   };
 }

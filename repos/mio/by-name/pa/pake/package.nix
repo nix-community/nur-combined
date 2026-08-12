@@ -67,7 +67,7 @@ let
 
   linuxdeployPluginAppimage = fetchurl {
     url = "https://github.com/linuxdeploy/linuxdeploy-plugin-appimage/releases/download/continuous/linuxdeploy-plugin-appimage-x86_64.AppImage";
-    hash = "sha256-HaFqRvpeBYrnQOfDXtDTbYbLhprJzIpf2aGEfXl42Zo=";
+    hash = "sha256-pF0+InvH85fpz2v6TJUHSU76IpM1e26GaQo94sqZLnk=";
   };
 
   appimageTools =
@@ -100,13 +100,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "pake";
-  version = "3.15.1";
+  version = "3.15.6";
 
   src = fetchFromGitHub {
     owner = "tw93";
     repo = "Pake";
     rev = "V${finalAttrs.version}";
-    hash = "sha256-Q78HhJ9PwFPlcYJQ5UXeAWV2z1pnZ92jtdgy4sTevDU=";
+    hash = "sha256-PIxKNc3PRN7k5Uii+Wc8s/PFX6d/hnFYyre0d5j3qzg=";
   };
 
   patches = [
@@ -133,7 +133,7 @@ stdenv.mkDerivation (finalAttrs: {
     prePnpmInstall = ''
       sed -i '/^overrides:/,+2d' pnpm-lock.yaml
     '';
-    hash = "sha256-QcXyIkhMjHxZ1ZXQOrleaQZqWH+kIL+OOSAk4SBaZXs=";
+    hash = "sha256-81wwc4yTKhj5OEJ1YtNwlLWaj2z9FhUkpUsPyRQ8tU0=";
   };
 
   env = {
@@ -247,7 +247,7 @@ stdenv.mkDerivation (finalAttrs: {
       pname = "pake";
       inherit (finalAttrs) version src;
       cargoRoot = "src-tauri";
-      hash = "sha256-xtGP7+AItPpSvzO8GP0Jo68fcnBCo1rhI+3ukuOe7VU=";
+      hash = "sha256-DxKxiggSsPArNgK+BCm6JHzDpGUp8fiNOp4O7wqoYs4=";
     };
   };
 

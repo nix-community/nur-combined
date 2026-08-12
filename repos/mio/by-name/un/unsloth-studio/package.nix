@@ -10,13 +10,13 @@
 
 let
   pname = "unsloth";
-  version = "0.1.525-beta";
+  version = "0.1.701-beta";
 
   src = fetchFromGitHub {
     owner = "unslothai";
     repo = "unsloth";
     rev = "v${version}";
-    hash = "sha256-KLHMEIOTXjdDAPTTuD4p2aUz2WZKw366yHCtcy3T4y4=";
+    hash = "sha256-XtBKqOXNJJ0BvTQean2hLlmuBByqA8ocCsbqLgrGdns=";
   };
 
   # Unsloth Studio frontend is built with npm/vite
@@ -28,7 +28,7 @@ let
 
     npmDeps = fetchNpmDeps {
       src = "${src}/studio/frontend";
-      hash = "sha256-REnS5Dv2dp9YEVIyQTo86UMsEyCmJiZjgVRzq18pKTY=";
+      hash = "sha256-Xao29EqjkdcsEl3YUTRfJpigFWhscw/likjCfaE5ZFk=";
     };
 
     nativeBuildInputs = [
@@ -65,6 +65,7 @@ python3.pkgs.buildPythonApplication {
     pydantic
     pyyaml
     nest-asyncio
+    click
     psutil
     numpy
     protobuf
