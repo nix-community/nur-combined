@@ -1,8 +1,0 @@
-{
-  dot-tar = ./services/dot-tar.nix;
-  matrix-media-repo = ./services/matrix-media-repo.nix;
-  vlmcsd = ./services/vlmcsd.nix;
-  tprofile = ./programs/tprofile/tprofile.nix;
-  telegram-send = ./programs/telegram-send.nix;
-  tg-send = ./programs/tg-send.nix;
-}
