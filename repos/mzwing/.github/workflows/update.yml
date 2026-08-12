@@ -46,10 +46,10 @@ jobs:
     # the nix-ci- prefix but never save — cache-nix-action skips the
     # save on an exact primary-key hit, so whichever job saved first
     # used to win, and its small store (no toolchain) poisoned the
-    # family. The key hashes the lock inputs; purge keeps at most the
-    # entry just saved (protected by purge-primary-key: never) and the
-    # one it was restored from (restore refreshes its last-accessed
-    # time). The action also removes stale root-owned store lock files
+    # family. The key hashes the lock inputs. After a successful save,
+    # purge every older nix-ci- entry (0 seconds) while protecting the
+    # new primary key, so this multi-GiB family keeps exactly one entry.
+    # The action also removes stale root-owned store lock files
     # (left behind by interrupted builds or substitutions of earlier
     # runs; they break the unprivileged tar of the post-run store save).
     - name: Restore Nix store
@@ -58,6 +58,7 @@ jobs:
         primary-key: nix-ci-${{ hashFiles('devenv.lock', 'flake.lock', 'devenv.nix', 'devenv.yaml', 'nvfetcher.toml') }}
         restore-prefix: nix-ci-
         gc-max-store-size-linux: 4G
+        purge-last-accessed: 0
 
     - name: Restore nvfetcher database
       uses: actions/cache@v6

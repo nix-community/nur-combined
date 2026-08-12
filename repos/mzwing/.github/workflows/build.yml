@@ -24,14 +24,6 @@ env:
   CACHE_NAME: mzwing
   BUILDER_PREFIX: nur-b-${{ github.run_id }}-${{ github.run_attempt }}
   CACHE_HOST: nur-cache-${{ github.run_id }}-${{ github.run_attempt }}
-  # Public key matching the NUR_CI_CACHE_SIGNING_KEY repository secret
-  # (`nix key generate-secret --key-name nur-ci-cache-1` for the secret,
-  # `nix key convert-secret-to-public` for this value). Builders use it to
-  # verify paths served by the central builder store cache (the "cache"
-  # job). The cache is mandatory: if the secret or this public key is
-  # missing/misconfigured, the run fails fast instead of degrading to
-  # cache-less builds.
-  NUR_CI_CACHE_SIGNING_PUBLIC_KEY: nur-ci-cache-1:HPv21XHoMOnVhECgBAg1LOAHABVwfmrkER3TTX8h9VM=
 
 jobs:
   config:
@@ -100,18 +92,6 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         cachix-name: ${{ env.CACHE_NAME }}
 
-    # The builder store cache is a plain ssh-ng store on the tailnet (no
-    # server software needed). Every locally built path is exported there
-    # by the post-build hook; once the cache machine has signed it (within
-    # about a minute) the other builders can substitute it. Remote builds
-    # via ssh-ng read /etc/nix/nix.conf per session, so no daemon restart
-    # is needed.
-    - name: Configure builder store cache
-      uses: mzwing/nix-config/.github/actions/setup-builder-store-cache@master
-      with:
-        cache-host: ${{ env.CACHE_HOST }}
-        signing-public-key: ${{ env.NUR_CI_CACHE_SIGNING_PUBLIC_KEY }}
-
     # The action restores the macOS runner's DNS after joining (with
     # DNS accepted, the tailscale action replaces the system DNS with
     # quad100 and the runner loses public internet access, so it is
@@ -126,7 +106,7 @@ jobs:
         hostname: ${{ env.BUILDER_PREFIX }}-${{ matrix.id }}
         args: --ssh
 
-    # macOS only: with MagicDNS gone (see above), ssh-ng://root@${CACHE_HOST}
+    # macOS only: with MagicDNS gone (see above), the Attic cache hostname
     # would not resolve. Linux builders resolve it via split DNS.
     - name: Resolve builder store cache address
       if: endsWith(matrix.system, '-darwin')
@@ -134,17 +114,22 @@ jobs:
       with:
         hostname: ${{ env.CACHE_HOST }}
 
+    # Fetch the run-local Attic token and signing public key only after
+    # joining the tailnet. The post-build hook uploads sparse locally built
+    # outputs; Attic drops anything signed by a configured public upstream.
+    - name: Configure builder store cache
+      uses: mzwing/nix-config/.github/actions/setup-builder-store-cache@master
+      with:
+        cache-host: ${{ env.CACHE_HOST }}
+
     - name: Wait for distributed builds
       uses: mzwing/nix-config/.github/actions/wait-for-distributed-builds@master
 
-  # Central store cache for the builders: a plain ssh-ng store on the
-  # tailnet. Builders push every locally built path here via their
-  # post-build hook (see the "Configure builder store cache" step of the
-  # builder job) and use it as a substituter. At the end of the run the
-  # store is garbage-collected down to the build closure of the current
-  # lock and saved as a single GitHub Actions cache entry, so the next
-  # run's builders start with warm crate/FOD caches without each builder
-  # saving its own copy (the Actions cache is limited to 10GB per repo).
+  # Central sparse Attic cache for the builders. Its binary-cache database
+  # may reference public-cache paths without storing them, so Actions Cache
+  # contains only private/local NARs rather than a complete /nix/store.
+  # Reconciliation supplies the current-lock keep-set before shutdown;
+  # Attic then deletes stale objects and orphan data deterministically.
   cache:
     name: Builder store cache
     needs: config
@@ -169,20 +154,25 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         cachix-name: ${{ env.CACHE_NAME }}
+        # The cache job only substitutes prebuilt Attic tools; never compile
+        # packages locally on this orchestration runner.
+        max-jobs: '0'
 
-    # The key is unique per run so saves never race and a bad cache can
-    # never block a recurring slot; restores pick the most recent cache
-    # (usually yesterday's, given daily runs).
+    # With nix:false the cache action extracts as the runner user rather than
+    # managing /nix permissions, so prepare its only writable subtree first.
+    - name: Prepare Attic data directory
+      run: sudo install -d -o "$(id -u)" -g "$(id -g)" /nix/attic-data
+
+    # The unique key prevents save races; prefix restore picks the latest
+    # Attic database and NAR storage. `nix: false` is essential: the ordinary
+    # Nix store is deliberately excluded from this cache.
     - name: Restore builder store cache
       uses: nix-community/cache-nix-action/restore@v7
       with:
-        primary-key: nix-builder-store-${{ github.run_id }}-${{ github.run_attempt }}
-        restore-prefixes-first-match: nix-builder-store-
-
-    # Same as the step of the config job: keep stale root-owned lock files
-    # out of the tarball written by the "Save builder store cache" step.
-    - name: Remove stale Nix store lock files
-      run: sudo find /nix/store -maxdepth 1 -name '*.lock' -delete
+        primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
+        restore-prefixes-first-match: nix-builder-attic-
+        nix: false
+        paths: /nix/attic-data
 
     - name: Join cache network
       uses: mzwing/nix-config/.github/actions/join-ci-tailnet@master
@@ -193,40 +183,31 @@ jobs:
         hostname: ${{ env.CACHE_HOST }}
         args: --ssh
 
-    # Validates the signing key pair (mandatory — without it the
-    # builders cannot trust paths from the cache, so fail fast instead of
-    # degrading to cache-less builds), installs the secret key, then
-    # signs the paths pushed by builders until the coordinator signals
-    # completion (/tmp/cache_done, touched by its release-remote-builders
-    # step with `if: always()`).
-    - name: Serve builders and sign pushed paths
+    # Starts Attic, creates an eight-hour push-only token, and exposes the
+    # token plus this run's rotated signing public key over Tailscale SSH. The
+    # step blocks until the coordinator touches /tmp/cache_done, then prunes
+    # against /tmp/attic-keep-paths.txt and shuts Attic down cleanly.
+    - name: Serve builders with Attic
+      id: attic
       uses: mzwing/nix-config/.github/actions/serve-builder-store-cache@master
       with:
-        signing-key: ${{ secrets.NUR_CI_CACHE_SIGNING_KEY }}
-        signing-public-key: ${{ env.NUR_CI_CACHE_SIGNING_PUBLIC_KEY }}
+        cache-host: ${{ env.CACHE_HOST }}
 
-    # Keep only store paths related to the current lock: register the
-    # build-time closure of every cached package (ci/drvs.nix, all
-    # systems) as GC roots, then collect everything else — stale crates,
-    # FODs and packages from previous locks.
-    - name: Garbage-collect stale store paths
-      uses: mzwing/nix-config/.github/actions/gc-store-to-build-closure@master
-      with:
-        gcroots-name: nur-ci-cache
-
-    # Save even when the build failed: paths pushed by builders before
-    # the failure (e.g. crate2nix crates) are still valid cache entries.
-    # Purging keeps at most two entries around: the one just saved
-    # (protected by purge-primary-key) and the one it was restored from
-    # (restoring refreshes its last-accessed time).
+    # Save even on a red build: successfully uploaded crate/FOD paths remain
+    # useful. Save only Attic's sparse data directory, keep this family at
+    # exactly one entry, and purge legacy full-store entries during migration.
     - name: Save builder store cache
-      if: always()
+      if: ${{ !cancelled() && steps.attic.outputs.save-ready == 'true' }}
       uses: nix-community/cache-nix-action/save@v7
       with:
-        primary-key: nix-builder-store-${{ github.run_id }}-${{ github.run_attempt }}
+        primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
+        nix: false
+        paths: /nix/attic-data
         purge: true
-        purge-prefixes: nix-builder-store-
-        purge-last-accessed: P1D
+        purge-prefixes: |-
+          nix-builder-attic-
+          nix-builder-store-
+        purge-last-accessed: 0
         purge-primary-key: never
 
   coordinator:
@@ -270,7 +251,6 @@ jobs:
       uses: mzwing/nix-config/.github/actions/setup-builder-store-cache@master
       with:
         cache-host: ${{ env.CACHE_HOST }}
-        signing-public-key: ${{ env.NUR_CI_CACHE_SIGNING_PUBLIC_KEY }}
         post-build-hook: 'false'
 
     - name: Configure remote builders
@@ -281,9 +261,9 @@ jobs:
         builder-prefix: ${{ env.BUILDER_PREFIX }}
         ssh-host-pattern: "nur-b-* nur-cache-*"
 
-    # The builder store cache joins the tailnet in parallel (cache
-    # job); make sure it is reachable — directly and through the first
-    # builder — before building starts.
+    # The Attic job joins the tailnet in parallel; make sure its HTTP
+    # binary-cache endpoint works both directly and through a builder
+    # before Nix gets a chance to memoize a transient failure.
     - name: Check builder store cache reachability
       uses: mzwing/nix-config/.github/actions/check-builder-store-cache-reachability@master
       with:
@@ -333,6 +313,8 @@ jobs:
       shell: bash
       run: |
         set -euo pipefail
+        jq -r '.[].drvPath' <<<"${TARGETS}" \
+          | sort --unique > /tmp/active-drvs.txt
         jq -r '.[] | select(.outputName == "out") | .outputPath' <<<"${TARGETS}" \
           > /tmp/out-targets.txt
         grep '^/nix/store/' /tmp/built-outputs.txt 2>/dev/null \
@@ -346,11 +328,12 @@ jobs:
       with:
         cachix-name: ${{ env.CACHE_NAME }}
         paths-file: /tmp/push-outputs.txt
+        closure-paths-file: /tmp/cachix-published-closure.txt
 
-    # The post-build hook pushes are fire-and-forget; whatever they
-    # dropped would be deleted by the cache machine's GC (its keep-set
-    # only covers outputs already valid there) and rebuilt next run.
-    # Reconcile deterministically while the builders are still alive.
+    # Post-build uploads are best-effort. Re-offer every output in the exact
+    # scheduled derivation closures while builders are alive; Attic performs a bulk
+    # missing check, skips public-upstream signatures, and receives the
+    # same expected set as its deterministic shutdown keep-list.
     - name: Reconcile builder store cache
       if: '!cancelled()'
       uses: mzwing/nix-config/.github/actions/reconcile-builder-store-cache@master
@@ -358,6 +341,9 @@ jobs:
         builders-json: ${{ needs.config.outputs.builders }}
         builder-prefix: ${{ env.BUILDER_PREFIX }}
         cache-host: ${{ env.CACHE_HOST }}
+        active-drvs-file: /tmp/active-drvs.txt
+        # Written atomically only after Cachix accepted the full closure.
+        public-paths-file: /tmp/cachix-published-closure.txt
 
     # Also signals the builder store cache machine that the run is over
     # (/tmp/cache_done, via the cache-host input).

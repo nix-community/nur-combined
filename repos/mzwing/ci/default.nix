@@ -9,11 +9,11 @@
 # then your CI will be able to build and cache only those packages for
 # which this is possible.
 #
-# Dependency build caches live in the Nix store: Rust packages are built
-# with crate2nix (each dependency crate is a separate derivation) and Go
-# packages with gomod2nix (pre-compiled dependencies in the go-cache-env
-# derivation), so CI persists them through the builder store cache like
-# any other intermediate derivation.
+# Dependency build caches are ordinary Nix outputs: Rust packages use
+# crate2nix (one derivation per dependency crate) and Go packages use
+# gomod2nix (pre-compiled dependencies in go-cache-env). CI persists those
+# private intermediates in its sparse Attic builder cache while public
+# dependencies remain references to upstream binary caches.
 {pkgs ? import <nixpkgs> {}}:
 with builtins; let
   reservedNames = [
@@ -75,6 +75,7 @@ with builtins; let
     inherit (entry) attrPath outputName;
     name = concatStringsSep "." entry.attrPath;
     system = pkgs.stdenv.hostPlatform.system;
+    drvPath = entry.package.drvPath;
     outputPath = entry.output.outPath;
   };
 

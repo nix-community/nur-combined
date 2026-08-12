@@ -10974,14 +10974,14 @@ rec {
         ];
         features = {
           "chunk" = [ "noise_parameter" "biome" "chunk_status" ];
-          "default" = [ "item" "packet" "jukebox_song" "translation" "registry" "screen" "particle" "statistic" "sound" "recipes" "data_component" "attributes" "tracked_data" "meta_data_type" "chunk" "game_event" "game_rules" "entity" "dimension" "enchantment" "world" "scoreboard" "damage" "fluid" "block" "tag" "noise_router" "composter" "flower_pot" "fuels" "effect" "structures" "potion" "recipe_remainder" "chunk_gen_settings" "advancement" "carver" "villager" "placed_feature" "configured_feature" "slot_ranges" "bedrock_creative" ];
+          "default" = [ "item" "packet" "jukebox_song" "translation" "registry" "screen" "particle" "statistic" "sound" "recipes" "data_component" "attributes" "tracked_data" "meta_data_type" "chunk" "game_event" "game_rules" "entity" "dimension" "enchantment" "world" "scoreboard" "damage" "fluid" "block" "tag" "noise_router" "composter" "flower_pot" "fuels" "effect" "structures" "potion" "recipe_remainder" "chunk_gen_settings" "advancement" "carver" "villager" "placed_feature" "configured_feature" "slot_ranges" "bedrock_creative" "bedrock_biome" ];
           "entity" = [ "entity_pose" "entity_status" "entity_type" "spawn_egg" ];
           "entity_type" = [ "sound" ];
           "potion" = [ "potion_brewing" ];
           "villager" = [ "item" "sound" ];
           "world" = [ "world_event" "message_type" ];
         };
-        resolvedDefaultFeatures = [ "advancement" "attributes" "bedrock_creative" "biome" "block" "carver" "chunk" "chunk_gen_settings" "chunk_status" "composter" "configured_feature" "damage" "data_component" "default" "dimension" "effect" "enchantment" "entity" "entity_id_remap" "entity_pose" "entity_status" "entity_type" "flower_pot" "fluid" "fuels" "game_event" "game_rules" "item" "item_id_remap" "jukebox_song" "message_type" "meta_data_type" "noise_parameter" "noise_router" "packet" "particle" "particle_id_remap" "placed_feature" "potion" "potion_brewing" "recipe_remainder" "recipes" "registry" "scoreboard" "screen" "slot_ranges" "sound" "sound_id_remap" "spawn_egg" "statistic" "structures" "tag" "tracked_data" "translation" "villager" "world" "world_event" ];
+        resolvedDefaultFeatures = [ "advancement" "attributes" "bedrock_biome" "bedrock_creative" "biome" "block" "carver" "chunk" "chunk_gen_settings" "chunk_status" "composter" "configured_feature" "damage" "data_component" "default" "dimension" "effect" "enchantment" "entity" "entity_id_remap" "entity_pose" "entity_status" "entity_type" "flower_pot" "fluid" "fuels" "game_event" "game_rules" "item" "item_id_remap" "jukebox_song" "message_type" "meta_data_type" "noise_parameter" "noise_router" "packet" "particle" "particle_id_remap" "placed_feature" "potion" "potion_brewing" "recipe_remainder" "recipes" "registry" "scoreboard" "screen" "slot_ranges" "sound" "sound_id_remap" "spawn_egg" "statistic" "structures" "tag" "tracked_data" "translation" "villager" "world" "world_event" ];
       };
       "pumpkin-inventory" = rec {
         crateName = "pumpkin-inventory";
@@ -11228,7 +11228,7 @@ rec {
             name = "pumpkin-data";
             packageId = "pumpkin-data";
             usesDefaultFeatures = false;
-            features = [ "packet" "item_id_remap" "entity_id_remap" "sound_id_remap" "particle_id_remap" "recipes" "bedrock_creative" ];
+            features = [ "packet" "item_id_remap" "entity_id_remap" "sound_id_remap" "particle_id_remap" "recipes" "bedrock_creative" "bedrock_biome" ];
           }
           {
             name = "pumpkin-macros";

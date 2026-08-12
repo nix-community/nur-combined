@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Plan distributed package builds for .github/workflows/build.yml.
 
-Reads ALL_TARGETS (a JSON array of {name, system, outputName, outputPath})
+Reads ALL_TARGETS (a JSON array of {name, system, drvPath, outputName, outputPath})
 from the environment, keeps only the 'out' outputs, probes the binary
 caches for each remaining output path, validates .github/builders.json,
 and writes these outputs to GITHUB_OUTPUT:
@@ -109,7 +109,10 @@ def main() -> None:
         hits = executor.map(probe, (target["outputPath"] for target in all_targets))
         # Keep the same shape and key order the bash/jq version produced.
         targets = [
-            {key: target[key] for key in ("name", "system", "outputName", "outputPath")}
+            {
+                key: target[key]
+                for key in ("name", "system", "drvPath", "outputName", "outputPath")
+            }
             for target, hit in zip(all_targets, hits, strict=True)
             if not hit
         ]
