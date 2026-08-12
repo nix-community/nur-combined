@@ -7,16 +7,16 @@
 
 buildNpmPackage rec {
   pname = "mcp-server-searxng";
-  version = "0.3.9";
+  version = "0.3.10";
 
   src = fetchFromGitHub {
     owner = "kevinwatt";
     repo = "mcp-server-searxng";
     rev = "v${version}";
-    hash = "sha256-TZi7UQOLwLHPzyfxsnvvJj/XqoeiXqfUwjDQi9jgvB8=";
+    hash = "sha256-tThWf2NKkQ/hI/4cnBmNF/i0HwQDvDFMpZQfVhWTblY=";
   };
 
-  npmDepsHash = "sha256-5px66kCg5qYHMa3gsPS6BhyHOV21hfrG9ovHf5+JPik=";
+  npmDepsHash = "sha256-iqBgses5blMOIKum8Sh3tp0PZhwJwwbtF4z2yBpH2oQ=";
 
   # The `prepare` script runs `npm run build`; build in the build phase
   # instead of during `npm pack`.
