@@ -1,0 +1,67 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] stub AudioManager.getDevices() for ExoPlayer / NewPipe
+
+NewPipe's ExoPlayer calls AudioManager.getDevices(GET_DEVICES_OUTPUTS)
+(API 23) while probing Bluetooth audio. ATL had no such method, so
+initPlayback failed with NoSuchMethodError.
+
+--- /dev/null
++++ b/src/api-impl/android/media/AudioDeviceInfo.java
+@@ -0,0 +1,25 @@
++package android.media;
++
++public class AudioDeviceInfo {
++	public static final int TYPE_UNKNOWN = 0;
++	public static final int TYPE_BUILTIN_SPEAKER = 2;
++	public static final int TYPE_BLUETOOTH_SCO = 7;
++	public static final int TYPE_BLUETOOTH_A2DP = 8;
++	public static final int TYPE_BLE_HEADSET = 26;
++	public static final int TYPE_BLE_SPEAKER = 27;
++	public static final int TYPE_BLE_BROADCAST = 30;
++
++	private final int type;
++
++	public AudioDeviceInfo() {
++		this(TYPE_BUILTIN_SPEAKER);
++	}
++
++	public AudioDeviceInfo(int type) {
++		this.type = type;
++	}
++
++	public int getType() {
++		return type;
++	}
++}
+--- a/src/api-impl/android/media/AudioManager.java
++++ b/src/api-impl/android/media/AudioManager.java
+@@ -5,6 +5,9 @@
+ 	public static final String PROPERTY_OUTPUT_SAMPLE_RATE = "android.media.property.OUTPUT_SAMPLE_RATE";
+ 
+ 	public static final int STREAM_MUSIC = 0x3;
++	public static final int GET_DEVICES_INPUTS = 0x1;
++	public static final int GET_DEVICES_OUTPUTS = 0x2;
++	public static final int GET_DEVICES_ALL = GET_DEVICES_INPUTS | GET_DEVICES_OUTPUTS;
+ 
+ 	private native void nativeSetStreamVolume(int volume);
+ 
+@@ -95,4 +98,8 @@
+ 	public int generateAudioSessionId() {
+ 		return 0;
+ 	}
++
++	public AudioDeviceInfo[] getDevices(int flags) {
++		return new AudioDeviceInfo[0];
++	}
+ }
+--- a/src/api-impl/meson.build
++++ b/src/api-impl/meson.build
+@@ -325,6 +325,7 @@
+ 	'android/media/AudioAttributes.java',
+ 	'android/media/AudioFormat.java',
+ 	'android/media/AudioManager.java',
++	'android/media/AudioDeviceInfo.java',
+ 	'android/media/AudioRecord.java',
+ 	'android/media/AudioTimestamp.java',
+ 	'android/media/AudioTrack.java',
