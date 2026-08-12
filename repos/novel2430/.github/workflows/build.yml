@@ -1,0 +1,102 @@
+name: "Build and populate cache"
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    # GitHub Actions cron uses UTC.
+    - cron: "51 2 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Repository name registered in:
+        # https://github.com/nix-community/NUR/blob/master/repos.json
+        nurRepo:
+          - novel2430
+
+        # Cachix cache name without ".cachix.org".
+        # Leave the placeholder unchanged when Cachix is not configured.
+        cachixName:
+          - "<YOUR_CACHIX_NAME>"
+
+        nixPath:
+          - nixpkgs=channel:nixos-26.05
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+        with:
+          nix_path: "${{ matrix.nixPath }}"
+          github_access_token: "${{ secrets.GITHUB_TOKEN }}"
+          extra_nix_config: |
+            experimental-features = nix-command flakes
+            keep-going = true
+            log-lines = 100
+
+      - name: Show Nix versions
+        run: |
+          nix --version
+          nix-instantiate \
+            --eval \
+            -E '(import <nixpkgs> {}).lib.version'
+
+      - name: Setup Cachix
+        if: ${{ matrix.cachixName != '<YOUR_CACHIX_NAME>' }}
+        uses: cachix/cachix-action@v17
+        with:
+          name: "${{ matrix.cachixName }}"
+          signingKey: "${{ secrets.CACHIX_SIGNING_KEY }}"
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Check evaluation
+        run: |
+          nix-env -f . -qa '*' \
+            --meta \
+            --xml \
+            --allowed-uris https://static.rust-lang.org \
+            --option restrict-eval true \
+            --option allow-import-from-derivation true \
+            --drv-path \
+            --show-trace \
+            -I nixpkgs="$(nix-instantiate --find-file nixpkgs)" \
+            -I "$PWD"
+
+      - name: Build Nix packages
+        run: |
+          nix shell \
+            -f '<nixpkgs>' \
+            nix-build-uncached \
+            -c nix-build-uncached \
+            ci.nix \
+            -A cacheOutputs
+
+      - name: Trigger NUR update
+        if: >-
+          ${{
+            matrix.nurRepo != '<YOUR_REPO_NAME>' &&
+            github.event_name != 'pull_request'
+          }}
+        run: |
+          curl \
+            --fail \
+            --show-error \
+            --silent \
+            --retry 3 \
+            --request POST \
+            "https://nur-update.nix-community.org/update?repo=${{ matrix.nurRepo }}"
