@@ -6,6 +6,7 @@
   kes = ./kes.nix;
   mcp-gateway = ./mcp-gateway.nix;
   ocis = ./ocis.nix;
+  opencodex = ./opencodex.nix;
   prometheus-exporters = import ./prometheus-exporters;
   rinetd = ./rinetd.nix;
   rustic = ./rustic.nix;
