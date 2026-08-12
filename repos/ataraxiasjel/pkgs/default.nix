@@ -25,6 +25,7 @@ let
       bibata-cursors-tokyonight = final.callPackage ./bibata-cursors-tokyonight { };
       ceserver = final.callPackage ./ceserver { };
       endfield-daily = final.callPackage ./endfield-daily { };
+      github-mcp-server = final.callPackage ./github-mcp-server { };
       hoyolab-claim-bot = final.callPackage ./hoyolab-claim-bot { };
       json-liquid-rs = final.callPackage ./json-liquid-rs { };
       kes = final.callPackage ./kes { };
