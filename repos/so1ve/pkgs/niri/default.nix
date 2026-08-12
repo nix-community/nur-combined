@@ -5,7 +5,6 @@
 }:
 
 niri.overrideAttrs (previousAttrs: {
-  version = "${niri.version}-unstable-${source.date}";
   inherit (source) src;
 
   cargoDeps = rustPlatform.importCargoLock source.cargoLock."Cargo.lock";
