@@ -1,0 +1,50 @@
+{
+    "arduino-cli": {
+        "branch": "master",
+        "description": "Arduino command line interface",
+        "homepage": null,
+        "owner": "arduino",
+        "repo": "arduino-cli",
+        "rev": "cf39fbe69df7f9655121d0d8225b2c119c48e3d6",
+        "sha256": "1lcbgcab04gs73vn29004488qiy00jgdawd8x6cahf3dywvisr7s",
+        "type": "tarball",
+        "url": "https://github.com/arduino/arduino-cli/archive/cf39fbe69df7f9655121d0d8225b2c119c48e3d6.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "lambda-launcher": {
+        "branch": "master",
+        "description": "Application launcher in haskell. Mostly Just For Fun.",
+        "homepage": null,
+        "owner": "balsoft",
+        "repo": "lambda-launcher",
+        "rev": "f2e6865f319930ba999b55754585fbd12775b950",
+        "sha256": "1n4zv83yysmnqjrfqdrz1hlndqvm8ysl15sdrxs5fpgcn7cayjgx",
+        "type": "tarball",
+        "url": "https://github.com/balsoft/lambda-launcher/archive/f2e6865f319930ba999b55754585fbd12775b950.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "nix-patch": {
+        "branch": "master",
+        "description": "A simple script to aid patching sources with nix",
+        "homepage": null,
+        "owner": "balsoft",
+        "repo": "nix-patch",
+        "rev": "fec198088197ecd65ba0510239efc0e78051926c",
+        "sha256": "07zlmb7z5bir6zmlgy5gljx5s9mvxg2yk4n5ckn0074li082q0s3",
+        "type": "tarball",
+        "url": "https://github.com/balsoft/nix-patch/archive/fec198088197ecd65ba0510239efc0e78051926c.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "termNote": {
+        "branch": "master",
+        "description": "Terminal Notes Application",
+        "homepage": null,
+        "owner": "terodom",
+        "repo": "termNote",
+        "rev": "8d96b7d3d66f725b1f395e8b8eeea82c59f3956f",
+        "sha256": "07wcd0py5hxdbfl47mkdrk5mcq3w7b4v5f7caidz4ap082kmvyxh",
+        "type": "tarball",
+        "url": "https://github.com/terodom/termNote/archive/8d96b7d3d66f725b1f395e8b8eeea82c59f3956f.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}
