@@ -74,10 +74,20 @@ stdenv.mkDerivation {
     runHook preInstall
 
     mkdir -p "$out/bin" "$out/share"
-    cp -r bin/. "$out/bin/"
-    cp -r share/neomacs "$out/share/neomacs"
 
-    install -Dm444 share/neomacs/etc/emacs.desktop \
+    # Upstream's x86_64 archive is already laid out like an installation,
+    # while the aarch64 archive keeps its executables and data at its root.
+    if [[ -d bin ]]; then
+      cp -r bin/. "$out/bin/"
+      cp -r share/neomacs "$out/share/neomacs"
+    else
+      install -Dm755 neomacs neomacsclient -t "$out/bin"
+      install -Dm444 neomacs.pdump "$out/bin/neomacs.pdump"
+      mkdir -p "$out/share/neomacs"
+      cp -r etc lisp "$out/share/neomacs/"
+    fi
+
+    install -Dm444 "$out/share/neomacs/etc/emacs.desktop" \
       "$out/share/applications/neomacs.desktop"
     substituteInPlace "$out/share/applications/neomacs.desktop" \
       --replace-fail 'Name=Emacs' 'Name=NEO Emacs' \
@@ -85,13 +95,13 @@ stdenv.mkDerivation {
       --replace-fail 'Icon=emacs' 'Icon=neomacs' \
       --replace-fail 'StartupWMClass=Emacs' 'StartupWMClass=neomacs'
 
-    for icon in share/neomacs/etc/images/icons/hicolor/*/apps/emacs.png; do
+    for icon in "$out"/share/neomacs/etc/images/icons/hicolor/*/apps/emacs.png; do
       size="$(basename "$(dirname "$(dirname "$icon")")")"
       install -Dm444 "$icon" \
         "$out/share/icons/hicolor/$size/apps/neomacs.png"
     done
     install -Dm444 \
-      share/neomacs/etc/images/icons/hicolor/scalable/apps/emacs.svg \
+      "$out/share/neomacs/etc/images/icons/hicolor/scalable/apps/emacs.svg" \
       "$out/share/icons/hicolor/scalable/apps/neomacs.svg"
 
     runHook postInstall
@@ -99,10 +109,12 @@ stdenv.mkDerivation {
 
   postFixup = ''
     for program in neomacs bootstrap-neomacs neomacs-temacs; do
-      wrapProgram "$out/bin/$program" \
-        --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}" \
-        --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : \
-          "${lib.makeSearchPath "lib/gstreamer-1.0" gstreamerPlugins}"
+      if [[ -x "$out/bin/$program" ]]; then
+        wrapProgram "$out/bin/$program" \
+          --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath runtimeLibraries}" \
+          --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : \
+            "${lib.makeSearchPath "lib/gstreamer-1.0" gstreamerPlugins}"
+      fi
     done
 
     # Neomacs canonicalizes current_exe before looking for its sibling dump.
