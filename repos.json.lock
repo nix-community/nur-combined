@@ -1467,8 +1467,8 @@
             "url": "https://github.com/PhotonQuantum/nur-packages"
         },
         "linyinfeng": {
-            "rev": "6af187e33e872a71cb65a7ea4379da271f58e06c",
-            "sha256": "09ayx96dsj2ay8cbaa0b9d63ax2376ifa5kjgccdhm0irzafiml3",
+            "rev": "d0a43a3482a40aed15ba81aa7afe1907191b2122",
+            "sha256": "12w7an81hbd9a2h2z4y44055zkc9mvwhv6740i4ml3gqh117x4zz",
             "url": "https://github.com/linyinfeng/nur-packages"
         },
         "liyangau": {
@@ -1742,6 +1742,11 @@
             "rev": "8847ad09a624935e0eda66df1c321be28fe4c77b",
             "sha256": "0wmvmq4m3yh21apgayrg1188xi20c274ibbbw29cwpzy7iqjrvyb",
             "url": "https://github.com/mzntori/nur-packages"
+        },
+        "mzwing": {
+            "rev": "d9e4ab1aecddd1aef6fb38fea07ca3b84fdeb819",
+            "sha256": "1sj1xfk9023vklvyv92qcd22kmv0lfvf1c8mfkw90f98ci7988qc",
+            "url": "https://github.com/mzwing/nur-packages"
         },
         "n1kolasM": {
             "rev": "9e6c706e1e476f42aae9c8de0a676c3fca368a55",
@@ -2635,6 +2640,11 @@
             "rev": "58fbd09f9f95cfa915718c30bb3fbbe5262cdf33",
             "sha256": "06ww8k0y1im8c0aidjfmsahc6v6a3yfqy4a70wnlnsjshb8w7yqy",
             "url": "https://github.com/Oliper202020/workman-nur"
+        },
+        "wrvsrx": {
+            "rev": "3aed2ca892e1781db57e1ba0b4204ab835d62e63",
+            "sha256": "09pbwkfysri6vlqhcd69cjs15fy7x39655r7w2g0zh5i1qxvjwjx",
+            "url": "https://github.com/wrvsrx/nur-packages"
         },
         "wwmoraes": {
             "rev": "d762c62ae31e0cc4e79ee0ad7f366717bd878a58",
