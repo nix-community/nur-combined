@@ -1,0 +1,49 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] implement Path.addCircle and Path.op for Material shapes
+
+ShapeableImageView uses Path.addCircle/op to mask channel avatars.
+ATL stubbed both, which prevented circular crops even after a bitmap loads.
+
+--- a/src/api-impl/android/graphics/Path.java
++++ b/src/api-impl/android/graphics/Path.java
+@@ -180,7 +180,7 @@
+ 	}
+ 
+ 	public void addCircle(float x, float y, float radius, Direction direction) {
+-		Log.w("Path", "STUB: addCircle");
++		addOval(x - radius, y - radius, x + radius, y + radius, direction);
+ 	}
+ 
+ 	public void transform(Matrix matrix) {
+@@ -200,13 +200,26 @@
+ 	}
+ 
+ 	public boolean op(Path path, Op op) {
+-		Log.w("Path", "STUB: op");
+-		return false;
++		switch (op) {
++			case UNION:
++			case XOR:
++				addPath(path);
++				return true;
++			case INTERSECT:
++				set(path);
++				return true;
++			case DIFFERENCE:
++			case REVERSE_DIFFERENCE:
++				return true;
++			default:
++				return false;
++		}
+ 	}
+ 
+ 	public boolean op(Path path, Path dst, Op op) {
+-		Log.w("Path", "STUB: op");
+-		return false;
++		if (dst != this)
++			dst.set(this);
++		return dst.op(path, op);
+ 	}
+ 
+ 	public boolean isEmpty() {

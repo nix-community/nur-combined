@@ -1,0 +1,359 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] stub SurfaceTexture and EGL14 for ExoPlayer PlaceholderSurface
+
+Clicking away from NewPipe playback created PlaceholderSurface, which
+needs SurfaceTexture.OnFrameAvailableListener. Missing class made ACRA
+kill the process.
+
+--- /dev/null
++++ b/src/api-impl/android/graphics/SurfaceTexture.java
+@@ -0,0 +1,65 @@
++package android.graphics;
++
++import android.os.Handler;
++
++public class SurfaceTexture {
++	private OnFrameAvailableListener listener;
++	private boolean released;
++
++	public SurfaceTexture(int texName) {}
++
++	public SurfaceTexture(int texName, boolean singleBufferMode) {}
++
++	public SurfaceTexture(boolean singleBufferMode) {}
++
++	public interface OnFrameAvailableListener {
++		void onFrameAvailable(SurfaceTexture surfaceTexture);
++	}
++
++	public static class OutOfResourcesException extends Exception {
++		public OutOfResourcesException() {}
++
++		public OutOfResourcesException(String name) {
++			super(name);
++		}
++	}
++
++	public void setOnFrameAvailableListener(OnFrameAvailableListener listener) {
++		this.listener = listener;
++	}
++
++	public void setOnFrameAvailableListener(OnFrameAvailableListener listener, Handler handler) {
++		this.listener = listener;
++	}
++
++	public void setDefaultBufferSize(int width, int height) {}
++
++	public void updateTexImage() {}
++
++	public void releaseTexImage() {}
++
++	public void getTransformMatrix(float[] mtx) {
++		if (mtx == null || mtx.length < 16)
++			return;
++		for (int i = 0; i < 16; i++)
++			mtx[i] = 0f;
++		mtx[0] = mtx[5] = mtx[10] = mtx[15] = 1f;
++	}
++
++	public long getTimestamp() {
++		return 0;
++	}
++
++	public void attachToGLContext(int texName) {}
++
++	public void detachFromGLContext() {}
++
++	public boolean isReleased() {
++		return released;
++	}
++
++	public void release() {
++		released = true;
++		listener = null;
++	}
++}
+
+--- a/src/api-impl/android/view/Surface.java
++++ b/src/api-impl/android/view/Surface.java
+@@ -1,9 +1,25 @@
+ package android.view;
+ 
++import android.graphics.SurfaceTexture;
++
+ public class Surface {
+ 	public long widget;
++	private SurfaceTexture surfaceTexture;
++
++	public Surface() {}
++
++	public Surface(SurfaceTexture surfaceTexture) {
++		this.surfaceTexture = surfaceTexture;
++		this.widget = 1;
++	}
+ 
+ 	public boolean isValid() {
+-		return widget != 0;
++		return widget != 0 || surfaceTexture != null;
++	}
++
++	public void release() {
++		surfaceTexture = null;
++		if (widget == 1)
++			widget = 0;
+ 	}
+ }
+
+--- /dev/null
++++ b/src/api-impl/android/opengl/EGL14.java
+@@ -0,0 +1,95 @@
++package android.opengl;
++
++public final class EGL14 {
++	public static final int EGL_DEFAULT_DISPLAY = 0;
++	public static final int EGL_NONE = 0x3038;
++	public static final int EGL_TRUE = 1;
++	public static final int EGL_FALSE = 0;
++	public static final int EGL_SUCCESS = 0x3000;
++	public static final int EGL_WIDTH = 0x3057;
++	public static final int EGL_HEIGHT = 0x3056;
++	public static final int EGL_RENDERABLE_TYPE = 0x3040;
++	public static final int EGL_OPENGL_ES2_BIT = 0x0004;
++	public static final int EGL_RED_SIZE = 0x3024;
++	public static final int EGL_GREEN_SIZE = 0x3023;
++	public static final int EGL_BLUE_SIZE = 0x3022;
++	public static final int EGL_ALPHA_SIZE = 0x3021;
++	public static final int EGL_DEPTH_SIZE = 0x3025;
++	public static final int EGL_CONFIG_CAVEAT = 0x3027;
++	public static final int EGL_SURFACE_TYPE = 0x3033;
++	public static final int EGL_WINDOW_BIT = 0x0004;
++	public static final int EGL_PBUFFER_BIT = 0x0001;
++	public static final int EGL_CONTEXT_CLIENT_VERSION = 0x3098;
++
++	public static final EGLDisplay EGL_NO_DISPLAY = EGLDisplay.create(0);
++	public static final EGLContext EGL_NO_CONTEXT = EGLContext.create(0);
++	public static final EGLSurface EGL_NO_SURFACE = EGLSurface.create(0);
++
++	private static final EGLDisplay DEFAULT_DISPLAY = EGLDisplay.create(1);
++	private static final EGLConfig DEFAULT_CONFIG = EGLConfig.create(1);
++	private static int nextHandle = 2;
++
++	public static EGLDisplay eglGetDisplay(int display) {
++		return DEFAULT_DISPLAY;
++	}
++
++	public static EGLDisplay eglGetDisplay(long display) {
++		return DEFAULT_DISPLAY;
++	}
++
++	public static boolean eglInitialize(EGLDisplay dpy, int[] major, int majorOffset, int[] minor, int minorOffset) {
++		if (major != null && major.length > majorOffset)
++			major[majorOffset] = 1;
++		if (minor != null && minor.length > minorOffset)
++			minor[minorOffset] = 1;
++		return true;
++	}
++
++	public static boolean eglChooseConfig(EGLDisplay dpy, int[] attrib_list, int attrib_listOffset,
++	                                      EGLConfig[] configs, int configsOffset, int config_size,
++	                                      int[] num_config, int num_configOffset) {
++		if (num_config != null && num_config.length > num_configOffset)
++			num_config[num_configOffset] = 1;
++		if (configs != null && config_size > 0 && configs.length > configsOffset)
++			configs[configsOffset] = DEFAULT_CONFIG;
++		return true;
++	}
++
++	public static EGLContext eglCreateContext(EGLDisplay dpy, EGLConfig config, EGLContext share_context,
++	                                          int[] attrib_list, int offset) {
++		return EGLContext.create(nextHandle++);
++	}
++
++	public static EGLSurface eglCreatePbufferSurface(EGLDisplay dpy, EGLConfig config, int[] attrib_list, int offset) {
++		return EGLSurface.create(nextHandle++);
++	}
++
++	public static EGLSurface eglCreateWindowSurface(EGLDisplay dpy, EGLConfig config, Object win,
++	                                                int[] attrib_list, int offset) {
++		return EGLSurface.create(nextHandle++);
++	}
++
++	public static boolean eglMakeCurrent(EGLDisplay dpy, EGLSurface draw, EGLSurface read, EGLContext ctx) {
++		return true;
++	}
++
++	public static boolean eglDestroySurface(EGLDisplay dpy, EGLSurface surface) {
++		return true;
++	}
++
++	public static boolean eglDestroyContext(EGLDisplay dpy, EGLContext ctx) {
++		return true;
++	}
++
++	public static boolean eglTerminate(EGLDisplay dpy) {
++		return true;
++	}
++
++	public static boolean eglReleaseThread() {
++		return true;
++	}
++
++	public static int eglGetError() {
++		return EGL_SUCCESS;
++	}
++}
+
+--- a/src/api-impl/android/opengl/EGLConfig.java
++++ b/src/api-impl/android/opengl/EGLConfig.java
+@@ -26,6 +26,10 @@
+ 		super(handle);
+ 	}
+ 
++	static EGLConfig create(int handle) {
++		return new EGLConfig(handle);
++	}
++
+ 	@Override
+ 	public boolean equals(Object o) {
+ 		if (this == o)
+
+--- /dev/null
++++ b/src/api-impl/android/opengl/EGLContext.java
+@@ -0,0 +1,20 @@
++package android.opengl;
++
++public class EGLContext extends EGLObjectHandle {
++	private EGLContext(int handle) {
++		super(handle);
++	}
++
++	static EGLContext create(int handle) {
++		return new EGLContext(handle);
++	}
++
++	@Override
++	public boolean equals(Object o) {
++		if (this == o)
++			return true;
++		if (!(o instanceof EGLContext))
++			return false;
++		return getHandle() == ((EGLContext)o).getHandle();
++	}
++}
+
+--- /dev/null
++++ b/src/api-impl/android/opengl/EGLDisplay.java
+@@ -0,0 +1,20 @@
++package android.opengl;
++
++public class EGLDisplay extends EGLObjectHandle {
++	private EGLDisplay(int handle) {
++		super(handle);
++	}
++
++	static EGLDisplay create(int handle) {
++		return new EGLDisplay(handle);
++	}
++
++	@Override
++	public boolean equals(Object o) {
++		if (this == o)
++			return true;
++		if (!(o instanceof EGLDisplay))
++			return false;
++		return getHandle() == ((EGLDisplay)o).getHandle();
++	}
++}
+
+--- /dev/null
++++ b/src/api-impl/android/opengl/EGLSurface.java
+@@ -0,0 +1,20 @@
++package android.opengl;
++
++public class EGLSurface extends EGLObjectHandle {
++	private EGLSurface(int handle) {
++		super(handle);
++	}
++
++	static EGLSurface create(int handle) {
++		return new EGLSurface(handle);
++	}
++
++	@Override
++	public boolean equals(Object o) {
++		if (this == o)
++			return true;
++		if (!(o instanceof EGLSurface))
++			return false;
++		return getHandle() == ((EGLSurface)o).getHandle();
++	}
++}
+
+--- a/src/api-impl/android/opengl/GLES20.java
++++ b/src/api-impl/android/opengl/GLES20.java
+@@ -576,10 +576,10 @@
+ 
+ 	// C function void glDeleteTextures ( GLsizei n, const GLuint *textures )
+ 
+-	public static native void glDeleteTextures(
++	public static void glDeleteTextures(
+ 	    int n,
+ 	    int[] textures,
+-	    int offset);
++	    int offset) {}
+ 
+ 	// C function void glDeleteTextures ( GLsizei n, const GLuint *textures )
+ 
+@@ -728,10 +728,15 @@
+ 
+ 	// C function void glGenTextures ( GLsizei n, GLuint *textures )
+ 
+-	public static native void glGenTextures(
++	private static int nextTextureId = 1;
++
++	public static void glGenTextures(
+ 	    int n,
+ 	    int[] textures,
+-	    int offset);
++	    int offset) {
++		for (int i = 0; i < n; i++)
++			textures[offset + i] = nextTextureId++;
++	}
+ 
+ 	// C function void glGenTextures ( GLsizei n, GLuint *textures )
+ 
+@@ -884,7 +889,9 @@
+ 
+ 	// C function GLenum glGetError ( void )
+ 
+-	public static native int glGetError();
++	public static int glGetError() {
++		return GL_NO_ERROR;
++	}
+ 
+ 	// C function void glGetFloatv ( GLenum pname, GLfloat *params )
+ 
+--- a/src/api-impl/meson.build
++++ b/src/api-impl/meson.build
+@@ -268,6 +268,7 @@
+ 	'android/graphics/RectF.java',
+ 	'android/graphics/Region.java',
+ 	'android/graphics/Shader.java',
++	'android/graphics/SurfaceTexture.java',
+ 	'android/graphics/SweepGradient.java',
+ 	'android/graphics/Typeface.java',
+ 	'android/graphics/Xfermode.java',
+@@ -374,8 +375,12 @@
+ 	'android/net/wifi/p2p/WifiP2pManager.java',
+ 	'android/nfc/NfcAdapter.java',
+ 	'android/nfc/NfcManager.java',
++	'android/opengl/EGL14.java',
+ 	'android/opengl/EGLConfig.java',
++	'android/opengl/EGLContext.java',
++	'android/opengl/EGLDisplay.java',
+ 	'android/opengl/EGLObjectHandle.java',
++	'android/opengl/EGLSurface.java',
+ 	'android/opengl/GLES10.java',
+ 	'android/opengl/GLES20.java',
+ 	'android/opengl/GLSurfaceView.java',

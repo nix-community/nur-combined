@@ -50,6 +50,9 @@
       ./android-translation-layer-audiomanager-getdevices.patch
       ./android-translation-layer-mediadescription-setmediauri.patch
       ./android-translation-layer-audiodevicecallback.patch
+      ./android-translation-layer-networkcapabilities.patch
+      ./android-translation-layer-path-op.patch
+      ./android-translation-layer-surfacetexture.patch
       ./android-translation-layer-bitmap-pixels-fix.patch
       ./android-translation-layer-bitmap-factory-null-pixbuf.patch
       ./android-translation-layer-bitmap-factory-fd.patch
@@ -72,7 +75,8 @@
     '';
     preFixup = (old.preFixup or "") + ''
       mkdir -p $out/lib/gdk-pixbuf-2.0/2.10.0
-      cat ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      GDK_PIXBUF_MODULEDIR=${gdk-pixbuf}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders > $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
+      cat ${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
       GDK_PIXBUF_MODULEDIR=${webp-pixbuf-loader}/lib/gdk-pixbuf-2.0/2.10.0/loaders ${gdk-pixbuf.dev}/bin/gdk-pixbuf-query-loaders >> $out/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache
 
       gappsWrapperArgs+=(
