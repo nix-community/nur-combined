@@ -32,6 +32,7 @@ let
       mcp-server-searxng = final.callPackage ./mcp-server-searxng { };
       mpris-ctl = final.callPackage ./mpris-ctl { };
       nix-update-docker-image = final.python3Packages.callPackage ./nix-update-docker-image { };
+      opencodex = final.callPackage ./opencodex { };
       prometheus-podman-exporter = final.callPackage ./prometheus/podman-exporter.nix { };
       protonhax = final.callPackage ./protonhax { };
       prts-cursor = final.callPackage ./prts-cursor { };
