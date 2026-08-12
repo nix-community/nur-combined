@@ -50,6 +50,11 @@ in
     # The Codeberg archive extracts to ./rygel.
     sourceRoot = "rygel";
 
+    # The monorepo root has no CMakeLists.txt; koffi's own CNoke wrapper runs
+    # cmake against the src/koffi subtree in buildPhase. Disable the cmake
+    # setup hook's automatic configurePhase (cmake stays on PATH for CNoke).
+    dontConfigure = true;
+
     buildPhase = ''
       runHook preBuild
 
