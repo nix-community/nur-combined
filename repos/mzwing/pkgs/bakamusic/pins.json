@@ -1,0 +1,19 @@
+{
+  "koffi": {
+    "commit": "",
+    "hash": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=",
+    "version": ""
+  },
+  "mpvRuntime": {
+    "decoders": [
+      "ac4"
+    ],
+    "engine": "libmpv",
+    "librempeg": {
+      "commit": "",
+      "hash": "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="
+    },
+    "mediaBackend": "librempeg",
+    "version": ""
+  }
+}

@@ -11,6 +11,7 @@ mzwing's [NUR](https://github.com/nix-community/NUR) packages.
 | --- | --- |
 | `ace-ctx` | [Usage](https://github.com/CodingOX/ace-ctx) |
 | `autocli` | [Usage](https://github.com/nashsu/autocli) |
+| `bakamusic` | [Usage](https://github.com/Zencok/BakaMusic) |
 | `cliproxyapiplus` | [Usage](https://github.com/kaitranntt/CLIProxyAPIPlus) |
 | `codegraph` | [Usage](https://github.com/colbymchenry/codegraph) |
 | `getopts-fish` | [Usage](https://github.com/jorgebucaran/getopts.fish) |

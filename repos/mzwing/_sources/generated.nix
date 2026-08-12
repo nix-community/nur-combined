@@ -28,6 +28,17 @@
       sha256 = "sha256-RXrMGORl1uht22FX1UVATTO1rTPjgMgMozqsAt0dnPE=";
     };
   };
+  bakamusic = {
+    pname = "bakamusic";
+    version = "v1.6.0";
+    src = fetchFromGitHub {
+      owner = "Zencok";
+      repo = "BakaMusic";
+      rev = "v1.6.0";
+      fetchSubmodules = false;
+      sha256 = "sha256-02msOxuJNmHftRXJFGXqUT/jUkoB2tAEdiPnuSmPl/Y=";
+    };
+  };
   cliproxyapiplus = {
     pname = "cliproxyapiplus";
     version = "v7.2.127-3";

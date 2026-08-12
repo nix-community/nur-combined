@@ -8,6 +8,11 @@ fetch.github = "nashsu/AutoCLI"
 src.github_tag = "nashsu/AutoCLI"
 src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
 
+[bakamusic]
+fetch.github = "Zencok/BakaMusic"
+src.github_tag = "Zencok/BakaMusic"
+src.include_regex = "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+
 [cliproxyapiplus]
 fetch.github = "kaitranntt/CLIProxyAPIPlus"
 src.github_tag = "kaitranntt/CLIProxyAPIPlus"
