@@ -150,6 +150,16 @@
       hash = "sha256-lyU3GtkAbZekqXj7JOeKZQALf5s1J8umDwJZU8NRDW4=";
     };
   };
+  sun-panel = {
+    pname = "sun-panel";
+    version = "v1.8.1";
+    src = fetchFromGitHub {
+      owner = "hslr-s";
+      repo = "sun-panel";
+      tag = "v1.8.1";
+      hash = "sha256-tdjNcCKZadKQQ/sZuEY43rhKea5Z1zZHesq87ACSC44=";
+    };
+  };
   sublinkpro-linux-amd64 = {
     pname = "sublinkpro-linux-amd64";
     version = "1.2.17";
@@ -164,16 +174,6 @@
     src = fetchurl {
       url = "https://github.com/ZeroDeng01/sublinkPro/releases/download/v1.2.17/sublinkPro-linux-arm64";
       hash = "sha256-fvLRAwcEg/aHPcOc1sq/Dx5tNB308wOxShkp1HxCEgQ=";
-    };
-  };
-  sun-panel = {
-    pname = "sun-panel";
-    version = "v1.8.1";
-    src = fetchFromGitHub {
-      owner = "hslr-s";
-      repo = "sun-panel";
-      tag = "v1.8.1";
-      hash = "sha256-tdjNcCKZadKQQ/sZuEY43rhKea5Z1zZHesq87ACSC44=";
     };
   };
   tachidesk-server = {

@@ -3,7 +3,7 @@
   stdenv,
   buildGoModule,
   nodejs,
-  pnpm_10,
+  pnpm_9,
   fetchPnpmDeps,
   pnpmConfigHook,
   go-bindata,
@@ -19,7 +19,7 @@ let
 
     pnpmDeps = fetchPnpmDeps {
       inherit (finalWebAttrs) pname version src;
-      pnpm = pnpm_10;
+      pnpm = pnpm_9;
       fetcherVersion = 3;
       pnpmInstallFlags = [ "--registry=https://registry.npmmirror.com" ];
       prePnpmInstall = ''
@@ -36,7 +36,7 @@ let
     nativeBuildInputs = [
       nodejs
       pnpmConfigHook
-      pnpm_10
+      pnpm_9
     ];
 
     buildPhase = ''

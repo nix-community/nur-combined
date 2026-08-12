@@ -115,4 +115,3 @@ Build artifacts are cached in the Attic binary cache:
 | - [ ] |  | `uncategorized.vaults3` | [vaults3](https://github.com/Kodiqa-Solutions/VaultS3) | 4.4.50 | Lightweight S3-compatible object storage with built-in web dashboard |
 | - [ ] |  | `uncategorized.vertex` | [vertex](https://github.com/vertex-center/vertex) | 0.17.0 | Self-hosted lab manager for one-click container service installation |
 </details>
-
