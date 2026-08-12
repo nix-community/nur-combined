@@ -1,0 +1,62 @@
+{
+  "chmod": {
+    "description": "Execute `chmod` on the selected files to change their mode"
+  },
+  "diff": {
+    "description": "Diff the selected file with the hovered file, create a living patch, and copy it to the clipboard"
+  },
+  "full-border": {
+    "description": "Add a full border to Yazi to make it look fancier"
+  },
+  "git": {
+    "description": "Show the status of Git file changes as linemode in the file list"
+  },
+  "jump-to-char": {
+    "description": "Vim-like `f<char>`, jump to the next file whose name starts with `<char>`"
+  },
+  "lsar": {
+    "description": "Previewing archive contents with `lsar`, which is something you might not want to use anyway"
+  },
+  "mactag": {
+    "description": "Bring macOS's awesome tagging feature to Yazi"
+  },
+  "mime-ext": {
+    "description": "MIME type provider based on a file extension database, replacing the [builtin `file(1)`](https://github.com/sxyazi/yazi/blob/main/yazi-plugin/preset/plugins/mime-local.lua) to speed up MIME type retrieval at the expense of accuracy"
+  },
+  "mount": {
+    "description": "Mount manager for Yazi, providing disk mount, unmount, and eject functionality"
+  },
+  "no-status": {
+    "description": "Remove the status bar"
+  },
+  "piper": {
+    "description": "Pipe any shell command as a previewer"
+  },
+  "smart-enter": {
+    "description": "[`Open`][open] files or [`enter`][enter] directories all in one key"
+  },
+  "smart-filter": {
+    "description": "Yazi plugin that makes filters smarter: continuous filtering, automatically enter unique directory, open file on submitting"
+  },
+  "smart-paste": {
+    "description": "Paste files into the hovered directory or to the CWD if hovering over a file"
+  },
+  "term-cwd": {
+    "description": "Inform terminal about current directory change by sending OSC code"
+  },
+  "toggle-pane": {
+    "description": "Toggle the show, hide, and maximize states for different panes: parent, current, and preview"
+  },
+  "types": {
+    "description": "Type definitions for Yazi's Lua API, empowering an efficient plugin development experience"
+  },
+  "vcs-files": {
+    "description": "Show Git file changes in Yazi"
+  },
+  "vfs-demo": {
+    "description": "Plugin that demonstrates the new [custom VFS provider](https://github.com/sxyazi/yazi/pull/4118) (nightly only)"
+  },
+  "zoom": {
+    "description": "Enlarge or shrink the preview image of a file, which is useful for magnifying small files for viewing"
+  }
+}

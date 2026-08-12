@@ -1,0 +1,45 @@
+From 89f53697e4da596842705670bd6f522f2e623728 Mon Sep 17 00:00:00 2001
+From: XYenon <i@xyenon.bid>
+Date: Sat, 29 Mar 2025 16:11:50 +0800
+Subject: [PATCH 31/31] Search: Add pgroonga
+
+---
+ lib/pleroma/search/database_search.ex | 15 ++++++++++++++-
+ 1 file changed, 14 insertions(+), 1 deletion(-)
+
+diff --git a/lib/pleroma/search/database_search.ex b/lib/pleroma/search/database_search.ex
+index aef5d1e74..cfac9ec09 100644
+--- a/lib/pleroma/search/database_search.ex
++++ b/lib/pleroma/search/database_search.ex
+@@ -18,7 +18,8 @@ defmodule Pleroma.Search.DatabaseSearch do
+ 
+   @impl true
+   def search(user, search_query, options \\ []) do
+-    index_type = if Config.get([:database, :rum_enabled]), do: :rum, else: :gin
++    # index_type = if Config.get([:database, :rum_enabled]), do: :rum, else: :gin
++    index_type = :pgroonga
+     limit = Enum.min([Keyword.get(options, :limit), 40])
+     offset = Keyword.get(options, :offset, 0)
+     author = Keyword.get(options, :author)
+@@ -118,6 +119,18 @@ defp query_with(q, :rum, search_query) do
+     )
+   end
+ 
++  defp query_with(q, :pgroonga, search_query) do
++    from([a, o] in q,
++      where:
++        fragment(
++          "?->>'content' &@* ?",
++          o.data,
++          ^search_query
++        ),
++      order_by: [desc: fragment("pgroonga_score(?, ?)", o.tableoid, o.ctid)]
++    )
++  end
++
+   def maybe_restrict_local(q, user) do
+     limit = Config.get([:instance, :limit_to_local_content], :unauthenticated)
+ 
+-- 
+2.39.5
+

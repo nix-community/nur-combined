@@ -1,0 +1,28 @@
+{
+  sources,
+  lib,
+  newScope,
+}:
+
+let
+  scope =
+    self:
+    let
+      inherit (self) callPackage;
+    in
+    {
+      exifaudio = callPackage ./exifaudio.nix { };
+      clipboard = callPackage ./clipboard.nix { };
+      fg = callPackage ./fg { };
+      yafg = callPackage ./yafg.nix { };
+      ouch = callPackage ./ouch.nix { };
+      keep-preferences = callPackage ./keep-preferences.nix { };
+      yazi-rs = callPackage ./yazi-rs { source = sources.yazi-rs-plugins; };
+    };
+in
+
+with lib;
+pipe scope [
+  (makeScope newScope)
+  recurseIntoAttrs
+]

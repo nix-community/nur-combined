@@ -1,0 +1,25 @@
+From 9fc0c716330f7ff284a8014b6adea2cfc9a94b93 Mon Sep 17 00:00:00 2001
+From: XYenon <i@xyenon.bid>
+Date: Sun, 13 Apr 2025 21:56:47 +0800
+Subject: [PATCH] Set fetch emoji timeout to 120s
+
+---
+ lib/mix/tasks/pleroma/emoji.ex | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/mix/tasks/pleroma/emoji.ex b/lib/mix/tasks/pleroma/emoji.ex
+index b656f161f..8ec4d836b 100644
+--- a/lib/mix/tasks/pleroma/emoji.ex
++++ b/lib/mix/tasks/pleroma/emoji.ex
+@@ -243,7 +243,7 @@ defp fetch_and_decode!(from) do
+   end
+ 
+   defp fetch("http" <> _ = from) do
+-    with {:ok, %{body: body}} <- Pleroma.HTTP.get(from) do
++    with {:ok, %{body: body}} <- Pleroma.HTTP.get(from, [], pool: :media, recv_timeout: 120_000) do
+       {:ok, body}
+     end
+   end
+-- 
+2.48.1
+

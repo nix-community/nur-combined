@@ -1,0 +1,26 @@
+From b4e3c4a359d5402130f68d5a97bc1a1be6134f7d Mon Sep 17 00:00:00 2001
+From: XYenon <i@xyenon.bid>
+Date: Fri, 8 Aug 2025 11:55:17 +0800
+Subject: [PATCH] Revert "fix helix open"
+
+This reverts commit c201a3e1c0cda921c06019127886f16faef4b17e.
+---
+ main.lua | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/main.lua b/main.lua
+index b7c375c..5afc24f 100644
+--- a/main.lua
++++ b/main.lua
+@@ -228,7 +228,7 @@ function M:entry(job)
+ 	if (default_action == "nvim" or get_option() == "nvim" ) and args[1] ~= "fzf" then
+ 		os.execute("nvim +"..line_number.." -n "..file_url)
+ 	elseif (default_action == "helix" or get_option() == "helix" ) and args[1] ~= "fzf" then
+-		os.execute("helix +"..line_number.." "..file_url)
++		os.execute("hx +"..line_number.." "..file_url)
+ 	elseif (default_action == "jump" or get_option() == "jump" or args[1] == "fzf") and file_url ~= ""  then
+ 		ya.mgr_emit(file_url:match("[/\\]$") and "cd" or "reveal", { file_url })
+ 	else
+-- 
+2.50.1
+

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if ! command -v nix >/dev/null 2>&1 && [[ -e /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
+	# shellcheck disable=SC1091
+	source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+	export PATH="/nix/var/nix/profiles/default/bin:$PATH"
+fi
+
+if ! command -v nix >/dev/null 2>&1; then
+	echo "Nix is unavailable; rerun .agents/setup." >&2
+	exit 1
+fi
+
+nix --version

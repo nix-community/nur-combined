@@ -1,0 +1,289 @@
+{
+    "WeidiDeng/caddy-cloudflare-ip": {
+        "cargoLock": null,
+        "date": "20231130002422",
+        "extract": null,
+        "name": "WeidiDeng/caddy-cloudflare-ip",
+        "passthru": {
+            "isCaddyPlugin": "true",
+            "moduleName": "github.com/WeidiDeng/caddy-cloudflare-ip"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "WeidiDeng",
+            "repo": "caddy-cloudflare-ip",
+            "rev": "f53b62aa13cb7ad79c8b47aacc3f2f03989b67e5",
+            "sha256": "sha256-b2JPVdXBgbI91zRzXGut7QKYT/pe15Gcr3JvIKxvTH4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "f53b62aa13cb7ad79c8b47aacc3f2f03989b67e5"
+    },
+    "caddy-dns/cloudflare": {
+        "cargoLock": null,
+        "date": "20260323191214",
+        "extract": null,
+        "name": "caddy-dns/cloudflare",
+        "passthru": {
+            "isCaddyPlugin": "true",
+            "moduleName": "github.com/caddy-dns/cloudflare"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "caddy-dns",
+            "repo": "cloudflare",
+            "rev": "a8737d095ad5a48ca031cea6ab704057dbc2d250",
+            "sha256": "sha256-0Csi6WmyoGj7bXeo2Lrnwr0SCoV6c/niymtOp5DdiT4=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "a8737d095ad5a48ca031cea6ab704057dbc2d250"
+    },
+    "catppuccin-kitty": {
+        "cargoLock": null,
+        "date": "2026-01-16",
+        "extract": null,
+        "name": "catppuccin-kitty",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "kitty",
+            "rev": "43098316202b84d6a71f71aaf8360f102f4d3f1a",
+            "sha256": "sha256-akRkdq8l2opGIg3HZd+Y4eky6WaHgKFQ5+iJMC1bhnQ=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "43098316202b84d6a71f71aaf8360f102f4d3f1a"
+    },
+    "catppuccin-zsh-fsh": {
+        "cargoLock": null,
+        "date": "2024-07-20",
+        "extract": null,
+        "name": "catppuccin-zsh-fsh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "catppuccin",
+            "repo": "zsh-fsh",
+            "rev": "a9bdf479f8982c4b83b5c5005c8231c6b3352e2a",
+            "sha256": "sha256-WeqvsKXTO3Iham+2dI1QsNZWA8Yv9BHn1BgdlvR8zaw=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "a9bdf479f8982c4b83b5c5005c8231c6b3352e2a"
+    },
+    "fvbommel/caddy-combine-ip-ranges": {
+        "cargoLock": null,
+        "date": "20240127132546",
+        "extract": null,
+        "name": "fvbommel/caddy-combine-ip-ranges",
+        "passthru": {
+            "isCaddyPlugin": "true",
+            "moduleName": "github.com/fvbommel/caddy-combine-ip-ranges"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "fvbommel",
+            "repo": "caddy-combine-ip-ranges",
+            "rev": "5624d08f5f9e788816bdd877b7c81280c69b434e",
+            "sha256": "sha256-kWEOY2Xp7H9mDl8K0Z3YSDZl8vSB0FegyTYzw5/Tg4U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "5624d08f5f9e788816bdd877b7c81280c69b434e"
+    },
+    "mholt/caddy-l4": {
+        "cargoLock": null,
+        "date": "20260715121110",
+        "extract": null,
+        "name": "mholt/caddy-l4",
+        "passthru": {
+            "isCaddyPlugin": "true",
+            "moduleName": "github.com/mholt/caddy-l4"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mholt",
+            "repo": "caddy-l4",
+            "rev": "42db5690dea199f930a6f08005fe2e4aab10dcc9",
+            "sha256": "sha256-xys5S1QAGGHF/XHXWxjfjeplVr1Aq1wks37lRNJkmKM=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "42db5690dea199f930a6f08005fe2e4aab10dcc9"
+    },
+    "mholt/caddy-webdav": {
+        "cargoLock": null,
+        "date": "20260127042217",
+        "extract": null,
+        "name": "mholt/caddy-webdav",
+        "passthru": {
+            "isCaddyPlugin": "true",
+            "moduleName": "github.com/mholt/caddy-webdav"
+        },
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "mholt",
+            "repo": "caddy-webdav",
+            "rev": "fa2f366b0d75e54c2e381c0aefc3a8df8bf5794b",
+            "sha256": "sha256-tzg7CxAj8MTdrF1ngutsmTjshvm+OKwl9tZUZRU1EGA=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "fa2f366b0d75e54c2e381c0aefc3a8df8bf5794b"
+    },
+    "nh": {
+        "cargoLock": {
+            "Cargo.lock": [
+                "sha256-xiNjPARH+Fw366Svkjr8sKULp7fb3ORLa3NimY13IGk=/Cargo.lock",
+                {}
+            ]
+        },
+        "date": "2026-08-10",
+        "extract": null,
+        "name": "nh",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "XYenon",
+            "repo": "nh",
+            "rev": "eeb9224fd02dc118ef6506da2b56605313a294b6",
+            "sha256": "sha256-xiNjPARH+Fw366Svkjr8sKULp7fb3ORLa3NimY13IGk=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "eeb9224fd02dc118ef6506da2b56605313a294b6"
+    },
+    "nix-package-versions": {
+        "cargoLock": null,
+        "date": "2025-06-19",
+        "extract": null,
+        "name": "nix-package-versions",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "lazamar",
+            "repo": "nix-package-versions",
+            "rev": "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe",
+            "sha256": "sha256-M5/gLq+DhZIA1sBDmYY42XhV/l3tMHI2JcIkhWsRcx8=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6cdfa21a11f5e8e7ea8a0736c8ddf7941898c9fe"
+    },
+    "rime-ice": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "rime-ice",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iDvel",
+            "repo": "rime-ice",
+            "rev": "2026.06.30",
+            "sha256": "sha256-HReBFYih39ohqZ2UAX6wPjjh0KuIauJPSOjk6ZXidss=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "2026.06.30"
+    },
+    "rime-ice-unstable": {
+        "cargoLock": null,
+        "date": "2026-08-02",
+        "extract": null,
+        "name": "rime-ice-unstable",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "iDvel",
+            "repo": "rime-ice",
+            "rev": "569ff3bc65dd4aec0a26b33c49c8bbdfa8b5fd57",
+            "sha256": "sha256-U1aof8zSRKMXPDNXIB+LxbeRz5lBTegEG37iaFXS6fY=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "569ff3bc65dd4aec0a26b33c49c8bbdfa8b5fd57"
+    },
+    "rime-moegirl": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "rime-moegirl",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "name": null,
+            "sha256": "sha256-Fca5vWdmqaRnP6id4TqVGFsTxnynAoQTMgAWntF5eY0=",
+            "type": "url",
+            "url": "https://github.com/outloudvi/mw2fcitx/releases/download/20260713/moegirl.dict.yaml"
+        },
+        "version": "20260713"
+    },
+    "yazi-rs-plugins": {
+        "cargoLock": null,
+        "date": "2026-08-07",
+        "extract": null,
+        "name": "yazi-rs-plugins",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "yazi-rs",
+            "repo": "plugins",
+            "rev": "0be29a913ad61c6d119abfaaf253e96e6af5db67",
+            "sha256": "sha256-IDmmXzQKFx3QZ9u5lMwcTOeWeMPWzIBeKBXkGAgJMaI=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "0be29a913ad61c6d119abfaaf253e96e6af5db67"
+    }
+}

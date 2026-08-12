@@ -1,0 +1,81 @@
+name: "Update packages"
+on:
+  schedule:
+    - cron: "23 0 * * *"
+  workflow_dispatch:
+jobs:
+  update:
+    # Cron cannot filter by branch; skip scheduled runs off the default branch.
+    if: github.event_name == 'workflow_dispatch' || github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      BASE_BRANCH: ${{ github.event.repository.default_branch }}
+      UPDATE_BRANCH: auto-update
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+      - name: Prepare update branch
+        run: |
+          git fetch origin "$BASE_BRANCH"
+          git checkout -B "$UPDATE_BRANCH" "origin/$BASE_BRANCH"
+      - name: Setup git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Install nix
+        uses: DeterminateSystems/determinate-nix-action@v3.21.9
+        with:
+          extra-conf: |
+            access-tokens = github.com=${{ github.token }}
+      - name: Setup cachix
+        uses: cachix/cachix-action@v17
+        with:
+          name: nur-xyenon
+          signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: Check if weekly update
+        id: weekly
+        run: |
+          if [ "$(date +%u)" = "5" ]; then
+            echo "is_weekly=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_weekly=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Update flake inputs (weekly)
+        if: github.event_name == 'workflow_dispatch' || steps.weekly.outputs.is_weekly == 'true'
+        run: nix flake update --commit-lock-file --accept-flake-config
+      - name: Setup nvchecker keyfile
+        run: |
+          mkdir -p ~/.config/nvchecker
+          echo '[keys]' > ~/.config/nvchecker/keyfile.toml
+          echo 'github = "${{ github.token }}"' >> ~/.config/nvchecker/keyfile.toml
+      - name: Run update script
+        run: ./scripts/update.sh
+      - name: Check for changes
+        id: changes
+        run: |
+          if [ -n "$(git log origin/$BASE_BRANCH..HEAD)" ]; then
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          fi
+      - name: Generate PR description
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          git log origin/$BASE_BRANCH..HEAD --pretty=format:'## %s%n%n%b' > /tmp/pr_body.md
+      - name: Create Pull Request
+        if: steps.changes.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git push origin HEAD:"$UPDATE_BRANCH" --force
+          gh pr create --base "$BASE_BRANCH" --head "$UPDATE_BRANCH" \
+            --title "Automated package updates" \
+            --body-file /tmp/pr_body.md || \
+          gh pr edit "$UPDATE_BRANCH" --body-file /tmp/pr_body.md
