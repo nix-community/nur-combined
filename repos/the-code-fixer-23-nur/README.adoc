@@ -1,0 +1,35 @@
+= nur-packages
+
+louiss0's NUR Repository
+ifndef::env-github[:badges:]
+
+ifdef::env-github[]
+image:https://github.com/louiss0/the-code-fixer-23-nur/actions/workflows/build.yml/badge.svg[Build Status, link="https://github.com/louiss0/the-code-fixer-23-nur/actions/workflows/build.yml"]
+image:https://img.shields.io/badge/cachix-louiss0-blue.svg[Cachix Cache, link="https://louiss0.cachix.org"]
+endif::[]
+
+_This is my personal NUR (Nix User Repository)._
+
+== Directory Structure
+
+* `lib`: Contains library functions used within Nix expressions.
+* `modules`: Contains NixOS modules for configuring NixOS systems.
+* `overlays`: Contains Nix overlays for customizing existing package definitions.
+* `pkgs`: Contains the Nix expressions that define how to build the packages.
+
+
+[[packages]]
+== Packages
+
+This repository contains the following packages:
+
+*   <<jpd,javascript-package-delegator>>: A CLI tool for executing Javascript Package Manager commands based on lock files. Supports deno, bun, and all Node package managers.
+
+If you encounter any issues with these packages, please report them to the respective project's repository.
+
+[[jpd]]
+=== javascript-package-delegator
+
+A CLI tool for executing Javascript Package Manager commands based on lock files. Supports deno, bun, and all Node package managers.
+
+*   **Repository:** https://github.com/louiss0/javascript-package-delegator
