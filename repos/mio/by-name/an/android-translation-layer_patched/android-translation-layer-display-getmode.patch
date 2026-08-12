@@ -1,0 +1,70 @@
+From: Developer
+Date: Wed, 12 Aug 2026
+Subject: [PATCH] add Display.getMode() for ExoPlayer / NewPipe
+
+NewPipe's ExoPlayer calls Display.getMode() (API 23) when starting
+playback. ATL's Display had no such method, so ART aborted with
+NoSuchMethodError.
+
+--- a/src/api-impl/android/view/Display.java
++++ b/src/api-impl/android/view/Display.java
+@@ -9,6 +9,8 @@
+ 	public static int window_width = 960;
+ 	public static int window_height = 540;
+ 
++	public static final int DEFAULT_DISPLAY = 0;
++
+ 	// FIXME: what do we return here?
+ 	// we don't want to hardcode this stuff, but at the same time the apps can cache it
+ 	public void getMetrics(DisplayMetrics outMetrics) {
+@@ -71,4 +73,50 @@
+ 	public DisplayCutout getCutout() {
+ 		return DisplayCutout.NO_CUTOUT;
+ 	}
++
++	public Mode getMode() {
++		return new Mode(1, window_width, window_height, getRefreshRate());
++	}
++
++	public Mode[] getSupportedModes() {
++		return new Mode[] {getMode()};
++	}
++
++	public static final class Mode {
++		private final int modeId;
++		private final int width;
++		private final int height;
++		private final float refreshRate;
++
++		public Mode(int modeId, int width, int height, float refreshRate) {
++			this.modeId = modeId;
++			this.width = width;
++			this.height = height;
++			this.refreshRate = refreshRate;
++		}
++
++		public int getModeId() {
++			return modeId;
++		}
++
++		public int getPhysicalWidth() {
++			return width;
++		}
++
++		public int getPhysicalHeight() {
++			return height;
++		}
++
++		public float getRefreshRate() {
++			return refreshRate;
++		}
++
++		public float[] getAlternativeRefreshRates() {
++			return new float[0];
++		}
++
++		public int[] getSupportedHdrTypes() {
++			return new int[0];
++		}
++	}
+ }
