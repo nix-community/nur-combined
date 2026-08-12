@@ -1,0 +1,128 @@
+{
+    "gerber2pdf": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "gerber2pdf",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": true,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "jpt13653903",
+            "repo": "Gerber2PDF",
+            "rev": "Version_1.13",
+            "sha256": "sha256-LhLGiKsTVYs1Hrq0cDkflZCaj++pSmmHFZNdegoqi2s=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "Version_1.13"
+    },
+    "huawei-password-tool": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "huawei-password-tool",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "0xuserpag3",
+            "repo": "HuaweiPasswordTool",
+            "rev": "v1.0.0",
+            "sha256": "sha256-uvLY+/XAE62Ft+bEm2t5SNhXb5nrWPQouJEdAkrguYg=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.0"
+    },
+    "pa": {
+        "cargoLocks": null,
+        "date": "2025-12-15",
+        "extract": null,
+        "name": "pa",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "biox",
+            "repo": "pa",
+            "rev": "6e50129f24909b76ee4496c903824638a159d01c",
+            "sha256": "sha256-NUel7H2YDl6lib+8hDj+bld5y7fu4Xs7HsrGqwgu7mE=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "6e50129f24909b76ee4496c903824638a159d01c"
+    },
+    "sfp-master": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "sfp-master",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "bigbigmdm",
+            "repo": "SFP-Master",
+            "rev": "v1.0.7",
+            "sha256": "sha256-AiziWPyywfLJadSOKeppIdf3pFf+IoGbNfdNbQy/92U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v1.0.7"
+    },
+    "thinkpad-uefi-sign": {
+        "cargoLocks": null,
+        "date": "2020-06-26",
+        "extract": null,
+        "name": "thinkpad-uefi-sign",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "thrimbor",
+            "repo": "thinkpad-uefi-sign",
+            "rev": "b502420583b8a38d4b3e706b20a51a435740f749",
+            "sha256": "sha256-FqyrTZQWSKcDLLrG6jfrrW+vtAOUgE65C5jP3v3To8U=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "b502420583b8a38d4b3e706b20a51a435740f749"
+    },
+    "webcrack": {
+        "cargoLocks": null,
+        "date": null,
+        "extract": null,
+        "name": "webcrack",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "deepClone": false,
+            "fetchSubmodules": false,
+            "leaveDotGit": false,
+            "name": null,
+            "owner": "j4k0xb",
+            "repo": "webcrack",
+            "rev": "v2.15.1",
+            "sha256": "sha256-9xCndYtGXnVGV6gXdqjLM4ruSIHi7JRXPHRBom7K7Ds=",
+            "sparseCheckout": [],
+            "type": "github"
+        },
+        "version": "v2.15.1"
+    }
+}
