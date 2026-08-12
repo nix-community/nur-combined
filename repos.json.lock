@@ -342,8 +342,8 @@
             "url": "https://github.com/aster-void/nix-repository"
         },
         "ataraxiasjel": {
-            "rev": "e53520f4aeffaed9c51babbcf3c73ebb42f5e185",
-            "sha256": "15jj9yy31x5l35vihp2djmppsvyl6hzzr7wf75vmk5xaqw5w7vg3",
+            "rev": "abbcea4a574ce2acced39b09ccfbc1b12eccbc25",
+            "sha256": "1hhai85b7k4wywbbx5fkj056hif1w45wws0njvff2g4agr5ksb7x",
             "url": "https://github.com/AtaraxiaSjel/nur"
         },
         "avrahambenaram": {
@@ -573,8 +573,8 @@
             "url": "https://github.com/cmdorexe/nur-packages"
         },
         "codgician": {
-            "rev": "86566aefd0d8675e330ed6f14f1011427391caca",
-            "sha256": "0mivndm7h5wd2iklckfnvbr5phxkp8b7rx2xp67k09yq99j2v0vc",
+            "rev": "4ee2a9dec1d9fe5e5e71745574f198b3af219003",
+            "sha256": "04yn8jv23jv05npdmnrkqvgc7p4b9q9ym457qslbpmh4hz3cjh6i",
             "url": "https://github.com/codgician/nur-packages"
         },
         "colinsane": {
@@ -1483,8 +1483,8 @@
             "url": "https://github.com/minion3665/nurpkgs"
         },
         "mio": {
-            "rev": "9da87f594f6b3f5da47cf4ebcaa1ca0844ef4479",
-            "sha256": "02608qcxmjsyicsmhhfl8z94igvwx86wy81pchlg5a1xrn0qn8hi",
+            "rev": "7ee3b7945be84ad3cedfaa8ad7a1c97acc6df917",
+            "sha256": "1w766b7q2in18fjk9czfsm5nzqi0dhxc950hd4yjqjlzpqiz016j",
             "url": "https://github.com/mio-19/nurpkgs"
         },
         "misterio": {
@@ -1574,8 +1574,8 @@
             "url": "https://github.com/mzntori/nur-packages"
         },
         "mzwing": {
-            "rev": "cad1de69f6b77a97986eba8c6a347bfe9b121d04",
-            "sha256": "11rdylw0hxzd4nrgaxh8474hxdqbjwpdi5zq1ir1chrlw0f9jpkj",
+            "rev": "6d28e89a85fec8f41e17039770f4ebb4e90bda3c",
+            "sha256": "1c35y6h58c8qjhq19qsild96y3myn6h7hsi8pc1jz313clsj7l01",
             "url": "https://github.com/mzwing/nur-packages"
         },
         "n1kolasM": {
