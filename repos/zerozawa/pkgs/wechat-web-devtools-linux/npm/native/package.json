@@ -1,0 +1,15 @@
+{
+  "name": "wechat-devtools-native-modules",
+  "private": true,
+  "version": "0.0.0",
+  "dependencies": {
+    "@vscode/spdlog": "0.13.11",
+    "@vscode/sqlite3": "*",
+    "extract-file-icon": "*",
+    "native-keymap": "*",
+    "native-watchdog": "*",
+    "node-pty": "1.0.0",
+    "nodegit": "0.27.0",
+    "oniguruma": "*"
+  }
+}

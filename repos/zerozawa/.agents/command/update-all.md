@@ -23,8 +23,8 @@ Batch-check exported packages for new upstream versions.
 
 ## Repo-specific notes
 
-- Some packages track releases (`LoveIwara`, `wechat-web-devtools-linux`).
-- Some packages track commits or unstable revisions (`mihomo-smart`).
+- Some packages track releases (`LoveIwara`).
+- Some packages track commits or unstable revisions (`mihomo-smart`, `wechat-web-devtools-linux` — continuous branch, upstream releases only via rolling `continuous` tag).
 - Some packages have extra lock/hash workflows (`LoveIwara`, Rust packages, npm packages).
 - `preferLocalBuild = true` and license metadata affect CI/cache outcomes but not whether a package exists in `default.nix`.
 

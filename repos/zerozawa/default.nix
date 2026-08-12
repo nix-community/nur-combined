@@ -57,7 +57,7 @@ in
   mikusays = pkgs.callPackage ./pkgs/mikusays.nix { };
   sddm-eucalyptus-drop = pkgs.callPackage ./pkgs/sddm-eucalyptus-drop.nix { };
   grub-theme-yorha = pkgs.callPackage ./pkgs/grub-theme-yorha.nix { };
-  wechat-web-devtools-linux = pkgs.callPackage ./pkgs/wechat-web-devtools-linux.nix { };
+  wechat-web-devtools-linux = pkgs.callPackage ./pkgs/wechat-web-devtools-linux { };
   zsh-url-highlighter = pkgs.callPackage ./pkgs/zsh-url-highlighter.nix { };
   waybar-vd = pkgs.callPackage ./pkgs/waybar-vd { };
   mihomo-smart = pkgs.callPackage ./pkgs/mihomo-smart.nix { };

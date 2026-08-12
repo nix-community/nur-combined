@@ -113,6 +113,7 @@ Filtering behavior:
 - `fetchPixiv` intentionally uses `fetchurl` with ordered `urls` fallback rather than a single URL
 - `codegraph` is a `buildNpmPackage` that uses `tree-sitter-wasms` (pre-built WASM grammars) and the built-in `node:sqlite` (Node.js >= 22.5) — no native dependencies to compile
 - `banguminet` uses `buildDotnetModule` with a hand-generated `deps.json`; read `pkgs/banguminet/AGENTS.md` before updating
+- `wechat-web-devtools-linux` source-builds from the `continuous` branch (upstream only ships a rolling `continuous` release tag), mirroring its CI (`tools/setup-wechat-devtools.sh`): extracts `package.nw` from the official Windows installer FOD, rebuilds native npm modules with `node-gyp --nodedir` (nw headers for nwjs-side modules — upstream's `nw-gyp` needs python2 which nixpkgs dropped), and patches the nw `common.gypi` py2 syntax plus `-std=gnu89` for the bundled onig C library. Desktop entry is a `makeDesktopItem` mirroring upstream `res/deb.desktop` and icons come from upstream `res/icons`; native-module npm deps are pinned by hand-written lockfiles under `pkgs/wechat-web-devtools-linux/npm/` (upstream rebuilds from a floating `npm install` in `tools/rebuild-node-modules.sh` with no manifest)
 - `pctx` source-builds its Rust CLI and exposes a separately released Python SDK only as `pctx.passthru.py`; read `pkgs/pctx/AGENTS.md` before updating its V8, Swagger UI, or Python build inputs
 
 ## Quick Commands
