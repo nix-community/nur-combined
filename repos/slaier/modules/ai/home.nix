@@ -58,6 +58,11 @@
           enable = true;
           command = lib.getExe pkgs.mcp-nixos;
         };
+        excel = {
+          enable = true;
+          command = lib.getExe pkgs.excel-mcp-server;
+          args = [ "stdio" ];
+        };
       };
   };
 }

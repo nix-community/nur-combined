@@ -15,3 +15,4 @@ update:
   nix-update mattpocock-skills --flake
   nix-update pw-duck --flake
   nix-update free-claude-code --flake -u
+  nix-update excel-mcp-server --flake
