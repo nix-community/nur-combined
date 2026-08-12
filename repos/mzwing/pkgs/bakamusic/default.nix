@@ -44,7 +44,8 @@
   jq,
   nix,
   xdg-utils,
-  xorg,
+  xprop,
+  xwininfo,
 }: let
   inherit (source) pname src;
   version = lib.removePrefix "v" source.version;
@@ -293,7 +294,7 @@ in
 
       makeWrapper $out/lib/bakamusic/BakaMusic $out/bin/bakamusic \
         --add-flags "\''${NIXOS_OZONE_WL:+--ozone-platform-hint=auto --enable-features=WaylandWindowDecorations --enable-wayland-ime}" \
-        --prefix PATH : ${lib.makeBinPath [xdg-utils xorg.xprop xorg.xwininfo]} \
+        --prefix PATH : ${lib.makeBinPath [xdg-utils xprop xwininfo]} \
         --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [stdenv.cc.cc.lib]}
 
       runHook postInstall
