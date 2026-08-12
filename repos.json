@@ -116,6 +116,10 @@
         "Sittymin": {
             "url": "https://github.com/Sittymin/NUR"
         },
+        "Skyb0rg007": {
+            "file": "NixOS/default.nix",
+            "url": "https://github.com/Skyb0rg007/packages"
+        },
         "SuperKenVery": {
             "url": "https://github.com/SuperKenVery/nix-user-packages/"
         },
