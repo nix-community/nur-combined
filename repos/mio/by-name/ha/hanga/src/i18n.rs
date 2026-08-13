@@ -126,12 +126,18 @@ const UI_KEYS: &[&str] = &[
     "menu_title",
     "menu_play",
     "menu_multiplayer",
+    "menu_room",
     "menu_game",
     "menu_lang",
     "menu_controls",
     "menu_quit",
     "menu_hint",
     "play_hint",
+    "p2p_off",
+    "p2p_room_off",
+    "p2p_wait",
+    "p2p_live",
+    "p2p_dead",
     "held",
     "hands_empty",
     "empty_slot",
@@ -164,6 +170,7 @@ const UI_KEYS: &[&str] = &[
     "bind_hotbar_8",
     "bind_menu_play",
     "bind_menu_multiplayer",
+    "bind_menu_room",
     "bind_menu_game",
     "bind_menu_lang",
     "bind_menu_controls",
@@ -195,12 +202,18 @@ fn ui_en(key: &str) -> Option<&'static str> {
         "menu_title" => "HANGA",
         "menu_play" => "Play",
         "menu_multiplayer" => "Multiplayer",
+        "menu_room" => "Room",
         "menu_game" => "Game",
         "menu_lang" => "Language",
         "menu_controls" => "Controls",
         "menu_quit" => "Quit",
         "menu_hint" => "Bindings: ~/.config/hanga/bindings.conf  |  or Controls menu",
         "play_hint" => "Mouse look  |  see Controls for keys  |  Esc default pause",
+        "p2p_off" => "Single-player",
+        "p2p_room_off" => "off",
+        "p2p_wait" => "Room {room}: waiting for peers (hanga-signal)",
+        "p2p_live" => "Room {room}: {n} peer(s)",
+        "p2p_dead" => "Room {room}: dropped — Multiplayer to reconnect",
         "held" => "holding {label} x{count}",
         "hands_empty" => "hands empty",
         "empty_slot" => "Hotbar slot is empty.",
@@ -233,6 +246,7 @@ fn ui_en(key: &str) -> Option<&'static str> {
         "bind_hotbar_8" => "Hotbar 8",
         "bind_menu_play" => "Menu: Play",
         "bind_menu_multiplayer" => "Menu: Multiplayer",
+        "bind_menu_room" => "Menu: Room",
         "bind_menu_game" => "Menu: Game",
         "bind_menu_lang" => "Menu: Language",
         "bind_menu_controls" => "Menu: Controls",
@@ -266,12 +280,18 @@ fn ui_mi(key: &str) -> Option<&'static str> {
         "menu_title" => "HANGA",
         "menu_play" => "Tākaro",
         "menu_multiplayer" => "Tuki tāngata-maha",
+        "menu_room" => "Rūma",
         "menu_game" => "Kēmu",
         "menu_lang" => "Reo",
         "menu_controls" => "Whakatika pātene",
         "menu_quit" => "Puta",
         "menu_hint" => "Pātene: ~/.config/hanga/bindings.conf  |  tahua Whakatika pātene",
         "play_hint" => "Kiore titiro  |  tirohia ngā pātene  |  Esc okioki taunoa",
+        "p2p_off" => "Takitahi",
+        "p2p_room_off" => "weto",
+        "p2p_wait" => "Rūma {room}: e tatari hoa (hanga-signal)",
+        "p2p_live" => "Rūma {room}: {n} hoa",
+        "p2p_dead" => "Rūma {room}: kua motu — Tuki tāngata-maha hei hono anō",
         "held" => "e mau ana {label} x{count}",
         "hands_empty" => "kua takoto ngā ringa",
         "empty_slot" => "Kua wātea te kōwae pae-wera.",
@@ -304,6 +324,7 @@ fn ui_mi(key: &str) -> Option<&'static str> {
         "bind_hotbar_8" => "Pae-wera 8",
         "bind_menu_play" => "Tahua: Tākaro",
         "bind_menu_multiplayer" => "Tahua: Tuki tāngata-maha",
+        "bind_menu_room" => "Tahua: Rūma",
         "bind_menu_game" => "Tahua: Kēmu",
         "bind_menu_lang" => "Tahua: Reo",
         "bind_menu_controls" => "Tahua: Pātene",
@@ -337,12 +358,18 @@ fn ui_fr(key: &str) -> Option<&'static str> {
         "menu_title" => "HANGA",
         "menu_play" => "Jouer",
         "menu_multiplayer" => "Multijoueur",
+        "menu_room" => "Salle",
         "menu_game" => "Jeu",
         "menu_lang" => "Langue",
         "menu_controls" => "Commandes",
         "menu_quit" => "Quitter",
         "menu_hint" => "Fichier : ~/.config/hanga/bindings.conf  |  ou menu Commandes",
         "play_hint" => "Souris  |  voir Commandes  |  Échap pause par défaut",
+        "p2p_off" => "Solo",
+        "p2p_room_off" => "off",
+        "p2p_wait" => "Salle {room} : en attente (hanga-signal)",
+        "p2p_live" => "Salle {room} : {n} pair(s)",
+        "p2p_dead" => "Salle {room} : coupé — Multijoueur pour reconnecter",
         "held" => "tient {label} x{count}",
         "hands_empty" => "mains vides",
         "empty_slot" => "L’emplacement de la barre est vide.",
@@ -375,6 +402,7 @@ fn ui_fr(key: &str) -> Option<&'static str> {
         "bind_hotbar_8" => "Barre 8",
         "bind_menu_play" => "Menu : Jouer",
         "bind_menu_multiplayer" => "Menu : Multijoueur",
+        "bind_menu_room" => "Menu : Salle",
         "bind_menu_game" => "Menu : Jeu",
         "bind_menu_lang" => "Menu : Langue",
         "bind_menu_controls" => "Menu : Commandes",
@@ -408,12 +436,18 @@ fn ui_zh_tw(key: &str) -> Option<&'static str> {
         "menu_title" => "HANGA",
         "menu_play" => "開始遊戲",
         "menu_multiplayer" => "多人連線",
+        "menu_room" => "房間",
         "menu_game" => "遊戲",
         "menu_lang" => "語言",
         "menu_controls" => "按鍵設定",
         "menu_quit" => "離開",
         "menu_hint" => "設定檔：~/.config/hanga/bindings.conf  |  或按鍵選單",
         "play_hint" => "滑鼠視角  |  見按鍵設定  |  預設 Esc 暫停",
+        "p2p_off" => "單人",
+        "p2p_room_off" => "關閉",
+        "p2p_wait" => "房間 {room}：等待玩家（hanga-signal）",
+        "p2p_live" => "房間 {room}：{n} 位玩家",
+        "p2p_dead" => "房間 {room}：已斷線 — 按多人連線重連",
         "held" => "手持 {label} x{count}",
         "hands_empty" => "兩手空空",
         "empty_slot" => "快捷欄是空的。",
@@ -446,6 +480,7 @@ fn ui_zh_tw(key: &str) -> Option<&'static str> {
         "bind_hotbar_8" => "快捷欄 8",
         "bind_menu_play" => "選單：開始",
         "bind_menu_multiplayer" => "選單：多人",
+        "bind_menu_room" => "選單：房間",
         "bind_menu_game" => "選單：遊戲",
         "bind_menu_lang" => "選單：語言",
         "bind_menu_controls" => "選單：按鍵",
@@ -563,6 +598,18 @@ pub fn format_job_offer_bind(
             ("accept", accept),
         ],
     )
+}
+
+pub fn format_p2p(locale: Locale, room: Option<&str>, peers: usize, dead: bool) -> String {
+    match room {
+        None => t(locale, "p2p_off").to_string(),
+        Some(room) if dead => fill(t(locale, "p2p_dead"), &[("room", room)]),
+        Some(room) if peers > 0 => fill(
+            t(locale, "p2p_live"),
+            &[("room", room), ("n", &peers.to_string())],
+        ),
+        Some(room) => fill(t(locale, "p2p_wait"), &[("room", room)]),
+    }
 }
 
 pub fn format_look(locale: Locale, status: &str, label: &str, pos: &str) -> String {
@@ -755,6 +802,20 @@ mod tests {
             assert_ne!(t(locale, "job_none"), t(Locale::English, "job_none"));
             assert_ne!(t(locale, "sys_prefix"), t(Locale::English, "sys_prefix"));
         }
+    }
+
+    #[test]
+    fn p2p_status_covers_off_wait_live_and_dead() {
+        assert_eq!(format_p2p(Locale::English, None, 0, false), "Single-player");
+        let wait = format_p2p(Locale::English, Some("hanga_room"), 0, false);
+        assert!(wait.contains("hanga_room"));
+        assert!(wait.contains("waiting"));
+        let live = format_p2p(Locale::French, Some("hanga_heist"), 2, false);
+        assert!(live.contains("hanga_heist"));
+        assert!(live.contains('2'));
+        let dead = format_p2p(Locale::TaiwanChinese, Some("hanga_test"), 0, true);
+        assert!(dead.contains("hanga_test"));
+        assert!(dead.contains("斷線"));
     }
 
     #[test]

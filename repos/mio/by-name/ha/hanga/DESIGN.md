@@ -94,21 +94,23 @@ loads without a local Cargo target dir. Day-to-day: `nix build .#hanga-dev`
 (crate2nix, runs host + mod + agent tests). `.#hanga` is the rustPlatform wrap
 and does not re-run that suite.
 
-`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Game / Language / Controls / Quit).
+`nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Room / Game / Language / Controls / Quit).
 The Game row cycles discovered `.game` files. Each game owns the menu title,
 panel, buttons, and clear/sky colors; switching Game reloads that collection's
 lead WASM and, on the next Play, respawns the world. Both shipped games and
 their mods install in `HANGA_GAMES` / `HANGA_MODS`.
-Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins
-`ws://localhost:3536/hanga_room` (or the URL you pass). Run
-`nix run .#hanga-signal` first (also on `PATH` as `hanga-signal` /
-`matchbox_server` from `nix run .#hanga` and `.#hanga-dev`). A refused
-connection stays in single-player instead of crashing. Pausing does not open a
-second P2P socket. Each peer signs actions with Ed25519; unsigned or forged
-packets are dropped. Mouse look is captured while playing; the play camera is
-off in the menu.
+Play is single-player and does **not** talk to Matchbox. Room cycles
+`hanga_room` / `hanga_heist` / `hanga_test` / off without starting a session.
+Multiplayer joins the selected room (default `ws://localhost:3536/hanga_room`);
+`--p2p` does the same, optionally with a URL. Run `nix run .#hanga-signal` first
+(also on `PATH` as `hanga-signal` / `matchbox_server` from `nix run .#hanga` and
+`.#hanga-dev`). A refused or dropped connection stays in single-player; the HUD
+shows wait / live / dropped. Multiplayer after a drop reconnects; pausing does
+not open a second socket. Changing Room then Multiplayer switches rooms. Each
+peer signs actions with Ed25519; unsigned or forged packets are dropped. Mouse
+look is captured while playing; the play camera is off in the menu.
 
-Key bindings default to WASD / mouse / E / C / F / J K L (job) / 1–8 / Esc. Players can change them
+Key bindings default to WASD / mouse / E / C / F / J K L (job) / 1–8 / Esc; menu Room is R. Players can change them
 in the Controls menu or by editing `~/.config/hanga/bindings.conf` (`HANGA_BINDINGS` or
 `--bindings` override). The file is created on first launch.
 
@@ -131,8 +133,8 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 
 ## Tests
 
-Development gate: `nix build .#hanga-dev` (host lib + agent-client under xvfb;
-`mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM wrap).
+Development gate: `nix build .#hanga-dev` (host lib tests natively; agent-client
+under xvfb; `mods.nix` runs `urban_chaos` / `testbed` unit tests before the WASM wrap).
 
 - `cargo test --lib` — pure engine predicates (anti-cheat, fracture, economy pack)
 - `cargo test -p urban_chaos` / `-p testbed` — mod rules
@@ -141,5 +143,5 @@ Development gate: `nix build .#hanga-dev` (host lib + agent-client under xvfb;
 ## Next
 
 1. Kani CI for engine + mods
-2. Matchbox room UI / reconnect
-3. Fuller BeamNG node-beam (Urban Chaos still uses severity + detach, not a solver)
+2. Fuller BeamNG node-beam (Urban Chaos still uses severity + detach, not a solver)
+3. Multi-mod collections (only the lead WASM loads) and voxel-chunk clear on game switch

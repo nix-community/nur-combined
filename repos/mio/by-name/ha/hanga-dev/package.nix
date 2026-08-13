@@ -88,6 +88,10 @@ cargoNix.workspaceMembers.hanga.build.override {
     vulkan-loader
   ];
   testPreRun = ''
+    export HOME="$TMPDIR/hanga-home"
+    export XDG_CACHE_HOME="$TMPDIR/hanga-cache"
+    export XDG_CONFIG_HOME="$TMPDIR/hanga-config"
+    mkdir -p "$HOME" "$XDG_CACHE_HOME" "$XDG_CONFIG_HOME"
     export HANGA_MODS=${mods}/share/hanga/mods
     export HANGA_GAMES=${mods}/share/hanga/games
     export WGPU_BACKEND=vulkan
@@ -95,11 +99,22 @@ cargoNix.workspaceMembers.hanga.build.override {
     export LIBGL_ALWAYS_SOFTWARE=1
     export LD_LIBRARY_PATH=${graphicsLibs}''${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
     orig="$f"
+    name=$(basename "$orig")
     f=$(mktemp)
-    cat > "$f" <<EOF
+    case "$name" in
+      *agent_test*)
+        cat > "$f" <<EOF
     #!/bin/sh
     exec ${xvfb-run}/bin/xvfb-run -a "$orig" "\$@"
     EOF
+        ;;
+      *)
+        cat > "$f" <<EOF
+    #!/bin/sh
+    exec "$orig" "\$@"
+    EOF
+        ;;
+    esac
     chmod +x "$f"
   '';
 }

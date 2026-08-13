@@ -23,6 +23,7 @@ pub const ACTION_FENCE: &str = "fence";
 pub const ACTION_PAUSE: &str = "pause";
 pub const ACTION_MENU_PLAY: &str = "menu_play";
 pub const ACTION_MENU_MULTI: &str = "menu_multiplayer";
+pub const ACTION_MENU_ROOM: &str = "menu_room";
 pub const ACTION_MENU_GAME: &str = "menu_game";
 pub const ACTION_MENU_LANG: &str = "menu_lang";
 pub const ACTION_MENU_CONTROLS: &str = "menu_controls";
@@ -53,6 +54,7 @@ pub const ALL_ACTIONS: &[&str] = &[
     "hotbar_8",
     ACTION_MENU_PLAY,
     ACTION_MENU_MULTI,
+    ACTION_MENU_ROOM,
     ACTION_MENU_GAME,
     ACTION_MENU_LANG,
     ACTION_MENU_CONTROLS,
@@ -98,6 +100,7 @@ impl BindingSet {
         }
         add(&mut map, ACTION_MENU_PLAY, &["Digit1", "Enter"]);
         add(&mut map, ACTION_MENU_MULTI, &["Digit2"]);
+        add(&mut map, ACTION_MENU_ROOM, &["KeyR", "Digit7"]);
         add(&mut map, ACTION_MENU_GAME, &["KeyG", "Digit6"]);
         add(&mut map, ACTION_MENU_LANG, &["Digit3"]);
         add(&mut map, ACTION_MENU_CONTROLS, &["Digit4"]);

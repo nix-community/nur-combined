@@ -14,7 +14,7 @@ use hanga::bindings::{
     self, BindingSet, ACTION_ACCEPT, ACTION_BACK, ACTION_BREAK, ACTION_COMPLETE, ACTION_CRAFT,
     ACTION_ENTER, ACTION_EXPLODE, ACTION_FENCE, ACTION_FORWARD, ACTION_JUMP, ACTION_LEFT,
     ACTION_MENU_CONTROLS, ACTION_MENU_GAME, ACTION_MENU_LANG, ACTION_MENU_MULTI, ACTION_MENU_PLAY,
-    ACTION_MENU_QUIT, ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT, ALL_ACTIONS,
+    ACTION_MENU_QUIT, ACTION_MENU_ROOM, ACTION_PAUSE, ACTION_PLACE, ACTION_RIGHT, ALL_ACTIONS,
 };
 use hanga::i18n::{self, Locale, TextCommand};
 use hanga::{
@@ -22,7 +22,8 @@ use hanga::{
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
     is_action_physically_possible, is_connected_to_ground, parse_name_catalog,
-    parse_p2p_url, resolve_wasm_path, should_skip_menu, unpack_economy_params,
+    cycle_p2p_url, parse_p2p_url, p2p_room_name, resolve_wasm_path, should_skip_menu,
+    unpack_economy_params,
     verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 use hanga::crash::{crumple_scale, impact_speed};
@@ -194,7 +195,10 @@ struct PlayCamera;
 
 #[derive(Resource, Default)]
 struct P2pConfig {
+    /// Selected Matchbox URL. Room cycles this without joining.
     url: Option<String>,
+    /// This play session should open (or keep) a mesh. Play clears it; Multiplayer sets it.
+    join: bool,
 }
 
 #[derive(Resource)]
@@ -220,6 +224,7 @@ struct MenuRoot;
 enum MenuAction {
     Play,
     Multiplayer,
+    Room,
     Game,
     Lang,
     Controls,
@@ -439,14 +444,17 @@ fn main() {
             env: env_mods.clone(),
         })
         .insert_resource(GameSearch(game_dirs))
-        .insert_resource(P2pConfig { url: p2p_url })
+        .insert_resource(P2pConfig {
+            join: p2p_url.is_some(),
+            url: p2p_url,
+        })
         .insert_resource(PeerKey(peer_key))
         .insert_resource(KeyBindings(bindings))
         .insert_resource(BindingsPath(bindings_path))
         .init_resource::<BindCapture>()
         .add_systems(
             OnEnter(GameMode::Menu),
-            (apply_menu_clear, spawn_menu_sky, spawn_main_menu).chain(),
+            (apply_menu_clear, spawn_menu_sky, order_menu_sky, spawn_main_menu).chain(),
         )
         .add_systems(OnExit(GameMode::Menu), (despawn_menu_sky, despawn_main_menu))
         .add_systems(OnEnter(GameMode::Controls), spawn_controls_menu)
@@ -867,10 +875,17 @@ fn current_game(catalog: &GameCatalog, selected: &SelectedGame) -> GameSpec {
     resolve_game(&catalog.0, &selected.0)
 }
 
-fn menu_caption(locale: Locale, set: &BindingSet, key: &str, game: &GameSpec) -> String {
+fn menu_caption(
+    locale: Locale,
+    set: &BindingSet,
+    key: &str,
+    game: &GameSpec,
+    p2p: &P2pConfig,
+) -> String {
     let action = match key {
         "menu_play" => Some(ACTION_MENU_PLAY),
         "menu_multiplayer" => Some(ACTION_MENU_MULTI),
+        "menu_room" => Some(ACTION_MENU_ROOM),
         "menu_game" => Some(ACTION_MENU_GAME),
         "menu_lang" => Some(ACTION_MENU_LANG),
         "menu_controls" => Some(ACTION_MENU_CONTROLS),
@@ -880,6 +895,18 @@ fn menu_caption(locale: Locale, set: &BindingSet, key: &str, game: &GameSpec) ->
     let title = match key {
         "menu_title" => game.title(locale.code()),
         "menu_game" => format!("{}: {}", i18n::t(locale, key), game.title(locale.code())),
+        "menu_room" => {
+            let room = p2p
+                .url
+                .as_deref()
+                .map(p2p_room_name)
+                .unwrap_or_else(|| i18n::t(locale, "p2p_room_off"));
+            format!("{}: {room}", i18n::t(locale, key))
+        }
+        "menu_multiplayer" => match p2p.url.as_deref() {
+            Some(url) => format!("{} ({})", i18n::t(locale, key), p2p_room_name(url)),
+            None => i18n::t(locale, key).to_string(),
+        },
         _ => i18n::t(locale, key).to_string(),
     };
     match action {
@@ -1038,7 +1065,9 @@ fn spawn_play_world(
     commands
         .spawn((
             PlayWorld,
+            Name::new("player"),
             Transform::from_translation(player_pos),
+            Visibility::default(),
             Player,
             RigidBody::Dynamic,
             Collider::capsule(0.4, 1.0),
@@ -1053,6 +1082,7 @@ fn spawn_play_world(
         ))
         .with_children(|parent| {
             parent.spawn((
+                Name::new("play_camera"),
                 Camera3d::default(),
                 VoxelWorldCamera::<DefaultWorld>::default(),
                 PlayCamera,
@@ -1183,6 +1213,7 @@ fn spawn_agent(
     commands
         .spawn((
             PlayWorld,
+            Name::new(kind.to_string()),
             Transform::from_translation(pos).with_rotation(Quat::from_rotation_y(facing)),
             Visibility::default(),
             RigidBody::Dynamic,
@@ -1242,6 +1273,7 @@ fn spawn_vehicle(
     let [cx, cy, cz] = kit.collider;
     let mut entity = commands.spawn((
         PlayWorld,
+        Name::new("vehicle"),
         Vehicle,
         VehicleDrive { speed: kit.speed },
         Transform::from_translation(pos),
@@ -1260,6 +1292,7 @@ fn spawn_vehicle(
         for part in &kit.parts {
             let size = Vec3::from_array(part.size);
             body.spawn((
+                Name::new(part.name.clone()),
                 Mesh3d(meshes.add(Cuboid::from_size(size))),
                 MeshMaterial3d(mat(materials, part.rgb)),
                 Transform::from_xyz(part.offset[0], part.offset[1], part.offset[2]),
@@ -2582,7 +2615,10 @@ impl Plugin for DistributedMultiplayerPlugin {
     }
 }
 #[derive(Resource)]
-struct P2pSocket(WebRtcSocket);
+struct P2pSocket {
+    room: String,
+    rtc: WebRtcSocket,
+}
 
 fn start_p2p_if_requested(
     mut commands: Commands,
@@ -2590,20 +2626,25 @@ fn start_p2p_if_requested(
     socket: Option<Res<P2pSocket>>,
     dead: Option<Res<P2pDead>>,
 ) {
-    if socket.is_some() && dead.is_none() {
-        return;
-    }
-    if dead.is_some() {
-        commands.remove_resource::<P2pSocket>();
-        commands.remove_resource::<P2pWatch>();
-        commands.remove_resource::<P2pDead>();
-    }
-    let Some(room_url) = config.url.clone() else {
-        info!("Single-player: P2P off. Use Multiplayer or --p2p when a signaling server is running.");
+    let Some(room_url) = config.url.clone().filter(|_| config.join) else {
+        if socket.is_some() || dead.is_some() {
+            commands.remove_resource::<P2pSocket>();
+            commands.remove_resource::<P2pWatch>();
+            commands.remove_resource::<P2pDead>();
+        }
+        info!("Single-player: P2P off. Use Room + Multiplayer or --p2p when a signaling server is running.");
         return;
     };
+    if let Some(socket) = socket.as_ref() {
+        if dead.is_none() && socket.room == room_url {
+            return;
+        }
+    }
+    commands.remove_resource::<P2pSocket>();
+    commands.remove_resource::<P2pWatch>();
+    commands.remove_resource::<P2pDead>();
     info!("Connecting to P2P mesh at {room_url}");
-    let (socket, message_loop) = WebRtcSocket::builder(room_url)
+    let (rtc, message_loop) = WebRtcSocket::builder(room_url.clone())
         .add_reliable_channel()
         .build();
 
@@ -2614,7 +2655,10 @@ fn start_p2p_if_requested(
         }
     });
 
-    commands.insert_resource(P2pSocket(socket));
+    commands.insert_resource(P2pSocket {
+        room: room_url,
+        rtc,
+    });
     commands.insert_resource(P2pWatch(Mutex::new(done_rx)));
 }
 
@@ -2623,7 +2667,12 @@ fn reap_dead_p2p(
     watch: Option<Res<P2pWatch>>,
     dead: Option<Res<P2pDead>>,
 ) {
-    let mut drop = dead.is_some();
+    if dead.is_some() {
+        commands.remove_resource::<P2pSocket>();
+        commands.remove_resource::<P2pWatch>();
+        return;
+    }
+    let mut drop = false;
     if let Some(watch) = watch {
         if let Ok(rx) = watch.0.lock() {
             if let Ok(err) = rx.try_recv() {
@@ -2635,7 +2684,7 @@ fn reap_dead_p2p(
     if drop {
         commands.remove_resource::<P2pSocket>();
         commands.remove_resource::<P2pWatch>();
-        commands.remove_resource::<P2pDead>();
+        commands.insert_resource(P2pDead);
     }
 }
 
@@ -2647,7 +2696,7 @@ fn handle_p2p_receive(
     let Some(mut socket) = socket else {
         return;
     };
-    let peers = match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| socket.0.update_peers()))
+    let peers = match std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| socket.rtc.update_peers()))
     {
         Ok(peers) => peers,
         Err(_) => {
@@ -2664,7 +2713,7 @@ fn handle_p2p_receive(
     }
 
     if let Ok(packets) = std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
-        socket.0.channel_mut(0).receive()
+        socket.rtc.channel_mut(0).receive()
     })) {
         for (_peer_id, packet) in packets {
             let Ok(signed) = bincode::deserialize::<SignedPacket>(&packet) else {
@@ -2711,10 +2760,10 @@ fn handle_p2p_broadcast(
                     payload,
                 };
                 if let Ok(bytes) = bincode::serialize(&packet) {
-                    let peers: Vec<_> = socket.0.connected_peers().collect();
+                    let peers: Vec<_> = socket.rtc.connected_peers().collect();
                     let packet_boxed = bytes.into_boxed_slice();
                     for peer in peers {
-                        socket.0.channel_mut(0).send(packet_boxed.clone(), peer);
+                        socket.rtc.channel_mut(0).send(packet_boxed.clone(), peer);
                     }
                 }
             }
@@ -2901,6 +2950,9 @@ fn update_hud(
     players: Query<(&ModState, &ModWallet, &ModContract, &ModInventory), With<Player>>,
     offer: Res<ModOffer>,
     mod_runtime: Res<ModRuntime>,
+    p2p: Res<P2pConfig>,
+    socket: Option<Res<P2pSocket>>,
+    dead: Option<Res<P2pDead>>,
     mut status: Query<&mut Text, (With<HudStatus>, Without<HudHotbar>, Without<HudHint>)>,
     mut hotbar: Query<&mut Text, (With<HudHotbar>, Without<HudStatus>, Without<HudHint>)>,
     mut hint: Query<&mut Text, (With<HudHint>, Without<HudStatus>, Without<HudHotbar>)>,
@@ -2925,14 +2977,39 @@ fn update_hud(
         *text = Text::new(hotbar_line(locale.0, &mod_runtime, inventory));
     }
     if let Some(mut text) = hint.iter_mut().next() {
-        *text = Text::new(play_hint_line(locale.0, &mod_runtime, inventory));
+        *text = Text::new(play_hint_line(
+            locale.0,
+            &mod_runtime,
+            inventory,
+            p2p.url.as_deref().filter(|_| p2p.join),
+            p2p_peer_count(socket.as_deref()),
+            dead.is_some(),
+        ));
     }
 }
 
-fn play_hint_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
+fn p2p_peer_count(socket: Option<&P2pSocket>) -> usize {
+    let Some(socket) = socket else {
+        return 0;
+    };
+    std::panic::catch_unwind(std::panic::AssertUnwindSafe(|| {
+        socket.rtc.connected_peers().count()
+    }))
+    .unwrap_or(0)
+}
+
+fn play_hint_line(
+    locale: Locale,
+    mod_runtime: &ModRuntime,
+    inventory: &ModInventory,
+    p2p_url: Option<&str>,
+    peers: usize,
+    dead: bool,
+) -> String {
     let controls = i18n::t(locale, "play_hint");
+    let p2p = i18n::format_p2p(locale, p2p_url.map(p2p_room_name), peers, dead);
     let Some((a, b)) = pick_craft_pair(inventory, mod_runtime) else {
-        return controls.to_string();
+        return format!("{controls}  |  {p2p}");
     };
     let product = with_mod(mod_runtime, |ctx| {
         ctx.bindings
@@ -2942,7 +3019,7 @@ fn play_hint_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInven
     })
     .unwrap_or_default();
     if product.is_empty() {
-        return controls.to_string();
+        return format!("{controls}  |  {p2p}");
     }
     let recipe = i18n::format_crafting(
         locale,
@@ -2950,7 +3027,7 @@ fn play_hint_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInven
         &mod_item_label(mod_runtime, locale, &b),
         &mod_item_label(mod_runtime, locale, &product),
     );
-    format!("{recipe}  |  {controls}")
+    format!("{recipe}  |  {controls}  |  {p2p}")
 }
 
 fn apply_menu_clear(theme: Res<MenuTheme>, mut clear: ResMut<ClearColor>) {
@@ -3079,14 +3156,17 @@ fn ensure_clouds(
 
 fn spawn_menu_sky(mut commands: Commands) {
     commands.spawn((
+        Name::new("menu_sky_camera"),
         MenuSkyCamera,
         Camera3d::default(),
-        Camera {
-            order: -1,
-            ..default()
-        },
         Transform::from_xyz(40.0, 28.0, 90.0).looking_at(Vec3::new(0.0, 140.0, -80.0), Vec3::Y),
     ));
+}
+
+fn order_menu_sky(mut cameras: Query<&mut Camera, With<MenuSkyCamera>>) {
+    for mut camera in &mut cameras {
+        camera.order = -1;
+    }
 }
 
 fn despawn_menu_sky(mut commands: Commands, cams: Query<Entity, With<MenuSkyCamera>>) {
@@ -3136,6 +3216,7 @@ fn spawn_main_menu(
     catalog: Res<GameCatalog>,
     selected: Res<SelectedGame>,
     theme: Res<MenuTheme>,
+    p2p: Res<P2pConfig>,
 ) {
     let game = current_game(&catalog, &selected);
     commands
@@ -3155,7 +3236,7 @@ fn spawn_main_menu(
         ))
         .with_children(|parent| {
             parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &game)),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_title", &game, &p2p)),
                 TextFont {
                     font_size: FontSize::Px(64.0),
                     ..default()
@@ -3165,7 +3246,7 @@ fn spawn_main_menu(
                 MenuLabel("menu_title"),
             ));
             parent.spawn((
-                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &game)),
+                Text::new(menu_caption(locale.0, &bindings.0, "menu_hint", &game, &p2p)),
                 TextFont {
                     font_size: FontSize::Px(16.0),
                     ..default()
@@ -3177,6 +3258,7 @@ fn spawn_main_menu(
             for (action, key) in [
                 (MenuAction::Play, "menu_play"),
                 (MenuAction::Multiplayer, "menu_multiplayer"),
+                (MenuAction::Room, "menu_room"),
                 (MenuAction::Game, "menu_game"),
                 (MenuAction::Lang, "menu_lang"),
                 (MenuAction::Controls, "menu_controls"),
@@ -3199,7 +3281,7 @@ fn spawn_main_menu(
                     ))
                     .with_children(|btn| {
                         btn.spawn((
-                            Text::new(menu_caption(locale.0, &bindings.0, key, &game)),
+                            Text::new(menu_caption(locale.0, &bindings.0, key, &game, &p2p)),
                             TextFont {
                                 font_size: FontSize::Px(22.0),
                                 ..default()
@@ -3229,10 +3311,12 @@ fn apply_menu_action(
 ) {
     match action {
         MenuAction::Play => {
+            p2p.join = false;
             info!("Starting single-player ({})", selected.0);
             next.set(GameMode::Playing);
         }
         MenuAction::Multiplayer => {
+            p2p.join = true;
             if p2p.url.is_none() {
                 p2p.url = Some(DEFAULT_P2P_URL.to_string());
             }
@@ -3242,6 +3326,13 @@ fn apply_menu_action(
                 p2p.url.as_deref().unwrap_or(DEFAULT_P2P_URL)
             );
             next.set(GameMode::Playing);
+        }
+        MenuAction::Room => {
+            p2p.url = cycle_p2p_url(p2p.url.as_deref());
+            info!(
+                "P2P room {}",
+                p2p.url.as_deref().map(p2p_room_name).unwrap_or("off")
+            );
         }
         MenuAction::Game => {
             selected.0 = cycle_game(&catalog.0, &selected.0);
@@ -3275,6 +3366,8 @@ fn menu_keyboard(
         Some(MenuAction::Play)
     } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_MULTI) {
         Some(MenuAction::Multiplayer)
+    } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_ROOM) {
+        Some(MenuAction::Room)
     } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_GAME) {
         Some(MenuAction::Game)
     } else if action_just_pressed(&keys, &mouse, &bindings.0, ACTION_MENU_LANG) {
@@ -3340,14 +3433,16 @@ fn refresh_menu_labels(
     bindings: Res<KeyBindings>,
     catalog: Res<GameCatalog>,
     selected: Res<SelectedGame>,
+    p2p: Res<P2pConfig>,
     mut labels: Query<(&MenuLabel, &mut Text)>,
 ) {
-    if !locale.is_changed() && !bindings.is_changed() && !selected.is_changed() {
+    if !locale.is_changed() && !bindings.is_changed() && !selected.is_changed() && !p2p.is_changed()
+    {
         return;
     }
     let game = current_game(&catalog, &selected);
     for (label, mut text) in &mut labels {
-        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0, &game));
+        *text = Text::new(menu_caption(locale.0, &bindings.0, label.0, &game, &p2p));
     }
 }
 

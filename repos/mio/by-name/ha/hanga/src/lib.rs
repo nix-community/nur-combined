@@ -186,8 +186,39 @@ pub fn is_connected_to_ground(
     false
 }
 
+/// Default Matchbox host (signaling). Rooms are path suffixes on this URL.
+pub const DEFAULT_P2P_HOST: &str = "localhost:3536";
+
+/// Preset rooms the menu Room row cycles. Last step returns to off (single-player).
+pub const DEFAULT_P2P_ROOMS: &[&str] = &["hanga_room", "hanga_heist", "hanga_test"];
+
 /// Default Matchbox room. Only used when the player opts into `--p2p` or Multiplayer.
 pub const DEFAULT_P2P_URL: &str = "ws://localhost:3536/hanga_room";
+
+/// Last path segment of a Matchbox URL (`ws://host/room` → `room`).
+pub fn p2p_room_name(url: &str) -> &str {
+    url.rsplit('/')
+        .next()
+        .map(str::trim)
+        .filter(|s| !s.is_empty())
+        .unwrap_or(url)
+}
+
+/// Cycle None → first preset → … → last preset → None (P2P off).
+/// A custom `--p2p` URL that is not a preset steps to off.
+pub fn cycle_p2p_url(current: Option<&str>) -> Option<String> {
+    let next = match current {
+        None => DEFAULT_P2P_ROOMS[0],
+        Some(url) => {
+            let name = p2p_room_name(url);
+            match DEFAULT_P2P_ROOMS.iter().position(|room| *room == name) {
+                Some(i) if i + 1 < DEFAULT_P2P_ROOMS.len() => DEFAULT_P2P_ROOMS[i + 1],
+                _ => return None,
+            }
+        }
+    };
+    Some(format!("ws://{DEFAULT_P2P_HOST}/{next}"))
+}
 
 /// `Some(url)` if `--p2p` is present. A following non-flag argument overrides the room URL.
 pub fn parse_p2p_url(args: &[String]) -> Option<String> {
@@ -865,6 +896,23 @@ mod tests {
         assert!(should_skip_menu(&["hanga".into(), "--play".into()]));
         assert!(should_skip_menu(&["hanga".into(), "--p2p".into()]));
         assert!(should_skip_menu(&["hanga".into(), "--headless".into()]));
+    }
+
+    #[test]
+    fn p2p_room_cycles_presets_then_off() {
+        assert_eq!(p2p_room_name(DEFAULT_P2P_URL), "hanga_room");
+        assert_eq!(p2p_room_name("ws://host:3536/hanga_heist"), "hanga_heist");
+        assert_eq!(cycle_p2p_url(None).as_deref(), Some(DEFAULT_P2P_URL));
+        assert_eq!(
+            cycle_p2p_url(Some(DEFAULT_P2P_URL)).as_deref(),
+            Some("ws://localhost:3536/hanga_heist")
+        );
+        assert_eq!(
+            cycle_p2p_url(Some("ws://localhost:3536/hanga_heist")).as_deref(),
+            Some("ws://localhost:3536/hanga_test")
+        );
+        assert_eq!(cycle_p2p_url(Some("ws://localhost:3536/hanga_test")), None);
+        assert_eq!(cycle_p2p_url(Some("ws://other.example/custom")), None);
     }
 
     #[test]
