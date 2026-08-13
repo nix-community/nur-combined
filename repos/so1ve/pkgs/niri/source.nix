@@ -4,10 +4,10 @@
 
 let
   date = "2026-08-13";
-  rev = "463a9132ebc6423634443ae1d7fe9c186778d489";
+  rev = "ff4b01b78bac944917e9c94dca5a225b66da3c30";
   src = fetchzip {
-    url = "https://codeload.github.com/so1ve/niri/tar.gz/463a9132ebc6423634443ae1d7fe9c186778d489";
-    hash = "sha256-VBo5BPTwsowOTGtJF29jAtpsNiRpQ0JIIiZv8m3N4r8=";
+    url = "https://codeload.github.com/so1ve/niri/tar.gz/ff4b01b78bac944917e9c94dca5a225b66da3c30";
+    hash = "sha256-UaJn6dfl3aUCNIs4rHZbmcAXpoIefuHxSBhfeNlNdqI=";
     extension = "tar.gz";
   };
 in
