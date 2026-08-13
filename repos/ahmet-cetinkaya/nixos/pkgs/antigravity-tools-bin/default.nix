@@ -14,7 +14,7 @@
   libX11,
 }: let
   pname = "antigravity-tools-bin";
-  version = "4.5.4";
+  version = "4.5.5";
   runtimeLibs = [
     gtk3
     webkitgtk_4_1
@@ -26,7 +26,7 @@
   ];
   src = fetchurl {
     url = "https://github.com/lbjlaq/Antigravity-Manager/releases/download/v${version}/Antigravity.Tools_${version}_amd64.deb";
-    sha256 = "c72760c61bd33640a43a0b8765b7400feebca15462be7e84fd9c7b9457e6fda2";
+    sha256 = "86a25a1574f836843d226deea2cf24059735a0b093b2eed6d16426c941d42277";
   };
 in
   stdenvNoCC.mkDerivation {
