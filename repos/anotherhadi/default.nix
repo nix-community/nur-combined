@@ -10,4 +10,5 @@
   usbguard-tui = pkgs.callPackage ./pkgs/usbguard-tui {};
   jwt-tui = pkgs.callPackage ./pkgs/jwt-tui {};
   sheets = pkgs.callPackage ./pkgs/sheets {};
+  fztea = pkgs.callPackage ./pkgs/fztea {};
 }
