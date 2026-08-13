@@ -24,13 +24,13 @@
           default_session = initial_session;
         };
       };
-      services.gnome.gnome-keyring.enable = lib.mkForce false;
+      services.gnome.gnome-keyring.enable = true;
       security.pam.services = {
-        # greetd.enableGnomeKeyring = true;
+        greetd.enableGnomeKeyring = true;
         # login.enableGnomeKeyring = true;
-        greetd.oo7.enable = true;
+        # greetd.oo7.enable = true;
       };
-      xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "oo7-portal";
+      # xdg.portal.config.niri."org.freedesktop.impl.portal.Secret" = lib.mkForce "gnome-keyring";
       # services.gnome.gcr-ssh-agent.enable = true;
       environment.systemPackages = [
         # pkgs.show-current-ws

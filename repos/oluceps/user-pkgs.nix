@@ -27,6 +27,7 @@ with pkgs;
   fractal
   gedit
   teams-for-linux
+  remmina
   # logseq
   # jetbrains.pycharm-professional
   # jetbrains.idea-ultimate

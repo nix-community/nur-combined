@@ -20,6 +20,10 @@
                   directory = ".ssh";
                   mode = "0700";
                 }
+                {
+                  directory = ".cache";
+                  mode = "0700";
+                }
               ];
               files = [
                 ".bash_history"
@@ -70,7 +74,7 @@
         files = [
           ".npmrc"
           ".mongoshrc.js"
-          ".gitconfig"
+          # ".gitconfig"
           ".bash_history"
           ".claude.json"
         ];
