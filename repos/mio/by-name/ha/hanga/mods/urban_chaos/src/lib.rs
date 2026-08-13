@@ -42,6 +42,8 @@ pub enum Voxel {
     Grass = 5,
     Tile = 6,
     Rail = 7,
+    Workbench = 8,
+    Brick = 9,
 }
 
 impl Voxel {
@@ -54,6 +56,8 @@ impl Voxel {
         "grass",
         "tile",
         "rail",
+        "workbench",
+        "brick",
     ];
 
     pub fn name(self) -> &'static str {
@@ -74,6 +78,8 @@ impl Voxel {
             "grass" => Some(Self::Grass),
             "tile" => Some(Self::Tile),
             "rail" => Some(Self::Rail),
+            "workbench" => Some(Self::Workbench),
+            "brick" => Some(Self::Brick),
             _ => None,
         }
     }
@@ -214,6 +220,14 @@ impl CityLayout {
             }
             if is_park {
                 return Voxel::Grass;
+            }
+        }
+
+        // Street benches sit on the sidewalk, not over metro shafts.
+        if y == 1 && is_sidewalk && !shaft {
+            let bench = (mod_x == 4 && mod_z == 20) || (mod_z == 4 && mod_x == 20);
+            if bench {
+                return Voxel::Workbench;
             }
         }
 
@@ -373,7 +387,7 @@ pub fn vehicle_spawn(index: i32) -> (i32, i32, i32) {
 /// Buildings and station tiles shatter; roads, rails, and ground stay put.
 pub fn can_fracture(voxel: &str) -> i32 {
     match voxel {
-        "concrete" | "glass" | "tile" => 1,
+        "concrete" | "glass" | "tile" | "workbench" | "brick" => 1,
         _ => 0,
     }
 }
@@ -381,7 +395,8 @@ pub fn can_fracture(voxel: &str) -> i32 {
 pub fn fracture_spread(voxel: &str) -> i32 {
     match voxel {
         "glass" => 3,
-        "concrete" | "tile" => 2,
+        "concrete" | "tile" | "brick" => 2,
+        "workbench" => 1,
         _ => 0,
     }
 }
@@ -439,6 +454,8 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
         (1, "grass") => "pātītī",
         (1, "tile") => "tāera",
         (1, "rail") => "rerewē",
+        (1, "workbench") => "pae mahi",
+        (1, "brick") => "pereki",
         (1, _) => "tē mōhiotia",
         (2, "air") => "air",
         (2, "concrete") => "béton",
@@ -448,6 +465,8 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
         (2, "grass") => "herbe",
         (2, "tile") => "carrelage",
         (2, "rail") => "rail",
+        (2, "workbench") => "établi",
+        (2, "brick") => "brique",
         (2, _) => "inconnu",
         (3, "air") => "空氣",
         (3, "concrete") => "混凝土",
@@ -457,6 +476,8 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
         (3, "grass") => "草地",
         (3, "tile") => "磁磚",
         (3, "rail") => "鐵軌",
+        (3, "workbench") => "工作台",
+        (3, "brick") => "磚塊",
         (3, _) => "未知",
         (_, "air") => "air",
         (_, "concrete") => "concrete",
@@ -466,6 +487,8 @@ pub fn voxel_label_for(locale: &str, voxel: &str) -> String {
         (_, "grass") => "grass",
         (_, "tile") => "tile",
         (_, "rail") => "rail",
+        (_, "workbench") => "workbench",
+        (_, "brick") => "brick",
         _ => "unknown",
     }
     .into()
@@ -514,7 +537,7 @@ pub fn event_label_for(locale: &str, event: &str) -> String {
 
 pub fn loot_item(voxel: &str) -> String {
     match voxel {
-        "concrete" | "glass" | "grass" | "tile" => voxel.into(),
+        "concrete" | "glass" | "grass" | "tile" | "workbench" | "brick" => voxel.into(),
         _ => String::new(),
     }
 }
@@ -526,7 +549,7 @@ pub fn item_label_for(locale: &str, item: &str) -> String {
     voxel_label_for(locale, item)
 }
 
-/// Street recipes: two of the same scrap, or concrete+glass.
+/// Street recipes: scrap pairs plus workbench / brick loops.
 pub fn craft_result(item_a: &str, item_b: &str) -> String {
     let (a, b) = if item_a <= item_b {
         (item_a, item_b)
@@ -538,6 +561,11 @@ pub fn craft_result(item_a: &str, item_b: &str) -> String {
         ("concrete", "glass") => "tile".into(),
         ("grass", "grass") => "concrete".into(),
         ("tile", "tile") => "rail".into(),
+        ("glass", "glass") => "workbench".into(),
+        ("glass", "sidewalk") => "workbench".into(),
+        ("concrete", "grass") => "brick".into(),
+        ("concrete", "workbench") => "brick".into(),
+        ("brick", "brick") => "concrete".into(),
         _ => String::new(),
     }
 }
@@ -861,7 +889,7 @@ mod kani_verification {
     #[kani::proof]
     fn verify_can_fracture_is_boolean() {
         let pick: u8 = kani::any();
-        let voxel = match pick % 9 {
+        let voxel = match pick % 11 {
             0 => "air",
             1 => "concrete",
             2 => "asphalt",
@@ -870,6 +898,8 @@ mod kani_verification {
             5 => "grass",
             6 => "tile",
             7 => "rail",
+            8 => "workbench",
+            9 => "brick",
             _ => "unknown",
         };
         let result = can_fracture(voxel);
@@ -956,9 +986,11 @@ mod tests {
     fn catalog_is_english_names_in_index_order() {
         assert_eq!(
             voxel_catalog(),
-            "air,concrete,asphalt,glass,sidewalk,grass,tile,rail"
+            "air,concrete,asphalt,glass,sidewalk,grass,tile,rail,workbench,brick"
         );
         assert_eq!(Voxel::from_name("tile"), Some(Voxel::Tile));
+        assert_eq!(Voxel::from_name("workbench"), Some(Voxel::Workbench));
+        assert_eq!(Voxel::Brick.name(), "brick");
         assert_eq!(Voxel::Glass.name(), "glass");
     }
 
@@ -1167,6 +1199,8 @@ mod tests {
         assert_eq!(can_fracture("concrete"), 1);
         assert_eq!(can_fracture("glass"), 1);
         assert_eq!(can_fracture("tile"), 1);
+        assert_eq!(can_fracture("workbench"), 1);
+        assert_eq!(can_fracture("brick"), 1);
         assert_eq!(can_fracture("asphalt"), 0);
         assert_eq!(can_fracture("grass"), 0);
         assert_eq!(can_fracture("rail"), 0);
@@ -1222,6 +1256,8 @@ mod tests {
         assert_eq!(voxel_label("glass"), "glass");
         assert_eq!(voxel_label("tile"), "tile");
         assert_eq!(voxel_label("rail"), "rail");
+        assert_eq!(voxel_label("workbench"), "workbench");
+        assert_eq!(voxel_label("brick"), "brick");
         assert_eq!(voxel_label("unknown"), "unknown");
     }
 
@@ -1229,6 +1265,16 @@ mod tests {
     fn sidewalk_is_beside_the_road() {
         let layout = empty_layout();
         assert_eq!(layout.get_voxel_at(4, 0, 10), Voxel::Sidewalk);
+    }
+
+    #[test]
+    fn workbenches_sit_on_the_sidewalk() {
+        let layout = empty_layout();
+        assert_eq!(layout.get_voxel_at(4, 0, 20), Voxel::Sidewalk);
+        assert_eq!(layout.get_voxel_at(4, 1, 20), Voxel::Workbench);
+        assert_eq!(layout.get_voxel_at(20, 1, 4), Voxel::Workbench);
+        assert_eq!(layout.get_voxel_at(4, 1, 4), Voxel::Air, "no bench over the metro shaft");
+        assert_eq!(layout.get_voxel_at(504, 1, 508), Voxel::Air, "player spawn stays clear");
     }
 
     #[test]
@@ -1256,6 +1302,8 @@ mod tests {
         assert_eq!(loot_item("glass"), "glass");
         assert_eq!(loot_item("tile"), "tile");
         assert_eq!(loot_item("grass"), "grass");
+        assert_eq!(loot_item("workbench"), "workbench");
+        assert_eq!(loot_item("brick"), "brick");
         assert!(loot_item("asphalt").is_empty());
         assert!(loot_item("rail").is_empty());
         assert!(loot_item("air").is_empty());
@@ -1273,6 +1321,11 @@ mod tests {
         assert_eq!(craft_result("concrete", "glass"), "tile");
         assert_eq!(craft_result("tile", "tile"), "rail");
         assert_eq!(craft_result("grass", "grass"), "concrete");
+        assert_eq!(craft_result("glass", "glass"), "workbench");
+        assert_eq!(craft_result("sidewalk", "glass"), "workbench");
+        assert_eq!(craft_result("workbench", "concrete"), "brick");
+        assert_eq!(craft_result("grass", "concrete"), "brick");
+        assert_eq!(craft_result("brick", "brick"), "concrete");
         assert!(craft_result("asphalt", "asphalt").is_empty());
         assert!(craft_result("concrete", "rail").is_empty());
     }
@@ -1292,6 +1345,9 @@ mod tests {
         assert_eq!(voxel_label_for("fr", "rail"), "rail");
         assert_eq!(voxel_label_for("zh-TW", "asphalt"), "柏油");
         assert_eq!(voxel_label_for("zh-TW", "tile"), "磁磚");
+        assert_eq!(voxel_label_for("mi", "workbench"), "pae mahi");
+        assert_eq!(voxel_label_for("fr", "brick"), "brique");
+        assert_eq!(voxel_label_for("zh-TW", "workbench"), "工作台");
         assert_eq!(voxel_label_for("de", "asphalt"), "asphalt", "unknown locale falls back to English");
         assert_eq!(event_label_for("mi", EVENT_QUIET), "ngā huarahi mārie");
         assert_eq!(event_label_for("fr", EVENT_TRUCK), "casse de fourgon blindé");

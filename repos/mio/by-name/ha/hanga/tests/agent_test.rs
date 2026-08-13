@@ -67,6 +67,8 @@ fn test_agent_client_interaction() {
         "grass",
         "tile",
         "rail",
+        "workbench",
+        "brick",
     ]
     .iter()
     .any(|name| output.contains(&format!("\"voxel_ahead\":\"{name}\"")));

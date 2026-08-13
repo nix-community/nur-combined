@@ -101,4 +101,4 @@ wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm 
 
 1. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
 2. Kani CI for engine + mods
-3. More Urban Chaos recipes / workbenches; vehicle meshes beyond boxes
+3. Matchbox room UI / reconnect; more heist loops beyond smash-and-grab

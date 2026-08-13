@@ -1,4 +1,4 @@
-//! Low-poly humanoid outfits. Kind names come from the mod; the host only paints.
+//! Low-poly humanoid outfits and car body colors. Kind names come from the mod; the host only paints.
 
 #[derive(Clone, Copy, Debug, PartialEq)]
 pub struct FigurePalette {
@@ -61,6 +61,38 @@ pub fn figure_salt(x: f32, z: f32) -> u32 {
     xi ^ zi.rotate_left(16)
 }
 
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct VehiclePalette {
+    pub body: [f32; 3],
+    pub cabin: [f32; 3],
+    pub wheel: [f32; 3],
+    pub light: [f32; 3],
+}
+
+const CAR_BODIES: [[f32; 3]; 6] = [
+    [0.22, 0.24, 0.28],
+    [0.18, 0.32, 0.22],
+    [0.42, 0.40, 0.36],
+    [0.12, 0.14, 0.38],
+    [0.48, 0.18, 0.14],
+    [0.72, 0.72, 0.70],
+];
+
+/// `player_car` is the hijackable spawn (index 0). Others are traffic.
+pub fn vehicle_palette(salt: u32, player_car: bool) -> VehiclePalette {
+    let body = if player_car {
+        [0.78, 0.18, 0.14]
+    } else {
+        CAR_BODIES[(salt as usize) % CAR_BODIES.len()]
+    };
+    VehiclePalette {
+        body,
+        cabin: [0.12, 0.16, 0.20],
+        wheel: [0.08, 0.08, 0.09],
+        light: [0.92, 0.86, 0.55],
+    }
+}
+
 /// Yaw so a Bevy mesh that faces `-Z` looks along XZ velocity.
 pub fn yaw_toward(vx: f32, vz: f32) -> Option<f32> {
     if vx * vx + vz * vz < 1e-6 {
@@ -104,5 +136,14 @@ mod tests {
     #[test]
     fn still_returns_none() {
         assert_eq!(yaw_toward(0.0, 0.0), None);
+    }
+
+    #[test]
+    fn player_car_is_red_traffic_is_not() {
+        let player = vehicle_palette(0, true);
+        let traffic = vehicle_palette(0, false);
+        assert!(player.body[0] > 0.6);
+        assert_ne!(player.body, traffic.body);
+        assert_ne!(vehicle_palette(1, false).body, vehicle_palette(2, false).body);
     }
 }

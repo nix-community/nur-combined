@@ -9,7 +9,7 @@ pub const VOXEL_PALETTE_LAYERS: u32 = 16;
 pub const VOXEL_PALETTE_FILE: &str = "voxel_palette.png";
 
 /// Catalog-index colors. Urban Chaos order is
-/// air, concrete, asphalt, glass, sidewalk, grass, tile, rail.
+/// air, concrete, asphalt, glass, sidewalk, grass, tile, rail, workbench, brick.
 const LAYER_RGB: [[u8; 3]; VOXEL_PALETTE_LAYERS as usize] = [
     [24, 24, 28],
     [198, 192, 180],
@@ -20,8 +20,8 @@ const LAYER_RGB: [[u8; 3]; VOXEL_PALETTE_LAYERS as usize] = [
     [198, 168, 112],
     [88, 92, 98],
     [120, 86, 62],
-    [72, 96, 120],
     [160, 72, 64],
+    [72, 96, 120],
     [90, 110, 70],
     [200, 180, 80],
     [96, 64, 120],

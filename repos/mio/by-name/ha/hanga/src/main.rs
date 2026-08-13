@@ -26,7 +26,7 @@ use hanga::{
     verify_action_signature, voxel_has_support, cycle_shipped_mod, DEFAULT_P2P_URL, INVENTORY_SLOTS,
     LOOK_SENSITIVITY,
 };
-use hanga::figure::{figure_palette, figure_salt, yaw_toward};
+use hanga::figure::{figure_palette, figure_salt, vehicle_palette, yaw_toward};
 
 mod mod_manager;
 use mod_manager::{ModRuntime, ModManagerPlugin, SHARED_WASM};
@@ -877,25 +877,14 @@ fn spawn_play_world(
                 .unwrap_or((500, 2, 495))
         })
         .unwrap_or((500, 2, 495));
-        let transform = Transform::from_xyz(x as f32, y as f32, z as f32);
-        let color = if i == 0 {
-            Color::srgb(0.78, 0.22, 0.18)
-        } else {
-            Color::srgb(0.32, 0.36, 0.40)
-        };
-        let mut entity = commands.spawn((
-            Vehicle,
-            Mesh3d(meshes.add(Cuboid::from_size(Vec3::new(2.0, 1.2, 4.0)))),
-            MeshMaterial3d(materials.add(color)),
-            transform,
-            RigidBody::Dynamic,
-            Collider::cuboid(2.0, 1.2, 4.0),
-            LinearVelocity::default(),
-            AngularVelocity::default(),
-        ));
-        if i > 0 {
-            entity.insert(VehicleAi);
-        }
+        spawn_vehicle(
+            commands,
+            meshes,
+            materials,
+            Vec3::new(x as f32, y as f32, z as f32),
+            i == 0,
+            i,
+        );
     }
 
     let ambient = with_mod(&mod_runtime, |ctx| {
@@ -1012,6 +1001,67 @@ fn spawn_agent(
                 ));
             }
         });
+}
+
+fn spawn_vehicle(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<StandardMaterial>,
+    pos: Vec3,
+    player_car: bool,
+    index: u32,
+) {
+    let pal = vehicle_palette(figure_salt(pos.x, pos.z) ^ index, player_car);
+    let body_mat = mat(materials, pal.body);
+    let cabin_mat = mat(materials, pal.cabin);
+    let wheel_mat = mat(materials, pal.wheel);
+    let light_mat = mat(materials, pal.light);
+    let hull = meshes.add(Cuboid::from_size(Vec3::new(1.85, 0.48, 3.80)));
+    let cabin = meshes.add(Cuboid::from_size(Vec3::new(1.55, 0.50, 1.70)));
+    let wheel = meshes.add(Cuboid::from_size(Vec3::new(0.28, 0.42, 0.42)));
+    let lamp = meshes.add(Cuboid::from_size(Vec3::new(0.18, 0.12, 0.10)));
+    let mut entity = commands.spawn((
+        Vehicle,
+        Transform::from_translation(pos),
+        Visibility::default(),
+        RigidBody::Dynamic,
+        Collider::cuboid(2.0, 1.2, 4.0),
+        LockedAxes::new().lock_rotation_x().lock_rotation_z(),
+        LinearVelocity::default(),
+        AngularVelocity::default(),
+    ));
+    if !player_car {
+        entity.insert(VehicleAi);
+    }
+    entity.with_children(|car| {
+        car.spawn((
+            Mesh3d(hull),
+            MeshMaterial3d(body_mat),
+            Transform::from_xyz(0.0, -0.22, 0.0),
+        ));
+        car.spawn((
+            Mesh3d(cabin),
+            MeshMaterial3d(cabin_mat),
+            Transform::from_xyz(0.0, 0.24, 0.45),
+        ));
+        car.spawn((
+            Mesh3d(lamp.clone()),
+            MeshMaterial3d(light_mat.clone()),
+            Transform::from_xyz(-0.62, -0.08, -1.88),
+        ));
+        car.spawn((
+            Mesh3d(lamp),
+            MeshMaterial3d(light_mat),
+            Transform::from_xyz(0.62, -0.08, -1.88),
+        ));
+        for (x, z) in [(-0.82, -1.15), (0.82, -1.15), (-0.82, 1.20), (0.82, 1.20)] {
+            car.spawn((
+                Mesh3d(wheel.clone()),
+                MeshMaterial3d(wheel_mat.clone()),
+                Transform::from_xyz(x, -0.42, z),
+            ));
+        }
+    });
 }
 
 fn voxel_type_of(voxel: WorldVoxel<u8>) -> Option<i32> {
@@ -1880,13 +1930,13 @@ fn path_blocked(transform: &Transform, voxel_world: &VoxelWorld<DefaultWorld>) -
 }
 
 fn vehicle_traffic_system(
-    mut vehicles: Query<(&Transform, &mut LinearVelocity), With<VehicleAi>>,
+    mut vehicles: Query<(&mut Transform, &mut LinearVelocity), With<VehicleAi>>,
     voxel_world: VoxelWorld<DefaultWorld>,
     mod_runtime: Res<ModRuntime>,
 ) {
-    for (transform, mut velocity) in vehicles.iter_mut() {
+    for (mut transform, mut velocity) in vehicles.iter_mut() {
         let fwd = transform.forward();
-        let blocked = path_blocked(transform, &voxel_world);
+        let blocked = path_blocked(&transform, &voxel_world);
         if let Some((vx, vz)) = with_mod(&mod_runtime, |ctx| {
             let g = ctx.bindings.hanga_engine_gameplay();
             let vx = g
@@ -1899,6 +1949,9 @@ fn vehicle_traffic_system(
         }) {
             velocity.x = vx;
             velocity.z = vz;
+            if let Some(yaw) = yaw_toward(vx, vz) {
+                transform.rotation = Quat::from_rotation_y(yaw);
+            }
         } else if blocked {
             velocity.x = 0.0;
             velocity.z = 0.0;
@@ -2328,8 +2381,32 @@ fn update_hud(
         *text = Text::new(hotbar_line(locale.0, &mod_runtime, inventory));
     }
     if let Some(mut text) = hint.iter_mut().next() {
-        *text = Text::new(i18n::t(locale.0, "play_hint"));
+        *text = Text::new(play_hint_line(locale.0, &mod_runtime, inventory));
     }
+}
+
+fn play_hint_line(locale: Locale, mod_runtime: &ModRuntime, inventory: &ModInventory) -> String {
+    let controls = i18n::t(locale, "play_hint");
+    let Some((a, b)) = pick_craft_pair(inventory, mod_runtime) else {
+        return controls.to_string();
+    };
+    let product = with_mod(mod_runtime, |ctx| {
+        ctx.bindings
+            .hanga_engine_gameplay()
+            .call_craft_result(&mut ctx.store, &a, &b)
+            .unwrap_or_default()
+    })
+    .unwrap_or_default();
+    if product.is_empty() {
+        return controls.to_string();
+    }
+    let recipe = i18n::format_crafting(
+        locale,
+        &mod_item_label(mod_runtime, locale, &a),
+        &mod_item_label(mod_runtime, locale, &b),
+        &mod_item_label(mod_runtime, locale, &product),
+    );
+    format!("{recipe}  |  {controls}")
 }
 
 fn spawn_main_menu(
