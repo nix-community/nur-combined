@@ -6,10 +6,10 @@
 
 buildFirefoxXpiAddon {
   pname = "bypass-paywalls-clean";
-  version = "4.4.1.6";
+  version = "4.4.2.2";
   addonId = "magnolia@12.34";
-  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.1.6.xpi";
-  sha256 = "7eda0e0abc2c5d012740843361f197803546f0407738882add52b82e024e79af";
+  url = "https://gitflic.ru/project/magnolia1234/bpc_uploads/blob/raw?file=bypass_paywalls_clean-4.4.2.2.xpi";
+  sha256 = "51d1f1e13441e69e99fae3f20d9fa93e4e4438c007ea524dc18c52847bb687c1";
   meta = with lib; {
     homepage = "https://gitflic.ru/project/magnolia1234/bypass-paywalls-clean";
     description = "Bypass Paywalls of (custom) news sites";
@@ -213,6 +213,7 @@ buildFirefoxXpiAddon {
       "*://*.diariocorreo.pe/*"
       "*://*.diariodemallorca.es/*"
       "*://*.diariodenavarra.es/*"
+      "*://*.diariodesevilla.es/*"
       "*://*.diariosur.es/*"
       "*://*.diariovasco.com/*"
       "*://*.diepresse.com/*"
@@ -358,6 +359,7 @@ buildFirefoxXpiAddon {
       "*://*.hydrogeninsight.com/*"
       "*://*.iai.tv/*"
       "*://*.ideal.es/*"
+      "*://*.igen.fr/*"
       "*://*.ikz-online.de/*"
       "*://*.ilfattoquotidiano.it/*"
       "*://*.ilfoglio.it/*"
@@ -509,6 +511,7 @@ buildFirefoxXpiAddon {
       "*://*.lrb.co.uk/*"
       "*://*.lunion.fr/*"
       "*://*.lvz.de/*"
+      "*://*.macg.co/*"
       "*://*.macrobusiness.com.au/*"
       "*://*.madison.com/*"
       "*://*.magazyn-kuchnia.pl/*"
@@ -613,6 +616,7 @@ buildFirefoxXpiAddon {
       "*://*.oprahdaily.com/*"
       "*://*.oregonlive.com/*"
       "*://*.orlandosentinel.com/*"
+      "*://*.ostdeutscheallgemeine.com/*"
       "*://*.ostsee-zeitung.de/*"
       "*://*.otz.de/*"
       "*://*.ouest-france.fr/*"
@@ -768,6 +772,7 @@ buildFirefoxXpiAddon {
       "*://*.technologyreview.com/*"
       "*://*.techtarget.com/*"
       "*://*.telegraaf.nl/*"
+      "*://*.telegram.hr/*"
       "*://*.telegraph.co.uk/*"
       "*://*.telerama.fr/*"
       "*://*.tennessean.com/*"
@@ -891,6 +896,7 @@ buildFirefoxXpiAddon {
       "*://*.warontherocks.com/*"
       "*://*.washingtonexaminer.com/*"
       "*://*.washingtonpost.com/*"
+      "*://*.watchgeneration.fr/*"
       "*://*.watoday.com.au/*"
       "*://*.waz.de/*"
       "*://*.weekendavisen.dk/*"
