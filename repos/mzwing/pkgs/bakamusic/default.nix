@@ -80,7 +80,7 @@
       stdenv.hostPlatform.system
     } or "linux_x64";
 
-  npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  npmDepsHash = "sha256-vEQ224/JoQnP1jGZ625bmvHmSijM1Yz/A5RQWvaeo5Y=";
   npmDeps = fetchNpmDeps {
     inherit pname version src;
     hash = npmDepsHash;
