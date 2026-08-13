@@ -88,9 +88,13 @@ in
       config =
         { ... }:
         {
+          # services.home-assistant.openFirewall was removed from nixpkgs:
+          # the frontend port is no longer knowable at eval time. Open the
+          # port explicitly instead (module always sets server_port).
+          networking.firewall.allowedTCPPorts = [ cfg.ports.home-assistant ];
+
           services.home-assistant = {
             enable = true;
-            openFirewall = true;
             package = cfg.package;
             # http block is always injected so the port and proxy settings are
             # correct regardless of what the caller puts in haConfig.
