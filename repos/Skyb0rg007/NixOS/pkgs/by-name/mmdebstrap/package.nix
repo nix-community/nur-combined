@@ -9,7 +9,7 @@
   makeWrapper,
   dpkg,
   apt,
-  debian-archive-keyring,
+  debian-archive-keyring ? null,
   help2man,
 }:
 stdenv.mkDerivation (finalAttrs: {
@@ -123,5 +123,6 @@ stdenv.mkDerivation (finalAttrs: {
     license = lib.licenses.mit;
     platforms = lib.platforms.linux;
     mainProgram = "mmdebstrap";
+    broken = debian-archive-keyring == null;
   };
 })
