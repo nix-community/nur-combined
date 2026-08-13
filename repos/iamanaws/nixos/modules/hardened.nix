@@ -40,7 +40,6 @@
 
     settings = {
       kernel = {
-        # cpu-mitigations = "smt-on"; # performance
         # pti = false; # performance
       };
 
@@ -52,24 +51,17 @@
     };
 
     extras = {
+      kernel = {
+        # load-kernel-modules = true;
+      };
+
       network = {
         bluetooth-kmodules = true;
         tcp-window-scaling = true;
       };
 
-      misc = {
-        doas-sudo-wrapper = false;
-        replace-sudo-with-doas = false;
-        usbguard = {
-          enable = false;
-          # gnome-integration = true;
-        };
-      };
-
       system = {
         lock-root = false;
-        unprivileged-userns = true;
-        zram = true;
       };
     };
   };

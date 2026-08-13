@@ -39,6 +39,7 @@ let
     "go" # bootstrap dependency of nixfmt-tree
     "gradle" # libreoffice -> rhino -> gradle
     "librusty_v8" # codex Rust/V8 archive
+    "src_binding" # codex rusty_v8 generated binding
     "nvidia-x11" # Goliath NVIDIA driver
     "rustc-bootstrap" # dependency of nixfmt-tree
     "rustc-bootstrap-wrapper" # dependency of nixfmt-tree
@@ -75,7 +76,5 @@ in
 
   allowAliases = true;
   checkMeta = true;
-  permittedInsecurePackages = [
-    "electron-39.8.10" # bitwarden-desktop
-  ];
+  permittedInsecurePackages = [ ];
 }
