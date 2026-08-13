@@ -14,7 +14,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   src = "${shimelinux.src}/shimelinux_wayland";
 
-  cargoHash = "sha256-Tw4R+ZJTmQ7LMCnNwkz31A05GqXxzpBJJSemUVeVAB4=";
+  cargoHash = "sha256-utwCam4pskImRTGqP3T37T+LqOVkX+eiUNhw+X/I0fw=";
 
   nativeBuildInputs = [
     pkg-config

@@ -8,6 +8,7 @@
   glib,
   jdk21,
   callPackage,
+  nix-update-script,  
 }:
 
 let
@@ -15,13 +16,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "shimelinux";
-  version = "1.2.0";
+  version = "1.2.1";
 
   src = fetchFromGitHub {
     owner = "BujjuIsABee";
     repo = "shimelinux";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-qsz860+5GLM2vu5uLQGPIUwkvZaeuutpXa4g6o7E6GA=";
+    hash = "sha256-WVKj5kLoh61lWO1OmawWIRV+/70afY10eHfOKIhN+X0=";
   };
 
   nativeBuildInputs = [
@@ -62,6 +63,10 @@ stdenv.mkDerivation (finalAttrs: {
       --prefix PATH : ${lib.makeBinPath [ jdk21 ]} \
       --prefix LD_LIBRARY_PATH : ${lib.makeLibraryPath [ libappindicator glib ]}
   '';
+
+  passthru.updateScript = nix-update-script {
+    extraArgs = [ "--version-regex=v([\\d.]+)" ];
+  };
 
   meta = {
     description = "An unofficial Linux port of Shimeji-ee Desktop Pet";

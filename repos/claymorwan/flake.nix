@@ -10,8 +10,8 @@
         pkgs = import nixpkgs { inherit system; };
       });
       packages = forAllSystems (system: nixpkgs.lib.filterAttrs (_: v: nixpkgs.lib.isDerivation v) self.legacyPackages.${system});
-      nixosModules = import ./nixos-modules;
-      # homeModules = import ./home-modules;
+      # nixosModules = import ./nixos-modules;
+      # homeModules = import ./modules/hm self;
       # darwinModules = import ./darwin-modules;
       # flakeModules = import ./flake-modules;
     };
