@@ -1,0 +1,66 @@
+From: Developer
+Date: Thu, 13 Aug 2026
+Subject: [PATCH] log BitmapFactory decode with android_log_printf / Log
+
+Match upstream ATL logging (AssetManager, ATLKeyboardDialog): C uses
+android_log_printf with a BitmapFactory tag; Java uses android.util.Log.
+VERBOSE for per-read stream traffic, DEBUG for decode/EOF and the
+GDK_PIXBUF_MODULE_FILE path.
+
+--- a/src/api-impl/android/graphics/BitmapFactory.java	2026-08-13 12:50:01.511838824 +1000
++++ b/src/api-impl/android/graphics/BitmapFactory.java	2026-08-13 12:50:23.372697963 +1000
+@@ -602,6 +602,8 @@
+ 			tempStorage = opts.inTempStorage;
+ 		if (tempStorage == null)
+ 			tempStorage = new byte[DECODE_BUFFER_SIZE];
++		Log.d("BitmapFactory", "nativeDecodeStream tempStorage=" + tempStorage.length
++				+ " inJustDecodeBounds=" + (opts != null && opts.inJustDecodeBounds));
+ 		final long texture = nativeDecodeStream(is, tempStorage, outPadding, opts);
+ 		return texture == 0 ? null : new Bitmap(texture);
+ 	}
+--- a/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c	2026-08-13 12:50:01.509838838 +1000
++++ b/src/api-impl-jni/graphics/android_graphics_BitmapFactory.c	2026-08-13 12:50:16.548741935 +1000
+@@ -1,4 +1,5 @@
+ #include <gtk/gtk.h>
++#include <stdlib.h>
+ #include <string.h>
+ 
+ #include "../defines.h"
+@@ -6,6 +7,10 @@
+ 
+ #include "../generated_headers/android_graphics_BitmapFactory.h"
+ 
++#define DEBUG(fmt, ...) android_log_printf(ANDROID_LOG_DEBUG, "BitmapFactory", "%s:%d: " fmt, __func__, __LINE__, ##__VA_ARGS__)
++#define VERBOSE(fmt, ...) android_log_printf(ANDROID_LOG_VERBOSE, "BitmapFactory", "%s:%d: " fmt, __func__, __LINE__, ##__VA_ARGS__)
++#define WARN(fmt, ...) android_log_printf(ANDROID_LOG_WARN, "BitmapFactory", "%s:%d: " fmt, __func__, __LINE__, ##__VA_ARGS__)
++
+ struct _JavaInputStream {
+ 	GInputStream parent_instance;
+ 
+@@ -25,11 +29,16 @@
+ 
+ 	count = (*env)->CallIntMethod(env, stream->is, _METHOD(_CLASS(stream->is), "read", "([BII)I"), stream->storage, 0, count);
+ 	if (count == -1) { // end of stream
++		DEBUG("stream EOF");
+ 		return 0;
+ 	}
+ 	jbyte *storage_buf = (*env)->GetByteArrayElements(env, stream->storage, NULL);
+ 	memcpy(buffer, storage_buf, count);
+ 	(*env)->ReleaseByteArrayElements(env, stream->storage, storage_buf, 0);
++	if (count > 0)
++		VERBOSE("read %ld bytes, first byte: %02x", (long)count, (unsigned char)((char *)buffer)[0]);
++	else
++		VERBOSE("read %ld bytes", (long)count);
+ 
+ 	return count;
+ }
+@@ -56,6 +65,9 @@
+ 
+ JNIEXPORT jlong JNICALL Java_android_graphics_BitmapFactory_nativeDecodeStream(JNIEnv *env, jclass, jobject is, jbyteArray storage, jobject outPadding, jobject opts)
+ {
++	const char *pixbuf_module_file = getenv("GDK_PIXBUF_MODULE_FILE");
++	DEBUG("GDK_PIXBUF_MODULE_FILE=%s", pixbuf_module_file ? pixbuf_module_file : "(unset)");
++
+ 	GInputStream *stream = java_input_stream_new(env, is, storage);
+ 
+ 	GdkPixbuf *pixbuf = gdk_pixbuf_new_from_stream(stream, NULL, NULL);

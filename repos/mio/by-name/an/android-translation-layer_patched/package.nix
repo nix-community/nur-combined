@@ -21,7 +21,7 @@
     ];
     patches = (old.patches or [ ]) ++ [
       ./android-translation-layer-bitmap-unlock.patch
-      ./android-translation-layer-debug.patch
+      ./android-translation-layer-bitmapfactory-logs.patch
       ./android-translation-layer-kotatsu-stub.patch
       (fetchpatch {
         url = "https://gitlab.com/android_translation_layer/android_translation_layer/-/merge_requests/290.patch";
@@ -58,7 +58,6 @@
       ./android-translation-layer-bitmap-pixels-fix.patch
       ./android-translation-layer-bitmap-factory-null-pixbuf.patch
       ./android-translation-layer-bitmap-factory-fd.patch
-      ./android-translation-layer-env-test.patch
       ./android-translation-layer-color-state-list-magenta.patch
       ./android-translation-layer-paint-color-filter-matrix.patch
       ./android-translation-layer-cairo-fallback.patch
