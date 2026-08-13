@@ -4,6 +4,7 @@ import json
 import os
 import re
 import subprocess
+import sys
 from pathlib import Path
 from urllib.request import Request, urlopen, urlretrieve
 
@@ -66,17 +67,13 @@ def get_latest_github_release(owner: str, repo: str) -> str:
     url = f"https://api.github.com/repos/{owner}/{repo}/releases/latest"
     req = Request(url, headers={})
 
-    try:
-        with urlopen(req) as response:
-            if response.status == 200:
-                data = json.loads(response.read().decode("utf-8"))
-                return data.get("tag_name")
-            else:
-                print(f"Error: Received status code {response.status}")
-                exit()
-    except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        exit()
+    with urlopen(req) as response:
+        if response.status == 200:
+            data = json.loads(response.read().decode("utf-8"))
+            return data.get("tag_name")
+        else:
+            print(f"Error: Received status code {response.status}")
+            sys.exit()
 
 
 def fetch_cargo_lock(url: str, path: Path):
@@ -113,9 +110,9 @@ def get_all_drv_paths(path: Path) -> list[Path]:
                 all_files.append(full_path)
 
         drv_paths = list(map(Path, sorted(all_files)))
-        for path in FORCE_BLACKLIST:
-            if path in drv_paths:
-                drv_paths.remove(path)
+        for blacklisted_path in FORCE_BLACKLIST:
+            if blacklisted_path in drv_paths:
+                drv_paths.remove(blacklisted_path)
 
         return drv_paths
 
@@ -128,7 +125,7 @@ def get_all_drv_paths(path: Path) -> list[Path]:
 # --- Core Update Logic ---
 
 
-def update_url_src(attrs, scoped_vars, fixed_attrs=[]):
+def update_url_src(attrs, scoped_vars):
     """
     Updates a fetchurl source by prefetching the file and updating the hash.
 
@@ -141,6 +138,7 @@ def update_url_src(attrs, scoped_vars, fixed_attrs=[]):
         fixed_attrs (list, optional): A list to track attributes that should not be modified. Defaults to [].
     """
     src = attrs.argument["src"]
+    fixed_attrs = []
 
     url = src.argument["url"].value
     vars = re.findall(r"(\$\{\S+?\})", url)
@@ -233,8 +231,7 @@ def update_github_src(attrs, scoped_vars):
         )
 
         # bentopdf fix
-        if latest_tag.endswith("^{}"):
-            latest_tag = latest_tag[:-3]
+        latest_tag = latest_tag.removesuffix("^{}")
         cmd.extend(["--rev", f"refs/tags/{latest_tag}"])
 
     try:
@@ -383,8 +380,6 @@ def main():
     drv_paths = get_all_drv_paths(args.PATH)
     for drv_path in drv_paths:
         update_drv(drv_path)
-
-    return
 
 
 if __name__ == "__main__":

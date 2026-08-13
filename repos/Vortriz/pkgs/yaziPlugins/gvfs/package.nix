@@ -5,13 +5,13 @@
 }:
 mkYaziPlugin {
     pname = "gvfs.yazi";
-    version = "unstable-2026-07-23";
+    version = "unstable-2026-08-09";
 
     src = fetchFromGitHub {
         owner = "boydaihungst";
         repo = "gvfs.yazi";
-        rev = "364b0a811d722a1fdb3c2bde36aa640591437967";
-        hash = "sha256-bQDcT04m1WvMRCiVIyer4WHgjYMaamMfolmH49lVSig=";
+        rev = "ebdb87c9783d302a0129911c31c0ae3eb27a5c9f";
+        hash = "sha256-0vW2LBv0r3N91wy5ajra8b0jPeLJ89iE0kP/meTVc7U=";
     };
 
     meta = {

@@ -49,9 +49,9 @@ dependencies = [
 
 [[package]]
 name = "alacritty_terminal"
-version = "0.25.1"
+version = "0.26.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "46319972e74179d707445f64aaa2893bbf6a111de3a9af29b7eb382f8b39e282"
+checksum = "bda177466b9524d59f1b12f0dd30b68696788e9992a7e959021c4a0ed96fcf59"
 dependencies = [
  "base64",
  "bitflags 2.11.1",
@@ -66,7 +66,7 @@ dependencies = [
  "rustix 1.1.4",
  "rustix-openpty",
  "serde",
- "signal-hook",
+ "signal-hook 0.4.4",
  "unicode-width",
  "vte",
  "windows-sys 0.59.0",
@@ -883,7 +883,7 @@ dependencies = [
  "mio",
  "parking_lot",
  "rustix 1.1.4",
- "signal-hook",
+ "signal-hook 0.3.18",
  "signal-hook-mio",
  "winapi",
 ]
@@ -1420,7 +1420,7 @@ checksum = "aa9a19cbb55df58761df49b23516a86d432839add4af60fc256da840f66ed35b"
 
 [[package]]
 name = "fresh-core"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "anyhow",
  "lsp-types",
@@ -1436,7 +1436,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-editor"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "alacritty_terminal",
  "anyhow",
@@ -1455,7 +1455,6 @@ dependencies = [
  "fresh-input-parser",
  "fresh-languages",
  "fresh-parser-js",
- "fresh-plugin-api-macros",
  "fresh-plugin-runtime",
  "fresh-update",
  "fresh-winterm",
@@ -1486,7 +1485,6 @@ dependencies = [
  "sha1",
  "sha2",
  "syntect",
- "tar",
  "tempfile",
  "thiserror 2.0.18",
  "tiny_http",
@@ -1502,13 +1500,11 @@ dependencies = [
  "which",
  "windows-sys 0.61.2",
  "winresource",
- "xz2",
- "zip",
 ]
 
 [[package]]
 name = "fresh-gui"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "anyhow",
  "block2",
@@ -1528,7 +1524,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-input-parser"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "crossterm",
  "proptest",
@@ -1537,7 +1533,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-languages"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "tree-sitter",
  "tree-sitter-go",
@@ -1550,7 +1546,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-parser-js"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "anyhow",
  "oxc_allocator",
@@ -1565,7 +1561,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-api-macros"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1574,7 +1570,7 @@ dependencies = [
 
 [[package]]
 name = "fresh-plugin-runtime"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "anyhow",
  "fresh-core",
@@ -1598,18 +1594,27 @@ dependencies = [
 
 [[package]]
 name = "fresh-update"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
+ "base64",
+ "flate2",
+ "libc",
  "serde",
+ "serde_json",
  "sha2",
+ "tar",
  "tempfile",
+ "tiny_http",
  "toml 0.8.23",
  "tracing",
+ "ureq",
+ "xz2",
+ "zip",
 ]
 
 [[package]]
 name = "fresh-winterm"
-version = "0.4.5"
+version = "0.4.9"
 dependencies = [
  "tracing",
  "windows-sys 0.61.2",
@@ -5195,6 +5200,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "signal-hook"
+version = "0.4.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b2a0c28ca5908dbdbcd52e6fdaa00358ab88637f8ab33e1f188dd510eb44b53d"
+dependencies = [
+ "libc",
+ "signal-hook-registry",
+]
+
+[[package]]
 name = "signal-hook-mio"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5202,7 +5217,7 @@ checksum = "b75a19a7a740b25bc7944bdee6172368f988763b744e3d4dfe753f6b4ece40cc"
 dependencies = [
  "libc",
  "mio",
- "signal-hook",
+ "signal-hook 0.3.18",
 ]
 
 [[package]]
@@ -5545,7 +5560,7 @@ dependencies = [
  "pest_derive",
  "phf 0.11.3",
  "sha2",
- "signal-hook",
+ "signal-hook 0.3.18",
  "siphasher",
  "terminfo",
  "termios",
