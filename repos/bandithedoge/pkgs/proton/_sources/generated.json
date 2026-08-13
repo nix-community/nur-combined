@@ -27,19 +27,33 @@
         },
         "version": "EM-10.0-37-HDR"
     },
-    "proton-ge": {
+    "proton-ge-aarch64": {
         "cargoLock": null,
         "date": null,
         "extract": null,
-        "name": "proton-ge",
+        "name": "proton-ge-aarch64",
         "passthru": null,
         "pinned": false,
         "src": {
-            "sha256": "sha256-RiCmnUKeZRhPUCgm7fsROKFkAl37+/tYkA47tQtkIF4=",
+            "sha256": "sha256-fS4N2ip8IvhMfrJsfHnrq+zA/41qJd6kbLQ0+5lZ5uE=",
             "type": "tarball",
-            "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-3/GE-Proton11-3.tar.gz"
+            "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-aarch64.tar.gz"
         },
-        "version": "GE-Proton11-3"
+        "version": "GE-Proton11-5"
+    },
+    "proton-ge-x86_64": {
+        "cargoLock": null,
+        "date": null,
+        "extract": null,
+        "name": "proton-ge-x86_64",
+        "passthru": null,
+        "pinned": false,
+        "src": {
+            "sha256": "sha256-Sbyi5zXMhPIKSotvL5LEZ2dbDoLpXRcCyuY9TsnBnus=",
+            "type": "tarball",
+            "url": "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz"
+        },
+        "version": "GE-Proton11-5"
     },
     "proton-sarek": {
         "cargoLock": null,

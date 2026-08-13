@@ -22,12 +22,20 @@
       sha256 = "sha256-yap/7G6TeJ9vMtc5H/iWu8w3sM8mI6762G+K2JzSlgk=";
     };
   };
-  proton-ge = {
-    pname = "proton-ge";
-    version = "GE-Proton11-3";
+  proton-ge-aarch64 = {
+    pname = "proton-ge-aarch64";
+    version = "GE-Proton11-5";
     src = fetchTarball {
-      url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-3/GE-Proton11-3.tar.gz";
-      sha256 = "sha256-RiCmnUKeZRhPUCgm7fsROKFkAl37+/tYkA47tQtkIF4=";
+      url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-aarch64.tar.gz";
+      sha256 = "sha256-fS4N2ip8IvhMfrJsfHnrq+zA/41qJd6kbLQ0+5lZ5uE=";
+    };
+  };
+  proton-ge-x86_64 = {
+    pname = "proton-ge-x86_64";
+    version = "GE-Proton11-5";
+    src = fetchTarball {
+      url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton11-5/GE-Proton11-5-x86_64.tar.gz";
+      sha256 = "sha256-Sbyi5zXMhPIKSotvL5LEZ2dbDoLpXRcCyuY9TsnBnus=";
     };
   };
   proton-sarek = {

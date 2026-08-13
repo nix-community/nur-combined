@@ -10,9 +10,13 @@ fetch.tarball = "https://github.com/pythonlover02/Proton-Sarek/releases/download
 src.github = "pythonlover02/Proton-Sarek"
 fetch.tarball = "https://github.com/pythonlover02/Proton-Sarek/releases/download/$ver/$ver-async.tar.gz"
 
-[proton-ge]
+[proton-ge-x86_64]
 src.github = "GloriousEggroll/proton-ge-custom"
-fetch.tarball = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/$ver/$ver.tar.gz"
+fetch.tarball = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/$ver/$ver-x86_64.tar.gz"
+
+[proton-ge-aarch64]
+src.github = "GloriousEggroll/proton-ge-custom"
+fetch.tarball = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/$ver/$ver-aarch64.tar.gz"
 
 [proton-em]
 src.github = "Etaash-mathamsetty/Proton"
