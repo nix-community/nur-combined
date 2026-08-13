@@ -27,7 +27,7 @@
       "kind": "tool",
       "ref": "github:anomalyco/opencode",
       "depName": "anomalyco/opencode",
-      "currentValue": "v1.17.14",
+      "currentValue": "v1.18.18",
       "datasource": "github-releases"
     },
     {
@@ -41,14 +41,14 @@
       "kind": "tool",
       "ref": "github:astral-sh/ruff",
       "depName": "astral-sh/ruff",
-      "currentValue": "0.15.20",
+      "currentValue": "0.16.2",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:astral-sh/uv",
       "depName": "astral-sh/uv",
-      "currentValue": "0.11.27",
+      "currentValue": "0.12.3",
       "datasource": "github-releases"
     },
     {
@@ -69,14 +69,14 @@
       "kind": "tool",
       "ref": "github:burntsushi/ripgrep",
       "depName": "burntsushi/ripgrep",
-      "currentValue": "15.1.0",
+      "currentValue": "15.2.0",
       "datasource": "github-releases"
     },
     {
       "kind": "tool",
       "ref": "github:cli/cli",
       "depName": "cli/cli",
-      "currentValue": "v2.96.0",
+      "currentValue": "v2.97.0",
       "datasource": "github-releases"
     },
     {
@@ -118,7 +118,7 @@
       "kind": "tool",
       "ref": "github:getsops/sops",
       "depName": "getsops/sops",
-      "currentValue": "v3.13.2",
+      "currentValue": "v3.13.3",
       "datasource": "github-releases"
     },
     {
@@ -160,7 +160,7 @@
       "kind": "tool",
       "ref": "github:jesseduffield/lazygit",
       "depName": "jesseduffield/lazygit",
-      "currentValue": "v0.63.1",
+      "currentValue": "v0.64.1",
       "datasource": "github-releases"
     },
     {
@@ -174,7 +174,7 @@
       "kind": "tool",
       "ref": "github:junegunn/fzf",
       "depName": "junegunn/fzf",
-      "currentValue": "v0.74.0",
+      "currentValue": "v0.74.2",
       "datasource": "github-releases"
     },
     {
@@ -227,7 +227,7 @@
       "kind": "tool",
       "ref": "github:ogulcancelik/herdr",
       "depName": "ogulcancelik/herdr",
-      "currentValue": "v0.7.1",
+      "currentValue": "v0.8.0",
       "datasource": "github-releases"
     },
     {
@@ -269,7 +269,7 @@
       "kind": "tool",
       "ref": "github:rtk-ai/rtk",
       "depName": "rtk-ai/rtk",
-      "currentValue": "v0.43.0",
+      "currentValue": "v0.45.0",
       "datasource": "github-releases"
     },
     {

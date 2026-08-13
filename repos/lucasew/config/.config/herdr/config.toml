@@ -1,0 +1,7 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+
+[ui]
+agent_panel_sort = "priority"
