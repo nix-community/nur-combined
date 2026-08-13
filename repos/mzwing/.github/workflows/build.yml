@@ -160,14 +160,20 @@ jobs:
 
     # With nix:false the cache action extracts as the runner user rather than
     # managing /nix permissions, so prepare its only writable subtree first.
+    # attic-cache-tmp receives the multi-GiB tar/zstd staging: the archive
+    # temp directory defaults to RUNNER_TEMP on the root filesystem, which
+    # nothing-but-nix leaves with only ~2G free (its disk images preallocate
+    # the rest), so large generations must stream through the /nix mount.
     - name: Prepare Attic data directory
-      run: sudo install -d -o "$(id -u)" -g "$(id -g)" /nix/attic-data
+      run: sudo install -d -o "$(id -u)" -g "$(id -g)" /nix/attic-data /nix/attic-cache-tmp
 
     # The unique key prevents save races; prefix restore picks the latest
     # Attic database and NAR storage. `nix: false` is essential: the ordinary
     # Nix store is deliberately excluded from this cache.
     - name: Restore builder store cache
       uses: nix-community/cache-nix-action/restore@v7
+      env:
+        RUNNER_TEMP: /nix/attic-cache-tmp
       with:
         primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
         restore-prefixes-first-match: nix-builder-attic-
@@ -199,6 +205,8 @@ jobs:
     - name: Save builder store cache
       if: ${{ !cancelled() && steps.attic.outputs.save-ready == 'true' }}
       uses: nix-community/cache-nix-action/save@v7
+      env:
+        RUNNER_TEMP: /nix/attic-cache-tmp
       with:
         primary-key: nix-builder-attic-${{ github.run_id }}-${{ github.run_attempt }}
         nix: false
@@ -279,6 +287,7 @@ jobs:
       run: |
         set -euo pipefail
         build_systems="$(jq -c '[.[].system] | unique' <<<"${TARGETS}")"
+        set +e
         {
           printf '### Built package outputs\n\n'
           BUILD_SYSTEMS="${build_systems}" nix build \
@@ -295,6 +304,19 @@ jobs:
               printf -- "- \`%s\`\n" "${path}"
             done
         } >>"${GITHUB_STEP_SUMMARY}"
+        build_status=$?
+        set -e
+        # `nix build` prints out-paths only when the whole invocation
+        # succeeds; with --keep-going one failing package would hide every
+        # other realised output from the Cachix push set. Re-derive the
+        # realised outputs directly from the local store instead.
+        : > /tmp/built-outputs.txt
+        while IFS= read -r out; do
+          if nix-store --check-validity "${out}" 2>/dev/null; then
+            printf '%s\n' "${out}" >> /tmp/built-outputs.txt
+          fi
+        done < <(jq -r '.[].outputPath' <<<"${TARGETS}" | sort --unique)
+        exit "${build_status}"
 
     # Only the 'out' outputs of final packages are pushed to Cachix;
     # everything else (crate2nix crates, goModules FODs, ...) lives in

@@ -39,6 +39,7 @@
   zip,
   writeText,
   writeShellApplication,
+  cacert,
   coreutils,
   curl,
   jq,
@@ -80,16 +81,35 @@
       stdenv.hostPlatform.system
     } or "linux_x64";
 
-  npmDepsHash = "sha256-vEQ224/JoQnP1jGZ625bmvHmSijM1Yz/A5RQWvaeo5Y=";
-  npmDeps = fetchNpmDeps {
-    inherit pname version src;
-    hash = npmDepsHash;
-    # BakaMusic's package.json uses npm `overrides` (node-gyp, uuid, tmp,
-    # webpack-dev-server, ...). Applying overrides makes `npm ci` consult
-    # registry packuments, which fetcher version 1 does not cache — the
-    # build then fails with ENOTCACHED. Version 2 caches packuments.
-    fetcherVersion = 2;
-  };
+  npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+  npmDeps =
+    (fetchNpmDeps {
+      inherit pname version src;
+      hash = npmDepsHash;
+      # BakaMusic's package.json uses npm `overrides` (node-gyp, uuid, tmp,
+      # webpack-dev-server, ...). Version 2 caches registry packuments in
+      # addition to tarballs, which is what npm needs whenever it has to
+      # consult metadata (overrides resolution, optional peer deps).
+      fetcherVersion = 2;
+    }).overrideAttrs (prev: {
+      nativeBuildInputs =
+        (prev.nativeBuildInputs or [])
+        ++ [
+          nodejs_24
+          cacert
+        ];
+      # Upstream's package-lock.json is missing `resolved`/`integrity` for
+      # ~75% of its entries (npm/cli#6301); prefetch-npm-deps drops such
+      # entries, which later makes `npm ci --offline` fail with ENOTCACHED.
+      # Repair the lockfile in place (registry access is available in this
+      # fixed-output derivation) before prefetch-npm-deps consumes it.
+      postUnpack =
+        (prev.postUnpack or "")
+        + ''
+          export NODE_EXTRA_CA_CERTS=${cacert}/etc/ssl/certs/ca-bundle.crt
+          node ${./repair-lockfile.mjs}
+        '';
+    });
 
   # Same shape the upstream installer (scripts/install-media-runtimes.cjs)
   # writes for its `local-build` path; the app validates engine,
@@ -155,6 +175,11 @@ in
     };
 
     postPatch = ''
+      # The fetchNpmDeps derivation repaired upstream's broken lockfile in
+      # place and wrote it into its output; use that exact file here so the
+      # lockfile consistency check passes and `npm ci` runs offline.
+      cp ${npmDeps}/package-lock.json package-lock.json
+
       # Husky's prepare script fails outside a git checkout.
       npm pkg delete scripts.prepare
 

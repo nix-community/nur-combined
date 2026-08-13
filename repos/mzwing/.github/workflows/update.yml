@@ -71,6 +71,17 @@ jobs:
     - name: Update devenv inputs
       run: devenv update
 
+    # Bumping nixpkgs invalidates every package derivation and forces a
+    # full fleet rebuild (hours), so flake inputs move weekly (Mondays UTC)
+    # and on manual dispatch. Daily runs only refresh nvfetcher package
+    # sources, which is incremental and cache-friendly.
+    - name: Update flake inputs (weekly)
+      run: |
+        if [[ "${{ github.event_name }}" == 'workflow_dispatch' ]] || \
+          [[ "$(date -u +%u)" == '1' ]]; then
+          nix flake update
+        fi
+
     - name: Update sources, lockfiles, pins and dependency hashes
       shell: bash
       env:
