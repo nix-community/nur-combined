@@ -8,13 +8,18 @@
 
 { pkgs ? import <nixpkgs> { } }:
 
+let
+  lib = pkgs.lib;
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
   modules = import ./modules; # NixOS modules
   overlays = import ./overlays; # nixpkgs overlays
 }
-//  pkgs.lib.packagesFromDirectoryRecursive {
-      callPackage = pkgs.callPackage;
-      directory = ./pkgs;
-    }
+//  lib.foldlAttrs (acc: _: shard: acc // shard) { } (
+      lib.packagesFromDirectoryRecursive {
+        callPackage = pkgs.callPackage;
+        directory = ./pkgs/by-name;
+      }
+    )
