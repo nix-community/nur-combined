@@ -41,6 +41,7 @@
       ./android-translation-layer-system-app-certs.patch
       ./android-translation-layer-gtk-measure.patch
       ./android-translation-layer-wrapper-measure-fix.patch
+      ./android-translation-layer-imagebutton-scale.patch
       ./android-translation-layer-view-fullscreen-fix.patch
       ./android-translation-layer-gtk-native-check.patch
       ./android-translation-layer-media-data-source.patch
