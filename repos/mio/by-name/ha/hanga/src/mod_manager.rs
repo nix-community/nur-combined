@@ -59,11 +59,21 @@ impl ModRuntime {
     }
 
     fn load_mod(path: &Path) -> Option<MainModContext> {
+        if !path.is_file() {
+            error!("WASM mod file missing: {}", path.display());
+            return None;
+        }
         let mut config = Config::new();
         config.wasm_multi_memory(true);
         config.wasm_component_model(true);
         let engine = Engine::new(&config).ok()?;
-        let component = Component::from_file(&engine, path).ok()?;
+        let component = match Component::from_file(&engine, path) {
+            Ok(component) => component,
+            Err(err) => {
+                error!("Failed to load WASM component {}: {err}", path.display());
+                return None;
+            }
+        };
         
         // Update the global reference for worker threads
         if let Ok(mut shared) = SHARED_WASM.write() {

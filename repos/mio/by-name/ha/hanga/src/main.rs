@@ -21,9 +21,9 @@ use hanga::{
     action_fingerprint, apply_mouse_look, catalog_index, catalog_name, clamp_hotbar_index,
     clamp_mod_state, clamp_voxel_type, clamp_wallet, contract_is_offered, fracture_offsets,
     inventory_add, inventory_craft_pair, inventory_selected, inventory_take,
-    is_action_physically_possible, is_connected_to_ground, parse_name_catalog, parse_p2p_url,
-    should_skip_menu, unpack_economy_params, verify_action_signature, voxel_has_support,
-    DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
+    is_action_physically_possible, is_connected_to_ground, parse_mod_spec, parse_name_catalog,
+    parse_p2p_url, resolve_wasm_path, should_skip_menu, unpack_economy_params,
+    verify_action_signature, voxel_has_support, DEFAULT_P2P_URL, INVENTORY_SLOTS, LOOK_SENSITIVITY,
 };
 
 mod mod_manager;
@@ -255,12 +255,24 @@ fn main() {
         warn!("Starting Hanga in CHEAT MODE (Will intentionally broadcast fraudulent packets)");
     }
 
-    let mod_name = args
-        .windows(2)
-        .find(|w| w[0] == "--mod")
-        .map(|w| w[1].as_str())
-        .unwrap_or("urban_chaos");
-    let wasm_path = resolve_wasm_path(mod_name);
+    let mod_name = parse_mod_spec(&args);
+    let env_mods = std::env::var_os("HANGA_MODS").map(PathBuf::from);
+    let exe_dir = std::env::current_exe()
+        .ok()
+        .and_then(|p| p.parent().map(PathBuf::from));
+    let wasm_path = resolve_wasm_path(
+        &mod_name,
+        &std::env::current_dir().unwrap_or_else(|_| PathBuf::from(".")),
+        exe_dir.as_deref(),
+        env_mods.as_deref(),
+    );
+    if !wasm_path.is_file() {
+        warn!(
+            "WASM mod '{}' not found at {} (set HANGA_MODS or build --target wasm32-unknown-unknown)",
+            mod_name,
+            wasm_path.display()
+        );
+    }
     info!(
         "Loading WASM mod '{}' from {} (locale {})",
         mod_name,
@@ -526,30 +538,6 @@ fn aim_from(
     } else {
         (fallback.translation, fallback.forward())
     }
-}
-
-fn resolve_wasm_path(mod_name: &str) -> PathBuf {
-    let file = format!("{mod_name}.wasm");
-    let rel = PathBuf::from("mods")
-        .join(mod_name)
-        .join("target/wasm32-unknown-unknown/debug")
-        .join(&file);
-    if rel.exists() {
-        return rel;
-    }
-    if let Ok(exe) = std::env::current_exe() {
-        if let Some(dir) = exe.parent() {
-            let next = dir.join(&rel);
-            if next.exists() {
-                return next;
-            }
-            let beside = dir.join("mods").join(&file);
-            if beside.exists() {
-                return beside;
-            }
-        }
-    }
-    rel
 }
 
 fn with_mod<T>(

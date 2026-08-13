@@ -19,6 +19,7 @@ let
   cargoNix = import ../hanga/Cargo.nix {
     inherit pkgs;
   };
+  mods = pkgs.callPackage ../hanga/mods.nix { };
 in
 cargoNix.workspaceMembers.hanga.build.override {
   crateOverrides = pkgs.defaultCrateOverrides // {
@@ -40,6 +41,7 @@ cargoNix.workspaceMembers.hanga.build.override {
       ];
       postInstall = ''
         wrapProgram $out/bin/hanga \
+          --set HANGA_MODS ${mods}/share/hanga/mods \
           --prefix LD_LIBRARY_PATH : ${
             lib.makeLibraryPath [
               vulkan-loader

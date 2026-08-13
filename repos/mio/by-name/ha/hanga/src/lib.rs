@@ -206,6 +206,81 @@ pub fn should_skip_menu(args: &[String]) -> bool {
     })
 }
 
+pub const DEFAULT_MOD: &str = "urban_chaos";
+
+/// `--mod urban_chaos` or `--mod /path/to/mod.wasm`. Defaults to Urban Chaos.
+pub fn parse_mod_spec(args: &[String]) -> String {
+    args.windows(2)
+        .find(|w| w[0] == "--mod")
+        .map(|w| w[1].clone())
+        .unwrap_or_else(|| DEFAULT_MOD.to_string())
+}
+
+/// Resolve a mod spec to a `.wasm` path. First existing candidate wins.
+///
+/// Search order: an explicit file, `HANGA_MODS`, next to the binary, `share/hanga/mods`,
+/// then Cargo `target/...` and the historical `mods/<name>/target/...` layout.
+pub fn resolve_wasm_path(
+    spec: &str,
+    cwd: &std::path::Path,
+    exe_dir: Option<&std::path::Path>,
+    env_mods: Option<&std::path::Path>,
+) -> std::path::PathBuf {
+    use std::path::{Path, PathBuf};
+
+    let direct = Path::new(spec);
+    if spec.ends_with(".wasm") || direct.is_file() {
+        return if direct.is_absolute() {
+            direct.to_path_buf()
+        } else {
+            cwd.join(direct)
+        };
+    }
+
+    let file = format!("{spec}.wasm");
+    let mut candidates: Vec<PathBuf> = Vec::new();
+    if let Some(dir) = env_mods {
+        candidates.push(dir.join(&file));
+    }
+    if let Some(exe) = exe_dir {
+        candidates.push(exe.join("mods").join(&file));
+        if let Some(root) = exe.parent() {
+            candidates.push(root.join("share/hanga/mods").join(&file));
+        }
+    }
+    candidates.push(cwd.join("mods").join(&file));
+    for profile in ["release", "debug"] {
+        candidates.push(
+            cwd.join("target/wasm32-unknown-unknown")
+                .join(profile)
+                .join(&file),
+        );
+        candidates.push(
+            cwd.join("mods")
+                .join(spec)
+                .join("target/wasm32-unknown-unknown")
+                .join(profile)
+                .join(&file),
+        );
+    }
+
+    for path in &candidates {
+        if path.is_file() {
+            return path.clone();
+        }
+    }
+
+    env_mods
+        .map(|dir| dir.join(&file))
+        .or_else(|| exe_dir.map(|dir| dir.join("mods").join(&file)))
+        .unwrap_or_else(|| {
+            cwd.join("mods")
+                .join(spec)
+                .join("target/wasm32-unknown-unknown/debug")
+                .join(file)
+        })
+}
+
 fn fnv_mix(mut h: u64, w: u64) -> u64 {
     h ^= w;
     h.wrapping_mul(0x0000_0100_0000_01B3)
@@ -781,6 +856,39 @@ mod tests {
         assert!(should_skip_menu(&["hanga".into(), "--play".into()]));
         assert!(should_skip_menu(&["hanga".into(), "--p2p".into()]));
         assert!(should_skip_menu(&["hanga".into(), "--headless".into()]));
+    }
+
+    #[test]
+    fn mod_spec_defaults_to_urban_chaos() {
+        assert_eq!(parse_mod_spec(&["hanga".into()]), DEFAULT_MOD);
+        assert_eq!(
+            parse_mod_spec(&["hanga".into(), "--mod".into(), "testbed".into()]),
+            "testbed"
+        );
+    }
+
+    #[test]
+    fn wasm_path_prefers_env_mods_then_explicit_file() {
+        use std::fs;
+
+        let root = std::env::temp_dir().join(format!("hanga-wasm-{}", std::process::id()));
+        let mods = root.join("installed");
+        let cwd = root.join("cwd");
+        fs::create_dir_all(&mods).unwrap();
+        fs::create_dir_all(&cwd).unwrap();
+        let installed = mods.join("urban_chaos.wasm");
+        fs::write(&installed, b"\0asm").unwrap();
+        let found = resolve_wasm_path("urban_chaos", &cwd, None, Some(&mods));
+        assert_eq!(found, installed);
+
+        let explicit = cwd.join("custom.wasm");
+        fs::write(&explicit, b"\0asm").unwrap();
+        let by_file = resolve_wasm_path(explicit.to_str().unwrap(), &cwd, None, Some(&mods));
+        assert_eq!(by_file, explicit);
+
+        let missing = resolve_wasm_path("testbed", &cwd, None, Some(&mods));
+        assert_eq!(missing, mods.join("testbed.wasm"));
+        let _ = fs::remove_dir_all(&root);
     }
 }
 

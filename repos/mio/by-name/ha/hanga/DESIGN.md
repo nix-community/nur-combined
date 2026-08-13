@@ -40,7 +40,8 @@ Anti-cheat is mathematical: `is_action_physically_possible` plus ranges the **mo
 | `urban_chaos` | Voxel city + subway + GTA wanted level + Teardown buildings |
 | `testbed` | Checkerboard void for engine/debug (no wanted level) |
 
-Load with `--mod urban_chaos` (default) or `--mod testbed`.
+Load with `--mod urban_chaos` (default) or `--mod testbed`. Packaged builds
+install both as wasmtime components in `$out/share/hanga/mods` (`HANGA_MODS`).
 
 ## Commands
 
@@ -60,6 +61,9 @@ hanga --p2p ws://host:3536/hanga_room
 hanga --bindings /path/to/bindings.conf
 ```
 
+`nix run .#hanga` and `nix run .#hanga-dev` wrap `HANGA_MODS` so gameplay WASM
+loads without a local Cargo target dir.
+
 `nix run .#hanga-dev` opens a main menu (Play / Multiplayer / Language / Controls / Quit).
 Play is single-player and does **not** talk to Matchbox. Multiplayer or `--p2p` joins a
 room only if a signaling server is already running; a refused connection stays in
@@ -74,17 +78,17 @@ Text-client extras: `look` / `status`, `accept job`, `complete job`, `fence`, `l
 English commands always work; each locale has native aliases (`前進`, `avancer`, `titiro`, …).
 Agent JSON stays keyed in English, with `locale` + `voxel_label` on Look.
 
-Build a mod as a WASM component (host tests use `rlib`; wasm needs `cdylib`):
+Build a mod as a WASM component (needs `lld` / `wasm-ld` on PATH). Host
+`Cargo.toml` keeps `crate-type = ["rlib"]` so native tests link; switch to
+`cdylib` only for the wasm target:
 
 ```
-cargo rustc -p urban_chaos --target wasm32-unknown-unknown -- --crate-type cdylib
-# optional:
-# wasm-tools component new target/wasm32-unknown-unknown/debug/urban_chaos.wasm -o urban_chaos.component.wasm
+sed -i 's/crate-type = \["rlib"\]/crate-type = ["cdylib"]/' mods/urban_chaos/Cargo.toml
+cargo build -p urban_chaos --release --target wasm32-unknown-unknown
+wasm-tools component new target/wasm32-unknown-unknown/release/urban_chaos.wasm -o urban_chaos.wasm
 ```
 
-`wasmtime` 47's component loader accepts a core module *or* a component; for full WIT
-binding the mod must be a component (`wit-bindgen` + `wasm-tools component new`, or
-`cargo component`).
+`mods.nix` does that for `urban_chaos` and `testbed`, then wraps `HANGA_MODS`.
 
 ## Tests
 
@@ -94,7 +98,6 @@ binding the mod must be a component (`wit-bindgen` + `wasm-tools component new`,
 
 ## Next
 
-1. Compile mods to components in `package.nix` and install them next to the binary
-2. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
-3. Kani CI for engine + mods
-4. Procedural voxel palette texture; more Urban Chaos recipes / workbenches
+1. Matchbox signaling in nix; cryptographic signatures beyond fingerprints
+2. Kani CI for engine + mods
+3. Procedural voxel palette texture; more Urban Chaos recipes / workbenches

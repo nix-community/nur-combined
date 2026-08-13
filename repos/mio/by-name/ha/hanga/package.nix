@@ -14,8 +14,12 @@
   mesa,
   xvfb-run,
   makeWrapper,
+  callPackage,
 }:
 
+let
+  mods = callPackage ./mods.nix { };
+in
 rustPlatform.buildRustPackage {
   pname = "hanga";
   version = "0.1.0";
@@ -58,6 +62,10 @@ rustPlatform.buildRustPackage {
     mesa
   ];
 
+  preCheck = ''
+    export HANGA_MODS=${mods}/share/hanga/mods
+  '';
+
   checkPhase = ''
     runHook preCheck
     export WGPU_BACKEND=vulkan
@@ -71,14 +79,17 @@ rustPlatform.buildRustPackage {
     cargo test --release -p urban_chaos -- --test-threads=1
     cargo test --release -p testbed -- --test-threads=1
 
-    # 3. Integration tests (agent CLI test) need a display
+    # 3. Integration tests (agent CLI test) need a display + the installed mods
     xvfb-run -a cargo test --release --test '*' -- --test-threads=1
 
     runHook postCheck
   '';
 
   postInstall = ''
+    mkdir -p $out/share/hanga
+    cp -r ${mods}/share/hanga/mods $out/share/hanga/mods
     wrapProgram $out/bin/hanga \
+      --set HANGA_MODS $out/share/hanga/mods \
       --prefix LD_LIBRARY_PATH : ${
         lib.makeLibraryPath [
           vulkan-loader
@@ -90,6 +101,10 @@ rustPlatform.buildRustPackage {
         ]
       }
   '';
+
+  passthru = {
+    inherit mods;
+  };
 
   meta = {
     description = "Hanga: Minecraft + Luanti + Teardown + GTA at the same time";

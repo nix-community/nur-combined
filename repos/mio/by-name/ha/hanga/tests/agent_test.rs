@@ -1,16 +1,36 @@
 use std::io::{Read, Write};
+use std::path::PathBuf;
 use std::process::{Command, Stdio};
 use std::time::Duration;
+
+fn mods_dir() -> Option<PathBuf> {
+    if let Ok(dir) = std::env::var("HANGA_MODS") {
+        let path = PathBuf::from(dir);
+        if path.join("urban_chaos.wasm").is_file() {
+            return Some(path);
+        }
+    }
+    let root = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+    for profile in ["release", "debug"] {
+        let dir = root.join("target/wasm32-unknown-unknown").join(profile);
+        if dir.join("urban_chaos.wasm").is_file() {
+            return Some(dir);
+        }
+    }
+    None
+}
 
 #[test]
 fn test_agent_client_interaction() {
     // Spawn the agent client directly (avoids cargo run deadlock during cargo test)
-    let mut child = Command::new(env!("CARGO_BIN_EXE_hanga"))
-        .args(["--agent-client"])
+    let mut cmd = Command::new(env!("CARGO_BIN_EXE_hanga"));
+    cmd.args(["--agent-client"])
         .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .spawn()
-        .expect("Failed to spawn agent client");
+        .stdout(Stdio::piped());
+    if let Some(dir) = mods_dir() {
+        cmd.env("HANGA_MODS", dir);
+    }
+    let mut child = cmd.spawn().expect("Failed to spawn agent client");
 
     let mut stdin = child.stdin.take().expect("Failed to open stdin");
     let mut stdout = child.stdout.take().expect("Failed to open stdout");
@@ -38,6 +58,22 @@ fn test_agent_client_interaction() {
     assert!(output.contains("\"trust_score\":"));
     assert!(output.contains("\"wanted_level\":"));
     assert!(output.contains("\"voxel_ahead\":"));
+    let named = [
+        "air",
+        "concrete",
+        "asphalt",
+        "glass",
+        "sidewalk",
+        "grass",
+        "tile",
+        "rail",
+    ]
+    .iter()
+    .any(|name| output.contains(&format!("\"voxel_ahead\":\"{name}\"")));
+    assert!(
+        named,
+        "WASM mod must load a named voxel (build hanga-mods / --target wasm32-unknown-unknown). Got: {output}"
+    );
 
     // Send a MoveForward command
     let move_command = b"{\"action\": \"MoveForward\"}\n";
