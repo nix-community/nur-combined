@@ -11,7 +11,7 @@ stdenv.mkDerivation (finalAttrs: {
   pname = "llmster";
   # upstream versions look like "0.0.15-2" (version-build); use "+" as the
   # separator so that versionCheckHook matches `llmster --version` output
-  version = "0.0.20+1";
+  version = "0.0.21+2";
 
   # Updated by ./update.sh (called from .github/workflows/update.yml);
   # nix-update cannot detect versions for llmster.lmstudio.ai.
@@ -19,7 +19,7 @@ stdenv.mkDerivation (finalAttrs: {
     url = "https://llmster.lmstudio.ai/download/${
       lib.replaceStrings [ "+" ] [ "-" ] finalAttrs.version
     }-darwin-arm64.full.tar.gz";
-    hash = "sha512-T0UbiKecXpTXmSC4g3QTRQqTa/uNdoep4sIB4vMVhmolk6otNP6YBRdLN3y6ABPygDAVEXDpkwUbTX7ewdC7cg==";
+    hash = "sha512-YfLcQcOgd4PELcZYCCqUL0Z+Aowylrf3tB+K3nq2sKXpCjOVlfJAirVuoLq+/qD776eA4g0ZCk+2iy7KuL9kYA==";
   };
 
   # The tarball extracts llmster, .bundle/, and llmster.zip into the top level
