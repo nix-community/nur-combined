@@ -8,6 +8,9 @@
 
 { pkgs ? import <nixpkgs> { }, bun2nix ? pkgs.callPackage ./pkgs/bun2nix-shim { }, ... }:
 
+let
+  chatgpt = pkgs.callPackage ./pkgs/chatgpt { };
+in
 {
   # The `lib`, `modules`, and `overlays` names are special
   lib = import ./lib { inherit pkgs; }; # functions
@@ -17,6 +20,8 @@
 
   astral = pkgs.callPackage ./pkgs/astral { };
   astral-bin = pkgs.callPackage ./pkgs/astral-bin { };
+  chatgpt = chatgpt;
+  chatgpt-wayland = pkgs.callPackage ./pkgs/chatgpt-wayland { inherit chatgpt; };
   classin = pkgs.callPackage ./pkgs/classin { };
   hhsh = pkgs.callPackage ./pkgs/hhsh { };
   linuxqq-clipsync = pkgs.callPackage ./pkgs/linuxqq-clipsync { };
